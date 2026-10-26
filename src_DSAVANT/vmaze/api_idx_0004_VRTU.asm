@@ -12,7 +12,7 @@ api_idx_0004_VRTU:
     call loc_PQKO                    ; 0x96e6
     add sp, byte 4                   ; 0x96e9
     test ax, ax                      ; 0x96ec
-    je short @..api_idx_0004_VRTU.l1 ; 0x96ee
+    je short .forward1               ; 0x96ee
     mov ax, 0x26                     ; 0x96f0
     imul word [bp + 4]               ; 0x96f3
     mov bx, ax                       ; 0x96f6
@@ -25,7 +25,7 @@ api_idx_0004_VRTU:
     call test_bit                    ; 0x9706
     add sp, byte 4                   ; 0x9709
     test ax, ax                      ; 0x970c
-    jne short @..api_idx_0004_VRTU.l1 ; 0x970e
+    jne short .forward1              ; 0x970e
     mov ax, 0x26                     ; 0x9710
     imul word [bp + 4]               ; 0x9713
     mov bx, ax                       ; 0x9716
@@ -46,16 +46,16 @@ api_idx_0004_VRTU:
     mov byte [bx + slot_records + slot_record.f_0002], 2 ; 0x973b
     mov byte [bx + slot_records + slot_record.map_piece], 0 ; 0x9740
     ret                              ; 0x9745
-@..api_idx_0004_VRTU.l1:
+.forward1:
     push word [bp + 4]               ; 0x9746
     call loc_LGQU                    ; 0x9749
     pop cx                           ; 0x974c
     test ax, ax                      ; 0x974d
-    je short @..api_idx_0004_VRTU.l2 ; 0x974f
+    je short .forward2               ; 0x974f
     ret                              ; 0x9751
-@..api_idx_0004_VRTU.l2:
+.forward2:
     mov word [bp - 2], 0             ; 0x9752
-@..api_idx_0004_VRTU.l3:
+.back1:
     push word [bp - 2]               ; 0x9757
     mov ax, 0x26                     ; 0x975a
     imul word [bp + 4]               ; 0x975d
@@ -64,7 +64,7 @@ api_idx_0004_VRTU:
     call test_bit                    ; 0x9764
     add sp, byte 4                   ; 0x9767
     test ax, ax                      ; 0x976a
-    je short @..api_idx_0004_VRTU.l6 ; 0x976c
+    je short .forward5               ; 0x976c
     mov ax, word [bp - 2]            ; 0x976e
     add ax, strict word 0xc          ; 0x9771
     push ax                          ; 0x9774
@@ -75,7 +75,7 @@ api_idx_0004_VRTU:
     call test_bit                    ; 0x977f
     add sp, byte 4                   ; 0x9782
     test ax, ax                      ; 0x9785
-    jne short @..api_idx_0004_VRTU.l5 ; 0x9787
+    jne short .forward4              ; 0x9787
     mov ax, 6                        ; 0x9789
     imul word [bp - 2]               ; 0x978c
     mov bx, ax                       ; 0x978f
@@ -87,7 +87,7 @@ api_idx_0004_VRTU:
     call loc_PQKO                    ; 0x979e
     add sp, byte 4                   ; 0x97a1
     test ax, ax                      ; 0x97a4
-    je short @..api_idx_0004_VRTU.l4 ; 0x97a6
+    je short .forward3               ; 0x97a6
     mov al, byte [bp - 2]            ; 0x97a8
     push ax                          ; 0x97ab
     mov ax, 0x26                     ; 0x97ac
@@ -98,7 +98,7 @@ api_idx_0004_VRTU:
     mov byte [bx + slot_records + slot_record.f_0002], 4 ; 0x97b9
     mov byte [bx + slot_records + slot_record.map_piece], 0 ; 0x97be
     ret                              ; 0x97c3
-@..api_idx_0004_VRTU.l4:
+.forward3:
     mov al, byte [bp - 4]            ; 0x97c4
     push ax                          ; 0x97c7
     mov ax, 0x26                     ; 0x97c8
@@ -110,9 +110,9 @@ api_idx_0004_VRTU:
     call loc_QJRN                    ; 0x97d8
     pop cx                           ; 0x97db
     ret                              ; 0x97dc
-@..api_idx_0004_VRTU.l5:
-    jmp near @..api_idx_0004_VRTU.l12 ; 0x97dd
-@..api_idx_0004_VRTU.l6:
+.forward4:
+    jmp near .forward10              ; 0x97dd
+.forward5:
     push word [bp - 2]               ; 0x97e0
     mov ax, 0x26                     ; 0x97e3
     imul word [bp + 4]               ; 0x97e6
@@ -121,14 +121,14 @@ api_idx_0004_VRTU:
     call test_bit                    ; 0x97ed
     add sp, byte 4                   ; 0x97f0
     test ax, ax                      ; 0x97f3
-    jne short @..api_idx_0004_VRTU.l7 ; 0x97f5
-    jmp near @..api_idx_0004_VRTU.l11 ; 0x97f7
-@..api_idx_0004_VRTU.l7:
+    jne short .forward6              ; 0x97f5
+    jmp near .forward9               ; 0x97f7
+.forward6:
     mov ax, 6                        ; 0x97fa
     imul word [bp - 2]               ; 0x97fd
     mov bx, ax                       ; 0x9800
     cmp byte [bx + slot_bit_states + slot_bit_state.status], 1 ; 0x9802
-    jne short @..api_idx_0004_VRTU.l8 ; 0x9807
+    jne short .forward7              ; 0x9807
     mov al, byte [bx + slot_bit_states] ; 0x9809
     push ax                          ; 0x980d
     mov ax, 0x26                     ; 0x980e
@@ -139,13 +139,13 @@ api_idx_0004_VRTU:
     push word [bp + 4]               ; 0x981b
     call loc_QJRN                    ; 0x981e
     pop cx                           ; 0x9821
-    jmp near @..api_idx_0004_VRTU.l10 ; 0x9822
-@..api_idx_0004_VRTU.l8:
+    jmp near .return1                ; 0x9822
+.forward7:
     mov ax, 6                        ; 0x9825
     imul word [bp - 2]               ; 0x9828
     mov bx, ax                       ; 0x982b
     cmp byte [bx + slot_bit_states + slot_bit_state.status], 0 ; 0x982d
-    jne short @..api_idx_0004_VRTU.l10 ; 0x9832
+    jne short .return1               ; 0x9832
     mov al, byte [bx + slot_bit_states] ; 0x9834
     sub ah, ah                       ; 0x9838
     mov cx, 0x26                     ; 0x983a
@@ -175,12 +175,12 @@ api_idx_0004_VRTU:
     imul word [bp + 4]               ; 0x9875
     mov bx, ax                       ; 0x9878
     cmp byte [bx + slot_records + slot_record.f_0002], 0 ; 0x987a
-    jne short @..api_idx_0004_VRTU.l9 ; 0x987f
+    jne short .forward8              ; 0x987f
     push word [bp + 4]               ; 0x9881
     call api_idx_003a_HOUV           ; 0x9884
     pop cx                           ; 0x9887
     ret                              ; 0x9888
-@..api_idx_0004_VRTU.l9:
+.forward8:
     mov ax, 0x26                     ; 0x9889
     imul word [bp + 4]               ; 0x988c
     mov bx, ax                       ; 0x988f
@@ -194,20 +194,20 @@ api_idx_0004_VRTU:
     push word [bp + 4]               ; 0x98a4
     call api_idx_0002_JLVK           ; 0x98a7
     add sp, byte 8                   ; 0x98aa
-@..api_idx_0004_VRTU.l10:
+.return1:
     ret                              ; 0x98ad
-@..api_idx_0004_VRTU.l11:
+.forward9:
     push word [bp + 4]               ; 0x98ae
     call api_idx_003a_HOUV           ; 0x98b1
     pop cx                           ; 0x98b4
     ret                              ; 0x98b5
-@..api_idx_0004_VRTU.l12:
+.forward10:
     inc word [bp - 2]                ; 0x98b6
     mov ax, word [bp - 2]            ; 0x98b9
     cmp ax, strict word 0xb          ; 0x98bc
-    jge short @..api_idx_0004_VRTU.l13 ; 0x98bf
-    jmp near @..api_idx_0004_VRTU.l3 ; 0x98c1
-@..api_idx_0004_VRTU.l13:
+    jge short .forward11             ; 0x98bf
+    jmp near .back1                  ; 0x98c1
+.forward11:
     push word [bp + 4]               ; 0x98c4
     call api_idx_003a_HOUV           ; 0x98c7
     pop cx                           ; 0x98ca

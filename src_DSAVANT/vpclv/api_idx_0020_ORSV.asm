@@ -3,9 +3,9 @@ api_idx_0020_ORSV:
     mov ax, 0xffe0                   ; 0x333c
     call aztec_csav                  ; 0x333f
     cmp word [bp + 4], byte 0        ; 0x3342
-    je short @..api_idx_0020_ORSV.l1 ; 0x3346
-    jmp near @..api_idx_0020_ORSV.l2 ; 0x3348
-@..api_idx_0020_ORSV.l1:
+    je short .forward1               ; 0x3346
+    jmp near .forward2               ; 0x3348
+.forward1:
     lea ax, word [bp - 0xc]          ; 0x334b
     push ax                          ; 0x334e
     push word [bp + 0xe]             ; 0x334f
@@ -113,8 +113,8 @@ api_idx_0020_ORSV:
     push word [bp + 0x12]            ; 0x3437
     call draw_text_glyphs            ; 0x343a
     add sp, byte 4                   ; 0x343d
-    jmp short @..api_idx_0020_ORSV.l3 ; 0x3440
-@..api_idx_0020_ORSV.l2:
+    jmp short .forward3              ; 0x3440
+.forward2:
     lea ax, word [bp - 0xc]          ; 0x3442
     push ax                          ; 0x3445
     push word [bp + 0xe]             ; 0x3446
@@ -156,7 +156,7 @@ api_idx_0020_ORSV:
     push word [bp + 0xa]             ; 0x34a4
     call draw_number_field           ; 0x34a7
     add sp, byte 6                   ; 0x34aa
-@..api_idx_0020_ORSV.l3:
+.forward3:
     mov ax, word [bp + 8]            ; 0x34ad
     add ax, strict word 4            ; 0x34b0
     push ax                          ; 0x34b3

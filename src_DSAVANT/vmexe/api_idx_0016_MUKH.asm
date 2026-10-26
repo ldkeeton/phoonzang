@@ -9,19 +9,19 @@ api_idx_0016_MUKH:
     add ax, cx                       ; 0x0e2b
     mov bx, ax                       ; 0x0e2d
     cmp word [bx + bss_90ca], byte 0 ; 0x0e2f
-    jl short @..api_idx_0016_MUKH.l1 ; 0x0e34
+    jl short .forward1               ; 0x0e34
     cmp word [bx + bss_90ca], byte 6 ; 0x0e36
-    jle short @..api_idx_0016_MUKH.l2 ; 0x0e3b
-@..api_idx_0016_MUKH.l1:
+    jle short .forward2              ; 0x0e3b
+.forward1:
     mov word [bx + bss_90ca], 0xffff ; 0x0e3d
     ret                              ; 0x0e43
-@..api_idx_0016_MUKH.l2:
+.forward2:
     cmp word [bss_8320], byte 1      ; 0x0e44
-    jne short @..api_idx_0016_MUKH.l3 ; 0x0e49
+    jne short .forward3              ; 0x0e49
     cmp word [bx + bss_90ca], byte 1 ; 0x0e4b
-    jne short @..api_idx_0016_MUKH.l3 ; 0x0e50
+    jne short .forward3              ; 0x0e50
     mov word [bss_90dc], 1           ; 0x0e52
-@..api_idx_0016_MUKH.l3:
+.forward3:
     mov word [bp - 2], 7             ; 0x0e58
     mov word [bp - 4], 0             ; 0x0e5d
     mov ax, 0x64                     ; 0x0e62
@@ -45,18 +45,18 @@ api_idx_0016_MUKH:
     mov byte [bp - 0x13], 0          ; 0x0e92
     mov ax, 0x20                     ; 0x0e96
     cmp word [bp + 4], byte 0        ; 0x0e99
-    je short @..api_idx_0016_MUKH.l4 ; 0x0e9d
+    je short .forward4               ; 0x0e9d
     mov ax, 0xc                      ; 0x0e9f
     mov cx, word [bp + 4]            ; 0x0ea2
     cmp cx, byte 1                   ; 0x0ea5
-    jne short @..api_idx_0016_MUKH.l4 ; 0x0ea8
+    jne short .forward4              ; 0x0ea8
     mov ax, 0x16                     ; 0x0eaa
-@..api_idx_0016_MUKH.l4:
+.forward4:
     mov word [bp - 0x16], ax         ; 0x0ead
     cmp word [bp + 6], byte 0        ; 0x0eb0
-    jne short @..api_idx_0016_MUKH.l5 ; 0x0eb4
-    add word [bp - 0x16], byte 0xfb  ; 0x0eb6
-@..api_idx_0016_MUKH.l5:
+    jne short .forward5              ; 0x0eb4
+    add word [bp - 0x16], byte -5    ; 0x0eb6
+.forward5:
     lea ax, word [bp - 0x14]         ; 0x0eba
     push ax                          ; 0x0ebd
     push word [bp - 6]               ; 0x0ebe
@@ -122,7 +122,7 @@ api_idx_0016_MUKH:
     call add_overlay_item            ; 0x0f46
     add sp, byte 0x12                ; 0x0f49
     cmp word [bss_8320], byte 0      ; 0x0f4c
-    jne short @..api_idx_0016_MUKH.l6 ; 0x0f51
+    jne short .return1               ; 0x0f51
     mov ax, 6                        ; 0x0f53
     imul word [bp + 4]               ; 0x0f56
     mov cx, word [bp + 6]            ; 0x0f59
@@ -130,5 +130,5 @@ api_idx_0016_MUKH:
     add ax, cx                       ; 0x0f5e
     mov bx, ax                       ; 0x0f60
     inc word [bx + bss_90ca]         ; 0x0f62
-@..api_idx_0016_MUKH.l6:
+.return1:
     ret                              ; 0x0f66

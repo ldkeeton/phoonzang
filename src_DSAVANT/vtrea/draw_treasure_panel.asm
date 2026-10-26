@@ -8,27 +8,27 @@ draw_treasure_panel:
     mov bx, ax                       ; 0x0123
     mov al, byte [bx + spell_table + spell_table_rec_size*102 + spell_table_rec.f_0005] ; 0x0125
     sub ah, ah                       ; 0x0129
-    jmp short @..draw_treasure_panel.l4 ; 0x012b
-@..draw_treasure_panel.l1:
+    jmp short .forward1              ; 0x012b
+.back1:
     mov word [bp - 0x10], 1          ; 0x012d
     mov word [bp - 0xfa], 1          ; 0x0132
-    jmp short @..draw_treasure_panel.l5 ; 0x0138
-@..draw_treasure_panel.l2:
+    jmp short .forward2              ; 0x0138
+.back2:
     mov word [bp - 0x10], 1          ; 0x013a
     mov word [bp - 0xfa], 1          ; 0x013f
-    jmp short @..draw_treasure_panel.l5 ; 0x0145
-@..draw_treasure_panel.l3:
+    jmp short .forward2              ; 0x0145
+.back3:
     mov word [bp - 0x10], 0          ; 0x0147
     mov word [bp - 0xfa], 4          ; 0x014c
-    jmp short @..draw_treasure_panel.l5 ; 0x0152
-@..draw_treasure_panel.l4:
+    jmp short .forward2              ; 0x0152
+.forward1:
     cmp ax, strict word 0            ; 0x0154
-    je short @..draw_treasure_panel.l1 ; 0x0157
+    je short .back1                  ; 0x0157
     cmp ax, strict word 1            ; 0x0159
-    je short @..draw_treasure_panel.l2 ; 0x015c
+    je short .back2                  ; 0x015c
     cmp ax, strict word 2            ; 0x015e
-    je short @..draw_treasure_panel.l3 ; 0x0161
-@..draw_treasure_panel.l5:
+    je short .back3                  ; 0x0161
+.forward2:
     mov word [bp - 0xfc], 6          ; 0x0163
     mov ax, 0xc                      ; 0x0169
     cwd                              ; 0x016c
@@ -48,47 +48,47 @@ draw_treasure_panel:
     mov word [bp - 0xa], 0xffff      ; 0x0199
     mov al, byte [bx + spell_table + spell_table_rec_size*102 + spell_table_rec.f_0005] ; 0x019e
     sub ah, ah                       ; 0x01a2
-    jmp short @..draw_treasure_panel.l8 ; 0x01a4
-@..draw_treasure_panel.l6:
+    jmp short .forward3              ; 0x01a4
+.back4:
     inc word [bp + 6]                ; 0x01a6
     inc word [bp - 0xf8]             ; 0x01a9
-    jmp short @..draw_treasure_panel.l9 ; 0x01ad
-@..draw_treasure_panel.l7:
+    jmp short .forward4              ; 0x01ad
+.back5:
     add word [bp - 0xf8], byte 3     ; 0x01af
-    jmp short @..draw_treasure_panel.l9 ; 0x01b4
-@..draw_treasure_panel.l8:
+    jmp short .forward4              ; 0x01b4
+.forward3:
     cmp ax, strict word 1            ; 0x01b6
-    je short @..draw_treasure_panel.l6 ; 0x01b9
+    je short .back4                  ; 0x01b9
     cmp ax, strict word 2            ; 0x01bb
-    je short @..draw_treasure_panel.l7 ; 0x01be
-@..draw_treasure_panel.l9:
-    cmp word [bp + 4], byte 0xff     ; 0x01c0
-    je short @..draw_treasure_panel.l10 ; 0x01c4
+    je short .back5                  ; 0x01be
+.forward4:
+    cmp word [bp + 4], byte -1       ; 0x01c0
+    je short .forward5               ; 0x01c4
     mov ax, word [bp + 4]            ; 0x01c6
     mov cx, 2                        ; 0x01c9
     cwd                              ; 0x01cc
     idiv cx                          ; 0x01cd
     mov ax, dx                       ; 0x01cf
     test ax, ax                      ; 0x01d1
-    jne short @..draw_treasure_panel.l12 ; 0x01d3
-@..draw_treasure_panel.l10:
+    jne short .forward7              ; 0x01d3
+.forward5:
     mov word [bp - 0xe], 0           ; 0x01d5
     mov ax, 0                        ; 0x01da
     cmp word [bp - 0x10], byte 0     ; 0x01dd
-    je short @..draw_treasure_panel.l11 ; 0x01e1
+    je short .forward6               ; 0x01e1
     mov ax, 1                        ; 0x01e3
-@..draw_treasure_panel.l11:
+.forward6:
     mov word [bp - 0x104], ax        ; 0x01e6
-    jmp short @..draw_treasure_panel.l14 ; 0x01ea
-@..draw_treasure_panel.l12:
+    jmp short .forward9              ; 0x01ea
+.forward7:
     mov word [bp - 0xe], 1           ; 0x01ec
     mov ax, 1                        ; 0x01f1
     cmp word [bp - 0x10], byte 0     ; 0x01f4
-    je short @..draw_treasure_panel.l13 ; 0x01f8
+    je short .forward8               ; 0x01f8
     mov ax, 0                        ; 0x01fa
-@..draw_treasure_panel.l13:
+.forward8:
     mov word [bp - 0x104], ax        ; 0x01fd
-@..draw_treasure_panel.l14:
+.forward9:
     mov ax, 6                        ; 0x0201
     imul word [bp + 6]               ; 0x0204
     mov bx, ax                       ; 0x0207
@@ -205,12 +205,12 @@ draw_treasure_panel:
     mov word [bp - 0x5a], 0x22       ; 0x045f
     mov ax, 0                        ; 0x0464
     cmp word [bp - 0xc], byte 0      ; 0x0467
-    je short @..draw_treasure_panel.l15 ; 0x046b
+    je short .forward10              ; 0x046b
     mov ax, 5                        ; 0x046d
     cmp byte [bx + spell_table + spell_table_rec_size*102 + spell_table_rec.f_0005], 2 ; 0x0470
-    jne short @..draw_treasure_panel.l15 ; 0x0475
+    jne short .forward10             ; 0x0475
     mov ax, 3                        ; 0x0477
-@..draw_treasure_panel.l15:
+.forward10:
     mov word [bp - 0x102], ax        ; 0x047a
     mov word [bp - 0x100], ax        ; 0x047e
     mov ax, 0                        ; 0x0482
@@ -250,8 +250,8 @@ draw_treasure_panel:
     mov word [bp - 4], 0             ; 0x04d1
     mov ax, word [bp - 6]            ; 0x04d6
     mov word [bp - 2], ax            ; 0x04d9
-    jmp near @..draw_treasure_panel.l23 ; 0x04dc
-@..draw_treasure_panel.l16:
+    jmp near .forward16              ; 0x04dc
+.back6:
     les bx, word [tick_counter_ptr]  ; 0x04df
     mov ax, word [es:bx]             ; 0x04e3
     mov dx, word [es:bx + 2]         ; 0x04e6
@@ -268,7 +268,7 @@ draw_treasure_panel:
     idiv cx                          ; 0x0506
     mov word [bp - 0xee], ax         ; 0x0508
     cmp word [bp - 0x104], byte 0    ; 0x050c
-    je short @..draw_treasure_panel.l17 ; 0x0511
+    je short .forward11              ; 0x0511
     mov cx, 0                        ; 0x0513
     sub cx, ax                       ; 0x0516
     mov ax, cx                       ; 0x0518
@@ -282,7 +282,7 @@ draw_treasure_panel:
     shl cx, 1                        ; 0x052c
     sub ax, cx                       ; 0x052e
     mov word [bp - 0xee], ax         ; 0x0530
-@..draw_treasure_panel.l17:
+.forward11:
     mov ax, word [bp - 0xec]         ; 0x0534
     imul word [bp - 0x64]            ; 0x0538
     mov cx, 0x64                     ; 0x053b
@@ -300,21 +300,21 @@ draw_treasure_panel:
     call gfx_restore_screen          ; 0x055f
     add sp, byte 8                   ; 0x0562
     cmp word [animation_index], byte 0 ; 0x0565
-    jl short @..draw_treasure_panel.l19 ; 0x056a
+    jl short .forward13              ; 0x056a
     mov ax, word [bp - 4]            ; 0x056c
     mov cx, 3                        ; 0x056f
     cwd                              ; 0x0572
     idiv cx                          ; 0x0573
     mov ax, dx                       ; 0x0575
     test ax, ax                      ; 0x0577
-    jne short @..draw_treasure_panel.l18 ; 0x0579
+    jne short .forward12             ; 0x0579
     inc word [animation_index]       ; 0x057b
-@..draw_treasure_panel.l18:
+.forward12:
     push word [animation_index]      ; 0x057f
     call draw_animation_frame        ; 0x0583
     pop cx                           ; 0x0586
     mov word [animation_index], ax   ; 0x0587
-@..draw_treasure_panel.l19:
+.forward13:
     mov ax, 0x18                     ; 0x058a
     imul word [bp - 0xe]             ; 0x058d
     mov cx, word [bp - 2]            ; 0x0590
@@ -375,31 +375,31 @@ draw_treasure_panel:
     idiv word [bp - 0xfe]            ; 0x061d
     mov ax, dx                       ; 0x0621
     test ax, ax                      ; 0x0623
-    jne short @..draw_treasure_panel.l20 ; 0x0625
+    jne short .back7                 ; 0x0625
     mov ax, word [bp - 0xa]          ; 0x0627
     add word [bp - 0xf8], ax         ; 0x062a
     mov ax, word [bp - 0x102]        ; 0x062e
     mov word [bp - 0x100], ax        ; 0x0632
-@..draw_treasure_panel.l20:
+.back7:
     les bx, word [tick_counter_ptr]  ; 0x0636
     mov ax, word [es:bx]             ; 0x063a
     mov dx, word [es:bx + 2]         ; 0x063d
     cmp dx, word [bp - 0x112]        ; 0x0641
-    jne short @..draw_treasure_panel.l21 ; 0x0645
+    jne short .forward14             ; 0x0645
     cmp ax, word [bp - 0x114]        ; 0x0647
-@..draw_treasure_panel.l21:
-    jne short @..draw_treasure_panel.l22 ; 0x064b
-    jmp short @..draw_treasure_panel.l20 ; 0x064d
-@..draw_treasure_panel.l22:
+.forward14:
+    jne short .forward15             ; 0x064b
+    jmp short .back7                 ; 0x064d
+.forward15:
     mov ax, word [bp - 0xa]          ; 0x064f
     add word [bp - 2], ax            ; 0x0652
     inc word [bp - 4]                ; 0x0655
-@..draw_treasure_panel.l23:
+.forward16:
     mov ax, word [bp - 4]            ; 0x0658
     cmp ax, word [bp - 0xfc]         ; 0x065b
-    jge short @..draw_treasure_panel.l24 ; 0x065f
-    jmp near @..draw_treasure_panel.l16 ; 0x0661
-@..draw_treasure_panel.l24:
+    jge short .forward17             ; 0x065f
+    jmp near .back6                  ; 0x0661
+.forward17:
     mov ax, 0                        ; 0x0664
     push ax                          ; 0x0667
     mov ax, 1                        ; 0x0668

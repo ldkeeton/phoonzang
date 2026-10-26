@@ -4,7 +4,7 @@ loc_QQOI:
     call aztec_csav
     call loc_HVLG
     test ax, ax
-    je short @..loc_QQOI.l1
+    je short .forward1
     mov ax, word [party_status_frame]
     inc ax
     mov cx, 2
@@ -14,6 +14,6 @@ loc_QQOI:
     call redraw_maze_view
     mov ax, 1
     ret
-@..loc_QQOI.l1:
+.forward1:
     mov ax, 0
     ret

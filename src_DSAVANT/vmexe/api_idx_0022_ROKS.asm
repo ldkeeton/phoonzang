@@ -11,28 +11,28 @@ api_idx_0022_ROKS:
     mov bx, ax                       ; 0x225b
     mov bx, word [bx + party_char]   ; 0x225d
     cmp byte [bx + si + member_rec.item_state], 3 ; 0x2261
-    jae short @..api_idx_0022_ROKS.l1 ; 0x2265
+    jae short .forward1              ; 0x2265
     push word [bp + 6]               ; 0x2267
     push word [bp + 4]               ; 0x226a
     call item_slot_usable            ; 0x226d
     add sp, byte 4                   ; 0x2270
     test ax, ax                      ; 0x2273
-    je short @..api_idx_0022_ROKS.l2 ; 0x2275
-@..api_idx_0022_ROKS.l1:
+    je short .forward2               ; 0x2275
+.forward1:
     mov ax, 0                        ; 0x2277
     ret                              ; 0x227a
-@..api_idx_0022_ROKS.l2:
+.forward2:
     mov word [bp - 2], 0             ; 0x227b
     mov ax, word [bp + 0xc]          ; 0x2280
     mov word [bp - 6], ax            ; 0x2283
-@..api_idx_0022_ROKS.l3:
+.back1:
     cmp word [bp - 6], byte 0        ; 0x2286
-    jle short @..api_idx_0022_ROKS.l6 ; 0x228a
+    jle short .forward4              ; 0x228a
     mov ax, word [bp + 8]            ; 0x228c
     mov word [bp - 8], ax            ; 0x228f
-@..api_idx_0022_ROKS.l4:
+.back2:
     cmp word [bp - 8], byte 0        ; 0x2292
-    jle short @..api_idx_0022_ROKS.l5 ; 0x2296
+    jle short .forward3              ; 0x2296
     push word [bp + 0xa]             ; 0x2298
     call random_below                ; 0x229b
     pop cx                           ; 0x229e
@@ -40,13 +40,13 @@ api_idx_0022_ROKS:
     inc ax                           ; 0x22a2
     mov word [bp - 2], ax            ; 0x22a3
     dec word [bp - 8]                ; 0x22a6
-    jmp short @..api_idx_0022_ROKS.l4 ; 0x22a9
-@..api_idx_0022_ROKS.l5:
+    jmp short .back2                 ; 0x22a9
+.forward3:
     dec word [bp - 6]                ; 0x22ab
-    jmp short @..api_idx_0022_ROKS.l3 ; 0x22ae
-@..api_idx_0022_ROKS.l6:
+    jmp short .back1                 ; 0x22ae
+.forward4:
     cmp word [bp + 4], byte 0        ; 0x22b0
-    jne short @..api_idx_0022_ROKS.l7 ; 0x22b4
+    jne short .forward5              ; 0x22b4
     mov ax, 0xe                      ; 0x22b6
     push ax                          ; 0x22b9
     mov ax, word [party_char_ext]    ; 0x22ba
@@ -58,7 +58,7 @@ api_idx_0022_ROKS:
     push ax                          ; 0x22ca
     call aztec_movmem                ; 0x22cb
     add sp, byte 6                   ; 0x22ce
-@..api_idx_0022_ROKS.l7:
+.forward5:
     mov ax, 0x64                     ; 0x22d1
     push ax                          ; 0x22d4
     call random_below                ; 0x22d5
@@ -76,7 +76,7 @@ api_idx_0022_ROKS:
     mov cx, ax                       ; 0x22f3
     pop ax                           ; 0x22f5
     cmp ax, cx                       ; 0x22f6
-    jle short @..api_idx_0022_ROKS.l8 ; 0x22f8
+    jle short .forward6              ; 0x22f8
     push word [bp + 0x10]            ; 0x22fa
     push si                          ; 0x22fd
     push word [bp - 2]               ; 0x22fe
@@ -84,10 +84,10 @@ api_idx_0022_ROKS:
     call api_idx_0002_NHHH           ; 0x2304
     add sp, byte 8                   ; 0x2307
     mov word [bp - 2], ax            ; 0x230a
-    jmp short @..api_idx_0022_ROKS.l9 ; 0x230d
-@..api_idx_0022_ROKS.l8:
+    jmp short .forward7              ; 0x230d
+.forward6:
     mov word [bp - 2], 0             ; 0x230f
-@..api_idx_0022_ROKS.l9:
+.forward7:
     mov ax, 4                        ; 0x2314
     push ax                          ; 0x2317
     mov ax, 2                        ; 0x2318
@@ -104,18 +104,18 @@ api_idx_0022_ROKS:
     push ax                          ; 0x2335
     mov ax, 0x43                     ; 0x2336
     cmp word [bp + 4], byte 0        ; 0x2339
-    jne short @..api_idx_0022_ROKS.l10 ; 0x233d
+    jne short .forward8              ; 0x233d
     mov ax, 1                        ; 0x233f
-@..api_idx_0022_ROKS.l10:
+.forward8:
     push ax                          ; 0x2342
     mov ax, bss_90e6                 ; 0x2343
     push ax                          ; 0x2346
     call api_idx_0002_TMNV           ; 0x2347
     add sp, byte 6                   ; 0x234a
     cmp word [bp - 2], byte 0        ; 0x234d
-    jg short @..api_idx_0022_ROKS.l11 ; 0x2351
-    jmp near @..api_idx_0022_ROKS.l16 ; 0x2353
-@..api_idx_0022_ROKS.l11:
+    jg short .forward9               ; 0x2351
+    jmp near .forward14              ; 0x2353
+.forward9:
     mov ax, 3                        ; 0x2356
     push ax                          ; 0x2359
     mov ax, 0x16                     ; 0x235a
@@ -193,9 +193,9 @@ api_idx_0022_ROKS:
     sub ax, cx                       ; 0x2404
     mov word [bp - 0xe], ax          ; 0x2406
     cmp ax, strict word 0            ; 0x2409
-    jge short @..api_idx_0022_ROKS.l12 ; 0x240c
+    jge short .forward10             ; 0x240c
     mov word [bp - 0xe], 0           ; 0x240e
-@..api_idx_0022_ROKS.l12:
+.forward10:
     mov al, byte [bp - 0xe]          ; 0x2413
     mov byte [bx + si + 0x11], al    ; 0x2416
     mov ax, 0x2c                     ; 0x2419
@@ -206,7 +206,7 @@ api_idx_0022_ROKS:
     mov bx, ax                       ; 0x2426
     mov bx, word [bx + party_char]   ; 0x2428
     cmp word [bx + si + member_rec.item_charges], byte 0 ; 0x242c
-    jg short @..api_idx_0022_ROKS.l13 ; 0x2430
+    jg short .forward11              ; 0x2430
     mov ax, word [bss_9058]          ; 0x2432
     mov cx, 2                        ; 0x2435
     cwd                              ; 0x2438
@@ -230,10 +230,10 @@ api_idx_0022_ROKS:
     push word [bp + 4]               ; 0x245b
     call api_idx_0002_UTVG           ; 0x245e
     add sp, byte 0x10                ; 0x2461
-    jmp short @..api_idx_0022_ROKS.l15 ; 0x2464
-@..api_idx_0022_ROKS.l13:
+    jmp short .forward13             ; 0x2464
+.forward11:
     cmp word [bp + 4], byte 0        ; 0x2466
-    jne short @..api_idx_0022_ROKS.l14 ; 0x246a
+    jne short .forward12             ; 0x246a
     mov ax, 0x248                    ; 0x246c
     imul word [bp + 6]               ; 0x246f
     mov bx, ax                       ; 0x2472
@@ -249,7 +249,7 @@ api_idx_0022_ROKS:
     push word [bp + 6]               ; 0x2485
     call api_idx_0004_MLLS           ; 0x2488
     add sp, byte 4                   ; 0x248b
-@..api_idx_0022_ROKS.l14:
+.forward12:
     mov ax, word [bss_9058]          ; 0x248e
     mov cx, 2                        ; 0x2491
     cwd                              ; 0x2494
@@ -257,9 +257,9 @@ api_idx_0022_ROKS:
     push ax                          ; 0x2497
     call api_idx_0004_QUPL           ; 0x2498
     pop cx                           ; 0x249b
-@..api_idx_0022_ROKS.l15:
-    jmp short @..api_idx_0022_ROKS.l17 ; 0x249c
-@..api_idx_0022_ROKS.l16:
+.forward13:
+    jmp short .forward15             ; 0x249c
+.forward14:
     mov ax, 3                        ; 0x249e
     push ax                          ; 0x24a1
     mov ax, 0x41                     ; 0x24a2
@@ -268,7 +268,7 @@ api_idx_0022_ROKS:
     push ax                          ; 0x24a9
     call api_idx_0050_PLNP           ; 0x24aa
     add sp, byte 6                   ; 0x24ad
-@..api_idx_0022_ROKS.l17:
+.forward15:
     mov ax, word [bss_9058]          ; 0x24b0
     mov cx, 2                        ; 0x24b3
     cwd                              ; 0x24b6

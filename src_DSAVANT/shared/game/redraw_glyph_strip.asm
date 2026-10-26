@@ -40,7 +40,7 @@ redraw_glyph_strip:
     call gfx_draw_text
     add sp, byte 0x16
     cmp word [bp + 4], byte 0
-    je short @..redraw_glyph_strip.l1
+    je short .return1
     mov ax, 0xc2
     push ax
     mov ax, 0x13a
@@ -51,5 +51,5 @@ redraw_glyph_strip:
     push ax
     call gfx_show_area
     add sp, byte 8
-@..redraw_glyph_strip.l1:
+.return1:
     ret

@@ -3,7 +3,7 @@ api_idx_00b4_QLQS:
     mov ax, 0xff4c                   ; 0x4cc5
     call aztec_csav                  ; 0x4cc8
     mov word [bp - 2], 0             ; 0x4ccb
-@..api_idx_00b4_QLQS.l1:
+.back1:
     mov ax, word [bp - 2]            ; 0x4cd0
     shl ax, 1                        ; 0x4cd3
     mov bx, ax                       ; 0x4cd5
@@ -12,10 +12,10 @@ api_idx_00b4_QLQS:
     inc word [bp - 2]                ; 0x4cde
     mov ax, word [bp - 2]            ; 0x4ce1
     cmp ax, strict word 8            ; 0x4ce4
-    jl short @..api_idx_00b4_QLQS.l1 ; 0x4ce7
-@..api_idx_00b4_QLQS.l2:
+    jl short .back1                  ; 0x4ce7
+.back2:
     mov word [bp - 4], 0             ; 0x4ce9
-@..api_idx_00b4_QLQS.l3:
+.back3:
     mov ax, 7                        ; 0x4cee
     push ax                          ; 0x4cf1
     call random_below                ; 0x4cf2
@@ -27,33 +27,33 @@ api_idx_00b4_QLQS:
     add ax, word [bp - 2]            ; 0x4d02
     mov bx, ax                       ; 0x4d05
     cmp byte [bx + party_records + pc_rec.stat], 0x12 ; 0x4d07
-    jae short @..api_idx_00b4_QLQS.l4 ; 0x4d0c
+    jae short .forward1              ; 0x4d0c
     mov ax, word [bp - 2]            ; 0x4d0e
     shl ax, 1                        ; 0x4d11
     mov bx, ax                       ; 0x4d13
     add bx, bp                       ; 0x4d15
     cmp word [bx - 0x14], byte 0     ; 0x4d17
-    je short @..api_idx_00b4_QLQS.l5 ; 0x4d1b
-@..api_idx_00b4_QLQS.l4:
+    je short .forward2               ; 0x4d1b
+.forward1:
     cmp word [bp - 4], byte 3        ; 0x4d1d
-    jl short @..api_idx_00b4_QLQS.l3 ; 0x4d21
-@..api_idx_00b4_QLQS.l5:
+    jl short .back3                  ; 0x4d21
+.forward2:
     mov ax, 0x248                    ; 0x4d23
     imul word [bp + 4]               ; 0x4d26
     add ax, word [bp - 2]            ; 0x4d29
     mov bx, ax                       ; 0x4d2c
     cmp byte [bx + party_records + pc_rec.stat], 0x12 ; 0x4d2e
-    jb short @..api_idx_00b4_QLQS.l6 ; 0x4d33
-    jmp near @..api_idx_00b4_QLQS.l8 ; 0x4d35
-@..api_idx_00b4_QLQS.l6:
+    jb short .forward3               ; 0x4d33
+    jmp near .forward5               ; 0x4d35
+.forward3:
     mov ax, word [bp - 2]            ; 0x4d38
     shl ax, 1                        ; 0x4d3b
     mov bx, ax                       ; 0x4d3d
     add bx, bp                       ; 0x4d3f
     cmp word [bx - 0x14], byte 0     ; 0x4d41
-    je short @..api_idx_00b4_QLQS.l7 ; 0x4d45
-    jmp near @..api_idx_00b4_QLQS.l8 ; 0x4d47
-@..api_idx_00b4_QLQS.l7:
+    je short .forward4               ; 0x4d45
+    jmp near .forward5               ; 0x4d47
+.forward4:
     mov word [bx - 0x14], 1          ; 0x4d4a
     mov ax, 0x248                    ; 0x4d4f
     imul word [bp + 4]               ; 0x4d52
@@ -125,13 +125,13 @@ api_idx_00b4_QLQS:
     push ax                          ; 0x4dec
     call gfx_show_area               ; 0x4ded
     add sp, byte 8                   ; 0x4df0
-@..api_idx_00b4_QLQS.l8:
+.forward5:
     mov ax, 2                        ; 0x4df3
     push ax                          ; 0x4df6
     call random_below                ; 0x4df7
     pop cx                           ; 0x4dfa
     test ax, ax                      ; 0x4dfb
-    je short @..api_idx_00b4_QLQS.l9 ; 0x4dfd
-    jmp near @..api_idx_00b4_QLQS.l2 ; 0x4dff
-@..api_idx_00b4_QLQS.l9:
+    je short .return1                ; 0x4dfd
+    jmp near .back2                  ; 0x4dff
+.return1:
     ret                              ; 0x4e02

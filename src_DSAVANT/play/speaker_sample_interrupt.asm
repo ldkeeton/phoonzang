@@ -13,11 +13,11 @@ speaker_sample_interrupt:
 __zinsn_0a52:
     add ah, 0x80                     ; 0x0a52
     adc di, byte 0                   ; 0x0a55
-    jb short @..speaker_sample_interrupt.l1 ; 0x0a58
+    jb short speaker_sample_interrupt.forward1 ; 0x0a58
     mov al, 0x20                     ; 0x0a5a
     out 0x20, al                     ; 0x0a5c
     iret                             ; 0x0a5e
-@..speaker_sample_interrupt.l1:
+speaker_sample_interrupt.forward1:
     call sound_stop_and_restore_timer ; 0x0a5f
     mov al, byte [cs:saved_pic_mask - IMAGE_BASE] ; 0x0a62
     out 0x21, al                     ; 0x0a66

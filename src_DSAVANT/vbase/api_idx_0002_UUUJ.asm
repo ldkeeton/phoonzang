@@ -9,7 +9,7 @@ api_idx_0002_UUUJ:
     call api_idx_0016_LTLN           ; 0x888f
     add sp, byte 4                   ; 0x8892
     mov word [bp - 2], 0             ; 0x8895
-@..api_idx_0002_UUUJ.l1:
+.back1:
     mov ax, 0x50                     ; 0x889a
     imul word [bp - 2]               ; 0x889d
     mov cx, word [bp - 2]            ; 0x88a0
@@ -19,7 +19,7 @@ api_idx_0002_UUUJ:
     inc word [bp - 2]                ; 0x88ab
     mov ax, word [bp - 2]            ; 0x88ae
     cmp ax, strict word 5            ; 0x88b1
-    jl short @..api_idx_0002_UUUJ.l1 ; 0x88b4
+    jl short .back1                  ; 0x88b4
     mov ax, 6                        ; 0x88b6
     push ax                          ; 0x88b9
     push word [scroll_x]             ; 0x88ba
@@ -109,7 +109,7 @@ api_idx_0002_UUUJ:
     mov ax, word [bp + 0xa]          ; 0x8984
     mov word [scene_cue_e], ax       ; 0x8987
     mov word [bp - 2], 0             ; 0x898a
-@..api_idx_0002_UUUJ.l2:
+.back2:
     mov ax, word [bp - 2]            ; 0x898f
     shl ax, 1                        ; 0x8992
     mov bx, ax                       ; 0x8994
@@ -126,7 +126,7 @@ api_idx_0002_UUUJ:
     inc word [bp - 2]                ; 0x89b2
     mov ax, word [bp - 2]            ; 0x89b5
     cmp ax, strict word 8            ; 0x89b8
-    jl short @..api_idx_0002_UUUJ.l2 ; 0x89bb
+    jl short .back2                  ; 0x89bb
     mov word [bss_a5e0], 0x13e       ; 0x89bd
     mov word [bss_a5f0], 0x2a        ; 0x89c3
     mov word [actor_x], 0x140        ; 0x89c9

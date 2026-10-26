@@ -7,7 +7,7 @@ api_idx_0052_LHVG:
     mov bx, ax                       ; 0x2c18
     mov al, byte [bx + party_records + pc_rec.profession] ; 0x2c1a
     sub ah, ah                       ; 0x2c1e
-    jmp near @..api_idx_0052_LHVG.l1 ; 0x2c20
+    jmp near .forward1               ; 0x2c20
 jumptable_2ce6_case_0:
     mov ax, dseg_90b4                ; 0x2c23
     push ax                          ; 0x2c26
@@ -16,7 +16,7 @@ jumptable_2ce6_case_0:
     push word [bp + 4]               ; 0x2c2b
     call api_idx_0006_VJKJ           ; 0x2c2e
     add sp, byte 6                   ; 0x2c31
-    jmp near @..api_idx_0052_LHVG.l2 ; 0x2c34
+    jmp near api_idx_0052_LHVG.forward2 ; 0x2c34
 jumptable_2ce6_case_4:
     mov ax, dseg_90d2                ; 0x2c37
     push ax                          ; 0x2c3a
@@ -25,7 +25,7 @@ jumptable_2ce6_case_4:
     push word [bp + 4]               ; 0x2c3f
     call api_idx_0006_VJKJ           ; 0x2c42
     add sp, byte 6                   ; 0x2c45
-    jmp near @..api_idx_0052_LHVG.l2 ; 0x2c48
+    jmp near api_idx_0052_LHVG.forward2 ; 0x2c48
 jumptable_2ce6_case_10:
     mov ax, dseg_90f0                ; 0x2c4b
     push ax                          ; 0x2c4e
@@ -34,7 +34,7 @@ jumptable_2ce6_case_10:
     push word [bp + 4]               ; 0x2c53
     call api_idx_0006_VJKJ           ; 0x2c56
     add sp, byte 6                   ; 0x2c59
-    jmp near @..api_idx_0052_LHVG.l2 ; 0x2c5c
+    jmp near api_idx_0052_LHVG.forward2 ; 0x2c5c
 jumptable_2ce6_case_11:
     mov ax, dseg_910e                ; 0x2c5f
     push ax                          ; 0x2c62
@@ -43,7 +43,7 @@ jumptable_2ce6_case_11:
     push word [bp + 4]               ; 0x2c67
     call api_idx_0006_VJKJ           ; 0x2c6a
     add sp, byte 6                   ; 0x2c6d
-    jmp near @..api_idx_0052_LHVG.l2 ; 0x2c70
+    jmp near api_idx_0052_LHVG.forward2 ; 0x2c70
 jumptable_2ce6_case_13:
     mov ax, dseg_912c                ; 0x2c73
     push ax                          ; 0x2c76
@@ -52,7 +52,7 @@ jumptable_2ce6_case_13:
     push word [bp + 4]               ; 0x2c7b
     call api_idx_0006_VJKJ           ; 0x2c7e
     add sp, byte 6                   ; 0x2c81
-    jmp near @..api_idx_0052_LHVG.l2 ; 0x2c84
+    jmp near api_idx_0052_LHVG.forward2 ; 0x2c84
 jumptable_2ce6_case_1:
     mov ax, dseg_914a                ; 0x2c87
     push ax                          ; 0x2c8a
@@ -61,7 +61,7 @@ jumptable_2ce6_case_1:
     push word [bp + 4]               ; 0x2c8f
     call api_idx_0006_VJKJ           ; 0x2c92
     add sp, byte 6                   ; 0x2c95
-    jmp short @..api_idx_0052_LHVG.l2 ; 0x2c98
+    jmp short api_idx_0052_LHVG.forward2 ; 0x2c98
 jumptable_2ce6_case_7:
     mov ax, dseg_9168                ; 0x2c9a
     push ax                          ; 0x2c9d
@@ -70,7 +70,7 @@ jumptable_2ce6_case_7:
     push word [bp + 4]               ; 0x2ca2
     call api_idx_0006_VJKJ           ; 0x2ca5
     add sp, byte 6                   ; 0x2ca8
-    jmp short @..api_idx_0052_LHVG.l2 ; 0x2cab
+    jmp short api_idx_0052_LHVG.forward2 ; 0x2cab
 jumptable_2ce6_case_2:
     mov ax, dseg_9186                ; 0x2cad
     push ax                          ; 0x2cb0
@@ -79,7 +79,7 @@ jumptable_2ce6_case_2:
     push word [bp + 4]               ; 0x2cb5
     call api_idx_0006_VJKJ           ; 0x2cb8
     add sp, byte 6                   ; 0x2cbb
-    jmp short @..api_idx_0052_LHVG.l2 ; 0x2cbe
+    jmp short api_idx_0052_LHVG.forward2 ; 0x2cbe
 jumptable_2ce6_case_12:
     mov ax, dseg_91a4                ; 0x2cc0
     push ax                          ; 0x2cc3
@@ -88,7 +88,7 @@ jumptable_2ce6_case_12:
     push word [bp + 4]               ; 0x2cc8
     call api_idx_0006_VJKJ           ; 0x2ccb
     add sp, byte 6                   ; 0x2cce
-    jmp short @..api_idx_0052_LHVG.l2 ; 0x2cd1
+    jmp short api_idx_0052_LHVG.forward2 ; 0x2cd1
 jumptable_2ce6_case_3:
     mov ax, dseg_91c2                ; 0x2cd3
     push ax                          ; 0x2cd6
@@ -97,7 +97,7 @@ jumptable_2ce6_case_3:
     push word [bp + 4]               ; 0x2cdb
     call api_idx_0006_VJKJ           ; 0x2cde
     add sp, byte 6                   ; 0x2ce1
-    jmp short @..api_idx_0052_LHVG.l2 ; 0x2ce4
+    jmp short api_idx_0052_LHVG.forward2 ; 0x2ce4
 jumptable_2ce6:
     dw jumptable_2ce6_case_0 - IMAGE_BASE + __zres_end ; 0x2ce6
     dw jumptable_2ce6_case_1 - IMAGE_BASE + __zres_end ; 0x2ce8
@@ -113,19 +113,19 @@ jumptable_2ce6:
     dw jumptable_2ce6_case_11 - IMAGE_BASE + __zres_end ; 0x2cfc
     dw jumptable_2ce6_case_12 - IMAGE_BASE + __zres_end ; 0x2cfe
     dw jumptable_2ce6_case_13 - IMAGE_BASE + __zres_end ; 0x2d00
-@..api_idx_0052_LHVG.l1:
+api_idx_0052_LHVG.forward1:
     cmp ax, strict word 0xe          ; 0x2d02
-    jae short @..api_idx_0052_LHVG.l2 ; 0x2d05
+    jae short api_idx_0052_LHVG.forward2 ; 0x2d05
     xchg bx, ax                      ; 0x2d07
     shl bx, 1                        ; 0x2d08
     jmp [cs:bx + jumptable_2ce6 - IMAGE_BASE + __zres_end] ; 0x2d0a
-@..api_idx_0052_LHVG.l2:
+api_idx_0052_LHVG.forward2:
     mov ax, 0x248                    ; 0x2d0f
     imul word [bp + 4]               ; 0x2d12
     mov bx, ax                       ; 0x2d15
     mov al, byte [bx + party_records + pc_rec.glyph_set] ; 0x2d17
     sub ah, ah                       ; 0x2d1b
-    jmp near @..api_idx_0052_LHVG.l3 ; 0x2d1d
+    jmp near api_idx_0052_LHVG.forward3 ; 0x2d1d
 jumptable_2ebe_case_0:
     mov ax, 0x14                     ; 0x2d20
     push ax                          ; 0x2d23
@@ -136,7 +136,7 @@ jumptable_2ebe_case_0:
     push word [bp + 4]               ; 0x2d2c
     call loc_NJOH                    ; 0x2d2f
     add sp, byte 8                   ; 0x2d32
-    jmp near @..api_idx_0052_LHVG.l4 ; 0x2d35
+    jmp near api_idx_0052_LHVG.forward4 ; 0x2d35
 jumptable_2ebe_case_2:
     mov ax, 0x248                    ; 0x2d38
     imul word [bp + 4]               ; 0x2d3b
@@ -173,7 +173,7 @@ jumptable_2ebe_case_3:
     push word [bp + 4]               ; 0x2d7f
     call loc_NJOH                    ; 0x2d82
     add sp, byte 8                   ; 0x2d85
-    jmp near @..api_idx_0052_LHVG.l4 ; 0x2d88
+    jmp near api_idx_0052_LHVG.forward4 ; 0x2d88
 jumptable_2ebe_case_1:
     mov ax, 0x14                     ; 0x2d8b
     push ax                          ; 0x2d8e
@@ -184,7 +184,7 @@ jumptable_2ebe_case_1:
     push word [bp + 4]               ; 0x2d97
     call loc_NJOH                    ; 0x2d9a
     add sp, byte 8                   ; 0x2d9d
-    jmp near @..api_idx_0052_LHVG.l4 ; 0x2da0
+    jmp near api_idx_0052_LHVG.forward4 ; 0x2da0
 jumptable_2ebe_case_5:
     mov ax, 0x19                     ; 0x2da3
     push ax                          ; 0x2da6
@@ -231,7 +231,7 @@ jumptable_2ebe_case_5:
     push word [bp + 4]               ; 0x2e03
     call loc_NJOH                    ; 0x2e06
     add sp, byte 8                   ; 0x2e09
-    jmp near @..api_idx_0052_LHVG.l4 ; 0x2e0c
+    jmp near api_idx_0052_LHVG.forward4 ; 0x2e0c
 jumptable_2ebe_case_6:
     mov ax, 0x19                     ; 0x2e0f
     push ax                          ; 0x2e12
@@ -260,7 +260,7 @@ jumptable_2ebe_case_6:
     push word [bp + 4]               ; 0x2e45
     call loc_NJOH                    ; 0x2e48
     add sp, byte 8                   ; 0x2e4b
-    jmp near @..api_idx_0052_LHVG.l4 ; 0x2e4e
+    jmp near api_idx_0052_LHVG.forward4 ; 0x2e4e
 jumptable_2ebe_case_8:
     mov ax, 0xf                      ; 0x2e51
     push ax                          ; 0x2e54
@@ -290,7 +290,7 @@ jumptable_2ebe_case_9:
     push word [bp + 4]               ; 0x2e87
     call loc_NJOH                    ; 0x2e8a
     add sp, byte 8                   ; 0x2e8d
-    jmp short @..api_idx_0052_LHVG.l4 ; 0x2e90
+    jmp short api_idx_0052_LHVG.forward4 ; 0x2e90
 jumptable_2ebe_case_10:
     mov ax, 0x19                     ; 0x2e92
     push ax                          ; 0x2e95
@@ -310,7 +310,7 @@ jumptable_2ebe_case_10:
     push word [bp + 4]               ; 0x2eb3
     call loc_NJOH                    ; 0x2eb6
     add sp, byte 8                   ; 0x2eb9
-    jmp short @..api_idx_0052_LHVG.l4 ; 0x2ebc
+    jmp short api_idx_0052_LHVG.forward4 ; 0x2ebc
 jumptable_2ebe:
     dw jumptable_2ebe_case_0 - IMAGE_BASE + __zres_end ; 0x2ebe
     dw jumptable_2ebe_case_1 - IMAGE_BASE + __zres_end ; 0x2ec0
@@ -323,18 +323,18 @@ jumptable_2ebe:
     dw jumptable_2ebe_case_8 - IMAGE_BASE + __zres_end ; 0x2ece
     dw jumptable_2ebe_case_9 - IMAGE_BASE + __zres_end ; 0x2ed0
     dw jumptable_2ebe_case_10 - IMAGE_BASE + __zres_end ; 0x2ed2
-@..api_idx_0052_LHVG.l3:
+api_idx_0052_LHVG.forward3:
     cmp ax, strict word 0xb          ; 0x2ed4
-    jae short @..api_idx_0052_LHVG.l4 ; 0x2ed7
+    jae short api_idx_0052_LHVG.forward4 ; 0x2ed7
     xchg bx, ax                      ; 0x2ed9
     shl bx, 1                        ; 0x2eda
     jmp [cs:bx + jumptable_2ebe - IMAGE_BASE + __zres_end] ; 0x2edc
-@..api_idx_0052_LHVG.l4:
+api_idx_0052_LHVG.forward4:
     mov ax, 0x248                    ; 0x2ee1
     imul word [bp + 4]               ; 0x2ee4
     mov bx, ax                       ; 0x2ee7
     cmp byte [bx + party_records + pc_rec.stat + 0x3], 0xf ; 0x2ee9
-    jbe short @..api_idx_0052_LHVG.l5 ; 0x2eee
+    jbe short api_idx_0052_LHVG.forward5 ; 0x2eee
     mov ax, 5                        ; 0x2ef0
     push ax                          ; 0x2ef3
     mov ax, 6                        ; 0x2ef4
@@ -353,12 +353,12 @@ jumptable_2ebe:
     push word [bp + 4]               ; 0x2f11
     call loc_NJOH                    ; 0x2f14
     add sp, byte 8                   ; 0x2f17
-@..api_idx_0052_LHVG.l5:
+api_idx_0052_LHVG.forward5:
     mov ax, 0x248                    ; 0x2f1a
     imul word [bp + 4]               ; 0x2f1d
     mov bx, ax                       ; 0x2f20
     cmp byte [bx + party_records + pc_rec.stat + 0x1], 0xf ; 0x2f22
-    jbe short @..api_idx_0052_LHVG.l6 ; 0x2f27
+    jbe short api_idx_0052_LHVG.forward6 ; 0x2f27
     mov ax, 5                        ; 0x2f29
     push ax                          ; 0x2f2c
     mov ax, 9                        ; 0x2f2d
@@ -368,12 +368,12 @@ jumptable_2ebe:
     push word [bp + 4]               ; 0x2f35
     call loc_NJOH                    ; 0x2f38
     add sp, byte 8                   ; 0x2f3b
-@..api_idx_0052_LHVG.l6:
+api_idx_0052_LHVG.forward6:
     mov ax, 0x248                    ; 0x2f3e
     imul word [bp + 4]               ; 0x2f41
     mov bx, ax                       ; 0x2f44
     cmp byte [bx + party_records + pc_rec.stat + 0x5], 0xf ; 0x2f46
-    jbe short @..api_idx_0052_LHVG.l7 ; 0x2f4b
+    jbe short api_idx_0052_LHVG.forward7 ; 0x2f4b
     mov ax, 5                        ; 0x2f4d
     push ax                          ; 0x2f50
     mov ax, 7                        ; 0x2f51
@@ -392,12 +392,12 @@ jumptable_2ebe:
     push word [bp + 4]               ; 0x2f6e
     call loc_NJOH                    ; 0x2f71
     add sp, byte 8                   ; 0x2f74
-@..api_idx_0052_LHVG.l7:
+api_idx_0052_LHVG.forward7:
     mov ax, 0x248                    ; 0x2f77
     imul word [bp + 4]               ; 0x2f7a
     mov bx, ax                       ; 0x2f7d
     cmp byte [bx + party_records + pc_rec.flag + 0x17], 0 ; 0x2f7f
-    jbe short @..api_idx_0052_LHVG.l8 ; 0x2f84
+    jbe short api_idx_0052_LHVG.forward8 ; 0x2f84
     mov al, byte [bx + party_records + pc_rec.flag + 0x17] ; 0x2f86
     sub ah, ah                       ; 0x2f8a
     mov cx, 2                        ; 0x2f8c
@@ -427,9 +427,9 @@ jumptable_2ebe:
     push word [bp + 4]               ; 0x2fc1
     call loc_NJOH                    ; 0x2fc4
     add sp, byte 8                   ; 0x2fc7
-@..api_idx_0052_LHVG.l8:
+api_idx_0052_LHVG.forward8:
     mov word [bp - 4], 0             ; 0x2fca
-@..api_idx_0052_LHVG.l9:
+api_idx_0052_LHVG.back1:
     mov ax, 0x248                    ; 0x2fcf
     imul word [bp + 4]               ; 0x2fd2
     add ax, word [bp - 4]            ; 0x2fd5
@@ -439,9 +439,9 @@ jumptable_2ebe:
     inc word [bp - 4]                ; 0x2fe2
     mov ax, word [bp - 4]            ; 0x2fe5
     cmp ax, strict word 0xe          ; 0x2fe8
-    jl short @..api_idx_0052_LHVG.l9 ; 0x2feb
+    jl short api_idx_0052_LHVG.back1 ; 0x2feb
     mov word [bp - 4], 0             ; 0x2fed
-@..api_idx_0052_LHVG.l10:
+api_idx_0052_LHVG.back2:
     mov ax, 0x248                    ; 0x2ff2
     imul word [bp + 4]               ; 0x2ff5
     add ax, word [bp - 4]            ; 0x2ff8
@@ -449,11 +449,11 @@ jumptable_2ebe:
     mov al, byte [bx + party_records + pc_rec.order] ; 0x2ffd
     sub ah, ah                       ; 0x3001
     cmp ax, 0xff                     ; 0x3003
-    jne short @..api_idx_0052_LHVG.l11 ; 0x3006
-    jmp near @..api_idx_0052_LHVG.l13 ; 0x3008
-@..api_idx_0052_LHVG.l11:
+    jne short api_idx_0052_LHVG.forward9 ; 0x3006
+    jmp near api_idx_0052_LHVG.forward10 ; 0x3008
+api_idx_0052_LHVG.forward9:
     mov word [bp - 0xa], 0           ; 0x300b
-@..api_idx_0052_LHVG.l12:
+api_idx_0052_LHVG.back3:
     mov ax, 0x248                    ; 0x3010
     imul word [bp + 4]               ; 0x3013
     push ax                          ; 0x3016
@@ -502,20 +502,20 @@ jumptable_2ebe:
     inc word [bp - 0xa]              ; 0x307e
     mov ax, word [bp - 0xa]          ; 0x3081
     cmp ax, strict word 2            ; 0x3084
-    jl short @..api_idx_0052_LHVG.l12 ; 0x3087
-@..api_idx_0052_LHVG.l13:
+    jl short api_idx_0052_LHVG.back3 ; 0x3087
+api_idx_0052_LHVG.forward10:
     inc word [bp - 4]                ; 0x3089
     mov ax, word [bp - 4]            ; 0x308c
     cmp ax, strict word 8            ; 0x308f
-    jge short @..api_idx_0052_LHVG.l14 ; 0x3092
-    jmp near @..api_idx_0052_LHVG.l10 ; 0x3094
-@..api_idx_0052_LHVG.l14:
+    jge short api_idx_0052_LHVG.forward11 ; 0x3092
+    jmp near api_idx_0052_LHVG.back2 ; 0x3094
+api_idx_0052_LHVG.forward11:
     mov ax, 0x248                    ; 0x3097
     imul word [bp + 4]               ; 0x309a
     mov bx, ax                       ; 0x309d
     mov al, byte [bx + party_records + pc_rec.profession] ; 0x309f
     sub ah, ah                       ; 0x30a3
-    jmp short @..api_idx_0052_LHVG.l15 ; 0x30a5
+    jmp short api_idx_0052_LHVG.forward12 ; 0x30a5
 jumptable_30fe_case_0:
     mov ax, 3                        ; 0x30a7
     push ax                          ; 0x30aa
@@ -530,7 +530,7 @@ jumptable_30fe_case_0:
     push word [bp + 4]               ; 0x30bb
     call update_party_stat_adjustments ; 0x30be
     add sp, byte 0xc                 ; 0x30c1
-    jmp short @..api_idx_0052_LHVG.l16 ; 0x30c4
+    jmp short api_idx_0052_LHVG.forward13 ; 0x30c4
 jumptable_30fe_case_1:
     mov ax, 7                        ; 0x30c6
     push ax                          ; 0x30c9
@@ -543,7 +543,7 @@ jumptable_30fe_case_1:
     push word [bp + 4]               ; 0x30d4
     call update_party_stat_adjustments ; 0x30d7
     add sp, byte 0xc                 ; 0x30da
-    jmp short @..api_idx_0052_LHVG.l16 ; 0x30dd
+    jmp short api_idx_0052_LHVG.forward13 ; 0x30dd
 jumptable_30fe_case_2:
     mov ax, 5                        ; 0x30df
     push ax                          ; 0x30e2
@@ -558,7 +558,7 @@ jumptable_30fe_case_2:
     push word [bp + 4]               ; 0x30f3
     call update_party_stat_adjustments ; 0x30f6
     add sp, byte 0xc                 ; 0x30f9
-    jmp short @..api_idx_0052_LHVG.l16 ; 0x30fc
+    jmp short api_idx_0052_LHVG.forward13 ; 0x30fc
 jumptable_30fe:
     dw jumptable_30fe_case_0 - IMAGE_BASE + __zres_end ; 0x30fe
     dw jumptable_30fe_case_1 - IMAGE_BASE + __zres_end ; 0x3100
@@ -574,15 +574,15 @@ jumptable_30fe:
     dw jumptable_30fe_case_0 - IMAGE_BASE + __zres_end ; 0x3114
     dw jumptable_30fe_case_0 - IMAGE_BASE + __zres_end ; 0x3116
     dw jumptable_30fe_case_0 - IMAGE_BASE + __zres_end ; 0x3118
-@..api_idx_0052_LHVG.l15:
+api_idx_0052_LHVG.forward12:
     cmp ax, strict word 0xe          ; 0x311a
-    jae short @..api_idx_0052_LHVG.l16 ; 0x311d
+    jae short api_idx_0052_LHVG.forward13 ; 0x311d
     xchg bx, ax                      ; 0x311f
     shl bx, 1                        ; 0x3120
     jmp [cs:bx + jumptable_30fe - IMAGE_BASE + __zres_end] ; 0x3122
-@..api_idx_0052_LHVG.l16:
+api_idx_0052_LHVG.forward13:
     mov word [bp - 2], 0             ; 0x3127
-@..api_idx_0052_LHVG.l17:
+api_idx_0052_LHVG.back4:
     push word [bp - 2]               ; 0x312c
     push word [bp + 4]               ; 0x312f
     call reset_page_record           ; 0x3132
@@ -594,7 +594,7 @@ jumptable_30fe:
     mov al, byte [bx + party_records + pc_rec.order] ; 0x3143
     sub ah, ah                       ; 0x3147
     cmp ax, 0xff                     ; 0x3149
-    je short @..api_idx_0052_LHVG.l18 ; 0x314c
+    je short api_idx_0052_LHVG.forward14 ; 0x314c
     mov ax, 0                        ; 0x314e
     push ax                          ; 0x3151
     mov ax, 0x248                    ; 0x3152
@@ -621,11 +621,11 @@ jumptable_30fe:
     push word [bp + 4]               ; 0x3184
     call api_idx_0004_GUSS           ; 0x3187
     add sp, byte 6                   ; 0x318a
-@..api_idx_0052_LHVG.l18:
+api_idx_0052_LHVG.forward14:
     inc word [bp - 2]                ; 0x318d
     mov ax, word [bp - 2]            ; 0x3190
     cmp ax, strict word 2            ; 0x3193
-    jl short @..api_idx_0052_LHVG.l17 ; 0x3196
+    jl short api_idx_0052_LHVG.back4 ; 0x3196
     mov ax, 0x248                    ; 0x3198
     imul word [bp + 4]               ; 0x319b
     mov bx, ax                       ; 0x319e
@@ -634,41 +634,41 @@ jumptable_30fe:
     cbw                              ; 0x31a9
     mov cx, 0                        ; 0x31aa
     cmp byte [bx + party_records + pc_rec.stat + 0x5], 0xf ; 0x31ad
-    jbe short @..api_idx_0052_LHVG.l19 ; 0x31b2
+    jbe short api_idx_0052_LHVG.forward15 ; 0x31b2
     mov cx, 1                        ; 0x31b4
-@..api_idx_0052_LHVG.l19:
+api_idx_0052_LHVG.forward15:
     sub ax, cx                       ; 0x31b7
     mov byte [bx + party_records + pc_rec.count], al ; 0x31b9
     cbw                              ; 0x31bd
     mov cx, 0                        ; 0x31be
     cmp byte [bx + party_records + pc_rec.stat + 0x5], 0x11 ; 0x31c1
-    jbe short @..api_idx_0052_LHVG.l20 ; 0x31c6
+    jbe short api_idx_0052_LHVG.forward16 ; 0x31c6
     mov cx, 1                        ; 0x31c8
-@..api_idx_0052_LHVG.l20:
+api_idx_0052_LHVG.forward16:
     sub ax, cx                       ; 0x31cb
     mov byte [bx + party_records + pc_rec.count], al ; 0x31cd
     mov al, byte [bx + party_records + pc_rec.count] ; 0x31d1
     cbw                              ; 0x31d5
     mov cx, 0                        ; 0x31d6
     cmp byte [bx + party_records + pc_rec.glyph_set], 5 ; 0x31d9
-    jne short @..api_idx_0052_LHVG.l21 ; 0x31de
+    jne short api_idx_0052_LHVG.forward17 ; 0x31de
     mov cx, 2                        ; 0x31e0
-@..api_idx_0052_LHVG.l21:
+api_idx_0052_LHVG.forward17:
     sub ax, cx                       ; 0x31e3
     mov byte [bx + party_records + pc_rec.count], al ; 0x31e5
     cmp byte [bx + party_records + pc_rec.profession], 0xd ; 0x31e9
-    je short @..api_idx_0052_LHVG.l22 ; 0x31ee
+    je short api_idx_0052_LHVG.forward18 ; 0x31ee
     cmp byte [bx + party_records + pc_rec.profession], 0xc ; 0x31f0
-    jne short @..api_idx_0052_LHVG.l24 ; 0x31f5
-@..api_idx_0052_LHVG.l22:
+    jne short api_idx_0052_LHVG.forward20 ; 0x31f5
+api_idx_0052_LHVG.forward18:
     mov ax, 0xa                      ; 0x31f7
     cmp word [bx + party_records + pc_rec.power_cap], byte 0x14 ; 0x31fa
-    jg short @..api_idx_0052_LHVG.l23 ; 0x31ff
+    jg short api_idx_0052_LHVG.forward19 ; 0x31ff
     mov ax, word [bx + party_records + pc_rec.power_cap] ; 0x3201
     mov cx, 2                        ; 0x3205
     cwd                              ; 0x3208
     idiv cx                          ; 0x3209
-@..api_idx_0052_LHVG.l23:
+api_idx_0052_LHVG.forward19:
     mov word [bp - 2], ax            ; 0x320b
     mov al, byte [bx + party_records + pc_rec.flag + 0x11] ; 0x320e
     sub ah, ah                       ; 0x3212
@@ -680,9 +680,9 @@ jumptable_30fe:
     cbw                              ; 0x3221
     sub ax, word [bp - 2]            ; 0x3222
     mov byte [bx + party_records + pc_rec.count], al ; 0x3225
-@..api_idx_0052_LHVG.l24:
+api_idx_0052_LHVG.forward20:
     mov word [bp - 2], 3             ; 0x3229
-@..api_idx_0052_LHVG.l25:
+api_idx_0052_LHVG.back5:
     mov ax, 0x248                    ; 0x322e
     imul word [bp + 4]               ; 0x3231
     mov bx, ax                       ; 0x3234
@@ -692,7 +692,7 @@ jumptable_30fe:
     mov al, byte [bx + party_records + pc_rec.order] ; 0x3241
     sub ah, ah                       ; 0x3245
     cmp ax, 0xff                     ; 0x3247
-    je short @..api_idx_0052_LHVG.l26 ; 0x324a
+    je short api_idx_0052_LHVG.forward21 ; 0x324a
     mov ax, 0x248                    ; 0x324c
     imul word [bp + 4]               ; 0x324f
     push ax                          ; 0x3252
@@ -713,9 +713,9 @@ jumptable_30fe:
     mov bx, ax                       ; 0x3275
     pop ax                           ; 0x3277
     sub byte [bx + party_records + pc_rec.count], al ; 0x3278
-@..api_idx_0052_LHVG.l26:
+api_idx_0052_LHVG.forward21:
     inc word [bp - 2]                ; 0x327c
     mov ax, word [bp - 2]            ; 0x327f
     cmp ax, strict word 8            ; 0x3282
-    jl short @..api_idx_0052_LHVG.l25 ; 0x3285
+    jl short api_idx_0052_LHVG.back5 ; 0x3285
     ret                              ; 0x3287

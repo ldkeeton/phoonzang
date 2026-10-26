@@ -6,7 +6,7 @@ api_idx_0018_USPR:
     call score_music_enabled         ; 0x1c9d
     mov word [bss_8450], ax          ; 0x1ca0
     test ax, ax                      ; 0x1ca3
-    je short @..api_idx_0018_USPR.l1 ; 0x1ca5
+    je short .forward1               ; 0x1ca5
     mov ax, 0                        ; 0x1ca7
     push ax                          ; 0x1caa
     mov ax, 1                        ; 0x1cab
@@ -22,7 +22,7 @@ api_idx_0018_USPR:
     call ds_app_UKGP                 ; 0x1cc4
     add sp, byte 6                   ; 0x1cc7
     mov word [bss_844c], ax          ; 0x1cca
-@..api_idx_0018_USPR.l1:
+.forward1:
     mov ax, MSG_RESTING              ; 0x1ccd
     push ax                          ; 0x1cd0
     call show_message                ; 0x1cd1
@@ -41,32 +41,32 @@ api_idx_0018_USPR:
     call aztec_ldv                   ; 0x1cff
     mov word [bp - 0xc], ax          ; 0x1d02
     mov word [bp - 0xe], 0           ; 0x1d05
-@..api_idx_0018_USPR.l2:
+.back1:
     cmp word [bp - 0xc], byte 4      ; 0x1d0a
-    jl short @..api_idx_0018_USPR.l3 ; 0x1d0e
+    jl short .forward2               ; 0x1d0e
     inc word [bp - 0xe]              ; 0x1d10
-    add word [bp - 0xc], byte 0xfc   ; 0x1d13
+    add word [bp - 0xc], byte -4     ; 0x1d13
     add word [bss_8f14], strict word 0xff10 ; 0x1d17
-    adc word [bss_8f16], byte 0xff   ; 0x1d1d
-    jmp short @..api_idx_0018_USPR.l2 ; 0x1d22
-@..api_idx_0018_USPR.l3:
+    adc word [bss_8f16], byte -1     ; 0x1d1d
+    jmp short .back1                 ; 0x1d22
+.forward2:
     mov ax, word [game_time]         ; 0x1d24
     mov dx, word [game_time_hi]      ; 0x1d27
     mov word [bss_8f1a], dx          ; 0x1d2b
     mov word [bss_8f18], ax          ; 0x1d2f
     cmp word [bss_8450], byte 0      ; 0x1d32
-    jne short @..api_idx_0018_USPR.l4 ; 0x1d37
+    jne short .forward3              ; 0x1d37
     mov ax, 0x30                     ; 0x1d39
-    jmp short @..api_idx_0018_USPR.l5 ; 0x1d3c
-@..api_idx_0018_USPR.l4:
+    jmp short .forward4              ; 0x1d3c
+.forward3:
     mov ax, 0                        ; 0x1d3e
-@..api_idx_0018_USPR.l5:
+.forward4:
     mov word [bp - 0x12], ax         ; 0x1d41
     mov word [bp - 8], 0             ; 0x1d44
     mov word [bp - 0x14], 0          ; 0x1d49
     mov word [bp - 0x16], 0          ; 0x1d4e
     cmp word [game_state_arg], byte 0 ; 0x1d53
-    jne short @..api_idx_0018_USPR.l6 ; 0x1d58
+    jne short .back2                 ; 0x1d58
     mov ax, word [party_map_piece]   ; 0x1d5a
     mov cx, 6                        ; 0x1d5d
     shl ax, cl                       ; 0x1d60
@@ -84,31 +84,31 @@ api_idx_0018_USPR:
     call test_bit                    ; 0x1d7d
     add sp, byte 4                   ; 0x1d80
     mov word [bp - 0x14], ax         ; 0x1d83
-@..api_idx_0018_USPR.l6:
+.back2:
     mov ax, word [bp - 8]            ; 0x1d86
     cmp ax, word [bp - 0x12]         ; 0x1d89
-    jl short @..api_idx_0018_USPR.l7 ; 0x1d8c
+    jl short .forward5               ; 0x1d8c
     call gfx_is_music_playing        ; 0x1d8e
     test ax, ax                      ; 0x1d91
-    jne short @..api_idx_0018_USPR.l7 ; 0x1d93
-    jmp near @..api_idx_0018_USPR.l32 ; 0x1d95
-@..api_idx_0018_USPR.l7:
+    jne short .forward5              ; 0x1d93
+    jmp near .forward27              ; 0x1d95
+.forward5:
     cmp word [bss_91ae], byte 0      ; 0x1d98
-    je short @..api_idx_0018_USPR.l8 ; 0x1d9d
-    jmp near @..api_idx_0018_USPR.l32 ; 0x1d9f
-@..api_idx_0018_USPR.l8:
+    je short .forward6               ; 0x1d9d
+    jmp near .forward27              ; 0x1d9f
+.forward6:
     cmp word [game_state], byte 5    ; 0x1da2
-    je short @..api_idx_0018_USPR.l9 ; 0x1da7
-    jmp near @..api_idx_0018_USPR.l32 ; 0x1da9
-@..api_idx_0018_USPR.l9:
+    je short .back3                  ; 0x1da7
+    jmp near .forward27              ; 0x1da9
+.back3:
     call loc_QQOI                    ; 0x1dac
     test ax, ax                      ; 0x1daf
-    jne short @..api_idx_0018_USPR.l10 ; 0x1db1
-    jmp short @..api_idx_0018_USPR.l9 ; 0x1db3
-@..api_idx_0018_USPR.l10:
+    jne short .forward7              ; 0x1db1
+    jmp short .back3                 ; 0x1db3
+.forward7:
     mov word [bp - 2], 0             ; 0x1db5
-    jmp short @..api_idx_0018_USPR.l12 ; 0x1dba
-@..api_idx_0018_USPR.l11:
+    jmp short .forward8              ; 0x1dba
+.back4:
     mov ax, 0x248                    ; 0x1dbc
     imul word [bp - 2]               ; 0x1dbf
     mov bx, ax                       ; 0x1dc2
@@ -119,45 +119,45 @@ api_idx_0018_USPR:
     call draw_party_member_panel     ; 0x1dd0
     add sp, byte 4                   ; 0x1dd3
     inc word [bp - 2]                ; 0x1dd6
-@..api_idx_0018_USPR.l12:
+.forward8:
     mov ax, word [bp - 2]            ; 0x1dd9
     cmp ax, word [party_char_count]  ; 0x1ddc
-    jl short @..api_idx_0018_USPR.l11 ; 0x1de0
+    jl short .back4                  ; 0x1de0
     cmp word [bp - 0x14], byte 0     ; 0x1de2
-    je short @..api_idx_0018_USPR.l13 ; 0x1de6
+    je short .forward9               ; 0x1de6
     cmp word [bp - 0x16], byte 0     ; 0x1de8
-    jne short @..api_idx_0018_USPR.l13 ; 0x1dec
+    jne short .forward9              ; 0x1dec
     mov word [bp - 0x16], 1          ; 0x1dee
     call api_idx_0004_JLQH           ; 0x1df3
     test ax, ax                      ; 0x1df6
-    je short @..api_idx_0018_USPR.l13 ; 0x1df8
+    je short .forward9               ; 0x1df8
     mov bx, word [maze_tables]       ; 0x1dfa
     mov si, word [party_map_piece]   ; 0x1dfe
     mov al, byte [bx + si + spell_table + spell_table_rec_size*218 + spell_table_rec.f_0004] ; 0x1e02
     sub ah, ah                       ; 0x1e06
     mov word [party_region], ax      ; 0x1e08
-@..api_idx_0018_USPR.l13:
+.forward9:
     call poll_fullscreen_hotspot     ; 0x1e0b
     test ax, ax                      ; 0x1e0e
-    je short @..api_idx_0018_USPR.l14 ; 0x1e10
+    je short .forward10              ; 0x1e10
     mov word [bss_91ae], 1           ; 0x1e12
-@..api_idx_0018_USPR.l14:
+.forward10:
     call loc_QQOI                    ; 0x1e18
     test ax, ax                      ; 0x1e1b
-    jne short @..api_idx_0018_USPR.l15 ; 0x1e1d
+    jne short .forward11             ; 0x1e1d
     mov ax, 0xa                      ; 0x1e1f
     push ax                          ; 0x1e22
     call delay_ms                    ; 0x1e23
     pop cx                           ; 0x1e26
-@..api_idx_0018_USPR.l15:
+.forward11:
     cmp word [bp - 0x14], byte 0     ; 0x1e27
-    je short @..api_idx_0018_USPR.l16 ; 0x1e2b
+    je short .forward12              ; 0x1e2b
     mov word [bss_91ae], 0           ; 0x1e2d
-@..api_idx_0018_USPR.l16:
+.forward12:
     cmp word [bss_91ae], byte 0      ; 0x1e33
-    je short @..api_idx_0018_USPR.l17 ; 0x1e38
-    jmp near @..api_idx_0018_USPR.l31 ; 0x1e3a
-@..api_idx_0018_USPR.l17:
+    je short .forward13              ; 0x1e38
+    jmp near .forward26              ; 0x1e3a
+.forward13:
     inc word [bp - 8]                ; 0x1e3d
     add word [game_time], byte 0xa   ; 0x1e40
     adc word [game_time_hi], byte 0  ; 0x1e45
@@ -167,7 +167,7 @@ api_idx_0018_USPR:
     call api_idx_0002_IPQN           ; 0x1e51
     pop cx                           ; 0x1e54
     cmp word [bp - 8], byte 0x18     ; 0x1e55
-    jne short @..api_idx_0018_USPR.l18 ; 0x1e59
+    jne short .forward14             ; 0x1e59
     mov ax, 0x64                     ; 0x1e5b
     push ax                          ; 0x1e5e
     call random_below                ; 0x1e5f
@@ -179,55 +179,55 @@ api_idx_0018_USPR:
     pop cx                           ; 0x1e6d
     mov bx, word [bp - 2]            ; 0x1e6e
     mov byte [bx + code_characters], al ; 0x1e71
-@..api_idx_0018_USPR.l18:
+.forward14:
     mov word [bp - 2], 0             ; 0x1e75
-    jmp near @..api_idx_0018_USPR.l27 ; 0x1e7a
-@..api_idx_0018_USPR.l19:
+    jmp near .forward22              ; 0x1e7a
+.back5:
     mov ax, word [bp - 8]            ; 0x1e7d
     mov cx, 6                        ; 0x1e80
     cwd                              ; 0x1e83
     idiv cx                          ; 0x1e84
     mov ax, dx                       ; 0x1e86
     test ax, ax                      ; 0x1e88
-    jne short @..api_idx_0018_USPR.l20 ; 0x1e8a
+    jne short .forward15             ; 0x1e8a
     mov ax, 1                        ; 0x1e8c
-    jmp short @..api_idx_0018_USPR.l21 ; 0x1e8f
-@..api_idx_0018_USPR.l20:
+    jmp short .forward16             ; 0x1e8f
+.forward15:
     mov ax, 0                        ; 0x1e91
-@..api_idx_0018_USPR.l21:
+.forward16:
     push ax                          ; 0x1e94
     mov ax, 1                        ; 0x1e95
     push ax                          ; 0x1e98
     test dx, dx                      ; 0x1e99
-    jne short @..api_idx_0018_USPR.l22 ; 0x1e9b
+    jne short .forward17             ; 0x1e9b
     mov ax, 0x248                    ; 0x1e9d
     imul word [bp - 2]               ; 0x1ea0
     mov bx, ax                       ; 0x1ea3
     mov al, byte [bx + party_records + pc_rec.f_0241] ; 0x1ea5
     sub ah, ah                       ; 0x1ea9
-    jmp short @..api_idx_0018_USPR.l23 ; 0x1eab
-@..api_idx_0018_USPR.l22:
+    jmp short .forward18             ; 0x1eab
+.forward17:
     mov ax, 0                        ; 0x1ead
-@..api_idx_0018_USPR.l23:
+.forward18:
     push ax                          ; 0x1eb0
     mov ax, word [bp - 8]            ; 0x1eb1
     cwd                              ; 0x1eb4
     idiv cx                          ; 0x1eb5
     mov ax, dx                       ; 0x1eb7
     test ax, ax                      ; 0x1eb9
-    jne short @..api_idx_0018_USPR.l24 ; 0x1ebb
+    jne short .forward19             ; 0x1ebb
     cmp word [bp - 0xe], byte 0      ; 0x1ebd
-    jle short @..api_idx_0018_USPR.l24 ; 0x1ec1
+    jle short .forward19             ; 0x1ec1
     mov ax, 0x248                    ; 0x1ec3
     imul word [bp - 2]               ; 0x1ec6
     mov bx, ax                       ; 0x1ec9
     mov al, byte [bx + party_records + pc_rec.f_0240] ; 0x1ecb
     sub ah, ah                       ; 0x1ecf
     inc ax                           ; 0x1ed1
-    jmp short @..api_idx_0018_USPR.l25 ; 0x1ed2
-@..api_idx_0018_USPR.l24:
+    jmp short .forward20             ; 0x1ed2
+.forward19:
     mov ax, 0                        ; 0x1ed4
-@..api_idx_0018_USPR.l25:
+.forward20:
     push ax                          ; 0x1ed7
     push word [bp - 2]               ; 0x1ed8
     call api_idx_000a_TQHL           ; 0x1edb
@@ -248,18 +248,18 @@ api_idx_0018_USPR:
     idiv cx                          ; 0x1efe
     mov ax, dx                       ; 0x1f00
     test ax, ax                      ; 0x1f02
-    jne short @..api_idx_0018_USPR.l26 ; 0x1f04
+    jne short .forward21             ; 0x1f04
     cmp byte [bx + party_records + pc_rec.f_023e], 0 ; 0x1f06
-    jbe short @..api_idx_0018_USPR.l26 ; 0x1f0b
+    jbe short .forward21             ; 0x1f0b
     dec byte [bx + party_records + pc_rec.f_023e] ; 0x1f0d
-@..api_idx_0018_USPR.l26:
+.forward21:
     inc word [bp - 2]                ; 0x1f11
-@..api_idx_0018_USPR.l27:
+.forward22:
     mov ax, word [bp - 2]            ; 0x1f14
     cmp ax, word [party_char_count]  ; 0x1f17
-    jge short @..api_idx_0018_USPR.l28 ; 0x1f1b
-    jmp near @..api_idx_0018_USPR.l19 ; 0x1f1d
-@..api_idx_0018_USPR.l28:
+    jge short .forward23             ; 0x1f1b
+    jmp near .back5                  ; 0x1f1d
+.forward23:
     push word [party_char_count]     ; 0x1f20
     call random_below                ; 0x1f24
     pop cx                           ; 0x1f27
@@ -273,19 +273,19 @@ api_idx_0018_USPR:
     idiv cx                          ; 0x1f3b
     mov ax, dx                       ; 0x1f3d
     test ax, ax                      ; 0x1f3f
-    jne short @..api_idx_0018_USPR.l31 ; 0x1f41
+    jne short .forward26             ; 0x1f41
     call api_idx_0032_TNQM           ; 0x1f43
     dec word [bp - 0xe]              ; 0x1f46
     mov ax, 0x3cf                    ; 0x1f49
     cmp byte [bss_5988], 1           ; 0x1f4c
-    jne short @..api_idx_0018_USPR.l29 ; 0x1f51
+    jne short .forward24             ; 0x1f51
     mov ax, 0x3de                    ; 0x1f53
-@..api_idx_0018_USPR.l29:
+.forward24:
     mov word [bp - 0x10], ax         ; 0x1f56
     cmp word [bss_91b0], byte 0      ; 0x1f59
-    jne short @..api_idx_0018_USPR.l31 ; 0x1f5e
+    jne short .forward26             ; 0x1f5e
     cmp word [bp - 0x14], byte 0     ; 0x1f60
-    jne short @..api_idx_0018_USPR.l31 ; 0x1f64
+    jne short .forward26             ; 0x1f64
     mov ax, 0x3e8                    ; 0x1f66
     push ax                          ; 0x1f69
     call random_below                ; 0x1f6a
@@ -293,20 +293,20 @@ api_idx_0018_USPR:
     mov cx, ax                       ; 0x1f6e
     mov ax, word [bp - 0x10]         ; 0x1f70
     cmp cx, ax                       ; 0x1f73
-    jl short @..api_idx_0018_USPR.l31 ; 0x1f75
+    jl short .forward26              ; 0x1f75
     cmp word [bss_8450], byte 0      ; 0x1f77
-    je short @..api_idx_0018_USPR.l30 ; 0x1f7c
+    je short .forward25              ; 0x1f7c
     call gfx_stop_music              ; 0x1f7e
     mov ax, 0                        ; 0x1f81
     push ax                          ; 0x1f84
     call app_gfx_free_score          ; 0x1f85
     pop cx                           ; 0x1f88
-@..api_idx_0018_USPR.l30:
+.forward25:
     mov ax, 1                        ; 0x1f89
     ret                              ; 0x1f8c
-@..api_idx_0018_USPR.l31:
-    jmp near @..api_idx_0018_USPR.l6 ; 0x1f8d
-@..api_idx_0018_USPR.l32:
+.forward26:
+    jmp near .back2                  ; 0x1f8d
+.forward27:
     mov ax, 0x98                     ; 0x1f90
     push ax                          ; 0x1f93
     mov ax, 0x13f                    ; 0x1f94
@@ -323,16 +323,16 @@ api_idx_0018_USPR:
     pop cx                           ; 0x1fad
     mov word [bp - 4], ax            ; 0x1fae
     mov word [bp - 2], 0             ; 0x1fb1
-    jmp short @..api_idx_0018_USPR.l36 ; 0x1fb6
-@..api_idx_0018_USPR.l33:
+    jmp short .forward30             ; 0x1fb6
+.back6:
     cmp word [bp - 4], byte 0        ; 0x1fb8
-    je short @..api_idx_0018_USPR.l34 ; 0x1fbc
+    je short .forward28              ; 0x1fbc
     mov ax, 0x248                    ; 0x1fbe
     imul word [bp - 2]               ; 0x1fc1
     mov bx, ax                       ; 0x1fc4
     add word [bx + party_records + pc_rec.f_0008], byte 1 ; 0x1fc6
     adc word [bx + party_records + pc_rec.f_000a], byte 0 ; 0x1fcb
-@..api_idx_0018_USPR.l34:
+.forward28:
     mov ax, 0x248                    ; 0x1fd0
     imul word [bp - 2]               ; 0x1fd3
     mov bx, ax                       ; 0x1fd6
@@ -345,22 +345,22 @@ api_idx_0018_USPR:
     mov cx, ax                       ; 0x1fe7
     pop ax                           ; 0x1fe9
     cmp ax, cx                       ; 0x1fea
-    jle short @..api_idx_0018_USPR.l35 ; 0x1fec
+    jle short .forward29             ; 0x1fec
     mov byte [bx + party_records + pc_rec.status + 0x2], 0 ; 0x1fee
-@..api_idx_0018_USPR.l35:
+.forward29:
     mov ax, 1                        ; 0x1ff3
     push ax                          ; 0x1ff6
     push word [bp - 2]               ; 0x1ff7
     call draw_party_member_panel     ; 0x1ffa
     add sp, byte 4                   ; 0x1ffd
     inc word [bp - 2]                ; 0x2000
-@..api_idx_0018_USPR.l36:
+.forward30:
     mov ax, word [bp - 2]            ; 0x2003
     cmp ax, word [party_char_count]  ; 0x2006
-    jl short @..api_idx_0018_USPR.l33 ; 0x200a
+    jl short .back6                  ; 0x200a
     call loc_QQOI                    ; 0x200c
     cmp word [bss_8450], byte 0      ; 0x200f
-    je short @..api_idx_0018_USPR.l37 ; 0x2014
+    je short .forward31              ; 0x2014
     push word [bss_844c]             ; 0x2016
     push word [bss_844e]             ; 0x201a
     call fade_out_music              ; 0x201e
@@ -369,7 +369,7 @@ api_idx_0018_USPR:
     push ax                          ; 0x2027
     call app_gfx_free_score          ; 0x2028
     pop cx                           ; 0x202b
-@..api_idx_0018_USPR.l37:
+.forward31:
     call loc_VRKM                    ; 0x202c
     mov ax, 0                        ; 0x202f
     ret                              ; 0x2032

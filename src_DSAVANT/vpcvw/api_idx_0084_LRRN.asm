@@ -6,24 +6,24 @@ api_idx_0084_LRRN:
     mov word [bp - 8], 0             ; 0x40fa
     mov ax, word [index_range2_first] ; 0x40ff
     mov word [bp - 2], ax            ; 0x4102
-    jmp short @..api_idx_0084_LRRN.l3 ; 0x4105
-@..api_idx_0084_LRRN.l1:
+    jmp short .forward2              ; 0x4105
+.back1:
     mov ax, 0x248                    ; 0x4107
     imul word [bp + 4]               ; 0x410a
     add ax, word [bp - 2]            ; 0x410d
     mov bx, ax                       ; 0x4110
     cmp byte [bx + party_records + pc_rec.flag], 0 ; 0x4112
-    jbe short @..api_idx_0084_LRRN.l2 ; 0x4117
+    jbe short .forward1              ; 0x4117
     mov word [bp - 8], 1             ; 0x4119
-@..api_idx_0084_LRRN.l2:
+.forward1:
     inc word [bp - 2]                ; 0x411e
-@..api_idx_0084_LRRN.l3:
+.forward2:
     mov ax, word [bp - 2]            ; 0x4121
     cmp ax, word [index_range2_last] ; 0x4124
-    jle short @..api_idx_0084_LRRN.l1 ; 0x4128
+    jle short .back1                 ; 0x4128
     mov word [bp - 0xa], 0           ; 0x412a
     mov word [bp - 0xc], 0           ; 0x412f
-@..api_idx_0084_LRRN.l4:
+.back2:
     lea ax, word [bp - 0x34]         ; 0x4134
     push ax                          ; 0x4137
     push word [bp - 4]               ; 0x4138
@@ -39,7 +39,7 @@ api_idx_0084_LRRN:
     call draw_known_spell_values     ; 0x4154
     add sp, byte 8                   ; 0x4157
     mov word [bp - 2], 0             ; 0x415a
-@..api_idx_0084_LRRN.l5:
+.back3:
     mov ax, word [bp - 2]            ; 0x415f
     shl ax, 1                        ; 0x4162
     mov bx, ax                       ; 0x4164
@@ -48,7 +48,7 @@ api_idx_0084_LRRN:
     inc word [bp - 2]                ; 0x416d
     mov ax, word [bp - 2]            ; 0x4170
     cmp ax, strict word 4            ; 0x4173
-    jle short @..api_idx_0084_LRRN.l5 ; 0x4176
+    jle short .back3                 ; 0x4176
     mov ax, word [bp - 8]            ; 0x4178
     mov word [bp - 0x1c], ax         ; 0x417b
     mov word [bp - 0x16], 0xffff     ; 0x417e
@@ -108,7 +108,7 @@ api_idx_0084_LRRN:
     add sp, byte 0x12                ; 0x41f9
     mov ax, word [bp - 0xa]          ; 0x41fc
     cmp ax, word [bp - 4]            ; 0x41ff
-    je short @..api_idx_0084_LRRN.l6 ; 0x4202
+    je short .forward3               ; 0x4202
     lea ax, word [bp - 0x84]         ; 0x4204
     push ax                          ; 0x4208
     mov ax, word [bp - 0xa]          ; 0x4209
@@ -134,13 +134,13 @@ api_idx_0084_LRRN:
     push ax                          ; 0x4236
     call api_idx_0008_SKNL           ; 0x4237
     add sp, byte 0x12                ; 0x423a
-@..api_idx_0084_LRRN.l6:
+.forward3:
     mov ax, word [bp - 4]            ; 0x423d
     mov word [bp - 0xa], ax          ; 0x4240
     mov ax, word [bss_9052]          ; 0x4243
     mov word [bp - 0xc], ax          ; 0x4246
     cmp word [bp - 4], byte 4        ; 0x4249
-    je short @..api_idx_0084_LRRN.l7 ; 0x424d
-    jmp near @..api_idx_0084_LRRN.l4 ; 0x424f
-@..api_idx_0084_LRRN.l7:
+    je short .return1                ; 0x424d
+    jmp near .back2                  ; 0x424f
+.return1:
     ret                              ; 0x4252

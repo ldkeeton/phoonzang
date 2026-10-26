@@ -173,7 +173,7 @@ api_idx_0054_RLST:
     mov bx, 0                        ; 0x1ce1
     call aztec_ldv                   ; 0x1ce4
     add ax, strict word 0xffee       ; 0x1ce7
-    adc dx, byte 0xff                ; 0x1cea
+    adc dx, byte -1                  ; 0x1cea
     mov cx, 4                        ; 0x1ced
     mov bx, 0                        ; 0x1cf0
     call aztec_ldv                   ; 0x1cf3
@@ -193,7 +193,7 @@ api_idx_0054_RLST:
     mov cx, ax                       ; 0x1d0f
     mov bx, dx                       ; 0x1d11
     add ax, strict word 0xffff       ; 0x1d13
-    adc dx, byte 0xff                ; 0x1d16
+    adc dx, byte -1                  ; 0x1d16
     mov cx, ax                       ; 0x1d19
     mov bx, dx                       ; 0x1d1b
     mov ax, 0x14                     ; 0x1d1d
@@ -238,12 +238,12 @@ api_idx_0054_RLST:
     imul word [bp + 4]               ; 0x1d72
     mov bx, ax                       ; 0x1d75
     cmp byte [bx + party_records + pc_rec.state], 3 ; 0x1d77
-    jae short @..api_idx_0054_RLST.l1 ; 0x1d7c
+    jae short .forward1              ; 0x1d7c
     mov ax, 0                        ; 0x1d7e
-    jmp short @..api_idx_0054_RLST.l2 ; 0x1d81
-@..api_idx_0054_RLST.l1:
+    jmp short .forward2              ; 0x1d81
+.forward1:
     mov ax, 1                        ; 0x1d83
-@..api_idx_0054_RLST.l2:
+.forward2:
     mov word [banner_plain_flag], ax ; 0x1d86
     mov word [bss_95ae], 0           ; 0x1d89
     push word [bss_95ae]             ; 0x1d8f
@@ -504,14 +504,14 @@ api_idx_0054_RLST:
     idiv cx                          ; 0x1ff5
     mov word [bp - 4], ax            ; 0x1ff7
     cmp ax, strict word 1            ; 0x1ffa
-    jge short @..api_idx_0054_RLST.l3 ; 0x1ffd
+    jge short .forward3              ; 0x1ffd
     cmp word [bx + party_records + pc_rec.pair_b], byte 0 ; 0x1fff
-    jle short @..api_idx_0054_RLST.l3 ; 0x2004
+    jle short .forward3              ; 0x2004
     mov ax, 1                        ; 0x2006
-    jmp short @..api_idx_0054_RLST.l4 ; 0x2009
-@..api_idx_0054_RLST.l3:
+    jmp short .forward4              ; 0x2009
+.forward3:
     mov ax, word [bp - 4]            ; 0x200b
-@..api_idx_0054_RLST.l4:
+.forward4:
     mov word [bp - 4], ax            ; 0x200e
     lea ax, word [bp - 0x54]         ; 0x2011
     push ax                          ; 0x2014

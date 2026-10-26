@@ -26,11 +26,11 @@ api_idx_0004_NRTK:
     call show_area_set               ; 0x4e81
     pop cx                           ; 0x4e84
     cmp word [bp - 4], byte 0        ; 0x4e85
-    je short @..api_idx_0004_NRTK.l1 ; 0x4e89
+    je short .forward1               ; 0x4e89
     mov word [game_state], 0xe       ; 0x4e8b
-    jmp short @..api_idx_0004_NRTK.l2 ; 0x4e91
-@..api_idx_0004_NRTK.l1:
+    jmp short .return1               ; 0x4e91
+.forward1:
     call api_idx_0002_GMMK           ; 0x4e93
     mov word [game_state], 0xd       ; 0x4e96
-@..api_idx_0004_NRTK.l2:
+.return1:
     ret                              ; 0x4e9c

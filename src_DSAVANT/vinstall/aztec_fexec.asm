@@ -38,13 +38,13 @@ aztec_fexec:
     mov sp, word [cs:aztec_fexec_save_sp - IMAGE_BASE] ; 0x2a7d
     pop es                           ; 0x2a82
     pop ds                           ; 0x2a83
-    jae short @..aztec_fexec.noerror ; 0x2a84
+    jae short .noerror               ; 0x2a84
     mov word [errno], ax             ; 0x2a86
     mov ax, 0xffff                   ; 0x2a89
-    jmp short @..aztec_fexec.done    ; 0x2a8c
-@..aztec_fexec.noerror:
+    jmp short .done                  ; 0x2a8c
+.noerror:
     sub ax, ax                       ; 0x2a8e
-@..aztec_fexec.done:
+.done:
     pop word [dseg_002e]             ; 0x2a90
     pop word [dseg_0030]             ; 0x2a94
     popf                             ; 0x2a98

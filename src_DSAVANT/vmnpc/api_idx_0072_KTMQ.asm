@@ -3,7 +3,7 @@ api_idx_0072_KTMQ:
     mov ax, 0xff8e                   ; 0x5e96
     call aztec_csav                  ; 0x5e99
     mov word [bp - 4], 0             ; 0x5e9c
-@..api_idx_0072_KTMQ.l1:
+.back1:
     mov ax, word [bp - 4]            ; 0x5ea1
     shl ax, 1                        ; 0x5ea4
     mov bx, ax                       ; 0x5ea6
@@ -12,14 +12,14 @@ api_idx_0072_KTMQ:
     inc word [bp - 4]                ; 0x5eaf
     mov ax, word [bp - 4]            ; 0x5eb2
     cmp ax, strict word 4            ; 0x5eb5
-    jle short @..api_idx_0072_KTMQ.l1 ; 0x5eb8
+    jle short .back1                 ; 0x5eb8
     mov al, byte [bss_91cb]          ; 0x5eba
     sub ah, ah                       ; 0x5ebd
     test ax, 2                       ; 0x5ebf
-    je short @..api_idx_0072_KTMQ.l2 ; 0x5ec2
+    je short .forward1               ; 0x5ec2
     mov word [bp - 0x18], 0          ; 0x5ec4
     mov word [bp - 0x16], 0          ; 0x5ec9
-@..api_idx_0072_KTMQ.l2:
+.forward1:
     mov word [bp - 0xe], 0xffff      ; 0x5ece
     mov ax, 0x248                    ; 0x5ed3
     imul word [bp + 4]               ; 0x5ed6
@@ -38,16 +38,16 @@ api_idx_0072_KTMQ:
     push word [bp + 4]               ; 0x5ef5
     call api_idx_004c_OGSK           ; 0x5ef8
     pop cx                           ; 0x5efb
-@..api_idx_0072_KTMQ.l3:
+.back2:
     cmp word [bss_9cd2], byte 0      ; 0x5efc
-    jg short @..api_idx_0072_KTMQ.l4 ; 0x5f01
+    jg short .forward2               ; 0x5f01
     mov word [bp - 0x18], 0          ; 0x5f03
-@..api_idx_0072_KTMQ.l4:
+.forward2:
     cmp word [bss_9ca8], byte 0      ; 0x5f08
-    jne short @..api_idx_0072_KTMQ.l5 ; 0x5f0d
+    jne short .forward3              ; 0x5f0d
     mov word [bp - 0x16], 0          ; 0x5f0f
     mov word [bp - 0x14], 0          ; 0x5f14
-@..api_idx_0072_KTMQ.l5:
+.forward3:
     lea ax, word [bp - 0x18]         ; 0x5f19
     push ax                          ; 0x5f1c
     mov ax, 4                        ; 0x5f1d
@@ -62,13 +62,13 @@ api_idx_0072_KTMQ:
     call api_idx_0054_IHKM           ; 0x5f30
     add sp, byte 0xc                 ; 0x5f33
     mov word [bp - 4], ax            ; 0x5f36
-    jmp near @..api_idx_0072_KTMQ.l12 ; 0x5f39
-@..api_idx_0072_KTMQ.l6:
+    jmp near .forward6               ; 0x5f39
+.back3:
     push word [bp + 4]               ; 0x5f3c
     call api_idx_0006_RKSL           ; 0x5f3f
     pop cx                           ; 0x5f42
-    jmp near @..api_idx_0072_KTMQ.l13 ; 0x5f43
-@..api_idx_0072_KTMQ.l7:
+    jmp near .forward7               ; 0x5f43
+.back4:
     mov ax, 0                        ; 0x5f46
     push ax                          ; 0x5f49
     mov ax, 1                        ; 0x5f4a
@@ -79,11 +79,11 @@ api_idx_0072_KTMQ:
     call api_idx_0006_GQUO           ; 0x5f55
     add sp, byte 8                   ; 0x5f58
     test ax, ax                      ; 0x5f5b
-    je short @..api_idx_0072_KTMQ.l8 ; 0x5f5d
+    je short .forward4               ; 0x5f5d
     mov word [bp - 4], 4             ; 0x5f5f
-@..api_idx_0072_KTMQ.l8:
-    jmp short @..api_idx_0072_KTMQ.l13 ; 0x5f64
-@..api_idx_0072_KTMQ.l9:
+.forward4:
+    jmp short .forward7              ; 0x5f64
+.back5:
     mov ax, 1                        ; 0x5f66
     push ax                          ; 0x5f69
     push ax                          ; 0x5f6a
@@ -93,11 +93,11 @@ api_idx_0072_KTMQ:
     call api_idx_0006_GQUO           ; 0x5f72
     add sp, byte 8                   ; 0x5f75
     test ax, ax                      ; 0x5f78
-    je short @..api_idx_0072_KTMQ.l10 ; 0x5f7a
+    je short .forward5               ; 0x5f7a
     mov word [bp - 4], 4             ; 0x5f7c
-@..api_idx_0072_KTMQ.l10:
-    jmp short @..api_idx_0072_KTMQ.l13 ; 0x5f81
-@..api_idx_0072_KTMQ.l11:
+.forward5:
+    jmp short .forward7              ; 0x5f81
+.back6:
     push word [bp + 4]               ; 0x5f83
     call api_idx_0006_TLLQ           ; 0x5f86
     pop cx                           ; 0x5f89
@@ -119,19 +119,19 @@ api_idx_0072_KTMQ:
     push ax                          ; 0x5fab
     call show_area_set               ; 0x5fac
     pop cx                           ; 0x5faf
-    jmp short @..api_idx_0072_KTMQ.l13 ; 0x5fb0
-@..api_idx_0072_KTMQ.l12:
+    jmp short .forward7              ; 0x5fb0
+.forward6:
     cmp ax, strict word 0            ; 0x5fb2
-    je short @..api_idx_0072_KTMQ.l6 ; 0x5fb5
+    je short .back3                  ; 0x5fb5
     cmp ax, strict word 1            ; 0x5fb7
-    je short @..api_idx_0072_KTMQ.l7 ; 0x5fba
+    je short .back4                  ; 0x5fba
     cmp ax, strict word 2            ; 0x5fbc
-    je short @..api_idx_0072_KTMQ.l9 ; 0x5fbf
+    je short .back5                  ; 0x5fbf
     cmp ax, strict word 3            ; 0x5fc1
-    je short @..api_idx_0072_KTMQ.l11 ; 0x5fc4
-@..api_idx_0072_KTMQ.l13:
+    je short .back6                  ; 0x5fc4
+.forward7:
     cmp word [bp - 4], byte 4        ; 0x5fc6
-    je short @..api_idx_0072_KTMQ.l14 ; 0x5fca
-    jmp near @..api_idx_0072_KTMQ.l3 ; 0x5fcc
-@..api_idx_0072_KTMQ.l14:
+    je short .return1                ; 0x5fca
+    jmp near .back2                  ; 0x5fcc
+.return1:
     ret                              ; 0x5fcf

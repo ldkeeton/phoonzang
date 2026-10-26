@@ -3,9 +3,9 @@ draw_party_glyph_row:
     mov ax, 0xfff2
     call aztec_csav
     cmp word [marker_mode], byte 0
-    jg short @..draw_party_glyph_row.l1
-    jmp near @..draw_party_glyph_row.l8
-@..draw_party_glyph_row.l1:
+    jg short .forward1
+    jmp near .return1
+.forward1:
     mov ax, word [party_tag]
     mov cx, word [marker_mode]
     dec cx
@@ -16,39 +16,39 @@ draw_party_glyph_row:
     idiv cx
     mov word [bp - 2], dx
     mov ax, dx
-    jmp short @..draw_party_glyph_row.l6
-@..draw_party_glyph_row.l2:
+    jmp short .forward4
+.back1:
     mov byte [bp - 0xe], 1
     mov byte [bp - 0xd], 2
     mov ax, 5
     cmp word [bp - 2], byte 0
-    jne short @..draw_party_glyph_row.l3
+    jne short .forward2
     mov ax, 4
-@..draw_party_glyph_row.l3:
+.forward2:
     mov byte [bp - 0xc], al
     mov byte [bp - 0xb], 0
     mov word [bp - 4], 0
-    jmp short @..draw_party_glyph_row.l7
-@..draw_party_glyph_row.l4:
+    jmp short .forward5
+.back2:
     mov byte [bp - 0xe], 3
     mov byte [bp - 0xd], 0
     mov ax, 0
     cmp word [bp - 2], byte 3
-    jne short @..draw_party_glyph_row.l5
+    jne short .forward3
     mov ax, 1
-@..draw_party_glyph_row.l5:
+.forward3:
     mov word [bp - 4], ax
-    jmp short @..draw_party_glyph_row.l7
-@..draw_party_glyph_row.l6:
+    jmp short .forward5
+.forward4:
     cmp ax, strict word 0
-    je short @..draw_party_glyph_row.l2
+    je short .back1
     cmp ax, strict word 1
-    je short @..draw_party_glyph_row.l4
+    je short .back2
     cmp ax, strict word 2
-    je short @..draw_party_glyph_row.l2
+    je short .back1
     cmp ax, strict word 3
-    je short @..draw_party_glyph_row.l4
-@..draw_party_glyph_row.l7:
+    je short .back2
+.forward5:
     mov ax, 0
     push ax
     push ax
@@ -82,5 +82,5 @@ draw_party_glyph_row:
     push ax
     call gfx_draw_text
     add sp, byte 0x16
-@..draw_party_glyph_row.l8:
+.return1:
     ret

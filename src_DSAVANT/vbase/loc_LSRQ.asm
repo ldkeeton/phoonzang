@@ -31,19 +31,19 @@ loc_LSRQ:
     mov word [bp - 0x154], ax        ; 0x027c
     mov word [bp - 2], 0             ; 0x0280
     mov word [bp - 4], 0             ; 0x0285
-@..loc_LSRQ.l1:
+.back1:
     mov ax, word [bp - 4]            ; 0x028a
     shl ax, 1                        ; 0x028d
     mov si, ax                       ; 0x028f
     mov bx, word [bp + 0x12]         ; 0x0291
-    cmp word [bx + si], byte 0xff    ; 0x0294
-    jne short @..loc_LSRQ.l2         ; 0x0297
-    jmp near @..loc_LSRQ.l5          ; 0x0299
-@..loc_LSRQ.l2:
+    cmp word [bx + si], byte -1      ; 0x0294
+    jne short .forward1              ; 0x0297
+    jmp near .forward4               ; 0x0299
+.forward1:
     cmp word [bx + si], byte 1       ; 0x029c
-    je short @..loc_LSRQ.l3          ; 0x029f
-    jmp near @..loc_LSRQ.l4          ; 0x02a1
-@..loc_LSRQ.l3:
+    je short .forward2               ; 0x029f
+    jmp near .forward3               ; 0x02a1
+.forward2:
     mov ax, 0x14                     ; 0x02a4
     imul word [bp - 2]               ; 0x02a7
     lea cx, word [bp - 0x152]        ; 0x02aa
@@ -146,10 +146,10 @@ loc_LSRQ:
     add bx, bp                       ; 0x039d
     mov word [bx - 0x26], ax         ; 0x039f
     inc word [bp - 2]                ; 0x03a2
-@..loc_LSRQ.l4:
+.forward3:
     inc word [bp - 4]                ; 0x03a5
-    jmp near @..loc_LSRQ.l1          ; 0x03a8
-@..loc_LSRQ.l5:
+    jmp near .back1                  ; 0x03a8
+.forward4:
     mov ax, 0                        ; 0x03ab
     push ax                          ; 0x03ae
     push ax                          ; 0x03af
@@ -176,19 +176,19 @@ loc_LSRQ:
     call gfx_show_area               ; 0x03d4
     add sp, byte 8                   ; 0x03d7
     cmp word [mouse_active], byte 0  ; 0x03da
-    je short @..loc_LSRQ.l7          ; 0x03df
-@..loc_LSRQ.l6:
+    je short .forward5               ; 0x03df
+.back2:
     mov ax, hotspot_rects            ; 0x03e1
     push ax                          ; 0x03e4
     call poll_hotspots               ; 0x03e5
     pop cx                           ; 0x03e8
     mov word [bp - 4], ax            ; 0x03e9
     cmp word [hotspot_hit], byte 0   ; 0x03ec
-    je short @..loc_LSRQ.l6          ; 0x03f1
-    jmp near @..loc_LSRQ.l16         ; 0x03f3
-@..loc_LSRQ.l7:
+    je short .back2                  ; 0x03f1
+    jmp near .forward10              ; 0x03f3
+.forward5:
     mov word [bp - 4], 0             ; 0x03f6
-@..loc_LSRQ.l8:
+.back3:
     mov ax, 0x16                     ; 0x03fb
     push ax                          ; 0x03fe
     mov ax, word [bp - 4]            ; 0x03ff
@@ -247,47 +247,47 @@ loc_LSRQ:
     push ax                          ; 0x047e
     call loc_MNNG                    ; 0x047f
     add sp, byte 0xa                 ; 0x0482
-@..loc_LSRQ.l9:
+.back4:
     mov ax, 1                        ; 0x0485
     push ax                          ; 0x0488
     call poll_filtered_key           ; 0x0489
     pop cx                           ; 0x048c
     test ax, ax                      ; 0x048d
-    jne short @..loc_LSRQ.l10        ; 0x048f
-    jmp short @..loc_LSRQ.l9         ; 0x0491
-@..loc_LSRQ.l10:
+    jne short .forward6              ; 0x048f
+    jmp short .back4                 ; 0x0491
+.forward6:
     mov ax, 1                        ; 0x0493
     push ax                          ; 0x0496
     call get_filtered_key            ; 0x0497
     pop cx                           ; 0x049a
     sub ah, ah                       ; 0x049b
     mov word [bp - 0x156], ax        ; 0x049d
-    jmp short @..loc_LSRQ.l13        ; 0x04a1
-@..loc_LSRQ.l11:
+    jmp short .forward7              ; 0x04a1
+.back5:
     mov ax, word [bp - 4]            ; 0x04a3
     add ax, word [bp - 2]            ; 0x04a6
     dec ax                           ; 0x04a9
     cwd                              ; 0x04aa
     idiv word [bp - 2]               ; 0x04ab
     mov word [bp - 4], dx            ; 0x04ae
-    jmp short @..loc_LSRQ.l14        ; 0x04b1
-@..loc_LSRQ.l12:
+    jmp short .forward8              ; 0x04b1
+.back6:
     mov ax, word [bp - 4]            ; 0x04b3
     inc ax                           ; 0x04b6
     cwd                              ; 0x04b7
     idiv word [bp - 2]               ; 0x04b8
     mov word [bp - 4], dx            ; 0x04bb
-    jmp short @..loc_LSRQ.l14        ; 0x04be
-@..loc_LSRQ.l13:
+    jmp short .forward8              ; 0x04be
+.forward7:
     cmp ax, strict word 9            ; 0x04c0
-    je short @..loc_LSRQ.l11         ; 0x04c3
+    je short .back5                  ; 0x04c3
     cmp ax, strict word 0xb          ; 0x04c5
-    je short @..loc_LSRQ.l12         ; 0x04c8
-@..loc_LSRQ.l14:
+    je short .back6                  ; 0x04c8
+.forward8:
     cmp word [bp - 0x156], byte 0xd  ; 0x04ca
-    je short @..loc_LSRQ.l15         ; 0x04cf
-    jmp near @..loc_LSRQ.l8          ; 0x04d1
-@..loc_LSRQ.l15:
+    je short .forward9               ; 0x04cf
+    jmp near .back3                  ; 0x04d1
+.forward9:
     inc word [bp - 4]                ; 0x04d4
     mov ax, word [bp - 8]            ; 0x04d7
     inc ax                           ; 0x04da
@@ -303,7 +303,7 @@ loc_LSRQ:
     push ax                          ; 0x04ea
     call gfx_show_area               ; 0x04eb
     add sp, byte 8                   ; 0x04ee
-@..loc_LSRQ.l16:
+.forward10:
     dec word [bp - 4]                ; 0x04f1
     mov ax, 1                        ; 0x04f4
     push ax                          ; 0x04f7

@@ -60,7 +60,7 @@ api_idx_0004_MKGU:
     sub ah, ah
     mov bx, ax
     cmp byte [bx + cell_overlay_code + 0x58], 1
-    jne short @..api_idx_0004_MKGU.l1
+    jne short .return1
     mov ax, word [bp - 4]
     add ax, strict word 6
     push ax
@@ -85,5 +85,5 @@ api_idx_0004_MKGU:
     push ax
     call draw_number_field
     add sp, byte 6
-@..api_idx_0004_MKGU.l1:
+.return1:
     ret

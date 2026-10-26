@@ -5,8 +5,8 @@ advance_member_item_actions:
     mov word [bp - 2], 0             ; 0x14ec
     mov word [bp - 0xa], 0           ; 0x14f1
     mov word [bp - 4], 0             ; 0x14f6
-    jmp near @..advance_member_item_actions.l5 ; 0x14fb
-@..advance_member_item_actions.l1:
+    jmp near .forward4               ; 0x14fb
+.back1:
     mov ax, 0x2c                     ; 0x14fe
     imul word [bp - 4]               ; 0x1501
     mov si, ax                       ; 0x1504
@@ -15,7 +15,7 @@ advance_member_item_actions:
     mov bx, ax                       ; 0x150b
     mov bx, word [bx + party_char]   ; 0x150d
     cmp byte [bx + si + member_rec.item_state], 3 ; 0x1511
-    jae short @..advance_member_item_actions.l2 ; 0x1515
+    jae short .forward1              ; 0x1515
     mov ax, 0                        ; 0x1517
     push ax                          ; 0x151a
     mov ax, word [bp + 4]            ; 0x151b
@@ -30,9 +30,9 @@ advance_member_item_actions:
     call advance_item_slot_action    ; 0x1533
     add sp, byte 8                   ; 0x1536
     cmp ax, strict word 1            ; 0x1539
-    jne short @..advance_member_item_actions.l2 ; 0x153c
+    jne short .forward1              ; 0x153c
     inc word [bp - 0xa]              ; 0x153e
-@..advance_member_item_actions.l2:
+.forward1:
     mov ax, 0x2c                     ; 0x1541
     imul word [bp - 4]               ; 0x1544
     mov si, ax                       ; 0x1547
@@ -41,7 +41,7 @@ advance_member_item_actions:
     mov bx, ax                       ; 0x154e
     mov bx, word [bx + party_char]   ; 0x1550
     cmp byte [bx + si + member_rec.item_state], 3 ; 0x1554
-    jae short @..advance_member_item_actions.l4 ; 0x1558
+    jae short .forward3              ; 0x1558
     add bx, si                       ; 0x155a
     mov si, bx                       ; 0x155c
     mov ax, 0x2c                     ; 0x155e
@@ -65,7 +65,7 @@ advance_member_item_actions:
     mov bx, ax                       ; 0x158b
     mov bx, word [bx + party_char]   ; 0x158d
     cmp byte [bx + si + member_rec.item_cell], 0xff ; 0x1591
-    je short @..advance_member_item_actions.l3 ; 0x1595
+    je short .forward2               ; 0x1595
     mov al, byte [bx + si + 0x2a]    ; 0x1597
     cbw                              ; 0x159a
     mov cx, 0xa                      ; 0x159b
@@ -90,11 +90,11 @@ advance_member_item_actions:
     mov bx, ax                       ; 0x15c6
     pop ax                           ; 0x15c8
     mov word [bx + cell_slot_ref], ax ; 0x15c9
-@..advance_member_item_actions.l3:
+.forward2:
     inc word [bp - 2]                ; 0x15cd
-@..advance_member_item_actions.l4:
+.forward3:
     inc word [bp - 4]                ; 0x15d0
-@..advance_member_item_actions.l5:
+.forward4:
     mov ax, word [bp + 4]            ; 0x15d3
     shl ax, 1                        ; 0x15d6
     mov bx, ax                       ; 0x15d8
@@ -102,13 +102,13 @@ advance_member_item_actions:
     mov al, byte [bx + member_rec.item_count] ; 0x15de
     sub ah, ah                       ; 0x15e2
     cmp ax, word [bp - 4]            ; 0x15e4
-    jle short @..advance_member_item_actions.l6 ; 0x15e7
-    jmp near @..advance_member_item_actions.l1 ; 0x15e9
-@..advance_member_item_actions.l6:
+    jle short .forward5              ; 0x15e7
+    jmp near .back1                  ; 0x15e9
+.forward5:
     cmp word [bp - 0xa], byte 0      ; 0x15ec
-    jg short @..advance_member_item_actions.l7 ; 0x15f0
-    jmp near @..advance_member_item_actions.l11 ; 0x15f2
-@..advance_member_item_actions.l7:
+    jg short .forward6               ; 0x15f0
+    jmp near .forward10              ; 0x15f2
+.forward6:
     mov ax, 1                        ; 0x15f5
     push ax                          ; 0x15f8
     call restore_areas_redraw_glyph  ; 0x15f9
@@ -122,10 +122,10 @@ advance_member_item_actions:
     mov bx, ax                       ; 0x160a
     mov bx, word [bx + party_char]   ; 0x160c
     cmp byte [bx + member_rec.item_count], 1 ; 0x1610
-    jne short @..advance_member_item_actions.l8 ; 0x1615
+    jne short .forward7              ; 0x1615
     mov byte [bp - 0x5c], 0          ; 0x1617
-    jmp short @..advance_member_item_actions.l9 ; 0x161b
-@..advance_member_item_actions.l8:
+    jmp short .forward8              ; 0x161b
+.forward7:
     lea ax, word [bp - 0x5c]         ; 0x161d
     push ax                          ; 0x1620
     push word [bp - 0xa]             ; 0x1621
@@ -137,12 +137,12 @@ advance_member_item_actions:
     push ax                          ; 0x1631
     call aztec_strcat                ; 0x1632
     add sp, byte 4                   ; 0x1635
-@..advance_member_item_actions.l9:
+.forward8:
     mov ax, 1                        ; 0x1638
     cmp word [bp - 0xa], byte 1      ; 0x163b
-    jne short @..advance_member_item_actions.l10 ; 0x163f
+    jne short .forward9              ; 0x163f
     mov ax, 0                        ; 0x1641
-@..advance_member_item_actions.l10:
+.forward9:
     mov cx, 4                        ; 0x1644
     shl ax, cl                       ; 0x1647
     mov cx, ax                       ; 0x1649
@@ -195,7 +195,7 @@ advance_member_item_actions:
     push word [message_delay]        ; 0x16b6
     call wait_ticks_with_events      ; 0x16ba
     pop cx                           ; 0x16bd
-@..advance_member_item_actions.l11:
+.forward10:
     mov al, byte [bp - 2]            ; 0x16be
     mov cx, word [bp + 4]            ; 0x16c1
     shl cx, 1                        ; 0x16c4

@@ -22,19 +22,19 @@ loc_PQHH:
 loc_UIJJ:
     push bp                          ; 0x0d6a
     mov bp, sp                       ; 0x0d6b
-    add sp, byte 0xae                ; 0x0d6d
+    add sp, byte -82                 ; 0x0d6d
     push word [bp + 4]               ; 0x0d70
     call aztec_strlen                ; 0x0d73
     pop cx                           ; 0x0d76
     cmp ax, strict word 0x4c         ; 0x0d77
-    jle short @..loc_UIJJ.l1         ; 0x0d7a
+    jle short .forward1              ; 0x0d7a
     mov ax, 0x4c                     ; 0x0d7c
-    jmp short @..loc_UIJJ.l2         ; 0x0d7f
-@..loc_UIJJ.l1:
+    jmp short .forward2              ; 0x0d7f
+.forward1:
     push word [bp + 4]               ; 0x0d81
     call aztec_strlen                ; 0x0d84
     pop cx                           ; 0x0d87
-@..loc_UIJJ.l2:
+.forward2:
     mov word [bp - 2], ax            ; 0x0d88
     push ax                          ; 0x0d8b
     push word [bp + 4]               ; 0x0d8c

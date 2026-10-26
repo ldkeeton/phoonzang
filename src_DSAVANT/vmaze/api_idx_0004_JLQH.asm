@@ -4,21 +4,21 @@ api_idx_0004_JLQH:
     call aztec_csav                  ; 0x130b
     mov word [bp - 4], 0             ; 0x130e
     mov word [bp - 2], 0             ; 0x1313
-    jmp short @..api_idx_0004_JLQH.l2 ; 0x1318
-@..api_idx_0004_JLQH.l1:
+    jmp short .forward1              ; 0x1318
+.back1:
     push word [bp - 2]               ; 0x131a
     call member_is_active            ; 0x131d
     pop cx                           ; 0x1320
     or word [bp - 4], ax             ; 0x1321
     inc word [bp - 2]                ; 0x1324
-@..api_idx_0004_JLQH.l2:
+.forward1:
     mov ax, word [bp - 2]            ; 0x1327
     cmp ax, word [party_char_count]  ; 0x132a
-    jl short @..api_idx_0004_JLQH.l1 ; 0x132e
+    jl short .back1                  ; 0x132e
     cmp word [bp - 4], byte 0        ; 0x1330
-    je short @..api_idx_0004_JLQH.l3 ; 0x1334
-    jmp near @..api_idx_0004_JLQH.l5 ; 0x1336
-@..api_idx_0004_JLQH.l3:
+    je short .forward2               ; 0x1334
+    jmp near .forward4               ; 0x1336
+.forward2:
     mov ax, 3                        ; 0x1339
     push ax                          ; 0x133c
     mov ax, word [game_state_arg]    ; 0x133d
@@ -29,11 +29,11 @@ api_idx_0004_JLQH:
     call test_bit                    ; 0x1349
     add sp, byte 4                   ; 0x134c
     test ax, ax                      ; 0x134f
-    jne short @..api_idx_0004_JLQH.l4 ; 0x1351
+    jne short .forward3              ; 0x1351
     mov word [party_map_piece], 0xa  ; 0x1353
     mov word [party_cell_x], 7       ; 0x1359
     mov word [party_cell_y], 2       ; 0x135f
-@..api_idx_0004_JLQH.l4:
+.forward3:
     mov ax, 4                        ; 0x1365
     push ax                          ; 0x1368
     call random_below                ; 0x1369
@@ -64,6 +64,6 @@ api_idx_0004_JLQH:
     call loc_IVLM                    ; 0x13b5
     mov ax, 1                        ; 0x13b8
     ret                              ; 0x13bb
-@..api_idx_0004_JLQH.l5:
+.forward4:
     mov ax, 0                        ; 0x13bc
     ret                              ; 0x13bf

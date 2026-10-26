@@ -9,16 +9,16 @@ aztec_swapmem:
     mov si, word [bp + 4]
     mov di, word [bp + 6]
     mov cx, word [bp + 8]
-    jcxz @..aztec_swapmem.done
+    jcxz .done
     cmp di, si
-    je short @..aztec_swapmem.done
-@..aztec_swapmem.swaploop:
+    je short .done
+.swaploop:
     mov al, byte [es:di]
     xchg byte [si], al
     stosb
     inc si
-    loop @..aztec_swapmem.swaploop
-@..aztec_swapmem.done:
+    loop .swaploop
+.done:
     pop di
     pop si
     pop bp

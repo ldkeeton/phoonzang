@@ -3,7 +3,7 @@ loc_GLHQ:
     mov ax, 0                        ; 0x1a12
     call aztec_csav                  ; 0x1a15
     mov ax, word [bp + 4]            ; 0x1a18
-    jmp near @..loc_GLHQ.l1          ; 0x1a1b
+    jmp near .forward1               ; 0x1a1b
 jumptable_1b5a_case_0:
     mov ax, 0                        ; 0x1a1e
     ret                              ; 0x1a21
@@ -321,12 +321,12 @@ jumptable_1b5a:
     dw jumptable_1b5a_case_76 - IMAGE_BASE + __zres_end ; 0x1bf2
     dw jumptable_1b5a_case_77 - IMAGE_BASE + __zres_end ; 0x1bf4
     dw jumptable_1b5a_case_78 - IMAGE_BASE + __zres_end ; 0x1bf6
-@..loc_GLHQ.l1:
+loc_GLHQ.forward1:
     cmp ax, strict word 0x4f         ; 0x1bf8
-    jae short @..loc_GLHQ.l2         ; 0x1bfb
+    jae short loc_GLHQ.forward2      ; 0x1bfb
     xchg bx, ax                      ; 0x1bfd
     shl bx, 1                        ; 0x1bfe
     jmp [cs:bx + jumptable_1b5a - IMAGE_BASE + __zres_end] ; 0x1c00
-@..loc_GLHQ.l2:
+loc_GLHQ.forward2:
     mov ax, 0xffff                   ; 0x1c05
     ret                              ; 0x1c08

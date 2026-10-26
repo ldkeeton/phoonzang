@@ -3,7 +3,7 @@ api_idx_00a6_OTNK:
     mov ax, 0xff5a                   ; 0x8dbd
     call aztec_csav                  ; 0x8dc0
     mov word [bp - 2], 0             ; 0x8dc3
-@..api_idx_00a6_OTNK.l1:
+.back1:
     mov word [bp - 4], 0             ; 0x8dc8
     mov ax, 0x2f                     ; 0x8dcd
     push ax                          ; 0x8dd0
@@ -32,7 +32,7 @@ api_idx_00a6_OTNK:
     mov ax, word [bp - 6]            ; 0x8e0c
     inc ax                           ; 0x8e0f
     mov word [bp - 4], ax            ; 0x8e10
-@..api_idx_00a6_OTNK.l2:
+.back2:
     mov ax, 0x2f                     ; 0x8e13
     push ax                          ; 0x8e16
     mov ax, 0x32                     ; 0x8e17
@@ -72,26 +72,26 @@ api_idx_00a6_OTNK:
     call aztec_strncmp               ; 0x8e71
     add sp, byte 6                   ; 0x8e74
     test ax, ax                      ; 0x8e77
-    jne short @..api_idx_00a6_OTNK.l3 ; 0x8e79
+    jne short .forward1              ; 0x8e79
     lea ax, word [bp - 0x56]         ; 0x8e7b
     push ax                          ; 0x8e7e
     push word [bp + 4]               ; 0x8e7f
     call aztec_strcpy                ; 0x8e82
     add sp, byte 4                   ; 0x8e85
     ret                              ; 0x8e88
-@..api_idx_00a6_OTNK.l3:
+.forward1:
     mov ax, 0x32                     ; 0x8e89
     imul word [bp - 2]               ; 0x8e8c
     add ax, word [bp - 4]            ; 0x8e8f
     mov bx, ax                       ; 0x8e92
     cmp byte [bx + bss_a8c4], 0      ; 0x8e94
-    je short @..api_idx_00a6_OTNK.l4 ; 0x8e99
-    jmp near @..api_idx_00a6_OTNK.l2 ; 0x8e9b
-@..api_idx_00a6_OTNK.l4:
+    je short .forward2               ; 0x8e99
+    jmp near .back2                  ; 0x8e9b
+.forward2:
     inc word [bp - 2]                ; 0x8e9e
     mov ax, word [bp - 2]            ; 0x8ea1
     cmp ax, strict word 0x26         ; 0x8ea4
-    jge short @..api_idx_00a6_OTNK.l5 ; 0x8ea7
-    jmp near @..api_idx_00a6_OTNK.l1 ; 0x8ea9
-@..api_idx_00a6_OTNK.l5:
+    jge short .return1               ; 0x8ea7
+    jmp near .back1                  ; 0x8ea9
+.return1:
     ret                              ; 0x8eac

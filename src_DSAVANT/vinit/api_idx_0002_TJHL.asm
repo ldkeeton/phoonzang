@@ -13,12 +13,12 @@ api_idx_0002_TJHL:
     add sp, byte 4                   ; 0x0124
     mov word [bp - 2], ax            ; 0x0127
     cmp ax, strict word 0xffff       ; 0x012a
-    jne short @..api_idx_0002_TJHL.l1 ; 0x012d
+    jne short .forward1              ; 0x012d
     mov ax, 8                        ; 0x012f
     push ax                          ; 0x0132
     call release_and_exit            ; 0x0133
     pop cx                           ; 0x0136
-@..api_idx_0002_TJHL.l1:
+.forward1:
     push word [bp - 2]               ; 0x0137
     call read_misc_table             ; 0x013a
     pop cx                           ; 0x013d

@@ -3,9 +3,9 @@ api_idx_0004_PULL:
     mov ax, 0xfffc                   ; 0x22e7
     call aztec_csav                  ; 0x22ea
     mov word [bp - 2], 0             ; 0x22ed
-@..api_idx_0004_PULL.l1:
+.back1:
     mov word [bp - 4], 0             ; 0x22f2
-@..api_idx_0004_PULL.l2:
+.back2:
     mov ax, 0x248                    ; 0x22f7
     imul word [bp + 4]               ; 0x22fa
     push ax                          ; 0x22fd
@@ -22,42 +22,42 @@ api_idx_0004_PULL:
     add ax, cx                       ; 0x2313
     mov bx, ax                       ; 0x2315
     cmp word [bx + party_records + pc_rec.cell], byte 0 ; 0x2317
-    jne short @..api_idx_0004_PULL.l3 ; 0x231c
+    jne short .forward1              ; 0x231c
     mov ax, word [bp - 2]            ; 0x231e
     xchg al, ah                      ; 0x2321
     sub al, al                       ; 0x2323
     add ax, word [bp - 4]            ; 0x2325
     ret                              ; 0x2328
-@..api_idx_0004_PULL.l3:
+.forward1:
     cmp word [bp + 6], byte 0        ; 0x2329
-    je short @..api_idx_0004_PULL.l6 ; 0x232d
+    je short .forward4               ; 0x232d
     mov al, byte [bx + party_records + pc_rec.cell + 0x7] ; 0x232f
     sub ah, ah                       ; 0x2333
     test ax, 1                       ; 0x2335
-    jne short @..api_idx_0004_PULL.l4 ; 0x2338
+    jne short .forward2              ; 0x2338
     test ax, 0x40                    ; 0x233a
-    jne short @..api_idx_0004_PULL.l4 ; 0x233d
+    jne short .forward2              ; 0x233d
     push word [bx + party_records + pc_rec.cell] ; 0x233f
     call loc_GMVH                    ; 0x2343
     pop cx                           ; 0x2346
     test ax, ax                      ; 0x2347
-    je short @..api_idx_0004_PULL.l5 ; 0x2349
-@..api_idx_0004_PULL.l4:
-    jmp short @..api_idx_0004_PULL.l6 ; 0x234b
-@..api_idx_0004_PULL.l5:
+    je short .forward3               ; 0x2349
+.forward2:
+    jmp short .forward4              ; 0x234b
+.forward3:
     mov ax, word [bp - 2]            ; 0x234d
     xchg al, ah                      ; 0x2350
     sub al, al                       ; 0x2352
     add ax, word [bp - 4]            ; 0x2354
     ret                              ; 0x2357
-@..api_idx_0004_PULL.l6:
+.forward4:
     inc word [bp - 4]                ; 0x2358
     mov ax, word [bp - 4]            ; 0x235b
     cmp ax, strict word 0xa          ; 0x235e
-    jl short @..api_idx_0004_PULL.l2 ; 0x2361
+    jl short .back2                  ; 0x2361
     inc word [bp - 2]                ; 0x2363
     mov ax, word [bp - 2]            ; 0x2366
     cmp ax, strict word 2            ; 0x2369
-    jl short @..api_idx_0004_PULL.l1 ; 0x236c
+    jl short .back1                  ; 0x236c
     mov ax, 0xffff                   ; 0x236e
     ret                              ; 0x2371

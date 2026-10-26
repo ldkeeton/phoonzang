@@ -3,7 +3,7 @@ api_idx_0004_SRMT:
     mov ax, 0xfffc                   ; 0x9e79
     call aztec_csav                  ; 0x9e7c
     mov word [bp - 2], 0             ; 0x9e7f
-@..api_idx_0004_SRMT.l1:
+.back1:
     push word [bp - 2]               ; 0x9e84
     mov ax, 0x26                     ; 0x9e87
     imul word [bp + 6]               ; 0x9e8a
@@ -12,7 +12,7 @@ api_idx_0004_SRMT:
     call test_bit                    ; 0x9e91
     add sp, byte 4                   ; 0x9e94
     test ax, ax                      ; 0x9e97
-    je short @..api_idx_0004_SRMT.l2 ; 0x9e99
+    je short .forward1               ; 0x9e99
     mov ax, 1                        ; 0x9e9b
     push ax                          ; 0x9e9e
     push word [bp - 2]               ; 0x9e9f
@@ -22,7 +22,7 @@ api_idx_0004_SRMT:
     push ax                          ; 0x9eab
     call set_bitmap_bit              ; 0x9eac
     add sp, byte 6                   ; 0x9eaf
-@..api_idx_0004_SRMT.l2:
+.forward1:
     push word [bp - 2]               ; 0x9eb2
     mov ax, 0x26                     ; 0x9eb5
     imul word [bp + 6]               ; 0x9eb8
@@ -31,7 +31,7 @@ api_idx_0004_SRMT:
     call test_bit                    ; 0x9ebf
     add sp, byte 4                   ; 0x9ec2
     test ax, ax                      ; 0x9ec5
-    je short @..api_idx_0004_SRMT.l3 ; 0x9ec7
+    je short .forward2               ; 0x9ec7
     push word [bp + 6]               ; 0x9ec9
     mov ax, 3                        ; 0x9ecc
     push ax                          ; 0x9ecf
@@ -44,9 +44,9 @@ api_idx_0004_SRMT:
     push word [bp + 4]               ; 0x9ee2
     call assign_slot_bit             ; 0x9ee5
     add sp, byte 6                   ; 0x9ee8
-@..api_idx_0004_SRMT.l3:
+.forward2:
     inc word [bp - 2]                ; 0x9eeb
     mov ax, word [bp - 2]            ; 0x9eee
     cmp ax, strict word 0xb          ; 0x9ef1
-    jl short @..api_idx_0004_SRMT.l1 ; 0x9ef4
+    jl short .back1                  ; 0x9ef4
     ret                              ; 0x9ef6

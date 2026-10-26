@@ -7,7 +7,7 @@ loc_LGQU:
     call random_below                ; 0x94b0
     pop cx                           ; 0x94b3
     test ax, ax                      ; 0x94b4
-    je short @..loc_LGQU.l1          ; 0x94b6
+    je short .forward1               ; 0x94b6
     mov ax, 0x26                     ; 0x94b8
     imul word [bp + 4]               ; 0x94bb
     mov bx, ax                       ; 0x94be
@@ -22,7 +22,7 @@ loc_LGQU:
     mov cx, ax                       ; 0x94d1
     pop ax                           ; 0x94d3
     cmp ax, cx                       ; 0x94d4
-    jge short @..loc_LGQU.l1         ; 0x94d6
+    jge short .forward1              ; 0x94d6
     mov al, byte [bx + slot_records + slot_record.f_0001] ; 0x94d8
     mov byte [bx + slot_records + slot_record.f_0003], al ; 0x94dc
     push word [bp + 4]               ; 0x94e0
@@ -30,6 +30,6 @@ loc_LGQU:
     pop cx                           ; 0x94e6
     mov ax, 1                        ; 0x94e7
     ret                              ; 0x94ea
-@..loc_LGQU.l1:
+.forward1:
     mov ax, 0                        ; 0x94eb
     ret                              ; 0x94ee

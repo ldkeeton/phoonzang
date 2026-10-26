@@ -2,17 +2,17 @@
 note_event_high:
     call string_loc_SLGG             ; 0x0e24
     cmp byte [cs:cseg_0d3d - IMAGE_BASE], 0xff ; 0x0e27
-    jne short @..note_event_high.l1  ; 0x0e2d
+    jne short .forward1              ; 0x0e2d
     jmp near loc_MRJU                ; 0x0e2f
-@..note_event_high.l1:
+.forward1:
     cmp byte [cs:cseg_0d3f - IMAGE_BASE], 0 ; 0x0e32
-    jne short @..note_event_high.l2  ; 0x0e38
+    jne short .forward2              ; 0x0e38
     jmp near loc_JSJL                ; 0x0e3a
-@..note_event_high.l2:
+.forward2:
     cmp byte [cs:cseg_0d45 - IMAGE_BASE], 0 ; 0x0e3d
-    jne short @..note_event_high.l3  ; 0x0e43
+    jne short .forward3              ; 0x0e43
     jmp near loc_LPMH                ; 0x0e45
-@..note_event_high.l3:
+.forward3:
     cmp byte [cs:music_device - IMAGE_BASE], 1 ; 0x0e48
     jmp near loc_LPMH                ; 0x0e4e
 loc_MNKP:
@@ -27,28 +27,28 @@ loc_MNKP:
     mov ah, byte [cs:cseg_0d46 - IMAGE_BASE] ; 0x0e67
     mov al, byte [cs:cseg_14e6 - IMAGE_BASE] ; 0x0e6c
     cmp ah, 6                        ; 0x0e70
-    je short @..loc_MNKP.l4          ; 0x0e73
+    je short .forward4               ; 0x0e73
     cmp ah, 7                        ; 0x0e75
-    je short @..loc_MNKP.l5          ; 0x0e78
+    je short .forward5               ; 0x0e78
     cmp ah, 8                        ; 0x0e7a
-    jne short @..loc_MNKP.l1         ; 0x0e7d
-    jmp near @..loc_MNKP.l6          ; 0x0e7f
-@..loc_MNKP.l1:
+    jne short .forward1              ; 0x0e7d
+    jmp near .forward6               ; 0x0e7f
+.forward1:
     cmp ah, 9                        ; 0x0e82
-    jne short @..loc_MNKP.l2         ; 0x0e85
-    jmp near @..loc_MNKP.l7          ; 0x0e87
-@..loc_MNKP.l2:
+    jne short .forward2              ; 0x0e85
+    jmp near .forward7               ; 0x0e87
+.forward2:
     cmp ah, 0xa                      ; 0x0e8a
-    je short @..loc_MNKP.l3          ; 0x0e8d
+    je short .forward3               ; 0x0e8d
     jmp near loc_LPMH                ; 0x0e8f
-@..loc_MNKP.l3:
+.forward3:
     mov ah, 0x11                     ; 0x0e92
     call loc_MVUI                    ; 0x0e94
     or al, 1                         ; 0x0e97
     mov ah, 0xbd                     ; 0x0e99
     call opl_write                   ; 0x0e9b
     jmp near loc_MRJU                ; 0x0e9e
-@..loc_MNKP.l4:
+.forward4:
     mov byte [cs:cseg_1774 - IMAGE_BASE], 0 ; 0x0ea1
     mov byte [cs:cseg_0d3c - IMAGE_BASE], 0x28 ; 0x0ea7
     mov byte [cs:cseg_0d40 - IMAGE_BASE], 5 ; 0x0ead
@@ -62,14 +62,14 @@ loc_MNKP:
     mov ah, 0xbd                     ; 0x0ec8
     call opl_write                   ; 0x0eca
     jmp near loc_MRJU                ; 0x0ecd
-@..loc_MNKP.l5:
+.forward5:
     mov ah, 0x14                     ; 0x0ed0
     call loc_MVUI                    ; 0x0ed2
     or al, 8                         ; 0x0ed5
     mov ah, 0xbd                     ; 0x0ed7
     call opl_write                   ; 0x0ed9
     jmp near loc_MRJU                ; 0x0edc
-@..loc_MNKP.l6:
+.forward6:
     mov ah, 0x12                     ; 0x0edf
     mov byte [cs:cseg_0d3c - IMAGE_BASE], 1 ; 0x0ee1
     mov byte [cs:cseg_1774 - IMAGE_BASE], 0 ; 0x0ee7
@@ -80,7 +80,7 @@ loc_MNKP:
     mov ah, 0xbd                     ; 0x0efb
     call opl_write                   ; 0x0efd
     jmp near loc_MRJU                ; 0x0f00
-@..loc_MNKP.l7:
+.forward7:
     mov ah, 0x15                     ; 0x0f03
     call loc_MVUI                    ; 0x0f05
     or al, 2                         ; 0x0f08

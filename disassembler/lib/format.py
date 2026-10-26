@@ -417,11 +417,12 @@ def format_instruction(insn, label_map=None, local_labels=None, foreign_label_ma
     op_b0 = _opcode_byte(insn)
     if op_b0 == 0x83:
         # Force 'byte' on the immediate so NASM emits the 0x83 encoding
-        # Format the immediate as a byte value (last byte of insn.bytes)
+        # The encoded byte is sign-extended to the operand width.
         imm_byte = b[-1]
+        imm_text = str(imm_byte - 0x100) if imm_byte >= 0x80 else _fmt_imm(imm_byte, 8)
         parts_list = ops.split(',')
         if len(parts_list) >= 2:
-            parts_list[-1] = f' byte {_fmt_imm(imm_byte, 8)}'
+            parts_list[-1] = f' byte {imm_text}'
             ops = ','.join(parts_list)
 
     if op_b0 == 0x81:

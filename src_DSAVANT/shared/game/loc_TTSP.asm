@@ -20,13 +20,13 @@ loc_TTSP:
     mov ax, word [bss_9092]
     mov dx, word [bss_9094]
     cmp bx, dx
-    jg short @..loc_TTSP.l1
-    jne short @..loc_TTSP.l2
+    jg short .forward1
+    jne short .forward2
     cmp cx, ax
-    jbe short @..loc_TTSP.l2
-@..loc_TTSP.l1:
-    jmp short @..loc_TTSP.l3
-@..loc_TTSP.l2:
+    jbe short .forward2
+.forward1:
+    jmp short .return1
+.forward2:
     mov ax, word [bss_908e]
     mov dx, word [bss_9090]
     mov word [party_redraw_last_tick_hi], dx
@@ -67,5 +67,5 @@ loc_TTSP:
     push ax
     call gfx_show_area
     add sp, byte 8
-@..loc_TTSP.l3:
+.return1:
     ret

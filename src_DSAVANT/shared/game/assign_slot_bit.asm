@@ -29,7 +29,7 @@ assign_slot_bit:
     call set_bitmap_bit
     add sp, byte 6
     mov word [bp - 2], 0
-@..assign_slot_bit.l1:
+.back1:
     mov ax, 0
     push ax
     push word [bp + 8]
@@ -42,7 +42,7 @@ assign_slot_bit:
     inc word [bp - 2]
     mov ax, word [bp - 2]
     cmp ax, strict word 0x16
-    jl short @..assign_slot_bit.l1
+    jl short .back1
     mov ax, 1
     push ax
     push word [bp + 8]
@@ -52,8 +52,8 @@ assign_slot_bit:
     push ax
     call set_bitmap_bit
     add sp, byte 6
-    cmp word [bp + 6], byte 0xff
-    je short @..assign_slot_bit.l2
+    cmp word [bp + 6], byte -1
+    je short .return1
     mov ax, 0
     push ax
     push word [bp + 8]
@@ -72,5 +72,5 @@ assign_slot_bit:
     push ax
     call set_bitmap_bit
     add sp, byte 6
-@..assign_slot_bit.l2:
+.return1:
     ret

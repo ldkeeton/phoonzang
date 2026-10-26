@@ -19,7 +19,7 @@ api_idx_0032_TNQM:
     call aztec_setmem                ; 0xabbf
     add sp, byte 6                   ; 0xabc2
     mov word [bp - 4], 0             ; 0xabc5
-@..api_idx_0032_TNQM.l1:
+.back1:
     mov ax, word [bp - 4]            ; 0xabca
     shl ax, 1                        ; 0xabcd
     shl ax, 1                        ; 0xabcf
@@ -27,17 +27,17 @@ api_idx_0032_TNQM:
     mov al, byte [bx + kind_state_table] ; 0xabd3
     cbw                              ; 0xabd7
     cmp ax, word [game_state_arg]    ; 0xabd8
-    jne short @..api_idx_0032_TNQM.l2 ; 0xabdc
+    jne short .forward1              ; 0xabdc
     mov al, byte [bp - 4]            ; 0xabde
     mov byte [bss_8809], al          ; 0xabe1
     mov byte [bss_880a], al          ; 0xabe4
-@..api_idx_0032_TNQM.l2:
+.forward1:
     inc word [bp - 4]                ; 0xabe7
     mov ax, word [bp - 4]            ; 0xabea
     cmp ax, strict word 0x1a         ; 0xabed
-    jl short @..api_idx_0032_TNQM.l1 ; 0xabf0
+    jl short .back1                  ; 0xabf0
     mov word [bp - 6], 0             ; 0xabf2
-@..api_idx_0032_TNQM.l3:
+.back2:
     mov ax, 0x16                     ; 0xabf7
     push ax                          ; 0xabfa
     call random_below                ; 0xabfb
@@ -48,7 +48,7 @@ api_idx_0032_TNQM:
     mov bx, ax                       ; 0xac07
     add bx, bp                       ; 0xac09
     cmp word [bx - 0x32], byte 0     ; 0xac0b
-    jne short @..api_idx_0032_TNQM.l3 ; 0xac0f
+    jne short .back2                 ; 0xac0f
     mov ax, word [bp - 2]            ; 0xac11
     shl ax, 1                        ; 0xac14
     mov bx, ax                       ; 0xac16
@@ -59,5 +59,5 @@ api_idx_0032_TNQM:
     pop cx                           ; 0xac25
     inc word [bp - 6]                ; 0xac26
     cmp word [bp - 6], byte 0x16     ; 0xac29
-    jl short @..api_idx_0032_TNQM.l3 ; 0xac2d
+    jl short .back2                  ; 0xac2d
     ret                              ; 0xac2f

@@ -5,28 +5,28 @@ aztec_format_conversions_1:
 
     db 'lhFNoxXudiscpneEfgG%'
 
-@..aztec_format.conv_routines:
-    dw @..aztec_format.ldblopt - IMAGE_BASE
-    dw @..aztec_format.longopt - IMAGE_BASE
-    dw @..aztec_format.shortopt - IMAGE_BASE
-    dw @..aztec_format.FARopt - IMAGE_BASE
-    dw @..aztec_format.shortopt - IMAGE_BASE
-    dw @..aztec_format.octal - IMAGE_BASE
-    dw @..aztec_format.hex - IMAGE_BASE
-    dw @..aztec_format.upperhex - IMAGE_BASE
-    dw @..aztec_format.unsigned - IMAGE_BASE
-    dw @..aztec_format.decimal - IMAGE_BASE
-    dw @..aztec_format.decimal - IMAGE_BASE
-    dw @..aztec_format.fprec_ok - IMAGE_BASE
-    dw @..aztec_format.char - IMAGE_BASE
-    dw @..aztec_format.pointer - IMAGE_BASE
-    dw @..aztec_format.numchar - IMAGE_BASE
-    dw @..aztec_format.fltformat - IMAGE_BASE
-    dw @..aztec_format.cap_fltformat - IMAGE_BASE
-    dw @..aztec_format.fltformat - IMAGE_BASE
-    dw @..aztec_format.fltformat - IMAGE_BASE
-    dw @..aztec_format.cap_fltformat - IMAGE_BASE
-    dw @..aztec_format.default - IMAGE_BASE
+aztec_format.conv_routines:
+    dw aztec_format.ldblopt - IMAGE_BASE
+    dw aztec_format.longopt - IMAGE_BASE
+    dw aztec_format.shortopt - IMAGE_BASE
+    dw aztec_format.FARopt - IMAGE_BASE
+    dw aztec_format.shortopt - IMAGE_BASE
+    dw aztec_format.octal - IMAGE_BASE
+    dw aztec_format.hex - IMAGE_BASE
+    dw aztec_format.upperhex - IMAGE_BASE
+    dw aztec_format.unsigned - IMAGE_BASE
+    dw aztec_format.decimal - IMAGE_BASE
+    dw aztec_format.decimal - IMAGE_BASE
+    dw aztec_format.fprec_ok - IMAGE_BASE
+    dw aztec_format.char - IMAGE_BASE
+    dw aztec_format.pointer - IMAGE_BASE
+    dw aztec_format.numchar - IMAGE_BASE
+    dw aztec_format.fltformat - IMAGE_BASE
+    dw aztec_format.cap_fltformat - IMAGE_BASE
+    dw aztec_format.fltformat - IMAGE_BASE
+    dw aztec_format.fltformat - IMAGE_BASE
+    dw aztec_format.cap_fltformat - IMAGE_BASE
+    dw aztec_format.default - IMAGE_BASE
 aztec_format_digits:
 
     db '0123456789abcdef'
@@ -42,151 +42,151 @@ aztec_format:
     cld
     mov si, word [bp + 6]
     mov word [bp - 2], 0
-@..aztec_format.main_loop:
+.main_loop:
     mov byte [bp - 0xb], 0
     lodsb
     cmp al, 0x25
-    je short @..aztec_format.ispercent
-@..aztec_format.default:
+    je short .ispercent
+.default:
     test al, al
-    je short @..aztec_format.finishup
-    call @..aztec_format.emitchar
-    jmp short @..aztec_format.main_loop
-@..aztec_format.finishup:
+    je short .finishup
+    call .emitchar
+    jmp short .main_loop
+.finishup:
     mov ax, word [bp - 2]
     pop si
     pop di
     mov sp, bp
     pop bp
     ret
-@..aztec_format.ispercent:
+.ispercent:
     mov byte [bp - 0xc], 0x20
     mov byte [bp - 0xe], 0
     mov byte [bp - 0xd], 0
     mov word [bp - 6], 0xffff
-@..aztec_format.next_flag:
+.next_flag:
     lodsb
     cmp al, 0x2d
-    jne short @..aztec_format.not_minus
+    jne short .not_minus
     or byte [bp - 0xb], 8
-    jmp short @..aztec_format.next_flag
-@..aztec_format.not_minus:
+    jmp short .next_flag
+.not_minus:
     cmp al, 0x2b
-    jne short @..aztec_format.not_plus
+    jne short .not_plus
     mov byte [bp - 0xe], 0x2b
-    jmp short @..aztec_format.next_flag
-@..aztec_format.not_plus:
+    jmp short .next_flag
+.not_plus:
     cmp al, 0x20
-    jne short @..aztec_format.not_space
+    jne short .not_space
     cmp byte [bp - 0xe], 0
-    jne short @..aztec_format.next_flag
+    jne short .next_flag
     mov byte [bp - 0xe], 0x20
-    jmp short @..aztec_format.next_flag
-@..aztec_format.not_space:
+    jmp short .next_flag
+.not_space:
     cmp al, 0x23
-    jne short @..aztec_format.not_alter
+    jne short .not_alter
     or byte [bp - 0xb], 0x10
-    jmp short @..aztec_format.next_flag
-@..aztec_format.not_alter:
+    jmp short .next_flag
+.not_alter:
     cmp al, 0x30
-    jne short @..aztec_format.not_zero
+    jne short .not_zero
     mov byte [bp - 0xc], 0x30
     lodsb
-@..aztec_format.not_zero:
-    call @..aztec_format.do_width
+.not_zero:
+    call .do_width
     test dx, dx
-    jns short @..aztec_format.pos_width
+    jns short .pos_width
     neg dx
     or byte [bp - 0xb], 8
-@..aztec_format.pos_width:
+.pos_width:
     mov word [bp - 4], dx
     cmp al, 0x2e
-    jne short @..aztec_format.no_precision
+    jne short .no_precision
     lodsb
-    call @..aztec_format.do_width
+    call .do_width
     mov word [bp - 6], dx
-@..aztec_format.no_precision:
+.no_precision:
     mov di, cs
     mov es, di
-@..aztec_format.convert_again:
+.convert_again:
     mov di, aztec_format_conversions - IMAGE_BASE
     mov cx, 0x15
     repne scasb
     sub di, aztec_format_conversions + 0x1 - IMAGE_BASE
     shl di, 1
-    jmp [cs:di + @..aztec_format.conv_routines - IMAGE_BASE]
-@..aztec_format.ldblopt:
+    jmp [cs:di + .conv_routines - IMAGE_BASE]
+.ldblopt:
     or byte [bp - 0xb], 1
     lodsb
-    jmp short @..aztec_format.convert_again
-@..aztec_format.longopt:
+    jmp short .convert_again
+.longopt:
     or byte [bp - 0xb], 2
-@..aztec_format.shortopt:
+.shortopt:
     lodsb
-    jmp short @..aztec_format.convert_again
-@..aztec_format.FARopt:
+    jmp short .convert_again
+.FARopt:
     or byte [bp - 0xb], 4
     lodsb
-    jmp short @..aztec_format.convert_again
-@..aztec_format.octal:
+    jmp short .convert_again
+.octal:
     mov cx, 8
-    jmp short @..aztec_format.intconv
-@..aztec_format.upperhex:
+    jmp short .intconv
+.upperhex:
     or byte [bp - 0xb], 0x20
-@..aztec_format.hex:
+.hex:
     mov cx, 0x10
-    jmp short @..aztec_format.intconv
-@..aztec_format.unsigned:
+    jmp short .intconv
+.unsigned:
     mov cx, 0xa
-    jmp short @..aztec_format.intconv
-@..aztec_format.decimal:
+    jmp short .intconv
+.decimal:
     mov cx, 0xff0a
-@..aztec_format.intconv:
+.intconv:
     push ds
     pop es
     mov di, word [bp + 8]
     mov ax, word [es:di]
     add di, byte 2
     test byte [bp - 0xb], 2
-    je short @..aztec_format.shortload
+    je short .shortload
     mov dx, word [es:di]
     add di, byte 2
-    jmp short @..aztec_format.signcheck
-@..aztec_format.shortload:
+    jmp short .signcheck
+.shortload:
     sub dx, dx
     test ch, ch
-    je short @..aztec_format.nosign
+    je short .nosign
     cwd
-@..aztec_format.signcheck:
+.signcheck:
     test ch, ch
-    je short @..aztec_format.nosign
+    je short .nosign
     mov ch, byte [bp - 0xe]
     mov byte [bp - 0xd], ch
     test dx, dx
-    jns short @..aztec_format.nosign
+    jns short .nosign
     mov byte [bp - 0xd], 0x2d
     neg dx
     neg ax
     sbb dx, byte 0
-@..aztec_format.nosign:
+.nosign:
     mov word [bp + 8], di
     cmp word [bp - 6], byte 0
-    jge short @..aztec_format.prec_ok
+    jge short .prec_ok
     mov word [bp - 6], 1
-@..aztec_format.prec_ok:
+.prec_ok:
     mov ch, 0
     mov di, ss
     mov es, di
     lea di, word [bp - 0x140]
-@..aztec_format.digit_loop:
+.digit_loop:
     test dx, dx
-    jne short @..aztec_format.l19
+    jne short .forward15
     test ax, ax
-    je short @..aztec_format.digits_done
-@..aztec_format.l19:
+    je short .digits_done
+.forward15:
     sub bx, bx
     cmp cx, dx
-    ja short @..aztec_format.veryeasy
+    ja short .veryeasy
     push ax
     mov ax, dx
     sub dx, dx
@@ -194,92 +194,92 @@ aztec_format:
     mov bx, ax
     pop ax
     div cx
-    jmp short @..aztec_format.div_done
-@..aztec_format.veryeasy:
+    jmp short .div_done
+.veryeasy:
     div cx
-@..aztec_format.div_done:
+.div_done:
     xchg bx, dx
     mov bl, byte [cs:bx + aztec_format_digits - IMAGE_BASE]
     dec di
     mov byte [es:di], bl
-    jmp short @..aztec_format.digit_loop
-@..aztec_format.digits_done:
+    jmp short .digit_loop
+.digits_done:
     test byte [bp - 0xb], 0x10
-    je short @..aztec_format.normalform
+    je short .normalform
     cmp cl, 0xa
-    je short @..aztec_format.normalform
+    je short .normalform
     cmp cl, 0x10
-    jne short @..aztec_format.nothex
+    jne short .nothex
     mov byte [bp - 0xd], 0x78
-    jmp short @..aztec_format.normalform
-@..aztec_format.nothex:
+    jmp short .normalform
+.nothex:
     dec di
     mov byte [es:di], 0x30
-@..aztec_format.normalform:
+.normalform:
     lea cx, word [bp - 0x140]
     sub cx, di
     mov ax, word [bp - 6]
     sub ax, cx
     mov word [bp - 6], ax
-    jle short @..aztec_format.output_string
+    jle short .output_string
     sub word [bp - 4], ax
-@..aztec_format.output_string:
+.output_string:
     mov word [bp - 8], cx
     cmp byte [bp - 0xd], 0
-    je short @..aztec_format.width_ok
+    je short .width_ok
     cmp byte [bp - 0xd], 0x78
-    jne short @..aztec_format.nothex_prefix
+    jne short .nothex_prefix
     dec word [bp - 4]
-@..aztec_format.nothex_prefix:
+.nothex_prefix:
     dec word [bp - 4]
-@..aztec_format.width_ok:
+.width_ok:
     sub word [bp - 4], cx
-    jle short @..aztec_format.left_justify
+    jle short .left_justify
     test byte [bp - 0xb], 8
-    jne short @..aztec_format.left_justify
+    jne short .left_justify
     cmp byte [bp - 0xc], 0x30
-    jne short @..aztec_format.wpad_loop
-    call @..aztec_format.emitsign
-@..aztec_format.wpad_loop:
+    jne short .wpad_loop
+    call .emitsign
+.wpad_loop:
     mov al, byte [bp - 0xc]
-    call @..aztec_format.emitchar
+    call .emitchar
     dec word [bp - 4]
-    jg short @..aztec_format.wpad_loop
-@..aztec_format.left_justify:
-    call @..aztec_format.emitsign
-@..aztec_format.zpad_loop:
+    jg short .wpad_loop
+.left_justify:
+    call .emitsign
+.zpad_loop:
     dec word [bp - 6]
-    js short @..aztec_format.outchars
+    js short .outchars
     mov al, 0x30
-    call @..aztec_format.emitchar
-    jmp short @..aztec_format.zpad_loop
-@..aztec_format.outchars:
+    call .emitchar
+    jmp short .zpad_loop
+.outchars:
     dec word [bp - 8]
-    js short @..aztec_format.trail_pad
+    js short .trail_pad
     mov al, byte [es:di]
     inc di
-    call @..aztec_format.emitchar
-    jmp short @..aztec_format.outchars
-@..aztec_format.trail_pad:
+    call .emitchar
+    jmp short .outchars
+.trail_pad:
     dec word [bp - 4]
-    js short @..aztec_format.outdone
+    js short .outdone
     mov al, 0x20
-    call @..aztec_format.emitchar
-    jmp short @..aztec_format.trail_pad
-@..aztec_format.outdone:
-    jmp near @..aztec_format.main_loop
-@..aztec_format.cap_fltformat:
+    call .emitchar
+    jmp short .trail_pad
+.outdone:
+    jmp near .main_loop
+.cap_fltformat:
     or byte [bp - 0xb], 0x20
     add al, 0x20
-@..aztec_format.fltformat:
+.fltformat:
     add word [bp + 8], byte 8
     mov ax, cs
     mov es, ax
     mov di, aztec_format_nofltmsg - IMAGE_BASE
     sub word [bp - 4], byte 0xa
-    jmp short @..aztec_format.outchars
-@..aztec_format.fprec_ok:
-    call @..aztec_format.get_pointer
+    jmp short .outchars
+.fprec_ok:
+    call .get_pointer
     push di
     mov al, 0
     mov cx, 0xffff
@@ -287,13 +287,13 @@ aztec_format:
     not cx
     dec cx
     cmp cx, word [bp - 6]
-    jbe short @..aztec_format.strlen_ok
+    jbe short .strlen_ok
     mov cx, word [bp - 6]
-@..aztec_format.strlen_ok:
+.strlen_ok:
     pop di
     mov word [bp - 6], 0
-    jmp near @..aztec_format.output_string
-@..aztec_format.char:
+    jmp near .output_string
+.char:
     push ds
     pop es
     mov di, word [bp + 8]
@@ -306,63 +306,63 @@ aztec_format:
     mov es, ax
     lea di, word [bp - 0x154]
     mov word [bp - 6], 0
-    jmp near @..aztec_format.output_string
-@..aztec_format.pointer:
-    jmp near @..aztec_format.main_loop
-@..aztec_format.numchar:
-    call @..aztec_format.get_pointer
+    jmp near .output_string
+.pointer:
+    jmp near .main_loop
+.numchar:
+    call .get_pointer
     mov ax, word [bp - 2]
     mov word [es:di], ax
     test byte [bp - 0xb], 2
-    je short @..aztec_format.nc_done
+    je short .nc_done
     mov word [es:di + 2], 0
-@..aztec_format.nc_done:
-    jmp near @..aztec_format.main_loop
-@..aztec_format.emitsign:
+.nc_done:
+    jmp near .main_loop
+.emitsign:
     mov al, byte [bp - 0xd]
     test al, al
-    je short @..aztec_format.emitreturn
+    je short .emitreturn
     cmp al, 0x78
-    jne short @..aztec_format.emitsign.l1
+    jne short aztec_format.emitsign.forward1
     mov al, 0x30
-    call @..aztec_format.emitchar
+    call .emitchar
     mov al, 0x78
-@..aztec_format.emitsign.l1:
+aztec_format.emitsign.forward1:
     mov byte [bp - 0xd], 0
-@..aztec_format.emitchar:
+aztec_format.emitchar:
     inc word [bp - 2]
     test byte [bp - 0xb], 0x20
-    je short @..aztec_format.emitchar.l1
+    je short .forward1
     cmp al, 0x61
-    jb short @..aztec_format.emitchar.l1
+    jb short .forward1
     cmp al, 0x7a
-    ja short @..aztec_format.emitchar.l1
+    ja short .forward1
     sub al, 0x20
-@..aztec_format.emitchar.l1:
+.forward1:
     push es
     sub ah, ah
     push ax
     call [bp + 4]
     pop ax
     pop es
-@..aztec_format.emitreturn:
+aztec_format.emitreturn:
     ret
-@..aztec_format.get_pointer:
+aztec_format.get_pointer:
     push ds
     pop es
     mov di, word [bp + 8]
     test byte [bp - 0xb], 4
-    jne short @..aztec_format.get_pointer.l1
+    jne short .forward1
     mov di, word [di]
     add word [bp + 8], byte 2
     ret
-@..aztec_format.get_pointer.l1:
+.forward1:
     les di, word [es:di]
     add word [bp + 8], byte 4
     ret
-@..aztec_format.do_width:
+aztec_format.do_width:
     cmp al, 0x2a
-    jne short @..aztec_format.do_width.l1
+    jne short .forward1
     push ds
     pop es
     mov di, word [bp + 8]
@@ -371,14 +371,14 @@ aztec_format:
     mov word [bp + 8], di
     lodsb
     ret
-@..aztec_format.do_width.l1:
+.forward1:
     sub dx, dx
     mov ah, 0
-@..aztec_format.do_width.l2:
+.back1:
     cmp al, 0x30
-    jb short @..aztec_format.do_width.l3
+    jb short .return1
     cmp al, 0x39
-    ja short @..aztec_format.do_width.l3
+    ja short .return1
     sub al, 0x30
     shl dx, 1
     mov cx, dx
@@ -387,6 +387,6 @@ aztec_format:
     add dx, cx
     add dx, ax
     lodsb
-    jmp short @..aztec_format.do_width.l2
-@..aztec_format.do_width.l3:
+    jmp short .back1
+.return1:
     ret

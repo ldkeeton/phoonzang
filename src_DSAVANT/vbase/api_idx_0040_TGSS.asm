@@ -12,9 +12,9 @@ api_idx_0040_TGSS:
     call data_record_io              ; 0x1f84
     add sp, byte 8                   ; 0x1f87
     cmp word [bp + 6], byte 1        ; 0x1f8a
-    jle short @..api_idx_0040_TGSS.l1 ; 0x1f8e
+    jle short .forward1              ; 0x1f8e
     cmp word [bp + 6], byte 0x10     ; 0x1f90
-    jge short @..api_idx_0040_TGSS.l1 ; 0x1f94
+    jge short .forward1              ; 0x1f94
     mov ax, word [bp + 6]            ; 0x1f96
     shl ax, 1                        ; 0x1f99
     shl ax, 1                        ; 0x1f9b
@@ -23,7 +23,7 @@ api_idx_0040_TGSS:
     mov ax, word [bx - 0x48]         ; 0x1fa1
     mov dx, word [bx - 0x46]         ; 0x1fa4
     ret                              ; 0x1fa7
-@..api_idx_0040_TGSS.l1:
+.forward1:
     mov ax, 0                        ; 0x1fa8
     mov dx, 0                        ; 0x1fab
     ret                              ; 0x1fae

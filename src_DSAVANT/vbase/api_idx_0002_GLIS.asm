@@ -27,7 +27,7 @@ api_idx_0002_GLIS:
     mov ax, word [bp + 0xa]          ; 0x8792
     mov word [scene_cue_c], ax       ; 0x8795
     mov word [bp - 2], 0             ; 0x8798
-@..api_idx_0002_GLIS.l1:
+.back1:
     mov ax, 0x50                     ; 0x879d
     imul word [bp - 2]               ; 0x87a0
     mov cx, word [bp - 2]            ; 0x87a3
@@ -37,9 +37,9 @@ api_idx_0002_GLIS:
     inc word [bp - 2]                ; 0x87ae
     mov ax, word [bp - 2]            ; 0x87b1
     cmp ax, strict word 5            ; 0x87b4
-    jl short @..api_idx_0002_GLIS.l1 ; 0x87b7
+    jl short .back1                  ; 0x87b7
     mov word [bp - 2], 0             ; 0x87b9
-@..api_idx_0002_GLIS.l2:
+.back2:
     mov ax, word [bp - 2]            ; 0x87be
     shl ax, 1                        ; 0x87c1
     mov bx, ax                       ; 0x87c3
@@ -56,7 +56,7 @@ api_idx_0002_GLIS:
     inc word [bp - 2]                ; 0x87e1
     mov ax, word [bp - 2]            ; 0x87e4
     cmp ax, strict word 8            ; 0x87e7
-    jl short @..api_idx_0002_GLIS.l2 ; 0x87ea
+    jl short .back2                  ; 0x87ea
     mov word [bss_a5e0], 0x13e       ; 0x87ec
     mov word [bss_a5f0], 0x2a        ; 0x87f2
     mov word [actor_x], 0xff50       ; 0x87f8

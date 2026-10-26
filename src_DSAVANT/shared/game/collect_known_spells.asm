@@ -4,14 +4,14 @@ collect_known_spells:
     call aztec_csav
     mov word [bp - 4], 0
     mov word [bp - 2], 0
-@..collect_known_spells.l1:
+.back1:
     mov ax, 6
     imul word [bp - 2]
     mov bx, ax
     mov al, byte [bx + spell_table]
     sub ah, ah
     cmp ax, word [bp + 6]
-    jne short @..collect_known_spells.l2
+    jne short .forward1
     push word [bp - 2]
     mov ax, 0x248
     imul word [bp + 4]
@@ -20,7 +20,7 @@ collect_known_spells:
     call test_bit
     add sp, byte 4
     test ax, ax
-    je short @..collect_known_spells.l2
+    je short .forward1
     mov ax, 0x14
     imul word [bp - 4]
     add ax, known_spell_names
@@ -36,10 +36,10 @@ collect_known_spells:
     mov bx, cx
     mov word [bx + known_spell_ids], ax
     inc word [bp - 4]
-@..collect_known_spells.l2:
+.forward1:
     inc word [bp - 2]
     mov ax, word [bp - 2]
     cmp ax, strict word 0x66
-    jl short @..collect_known_spells.l1
+    jl short .back1
     mov ax, word [bp - 4]
     ret

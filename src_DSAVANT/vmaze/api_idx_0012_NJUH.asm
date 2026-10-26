@@ -34,22 +34,22 @@ api_idx_0012_NJUH:
     imul word [bp + 6]               ; 0x9f42
     mov bx, ax                       ; 0x9f45
     cmp byte [bx + slot_records + slot_record.f_0002], 1 ; 0x9f47
-    je short @..api_idx_0012_NJUH.l1 ; 0x9f4c
+    je short .forward1               ; 0x9f4c
     cmp word [bp + 6], byte 0x13     ; 0x9f4e
-    jne short @..api_idx_0012_NJUH.l2 ; 0x9f52
-@..api_idx_0012_NJUH.l1:
+    jne short .forward2              ; 0x9f52
+.forward1:
     mov ax, 1                        ; 0x9f54
-    jmp short @..api_idx_0012_NJUH.l3 ; 0x9f57
-@..api_idx_0012_NJUH.l2:
+    jmp short .forward3              ; 0x9f57
+.forward2:
     mov ax, 0                        ; 0x9f59
-@..api_idx_0012_NJUH.l3:
+.forward3:
     mov word [bp - 0x10], ax         ; 0x9f5c
     mov word [bp - 6], 0             ; 0x9f5f
     mov word [bp - 0xa], 0           ; 0x9f64
     mov word [bp - 8], 0             ; 0x9f69
     mov word [bp - 0xc], 0           ; 0x9f6e
     mov word [bp - 0xe], 0           ; 0x9f73
-@..api_idx_0012_NJUH.l4:
+.back1:
     mov ax, 0x26                     ; 0x9f78
     imul word [bp + 6]               ; 0x9f7b
     mov bx, ax                       ; 0x9f7e
@@ -87,17 +87,17 @@ api_idx_0012_NJUH:
     call random_below                ; 0x9fc4
     pop cx                           ; 0x9fc7
     cmp ax, word [bp - 0xa]          ; 0x9fc8
-    jge short @..api_idx_0012_NJUH.l5 ; 0x9fcb
+    jge short .forward4              ; 0x9fcb
     mov ax, 0x26                     ; 0x9fcd
     imul word [bp + 4]               ; 0x9fd0
     mov bx, ax                       ; 0x9fd3
     mov byte [bx + slot_records + slot_record.f_0002], 7 ; 0x9fd5
     mov word [bp - 0xe], 0xffff      ; 0x9fda
-@..api_idx_0012_NJUH.l5:
+.forward4:
     cmp word [bp - 0xe], byte 0      ; 0x9fdf
-    je short @..api_idx_0012_NJUH.l6 ; 0x9fe3
-    jmp near @..api_idx_0012_NJUH.l8 ; 0x9fe5
-@..api_idx_0012_NJUH.l6:
+    je short .forward5               ; 0x9fe3
+    jmp near .forward7               ; 0x9fe5
+.forward5:
     mov ax, word [bp - 8]            ; 0x9fe8
     mov cx, 2                        ; 0x9feb
     cwd                              ; 0x9fee
@@ -122,14 +122,14 @@ api_idx_0012_NJUH:
     mov cx, ax                       ; 0xa013
     pop ax                           ; 0xa015
     cmp ax, cx                       ; 0xa016
-    jle short @..api_idx_0012_NJUH.l7 ; 0xa018
+    jle short .forward6              ; 0xa018
     push word [bp + 6]               ; 0xa01a
     push word [bp + 4]               ; 0xa01d
     call api_idx_0004_SRMT           ; 0xa020
     add sp, byte 4                   ; 0xa023
     mov word [bp - 0xe], 1           ; 0xa026
-    jmp short @..api_idx_0012_NJUH.l8 ; 0xa02b
-@..api_idx_0012_NJUH.l7:
+    jmp short .forward7              ; 0xa02b
+.forward6:
     mov ax, 0x26                     ; 0xa02d
     imul word [bp + 6]               ; 0xa030
     mov bx, ax                       ; 0xa033
@@ -141,21 +141,21 @@ api_idx_0012_NJUH:
     mov cl, byte [bx + slot_records + slot_record.flag] ; 0xa042
     pop ax                           ; 0xa046
     cmp al, cl                       ; 0xa047
-    jge short @..api_idx_0012_NJUH.l8 ; 0xa049
+    jge short .forward7              ; 0xa049
     mov ax, 3                        ; 0xa04b
     push ax                          ; 0xa04e
     call random_below                ; 0xa04f
     pop cx                           ; 0xa052
     test ax, ax                      ; 0xa053
-    jne short @..api_idx_0012_NJUH.l8 ; 0xa055
+    jne short .forward7              ; 0xa055
     push word [bp + 6]               ; 0xa057
     push word [bp + 4]               ; 0xa05a
     call api_idx_0010_IOJT           ; 0xa05d
     add sp, byte 4                   ; 0xa060
     mov word [bp - 0xe], 1           ; 0xa063
-@..api_idx_0012_NJUH.l8:
+.forward7:
     cmp word [bp - 0xe], byte 0      ; 0xa068
-    jne short @..api_idx_0012_NJUH.l9 ; 0xa06c
+    jne short .forward8              ; 0xa06c
     mov ax, 0x26                     ; 0xa06e
     imul word [bp + 4]               ; 0xa071
     mov bx, ax                       ; 0xa074
@@ -170,29 +170,29 @@ api_idx_0012_NJUH:
     cbw                              ; 0xa08e
     sub ax, word [bp - 8]            ; 0xa08f
     mov byte [bx + slot_records + slot_record.flag], al ; 0xa092
-@..api_idx_0012_NJUH.l9:
+.forward8:
     cmp word [bp - 0xe], byte 0      ; 0xa096
-    jne short @..api_idx_0012_NJUH.l10 ; 0xa09a
+    jne short .forward9              ; 0xa09a
     mov ax, 0x26                     ; 0xa09c
     imul word [bp + 4]               ; 0xa09f
     mov bx, ax                       ; 0xa0a2
     cmp byte [bx + slot_records + slot_record.flag], 0 ; 0xa0a4
-    jle short @..api_idx_0012_NJUH.l10 ; 0xa0a9
+    jle short .forward9              ; 0xa0a9
     mov ax, 0x26                     ; 0xa0ab
     imul word [bp + 6]               ; 0xa0ae
     mov bx, ax                       ; 0xa0b1
     cmp byte [bx + slot_records + slot_record.flag], 0 ; 0xa0b3
-    jle short @..api_idx_0012_NJUH.l10 ; 0xa0b8
-    jmp near @..api_idx_0012_NJUH.l4 ; 0xa0ba
-@..api_idx_0012_NJUH.l10:
+    jle short .forward9              ; 0xa0b8
+    jmp near .back1                  ; 0xa0ba
+.forward9:
     mov word [bp - 0x12], 0          ; 0xa0bd
     mov ax, 0x26                     ; 0xa0c2
     imul word [bp + 6]               ; 0xa0c5
     mov bx, ax                       ; 0xa0c8
     cmp byte [bx + slot_records + slot_record.flag], 0 ; 0xa0ca
-    jg short @..api_idx_0012_NJUH.l13 ; 0xa0cf
+    jg short .forward12              ; 0xa0cf
     cmp word [bp - 0x10], byte 0     ; 0xa0d1
-    je short @..api_idx_0012_NJUH.l11 ; 0xa0d5
+    je short .forward10              ; 0xa0d5
     mov ax, 0xa                      ; 0xa0d7
     push ax                          ; 0xa0da
     call random_below                ; 0xa0db
@@ -204,21 +204,21 @@ api_idx_0012_NJUH:
     mov bx, ax                       ; 0xa0e9
     pop ax                           ; 0xa0eb
     mov byte [bx + slot_records + slot_record.flag], al ; 0xa0ec
-    jmp short @..api_idx_0012_NJUH.l12 ; 0xa0f0
-@..api_idx_0012_NJUH.l11:
+    jmp short .forward11             ; 0xa0f0
+.forward10:
     mov word [bp - 0x12], 1          ; 0xa0f2
     mov ax, 0x26                     ; 0xa0f7
     imul word [bp + 6]               ; 0xa0fa
     mov bx, ax                       ; 0xa0fd
     mov byte [bx + slot_records + slot_record.flag], 0 ; 0xa0ff
-@..api_idx_0012_NJUH.l12:
+.forward11:
     push word [bp + 6]               ; 0xa104
     push word [bp + 4]               ; 0xa107
     call api_idx_0004_SRMT           ; 0xa10a
     add sp, byte 4                   ; 0xa10d
     mov word [bp - 0xe], 1           ; 0xa110
-    jmp near @..api_idx_0012_NJUH.l16 ; 0xa115
-@..api_idx_0012_NJUH.l13:
+    jmp near .forward15              ; 0xa115
+.forward12:
     mov ax, 0x26                     ; 0xa118
     imul word [bp + 6]               ; 0xa11b
     mov bx, ax                       ; 0xa11e
@@ -230,20 +230,20 @@ api_idx_0012_NJUH:
     mov cl, byte [bx + slot_records + slot_record.flag] ; 0xa12d
     pop ax                           ; 0xa131
     cmp al, cl                       ; 0xa132
-    jle short @..api_idx_0012_NJUH.l14 ; 0xa134
+    jle short .forward13             ; 0xa134
     mov ax, 3                        ; 0xa136
     push ax                          ; 0xa139
     call random_below                ; 0xa13a
     pop cx                           ; 0xa13d
     test ax, ax                      ; 0xa13e
-    jne short @..api_idx_0012_NJUH.l14 ; 0xa140
+    jne short .forward13             ; 0xa140
     mov ax, 0x26                     ; 0xa142
     imul word [bp + 4]               ; 0xa145
     mov bx, ax                       ; 0xa148
     mov byte [bx + slot_records + slot_record.f_0002], 7 ; 0xa14a
     mov word [bp - 0xe], 0xffff      ; 0xa14f
-    jmp short @..api_idx_0012_NJUH.l16 ; 0xa154
-@..api_idx_0012_NJUH.l14:
+    jmp short .forward15             ; 0xa154
+.forward13:
     mov ax, 0x26                     ; 0xa156
     imul word [bp + 6]               ; 0xa159
     mov bx, ax                       ; 0xa15c
@@ -261,15 +261,15 @@ api_idx_0012_NJUH:
     mov cx, ax                       ; 0xa177
     pop ax                           ; 0xa179
     cmp ax, cx                       ; 0xa17a
-    jge short @..api_idx_0012_NJUH.l16 ; 0xa17c
+    jge short .forward15             ; 0xa17c
     mov ax, 0x26                     ; 0xa17e
     imul word [bp + 6]               ; 0xa181
     mov bx, ax                       ; 0xa184
     cmp byte [bx + slot_records + slot_record.f_0002], 3 ; 0xa186
-    je short @..api_idx_0012_NJUH.l15 ; 0xa18b
+    je short .forward14              ; 0xa18b
     cmp byte [bx + slot_records + slot_record.f_0002], 2 ; 0xa18d
-    jne short @..api_idx_0012_NJUH.l16 ; 0xa192
-@..api_idx_0012_NJUH.l15:
+    jne short .forward15             ; 0xa192
+.forward14:
     push word [bp + 6]               ; 0xa194
     call api_idx_003a_HOUV           ; 0xa197
     pop cx                           ; 0xa19a
@@ -278,12 +278,12 @@ api_idx_0012_NJUH:
     mov bx, ax                       ; 0xa1a1
     mov byte [bx + slot_records + slot_record.f_0002], 7 ; 0xa1a3
     mov word [bp - 0xe], 1           ; 0xa1a8
-@..api_idx_0012_NJUH.l16:
+.forward15:
     mov ax, 0x26                     ; 0xa1ad
     imul word [bp + 4]               ; 0xa1b0
     mov bx, ax                       ; 0xa1b3
     cmp byte [bx + slot_records + slot_record.flag], 0 ; 0xa1b5
-    jg short @..api_idx_0012_NJUH.l17 ; 0xa1ba
+    jg short .forward16              ; 0xa1ba
     mov ax, 3                        ; 0xa1bc
     push ax                          ; 0xa1bf
     call random_below                ; 0xa1c0
@@ -297,16 +297,16 @@ api_idx_0012_NJUH:
     mov byte [bx + slot_records + slot_record.flag], al ; 0xa1cf
     mov byte [bx + slot_records + slot_record.f_0002], 7 ; 0xa1d3
     mov word [bp - 0xe], 0xffff      ; 0xa1d8
-@..api_idx_0012_NJUH.l17:
+.forward16:
     mov ax, 0x26                     ; 0xa1dd
     imul word [bp + 4]               ; 0xa1e0
     mov bx, ax                       ; 0xa1e3
     cmp byte [bx + slot_records + slot_record.f_0002], 7 ; 0xa1e5
-    jne short @..api_idx_0012_NJUH.l18 ; 0xa1ea
+    jne short .forward17             ; 0xa1ea
     push word [bp + 4]               ; 0xa1ec
     call api_idx_003a_HOUV           ; 0xa1ef
     pop cx                           ; 0xa1f2
-@..api_idx_0012_NJUH.l18:
+.forward17:
     mov ax, 0x26                     ; 0xa1f3
     imul word [bp + 4]               ; 0xa1f6
     mov bx, ax                       ; 0xa1f9

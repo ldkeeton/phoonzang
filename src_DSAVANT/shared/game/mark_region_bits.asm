@@ -3,11 +3,11 @@ mark_region_bits:
     mov ax, 0
     call aztec_csav
     cmp word [bp + 4], byte 0
-    jle short @..mark_region_bits.l1
+    jle short .return1
     mov bx, word [maze_tables]
     mov si, word [party_region]
     cmp byte [bx + si + spell_table + spell_table_rec_size*138 + spell_table_rec.f_0004], 0
-    jbe short @..mark_region_bits.l1
+    jbe short .return1
     mov ax, 1
     push ax
     mov al, byte [bx + si + spell_table + spell_table_rec_size*138 + spell_table_rec.f_0004]
@@ -21,7 +21,7 @@ mark_region_bits:
     call set_bitmap_bit
     add sp, byte 6
     cmp word [bp + 4], byte 1
-    jle short @..mark_region_bits.l1
+    jle short .return1
     mov ax, 1
     push ax
     mov bx, word [maze_tables]
@@ -36,5 +36,5 @@ mark_region_bits:
     push ax
     call set_bitmap_bit
     add sp, byte 6
-@..mark_region_bits.l1:
+.return1:
     ret

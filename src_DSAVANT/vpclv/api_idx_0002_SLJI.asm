@@ -34,26 +34,26 @@ api_idx_0002_SLJI:
     shl cx, 1                        ; 0x42bb
     pop ax                           ; 0x42bd
     cmp ax, cx                       ; 0x42be
-    jle short @..api_idx_0002_SLJI.l1 ; 0x42c0
+    jle short .forward1              ; 0x42c0
     mov word [bp - 2], 0             ; 0x42c2
-@..api_idx_0002_SLJI.l1:
+.forward1:
     add ax, word [bp - 2]            ; 0x42c7
     cmp ax, strict word 0x64         ; 0x42ca
-    jle short @..api_idx_0002_SLJI.l2 ; 0x42cd
+    jle short .forward2              ; 0x42cd
     mov word [bp - 2], 0             ; 0x42cf
-@..api_idx_0002_SLJI.l2:
+.forward2:
     cmp word [bp - 2], byte 0        ; 0x42d4
-    jge short @..api_idx_0002_SLJI.l3 ; 0x42d8
+    jge short .forward3              ; 0x42d8
     mov word [bp - 2], 0             ; 0x42da
-@..api_idx_0002_SLJI.l3:
+.forward3:
     mov ax, word [bp + 6]            ; 0x42df
     shl ax, 1                        ; 0x42e2
     mov bx, ax                       ; 0x42e4
     mov ax, word [bx + slot_value]   ; 0x42e6
     cmp ax, word [bp - 2]            ; 0x42ea
-    jge short @..api_idx_0002_SLJI.l4 ; 0x42ed
+    jge short .forward4              ; 0x42ed
     mov word [bp - 2], ax            ; 0x42ef
-@..api_idx_0002_SLJI.l4:
+.forward4:
     mov ax, word [bp - 2]            ; 0x42f2
     sub word [bx + slot_value], ax   ; 0x42f5
     mov al, byte [bp - 2]            ; 0x42f9

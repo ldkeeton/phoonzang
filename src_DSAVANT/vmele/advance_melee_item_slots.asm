@@ -3,14 +3,14 @@ advance_melee_item_slots:
     mov ax, 0xfd84                   ; 0x1f39
     call aztec_csav                  ; 0x1f3c
     mov word [bp - 2], 0             ; 0x1f3f
-    jmp short @..advance_melee_item_slots.l3 ; 0x1f44
-@..advance_melee_item_slots.l1:
+    jmp short .forward2              ; 0x1f44
+.back1:
     mov ax, 0x2c                     ; 0x1f46
     imul word [bp - 2]               ; 0x1f49
     mov si, ax                       ; 0x1f4c
     mov bx, word [party_char]        ; 0x1f4e
     cmp byte [bx + si + member_rec.item_state], 3 ; 0x1f52
-    jae short @..advance_melee_item_slots.l2 ; 0x1f56
+    jae short .forward1              ; 0x1f56
     mov ax, 0x248                    ; 0x1f58
     imul word [bp - 2]               ; 0x1f5b
     mov bx, ax                       ; 0x1f5e
@@ -26,7 +26,7 @@ advance_melee_item_slots:
     call advance_item_slot_action    ; 0x1f75
     add sp, byte 8                   ; 0x1f78
     cmp ax, strict word 1            ; 0x1f7b
-    jne short @..advance_melee_item_slots.l2 ; 0x1f7e
+    jne short .forward1              ; 0x1f7e
     push word [bp - 2]               ; 0x1f80
     call copy_member_party_record    ; 0x1f83
     pop cx                           ; 0x1f86
@@ -44,31 +44,31 @@ advance_melee_item_slots:
     push ax                          ; 0x1fa5
     call play_sound_effect           ; 0x1fa6
     pop cx                           ; 0x1fa9
-@..advance_melee_item_slots.l2:
+.forward1:
     inc word [bp - 2]                ; 0x1faa
-@..advance_melee_item_slots.l3:
+.forward2:
     mov ax, word [bp - 2]            ; 0x1fad
     cmp ax, word [party_char_count]  ; 0x1fb0
-    jl short @..advance_melee_item_slots.l1 ; 0x1fb4
+    jl short .back1                  ; 0x1fb4
     mov word [bp - 2], 0             ; 0x1fb6
-    jmp short @..advance_melee_item_slots.l5 ; 0x1fbb
-@..advance_melee_item_slots.l4:
+    jmp short .forward3              ; 0x1fbb
+.back2:
     push word [bp - 2]               ; 0x1fbd
     call copy_member_party_record    ; 0x1fc0
     pop cx                           ; 0x1fc3
     inc word [bp - 2]                ; 0x1fc4
-@..advance_melee_item_slots.l5:
+.forward3:
     mov ax, word [bp - 2]            ; 0x1fc7
     cmp ax, word [party_char_count]  ; 0x1fca
-    jl short @..advance_melee_item_slots.l4 ; 0x1fce
+    jl short .back2                  ; 0x1fce
     mov word [bp - 2], 0             ; 0x1fd0
-    jmp near @..advance_melee_item_slots.l12 ; 0x1fd5
-@..advance_melee_item_slots.l6:
+    jmp near .forward8               ; 0x1fd5
+.back3:
     mov ax, word [bp - 2]            ; 0x1fd8
     inc ax                           ; 0x1fdb
     mov word [bp - 4], ax            ; 0x1fdc
-    jmp near @..advance_melee_item_slots.l10 ; 0x1fdf
-@..advance_melee_item_slots.l7:
+    jmp near .forward6               ; 0x1fdf
+.back4:
     mov ax, 0x248                    ; 0x1fe2
     imul word [bp - 2]               ; 0x1fe5
     mov bx, ax                       ; 0x1fe8
@@ -80,9 +80,9 @@ advance_melee_item_slots:
     mov cl, byte [bx + party_records + pc_rec.state] ; 0x1ff7
     pop ax                           ; 0x1ffb
     cmp al, cl                       ; 0x1ffc
-    ja short @..advance_melee_item_slots.l8 ; 0x1ffe
-    jmp near @..advance_melee_item_slots.l9 ; 0x2000
-@..advance_melee_item_slots.l8:
+    ja short .forward4               ; 0x1ffe
+    jmp near .forward5               ; 0x2000
+.forward4:
     mov ax, 0x248                    ; 0x2003
     push ax                          ; 0x2006
     add bx, party_records            ; 0x2007
@@ -144,57 +144,57 @@ advance_melee_item_slots:
     shl cx, 1                        ; 0x209f
     mov bx, cx                       ; 0x20a1
     mov word [bx + member_icon], ax  ; 0x20a3
-@..advance_melee_item_slots.l9:
+.forward5:
     inc word [bp - 4]                ; 0x20a7
-@..advance_melee_item_slots.l10:
+.forward6:
     mov ax, word [bp - 4]            ; 0x20aa
     cmp ax, word [party_char_count]  ; 0x20ad
-    jge short @..advance_melee_item_slots.l11 ; 0x20b1
-    jmp near @..advance_melee_item_slots.l7 ; 0x20b3
-@..advance_melee_item_slots.l11:
+    jge short .forward7              ; 0x20b1
+    jmp near .back4                  ; 0x20b3
+.forward7:
     inc word [bp - 2]                ; 0x20b6
-@..advance_melee_item_slots.l12:
+.forward8:
     mov ax, word [party_char_count]  ; 0x20b9
     dec ax                           ; 0x20bc
     cmp ax, word [bp - 2]            ; 0x20bd
-    jle short @..advance_melee_item_slots.l13 ; 0x20c0
-    jmp near @..advance_melee_item_slots.l6 ; 0x20c2
-@..advance_melee_item_slots.l13:
+    jle short .forward9              ; 0x20c0
+    jmp near .back3                  ; 0x20c2
+.forward9:
     mov word [bp - 4], 0             ; 0x20c5
     mov word [bp - 0x27c], 0         ; 0x20ca
     mov word [bp - 2], 0             ; 0x20d0
-    jmp short @..advance_melee_item_slots.l17 ; 0x20d5
-@..advance_melee_item_slots.l14:
+    jmp short .forward12             ; 0x20d5
+.back5:
     mov ax, 0x248                    ; 0x20d7
     imul word [bp - 2]               ; 0x20da
     mov bx, ax                       ; 0x20dd
     cmp byte [bx + party_records + pc_rec.state], 2 ; 0x20df
-    jb short @..advance_melee_item_slots.l15 ; 0x20e4
+    jb short .forward10              ; 0x20e4
     inc word [bp - 4]                ; 0x20e6
-@..advance_melee_item_slots.l15:
+.forward10:
     mov ax, 0x2c                     ; 0x20e9
     imul word [bp - 2]               ; 0x20ec
     mov si, ax                       ; 0x20ef
     mov bx, word [party_char]        ; 0x20f1
     cmp byte [bx + si + member_rec.item_phase], 2 ; 0x20f5
-    jne short @..advance_melee_item_slots.l16 ; 0x20f9
+    jne short .forward11             ; 0x20f9
     mov word [bp - 0x27c], 1         ; 0x20fb
-@..advance_melee_item_slots.l16:
+.forward11:
     inc word [bp - 2]                ; 0x2101
-@..advance_melee_item_slots.l17:
+.forward12:
     mov ax, word [bp - 2]            ; 0x2104
     cmp ax, word [party_char_count]  ; 0x2107
-    jl short @..advance_melee_item_slots.l14 ; 0x210b
+    jl short .back5                  ; 0x210b
     mov ax, word [bp - 4]            ; 0x210d
     cmp ax, word [party_char_count]  ; 0x2110
-    jne short @..advance_melee_item_slots.l18 ; 0x2114
+    jne short .forward13             ; 0x2114
     mov word [party_return_state], 8 ; 0x2116
     mov word [party_screen_done], 1  ; 0x211c
-    jmp short @..advance_melee_item_slots.l19 ; 0x2122
-@..advance_melee_item_slots.l18:
+    jmp short .return1               ; 0x2122
+.forward13:
     cmp word [bp - 0x27c], byte 0    ; 0x2124
-    jle short @..advance_melee_item_slots.l19 ; 0x2129
+    jle short .return1               ; 0x2129
     mov word [party_return_state], 0x17 ; 0x212b
     mov word [party_screen_done], 1  ; 0x2131
-@..advance_melee_item_slots.l19:
+.return1:
     ret                              ; 0x2137

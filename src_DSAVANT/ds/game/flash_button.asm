@@ -31,10 +31,10 @@ flash_button: ; Aztec csav frame=0x0000
     call gfx_show_area               ; 0x10ea
     add sp, byte 8                   ; 0x10ed
     cmp word [bp + 0xc], byte 0      ; 0x10f0
-    je short @..flash_button.l1      ; 0x10f4
+    je short .return1                ; 0x10f4
     mov ax, 0x23                     ; 0x10f6
     push ax                          ; 0x10f9
     call delay_ms                    ; 0x10fa
     pop cx                           ; 0x10fd
-@..flash_button.l1:
+.return1:
     ret                              ; 0x10fe

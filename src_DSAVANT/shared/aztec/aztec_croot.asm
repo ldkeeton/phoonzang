@@ -39,17 +39,17 @@ aztec_Croot:
     shl ax, 1
     mov di, word [Argv]
     add di, ax
-@..aztec_Croot.l1:
+.back1:
     cmp byte [si], 0x20
-    je short @..aztec_Croot.l2
+    je short .forward1
     cmp byte [si], 9
-    jne short @..aztec_Croot.l3
-@..aztec_Croot.l2:
+    jne short .forward2
+.forward1:
     inc si
-    jmp short @..aztec_Croot.l1
-@..aztec_Croot.l3:
+    jmp short .back1
+.forward2:
     cmp byte [si], 0
-    je short @..aztec_Croot.l8
+    je short .forward6
     mov word [di], si
     inc di
     inc di
@@ -59,7 +59,7 @@ aztec_Croot:
     call aztec_sbrk
     pop cx
     cmp ax, strict word 0xffff
-    jne short @..aztec_Croot.l4
+    jne short .back2
     mov ax, 0xe
     push ax
     mov ax, aztec_croot_empty_str + 0x1
@@ -72,24 +72,24 @@ aztec_Croot:
     push ax
     call aztec_impl_exit
     pop cx
-@..aztec_Croot.l4:
+.back2:
     inc si
     cmp byte [si], 0
-    je short @..aztec_Croot.l7
+    je short .forward5
     mov al, byte [si]
     cmp al, 0x20
-    je short @..aztec_Croot.l5
+    je short .forward3
     cmp al, 9
-    jne short @..aztec_Croot.l6
-@..aztec_Croot.l5:
+    jne short .forward4
+.forward3:
     mov byte [si], 0
     inc si
-    jmp short @..aztec_Croot.l7
-@..aztec_Croot.l6:
-    jmp short @..aztec_Croot.l4
-@..aztec_Croot.l7:
-    jmp short @..aztec_Croot.l1
-@..aztec_Croot.l8:
+    jmp short .forward5
+.forward4:
+    jmp short .back2
+.forward5:
+    jmp short .back1
+.forward6:
     mov word [di], 0
     push word [Argv]
     push word [Argc]

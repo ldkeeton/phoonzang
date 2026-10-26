@@ -3,23 +3,23 @@ next_text_line:
     mov ax, 0xfffc                   ; 0x0e15
     call aztec_csav                  ; 0x0e18
     cmp word [text_line_index], byte 2 ; 0x0e1b
-    jle short @..next_text_line.l1   ; 0x0e20
+    jle short .forward1              ; 0x0e20
     call api_idx_0002_IUMT           ; 0x0e22
-    jmp short @..next_text_line.l2   ; 0x0e25
-@..next_text_line.l1:
+    jmp short .forward2              ; 0x0e25
+.forward1:
     inc word [text_line_index]       ; 0x0e27
-@..next_text_line.l2:
+.forward2:
     mov ax, 3                        ; 0x0e2b
     push ax                          ; 0x0e2e
     call redraw_area_set             ; 0x0e2f
     pop cx                           ; 0x0e32
     mov word [bp - 4], 0             ; 0x0e33
-@..next_text_line.l3:
+.back1:
     mov ax, word [bp - 4]            ; 0x0e38
     shl ax, 1                        ; 0x0e3b
     mov bx, ax                       ; 0x0e3d
     cmp word [bx + text_line_color], byte 0 ; 0x0e3f
-    je short @..next_text_line.l4    ; 0x0e44
+    je short .forward3               ; 0x0e44
     mov ax, 2                        ; 0x0e46
     push ax                          ; 0x0e49
     mov ax, word [bp - 4]            ; 0x0e4a
@@ -37,22 +37,22 @@ next_text_line:
     mov ax, 0xa0                     ; 0x0e65
     sub ax, cx                       ; 0x0e68
     mov word [bp - 2], ax            ; 0x0e6a
-    jmp short @..next_text_line.l5   ; 0x0e6d
-@..next_text_line.l4:
+    jmp short .forward4              ; 0x0e6d
+.forward3:
     mov word [bp - 2], 0x44          ; 0x0e6f
-@..next_text_line.l5:
+.forward4:
     mov ax, 0xc                      ; 0x0e74
     imul word [bp - 4]               ; 0x0e77
     mov cx, word [bp - 4]            ; 0x0e7a
     shl cx, 1                        ; 0x0e7d
     mov bx, cx                       ; 0x0e7f
     cmp word [bx + text_line_color], byte 0 ; 0x0e81
-    je short @..next_text_line.l6    ; 0x0e86
+    je short .forward5               ; 0x0e86
     mov cx, 0x92                     ; 0x0e88
-    jmp short @..next_text_line.l7   ; 0x0e8b
-@..next_text_line.l6:
+    jmp short .forward6              ; 0x0e8b
+.forward5:
     mov cx, 0x97                     ; 0x0e8d
-@..next_text_line.l7:
+.forward6:
     add ax, cx                       ; 0x0e90
     push ax                          ; 0x0e92
     push word [bp - 2]               ; 0x0e93
@@ -64,12 +64,12 @@ next_text_line:
     shl ax, 1                        ; 0x0ea3
     mov bx, ax                       ; 0x0ea5
     cmp word [bx + text_line_color], byte 0 ; 0x0ea7
-    je short @..next_text_line.l8    ; 0x0eac
+    je short .forward7               ; 0x0eac
     mov ax, 0x55                     ; 0x0eae
-    jmp short @..next_text_line.l9   ; 0x0eb1
-@..next_text_line.l8:
+    jmp short .forward8              ; 0x0eb1
+.forward7:
     mov ax, 1                        ; 0x0eb3
-@..next_text_line.l9:
+.forward8:
     push ax                          ; 0x0eb6
     call gfx_set_text_color          ; 0x0eb7
     add sp, byte 4                   ; 0x0eba
@@ -87,9 +87,9 @@ next_text_line:
     inc word [bp - 4]                ; 0x0eda
     mov ax, word [bp - 4]            ; 0x0edd
     cmp ax, strict word 4            ; 0x0ee0
-    jge short @..next_text_line.l10  ; 0x0ee3
-    jmp near @..next_text_line.l3    ; 0x0ee5
-@..next_text_line.l10:
+    jge short .forward9              ; 0x0ee3
+    jmp near .back1                  ; 0x0ee5
+.forward9:
     mov ax, 3                        ; 0x0ee8
     push ax                          ; 0x0eeb
     call show_area_set               ; 0x0eec

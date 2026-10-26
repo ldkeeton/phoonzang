@@ -4,7 +4,7 @@ loc_UMHI_193b:
     call aztec_csav
     mov ax, 0xffff
     cmp word [loc_UMHI_193b.bss1], byte 0
-    je short @..loc_UMHI_193b.l1
+    je short .return1
     mov ax, word [bp + 4]
-@..loc_UMHI_193b.l1:
+.return1:
     ret

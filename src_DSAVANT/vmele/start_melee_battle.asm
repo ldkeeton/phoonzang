@@ -12,19 +12,19 @@ start_melee_battle:
     add sp, byte 6                   ; 0x33fa
     mov word [row_limit], ax         ; 0x33fd
     mov word [e1_event_flag], 0      ; 0x3400
-    cmp word [loaded_score_num], byte 0xff ; 0x3406
-    je short @..start_melee_battle.l3 ; 0x340b
-@..start_melee_battle.l1:
+    cmp word [loaded_score_num], byte -1 ; 0x3406
+    je short .forward2               ; 0x340b
+.back1:
     call gfx_is_music_playing        ; 0x340d
     test ax, ax                      ; 0x3410
-    je short @..start_melee_battle.l2 ; 0x3412
-    jmp short @..start_melee_battle.l1 ; 0x3414
-@..start_melee_battle.l2:
+    je short .forward1               ; 0x3412
+    jmp short .back1                 ; 0x3414
+.forward1:
     mov ax, 0                        ; 0x3416
     push ax                          ; 0x3419
     call app_gfx_free_score          ; 0x341a
     pop cx                           ; 0x341d
-@..start_melee_battle.l3:
+.forward2:
     call free_current_maze           ; 0x341e
     mov ax, 0                        ; 0x3421
     push ax                          ; 0x3424
@@ -109,14 +109,14 @@ start_melee_battle:
     mov word [screen_cache_0_seg], dx ; 0x34cd
     mov word [screen_cache], ax      ; 0x34d1
     cmp word [saved_screen_pending], byte 0 ; 0x34d4
-    je short @..start_melee_battle.l4 ; 0x34d9
+    je short .forward3               ; 0x34d9
     mov ax, 1                        ; 0x34db
     push ax                          ; 0x34de
     push word [saved_screen_slot]    ; 0x34df
     call restore_saved_screen        ; 0x34e3
     add sp, byte 4                   ; 0x34e6
     mov word [saved_screen_pending], 0 ; 0x34e9
-@..start_melee_battle.l4:
+.forward3:
     mov ax, 0                        ; 0x34ef
     push ax                          ; 0x34f2
     mov ax, 2                        ; 0x34f3
@@ -134,7 +134,7 @@ start_melee_battle:
     mov word [screen_cache_1_seg], dx ; 0x350d
     mov word [screen_cache_1_off], ax ; 0x3511
     mov word [bp - 2], 0             ; 0x3514
-@..start_melee_battle.l5:
+.back2:
     mov ax, 0xe8                     ; 0x3519
     push ax                          ; 0x351c
     call aztec_malloc                ; 0x351d
@@ -152,21 +152,21 @@ start_melee_battle:
     mov bx, cx                       ; 0x3539
     mov word [bx + party_char], ax   ; 0x353b
     cmp word [bx + party_char_ext], byte 0 ; 0x353f
-    je short @..start_melee_battle.l6 ; 0x3544
+    je short .forward4               ; 0x3544
     cmp word [bx + party_char], byte 0 ; 0x3546
-    jne short @..start_melee_battle.l7 ; 0x354b
-@..start_melee_battle.l6:
+    jne short .forward5              ; 0x354b
+.forward4:
     mov ax, 0x1d                     ; 0x354d
     push ax                          ; 0x3550
     call release_and_exit            ; 0x3551
     pop cx                           ; 0x3554
-@..start_melee_battle.l7:
+.forward5:
     inc word [bp - 2]                ; 0x3555
     mov ax, word [bp - 2]            ; 0x3558
     cmp ax, strict word 7            ; 0x355b
-    jl short @..start_melee_battle.l5 ; 0x355e
+    jl short .back2                  ; 0x355e
     mov word [bp - 2], 0             ; 0x3560
-@..start_melee_battle.l8:
+.back3:
     mov ax, 0x18                     ; 0x3565
     push ax                          ; 0x3568
     call aztec_malloc                ; 0x3569
@@ -176,12 +176,12 @@ start_melee_battle:
     mov bx, cx                       ; 0x3572
     mov word [bx + overlay_list + 0x2], ax ; 0x3574
     cmp word [bx + overlay_list + 0x2], byte 0 ; 0x3578
-    jne short @..start_melee_battle.l9 ; 0x357d
+    jne short .forward6              ; 0x357d
     mov ax, 0x1d                     ; 0x357f
     push ax                          ; 0x3582
     call release_and_exit            ; 0x3583
     pop cx                           ; 0x3586
-@..start_melee_battle.l9:
+.forward6:
     mov ax, word [bp - 2]            ; 0x3587
     shl ax, 1                        ; 0x358a
     mov bx, ax                       ; 0x358c
@@ -190,16 +190,16 @@ start_melee_battle:
     inc word [bp - 2]                ; 0x3596
     mov ax, word [bp - 2]            ; 0x3599
     cmp ax, strict word 0xc          ; 0x359c
-    jl short @..start_melee_battle.l8 ; 0x359f
+    jl short .back3                  ; 0x359f
     mov word [bp - 2], 0xf           ; 0x35a1
-@..start_melee_battle.l10:
+.back4:
     mov bx, word [bp - 2]            ; 0x35a6
     mov byte [bx + picture_slot_number], 0xff ; 0x35a9
     mov byte [bx + picture_slot_used], 0 ; 0x35ae
     inc word [bp - 2]                ; 0x35b3
     mov ax, word [bp - 2]            ; 0x35b6
     cmp ax, strict word 0x12         ; 0x35b9
-    jl short @..start_melee_battle.l10 ; 0x35bc
+    jl short .back4                  ; 0x35bc
     mov ax, 0xc6                     ; 0x35be
     push ax                          ; 0x35c1
     mov ax, 0x13a                    ; 0x35c2
@@ -243,20 +243,20 @@ start_melee_battle:
     call setup_melee_party           ; 0x361c
     mov ax, 1                        ; 0x361f
     cmp word [party_return_state], byte 0x12 ; 0x3622
-    jne short @..start_melee_battle.l11 ; 0x3627
+    jne short .forward7              ; 0x3627
     mov ax, 0                        ; 0x3629
-@..start_melee_battle.l11:
+.forward7:
     mov word [show_melee_result], ax ; 0x362c
     mov ax, 0                        ; 0x362f
     cmp word [party_return_state], byte 0x12 ; 0x3632
-    jne short @..start_melee_battle.l12 ; 0x3637
+    jne short .forward8              ; 0x3637
     mov ax, 1                        ; 0x3639
-@..start_melee_battle.l12:
+.forward8:
     mov word [npc_melee], ax         ; 0x363c
     cmp word [party_return_state], byte 0x12 ; 0x363f
-    jne short @..start_melee_battle.l13 ; 0x3644
+    jne short .forward9              ; 0x3644
     cmp word [party_member_count], byte 1 ; 0x3646
-    jle short @..start_melee_battle.l13 ; 0x364b
+    jle short .forward9              ; 0x364b
     mov ax, 1                        ; 0x364d
     push ax                          ; 0x3650
     call restore_areas_redraw_glyph  ; 0x3651
@@ -292,7 +292,7 @@ start_melee_battle:
     push ax                          ; 0x3695
     call show_centered_message       ; 0x3696
     add sp, byte 4                   ; 0x3699
-@..start_melee_battle.l13:
+.forward9:
     call advance_melee_item_slots    ; 0x369c
     les bx, word [tick_counter_ptr]  ; 0x369f
     mov ax, word [es:bx]             ; 0x36a3

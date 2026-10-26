@@ -5,7 +5,7 @@ loc_NOVO:
     add sp, strict word 0xfefe       ; 0x0826
     mov ax, word [bp + 4]            ; 0x082a
     mov word [bp - 2], ax            ; 0x082d
-@..loc_NOVO.l1:
+.back1:
     push word [bp + 8]               ; 0x0830
     push word [bp + 6]               ; 0x0833
     call bios_set_cursor             ; 0x0836
@@ -37,9 +37,9 @@ loc_NOVO:
     mov word [bp - 2], ax            ; 0x0878
     mov ax, word [bp - 2]            ; 0x087b
     cmp ax, word [bp + 0xe]          ; 0x087e
-    jl short @..loc_NOVO.l1          ; 0x0881
+    jl short .back1                  ; 0x0881
     cmp ax, word [bp + 0xc]          ; 0x0883
-    jg short @..loc_NOVO.l1          ; 0x0886
+    jg short .back1                  ; 0x0886
     mov ax, word [bp - 2]            ; 0x0888
     mov sp, bp                       ; 0x088b
     pop bp                           ; 0x088d

@@ -31,15 +31,15 @@ api_idx_000e_ORVT:
     call api_idx_0026_QIGS           ; 0x9713
     add sp, byte 0xa                 ; 0x9716
     cmp ax, strict word 2            ; 0x9719
-    jne short @..api_idx_000e_ORVT.l1 ; 0x971c
+    jne short .forward1              ; 0x971c
     ret                              ; 0x971e
-@..api_idx_000e_ORVT.l1:
+.forward1:
     lea ax, word [bp - 0xa]          ; 0x971f
     push ax                          ; 0x9722
     call aztec_strlen                ; 0x9723
     pop cx                           ; 0x9726
     test ax, ax                      ; 0x9727
-    je short @..api_idx_000e_ORVT.l2 ; 0x9729
+    je short .return1                ; 0x9729
     lea ax, word [bp - 0xa]          ; 0x972b
     push ax                          ; 0x972e
     mov ax, 0x248                    ; 0x972f
@@ -48,5 +48,5 @@ api_idx_000e_ORVT:
     push ax                          ; 0x9738
     call aztec_strcpy                ; 0x9739
     add sp, byte 4                   ; 0x973c
-@..api_idx_000e_ORVT.l2:
+.return1:
     ret                              ; 0x973f

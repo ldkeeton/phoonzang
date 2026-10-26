@@ -29,23 +29,23 @@ api_idx_0018_MVRH:
     call api_idx_0026_NRVO           ; 0x6839
     add sp, byte 0xa                 ; 0x683c
     cmp ax, strict word 2            ; 0x683f
-    jne short @..api_idx_0018_MVRH.l1 ; 0x6842
+    jne short .forward1              ; 0x6842
     ret                              ; 0x6844
-@..api_idx_0018_MVRH.l1:
+.forward1:
     lea ax, word [bp - 0x14]         ; 0x6845
     push ax                          ; 0x6848
     call aztec_strlen                ; 0x6849
     pop cx                           ; 0x684c
     test ax, ax                      ; 0x684d
-    je short @..api_idx_0018_MVRH.l3 ; 0x684f
+    je short .return1                ; 0x684f
     lea ax, word [bp - 0x14]         ; 0x6851
     push ax                          ; 0x6854
     call loc_TLLM                    ; 0x6855
     pop cx                           ; 0x6858
     cmp ax, strict word 0xffff       ; 0x6859
-    jne short @..api_idx_0018_MVRH.l2 ; 0x685c
-    jmp short @..api_idx_0018_MVRH.l3 ; 0x685e
-@..api_idx_0018_MVRH.l2:
+    jne short .forward2              ; 0x685c
+    jmp short .return1               ; 0x685e
+.forward2:
     lea ax, word [bp - 0x14]         ; 0x6860
     push ax                          ; 0x6863
     mov ax, party_records            ; 0x6864
@@ -62,5 +62,5 @@ api_idx_0018_MVRH:
     push word [bp + 4]               ; 0x687f
     call loc_RNSM                    ; 0x6882
     pop cx                           ; 0x6885
-@..api_idx_0018_MVRH.l3:
+.return1:
     ret                              ; 0x6886

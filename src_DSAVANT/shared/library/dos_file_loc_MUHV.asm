@@ -6,7 +6,7 @@ dos_file_loc_MUHV:
     push di
     mov dx, word [cs:scratch_buf_seg - IMAGE_BASE]
     mov ds, dx
-@..dos_file_loc_MUHV.l1:
+.back1:
     xor dx, dx
     mov cx, 0x1000
     mov bx, word [bp - 2]
@@ -23,4 +23,4 @@ dos_file_loc_MUHV:
     jb short dos_file_loc_MUHV.dos_con_loc1
     pop cx
     cmp cx, ax
-    je short @..dos_file_loc_MUHV.l1
+    je short .back1

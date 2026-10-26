@@ -3,21 +3,21 @@ api_idx_0012_RMOL:
     mov ax, 0xffee
     call aztec_csav
     cmp word [bp + 4], byte 4
-    jge short @..api_idx_0012_RMOL.l1
+    jge short .forward1
     cmp word [bp + 6], byte 0
-    jle short @..api_idx_0012_RMOL.l1
+    jle short .forward1
     cmp word [bp + 6], byte 4
-    jge short @..api_idx_0012_RMOL.l1
+    jge short .forward1
     mov ax, 1
-    jmp short @..api_idx_0012_RMOL.l2
-@..api_idx_0012_RMOL.l1:
+    jmp short .forward2
+.forward1:
     mov ax, 0
-@..api_idx_0012_RMOL.l2:
+.forward2:
     mov word [bp - 0x12], ax
     cmp word [bp - 0x12], byte 0
-    jne short @..api_idx_0012_RMOL.l3
-    jmp near @..api_idx_0012_RMOL.l20
-@..api_idx_0012_RMOL.l3:
+    jne short .forward3
+    jmp near .forward20
+.forward3:
     mov ax, 0xa
     imul word [bp + 4]
     mov cx, word [bp + 6]
@@ -25,13 +25,13 @@ api_idx_0012_RMOL:
     add ax, cx
     mov bx, ax
     cmp word [bx + api_idx_0012_RMOL.bss1], byte 0
-    jne short @..api_idx_0012_RMOL.l4
+    jne short .forward4
     cmp word [bx + api_idx_0012_RMOL.bss2], byte 0
-    jne short @..api_idx_0012_RMOL.l4
-    jmp near @..api_idx_0012_RMOL.l20
-@..api_idx_0012_RMOL.l4:
+    jne short .forward4
+    jmp near .forward20
+.forward4:
     cmp word [bp + 6], byte 2
-    jne short @..api_idx_0012_RMOL.l5
+    jne short .forward5
     mov ax, 0
     push ax
     push ax
@@ -68,10 +68,10 @@ api_idx_0012_RMOL:
     push ax
     call api_idx_0012_RMOL.api_idx1
     add sp, byte 0x1c
-    jmp short @..api_idx_0012_RMOL.l9
-@..api_idx_0012_RMOL.l5:
+    jmp short .forward9
+.forward5:
     cmp word [bp + 4], byte 0
-    jle short @..api_idx_0012_RMOL.l9
+    jle short .forward9
     mov ax, 0
     push ax
     push ax
@@ -82,10 +82,10 @@ api_idx_0012_RMOL:
     mov ax, 0xffff
     push ax
     cmp word [bp + 6], byte 3
-    jne short @..api_idx_0012_RMOL.l6
+    jne short .forward6
     mov ax, word [bp + 0x2a]
     add ax, word [bp + 4]
-@..api_idx_0012_RMOL.l6:
+.forward6:
     push ax
     mov ax, 0
     push ax
@@ -96,20 +96,20 @@ api_idx_0012_RMOL:
     mov ax, 0xffff
     push ax
     cmp word [bp + 6], byte 3
-    jne short @..api_idx_0012_RMOL.l7
+    jne short .forward7
     mov ax, word [bp + 0x2a]
     add ax, word [bp + 4]
-    jmp short @..api_idx_0012_RMOL.l8
-@..api_idx_0012_RMOL.l7:
+    jmp short .forward8
+.forward7:
     mov ax, word [bp + 0x28]
     add ax, word [bp + 4]
-@..api_idx_0012_RMOL.l8:
+.forward8:
     push ax
     mov ax, 0xff
     push ax
     call api_idx_0012_RMOL.api_idx1
     add sp, byte 0x1c
-@..api_idx_0012_RMOL.l9:
+.forward9:
     mov ax, 0xa
     imul word [bp + 4]
     mov cx, word [bp + 6]
@@ -117,9 +117,9 @@ api_idx_0012_RMOL:
     add ax, cx
     mov bx, ax
     cmp word [bx + api_idx_0012_RMOL.bss1], byte 0
-    jne short @..api_idx_0012_RMOL.l10
-    jmp near @..api_idx_0012_RMOL.l20
-@..api_idx_0012_RMOL.l10:
+    jne short .forward10
+    jmp near .forward20
+.forward10:
     mov cx, word [bx + api_idx_0012_RMOL.bss1]
     dec cx
     mov ax, word [party_tag]
@@ -136,20 +136,20 @@ api_idx_0012_RMOL:
     idiv cx
     mov ax, dx
     test ax, ax
-    jne short @..api_idx_0012_RMOL.l11
+    jne short .forward11
     cmp word [bp + 4], byte 0
-    jg short @..api_idx_0012_RMOL.l12
-@..api_idx_0012_RMOL.l11:
+    jg short .forward12
+.forward11:
     cmp word [bp + 6], byte 2
-    jne short @..api_idx_0012_RMOL.l15
-@..api_idx_0012_RMOL.l12:
+    jne short .forward15
+.forward12:
     test ax, ax
-    je short @..api_idx_0012_RMOL.l13
+    je short .forward13
     mov ax, 3
-    jmp short @..api_idx_0012_RMOL.l14
-@..api_idx_0012_RMOL.l13:
+    jmp short .forward14
+.forward13:
     mov ax, 0
-@..api_idx_0012_RMOL.l14:
+.forward14:
     mov cx, word [bp + 4]
     shl cx, 1
     shl cx, 1
@@ -163,23 +163,23 @@ api_idx_0012_RMOL:
     mov word [bp - 6], ax
     mov ax, word [bx + 0x260]
     mov word [bp - 8], ax
-    jmp short @..api_idx_0012_RMOL.l17
-@..api_idx_0012_RMOL.l15:
+    jmp short .forward17
+.forward15:
     cmp word [bp + 4], byte 0
-    jle short @..api_idx_0012_RMOL.l17
+    jle short .forward17
     mov ax, word [bp + 4]
     add ax, strict word 0x20
     mov word [bp - 4], ax
     mov ax, 0
     cmp word [bp + 6], byte 3
-    jne short @..api_idx_0012_RMOL.l16
+    jne short .forward16
     mov ax, 1
-@..api_idx_0012_RMOL.l16:
+.forward16:
     mov word [bp - 6], ax
     mov word [bp - 8], 0
-@..api_idx_0012_RMOL.l17:
+.forward17:
     cmp word [bp - 4], byte 0
-    je short @..api_idx_0012_RMOL.l20
+    je short .forward20
     mov ax, 0
     push ax
     push ax
@@ -193,14 +193,14 @@ api_idx_0012_RMOL:
     push word [bp + 6]
     mov ax, word [bp + 6]
     cmp ax, strict word 2
-    je short @..api_idx_0012_RMOL.l18
+    je short .forward18
     cmp dx, byte 1
-    jne short @..api_idx_0012_RMOL.l18
+    jne short .forward18
     mov ax, 1
-    jmp short @..api_idx_0012_RMOL.l19
-@..api_idx_0012_RMOL.l18:
+    jmp short .forward19
+.forward18:
     mov ax, 0
-@..api_idx_0012_RMOL.l19:
+.forward19:
     push ax
     mov ax, 1
     push ax
@@ -212,23 +212,23 @@ api_idx_0012_RMOL:
     push ax
     call api_idx_0012_RMOL.api_idx1
     add sp, byte 0x1c
-@..api_idx_0012_RMOL.l20:
+.forward20:
     mov ax, 5
     imul word [bp + 4]
     add ax, word [bp + 6]
     mov bx, ax
     mov al, byte [bx + api_idx_0012_RMOL.bss4]
     sub ah, ah
-    jmp near @..api_idx_0012_RMOL.l36
-@..api_idx_0012_RMOL.l21:
+    jmp near .forward35
+.back1:
     cmp word [boundary_wall_variant], byte 2
-    je short @..api_idx_0012_RMOL.l22
-    jmp near @..api_idx_0012_RMOL.l32
-@..api_idx_0012_RMOL.l22:
+    je short .forward21
+    jmp near .forward31
+.forward21:
     cmp word [bp + 4], byte 5
-    jl short @..api_idx_0012_RMOL.l23
-    jmp near @..api_idx_0012_RMOL.l31
-@..api_idx_0012_RMOL.l23:
+    jl short .forward22
+    jmp near .forward30
+.forward22:
     mov ax, 0
     push ax
     push ax
@@ -268,8 +268,8 @@ api_idx_0012_RMOL:
     mov word [bp - 0xa], 0xffff
     mov word [bp - 0x10], 0xffff
     mov word [bp - 0xc], 0xffff
-    cmp word [bp + 0x40], byte 0xff
-    je short @..api_idx_0012_RMOL.l24
+    cmp word [bp + 0x40], byte -1
+    je short .forward23
     mov ax, word [bp + 0x42]
     add ax, word [bp + 4]
     push ax
@@ -285,9 +285,9 @@ api_idx_0012_RMOL:
     call api_idx_0012_RMOL.loc1
     pop cx
     mov word [bp - 0x10], ax
-@..api_idx_0012_RMOL.l24:
+.forward23:
     cmp word [bp + 4], byte 0
-    jle short @..api_idx_0012_RMOL.l25
+    jle short .forward24
     mov ax, word [bp + 0x3e]
     add ax, word [bp + 4]
     dec ax
@@ -306,13 +306,13 @@ api_idx_0012_RMOL:
     call api_idx_0012_RMOL.loc4
     pop cx
     mov word [bp - 0xc], ax
-@..api_idx_0012_RMOL.l25:
-    cmp word [bp - 0xa], byte 0xff
-    jne short @..api_idx_0012_RMOL.l26
-    cmp word [bp - 0xe], byte 0xff
-    jne short @..api_idx_0012_RMOL.l26
-    jmp near @..api_idx_0012_RMOL.l31
-@..api_idx_0012_RMOL.l26:
+.forward24:
+    cmp word [bp - 0xa], byte -1
+    jne short .forward25
+    cmp word [bp - 0xe], byte -1
+    jne short .forward25
+    jmp near .forward30
+.forward25:
     mov ax, 0
     push ax
     push ax
@@ -332,21 +332,21 @@ api_idx_0012_RMOL:
     push ax
     call api_idx_0012_RMOL.api_idx1
     add sp, byte 0x1c
-    cmp word [bp - 0xa], byte 0xff
-    jne short @..api_idx_0012_RMOL.l27
-    jmp near @..api_idx_0012_RMOL.l31
-@..api_idx_0012_RMOL.l27:
+    cmp word [bp - 0xa], byte -1
+    jne short .forward26
+    jmp near .forward30
+.forward26:
     cmp word [boundary_wall_variant], byte 0
-    jne short @..api_idx_0012_RMOL.l28
-    jmp near @..api_idx_0012_RMOL.l31
-@..api_idx_0012_RMOL.l28:
+    jne short .forward27
+    jmp near .forward30
+.forward27:
     mov ax, word [bp + 4]
     cmp ax, strict word 4
-    je short @..api_idx_0012_RMOL.l29
-    jmp near @..api_idx_0012_RMOL.l31
-@..api_idx_0012_RMOL.l29:
+    je short .forward28
+    jmp near .forward30
+.forward28:
     cmp word [bp + 6], byte 0
-    jne short @..api_idx_0012_RMOL.l30
+    jne short .forward29
     mov ax, 0
     push ax
     push ax
@@ -379,10 +379,10 @@ api_idx_0012_RMOL:
     push ax
     call api_idx_0012_RMOL.api_idx1
     add sp, byte 0x1c
-    jmp short @..api_idx_0012_RMOL.l31
-@..api_idx_0012_RMOL.l30:
+    jmp short .forward30
+.forward29:
     cmp word [bp + 6], byte 4
-    jne short @..api_idx_0012_RMOL.l31
+    jne short .forward30
     mov ax, 0
     push ax
     push ax
@@ -415,17 +415,17 @@ api_idx_0012_RMOL:
     push ax
     call api_idx_0012_RMOL.api_idx1
     add sp, byte 0x1c
-@..api_idx_0012_RMOL.l31:
-    jmp near @..api_idx_0012_RMOL.l35
-@..api_idx_0012_RMOL.l32:
+.forward30:
+    jmp near .forward34
+.forward31:
     cmp word [boundary_wall_variant], byte 4
-    je short @..api_idx_0012_RMOL.l33
-    jmp near @..api_idx_0012_RMOL.l35
-@..api_idx_0012_RMOL.l33:
+    je short .forward32
+    jmp near .forward34
+.forward32:
     cmp word [bp + 4], byte 4
-    jl short @..api_idx_0012_RMOL.l34
-    jmp near @..api_idx_0012_RMOL.l35
-@..api_idx_0012_RMOL.l34:
+    jl short .forward33
+    jmp near .forward34
+.forward33:
     mov ax, word [bp + 0x38]
     add ax, word [bp + 4]
     push ax
@@ -448,9 +448,9 @@ api_idx_0012_RMOL:
     add sp, byte 8
     mov ax, word [bp + 4]
     cmp ax, strict word 2
-    jge short @..api_idx_0012_RMOL.l35
+    jge short .forward34
     cmp word [bp + 6], byte 2
-    jne short @..api_idx_0012_RMOL.l35
+    jne short .forward34
     mov ax, 0
     push ax
     mov ax, 1
@@ -486,23 +486,23 @@ api_idx_0012_RMOL:
     push ax
     call api_idx_0012_RMOL.api_idx1
     add sp, byte 0x1c
-@..api_idx_0012_RMOL.l35:
-    jmp short @..api_idx_0012_RMOL.l37
-@..api_idx_0012_RMOL.l36:
+.forward34:
+    jmp short .forward36
+.forward35:
     cmp ax, strict word 1
-    jne short @..api_idx_0012_RMOL.l37
-    jmp near @..api_idx_0012_RMOL.l21
-@..api_idx_0012_RMOL.l37:
+    jne short .forward36
+    jmp near .back1
+.forward36:
     mov ax, 5
     imul word [bp + 4]
     add ax, word [bp + 6]
     mov bx, ax
     mov al, byte [bx + api_idx_0012_RMOL.bss5]
     sub ah, ah
-    jmp near @..api_idx_0012_RMOL.l45
+    jmp near .forward44
 api_idx_0012_RMOL.jumptable_case1:
     cmp word [bp + 4], byte 5
-    jge short @..api_idx_0012_RMOL.l38
+    jge short api_idx_0012_RMOL.forward37
     mov ax, word [bp + 0x1c]
     add ax, word [bp + 4]
     push ax
@@ -523,11 +523,11 @@ api_idx_0012_RMOL.jumptable_case1:
     push word [bp + 0xa]
     call gfx_draw_maze_piece
     add sp, byte 8
-@..api_idx_0012_RMOL.l38:
-    jmp near @..api_idx_0012_RMOL.l46
+api_idx_0012_RMOL.forward37:
+    jmp near api_idx_0012_RMOL.forward45
 api_idx_0012_RMOL.jumptable_case2:
     cmp word [bp + 4], byte 5
-    jge short @..api_idx_0012_RMOL.l39
+    jge short api_idx_0012_RMOL.forward38
     mov ax, word [bp + 0x30]
     add ax, word [bp + 4]
     push ax
@@ -548,11 +548,11 @@ api_idx_0012_RMOL.jumptable_case2:
     push word [bp + 0x16]
     call gfx_draw_maze_piece
     add sp, byte 8
-@..api_idx_0012_RMOL.l39:
-    jmp short @..api_idx_0012_RMOL.l46
+api_idx_0012_RMOL.forward38:
+    jmp short api_idx_0012_RMOL.forward45
 api_idx_0012_RMOL.jumptable_case3:
     cmp word [bp + 4], byte 5
-    jge short @..api_idx_0012_RMOL.l44
+    jge short api_idx_0012_RMOL.forward43
     mov ax, word [api_idx_0012_RMOL.bss6]
     add ax, word [party_status_frame]
     mov cx, 2
@@ -560,51 +560,51 @@ api_idx_0012_RMOL.jumptable_case3:
     idiv cx
     mov ax, dx
     test ax, ax
-    je short @..api_idx_0012_RMOL.l40
+    je short api_idx_0012_RMOL.forward39
     mov ax, word [bp + 0x34]
     add ax, word [bp + 4]
-    jmp short @..api_idx_0012_RMOL.l41
-@..api_idx_0012_RMOL.l40:
+    jmp short api_idx_0012_RMOL.forward40
+api_idx_0012_RMOL.forward39:
     mov ax, 0xffff
-@..api_idx_0012_RMOL.l41:
+api_idx_0012_RMOL.forward40:
     push ax
     push cx
     test dx, dx
-    je short @..api_idx_0012_RMOL.l42
+    je short api_idx_0012_RMOL.forward41
     mov ax, word [bp + 0x36]
     add ax, word [bp + 4]
-    jmp short @..api_idx_0012_RMOL.l43
-@..api_idx_0012_RMOL.l42:
+    jmp short api_idx_0012_RMOL.forward42
+api_idx_0012_RMOL.forward41:
     mov ax, word [bp + 0x34]
     add ax, word [bp + 4]
-@..api_idx_0012_RMOL.l43:
+api_idx_0012_RMOL.forward42:
     push ax
     push word [bp + 0x14]
     call gfx_draw_maze_piece
     add sp, byte 8
-@..api_idx_0012_RMOL.l44:
-    jmp short @..api_idx_0012_RMOL.l46
+api_idx_0012_RMOL.forward43:
+    jmp short api_idx_0012_RMOL.forward45
 api_idx_0012_RMOL.jumptable_case4:
-    jmp short @..api_idx_0012_RMOL.l46
+    jmp short api_idx_0012_RMOL.forward45
 api_idx_0012_RMOL.jumptable_case5:
-    jmp short @..api_idx_0012_RMOL.l46
+    jmp short api_idx_0012_RMOL.forward45
 api_idx_0012_RMOL.jumptable1:
     dw api_idx_0012_RMOL.jumptable_case5 - IMAGE_BASE + __zres_end
     dw api_idx_0012_RMOL.jumptable_case1 - IMAGE_BASE + __zres_end
     dw api_idx_0012_RMOL.jumptable_case2 - IMAGE_BASE + __zres_end
     dw api_idx_0012_RMOL.jumptable_case3 - IMAGE_BASE + __zres_end
     dw api_idx_0012_RMOL.jumptable_case4 - IMAGE_BASE + __zres_end
-@..api_idx_0012_RMOL.l45:
+api_idx_0012_RMOL.forward44:
     cmp ax, strict word 5
-    jae short @..api_idx_0012_RMOL.l46
+    jae short api_idx_0012_RMOL.forward45
     xchg bx, ax
     shl bx, 1
     jmp [cs:bx + api_idx_0012_RMOL.jumptable1 - IMAGE_BASE + __zres_end]
-@..api_idx_0012_RMOL.l46:
+api_idx_0012_RMOL.forward45:
     cmp word [bp - 0x12], byte 0
-    jne short @..api_idx_0012_RMOL.l47
-    jmp near @..api_idx_0012_RMOL.l60
-@..api_idx_0012_RMOL.l47:
+    jne short api_idx_0012_RMOL.forward46
+    jmp near api_idx_0012_RMOL.forward59
+api_idx_0012_RMOL.forward46:
     mov ax, 0xa
     imul word [bp + 4]
     mov cx, word [bp + 6]
@@ -612,13 +612,13 @@ api_idx_0012_RMOL.jumptable1:
     add ax, cx
     mov bx, ax
     cmp word [bx + api_idx_0012_RMOL.bss7], byte 0
-    jne short @..api_idx_0012_RMOL.l48
+    jne short api_idx_0012_RMOL.forward47
     cmp word [bx + api_idx_0012_RMOL.bss8], byte 0
-    jne short @..api_idx_0012_RMOL.l48
-    jmp near @..api_idx_0012_RMOL.l60
-@..api_idx_0012_RMOL.l48:
+    jne short api_idx_0012_RMOL.forward47
+    jmp near api_idx_0012_RMOL.forward59
+api_idx_0012_RMOL.forward47:
     cmp word [bp + 6], byte 2
-    jne short @..api_idx_0012_RMOL.l49
+    jne short api_idx_0012_RMOL.forward48
     mov ax, word [bp + 0x24]
     add ax, word [bp + 4]
     push ax
@@ -640,34 +640,34 @@ api_idx_0012_RMOL.jumptable1:
     push ax
     call gfx_draw_maze_piece
     add sp, byte 8
-    jmp short @..api_idx_0012_RMOL.l53
-@..api_idx_0012_RMOL.l49:
+    jmp short api_idx_0012_RMOL.forward52
+api_idx_0012_RMOL.forward48:
     cmp word [bp + 4], byte 0
-    jle short @..api_idx_0012_RMOL.l53
+    jle short api_idx_0012_RMOL.forward52
     mov ax, 0xffff
     cmp word [bp + 6], byte 3
-    jne short @..api_idx_0012_RMOL.l50
+    jne short api_idx_0012_RMOL.forward49
     mov ax, word [bp + 0x2e]
     add ax, word [bp + 4]
-@..api_idx_0012_RMOL.l50:
+api_idx_0012_RMOL.forward49:
     push ax
     mov ax, 2
     push ax
     cmp word [bp + 6], byte 3
-    jne short @..api_idx_0012_RMOL.l51
+    jne short api_idx_0012_RMOL.forward50
     mov ax, word [bp + 0x2e]
     add ax, word [bp + 4]
-    jmp short @..api_idx_0012_RMOL.l52
-@..api_idx_0012_RMOL.l51:
+    jmp short api_idx_0012_RMOL.forward51
+api_idx_0012_RMOL.forward50:
     mov ax, word [bp + 0x2c]
     add ax, word [bp + 4]
-@..api_idx_0012_RMOL.l52:
+api_idx_0012_RMOL.forward51:
     push ax
     mov ax, 3
     push ax
     call gfx_draw_maze_piece
     add sp, byte 8
-@..api_idx_0012_RMOL.l53:
+api_idx_0012_RMOL.forward52:
     mov ax, 0xa
     imul word [bp + 4]
     mov cx, word [bp + 6]
@@ -675,9 +675,9 @@ api_idx_0012_RMOL.jumptable1:
     add ax, cx
     mov bx, ax
     cmp word [bx + api_idx_0012_RMOL.bss7], byte 0
-    jne short @..api_idx_0012_RMOL.l54
-    jmp near @..api_idx_0012_RMOL.l60
-@..api_idx_0012_RMOL.l54:
+    jne short api_idx_0012_RMOL.forward53
+    jmp near api_idx_0012_RMOL.forward59
+api_idx_0012_RMOL.forward53:
     mov cx, word [bx + api_idx_0012_RMOL.bss7]
     dec cx
     mov ax, word [party_tag]
@@ -694,13 +694,13 @@ api_idx_0012_RMOL.jumptable1:
     idiv cx
     mov ax, dx
     test ax, ax
-    jne short @..api_idx_0012_RMOL.l55
+    jne short api_idx_0012_RMOL.forward54
     cmp word [bp + 4], byte 0
-    jg short @..api_idx_0012_RMOL.l56
-@..api_idx_0012_RMOL.l55:
+    jg short api_idx_0012_RMOL.forward55
+api_idx_0012_RMOL.forward54:
     cmp word [bp + 6], byte 2
-    jne short @..api_idx_0012_RMOL.l57
-@..api_idx_0012_RMOL.l56:
+    jne short api_idx_0012_RMOL.forward56
+api_idx_0012_RMOL.forward55:
     mov cx, word [bp + 4]
     shl cx, 1
     shl cx, 1
@@ -712,23 +712,23 @@ api_idx_0012_RMOL.jumptable1:
     mov word [bp - 6], ax
     mov ax, word [bx + 0x260]
     mov word [bp - 8], ax
-    jmp short @..api_idx_0012_RMOL.l59
-@..api_idx_0012_RMOL.l57:
+    jmp short api_idx_0012_RMOL.forward58
+api_idx_0012_RMOL.forward56:
     cmp word [bp + 4], byte 0
-    jle short @..api_idx_0012_RMOL.l59
+    jle short api_idx_0012_RMOL.forward58
     mov ax, word [bp + 4]
     add ax, strict word 0x20
     mov word [bp - 4], ax
     mov ax, 0
     cmp word [bp + 6], byte 3
-    jne short @..api_idx_0012_RMOL.l58
+    jne short api_idx_0012_RMOL.forward57
     mov ax, 1
-@..api_idx_0012_RMOL.l58:
+api_idx_0012_RMOL.forward57:
     mov word [bp - 6], ax
     mov word [bp - 8], 0
-@..api_idx_0012_RMOL.l59:
+api_idx_0012_RMOL.forward58:
     cmp word [bp - 4], byte 0
-    je short @..api_idx_0012_RMOL.l60
+    je short api_idx_0012_RMOL.forward59
     mov ax, 0
     push ax
     push ax
@@ -750,52 +750,52 @@ api_idx_0012_RMOL.jumptable1:
     push ax
     call api_idx_0012_RMOL.api_idx1
     add sp, byte 0x1c
-@..api_idx_0012_RMOL.l60:
+api_idx_0012_RMOL.forward59:
     cmp word [bp + 4], byte 4
-    jl short @..api_idx_0012_RMOL.l61
-    jmp near @..api_idx_0012_RMOL.l82
-@..api_idx_0012_RMOL.l61:
+    jl short api_idx_0012_RMOL.forward60
+    jmp near api_idx_0012_RMOL.return1
+api_idx_0012_RMOL.forward60:
     mov ax, 5
     imul word [bp + 4]
     add ax, word [bp + 6]
     mov bx, ax
     cmp byte [bx + api_idx_0012_RMOL.bss9], 3
-    je short @..api_idx_0012_RMOL.l62
-    jmp near @..api_idx_0012_RMOL.l68
-@..api_idx_0012_RMOL.l62:
+    je short api_idx_0012_RMOL.forward61
+    jmp near api_idx_0012_RMOL.forward67
+api_idx_0012_RMOL.forward61:
     mov ax, word [bp + 4]
     cmp ax, strict word 0
-    jg short @..api_idx_0012_RMOL.l63
+    jg short api_idx_0012_RMOL.forward62
     mov ax, word [bp + 6]
     cmp ax, strict word 2
-    je short @..api_idx_0012_RMOL.l63
-    jmp near @..api_idx_0012_RMOL.l68
-@..api_idx_0012_RMOL.l63:
+    je short api_idx_0012_RMOL.forward62
+    jmp near api_idx_0012_RMOL.forward67
+api_idx_0012_RMOL.forward62:
     cmp word [bp + 4], byte 0
-    jne short @..api_idx_0012_RMOL.l64
+    jne short api_idx_0012_RMOL.forward63
     mov ax, word [bp + 6]
     cmp ax, strict word 2
-    jne short @..api_idx_0012_RMOL.l64
+    jne short api_idx_0012_RMOL.forward63
     cmp word [bss_8f22], byte 0
-    je short @..api_idx_0012_RMOL.l64
+    je short api_idx_0012_RMOL.forward63
     mov word [marker_mode], 0xffff
-@..api_idx_0012_RMOL.l64:
+api_idx_0012_RMOL.forward63:
     cmp word [bp + 4], byte 0
-    jne short @..api_idx_0012_RMOL.l65
+    jne short api_idx_0012_RMOL.forward64
     mov ax, word [bp + 6]
     cmp ax, strict word 2
-    jne short @..api_idx_0012_RMOL.l65
+    jne short api_idx_0012_RMOL.forward64
     mov ax, 2
-    jmp short @..api_idx_0012_RMOL.l66
-@..api_idx_0012_RMOL.l65:
+    jmp short api_idx_0012_RMOL.forward65
+api_idx_0012_RMOL.forward64:
     mov ax, 1
-@..api_idx_0012_RMOL.l66:
+api_idx_0012_RMOL.forward65:
     mov word [bp - 4], ax
     mov ax, word [bp + 4]
     cmp word [bp - 4], byte 2
-    je short @..api_idx_0012_RMOL.l67
+    je short api_idx_0012_RMOL.forward66
     dec ax
-@..api_idx_0012_RMOL.l67:
+api_idx_0012_RMOL.forward66:
     mov word [bp - 8], ax
     mov ax, 1
     push ax
@@ -828,23 +828,23 @@ api_idx_0012_RMOL.jumptable1:
     push ax
     call api_idx_0012_RMOL.api_idx1
     add sp, byte 0x1c
-@..api_idx_0012_RMOL.l68:
+api_idx_0012_RMOL.forward67:
     mov ax, 5
     imul word [bp + 4]
     add ax, word [bp + 6]
     mov bx, ax
     cmp byte [bx + api_idx_0012_RMOL.bss9], 1
-    je short @..api_idx_0012_RMOL.l69
+    je short api_idx_0012_RMOL.forward68
     cmp byte [bx + api_idx_0012_RMOL.bss9], 2
-    jne short @..api_idx_0012_RMOL.l71
-@..api_idx_0012_RMOL.l69:
+    jne short api_idx_0012_RMOL.forward70
+api_idx_0012_RMOL.forward68:
     mov ax, word [bp + 4]
     cmp ax, strict word 0
-    jg short @..api_idx_0012_RMOL.l70
+    jg short api_idx_0012_RMOL.forward69
     mov ax, word [bp + 6]
     cmp ax, strict word 2
-    jne short @..api_idx_0012_RMOL.l71
-@..api_idx_0012_RMOL.l70:
+    jne short api_idx_0012_RMOL.forward70
+api_idx_0012_RMOL.forward69:
     mov ax, 1
     push ax
     push ax
@@ -885,35 +885,35 @@ api_idx_0012_RMOL.jumptable1:
     push ax
     call api_idx_0012_RMOL.api_idx1
     add sp, byte 0x1c
-@..api_idx_0012_RMOL.l71:
+api_idx_0012_RMOL.forward70:
     mov ax, 5
     imul word [bp + 4]
     add ax, word [bp + 6]
     mov bx, ax
     cmp byte [bx + api_idx_0012_RMOL.bss10], 0
-    jne short @..api_idx_0012_RMOL.l72
-    jmp near @..api_idx_0012_RMOL.l82
-@..api_idx_0012_RMOL.l72:
+    jne short api_idx_0012_RMOL.forward71
+    jmp near api_idx_0012_RMOL.return1
+api_idx_0012_RMOL.forward71:
     cmp word [bp + 4], byte 0
-    jne short @..api_idx_0012_RMOL.l73
+    jne short api_idx_0012_RMOL.forward72
     mov ax, word [bp + 6]
     cmp ax, strict word 2
-    jne short @..api_idx_0012_RMOL.l73
+    jne short api_idx_0012_RMOL.forward72
     cmp word [bss_8f22], byte 0
-    je short @..api_idx_0012_RMOL.l73
+    je short api_idx_0012_RMOL.forward72
     mov al, byte [bx + api_idx_0012_RMOL.bss10]
     sub ah, ah
     mov word [marker_mode], ax
-    jmp near @..api_idx_0012_RMOL.l82
-@..api_idx_0012_RMOL.l73:
+    jmp near api_idx_0012_RMOL.return1
+api_idx_0012_RMOL.forward72:
     mov ax, word [bp + 4]
     cmp ax, strict word 0
-    jg short @..api_idx_0012_RMOL.l74
+    jg short api_idx_0012_RMOL.forward73
     mov ax, word [bp + 6]
     cmp ax, strict word 2
-    je short @..api_idx_0012_RMOL.l74
-    jmp near @..api_idx_0012_RMOL.l82
-@..api_idx_0012_RMOL.l74:
+    je short api_idx_0012_RMOL.forward73
+    jmp near api_idx_0012_RMOL.return1
+api_idx_0012_RMOL.forward73:
     mov al, byte [bx + api_idx_0012_RMOL.bss10]
     sub ah, ah
     mov cx, ax
@@ -927,8 +927,8 @@ api_idx_0012_RMOL.jumptable1:
     idiv cx
     mov word [bp - 2], dx
     mov ax, dx
-    jmp near @..api_idx_0012_RMOL.l79
-@..api_idx_0012_RMOL.l75:
+    jmp near api_idx_0012_RMOL.forward76
+api_idx_0012_RMOL.back2:
     mov ax, 1
     push ax
     push ax
@@ -947,9 +947,9 @@ api_idx_0012_RMOL.jumptable1:
     push ax
     mov ax, 5
     cmp word [bp - 2], byte 0
-    jne short @..api_idx_0012_RMOL.l76
+    jne short api_idx_0012_RMOL.forward74
     mov ax, 4
-@..api_idx_0012_RMOL.l76:
+api_idx_0012_RMOL.forward74:
     push ax
     mov ax, 2
     push ax
@@ -967,16 +967,16 @@ api_idx_0012_RMOL.jumptable1:
     push ax
     call api_idx_0012_RMOL.api_idx1
     add sp, byte 0x1c
-    jmp short @..api_idx_0012_RMOL.l82
-@..api_idx_0012_RMOL.l77:
+    jmp short api_idx_0012_RMOL.return1
+api_idx_0012_RMOL.back3:
     mov ax, 1
     push ax
     push ax
     mov ax, 0
     cmp word [bp - 2], byte 3
-    jne short @..api_idx_0012_RMOL.l78
+    jne short api_idx_0012_RMOL.forward75
     mov ax, 1
-@..api_idx_0012_RMOL.l78:
+api_idx_0012_RMOL.forward75:
     push ax
     mov ax, word [bp + 4]
     shl ax, 1
@@ -1005,19 +1005,19 @@ api_idx_0012_RMOL.jumptable1:
     push ax
     call api_idx_0012_RMOL.api_idx1
     add sp, byte 0x1c
-    jmp short @..api_idx_0012_RMOL.l82
-@..api_idx_0012_RMOL.l79:
+    jmp short api_idx_0012_RMOL.return1
+api_idx_0012_RMOL.forward76:
     cmp ax, strict word 0
-    jne short @..api_idx_0012_RMOL.l80
-    jmp near @..api_idx_0012_RMOL.l75
-@..api_idx_0012_RMOL.l80:
+    jne short api_idx_0012_RMOL.forward77
+    jmp near api_idx_0012_RMOL.back2
+api_idx_0012_RMOL.forward77:
     cmp ax, strict word 1
-    je short @..api_idx_0012_RMOL.l77
+    je short api_idx_0012_RMOL.back3
     cmp ax, strict word 2
-    jne short @..api_idx_0012_RMOL.l81
-    jmp near @..api_idx_0012_RMOL.l75
-@..api_idx_0012_RMOL.l81:
+    jne short api_idx_0012_RMOL.forward78
+    jmp near api_idx_0012_RMOL.back2
+api_idx_0012_RMOL.forward78:
     cmp ax, strict word 3
-    je short @..api_idx_0012_RMOL.l77
-@..api_idx_0012_RMOL.l82:
+    je short api_idx_0012_RMOL.back3
+api_idx_0012_RMOL.return1:
     ret

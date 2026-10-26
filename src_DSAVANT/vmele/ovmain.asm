@@ -7,16 +7,16 @@ ovmain:
     mov word [npc_melee], 0          ; 0x0020
     mov word [battle_setup_done], 0  ; 0x0026
     cmp word [game_state], byte 0xa  ; 0x002c
-    jne short @..ovmain.l1           ; 0x0031
+    jne short .forward1              ; 0x0031
     call start_melee_battle          ; 0x0033
-@..ovmain.l1:
+.forward1:
     cmp word [game_state], byte 0xe  ; 0x0036
-    jne short @..ovmain.l2           ; 0x003b
+    jne short .forward2              ; 0x003b
     call advance_melee_turn          ; 0x003d
-@..ovmain.l2:
+.forward2:
     cmp word [game_state], byte 0xb  ; 0x0040
-    jne short @..ovmain.l3           ; 0x0045
+    jne short .forward3              ; 0x0045
     call redraw_party_before_battle  ; 0x0047
-@..ovmain.l3:
+.forward3:
     mov ax, 0                        ; 0x004a
     ret                              ; 0x004d

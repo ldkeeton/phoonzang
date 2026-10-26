@@ -6,7 +6,7 @@ restore_saved_screen: ; Aztec csav frame=0x0002
     shl ax, 1                        ; 0x16a9
     mov bx, ax                       ; 0x16ab
     cmp word [bx + saved_screen_kind], byte 3 ; 0x16ad
-    jne short @..restore_saved_screen.l2 ; 0x16b2
+    jne short .forward2              ; 0x16b2
     mov ax, 0                        ; 0x16b4
     push ax                          ; 0x16b7
     mov ax, 0x14                     ; 0x16b8
@@ -17,16 +17,16 @@ restore_saved_screen: ; Aztec csav frame=0x0002
     add sp, byte 4                   ; 0x16c5
     mov word [bp - 2], ax            ; 0x16c8
     cmp ax, strict word 0xffff       ; 0x16cb
-    jne short @..restore_saved_screen.l1 ; 0x16ce
+    jne short .forward1              ; 0x16ce
     mov ax, 0x18                     ; 0x16d0
     push ax                          ; 0x16d3
     call release_and_exit            ; 0x16d4
     pop cx                           ; 0x16d7
-@..restore_saved_screen.l1:
-    jmp short @..restore_saved_screen.l3 ; 0x16d8
-@..restore_saved_screen.l2:
+.forward1:
+    jmp short .forward3              ; 0x16d8
+.forward2:
     mov word [bp - 2], 0             ; 0x16da
-@..restore_saved_screen.l3:
+.forward3:
     push word [bp - 2]               ; 0x16df
     push word [bp + 6]               ; 0x16e2
     mov ax, word [bp + 4]            ; 0x16e5
@@ -41,28 +41,28 @@ restore_saved_screen: ; Aztec csav frame=0x0002
     shl ax, 1                        ; 0x16ff
     mov bx, ax                       ; 0x1701
     cmp word [bx + saved_screen_kind], byte 3 ; 0x1703
-    jne short @..restore_saved_screen.l4 ; 0x1708
+    jne short .forward4              ; 0x1708
     push word [bp - 2]               ; 0x170a
     call aztec_close                 ; 0x170d
     pop cx                           ; 0x1710
-@..restore_saved_screen.l4:
+.forward4:
     cmp word [bp + 6], byte 0        ; 0x1711
-    je short @..restore_saved_screen.l6 ; 0x1715
+    je short .return1                ; 0x1715
     mov ax, word [bp + 4]            ; 0x1717
     shl ax, 1                        ; 0x171a
     mov bx, ax                       ; 0x171c
     cmp word [bx + saved_screen_kind], byte 3 ; 0x171e
-    jne short @..restore_saved_screen.l5 ; 0x1723
+    jne short .forward5              ; 0x1723
     mov ax, 0x14                     ; 0x1725
     imul word [bp + 4]               ; 0x1728
     add ax, saved_screen_file        ; 0x172b
     push ax                          ; 0x172e
     call aztec_unlink                ; 0x172f
     pop cx                           ; 0x1732
-@..restore_saved_screen.l5:
+.forward5:
     mov ax, word [bp + 4]            ; 0x1733
     shl ax, 1                        ; 0x1736
     mov bx, ax                       ; 0x1738
     mov word [bx + saved_screen_kind], 0xffff ; 0x173a
-@..restore_saved_screen.l6:
+.return1:
     ret                              ; 0x1740

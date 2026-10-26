@@ -17,12 +17,12 @@ api_idx_0046_NOMK:
     call data_record_io              ; 0x4feb
     add sp, byte 8                   ; 0x4fee
     mov word [roster_drawn], 0       ; 0x4ff1
-@..api_idx_0046_NOMK.l1:
+.back1:
     mov ax, 0x248                    ; 0x4ff7
     imul word [bp + 4]               ; 0x4ffa
     mov bx, ax                       ; 0x4ffd
     cmp word [bx + party_records + pc_rec.power_cap], byte 0x10 ; 0x4fff
-    jge short @..api_idx_0046_NOMK.l2 ; 0x5004
+    jge short .forward1              ; 0x5004
     mov ax, word [bx + party_records + pc_rec.power_cap] ; 0x5006
     shl ax, 1                        ; 0x500a
     shl ax, 1                        ; 0x500c
@@ -32,8 +32,8 @@ api_idx_0046_NOMK:
     mov dx, word [bx - 0x46]         ; 0x5015
     mov word [bp - 2], dx            ; 0x5018
     mov word [bp - 4], ax            ; 0x501b
-    jmp short @..api_idx_0046_NOMK.l3 ; 0x501e
-@..api_idx_0046_NOMK.l2:
+    jmp short .forward2              ; 0x501e
+.forward1:
     mov ax, 0x248                    ; 0x5020
     imul word [bp + 4]               ; 0x5023
     mov bx, ax                       ; 0x5026
@@ -66,34 +66,34 @@ api_idx_0046_NOMK:
     adc dx, word [bp - 6]            ; 0x505d
     mov word [bp - 2], dx            ; 0x5060
     mov word [bp - 4], ax            ; 0x5063
-@..api_idx_0046_NOMK.l3:
+.forward2:
     mov ax, 0x248                    ; 0x5066
     imul word [bp + 4]               ; 0x5069
     mov bx, ax                       ; 0x506c
     mov ax, word [bx + party_records + pc_rec.experience] ; 0x506e
     mov dx, word [bx + party_records + pc_rec.experience + 0x2] ; 0x5072
     cmp dx, word [bp - 2]            ; 0x5076
-    jl short @..api_idx_0046_NOMK.l4 ; 0x5079
-    jne short @..api_idx_0046_NOMK.l5 ; 0x507b
+    jl short .forward3               ; 0x5079
+    jne short .forward4              ; 0x507b
     cmp ax, word [bp - 4]            ; 0x507d
-    jae short @..api_idx_0046_NOMK.l5 ; 0x5080
-@..api_idx_0046_NOMK.l4:
-    jmp short @..api_idx_0046_NOMK.l8 ; 0x5082
-@..api_idx_0046_NOMK.l5:
+    jae short .forward4              ; 0x5080
+.forward3:
+    jmp short .forward7              ; 0x5082
+.forward4:
     cmp word [bp + 6], byte 0        ; 0x5084
-    je short @..api_idx_0046_NOMK.l6 ; 0x5088
+    je short .forward5               ; 0x5088
     push word [bp + 4]               ; 0x508a
     call api_idx_00a4_PTJS           ; 0x508d
     pop cx                           ; 0x5090
-    jmp short @..api_idx_0046_NOMK.l7 ; 0x5091
-@..api_idx_0046_NOMK.l6:
+    jmp short .forward6              ; 0x5091
+.forward5:
     mov ax, 1                        ; 0x5093
     ret                              ; 0x5096
-@..api_idx_0046_NOMK.l7:
-    jmp short @..api_idx_0046_NOMK.l9 ; 0x5097
-@..api_idx_0046_NOMK.l8:
+.forward6:
+    jmp short .forward8              ; 0x5097
+.forward7:
     mov ax, 0                        ; 0x5099
     ret                              ; 0x509c
-@..api_idx_0046_NOMK.l9:
-    jmp near @..api_idx_0046_NOMK.l1 ; 0x509d
+.forward8:
+    jmp near .back1                  ; 0x509d
     db 0xc3

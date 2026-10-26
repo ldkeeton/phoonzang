@@ -4,16 +4,16 @@ loc_JSTI:
     call aztec_csav                  ; 0x6da0
     mov word [bss_93da], 0           ; 0x6da3
     cmp byte [bss_91ca], 0           ; 0x6da9
-    jle short @..loc_JSTI.l1         ; 0x6dae
+    jle short .forward1              ; 0x6dae
     mov al, byte [bss_91ca]          ; 0x6db0
     cbw                              ; 0x6db3
     push ax                          ; 0x6db4
     call ensure_sound_loaded         ; 0x6db5
     pop cx                           ; 0x6db8
     mov word [bss_93da], 0x10        ; 0x6db9
-@..loc_JSTI.l1:
+.forward1:
     cmp byte [bss_91c3], 0           ; 0x6dbf
-    je short @..loc_JSTI.l2          ; 0x6dc4
+    je short .forward2               ; 0x6dc4
     mov ax, 0xf                      ; 0x6dc6
     push ax                          ; 0x6dc9
     mov al, byte [bss_91c3]          ; 0x6dca
@@ -31,10 +31,10 @@ loc_JSTI:
     push ax                          ; 0x6de8
     call api_idx_0008_JGKT           ; 0x6de9
     add sp, byte 8                   ; 0x6dec
-    jmp short @..loc_JSTI.l3         ; 0x6def
-@..loc_JSTI.l2:
+    jmp short .forward3              ; 0x6def
+.forward2:
     mov word [cell_slot_ref], 0      ; 0x6df1
-@..loc_JSTI.l3:
+.forward3:
     mov word [bss_93dc], 1           ; 0x6df7
     mov ax, 1                        ; 0x6dfd
     push ax                          ; 0x6e00

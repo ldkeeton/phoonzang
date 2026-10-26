@@ -10,8 +10,8 @@ api_idx_000c_RLGP:
     mov word [bss_9704], 0xffff      ; 0x5185
     mov word [bp - 4], 0             ; 0x518b
     mov word [bp - 2], 0             ; 0x5190
-    jmp short @..api_idx_000c_RLGP.l2 ; 0x5195
-@..api_idx_000c_RLGP.l1:
+    jmp short .forward1              ; 0x5195
+.back1:
     mov ax, 0                        ; 0x5197
     push ax                          ; 0x519a
     push word [bp - 2]               ; 0x519b
@@ -19,14 +19,14 @@ api_idx_000c_RLGP:
     add sp, byte 4                   ; 0x51a1
     or word [bp - 4], ax             ; 0x51a4
     inc word [bp - 2]                ; 0x51a7
-@..api_idx_000c_RLGP.l2:
+.forward1:
     mov ax, word [bp - 2]            ; 0x51aa
     cmp ax, word [party_char_count]  ; 0x51ad
-    jl short @..api_idx_000c_RLGP.l1 ; 0x51b1
+    jl short .back1                  ; 0x51b1
     cmp word [bp - 4], byte 0        ; 0x51b3
-    jne short @..api_idx_000c_RLGP.l3 ; 0x51b7
+    jne short .forward2              ; 0x51b7
     ret                              ; 0x51b9
-@..api_idx_000c_RLGP.l3:
+.forward2:
     call free_current_maze           ; 0x51ba
     mov ax, 1                        ; 0x51bd
     push ax                          ; 0x51c0
@@ -181,7 +181,7 @@ api_idx_000c_RLGP:
     call score_music_enabled         ; 0x5316
     mov word [bss_8450], ax          ; 0x5319
     test ax, ax                      ; 0x531c
-    je short @..api_idx_000c_RLGP.l4 ; 0x531e
+    je short .forward3               ; 0x531e
     mov ax, 0                        ; 0x5320
     push ax                          ; 0x5323
     push ax                          ; 0x5324
@@ -197,25 +197,25 @@ api_idx_000c_RLGP:
     call ds_app_UKGP                 ; 0x533d
     add sp, byte 6                   ; 0x5340
     mov word [bss_844c], ax          ; 0x5343
-@..api_idx_000c_RLGP.l4:
+.forward3:
     mov word [roster_drawn], 0       ; 0x5346
     mov word [roster_alt_mode], 0    ; 0x534c
     mov word [roster_page], 0        ; 0x5352
     mov word [bp - 2], 0             ; 0x5358
-    jmp short @..api_idx_000c_RLGP.l6 ; 0x535d
-@..api_idx_000c_RLGP.l5:
+    jmp short .forward4              ; 0x535d
+.back2:
     mov ax, 1                        ; 0x535f
     push ax                          ; 0x5362
     push word [bp - 2]               ; 0x5363
     call api_idx_0046_NOMK           ; 0x5366
     add sp, byte 4                   ; 0x5369
     inc word [bp - 2]                ; 0x536c
-@..api_idx_000c_RLGP.l6:
+.forward4:
     mov ax, word [bp - 2]            ; 0x536f
     cmp ax, word [party_char_count]  ; 0x5372
-    jl short @..api_idx_000c_RLGP.l5 ; 0x5376
+    jl short .back2                  ; 0x5376
     cmp word [bss_8450], byte 0      ; 0x5378
-    je short @..api_idx_000c_RLGP.l7 ; 0x537d
+    je short .forward5               ; 0x537d
     push word [bss_844c]             ; 0x537f
     push word [bss_844e]             ; 0x5383
     call fade_out_music              ; 0x5387
@@ -224,7 +224,7 @@ api_idx_000c_RLGP:
     push ax                          ; 0x5390
     call app_gfx_free_score          ; 0x5391
     pop cx                           ; 0x5394
-@..api_idx_000c_RLGP.l7:
+.forward5:
     mov ax, 0xf                      ; 0x5395
     push ax                          ; 0x5398
     call free_picture_slot           ; 0x5399

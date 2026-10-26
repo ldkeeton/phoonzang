@@ -7,15 +7,15 @@ api_idx_0012_MVLS:
     push ax                          ; 0x0aa5
     cmp ax, strict word 0            ; 0x0aa6
     pop ax                           ; 0x0aa9
-    jge short @..api_idx_0012_MVLS.l2 ; 0x0aaa
+    jge short .forward2              ; 0x0aaa
     push ax                          ; 0x0aac
     cmp ax, strict word 0            ; 0x0aad
     pop ax                           ; 0x0ab0
-    jge short @..api_idx_0012_MVLS.l1 ; 0x0ab1
+    jge short .forward1              ; 0x0ab1
     neg ax                           ; 0x0ab3
-@..api_idx_0012_MVLS.l1:
+.forward1:
     dec ax                           ; 0x0ab5
-@..api_idx_0012_MVLS.l2:
+.forward2:
     mov word [bp - 2], ax            ; 0x0ab6
     mov cx, 5                        ; 0x0ab9
     cwd                              ; 0x0abc
@@ -51,11 +51,11 @@ api_idx_0012_MVLS:
     add ax, strict word 0x71         ; 0x0af7
     mov word [bp - 0xa], ax          ; 0x0afa
     cmp word [mouse_active], byte 0  ; 0x0afd
-    jne short @..api_idx_0012_MVLS.l3 ; 0x0b02
-    jmp near @..api_idx_0012_MVLS.l6 ; 0x0b04
-@..api_idx_0012_MVLS.l3:
+    jne short .forward3              ; 0x0b02
+    jmp near .forward6               ; 0x0b04
+.forward3:
     cmp word [bp + 6], byte 0        ; 0x0b07
-    jge short @..api_idx_0012_MVLS.l4 ; 0x0b0b
+    jge short .forward4              ; 0x0b0b
     lea ax, word [bp - 6]            ; 0x0b0d
     push ax                          ; 0x0b10
     lea ax, word [bp - 4]            ; 0x0b11
@@ -78,8 +78,8 @@ api_idx_0012_MVLS:
     call gfx_set_mouse_pointer       ; 0x0b36
     add sp, byte 0xc                 ; 0x0b39
     call flush_keyboard              ; 0x0b3c
-    jmp near @..api_idx_0012_MVLS.l5 ; 0x0b3f
-@..api_idx_0012_MVLS.l4:
+    jmp near .forward5               ; 0x0b3f
+.forward4:
     mov ax, word [bp - 0xa]          ; 0x0b42
     add ax, strict word 0xc          ; 0x0b45
     push ax                          ; 0x0b48
@@ -200,14 +200,14 @@ api_idx_0012_MVLS:
     call gfx_set_mouse_pointer       ; 0x0c6f
     add sp, byte 0xc                 ; 0x0c72
     call flush_keyboard              ; 0x0c75
-@..api_idx_0012_MVLS.l5:
-    jmp short @..api_idx_0012_MVLS.l8 ; 0x0c78
-@..api_idx_0012_MVLS.l6:
+.forward5:
+    jmp short .forward8              ; 0x0c78
+.forward6:
     cmp word [bp + 6], byte 0        ; 0x0c7a
-    jge short @..api_idx_0012_MVLS.l7 ; 0x0c7e
+    jge short .forward7              ; 0x0c7e
     mov word [bss_940e], 0xffff      ; 0x0c80
-    jmp short @..api_idx_0012_MVLS.l8 ; 0x0c86
-@..api_idx_0012_MVLS.l7:
+    jmp short .forward8              ; 0x0c86
+.forward7:
     mov ax, word [bp - 2]            ; 0x0c88
     mov word [bss_940e], ax          ; 0x0c8b
     push word [bp + 0xa]             ; 0x0c8e
@@ -227,7 +227,7 @@ api_idx_0012_MVLS:
     mov word [bss_942c], ax          ; 0x0cb3
     mov word [bss_9412], 1           ; 0x0cb6
     call api_idx_0004_KVIP           ; 0x0cbc
-@..api_idx_0012_MVLS.l8:
+.forward8:
     mov ax, 0xb6                     ; 0x0cbf
     push ax                          ; 0x0cc2
     mov ax, 0xab                     ; 0x0cc3

@@ -3,8 +3,8 @@ api_idx_0054_OPGG:
     mov ax, 0xffac                   ; 0x4514
     call aztec_csav                  ; 0x4517
     mov word [bp - 2], 0             ; 0x451a
-    jmp near @..api_idx_0054_OPGG.l10 ; 0x451f
-@..api_idx_0054_OPGG.l1:
+    jmp near .forward9               ; 0x451f
+.back1:
     mov ax, 0xe                      ; 0x4522
     imul word [bp - 2]               ; 0x4525
     add ax, word [bp + 8]            ; 0x4528
@@ -36,7 +36,7 @@ api_idx_0054_OPGG:
     call test_bit                    ; 0x4562
     add sp, byte 4                   ; 0x4565
     test ax, ax                      ; 0x4568
-    je short @..api_idx_0054_OPGG.l2 ; 0x456a
+    je short .forward1               ; 0x456a
     mov ax, 0x248                    ; 0x456c
     imul word [bp + 4]               ; 0x456f
     mov bx, ax                       ; 0x4572
@@ -51,7 +51,7 @@ api_idx_0054_OPGG:
     call test_bit                    ; 0x4587
     add sp, byte 4                   ; 0x458a
     test ax, ax                      ; 0x458d
-    je short @..api_idx_0054_OPGG.l2 ; 0x458f
+    je short .forward1               ; 0x458f
     mov ax, 0x248                    ; 0x4591
     imul word [bp + 4]               ; 0x4594
     mov bx, ax                       ; 0x4597
@@ -65,16 +65,16 @@ api_idx_0054_OPGG:
     call test_bit                    ; 0x45aa
     add sp, byte 4                   ; 0x45ad
     test ax, ax                      ; 0x45b0
-    jne short @..api_idx_0054_OPGG.l3 ; 0x45b2
-@..api_idx_0054_OPGG.l2:
+    jne short .forward2              ; 0x45b2
+.forward1:
     lea ax, word [bp - 0x54]         ; 0x45b4
     push ax                          ; 0x45b7
     mov ax, MSG_UNUSABLE_1567        ; 0x45b8
     push ax                          ; 0x45bb
     call load_message_string         ; 0x45bc
     add sp, byte 4                   ; 0x45bf
-    jmp short @..api_idx_0054_OPGG.l4 ; 0x45c2
-@..api_idx_0054_OPGG.l3:
+    jmp short .forward3              ; 0x45c2
+.forward2:
     lea ax, word [bp - 0x54]         ; 0x45c4
     push ax                          ; 0x45c7
     mov ax, word [bp + 0xe]          ; 0x45c8
@@ -86,7 +86,7 @@ api_idx_0054_OPGG:
     push ax                          ; 0x45d9
     call load_message_string         ; 0x45da
     add sp, byte 4                   ; 0x45dd
-@..api_idx_0054_OPGG.l4:
+.forward3:
     mov ax, 0                        ; 0x45e0
     push ax                          ; 0x45e3
     lea ax, word [bp - 0x54]         ; 0x45e4
@@ -138,7 +138,7 @@ api_idx_0054_OPGG:
     mov ax, word [bp + 0xe]          ; 0x4653
     add ax, word [bp - 2]            ; 0x4656
     cmp ax, word [bp + 0x10]         ; 0x4659
-    jne short @..api_idx_0054_OPGG.l5 ; 0x465c
+    jne short .forward4              ; 0x465c
     mov ax, 1                        ; 0x465e
     push ax                          ; 0x4661
     mov ax, 0xe                      ; 0x4662
@@ -163,10 +163,10 @@ api_idx_0054_OPGG:
     call gfx_fill_area               ; 0x468d
     add sp, byte 0xa                 ; 0x4690
     mov word [bp - 4], 0             ; 0x4693
-    jmp short @..api_idx_0054_OPGG.l6 ; 0x4698
-@..api_idx_0054_OPGG.l5:
+    jmp short .forward5              ; 0x4698
+.forward4:
     mov word [bp - 4], 0xb4          ; 0x469a
-@..api_idx_0054_OPGG.l6:
+.forward5:
     mov ax, 0xe                      ; 0x469f
     imul word [bp - 2]               ; 0x46a2
     add ax, word [bp + 8]            ; 0x46a5
@@ -212,7 +212,7 @@ api_idx_0054_OPGG:
     sub ah, ah                       ; 0x4707
     mov bx, ax                       ; 0x4709
     cmp byte [bx + cell_overlay_code + 0x58], 1 ; 0x470b
-    jne short @..api_idx_0054_OPGG.l9 ; 0x4710
+    jne short .forward8              ; 0x4710
     mov ax, 0xe                      ; 0x4712
     imul word [bp - 2]               ; 0x4715
     add ax, word [bp + 8]            ; 0x4718
@@ -228,12 +228,12 @@ api_idx_0054_OPGG:
     mov ax, word [bp + 0xe]          ; 0x4730
     add ax, word [bp - 2]            ; 0x4733
     cmp ax, word [bp + 0x10]         ; 0x4736
-    jne short @..api_idx_0054_OPGG.l7 ; 0x4739
+    jne short .forward6              ; 0x4739
     mov ax, word [bp - 4]            ; 0x473b
-    jmp short @..api_idx_0054_OPGG.l8 ; 0x473e
-@..api_idx_0054_OPGG.l7:
+    jmp short .forward7              ; 0x473e
+.forward6:
     mov ax, 2                        ; 0x4740
-@..api_idx_0054_OPGG.l8:
+.forward7:
     push ax                          ; 0x4743
     call gfx_set_text_color          ; 0x4744
     add sp, byte 4                   ; 0x4747
@@ -248,12 +248,12 @@ api_idx_0054_OPGG:
     push word [bx + bss_9c6a]        ; 0x475c
     call draw_number_field           ; 0x4760
     add sp, byte 6                   ; 0x4763
-@..api_idx_0054_OPGG.l9:
+.forward8:
     inc word [bp - 2]                ; 0x4766
-@..api_idx_0054_OPGG.l10:
+.forward9:
     mov ax, word [bp - 2]            ; 0x4769
     cmp ax, word [bp + 0xc]          ; 0x476c
-    jge short @..api_idx_0054_OPGG.l11 ; 0x476f
-    jmp near @..api_idx_0054_OPGG.l1 ; 0x4771
-@..api_idx_0054_OPGG.l11:
+    jge short .return1               ; 0x476f
+    jmp near .back1                  ; 0x4771
+.return1:
     ret                              ; 0x4774

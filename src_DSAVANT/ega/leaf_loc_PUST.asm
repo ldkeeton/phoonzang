@@ -2,7 +2,7 @@
 leaf_loc_PUST:
     mov di, word [cs:cseg_1ae5 - IMAGE_BASE] ; 0x189f
     mov cx, word [cs:cseg_1ae3 - IMAGE_BASE] ; 0x18a4
-@..leaf_loc_PUST.l1:
+.back1:
     push cx                          ; 0x18a9
     push si                          ; 0x18aa
     push di                          ; 0x18ab
@@ -13,5 +13,5 @@ leaf_loc_PUST:
     pop si                           ; 0x18b7
     add si, word [cs:cseg_1ae1 - IMAGE_BASE] ; 0x18b8
     pop cx                           ; 0x18bd
-    loop @..leaf_loc_PUST.l1         ; 0x18be
+    loop .back1                      ; 0x18be
     ret                              ; 0x18c0

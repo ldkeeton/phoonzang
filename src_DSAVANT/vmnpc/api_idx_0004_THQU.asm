@@ -57,10 +57,10 @@ api_idx_0004_THQU:
     call api_idx_0004_MIJS           ; 0x1277
     add sp, byte 0x14                ; 0x127a
     cmp word [bp + 6], byte 0        ; 0x127d
-    je short @..api_idx_0004_THQU.l1 ; 0x1281
+    je short .return1                ; 0x1281
     mov ax, 0                        ; 0x1283
     push ax                          ; 0x1286
     call play_sound_effect           ; 0x1287
     pop cx                           ; 0x128a
-@..api_idx_0004_THQU.l1:
+.return1:
     ret                              ; 0x128b

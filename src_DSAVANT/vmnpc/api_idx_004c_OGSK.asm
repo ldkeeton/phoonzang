@@ -4,9 +4,9 @@ api_idx_004c_OGSK:
     call aztec_csav                  ; 0x4fed
     mov word [bss_9ca8], 0           ; 0x4ff0
     mov word [bp - 2], 0             ; 0x4ff6
-@..api_idx_004c_OGSK.l1:
+.back1:
     mov word [bp - 4], 0             ; 0x4ffb
-@..api_idx_004c_OGSK.l2:
+.back2:
     mov ax, 0x248                    ; 0x5000
     imul word [bp + 4]               ; 0x5003
     push ax                          ; 0x5006
@@ -23,9 +23,9 @@ api_idx_004c_OGSK:
     add ax, cx                       ; 0x501c
     mov bx, ax                       ; 0x501e
     cmp word [bx + party_records + pc_rec.cell], byte 0 ; 0x5020
-    jg short @..api_idx_004c_OGSK.l3 ; 0x5025
-    jmp near @..api_idx_004c_OGSK.l8 ; 0x5027
-@..api_idx_004c_OGSK.l3:
+    jg short .forward1               ; 0x5025
+    jmp near .forward6               ; 0x5027
+.forward1:
     mov ax, 0                        ; 0x502a
     push ax                          ; 0x502d
     push word [bx + party_records + pc_rec.cell] ; 0x502e
@@ -53,7 +53,7 @@ api_idx_004c_OGSK:
     mov al, byte [bx + party_records + pc_rec.cell + 0x7] ; 0x5060
     sub ah, ah                       ; 0x5064
     test ax, 0x80                    ; 0x5066
-    je short @..api_idx_004c_OGSK.l4 ; 0x5069
+    je short .forward2               ; 0x5069
     lea ax, word [bp - 0x4c]         ; 0x506b
     push ax                          ; 0x506e
     mov ax, 0x16                     ; 0x506f
@@ -62,8 +62,8 @@ api_idx_004c_OGSK:
     push ax                          ; 0x5079
     call aztec_strcpy                ; 0x507a
     add sp, byte 4                   ; 0x507d
-    jmp short @..api_idx_004c_OGSK.l5 ; 0x5080
-@..api_idx_004c_OGSK.l4:
+    jmp short .forward3              ; 0x5080
+.forward2:
     mov ax, 0x16                     ; 0x5082
     imul word [bss_9ca8]             ; 0x5085
     add ax, list_row_name            ; 0x5089
@@ -74,7 +74,7 @@ api_idx_004c_OGSK:
     push ax                          ; 0x5095
     call load_message_string         ; 0x5096
     add sp, byte 4                   ; 0x5099
-@..api_idx_004c_OGSK.l5:
+.forward3:
     mov al, byte [bp - 0x13]         ; 0x509c
     sub ah, ah                       ; 0x509f
     mov cx, word [bss_9ca8]          ; 0x50a1
@@ -102,7 +102,7 @@ api_idx_004c_OGSK:
     sub ah, ah                       ; 0x50d8
     mov bx, ax                       ; 0x50da
     cmp byte [bx + cell_overlay_code + 0x58], 1 ; 0x50dc
-    jne short @..api_idx_004c_OGSK.l6 ; 0x50e1
+    jne short .forward4              ; 0x50e1
     mov ax, 0x248                    ; 0x50e3
     imul word [bp + 4]               ; 0x50e6
     push ax                          ; 0x50e9
@@ -124,13 +124,13 @@ api_idx_004c_OGSK:
     shl cx, 1                        ; 0x510d
     mov bx, cx                       ; 0x510f
     mov word [bx + list_row_count], ax ; 0x5111
-    jmp short @..api_idx_004c_OGSK.l7 ; 0x5115
-@..api_idx_004c_OGSK.l6:
+    jmp short .forward5              ; 0x5115
+.forward4:
     mov ax, word [bss_9ca8]          ; 0x5117
     shl ax, 1                        ; 0x511a
     mov bx, ax                       ; 0x511c
     mov word [bx + list_row_count], 0 ; 0x511e
-@..api_idx_004c_OGSK.l7:
+.forward5:
     mov ax, word [bp - 2]            ; 0x5124
     xchg al, ah                      ; 0x5127
     sub al, al                       ; 0x5129
@@ -140,17 +140,17 @@ api_idx_004c_OGSK:
     mov bx, cx                       ; 0x5134
     mov word [bx + bss_9caa], ax     ; 0x5136
     inc word [bss_9ca8]              ; 0x513a
-@..api_idx_004c_OGSK.l8:
+.forward6:
     inc word [bp - 4]                ; 0x513e
     mov ax, word [bp - 4]            ; 0x5141
     cmp ax, strict word 0xa          ; 0x5144
-    jge short @..api_idx_004c_OGSK.l9 ; 0x5147
-    jmp near @..api_idx_004c_OGSK.l2 ; 0x5149
-@..api_idx_004c_OGSK.l9:
+    jge short .forward7              ; 0x5147
+    jmp near .back2                  ; 0x5149
+.forward7:
     inc word [bp - 2]                ; 0x514c
     mov ax, word [bp - 2]            ; 0x514f
     cmp ax, strict word 2            ; 0x5152
-    jge short @..api_idx_004c_OGSK.l10 ; 0x5155
-    jmp near @..api_idx_004c_OGSK.l1 ; 0x5157
-@..api_idx_004c_OGSK.l10:
+    jge short .return1               ; 0x5155
+    jmp near .back1                  ; 0x5157
+.return1:
     ret                              ; 0x515a

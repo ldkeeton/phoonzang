@@ -85,11 +85,11 @@ api_idx_0010_TVMI:
     call set_bitfield                ; 0x82e3
     add sp, byte 8                   ; 0x82e6
     cmp word [bp - 0x10], byte 0     ; 0x82e9
-    jle short @..api_idx_0010_TVMI.l1 ; 0x82ed
+    jle short .forward1              ; 0x82ed
     push word [bp - 0x10]            ; 0x82ef
     call ensure_sound_loaded         ; 0x82f2
     pop cx                           ; 0x82f5
-@..api_idx_0010_TVMI.l1:
+.forward1:
     mov ax, 1                        ; 0x82f6
     push ax                          ; 0x82f9
     mov ax, 0xa                      ; 0x82fa
@@ -98,46 +98,46 @@ api_idx_0010_TVMI:
     call get_bits                    ; 0x8301
     add sp, byte 6                   ; 0x8304
     cmp ax, strict word 1            ; 0x8307
-    je short @..api_idx_0010_TVMI.l2 ; 0x830a
-    jmp near @..api_idx_0010_TVMI.l10 ; 0x830c
-@..api_idx_0010_TVMI.l2:
+    je short .forward2               ; 0x830a
+    jmp near .forward10              ; 0x830c
+.forward2:
     call redraw_maze_view            ; 0x830f
     mov ax, word [bp - 0xc]          ; 0x8312
     cmp ax, strict word 5            ; 0x8315
-    je short @..api_idx_0010_TVMI.l3 ; 0x8318
+    je short .forward3               ; 0x8318
     cmp ax, strict word 6            ; 0x831a
-    je short @..api_idx_0010_TVMI.l3 ; 0x831d
+    je short .forward3               ; 0x831d
     cmp ax, strict word 0xa          ; 0x831f
-    je short @..api_idx_0010_TVMI.l3 ; 0x8322
+    je short .forward3               ; 0x8322
     cmp ax, strict word 0xb          ; 0x8324
-    jne short @..api_idx_0010_TVMI.l10 ; 0x8327
-@..api_idx_0010_TVMI.l3:
+    jne short .forward10             ; 0x8327
+.forward3:
     cmp ax, strict word 6            ; 0x8329
-    je short @..api_idx_0010_TVMI.l4 ; 0x832c
+    je short .forward4               ; 0x832c
     cmp ax, strict word 0xa          ; 0x832e
-    je short @..api_idx_0010_TVMI.l4 ; 0x8331
+    je short .forward4               ; 0x8331
     cmp ax, strict word 0xb          ; 0x8333
-    jne short @..api_idx_0010_TVMI.l6 ; 0x8336
-@..api_idx_0010_TVMI.l4:
+    jne short .forward6              ; 0x8336
+.forward4:
     mov ax, MSG_PULL_LEVER           ; 0x8338
     cmp word [bp - 0xc], byte 6      ; 0x833b
-    jne short @..api_idx_0010_TVMI.l5 ; 0x833f
+    jne short .forward5              ; 0x833f
     mov ax, MSG_PRESS_BUTTON         ; 0x8341
-@..api_idx_0010_TVMI.l5:
+.forward5:
     push ax                          ; 0x8344
     call show_message                ; 0x8345
     pop cx                           ; 0x8348
-@..api_idx_0010_TVMI.l6:
+.forward6:
     cmp word [bp - 0xc], byte 5      ; 0x8349
-    je short @..api_idx_0010_TVMI.l7 ; 0x834d
+    je short .forward7               ; 0x834d
     cmp word [bp - 0xc], byte 6      ; 0x834f
-    jne short @..api_idx_0010_TVMI.l8 ; 0x8353
-@..api_idx_0010_TVMI.l7:
+    jne short .forward8              ; 0x8353
+.forward7:
     mov ax, 4                        ; 0x8355
-    jmp short @..api_idx_0010_TVMI.l9 ; 0x8358
-@..api_idx_0010_TVMI.l8:
+    jmp short .forward9              ; 0x8358
+.forward8:
     mov ax, 1                        ; 0x835a
-@..api_idx_0010_TVMI.l9:
+.forward9:
     push ax                          ; 0x835d
     call play_sound_effect           ; 0x835e
     pop cx                           ; 0x8361
@@ -155,9 +155,9 @@ api_idx_0010_TVMI:
     push ax                          ; 0x8379
     call gfx_show_area               ; 0x837a
     add sp, byte 8                   ; 0x837d
-@..api_idx_0010_TVMI.l10:
+.forward10:
     cmp word [bp - 0x10], byte 0     ; 0x8380
-    jle short @..api_idx_0010_TVMI.l11 ; 0x8384
+    jle short .forward11             ; 0x8384
     mov ax, 0x10                     ; 0x8386
     push ax                          ; 0x8389
     call play_sound_effect           ; 0x838a
@@ -167,7 +167,7 @@ api_idx_0010_TVMI:
     call wait_and_free_sound         ; 0x8392
     pop cx                           ; 0x8395
     mov word [loaded_sound_id], 0xffff ; 0x8396
-@..api_idx_0010_TVMI.l11:
+.forward11:
     mov ax, 2                        ; 0x839c
     push ax                          ; 0x839f
     mov ax, 0xb                      ; 0x83a0

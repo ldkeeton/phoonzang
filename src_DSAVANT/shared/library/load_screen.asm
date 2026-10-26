@@ -10,11 +10,11 @@ load_screen:
     mov es, ax
     mov ax, word [bp + 0xe]
     cmp ax, strict word 2
-    je short @..load_screen.l2
+    je short .forward2
     cmp ax, strict word 1
-    je short @..load_screen.l1
-    jmp near @..load_screen.l4
-@..load_screen.l1:
+    je short .forward1
+    jmp near .forward3
+.forward1:
     mov ax, word [bp + 0xc]
     shl ax, 1
     mov bx, screen_maze_slots - IMAGE_BASE
@@ -35,8 +35,8 @@ load_screen:
     xor si, si
     mov cx, 0xfa00
     rep movsb
-    jmp short @..load_screen.l5
-@..load_screen.l2:
+    jmp short .forward4
+.forward2:
     mov ax, word [bp + 0xc]
     shl ax, 1
     mov bx, screen_ems_slots - IMAGE_BASE
@@ -62,7 +62,7 @@ load_screen:
     mov es, ax
     xor di, di
     mov cx, 3
-@..load_screen.l3:
+.back1:
     push cx
     mov cx, 0x4000
     rep movsb
@@ -71,11 +71,11 @@ load_screen:
     mov ax, word [cs:ems_cur_page - IMAGE_BASE]
     call ems_map_pages
     pop cx
-    loop @..load_screen.l3
+    loop .back1
     mov cx, 0x3a00
     rep movsb
-    jmp short @..load_screen.l5
-@..load_screen.l4:
+    jmp short .forward4
+.forward3:
     mov ax, word [cs:screen_buf_seg - IMAGE_BASE]
     mov ds, ax
     xor dx, dx
@@ -83,7 +83,7 @@ load_screen:
     mov cx, 0xfa00
     mov ah, 0x3f
     int 0x21 ; DOS read file (handle)
-@..load_screen.l5:
+.forward4:
     pop di
     pop si
     pop es

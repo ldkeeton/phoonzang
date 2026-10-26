@@ -7,7 +7,7 @@ trigger_keyed_cell_object:
     mov al, byte [bx + si + spell_table + spell_table_rec_size*218 + spell_table_rec.f_0004] ; 0x239b
     sub ah, ah                       ; 0x239f
     mov word [bp - 8], ax            ; 0x23a1
-@..trigger_keyed_cell_object.l1:
+.back1:
     push word [bp - 8]               ; 0x23a4
     push word [party_map_piece]      ; 0x23a7
     push word [party_cell_y]         ; 0x23ab
@@ -16,15 +16,15 @@ trigger_keyed_cell_object:
     add sp, byte 8                   ; 0x23b6
     mov word [bp - 8], ax            ; 0x23b9
     cmp ax, strict word 0xffff       ; 0x23bc
-    jne short @..trigger_keyed_cell_object.l2 ; 0x23bf
-    jmp near @..trigger_keyed_cell_object.l14 ; 0x23c1
-@..trigger_keyed_cell_object.l2:
+    jne short .forward1              ; 0x23bf
+    jmp near .forward13              ; 0x23c1
+.forward1:
     mov bx, word [maze_tables]       ; 0x23c4
     mov si, ax                       ; 0x23c8
     cmp byte [bx + si + 0x5a0], 0x13 ; 0x23ca
-    je short @..trigger_keyed_cell_object.l3 ; 0x23cf
-    jmp near @..trigger_keyed_cell_object.l10 ; 0x23d1
-@..trigger_keyed_cell_object.l3:
+    je short .forward2               ; 0x23cf
+    jmp near .forward9               ; 0x23d1
+.forward2:
     mov ax, 0x248                    ; 0x23d4
     imul word [bp + 4]               ; 0x23d7
     push ax                          ; 0x23da
@@ -45,18 +45,18 @@ trigger_keyed_cell_object:
     mov bx, word [maze_tables]       ; 0x23fa
     mov cx, word [bx + si]           ; 0x23fe
     cmp ax, cx                       ; 0x2400
-    je short @..trigger_keyed_cell_object.l4 ; 0x2402
-    jmp near @..trigger_keyed_cell_object.l10 ; 0x2404
-@..trigger_keyed_cell_object.l4:
+    je short .forward3               ; 0x2402
+    jmp near .forward9               ; 0x2404
+.forward3:
     cmp word [bx + si + 0x1e0], byte 0 ; 0x2407
-    je short @..trigger_keyed_cell_object.l5 ; 0x240c
+    je short .forward4               ; 0x240c
     mov ax, 1                        ; 0x240e
     mov cx, word [party_tag]         ; 0x2411
     shl ax, cl                       ; 0x2415
     test word [bx + si + 0x1e0], ax  ; 0x2417
-    jne short @..trigger_keyed_cell_object.l5 ; 0x241b
-    jmp near @..trigger_keyed_cell_object.l10 ; 0x241d
-@..trigger_keyed_cell_object.l5:
+    jne short .forward4              ; 0x241b
+    jmp near .forward9               ; 0x241d
+.forward4:
     mov ax, 8                        ; 0x2420
     push ax                          ; 0x2423
     mov ax, 0                        ; 0x2424
@@ -87,7 +87,7 @@ trigger_keyed_cell_object:
     add sp, byte 6                   ; 0x2465
     mov word [bp - 0xa], ax          ; 0x2468
     test ax, ax                      ; 0x246b
-    je short @..trigger_keyed_cell_object.l6 ; 0x246d
+    je short .forward5               ; 0x246d
     mov ax, 1                        ; 0x246f
     push ax                          ; 0x2472
     push word [bp - 0xa]             ; 0x2473
@@ -98,11 +98,11 @@ trigger_keyed_cell_object:
     push ax                          ; 0x2481
     call set_bitmap_bit              ; 0x2482
     add sp, byte 6                   ; 0x2485
-@..trigger_keyed_cell_object.l6:
+.forward5:
     mov bx, word [maze_tables]       ; 0x2488
     mov si, word [bp - 8]            ; 0x248c
     cmp byte [bx + si + spell_table + spell_table_rec_size*178 + spell_table_rec.f_0004], 0 ; 0x248f
-    jbe short @..trigger_keyed_cell_object.l9 ; 0x2494
+    jbe short .forward8              ; 0x2494
     mov ax, 0xc6                     ; 0x2496
     push ax                          ; 0x2499
     mov ax, 0x109                    ; 0x249a
@@ -119,17 +119,17 @@ trigger_keyed_cell_object:
     sub ah, ah                       ; 0x24b7
     mov word [bp - 0xc], ax          ; 0x24b9
     cmp ax, strict word 5            ; 0x24bc
-    jl short @..trigger_keyed_cell_object.l7 ; 0x24bf
+    jl short .forward6               ; 0x24bf
     cmp ax, strict word 8            ; 0x24c1
-    je short @..trigger_keyed_cell_object.l7 ; 0x24c4
+    je short .forward6               ; 0x24c4
     cmp ax, strict word 9            ; 0x24c6
-    jne short @..trigger_keyed_cell_object.l8 ; 0x24c9
-@..trigger_keyed_cell_object.l7:
+    jne short .forward7              ; 0x24c9
+.forward6:
     push ax                          ; 0x24cb
     call play_sound_effect           ; 0x24cc
     pop cx                           ; 0x24cf
-    jmp short @..trigger_keyed_cell_object.l9 ; 0x24d0
-@..trigger_keyed_cell_object.l8:
+    jmp short .forward8              ; 0x24d0
+.forward7:
     push word [bp - 0xc]             ; 0x24d2
     call ensure_sound_loaded         ; 0x24d5
     pop cx                           ; 0x24d8
@@ -142,19 +142,19 @@ trigger_keyed_cell_object:
     call wait_and_free_sound         ; 0x24e5
     pop cx                           ; 0x24e8
     mov word [loaded_sound_id], 0xffff ; 0x24e9
-@..trigger_keyed_cell_object.l9:
+.forward8:
     mov ax, word [bp - 8]            ; 0x24ef
     inc ax                           ; 0x24f2
     mov word [party_region], ax      ; 0x24f3
     mov ax, 1                        ; 0x24f6
     ret                              ; 0x24f9
-@..trigger_keyed_cell_object.l10:
+.forward9:
     mov bx, word [maze_tables]       ; 0x24fa
     mov si, word [bp - 8]            ; 0x24fe
     cmp byte [bx + si + 0x5a0], 7    ; 0x2501
-    je short @..trigger_keyed_cell_object.l11 ; 0x2506
-    jmp near @..trigger_keyed_cell_object.l13 ; 0x2508
-@..trigger_keyed_cell_object.l11:
+    je short .forward10              ; 0x2506
+    jmp near .forward12              ; 0x2508
+.forward10:
     mov ax, 2                        ; 0x250b
     push ax                          ; 0x250e
     mov ax, word [party_tag]         ; 0x250f
@@ -165,7 +165,7 @@ trigger_keyed_cell_object:
     call get_bits                    ; 0x251b
     add sp, byte 6                   ; 0x251e
     cmp ax, strict word 1            ; 0x2521
-    je short @..trigger_keyed_cell_object.l12 ; 0x2524
+    je short .forward11              ; 0x2524
     mov ax, 2                        ; 0x2526
     push ax                          ; 0x2529
     mov ax, word [party_tag]         ; 0x252a
@@ -179,8 +179,8 @@ trigger_keyed_cell_object:
     call get_bits                    ; 0x253f
     add sp, byte 6                   ; 0x2542
     cmp ax, strict word 2            ; 0x2545
-    jne short @..trigger_keyed_cell_object.l13 ; 0x2548
-@..trigger_keyed_cell_object.l12:
+    jne short .forward12             ; 0x2548
+.forward11:
     mov ax, word [bp - 8]            ; 0x254a
     shl ax, 1                        ; 0x254d
     mov si, ax                       ; 0x254f
@@ -205,7 +205,7 @@ trigger_keyed_cell_object:
     mov cx, word [bx + party_records + pc_rec.cell] ; 0x257c
     mov ax, word [bp - 6]            ; 0x2580
     cmp cx, ax                       ; 0x2583
-    jne short @..trigger_keyed_cell_object.l13 ; 0x2585
+    jne short .forward12             ; 0x2585
     push word [bp - 8]               ; 0x2587
     call claim_type7_object          ; 0x258a
     pop cx                           ; 0x258d
@@ -213,9 +213,9 @@ trigger_keyed_cell_object:
     mov word [pending_event_hi], 0   ; 0x2594
     mov ax, 1                        ; 0x259a
     ret                              ; 0x259d
-@..trigger_keyed_cell_object.l13:
+.forward12:
     inc word [bp - 8]                ; 0x259e
-    jmp near @..trigger_keyed_cell_object.l1 ; 0x25a1
-@..trigger_keyed_cell_object.l14:
+    jmp near .back1                  ; 0x25a1
+.forward13:
     mov ax, 0                        ; 0x25a4
     ret                              ; 0x25a7

@@ -11,25 +11,25 @@ calibrate_loops_per_ms:
     mov bx, 0x46c                    ; 0x367f
     mov si, cx                       ; 0x3682
     mov dx, word [bx]                ; 0x3684
-@..calibrate_loops_per_ms.l1:
+.back1:
     cmp dx, word [bx]                ; 0x3686
-    je short @..calibrate_loops_per_ms.l1 ; 0x3688
+    je short .back1                  ; 0x3688
     mov dx, word [bx]                ; 0x368a
-@..calibrate_loops_per_ms.l2:
+.back2:
     add cx, byte 1                   ; 0x368c
-    jae short @..calibrate_loops_per_ms.l3 ; 0x368f
+    jae short .forward1              ; 0x368f
     inc si                           ; 0x3691
-@..calibrate_loops_per_ms.l3:
+.forward1:
     cmp dx, word [bx]                ; 0x3692
-    je short @..calibrate_loops_per_ms.l2 ; 0x3694
+    je short .back2                  ; 0x3694
     mov dx, si                       ; 0x3696
     mov ax, cx                       ; 0x3698
     mov cx, 0x37                     ; 0x369a
     div cx                           ; 0x369d
     cmp dx, byte 0x1b                ; 0x369f
-    jl short @..calibrate_loops_per_ms.l4 ; 0x36a2
+    jl short .forward2               ; 0x36a2
     inc ax                           ; 0x36a4
-@..calibrate_loops_per_ms.l4:
+.forward2:
     mov dx, ax                       ; 0x36a5
     mov cl, 3                        ; 0x36a7
     shr dx, cl                       ; 0x36a9

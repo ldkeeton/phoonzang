@@ -10,8 +10,8 @@ draw_known_spell_values:
     call gfx_restore_screen
     add sp, byte 8
     mov word [bp - 2], 0
-    jmp near @..draw_known_spell_values.l2
-@..draw_known_spell_values.l1:
+    jmp near .forward1
+.back1:
     mov ax, 0
     push ax
     mov ax, word [bp + 6]
@@ -69,10 +69,10 @@ draw_known_spell_values:
     call draw_number_field
     add sp, byte 6
     inc word [bp - 2]
-@..draw_known_spell_values.l2:
+.forward1:
     mov ax, word [bp - 2]
     cmp ax, word [bp + 8]
-    jge short @..draw_known_spell_values.l3
-    jmp near @..draw_known_spell_values.l1
-@..draw_known_spell_values.l3:
+    jge short .return1
+    jmp near .back1
+.return1:
     ret

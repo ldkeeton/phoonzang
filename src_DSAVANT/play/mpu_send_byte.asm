@@ -6,12 +6,12 @@ mpu_send_byte:
     mov ah, al                       ; 0x11fe
     mov cx, 0xc350                   ; 0x1200
     mov dx, 0x331                    ; 0x1203
-@..mpu_send_byte.l1:
+.back1:
     in al, dx                        ; 0x1206
     and al, 0x40                     ; 0x1207
-    je short @..mpu_send_byte.l2     ; 0x1209
-    loop @..mpu_send_byte.l1         ; 0x120b
-@..mpu_send_byte.l2:
+    je short .forward1               ; 0x1209
+    loop .back1                      ; 0x120b
+.forward1:
     mov dx, 0x330                    ; 0x120d
     mov al, ah                       ; 0x1210
     out dx, al                       ; 0x1212

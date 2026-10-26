@@ -22,9 +22,9 @@ aztec_open:
     or ax, 0x3d00
     mov di, ax
     test word [bp + 6], 0x200
-    je short @..aztec_open.l1
+    je short .forward1
     mov di, 0x3c00
-@..aztec_open.l1:
+.forward1:
     mov ax, 0
     push ax
     push word [bp + 4]
@@ -34,9 +34,9 @@ aztec_open:
     mov si, ax
     mov ax, si
     cmp ax, strict word 0xffff
-    jne short @..aztec_open.l3
+    jne short .forward3
     test word [bp + 6], 0x100
-    je short @..aztec_open.l2
+    je short .forward2
     mov ax, 0
     push ax
     push word [bp + 4]
@@ -45,27 +45,27 @@ aztec_open:
     call aztec_impl_sys
     add sp, byte 6
     mov si, ax
-@..aztec_open.l2:
-    jmp short @..aztec_open.l5
-@..aztec_open.l3:
+.forward2:
+    jmp short .forward4
+.forward3:
     test word [bp + 6], 0x400
-    je short @..aztec_open.l5
+    je short .forward4
     push si
     call aztec_close
     pop cx
     mov word [errno], 0x13
     mov ax, 0xffff
-@..aztec_open.l4:
+.back1:
     pop si
     pop di
     mov sp, bp
     pop bp
     ret
-@..aztec_open.l5:
+.forward4:
     cmp si, byte 0
-    jl short @..aztec_open.l7
+    jl short .forward6
     test word [bp + 6], 0x800
-    je short @..aztec_open.l6
+    je short .forward5
     mov ax, 2
     push ax
     mov ax, 0
@@ -75,11 +75,11 @@ aztec_open:
     push si
     call aztec_lseek
     add sp, byte 8
-@..aztec_open.l6:
+.forward5:
     push si
     call aztec_isatty
     pop cx
     mov byte [si + _ioflg], al
-@..aztec_open.l7:
+.forward6:
     mov ax, si
-    jmp short @..aztec_open.l4
+    jmp short .back1

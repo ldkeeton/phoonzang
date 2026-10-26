@@ -4,18 +4,18 @@ api_idx_0004_KGNP:
     call aztec_csav
     mov ax, word [bp + 6]
     cmp word [bp + 8], byte 0
-    jne short @..api_idx_0004_KGNP.l1
+    jne short .forward1
     mov ax, word [bp + 4]
-@..api_idx_0004_KGNP.l1:
+.forward1:
     mov word [bp - 2], ax
     mov ax, word [bp + 4]
     cmp word [bp + 8], byte 0
-    jne short @..api_idx_0004_KGNP.l2
+    jne short .forward2
     mov ax, word [bp + 6]
-@..api_idx_0004_KGNP.l2:
+.forward2:
     mov word [bp - 4], ax
     cmp word [bp - 2], byte 0
-    je short @..api_idx_0004_KGNP.l3
+    je short .forward3
     mov ax, 0
     push ax
     push word [bp - 2]
@@ -36,9 +36,9 @@ api_idx_0004_KGNP:
     push ax
     call set_bitmap_bit
     add sp, byte 6
-@..api_idx_0004_KGNP.l3:
+.forward3:
     cmp word [bp - 4], byte 0
-    je short @..api_idx_0004_KGNP.l4
+    je short .return1
     mov ax, 1
     push ax
     push word [bp - 4]
@@ -59,5 +59,5 @@ api_idx_0004_KGNP:
     push ax
     call set_bitmap_bit
     add sp, byte 6
-@..api_idx_0004_KGNP.l4:
+.return1:
     ret

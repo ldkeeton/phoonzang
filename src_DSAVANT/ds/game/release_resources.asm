@@ -4,56 +4,56 @@ release_resources: ; Aztec csav frame=0x0002
     call aztec_csav                  ; 0x0245
     mov word [bp - 2], 0             ; 0x0248
     mov ax, word [bp + 4]            ; 0x024d
-    jmp near @..release_resources.l18 ; 0x0250
+    jmp near .forward18              ; 0x0250
 jumptable_0363_case_0:
     cmp word [bss_0e0e], byte 0      ; 0x0253
-    je short @..release_resources.l1 ; 0x0258
+    je short release_resources.forward1 ; 0x0258
     push word [bss_0e0e]             ; 0x025a
     call aztec_free                  ; 0x025e
     pop cx                           ; 0x0261
-@..release_resources.l1:
+release_resources.forward1:
     cmp word [bss_0e10], byte 0      ; 0x0262
-    je short @..release_resources.l2 ; 0x0267
+    je short release_resources.forward2 ; 0x0267
     push word [bss_0e10]             ; 0x0269
     call aztec_free                  ; 0x026d
     pop cx                           ; 0x0270
-@..release_resources.l2:
+release_resources.forward2:
     cmp word [maze_tables], byte 0   ; 0x0271
-    je short @..release_resources.l3 ; 0x0276
+    je short release_resources.forward3 ; 0x0276
     push word [maze_tables]          ; 0x0278
     call aztec_free                  ; 0x027c
     pop cx                           ; 0x027f
-@..release_resources.l3:
+release_resources.forward3:
     cmp word [maze_data], byte 0     ; 0x0280
-    je short @..release_resources.l4 ; 0x0285
+    je short release_resources.forward4 ; 0x0285
     push word [maze_data]            ; 0x0287
     call aztec_free                  ; 0x028b
     pop cx                           ; 0x028e
-@..release_resources.l4:
+release_resources.forward4:
     cmp word [bss_0e18], byte 0      ; 0x028f
-    jne short @..release_resources.l5 ; 0x0294
+    jne short release_resources.forward5 ; 0x0294
     cmp word [bss_0e16], byte 0      ; 0x0296
-@..release_resources.l5:
-    je short @..release_resources.l6 ; 0x029b
+release_resources.forward5:
+    je short release_resources.forward6 ; 0x029b
     push word [bss_0e18]             ; 0x029d
     push word [bss_0e16]             ; 0x02a1
     call app_free                    ; 0x02a5
     add sp, byte 4                   ; 0x02a8
-@..release_resources.l6:
+release_resources.forward6:
     cmp word [bss_0e1c], byte 0      ; 0x02ab
-    jne short @..release_resources.l7 ; 0x02b0
+    jne short release_resources.forward7 ; 0x02b0
     cmp word [bss_0e1a], byte 0      ; 0x02b2
-@..release_resources.l7:
-    je short @..release_resources.l8 ; 0x02b7
+release_resources.forward7:
+    je short release_resources.forward8 ; 0x02b7
     push word [bss_0e1c]             ; 0x02b9
     push word [bss_0e1a]             ; 0x02bd
     call app_free                    ; 0x02c1
     add sp, byte 4                   ; 0x02c4
-@..release_resources.l8:
+release_resources.forward8:
     cmp word [bss_0e20], byte 0      ; 0x02c7
-    jne short @..release_resources.l9 ; 0x02cc
+    jne short release_resources.forward9 ; 0x02cc
     cmp word [bss_0e1e], byte 0      ; 0x02ce
-@..release_resources.l9:
+release_resources.forward9:
     je short jumptable_0363_case_11  ; 0x02d3
     push word [bss_0e20]             ; 0x02d5
     push word [bss_0e1e]             ; 0x02d9
@@ -69,29 +69,29 @@ jumptable_0363_case_10:
     pop cx                           ; 0x02f2
 jumptable_0363_case_7:
     cmp word [bss_0e28], byte 0      ; 0x02f3
-    jne short @..release_resources.l11 ; 0x02f8
+    jne short release_resources.forward11 ; 0x02f8
     cmp word [bss_0e26], byte 0      ; 0x02fa
-@..release_resources.l11:
-    je short @..release_resources.l12 ; 0x02ff
+release_resources.forward11:
+    je short release_resources.forward12 ; 0x02ff
     push word [bss_0e28]             ; 0x0301
     push word [bss_0e26]             ; 0x0305
     call app_free                    ; 0x0309
     add sp, byte 4                   ; 0x030c
-@..release_resources.l12:
+release_resources.forward12:
     cmp word [mouse_pointer_shape_seg], byte 0 ; 0x030f
-    jne short @..release_resources.l13 ; 0x0314
+    jne short release_resources.forward13 ; 0x0314
     cmp word [mouse_pointer_shape], byte 0 ; 0x0316
-@..release_resources.l13:
-    je short @..release_resources.l14 ; 0x031b
+release_resources.forward13:
+    je short release_resources.forward14 ; 0x031b
     push word [mouse_pointer_shape_seg] ; 0x031d
     push word [mouse_pointer_shape]  ; 0x0321
     call app_free                    ; 0x0325
     add sp, byte 4                   ; 0x0328
-@..release_resources.l14:
+release_resources.forward14:
     cmp word [bss_0e30], byte 0      ; 0x032b
-    jne short @..release_resources.l15 ; 0x0330
+    jne short release_resources.forward15 ; 0x0330
     cmp word [bss_0e2e], byte 0      ; 0x0332
-@..release_resources.l15:
+release_resources.forward15:
     je short jumptable_0363_case_4   ; 0x0337
     push word [bss_0e30]             ; 0x0339
     push word [bss_0e2e]             ; 0x033d
@@ -108,7 +108,7 @@ jumptable_0363_case_4:
     je short jumptable_0363_case_1   ; 0x035c
     call gfx_mouse_off               ; 0x035e
 jumptable_0363_case_1:
-    jmp short @..release_resources.l19 ; 0x0361
+    jmp short release_resources.forward19 ; 0x0361
 jumptable_0363:
     dw jumptable_0363_case_0 - IMAGE_BASE      ; 0x0363
     dw jumptable_0363_case_1 - IMAGE_BASE      ; 0x0365
@@ -141,15 +141,15 @@ jumptable_0363:
     dw jumptable_0363_case_0 - IMAGE_BASE      ; 0x039b
     dw jumptable_0363_case_0 - IMAGE_BASE      ; 0x039d
     dw jumptable_0363_case_0 - IMAGE_BASE      ; 0x039f
-@..release_resources.l18:
+release_resources.forward18:
     cmp ax, strict word 0x1f         ; 0x03a1
-    jae short @..release_resources.l19 ; 0x03a4
+    jae short release_resources.forward19 ; 0x03a4
     xchg bx, ax                      ; 0x03a6
     shl bx, 1                        ; 0x03a7
     jmp [cs:bx + jumptable_0363 - IMAGE_BASE] ; 0x03a9
-@..release_resources.l19:
+release_resources.forward19:
     cmp word [bp - 2], byte 1        ; 0x03ae
-    jne short @..release_resources.l20 ; 0x03b2
+    jne short release_resources.return1 ; 0x03b2
     call ds_loc_IGLJ                 ; 0x03b4
-@..release_resources.l20:
+release_resources.return1:
     ret                              ; 0x03b7

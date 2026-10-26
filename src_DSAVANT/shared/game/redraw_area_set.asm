@@ -3,8 +3,8 @@ redraw_area_set:
     mov ax, 0xfffa
     call aztec_csav
     mov ax, word [bp + 4]
-    jmp near @..redraw_area_set.l5
-@..redraw_area_set.l1:
+    jmp near .forward1
+.back1:
     mov ax, dseg_9098
     push ax
     mov ax, 0xc2
@@ -27,8 +27,8 @@ redraw_area_set:
     push word [bp - 2]
     call restore_saved_screen
     add sp, byte 4
-    jmp near @..redraw_area_set.l8
-@..redraw_area_set.l2:
+    jmp near .return1
+.back2:
     mov ax, dseg_909f
     push ax
     mov ax, 0xc2
@@ -87,8 +87,8 @@ redraw_area_set:
     push word [bp - 2]
     call restore_saved_screen
     add sp, byte 4
-    jmp short @..redraw_area_set.l8
-@..redraw_area_set.l3:
+    jmp short .return1
+.back3:
     mov ax, dseg_90b4
     push ax
     mov ax, 0xc2
@@ -111,25 +111,25 @@ redraw_area_set:
     push word [bp - 2]
     call restore_saved_screen
     add sp, byte 4
-    jmp short @..redraw_area_set.l8
-@..redraw_area_set.l4:
+    jmp short .return1
+.back4:
     mov ax, 0
     push ax
     call redraw_glyph_strip
     pop cx
-    jmp short @..redraw_area_set.l8
-@..redraw_area_set.l5:
+    jmp short .return1
+.forward1:
     cmp ax, strict word 0
-    jne short @..redraw_area_set.l6
-    jmp near @..redraw_area_set.l1
-@..redraw_area_set.l6:
+    jne short .forward2
+    jmp near .back1
+.forward2:
     cmp ax, strict word 1
-    jne short @..redraw_area_set.l7
-    jmp near @..redraw_area_set.l2
-@..redraw_area_set.l7:
+    jne short .forward3
+    jmp near .back2
+.forward3:
     cmp ax, strict word 2
-    je short @..redraw_area_set.l3
+    je short .back3
     cmp ax, strict word 3
-    je short @..redraw_area_set.l4
-@..redraw_area_set.l8:
+    je short .back4
+.return1:
     ret

@@ -9,7 +9,7 @@ api_idx_001a_HRLU:
     call load_message_string         ; 0x707a
     add sp, byte 4                   ; 0x707d
     mov word [bp - 2], 0             ; 0x7080
-@..api_idx_001a_HRLU.l1:
+.back1:
     mov ax, word [bp + 6]            ; 0x7085
     mov cx, 0xa                      ; 0x7088
     cwd                              ; 0x708b
@@ -33,7 +33,7 @@ api_idx_001a_HRLU:
     inc word [bp - 2]                ; 0x70b7
     mov ax, word [bp - 2]            ; 0x70ba
     cmp ax, strict word 4            ; 0x70bd
-    jl short @..api_idx_001a_HRLU.l1 ; 0x70c0
+    jl short .back1                  ; 0x70c0
     mov bx, word [bp + 4]            ; 0x70c2
     mov byte [bx + 4], 0             ; 0x70c5
     ret                              ; 0x70c9

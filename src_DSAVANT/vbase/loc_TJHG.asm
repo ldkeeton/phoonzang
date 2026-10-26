@@ -3,10 +3,10 @@ loc_TJHG:
     mov ax, 0                        ; 0x6c5c
     call aztec_csav                  ; 0x6c5f
     cmp word [scene_index], byte 0   ; 0x6c62
-    jle short @..loc_TJHG.l1         ; 0x6c67
+    jle short .return1               ; 0x6c67
     call loc_GSUP                    ; 0x6c69
     test ax, ax                      ; 0x6c6c
-    je short @..loc_TJHG.l1          ; 0x6c6e
+    je short .return1                ; 0x6c6e
     call draw_scene_frame            ; 0x6c70
     mov ax, 0x91                     ; 0x6c73
     push ax                          ; 0x6c76
@@ -17,5 +17,5 @@ loc_TJHG:
     push ax                          ; 0x6c7f
     call gfx_show_area               ; 0x6c80
     add sp, byte 8                   ; 0x6c83
-@..loc_TJHG.l1:
+.return1:
     ret                              ; 0x6c86

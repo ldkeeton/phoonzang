@@ -4,9 +4,9 @@ api_idx_0006_JJVQ:
     call aztec_csav                  ; 0x9e60
     mov ax, word [bp + 4]            ; 0x9e63
     cmp ax, word [bp + 6]            ; 0x9e66
-    jne short @..api_idx_0006_JJVQ.l1 ; 0x9e69
+    jne short .forward1              ; 0x9e69
     ret                              ; 0x9e6b
-@..api_idx_0006_JJVQ.l1:
+.forward1:
     mov cx, 2                        ; 0x9e6c
     cwd                              ; 0x9e6f
     idiv cx                          ; 0x9e70
@@ -18,17 +18,17 @@ api_idx_0006_JJVQ:
     mov cx, dx                       ; 0x9e7b
     pop ax                           ; 0x9e7d
     cmp ax, cx                       ; 0x9e7e
-    jne short @..api_idx_0006_JJVQ.l2 ; 0x9e80
+    jne short .forward2              ; 0x9e80
     mov word [bp - 4], 0             ; 0x9e82
-    jmp short @..api_idx_0006_JJVQ.l4 ; 0x9e87
-@..api_idx_0006_JJVQ.l2:
+    jmp short .forward4              ; 0x9e87
+.forward2:
     test cx, cx                      ; 0x9e89
-    jne short @..api_idx_0006_JJVQ.l3 ; 0x9e8b
+    jne short .forward3              ; 0x9e8b
     mov word [bp - 4], 1             ; 0x9e8d
-    jmp short @..api_idx_0006_JJVQ.l4 ; 0x9e92
-@..api_idx_0006_JJVQ.l3:
+    jmp short .forward4              ; 0x9e92
+.forward3:
     mov word [bp - 4], 0xffff        ; 0x9e94
-@..api_idx_0006_JJVQ.l4:
+.forward4:
     push word [bss_8462]             ; 0x9e99
     push word [bss_8464]             ; 0x9e9d
     mov ax, bss_90e6                 ; 0x9ea1
@@ -37,7 +37,7 @@ api_idx_0006_JJVQ:
     add sp, byte 6                   ; 0x9ea8
     mov ax, word [bp + 4]            ; 0x9eab
     cmp ax, word [bp + 6]            ; 0x9eae
-    jle short @..api_idx_0006_JJVQ.l5 ; 0x9eb1
+    jle short .forward5              ; 0x9eb1
     mov ax, bss_9136                 ; 0x9eb3
     push ax                          ; 0x9eb6
     mov ax, MSG_ADVANCES_3513        ; 0x9eb7
@@ -45,8 +45,8 @@ api_idx_0006_JJVQ:
     call load_message_string         ; 0x9ebb
     add sp, byte 4                   ; 0x9ebe
     mov word [bp - 2], 0xfffe        ; 0x9ec1
-    jmp short @..api_idx_0006_JJVQ.l6 ; 0x9ec6
-@..api_idx_0006_JJVQ.l5:
+    jmp short .forward6              ; 0x9ec6
+.forward5:
     mov ax, bss_9136                 ; 0x9ec8
     push ax                          ; 0x9ecb
     mov ax, MSG_RETREATS             ; 0x9ecc
@@ -54,7 +54,7 @@ api_idx_0006_JJVQ:
     call load_message_string         ; 0x9ed0
     add sp, byte 4                   ; 0x9ed3
     mov word [bp - 2], 2             ; 0x9ed6
-@..api_idx_0006_JJVQ.l6:
+.forward6:
     mov byte [bss_9186], 0           ; 0x9edb
     mov ax, 0                        ; 0x9ee0
     push ax                          ; 0x9ee3
@@ -76,11 +76,11 @@ api_idx_0006_JJVQ:
     push ax                          ; 0x9f05
     call api_idx_0004_QUPL           ; 0x9f06
     pop cx                           ; 0x9f09
-@..api_idx_0006_JJVQ.l7:
+.back1:
     mov ax, word [bp + 6]            ; 0x9f0a
     add ax, word [bp - 4]            ; 0x9f0d
     cmp ax, word [bp + 4]            ; 0x9f10
-    je short @..api_idx_0006_JJVQ.l8 ; 0x9f13
+    je short .forward7               ; 0x9f13
     mov ax, word [bp + 4]            ; 0x9f15
     add ax, word [bp - 2]            ; 0x9f18
     mov word [bp - 6], ax            ; 0x9f1b
@@ -90,17 +90,17 @@ api_idx_0006_JJVQ:
     add sp, byte 4                   ; 0x9f25
     mov ax, word [bp - 2]            ; 0x9f28
     add word [bp + 4], ax            ; 0x9f2b
-    jmp short @..api_idx_0006_JJVQ.l7 ; 0x9f2e
-@..api_idx_0006_JJVQ.l8:
+    jmp short .back1                 ; 0x9f2e
+.forward7:
     cmp word [bp - 4], byte 0        ; 0x9f30
-    je short @..api_idx_0006_JJVQ.l9 ; 0x9f34
+    je short .forward8               ; 0x9f34
     push word [bp + 6]               ; 0x9f36
     mov ax, word [bp + 6]            ; 0x9f39
     add ax, word [bp - 4]            ; 0x9f3c
     push ax                          ; 0x9f3f
     call loc_IRGI                    ; 0x9f40
     add sp, byte 4                   ; 0x9f43
-@..api_idx_0006_JJVQ.l9:
+.forward8:
     push word [bss_9058]             ; 0x9f46
     call api_idx_0004_QUPL           ; 0x9f4a
     pop cx                           ; 0x9f4d

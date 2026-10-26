@@ -6,9 +6,9 @@ api_idx_0068_OUGS:
     call api_idx_004c_OGSK           ; 0x51c4
     pop cx                           ; 0x51c7
     cmp word [bss_9ca8], byte 0      ; 0x51c8
-    jne short @..api_idx_0068_OUGS.l1 ; 0x51cd
+    jne short .forward1              ; 0x51cd
     ret                              ; 0x51cf
-@..api_idx_0068_OUGS.l1:
+.forward1:
     mov ax, 0                        ; 0x51d0
     push ax                          ; 0x51d3
     call redraw_area_set             ; 0x51d4
@@ -32,10 +32,10 @@ api_idx_0068_OUGS:
     mov ax, word [spell_dialog_result] ; 0x51ff
     mov word [bp - 2], ax            ; 0x5202
     cmp word [bp - 0x4c], byte 2     ; 0x5205
-    je short @..api_idx_0068_OUGS.l2 ; 0x5209
+    je short .forward2               ; 0x5209
     cmp ax, strict word 0xffff       ; 0x520b
-    jne short @..api_idx_0068_OUGS.l3 ; 0x520e
-@..api_idx_0068_OUGS.l2:
+    jne short .forward3              ; 0x520e
+.forward2:
     mov ax, 0xc6                     ; 0x5210
     push ax                          ; 0x5213
     mov ax, 0x109                    ; 0x5214
@@ -47,7 +47,7 @@ api_idx_0068_OUGS:
     call gfx_show_area               ; 0x5220
     add sp, byte 8                   ; 0x5223
     ret                              ; 0x5226
-@..api_idx_0068_OUGS.l3:
+.forward3:
     mov ax, word [bp - 2]            ; 0x5227
     shl ax, 1                        ; 0x522a
     mov bx, ax                       ; 0x522c
@@ -73,9 +73,9 @@ api_idx_0068_OUGS:
     add sp, byte 0xc                 ; 0x525b
     mov ax, word [bp - 0x4c]         ; 0x525e
     cmp word [bp - 0x4c], byte 1     ; 0x5261
-    je short @..api_idx_0068_OUGS.l4 ; 0x5265
-    jmp near @..api_idx_0068_OUGS.l6 ; 0x5267
-@..api_idx_0068_OUGS.l4:
+    je short .forward4               ; 0x5265
+    jmp near .forward6               ; 0x5267
+.forward4:
     mov ax, 0                        ; 0x526a
     push ax                          ; 0x526d
     mov ax, 0x248                    ; 0x526e
@@ -101,7 +101,7 @@ api_idx_0068_OUGS:
     call data_record_io              ; 0x529a
     add sp, byte 8                   ; 0x529d
     cmp word [bp - 0x28], byte 0     ; 0x52a0
-    je short @..api_idx_0068_OUGS.l6 ; 0x52a4
+    je short .forward6               ; 0x52a4
     mov ax, word [bp - 0x28]         ; 0x52a6
     mov cx, 0x100                    ; 0x52a9
     cwd                              ; 0x52ac
@@ -112,15 +112,15 @@ api_idx_0068_OUGS:
     imul dx                          ; 0x52b8
     mov bx, ax                       ; 0x52ba
     cmp byte [bx + spell_table + spell_table_rec.f_0004], 1 ; 0x52bc
-    jne short @..api_idx_0068_OUGS.l5 ; 0x52c1
+    jne short .forward5              ; 0x52c1
     call pick_party_member           ; 0x52c3
     mov word [bss_9650], ax          ; 0x52c6
     cmp ax, strict word 0xffff       ; 0x52c9
-    jne short @..api_idx_0068_OUGS.l5 ; 0x52cc
+    jne short .forward5              ; 0x52cc
     mov word [bp - 0x52], 0xffff     ; 0x52ce
-@..api_idx_0068_OUGS.l5:
-    cmp word [bp - 0x52], byte 0xff  ; 0x52d3
-    je short @..api_idx_0068_OUGS.l6 ; 0x52d7
+.forward5:
+    cmp word [bp - 0x52], byte -1    ; 0x52d3
+    je short .forward6               ; 0x52d7
     mov ax, 0xc6                     ; 0x52d9
     push ax                          ; 0x52dc
     mov ax, 0x109                    ; 0x52dd
@@ -142,7 +142,7 @@ api_idx_0068_OUGS:
     push word [bp + 4]               ; 0x5308
     call api_idx_0008_HUTJ           ; 0x530b
     add sp, byte 8                   ; 0x530e
-@..api_idx_0068_OUGS.l6:
+.forward6:
     mov ax, 0xc6                     ; 0x5311
     push ax                          ; 0x5314
     mov ax, 0x109                    ; 0x5315
@@ -159,7 +159,7 @@ api_idx_0068_OUGS:
     call draw_party_member_panel     ; 0x532e
     add sp, byte 4                   ; 0x5331
     cmp word [bp - 0x4c], byte 1     ; 0x5334
-    jne short @..api_idx_0068_OUGS.l7 ; 0x5338
+    jne short .return1               ; 0x5338
     mov ax, 0                        ; 0x533a
     push ax                          ; 0x533d
     push ax                          ; 0x533e
@@ -184,5 +184,5 @@ api_idx_0068_OUGS:
     push word [bp + 4]               ; 0x5367
     call api_idx_0006_SRQN           ; 0x536a
     add sp, byte 0xa                 ; 0x536d
-@..api_idx_0068_OUGS.l7:
+.return1:
     ret                              ; 0x5370

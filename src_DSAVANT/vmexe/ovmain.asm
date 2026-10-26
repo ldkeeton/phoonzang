@@ -4,7 +4,7 @@ ovmain:
     call aztec_csav                  ; 0x17d4
     mov word [bss_90e0], 0           ; 0x17d7
     cmp word [game_state], byte 0xd  ; 0x17dd
-    jne short @..ovmain.l1           ; 0x17e2
+    jne short .forward1              ; 0x17e2
     push word [mouse_pointer_shape_seg] ; 0x17e4
     push word [mouse_pointer_shape]  ; 0x17e8
     call set_mouse_pointer_shape     ; 0x17ec
@@ -32,6 +32,6 @@ ovmain:
     push ax                          ; 0x1820
     call set_mouse_pointer_shape     ; 0x1821
     add sp, byte 4                   ; 0x1824
-@..ovmain.l1:
+.forward1:
     mov ax, 0                        ; 0x1827
     ret                              ; 0x182a

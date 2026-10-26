@@ -8,7 +8,7 @@ api_idx_0040_LIPH:
     push ax                          ; 0x5355
     call load_message_string         ; 0x5356
     add sp, byte 4                   ; 0x5359
-@..api_idx_0040_LIPH.l1:
+.back1:
     lea ax, word [bp - 0x34]         ; 0x535c
     push ax                          ; 0x535f
     push word [bss_95e4]             ; 0x5360
@@ -24,8 +24,8 @@ api_idx_0040_LIPH:
     mov word [bp - 6], ax            ; 0x5377
     mov ax, word [spell_dialog_result] ; 0x537a
     mov word [bp - 2], ax            ; 0x537d
-    cmp word [bp - 2], byte 0xff     ; 0x5380
-    je short @..api_idx_0040_LIPH.l1 ; 0x5384
+    cmp word [bp - 2], byte -1       ; 0x5380
+    je short .back1                  ; 0x5384
     mov ax, 0x10                     ; 0x5386
     push ax                          ; 0x5389
     mov ax, 0xc                      ; 0x538a
@@ -42,11 +42,11 @@ api_idx_0040_LIPH:
     add sp, byte 0xc                 ; 0x53a3
     mov ax, word [bp - 6]            ; 0x53a6
     cmp word [bp - 6], byte 1        ; 0x53a9
-    je short @..api_idx_0040_LIPH.l2 ; 0x53ad
-    jmp near @..api_idx_0040_LIPH.l8 ; 0x53af
-@..api_idx_0040_LIPH.l2:
+    je short .forward1               ; 0x53ad
+    jmp near .forward7               ; 0x53af
+.forward1:
     cmp word [mouse_active], byte 0  ; 0x53b2
-    jne short @..api_idx_0040_LIPH.l3 ; 0x53b7
+    jne short .forward2              ; 0x53b7
     mov ax, 0xc6                     ; 0x53b9
     push ax                          ; 0x53bc
     mov ax, 0x109                    ; 0x53bd
@@ -57,24 +57,24 @@ api_idx_0040_LIPH:
     push ax                          ; 0x53c8
     call gfx_show_area               ; 0x53c9
     add sp, byte 8                   ; 0x53cc
-@..api_idx_0040_LIPH.l3:
+.forward2:
     call pick_party_member           ; 0x53cf
     mov word [bp - 8], ax            ; 0x53d2
     cmp ax, strict word 0xffff       ; 0x53d5
-    je short @..api_idx_0040_LIPH.l6 ; 0x53d8
+    je short .forward5               ; 0x53d8
     push ax                          ; 0x53da
     call api_idx_0004_ONJT           ; 0x53db
     pop cx                           ; 0x53de
     mov word [bp - 4], ax            ; 0x53df
     cmp ax, strict word 0xffff       ; 0x53e2
-    jne short @..api_idx_0040_LIPH.l4 ; 0x53e5
+    jne short .forward3              ; 0x53e5
     mov word [bp - 2], 0xffff        ; 0x53e7
     mov ax, 0                        ; 0x53ec
     push ax                          ; 0x53ef
     call play_sound_effect           ; 0x53f0
     pop cx                           ; 0x53f3
-    jmp short @..api_idx_0040_LIPH.l5 ; 0x53f4
-@..api_idx_0040_LIPH.l4:
+    jmp short .forward4              ; 0x53f4
+.forward3:
     mov ax, word [bp - 4]            ; 0x53f6
     mov cx, 0x100                    ; 0x53f9
     cwd                              ; 0x53fc
@@ -106,15 +106,15 @@ api_idx_0040_LIPH:
     push word [bp - 8]               ; 0x543a
     call api_idx_004c_RQSO           ; 0x543d
     add sp, byte 0xa                 ; 0x5440
-@..api_idx_0040_LIPH.l5:
-    jmp short @..api_idx_0040_LIPH.l7 ; 0x5443
-@..api_idx_0040_LIPH.l6:
+.forward4:
+    jmp short .forward6              ; 0x5443
+.forward5:
     mov word [bp - 2], 0xffff        ; 0x5445
-@..api_idx_0040_LIPH.l7:
-    jmp short @..api_idx_0040_LIPH.l9 ; 0x544a
-@..api_idx_0040_LIPH.l8:
+.forward6:
+    jmp short .forward8              ; 0x544a
+.forward7:
     cmp word [bp - 6], byte 2        ; 0x544c
-    jne short @..api_idx_0040_LIPH.l9 ; 0x5450
+    jne short .forward8              ; 0x5450
     mov ax, word [bp - 2]            ; 0x5452
     shl ax, 1                        ; 0x5455
     mov bx, ax                       ; 0x5457
@@ -132,14 +132,14 @@ api_idx_0040_LIPH:
     call api_idx_0004_UJRL           ; 0x5477
     pop cx                           ; 0x547a
     call api_idx_0006_KPLV           ; 0x547b
-@..api_idx_0040_LIPH.l9:
-    cmp word [bp - 2], byte 0xff     ; 0x547e
-    je short @..api_idx_0040_LIPH.l12 ; 0x5482
+.forward8:
+    cmp word [bp - 2], byte -1       ; 0x547e
+    je short .forward10              ; 0x5482
     dec word [bss_95e4]              ; 0x5484
     mov ax, word [bp - 2]            ; 0x5488
     mov word [bp - 4], ax            ; 0x548b
-    jmp short @..api_idx_0040_LIPH.l11 ; 0x548e
-@..api_idx_0040_LIPH.l10:
+    jmp short .forward9              ; 0x548e
+.back2:
     mov ax, 0x16                     ; 0x5490
     imul word [bp - 4]               ; 0x5493
     add ax, bss_9414                 ; 0x5496
@@ -166,15 +166,15 @@ api_idx_0040_LIPH:
     mov ax, word [bx + bss_95e8]     ; 0x54d9
     mov word [bx + bss_95e6], ax     ; 0x54dd
     inc word [bp - 4]                ; 0x54e1
-@..api_idx_0040_LIPH.l11:
+.forward9:
     mov ax, word [bp - 4]            ; 0x54e4
     cmp ax, word [bss_95e4]          ; 0x54e7
-    jl short @..api_idx_0040_LIPH.l10 ; 0x54eb
-@..api_idx_0040_LIPH.l12:
+    jl short .back2                  ; 0x54eb
+.forward10:
     cmp word [bss_95e4], byte 0      ; 0x54ed
-    jle short @..api_idx_0040_LIPH.l13 ; 0x54f2
-    jmp near @..api_idx_0040_LIPH.l1 ; 0x54f4
-@..api_idx_0040_LIPH.l13:
+    jle short .forward11             ; 0x54f2
+    jmp near .back1                  ; 0x54f4
+.forward11:
     mov ax, 0xc6                     ; 0x54f7
     push ax                          ; 0x54fa
     mov ax, 0x109                    ; 0x54fb

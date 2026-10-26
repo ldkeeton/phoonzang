@@ -43,7 +43,7 @@ api_idx_008a_SRHN:
     mov word [bp - 2], ax            ; 0x0c8a
     mov ax, word [game_state_arg]    ; 0x0c8d
     cmp ax, word [bss_8f3c]          ; 0x0c90
-    jne short @..api_idx_008a_SRHN.l1 ; 0x0c94
+    jne short .forward1              ; 0x0c94
     mov ax, word [bss_8f30]          ; 0x0c96
     inc ax                           ; 0x0c99
     inc ax                           ; 0x0c9a
@@ -51,7 +51,7 @@ api_idx_008a_SRHN:
     cwd                              ; 0x0c9e
     idiv cx                          ; 0x0c9f
     mov word [bp - 2], dx            ; 0x0ca1
-@..api_idx_008a_SRHN.l1:
+.forward1:
     mov ax, word [party_tag]         ; 0x0ca4
     inc ax                           ; 0x0ca7
     inc ax                           ; 0x0ca8
@@ -61,17 +61,17 @@ api_idx_008a_SRHN:
     idiv cx                          ; 0x0cae
     mov ax, dx                       ; 0x0cb0
     cmp ax, word [bp - 2]            ; 0x0cb2
-    jne short @..api_idx_008a_SRHN.l2 ; 0x0cb5
+    jne short .forward2              ; 0x0cb5
     mov ax, 3                        ; 0x0cb7
-    jmp short @..api_idx_008a_SRHN.l3 ; 0x0cba
-@..api_idx_008a_SRHN.l2:
+    jmp short .forward3              ; 0x0cba
+.forward2:
     mov ax, 1                        ; 0x0cbc
-@..api_idx_008a_SRHN.l3:
+.forward3:
     mov word [bp - 4], ax            ; 0x0cbf
-@..api_idx_008a_SRHN.l4:
+.back1:
     mov ax, word [party_tag]         ; 0x0cc2
     cmp ax, word [bp - 2]            ; 0x0cc5
-    je short @..api_idx_008a_SRHN.l7 ; 0x0cc8
+    je short .forward6               ; 0x0cc8
     add ax, word [bp - 4]            ; 0x0cca
     mov cx, 4                        ; 0x0ccd
     cwd                              ; 0x0cd0
@@ -79,40 +79,40 @@ api_idx_008a_SRHN:
     mov word [party_tag], dx         ; 0x0cd3
     call loc_HVLG                    ; 0x0cd7
     test ax, ax                      ; 0x0cda
-    je short @..api_idx_008a_SRHN.l5 ; 0x0cdc
+    je short .forward4               ; 0x0cdc
     mov ax, word [party_status_frame] ; 0x0cde
     inc ax                           ; 0x0ce1
     mov cx, 2                        ; 0x0ce2
     cwd                              ; 0x0ce5
     idiv cx                          ; 0x0ce6
     mov word [party_status_frame], dx ; 0x0ce8
-@..api_idx_008a_SRHN.l5:
+.forward4:
     call redraw_maze_view            ; 0x0cec
     cmp word [bp - 6], byte 0        ; 0x0cef
-    jne short @..api_idx_008a_SRHN.l6 ; 0x0cf3
+    jne short .forward5              ; 0x0cf3
     call loc_VUVO                    ; 0x0cf5
     mov word [bp - 6], ax            ; 0x0cf8
-@..api_idx_008a_SRHN.l6:
+.forward5:
     mov ax, 2                        ; 0x0cfb
     push ax                          ; 0x0cfe
     call wait_for_hotspot_timeout    ; 0x0cff
     pop cx                           ; 0x0d02
-    jmp short @..api_idx_008a_SRHN.l4 ; 0x0d03
-@..api_idx_008a_SRHN.l7:
+    jmp short .back1                 ; 0x0d03
+.forward6:
     mov word [bp - 8], 0xffff        ; 0x0d05
-@..api_idx_008a_SRHN.l8:
+.back2:
     mov word [bp - 0xa], 0           ; 0x0d0a
     call loc_IVLM                    ; 0x0d0f
-    cmp word [bp - 8], byte 0xff     ; 0x0d12
-    jne short @..api_idx_008a_SRHN.l9 ; 0x0d16
-    jmp near @..api_idx_008a_SRHN.l14 ; 0x0d18
-@..api_idx_008a_SRHN.l9:
+    cmp word [bp - 8], byte -1       ; 0x0d12
+    jne short .forward7              ; 0x0d16
+    jmp near .forward12              ; 0x0d18
+.forward7:
     mov ax, 4                        ; 0x0d1b
     push ax                          ; 0x0d1e
     call random_below                ; 0x0d1f
     pop cx                           ; 0x0d22
     test ax, ax                      ; 0x0d23
-    jne short @..api_idx_008a_SRHN.l14 ; 0x0d25
+    jne short .forward12             ; 0x0d25
     mov ax, word [party_tag]         ; 0x0d27
     add ax, word [bp - 8]            ; 0x0d2a
     mov cx, 4                        ; 0x0d2d
@@ -124,16 +124,16 @@ api_idx_008a_SRHN:
     call api_idx_0002_JSVP           ; 0x0d3c
     pop cx                           ; 0x0d3f
     test ax, ax                      ; 0x0d40
-    jne short @..api_idx_008a_SRHN.l11 ; 0x0d42
+    jne short .forward9              ; 0x0d42
     cmp word [bp - 6], byte 0        ; 0x0d44
-    jne short @..api_idx_008a_SRHN.l10 ; 0x0d48
+    jne short .forward8              ; 0x0d48
     call loc_VUVO                    ; 0x0d4a
     mov word [bp - 6], ax            ; 0x0d4d
-@..api_idx_008a_SRHN.l10:
+.forward8:
     call api_idx_000a_NPNK           ; 0x0d50
     mov word [bp - 0xa], 1           ; 0x0d53
-    jmp short @..api_idx_008a_SRHN.l14 ; 0x0d58
-@..api_idx_008a_SRHN.l11:
+    jmp short .forward12             ; 0x0d58
+.forward9:
     mov ax, word [party_tag]         ; 0x0d5a
     inc ax                           ; 0x0d5d
     inc ax                           ; 0x0d5e
@@ -146,42 +146,42 @@ api_idx_008a_SRHN:
     call api_idx_0002_JSVP           ; 0x0d6e
     pop cx                           ; 0x0d71
     test ax, ax                      ; 0x0d72
-    jne short @..api_idx_008a_SRHN.l13 ; 0x0d74
+    jne short .forward11             ; 0x0d74
     cmp word [bp - 6], byte 0        ; 0x0d76
-    jne short @..api_idx_008a_SRHN.l12 ; 0x0d7a
+    jne short .forward10             ; 0x0d7a
     call loc_VUVO                    ; 0x0d7c
     mov word [bp - 6], ax            ; 0x0d7f
-@..api_idx_008a_SRHN.l12:
+.forward10:
     call api_idx_000a_NPNK           ; 0x0d82
     mov word [bp - 0xa], 1           ; 0x0d85
-    jmp short @..api_idx_008a_SRHN.l14 ; 0x0d8a
-@..api_idx_008a_SRHN.l13:
+    jmp short .forward12             ; 0x0d8a
+.forward11:
     mov ax, word [bss_8f30]          ; 0x0d8c
     mov word [party_tag], ax         ; 0x0d8f
-@..api_idx_008a_SRHN.l14:
+.forward12:
     cmp word [bp - 0xa], byte 0      ; 0x0d92
-    je short @..api_idx_008a_SRHN.l15 ; 0x0d96
-    jmp near @..api_idx_008a_SRHN.l21 ; 0x0d98
-@..api_idx_008a_SRHN.l15:
+    je short .forward13              ; 0x0d96
+    jmp near .forward19              ; 0x0d98
+.forward13:
     lea ax, word [bp - 0x8a]         ; 0x0d9b
     push ax                          ; 0x0d9f
     call api_idx_0002_JSVP           ; 0x0da0
     pop cx                           ; 0x0da3
     cmp ax, strict word 1            ; 0x0da4
-    je short @..api_idx_008a_SRHN.l16 ; 0x0da7
-    jmp near @..api_idx_008a_SRHN.l21 ; 0x0da9
-@..api_idx_008a_SRHN.l16:
+    je short .forward14              ; 0x0da7
+    jmp near .forward19              ; 0x0da9
+.forward14:
     mov ax, 2                        ; 0x0dac
     push ax                          ; 0x0daf
     call random_below                ; 0x0db0
     pop cx                           ; 0x0db3
     test ax, ax                      ; 0x0db4
-    jne short @..api_idx_008a_SRHN.l17 ; 0x0db6
+    jne short .forward15             ; 0x0db6
     mov ax, 1                        ; 0x0db8
-    jmp short @..api_idx_008a_SRHN.l18 ; 0x0dbb
-@..api_idx_008a_SRHN.l17:
+    jmp short .forward16             ; 0x0dbb
+.forward15:
     mov ax, 3                        ; 0x0dbd
-@..api_idx_008a_SRHN.l18:
+.forward16:
     add ax, word [party_tag]         ; 0x0dc0
     mov cx, 4                        ; 0x0dc4
     cwd                              ; 0x0dc7
@@ -192,10 +192,10 @@ api_idx_008a_SRHN:
     call api_idx_0002_JSVP           ; 0x0dd3
     pop cx                           ; 0x0dd6
     test ax, ax                      ; 0x0dd7
-    jne short @..api_idx_008a_SRHN.l19 ; 0x0dd9
+    jne short .forward17             ; 0x0dd9
     call api_idx_000a_NPNK           ; 0x0ddb
-    jmp short @..api_idx_008a_SRHN.l21 ; 0x0dde
-@..api_idx_008a_SRHN.l19:
+    jmp short .forward19             ; 0x0dde
+.forward17:
     mov ax, word [party_tag]         ; 0x0de0
     inc ax                           ; 0x0de3
     inc ax                           ; 0x0de4
@@ -208,10 +208,10 @@ api_idx_008a_SRHN:
     call api_idx_0002_JSVP           ; 0x0df4
     pop cx                           ; 0x0df7
     test ax, ax                      ; 0x0df8
-    jne short @..api_idx_008a_SRHN.l20 ; 0x0dfa
+    jne short .forward18             ; 0x0dfa
     call api_idx_000a_NPNK           ; 0x0dfc
-    jmp short @..api_idx_008a_SRHN.l21 ; 0x0dff
-@..api_idx_008a_SRHN.l20:
+    jmp short .forward19             ; 0x0dff
+.forward18:
     mov ax, word [bss_8f30]          ; 0x0e01
     mov word [party_tag], ax         ; 0x0e04
     mov ax, 0x98                     ; 0x0e07
@@ -225,7 +225,7 @@ api_idx_008a_SRHN:
     call gfx_show_area               ; 0x0e17
     add sp, byte 8                   ; 0x0e1a
     ret                              ; 0x0e1d
-@..api_idx_008a_SRHN.l21:
+.forward19:
     mov ax, 1                        ; 0x0e1e
     push ax                          ; 0x0e21
     mov ax, word [party_map_piece]   ; 0x0e22
@@ -244,20 +244,20 @@ api_idx_008a_SRHN:
     add sp, byte 6                   ; 0x0e43
     call loc_HVLG                    ; 0x0e46
     test ax, ax                      ; 0x0e49
-    je short @..api_idx_008a_SRHN.l22 ; 0x0e4b
+    je short .forward20              ; 0x0e4b
     mov ax, word [party_status_frame] ; 0x0e4d
     inc ax                           ; 0x0e50
     mov cx, 2                        ; 0x0e51
     cwd                              ; 0x0e54
     idiv cx                          ; 0x0e55
     mov word [party_status_frame], dx ; 0x0e57
-@..api_idx_008a_SRHN.l22:
+.forward20:
     call redraw_maze_view            ; 0x0e5b
     cmp word [bp - 6], byte 0        ; 0x0e5e
-    jne short @..api_idx_008a_SRHN.l23 ; 0x0e62
+    jne short .forward21             ; 0x0e62
     call loc_VUVO                    ; 0x0e64
     mov word [bp - 6], ax            ; 0x0e67
-@..api_idx_008a_SRHN.l23:
+.forward21:
     mov ax, 2                        ; 0x0e6a
     push ax                          ; 0x0e6d
     call wait_for_hotspot_timeout    ; 0x0e6e
@@ -277,16 +277,16 @@ api_idx_008a_SRHN:
     call random_below                ; 0x0e8c
     pop cx                           ; 0x0e8f
     test ax, ax                      ; 0x0e90
-    je short @..api_idx_008a_SRHN.l24 ; 0x0e92
+    je short .forward22              ; 0x0e92
     mov ax, 1                        ; 0x0e94
-    jmp short @..api_idx_008a_SRHN.l25 ; 0x0e97
-@..api_idx_008a_SRHN.l24:
+    jmp short .forward23             ; 0x0e97
+.forward22:
     mov ax, 3                        ; 0x0e99
-@..api_idx_008a_SRHN.l25:
+.forward23:
     mov word [bp - 8], ax            ; 0x0e9c
     dec word [bp + 4]                ; 0x0e9f
     cmp word [bp + 4], byte 0        ; 0x0ea2
-    jle short @..api_idx_008a_SRHN.l26 ; 0x0ea6
-    jmp near @..api_idx_008a_SRHN.l8 ; 0x0ea8
-@..api_idx_008a_SRHN.l26:
+    jle short .return1               ; 0x0ea6
+    jmp near .back2                  ; 0x0ea8
+.return1:
     ret                              ; 0x0eab

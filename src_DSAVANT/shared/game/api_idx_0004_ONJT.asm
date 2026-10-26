@@ -3,9 +3,9 @@ api_idx_0004_ONJT:
     mov ax, 0xfffc
     call aztec_csav
     mov word [bp - 2], 0
-@..api_idx_0004_ONJT.l1:
+.back1:
     mov word [bp - 4], 0
-@..api_idx_0004_ONJT.l2:
+.back2:
     mov ax, 0x248
     imul word [bp + 4]
     push ax
@@ -22,20 +22,20 @@ api_idx_0004_ONJT:
     add ax, cx
     mov bx, ax
     cmp word [bx + party_records + pc_rec.cell], byte 0
-    jne short @..api_idx_0004_ONJT.l3
+    jne short .forward1
     mov ax, word [bp - 2]
     xchg al, ah
     sub al, al
     add ax, word [bp - 4]
     ret
-@..api_idx_0004_ONJT.l3:
+.forward1:
     inc word [bp - 4]
     mov ax, word [bp - 4]
     cmp ax, strict word 0xa
-    jl short @..api_idx_0004_ONJT.l2
+    jl short .back2
     inc word [bp - 2]
     mov ax, word [bp - 2]
     cmp ax, strict word 2
-    jl short @..api_idx_0004_ONJT.l1
+    jl short .back1
     mov ax, 0xffff
     ret

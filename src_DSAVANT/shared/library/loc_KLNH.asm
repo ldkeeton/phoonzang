@@ -9,7 +9,7 @@ loc_KLNH:
     mov ax, word [cs:bx + 2]
     sub word [cs:ems_paras_used - IMAGE_BASE], ax
     mov word [bp - 6], ax
-@..loc_KLNH.l1:
+.back1:
     mov bx, word [bp - 4]
     mov di, word [cs:bx]
     mov dx, word [cs:ems_frame_seg - IMAGE_BASE]
@@ -19,9 +19,9 @@ loc_KLNH:
     add dx, word [cs:maze_mem_seg - IMAGE_BASE]
     mov cx, word [cs:bx + 6]
     or cx, cx
-    jne short @..loc_KLNH.l2
-    jmp near @..loc_KLNH.l8
-@..loc_KLNH.l2:
+    jne short .forward1
+    jmp near .forward6
+.forward1:
     push cx
     mov ax, si
     mov cl, 0xa
@@ -39,30 +39,30 @@ loc_KLNH:
     shl di, cl
     call leaf_loc_TPOL
     pop cx
-@..loc_KLNH.l3:
+.back2:
     push cx
     mov cx, 0x10
     rep movsb
     xor dx, dx
     cmp di, strict word 0x4000
-    jne short @..loc_KLNH.l4
+    jne short .forward2
     inc word [cs:loc_KLNH.cseg2 - IMAGE_BASE]
     inc dx
-@..loc_KLNH.l4:
+.forward2:
     cmp si, strict word 0x4000
-    je short @..loc_KLNH.l5
+    je short .forward3
     cmp si, strict word 0x8000
-    jne short @..loc_KLNH.l6
-@..loc_KLNH.l5:
+    jne short .forward4
+.forward3:
     inc word [cs:loc_KLNH.cseg1 - IMAGE_BASE]
     inc dx
-@..loc_KLNH.l6:
+.forward4:
     or dx, dx
-    je short @..loc_KLNH.l7
+    je short .forward5
     call leaf_loc_TPOL
-@..loc_KLNH.l7:
+.forward5:
     pop cx
-    loop @..loc_KLNH.l3
+    loop .back2
     mov bx, word [bp - 4]
     mov cx, word [bp - 6]
     mov ax, word [cs:bx + 4]
@@ -74,8 +74,8 @@ loc_KLNH:
     mov word [cs:bx + 2], ax
     add bx, byte 4
     mov word [bp - 4], bx
-    jmp near @..loc_KLNH.l1
-@..loc_KLNH.l8:
+    jmp near .back1
+.forward6:
     mov bx, word [bp - 4]
     xor ax, ax
     mov word [cs:bx], ax

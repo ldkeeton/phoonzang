@@ -22,17 +22,17 @@ api_idx_0002_GVOH:
     sub ax, cx                       ; 0x56dc
     mov word [bp - 2], ax            ; 0x56de
     cmp ax, strict word 0            ; 0x56e1
-    jge short @..api_idx_0002_GVOH.l1 ; 0x56e4
+    jge short .forward1              ; 0x56e4
     mov word [bp - 2], 0             ; 0x56e6
-@..api_idx_0002_GVOH.l1:
+.forward1:
     mov ax, word [bp + 6]            ; 0x56eb
     shl ax, 1                        ; 0x56ee
     mov bx, ax                       ; 0x56f0
     mov ax, word [bx + slot_value]   ; 0x56f2
     cmp ax, word [bp - 2]            ; 0x56f6
-    jge short @..api_idx_0002_GVOH.l2 ; 0x56f9
+    jge short .forward2              ; 0x56f9
     mov word [bp - 2], ax            ; 0x56fb
-@..api_idx_0002_GVOH.l2:
+.forward2:
     mov ax, word [bp - 2]            ; 0x56fe
     sub word [bx + slot_value], ax   ; 0x5701
     ret                              ; 0x5705

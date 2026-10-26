@@ -13,12 +13,12 @@ api_idx_0002_JOSN:
     add sp, byte 4                   ; 0x005d
     mov word [bp - 2], ax            ; 0x0060
     cmp ax, strict word 0xffff       ; 0x0063
-    jne short @..api_idx_0002_JOSN.l1 ; 0x0066
+    jne short .forward1              ; 0x0066
     mov ax, 5                        ; 0x0068
     push ax                          ; 0x006b
     call release_and_exit            ; 0x006c
     pop cx                           ; 0x006f
-@..api_idx_0002_JOSN.l1:
+.forward1:
     push word [bp + 6]               ; 0x0070
     push word [bp - 2]               ; 0x0073
     call load_font_file              ; 0x0076

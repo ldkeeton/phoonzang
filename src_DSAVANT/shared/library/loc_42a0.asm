@@ -34,4 +34,4 @@ loc_42a0.loc1:
     mov es, ax
     call string_loc_RQON
     xor ax, ax
-    jmp near @..load_sound.l3
+    jmp near load_sound.back1

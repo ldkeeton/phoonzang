@@ -3,7 +3,7 @@ draw_button: ; Aztec csav frame=0x0000
     mov ax, 0                        ; 0x1308
     call aztec_csav                  ; 0x130b
     cmp word [bp + 0xc], byte 0      ; 0x130e
-    je short @..draw_button.l1       ; 0x1312
+    je short .forward1               ; 0x1312
     push word [bp + 0xe]             ; 0x1314
     push word [bp + 0xa]             ; 0x1317
     push word [bp + 8]               ; 0x131a
@@ -11,8 +11,8 @@ draw_button: ; Aztec csav frame=0x0000
     push word [bp + 4]               ; 0x1320
     call draw_framed_button          ; 0x1323
     add sp, byte 0xa                 ; 0x1326
-    jmp short @..draw_button.l2      ; 0x1329
-@..draw_button.l1:
+    jmp short .return1               ; 0x1329
+.forward1:
     mov ax, 0xc2                     ; 0x132b
     push ax                          ; 0x132e
     mov ax, 1                        ; 0x132f
@@ -44,5 +44,5 @@ draw_button: ; Aztec csav frame=0x0000
     push word [bp + 0xe]             ; 0x1367
     call draw_text_glyphs            ; 0x136a
     add sp, byte 4                   ; 0x136d
-@..draw_button.l2:
+.return1:
     ret                              ; 0x1370

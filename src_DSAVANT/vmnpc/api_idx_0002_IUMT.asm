@@ -3,7 +3,7 @@ api_idx_0002_IUMT:
     mov ax, 0xfffe                   ; 0x0dc3
     call aztec_csav                  ; 0x0dc6
     mov word [bp - 2], 0             ; 0x0dc9
-@..api_idx_0002_IUMT.l1:
+.back1:
     mov ax, word [bp - 2]            ; 0x0dce
     mov cx, 7                        ; 0x0dd1
     shl ax, cl                       ; 0x0dd4
@@ -23,7 +23,7 @@ api_idx_0002_IUMT:
     inc word [bp - 2]                ; 0x0df8
     mov ax, word [bp - 2]            ; 0x0dfb
     cmp ax, strict word 3            ; 0x0dfe
-    jl short @..api_idx_0002_IUMT.l1 ; 0x0e01
+    jl short .back1                  ; 0x0e01
     mov byte [bss_934c], 0           ; 0x0e03
     mov word [bss_93d2], 0           ; 0x0e08
     mov word [text_line_index], 3    ; 0x0e0e

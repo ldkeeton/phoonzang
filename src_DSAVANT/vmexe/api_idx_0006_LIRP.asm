@@ -5,11 +5,11 @@ api_idx_0006_LIRP:
     mov word [bss_91d6], 2           ; 0x2c81
     mov word [bp - 4], 0             ; 0x2c87
     cmp word [bp + 0xa], byte 3      ; 0x2c8c
-    jne short @..api_idx_0006_LIRP.l3 ; 0x2c90
+    jne short .forward3              ; 0x2c90
     cmp word [bp + 0xe], byte 1      ; 0x2c92
-    jne short @..api_idx_0006_LIRP.l3 ; 0x2c96
+    jne short .forward3              ; 0x2c96
     cmp word [bp + 8], byte 5        ; 0x2c98
-    jne short @..api_idx_0006_LIRP.l1 ; 0x2c9c
+    jne short .forward1              ; 0x2c9c
     mov ax, word [bp + 4]            ; 0x2c9e
     shl ax, 1                        ; 0x2ca1
     mov bx, ax                       ; 0x2ca3
@@ -20,7 +20,7 @@ api_idx_0006_LIRP:
     cwd                              ; 0x2cb2
     idiv cx                          ; 0x2cb3
     cmp ax, word [bp + 0x10]         ; 0x2cb5
-    jle short @..api_idx_0006_LIRP.l1 ; 0x2cb8
+    jle short .forward1              ; 0x2cb8
     mov ax, 2                        ; 0x2cba
     push ax                          ; 0x2cbd
     push ax                          ; 0x2cbe
@@ -38,22 +38,22 @@ api_idx_0006_LIRP:
     call api_idx_0004_QUPL           ; 0x2cdb
     pop cx                           ; 0x2cde
     ret                              ; 0x2cdf
-@..api_idx_0006_LIRP.l1:
+.forward1:
     cmp word [bp + 8], byte 5        ; 0x2ce0
-    jne short @..api_idx_0006_LIRP.l2 ; 0x2ce4
+    jne short .forward2              ; 0x2ce4
     mov word [bp - 4], 3             ; 0x2ce6
-@..api_idx_0006_LIRP.l2:
+.forward2:
     cmp word [bp + 8], byte 0xb      ; 0x2ceb
-    jne short @..api_idx_0006_LIRP.l3 ; 0x2cef
+    jne short .forward3              ; 0x2cef
     mov word [bp - 4], 4             ; 0x2cf1
-@..api_idx_0006_LIRP.l3:
+.forward3:
     mov word [bp - 2], 0             ; 0x2cf6
-    jmp short @..api_idx_0006_LIRP.l6 ; 0x2cfb
-@..api_idx_0006_LIRP.l4:
+    jmp short .forward5              ; 0x2cfb
+.back1:
     mov ax, word [bp + 0xc]          ; 0x2cfd
     mov word [bp - 6], ax            ; 0x2d00
     cmp word [bp - 4], byte 0        ; 0x2d03
-    jle short @..api_idx_0006_LIRP.l5 ; 0x2d07
+    jle short .forward4              ; 0x2d07
     mov ax, 0x2c                     ; 0x2d09
     imul word [bp - 2]               ; 0x2d0c
     mov si, ax                       ; 0x2d0f
@@ -65,9 +65,9 @@ api_idx_0006_LIRP:
     mov cx, word [bp + 0x10]         ; 0x2d1e
     add cx, word [bp - 4]            ; 0x2d21
     cmp ax, cx                       ; 0x2d24
-    jle short @..api_idx_0006_LIRP.l5 ; 0x2d26
+    jle short .forward4              ; 0x2d26
     mov word [bp - 6], 0xff9c        ; 0x2d28
-@..api_idx_0006_LIRP.l5:
+.forward4:
     push word [bp + 0x14]            ; 0x2d2d
     push word [bp + 0x12]            ; 0x2d30
     push word [bp + 0x10]            ; 0x2d33
@@ -81,7 +81,7 @@ api_idx_0006_LIRP:
     call api_idx_000a_LHTJ           ; 0x2d4b
     add sp, byte 0x14                ; 0x2d4e
     inc word [bp - 2]                ; 0x2d51
-@..api_idx_0006_LIRP.l6:
+.forward5:
     mov ax, word [bp + 4]            ; 0x2d54
     shl ax, 1                        ; 0x2d57
     mov bx, ax                       ; 0x2d59
@@ -89,5 +89,5 @@ api_idx_0006_LIRP:
     mov al, byte [bx + member_rec.item_count] ; 0x2d5f
     sub ah, ah                       ; 0x2d63
     cmp ax, word [bp - 2]            ; 0x2d65
-    jg short @..api_idx_0006_LIRP.l4 ; 0x2d68
+    jg short .back1                  ; 0x2d68
     ret                              ; 0x2d6a

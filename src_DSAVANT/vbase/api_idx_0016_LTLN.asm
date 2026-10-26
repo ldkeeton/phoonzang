@@ -34,12 +34,12 @@ api_idx_0016_LTLN:
     add sp, byte 4                   ; 0x7319
     mov word [bp - 2], ax            ; 0x731c
     cmp ax, strict word 0xffff       ; 0x731f
-    jne short @..api_idx_0016_LTLN.l1 ; 0x7322
+    jne short .forward1              ; 0x7322
     mov ax, 0x12                     ; 0x7324
     push ax                          ; 0x7327
     call release_and_exit            ; 0x7328
     pop cx                           ; 0x732b
-@..api_idx_0016_LTLN.l1:
+.forward1:
     push word [bp + 6]               ; 0x732c
     push word [bp - 2]               ; 0x732f
     call gfx_load_picture            ; 0x7332

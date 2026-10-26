@@ -13,12 +13,12 @@ loc_NRTK:
     call gfx_show_area               ; 0x3a80
     add sp, byte 8                   ; 0x3a83
     call flush_keyboard              ; 0x3a86
-@..loc_NRTK.l1:
+.back1:
     call poll_fullscreen_hotspot     ; 0x3a89
     test ax, ax                      ; 0x3a8c
-    jne short @..loc_NRTK.l2         ; 0x3a8e
-    jmp short @..loc_NRTK.l1         ; 0x3a90
-@..loc_NRTK.l2:
+    jne short .forward1              ; 0x3a8e
+    jmp short .back1                 ; 0x3a90
+.forward1:
     mov ax, 0                        ; 0x3a92
     push ax                          ; 0x3a95
     push ax                          ; 0x3a96

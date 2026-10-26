@@ -9,27 +9,27 @@ io_loc_SRLG:
     mov bx, cseg_23fd - IMAGE_BASE   ; 0x2e3f
     mov di, word [cs:cseg_1ae5 - IMAGE_BASE] ; 0x2e42
     mov cx, word [cs:cseg_1ae3 - IMAGE_BASE] ; 0x2e47
-@..io_loc_SRLG.l1:
+.back1:
     push cx                          ; 0x2e4c
     push si                          ; 0x2e4d
     push bx                          ; 0x2e4e
     push di                          ; 0x2e4f
     mov cx, word [cs:cseg_1ae1 - IMAGE_BASE] ; 0x2e50
-@..io_loc_SRLG.l2:
+.back2:
     mov ah, byte [bx]                ; 0x2e55
     inc bx                           ; 0x2e57
     mov al, 9                        ; 0x2e58
-@..io_loc_SRLG.l3:
+.back3:
     dec al                           ; 0x2e5a
-    je short @..io_loc_SRLG.l2       ; 0x2e5c
+    je short .back2                  ; 0x2e5c
     shl ah, 1                        ; 0x2e5e
-    jae short @..io_loc_SRLG.l4      ; 0x2e60
+    jae short .forward1              ; 0x2e60
     mov dl, byte [si]                ; 0x2e62
     mov byte [es:di], dl             ; 0x2e64
-@..io_loc_SRLG.l4:
+.forward1:
     inc di                           ; 0x2e67
     inc si                           ; 0x2e68
-    loop @..io_loc_SRLG.l3           ; 0x2e69
+    loop .back3                      ; 0x2e69
     pop di                           ; 0x2e6b
     add di, byte 0x50                ; 0x2e6c
     pop bx                           ; 0x2e6f
@@ -37,5 +37,5 @@ io_loc_SRLG:
     pop si                           ; 0x2e73
     add si, word [cs:cseg_1ae1 - IMAGE_BASE] ; 0x2e74
     pop cx                           ; 0x2e79
-    loop @..io_loc_SRLG.l1           ; 0x2e7a
+    loop .back1                      ; 0x2e7a
     ret                              ; 0x2e7c

@@ -7,15 +7,15 @@ fill_action_slot_table_vmnpc:
     mov bx, ax                       ; 0x0fa0
     mov bx, word [bx + party_char]   ; 0x0fa2
     cmp byte [bx + member_rec.slot], 0xff ; 0x0fa6
-    jne short @..fill_action_slot_table_vmnpc.l1 ; 0x0fab
+    jne short .forward1              ; 0x0fab
     ret                              ; 0x0fad
-@..fill_action_slot_table_vmnpc.l1:
+.forward1:
     mov al, byte [bx + 0x19f]        ; 0x0fae
     cbw                              ; 0x0fb2
     mov word [bp - 2], ax            ; 0x0fb3
     mov word [bp - 0xa], 0           ; 0x0fb6
-    cmp word [bp + 0xa], byte 0xff   ; 0x0fbb
-    jne short @..fill_action_slot_table_vmnpc.l2 ; 0x0fbf
+    cmp word [bp + 0xa], byte -1     ; 0x0fbb
+    jne short .forward2              ; 0x0fbf
     mov word [bp + 0xa], 0           ; 0x0fc1
     mov cx, 0x15e                    ; 0x0fc6
     imul cx                          ; 0x0fc9
@@ -23,9 +23,9 @@ fill_action_slot_table_vmnpc:
     mov al, byte [bx + slot_recs + slot_rec.forced] ; 0x0fcd
     sub ah, ah                       ; 0x0fd1
     cmp ax, 0xfe                     ; 0x0fd3
-    je short @..fill_action_slot_table_vmnpc.l2 ; 0x0fd6
+    je short .forward2               ; 0x0fd6
     mov word [bp - 0xa], 1           ; 0x0fd8
-@..fill_action_slot_table_vmnpc.l2:
+.forward2:
     mov ax, 0x15e                    ; 0x0fdd
     imul word [bp - 2]               ; 0x0fe0
     add ax, word [bp + 0xa]          ; 0x0fe3
@@ -33,8 +33,8 @@ fill_action_slot_table_vmnpc:
     mov al, byte [bx + slot_recs]    ; 0x0fe8
     sub ah, ah                       ; 0x0fec
     mov word [bp - 4], ax            ; 0x0fee
-    jmp near @..fill_action_slot_table_vmnpc.l10 ; 0x0ff1
-@..fill_action_slot_table_vmnpc.l3:
+    jmp near .forward9               ; 0x0ff1
+.back1:
     mov ax, 0x15e                    ; 0x0ff4
     imul word [bp - 2]               ; 0x0ff7
     add ax, word [bp - 4]            ; 0x0ffa
@@ -43,48 +43,48 @@ fill_action_slot_table_vmnpc:
     sub ah, ah                       ; 0x1003
     mov word [bp - 6], ax            ; 0x1005
     cmp word [bp + 0xa], byte 0      ; 0x1008
-    je short @..fill_action_slot_table_vmnpc.l4 ; 0x100c
-    jmp near @..fill_action_slot_table_vmnpc.l8 ; 0x100e
-@..fill_action_slot_table_vmnpc.l4:
+    je short .forward3               ; 0x100c
+    jmp near .forward7               ; 0x100e
+.forward3:
     mov ax, 0x15e                    ; 0x1011
     imul word [bp - 2]               ; 0x1014
     mov bx, ax                       ; 0x1017
     cmp byte [bx + slot_recs + slot_rec.forced], 0 ; 0x1019
-    jbe short @..fill_action_slot_table_vmnpc.l8 ; 0x101e
+    jbe short .forward7              ; 0x101e
     mov al, byte [bx + slot_recs + slot_rec.forced] ; 0x1020
     sub ah, ah                       ; 0x1024
     cmp ax, 0xfe                     ; 0x1026
-    jge short @..fill_action_slot_table_vmnpc.l8 ; 0x1029
+    jge short .forward7              ; 0x1029
     cmp ax, 0xfd                     ; 0x102b
-    jne short @..fill_action_slot_table_vmnpc.l5 ; 0x102e
+    jne short .forward4              ; 0x102e
     mov word [bp - 6], 0             ; 0x1030
     mov word [bp - 8], 0             ; 0x1035
-    jmp short @..fill_action_slot_table_vmnpc.l7 ; 0x103a
-@..fill_action_slot_table_vmnpc.l5:
+    jmp short .forward6              ; 0x103a
+.forward4:
     mov word [bp - 8], ax            ; 0x103c
     mov ax, word [bp + 4]            ; 0x103f
     shl ax, 1                        ; 0x1042
     mov bx, ax                       ; 0x1044
     mov bx, word [bx + party_char_ext] ; 0x1046
     cmp byte [bx + member_ext.kind], 0x47 ; 0x104a
-    jne short @..fill_action_slot_table_vmnpc.l7 ; 0x104f
+    jne short .forward6              ; 0x104f
     cmp word [npc_melee], byte 1     ; 0x1051
-    jne short @..fill_action_slot_table_vmnpc.l6 ; 0x1056
+    jne short .forward5              ; 0x1056
     mov ax, word [dest_alt_arg]      ; 0x1058
     mov cx, 0x100                    ; 0x105b
     cwd                              ; 0x105e
     idiv cx                          ; 0x105f
     mov word [bp - 6], ax            ; 0x1061
     mov word [bp - 8], dx            ; 0x1064
-    jmp short @..fill_action_slot_table_vmnpc.l7 ; 0x1067
-@..fill_action_slot_table_vmnpc.l6:
+    jmp short .forward6              ; 0x1067
+.forward5:
     cmp word [bp - 0xa], byte 0      ; 0x1069
-    jne short @..fill_action_slot_table_vmnpc.l7 ; 0x106d
+    jne short .forward6              ; 0x106d
     mov word [bp - 6], 1             ; 0x106f
     mov word [bp - 8], 0xb           ; 0x1074
-@..fill_action_slot_table_vmnpc.l7:
-    jmp short @..fill_action_slot_table_vmnpc.l9 ; 0x1079
-@..fill_action_slot_table_vmnpc.l8:
+.forward6:
+    jmp short .forward8              ; 0x1079
+.forward7:
     mov ax, 0x15e                    ; 0x107b
     imul word [bp - 2]               ; 0x107e
     add ax, word [bp - 4]            ; 0x1081
@@ -103,14 +103,14 @@ fill_action_slot_table_vmnpc:
     sub ah, ah                       ; 0x10a3
     mov word [bp - 8], ax            ; 0x10a5
     cmp word [bp - 0xa], byte 0      ; 0x10a8
-    je short @..fill_action_slot_table_vmnpc.l9 ; 0x10ac
+    je short .forward8               ; 0x10ac
     mov al, byte [bx + slot_recs + slot_rec.target_rand] ; 0x10ae
     sub ah, ah                       ; 0x10b2
     push ax                          ; 0x10b4
     call random_below                ; 0x10b5
     pop cx                           ; 0x10b8
     add word [bp - 8], ax            ; 0x10b9
-@..fill_action_slot_table_vmnpc.l9:
+.forward8:
     mov al, byte [bp + 0xa]          ; 0x10bc
     push ax                          ; 0x10bf
     mov ax, 3                        ; 0x10c0
@@ -196,7 +196,7 @@ fill_action_slot_table_vmnpc:
     pop ax                           ; 0x1182
     mov byte [bx + action_slot_table + action_slot.roll], al ; 0x1183
     inc word [bp - 4]                ; 0x1187
-@..fill_action_slot_table_vmnpc.l10:
+.forward9:
     mov ax, 0x15e                    ; 0x118a
     imul word [bp - 2]               ; 0x118d
     add ax, word [bp + 0xa]          ; 0x1190
@@ -210,7 +210,7 @@ fill_action_slot_table_vmnpc:
     pop ax                           ; 0x11a4
     add ax, cx                       ; 0x11a5
     cmp ax, word [bp - 4]            ; 0x11a7
-    jle short @..fill_action_slot_table_vmnpc.l11 ; 0x11aa
-    jmp near @..fill_action_slot_table_vmnpc.l3 ; 0x11ac
-@..fill_action_slot_table_vmnpc.l11:
+    jle short .return1               ; 0x11aa
+    jmp near .back1                  ; 0x11ac
+.return1:
     ret                              ; 0x11af

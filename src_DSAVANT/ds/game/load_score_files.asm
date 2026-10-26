@@ -6,9 +6,9 @@ load_score_files: ; Aztec csav frame=0x00a8
     sub ah, ah                       ; 0x2a37
     mov word [bp - 0xa8], ax         ; 0x2a39
     cmp ax, strict word 6            ; 0x2a3d
-    jne short @..load_score_files.l1 ; 0x2a40
+    jne short .forward1              ; 0x2a40
     mov word [bp - 0xa8], 4          ; 0x2a42
-@..load_score_files.l1:
+.forward1:
     mov ax, dseg_0be3                ; 0x2a48
     push ax                          ; 0x2a4b
     lea ax, word [bp - 0xa4]         ; 0x2a4c
@@ -49,12 +49,12 @@ load_score_files: ; Aztec csav frame=0x00a8
     add sp, byte 4                   ; 0x2aa3
     mov word [bp - 2], ax            ; 0x2aa6
     cmp ax, strict word 0xffff       ; 0x2aa9
-    jne short @..load_score_files.l2 ; 0x2aac
+    jne short .forward2              ; 0x2aac
     mov ax, 0xf                      ; 0x2aae
     push ax                          ; 0x2ab1
     call release_and_exit            ; 0x2ab2
     pop cx                           ; 0x2ab5
-@..load_score_files.l2:
+.forward2:
     lea ax, word [bp - 0xa4]         ; 0x2ab6
     push ax                          ; 0x2aba
     lea ax, word [bp - 0x54]         ; 0x2abb
@@ -62,22 +62,22 @@ load_score_files: ; Aztec csav frame=0x00a8
     call aztec_strcpy                ; 0x2abf
     add sp, byte 4                   ; 0x2ac2
     cmp word [bp - 0xa8], byte 5     ; 0x2ac5
-    jne short @..load_score_files.l3 ; 0x2aca
+    jne short .forward3              ; 0x2aca
     mov ax, score_ext_pbl            ; 0x2acc
     push ax                          ; 0x2acf
     lea ax, word [bp - 0x54]         ; 0x2ad0
     push ax                          ; 0x2ad3
     call aztec_strcat                ; 0x2ad4
     add sp, byte 4                   ; 0x2ad7
-    jmp short @..load_score_files.l4 ; 0x2ada
-@..load_score_files.l3:
+    jmp short .forward4              ; 0x2ada
+.forward3:
     mov ax, score_ext_pba            ; 0x2adc
     push ax                          ; 0x2adf
     lea ax, word [bp - 0x54]         ; 0x2ae0
     push ax                          ; 0x2ae3
     call aztec_strcat                ; 0x2ae4
     add sp, byte 4                   ; 0x2ae7
-@..load_score_files.l4:
+.forward4:
     mov ax, 0                        ; 0x2aea
     push ax                          ; 0x2aed
     mov ax, 1                        ; 0x2aee
@@ -91,12 +91,12 @@ load_score_files: ; Aztec csav frame=0x00a8
     add sp, byte 4                   ; 0x2b00
     mov word [bp - 4], ax            ; 0x2b03
     cmp ax, strict word 0xffff       ; 0x2b06
-    jne short @..load_score_files.l5 ; 0x2b09
+    jne short .forward5              ; 0x2b09
     mov ax, 0x10                     ; 0x2b0b
     push ax                          ; 0x2b0e
     call release_and_exit            ; 0x2b0f
     pop cx                           ; 0x2b12
-@..load_score_files.l5:
+.forward5:
     push word [bp + 6]               ; 0x2b13
     push word [bp - 0xa8]            ; 0x2b16
     push word [bp - 4]               ; 0x2b1a
@@ -105,12 +105,12 @@ load_score_files: ; Aztec csav frame=0x00a8
     add sp, byte 8                   ; 0x2b23
     mov word [bp - 0xa6], ax         ; 0x2b26
     cmp word [bp - 0xa6], byte 0     ; 0x2b2a
-    je short @..load_score_files.l6  ; 0x2b2f
+    je short .forward6               ; 0x2b2f
     mov ax, 0x11                     ; 0x2b31
     push ax                          ; 0x2b34
     call release_and_exit            ; 0x2b35
     pop cx                           ; 0x2b38
-@..load_score_files.l6:
+.forward6:
     push word [bp - 2]               ; 0x2b39
     call aztec_close                 ; 0x2b3c
     pop cx                           ; 0x2b3f

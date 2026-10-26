@@ -3,8 +3,8 @@ api_idx_0008_HUTJ:
     mov ax, 0xfff8                   ; 0x3900
     call aztec_csav                  ; 0x3903
     mov ax, word [bp + 6]            ; 0x3906
-    jmp near @..api_idx_0008_HUTJ.l9 ; 0x3909
-@..api_idx_0008_HUTJ.l1:
+    jmp near .forward7               ; 0x3909
+.back1:
     push word [bp + 8]               ; 0x390c
     mov ax, 1                        ; 0x390f
     push ax                          ; 0x3912
@@ -29,15 +29,15 @@ api_idx_0008_HUTJ:
     mov al, byte [bss_91cb]          ; 0x393d
     sub ah, ah                       ; 0x3940
     test ax, 4                       ; 0x3942
-    jne short @..api_idx_0008_HUTJ.l2 ; 0x3945
+    jne short .forward1              ; 0x3945
     mov ax, word [bp + 8]            ; 0x3947
     inc ax                           ; 0x394a
     push ax                          ; 0x394b
     call random_below                ; 0x394c
     pop cx                           ; 0x394f
     test ax, ax                      ; 0x3950
-    jne short @..api_idx_0008_HUTJ.l3 ; 0x3952
-@..api_idx_0008_HUTJ.l2:
+    jne short .forward2              ; 0x3952
+.forward1:
     mov ax, 0x41                     ; 0x3954
     push ax                          ; 0x3957
     mov ax, 0                        ; 0x3958
@@ -48,8 +48,8 @@ api_idx_0008_HUTJ:
     push ax                          ; 0x3963
     call api_idx_0050_TJLH           ; 0x3964
     add sp, byte 8                   ; 0x3967
-    jmp short @..api_idx_0008_HUTJ.l4 ; 0x396a
-@..api_idx_0008_HUTJ.l3:
+    jmp short .forward3              ; 0x396a
+.forward2:
     mov ax, 0x41                     ; 0x396c
     push ax                          ; 0x396f
     mov ax, 0                        ; 0x3970
@@ -82,15 +82,15 @@ api_idx_0008_HUTJ:
     call add_random_steps            ; 0x39a9
     add sp, byte 4                   ; 0x39ac
     add word [bss_964e], ax          ; 0x39af
-@..api_idx_0008_HUTJ.l4:
-    jmp near @..api_idx_0008_HUTJ.l11 ; 0x39b3
-@..api_idx_0008_HUTJ.l5:
+.forward3:
+    jmp near .return1                ; 0x39b3
+.back2:
     mov al, byte [bss_91cb]          ; 0x39b6
     sub ah, ah                       ; 0x39b9
     test ax, 8                       ; 0x39bb
-    jne short @..api_idx_0008_HUTJ.l6 ; 0x39be
+    jne short .forward4              ; 0x39be
     cmp word [location_changed], byte 0 ; 0x39c0
-    je short @..api_idx_0008_HUTJ.l6 ; 0x39c5
+    je short .forward4               ; 0x39c5
     mov ax, 0x248                    ; 0x39c7
     imul word [bp + 4]               ; 0x39ca
     mov bx, ax                       ; 0x39cd
@@ -111,8 +111,8 @@ api_idx_0008_HUTJ:
     mov cx, ax                       ; 0x39ed
     pop ax                           ; 0x39ef
     cmp ax, cx                       ; 0x39f0
-    jge short @..api_idx_0008_HUTJ.l7 ; 0x39f2
-@..api_idx_0008_HUTJ.l6:
+    jge short .forward5              ; 0x39f2
+.forward4:
     mov ax, bss_95fa                 ; 0x39f4
     push ax                          ; 0x39f7
     mov ax, MSG_NOTHING_1545         ; 0x39f8
@@ -136,13 +136,13 @@ api_idx_0008_HUTJ:
     call wait_ticks_abortable        ; 0x3a20
     add sp, byte 4                   ; 0x3a23
     ret                              ; 0x3a26
-@..api_idx_0008_HUTJ.l7:
+.forward5:
     mov ax, 2                        ; 0x3a27
     push ax                          ; 0x3a2a
     call random_below                ; 0x3a2b
     pop cx                           ; 0x3a2e
     test ax, ax                      ; 0x3a2f
-    je short @..api_idx_0008_HUTJ.l8 ; 0x3a31
+    je short .forward6               ; 0x3a31
     mov ax, 1                        ; 0x3a33
     push ax                          ; 0x3a36
     push ax                          ; 0x3a37
@@ -151,9 +151,9 @@ api_idx_0008_HUTJ:
     call api_idx_0038_POGI           ; 0x3a3c
     add sp, byte 6                   ; 0x3a3f
     test ax, ax                      ; 0x3a42
-    jne short @..api_idx_0008_HUTJ.l8 ; 0x3a44
+    jne short .forward6              ; 0x3a44
     ret                              ; 0x3a46
-@..api_idx_0008_HUTJ.l8:
+.forward6:
     mov ax, 1                        ; 0x3a47
     push ax                          ; 0x3a4a
     mov ax, bss_95a8                 ; 0x3a4b
@@ -180,14 +180,14 @@ api_idx_0008_HUTJ:
     push ax                          ; 0x3a7c
     call loc_LRGG                    ; 0x3a7d
     add sp, byte 4                   ; 0x3a80
-    jmp short @..api_idx_0008_HUTJ.l11 ; 0x3a83
-@..api_idx_0008_HUTJ.l9:
+    jmp short .return1               ; 0x3a83
+.forward7:
     cmp ax, strict word 0x3c         ; 0x3a85
-    jne short @..api_idx_0008_HUTJ.l10 ; 0x3a88
-    jmp near @..api_idx_0008_HUTJ.l1 ; 0x3a8a
-@..api_idx_0008_HUTJ.l10:
+    jne short .forward8              ; 0x3a88
+    jmp near .back1                  ; 0x3a8a
+.forward8:
     cmp ax, strict word 0x44         ; 0x3a8d
-    jne short @..api_idx_0008_HUTJ.l11 ; 0x3a90
-    jmp near @..api_idx_0008_HUTJ.l5 ; 0x3a92
-@..api_idx_0008_HUTJ.l11:
+    jne short .return1               ; 0x3a90
+    jmp near .back2                  ; 0x3a92
+.return1:
     ret                              ; 0x3a95

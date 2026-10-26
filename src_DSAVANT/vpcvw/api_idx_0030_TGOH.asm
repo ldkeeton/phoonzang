@@ -15,27 +15,27 @@ api_idx_0030_TGOH:
     mov word [bx + profession_eligible], 0 ; 0x92d2
     mov word [bp - 6], 1             ; 0x92d8
     mov word [bp - 2], 0             ; 0x92dd
-@..api_idx_0030_TGOH.l1:
+.back1:
     mov ax, word [bp - 2]            ; 0x92e2
     shl ax, 1                        ; 0x92e5
     mov bx, ax                       ; 0x92e7
     cmp word [bx + profession_eligible], byte 1 ; 0x92e9
-    jne short @..api_idx_0030_TGOH.l2 ; 0x92ee
+    jne short .forward1              ; 0x92ee
     mov ax, 1                        ; 0x92f0
-    jmp short @..api_idx_0030_TGOH.l3 ; 0x92f3
-@..api_idx_0030_TGOH.l2:
+    jmp short .forward2              ; 0x92f3
+.forward1:
     mov ax, 0                        ; 0x92f5
-@..api_idx_0030_TGOH.l3:
+.forward2:
     add bx, bp                       ; 0x92f8
     mov word [bx - 0x30], ax         ; 0x92fa
     cmp word [bx - 0x30], byte 0     ; 0x92fd
-    je short @..api_idx_0030_TGOH.l4 ; 0x9301
+    je short .forward3               ; 0x9301
     inc word [bp - 6]                ; 0x9303
-@..api_idx_0030_TGOH.l4:
+.forward3:
     inc word [bp - 2]                ; 0x9306
     mov ax, word [bp - 2]            ; 0x9309
     cmp ax, strict word 0xd          ; 0x930c
-    jle short @..api_idx_0030_TGOH.l1 ; 0x930f
+    jle short .back1                 ; 0x930f
     mov word [bp - 0x14], 1          ; 0x9311
     mov word [bp - 0x12], 0xffff     ; 0x9316
     lea ax, word [bp - 0x30]         ; 0x931b
@@ -78,9 +78,9 @@ api_idx_0030_TGOH:
     add sp, byte 0x1a                ; 0x9361
     mov word [bp - 4], ax            ; 0x9364
     cmp ax, strict word 0xd          ; 0x9367
-    jle short @..api_idx_0030_TGOH.l5 ; 0x936a
-    jmp near @..api_idx_0030_TGOH.l11 ; 0x936c
-@..api_idx_0030_TGOH.l5:
+    jle short .forward4              ; 0x936a
+    jmp near .return1                ; 0x936c
+.forward4:
     mov al, byte [bp - 4]            ; 0x936f
     push ax                          ; 0x9372
     mov ax, 0x248                    ; 0x9373
@@ -89,18 +89,18 @@ api_idx_0030_TGOH:
     pop ax                           ; 0x937b
     mov byte [bx + party_records + pc_rec.profession], al ; 0x937c
     cmp word [bx + party_records + pc_rec.power_cap], strict word 0xfa ; 0x9380
-    jge short @..api_idx_0030_TGOH.l7 ; 0x9386
+    jge short .forward6              ; 0x9386
     mov al, byte [bx + party_records + pc_rec.power_floor] ; 0x9388
     sub ah, ah                       ; 0x938c
     cmp ax, word [bx + party_records + pc_rec.power_cap] ; 0x938e
-    jge short @..api_idx_0030_TGOH.l6 ; 0x9392
+    jge short .forward5              ; 0x9392
     mov al, byte [bx + party_records + pc_rec.power_cap] ; 0x9394
     mov byte [bx + party_records + pc_rec.power_floor], al ; 0x9398
-@..api_idx_0030_TGOH.l6:
-    jmp short @..api_idx_0030_TGOH.l8 ; 0x939c
-@..api_idx_0030_TGOH.l7:
+.forward5:
+    jmp short .forward7              ; 0x939c
+.forward6:
     mov byte [bx + party_records + pc_rec.power_floor], 0 ; 0x939e
-@..api_idx_0030_TGOH.l8:
+.forward7:
     mov word [bx + party_records + pc_rec.power_cap], 1 ; 0x93a3
     mov byte [bx + party_records + pc_rec.f_023a], 0 ; 0x93a9
     mov word [bx + party_records + pc_rec.experience + 0x2], 0 ; 0x93ae
@@ -123,7 +123,7 @@ api_idx_0030_TGOH:
     call evaluate_character_profession ; 0x93e0
     add sp, byte 6                   ; 0x93e3
     mov word [bp - 8], 0             ; 0x93e6
-@..api_idx_0030_TGOH.l9:
+.back2:
     mov ax, 0x248                    ; 0x93eb
     imul word [bp + 4]               ; 0x93ee
     push ax                          ; 0x93f1
@@ -136,22 +136,22 @@ api_idx_0030_TGOH:
     mov al, byte [bx + party_records + pc_rec.cell + 0x7] ; 0x93ff
     sub ah, ah                       ; 0x9403
     test ax, 1                       ; 0x9405
-    je short @..api_idx_0030_TGOH.l10 ; 0x9408
+    je short .forward8               ; 0x9408
     test ax, 2                       ; 0x940a
-    jne short @..api_idx_0030_TGOH.l10 ; 0x940d
+    jne short .forward8              ; 0x940d
     push word [bp - 8]               ; 0x940f
     push word [bp + 4]               ; 0x9412
     call compact_grid_page           ; 0x9415
     add sp, byte 4                   ; 0x9418
-@..api_idx_0030_TGOH.l10:
+.forward8:
     inc word [bp - 8]                ; 0x941b
     mov ax, word [bp - 8]            ; 0x941e
     cmp ax, strict word 0xa          ; 0x9421
-    jl short @..api_idx_0030_TGOH.l9 ; 0x9424
+    jl short .back2                  ; 0x9424
     mov ax, 0                        ; 0x9426
     push ax                          ; 0x9429
     push word [bp + 4]               ; 0x942a
     call loc_JTQP                    ; 0x942d
     add sp, byte 4                   ; 0x9430
-@..api_idx_0030_TGOH.l11:
+.return1:
     ret                              ; 0x9433

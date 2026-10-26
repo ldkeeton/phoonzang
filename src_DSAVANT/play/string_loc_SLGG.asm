@@ -12,14 +12,14 @@ string_loc_SLGG:
     mov byte [cs:cseg_0d3d - IMAGE_BASE], al ; 0x0d60
     mov byte [cs:cseg_0d47 - IMAGE_BASE], 0xff ; 0x0d64
     mov bx, cseg_0cfe - IMAGE_BASE   ; 0x0d6a
-@..string_loc_SLGG.l1:
+.back1:
     inc bx                           ; 0x0d6d
     cmp word [cs:bx], strict word 0xff ; 0x0d6e
-    je short @..string_loc_SLGG.l2   ; 0x0d73
+    je short .forward1               ; 0x0d73
     cmp al, byte [cs:bx]             ; 0x0d75
-    jne short @..string_loc_SLGG.l1  ; 0x0d78
+    jne short .back1                 ; 0x0d78
     mov byte [cs:cseg_0d47 - IMAGE_BASE], 0 ; 0x0d7a
-@..string_loc_SLGG.l2:
+.forward1:
     mov byte [cs:cseg_0d48 - IMAGE_BASE], 1 ; 0x0d80
     mov al, byte [cs:cseg_0d3d - IMAGE_BASE] ; 0x0d86
     shl al, 1                        ; 0x0d8a
@@ -35,35 +35,35 @@ string_loc_SLGG:
     pop si                           ; 0x0da6
     lodsw                            ; 0x0da7
     cmp byte [cs:play_device - IMAGE_BASE], 5 ; 0x0da8
-    je short @..string_loc_SLGG.l3   ; 0x0dae
+    je short .forward2               ; 0x0dae
     sub al, 0xc                      ; 0x0db0
-@..string_loc_SLGG.l3:
+.forward2:
     mov byte [cs:cseg_0d3c - IMAGE_BASE], al ; 0x0db2
     mov al, ah                       ; 0x0db6
     cmp byte [cs:play_device - IMAGE_BASE], 5 ; 0x0db8
-    je short @..string_loc_SLGG.l4   ; 0x0dbe
+    je short .forward3               ; 0x0dbe
     shr al, 1                        ; 0x0dc0
     shr al, 1                        ; 0x0dc2
     add al, 0x60                     ; 0x0dc4
-@..string_loc_SLGG.l4:
+.forward3:
     mov byte [cs:cseg_0d3f - IMAGE_BASE], al ; 0x0dc6
     mov byte [cs:cseg_0d45 - IMAGE_BASE], 0 ; 0x0dca
     mov ah, byte [cs:cseg_0d3d - IMAGE_BASE] ; 0x0dd0
     cmp ah, 0x3e                     ; 0x0dd5
-    jne short @..string_loc_SLGG.l7  ; 0x0dd8
+    jne short .forward5              ; 0x0dd8
     mov bx, cseg_0cef - IMAGE_BASE   ; 0x0dda
-@..string_loc_SLGG.l5:
+.back2:
     cmp word [cs:bx], strict word 0xff ; 0x0ddd
-    je short @..string_loc_SLGG.l6   ; 0x0de2
+    je short .forward4               ; 0x0de2
     cmp byte [cs:bx], al             ; 0x0de4
-    je short @..string_loc_SLGG.l6   ; 0x0de7
+    je short .forward4               ; 0x0de7
     add bx, byte 2                   ; 0x0de9
-    jmp short @..string_loc_SLGG.l5  ; 0x0dec
-@..string_loc_SLGG.l6:
+    jmp short .back2                 ; 0x0dec
+.forward4:
     mov byte [cs:cseg_0d45 - IMAGE_BASE], 1 ; 0x0dee
     mov al, byte [cs:bx + 1]         ; 0x0df4
     mov byte [cs:cseg_0d46 - IMAGE_BASE], al ; 0x0df8
-@..string_loc_SLGG.l7:
+.forward5:
     pop es                           ; 0x0dfc
     pop cx                           ; 0x0dfd
     pop bx                           ; 0x0dfe

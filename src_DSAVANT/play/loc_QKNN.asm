@@ -19,10 +19,10 @@ loc_QKNN:
     inc bl                           ; 0x132c
     mov al, 1                        ; 0x132e
     and al, byte [cs:bx + cseg_14e9 - IMAGE_BASE] ; 0x1330
-    je short @..loc_QKNN.l1          ; 0x1335
+    je short .forward1               ; 0x1335
     mov al, dl                       ; 0x1337
     call loc_QVOP                    ; 0x1339
-@..loc_QKNN.l1:
+.forward1:
     mov al, dh                       ; 0x133c
     call loc_QVOP                    ; 0x133e
     pop dx                           ; 0x1341

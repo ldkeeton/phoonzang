@@ -12,9 +12,9 @@ api_idx_0086_JRHU:
     call aztec_setmem                ; 0x6e27
     add sp, byte 6                   ; 0x6e2a
     cmp byte [bss_91c6], 0xff        ; 0x6e2d
-    je short @..api_idx_0086_JRHU.l3 ; 0x6e32
+    je short .forward2               ; 0x6e32
     mov word [bp - 2], 0             ; 0x6e34
-@..api_idx_0086_JRHU.l1:
+.back1:
     push word [bp - 2]               ; 0x6e39
     mov al, byte [bss_91c6]          ; 0x6e3c
     cbw                              ; 0x6e3f
@@ -25,7 +25,7 @@ api_idx_0086_JRHU:
     call test_bit                    ; 0x6e49
     add sp, byte 4                   ; 0x6e4c
     test ax, ax                      ; 0x6e4f
-    je short @..api_idx_0086_JRHU.l2 ; 0x6e51
+    je short .forward1               ; 0x6e51
     mov ax, word [bp - 2]            ; 0x6e53
     add ax, 0x190                    ; 0x6e56
     mov cx, word [bss_9cd2]          ; 0x6e59
@@ -33,16 +33,16 @@ api_idx_0086_JRHU:
     mov bx, cx                       ; 0x6e5f
     mov word [bx + bss_9cd4], ax     ; 0x6e61
     inc word [bss_9cd2]              ; 0x6e65
-@..api_idx_0086_JRHU.l2:
+.forward1:
     inc word [bp - 2]                ; 0x6e69
     mov ax, word [bp - 2]            ; 0x6e6c
     cmp ax, strict word 0xb          ; 0x6e6f
-    jl short @..api_idx_0086_JRHU.l1 ; 0x6e72
-@..api_idx_0086_JRHU.l3:
+    jl short .back1                  ; 0x6e72
+.forward2:
     cmp byte [bss_91c9], 0           ; 0x6e74
-    ja short @..api_idx_0086_JRHU.l4 ; 0x6e79
-    jmp near @..api_idx_0086_JRHU.l13 ; 0x6e7b
-@..api_idx_0086_JRHU.l4:
+    ja short .forward3               ; 0x6e79
+    jmp near .forward10              ; 0x6e7b
+.forward3:
     mov ax, 0                        ; 0x6e7e
     push ax                          ; 0x6e81
     mov al, byte [bss_91c9]          ; 0x6e82
@@ -56,22 +56,22 @@ api_idx_0086_JRHU:
     add sp, byte 8                   ; 0x6e93
     mov word [bp - 6], 0             ; 0x6e96
     mov word [bp - 2], 0             ; 0x6e9b
-@..api_idx_0086_JRHU.l5:
+.back2:
     mov ax, 6                        ; 0x6ea0
     imul word [bp - 2]               ; 0x6ea3
     mov bx, ax                       ; 0x6ea6
     add bx, bp                       ; 0x6ea8
     cmp byte [bx - 0x3a], 2          ; 0x6eaa
-    jne short @..api_idx_0086_JRHU.l6 ; 0x6eae
+    jne short .forward4              ; 0x6eae
     mov al, byte [bx - 0x39]         ; 0x6eb0
     sub ah, ah                       ; 0x6eb3
-    jmp short @..api_idx_0086_JRHU.l7 ; 0x6eb5
-@..api_idx_0086_JRHU.l6:
+    jmp short .forward5              ; 0x6eb5
+.forward4:
     mov ax, 0                        ; 0x6eb7
-@..api_idx_0086_JRHU.l7:
+.forward5:
     mov word [bp - 8], ax            ; 0x6eba
     cmp byte [bx - 0x3a], 3          ; 0x6ebd
-    jne short @..api_idx_0086_JRHU.l8 ; 0x6ec1
+    jne short .forward6              ; 0x6ec1
     mov ax, word [game_time]         ; 0x6ec3
     mov dx, word [game_time_hi]      ; 0x6ec6
     mov cx, 0x5a0                    ; 0x6eca
@@ -91,33 +91,33 @@ api_idx_0086_JRHU:
     sub ax, cx                       ; 0x6eeb
     mov word [bp - 8], ax            ; 0x6eed
     cmp ax, strict word 0x32         ; 0x6ef0
-    jle short @..api_idx_0086_JRHU.l8 ; 0x6ef3
+    jle short .forward6              ; 0x6ef3
     mov word [bp - 8], 0x32          ; 0x6ef5
-@..api_idx_0086_JRHU.l8:
+.forward6:
     cmp word [bp - 8], byte 0        ; 0x6efa
-    jg short @..api_idx_0086_JRHU.l9 ; 0x6efe
-    jmp near @..api_idx_0086_JRHU.l12 ; 0x6f00
-@..api_idx_0086_JRHU.l9:
+    jg short .forward7               ; 0x6efe
+    jmp near .forward9               ; 0x6f00
+.forward7:
     mov ax, 6                        ; 0x6f03
     imul word [bp - 2]               ; 0x6f06
     mov bx, ax                       ; 0x6f09
     add bx, bp                       ; 0x6f0b
     cmp word [bx - 0x3e], byte 0     ; 0x6f0d
-    jle short @..api_idx_0086_JRHU.l12 ; 0x6f11
-@..api_idx_0086_JRHU.l10:
+    jle short .forward9              ; 0x6f11
+.back3:
     cmp word [bss_9cd2], byte 0x1e   ; 0x6f13
-    jge short @..api_idx_0086_JRHU.l12 ; 0x6f18
+    jge short .forward9              ; 0x6f18
     mov ax, 6                        ; 0x6f1a
     imul word [bp - 2]               ; 0x6f1d
     mov bx, ax                       ; 0x6f20
     add bx, bp                       ; 0x6f22
     cmp word [bx - 0x3c], byte 0     ; 0x6f24
-    jle short @..api_idx_0086_JRHU.l12 ; 0x6f28
+    jle short .forward9              ; 0x6f28
     mov bx, word [bp - 6]            ; 0x6f2a
     mov al, byte [bx + code_characters] ; 0x6f2d
     sub ah, ah                       ; 0x6f31
     cmp ax, word [bp - 8]            ; 0x6f33
-    jge short @..api_idx_0086_JRHU.l11 ; 0x6f36
+    jge short .forward8              ; 0x6f36
     mov ax, 6                        ; 0x6f38
     imul word [bp - 2]               ; 0x6f3b
     mov bx, ax                       ; 0x6f3e
@@ -128,7 +128,7 @@ api_idx_0086_JRHU:
     mov bx, cx                       ; 0x6f4b
     mov word [bx + bss_9cd4], ax     ; 0x6f4d
     inc word [bss_9cd2]              ; 0x6f51
-@..api_idx_0086_JRHU.l11:
+.forward8:
     mov ax, word [bp - 6]            ; 0x6f55
     inc ax                           ; 0x6f58
     mov cx, 0x64                     ; 0x6f59
@@ -141,17 +141,17 @@ api_idx_0086_JRHU:
     add bx, bp                       ; 0x6f6a
     inc word [bx - 0x3e]             ; 0x6f6c
     dec word [bx - 0x3c]             ; 0x6f6f
-    jmp short @..api_idx_0086_JRHU.l10 ; 0x6f72
-@..api_idx_0086_JRHU.l12:
+    jmp short .back3                 ; 0x6f72
+.forward9:
     inc word [bp - 2]                ; 0x6f74
     mov ax, word [bp - 2]            ; 0x6f77
     cmp ax, strict word 8            ; 0x6f7a
-    jge short @..api_idx_0086_JRHU.l13 ; 0x6f7d
-    jmp near @..api_idx_0086_JRHU.l5 ; 0x6f7f
-@..api_idx_0086_JRHU.l13:
+    jge short .forward10             ; 0x6f7d
+    jmp near .back2                  ; 0x6f7f
+.forward10:
     mov word [bp - 2], 0             ; 0x6f82
-    jmp near @..api_idx_0086_JRHU.l19 ; 0x6f87
-@..api_idx_0086_JRHU.l14:
+    jmp near .forward14              ; 0x6f87
+.back4:
     mov ax, 0                        ; 0x6f8a
     push ax                          ; 0x6f8d
     mov ax, word [bp - 2]            ; 0x6f8e
@@ -190,7 +190,7 @@ api_idx_0086_JRHU:
     sub ah, ah                       ; 0x6fe3
     mov bx, ax                       ; 0x6fe5
     cmp byte [bx + cell_overlay_code + 0x58], 1 ; 0x6fe7
-    jne short @..api_idx_0086_JRHU.l15 ; 0x6fec
+    jne short .forward11             ; 0x6fec
     mov ax, word [bp - 2]            ; 0x6fee
     shl ax, 1                        ; 0x6ff1
     mov bx, ax                       ; 0x6ff3
@@ -208,7 +208,7 @@ api_idx_0086_JRHU:
     add dx, cx                       ; 0x700b
     mov word [bp - 0x6e], dx         ; 0x700d
     mov word [bp - 0x70], ax         ; 0x7010
-@..api_idx_0086_JRHU.l15:
+.forward11:
     mov ax, word [bp - 2]            ; 0x7013
     shl ax, 1                        ; 0x7016
     mov bx, ax                       ; 0x7018
@@ -216,11 +216,11 @@ api_idx_0086_JRHU:
     call loc_GMVH                    ; 0x701e
     pop cx                           ; 0x7021
     test ax, ax                      ; 0x7022
-    je short @..api_idx_0086_JRHU.l16 ; 0x7024
+    je short .forward12              ; 0x7024
     mov ax, word [bp - 0x70]         ; 0x7026
     mov dx, word [bp - 0x6e]         ; 0x7029
-    jmp short @..api_idx_0086_JRHU.l17 ; 0x702c
-@..api_idx_0086_JRHU.l16:
+    jmp short .forward13             ; 0x702c
+.forward12:
     mov ax, word [bss_91aa]          ; 0x702e
     cwd                              ; 0x7031
     push ax                          ; 0x7032
@@ -236,7 +236,7 @@ api_idx_0086_JRHU:
     mov cx, 0x64                     ; 0x7045
     mov bx, 0                        ; 0x7048
     call aztec_ldv                   ; 0x704b
-@..api_idx_0086_JRHU.l17:
+.forward13:
     mov cx, word [bp - 2]            ; 0x704e
     shl cx, 1                        ; 0x7051
     shl cx, 1                        ; 0x7053
@@ -247,7 +247,7 @@ api_idx_0086_JRHU:
     mov bx, word [bp - 2]            ; 0x7062
     mov byte [bx + bss_99b8], al     ; 0x7065
     mov word [bp - 4], 0             ; 0x7069
-@..api_idx_0086_JRHU.l18:
+.back5:
     mov bx, word [bp - 4]            ; 0x706e
     add bx, bp                       ; 0x7071
     mov al, byte [bx - 0x54]         ; 0x7073
@@ -264,15 +264,15 @@ api_idx_0086_JRHU:
     inc word [bp - 4]                ; 0x7092
     mov ax, word [bp - 4]            ; 0x7095
     cmp ax, strict word 2            ; 0x7098
-    jl short @..api_idx_0086_JRHU.l18 ; 0x709b
+    jl short .back5                  ; 0x709b
     mov al, byte [bp - 0x50]         ; 0x709d
     mov bx, word [bp - 2]            ; 0x70a0
     mov byte [bx + bss_98fa], al     ; 0x70a3
     inc word [bp - 2]                ; 0x70a7
-@..api_idx_0086_JRHU.l19:
+.forward14:
     mov ax, word [bp - 2]            ; 0x70aa
     cmp ax, word [bss_9cd2]          ; 0x70ad
-    jge short @..api_idx_0086_JRHU.l20 ; 0x70b1
-    jmp near @..api_idx_0086_JRHU.l14 ; 0x70b3
-@..api_idx_0086_JRHU.l20:
+    jge short .return1               ; 0x70b1
+    jmp near .back4                  ; 0x70b3
+.return1:
     ret                              ; 0x70b6

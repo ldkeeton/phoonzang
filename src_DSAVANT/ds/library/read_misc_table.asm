@@ -14,13 +14,13 @@ read_misc_table:
     mov bx, word [bp + 4]            ; 0x3fbf
     mov ah, 0x3f                     ; 0x3fc2
     int 0x21 ; DOS read file (handle)
-    jb short @..read_misc_table.l1   ; 0x3fc6
+    jb short .forward1               ; 0x3fc6
     pop es                           ; 0x3fc8
     pop ds                           ; 0x3fc9
     mov sp, bp                       ; 0x3fca
     pop bp                           ; 0x3fcc
     ret                              ; 0x3fcd
-@..read_misc_table.l1:
+.forward1:
     mov ax, cs                       ; 0x3fce
     mov ds, ax                       ; 0x3fd0
     mov dx, misc_table_io_error_msg - IMAGE_BASE ; 0x3fd2

@@ -3,12 +3,12 @@ loc_GMVH:
     mov ax, 0
     call aztec_csav
     cmp word [bp + 4], strict word 0x190
-    jl short @..loc_GMVH.l1
+    jl short .forward1
     cmp word [bp + 4], strict word 0x19b
-    jge short @..loc_GMVH.l1
+    jge short .forward1
     mov ax, 1
-    jmp short @..loc_GMVH.l2
-@..loc_GMVH.l1:
+    jmp short .return1
+.forward1:
     mov ax, 0
-@..loc_GMVH.l2:
+.return1:
     ret

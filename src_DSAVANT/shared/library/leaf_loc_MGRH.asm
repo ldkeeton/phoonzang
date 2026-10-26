@@ -3,13 +3,13 @@ leaf_loc_MGRH:
     push ax
     mov bx, maze_slots - IMAGE_BASE
     mov cx, 0x10
-@..leaf_loc_MGRH.l1:
+.back1:
     cmp ax, word [cs:bx]
-    jae short @..leaf_loc_MGRH.l2
+    jae short .forward1
     dec word [cs:bx]
-@..leaf_loc_MGRH.l2:
+.forward1:
     inc bx
     inc bx
-    loop @..leaf_loc_MGRH.l1
+    loop .back1
     pop ax
     ret

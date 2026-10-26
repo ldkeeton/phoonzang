@@ -1,30 +1,30 @@
 ; auto-generated
 play_install_handler:
     cmp byte [bp + 0x12], 0          ; 0x03e2
-    jne short @..play_install_handler.l2 ; 0x03e6
+    jne short .forward1              ; 0x03e6
     call loc_TJIS                    ; 0x03e8
-@..play_install_handler.l1:
+.back1:
     test byte [cs:timer_handler_installed - IMAGE_BASE], 0xff ; 0x03eb
-    je short @..play_install_handler.l1 ; 0x03f1
+    je short .back1                  ; 0x03f1
     jmp near loc_0614                ; 0x03f3
-@..play_install_handler.l2:
+.forward1:
     test byte [bp + 0x14], 2         ; 0x03f6
-    je short @..play_install_handler.l3 ; 0x03fa
+    je short .forward2               ; 0x03fa
     test byte [cs:timer_handler_installed - IMAGE_BASE], 0xff ; 0x03fc
-    jne short @..play_install_handler.l3 ; 0x0402
+    jne short .forward2              ; 0x0402
     jmp near jumptable_035e_case_0   ; 0x0404
-@..play_install_handler.l3:
+.forward2:
     cli                              ; 0x0407
     test byte [cs:timer_handler_installed - IMAGE_BASE], 0xff ; 0x0408
-    jne short @..play_install_handler.l4 ; 0x040e
-    jmp near @..play_install_handler.l8 ; 0x0410
-@..play_install_handler.l4:
+    jne short .forward3              ; 0x040e
+    jmp near .forward7               ; 0x0410
+.forward3:
     xor ax, ax                       ; 0x0413
     mov es, ax                       ; 0x0415
     mov di, 0x20                     ; 0x0417
     cli                              ; 0x041a
     cmp byte [cs:cseg_0321 - IMAGE_BASE], 0 ; 0x041b
-    jne short @..play_install_handler.l5 ; 0x0421
+    jne short .forward4              ; 0x0421
     mov byte [cs:cseg_0321 - IMAGE_BASE], 1 ; 0x0423
     in al, 0x21                      ; 0x0429
     mov byte [cs:saved_pic_mask - IMAGE_BASE], al ; 0x042b
@@ -32,7 +32,7 @@ play_install_handler:
     mov word [cs:cseg_0b10 - IMAGE_BASE], ax ; 0x0432
     mov ax, word [es:di + 2]         ; 0x0436
     mov word [cs:cseg_0b12 - IMAGE_BASE], ax ; 0x043a
-@..play_install_handler.l5:
+.forward4:
     mov al, 0x34                     ; 0x043e
     out 0x43, al                     ; 0x0440
     call leaf_loc_STGJ               ; 0x0442
@@ -42,24 +42,24 @@ play_install_handler:
     mov al, ah                       ; 0x044d
     out 0x40, al                     ; 0x044f
     cmp byte [cs:cseg_0a90 - IMAGE_BASE], 0 ; 0x0451
-    je short @..play_install_handler.l6 ; 0x0457
+    je short .forward5               ; 0x0457
     mov bl, byte [cs:play_device - IMAGE_BASE] ; 0x0459
     shl bl, 1                        ; 0x045e
     xor bh, bh                       ; 0x0460
     mov dx, word [cs:bx + jumptable_0495 + 0x10 - IMAGE_BASE] ; 0x0462
     cmp byte [cs:timer_handler_installed - IMAGE_BASE], 0 ; 0x0467
-    je short @..play_install_handler.l7 ; 0x046d
+    je short .forward6               ; 0x046d
     mov dx, word [cs:bx + jumptable_0495 + 0x18 - IMAGE_BASE] ; 0x046f
-    jmp near @..play_install_handler.l7 ; 0x0474
-@..play_install_handler.l6:
+    jmp near .forward6               ; 0x0474
+.forward5:
     mov bl, byte [cs:play_device - IMAGE_BASE] ; 0x0477
     shl bl, 1                        ; 0x047c
     xor bh, bh                       ; 0x047e
     mov dx, word [cs:bx + jumptable_0495 - IMAGE_BASE] ; 0x0480
     cmp byte [cs:timer_handler_installed - IMAGE_BASE], 0 ; 0x0485
-    je short @..play_install_handler.l7 ; 0x048b
+    je short .forward6               ; 0x048b
     mov dx, word [cs:bx + jumptable_0495 + 0x8 - IMAGE_BASE] ; 0x048d
-    jmp near @..play_install_handler.l7 ; 0x0492
+    jmp near .forward6               ; 0x0492
 jumptable_0495:
     dw pit_sample_interrupt - IMAGE_BASE       ; 0x0495
     dw io_loc_TGPU - IMAGE_BASE                ; 0x0497
@@ -77,7 +77,7 @@ jumptable_0495:
     dw io_loc_UVLK_0841 - IMAGE_BASE           ; 0x04af
     dw io_loc_UVLK_0975 - IMAGE_BASE           ; 0x04b1
     dw io_loc_UVLK_0975 - IMAGE_BASE           ; 0x04b3
-@..play_install_handler.l7:
+play_install_handler.forward6:
     cld                              ; 0x04b5
     xor ax, ax                       ; 0x04b6
     mov es, ax                       ; 0x04b8
@@ -86,23 +86,23 @@ jumptable_0495:
     stosw                            ; 0x04bf
     mov ax, cs                       ; 0x04c0
     stosw                            ; 0x04c2
-@..play_install_handler.l8:
+play_install_handler.forward7:
     cli                              ; 0x04c3
     cmp byte [cs:play_device - IMAGE_BASE], 1 ; 0x04c4
-    jne short @..play_install_handler.l10 ; 0x04ca
+    jne short play_install_handler.forward9 ; 0x04ca
     mov al, 0                        ; 0x04cc
     cmp byte [cs:timer_handler_installed - IMAGE_BASE], 0 ; 0x04ce
-    je short @..play_install_handler.l9 ; 0x04d4
+    je short play_install_handler.forward8 ; 0x04d4
     mov al, 0xff                     ; 0x04d6
-@..play_install_handler.l9:
+play_install_handler.forward8:
     mov byte [cs:cseg_08ae - IMAGE_BASE], al ; 0x04d8
-@..play_install_handler.l10:
+play_install_handler.forward9:
     cmp byte [cs:play_device - IMAGE_BASE], 0 ; 0x04dc
-    jne short @..play_install_handler.l11 ; 0x04e2
+    jne short play_install_handler.forward10 ; 0x04e2
     in al, 0x61                      ; 0x04e4
     or al, 3                         ; 0x04e6
     out 0x61, al                     ; 0x04e8
-@..play_install_handler.l11:
+play_install_handler.forward10:
     call leaf_loc_JKKL               ; 0x04ea
     mov al, 0xfe                     ; 0x04ed
     out 0x21, al                     ; 0x04ef
@@ -139,26 +139,26 @@ jumptable_0495:
     mov byte [cs:cseg_0848 - IMAGE_BASE], al ; 0x054f
     mov byte [cs:cseg_097c - IMAGE_BASE], al ; 0x0553
     cmp byte [cs:play_device - IMAGE_BASE], 1 ; 0x0557
-    je short @..play_install_handler.l12 ; 0x055d
+    je short play_install_handler.forward11 ; 0x055d
     cmp byte [cs:play_device - IMAGE_BASE], 4 ; 0x055f
-    jne short @..play_install_handler.l13 ; 0x0565
-@..play_install_handler.l12:
+    jne short play_install_handler.forward12 ; 0x0565
+play_install_handler.forward11:
     mov dx, 0x388                    ; 0x0567
     mov al, 0x40                     ; 0x056a
     out dx, al                       ; 0x056c
-@..play_install_handler.l13:
+play_install_handler.forward12:
     mov byte [cs:timer_handler_installed - IMAGE_BASE], 0 ; 0x056d
     cmp byte [cs:cseg_0a90 - IMAGE_BASE], 0 ; 0x0573
-    jne short @..play_install_handler.l15 ; 0x0579
+    jne short play_install_handler.forward13 ; 0x0579
     mov al, byte [cs:saved_pic_mask - IMAGE_BASE] ; 0x057b
     and al, 0xfe                     ; 0x057f
     out 0x21, al                     ; 0x0581
     sti                              ; 0x0583
     test byte [bp + 0x14], 1         ; 0x0584
     je short jumptable_035e_case_0   ; 0x0588
-@..play_install_handler.l14:
+play_install_handler.back2:
     test byte [cs:timer_handler_installed - IMAGE_BASE], 0xff ; 0x058a
-    je short @..play_install_handler.l14 ; 0x0590
+    je short play_install_handler.back2 ; 0x0590
 jumptable_035e_case_0:
     pop bx                           ; 0x0592
     pop dx                           ; 0x0593
@@ -169,7 +169,7 @@ jumptable_035e_case_0:
     pop bp                           ; 0x0598
     sti                              ; 0x0599
     ret                              ; 0x059a
-@..play_install_handler.l15:
+play_install_handler.forward13:
     mov al, 0x34                     ; 0x059b
     out 0x43, al                     ; 0x059d
     mov ax, 0x48                     ; 0x059f
@@ -185,24 +185,24 @@ jumptable_035e_case_0:
     mov bx, sample_count_table - IMAGE_BASE ; 0x05b6
     mov dx, 0x42                     ; 0x05b9
     cmp byte [cs:play_device - IMAGE_BASE], 1 ; 0x05bc
-    jne short @..play_install_handler.l16 ; 0x05c2
+    jne short play_install_handler.forward14 ; 0x05c2
     mov dx, 0x389                    ; 0x05c4
-@..play_install_handler.l16:
+play_install_handler.forward14:
     cmp byte [cs:play_device - IMAGE_BASE], 3 ; 0x05c7
-    je short @..play_install_handler.l17 ; 0x05cd
+    je short play_install_handler.forward15 ; 0x05cd
     cmp byte [cs:play_device - IMAGE_BASE], 2 ; 0x05cf
-    jne short @..play_install_handler.l18 ; 0x05d5
-@..play_install_handler.l17:
+    jne short play_install_handler.forward16 ; 0x05d5
+play_install_handler.forward15:
     mov dx, word [cs:cseg_0a8d - IMAGE_BASE] ; 0x05d7
-@..play_install_handler.l18:
+play_install_handler.forward16:
     mov si, word [cs:tick_divider - IMAGE_BASE] ; 0x05dc
     sti                              ; 0x05e1
-@..play_install_handler.l19:
+play_install_handler.back3:
     sti                              ; 0x05e2
     test byte [cs:timer_handler_installed - IMAGE_BASE], 0xff ; 0x05e3
-    je short @..play_install_handler.l19 ; 0x05e9
+    je short play_install_handler.back3 ; 0x05e9
     cmp byte [cs:music_enabled - IMAGE_BASE], 0 ; 0x05eb
-    je short @..play_install_handler.l20 ; 0x05f1
+    je short play_install_handler.forward17 ; 0x05f1
     mov al, 0x34                     ; 0x05f3
     out 0x43, al                     ; 0x05f5
     mov ax, word [cs:music_tempo - IMAGE_BASE] ; 0x05f7
@@ -212,7 +212,7 @@ jumptable_035e_case_0:
     call leaf_loc_STGJ               ; 0x0601
     mov al, ah                       ; 0x0604
     out 0x40, al                     ; 0x0606
-@..play_install_handler.l20:
+play_install_handler.forward17:
     mov al, byte [cs:saved_pic_mask - IMAGE_BASE] ; 0x0608
     out 0x21, al                     ; 0x060c
     jmp short jumptable_035e_case_0  ; 0x060e

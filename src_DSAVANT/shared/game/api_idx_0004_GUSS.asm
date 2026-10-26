@@ -16,7 +16,7 @@ api_idx_0004_GUSS:
     pop ax
     mov byte [bx + party_records + pc_rec.slot_info + 0xd], al
     mov word [bp - 4], 0
-@..api_idx_0004_GUSS.l1:
+.back1:
     mov bx, word [bp + 8]
     mov si, word [bp - 4]
     mov al, byte [bx + si + 0x2a]
@@ -35,7 +35,7 @@ api_idx_0004_GUSS:
     inc word [bp - 4]
     mov ax, word [bp - 4]
     cmp ax, strict word 8
-    jl short @..api_idx_0004_GUSS.l1
+    jl short .back1
     mov ax, 0x248
     imul word [bp + 4]
     mov bx, ax
@@ -46,10 +46,10 @@ api_idx_0004_GUSS:
     idiv cx
     mov word [bp - 4], ax
     cmp byte [bx + party_records + pc_rec.profession], 0xc
-    je short @..api_idx_0004_GUSS.l2
+    je short .forward1
     cmp byte [bx + party_records + pc_rec.profession], 0xd
-    jne short @..api_idx_0004_GUSS.l3
-@..api_idx_0004_GUSS.l2:
+    jne short .forward2
+.forward1:
     mov ax, 0x12
     imul word [bp + 6]
     add bx, ax
@@ -61,10 +61,10 @@ api_idx_0004_GUSS:
     mov ax, cx
     add ax, strict word 5
     mov byte [bx + party_records + pc_rec.slot_info + 0xa], al
-    jmp short @..api_idx_0004_GUSS.l4
-@..api_idx_0004_GUSS.l3:
+    jmp short .forward3
+.forward2:
     cmp word [bp - 4], byte 0
-    jle short @..api_idx_0004_GUSS.l4
+    jle short .forward3
     mov ax, 0x248
     imul word [bp + 4]
     push ax
@@ -78,7 +78,7 @@ api_idx_0004_GUSS:
     sub ah, ah
     add ax, word [bp - 4]
     mov byte [bx + party_records + pc_rec.slot_info + 0xa], al
-@..api_idx_0004_GUSS.l4:
+.forward3:
     mov bx, word [bp + 8]
     mov al, byte [bx + 0x45]
     push ax
@@ -94,7 +94,7 @@ api_idx_0004_GUSS:
     mov byte [bx + party_records + pc_rec.slot_info + 0xc], al
     mov bx, word [bp + 8]
     cmp byte [bx + 0x38], 4
-    jne short @..api_idx_0004_GUSS.l6
+    jne short .forward5
     mov al, byte [bx + 0x41]
     cbw
     mov cx, 5
@@ -117,16 +117,16 @@ api_idx_0004_GUSS:
     imul word [bp + 4]
     mov bx, ax
     cmp byte [bx + party_records + pc_rec.profession], 4
-    jne short @..api_idx_0004_GUSS.l5
+    jne short .forward4
     mov bx, cx
     add byte [bx + party_records + pc_rec.slot_info + 0xe], 0xf1
     mov al, byte [bx + party_records + pc_rec.slot_info + 0xa]
     sub ah, ah
     shl ax, 1
     mov byte [bx + party_records + pc_rec.slot_info + 0xa], al
-@..api_idx_0004_GUSS.l5:
-    jmp near @..api_idx_0004_GUSS.l12
-@..api_idx_0004_GUSS.l6:
+.forward4:
+    jmp near .forward11
+.forward5:
     mov ax, 0x248
     imul word [bp + 4]
     push ax
@@ -138,7 +138,7 @@ api_idx_0004_GUSS:
     mov bx, ax
     mov byte [bx + party_records + pc_rec.slot_info + 0xe], 0
     cmp word [bp + 6], byte 0
-    jne short @..api_idx_0004_GUSS.l9
+    jne short .forward8
     mov ax, 0x248
     imul word [bp + 4]
     mov bx, ax
@@ -146,21 +146,21 @@ api_idx_0004_GUSS:
     cbw
     mov cx, 0
     cmp byte [bx + party_records + pc_rec.stat + 0x4], 0xf
-    jbe short @..api_idx_0004_GUSS.l7
+    jbe short .forward6
     mov cx, 5
-@..api_idx_0004_GUSS.l7:
+.forward6:
     sub ax, cx
     mov byte [bx + party_records + pc_rec.slot_info + 0xe], al
     cbw
     mov cx, 0
     cmp byte [bx + party_records + pc_rec.stat + 0x4], 0x11
-    jbe short @..api_idx_0004_GUSS.l8
+    jbe short .forward7
     mov cx, 5
-@..api_idx_0004_GUSS.l8:
+.forward7:
     sub ax, cx
     mov byte [bx + party_records + pc_rec.slot_info + 0xe], al
-    jmp short @..api_idx_0004_GUSS.l11
-@..api_idx_0004_GUSS.l9:
+    jmp short .forward10
+.forward8:
     mov ax, 0x248
     imul word [bp + 4]
     mov bx, ax
@@ -168,12 +168,12 @@ api_idx_0004_GUSS:
     cbw
     mov cx, 0
     cmp byte [bx + party_records + pc_rec.stat + 0x4], 0x11
-    jbe short @..api_idx_0004_GUSS.l10
+    jbe short .forward9
     mov cx, 5
-@..api_idx_0004_GUSS.l10:
+.forward9:
     sub ax, cx
     mov byte [bx + party_records + pc_rec.slot_info + 0x20], al
-@..api_idx_0004_GUSS.l11:
+.forward10:
     mov ax, 0x248
     imul word [bp + 4]
     push ax
@@ -205,7 +205,7 @@ api_idx_0004_GUSS:
     mov bx, cx
     pop ax
     mov byte [bx + party_records + pc_rec.slot_info + 0xe], al
-@..api_idx_0004_GUSS.l12:
+.forward11:
     mov si, word [bp + 8]
     add si, byte 0x1e
     mov ax, 0x248
@@ -224,25 +224,25 @@ api_idx_0004_GUSS:
     movsw
     movsw
     cmp word [bp + 6], byte 0
-    jne short @..api_idx_0004_GUSS.l16
+    jne short .forward15
     mov ax, 0x248
     imul word [bp + 4]
     mov bx, ax
     cmp byte [bx + party_records + pc_rec.stat], 0xf
-    jbe short @..api_idx_0004_GUSS.l13
+    jbe short .forward12
     mov ax, 1
-    jmp short @..api_idx_0004_GUSS.l14
-@..api_idx_0004_GUSS.l13:
+    jmp short .forward13
+.forward12:
     mov ax, 0
-@..api_idx_0004_GUSS.l14:
+.forward13:
     add word [bx + party_records + pc_rec.slot_info], ax
     mov ax, 0
     cmp byte [bx + party_records + pc_rec.stat], 0x11
-    jbe short @..api_idx_0004_GUSS.l15
+    jbe short .forward14
     mov ax, 1
-@..api_idx_0004_GUSS.l15:
+.forward14:
     add word [bx + party_records + pc_rec.slot_info], ax
-@..api_idx_0004_GUSS.l16:
+.forward15:
     mov bx, word [bp + 8]
     mov al, byte [bx + 0x46]
     push ax

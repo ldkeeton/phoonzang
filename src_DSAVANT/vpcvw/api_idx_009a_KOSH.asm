@@ -14,10 +14,10 @@ api_idx_009a_KOSH:
     add sp, byte 8                   ; 0x6f7c
     mov bx, word [bp + 6]            ; 0x6f7f
     cmp byte [bx + 6], 0             ; 0x6f82
-    je short @..api_idx_009a_KOSH.l1 ; 0x6f86
+    je short .forward1               ; 0x6f86
     mov al, byte [bx + 6]            ; 0x6f88
     cmp al, 0x63                     ; 0x6f8b
-    ja short @..api_idx_009a_KOSH.l1 ; 0x6f8d
+    ja short .forward1               ; 0x6f8d
     mov ax, word [bp + 8]            ; 0x6f8f
     shl ax, 1                        ; 0x6f92
     push ax                          ; 0x6f94
@@ -26,25 +26,25 @@ api_idx_009a_KOSH:
     mov cx, ax                       ; 0x6f9a
     pop ax                           ; 0x6f9c
     cmp ax, cx                       ; 0x6f9d
-    jl short @..api_idx_009a_KOSH.l1 ; 0x6f9f
+    jl short .forward1               ; 0x6f9f
     cmp word [bp - 0x28], byte 0     ; 0x6fa1
-    je short @..api_idx_009a_KOSH.l1 ; 0x6fa5
+    je short .forward1               ; 0x6fa5
     cmp byte [bp - 0xc], 0           ; 0x6fa7
-    jne short @..api_idx_009a_KOSH.l1 ; 0x6fab
+    jne short .forward1              ; 0x6fab
     cmp byte [bp - 0xb], 0           ; 0x6fad
-    jne short @..api_idx_009a_KOSH.l1 ; 0x6fb1
+    jne short .forward1              ; 0x6fb1
     mov al, byte [bp - 0x13]         ; 0x6fb3
     sub ah, ah                       ; 0x6fb6
     test ax, 2                       ; 0x6fb8
-    jne short @..api_idx_009a_KOSH.l1 ; 0x6fbb
+    jne short .forward1              ; 0x6fbb
     mov al, byte [bp - 0x12]         ; 0x6fbd
     sub ah, ah                       ; 0x6fc0
     mov bx, ax                       ; 0x6fc2
     cmp byte [bx + cell_overlay_code + 0x58], 1 ; 0x6fc4
-    je short @..api_idx_009a_KOSH.l1 ; 0x6fc9
+    je short .forward1               ; 0x6fc9
     cmp byte [bp - 0x12], 0xd        ; 0x6fcb
-    jne short @..api_idx_009a_KOSH.l2 ; 0x6fcf
-@..api_idx_009a_KOSH.l1:
+    jne short .forward2              ; 0x6fcf
+.forward1:
     lea ax, word [bp - 0x9a]         ; 0x6fd1
     push ax                          ; 0x6fd5
     mov ax, MSG_FAILURE_465          ; 0x6fd6
@@ -58,7 +58,7 @@ api_idx_009a_KOSH:
     call api_idx_0004_PMIU           ; 0x6fe9
     add sp, byte 4                   ; 0x6fec
     ret                              ; 0x6fef
-@..api_idx_009a_KOSH.l2:
+.forward2:
     mov ax, word [bp + 8]            ; 0x6ff0
     shl ax, 1                        ; 0x6ff3
     push ax                          ; 0x6ff5
@@ -80,15 +80,15 @@ api_idx_009a_KOSH:
     add cx, ax                       ; 0x7016
     mov ax, cx                       ; 0x7018
     cmp ax, strict word 0x64         ; 0x701a
-    jge short @..api_idx_009a_KOSH.l3 ; 0x701d
+    jge short .forward3              ; 0x701d
     mov al, byte [bx + 6]            ; 0x701f
     sub ah, ah                       ; 0x7022
     add ax, word [bp - 2]            ; 0x7024
     mov byte [bx + 6], al            ; 0x7027
-    jmp short @..api_idx_009a_KOSH.l4 ; 0x702a
-@..api_idx_009a_KOSH.l3:
+    jmp short .forward4              ; 0x702a
+.forward3:
     mov byte [bx + 6], 0x63          ; 0x702c
-@..api_idx_009a_KOSH.l4:
+.forward4:
     mov ax, 0x64                     ; 0x7030
     push ax                          ; 0x7033
     call random_below                ; 0x7034
@@ -99,7 +99,7 @@ api_idx_009a_KOSH:
     mov cx, ax                       ; 0x703e
     pop ax                           ; 0x7040
     cmp ax, cx                       ; 0x7041
-    jge short @..api_idx_009a_KOSH.l5 ; 0x7043
+    jge short .return1               ; 0x7043
     mov bx, word [bp + 6]            ; 0x7045
     mov word [bx], 0                 ; 0x7048
     lea ax, word [bp - 0x9a]         ; 0x704c
@@ -115,5 +115,5 @@ api_idx_009a_KOSH:
     call api_idx_0004_PMIU           ; 0x7064
     add sp, byte 4                   ; 0x7067
     ret                              ; 0x706a
-@..api_idx_009a_KOSH.l5:
+.return1:
     ret                              ; 0x706b

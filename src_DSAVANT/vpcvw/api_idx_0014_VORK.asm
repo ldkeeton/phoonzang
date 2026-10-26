@@ -9,7 +9,7 @@ api_idx_0014_VORK:
     mov word [bss_9432], 0           ; 0x6184
     mov word [bss_940e], 0xffff      ; 0x618a
     cmp ax, strict word 0xd          ; 0x6190
-    je short @..api_idx_0014_VORK.l1 ; 0x6193
+    je short .forward1               ; 0x6193
     call free_current_maze           ; 0x6195
     mov ax, 1                        ; 0x6198
     push ax                          ; 0x619b
@@ -23,10 +23,10 @@ api_idx_0014_VORK:
     push ax                          ; 0x61ad
     call load_monster_picture        ; 0x61ae
     add sp, byte 4                   ; 0x61b1
-    jmp short @..api_idx_0014_VORK.l4 ; 0x61b4
-@..api_idx_0014_VORK.l1:
+    jmp short .forward3              ; 0x61b4
+.forward1:
     mov word [bp - 2], 0xf           ; 0x61b6
-@..api_idx_0014_VORK.l2:
+.back1:
     mov bx, word [bp - 2]            ; 0x61bb
     mov al, byte [bx + picture_slot_number] ; 0x61be
     sub ah, ah                       ; 0x61c2
@@ -34,15 +34,15 @@ api_idx_0014_VORK:
     add bx, bp                       ; 0x61c6
     mov word [bx - 0x2a], ax         ; 0x61c8
     cmp ax, 0xff                     ; 0x61cb
-    je short @..api_idx_0014_VORK.l3 ; 0x61ce
+    je short .forward2               ; 0x61ce
     push word [bp - 2]               ; 0x61d0
     call free_picture_slot           ; 0x61d3
     pop cx                           ; 0x61d6
-@..api_idx_0014_VORK.l3:
+.forward2:
     inc word [bp - 2]                ; 0x61d7
     mov ax, word [bp - 2]            ; 0x61da
     cmp ax, strict word 0x12         ; 0x61dd
-    jl short @..api_idx_0014_VORK.l2 ; 0x61e0
+    jl short .back1                  ; 0x61e0
     mov ax, 7                        ; 0x61e2
     push ax                          ; 0x61e5
     call free_picture_slot           ; 0x61e6
@@ -59,7 +59,7 @@ api_idx_0014_VORK:
     push ax                          ; 0x61fd
     call wait_and_free_sound         ; 0x61fe
     pop cx                           ; 0x6201
-@..api_idx_0014_VORK.l4:
+.forward3:
     mov ax, 0                        ; 0x6202
     push ax                          ; 0x6205
     mov ax, 2                        ; 0x6206
@@ -201,7 +201,7 @@ api_idx_0014_VORK:
     call score_music_enabled         ; 0x633f
     mov word [bss_8450], ax          ; 0x6342
     test ax, ax                      ; 0x6345
-    je short @..api_idx_0014_VORK.l5 ; 0x6347
+    je short .forward4               ; 0x6347
     mov ax, 0                        ; 0x6349
     push ax                          ; 0x634c
     mov ax, 2                        ; 0x634d
@@ -218,12 +218,12 @@ api_idx_0014_VORK:
     call ds_app_UKGP                 ; 0x6369
     add sp, byte 6                   ; 0x636c
     mov word [bss_844c], ax          ; 0x636f
-@..api_idx_0014_VORK.l5:
+.forward4:
     mov word [roster_drawn], 0       ; 0x6372
     mov word [roster_alt_mode], 0    ; 0x6378
     mov word [roster_page], 0        ; 0x637e
     mov word [bp - 2], 0             ; 0x6384
-@..api_idx_0014_VORK.l6:
+.back2:
     mov ax, 0xa                      ; 0x6389
     imul word [bp - 2]               ; 0x638c
     add ax, bss_9616                 ; 0x638f
@@ -236,9 +236,9 @@ api_idx_0014_VORK:
     inc word [bp - 2]                ; 0x63a0
     mov ax, word [bp - 2]            ; 0x63a3
     cmp ax, strict word 9            ; 0x63a6
-    jl short @..api_idx_0014_VORK.l6 ; 0x63a9
+    jl short .back2                  ; 0x63a9
     mov word [bp - 2], 0             ; 0x63ab
-@..api_idx_0014_VORK.l7:
+.back3:
     mov ax, word [bp - 2]            ; 0x63b0
     shl ax, 1                        ; 0x63b3
     mov bx, ax                       ; 0x63b5
@@ -246,7 +246,7 @@ api_idx_0014_VORK:
     inc word [bp - 2]                ; 0x63bd
     mov ax, word [bp - 2]            ; 0x63c0
     cmp ax, strict word 6            ; 0x63c3
-    jl short @..api_idx_0014_VORK.l7 ; 0x63c6
+    jl short .back3                  ; 0x63c6
     mov word [bss_9562], 7           ; 0x63c8
     les bx, word [tick_counter_ptr]  ; 0x63ce
     mov ax, word [es:bx]             ; 0x63d2
@@ -254,17 +254,17 @@ api_idx_0014_VORK:
     mov word [party_redraw_last_tick_hi], dx ; 0x63d9
     mov word [party_redraw_last_tick], ax ; 0x63dd
     cmp word [party_return_state], byte 4 ; 0x63e0
-    je short @..api_idx_0014_VORK.l8 ; 0x63e5
+    je short .forward5               ; 0x63e5
     cmp word [party_return_state], byte 0xd ; 0x63e7
-    jne short @..api_idx_0014_VORK.l9 ; 0x63ec
-@..api_idx_0014_VORK.l8:
+    jne short .forward6              ; 0x63ec
+.forward5:
     mov ax, 0                        ; 0x63ee
-    jmp short @..api_idx_0014_VORK.l10 ; 0x63f1
-@..api_idx_0014_VORK.l9:
+    jmp short .forward7              ; 0x63f1
+.forward6:
     mov ax, 1                        ; 0x63f3
-@..api_idx_0014_VORK.l10:
+.forward7:
     mov word [bp - 6], ax            ; 0x63f6
-@..api_idx_0014_VORK.l11:
+.back4:
     mov ax, 0                        ; 0x63f9
     push ax                          ; 0x63fc
     push word [bp + 4]               ; 0x63fd
@@ -502,7 +502,7 @@ api_idx_0014_VORK:
     call set_hotspot                 ; 0x65e3
     add sp, byte 0xe                 ; 0x65e6
     mov word [bp - 2], 0             ; 0x65e9
-@..api_idx_0014_VORK.l12:
+.back5:
     mov ax, 0                        ; 0x65ee
     push ax                          ; 0x65f1
     mov ax, word [bp - 2]            ; 0x65f2
@@ -557,7 +557,7 @@ api_idx_0014_VORK:
     inc word [bp - 2]                ; 0x665b
     mov ax, word [bp - 2]            ; 0x665e
     cmp ax, strict word 0xa          ; 0x6661
-    jl short @..api_idx_0014_VORK.l12 ; 0x6664
+    jl short .back5                  ; 0x6664
     mov ax, 0                        ; 0x6666
     push ax                          ; 0x6669
     mov ax, 0x4d                     ; 0x666a
@@ -602,7 +602,7 @@ api_idx_0014_VORK:
     push ax                          ; 0x66b9
     call set_hotspot                 ; 0x66ba
     add sp, byte 0xe                 ; 0x66bd
-@..api_idx_0014_VORK.l13:
+.back6:
     push word [bp + 4]               ; 0x66c0
     call loc_TTSP                    ; 0x66c3
     pop cx                           ; 0x66c6
@@ -613,11 +613,11 @@ api_idx_0014_VORK:
     dec ax                           ; 0x66cf
     mov word [bp - 4], ax            ; 0x66d0
     cmp word [hotspot_hit], byte 0   ; 0x66d3
-    je short @..api_idx_0014_VORK.l13 ; 0x66d8
+    je short .back6                  ; 0x66d8
     cmp word [bp - 4], byte 0xf      ; 0x66da
-    jl short @..api_idx_0014_VORK.l15 ; 0x66de
+    jl short .forward9               ; 0x66de
     cmp word [bp - 4], byte 0x19     ; 0x66e0
-    jge short @..api_idx_0014_VORK.l15 ; 0x66e4
+    jge short .forward9              ; 0x66e4
     mov ax, 0x248                    ; 0x66e6
     imul word [bp + 4]               ; 0x66e9
     push ax                          ; 0x66ec
@@ -634,7 +634,7 @@ api_idx_0014_VORK:
     add ax, cx                       ; 0x6703
     mov bx, ax                       ; 0x6705
     cmp word [bx + saved_screen_file + saved_screen_file_rec.f_0003 + 0x1], byte 0 ; 0x6707
-    jle short @..api_idx_0014_VORK.l14 ; 0x670c
+    jle short .forward8              ; 0x670c
     mov ax, word [bp - 4]            ; 0x670e
     add ax, strict word 0xfff1       ; 0x6711
     push ax                          ; 0x6714
@@ -643,11 +643,11 @@ api_idx_0014_VORK:
     add sp, byte 4                   ; 0x671b
     mov ax, word [member_roster_index] ; 0x671e
     mov word [bp + 4], ax            ; 0x6721
-@..api_idx_0014_VORK.l14:
+.forward8:
     jmp near jumptable_67c3_case_15  ; 0x6724
-@..api_idx_0014_VORK.l15:
+.forward9:
     mov ax, word [bp - 4]            ; 0x6727
-    jmp near @..api_idx_0014_VORK.l19 ; 0x672a
+    jmp near .forward13              ; 0x672a
 jumptable_67c3_case_0:
     push word [bp + 4]               ; 0x672d
     call api_idx_0018_VTUP           ; 0x6730
@@ -655,7 +655,7 @@ jumptable_67c3_case_0:
     jmp near jumptable_67c3_case_15  ; 0x6734
 jumptable_67c3_case_1:
     cmp word [bp - 6], byte 0        ; 0x6737
-    je short @..api_idx_0014_VORK.l16 ; 0x673b
+    je short api_idx_0014_VORK.forward10 ; 0x673b
     mov ax, word [bp + 4]            ; 0x673d
     add ax, word [party_char_count]  ; 0x6740
     dec ax                           ; 0x6744
@@ -664,11 +664,11 @@ jumptable_67c3_case_1:
     mov word [member_roster_index], dx ; 0x674a
     mov word [bp + 4], dx            ; 0x674e
     mov word [roster_drawn], 0       ; 0x6751
-@..api_idx_0014_VORK.l16:
+api_idx_0014_VORK.forward10:
     jmp near jumptable_67c3_case_15  ; 0x6757
 jumptable_67c3_case_2:
     cmp word [bp - 6], byte 0        ; 0x675a
-    je short @..api_idx_0014_VORK.l17 ; 0x675e
+    je short api_idx_0014_VORK.forward11 ; 0x675e
     mov ax, word [bp + 4]            ; 0x6760
     inc ax                           ; 0x6763
     cwd                              ; 0x6764
@@ -676,7 +676,7 @@ jumptable_67c3_case_2:
     mov word [member_roster_index], dx ; 0x6769
     mov word [bp + 4], dx            ; 0x676d
     mov word [roster_drawn], 0       ; 0x6770
-@..api_idx_0014_VORK.l17:
+api_idx_0014_VORK.forward11:
     jmp near jumptable_67c3_case_15  ; 0x6776
 jumptable_67c3_case_3:
     push word [bp + 4]               ; 0x6779
@@ -708,12 +708,12 @@ jumptable_67c3_case_25:
     call member_is_active            ; 0x67ad
     pop cx                           ; 0x67b0
     test ax, ax                      ; 0x67b1
-    je short @..api_idx_0014_VORK.l18 ; 0x67b3
+    je short api_idx_0014_VORK.forward12 ; 0x67b3
     push word [bp - 6]               ; 0x67b5
     push word [bp + 4]               ; 0x67b8
     call api_idx_0004_UUMM           ; 0x67bb
     add sp, byte 4                   ; 0x67be
-@..api_idx_0014_VORK.l18:
+api_idx_0014_VORK.forward12:
     jmp short jumptable_67c3_case_15 ; 0x67c1
 jumptable_67c3:
     dw jumptable_67c3_case_0 - IMAGE_BASE + __zres_end ; 0x67c3
@@ -742,7 +742,7 @@ jumptable_67c3:
     dw jumptable_67c3_case_15 - IMAGE_BASE + __zres_end ; 0x67f1
     dw jumptable_67c3_case_15 - IMAGE_BASE + __zres_end ; 0x67f3
     dw jumptable_67c3_case_25 - IMAGE_BASE + __zres_end ; 0x67f5
-@..api_idx_0014_VORK.l19:
+api_idx_0014_VORK.forward13:
     cmp ax, strict word 0x1a         ; 0x67f7
     jae short jumptable_67c3_case_15 ; 0x67fa
     xchg bx, ax                      ; 0x67fc
@@ -750,11 +750,11 @@ jumptable_67c3:
     jmp [cs:bx + jumptable_67c3 - IMAGE_BASE + __zres_end] ; 0x67ff
 jumptable_67c3_case_15:
     cmp word [bp - 4], byte 0x1a     ; 0x6804
-    je short @..api_idx_0014_VORK.l21 ; 0x6808
-    jmp near @..api_idx_0014_VORK.l11 ; 0x680a
-@..api_idx_0014_VORK.l21:
+    je short api_idx_0014_VORK.forward15 ; 0x6808
+    jmp near api_idx_0014_VORK.back4 ; 0x680a
+api_idx_0014_VORK.forward15:
     cmp word [bss_8450], byte 0      ; 0x680d
-    je short @..api_idx_0014_VORK.l22 ; 0x6812
+    je short api_idx_0014_VORK.forward16 ; 0x6812
     push word [bss_844c]             ; 0x6814
     push word [bss_844e]             ; 0x6818
     call fade_out_music              ; 0x681c
@@ -763,7 +763,7 @@ jumptable_67c3_case_15:
     push ax                          ; 0x6825
     call app_gfx_free_score          ; 0x6826
     pop cx                           ; 0x6829
-@..api_idx_0014_VORK.l22:
+api_idx_0014_VORK.forward16:
     mov ax, 0xf                      ; 0x682a
     push ax                          ; 0x682d
     call free_picture_slot           ; 0x682e
@@ -834,7 +834,7 @@ jumptable_67c3_case_15:
     add sp, byte 8                   ; 0x68dd
     call draw_party_glyph_row        ; 0x68e0
     cmp word [party_return_state], byte 0xd ; 0x68e3
-    jne short @..api_idx_0014_VORK.l25 ; 0x68e8
+    jne short api_idx_0014_VORK.forward18 ; 0x68e8
     mov ax, 1                        ; 0x68ea
     push ax                          ; 0x68ed
     mov ax, 0xa                      ; 0x68ee
@@ -863,24 +863,24 @@ jumptable_67c3_case_15:
     call load_monster_picture        ; 0x691f
     add sp, byte 4                   ; 0x6922
     mov word [bp - 2], 0xf           ; 0x6925
-@..api_idx_0014_VORK.l23:
+api_idx_0014_VORK.back7:
     mov ax, word [bp - 2]            ; 0x692a
     shl ax, 1                        ; 0x692d
     mov bx, ax                       ; 0x692f
     add bx, bp                       ; 0x6931
     cmp word [bx - 0x2a], strict word 0xff ; 0x6933
-    je short @..api_idx_0014_VORK.l24 ; 0x6938
+    je short api_idx_0014_VORK.forward17 ; 0x6938
     push word [bp - 2]               ; 0x693a
     push word [bx - 0x2a]            ; 0x693d
     call load_monster_picture        ; 0x6940
     add sp, byte 4                   ; 0x6943
-@..api_idx_0014_VORK.l24:
+api_idx_0014_VORK.forward17:
     inc word [bp - 2]                ; 0x6946
     mov ax, word [bp - 2]            ; 0x6949
     cmp ax, strict word 0x12         ; 0x694c
-    jl short @..api_idx_0014_VORK.l23 ; 0x694f
-    jmp short @..api_idx_0014_VORK.l26 ; 0x6951
-@..api_idx_0014_VORK.l25:
+    jl short api_idx_0014_VORK.back7 ; 0x694f
+    jmp short api_idx_0014_VORK.forward19 ; 0x6951
+api_idx_0014_VORK.forward18:
     mov ax, 1                        ; 0x6953
     push ax                          ; 0x6956
     call free_picture_slot           ; 0x6957
@@ -889,7 +889,7 @@ jumptable_67c3_case_15:
     push ax                          ; 0x695e
     call free_picture_slot           ; 0x695f
     pop cx                           ; 0x6962
-@..api_idx_0014_VORK.l26:
+api_idx_0014_VORK.forward19:
     mov ax, 0xc7                     ; 0x6963
     push ax                          ; 0x6966
     mov ax, 0x13f                    ; 0x6967

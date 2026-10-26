@@ -10,8 +10,8 @@ api_idx_0012_GQSK:
     call gfx_restore_screen          ; 0x0534
     add sp, byte 8                   ; 0x0537
     mov word [bp - 2], 0             ; 0x053a
-    jmp short @..api_idx_0012_GQSK.l2 ; 0x053f
-@..api_idx_0012_GQSK.l1:
+    jmp short .forward1              ; 0x053f
+.back1:
     mov ax, 0                        ; 0x0541
     push ax                          ; 0x0544
     push ax                          ; 0x0545
@@ -53,10 +53,10 @@ api_idx_0012_GQSK:
     call set_hotspot                 ; 0x059c
     add sp, byte 0xe                 ; 0x059f
     inc word [bp - 2]                ; 0x05a2
-@..api_idx_0012_GQSK.l2:
+.forward1:
     mov ax, word [bp - 2]            ; 0x05a5
     cmp ax, word [party_char_count]  ; 0x05a8
-    jl short @..api_idx_0012_GQSK.l1 ; 0x05ac
+    jl short .back1                  ; 0x05ac
     mov ax, 0                        ; 0x05ae
     push ax                          ; 0x05b1
     push ax                          ; 0x05b2
@@ -79,9 +79,9 @@ api_idx_0012_GQSK:
     call gfx_show_area               ; 0x05d4
     add sp, byte 8                   ; 0x05d7
     cmp word [mouse_active], byte 0  ; 0x05da
-    je short @..api_idx_0012_GQSK.l3 ; 0x05df
-    jmp near @..api_idx_0012_GQSK.l8 ; 0x05e1
-@..api_idx_0012_GQSK.l3:
+    je short .forward2               ; 0x05df
+    jmp near .forward6               ; 0x05e1
+.forward2:
     mov ax, 0xa3                     ; 0x05e4
     push ax                          ; 0x05e7
     mov ax, 0xb1                     ; 0x05e8
@@ -141,9 +141,9 @@ api_idx_0012_GQSK:
     call gfx_show_area               ; 0x0664
     add sp, byte 8                   ; 0x0667
     mov word [bp - 4], 0xfffe        ; 0x066a
-@..api_idx_0012_GQSK.l4:
-    cmp word [bp - 4], byte 0xfe     ; 0x066f
-    jne short @..api_idx_0012_GQSK.l7 ; 0x0673
+.back2:
+    cmp word [bp - 4], byte -2       ; 0x066f
+    jne short .forward5              ; 0x0673
     mov ax, 1                        ; 0x0675
     push ax                          ; 0x0678
     call get_filtered_key            ; 0x0679
@@ -151,15 +151,15 @@ api_idx_0012_GQSK:
     sub ah, ah                       ; 0x067d
     mov word [bp - 2], ax            ; 0x067f
     cmp ax, strict word 0x1b         ; 0x0682
-    jne short @..api_idx_0012_GQSK.l5 ; 0x0685
+    jne short .forward3              ; 0x0685
     mov word [bp - 4], 0xffff        ; 0x0687
-@..api_idx_0012_GQSK.l5:
+.forward3:
     cmp ax, strict word 0x31         ; 0x068c
-    jl short @..api_idx_0012_GQSK.l6 ; 0x068f
+    jl short .forward4               ; 0x068f
     mov cx, word [party_char_count]  ; 0x0691
     add cx, byte 0x31                ; 0x0695
     cmp cx, ax                       ; 0x0698
-    jle short @..api_idx_0012_GQSK.l6 ; 0x069a
+    jle short .forward4              ; 0x069a
     add ax, strict word 0xffcf       ; 0x069c
     mov word [bp - 4], ax            ; 0x069f
     mov ax, 1                        ; 0x06a2
@@ -168,9 +168,9 @@ api_idx_0012_GQSK:
     push word [bp - 4]               ; 0x06a7
     call api_idx_000c_JRTV           ; 0x06aa
     add sp, byte 6                   ; 0x06ad
-@..api_idx_0012_GQSK.l6:
-    jmp short @..api_idx_0012_GQSK.l4 ; 0x06b0
-@..api_idx_0012_GQSK.l7:
+.forward4:
+    jmp short .back2                 ; 0x06b0
+.forward5:
     mov ax, 1                        ; 0x06b2
     push ax                          ; 0x06b5
     push word [bp - 0x10]            ; 0x06b6
@@ -189,13 +189,13 @@ api_idx_0012_GQSK:
     add sp, byte 8                   ; 0x06d5
     mov ax, word [bp - 4]            ; 0x06d8
     ret                              ; 0x06db
-@..api_idx_0012_GQSK.l8:
+.forward6:
     push word [bss_0e30]             ; 0x06dc
     push word [bss_0e2e]             ; 0x06e0
     call set_mouse_pointer_shape     ; 0x06e4
     add sp, byte 4                   ; 0x06e7
     mov word [bp - 8], 0             ; 0x06ea
-@..api_idx_0012_GQSK.l9:
+.back3:
     lea ax, word [bp - 0xc]          ; 0x06ef
     push ax                          ; 0x06f2
     lea ax, word [bp - 0xa]          ; 0x06f3
@@ -205,9 +205,9 @@ api_idx_0012_GQSK:
     mov word [bp - 6], ax            ; 0x06fd
     mov ax, 0                        ; 0x0700
     cmp word [bp - 6], byte 0        ; 0x0703
-    jne short @..api_idx_0012_GQSK.l10 ; 0x0707
+    jne short .forward7              ; 0x0707
     mov ax, 1                        ; 0x0709
-@..api_idx_0012_GQSK.l10:
+.forward7:
     or word [bp - 8], ax             ; 0x070c
     mov ax, 0x14                     ; 0x070f
     push ax                          ; 0x0712
@@ -220,7 +220,7 @@ api_idx_0012_GQSK:
     dec ax                           ; 0x071f
     mov word [bp - 4], ax            ; 0x0720
     cmp word [bss_59fa], byte 0      ; 0x0723
-    je short @..api_idx_0012_GQSK.l11 ; 0x0728
+    je short .forward8               ; 0x0728
     mov ax, 0                        ; 0x072a
     mov dx, 0                        ; 0x072d
     push dx                          ; 0x0730
@@ -229,9 +229,9 @@ api_idx_0012_GQSK:
     add sp, byte 4                   ; 0x0735
     mov ax, 0xffff                   ; 0x0738
     ret                              ; 0x073b
-@..api_idx_0012_GQSK.l11:
+.forward8:
     cmp word [hotspot_hit], byte 1   ; 0x073c
-    jne short @..api_idx_0012_GQSK.l12 ; 0x0741
+    jne short .forward9              ; 0x0741
     mov ax, 1                        ; 0x0743
     push ax                          ; 0x0746
     push ax                          ; 0x0747
@@ -246,11 +246,11 @@ api_idx_0012_GQSK:
     add sp, byte 4                   ; 0x075c
     mov ax, word [bp - 4]            ; 0x075f
     ret                              ; 0x0762
-@..api_idx_0012_GQSK.l12:
+.forward9:
     cmp word [bp - 6], byte 0        ; 0x0763
-    je short @..api_idx_0012_GQSK.l9 ; 0x0767
+    je short .back3                  ; 0x0767
     cmp word [bp - 8], byte 0        ; 0x0769
-    je short @..api_idx_0012_GQSK.l9 ; 0x076d
+    je short .back3                  ; 0x076d
     mov ax, 0                        ; 0x076f
     mov dx, 0                        ; 0x0772
     push dx                          ; 0x0775

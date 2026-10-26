@@ -42,21 +42,21 @@ api_idx_0054_IHKM:
     add sp, byte 8                   ; 0x5df3
     mov word [bp - 2], 0             ; 0x5df6
     mov word [bp - 4], 0             ; 0x5dfb
-    jmp short @..api_idx_0054_IHKM.l3 ; 0x5e00
-@..api_idx_0054_IHKM.l1:
+    jmp short .forward2              ; 0x5e00
+.back1:
     mov ax, word [bp - 4]            ; 0x5e02
     shl ax, 1                        ; 0x5e05
     mov si, ax                       ; 0x5e07
     mov bx, word [bp + 0xe]          ; 0x5e09
     cmp word [bx + si], byte 0       ; 0x5e0c
-    je short @..api_idx_0054_IHKM.l2 ; 0x5e0f
+    je short .forward1               ; 0x5e0f
     inc word [bp - 2]                ; 0x5e11
-@..api_idx_0054_IHKM.l2:
+.forward1:
     inc word [bp - 4]                ; 0x5e14
-@..api_idx_0054_IHKM.l3:
+.forward2:
     mov ax, word [bp - 4]            ; 0x5e17
     cmp ax, word [bp + 0xc]          ; 0x5e1a
-    jle short @..api_idx_0054_IHKM.l1 ; 0x5e1d
+    jle short .back1                 ; 0x5e1d
     push word [bp + 0xe]             ; 0x5e1f
     mov ax, 1                        ; 0x5e22
     push ax                          ; 0x5e25
@@ -64,9 +64,9 @@ api_idx_0054_IHKM:
     push ax                          ; 0x5e29
     mov ax, 3                        ; 0x5e2a
     cmp word [bp - 2], byte 5        ; 0x5e2d
-    jge short @..api_idx_0054_IHKM.l4 ; 0x5e31
+    jge short .forward3              ; 0x5e31
     mov ax, 2                        ; 0x5e33
-@..api_idx_0054_IHKM.l4:
+.forward3:
     push ax                          ; 0x5e36
     mov ax, 0xa                      ; 0x5e37
     push ax                          ; 0x5e3a

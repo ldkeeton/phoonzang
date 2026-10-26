@@ -7,7 +7,7 @@ get_mouse:
     mov ax, ds
     mov es, ax
     cmp byte [cs:mouse_present - IMAGE_BASE], 0
-    je short @..get_mouse.l1
+    je short .forward1
     mov ax, 3
     int 0x33 ; BIOS mouse
     mov word [bp - 2], bx
@@ -17,7 +17,7 @@ get_mouse:
     mov bx, word [bp + 0xe]
     mov word [bx], dx
     mov ax, word [bp - 2]
-@..get_mouse.l1:
+.forward1:
     pop es
     mov sp, bp
     pop bp

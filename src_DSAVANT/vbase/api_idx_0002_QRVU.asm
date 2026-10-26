@@ -15,12 +15,12 @@ api_idx_0002_QRVU:
     add sp, byte 4                   ; 0x3fc8
     mov word [bss_9088], ax          ; 0x3fcb
     cmp ax, strict word 0xffff       ; 0x3fce
-    jne short @..api_idx_0002_QRVU.l1 ; 0x3fd1
+    jne short .forward1              ; 0x3fd1
     mov ax, 0x14                     ; 0x3fd3
     push ax                          ; 0x3fd6
     call release_and_exit            ; 0x3fd7
     pop cx                           ; 0x3fda
-@..api_idx_0002_QRVU.l1:
+.forward1:
     mov ax, 0                        ; 0x3fdb
     push ax                          ; 0x3fde
     mov ax, 0                        ; 0x3fdf
@@ -39,12 +39,12 @@ api_idx_0002_QRVU:
     add sp, byte 6                   ; 0x4000
     mov word [bp - 2], ax            ; 0x4003
     cmp ax, strict word 0xffff       ; 0x4006
-    jne short @..api_idx_0002_QRVU.l2 ; 0x4009
+    jne short .forward2              ; 0x4009
     mov ax, 0x14                     ; 0x400b
     push ax                          ; 0x400e
     call release_and_exit            ; 0x400f
     pop cx                           ; 0x4012
-@..api_idx_0002_QRVU.l2:
+.forward2:
     push word [bss_9088]             ; 0x4013
     call aztec_close                 ; 0x4017
     pop cx                           ; 0x401a
@@ -56,21 +56,21 @@ api_idx_0002_QRVU:
     call gfx_wait_sound              ; 0x4027
     pop cx                           ; 0x402a
     test word [bss_9056], 0x1000     ; 0x402b
-    je short @..api_idx_0002_QRVU.l4 ; 0x4031
+    je short .forward4               ; 0x4031
     cmp byte [bss_5989], 1           ; 0x4033
-    jne short @..api_idx_0002_QRVU.l4 ; 0x4038
+    jne short .forward4              ; 0x4038
     cmp word [mouse_active], byte 0  ; 0x403a
-    jne short @..api_idx_0002_QRVU.l3 ; 0x403f
+    jne short .forward3              ; 0x403f
     call gfx_mouse_init              ; 0x4041
-@..api_idx_0002_QRVU.l3:
+.forward3:
     mov word [mouse_active], 1       ; 0x4044
-    jmp short @..api_idx_0002_QRVU.l6 ; 0x404a
-@..api_idx_0002_QRVU.l4:
+    jmp short .forward6              ; 0x404a
+.forward4:
     cmp word [mouse_active], byte 1  ; 0x404c
-    jne short @..api_idx_0002_QRVU.l5 ; 0x4051
+    jne short .forward5              ; 0x4051
     call gfx_mouse_off               ; 0x4053
-@..api_idx_0002_QRVU.l5:
+.forward5:
     mov word [mouse_active], 0       ; 0x4056
-@..api_idx_0002_QRVU.l6:
+.forward6:
     call flush_keyboard              ; 0x405c
     ret                              ; 0x405f

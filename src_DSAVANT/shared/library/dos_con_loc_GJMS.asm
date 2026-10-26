@@ -3,9 +3,9 @@ dos_con_loc_GJMS:
     push ax
     mov bx, score_slots - IMAGE_BASE
     mov cx, 5
-@..dos_con_loc_GJMS.l1:
+.back1:
     cmp ax, word [cs:bx]
-    jae short @..dos_con_loc_GJMS.l2
+    jae short .forward1
     dec word [cs:bx]
     push ds
     push ax
@@ -22,9 +22,9 @@ dos_con_loc_GJMS:
     pop bx
     pop ax
     pop ds
-@..dos_con_loc_GJMS.l2:
+.forward1:
     add bx, byte 4
-    loop @..dos_con_loc_GJMS.l1
+    loop .back1
     pop ax
     ret
 dos_con_loc_GJMS.cseg1:

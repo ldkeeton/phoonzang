@@ -16,7 +16,7 @@ api_idx_0002_NGNS:
     call get_bits                    ; 0x8e0c
     add sp, byte 6                   ; 0x8e0f
     cmp ax, strict word 1            ; 0x8e12
-    jne short @..api_idx_0002_NGNS.l1 ; 0x8e15
+    jne short .forward1              ; 0x8e15
     mov ax, 2                        ; 0x8e17
     push ax                          ; 0x8e1a
     mov ax, 0xc                      ; 0x8e1b
@@ -25,10 +25,10 @@ api_idx_0002_NGNS:
     call get_bits                    ; 0x8e22
     add sp, byte 6                   ; 0x8e25
     cmp ax, word [party_tag]         ; 0x8e28
-    je short @..api_idx_0002_NGNS.l1 ; 0x8e2c
+    je short .forward1               ; 0x8e2c
     mov ax, 0                        ; 0x8e2e
     ret                              ; 0x8e31
-@..api_idx_0002_NGNS.l1:
+.forward1:
     mov ax, 1                        ; 0x8e32
     push ax                          ; 0x8e35
     mov ax, 8                        ; 0x8e36
@@ -37,10 +37,10 @@ api_idx_0002_NGNS:
     call get_bits                    ; 0x8e3d
     add sp, byte 6                   ; 0x8e40
     test ax, ax                      ; 0x8e43
-    jne short @..api_idx_0002_NGNS.l2 ; 0x8e45
+    jne short .forward2              ; 0x8e45
     mov ax, 0                        ; 0x8e47
     ret                              ; 0x8e4a
-@..api_idx_0002_NGNS.l2:
+.forward2:
     mov ax, word [bp + 4]            ; 0x8e4b
     mov word [party_region], ax      ; 0x8e4e
     mov bx, word [maze_tables]       ; 0x8e51

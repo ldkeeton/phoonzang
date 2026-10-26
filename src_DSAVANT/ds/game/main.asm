@@ -3,9 +3,9 @@ main: ; Aztec csav frame=0x0002
     mov ax, 0xfffe                   ; 0x2dd5
     call aztec_csav                  ; 0x2dd8
     mov word [game_state], 0         ; 0x2ddb
-@..main.l1:
+.back1:
     mov ax, word [game_state]        ; 0x2de1
-    jmp near @..main.l2              ; 0x2de4
+    jmp near .forward1               ; 0x2de4
 jumptable_2edc_case_8:
     mov ax, 0                        ; 0x2de7
     push ax                          ; 0x2dea
@@ -161,7 +161,7 @@ jumptable_2edc:
     dw jumptable_2edc_case_15 - IMAGE_BASE     ; 0x2f16
     dw jumptable_2edc_case_23 - IMAGE_BASE     ; 0x2f18
     dw jumptable_2edc_case_23 - IMAGE_BASE     ; 0x2f1a
-@..main.l2:
+main.forward1:
     cmp ax, strict word 0x20         ; 0x2f1c
     jae short jumptable_2edc_case_9  ; 0x2f1f
     xchg bx, ax                      ; 0x2f21
@@ -172,5 +172,5 @@ jumptable_2edc_case_9:
     push ax                          ; 0x2f2c
     call gfx_wait_sound              ; 0x2f2d
     pop cx                           ; 0x2f30
-    jmp near @..main.l1              ; 0x2f31
+    jmp near main.back1              ; 0x2f31
     ret                              ; 0x2f34

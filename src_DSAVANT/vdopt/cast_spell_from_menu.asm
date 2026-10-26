@@ -12,9 +12,9 @@ cast_spell_from_menu:
     call pick_spell_dialog           ; 0x45f5
     add sp, byte 8                   ; 0x45f8
     test ax, ax                      ; 0x45fb
-    je short @..cast_spell_from_menu.l1 ; 0x45fd
-    jmp near @..cast_spell_from_menu.l4 ; 0x45ff
-@..cast_spell_from_menu.l1:
+    je short .forward1               ; 0x45fd
+    jmp near .forward4               ; 0x45ff
+.forward1:
     mov ax, word [spell_dialog_result] ; 0x4602
     mov cx, 0x100                    ; 0x4605
     cwd                              ; 0x4608
@@ -25,16 +25,16 @@ cast_spell_from_menu:
     imul dx                          ; 0x4614
     mov bx, ax                       ; 0x4616
     cmp byte [bx + spell_table + spell_table_rec.f_0004], 1 ; 0x4618
-    jne short @..cast_spell_from_menu.l2 ; 0x461d
+    jne short .forward2              ; 0x461d
     call pick_party_member           ; 0x461f
     mov word [spell_target], ax      ; 0x4622
     cmp ax, strict word 0xffff       ; 0x4625
-    jne short @..cast_spell_from_menu.l2 ; 0x4628
-@..cast_spell_from_menu.l2:
+    jne short .forward2              ; 0x4628
+.forward2:
     cmp word [bp - 2], byte 0        ; 0x462a
-    jge short @..cast_spell_from_menu.l3 ; 0x462e
-    jmp near @..cast_spell_from_menu.l4 ; 0x4630
-@..cast_spell_from_menu.l3:
+    jge short .forward3              ; 0x462e
+    jmp near .forward4               ; 0x4630
+.forward3:
     mov ax, 6                        ; 0x4633
     imul word [bp - 2]               ; 0x4636
     mov bx, ax                       ; 0x4639
@@ -81,7 +81,7 @@ cast_spell_from_menu:
     pop ax                           ; 0x469e
     sub word [bx + party_records + pc_rec.pair_b], ax ; 0x469f
     cmp word [bx + party_records + pc_rec.pair_b], byte 0 ; 0x46a3
-    jge short @..cast_spell_from_menu.l4 ; 0x46a8
+    jge short .forward4              ; 0x46a8
     mov word [bx + party_records + pc_rec.pair_b], 0 ; 0x46aa
     mov ax, 6                        ; 0x46b0
     push ax                          ; 0x46b3
@@ -94,11 +94,11 @@ cast_spell_from_menu:
     mov bx, ax                       ; 0x46c2
     pop ax                           ; 0x46c4
     mov byte [bx + party_records + pc_rec.status + 0x2], al ; 0x46c5
-@..cast_spell_from_menu.l4:
+.forward4:
     cmp word [pending_event], byte 0 ; 0x46c9
-    jle short @..cast_spell_from_menu.l5 ; 0x46ce
+    jle short .return1               ; 0x46ce
     push word [pending_event]        ; 0x46d0
     call show_event_message          ; 0x46d4
     pop cx                           ; 0x46d7
-@..cast_spell_from_menu.l5:
+.return1:
     ret                              ; 0x46d8

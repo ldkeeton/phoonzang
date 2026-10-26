@@ -10,9 +10,9 @@ api_idx_0038_QQIU:
     mov word [bp - 0x12], 0x16       ; 0x3a4c
     mov ax, 3                        ; 0x3a51
     cmp word [bp + 0xc], byte 3      ; 0x3a54
-    jge short @..api_idx_0038_QQIU.l1 ; 0x3a58
+    jge short .forward1              ; 0x3a58
     mov ax, word [bp + 0xc]          ; 0x3a5a
-@..api_idx_0038_QQIU.l1:
+.forward1:
     mov word [bp - 0x22], ax         ; 0x3a5d
     mov ax, dseg_90a4                ; 0x3a60
     push ax                          ; 0x3a63
@@ -38,20 +38,20 @@ api_idx_0038_QQIU:
     call draw_dialog_box             ; 0x3a8d
     add sp, byte 8                   ; 0x3a90
     cmp word [bp + 6], byte 0        ; 0x3a93
-    je short @..api_idx_0038_QQIU.l2 ; 0x3a97
+    je short .forward2               ; 0x3a97
     lea ax, word [bp - 0x36]         ; 0x3a99
     push ax                          ; 0x3a9c
     push word [bp + 4]               ; 0x3a9d
     call load_message_string         ; 0x3aa0
     add sp, byte 4                   ; 0x3aa3
-    jmp short @..api_idx_0038_QQIU.l3 ; 0x3aa6
-@..api_idx_0038_QQIU.l2:
+    jmp short .forward3              ; 0x3aa6
+.forward2:
     push word [bp + 0xe]             ; 0x3aa8
     lea ax, word [bp - 0x36]         ; 0x3aab
     push ax                          ; 0x3aae
     call aztec_strcpy                ; 0x3aaf
     add sp, byte 4                   ; 0x3ab2
-@..api_idx_0038_QQIU.l3:
+.forward3:
     lea ax, word [bp - 0x36]         ; 0x3ab5
     push ax                          ; 0x3ab8
     push word [bp + 6]               ; 0x3ab9
@@ -266,13 +266,13 @@ api_idx_0038_QQIU:
     add sp, byte 0xe                 ; 0x3ca4
     mov ax, 3                        ; 0x3ca7
     cmp word [bp + 0xc], byte 3      ; 0x3caa
-    jge short @..api_idx_0038_QQIU.l4 ; 0x3cae
+    jge short .forward4              ; 0x3cae
     mov ax, word [bp + 0xc]          ; 0x3cb0
-@..api_idx_0038_QQIU.l4:
+.forward4:
     mov word [bp - 0x1e], ax         ; 0x3cb3
     mov word [bp - 2], 0             ; 0x3cb6
-    jmp short @..api_idx_0038_QQIU.l6 ; 0x3cbb
-@..api_idx_0038_QQIU.l5:
+    jmp short .forward5              ; 0x3cbb
+.back1:
     mov ax, 0                        ; 0x3cbd
     push ax                          ; 0x3cc0
     push ax                          ; 0x3cc1
@@ -298,10 +298,10 @@ api_idx_0038_QQIU:
     call set_hotspot                 ; 0x3cf1
     add sp, byte 0xe                 ; 0x3cf4
     inc word [bp - 2]                ; 0x3cf7
-@..api_idx_0038_QQIU.l6:
+.forward5:
     mov ax, word [bp - 2]            ; 0x3cfa
     cmp ax, word [bp - 0x1e]         ; 0x3cfd
-    jl short @..api_idx_0038_QQIU.l5 ; 0x3d00
+    jl short .back1                  ; 0x3d00
     mov ax, 0                        ; 0x3d02
     push ax                          ; 0x3d05
     push ax                          ; 0x3d06
@@ -330,7 +330,7 @@ api_idx_0038_QQIU:
     call gfx_show_area               ; 0x3d2f
     add sp, byte 8                   ; 0x3d32
     mov word [bp - 0x1a], 1          ; 0x3d35
-@..api_idx_0038_QQIU.l7:
+.back2:
     mov ax, hotspot_rects            ; 0x3d3a
     push ax                          ; 0x3d3d
     call poll_hotspots               ; 0x3d3e
@@ -338,17 +338,17 @@ api_idx_0038_QQIU:
     dec ax                           ; 0x3d42
     mov word [bp - 0x18], ax         ; 0x3d43
     cmp word [space_key_hit], byte 0 ; 0x3d46
-    je short @..api_idx_0038_QQIU.l11 ; 0x3d4b
+    je short .forward9               ; 0x3d4b
     mov ax, word [bp - 0x20]         ; 0x3d4d
     cmp ax, word [bp - 0x16]         ; 0x3d50
-    jl short @..api_idx_0038_QQIU.l8 ; 0x3d53
+    jl short .forward6               ; 0x3d53
     inc word [bp - 0x20]             ; 0x3d55
-@..api_idx_0038_QQIU.l8:
+.forward6:
     mov ax, word [bp - 0x20]         ; 0x3d58
     cmp ax, strict word 0xffff       ; 0x3d5b
-    je short @..api_idx_0038_QQIU.l9 ; 0x3d5e
+    je short .forward7               ; 0x3d5e
     cmp ax, word [bp - 0x16]         ; 0x3d60
-    jl short @..api_idx_0038_QQIU.l9 ; 0x3d63
+    jl short .forward7               ; 0x3d63
     mov ax, word [bp - 0x16]         ; 0x3d65
     add ax, word [bp - 0x1e]         ; 0x3d68
     mov cx, ax                       ; 0x3d6b
@@ -356,23 +356,23 @@ api_idx_0038_QQIU:
     mov cx, ax                       ; 0x3d6e
     mov ax, word [bp - 0x20]         ; 0x3d70
     cmp cx, ax                       ; 0x3d73
-    jge short @..api_idx_0038_QQIU.l10 ; 0x3d75
-@..api_idx_0038_QQIU.l9:
+    jge short .forward8              ; 0x3d75
+.forward7:
     mov ax, word [bp - 0x16]         ; 0x3d77
     mov word [bp - 0x20], ax         ; 0x3d7a
-@..api_idx_0038_QQIU.l10:
+.forward8:
     mov word [hotspot_hit], 1        ; 0x3d7d
     mov ax, word [bp - 0x20]         ; 0x3d83
     sub ax, word [bp - 0x16]         ; 0x3d86
     add ax, strict word 6            ; 0x3d89
     mov word [bp - 0x18], ax         ; 0x3d8c
-@..api_idx_0038_QQIU.l11:
+.forward9:
     cmp word [hotspot_hit], byte 1   ; 0x3d8f
-    je short @..api_idx_0038_QQIU.l12 ; 0x3d94
-    jmp near @..api_idx_0038_QQIU.l26 ; 0x3d96
-@..api_idx_0038_QQIU.l12:
+    je short .forward10              ; 0x3d94
+    jmp near .forward22              ; 0x3d96
+.forward10:
     mov ax, word [bp - 0x18]         ; 0x3d99
-    jmp near @..api_idx_0038_QQIU.l24 ; 0x3d9c
+    jmp near .forward20              ; 0x3d9c
 jumptable_4141_case_0:
     lea ax, word [bp - 0xe]          ; 0x3d9f
     push ax                          ; 0x3da2
@@ -393,7 +393,7 @@ jumptable_4141_case_0:
     call clamp_between               ; 0x3dc4
     add sp, byte 6                   ; 0x3dc7
     mov word [bp - 0x14], ax         ; 0x3dca
-@..api_idx_0038_QQIU.l13:
+api_idx_0038_QQIU.back3:
     lea ax, word [bp - 0xe]          ; 0x3dcd
     push ax                          ; 0x3dd0
     lea ax, word [bp - 0xc]          ; 0x3dd1
@@ -414,7 +414,7 @@ jumptable_4141_case_0:
     add sp, byte 6                   ; 0x3df7
     mov word [bp - 0x10], ax         ; 0x3dfa
     cmp word [bp + 0xc], byte 3      ; 0x3dfd
-    jle short @..api_idx_0038_QQIU.l14 ; 0x3e01
+    jle short api_idx_0038_QQIU.forward11 ; 0x3e01
     mov cx, 0x64                     ; 0x3e03
     imul cx                          ; 0x3e06
     push ax                          ; 0x3e08
@@ -431,7 +431,7 @@ jumptable_4141_case_0:
     cwd                              ; 0x3e1c
     idiv cx                          ; 0x3e1d
     mov word [bp - 0x16], ax         ; 0x3e1f
-@..api_idx_0038_QQIU.l14:
+api_idx_0038_QQIU.forward11:
     push word [bp - 0x22]            ; 0x3e22
     push word [bp - 0x20]            ; 0x3e25
     push word [bp - 0x16]            ; 0x3e28
@@ -496,13 +496,13 @@ jumptable_4141_case_0:
     call gfx_show_area               ; 0x3eb3
     add sp, byte 8                   ; 0x3eb6
     cmp word [bp - 0x1c], byte 0     ; 0x3eb9
-    je short @..api_idx_0038_QQIU.l15 ; 0x3ebd
-    jmp near @..api_idx_0038_QQIU.l13 ; 0x3ebf
-@..api_idx_0038_QQIU.l15:
-    jmp near @..api_idx_0038_QQIU.l26 ; 0x3ec2
+    je short api_idx_0038_QQIU.forward12 ; 0x3ebd
+    jmp near api_idx_0038_QQIU.back3 ; 0x3ebf
+api_idx_0038_QQIU.forward12:
+    jmp near api_idx_0038_QQIU.forward22 ; 0x3ec2
 jumptable_4141_case_1:
     cmp word [bp - 0x18], byte 1     ; 0x3ec5
-    jne short @..api_idx_0038_QQIU.l17 ; 0x3ec9
+    jne short api_idx_0038_QQIU.forward14 ; 0x3ec9
     mov ax, 1                        ; 0x3ecb
     push ax                          ; 0x3ece
     mov ax, word [bp - 6]            ; 0x3ecf
@@ -520,11 +520,11 @@ jumptable_4141_case_1:
     call flash_area                  ; 0x3eeb
     add sp, byte 0xa                 ; 0x3eee
     cmp word [bp - 0x16], byte 0     ; 0x3ef1
-    jle short @..api_idx_0038_QQIU.l16 ; 0x3ef5
+    jle short api_idx_0038_QQIU.forward13 ; 0x3ef5
     dec word [bp - 0x16]             ; 0x3ef7
-@..api_idx_0038_QQIU.l16:
-    jmp short @..api_idx_0038_QQIU.l18 ; 0x3efa
-@..api_idx_0038_QQIU.l17:
+api_idx_0038_QQIU.forward13:
+    jmp short api_idx_0038_QQIU.forward15 ; 0x3efa
+api_idx_0038_QQIU.forward14:
     mov ax, 1                        ; 0x3efc
     push ax                          ; 0x3eff
     mov ax, word [bp - 6]            ; 0x3f00
@@ -546,11 +546,11 @@ jumptable_4141_case_1:
     dec ax                           ; 0x3f26
     dec ax                           ; 0x3f27
     cmp ax, word [bp - 0x16]         ; 0x3f28
-    jle short @..api_idx_0038_QQIU.l18 ; 0x3f2b
+    jle short api_idx_0038_QQIU.forward15 ; 0x3f2b
     inc word [bp - 0x16]             ; 0x3f2d
-@..api_idx_0038_QQIU.l18:
+api_idx_0038_QQIU.forward15:
     cmp word [bp + 0xc], byte 3      ; 0x3f30
-    jle short @..api_idx_0038_QQIU.l19 ; 0x3f34
+    jle short api_idx_0038_QQIU.forward16 ; 0x3f34
     push word [bp - 0x12]            ; 0x3f36
     mov ax, 0                        ; 0x3f39
     push ax                          ; 0x3f3c
@@ -571,7 +571,7 @@ jumptable_4141_case_1:
     call clamp_between               ; 0x3f59
     add sp, byte 6                   ; 0x3f5c
     mov word [bp - 0x10], ax         ; 0x3f5f
-@..api_idx_0038_QQIU.l19:
+api_idx_0038_QQIU.forward16:
     push word [bp - 0x22]            ; 0x3f62
     push word [bp - 0x20]            ; 0x3f65
     push word [bp - 0x16]            ; 0x3f68
@@ -635,10 +635,10 @@ jumptable_4141_case_1:
     push ax                          ; 0x3ff2
     call gfx_show_area               ; 0x3ff3
     add sp, byte 8                   ; 0x3ff6
-    jmp near @..api_idx_0038_QQIU.l26 ; 0x3ff9
+    jmp near api_idx_0038_QQIU.forward22 ; 0x3ff9
 jumptable_4141_case_3:
     cmp word [bp + 6], byte 0        ; 0x3ffc
-    je short @..api_idx_0038_QQIU.l20 ; 0x4000
+    je short api_idx_0038_QQIU.forward17 ; 0x4000
     mov ax, 1                        ; 0x4002
     push ax                          ; 0x4005
     push ax                          ; 0x4006
@@ -668,11 +668,11 @@ jumptable_4141_case_3:
     add sp, byte 0xa                 ; 0x403c
     mov word [spell_dialog_button], 0 ; 0x403f
     mov word [bp - 0x1a], 0          ; 0x4045
-@..api_idx_0038_QQIU.l20:
-    jmp near @..api_idx_0038_QQIU.l26 ; 0x404a
+api_idx_0038_QQIU.forward17:
+    jmp near api_idx_0038_QQIU.forward22 ; 0x404a
 jumptable_4141_case_4:
     cmp word [bp + 8], byte 0        ; 0x404d
-    je short @..api_idx_0038_QQIU.l21 ; 0x4051
+    je short api_idx_0038_QQIU.forward18 ; 0x4051
     mov ax, 1                        ; 0x4053
     push ax                          ; 0x4056
     push ax                          ; 0x4057
@@ -702,11 +702,11 @@ jumptable_4141_case_4:
     add sp, byte 0xa                 ; 0x408d
     mov word [spell_dialog_button], 1 ; 0x4090
     mov word [bp - 0x1a], 0          ; 0x4096
-@..api_idx_0038_QQIU.l21:
-    jmp near @..api_idx_0038_QQIU.l26 ; 0x409b
+api_idx_0038_QQIU.forward18:
+    jmp near api_idx_0038_QQIU.forward22 ; 0x409b
 jumptable_4141_case_5:
     cmp word [bp + 0xa], byte 0      ; 0x409e
-    je short @..api_idx_0038_QQIU.l22 ; 0x40a2
+    je short api_idx_0038_QQIU.forward19 ; 0x40a2
     mov ax, 1                        ; 0x40a4
     push ax                          ; 0x40a7
     push ax                          ; 0x40a8
@@ -736,9 +736,9 @@ jumptable_4141_case_5:
     add sp, byte 0xa                 ; 0x40de
     mov word [spell_dialog_button], 2 ; 0x40e1
     mov word [bp - 0x1a], 0          ; 0x40e7
-@..api_idx_0038_QQIU.l22:
-    jmp short @..api_idx_0038_QQIU.l26 ; 0x40ec
-@..api_idx_0038_QQIU.l23:
+api_idx_0038_QQIU.forward19:
+    jmp short api_idx_0038_QQIU.forward22 ; 0x40ec
+api_idx_0038_QQIU.back4:
     mov ax, word [bp - 0x16]         ; 0x40ee
     add ax, word [bp - 0x18]         ; 0x40f1
     add ax, strict word 0xfffa       ; 0x40f4
@@ -772,7 +772,7 @@ jumptable_4141_case_5:
     push ax                          ; 0x4138
     call gfx_show_area               ; 0x4139
     add sp, byte 8                   ; 0x413c
-    jmp short @..api_idx_0038_QQIU.l26 ; 0x413f
+    jmp short api_idx_0038_QQIU.forward22 ; 0x413f
 jumptable_4141:
     dw jumptable_4141_case_0 - IMAGE_BASE + __zres_end ; 0x4141
     dw jumptable_4141_case_1 - IMAGE_BASE + __zres_end ; 0x4143
@@ -780,19 +780,19 @@ jumptable_4141:
     dw jumptable_4141_case_3 - IMAGE_BASE + __zres_end ; 0x4147
     dw jumptable_4141_case_4 - IMAGE_BASE + __zres_end ; 0x4149
     dw jumptable_4141_case_5 - IMAGE_BASE + __zres_end ; 0x414b
-@..api_idx_0038_QQIU.l24:
+api_idx_0038_QQIU.forward20:
     cmp ax, strict word 6            ; 0x414d
-    jae short @..api_idx_0038_QQIU.l25 ; 0x4150
+    jae short api_idx_0038_QQIU.forward21 ; 0x4150
     xchg bx, ax                      ; 0x4152
     shl bx, 1                        ; 0x4153
     jmp [cs:bx + jumptable_4141 - IMAGE_BASE + __zres_end] ; 0x4155
-@..api_idx_0038_QQIU.l25:
-    jmp short @..api_idx_0038_QQIU.l23 ; 0x415a
-@..api_idx_0038_QQIU.l26:
+api_idx_0038_QQIU.forward21:
+    jmp short api_idx_0038_QQIU.back4 ; 0x415a
+api_idx_0038_QQIU.forward22:
     cmp word [bp - 0x1a], byte 0     ; 0x415c
-    je short @..api_idx_0038_QQIU.l27 ; 0x4160
-    jmp near @..api_idx_0038_QQIU.l7 ; 0x4162
-@..api_idx_0038_QQIU.l27:
+    je short api_idx_0038_QQIU.forward23 ; 0x4160
+    jmp near api_idx_0038_QQIU.back2 ; 0x4162
+api_idx_0038_QQIU.forward23:
     mov ax, 1                        ; 0x4165
     push ax                          ; 0x4168
     push word [bp - 0x38]            ; 0x4169

@@ -3,7 +3,7 @@ spell_select_dialog:
     mov ax, 0xffbc                   ; 0x8d1e
     call aztec_csav                  ; 0x8d21
     mov word [bp - 2], 0             ; 0x8d24
-@..spell_select_dialog.l1:
+.back1:
     mov ax, word [bp - 2]            ; 0x8d29
     shl ax, 1                        ; 0x8d2c
     mov bx, ax                       ; 0x8d2e
@@ -11,7 +11,7 @@ spell_select_dialog:
     inc word [bp - 2]                ; 0x8d36
     mov ax, word [bp - 2]            ; 0x8d39
     cmp ax, strict word 6            ; 0x8d3c
-    jl short @..spell_select_dialog.l1 ; 0x8d3f
+    jl short .back1                  ; 0x8d3f
     mov word [spell_dialog_result], 0xffff ; 0x8d41
     mov word [bp - 4], 0x32          ; 0x8d47
     mov word [bp - 6], 0x73          ; 0x8d4c
@@ -127,13 +127,13 @@ spell_select_dialog:
     mov word [bp - 0x3e], 0          ; 0x8e5c
     mov word [bp - 0x40], 0          ; 0x8e61
     mov word [bp - 2], 0             ; 0x8e66
-@..spell_select_dialog.l2:
+.back2:
     mov ax, 0                        ; 0x8e6b
     mov cx, word [bp - 2]            ; 0x8e6e
     cmp cx, word [bp - 0x3e]         ; 0x8e71
-    jne short @..spell_select_dialog.l3 ; 0x8e74
+    jne short .forward1              ; 0x8e74
     mov ax, 1                        ; 0x8e76
-@..spell_select_dialog.l3:
+.forward1:
     push ax                          ; 0x8e79
     push cx                          ; 0x8e7a
     mov ax, word [bp - 6]            ; 0x8e7b
@@ -147,7 +147,7 @@ spell_select_dialog:
     inc word [bp - 2]                ; 0x8e8f
     mov ax, word [bp - 2]            ; 0x8e92
     cmp ax, strict word 7            ; 0x8e95
-    jl short @..spell_select_dialog.l2 ; 0x8e98
+    jl short .back2                  ; 0x8e98
     mov word [bp - 0x42], 0          ; 0x8e9a
     mov ax, 0                        ; 0x8e9f
     push ax                          ; 0x8ea2
@@ -168,9 +168,9 @@ spell_select_dialog:
     mov word [bp - 0x44], ax         ; 0x8ec7
     mov ax, 7                        ; 0x8eca
     cmp word [bp - 0x44], byte 7     ; 0x8ecd
-    jge short @..spell_select_dialog.l4 ; 0x8ed1
+    jge short .forward2              ; 0x8ed1
     mov ax, word [bp - 0x44]         ; 0x8ed3
-@..spell_select_dialog.l4:
+.forward2:
     mov word [bp - 0x24], ax         ; 0x8ed6
     mov word [bp - 0x18], 0          ; 0x8ed9
     mov word [bp - 0x22], 0xffff     ; 0x8ede
@@ -305,7 +305,7 @@ spell_select_dialog:
     call set_hotspot                 ; 0x900d
     add sp, byte 0xe                 ; 0x9010
     mov word [bp - 2], 0             ; 0x9013
-@..spell_select_dialog.l5:
+.back3:
     mov ax, 0                        ; 0x9018
     push ax                          ; 0x901b
     mov ax, word [bp - 2]            ; 0x901c
@@ -336,7 +336,7 @@ spell_select_dialog:
     inc word [bp - 2]                ; 0x9059
     mov ax, word [bp - 2]            ; 0x905c
     cmp ax, strict word 7            ; 0x905f
-    jl short @..spell_select_dialog.l5 ; 0x9062
+    jl short .back3                  ; 0x9062
     mov ax, 0                        ; 0x9064
     push ax                          ; 0x9067
     mov ax, 0x46                     ; 0x9068
@@ -435,12 +435,12 @@ spell_select_dialog:
     add sp, byte 0xe                 ; 0x912d
     mov ax, 7                        ; 0x9130
     cmp word [bp - 0x44], byte 7     ; 0x9133
-    jge short @..spell_select_dialog.l6 ; 0x9137
+    jge short .forward3              ; 0x9137
     mov ax, word [bp - 0x44]         ; 0x9139
-@..spell_select_dialog.l6:
+.forward3:
     mov word [bp - 0x20], ax         ; 0x913c
     mov word [bp - 2], 0             ; 0x913f
-@..spell_select_dialog.l7:
+.back4:
     mov ax, 0                        ; 0x9144
     push ax                          ; 0x9147
     push ax                          ; 0x9148
@@ -468,7 +468,7 @@ spell_select_dialog:
     inc word [bp - 2]                ; 0x917e
     mov ax, word [bp - 2]            ; 0x9181
     cmp ax, strict word 7            ; 0x9184
-    jl short @..spell_select_dialog.l7 ; 0x9187
+    jl short .back4                  ; 0x9187
     mov ax, 0                        ; 0x9189
     push ax                          ; 0x918c
     push ax                          ; 0x918d
@@ -502,7 +502,7 @@ spell_select_dialog:
     mov word [party_redraw_last_tick_hi], dx ; 0x91ca
     mov word [party_redraw_last_tick], ax ; 0x91ce
     mov word [bp - 0x1c], 1          ; 0x91d1
-@..spell_select_dialog.l8:
+.back5:
     push word [bp - 0x42]            ; 0x91d6
     push word [bp + 4]               ; 0x91d9
     call periodic_party_redraw       ; 0x91dc
@@ -514,17 +514,17 @@ spell_select_dialog:
     dec ax                           ; 0x91ea
     mov word [bp - 0x1a], ax         ; 0x91eb
     cmp word [space_key_hit], byte 0 ; 0x91ee
-    je short @..spell_select_dialog.l12 ; 0x91f3
+    je short .forward7               ; 0x91f3
     mov ax, word [bp - 0x22]         ; 0x91f5
     cmp ax, word [bp - 0x18]         ; 0x91f8
-    jl short @..spell_select_dialog.l9 ; 0x91fb
+    jl short .forward4               ; 0x91fb
     inc word [bp - 0x22]             ; 0x91fd
-@..spell_select_dialog.l9:
+.forward4:
     mov ax, word [bp - 0x22]         ; 0x9200
     cmp ax, strict word 0xffff       ; 0x9203
-    je short @..spell_select_dialog.l10 ; 0x9206
+    je short .forward5               ; 0x9206
     cmp ax, word [bp - 0x18]         ; 0x9208
-    jl short @..spell_select_dialog.l10 ; 0x920b
+    jl short .forward5               ; 0x920b
     mov ax, word [bp - 0x18]         ; 0x920d
     add ax, word [bp - 0x20]         ; 0x9210
     mov cx, ax                       ; 0x9213
@@ -532,23 +532,23 @@ spell_select_dialog:
     mov cx, ax                       ; 0x9216
     mov ax, word [bp - 0x22]         ; 0x9218
     cmp cx, ax                       ; 0x921b
-    jge short @..spell_select_dialog.l11 ; 0x921d
-@..spell_select_dialog.l10:
+    jge short .forward6              ; 0x921d
+.forward5:
     mov ax, word [bp - 0x18]         ; 0x921f
     mov word [bp - 0x22], ax         ; 0x9222
-@..spell_select_dialog.l11:
+.forward6:
     mov word [hotspot_hit], 1        ; 0x9225
     mov ax, word [bp - 0x22]         ; 0x922b
     sub ax, word [bp - 0x18]         ; 0x922e
     add ax, strict word 0x12         ; 0x9231
     mov word [bp - 0x1a], ax         ; 0x9234
-@..spell_select_dialog.l12:
+.forward7:
     cmp word [hotspot_hit], byte 1   ; 0x9237
-    je short @..spell_select_dialog.l13 ; 0x923c
-    jmp near @..spell_select_dialog.l50 ; 0x923e
-@..spell_select_dialog.l13:
+    je short .forward8               ; 0x923c
+    jmp near .forward43              ; 0x923e
+.forward8:
     mov ax, word [bp - 0x1a]         ; 0x9241
-    jmp near @..spell_select_dialog.l48 ; 0x9244
+    jmp near .forward41              ; 0x9244
 jumptable_9967_case_0:
     lea ax, word [bp - 0x10]         ; 0x9247
     push ax                          ; 0x924a
@@ -569,7 +569,7 @@ jumptable_9967_case_0:
     call clamp_between               ; 0x926c
     add sp, byte 6                   ; 0x926f
     mov word [bp - 0x16], ax         ; 0x9272
-@..spell_select_dialog.l14:
+spell_select_dialog.back6:
     lea ax, word [bp - 0x10]         ; 0x9275
     push ax                          ; 0x9278
     lea ax, word [bp - 0xe]          ; 0x9279
@@ -590,7 +590,7 @@ jumptable_9967_case_0:
     add sp, byte 6                   ; 0x929f
     mov word [bp - 0x12], ax         ; 0x92a2
     cmp word [bp - 0x44], byte 7     ; 0x92a5
-    jle short @..spell_select_dialog.l15 ; 0x92a9
+    jle short spell_select_dialog.forward9 ; 0x92a9
     mov cx, 0x64                     ; 0x92ab
     imul cx                          ; 0x92ae
     push ax                          ; 0x92b0
@@ -598,7 +598,7 @@ jumptable_9967_case_0:
     imul cx                          ; 0x92b4
     add ax, strict word 0x64         ; 0x92b6
     mov cx, word [bp - 0x44]         ; 0x92b9
-    add cx, byte 0xfa                ; 0x92bc
+    add cx, byte -6                  ; 0x92bc
     cwd                              ; 0x92bf
     idiv cx                          ; 0x92c0
     mov cx, ax                       ; 0x92c2
@@ -606,7 +606,7 @@ jumptable_9967_case_0:
     cwd                              ; 0x92c5
     idiv cx                          ; 0x92c6
     mov word [bp - 0x18], ax         ; 0x92c8
-@..spell_select_dialog.l15:
+spell_select_dialog.forward9:
     push word [bp - 0x24]            ; 0x92cb
     push word [bp - 0x22]            ; 0x92ce
     push word [bp - 0x18]            ; 0x92d1
@@ -671,13 +671,13 @@ jumptable_9967_case_0:
     call gfx_show_area               ; 0x935c
     add sp, byte 8                   ; 0x935f
     cmp word [bp - 0x1e], byte 0     ; 0x9362
-    je short @..spell_select_dialog.l16 ; 0x9366
-    jmp near @..spell_select_dialog.l14 ; 0x9368
-@..spell_select_dialog.l16:
-    jmp near @..spell_select_dialog.l50 ; 0x936b
+    je short spell_select_dialog.forward10 ; 0x9366
+    jmp near spell_select_dialog.back6 ; 0x9368
+spell_select_dialog.forward10:
+    jmp near spell_select_dialog.forward43 ; 0x936b
 jumptable_9967_case_1:
     cmp word [bp - 0x1a], byte 1     ; 0x936e
-    jne short @..spell_select_dialog.l18 ; 0x9372
+    jne short spell_select_dialog.forward12 ; 0x9372
     mov ax, 1                        ; 0x9374
     push ax                          ; 0x9377
     mov ax, word [bp - 6]            ; 0x9378
@@ -695,11 +695,11 @@ jumptable_9967_case_1:
     call flash_area                  ; 0x9394
     add sp, byte 0xa                 ; 0x9397
     cmp word [bp - 0x18], byte 0     ; 0x939a
-    jle short @..spell_select_dialog.l17 ; 0x939e
+    jle short spell_select_dialog.forward11 ; 0x939e
     dec word [bp - 0x18]             ; 0x93a0
-@..spell_select_dialog.l17:
-    jmp short @..spell_select_dialog.l19 ; 0x93a3
-@..spell_select_dialog.l18:
+spell_select_dialog.forward11:
+    jmp short spell_select_dialog.forward13 ; 0x93a3
+spell_select_dialog.forward12:
     mov ax, 1                        ; 0x93a5
     push ax                          ; 0x93a8
     mov ax, word [bp - 6]            ; 0x93a9
@@ -719,11 +719,11 @@ jumptable_9967_case_1:
     mov ax, word [bp - 0x44]         ; 0x93cb
     add ax, strict word 0xfff9       ; 0x93ce
     cmp ax, word [bp - 0x18]         ; 0x93d1
-    jle short @..spell_select_dialog.l19 ; 0x93d4
+    jle short spell_select_dialog.forward13 ; 0x93d4
     inc word [bp - 0x18]             ; 0x93d6
-@..spell_select_dialog.l19:
+spell_select_dialog.forward13:
     cmp word [bp - 0x44], byte 7     ; 0x93d9
-    jle short @..spell_select_dialog.l20 ; 0x93dd
+    jle short spell_select_dialog.forward14 ; 0x93dd
     push word [bp - 0x14]            ; 0x93df
     mov ax, 0                        ; 0x93e2
     push ax                          ; 0x93e5
@@ -731,7 +731,7 @@ jumptable_9967_case_1:
     imul word [bp - 0x14]            ; 0x93e9
     add ax, strict word 0x64         ; 0x93ec
     mov cx, word [bp - 0x44]         ; 0x93ef
-    add cx, byte 0xf9                ; 0x93f2
+    add cx, byte -7                  ; 0x93f2
     cwd                              ; 0x93f5
     idiv cx                          ; 0x93f6
     imul word [bp - 0x18]            ; 0x93f8
@@ -742,7 +742,7 @@ jumptable_9967_case_1:
     call clamp_between               ; 0x9402
     add sp, byte 6                   ; 0x9405
     mov word [bp - 0x12], ax         ; 0x9408
-@..spell_select_dialog.l20:
+spell_select_dialog.forward14:
     push word [bp - 0x24]            ; 0x940b
     push word [bp - 0x22]            ; 0x940e
     push word [bp - 0x18]            ; 0x9411
@@ -806,23 +806,23 @@ jumptable_9967_case_1:
     push ax                          ; 0x949b
     call gfx_show_area               ; 0x949c
     add sp, byte 8                   ; 0x949f
-    jmp near @..spell_select_dialog.l50 ; 0x94a2
+    jmp near spell_select_dialog.forward43 ; 0x94a2
 jumptable_9967_case_3:
     cmp word [bp + 8], byte 0        ; 0x94a5
-    jne short @..spell_select_dialog.l21 ; 0x94a9
-    jmp near @..spell_select_dialog.l26 ; 0x94ab
-@..spell_select_dialog.l21:
+    jne short spell_select_dialog.forward15 ; 0x94a9
+    jmp near spell_select_dialog.forward20 ; 0x94ab
+spell_select_dialog.forward15:
     cmp word [bp - 0x3c], byte 0     ; 0x94ae
-    jge short @..spell_select_dialog.l22 ; 0x94b2
-    jmp near @..spell_select_dialog.l25 ; 0x94b4
-@..spell_select_dialog.l22:
+    jge short spell_select_dialog.forward16 ; 0x94b2
+    jmp near spell_select_dialog.forward19 ; 0x94b4
+spell_select_dialog.forward16:
     cmp word [bp + 0xa], byte 0      ; 0x94b7
-    je short @..spell_select_dialog.l24 ; 0x94bb
+    je short spell_select_dialog.forward18 ; 0x94bb
     mov ax, word [bp - 0x3e]         ; 0x94bd
     cmp ax, word [bp - 0x40]         ; 0x94c0
-    jle short @..spell_select_dialog.l23 ; 0x94c3
-    jmp near @..spell_select_dialog.l25 ; 0x94c5
-@..spell_select_dialog.l23:
+    jle short spell_select_dialog.forward17 ; 0x94c3
+    jmp near spell_select_dialog.forward19 ; 0x94c5
+spell_select_dialog.forward17:
     mov ax, 6                        ; 0x94c8
     imul word [bp - 0x3c]            ; 0x94cb
     mov bx, ax                       ; 0x94ce
@@ -843,8 +843,8 @@ jumptable_9967_case_3:
     mov cx, word [bx + party_records + pc_rec.realm_points] ; 0x94f0
     pop ax                           ; 0x94f4
     cmp ax, cx                       ; 0x94f5
-    jg short @..spell_select_dialog.l25 ; 0x94f7
-@..spell_select_dialog.l24:
+    jg short spell_select_dialog.forward19 ; 0x94f7
+spell_select_dialog.forward18:
     mov ax, 1                        ; 0x94f9
     push ax                          ; 0x94fc
     push ax                          ; 0x94fd
@@ -874,15 +874,15 @@ jumptable_9967_case_3:
     add sp, byte 0xa                 ; 0x9533
     mov word [spell_dialog_button], 0 ; 0x9536
     mov word [bp - 0x1c], 0          ; 0x953c
-@..spell_select_dialog.l25:
+spell_select_dialog.forward19:
     cmp word [bp - 0x1c], byte 0     ; 0x9541
-    je short @..spell_select_dialog.l26 ; 0x9545
+    je short spell_select_dialog.forward20 ; 0x9545
     mov ax, 0                        ; 0x9547
     push ax                          ; 0x954a
     call play_sound_effect           ; 0x954b
     pop cx                           ; 0x954e
-@..spell_select_dialog.l26:
-    jmp near @..spell_select_dialog.l50 ; 0x954f
+spell_select_dialog.forward20:
+    jmp near spell_select_dialog.forward43 ; 0x954f
 jumptable_9967_case_4:
     mov ax, 1                        ; 0x9552
     push ax                          ; 0x9555
@@ -913,16 +913,16 @@ jumptable_9967_case_4:
     add sp, byte 0xa                 ; 0x958c
     mov word [spell_dialog_button], 1 ; 0x958f
     mov word [bp - 0x1c], 0          ; 0x9595
-    jmp near @..spell_select_dialog.l50 ; 0x959a
-@..spell_select_dialog.l27:
+    jmp near spell_select_dialog.forward43 ; 0x959a
+spell_select_dialog.back7:
     cmp word [bp - 0x1a], byte 5     ; 0x959d
-    jge short @..spell_select_dialog.l28 ; 0x95a1
-    jmp near @..spell_select_dialog.l36 ; 0x95a3
-@..spell_select_dialog.l28:
+    jge short spell_select_dialog.forward21 ; 0x95a1
+    jmp near spell_select_dialog.forward29 ; 0x95a3
+spell_select_dialog.forward21:
     cmp word [bp - 0x1a], byte 0xb   ; 0x95a6
-    jle short @..spell_select_dialog.l29 ; 0x95aa
-    jmp near @..spell_select_dialog.l36 ; 0x95ac
-@..spell_select_dialog.l29:
+    jle short spell_select_dialog.forward22 ; 0x95aa
+    jmp near spell_select_dialog.forward29 ; 0x95ac
+spell_select_dialog.forward22:
     mov ax, 0                        ; 0x95af
     push ax                          ; 0x95b2
     push word [bp - 0x3e]            ; 0x95b3
@@ -949,9 +949,9 @@ jumptable_9967_case_4:
     call draw_power_digit            ; 0x95e8
     add sp, byte 8                   ; 0x95eb
     cmp word [bp - 0x3c], byte 0     ; 0x95ee
-    jge short @..spell_select_dialog.l30 ; 0x95f2
-    jmp near @..spell_select_dialog.l34 ; 0x95f4
-@..spell_select_dialog.l30:
+    jge short spell_select_dialog.forward23 ; 0x95f2
+    jmp near spell_select_dialog.forward27 ; 0x95f4
+spell_select_dialog.forward23:
     mov ax, 6                        ; 0x95f7
     push ax                          ; 0x95fa
     mov ax, 0                        ; 0x95fb
@@ -983,10 +983,10 @@ jumptable_9967_case_4:
     imul cx                          ; 0x963b
     mov word [bp - 2], ax            ; 0x963d
     cmp word [bp + 0xa], byte 0      ; 0x9640
-    jne short @..spell_select_dialog.l31 ; 0x9644
+    jne short spell_select_dialog.forward24 ; 0x9644
     mov ax, 0x3e7                    ; 0x9646
-    jmp short @..spell_select_dialog.l33 ; 0x9649
-@..spell_select_dialog.l31:
+    jmp short spell_select_dialog.forward26 ; 0x9649
+spell_select_dialog.forward24:
     mov ax, 0x248                    ; 0x964b
     imul word [bp + 4]               ; 0x964e
     mov cx, word [bp - 0x42]         ; 0x9651
@@ -996,11 +996,11 @@ jumptable_9967_case_4:
     mov bx, ax                       ; 0x965a
     mov ax, word [bx + party_records + pc_rec.realm_points] ; 0x965c
     cmp ax, word [bp - 2]            ; 0x9660
-    jge short @..spell_select_dialog.l32 ; 0x9663
-    jmp short @..spell_select_dialog.l33 ; 0x9665
-@..spell_select_dialog.l32:
+    jge short spell_select_dialog.forward25 ; 0x9663
+    jmp short spell_select_dialog.forward26 ; 0x9665
+spell_select_dialog.forward25:
     mov ax, word [bp - 2]            ; 0x9667
-@..spell_select_dialog.l33:
+spell_select_dialog.forward26:
     push ax                          ; 0x966a
     mov ax, 6                        ; 0x966b
     imul word [bp - 0x3c]            ; 0x966e
@@ -1020,8 +1020,8 @@ jumptable_9967_case_4:
     push ax                          ; 0x9690
     call draw_spell_cost             ; 0x9691
     add sp, byte 0xa                 ; 0x9694
-    jmp short @..spell_select_dialog.l35 ; 0x9697
-@..spell_select_dialog.l34:
+    jmp short spell_select_dialog.forward28 ; 0x9697
+spell_select_dialog.forward27:
     mov ax, 0                        ; 0x9699
     push ax                          ; 0x969c
     push ax                          ; 0x969d
@@ -1034,7 +1034,7 @@ jumptable_9967_case_4:
     push ax                          ; 0x96ae
     call draw_spell_cost             ; 0x96af
     add sp, byte 0xa                 ; 0x96b2
-@..spell_select_dialog.l35:
+spell_select_dialog.forward28:
     mov ax, word [bp - 6]            ; 0x96b5
     add ax, strict word 0x1c         ; 0x96b8
     push ax                          ; 0x96bb
@@ -1063,16 +1063,16 @@ jumptable_9967_case_4:
     push ax                          ; 0x96f2
     call gfx_show_area               ; 0x96f3
     add sp, byte 8                   ; 0x96f6
-    jmp near @..spell_select_dialog.l47 ; 0x96f9
-@..spell_select_dialog.l36:
+    jmp near spell_select_dialog.forward40 ; 0x96f9
+spell_select_dialog.forward29:
     cmp word [bp - 0x1a], byte 0xc   ; 0x96fc
-    jge short @..spell_select_dialog.l37 ; 0x9700
-    jmp near @..spell_select_dialog.l41 ; 0x9702
-@..spell_select_dialog.l37:
+    jge short spell_select_dialog.forward30 ; 0x9700
+    jmp near spell_select_dialog.forward34 ; 0x9702
+spell_select_dialog.forward30:
     cmp word [bp - 0x1a], byte 0x11  ; 0x9705
-    jle short @..spell_select_dialog.l38 ; 0x9709
-    jmp near @..spell_select_dialog.l41 ; 0x970b
-@..spell_select_dialog.l38:
+    jle short spell_select_dialog.forward31 ; 0x9709
+    jmp near spell_select_dialog.forward34 ; 0x970b
+spell_select_dialog.forward31:
     mov ax, word [bp - 0x1a]         ; 0x970e
     add ax, strict word 0xfff4       ; 0x9711
     mov word [bp - 0x42], ax         ; 0x9714
@@ -1084,15 +1084,15 @@ jumptable_9967_case_4:
     mov word [bp - 0x44], ax         ; 0x9726
     mov ax, 7                        ; 0x9729
     cmp word [bp - 0x44], byte 7     ; 0x972c
-    jge short @..spell_select_dialog.l39 ; 0x9730
+    jge short spell_select_dialog.forward32 ; 0x9730
     mov ax, word [bp - 0x44]         ; 0x9732
-@..spell_select_dialog.l39:
+spell_select_dialog.forward32:
     mov word [bp - 0x24], ax         ; 0x9735
     mov ax, 7                        ; 0x9738
     cmp word [bp - 0x44], byte 7     ; 0x973b
-    jge short @..spell_select_dialog.l40 ; 0x973f
+    jge short spell_select_dialog.forward33 ; 0x973f
     mov ax, word [bp - 0x44]         ; 0x9741
-@..spell_select_dialog.l40:
+spell_select_dialog.forward33:
     mov word [bp - 0x20], ax         ; 0x9744
     mov word [bp - 0x18], 0          ; 0x9747
     mov word [bp - 0x22], 0xffff     ; 0x974c
@@ -1186,18 +1186,18 @@ jumptable_9967_case_4:
     push ax                          ; 0x9824
     call gfx_show_area               ; 0x9825
     add sp, byte 8                   ; 0x9828
-    jmp near @..spell_select_dialog.l47 ; 0x982b
-@..spell_select_dialog.l41:
+    jmp near spell_select_dialog.forward40 ; 0x982b
+spell_select_dialog.forward34:
     cmp word [bp - 0x1a], byte 0x12  ; 0x982e
-    jge short @..spell_select_dialog.l42 ; 0x9832
-    jmp near @..spell_select_dialog.l47 ; 0x9834
-@..spell_select_dialog.l42:
+    jge short spell_select_dialog.forward35 ; 0x9832
+    jmp near spell_select_dialog.forward40 ; 0x9834
+spell_select_dialog.forward35:
     mov ax, word [bp - 0x20]         ; 0x9837
     add ax, strict word 0x12         ; 0x983a
     cmp ax, word [bp - 0x1a]         ; 0x983d
-    jg short @..spell_select_dialog.l43 ; 0x9840
-    jmp near @..spell_select_dialog.l47 ; 0x9842
-@..spell_select_dialog.l43:
+    jg short spell_select_dialog.forward36 ; 0x9840
+    jmp near spell_select_dialog.forward40 ; 0x9842
+spell_select_dialog.forward36:
     mov ax, word [bp - 0x18]         ; 0x9845
     add ax, word [bp - 0x1a]         ; 0x9848
     add ax, strict word 0xffee       ; 0x984b
@@ -1252,10 +1252,10 @@ jumptable_9967_case_4:
     imul cx                          ; 0x98c5
     mov word [bp - 2], ax            ; 0x98c7
     cmp word [bp + 0xa], byte 0      ; 0x98ca
-    jne short @..spell_select_dialog.l44 ; 0x98ce
+    jne short spell_select_dialog.forward37 ; 0x98ce
     mov ax, 0x3e7                    ; 0x98d0
-    jmp short @..spell_select_dialog.l46 ; 0x98d3
-@..spell_select_dialog.l44:
+    jmp short spell_select_dialog.forward39 ; 0x98d3
+spell_select_dialog.forward37:
     mov ax, 0x248                    ; 0x98d5
     imul word [bp + 4]               ; 0x98d8
     mov cx, word [bp - 0x42]         ; 0x98db
@@ -1265,11 +1265,11 @@ jumptable_9967_case_4:
     mov bx, ax                       ; 0x98e4
     mov ax, word [bx + party_records + pc_rec.realm_points] ; 0x98e6
     cmp ax, word [bp - 2]            ; 0x98ea
-    jge short @..spell_select_dialog.l45 ; 0x98ed
-    jmp short @..spell_select_dialog.l46 ; 0x98ef
-@..spell_select_dialog.l45:
+    jge short spell_select_dialog.forward38 ; 0x98ed
+    jmp short spell_select_dialog.forward39 ; 0x98ef
+spell_select_dialog.forward38:
     mov ax, word [bp - 2]            ; 0x98f1
-@..spell_select_dialog.l46:
+spell_select_dialog.forward39:
     push ax                          ; 0x98f4
     mov ax, 6                        ; 0x98f5
     imul word [bp - 0x3c]            ; 0x98f8
@@ -1317,27 +1317,27 @@ jumptable_9967_case_4:
     push ax                          ; 0x995e
     call gfx_show_area               ; 0x995f
     add sp, byte 8                   ; 0x9962
-@..spell_select_dialog.l47:
-    jmp short @..spell_select_dialog.l50 ; 0x9965
+spell_select_dialog.forward40:
+    jmp short spell_select_dialog.forward43 ; 0x9965
 jumptable_9967:
     dw jumptable_9967_case_0 - IMAGE_BASE + __zres_end ; 0x9967
     dw jumptable_9967_case_1 - IMAGE_BASE + __zres_end ; 0x9969
     dw jumptable_9967_case_1 - IMAGE_BASE + __zres_end ; 0x996b
     dw jumptable_9967_case_3 - IMAGE_BASE + __zres_end ; 0x996d
     dw jumptable_9967_case_4 - IMAGE_BASE + __zres_end ; 0x996f
-@..spell_select_dialog.l48:
+spell_select_dialog.forward41:
     cmp ax, strict word 5            ; 0x9971
-    jae short @..spell_select_dialog.l49 ; 0x9974
+    jae short spell_select_dialog.forward42 ; 0x9974
     xchg bx, ax                      ; 0x9976
     shl bx, 1                        ; 0x9977
     jmp [cs:bx + jumptable_9967 - IMAGE_BASE + __zres_end] ; 0x9979
-@..spell_select_dialog.l49:
-    jmp near @..spell_select_dialog.l27 ; 0x997e
-@..spell_select_dialog.l50:
+spell_select_dialog.forward42:
+    jmp near spell_select_dialog.back7 ; 0x997e
+spell_select_dialog.forward43:
     cmp word [bp - 0x1c], byte 0     ; 0x9981
-    je short @..spell_select_dialog.l51 ; 0x9985
-    jmp near @..spell_select_dialog.l8 ; 0x9987
-@..spell_select_dialog.l51:
+    je short spell_select_dialog.forward44 ; 0x9985
+    jmp near spell_select_dialog.back5 ; 0x9987
+spell_select_dialog.forward44:
     mov ax, 1                        ; 0x998a
     push ax                          ; 0x998d
     push word [bp - 0x3a]            ; 0x998e

@@ -9,7 +9,7 @@ loc_IHRL:
     mov al, byte [bx + party_records + pc_rec.order] ; 0x475c
     sub ah, ah                       ; 0x4760
     cmp ax, 0xff                     ; 0x4762
-    je short @..loc_IHRL.l1          ; 0x4765
+    je short .forward1               ; 0x4765
     mov ax, 0x248                    ; 0x4767
     imul word [bp + 4]               ; 0x476a
     push ax                          ; 0x476d
@@ -24,9 +24,9 @@ loc_IHRL:
     mov al, byte [bx + party_records + pc_rec.cell + 0x7] ; 0x4780
     sub ah, ah                       ; 0x4784
     test ax, 2                       ; 0x4786
-    je short @..loc_IHRL.l1          ; 0x4789
+    je short .forward1               ; 0x4789
     mov ax, 1                        ; 0x478b
     ret                              ; 0x478e
-@..loc_IHRL.l1:
+.forward1:
     mov ax, 0                        ; 0x478f
     ret                              ; 0x4792

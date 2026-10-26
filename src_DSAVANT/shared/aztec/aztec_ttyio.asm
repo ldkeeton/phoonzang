@@ -5,7 +5,7 @@ aztec_impl_tty_rd:
     push si
     mov si, word [_TTrem]
     test si, si
-    jne short @..aztec_impl_tty_rd.l2
+    jne short .forward2
     mov ax, 0x104
     push ax
     mov ax, aztec_tty_rd_buffer
@@ -15,28 +15,28 @@ aztec_impl_tty_rd:
     add sp, byte 6
     mov si, ax
     test si, si
-    je short @..aztec_impl_tty_rd.l1
+    je short .forward1
     cmp byte [si + aztec_tty_rd_buffer - 0x1], 0xa
-    jne short @..aztec_impl_tty_rd.l1
+    jne short .forward1
     dec si
     mov al, byte [_Eol]
     mov byte [si + aztec_tty_rd_buffer - 0x1], al
-@..aztec_impl_tty_rd.l1:
+.forward1:
     mov word [aztec_tty_rd_bp], aztec_tty_rd_buffer
     mov word [_TTrem], si
-@..aztec_impl_tty_rd.l2:
+.forward2:
     cmp si, word [bp + 8]
-    jle short @..aztec_impl_tty_rd.l3
+    jle short .forward3
     mov si, word [bp + 8]
-@..aztec_impl_tty_rd.l3:
+.forward3:
     test si, si
-    je short @..aztec_impl_tty_rd.l4
+    je short .forward4
     push si
     push word [bp + 6]
     push word [aztec_tty_rd_bp]
     call aztec_movmem
     add sp, byte 6
-@..aztec_impl_tty_rd.l4:
+.forward4:
     add word [aztec_tty_rd_bp], si
     sub word [_TTrem], si
     mov ax, si
@@ -51,12 +51,12 @@ aztec_impl_tty_wr:
     push si
     mov di, word [bp + 6]
     mov si, word [bp + 8]
-    jmp short @..aztec_impl_tty_wr.l2
-@..aztec_impl_tty_wr.l1:
+    jmp short .forward1
+.back1:
     mov bx, di
     inc di
     cmp byte [bx], 0xa
-    jne short @..aztec_impl_tty_wr.l2
+    jne short .forward1
     mov ax, di
     sub ax, word [bp + 6]
     push ax
@@ -72,13 +72,13 @@ aztec_impl_tty_wr:
     call aztec_impl_write
     add sp, byte 6
     mov word [bp + 6], di
-@..aztec_impl_tty_wr.l2:
+.forward1:
     mov ax, si
     dec si
     test ax, ax
-    jne short @..aztec_impl_tty_wr.l1
+    jne short .back1
     cmp di, word [bp + 6]
-    je short @..aztec_impl_tty_wr.l3
+    je short .forward2
     mov ax, di
     sub ax, word [bp + 6]
     push ax
@@ -86,7 +86,7 @@ aztec_impl_tty_wr:
     push word [bp + 4]
     call aztec_impl_write
     add sp, byte 6
-@..aztec_impl_tty_wr.l3:
+.forward2:
     mov ax, word [bp + 8]
     pop si
     pop di

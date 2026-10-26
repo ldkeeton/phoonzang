@@ -4,8 +4,8 @@ api_idx_0004_PKLV:
     call aztec_csav                  ; 0x452b
     mov word [bp - 4], 0             ; 0x452e
     mov word [bp - 2], 0             ; 0x4533
-    jmp short @..api_idx_0004_PKLV.l3 ; 0x4538
-@..api_idx_0004_PKLV.l1:
+    jmp short .forward2              ; 0x4538
+.back1:
     mov ax, 0x2c                     ; 0x453a
     imul word [bp - 2]               ; 0x453d
     mov si, ax                       ; 0x4540
@@ -17,13 +17,13 @@ api_idx_0004_PKLV:
     mov cx, word [bx + si + member_rec.item_charges] ; 0x4550
     sub ax, cx                       ; 0x4553
     cmp ax, word [bp - 4]            ; 0x4555
-    jle short @..api_idx_0004_PKLV.l2 ; 0x4558
+    jle short .forward1              ; 0x4558
     mov ax, 2                        ; 0x455a
     push ax                          ; 0x455d
     call random_below                ; 0x455e
     pop cx                           ; 0x4561
     test ax, ax                      ; 0x4562
-    jne short @..api_idx_0004_PKLV.l2 ; 0x4564
+    jne short .forward1              ; 0x4564
     mov al, byte [bp + 6]            ; 0x4566
     mov bx, word [bp + 4]            ; 0x4569
     mov byte [bx + 0x1f], al         ; 0x456c
@@ -41,9 +41,9 @@ api_idx_0004_PKLV:
     mov cx, word [bx + si + member_rec.item_charges] ; 0x458e
     sub ax, cx                       ; 0x4591
     mov word [bp - 4], ax            ; 0x4593
-@..api_idx_0004_PKLV.l2:
+.forward1:
     inc word [bp - 2]                ; 0x4596
-@..api_idx_0004_PKLV.l3:
+.forward2:
     mov ax, word [bp + 6]            ; 0x4599
     shl ax, 1                        ; 0x459c
     mov bx, ax                       ; 0x459e
@@ -51,6 +51,6 @@ api_idx_0004_PKLV:
     mov al, byte [bx + member_rec.item_count] ; 0x45a4
     sub ah, ah                       ; 0x45a8
     cmp ax, word [bp - 2]            ; 0x45aa
-    jg short @..api_idx_0004_PKLV.l1 ; 0x45ad
+    jg short .back1                  ; 0x45ad
     mov ax, word [bp - 4]            ; 0x45af
     ret                              ; 0x45b2

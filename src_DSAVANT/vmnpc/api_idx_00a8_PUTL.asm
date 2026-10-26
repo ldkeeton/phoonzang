@@ -9,14 +9,14 @@ api_idx_00a8_PUTL:
     add sp, byte 4                   ; 0x8ebd
     mov word [bp - 0xa8], 0          ; 0x8ec0
     mov word [bp - 0xa4], 0          ; 0x8ec6
-@..api_idx_00a8_PUTL.l1:
+.back1:
     mov bx, word [bp - 0xa4]         ; 0x8ecc
     add bx, bp                       ; 0x8ed0
     cmp byte [bx - 0x52], 0x20       ; 0x8ed2
-    jne short @..api_idx_00a8_PUTL.l2 ; 0x8ed6
+    jne short .forward1              ; 0x8ed6
     inc word [bp - 0xa4]             ; 0x8ed8
-    jmp short @..api_idx_00a8_PUTL.l1 ; 0x8edc
-@..api_idx_00a8_PUTL.l2:
+    jmp short .back1                 ; 0x8edc
+.forward1:
     push word [bp - 0xa4]            ; 0x8ede
     lea ax, word [bp - 0x52]         ; 0x8ee2
     push ax                          ; 0x8ee5
@@ -24,7 +24,7 @@ api_idx_00a8_PUTL:
     add sp, byte 4                   ; 0x8ee9
     mov word [bp - 0xa6], ax         ; 0x8eec
     cmp ax, strict word 0xffff       ; 0x8ef0
-    je short @..api_idx_00a8_PUTL.l5 ; 0x8ef3
+    je short .forward3               ; 0x8ef3
     sub ax, word [bp - 0xa4]         ; 0x8ef5
     push ax                          ; 0x8ef9
     mov ax, word [bp - 0xa4]         ; 0x8efa
@@ -46,8 +46,8 @@ api_idx_00a8_PUTL:
     call api_idx_00a6_OTNK           ; 0x8f2a
     pop cx                           ; 0x8f2d
     mov word [bp - 2], 0             ; 0x8f2e
-    jmp short @..api_idx_00a8_PUTL.l4 ; 0x8f33
-@..api_idx_00a8_PUTL.l3:
+    jmp short .forward2              ; 0x8f33
+.back2:
     mov bx, word [bp - 2]            ; 0x8f35
     add bx, bp                       ; 0x8f38
     mov al, byte [bx - 0xa2]         ; 0x8f3a
@@ -57,25 +57,25 @@ api_idx_00a8_PUTL:
     mov bx, word [bp + 4]            ; 0x8f47
     mov byte [bx + si], al           ; 0x8f4a
     inc word [bp - 2]                ; 0x8f4c
-@..api_idx_00a8_PUTL.l4:
+.forward2:
     lea ax, word [bp - 0xa2]         ; 0x8f4f
     push ax                          ; 0x8f53
     call aztec_strlen                ; 0x8f54
     pop cx                           ; 0x8f57
     cmp ax, word [bp - 2]            ; 0x8f58
-    jg short @..api_idx_00a8_PUTL.l3 ; 0x8f5b
+    jg short .back2                  ; 0x8f5b
     lea ax, word [bp - 0xa2]         ; 0x8f5d
     push ax                          ; 0x8f61
     call aztec_strlen                ; 0x8f62
     pop cx                           ; 0x8f65
     add word [bp - 0xa8], ax         ; 0x8f66
-@..api_idx_00a8_PUTL.l5:
+.forward3:
     mov ax, word [bp - 0xa6]         ; 0x8f6a
     mov word [bp - 0xa4], ax         ; 0x8f6e
     cmp ax, strict word 0xffff       ; 0x8f72
-    je short @..api_idx_00a8_PUTL.l6 ; 0x8f75
-    jmp near @..api_idx_00a8_PUTL.l1 ; 0x8f77
-@..api_idx_00a8_PUTL.l6:
+    je short .forward4               ; 0x8f75
+    jmp near .back1                  ; 0x8f77
+.forward4:
     mov bx, word [bp + 4]            ; 0x8f7a
     mov si, word [bp - 0xa8]         ; 0x8f7d
     mov byte [bx + si], 0            ; 0x8f81

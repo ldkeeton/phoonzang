@@ -13,14 +13,14 @@ sound_stop_and_restore_timer:
     mov ds, ax                       ; 0x09ed
     mov dx, 0xbb4                    ; 0x09ef
     cmp byte [cs:music_enabled - IMAGE_BASE], 0 ; 0x09f2
-    jne short @..sound_stop_and_restore_timer.l1 ; 0x09f8
+    jne short .forward1              ; 0x09f8
     mov al, byte [cs:saved_pic_mask - IMAGE_BASE] ; 0x09fa
     out 0x21, al                     ; 0x09fe
     mov bx, 0                        ; 0x0a00
     mov ds, word [cs:cseg_0b12 - IMAGE_BASE] ; 0x0a03
     mov dx, word [cs:cseg_0b10 - IMAGE_BASE] ; 0x0a08
     mov byte [cs:cseg_0321 - IMAGE_BASE], 0 ; 0x0a0d
-@..sound_stop_and_restore_timer.l1:
+.forward1:
     call string_loc_OJPI             ; 0x0a13
     mov al, 0x36                     ; 0x0a16
     out 0x43, al                     ; 0x0a18

@@ -9,7 +9,7 @@ loc_JTQP:
     call api_idx_0080_MHMQ           ; 0x40c7
     pop cx                           ; 0x40ca
     cmp word [bp + 6], byte 0        ; 0x40cb
-    jne short @..loc_JTQP.l1         ; 0x40cf
+    jne short .return1               ; 0x40cf
     push word [bp + 4]               ; 0x40d1
     call api_idx_004c_LTUL           ; 0x40d4
     pop cx                           ; 0x40d7
@@ -23,5 +23,5 @@ loc_JTQP:
     push ax                          ; 0x40e7
     call gfx_show_area               ; 0x40e8
     add sp, byte 8                   ; 0x40eb
-@..loc_JTQP.l1:
+.return1:
     ret                              ; 0x40ee

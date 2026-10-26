@@ -38,7 +38,7 @@ loc_RVKS:
     mov si, ax                       ; 0x6f99
     mov bx, word [maze_tables]       ; 0x6f9b
     cmp word [bx + si], byte 0       ; 0x6f9f
-    jle short @..loc_RVKS.l1         ; 0x6fa2
+    jle short .forward1              ; 0x6fa2
     mov ax, 0                        ; 0x6fa4
     push ax                          ; 0x6fa7
     push word [bx + si]              ; 0x6fa8
@@ -66,12 +66,12 @@ loc_RVKS:
     mov ax, word [bp + 4]            ; 0x6fdf
     inc ax                           ; 0x6fe2
     mov word [party_region], ax      ; 0x6fe3
-@..loc_RVKS.l1:
+.forward1:
     cmp word [bp + 6], byte 0        ; 0x6fe6
-    je short @..loc_RVKS.l2          ; 0x6fea
+    je short .return1                ; 0x6fea
     mov ax, 1                        ; 0x6fec
     push ax                          ; 0x6fef
     call play_sound_effect           ; 0x6ff0
     pop cx                           ; 0x6ff3
-@..loc_RVKS.l2:
+.return1:
     ret                              ; 0x6ff4

@@ -19,8 +19,8 @@ api_idx_000c_POTM:
     mov al, byte [bx + slot_recs]    ; 0x01fc
     sub ah, ah                       ; 0x0200
     mov word [bp - 2], ax            ; 0x0202
-    jmp near @..api_idx_000c_POTM.l13 ; 0x0205
-@..api_idx_000c_POTM.l1:
+    jmp near .forward12              ; 0x0205
+.back1:
     mov ax, 0x5a                     ; 0x0208
     imul word [bp + 6]               ; 0x020b
     push ax                          ; 0x020e
@@ -41,9 +41,9 @@ api_idx_000c_POTM:
     mov word [bp - 6], ax            ; 0x022e
     mov bx, word [bp + 4]            ; 0x0231
     cmp byte [bx + picture_slot_number], 0x18 ; 0x0234
-    jne short @..api_idx_000c_POTM.l2 ; 0x0239
+    jne short .forward1              ; 0x0239
     cmp word [bss_9134], byte 1      ; 0x023b
-    jne short @..api_idx_000c_POTM.l2 ; 0x0240
+    jne short .forward1              ; 0x0240
     mov ax, 0x15e                    ; 0x0242
     imul bx                          ; 0x0245
     mov cx, word [bp - 6]            ; 0x0247
@@ -52,9 +52,9 @@ api_idx_000c_POTM:
     add ax, cx                       ; 0x024e
     mov bx, ax                       ; 0x0250
     cmp byte [bx + slot_recs + slot_rec.range + 0x1], 4 ; 0x0252
-    jne short @..api_idx_000c_POTM.l2 ; 0x0257
+    jne short .forward1              ; 0x0257
     mov word [bp + 0xa], 0           ; 0x0259
-@..api_idx_000c_POTM.l2:
+.forward1:
     mov ax, 0x5a                     ; 0x025e
     imul word [bp + 6]               ; 0x0261
     push ax                          ; 0x0264
@@ -74,13 +74,13 @@ api_idx_000c_POTM:
     sub ah, ah                       ; 0x0282
     mov word [bp - 8], ax            ; 0x0284
     cmp word [bp + 0xa], byte 0      ; 0x0287
-    je short @..api_idx_000c_POTM.l3 ; 0x028b
+    je short .forward2               ; 0x028b
     dec word [bp - 8]                ; 0x028d
-@..api_idx_000c_POTM.l3:
+.forward2:
     cmp word [bp - 8], byte 0        ; 0x0290
-    jle short @..api_idx_000c_POTM.l4 ; 0x0294
-    jmp near @..api_idx_000c_POTM.l8 ; 0x0296
-@..api_idx_000c_POTM.l4:
+    jle short .forward3              ; 0x0294
+    jmp near .forward7               ; 0x0296
+.forward3:
     mov al, byte [bx + action_slot_table] ; 0x0299
     sub ah, ah                       ; 0x029d
     mov word [bp - 4], ax            ; 0x029f
@@ -101,15 +101,15 @@ api_idx_000c_POTM:
     add ax, cx                       ; 0x02c4
     dec ax                           ; 0x02c6
     cmp ax, word [bp - 6]            ; 0x02c7
-    jl short @..api_idx_000c_POTM.l5 ; 0x02ca
-    jmp near @..api_idx_000c_POTM.l7 ; 0x02cc
-@..api_idx_000c_POTM.l5:
+    jl short .forward4               ; 0x02ca
+    jmp near .forward6               ; 0x02cc
+.forward4:
     mov ax, 3                        ; 0x02cf
     imul word [bp + 6]               ; 0x02d2
     add ax, word [bp + 8]            ; 0x02d5
     mov bx, ax                       ; 0x02d8
     cmp byte [bx + action_slot_mode], 0 ; 0x02da
-    je short @..api_idx_000c_POTM.l6 ; 0x02df
+    je short .forward5               ; 0x02df
     mov byte [bx + action_slot_mode], 0 ; 0x02e1
     mov ax, 0                        ; 0x02e6
     push ax                          ; 0x02e9
@@ -127,7 +127,7 @@ api_idx_000c_POTM:
     call api_idx_000c_POTM           ; 0x0309
     add sp, byte 0xa                 ; 0x030c
     ret                              ; 0x030f
-@..api_idx_000c_POTM.l6:
+.forward5:
     mov ax, 0x15e                    ; 0x0310
     imul word [bp + 4]               ; 0x0313
     add ax, word [bp - 2]            ; 0x0316
@@ -171,7 +171,7 @@ api_idx_000c_POTM:
     mov al, byte [bx + slot_recs + slot_rec.target] ; 0x0372
     sub ah, ah                       ; 0x0376
     mov word [bp - 6], ax            ; 0x0378
-@..api_idx_000c_POTM.l7:
+.forward6:
     mov al, byte [bp - 6]            ; 0x037b
     push ax                          ; 0x037e
     mov ax, 0x5a                     ; 0x037f
@@ -214,7 +214,7 @@ api_idx_000c_POTM:
     pop ax                           ; 0x03d8
     add ax, cx                       ; 0x03d9
     mov word [bp - 8], ax            ; 0x03db
-@..api_idx_000c_POTM.l8:
+.forward7:
     mov al, byte [bp - 8]            ; 0x03de
     push ax                          ; 0x03e1
     mov ax, 0x5a                     ; 0x03e2
@@ -244,7 +244,7 @@ api_idx_000c_POTM:
     mov byte [bx + si], al           ; 0x0420
     mov bx, word [bp + 4]            ; 0x0422
     cmp byte [bx + picture_slot_number], 0x47 ; 0x0425
-    jne short @..api_idx_000c_POTM.l9 ; 0x042a
+    jne short .forward8              ; 0x042a
     mov ax, 0x5a                     ; 0x042c
     imul word [bp + 6]               ; 0x042f
     push ax                          ; 0x0432
@@ -271,12 +271,12 @@ api_idx_000c_POTM:
     pop ax                           ; 0x045f
     add ax, cx                       ; 0x0460
     mov word [dest_alt_arg], ax      ; 0x0462
-@..api_idx_000c_POTM.l9:
+.forward8:
     cmp word [bss_9136], byte 0x23   ; 0x0465
-    je short @..api_idx_000c_POTM.l10 ; 0x046a
+    je short .forward9               ; 0x046a
     cmp word [bss_9136], byte 0xb    ; 0x046c
-    jne short @..api_idx_000c_POTM.l11 ; 0x0471
-@..api_idx_000c_POTM.l10:
+    jne short .forward10             ; 0x0471
+.forward9:
     inc word [bp - 0xc]              ; 0x0473
     mov bx, word [bp + 0xc]          ; 0x0476
     mov si, word [bp - 0xc]          ; 0x0479
@@ -289,15 +289,15 @@ api_idx_000c_POTM:
     mov bx, word [bp + 0xc]          ; 0x048d
     mov si, word [bp - 0xc]          ; 0x0490
     mov byte [bx + si - 1], al       ; 0x0493
-@..api_idx_000c_POTM.l11:
+.forward10:
     mov bx, word [bp + 0xc]          ; 0x0496
     mov si, word [bp - 0xc]          ; 0x0499
     cmp byte [bx + si], 0            ; 0x049c
-    je short @..api_idx_000c_POTM.l12 ; 0x049f
+    je short .forward11              ; 0x049f
     inc word [bp - 0xc]              ; 0x04a1
-@..api_idx_000c_POTM.l12:
+.forward11:
     inc word [bp - 2]                ; 0x04a4
-@..api_idx_000c_POTM.l13:
+.forward12:
     mov ax, 0x15e                    ; 0x04a7
     imul word [bp + 4]               ; 0x04aa
     push ax                          ; 0x04ad
@@ -320,17 +320,17 @@ api_idx_000c_POTM:
     pop ax                           ; 0x04d5
     add ax, cx                       ; 0x04d6
     cmp ax, word [bp - 2]            ; 0x04d8
-    jle short @..api_idx_000c_POTM.l14 ; 0x04db
-    jmp near @..api_idx_000c_POTM.l1 ; 0x04dd
-@..api_idx_000c_POTM.l14:
+    jle short .forward13             ; 0x04db
+    jmp near .back1                  ; 0x04dd
+.forward13:
     cmp word [bss_9136], byte 0x3c   ; 0x04e0
-    jge short @..api_idx_000c_POTM.l15 ; 0x04e5
-    jmp near @..api_idx_000c_POTM.l20 ; 0x04e7
-@..api_idx_000c_POTM.l15:
+    jge short .forward14             ; 0x04e5
+    jmp near .forward17              ; 0x04e7
+.forward14:
     cmp word [bss_9136], byte 0x3e   ; 0x04ea
-    jle short @..api_idx_000c_POTM.l16 ; 0x04ef
-    jmp near @..api_idx_000c_POTM.l20 ; 0x04f1
-@..api_idx_000c_POTM.l16:
+    jle short .forward15             ; 0x04ef
+    jmp near .forward17              ; 0x04f1
+.forward15:
     mov ax, 0x15e                    ; 0x04f4
     imul word [bp + 4]               ; 0x04f7
     mov cx, word [bss_9134]          ; 0x04fa
@@ -365,94 +365,94 @@ api_idx_000c_POTM:
     mov byte [bx + 3], 0             ; 0x054a
     mov word [bp - 0xc], 3           ; 0x054e
     mov ax, word [bss_9134]          ; 0x0553
-    jmp short @..api_idx_000c_POTM.l19 ; 0x0556
-@..api_idx_000c_POTM.l17:
+    jmp short .forward16             ; 0x0556
+.back2:
     mov bx, word [bp + 0xc]          ; 0x0558
     mov al, byte [bx]                ; 0x055b
     sub ah, ah                       ; 0x055d
     add ax, word [party_status_frame] ; 0x055f
     mov byte [bx], al                ; 0x0563
-    jmp short @..api_idx_000c_POTM.l20 ; 0x0565
-@..api_idx_000c_POTM.l18:
+    jmp short .forward17             ; 0x0565
+.back3:
     mov bx, word [bp + 0xc]          ; 0x0567
     mov al, byte [bx + 1]            ; 0x056a
     sub ah, ah                       ; 0x056d
     add ax, word [party_status_frame] ; 0x056f
     mov byte [bx + 1], al            ; 0x0573
-    jmp short @..api_idx_000c_POTM.l20 ; 0x0576
-@..api_idx_000c_POTM.l19:
+    jmp short .forward17             ; 0x0576
+.forward16:
     cmp ax, strict word 1            ; 0x0578
-    je short @..api_idx_000c_POTM.l17 ; 0x057b
+    je short .back2                  ; 0x057b
     cmp ax, strict word 2            ; 0x057d
-    je short @..api_idx_000c_POTM.l17 ; 0x0580
+    je short .back2                  ; 0x0580
     cmp ax, strict word 0x14         ; 0x0582
-    je short @..api_idx_000c_POTM.l18 ; 0x0585
-@..api_idx_000c_POTM.l20:
+    je short .back3                  ; 0x0585
+.forward17:
     mov bx, word [bp + 4]            ; 0x0587
     mov al, byte [bx + picture_slot_number] ; 0x058a
     sub ah, ah                       ; 0x058e
-    jmp short @..api_idx_000c_POTM.l30 ; 0x0590
-@..api_idx_000c_POTM.l21:
+    jmp short .forward23             ; 0x0590
+.back4:
     cmp word [bss_9134], byte 1      ; 0x0592
-    jne short @..api_idx_000c_POTM.l22 ; 0x0597
+    jne short .forward18             ; 0x0597
     mov word [bp - 0xc], 1           ; 0x0599
-@..api_idx_000c_POTM.l22:
-    jmp short @..api_idx_000c_POTM.l31 ; 0x059e
-@..api_idx_000c_POTM.l23:
+.forward18:
+    jmp short .forward24             ; 0x059e
+.back5:
     cmp word [bss_9134], byte 1      ; 0x05a0
-    jne short @..api_idx_000c_POTM.l24 ; 0x05a5
+    jne short .forward19             ; 0x05a5
     mov word [bp - 0xc], 1           ; 0x05a7
-@..api_idx_000c_POTM.l24:
+.forward19:
     cmp word [bss_9134], byte 2      ; 0x05ac
-    jne short @..api_idx_000c_POTM.l25 ; 0x05b1
+    jne short .forward20             ; 0x05b1
     mov ax, word [party_status_frame] ; 0x05b3
     inc ax                           ; 0x05b6
     inc ax                           ; 0x05b7
     inc ax                           ; 0x05b8
     mov bx, word [bp + 0xc]          ; 0x05b9
     mov byte [bx + 1], al            ; 0x05bc
-@..api_idx_000c_POTM.l25:
-    jmp short @..api_idx_000c_POTM.l31 ; 0x05bf
-@..api_idx_000c_POTM.l26:
+.forward20:
+    jmp short .forward24             ; 0x05bf
+.back6:
     cmp word [bss_9134], byte 1      ; 0x05c1
-    jne short @..api_idx_000c_POTM.l27 ; 0x05c6
+    jne short .forward21             ; 0x05c6
     mov bx, word [bp + 0xc]          ; 0x05c8
     mov byte [bx + 1], 2             ; 0x05cb
-@..api_idx_000c_POTM.l27:
+.forward21:
     mov word [bp - 0xc], 2           ; 0x05cf
-    jmp short @..api_idx_000c_POTM.l31 ; 0x05d4
-@..api_idx_000c_POTM.l28:
+    jmp short .forward24             ; 0x05d4
+.back7:
     cmp word [bss_9134], byte 1      ; 0x05d6
-    jne short @..api_idx_000c_POTM.l29 ; 0x05db
+    jne short .forward22             ; 0x05db
     mov ax, word [party_status_frame] ; 0x05dd
     inc ax                           ; 0x05e0
     mov bx, word [bp + 0xc]          ; 0x05e1
     mov byte [bx], al                ; 0x05e4
-@..api_idx_000c_POTM.l29:
+.forward22:
     mov word [bp - 0xc], 1           ; 0x05e6
-    jmp short @..api_idx_000c_POTM.l31 ; 0x05eb
-@..api_idx_000c_POTM.l30:
+    jmp short .forward24             ; 0x05eb
+.forward23:
     cmp ax, strict word 0x34         ; 0x05ed
-    je short @..api_idx_000c_POTM.l21 ; 0x05f0
+    je short .back4                  ; 0x05f0
     cmp ax, strict word 0x37         ; 0x05f2
-    je short @..api_idx_000c_POTM.l23 ; 0x05f5
+    je short .back5                  ; 0x05f5
     cmp ax, strict word 0x46         ; 0x05f7
-    je short @..api_idx_000c_POTM.l26 ; 0x05fa
+    je short .back6                  ; 0x05fa
     cmp ax, strict word 0x49         ; 0x05fc
-    je short @..api_idx_000c_POTM.l28 ; 0x05ff
-@..api_idx_000c_POTM.l31:
+    je short .back7                  ; 0x05ff
+.forward24:
     cmp word [bss_9136], byte 0x2d   ; 0x0601
-    je short @..api_idx_000c_POTM.l32 ; 0x0606
+    je short .forward25              ; 0x0606
     cmp word [bss_9136], byte 0x32   ; 0x0608
-    jne short @..api_idx_000c_POTM.l33 ; 0x060d
-@..api_idx_000c_POTM.l32:
+    jne short .forward26             ; 0x060d
+.forward25:
     cmp word [bss_9134], byte 0      ; 0x060f
-    jle short @..api_idx_000c_POTM.l33 ; 0x0614
+    jle short .forward26             ; 0x0614
     mov al, byte [bss_9134]          ; 0x0616
     mov bx, word [bp + 0xc]          ; 0x0619
     mov byte [bx], al                ; 0x061c
     mov word [bp - 0xc], 1           ; 0x061e
-@..api_idx_000c_POTM.l33:
+.forward26:
     mov bx, word [bp + 0xc]          ; 0x0623
     mov si, word [bp - 0xc]          ; 0x0626
     mov byte [bx + si], 0            ; 0x0629

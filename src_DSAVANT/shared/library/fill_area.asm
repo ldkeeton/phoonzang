@@ -23,13 +23,13 @@ fill_area:
     inc ax
     mov word [bp - 6], ax
     mov ax, word [bp + 0x14]
-@..fill_area.l1:
+.back1:
     mov di, word [bp - 2]
     add word [bp - 2], strict word 0x140
     mov cx, word [bp - 6]
     rep stosb
     dec word [bp - 4]
-    jne short @..fill_area.l1
+    jne short .back1
     pop di
     pop es
     mov sp, bp

@@ -8,12 +8,12 @@ loc_PQKO:
     mov al, byte [bx + slot_records + slot_record.kind] ; 0x9456
     sub ah, ah                       ; 0x945a
     cmp ax, word [bp + 6]            ; 0x945c
-    jne short @..loc_PQKO.l1         ; 0x945f
+    jne short .forward1              ; 0x945f
     mov ax, 1                        ; 0x9461
-    jmp short @..loc_PQKO.l2         ; 0x9464
-@..loc_PQKO.l1:
+    jmp short .return1               ; 0x9464
+.forward1:
     mov ax, 0                        ; 0x9466
-@..loc_PQKO.l2:
+.return1:
     ret                              ; 0x9469
 loc_QJRN:
     mov ax, 0                        ; 0x946a
@@ -32,10 +32,10 @@ loc_QJRN:
     call api_idx_0006_UMQS           ; 0x948e
     add sp, byte 6                   ; 0x9491
     test ax, ax                      ; 0x9494
-    jne short @..loc_QJRN.l1         ; 0x9496
+    jne short .return1               ; 0x9496
     mov ax, 0x26                     ; 0x9498
     imul word [bp + 4]               ; 0x949b
     mov bx, ax                       ; 0x949e
     mov byte [bx + slot_records + slot_record.f_0002], 0 ; 0x94a0
-@..loc_QJRN.l1:
+.return1:
     ret                              ; 0x94a5

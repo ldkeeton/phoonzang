@@ -4,9 +4,9 @@ loc_OVQV:
     call aztec_csav                  ; 0x242f
     mov ax, 0xc0                     ; 0x2432
     cmp word [bp + 0xc], byte 0      ; 0x2435
-    je short @..loc_OVQV.l1          ; 0x2439
+    je short .forward1               ; 0x2439
     mov ax, 0xc2                     ; 0x243b
-@..loc_OVQV.l1:
+.forward1:
     push ax                          ; 0x243e
     push word [bp + 0xa]             ; 0x243f
     push word [bp + 8]               ; 0x2442
@@ -22,15 +22,15 @@ loc_OVQV:
     add sp, byte 8                   ; 0x2460
     mov ax, 0xc5                     ; 0x2463
     cmp word [bp + 0xc], byte 0      ; 0x2466
-    je short @..loc_OVQV.l2          ; 0x246a
+    je short .forward2               ; 0x246a
     mov ax, 0xc6                     ; 0x246c
-@..loc_OVQV.l2:
+.forward2:
     push ax                          ; 0x246f
     mov ax, 0xb0                     ; 0x2470
     cmp word [bp + 0xc], byte 0      ; 0x2473
-    je short @..loc_OVQV.l3          ; 0x2477
+    je short .forward3               ; 0x2477
     mov ax, 0xc4                     ; 0x2479
-@..loc_OVQV.l3:
+.forward3:
     push ax                          ; 0x247c
     push word [bp + 0xa]             ; 0x247d
     push word [bp + 8]               ; 0x2480
@@ -62,9 +62,9 @@ loc_OVQV:
     add sp, byte 0xc                 ; 0x24b2
     mov ax, 0x51                     ; 0x24b5
     cmp word [bp + 0xc], byte 0      ; 0x24b8
-    je short @..loc_OVQV.l4          ; 0x24bc
+    je short .forward4               ; 0x24bc
     mov ax, 0xc3                     ; 0x24be
-@..loc_OVQV.l4:
+.forward4:
     push ax                          ; 0x24c1
     push word [bp + 6]               ; 0x24c2
     push word [bp + 4]               ; 0x24c5
@@ -72,9 +72,9 @@ loc_OVQV:
     add sp, byte 6                   ; 0x24cb
     mov ax, 0xb6                     ; 0x24ce
     cmp word [bp + 0xc], byte 0      ; 0x24d1
-    je short @..loc_OVQV.l5          ; 0x24d5
+    je short .forward5               ; 0x24d5
     mov ax, 0xc5                     ; 0x24d7
-@..loc_OVQV.l5:
+.forward5:
     push ax                          ; 0x24da
     push word [bp + 6]               ; 0x24db
     push word [bp + 8]               ; 0x24de
@@ -82,9 +82,9 @@ loc_OVQV:
     add sp, byte 6                   ; 0x24e4
     mov ax, 0xb6                     ; 0x24e7
     cmp word [bp + 0xc], byte 0      ; 0x24ea
-    je short @..loc_OVQV.l6          ; 0x24ee
+    je short .forward6               ; 0x24ee
     mov ax, 0xc5                     ; 0x24f0
-@..loc_OVQV.l6:
+.forward6:
     push ax                          ; 0x24f3
     push word [bp + 0xa]             ; 0x24f4
     push word [bp + 4]               ; 0x24f7
@@ -92,9 +92,9 @@ loc_OVQV:
     add sp, byte 6                   ; 0x24fd
     mov ax, 0xc6                     ; 0x2500
     cmp word [bp + 0xc], byte 0      ; 0x2503
-    je short @..loc_OVQV.l7          ; 0x2507
+    je short .forward7               ; 0x2507
     mov ax, 0xc7                     ; 0x2509
-@..loc_OVQV.l7:
+.forward7:
     push ax                          ; 0x250c
     push word [bp + 0xa]             ; 0x250d
     push word [bp + 8]               ; 0x2510

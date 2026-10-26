@@ -12,13 +12,13 @@ api_idx_0010_TRQK:
     call loc_PQKO                    ; 0xa2f7
     add sp, byte 4                   ; 0xa2fa
     test ax, ax                      ; 0xa2fd
-    jne short @..api_idx_0010_TRQK.l1 ; 0xa2ff
+    jne short .forward1              ; 0xa2ff
     mov ax, 0x26                     ; 0xa301
     imul word [bp + 4]               ; 0xa304
     mov bx, ax                       ; 0xa307
     mov byte [bx + slot_records + slot_record.f_0002], 0 ; 0xa309
     ret                              ; 0xa30e
-@..api_idx_0010_TRQK.l1:
+.forward1:
     mov ax, 0x26                     ; 0xa30f
     imul word [bp + 4]               ; 0xa312
     mov bx, ax                       ; 0xa315
@@ -31,9 +31,9 @@ api_idx_0010_TRQK:
     call api_idx_0002_OOUO           ; 0xa326
     add sp, byte 6                   ; 0xa329
     test ax, ax                      ; 0xa32c
-    je short @..api_idx_0010_TRQK.l2 ; 0xa32e
+    je short .forward2               ; 0xa32e
     ret                              ; 0xa330
-@..api_idx_0010_TRQK.l2:
+.forward2:
     mov ax, 0x26                     ; 0xa331
     imul word [bp + 4]               ; 0xa334
     mov bx, ax                       ; 0xa337
@@ -47,13 +47,13 @@ api_idx_0010_TRQK:
     sub ah, ah                       ; 0xa34c
     mov word [bp - 8], ax            ; 0xa34e
     cmp ax, strict word 0            ; 0xa351
-    jle short @..api_idx_0010_TRQK.l3 ; 0xa354
+    jle short .forward3              ; 0xa354
     mov ax, 4                        ; 0xa356
     push ax                          ; 0xa359
     call random_below                ; 0xa35a
     pop cx                           ; 0xa35d
     test ax, ax                      ; 0xa35e
-    jne short @..api_idx_0010_TRQK.l3 ; 0xa360
+    jne short .forward3              ; 0xa360
     mov ax, 0x26                     ; 0xa362
     imul word [bp + 4]               ; 0xa365
     mov bx, ax                       ; 0xa368
@@ -75,13 +75,13 @@ api_idx_0010_TRQK:
     mov cx, ax                       ; 0xa38f
     mov ax, word [bp - 0xa]          ; 0xa391
     cmp cx, ax                       ; 0xa394
-    jle short @..api_idx_0010_TRQK.l3 ; 0xa396
+    jle short .forward3              ; 0xa396
     mov ax, 4                        ; 0xa398
     push ax                          ; 0xa39b
     call random_below                ; 0xa39c
     pop cx                           ; 0xa39f
     test ax, ax                      ; 0xa3a0
-    jne short @..api_idx_0010_TRQK.l3 ; 0xa3a2
+    jne short .forward3              ; 0xa3a2
     push word [bp + 4]               ; 0xa3a4
     call api_idx_003a_HOUV           ; 0xa3a7
     pop cx                           ; 0xa3aa
@@ -90,54 +90,54 @@ api_idx_0010_TRQK:
     mov bx, ax                       ; 0xa3b1
     mov byte [bx + slot_records + slot_record.f_0002], 7 ; 0xa3b3
     ret                              ; 0xa3b8
-@..api_idx_0010_TRQK.l3:
+.forward3:
     mov word [bp - 0xc], 0           ; 0xa3b9
-@..api_idx_0010_TRQK.l4:
+.back1:
     mov ax, word [bp - 0xc]          ; 0xa3be
     cmp ax, word [bp + 4]            ; 0xa3c1
-    jne short @..api_idx_0010_TRQK.l5 ; 0xa3c4
-    jmp near @..api_idx_0010_TRQK.l17 ; 0xa3c6
-@..api_idx_0010_TRQK.l5:
+    jne short .forward4              ; 0xa3c4
+    jmp near .forward15              ; 0xa3c6
+.forward4:
     mov cx, 0x26                     ; 0xa3c9
     imul cx                          ; 0xa3cc
     mov bx, ax                       ; 0xa3ce
     cmp byte [bx + slot_records + slot_record.flag], 0 ; 0xa3d0
-    jg short @..api_idx_0010_TRQK.l6 ; 0xa3d5
-    jmp near @..api_idx_0010_TRQK.l17 ; 0xa3d7
-@..api_idx_0010_TRQK.l6:
+    jg short .forward5               ; 0xa3d5
+    jmp near .forward15              ; 0xa3d7
+.forward5:
     mov ax, 0x16                     ; 0xa3da
     imul word [bp + 4]               ; 0xa3dd
     add ax, word [bp - 0xc]          ; 0xa3e0
     mov bx, ax                       ; 0xa3e3
     cmp byte [bx + bss_9c42], 0      ; 0xa3e5
-    je short @..api_idx_0010_TRQK.l7 ; 0xa3ea
-    jmp near @..api_idx_0010_TRQK.l17 ; 0xa3ec
-@..api_idx_0010_TRQK.l7:
+    je short .forward6               ; 0xa3ea
+    jmp near .forward15              ; 0xa3ec
+.forward6:
     push word [bp - 6]               ; 0xa3ef
     push word [bp - 0xc]             ; 0xa3f2
     call loc_PQKO                    ; 0xa3f5
     add sp, byte 4                   ; 0xa3f8
     test ax, ax                      ; 0xa3fb
-    jne short @..api_idx_0010_TRQK.l8 ; 0xa3fd
-    jmp near @..api_idx_0010_TRQK.l17 ; 0xa3ff
-@..api_idx_0010_TRQK.l8:
+    jne short .forward7              ; 0xa3fd
+    jmp near .forward15              ; 0xa3ff
+.forward7:
     mov ax, 0x26                     ; 0xa402
     imul word [bp - 0xc]             ; 0xa405
     mov bx, ax                       ; 0xa408
     cmp byte [bx + slot_records + slot_record.f_0002], 2 ; 0xa40a
-    je short @..api_idx_0010_TRQK.l9 ; 0xa40f
+    je short .forward8               ; 0xa40f
     cmp byte [bx + slot_records + slot_record.f_0002], 1 ; 0xa411
-    je short @..api_idx_0010_TRQK.l9 ; 0xa416
-    jmp near @..api_idx_0010_TRQK.l17 ; 0xa418
-@..api_idx_0010_TRQK.l9:
+    je short .forward8               ; 0xa416
+    jmp near .forward15              ; 0xa418
+.forward8:
     mov ax, 4                        ; 0xa41b
     push ax                          ; 0xa41e
     call random_below                ; 0xa41f
     pop cx                           ; 0xa422
     test ax, ax                      ; 0xa423
-    je short @..api_idx_0010_TRQK.l10 ; 0xa425
-    jmp near @..api_idx_0010_TRQK.l17 ; 0xa427
-@..api_idx_0010_TRQK.l10:
+    je short .forward9               ; 0xa425
+    jmp near .forward15              ; 0xa427
+.forward9:
     mov ax, 0x26                     ; 0xa42a
     imul word [bp + 4]               ; 0xa42d
     mov bx, ax                       ; 0xa430
@@ -167,14 +167,14 @@ api_idx_0010_TRQK:
     mov cx, ax                       ; 0xa468
     mov ax, word [bp - 0xe]          ; 0xa46a
     cmp cx, ax                       ; 0xa46d
-    jg short @..api_idx_0010_TRQK.l11 ; 0xa46f
+    jg short .forward10              ; 0xa46f
     push ax                          ; 0xa471
     push word [bp - 0xc]             ; 0xa472
     push word [bp + 4]               ; 0xa475
     call api_idx_0010_IOJT           ; 0xa478
     add sp, byte 6                   ; 0xa47b
-    jmp near @..api_idx_0010_TRQK.l17 ; 0xa47e
-@..api_idx_0010_TRQK.l11:
+    jmp near .forward15              ; 0xa47e
+.forward10:
     mov ax, 0x19                     ; 0xa481
     push ax                          ; 0xa484
     call random_below                ; 0xa485
@@ -197,13 +197,13 @@ api_idx_0010_TRQK:
     add ax, strict word 0xffdd       ; 0xa4ab
     sub ax, cx                       ; 0xa4ae
     cmp ax, word [bp - 0xe]          ; 0xa4b0
-    jl short @..api_idx_0010_TRQK.l15 ; 0xa4b3
+    jl short .forward13              ; 0xa4b3
     mov ax, 3                        ; 0xa4b5
     push ax                          ; 0xa4b8
     call random_below                ; 0xa4b9
     pop cx                           ; 0xa4bc
     test ax, ax                      ; 0xa4bd
-    je short @..api_idx_0010_TRQK.l14 ; 0xa4bf
+    je short .forward12              ; 0xa4bf
     mov ax, 0x26                     ; 0xa4c1
     imul word [bp + 4]               ; 0xa4c4
     mov bx, ax                       ; 0xa4c7
@@ -221,28 +221,28 @@ api_idx_0010_TRQK:
     mov cx, ax                       ; 0xa4e2
     pop ax                           ; 0xa4e4
     cmp ax, cx                       ; 0xa4e5
-    jle short @..api_idx_0010_TRQK.l14 ; 0xa4e7
+    jle short .forward12             ; 0xa4e7
     push word [bp - 0xc]             ; 0xa4e9
     push word [bp + 4]               ; 0xa4ec
     call api_idx_0012_NJUH           ; 0xa4ef
     add sp, byte 4                   ; 0xa4f2
     mov word [bp - 4], ax            ; 0xa4f5
     cmp word [bp - 4], byte 0        ; 0xa4f8
-    jne short @..api_idx_0010_TRQK.l12 ; 0xa4fc
+    jne short .forward11             ; 0xa4fc
     mov ax, 3                        ; 0xa4fe
     push ax                          ; 0xa501
     call random_below                ; 0xa502
     pop cx                           ; 0xa505
     test ax, ax                      ; 0xa506
-    jne short @..api_idx_0010_TRQK.l13 ; 0xa508
-@..api_idx_0010_TRQK.l12:
-    cmp word [bp - 4], byte 0xff     ; 0xa50a
-    jne short @..api_idx_0010_TRQK.l14 ; 0xa50e
-@..api_idx_0010_TRQK.l13:
+    jne short .return1               ; 0xa508
+.forward11:
+    cmp word [bp - 4], byte -1       ; 0xa50a
+    jne short .forward12             ; 0xa50e
+.return1:
     ret                              ; 0xa510
-@..api_idx_0010_TRQK.l14:
-    jmp short @..api_idx_0010_TRQK.l17 ; 0xa511
-@..api_idx_0010_TRQK.l15:
+.forward12:
+    jmp short .forward15             ; 0xa511
+.forward13:
     push word [bp - 0xc]             ; 0xa513
     push word [bp + 4]               ; 0xa516
     call loc_KHPH                    ; 0xa519
@@ -252,26 +252,26 @@ api_idx_0010_TRQK:
     call random_below                ; 0xa523
     pop cx                           ; 0xa526
     test ax, ax                      ; 0xa527
-    jne short @..api_idx_0010_TRQK.l16 ; 0xa529
+    jne short .forward14             ; 0xa529
     mov ax, 0x26                     ; 0xa52b
     imul word [bp + 4]               ; 0xa52e
     mov bx, ax                       ; 0xa531
     mov byte [bx + slot_records + slot_record.f_0002], 0 ; 0xa533
-@..api_idx_0010_TRQK.l16:
+.forward14:
     mov ax, 3                        ; 0xa538
     push ax                          ; 0xa53b
     call random_below                ; 0xa53c
     pop cx                           ; 0xa53f
     test ax, ax                      ; 0xa540
-    jne short @..api_idx_0010_TRQK.l17 ; 0xa542
+    jne short .forward15             ; 0xa542
     ret                              ; 0xa544
-@..api_idx_0010_TRQK.l17:
+.forward15:
     inc word [bp - 0xc]              ; 0xa545
     mov ax, word [bp - 0xc]          ; 0xa548
     cmp ax, strict word 0x16         ; 0xa54b
-    jge short @..api_idx_0010_TRQK.l18 ; 0xa54e
-    jmp near @..api_idx_0010_TRQK.l4 ; 0xa550
-@..api_idx_0010_TRQK.l18:
+    jge short .forward16             ; 0xa54e
+    jmp near .back1                  ; 0xa550
+.forward16:
     mov ax, 0x26                     ; 0xa553
     imul word [bp + 4]               ; 0xa556
     mov bx, ax                       ; 0xa559
@@ -282,7 +282,7 @@ api_idx_0010_TRQK:
     idiv cx                          ; 0xa565
     mov ax, dx                       ; 0xa567
     test ax, ax                      ; 0xa569
-    jne short @..api_idx_0010_TRQK.l19 ; 0xa56b
+    jne short .forward17             ; 0xa56b
     push word [bp + 4]               ; 0xa56d
     call api_idx_0006_NNTR           ; 0xa570
     pop cx                           ; 0xa573
@@ -298,19 +298,19 @@ api_idx_0010_TRQK:
     push ax                          ; 0xa58b
     call set_bitmap_bit              ; 0xa58c
     add sp, byte 6                   ; 0xa58f
-@..api_idx_0010_TRQK.l19:
+.forward17:
     mov ax, 0x26                     ; 0xa592
     imul word [bp + 4]               ; 0xa595
     mov bx, ax                       ; 0xa598
     mov al, byte [bx + slot_records + slot_record.f_0001] ; 0xa59a
     sub ah, ah                       ; 0xa59e
     cmp ax, word [bp - 6]            ; 0xa5a0
-    jne short @..api_idx_0010_TRQK.l20 ; 0xa5a3
+    jne short .forward18             ; 0xa5a3
     mov al, byte [bx + slot_records + slot_record.f_0019] ; 0xa5a5
     mov byte [bx + slot_records + slot_record.flag], al ; 0xa5a9
-@..api_idx_0010_TRQK.l20:
+.forward18:
     cmp byte [bx + slot_records + slot_record.map_piece], 0x18 ; 0xa5ad
-    jbe short @..api_idx_0010_TRQK.l21 ; 0xa5b2
+    jbe short .return2               ; 0xa5b2
     mov byte [bx + slot_records + slot_record.f_0002], 0 ; 0xa5b4
-@..api_idx_0010_TRQK.l21:
+.return2:
     ret                              ; 0xa5b9

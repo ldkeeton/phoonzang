@@ -22,13 +22,13 @@ loc_TRPK:
     imul word [bp + 0x12]
     add ax, word [bp + 0xa]
     mov cx, word [bp + 0x10]
-    add cx, byte 0xf7
+    add cx, byte -9
     sub ax, cx
     mov word [bp - 8], ax
     cmp word [bp + 6], byte 0
-    jne short @..loc_TRPK.l1
-    jmp near @..loc_TRPK.l2
-@..loc_TRPK.l1:
+    jne short .forward1
+    jmp near .forward2
+.forward1:
     mov ax, loc_TRPK.dseg1
     push ax
     mov ax, word [bp - 8]
@@ -95,8 +95,8 @@ loc_TRPK:
     push ax
     call draw_text_glyphs
     add sp, byte 4
-    jmp short @..loc_TRPK.l3
-@..loc_TRPK.l2:
+    jmp short .forward3
+.forward2:
     mov ax, loc_TRPK.dseg2
     push ax
     mov ax, word [bp - 8]
@@ -114,22 +114,22 @@ loc_TRPK:
     call save_screen_area
     add sp, byte 0xa
     mov word [bp - 0x1a8], ax
-@..loc_TRPK.l3:
+.forward3:
     mov word [bp - 2], 0
     mov word [bp - 4], 0
-@..loc_TRPK.l4:
+.back1:
     mov ax, word [bp - 4]
     shl ax, 1
     mov si, ax
     mov bx, word [bp + 0x1c]
-    cmp word [bx + si], byte 0xff
-    jne short @..loc_TRPK.l5
-    jmp near @..loc_TRPK.l9
-@..loc_TRPK.l5:
+    cmp word [bx + si], byte -1
+    jne short .forward4
+    jmp near .forward8
+.forward4:
     cmp word [bx + si], byte 1
-    je short @..loc_TRPK.l6
-    jmp near @..loc_TRPK.l8
-@..loc_TRPK.l6:
+    je short .forward5
+    jmp near .forward7
+.forward5:
     mov ax, 0x14
     imul word [bp - 2]
     lea cx, word [bp - 0x156]
@@ -175,9 +175,9 @@ loc_TRPK:
     mov ax, word [bp + 0x16]
     mov cx, word [bp - 4]
     cmp cx, word [bp + 0x18]
-    jne short @..loc_TRPK.l7
+    jne short .forward6
     mov ax, 0x1a
-@..loc_TRPK.l7:
+.forward6:
     push ax
     call gfx_set_text_color
     add sp, byte 4
@@ -244,10 +244,10 @@ loc_TRPK:
     add bx, bp
     mov word [bx - 0x2a], ax
     inc word [bp - 2]
-@..loc_TRPK.l8:
+.forward7:
     inc word [bp - 4]
-    jmp near @..loc_TRPK.l4
-@..loc_TRPK.l9:
+    jmp near .back1
+.forward8:
     mov ax, 0
     push ax
     push ax
@@ -269,19 +269,19 @@ loc_TRPK:
     call gfx_show_area
     add sp, byte 8
     cmp word [mouse_active], byte 0
-    je short @..loc_TRPK.l11
-@..loc_TRPK.l10:
+    je short .forward9
+.back2:
     mov ax, hotspot_rects
     push ax
     call poll_hotspots
     pop cx
     mov word [bp - 4], ax
     cmp word [hotspot_hit], byte 0
-    je short @..loc_TRPK.l10
-    jmp near @..loc_TRPK.l25
-@..loc_TRPK.l11:
+    je short .back2
+    jmp near .forward16
+.forward9:
     mov word [bp - 4], 0
-@..loc_TRPK.l12:
+.back3:
     mov ax, word [bp - 4]
     cwd
     idiv word [bp + 0x12]
@@ -345,15 +345,15 @@ loc_TRPK:
     push ax
     call loc_MNNG
     add sp, byte 0xa
-@..loc_TRPK.l13:
+.back4:
     mov ax, 1
     push ax
     call poll_filtered_key
     pop cx
     test ax, ax
-    jne short @..loc_TRPK.l14
-    jmp short @..loc_TRPK.l13
-@..loc_TRPK.l14:
+    jne short .forward10
+    jmp short .back4
+.forward10:
     mov ax, 1
     push ax
     call get_filtered_key
@@ -370,10 +370,10 @@ loc_TRPK:
     idiv word [bp + 0x12]
     inc ax
     mov word [bp - 0xc], ax
-@..loc_TRPK.l15:
+.back5:
     mov ax, word [bp - 0x1aa]
-    jmp near @..loc_TRPK.l20
-@..loc_TRPK.l16:
+    jmp near .forward11
+.back6:
     mov ax, word [bp - 4]
     add ax, word [bp + 0x12]
     dec ax
@@ -387,8 +387,8 @@ loc_TRPK:
     pop ax
     add ax, cx
     mov word [bp - 4], ax
-    jmp near @..loc_TRPK.l22
-@..loc_TRPK.l17:
+    jmp near .forward13
+.back7:
     mov ax, word [bp - 4]
     inc ax
     cwd
@@ -401,8 +401,8 @@ loc_TRPK:
     pop ax
     add ax, cx
     mov word [bp - 4], ax
-    jmp short @..loc_TRPK.l22
-@..loc_TRPK.l18:
+    jmp short .forward13
+.back8:
     mov ax, word [bp - 0xa]
     add ax, word [bp - 0xc]
     dec ax
@@ -420,8 +420,8 @@ loc_TRPK:
     pop ax
     add ax, cx
     mov word [bp - 4], ax
-    jmp short @..loc_TRPK.l22
-@..loc_TRPK.l19:
+    jmp short .forward13
+.back9:
     mov ax, word [bp - 0xa]
     inc ax
     cwd
@@ -438,28 +438,28 @@ loc_TRPK:
     pop ax
     add ax, cx
     mov word [bp - 4], ax
-    jmp short @..loc_TRPK.l22
-@..loc_TRPK.l20:
+    jmp short .forward13
+.forward11:
     cmp ax, strict word 8
-    je short @..loc_TRPK.l18
+    je short .back8
     cmp ax, strict word 9
-    jne short @..loc_TRPK.l21
-    jmp near @..loc_TRPK.l16
-@..loc_TRPK.l21:
+    jne short .forward12
+    jmp near .back6
+.forward12:
     cmp ax, strict word 0xa
-    je short @..loc_TRPK.l19
+    je short .back9
     cmp ax, strict word 0xb
-    je short @..loc_TRPK.l17
-@..loc_TRPK.l22:
+    je short .back7
+.forward13:
     mov ax, word [bp - 4]
     cmp ax, word [bp - 2]
-    jl short @..loc_TRPK.l23
-    jmp near @..loc_TRPK.l15
-@..loc_TRPK.l23:
+    jl short .forward14
+    jmp near .back5
+.forward14:
     cmp word [bp - 0x1aa], byte 0xd
-    je short @..loc_TRPK.l24
-    jmp near @..loc_TRPK.l12
-@..loc_TRPK.l24:
+    je short .forward15
+    jmp near .back3
+.forward15:
     inc word [bp - 4]
     mov ax, word [bp - 8]
     inc ax
@@ -475,7 +475,7 @@ loc_TRPK:
     push ax
     call gfx_show_area
     add sp, byte 8
-@..loc_TRPK.l25:
+.forward16:
     dec word [bp - 4]
     mov ax, word [bp - 4]
     cwd
@@ -519,9 +519,9 @@ loc_TRPK:
     call restore_saved_screen
     add sp, byte 4
     cmp word [bp + 0x1a], byte 0
-    je short @..loc_TRPK.l27
+    je short .forward18
     cmp word [bp + 6], byte 0
-    je short @..loc_TRPK.l26
+    je short .forward17
     mov ax, word [bp - 8]
     add ax, strict word 6
     push ax
@@ -536,8 +536,8 @@ loc_TRPK:
     push ax
     call gfx_show_area
     add sp, byte 8
-    jmp short @..loc_TRPK.l27
-@..loc_TRPK.l26:
+    jmp short .forward18
+.forward17:
     mov ax, word [bp - 8]
     inc ax
     push ax
@@ -552,7 +552,7 @@ loc_TRPK:
     push ax
     call gfx_show_area
     add sp, byte 8
-@..loc_TRPK.l27:
+.forward18:
     mov ax, word [bp - 4]
     mov word [bss_9052], ax
     shl ax, 1

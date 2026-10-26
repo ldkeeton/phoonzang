@@ -12,18 +12,18 @@ api_idx_0002_UTVG:
     mov al, byte [bx + si + member_rec.item_state] ; 0x1fb1
     sub ah, ah                       ; 0x1fb4
     cmp ax, word [bp + 0xc]          ; 0x1fb6
-    jge short @..api_idx_0002_UTVG.l1 ; 0x1fb9
+    jge short .return1               ; 0x1fb9
     push word [bp + 6]               ; 0x1fbb
     push word [bp + 4]               ; 0x1fbe
     call item_slot_usable            ; 0x1fc1
     add sp, byte 4                   ; 0x1fc4
     test ax, ax                      ; 0x1fc7
-    je short @..api_idx_0002_UTVG.l2 ; 0x1fc9
-@..api_idx_0002_UTVG.l1:
+    je short .forward1               ; 0x1fc9
+.return1:
     ret                              ; 0x1fcb
-@..api_idx_0002_UTVG.l2:
+.forward1:
     cmp word [bp + 4], byte 0        ; 0x1fcc
-    jne short @..api_idx_0002_UTVG.l3 ; 0x1fd0
+    jne short .forward2              ; 0x1fd0
     mov ax, 0xe                      ; 0x1fd2
     push ax                          ; 0x1fd5
     mov ax, word [party_char_ext]    ; 0x1fd6
@@ -35,10 +35,10 @@ api_idx_0002_UTVG:
     push ax                          ; 0x1fe6
     call aztec_movmem                ; 0x1fe7
     add sp, byte 6                   ; 0x1fea
-@..api_idx_0002_UTVG.l3:
+.forward2:
     mov word [bp - 2], 0             ; 0x1fed
     cmp word [bp + 0xa], byte 0      ; 0x1ff2
-    je short @..api_idx_0002_UTVG.l4 ; 0x1ff6
+    je short .forward3               ; 0x1ff6
     mov ax, 0x64                     ; 0x1ff8
     push ax                          ; 0x1ffb
     call random_below                ; 0x1ffc
@@ -56,8 +56,8 @@ api_idx_0002_UTVG:
     mov cx, ax                       ; 0x201a
     pop ax                           ; 0x201c
     cmp ax, cx                       ; 0x201d
-    jle short @..api_idx_0002_UTVG.l6 ; 0x201f
-@..api_idx_0002_UTVG.l4:
+    jle short .forward5              ; 0x201f
+.forward3:
     mov al, byte [bp + 0xc]          ; 0x2021
     push ax                          ; 0x2024
     mov ax, 0x2c                     ; 0x2025
@@ -70,13 +70,13 @@ api_idx_0002_UTVG:
     pop ax                           ; 0x2038
     mov byte [bx + si + member_rec.item_state], al ; 0x2039
     cmp word [bp + 0xc], byte 3      ; 0x203c
-    jl short @..api_idx_0002_UTVG.l5 ; 0x2040
+    jl short .forward4               ; 0x2040
     push word [bp + 6]               ; 0x2042
     push word [bp + 4]               ; 0x2045
     call api_idx_0004_PIHK           ; 0x2048
     add sp, byte 4                   ; 0x204b
     cmp word [bp + 4], byte 0        ; 0x204e
-    jne short @..api_idx_0002_UTVG.l5 ; 0x2052
+    jne short .forward4              ; 0x2052
     mov ax, 0x248                    ; 0x2054
     imul word [bp + 6]               ; 0x2057
     mov bx, ax                       ; 0x205a
@@ -84,7 +84,7 @@ api_idx_0002_UTVG:
     sub ah, ah                       ; 0x2060
     add ax, strict word 8            ; 0x2062
     mov word [bp - 2], ax            ; 0x2065
-@..api_idx_0002_UTVG.l5:
+.forward4:
     push word [bp - 2]               ; 0x2068
     mov ax, 1                        ; 0x206b
     push ax                          ; 0x206e
@@ -93,10 +93,10 @@ api_idx_0002_UTVG:
     push word [bp + 4]               ; 0x2075
     call loc_NJKR                    ; 0x2078
     add sp, byte 0xa                 ; 0x207b
-    jmp short @..api_idx_0002_UTVG.l7 ; 0x207e
-@..api_idx_0002_UTVG.l6:
+    jmp short .return2               ; 0x207e
+.forward5:
     cmp word [bp + 0x12], byte 1     ; 0x2080
-    jne short @..api_idx_0002_UTVG.l7 ; 0x2084
+    jne short .return2               ; 0x2084
     mov ax, 0                        ; 0x2086
     push ax                          ; 0x2089
     push ax                          ; 0x208a
@@ -106,5 +106,5 @@ api_idx_0002_UTVG:
     push word [bp + 4]               ; 0x2092
     call loc_NJKR                    ; 0x2095
     add sp, byte 0xa                 ; 0x2098
-@..api_idx_0002_UTVG.l7:
+.return2:
     ret                              ; 0x209b

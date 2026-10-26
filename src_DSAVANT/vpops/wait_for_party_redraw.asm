@@ -2,12 +2,12 @@
 wait_for_party_redraw:
     mov ax, 0                        ; 0x108d
     call aztec_csav                  ; 0x1090
-@..wait_for_party_redraw.l1:
-    cmp word [bss_845e], byte 0xfe   ; 0x1093
-    je short @..wait_for_party_redraw.l2 ; 0x1098
+.back1:
+    cmp word [bss_845e], byte -2     ; 0x1093
+    je short .return1                ; 0x1098
     call api_idx_0006_IRNH           ; 0x109a
-    jmp short @..wait_for_party_redraw.l1 ; 0x109d
-@..wait_for_party_redraw.l2:
+    jmp short .back1                 ; 0x109d
+.return1:
     ret                              ; 0x109f
 loc_MNNG:
     mov ax, 0                        ; 0x10a0

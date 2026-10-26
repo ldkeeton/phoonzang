@@ -19,15 +19,15 @@ unpack_record:
     mov word [bp - 4], ax            ; 0x4020
     mov word [bp - 2], 8             ; 0x4023
     lodsb                            ; 0x4028
-@..unpack_record.l1:
+.back1:
     cmp word [bp - 4], byte 0        ; 0x4029
-    je short @..unpack_record.l2     ; 0x402d
+    je short .forward1               ; 0x402d
     call ds_string_loc_SSGO          ; 0x402f
     mov byte [di], bl                ; 0x4032
     inc di                           ; 0x4034
     dec word [bp - 4]                ; 0x4035
-    jmp short @..unpack_record.l1    ; 0x4038
-@..unpack_record.l2:
+    jmp short .back1                 ; 0x4038
+.forward1:
     mov word [di], 0                 ; 0x403a
     pop di                           ; 0x403e
     pop si                           ; 0x403f

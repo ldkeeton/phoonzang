@@ -5,25 +5,25 @@ update_mouse_pointer:
     push si
     push di
     cmp byte [cs:mouse_glide_active - IMAGE_BASE], 1
-    je short @..update_mouse_pointer.l1
+    je short .forward1
     cmp byte [cs:mouse_present - IMAGE_BASE], 1
-    je short @..update_mouse_pointer.l2
-@..update_mouse_pointer.l1:
-    jmp near @..update_mouse_pointer.l4
-@..update_mouse_pointer.l2:
+    je short .forward2
+.forward1:
+    jmp near .forward4
+.forward2:
     mov ax, 3
     int 0x33 ; BIOS mouse
     shr cx, 1
     cmp word [cs:mouse_drawn_x - IMAGE_BASE], cx
-    jne short @..update_mouse_pointer.l3
+    jne short .forward3
     cmp word [cs:mouse_drawn_y - IMAGE_BASE], dx
-    je short @..update_mouse_pointer.l4
-@..update_mouse_pointer.l3:
+    je short .forward4
+.forward3:
     shl cx, 1
     mov ax, cs
     push ax
     call draw_mouse_pointer_at
-@..update_mouse_pointer.l4:
+.forward4:
     mov byte [cs:mouse_redraw_pending - IMAGE_BASE], 0
     pop di
     pop si

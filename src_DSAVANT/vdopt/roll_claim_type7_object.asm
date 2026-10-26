@@ -5,10 +5,10 @@ roll_claim_type7_object:
     call find_party_type7_object     ; 0x06ee
     mov word [bp - 0xe], ax          ; 0x06f1
     cmp ax, strict word 0xffff       ; 0x06f4
-    jne short @..roll_claim_type7_object.l1 ; 0x06f7
+    jne short .forward1              ; 0x06f7
     mov ax, 0xffff                   ; 0x06f9
     ret                              ; 0x06fc
-@..roll_claim_type7_object.l1:
+.forward1:
     mov ax, word [bp - 0xe]          ; 0x06fd
     shl ax, 1                        ; 0x0700
     mov si, ax                       ; 0x0702
@@ -43,11 +43,11 @@ roll_claim_type7_object:
     call get_bits                    ; 0x0753
     add sp, byte 6                   ; 0x0756
     cmp ax, strict word 2            ; 0x0759
-    jne short @..roll_claim_type7_object.l2 ; 0x075c
+    jne short .forward2              ; 0x075c
     cmp word [bp - 4], byte 0        ; 0x075e
-    jne short @..roll_claim_type7_object.l2 ; 0x0762
+    jne short .forward2              ; 0x0762
     mov word [bp - 0xa], 1           ; 0x0764
-@..roll_claim_type7_object.l2:
+.forward2:
     mov word [bp - 0xc], 0           ; 0x0769
     mov ax, word [bp + 4]            ; 0x076e
     shl ax, 1                        ; 0x0771
@@ -80,19 +80,19 @@ roll_claim_type7_object:
     idiv cx                          ; 0x079f
     mov word [bp - 8], ax            ; 0x07a1
     cmp ax, word [bp - 4]            ; 0x07a4
-    jge short @..roll_claim_type7_object.l3 ; 0x07a7
+    jge short .forward3              ; 0x07a7
     mov word [bp - 0xc], 1           ; 0x07a9
-@..roll_claim_type7_object.l3:
+.forward3:
     cmp word [bp - 0xa], byte 0      ; 0x07ae
-    je short @..roll_claim_type7_object.l4 ; 0x07b2
+    je short .forward4               ; 0x07b2
     mov word [bp - 0xc], 2           ; 0x07b4
-@..roll_claim_type7_object.l4:
+.forward4:
     cmp word [bp - 0xc], byte 0      ; 0x07b9
-    jne short @..roll_claim_type7_object.l5 ; 0x07bd
+    jne short .forward5              ; 0x07bd
     push word [bp - 0xe]             ; 0x07bf
     call claim_type7_object          ; 0x07c2
     pop cx                           ; 0x07c5
-@..roll_claim_type7_object.l5:
+.forward5:
     mov ax, word [bp - 0xc]          ; 0x07c6
     add ax, 0x841                    ; 0x07c9
     mov word [pending_event], ax     ; 0x07cc

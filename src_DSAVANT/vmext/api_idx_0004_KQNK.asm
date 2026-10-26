@@ -12,28 +12,28 @@ api_idx_0004_KQNK:
     adc dx, bx                       ; 0x0600
     mov word [bp - 2], dx            ; 0x0602
     mov word [bp - 4], ax            ; 0x0605
-@..api_idx_0004_KQNK.l1:
+.back1:
     les bx, word [tick_counter_ptr]  ; 0x0608
     mov ax, word [es:bx]             ; 0x060c
     mov dx, word [es:bx + 2]         ; 0x060f
     cmp dx, word [bp - 2]            ; 0x0613
-    jg short @..api_idx_0004_KQNK.l2 ; 0x0616
-    jne short @..api_idx_0004_KQNK.l3 ; 0x0618
+    jg short .forward1               ; 0x0616
+    jne short .forward2              ; 0x0618
     cmp ax, word [bp - 4]            ; 0x061a
-    jb short @..api_idx_0004_KQNK.l3 ; 0x061d
-@..api_idx_0004_KQNK.l2:
-    jmp short @..api_idx_0004_KQNK.l6 ; 0x061f
-@..api_idx_0004_KQNK.l3:
+    jb short .forward2               ; 0x061d
+.forward1:
+    jmp short .return1               ; 0x061f
+.forward2:
     call poll_fullscreen_hotspot     ; 0x0621
     test ax, ax                      ; 0x0624
-    je short @..api_idx_0004_KQNK.l4 ; 0x0626
+    je short .forward3               ; 0x0626
     ret                              ; 0x0628
-@..api_idx_0004_KQNK.l4:
+.forward3:
     call loc_QQOI                    ; 0x0629
     test ax, ax                      ; 0x062c
-    jne short @..api_idx_0004_KQNK.l5 ; 0x062e
+    jne short .forward4              ; 0x062e
     call loc_IJSN                    ; 0x0630
-@..api_idx_0004_KQNK.l5:
-    jmp short @..api_idx_0004_KQNK.l1 ; 0x0633
-@..api_idx_0004_KQNK.l6:
+.forward4:
+    jmp short .back1                 ; 0x0633
+.return1:
     ret                              ; 0x0635

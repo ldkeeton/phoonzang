@@ -27,9 +27,9 @@ save_area:
     mov bx, ax
     mov ah, 0x48
     int 0x21 ; DOS allocate memory
-    jae short @..save_area.l1
+    jae short .forward1
     jmp near save_area_out_of_memory
-@..save_area.l1:
+.forward1:
     mov es, ax
     xor di, di
     mov ax, word [cs:screen_buf_seg - IMAGE_BASE]
@@ -50,13 +50,13 @@ save_area:
     stosw
     mov ax, word [bp - 0xa]
     stosw
-@..save_area.l2:
+.back1:
     mov si, word [bp - 2]
     add word [bp - 2], strict word 0x140
     mov cx, word [bp - 6]
     rep movsb
     dec word [bp - 4]
-    jne short @..save_area.l2
+    jne short .back1
     mov dx, es
     xor ax, ax
     jmp short area_restore_and_return

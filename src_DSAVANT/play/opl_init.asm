@@ -2,10 +2,10 @@
 opl_init:
     mov al, 8                        ; 0x00c4
     cmp byte [cs:play_device - IMAGE_BASE], 1 ; 0x00c6
-    je short @..opl_init.l1          ; 0x00cc
+    je short .forward1               ; 0x00cc
     cmp byte [cs:play_device - IMAGE_BASE], 4 ; 0x00ce
-    je short @..opl_init.l1          ; 0x00d4
-@..opl_init.l1:
+    je short .forward1               ; 0x00d4
+.forward1:
     mov byte [cs:opl_voice_count - IMAGE_BASE], al ; 0x00d6
     call opl_keys_off                ; 0x00da
     pushf                            ; 0x00dd

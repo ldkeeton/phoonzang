@@ -7,16 +7,16 @@ api_idx_0054_NQHV:
     call redraw_area_set             ; 0x0369
     pop cx                           ; 0x036c
     mov word [bp - 2], 1             ; 0x036d
-    jmp near @..api_idx_0054_NQHV.l9 ; 0x0372
-@..api_idx_0054_NQHV.l1:
+    jmp near .forward7               ; 0x0372
+.back1:
     mov ax, word [bp - 2]            ; 0x0375
     shl ax, 1                        ; 0x0378
     mov bx, ax                       ; 0x037a
     mov bx, word [bx + party_char]   ; 0x037c
     mov byte [bx + member_rec.f_01a2], 0 ; 0x0380
     mov word [bp - 4], 0             ; 0x0385
-    jmp short @..api_idx_0054_NQHV.l4 ; 0x038a
-@..api_idx_0054_NQHV.l2:
+    jmp short .forward2              ; 0x038a
+.back2:
     mov ax, 0x2c                     ; 0x038c
     imul word [bp - 4]               ; 0x038f
     mov si, ax                       ; 0x0392
@@ -25,15 +25,15 @@ api_idx_0054_NQHV:
     mov bx, ax                       ; 0x0399
     mov bx, word [bx + party_char]   ; 0x039b
     cmp byte [bx + si + member_rec.item_state], 2 ; 0x039f
-    jae short @..api_idx_0054_NQHV.l3 ; 0x03a3
+    jae short .forward1              ; 0x03a3
     cmp byte [bx + si + 0x11], 0     ; 0x03a5
-    jne short @..api_idx_0054_NQHV.l3 ; 0x03a9
+    jne short .forward1              ; 0x03a9
     cmp byte [bx + si + 0x10], 0     ; 0x03ab
-    jne short @..api_idx_0054_NQHV.l3 ; 0x03af
+    jne short .forward1              ; 0x03af
     inc byte [bx + 0x1a2]            ; 0x03b1
-@..api_idx_0054_NQHV.l3:
+.forward1:
     inc word [bp - 4]                ; 0x03b5
-@..api_idx_0054_NQHV.l4:
+.forward2:
     mov ax, word [bp - 2]            ; 0x03b8
     shl ax, 1                        ; 0x03bb
     mov bx, ax                       ; 0x03bd
@@ -41,10 +41,10 @@ api_idx_0054_NQHV:
     mov al, byte [bx + member_rec.item_count] ; 0x03c3
     sub ah, ah                       ; 0x03c7
     cmp ax, word [bp - 4]            ; 0x03c9
-    jg short @..api_idx_0054_NQHV.l2 ; 0x03cc
+    jg short .back2                  ; 0x03cc
     mov ax, word [bp - 2]            ; 0x03ce
     cmp ax, word [bp + 4]            ; 0x03d1
-    jne short @..api_idx_0054_NQHV.l5 ; 0x03d4
+    jne short .forward3              ; 0x03d4
     mov ax, 0x5f                     ; 0x03d6
     push ax                          ; 0x03d9
     mov ax, 6                        ; 0x03da
@@ -67,15 +67,15 @@ api_idx_0054_NQHV:
     push ax                          ; 0x0403
     call gfx_set_text_color          ; 0x0404
     add sp, byte 4                   ; 0x0407
-    jmp short @..api_idx_0054_NQHV.l6 ; 0x040a
-@..api_idx_0054_NQHV.l5:
+    jmp short .forward4              ; 0x040a
+.forward3:
     mov ax, 0                        ; 0x040c
     push ax                          ; 0x040f
     mov ax, 0x5f                     ; 0x0410
     push ax                          ; 0x0413
     call gfx_set_text_color          ; 0x0414
     add sp, byte 4                   ; 0x0417
-@..api_idx_0054_NQHV.l6:
+.forward4:
     mov ax, 6                        ; 0x041a
     imul word [bp - 2]               ; 0x041d
     add ax, 0x9e                     ; 0x0420
@@ -110,12 +110,12 @@ api_idx_0054_NQHV:
     mov bx, ax                       ; 0x0465
     mov bx, word [bx + party_char]   ; 0x0467
     cmp byte [bx + member_rec.item_count], 1 ; 0x046b
-    jne short @..api_idx_0054_NQHV.l7 ; 0x0470
+    jne short .forward5              ; 0x0470
     mov ax, 0                        ; 0x0472
-    jmp short @..api_idx_0054_NQHV.l8 ; 0x0475
-@..api_idx_0054_NQHV.l7:
+    jmp short .forward6              ; 0x0475
+.forward5:
     mov ax, 1                        ; 0x0477
-@..api_idx_0054_NQHV.l8:
+.forward6:
     mov cx, 4                        ; 0x047a
     shl ax, cl                       ; 0x047d
     mov cx, ax                       ; 0x047f
@@ -168,10 +168,10 @@ api_idx_0054_NQHV:
     call draw_font_glyph             ; 0x04ee
     add sp, byte 4                   ; 0x04f1
     inc word [bp - 2]                ; 0x04f4
-@..api_idx_0054_NQHV.l9:
+.forward7:
     mov ax, word [bp - 2]            ; 0x04f7
     cmp ax, word [party_member_count] ; 0x04fa
-    jg short @..api_idx_0054_NQHV.l10 ; 0x04fe
-    jmp near @..api_idx_0054_NQHV.l1 ; 0x0500
-@..api_idx_0054_NQHV.l10:
+    jg short .return1                ; 0x04fe
+    jmp near .back1                  ; 0x0500
+.return1:
     ret                              ; 0x0503

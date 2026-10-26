@@ -20,12 +20,12 @@ loc_RMVR:
     add sp, byte 4                   ; 0x4d37
     mov word [bp - 6], ax            ; 0x4d3a
     cmp ax, strict word 0xffff       ; 0x4d3d
-    jne short @..loc_RMVR.l1         ; 0x4d40
+    jne short .forward1              ; 0x4d40
     mov ax, 0x1a                     ; 0x4d42
     push ax                          ; 0x4d45
     call release_and_exit            ; 0x4d46
     pop cx                           ; 0x4d49
-@..loc_RMVR.l1:
+.forward1:
     mov ax, 0x300                    ; 0x4d4a
     push ax                          ; 0x4d4d
     mov ax, bss_9c94                 ; 0x4d4e
@@ -114,7 +114,7 @@ loc_RMVR:
     idiv cx                          ; 0x4e19
     mov word [bp - 2], dx            ; 0x4e1b
     cmp dx, byte 0xa                 ; 0x4e1e
-    jge short @..loc_RMVR.l2         ; 0x4e21
+    jge short .forward2              ; 0x4e21
     mov ax, 0                        ; 0x4e23
     push ax                          ; 0x4e26
     mov ax, 0x30                     ; 0x4e27
@@ -128,8 +128,8 @@ loc_RMVR:
     push word [bp - 2]               ; 0x4e39
     call draw_number_field           ; 0x4e3c
     add sp, byte 6                   ; 0x4e3f
-    jmp short @..loc_RMVR.l3         ; 0x4e42
-@..loc_RMVR.l2:
+    jmp short .forward3              ; 0x4e42
+.forward2:
     mov ax, 0                        ; 0x4e44
     push ax                          ; 0x4e47
     mov ax, 2                        ; 0x4e48
@@ -137,7 +137,7 @@ loc_RMVR:
     push word [bp - 2]               ; 0x4e4c
     call draw_number_field           ; 0x4e4f
     add sp, byte 6                   ; 0x4e52
-@..loc_RMVR.l3:
+.forward3:
     mov ax, 0x5f                     ; 0x4e55
     push ax                          ; 0x4e58
     mov ax, word [bp - 0xa]          ; 0x4e59
@@ -507,7 +507,7 @@ loc_RMVR:
     call draw_button                 ; 0x51a5
     add sp, byte 0xc                 ; 0x51a8
     mov word [bp - 2], 0             ; 0x51ab
-@..loc_RMVR.l4:
+.back1:
     push word [bp - 0xa]             ; 0x51b0
     push word [bp - 8]               ; 0x51b3
     push word [bp - 2]               ; 0x51b6
@@ -516,7 +516,7 @@ loc_RMVR:
     inc word [bp - 2]                ; 0x51bf
     mov ax, word [bp - 2]            ; 0x51c2
     cmp ax, strict word 0x11         ; 0x51c5
-    jl short @..loc_RMVR.l4          ; 0x51c8
+    jl short .back1                  ; 0x51c8
     mov ax, 0                        ; 0x51ca
     push ax                          ; 0x51cd
     push ax                          ; 0x51ce
@@ -1021,17 +1021,17 @@ loc_RMVR:
     add sp, byte 8                   ; 0x562d
     mov word [bp - 0x18], 1          ; 0x5630
     mov word [bp - 0x16], 0          ; 0x5635
-@..loc_RMVR.l5:
+.back2:
     cmp word [mouse_active], byte 0  ; 0x563a
-    je short @..loc_RMVR.l6          ; 0x563f
+    je short .forward4               ; 0x563f
     mov ax, hotspot_rects            ; 0x5641
     push ax                          ; 0x5644
     call poll_hotspots               ; 0x5645
     pop cx                           ; 0x5648
     dec ax                           ; 0x5649
     mov word [bp - 0x14], ax         ; 0x564a
-    jmp near @..loc_RMVR.l29         ; 0x564d
-@..loc_RMVR.l6:
+    jmp near .forward21              ; 0x564d
+.forward4:
     mov word [hotspot_hit], 0        ; 0x5650
     push word [bp - 0xa]             ; 0x5656
     push word [bp - 8]               ; 0x5659
@@ -1044,8 +1044,8 @@ loc_RMVR:
     pop cx                           ; 0x566c
     sub ah, ah                       ; 0x566d
     mov word [bp - 4], ax            ; 0x566f
-    jmp near @..loc_RMVR.l21         ; 0x5672
-@..loc_RMVR.l7:
+    jmp near .forward13              ; 0x5672
+.back3:
     push word [bp - 0xa]             ; 0x5675
     push word [bp - 8]               ; 0x5678
     push word [bp - 0x16]            ; 0x567b
@@ -1058,9 +1058,9 @@ loc_RMVR:
     idiv cx                          ; 0x568e
     mov word [bp - 0x16], dx         ; 0x5690
     cmp dx, byte 0xe                 ; 0x5693
-    jne short @..loc_RMVR.l8         ; 0x5696
+    jne short .forward5              ; 0x5696
     dec word [bp - 0x16]             ; 0x5698
-@..loc_RMVR.l8:
+.forward5:
     mov ax, word [bp - 0xe]          ; 0x569b
     inc ax                           ; 0x569e
     push ax                          ; 0x569f
@@ -1075,8 +1075,8 @@ loc_RMVR:
     push ax                          ; 0x56ae
     call gfx_show_area               ; 0x56af
     add sp, byte 8                   ; 0x56b2
-    jmp near @..loc_RMVR.l29         ; 0x56b5
-@..loc_RMVR.l9:
+    jmp near .forward21              ; 0x56b5
+.back4:
     push word [bp - 0xa]             ; 0x56b8
     push word [bp - 8]               ; 0x56bb
     push word [bp - 0x16]            ; 0x56be
@@ -1089,9 +1089,9 @@ loc_RMVR:
     idiv cx                          ; 0x56cf
     mov word [bp - 0x16], dx         ; 0x56d1
     cmp dx, byte 0xe                 ; 0x56d4
-    jne short @..loc_RMVR.l10        ; 0x56d7
+    jne short .forward6              ; 0x56d7
     inc word [bp - 0x16]             ; 0x56d9
-@..loc_RMVR.l10:
+.forward6:
     mov ax, word [bp - 0xe]          ; 0x56dc
     inc ax                           ; 0x56df
     push ax                          ; 0x56e0
@@ -1106,11 +1106,11 @@ loc_RMVR:
     push ax                          ; 0x56ef
     call gfx_show_area               ; 0x56f0
     add sp, byte 8                   ; 0x56f3
-    jmp near @..loc_RMVR.l29         ; 0x56f6
-@..loc_RMVR.l11:
+    jmp near .forward21              ; 0x56f6
+.back5:
     mov word [bp - 0x14], 0xffff     ; 0x56f9
     mov ax, word [bp - 0x16]         ; 0x56fe
-    jmp short @..loc_RMVR.l12        ; 0x5701
+    jmp short .forward7              ; 0x5701
 jumptable_5751_case_0:
     mov word [bp - 0x14], 0          ; 0x5703
     jmp near jumptable_5751_case_1   ; 0x5708
@@ -1164,22 +1164,22 @@ jumptable_5751:
     dw jumptable_5751_case_1 - IMAGE_BASE + __zres_end ; 0x5771
     dw jumptable_5751_case_17 - IMAGE_BASE + __zres_end ; 0x5773
     dw jumptable_5751_case_18 - IMAGE_BASE + __zres_end ; 0x5775
-@..loc_RMVR.l12:
+loc_RMVR.forward7:
     cmp ax, strict word 0x13         ; 0x5777
     jae short jumptable_5751_case_1  ; 0x577a
     xchg bx, ax                      ; 0x577c
     shl bx, 1                        ; 0x577d
     jmp [cs:bx + jumptable_5751 - IMAGE_BASE + __zres_end] ; 0x577f
 jumptable_5751_case_1:
-    cmp word [bp - 0x14], byte 0xff  ; 0x5784
-    je short @..loc_RMVR.l13         ; 0x5788
+    cmp word [bp - 0x14], byte -1    ; 0x5784
+    je short loc_RMVR.forward8       ; 0x5788
     mov word [hotspot_hit], 1        ; 0x578a
-@..loc_RMVR.l13:
-    jmp near @..loc_RMVR.l29         ; 0x5790
-@..loc_RMVR.l14:
+loc_RMVR.forward8:
+    jmp near loc_RMVR.forward21      ; 0x5790
+loc_RMVR.back6:
     mov word [bp - 0x14], 0xffff     ; 0x5793
     mov ax, word [bp - 0x16]         ; 0x5798
-    jmp short @..loc_RMVR.l15        ; 0x579b
+    jmp short loc_RMVR.forward9      ; 0x579b
 jumptable_57ce_case_1:
     mov word [bp - 0x14], 2          ; 0x579d
     jmp short jumptable_57ce_case_0  ; 0x57a2
@@ -1219,22 +1219,22 @@ jumptable_57ce:
     dw jumptable_57ce_case_0 - IMAGE_BASE + __zres_end ; 0x57ea
     dw jumptable_57ce_case_15 - IMAGE_BASE + __zres_end ; 0x57ec
     dw jumptable_57ce_case_16 - IMAGE_BASE + __zres_end ; 0x57ee
-@..loc_RMVR.l15:
+loc_RMVR.forward9:
     cmp ax, strict word 0x11         ; 0x57f0
     jae short jumptable_57ce_case_0  ; 0x57f3
     xchg bx, ax                      ; 0x57f5
     shl bx, 1                        ; 0x57f6
     jmp [cs:bx + jumptable_57ce - IMAGE_BASE + __zres_end] ; 0x57f8
 jumptable_57ce_case_0:
-    cmp word [bp - 0x14], byte 0xff  ; 0x57fd
-    je short @..loc_RMVR.l16         ; 0x5801
+    cmp word [bp - 0x14], byte -1    ; 0x57fd
+    je short loc_RMVR.forward10      ; 0x5801
     mov word [hotspot_hit], 1        ; 0x5803
-@..loc_RMVR.l16:
-    jmp near @..loc_RMVR.l29         ; 0x5809
-@..loc_RMVR.l17:
+loc_RMVR.forward10:
+    jmp near loc_RMVR.forward21      ; 0x5809
+loc_RMVR.back7:
     mov word [bp - 0x14], 0xffff     ; 0x580c
     mov ax, word [bp - 0x16]         ; 0x5811
-    jmp short @..loc_RMVR.l18        ; 0x5814
+    jmp short loc_RMVR.forward11     ; 0x5814
 jumptable_5847_case_1:
     mov word [bp - 0x14], 1          ; 0x5816
     jmp short jumptable_5847_case_0  ; 0x581b
@@ -1274,63 +1274,63 @@ jumptable_5847:
     dw jumptable_5847_case_0 - IMAGE_BASE + __zres_end ; 0x5863
     dw jumptable_5847_case_15 - IMAGE_BASE + __zres_end ; 0x5865
     dw jumptable_5847_case_16 - IMAGE_BASE + __zres_end ; 0x5867
-@..loc_RMVR.l18:
+loc_RMVR.forward11:
     cmp ax, strict word 0x11         ; 0x5869
     jae short jumptable_5847_case_0  ; 0x586c
     xchg bx, ax                      ; 0x586e
     shl bx, 1                        ; 0x586f
     jmp [cs:bx + jumptable_5847 - IMAGE_BASE + __zres_end] ; 0x5871
 jumptable_5847_case_0:
-    cmp word [bp - 0x14], byte 0xff  ; 0x5876
-    je short @..loc_RMVR.l19         ; 0x587a
+    cmp word [bp - 0x14], byte -1    ; 0x5876
+    je short loc_RMVR.forward12      ; 0x587a
     mov word [hotspot_hit], 1        ; 0x587c
-@..loc_RMVR.l19:
-    jmp short @..loc_RMVR.l29        ; 0x5882
-@..loc_RMVR.l20:
+loc_RMVR.forward12:
+    jmp short loc_RMVR.forward21     ; 0x5882
+loc_RMVR.back8:
     mov word [bp - 0x14], 0x18       ; 0x5884
     mov word [hotspot_hit], 1        ; 0x5889
-    jmp short @..loc_RMVR.l29        ; 0x588f
-@..loc_RMVR.l21:
+    jmp short loc_RMVR.forward21     ; 0x588f
+loc_RMVR.forward13:
     cmp ax, strict word 8            ; 0x5891
-    jne short @..loc_RMVR.l22        ; 0x5894
-    jmp near @..loc_RMVR.l17         ; 0x5896
-@..loc_RMVR.l22:
+    jne short loc_RMVR.forward14     ; 0x5894
+    jmp near loc_RMVR.back7          ; 0x5896
+loc_RMVR.forward14:
     cmp ax, strict word 9            ; 0x5899
-    jne short @..loc_RMVR.l23        ; 0x589c
-    jmp near @..loc_RMVR.l7          ; 0x589e
-@..loc_RMVR.l23:
+    jne short loc_RMVR.forward15     ; 0x589c
+    jmp near loc_RMVR.back3          ; 0x589e
+loc_RMVR.forward15:
     cmp ax, strict word 0xa          ; 0x58a1
-    jne short @..loc_RMVR.l24        ; 0x58a4
-    jmp near @..loc_RMVR.l14         ; 0x58a6
-@..loc_RMVR.l24:
+    jne short loc_RMVR.forward16     ; 0x58a4
+    jmp near loc_RMVR.back6          ; 0x58a6
+loc_RMVR.forward16:
     cmp ax, strict word 0xb          ; 0x58a9
-    jne short @..loc_RMVR.l25        ; 0x58ac
-    jmp near @..loc_RMVR.l9          ; 0x58ae
-@..loc_RMVR.l25:
+    jne short loc_RMVR.forward17     ; 0x58ac
+    jmp near loc_RMVR.back4          ; 0x58ae
+loc_RMVR.forward17:
     cmp ax, strict word 0xd          ; 0x58b1
-    jne short @..loc_RMVR.l26        ; 0x58b4
-    jmp near @..loc_RMVR.l11         ; 0x58b6
-@..loc_RMVR.l26:
+    jne short loc_RMVR.forward18     ; 0x58b4
+    jmp near loc_RMVR.back5          ; 0x58b6
+loc_RMVR.forward18:
     cmp ax, strict word 0x1b         ; 0x58b9
-    je short @..loc_RMVR.l20         ; 0x58bc
+    je short loc_RMVR.back8          ; 0x58bc
     cmp ax, strict word 0x2b         ; 0x58be
-    jne short @..loc_RMVR.l27        ; 0x58c1
-    jmp near @..loc_RMVR.l14         ; 0x58c3
-@..loc_RMVR.l27:
+    jne short loc_RMVR.forward19     ; 0x58c1
+    jmp near loc_RMVR.back6          ; 0x58c3
+loc_RMVR.forward19:
     cmp ax, strict word 0x2d         ; 0x58c6
-    jne short @..loc_RMVR.l28        ; 0x58c9
-    jmp near @..loc_RMVR.l17         ; 0x58cb
-@..loc_RMVR.l28:
+    jne short loc_RMVR.forward20     ; 0x58c9
+    jmp near loc_RMVR.back7          ; 0x58cb
+loc_RMVR.forward20:
     cmp ax, strict word 0x3d         ; 0x58ce
-    jne short @..loc_RMVR.l29        ; 0x58d1
-    jmp near @..loc_RMVR.l14         ; 0x58d3
-@..loc_RMVR.l29:
+    jne short loc_RMVR.forward21     ; 0x58d1
+    jmp near loc_RMVR.back6          ; 0x58d3
+loc_RMVR.forward21:
     cmp word [hotspot_hit], byte 1   ; 0x58d6
-    je short @..loc_RMVR.l30         ; 0x58db
-    jmp near @..loc_RMVR.l54         ; 0x58dd
-@..loc_RMVR.l30:
+    je short loc_RMVR.forward22      ; 0x58db
+    jmp near loc_RMVR.forward42      ; 0x58dd
+loc_RMVR.forward22:
     mov ax, word [bp - 0x14]         ; 0x58e0
-    jmp near @..loc_RMVR.l51         ; 0x58e3
+    jmp near loc_RMVR.forward39      ; 0x58e3
 jumptable_5e7f_case_0:
     mov al, byte [bss_5989]          ; 0x58e6
     sub ah, ah                       ; 0x58e9
@@ -1346,10 +1346,10 @@ jumptable_5e7f_case_0:
     push ax                          ; 0x5900
     call api_idx_0052_LJTK           ; 0x5901
     add sp, byte 6                   ; 0x5904
-    jmp near @..loc_RMVR.l52         ; 0x5907
+    jmp near loc_RMVR.forward40      ; 0x5907
 jumptable_5e7f_case_1:
     cmp byte [bss_5986], 0           ; 0x590a
-    jbe short @..loc_RMVR.l31        ; 0x590f
+    jbe short loc_RMVR.forward23     ; 0x590f
     dec byte [bss_5986]              ; 0x5911
     push word [bp - 0xa]             ; 0x5915
     push word [bp - 8]               ; 0x5918
@@ -1357,11 +1357,11 @@ jumptable_5e7f_case_1:
     push ax                          ; 0x591e
     call api_idx_0052_LJTK           ; 0x591f
     add sp, byte 6                   ; 0x5922
-@..loc_RMVR.l31:
-    jmp near @..loc_RMVR.l52         ; 0x5925
+loc_RMVR.forward23:
+    jmp near loc_RMVR.forward40      ; 0x5925
 jumptable_5e7f_case_2:
     cmp byte [bss_5986], 0x63        ; 0x5928
-    jae short @..loc_RMVR.l32        ; 0x592d
+    jae short loc_RMVR.forward24     ; 0x592d
     inc byte [bss_5986]              ; 0x592f
     push word [bp - 0xa]             ; 0x5933
     push word [bp - 8]               ; 0x5936
@@ -1369,8 +1369,8 @@ jumptable_5e7f_case_2:
     push ax                          ; 0x593c
     call api_idx_0052_LJTK           ; 0x593d
     add sp, byte 6                   ; 0x5940
-@..loc_RMVR.l32:
-    jmp near @..loc_RMVR.l52         ; 0x5943
+loc_RMVR.forward24:
+    jmp near loc_RMVR.forward40      ; 0x5943
 jumptable_5e7f_case_3:
     call flush_keyboard              ; 0x5946
     mov ax, 0x12                     ; 0x5949
@@ -1409,7 +1409,7 @@ jumptable_5e7f_case_3:
     push ax                          ; 0x5996
     call api_idx_0052_LJTK           ; 0x5997
     add sp, byte 6                   ; 0x599a
-    jmp near @..loc_RMVR.l52         ; 0x599d
+    jmp near loc_RMVR.forward40      ; 0x599d
 jumptable_5e7f_case_4:
     call flush_keyboard              ; 0x59a0
     mov ax, 0x12                     ; 0x59a3
@@ -1448,11 +1448,11 @@ jumptable_5e7f_case_4:
     push ax                          ; 0x59f0
     call api_idx_0052_LJTK           ; 0x59f1
     add sp, byte 6                   ; 0x59f4
-    jmp near @..loc_RMVR.l52         ; 0x59f7
+    jmp near loc_RMVR.forward40      ; 0x59f7
 jumptable_5e7f_case_5:
     cmp word [bp + 4], byte 0        ; 0x59fa
-    jne short @..loc_RMVR.l34        ; 0x59fe
-@..loc_RMVR.l33:
+    jne short loc_RMVR.forward25     ; 0x59fe
+loc_RMVR.back9:
     mov al, byte [bss_5984]          ; 0x5a00
     sub ah, ah                       ; 0x5a03
     inc ax                           ; 0x5a05
@@ -1462,22 +1462,22 @@ jumptable_5e7f_case_5:
     mov ax, dx                       ; 0x5a0c
     mov byte [bss_5984], al          ; 0x5a0e
     cmp byte [bss_5984], 5           ; 0x5a11
-    je short @..loc_RMVR.l33         ; 0x5a16
+    je short loc_RMVR.back9          ; 0x5a16
     push word [bp - 0xa]             ; 0x5a18
     push word [bp - 8]               ; 0x5a1b
     mov ax, 4                        ; 0x5a1e
     push ax                          ; 0x5a21
     call api_idx_0052_LJTK           ; 0x5a22
     add sp, byte 6                   ; 0x5a25
-@..loc_RMVR.l34:
+loc_RMVR.forward25:
     cmp byte [bss_5984], 0           ; 0x5a28
-    jbe short @..loc_RMVR.l35        ; 0x5a2d
+    jbe short loc_RMVR.forward26     ; 0x5a2d
     mov word [bss_5980], 0x220       ; 0x5a2f
-    jmp short @..loc_RMVR.l36        ; 0x5a35
-@..loc_RMVR.l35:
+    jmp short loc_RMVR.forward27     ; 0x5a35
+loc_RMVR.forward26:
     mov word [bss_5980], 0           ; 0x5a37
-@..loc_RMVR.l36:
-    jmp near @..loc_RMVR.l52         ; 0x5a3d
+loc_RMVR.forward27:
+    jmp near loc_RMVR.forward40      ; 0x5a3d
 jumptable_5e7f_case_6:
     mov ax, 0xa                      ; 0x5a40
     push ax                          ; 0x5a43
@@ -1493,7 +1493,7 @@ jumptable_5e7f_case_6:
     push ax                          ; 0x5a5b
     call api_idx_0052_LJTK           ; 0x5a5c
     add sp, byte 6                   ; 0x5a5f
-    jmp near @..loc_RMVR.l52         ; 0x5a62
+    jmp near loc_RMVR.forward40      ; 0x5a62
 jumptable_5e7f_case_7:
     mov ax, 0xa                      ; 0x5a65
     push ax                          ; 0x5a68
@@ -1509,7 +1509,7 @@ jumptable_5e7f_case_7:
     push ax                          ; 0x5a80
     call api_idx_0052_LJTK           ; 0x5a81
     add sp, byte 6                   ; 0x5a84
-    jmp near @..loc_RMVR.l52         ; 0x5a87
+    jmp near loc_RMVR.forward40      ; 0x5a87
 jumptable_5e7f_case_8:
     mov ax, 0xa                      ; 0x5a8a
     push ax                          ; 0x5a8d
@@ -1525,7 +1525,7 @@ jumptable_5e7f_case_8:
     push ax                          ; 0x5aa5
     call api_idx_0052_LJTK           ; 0x5aa6
     add sp, byte 6                   ; 0x5aa9
-    jmp near @..loc_RMVR.l52         ; 0x5aac
+    jmp near loc_RMVR.forward40      ; 0x5aac
 jumptable_5e7f_case_9:
     mov ax, 0xa                      ; 0x5aaf
     push ax                          ; 0x5ab2
@@ -1540,7 +1540,7 @@ jumptable_5e7f_case_9:
     push ax                          ; 0x5ac7
     call api_idx_0052_LJTK           ; 0x5ac8
     add sp, byte 6                   ; 0x5acb
-    jmp near @..loc_RMVR.l52         ; 0x5ace
+    jmp near loc_RMVR.forward40      ; 0x5ace
 jumptable_5e7f_case_10:
     mov ax, 0xa                      ; 0x5ad1
     push ax                          ; 0x5ad4
@@ -1556,7 +1556,7 @@ jumptable_5e7f_case_10:
     push ax                          ; 0x5aec
     call api_idx_0052_LJTK           ; 0x5aed
     add sp, byte 6                   ; 0x5af0
-    jmp near @..loc_RMVR.l52         ; 0x5af3
+    jmp near loc_RMVR.forward40      ; 0x5af3
 jumptable_5e7f_case_11:
     mov ax, 0xa                      ; 0x5af6
     push ax                          ; 0x5af9
@@ -1572,11 +1572,11 @@ jumptable_5e7f_case_11:
     push ax                          ; 0x5b11
     call api_idx_0052_LJTK           ; 0x5b12
     add sp, byte 6                   ; 0x5b15
-    jmp near @..loc_RMVR.l52         ; 0x5b18
+    jmp near loc_RMVR.forward40      ; 0x5b18
 jumptable_5e7f_case_12:
     cmp word [bp + 4], byte 0        ; 0x5b1b
-    jne short @..loc_RMVR.l38        ; 0x5b1f
-@..loc_RMVR.l37:
+    jne short loc_RMVR.forward28     ; 0x5b1f
+loc_RMVR.back10:
     mov al, byte [video_mode]        ; 0x5b21
     sub ah, ah                       ; 0x5b24
     inc ax                           ; 0x5b26
@@ -1586,24 +1586,24 @@ jumptable_5e7f_case_12:
     mov ax, dx                       ; 0x5b2d
     mov byte [video_mode], al        ; 0x5b2f
     cmp byte [video_mode], 2         ; 0x5b32
-    je short @..loc_RMVR.l37         ; 0x5b37
+    je short loc_RMVR.back10         ; 0x5b37
     cmp byte [video_mode], 3         ; 0x5b39
-    je short @..loc_RMVR.l37         ; 0x5b3e
+    je short loc_RMVR.back10         ; 0x5b3e
     push word [bp - 0xa]             ; 0x5b40
     push word [bp - 8]               ; 0x5b43
     mov ax, 8                        ; 0x5b46
     push ax                          ; 0x5b49
     call api_idx_0052_LJTK           ; 0x5b4a
     add sp, byte 6                   ; 0x5b4d
-@..loc_RMVR.l38:
+loc_RMVR.forward28:
     cmp byte [video_mode], 0         ; 0x5b50
-    jbe short @..loc_RMVR.l39        ; 0x5b55
+    jbe short loc_RMVR.forward29     ; 0x5b55
     mov word [bss_5982], 0x220       ; 0x5b57
-    jmp short @..loc_RMVR.l40        ; 0x5b5d
-@..loc_RMVR.l39:
+    jmp short loc_RMVR.forward30     ; 0x5b5d
+loc_RMVR.forward29:
     mov word [bss_5982], 0           ; 0x5b5f
-@..loc_RMVR.l40:
-    jmp near @..loc_RMVR.l52         ; 0x5b65
+loc_RMVR.forward30:
+    jmp near loc_RMVR.forward40      ; 0x5b65
 jumptable_5e7f_case_13:
     mov ax, 0xa                      ; 0x5b68
     push ax                          ; 0x5b6b
@@ -1619,7 +1619,7 @@ jumptable_5e7f_case_13:
     push ax                          ; 0x5b83
     call api_idx_0052_LJTK           ; 0x5b84
     add sp, byte 6                   ; 0x5b87
-    jmp near @..loc_RMVR.l52         ; 0x5b8a
+    jmp near loc_RMVR.forward40      ; 0x5b8a
 jumptable_5e7f_case_14:
     mov ax, 0xa                      ; 0x5b8d
     push ax                          ; 0x5b90
@@ -1635,7 +1635,7 @@ jumptable_5e7f_case_14:
     push ax                          ; 0x5ba8
     call api_idx_0052_LJTK           ; 0x5ba9
     add sp, byte 6                   ; 0x5bac
-    jmp near @..loc_RMVR.l52         ; 0x5baf
+    jmp near loc_RMVR.forward40      ; 0x5baf
 jumptable_5e7f_case_15:
     mov al, byte [bss_5988]          ; 0x5bb2
     sub ah, ah                       ; 0x5bb5
@@ -1651,7 +1651,7 @@ jumptable_5e7f_case_15:
     push ax                          ; 0x5bcc
     call api_idx_0052_LJTK           ; 0x5bcd
     add sp, byte 6                   ; 0x5bd0
-    jmp near @..loc_RMVR.l52         ; 0x5bd3
+    jmp near loc_RMVR.forward40      ; 0x5bd3
 jumptable_5e7f_case_16:
     mov al, byte [no_dissolve]       ; 0x5bd6
     sub ah, ah                       ; 0x5bd9
@@ -1667,16 +1667,16 @@ jumptable_5e7f_case_16:
     push ax                          ; 0x5bf0
     call api_idx_0052_LJTK           ; 0x5bf1
     add sp, byte 6                   ; 0x5bf4
-    jmp near @..loc_RMVR.l52         ; 0x5bf7
+    jmp near loc_RMVR.forward40      ; 0x5bf7
 jumptable_5e7f_case_17:
     mov ax, 1                        ; 0x5bfa
     cmp byte [screen_store_1_enabled], 1 ; 0x5bfd
-    je short @..loc_RMVR.l41         ; 0x5c02
+    je short loc_RMVR.forward31      ; 0x5c02
     mov ax, 0                        ; 0x5c04
     cmp byte [screen_store_disk_enabled], 1 ; 0x5c07
-    jne short @..loc_RMVR.l41        ; 0x5c0c
+    jne short loc_RMVR.forward31     ; 0x5c0c
     mov ax, 2                        ; 0x5c0e
-@..loc_RMVR.l41:
+loc_RMVR.forward31:
     mov word [bp - 4], ax            ; 0x5c11
     inc ax                           ; 0x5c14
     mov cx, 3                        ; 0x5c15
@@ -1686,19 +1686,19 @@ jumptable_5e7f_case_17:
     mov byte [screen_store_1_enabled], 0 ; 0x5c1e
     mov byte [screen_store_disk_enabled], 0 ; 0x5c23
     mov ax, dx                       ; 0x5c28
-    jmp short @..loc_RMVR.l44        ; 0x5c2a
-@..loc_RMVR.l42:
+    jmp short loc_RMVR.forward32     ; 0x5c2a
+loc_RMVR.back11:
     mov byte [screen_store_1_enabled], 1 ; 0x5c2c
-    jmp short @..loc_RMVR.l45        ; 0x5c31
-@..loc_RMVR.l43:
+    jmp short loc_RMVR.forward33     ; 0x5c31
+loc_RMVR.back12:
     mov byte [screen_store_disk_enabled], 1 ; 0x5c33
-    jmp short @..loc_RMVR.l45        ; 0x5c38
-@..loc_RMVR.l44:
+    jmp short loc_RMVR.forward33     ; 0x5c38
+loc_RMVR.forward32:
     cmp ax, strict word 1            ; 0x5c3a
-    je short @..loc_RMVR.l42         ; 0x5c3d
+    je short loc_RMVR.back11         ; 0x5c3d
     cmp ax, strict word 2            ; 0x5c3f
-    je short @..loc_RMVR.l43         ; 0x5c42
-@..loc_RMVR.l45:
+    je short loc_RMVR.back12         ; 0x5c42
+loc_RMVR.forward33:
     push word [bp - 0xa]             ; 0x5c44
     push word [bp - 8]               ; 0x5c47
     mov ax, 0xc                      ; 0x5c4a
@@ -1721,16 +1721,16 @@ jumptable_5e7f_case_17:
     add sp, byte 8                   ; 0x5c6b
 jumptable_5e7f_case_18:
     cmp word [bp - 0x14], byte 0x12  ; 0x5c6e
-    je short @..loc_RMVR.l46         ; 0x5c72
+    je short loc_RMVR.forward34      ; 0x5c72
     cmp byte [screen_store_disk_enabled], 1 ; 0x5c74
-    jne short @..loc_RMVR.l47        ; 0x5c79
+    jne short loc_RMVR.forward35     ; 0x5c79
     mov ax, screen_store_drive       ; 0x5c7b
     push ax                          ; 0x5c7e
     call aztec_strlen                ; 0x5c7f
     pop cx                           ; 0x5c82
     test ax, ax                      ; 0x5c83
-    jne short @..loc_RMVR.l47        ; 0x5c85
-@..loc_RMVR.l46:
+    jne short loc_RMVR.forward35     ; 0x5c85
+loc_RMVR.forward34:
     call flush_keyboard              ; 0x5c87
     mov ax, 0xa                      ; 0x5c8a
     push ax                          ; 0x5c8d
@@ -1768,8 +1768,8 @@ jumptable_5e7f_case_18:
     push ax                          ; 0x5cd7
     call api_idx_0052_LJTK           ; 0x5cd8
     add sp, byte 6                   ; 0x5cdb
-@..loc_RMVR.l47:
-    jmp near @..loc_RMVR.l52         ; 0x5cde
+loc_RMVR.forward35:
+    jmp near loc_RMVR.forward40      ; 0x5cde
 jumptable_5e7f_case_19:
     mov ax, 0xff9d                   ; 0x5ce1
     push ax                          ; 0x5ce4
@@ -1793,7 +1793,7 @@ jumptable_5e7f_case_19:
     push ax                          ; 0x5d0c
     call api_idx_000c_NLKU           ; 0x5d0d
     add sp, byte 4                   ; 0x5d10
-    jmp near @..loc_RMVR.l52         ; 0x5d13
+    jmp near loc_RMVR.forward40      ; 0x5d13
 jumptable_5e7f_case_20:
     mov ax, 0x63                     ; 0x5d16
     push ax                          ; 0x5d19
@@ -1817,7 +1817,7 @@ jumptable_5e7f_case_20:
     push ax                          ; 0x5d41
     call api_idx_000c_NLKU           ; 0x5d42
     add sp, byte 4                   ; 0x5d45
-    jmp near @..loc_RMVR.l52         ; 0x5d48
+    jmp near loc_RMVR.forward40      ; 0x5d48
 jumptable_5e7f_case_21:
     mov ax, 0xff9d                   ; 0x5d4b
     push ax                          ; 0x5d4e
@@ -1841,7 +1841,7 @@ jumptable_5e7f_case_21:
     push ax                          ; 0x5d76
     call api_idx_000c_NLKU           ; 0x5d77
     add sp, byte 4                   ; 0x5d7a
-    jmp near @..loc_RMVR.l52         ; 0x5d7d
+    jmp near loc_RMVR.forward40      ; 0x5d7d
 jumptable_5e7f_case_22:
     mov ax, 0x63                     ; 0x5d80
     push ax                          ; 0x5d83
@@ -1864,7 +1864,7 @@ jumptable_5e7f_case_22:
     push ax                          ; 0x5da8
     call api_idx_000c_NLKU           ; 0x5da9
     add sp, byte 4                   ; 0x5dac
-    jmp near @..loc_RMVR.l52         ; 0x5daf
+    jmp near loc_RMVR.forward40      ; 0x5daf
 jumptable_5e7f_case_23:
     mov ax, 1                        ; 0x5db2
     push ax                          ; 0x5db5
@@ -1895,20 +1895,20 @@ jumptable_5e7f_case_23:
     add sp, byte 0xa                 ; 0x5dec
     mov al, byte [bss_5984]          ; 0x5def
     cmp al, byte [bp - 0x74]         ; 0x5df2
-    jne short @..loc_RMVR.l48        ; 0x5df5
+    jne short loc_RMVR.forward36     ; 0x5df5
     mov al, byte [video_mode]        ; 0x5df7
     cmp al, byte [bp - 0x73]         ; 0x5dfa
-    je short @..loc_RMVR.l49         ; 0x5dfd
-@..loc_RMVR.l48:
+    je short loc_RMVR.forward37      ; 0x5dfd
+loc_RMVR.forward36:
     mov ax, 1                        ; 0x5dff
-    jmp short @..loc_RMVR.l50        ; 0x5e02
-@..loc_RMVR.l49:
+    jmp short loc_RMVR.forward38     ; 0x5e02
+loc_RMVR.forward37:
     mov ax, 0                        ; 0x5e04
-@..loc_RMVR.l50:
+loc_RMVR.forward38:
     mov word [spell_dialog_button], ax ; 0x5e07
     mov word [bp - 0x18], 0          ; 0x5e0a
     call api_idx_0002_QRVU           ; 0x5e0f
-    jmp near @..loc_RMVR.l52         ; 0x5e12
+    jmp near loc_RMVR.forward40      ; 0x5e12
 jumptable_5e7f_case_24:
     mov ax, 1                        ; 0x5e15
     push ax                          ; 0x5e18
@@ -1953,7 +1953,7 @@ jumptable_5e7f_case_24:
     push ax                          ; 0x5e76
     call api_idx_000c_NLKU           ; 0x5e77
     add sp, byte 4                   ; 0x5e7a
-    jmp short @..loc_RMVR.l52        ; 0x5e7d
+    jmp short loc_RMVR.forward40     ; 0x5e7d
 jumptable_5e7f:
     dw jumptable_5e7f_case_0 - IMAGE_BASE + __zres_end ; 0x5e7f
     dw jumptable_5e7f_case_1 - IMAGE_BASE + __zres_end ; 0x5e81
@@ -1980,23 +1980,23 @@ jumptable_5e7f:
     dw jumptable_5e7f_case_22 - IMAGE_BASE + __zres_end ; 0x5eab
     dw jumptable_5e7f_case_23 - IMAGE_BASE + __zres_end ; 0x5ead
     dw jumptable_5e7f_case_24 - IMAGE_BASE + __zres_end ; 0x5eaf
-@..loc_RMVR.l51:
+loc_RMVR.forward39:
     cmp ax, strict word 0x19         ; 0x5eb1
-    jae short @..loc_RMVR.l52        ; 0x5eb4
+    jae short loc_RMVR.forward40     ; 0x5eb4
     xchg bx, ax                      ; 0x5eb6
     shl bx, 1                        ; 0x5eb7
     jmp [cs:bx + jumptable_5e7f - IMAGE_BASE + __zres_end] ; 0x5eb9
-@..loc_RMVR.l52:
+loc_RMVR.forward40:
     cmp word [bp - 0x18], byte 0     ; 0x5ebe
-    je short @..loc_RMVR.l53         ; 0x5ec2
+    je short loc_RMVR.forward41      ; 0x5ec2
     cmp word [mouse_active], byte 0  ; 0x5ec4
-    jne short @..loc_RMVR.l53        ; 0x5ec9
+    jne short loc_RMVR.forward41     ; 0x5ec9
     push word [bp - 0xa]             ; 0x5ecb
     push word [bp - 8]               ; 0x5ece
     push word [bp - 0x16]            ; 0x5ed1
     call api_idx_0052_JQTP           ; 0x5ed4
     add sp, byte 6                   ; 0x5ed7
-@..loc_RMVR.l53:
+loc_RMVR.forward41:
     mov ax, word [bp - 0xe]          ; 0x5eda
     inc ax                           ; 0x5edd
     push ax                          ; 0x5ede
@@ -2011,11 +2011,11 @@ jumptable_5e7f:
     push ax                          ; 0x5eed
     call gfx_show_area               ; 0x5eee
     add sp, byte 8                   ; 0x5ef1
-@..loc_RMVR.l54:
+loc_RMVR.forward42:
     cmp word [bp - 0x18], byte 0     ; 0x5ef4
-    je short @..loc_RMVR.l55         ; 0x5ef8
-    jmp near @..loc_RMVR.l5          ; 0x5efa
-@..loc_RMVR.l55:
+    je short loc_RMVR.forward43      ; 0x5ef8
+    jmp near loc_RMVR.back2          ; 0x5efa
+loc_RMVR.forward43:
     mov ax, 1                        ; 0x5efd
     push ax                          ; 0x5f00
     push word [bp - 0x6a]            ; 0x5f01
@@ -2042,13 +2042,13 @@ loc_PVJJ:
     call aztec_csav                  ; 0x5f2b
     mov word [bp - 8], 0             ; 0x5f2e
     mov word [bp - 2], 0             ; 0x5f33
-    jmp near @..loc_PVJJ.l7          ; 0x5f38
-@..loc_PVJJ.l1:
+    jmp near .forward4               ; 0x5f38
+.back1:
     mov bx, word [bp - 2]            ; 0x5f3b
     cmp byte [bx + pc_file_record_base_hi + 0x2], 1 ; 0x5f3e
-    je short @..loc_PVJJ.l2          ; 0x5f43
-    jmp near @..loc_PVJJ.l6          ; 0x5f45
-@..loc_PVJJ.l2:
+    je short .forward1               ; 0x5f43
+    jmp near .forward3               ; 0x5f45
+.forward1:
     mov ax, 0                        ; 0x5f48
     push ax                          ; 0x5f4b
     push bx                          ; 0x5f4c
@@ -2071,17 +2071,17 @@ loc_PVJJ:
     call aztec_strlen                ; 0x5f77
     pop cx                           ; 0x5f7a
     mov word [bp - 4], ax            ; 0x5f7b
-@..loc_PVJJ.l3:
+.back2:
     cmp word [bp - 4], byte 0xa      ; 0x5f7e
-    jge short @..loc_PVJJ.l4         ; 0x5f82
+    jge short .forward2              ; 0x5f82
     mov ax, 0x14                     ; 0x5f84
     imul word [bp - 8]               ; 0x5f87
     add ax, word [bp - 4]            ; 0x5f8a
     mov bx, ax                       ; 0x5f8d
     mov byte [bx + known_spell_names], 0x20 ; 0x5f8f
     inc word [bp - 4]                ; 0x5f94
-    jmp short @..loc_PVJJ.l3         ; 0x5f97
-@..loc_PVJJ.l4:
+    jmp short .back2                 ; 0x5f97
+.forward2:
     lea ax, word [bp - 0x2a0]        ; 0x5f99
     push ax                          ; 0x5f9d
     mov al, byte [bp - 0x18]         ; 0x5f9e
@@ -2107,7 +2107,7 @@ loc_PVJJ:
     call load_message_string         ; 0x5fd2
     add sp, byte 4                   ; 0x5fd5
     mov word [bp - 4], 0             ; 0x5fd8
-@..loc_PVJJ.l5:
+.back3:
     mov bx, word [bp - 4]            ; 0x5fdd
     add bx, bp                       ; 0x5fe0
     mov al, byte [bx - 0x2a0]        ; 0x5fe2
@@ -2122,7 +2122,7 @@ loc_PVJJ:
     inc word [bp - 4]                ; 0x5ff9
     mov ax, word [bp - 4]            ; 0x5ffc
     cmp ax, strict word 3            ; 0x5fff
-    jl short @..loc_PVJJ.l5          ; 0x6002
+    jl short .back3                  ; 0x6002
     mov ax, 0x14                     ; 0x6004
     imul word [bp - 8]               ; 0x6007
     mov bx, ax                       ; 0x600a
@@ -2134,16 +2134,16 @@ loc_PVJJ:
     add bx, bp                       ; 0x601b
     mov word [bx - 0x2c0], ax        ; 0x601d
     inc word [bp - 8]                ; 0x6021
-@..loc_PVJJ.l6:
+.forward3:
     inc word [bp - 2]                ; 0x6024
-@..loc_PVJJ.l7:
+.forward4:
     mov ax, word [bp - 2]            ; 0x6027
     cmp ax, word [bss_9070]          ; 0x602a
-    jge short @..loc_PVJJ.l8         ; 0x602e
-    jmp near @..loc_PVJJ.l1          ; 0x6030
-@..loc_PVJJ.l8:
+    jge short .forward5              ; 0x602e
+    jmp near .back1                  ; 0x6030
+.forward5:
     cmp word [bp - 8], byte 0        ; 0x6033
-    jle short @..loc_PVJJ.l9         ; 0x6037
+    jle short .forward6              ; 0x6037
     push word [bp - 8]               ; 0x6039
     mov ax, 1                        ; 0x603c
     push ax                          ; 0x603f
@@ -2154,16 +2154,16 @@ loc_PVJJ:
     call api_idx_0038_MNUL           ; 0x6048
     add sp, byte 0xa                 ; 0x604b
     cmp ax, strict word 1            ; 0x604e
-    jne short @..loc_PVJJ.l9         ; 0x6051
+    jne short .forward6              ; 0x6051
     mov ax, word [spell_dialog_result] ; 0x6053
     mov word [bp - 6], ax            ; 0x6056
     cmp ax, strict word 0xffff       ; 0x6059
-    je short @..loc_PVJJ.l9          ; 0x605c
+    je short .forward6               ; 0x605c
     shl ax, 1                        ; 0x605e
     mov bx, ax                       ; 0x6060
     add bx, bp                       ; 0x6062
     mov ax, word [bx - 0x2c0]        ; 0x6064
     ret                              ; 0x6068
-@..loc_PVJJ.l9:
+.forward6:
     mov ax, 0xffff                   ; 0x6069
     ret                              ; 0x606c

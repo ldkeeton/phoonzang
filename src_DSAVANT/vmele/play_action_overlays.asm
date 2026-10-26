@@ -3,7 +3,7 @@ play_action_overlays:
     mov ax, 0xffa6                   ; 0x2cde
     call aztec_csav                  ; 0x2ce1
     cmp word [show_melee_result], byte 0 ; 0x2ce4
-    je short @..play_action_overlays.l1 ; 0x2ce9
+    je short .forward1               ; 0x2ce9
     lea ax, word [bp - 0x5a]         ; 0x2ceb
     push ax                          ; 0x2cee
     mov ax, MSG_AN_ENCOUNTER         ; 0x2cef
@@ -16,7 +16,7 @@ play_action_overlays:
     push ax                          ; 0x2d00
     call flash_message_line          ; 0x2d01
     add sp, byte 4                   ; 0x2d04
-@..play_action_overlays.l1:
+.forward1:
     mov word [bp - 0xa], 0           ; 0x2d07
     les bx, word [tick_counter_ptr]  ; 0x2d0c
     mov ax, word [es:bx]             ; 0x2d10
@@ -24,35 +24,35 @@ play_action_overlays:
     mov word [party_redraw_last_tick_hi], dx ; 0x2d17
     mov word [party_redraw_last_tick], ax ; 0x2d1b
     mov word [bp - 2], 0             ; 0x2d1e
-@..play_action_overlays.l2:
+.back1:
     cmp word [bp + 4], byte 0        ; 0x2d23
-    jne short @..play_action_overlays.l3 ; 0x2d27
+    jne short .back2                 ; 0x2d27
     cmp word [bp - 2], byte 1        ; 0x2d29
-    jne short @..play_action_overlays.l3 ; 0x2d2d
+    jne short .back2                 ; 0x2d2d
     mov bx, word [party_member_ext_1] ; 0x2d2f
     cmp byte [bx + party_member_ext_1_rec.f_00d8], 0 ; 0x2d33
-    jbe short @..play_action_overlays.l3 ; 0x2d38
+    jbe short .back2                 ; 0x2d38
     mov ax, 0x10                     ; 0x2d3a
     push ax                          ; 0x2d3d
     call play_sound_effect           ; 0x2d3e
     pop cx                           ; 0x2d41
-@..play_action_overlays.l3:
+.back2:
     mov word [bss_845e], 0xfffe      ; 0x2d42
     call api_idx_0006_IRNH           ; 0x2d48
     mov word [bp - 4], 0             ; 0x2d4b
-@..play_action_overlays.l4:
+.back3:
     mov word [bp - 6], 0             ; 0x2d50
-@..play_action_overlays.l5:
+.back4:
     mov ax, word [bp - 6]            ; 0x2d55
     mov cx, 2                        ; 0x2d58
     cwd                              ; 0x2d5b
     idiv cx                          ; 0x2d5c
     mov ax, dx                       ; 0x2d5e
     cmp ax, strict word 1            ; 0x2d60
-    je short @..play_action_overlays.l6 ; 0x2d63
+    je short .forward2               ; 0x2d63
     cmp word [bp - 6], byte 0        ; 0x2d65
-    jne short @..play_action_overlays.l7 ; 0x2d69
-@..play_action_overlays.l6:
+    jne short .forward3              ; 0x2d69
+.forward2:
     mov ax, word [bp + 4]            ; 0x2d6b
     shl ax, 1                        ; 0x2d6e
     shl ax, 1                        ; 0x2d70
@@ -64,8 +64,8 @@ play_action_overlays:
     mov cx, word [bx + cell_overlay_code + 0x48] ; 0x2d7d
     mov ax, 0                        ; 0x2d81
     sub ax, cx                       ; 0x2d84
-    jmp short @..play_action_overlays.l8 ; 0x2d86
-@..play_action_overlays.l7:
+    jmp short .forward4              ; 0x2d86
+.forward3:
     mov ax, word [bp + 4]            ; 0x2d88
     shl ax, 1                        ; 0x2d8b
     shl ax, 1                        ; 0x2d8d
@@ -75,16 +75,16 @@ play_action_overlays:
     add ax, cx                       ; 0x2d96
     mov bx, ax                       ; 0x2d98
     mov ax, word [bx + cell_overlay_code + 0x48] ; 0x2d9a
-@..play_action_overlays.l8:
+.forward4:
     mov word [bp - 8], ax            ; 0x2d9e
     cmp word [bp - 4], byte 0        ; 0x2da1
-    jne short @..play_action_overlays.l9 ; 0x2da5
+    jne short .forward5              ; 0x2da5
     cmp word [bp - 6], byte 0        ; 0x2da7
-    jne short @..play_action_overlays.l9 ; 0x2dab
+    jne short .forward5              ; 0x2dab
     cmp word [npc_melee], byte 1     ; 0x2dad
-    jne short @..play_action_overlays.l9 ; 0x2db2
+    jne short .forward5              ; 0x2db2
     mov word [bp - 8], 0             ; 0x2db4
-@..play_action_overlays.l9:
+.forward5:
     push word [bp - 0xa]             ; 0x2db9
     mov ax, 0xf8                     ; 0x2dbc
     push ax                          ; 0x2dbf
@@ -102,9 +102,9 @@ play_action_overlays:
     push ax                          ; 0x2ddc
     mov ax, 0                        ; 0x2ddd
     cmp word [bx + cell_action_marks], byte 1 ; 0x2de0
-    jne short @..play_action_overlays.l10 ; 0x2de5
+    jne short .forward6              ; 0x2de5
     mov ax, word [bp - 8]            ; 0x2de7
-@..play_action_overlays.l10:
+.forward6:
     push ax                          ; 0x2dea
     push word [bp - 6]               ; 0x2deb
     push word [bp - 4]               ; 0x2dee
@@ -113,26 +113,26 @@ play_action_overlays:
     inc word [bp - 6]                ; 0x2df7
     mov ax, word [bp - 6]            ; 0x2dfa
     cmp ax, strict word 3            ; 0x2dfd
-    jge short @..play_action_overlays.l11 ; 0x2e00
-    jmp near @..play_action_overlays.l5 ; 0x2e02
-@..play_action_overlays.l11:
+    jge short .forward7              ; 0x2e00
+    jmp near .back4                  ; 0x2e02
+.forward7:
     inc word [bp - 4]                ; 0x2e05
     mov ax, word [bp - 4]            ; 0x2e08
     cmp ax, strict word 3            ; 0x2e0b
-    jge short @..play_action_overlays.l12 ; 0x2e0e
-    jmp near @..play_action_overlays.l4 ; 0x2e10
-@..play_action_overlays.l12:
+    jge short .forward8              ; 0x2e0e
+    jmp near .back3                  ; 0x2e10
+.forward8:
     call queue_marker_overlay        ; 0x2e13
     call draw_party_status_glyphs    ; 0x2e16
     mov word [bss_845e], 0           ; 0x2e19
-@..play_action_overlays.l13:
+.back5:
     call api_idx_0006_IRNH           ; 0x2e1f
-    cmp word [bss_845e], byte 0xfe   ; 0x2e22
-    jne short @..play_action_overlays.l13 ; 0x2e27
+    cmp word [bss_845e], byte -2     ; 0x2e22
+    jne short .back5                 ; 0x2e27
     call loc_KRMP                    ; 0x2e29
     mov word [bp - 0xa], ax          ; 0x2e2c
     cmp word [bp - 0xa], byte 0      ; 0x2e2f
-    je short @..play_action_overlays.l14 ; 0x2e33
+    je short .forward9               ; 0x2e33
     mov ax, word [screen_cache_index] ; 0x2e35
     inc ax                           ; 0x2e38
     mov cx, 2                        ; 0x2e39
@@ -144,21 +144,21 @@ play_action_overlays:
     cwd                              ; 0x2e47
     idiv cx                          ; 0x2e48
     mov word [party_status_frame], dx ; 0x2e4a
-@..play_action_overlays.l14:
+.forward9:
     cmp word [bp - 0xa], byte 0      ; 0x2e4e
-    jne short @..play_action_overlays.l15 ; 0x2e52
-    jmp near @..play_action_overlays.l3 ; 0x2e54
-@..play_action_overlays.l15:
+    jne short .forward10             ; 0x2e52
+    jmp near .back2                  ; 0x2e54
+.forward10:
     inc word [bp - 2]                ; 0x2e57
     mov ax, word [bp - 2]            ; 0x2e5a
     cmp ax, strict word 4            ; 0x2e5d
-    jge short @..play_action_overlays.l16 ; 0x2e60
-    jmp near @..play_action_overlays.l2 ; 0x2e62
-@..play_action_overlays.l16:
+    jge short .forward11             ; 0x2e60
+    jmp near .back1                  ; 0x2e62
+.forward11:
     mov word [bp - 4], 0             ; 0x2e65
-@..play_action_overlays.l17:
+.back6:
     mov word [bp - 6], 0             ; 0x2e6a
-@..play_action_overlays.l18:
+.back7:
     mov ax, 6                        ; 0x2e6f
     imul word [bp - 4]               ; 0x2e72
     mov cx, word [bp - 6]            ; 0x2e75
@@ -169,14 +169,14 @@ play_action_overlays:
     inc word [bp - 6]                ; 0x2e84
     mov ax, word [bp - 6]            ; 0x2e87
     cmp ax, strict word 3            ; 0x2e8a
-    jl short @..play_action_overlays.l18 ; 0x2e8d
+    jl short .back7                  ; 0x2e8d
     inc word [bp - 4]                ; 0x2e8f
     mov ax, word [bp - 4]            ; 0x2e92
     cmp ax, strict word 3            ; 0x2e95
-    jl short @..play_action_overlays.l17 ; 0x2e98
+    jl short .back6                  ; 0x2e98
     mov word [npc_melee], 0          ; 0x2e9a
     cmp word [show_melee_result], byte 0 ; 0x2ea0
-    je short @..play_action_overlays.l19 ; 0x2ea5
+    je short .return1                ; 0x2ea5
     mov ax, 0xc6                     ; 0x2ea7
     push ax                          ; 0x2eaa
     mov ax, 0x109                    ; 0x2eab
@@ -188,5 +188,5 @@ play_action_overlays:
     call gfx_show_area               ; 0x2eb7
     add sp, byte 8                   ; 0x2eba
     mov word [show_melee_result], 0  ; 0x2ebd
-@..play_action_overlays.l19:
+.return1:
     ret                              ; 0x2ec3

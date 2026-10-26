@@ -34,8 +34,8 @@ api_idx_000c_QGMU:
     mov word [bp - 0xc], ax          ; 0x87e5
     mov word [bp - 6], 0             ; 0x87e8
     mov word [bp - 4], 0             ; 0x87ed
-    jmp short @..api_idx_000c_QGMU.l3 ; 0x87f2
-@..api_idx_000c_QGMU.l1:
+    jmp short .forward2              ; 0x87f2
+.back1:
     mov ax, word [bp - 8]            ; 0x87f4
     add ax, word [bp - 4]            ; 0x87f7
     push ax                          ; 0x87fa
@@ -47,14 +47,14 @@ api_idx_000c_QGMU:
     call test_bit                    ; 0x8807
     add sp, byte 4                   ; 0x880a
     cmp ax, word [bp - 0xc]          ; 0x880d
-    je short @..api_idx_000c_QGMU.l2 ; 0x8810
+    je short .forward1               ; 0x8810
     inc word [bp - 6]                ; 0x8812
-@..api_idx_000c_QGMU.l2:
+.forward1:
     inc word [bp - 4]                ; 0x8815
-@..api_idx_000c_QGMU.l3:
+.forward2:
     mov ax, word [bp - 4]            ; 0x8818
     cmp ax, word [bp - 0xa]          ; 0x881b
-    jl short @..api_idx_000c_QGMU.l1 ; 0x881e
+    jl short .back1                  ; 0x881e
     mov ax, 1                        ; 0x8820
     push ax                          ; 0x8823
     mov ax, 0xe                      ; 0x8824

@@ -3,12 +3,12 @@ api_idx_0006_MRPM:
     mov ax, 0xfffa                   ; 0x908d
     call aztec_csav                  ; 0x9090
     cmp word [bp + 0xc], byte 0      ; 0x9093
-    je short @..api_idx_0006_MRPM.l1 ; 0x9097
+    je short .forward1               ; 0x9097
     cmp word [bss_8464], byte 0      ; 0x9099
-    je short @..api_idx_0006_MRPM.l1 ; 0x909e
+    je short .forward1               ; 0x909e
     mov ax, word [bss_8464]          ; 0x90a0
     cmp ax, strict word 6            ; 0x90a3
-    je short @..api_idx_0006_MRPM.l1 ; 0x90a6
+    je short .forward1               ; 0x90a6
     mov ax, 0x2c                     ; 0x90a8
     imul word [bss_8462]             ; 0x90ab
     mov si, ax                       ; 0x90af
@@ -17,7 +17,7 @@ api_idx_0006_MRPM:
     mov bx, ax                       ; 0x90b6
     mov bx, word [bx + party_char]   ; 0x90b8
     cmp byte [bx + si + 0x2a], 0xff  ; 0x90bc
-    je short @..api_idx_0006_MRPM.l1 ; 0x90c0
+    je short .forward1               ; 0x90c0
     mov al, byte [bx + si + 0x2a]    ; 0x90c2
     cbw                              ; 0x90c5
     mov cx, 0xa                      ; 0x90c6
@@ -40,7 +40,7 @@ api_idx_0006_MRPM:
     push ax                          ; 0x90ee
     call api_idx_0004_QUPL           ; 0x90ef
     pop cx                           ; 0x90f2
-@..api_idx_0006_MRPM.l1:
+.forward1:
     push word [bss_8462]             ; 0x90f3
     push word [bss_8464]             ; 0x90f7
     mov ax, bss_90e6                 ; 0x90fb
@@ -54,20 +54,20 @@ api_idx_0006_MRPM:
     add sp, byte 4                   ; 0x910f
     mov byte [bss_9186], 0           ; 0x9112
     cmp word [bp + 6], byte 0        ; 0x9117
-    jl short @..api_idx_0006_MRPM.l2 ; 0x911b
+    jl short .forward2               ; 0x911b
     mov ax, bss_9186                 ; 0x911d
     push ax                          ; 0x9120
     push word [bp + 6]               ; 0x9121
     call load_message_string         ; 0x9124
     add sp, byte 4                   ; 0x9127
-@..api_idx_0006_MRPM.l2:
+.forward2:
     push word [bp + 8]               ; 0x912a
     push word [bp + 8]               ; 0x912d
     mov ax, 0x43                     ; 0x9130
     cmp word [bss_8464], byte 0      ; 0x9133
-    jne short @..api_idx_0006_MRPM.l3 ; 0x9138
+    jne short .forward3              ; 0x9138
     mov ax, 1                        ; 0x913a
-@..api_idx_0006_MRPM.l3:
+.forward3:
     push ax                          ; 0x913d
     mov ax, bss_9186                 ; 0x913e
     push ax                          ; 0x9141
@@ -80,7 +80,7 @@ api_idx_0006_MRPM:
     call api_idx_0004_QSNR           ; 0x914e
     add sp, byte 0xe                 ; 0x9151
     cmp word [bp + 0xa], byte 1      ; 0x9154
-    jne short @..api_idx_0006_MRPM.l4 ; 0x9158
+    jne short .forward4              ; 0x9158
     mov ax, 4                        ; 0x915a
     push ax                          ; 0x915d
     call api_idx_0004_QUPL           ; 0x915e
@@ -98,12 +98,12 @@ api_idx_0006_MRPM:
     pop cx                           ; 0x917b
     mov ax, 1                        ; 0x917c
     ret                              ; 0x917f
-@..api_idx_0006_MRPM.l4:
+.forward4:
     cmp word [bss_8464], byte 0      ; 0x9180
-    je short @..api_idx_0006_MRPM.l5 ; 0x9185
+    je short .forward5               ; 0x9185
     mov bx, word [party_member_ext_1] ; 0x9187
     cmp byte [bx + party_member_ext_1_rec.f_00d8], 0 ; 0x918b
-    jbe short @..api_idx_0006_MRPM.l5 ; 0x9190
+    jbe short .forward5              ; 0x9190
     mov ax, word [bss_8464]          ; 0x9192
     shl ax, 1                        ; 0x9195
     mov bx, ax                       ; 0x9197
@@ -111,8 +111,8 @@ api_idx_0006_MRPM:
     mov al, byte [bx + 0xd8]         ; 0x919d
     mov bx, word [party_member_ext_1] ; 0x91a1
     cmp al, byte [bx + party_member_ext_1_rec.f_00d8] ; 0x91a5
-    jne short @..api_idx_0006_MRPM.l5 ; 0x91a9
+    jne short .forward5              ; 0x91a9
     mov word [bss_90de], 0x10        ; 0x91ab
-@..api_idx_0006_MRPM.l5:
+.forward5:
     mov ax, 0                        ; 0x91b1
     ret                              ; 0x91b4

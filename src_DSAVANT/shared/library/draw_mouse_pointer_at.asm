@@ -1,9 +1,9 @@
 ; auto-generated
 draw_mouse_pointer_at:
     cmp byte [cs:draw_mouse_pointer_at.cseg1 - IMAGE_BASE], 0
-    je short @..draw_mouse_pointer_at.l1
+    je short .forward1
     retf
-@..draw_mouse_pointer_at.l1:
+.forward1:
     mov al, 0xff
     mov byte [cs:draw_mouse_pointer_at.cseg1 - IMAGE_BASE], al
     shr cx, 1

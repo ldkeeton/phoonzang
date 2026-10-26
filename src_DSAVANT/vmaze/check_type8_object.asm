@@ -16,7 +16,7 @@ check_type8_object:
     call get_bits                    ; 0x8b75
     add sp, byte 6                   ; 0x8b78
     cmp ax, strict word 1            ; 0x8b7b
-    jne short @..check_type8_object.l1 ; 0x8b7e
+    jne short .forward1              ; 0x8b7e
     mov ax, 2                        ; 0x8b80
     push ax                          ; 0x8b83
     mov ax, 0xc                      ; 0x8b84
@@ -25,10 +25,10 @@ check_type8_object:
     call get_bits                    ; 0x8b8b
     add sp, byte 6                   ; 0x8b8e
     cmp ax, word [party_tag]         ; 0x8b91
-    je short @..check_type8_object.l1 ; 0x8b95
+    je short .forward1               ; 0x8b95
     mov ax, 0                        ; 0x8b97
     ret                              ; 0x8b9a
-@..check_type8_object.l1:
+.forward1:
     mov bx, word [maze_tables]       ; 0x8b9b
     mov si, word [bp + 4]            ; 0x8b9f
     mov al, byte [bx + si + spell_table + spell_table_rec_size*178 + spell_table_rec.f_0004] ; 0x8ba2
@@ -66,7 +66,7 @@ check_type8_object:
     mov si, ax                       ; 0x8bf0
     mov bx, word [maze_tables]       ; 0x8bf2
     cmp word [bx + si + maze_tables_rec.f_01e0], byte 0 ; 0x8bf6
-    jle short @..check_type8_object.l2 ; 0x8bfb
+    jle short .forward2              ; 0x8bfb
     mov ax, 0                        ; 0x8bfd
     push ax                          ; 0x8c00
     push word [bx + si + 0x1e0]      ; 0x8c01
@@ -77,7 +77,7 @@ check_type8_object:
     push ax                          ; 0x8c10
     call set_bitmap_bit              ; 0x8c11
     add sp, byte 6                   ; 0x8c14
-@..check_type8_object.l2:
+.forward2:
     mov ax, word [bp + 4]            ; 0x8c17
     mov word [party_region], ax      ; 0x8c1a
     mov ax, 2                        ; 0x8c1d

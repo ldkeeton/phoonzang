@@ -15,25 +15,25 @@ get_cell_wall_variant_b:
     call find_map_piece              ; 0x0863
     add sp, byte 0xa                 ; 0x0866
     test ax, ax                      ; 0x0869
-    je short @..get_cell_wall_variant_b.l3 ; 0x086b
+    je short .forward2               ; 0x086b
     mov ax, word [maze_variant]      ; 0x086d
     mov cx, 2                        ; 0x0870
     cwd                              ; 0x0873
     idiv cx                          ; 0x0874
     mov ax, dx                       ; 0x0876
     test ax, ax                      ; 0x0878
-    je short @..get_cell_wall_variant_b.l1 ; 0x087a
+    je short .forward1               ; 0x087a
     mov ax, cx                       ; 0x087c
-    jmp short @..get_cell_wall_variant_b.l2 ; 0x087e
-@..get_cell_wall_variant_b.l1:
+    jmp short .return1               ; 0x087e
+.forward1:
     mov ax, 4                        ; 0x0880
     mov cx, word [maze_variant]      ; 0x0883
     cmp cx, byte 6                   ; 0x0887
-    jne short @..get_cell_wall_variant_b.l2 ; 0x088a
+    jne short .return1               ; 0x088a
     mov ax, 0                        ; 0x088c
-@..get_cell_wall_variant_b.l2:
+.return1:
     ret                              ; 0x088f
-@..get_cell_wall_variant_b.l3:
+.forward2:
     mov ax, 4                        ; 0x0890
     push ax                          ; 0x0893
     mov ax, word [bp + 0xc]          ; 0x0894

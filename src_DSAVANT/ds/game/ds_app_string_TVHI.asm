@@ -8,8 +8,8 @@ ds_app_string_TVHI: ; Aztec csav frame=0x0006
     pop cx                           ; 0x03eb
     dec ax                           ; 0x03ec
     mov word [bp - 6], ax            ; 0x03ed
-    jmp short @..ds_app_string_TVHI.l2 ; 0x03f0
-@..ds_app_string_TVHI.l1:
+    jmp short .forward1              ; 0x03f0
+.back1:
     mov bx, word [bp + 4]            ; 0x03f2
     mov si, word [bp - 4]            ; 0x03f5
     mov al, byte [bx + si]           ; 0x03f8
@@ -25,8 +25,8 @@ ds_app_string_TVHI: ; Aztec csav frame=0x0006
     mov byte [bx + si], al           ; 0x0411
     dec word [bp - 6]                ; 0x0413
     inc word [bp - 4]                ; 0x0416
-@..ds_app_string_TVHI.l2:
+.forward1:
     mov ax, word [bp - 4]            ; 0x0419
     cmp ax, word [bp - 6]            ; 0x041c
-    jl short @..ds_app_string_TVHI.l1 ; 0x041f
+    jl short .back1                  ; 0x041f
     ret                              ; 0x0421

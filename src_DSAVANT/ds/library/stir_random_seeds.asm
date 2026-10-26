@@ -15,9 +15,9 @@ stir_random_seeds:
     mov ax, 0xab                     ; 0x3c24
     imul cx                          ; 0x3c27
     sub ax, bx                       ; 0x3c29
-    jns short @..stir_random_seeds.l1 ; 0x3c2b
+    jns short .forward1              ; 0x3c2b
     add ax, glyph_y_table + 0x788    ; 0x3c2d
-@..stir_random_seeds.l1:
+.forward1:
     mov word [cs:random_seed_a - IMAGE_BASE], ax ; 0x3c30
     mov ax, word [cs:random_seed_b - IMAGE_BASE] ; 0x3c34
     cwd                              ; 0x3c38
@@ -30,9 +30,9 @@ stir_random_seeds:
     mov ax, 0xac                     ; 0x3c47
     imul cx                          ; 0x3c4a
     sub ax, bx                       ; 0x3c4c
-    jns short @..stir_random_seeds.l2 ; 0x3c4e
+    jns short .forward2              ; 0x3c4e
     add ax, glyph_y_table + 0x7ae    ; 0x3c50
-@..stir_random_seeds.l2:
+.forward2:
     mov word [cs:random_seed_b - IMAGE_BASE], ax ; 0x3c53
     mov ax, word [cs:random_seed_c - IMAGE_BASE] ; 0x3c57
     cwd                              ; 0x3c5b
@@ -45,9 +45,9 @@ stir_random_seeds:
     mov ax, 0xaa                     ; 0x3c6a
     imul cx                          ; 0x3c6d
     sub ax, bx                       ; 0x3c6f
-    jns short @..stir_random_seeds.l3 ; 0x3c71
+    jns short .forward3              ; 0x3c71
     add ax, glyph_y_table + 0x7be    ; 0x3c73
-@..stir_random_seeds.l3:
+.forward3:
     mov word [cs:random_seed_c - IMAGE_BASE], ax ; 0x3c76
     pop dx                           ; 0x3c7a
     pop cx                           ; 0x3c7b

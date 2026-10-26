@@ -10,7 +10,7 @@ copy_member_stats:
     mov bx, word [bx + party_char]   ; 0x0c7c
     mov byte [bx + member_rec.item_count], al ; 0x0c80
     mov word [bp - 2], 0             ; 0x0c84
-@..copy_member_stats.l1:
+.back1:
     mov ax, word [bp - 4]            ; 0x0c89
     shl ax, 1                        ; 0x0c8c
     mov bx, ax                       ; 0x0c8e
@@ -20,18 +20,18 @@ copy_member_stats:
     inc word [bp - 2]                ; 0x0c9c
     mov ax, word [bp - 2]            ; 0x0c9f
     cmp ax, strict word 6            ; 0x0ca2
-    jl short @..copy_member_stats.l1 ; 0x0ca5
+    jl short .back1                  ; 0x0ca5
     cmp word [party_buff_turns], byte 0 ; 0x0ca7
-    jle short @..copy_member_stats.l2 ; 0x0cac
+    jle short .forward1              ; 0x0cac
     mov al, byte [party_buff_charge] ; 0x0cae
     mov cx, word [bp - 4]            ; 0x0cb1
     shl cx, 1                        ; 0x0cb4
     mov bx, cx                       ; 0x0cb6
     mov bx, word [bx + party_char]   ; 0x0cb8
     mov byte [bx + member_rec.charge + 0x4], al ; 0x0cbc
-@..copy_member_stats.l2:
+.forward1:
     mov word [bp - 2], 0             ; 0x0cc0
-@..copy_member_stats.l3:
+.back2:
     mov ax, word [bp - 4]            ; 0x0cc5
     shl ax, 1                        ; 0x0cc8
     mov bx, ax                       ; 0x0cca
@@ -41,10 +41,10 @@ copy_member_stats:
     inc word [bp - 2]                ; 0x0cd8
     mov ax, word [bp - 2]            ; 0x0cdb
     cmp ax, strict word 6            ; 0x0cde
-    jl short @..copy_member_stats.l3 ; 0x0ce1
+    jl short .back2                  ; 0x0ce1
     mov word [bp - 2], 0             ; 0x0ce3
-    jmp near @..copy_member_stats.l9 ; 0x0ce8
-@..copy_member_stats.l4:
+    jmp near .forward6               ; 0x0ce8
+.back3:
     mov ax, 0x248                    ; 0x0ceb
     imul word [bp - 2]               ; 0x0cee
     mov bx, ax                       ; 0x0cf1
@@ -181,7 +181,7 @@ copy_member_stats:
     imul word [bp - 2]               ; 0x0e44
     mov bx, ax                       ; 0x0e47
     cmp byte [bx + party_records + pc_rec.flag + 0x16], 0 ; 0x0e49
-    jbe short @..copy_member_stats.l5 ; 0x0e4e
+    jbe short .forward2              ; 0x0e4e
     mov ax, 0x2c                     ; 0x0e50
     imul word [bp - 2]               ; 0x0e53
     mov si, ax                       ; 0x0e56
@@ -210,12 +210,12 @@ copy_member_stats:
     mov bx, cx                       ; 0x0e88
     mov bx, word [bx + party_char]   ; 0x0e8a
     mov byte [bx + si + member_rec.f_0028], al ; 0x0e8e
-@..copy_member_stats.l5:
+.forward2:
     mov ax, 0x248                    ; 0x0e91
     imul word [bp - 2]               ; 0x0e94
     mov bx, ax                       ; 0x0e97
     cmp byte [bx + party_records + pc_rec.flag + 0x13], 0 ; 0x0e99
-    jbe short @..copy_member_stats.l6 ; 0x0e9e
+    jbe short .forward3              ; 0x0e9e
     mov ax, 0x2c                     ; 0x0ea0
     imul word [bp - 2]               ; 0x0ea3
     mov si, ax                       ; 0x0ea6
@@ -245,12 +245,12 @@ copy_member_stats:
     mov bx, cx                       ; 0x0eda
     mov bx, word [bx + party_char]   ; 0x0edc
     mov byte [bx + si + member_rec.f_0026], al ; 0x0ee0
-@..copy_member_stats.l6:
+.forward3:
     mov ax, 0x248                    ; 0x0ee3
     imul word [bp - 2]               ; 0x0ee6
     mov bx, ax                       ; 0x0ee9
     cmp byte [bx + party_records + pc_rec.flag + 0x15], 0 ; 0x0eeb
-    jbe short @..copy_member_stats.l7 ; 0x0ef0
+    jbe short .forward4              ; 0x0ef0
     mov ax, 0x2c                     ; 0x0ef2
     imul word [bp - 2]               ; 0x0ef5
     mov si, ax                       ; 0x0ef8
@@ -280,12 +280,12 @@ copy_member_stats:
     mov bx, cx                       ; 0x0f2c
     mov bx, word [bx + party_char]   ; 0x0f2e
     mov byte [bx + si + member_rec.f_0027], al ; 0x0f32
-@..copy_member_stats.l7:
+.forward4:
     mov ax, 0x248                    ; 0x0f35
     imul word [bp - 2]               ; 0x0f38
     mov bx, ax                       ; 0x0f3b
     cmp byte [bx + party_records + pc_rec.flag + 0x14], 0 ; 0x0f3d
-    jbe short @..copy_member_stats.l8 ; 0x0f42
+    jbe short .forward5              ; 0x0f42
     mov ax, 0x2c                     ; 0x0f44
     imul word [bp - 2]               ; 0x0f47
     mov si, ax                       ; 0x0f4a
@@ -314,12 +314,12 @@ copy_member_stats:
     mov bx, cx                       ; 0x0f7c
     mov bx, word [bx + party_char]   ; 0x0f7e
     mov byte [bx + si + member_rec.item_level], al ; 0x0f82
-@..copy_member_stats.l8:
+.forward5:
     inc word [bp - 2]                ; 0x0f85
-@..copy_member_stats.l9:
+.forward6:
     mov ax, word [bp - 2]            ; 0x0f88
     cmp ax, word [party_char_count]  ; 0x0f8b
-    jge short @..copy_member_stats.l10 ; 0x0f8f
-    jmp near @..copy_member_stats.l4 ; 0x0f91
-@..copy_member_stats.l10:
+    jge short .return1               ; 0x0f8f
+    jmp near .back3                  ; 0x0f91
+.return1:
     ret                              ; 0x0f94

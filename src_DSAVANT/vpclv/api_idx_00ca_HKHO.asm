@@ -3,33 +3,33 @@ api_idx_00ca_HKHO:
     mov ax, 0xff36                   ; 0x1e31
     call aztec_csav                  ; 0x1e34
     mov ax, word [bp + 6]            ; 0x1e37
-    jmp short @..api_idx_00ca_HKHO.l5 ; 0x1e3a
-@..api_idx_00ca_HKHO.l1:
+    jmp short .forward1              ; 0x1e3a
+.back1:
     mov word [bp - 0xc], 8           ; 0x1e3c
     mov word [bp - 0xe], 0x20        ; 0x1e41
-    jmp short @..api_idx_00ca_HKHO.l6 ; 0x1e46
-@..api_idx_00ca_HKHO.l2:
+    jmp short .forward2              ; 0x1e46
+.back2:
     mov word [bp - 0xc], 4           ; 0x1e48
     mov word [bp - 0xe], 0x1e        ; 0x1e4d
-    jmp short @..api_idx_00ca_HKHO.l6 ; 0x1e52
-@..api_idx_00ca_HKHO.l3:
+    jmp short .forward2              ; 0x1e52
+.back3:
     mov word [bp - 0xc], 2           ; 0x1e54
     mov word [bp - 0xe], 0x1f        ; 0x1e59
-    jmp short @..api_idx_00ca_HKHO.l6 ; 0x1e5e
-@..api_idx_00ca_HKHO.l4:
+    jmp short .forward2              ; 0x1e5e
+.back4:
     mov word [bp - 0xc], 1           ; 0x1e60
     mov word [bp - 0xe], 0x1d        ; 0x1e65
-    jmp short @..api_idx_00ca_HKHO.l6 ; 0x1e6a
-@..api_idx_00ca_HKHO.l5:
+    jmp short .forward2              ; 0x1e6a
+.forward1:
     cmp ax, strict word 0            ; 0x1e6c
-    je short @..api_idx_00ca_HKHO.l1 ; 0x1e6f
+    je short .back1                  ; 0x1e6f
     cmp ax, strict word 1            ; 0x1e71
-    je short @..api_idx_00ca_HKHO.l2 ; 0x1e74
+    je short .back2                  ; 0x1e74
     cmp ax, strict word 2            ; 0x1e76
-    je short @..api_idx_00ca_HKHO.l4 ; 0x1e79
+    je short .back4                  ; 0x1e79
     cmp ax, strict word 3            ; 0x1e7b
-    je short @..api_idx_00ca_HKHO.l3 ; 0x1e7e
-@..api_idx_00ca_HKHO.l6:
+    je short .back3                  ; 0x1e7e
+.forward2:
     mov ax, 0x10                     ; 0x1e80
     push ax                          ; 0x1e83
     lea ax, word [bp - 0x1e]         ; 0x1e84
@@ -62,30 +62,30 @@ api_idx_00ca_HKHO:
     inc ax                           ; 0x1ec7
     mov word [bp - 0xa], ax          ; 0x1ec8
     cmp byte [bx + party_records + pc_rec.flag], 0x62 ; 0x1ecb
-    jb short @..api_idx_00ca_HKHO.l7 ; 0x1ed0
+    jb short .forward3               ; 0x1ed0
     mov word [bp - 0xa], 7           ; 0x1ed2
-@..api_idx_00ca_HKHO.l7:
+.forward3:
     mov word [bp - 4], 0             ; 0x1ed7
     mov word [bp - 2], 0             ; 0x1edc
-@..api_idx_00ca_HKHO.l8:
+.back5:
     mov ax, 6                        ; 0x1ee1
     imul word [bp - 2]               ; 0x1ee4
     mov bx, ax                       ; 0x1ee7
     mov al, byte [bx + spell_table + spell_table_rec.f_0005] ; 0x1ee9
     sub ah, ah                       ; 0x1eed
     test word [bp - 0xc], ax         ; 0x1eef
-    je short @..api_idx_00ca_HKHO.l9 ; 0x1ef2
+    je short .forward4               ; 0x1ef2
     mov al, byte [bx + spell_table + spell_table_rec.f_0001] ; 0x1ef4
     sub ah, ah                       ; 0x1ef8
     cmp ax, word [bp - 0xa]          ; 0x1efa
-    jg short @..api_idx_00ca_HKHO.l9 ; 0x1efd
+    jg short .forward4               ; 0x1efd
     push word [bp - 2]               ; 0x1eff
     lea ax, word [bp - 0x1e]         ; 0x1f02
     push ax                          ; 0x1f05
     call test_bit                    ; 0x1f06
     add sp, byte 4                   ; 0x1f09
     test ax, ax                      ; 0x1f0c
-    jne short @..api_idx_00ca_HKHO.l9 ; 0x1f0e
+    jne short .forward4              ; 0x1f0e
     mov ax, 1                        ; 0x1f10
     push ax                          ; 0x1f13
     push word [bp - 2]               ; 0x1f14
@@ -96,13 +96,13 @@ api_idx_00ca_HKHO:
     call set_bitmap_bit              ; 0x1f21
     add sp, byte 6                   ; 0x1f24
     inc word [bp - 4]                ; 0x1f27
-@..api_idx_00ca_HKHO.l9:
+.forward4:
     inc word [bp - 2]                ; 0x1f2a
     mov ax, word [bp - 2]            ; 0x1f2d
     cmp ax, strict word 0x66         ; 0x1f30
-    jl short @..api_idx_00ca_HKHO.l8 ; 0x1f33
+    jl short .back5                  ; 0x1f33
     cmp word [bp - 4], byte 0        ; 0x1f35
-    jne short @..api_idx_00ca_HKHO.l10 ; 0x1f39
+    jne short .forward5              ; 0x1f39
     mov ax, 0x248                    ; 0x1f3b
     imul word [bp + 4]               ; 0x1f3e
     add ax, word [bp + 6]            ; 0x1f41
@@ -119,7 +119,7 @@ api_idx_00ca_HKHO:
     call aztec_movmem                ; 0x1f5d
     add sp, byte 6                   ; 0x1f60
     ret                              ; 0x1f63
-@..api_idx_00ca_HKHO.l10:
+.forward5:
     lea ax, word [bp - 0x7a]         ; 0x1f64
     push ax                          ; 0x1f67
     mov ax, MSG_YOU_LEARNED_A_NEW_SPELL ; 0x1f68
@@ -172,9 +172,9 @@ api_idx_00ca_HKHO:
     call aztec_movmem                ; 0x1fda
     add sp, byte 6                   ; 0x1fdd
     cmp word [bp - 4], byte 0        ; 0x1fe0
-    je short @..api_idx_00ca_HKHO.l11 ; 0x1fe4
-    jmp near @..api_idx_00ca_HKHO.l13 ; 0x1fe6
-@..api_idx_00ca_HKHO.l11:
+    je short .forward6               ; 0x1fe4
+    jmp near .return1                ; 0x1fe6
+.forward6:
     mov ax, word [spell_dialog_result] ; 0x1fe9
     mov cx, 0x100                    ; 0x1fec
     cwd                              ; 0x1fef
@@ -249,7 +249,7 @@ api_idx_00ca_HKHO:
     mov cx, ax                       ; 0x2093
     pop ax                           ; 0x2095
     cmp ax, cx                       ; 0x2096
-    jge short @..api_idx_00ca_HKHO.l12 ; 0x2098
+    jge short .forward7              ; 0x2098
     mov ax, 0x248                    ; 0x209a
     imul word [bp + 4]               ; 0x209d
     mov dx, word [bp - 4]            ; 0x20a0
@@ -259,7 +259,7 @@ api_idx_00ca_HKHO:
     mov bx, ax                       ; 0x20a9
     sub cx, word [bx + party_records + pc_rec.realm_points + 0x2] ; 0x20ab
     mov word [bp - 2], cx            ; 0x20af
-@..api_idx_00ca_HKHO.l12:
+.forward7:
     mov ax, word [bp - 2]            ; 0x20b2
     push ax                          ; 0x20b5
     mov ax, 0x248                    ; 0x20b6
@@ -279,5 +279,5 @@ api_idx_00ca_HKHO:
     push word [bp + 4]               ; 0x20db
     call api_idx_0004_RMVO           ; 0x20de
     pop cx                           ; 0x20e1
-@..api_idx_00ca_HKHO.l13:
+.return1:
     ret                              ; 0x20e2

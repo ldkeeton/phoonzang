@@ -49,7 +49,7 @@ api_idx_00b0_KPHQ:
     mov word [bp - 8], 0             ; 0xa8ad
     mov bx, word [bp + 4]            ; 0xa8b2
     mov byte [bx], 0                 ; 0xa8b5
-@..api_idx_00b0_KPHQ.l1:
+.back1:
     push word [bp - 8]               ; 0xa8b8
     mov ax, 0                        ; 0xa8bb
     push ax                          ; 0xa8be
@@ -76,31 +76,31 @@ api_idx_00b0_KPHQ:
     add sp, byte 0x10                ; 0xa8f0
     mov word [bp - 2], ax            ; 0xa8f3
     cmp ax, strict word 1            ; 0xa8f6
-    je short @..api_idx_00b0_KPHQ.l2 ; 0xa8f9
-    jmp near @..api_idx_00b0_KPHQ.l7 ; 0xa8fb
-@..api_idx_00b0_KPHQ.l2:
+    je short .forward1               ; 0xa8f9
+    jmp near .forward5               ; 0xa8fb
+.forward1:
     cmp word [bss_b054], byte 0x20   ; 0xa8fe
-    je short @..api_idx_00b0_KPHQ.l5 ; 0xa903
+    je short .forward3               ; 0xa903
     mov ax, 0x20                     ; 0xa905
     push ax                          ; 0xa908
     push word [bp + 4]               ; 0xa909
     call strpos                      ; 0xa90c
     add sp, byte 4                   ; 0xa90f
     cmp ax, strict word 0xffff       ; 0xa912
-    je short @..api_idx_00b0_KPHQ.l5 ; 0xa915
+    je short .forward3               ; 0xa915
     push word [bp + 4]               ; 0xa917
     call aztec_strlen                ; 0xa91a
     pop cx                           ; 0xa91d
     mov word [bp - 4], ax            ; 0xa91e
     mov word [bp - 6], ax            ; 0xa921
-@..api_idx_00b0_KPHQ.l3:
+.back2:
     mov bx, word [bp + 4]            ; 0xa924
     mov si, word [bp - 6]            ; 0xa927
     cmp byte [bx + si - 1], 0x20     ; 0xa92a
-    je short @..api_idx_00b0_KPHQ.l4 ; 0xa92e
+    je short .forward2               ; 0xa92e
     dec word [bp - 6]                ; 0xa930
-    jmp short @..api_idx_00b0_KPHQ.l3 ; 0xa933
-@..api_idx_00b0_KPHQ.l4:
+    jmp short .back2                 ; 0xa933
+.forward2:
     mov ax, word [bp - 4]            ; 0xa935
     sub ax, word [bp - 6]            ; 0xa938
     push ax                          ; 0xa93b
@@ -119,10 +119,10 @@ api_idx_00b0_KPHQ:
     mov bx, word [bp + 4]            ; 0xa95c
     mov si, word [bp - 6]            ; 0xa95f
     mov byte [bx + si], 0            ; 0xa962
-    jmp short @..api_idx_00b0_KPHQ.l6 ; 0xa965
-@..api_idx_00b0_KPHQ.l5:
+    jmp short .forward4              ; 0xa965
+.forward3:
     mov byte [bp - 0xb0], 0          ; 0xa967
-@..api_idx_00b0_KPHQ.l6:
+.forward4:
     lea ax, word [bp - 0xb0]         ; 0xa96c
     push ax                          ; 0xa970
     call aztec_strlen                ; 0xa971
@@ -165,10 +165,10 @@ api_idx_00b0_KPHQ:
     call aztec_strcpy                ; 0xa9d8
     add sp, byte 4                   ; 0xa9db
     mov word [bp - 8], 1             ; 0xa9de
-    jmp short @..api_idx_00b0_KPHQ.l8 ; 0xa9e3
-@..api_idx_00b0_KPHQ.l7:
-    cmp word [bp - 2], byte 0xff     ; 0xa9e5
-    jne short @..api_idx_00b0_KPHQ.l8 ; 0xa9e9
+    jmp short .forward6              ; 0xa9e3
+.forward5:
+    cmp word [bp - 2], byte -1       ; 0xa9e5
+    jne short .forward6              ; 0xa9e9
     mov ax, 3                        ; 0xa9eb
     push ax                          ; 0xa9ee
     call redraw_area_set             ; 0xa9ef
@@ -180,13 +180,13 @@ api_idx_00b0_KPHQ:
     call aztec_strcpy                ; 0xa9fe
     add sp, byte 4                   ; 0xaa01
     mov word [bp - 8], 0             ; 0xaa04
-@..api_idx_00b0_KPHQ.l8:
+.forward6:
     cmp word [bp - 2], byte 0        ; 0xaa09
-    je short @..api_idx_00b0_KPHQ.l9 ; 0xaa0d
-    jmp near @..api_idx_00b0_KPHQ.l1 ; 0xaa0f
-@..api_idx_00b0_KPHQ.l9:
+    je short .forward7               ; 0xaa0d
+    jmp near .back1                  ; 0xaa0f
+.forward7:
     cmp word [bp - 8], byte 0        ; 0xaa12
-    jne short @..api_idx_00b0_KPHQ.l10 ; 0xaa16
+    jne short .forward8              ; 0xaa16
     push word [bp + 6]               ; 0xaa18
     mov ax, word [text_line_index]   ; 0xaa1b
     mov cx, 7                        ; 0xaa1e
@@ -195,14 +195,14 @@ api_idx_00b0_KPHQ:
     push ax                          ; 0xaa26
     call aztec_strcpy                ; 0xaa27
     add sp, byte 4                   ; 0xaa2a
-    jmp short @..api_idx_00b0_KPHQ.l11 ; 0xaa2d
-@..api_idx_00b0_KPHQ.l10:
+    jmp short .forward9              ; 0xaa2d
+.forward8:
     mov ax, word [text_line_index]   ; 0xaa2f
     mov cx, 7                        ; 0xaa32
     shl ax, cl                       ; 0xaa35
     mov bx, ax                       ; 0xaa37
     mov byte [bx + text_line_buffer], 0 ; 0xaa39
-@..api_idx_00b0_KPHQ.l11:
+.forward9:
     push word [bp + 4]               ; 0xaa3e
     mov ax, word [text_line_index]   ; 0xaa41
     mov cx, 7                        ; 0xaa44
@@ -217,7 +217,7 @@ api_idx_00b0_KPHQ:
     mov word [bx + text_line_color], 0 ; 0xaa5a
     call next_text_line              ; 0xaa60
     cmp word [bp - 8], byte 0        ; 0xaa63
-    je short @..api_idx_00b0_KPHQ.l12 ; 0xaa67
+    je short .return1                ; 0xaa67
     push word [bp + 4]               ; 0xaa69
     lea ax, word [bp - 0xb0]         ; 0xaa6c
     push ax                          ; 0xaa70
@@ -233,5 +233,5 @@ api_idx_00b0_KPHQ:
     push word [bp + 4]               ; 0xaa89
     call aztec_strcat                ; 0xaa8c
     add sp, byte 4                   ; 0xaa8f
-@..api_idx_00b0_KPHQ.l12:
+.return1:
     ret                              ; 0xaa92

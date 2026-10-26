@@ -3,7 +3,7 @@ api_idx_0002_JLVK:
     mov ax, 0xfffe                   ; 0x93ab
     call aztec_csav                  ; 0x93ae
     mov word [bp - 2], 0             ; 0x93b1
-@..api_idx_0002_JLVK.l1:
+.back1:
     mov ax, 0xf                      ; 0x93b6
     imul word [bp + 4]               ; 0x93b9
     push ax                          ; 0x93bc
@@ -16,21 +16,21 @@ api_idx_0002_JLVK:
     mov al, byte [bx + bss_882c]     ; 0x93ca
     cbw                              ; 0x93ce
     cmp ax, word [bp + 6]            ; 0x93cf
-    jne short @..api_idx_0002_JLVK.l2 ; 0x93d2
+    jne short .forward1              ; 0x93d2
     mov al, byte [bx + bss_882c + rec_882c.f_0001] ; 0x93d4
     cbw                              ; 0x93d8
     cmp ax, word [bp + 8]            ; 0x93d9
-    jne short @..api_idx_0002_JLVK.l2 ; 0x93dc
+    jne short .forward1              ; 0x93dc
     mov al, byte [bx + bss_882c + rec_882c.f_0002] ; 0x93de
     cbw                              ; 0x93e2
     cmp ax, word [bp + 0xa]          ; 0x93e3
-    jne short @..api_idx_0002_JLVK.l2 ; 0x93e6
+    jne short .forward1              ; 0x93e6
     ret                              ; 0x93e8
-@..api_idx_0002_JLVK.l2:
+.forward1:
     inc word [bp - 2]                ; 0x93e9
     mov ax, word [bp - 2]            ; 0x93ec
     cmp ax, strict word 5            ; 0x93ef
-    jl short @..api_idx_0002_JLVK.l1 ; 0x93f2
+    jl short .back1                  ; 0x93f2
     mov al, byte [bp + 6]            ; 0x93f4
     push ax                          ; 0x93f7
     mov ax, 0xf                      ; 0x93f8

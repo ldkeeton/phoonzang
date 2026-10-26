@@ -12,18 +12,18 @@ api_idx_0038_POGI:
     add sp, byte 6                   ; 0x24c3
     mov word [bp - 4], 0             ; 0x24c6
     mov word [bp - 2], 0             ; 0x24cb
-@..api_idx_0038_POGI.l1:
+.back1:
     mov ax, 0x26                     ; 0x24d0
     imul word [bp - 2]               ; 0x24d3
     mov bx, ax                       ; 0x24d6
     cmp byte [bx + slot_records + slot_record.flag], 0 ; 0x24d8
-    jle short @..api_idx_0038_POGI.l3 ; 0x24dd
+    jle short .forward2              ; 0x24dd
     mov al, byte [bx + slot_records] ; 0x24df
     sub ah, ah                       ; 0x24e3
     cmp ax, word [bp + 4]            ; 0x24e5
-    je short @..api_idx_0038_POGI.l2 ; 0x24e8
-    cmp word [bp + 4], byte 0xff     ; 0x24ea
-    jne short @..api_idx_0038_POGI.l3 ; 0x24ee
+    je short .forward1               ; 0x24e8
+    cmp word [bp + 4], byte -1       ; 0x24ea
+    jne short .forward2              ; 0x24ee
     mov al, byte [bx + slot_records + slot_record.kind] ; 0x24f0
     sub ah, ah                       ; 0x24f4
     shl ax, 1                        ; 0x24f6
@@ -32,35 +32,35 @@ api_idx_0038_POGI:
     mov al, byte [bx + kind_state_table] ; 0x24fc
     cbw                              ; 0x2500
     cmp ax, word [game_state_arg]    ; 0x2501
-    je short @..api_idx_0038_POGI.l2 ; 0x2505
+    je short .forward1               ; 0x2505
     mov ax, 0x26                     ; 0x2507
     imul word [bp - 2]               ; 0x250a
     mov bx, ax                       ; 0x250d
     mov al, byte [bx + slot_records] ; 0x250f
     cmp al, byte [bss_91c7]          ; 0x2513
-    jne short @..api_idx_0038_POGI.l3 ; 0x2517
-@..api_idx_0038_POGI.l2:
+    jne short .forward2              ; 0x2517
+.forward1:
     mov ax, word [bp - 2]            ; 0x2519
     shl ax, 1                        ; 0x251c
     mov bx, ax                       ; 0x251e
     add bx, bp                       ; 0x2520
     mov word [bx - 0x38], 1          ; 0x2522
     inc word [bp - 4]                ; 0x2527
-@..api_idx_0038_POGI.l3:
+.forward2:
     inc word [bp - 2]                ; 0x252a
     mov ax, word [bp - 2]            ; 0x252d
     cmp ax, strict word 0x15         ; 0x2530
-    jl short @..api_idx_0038_POGI.l1 ; 0x2533
+    jl short .back1                  ; 0x2533
     mov byte [bss_93f0], 0           ; 0x2535
-@..api_idx_0038_POGI.l4:
+.back2:
     cmp word [bp - 4], byte 0        ; 0x253a
-    jg short @..api_idx_0038_POGI.l5 ; 0x253e
-    jmp near @..api_idx_0038_POGI.l17 ; 0x2540
-@..api_idx_0038_POGI.l5:
+    jg short .forward3               ; 0x253e
+    jmp near .forward13              ; 0x2540
+.forward3:
     cmp byte [bss_93f0], 0           ; 0x2543
-    je short @..api_idx_0038_POGI.l6 ; 0x2548
-    jmp near @..api_idx_0038_POGI.l17 ; 0x254a
-@..api_idx_0038_POGI.l6:
+    je short .back3                  ; 0x2548
+    jmp near .forward13              ; 0x254a
+.back3:
     mov ax, 0x16                     ; 0x254d
     push ax                          ; 0x2550
     call random_below                ; 0x2551
@@ -71,7 +71,7 @@ api_idx_0038_POGI:
     mov bx, ax                       ; 0x255d
     add bx, bp                       ; 0x255f
     cmp word [bx - 0x38], byte 0     ; 0x2561
-    je short @..api_idx_0038_POGI.l6 ; 0x2565
+    je short .back3                  ; 0x2565
     mov ax, word [bp - 2]            ; 0x2567
     shl ax, 1                        ; 0x256a
     mov bx, ax                       ; 0x256c
@@ -84,13 +84,13 @@ api_idx_0038_POGI:
     pop cx                           ; 0x257f
     mov word [bp - 6], ax            ; 0x2580
     mov word [bp - 8], 0             ; 0x2583
-@..api_idx_0038_POGI.l7:
+.back4:
     mov ax, 5                        ; 0x2588
     imul word [bp - 2]               ; 0x258b
     add ax, word [bp - 6]            ; 0x258e
     mov bx, ax                       ; 0x2591
     cmp byte [bx + bss_94f0], 0      ; 0x2593
-    jne short @..api_idx_0038_POGI.l8 ; 0x2598
+    jne short .forward4              ; 0x2598
     mov ax, 0xf                      ; 0x259a
     imul word [bp - 2]               ; 0x259d
     push ax                          ; 0x25a0
@@ -101,10 +101,10 @@ api_idx_0038_POGI:
     add ax, cx                       ; 0x25aa
     mov bx, ax                       ; 0x25ac
     cmp byte [bx + bss_882c], 0xff   ; 0x25ae
-    jne short @..api_idx_0038_POGI.l9 ; 0x25b3
-@..api_idx_0038_POGI.l8:
+    jne short .forward5              ; 0x25b3
+.forward4:
     cmp word [bp - 8], byte 5        ; 0x25b5
-    jge short @..api_idx_0038_POGI.l9 ; 0x25b9
+    jge short .forward5              ; 0x25b9
     mov ax, word [bp - 6]            ; 0x25bb
     inc ax                           ; 0x25be
     mov cx, 5                        ; 0x25bf
@@ -112,8 +112,8 @@ api_idx_0038_POGI:
     idiv cx                          ; 0x25c3
     mov word [bp - 6], dx            ; 0x25c5
     inc word [bp - 8]                ; 0x25c8
-    jmp short @..api_idx_0038_POGI.l7 ; 0x25cb
-@..api_idx_0038_POGI.l9:
+    jmp short .back4                 ; 0x25cb
+.forward5:
     mov ax, 0xf                      ; 0x25cd
     imul word [bp - 2]               ; 0x25d0
     push ax                          ; 0x25d3
@@ -124,17 +124,17 @@ api_idx_0038_POGI:
     add ax, cx                       ; 0x25dd
     mov bx, ax                       ; 0x25df
     cmp byte [bx + bss_882c], 0xff   ; 0x25e1
-    jne short @..api_idx_0038_POGI.l10 ; 0x25e6
-    jmp near @..api_idx_0038_POGI.l16 ; 0x25e8
-@..api_idx_0038_POGI.l10:
+    jne short .forward6              ; 0x25e6
+    jmp near .forward12              ; 0x25e8
+.forward6:
     mov ax, 5                        ; 0x25eb
     imul word [bp - 2]               ; 0x25ee
     add ax, word [bp - 6]            ; 0x25f1
     mov bx, ax                       ; 0x25f4
     cmp byte [bx + bss_94f0], 0      ; 0x25f6
-    je short @..api_idx_0038_POGI.l11 ; 0x25fb
-    jmp near @..api_idx_0038_POGI.l16 ; 0x25fd
-@..api_idx_0038_POGI.l11:
+    je short .forward7               ; 0x25fb
+    jmp near .forward12              ; 0x25fd
+.forward7:
     mov byte [bx + bss_94f0], 1      ; 0x2600
     mov ax, bss_93f0                 ; 0x2605
     push ax                          ; 0x2608
@@ -153,13 +153,13 @@ api_idx_0038_POGI:
     mov al, byte [bss_91c6]          ; 0x2626
     cbw                              ; 0x2629
     cmp ax, word [bp - 2]            ; 0x262a
-    jne short @..api_idx_0038_POGI.l12 ; 0x262d
+    jne short .forward8              ; 0x262d
     mov ax, MSG_OUR_PARTY            ; 0x262f
-    jmp short @..api_idx_0038_POGI.l13 ; 0x2632
-@..api_idx_0038_POGI.l12:
+    jmp short .forward9              ; 0x2632
+.forward8:
     mov ax, word [bp - 2]            ; 0x2634
     add ax, MSG_SLOT_NAME_BASE       ; 0x2637
-@..api_idx_0038_POGI.l13:
+.forward9:
     push ax                          ; 0x263a
     call load_message_string         ; 0x263b
     add sp, byte 4                   ; 0x263e
@@ -174,23 +174,23 @@ api_idx_0038_POGI:
     mov bx, ax                       ; 0x2653
     mov al, byte [bx + bss_882c + rec_882c.f_0001] ; 0x2655
     cbw                              ; 0x2659
-    jmp short @..api_idx_0038_POGI.l14 ; 0x265a
+    jmp short .forward10             ; 0x265a
 jumptable_268c_case_0:
     mov word [bp - 0xa], 0x6a4       ; 0x265c
     mov word [bp - 0xc], 0x6ea       ; 0x2661
-    jmp short @..api_idx_0038_POGI.l15 ; 0x2666
+    jmp short api_idx_0038_POGI.forward11 ; 0x2666
 jumptable_268c_case_3:
     mov word [bp - 0xa], 0x708       ; 0x2668
     mov word [bp - 0xc], 0x6a4       ; 0x266d
-    jmp short @..api_idx_0038_POGI.l15 ; 0x2672
+    jmp short api_idx_0038_POGI.forward11 ; 0x2672
 jumptable_268c_case_4:
     mov word [bp - 0xa], 0x708       ; 0x2674
     mov word [bp - 0xc], 0x6ea       ; 0x2679
-    jmp short @..api_idx_0038_POGI.l15 ; 0x267e
+    jmp short api_idx_0038_POGI.forward11 ; 0x267e
 jumptable_268c_case_8:
     mov word [bp - 0xa], 0x6d6       ; 0x2680
     mov word [bp - 0xc], 0x6ea       ; 0x2685
-    jmp short @..api_idx_0038_POGI.l15 ; 0x268a
+    jmp short api_idx_0038_POGI.forward11 ; 0x268a
 jumptable_268c:
     dw jumptable_268c_case_0 - IMAGE_BASE + __zres_end ; 0x268c
     dw jumptable_268c_case_0 - IMAGE_BASE + __zres_end ; 0x268e
@@ -204,13 +204,13 @@ jumptable_268c:
     dw jumptable_268c_case_8 - IMAGE_BASE + __zres_end ; 0x269e
     dw jumptable_268c_case_3 - IMAGE_BASE + __zres_end ; 0x26a0
     dw jumptable_268c_case_8 - IMAGE_BASE + __zres_end ; 0x26a2
-@..api_idx_0038_POGI.l14:
+api_idx_0038_POGI.forward10:
     cmp ax, strict word 0xc          ; 0x26a4
-    jae short @..api_idx_0038_POGI.l15 ; 0x26a7
+    jae short api_idx_0038_POGI.forward11 ; 0x26a7
     xchg bx, ax                      ; 0x26a9
     shl bx, 1                        ; 0x26aa
     jmp [cs:bx + jumptable_268c - IMAGE_BASE + __zres_end] ; 0x26ac
-@..api_idx_0038_POGI.l15:
+api_idx_0038_POGI.forward11:
     mov ax, 0x9576                   ; 0x26b1
     push ax                          ; 0x26b4
     mov ax, 0xf                      ; 0x26b5
@@ -269,23 +269,23 @@ jumptable_268c:
     push ax                          ; 0x272e
     call str_subst_char              ; 0x272f
     add sp, byte 6                   ; 0x2732
-@..api_idx_0038_POGI.l16:
-    jmp near @..api_idx_0038_POGI.l4 ; 0x2735
-@..api_idx_0038_POGI.l17:
+api_idx_0038_POGI.forward12:
+    jmp near api_idx_0038_POGI.back2 ; 0x2735
+api_idx_0038_POGI.forward13:
     cmp byte [bss_93f0], 0           ; 0x2738
-    jne short @..api_idx_0038_POGI.l19 ; 0x273d
+    jne short api_idx_0038_POGI.forward15 ; 0x273d
     cmp word [bp + 8], byte 0        ; 0x273f
-    je short @..api_idx_0038_POGI.l18 ; 0x2743
+    je short api_idx_0038_POGI.forward14 ; 0x2743
     mov ax, 0xffff                   ; 0x2745
     ret                              ; 0x2748
-@..api_idx_0038_POGI.l18:
+api_idx_0038_POGI.forward14:
     mov ax, bss_93f0                 ; 0x2749
     push ax                          ; 0x274c
     mov ax, MSG_HEH_HEH_WHY_I_HAVEN_T_1641 ; 0x274d
     push ax                          ; 0x2750
     call load_message_string         ; 0x2751
     add sp, byte 4                   ; 0x2754
-@..api_idx_0038_POGI.l19:
+api_idx_0038_POGI.forward15:
     push word [bp + 6]               ; 0x2757
     mov ax, bss_93f0                 ; 0x275a
     push ax                          ; 0x275d

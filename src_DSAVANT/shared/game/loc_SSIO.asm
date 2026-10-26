@@ -9,7 +9,7 @@ loc_SSIO:
     mov al, byte [bx + overlay_list_rec.f_0014]
     sub ah, ah
     cmp ax, 0xff
-    je short @..loc_SSIO.l1
+    je short .return1
     mov al, byte [bx + 0x17]
     sub ah, ah
     push ax
@@ -38,5 +38,5 @@ loc_SSIO:
     push ax
     call gfx_draw_text
     add sp, byte 0x16
-@..loc_SSIO.l1:
+.return1:
     ret

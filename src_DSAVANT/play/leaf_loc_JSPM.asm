@@ -2,15 +2,15 @@
 leaf_loc_JSPM:
     mov bx, cseg_0d03 - IMAGE_BASE   ; 0x0f55
     mov al, byte [cs:cseg_0d3e - IMAGE_BASE] ; 0x0f58
-@..leaf_loc_JSPM.l1:
+.back1:
     cmp al, byte [cs:bx + 2]         ; 0x0f5c
-    jne short @..leaf_loc_JSPM.l2    ; 0x0f60
+    jne short .forward1              ; 0x0f60
     jmp near loc_RUNQ                ; 0x0f62
-@..leaf_loc_JSPM.l2:
+.forward1:
     inc al                           ; 0x0f65
     add bx, byte 5                   ; 0x0f67
     cmp bx, opl_voice_count - IMAGE_BASE ; 0x0f6a
-    jb short @..leaf_loc_JSPM.l1     ; 0x0f6e
+    jb short .back1                  ; 0x0f6e
     jmp near loc_NGKV                ; 0x0f70
 loc_GLKJ:
     mov bx, cseg_0d03 - IMAGE_BASE   ; 0x0f73

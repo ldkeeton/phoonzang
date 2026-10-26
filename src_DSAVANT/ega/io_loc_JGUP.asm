@@ -15,15 +15,15 @@ io_loc_JGUP:
     out dx, al                       ; 0x2e9e
     inc dx                           ; 0x2e9f
     cmp word [cs:cseg_1af9 - IMAGE_BASE], byte 0 ; 0x2ea0
-    je short @..io_loc_JGUP.l1       ; 0x2ea6
-    jmp short @..io_loc_JGUP.l3      ; 0x2ea8
-@..io_loc_JGUP.l1:
+    je short .back1                  ; 0x2ea6
+    jmp short .back3                 ; 0x2ea8
+.back1:
     push cx                          ; 0x2eaa
     push di                          ; 0x2eab
     push si                          ; 0x2eac
     push bx                          ; 0x2ead
     mov cx, word [cs:cseg_1af1 - IMAGE_BASE] ; 0x2eae
-@..io_loc_JGUP.l2:
+.back2:
     mov al, byte [bx]                ; 0x2eb3
     not al                           ; 0x2eb5
     out dx, al                       ; 0x2eb7
@@ -33,7 +33,7 @@ io_loc_JGUP:
     inc si                           ; 0x2ec1
     inc bx                           ; 0x2ec2
     inc di                           ; 0x2ec3
-    loop @..io_loc_JGUP.l2           ; 0x2ec4
+    loop .back2                      ; 0x2ec4
     pop bx                           ; 0x2ec6
     add bx, word [cs:cseg_248f - IMAGE_BASE] ; 0x2ec7
     pop si                           ; 0x2ecc
@@ -41,9 +41,9 @@ io_loc_JGUP:
     pop di                           ; 0x2ed2
     add di, byte 0x50                ; 0x2ed3
     pop cx                           ; 0x2ed6
-    loop @..io_loc_JGUP.l1           ; 0x2ed7
+    loop .back1                      ; 0x2ed7
     ret                              ; 0x2ed9
-@..io_loc_JGUP.l3:
+.back3:
     push cx                          ; 0x2eda
     push di                          ; 0x2edb
     push si                          ; 0x2edc
@@ -61,8 +61,8 @@ io_loc_JGUP:
     inc si                           ; 0x2ef5
     mov ax, word [cs:cseg_1af1 - IMAGE_BASE] ; 0x2ef6
     dec ax                           ; 0x2efa
-    je short @..io_loc_JGUP.l5       ; 0x2efb
-@..io_loc_JGUP.l4:
+    je short .forward1               ; 0x2efb
+.back4:
     push ax                          ; 0x2efd
     mov ah, byte [bx]                ; 0x2efe
     mov al, byte [bx + 1]            ; 0x2f00
@@ -77,10 +77,10 @@ io_loc_JGUP:
     inc di                           ; 0x2f13
     pop ax                           ; 0x2f14
     dec ax                           ; 0x2f15
-    jne short @..io_loc_JGUP.l4      ; 0x2f16
-@..io_loc_JGUP.l5:
+    jne short .back4                 ; 0x2f16
+.forward1:
     cmp word [cs:cseg_1afb - IMAGE_BASE], byte 0 ; 0x2f18
-    jne short @..io_loc_JGUP.l6      ; 0x2f1e
+    jne short .forward2              ; 0x2f1e
     mov ah, byte [bx]                ; 0x2f20
     xor al, al                       ; 0x2f22
     not ax                           ; 0x2f24
@@ -89,7 +89,7 @@ io_loc_JGUP:
     mov al, byte [cs:si]             ; 0x2f29
     mov ah, byte [es:di]             ; 0x2f2c
     mov byte [es:di], al             ; 0x2f2f
-@..io_loc_JGUP.l6:
+.forward2:
     pop bx                           ; 0x2f32
     add bx, word [cs:cseg_248f - IMAGE_BASE] ; 0x2f33
     pop si                           ; 0x2f38
@@ -97,5 +97,5 @@ io_loc_JGUP:
     pop di                           ; 0x2f3e
     add di, byte 0x50                ; 0x2f3f
     pop cx                           ; 0x2f42
-    loop @..io_loc_JGUP.l3           ; 0x2f43
+    loop .back3                      ; 0x2f43
     ret                              ; 0x2f45

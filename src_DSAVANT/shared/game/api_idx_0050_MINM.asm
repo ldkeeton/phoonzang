@@ -3,7 +3,7 @@ api_idx_0050_MINM:
     mov ax, 0xffb0
     call aztec_csav
     mov word [bp - 2], 0
-@..api_idx_0050_MINM.l1:
+.back1:
     mov ax, word [bp - 2]
     shl ax, 1
     mov bx, ax
@@ -17,7 +17,7 @@ api_idx_0050_MINM:
     inc word [bp - 2]
     mov ax, word [bp - 2]
     cmp ax, strict word 6
-    jl short @..api_idx_0050_MINM.l1
+    jl short .back1
     mov word [spell_dialog_result], 0xffff
     mov word [bp - 4], 0x32
     mov word [bp - 6], 0x73
@@ -133,13 +133,13 @@ api_idx_0050_MINM:
     mov word [bp - 0x3e], 0
     mov word [bp - 0x40], 0
     mov word [bp - 2], 0
-@..api_idx_0050_MINM.l2:
+.back2:
     mov ax, 0
     mov cx, word [bp - 2]
     cmp cx, word [bp - 0x3e]
-    jne short @..api_idx_0050_MINM.l3
+    jne short .forward1
     mov ax, 1
-@..api_idx_0050_MINM.l3:
+.forward1:
     push ax
     push cx
     mov ax, word [bp - 6]
@@ -153,7 +153,7 @@ api_idx_0050_MINM:
     inc word [bp - 2]
     mov ax, word [bp - 2]
     cmp ax, strict word 7
-    jl short @..api_idx_0050_MINM.l2
+    jl short .back2
     mov word [bp - 0x42], 0
     mov ax, 0
     push ax
@@ -174,9 +174,9 @@ api_idx_0050_MINM:
     mov word [bp - 0x44], ax
     mov ax, 7
     cmp word [bp - 0x44], byte 7
-    jge short @..api_idx_0050_MINM.l4
+    jge short .forward2
     mov ax, word [bp - 0x44]
-@..api_idx_0050_MINM.l4:
+.forward2:
     mov word [bp - 0x24], ax
     mov word [bp - 0x18], 0
     mov word [bp - 0x22], 0xffff
@@ -311,7 +311,7 @@ api_idx_0050_MINM:
     call set_hotspot
     add sp, byte 0xe
     mov word [bp - 2], 0
-@..api_idx_0050_MINM.l5:
+.back3:
     mov ax, 0
     push ax
     mov ax, word [bp - 2]
@@ -342,7 +342,7 @@ api_idx_0050_MINM:
     inc word [bp - 2]
     mov ax, word [bp - 2]
     cmp ax, strict word 7
-    jl short @..api_idx_0050_MINM.l5
+    jl short .back3
     mov ax, 0
     push ax
     mov ax, 0x46
@@ -441,12 +441,12 @@ api_idx_0050_MINM:
     add sp, byte 0xe
     mov ax, 7
     cmp word [bp - 0x44], byte 7
-    jge short @..api_idx_0050_MINM.l6
+    jge short .forward3
     mov ax, word [bp - 0x44]
-@..api_idx_0050_MINM.l6:
+.forward3:
     mov word [bp - 0x20], ax
     mov word [bp - 2], 0
-@..api_idx_0050_MINM.l7:
+.back4:
     mov ax, 0
     push ax
     push ax
@@ -474,7 +474,7 @@ api_idx_0050_MINM:
     inc word [bp - 2]
     mov ax, word [bp - 2]
     cmp ax, strict word 7
-    jl short @..api_idx_0050_MINM.l7
+    jl short .back4
     mov ax, 0
     push ax
     push ax
@@ -508,7 +508,7 @@ api_idx_0050_MINM:
     mov word [party_redraw_last_tick_hi], dx
     mov word [party_redraw_last_tick], ax
     mov word [bp - 0x1c], 1
-@..api_idx_0050_MINM.l8:
+.back5:
     push word [bp - 0x42]
     push word [bp + 4]
     call periodic_party_redraw
@@ -520,17 +520,17 @@ api_idx_0050_MINM:
     dec ax
     mov word [bp - 0x1a], ax
     cmp word [space_key_hit], byte 0
-    je short @..api_idx_0050_MINM.l12
+    je short .forward7
     mov ax, word [bp - 0x22]
     cmp ax, word [bp - 0x18]
-    jl short @..api_idx_0050_MINM.l9
+    jl short .forward4
     inc word [bp - 0x22]
-@..api_idx_0050_MINM.l9:
+.forward4:
     mov ax, word [bp - 0x22]
     cmp ax, strict word 0xffff
-    je short @..api_idx_0050_MINM.l10
+    je short .forward5
     cmp ax, word [bp - 0x18]
-    jl short @..api_idx_0050_MINM.l10
+    jl short .forward5
     mov ax, word [bp - 0x18]
     add ax, word [bp - 0x20]
     mov cx, ax
@@ -538,23 +538,23 @@ api_idx_0050_MINM:
     mov cx, ax
     mov ax, word [bp - 0x22]
     cmp cx, ax
-    jge short @..api_idx_0050_MINM.l11
-@..api_idx_0050_MINM.l10:
+    jge short .forward6
+.forward5:
     mov ax, word [bp - 0x18]
     mov word [bp - 0x22], ax
-@..api_idx_0050_MINM.l11:
+.forward6:
     mov word [hotspot_hit], 1
     mov ax, word [bp - 0x22]
     sub ax, word [bp - 0x18]
     add ax, strict word 0x12
     mov word [bp - 0x1a], ax
-@..api_idx_0050_MINM.l12:
+.forward7:
     cmp word [hotspot_hit], byte 1
-    je short @..api_idx_0050_MINM.l13
-    jmp near @..api_idx_0050_MINM.l50
-@..api_idx_0050_MINM.l13:
+    je short .forward8
+    jmp near .forward43
+.forward8:
     mov ax, word [bp - 0x1a]
-    jmp near @..api_idx_0050_MINM.l48
+    jmp near .forward41
 api_idx_0050_MINM.jumptable_case1:
     lea ax, word [bp - 0x10]
     push ax
@@ -575,7 +575,7 @@ api_idx_0050_MINM.jumptable_case1:
     call clamp_between
     add sp, byte 6
     mov word [bp - 0x16], ax
-@..api_idx_0050_MINM.l14:
+api_idx_0050_MINM.back6:
     lea ax, word [bp - 0x10]
     push ax
     lea ax, word [bp - 0xe]
@@ -596,7 +596,7 @@ api_idx_0050_MINM.jumptable_case1:
     add sp, byte 6
     mov word [bp - 0x12], ax
     cmp word [bp - 0x44], byte 7
-    jle short @..api_idx_0050_MINM.l15
+    jle short api_idx_0050_MINM.forward9
     mov cx, 0x64
     imul cx
     push ax
@@ -604,7 +604,7 @@ api_idx_0050_MINM.jumptable_case1:
     imul cx
     add ax, strict word 0x64
     mov cx, word [bp - 0x44]
-    add cx, byte 0xfa
+    add cx, byte -6
     cwd
     idiv cx
     mov cx, ax
@@ -612,7 +612,7 @@ api_idx_0050_MINM.jumptable_case1:
     cwd
     idiv cx
     mov word [bp - 0x18], ax
-@..api_idx_0050_MINM.l15:
+api_idx_0050_MINM.forward9:
     push word [bp - 0x24]
     push word [bp - 0x22]
     push word [bp - 0x18]
@@ -677,13 +677,13 @@ api_idx_0050_MINM.jumptable_case1:
     call gfx_show_area
     add sp, byte 8
     cmp word [bp - 0x1e], byte 0
-    je short @..api_idx_0050_MINM.l16
-    jmp near @..api_idx_0050_MINM.l14
-@..api_idx_0050_MINM.l16:
-    jmp near @..api_idx_0050_MINM.l50
+    je short api_idx_0050_MINM.forward10
+    jmp near api_idx_0050_MINM.back6
+api_idx_0050_MINM.forward10:
+    jmp near api_idx_0050_MINM.forward43
 api_idx_0050_MINM.jumptable_case2:
     cmp word [bp - 0x1a], byte 1
-    jne short @..api_idx_0050_MINM.l18
+    jne short api_idx_0050_MINM.forward12
     mov ax, 1
     push ax
     mov ax, word [bp - 6]
@@ -701,11 +701,11 @@ api_idx_0050_MINM.jumptable_case2:
     call flash_area
     add sp, byte 0xa
     cmp word [bp - 0x18], byte 0
-    jle short @..api_idx_0050_MINM.l17
+    jle short api_idx_0050_MINM.forward11
     dec word [bp - 0x18]
-@..api_idx_0050_MINM.l17:
-    jmp short @..api_idx_0050_MINM.l19
-@..api_idx_0050_MINM.l18:
+api_idx_0050_MINM.forward11:
+    jmp short api_idx_0050_MINM.forward13
+api_idx_0050_MINM.forward12:
     mov ax, 1
     push ax
     mov ax, word [bp - 6]
@@ -725,11 +725,11 @@ api_idx_0050_MINM.jumptable_case2:
     mov ax, word [bp - 0x44]
     add ax, strict word 0xfff9
     cmp ax, word [bp - 0x18]
-    jle short @..api_idx_0050_MINM.l19
+    jle short api_idx_0050_MINM.forward13
     inc word [bp - 0x18]
-@..api_idx_0050_MINM.l19:
+api_idx_0050_MINM.forward13:
     cmp word [bp - 0x44], byte 7
-    jle short @..api_idx_0050_MINM.l20
+    jle short api_idx_0050_MINM.forward14
     push word [bp - 0x14]
     mov ax, 0
     push ax
@@ -737,7 +737,7 @@ api_idx_0050_MINM.jumptable_case2:
     imul word [bp - 0x14]
     add ax, strict word 0x64
     mov cx, word [bp - 0x44]
-    add cx, byte 0xf9
+    add cx, byte -7
     cwd
     idiv cx
     imul word [bp - 0x18]
@@ -748,7 +748,7 @@ api_idx_0050_MINM.jumptable_case2:
     call clamp_between
     add sp, byte 6
     mov word [bp - 0x12], ax
-@..api_idx_0050_MINM.l20:
+api_idx_0050_MINM.forward14:
     push word [bp - 0x24]
     push word [bp - 0x22]
     push word [bp - 0x18]
@@ -812,23 +812,23 @@ api_idx_0050_MINM.jumptable_case2:
     push ax
     call gfx_show_area
     add sp, byte 8
-    jmp near @..api_idx_0050_MINM.l50
+    jmp near api_idx_0050_MINM.forward43
 api_idx_0050_MINM.jumptable_case3:
     cmp word [bp + 8], byte 0
-    jne short @..api_idx_0050_MINM.l21
-    jmp near @..api_idx_0050_MINM.l26
-@..api_idx_0050_MINM.l21:
+    jne short api_idx_0050_MINM.forward15
+    jmp near api_idx_0050_MINM.forward20
+api_idx_0050_MINM.forward15:
     cmp word [bp - 0x3c], byte 0
-    jge short @..api_idx_0050_MINM.l22
-    jmp near @..api_idx_0050_MINM.l25
-@..api_idx_0050_MINM.l22:
+    jge short api_idx_0050_MINM.forward16
+    jmp near api_idx_0050_MINM.forward19
+api_idx_0050_MINM.forward16:
     cmp word [bp + 0xa], byte 0
-    je short @..api_idx_0050_MINM.l24
+    je short api_idx_0050_MINM.forward18
     mov ax, word [bp - 0x3e]
     cmp ax, word [bp - 0x40]
-    jle short @..api_idx_0050_MINM.l23
-    jmp near @..api_idx_0050_MINM.l25
-@..api_idx_0050_MINM.l23:
+    jle short api_idx_0050_MINM.forward17
+    jmp near api_idx_0050_MINM.forward19
+api_idx_0050_MINM.forward17:
     mov ax, 6
     imul word [bp - 0x3c]
     mov bx, ax
@@ -849,8 +849,8 @@ api_idx_0050_MINM.jumptable_case3:
     mov cx, word [bx + party_records + pc_rec.realm_points]
     pop ax
     cmp ax, cx
-    jg short @..api_idx_0050_MINM.l25
-@..api_idx_0050_MINM.l24:
+    jg short api_idx_0050_MINM.forward19
+api_idx_0050_MINM.forward18:
     mov ax, 1
     push ax
     push ax
@@ -880,15 +880,15 @@ api_idx_0050_MINM.jumptable_case3:
     add sp, byte 0xa
     mov word [spell_dialog_button], 0
     mov word [bp - 0x1c], 0
-@..api_idx_0050_MINM.l25:
+api_idx_0050_MINM.forward19:
     cmp word [bp - 0x1c], byte 0
-    je short @..api_idx_0050_MINM.l26
+    je short api_idx_0050_MINM.forward20
     mov ax, 0
     push ax
     call play_sound_effect
     pop cx
-@..api_idx_0050_MINM.l26:
-    jmp near @..api_idx_0050_MINM.l50
+api_idx_0050_MINM.forward20:
+    jmp near api_idx_0050_MINM.forward43
 api_idx_0050_MINM.jumptable_case4:
     mov ax, 1
     push ax
@@ -919,16 +919,16 @@ api_idx_0050_MINM.jumptable_case4:
     add sp, byte 0xa
     mov word [spell_dialog_button], 1
     mov word [bp - 0x1c], 0
-    jmp near @..api_idx_0050_MINM.l50
-@..api_idx_0050_MINM.l27:
+    jmp near api_idx_0050_MINM.forward43
+api_idx_0050_MINM.back7:
     cmp word [bp - 0x1a], byte 5
-    jge short @..api_idx_0050_MINM.l28
-    jmp near @..api_idx_0050_MINM.l36
-@..api_idx_0050_MINM.l28:
+    jge short api_idx_0050_MINM.forward21
+    jmp near api_idx_0050_MINM.forward29
+api_idx_0050_MINM.forward21:
     cmp word [bp - 0x1a], byte 0xb
-    jle short @..api_idx_0050_MINM.l29
-    jmp near @..api_idx_0050_MINM.l36
-@..api_idx_0050_MINM.l29:
+    jle short api_idx_0050_MINM.forward22
+    jmp near api_idx_0050_MINM.forward29
+api_idx_0050_MINM.forward22:
     mov ax, 0
     push ax
     push word [bp - 0x3e]
@@ -955,9 +955,9 @@ api_idx_0050_MINM.jumptable_case4:
     call draw_power_digit
     add sp, byte 8
     cmp word [bp - 0x3c], byte 0
-    jge short @..api_idx_0050_MINM.l30
-    jmp near @..api_idx_0050_MINM.l34
-@..api_idx_0050_MINM.l30:
+    jge short api_idx_0050_MINM.forward23
+    jmp near api_idx_0050_MINM.forward27
+api_idx_0050_MINM.forward23:
     mov ax, 6
     push ax
     mov ax, 0
@@ -989,10 +989,10 @@ api_idx_0050_MINM.jumptable_case4:
     imul cx
     mov word [bp - 2], ax
     cmp word [bp + 0xa], byte 0
-    jne short @..api_idx_0050_MINM.l31
+    jne short api_idx_0050_MINM.forward24
     mov ax, 0x3e7
-    jmp short @..api_idx_0050_MINM.l33
-@..api_idx_0050_MINM.l31:
+    jmp short api_idx_0050_MINM.forward26
+api_idx_0050_MINM.forward24:
     mov ax, 0x248
     imul word [bp + 4]
     mov cx, word [bp - 0x42]
@@ -1002,11 +1002,11 @@ api_idx_0050_MINM.jumptable_case4:
     mov bx, ax
     mov ax, word [bx + party_records + pc_rec.realm_points]
     cmp ax, word [bp - 2]
-    jge short @..api_idx_0050_MINM.l32
-    jmp short @..api_idx_0050_MINM.l33
-@..api_idx_0050_MINM.l32:
+    jge short api_idx_0050_MINM.forward25
+    jmp short api_idx_0050_MINM.forward26
+api_idx_0050_MINM.forward25:
     mov ax, word [bp - 2]
-@..api_idx_0050_MINM.l33:
+api_idx_0050_MINM.forward26:
     push ax
     mov ax, 6
     imul word [bp - 0x3c]
@@ -1026,8 +1026,8 @@ api_idx_0050_MINM.jumptable_case4:
     push ax
     call api_idx_0050_MINM.loc1
     add sp, byte 0xa
-    jmp short @..api_idx_0050_MINM.l35
-@..api_idx_0050_MINM.l34:
+    jmp short api_idx_0050_MINM.forward28
+api_idx_0050_MINM.forward27:
     mov ax, 0
     push ax
     push ax
@@ -1040,7 +1040,7 @@ api_idx_0050_MINM.jumptable_case4:
     push ax
     call api_idx_0050_MINM.loc1
     add sp, byte 0xa
-@..api_idx_0050_MINM.l35:
+api_idx_0050_MINM.forward28:
     mov ax, word [bp - 6]
     add ax, strict word 0x1c
     push ax
@@ -1069,16 +1069,16 @@ api_idx_0050_MINM.jumptable_case4:
     push ax
     call gfx_show_area
     add sp, byte 8
-    jmp near @..api_idx_0050_MINM.l47
-@..api_idx_0050_MINM.l36:
+    jmp near api_idx_0050_MINM.forward40
+api_idx_0050_MINM.forward29:
     cmp word [bp - 0x1a], byte 0xc
-    jge short @..api_idx_0050_MINM.l37
-    jmp near @..api_idx_0050_MINM.l41
-@..api_idx_0050_MINM.l37:
+    jge short api_idx_0050_MINM.forward30
+    jmp near api_idx_0050_MINM.forward34
+api_idx_0050_MINM.forward30:
     cmp word [bp - 0x1a], byte 0x11
-    jle short @..api_idx_0050_MINM.l38
-    jmp near @..api_idx_0050_MINM.l41
-@..api_idx_0050_MINM.l38:
+    jle short api_idx_0050_MINM.forward31
+    jmp near api_idx_0050_MINM.forward34
+api_idx_0050_MINM.forward31:
     mov ax, word [bp - 0x1a]
     add ax, strict word 0xfff4
     mov word [bp - 0x42], ax
@@ -1090,15 +1090,15 @@ api_idx_0050_MINM.jumptable_case4:
     mov word [bp - 0x44], ax
     mov ax, 7
     cmp word [bp - 0x44], byte 7
-    jge short @..api_idx_0050_MINM.l39
+    jge short api_idx_0050_MINM.forward32
     mov ax, word [bp - 0x44]
-@..api_idx_0050_MINM.l39:
+api_idx_0050_MINM.forward32:
     mov word [bp - 0x24], ax
     mov ax, 7
     cmp word [bp - 0x44], byte 7
-    jge short @..api_idx_0050_MINM.l40
+    jge short api_idx_0050_MINM.forward33
     mov ax, word [bp - 0x44]
-@..api_idx_0050_MINM.l40:
+api_idx_0050_MINM.forward33:
     mov word [bp - 0x20], ax
     mov word [bp - 0x18], 0
     mov word [bp - 0x22], 0xffff
@@ -1192,18 +1192,18 @@ api_idx_0050_MINM.jumptable_case4:
     push ax
     call gfx_show_area
     add sp, byte 8
-    jmp near @..api_idx_0050_MINM.l47
-@..api_idx_0050_MINM.l41:
+    jmp near api_idx_0050_MINM.forward40
+api_idx_0050_MINM.forward34:
     cmp word [bp - 0x1a], byte 0x12
-    jge short @..api_idx_0050_MINM.l42
-    jmp near @..api_idx_0050_MINM.l47
-@..api_idx_0050_MINM.l42:
+    jge short api_idx_0050_MINM.forward35
+    jmp near api_idx_0050_MINM.forward40
+api_idx_0050_MINM.forward35:
     mov ax, word [bp - 0x20]
     add ax, strict word 0x12
     cmp ax, word [bp - 0x1a]
-    jg short @..api_idx_0050_MINM.l43
-    jmp near @..api_idx_0050_MINM.l47
-@..api_idx_0050_MINM.l43:
+    jg short api_idx_0050_MINM.forward36
+    jmp near api_idx_0050_MINM.forward40
+api_idx_0050_MINM.forward36:
     mov ax, word [bp - 0x18]
     add ax, word [bp - 0x1a]
     add ax, strict word 0xffee
@@ -1258,10 +1258,10 @@ api_idx_0050_MINM.jumptable_case4:
     imul cx
     mov word [bp - 2], ax
     cmp word [bp + 0xa], byte 0
-    jne short @..api_idx_0050_MINM.l44
+    jne short api_idx_0050_MINM.forward37
     mov ax, 0x3e7
-    jmp short @..api_idx_0050_MINM.l46
-@..api_idx_0050_MINM.l44:
+    jmp short api_idx_0050_MINM.forward39
+api_idx_0050_MINM.forward37:
     mov ax, 0x248
     imul word [bp + 4]
     mov cx, word [bp - 0x42]
@@ -1271,11 +1271,11 @@ api_idx_0050_MINM.jumptable_case4:
     mov bx, ax
     mov ax, word [bx + party_records + pc_rec.realm_points]
     cmp ax, word [bp - 2]
-    jge short @..api_idx_0050_MINM.l45
-    jmp short @..api_idx_0050_MINM.l46
-@..api_idx_0050_MINM.l45:
+    jge short api_idx_0050_MINM.forward38
+    jmp short api_idx_0050_MINM.forward39
+api_idx_0050_MINM.forward38:
     mov ax, word [bp - 2]
-@..api_idx_0050_MINM.l46:
+api_idx_0050_MINM.forward39:
     push ax
     mov ax, 6
     imul word [bp - 0x3c]
@@ -1323,27 +1323,27 @@ api_idx_0050_MINM.jumptable_case4:
     push ax
     call gfx_show_area
     add sp, byte 8
-@..api_idx_0050_MINM.l47:
-    jmp short @..api_idx_0050_MINM.l50
+api_idx_0050_MINM.forward40:
+    jmp short api_idx_0050_MINM.forward43
 api_idx_0050_MINM.jumptable1:
     dw api_idx_0050_MINM.jumptable_case1 - IMAGE_BASE + __zres_end
     dw api_idx_0050_MINM.jumptable_case2 - IMAGE_BASE + __zres_end
     dw api_idx_0050_MINM.jumptable_case2 - IMAGE_BASE + __zres_end
     dw api_idx_0050_MINM.jumptable_case3 - IMAGE_BASE + __zres_end
     dw api_idx_0050_MINM.jumptable_case4 - IMAGE_BASE + __zres_end
-@..api_idx_0050_MINM.l48:
+api_idx_0050_MINM.forward41:
     cmp ax, strict word 5
-    jae short @..api_idx_0050_MINM.l49
+    jae short api_idx_0050_MINM.forward42
     xchg bx, ax
     shl bx, 1
     jmp [cs:bx + api_idx_0050_MINM.jumptable1 - IMAGE_BASE + __zres_end]
-@..api_idx_0050_MINM.l49:
-    jmp near @..api_idx_0050_MINM.l27
-@..api_idx_0050_MINM.l50:
+api_idx_0050_MINM.forward42:
+    jmp near api_idx_0050_MINM.back7
+api_idx_0050_MINM.forward43:
     cmp word [bp - 0x1c], byte 0
-    je short @..api_idx_0050_MINM.l51
-    jmp near @..api_idx_0050_MINM.l8
-@..api_idx_0050_MINM.l51:
+    je short api_idx_0050_MINM.forward44
+    jmp near api_idx_0050_MINM.back5
+api_idx_0050_MINM.forward44:
     mov ax, 1
     push ax
     push word [bp - 0x3a]
@@ -1364,7 +1364,7 @@ api_idx_0050_MINM.jumptable1:
     call gfx_show_area
     add sp, byte 8
     mov word [bp - 2], 0
-@..api_idx_0050_MINM.l52:
+api_idx_0050_MINM.back8:
     mov ax, word [bp - 2]
     shl ax, 1
     mov bx, ax
@@ -1377,7 +1377,7 @@ api_idx_0050_MINM.jumptable1:
     inc word [bp - 2]
     mov ax, word [bp - 2]
     cmp ax, strict word 6
-    jl short @..api_idx_0050_MINM.l52
+    jl short api_idx_0050_MINM.back8
     les bx, word [tick_counter_ptr]
     mov ax, word [es:bx]
     mov dx, word [es:bx + 2]

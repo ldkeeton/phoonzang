@@ -11,12 +11,12 @@ run_state_15_scene:
     push ax                          ; 0x80b5
     call redraw_treasure_caption     ; 0x80b6
     pop cx                           ; 0x80b9
-    cmp word [selected_item_record], byte 0xff ; 0x80ba
-    je short @..run_state_15_scene.l2 ; 0x80bf
+    cmp word [selected_item_record], byte -1 ; 0x80ba
+    je short .forward2               ; 0x80bf
     call score_music_enabled         ; 0x80c1
     mov word [bss_8450], ax          ; 0x80c4
     test ax, ax                      ; 0x80c7
-    je short @..run_state_15_scene.l1 ; 0x80c9
+    je short .forward1               ; 0x80c9
     mov ax, 1                        ; 0x80cb
     push ax                          ; 0x80ce
     mov ax, 2                        ; 0x80cf
@@ -32,11 +32,11 @@ run_state_15_scene:
     call ds_app_UKGP                 ; 0x80e8
     add sp, byte 6                   ; 0x80eb
     mov word [bss_844c], ax          ; 0x80ee
-@..run_state_15_scene.l1:
+.forward1:
     mov word [party_return_state], 0x15 ; 0x80f1
     call loc_HUIS                    ; 0x80f7
     cmp word [bss_8450], byte 0      ; 0x80fa
-    je short @..run_state_15_scene.l2 ; 0x80ff
+    je short .forward2               ; 0x80ff
     push word [bss_844c]             ; 0x8101
     push word [bss_844e]             ; 0x8105
     call fade_out_music              ; 0x8109
@@ -45,7 +45,7 @@ run_state_15_scene:
     push ax                          ; 0x8112
     call app_gfx_free_score          ; 0x8113
     pop cx                           ; 0x8116
-@..run_state_15_scene.l2:
+.forward2:
     inc word [party_region]          ; 0x8117
     call loc_VSIT                    ; 0x811b
     ret                              ; 0x811e

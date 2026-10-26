@@ -7,7 +7,7 @@ api_idx_0002_OOUO:
     call random_below                ; 0xa296
     pop cx                           ; 0xa299
     cmp ax, strict word 0xf          ; 0xa29a
-    jle short @..api_idx_0002_OOUO.l2 ; 0xa29d
+    jle short .forward2              ; 0xa29d
     push word [bp + 8]               ; 0xa29f
     call random_below                ; 0xa2a2
     pop cx                           ; 0xa2a5
@@ -27,13 +27,13 @@ api_idx_0002_OOUO:
     mov cx, ax                       ; 0xa2c4
     mov ax, word [bp - 2]            ; 0xa2c6
     cmp cx, ax                       ; 0xa2c9
-    jge short @..api_idx_0002_OOUO.l1 ; 0xa2cb
+    jge short .forward1              ; 0xa2cb
     mov word [bp - 2], cx            ; 0xa2cd
-@..api_idx_0002_OOUO.l1:
+.forward1:
     mov al, byte [bp - 2]            ; 0xa2d0
     mov byte [bx + slot_records + slot_record.flag], al ; 0xa2d3
     mov ax, 1                        ; 0xa2d7
     ret                              ; 0xa2da
-@..api_idx_0002_OOUO.l2:
+.forward2:
     mov ax, 0                        ; 0xa2db
     ret                              ; 0xa2de

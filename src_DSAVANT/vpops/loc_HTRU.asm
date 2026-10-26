@@ -8,31 +8,31 @@ loc_HTRU:
     mov word [bp - 0x10], ax         ; 0x112c
     mov word [bp - 2], 0             ; 0x112f
     mov word [bp - 4], 0             ; 0x1134
-@..loc_HTRU.l1:
+.back1:
     mov ax, word [bp - 4]            ; 0x1139
     shl ax, 1                        ; 0x113c
     mov si, ax                       ; 0x113e
     mov bx, word [bp + 0x1a]         ; 0x1140
-    cmp word [bx + si], byte 0xff    ; 0x1143
-    jne short @..loc_HTRU.l2         ; 0x1146
-    jmp near @..loc_HTRU.l7          ; 0x1148
-@..loc_HTRU.l2:
+    cmp word [bx + si], byte -1      ; 0x1143
+    jne short .forward1              ; 0x1146
+    jmp near .forward6               ; 0x1148
+.forward1:
     cmp word [bx + si], byte 1       ; 0x114b
-    je short @..loc_HTRU.l3          ; 0x114e
-    jmp near @..loc_HTRU.l6          ; 0x1150
-@..loc_HTRU.l3:
+    je short .forward2               ; 0x114e
+    jmp near .forward5               ; 0x1150
+.forward2:
     mov ax, word [bp - 2]            ; 0x1153
     cmp word [bp + 0x16], byte 0     ; 0x1156
-    je short @..loc_HTRU.l4          ; 0x115a
+    je short .forward3               ; 0x115a
     mov ax, word [bp - 4]            ; 0x115c
-@..loc_HTRU.l4:
+.forward3:
     mov word [bp - 8], ax            ; 0x115f
     mov ax, word [bp + 0xa]          ; 0x1162
     mov cx, word [bp - 8]            ; 0x1165
     cmp cx, word [bp - 0x10]         ; 0x1168
-    jge short @..loc_HTRU.l5         ; 0x116b
+    jge short .forward4              ; 0x116b
     mov ax, word [bp + 8]            ; 0x116d
-@..loc_HTRU.l5:
+.forward4:
     mov word [bp - 6], ax            ; 0x1170
     mov ax, 0x14                     ; 0x1173
     imul word [bp - 2]               ; 0x1176
@@ -153,10 +153,10 @@ loc_HTRU:
     add bx, bp                       ; 0x128d
     mov word [bx - 0x1ce], ax        ; 0x128f
     inc word [bp - 2]                ; 0x1293
-@..loc_HTRU.l6:
+.forward5:
     inc word [bp - 4]                ; 0x1296
-    jmp near @..loc_HTRU.l1          ; 0x1299
-@..loc_HTRU.l7:
+    jmp near .back1                  ; 0x1299
+.forward6:
     mov ax, word [bp - 4]            ; 0x129c
     mov word [bp - 0x1ac], ax        ; 0x129f
     mov ax, 0                        ; 0x12a3
@@ -171,10 +171,10 @@ loc_HTRU:
     call set_hotspot                 ; 0x12b2
     add sp, byte 0xe                 ; 0x12b5
     cmp word [bp + 0x16], byte 1     ; 0x12b8
-    jne short @..loc_HTRU.l10        ; 0x12bc
+    jne short .forward8              ; 0x12bc
     mov word [bp - 0xe], 0           ; 0x12be
-    jmp short @..loc_HTRU.l9         ; 0x12c3
-@..loc_HTRU.l8:
+    jmp short .forward7              ; 0x12c3
+.back2:
     mov ax, 0                        ; 0x12c5
     push ax                          ; 0x12c8
     mov ax, word [bp - 0xe]          ; 0x12c9
@@ -199,10 +199,10 @@ loc_HTRU:
     call set_hotspot                 ; 0x12f4
     add sp, byte 0xe                 ; 0x12f7
     inc word [bp - 0xe]              ; 0x12fa
-@..loc_HTRU.l9:
+.forward7:
     mov ax, word [bp - 0xe]          ; 0x12fd
     cmp ax, word [party_member_count] ; 0x1300
-    jl short @..loc_HTRU.l8          ; 0x1304
+    jl short .back2                  ; 0x1304
     mov ax, 0                        ; 0x1306
     push ax                          ; 0x1309
     push ax                          ; 0x130a
@@ -216,13 +216,13 @@ loc_HTRU:
     push ax                          ; 0x1319
     call set_hotspot                 ; 0x131a
     add sp, byte 0xe                 ; 0x131d
-@..loc_HTRU.l10:
+.forward8:
     push word [bp + 6]               ; 0x1320
     call show_area_set               ; 0x1323
     pop cx                           ; 0x1326
     cmp word [mouse_active], byte 0  ; 0x1327
-    je short @..loc_HTRU.l12         ; 0x132c
-@..loc_HTRU.l11:
+    je short .forward9               ; 0x132c
+.back3:
     mov ax, hotspot_rects            ; 0x132e
     push ax                          ; 0x1331
     call poll_hotspots               ; 0x1332
@@ -230,28 +230,28 @@ loc_HTRU:
     mov word [bp - 4], ax            ; 0x1336
     call api_idx_0006_IRNH           ; 0x1339
     cmp word [hotspot_hit], byte 0   ; 0x133c
-    je short @..loc_HTRU.l11         ; 0x1341
-    jmp near @..loc_HTRU.l46         ; 0x1343
-@..loc_HTRU.l12:
+    je short .back3                  ; 0x1341
+    jmp near .forward34              ; 0x1343
+.forward9:
     mov word [bp - 4], 0             ; 0x1346
-@..loc_HTRU.l13:
+.back4:
     cmp word [bp + 0x16], byte 0     ; 0x134b
-    je short @..loc_HTRU.l14         ; 0x134f
+    je short .back5                  ; 0x134f
     mov ax, word [bp - 4]            ; 0x1351
     shl ax, 1                        ; 0x1354
     mov si, ax                       ; 0x1356
     mov bx, word [bp + 0x1a]         ; 0x1358
     cmp word [bx + si], byte 1       ; 0x135b
-    je short @..loc_HTRU.l14         ; 0x135e
+    je short .back5                  ; 0x135e
     inc word [bp - 4]                ; 0x1360
-    jmp short @..loc_HTRU.l13        ; 0x1363
-@..loc_HTRU.l14:
+    jmp short .back4                 ; 0x1363
+.back5:
     mov ax, word [bp + 0xa]          ; 0x1365
     mov cx, word [bp - 4]            ; 0x1368
     cmp cx, word [bp - 0x10]         ; 0x136b
-    jge short @..loc_HTRU.l15        ; 0x136e
+    jge short .forward10             ; 0x136e
     mov ax, word [bp + 8]            ; 0x1370
-@..loc_HTRU.l15:
+.forward10:
     mov word [bp - 6], ax            ; 0x1373
     mov ax, cx                       ; 0x1376
     cwd                              ; 0x1378
@@ -311,16 +311,16 @@ loc_HTRU:
     push ax                          ; 0x13fa
     call loc_MNNG                    ; 0x13fb
     add sp, byte 0xa                 ; 0x13fe
-@..loc_HTRU.l16:
+.back6:
     mov ax, 1                        ; 0x1401
     push ax                          ; 0x1404
     call poll_filtered_key           ; 0x1405
     pop cx                           ; 0x1408
     test ax, ax                      ; 0x1409
-    jne short @..loc_HTRU.l17        ; 0x140b
+    jne short .forward11             ; 0x140b
     call api_idx_0006_IRNH           ; 0x140d
-    jmp short @..loc_HTRU.l16        ; 0x1410
-@..loc_HTRU.l17:
+    jmp short .back6                 ; 0x1410
+.forward11:
     mov ax, 1                        ; 0x1412
     push ax                          ; 0x1415
     call get_filtered_key            ; 0x1416
@@ -328,30 +328,30 @@ loc_HTRU:
     sub ah, ah                       ; 0x141a
     mov word [bp - 0x1ae], ax        ; 0x141c
     cmp ax, strict word 0xd          ; 0x1420
-    jne short @..loc_HTRU.l18        ; 0x1423
+    jne short .forward12             ; 0x1423
     mov ax, word [bp - 4]            ; 0x1425
     shl ax, 1                        ; 0x1428
     mov bx, ax                       ; 0x142a
     add bx, bp                       ; 0x142c
     mov ax, word [bx - 0x1ce]        ; 0x142e
     mov word [bp - 4], ax            ; 0x1432
-    jmp near @..loc_HTRU.l44         ; 0x1435
-@..loc_HTRU.l18:
+    jmp near .forward32              ; 0x1435
+.forward12:
     cmp word [bp + 0x16], byte 1     ; 0x1438
-    jne short @..loc_HTRU.l19        ; 0x143c
+    jne short .forward13             ; 0x143c
     cmp word [bp - 0x1ae], byte 0x31 ; 0x143e
-    jl short @..loc_HTRU.l19         ; 0x1443
+    jl short .forward13              ; 0x1443
     mov ax, word [party_member_count] ; 0x1445
     add ax, strict word 0x30         ; 0x1448
     cmp ax, word [bp - 0x1ae]        ; 0x144b
-    jl short @..loc_HTRU.l19         ; 0x144f
+    jl short .forward13              ; 0x144f
     mov ax, word [bp - 2]            ; 0x1451
     add ax, word [bp - 0x1ae]        ; 0x1454
     add ax, strict word 0xffcf       ; 0x1458
     mov word [bp - 4], ax            ; 0x145b
     mov word [bp - 0x1ae], 0xd       ; 0x145e
-    jmp near @..loc_HTRU.l44         ; 0x1464
-@..loc_HTRU.l19:
+    jmp near .forward32              ; 0x1464
+.forward13:
     mov ax, word [bp - 4]            ; 0x1467
     cwd                              ; 0x146a
     idiv word [bp + 0x14]            ; 0x146b
@@ -364,8 +364,8 @@ loc_HTRU:
     imul word [bp + 0x14]            ; 0x147b
     mov word [bp - 0xc], ax          ; 0x147e
     mov ax, word [bp - 0x1ae]        ; 0x1481
-    jmp near @..loc_HTRU.l40         ; 0x1485
-@..loc_HTRU.l20:
+    jmp near .forward28              ; 0x1485
+.back7:
     mov ax, word [bp - 4]            ; 0x1488
     add ax, word [bp + 0x14]         ; 0x148b
     dec ax                           ; 0x148e
@@ -380,22 +380,22 @@ loc_HTRU:
     add ax, cx                       ; 0x149f
     mov word [bp - 4], ax            ; 0x14a1
     cmp word [bp + 0x16], byte 0     ; 0x14a4
-    je short @..loc_HTRU.l21         ; 0x14a8
+    je short .forward14              ; 0x14a8
     mov ax, word [bp - 4]            ; 0x14aa
     shl ax, 1                        ; 0x14ad
     mov si, ax                       ; 0x14af
     mov bx, word [bp + 0x1a]         ; 0x14b1
     cmp word [bx + si], byte 1       ; 0x14b4
-    jne short @..loc_HTRU.l20        ; 0x14b7
-@..loc_HTRU.l21:
+    jne short .back7                 ; 0x14b7
+.forward14:
     cmp word [bp + 0x16], byte 0     ; 0x14b9
-    jne short @..loc_HTRU.l22        ; 0x14bd
+    jne short .forward15             ; 0x14bd
     mov ax, word [bp - 4]            ; 0x14bf
     cmp ax, word [bp - 2]            ; 0x14c2
-    jge short @..loc_HTRU.l20        ; 0x14c5
-@..loc_HTRU.l22:
-    jmp near @..loc_HTRU.l44         ; 0x14c7
-@..loc_HTRU.l23:
+    jge short .back7                 ; 0x14c5
+.forward15:
+    jmp near .forward32              ; 0x14c7
+.back8:
     mov ax, word [bp - 4]            ; 0x14ca
     inc ax                           ; 0x14cd
     cwd                              ; 0x14ce
@@ -409,22 +409,22 @@ loc_HTRU:
     add ax, cx                       ; 0x14de
     mov word [bp - 4], ax            ; 0x14e0
     cmp word [bp + 0x16], byte 0     ; 0x14e3
-    je short @..loc_HTRU.l24         ; 0x14e7
+    je short .forward16              ; 0x14e7
     mov ax, word [bp - 4]            ; 0x14e9
     shl ax, 1                        ; 0x14ec
     mov si, ax                       ; 0x14ee
     mov bx, word [bp + 0x1a]         ; 0x14f0
     cmp word [bx + si], byte 1       ; 0x14f3
-    jne short @..loc_HTRU.l23        ; 0x14f6
-@..loc_HTRU.l24:
+    jne short .back8                 ; 0x14f6
+.forward16:
     cmp word [bp + 0x16], byte 0     ; 0x14f8
-    jne short @..loc_HTRU.l25        ; 0x14fc
+    jne short .forward17             ; 0x14fc
     mov ax, word [bp - 4]            ; 0x14fe
     cmp ax, word [bp - 2]            ; 0x1501
-    jge short @..loc_HTRU.l23        ; 0x1504
-@..loc_HTRU.l25:
-    jmp near @..loc_HTRU.l44         ; 0x1506
-@..loc_HTRU.l26:
+    jge short .back8                 ; 0x1504
+.forward17:
+    jmp near .forward32              ; 0x1506
+.back9:
     mov ax, word [bp - 4]            ; 0x1509
     sub ax, word [bp + 0x14]         ; 0x150c
     add ax, word [bp - 0xc]          ; 0x150f
@@ -436,25 +436,25 @@ loc_HTRU:
     idiv word [bp + 0x14]            ; 0x151c
     mov word [bp - 0xa], ax          ; 0x151f
     mov word [bp - 0x1b0], 0         ; 0x1522
-@..loc_HTRU.l27:
+.back10:
     mov ax, word [bp - 0x1b0]        ; 0x1528
     cmp ax, word [bp + 0x14]         ; 0x152c
-    jge short @..loc_HTRU.l30        ; 0x152f
+    jge short .forward20             ; 0x152f
     cmp word [bp + 0x16], byte 0     ; 0x1531
-    je short @..loc_HTRU.l28         ; 0x1535
+    je short .forward18              ; 0x1535
     mov ax, word [bp - 4]            ; 0x1537
     shl ax, 1                        ; 0x153a
     mov si, ax                       ; 0x153c
     mov bx, word [bp + 0x1a]         ; 0x153e
     cmp word [bx + si], byte 1       ; 0x1541
-    jne short @..loc_HTRU.l29        ; 0x1544
-@..loc_HTRU.l28:
+    jne short .forward19             ; 0x1544
+.forward18:
     cmp word [bp + 0x16], byte 0     ; 0x1546
-    jne short @..loc_HTRU.l30        ; 0x154a
+    jne short .forward20             ; 0x154a
     mov ax, word [bp - 4]            ; 0x154c
     cmp ax, word [bp - 2]            ; 0x154f
-    jl short @..loc_HTRU.l30         ; 0x1552
-@..loc_HTRU.l29:
+    jl short .forward20              ; 0x1552
+.forward19:
     mov ax, word [bp - 4]            ; 0x1554
     add ax, word [bp + 0x14]         ; 0x1557
     dec ax                           ; 0x155a
@@ -469,27 +469,27 @@ loc_HTRU:
     add ax, cx                       ; 0x156b
     mov word [bp - 4], ax            ; 0x156d
     inc word [bp - 0x1b0]            ; 0x1570
-    jmp short @..loc_HTRU.l27        ; 0x1574
-@..loc_HTRU.l30:
+    jmp short .back10                ; 0x1574
+.forward20:
     cmp word [bp + 0x16], byte 0     ; 0x1576
-    je short @..loc_HTRU.l31         ; 0x157a
+    je short .forward21              ; 0x157a
     mov ax, word [bp - 4]            ; 0x157c
     shl ax, 1                        ; 0x157f
     mov si, ax                       ; 0x1581
     mov bx, word [bp + 0x1a]         ; 0x1583
     cmp word [bx + si], byte 1       ; 0x1586
-    je short @..loc_HTRU.l31         ; 0x1589
-    jmp near @..loc_HTRU.l26         ; 0x158b
-@..loc_HTRU.l31:
+    je short .forward21              ; 0x1589
+    jmp near .back9                  ; 0x158b
+.forward21:
     cmp word [bp + 0x16], byte 0     ; 0x158e
-    jne short @..loc_HTRU.l32        ; 0x1592
+    jne short .forward22             ; 0x1592
     mov ax, word [bp - 4]            ; 0x1594
     cmp ax, word [bp - 2]            ; 0x1597
-    jl short @..loc_HTRU.l32         ; 0x159a
-    jmp near @..loc_HTRU.l26         ; 0x159c
-@..loc_HTRU.l32:
-    jmp near @..loc_HTRU.l44         ; 0x159f
-@..loc_HTRU.l33:
+    jl short .forward22              ; 0x159a
+    jmp near .back9                  ; 0x159c
+.forward22:
+    jmp near .forward32              ; 0x159f
+.back11:
     mov ax, word [bp - 4]            ; 0x15a2
     add ax, word [bp + 0x14]         ; 0x15a5
     cwd                              ; 0x15a8
@@ -500,25 +500,25 @@ loc_HTRU:
     idiv word [bp + 0x14]            ; 0x15b2
     mov word [bp - 0xa], ax          ; 0x15b5
     mov word [bp - 0x1b0], 0         ; 0x15b8
-@..loc_HTRU.l34:
+.back12:
     mov ax, word [bp - 0x1b0]        ; 0x15be
     cmp ax, word [bp + 0x14]         ; 0x15c2
-    jge short @..loc_HTRU.l37        ; 0x15c5
+    jge short .forward25             ; 0x15c5
     cmp word [bp + 0x16], byte 0     ; 0x15c7
-    je short @..loc_HTRU.l35         ; 0x15cb
+    je short .forward23              ; 0x15cb
     mov ax, word [bp - 4]            ; 0x15cd
     shl ax, 1                        ; 0x15d0
     mov si, ax                       ; 0x15d2
     mov bx, word [bp + 0x1a]         ; 0x15d4
     cmp word [bx + si], byte 1       ; 0x15d7
-    jne short @..loc_HTRU.l36        ; 0x15da
-@..loc_HTRU.l35:
+    jne short .forward24             ; 0x15da
+.forward23:
     cmp word [bp + 0x16], byte 0     ; 0x15dc
-    jne short @..loc_HTRU.l37        ; 0x15e0
+    jne short .forward25             ; 0x15e0
     mov ax, word [bp - 4]            ; 0x15e2
     cmp ax, word [bp - 2]            ; 0x15e5
-    jl short @..loc_HTRU.l37         ; 0x15e8
-@..loc_HTRU.l36:
+    jl short .forward25              ; 0x15e8
+.forward24:
     mov ax, word [bp - 4]            ; 0x15ea
     inc ax                           ; 0x15ed
     cwd                              ; 0x15ee
@@ -532,77 +532,77 @@ loc_HTRU:
     add ax, cx                       ; 0x15fe
     mov word [bp - 4], ax            ; 0x1600
     inc word [bp - 0x1b0]            ; 0x1603
-    jmp short @..loc_HTRU.l34        ; 0x1607
-@..loc_HTRU.l37:
+    jmp short .back12                ; 0x1607
+.forward25:
     cmp word [bp + 0x16], byte 0     ; 0x1609
-    je short @..loc_HTRU.l38         ; 0x160d
+    je short .forward26              ; 0x160d
     mov ax, word [bp - 4]            ; 0x160f
     shl ax, 1                        ; 0x1612
     mov si, ax                       ; 0x1614
     mov bx, word [bp + 0x1a]         ; 0x1616
     cmp word [bx + si], byte 1       ; 0x1619
-    jne short @..loc_HTRU.l33        ; 0x161c
-@..loc_HTRU.l38:
+    jne short .back11                ; 0x161c
+.forward26:
     cmp word [bp + 0x16], byte 0     ; 0x161e
-    jne short @..loc_HTRU.l39        ; 0x1622
+    jne short .forward27             ; 0x1622
     mov ax, word [bp - 4]            ; 0x1624
     cmp ax, word [bp - 2]            ; 0x1627
-    jl short @..loc_HTRU.l39         ; 0x162a
-    jmp near @..loc_HTRU.l33         ; 0x162c
-@..loc_HTRU.l39:
-    jmp short @..loc_HTRU.l44        ; 0x162f
-@..loc_HTRU.l40:
+    jl short .forward27              ; 0x162a
+    jmp near .back11                 ; 0x162c
+.forward27:
+    jmp short .forward32             ; 0x162f
+.forward28:
     cmp ax, strict word 8            ; 0x1631
-    jne short @..loc_HTRU.l41        ; 0x1634
-    jmp near @..loc_HTRU.l26         ; 0x1636
-@..loc_HTRU.l41:
+    jne short .forward29             ; 0x1634
+    jmp near .back9                  ; 0x1636
+.forward29:
     cmp ax, strict word 9            ; 0x1639
-    jne short @..loc_HTRU.l42        ; 0x163c
-    jmp near @..loc_HTRU.l20         ; 0x163e
-@..loc_HTRU.l42:
+    jne short .forward30             ; 0x163c
+    jmp near .back7                  ; 0x163e
+.forward30:
     cmp ax, strict word 0xa          ; 0x1641
-    jne short @..loc_HTRU.l43        ; 0x1644
-    jmp near @..loc_HTRU.l33         ; 0x1646
-@..loc_HTRU.l43:
+    jne short .forward31             ; 0x1644
+    jmp near .back11                 ; 0x1646
+.forward31:
     cmp ax, strict word 0xb          ; 0x1649
-    jne short @..loc_HTRU.l44        ; 0x164c
-    jmp near @..loc_HTRU.l23         ; 0x164e
-@..loc_HTRU.l44:
+    jne short .forward32             ; 0x164c
+    jmp near .back8                  ; 0x164e
+.forward32:
     cmp word [bp - 0x1ae], byte 0xd  ; 0x1651
-    je short @..loc_HTRU.l45         ; 0x1656
-    jmp near @..loc_HTRU.l14         ; 0x1658
-@..loc_HTRU.l45:
+    je short .forward33              ; 0x1656
+    jmp near .back5                  ; 0x1658
+.forward33:
     inc word [bp - 4]                ; 0x165b
     push word [bp + 6]               ; 0x165e
     call show_area_set               ; 0x1661
     pop cx                           ; 0x1664
-@..loc_HTRU.l46:
+.forward34:
     dec word [bp - 4]                ; 0x1665
     mov ax, word [bp - 4]            ; 0x1668
     cmp ax, word [bp - 2]            ; 0x166b
-    jl short @..loc_HTRU.l47         ; 0x166e
+    jl short .forward35              ; 0x166e
     mov ax, 0                        ; 0x1670
     mov cx, word [bp - 4]            ; 0x1673
     sub cx, word [bp - 2]            ; 0x1676
     sub ax, cx                       ; 0x1679
     dec ax                           ; 0x167b
     ret                              ; 0x167c
-@..loc_HTRU.l47:
+.forward35:
     mov ax, word [bp - 4]            ; 0x167d
     cmp word [bp + 0x16], byte 0     ; 0x1680
-    je short @..loc_HTRU.l48         ; 0x1684
+    je short .forward36              ; 0x1684
     shl ax, 1                        ; 0x1686
     mov bx, ax                       ; 0x1688
     add bx, bp                       ; 0x168a
     mov ax, word [bx - 0x2e]         ; 0x168c
-@..loc_HTRU.l48:
+.forward36:
     mov word [bp - 8], ax            ; 0x168f
     mov ax, word [bp + 0xa]          ; 0x1692
     mov cx, word [bp - 8]            ; 0x1695
     cmp cx, word [bp - 0x10]         ; 0x1698
-    jge short @..loc_HTRU.l49        ; 0x169b
+    jge short .forward37             ; 0x169b
     mov ax, word [bp + 8]            ; 0x169d
-@..loc_HTRU.l49:
+.forward37:
     mov word [bp - 6], ax            ; 0x16a0
     mov ax, cx                       ; 0x16a3
     cwd                              ; 0x16a5

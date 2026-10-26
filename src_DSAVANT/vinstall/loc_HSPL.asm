@@ -2,13 +2,13 @@
 loc_HSPL:
     push bp                          ; 0x11ba
     mov bp, sp                       ; 0x11bb
-    add sp, byte 0xae                ; 0x11bd
+    add sp, byte -82                 ; 0x11bd
     push word [bp + 4]               ; 0x11c0
     call loc_ILSL                    ; 0x11c3
     pop cx                           ; 0x11c6
     mov word [bp - 2], ax            ; 0x11c7
     cmp ax, strict word 0xffff       ; 0x11ca
-    jne short @..loc_HSPL.l1         ; 0x11cd
+    jne short .forward1              ; 0x11cd
     mov ax, dseg_1689                ; 0x11cf
     push ax                          ; 0x11d2
     lea ax, word [bp - 0x52]         ; 0x11d3
@@ -34,23 +34,23 @@ loc_HSPL:
     push ax                          ; 0x1203
     call aztec_exit                  ; 0x1204
     pop cx                           ; 0x1207
-@..loc_HSPL.l1:
+.forward1:
     push word [bp + 6]               ; 0x1208
     call aztec_chdir                 ; 0x120b
     pop cx                           ; 0x120e
     mov word [bp - 2], ax            ; 0x120f
     cmp ax, strict word 0xffff       ; 0x1212
-    je short @..loc_HSPL.l2          ; 0x1215
-    jmp near @..loc_HSPL.l5          ; 0x1217
-@..loc_HSPL.l2:
+    je short .forward2               ; 0x1215
+    jmp near .forward5               ; 0x1217
+.forward2:
     cmp word [bp + 8], byte 1        ; 0x121a
-    jne short @..loc_HSPL.l4         ; 0x121e
+    jne short .forward4              ; 0x121e
     push word [bp + 6]               ; 0x1220
     call aztec_mkdir                 ; 0x1223
     pop cx                           ; 0x1226
     mov word [bp - 2], ax            ; 0x1227
     cmp ax, strict word 0xffff       ; 0x122a
-    jne short @..loc_HSPL.l3         ; 0x122d
+    jne short .forward3              ; 0x122d
     mov ax, dseg_16c2                ; 0x122f
     push ax                          ; 0x1232
     lea ax, word [bp - 0x52]         ; 0x1233
@@ -76,14 +76,14 @@ loc_HSPL:
     push ax                          ; 0x1263
     call aztec_exit                  ; 0x1264
     pop cx                           ; 0x1267
-@..loc_HSPL.l3:
+.forward3:
     push word [bp + 6]               ; 0x1268
     call aztec_chdir                 ; 0x126b
     pop cx                           ; 0x126e
     mov word [bp - 2], ax            ; 0x126f
-@..loc_HSPL.l4:
-    cmp word [bp - 2], byte 0xff     ; 0x1272
-    jne short @..loc_HSPL.l5         ; 0x1276
+.forward4:
+    cmp word [bp - 2], byte -1       ; 0x1272
+    jne short .forward5              ; 0x1276
     mov ax, dseg_16fa                ; 0x1278
     push ax                          ; 0x127b
     lea ax, word [bp - 0x52]         ; 0x127c
@@ -109,7 +109,7 @@ loc_HSPL:
     push ax                          ; 0x12ac
     call aztec_exit                  ; 0x12ad
     pop cx                           ; 0x12b0
-@..loc_HSPL.l5:
+.forward5:
     mov sp, bp                       ; 0x12b1
     pop bp                           ; 0x12b3
     ret                              ; 0x12b4

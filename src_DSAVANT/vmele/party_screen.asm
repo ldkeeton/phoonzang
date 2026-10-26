@@ -3,16 +3,16 @@ party_screen:
     mov ax, 0xfd08                   ; 0x1a16
     call aztec_csav                  ; 0x1a19
     mov word [bp - 2], 1             ; 0x1a1c
-    jmp near @..party_screen.l14     ; 0x1a21
-@..party_screen.l1:
+    jmp near .forward11              ; 0x1a21
+.back1:
     mov ax, word [bp - 2]            ; 0x1a24
     shl ax, 1                        ; 0x1a27
     mov bx, ax                       ; 0x1a29
     add bx, bp                       ; 0x1a2b
     mov word [bx - 0x1c], 0          ; 0x1a2d
     mov word [bp - 4], 0             ; 0x1a32
-    jmp near @..party_screen.l8      ; 0x1a37
-@..party_screen.l2:
+    jmp near .forward5               ; 0x1a37
+.back2:
     mov ax, 0x2c                     ; 0x1a3a
     imul word [bp - 4]               ; 0x1a3d
     mov si, ax                       ; 0x1a40
@@ -21,18 +21,18 @@ party_screen:
     mov bx, ax                       ; 0x1a47
     mov bx, word [bx + party_char]   ; 0x1a49
     cmp byte [bx + si + member_rec.item_state], 0 ; 0x1a4d
-    je short @..party_screen.l3      ; 0x1a51
-    jmp near @..party_screen.l7      ; 0x1a53
-@..party_screen.l3:
+    je short .forward1               ; 0x1a51
+    jmp near .forward4               ; 0x1a53
+.forward1:
     cmp byte [bx + si + 0x10], 0     ; 0x1a56
-    je short @..party_screen.l4      ; 0x1a5a
-    jmp near @..party_screen.l7      ; 0x1a5c
-@..party_screen.l4:
+    je short .forward2               ; 0x1a5a
+    jmp near .forward4               ; 0x1a5c
+.forward2:
     cmp byte [bx + si + 0x11], 0     ; 0x1a5f
-    jne short @..party_screen.l7     ; 0x1a63
+    jne short .forward4              ; 0x1a63
     mov word [bp - 0xc], 0           ; 0x1a65
     mov word [bp - 0xa], 0           ; 0x1a6a
-@..party_screen.l5:
+.back3:
     mov ax, 0x2c                     ; 0x1a6f
     imul word [bp - 4]               ; 0x1a72
     add ax, word [bp - 0xa]          ; 0x1a75
@@ -42,7 +42,7 @@ party_screen:
     mov bx, ax                       ; 0x1a7f
     mov bx, word [bx + party_char]   ; 0x1a81
     cmp byte [bx + si + member_rec.item_counter], 0 ; 0x1a85
-    jbe short @..party_screen.l6     ; 0x1a89
+    jbe short .forward3              ; 0x1a89
     mov ax, 0x2c                     ; 0x1a8b
     imul word [bp - 4]               ; 0x1a8e
     mov si, ax                       ; 0x1a91
@@ -51,11 +51,11 @@ party_screen:
     cwd                              ; 0x1a99
     idiv cx                          ; 0x1a9a
     add word [bp - 0xc], ax          ; 0x1a9c
-@..party_screen.l6:
+.forward3:
     inc word [bp - 0xa]              ; 0x1a9f
     mov ax, word [bp - 0xa]          ; 0x1aa2
     cmp ax, strict word 0xa          ; 0x1aa5
-    jl short @..party_screen.l5      ; 0x1aa8
+    jl short .back3                  ; 0x1aa8
     mov ax, 0x2c                     ; 0x1aaa
     imul word [bp - 4]               ; 0x1aad
     mov si, ax                       ; 0x1ab0
@@ -65,7 +65,7 @@ party_screen:
     mov bx, word [bx + party_char]   ; 0x1ab9
     mov ax, word [bx + si + member_rec.item_charges] ; 0x1abd
     cmp ax, word [bp - 0xc]          ; 0x1ac0
-    jle short @..party_screen.l7     ; 0x1ac3
+    jle short .forward4              ; 0x1ac3
     mov ax, word [bx + si + 2]       ; 0x1ac5
     sub ax, word [bp - 0xc]          ; 0x1ac8
     mov cx, word [bp - 2]            ; 0x1acb
@@ -73,9 +73,9 @@ party_screen:
     mov bx, cx                       ; 0x1ad0
     add bx, bp                       ; 0x1ad2
     add word [bx - 0x1c], ax         ; 0x1ad4
-@..party_screen.l7:
+.forward4:
     inc word [bp - 4]                ; 0x1ad7
-@..party_screen.l8:
+.forward5:
     mov ax, word [bp - 2]            ; 0x1ada
     shl ax, 1                        ; 0x1add
     mov bx, ax                       ; 0x1adf
@@ -83,15 +83,15 @@ party_screen:
     mov al, byte [bx + member_rec.item_count] ; 0x1ae5
     sub ah, ah                       ; 0x1ae9
     cmp ax, word [bp - 4]            ; 0x1aeb
-    jle short @..party_screen.l9     ; 0x1aee
-    jmp near @..party_screen.l2      ; 0x1af0
-@..party_screen.l9:
+    jle short .forward6              ; 0x1aee
+    jmp near .back2                  ; 0x1af0
+.forward6:
     mov ax, word [bp - 2]            ; 0x1af3
     shl ax, 1                        ; 0x1af6
     mov bx, ax                       ; 0x1af8
     mov bx, word [bx + party_char_ext] ; 0x1afa
     cmp byte [bx + member_ext.f_00ae], 0 ; 0x1afe
-    jbe short @..party_screen.l10    ; 0x1b03
+    jbe short .forward7              ; 0x1b03
     mov bx, ax                       ; 0x1b05
     add bx, bp                       ; 0x1b07
     mov ax, word [bx - 0x1c]         ; 0x1b09
@@ -112,13 +112,13 @@ party_screen:
     cwd                              ; 0x1b2a
     idiv cx                          ; 0x1b2b
     mov word [bx - 0x1c], ax         ; 0x1b2d
-@..party_screen.l10:
+.forward7:
     mov ax, word [bp - 2]            ; 0x1b30
     shl ax, 1                        ; 0x1b33
     mov bx, ax                       ; 0x1b35
     mov bx, word [bx + party_char_ext] ; 0x1b37
     cmp byte [bx + member_ext.f_00b0], 0 ; 0x1b3b
-    jbe short @..party_screen.l11    ; 0x1b40
+    jbe short .forward8              ; 0x1b40
     mov bx, ax                       ; 0x1b42
     add bx, bp                       ; 0x1b44
     mov ax, word [bx - 0x1c]         ; 0x1b46
@@ -155,13 +155,13 @@ party_screen:
     mov bx, cx                       ; 0x1b89
     add bx, bp                       ; 0x1b8b
     mov word [bx - 0x1c], ax         ; 0x1b8d
-@..party_screen.l11:
+.forward8:
     mov ax, word [bp - 2]            ; 0x1b90
     shl ax, 1                        ; 0x1b93
     mov bx, ax                       ; 0x1b95
     mov bx, word [bx + party_char_ext] ; 0x1b97
     cmp byte [bx + member_ext.f_00b1], 0 ; 0x1b9b
-    jbe short @..party_screen.l12    ; 0x1ba0
+    jbe short .forward9              ; 0x1ba0
     mov bx, ax                       ; 0x1ba2
     add bx, bp                       ; 0x1ba4
     mov ax, word [bx - 0x1c]         ; 0x1ba6
@@ -198,37 +198,37 @@ party_screen:
     mov bx, cx                       ; 0x1be9
     add bx, bp                       ; 0x1beb
     mov word [bx - 0x1c], ax         ; 0x1bed
-@..party_screen.l12:
+.forward9:
     mov ax, word [bp - 2]            ; 0x1bf0
     shl ax, 1                        ; 0x1bf3
     mov bx, ax                       ; 0x1bf5
     mov bx, word [bx + party_char]   ; 0x1bf7
     cmp byte [bx + member_rec.slot], 0xff ; 0x1bfb
-    je short @..party_screen.l13     ; 0x1c00
+    je short .forward10              ; 0x1c00
     mov al, byte [bx + 0x19f]        ; 0x1c02
     cbw                              ; 0x1c06
     mov cx, 0x15e                    ; 0x1c07
     imul cx                          ; 0x1c0a
     mov bx, ax                       ; 0x1c0c
     cmp byte [bx + slot_recs + slot_rec.forced], 0 ; 0x1c0e
-    je short @..party_screen.l13     ; 0x1c13
+    je short .forward10              ; 0x1c13
     mov ax, word [bp - 2]            ; 0x1c15
     shl ax, 1                        ; 0x1c18
     mov bx, ax                       ; 0x1c1a
     add bx, bp                       ; 0x1c1c
     mov word [bx - 0x1c], 0          ; 0x1c1e
-@..party_screen.l13:
+.forward10:
     inc word [bp - 2]                ; 0x1c23
-@..party_screen.l14:
+.forward11:
     mov ax, word [bp - 2]            ; 0x1c26
     cmp ax, word [party_member_count] ; 0x1c29
-    jg short @..party_screen.l15     ; 0x1c2d
-    jmp near @..party_screen.l1      ; 0x1c2f
-@..party_screen.l15:
+    jg short .forward12              ; 0x1c2d
+    jmp near .back1                  ; 0x1c2f
+.forward12:
     mov ax, word [party_member_count] ; 0x1c32
     mov word [bp - 2], ax            ; 0x1c35
-    jmp near @..party_screen.l33     ; 0x1c38
-@..party_screen.l16:
+    jmp near .forward26              ; 0x1c38
+.back4:
     mov ax, word [bp - 2]            ; 0x1c3b
     shl ax, 1                        ; 0x1c3e
     mov bx, ax                       ; 0x1c40
@@ -247,9 +247,9 @@ party_screen:
     mov cx, ax                       ; 0x1c5c
     pop ax                           ; 0x1c5e
     cmp ax, cx                       ; 0x1c5f
-    jg short @..party_screen.l17     ; 0x1c61
-    jmp near @..party_screen.l32     ; 0x1c63
-@..party_screen.l17:
+    jg short .forward13              ; 0x1c61
+    jmp near .forward25              ; 0x1c63
+.forward13:
     mov ax, 1                        ; 0x1c66
     push ax                          ; 0x1c69
     call restore_areas_redraw_glyph  ; 0x1c6a
@@ -263,12 +263,12 @@ party_screen:
     mov bx, ax                       ; 0x1c7b
     mov bx, word [bx + party_char]   ; 0x1c7d
     cmp byte [bx + member_rec.item_count], 1 ; 0x1c81
-    jne short @..party_screen.l18    ; 0x1c86
+    jne short .forward14             ; 0x1c86
     mov ax, 0                        ; 0x1c88
-    jmp short @..party_screen.l19    ; 0x1c8b
-@..party_screen.l18:
+    jmp short .forward15             ; 0x1c8b
+.forward14:
     mov ax, 1                        ; 0x1c8d
-@..party_screen.l19:
+.forward15:
     mov cx, 4                        ; 0x1c90
     shl ax, cl                       ; 0x1c93
     mov cx, ax                       ; 0x1c95
@@ -309,12 +309,12 @@ party_screen:
     mov bx, ax                       ; 0x1ce4
     mov bx, word [bx + party_char]   ; 0x1ce6
     cmp byte [bx + member_rec.item_count], 1 ; 0x1cea
-    jne short @..party_screen.l20    ; 0x1cef
+    jne short .forward16             ; 0x1cef
     mov ax, MSG_ADVANCES_3510        ; 0x1cf1
-    jmp short @..party_screen.l21    ; 0x1cf4
-@..party_screen.l20:
+    jmp short .forward17             ; 0x1cf4
+.forward16:
     mov ax, MSG_ADVANCE              ; 0x1cf6
-@..party_screen.l21:
+.forward17:
     push ax                          ; 0x1cf9
     call load_message_string         ; 0x1cfa
     add sp, byte 4                   ; 0x1cfd
@@ -325,8 +325,8 @@ party_screen:
     call show_centered_message       ; 0x1d08
     add sp, byte 4                   ; 0x1d0b
     mov word [bp - 4], 0             ; 0x1d0e
-    jmp short @..party_screen.l24    ; 0x1d13
-@..party_screen.l22:
+    jmp short .forward19             ; 0x1d13
+.back5:
     mov ax, 0x2c                     ; 0x1d15
     imul word [bp - 4]               ; 0x1d18
     mov si, ax                       ; 0x1d1b
@@ -335,7 +335,7 @@ party_screen:
     mov bx, ax                       ; 0x1d22
     mov bx, word [bx + overlay_list + 0x18] ; 0x1d24
     cmp byte [bx + si + overlay_list_rec.f_002a], 0xff ; 0x1d28
-    je short @..party_screen.l23     ; 0x1d2c
+    je short .forward18              ; 0x1d2c
     mov al, byte [bx + si + 0x2a]    ; 0x1d2e
     cbw                              ; 0x1d31
     mov cx, 0xa                      ; 0x1d32
@@ -354,9 +354,9 @@ party_screen:
     add ax, cx                       ; 0x1d50
     mov bx, ax                       ; 0x1d52
     mov word [bx + cell_action_marks], 1 ; 0x1d54
-@..party_screen.l23:
+.forward18:
     inc word [bp - 4]                ; 0x1d5a
-@..party_screen.l24:
+.forward19:
     mov ax, word [bp - 2]            ; 0x1d5d
     shl ax, 1                        ; 0x1d60
     mov bx, ax                       ; 0x1d62
@@ -364,14 +364,14 @@ party_screen:
     mov al, byte [bx + overlay_list_rec.f_01a1] ; 0x1d68
     sub ah, ah                       ; 0x1d6c
     cmp ax, word [bp - 4]            ; 0x1d6e
-    jg short @..party_screen.l22     ; 0x1d71
+    jg short .back5                  ; 0x1d71
     mov ax, 1                        ; 0x1d73
     push ax                          ; 0x1d76
     call play_action_overlays        ; 0x1d77
     pop cx                           ; 0x1d7a
     mov word [bp - 4], 0             ; 0x1d7b
-    jmp short @..party_screen.l27    ; 0x1d80
-@..party_screen.l25:
+    jmp short .forward21             ; 0x1d80
+.back6:
     mov ax, 0x2c                     ; 0x1d82
     imul word [bp - 4]               ; 0x1d85
     mov si, ax                       ; 0x1d88
@@ -380,7 +380,7 @@ party_screen:
     mov bx, ax                       ; 0x1d8f
     mov bx, word [bx + overlay_list + 0x18] ; 0x1d91
     cmp byte [bx + si + overlay_list_rec.f_002a], 0xff ; 0x1d95
-    je short @..party_screen.l26     ; 0x1d99
+    je short .forward20              ; 0x1d99
     mov al, byte [bx + si + 0x2a]    ; 0x1d9b
     cbw                              ; 0x1d9e
     mov cx, 0xa                      ; 0x1d9f
@@ -404,9 +404,9 @@ party_screen:
     mov bx, ax                       ; 0x1dcc
     mov bx, word [bx + overlay_list + 0x18] ; 0x1dce
     mov byte [bx + si + 0x2a], 0xff  ; 0x1dd2
-@..party_screen.l26:
+.forward20:
     inc word [bp - 4]                ; 0x1dd6
-@..party_screen.l27:
+.forward21:
     mov ax, word [bp - 2]            ; 0x1dd9
     shl ax, 1                        ; 0x1ddc
     mov bx, ax                       ; 0x1dde
@@ -414,7 +414,7 @@ party_screen:
     mov al, byte [bx + overlay_list_rec.f_01a1] ; 0x1de4
     sub ah, ah                       ; 0x1de8
     cmp ax, word [bp - 4]            ; 0x1dea
-    jg short @..party_screen.l25     ; 0x1ded
+    jg short .back6                  ; 0x1ded
     call run_party_screen_animation  ; 0x1def
     mov ax, word [bp - 2]            ; 0x1df2
     shl ax, 1                        ; 0x1df5
@@ -445,8 +445,8 @@ party_screen:
     call aztec_swapmem               ; 0x1e39
     add sp, byte 6                   ; 0x1e3c
     mov word [bp - 0xe], 0           ; 0x1e3f
-    jmp short @..party_screen.l31    ; 0x1e44
-@..party_screen.l28:
+    jmp short .forward24             ; 0x1e44
+.back7:
     mov ax, 0x2c                     ; 0x1e46
     imul word [bp - 0xe]             ; 0x1e49
     mov si, ax                       ; 0x1e4c
@@ -454,12 +454,12 @@ party_screen:
     mov al, byte [bx + si + member_rec.f_001f] ; 0x1e52
     sub ah, ah                       ; 0x1e55
     cmp ax, word [bp - 2]            ; 0x1e57
-    jne short @..party_screen.l29    ; 0x1e5a
+    jne short .forward22             ; 0x1e5a
     mov ax, word [bp - 2]            ; 0x1e5c
     dec ax                           ; 0x1e5f
     mov byte [bx + si + 0x1f], al    ; 0x1e60
-    jmp short @..party_screen.l30    ; 0x1e63
-@..party_screen.l29:
+    jmp short .forward23             ; 0x1e63
+.forward22:
     mov ax, 0x2c                     ; 0x1e65
     imul word [bp - 0xe]             ; 0x1e68
     mov si, ax                       ; 0x1e6b
@@ -469,15 +469,15 @@ party_screen:
     mov cx, word [bp - 2]            ; 0x1e76
     dec cx                           ; 0x1e79
     cmp ax, cx                       ; 0x1e7a
-    jne short @..party_screen.l30    ; 0x1e7c
+    jne short .forward23             ; 0x1e7c
     mov al, byte [bp - 2]            ; 0x1e7e
     mov byte [bx + si + 0x1f], al    ; 0x1e81
-@..party_screen.l30:
+.forward23:
     inc word [bp - 0xe]              ; 0x1e84
-@..party_screen.l31:
+.forward24:
     mov ax, word [bp - 0xe]          ; 0x1e87
     cmp ax, word [party_char_count]  ; 0x1e8a
-    jl short @..party_screen.l28     ; 0x1e8e
+    jl short .back7                  ; 0x1e8e
     call setup_party_pictures        ; 0x1e90
     mov ax, word [bp - 2]            ; 0x1e93
     dec ax                           ; 0x1e96
@@ -489,11 +489,11 @@ party_screen:
     push ax                          ; 0x1ea2
     call play_action_overlays        ; 0x1ea3
     pop cx                           ; 0x1ea6
-@..party_screen.l32:
+.forward25:
     dec word [bp - 2]                ; 0x1ea7
-@..party_screen.l33:
+.forward26:
     cmp word [bp - 2], byte 2        ; 0x1eaa
-    jl short @..party_screen.l34     ; 0x1eae
-    jmp near @..party_screen.l16     ; 0x1eb0
-@..party_screen.l34:
+    jl short .return1                ; 0x1eae
+    jmp near .back4                  ; 0x1eb0
+.return1:
     ret                              ; 0x1eb3

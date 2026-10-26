@@ -5,7 +5,7 @@ api_idx_0010_IOJT:
     mov word [bp - 0xa], 0xffff      ; 0x9a86
     mov word [bp - 0xc], 0xffff      ; 0x9a8b
     mov word [bp - 2], 0xa           ; 0x9a90
-@..api_idx_0010_IOJT.l1:
+.back1:
     push word [bp - 2]               ; 0x9a95
     mov ax, 0x26                     ; 0x9a98
     imul word [bp + 4]               ; 0x9a9b
@@ -14,7 +14,7 @@ api_idx_0010_IOJT:
     call test_bit                    ; 0x9aa2
     add sp, byte 4                   ; 0x9aa5
     test ax, ax                      ; 0x9aa8
-    je short @..api_idx_0010_IOJT.l2 ; 0x9aaa
+    je short .forward1               ; 0x9aaa
     push word [bp - 2]               ; 0x9aac
     mov ax, 0x26                     ; 0x9aaf
     imul word [bp + 6]               ; 0x9ab2
@@ -23,7 +23,7 @@ api_idx_0010_IOJT:
     call test_bit                    ; 0x9ab9
     add sp, byte 4                   ; 0x9abc
     test ax, ax                      ; 0x9abf
-    jne short @..api_idx_0010_IOJT.l2 ; 0x9ac1
+    jne short .forward1              ; 0x9ac1
     mov ax, 6                        ; 0x9ac3
     imul word [bp - 2]               ; 0x9ac6
     mov bx, ax                       ; 0x9ac9
@@ -35,10 +35,10 @@ api_idx_0010_IOJT:
     call loc_PQKO                    ; 0x9ad8
     add sp, byte 4                   ; 0x9adb
     test ax, ax                      ; 0x9ade
-    jne short @..api_idx_0010_IOJT.l2 ; 0x9ae0
+    jne short .forward1              ; 0x9ae0
     mov ax, word [bp - 2]            ; 0x9ae2
     mov word [bp - 0xa], ax          ; 0x9ae5
-@..api_idx_0010_IOJT.l2:
+.forward1:
     push word [bp - 2]               ; 0x9ae8
     mov ax, 0x26                     ; 0x9aeb
     imul word [bp + 6]               ; 0x9aee
@@ -47,7 +47,7 @@ api_idx_0010_IOJT:
     call test_bit                    ; 0x9af5
     add sp, byte 4                   ; 0x9af8
     test ax, ax                      ; 0x9afb
-    je short @..api_idx_0010_IOJT.l3 ; 0x9afd
+    je short .forward2               ; 0x9afd
     push word [bp - 2]               ; 0x9aff
     mov ax, 0x26                     ; 0x9b02
     imul word [bp + 4]               ; 0x9b05
@@ -56,10 +56,10 @@ api_idx_0010_IOJT:
     call test_bit                    ; 0x9b0c
     add sp, byte 4                   ; 0x9b0f
     test ax, ax                      ; 0x9b12
-    jne short @..api_idx_0010_IOJT.l3 ; 0x9b14
+    jne short .forward2              ; 0x9b14
     mov ax, word [bp - 2]            ; 0x9b16
     mov word [bp - 0xc], ax          ; 0x9b19
-@..api_idx_0010_IOJT.l3:
+.forward2:
     push word [bp - 2]               ; 0x9b1c
     mov ax, 0x26                     ; 0x9b1f
     imul word [bp + 4]               ; 0x9b22
@@ -68,7 +68,7 @@ api_idx_0010_IOJT:
     call test_bit                    ; 0x9b29
     add sp, byte 4                   ; 0x9b2c
     test ax, ax                      ; 0x9b2f
-    je short @..api_idx_0010_IOJT.l4 ; 0x9b31
+    je short .forward3               ; 0x9b31
     mov ax, 1                        ; 0x9b33
     push ax                          ; 0x9b36
     push word [bp - 2]               ; 0x9b37
@@ -78,7 +78,7 @@ api_idx_0010_IOJT:
     push ax                          ; 0x9b43
     call set_bitmap_bit              ; 0x9b44
     add sp, byte 6                   ; 0x9b47
-@..api_idx_0010_IOJT.l4:
+.forward3:
     push word [bp - 2]               ; 0x9b4a
     mov ax, 0x26                     ; 0x9b4d
     imul word [bp + 6]               ; 0x9b50
@@ -87,7 +87,7 @@ api_idx_0010_IOJT:
     call test_bit                    ; 0x9b57
     add sp, byte 4                   ; 0x9b5a
     test ax, ax                      ; 0x9b5d
-    je short @..api_idx_0010_IOJT.l5 ; 0x9b5f
+    je short .forward4               ; 0x9b5f
     mov ax, 1                        ; 0x9b61
     push ax                          ; 0x9b64
     push word [bp - 2]               ; 0x9b65
@@ -97,7 +97,7 @@ api_idx_0010_IOJT:
     push ax                          ; 0x9b71
     call set_bitmap_bit              ; 0x9b72
     add sp, byte 6                   ; 0x9b75
-@..api_idx_0010_IOJT.l5:
+.forward4:
     mov ax, 0x26                     ; 0x9b78
     imul word [bp + 4]               ; 0x9b7b
     mov bx, ax                       ; 0x9b7e
@@ -109,9 +109,9 @@ api_idx_0010_IOJT:
     mov cl, byte [bx + slot_records] ; 0x9b8d
     pop ax                           ; 0x9b91
     cmp al, cl                       ; 0x9b92
-    je short @..api_idx_0010_IOJT.l6 ; 0x9b94
-    jmp near @..api_idx_0010_IOJT.l10 ; 0x9b96
-@..api_idx_0010_IOJT.l6:
+    je short .forward5               ; 0x9b94
+    jmp near .forward9               ; 0x9b96
+.forward5:
     push word [bp - 2]               ; 0x9b99
     mov ax, 0x26                     ; 0x9b9c
     imul word [bp + 4]               ; 0x9b9f
@@ -120,7 +120,7 @@ api_idx_0010_IOJT:
     call test_bit                    ; 0x9ba6
     add sp, byte 4                   ; 0x9ba9
     test ax, ax                      ; 0x9bac
-    je short @..api_idx_0010_IOJT.l7 ; 0x9bae
+    je short .forward6               ; 0x9bae
     mov ax, 1                        ; 0x9bb0
     push ax                          ; 0x9bb3
     push word [bp - 2]               ; 0x9bb4
@@ -130,7 +130,7 @@ api_idx_0010_IOJT:
     push ax                          ; 0x9bc0
     call set_bitmap_bit              ; 0x9bc1
     add sp, byte 6                   ; 0x9bc4
-@..api_idx_0010_IOJT.l7:
+.forward6:
     push word [bp - 2]               ; 0x9bc7
     mov ax, 0x26                     ; 0x9bca
     imul word [bp + 6]               ; 0x9bcd
@@ -139,7 +139,7 @@ api_idx_0010_IOJT:
     call test_bit                    ; 0x9bd4
     add sp, byte 4                   ; 0x9bd7
     test ax, ax                      ; 0x9bda
-    je short @..api_idx_0010_IOJT.l8 ; 0x9bdc
+    je short .forward7               ; 0x9bdc
     mov ax, 1                        ; 0x9bde
     push ax                          ; 0x9be1
     push word [bp - 2]               ; 0x9be2
@@ -149,7 +149,7 @@ api_idx_0010_IOJT:
     push ax                          ; 0x9bee
     call set_bitmap_bit              ; 0x9bef
     add sp, byte 6                   ; 0x9bf2
-@..api_idx_0010_IOJT.l8:
+.forward7:
     mov ax, word [bp - 2]            ; 0x9bf5
     add ax, strict word 0xc          ; 0x9bf8
     push ax                          ; 0x9bfb
@@ -160,7 +160,7 @@ api_idx_0010_IOJT:
     call test_bit                    ; 0x9c06
     add sp, byte 4                   ; 0x9c09
     test ax, ax                      ; 0x9c0c
-    je short @..api_idx_0010_IOJT.l9 ; 0x9c0e
+    je short .forward8               ; 0x9c0e
     mov ax, 1                        ; 0x9c10
     push ax                          ; 0x9c13
     mov ax, word [bp - 2]            ; 0x9c14
@@ -172,7 +172,7 @@ api_idx_0010_IOJT:
     push ax                          ; 0x9c24
     call set_bitmap_bit              ; 0x9c25
     add sp, byte 6                   ; 0x9c28
-@..api_idx_0010_IOJT.l9:
+.forward8:
     mov ax, word [bp - 2]            ; 0x9c2b
     add ax, strict word 0xc          ; 0x9c2e
     push ax                          ; 0x9c31
@@ -183,7 +183,7 @@ api_idx_0010_IOJT:
     call test_bit                    ; 0x9c3c
     add sp, byte 4                   ; 0x9c3f
     test ax, ax                      ; 0x9c42
-    je short @..api_idx_0010_IOJT.l10 ; 0x9c44
+    je short .forward9               ; 0x9c44
     mov ax, 1                        ; 0x9c46
     push ax                          ; 0x9c49
     mov ax, word [bp - 2]            ; 0x9c4a
@@ -195,13 +195,13 @@ api_idx_0010_IOJT:
     push ax                          ; 0x9c5a
     call set_bitmap_bit              ; 0x9c5b
     add sp, byte 6                   ; 0x9c5e
-@..api_idx_0010_IOJT.l10:
+.forward9:
     dec word [bp - 2]                ; 0x9c61
-    jl short @..api_idx_0010_IOJT.l11 ; 0x9c64
-    jmp near @..api_idx_0010_IOJT.l1 ; 0x9c66
-@..api_idx_0010_IOJT.l11:
+    jl short .forward10              ; 0x9c64
+    jmp near .back1                  ; 0x9c66
+.forward10:
     cmp word [bp + 8], byte 0        ; 0x9c69
-    jle short @..api_idx_0010_IOJT.l12 ; 0x9c6d
+    jle short .forward11             ; 0x9c6d
     mov ax, 5                        ; 0x9c6f
     push ax                          ; 0x9c72
     call random_below                ; 0x9c73
@@ -220,7 +220,7 @@ api_idx_0010_IOJT:
     push word [bp + 6]               ; 0x9c90
     call loc_HULT                    ; 0x9c93
     add sp, byte 6                   ; 0x9c96
-@..api_idx_0010_IOJT.l12:
+.forward11:
     mov ax, 0x16                     ; 0x9c99
     imul word [bp + 4]               ; 0x9c9c
     add ax, word [bp + 6]            ; 0x9c9f
@@ -260,45 +260,45 @@ api_idx_0010_IOJT:
     mov bx, ax                       ; 0x9cf7
     pop ax                           ; 0x9cf9
     cmp al, byte [bx + slot_records] ; 0x9cfa
-    jne short @..api_idx_0010_IOJT.l13 ; 0x9cfe
+    jne short .forward12             ; 0x9cfe
     cmp byte [bx + slot_records + slot_record.f_0002], 1 ; 0x9d00
-    jne short @..api_idx_0010_IOJT.l13 ; 0x9d05
+    jne short .forward12             ; 0x9d05
     mov ax, 0x26                     ; 0x9d07
     imul word [bp + 4]               ; 0x9d0a
     mov bx, ax                       ; 0x9d0d
     cmp byte [bx + slot_records + slot_record.f_0019], 0x41 ; 0x9d0f
-    jge short @..api_idx_0010_IOJT.l13 ; 0x9d14
+    jge short .forward12             ; 0x9d14
     mov ax, 3                        ; 0x9d16
     push ax                          ; 0x9d19
     call random_below                ; 0x9d1a
     pop cx                           ; 0x9d1d
     test ax, ax                      ; 0x9d1e
-    jne short @..api_idx_0010_IOJT.l13 ; 0x9d20
+    jne short .forward12             ; 0x9d20
     mov ax, 0x26                     ; 0x9d22
     imul word [bp + 4]               ; 0x9d25
     mov bx, ax                       ; 0x9d28
     inc byte [bx + slot_records + slot_record.f_0019] ; 0x9d2a
-@..api_idx_0010_IOJT.l13:
-    cmp word [bp - 0xc], byte 0xff   ; 0x9d2e
-    jne short @..api_idx_0010_IOJT.l14 ; 0x9d32
-    jmp near @..api_idx_0010_IOJT.l18 ; 0x9d34
-@..api_idx_0010_IOJT.l14:
-    cmp word [bp - 0xa], byte 0xff   ; 0x9d37
-    jne short @..api_idx_0010_IOJT.l17 ; 0x9d3b
+.forward12:
+    cmp word [bp - 0xc], byte -1     ; 0x9d2e
+    jne short .forward13             ; 0x9d32
+    jmp near .forward16              ; 0x9d34
+.forward13:
+    cmp word [bp - 0xa], byte -1     ; 0x9d37
+    jne short .forward15             ; 0x9d3b
     mov ax, 0x32                     ; 0x9d3d
     sub ax, word [bp - 0xe]          ; 0x9d40
     cmp ax, word [bp + 8]            ; 0x9d43
-    jg short @..api_idx_0010_IOJT.l15 ; 0x9d46
+    jg short .return1                ; 0x9d46
     mov ax, 0xa                      ; 0x9d48
     push ax                          ; 0x9d4b
     call random_below                ; 0x9d4c
     pop cx                           ; 0x9d4f
     inc ax                           ; 0x9d50
     cmp ax, word [bp - 0xe]          ; 0x9d51
-    jle short @..api_idx_0010_IOJT.l16 ; 0x9d54
-@..api_idx_0010_IOJT.l15:
+    jle short .forward14             ; 0x9d54
+.return1:
     ret                              ; 0x9d56
-@..api_idx_0010_IOJT.l16:
+.forward14:
     mov ax, 0x64                     ; 0x9d57
     push ax                          ; 0x9d5a
     mov ax, 1                        ; 0x9d5b
@@ -337,7 +337,7 @@ api_idx_0010_IOJT:
     mov bx, ax                       ; 0x9daa
     pop ax                           ; 0x9dac
     mov byte [bx + slot_records + slot_record.f_0019], al ; 0x9dad
-@..api_idx_0010_IOJT.l17:
+.forward15:
     push word [bp + 6]               ; 0x9db1
     mov ax, 3                        ; 0x9db4
     push ax                          ; 0x9db7
@@ -350,27 +350,27 @@ api_idx_0010_IOJT:
     push word [bp + 4]               ; 0x9dca
     call assign_slot_bit             ; 0x9dcd
     add sp, byte 6                   ; 0x9dd0
-@..api_idx_0010_IOJT.l18:
-    cmp word [bp - 0xa], byte 0xff   ; 0x9dd3
-    jne short @..api_idx_0010_IOJT.l19 ; 0x9dd7
-    jmp near @..api_idx_0010_IOJT.l23 ; 0x9dd9
-@..api_idx_0010_IOJT.l19:
-    cmp word [bp - 0xc], byte 0xff   ; 0x9ddc
-    jne short @..api_idx_0010_IOJT.l22 ; 0x9de0
+.forward16:
+    cmp word [bp - 0xa], byte -1     ; 0x9dd3
+    jne short .forward17             ; 0x9dd7
+    jmp near .return3                ; 0x9dd9
+.forward17:
+    cmp word [bp - 0xc], byte -1     ; 0x9ddc
+    jne short .forward19             ; 0x9de0
     mov ax, 0x32                     ; 0x9de2
     sub ax, word [bp - 0x10]         ; 0x9de5
     cmp ax, word [bp + 8]            ; 0x9de8
-    jg short @..api_idx_0010_IOJT.l20 ; 0x9deb
+    jg short .return2                ; 0x9deb
     mov ax, 0xa                      ; 0x9ded
     push ax                          ; 0x9df0
     call random_below                ; 0x9df1
     pop cx                           ; 0x9df4
     inc ax                           ; 0x9df5
     cmp ax, word [bp - 0x10]         ; 0x9df6
-    jle short @..api_idx_0010_IOJT.l21 ; 0x9df9
-@..api_idx_0010_IOJT.l20:
+    jle short .forward18             ; 0x9df9
+.return2:
     ret                              ; 0x9dfb
-@..api_idx_0010_IOJT.l21:
+.forward18:
     mov ax, 0x64                     ; 0x9dfc
     push ax                          ; 0x9dff
     mov ax, 1                        ; 0x9e00
@@ -409,7 +409,7 @@ api_idx_0010_IOJT:
     mov bx, ax                       ; 0x9e4f
     pop ax                           ; 0x9e51
     mov byte [bx + slot_records + slot_record.f_0019], al ; 0x9e52
-@..api_idx_0010_IOJT.l22:
+.forward19:
     push word [bp + 4]               ; 0x9e56
     mov ax, 3                        ; 0x9e59
     push ax                          ; 0x9e5c
@@ -422,5 +422,5 @@ api_idx_0010_IOJT:
     push word [bp + 6]               ; 0x9e6f
     call assign_slot_bit             ; 0x9e72
     add sp, byte 6                   ; 0x9e75
-@..api_idx_0010_IOJT.l23:
+.return3:
     ret                              ; 0x9e78

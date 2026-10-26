@@ -15,23 +15,23 @@ loc_MMRI:
     mov word [cs:tick_divider - IMAGE_BASE], 1 ; 0x004a
     mov word [cs:restart_delay - IMAGE_BASE], 1 ; 0x0051
     mov bx, cseg_0d03 - IMAGE_BASE   ; 0x0058
-@..loc_MMRI.l1:
+.back1:
     mov byte [cs:bx], 0              ; 0x005b
     mov byte [cs:bx + 1], 0          ; 0x005f
     mov byte [cs:bx + 2], 0xff       ; 0x0064
     mov word [cs:bx + 3], 0          ; 0x0069
     add bx, byte 5                   ; 0x006f
     cmp bx, opl_voice_count - IMAGE_BASE ; 0x0072
-    jb short @..loc_MMRI.l1          ; 0x0076
+    jb short .back1                  ; 0x0076
     mov al, byte [cs:music_device - IMAGE_BASE] ; 0x0078
     mov ax, word [cs:chain_period - IMAGE_BASE] ; 0x007c
     mov word [cs:chain_countdown - IMAGE_BASE], ax ; 0x0080
     call loc_VVTT                    ; 0x0084
     cmp ax, strict word 0            ; 0x0087
-    jne short @..loc_MMRI.l2         ; 0x008a
+    jne short .forward1              ; 0x008a
     call io_loc_PISO                 ; 0x008c
     mov byte [cs:music_enabled - IMAGE_BASE], 1 ; 0x008f
-@..loc_MMRI.l2:
+.forward1:
     pop bx                           ; 0x0095
     pop bp                           ; 0x0096
     ret                              ; 0x0097

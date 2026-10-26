@@ -12,7 +12,7 @@ api_idx_0006_UKIH:
     add sp, byte 4                   ; 0x8860
     mov word [bp - 6], ax            ; 0x8863
     cmp ax, strict word 0            ; 0x8866
-    jl short @..api_idx_0006_UKIH.l1 ; 0x8869
+    jl short .forward1               ; 0x8869
     inc ax                           ; 0x886b
     push ax                          ; 0x886c
     mov ax, 0x14                     ; 0x886d
@@ -28,8 +28,8 @@ api_idx_0006_UKIH:
     mov bx, word [bp + 6]            ; 0x8889
     mov si, word [bp - 6]            ; 0x888c
     mov byte [bx + si + 1], 0        ; 0x888f
-    jmp near @..api_idx_0006_UKIH.l6 ; 0x8893
-@..api_idx_0006_UKIH.l1:
+    jmp near .return1                ; 0x8893
+.forward1:
     mov ax, 0x40                     ; 0x8896
     push ax                          ; 0x8899
     mov ax, 0x14                     ; 0x889a
@@ -40,7 +40,7 @@ api_idx_0006_UKIH:
     add sp, byte 4                   ; 0x88a7
     mov word [bp - 6], ax            ; 0x88aa
     cmp ax, strict word 0            ; 0x88ad
-    jl short @..api_idx_0006_UKIH.l2 ; 0x88b0
+    jl short .forward2               ; 0x88b0
     push ax                          ; 0x88b2
     mov ax, 0x14                     ; 0x88b3
     imul word [bp + 4]               ; 0x88b6
@@ -52,8 +52,8 @@ api_idx_0006_UKIH:
     mov bx, word [bp + 6]            ; 0x88c6
     mov si, word [bp - 6]            ; 0x88c9
     mov byte [bx + si], 0            ; 0x88cc
-    jmp near @..api_idx_0006_UKIH.l6 ; 0x88cf
-@..api_idx_0006_UKIH.l2:
+    jmp near .return1                ; 0x88cf
+.forward2:
     mov ax, 0x5e                     ; 0x88d2
     push ax                          ; 0x88d5
     mov ax, 0x14                     ; 0x88d6
@@ -64,9 +64,9 @@ api_idx_0006_UKIH:
     add sp, byte 4                   ; 0x88e3
     mov word [bp - 6], ax            ; 0x88e6
     cmp ax, strict word 0            ; 0x88e9
-    jge short @..api_idx_0006_UKIH.l3 ; 0x88ec
-    jmp near @..api_idx_0006_UKIH.l6 ; 0x88ee
-@..api_idx_0006_UKIH.l3:
+    jge short .forward3              ; 0x88ec
+    jmp near .return1                ; 0x88ee
+.forward3:
     mov ax, 0x14                     ; 0x88f1
     imul word [bp + 4]               ; 0x88f4
     mov cx, ax                       ; 0x88f7
@@ -97,8 +97,8 @@ api_idx_0006_UKIH:
     inc ax                           ; 0x8938
     inc ax                           ; 0x8939
     mov word [bp - 2], ax            ; 0x893a
-    jmp short @..api_idx_0006_UKIH.l5 ; 0x893d
-@..api_idx_0006_UKIH.l4:
+    jmp short .forward4              ; 0x893d
+.back1:
     push word [bp + 6]               ; 0x893f
     call aztec_strlen                ; 0x8942
     pop cx                           ; 0x8945
@@ -115,7 +115,7 @@ api_idx_0006_UKIH:
     mov si, word [bp - 4]            ; 0x8963
     mov byte [bx + si + 1], 0        ; 0x8966
     inc word [bp - 2]                ; 0x896a
-@..api_idx_0006_UKIH.l5:
+.forward4:
     mov ax, 0x14                     ; 0x896d
     imul word [bp + 4]               ; 0x8970
     add ax, bss_9e88                 ; 0x8973
@@ -123,6 +123,6 @@ api_idx_0006_UKIH:
     call aztec_strlen                ; 0x8977
     pop cx                           ; 0x897a
     cmp ax, word [bp - 2]            ; 0x897b
-    jg short @..api_idx_0006_UKIH.l4 ; 0x897e
-@..api_idx_0006_UKIH.l6:
+    jg short .back1                  ; 0x897e
+.return1:
     ret                              ; 0x8980

@@ -5,9 +5,9 @@ setup_melee_party:
     mov word [item_action_reward_hi], 0 ; 0x3396
     mov word [item_action_reward], 0 ; 0x339c
     cmp word [character_record_index], strict word 0xe1 ; 0x33a2
-    jne short @..setup_melee_party.l1 ; 0x33a8
+    jne short .forward1              ; 0x33a8
     mov word [party_entry_flag], 1   ; 0x33aa
-@..setup_melee_party.l1:
+.forward1:
     call reset_party_actions         ; 0x33b0
     mov ax, 1                        ; 0x33b3
     push ax                          ; 0x33b6

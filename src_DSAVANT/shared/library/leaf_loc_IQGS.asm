@@ -9,7 +9,7 @@ leaf_loc_IQGS:
     mov ax, word [cs:bx + 2]
     sub word [cs:maze_paras_used - IMAGE_BASE], ax
     mov word [bp - 6], ax
-@..leaf_loc_IQGS.l1:
+.back1:
     mov bx, word [bp - 4]
     mov dx, word [cs:bx]
     add dx, word [cs:maze_mem_seg - IMAGE_BASE]
@@ -19,8 +19,8 @@ leaf_loc_IQGS:
     mov ds, dx
     mov cx, word [cs:bx + 6]
     or cx, cx
-    je short @..leaf_loc_IQGS.l3
-@..leaf_loc_IQGS.l2:
+    je short .forward1
+.back2:
     push cx
     mov cx, 0x10
     xor si, si
@@ -33,7 +33,7 @@ leaf_loc_IQGS:
     inc cx
     mov es, cx
     pop cx
-    loop @..leaf_loc_IQGS.l2
+    loop .back2
     mov bx, word [bp - 4]
     mov cx, word [bp - 6]
     mov ax, word [cs:bx + 4]
@@ -45,8 +45,8 @@ leaf_loc_IQGS:
     mov word [cs:bx + 2], ax
     add bx, byte 4
     mov word [bp - 4], bx
-    jmp short @..leaf_loc_IQGS.l1
-@..leaf_loc_IQGS.l3:
+    jmp short .back1
+.forward1:
     mov bx, word [bp - 4]
     xor ax, ax
     mov word [cs:bx], ax

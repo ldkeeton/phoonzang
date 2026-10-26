@@ -37,7 +37,7 @@ api_idx_0006_JHIT:
     mov al, byte [party_records + pc_rec.kind] ; 0x68de
     sub ah, ah                       ; 0x68e1
     cmp ax, word [bp - 2]            ; 0x68e3
-    je short @..api_idx_0006_JHIT.l1 ; 0x68e6
+    je short .return1                ; 0x68e6
     mov ax, 1                        ; 0x68e8
     push ax                          ; 0x68eb
     push word [bp + 4]               ; 0x68ec
@@ -45,5 +45,5 @@ api_idx_0006_JHIT:
     push ax                          ; 0x68f2
     call transfer_pc_file_record     ; 0x68f3
     add sp, byte 6                   ; 0x68f6
-@..api_idx_0006_JHIT.l1:
+.return1:
     ret                              ; 0x68f9

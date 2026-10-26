@@ -15,12 +15,12 @@ aztec_strcpy:
     mov di, word [bp + 4]
     mov si, word [bp + 6]
     shr cx, 1
-    jcxz @..aztec_strcpy.nowords
+    jcxz .nowords
     rep movsw
-@..aztec_strcpy.nowords:
-    jae short @..aztec_strcpy.nobyte
+.nowords:
+    jae short .nobyte
     movsb
-@..aztec_strcpy.nobyte:
+.nobyte:
     pop di
     pop si
     mov ax, word [bp + 4]

@@ -12,24 +12,24 @@ api_idx_0004_TTGQ:
     adc dx, bx
     mov word [bp - 2], dx
     mov word [bp - 4], ax
-@..api_idx_0004_TTGQ.l1:
+.back1:
     les bx, word [tick_counter_ptr]
     mov ax, word [es:bx]
     mov dx, word [es:bx + 2]
     cmp dx, word [bp - 2]
-    jg short @..api_idx_0004_TTGQ.l2
-    jne short @..api_idx_0004_TTGQ.l3
+    jg short .forward1
+    jne short .forward2
     cmp ax, word [bp - 4]
-    jb short @..api_idx_0004_TTGQ.l3
-@..api_idx_0004_TTGQ.l2:
-    jmp short @..api_idx_0004_TTGQ.l5
-@..api_idx_0004_TTGQ.l3:
+    jb short .forward2
+.forward1:
+    jmp short .return1
+.forward2:
     call poll_fullscreen_hotspot
     test ax, ax
-    je short @..api_idx_0004_TTGQ.l4
+    je short .forward3
     ret
-@..api_idx_0004_TTGQ.l4:
+.forward3:
     call api_idx_0004_TTGQ.loc1
-    jmp short @..api_idx_0004_TTGQ.l1
-@..api_idx_0004_TTGQ.l5:
+    jmp short .back1
+.return1:
     ret

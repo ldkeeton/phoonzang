@@ -5,27 +5,27 @@ api_idx_0012_JLRR:
     mov word [bp - 4], 0xffff
     mov word [bp - 6], 0xffff
     mov ax, word [bp + 6]
-    jmp near @..api_idx_0012_JLRR.l34
+    jmp near .forward34
 api_idx_0012_JLRR.jumptable_case1:
-    cmp word [bp + 0x26], byte 0xff
-    jne short @..api_idx_0012_JLRR.l1
+    cmp word [bp + 0x26], byte -1
+    jne short api_idx_0012_JLRR.forward1
     jmp near api_idx_0012_JLRR.jumptable_case2
-@..api_idx_0012_JLRR.l1:
+api_idx_0012_JLRR.forward1:
     cmp word [bp + 4], byte 0
-    je short @..api_idx_0012_JLRR.l2
+    je short api_idx_0012_JLRR.forward2
     jmp near api_idx_0012_JLRR.jumptable_case2
-@..api_idx_0012_JLRR.l2:
+api_idx_0012_JLRR.forward2:
     cmp word [bp + 6], byte 8
-    jne short @..api_idx_0012_JLRR.l3
+    jne short api_idx_0012_JLRR.forward3
     mov ax, word [bp + 0x26]
     inc ax
-    jmp short @..api_idx_0012_JLRR.l4
-@..api_idx_0012_JLRR.l3:
+    jmp short api_idx_0012_JLRR.forward4
+api_idx_0012_JLRR.forward3:
     mov ax, word [bp + 0x26]
     inc ax
     inc ax
     inc ax
-@..api_idx_0012_JLRR.l4:
+api_idx_0012_JLRR.forward4:
     mov word [bp - 2], ax
     mov ax, 0
     push ax
@@ -37,16 +37,16 @@ api_idx_0012_JLRR.jumptable_case1:
     push word [bp + 4]
     mov ax, 0xffff
     cmp word [bp + 8], byte 2
-    jge short @..api_idx_0012_JLRR.l5
+    jge short api_idx_0012_JLRR.forward5
     mov ax, word [bp - 2]
     inc ax
-@..api_idx_0012_JLRR.l5:
+api_idx_0012_JLRR.forward5:
     push ax
     mov ax, 0xffff
     cmp word [bp + 8], byte 2
-    jge short @..api_idx_0012_JLRR.l6
+    jge short api_idx_0012_JLRR.forward6
     mov ax, word [bp - 2]
-@..api_idx_0012_JLRR.l6:
+api_idx_0012_JLRR.forward6:
     push ax
     mov ax, 0
     push ax
@@ -55,21 +55,21 @@ api_idx_0012_JLRR.jumptable_case1:
     push ax
     push ax
     cmp word [bp + 6], byte 8
-    jne short @..api_idx_0012_JLRR.l7
+    jne short api_idx_0012_JLRR.forward7
     cmp word [bp + 8], byte 2
-    jg short @..api_idx_0012_JLRR.l8
-@..api_idx_0012_JLRR.l7:
+    jg short api_idx_0012_JLRR.forward8
+api_idx_0012_JLRR.forward7:
     cmp word [bp + 6], byte 9
-    jne short @..api_idx_0012_JLRR.l9
+    jne short api_idx_0012_JLRR.forward9
     cmp word [bp + 8], byte 2
-    jge short @..api_idx_0012_JLRR.l9
-@..api_idx_0012_JLRR.l8:
+    jge short api_idx_0012_JLRR.forward9
+api_idx_0012_JLRR.forward8:
     mov ax, word [bp - 2]
     inc ax
-    jmp short @..api_idx_0012_JLRR.l10
-@..api_idx_0012_JLRR.l9:
+    jmp short api_idx_0012_JLRR.forward10
+api_idx_0012_JLRR.forward9:
     mov ax, 0xffff
-@..api_idx_0012_JLRR.l10:
+api_idx_0012_JLRR.forward10:
     push ax
     push word [bp - 2]
     mov ax, 0xfd
@@ -78,15 +78,15 @@ api_idx_0012_JLRR.jumptable_case1:
     add sp, byte 0x1c
 api_idx_0012_JLRR.jumptable_case2:
     cmp word [bp + 6], byte 3
-    je short @..api_idx_0012_JLRR.l12
-    jmp near @..api_idx_0012_JLRR.l15
-@..api_idx_0012_JLRR.l12:
+    je short api_idx_0012_JLRR.forward12
+    jmp near api_idx_0012_JLRR.forward15
+api_idx_0012_JLRR.forward12:
     cmp word [bp + 4], byte 4
-    jl short @..api_idx_0012_JLRR.l13
-    jmp near @..api_idx_0012_JLRR.l15
-@..api_idx_0012_JLRR.l13:
-    cmp word [bp + 0x34], byte 0xff
-    je short @..api_idx_0012_JLRR.l14
+    jl short api_idx_0012_JLRR.forward13
+    jmp near api_idx_0012_JLRR.forward15
+api_idx_0012_JLRR.forward13:
+    cmp word [bp + 0x34], byte -1
+    je short api_idx_0012_JLRR.forward14
     mov ax, 0
     push ax
     mov ax, 1
@@ -124,7 +124,7 @@ api_idx_0012_JLRR.jumptable_case2:
     push ax
     call api_idx_0012_JLRR.api_idx1
     add sp, byte 0x1c
-@..api_idx_0012_JLRR.l14:
+api_idx_0012_JLRR.forward14:
     mov ax, word [bp + 0x32]
     add ax, word [bp + 4]
     push ax
@@ -140,7 +140,7 @@ api_idx_0012_JLRR.jumptable_case2:
     call api_idx_0012_JLRR.loc1
     pop cx
     mov word [bp - 6], ax
-@..api_idx_0012_JLRR.l15:
+api_idx_0012_JLRR.forward15:
     cmp word [bp + 6], byte 6
     jne short api_idx_0012_JLRR.jumptable_case3
     cmp word [bp + 4], byte 4
@@ -162,9 +162,9 @@ api_idx_0012_JLRR.jumptable_case2:
     mov word [bp - 6], ax
 api_idx_0012_JLRR.jumptable_case3:
     cmp word [boundary_wall_variant], byte 0
-    jne short @..api_idx_0012_JLRR.l18
+    jne short api_idx_0012_JLRR.forward18
     cmp word [bp + 4], byte 4
-    jge short @..api_idx_0012_JLRR.l17
+    jge short api_idx_0012_JLRR.forward17
     mov ax, 0
     push ax
     mov ax, 1
@@ -200,13 +200,13 @@ api_idx_0012_JLRR.jumptable_case3:
     push ax
     call api_idx_0012_JLRR.api_idx1
     add sp, byte 0x1c
-@..api_idx_0012_JLRR.l17:
-    jmp short @..api_idx_0012_JLRR.l19
-@..api_idx_0012_JLRR.l18:
+api_idx_0012_JLRR.forward17:
+    jmp short api_idx_0012_JLRR.forward19
+api_idx_0012_JLRR.forward18:
     cmp word [boundary_wall_variant], byte 2
-    jne short @..api_idx_0012_JLRR.l19
+    jne short api_idx_0012_JLRR.forward19
     cmp word [bp + 4], byte 5
-    jge short @..api_idx_0012_JLRR.l19
+    jge short api_idx_0012_JLRR.forward19
     mov ax, 0
     push ax
     mov ax, 1
@@ -242,16 +242,16 @@ api_idx_0012_JLRR.jumptable_case3:
     push ax
     call api_idx_0012_JLRR.api_idx1
     add sp, byte 0x1c
-@..api_idx_0012_JLRR.l19:
-    cmp word [bp + 0x26], byte 0xff
-    je short @..api_idx_0012_JLRR.l22
+api_idx_0012_JLRR.forward19:
+    cmp word [bp + 0x26], byte -1
+    je short api_idx_0012_JLRR.forward22
     cmp word [bp + 4], byte 0
-    jne short @..api_idx_0012_JLRR.l22
+    jne short api_idx_0012_JLRR.forward22
     cmp word [bp + 6], byte 8
-    je short @..api_idx_0012_JLRR.l20
+    je short api_idx_0012_JLRR.forward20
     cmp word [bp + 6], byte 9
-    jne short @..api_idx_0012_JLRR.l22
-@..api_idx_0012_JLRR.l20:
+    jne short api_idx_0012_JLRR.forward22
+api_idx_0012_JLRR.forward20:
     mov ax, 0
     push ax
     mov ax, 1
@@ -263,9 +263,9 @@ api_idx_0012_JLRR.jumptable_case3:
     mov ax, 0xffff
     push ax
     cmp word [bp + 8], byte 2
-    jge short @..api_idx_0012_JLRR.l21
+    jge short api_idx_0012_JLRR.forward21
     mov ax, word [bp + 0x26]
-@..api_idx_0012_JLRR.l21:
+api_idx_0012_JLRR.forward21:
     push ax
     mov ax, 0
     push ax
@@ -280,7 +280,7 @@ api_idx_0012_JLRR.jumptable_case3:
     push ax
     call api_idx_0012_JLRR.api_idx1
     add sp, byte 0x1c
-@..api_idx_0012_JLRR.l22:
+api_idx_0012_JLRR.forward22:
     jmp near api_idx_0012_JLRR.jumptable_case4
 api_idx_0012_JLRR.jumptable_case5:
     cmp word [bp + 4], byte 4
@@ -302,9 +302,9 @@ api_idx_0012_JLRR.jumptable_case5:
     mov word [bp - 6], ax
 api_idx_0012_JLRR.jumptable_case6:
     cmp word [boundary_wall_variant], byte 0
-    jne short @..api_idx_0012_JLRR.l25
+    jne short api_idx_0012_JLRR.forward25
     cmp word [bp + 4], byte 4
-    jge short @..api_idx_0012_JLRR.l24
+    jge short api_idx_0012_JLRR.forward24
     mov ax, 0
     push ax
     mov ax, 1
@@ -340,23 +340,23 @@ api_idx_0012_JLRR.jumptable_case6:
     push ax
     call api_idx_0012_JLRR.api_idx1
     add sp, byte 0x1c
-@..api_idx_0012_JLRR.l24:
-    jmp near @..api_idx_0012_JLRR.l31
-@..api_idx_0012_JLRR.l25:
+api_idx_0012_JLRR.forward24:
+    jmp near api_idx_0012_JLRR.forward31
+api_idx_0012_JLRR.forward25:
     cmp word [boundary_wall_variant], byte 3
-    jl short @..api_idx_0012_JLRR.l26
+    jl short api_idx_0012_JLRR.forward26
     cmp word [boundary_wall_variant], byte 5
-    je short @..api_idx_0012_JLRR.l26
-    jmp near @..api_idx_0012_JLRR.l30
-@..api_idx_0012_JLRR.l26:
+    je short api_idx_0012_JLRR.forward26
+    jmp near api_idx_0012_JLRR.forward30
+api_idx_0012_JLRR.forward26:
     cmp word [bp + 4], byte 5
-    jl short @..api_idx_0012_JLRR.l27
-    jmp near @..api_idx_0012_JLRR.l29
-@..api_idx_0012_JLRR.l27:
+    jl short api_idx_0012_JLRR.forward27
+    jmp near api_idx_0012_JLRR.forward29
+api_idx_0012_JLRR.forward27:
     cmp word [boundary_wall_variant], byte 2
-    jne short @..api_idx_0012_JLRR.l28
-    cmp word [bp - 4], byte 0xff
-    je short @..api_idx_0012_JLRR.l28
+    jne short api_idx_0012_JLRR.forward28
+    cmp word [bp - 4], byte -1
+    je short api_idx_0012_JLRR.forward28
     mov ax, 0
     push ax
     mov ax, 1
@@ -381,7 +381,7 @@ api_idx_0012_JLRR.jumptable_case6:
     push ax
     call api_idx_0012_JLRR.api_idx1
     add sp, byte 0x1c
-@..api_idx_0012_JLRR.l28:
+api_idx_0012_JLRR.forward28:
     mov ax, 0
     push ax
     mov ax, 1
@@ -419,13 +419,13 @@ api_idx_0012_JLRR.jumptable_case6:
     push ax
     call api_idx_0012_JLRR.api_idx1
     add sp, byte 0x1c
-@..api_idx_0012_JLRR.l29:
-    jmp short @..api_idx_0012_JLRR.l31
-@..api_idx_0012_JLRR.l30:
+api_idx_0012_JLRR.forward29:
+    jmp short api_idx_0012_JLRR.forward31
+api_idx_0012_JLRR.forward30:
     cmp word [boundary_wall_variant], byte 5
-    jge short @..api_idx_0012_JLRR.l31
+    jge short api_idx_0012_JLRR.forward31
     cmp word [bp + 4], byte 4
-    jge short @..api_idx_0012_JLRR.l31
+    jge short api_idx_0012_JLRR.forward31
     mov ax, 0
     push ax
     mov ax, 1
@@ -463,11 +463,11 @@ api_idx_0012_JLRR.jumptable_case6:
     push ax
     call api_idx_0012_JLRR.api_idx1
     add sp, byte 0x1c
-@..api_idx_0012_JLRR.l31:
+api_idx_0012_JLRR.forward31:
     jmp near api_idx_0012_JLRR.jumptable_case4
 api_idx_0012_JLRR.jumptable_case7:
     cmp word [bp + 4], byte 4
-    jge short @..api_idx_0012_JLRR.l32
+    jge short api_idx_0012_JLRR.forward32
     mov ax, 0
     push ax
     mov ax, 1
@@ -505,11 +505,11 @@ api_idx_0012_JLRR.jumptable_case7:
     push ax
     call api_idx_0012_JLRR.api_idx1
     add sp, byte 0x1c
-@..api_idx_0012_JLRR.l32:
+api_idx_0012_JLRR.forward32:
     jmp near api_idx_0012_JLRR.jumptable_case4
 api_idx_0012_JLRR.jumptable_case8:
     cmp word [bp + 4], byte 4
-    jge short @..api_idx_0012_JLRR.l33
+    jge short api_idx_0012_JLRR.forward33
     mov ax, 0
     push ax
     mov ax, 1
@@ -547,7 +547,7 @@ api_idx_0012_JLRR.jumptable_case8:
     push ax
     call api_idx_0012_JLRR.api_idx1
     add sp, byte 0x1c
-@..api_idx_0012_JLRR.l33:
+api_idx_0012_JLRR.forward33:
     jmp short api_idx_0012_JLRR.jumptable_case4
 api_idx_0012_JLRR.jumptable1:
     dw api_idx_0012_JLRR.jumptable_case4 - IMAGE_BASE + __zres_end
@@ -566,7 +566,7 @@ api_idx_0012_JLRR.jumptable1:
     dw api_idx_0012_JLRR.jumptable_case6 - IMAGE_BASE + __zres_end
     dw api_idx_0012_JLRR.jumptable_case6 - IMAGE_BASE + __zres_end
     dw api_idx_0012_JLRR.jumptable_case6 - IMAGE_BASE + __zres_end
-@..api_idx_0012_JLRR.l34:
+api_idx_0012_JLRR.forward34:
     cmp ax, strict word 0x10
     jae short api_idx_0012_JLRR.jumptable_case4
     xchg bx, ax
@@ -574,29 +574,29 @@ api_idx_0012_JLRR.jumptable1:
     jmp [cs:bx + api_idx_0012_JLRR.jumptable1 - IMAGE_BASE + __zres_end]
 api_idx_0012_JLRR.jumptable_case4:
     cmp word [bp + 4], byte 4
-    jl short @..api_idx_0012_JLRR.l35
-    jmp near @..api_idx_0012_JLRR.l50
-@..api_idx_0012_JLRR.l35:
+    jl short api_idx_0012_JLRR.forward35
+    jmp near api_idx_0012_JLRR.return1
+api_idx_0012_JLRR.forward35:
     cmp word [bp + 8], byte 1
-    je short @..api_idx_0012_JLRR.l36
+    je short api_idx_0012_JLRR.forward36
     cmp word [bp + 8], byte 3
-    jne short @..api_idx_0012_JLRR.l37
-@..api_idx_0012_JLRR.l36:
+    jne short api_idx_0012_JLRR.forward37
+api_idx_0012_JLRR.forward36:
     mov ax, 0
-    jmp short @..api_idx_0012_JLRR.l38
-@..api_idx_0012_JLRR.l37:
+    jmp short api_idx_0012_JLRR.forward38
+api_idx_0012_JLRR.forward37:
     mov ax, 1
-@..api_idx_0012_JLRR.l38:
+api_idx_0012_JLRR.forward38:
     mov word [bp - 0x12], ax
     mov ax, 0
     cmp word [bp + 8], byte 2
-    jle short @..api_idx_0012_JLRR.l39
+    jle short api_idx_0012_JLRR.forward39
     mov ax, 1
-@..api_idx_0012_JLRR.l39:
+api_idx_0012_JLRR.forward39:
     mov word [bp - 6], ax
     mov word [bp - 0xc], 0xffff
     mov ax, word [bp + 6]
-    jmp near @..api_idx_0012_JLRR.l48
+    jmp near api_idx_0012_JLRR.forward48
 api_idx_0012_JLRR.jumptable_case9:
     mov word [bp - 0xc], 9
     mov ax, word [bp + 4]
@@ -620,7 +620,7 @@ api_idx_0012_JLRR.jumptable_case9:
     mov ax, word [party_status_frame]
     add ax, strict word 5
     mov word [bp - 0xa], ax
-    jmp near @..api_idx_0012_JLRR.l49
+    jmp near api_idx_0012_JLRR.forward49
 api_idx_0012_JLRR.jumptable_case10:
     mov word [bp - 0xc], 9
     mov ax, word [bp + 4]
@@ -643,15 +643,15 @@ api_idx_0012_JLRR.jumptable_case10:
     mov word [bp - 8], 9
     mov ax, 0
     cmp word [party_status_frame], byte 0
-    je short @..api_idx_0012_JLRR.l40
+    je short api_idx_0012_JLRR.forward40
     mov ax, 0xa
-@..api_idx_0012_JLRR.l40:
+api_idx_0012_JLRR.forward40:
     mov word [bp - 0xa], ax
-    jmp near @..api_idx_0012_JLRR.l49
+    jmp near api_idx_0012_JLRR.forward49
 api_idx_0012_JLRR.jumptable_case11:
     mov word [bp - 0xc], 0xa
     cmp word [boundary_wall_variant], byte 0
-    jne short @..api_idx_0012_JLRR.l41
+    jne short api_idx_0012_JLRR.forward41
     mov ax, word [bp + 4]
     mov cx, 4
     shl ax, cl
@@ -666,8 +666,8 @@ api_idx_0012_JLRR.jumptable_case11:
     add ax, cx
     mov bx, ax
     mov ax, word [bx + 0x486]
-    jmp short @..api_idx_0012_JLRR.l42
-@..api_idx_0012_JLRR.l41:
+    jmp short api_idx_0012_JLRR.forward42
+api_idx_0012_JLRR.forward41:
     mov ax, word [bp + 4]
     mov cx, 4
     shl ax, cl
@@ -682,10 +682,10 @@ api_idx_0012_JLRR.jumptable_case11:
     add ax, cx
     mov bx, ax
     mov ax, word [bx + 0x4d6]
-@..api_idx_0012_JLRR.l42:
+api_idx_0012_JLRR.forward42:
     mov word [bp - 0xe], ax
     cmp word [boundary_wall_variant], byte 0
-    jne short @..api_idx_0012_JLRR.l43
+    jne short api_idx_0012_JLRR.forward43
     mov ax, word [bp + 4]
     mov cx, 4
     shl ax, cl
@@ -700,8 +700,8 @@ api_idx_0012_JLRR.jumptable_case11:
     add ax, cx
     mov bx, ax
     mov ax, word [bx + 0x488]
-    jmp short @..api_idx_0012_JLRR.l44
-@..api_idx_0012_JLRR.l43:
+    jmp short api_idx_0012_JLRR.forward44
+api_idx_0012_JLRR.forward43:
     mov ax, word [bp + 4]
     mov cx, 4
     shl ax, cl
@@ -716,22 +716,22 @@ api_idx_0012_JLRR.jumptable_case11:
     add ax, cx
     mov bx, ax
     mov ax, word [bx + 0x4d8]
-@..api_idx_0012_JLRR.l44:
+api_idx_0012_JLRR.forward44:
     mov word [bp - 0x10], ax
     mov ax, 7
     cmp word [boundary_wall_variant], byte 0
-    jne short @..api_idx_0012_JLRR.l45
+    jne short api_idx_0012_JLRR.forward45
     mov ax, 3
-@..api_idx_0012_JLRR.l45:
+api_idx_0012_JLRR.forward45:
     mov cx, 0
     cmp word [bp + 6], byte 0xd
-    jne short @..api_idx_0012_JLRR.l46
+    jne short api_idx_0012_JLRR.forward46
     mov cx, 1
-@..api_idx_0012_JLRR.l46:
+api_idx_0012_JLRR.forward46:
     add ax, cx
     mov word [bp - 8], ax
     mov word [bp - 0xa], 0
-    jmp short @..api_idx_0012_JLRR.l49
+    jmp short api_idx_0012_JLRR.forward49
 api_idx_0012_JLRR.jumptable_case12:
     mov word [bp - 0xc], 0xa
     mov ax, word [bp + 4]
@@ -754,11 +754,11 @@ api_idx_0012_JLRR.jumptable_case12:
     mov word [bp - 8], 0xc
     mov ax, 0xe
     cmp word [bp + 6], byte 0xe
-    jne short @..api_idx_0012_JLRR.l47
+    jne short api_idx_0012_JLRR.forward47
     mov ax, 0xd
-@..api_idx_0012_JLRR.l47:
+api_idx_0012_JLRR.forward47:
     mov word [bp - 0xa], ax
-    jmp short @..api_idx_0012_JLRR.l49
+    jmp short api_idx_0012_JLRR.forward49
 api_idx_0012_JLRR.jumptable2:
     dw api_idx_0012_JLRR.jumptable_case9 - IMAGE_BASE + __zres_end
     dw api_idx_0012_JLRR.jumptable_case10 - IMAGE_BASE + __zres_end
@@ -766,16 +766,16 @@ api_idx_0012_JLRR.jumptable2:
     dw api_idx_0012_JLRR.jumptable_case11 - IMAGE_BASE + __zres_end
     dw api_idx_0012_JLRR.jumptable_case12 - IMAGE_BASE + __zres_end
     dw api_idx_0012_JLRR.jumptable_case12 - IMAGE_BASE + __zres_end
-@..api_idx_0012_JLRR.l48:
+api_idx_0012_JLRR.forward48:
     sub ax, strict word 0xa
     cmp ax, strict word 6
-    jae short @..api_idx_0012_JLRR.l49
+    jae short api_idx_0012_JLRR.forward49
     xchg bx, ax
     shl bx, 1
     jmp [cs:bx + api_idx_0012_JLRR.jumptable2 - IMAGE_BASE + __zres_end]
-@..api_idx_0012_JLRR.l49:
-    cmp word [bp - 0xc], byte 0xff
-    je short @..api_idx_0012_JLRR.l50
+api_idx_0012_JLRR.forward49:
+    cmp word [bp - 0xc], byte -1
+    je short api_idx_0012_JLRR.return1
     mov ax, 3
     push ax
     mov ax, 1
@@ -800,5 +800,5 @@ api_idx_0012_JLRR.jumptable2:
     push word [bp - 0xc]
     call api_idx_0012_JLRR.api_idx1
     add sp, byte 0x1c
-@..api_idx_0012_JLRR.l50:
+api_idx_0012_JLRR.return1:
     ret

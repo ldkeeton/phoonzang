@@ -16,7 +16,7 @@ api_idx_0084_VMPP:
     mov word [bp - 0x84], ax         ; 0x8c95
     mov word [bp - 0x54], 0          ; 0x8c99
     mov word [bp - 0x56], 2          ; 0x8c9e
-@..api_idx_0084_VMPP.l1:
+.back1:
     mov ax, 0x2f                     ; 0x8ca3
     push ax                          ; 0x8ca6
     mov ax, word [bp - 0x56]         ; 0x8ca7
@@ -27,7 +27,7 @@ api_idx_0084_VMPP:
     add sp, byte 4                   ; 0x8cb3
     mov word [bp - 0x52], ax         ; 0x8cb6
     cmp ax, strict word 0xffff       ; 0x8cb9
-    je short @..api_idx_0084_VMPP.l2 ; 0x8cbc
+    je short .forward1               ; 0x8cbc
     mov ax, word [bp - 0x56]         ; 0x8cbe
     mov cx, word [bp - 0x54]         ; 0x8cc1
     shl cx, 1                        ; 0x8cc4
@@ -38,8 +38,8 @@ api_idx_0084_VMPP:
     inc ax                           ; 0x8cd0
     mov word [bp - 0x56], ax         ; 0x8cd1
     inc word [bp - 0x54]             ; 0x8cd4
-    jmp short @..api_idx_0084_VMPP.l1 ; 0x8cd7
-@..api_idx_0084_VMPP.l2:
+    jmp short .back1                 ; 0x8cd7
+.forward1:
     mov ax, word [bp - 0x56]         ; 0x8cd9
     mov cx, word [bp - 0x54]         ; 0x8cdc
     shl cx, 1                        ; 0x8cdf
@@ -47,19 +47,19 @@ api_idx_0084_VMPP:
     add bx, bp                       ; 0x8ce3
     mov word [bx - 0x7e], ax         ; 0x8ce5
     cmp word [bp + 6], byte 0        ; 0x8ce8
-    jne short @..api_idx_0084_VMPP.l4 ; 0x8cec
+    jne short .forward3              ; 0x8cec
     mov ax, word [bp - 0x54]         ; 0x8cee
     cmp ax, word [bp - 0x82]         ; 0x8cf1
-    jle short @..api_idx_0084_VMPP.l3 ; 0x8cf5
+    jle short .forward2              ; 0x8cf5
     mov ax, word [bp - 0x82]         ; 0x8cf7
     mov word [bp - 0x54], ax         ; 0x8cfb
-@..api_idx_0084_VMPP.l3:
+.forward2:
     push word [bp - 0x54]            ; 0x8cfe
     call random_below                ; 0x8d01
     pop cx                           ; 0x8d04
     mov word [bp - 0x80], ax         ; 0x8d05
-    jmp short @..api_idx_0084_VMPP.l5 ; 0x8d08
-@..api_idx_0084_VMPP.l4:
+    jmp short .forward4              ; 0x8d08
+.forward3:
     mov ax, word [bp - 0x84]         ; 0x8d0a
     sub word [bp - 0x54], ax         ; 0x8d0e
     push word [bp - 0x54]            ; 0x8d11
@@ -69,7 +69,7 @@ api_idx_0084_VMPP:
     mov ax, word [bp - 0x84]         ; 0x8d1a
     add cx, ax                       ; 0x8d1e
     mov word [bp - 0x80], cx         ; 0x8d20
-@..api_idx_0084_VMPP.l5:
+.forward4:
     mov ax, word [bp - 0x80]         ; 0x8d23
     shl ax, 1                        ; 0x8d26
     mov bx, ax                       ; 0x8d28

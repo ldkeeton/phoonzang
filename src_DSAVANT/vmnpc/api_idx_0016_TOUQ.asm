@@ -48,7 +48,7 @@ api_idx_0016_TOUQ:
     mov cx, 6                        ; 0xa5c1
     imul cx                          ; 0xa5c4
     add word [bp + 6], ax            ; 0xa5c6
-@..api_idx_0016_TOUQ.l1:
+.back1:
     mov word [bp - 8], 1             ; 0xa5c9
     mov word [bp - 0xa], 0           ; 0xa5ce
     mov ax, word [bp + 8]            ; 0xa5d3
@@ -63,15 +63,15 @@ api_idx_0016_TOUQ:
     add sp, byte 8                   ; 0xa5ea
     mov word [bp - 0x14], dx         ; 0xa5ed
     mov word [bp - 0x16], ax         ; 0xa5f0
-@..api_idx_0016_TOUQ.l2:
+.back2:
     mov ax, 1                        ; 0xa5f3
     push ax                          ; 0xa5f6
     call poll_filtered_key           ; 0xa5f7
     pop cx                           ; 0xa5fa
     test ax, ax                      ; 0xa5fb
-    jne short @..api_idx_0016_TOUQ.l6 ; 0xa5fd
+    jne short .forward4              ; 0xa5fd
     cmp word [bp - 0xa], byte 0      ; 0xa5ff
-    jne short @..api_idx_0016_TOUQ.l4 ; 0xa603
+    jne short .forward2              ; 0xa603
     call run_party_screen_animation  ; 0xa605
     mov ax, 0                        ; 0xa608
     push ax                          ; 0xa60b
@@ -80,7 +80,7 @@ api_idx_0016_TOUQ:
     call gfx_restore_area            ; 0xa612
     add sp, byte 6                   ; 0xa615
     cmp word [bp - 8], byte 0        ; 0xa618
-    je short @..api_idx_0016_TOUQ.l3 ; 0xa61c
+    je short .forward1               ; 0xa61c
     push word [bp + 8]               ; 0xa61e
     push word [bp + 6]               ; 0xa621
     call gfx_set_text_pos            ; 0xa624
@@ -91,7 +91,7 @@ api_idx_0016_TOUQ:
     push ax                          ; 0xa631
     call draw_font_glyph             ; 0xa632
     add sp, byte 4                   ; 0xa635
-@..api_idx_0016_TOUQ.l3:
+.forward1:
     mov ax, word [bp + 8]            ; 0xa638
     add ax, strict word 5            ; 0xa63b
     push ax                          ; 0xa63e
@@ -109,16 +109,16 @@ api_idx_0016_TOUQ:
     idiv cx                          ; 0xa65a
     mov word [bp - 8], dx            ; 0xa65c
     mov word [bp - 0xa], 5           ; 0xa65f
-    jmp short @..api_idx_0016_TOUQ.l5 ; 0xa664
-@..api_idx_0016_TOUQ.l4:
+    jmp short .forward3              ; 0xa664
+.forward2:
     mov ax, 0xa                      ; 0xa666
     push ax                          ; 0xa669
     call delay_ms                    ; 0xa66a
     pop cx                           ; 0xa66d
     dec word [bp - 0xa]              ; 0xa66e
-@..api_idx_0016_TOUQ.l5:
-    jmp short @..api_idx_0016_TOUQ.l2 ; 0xa671
-@..api_idx_0016_TOUQ.l6:
+.forward3:
+    jmp short .back2                 ; 0xa671
+.forward4:
     mov ax, 1                        ; 0xa673
     push ax                          ; 0xa676
     push word [bp - 0x14]            ; 0xa677
@@ -142,7 +142,7 @@ api_idx_0016_TOUQ:
     sub ah, ah                       ; 0xa6a5
     mov word [bp - 2], ax            ; 0xa6a7
     cmp ax, strict word 0xd          ; 0xa6aa
-    jne short @..api_idx_0016_TOUQ.l7 ; 0xa6ad
+    jne short .forward5              ; 0xa6ad
     mov bx, word [bp + 4]            ; 0xa6af
     mov si, word [bp - 6]            ; 0xa6b2
     mov byte [bx + si], 0            ; 0xa6b5
@@ -155,15 +155,15 @@ api_idx_0016_TOUQ:
     add sp, byte 6                   ; 0xa6c8
     mov ax, 0                        ; 0xa6cb
     ret                              ; 0xa6ce
-@..api_idx_0016_TOUQ.l7:
+.forward5:
     cmp word [bp - 2], byte 8        ; 0xa6cf
-    je short @..api_idx_0016_TOUQ.l8 ; 0xa6d3
-    jmp near @..api_idx_0016_TOUQ.l12 ; 0xa6d5
-@..api_idx_0016_TOUQ.l8:
+    je short .forward6               ; 0xa6d3
+    jmp near .forward10              ; 0xa6d5
+.forward6:
     cmp word [bp - 6], byte 0        ; 0xa6d8
-    jle short @..api_idx_0016_TOUQ.l9 ; 0xa6dc
+    jle short .forward7              ; 0xa6dc
     dec word [bp - 6]                ; 0xa6de
-    add word [bp + 6], byte 0xfa     ; 0xa6e1
+    add word [bp + 6], byte -6       ; 0xa6e1
     mov ax, 0                        ; 0xa6e5
     push ax                          ; 0xa6e8
     push word [bp - 0x10]            ; 0xa6e9
@@ -193,10 +193,10 @@ api_idx_0016_TOUQ:
     push word [bp - 4]               ; 0xa72b
     call gfx_show_area               ; 0xa72e
     add sp, byte 8                   ; 0xa731
-    jmp short @..api_idx_0016_TOUQ.l11 ; 0xa734
-@..api_idx_0016_TOUQ.l9:
+    jmp short .forward9              ; 0xa734
+.forward7:
     cmp word [bp + 0x12], byte 0     ; 0xa736
-    je short @..api_idx_0016_TOUQ.l10 ; 0xa73a
+    je short .forward8               ; 0xa73a
     mov bx, word [bp + 4]            ; 0xa73c
     mov byte [bx], 0                 ; 0xa73f
     mov ax, 1                        ; 0xa742
@@ -207,41 +207,41 @@ api_idx_0016_TOUQ:
     add sp, byte 6                   ; 0xa74f
     mov ax, 0xffff                   ; 0xa752
     ret                              ; 0xa755
-@..api_idx_0016_TOUQ.l10:
+.forward8:
     mov ax, 0                        ; 0xa756
     push ax                          ; 0xa759
     call play_sound_effect           ; 0xa75a
     pop cx                           ; 0xa75d
-@..api_idx_0016_TOUQ.l11:
-    jmp near @..api_idx_0016_TOUQ.l20 ; 0xa75e
-@..api_idx_0016_TOUQ.l12:
+.forward9:
+    jmp near .forward18              ; 0xa75e
+.forward10:
     mov ax, word [bp - 6]            ; 0xa761
     cmp ax, word [bp + 0xa]          ; 0xa764
-    jl short @..api_idx_0016_TOUQ.l17 ; 0xa767
+    jl short .forward15              ; 0xa767
     cmp word [bp + 0x12], byte 0     ; 0xa769
-    je short @..api_idx_0016_TOUQ.l13 ; 0xa76d
+    je short .forward11              ; 0xa76d
     mov ax, 0                        ; 0xa76f
     push ax                          ; 0xa772
     call play_sound_effect           ; 0xa773
     pop cx                           ; 0xa776
-    jmp short @..api_idx_0016_TOUQ.l16 ; 0xa777
-@..api_idx_0016_TOUQ.l13:
+    jmp short .forward14             ; 0xa777
+.forward11:
     cmp word [bp + 0x10], byte 0     ; 0xa779
-    jne short @..api_idx_0016_TOUQ.l14 ; 0xa77d
+    jne short .forward12             ; 0xa77d
     mov ax, word [bp - 2]            ; 0xa77f
     cmp ax, strict word 0x20         ; 0xa782
-    jl short @..api_idx_0016_TOUQ.l14 ; 0xa785
+    jl short .forward12              ; 0xa785
     cmp ax, strict word 0x7f         ; 0xa787
-    jle short @..api_idx_0016_TOUQ.l15 ; 0xa78a
-@..api_idx_0016_TOUQ.l14:
+    jle short .forward13             ; 0xa78a
+.forward12:
     cmp word [bp + 0x10], byte 1     ; 0xa78c
-    jne short @..api_idx_0016_TOUQ.l16 ; 0xa790
+    jne short .forward14             ; 0xa790
     mov ax, word [bp - 2]            ; 0xa792
     cmp ax, strict word 0x30         ; 0xa795
-    jl short @..api_idx_0016_TOUQ.l16 ; 0xa798
+    jl short .forward14              ; 0xa798
     cmp ax, strict word 0x39         ; 0xa79a
-    jg short @..api_idx_0016_TOUQ.l16 ; 0xa79d
-@..api_idx_0016_TOUQ.l15:
+    jg short .forward14              ; 0xa79d
+.forward13:
     mov bx, word [bp + 4]            ; 0xa79f
     mov si, word [bp - 6]            ; 0xa7a2
     mov byte [bx + si], 0            ; 0xa7a5
@@ -255,25 +255,25 @@ api_idx_0016_TOUQ:
     add sp, byte 6                   ; 0xa7bb
     mov ax, 1                        ; 0xa7be
     ret                              ; 0xa7c1
-@..api_idx_0016_TOUQ.l16:
-    jmp near @..api_idx_0016_TOUQ.l20 ; 0xa7c2
-@..api_idx_0016_TOUQ.l17:
+.forward14:
+    jmp near .forward18              ; 0xa7c2
+.forward15:
     cmp word [bp + 0x10], byte 0     ; 0xa7c5
-    jne short @..api_idx_0016_TOUQ.l18 ; 0xa7c9
+    jne short .forward16             ; 0xa7c9
     mov ax, word [bp - 2]            ; 0xa7cb
     cmp ax, strict word 0x20         ; 0xa7ce
-    jl short @..api_idx_0016_TOUQ.l18 ; 0xa7d1
+    jl short .forward16              ; 0xa7d1
     cmp ax, strict word 0x7f         ; 0xa7d3
-    jle short @..api_idx_0016_TOUQ.l19 ; 0xa7d6
-@..api_idx_0016_TOUQ.l18:
+    jle short .forward17             ; 0xa7d6
+.forward16:
     cmp word [bp + 0x10], byte 1     ; 0xa7d8
-    jne short @..api_idx_0016_TOUQ.l20 ; 0xa7dc
+    jne short .forward18             ; 0xa7dc
     mov ax, word [bp - 2]            ; 0xa7de
     cmp ax, strict word 0x30         ; 0xa7e1
-    jl short @..api_idx_0016_TOUQ.l20 ; 0xa7e4
+    jl short .forward18              ; 0xa7e4
     cmp ax, strict word 0x39         ; 0xa7e6
-    jg short @..api_idx_0016_TOUQ.l20 ; 0xa7e9
-@..api_idx_0016_TOUQ.l19:
+    jg short .forward18              ; 0xa7e9
+.forward17:
     mov al, byte [bp - 2]            ; 0xa7eb
     mov bx, word [bp + 4]            ; 0xa7ee
     mov si, word [bp - 6]            ; 0xa7f1
@@ -301,6 +301,6 @@ api_idx_0016_TOUQ:
     call gfx_show_area               ; 0xa829
     add sp, byte 8                   ; 0xa82c
     add word [bp + 6], byte 6        ; 0xa82f
-@..api_idx_0016_TOUQ.l20:
-    jmp near @..api_idx_0016_TOUQ.l1 ; 0xa833
+.forward18:
+    jmp near .back1                  ; 0xa833
     db 0xc3

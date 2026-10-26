@@ -8,7 +8,7 @@ api_idx_0002_NIPM:
     mov bx, word [maze_tables]       ; 0x73c3
     mov ax, word [bx + si]           ; 0x73c7
     mov word [bp - 2], ax            ; 0x73c9
-    jmp short @..api_idx_0002_NIPM.l1 ; 0x73cc
+    jmp short .forward1              ; 0x73cc
 jumptable_741a_case_1:
     mov ax, 0x11                     ; 0x73ce
     push ax                          ; 0x73d1
@@ -54,7 +54,7 @@ jumptable_741a:
     dw jumptable_741a_case_4 - IMAGE_BASE + __zres_end ; 0x7422
     dw jumptable_741a_case_4 - IMAGE_BASE + __zres_end ; 0x7424
     dw jumptable_741a_case_4 - IMAGE_BASE + __zres_end ; 0x7426
-@..api_idx_0002_NIPM.l1:
+api_idx_0002_NIPM.forward1:
     cmp ax, strict word 7            ; 0x7428
     jae short jumptable_741a_case_3  ; 0x742b
     xchg bx, ax                      ; 0x742d

@@ -11,9 +11,9 @@ cast_spell_from_dialog:
     call spell_select_dialog         ; 0x4aea
     add sp, byte 8                   ; 0x4aed
     test ax, ax                      ; 0x4af0
-    je short @..cast_spell_from_dialog.l1 ; 0x4af2
-    jmp near @..cast_spell_from_dialog.l5 ; 0x4af4
-@..cast_spell_from_dialog.l1:
+    je short .forward1               ; 0x4af2
+    jmp near .return1                ; 0x4af4
+.forward1:
     mov ax, word [spell_dialog_result] ; 0x4af7
     mov cx, 0x100                    ; 0x4afa
     cwd                              ; 0x4afd
@@ -24,16 +24,16 @@ cast_spell_from_dialog:
     imul dx                          ; 0x4b09
     mov bx, ax                       ; 0x4b0b
     cmp byte [bx + spell_table + spell_table_rec.f_0004], 1 ; 0x4b0d
-    jne short @..cast_spell_from_dialog.l2 ; 0x4b12
+    jne short .forward2              ; 0x4b12
     call pick_party_member           ; 0x4b14
     mov word [cast_spell_target], ax ; 0x4b17
     cmp ax, strict word 0xffff       ; 0x4b1a
-    jne short @..cast_spell_from_dialog.l2 ; 0x4b1d
-@..cast_spell_from_dialog.l2:
+    jne short .forward2              ; 0x4b1d
+.forward2:
     cmp word [bp - 2], byte 0        ; 0x4b1f
-    jge short @..cast_spell_from_dialog.l3 ; 0x4b23
-    jmp near @..cast_spell_from_dialog.l5 ; 0x4b25
-@..cast_spell_from_dialog.l3:
+    jge short .forward3              ; 0x4b23
+    jmp near .return1                ; 0x4b25
+.forward3:
     mov ax, 6                        ; 0x4b28
     imul word [bp - 2]               ; 0x4b2b
     mov bx, ax                       ; 0x4b2e
@@ -80,7 +80,7 @@ cast_spell_from_dialog:
     pop ax                           ; 0x4b93
     sub word [bx + party_records + pc_rec.pair_b], ax ; 0x4b94
     cmp word [bx + party_records + pc_rec.pair_b], byte 0 ; 0x4b98
-    jge short @..cast_spell_from_dialog.l4 ; 0x4b9d
+    jge short .forward4              ; 0x4b9d
     mov word [bx + party_records + pc_rec.pair_b], 0 ; 0x4b9f
     mov ax, 6                        ; 0x4ba5
     push ax                          ; 0x4ba8
@@ -93,11 +93,11 @@ cast_spell_from_dialog:
     mov bx, ax                       ; 0x4bb7
     pop ax                           ; 0x4bb9
     mov byte [bx + party_records + pc_rec.status + 0x2], al ; 0x4bba
-@..cast_spell_from_dialog.l4:
+.forward4:
     mov ax, 1                        ; 0x4bbe
     push ax                          ; 0x4bc1
     push word [bp + 4]               ; 0x4bc2
     call draw_party_member_panel     ; 0x4bc5
     add sp, byte 4                   ; 0x4bc8
-@..cast_spell_from_dialog.l5:
+.return1:
     ret                              ; 0x4bcb

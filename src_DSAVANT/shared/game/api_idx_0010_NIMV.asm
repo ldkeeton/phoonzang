@@ -4,45 +4,45 @@ api_idx_0010_NIMV:
     call aztec_csav
     mov ax, 4
     cmp word [boundary_wall_variant], byte 0
-    jne short @..api_idx_0010_NIMV.l1
+    jne short .forward1
     mov ax, 3
-@..api_idx_0010_NIMV.l1:
+.forward1:
     mov word [bp - 0xa], ax
     mov word [bp - 2], 0xffff
     mov word [bp - 4], 0xffff
     cmp word [boundary_wall_variant], byte 0
-    jg short @..api_idx_0010_NIMV.l2
-    jmp near @..api_idx_0010_NIMV.l11
-@..api_idx_0010_NIMV.l2:
+    jg short .forward2
+    jmp near .forward11
+.forward2:
     cmp word [bp + 4], byte 3
-    je short @..api_idx_0010_NIMV.l3
-    jmp near @..api_idx_0010_NIMV.l11
-@..api_idx_0010_NIMV.l3:
+    je short .forward3
+    jmp near .forward11
+.forward3:
     mov ax, word [boundary_wall_variant]
     cmp ax, strict word 3
-    jl short @..api_idx_0010_NIMV.l4
+    jl short .forward4
     cmp ax, strict word 5
-    jne short @..api_idx_0010_NIMV.l5
-@..api_idx_0010_NIMV.l4:
+    jne short .forward5
+.forward4:
     mov ax, 0x15
-    jmp short @..api_idx_0010_NIMV.l6
-@..api_idx_0010_NIMV.l5:
+    jmp short .forward6
+.forward5:
     mov ax, 0x14
-@..api_idx_0010_NIMV.l6:
+.forward6:
     mov word [bp - 0xc], ax
     cmp word [boundary_wall_variant], byte 3
-    jl short @..api_idx_0010_NIMV.l7
+    jl short .forward7
     cmp word [boundary_wall_variant], byte 5
-    jne short @..api_idx_0010_NIMV.l8
-@..api_idx_0010_NIMV.l7:
+    jne short .forward8
+.forward7:
     mov ax, 0x16
-    jmp short @..api_idx_0010_NIMV.l9
-@..api_idx_0010_NIMV.l8:
+    jmp short .forward9
+.forward8:
     mov ax, 0x15
-@..api_idx_0010_NIMV.l9:
+.forward9:
     mov word [bp - 0xe], ax
     cmp word [bp + 8], byte 0
-    jne short @..api_idx_0010_NIMV.l10
+    jne short .forward10
     push ax
     push word [bp - 0xc]
     call api_idx_0010_NIMV.loc1
@@ -52,10 +52,10 @@ api_idx_0010_NIMV:
     call api_idx_0010_NIMV.loc2
     pop cx
     mov word [bp - 4], ax
-    jmp short @..api_idx_0010_NIMV.l11
-@..api_idx_0010_NIMV.l10:
+    jmp short .forward11
+.forward10:
     cmp word [bp + 8], byte 4
-    jne short @..api_idx_0010_NIMV.l11
+    jne short .forward11
     push word [bp - 0xc]
     push word [bp - 0xe]
     call api_idx_0010_NIMV.loc1
@@ -65,12 +65,12 @@ api_idx_0010_NIMV:
     call api_idx_0010_NIMV.loc2
     pop cx
     mov word [bp - 4], ax
-@..api_idx_0010_NIMV.l11:
+.forward11:
     mov ax, word [bp + 6]
-    jmp near @..api_idx_0010_NIMV.l25
+    jmp near .forward25
 api_idx_0010_NIMV.jumptable_case1:
-    cmp word [bp - 2], byte 0xff
-    je short @..api_idx_0010_NIMV.l13
+    cmp word [bp - 2], byte -1
+    je short api_idx_0010_NIMV.forward13
     mov ax, 0
     push ax
     push ax
@@ -85,9 +85,9 @@ api_idx_0010_NIMV.jumptable_case1:
     push ax
     push ax
     cmp word [bp + 4], byte 1
-    jne short @..api_idx_0010_NIMV.l12
+    jne short api_idx_0010_NIMV.forward12
     mov ax, 2
-@..api_idx_0010_NIMV.l12:
+api_idx_0010_NIMV.forward12:
     push ax
     mov ax, 0xffff
     push ax
@@ -96,11 +96,11 @@ api_idx_0010_NIMV.jumptable_case1:
     push ax
     call api_idx_0010_NIMV.api_idx1
     add sp, byte 0x1c
-@..api_idx_0010_NIMV.l13:
+api_idx_0010_NIMV.forward13:
     jmp near api_idx_0010_NIMV.jumptable_case2
 api_idx_0010_NIMV.jumptable_case3:
-    cmp word [bp - 2], byte 0xff
-    je short @..api_idx_0010_NIMV.l14
+    cmp word [bp - 2], byte -1
+    je short api_idx_0010_NIMV.forward14
     mov ax, 0
     push ax
     push ax
@@ -123,13 +123,13 @@ api_idx_0010_NIMV.jumptable_case3:
     push ax
     call api_idx_0010_NIMV.api_idx1
     add sp, byte 0x1c
-@..api_idx_0010_NIMV.l14:
+api_idx_0010_NIMV.forward14:
     jmp near api_idx_0010_NIMV.jumptable_case2
 api_idx_0010_NIMV.jumptable_case4:
     cmp word [boundary_wall_variant], byte 0
-    jne short @..api_idx_0010_NIMV.l17
+    jne short api_idx_0010_NIMV.forward17
     cmp word [bp + 4], byte 3
-    jge short @..api_idx_0010_NIMV.l16
+    jge short api_idx_0010_NIMV.forward16
     mov ax, 0
     push ax
     push ax
@@ -150,9 +150,9 @@ api_idx_0010_NIMV.jumptable_case4:
     push ax
     mov cx, word [bp + 4]
     cmp cx, byte 1
-    jne short @..api_idx_0010_NIMV.l15
+    jne short api_idx_0010_NIMV.forward15
     mov ax, 2
-@..api_idx_0010_NIMV.l15:
+api_idx_0010_NIMV.forward15:
     push ax
     mov ax, 0xffff
     push ax
@@ -169,16 +169,16 @@ api_idx_0010_NIMV.jumptable_case4:
     push ax
     call api_idx_0010_NIMV.api_idx1
     add sp, byte 0x1c
-@..api_idx_0010_NIMV.l16:
-    jmp near @..api_idx_0010_NIMV.l21
-@..api_idx_0010_NIMV.l17:
+api_idx_0010_NIMV.forward16:
+    jmp near api_idx_0010_NIMV.forward21
+api_idx_0010_NIMV.forward17:
     cmp word [boundary_wall_variant], byte 3
-    jl short @..api_idx_0010_NIMV.l18
+    jl short api_idx_0010_NIMV.forward18
     cmp word [boundary_wall_variant], byte 5
-    jne short @..api_idx_0010_NIMV.l20
-@..api_idx_0010_NIMV.l18:
+    jne short api_idx_0010_NIMV.forward20
+api_idx_0010_NIMV.forward18:
     cmp word [bp + 4], byte 4
-    jge short @..api_idx_0010_NIMV.l19
+    jge short api_idx_0010_NIMV.forward19
     mov ax, 0
     push ax
     push ax
@@ -212,13 +212,13 @@ api_idx_0010_NIMV.jumptable_case4:
     push ax
     call api_idx_0010_NIMV.api_idx1
     add sp, byte 0x1c
-@..api_idx_0010_NIMV.l19:
-    jmp short @..api_idx_0010_NIMV.l21
-@..api_idx_0010_NIMV.l20:
+api_idx_0010_NIMV.forward19:
+    jmp short api_idx_0010_NIMV.forward21
+api_idx_0010_NIMV.forward20:
     cmp word [boundary_wall_variant], byte 5
-    jge short @..api_idx_0010_NIMV.l21
+    jge short api_idx_0010_NIMV.forward21
     cmp word [bp + 4], byte 4
-    jge short @..api_idx_0010_NIMV.l21
+    jge short api_idx_0010_NIMV.forward21
     mov ax, 0
     push ax
     push ax
@@ -252,7 +252,7 @@ api_idx_0010_NIMV.jumptable_case4:
     push ax
     call api_idx_0010_NIMV.api_idx1
     add sp, byte 0x1c
-@..api_idx_0010_NIMV.l21:
+api_idx_0010_NIMV.forward21:
     jmp near api_idx_0010_NIMV.jumptable_case2
 api_idx_0010_NIMV.jumptable_case5:
     mov ax, word [boundary_wall_variant]
@@ -261,9 +261,9 @@ api_idx_0010_NIMV.jumptable_case5:
     idiv cx
     mov ax, dx
     cmp ax, strict word 1
-    jne short @..api_idx_0010_NIMV.l24
+    jne short api_idx_0010_NIMV.forward24
     cmp word [bp + 4], byte 4
-    jge short @..api_idx_0010_NIMV.l24
+    jge short api_idx_0010_NIMV.forward24
     mov ax, 0
     push ax
     push ax
@@ -281,20 +281,20 @@ api_idx_0010_NIMV.jumptable_case5:
     mov ax, 0xffff
     push ax
     cmp word [api_idx_0010_NIMV.bss1], byte 0
-    je short @..api_idx_0010_NIMV.l22
+    je short api_idx_0010_NIMV.forward22
     mov ax, word [bp + 0x1c]
     add ax, word [bp + 4]
-    jmp short @..api_idx_0010_NIMV.l23
-@..api_idx_0010_NIMV.l22:
+    jmp short api_idx_0010_NIMV.forward23
+api_idx_0010_NIMV.forward22:
     mov ax, word [bp + 0x1a]
     add ax, word [bp + 4]
-@..api_idx_0010_NIMV.l23:
+api_idx_0010_NIMV.forward23:
     push ax
     mov ax, 0xfc
     push ax
     call api_idx_0010_NIMV.api_idx1
     add sp, byte 0x1c
-@..api_idx_0010_NIMV.l24:
+api_idx_0010_NIMV.forward24:
     jmp short api_idx_0010_NIMV.jumptable_case2
 api_idx_0010_NIMV.jumptable1:
     dw api_idx_0010_NIMV.jumptable_case2 - IMAGE_BASE + __zres_end
@@ -313,7 +313,7 @@ api_idx_0010_NIMV.jumptable1:
     dw api_idx_0010_NIMV.jumptable_case4 - IMAGE_BASE + __zres_end
     dw api_idx_0010_NIMV.jumptable_case4 - IMAGE_BASE + __zres_end
     dw api_idx_0010_NIMV.jumptable_case4 - IMAGE_BASE + __zres_end
-@..api_idx_0010_NIMV.l25:
+api_idx_0010_NIMV.forward25:
     cmp ax, strict word 0x10
     jae short api_idx_0010_NIMV.jumptable_case2
     xchg bx, ax
@@ -324,24 +324,24 @@ api_idx_0010_NIMV.jumptable_case2:
     mov word [bp - 4], 0xffff
     mov ax, word [bp + 4]
     cmp ax, word [bp - 0xa]
-    jl short @..api_idx_0010_NIMV.l27
-    jmp near @..api_idx_0010_NIMV.l49
-@..api_idx_0010_NIMV.l27:
+    jl short api_idx_0010_NIMV.forward27
+    jmp near api_idx_0010_NIMV.return1
+api_idx_0010_NIMV.forward27:
     mov word [bp - 0x10], 0xffff
     mov ax, word [bp + 6]
-    jmp near @..api_idx_0010_NIMV.l47
+    jmp near api_idx_0010_NIMV.forward47
 api_idx_0010_NIMV.jumptable_case6:
     mov ax, word [bp + 0x2e]
     cmp word [bp + 6], byte 8
-    jne short @..api_idx_0010_NIMV.l28
+    jne short api_idx_0010_NIMV.forward28
     mov ax, word [bp + 0x2a]
-@..api_idx_0010_NIMV.l28:
+api_idx_0010_NIMV.forward28:
     mov word [bp - 6], ax
     mov ax, word [bp + 0x30]
     cmp word [bp + 6], byte 8
-    jne short @..api_idx_0010_NIMV.l29
+    jne short api_idx_0010_NIMV.forward29
     mov ax, word [bp + 0x2c]
-@..api_idx_0010_NIMV.l29:
+api_idx_0010_NIMV.forward29:
     mov word [bp - 8], ax
     mov ax, word [bp - 6]
     add ax, word [bp + 4]
@@ -370,7 +370,7 @@ api_idx_0010_NIMV.jumptable_case7:
     mov word [bp - 4], ax
 api_idx_0010_NIMV.jumptable_case8:
     cmp word [boundary_wall_variant], byte 0
-    jne short @..api_idx_0010_NIMV.l31
+    jne short api_idx_0010_NIMV.forward31
     mov ax, 0
     push ax
     push ax
@@ -404,10 +404,10 @@ api_idx_0010_NIMV.jumptable_case8:
     push ax
     call api_idx_0010_NIMV.api_idx1
     add sp, byte 0x1c
-    jmp short @..api_idx_0010_NIMV.l32
-@..api_idx_0010_NIMV.l31:
+    jmp short api_idx_0010_NIMV.forward32
+api_idx_0010_NIMV.forward31:
     cmp word [boundary_wall_variant], byte 2
-    jne short @..api_idx_0010_NIMV.l32
+    jne short api_idx_0010_NIMV.forward32
     mov ax, 0
     push ax
     push ax
@@ -441,17 +441,17 @@ api_idx_0010_NIMV.jumptable_case8:
     push ax
     call api_idx_0010_NIMV.api_idx1
     add sp, byte 0x1c
-@..api_idx_0010_NIMV.l32:
+api_idx_0010_NIMV.forward32:
     cmp word [bp + 6], byte 3
-    je short @..api_idx_0010_NIMV.l33
-    jmp near @..api_idx_0010_NIMV.l36
-@..api_idx_0010_NIMV.l33:
+    je short api_idx_0010_NIMV.forward33
+    jmp near api_idx_0010_NIMV.forward36
+api_idx_0010_NIMV.forward33:
     cmp word [bss_831a], byte 0
-    je short @..api_idx_0010_NIMV.l34
+    je short api_idx_0010_NIMV.forward34
     cmp word [bp + 4], byte 0
-    jne short @..api_idx_0010_NIMV.l34
+    jne short api_idx_0010_NIMV.forward34
     cmp word [bp + 8], byte 2
-    jne short @..api_idx_0010_NIMV.l34
+    jne short api_idx_0010_NIMV.forward34
     mov ax, 0
     push ax
     push ax
@@ -482,8 +482,8 @@ api_idx_0010_NIMV.jumptable_case8:
     push ax
     call api_idx_0010_NIMV.api_idx1
     add sp, byte 0x1c
-    jmp near @..api_idx_0010_NIMV.l35
-@..api_idx_0010_NIMV.l34:
+    jmp near api_idx_0010_NIMV.forward35
+api_idx_0010_NIMV.forward34:
     mov ax, 0
     push ax
     push ax
@@ -546,11 +546,11 @@ api_idx_0010_NIMV.jumptable_case8:
     push ax
     call api_idx_0010_NIMV.api_idx1
     add sp, byte 0x1c
-@..api_idx_0010_NIMV.l35:
-    jmp short @..api_idx_0010_NIMV.l37
-@..api_idx_0010_NIMV.l36:
+api_idx_0010_NIMV.forward35:
+    jmp short api_idx_0010_NIMV.forward37
+api_idx_0010_NIMV.forward36:
     cmp word [bp + 6], byte 6
-    jne short @..api_idx_0010_NIMV.l37
+    jne short api_idx_0010_NIMV.forward37
     mov ax, 0
     push ax
     push ax
@@ -581,9 +581,9 @@ api_idx_0010_NIMV.jumptable_case8:
     push ax
     call api_idx_0010_NIMV.api_idx1
     add sp, byte 0x1c
-@..api_idx_0010_NIMV.l37:
+api_idx_0010_NIMV.forward37:
     cmp word [boundary_wall_variant], byte 0
-    jne short @..api_idx_0010_NIMV.l38
+    jne short api_idx_0010_NIMV.forward38
     mov ax, 0
     push ax
     push ax
@@ -630,10 +630,10 @@ api_idx_0010_NIMV.jumptable_case8:
     push ax
     call api_idx_0010_NIMV.api_idx1
     add sp, byte 0x1c
-    jmp short @..api_idx_0010_NIMV.l39
-@..api_idx_0010_NIMV.l38:
+    jmp short api_idx_0010_NIMV.forward39
+api_idx_0010_NIMV.forward38:
     cmp word [boundary_wall_variant], byte 2
-    jne short @..api_idx_0010_NIMV.l39
+    jne short api_idx_0010_NIMV.forward39
     mov ax, 0
     push ax
     push ax
@@ -680,12 +680,12 @@ api_idx_0010_NIMV.jumptable_case8:
     push ax
     call api_idx_0010_NIMV.api_idx1
     add sp, byte 0x1c
-@..api_idx_0010_NIMV.l39:
+api_idx_0010_NIMV.forward39:
     cmp word [bp + 6], byte 8
-    je short @..api_idx_0010_NIMV.l40
+    je short api_idx_0010_NIMV.forward40
     cmp word [bp + 6], byte 9
-    jne short @..api_idx_0010_NIMV.l41
-@..api_idx_0010_NIMV.l40:
+    jne short api_idx_0010_NIMV.forward41
+api_idx_0010_NIMV.forward40:
     mov ax, 0
     push ax
     push ax
@@ -710,11 +710,11 @@ api_idx_0010_NIMV.jumptable_case8:
     push ax
     call api_idx_0010_NIMV.api_idx1
     add sp, byte 0x1c
-@..api_idx_0010_NIMV.l41:
+api_idx_0010_NIMV.forward41:
     jmp near api_idx_0010_NIMV.jumptable_case9
 api_idx_0010_NIMV.jumptable_case10:
     cmp word [bp + 4], byte 4
-    jge short @..api_idx_0010_NIMV.l42
+    jge short api_idx_0010_NIMV.forward42
     mov ax, 0
     push ax
     push ax
@@ -750,7 +750,7 @@ api_idx_0010_NIMV.jumptable_case10:
     push ax
     call api_idx_0010_NIMV.api_idx1
     add sp, byte 0x1c
-@..api_idx_0010_NIMV.l42:
+api_idx_0010_NIMV.forward42:
     jmp near api_idx_0010_NIMV.jumptable_case9
 api_idx_0010_NIMV.jumptable_case11:
     mov word [bp - 0x10], 9
@@ -765,23 +765,23 @@ api_idx_0010_NIMV.jumptable_case12:
     mov word [bp - 0xc], 7
     mov ax, 0
     cmp word [party_status_frame], byte 0
-    je short @..api_idx_0010_NIMV.l43
+    je short api_idx_0010_NIMV.forward43
     mov ax, 8
-@..api_idx_0010_NIMV.l43:
+api_idx_0010_NIMV.forward43:
     mov word [bp - 0xe], ax
     jmp short api_idx_0010_NIMV.jumptable_case9
 api_idx_0010_NIMV.jumptable_case13:
     mov word [bp - 0x10], 0xa
     mov ax, 5
     cmp word [boundary_wall_variant], byte 0
-    jne short @..api_idx_0010_NIMV.l44
+    jne short api_idx_0010_NIMV.forward44
     mov ax, 1
-@..api_idx_0010_NIMV.l44:
+api_idx_0010_NIMV.forward44:
     mov cx, 0
     cmp word [bp + 6], byte 0xd
-    jne short @..api_idx_0010_NIMV.l45
+    jne short api_idx_0010_NIMV.forward45
     mov cx, 1
-@..api_idx_0010_NIMV.l45:
+api_idx_0010_NIMV.forward45:
     add ax, cx
     mov word [bp - 0xc], ax
     mov word [bp - 0xe], 0
@@ -791,9 +791,9 @@ api_idx_0010_NIMV.jumptable_case14:
     mov word [bp - 0xc], 9
     mov ax, 0xb
     cmp word [bp + 6], byte 0xe
-    jne short @..api_idx_0010_NIMV.l46
+    jne short api_idx_0010_NIMV.forward46
     mov ax, 0xa
-@..api_idx_0010_NIMV.l46:
+api_idx_0010_NIMV.forward46:
     mov word [bp - 0xe], ax
     jmp short api_idx_0010_NIMV.jumptable_case9
 api_idx_0010_NIMV.jumptable2:
@@ -813,15 +813,15 @@ api_idx_0010_NIMV.jumptable2:
     dw api_idx_0010_NIMV.jumptable_case13 - IMAGE_BASE + __zres_end
     dw api_idx_0010_NIMV.jumptable_case14 - IMAGE_BASE + __zres_end
     dw api_idx_0010_NIMV.jumptable_case14 - IMAGE_BASE + __zres_end
-@..api_idx_0010_NIMV.l47:
+api_idx_0010_NIMV.forward47:
     cmp ax, strict word 0x10
     jae short api_idx_0010_NIMV.jumptable_case9
     xchg bx, ax
     shl bx, 1
     jmp [cs:bx + api_idx_0010_NIMV.jumptable2 - IMAGE_BASE + __zres_end]
 api_idx_0010_NIMV.jumptable_case9:
-    cmp word [bp - 0x10], byte 0xff
-    je short @..api_idx_0010_NIMV.l49
+    cmp word [bp - 0x10], byte -1
+    je short api_idx_0010_NIMV.return1
     mov ax, 2
     push ax
     mov ax, 0
@@ -852,5 +852,5 @@ api_idx_0010_NIMV.jumptable_case9:
     push word [bp - 0x10]
     call api_idx_0010_NIMV.api_idx1
     add sp, byte 0x1c
-@..api_idx_0010_NIMV.l49:
+api_idx_0010_NIMV.return1:
     ret

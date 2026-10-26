@@ -22,12 +22,12 @@ api_idx_0004_HRPS:
     test ax, ax
     je short api_idx_0004_HRPS.jumptable_case1
     mov ax, word [game_state_arg]
-    jmp short @..api_idx_0004_HRPS.l2
+    jmp short .forward2
 api_idx_0004_HRPS.jumptable_case2:
     cmp word [party_map_piece], byte 0xc
-    jle short @..api_idx_0004_HRPS.l1
+    jle short api_idx_0004_HRPS.forward1
     mov word [bp - 4], 1
-@..api_idx_0004_HRPS.l1:
+api_idx_0004_HRPS.forward1:
     jmp short api_idx_0004_HRPS.jumptable_case1
 api_idx_0004_HRPS.jumptable_case3:
     mov word [bp - 4], 1
@@ -49,7 +49,7 @@ api_idx_0004_HRPS.jumptable1:
     dw api_idx_0004_HRPS.jumptable_case1 - IMAGE_BASE + __zres_end
     dw api_idx_0004_HRPS.jumptable_case2 - IMAGE_BASE + __zres_end
     dw api_idx_0004_HRPS.jumptable_case3 - IMAGE_BASE + __zres_end
-@..api_idx_0004_HRPS.l2:
+api_idx_0004_HRPS.forward2:
     sub ax, strict word 0xf
     cmp ax, strict word 0x10
     jae short api_idx_0004_HRPS.jumptable_case1
@@ -64,29 +64,29 @@ api_idx_0004_HRPS.jumptable_case1:
     call test_bit
     add sp, byte 4
     test ax, ax
-    je short @..api_idx_0004_HRPS.l7
+    je short api_idx_0004_HRPS.forward5
     mov ax, word [game_state_arg]
-    jmp short @..api_idx_0004_HRPS.l6
-@..api_idx_0004_HRPS.l4:
+    jmp short api_idx_0004_HRPS.forward4
+api_idx_0004_HRPS.back1:
     mov word [bp - 4], 1
-    jmp short @..api_idx_0004_HRPS.l7
-@..api_idx_0004_HRPS.l5:
+    jmp short api_idx_0004_HRPS.forward5
+api_idx_0004_HRPS.back2:
     mov word [bp - 4], 2
-    jmp short @..api_idx_0004_HRPS.l7
-@..api_idx_0004_HRPS.l6:
+    jmp short api_idx_0004_HRPS.forward5
+api_idx_0004_HRPS.forward4:
     cmp ax, strict word 8
-    je short @..api_idx_0004_HRPS.l4
+    je short api_idx_0004_HRPS.back1
     cmp ax, strict word 9
-    je short @..api_idx_0004_HRPS.l4
+    je short api_idx_0004_HRPS.back1
     cmp ax, strict word 0xa
-    je short @..api_idx_0004_HRPS.l4
+    je short api_idx_0004_HRPS.back1
     cmp ax, strict word 0xb
-    je short @..api_idx_0004_HRPS.l4
+    je short api_idx_0004_HRPS.back1
     cmp ax, strict word 0xc
-    je short @..api_idx_0004_HRPS.l4
+    je short api_idx_0004_HRPS.back1
     cmp ax, strict word 0x1b
-    je short @..api_idx_0004_HRPS.l5
-@..api_idx_0004_HRPS.l7:
+    je short api_idx_0004_HRPS.back2
+api_idx_0004_HRPS.forward5:
     push word [bp - 2]
     mov ax, word [maze_data]
     add ax, 0x930
@@ -94,39 +94,39 @@ api_idx_0004_HRPS.jumptable_case1:
     call test_bit
     add sp, byte 4
     test ax, ax
-    je short @..api_idx_0004_HRPS.l14
+    je short api_idx_0004_HRPS.forward7
     mov ax, word [game_state_arg]
-    jmp short @..api_idx_0004_HRPS.l13
-@..api_idx_0004_HRPS.l8:
+    jmp short api_idx_0004_HRPS.forward6
+api_idx_0004_HRPS.back3:
     mov word [bp - 4], 3
-    jmp short @..api_idx_0004_HRPS.l14
-@..api_idx_0004_HRPS.l9:
-    jmp short @..api_idx_0004_HRPS.l14
-@..api_idx_0004_HRPS.l10:
+    jmp short api_idx_0004_HRPS.forward7
+api_idx_0004_HRPS.back4:
+    jmp short api_idx_0004_HRPS.forward7
+api_idx_0004_HRPS.back5:
     mov word [bp - 4], 1
-    jmp short @..api_idx_0004_HRPS.l14
-@..api_idx_0004_HRPS.l11:
+    jmp short api_idx_0004_HRPS.forward7
+api_idx_0004_HRPS.back6:
     mov word [bp - 4], 2
-    jmp short @..api_idx_0004_HRPS.l14
-@..api_idx_0004_HRPS.l12:
+    jmp short api_idx_0004_HRPS.forward7
+api_idx_0004_HRPS.back7:
     mov word [bp - 4], 4
-    jmp short @..api_idx_0004_HRPS.l14
-@..api_idx_0004_HRPS.l13:
+    jmp short api_idx_0004_HRPS.forward7
+api_idx_0004_HRPS.forward6:
     cmp ax, strict word 0
-    je short @..api_idx_0004_HRPS.l8
+    je short api_idx_0004_HRPS.back3
     cmp ax, strict word 0xa
-    je short @..api_idx_0004_HRPS.l9
+    je short api_idx_0004_HRPS.back4
     cmp ax, strict word 0xe
-    je short @..api_idx_0004_HRPS.l10
+    je short api_idx_0004_HRPS.back5
     cmp ax, strict word 0x13
-    je short @..api_idx_0004_HRPS.l10
+    je short api_idx_0004_HRPS.back5
     cmp ax, strict word 0x17
-    je short @..api_idx_0004_HRPS.l11
+    je short api_idx_0004_HRPS.back6
     cmp ax, strict word 0x19
-    je short @..api_idx_0004_HRPS.l9
+    je short api_idx_0004_HRPS.back4
     cmp ax, strict word 0x1f
-    je short @..api_idx_0004_HRPS.l10
-    jmp short @..api_idx_0004_HRPS.l12
-@..api_idx_0004_HRPS.l14:
+    je short api_idx_0004_HRPS.back5
+    jmp short api_idx_0004_HRPS.back7
+api_idx_0004_HRPS.forward7:
     mov ax, word [bp - 4]
     ret

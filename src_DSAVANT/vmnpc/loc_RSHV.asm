@@ -8,31 +8,31 @@ loc_RSHV:
     mov word [bp - 0x10], ax         ; 0x1832
     mov word [bp - 2], 0             ; 0x1835
     mov word [bp - 4], 0             ; 0x183a
-@..loc_RSHV.l1:
+.back1:
     mov ax, word [bp - 4]            ; 0x183f
     shl ax, 1                        ; 0x1842
     mov si, ax                       ; 0x1844
     mov bx, word [bp + 0x1a]         ; 0x1846
-    cmp word [bx + si], byte 0xff    ; 0x1849
-    jne short @..loc_RSHV.l2         ; 0x184c
-    jmp near @..loc_RSHV.l7          ; 0x184e
-@..loc_RSHV.l2:
+    cmp word [bx + si], byte -1      ; 0x1849
+    jne short .forward1              ; 0x184c
+    jmp near .forward6               ; 0x184e
+.forward1:
     cmp word [bx + si], byte 1       ; 0x1851
-    je short @..loc_RSHV.l3          ; 0x1854
-    jmp near @..loc_RSHV.l6          ; 0x1856
-@..loc_RSHV.l3:
+    je short .forward2               ; 0x1854
+    jmp near .forward5               ; 0x1856
+.forward2:
     mov ax, word [bp - 2]            ; 0x1859
     cmp word [bp + 0x16], byte 0     ; 0x185c
-    je short @..loc_RSHV.l4          ; 0x1860
+    je short .forward3               ; 0x1860
     mov ax, word [bp - 4]            ; 0x1862
-@..loc_RSHV.l4:
+.forward3:
     mov word [bp - 8], ax            ; 0x1865
     mov ax, word [bp + 0xa]          ; 0x1868
     mov cx, word [bp - 8]            ; 0x186b
     cmp cx, word [bp - 0x10]         ; 0x186e
-    jge short @..loc_RSHV.l5         ; 0x1871
+    jge short .forward4              ; 0x1871
     mov ax, word [bp + 8]            ; 0x1873
-@..loc_RSHV.l5:
+.forward4:
     mov word [bp - 6], ax            ; 0x1876
     mov ax, 0x14                     ; 0x1879
     imul word [bp - 2]               ; 0x187c
@@ -153,10 +153,10 @@ loc_RSHV:
     add bx, bp                       ; 0x1993
     mov word [bx - 0x1ce], ax        ; 0x1995
     inc word [bp - 2]                ; 0x1999
-@..loc_RSHV.l6:
+.forward5:
     inc word [bp - 4]                ; 0x199c
-    jmp near @..loc_RSHV.l1          ; 0x199f
-@..loc_RSHV.l7:
+    jmp near .back1                  ; 0x199f
+.forward6:
     mov ax, word [bp - 4]            ; 0x19a2
     mov word [bp - 0x1ac], ax        ; 0x19a5
     mov ax, 0                        ; 0x19a9
@@ -174,8 +174,8 @@ loc_RSHV:
     call show_area_set               ; 0x19c1
     pop cx                           ; 0x19c4
     cmp word [mouse_active], byte 0  ; 0x19c5
-    je short @..loc_RSHV.l9          ; 0x19ca
-@..loc_RSHV.l8:
+    je short .forward7               ; 0x19ca
+.back2:
     mov ax, hotspot_rects            ; 0x19cc
     push ax                          ; 0x19cf
     call poll_hotspots               ; 0x19d0
@@ -183,28 +183,28 @@ loc_RSHV:
     mov word [bp - 4], ax            ; 0x19d4
     call step_party_animation        ; 0x19d7
     cmp word [hotspot_hit], byte 0   ; 0x19da
-    je short @..loc_RSHV.l8          ; 0x19df
-    jmp near @..loc_RSHV.l35         ; 0x19e1
-@..loc_RSHV.l9:
+    je short .back2                  ; 0x19df
+    jmp near .forward25              ; 0x19e1
+.forward7:
     mov word [bp - 4], 0             ; 0x19e4
-@..loc_RSHV.l10:
+.back3:
     cmp word [bp + 0x16], byte 0     ; 0x19e9
-    je short @..loc_RSHV.l11         ; 0x19ed
+    je short .back4                  ; 0x19ed
     mov ax, word [bp - 4]            ; 0x19ef
     shl ax, 1                        ; 0x19f2
     mov si, ax                       ; 0x19f4
     mov bx, word [bp + 0x1a]         ; 0x19f6
     cmp word [bx + si], byte 1       ; 0x19f9
-    je short @..loc_RSHV.l11         ; 0x19fc
+    je short .back4                  ; 0x19fc
     inc word [bp - 4]                ; 0x19fe
-    jmp short @..loc_RSHV.l10        ; 0x1a01
-@..loc_RSHV.l11:
+    jmp short .back3                 ; 0x1a01
+.back4:
     mov ax, word [bp + 0xa]          ; 0x1a03
     mov cx, word [bp - 4]            ; 0x1a06
     cmp cx, word [bp - 0x10]         ; 0x1a09
-    jge short @..loc_RSHV.l12        ; 0x1a0c
+    jge short .forward8              ; 0x1a0c
     mov ax, word [bp + 8]            ; 0x1a0e
-@..loc_RSHV.l12:
+.forward8:
     mov word [bp - 6], ax            ; 0x1a11
     mov ax, cx                       ; 0x1a14
     cwd                              ; 0x1a16
@@ -264,16 +264,16 @@ loc_RSHV:
     push ax                          ; 0x1a98
     call loc_MNNG                    ; 0x1a99
     add sp, byte 0xa                 ; 0x1a9c
-@..loc_RSHV.l13:
+.back5:
     mov ax, 1                        ; 0x1a9f
     push ax                          ; 0x1aa2
     call poll_filtered_key           ; 0x1aa3
     pop cx                           ; 0x1aa6
     test ax, ax                      ; 0x1aa7
-    jne short @..loc_RSHV.l14        ; 0x1aa9
+    jne short .forward9              ; 0x1aa9
     call step_party_animation        ; 0x1aab
-    jmp short @..loc_RSHV.l13        ; 0x1aae
-@..loc_RSHV.l14:
+    jmp short .back5                 ; 0x1aae
+.forward9:
     mov ax, 1                        ; 0x1ab0
     push ax                          ; 0x1ab3
     call get_filtered_key            ; 0x1ab4
@@ -292,15 +292,15 @@ loc_RSHV:
     imul word [bp + 0x14]            ; 0x1ad2
     mov word [bp - 0xc], ax          ; 0x1ad5
     mov ax, word [bp - 0x1ae]        ; 0x1ad8
-    jmp near @..loc_RSHV.l29         ; 0x1adc
-@..loc_RSHV.l15:
+    jmp near .forward19              ; 0x1adc
+.back6:
     mov ax, 1                        ; 0x1adf
     cmp word [bp - 0x1ae], byte 9    ; 0x1ae2
-    jne short @..loc_RSHV.l16        ; 0x1ae7
+    jne short .forward10             ; 0x1ae7
     mov ax, 0xffff                   ; 0x1ae9
-@..loc_RSHV.l16:
+.forward10:
     mov word [bp - 0x1d0], ax        ; 0x1aec
-@..loc_RSHV.l17:
+.back7:
     mov ax, word [bp - 4]            ; 0x1af0
     add ax, word [bp - 0x1d0]        ; 0x1af3
     add ax, word [bp + 0x14]         ; 0x1af7
@@ -315,29 +315,29 @@ loc_RSHV:
     add ax, cx                       ; 0x1b0a
     mov word [bp - 4], ax            ; 0x1b0c
     cmp word [bp + 0x16], byte 0     ; 0x1b0f
-    je short @..loc_RSHV.l18         ; 0x1b13
+    je short .forward11              ; 0x1b13
     mov ax, word [bp - 4]            ; 0x1b15
     shl ax, 1                        ; 0x1b18
     mov si, ax                       ; 0x1b1a
     mov bx, word [bp + 0x1a]         ; 0x1b1c
     cmp word [bx + si], byte 1       ; 0x1b1f
-    jne short @..loc_RSHV.l17        ; 0x1b22
-@..loc_RSHV.l18:
+    jne short .back7                 ; 0x1b22
+.forward11:
     cmp word [bp + 0x16], byte 0     ; 0x1b24
-    jne short @..loc_RSHV.l19        ; 0x1b28
+    jne short .forward12             ; 0x1b28
     mov ax, word [bp - 4]            ; 0x1b2a
     cmp ax, word [bp - 2]            ; 0x1b2d
-    jge short @..loc_RSHV.l17        ; 0x1b30
-@..loc_RSHV.l19:
-    jmp near @..loc_RSHV.l33         ; 0x1b32
-@..loc_RSHV.l20:
+    jge short .back7                 ; 0x1b30
+.forward12:
+    jmp near .forward23              ; 0x1b32
+.back8:
     mov ax, 1                        ; 0x1b35
     cmp word [bp - 0x1ae], byte 8    ; 0x1b38
-    jne short @..loc_RSHV.l21        ; 0x1b3d
+    jne short .forward13             ; 0x1b3d
     mov ax, 0xffff                   ; 0x1b3f
-@..loc_RSHV.l21:
+.forward13:
     mov word [bp - 0x1d0], ax        ; 0x1b42
-@..loc_RSHV.l22:
+.back9:
     mov ax, word [bp + 0x14]         ; 0x1b46
     imul word [bp - 0x1d0]           ; 0x1b49
     add ax, word [bp - 4]            ; 0x1b4d
@@ -350,25 +350,25 @@ loc_RSHV:
     idiv word [bp + 0x14]            ; 0x1b5d
     mov word [bp - 0xa], ax          ; 0x1b60
     mov word [bp - 0x1b0], 0         ; 0x1b63
-@..loc_RSHV.l23:
+.back10:
     mov ax, word [bp - 0x1b0]        ; 0x1b69
     cmp ax, word [bp + 0x14]         ; 0x1b6d
-    jge short @..loc_RSHV.l26        ; 0x1b70
+    jge short .forward16             ; 0x1b70
     cmp word [bp + 0x16], byte 0     ; 0x1b72
-    je short @..loc_RSHV.l24         ; 0x1b76
+    je short .forward14              ; 0x1b76
     mov ax, word [bp - 4]            ; 0x1b78
     shl ax, 1                        ; 0x1b7b
     mov si, ax                       ; 0x1b7d
     mov bx, word [bp + 0x1a]         ; 0x1b7f
     cmp word [bx + si], byte 1       ; 0x1b82
-    jne short @..loc_RSHV.l25        ; 0x1b85
-@..loc_RSHV.l24:
+    jne short .forward15             ; 0x1b85
+.forward14:
     cmp word [bp + 0x16], byte 0     ; 0x1b87
-    jne short @..loc_RSHV.l26        ; 0x1b8b
+    jne short .forward16             ; 0x1b8b
     mov ax, word [bp - 4]            ; 0x1b8d
     cmp ax, word [bp - 2]            ; 0x1b90
-    jl short @..loc_RSHV.l26         ; 0x1b93
-@..loc_RSHV.l25:
+    jl short .forward16              ; 0x1b93
+.forward15:
     mov ax, word [bp - 4]            ; 0x1b95
     add ax, word [bp - 0x1d0]        ; 0x1b98
     add ax, word [bp + 0x14]         ; 0x1b9c
@@ -383,47 +383,47 @@ loc_RSHV:
     add ax, cx                       ; 0x1baf
     mov word [bp - 4], ax            ; 0x1bb1
     inc word [bp - 0x1b0]            ; 0x1bb4
-    jmp short @..loc_RSHV.l23        ; 0x1bb8
-@..loc_RSHV.l26:
+    jmp short .back10                ; 0x1bb8
+.forward16:
     cmp word [bp + 0x16], byte 0     ; 0x1bba
-    je short @..loc_RSHV.l27         ; 0x1bbe
+    je short .forward17              ; 0x1bbe
     mov ax, word [bp - 4]            ; 0x1bc0
     shl ax, 1                        ; 0x1bc3
     mov si, ax                       ; 0x1bc5
     mov bx, word [bp + 0x1a]         ; 0x1bc7
     cmp word [bx + si], byte 1       ; 0x1bca
-    je short @..loc_RSHV.l27         ; 0x1bcd
-    jmp near @..loc_RSHV.l22         ; 0x1bcf
-@..loc_RSHV.l27:
+    je short .forward17              ; 0x1bcd
+    jmp near .back9                  ; 0x1bcf
+.forward17:
     cmp word [bp + 0x16], byte 0     ; 0x1bd2
-    jne short @..loc_RSHV.l28        ; 0x1bd6
+    jne short .forward18             ; 0x1bd6
     mov ax, word [bp - 4]            ; 0x1bd8
     cmp ax, word [bp - 2]            ; 0x1bdb
-    jl short @..loc_RSHV.l28         ; 0x1bde
-    jmp near @..loc_RSHV.l22         ; 0x1be0
-@..loc_RSHV.l28:
-    jmp short @..loc_RSHV.l33        ; 0x1be3
-@..loc_RSHV.l29:
+    jl short .forward18              ; 0x1bde
+    jmp near .back9                  ; 0x1be0
+.forward18:
+    jmp short .forward23             ; 0x1be3
+.forward19:
     cmp ax, strict word 8            ; 0x1be5
-    jne short @..loc_RSHV.l30        ; 0x1be8
-    jmp near @..loc_RSHV.l20         ; 0x1bea
-@..loc_RSHV.l30:
+    jne short .forward20             ; 0x1be8
+    jmp near .back8                  ; 0x1bea
+.forward20:
     cmp ax, strict word 9            ; 0x1bed
-    jne short @..loc_RSHV.l31        ; 0x1bf0
-    jmp near @..loc_RSHV.l15         ; 0x1bf2
-@..loc_RSHV.l31:
+    jne short .forward21             ; 0x1bf0
+    jmp near .back6                  ; 0x1bf2
+.forward21:
     cmp ax, strict word 0xa          ; 0x1bf5
-    jne short @..loc_RSHV.l32        ; 0x1bf8
-    jmp near @..loc_RSHV.l20         ; 0x1bfa
-@..loc_RSHV.l32:
+    jne short .forward22             ; 0x1bf8
+    jmp near .back8                  ; 0x1bfa
+.forward22:
     cmp ax, strict word 0xb          ; 0x1bfd
-    jne short @..loc_RSHV.l33        ; 0x1c00
-    jmp near @..loc_RSHV.l15         ; 0x1c02
-@..loc_RSHV.l33:
+    jne short .forward23             ; 0x1c00
+    jmp near .back6                  ; 0x1c02
+.forward23:
     cmp word [bp - 0x1ae], byte 0xd  ; 0x1c05
-    je short @..loc_RSHV.l34         ; 0x1c0a
-    jmp near @..loc_RSHV.l11         ; 0x1c0c
-@..loc_RSHV.l34:
+    je short .forward24              ; 0x1c0a
+    jmp near .back4                  ; 0x1c0c
+.forward24:
     mov ax, word [bp - 4]            ; 0x1c0f
     shl ax, 1                        ; 0x1c12
     mov bx, ax                       ; 0x1c14
@@ -434,23 +434,23 @@ loc_RSHV:
     push word [bp + 6]               ; 0x1c22
     call show_area_set               ; 0x1c25
     pop cx                           ; 0x1c28
-@..loc_RSHV.l35:
+.forward25:
     dec word [bp - 4]                ; 0x1c29
     mov ax, word [bp - 4]            ; 0x1c2c
     cmp word [bp + 0x16], byte 0     ; 0x1c2f
-    je short @..loc_RSHV.l36         ; 0x1c33
+    je short .forward26              ; 0x1c33
     shl ax, 1                        ; 0x1c35
     mov bx, ax                       ; 0x1c37
     add bx, bp                       ; 0x1c39
     mov ax, word [bx - 0x2e]         ; 0x1c3b
-@..loc_RSHV.l36:
+.forward26:
     mov word [bp - 8], ax            ; 0x1c3e
     mov ax, word [bp + 0xa]          ; 0x1c41
     mov cx, word [bp - 8]            ; 0x1c44
     cmp cx, word [bp - 0x10]         ; 0x1c47
-    jge short @..loc_RSHV.l37        ; 0x1c4a
+    jge short .forward27             ; 0x1c4a
     mov ax, word [bp + 8]            ; 0x1c4c
-@..loc_RSHV.l37:
+.forward27:
     mov word [bp - 6], ax            ; 0x1c4f
     mov ax, cx                       ; 0x1c52
     cwd                              ; 0x1c54

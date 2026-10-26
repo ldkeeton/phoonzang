@@ -30,7 +30,7 @@ api_idx_000e_ORJG:
     add ax, cx                       ; 0x3b50
     mov word [bp - 0xe], ax          ; 0x3b52
     mov ax, word [bp + 6]            ; 0x3b55
-    jmp near @..api_idx_000e_ORJG.l131 ; 0x3b58
+    jmp near .forward118             ; 0x3b58
 jumptable_5eb8_case_0:
     mov ax, 0xc                      ; 0x3b5b
     push ax                          ; 0x3b5e
@@ -311,10 +311,10 @@ jumptable_5eb8_case_9:
     sub ah, ah                       ; 0x3dd1
     mov word [bp - 2], ax            ; 0x3dd3
     cmp ax, word [bp + 8]            ; 0x3dd6
-    jge short @..api_idx_000e_ORJG.l1 ; 0x3dd9
+    jge short api_idx_000e_ORJG.forward1 ; 0x3dd9
     mov ax, word [bp + 8]            ; 0x3ddb
     mov word [bp - 2], ax            ; 0x3dde
-@..api_idx_000e_ORJG.l1:
+api_idx_000e_ORJG.forward1:
     mov ax, word [bp - 2]            ; 0x3de1
     inc ax                           ; 0x3de4
     mov byte [bx + 0x192], al        ; 0x3de5
@@ -336,9 +336,9 @@ jumptable_5eb8_case_10:
     mov ax, 0                        ; 0x3e0b
     push ax                          ; 0x3e0e
     cmp word [bss_8464], byte 0      ; 0x3e0f
-    jne short @..api_idx_000e_ORJG.l2 ; 0x3e14
+    jne short api_idx_000e_ORJG.forward2 ; 0x3e14
     mov ax, 1                        ; 0x3e16
-@..api_idx_000e_ORJG.l2:
+api_idx_000e_ORJG.forward2:
     push ax                          ; 0x3e19
     call api_idx_0004_PMSR           ; 0x3e1a
     add sp, byte 0xa                 ; 0x3e1d
@@ -351,16 +351,16 @@ jumptable_5eb8_case_10:
     mov ax, 5                        ; 0x3e2e
     push ax                          ; 0x3e31
     cmp word [bss_8464], byte 0      ; 0x3e32
-    je short @..api_idx_000e_ORJG.l3 ; 0x3e37
+    je short api_idx_000e_ORJG.forward3 ; 0x3e37
     mov ax, word [bss_8464]          ; 0x3e39
     cmp ax, strict word 6            ; 0x3e3c
-    jne short @..api_idx_000e_ORJG.l4 ; 0x3e3f
-@..api_idx_000e_ORJG.l3:
+    jne short api_idx_000e_ORJG.forward4 ; 0x3e3f
+api_idx_000e_ORJG.forward3:
     mov ax, 1                        ; 0x3e41
-    jmp short @..api_idx_000e_ORJG.l5 ; 0x3e44
-@..api_idx_000e_ORJG.l4:
+    jmp short api_idx_000e_ORJG.forward5 ; 0x3e44
+api_idx_000e_ORJG.forward4:
     mov ax, 0                        ; 0x3e46
-@..api_idx_000e_ORJG.l5:
+api_idx_000e_ORJG.forward5:
     push ax                          ; 0x3e49
     call api_idx_0002_PGQI           ; 0x3e4a
     add sp, byte 0xc                 ; 0x3e4d
@@ -475,8 +475,8 @@ jumptable_5eb8_case_15:
     jmp near jumptable_5eb8_case_47  ; 0x3f42
 jumptable_5eb8_case_16:
     mov word [bp - 2], 0             ; 0x3f45
-    jmp short @..api_idx_000e_ORJG.l8 ; 0x3f4a
-@..api_idx_000e_ORJG.l6:
+    jmp short api_idx_000e_ORJG.forward7 ; 0x3f4a
+api_idx_000e_ORJG.back1:
     mov ax, 0x2c                     ; 0x3f4c
     imul word [bp - 2]               ; 0x3f4f
     mov si, ax                       ; 0x3f52
@@ -485,7 +485,7 @@ jumptable_5eb8_case_16:
     mov bx, ax                       ; 0x3f59
     mov bx, word [bx + party_char]   ; 0x3f5b
     cmp byte [bx + si + 0x22], 3     ; 0x3f5f
-    jae short @..api_idx_000e_ORJG.l7 ; 0x3f63
+    jae short api_idx_000e_ORJG.forward6 ; 0x3f63
     mov ax, 0                        ; 0x3f65
     push ax                          ; 0x3f68
     mov al, byte [bx + si + 0x29]    ; 0x3f69
@@ -506,9 +506,9 @@ jumptable_5eb8_case_16:
     mov bx, word [bx + party_char]   ; 0x3f8a
     pop ax                           ; 0x3f8e
     mov byte [bx + si + 0x29], al    ; 0x3f8f
-@..api_idx_000e_ORJG.l7:
+api_idx_000e_ORJG.forward6:
     inc word [bp - 2]                ; 0x3f92
-@..api_idx_000e_ORJG.l8:
+api_idx_000e_ORJG.forward7:
     mov ax, word [bss_8464]          ; 0x3f95
     shl ax, 1                        ; 0x3f98
     mov bx, ax                       ; 0x3f9a
@@ -516,7 +516,7 @@ jumptable_5eb8_case_16:
     mov al, byte [bx + 0x1a1]        ; 0x3fa0
     sub ah, ah                       ; 0x3fa4
     cmp ax, word [bp - 2]            ; 0x3fa6
-    jg short @..api_idx_000e_ORJG.l6 ; 0x3fa9
+    jg short api_idx_000e_ORJG.back1 ; 0x3fa9
     jmp near jumptable_5eb8_case_47  ; 0x3fab
 jumptable_5eb8_case_18:
     mov ax, 0                        ; 0x3fae
@@ -767,10 +767,10 @@ jumptable_5eb8_case_24:
     sub ah, ah                       ; 0x41f6
     mov word [bp - 2], ax            ; 0x41f8
     cmp ax, word [bp + 8]            ; 0x41fb
-    jge short @..api_idx_000e_ORJG.l9 ; 0x41fe
+    jge short api_idx_000e_ORJG.forward8 ; 0x41fe
     mov ax, word [bp + 8]            ; 0x4200
     mov word [bp - 2], ax            ; 0x4203
-@..api_idx_000e_ORJG.l9:
+api_idx_000e_ORJG.forward8:
     mov ax, word [bp - 2]            ; 0x4206
     inc ax                           ; 0x4209
     mov byte [bx + 0x196], al        ; 0x420a
@@ -1001,10 +1001,10 @@ jumptable_5eb8_case_32:
     sub ah, ah                       ; 0x4416
     mov word [bp - 2], ax            ; 0x4418
     cmp ax, word [bp + 8]            ; 0x441b
-    jge short @..api_idx_000e_ORJG.l10 ; 0x441e
+    jge short api_idx_000e_ORJG.forward9 ; 0x441e
     mov ax, word [bp + 8]            ; 0x4420
     mov word [bp - 2], ax            ; 0x4423
-@..api_idx_000e_ORJG.l10:
+api_idx_000e_ORJG.forward9:
     mov ax, word [bp - 2]            ; 0x4426
     inc ax                           ; 0x4429
     mov byte [bx + 0x193], al        ; 0x442a
@@ -1065,7 +1065,7 @@ jumptable_5eb8_case_35:
     call api_idx_0004_QUPL           ; 0x44a8
     pop cx                           ; 0x44ab
     mov word [bp - 2], 0             ; 0x44ac
-@..api_idx_000e_ORJG.l11:
+api_idx_000e_ORJG.back2:
     mov ax, word [bss_8464]          ; 0x44b1
     shl ax, 1                        ; 0x44b4
     mov bx, ax                       ; 0x44b6
@@ -1076,21 +1076,21 @@ jumptable_5eb8_case_35:
     sub ax, word [bp + 8]            ; 0x44c5
     mov word [bp - 4], ax            ; 0x44c8
     cmp ax, strict word 0            ; 0x44cb
-    jge short @..api_idx_000e_ORJG.l12 ; 0x44ce
+    jge short api_idx_000e_ORJG.forward10 ; 0x44ce
     mov word [bp - 4], 0             ; 0x44d0
-@..api_idx_000e_ORJG.l12:
+api_idx_000e_ORJG.forward10:
     mov al, byte [bp - 4]            ; 0x44d5
     mov byte [bx + si + 0x192], al   ; 0x44d8
     inc word [bp - 2]                ; 0x44dc
     mov ax, word [bp - 2]            ; 0x44df
     cmp ax, strict word 6            ; 0x44e2
-    jl short @..api_idx_000e_ORJG.l11 ; 0x44e5
+    jl short api_idx_000e_ORJG.back2 ; 0x44e5
     mov ax, word [bss_8464]          ; 0x44e7
     shl ax, 1                        ; 0x44ea
     mov bx, ax                       ; 0x44ec
     mov bx, word [bx + party_char]   ; 0x44ee
     cmp byte [bx + 0x18f], 0         ; 0x44f2
-    jbe short @..api_idx_000e_ORJG.l15 ; 0x44f7
+    jbe short api_idx_000e_ORJG.forward13 ; 0x44f7
     mov ax, 0xa                      ; 0x44f9
     imul word [bp + 8]               ; 0x44fc
     mov cx, ax                       ; 0x44ff
@@ -1099,9 +1099,9 @@ jumptable_5eb8_case_35:
     sub ax, cx                       ; 0x4507
     mov word [bp - 4], ax            ; 0x4509
     cmp ax, strict word 0            ; 0x450c
-    jge short @..api_idx_000e_ORJG.l13 ; 0x450f
+    jge short api_idx_000e_ORJG.forward11 ; 0x450f
     mov word [bp - 4], 0             ; 0x4511
-@..api_idx_000e_ORJG.l13:
+api_idx_000e_ORJG.forward11:
     mov al, byte [bp - 4]            ; 0x4516
     mov byte [bx + 0x18f], al        ; 0x4519
     mov ax, 3                        ; 0x451d
@@ -1115,13 +1115,13 @@ jumptable_5eb8_case_35:
     push ax                          ; 0x452f
     mov ax, MSG_AIR_BUBBLE_REDUCED   ; 0x4530
     cmp word [bp - 4], byte 0        ; 0x4533
-    jne short @..api_idx_000e_ORJG.l14 ; 0x4537
+    jne short api_idx_000e_ORJG.forward12 ; 0x4537
     mov ax, MSG_AIR_BUBBLE_DESTROYED ; 0x4539
-@..api_idx_000e_ORJG.l14:
+api_idx_000e_ORJG.forward12:
     push ax                          ; 0x453c
     call api_idx_0050_PLNP           ; 0x453d
     add sp, byte 6                   ; 0x4540
-@..api_idx_000e_ORJG.l15:
+api_idx_000e_ORJG.forward13:
     jmp near jumptable_5eb8_case_47  ; 0x4543
 jumptable_5eb8_case_36:
     mov ax, 6                        ; 0x4546
@@ -1144,7 +1144,7 @@ jumptable_5eb8_case_36:
     mov cx, ax                       ; 0x456d
     pop ax                           ; 0x456f
     cmp ax, cx                       ; 0x4570
-    jge short @..api_idx_000e_ORJG.l16 ; 0x4572
+    jge short api_idx_000e_ORJG.forward14 ; 0x4572
     mov ax, 0                        ; 0x4574
     push ax                          ; 0x4577
     push ax                          ; 0x4578
@@ -1162,8 +1162,8 @@ jumptable_5eb8_case_36:
     push word [bp - 0xa]             ; 0x4590
     call api_idx_000a_LHTJ           ; 0x4593
     add sp, byte 0x14                ; 0x4596
-    jmp short @..api_idx_000e_ORJG.l17 ; 0x4599
-@..api_idx_000e_ORJG.l16:
+    jmp short api_idx_000e_ORJG.forward15 ; 0x4599
+api_idx_000e_ORJG.forward14:
     mov ax, 0xa                      ; 0x459b
     imul word [bp + 8]               ; 0x459e
     push ax                          ; 0x45a1
@@ -1189,7 +1189,7 @@ jumptable_5eb8_case_36:
     push word [bp - 0xa]             ; 0x45cb
     call api_idx_000e_RMNP           ; 0x45ce
     add sp, byte 0x1a                ; 0x45d1
-@..api_idx_000e_ORJG.l17:
+api_idx_000e_ORJG.forward15:
     jmp near jumptable_5eb8_case_47  ; 0x45d4
 jumptable_5eb8_case_38:
     mov ax, 6                        ; 0x45d7
@@ -1234,10 +1234,10 @@ jumptable_5eb8_case_38:
     sub ah, ah                       ; 0x4634
     mov word [bp - 2], ax            ; 0x4636
     cmp ax, word [bp + 8]            ; 0x4639
-    jge short @..api_idx_000e_ORJG.l18 ; 0x463c
+    jge short api_idx_000e_ORJG.forward16 ; 0x463c
     mov ax, word [bp + 8]            ; 0x463e
     mov word [bp - 2], ax            ; 0x4641
-@..api_idx_000e_ORJG.l18:
+api_idx_000e_ORJG.forward16:
     mov ax, word [bp - 2]            ; 0x4644
     inc ax                           ; 0x4647
     mov byte [bx + 0x194], al        ; 0x4648
@@ -1315,16 +1315,16 @@ jumptable_5eb8_case_40:
     mov ax, 0xda2                    ; 0x46ec
     push ax                          ; 0x46ef
     cmp word [bss_8464], byte 0      ; 0x46f0
-    je short @..api_idx_000e_ORJG.l19 ; 0x46f5
+    je short api_idx_000e_ORJG.forward17 ; 0x46f5
     mov ax, word [bss_8464]          ; 0x46f7
     cmp ax, strict word 6            ; 0x46fa
-    jne short @..api_idx_000e_ORJG.l20 ; 0x46fd
-@..api_idx_000e_ORJG.l19:
+    jne short api_idx_000e_ORJG.forward18 ; 0x46fd
+api_idx_000e_ORJG.forward17:
     mov ax, 1                        ; 0x46ff
-    jmp short @..api_idx_000e_ORJG.l21 ; 0x4702
-@..api_idx_000e_ORJG.l20:
+    jmp short api_idx_000e_ORJG.forward19 ; 0x4702
+api_idx_000e_ORJG.forward18:
     mov ax, 0                        ; 0x4704
-@..api_idx_000e_ORJG.l21:
+api_idx_000e_ORJG.forward19:
     push ax                          ; 0x4707
     call api_idx_0002_NGRN           ; 0x4708
     add sp, byte 0x12                ; 0x470b
@@ -1339,9 +1339,9 @@ jumptable_5eb8_case_41:
     mov ax, 0                        ; 0x471d
     push ax                          ; 0x4720
     cmp word [bss_8464], byte 0      ; 0x4721
-    jne short @..api_idx_000e_ORJG.l22 ; 0x4726
+    jne short api_idx_000e_ORJG.forward20 ; 0x4726
     mov ax, 1                        ; 0x4728
-@..api_idx_000e_ORJG.l22:
+api_idx_000e_ORJG.forward20:
     push ax                          ; 0x472b
     call api_idx_0004_PMSR           ; 0x472c
     add sp, byte 0xa                 ; 0x472f
@@ -1353,16 +1353,16 @@ jumptable_5eb8_case_41:
     push ax                          ; 0x473f
     push ax                          ; 0x4740
     cmp word [bss_8464], byte 0      ; 0x4741
-    je short @..api_idx_000e_ORJG.l23 ; 0x4746
+    je short api_idx_000e_ORJG.forward21 ; 0x4746
     mov ax, word [bss_8464]          ; 0x4748
     cmp ax, strict word 6            ; 0x474b
-    jne short @..api_idx_000e_ORJG.l24 ; 0x474e
-@..api_idx_000e_ORJG.l23:
+    jne short api_idx_000e_ORJG.forward22 ; 0x474e
+api_idx_000e_ORJG.forward21:
     mov ax, 1                        ; 0x4750
-    jmp short @..api_idx_000e_ORJG.l25 ; 0x4753
-@..api_idx_000e_ORJG.l24:
+    jmp short api_idx_000e_ORJG.forward23 ; 0x4753
+api_idx_000e_ORJG.forward22:
     mov ax, 0                        ; 0x4755
-@..api_idx_000e_ORJG.l25:
+api_idx_000e_ORJG.forward23:
     push ax                          ; 0x4758
     call api_idx_0002_PGQI           ; 0x4759
     add sp, byte 0xc                 ; 0x475c
@@ -1402,10 +1402,10 @@ jumptable_5eb8_case_42:
     sub ah, ah                       ; 0x47af
     mov word [bp - 2], ax            ; 0x47b1
     cmp ax, word [bp + 8]            ; 0x47b4
-    jge short @..api_idx_000e_ORJG.l26 ; 0x47b7
+    jge short api_idx_000e_ORJG.forward24 ; 0x47b7
     mov ax, word [bp + 8]            ; 0x47b9
     mov word [bp - 2], ax            ; 0x47bc
-@..api_idx_000e_ORJG.l26:
+api_idx_000e_ORJG.forward24:
     mov ax, word [bp - 2]            ; 0x47bf
     inc ax                           ; 0x47c2
     mov byte [bx + 0x197], al        ; 0x47c3
@@ -1477,7 +1477,7 @@ jumptable_5eb8_case_44:
     jmp near jumptable_5eb8_case_47  ; 0x485f
 jumptable_5eb8_case_45:
     cmp word [bp - 0xa], byte 0      ; 0x4862
-    jne short @..api_idx_000e_ORJG.l27 ; 0x4866
+    jne short api_idx_000e_ORJG.forward25 ; 0x4866
     mov ax, 0x55                     ; 0x4868
     push ax                          ; 0x486b
     mov ax, MSG_PROTECTED            ; 0x486c
@@ -1486,7 +1486,7 @@ jumptable_5eb8_case_45:
     push word [bp - 0xa]             ; 0x4873
     call loc_RKLS                    ; 0x4876
     add sp, byte 8                   ; 0x4879
-@..api_idx_000e_ORJG.l27:
+api_idx_000e_ORJG.forward25:
     mov ax, 1                        ; 0x487c
     push ax                          ; 0x487f
     mov ax, 0x2c                     ; 0x4880
@@ -1634,10 +1634,10 @@ jumptable_5eb8_case_52:
     sub ah, ah                       ; 0x49c8
     mov word [bp - 2], ax            ; 0x49ca
     cmp ax, word [bp + 8]            ; 0x49cd
-    jge short @..api_idx_000e_ORJG.l28 ; 0x49d0
+    jge short api_idx_000e_ORJG.forward26 ; 0x49d0
     mov ax, word [bp + 8]            ; 0x49d2
     mov word [bp - 2], ax            ; 0x49d5
-@..api_idx_000e_ORJG.l28:
+api_idx_000e_ORJG.forward26:
     mov ax, word [bp - 2]            ; 0x49d8
     inc ax                           ; 0x49db
     mov byte [bx + 0x195], al        ; 0x49dc
@@ -1669,8 +1669,8 @@ jumptable_5eb8_case_53:
     add sp, byte 8                   ; 0x4a1e
     mov word [bp - 4], ax            ; 0x4a21
     mov word [bp - 2], 0             ; 0x4a24
-    jmp short @..api_idx_000e_ORJG.l30 ; 0x4a29
-@..api_idx_000e_ORJG.l29:
+    jmp short api_idx_000e_ORJG.forward27 ; 0x4a29
+api_idx_000e_ORJG.back3:
     mov ax, 0                        ; 0x4a2b
     push ax                          ; 0x4a2e
     mov ax, 0x2c                     ; 0x4a2f
@@ -1697,7 +1697,7 @@ jumptable_5eb8_case_53:
     pop ax                           ; 0x4a64
     mov byte [bx + si + member_rec.f_0026], al ; 0x4a65
     inc word [bp - 2]                ; 0x4a68
-@..api_idx_000e_ORJG.l30:
+api_idx_000e_ORJG.forward27:
     mov ax, word [bp - 0xa]          ; 0x4a6b
     shl ax, 1                        ; 0x4a6e
     mov bx, ax                       ; 0x4a70
@@ -1705,7 +1705,7 @@ jumptable_5eb8_case_53:
     mov al, byte [bx + member_rec.item_count] ; 0x4a76
     sub ah, ah                       ; 0x4a7a
     cmp ax, word [bp - 2]            ; 0x4a7c
-    jg short @..api_idx_000e_ORJG.l29 ; 0x4a7f
+    jg short api_idx_000e_ORJG.back3 ; 0x4a7f
     jmp near jumptable_5eb8_case_47  ; 0x4a81
 jumptable_5eb8_case_54:
     mov ax, 0xa                      ; 0x4a84
@@ -1733,11 +1733,11 @@ jumptable_5eb8_case_54:
     jmp near jumptable_5eb8_case_47  ; 0x4aba
 jumptable_5eb8_case_55:
     cmp word [bss_8464], byte 0      ; 0x4abd
-    je short @..api_idx_000e_ORJG.l31 ; 0x4ac2
+    je short api_idx_000e_ORJG.forward28 ; 0x4ac2
     mov ax, word [bss_8464]          ; 0x4ac4
     cmp ax, strict word 6            ; 0x4ac7
-    jne short @..api_idx_000e_ORJG.l32 ; 0x4aca
-@..api_idx_000e_ORJG.l31:
+    jne short api_idx_000e_ORJG.forward29 ; 0x4aca
+api_idx_000e_ORJG.forward28:
     push word [bp + 8]               ; 0x4acc
     mov ax, 0xd9                     ; 0x4acf
     push ax                          ; 0x4ad2
@@ -1753,8 +1753,8 @@ jumptable_5eb8_case_55:
     push ax                          ; 0x4ae6
     call string_loc_KUIU             ; 0x4ae7
     add sp, byte 0xe                 ; 0x4aea
-    jmp short @..api_idx_000e_ORJG.l33 ; 0x4aed
-@..api_idx_000e_ORJG.l32:
+    jmp short api_idx_000e_ORJG.forward30 ; 0x4aed
+api_idx_000e_ORJG.forward29:
     push word [bp + 8]               ; 0x4aef
     mov ax, 0xd9                     ; 0x4af2
     push ax                          ; 0x4af5
@@ -1770,7 +1770,7 @@ jumptable_5eb8_case_55:
     push ax                          ; 0x4b09
     call string_loc_KUIU             ; 0x4b0a
     add sp, byte 0xe                 ; 0x4b0d
-@..api_idx_000e_ORJG.l33:
+api_idx_000e_ORJG.forward30:
     jmp near jumptable_5eb8_case_47  ; 0x4b10
 jumptable_5eb8_case_57:
     mov ax, 0xc                      ; 0x4b13
@@ -1851,8 +1851,8 @@ jumptable_5eb8_case_59:
     inc ax                           ; 0x4bb8
     mov word [bp - 4], ax            ; 0x4bb9
     mov word [bp - 2], 0             ; 0x4bbc
-    jmp short @..api_idx_000e_ORJG.l35 ; 0x4bc1
-@..api_idx_000e_ORJG.l34:
+    jmp short api_idx_000e_ORJG.forward31 ; 0x4bc1
+api_idx_000e_ORJG.back4:
     mov ax, 1                        ; 0x4bc3
     push ax                          ; 0x4bc6
     mov ax, 0x2c                     ; 0x4bc7
@@ -1904,7 +1904,7 @@ jumptable_5eb8_case_59:
     pop ax                           ; 0x4c39
     mov byte [bx + si + 0x27], al    ; 0x4c3a
     inc word [bp - 2]                ; 0x4c3d
-@..api_idx_000e_ORJG.l35:
+api_idx_000e_ORJG.forward31:
     mov ax, word [bss_8464]          ; 0x4c40
     shl ax, 1                        ; 0x4c43
     mov bx, ax                       ; 0x4c45
@@ -1912,9 +1912,9 @@ jumptable_5eb8_case_59:
     mov al, byte [bx + 0x1a1]        ; 0x4c4b
     sub ah, ah                       ; 0x4c4f
     cmp ax, word [bp - 2]            ; 0x4c51
-    jle short @..api_idx_000e_ORJG.l36 ; 0x4c54
-    jmp near @..api_idx_000e_ORJG.l34 ; 0x4c56
-@..api_idx_000e_ORJG.l36:
+    jle short api_idx_000e_ORJG.forward32 ; 0x4c54
+    jmp near api_idx_000e_ORJG.back4 ; 0x4c56
+api_idx_000e_ORJG.forward32:
     jmp near jumptable_5eb8_case_47  ; 0x4c59
 jumptable_5eb8_case_60:
     mov ax, 0xa                      ; 0x4c5c
@@ -1949,8 +1949,8 @@ jumptable_5eb8_case_60:
     jmp near jumptable_5eb8_case_47  ; 0x4ca0
 jumptable_5eb8_case_64:
     mov word [bp - 2], 1             ; 0x4ca3
-    jmp short @..api_idx_000e_ORJG.l39 ; 0x4ca8
-@..api_idx_000e_ORJG.l37:
+    jmp short api_idx_000e_ORJG.forward34 ; 0x4ca8
+api_idx_000e_ORJG.back5:
     mov ax, 0x64                     ; 0x4caa
     push ax                          ; 0x4cad
     call random_below                ; 0x4cae
@@ -1967,18 +1967,18 @@ jumptable_5eb8_case_64:
     sub cx, ax                       ; 0x4cc9
     pop ax                           ; 0x4ccb
     cmp ax, cx                       ; 0x4ccc
-    jge short @..api_idx_000e_ORJG.l38 ; 0x4cce
+    jge short api_idx_000e_ORJG.forward33 ; 0x4cce
     mov ax, word [bp - 2]            ; 0x4cd0
     shl ax, 1                        ; 0x4cd3
     mov bx, ax                       ; 0x4cd5
     mov bx, word [bx + party_char]   ; 0x4cd7
     mov byte [bx + member_rec.name_row], 0 ; 0x4cdb
-@..api_idx_000e_ORJG.l38:
+api_idx_000e_ORJG.forward33:
     inc word [bp - 2]                ; 0x4ce0
-@..api_idx_000e_ORJG.l39:
+api_idx_000e_ORJG.forward34:
     mov ax, word [bp - 2]            ; 0x4ce3
     cmp ax, word [party_member_count] ; 0x4ce6
-    jle short @..api_idx_000e_ORJG.l37 ; 0x4cea
+    jle short api_idx_000e_ORJG.back5 ; 0x4cea
     jmp near jumptable_5eb8_case_47  ; 0x4cec
 jumptable_5eb8_case_67:
     mov ax, 0xa                      ; 0x4cef
@@ -2095,11 +2095,11 @@ jumptable_5eb8_case_70:
     jmp near jumptable_5eb8_case_47  ; 0x4de0
 jumptable_5eb8_case_71:
     cmp word [bss_8464], byte 0      ; 0x4de3
-    je short @..api_idx_000e_ORJG.l40 ; 0x4de8
+    je short api_idx_000e_ORJG.forward35 ; 0x4de8
     mov ax, word [bss_8464]          ; 0x4dea
     cmp ax, strict word 6            ; 0x4ded
-    jne short @..api_idx_000e_ORJG.l41 ; 0x4df0
-@..api_idx_000e_ORJG.l40:
+    jne short api_idx_000e_ORJG.forward36 ; 0x4df0
+api_idx_000e_ORJG.forward35:
     push word [bp + 8]               ; 0x4df2
     mov ax, 0xdf                     ; 0x4df5
     push ax                          ; 0x4df8
@@ -2115,8 +2115,8 @@ jumptable_5eb8_case_71:
     push ax                          ; 0x4e0c
     call string_loc_KUIU             ; 0x4e0d
     add sp, byte 0xe                 ; 0x4e10
-    jmp short @..api_idx_000e_ORJG.l42 ; 0x4e13
-@..api_idx_000e_ORJG.l41:
+    jmp short api_idx_000e_ORJG.forward37 ; 0x4e13
+api_idx_000e_ORJG.forward36:
     push word [bp + 8]               ; 0x4e15
     mov ax, 0xdf                     ; 0x4e18
     push ax                          ; 0x4e1b
@@ -2132,7 +2132,7 @@ jumptable_5eb8_case_71:
     push ax                          ; 0x4e2f
     call string_loc_KUIU             ; 0x4e30
     add sp, byte 0xe                 ; 0x4e33
-@..api_idx_000e_ORJG.l42:
+api_idx_000e_ORJG.forward37:
     jmp near jumptable_5eb8_case_47  ; 0x4e36
 jumptable_5eb8_case_73:
     mov ax, 0xa                      ; 0x4e39
@@ -2160,16 +2160,16 @@ jumptable_5eb8_case_73:
     mov ax, 0xd91                    ; 0x4e6b
     push ax                          ; 0x4e6e
     cmp word [bss_8464], byte 0      ; 0x4e6f
-    je short @..api_idx_000e_ORJG.l43 ; 0x4e74
+    je short api_idx_000e_ORJG.forward38 ; 0x4e74
     mov ax, word [bss_8464]          ; 0x4e76
     cmp ax, strict word 6            ; 0x4e79
-    jne short @..api_idx_000e_ORJG.l44 ; 0x4e7c
-@..api_idx_000e_ORJG.l43:
+    jne short api_idx_000e_ORJG.forward39 ; 0x4e7c
+api_idx_000e_ORJG.forward38:
     mov ax, 1                        ; 0x4e7e
-    jmp short @..api_idx_000e_ORJG.l45 ; 0x4e81
-@..api_idx_000e_ORJG.l44:
+    jmp short api_idx_000e_ORJG.forward40 ; 0x4e81
+api_idx_000e_ORJG.forward39:
     mov ax, 0                        ; 0x4e83
-@..api_idx_000e_ORJG.l45:
+api_idx_000e_ORJG.forward40:
     push ax                          ; 0x4e86
     call api_idx_0002_NGRN           ; 0x4e87
     add sp, byte 0x12                ; 0x4e8a
@@ -2225,16 +2225,16 @@ jumptable_5eb8_case_76:
     push ax                          ; 0x4efa
     push ax                          ; 0x4efb
     cmp word [bss_8464], byte 0      ; 0x4efc
-    je short @..api_idx_000e_ORJG.l46 ; 0x4f01
+    je short api_idx_000e_ORJG.forward41 ; 0x4f01
     mov ax, word [bss_8464]          ; 0x4f03
     cmp ax, strict word 6            ; 0x4f06
-    jne short @..api_idx_000e_ORJG.l47 ; 0x4f09
-@..api_idx_000e_ORJG.l46:
+    jne short api_idx_000e_ORJG.forward42 ; 0x4f09
+api_idx_000e_ORJG.forward41:
     mov ax, 1                        ; 0x4f0b
-    jmp short @..api_idx_000e_ORJG.l48 ; 0x4f0e
-@..api_idx_000e_ORJG.l47:
+    jmp short api_idx_000e_ORJG.forward43 ; 0x4f0e
+api_idx_000e_ORJG.forward42:
     mov ax, 0                        ; 0x4f10
-@..api_idx_000e_ORJG.l48:
+api_idx_000e_ORJG.forward43:
     push ax                          ; 0x4f13
     call api_idx_0002_PGQI           ; 0x4f14
     add sp, byte 0xc                 ; 0x4f17
@@ -2310,10 +2310,10 @@ jumptable_5eb8_case_81:
     mov bx, ax                       ; 0x4fb6
     mov bx, word [bx + party_char_ext] ; 0x4fb8
     cmp byte [bx + member_ext.f_00d6], 0x14 ; 0x4fbc
-    je short @..api_idx_000e_ORJG.l49 ; 0x4fc1
+    je short api_idx_000e_ORJG.forward44 ; 0x4fc1
     mov word [bp - 0xe], 0xff9c      ; 0x4fc3
-    jmp short @..api_idx_000e_ORJG.l50 ; 0x4fc8
-@..api_idx_000e_ORJG.l49:
+    jmp short api_idx_000e_ORJG.forward45 ; 0x4fc8
+api_idx_000e_ORJG.forward44:
     mov ax, 0x2c                     ; 0x4fca
     imul word [bp - 0xc]             ; 0x4fcd
     mov si, ax                       ; 0x4fd0
@@ -2328,7 +2328,7 @@ jumptable_5eb8_case_81:
     mov cx, 3                        ; 0x4fe6
     imul cx                          ; 0x4fe9
     add word [bp - 0xe], ax          ; 0x4feb
-@..api_idx_000e_ORJG.l50:
+api_idx_000e_ORJG.forward45:
     mov ax, 0                        ; 0x4fee
     push ax                          ; 0x4ff1
     push ax                          ; 0x4ff2
@@ -2358,7 +2358,7 @@ jumptable_5eb8_case_83:
     mov bx, ax                       ; 0x5028
     mov bx, word [bx + party_char]   ; 0x502a
     cmp byte [bx + si + 0x24], 0     ; 0x502e
-    jne short @..api_idx_000e_ORJG.l51 ; 0x5032
+    jne short api_idx_000e_ORJG.forward46 ; 0x5032
     mov ax, word [dest_alt_arg]      ; 0x5034
     mov cx, 2                        ; 0x5037
     cwd                              ; 0x503a
@@ -2384,7 +2384,7 @@ jumptable_5eb8_case_83:
     mov bx, word [bx + party_char]   ; 0x5062
     pop ax                           ; 0x5066
     mov byte [bx + si + 0x25], al    ; 0x5067
-@..api_idx_000e_ORJG.l51:
+api_idx_000e_ORJG.forward46:
     mov ax, 0x2c                     ; 0x506a
     imul word [bss_8462]             ; 0x506d
     mov si, ax                       ; 0x5071
@@ -2404,17 +2404,17 @@ jumptable_5eb8_case_83:
     jmp near jumptable_5eb8_case_47  ; 0x5092
 jumptable_5eb8_case_85:
     cmp word [bss_8464], byte 0      ; 0x5095
-    je short @..api_idx_000e_ORJG.l52 ; 0x509a
+    je short api_idx_000e_ORJG.forward47 ; 0x509a
     mov ax, word [bss_8464]          ; 0x509c
     cmp ax, strict word 6            ; 0x509f
-    jne short @..api_idx_000e_ORJG.l55 ; 0x50a2
-@..api_idx_000e_ORJG.l52:
+    jne short api_idx_000e_ORJG.forward50 ; 0x50a2
+api_idx_000e_ORJG.forward47:
     mov ax, 2                        ; 0x50a4
     push ax                          ; 0x50a7
     call random_below                ; 0x50a8
     pop cx                           ; 0x50ab
     test ax, ax                      ; 0x50ac
-    jne short @..api_idx_000e_ORJG.l53 ; 0x50ae
+    jne short api_idx_000e_ORJG.forward48 ; 0x50ae
     push word [bp + 8]               ; 0x50b0
     mov ax, 0xcd                     ; 0x50b3
     push ax                          ; 0x50b6
@@ -2430,8 +2430,8 @@ jumptable_5eb8_case_85:
     push ax                          ; 0x50ca
     call string_loc_KUIU             ; 0x50cb
     add sp, byte 0xe                 ; 0x50ce
-    jmp short @..api_idx_000e_ORJG.l54 ; 0x50d1
-@..api_idx_000e_ORJG.l53:
+    jmp short api_idx_000e_ORJG.forward49 ; 0x50d1
+api_idx_000e_ORJG.forward48:
     push word [bp + 8]               ; 0x50d3
     mov ax, 0xd3                     ; 0x50d6
     push ax                          ; 0x50d9
@@ -2447,15 +2447,15 @@ jumptable_5eb8_case_85:
     push ax                          ; 0x50ed
     call string_loc_KUIU             ; 0x50ee
     add sp, byte 0xe                 ; 0x50f1
-@..api_idx_000e_ORJG.l54:
-    jmp short @..api_idx_000e_ORJG.l57 ; 0x50f4
-@..api_idx_000e_ORJG.l55:
+api_idx_000e_ORJG.forward49:
+    jmp short api_idx_000e_ORJG.forward52 ; 0x50f4
+api_idx_000e_ORJG.forward50:
     mov ax, 2                        ; 0x50f6
     push ax                          ; 0x50f9
     call random_below                ; 0x50fa
     pop cx                           ; 0x50fd
     test ax, ax                      ; 0x50fe
-    jne short @..api_idx_000e_ORJG.l56 ; 0x5100
+    jne short api_idx_000e_ORJG.forward51 ; 0x5100
     push word [bp + 8]               ; 0x5102
     mov ax, 0xcd                     ; 0x5105
     push ax                          ; 0x5108
@@ -2471,8 +2471,8 @@ jumptable_5eb8_case_85:
     push ax                          ; 0x511c
     call string_loc_KUIU             ; 0x511d
     add sp, byte 0xe                 ; 0x5120
-    jmp short @..api_idx_000e_ORJG.l57 ; 0x5123
-@..api_idx_000e_ORJG.l56:
+    jmp short api_idx_000e_ORJG.forward52 ; 0x5123
+api_idx_000e_ORJG.forward51:
     push word [bp + 8]               ; 0x5125
     mov ax, 0xd3                     ; 0x5128
     push ax                          ; 0x512b
@@ -2488,7 +2488,7 @@ jumptable_5eb8_case_85:
     push ax                          ; 0x513f
     call string_loc_KUIU             ; 0x5140
     add sp, byte 0xe                 ; 0x5143
-@..api_idx_000e_ORJG.l57:
+api_idx_000e_ORJG.forward52:
     jmp near jumptable_5eb8_case_47  ; 0x5146
 jumptable_5eb8_case_86:
     mov ax, 0xa                      ; 0x5149
@@ -2539,10 +2539,10 @@ jumptable_5eb8_case_90:
     mov bx, ax                       ; 0x51b4
     mov bx, word [bx + party_char_ext] ; 0x51b6
     cmp byte [bx + member_ext.f_00d6], 0x15 ; 0x51ba
-    je short @..api_idx_000e_ORJG.l58 ; 0x51bf
+    je short api_idx_000e_ORJG.forward53 ; 0x51bf
     mov word [bp - 0xe], 0xff9c      ; 0x51c1
-    jmp short @..api_idx_000e_ORJG.l59 ; 0x51c6
-@..api_idx_000e_ORJG.l58:
+    jmp short api_idx_000e_ORJG.forward54 ; 0x51c6
+api_idx_000e_ORJG.forward53:
     mov ax, 0x2c                     ; 0x51c8
     imul word [bp - 0xc]             ; 0x51cb
     mov si, ax                       ; 0x51ce
@@ -2557,7 +2557,7 @@ jumptable_5eb8_case_90:
     mov cx, 3                        ; 0x51e4
     imul cx                          ; 0x51e7
     add word [bp - 0xe], ax          ; 0x51e9
-@..api_idx_000e_ORJG.l59:
+api_idx_000e_ORJG.forward54:
     mov ax, 0                        ; 0x51ec
     push ax                          ; 0x51ef
     push ax                          ; 0x51f0
@@ -2594,10 +2594,10 @@ jumptable_5eb8_case_91:
     mov bx, ax                       ; 0x5235
     mov bx, word [bx + party_char_ext] ; 0x5237
     cmp byte [bx + member_ext.f_00d6], 0x14 ; 0x523b
-    je short @..api_idx_000e_ORJG.l60 ; 0x5240
+    je short api_idx_000e_ORJG.forward55 ; 0x5240
     mov word [bp - 0xe], 0xff9c      ; 0x5242
-    jmp short @..api_idx_000e_ORJG.l61 ; 0x5247
-@..api_idx_000e_ORJG.l60:
+    jmp short api_idx_000e_ORJG.forward56 ; 0x5247
+api_idx_000e_ORJG.forward55:
     mov ax, 0x2c                     ; 0x5249
     imul word [bp - 0xc]             ; 0x524c
     mov si, ax                       ; 0x524f
@@ -2612,7 +2612,7 @@ jumptable_5eb8_case_91:
     mov cx, 3                        ; 0x5265
     imul cx                          ; 0x5268
     add word [bp - 0xe], ax          ; 0x526a
-@..api_idx_000e_ORJG.l61:
+api_idx_000e_ORJG.forward56:
     push word [bp - 0xe]             ; 0x526d
     mov ax, 0xc                      ; 0x5270
     push ax                          ; 0x5273
@@ -2645,16 +2645,16 @@ jumptable_5eb8_case_93:
     push ax                          ; 0x52b1
     push ax                          ; 0x52b2
     cmp word [bss_8464], byte 0      ; 0x52b3
-    je short @..api_idx_000e_ORJG.l62 ; 0x52b8
+    je short api_idx_000e_ORJG.forward57 ; 0x52b8
     mov ax, word [bss_8464]          ; 0x52ba
     cmp ax, strict word 6            ; 0x52bd
-    jne short @..api_idx_000e_ORJG.l63 ; 0x52c0
-@..api_idx_000e_ORJG.l62:
+    jne short api_idx_000e_ORJG.forward58 ; 0x52c0
+api_idx_000e_ORJG.forward57:
     mov ax, 1                        ; 0x52c2
-    jmp short @..api_idx_000e_ORJG.l64 ; 0x52c5
-@..api_idx_000e_ORJG.l63:
+    jmp short api_idx_000e_ORJG.forward59 ; 0x52c5
+api_idx_000e_ORJG.forward58:
     mov ax, 0                        ; 0x52c7
-@..api_idx_000e_ORJG.l64:
+api_idx_000e_ORJG.forward59:
     push ax                          ; 0x52ca
     call api_idx_0002_PGQI           ; 0x52cb
     add sp, byte 0xc                 ; 0x52ce
@@ -2684,16 +2684,16 @@ jumptable_5eb8_case_95:
     mov ax, 0xd9e                    ; 0x5305
     push ax                          ; 0x5308
     cmp word [bss_8464], byte 0      ; 0x5309
-    je short @..api_idx_000e_ORJG.l65 ; 0x530e
+    je short api_idx_000e_ORJG.forward60 ; 0x530e
     mov ax, word [bss_8464]          ; 0x5310
     cmp ax, strict word 6            ; 0x5313
-    jne short @..api_idx_000e_ORJG.l66 ; 0x5316
-@..api_idx_000e_ORJG.l65:
+    jne short api_idx_000e_ORJG.forward61 ; 0x5316
+api_idx_000e_ORJG.forward60:
     mov ax, 1                        ; 0x5318
-    jmp short @..api_idx_000e_ORJG.l67 ; 0x531b
-@..api_idx_000e_ORJG.l66:
+    jmp short api_idx_000e_ORJG.forward62 ; 0x531b
+api_idx_000e_ORJG.forward61:
     mov ax, 0                        ; 0x531d
-@..api_idx_000e_ORJG.l67:
+api_idx_000e_ORJG.forward62:
     push ax                          ; 0x5320
     call api_idx_0002_NGRN           ; 0x5321
     add sp, byte 0x12                ; 0x5324
@@ -2714,11 +2714,11 @@ jumptable_5eb8_case_96:
     mov bx, ax                       ; 0x5347
     mov bx, word [bx + party_char_ext] ; 0x5349
     cmp byte [bx + member_ext.f_00d6], 0x14 ; 0x534d
-    je short @..api_idx_000e_ORJG.l68 ; 0x5352
+    je short api_idx_000e_ORJG.forward63 ; 0x5352
     cmp byte [bx + 0xd6], 0x15       ; 0x5354
-    je short @..api_idx_000e_ORJG.l68 ; 0x5359
+    je short api_idx_000e_ORJG.forward63 ; 0x5359
     mov word [bp - 0xe], 0xff9c      ; 0x535b
-@..api_idx_000e_ORJG.l68:
+api_idx_000e_ORJG.forward63:
     mov ax, 0x2c                     ; 0x5360
     imul word [bp - 0xc]             ; 0x5363
     mov si, ax                       ; 0x5366
@@ -2745,9 +2745,9 @@ jumptable_5eb8_case_96:
     call aztec_ldv                   ; 0x538f
     mov word [bp - 4], ax            ; 0x5392
     cmp ax, strict word 2            ; 0x5395
-    jge short @..api_idx_000e_ORJG.l69 ; 0x5398
+    jge short api_idx_000e_ORJG.forward64 ; 0x5398
     mov word [bp - 4], 2             ; 0x539a
-@..api_idx_000e_ORJG.l69:
+api_idx_000e_ORJG.forward64:
     push word [bp - 0xe]             ; 0x539f
     mov ax, 0                        ; 0x53a2
     push ax                          ; 0x53a5
@@ -2762,9 +2762,9 @@ jumptable_5eb8_case_96:
     jmp near jumptable_5eb8_case_47  ; 0x53bc
 jumptable_5eb8_case_56:
     cmp word [bp - 0xa], byte 0      ; 0x53bf
-    je short @..api_idx_000e_ORJG.l70 ; 0x53c3
-    jmp near @..api_idx_000e_ORJG.l75 ; 0x53c5
-@..api_idx_000e_ORJG.l70:
+    je short api_idx_000e_ORJG.forward65 ; 0x53c3
+    jmp near api_idx_000e_ORJG.forward70 ; 0x53c5
+api_idx_000e_ORJG.forward65:
     mov ax, 0x2c                     ; 0x53c8
     imul word [bp - 0xc]             ; 0x53cb
     mov si, ax                       ; 0x53ce
@@ -2773,9 +2773,9 @@ jumptable_5eb8_case_56:
     mov bx, ax                       ; 0x53d5
     mov bx, word [bx + party_char]   ; 0x53d7
     cmp byte [bx + si + member_rec.item_state], 2 ; 0x53db
-    je short @..api_idx_000e_ORJG.l71 ; 0x53df
-    jmp near @..api_idx_000e_ORJG.l75 ; 0x53e1
-@..api_idx_000e_ORJG.l71:
+    je short api_idx_000e_ORJG.forward66 ; 0x53df
+    jmp near api_idx_000e_ORJG.forward70 ; 0x53e1
+api_idx_000e_ORJG.forward66:
     mov ax, 3                        ; 0x53e4
     imul word [bp + 8]               ; 0x53e7
     push ax                          ; 0x53ea
@@ -2789,9 +2789,9 @@ jumptable_5eb8_case_56:
     sub cx, ax                       ; 0x53fe
     pop ax                           ; 0x5400
     cmp ax, cx                       ; 0x5401
-    jg short @..api_idx_000e_ORJG.l72 ; 0x5403
-    jmp near @..api_idx_000e_ORJG.l75 ; 0x5405
-@..api_idx_000e_ORJG.l72:
+    jg short api_idx_000e_ORJG.forward67 ; 0x5403
+    jmp near api_idx_000e_ORJG.forward70 ; 0x5405
+api_idx_000e_ORJG.forward67:
     dec byte [bx + party_records + pc_rec.stat + 0x3] ; 0x5408
     mov ax, 0xb7                     ; 0x540c
     push ax                          ; 0x540f
@@ -2821,7 +2821,7 @@ jumptable_5eb8_case_56:
     mov cx, ax                       ; 0x5443
     pop ax                           ; 0x5445
     cmp ax, cx                       ; 0x5446
-    jle short @..api_idx_000e_ORJG.l73 ; 0x5448
+    jle short api_idx_000e_ORJG.forward68 ; 0x5448
     mov ax, 0x2c                     ; 0x544a
     imul word [bp - 0xc]             ; 0x544d
     mov si, ax                       ; 0x5450
@@ -2846,8 +2846,8 @@ jumptable_5eb8_case_56:
     mov bx, ax                       ; 0x5486
     mov bx, word [bx + party_char]   ; 0x5488
     mov word [bx + si + member_rec.item_timer], 0 ; 0x548c
-    jmp short @..api_idx_000e_ORJG.l74 ; 0x5491
-@..api_idx_000e_ORJG.l73:
+    jmp short api_idx_000e_ORJG.forward69 ; 0x5491
+api_idx_000e_ORJG.forward68:
     mov ax, 0x2c                     ; 0x5493
     imul word [bp - 0xc]             ; 0x5496
     mov si, ax                       ; 0x5499
@@ -2864,19 +2864,19 @@ jumptable_5eb8_case_56:
     push word [bp - 0xa]             ; 0x54b5
     call loc_RKLS                    ; 0x54b8
     add sp, byte 8                   ; 0x54bb
-@..api_idx_000e_ORJG.l74:
+api_idx_000e_ORJG.forward69:
     mov ax, 0                        ; 0x54be
     push ax                          ; 0x54c1
     push word [bp - 0xc]             ; 0x54c2
     call api_idx_0004_MLLS           ; 0x54c5
     add sp, byte 4                   ; 0x54c8
-@..api_idx_000e_ORJG.l75:
+api_idx_000e_ORJG.forward70:
     jmp near jumptable_5eb8_case_47  ; 0x54cb
 jumptable_5eb8_case_94:
     cmp word [bp - 0xa], byte 0      ; 0x54ce
-    je short @..api_idx_000e_ORJG.l76 ; 0x54d2
-    jmp near @..api_idx_000e_ORJG.l79 ; 0x54d4
-@..api_idx_000e_ORJG.l76:
+    je short api_idx_000e_ORJG.forward71 ; 0x54d2
+    jmp near api_idx_000e_ORJG.forward74 ; 0x54d4
+api_idx_000e_ORJG.forward71:
     mov ax, 0x2c                     ; 0x54d7
     imul word [bp - 0xc]             ; 0x54da
     mov si, ax                       ; 0x54dd
@@ -2885,9 +2885,9 @@ jumptable_5eb8_case_94:
     mov bx, ax                       ; 0x54e4
     mov bx, word [bx + party_char]   ; 0x54e6
     cmp byte [bx + si + member_rec.item_state], 3 ; 0x54ea
-    je short @..api_idx_000e_ORJG.l77 ; 0x54ee
-    jmp near @..api_idx_000e_ORJG.l79 ; 0x54f0
-@..api_idx_000e_ORJG.l77:
+    je short api_idx_000e_ORJG.forward72 ; 0x54ee
+    jmp near api_idx_000e_ORJG.forward74 ; 0x54f0
+api_idx_000e_ORJG.forward72:
     mov ax, 3                        ; 0x54f3
     imul word [bp + 8]               ; 0x54f6
     push ax                          ; 0x54f9
@@ -2901,9 +2901,9 @@ jumptable_5eb8_case_94:
     sub cx, ax                       ; 0x550d
     pop ax                           ; 0x550f
     cmp ax, cx                       ; 0x5510
-    jg short @..api_idx_000e_ORJG.l78 ; 0x5512
-    jmp near @..api_idx_000e_ORJG.l79 ; 0x5514
-@..api_idx_000e_ORJG.l78:
+    jg short api_idx_000e_ORJG.forward73 ; 0x5512
+    jmp near api_idx_000e_ORJG.forward74 ; 0x5514
+api_idx_000e_ORJG.forward73:
     dec byte [bx + party_records + pc_rec.stat + 0x3] ; 0x5517
     mov ax, word [bp - 0xa]          ; 0x551b
     shl ax, 1                        ; 0x551e
@@ -2981,43 +2981,43 @@ jumptable_5eb8_case_94:
     push word [bp - 0xa]             ; 0x55cf
     call loc_RKLS                    ; 0x55d2
     add sp, byte 8                   ; 0x55d5
-@..api_idx_000e_ORJG.l79:
+api_idx_000e_ORJG.forward74:
     jmp near jumptable_5eb8_case_47  ; 0x55d8
 jumptable_5eb8_case_12:
     mov ax, 0                        ; 0x55db
     cmp word [bp + 6], byte 0x13     ; 0x55de
-    je short @..api_idx_000e_ORJG.l80 ; 0x55e2
+    je short api_idx_000e_ORJG.forward75 ; 0x55e2
     mov ax, word [bp - 0xc]          ; 0x55e4
-@..api_idx_000e_ORJG.l80:
+api_idx_000e_ORJG.forward75:
     mov word [bp - 2], ax            ; 0x55e7
     cmp word [bp + 6], byte 0x13     ; 0x55ea
-    je short @..api_idx_000e_ORJG.l81 ; 0x55ee
+    je short api_idx_000e_ORJG.forward76 ; 0x55ee
     mov ax, word [bp - 0xc]          ; 0x55f0
     inc ax                           ; 0x55f3
-    jmp short @..api_idx_000e_ORJG.l82 ; 0x55f4
-@..api_idx_000e_ORJG.l81:
+    jmp short api_idx_000e_ORJG.forward77 ; 0x55f4
+api_idx_000e_ORJG.forward76:
     mov ax, word [bp - 0xa]          ; 0x55f6
     shl ax, 1                        ; 0x55f9
     mov bx, ax                       ; 0x55fb
     mov bx, word [bx + party_char]   ; 0x55fd
     mov al, byte [bx + member_rec.item_count] ; 0x5601
     sub ah, ah                       ; 0x5605
-@..api_idx_000e_ORJG.l82:
+api_idx_000e_ORJG.forward77:
     mov word [bp - 4], ax            ; 0x5607
     mov ax, word [bp + 8]            ; 0x560a
     cmp word [bp + 6], byte 0x13     ; 0x560d
-    je short @..api_idx_000e_ORJG.l83 ; 0x5611
+    je short api_idx_000e_ORJG.forward78 ; 0x5611
     shl ax, 1                        ; 0x5613
-@..api_idx_000e_ORJG.l83:
+api_idx_000e_ORJG.forward78:
     mov word [bp - 6], ax            ; 0x5615
     mov ax, 0                        ; 0x5618
     cmp word [bp + 6], byte 0x13     ; 0x561b
-    je short @..api_idx_000e_ORJG.l84 ; 0x561f
+    je short api_idx_000e_ORJG.forward79 ; 0x561f
     mov ax, word [bp + 8]            ; 0x5621
-@..api_idx_000e_ORJG.l84:
+api_idx_000e_ORJG.forward79:
     mov word [bp - 8], ax            ; 0x5624
-    jmp near @..api_idx_000e_ORJG.l87 ; 0x5627
-@..api_idx_000e_ORJG.l85:
+    jmp near api_idx_000e_ORJG.forward81 ; 0x5627
+api_idx_000e_ORJG.back6:
     mov ax, 0x2c                     ; 0x562a
     imul word [bp - 2]               ; 0x562d
     mov si, ax                       ; 0x5630
@@ -3069,14 +3069,14 @@ jumptable_5eb8_case_12:
     pop ax                           ; 0x569e
     mov word [bx + si + member_rec.item_timer], ax ; 0x569f
     cmp word [bp - 0xa], byte 0      ; 0x56a2
-    jne short @..api_idx_000e_ORJG.l86 ; 0x56a6
+    jne short api_idx_000e_ORJG.forward80 ; 0x56a6
     mov ax, 0                        ; 0x56a8
     push ax                          ; 0x56ab
     push word [bp - 2]               ; 0x56ac
     call api_idx_0004_MLLS           ; 0x56af
     add sp, byte 4                   ; 0x56b2
     cmp word [bp + 6], byte 0x13     ; 0x56b5
-    je short @..api_idx_000e_ORJG.l86 ; 0x56b9
+    je short api_idx_000e_ORJG.forward80 ; 0x56b9
     mov ax, 0x55                     ; 0x56bb
     push ax                          ; 0x56be
     mov ax, MSG_REPLENISHED          ; 0x56bf
@@ -3085,14 +3085,14 @@ jumptable_5eb8_case_12:
     push word [bp - 0xa]             ; 0x56c6
     call loc_RKLS                    ; 0x56c9
     add sp, byte 8                   ; 0x56cc
-@..api_idx_000e_ORJG.l86:
+api_idx_000e_ORJG.forward80:
     inc word [bp - 2]                ; 0x56cf
-@..api_idx_000e_ORJG.l87:
+api_idx_000e_ORJG.forward81:
     mov ax, word [bp - 2]            ; 0x56d2
     cmp ax, word [bp - 4]            ; 0x56d5
-    jge short @..api_idx_000e_ORJG.l88 ; 0x56d8
-    jmp near @..api_idx_000e_ORJG.l85 ; 0x56da
-@..api_idx_000e_ORJG.l88:
+    jge short api_idx_000e_ORJG.forward82 ; 0x56d8
+    jmp near api_idx_000e_ORJG.back6 ; 0x56da
+api_idx_000e_ORJG.forward82:
     jmp near jumptable_5eb8_case_47  ; 0x56dd
 jumptable_5eb8_case_17:
     mov ax, 0x2c                     ; 0x56e0
@@ -3112,19 +3112,19 @@ jumptable_5eb8_case_17:
     sub ax, cx                       ; 0x5702
     mov word [bp - 2], ax            ; 0x5704
     cmp ax, strict word 0            ; 0x5707
-    jge short @..api_idx_000e_ORJG.l89 ; 0x570a
+    jge short api_idx_000e_ORJG.forward83 ; 0x570a
     mov word [bp - 2], 0             ; 0x570c
-@..api_idx_000e_ORJG.l89:
+api_idx_000e_ORJG.forward83:
     mov al, byte [bp - 2]            ; 0x5711
     mov byte [bx + si + 0x11], al    ; 0x5714
     cmp word [bp - 0xa], byte 0      ; 0x5717
-    jne short @..api_idx_000e_ORJG.l90 ; 0x571b
+    jne short api_idx_000e_ORJG.forward84 ; 0x571b
     mov ax, 0                        ; 0x571d
     push ax                          ; 0x5720
     push word [bp - 0xc]             ; 0x5721
     call api_idx_0004_MLLS           ; 0x5724
     add sp, byte 4                   ; 0x5727
-@..api_idx_000e_ORJG.l90:
+api_idx_000e_ORJG.forward84:
     jmp near jumptable_5eb8_case_47  ; 0x572a
 jumptable_5eb8_case_33:
     mov ax, 0x2c                     ; 0x572d
@@ -3139,10 +3139,10 @@ jumptable_5eb8_case_33:
     sub ax, word [bp + 8]            ; 0x5745
     mov word [bp - 2], ax            ; 0x5748
     cmp ax, strict word 0            ; 0x574b
-    jg short @..api_idx_000e_ORJG.l91 ; 0x574e
+    jg short api_idx_000e_ORJG.forward85 ; 0x574e
     mov word [bp - 2], 0             ; 0x5750
     mov byte [bx + si + 0x13], 0     ; 0x5755
-@..api_idx_000e_ORJG.l91:
+api_idx_000e_ORJG.forward85:
     mov al, byte [bp - 2]            ; 0x5759
     push ax                          ; 0x575c
     mov ax, 0x2c                     ; 0x575d
@@ -3171,10 +3171,10 @@ jumptable_5eb8_case_33:
     sub ax, cx                       ; 0x5796
     mov word [bp - 2], ax            ; 0x5798
     cmp ax, strict word 0            ; 0x579b
-    jg short @..api_idx_000e_ORJG.l92 ; 0x579e
+    jg short api_idx_000e_ORJG.forward86 ; 0x579e
     mov word [bp - 2], 0             ; 0x57a0
     mov byte [bx + si + 0x23], 0     ; 0x57a5
-@..api_idx_000e_ORJG.l92:
+api_idx_000e_ORJG.forward86:
     mov al, byte [bp - 2]            ; 0x57a9
     push ax                          ; 0x57ac
     mov ax, 0x2c                     ; 0x57ad
@@ -3187,13 +3187,13 @@ jumptable_5eb8_case_33:
     pop ax                           ; 0x57c0
     mov byte [bx + si + member_rec.item_counter + 0x5], al ; 0x57c1
     cmp word [bp - 0xa], byte 0      ; 0x57c4
-    jne short @..api_idx_000e_ORJG.l93 ; 0x57c8
+    jne short api_idx_000e_ORJG.forward87 ; 0x57c8
     mov ax, 0                        ; 0x57ca
     push ax                          ; 0x57cd
     push word [bp - 0xc]             ; 0x57ce
     call api_idx_0004_MLLS           ; 0x57d1
     add sp, byte 4                   ; 0x57d4
-@..api_idx_000e_ORJG.l93:
+api_idx_000e_ORJG.forward87:
     jmp near jumptable_5eb8_case_47  ; 0x57d7
 jumptable_5eb8_case_69:
     mov ax, 0x2c                     ; 0x57da
@@ -3213,23 +3213,23 @@ jumptable_5eb8_case_69:
     sub ax, cx                       ; 0x57fc
     mov word [bp - 2], ax            ; 0x57fe
     cmp ax, strict word 0            ; 0x5801
-    jge short @..api_idx_000e_ORJG.l94 ; 0x5804
+    jge short api_idx_000e_ORJG.forward88 ; 0x5804
     mov word [bp - 2], 0             ; 0x5806
-@..api_idx_000e_ORJG.l94:
+api_idx_000e_ORJG.forward88:
     mov al, byte [bp - 2]            ; 0x580b
     mov byte [bx + si + 0x15], al    ; 0x580e
     cmp word [bp - 0xa], byte 0      ; 0x5811
-    jne short @..api_idx_000e_ORJG.l95 ; 0x5815
+    jne short api_idx_000e_ORJG.forward89 ; 0x5815
     mov ax, 0                        ; 0x5817
     push ax                          ; 0x581a
     push word [bp - 0xc]             ; 0x581b
     call api_idx_0004_MLLS           ; 0x581e
     add sp, byte 4                   ; 0x5821
-@..api_idx_000e_ORJG.l95:
+api_idx_000e_ORJG.forward89:
     jmp near jumptable_5eb8_case_47  ; 0x5824
 jumptable_5eb8_case_25:
     cmp word [bp - 0xa], byte 0      ; 0x5827
-    jne short @..api_idx_000e_ORJG.l97 ; 0x582b
+    jne short api_idx_000e_ORJG.forward91 ; 0x582b
     mov ax, 3                        ; 0x582d
     imul word [bp + 8]               ; 0x5830
     push ax                          ; 0x5833
@@ -3243,7 +3243,7 @@ jumptable_5eb8_case_25:
     sub cx, ax                       ; 0x5847
     pop ax                           ; 0x5849
     cmp ax, cx                       ; 0x584a
-    jle short @..api_idx_000e_ORJG.l96 ; 0x584c
+    jle short api_idx_000e_ORJG.forward90 ; 0x584c
     mov ax, 0x2c                     ; 0x584e
     imul word [bp - 0xc]             ; 0x5851
     mov si, ax                       ; 0x5854
@@ -3252,18 +3252,18 @@ jumptable_5eb8_case_25:
     mov bx, ax                       ; 0x585b
     mov bx, word [bx + party_char]   ; 0x585d
     mov byte [bx + si + member_rec.item_counter + 0x6], 0 ; 0x5861
-@..api_idx_000e_ORJG.l96:
+api_idx_000e_ORJG.forward90:
     mov ax, 0                        ; 0x5865
     push ax                          ; 0x5868
     push word [bp - 0xc]             ; 0x5869
     call api_idx_0004_MLLS           ; 0x586c
     add sp, byte 4                   ; 0x586f
-@..api_idx_000e_ORJG.l97:
+api_idx_000e_ORJG.forward91:
     jmp near jumptable_5eb8_case_47  ; 0x5872
 jumptable_5eb8_case_66:
     mov word [bp - 2], 0             ; 0x5875
-    jmp short @..api_idx_000e_ORJG.l100 ; 0x587a
-@..api_idx_000e_ORJG.l98:
+    jmp short api_idx_000e_ORJG.forward93 ; 0x587a
+api_idx_000e_ORJG.back7:
     mov ax, 0x2c                     ; 0x587c
     imul word [bp - 2]               ; 0x587f
     mov si, ax                       ; 0x5882
@@ -3283,13 +3283,13 @@ jumptable_5eb8_case_66:
     sub ax, cx                       ; 0x58a2
     mov word [bp - 4], ax            ; 0x58a4
     cmp ax, strict word 0            ; 0x58a7
-    jge short @..api_idx_000e_ORJG.l99 ; 0x58aa
+    jge short api_idx_000e_ORJG.forward92 ; 0x58aa
     mov word [bp - 4], 0             ; 0x58ac
-@..api_idx_000e_ORJG.l99:
+api_idx_000e_ORJG.forward92:
     mov al, byte [bp - 4]            ; 0x58b1
     mov byte [bx + si + 0x10], al    ; 0x58b4
     inc word [bp - 2]                ; 0x58b7
-@..api_idx_000e_ORJG.l100:
+api_idx_000e_ORJG.forward93:
     mov ax, word [bp - 0xa]          ; 0x58ba
     shl ax, 1                        ; 0x58bd
     mov bx, ax                       ; 0x58bf
@@ -3297,23 +3297,23 @@ jumptable_5eb8_case_66:
     mov al, byte [bx + member_rec.item_count] ; 0x58c5
     sub ah, ah                       ; 0x58c9
     cmp ax, word [bp - 2]            ; 0x58cb
-    jg short @..api_idx_000e_ORJG.l98 ; 0x58ce
+    jg short api_idx_000e_ORJG.back7 ; 0x58ce
     jmp near jumptable_5eb8_case_47  ; 0x58d0
 jumptable_5eb8_case_61:
     mov word [bp - 4], 1             ; 0x58d3
-@..api_idx_000e_ORJG.l101:
+api_idx_000e_ORJG.back8:
     mov ax, word [bp - 4]            ; 0x58d8
     cmp ax, strict word 1            ; 0x58db
-    je short @..api_idx_000e_ORJG.l102 ; 0x58de
+    je short api_idx_000e_ORJG.forward94 ; 0x58de
     cmp ax, strict word 2            ; 0x58e0
-    je short @..api_idx_000e_ORJG.l102 ; 0x58e3
+    je short api_idx_000e_ORJG.forward94 ; 0x58e3
     cmp ax, strict word 4            ; 0x58e5
-    je short @..api_idx_000e_ORJG.l102 ; 0x58e8
+    je short api_idx_000e_ORJG.forward94 ; 0x58e8
     cmp ax, strict word 8            ; 0x58ea
-    je short @..api_idx_000e_ORJG.l102 ; 0x58ed
+    je short api_idx_000e_ORJG.forward94 ; 0x58ed
     cmp ax, strict word 9            ; 0x58ef
-    jne short @..api_idx_000e_ORJG.l104 ; 0x58f2
-@..api_idx_000e_ORJG.l102:
+    jne short api_idx_000e_ORJG.forward96 ; 0x58f2
+api_idx_000e_ORJG.forward94:
     mov ax, 0x2c                     ; 0x58f4
     imul word [bp - 0xc]             ; 0x58f7
     mov cx, ax                       ; 0x58fa
@@ -3336,24 +3336,24 @@ jumptable_5eb8_case_61:
     sub ax, cx                       ; 0x5921
     mov word [bp - 2], ax            ; 0x5923
     cmp ax, strict word 0            ; 0x5926
-    jge short @..api_idx_000e_ORJG.l103 ; 0x5929
+    jge short api_idx_000e_ORJG.forward95 ; 0x5929
     mov word [bp - 2], 0             ; 0x592b
-@..api_idx_000e_ORJG.l103:
+api_idx_000e_ORJG.forward95:
     mov al, byte [bp - 2]            ; 0x5930
     mov byte [bx + si + 0xe], al     ; 0x5933
-@..api_idx_000e_ORJG.l104:
+api_idx_000e_ORJG.forward96:
     inc word [bp - 4]                ; 0x5936
     mov ax, word [bp - 4]            ; 0x5939
     cmp ax, strict word 9            ; 0x593c
-    jle short @..api_idx_000e_ORJG.l101 ; 0x593f
+    jle short api_idx_000e_ORJG.back8 ; 0x593f
     cmp word [bp - 0xa], byte 0      ; 0x5941
-    jne short @..api_idx_000e_ORJG.l105 ; 0x5945
+    jne short api_idx_000e_ORJG.forward97 ; 0x5945
     mov ax, 0                        ; 0x5947
     push ax                          ; 0x594a
     push word [bp - 0xc]             ; 0x594b
     call api_idx_0004_MLLS           ; 0x594e
     add sp, byte 4                   ; 0x5951
-@..api_idx_000e_ORJG.l105:
+api_idx_000e_ORJG.forward97:
     jmp near jumptable_5eb8_case_47  ; 0x5954
 jumptable_5eb8_case_89:
     mov ax, 0xa                      ; 0x5957
@@ -3386,13 +3386,13 @@ jumptable_5eb8_case_89:
     add sp, byte 0xe                 ; 0x5994
     mov word [bp - 2], ax            ; 0x5997
     cmp word [bp - 0xa], byte 0      ; 0x599a
-    jne short @..api_idx_000e_ORJG.l106 ; 0x599e
+    jne short api_idx_000e_ORJG.forward98 ; 0x599e
     mov ax, 0                        ; 0x59a0
     push ax                          ; 0x59a3
     push word [bp - 0xc]             ; 0x59a4
     call api_idx_0004_MLLS           ; 0x59a7
     add sp, byte 4                   ; 0x59aa
-@..api_idx_000e_ORJG.l106:
+api_idx_000e_ORJG.forward98:
     mov ax, word [bss_8464]          ; 0x59ad
     mov word [bp - 0xa], ax          ; 0x59b0
     mov ax, word [bss_8462]          ; 0x59b3
@@ -3403,9 +3403,9 @@ jumptable_5eb8_case_89:
     idiv cx                          ; 0x59c0
     mov word [bp + 8], ax            ; 0x59c2
     cmp ax, strict word 1            ; 0x59c5
-    jge short @..api_idx_000e_ORJG.l107 ; 0x59c8
+    jge short api_idx_000e_ORJG.forward99 ; 0x59c8
     jmp near jumptable_5eb8_case_47  ; 0x59ca
-@..api_idx_000e_ORJG.l107:
+api_idx_000e_ORJG.forward99:
     mov ax, 4                        ; 0x59cd
     push ax                          ; 0x59d0
     mov ax, 2                        ; 0x59d1
@@ -3415,38 +3415,38 @@ jumptable_5eb8_case_89:
 jumptable_5eb8_case_78:
     mov ax, 0                        ; 0x59db
     cmp word [bp + 6], byte 0x58     ; 0x59de
-    je short @..api_idx_000e_ORJG.l108 ; 0x59e2
+    je short api_idx_000e_ORJG.forward100 ; 0x59e2
     mov ax, word [bp - 0xc]          ; 0x59e4
-@..api_idx_000e_ORJG.l108:
+api_idx_000e_ORJG.forward100:
     mov word [bp - 2], ax            ; 0x59e7
     cmp word [bp + 6], byte 0x58     ; 0x59ea
-    je short @..api_idx_000e_ORJG.l109 ; 0x59ee
+    je short api_idx_000e_ORJG.forward101 ; 0x59ee
     mov ax, word [bp - 0xc]          ; 0x59f0
     inc ax                           ; 0x59f3
-    jmp short @..api_idx_000e_ORJG.l110 ; 0x59f4
-@..api_idx_000e_ORJG.l109:
+    jmp short api_idx_000e_ORJG.forward102 ; 0x59f4
+api_idx_000e_ORJG.forward101:
     mov ax, word [bp - 0xa]          ; 0x59f6
     shl ax, 1                        ; 0x59f9
     mov bx, ax                       ; 0x59fb
     mov bx, word [bx + party_char]   ; 0x59fd
     mov al, byte [bx + member_rec.item_count] ; 0x5a01
     sub ah, ah                       ; 0x5a05
-@..api_idx_000e_ORJG.l110:
+api_idx_000e_ORJG.forward102:
     mov word [bp - 4], ax            ; 0x5a07
     mov ax, 4                        ; 0x5a0a
     cmp word [bp + 6], byte 0x58     ; 0x5a0d
-    je short @..api_idx_000e_ORJG.l111 ; 0x5a11
+    je short api_idx_000e_ORJG.forward103 ; 0x5a11
     mov ax, 7                        ; 0x5a13
-@..api_idx_000e_ORJG.l111:
+api_idx_000e_ORJG.forward103:
     mov word [bp - 6], ax            ; 0x5a16
     mov ax, 0                        ; 0x5a19
     cmp word [bp + 6], byte 0x58     ; 0x5a1c
-    je short @..api_idx_000e_ORJG.l112 ; 0x5a20
+    je short api_idx_000e_ORJG.forward104 ; 0x5a20
     mov ax, word [bp + 8]            ; 0x5a22
-@..api_idx_000e_ORJG.l112:
+api_idx_000e_ORJG.forward104:
     mov word [bp - 8], ax            ; 0x5a25
-    jmp near @..api_idx_000e_ORJG.l116 ; 0x5a28
-@..api_idx_000e_ORJG.l113:
+    jmp near api_idx_000e_ORJG.forward107 ; 0x5a28
+api_idx_000e_ORJG.back9:
     mov ax, 0x2c                     ; 0x5a2b
     imul word [bp - 2]               ; 0x5a2e
     mov si, ax                       ; 0x5a31
@@ -3497,7 +3497,7 @@ jumptable_5eb8_case_78:
     pop ax                           ; 0x5a9e
     mov word [bx + si + member_rec.item_charges], ax ; 0x5a9f
     cmp word [bp - 0xa], byte 0      ; 0x5aa2
-    jne short @..api_idx_000e_ORJG.l114 ; 0x5aa6
+    jne short api_idx_000e_ORJG.forward105 ; 0x5aa6
     mov ax, 0x248                    ; 0x5aa8
     imul word [bp - 2]               ; 0x5aab
     mov bx, ax                       ; 0x5aae
@@ -3508,9 +3508,9 @@ jumptable_5eb8_case_78:
     push word [bp - 2]               ; 0x5abe
     call api_idx_0004_MLLS           ; 0x5ac1
     add sp, byte 4                   ; 0x5ac4
-@..api_idx_000e_ORJG.l114:
+api_idx_000e_ORJG.forward105:
     cmp word [bp + 6], byte 0x58     ; 0x5ac7
-    je short @..api_idx_000e_ORJG.l115 ; 0x5acb
+    je short api_idx_000e_ORJG.forward106 ; 0x5acb
     mov ax, 0x55                     ; 0x5acd
     push ax                          ; 0x5ad0
     mov ax, MSG_HEALED               ; 0x5ad1
@@ -3519,14 +3519,14 @@ jumptable_5eb8_case_78:
     push word [bp - 0xa]             ; 0x5ad8
     call loc_RKLS                    ; 0x5adb
     add sp, byte 8                   ; 0x5ade
-@..api_idx_000e_ORJG.l115:
+api_idx_000e_ORJG.forward106:
     inc word [bp - 2]                ; 0x5ae1
-@..api_idx_000e_ORJG.l116:
+api_idx_000e_ORJG.forward107:
     mov ax, word [bp - 2]            ; 0x5ae4
     cmp ax, word [bp - 4]            ; 0x5ae7
-    jge short @..api_idx_000e_ORJG.l117 ; 0x5aea
-    jmp near @..api_idx_000e_ORJG.l113 ; 0x5aec
-@..api_idx_000e_ORJG.l117:
+    jge short api_idx_000e_ORJG.forward108 ; 0x5aea
+    jmp near api_idx_000e_ORJG.back9 ; 0x5aec
+api_idx_000e_ORJG.forward108:
     jmp near jumptable_5eb8_case_47  ; 0x5aef
 jumptable_5eb8_case_97:
     mov ax, 0x2c                     ; 0x5af2
@@ -3630,19 +3630,19 @@ jumptable_5eb8_case_97:
     pop ax                           ; 0x5be2
     mov word [bx + si + 2], ax       ; 0x5be3
     cmp word [bss_8464], byte 0      ; 0x5be6
-    jne short @..api_idx_000e_ORJG.l118 ; 0x5beb
+    jne short api_idx_000e_ORJG.forward109 ; 0x5beb
     mov ax, 0                        ; 0x5bed
     push ax                          ; 0x5bf0
     push word [bss_8462]             ; 0x5bf1
     call api_idx_0004_MLLS           ; 0x5bf5
     add sp, byte 4                   ; 0x5bf8
-@..api_idx_000e_ORJG.l118:
+api_idx_000e_ORJG.forward109:
     jmp near jumptable_5eb8_case_47  ; 0x5bfb
 jumptable_5eb8_case_98:
     cmp word [bss_8464], byte 0      ; 0x5bfe
-    jne short @..api_idx_000e_ORJG.l121 ; 0x5c03
+    jne short api_idx_000e_ORJG.forward111 ; 0x5c03
     mov word [bp - 2], 0             ; 0x5c05
-@..api_idx_000e_ORJG.l119:
+api_idx_000e_ORJG.back10:
     mov ax, 0                        ; 0x5c0a
     push ax                          ; 0x5c0d
     mov ax, 0xa                      ; 0x5c0e
@@ -3675,20 +3675,20 @@ jumptable_5eb8_case_98:
     add word [bx + party_records + pc_rec.realm_points], ax ; 0x5c4b
     mov ax, word [bx + party_records + pc_rec.realm_points] ; 0x5c4f
     cmp ax, word [bx + party_records + pc_rec.realm_points + 0x2] ; 0x5c53
-    jle short @..api_idx_000e_ORJG.l120 ; 0x5c57
+    jle short api_idx_000e_ORJG.forward110 ; 0x5c57
     mov ax, word [bx + party_records + pc_rec.realm_points + 0x2] ; 0x5c59
     mov word [bx + party_records + pc_rec.realm_points], ax ; 0x5c5d
-@..api_idx_000e_ORJG.l120:
+api_idx_000e_ORJG.forward110:
     inc word [bp - 2]                ; 0x5c61
     mov ax, word [bp - 2]            ; 0x5c64
     cmp ax, strict word 6            ; 0x5c67
-    jl short @..api_idx_000e_ORJG.l119 ; 0x5c6a
-@..api_idx_000e_ORJG.l121:
+    jl short api_idx_000e_ORJG.back10 ; 0x5c6a
+api_idx_000e_ORJG.forward111:
     jmp near jumptable_5eb8_case_47  ; 0x5c6c
 jumptable_5eb8_case_100:
     mov word [bp - 6], 0             ; 0x5c6f
-    jmp near @..api_idx_000e_ORJG.l127 ; 0x5c74
-@..api_idx_000e_ORJG.l122:
+    jmp near api_idx_000e_ORJG.forward114 ; 0x5c74
+api_idx_000e_ORJG.back11:
     mov ax, 0x2c                     ; 0x5c77
     imul word [bp - 6]               ; 0x5c7a
     mov si, ax                       ; 0x5c7d
@@ -3716,7 +3716,7 @@ jumptable_5eb8_case_100:
     mov ax, word [bx + si + 4]       ; 0x5cba
     mov word [bx + si + 2], ax       ; 0x5cbd
     mov word [bp - 4], 0             ; 0x5cc0
-@..api_idx_000e_ORJG.l123:
+api_idx_000e_ORJG.back12:
     mov ax, 0x2c                     ; 0x5cc5
     imul word [bp - 6]               ; 0x5cc8
     add ax, word [bp - 4]            ; 0x5ccb
@@ -3729,11 +3729,11 @@ jumptable_5eb8_case_100:
     inc word [bp - 4]                ; 0x5cdf
     mov ax, word [bp - 4]            ; 0x5ce2
     cmp ax, strict word 0xa          ; 0x5ce5
-    jl short @..api_idx_000e_ORJG.l123 ; 0x5ce8
+    jl short api_idx_000e_ORJG.back12 ; 0x5ce8
     cmp word [bss_8464], byte 0      ; 0x5cea
-    jne short @..api_idx_000e_ORJG.l126 ; 0x5cef
+    jne short api_idx_000e_ORJG.forward113 ; 0x5cef
     mov word [bp - 2], 0             ; 0x5cf1
-@..api_idx_000e_ORJG.l124:
+api_idx_000e_ORJG.back13:
     mov ax, 0x248                    ; 0x5cf6
     imul word [bp - 6]               ; 0x5cf9
     mov cx, word [bp - 2]            ; 0x5cfc
@@ -3746,14 +3746,14 @@ jumptable_5eb8_case_100:
     inc word [bp - 2]                ; 0x5d0f
     mov ax, word [bp - 2]            ; 0x5d12
     cmp ax, strict word 6            ; 0x5d15
-    jl short @..api_idx_000e_ORJG.l124 ; 0x5d18
+    jl short api_idx_000e_ORJG.back13 ; 0x5d18
     mov ax, 0x248                    ; 0x5d1a
     imul word [bp - 6]               ; 0x5d1d
     mov bx, ax                       ; 0x5d20
     cmp byte [bx + party_records + pc_rec.stat + 0x3], 1 ; 0x5d22
-    jae short @..api_idx_000e_ORJG.l125 ; 0x5d27
+    jae short api_idx_000e_ORJG.forward112 ; 0x5d27
     mov byte [bx + party_records + pc_rec.stat + 0x3], 1 ; 0x5d29
-@..api_idx_000e_ORJG.l125:
+api_idx_000e_ORJG.forward112:
     mov ax, 4                        ; 0x5d2e
     push ax                          ; 0x5d31
     mov ax, 2                        ; 0x5d32
@@ -3773,9 +3773,9 @@ jumptable_5eb8_case_100:
     push word [bss_8464]             ; 0x5d54
     call loc_RKLS                    ; 0x5d58
     add sp, byte 8                   ; 0x5d5b
-@..api_idx_000e_ORJG.l126:
+api_idx_000e_ORJG.forward113:
     inc word [bp - 6]                ; 0x5d5e
-@..api_idx_000e_ORJG.l127:
+api_idx_000e_ORJG.forward114:
     mov ax, word [bss_8464]          ; 0x5d61
     shl ax, 1                        ; 0x5d64
     mov bx, ax                       ; 0x5d66
@@ -3783,9 +3783,9 @@ jumptable_5eb8_case_100:
     mov al, byte [bx + 0x1a1]        ; 0x5d6c
     sub ah, ah                       ; 0x5d70
     cmp ax, word [bp - 6]            ; 0x5d72
-    jle short @..api_idx_000e_ORJG.l128 ; 0x5d75
-    jmp near @..api_idx_000e_ORJG.l122 ; 0x5d77
-@..api_idx_000e_ORJG.l128:
+    jle short api_idx_000e_ORJG.forward115 ; 0x5d75
+    jmp near api_idx_000e_ORJG.back11 ; 0x5d77
+api_idx_000e_ORJG.forward115:
     jmp near jumptable_5eb8_case_47  ; 0x5d7a
 jumptable_5eb8_case_101:
     mov ax, 0x2c                     ; 0x5d7d
@@ -3797,7 +3797,7 @@ jumptable_5eb8_case_101:
     mov bx, word [bx + party_char]   ; 0x5d8d
     mov byte [bx + si + 0x2b], 1     ; 0x5d91
     cmp word [bss_8464], byte 0      ; 0x5d95
-    jne short @..api_idx_000e_ORJG.l129 ; 0x5d9a
+    jne short api_idx_000e_ORJG.forward116 ; 0x5d9a
     mov ax, 0                        ; 0x5d9c
     push ax                          ; 0x5d9f
     push word [bss_8462]             ; 0x5da0
@@ -3811,7 +3811,7 @@ jumptable_5eb8_case_101:
     push word [bss_8464]             ; 0x5db6
     call loc_RKLS                    ; 0x5dba
     add sp, byte 8                   ; 0x5dbd
-@..api_idx_000e_ORJG.l129:
+api_idx_000e_ORJG.forward116:
     jmp near jumptable_5eb8_case_47  ; 0x5dc0
 jumptable_5eb8_case_63:
     mov ax, 0x32                     ; 0x5dc3
@@ -3895,7 +3895,7 @@ jumptable_5eb8_case_84:
     mov bx, word [bx + party_char]   ; 0x5e84
     mov byte [bx + 0x190], al        ; 0x5e88
     cmp word [bss_8464], byte 0      ; 0x5e8c
-    jne short @..api_idx_000e_ORJG.l130 ; 0x5e91
+    jne short api_idx_000e_ORJG.forward117 ; 0x5e91
     mov ax, 0x32                     ; 0x5e93
     imul word [bp + 8]               ; 0x5e96
     add word [party_buff_turns], ax  ; 0x5e99
@@ -3908,7 +3908,7 @@ jumptable_5eb8_case_84:
     call loc_QQUT                    ; 0x5eac
     add sp, byte 6                   ; 0x5eaf
     mov word [party_buff_charge], ax ; 0x5eb2
-@..api_idx_000e_ORJG.l130:
+api_idx_000e_ORJG.forward117:
     jmp near jumptable_5eb8_case_47  ; 0x5eb5
 jumptable_5eb8:
     dw jumptable_5eb8_case_0 - IMAGE_BASE + __zres_end ; 0x5eb8
@@ -4013,7 +4013,7 @@ jumptable_5eb8:
     dw jumptable_5eb8_case_47 - IMAGE_BASE + __zres_end ; 0x5f7e
     dw jumptable_5eb8_case_100 - IMAGE_BASE + __zres_end ; 0x5f80
     dw jumptable_5eb8_case_101 - IMAGE_BASE + __zres_end ; 0x5f82
-@..api_idx_000e_ORJG.l131:
+api_idx_000e_ORJG.forward118:
     cmp ax, strict word 0x66         ; 0x5f84
     jae short jumptable_5eb8_case_47 ; 0x5f87
     xchg bx, ax                      ; 0x5f89
@@ -4021,9 +4021,9 @@ jumptable_5eb8:
     jmp [cs:bx + jumptable_5eb8 - IMAGE_BASE + __zres_end] ; 0x5f8c
 jumptable_5eb8_case_47:
     cmp word [bss_90e4], byte 0      ; 0x5f91
-    jne short @..api_idx_000e_ORJG.l133 ; 0x5f96
+    jne short api_idx_000e_ORJG.return1 ; 0x5f96
     push word [bss_9058]             ; 0x5f98
     call api_idx_0004_QUPL           ; 0x5f9c
     pop cx                           ; 0x5f9f
-@..api_idx_000e_ORJG.l133:
+api_idx_000e_ORJG.return1:
     ret                              ; 0x5fa0

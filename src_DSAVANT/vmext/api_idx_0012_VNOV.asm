@@ -17,20 +17,20 @@ api_idx_0012_VNOV:
     cwd                              ; 0x0f09
     idiv cx                          ; 0x0f0a
     mov word [bp - 0xc], dx          ; 0x0f0c
-@..api_idx_0012_VNOV.l1:
+.back1:
     call pick_party_member           ; 0x0f0f
     mov word [bp - 6], ax            ; 0x0f12
     cmp ax, strict word 0xffff       ; 0x0f15
-    jne short @..api_idx_0012_VNOV.l2 ; 0x0f18
-    jmp near @..api_idx_0012_VNOV.l26 ; 0x0f1a
-@..api_idx_0012_VNOV.l2:
+    jne short .forward1              ; 0x0f18
+    jmp near .forward21              ; 0x0f1a
+.forward1:
     mov word [bp - 0x10], 0          ; 0x0f1d
     mov word [bp - 0x12], 0          ; 0x0f22
     mov cx, 0x248                    ; 0x0f27
     imul cx                          ; 0x0f2a
     mov bx, ax                       ; 0x0f2c
     cmp byte [bx + party_records + pc_rec.state], 3 ; 0x0f2e
-    jb short @..api_idx_0012_VNOV.l3 ; 0x0f33
+    jb short .forward2               ; 0x0f33
     mov ax, 1                        ; 0x0f35
     push ax                          ; 0x0f38
     mov ax, 7                        ; 0x0f39
@@ -39,9 +39,9 @@ api_idx_0012_VNOV:
     call get_bits                    ; 0x0f40
     add sp, byte 6                   ; 0x0f43
     test ax, ax                      ; 0x0f46
-    jne short @..api_idx_0012_VNOV.l3 ; 0x0f48
-    jmp near @..api_idx_0012_VNOV.l25 ; 0x0f4a
-@..api_idx_0012_VNOV.l3:
+    jne short .forward2              ; 0x0f48
+    jmp near .forward20              ; 0x0f4a
+.forward2:
     push word [bp - 0xa]             ; 0x0f4d
     push word [bp - 0xc]             ; 0x0f50
     push word [bp - 0xa]             ; 0x0f53
@@ -60,7 +60,7 @@ api_idx_0012_VNOV:
     add sp, byte 4                   ; 0x0f70
     mov word [bp - 0xe], ax          ; 0x0f73
     mov word [bp - 2], 0             ; 0x0f76
-@..api_idx_0012_VNOV.l4:
+.back2:
     mov ax, 1                        ; 0x0f7b
     push ax                          ; 0x0f7e
     push word [bp - 2]               ; 0x0f7f
@@ -68,21 +68,21 @@ api_idx_0012_VNOV:
     call get_bits                    ; 0x0f85
     add sp, byte 6                   ; 0x0f88
     cmp ax, strict word 1            ; 0x0f8b
-    je short @..api_idx_0012_VNOV.l5 ; 0x0f8e
-    jmp near @..api_idx_0012_VNOV.l24 ; 0x0f90
-@..api_idx_0012_VNOV.l5:
+    je short .forward3               ; 0x0f8e
+    jmp near .forward19              ; 0x0f90
+.forward3:
     cmp word [bp - 2], byte 7        ; 0x0f93
-    jge short @..api_idx_0012_VNOV.l6 ; 0x0f97
+    jge short .forward4              ; 0x0f97
     mov word [bp - 0x10], 1          ; 0x0f99
-@..api_idx_0012_VNOV.l6:
+.forward4:
     mov ax, word [bp - 2]            ; 0x0f9e
     cmp ax, strict word 7            ; 0x0fa1
-    jle short @..api_idx_0012_VNOV.l7 ; 0x0fa4
+    jle short .forward5              ; 0x0fa4
     cmp ax, strict word 0xf          ; 0x0fa6
-    jge short @..api_idx_0012_VNOV.l7 ; 0x0fa9
+    jge short .forward5              ; 0x0fa9
     mov word [bp - 0x12], 2          ; 0x0fab
-@..api_idx_0012_VNOV.l7:
-    jmp near @..api_idx_0012_VNOV.l23 ; 0x0fb0
+.forward5:
+    jmp near .forward18              ; 0x0fb0
 jumptable_12fa_case_0:
     mov ax, 0x248                    ; 0x0fb3
     imul word [bp - 6]               ; 0x0fb6
@@ -101,10 +101,10 @@ jumptable_12fa_case_0:
     mov bx, ax                       ; 0x0fd8
     pop ax                           ; 0x0fda
     mov word [bx + party_records + pc_rec.pair_b], ax ; 0x0fdb
-    jmp near @..api_idx_0012_VNOV.l24 ; 0x0fdf
+    jmp near api_idx_0012_VNOV.forward19 ; 0x0fdf
 jumptable_12fa_case_1:
     mov word [bp - 4], 0             ; 0x0fe2
-@..api_idx_0012_VNOV.l8:
+api_idx_0012_VNOV.back3:
     mov ax, 0x248                    ; 0x0fe7
     imul word [bp - 6]               ; 0x0fea
     mov cx, word [bp - 4]            ; 0x0fed
@@ -159,10 +159,10 @@ jumptable_12fa_case_1:
     inc word [bp - 4]                ; 0x105f
     mov ax, word [bp - 4]            ; 0x1062
     cmp ax, strict word 6            ; 0x1065
-    jge short @..api_idx_0012_VNOV.l9 ; 0x1068
-    jmp near @..api_idx_0012_VNOV.l8 ; 0x106a
-@..api_idx_0012_VNOV.l9:
-    jmp near @..api_idx_0012_VNOV.l24 ; 0x106d
+    jge short api_idx_0012_VNOV.forward6 ; 0x1068
+    jmp near api_idx_0012_VNOV.back3 ; 0x106a
+api_idx_0012_VNOV.forward6:
+    jmp near api_idx_0012_VNOV.forward19 ; 0x106d
 jumptable_12fa_case_2:
     mov ax, 0x248                    ; 0x1070
     imul word [bp - 6]               ; 0x1073
@@ -181,45 +181,45 @@ jumptable_12fa_case_2:
     mov bx, ax                       ; 0x1095
     pop ax                           ; 0x1097
     mov word [bx + party_records + pc_rec.pair_a], ax ; 0x1098
-    jmp near @..api_idx_0012_VNOV.l24 ; 0x109c
+    jmp near api_idx_0012_VNOV.forward19 ; 0x109c
 jumptable_12fa_case_3:
     mov ax, 0x248                    ; 0x109f
     imul word [bp - 6]               ; 0x10a2
     mov bx, ax                       ; 0x10a5
     mov byte [bx + party_records + pc_rec.f_023e], 0 ; 0x10a7
     mov byte [bx + party_records + pc_rec.status + 0x5], 0 ; 0x10ac
-    jmp near @..api_idx_0012_VNOV.l24 ; 0x10b1
+    jmp near api_idx_0012_VNOV.forward19 ; 0x10b1
 jumptable_12fa_case_4:
     mov ax, 0x248                    ; 0x10b4
     imul word [bp - 6]               ; 0x10b7
     mov bx, ax                       ; 0x10ba
     mov byte [bx + party_records + pc_rec.status + 0x3], 0 ; 0x10bc
-    jmp near @..api_idx_0012_VNOV.l24 ; 0x10c1
+    jmp near api_idx_0012_VNOV.forward19 ; 0x10c1
 jumptable_12fa_case_5:
     mov ax, 0x248                    ; 0x10c4
     imul word [bp - 6]               ; 0x10c7
     mov bx, ax                       ; 0x10ca
     cmp byte [bx + party_records + pc_rec.state], 2 ; 0x10cc
-    jne short @..api_idx_0012_VNOV.l10 ; 0x10d1
+    jne short api_idx_0012_VNOV.forward7 ; 0x10d1
     mov byte [bx + party_records + pc_rec.state], 0 ; 0x10d3
-@..api_idx_0012_VNOV.l10:
+api_idx_0012_VNOV.forward7:
     mov byte [bx + party_records + pc_rec.status + 0x6], 0 ; 0x10d8
-    jmp near @..api_idx_0012_VNOV.l24 ; 0x10dd
+    jmp near api_idx_0012_VNOV.forward19 ; 0x10dd
 jumptable_12fa_case_6:
     mov word [bp - 4], 1             ; 0x10e0
-@..api_idx_0012_VNOV.l11:
+api_idx_0012_VNOV.back4:
     mov ax, word [bp - 4]            ; 0x10e5
     cmp ax, strict word 1            ; 0x10e8
-    je short @..api_idx_0012_VNOV.l12 ; 0x10eb
+    je short api_idx_0012_VNOV.forward8 ; 0x10eb
     cmp ax, strict word 2            ; 0x10ed
-    je short @..api_idx_0012_VNOV.l12 ; 0x10f0
+    je short api_idx_0012_VNOV.forward8 ; 0x10f0
     cmp ax, strict word 4            ; 0x10f2
-    je short @..api_idx_0012_VNOV.l12 ; 0x10f5
+    je short api_idx_0012_VNOV.forward8 ; 0x10f5
     cmp ax, strict word 8            ; 0x10f7
-    je short @..api_idx_0012_VNOV.l12 ; 0x10fa
+    je short api_idx_0012_VNOV.forward8 ; 0x10fa
     cmp ax, strict word 9            ; 0x10fc
-    jne short @..api_idx_0012_VNOV.l13 ; 0x10ff
-@..api_idx_0012_VNOV.l12:
+    jne short api_idx_0012_VNOV.forward9 ; 0x10ff
+api_idx_0012_VNOV.forward8:
     mov ax, 0x248                    ; 0x1101
     imul word [bp - 6]               ; 0x1104
     mov cx, ax                       ; 0x1107
@@ -227,12 +227,12 @@ jumptable_12fa_case_6:
     add cx, ax                       ; 0x110c
     mov bx, cx                       ; 0x110e
     mov byte [bx + party_records + pc_rec.status], 0 ; 0x1110
-@..api_idx_0012_VNOV.l13:
+api_idx_0012_VNOV.forward9:
     inc word [bp - 4]                ; 0x1115
     mov ax, word [bp - 4]            ; 0x1118
     cmp ax, strict word 9            ; 0x111b
-    jle short @..api_idx_0012_VNOV.l11 ; 0x111e
-    jmp near @..api_idx_0012_VNOV.l24 ; 0x1120
+    jle short api_idx_0012_VNOV.back4 ; 0x111e
+    jmp near api_idx_0012_VNOV.forward19 ; 0x1120
 jumptable_12fa_case_7:
     mov ax, 0x248                    ; 0x1123
     imul word [bp - 6]               ; 0x1126
@@ -242,7 +242,7 @@ jumptable_12fa_case_7:
     mov word [bx + party_records + pc_rec.pair_a], ax ; 0x1134
     mov ax, word [bx + party_records + pc_rec.pair_b + 0x2] ; 0x1138
     mov word [bx + party_records + pc_rec.pair_b], ax ; 0x113c
-    jmp near @..api_idx_0012_VNOV.l24 ; 0x1140
+    jmp near api_idx_0012_VNOV.forward19 ; 0x1140
 jumptable_12fa_case_8:
     mov ax, 0x248                    ; 0x1143
     imul word [bp - 6]               ; 0x1146
@@ -262,7 +262,7 @@ jumptable_12fa_case_8:
     pop ax                           ; 0x116a
     mov word [bx + party_records + pc_rec.pair_b], ax ; 0x116b
     cmp ax, strict word 0            ; 0x116f
-    jg short @..api_idx_0012_VNOV.l14 ; 0x1172
+    jg short api_idx_0012_VNOV.forward10 ; 0x1172
     mov al, byte [bx + party_records + pc_rec.status + 0x2] ; 0x1174
     sub ah, ah                       ; 0x1178
     mov cx, ax                       ; 0x117a
@@ -280,11 +280,11 @@ jumptable_12fa_case_8:
     mov bx, ax                       ; 0x1192
     pop ax                           ; 0x1194
     mov byte [bx + party_records + pc_rec.status + 0x2], al ; 0x1195
-@..api_idx_0012_VNOV.l14:
-    jmp near @..api_idx_0012_VNOV.l24 ; 0x1199
+api_idx_0012_VNOV.forward10:
+    jmp near api_idx_0012_VNOV.forward19 ; 0x1199
 jumptable_12fa_case_9:
     mov word [bp - 4], 0             ; 0x119c
-@..api_idx_0012_VNOV.l15:
+api_idx_0012_VNOV.back5:
     mov ax, 0x248                    ; 0x11a1
     imul word [bp - 6]               ; 0x11a4
     mov cx, word [bp - 4]            ; 0x11a7
@@ -338,10 +338,10 @@ jumptable_12fa_case_9:
     inc word [bp - 4]                ; 0x1219
     mov ax, word [bp - 4]            ; 0x121c
     cmp ax, strict word 6            ; 0x121f
-    jge short @..api_idx_0012_VNOV.l16 ; 0x1222
-    jmp near @..api_idx_0012_VNOV.l15 ; 0x1224
-@..api_idx_0012_VNOV.l16:
-    jmp near @..api_idx_0012_VNOV.l24 ; 0x1227
+    jge short api_idx_0012_VNOV.forward11 ; 0x1222
+    jmp near api_idx_0012_VNOV.back5 ; 0x1224
+api_idx_0012_VNOV.forward11:
+    jmp near api_idx_0012_VNOV.forward19 ; 0x1227
 jumptable_12fa_case_10:
     mov ax, 0x248                    ; 0x122a
     imul word [bp - 6]               ; 0x122d
@@ -361,7 +361,7 @@ jumptable_12fa_case_10:
     pop ax                           ; 0x1251
     mov word [bx + party_records + pc_rec.pair_a], ax ; 0x1252
     cmp ax, strict word 0            ; 0x1256
-    jg short @..api_idx_0012_VNOV.l17 ; 0x1259
+    jg short api_idx_0012_VNOV.forward12 ; 0x1259
     mov byte [bx + party_records + pc_rec.state], 3 ; 0x125b
     mov word [bx + party_records + pc_rec.pair_a], 0 ; 0x1260
     mov word [bx + party_records + pc_rec.pair_b], 0 ; 0x1266
@@ -371,8 +371,8 @@ jumptable_12fa_case_10:
     push ax                          ; 0x1275
     call play_sound_effect           ; 0x1276
     pop cx                           ; 0x1279
-@..api_idx_0012_VNOV.l17:
-    jmp near @..api_idx_0012_VNOV.l24 ; 0x127a
+api_idx_0012_VNOV.forward12:
+    jmp near api_idx_0012_VNOV.forward19 ; 0x127a
 jumptable_12fa_case_11:
     mov ax, 0x248                    ; 0x127d
     imul word [bp - 6]               ; 0x1280
@@ -380,18 +380,18 @@ jumptable_12fa_case_11:
     mov al, byte [bx + party_records + pc_rec.f_023e] ; 0x1285
     sub ah, ah                       ; 0x1289
     cmp ax, word [bp - 0xa]          ; 0x128b
-    jge short @..api_idx_0012_VNOV.l18 ; 0x128e
+    jge short api_idx_0012_VNOV.forward13 ; 0x128e
     mov al, byte [bp - 0xa]          ; 0x1290
     mov byte [bx + party_records + pc_rec.f_023e], al ; 0x1293
-@..api_idx_0012_VNOV.l18:
+api_idx_0012_VNOV.forward13:
     mov al, byte [bx + party_records + pc_rec.status + 0x5] ; 0x1297
     sub ah, ah                       ; 0x129b
     cmp ax, word [bp - 0xe]          ; 0x129d
-    jge short @..api_idx_0012_VNOV.l19 ; 0x12a0
+    jge short api_idx_0012_VNOV.forward14 ; 0x12a0
     mov al, byte [bp - 0xe]          ; 0x12a2
     mov byte [bx + party_records + pc_rec.status + 0x5], al ; 0x12a5
-@..api_idx_0012_VNOV.l19:
-    jmp near @..api_idx_0012_VNOV.l24 ; 0x12a9
+api_idx_0012_VNOV.forward14:
+    jmp near api_idx_0012_VNOV.forward19 ; 0x12a9
 jumptable_12fa_case_12:
     mov ax, 0x248                    ; 0x12ac
     imul word [bp - 6]               ; 0x12af
@@ -399,20 +399,20 @@ jumptable_12fa_case_12:
     mov al, byte [bx + party_records + pc_rec.status + 0x3] ; 0x12b4
     sub ah, ah                       ; 0x12b8
     cmp ax, word [bp - 0xe]          ; 0x12ba
-    jge short @..api_idx_0012_VNOV.l20 ; 0x12bd
+    jge short api_idx_0012_VNOV.forward15 ; 0x12bd
     mov al, byte [bp - 0xe]          ; 0x12bf
     mov byte [bx + party_records + pc_rec.status + 0x3], al ; 0x12c2
-@..api_idx_0012_VNOV.l20:
-    jmp short @..api_idx_0012_VNOV.l24 ; 0x12c6
+api_idx_0012_VNOV.forward15:
+    jmp short api_idx_0012_VNOV.forward19 ; 0x12c6
 jumptable_12fa_case_13:
     mov ax, 0x248                    ; 0x12c8
     imul word [bp - 6]               ; 0x12cb
     mov bx, ax                       ; 0x12ce
     cmp byte [bx + party_records + pc_rec.state], 2 ; 0x12d0
-    jae short @..api_idx_0012_VNOV.l21 ; 0x12d5
+    jae short api_idx_0012_VNOV.forward16 ; 0x12d5
     mov byte [bx + party_records + pc_rec.state], 2 ; 0x12d7
-@..api_idx_0012_VNOV.l21:
-    jmp short @..api_idx_0012_VNOV.l24 ; 0x12dc
+api_idx_0012_VNOV.forward16:
+    jmp short api_idx_0012_VNOV.forward19 ; 0x12dc
 jumptable_12fa_case_14:
     mov ax, 0x248                    ; 0x12de
     imul word [bp - 6]               ; 0x12e1
@@ -420,11 +420,11 @@ jumptable_12fa_case_14:
     mov al, byte [bx + party_records + pc_rec.status + 0x2] ; 0x12e6
     sub ah, ah                       ; 0x12ea
     cmp ax, word [bp - 0xe]          ; 0x12ec
-    jge short @..api_idx_0012_VNOV.l22 ; 0x12ef
+    jge short api_idx_0012_VNOV.forward17 ; 0x12ef
     mov al, byte [bp - 0xe]          ; 0x12f1
     mov byte [bx + party_records + pc_rec.status + 0x2], al ; 0x12f4
-@..api_idx_0012_VNOV.l22:
-    jmp short @..api_idx_0012_VNOV.l24 ; 0x12f8
+api_idx_0012_VNOV.forward17:
+    jmp short api_idx_0012_VNOV.forward19 ; 0x12f8
 jumptable_12fa:
     dw jumptable_12fa_case_0 - IMAGE_BASE + __zres_end ; 0x12fa
     dw jumptable_12fa_case_1 - IMAGE_BASE + __zres_end ; 0x12fc
@@ -441,19 +441,19 @@ jumptable_12fa:
     dw jumptable_12fa_case_12 - IMAGE_BASE + __zres_end ; 0x1312
     dw jumptable_12fa_case_13 - IMAGE_BASE + __zres_end ; 0x1314
     dw jumptable_12fa_case_14 - IMAGE_BASE + __zres_end ; 0x1316
-@..api_idx_0012_VNOV.l23:
+api_idx_0012_VNOV.forward18:
     cmp ax, strict word 0xf          ; 0x1318
-    jae short @..api_idx_0012_VNOV.l24 ; 0x131b
+    jae short api_idx_0012_VNOV.forward19 ; 0x131b
     xchg bx, ax                      ; 0x131d
     shl bx, 1                        ; 0x131e
     jmp [cs:bx + jumptable_12fa - IMAGE_BASE + __zres_end] ; 0x1320
-@..api_idx_0012_VNOV.l24:
+api_idx_0012_VNOV.forward19:
     inc word [bp - 2]                ; 0x1325
     mov ax, word [bp - 2]            ; 0x1328
     cmp ax, strict word 0x10         ; 0x132b
-    jge short @..api_idx_0012_VNOV.l25 ; 0x132e
-    jmp near @..api_idx_0012_VNOV.l4 ; 0x1330
-@..api_idx_0012_VNOV.l25:
+    jge short api_idx_0012_VNOV.forward20 ; 0x132e
+    jmp near api_idx_0012_VNOV.back2 ; 0x1330
+api_idx_0012_VNOV.forward20:
     mov ax, 1                        ; 0x1333
     push ax                          ; 0x1336
     push word [bp - 6]               ; 0x1337
@@ -465,7 +465,7 @@ jumptable_12fa:
     push ax                          ; 0x1349
     call loc_TLQV                    ; 0x134a
     pop cx                           ; 0x134d
-    jmp near @..api_idx_0012_VNOV.l1 ; 0x134e
-@..api_idx_0012_VNOV.l26:
+    jmp near api_idx_0012_VNOV.back1 ; 0x134e
+api_idx_0012_VNOV.forward21:
     inc word [party_region]          ; 0x1351
     ret                              ; 0x1355

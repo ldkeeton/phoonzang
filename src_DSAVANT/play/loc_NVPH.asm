@@ -39,14 +39,14 @@ loc_NVPH:
     mov al, byte [si + 0xa]          ; 0x17cf
     and al, 1                        ; 0x17d2
     cmp al, 1                        ; 0x17d4
-    jne short @..loc_GOTP_17f0.l1    ; 0x17d6
+    jne short loc_GOTP_17f0.forward1 ; 0x17d6
     mov al, ch                       ; 0x17d8
     mov ah, byte [si + 1]            ; 0x17da
     call loc_QVOP                    ; 0x17dd
-    jmp near @..loc_GOTP_17f0.l2     ; 0x17e0
-@..loc_GOTP_17f0.l1:
+    jmp near loc_GOTP_17f0.forward2  ; 0x17e0
+loc_GOTP_17f0.forward1:
     mov al, byte [si + 1]            ; 0x17e3
     mov ah, 0x40                     ; 0x17e6
     add ah, ch                       ; 0x17e8
     call opl_write                   ; 0x17ea
-    jmp near @..loc_GOTP_17f0.l2     ; 0x17ed
+    jmp near loc_GOTP_17f0.forward2  ; 0x17ed

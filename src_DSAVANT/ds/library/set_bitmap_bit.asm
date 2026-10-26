@@ -20,9 +20,9 @@ set_bitmap_bit:
     not ah                           ; 0x3ea9
     and byte [bx + si], ah           ; 0x3eab
     cmp word [bp + 8], byte 0        ; 0x3ead
-    je short @..set_bitmap_bit.l1    ; 0x3eb1
+    je short .forward1               ; 0x3eb1
     or byte [bx + si], al            ; 0x3eb3
-@..set_bitmap_bit.l1:
+.forward1:
     pop si                           ; 0x3eb5
     pop es                           ; 0x3eb6
     mov sp, bp                       ; 0x3eb7

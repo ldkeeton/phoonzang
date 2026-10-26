@@ -76,12 +76,12 @@ show_event_message:
     call gfx_show_area               ; 0x0611
     add sp, byte 8                   ; 0x0614
     cmp word [pending_event_hi], byte 0 ; 0x0617
-    je short @..show_event_message.l1 ; 0x061c
+    je short .forward1               ; 0x061c
     mov ax, 0                        ; 0x061e
     push ax                          ; 0x0621
     call play_sound_effect           ; 0x0622
     pop cx                           ; 0x0625
-@..show_event_message.l1:
+.forward1:
     mov ax, word [message_delay]     ; 0x0626
     mov cx, 2                        ; 0x0629
     cwd                              ; 0x062c

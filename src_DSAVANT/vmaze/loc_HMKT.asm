@@ -2,11 +2,11 @@
 loc_HMKT:
     mov ax, 0                        ; 0x7cb4
     call aztec_csav                  ; 0x7cb7
-@..loc_HMKT.l1:
+.back1:
     cmp word [bp + 4], byte 0        ; 0x7cba
-    jle short @..loc_HMKT.l3         ; 0x7cbe
+    jle short .return1               ; 0x7cbe
     cmp word [bp + 6], byte 0        ; 0x7cc0
-    je short @..loc_HMKT.l2          ; 0x7cc4
+    je short .forward1               ; 0x7cc4
     mov ax, word [party_status_frame] ; 0x7cc6
     inc ax                           ; 0x7cc9
     mov cx, 2                        ; 0x7cca
@@ -18,8 +18,8 @@ loc_HMKT:
     push ax                          ; 0x7cda
     call play_sound_effect           ; 0x7cdb
     pop cx                           ; 0x7cde
-@..loc_HMKT.l2:
+.forward1:
     dec word [bp + 4]                ; 0x7cdf
-    jmp short @..loc_HMKT.l1         ; 0x7ce2
-@..loc_HMKT.l3:
+    jmp short .back1                 ; 0x7ce2
+.return1:
     ret                              ; 0x7ce4

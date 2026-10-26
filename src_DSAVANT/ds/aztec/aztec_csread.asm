@@ -11,9 +11,9 @@ aztec_impl_csread:
     mov ah, 0x3f                     ; 0x44c5
     int 0x21 ; DOS read file (handle)
     pop ds                           ; 0x44c9
-    jae short @..aztec_csread.ret_ok ; 0x44ca
+    jae short aztec_csread.ret_ok    ; 0x44ca
     mov word [errno], ax             ; 0x44cc
     mov ax, 0xffff                   ; 0x44cf
-@..aztec_csread.ret_ok:
+aztec_csread.ret_ok:
     pop bp                           ; 0x44d2
     ret                              ; 0x44d3

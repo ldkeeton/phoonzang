@@ -9,14 +9,14 @@ io_loc_QVTL:
     mov ax, 0x38e                    ; 0x024c
     mov dx, 0                        ; 0x024f
     cmp bx, byte 0                   ; 0x0252
-    je short @..io_loc_QVTL.l1       ; 0x0255
+    je short .forward1               ; 0x0255
     div bx                           ; 0x0257
-@..io_loc_QVTL.l1:
+.forward1:
     mov word [cs:chain_period - IMAGE_BASE], ax ; 0x0259
     cmp byte [cs:cseg_0a90 - IMAGE_BASE], 0 ; 0x025d
-    je short @..io_loc_QVTL.l2       ; 0x0263
+    je short .forward2               ; 0x0263
     cmp byte [cs:music_enabled - IMAGE_BASE], 0 ; 0x0265
-    je short @..io_loc_QVTL.l2       ; 0x026b
+    je short .forward2               ; 0x026b
     mov al, 0x34                     ; 0x026d
     out 0x43, al                     ; 0x026f
     call leaf_loc_STGJ               ; 0x0271
@@ -28,7 +28,7 @@ io_loc_QVTL:
     call leaf_loc_STGJ               ; 0x0282
     mov al, ah                       ; 0x0285
     out 0x40, al                     ; 0x0287
-@..io_loc_QVTL.l2:
+.forward2:
     mov ax, word [bp + 0xa]          ; 0x0289
     mov byte [cs:playback_volume - IMAGE_BASE], al ; 0x028c
     pop dx                           ; 0x0290

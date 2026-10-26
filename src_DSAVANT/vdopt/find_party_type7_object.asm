@@ -7,7 +7,7 @@ find_party_type7_object:
     mov al, byte [bx + si + spell_table + spell_table_rec_size*218 + spell_table_rec.f_0004] ; 0x0669
     sub ah, ah                       ; 0x066d
     mov word [bp - 2], ax            ; 0x066f
-@..find_party_type7_object.l1:
+.back1:
     push word [bp - 2]               ; 0x0672
     push word [party_map_piece]      ; 0x0675
     push word [party_cell_y]         ; 0x0679
@@ -16,11 +16,11 @@ find_party_type7_object:
     add sp, byte 8                   ; 0x0684
     mov word [bp - 2], ax            ; 0x0687
     cmp ax, strict word 0xffff       ; 0x068a
-    je short @..find_party_type7_object.l4 ; 0x068d
+    je short .forward3               ; 0x068d
     mov bx, word [maze_tables]       ; 0x068f
     mov si, ax                       ; 0x0693
     cmp byte [bx + si + 0x5a0], 7    ; 0x0695
-    jne short @..find_party_type7_object.l3 ; 0x069a
+    jne short .forward2              ; 0x069a
     mov ax, 2                        ; 0x069c
     push ax                          ; 0x069f
     mov ax, word [party_tag]         ; 0x06a0
@@ -31,7 +31,7 @@ find_party_type7_object:
     call get_bits                    ; 0x06ac
     add sp, byte 6                   ; 0x06af
     cmp ax, strict word 1            ; 0x06b2
-    je short @..find_party_type7_object.l2 ; 0x06b5
+    je short .forward1               ; 0x06b5
     mov ax, 2                        ; 0x06b7
     push ax                          ; 0x06ba
     mov ax, word [party_tag]         ; 0x06bb
@@ -45,13 +45,13 @@ find_party_type7_object:
     call get_bits                    ; 0x06d0
     add sp, byte 6                   ; 0x06d3
     cmp ax, strict word 2            ; 0x06d6
-    jne short @..find_party_type7_object.l3 ; 0x06d9
-@..find_party_type7_object.l2:
+    jne short .forward2              ; 0x06d9
+.forward1:
     mov ax, word [bp - 2]            ; 0x06db
     ret                              ; 0x06de
-@..find_party_type7_object.l3:
+.forward2:
     inc word [bp - 2]                ; 0x06df
-    jmp short @..find_party_type7_object.l1 ; 0x06e2
-@..find_party_type7_object.l4:
+    jmp short .back1                 ; 0x06e2
+.forward3:
     mov ax, 0xffff                   ; 0x06e4
     ret                              ; 0x06e7

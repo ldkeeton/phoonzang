@@ -3,23 +3,23 @@ api_idx_0004_THPM:
     mov ax, 0xfffc                   ; 0x7542
     call aztec_csav                  ; 0x7545
     cmp word [bss_82fe], byte 0      ; 0x7548
-    jle short @..api_idx_0004_THPM.l1 ; 0x754d
+    jle short .forward1              ; 0x754d
     mov ax, 0x64                     ; 0x754f
     push ax                          ; 0x7552
     call random_below                ; 0x7553
     pop cx                           ; 0x7556
     cmp ax, word [bss_8300]          ; 0x7557
-    jge short @..api_idx_0004_THPM.l1 ; 0x755b
+    jge short .forward1              ; 0x755b
     mov word [party_status_frame_step], 1 ; 0x755d
-@..api_idx_0004_THPM.l1:
+.forward1:
     mov word [bp - 2], 0             ; 0x7563
-    jmp short @..api_idx_0004_THPM.l4 ; 0x7568
-@..api_idx_0004_THPM.l2:
+    jmp short .forward3              ; 0x7568
+.back1:
     push word [bp - 2]               ; 0x756a
     call member_is_active            ; 0x756d
     pop cx                           ; 0x7570
     test ax, ax                      ; 0x7571
-    je short @..api_idx_0004_THPM.l3 ; 0x7573
+    je short .forward2               ; 0x7573
     mov ax, 0xc8                     ; 0x7575
     push ax                          ; 0x7578
     call random_below                ; 0x7579
@@ -33,17 +33,17 @@ api_idx_0004_THPM:
     mov cx, ax                       ; 0x758c
     pop ax                           ; 0x758e
     cmp ax, cx                       ; 0x758f
-    jge short @..api_idx_0004_THPM.l3 ; 0x7591
+    jge short .forward2              ; 0x7591
     mov ax, MSG_DETECTS_SOMETHING    ; 0x7593
     push ax                          ; 0x7596
     push word [bp - 2]               ; 0x7597
     call api_idx_0050_QVOG           ; 0x759a
     add sp, byte 4                   ; 0x759d
     ret                              ; 0x75a0
-@..api_idx_0004_THPM.l3:
+.forward2:
     inc word [bp - 2]                ; 0x75a1
-@..api_idx_0004_THPM.l4:
+.forward3:
     mov ax, word [bp - 2]            ; 0x75a4
     cmp ax, word [party_char_count]  ; 0x75a7
-    jl short @..api_idx_0004_THPM.l2 ; 0x75ab
+    jl short .back1                  ; 0x75ab
     ret                              ; 0x75ad

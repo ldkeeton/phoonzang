@@ -9,29 +9,29 @@ loc_KIOQ:
     mov word [bss_9152], 0x44        ; 0x0d95
     mov word [bss_9150], 0           ; 0x0d9b
     mov byte [bss_9154], 0           ; 0x0da1
-@..loc_KIOQ.l1:
+.back1:
     lea ax, word [bp - 0x105]        ; 0x0da6
     push ax                          ; 0x0daa
     push word [bp + 4]               ; 0x0dab
     call load_message_string         ; 0x0dae
     add sp, byte 4                   ; 0x0db1
     cmp word [message_not_found], byte 0 ; 0x0db4
-    jne short @..loc_KIOQ.l2         ; 0x0db9
+    jne short .forward1              ; 0x0db9
     lea ax, word [bp - 0x105]        ; 0x0dbb
     push ax                          ; 0x0dbf
     call api_idx_0004_QHUH           ; 0x0dc0
     pop cx                           ; 0x0dc3
     inc word [bp + 4]                ; 0x0dc4
-@..loc_KIOQ.l2:
+.forward1:
     cmp word [message_not_found], byte 0 ; 0x0dc7
-    je short @..loc_KIOQ.l1          ; 0x0dcc
+    je short .back1                  ; 0x0dcc
     cmp byte [bss_9154], 0           ; 0x0dce
-    je short @..loc_KIOQ.l3          ; 0x0dd3
+    je short .forward2               ; 0x0dd3
     mov ax, bss_9154                 ; 0x0dd5
     push ax                          ; 0x0dd8
     call api_idx_0004_JGSH           ; 0x0dd9
     pop cx                           ; 0x0ddc
-@..loc_KIOQ.l3:
+.forward2:
     push word [bp + 6]               ; 0x0ddd
     call loc_NQGV                    ; 0x0de0
     pop cx                           ; 0x0de3

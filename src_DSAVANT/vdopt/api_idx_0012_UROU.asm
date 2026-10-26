@@ -12,26 +12,26 @@ api_idx_0012_UROU:
     add sp, byte 4                   ; 0x0fea
     mov ax, 0xf                      ; 0x0fed
     cmp word [bp + 6], byte 0        ; 0x0ff0
-    jne short @..api_idx_0012_UROU.l2 ; 0x0ff4
+    jne short .forward2              ; 0x0ff4
     cmp word [bp + 4], byte 4        ; 0x0ff6
-    jle short @..api_idx_0012_UROU.l1 ; 0x0ffa
+    jle short .forward1              ; 0x0ffa
     mov ax, word [bp + 4]            ; 0x0ffc
     shl ax, 1                        ; 0x0fff
     add ax, strict word 0xfff9       ; 0x1001
-    jmp short @..api_idx_0012_UROU.l2 ; 0x1004
-@..api_idx_0012_UROU.l1:
+    jmp short .forward2              ; 0x1004
+.forward1:
     mov ax, word [bp + 4]            ; 0x1006
     shl ax, 1                        ; 0x1009
     inc ax                           ; 0x100b
     inc ax                           ; 0x100c
     inc ax                           ; 0x100d
-@..api_idx_0012_UROU.l2:
+.forward2:
     mov word [bp - 6], ax            ; 0x100e
     mov word [bp - 8], ax            ; 0x1011
     cmp ax, strict word 0xd          ; 0x1014
-    jle short @..api_idx_0012_UROU.l3 ; 0x1017
+    jle short .forward3              ; 0x1017
     mov word [bp - 8], 0xd           ; 0x1019
-@..api_idx_0012_UROU.l3:
+.forward3:
     mov cx, 2                        ; 0x101e
     cwd                              ; 0x1021
     idiv cx                          ; 0x1022
@@ -58,59 +58,59 @@ api_idx_0012_UROU:
     sub ax, cx                       ; 0x1054
     mov word [grid_origin_y], ax     ; 0x1056
     cmp word [bss_9858], byte 0      ; 0x1059
-    je short @..api_idx_0012_UROU.l4 ; 0x105e
+    je short .forward4               ; 0x105e
     mov word [bp + 4], 1             ; 0x1060
-@..api_idx_0012_UROU.l4:
+.forward4:
     mov ax, word [maze_variant]      ; 0x1065
-    jmp near @..api_idx_0012_UROU.l51 ; 0x1068
+    jmp near .forward51              ; 0x1068
 jumptable_147e_case_1:
     mov ax, 0xffff                   ; 0x106b
     cmp word [bp + 4], byte 1        ; 0x106e
-    jle short @..api_idx_0012_UROU.l5 ; 0x1072
+    jle short api_idx_0012_UROU.forward5 ; 0x1072
     mov ax, 0xa                      ; 0x1074
-@..api_idx_0012_UROU.l5:
+api_idx_0012_UROU.forward5:
     mov word [bss_9af8], ax          ; 0x1077
     mov ax, 0xffff                   ; 0x107a
     cmp word [bp + 4], byte 1        ; 0x107d
-    jle short @..api_idx_0012_UROU.l6 ; 0x1081
+    jle short api_idx_0012_UROU.forward6 ; 0x1081
     mov ax, 0xb                      ; 0x1083
-@..api_idx_0012_UROU.l6:
+api_idx_0012_UROU.forward6:
     mov word [bss_9b00], ax          ; 0x1086
     mov ax, 0xc                      ; 0x1089
     cmp word [bp + 4], byte 2        ; 0x108c
-    jg short @..api_idx_0012_UROU.l7 ; 0x1090
+    jg short api_idx_0012_UROU.forward7 ; 0x1090
     mov ax, 0xffff                   ; 0x1092
     cmp word [bp + 4], byte 1        ; 0x1095
-    jle short @..api_idx_0012_UROU.l7 ; 0x1099
+    jle short api_idx_0012_UROU.forward7 ; 0x1099
     mov ax, 0xa                      ; 0x109b
-@..api_idx_0012_UROU.l7:
+api_idx_0012_UROU.forward7:
     mov word [bss_9af6], ax          ; 0x109e
     mov ax, 0xd                      ; 0x10a1
     cmp word [bp + 4], byte 2        ; 0x10a4
-    jg short @..api_idx_0012_UROU.l8 ; 0x10a8
+    jg short api_idx_0012_UROU.forward8 ; 0x10a8
     mov ax, 0xffff                   ; 0x10aa
     cmp word [bp + 4], byte 1        ; 0x10ad
-    jle short @..api_idx_0012_UROU.l8 ; 0x10b1
+    jle short api_idx_0012_UROU.forward8 ; 0x10b1
     mov ax, 0xb                      ; 0x10b3
-@..api_idx_0012_UROU.l8:
+api_idx_0012_UROU.forward8:
     mov word [bss_9afe], ax          ; 0x10b6
     mov ax, 0xe                      ; 0x10b9
     cmp word [bp + 4], byte 2        ; 0x10bc
-    jg short @..api_idx_0012_UROU.l9 ; 0x10c0
+    jg short api_idx_0012_UROU.forward9 ; 0x10c0
     mov ax, 0xffff                   ; 0x10c2
     cmp word [bp + 4], byte 1        ; 0x10c5
-    jle short @..api_idx_0012_UROU.l9 ; 0x10c9
+    jle short api_idx_0012_UROU.forward9 ; 0x10c9
     mov ax, 0xa                      ; 0x10cb
-@..api_idx_0012_UROU.l9:
+api_idx_0012_UROU.forward9:
     mov word [bss_9afa], ax          ; 0x10ce
     mov ax, 0xf                      ; 0x10d1
     cmp word [bp + 4], byte 2        ; 0x10d4
-    jg short @..api_idx_0012_UROU.l10 ; 0x10d8
+    jg short api_idx_0012_UROU.forward10 ; 0x10d8
     mov ax, 0xffff                   ; 0x10da
     cmp word [bp + 4], byte 1        ; 0x10dd
-    jle short @..api_idx_0012_UROU.l10 ; 0x10e1
+    jle short api_idx_0012_UROU.forward10 ; 0x10e1
     mov ax, 0xb                      ; 0x10e3
-@..api_idx_0012_UROU.l10:
+api_idx_0012_UROU.forward10:
     mov word [bss_9b02], ax          ; 0x10e6
     mov word [bss_9af0], 1           ; 0x10e9
     mov word [bss_9af4], 0xffff      ; 0x10ef
@@ -119,65 +119,65 @@ jumptable_147e_case_1:
     mov word [bss_9b06], 6           ; 0x1101
     mov ax, 0xffff                   ; 0x1107
     cmp word [bp + 4], byte 1        ; 0x110a
-    jle short @..api_idx_0012_UROU.l11 ; 0x110e
+    jle short api_idx_0012_UROU.forward11 ; 0x110e
     mov ax, 0xa                      ; 0x1110
-@..api_idx_0012_UROU.l11:
+api_idx_0012_UROU.forward11:
     mov word [bss_9344], ax          ; 0x1113
     mov ax, 0xffff                   ; 0x1116
     cmp word [bp + 4], byte 1        ; 0x1119
-    jle short @..api_idx_0012_UROU.l12 ; 0x111d
+    jle short api_idx_0012_UROU.forward12 ; 0x111d
     mov ax, 0xb                      ; 0x111f
-@..api_idx_0012_UROU.l12:
+api_idx_0012_UROU.forward12:
     mov word [bss_95ce], ax          ; 0x1122
     jmp near jumptable_147e_case_0   ; 0x1125
 jumptable_147e_case_2:
     mov ax, 0xffff                   ; 0x1128
     cmp word [bp + 4], byte 1        ; 0x112b
-    jle short @..api_idx_0012_UROU.l13 ; 0x112f
+    jle short api_idx_0012_UROU.forward13 ; 0x112f
     mov ax, 0x10                     ; 0x1131
-@..api_idx_0012_UROU.l13:
+api_idx_0012_UROU.forward13:
     mov word [bss_9af8], ax          ; 0x1134
     mov ax, 0xffff                   ; 0x1137
     cmp word [bp + 4], byte 1        ; 0x113a
-    jle short @..api_idx_0012_UROU.l14 ; 0x113e
+    jle short api_idx_0012_UROU.forward14 ; 0x113e
     mov ax, 0x11                     ; 0x1140
-@..api_idx_0012_UROU.l14:
+api_idx_0012_UROU.forward14:
     mov word [bss_9b00], ax          ; 0x1143
     mov ax, 0x12                     ; 0x1146
     cmp word [bp + 4], byte 2        ; 0x1149
-    jg short @..api_idx_0012_UROU.l15 ; 0x114d
+    jg short api_idx_0012_UROU.forward15 ; 0x114d
     mov ax, 0xffff                   ; 0x114f
     cmp word [bp + 4], byte 1        ; 0x1152
-    jle short @..api_idx_0012_UROU.l15 ; 0x1156
+    jle short api_idx_0012_UROU.forward15 ; 0x1156
     mov ax, 0x10                     ; 0x1158
-@..api_idx_0012_UROU.l15:
+api_idx_0012_UROU.forward15:
     mov word [bss_9af6], ax          ; 0x115b
     mov ax, 0x13                     ; 0x115e
     cmp word [bp + 4], byte 2        ; 0x1161
-    jg short @..api_idx_0012_UROU.l16 ; 0x1165
+    jg short api_idx_0012_UROU.forward16 ; 0x1165
     mov ax, 0xffff                   ; 0x1167
     cmp word [bp + 4], byte 1        ; 0x116a
-    jle short @..api_idx_0012_UROU.l16 ; 0x116e
+    jle short api_idx_0012_UROU.forward16 ; 0x116e
     mov ax, 0x11                     ; 0x1170
-@..api_idx_0012_UROU.l16:
+api_idx_0012_UROU.forward16:
     mov word [bss_9afe], ax          ; 0x1173
     mov ax, 0x14                     ; 0x1176
     cmp word [bp + 4], byte 2        ; 0x1179
-    jg short @..api_idx_0012_UROU.l17 ; 0x117d
+    jg short api_idx_0012_UROU.forward17 ; 0x117d
     mov ax, 0xffff                   ; 0x117f
     cmp word [bp + 4], byte 1        ; 0x1182
-    jle short @..api_idx_0012_UROU.l17 ; 0x1186
+    jle short api_idx_0012_UROU.forward17 ; 0x1186
     mov ax, 0x10                     ; 0x1188
-@..api_idx_0012_UROU.l17:
+api_idx_0012_UROU.forward17:
     mov word [bss_9afa], ax          ; 0x118b
     mov ax, 0x15                     ; 0x118e
     cmp word [bp + 4], byte 2        ; 0x1191
-    jg short @..api_idx_0012_UROU.l18 ; 0x1195
+    jg short api_idx_0012_UROU.forward18 ; 0x1195
     mov ax, 0xffff                   ; 0x1197
     cmp word [bp + 4], byte 1        ; 0x119a
-    jle short @..api_idx_0012_UROU.l18 ; 0x119e
+    jle short api_idx_0012_UROU.forward18 ; 0x119e
     mov ax, 0x11                     ; 0x11a0
-@..api_idx_0012_UROU.l18:
+api_idx_0012_UROU.forward18:
     mov word [bss_9b02], ax          ; 0x11a3
     mov word [bss_9af0], 5           ; 0x11a6
     mov word [bss_9af4], 4           ; 0x11ac
@@ -186,65 +186,65 @@ jumptable_147e_case_2:
     mov word [bss_9b06], 7           ; 0x11be
     mov ax, 0xffff                   ; 0x11c4
     cmp word [bp + 4], byte 1        ; 0x11c7
-    jle short @..api_idx_0012_UROU.l19 ; 0x11cb
+    jle short api_idx_0012_UROU.forward19 ; 0x11cb
     mov ax, 0x16                     ; 0x11cd
-@..api_idx_0012_UROU.l19:
+api_idx_0012_UROU.forward19:
     mov word [bss_9344], ax          ; 0x11d0
     mov ax, 0xffff                   ; 0x11d3
     cmp word [bp + 4], byte 1        ; 0x11d6
-    jle short @..api_idx_0012_UROU.l20 ; 0x11da
+    jle short api_idx_0012_UROU.forward20 ; 0x11da
     mov ax, 0x17                     ; 0x11dc
-@..api_idx_0012_UROU.l20:
+api_idx_0012_UROU.forward20:
     mov word [bss_95ce], ax          ; 0x11df
     jmp near jumptable_147e_case_0   ; 0x11e2
 jumptable_147e_case_3:
     mov ax, 0xffff                   ; 0x11e5
     cmp word [bp + 4], byte 1        ; 0x11e8
-    jle short @..api_idx_0012_UROU.l21 ; 0x11ec
+    jle short api_idx_0012_UROU.forward21 ; 0x11ec
     mov ax, 0x10                     ; 0x11ee
-@..api_idx_0012_UROU.l21:
+api_idx_0012_UROU.forward21:
     mov word [bss_9af8], ax          ; 0x11f1
     mov ax, 0xffff                   ; 0x11f4
     cmp word [bp + 4], byte 1        ; 0x11f7
-    jle short @..api_idx_0012_UROU.l22 ; 0x11fb
+    jle short api_idx_0012_UROU.forward22 ; 0x11fb
     mov ax, 0x11                     ; 0x11fd
-@..api_idx_0012_UROU.l22:
+api_idx_0012_UROU.forward22:
     mov word [bss_9b00], ax          ; 0x1200
     mov ax, 0x12                     ; 0x1203
     cmp word [bp + 4], byte 2        ; 0x1206
-    jg short @..api_idx_0012_UROU.l23 ; 0x120a
+    jg short api_idx_0012_UROU.forward23 ; 0x120a
     mov ax, 0xffff                   ; 0x120c
     cmp word [bp + 4], byte 1        ; 0x120f
-    jle short @..api_idx_0012_UROU.l23 ; 0x1213
+    jle short api_idx_0012_UROU.forward23 ; 0x1213
     mov ax, 0x10                     ; 0x1215
-@..api_idx_0012_UROU.l23:
+api_idx_0012_UROU.forward23:
     mov word [bss_9af6], ax          ; 0x1218
     mov ax, 0x13                     ; 0x121b
     cmp word [bp + 4], byte 2        ; 0x121e
-    jg short @..api_idx_0012_UROU.l24 ; 0x1222
+    jg short api_idx_0012_UROU.forward24 ; 0x1222
     mov ax, 0xffff                   ; 0x1224
     cmp word [bp + 4], byte 1        ; 0x1227
-    jle short @..api_idx_0012_UROU.l24 ; 0x122b
+    jle short api_idx_0012_UROU.forward24 ; 0x122b
     mov ax, 0x11                     ; 0x122d
-@..api_idx_0012_UROU.l24:
+api_idx_0012_UROU.forward24:
     mov word [bss_9afe], ax          ; 0x1230
     mov ax, 0x14                     ; 0x1233
     cmp word [bp + 4], byte 2        ; 0x1236
-    jg short @..api_idx_0012_UROU.l25 ; 0x123a
+    jg short api_idx_0012_UROU.forward25 ; 0x123a
     mov ax, 0xffff                   ; 0x123c
     cmp word [bp + 4], byte 1        ; 0x123f
-    jle short @..api_idx_0012_UROU.l25 ; 0x1243
+    jle short api_idx_0012_UROU.forward25 ; 0x1243
     mov ax, 0x10                     ; 0x1245
-@..api_idx_0012_UROU.l25:
+api_idx_0012_UROU.forward25:
     mov word [bss_9afa], ax          ; 0x1248
     mov ax, 0x15                     ; 0x124b
     cmp word [bp + 4], byte 2        ; 0x124e
-    jg short @..api_idx_0012_UROU.l26 ; 0x1252
+    jg short api_idx_0012_UROU.forward26 ; 0x1252
     mov ax, 0xffff                   ; 0x1254
     cmp word [bp + 4], byte 1        ; 0x1257
-    jle short @..api_idx_0012_UROU.l26 ; 0x125b
+    jle short api_idx_0012_UROU.forward26 ; 0x125b
     mov ax, 0x11                     ; 0x125d
-@..api_idx_0012_UROU.l26:
+api_idx_0012_UROU.forward26:
     mov word [bss_9b02], ax          ; 0x1260
     mov word [bss_9af0], 4           ; 0x1263
     mov word [bss_9af4], 3           ; 0x1269
@@ -253,53 +253,53 @@ jumptable_147e_case_3:
     mov word [bss_9b06], 7           ; 0x127b
     mov ax, 0xffff                   ; 0x1281
     cmp word [bp + 4], byte 1        ; 0x1284
-    jle short @..api_idx_0012_UROU.l27 ; 0x1288
+    jle short api_idx_0012_UROU.forward27 ; 0x1288
     mov ax, 0x10                     ; 0x128a
-@..api_idx_0012_UROU.l27:
+api_idx_0012_UROU.forward27:
     mov word [bss_9344], ax          ; 0x128d
     mov ax, 0xffff                   ; 0x1290
     cmp word [bp + 4], byte 1        ; 0x1293
-    jle short @..api_idx_0012_UROU.l28 ; 0x1297
+    jle short api_idx_0012_UROU.forward28 ; 0x1297
     mov ax, 0x11                     ; 0x1299
-@..api_idx_0012_UROU.l28:
+api_idx_0012_UROU.forward28:
     mov word [bss_95ce], ax          ; 0x129c
     jmp near jumptable_147e_case_0   ; 0x129f
 jumptable_147e_case_4:
     mov ax, 0xffff                   ; 0x12a2
     cmp word [bp + 4], byte 1        ; 0x12a5
-    jle short @..api_idx_0012_UROU.l29 ; 0x12a9
+    jle short api_idx_0012_UROU.forward29 ; 0x12a9
     mov ax, 0x18                     ; 0x12ab
-@..api_idx_0012_UROU.l29:
+api_idx_0012_UROU.forward29:
     mov word [bss_9af8], ax          ; 0x12ae
     mov ax, 0xffff                   ; 0x12b1
     cmp word [bp + 4], byte 1        ; 0x12b4
-    jle short @..api_idx_0012_UROU.l30 ; 0x12b8
+    jle short api_idx_0012_UROU.forward30 ; 0x12b8
     mov ax, 0x19                     ; 0x12ba
-@..api_idx_0012_UROU.l30:
+api_idx_0012_UROU.forward30:
     mov word [bss_9b00], ax          ; 0x12bd
     mov ax, 0xffff                   ; 0x12c0
     cmp word [bp + 4], byte 1        ; 0x12c3
-    jle short @..api_idx_0012_UROU.l31 ; 0x12c7
+    jle short api_idx_0012_UROU.forward31 ; 0x12c7
     mov ax, 0x18                     ; 0x12c9
-@..api_idx_0012_UROU.l31:
+api_idx_0012_UROU.forward31:
     mov word [bss_9af6], ax          ; 0x12cc
     mov ax, 0xffff                   ; 0x12cf
     cmp word [bp + 4], byte 1        ; 0x12d2
-    jle short @..api_idx_0012_UROU.l32 ; 0x12d6
+    jle short api_idx_0012_UROU.forward32 ; 0x12d6
     mov ax, 0x19                     ; 0x12d8
-@..api_idx_0012_UROU.l32:
+api_idx_0012_UROU.forward32:
     mov word [bss_9afe], ax          ; 0x12db
     mov ax, 0xffff                   ; 0x12de
     cmp word [bp + 4], byte 1        ; 0x12e1
-    jle short @..api_idx_0012_UROU.l33 ; 0x12e5
+    jle short api_idx_0012_UROU.forward33 ; 0x12e5
     mov ax, 0x18                     ; 0x12e7
-@..api_idx_0012_UROU.l33:
+api_idx_0012_UROU.forward33:
     mov word [bss_9afa], ax          ; 0x12ea
     mov ax, 0xffff                   ; 0x12ed
     cmp word [bp + 4], byte 1        ; 0x12f0
-    jle short @..api_idx_0012_UROU.l34 ; 0x12f4
+    jle short api_idx_0012_UROU.forward34 ; 0x12f4
     mov ax, 0x19                     ; 0x12f6
-@..api_idx_0012_UROU.l34:
+api_idx_0012_UROU.forward34:
     mov word [bss_9b02], ax          ; 0x12f9
     mov word [bss_9af0], 1           ; 0x12fc
     mov word [bss_9af4], 4           ; 0x1302
@@ -308,53 +308,53 @@ jumptable_147e_case_4:
     mov word [bss_9b06], 9           ; 0x1314
     mov ax, 0xffff                   ; 0x131a
     cmp word [bp + 4], byte 1        ; 0x131d
-    jle short @..api_idx_0012_UROU.l35 ; 0x1321
+    jle short api_idx_0012_UROU.forward35 ; 0x1321
     mov ax, 0x16                     ; 0x1323
-@..api_idx_0012_UROU.l35:
+api_idx_0012_UROU.forward35:
     mov word [bss_9344], ax          ; 0x1326
     mov ax, 0xffff                   ; 0x1329
     cmp word [bp + 4], byte 1        ; 0x132c
-    jle short @..api_idx_0012_UROU.l36 ; 0x1330
+    jle short api_idx_0012_UROU.forward36 ; 0x1330
     mov ax, 0x17                     ; 0x1332
-@..api_idx_0012_UROU.l36:
+api_idx_0012_UROU.forward36:
     mov word [bss_95ce], ax          ; 0x1335
     jmp near jumptable_147e_case_0   ; 0x1338
 jumptable_147e_case_5:
     mov ax, 0xffff                   ; 0x133b
     cmp word [bp + 4], byte 1        ; 0x133e
-    jle short @..api_idx_0012_UROU.l37 ; 0x1342
+    jle short api_idx_0012_UROU.forward37 ; 0x1342
     mov ax, 0x18                     ; 0x1344
-@..api_idx_0012_UROU.l37:
+api_idx_0012_UROU.forward37:
     mov word [bss_9af8], ax          ; 0x1347
     mov ax, 0xffff                   ; 0x134a
     cmp word [bp + 4], byte 1        ; 0x134d
-    jle short @..api_idx_0012_UROU.l38 ; 0x1351
+    jle short api_idx_0012_UROU.forward38 ; 0x1351
     mov ax, 0x19                     ; 0x1353
-@..api_idx_0012_UROU.l38:
+api_idx_0012_UROU.forward38:
     mov word [bss_9b00], ax          ; 0x1356
     mov ax, 0xffff                   ; 0x1359
     cmp word [bp + 4], byte 1        ; 0x135c
-    jle short @..api_idx_0012_UROU.l39 ; 0x1360
+    jle short api_idx_0012_UROU.forward39 ; 0x1360
     mov ax, 0x18                     ; 0x1362
-@..api_idx_0012_UROU.l39:
+api_idx_0012_UROU.forward39:
     mov word [bss_9af6], ax          ; 0x1365
     mov ax, 0xffff                   ; 0x1368
     cmp word [bp + 4], byte 1        ; 0x136b
-    jle short @..api_idx_0012_UROU.l40 ; 0x136f
+    jle short api_idx_0012_UROU.forward40 ; 0x136f
     mov ax, 0x19                     ; 0x1371
-@..api_idx_0012_UROU.l40:
+api_idx_0012_UROU.forward40:
     mov word [bss_9afe], ax          ; 0x1374
     mov ax, 0xffff                   ; 0x1377
     cmp word [bp + 4], byte 1        ; 0x137a
-    jle short @..api_idx_0012_UROU.l41 ; 0x137e
+    jle short api_idx_0012_UROU.forward41 ; 0x137e
     mov ax, 0x18                     ; 0x1380
-@..api_idx_0012_UROU.l41:
+api_idx_0012_UROU.forward41:
     mov word [bss_9afa], ax          ; 0x1383
     mov ax, 0xffff                   ; 0x1386
     cmp word [bp + 4], byte 1        ; 0x1389
-    jle short @..api_idx_0012_UROU.l42 ; 0x138d
+    jle short api_idx_0012_UROU.forward42 ; 0x138d
     mov ax, 0x19                     ; 0x138f
-@..api_idx_0012_UROU.l42:
+api_idx_0012_UROU.forward42:
     mov word [bss_9b02], ax          ; 0x1392
     mov word [bss_9af0], 1           ; 0x1395
     mov word [bss_9af4], 4           ; 0x139b
@@ -363,65 +363,65 @@ jumptable_147e_case_5:
     mov word [bss_9b06], 9           ; 0x13ad
     mov ax, 0xffff                   ; 0x13b3
     cmp word [bp + 4], byte 1        ; 0x13b6
-    jle short @..api_idx_0012_UROU.l43 ; 0x13ba
+    jle short api_idx_0012_UROU.forward43 ; 0x13ba
     mov ax, 0x18                     ; 0x13bc
-@..api_idx_0012_UROU.l43:
+api_idx_0012_UROU.forward43:
     mov word [bss_9344], ax          ; 0x13bf
     mov ax, 0xffff                   ; 0x13c2
     cmp word [bp + 4], byte 1        ; 0x13c5
-    jle short @..api_idx_0012_UROU.l44 ; 0x13c9
+    jle short api_idx_0012_UROU.forward44 ; 0x13c9
     mov ax, 0x19                     ; 0x13cb
-@..api_idx_0012_UROU.l44:
+api_idx_0012_UROU.forward44:
     mov word [bss_95ce], ax          ; 0x13ce
     jmp near jumptable_147e_case_0   ; 0x13d1
 jumptable_147e_case_6:
     mov ax, 0xffff                   ; 0x13d4
     cmp word [bp + 4], byte 1        ; 0x13d7
-    jle short @..api_idx_0012_UROU.l45 ; 0x13db
+    jle short api_idx_0012_UROU.forward45 ; 0x13db
     mov ax, 0x10                     ; 0x13dd
-@..api_idx_0012_UROU.l45:
+api_idx_0012_UROU.forward45:
     mov word [bss_9af8], ax          ; 0x13e0
     mov ax, 0xffff                   ; 0x13e3
     cmp word [bp + 4], byte 1        ; 0x13e6
-    jle short @..api_idx_0012_UROU.l46 ; 0x13ea
+    jle short api_idx_0012_UROU.forward46 ; 0x13ea
     mov ax, 0x11                     ; 0x13ec
-@..api_idx_0012_UROU.l46:
+api_idx_0012_UROU.forward46:
     mov word [bss_9b00], ax          ; 0x13ef
     mov ax, 0x12                     ; 0x13f2
     cmp word [bp + 4], byte 2        ; 0x13f5
-    jg short @..api_idx_0012_UROU.l47 ; 0x13f9
+    jg short api_idx_0012_UROU.forward47 ; 0x13f9
     mov ax, 0xffff                   ; 0x13fb
     cmp word [bp + 4], byte 1        ; 0x13fe
-    jle short @..api_idx_0012_UROU.l47 ; 0x1402
+    jle short api_idx_0012_UROU.forward47 ; 0x1402
     mov ax, 0x10                     ; 0x1404
-@..api_idx_0012_UROU.l47:
+api_idx_0012_UROU.forward47:
     mov word [bss_9af6], ax          ; 0x1407
     mov ax, 0x13                     ; 0x140a
     cmp word [bp + 4], byte 2        ; 0x140d
-    jg short @..api_idx_0012_UROU.l48 ; 0x1411
+    jg short api_idx_0012_UROU.forward48 ; 0x1411
     mov ax, 0xffff                   ; 0x1413
     cmp word [bp + 4], byte 1        ; 0x1416
-    jle short @..api_idx_0012_UROU.l48 ; 0x141a
+    jle short api_idx_0012_UROU.forward48 ; 0x141a
     mov ax, 0x11                     ; 0x141c
-@..api_idx_0012_UROU.l48:
+api_idx_0012_UROU.forward48:
     mov word [bss_9afe], ax          ; 0x141f
     mov ax, 0x14                     ; 0x1422
     cmp word [bp + 4], byte 2        ; 0x1425
-    jg short @..api_idx_0012_UROU.l49 ; 0x1429
+    jg short api_idx_0012_UROU.forward49 ; 0x1429
     mov ax, 0xffff                   ; 0x142b
     cmp word [bp + 4], byte 1        ; 0x142e
-    jle short @..api_idx_0012_UROU.l49 ; 0x1432
+    jle short api_idx_0012_UROU.forward49 ; 0x1432
     mov ax, 0x10                     ; 0x1434
-@..api_idx_0012_UROU.l49:
+api_idx_0012_UROU.forward49:
     mov word [bss_9afa], ax          ; 0x1437
     mov ax, 0x15                     ; 0x143a
     cmp word [bp + 4], byte 2        ; 0x143d
-    jg short @..api_idx_0012_UROU.l50 ; 0x1441
+    jg short api_idx_0012_UROU.forward50 ; 0x1441
     mov ax, 0xffff                   ; 0x1443
     cmp word [bp + 4], byte 1        ; 0x1446
-    jle short @..api_idx_0012_UROU.l50 ; 0x144a
+    jle short api_idx_0012_UROU.forward50 ; 0x144a
     mov ax, 0x11                     ; 0x144c
-@..api_idx_0012_UROU.l50:
+api_idx_0012_UROU.forward50:
     mov word [bss_9b02], ax          ; 0x144f
     mov word [bss_9af0], 5           ; 0x1452
     mov word [bss_9af4], 4           ; 0x1458
@@ -439,7 +439,7 @@ jumptable_147e:
     dw jumptable_147e_case_4 - IMAGE_BASE + __zres_end ; 0x1486
     dw jumptable_147e_case_5 - IMAGE_BASE + __zres_end ; 0x1488
     dw jumptable_147e_case_6 - IMAGE_BASE + __zres_end ; 0x148a
-@..api_idx_0012_UROU.l51:
+api_idx_0012_UROU.forward51:
     cmp ax, strict word 7            ; 0x148c
     jae short jumptable_147e_case_0  ; 0x148f
     xchg bx, ax                      ; 0x1491
@@ -450,58 +450,58 @@ jumptable_147e_case_0:
     mov word [bss_9b08], 8           ; 0x149f
     mov ax, 0xffff                   ; 0x14a5
     cmp word [bp + 4], byte 1        ; 0x14a8
-    jle short @..api_idx_0012_UROU.l52 ; 0x14ac
+    jle short api_idx_0012_UROU.forward52 ; 0x14ac
     mov ax, 0x16                     ; 0x14ae
-@..api_idx_0012_UROU.l52:
+api_idx_0012_UROU.forward52:
     mov word [bss_9afc], ax          ; 0x14b1
     mov ax, 0xffff                   ; 0x14b4
     cmp word [bp + 4], byte 1        ; 0x14b7
-    jle short @..api_idx_0012_UROU.l53 ; 0x14bb
+    jle short api_idx_0012_UROU.forward53 ; 0x14bb
     mov ax, 0x17                     ; 0x14bd
-@..api_idx_0012_UROU.l53:
+api_idx_0012_UROU.forward53:
     mov word [bss_9b04], ax          ; 0x14c0
     mov ax, word [bss_9af0]          ; 0x14c3
     cmp word [bp + 4], byte 3        ; 0x14c6
-    jle short @..api_idx_0012_UROU.l54 ; 0x14ca
+    jle short api_idx_0012_UROU.forward54 ; 0x14ca
     mov ax, 0x1a                     ; 0x14cc
-@..api_idx_0012_UROU.l54:
+api_idx_0012_UROU.forward54:
     mov word [bss_9ae2], ax          ; 0x14cf
     mov ax, word [bss_9af0]          ; 0x14d2
     cmp word [bp + 4], byte 3        ; 0x14d5
-    jle short @..api_idx_0012_UROU.l55 ; 0x14d9
+    jle short api_idx_0012_UROU.forward55 ; 0x14d9
     mov ax, 0x1b                     ; 0x14db
-@..api_idx_0012_UROU.l55:
+api_idx_0012_UROU.forward55:
     mov word [bss_9ae4], ax          ; 0x14de
     mov ax, word [bss_9af0]          ; 0x14e1
     cmp word [bp + 4], byte 3        ; 0x14e4
-    jle short @..api_idx_0012_UROU.l56 ; 0x14e8
+    jle short api_idx_0012_UROU.forward56 ; 0x14e8
     mov ax, 0x1c                     ; 0x14ea
-@..api_idx_0012_UROU.l56:
+api_idx_0012_UROU.forward56:
     mov word [bss_9aee], ax          ; 0x14ed
     mov ax, word [bss_9af0]          ; 0x14f0
     cmp word [bp + 4], byte 3        ; 0x14f3
-    jle short @..api_idx_0012_UROU.l57 ; 0x14f7
+    jle short api_idx_0012_UROU.forward57 ; 0x14f7
     mov ax, 0x1e                     ; 0x14f9
-@..api_idx_0012_UROU.l57:
+api_idx_0012_UROU.forward57:
     mov word [bss_9aec], ax          ; 0x14fc
     mov ax, word [bss_9af0]          ; 0x14ff
     cmp word [bp + 4], byte 3        ; 0x1502
-    jle short @..api_idx_0012_UROU.l58 ; 0x1506
+    jle short api_idx_0012_UROU.forward58 ; 0x1506
     mov ax, 0x1d                     ; 0x1508
-@..api_idx_0012_UROU.l58:
+api_idx_0012_UROU.forward58:
     mov word [bss_9ae8], ax          ; 0x150b
     mov ax, word [bss_9af0]          ; 0x150e
     cmp word [bp + 4], byte 3        ; 0x1511
-    jle short @..api_idx_0012_UROU.l59 ; 0x1515
+    jle short api_idx_0012_UROU.forward59 ; 0x1515
     mov ax, 0x1f                     ; 0x1517
-@..api_idx_0012_UROU.l59:
+api_idx_0012_UROU.forward59:
     mov word [bss_9ae6], ax          ; 0x151a
     mov word [bp - 2], 0             ; 0x151d
-    jmp short @..api_idx_0012_UROU.l63 ; 0x1522
-@..api_idx_0012_UROU.l60:
+    jmp short api_idx_0012_UROU.forward61 ; 0x1522
+api_idx_0012_UROU.back1:
     mov word [bp - 4], 0             ; 0x1524
-    jmp short @..api_idx_0012_UROU.l62 ; 0x1529
-@..api_idx_0012_UROU.l61:
+    jmp short api_idx_0012_UROU.forward60 ; 0x1529
+api_idx_0012_UROU.back2:
     mov ax, word [bss_9af0]          ; 0x152b
     push ax                          ; 0x152e
     mov ax, 0x24                     ; 0x152f
@@ -516,17 +516,17 @@ jumptable_147e_case_0:
     mov word [bx + bss_9346], 0xffff ; 0x1545
     mov word [bx + bss_95d0], 0xffff ; 0x154b
     inc word [bp - 4]                ; 0x1551
-@..api_idx_0012_UROU.l62:
+api_idx_0012_UROU.forward60:
     mov ax, word [bp - 8]            ; 0x1554
     inc ax                           ; 0x1557
     cmp ax, word [bp - 4]            ; 0x1558
-    jge short @..api_idx_0012_UROU.l61 ; 0x155b
+    jge short api_idx_0012_UROU.back2 ; 0x155b
     inc word [bp - 2]                ; 0x155d
-@..api_idx_0012_UROU.l63:
+api_idx_0012_UROU.forward61:
     mov ax, word [bp - 6]            ; 0x1560
     inc ax                           ; 0x1563
     cmp ax, word [bp - 2]            ; 0x1564
-    jge short @..api_idx_0012_UROU.l60 ; 0x1567
+    jge short api_idx_0012_UROU.back1 ; 0x1567
     mov ax, 0                        ; 0x1569
     push ax                          ; 0x156c
     mov ax, 7                        ; 0x156d
@@ -544,23 +544,23 @@ jumptable_147e_case_0:
     call gfx_fill_area               ; 0x158d
     add sp, byte 0xa                 ; 0x1590
     mov word [bp - 4], 1             ; 0x1593
-    jmp short @..api_idx_0012_UROU.l70 ; 0x1598
-@..api_idx_0012_UROU.l64:
+    jmp short api_idx_0012_UROU.forward66 ; 0x1598
+api_idx_0012_UROU.back3:
     mov word [bp - 2], 1             ; 0x159a
-    jmp short @..api_idx_0012_UROU.l69 ; 0x159f
-@..api_idx_0012_UROU.l65:
+    jmp short api_idx_0012_UROU.forward65 ; 0x159f
+api_idx_0012_UROU.back4:
     cmp word [bss_9858], byte 0      ; 0x15a1
-    jne short @..api_idx_0012_UROU.l66 ; 0x15a6
+    jne short api_idx_0012_UROU.forward62 ; 0x15a6
     cmp word [bp + 6], byte 0        ; 0x15a8
-    jne short @..api_idx_0012_UROU.l67 ; 0x15ac
+    jne short api_idx_0012_UROU.forward63 ; 0x15ac
     cmp word [bp + 4], byte 4        ; 0x15ae
-    jle short @..api_idx_0012_UROU.l67 ; 0x15b2
-@..api_idx_0012_UROU.l66:
+    jle short api_idx_0012_UROU.forward63 ; 0x15b2
+api_idx_0012_UROU.forward62:
     mov ax, 1                        ; 0x15b4
-    jmp short @..api_idx_0012_UROU.l68 ; 0x15b7
-@..api_idx_0012_UROU.l67:
+    jmp short api_idx_0012_UROU.forward64 ; 0x15b7
+api_idx_0012_UROU.forward63:
     mov ax, 0                        ; 0x15b9
-@..api_idx_0012_UROU.l68:
+api_idx_0012_UROU.forward64:
     push ax                          ; 0x15bc
     push word [bp - 4]               ; 0x15bd
     push word [bp - 2]               ; 0x15c0
@@ -578,52 +578,52 @@ jumptable_147e_case_0:
     call api_idx_0014_HTUV           ; 0x15db
     add sp, byte 0xa                 ; 0x15de
     inc word [bp - 2]                ; 0x15e1
-@..api_idx_0012_UROU.l69:
+api_idx_0012_UROU.forward65:
     mov ax, word [bp - 2]            ; 0x15e4
     cmp ax, word [bp - 6]            ; 0x15e7
-    jle short @..api_idx_0012_UROU.l65 ; 0x15ea
+    jle short api_idx_0012_UROU.back4 ; 0x15ea
     inc word [bp - 4]                ; 0x15ec
-@..api_idx_0012_UROU.l70:
+api_idx_0012_UROU.forward66:
     mov ax, word [bp - 4]            ; 0x15ef
     cmp ax, word [bp - 8]            ; 0x15f2
-    jle short @..api_idx_0012_UROU.l64 ; 0x15f5
+    jle short api_idx_0012_UROU.back3 ; 0x15f5
     cmp word [bp + 4], byte 1        ; 0x15f7
-    jle short @..api_idx_0012_UROU.l75 ; 0x15fb
+    jle short api_idx_0012_UROU.forward69 ; 0x15fb
     mov word [bp - 4], 1             ; 0x15fd
-    jmp short @..api_idx_0012_UROU.l74 ; 0x1602
-@..api_idx_0012_UROU.l71:
+    jmp short api_idx_0012_UROU.forward68 ; 0x1602
+api_idx_0012_UROU.back5:
     mov word [bp - 2], 1             ; 0x1604
-    jmp short @..api_idx_0012_UROU.l73 ; 0x1609
-@..api_idx_0012_UROU.l72:
+    jmp short api_idx_0012_UROU.forward67 ; 0x1609
+api_idx_0012_UROU.back6:
     push word [bp - 4]               ; 0x160b
     push word [bp - 2]               ; 0x160e
     call loc_GTJK                    ; 0x1611
     add sp, byte 4                   ; 0x1614
     inc word [bp - 2]                ; 0x1617
-@..api_idx_0012_UROU.l73:
+api_idx_0012_UROU.forward67:
     mov ax, word [bp - 2]            ; 0x161a
     cmp ax, word [bp - 6]            ; 0x161d
-    jle short @..api_idx_0012_UROU.l72 ; 0x1620
+    jle short api_idx_0012_UROU.back6 ; 0x1620
     inc word [bp - 4]                ; 0x1622
-@..api_idx_0012_UROU.l74:
+api_idx_0012_UROU.forward68:
     mov ax, word [bp - 4]            ; 0x1625
     cmp ax, word [bp - 8]            ; 0x1628
-    jle short @..api_idx_0012_UROU.l71 ; 0x162b
-@..api_idx_0012_UROU.l75:
+    jle short api_idx_0012_UROU.back5 ; 0x162b
+api_idx_0012_UROU.forward69:
     mov word [bp - 4], 1             ; 0x162d
-    jmp short @..api_idx_0012_UROU.l80 ; 0x1632
-@..api_idx_0012_UROU.l76:
+    jmp short api_idx_0012_UROU.forward72 ; 0x1632
+api_idx_0012_UROU.back7:
     mov word [bp - 2], 1             ; 0x1634
-    jmp short @..api_idx_0012_UROU.l79 ; 0x1639
-@..api_idx_0012_UROU.l77:
+    jmp short api_idx_0012_UROU.forward71 ; 0x1639
+api_idx_0012_UROU.back8:
     mov ax, 0x24                     ; 0x163b
     imul word [bp - 2]               ; 0x163e
     mov cx, word [bp - 4]            ; 0x1641
     shl cx, 1                        ; 0x1644
     add ax, cx                       ; 0x1646
     mov bx, ax                       ; 0x1648
-    cmp word [bx + bss_90ba], byte 0xff ; 0x164a
-    je short @..api_idx_0012_UROU.l78 ; 0x164f
+    cmp word [bx + bss_90ba], byte -1 ; 0x164a
+    je short api_idx_0012_UROU.forward70 ; 0x164f
     mov ax, 0                        ; 0x1651
     push ax                          ; 0x1654
     push ax                          ; 0x1655
@@ -636,31 +636,31 @@ jumptable_147e_case_0:
     push ax                          ; 0x1663
     call draw_grid_cell_char         ; 0x1664
     add sp, byte 0xa                 ; 0x1667
-@..api_idx_0012_UROU.l78:
+api_idx_0012_UROU.forward70:
     inc word [bp - 2]                ; 0x166a
-@..api_idx_0012_UROU.l79:
+api_idx_0012_UROU.forward71:
     mov ax, word [bp - 2]            ; 0x166d
     cmp ax, word [bp - 6]            ; 0x1670
-    jle short @..api_idx_0012_UROU.l77 ; 0x1673
+    jle short api_idx_0012_UROU.back8 ; 0x1673
     inc word [bp - 4]                ; 0x1675
-@..api_idx_0012_UROU.l80:
+api_idx_0012_UROU.forward72:
     mov ax, word [bp - 4]            ; 0x1678
     cmp ax, word [bp - 8]            ; 0x167b
-    jle short @..api_idx_0012_UROU.l76 ; 0x167e
+    jle short api_idx_0012_UROU.back7 ; 0x167e
     mov word [bp - 4], 0             ; 0x1680
-    jmp short @..api_idx_0012_UROU.l86 ; 0x1685
-@..api_idx_0012_UROU.l81:
+    jmp short api_idx_0012_UROU.forward76 ; 0x1685
+api_idx_0012_UROU.back9:
     mov word [bp - 2], 0             ; 0x1687
-    jmp short @..api_idx_0012_UROU.l85 ; 0x168c
-@..api_idx_0012_UROU.l82:
+    jmp short api_idx_0012_UROU.forward75 ; 0x168c
+api_idx_0012_UROU.back10:
     mov ax, 0x24                     ; 0x168e
     imul word [bp - 2]               ; 0x1691
     mov cx, word [bp - 4]            ; 0x1694
     shl cx, 1                        ; 0x1697
     add ax, cx                       ; 0x1699
     mov bx, ax                       ; 0x169b
-    cmp word [bx + bss_9346], byte 0xff ; 0x169d
-    je short @..api_idx_0012_UROU.l83 ; 0x16a2
+    cmp word [bx + bss_9346], byte -1 ; 0x169d
+    je short api_idx_0012_UROU.forward73 ; 0x16a2
     mov ax, 0xffff                   ; 0x16a4
     push ax                          ; 0x16a7
     push ax                          ; 0x16a8
@@ -673,15 +673,15 @@ jumptable_147e_case_0:
     push ax                          ; 0x16b6
     call draw_grid_cell_char         ; 0x16b7
     add sp, byte 0xa                 ; 0x16ba
-@..api_idx_0012_UROU.l83:
+api_idx_0012_UROU.forward73:
     mov ax, 0x24                     ; 0x16bd
     imul word [bp - 2]               ; 0x16c0
     mov cx, word [bp - 4]            ; 0x16c3
     shl cx, 1                        ; 0x16c6
     add ax, cx                       ; 0x16c8
     mov bx, ax                       ; 0x16ca
-    cmp word [bx + bss_95d0], byte 0xff ; 0x16cc
-    je short @..api_idx_0012_UROU.l84 ; 0x16d1
+    cmp word [bx + bss_95d0], byte -1 ; 0x16cc
+    je short api_idx_0012_UROU.forward74 ; 0x16d1
     mov ax, 0xffff                   ; 0x16d3
     push ax                          ; 0x16d6
     push ax                          ; 0x16d7
@@ -694,27 +694,27 @@ jumptable_147e_case_0:
     push ax                          ; 0x16e5
     call draw_grid_cell_char         ; 0x16e6
     add sp, byte 0xa                 ; 0x16e9
-@..api_idx_0012_UROU.l84:
+api_idx_0012_UROU.forward74:
     inc word [bp - 2]                ; 0x16ec
-@..api_idx_0012_UROU.l85:
+api_idx_0012_UROU.forward75:
     mov ax, word [bp - 6]            ; 0x16ef
     inc ax                           ; 0x16f2
     cmp ax, word [bp - 2]            ; 0x16f3
-    jge short @..api_idx_0012_UROU.l82 ; 0x16f6
+    jge short api_idx_0012_UROU.back10 ; 0x16f6
     inc word [bp - 4]                ; 0x16f8
-@..api_idx_0012_UROU.l86:
+api_idx_0012_UROU.forward76:
     mov ax, word [bp - 8]            ; 0x16fb
     inc ax                           ; 0x16fe
     cmp ax, word [bp - 4]            ; 0x16ff
-    jge short @..api_idx_0012_UROU.l81 ; 0x1702
+    jge short api_idx_0012_UROU.back9 ; 0x1702
     cmp word [bss_9858], byte 0      ; 0x1704
-    je short @..api_idx_0012_UROU.l92 ; 0x1709
+    je short api_idx_0012_UROU.forward80 ; 0x1709
     mov word [bp - 4], 0             ; 0x170b
-    jmp short @..api_idx_0012_UROU.l91 ; 0x1710
-@..api_idx_0012_UROU.l87:
+    jmp short api_idx_0012_UROU.forward79 ; 0x1710
+api_idx_0012_UROU.back11:
     mov word [bp - 2], 0             ; 0x1712
-    jmp short @..api_idx_0012_UROU.l90 ; 0x1717
-@..api_idx_0012_UROU.l88:
+    jmp short api_idx_0012_UROU.forward78 ; 0x1717
+api_idx_0012_UROU.back12:
     mov ax, 0x24                     ; 0x1719
     imul word [bp - 2]               ; 0x171c
     mov cx, word [bp - 4]            ; 0x171f
@@ -722,7 +722,7 @@ jumptable_147e_case_0:
     add ax, cx                       ; 0x1724
     mov bx, ax                       ; 0x1726
     cmp word [bx + bss_985a], byte 1 ; 0x1728
-    jne short @..api_idx_0012_UROU.l89 ; 0x172d
+    jne short api_idx_0012_UROU.forward77 ; 0x172d
     mov ax, word [bp - 4]            ; 0x172f
     dec ax                           ; 0x1732
     push ax                          ; 0x1733
@@ -731,18 +731,18 @@ jumptable_147e_case_0:
     push ax                          ; 0x1738
     call loc_TIPV                    ; 0x1739
     add sp, byte 4                   ; 0x173c
-@..api_idx_0012_UROU.l89:
+api_idx_0012_UROU.forward77:
     inc word [bp - 2]                ; 0x173f
-@..api_idx_0012_UROU.l90:
+api_idx_0012_UROU.forward78:
     mov ax, word [bp - 2]            ; 0x1742
     cmp ax, word [bp - 6]            ; 0x1745
-    jle short @..api_idx_0012_UROU.l88 ; 0x1748
+    jle short api_idx_0012_UROU.back12 ; 0x1748
     inc word [bp - 4]                ; 0x174a
-@..api_idx_0012_UROU.l91:
+api_idx_0012_UROU.forward79:
     mov ax, word [bp - 4]            ; 0x174d
     cmp ax, word [bp - 8]            ; 0x1750
-    jle short @..api_idx_0012_UROU.l87 ; 0x1753
-@..api_idx_0012_UROU.l92:
+    jle short api_idx_0012_UROU.back11 ; 0x1753
+api_idx_0012_UROU.forward80:
     mov ax, 7                        ; 0x1755
     imul word [bp - 8]               ; 0x1758
     add ax, word [grid_origin_y]     ; 0x175b
@@ -806,12 +806,12 @@ jumptable_147e_case_0:
     add sp, byte 8                   ; 0x17e9
     mov word [bp - 0x10], dx         ; 0x17ec
     mov word [bp - 0x12], ax         ; 0x17ef
-@..api_idx_0012_UROU.l93:
+api_idx_0012_UROU.back13:
     call poll_fullscreen_hotspot     ; 0x17f2
     test ax, ax                      ; 0x17f5
-    je short @..api_idx_0012_UROU.l94 ; 0x17f7
-    jmp near @..api_idx_0012_UROU.l95 ; 0x17f9
-@..api_idx_0012_UROU.l94:
+    je short api_idx_0012_UROU.forward81 ; 0x17f7
+    jmp near api_idx_0012_UROU.forward82 ; 0x17f9
+api_idx_0012_UROU.forward81:
     mov ax, 0                        ; 0x17fc
     push ax                          ; 0x17ff
     push ax                          ; 0x1800
@@ -915,8 +915,8 @@ jumptable_147e_case_0:
     push ax                          ; 0x18ea
     call delay_ms                    ; 0x18eb
     pop cx                           ; 0x18ee
-    jmp near @..api_idx_0012_UROU.l93 ; 0x18ef
-@..api_idx_0012_UROU.l95:
+    jmp near api_idx_0012_UROU.back13 ; 0x18ef
+api_idx_0012_UROU.forward82:
     mov ax, 1                        ; 0x18f2
     push ax                          ; 0x18f5
     push word [bp - 0x10]            ; 0x18f6

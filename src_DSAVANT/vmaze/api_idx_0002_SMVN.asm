@@ -29,9 +29,9 @@ api_idx_0002_SMVN:
     call test_bit                    ; 0x0ba4
     add sp, byte 4                   ; 0x0ba7
     cmp ax, word [bp + 0xa]          ; 0x0baa
-    jne short @..api_idx_0002_SMVN.l1 ; 0x0bad
+    jne short .forward1              ; 0x0bad
     ret                              ; 0x0baf
-@..api_idx_0002_SMVN.l1:
+.forward1:
     push word [bp + 0xa]             ; 0x0bb0
     push word [bp - 2]               ; 0x0bb3
     mov ax, bss_8b7e                 ; 0x0bb6
@@ -47,9 +47,9 @@ api_idx_0002_SMVN:
     call read_packed_field           ; 0x0bce
     add sp, byte 6                   ; 0x0bd1
     test ax, ax                      ; 0x0bd4
-    jne short @..api_idx_0002_SMVN.l2 ; 0x0bd6
+    jne short .forward2              ; 0x0bd6
     cmp word [bp + 8], byte 7        ; 0x0bd8
-    jge short @..api_idx_0002_SMVN.l2 ; 0x0bdc
+    jge short .forward2              ; 0x0bdc
     push word [bp + 0xa]             ; 0x0bde
     mov ax, word [bp + 8]            ; 0x0be1
     inc ax                           ; 0x0be4
@@ -58,7 +58,7 @@ api_idx_0002_SMVN:
     push word [bp + 4]               ; 0x0be9
     call api_idx_0002_SMVN           ; 0x0bec
     add sp, byte 8                   ; 0x0bef
-@..api_idx_0002_SMVN.l2:
+.forward2:
     mov ax, 4                        ; 0x0bf2
     push ax                          ; 0x0bf5
     push word [bp - 2]               ; 0x0bf6
@@ -68,9 +68,9 @@ api_idx_0002_SMVN:
     call read_packed_field           ; 0x0c00
     add sp, byte 6                   ; 0x0c03
     test ax, ax                      ; 0x0c06
-    jne short @..api_idx_0002_SMVN.l3 ; 0x0c08
+    jne short .forward3              ; 0x0c08
     cmp word [bp + 6], byte 7        ; 0x0c0a
-    jge short @..api_idx_0002_SMVN.l3 ; 0x0c0e
+    jge short .forward3              ; 0x0c0e
     push word [bp + 0xa]             ; 0x0c10
     push word [bp + 8]               ; 0x0c13
     mov ax, word [bp + 6]            ; 0x0c16
@@ -79,9 +79,9 @@ api_idx_0002_SMVN:
     push word [bp + 4]               ; 0x0c1b
     call api_idx_0002_SMVN           ; 0x0c1e
     add sp, byte 8                   ; 0x0c21
-@..api_idx_0002_SMVN.l3:
+.forward3:
     cmp word [bp + 8], byte 0        ; 0x0c24
-    jle short @..api_idx_0002_SMVN.l4 ; 0x0c28
+    jle short .forward4              ; 0x0c28
     mov ax, 4                        ; 0x0c2a
     push ax                          ; 0x0c2d
     mov ax, word [bp + 4]            ; 0x0c2e
@@ -101,7 +101,7 @@ api_idx_0002_SMVN:
     call read_packed_field           ; 0x0c4f
     add sp, byte 6                   ; 0x0c52
     test ax, ax                      ; 0x0c55
-    jne short @..api_idx_0002_SMVN.l4 ; 0x0c57
+    jne short .forward4              ; 0x0c57
     push word [bp + 0xa]             ; 0x0c59
     mov ax, word [bp + 8]            ; 0x0c5c
     dec ax                           ; 0x0c5f
@@ -110,9 +110,9 @@ api_idx_0002_SMVN:
     push word [bp + 4]               ; 0x0c64
     call api_idx_0002_SMVN           ; 0x0c67
     add sp, byte 8                   ; 0x0c6a
-@..api_idx_0002_SMVN.l4:
+.forward4:
     cmp word [bp + 6], byte 0        ; 0x0c6d
-    jle short @..api_idx_0002_SMVN.l5 ; 0x0c71
+    jle short .return1               ; 0x0c71
     mov ax, 4                        ; 0x0c73
     push ax                          ; 0x0c76
     mov ax, word [bp + 4]            ; 0x0c77
@@ -132,7 +132,7 @@ api_idx_0002_SMVN:
     call read_packed_field           ; 0x0c96
     add sp, byte 6                   ; 0x0c99
     test ax, ax                      ; 0x0c9c
-    jne short @..api_idx_0002_SMVN.l5 ; 0x0c9e
+    jne short .return1               ; 0x0c9e
     push word [bp + 0xa]             ; 0x0ca0
     push word [bp + 8]               ; 0x0ca3
     mov ax, word [bp + 6]            ; 0x0ca6
@@ -141,5 +141,5 @@ api_idx_0002_SMVN:
     push word [bp + 4]               ; 0x0cab
     call api_idx_0002_SMVN           ; 0x0cae
     add sp, byte 8                   ; 0x0cb1
-@..api_idx_0002_SMVN.l5:
+.return1:
     ret                              ; 0x0cb4

@@ -31,22 +31,22 @@ transfer_pc_file_record:
     call aztec_lseek
     add sp, byte 8
     cmp word [bp + 8], byte 0
-    jne short @..transfer_pc_file_record.l1
+    jne short .forward1
     push word [pc_file_record_size]
     push word [bp + 4]
     push word [bp - 2]
     call aztec_read
     add sp, byte 6
-    jmp short @..transfer_pc_file_record.l2
-@..transfer_pc_file_record.l1:
+    jmp short .forward2
+.forward1:
     cmp word [bp + 8], byte 1
-    jne short @..transfer_pc_file_record.l2
+    jne short .forward2
     push word [pc_file_record_size]
     push word [bp + 4]
     push word [bp - 2]
     call aztec_write
     add sp, byte 6
-@..transfer_pc_file_record.l2:
+.forward2:
     push word [bp - 2]
     call aztec_close
     pop cx

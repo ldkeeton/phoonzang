@@ -12,7 +12,7 @@ api_idx_004e_ITVQ:
     call data_record_io              ; 0x4b1a
     add sp, byte 8                   ; 0x4b1d
     mov word [bp - 2], 0             ; 0x4b20
-@..api_idx_004e_ITVQ.l1:
+.back1:
     mov ax, 0x248                    ; 0x4b25
     imul word [bp + 4]               ; 0x4b28
     push ax                          ; 0x4b2b
@@ -23,10 +23,10 @@ api_idx_004e_ITVQ:
     add ax, cx                       ; 0x4b35
     mov bx, ax                       ; 0x4b37
     cmp word [bx + party_records + pc_rec.cell], byte 0 ; 0x4b39
-    jle short @..api_idx_004e_ITVQ.l2 ; 0x4b3e
+    jle short .forward1              ; 0x4b3e
     inc word [bp - 2]                ; 0x4b40
-    jmp short @..api_idx_004e_ITVQ.l1 ; 0x4b43
-@..api_idx_004e_ITVQ.l2:
+    jmp short .back1                 ; 0x4b43
+.forward1:
     mov ax, 0x248                    ; 0x4b45
     imul word [bp + 4]               ; 0x4b48
     push ax                          ; 0x4b4b
@@ -77,38 +77,38 @@ api_idx_004e_ITVQ:
     mov al, byte [bp - 0x15]         ; 0x4bc4
     sub ah, ah                       ; 0x4bc7
     test ax, 8                       ; 0x4bc9
-    je short @..api_idx_004e_ITVQ.l3 ; 0x4bcc
+    je short .forward2               ; 0x4bcc
     mov bx, word [bp - 0x4e]         ; 0x4bce
     or byte [bx + 7], 4              ; 0x4bd1
-@..api_idx_004e_ITVQ.l3:
+.forward2:
     mov al, byte [bp - 0x15]         ; 0x4bd5
     sub ah, ah                       ; 0x4bd8
     test ax, 4                       ; 0x4bda
-    je short @..api_idx_004e_ITVQ.l4 ; 0x4bdd
+    je short .forward3               ; 0x4bdd
     mov bx, word [bp - 0x4e]         ; 0x4bdf
     or byte [bx + 7], 8              ; 0x4be2
-@..api_idx_004e_ITVQ.l4:
+.forward3:
     mov al, byte [bp - 0x15]         ; 0x4be6
     sub ah, ah                       ; 0x4be9
     test ax, 0x10                    ; 0x4beb
-    je short @..api_idx_004e_ITVQ.l5 ; 0x4bee
+    je short .forward4               ; 0x4bee
     mov bx, word [bp - 0x4e]         ; 0x4bf0
     or byte [bx + 7], 0x10           ; 0x4bf3
-@..api_idx_004e_ITVQ.l5:
+.forward4:
     mov al, byte [bp - 0x15]         ; 0x4bf7
     sub ah, ah                       ; 0x4bfa
     test ax, 0x20                    ; 0x4bfc
-    je short @..api_idx_004e_ITVQ.l6 ; 0x4bff
+    je short .forward5               ; 0x4bff
     mov bx, word [bp - 0x4e]         ; 0x4c01
     or byte [bx + 7], 0x20           ; 0x4c04
-@..api_idx_004e_ITVQ.l6:
+.forward5:
     mov al, byte [bp - 0x15]         ; 0x4c08
     sub ah, ah                       ; 0x4c0b
     test ax, 2                       ; 0x4c0d
-    je short @..api_idx_004e_ITVQ.l7 ; 0x4c10
+    je short .forward6               ; 0x4c10
     mov bx, word [bp - 0x4e]         ; 0x4c12
     or byte [bx + 7], 0x40           ; 0x4c15
-@..api_idx_004e_ITVQ.l7:
+.forward6:
     push word [bp + 4]               ; 0x4c19
     call sum_page_cell_values        ; 0x4c1c
     pop cx                           ; 0x4c1f
@@ -117,38 +117,38 @@ loc_VPRH:
     mov ax, 0                        ; 0x4c21
     call aztec_csav                  ; 0x4c24
     cmp word [bp + 6], byte 0        ; 0x4c27
-    je short @..loc_VPRH.l1          ; 0x4c2b
+    je short .forward1               ; 0x4c2b
     push word [bp + 6]               ; 0x4c2d
     push word [bp + 4]               ; 0x4c30
     call api_idx_004e_ITVQ           ; 0x4c33
     add sp, byte 4                   ; 0x4c36
-@..loc_VPRH.l1:
+.forward1:
     cmp word [bp + 8], byte 0        ; 0x4c39
-    je short @..loc_VPRH.l2          ; 0x4c3d
+    je short .forward2               ; 0x4c3d
     push word [bp + 8]               ; 0x4c3f
     push word [bp + 4]               ; 0x4c42
     call api_idx_004e_ITVQ           ; 0x4c45
     add sp, byte 4                   ; 0x4c48
-@..loc_VPRH.l2:
+.forward2:
     cmp word [bp + 0xa], byte 0      ; 0x4c4b
-    je short @..loc_VPRH.l3          ; 0x4c4f
+    je short .forward3               ; 0x4c4f
     push word [bp + 0xa]             ; 0x4c51
     push word [bp + 4]               ; 0x4c54
     call api_idx_004e_ITVQ           ; 0x4c57
     add sp, byte 4                   ; 0x4c5a
-@..loc_VPRH.l3:
+.forward3:
     cmp word [bp + 0xc], byte 0      ; 0x4c5d
-    je short @..loc_VPRH.l4          ; 0x4c61
+    je short .forward4               ; 0x4c61
     push word [bp + 0xc]             ; 0x4c63
     push word [bp + 4]               ; 0x4c66
     call api_idx_004e_ITVQ           ; 0x4c69
     add sp, byte 4                   ; 0x4c6c
-@..loc_VPRH.l4:
+.forward4:
     cmp word [bp + 0xe], byte 0      ; 0x4c6f
-    je short @..loc_VPRH.l5          ; 0x4c73
+    je short .return1                ; 0x4c73
     push word [bp + 0xe]             ; 0x4c75
     push word [bp + 4]               ; 0x4c78
     call api_idx_004e_ITVQ           ; 0x4c7b
     add sp, byte 4                   ; 0x4c7e
-@..loc_VPRH.l5:
+.return1:
     ret                              ; 0x4c81

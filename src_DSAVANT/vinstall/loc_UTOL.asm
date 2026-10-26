@@ -10,53 +10,53 @@ loc_UTOL:
     inc ax                           ; 0x0c2f
     mov word [bp + 4], ax            ; 0x0c30
     cmp ax, strict word 1            ; 0x0c33
-    jne short @..loc_UTOL.l1         ; 0x0c36
+    jne short .forward1              ; 0x0c36
     cmp word [bss_29e6], byte 0      ; 0x0c38
-    jne short @..loc_UTOL.l1         ; 0x0c3d
+    jne short .forward1              ; 0x0c3d
     inc word [bp + 4]                ; 0x0c3f
-@..loc_UTOL.l1:
+.forward1:
     cmp word [bp + 4], byte 2        ; 0x0c42
-    jne short @..loc_UTOL.l2         ; 0x0c46
+    jne short .forward2              ; 0x0c46
     cmp word [bss_29e8], byte 0      ; 0x0c48
-    jne short @..loc_UTOL.l2         ; 0x0c4d
+    jne short .forward2              ; 0x0c4d
     inc word [bp + 4]                ; 0x0c4f
-@..loc_UTOL.l2:
+.forward2:
     cmp word [bp + 4], byte 3        ; 0x0c52
-    jne short @..loc_UTOL.l3         ; 0x0c56
+    jne short .forward3              ; 0x0c56
     cmp word [bss_29ea], byte 0      ; 0x0c58
-    jne short @..loc_UTOL.l3         ; 0x0c5d
+    jne short .forward3              ; 0x0c5d
     inc word [bp + 4]                ; 0x0c5f
-@..loc_UTOL.l3:
+.forward3:
     cmp word [bp + 4], byte 4        ; 0x0c62
-    jne short @..loc_UTOL.l4         ; 0x0c66
+    jne short .forward4              ; 0x0c66
     cmp word [bss_29ec], byte 0      ; 0x0c68
-    jne short @..loc_UTOL.l4         ; 0x0c6d
+    jne short .forward4              ; 0x0c6d
     mov word [bp + 4], 1             ; 0x0c6f
-@..loc_UTOL.l4:
+.forward4:
     cmp word [bp + 4], byte 1        ; 0x0c74
-    jne short @..loc_UTOL.l5         ; 0x0c78
+    jne short .forward5              ; 0x0c78
     cmp word [bss_29e6], byte 0      ; 0x0c7a
-    jne short @..loc_UTOL.l5         ; 0x0c7f
+    jne short .forward5              ; 0x0c7f
     inc word [bp + 4]                ; 0x0c81
-@..loc_UTOL.l5:
+.forward5:
     cmp word [bp + 4], byte 2        ; 0x0c84
-    jne short @..loc_UTOL.l6         ; 0x0c88
+    jne short .forward6              ; 0x0c88
     cmp word [bss_29e8], byte 0      ; 0x0c8a
-    jne short @..loc_UTOL.l6         ; 0x0c8f
+    jne short .forward6              ; 0x0c8f
     inc word [bp + 4]                ; 0x0c91
-@..loc_UTOL.l6:
+.forward6:
     cmp word [bp + 4], byte 3        ; 0x0c94
-    jne short @..loc_UTOL.l7         ; 0x0c98
+    jne short .forward7              ; 0x0c98
     cmp word [bss_29ea], byte 0      ; 0x0c9a
-    jne short @..loc_UTOL.l7         ; 0x0c9f
+    jne short .forward7              ; 0x0c9f
     inc word [bp + 4]                ; 0x0ca1
-@..loc_UTOL.l7:
+.forward7:
     cmp word [bp + 4], byte 4        ; 0x0ca4
-    jne short @..loc_UTOL.l8         ; 0x0ca8
+    jne short .forward8              ; 0x0ca8
     cmp word [bss_29ec], byte 0      ; 0x0caa
-    jne short @..loc_UTOL.l8         ; 0x0caf
+    jne short .forward8              ; 0x0caf
     mov word [bp + 4], 0             ; 0x0cb1
-@..loc_UTOL.l8:
+.forward8:
     mov ax, word [bp + 4]            ; 0x0cb6
     shl ax, 1                        ; 0x0cb9
     mov bx, ax                       ; 0x0cbb

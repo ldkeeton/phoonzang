@@ -7,7 +7,7 @@ loc_SIKN:
     add ax, word [bp + 6]
     mov bx, ax
     cmp byte [bx + party_records + pc_rec.flag], 0x64
-    jae short @..loc_SIKN.l1
+    jae short .return1
     mov al, byte [bx + party_records + pc_rec.flag]
     sub ah, ah
     push ax
@@ -22,8 +22,8 @@ loc_SIKN:
     mov cx, ax
     pop ax
     sub ax, cx
-    jg short @..loc_SIKN.l1
+    jg short .return1
     add bx, word [bp + 6]
     inc byte [bx + party_records + pc_rec.flag]
-@..loc_SIKN.l1:
+.return1:
     ret

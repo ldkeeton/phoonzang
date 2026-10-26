@@ -18,7 +18,7 @@ api_idx_006a_QKPT:
     mov word [bss_9e4e], 0xffff      ; 0xabbd
     mov word [bss_9e50], 0xffff      ; 0xabc3
     mov word [text_line_index], 0    ; 0xabc9
-@..api_idx_006a_QKPT.l1:
+.back1:
     mov ax, word [text_line_index]   ; 0xabcf
     mov cx, 7                        ; 0xabd2
     shl ax, cl                       ; 0xabd5
@@ -31,7 +31,7 @@ api_idx_006a_QKPT:
     inc word [text_line_index]       ; 0xabeb
     mov ax, word [text_line_index]   ; 0xabef
     cmp ax, strict word 4            ; 0xabf2
-    jl short @..api_idx_006a_QKPT.l1 ; 0xabf5
+    jl short .back1                  ; 0xabf5
     mov word [text_line_index], 0    ; 0xabf7
     lea ax, word [bp - 0x6a]         ; 0xabfd
     push ax                          ; 0xac00
@@ -69,7 +69,7 @@ api_idx_006a_QKPT:
     push ax                          ; 0xac4e
     call show_area_set               ; 0xac4f
     pop cx                           ; 0xac52
-@..api_idx_006a_QKPT.l2:
+.back2:
     lea ax, word [bp - 0x6a]         ; 0xac53
     push ax                          ; 0xac56
     lea ax, word [bp - 0x56]         ; 0xac57
@@ -98,12 +98,12 @@ api_idx_006a_QKPT:
     call aztec_strncmp               ; 0xac8c
     add sp, byte 6                   ; 0xac8f
     test ax, ax                      ; 0xac92
-    je short @..api_idx_006a_QKPT.l3 ; 0xac94
+    je short .forward1               ; 0xac94
     mov ax, 0                        ; 0xac96
-    jmp short @..api_idx_006a_QKPT.l4 ; 0xac99
-@..api_idx_006a_QKPT.l3:
+    jmp short .forward2              ; 0xac99
+.forward1:
     mov ax, 1                        ; 0xac9b
-@..api_idx_006a_QKPT.l4:
+.forward2:
     mov word [bp - 6], ax            ; 0xac9e
     lea ax, word [bp - 0x56]         ; 0xaca1
     push ax                          ; 0xaca4
@@ -141,14 +141,14 @@ api_idx_006a_QKPT:
     mov word [bss_9e80], 0           ; 0xad50
     mov word [bss_9e82], 0xffff      ; 0xad56
     mov word [bss_b030], 0xa         ; 0xad5c
-@..api_idx_006a_QKPT.l5:
+.back3:
     mov bx, word [bp - 2]            ; 0xad62
     add bx, bp                       ; 0xad65
     cmp byte [bx - 0x56], 0x20       ; 0xad67
-    jne short @..api_idx_006a_QKPT.l6 ; 0xad6b
+    jne short .forward3              ; 0xad6b
     inc word [bp - 2]                ; 0xad6d
-    jmp short @..api_idx_006a_QKPT.l5 ; 0xad70
-@..api_idx_006a_QKPT.l6:
+    jmp short .back3                 ; 0xad70
+.forward3:
     mov ax, word [bp - 2]            ; 0xad72
     lea cx, word [bp - 0x56]         ; 0xad75
     add ax, cx                       ; 0xad78
@@ -163,36 +163,36 @@ api_idx_006a_QKPT:
     add sp, byte 4                   ; 0xad8c
     mov word [bp - 2], ax            ; 0xad8f
     cmp ax, strict word 0xffff       ; 0xad92
-    jne short @..api_idx_006a_QKPT.l5 ; 0xad95
+    jne short .back3                 ; 0xad95
     mov ax, word [bss_9136]          ; 0xad97
     cmp ax, strict word 0x2d         ; 0xad9a
-    je short @..api_idx_006a_QKPT.l7 ; 0xad9d
+    je short .forward4               ; 0xad9d
     cmp ax, strict word 0x51         ; 0xad9f
-    je short @..api_idx_006a_QKPT.l7 ; 0xada2
+    je short .forward4               ; 0xada2
     cmp ax, strict word 0x53         ; 0xada4
-    je short @..api_idx_006a_QKPT.l7 ; 0xada7
+    je short .forward4               ; 0xada7
     cmp ax, strict word 0x4d         ; 0xada9
-    jne short @..api_idx_006a_QKPT.l8 ; 0xadac
+    jne short .forward5              ; 0xadac
     cmp word [bp - 6], byte 0        ; 0xadae
-    jne short @..api_idx_006a_QKPT.l8 ; 0xadb2
-@..api_idx_006a_QKPT.l7:
+    jne short .forward5              ; 0xadb2
+.forward4:
     mov byte [bp - 0x56], 0          ; 0xadb4
-@..api_idx_006a_QKPT.l8:
+.forward5:
     lea ax, word [bp - 0x56]         ; 0xadb8
     push ax                          ; 0xadbb
     call aztec_strlen                ; 0xadbc
     pop cx                           ; 0xadbf
     cmp ax, strict word 0            ; 0xadc0
-    jle short @..api_idx_006a_QKPT.l9 ; 0xadc3
+    jle short .forward6              ; 0xadc3
     call api_idx_00a2_IKRJ           ; 0xadc5
     test ax, ax                      ; 0xadc8
-    jne short @..api_idx_006a_QKPT.l9 ; 0xadca
+    jne short .forward6              ; 0xadca
     call loc_LTIS                    ; 0xadcc
-@..api_idx_006a_QKPT.l9:
+.forward6:
     cmp word [bss_9e70], byte 1      ; 0xadcf
-    je short @..api_idx_006a_QKPT.l10 ; 0xadd4
-    jmp near @..api_idx_006a_QKPT.l2 ; 0xadd6
-@..api_idx_006a_QKPT.l10:
+    je short .forward7               ; 0xadd4
+    jmp near .back2                  ; 0xadd6
+.forward7:
     mov ax, 3                        ; 0xadd9
     push ax                          ; 0xaddc
     call redraw_area_set             ; 0xaddd

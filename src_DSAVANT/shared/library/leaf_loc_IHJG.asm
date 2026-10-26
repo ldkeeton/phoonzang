@@ -3,13 +3,13 @@ leaf_loc_IHJG:
     push ax
     mov bx, picture_slots - IMAGE_BASE
     mov cx, 0x14
-@..leaf_loc_IHJG.l1:
+.back1:
     cmp ax, word [cs:bx]
-    jae short @..leaf_loc_IHJG.l2
+    jae short .forward1
     dec word [cs:bx]
-@..leaf_loc_IHJG.l2:
+.forward1:
     inc bx
     inc bx
-    loop @..leaf_loc_IHJG.l1
+    loop .back1
     pop ax
     ret

@@ -6,15 +6,15 @@ api_idx_004e_HUKL:
     mov ax, word [disk_header]       ; 0x3897
     mov word [bp - 0x10], ax         ; 0x389a
     cmp byte [install_mode], 5       ; 0x389d
-    jne short @..api_idx_004e_HUKL.l1 ; 0x38a2
+    jne short .forward1              ; 0x38a2
     cmp ax, strict word 0            ; 0x38a4
-    jle short @..api_idx_004e_HUKL.l1 ; 0x38a7
+    jle short .forward1              ; 0x38a7
     inc ax                           ; 0x38a9
     inc ax                           ; 0x38aa
-    jmp short @..api_idx_004e_HUKL.l2 ; 0x38ab
-@..api_idx_004e_HUKL.l1:
+    jmp short .forward2              ; 0x38ab
+.forward1:
     mov ax, word [bp - 0x10]         ; 0x38ad
-@..api_idx_004e_HUKL.l2:
+.forward2:
     mov word [bp - 0x10], ax         ; 0x38b0
     mov ax, 0                        ; 0x38b3
     push ax                          ; 0x38b6
@@ -34,7 +34,7 @@ api_idx_004e_HUKL:
     add sp, byte 4                   ; 0x38d4
     mov word [bp - 0x12], 1          ; 0x38d7
     cmp word [bp + 4], byte 1        ; 0x38dc
-    jne short @..api_idx_004e_HUKL.l3 ; 0x38e0
+    jne short .forward3              ; 0x38e0
     mov ax, dseg_90db                ; 0x38e2
     push ax                          ; 0x38e5
     lea ax, word [bp - 0x26]         ; 0x38e6
@@ -42,8 +42,8 @@ api_idx_004e_HUKL:
     call aztec_strcpy                ; 0x38ea
     add sp, byte 4                   ; 0x38ed
     mov word [bp - 0xc], 0x591       ; 0x38f0
-    jmp short @..api_idx_004e_HUKL.l4 ; 0x38f5
-@..api_idx_004e_HUKL.l3:
+    jmp short .forward4              ; 0x38f5
+.forward3:
     mov ax, bss_594e                 ; 0x38f7
     push ax                          ; 0x38fa
     lea ax, word [bp - 0x26]         ; 0x38fb
@@ -51,7 +51,7 @@ api_idx_004e_HUKL:
     call aztec_strcpy                ; 0x38ff
     add sp, byte 4                   ; 0x3902
     mov word [bp - 0xc], 0x582       ; 0x3905
-@..api_idx_004e_HUKL.l4:
+.forward4:
     lea ax, word [bp - 0x26]         ; 0x390a
     push ax                          ; 0x390d
     mov ax, bss_593a                 ; 0x390e
@@ -65,19 +65,19 @@ api_idx_004e_HUKL:
     call api_idx_0028_NRJN           ; 0x391e
     add sp, byte 0xc                 ; 0x3921
     cmp ax, strict word 2            ; 0x3924
-    jne short @..api_idx_004e_HUKL.l5 ; 0x3927
+    jne short .forward5              ; 0x3927
     mov ax, 0xffff                   ; 0x3929
     ret                              ; 0x392c
-@..api_idx_004e_HUKL.l5:
+.forward5:
     cmp word [bp + 4], byte 0        ; 0x392d
-    jne short @..api_idx_004e_HUKL.l6 ; 0x3931
+    jne short .forward6              ; 0x3931
     lea ax, word [bp - 0x26]         ; 0x3933
     push ax                          ; 0x3936
     mov ax, bss_594e                 ; 0x3937
     push ax                          ; 0x393a
     call aztec_strcpy                ; 0x393b
     add sp, byte 4                   ; 0x393e
-@..api_idx_004e_HUKL.l6:
+.forward6:
     mov ax, 0x3a                     ; 0x3941
     push ax                          ; 0x3944
     mov ax, data_path_prefixes       ; 0x3945
@@ -105,7 +105,7 @@ api_idx_004e_HUKL:
     call aztec_strlen                ; 0x3977
     pop cx                           ; 0x397a
     cmp ax, strict word 0            ; 0x397b
-    jle short @..api_idx_004e_HUKL.l7 ; 0x397e
+    jle short .forward7              ; 0x397e
     mov ax, bss_91ee                 ; 0x3980
     push ax                          ; 0x3983
     call aztec_strlen                ; 0x3984
@@ -114,10 +114,10 @@ api_idx_004e_HUKL:
     mov word [bp - 2], ax            ; 0x3989
     mov bx, ax                       ; 0x398c
     cmp byte [bx + bss_91ee], 0x5c   ; 0x398e
-    je short @..api_idx_004e_HUKL.l7 ; 0x3993
+    je short .forward7               ; 0x3993
     mov byte [bx + bss_91ef], 0x5c   ; 0x3995
     mov byte [bx + bss_91f0], 0      ; 0x399a
-@..api_idx_004e_HUKL.l7:
+.forward7:
     lea ax, word [bp - 0x26]         ; 0x399f
     push ax                          ; 0x39a2
     mov ax, bss_91ee                 ; 0x39a3
@@ -125,7 +125,7 @@ api_idx_004e_HUKL:
     call aztec_strcat                ; 0x39a7
     add sp, byte 4                   ; 0x39aa
     cmp byte [install_mode], 1       ; 0x39ad
-    jne short @..api_idx_004e_HUKL.l8 ; 0x39b2
+    jne short .forward8              ; 0x39b2
     mov ax, bss_91da                 ; 0x39b4
     push ax                          ; 0x39b7
     mov ax, bss_91c6                 ; 0x39b8
@@ -133,15 +133,15 @@ api_idx_004e_HUKL:
     call aztec_strcmp                ; 0x39bc
     add sp, byte 4                   ; 0x39bf
     test ax, ax                      ; 0x39c2
-    jne short @..api_idx_004e_HUKL.l8 ; 0x39c4
-    jmp near @..api_idx_004e_HUKL.l14 ; 0x39c6
-@..api_idx_004e_HUKL.l8:
+    jne short .forward8              ; 0x39c4
+    jmp near .forward14              ; 0x39c6
+.forward8:
     mov ax, bss_91da                 ; 0x39c9
     push ax                          ; 0x39cc
     call aztec_strlen                ; 0x39cd
     pop cx                           ; 0x39d0
     cmp ax, strict word 0            ; 0x39d1
-    jle short @..api_idx_004e_HUKL.l12 ; 0x39d4
+    jle short .forward12             ; 0x39d4
     mov ax, bss_91da                 ; 0x39d6
     push ax                          ; 0x39d9
     mov ax, bss_91c6                 ; 0x39da
@@ -149,12 +149,12 @@ api_idx_004e_HUKL:
     call aztec_strcmp                ; 0x39de
     add sp, byte 4                   ; 0x39e1
     test ax, ax                      ; 0x39e4
-    je short @..api_idx_004e_HUKL.l9 ; 0x39e6
+    je short .forward9               ; 0x39e6
     cmp byte [install_mode], 5       ; 0x39e8
-    jne short @..api_idx_004e_HUKL.l10 ; 0x39ed
-@..api_idx_004e_HUKL.l9:
+    jne short .forward10             ; 0x39ed
+.forward9:
     mov word [bp - 0xe], 1           ; 0x39ef
-@..api_idx_004e_HUKL.l10:
+.forward10:
     mov ax, 0                        ; 0x39f4
     push ax                          ; 0x39f7
     push word [bp - 0xe]             ; 0x39f8
@@ -166,14 +166,14 @@ api_idx_004e_HUKL:
     add sp, byte 8                   ; 0x3a06
     mov ax, 1                        ; 0x3a09
     cmp word [bp - 0xe], byte 0      ; 0x3a0c
-    je short @..api_idx_004e_HUKL.l11 ; 0x3a10
+    je short .forward11              ; 0x3a10
     mov ax, 0                        ; 0x3a12
-@..api_idx_004e_HUKL.l11:
+.forward11:
     mov word [bp - 0x12], ax         ; 0x3a15
-    jmp short @..api_idx_004e_HUKL.l14 ; 0x3a18
-@..api_idx_004e_HUKL.l12:
+    jmp short .forward14             ; 0x3a18
+.forward12:
     cmp byte [install_mode], 1       ; 0x3a1a
-    jbe short @..api_idx_004e_HUKL.l14 ; 0x3a1f
+    jbe short .forward14             ; 0x3a1f
     mov word [bp - 0xe], 1           ; 0x3a21
     mov ax, 0                        ; 0x3a26
     push ax                          ; 0x3a29
@@ -186,11 +186,11 @@ api_idx_004e_HUKL:
     add sp, byte 8                   ; 0x3a38
     mov ax, 1                        ; 0x3a3b
     cmp word [bp - 0xe], byte 0      ; 0x3a3e
-    je short @..api_idx_004e_HUKL.l13 ; 0x3a42
+    je short .forward13              ; 0x3a42
     mov ax, 0                        ; 0x3a44
-@..api_idx_004e_HUKL.l13:
+.forward13:
     mov word [bp - 0x12], ax         ; 0x3a47
-@..api_idx_004e_HUKL.l14:
+.forward14:
     mov ax, 0xc7                     ; 0x3a4a
     push ax                          ; 0x3a4d
     mov ax, 0x13f                    ; 0x3a4e
@@ -208,13 +208,13 @@ api_idx_004e_HUKL:
     add sp, byte 4                   ; 0x3a68
     mov word [bp - 0xa], ax          ; 0x3a6b
     cmp ax, strict word 0xffff       ; 0x3a6e
-    jne short @..api_idx_004e_HUKL.l16 ; 0x3a71
+    jne short .forward16             ; 0x3a71
     lea ax, word [bp - 0x3a]         ; 0x3a73
     push ax                          ; 0x3a76
     call loc_KPLK                    ; 0x3a77
     pop cx                           ; 0x3a7a
     cmp word [bp - 0xe], byte 0      ; 0x3a7b
-    je short @..api_idx_004e_HUKL.l15 ; 0x3a7f
+    je short .forward15              ; 0x3a7f
     mov ax, 1                        ; 0x3a81
     push ax                          ; 0x3a84
     push word [bp - 0x12]            ; 0x3a85
@@ -223,14 +223,14 @@ api_idx_004e_HUKL:
     push ax                          ; 0x3a8e
     call prompt_disk_swap            ; 0x3a8f
     add sp, byte 8                   ; 0x3a92
-@..api_idx_004e_HUKL.l15:
+.forward15:
     mov ax, 0xffff                   ; 0x3a95
     ret                              ; 0x3a98
-@..api_idx_004e_HUKL.l16:
+.forward16:
     cmp word [game_state_arg], byte 0 ; 0x3a99
-    jge short @..api_idx_004e_HUKL.l17 ; 0x3a9e
-    jmp near @..api_idx_004e_HUKL.l18 ; 0x3aa0
-@..api_idx_004e_HUKL.l17:
+    jge short .forward17             ; 0x3a9e
+    jmp near .forward18              ; 0x3aa0
+.forward17:
     mov ax, 1                        ; 0x3aa3
     push ax                          ; 0x3aa6
     mov ax, 0xd                      ; 0x3aa7
@@ -292,7 +292,7 @@ api_idx_004e_HUKL:
     push ax                          ; 0x3b25
     call aztec_movmem                ; 0x3b26
     add sp, byte 6                   ; 0x3b29
-@..api_idx_004e_HUKL.l18:
+.forward18:
     mov ax, 0                        ; 0x3b2c
     push ax                          ; 0x3b2f
     mov ax, 0                        ; 0x3b30
@@ -311,7 +311,7 @@ api_idx_004e_HUKL:
     add sp, byte 6                   ; 0x3b4f
     mov word [bp - 8], ax            ; 0x3b52
     cmp ax, strict word 0            ; 0x3b55
-    jg short @..api_idx_004e_HUKL.l20 ; 0x3b58
+    jg short .forward20              ; 0x3b58
     lea ax, word [bp - 0x3a]         ; 0x3b5a
     push ax                          ; 0x3b5d
     call loc_KPLK                    ; 0x3b5e
@@ -320,7 +320,7 @@ api_idx_004e_HUKL:
     call aztec_close                 ; 0x3b65
     pop cx                           ; 0x3b68
     cmp word [bp - 0xe], byte 0      ; 0x3b69
-    je short @..api_idx_004e_HUKL.l19 ; 0x3b6d
+    je short .forward19              ; 0x3b6d
     mov ax, 1                        ; 0x3b6f
     push ax                          ; 0x3b72
     push word [bp - 0x12]            ; 0x3b73
@@ -329,15 +329,15 @@ api_idx_004e_HUKL:
     push ax                          ; 0x3b7c
     call prompt_disk_swap            ; 0x3b7d
     add sp, byte 8                   ; 0x3b80
-@..api_idx_004e_HUKL.l19:
+.forward19:
     mov ax, 0xffff                   ; 0x3b83
     ret                              ; 0x3b86
-@..api_idx_004e_HUKL.l20:
+.forward20:
     mov ax, 6                        ; 0x3b87
     imul word [bss_590e]             ; 0x3b8a
     mov word [bp - 6], ax            ; 0x3b8e
     cmp ax, strict word 0            ; 0x3b91
-    jle short @..api_idx_004e_HUKL.l22 ; 0x3b94
+    jle short .forward22             ; 0x3b94
     push ax                          ; 0x3b96
     push word [bss_0e10]             ; 0x3b97
     push word [bp - 0xa]             ; 0x3b9b
@@ -345,7 +345,7 @@ api_idx_004e_HUKL:
     add sp, byte 6                   ; 0x3ba1
     mov word [bp - 8], ax            ; 0x3ba4
     cmp ax, strict word 0            ; 0x3ba7
-    jg short @..api_idx_004e_HUKL.l22 ; 0x3baa
+    jg short .forward22              ; 0x3baa
     lea ax, word [bp - 0x3a]         ; 0x3bac
     push ax                          ; 0x3baf
     call loc_KPLK                    ; 0x3bb0
@@ -354,7 +354,7 @@ api_idx_004e_HUKL:
     call aztec_close                 ; 0x3bb7
     pop cx                           ; 0x3bba
     cmp word [bp - 0xe], byte 0      ; 0x3bbb
-    je short @..api_idx_004e_HUKL.l21 ; 0x3bbf
+    je short .forward21              ; 0x3bbf
     mov ax, 1                        ; 0x3bc1
     push ax                          ; 0x3bc4
     push word [bp - 0x12]            ; 0x3bc5
@@ -363,17 +363,17 @@ api_idx_004e_HUKL:
     push ax                          ; 0x3bce
     call prompt_disk_swap            ; 0x3bcf
     add sp, byte 8                   ; 0x3bd2
-@..api_idx_004e_HUKL.l21:
+.forward21:
     mov ax, 0xffff                   ; 0x3bd5
     ret                              ; 0x3bd8
-@..api_idx_004e_HUKL.l22:
+.forward22:
     mov ax, word [bss_5910]          ; 0x3bd9
     shl ax, 1                        ; 0x3bdc
     shl ax, 1                        ; 0x3bde
     shl ax, 1                        ; 0x3be0
     mov word [bp - 6], ax            ; 0x3be2
     cmp ax, strict word 0            ; 0x3be5
-    jle short @..api_idx_004e_HUKL.l24 ; 0x3be8
+    jle short .forward24             ; 0x3be8
     push ax                          ; 0x3bea
     push word [bss_0e0e]             ; 0x3beb
     push word [bp - 0xa]             ; 0x3bef
@@ -381,7 +381,7 @@ api_idx_004e_HUKL:
     add sp, byte 6                   ; 0x3bf5
     mov word [bp - 8], ax            ; 0x3bf8
     cmp ax, strict word 0            ; 0x3bfb
-    jg short @..api_idx_004e_HUKL.l24 ; 0x3bfe
+    jg short .forward24              ; 0x3bfe
     lea ax, word [bp - 0x3a]         ; 0x3c00
     push ax                          ; 0x3c03
     call loc_KPLK                    ; 0x3c04
@@ -390,7 +390,7 @@ api_idx_004e_HUKL:
     call aztec_close                 ; 0x3c0b
     pop cx                           ; 0x3c0e
     cmp word [bp - 0xe], byte 0      ; 0x3c0f
-    je short @..api_idx_004e_HUKL.l23 ; 0x3c13
+    je short .forward23              ; 0x3c13
     mov ax, 1                        ; 0x3c15
     push ax                          ; 0x3c18
     push word [bp - 0x12]            ; 0x3c19
@@ -399,12 +399,12 @@ api_idx_004e_HUKL:
     push ax                          ; 0x3c22
     call prompt_disk_swap            ; 0x3c23
     add sp, byte 8                   ; 0x3c26
-@..api_idx_004e_HUKL.l23:
+.forward23:
     mov ax, 0xffff                   ; 0x3c29
     ret                              ; 0x3c2c
-@..api_idx_004e_HUKL.l24:
+.forward24:
     mov word [bp - 4], 0             ; 0x3c2d
-@..api_idx_004e_HUKL.l25:
+.back1:
     mov ax, 0x80                     ; 0x3c32
     push ax                          ; 0x3c35
     push ds                          ; 0x3c36
@@ -446,7 +446,7 @@ api_idx_004e_HUKL:
     add sp, byte 6                   ; 0x3c88
     mov word [bp - 8], ax            ; 0x3c8b
     cmp ax, strict word 0            ; 0x3c8e
-    jg short @..api_idx_004e_HUKL.l27 ; 0x3c91
+    jg short .forward26              ; 0x3c91
     lea ax, word [bp - 0x3a]         ; 0x3c93
     push ax                          ; 0x3c96
     call loc_KPLK                    ; 0x3c97
@@ -455,7 +455,7 @@ api_idx_004e_HUKL:
     call aztec_close                 ; 0x3c9e
     pop cx                           ; 0x3ca1
     cmp word [bp - 0xe], byte 0      ; 0x3ca2
-    je short @..api_idx_004e_HUKL.l26 ; 0x3ca6
+    je short .forward25              ; 0x3ca6
     mov ax, 1                        ; 0x3ca8
     push ax                          ; 0x3cab
     push word [bp - 0x12]            ; 0x3cac
@@ -464,10 +464,10 @@ api_idx_004e_HUKL:
     push ax                          ; 0x3cb5
     call prompt_disk_swap            ; 0x3cb6
     add sp, byte 8                   ; 0x3cb9
-@..api_idx_004e_HUKL.l26:
+.forward25:
     mov ax, 0xffff                   ; 0x3cbc
     ret                              ; 0x3cbf
-@..api_idx_004e_HUKL.l27:
+.forward26:
     mov ax, 0x80                     ; 0x3cc0
     push ax                          ; 0x3cc3
     mov ax, bss_9980                 ; 0x3cc4
@@ -477,7 +477,7 @@ api_idx_004e_HUKL:
     add sp, byte 6                   ; 0x3cce
     mov word [bp - 8], ax            ; 0x3cd1
     cmp ax, strict word 0            ; 0x3cd4
-    jg short @..api_idx_004e_HUKL.l29 ; 0x3cd7
+    jg short .forward28              ; 0x3cd7
     lea ax, word [bp - 0x3a]         ; 0x3cd9
     push ax                          ; 0x3cdc
     call loc_KPLK                    ; 0x3cdd
@@ -486,7 +486,7 @@ api_idx_004e_HUKL:
     call aztec_close                 ; 0x3ce4
     pop cx                           ; 0x3ce7
     cmp word [bp - 0xe], byte 0      ; 0x3ce8
-    je short @..api_idx_004e_HUKL.l28 ; 0x3cec
+    je short .forward27              ; 0x3cec
     mov ax, 1                        ; 0x3cee
     push ax                          ; 0x3cf1
     push word [bp - 0x12]            ; 0x3cf2
@@ -495,16 +495,16 @@ api_idx_004e_HUKL:
     push ax                          ; 0x3cfb
     call prompt_disk_swap            ; 0x3cfc
     add sp, byte 8                   ; 0x3cff
-@..api_idx_004e_HUKL.l28:
+.forward27:
     mov ax, 0xffff                   ; 0x3d02
     ret                              ; 0x3d05
-@..api_idx_004e_HUKL.l29:
+.forward28:
     inc word [bp - 4]                ; 0x3d06
     mov ax, word [bp - 4]            ; 0x3d09
     cmp ax, strict word 0x20         ; 0x3d0c
-    jge short @..api_idx_004e_HUKL.l30 ; 0x3d0f
-    jmp near @..api_idx_004e_HUKL.l25 ; 0x3d11
-@..api_idx_004e_HUKL.l30:
+    jge short .forward29             ; 0x3d0f
+    jmp near .back1                  ; 0x3d11
+.forward29:
     mov ax, word [party_world_x]     ; 0x3d14
     mov word [bss_9a02], ax          ; 0x3d17
     mov ax, word [party_world_y]     ; 0x3d1a
@@ -544,7 +544,7 @@ api_idx_004e_HUKL:
     mov ax, word [bss_8f26]          ; 0x3d80
     mov word [bss_9a24], ax          ; 0x3d83
     mov word [bp - 2], 0             ; 0x3d86
-@..api_idx_004e_HUKL.l31:
+.back2:
     mov ax, word [bp - 2]            ; 0x3d8b
     shl ax, 1                        ; 0x3d8e
     shl ax, 1                        ; 0x3d90
@@ -556,7 +556,7 @@ api_idx_004e_HUKL:
     inc word [bp - 2]                ; 0x3da4
     mov ax, word [bp - 2]            ; 0x3da7
     cmp ax, strict word 6            ; 0x3daa
-    jl short @..api_idx_004e_HUKL.l31 ; 0x3dad
+    jl short .back2                  ; 0x3dad
     mov ax, word [game_time]         ; 0x3daf
     mov dx, word [game_time_hi]      ; 0x3db2
     mov word [bss_9a28], dx          ; 0x3db6
@@ -580,7 +580,7 @@ api_idx_004e_HUKL:
     add sp, byte 6                   ; 0x3ded
     mov word [bp - 8], ax            ; 0x3df0
     cmp ax, strict word 0            ; 0x3df3
-    jg short @..api_idx_004e_HUKL.l33 ; 0x3df6
+    jg short .forward31              ; 0x3df6
     lea ax, word [bp - 0x3a]         ; 0x3df8
     push ax                          ; 0x3dfb
     call loc_KPLK                    ; 0x3dfc
@@ -589,7 +589,7 @@ api_idx_004e_HUKL:
     call aztec_close                 ; 0x3e03
     pop cx                           ; 0x3e06
     cmp word [bp - 0xe], byte 0      ; 0x3e07
-    je short @..api_idx_004e_HUKL.l32 ; 0x3e0b
+    je short .forward30              ; 0x3e0b
     mov ax, 1                        ; 0x3e0d
     push ax                          ; 0x3e10
     push word [bp - 0x12]            ; 0x3e11
@@ -598,10 +598,10 @@ api_idx_004e_HUKL:
     push ax                          ; 0x3e1a
     call prompt_disk_swap            ; 0x3e1b
     add sp, byte 8                   ; 0x3e1e
-@..api_idx_004e_HUKL.l32:
+.forward30:
     mov ax, 0xffff                   ; 0x3e21
     ret                              ; 0x3e24
-@..api_idx_004e_HUKL.l33:
+.forward31:
     mov ax, 0x80                     ; 0x3e25
     push ax                          ; 0x3e28
     mov ax, bss_8a6e                 ; 0x3e29
@@ -651,7 +651,7 @@ api_idx_004e_HUKL:
     add sp, byte 6                   ; 0x3e97
     mov word [bp - 8], ax            ; 0x3e9a
     cmp ax, strict word 0            ; 0x3e9d
-    jg short @..api_idx_004e_HUKL.l35 ; 0x3ea0
+    jg short .forward33              ; 0x3ea0
     lea ax, word [bp - 0x3a]         ; 0x3ea2
     push ax                          ; 0x3ea5
     call loc_KPLK                    ; 0x3ea6
@@ -660,7 +660,7 @@ api_idx_004e_HUKL:
     call aztec_close                 ; 0x3ead
     pop cx                           ; 0x3eb0
     cmp word [bp - 0xe], byte 0      ; 0x3eb1
-    je short @..api_idx_004e_HUKL.l34 ; 0x3eb5
+    je short .forward32              ; 0x3eb5
     mov ax, 1                        ; 0x3eb7
     push ax                          ; 0x3eba
     push word [bp - 0x12]            ; 0x3ebb
@@ -669,10 +669,10 @@ api_idx_004e_HUKL:
     push ax                          ; 0x3ec4
     call prompt_disk_swap            ; 0x3ec5
     add sp, byte 8                   ; 0x3ec8
-@..api_idx_004e_HUKL.l34:
+.forward32:
     mov ax, 0xffff                   ; 0x3ecb
     ret                              ; 0x3ece
-@..api_idx_004e_HUKL.l35:
+.forward33:
     mov ax, 0x64                     ; 0x3ecf
     push ax                          ; 0x3ed2
     mov ax, code_characters          ; 0x3ed3
@@ -682,7 +682,7 @@ api_idx_004e_HUKL:
     add sp, byte 6                   ; 0x3edd
     mov word [bp - 8], ax            ; 0x3ee0
     cmp ax, strict word 0            ; 0x3ee3
-    jg short @..api_idx_004e_HUKL.l37 ; 0x3ee6
+    jg short .forward35              ; 0x3ee6
     lea ax, word [bp - 0x3a]         ; 0x3ee8
     push ax                          ; 0x3eeb
     call loc_KPLK                    ; 0x3eec
@@ -691,7 +691,7 @@ api_idx_004e_HUKL:
     call aztec_close                 ; 0x3ef3
     pop cx                           ; 0x3ef6
     cmp word [bp - 0xe], byte 0      ; 0x3ef7
-    je short @..api_idx_004e_HUKL.l36 ; 0x3efb
+    je short .forward34              ; 0x3efb
     mov ax, 1                        ; 0x3efd
     push ax                          ; 0x3f00
     push word [bp - 0x12]            ; 0x3f01
@@ -700,13 +700,13 @@ api_idx_004e_HUKL:
     push ax                          ; 0x3f0a
     call prompt_disk_swap            ; 0x3f0b
     add sp, byte 8                   ; 0x3f0e
-@..api_idx_004e_HUKL.l36:
+.forward34:
     mov ax, 0xffff                   ; 0x3f11
     ret                              ; 0x3f14
-@..api_idx_004e_HUKL.l37:
+.forward35:
     mov word [bp - 2], 0             ; 0x3f15
-    jmp short @..api_idx_004e_HUKL.l41 ; 0x3f1a
-@..api_idx_004e_HUKL.l38:
+    jmp short .forward38             ; 0x3f1a
+.back3:
     mov ax, 0x248                    ; 0x3f1c
     imul word [bp - 2]               ; 0x3f1f
     mov si, ax                       ; 0x3f22
@@ -726,7 +726,7 @@ api_idx_004e_HUKL:
     add sp, byte 6                   ; 0x3f43
     mov word [bp - 8], ax            ; 0x3f46
     cmp ax, strict word 0            ; 0x3f49
-    jg short @..api_idx_004e_HUKL.l40 ; 0x3f4c
+    jg short .forward37              ; 0x3f4c
     lea ax, word [bp - 0x3a]         ; 0x3f4e
     push ax                          ; 0x3f51
     call loc_KPLK                    ; 0x3f52
@@ -735,7 +735,7 @@ api_idx_004e_HUKL:
     call aztec_close                 ; 0x3f59
     pop cx                           ; 0x3f5c
     cmp word [bp - 0xe], byte 0      ; 0x3f5d
-    je short @..api_idx_004e_HUKL.l39 ; 0x3f61
+    je short .forward36              ; 0x3f61
     mov ax, 1                        ; 0x3f63
     push ax                          ; 0x3f66
     push word [bp - 0x12]            ; 0x3f67
@@ -744,20 +744,20 @@ api_idx_004e_HUKL:
     push ax                          ; 0x3f70
     call prompt_disk_swap            ; 0x3f71
     add sp, byte 8                   ; 0x3f74
-@..api_idx_004e_HUKL.l39:
+.forward36:
     mov ax, 0xffff                   ; 0x3f77
     ret                              ; 0x3f7a
-@..api_idx_004e_HUKL.l40:
+.forward37:
     inc word [bp - 2]                ; 0x3f7b
-@..api_idx_004e_HUKL.l41:
+.forward38:
     mov ax, word [bp - 2]            ; 0x3f7e
     cmp ax, word [party_char_count]  ; 0x3f81
-    jl short @..api_idx_004e_HUKL.l38 ; 0x3f85
+    jl short .back3                  ; 0x3f85
     push word [bp - 0xa]             ; 0x3f87
     call aztec_close                 ; 0x3f8a
     pop cx                           ; 0x3f8d
     cmp word [bp - 0xe], byte 0      ; 0x3f8e
-    je short @..api_idx_004e_HUKL.l42 ; 0x3f92
+    je short .forward39              ; 0x3f92
     mov ax, 1                        ; 0x3f94
     push ax                          ; 0x3f97
     push word [bp - 0x12]            ; 0x3f98
@@ -766,6 +766,6 @@ api_idx_004e_HUKL:
     push ax                          ; 0x3fa1
     call prompt_disk_swap            ; 0x3fa2
     add sp, byte 8                   ; 0x3fa5
-@..api_idx_004e_HUKL.l42:
+.forward39:
     mov ax, 0                        ; 0x3fa8
     ret                              ; 0x3fab

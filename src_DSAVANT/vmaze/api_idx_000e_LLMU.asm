@@ -20,12 +20,12 @@ api_idx_000e_LLMU:
     add sp, byte 6                   ; 0x8478
     mov word [bp - 0xc], ax          ; 0x847b
     mov word [bp - 2], 0             ; 0x847e
-    jmp short @..api_idx_000e_LLMU.l6 ; 0x8483
-@..api_idx_000e_LLMU.l1:
+    jmp short .forward3              ; 0x8483
+.back1:
     mov word [bp - 6], 0             ; 0x8485
-@..api_idx_000e_LLMU.l2:
+.back2:
     mov word [bp - 4], 0             ; 0x848a
-@..api_idx_000e_LLMU.l3:
+.back3:
     mov ax, 0x248                    ; 0x848f
     imul word [bp - 2]               ; 0x8492
     push ax                          ; 0x8495
@@ -43,29 +43,29 @@ api_idx_000e_LLMU:
     mov bx, ax                       ; 0x84ad
     mov ax, word [bx + party_records + pc_rec.cell] ; 0x84af
     cmp ax, word [bp - 0xa]          ; 0x84b3
-    jne short @..api_idx_000e_LLMU.l5 ; 0x84b6
+    jne short .forward2              ; 0x84b6
     mov al, byte [bx + party_records + pc_rec.cell + 0x7] ; 0x84b8
     sub ah, ah                       ; 0x84bc
     test ax, 1                       ; 0x84be
-    jne short @..api_idx_000e_LLMU.l4 ; 0x84c1
+    jne short .forward1              ; 0x84c1
     cmp word [bp - 0xc], byte 0      ; 0x84c3
-    je short @..api_idx_000e_LLMU.l5 ; 0x84c7
-@..api_idx_000e_LLMU.l4:
+    je short .forward2               ; 0x84c7
+.forward1:
     mov word [bp - 0xe], 0           ; 0x84c9
-@..api_idx_000e_LLMU.l5:
+.forward2:
     inc word [bp - 4]                ; 0x84ce
     mov ax, word [bp - 4]            ; 0x84d1
     cmp ax, strict word 0xa          ; 0x84d4
-    jl short @..api_idx_000e_LLMU.l3 ; 0x84d7
+    jl short .back3                  ; 0x84d7
     inc word [bp - 6]                ; 0x84d9
     mov ax, word [bp - 6]            ; 0x84dc
     cmp ax, strict word 2            ; 0x84df
-    jl short @..api_idx_000e_LLMU.l2 ; 0x84e2
+    jl short .back2                  ; 0x84e2
     inc word [bp - 2]                ; 0x84e4
-@..api_idx_000e_LLMU.l6:
+.forward3:
     mov ax, word [bp - 2]            ; 0x84e7
     cmp ax, word [party_char_count]  ; 0x84ea
-    jl short @..api_idx_000e_LLMU.l1 ; 0x84ee
+    jl short .back1                  ; 0x84ee
     push word [bp - 0xe]             ; 0x84f0
     mov si, word [party_region]      ; 0x84f3
     mov bx, word [maze_tables]       ; 0x84f7
@@ -77,7 +77,7 @@ api_idx_000e_LLMU:
     call api_idx_0004_KGNP           ; 0x8508
     add sp, byte 6                   ; 0x850b
     cmp word [bp - 0xe], byte 0      ; 0x850e
-    je short @..api_idx_000e_LLMU.l7 ; 0x8512
+    je short .forward4               ; 0x8512
     mov ax, 1                        ; 0x8514
     push ax                          ; 0x8517
     mov ax, 3                        ; 0x8518
@@ -86,8 +86,8 @@ api_idx_000e_LLMU:
     call get_bits                    ; 0x851f
     add sp, byte 6                   ; 0x8522
     test ax, ax                      ; 0x8525
-    je short @..api_idx_000e_LLMU.l8 ; 0x8527
-@..api_idx_000e_LLMU.l7:
+    je short .return1                ; 0x8527
+.forward4:
     mov ax, 2                        ; 0x8529
     push ax                          ; 0x852c
     mov ax, 0                        ; 0x852d
@@ -98,5 +98,5 @@ api_idx_000e_LLMU:
     push ax                          ; 0x853a
     call mark_region_bits            ; 0x853b
     pop cx                           ; 0x853e
-@..api_idx_000e_LLMU.l8:
+.return1:
     ret                              ; 0x853f

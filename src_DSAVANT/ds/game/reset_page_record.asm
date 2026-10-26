@@ -45,10 +45,10 @@ reset_page_record: ; Aztec csav frame=0x0016
     idiv cx                          ; 0x18ba
     mov word [bp - 4], ax            ; 0x18bc
     cmp byte [bx + party_records + pc_rec.profession], 0xd ; 0x18bf
-    je short @..reset_page_record.l1 ; 0x18c4
+    je short .forward1               ; 0x18c4
     cmp byte [bx + party_records + pc_rec.profession], 0xc ; 0x18c6
-    jne short @..reset_page_record.l2 ; 0x18cb
-@..reset_page_record.l1:
+    jne short .forward2              ; 0x18cb
+.forward1:
     mov ax, word [bp - 2]            ; 0x18cd
     mov cx, 3                        ; 0x18d0
     cwd                              ; 0x18d3
@@ -66,10 +66,10 @@ reset_page_record: ; Aztec csav frame=0x0016
     mov ax, word [bp - 4]            ; 0x18ed
     add ax, strict word 5            ; 0x18f0
     mov byte [bx + party_records + pc_rec.slot_info + 0xa], al ; 0x18f3
-    jmp short @..reset_page_record.l4 ; 0x18f7
-@..reset_page_record.l2:
+    jmp short .forward4              ; 0x18f7
+.forward2:
     cmp word [bp - 2], byte 0        ; 0x18f9
-    jle short @..reset_page_record.l3 ; 0x18fd
+    jle short .forward3              ; 0x18fd
     mov ax, word [bp - 2]            ; 0x18ff
     mov cx, 4                        ; 0x1902
     cwd                              ; 0x1905
@@ -87,9 +87,9 @@ reset_page_record: ; Aztec csav frame=0x0016
     pop ax                           ; 0x191e
     mov byte [bx + party_records + pc_rec.slot_info + 0x3], al ; 0x191f
     or byte [bx + party_records + pc_rec.slot_info + 0xf], 0x40 ; 0x1923
-@..reset_page_record.l3:
+.forward3:
     cmp word [bp - 4], byte 0        ; 0x1928
-    jle short @..reset_page_record.l4 ; 0x192c
+    jle short .forward4              ; 0x192c
     mov al, byte [bp - 4]            ; 0x192e
     push ax                          ; 0x1931
     mov ax, 0x248                    ; 0x1932
@@ -102,20 +102,20 @@ reset_page_record: ; Aztec csav frame=0x0016
     mov bx, cx                       ; 0x1944
     pop ax                           ; 0x1946
     mov byte [bx + party_records + pc_rec.slot_info + 0xa], al ; 0x1947
-@..reset_page_record.l4:
+.forward4:
     mov ax, word [bp + 6]            ; 0x194b
-    jmp near @..reset_page_record.l16 ; 0x194e
-@..reset_page_record.l5:
+    jmp near .forward14              ; 0x194e
+.back1:
     mov ax, 0x248                    ; 0x1951
     imul word [bp + 4]               ; 0x1954
     mov bx, ax                       ; 0x1957
     cmp byte [bx + party_records + pc_rec.stat], 0xf ; 0x1959
-    jbe short @..reset_page_record.l6 ; 0x195e
+    jbe short .forward5              ; 0x195e
     mov ax, 1                        ; 0x1960
-    jmp short @..reset_page_record.l7 ; 0x1963
-@..reset_page_record.l6:
+    jmp short .forward6              ; 0x1963
+.forward5:
     mov ax, 0                        ; 0x1965
-@..reset_page_record.l7:
+.forward6:
     push ax                          ; 0x1968
     mov ax, 0x12                     ; 0x1969
     imul word [bp + 6]               ; 0x196c
@@ -127,12 +127,12 @@ reset_page_record: ; Aztec csav frame=0x0016
     imul word [bp + 4]               ; 0x197b
     mov bx, ax                       ; 0x197e
     cmp byte [bx + party_records + pc_rec.stat], 0x11 ; 0x1980
-    jbe short @..reset_page_record.l8 ; 0x1985
+    jbe short .forward7              ; 0x1985
     mov ax, 1                        ; 0x1987
-    jmp short @..reset_page_record.l9 ; 0x198a
-@..reset_page_record.l8:
+    jmp short .forward8              ; 0x198a
+.forward7:
     mov ax, 0                        ; 0x198c
-@..reset_page_record.l9:
+.forward8:
     add bx, cx                       ; 0x198f
     add word [bx + party_records + pc_rec.slot_info], ax ; 0x1991
     mov al, byte [bx + party_records + pc_rec.slot_info + 0xe] ; 0x1995
@@ -143,12 +143,12 @@ reset_page_record: ; Aztec csav frame=0x0016
     mov bx, ax                       ; 0x19a1
     cmp byte [bx + party_records + pc_rec.stat + 0x4], 0xf ; 0x19a3
     pop ax                           ; 0x19a8
-    jbe short @..reset_page_record.l10 ; 0x19a9
+    jbe short .forward9              ; 0x19a9
     mov cx, 5                        ; 0x19ab
-    jmp short @..reset_page_record.l11 ; 0x19ae
-@..reset_page_record.l10:
+    jmp short .forward10             ; 0x19ae
+.forward9:
     mov cx, 0                        ; 0x19b0
-@..reset_page_record.l11:
+.forward10:
     sub ax, cx                       ; 0x19b3
     push ax                          ; 0x19b5
     mov ax, 0x12                     ; 0x19b6
@@ -164,12 +164,12 @@ reset_page_record: ; Aztec csav frame=0x0016
     mov bx, ax                       ; 0x19cd
     cmp byte [bx + party_records + pc_rec.stat + 0x4], 0x11 ; 0x19cf
     pop ax                           ; 0x19d4
-    jbe short @..reset_page_record.l12 ; 0x19d5
+    jbe short .forward11             ; 0x19d5
     mov cx, 5                        ; 0x19d7
-    jmp short @..reset_page_record.l13 ; 0x19da
-@..reset_page_record.l12:
+    jmp short .forward12             ; 0x19da
+.forward11:
     mov cx, 0                        ; 0x19dc
-@..reset_page_record.l13:
+.forward12:
     sub ax, cx                       ; 0x19df
     push ax                          ; 0x19e1
     mov ax, 0x12                     ; 0x19e2
@@ -178,8 +178,8 @@ reset_page_record: ; Aztec csav frame=0x0016
     add bx, ax                       ; 0x19ea
     pop ax                           ; 0x19ec
     mov byte [bx + party_records + pc_rec.slot_info + 0xe], al ; 0x19ed
-    jmp short @..reset_page_record.l18 ; 0x19f1
-@..reset_page_record.l14:
+    jmp short .return1               ; 0x19f1
+.back2:
     mov ax, 0x248                    ; 0x19f3
     imul word [bp + 4]               ; 0x19f6
     mov bx, ax                       ; 0x19f9
@@ -187,18 +187,18 @@ reset_page_record: ; Aztec csav frame=0x0016
     cbw                              ; 0x19ff
     mov cx, 0                        ; 0x1a00
     cmp byte [bx + party_records + pc_rec.stat + 0x4], 0x11 ; 0x1a03
-    jbe short @..reset_page_record.l15 ; 0x1a08
+    jbe short .forward13             ; 0x1a08
     mov cx, 5                        ; 0x1a0a
-@..reset_page_record.l15:
+.forward13:
     sub ax, cx                       ; 0x1a0d
     mov byte [bx + party_records + pc_rec.slot_info + 0x20], al ; 0x1a0f
-    jmp short @..reset_page_record.l18 ; 0x1a13
-@..reset_page_record.l16:
+    jmp short .return1               ; 0x1a13
+.forward14:
     cmp ax, strict word 0            ; 0x1a15
-    jne short @..reset_page_record.l17 ; 0x1a18
-    jmp near @..reset_page_record.l5 ; 0x1a1a
-@..reset_page_record.l17:
+    jne short .forward15             ; 0x1a18
+    jmp near .back1                  ; 0x1a1a
+.forward15:
     cmp ax, strict word 1            ; 0x1a1d
-    je short @..reset_page_record.l14 ; 0x1a20
-@..reset_page_record.l18:
+    je short .back2                  ; 0x1a20
+.return1:
     ret                              ; 0x1a22

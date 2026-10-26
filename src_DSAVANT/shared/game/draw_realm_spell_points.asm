@@ -3,7 +3,7 @@ draw_realm_spell_points:
     mov ax, 0xfff4
     call aztec_csav
     mov word [bp - 2], 0
-@..draw_realm_spell_points.l1:
+.back1:
     lea ax, word [bp - 0xc]
     push ax
     mov ax, 0x248
@@ -59,7 +59,7 @@ draw_realm_spell_points:
     inc word [bp - 2]
     mov ax, word [bp - 2]
     cmp ax, strict word 6
-    jge short @..draw_realm_spell_points.l2
-    jmp near @..draw_realm_spell_points.l1
-@..draw_realm_spell_points.l2:
+    jge short .return1
+    jmp near .back1
+.return1:
     ret

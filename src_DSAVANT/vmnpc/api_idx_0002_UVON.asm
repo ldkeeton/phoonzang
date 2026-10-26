@@ -3,8 +3,8 @@ api_idx_0002_UVON:
     mov ax, 0xfffe                   ; 0xa391
     call aztec_csav                  ; 0xa394
     mov word [bp - 2], 0             ; 0xa397
-    jmp short @..api_idx_0002_UVON.l2 ; 0xa39c
-@..api_idx_0002_UVON.l1:
+    jmp short .forward1              ; 0xa39c
+.back1:
     mov ax, 0x14                     ; 0xa39e
     imul word [bp - 2]               ; 0xa3a1
     add ax, bss_a7ac                 ; 0xa3a4
@@ -27,8 +27,8 @@ api_idx_0002_UVON:
     call load_message_string         ; 0xa3cb
     add sp, byte 4                   ; 0xa3ce
     inc word [bp - 2]                ; 0xa3d1
-@..api_idx_0002_UVON.l2:
+.forward1:
     mov ax, word [bp - 2]            ; 0xa3d4
     cmp ax, word [bp + 6]            ; 0xa3d7
-    jl short @..api_idx_0002_UVON.l1 ; 0xa3da
+    jl short .back1                  ; 0xa3da
     ret                              ; 0xa3dc

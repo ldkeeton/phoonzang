@@ -11,7 +11,7 @@ reset_party_actions:
     call aztec_setmem                ; 0x332e
     add sp, byte 6                   ; 0x3331
     mov word [bp - 2], 0             ; 0x3334
-@..reset_party_actions.l1:
+.back1:
     mov ax, 0                        ; 0x3339
     push ax                          ; 0x333c
     mov ax, 0x1a4                    ; 0x333d
@@ -25,9 +25,9 @@ reset_party_actions:
     inc word [bp - 2]                ; 0x3352
     mov ax, word [bp - 2]            ; 0x3355
     cmp ax, strict word 7            ; 0x3358
-    jl short @..reset_party_actions.l1 ; 0x335b
+    jl short .back1                  ; 0x335b
     mov word [bp - 2], 0             ; 0x335d
-@..reset_party_actions.l2:
+.back2:
     mov ax, word [bp - 2]            ; 0x3362
     shl ax, 1                        ; 0x3365
     mov bx, ax                       ; 0x3367
@@ -36,7 +36,7 @@ reset_party_actions:
     inc word [bp - 2]                ; 0x3372
     mov ax, word [bp - 2]            ; 0x3375
     cmp ax, strict word 7            ; 0x3378
-    jl short @..reset_party_actions.l2 ; 0x337b
+    jl short .back2                  ; 0x337b
     mov word [party_member_count], 0 ; 0x337d
     mov word [party_screen_done], 0  ; 0x3383
     mov word [bss_845e], 0xfffe      ; 0x3389

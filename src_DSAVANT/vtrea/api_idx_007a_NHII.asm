@@ -9,8 +9,8 @@ api_idx_007a_NHII:
     mov word [bp - 0x7a], ax         ; 0x4f1f
     mov bx, word [bp + 4]            ; 0x4f22
     cmp byte [bx + 0x35], 2          ; 0x4f25
-    jne short @..api_idx_007a_NHII.l2 ; 0x4f29
-@..api_idx_007a_NHII.l1:
+    jne short .forward1              ; 0x4f29
+.back1:
     push word [party_char_count]     ; 0x4f2b
     call random_below                ; 0x4f2f
     pop cx                           ; 0x4f32
@@ -19,7 +19,7 @@ api_idx_007a_NHII:
     call member_is_active            ; 0x4f39
     pop cx                           ; 0x4f3c
     test ax, ax                      ; 0x4f3d
-    je short @..api_idx_007a_NHII.l1 ; 0x4f3f
+    je short .back1                  ; 0x4f3f
     mov word [glyph_painter], 1      ; 0x4f41
     mov ax, 1                        ; 0x4f47
     push ax                          ; 0x4f4a
@@ -35,9 +35,9 @@ api_idx_007a_NHII:
     add sp, byte 6                   ; 0x4f62
     mov ax, 0                        ; 0x4f65
     ret                              ; 0x4f68
-@..api_idx_007a_NHII.l2:
+.forward1:
     mov word [bp - 2], 0             ; 0x4f69
-@..api_idx_007a_NHII.l3:
+.back2:
     mov ax, word [bp - 2]            ; 0x4f6e
     shl ax, 1                        ; 0x4f71
     mov bx, ax                       ; 0x4f73
@@ -46,9 +46,9 @@ api_idx_007a_NHII:
     inc word [bp - 2]                ; 0x4f7c
     mov ax, word [bp - 2]            ; 0x4f7f
     cmp ax, strict word 5            ; 0x4f82
-    jle short @..api_idx_007a_NHII.l3 ; 0x4f85
+    jle short .back2                 ; 0x4f85
     mov word [bp - 0x12], 0xffff     ; 0x4f87
-@..api_idx_007a_NHII.l4:
+.back3:
     mov word [treasure_caption_on], 1 ; 0x4f8c
     mov ax, 0                        ; 0x4f92
     push ax                          ; 0x4f95
@@ -111,24 +111,24 @@ api_idx_007a_NHII:
     call api_idx_0008_JJHR           ; 0x5012
     add sp, byte 0x12                ; 0x5015
     mov ax, word [bp - 8]            ; 0x5018
-    jmp near @..api_idx_007a_NHII.l18 ; 0x501b
+    jmp near .forward15              ; 0x501b
 jumptable_51bc_case_1:
     cmp word [mouse_active], byte 0  ; 0x501e
-    jne short @..api_idx_007a_NHII.l5 ; 0x5023
+    jne short api_idx_007a_NHII.forward2 ; 0x5023
     mov ax, 1                        ; 0x5025
     push ax                          ; 0x5028
     call redraw_treasure_caption     ; 0x5029
     pop cx                           ; 0x502c
-@..api_idx_007a_NHII.l5:
+api_idx_007a_NHII.forward2:
     call pick_party_member           ; 0x502d
     mov word [bp - 6], ax            ; 0x5030
     cmp ax, strict word 0xffff       ; 0x5033
-    je short @..api_idx_007a_NHII.l6 ; 0x5036
+    je short api_idx_007a_NHII.forward3 ; 0x5036
     push ax                          ; 0x5038
     call member_is_active            ; 0x5039
     pop cx                           ; 0x503c
     test ax, ax                      ; 0x503d
-    je short @..api_idx_007a_NHII.l6 ; 0x503f
+    je short api_idx_007a_NHII.forward3 ; 0x503f
     mov word [glyph_painter], 1      ; 0x5041
     mov ax, 1                        ; 0x5047
     push ax                          ; 0x504a
@@ -144,29 +144,29 @@ jumptable_51bc_case_1:
     add sp, byte 6                   ; 0x5062
     mov ax, 0                        ; 0x5065
     ret                              ; 0x5068
-@..api_idx_007a_NHII.l6:
-    jmp near @..api_idx_007a_NHII.l19 ; 0x5069
+api_idx_007a_NHII.forward3:
+    jmp near api_idx_007a_NHII.forward16 ; 0x5069
 jumptable_51bc_case_0:
     cmp word [mouse_active], byte 0  ; 0x506c
-    jne short @..api_idx_007a_NHII.l7 ; 0x5071
+    jne short api_idx_007a_NHII.forward4 ; 0x5071
     mov ax, 1                        ; 0x5073
     push ax                          ; 0x5076
     call redraw_treasure_caption     ; 0x5077
     pop cx                           ; 0x507a
-@..api_idx_007a_NHII.l7:
+api_idx_007a_NHII.forward4:
     call pick_party_member           ; 0x507b
     mov word [bp - 6], ax            ; 0x507e
     cmp ax, strict word 0xffff       ; 0x5081
-    jne short @..api_idx_007a_NHII.l8 ; 0x5084
-    jmp near @..api_idx_007a_NHII.l11 ; 0x5086
-@..api_idx_007a_NHII.l8:
+    jne short api_idx_007a_NHII.forward5 ; 0x5084
+    jmp near api_idx_007a_NHII.forward8 ; 0x5086
+api_idx_007a_NHII.forward5:
     push ax                          ; 0x5089
     call member_is_active            ; 0x508a
     pop cx                           ; 0x508d
     test ax, ax                      ; 0x508e
-    jne short @..api_idx_007a_NHII.l9 ; 0x5090
-    jmp near @..api_idx_007a_NHII.l11 ; 0x5092
-@..api_idx_007a_NHII.l9:
+    jne short api_idx_007a_NHII.forward6 ; 0x5090
+    jmp near api_idx_007a_NHII.forward8 ; 0x5092
+api_idx_007a_NHII.forward6:
     mov ax, 0                        ; 0x5095
     push ax                          ; 0x5098
     call redraw_treasure_caption     ; 0x5099
@@ -186,7 +186,7 @@ jumptable_51bc_case_0:
     add sp, byte 0xc                 ; 0x50b8
     mov word [bp - 2], ax            ; 0x50bb
     cmp word [bp - 2], byte 0        ; 0x50be
-    jne short @..api_idx_007a_NHII.l10 ; 0x50c2
+    jne short api_idx_007a_NHII.forward7 ; 0x50c2
     mov word [glyph_painter], 1      ; 0x50c4
     lea ax, word [bp - 0x78]         ; 0x50ca
     push ax                          ; 0x50cd
@@ -205,9 +205,9 @@ jumptable_51bc_case_0:
     add sp, byte 8                   ; 0x50eb
     mov ax, 0                        ; 0x50ee
     ret                              ; 0x50f1
-@..api_idx_007a_NHII.l10:
+api_idx_007a_NHII.forward7:
     cmp word [bp - 2], byte 1        ; 0x50f2
-    jne short @..api_idx_007a_NHII.l11 ; 0x50f6
+    jne short api_idx_007a_NHII.forward8 ; 0x50f6
     mov word [glyph_painter], 1      ; 0x50f8
     mov ax, 1                        ; 0x50fe
     push ax                          ; 0x5101
@@ -223,53 +223,53 @@ jumptable_51bc_case_0:
     add sp, byte 6                   ; 0x5119
     mov ax, 0                        ; 0x511c
     ret                              ; 0x511f
-@..api_idx_007a_NHII.l11:
-    jmp near @..api_idx_007a_NHII.l19 ; 0x5120
+api_idx_007a_NHII.forward8:
+    jmp near api_idx_007a_NHII.forward16 ; 0x5120
 jumptable_51bc_case_2:
     cmp word [mouse_active], byte 0  ; 0x5123
-    jne short @..api_idx_007a_NHII.l12 ; 0x5128
+    jne short api_idx_007a_NHII.forward9 ; 0x5128
     mov ax, 1                        ; 0x512a
     push ax                          ; 0x512d
     call redraw_treasure_caption     ; 0x512e
     pop cx                           ; 0x5131
-@..api_idx_007a_NHII.l12:
+api_idx_007a_NHII.forward9:
     call pick_party_member           ; 0x5132
     mov word [bp - 6], ax            ; 0x5135
     cmp ax, strict word 0xffff       ; 0x5138
-    jne short @..api_idx_007a_NHII.l13 ; 0x513b
-    jmp near @..api_idx_007a_NHII.l17 ; 0x513d
-@..api_idx_007a_NHII.l13:
+    jne short api_idx_007a_NHII.forward10 ; 0x513b
+    jmp near api_idx_007a_NHII.forward14 ; 0x513d
+api_idx_007a_NHII.forward10:
     push ax                          ; 0x5140
     call member_is_active            ; 0x5141
     pop cx                           ; 0x5144
     test ax, ax                      ; 0x5145
-    je short @..api_idx_007a_NHII.l17 ; 0x5147
+    je short api_idx_007a_NHII.forward14 ; 0x5147
     mov word [bss_95e0], 0           ; 0x5149
     mov bx, word [bp + 4]            ; 0x514f
     mov al, byte [bx + 0x34]         ; 0x5152
     sub ah, ah                       ; 0x5155
     mov word [bss_95de], ax          ; 0x5157
     cmp word [bp - 8], byte 2        ; 0x515a
-    jne short @..api_idx_007a_NHII.l14 ; 0x515e
+    jne short api_idx_007a_NHII.forward11 ; 0x515e
     push word [bp - 6]               ; 0x5160
     call cast_spell_from_dialog      ; 0x5163
     pop cx                           ; 0x5166
-    jmp short @..api_idx_007a_NHII.l15 ; 0x5167
-@..api_idx_007a_NHII.l14:
+    jmp short api_idx_007a_NHII.forward12 ; 0x5167
+api_idx_007a_NHII.forward11:
     cmp word [bp - 8], byte 3        ; 0x5169
-    jne short @..api_idx_007a_NHII.l15 ; 0x516d
+    jne short api_idx_007a_NHII.forward12 ; 0x516d
     push word [bp - 6]               ; 0x516f
     call api_idx_0092_GSQH           ; 0x5172
     pop cx                           ; 0x5175
-@..api_idx_007a_NHII.l15:
+api_idx_007a_NHII.forward12:
     cmp word [bss_95e0], byte 1      ; 0x5176
-    jne short @..api_idx_007a_NHII.l16 ; 0x517b
+    jne short api_idx_007a_NHII.forward13 ; 0x517b
     mov word [glyph_painter], 1      ; 0x517d
     mov ax, 0                        ; 0x5183
     ret                              ; 0x5186
-@..api_idx_007a_NHII.l16:
-    cmp word [bss_95e0], byte 0xff   ; 0x5187
-    jne short @..api_idx_007a_NHII.l17 ; 0x518c
+api_idx_007a_NHII.forward13:
+    cmp word [bss_95e0], byte -1     ; 0x5187
+    jne short api_idx_007a_NHII.forward14 ; 0x518c
     mov word [glyph_painter], 1      ; 0x518e
     mov ax, 1                        ; 0x5194
     push ax                          ; 0x5197
@@ -285,8 +285,8 @@ jumptable_51bc_case_2:
     add sp, byte 6                   ; 0x51af
     mov ax, 0                        ; 0x51b2
     ret                              ; 0x51b5
-@..api_idx_007a_NHII.l17:
-    jmp short @..api_idx_007a_NHII.l19 ; 0x51b6
+api_idx_007a_NHII.forward14:
+    jmp short api_idx_007a_NHII.forward16 ; 0x51b6
 jumptable_51bc_case_4:
     mov ax, 0xffff                   ; 0x51b8
     ret                              ; 0x51bb
@@ -296,12 +296,12 @@ jumptable_51bc:
     dw jumptable_51bc_case_2 - IMAGE_BASE + __zres_end ; 0x51c0
     dw jumptable_51bc_case_2 - IMAGE_BASE + __zres_end ; 0x51c2
     dw jumptable_51bc_case_4 - IMAGE_BASE + __zres_end ; 0x51c4
-@..api_idx_007a_NHII.l18:
+api_idx_007a_NHII.forward15:
     cmp ax, strict word 5            ; 0x51c6
-    jae short @..api_idx_007a_NHII.l19 ; 0x51c9
+    jae short api_idx_007a_NHII.forward16 ; 0x51c9
     xchg bx, ax                      ; 0x51cb
     shl bx, 1                        ; 0x51cc
     jmp [cs:bx + jumptable_51bc - IMAGE_BASE + __zres_end] ; 0x51ce
-@..api_idx_007a_NHII.l19:
-    jmp near @..api_idx_007a_NHII.l4 ; 0x51d3
+api_idx_007a_NHII.forward16:
+    jmp near api_idx_007a_NHII.back3 ; 0x51d3
     db 0xc3

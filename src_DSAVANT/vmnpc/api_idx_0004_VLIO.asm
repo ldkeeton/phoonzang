@@ -3,9 +3,9 @@ api_idx_0004_VLIO:
     mov ax, 0xfffc                   ; 0x2372
     call aztec_csav                  ; 0x2375
     mov word [bp - 4], 0             ; 0x2378
-@..api_idx_0004_VLIO.l1:
+.back1:
     mov word [bp - 2], 0             ; 0x237d
-@..api_idx_0004_VLIO.l2:
+.back2:
     mov ax, 0x248                    ; 0x2382
     imul word [bp + 4]               ; 0x2385
     push ax                          ; 0x2388
@@ -23,28 +23,28 @@ api_idx_0004_VLIO:
     mov bx, ax                       ; 0x23a0
     mov ax, word [bx + party_records + pc_rec.cell] ; 0x23a2
     cmp ax, word [bp + 6]            ; 0x23a6
-    jne short @..api_idx_0004_VLIO.l3 ; 0x23a9
+    jne short .forward1              ; 0x23a9
     mov ax, word [bp - 4]            ; 0x23ab
     xchg al, ah                      ; 0x23ae
     sub al, al                       ; 0x23b0
     add ax, word [bp - 2]            ; 0x23b2
     ret                              ; 0x23b5
-@..api_idx_0004_VLIO.l3:
+.forward1:
     inc word [bp - 2]                ; 0x23b6
     mov ax, word [bp - 2]            ; 0x23b9
     cmp ax, strict word 0xa          ; 0x23bc
-    jl short @..api_idx_0004_VLIO.l2 ; 0x23bf
+    jl short .back2                  ; 0x23bf
     inc word [bp - 4]                ; 0x23c1
     mov ax, word [bp - 4]            ; 0x23c4
     cmp ax, strict word 2            ; 0x23c7
-    jl short @..api_idx_0004_VLIO.l1 ; 0x23ca
+    jl short .back1                  ; 0x23ca
     mov ax, 0xffff                   ; 0x23cc
     ret                              ; 0x23cf
 loc_USTG:
     mov ax, 0                        ; 0x23d0
     call aztec_csav                  ; 0x23d3
     mov word [text_line_index], 0    ; 0x23d6
-@..loc_USTG.l1:
+.back1:
     mov ax, word [text_line_index]   ; 0x23dc
     mov cx, 7                        ; 0x23df
     shl ax, cl                       ; 0x23e2
@@ -57,7 +57,7 @@ loc_USTG:
     inc word [text_line_index]       ; 0x23f8
     mov ax, word [text_line_index]   ; 0x23fc
     cmp ax, strict word 4            ; 0x23ff
-    jl short @..loc_USTG.l1          ; 0x2402
+    jl short .back1                  ; 0x2402
     mov word [text_line_index], 0    ; 0x2404
     push word [mouse_pointer_shape_seg] ; 0x240a
     push word [mouse_pointer_shape]  ; 0x240e

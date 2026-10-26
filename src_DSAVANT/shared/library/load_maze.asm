@@ -11,9 +11,9 @@ load_maze:
     mov es, ax
     mov ax, word [bp + 0xe]
     cmp ax, strict word 0xa
-    jb short @..load_maze.l1
+    jb short .forward1
     jmp near load_maze.dos_con_loc1
-@..load_maze.l1:
+.forward1:
     shl ax, 1
     mov word [bp - 8], ax
     mov bx, maze_map_slots - IMAGE_BASE

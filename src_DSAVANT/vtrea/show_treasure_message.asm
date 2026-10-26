@@ -49,21 +49,21 @@ show_treasure_message:
     call gfx_show_area               ; 0x0f24
     add sp, byte 8                   ; 0x0f27
     cmp word [bp + 8], byte 0        ; 0x0f2a
-    jle short @..show_treasure_message.l1 ; 0x0f2e
+    jle short .forward1              ; 0x0f2e
     mov ax, word [bp + 8]            ; 0x0f30
     dec ax                           ; 0x0f33
     push ax                          ; 0x0f34
     call play_sound_effect           ; 0x0f35
     pop cx                           ; 0x0f38
-@..show_treasure_message.l1:
+.forward1:
     push word [message_delay]        ; 0x0f39
     call api_idx_0004_UQUT           ; 0x0f3d
     pop cx                           ; 0x0f40
-    cmp word [bp + 8], byte 0xff     ; 0x0f41
-    je short @..show_treasure_message.l2 ; 0x0f45
+    cmp word [bp + 8], byte -1       ; 0x0f41
+    je short .return1                ; 0x0f45
     push word [bp + 6]               ; 0x0f47
     push word [bp + 6]               ; 0x0f4a
     call api_idx_0004_VQUG           ; 0x0f4d
     add sp, byte 4                   ; 0x0f50
-@..show_treasure_message.l2:
+.return1:
     ret                              ; 0x0f53

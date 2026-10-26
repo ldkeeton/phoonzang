@@ -12,8 +12,8 @@ api_idx_0006_NIMO:
     add sp, byte 8                   ; 0x3145
     mov ax, word [bp - 4]            ; 0x3148
     mov word [bp - 2], ax            ; 0x314b
-    jmp near @..api_idx_0006_NIMO.l9 ; 0x314e
-@..api_idx_0006_NIMO.l1:
+    jmp near .forward8               ; 0x314e
+.back1:
     mov ax, 0x2c                     ; 0x3151
     imul word [bp - 2]               ; 0x3154
     mov si, ax                       ; 0x3157
@@ -22,9 +22,9 @@ api_idx_0006_NIMO:
     mov bx, ax                       ; 0x315e
     mov bx, word [bx + party_char]   ; 0x3160
     cmp byte [bx + si + member_rec.item_state], 3 ; 0x3164
-    jb short @..api_idx_0006_NIMO.l2 ; 0x3168
-    jmp near @..api_idx_0006_NIMO.l8 ; 0x316a
-@..api_idx_0006_NIMO.l2:
+    jb short .forward1               ; 0x3168
+    jmp near .forward7               ; 0x316a
+.forward1:
     mov ax, 0x64                     ; 0x316d
     push ax                          ; 0x3170
     call random_below                ; 0x3171
@@ -41,14 +41,14 @@ api_idx_0006_NIMO:
     mov cx, ax                       ; 0x318c
     pop ax                           ; 0x318e
     cmp ax, cx                       ; 0x318f
-    jg short @..api_idx_0006_NIMO.l3 ; 0x3191
-    jmp near @..api_idx_0006_NIMO.l6 ; 0x3193
-@..api_idx_0006_NIMO.l3:
+    jg short .forward2               ; 0x3191
+    jmp near .forward5               ; 0x3193
+.forward2:
     mov ax, 0xa                      ; 0x3196
     push ax                          ; 0x3199
     call random_below                ; 0x319a
     pop cx                           ; 0x319d
-    jmp near @..api_idx_0006_NIMO.l4 ; 0x319e
+    jmp near .forward3               ; 0x319e
 jumptable_3341_case_0:
     push word [bp + 0xa]             ; 0x31a1
     mov ax, 0xc                      ; 0x31a4
@@ -62,7 +62,7 @@ jumptable_3341_case_0:
     push word [bp + 4]               ; 0x31b6
     call api_idx_0022_ROKS           ; 0x31b9
     add sp, byte 0xe                 ; 0x31bc
-    jmp near @..api_idx_0006_NIMO.l5 ; 0x31bf
+    jmp near api_idx_0006_NIMO.forward4 ; 0x31bf
 jumptable_3341_case_1:
     push word [bp + 8]               ; 0x31c2
     mov ax, 4                        ; 0x31c5
@@ -83,7 +83,7 @@ jumptable_3341_case_1:
     push word [bp + 4]               ; 0x31e5
     call api_idx_000a_LHTJ           ; 0x31e8
     add sp, byte 0x14                ; 0x31eb
-    jmp near @..api_idx_0006_NIMO.l5 ; 0x31ee
+    jmp near api_idx_0006_NIMO.forward4 ; 0x31ee
 jumptable_3341_case_2:
     mov ax, 0                        ; 0x31f1
     push ax                          ; 0x31f4
@@ -103,7 +103,7 @@ jumptable_3341_case_2:
     push word [bp + 4]               ; 0x3212
     call api_idx_000a_LHTJ           ; 0x3215
     add sp, byte 0x14                ; 0x3218
-    jmp near @..api_idx_0006_NIMO.l5 ; 0x321b
+    jmp near api_idx_0006_NIMO.forward4 ; 0x321b
 jumptable_3341_case_3:
     push word [bp + 8]               ; 0x321e
     mov ax, 1                        ; 0x3221
@@ -124,7 +124,7 @@ jumptable_3341_case_3:
     push word [bp + 4]               ; 0x3241
     call api_idx_000a_LHTJ           ; 0x3244
     add sp, byte 0x14                ; 0x3247
-    jmp near @..api_idx_0006_NIMO.l5 ; 0x324a
+    jmp near api_idx_0006_NIMO.forward4 ; 0x324a
 jumptable_3341_case_4:
     push word [bp + 8]               ; 0x324d
     mov ax, 4                        ; 0x3250
@@ -143,7 +143,7 @@ jumptable_3341_case_4:
     push word [bp + 4]               ; 0x326d
     call api_idx_000a_LHTJ           ; 0x3270
     add sp, byte 0x14                ; 0x3273
-    jmp near @..api_idx_0006_NIMO.l5 ; 0x3276
+    jmp near api_idx_0006_NIMO.forward4 ; 0x3276
 jumptable_3341_case_5:
     mov ax, 0                        ; 0x3279
     push ax                          ; 0x327c
@@ -164,7 +164,7 @@ jumptable_3341_case_5:
     push word [bp + 4]               ; 0x3299
     call api_idx_000a_LHTJ           ; 0x329c
     add sp, byte 0x14                ; 0x329f
-    jmp near @..api_idx_0006_NIMO.l5 ; 0x32a2
+    jmp near api_idx_0006_NIMO.forward4 ; 0x32a2
 jumptable_3341_case_6:
     push word [bp + 0xa]             ; 0x32a5
     mov ax, 0                        ; 0x32a8
@@ -181,7 +181,7 @@ jumptable_3341_case_6:
     push word [bp + 4]               ; 0x32bf
     call api_idx_0022_ROKS           ; 0x32c2
     add sp, byte 0xe                 ; 0x32c5
-    jmp near @..api_idx_0006_NIMO.l5 ; 0x32c8
+    jmp near api_idx_0006_NIMO.forward4 ; 0x32c8
 jumptable_3341_case_7:
     push word [bp + 8]               ; 0x32cb
     mov ax, 2                        ; 0x32ce
@@ -200,7 +200,7 @@ jumptable_3341_case_7:
     push word [bp + 4]               ; 0x32eb
     call api_idx_000a_LHTJ           ; 0x32ee
     add sp, byte 0x14                ; 0x32f1
-    jmp short @..api_idx_0006_NIMO.l5 ; 0x32f4
+    jmp short api_idx_0006_NIMO.forward4 ; 0x32f4
 jumptable_3341_case_8:
     mov ax, 0                        ; 0x32f6
     push ax                          ; 0x32f9
@@ -221,7 +221,7 @@ jumptable_3341_case_8:
     push word [bp + 4]               ; 0x3316
     call api_idx_000a_LHTJ           ; 0x3319
     add sp, byte 0x14                ; 0x331c
-    jmp short @..api_idx_0006_NIMO.l5 ; 0x331f
+    jmp short api_idx_0006_NIMO.forward4 ; 0x331f
 jumptable_3341_case_9:
     push word [bp + 0xa]             ; 0x3321
     mov ax, 1                        ; 0x3324
@@ -235,7 +235,7 @@ jumptable_3341_case_9:
     push word [bp + 4]               ; 0x3336
     call api_idx_0022_ROKS           ; 0x3339
     add sp, byte 0xe                 ; 0x333c
-    jmp short @..api_idx_0006_NIMO.l5 ; 0x333f
+    jmp short api_idx_0006_NIMO.forward4 ; 0x333f
 jumptable_3341:
     dw jumptable_3341_case_0 - IMAGE_BASE + __zres_end ; 0x3341
     dw jumptable_3341_case_1 - IMAGE_BASE + __zres_end ; 0x3343
@@ -247,15 +247,15 @@ jumptable_3341:
     dw jumptable_3341_case_7 - IMAGE_BASE + __zres_end ; 0x334f
     dw jumptable_3341_case_8 - IMAGE_BASE + __zres_end ; 0x3351
     dw jumptable_3341_case_9 - IMAGE_BASE + __zres_end ; 0x3353
-@..api_idx_0006_NIMO.l4:
+api_idx_0006_NIMO.forward3:
     cmp ax, strict word 0xa          ; 0x3355
-    jae short @..api_idx_0006_NIMO.l5 ; 0x3358
+    jae short api_idx_0006_NIMO.forward4 ; 0x3358
     xchg bx, ax                      ; 0x335a
     shl bx, 1                        ; 0x335b
     jmp [cs:bx + jumptable_3341 - IMAGE_BASE + __zres_end] ; 0x335d
-@..api_idx_0006_NIMO.l5:
-    jmp short @..api_idx_0006_NIMO.l8 ; 0x3362
-@..api_idx_0006_NIMO.l6:
+api_idx_0006_NIMO.forward4:
+    jmp short api_idx_0006_NIMO.forward7 ; 0x3362
+api_idx_0006_NIMO.forward5:
     mov ax, 0x2c                     ; 0x3364
     imul word [bp - 2]               ; 0x3367
     mov si, ax                       ; 0x336a
@@ -264,7 +264,7 @@ jumptable_3341:
     mov bx, ax                       ; 0x3371
     mov bx, word [bx + party_char]   ; 0x3373
     cmp byte [bx + si + member_rec.item_phase], 0 ; 0x3377
-    jne short @..api_idx_0006_NIMO.l8 ; 0x337b
+    jne short api_idx_0006_NIMO.forward7 ; 0x337b
     mov ax, 4                        ; 0x337d
     push ax                          ; 0x3380
     mov ax, 2                        ; 0x3381
@@ -281,9 +281,9 @@ jumptable_3341:
     push ax                          ; 0x339e
     mov ax, 0x43                     ; 0x339f
     cmp word [bp + 4], byte 0        ; 0x33a2
-    jne short @..api_idx_0006_NIMO.l7 ; 0x33a6
+    jne short api_idx_0006_NIMO.forward6 ; 0x33a6
     mov ax, 1                        ; 0x33a8
-@..api_idx_0006_NIMO.l7:
+api_idx_0006_NIMO.forward6:
     push ax                          ; 0x33ab
     mov ax, bss_90e6                 ; 0x33ac
     push ax                          ; 0x33af
@@ -300,13 +300,13 @@ jumptable_3341:
     push word [bss_9058]             ; 0x33c8
     call api_idx_0004_QUPL           ; 0x33cc
     pop cx                           ; 0x33cf
-@..api_idx_0006_NIMO.l8:
+api_idx_0006_NIMO.forward7:
     inc word [bp - 2]                ; 0x33d0
-@..api_idx_0006_NIMO.l9:
+api_idx_0006_NIMO.forward8:
     mov ax, word [bp - 4]            ; 0x33d3
     add ax, word [bp - 6]            ; 0x33d6
     cmp ax, word [bp - 2]            ; 0x33d9
-    jle short @..api_idx_0006_NIMO.l10 ; 0x33dc
-    jmp near @..api_idx_0006_NIMO.l1 ; 0x33de
-@..api_idx_0006_NIMO.l10:
+    jle short api_idx_0006_NIMO.return1 ; 0x33dc
+    jmp near api_idx_0006_NIMO.back1 ; 0x33de
+api_idx_0006_NIMO.return1:
     ret                              ; 0x33e1

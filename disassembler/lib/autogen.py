@@ -8,6 +8,8 @@ deleting the marker line) or added is never touched.
 import os
 from contextlib import contextmanager
 
+from lib.nasm_locals import output_text
+
 MARKER_ASM = '; auto-generated'
 MARKER_C = '/* auto-generated */'
 
@@ -74,7 +76,7 @@ def write_text(path, text):
             raise RuntimeError(f'{path}: written twice in one build')
         _written.add(key)
     with open(path, 'w') as f:
-        f.write(stamp(text, path))
+        f.write(stamp(output_text(text, path), path))
 
 
 def hand_owned(path):
@@ -159,7 +161,7 @@ def sync(root, files, scopes=None, skip=()):
             if key in _written:
                 raise RuntimeError(f'{path}: written twice in one build')
             _written.add(key)
-        data = stamp(text, path).encode('utf-8', 'surrogateescape')
+        data = stamp(output_text(text, path), path).encode('utf-8', 'surrogateescape')
         if _same(path, data):
             unchanged += 1
             continue

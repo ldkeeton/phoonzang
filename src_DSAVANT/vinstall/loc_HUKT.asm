@@ -3,7 +3,7 @@ loc_HUKT:
     push bp                          ; 0x0cd6
     mov bp, sp                       ; 0x0cd7
     push si                          ; 0x0cd9
-@..loc_HUKT.l1:
+.back1:
     mov ax, word [bp + 6]            ; 0x0cda
     inc ax                           ; 0x0cdd
     mov cx, 5                        ; 0x0cde
@@ -13,7 +13,7 @@ loc_HUKT:
     mov bx, word [bp + 8]            ; 0x0ce7
     mov si, word [bp + 6]            ; 0x0cea
     cmp byte [bx + si], 0x30         ; 0x0ced
-    je short @..loc_HUKT.l1          ; 0x0cf0
+    je short .back1                  ; 0x0cf0
     mov ax, word [bp + 6]            ; 0x0cf2
     shl ax, 1                        ; 0x0cf5
     mov bx, ax                       ; 0x0cf7

@@ -37,10 +37,10 @@ draw_spell_cost:
     call gfx_set_text_pos
     add sp, byte 4
     cmp word [bp + 0xa], byte 0
-    jle short @..draw_spell_cost.l1
+    jle short .forward1
     mov ax, word [bp + 0xa]
     cmp ax, word [bp + 0xc]
-    jg short @..draw_spell_cost.l1
+    jg short .forward1
     mov ax, 0
     push ax
     mov ax, 1
@@ -54,8 +54,8 @@ draw_spell_cost:
     push word [bp + 0xa]
     call draw_number_field
     add sp, byte 6
-    jmp short @..draw_spell_cost.l2
-@..draw_spell_cost.l1:
+    jmp short .return1
+.forward1:
     mov ax, 0
     push ax
     push ax
@@ -67,5 +67,5 @@ draw_spell_cost:
     push ax
     call draw_text_glyphs
     add sp, byte 4
-@..draw_spell_cost.l2:
+.return1:
     ret

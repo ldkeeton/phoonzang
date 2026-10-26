@@ -17,9 +17,9 @@ load_font_file:
     mov cx, 0x10                     ; 0x387b
     mov ah, 0x3f                     ; 0x387e
     int 0x21 ; DOS read file (handle)
-    jae short @..load_font_file.l1   ; 0x3882
-    jmp near @..load_font_file.l5    ; 0x3884
-@..load_font_file.l1:
+    jae short .forward1              ; 0x3882
+    jmp near .forward5               ; 0x3884
+.forward1:
     xor bx, bx                       ; 0x3887
     mov ax, word [bx + 0xa]          ; 0x3889
     xor cx, cx                       ; 0x388c
@@ -31,10 +31,10 @@ load_font_file:
     mov word [bp - 4], ax            ; 0x389c
     mov al, byte [bx + 2]            ; 0x389f
     or al, al                        ; 0x38a2
-    jne short @..load_font_file.l2   ; 0x38a4
+    jne short .forward2              ; 0x38a4
     mov dl, byte [bx + 6]            ; 0x38a6
     test dl, 2                       ; 0x38a9
-    je short @..load_font_file.l2    ; 0x38ac
+    je short .forward2               ; 0x38ac
     mov ax, word [bx + 0xe]          ; 0x38ae
     xor ch, ch                       ; 0x38b1
     mov cl, byte [bx + 5]            ; 0x38b3
@@ -42,9 +42,9 @@ load_font_file:
     add word [bp - 4], ax            ; 0x38b8
     mov dl, byte [bx + 6]            ; 0x38bb
     test dl, 4                       ; 0x38be
-    je short @..load_font_file.l2    ; 0x38c1
+    je short .forward2               ; 0x38c1
     add word [bp - 2], ax            ; 0x38c3
-@..load_font_file.l2:
+.forward2:
     mov dx, word [bp - 4]            ; 0x38c6
     add dx, byte 0xf                 ; 0x38c9
     mov cl, 4                        ; 0x38cc
@@ -52,9 +52,9 @@ load_font_file:
     mov bx, dx                       ; 0x38d0
     mov ah, 0x48                     ; 0x38d2
     int 0x21 ; DOS allocate memory
-    jae short @..load_font_file.l3   ; 0x38d6
+    jae short .forward3              ; 0x38d6
     jmp near font_memory_error       ; 0x38d8
-@..load_font_file.l3:
+.forward3:
     mov bx, font_seg_table - IMAGE_BASE ; 0x38db
     mov cx, word [bp + 6]            ; 0x38de
     shl cx, 1                        ; 0x38e1
@@ -72,22 +72,22 @@ load_font_file:
     sub cx, dx                       ; 0x38fe
     mov ah, 0x3f                     ; 0x3900
     int 0x21 ; DOS read file (handle)
-    jb short @..load_font_file.l5    ; 0x3904
+    jb short .forward5               ; 0x3904
     xor bx, bx                       ; 0x3906
     mov al, byte [bx + 6]            ; 0x3908
     and al, 6                        ; 0x390b
     cmp al, 2                        ; 0x390d
-    jne short @..load_font_file.l4   ; 0x390f
+    jne short .forward4              ; 0x390f
     mov al, byte [bx + 2]            ; 0x3911
     or al, al                        ; 0x3914
-    jne short @..load_font_file.l4   ; 0x3916
+    jne short .forward4              ; 0x3916
     mov ax, ds                       ; 0x3918
     mov es, ax                       ; 0x391a
     mov di, word [bx + 0xc]          ; 0x391c
     mov si, 0x110                    ; 0x391f
     mov cx, word [bp - 8]            ; 0x3922
     rep movsb                        ; 0x3925
-@..load_font_file.l4:
+.forward4:
     pop es                           ; 0x3927
     pop ds                           ; 0x3928
     pop di                           ; 0x3929
@@ -95,7 +95,7 @@ load_font_file:
     mov sp, bp                       ; 0x392b
     pop bp                           ; 0x392d
     ret                              ; 0x392e
-@..load_font_file.l5:
+.forward5:
     mov ax, cs                       ; 0x392f
     mov ds, ax                       ; 0x3931
     mov dx, font_io_error_msg - IMAGE_BASE ; 0x3933

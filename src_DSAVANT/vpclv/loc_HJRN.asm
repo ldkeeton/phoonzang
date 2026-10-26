@@ -9,7 +9,7 @@ loc_HJRN:
     call api_idx_0080_MHMQ           ; 0x2199
     pop cx                           ; 0x219c
     cmp word [bp + 6], byte 0        ; 0x219d
-    jne short @..loc_HJRN.l1         ; 0x21a1
+    jne short .return1               ; 0x21a1
     push word [bp + 4]               ; 0x21a3
     call api_idx_004c_UMGL           ; 0x21a6
     pop cx                           ; 0x21a9
@@ -22,5 +22,5 @@ loc_HJRN:
     push ax                          ; 0x21b6
     call gfx_show_area               ; 0x21b7
     add sp, byte 8                   ; 0x21ba
-@..loc_HJRN.l1:
+.return1:
     ret                              ; 0x21bd

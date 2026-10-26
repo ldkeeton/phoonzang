@@ -5,7 +5,7 @@ api_idx_0006_KPLV:
     call api_idx_0006_TMNI
     mov word [bp - 2], ax
     test ax, ax
-    je short @..api_idx_0006_KPLV.l1
+    je short .forward1
     mov ax, 0
     push ax
     push word [bss_8d08]
@@ -38,7 +38,7 @@ api_idx_0006_KPLV:
     add sp, byte 8
     mov ax, 1
     ret
-@..api_idx_0006_KPLV.l1:
+.forward1:
     mov ax, 0
     push ax
     mov ax, word [party_map_piece]

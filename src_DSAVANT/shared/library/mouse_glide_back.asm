@@ -10,9 +10,9 @@ mouse_glide_back:
     mov ax, ds
     mov es, ax
     cmp byte [cs:mouse_present - IMAGE_BASE], 1
-    je short @..mouse_glide_back.l1
-    jmp near @..mouse_glide_back.l9
-@..mouse_glide_back.l1:
+    je short .forward1
+    jmp near .forward8
+.forward1:
     mov ax, word [bp + 0xc]
     shl ax, 1
     mov word [bp - 2], ax
@@ -23,32 +23,32 @@ mouse_glide_back:
     mov dx, word [cs:mouse_drawn_y - IMAGE_BASE]
     mov word [bp - 6], cx
     mov word [bp - 8], dx
-@..mouse_glide_back.l2:
+.back1:
     mov cx, word [bp - 6]
     mov dx, word [bp - 8]
     cmp cx, word [bp - 2]
-    jne short @..mouse_glide_back.l3
+    jne short .forward2
     cmp dx, word [bp - 4]
-    jne short @..mouse_glide_back.l3
-    jmp short @..mouse_glide_back.l8
-@..mouse_glide_back.l3:
+    jne short .forward2
+    jmp short .forward7
+.forward2:
     cmp cx, word [bp - 2]
-    je short @..mouse_glide_back.l5
-    js short @..mouse_glide_back.l4
+    je short .forward4
+    js short .forward3
     sub word [bp - 6], byte 2
-    jmp short @..mouse_glide_back.l5
-@..mouse_glide_back.l4:
+    jmp short .forward4
+.forward3:
     add word [bp - 6], byte 2
-@..mouse_glide_back.l5:
+.forward4:
     mov cx, word [bp - 6]
     cmp dx, word [bp - 4]
-    je short @..mouse_glide_back.l7
-    js short @..mouse_glide_back.l6
+    je short .forward6
+    js short .forward5
     sub word [bp - 8], byte 1
-    jmp short @..mouse_glide_back.l7
-@..mouse_glide_back.l6:
+    jmp short .forward6
+.forward5:
     add word [bp - 8], byte 1
-@..mouse_glide_back.l7:
+.forward6:
     mov dx, word [bp - 8]
     mov ax, cs
     push ax
@@ -60,18 +60,18 @@ mouse_glide_back:
     int 0x33 ; BIOS mouse
     mov ax, word [bp + 0x10]
     or ax, ax
-    je short @..mouse_glide_back.l2
+    je short .back1
     push ax
     call far [cs:mouse_glide_back.cseg1 - IMAGE_BASE]
     pop ax
-    jmp short @..mouse_glide_back.l2
-@..mouse_glide_back.l8:
+    jmp short .back1
+.forward7:
     mov cx, word [bp - 2]
     mov dx, word [bp - 4]
     mov ax, 4
     int 0x33 ; BIOS mouse
     mov byte [cs:mouse_glide_active - IMAGE_BASE], 0
-@..mouse_glide_back.l9:
+.forward8:
     pop di
     pop si
     pop es

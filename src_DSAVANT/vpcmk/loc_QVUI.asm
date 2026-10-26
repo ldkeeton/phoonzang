@@ -7,7 +7,7 @@ loc_QVUI:
     mov bx, ax                       ; 0x5712
     mov al, byte [bx + party_records + pc_rec.profession] ; 0x5714
     sub ah, ah                       ; 0x5718
-    jmp near @..loc_QVUI.l1          ; 0x571a
+    jmp near .forward1               ; 0x571a
 jumptable_5a60_case_0:
     mov ax, 3                        ; 0x571d
     push ax                          ; 0x5720
@@ -18,7 +18,7 @@ jumptable_5a60_case_0:
     push word [bp + 4]               ; 0x5729
     call roll_slot_values            ; 0x572c
     add sp, byte 8                   ; 0x572f
-    jmp near @..loc_QVUI.l2          ; 0x5732
+    jmp near loc_QVUI.return1        ; 0x5732
 jumptable_5a60_case_1:
     mov ax, 0xc                      ; 0x5735
     push ax                          ; 0x5738
@@ -42,7 +42,7 @@ jumptable_5a60_case_1:
     mov bx, ax                       ; 0x5762
     pop ax                           ; 0x5764
     mov byte [bx + party_records + pc_rec.flag + 0x20], al ; 0x5765
-    jmp near @..loc_QVUI.l2          ; 0x5769
+    jmp near loc_QVUI.return1        ; 0x5769
 jumptable_5a60_case_2:
     mov ax, 0xc                      ; 0x576c
     push ax                          ; 0x576f
@@ -66,7 +66,7 @@ jumptable_5a60_case_2:
     mov bx, ax                       ; 0x5799
     pop ax                           ; 0x579b
     mov byte [bx + party_records + pc_rec.flag + 0x1e], al ; 0x579c
-    jmp near @..loc_QVUI.l2          ; 0x57a0
+    jmp near loc_QVUI.return1        ; 0x57a0
 jumptable_5a60_case_3:
     mov ax, 4                        ; 0x57a3
     push ax                          ; 0x57a6
@@ -90,7 +90,7 @@ jumptable_5a60_case_3:
     mov bx, ax                       ; 0x57d0
     pop ax                           ; 0x57d2
     mov byte [bx + party_records + pc_rec.flag + 0x10], al ; 0x57d3
-    jmp near @..loc_QVUI.l2          ; 0x57d7
+    jmp near loc_QVUI.return1        ; 0x57d7
 jumptable_5a60_case_4:
     mov ax, 5                        ; 0x57da
     push ax                          ; 0x57dd
@@ -126,7 +126,7 @@ jumptable_5a60_case_4:
     mov bx, ax                       ; 0x5823
     pop ax                           ; 0x5825
     mov byte [bx + party_records + pc_rec.flag + 0xc], al ; 0x5826
-    jmp near @..loc_QVUI.l2          ; 0x582a
+    jmp near loc_QVUI.return1        ; 0x582a
 jumptable_5a60_case_6:
     mov ax, 6                        ; 0x582d
     push ax                          ; 0x5830
@@ -150,7 +150,7 @@ jumptable_5a60_case_6:
     mov bx, ax                       ; 0x585a
     pop ax                           ; 0x585c
     mov byte [bx + party_records + pc_rec.flag + 0xd], al ; 0x585d
-    jmp near @..loc_QVUI.l2          ; 0x5861
+    jmp near loc_QVUI.return1        ; 0x5861
 jumptable_5a60_case_5:
     mov ax, 0xc                      ; 0x5864
     push ax                          ; 0x5867
@@ -174,7 +174,7 @@ jumptable_5a60_case_5:
     mov bx, ax                       ; 0x5891
     pop ax                           ; 0x5893
     mov byte [bx + party_records + pc_rec.flag + 0x1d], al ; 0x5894
-    jmp near @..loc_QVUI.l2          ; 0x5898
+    jmp near loc_QVUI.return1        ; 0x5898
 jumptable_5a60_case_7:
     mov ax, 0xc                      ; 0x589b
     push ax                          ; 0x589e
@@ -198,7 +198,7 @@ jumptable_5a60_case_7:
     mov bx, ax                       ; 0x58c8
     pop ax                           ; 0x58ca
     mov byte [bx + party_records + pc_rec.flag + 0x1f], al ; 0x58cb
-    jmp near @..loc_QVUI.l2          ; 0x58cf
+    jmp near loc_QVUI.return1        ; 0x58cf
 jumptable_5a60_case_9:
     mov ax, 0xd                      ; 0x58d2
     push ax                          ; 0x58d5
@@ -233,7 +233,7 @@ jumptable_5a60_case_9:
     mov bx, ax                       ; 0x5918
     pop ax                           ; 0x591a
     mov byte [bx + party_records + pc_rec.flag + 0x1e], al ; 0x591b
-    jmp near @..loc_QVUI.l2          ; 0x591f
+    jmp near loc_QVUI.return1        ; 0x591f
 jumptable_5a60_case_8:
     mov ax, 5                        ; 0x5922
     push ax                          ; 0x5925
@@ -256,7 +256,7 @@ jumptable_5a60_case_8:
     mov bx, ax                       ; 0x594c
     pop ax                           ; 0x594e
     mov byte [bx + party_records + pc_rec.flag + 0x4], al ; 0x594f
-    jmp near @..loc_QVUI.l2          ; 0x5953
+    jmp near loc_QVUI.return1        ; 0x5953
 jumptable_5a60_case_10:
     mov ax, 5                        ; 0x5956
     push ax                          ; 0x5959
@@ -278,7 +278,7 @@ jumptable_5a60_case_10:
     mov bx, ax                       ; 0x597d
     pop ax                           ; 0x597f
     mov byte [bx + party_records + pc_rec.flag + 0x1c], al ; 0x5980
-    jmp near @..loc_QVUI.l2          ; 0x5984
+    jmp near loc_QVUI.return1        ; 0x5984
 jumptable_5a60_case_11:
     mov ax, 5                        ; 0x5987
     push ax                          ; 0x598a
@@ -301,7 +301,7 @@ jumptable_5a60_case_11:
     mov bx, ax                       ; 0x59b1
     pop ax                           ; 0x59b3
     mov byte [bx + party_records + pc_rec.flag + 0x1], al ; 0x59b4
-    jmp near @..loc_QVUI.l2          ; 0x59b8
+    jmp near loc_QVUI.return1        ; 0x59b8
 jumptable_5a60_case_12:
     mov ax, 6                        ; 0x59bb
     push ax                          ; 0x59be
@@ -336,7 +336,7 @@ jumptable_5a60_case_12:
     mov bx, ax                       ; 0x5a01
     pop ax                           ; 0x5a03
     mov byte [bx + party_records + pc_rec.flag + 0x1f], al ; 0x5a04
-    jmp near @..loc_QVUI.l2          ; 0x5a08
+    jmp near loc_QVUI.return1        ; 0x5a08
 jumptable_5a60_case_13:
     mov ax, 4                        ; 0x5a0b
     push ax                          ; 0x5a0e
@@ -373,7 +373,7 @@ jumptable_5a60_case_13:
     mov bx, ax                       ; 0x5a57
     pop ax                           ; 0x5a59
     mov byte [bx + party_records + pc_rec.flag + 0x11], al ; 0x5a5a
-    jmp short @..loc_QVUI.l2         ; 0x5a5e
+    jmp short loc_QVUI.return1       ; 0x5a5e
 jumptable_5a60:
     dw jumptable_5a60_case_0 - IMAGE_BASE + __zres_end ; 0x5a60
     dw jumptable_5a60_case_1 - IMAGE_BASE + __zres_end ; 0x5a62
@@ -389,11 +389,11 @@ jumptable_5a60:
     dw jumptable_5a60_case_11 - IMAGE_BASE + __zres_end ; 0x5a76
     dw jumptable_5a60_case_12 - IMAGE_BASE + __zres_end ; 0x5a78
     dw jumptable_5a60_case_13 - IMAGE_BASE + __zres_end ; 0x5a7a
-@..loc_QVUI.l1:
+loc_QVUI.forward1:
     cmp ax, strict word 0xe          ; 0x5a7c
-    jae short @..loc_QVUI.l2         ; 0x5a7f
+    jae short loc_QVUI.return1       ; 0x5a7f
     xchg bx, ax                      ; 0x5a81
     shl bx, 1                        ; 0x5a82
     jmp [cs:bx + jumptable_5a60 - IMAGE_BASE + __zres_end] ; 0x5a84
-@..loc_QVUI.l2:
+loc_QVUI.return1:
     ret                              ; 0x5a89

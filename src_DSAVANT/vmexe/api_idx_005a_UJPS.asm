@@ -19,9 +19,9 @@ api_idx_005a_UJPS:
     mov word [bp - 6], 0             ; 0x9f7f
     mov word [bp - 0x12], 0xffff     ; 0x9f84
     cmp word [bss_8464], byte 0      ; 0x9f89
-    je short @..api_idx_005a_UJPS.l1 ; 0x9f8e
-    jmp near @..api_idx_005a_UJPS.l33 ; 0x9f90
-@..api_idx_005a_UJPS.l1:
+    je short .forward1               ; 0x9f8e
+    jmp near .forward28              ; 0x9f90
+.forward1:
     mov bx, word [bp + 4]            ; 0x9f93
     mov ax, word [bx + 0xa]          ; 0x9f96
     mov cx, 0x100                    ; 0x9f99
@@ -74,15 +74,15 @@ api_idx_005a_UJPS:
     mov al, byte [bx + party_records + pc_rec.cell + 0x7] ; 0xa003
     sub ah, ah                       ; 0xa007
     test ax, 0x80                    ; 0xa009
-    je short @..api_idx_005a_UJPS.l2 ; 0xa00c
+    je short .forward2               ; 0xa00c
     lea ax, word [bp - 0x5a]         ; 0xa00e
     push ax                          ; 0xa011
     mov ax, bss_9186                 ; 0xa012
     push ax                          ; 0xa015
     call aztec_strcpy                ; 0xa016
     add sp, byte 4                   ; 0xa019
-    jmp short @..api_idx_005a_UJPS.l3 ; 0xa01c
-@..api_idx_005a_UJPS.l2:
+    jmp short .forward3              ; 0xa01c
+.forward2:
     mov ax, bss_9186                 ; 0xa01e
     push ax                          ; 0xa021
     mov al, byte [bp - 0x21]         ; 0xa022
@@ -91,15 +91,15 @@ api_idx_005a_UJPS:
     push ax                          ; 0xa02a
     call load_message_string         ; 0xa02b
     add sp, byte 4                   ; 0xa02e
-@..api_idx_005a_UJPS.l3:
+.forward3:
     mov ax, bss_9186                 ; 0xa031
     push ax                          ; 0xa034
     call replace_slashes_with_spaces ; 0xa035
     pop cx                           ; 0xa038
     cmp word [bp - 0x38], byte 0     ; 0xa039
-    jne short @..api_idx_005a_UJPS.l4 ; 0xa03d
-    jmp near @..api_idx_005a_UJPS.l25 ; 0xa03f
-@..api_idx_005a_UJPS.l4:
+    jne short .forward4              ; 0xa03d
+    jmp near .forward20              ; 0xa03f
+.forward4:
     mov ax, word [bp - 0x38]         ; 0xa042
     mov cx, 0x100                    ; 0xa045
     cwd                              ; 0xa048
@@ -108,16 +108,16 @@ api_idx_005a_UJPS:
     mov word [bp - 6], dx            ; 0xa04e
     mov al, byte [bp - 0x22]         ; 0xa051
     sub ah, ah                       ; 0xa054
-    jmp near @..api_idx_005a_UJPS.l20 ; 0xa056
-@..api_idx_005a_UJPS.l5:
+    jmp near .forward15              ; 0xa056
+.back1:
     mov ax, bss_9136                 ; 0xa059
     push ax                          ; 0xa05c
     mov ax, MSG_USES                 ; 0xa05d
     push ax                          ; 0xa060
     call load_message_string         ; 0xa061
     add sp, byte 4                   ; 0xa064
-    jmp near @..api_idx_005a_UJPS.l24 ; 0xa067
-@..api_idx_005a_UJPS.l6:
+    jmp near .forward19              ; 0xa067
+.back2:
     mov ax, bss_9136                 ; 0xa06a
     push ax                          ; 0xa06d
     mov ax, MSG_INCANTS              ; 0xa06e
@@ -125,38 +125,38 @@ api_idx_005a_UJPS:
     call load_message_string         ; 0xa072
     add sp, byte 4                   ; 0xa075
     mov word [bp - 0x12], 0x1b       ; 0xa078
-    jmp near @..api_idx_005a_UJPS.l24 ; 0xa07d
-@..api_idx_005a_UJPS.l7:
+    jmp near .forward19              ; 0xa07d
+.back3:
     mov ax, bss_9136                 ; 0xa080
     push ax                          ; 0xa083
     mov ax, MSG_TOSSES               ; 0xa084
     push ax                          ; 0xa087
     call load_message_string         ; 0xa088
     add sp, byte 4                   ; 0xa08b
-    jmp near @..api_idx_005a_UJPS.l24 ; 0xa08e
-@..api_idx_005a_UJPS.l8:
+    jmp near .forward19              ; 0xa08e
+.back4:
     cmp word [bp - 6], byte 0x61     ; 0xa091
-    je short @..api_idx_005a_UJPS.l9 ; 0xa095
+    je short .forward5               ; 0xa095
     cmp word [bp - 6], byte 0x62     ; 0xa097
-    jne short @..api_idx_005a_UJPS.l10 ; 0xa09b
-@..api_idx_005a_UJPS.l9:
+    jne short .forward6              ; 0xa09b
+.forward5:
     mov ax, bss_9136                 ; 0xa09d
     push ax                          ; 0xa0a0
     mov ax, MSG_CONSUMES             ; 0xa0a1
     push ax                          ; 0xa0a4
     call load_message_string         ; 0xa0a5
     add sp, byte 4                   ; 0xa0a8
-    jmp near @..api_idx_005a_UJPS.l19 ; 0xa0ab
-@..api_idx_005a_UJPS.l10:
+    jmp near .forward14              ; 0xa0ab
+.forward6:
     cmp word [bp - 4], byte 0        ; 0xa0ae
-    je short @..api_idx_005a_UJPS.l11 ; 0xa0b2
-    jmp near @..api_idx_005a_UJPS.l17 ; 0xa0b4
-@..api_idx_005a_UJPS.l11:
+    je short .forward7               ; 0xa0b2
+    jmp near .forward12              ; 0xa0b4
+.forward7:
     mov ax, 0x248                    ; 0xa0b7
     imul word [bss_8462]             ; 0xa0ba
     mov bx, ax                       ; 0xa0be
     cmp byte [bx + party_records + pc_rec.flag + 0xd], 0 ; 0xa0c0
-    jbe short @..api_idx_005a_UJPS.l14 ; 0xa0c5
+    jbe short .forward9              ; 0xa0c5
     mov al, byte [bx + party_records + pc_rec.flag + 0xd] ; 0xa0c7
     sub ah, ah                       ; 0xa0cb
     mov cx, 0xf                      ; 0xa0cd
@@ -182,15 +182,15 @@ api_idx_005a_UJPS:
     call loc_SIKN                    ; 0xa0f8
     add sp, byte 6                   ; 0xa0fb
     cmp word [bp - 4], byte 0        ; 0xa0fe
-    jge short @..api_idx_005a_UJPS.l12 ; 0xa102
+    jge short .forward8              ; 0xa102
     mov word [bp - 4], 0             ; 0xa104
-@..api_idx_005a_UJPS.l12:
+.forward8:
     cmp word [bp - 4], byte 6        ; 0xa109
-    jle short @..api_idx_005a_UJPS.l13 ; 0xa10d
+    jle short .back5                 ; 0xa10d
     mov word [bp - 4], 6             ; 0xa10f
-@..api_idx_005a_UJPS.l13:
+.back5:
     cmp word [bp - 4], byte 0        ; 0xa114
-    jle short @..api_idx_005a_UJPS.l14 ; 0xa118
+    jle short .forward9              ; 0xa118
     mov ax, 0x64                     ; 0xa11a
     push ax                          ; 0xa11d
     call random_below                ; 0xa11e
@@ -201,20 +201,20 @@ api_idx_005a_UJPS:
     mov cx, ax                       ; 0xa129
     pop ax                           ; 0xa12b
     cmp ax, cx                       ; 0xa12c
-    jge short @..api_idx_005a_UJPS.l14 ; 0xa12e
+    jge short .forward9              ; 0xa12e
     dec word [bp - 4]                ; 0xa130
-    jmp short @..api_idx_005a_UJPS.l13 ; 0xa133
-@..api_idx_005a_UJPS.l14:
+    jmp short .back5                 ; 0xa133
+.forward9:
     cmp word [bp - 4], byte 0        ; 0xa135
-    jne short @..api_idx_005a_UJPS.l15 ; 0xa139
+    jne short .forward10             ; 0xa139
     mov ax, bss_9136                 ; 0xa13b
     push ax                          ; 0xa13e
     mov ax, MSG_ABUSES               ; 0xa13f
     push ax                          ; 0xa142
     call load_message_string         ; 0xa143
     add sp, byte 4                   ; 0xa146
-    jmp short @..api_idx_005a_UJPS.l16 ; 0xa149
-@..api_idx_005a_UJPS.l15:
+    jmp short .forward11             ; 0xa149
+.forward10:
     mov ax, bss_9136                 ; 0xa14b
     push ax                          ; 0xa14e
     mov ax, MSG_PLAYS                ; 0xa14f
@@ -230,9 +230,9 @@ api_idx_005a_UJPS:
     push word [bp + 4]               ; 0xa165
     call loc_TGJH                    ; 0xa168
     add sp, byte 4                   ; 0xa16b
-@..api_idx_005a_UJPS.l16:
-    jmp short @..api_idx_005a_UJPS.l19 ; 0xa16e
-@..api_idx_005a_UJPS.l17:
+.forward11:
+    jmp short .forward14             ; 0xa16e
+.forward12:
     mov ax, 0x248                    ; 0xa170
     imul word [bss_8462]             ; 0xa173
     push ax                          ; 0xa177
@@ -249,15 +249,15 @@ api_idx_005a_UJPS:
     add ax, cx                       ; 0xa18d
     mov bx, ax                       ; 0xa18f
     cmp word [bx + party_records + pc_rec.cell], strict word 0x1d4 ; 0xa191
-    jne short @..api_idx_005a_UJPS.l18 ; 0xa197
+    jne short .forward13             ; 0xa197
     mov ax, bss_9136                 ; 0xa199
     push ax                          ; 0xa19c
     mov ax, MSG_TOSSES               ; 0xa19d
     push ax                          ; 0xa1a0
     call load_message_string         ; 0xa1a1
     add sp, byte 4                   ; 0xa1a4
-    jmp short @..api_idx_005a_UJPS.l19 ; 0xa1a7
-@..api_idx_005a_UJPS.l18:
+    jmp short .forward14             ; 0xa1a7
+.forward13:
     mov ax, bss_9136                 ; 0xa1a9
     push ax                          ; 0xa1ac
     mov ax, MSG_INVOKES_3312         ; 0xa1ad
@@ -265,54 +265,54 @@ api_idx_005a_UJPS:
     call load_message_string         ; 0xa1b1
     add sp, byte 4                   ; 0xa1b4
     mov word [bp - 0x12], 0x18       ; 0xa1b7
-@..api_idx_005a_UJPS.l19:
-    jmp short @..api_idx_005a_UJPS.l24 ; 0xa1bc
-@..api_idx_005a_UJPS.l20:
+.forward14:
+    jmp short .forward19             ; 0xa1bc
+.forward15:
     cmp ax, strict word 0xc          ; 0xa1be
-    jne short @..api_idx_005a_UJPS.l21 ; 0xa1c1
-    jmp near @..api_idx_005a_UJPS.l5 ; 0xa1c3
-@..api_idx_005a_UJPS.l21:
+    jne short .forward16             ; 0xa1c1
+    jmp near .back1                  ; 0xa1c3
+.forward16:
     cmp ax, strict word 0xd          ; 0xa1c6
-    jne short @..api_idx_005a_UJPS.l22 ; 0xa1c9
-    jmp near @..api_idx_005a_UJPS.l6 ; 0xa1cb
-@..api_idx_005a_UJPS.l22:
+    jne short .forward17             ; 0xa1c9
+    jmp near .back2                  ; 0xa1cb
+.forward17:
     cmp ax, strict word 0x10         ; 0xa1ce
-    jne short @..api_idx_005a_UJPS.l23 ; 0xa1d1
-    jmp near @..api_idx_005a_UJPS.l7 ; 0xa1d3
-@..api_idx_005a_UJPS.l23:
-    jmp near @..api_idx_005a_UJPS.l8 ; 0xa1d6
-@..api_idx_005a_UJPS.l24:
+    jne short .forward18             ; 0xa1d1
+    jmp near .back3                  ; 0xa1d3
+.forward18:
+    jmp near .back4                  ; 0xa1d6
+.forward19:
     push word [bp - 0xa]             ; 0xa1d9
     push word [bp - 8]               ; 0xa1dc
     push word [bss_8462]             ; 0xa1df
     call api_idx_000e_PTNT           ; 0xa1e3
     add sp, byte 6                   ; 0xa1e6
-    jmp short @..api_idx_005a_UJPS.l28 ; 0xa1e9
-@..api_idx_005a_UJPS.l25:
+    jmp short .forward23             ; 0xa1e9
+.forward20:
     cmp byte [bp - 0x22], 2          ; 0xa1eb
-    je short @..api_idx_005a_UJPS.l26 ; 0xa1ef
+    je short .forward21              ; 0xa1ef
     cmp byte [bp - 0x22], 4          ; 0xa1f1
-    jne short @..api_idx_005a_UJPS.l27 ; 0xa1f5
-@..api_idx_005a_UJPS.l26:
+    jne short .forward22             ; 0xa1f5
+.forward21:
     mov ax, bss_9136                 ; 0xa1f7
     push ax                          ; 0xa1fa
     mov ax, MSG_FUMBLES_3317         ; 0xa1fb
     push ax                          ; 0xa1fe
     call load_message_string         ; 0xa1ff
     add sp, byte 4                   ; 0xa202
-    jmp short @..api_idx_005a_UJPS.l28 ; 0xa205
-@..api_idx_005a_UJPS.l27:
+    jmp short .forward23             ; 0xa205
+.forward22:
     mov ax, bss_9136                 ; 0xa207
     push ax                          ; 0xa20a
     mov ax, MSG_FUMBLES_3316         ; 0xa20b
     push ax                          ; 0xa20e
     call load_message_string         ; 0xa20f
     add sp, byte 4                   ; 0xa212
-@..api_idx_005a_UJPS.l28:
+.forward23:
     cmp word [character_record_index], strict word 0xe1 ; 0xa215
-    jne short @..api_idx_005a_UJPS.l29 ; 0xa21b
+    jne short .forward24             ; 0xa21b
     cmp byte [bp - 0x1b], 0x58       ; 0xa21d
-    jne short @..api_idx_005a_UJPS.l29 ; 0xa221
+    jne short .forward24             ; 0xa221
     mov word [e1_event_flag], 1      ; 0xa223
     mov ax, bss_9136                 ; 0xa229
     push ax                          ; 0xa22c
@@ -343,7 +343,7 @@ api_idx_005a_UJPS:
     push word [bss_8462]             ; 0xa26d
     call api_idx_000e_PTNT           ; 0xa271
     add sp, byte 6                   ; 0xa274
-@..api_idx_005a_UJPS.l29:
+.forward24:
     mov ax, 0x248                    ; 0xa277
     imul word [bss_8462]             ; 0xa27a
     push ax                          ; 0xa27e
@@ -360,7 +360,7 @@ api_idx_005a_UJPS:
     add ax, cx                       ; 0xa294
     mov bx, ax                       ; 0xa296
     cmp word [bx + party_records + pc_rec.cell], strict word 0x218 ; 0xa298
-    jne short @..api_idx_005a_UJPS.l32 ; 0xa29e
+    jne short .forward27             ; 0xa29e
     mov ax, word [bp - 0xc]          ; 0xa2a0
     shl ax, 1                        ; 0xa2a3
     mov bx, ax                       ; 0xa2a5
@@ -368,7 +368,7 @@ api_idx_005a_UJPS:
     mov al, byte [bx + member_rec.kind] ; 0xa2ab
     sub ah, ah                       ; 0xa2af
     cmp ax, 0xe9                     ; 0xa2b1
-    jne short @..api_idx_005a_UJPS.l31 ; 0xa2b4
+    jne short .forward26             ; 0xa2b4
     mov ax, word [bp - 0xc]          ; 0xa2b6
     shl ax, 1                        ; 0xa2b9
     mov bx, ax                       ; 0xa2bb
@@ -378,12 +378,12 @@ api_idx_005a_UJPS:
     add ax, strict word 0xfff1       ; 0xa2c7
     mov word [bp - 0x10], ax         ; 0xa2ca
     cmp ax, strict word 0            ; 0xa2cd
-    jge short @..api_idx_005a_UJPS.l30 ; 0xa2d0
+    jge short .forward25             ; 0xa2d0
     mov word [bp - 0x10], 0          ; 0xa2d2
-@..api_idx_005a_UJPS.l30:
+.forward25:
     mov al, byte [bp - 0x10]         ; 0xa2d7
     mov byte [bx + 0xa5], al         ; 0xa2da
-@..api_idx_005a_UJPS.l31:
+.forward26:
     mov word [bp - 0x12], 0x1b       ; 0xa2de
     mov ax, bss_9136                 ; 0xa2e3
     push ax                          ; 0xa2e6
@@ -391,7 +391,7 @@ api_idx_005a_UJPS:
     push ax                          ; 0xa2ea
     call load_message_string         ; 0xa2eb
     add sp, byte 4                   ; 0xa2ee
-@..api_idx_005a_UJPS.l32:
+.forward27:
     mov ax, 0x43                     ; 0xa2f1
     push ax                          ; 0xa2f4
     push ax                          ; 0xa2f5
@@ -407,12 +407,12 @@ api_idx_005a_UJPS:
     push ax                          ; 0xa309
     call api_idx_0004_QSNR           ; 0xa30a
     add sp, byte 0xe                 ; 0xa30d
-    jmp short @..api_idx_005a_UJPS.l33 ; 0xa310
-@..api_idx_005a_UJPS.l33:
+    jmp short .forward28             ; 0xa310
+.forward28:
     cmp word [bp - 4], byte 0        ; 0xa312
-    jne short @..api_idx_005a_UJPS.l34 ; 0xa316
-    jmp near @..api_idx_005a_UJPS.l45 ; 0xa318
-@..api_idx_005a_UJPS.l34:
+    jne short .forward29             ; 0xa316
+    jmp near .forward40              ; 0xa318
+.forward29:
     mov word [bss_91d8], 0           ; 0xa31b
     mov word [bss_91da], 0           ; 0xa321
     mov ax, 6                        ; 0xa327
@@ -434,9 +434,9 @@ api_idx_005a_UJPS:
     add ax, strict word 0xfff6       ; 0xa34b
     mov word [bp - 0x10], ax         ; 0xa34e
     cmp word [bss_8464], byte 0      ; 0xa351
-    jne short @..api_idx_005a_UJPS.l37 ; 0xa356
-    cmp word [bp - 0x12], byte 0xff  ; 0xa358
-    je short @..api_idx_005a_UJPS.l36 ; 0xa35c
+    jne short .forward32             ; 0xa356
+    cmp word [bp - 0x12], byte -1    ; 0xa358
+    je short .forward31              ; 0xa35c
     mov ax, 3                        ; 0xa35e
     push ax                          ; 0xa361
     push word [bp - 0x12]            ; 0xa362
@@ -450,9 +450,9 @@ api_idx_005a_UJPS:
     mov al, byte [bx + party_records + pc_rec.flag] ; 0xa37b
     sub ah, ah                       ; 0xa37f
     cmp ax, word [bp - 0x10]         ; 0xa381
-    jge short @..api_idx_005a_UJPS.l36 ; 0xa384
+    jge short .forward31             ; 0xa384
     cmp byte [bss_5988], 1           ; 0xa386
-    je short @..api_idx_005a_UJPS.l35 ; 0xa38b
+    je short .forward30              ; 0xa38b
     mov ax, 0x24                     ; 0xa38d
     push ax                          ; 0xa390
     call random_below                ; 0xa391
@@ -468,14 +468,14 @@ api_idx_005a_UJPS:
     mov cx, ax                       ; 0xa3aa
     pop ax                           ; 0xa3ac
     cmp ax, cx                       ; 0xa3ad
-    jle short @..api_idx_005a_UJPS.l35 ; 0xa3af
+    jle short .forward30             ; 0xa3af
     mov word [bss_91d8], 1           ; 0xa3b1
-    jmp short @..api_idx_005a_UJPS.l36 ; 0xa3b7
-@..api_idx_005a_UJPS.l35:
+    jmp short .forward31             ; 0xa3b7
+.forward30:
     mov word [bss_91da], 1           ; 0xa3b9
-@..api_idx_005a_UJPS.l36:
-    jmp short @..api_idx_005a_UJPS.l39 ; 0xa3bf
-@..api_idx_005a_UJPS.l37:
+.forward31:
+    jmp short .forward34             ; 0xa3bf
+.forward32:
     mov ax, 0x2c                     ; 0xa3c1
     imul word [bss_8462]             ; 0xa3c4
     mov si, ax                       ; 0xa3c8
@@ -489,45 +489,45 @@ api_idx_005a_UJPS:
     dec ax                           ; 0xa3dc
     dec ax                           ; 0xa3dd
     cmp ax, word [bp - 0x10]         ; 0xa3de
-    jge short @..api_idx_005a_UJPS.l39 ; 0xa3e1
+    jge short .forward34             ; 0xa3e1
     cmp byte [bss_5988], 2           ; 0xa3e3
-    je short @..api_idx_005a_UJPS.l38 ; 0xa3e8
+    je short .forward33              ; 0xa3e8
     mov ax, 7                        ; 0xa3ea
     push ax                          ; 0xa3ed
     call random_below                ; 0xa3ee
     pop cx                           ; 0xa3f1
     test ax, ax                      ; 0xa3f2
-    jne short @..api_idx_005a_UJPS.l38 ; 0xa3f4
+    jne short .forward33             ; 0xa3f4
     mov word [bss_91d8], 1           ; 0xa3f6
-    jmp short @..api_idx_005a_UJPS.l39 ; 0xa3fc
-@..api_idx_005a_UJPS.l38:
+    jmp short .forward34             ; 0xa3fc
+.forward33:
     mov word [bss_91da], 1           ; 0xa3fe
-@..api_idx_005a_UJPS.l39:
+.forward34:
     cmp word [bss_91d8], byte 1      ; 0xa404
-    jne short @..api_idx_005a_UJPS.l40 ; 0xa409
+    jne short .forward35             ; 0xa409
     mov ax, 6                        ; 0xa40b
     imul word [bp - 6]               ; 0xa40e
     mov bx, ax                       ; 0xa411
     mov al, byte [bx + spell_table + spell_table_rec.f_0003] ; 0xa413
     sub ah, ah                       ; 0xa417
     test ax, 2                       ; 0xa419
-    jne short @..api_idx_005a_UJPS.l40 ; 0xa41c
+    jne short .forward35             ; 0xa41c
     mov word [bss_91d8], 0           ; 0xa41e
     mov word [bss_91da], 1           ; 0xa424
-@..api_idx_005a_UJPS.l40:
+.forward35:
     cmp word [bss_91da], byte 1      ; 0xa42a
-    jne short @..api_idx_005a_UJPS.l41 ; 0xa42f
+    jne short .forward36             ; 0xa42f
     mov ax, 6                        ; 0xa431
     imul word [bp - 6]               ; 0xa434
     mov bx, ax                       ; 0xa437
     mov al, byte [bx + spell_table + spell_table_rec.f_0003] ; 0xa439
     sub ah, ah                       ; 0xa43d
     test ax, 1                       ; 0xa43f
-    jne short @..api_idx_005a_UJPS.l41 ; 0xa442
+    jne short .forward36             ; 0xa442
     mov word [bss_91da], 0           ; 0xa444
-@..api_idx_005a_UJPS.l41:
+.forward36:
     cmp word [bss_91da], byte 1      ; 0xa44a
-    jne short @..api_idx_005a_UJPS.l42 ; 0xa44f
+    jne short .forward37             ; 0xa44f
     mov ax, 4                        ; 0xa451
     push ax                          ; 0xa454
     call api_idx_0004_QUPL           ; 0xa455
@@ -543,10 +543,10 @@ api_idx_005a_UJPS:
     push word [bss_9058]             ; 0xa46b
     call api_idx_0004_QUPL           ; 0xa46f
     pop cx                           ; 0xa472
-    jmp short @..api_idx_005a_UJPS.l44 ; 0xa473
-@..api_idx_005a_UJPS.l42:
+    jmp short .forward39             ; 0xa473
+.forward37:
     cmp word [bss_91d8], byte 1      ; 0xa475
-    jne short @..api_idx_005a_UJPS.l43 ; 0xa47a
+    jne short .forward38             ; 0xa47a
     mov ax, 4                        ; 0xa47c
     push ax                          ; 0xa47f
     call api_idx_0004_QUPL           ; 0xa480
@@ -568,17 +568,17 @@ api_idx_005a_UJPS:
     mov al, byte [bss_8462]          ; 0xa4a7
     mov bx, word [bp + 4]            ; 0xa4aa
     mov byte [bx + 0x20], al         ; 0xa4ad
-@..api_idx_005a_UJPS.l43:
+.forward38:
     push word [bp - 4]               ; 0xa4b0
     push word [bp - 6]               ; 0xa4b3
     push word [bp + 4]               ; 0xa4b6
     call api_idx_000e_ORJG           ; 0xa4b9
     add sp, byte 6                   ; 0xa4bc
-@..api_idx_005a_UJPS.l44:
-    jmp short @..api_idx_005a_UJPS.l46 ; 0xa4bf
-@..api_idx_005a_UJPS.l45:
+.forward39:
+    jmp short .return1               ; 0xa4bf
+.forward40:
     push word [bss_9058]             ; 0xa4c1
     call api_idx_0004_QUPL           ; 0xa4c5
     pop cx                           ; 0xa4c8
-@..api_idx_005a_UJPS.l46:
+.return1:
     ret                              ; 0xa4c9

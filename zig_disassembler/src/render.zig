@@ -30,6 +30,7 @@ pub const Layout = struct {
     frags: []Frag,
     /// file offset -> (fragment index, local number; 0 = the fragment's own label)
     labels: std.AutoHashMap(u32, [2]u32),
+    local_names: std.AutoHashMap(u32, []const u8),
     /// DS equates this binary references: name -> DS offset.
     equs: std.array_hash_map.String(u32) = .empty,
     /// Host code labels an overlay references: name -> CS offset.
@@ -51,8 +52,9 @@ pub const Layout = struct {
         const v = l.labels.get(f) orelse return null;
         const fr = l.frags[v[0]];
         if (v[1] == 0) return fr.name;
-        if (from != null and from.? == v[0]) return try std.fmt.allocPrint(gpa, ".l{d}", .{v[1]});
-        return try std.fmt.allocPrint(gpa, "{s}.l{d}", .{ fr.name, v[1] });
+        const local = l.local_names.get(f).?;
+        if (from != null and from.? == v[0]) return local;
+        return try std.fmt.allocPrint(gpa, "{s}{s}", .{ fr.name, local });
     }
 };
 
@@ -124,6 +126,7 @@ pub fn layout(gpa: Allocator, b: *Bin) !*Layout {
         .b = b,
         .frags = try gpa.alloc(Frag, keys.items.len),
         .labels = std.AutoHashMap(u32, [2]u32).init(gpa),
+        .local_names = std.AutoHashMap(u32, []const u8).init(gpa),
         .own_names = std.StringHashMap(void).init(gpa),
         .imm_ptrs = std.AutoHashMap(u32, PtrSpace).init(gpa),
         .ds_starts = std.AutoHashMap(u16, void).init(gpa),
@@ -172,12 +175,18 @@ pub fn layout(gpa: Allocator, b: *Bin) !*Layout {
 
     // Every address something refers to gets a label.
     var targets = std.AutoHashMap(u32, void).init(gpa);
+    var backward_sources = std.AutoHashMap(u32, std.ArrayList(u32)).init(gpa);
     var f: u32 = b.code_lo;
     while (f < b.code_hi) : (f += 1) {
         const in = b.insn[f] orelse continue;
         if (in.nops > 0 and in.ops[0].kind == .rel) {
             const t = b.relTarget(&in);
             if (b.inCode(t) and placeable(b, t)) try targets.put(@intCast(t), {});
+            if ((in.flow == .jmp or in.flow == .jcc) and b.inCode(t) and t < f) {
+                const sources = try backward_sources.getOrPut(@intCast(t));
+                if (!sources.found_existing) sources.value_ptr.* = .empty;
+                try sources.value_ptr.append(gpa, f);
+            }
         }
         if (in.memOp()) |m| {
             const cs_ref = in.segment() == 1 or (b.kind == .driver and in.segment() == null);
@@ -209,8 +218,8 @@ pub fn layout(gpa: Allocator, b: *Bin) !*Layout {
         }
     }
     const sorted = try b.sortedKeys(&targets);
-    const counters = try gpa.alloc(u32, l.frags.len);
-    @memset(counters, 0);
+    const counters = try gpa.alloc([3]u32, l.frags.len);
+    for (counters) |*counter| counter.* = .{ 0, 0, 0 };
     for (sorted) |t| {
         if (l.labels.contains(t)) continue;
         const idx = std.sort.upperBound(Frag, l.frags, t, struct {
@@ -219,8 +228,18 @@ pub fn layout(gpa: Allocator, b: *Bin) !*Layout {
             }
         }.cmp);
         if (idx == 0) continue;
-        counters[idx - 1] += 1;
-        try l.labels.put(t, .{ @intCast(idx - 1), counters[idx - 1] });
+        const fr = l.frags[idx - 1];
+        const is_back = if (backward_sources.get(t)) |sources| blk: {
+            for (sources.items) |source| if (source >= fr.start and source < fr.end) break :blk true;
+            break :blk false;
+        } else false;
+        const is_return = if (b.insn[t]) |in| in.flow == .ret else false;
+        const role: usize = if (is_return) 0 else if (is_back) 1 else 2;
+        counters[idx - 1][role] += 1;
+        const number = counters[idx - 1][role];
+        const prefix = ([_][]const u8{ "return", "back", "forward" })[role];
+        try l.local_names.put(t, try std.fmt.allocPrint(gpa, ".{s}{d}", .{ prefix, number }));
+        try l.labels.put(t, .{ @intCast(idx - 1), number });
     }
     return l;
 }
@@ -519,9 +538,11 @@ fn printable(c: u8) bool {
     return c >= 0x20 and c < 0x7f and c != '"';
 }
 
-fn pad(out: *Buf, gpa: Allocator, line_start: usize, col: usize) !void {
+/// Match Python's left-aligned field followed by one separator space.
+fn pad(out: *Buf, gpa: Allocator, line_start: usize, width: usize) !void {
     const len = out.items.len - line_start;
-    if (len < col) try out.appendNTimes(gpa, ' ', col - len) else try out.append(gpa, ' ');
+    if (len < width) try out.appendNTimes(gpa, ' ', width - len);
+    try out.append(gpa, ' ');
 }
 
 /// ``db`` lines for ``data[lo, hi)``: strings quoted, zero runs as ``times``.
@@ -559,7 +580,7 @@ fn dataLines(gpa: Allocator, out: *Buf, data: []const u8, lo: u32, hi: u32, comm
                 i += 1;
             }
         }
-        try pad(out, gpa, line_start, 44);
+        try pad(out, gpa, line_start, 43);
         try out.print(gpa, "; 0x{x:0>4}\n", .{at + comment_base});
     }
 }
@@ -571,7 +592,7 @@ fn dataSpan(c: *Ctx, b: *Bin, out: *Buf, lo: u32, hi: u32) !void {
     while (i < hi) {
         // A label splits the run.
         if (i != lo or i != c.l.frags[c.frag].start) if (c.l.labels.get(i)) |v| if (v[1] != 0) {
-            try out.print(gpa, ".l{d}:\n", .{v[1]});
+            try out.print(gpa, "{s}:\n", .{c.l.local_names.get(i).?});
         };
         var next = i + 1;
         while (next < hi and !c.l.labels.contains(next)) next += 1;
@@ -587,7 +608,7 @@ fn dataSpan(c: *Ctx, b: *Bin, out: *Buf, lo: u32, hi: u32) !void {
                 const is_key = (j - tb.?.addr) / 2 < tb.?.keys;
                 const name = if (is_key) null else try codeRef(c, b, w);
                 if (name) |n| try out.print(gpa, "    dw {s}", .{n}) else try out.print(gpa, "    dw 0x{x:0>4}", .{w});
-                try pad(out, gpa, line_start, 44);
+                try pad(out, gpa, line_start, 4 + 42);
                 try out.print(gpa, "; 0x{x:0>4}\n", .{j});
                 j += 2;
                 continue;
@@ -621,7 +642,7 @@ fn fillLines(gpa: Allocator, text: []const u8, lines: []const []const u8, starts
         }
         const line_start = out.items.len;
         try out.print(gpa, "    {s}", .{lines[k.*]});
-        try pad(&out, gpa, line_start, 40);
+        try pad(&out, gpa, line_start, 4 + 32);
         try out.print(gpa, "; 0x{x:0>4}", .{starts[k.*]});
         k.* += 1;
     }
@@ -642,7 +663,7 @@ fn fragmentText(c: *Ctx, b: *Bin) ![]const u8 {
             f = e;
             continue;
         }
-        if (f != fr.start) if (c.l.labels.get(f)) |v| if (v[1] != 0) try out.print(gpa, ".l{d}:\n", .{v[1]});
+        if (f != fr.start) if (c.l.labels.get(f)) |v| if (v[1] != 0) try out.print(gpa, "{s}:\n", .{c.l.local_names.get(f).?});
         const in = b.insn[f].?;
         // deziggler spells the line once the binary's names are all known.
         try symbolize(c, b, f, &in);
@@ -661,10 +682,12 @@ const mz_fields = [_][]const u8{
 const ovr_fields = [_][]const u8{ "o_magic", "o_corg: code origin", "o_csize: code size", "o_dorg: data origin", "o_dsize: data size", "o_bss: bss size", "o_entry: entry" };
 
 fn headerWords(gpa: Allocator, out: *Buf, b: *Bin, names: []const []const u8) !void {
+    // Every field currently renders as "dw 0xNNNN" (nine characters).
+    const width = "dw 0x0000".len;
     for (names, 0..) |n, i| {
         const line_start = out.items.len;
         try out.print(gpa, "    dw 0x{x:0>4}", .{std.mem.readInt(u16, b.data[i * 2 ..][0..2], .little)});
-        try pad(out, gpa, line_start, 44);
+        try pad(out, gpa, line_start, 4 + width);
         try out.print(gpa, "; {s}\n", .{n});
     }
 }
@@ -690,7 +713,7 @@ pub fn render(gpa: Allocator, l: *Layout, host: ?*Layout, files: *std.ArrayList(
         try files.append(gpa, .{ .path = path, .text = text, .bin = b.name, .stem = fr.name, .data = b.state[fr.start] != .start });
         const line_start = includes.items.len;
         try includes.print(gpa, "%include \"{s}\"", .{path});
-        try pad(&includes, gpa, line_start, 52);
+        try pad(&includes, gpa, line_start, 42);
         try includes.print(gpa, "; 0x{x:0>4}\n", .{fr.start});
     }
 

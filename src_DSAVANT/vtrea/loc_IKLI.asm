@@ -16,13 +16,13 @@ loc_IKLI:
     pop dx                           ; 0x088e
     pop ax                           ; 0x088f
     cmp dx, bx                       ; 0x0890
-    jl short @..loc_IKLI.l1          ; 0x0892
-    jne short @..loc_IKLI.l2         ; 0x0894
+    jl short .forward1               ; 0x0892
+    jne short .forward2              ; 0x0894
     cmp ax, cx                       ; 0x0896
-    jae short @..loc_IKLI.l2         ; 0x0898
-@..loc_IKLI.l1:
-    jmp short @..loc_IKLI.l4         ; 0x089a
-@..loc_IKLI.l2:
+    jae short .forward2              ; 0x0898
+.forward1:
+    jmp short .forward4              ; 0x089a
+.forward2:
     mov ax, word [screen_cache_index] ; 0x089c
     inc ax                           ; 0x089f
     mov cx, 2                        ; 0x08a0
@@ -41,9 +41,9 @@ loc_IKLI:
     idiv cx                          ; 0x08bd
     mov word [animation_frame], dx   ; 0x08bf
     cmp word [animation_index], byte 0 ; 0x08c3
-    jl short @..loc_IKLI.l3          ; 0x08c8
+    jl short .forward3               ; 0x08c8
     inc word [animation_index]       ; 0x08ca
-@..loc_IKLI.l3:
+.forward3:
     les bx, word [tick_counter_ptr]  ; 0x08ce
     mov ax, word [es:bx]             ; 0x08d2
     mov dx, word [es:bx + 2]         ; 0x08d5
@@ -52,6 +52,6 @@ loc_IKLI:
     call update_treasure_frame       ; 0x08e0
     mov ax, 1                        ; 0x08e3
     ret                              ; 0x08e6
-@..loc_IKLI.l4:
+.forward4:
     mov ax, 0                        ; 0x08e7
     ret                              ; 0x08ea

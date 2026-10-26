@@ -3,7 +3,7 @@ api_idx_0052_LJTK:
     mov ax, 0xffae                   ; 0x4335
     call aztec_csav                  ; 0x4338
     mov ax, word [bp + 4]            ; 0x433b
-    jmp near @..api_idx_0052_LJTK.l2 ; 0x433e
+    jmp near .forward2               ; 0x433e
 jumptable_4688_case_0:
     lea ax, word [bp - 0x52]         ; 0x4341
     push ax                          ; 0x4344
@@ -28,7 +28,7 @@ jumptable_4688_case_0:
     push ax                          ; 0x436e
     call draw_button                 ; 0x436f
     add sp, byte 0xc                 ; 0x4372
-    jmp near @..api_idx_0052_LJTK.l3 ; 0x4375
+    jmp near api_idx_0052_LJTK.return1 ; 0x4375
 jumptable_4688_case_1:
     mov ax, word [bp + 8]            ; 0x4378
     add ax, strict word 0x26         ; 0x437b
@@ -41,7 +41,7 @@ jumptable_4688_case_1:
     push ax                          ; 0x438b
     call loc_HOMM                    ; 0x438c
     add sp, byte 6                   ; 0x438f
-    jmp near @..api_idx_0052_LJTK.l3 ; 0x4392
+    jmp near api_idx_0052_LJTK.return1 ; 0x4392
 jumptable_4688_case_2:
     mov ax, 0x12                     ; 0x4395
     push ax                          ; 0x4398
@@ -55,7 +55,7 @@ jumptable_4688_case_2:
     push ax                          ; 0x43aa
     call loc_RSMG                    ; 0x43ab
     add sp, byte 8                   ; 0x43ae
-    jmp near @..api_idx_0052_LJTK.l3 ; 0x43b1
+    jmp near api_idx_0052_LJTK.return1 ; 0x43b1
 jumptable_4688_case_3:
     mov ax, 0x12                     ; 0x43b4
     push ax                          ; 0x43b7
@@ -69,7 +69,7 @@ jumptable_4688_case_3:
     push ax                          ; 0x43c9
     call loc_RSMG                    ; 0x43ca
     add sp, byte 8                   ; 0x43cd
-    jmp near @..api_idx_0052_LJTK.l3 ; 0x43d0
+    jmp near api_idx_0052_LJTK.return1 ; 0x43d0
 jumptable_4688_case_4:
     lea ax, word [bp - 0x52]         ; 0x43d3
     push ax                          ; 0x43d6
@@ -91,7 +91,7 @@ jumptable_4688_case_4:
     push ax                          ; 0x43fb
     call loc_RSMG                    ; 0x43fc
     add sp, byte 8                   ; 0x43ff
-    jmp near @..api_idx_0052_LJTK.l3 ; 0x4402
+    jmp near api_idx_0052_LJTK.return1 ; 0x4402
 jumptable_4688_case_5:
     mov ax, word [bp + 8]            ; 0x4405
     add ax, strict word 0x74         ; 0x4408
@@ -164,7 +164,7 @@ jumptable_4688_case_5:
     push ax                          ; 0x44a6
     call draw_number_field           ; 0x44a7
     add sp, byte 6                   ; 0x44aa
-    jmp near @..api_idx_0052_LJTK.l3 ; 0x44ad
+    jmp near api_idx_0052_LJTK.return1 ; 0x44ad
 jumptable_4688_case_8:
     lea ax, word [bp - 0x52]         ; 0x44b0
     push ax                          ; 0x44b3
@@ -186,7 +186,7 @@ jumptable_4688_case_8:
     push ax                          ; 0x44d8
     call loc_RSMG                    ; 0x44d9
     add sp, byte 8                   ; 0x44dc
-    jmp near @..api_idx_0052_LJTK.l3 ; 0x44df
+    jmp near api_idx_0052_LJTK.return1 ; 0x44df
 jumptable_4688_case_9:
     mov ax, word [bp + 8]            ; 0x44e2
     add ax, 0x86                     ; 0x44e5
@@ -199,7 +199,7 @@ jumptable_4688_case_9:
     push ax                          ; 0x44f5
     call loc_HOMM                    ; 0x44f6
     add sp, byte 6                   ; 0x44f9
-    jmp near @..api_idx_0052_LJTK.l3 ; 0x44fc
+    jmp near api_idx_0052_LJTK.return1 ; 0x44fc
 jumptable_4688_case_10:
     lea ax, word [bp - 0x52]         ; 0x44ff
     push ax                          ; 0x4502
@@ -224,7 +224,7 @@ jumptable_4688_case_10:
     push ax                          ; 0x452c
     call draw_button                 ; 0x452d
     add sp, byte 0xc                 ; 0x4530
-    jmp near @..api_idx_0052_LJTK.l3 ; 0x4533
+    jmp near api_idx_0052_LJTK.return1 ; 0x4533
 jumptable_4688_case_11:
     lea ax, word [bp - 0x52]         ; 0x4536
     push ax                          ; 0x4539
@@ -249,16 +249,16 @@ jumptable_4688_case_11:
     push ax                          ; 0x4563
     call draw_button                 ; 0x4564
     add sp, byte 0xc                 ; 0x4567
-    jmp near @..api_idx_0052_LJTK.l3 ; 0x456a
+    jmp near api_idx_0052_LJTK.return1 ; 0x456a
 jumptable_4688_case_12:
     mov ax, 1                        ; 0x456d
     cmp byte [screen_store_1_enabled], 1 ; 0x4570
-    je short @..api_idx_0052_LJTK.l1 ; 0x4575
+    je short api_idx_0052_LJTK.forward1 ; 0x4575
     mov ax, 0                        ; 0x4577
     cmp byte [screen_store_disk_enabled], 1 ; 0x457a
-    jne short @..api_idx_0052_LJTK.l1 ; 0x457f
+    jne short api_idx_0052_LJTK.forward1 ; 0x457f
     mov ax, 2                        ; 0x4581
-@..api_idx_0052_LJTK.l1:
+api_idx_0052_LJTK.forward1:
     mov word [bp - 2], ax            ; 0x4584
     lea ax, word [bp - 0x52]         ; 0x4587
     push ax                          ; 0x458a
@@ -279,7 +279,7 @@ jumptable_4688_case_12:
     push ax                          ; 0x45ad
     call loc_RSMG                    ; 0x45ae
     add sp, byte 8                   ; 0x45b1
-    jmp near @..api_idx_0052_LJTK.l3 ; 0x45b4
+    jmp near api_idx_0052_LJTK.return1 ; 0x45b4
 jumptable_4688_case_13:
     mov ax, 0xa                      ; 0x45b7
     push ax                          ; 0x45ba
@@ -293,7 +293,7 @@ jumptable_4688_case_13:
     push ax                          ; 0x45cc
     call loc_RSMG                    ; 0x45cd
     add sp, byte 8                   ; 0x45d0
-    jmp near @..api_idx_0052_LJTK.l3 ; 0x45d3
+    jmp near api_idx_0052_LJTK.return1 ; 0x45d3
 jumptable_4688_case_14:
     lea ax, word [bp - 0x52]         ; 0x45d6
     push ax                          ; 0x45d9
@@ -315,7 +315,7 @@ jumptable_4688_case_14:
     push ax                          ; 0x45fe
     call loc_RSMG                    ; 0x45ff
     add sp, byte 8                   ; 0x4602
-    jmp near @..api_idx_0052_LJTK.l3 ; 0x4605
+    jmp near api_idx_0052_LJTK.return1 ; 0x4605
 jumptable_4688_case_15:
     mov ax, word [bp + 8]            ; 0x4608
     add ax, strict word 0x6e         ; 0x460b
@@ -371,7 +371,7 @@ jumptable_4688_case_15:
     push ax                          ; 0x467f
     call draw_number_field           ; 0x4680
     add sp, byte 6                   ; 0x4683
-    jmp short @..api_idx_0052_LJTK.l3 ; 0x4686
+    jmp short api_idx_0052_LJTK.return1 ; 0x4686
 jumptable_4688:
     dw jumptable_4688_case_0 - IMAGE_BASE + __zres_end ; 0x4688
     dw jumptable_4688_case_1 - IMAGE_BASE + __zres_end ; 0x468a
@@ -390,11 +390,11 @@ jumptable_4688:
     dw jumptable_4688_case_14 - IMAGE_BASE + __zres_end ; 0x46a4
     dw jumptable_4688_case_15 - IMAGE_BASE + __zres_end ; 0x46a6
     dw jumptable_4688_case_15 - IMAGE_BASE + __zres_end ; 0x46a8
-@..api_idx_0052_LJTK.l2:
+api_idx_0052_LJTK.forward2:
     cmp ax, strict word 0x11         ; 0x46aa
-    jae short @..api_idx_0052_LJTK.l3 ; 0x46ad
+    jae short api_idx_0052_LJTK.return1 ; 0x46ad
     xchg bx, ax                      ; 0x46af
     shl bx, 1                        ; 0x46b0
     jmp [cs:bx + jumptable_4688 - IMAGE_BASE + __zres_end] ; 0x46b2
-@..api_idx_0052_LJTK.l3:
+api_idx_0052_LJTK.return1:
     ret                              ; 0x46b7

@@ -4,7 +4,7 @@ api_idx_0006_NNSP:
     call aztec_csav                  ; 0x75b1
     mov word [bp - 4], 0             ; 0x75b4
     mov word [bp - 2], 0             ; 0x75b9
-@..api_idx_0006_NNSP.l1:
+.back1:
     mov ax, 2                        ; 0x75be
     push ax                          ; 0x75c1
     mov ax, word [bp - 2]            ; 0x75c2
@@ -34,17 +34,17 @@ api_idx_0006_NNSP:
     call get_bits                    ; 0x7601
     add sp, byte 6                   ; 0x7604
     cmp ax, strict word 2            ; 0x7607
-    jne short @..api_idx_0006_NNSP.l2 ; 0x760a
+    jne short .forward1              ; 0x760a
     mov word [bp - 4], 1             ; 0x760c
-@..api_idx_0006_NNSP.l2:
+.forward1:
     inc word [bp - 2]                ; 0x7611
     mov ax, word [bp - 2]            ; 0x7614
     cmp ax, strict word 4            ; 0x7617
-    jl short @..api_idx_0006_NNSP.l1 ; 0x761a
+    jl short .back1                  ; 0x761a
     cmp word [bp - 4], byte 0        ; 0x761c
-    je short @..api_idx_0006_NNSP.l3 ; 0x7620
+    je short .forward2               ; 0x7620
     call api_idx_0004_THPM           ; 0x7622
-@..api_idx_0006_NNSP.l3:
+.forward2:
     mov bx, word [maze_tables]       ; 0x7625
     mov si, word [party_region]      ; 0x7629
     mov al, byte [bx + si + spell_table + spell_table_rec_size*178 + spell_table_rec.f_0004] ; 0x762d

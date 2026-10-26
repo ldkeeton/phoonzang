@@ -16,7 +16,7 @@ api_idx_0002_RHUQ:
     call get_bits                    ; 0x7ae1
     add sp, byte 6                   ; 0x7ae4
     cmp ax, strict word 1            ; 0x7ae7
-    jne short @..api_idx_0002_RHUQ.l1 ; 0x7aea
+    jne short .forward1              ; 0x7aea
     mov ax, 2                        ; 0x7aec
     push ax                          ; 0x7aef
     mov ax, 0                        ; 0x7af0
@@ -26,9 +26,9 @@ api_idx_0002_RHUQ:
     add sp, byte 6                   ; 0x7afa
     mov word [found_object_owner], ax ; 0x7afd
     cmp ax, word [party_tag]         ; 0x7b00
-    je short @..api_idx_0002_RHUQ.l1 ; 0x7b04
+    je short .forward1               ; 0x7b04
     ret                              ; 0x7b06
-@..api_idx_0002_RHUQ.l1:
+.forward1:
     mov bx, word [maze_tables]       ; 0x7b07
     mov si, word [party_region]      ; 0x7b0b
     mov al, byte [bx + si + spell_table + spell_table_rec_size*178 + spell_table_rec.f_0004] ; 0x7b0f
@@ -43,12 +43,12 @@ api_idx_0002_RHUQ:
     call get_bits                    ; 0x7b26
     add sp, byte 6                   ; 0x7b29
     cmp ax, strict word 1            ; 0x7b2c
-    jne short @..api_idx_0002_RHUQ.l2 ; 0x7b2f
+    jne short .forward2              ; 0x7b2f
     mov ax, 0                        ; 0x7b31
-    jmp short @..api_idx_0002_RHUQ.l3 ; 0x7b34
-@..api_idx_0002_RHUQ.l2:
+    jmp short .forward3              ; 0x7b34
+.forward2:
     mov ax, 1                        ; 0x7b36
-@..api_idx_0002_RHUQ.l3:
+.forward3:
     push ax                          ; 0x7b39
     mov ax, 0                        ; 0x7b3a
     push ax                          ; 0x7b3d

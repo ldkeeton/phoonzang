@@ -3,7 +3,7 @@ api_idx_0002_IRKS:
     mov ax, 0xfffe                   ; 0x402d
     call aztec_csav                  ; 0x4030
     mov word [bp - 2], 0             ; 0x4033
-@..api_idx_0002_IRKS.l1:
+.back1:
     mov ax, 0x248                    ; 0x4038
     imul word [bp + 4]               ; 0x403b
     add ax, word [bp - 2]            ; 0x403e
@@ -20,7 +20,7 @@ api_idx_0002_IRKS:
     mov cx, ax                       ; 0x4058
     pop ax                           ; 0x405a
     cmp ax, cx                       ; 0x405b
-    jge short @..api_idx_0002_IRKS.l2 ; 0x405d
+    jge short .forward1              ; 0x405d
     mov al, byte [bx + si]           ; 0x405f
     add al, 0xbf                     ; 0x4061
     push ax                          ; 0x4063
@@ -31,9 +31,9 @@ api_idx_0002_IRKS:
     mov bx, ax                       ; 0x406e
     pop ax                           ; 0x4070
     mov byte [bx + party_records + pc_rec.stat], al ; 0x4071
-@..api_idx_0002_IRKS.l2:
+.forward1:
     inc word [bp - 2]                ; 0x4075
     mov ax, word [bp - 2]            ; 0x4078
     cmp ax, strict word 8            ; 0x407b
-    jl short @..api_idx_0002_IRKS.l1 ; 0x407e
+    jl short .back1                  ; 0x407e
     ret                              ; 0x4080

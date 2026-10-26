@@ -15,24 +15,24 @@ api_idx_0014_LVIL:
     call api_idx_0026_NRVO           ; 0x668e
     add sp, byte 0xa                 ; 0x6691
     cmp ax, strict word 2            ; 0x6694
-    jne short @..api_idx_0014_LVIL.l1 ; 0x6697
+    jne short .forward1              ; 0x6697
     ret                              ; 0x6699
-@..api_idx_0014_LVIL.l1:
+.forward1:
     mov word [bss_978a], 0           ; 0x669a
     cmp byte [bp - 0x14], 0          ; 0x66a0
-    je short @..api_idx_0014_LVIL.l3 ; 0x66a4
+    je short .return1                ; 0x66a4
     lea ax, word [bp - 0x14]         ; 0x66a6
     push ax                          ; 0x66a9
     call loc_TLLM                    ; 0x66aa
     pop cx                           ; 0x66ad
     cmp ax, strict word 0xffff       ; 0x66ae
-    jne short @..api_idx_0014_LVIL.l2 ; 0x66b1
-    jmp short @..api_idx_0014_LVIL.l3 ; 0x66b3
-@..api_idx_0014_LVIL.l2:
+    jne short .forward2              ; 0x66b1
+    jmp short .return1               ; 0x66b3
+.forward2:
     push word [bp + 4]               ; 0x66b5
     lea ax, word [bp - 0x14]         ; 0x66b8
     push ax                          ; 0x66bb
     call loc_MIPR                    ; 0x66bc
     add sp, byte 4                   ; 0x66bf
-@..api_idx_0014_LVIL.l3:
+.return1:
     ret                              ; 0x66c2

@@ -7,7 +7,7 @@ api_idx_00b8_LTRM:
     call redraw_treasure_caption     ; 0x14f1
     pop cx                           ; 0x14f4
     cmp word [bp + 4], byte 0        ; 0x14f5
-    jne short @..api_idx_00b8_LTRM.l1 ; 0x14f9
+    jne short .forward1              ; 0x14f9
     lea ax, word [bp - 0x68]         ; 0x14fb
     push ax                          ; 0x14fe
     mov ax, MSG_THE_CHEST_WAS_NOT_TRAPPED ; 0x14ff
@@ -24,7 +24,7 @@ api_idx_00b8_LTRM:
     call show_treasure_message       ; 0x1519
     add sp, byte 8                   ; 0x151c
     ret                              ; 0x151f
-@..api_idx_00b8_LTRM.l1:
+.forward1:
     mov ax, 0                        ; 0x1520
     push ax                          ; 0x1523
     mov ax, 0xc                      ; 0x1524
@@ -34,26 +34,26 @@ api_idx_00b8_LTRM:
     call aztec_setmem                ; 0x152c
     add sp, byte 6                   ; 0x152f
     mov word [bp - 2], 0             ; 0x1532
-    jmp short @..api_idx_00b8_LTRM.l4 ; 0x1537
-@..api_idx_00b8_LTRM.l2:
+    jmp short .forward3              ; 0x1537
+.back1:
     mov ax, 0x248                    ; 0x1539
     imul word [bp - 2]               ; 0x153c
     mov bx, ax                       ; 0x153f
     cmp byte [bx + party_records + pc_rec.state], 3 ; 0x1541
-    jb short @..api_idx_00b8_LTRM.l3 ; 0x1546
+    jb short .forward2               ; 0x1546
     mov ax, word [bp - 2]            ; 0x1548
     shl ax, 1                        ; 0x154b
     mov bx, ax                       ; 0x154d
     add bx, bp                       ; 0x154f
     mov word [bx - 0x18], 1          ; 0x1551
-@..api_idx_00b8_LTRM.l3:
+.forward2:
     inc word [bp - 2]                ; 0x1556
-@..api_idx_00b8_LTRM.l4:
+.forward3:
     mov ax, word [bp - 2]            ; 0x1559
     cmp ax, word [party_char_count]  ; 0x155c
-    jl short @..api_idx_00b8_LTRM.l2 ; 0x1560
+    jl short .back1                  ; 0x1560
     mov ax, word [bp + 4]            ; 0x1562
-    jmp near @..api_idx_00b8_LTRM.l60 ; 0x1565
+    jmp near .forward48              ; 0x1565
 jumptable_1fa3_case_1:
     mov ax, 0xc                      ; 0x1568
     push ax                          ; 0x156b
@@ -74,14 +74,14 @@ jumptable_1fa3_case_1:
     add sp, byte 0xa                 ; 0x158a
     mov ax, word [bp - 8]            ; 0x158d
     mov word [bp - 2], ax            ; 0x1590
-    jmp short @..api_idx_00b8_LTRM.l8 ; 0x1593
-@..api_idx_00b8_LTRM.l5:
+    jmp short api_idx_00b8_LTRM.forward6 ; 0x1593
+api_idx_00b8_LTRM.back2:
     mov ax, word [bp - 2]            ; 0x1595
     shl ax, 1                        ; 0x1598
     mov bx, ax                       ; 0x159a
     add bx, bp                       ; 0x159c
     cmp word [bx - 0x18], byte 0     ; 0x159e
-    jne short @..api_idx_00b8_LTRM.l7 ; 0x15a2
+    jne short api_idx_00b8_LTRM.forward5 ; 0x15a2
     mov ax, 0x64                     ; 0x15a4
     push ax                          ; 0x15a7
     call random_below                ; 0x15a8
@@ -95,11 +95,11 @@ jumptable_1fa3_case_1:
     mov cx, ax                       ; 0x15bb
     pop ax                           ; 0x15bd
     cmp ax, cx                       ; 0x15be
-    jg short @..api_idx_00b8_LTRM.l6 ; 0x15c0
+    jg short api_idx_00b8_LTRM.forward4 ; 0x15c0
     mov ax, word [bp - 2]            ; 0x15c2
     cmp ax, word [bp - 0xc]          ; 0x15c5
-    jne short @..api_idx_00b8_LTRM.l7 ; 0x15c8
-@..api_idx_00b8_LTRM.l6:
+    jne short api_idx_00b8_LTRM.forward5 ; 0x15c8
+api_idx_00b8_LTRM.forward4:
     mov ax, 7                        ; 0x15ca
     push ax                          ; 0x15cd
     mov ax, word [bp + 8]            ; 0x15ce
@@ -111,13 +111,13 @@ jumptable_1fa3_case_1:
     push word [bp - 2]               ; 0x15d9
     call api_idx_003e_JGVR           ; 0x15dc
     add sp, byte 6                   ; 0x15df
-@..api_idx_00b8_LTRM.l7:
+api_idx_00b8_LTRM.forward5:
     inc word [bp - 2]                ; 0x15e2
-@..api_idx_00b8_LTRM.l8:
+api_idx_00b8_LTRM.forward6:
     mov ax, word [bp - 8]            ; 0x15e5
     add ax, word [bp - 0xa]          ; 0x15e8
     cmp ax, word [bp - 2]            ; 0x15eb
-    jg short @..api_idx_00b8_LTRM.l5 ; 0x15ee
+    jg short api_idx_00b8_LTRM.back2 ; 0x15ee
     jmp near jumptable_1fa3_case_0   ; 0x15f0
 jumptable_1fa3_case_2:
     mov ax, 6                        ; 0x15f3
@@ -139,14 +139,14 @@ jumptable_1fa3_case_2:
     add sp, byte 0xa                 ; 0x1615
     mov ax, word [bp - 8]            ; 0x1618
     mov word [bp - 2], ax            ; 0x161b
-    jmp near @..api_idx_00b8_LTRM.l12 ; 0x161e
-@..api_idx_00b8_LTRM.l9:
+    jmp near api_idx_00b8_LTRM.forward9 ; 0x161e
+api_idx_00b8_LTRM.back3:
     mov ax, word [bp - 2]            ; 0x1621
     shl ax, 1                        ; 0x1624
     mov bx, ax                       ; 0x1626
     add bx, bp                       ; 0x1628
     cmp word [bx - 0x18], byte 0     ; 0x162a
-    jne short @..api_idx_00b8_LTRM.l11 ; 0x162e
+    jne short api_idx_00b8_LTRM.forward8 ; 0x162e
     mov ax, 0x64                     ; 0x1630
     push ax                          ; 0x1633
     call random_below                ; 0x1634
@@ -160,11 +160,11 @@ jumptable_1fa3_case_2:
     mov cx, ax                       ; 0x1647
     pop ax                           ; 0x1649
     cmp ax, cx                       ; 0x164a
-    jg short @..api_idx_00b8_LTRM.l10 ; 0x164c
+    jg short api_idx_00b8_LTRM.forward7 ; 0x164c
     mov ax, word [bp - 2]            ; 0x164e
     cmp ax, word [bp - 0xc]          ; 0x1651
-    jne short @..api_idx_00b8_LTRM.l11 ; 0x1654
-@..api_idx_00b8_LTRM.l10:
+    jne short api_idx_00b8_LTRM.forward8 ; 0x1654
+api_idx_00b8_LTRM.forward7:
     mov ax, 6                        ; 0x1656
     push ax                          ; 0x1659
     mov ax, 1                        ; 0x165a
@@ -173,7 +173,7 @@ jumptable_1fa3_case_2:
     call api_idx_003e_JGVR           ; 0x1661
     add sp, byte 6                   ; 0x1664
     test ax, ax                      ; 0x1667
-    je short @..api_idx_00b8_LTRM.l11 ; 0x1669
+    je short api_idx_00b8_LTRM.forward8 ; 0x1669
     mov ax, 0x32                     ; 0x166b
     push ax                          ; 0x166e
     mov ax, 0xa                      ; 0x166f
@@ -193,13 +193,13 @@ jumptable_1fa3_case_2:
     push word [bp - 2]               ; 0x168a
     call api_idx_0056_VTNO           ; 0x168d
     add sp, byte 0xe                 ; 0x1690
-@..api_idx_00b8_LTRM.l11:
+api_idx_00b8_LTRM.forward8:
     inc word [bp - 2]                ; 0x1693
-@..api_idx_00b8_LTRM.l12:
+api_idx_00b8_LTRM.forward9:
     mov ax, word [bp - 8]            ; 0x1696
     add ax, word [bp - 0xa]          ; 0x1699
     cmp ax, word [bp - 2]            ; 0x169c
-    jg short @..api_idx_00b8_LTRM.l9 ; 0x169f
+    jg short api_idx_00b8_LTRM.back3 ; 0x169f
     jmp near jumptable_1fa3_case_0   ; 0x16a1
 jumptable_1fa3_case_3:
     mov ax, 0xffff                   ; 0x16a4
@@ -216,9 +216,9 @@ jumptable_1fa3_case_4:
     pop cx                           ; 0x16bc
     mov word [bp - 2], ax            ; 0x16bd
     cmp ax, strict word 0xffff       ; 0x16c0
-    jne short @..api_idx_00b8_LTRM.l13 ; 0x16c3
-    jmp near @..api_idx_00b8_LTRM.l17 ; 0x16c5
-@..api_idx_00b8_LTRM.l13:
+    jne short api_idx_00b8_LTRM.forward10 ; 0x16c3
+    jmp near api_idx_00b8_LTRM.forward14 ; 0x16c5
+api_idx_00b8_LTRM.forward10:
     mov ax, 0x16                     ; 0x16c8
     push ax                          ; 0x16cb
     push word [bp - 2]               ; 0x16cc
@@ -273,9 +273,9 @@ jumptable_1fa3_case_4:
     call api_idx_003e_JGVR           ; 0x173d
     add sp, byte 6                   ; 0x1740
     test ax, ax                      ; 0x1743
-    jne short @..api_idx_00b8_LTRM.l14 ; 0x1745
-    jmp near @..api_idx_00b8_LTRM.l16 ; 0x1747
-@..api_idx_00b8_LTRM.l14:
+    jne short api_idx_00b8_LTRM.forward11 ; 0x1745
+    jmp near api_idx_00b8_LTRM.forward13 ; 0x1747
+api_idx_00b8_LTRM.forward11:
     mov ax, 0x15                     ; 0x174a
     push ax                          ; 0x174d
     call random_below                ; 0x174e
@@ -289,9 +289,9 @@ jumptable_1fa3_case_4:
     mov cx, ax                       ; 0x1761
     pop ax                           ; 0x1763
     cmp ax, cx                       ; 0x1764
-    jg short @..api_idx_00b8_LTRM.l15 ; 0x1766
-    jmp near @..api_idx_00b8_LTRM.l16 ; 0x1768
-@..api_idx_00b8_LTRM.l15:
+    jg short api_idx_00b8_LTRM.forward12 ; 0x1766
+    jmp near api_idx_00b8_LTRM.forward13 ; 0x1768
+api_idx_00b8_LTRM.forward12:
     lea ax, word [bp - 0x68]         ; 0x176b
     push ax                          ; 0x176e
     mov ax, MSG_IS_BATTERED_ABOUT    ; 0x176f
@@ -328,7 +328,7 @@ jumptable_1fa3_case_4:
     call api_idx_003e_JGVR           ; 0x17b2
     add sp, byte 6                   ; 0x17b5
     test ax, ax                      ; 0x17b8
-    je short @..api_idx_00b8_LTRM.l16 ; 0x17ba
+    je short api_idx_00b8_LTRM.forward13 ; 0x17ba
     mov ax, 0x15                     ; 0x17bc
     push ax                          ; 0x17bf
     call random_below                ; 0x17c0
@@ -342,7 +342,7 @@ jumptable_1fa3_case_4:
     mov cx, ax                       ; 0x17d3
     pop ax                           ; 0x17d5
     cmp ax, cx                       ; 0x17d6
-    jle short @..api_idx_00b8_LTRM.l16 ; 0x17d8
+    jle short api_idx_00b8_LTRM.forward13 ; 0x17d8
     mov ax, 3                        ; 0x17da
     push ax                          ; 0x17dd
     mov ax, 0xb                      ; 0x17de
@@ -352,7 +352,7 @@ jumptable_1fa3_case_4:
     push word [bp - 2]               ; 0x17e6
     call api_idx_005a_SIOK           ; 0x17e9
     add sp, byte 8                   ; 0x17ec
-@..api_idx_00b8_LTRM.l16:
+api_idx_00b8_LTRM.forward13:
     lea ax, word [bp - 0x68]         ; 0x17ef
     push ax                          ; 0x17f2
     mov ax, MSG_THE_DEMONIC_FORCE_SMILES ; 0x17f3
@@ -368,7 +368,7 @@ jumptable_1fa3_case_4:
     push ax                          ; 0x180c
     call show_treasure_message       ; 0x180d
     add sp, byte 8                   ; 0x1810
-@..api_idx_00b8_LTRM.l17:
+api_idx_00b8_LTRM.forward14:
     jmp near jumptable_1fa3_case_0   ; 0x1813
 jumptable_1fa3_case_5:
     mov ax, 0                        ; 0x1816
@@ -389,14 +389,14 @@ jumptable_1fa3_case_5:
     add sp, byte 0xa                 ; 0x1835
     mov ax, word [bp - 8]            ; 0x1838
     mov word [bp - 2], ax            ; 0x183b
-    jmp short @..api_idx_00b8_LTRM.l21 ; 0x183e
-@..api_idx_00b8_LTRM.l18:
+    jmp short api_idx_00b8_LTRM.forward17 ; 0x183e
+api_idx_00b8_LTRM.back4:
     mov ax, word [bp - 2]            ; 0x1840
     shl ax, 1                        ; 0x1843
     mov bx, ax                       ; 0x1845
     add bx, bp                       ; 0x1847
     cmp word [bx - 0x18], byte 0     ; 0x1849
-    jne short @..api_idx_00b8_LTRM.l20 ; 0x184d
+    jne short api_idx_00b8_LTRM.forward16 ; 0x184d
     mov ax, 0x64                     ; 0x184f
     push ax                          ; 0x1852
     call random_below                ; 0x1853
@@ -410,11 +410,11 @@ jumptable_1fa3_case_5:
     mov cx, ax                       ; 0x1866
     pop ax                           ; 0x1868
     cmp ax, cx                       ; 0x1869
-    jg short @..api_idx_00b8_LTRM.l19 ; 0x186b
+    jg short api_idx_00b8_LTRM.forward15 ; 0x186b
     mov ax, word [bp - 2]            ; 0x186d
     cmp ax, word [bp - 0xc]          ; 0x1870
-    jne short @..api_idx_00b8_LTRM.l20 ; 0x1873
-@..api_idx_00b8_LTRM.l19:
+    jne short api_idx_00b8_LTRM.forward16 ; 0x1873
+api_idx_00b8_LTRM.forward15:
     mov ax, 6                        ; 0x1875
     push ax                          ; 0x1878
     mov ax, word [bp + 8]            ; 0x1879
@@ -426,13 +426,13 @@ jumptable_1fa3_case_5:
     push word [bp - 2]               ; 0x1884
     call api_idx_003e_JGVR           ; 0x1887
     add sp, byte 6                   ; 0x188a
-@..api_idx_00b8_LTRM.l20:
+api_idx_00b8_LTRM.forward16:
     inc word [bp - 2]                ; 0x188d
-@..api_idx_00b8_LTRM.l21:
+api_idx_00b8_LTRM.forward17:
     mov ax, word [bp - 8]            ; 0x1890
     add ax, word [bp - 0xa]          ; 0x1893
     cmp ax, word [bp - 2]            ; 0x1896
-    jg short @..api_idx_00b8_LTRM.l18 ; 0x1899
+    jg short api_idx_00b8_LTRM.back4 ; 0x1899
     jmp near jumptable_1fa3_case_0   ; 0x189b
 jumptable_1fa3_case_6:
     mov ax, 0x17                     ; 0x189e
@@ -455,14 +455,14 @@ jumptable_1fa3_case_6:
     add sp, byte 0xa                 ; 0x18c3
     mov ax, word [bp - 8]            ; 0x18c6
     mov word [bp - 2], ax            ; 0x18c9
-    jmp short @..api_idx_00b8_LTRM.l25 ; 0x18cc
-@..api_idx_00b8_LTRM.l22:
+    jmp short api_idx_00b8_LTRM.forward20 ; 0x18cc
+api_idx_00b8_LTRM.back5:
     mov ax, word [bp - 2]            ; 0x18ce
     shl ax, 1                        ; 0x18d1
     mov bx, ax                       ; 0x18d3
     add bx, bp                       ; 0x18d5
     cmp word [bx - 0x18], byte 0     ; 0x18d7
-    jne short @..api_idx_00b8_LTRM.l24 ; 0x18db
+    jne short api_idx_00b8_LTRM.forward19 ; 0x18db
     mov ax, 0x64                     ; 0x18dd
     push ax                          ; 0x18e0
     call random_below                ; 0x18e1
@@ -476,11 +476,11 @@ jumptable_1fa3_case_6:
     mov cx, ax                       ; 0x18f4
     pop ax                           ; 0x18f6
     cmp ax, cx                       ; 0x18f7
-    jg short @..api_idx_00b8_LTRM.l23 ; 0x18f9
+    jg short api_idx_00b8_LTRM.forward18 ; 0x18f9
     mov ax, word [bp - 2]            ; 0x18fb
     cmp ax, word [bp - 0xc]          ; 0x18fe
-    jne short @..api_idx_00b8_LTRM.l24 ; 0x1901
-@..api_idx_00b8_LTRM.l23:
+    jne short api_idx_00b8_LTRM.forward19 ; 0x1901
+api_idx_00b8_LTRM.forward18:
     mov ax, 4                        ; 0x1903
     push ax                          ; 0x1906
     mov ax, word [bp + 8]            ; 0x1907
@@ -493,7 +493,7 @@ jumptable_1fa3_case_6:
     call api_idx_003e_JGVR           ; 0x1915
     add sp, byte 6                   ; 0x1918
     test ax, ax                      ; 0x191b
-    je short @..api_idx_00b8_LTRM.l24 ; 0x191d
+    je short api_idx_00b8_LTRM.forward19 ; 0x191d
     mov ax, 0x32                     ; 0x191f
     push ax                          ; 0x1922
     mov ax, 0xa                      ; 0x1923
@@ -508,13 +508,13 @@ jumptable_1fa3_case_6:
     push word [bp - 2]               ; 0x1934
     call api_idx_0056_VTNO           ; 0x1937
     add sp, byte 0xe                 ; 0x193a
-@..api_idx_00b8_LTRM.l24:
+api_idx_00b8_LTRM.forward19:
     inc word [bp - 2]                ; 0x193d
-@..api_idx_00b8_LTRM.l25:
+api_idx_00b8_LTRM.forward20:
     mov ax, word [bp - 8]            ; 0x1940
     add ax, word [bp - 0xa]          ; 0x1943
     cmp ax, word [bp - 2]            ; 0x1946
-    jg short @..api_idx_00b8_LTRM.l22 ; 0x1949
+    jg short api_idx_00b8_LTRM.back5 ; 0x1949
     jmp near jumptable_1fa3_case_0   ; 0x194b
 jumptable_1fa3_case_7:
     mov ax, 0xe                      ; 0x194e
@@ -537,14 +537,14 @@ jumptable_1fa3_case_7:
     add sp, byte 0xa                 ; 0x1973
     mov ax, word [bp - 8]            ; 0x1976
     mov word [bp - 2], ax            ; 0x1979
-    jmp short @..api_idx_00b8_LTRM.l29 ; 0x197c
-@..api_idx_00b8_LTRM.l26:
+    jmp short api_idx_00b8_LTRM.forward23 ; 0x197c
+api_idx_00b8_LTRM.back6:
     mov ax, word [bp - 2]            ; 0x197e
     shl ax, 1                        ; 0x1981
     mov bx, ax                       ; 0x1983
     add bx, bp                       ; 0x1985
     cmp word [bx - 0x18], byte 0     ; 0x1987
-    jne short @..api_idx_00b8_LTRM.l28 ; 0x198b
+    jne short api_idx_00b8_LTRM.forward22 ; 0x198b
     mov ax, 0x64                     ; 0x198d
     push ax                          ; 0x1990
     call random_below                ; 0x1991
@@ -558,11 +558,11 @@ jumptable_1fa3_case_7:
     mov cx, ax                       ; 0x19a4
     pop ax                           ; 0x19a6
     cmp ax, cx                       ; 0x19a7
-    jg short @..api_idx_00b8_LTRM.l27 ; 0x19a9
+    jg short api_idx_00b8_LTRM.forward21 ; 0x19a9
     mov ax, word [bp - 2]            ; 0x19ab
     cmp ax, word [bp - 0xc]          ; 0x19ae
-    jne short @..api_idx_00b8_LTRM.l28 ; 0x19b1
-@..api_idx_00b8_LTRM.l27:
+    jne short api_idx_00b8_LTRM.forward22 ; 0x19b1
+api_idx_00b8_LTRM.forward21:
     mov ax, 7                        ; 0x19b3
     push ax                          ; 0x19b6
     mov ax, word [bp + 8]            ; 0x19b7
@@ -575,7 +575,7 @@ jumptable_1fa3_case_7:
     call api_idx_003e_JGVR           ; 0x19c5
     add sp, byte 6                   ; 0x19c8
     test ax, ax                      ; 0x19cb
-    je short @..api_idx_00b8_LTRM.l28 ; 0x19cd
+    je short api_idx_00b8_LTRM.forward22 ; 0x19cd
     mov ax, 0x32                     ; 0x19cf
     push ax                          ; 0x19d2
     mov ax, 0xa                      ; 0x19d3
@@ -590,13 +590,13 @@ jumptable_1fa3_case_7:
     push word [bp - 2]               ; 0x19e4
     call api_idx_0056_VTNO           ; 0x19e7
     add sp, byte 0xe                 ; 0x19ea
-@..api_idx_00b8_LTRM.l28:
+api_idx_00b8_LTRM.forward22:
     inc word [bp - 2]                ; 0x19ed
-@..api_idx_00b8_LTRM.l29:
+api_idx_00b8_LTRM.forward23:
     mov ax, word [bp - 8]            ; 0x19f0
     add ax, word [bp - 0xa]          ; 0x19f3
     cmp ax, word [bp - 2]            ; 0x19f6
-    jg short @..api_idx_00b8_LTRM.l26 ; 0x19f9
+    jg short api_idx_00b8_LTRM.back6 ; 0x19f9
     jmp near jumptable_1fa3_case_0   ; 0x19fb
 jumptable_1fa3_case_8:
     mov ax, 0xc                      ; 0x19fe
@@ -619,16 +619,16 @@ jumptable_1fa3_case_8:
     add sp, byte 0xa                 ; 0x1a23
     mov ax, word [bp - 8]            ; 0x1a26
     mov word [bp - 2], ax            ; 0x1a29
-    jmp near @..api_idx_00b8_LTRM.l35 ; 0x1a2c
-@..api_idx_00b8_LTRM.l30:
+    jmp near api_idx_00b8_LTRM.forward28 ; 0x1a2c
+api_idx_00b8_LTRM.back7:
     mov ax, word [bp - 2]            ; 0x1a2f
     shl ax, 1                        ; 0x1a32
     mov bx, ax                       ; 0x1a34
     add bx, bp                       ; 0x1a36
     cmp word [bx - 0x18], byte 0     ; 0x1a38
-    je short @..api_idx_00b8_LTRM.l31 ; 0x1a3c
-    jmp near @..api_idx_00b8_LTRM.l34 ; 0x1a3e
-@..api_idx_00b8_LTRM.l31:
+    je short api_idx_00b8_LTRM.forward24 ; 0x1a3c
+    jmp near api_idx_00b8_LTRM.forward27 ; 0x1a3e
+api_idx_00b8_LTRM.forward24:
     mov ax, 0x64                     ; 0x1a41
     push ax                          ; 0x1a44
     call random_below                ; 0x1a45
@@ -642,17 +642,17 @@ jumptable_1fa3_case_8:
     mov cx, ax                       ; 0x1a58
     pop ax                           ; 0x1a5a
     cmp ax, cx                       ; 0x1a5b
-    jg short @..api_idx_00b8_LTRM.l32 ; 0x1a5d
+    jg short api_idx_00b8_LTRM.forward25 ; 0x1a5d
     mov ax, word [bp - 2]            ; 0x1a5f
     cmp ax, word [bp - 0xc]          ; 0x1a62
-    je short @..api_idx_00b8_LTRM.l32 ; 0x1a65
-    jmp near @..api_idx_00b8_LTRM.l34 ; 0x1a67
-@..api_idx_00b8_LTRM.l32:
+    je short api_idx_00b8_LTRM.forward25 ; 0x1a65
+    jmp near api_idx_00b8_LTRM.forward27 ; 0x1a67
+api_idx_00b8_LTRM.forward25:
     mov ax, 6                        ; 0x1a6a
     push ax                          ; 0x1a6d
     call random_below                ; 0x1a6e
     pop cx                           ; 0x1a71
-    jmp near @..api_idx_00b8_LTRM.l33 ; 0x1a72
+    jmp near api_idx_00b8_LTRM.forward26 ; 0x1a72
 jumptable_1b19_case_0:
     mov ax, 0x18                     ; 0x1a75
     push ax                          ; 0x1a78
@@ -662,7 +662,7 @@ jumptable_1b19_case_0:
     push word [bp - 2]               ; 0x1a7e
     call api_idx_003e_JGVR           ; 0x1a81
     add sp, byte 6                   ; 0x1a84
-    jmp near @..api_idx_00b8_LTRM.l34 ; 0x1a87
+    jmp near api_idx_00b8_LTRM.forward27 ; 0x1a87
 jumptable_1b19_case_1:
     mov ax, 0x32                     ; 0x1a8a
     push ax                          ; 0x1a8d
@@ -678,7 +678,7 @@ jumptable_1b19_case_1:
     push word [bp - 2]               ; 0x1a9f
     call api_idx_0056_VTNO           ; 0x1aa2
     add sp, byte 0xe                 ; 0x1aa5
-    jmp near @..api_idx_00b8_LTRM.l34 ; 0x1aa8
+    jmp near api_idx_00b8_LTRM.forward27 ; 0x1aa8
 jumptable_1b19_case_2:
     mov ax, 0x32                     ; 0x1aab
     push ax                          ; 0x1aae
@@ -694,7 +694,7 @@ jumptable_1b19_case_2:
     push word [bp - 2]               ; 0x1ac0
     call api_idx_0056_VTNO           ; 0x1ac3
     add sp, byte 0xe                 ; 0x1ac6
-    jmp short @..api_idx_00b8_LTRM.l34 ; 0x1ac9
+    jmp short api_idx_00b8_LTRM.forward27 ; 0x1ac9
 jumptable_1b19_case_3:
     mov ax, 0x32                     ; 0x1acb
     push ax                          ; 0x1ace
@@ -710,7 +710,7 @@ jumptable_1b19_case_3:
     push word [bp - 2]               ; 0x1ae0
     call api_idx_0056_VTNO           ; 0x1ae3
     add sp, byte 0xe                 ; 0x1ae6
-    jmp short @..api_idx_00b8_LTRM.l34 ; 0x1ae9
+    jmp short api_idx_00b8_LTRM.forward27 ; 0x1ae9
 jumptable_1b19_case_4:
     mov ax, 3                        ; 0x1aeb
     push ax                          ; 0x1aee
@@ -721,7 +721,7 @@ jumptable_1b19_case_4:
     push word [bp - 2]               ; 0x1af7
     call api_idx_005a_SIOK           ; 0x1afa
     add sp, byte 8                   ; 0x1afd
-    jmp short @..api_idx_00b8_LTRM.l34 ; 0x1b00
+    jmp short api_idx_00b8_LTRM.forward27 ; 0x1b00
 jumptable_1b19_case_5:
     mov ax, 2                        ; 0x1b02
     push ax                          ; 0x1b05
@@ -732,7 +732,7 @@ jumptable_1b19_case_5:
     push word [bp - 2]               ; 0x1b0e
     call api_idx_005a_SIOK           ; 0x1b11
     add sp, byte 8                   ; 0x1b14
-    jmp short @..api_idx_00b8_LTRM.l34 ; 0x1b17
+    jmp short api_idx_00b8_LTRM.forward27 ; 0x1b17
 jumptable_1b19:
     dw jumptable_1b19_case_0 - IMAGE_BASE + __zres_end ; 0x1b19
     dw jumptable_1b19_case_1 - IMAGE_BASE + __zres_end ; 0x1b1b
@@ -740,21 +740,21 @@ jumptable_1b19:
     dw jumptable_1b19_case_3 - IMAGE_BASE + __zres_end ; 0x1b1f
     dw jumptable_1b19_case_4 - IMAGE_BASE + __zres_end ; 0x1b21
     dw jumptable_1b19_case_5 - IMAGE_BASE + __zres_end ; 0x1b23
-@..api_idx_00b8_LTRM.l33:
+api_idx_00b8_LTRM.forward26:
     cmp ax, strict word 6            ; 0x1b25
-    jae short @..api_idx_00b8_LTRM.l34 ; 0x1b28
+    jae short api_idx_00b8_LTRM.forward27 ; 0x1b28
     xchg bx, ax                      ; 0x1b2a
     shl bx, 1                        ; 0x1b2b
     jmp [cs:bx + jumptable_1b19 - IMAGE_BASE + __zres_end] ; 0x1b2d
-@..api_idx_00b8_LTRM.l34:
+api_idx_00b8_LTRM.forward27:
     inc word [bp - 2]                ; 0x1b32
-@..api_idx_00b8_LTRM.l35:
+api_idx_00b8_LTRM.forward28:
     mov ax, word [bp - 8]            ; 0x1b35
     add ax, word [bp - 0xa]          ; 0x1b38
     cmp ax, word [bp - 2]            ; 0x1b3b
-    jle short @..api_idx_00b8_LTRM.l36 ; 0x1b3e
-    jmp near @..api_idx_00b8_LTRM.l30 ; 0x1b40
-@..api_idx_00b8_LTRM.l36:
+    jle short api_idx_00b8_LTRM.forward29 ; 0x1b3e
+    jmp near api_idx_00b8_LTRM.back7 ; 0x1b40
+api_idx_00b8_LTRM.forward29:
     jmp near jumptable_1fa3_case_0   ; 0x1b43
 jumptable_1fa3_case_9:
     mov ax, 8                        ; 0x1b46
@@ -777,14 +777,14 @@ jumptable_1fa3_case_9:
     add sp, byte 0xa                 ; 0x1b6b
     mov ax, word [bp - 8]            ; 0x1b6e
     mov word [bp - 2], ax            ; 0x1b71
-    jmp short @..api_idx_00b8_LTRM.l40 ; 0x1b74
-@..api_idx_00b8_LTRM.l37:
+    jmp short api_idx_00b8_LTRM.forward32 ; 0x1b74
+api_idx_00b8_LTRM.back8:
     mov ax, word [bp - 2]            ; 0x1b76
     shl ax, 1                        ; 0x1b79
     mov bx, ax                       ; 0x1b7b
     add bx, bp                       ; 0x1b7d
     cmp word [bx - 0x18], byte 0     ; 0x1b7f
-    jne short @..api_idx_00b8_LTRM.l39 ; 0x1b83
+    jne short api_idx_00b8_LTRM.forward31 ; 0x1b83
     mov ax, 0x64                     ; 0x1b85
     push ax                          ; 0x1b88
     call random_below                ; 0x1b89
@@ -798,11 +798,11 @@ jumptable_1fa3_case_9:
     mov cx, ax                       ; 0x1b9c
     pop ax                           ; 0x1b9e
     cmp ax, cx                       ; 0x1b9f
-    jg short @..api_idx_00b8_LTRM.l38 ; 0x1ba1
+    jg short api_idx_00b8_LTRM.forward30 ; 0x1ba1
     mov ax, word [bp - 2]            ; 0x1ba3
     cmp ax, word [bp - 0xc]          ; 0x1ba6
-    jne short @..api_idx_00b8_LTRM.l39 ; 0x1ba9
-@..api_idx_00b8_LTRM.l38:
+    jne short api_idx_00b8_LTRM.forward31 ; 0x1ba9
+api_idx_00b8_LTRM.forward30:
     mov ax, 0xa                      ; 0x1bab
     push ax                          ; 0x1bae
     mov ax, word [bp + 8]            ; 0x1baf
@@ -814,13 +814,13 @@ jumptable_1fa3_case_9:
     push word [bp - 2]               ; 0x1bba
     call api_idx_003e_JGVR           ; 0x1bbd
     add sp, byte 6                   ; 0x1bc0
-@..api_idx_00b8_LTRM.l39:
+api_idx_00b8_LTRM.forward31:
     inc word [bp - 2]                ; 0x1bc3
-@..api_idx_00b8_LTRM.l40:
+api_idx_00b8_LTRM.forward32:
     mov ax, word [bp - 8]            ; 0x1bc6
     add ax, word [bp - 0xa]          ; 0x1bc9
     cmp ax, word [bp - 2]            ; 0x1bcc
-    jg short @..api_idx_00b8_LTRM.l37 ; 0x1bcf
+    jg short api_idx_00b8_LTRM.back8 ; 0x1bcf
     jmp near jumptable_1fa3_case_0   ; 0x1bd1
 jumptable_1fa3_case_10:
     mov ax, 0xe                      ; 0x1bd4
@@ -834,7 +834,7 @@ jumptable_1fa3_case_10:
     pop cx                           ; 0x1be8
     mov word [bp - 2], ax            ; 0x1be9
     cmp ax, strict word 0xffff       ; 0x1bec
-    je short @..api_idx_00b8_LTRM.l41 ; 0x1bef
+    je short api_idx_00b8_LTRM.forward33 ; 0x1bef
     mov ax, 2                        ; 0x1bf1
     push ax                          ; 0x1bf4
     mov ax, 0                        ; 0x1bf5
@@ -844,7 +844,7 @@ jumptable_1fa3_case_10:
     push word [bp - 2]               ; 0x1bfd
     call api_idx_005a_SIOK           ; 0x1c00
     add sp, byte 8                   ; 0x1c03
-@..api_idx_00b8_LTRM.l41:
+api_idx_00b8_LTRM.forward33:
     jmp near jumptable_1fa3_case_0   ; 0x1c06
 jumptable_1fa3_case_11:
     mov ax, 0xc                      ; 0x1c09
@@ -867,14 +867,14 @@ jumptable_1fa3_case_11:
     add sp, byte 0xa                 ; 0x1c2e
     mov ax, word [bp - 8]            ; 0x1c31
     mov word [bp - 2], ax            ; 0x1c34
-    jmp short @..api_idx_00b8_LTRM.l45 ; 0x1c37
-@..api_idx_00b8_LTRM.l42:
+    jmp short api_idx_00b8_LTRM.forward36 ; 0x1c37
+api_idx_00b8_LTRM.back9:
     mov ax, word [bp - 2]            ; 0x1c39
     shl ax, 1                        ; 0x1c3c
     mov bx, ax                       ; 0x1c3e
     add bx, bp                       ; 0x1c40
     cmp word [bx - 0x18], byte 0     ; 0x1c42
-    jne short @..api_idx_00b8_LTRM.l44 ; 0x1c46
+    jne short api_idx_00b8_LTRM.forward35 ; 0x1c46
     mov ax, 0x32                     ; 0x1c48
     push ax                          ; 0x1c4b
     mov ax, 0xa                      ; 0x1c4c
@@ -885,22 +885,22 @@ jumptable_1fa3_case_11:
     mov ax, 4                        ; 0x1c55
     mov cx, word [bp - 2]            ; 0x1c58
     cmp cx, word [bp - 0xc]          ; 0x1c5b
-    jne short @..api_idx_00b8_LTRM.l43 ; 0x1c5e
+    jne short api_idx_00b8_LTRM.forward34 ; 0x1c5e
     mov ax, 0                        ; 0x1c60
-@..api_idx_00b8_LTRM.l43:
+api_idx_00b8_LTRM.forward34:
     push ax                          ; 0x1c63
     mov ax, MSG_PARALYZED_5253       ; 0x1c64
     push ax                          ; 0x1c67
     push cx                          ; 0x1c68
     call api_idx_0056_VTNO           ; 0x1c69
     add sp, byte 0xe                 ; 0x1c6c
-@..api_idx_00b8_LTRM.l44:
+api_idx_00b8_LTRM.forward35:
     inc word [bp - 2]                ; 0x1c6f
-@..api_idx_00b8_LTRM.l45:
+api_idx_00b8_LTRM.forward36:
     mov ax, word [bp - 8]            ; 0x1c72
     add ax, word [bp - 0xa]          ; 0x1c75
     cmp ax, word [bp - 2]            ; 0x1c78
-    jg short @..api_idx_00b8_LTRM.l42 ; 0x1c7b
+    jg short api_idx_00b8_LTRM.back9 ; 0x1c7b
     jmp near jumptable_1fa3_case_0   ; 0x1c7d
 jumptable_1fa3_case_12:
     mov ax, 0x16                     ; 0x1c80
@@ -923,16 +923,16 @@ jumptable_1fa3_case_12:
     add sp, byte 0xa                 ; 0x1ca5
     mov ax, word [bp - 8]            ; 0x1ca8
     mov word [bp - 2], ax            ; 0x1cab
-    jmp near @..api_idx_00b8_LTRM.l52 ; 0x1cae
-@..api_idx_00b8_LTRM.l46:
+    jmp near api_idx_00b8_LTRM.forward41 ; 0x1cae
+api_idx_00b8_LTRM.back10:
     mov ax, word [bp - 2]            ; 0x1cb1
     shl ax, 1                        ; 0x1cb4
     mov bx, ax                       ; 0x1cb6
     add bx, bp                       ; 0x1cb8
     cmp word [bx - 0x18], byte 0     ; 0x1cba
-    je short @..api_idx_00b8_LTRM.l47 ; 0x1cbe
-    jmp near @..api_idx_00b8_LTRM.l51 ; 0x1cc0
-@..api_idx_00b8_LTRM.l47:
+    je short api_idx_00b8_LTRM.forward37 ; 0x1cbe
+    jmp near api_idx_00b8_LTRM.forward40 ; 0x1cc0
+api_idx_00b8_LTRM.forward37:
     mov ax, 0x64                     ; 0x1cc3
     push ax                          ; 0x1cc6
     call random_below                ; 0x1cc7
@@ -946,14 +946,14 @@ jumptable_1fa3_case_12:
     mov cx, ax                       ; 0x1cda
     pop ax                           ; 0x1cdc
     cmp ax, cx                       ; 0x1cdd
-    jg short @..api_idx_00b8_LTRM.l48 ; 0x1cdf
+    jg short api_idx_00b8_LTRM.forward38 ; 0x1cdf
     mov ax, word [bp - 2]            ; 0x1ce1
     cmp ax, word [bp - 0xc]          ; 0x1ce4
-    je short @..api_idx_00b8_LTRM.l48 ; 0x1ce7
-    jmp near @..api_idx_00b8_LTRM.l51 ; 0x1ce9
-@..api_idx_00b8_LTRM.l48:
+    je short api_idx_00b8_LTRM.forward38 ; 0x1ce7
+    jmp near api_idx_00b8_LTRM.forward40 ; 0x1ce9
+api_idx_00b8_LTRM.forward38:
     mov word [bp - 4], 0             ; 0x1cec
-@..api_idx_00b8_LTRM.l49:
+api_idx_00b8_LTRM.back11:
     mov ax, 0x248                    ; 0x1cf1
     imul word [bp - 2]               ; 0x1cf4
     mov cx, word [bp - 4]            ; 0x1cf7
@@ -1010,9 +1010,9 @@ jumptable_1fa3_case_12:
     inc word [bp - 4]                ; 0x1d6c
     mov ax, word [bp - 4]            ; 0x1d6f
     cmp ax, strict word 6            ; 0x1d72
-    jge short @..api_idx_00b8_LTRM.l50 ; 0x1d75
-    jmp near @..api_idx_00b8_LTRM.l49 ; 0x1d77
-@..api_idx_00b8_LTRM.l50:
+    jge short api_idx_00b8_LTRM.forward39 ; 0x1d75
+    jmp near api_idx_00b8_LTRM.back11 ; 0x1d77
+api_idx_00b8_LTRM.forward39:
     lea ax, word [bp - 0x68]         ; 0x1d7a
     push ax                          ; 0x1d7d
     mov ax, MSG_LOST                 ; 0x1d7e
@@ -1049,15 +1049,15 @@ jumptable_1fa3_case_12:
     push word [message_delay]        ; 0x1dc7
     call api_idx_0004_UQUT           ; 0x1dcb
     pop cx                           ; 0x1dce
-@..api_idx_00b8_LTRM.l51:
+api_idx_00b8_LTRM.forward40:
     inc word [bp - 2]                ; 0x1dcf
-@..api_idx_00b8_LTRM.l52:
+api_idx_00b8_LTRM.forward41:
     mov ax, word [bp - 8]            ; 0x1dd2
     add ax, word [bp - 0xa]          ; 0x1dd5
     cmp ax, word [bp - 2]            ; 0x1dd8
-    jle short @..api_idx_00b8_LTRM.l53 ; 0x1ddb
-    jmp near @..api_idx_00b8_LTRM.l46 ; 0x1ddd
-@..api_idx_00b8_LTRM.l53:
+    jle short api_idx_00b8_LTRM.forward42 ; 0x1ddb
+    jmp near api_idx_00b8_LTRM.back10 ; 0x1ddd
+api_idx_00b8_LTRM.forward42:
     jmp near jumptable_1fa3_case_0   ; 0x1de0
 jumptable_1fa3_case_13:
     mov ax, 0xffff                   ; 0x1de3
@@ -1082,9 +1082,9 @@ jumptable_1fa3_case_15:
     pop cx                           ; 0x1e0c
     mov word [bp - 2], ax            ; 0x1e0d
     cmp ax, strict word 0xffff       ; 0x1e10
-    jne short @..api_idx_00b8_LTRM.l54 ; 0x1e13
-    jmp near @..api_idx_00b8_LTRM.l56 ; 0x1e15
-@..api_idx_00b8_LTRM.l54:
+    jne short api_idx_00b8_LTRM.forward43 ; 0x1e13
+    jmp near api_idx_00b8_LTRM.forward45 ; 0x1e15
+api_idx_00b8_LTRM.forward43:
     mov ax, 0xc                      ; 0x1e18
     push ax                          ; 0x1e1b
     push word [bp - 2]               ; 0x1e1c
@@ -1117,9 +1117,9 @@ jumptable_1fa3_case_15:
     pop ax                           ; 0x1e5e
     mov word [bx + party_records + pc_rec.pair_a + 0x2], ax ; 0x1e5f
     cmp ax, word [bx + party_records + pc_rec.pair_a] ; 0x1e63
-    jge short @..api_idx_00b8_LTRM.l55 ; 0x1e67
+    jge short api_idx_00b8_LTRM.forward44 ; 0x1e67
     mov word [bx + party_records + pc_rec.pair_a], ax ; 0x1e69
-@..api_idx_00b8_LTRM.l55:
+api_idx_00b8_LTRM.forward44:
     lea ax, word [bp - 0x68]         ; 0x1e6d
     push ax                          ; 0x1e70
     mov ax, MSG_LOST                 ; 0x1e71
@@ -1166,9 +1166,9 @@ jumptable_1fa3_case_15:
     mov cx, ax                       ; 0x1ed1
     pop ax                           ; 0x1ed3
     cmp ax, cx                       ; 0x1ed4
-    jle short @..api_idx_00b8_LTRM.l56 ; 0x1ed6
+    jle short api_idx_00b8_LTRM.forward45 ; 0x1ed6
     cmp byte [bx + party_records + pc_rec.stat + 0x3], 3 ; 0x1ed8
-    jbe short @..api_idx_00b8_LTRM.l56 ; 0x1edd
+    jbe short api_idx_00b8_LTRM.forward45 ; 0x1edd
     dec byte [bx + party_records + pc_rec.stat + 0x3] ; 0x1edf
     lea ax, word [bp - 0x68]         ; 0x1ee3
     push ax                          ; 0x1ee6
@@ -1201,7 +1201,7 @@ jumptable_1fa3_case_15:
     push word [message_delay]        ; 0x1f23
     call api_idx_0004_UQUT           ; 0x1f27
     pop cx                           ; 0x1f2a
-@..api_idx_00b8_LTRM.l56:
+api_idx_00b8_LTRM.forward45:
     jmp near jumptable_1fa3_case_0   ; 0x1f2b
 jumptable_1fa3_case_16:
     mov ax, 0xf                      ; 0x1f2e
@@ -1232,14 +1232,14 @@ jumptable_1fa3_case_17:
     add sp, byte 0xa                 ; 0x1f64
     mov ax, word [bp - 8]            ; 0x1f67
     mov word [bp - 2], ax            ; 0x1f6a
-    jmp short @..api_idx_00b8_LTRM.l59 ; 0x1f6d
-@..api_idx_00b8_LTRM.l57:
+    jmp short api_idx_00b8_LTRM.forward47 ; 0x1f6d
+api_idx_00b8_LTRM.back12:
     mov ax, word [bp - 2]            ; 0x1f6f
     shl ax, 1                        ; 0x1f72
     mov bx, ax                       ; 0x1f74
     add bx, bp                       ; 0x1f76
     cmp word [bx - 0x18], byte 0     ; 0x1f78
-    jne short @..api_idx_00b8_LTRM.l58 ; 0x1f7c
+    jne short api_idx_00b8_LTRM.forward46 ; 0x1f7c
     mov ax, 3                        ; 0x1f7e
     push ax                          ; 0x1f81
     mov ax, 0xb                      ; 0x1f82
@@ -1249,13 +1249,13 @@ jumptable_1fa3_case_17:
     push word [bp - 2]               ; 0x1f8a
     call api_idx_005a_SIOK           ; 0x1f8d
     add sp, byte 8                   ; 0x1f90
-@..api_idx_00b8_LTRM.l58:
+api_idx_00b8_LTRM.forward46:
     inc word [bp - 2]                ; 0x1f93
-@..api_idx_00b8_LTRM.l59:
+api_idx_00b8_LTRM.forward47:
     mov ax, word [bp - 8]            ; 0x1f96
     add ax, word [bp - 0xa]          ; 0x1f99
     cmp ax, word [bp - 2]            ; 0x1f9c
-    jg short @..api_idx_00b8_LTRM.l57 ; 0x1f9f
+    jg short api_idx_00b8_LTRM.back12 ; 0x1f9f
     jmp short jumptable_1fa3_case_0  ; 0x1fa1
 jumptable_1fa3:
     dw jumptable_1fa3_case_0 - IMAGE_BASE + __zres_end ; 0x1fa3
@@ -1276,7 +1276,7 @@ jumptable_1fa3:
     dw jumptable_1fa3_case_15 - IMAGE_BASE + __zres_end ; 0x1fc1
     dw jumptable_1fa3_case_16 - IMAGE_BASE + __zres_end ; 0x1fc3
     dw jumptable_1fa3_case_17 - IMAGE_BASE + __zres_end ; 0x1fc5
-@..api_idx_00b8_LTRM.l60:
+api_idx_00b8_LTRM.forward48:
     cmp ax, strict word 0x12         ; 0x1fc7
     jae short jumptable_1fa3_case_0  ; 0x1fca
     xchg bx, ax                      ; 0x1fcc

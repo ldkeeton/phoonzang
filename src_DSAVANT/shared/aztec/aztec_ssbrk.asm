@@ -6,29 +6,29 @@ aztec_sbrk:
     mov ax, word [bp + 4]
     mov di, word [aztec_MEMRY]
     test ax, ax
-    jge short @..aztec_ssbrk.addok
+    jge short aztec_ssbrk.addok
     sub di, ax
-    jb short @..aztec_ssbrk.invalid
-    jmp short @..aztec_ssbrk.dobrk
-@..aztec_ssbrk.addok:
+    jb short aztec_ssbrk.invalid
+    jmp short aztec_ssbrk.dobrk
+aztec_ssbrk.addok:
     add ax, di
-    jb short @..aztec_ssbrk.invalid
-@..aztec_ssbrk.dobrk:
+    jb short aztec_ssbrk.invalid
+aztec_ssbrk.dobrk:
     push ax
     call aztec_brk
     pop cx
     test ax, ax
-    jne short @..aztec_ssbrk.brk_error
+    jne short aztec_ssbrk.brk_error
     mov ax, di
-@..aztec_ssbrk.brk_error:
+aztec_ssbrk.brk_error:
     pop di
     test ax, ax
     pop bp
     ret
-@..aztec_ssbrk.invalid:
+aztec_ssbrk.invalid:
     mov word [errno], 0xfff8
     mov ax, 0xffff
-    jmp short @..aztec_ssbrk.brk_error
+    jmp short aztec_ssbrk.brk_error
 aztec_brk:
     push bp
     mov bp, sp
@@ -36,28 +36,28 @@ aztec_brk:
     inc ax
     and al, 0xfe
     cmp ax, word [_mbot]
-    jb short @..aztec_ssbrk.brk_ov
+    jb short aztec_ssbrk.brk_ov
     cmp word [_STKLOW], byte 0
-    jne short @..aztec_ssbrk.abovestk
+    jne short aztec_ssbrk.abovestk
     mov bx, sp
     sub bx, word [_STKRED]
     cmp ax, bx
-    jae short @..aztec_ssbrk.brk_ov
+    jae short aztec_ssbrk.brk_ov
     mov word [aztec_MEMRY], ax
     add ax, word [_STKRED]
     mov word [_sbot], ax
-@..aztec_ssbrk.brk_ok2:
+aztec_ssbrk.brk_ok2:
     sub ax, ax
     pop bp
     ret
-@..aztec_ssbrk.abovestk:
+aztec_ssbrk.abovestk:
     cmp ax, word [_mtop]
-    ja short @..aztec_ssbrk.getstore
+    ja short aztec_ssbrk.getstore
     cmp ax, word [aztec_MEMRY]
-    jb short @..aztec_ssbrk.getstore
+    jb short aztec_ssbrk.getstore
     mov word [aztec_MEMRY], ax
-    jmp short @..aztec_ssbrk.brk_ok2
-@..aztec_ssbrk.getstore:
+    jmp short aztec_ssbrk.brk_ok2
+aztec_ssbrk.getstore:
     push ax
     mov bx, ax
     mov cx, 4
@@ -76,17 +76,17 @@ aztec_brk:
     pop es
     pop bx
     pop ax
-    jb short @..aztec_ssbrk.brk_ov
+    jb short aztec_ssbrk.brk_ov
     mov word [aztec_MEMRY], ax
     test bx, 0xe000
-    jne short @..aztec_ssbrk.brk_ov
+    jne short aztec_ssbrk.brk_ov
     mov cx, 4
     shl bx, cl
     mov word [_mtop], bx
     sub ax, ax
     pop bp
     ret
-@..aztec_ssbrk.brk_ov:
+aztec_ssbrk.brk_ov:
     mov word [errno], 0xfff8
     mov ax, 0xffff
     test ax, ax

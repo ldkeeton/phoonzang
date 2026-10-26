@@ -10,10 +10,10 @@ api_idx_0006_UHJH:
     add ax, word [bp + 0xa]          ; 0x149c
     mov word [bp - 4], ax            ; 0x149f
     cmp ax, word [party_char_count]  ; 0x14a2
-    jle short @..api_idx_0006_UHJH.l1 ; 0x14a6
+    jle short .forward1              ; 0x14a6
     mov ax, word [party_char_count]  ; 0x14a8
     mov word [bp - 4], ax            ; 0x14ab
-@..api_idx_0006_UHJH.l1:
+.forward1:
     mov ax, word [party_char_count]  ; 0x14ae
     sub ax, word [bp - 4]            ; 0x14b1
     inc ax                           ; 0x14b4

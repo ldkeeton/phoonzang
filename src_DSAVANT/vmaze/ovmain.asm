@@ -20,40 +20,40 @@ ovmain:
     mov word [bss_919a], ax          ; 0x0055
     call api_idx_0002_LMTG           ; 0x0058
     cmp word [saved_screen_pending], byte 0 ; 0x005b
-    je short @..ovmain.l1            ; 0x0060
+    je short .forward1               ; 0x0060
     mov ax, 1                        ; 0x0062
     push ax                          ; 0x0065
     push word [saved_screen_slot]    ; 0x0066
     call restore_saved_screen        ; 0x006a
     add sp, byte 4                   ; 0x006d
     mov word [saved_screen_pending], 0 ; 0x0070
-@..ovmain.l1:
+.forward1:
     cmp word [game_state], byte 6    ; 0x0076
-    jne short @..ovmain.l2           ; 0x007b
+    jne short .forward2              ; 0x007b
     push word [game_state_arg]       ; 0x007d
     call enter_level                 ; 0x0081
     pop cx                           ; 0x0084
-@..ovmain.l2:
+.forward2:
     cmp word [game_state], byte 5    ; 0x0085
-    jne short @..ovmain.l3           ; 0x008a
+    jne short .forward3              ; 0x008a
     call api_idx_0002_TOSL           ; 0x008c
     call api_idx_0022_MNNV           ; 0x008f
-@..ovmain.l3:
+.forward3:
     call loc_OGHL                    ; 0x0092
     call api_idx_0002_LMTG           ; 0x0095
     mov ax, word [game_state]        ; 0x0098
     cmp ax, strict word 0x1e         ; 0x009b
-    je short @..ovmain.l4            ; 0x009e
+    je short .forward4               ; 0x009e
     cmp ax, strict word 0x1b         ; 0x00a0
-    je short @..ovmain.l4            ; 0x00a3
+    je short .forward4               ; 0x00a3
     cmp ax, strict word 0x18         ; 0x00a5
-    je short @..ovmain.l4            ; 0x00a8
+    je short .forward4               ; 0x00a8
     cmp ax, strict word 0x11         ; 0x00aa
-    je short @..ovmain.l4            ; 0x00ad
+    je short .forward4               ; 0x00ad
     cmp ax, strict word 0x13         ; 0x00af
-    je short @..ovmain.l4            ; 0x00b2
+    je short .forward4               ; 0x00b2
     cmp ax, strict word 0x14         ; 0x00b4
-    je short @..ovmain.l4            ; 0x00b7
+    je short .forward4               ; 0x00b7
     mov word [bss_8f22], 1           ; 0x00b9
     call api_idx_0030_JQMM           ; 0x00bf
     mov ax, dseg_9098                ; 0x00c2
@@ -79,6 +79,6 @@ ovmain:
     call api_idx_0030_JQMM           ; 0x00f3
     mov word [screen_cache_index], 1 ; 0x00f6
     mov word [bss_8f22], 0           ; 0x00fc
-@..ovmain.l4:
+.forward4:
     mov ax, 0                        ; 0x0102
     ret                              ; 0x0105

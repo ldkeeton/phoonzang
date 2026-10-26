@@ -9,29 +9,29 @@ api_idx_0002_RJQH:
     add sp, byte 4                   ; 0x0fa4
     mov bx, word [bp + 6]            ; 0x0fa7
     cmp byte [bx], 0                 ; 0x0faa
-    je short @..api_idx_0002_RJQH.l1 ; 0x0fad
+    je short .forward1               ; 0x0fad
     mov ax, 1                        ; 0x0faf
-    jmp short @..api_idx_0002_RJQH.l2 ; 0x0fb2
-@..api_idx_0002_RJQH.l1:
+    jmp short .forward2              ; 0x0fb2
+.forward1:
     mov ax, 0                        ; 0x0fb4
-@..api_idx_0002_RJQH.l2:
+.forward2:
     mov bx, word [bp + 8]            ; 0x0fb7
     cmp byte [bx], 0                 ; 0x0fba
-    je short @..api_idx_0002_RJQH.l3 ; 0x0fbd
+    je short .forward3               ; 0x0fbd
     mov cx, 1                        ; 0x0fbf
-    jmp short @..api_idx_0002_RJQH.l4 ; 0x0fc2
-@..api_idx_0002_RJQH.l3:
+    jmp short .forward4              ; 0x0fc2
+.forward3:
     mov cx, 0                        ; 0x0fc4
-@..api_idx_0002_RJQH.l4:
+.forward4:
     add ax, cx                       ; 0x0fc7
     mov bx, word [bp + 0xa]          ; 0x0fc9
     cmp byte [bx], 0                 ; 0x0fcc
-    je short @..api_idx_0002_RJQH.l5 ; 0x0fcf
+    je short .forward5               ; 0x0fcf
     mov cx, 1                        ; 0x0fd1
-    jmp short @..api_idx_0002_RJQH.l6 ; 0x0fd4
-@..api_idx_0002_RJQH.l5:
+    jmp short .forward6              ; 0x0fd4
+.forward5:
     mov cx, 0                        ; 0x0fd6
-@..api_idx_0002_RJQH.l6:
+.forward6:
     add ax, cx                       ; 0x0fd9
     mov word [bp - 2], ax            ; 0x0fdb
     mov ax, 0xa3                     ; 0x0fde
@@ -96,7 +96,7 @@ api_idx_0002_RJQH:
     add sp, byte 4                   ; 0x105f
     mov bx, word [bp + 6]            ; 0x1062
     cmp byte [bx], 0                 ; 0x1065
-    je short @..api_idx_0002_RJQH.l7 ; 0x1068
+    je short .forward7               ; 0x1068
     mov ax, 0                        ; 0x106a
     push ax                          ; 0x106d
     push word [bp + 0xe]             ; 0x106e
@@ -113,10 +113,10 @@ api_idx_0002_RJQH:
     push ax                          ; 0x108b
     call draw_font_glyph             ; 0x108c
     add sp, byte 4                   ; 0x108f
-@..api_idx_0002_RJQH.l7:
+.forward7:
     mov bx, word [bp + 8]            ; 0x1092
     cmp byte [bx], 0                 ; 0x1095
-    je short @..api_idx_0002_RJQH.l8 ; 0x1098
+    je short .forward8               ; 0x1098
     mov ax, 0                        ; 0x109a
     push ax                          ; 0x109d
     push word [bp + 0x10]            ; 0x109e
@@ -133,10 +133,10 @@ api_idx_0002_RJQH:
     push ax                          ; 0x10bb
     call draw_font_glyph             ; 0x10bc
     add sp, byte 4                   ; 0x10bf
-@..api_idx_0002_RJQH.l8:
+.forward8:
     mov bx, word [bp + 0xa]          ; 0x10c2
     cmp byte [bx], 0                 ; 0x10c5
-    je short @..api_idx_0002_RJQH.l9 ; 0x10c8
+    je short .forward9               ; 0x10c8
     mov ax, 0                        ; 0x10ca
     push ax                          ; 0x10cd
     push word [bp + 0x12]            ; 0x10ce
@@ -147,7 +147,7 @@ api_idx_0002_RJQH:
     push word [bp + 0xa]             ; 0x10db
     call draw_text_glyphs            ; 0x10de
     add sp, byte 4                   ; 0x10e1
-@..api_idx_0002_RJQH.l9:
+.forward9:
     mov ax, 0xa9                     ; 0x10e4
     push ax                          ; 0x10e7
     mov ax, 0x127                    ; 0x10e8

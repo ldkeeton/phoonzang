@@ -14,12 +14,12 @@ load_maze_file:
     add sp, byte 4
     mov word [bp - 2], ax
     cmp ax, strict word 0xffff
-    jne short @..load_maze_file.l1
+    jne short .forward1
     mov ax, 0x1b
     push ax
     call release_and_exit
     pop cx
-@..load_maze_file.l1:
+.forward1:
     mov ax, 0
     push ax
     push word [bp + 6]

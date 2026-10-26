@@ -7,27 +7,27 @@ api_idx_0048_OSRI:
     call api_idx_0002_TJNR           ; 0x9035
     add sp, byte 4                   ; 0x9038
     test ax, ax                      ; 0x903b
-    je short @..api_idx_0048_OSRI.l1 ; 0x903d
+    je short .forward1               ; 0x903d
     mov ax, 1                        ; 0x903f
     ret                              ; 0x9042
-@..api_idx_0048_OSRI.l1:
+.forward1:
     cmp word [bp + 8], byte 0        ; 0x9043
-    jne short @..api_idx_0048_OSRI.l2 ; 0x9047
+    jne short .forward2              ; 0x9047
     mov ax, 0                        ; 0x9049
     ret                              ; 0x904c
-@..api_idx_0048_OSRI.l2:
+.forward2:
     mov ax, 1                        ; 0x904d
     mov cx, word [bp + 0xa]          ; 0x9050
     cmp cx, word [bss_9c00]          ; 0x9053
-    jge short @..api_idx_0048_OSRI.l3 ; 0x9057
+    jge short .forward3              ; 0x9057
     mov ax, 2                        ; 0x9059
-@..api_idx_0048_OSRI.l3:
+.forward3:
     mov word [bp - 8], ax            ; 0x905c
     mov word [bp - 4], 0             ; 0x905f
-    jmp near @..api_idx_0048_OSRI.l20 ; 0x9064
-@..api_idx_0048_OSRI.l4:
+    jmp near .forward18              ; 0x9064
+.back1:
     mov word [bp - 2], 0             ; 0x9067
-@..api_idx_0048_OSRI.l5:
+.back2:
     mov ax, word [bp - 2]            ; 0x906c
     shl ax, 1                        ; 0x906f
     shl ax, 1                        ; 0x9071
@@ -35,30 +35,30 @@ api_idx_0048_OSRI:
     mov al, byte [bx + bss_8a6e]     ; 0x9075
     sub ah, ah                       ; 0x9079
     cmp ax, word [bp + 4]            ; 0x907b
-    je short @..api_idx_0048_OSRI.l6 ; 0x907e
-    jmp near @..api_idx_0048_OSRI.l12 ; 0x9080
-@..api_idx_0048_OSRI.l6:
+    je short .forward4               ; 0x907e
+    jmp near .forward10              ; 0x9080
+.forward4:
     cmp byte [bx + bss_8a6e + rec_8a6e.f_0002], 0xff ; 0x9083
-    je short @..api_idx_0048_OSRI.l7 ; 0x9088
+    je short .forward5               ; 0x9088
     mov al, byte [bx + bss_8a6e + rec_8a6e.f_0002] ; 0x908a
     cbw                              ; 0x908e
     shl ax, 1                        ; 0x908f
     mov bx, ax                       ; 0x9091
     cmp word [bx + bss_9bd2], byte 0 ; 0x9093
-    jne short @..api_idx_0048_OSRI.l7 ; 0x9098
-    jmp near @..api_idx_0048_OSRI.l12 ; 0x909a
-@..api_idx_0048_OSRI.l7:
+    jne short .forward5              ; 0x9098
+    jmp near .forward10              ; 0x909a
+.forward5:
     mov ax, word [bp - 2]            ; 0x909d
     shl ax, 1                        ; 0x90a0
     mov bx, ax                       ; 0x90a2
     cmp word [bx + bss_9c02], byte 0 ; 0x90a4
-    je short @..api_idx_0048_OSRI.l8 ; 0x90a9
-    jmp near @..api_idx_0048_OSRI.l11 ; 0x90ab
-@..api_idx_0048_OSRI.l8:
+    je short .forward6               ; 0x90a9
+    jmp near .forward9               ; 0x90ab
+.forward6:
     cmp word [bp - 4], byte 0        ; 0x90ae
-    je short @..api_idx_0048_OSRI.l9 ; 0x90b2
+    je short .forward7               ; 0x90b2
     mov word [bx + bss_9c02], 1      ; 0x90b4
-@..api_idx_0048_OSRI.l9:
+.forward7:
     mov ax, word [bss_9be6]          ; 0x90ba
     mov word [bp - 6], ax            ; 0x90bd
     mov ax, 0x40                     ; 0x90c0
@@ -84,7 +84,7 @@ api_idx_0048_OSRI:
     call api_idx_0048_OSRI           ; 0x90ed
     add sp, byte 8                   ; 0x90f0
     test ax, ax                      ; 0x90f3
-    je short @..api_idx_0048_OSRI.l10 ; 0x90f5
+    je short .forward8               ; 0x90f5
     mov ax, word [bp - 2]            ; 0x90f7
     shl ax, 1                        ; 0x90fa
     shl ax, 1                        ; 0x90fc
@@ -97,7 +97,7 @@ api_idx_0048_OSRI:
     add sp, byte 4                   ; 0x910d
     mov ax, 1                        ; 0x9110
     ret                              ; 0x9113
-@..api_idx_0048_OSRI.l10:
+.forward8:
     mov ax, word [bp - 6]            ; 0x9114
     mov word [bss_9be6], ax          ; 0x9117
     mov ax, 0x40                     ; 0x911a
@@ -108,9 +108,9 @@ api_idx_0048_OSRI:
     push ax                          ; 0x9125
     call aztec_movmem                ; 0x9126
     add sp, byte 6                   ; 0x9129
-@..api_idx_0048_OSRI.l11:
-    jmp near @..api_idx_0048_OSRI.l18 ; 0x912c
-@..api_idx_0048_OSRI.l12:
+.forward9:
+    jmp near .forward16              ; 0x912c
+.forward10:
     mov ax, word [bp - 2]            ; 0x912f
     shl ax, 1                        ; 0x9132
     shl ax, 1                        ; 0x9134
@@ -118,30 +118,30 @@ api_idx_0048_OSRI:
     mov al, byte [bx + bss_8a6e + rec_8a6e.f_0001] ; 0x9138
     sub ah, ah                       ; 0x913c
     cmp ax, word [bp + 4]            ; 0x913e
-    je short @..api_idx_0048_OSRI.l13 ; 0x9141
-    jmp near @..api_idx_0048_OSRI.l18 ; 0x9143
-@..api_idx_0048_OSRI.l13:
+    je short .forward11              ; 0x9141
+    jmp near .forward16              ; 0x9143
+.forward11:
     cmp byte [bx + bss_8a6e + rec_8a6e.f_0002], 0xff ; 0x9146
-    je short @..api_idx_0048_OSRI.l14 ; 0x914b
+    je short .forward12              ; 0x914b
     mov al, byte [bx + bss_8a6e + rec_8a6e.f_0002] ; 0x914d
     cbw                              ; 0x9151
     shl ax, 1                        ; 0x9152
     mov bx, ax                       ; 0x9154
     cmp word [bx + bss_9bd2], byte 0 ; 0x9156
-    jne short @..api_idx_0048_OSRI.l14 ; 0x915b
-    jmp near @..api_idx_0048_OSRI.l18 ; 0x915d
-@..api_idx_0048_OSRI.l14:
+    jne short .forward12             ; 0x915b
+    jmp near .forward16              ; 0x915d
+.forward12:
     mov ax, word [bp - 2]            ; 0x9160
     shl ax, 1                        ; 0x9163
     mov bx, ax                       ; 0x9165
     cmp word [bx + bss_9c02], byte 0 ; 0x9167
-    je short @..api_idx_0048_OSRI.l15 ; 0x916c
-    jmp near @..api_idx_0048_OSRI.l18 ; 0x916e
-@..api_idx_0048_OSRI.l15:
+    je short .forward13              ; 0x916c
+    jmp near .forward16              ; 0x916e
+.forward13:
     cmp word [bp - 4], byte 0        ; 0x9171
-    je short @..api_idx_0048_OSRI.l16 ; 0x9175
+    je short .forward14              ; 0x9175
     mov word [bx + bss_9c02], 1      ; 0x9177
-@..api_idx_0048_OSRI.l16:
+.forward14:
     mov ax, word [bss_9be6]          ; 0x917d
     mov word [bp - 6], ax            ; 0x9180
     mov ax, 0x40                     ; 0x9183
@@ -167,7 +167,7 @@ api_idx_0048_OSRI:
     call api_idx_0048_OSRI           ; 0x91b0
     add sp, byte 8                   ; 0x91b3
     test ax, ax                      ; 0x91b6
-    je short @..api_idx_0048_OSRI.l17 ; 0x91b8
+    je short .forward15              ; 0x91b8
     mov ax, word [bp - 2]            ; 0x91ba
     shl ax, 1                        ; 0x91bd
     shl ax, 1                        ; 0x91bf
@@ -180,7 +180,7 @@ api_idx_0048_OSRI:
     add sp, byte 4                   ; 0x91d0
     mov ax, 1                        ; 0x91d3
     ret                              ; 0x91d6
-@..api_idx_0048_OSRI.l17:
+.forward15:
     mov ax, word [bp - 6]            ; 0x91d7
     mov word [bss_9be6], ax          ; 0x91da
     mov ax, 0x40                     ; 0x91dd
@@ -191,19 +191,19 @@ api_idx_0048_OSRI:
     push ax                          ; 0x91e8
     call aztec_movmem                ; 0x91e9
     add sp, byte 6                   ; 0x91ec
-@..api_idx_0048_OSRI.l18:
+.forward16:
     inc word [bp - 2]                ; 0x91ef
     mov ax, word [bp - 2]            ; 0x91f2
     cmp ax, strict word 0x20         ; 0x91f5
-    jge short @..api_idx_0048_OSRI.l19 ; 0x91f8
-    jmp near @..api_idx_0048_OSRI.l5 ; 0x91fa
-@..api_idx_0048_OSRI.l19:
+    jge short .forward17             ; 0x91f8
+    jmp near .back2                  ; 0x91fa
+.forward17:
     inc word [bp - 4]                ; 0x91fd
-@..api_idx_0048_OSRI.l20:
+.forward18:
     mov ax, word [bp - 4]            ; 0x9200
     cmp ax, word [bp - 8]            ; 0x9203
-    jge short @..api_idx_0048_OSRI.l21 ; 0x9206
-    jmp near @..api_idx_0048_OSRI.l4 ; 0x9208
-@..api_idx_0048_OSRI.l21:
+    jge short .forward19             ; 0x9206
+    jmp near .back1                  ; 0x9208
+.forward19:
     mov ax, 0                        ; 0x920b
     ret                              ; 0x920e

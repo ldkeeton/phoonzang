@@ -7,9 +7,9 @@ graphics_loc_OSKV:
     mov bx, 0xc8                     ; 0x1e3f
     sub bx, ax                       ; 0x1e42
     cmp bx, word [cs:cseg_1d5e - IMAGE_BASE] ; 0x1e44
-    jb short @..graphics_loc_OSKV.l1 ; 0x1e49
+    jb short .forward1               ; 0x1e49
     mov bx, word [cs:cseg_1d5e - IMAGE_BASE] ; 0x1e4b
-@..graphics_loc_OSKV.l1:
+.forward1:
     mov word [cs:cseg_14c0 - IMAGE_BASE], bx ; 0x1e50
     mov bx, 0x140                    ; 0x1e55
     mul bx                           ; 0x1e58
@@ -20,9 +20,9 @@ graphics_loc_OSKV:
     mov cx, 0x140                    ; 0x1e67
     sub cx, bx                       ; 0x1e6a
     cmp cx, word [cs:cseg_1d5c - IMAGE_BASE] ; 0x1e6c
-    jb short @..graphics_loc_OSKV.l2 ; 0x1e71
+    jb short .forward2               ; 0x1e71
     mov cx, word [cs:cseg_1d5c - IMAGE_BASE] ; 0x1e73
-@..graphics_loc_OSKV.l2:
+.forward2:
     mov word [cs:cseg_14be - IMAGE_BASE], cx ; 0x1e78
     mov di, word [cs:cseg_14b6 - IMAGE_BASE] ; 0x1e7d
     mov ax, cs                       ; 0x1e82
@@ -30,7 +30,7 @@ graphics_loc_OSKV:
     mov ax, 0xa000                   ; 0x1e86
     mov ds, ax                       ; 0x1e89
     mov cx, word [cs:cseg_14c0 - IMAGE_BASE] ; 0x1e8b
-@..graphics_loc_OSKV.l3:
+.back1:
     push cx                          ; 0x1e90
     push si                          ; 0x1e91
     mov cx, word [cs:cseg_14be - IMAGE_BASE] ; 0x1e92
@@ -38,12 +38,12 @@ graphics_loc_OSKV:
     pop si                           ; 0x1e99
     add si, strict word 0x140        ; 0x1e9a
     pop cx                           ; 0x1e9e
-    loop @..graphics_loc_OSKV.l3     ; 0x1e9f
+    loop .back1                      ; 0x1e9f
     mov ax, word [cs:mouse_drawn_y - IMAGE_BASE] ; 0x1ea1
     cmp ax, strict word 0xffff       ; 0x1ea5
-    jne short @..graphics_loc_OSKV.l4 ; 0x1ea8
-    jmp near @..graphics_loc_OSKV.l12 ; 0x1eaa
-@..graphics_loc_OSKV.l4:
+    jne short .forward3              ; 0x1ea8
+    jmp near .forward10              ; 0x1eaa
+.forward3:
     add ax, word [cs:cseg_14ba - IMAGE_BASE] ; 0x1ead
     dec ax                           ; 0x1eb2
     mov word [bp - 2], ax            ; 0x1eb3
@@ -54,35 +54,35 @@ graphics_loc_OSKV:
     mov cx, word [cs:cseg_14b0 - IMAGE_BASE] ; 0x1ec3
     mov dx, word [cs:cseg_14b2 - IMAGE_BASE] ; 0x1ec8
     cmp word [bp - 4], cx            ; 0x1ecd
-    jb short @..graphics_loc_OSKV.l5 ; 0x1ed0
+    jb short .forward4               ; 0x1ed0
     cmp word [bp - 2], dx            ; 0x1ed2
-    jb short @..graphics_loc_OSKV.l5 ; 0x1ed5
+    jb short .forward4               ; 0x1ed5
     add cx, word [cs:cseg_14be - IMAGE_BASE] ; 0x1ed7
     dec cx                           ; 0x1edc
     add dx, word [cs:cseg_14c0 - IMAGE_BASE] ; 0x1edd
     dec dx                           ; 0x1ee2
     cmp cx, word [cs:mouse_drawn_x - IMAGE_BASE] ; 0x1ee3
-    jb short @..graphics_loc_OSKV.l5 ; 0x1ee8
+    jb short .forward4               ; 0x1ee8
     cmp dx, word [cs:mouse_drawn_y - IMAGE_BASE] ; 0x1eea
-    jae short @..graphics_loc_OSKV.l6 ; 0x1eef
-@..graphics_loc_OSKV.l5:
+    jae short .forward5              ; 0x1eef
+.forward4:
     mov byte [cs:cseg_1d68 - IMAGE_BASE], 0 ; 0x1ef1
-    jmp near @..graphics_loc_OSKV.l12 ; 0x1ef7
-@..graphics_loc_OSKV.l6:
+    jmp near .forward10              ; 0x1ef7
+.forward5:
     mov byte [cs:cseg_1d68 - IMAGE_BASE], 1 ; 0x1efa
     mov cx, word [cs:cseg_14b0 - IMAGE_BASE] ; 0x1f00
     mov ax, cx                       ; 0x1f05
     cmp word [cs:mouse_drawn_x - IMAGE_BASE], cx ; 0x1f07
-    jb short @..graphics_loc_OSKV.l7 ; 0x1f0c
+    jb short .forward6               ; 0x1f0c
     mov ax, word [cs:mouse_drawn_x - IMAGE_BASE] ; 0x1f0e
-@..graphics_loc_OSKV.l7:
+.forward6:
     mov word [bp - 6], ax            ; 0x1f12
     mov dx, word [cs:cseg_14b2 - IMAGE_BASE] ; 0x1f15
     mov bx, dx                       ; 0x1f1a
     cmp word [cs:mouse_drawn_y - IMAGE_BASE], dx ; 0x1f1c
-    jb short @..graphics_loc_OSKV.l8 ; 0x1f21
+    jb short .forward7               ; 0x1f21
     mov bx, word [cs:mouse_drawn_y - IMAGE_BASE] ; 0x1f23
-@..graphics_loc_OSKV.l8:
+.forward7:
     mov word [bp - 8], bx            ; 0x1f28
     sub ax, cx                       ; 0x1f2b
     sub bx, dx                       ; 0x1f2d
@@ -98,22 +98,22 @@ graphics_loc_OSKV:
     add ax, word [bp - 0xe]          ; 0x1f4c
     dec ax                           ; 0x1f4f
     cmp ax, word [bp - 4]            ; 0x1f50
-    jb short @..graphics_loc_OSKV.l9 ; 0x1f53
+    jb short .forward8               ; 0x1f53
     mov ax, word [bp - 4]            ; 0x1f55
     sub ax, word [bp - 6]            ; 0x1f58
     inc ax                           ; 0x1f5b
     mov word [bp - 0xe], ax          ; 0x1f5c
-@..graphics_loc_OSKV.l9:
+.forward8:
     mov ax, word [bp - 8]            ; 0x1f5f
     add ax, word [bp - 0x10]         ; 0x1f62
     dec ax                           ; 0x1f65
     cmp ax, word [bp - 2]            ; 0x1f66
-    jb short @..graphics_loc_OSKV.l10 ; 0x1f69
+    jb short .forward9               ; 0x1f69
     mov ax, word [bp - 2]            ; 0x1f6b
     sub ax, word [bp - 8]            ; 0x1f6e
     inc ax                           ; 0x1f71
     mov word [bp - 0x10], ax         ; 0x1f72
-@..graphics_loc_OSKV.l10:
+.forward9:
     mov ax, word [bp - 8]            ; 0x1f75
     sub ax, word [cs:mouse_drawn_y - IMAGE_BASE] ; 0x1f78
     mov bx, word [cs:cseg_14b8 - IMAGE_BASE] ; 0x1f7d
@@ -132,7 +132,7 @@ graphics_loc_OSKV:
     mov ds, ax                       ; 0x1fa9
     mov es, ax                       ; 0x1fab
     mov cx, word [bp - 0x10]         ; 0x1fad
-@..graphics_loc_OSKV.l11:
+.back2:
     push cx                          ; 0x1fb0
     push si                          ; 0x1fb1
     push di                          ; 0x1fb2
@@ -143,8 +143,8 @@ graphics_loc_OSKV:
     pop si                           ; 0x1fbe
     add si, word [cs:cseg_14b8 - IMAGE_BASE] ; 0x1fbf
     pop cx                           ; 0x1fc4
-    loop @..graphics_loc_OSKV.l11    ; 0x1fc5
-@..graphics_loc_OSKV.l12:
+    loop .back2                      ; 0x1fc5
+.forward10:
     mov ax, 0xa000                   ; 0x1fc7
     mov es, ax                       ; 0x1fca
     mov di, word [cs:cseg_14c2 - IMAGE_BASE] ; 0x1fcc
@@ -154,59 +154,59 @@ graphics_loc_OSKV:
     mov cx, word [cs:cseg_14c0 - IMAGE_BASE] ; 0x1fdc
     mov ax, ds                       ; 0x1fe1
     or ax, si                        ; 0x1fe3
-    jne short @..graphics_loc_OSKV.l13 ; 0x1fe5
+    jne short .forward11             ; 0x1fe5
     mov si, 0x1e69                   ; 0x1fe7
     mov ax, cs                       ; 0x1fea
     mov ds, ax                       ; 0x1fec
-@..graphics_loc_OSKV.l13:
+.forward11:
     push di                          ; 0x1fee
     push si                          ; 0x1fef
-@..graphics_loc_OSKV.l14:
+.back3:
     push cx                          ; 0x1ff0
     push di                          ; 0x1ff1
     push si                          ; 0x1ff2
     mov cx, word [cs:cseg_14be - IMAGE_BASE] ; 0x1ff3
-@..graphics_loc_OSKV.l15:
+.back4:
     mov al, byte [si]                ; 0x1ff8
     cmp al, 0xff                     ; 0x1ffa
-    je short @..graphics_loc_OSKV.l16 ; 0x1ffc
+    je short .forward12              ; 0x1ffc
     mov byte [es:di], al             ; 0x1ffe
-@..graphics_loc_OSKV.l16:
+.forward12:
     inc si                           ; 0x2001
     inc di                           ; 0x2002
-    loop @..graphics_loc_OSKV.l15    ; 0x2003
+    loop .back4                      ; 0x2003
     pop si                           ; 0x2005
     add si, word [cs:cseg_1d5c - IMAGE_BASE] ; 0x2006
     pop di                           ; 0x200b
     add di, strict word 0x140        ; 0x200c
     pop cx                           ; 0x2010
-    loop @..graphics_loc_OSKV.l14    ; 0x2011
+    loop .back3                      ; 0x2011
     pop bx                           ; 0x2013
     pop di                           ; 0x2014
     mov ax, word [cs:mouse_drawn_y - IMAGE_BASE] ; 0x2015
     cmp ax, strict word 0xffff       ; 0x2019
-    jne short @..graphics_loc_OSKV.l17 ; 0x201c
-    jmp near @..graphics_loc_OSKV.l32 ; 0x201e
-@..graphics_loc_OSKV.l17:
+    jne short .forward13             ; 0x201c
+    jmp near .forward20              ; 0x201e
+.forward13:
     mov si, word [cs:cseg_14b6 - IMAGE_BASE] ; 0x2021
     mov cx, word [cs:cseg_14c0 - IMAGE_BASE] ; 0x2026
-@..graphics_loc_OSKV.l18:
+.back5:
     push cx                          ; 0x202b
     push di                          ; 0x202c
     push si                          ; 0x202d
     push bx                          ; 0x202e
     mov cx, word [cs:cseg_14be - IMAGE_BASE] ; 0x202f
-@..graphics_loc_OSKV.l19:
+.back6:
     mov al, byte [bx]                ; 0x2034
     inc bx                           ; 0x2036
     cmp al, 0xff                     ; 0x2037
-    jne short @..graphics_loc_OSKV.l20 ; 0x2039
+    jne short .forward14             ; 0x2039
     mov dl, byte [cs:si]             ; 0x203b
     mov byte [es:di], dl             ; 0x203e
-@..graphics_loc_OSKV.l20:
+.forward14:
     inc si                           ; 0x2041
     inc di                           ; 0x2042
-    loop @..graphics_loc_OSKV.l19    ; 0x2043
+    loop .back6                      ; 0x2043
     pop bx                           ; 0x2045
     add bx, word [cs:cseg_1d5c - IMAGE_BASE] ; 0x2046
     pop si                           ; 0x204b
@@ -214,7 +214,7 @@ graphics_loc_OSKV:
     pop di                           ; 0x2051
     add di, strict word 0x140        ; 0x2052
     pop cx                           ; 0x2056
-    loop @..graphics_loc_OSKV.l18    ; 0x2057
+    loop .back5                      ; 0x2057
     mov ax, cs                       ; 0x2059
     mov es, ax                       ; 0x205b
     mov ds, ax                       ; 0x205d
@@ -228,7 +228,7 @@ graphics_loc_OSKV:
     shr ax, cl                       ; 0x2072
     mov word [bp - 2], ax            ; 0x2074
     cmp byte [cs:cseg_1d68 - IMAGE_BASE], 0 ; 0x2077
-    je short @..graphics_loc_OSKV.l27 ; 0x207d
+    je short .forward18              ; 0x207d
     mov ax, word [bp - 8]            ; 0x207f
     sub ax, word [cs:mouse_drawn_y - IMAGE_BASE] ; 0x2082
     mov bx, word [bp - 2]            ; 0x2087
@@ -238,29 +238,29 @@ graphics_loc_OSKV:
     mov ax, word [bp - 6]            ; 0x2092
     sub ax, word [cs:mouse_drawn_x - IMAGE_BASE] ; 0x2095
     mov bx, data_1e4c                ; 0x209a
-@..graphics_loc_OSKV.l21:
+.back7:
     cmp ax, strict word 8            ; 0x209d
-    jb short @..graphics_loc_OSKV.l22 ; 0x20a0
+    jb short .forward15              ; 0x20a0
     sub ax, strict word 8            ; 0x20a2
     inc di                           ; 0x20a5
-    jmp short @..graphics_loc_OSKV.l21 ; 0x20a6
-@..graphics_loc_OSKV.l22:
+    jmp short .back7                 ; 0x20a6
+.forward15:
     mov cx, ax                       ; 0x20a8
     mov ah, 0xff                     ; 0x20aa
     shr ah, cl                       ; 0x20ac
     mov dx, word [bp - 0xe]          ; 0x20ae
     add dx, cx                       ; 0x20b1
-@..graphics_loc_OSKV.l23:
+.back8:
     cmp dx, byte 8                   ; 0x20b3
-    jb short @..graphics_loc_OSKV.l24 ; 0x20b6
+    jb short .forward16              ; 0x20b6
     not ah                           ; 0x20b8
     mov byte [bx], ah                ; 0x20ba
     inc bx                           ; 0x20bc
     mov ah, 0xff                     ; 0x20bd
     sub dx, byte 8                   ; 0x20bf
-    je short @..graphics_loc_OSKV.l25 ; 0x20c2
-    jmp short @..graphics_loc_OSKV.l23 ; 0x20c4
-@..graphics_loc_OSKV.l24:
+    je short .forward17              ; 0x20c2
+    jmp short .back8                 ; 0x20c4
+.forward16:
     mov al, 0xff                     ; 0x20c6
     mov cx, 8                        ; 0x20c8
     sub cx, dx                       ; 0x20cb
@@ -269,11 +269,11 @@ graphics_loc_OSKV:
     not ah                           ; 0x20d1
     mov byte [bx], ah                ; 0x20d3
     inc bx                           ; 0x20d5
-@..graphics_loc_OSKV.l25:
+.forward17:
     sub bx, data_1e4c                ; 0x20d6
     mov word [bp - 4], bx            ; 0x20da
     mov cx, word [bp - 0x10]         ; 0x20dd
-@..graphics_loc_OSKV.l26:
+.back9:
     push cx                          ; 0x20e0
     push di                          ; 0x20e1
     mov si, data_1e4c                ; 0x20e2
@@ -282,35 +282,35 @@ graphics_loc_OSKV:
     pop di                           ; 0x20ea
     add di, word [bp - 2]            ; 0x20eb
     pop cx                           ; 0x20ee
-    loop @..graphics_loc_OSKV.l26    ; 0x20ef
-@..graphics_loc_OSKV.l27:
+    loop .back9                      ; 0x20ef
+.forward18:
     mov bx, data_1dc4                ; 0x20f1
     mov si, word [cs:cseg_14b4 - IMAGE_BASE] ; 0x20f4
     mov di, word [cs:cseg_14bc - IMAGE_BASE] ; 0x20f9
     mov ax, 0xa000                   ; 0x20fe
     mov es, ax                       ; 0x2101
     mov cx, word [cs:cseg_14ba - IMAGE_BASE] ; 0x2103
-@..graphics_loc_OSKV.l28:
+.back10:
     push cx                          ; 0x2108
     push si                          ; 0x2109
     push bx                          ; 0x210a
     push di                          ; 0x210b
     mov cx, word [cs:cseg_14b8 - IMAGE_BASE] ; 0x210c
-@..graphics_loc_OSKV.l29:
+.back11:
     mov ah, byte [bx]                ; 0x2111
     inc bx                           ; 0x2113
     mov al, 9                        ; 0x2114
-@..graphics_loc_OSKV.l30:
+.back12:
     dec al                           ; 0x2116
-    je short @..graphics_loc_OSKV.l29 ; 0x2118
+    je short .back11                 ; 0x2118
     shl ah, 1                        ; 0x211a
-    jae short @..graphics_loc_OSKV.l31 ; 0x211c
+    jae short .forward19             ; 0x211c
     mov dl, byte [si]                ; 0x211e
     mov byte [es:di], dl             ; 0x2120
-@..graphics_loc_OSKV.l31:
+.forward19:
     inc di                           ; 0x2123
     inc si                           ; 0x2124
-    loop @..graphics_loc_OSKV.l30    ; 0x2125
+    loop .back12                     ; 0x2125
     pop di                           ; 0x2127
     add di, strict word 0x140        ; 0x2128
     pop bx                           ; 0x212c
@@ -318,8 +318,8 @@ graphics_loc_OSKV:
     pop si                           ; 0x2130
     add si, word [cs:cseg_14b8 - IMAGE_BASE] ; 0x2131
     pop cx                           ; 0x2136
-    loop @..graphics_loc_OSKV.l28    ; 0x2137
-@..graphics_loc_OSKV.l32:
+    loop .back10                     ; 0x2137
+.forward20:
     mov ax, word [cs:cseg_14b4 - IMAGE_BASE] ; 0x2139
     mov bx, word [cs:cseg_14b6 - IMAGE_BASE] ; 0x213d
     mov word [cs:cseg_14b6 - IMAGE_BASE], ax ; 0x2142

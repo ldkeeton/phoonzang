@@ -22,23 +22,23 @@ check_cell_objects:
     mov word [bp - 0xa], 0           ; 0x8c79
     mov ax, word [bp - 6]            ; 0x8c7e
     cmp ax, strict word 5            ; 0x8c81
-    je short @..check_cell_objects.l1 ; 0x8c84
+    je short .forward1               ; 0x8c84
     cmp ax, strict word 0xa          ; 0x8c86
-    je short @..check_cell_objects.l1 ; 0x8c89
+    je short .forward1               ; 0x8c89
     cmp ax, strict word 0xb          ; 0x8c8b
-    jne short @..check_cell_objects.l3 ; 0x8c8e
-@..check_cell_objects.l1:
+    jne short .forward3              ; 0x8c8e
+.forward1:
     mov ax, word [bp - 8]            ; 0x8c90
     cmp ax, word [party_tag]         ; 0x8c93
-    jne short @..check_cell_objects.l3 ; 0x8c97
+    jne short .forward3              ; 0x8c97
     cmp word [bp + 4], byte 0        ; 0x8c99
-    je short @..check_cell_objects.l2 ; 0x8c9d
+    je short .forward2               ; 0x8c9d
     mov word [bp - 0xa], 2           ; 0x8c9f
-@..check_cell_objects.l2:
-    jmp short @..check_cell_objects.l4 ; 0x8ca4
-@..check_cell_objects.l3:
+.forward2:
+    jmp short .forward4              ; 0x8ca4
+.forward3:
     cmp word [bp + 4], byte 0        ; 0x8ca6
-    je short @..check_cell_objects.l4 ; 0x8caa
+    je short .forward4               ; 0x8caa
     mov word [bp - 0xa], 1           ; 0x8cac
     mov ax, MSG_SEARCHING            ; 0x8cb1
     push ax                          ; 0x8cb4
@@ -47,7 +47,7 @@ check_cell_objects:
     push word [message_delay]        ; 0x8cb9
     call wait_ticks_or_key           ; 0x8cbd
     pop cx                           ; 0x8cc0
-@..check_cell_objects.l4:
+.forward4:
     mov ax, 0x98                     ; 0x8cc1
     push ax                          ; 0x8cc4
     mov ax, 0x13f                    ; 0x8cc5
@@ -63,7 +63,7 @@ check_cell_objects:
     mov al, byte [bx + si + spell_table + spell_table_rec_size*218 + spell_table_rec.f_0004] ; 0x8cdf
     sub ah, ah                       ; 0x8ce3
     mov word [bp - 4], ax            ; 0x8ce5
-@..check_cell_objects.l5:
+.back1:
     push word [bp - 4]               ; 0x8ce8
     push word [party_map_piece]      ; 0x8ceb
     push word [party_cell_y]         ; 0x8cef
@@ -72,13 +72,13 @@ check_cell_objects:
     add sp, byte 8                   ; 0x8cfa
     mov word [bp - 4], ax            ; 0x8cfd
     cmp ax, strict word 0xffff       ; 0x8d00
-    jne short @..check_cell_objects.l6 ; 0x8d03
-    jmp near @..check_cell_objects.l10 ; 0x8d05
-@..check_cell_objects.l6:
+    jne short .forward5              ; 0x8d03
+    jmp near .forward9               ; 0x8d05
+.forward5:
     mov bx, word [maze_tables]       ; 0x8d08
     mov si, ax                       ; 0x8d0c
     cmp byte [bx + si + 0x5a0], 7    ; 0x8d0e
-    jne short @..check_cell_objects.l7 ; 0x8d13
+    jne short .forward6              ; 0x8d13
     mov ax, 2                        ; 0x8d15
     push ax                          ; 0x8d18
     mov ax, word [party_tag]         ; 0x8d19
@@ -90,41 +90,41 @@ check_cell_objects:
     call get_bits                    ; 0x8d28
     add sp, byte 6                   ; 0x8d2b
     cmp ax, strict word 2            ; 0x8d2e
-    jne short @..check_cell_objects.l7 ; 0x8d31
+    jne short .forward6              ; 0x8d31
     push word [bp - 4]               ; 0x8d33
     call claim_cell                  ; 0x8d36
     pop cx                           ; 0x8d39
     ret                              ; 0x8d3a
-@..check_cell_objects.l7:
+.forward6:
     mov bx, word [maze_tables]       ; 0x8d3b
     mov si, word [bp - 4]            ; 0x8d3f
     cmp byte [bx + si + 0x5a0], 8    ; 0x8d42
-    jne short @..check_cell_objects.l8 ; 0x8d47
+    jne short .forward7              ; 0x8d47
     push si                          ; 0x8d49
     call check_type8_object          ; 0x8d4a
     pop cx                           ; 0x8d4d
     cmp ax, strict word 1            ; 0x8d4e
-    jne short @..check_cell_objects.l8 ; 0x8d51
+    jne short .forward7              ; 0x8d51
     ret                              ; 0x8d53
-@..check_cell_objects.l8:
+.forward7:
     mov bx, word [maze_tables]       ; 0x8d54
     mov si, word [bp - 4]            ; 0x8d58
     cmp byte [bx + si + 0x5a0], 0x19 ; 0x8d5b
-    jne short @..check_cell_objects.l9 ; 0x8d60
+    jne short .forward8              ; 0x8d60
     mov al, byte [bx + si + spell_table + spell_table_rec_size*178 + spell_table_rec.f_0004] ; 0x8d62
     sub ah, ah                       ; 0x8d66
     mov word [found_object_owner], ax ; 0x8d68
     cmp ax, word [party_tag]         ; 0x8d6b
-    jne short @..check_cell_objects.l9 ; 0x8d6f
+    jne short .forward8              ; 0x8d6f
     mov word [game_state], 0x1b      ; 0x8d71
     mov word [party_region], si      ; 0x8d77
     ret                              ; 0x8d7b
-@..check_cell_objects.l9:
+.forward8:
     inc word [bp - 4]                ; 0x8d7c
-    jmp near @..check_cell_objects.l5 ; 0x8d7f
-@..check_cell_objects.l10:
+    jmp near .back1                  ; 0x8d7f
+.forward9:
     cmp word [bp - 0xa], byte 2      ; 0x8d82
-    jne short @..check_cell_objects.l11 ; 0x8d86
+    jne short .forward10             ; 0x8d86
     mov ax, MSG_SEARCHING            ; 0x8d88
     push ax                          ; 0x8d8b
     call show_message                ; 0x8d8c
@@ -142,9 +142,9 @@ check_cell_objects:
     push ax                          ; 0x8da7
     call gfx_show_area               ; 0x8da8
     add sp, byte 8                   ; 0x8dab
-@..check_cell_objects.l11:
+.forward10:
     cmp word [bp - 0xa], byte 0      ; 0x8dae
-    je short @..check_cell_objects.l12 ; 0x8db2
+    je short .forward11              ; 0x8db2
     mov ax, MSG_NOTHING_2045         ; 0x8db4
     push ax                          ; 0x8db7
     call show_message                ; 0x8db8
@@ -160,7 +160,7 @@ check_cell_objects:
     push ax                          ; 0x8dcd
     call wait_ticks_or_key           ; 0x8dce
     pop cx                           ; 0x8dd1
-@..check_cell_objects.l12:
+.forward11:
     mov ax, 0x98                     ; 0x8dd2
     push ax                          ; 0x8dd5
     mov ax, 0x13f                    ; 0x8dd6

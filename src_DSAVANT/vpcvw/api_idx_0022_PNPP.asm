@@ -6,15 +6,15 @@ api_idx_0022_PNPP:
     mov ax, word [disk_header]       ; 0x949c
     mov word [bp - 0xe], ax          ; 0x949f
     cmp byte [install_mode], 5       ; 0x94a2
-    jne short @..api_idx_0022_PNPP.l1 ; 0x94a7
+    jne short .forward1              ; 0x94a7
     cmp ax, strict word 0            ; 0x94a9
-    jle short @..api_idx_0022_PNPP.l1 ; 0x94ac
+    jle short .forward1              ; 0x94ac
     inc ax                           ; 0x94ae
     inc ax                           ; 0x94af
-    jmp short @..api_idx_0022_PNPP.l2 ; 0x94b0
-@..api_idx_0022_PNPP.l1:
+    jmp short .forward2              ; 0x94b0
+.forward1:
     mov ax, word [bp - 0xe]          ; 0x94b2
-@..api_idx_0022_PNPP.l2:
+.forward2:
     mov word [bp - 0xe], ax          ; 0x94b5
     mov ax, 0x3a                     ; 0x94b8
     push ax                          ; 0x94bb
@@ -25,7 +25,7 @@ api_idx_0022_PNPP:
     call copy_through_char           ; 0x94c4
     add sp, byte 6                   ; 0x94c7
     cmp word [bp - 0xe], byte 0      ; 0x94ca
-    je short @..api_idx_0022_PNPP.l3 ; 0x94ce
+    je short .forward3               ; 0x94ce
     mov word [bp - 0xc], 1           ; 0x94d0
     mov ax, 1                        ; 0x94d5
     push ax                          ; 0x94d8
@@ -36,7 +36,7 @@ api_idx_0022_PNPP:
     push ax                          ; 0x94e1
     call prompt_disk_swap            ; 0x94e2
     add sp, byte 8                   ; 0x94e5
-@..api_idx_0022_PNPP.l3:
+.forward3:
     mov ax, 0                        ; 0x94e8
     push ax                          ; 0x94eb
     push ax                          ; 0x94ec
@@ -108,7 +108,7 @@ api_idx_0022_PNPP:
     mov word [bp - 4], dx            ; 0x9580
     mov word [bp - 6], ax            ; 0x9583
     call flush_keyboard              ; 0x9586
-@..api_idx_0022_PNPP.l4:
+.back1:
     mov ax, 0                        ; 0x9589
     push ax                          ; 0x958c
     push word [bp - 8]               ; 0x958d
@@ -144,7 +144,7 @@ api_idx_0022_PNPP:
     push ax                          ; 0x95d9
     call gfx_show_area               ; 0x95da
     add sp, byte 8                   ; 0x95dd
-@..api_idx_0022_PNPP.l5:
+.back2:
     mov ax, hotspot_rects            ; 0x95e0
     push ax                          ; 0x95e3
     call poll_hotspots               ; 0x95e4
@@ -152,10 +152,10 @@ api_idx_0022_PNPP:
     dec ax                           ; 0x95e8
     mov word [bp - 2], ax            ; 0x95e9
     cmp word [hotspot_hit], byte 0   ; 0x95ec
-    je short @..api_idx_0022_PNPP.l5 ; 0x95f1
+    je short .back2                  ; 0x95f1
     mov ax, word [bp - 2]            ; 0x95f3
-    jmp short @..api_idx_0022_PNPP.l8 ; 0x95f6
-@..api_idx_0022_PNPP.l6:
+    jmp short .forward4              ; 0x95f6
+.back3:
     mov ax, 0x248                    ; 0x95f8
     imul word [bp + 4]               ; 0x95fb
     mov bx, ax                       ; 0x95fe
@@ -167,8 +167,8 @@ api_idx_0022_PNPP:
     idiv cx                          ; 0x960d
     mov ax, dx                       ; 0x960f
     mov byte [bx + party_records + pc_rec.kind], al ; 0x9611
-    jmp short @..api_idx_0022_PNPP.l9 ; 0x9615
-@..api_idx_0022_PNPP.l7:
+    jmp short .forward5              ; 0x9615
+.back4:
     mov ax, 0x248                    ; 0x9617
     imul word [bp + 4]               ; 0x961a
     mov bx, ax                       ; 0x961d
@@ -180,17 +180,17 @@ api_idx_0022_PNPP:
     idiv cx                          ; 0x962a
     mov ax, dx                       ; 0x962c
     mov byte [bx + party_records + pc_rec.kind], al ; 0x962e
-    jmp short @..api_idx_0022_PNPP.l9 ; 0x9632
-@..api_idx_0022_PNPP.l8:
+    jmp short .forward5              ; 0x9632
+.forward4:
     cmp ax, strict word 0            ; 0x9634
-    je short @..api_idx_0022_PNPP.l6 ; 0x9637
+    je short .back3                  ; 0x9637
     cmp ax, strict word 1            ; 0x9639
-    je short @..api_idx_0022_PNPP.l7 ; 0x963c
-@..api_idx_0022_PNPP.l9:
+    je short .back4                  ; 0x963c
+.forward5:
     cmp word [bp - 2], byte 2        ; 0x963e
-    je short @..api_idx_0022_PNPP.l10 ; 0x9642
-    jmp near @..api_idx_0022_PNPP.l4 ; 0x9644
-@..api_idx_0022_PNPP.l10:
+    je short .forward6               ; 0x9642
+    jmp near .back1                  ; 0x9644
+.forward6:
     mov ax, 1                        ; 0x9647
     push ax                          ; 0x964a
     push ax                          ; 0x964b
@@ -243,7 +243,7 @@ api_idx_0022_PNPP:
     call gfx_show_area               ; 0x96b6
     add sp, byte 8                   ; 0x96b9
     cmp word [bp - 0xc], byte 1      ; 0x96bc
-    jne short @..api_idx_0022_PNPP.l11 ; 0x96c0
+    jne short .return1               ; 0x96c0
     mov ax, 1                        ; 0x96c2
     push ax                          ; 0x96c5
     push ax                          ; 0x96c6
@@ -252,5 +252,5 @@ api_idx_0022_PNPP:
     push ax                          ; 0x96cd
     call prompt_disk_swap            ; 0x96ce
     add sp, byte 8                   ; 0x96d1
-@..api_idx_0022_PNPP.l11:
+.return1:
     ret                              ; 0x96d4

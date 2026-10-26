@@ -3,7 +3,7 @@ loc_VRKM:
     mov ax, 0                        ; 0x0344
     call aztec_csav                  ; 0x0347
     mov ax, word [maze_variant]      ; 0x034a
-    jmp near @..loc_VRKM.l1          ; 0x034d
+    jmp near .forward1               ; 0x034d
 jumptable_03ce_case_1:
     mov ax, 0x1a                     ; 0x0350
     push ax                          ; 0x0353
@@ -75,7 +75,7 @@ jumptable_03ce:
     dw jumptable_03ce_case_2 - IMAGE_BASE + __zres_end ; 0x03d6
     dw jumptable_03ce_case_5 - IMAGE_BASE + __zres_end ; 0x03d8
     dw jumptable_03ce_case_6 - IMAGE_BASE + __zres_end ; 0x03da
-@..loc_VRKM.l1:
+loc_VRKM.forward1:
     cmp ax, strict word 7            ; 0x03dc
     jae short jumptable_03ce_case_0  ; 0x03df
     xchg bx, ax                      ; 0x03e1

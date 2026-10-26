@@ -37,7 +37,7 @@ opl_silent_note_pulse:
     mov bl, al                       ; 0x0741
     in al, 0x40                      ; 0x0743
     mov bh, al                       ; 0x0745
-@..opl_silent_note_pulse.l1:
+.back1:
     mov al, 0                        ; 0x0747
     out 0x43, al                     ; 0x0749
     in al, 0x40                      ; 0x074b
@@ -47,7 +47,7 @@ opl_silent_note_pulse:
     neg cx                           ; 0x0753
     add cx, bx                       ; 0x0755
     cmp cx, strict word 0x952        ; 0x0757
-    jb short @..opl_silent_note_pulse.l1 ; 0x075b
+    jb short .back1                  ; 0x075b
     mov ax, 0xb020                   ; 0x075d
     call opl_write                   ; 0x0760
     mov ax, 0xa000                   ; 0x0763

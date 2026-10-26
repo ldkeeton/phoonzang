@@ -24,13 +24,13 @@ restore_area:
     lodsw
     mov word [bp - 6], ax
     add si, byte 4
-@..restore_area.l1:
+.back1:
     mov di, word [bp - 2]
     add word [bp - 2], strict word 0x140
     mov cx, word [bp - 6]
     rep movsb
     dec word [bp - 4]
-    jne short @..restore_area.l1
+    jne short .back1
     mov ax, word [bp + 0x10]
     or ax, ax
     je short restore_area.loc1

@@ -20,10 +20,10 @@ api_idx_0010_UUTT:
     add ax, strict word 0x5a         ; 0x9a5f
     mov word [bp - 0xe], ax          ; 0x9a62
     cmp word [bss_8464], byte 0      ; 0x9a65
-    jne short @..api_idx_0010_UUTT.l3 ; 0x9a6a
+    jne short .forward2              ; 0x9a6a
     mov word [bp - 2], 1             ; 0x9a6c
-    jmp short @..api_idx_0010_UUTT.l2 ; 0x9a71
-@..api_idx_0010_UUTT.l1:
+    jmp short .forward1              ; 0x9a71
+.back1:
     mov ax, word [bp - 2]            ; 0x9a73
     shl ax, 1                        ; 0x9a76
     mov bx, ax                       ; 0x9a78
@@ -64,12 +64,12 @@ api_idx_0010_UUTT:
     sub ax, cx                       ; 0x9ace
     mov word [bp - 0xe], ax          ; 0x9ad0
     inc word [bp - 2]                ; 0x9ad3
-@..api_idx_0010_UUTT.l2:
+.forward1:
     mov ax, word [bp - 2]            ; 0x9ad6
     cmp ax, word [party_member_count] ; 0x9ad9
-    jle short @..api_idx_0010_UUTT.l1 ; 0x9add
-    jmp short @..api_idx_0010_UUTT.l4 ; 0x9adf
-@..api_idx_0010_UUTT.l3:
+    jle short .back1                 ; 0x9add
+    jmp short .forward3              ; 0x9adf
+.forward2:
     mov bx, word [bp + 4]            ; 0x9ae1
     mov al, byte [bx + 0x20]         ; 0x9ae4
     sub ah, ah                       ; 0x9ae7
@@ -109,26 +109,26 @@ api_idx_0010_UUTT:
     mov al, byte [bx + 0xe2]         ; 0x9b3a
     sub ah, ah                       ; 0x9b3e
     test ax, 8                       ; 0x9b40
-    je short @..api_idx_0010_UUTT.l4 ; 0x9b43
+    je short .forward3               ; 0x9b43
     mov ax, bss_9136                 ; 0x9b45
     push ax                          ; 0x9b48
     mov ax, MSG_FLIES                ; 0x9b49
     push ax                          ; 0x9b4c
     call load_message_string         ; 0x9b4d
     add sp, byte 4                   ; 0x9b50
-@..api_idx_0010_UUTT.l4:
+.forward3:
     cmp word [party_entry_flag], byte 1 ; 0x9b53
-    jne short @..api_idx_0010_UUTT.l5 ; 0x9b58
+    jne short .forward4              ; 0x9b58
     mov word [bp - 0xe], 0           ; 0x9b5a
-@..api_idx_0010_UUTT.l5:
+.forward4:
     mov ax, 0                        ; 0x9b5f
     push ax                          ; 0x9b62
     mov ax, 0x43                     ; 0x9b63
     push ax                          ; 0x9b66
     cmp word [bss_8464], byte 0      ; 0x9b67
-    jne short @..api_idx_0010_UUTT.l6 ; 0x9b6c
+    jne short .forward5              ; 0x9b6c
     mov ax, 1                        ; 0x9b6e
-@..api_idx_0010_UUTT.l6:
+.forward5:
     push ax                          ; 0x9b71
     mov ax, bss_9186                 ; 0x9b72
     push ax                          ; 0x9b75
@@ -152,23 +152,23 @@ api_idx_0010_UUTT:
     call random_below                ; 0x9b9a
     pop cx                           ; 0x9b9d
     cmp ax, word [bp - 0xe]          ; 0x9b9e
-    jl short @..api_idx_0010_UUTT.l7 ; 0x9ba1
-    jmp near @..api_idx_0010_UUTT.l26 ; 0x9ba3
-@..api_idx_0010_UUTT.l7:
+    jl short .forward6               ; 0x9ba1
+    jmp near .forward21              ; 0x9ba3
+.forward6:
     cmp word [bss_8464], byte 0      ; 0x9ba6
-    je short @..api_idx_0010_UUTT.l8 ; 0x9bab
+    je short .forward7               ; 0x9bab
     mov ax, word [bss_8464]          ; 0x9bad
     cmp ax, strict word 6            ; 0x9bb0
-    je short @..api_idx_0010_UUTT.l8 ; 0x9bb3
+    je short .forward7               ; 0x9bb3
     shl ax, 1                        ; 0x9bb5
     mov bx, ax                       ; 0x9bb7
     mov bx, word [bx + party_char_ext] ; 0x9bb9
     mov al, byte [bx + 0xe2]         ; 0x9bbd
     sub ah, ah                       ; 0x9bc1
     test ax, 1                       ; 0x9bc3
-    je short @..api_idx_0010_UUTT.l8 ; 0x9bc6
+    je short .forward7               ; 0x9bc6
     mov word [selected_item_record], 0 ; 0x9bc8
-@..api_idx_0010_UUTT.l8:
+.forward7:
     mov bx, word [bp + 4]            ; 0x9bce
     mov byte [bx + 0x2b], 2          ; 0x9bd1
     mov ax, 2                        ; 0x9bd5
@@ -181,9 +181,9 @@ api_idx_0010_UUTT:
     add sp, byte 6                   ; 0x9be4
     mov bx, word [bp + 4]            ; 0x9be7
     cmp byte [bx + 0x2a], 0xff       ; 0x9bea
-    jne short @..api_idx_0010_UUTT.l9 ; 0x9bee
-    jmp near @..api_idx_0010_UUTT.l24 ; 0x9bf0
-@..api_idx_0010_UUTT.l9:
+    jne short .forward8              ; 0x9bee
+    jmp near .forward19              ; 0x9bf0
+.forward8:
     mov al, byte [bx + 0x2a]         ; 0x9bf3
     cbw                              ; 0x9bf6
     mov cx, 0xa                      ; 0x9bf7
@@ -198,36 +198,36 @@ api_idx_0010_UUTT:
     call loc_KRMP                    ; 0x9c0a
     mov word [bp - 0x10], ax         ; 0x9c0d
     mov word [bp - 2], 0             ; 0x9c10
-@..api_idx_0010_UUTT.l10:
+.back2:
     mov word [bss_845e], 0xfffe      ; 0x9c15
     call api_idx_0006_TMLR           ; 0x9c1b
     mov word [bp - 4], 0             ; 0x9c1e
-@..api_idx_0010_UUTT.l11:
+.back3:
     mov word [bp - 6], 0             ; 0x9c23
-@..api_idx_0010_UUTT.l12:
+.back4:
     mov ax, word [bp - 6]            ; 0x9c28
     mov cx, 2                        ; 0x9c2b
     cwd                              ; 0x9c2e
     idiv cx                          ; 0x9c2f
     mov ax, dx                       ; 0x9c31
     cmp ax, strict word 1            ; 0x9c33
-    je short @..api_idx_0010_UUTT.l13 ; 0x9c36
+    je short .forward9               ; 0x9c36
     cmp word [bp - 6], byte 0        ; 0x9c38
-    jne short @..api_idx_0010_UUTT.l14 ; 0x9c3c
-@..api_idx_0010_UUTT.l13:
+    jne short .forward10             ; 0x9c3c
+.forward9:
     mov ax, word [bp - 2]            ; 0x9c3e
     shl ax, 1                        ; 0x9c41
     mov bx, ax                       ; 0x9c43
     mov cx, word [bx + cell_overlay_code + 0x50] ; 0x9c45
     mov ax, 0                        ; 0x9c49
     sub ax, cx                       ; 0x9c4c
-    jmp short @..api_idx_0010_UUTT.l15 ; 0x9c4e
-@..api_idx_0010_UUTT.l14:
+    jmp short .forward11             ; 0x9c4e
+.forward10:
     mov ax, word [bp - 2]            ; 0x9c50
     shl ax, 1                        ; 0x9c53
     mov bx, ax                       ; 0x9c55
     mov ax, word [bx + cell_overlay_code + 0x50] ; 0x9c57
-@..api_idx_0010_UUTT.l15:
+.forward11:
     mov word [bp - 0xc], ax          ; 0x9c5b
     push word [bp - 0x10]            ; 0x9c5e
     mov ax, 0xf8                     ; 0x9c61
@@ -246,15 +246,15 @@ api_idx_0010_UUTT:
     push ax                          ; 0x9c81
     mov ax, word [bp - 8]            ; 0x9c82
     cmp ax, word [bp - 4]            ; 0x9c85
-    jne short @..api_idx_0010_UUTT.l16 ; 0x9c88
+    jne short .forward12             ; 0x9c88
     mov ax, word [bp - 0xa]          ; 0x9c8a
     cmp ax, word [bp - 6]            ; 0x9c8d
-    jne short @..api_idx_0010_UUTT.l16 ; 0x9c90
+    jne short .forward12             ; 0x9c90
     mov ax, word [bp - 0xc]          ; 0x9c92
-    jmp short @..api_idx_0010_UUTT.l17 ; 0x9c95
-@..api_idx_0010_UUTT.l16:
+    jmp short .forward13             ; 0x9c95
+.forward12:
     mov ax, 0                        ; 0x9c97
-@..api_idx_0010_UUTT.l17:
+.forward13:
     push ax                          ; 0x9c9a
     push word [bp - 6]               ; 0x9c9b
     push word [bp - 4]               ; 0x9c9e
@@ -267,26 +267,26 @@ api_idx_0010_UUTT:
     inc word [bp - 6]                ; 0x9cb3
     mov ax, word [bp - 6]            ; 0x9cb6
     cmp ax, strict word 3            ; 0x9cb9
-    jge short @..api_idx_0010_UUTT.l18 ; 0x9cbc
-    jmp near @..api_idx_0010_UUTT.l12 ; 0x9cbe
-@..api_idx_0010_UUTT.l18:
+    jge short .forward14             ; 0x9cbc
+    jmp near .back4                  ; 0x9cbe
+.forward14:
     inc word [bp - 4]                ; 0x9cc1
     mov ax, word [bp - 4]            ; 0x9cc4
     cmp ax, strict word 3            ; 0x9cc7
-    jge short @..api_idx_0010_UUTT.l19 ; 0x9cca
-    jmp near @..api_idx_0010_UUTT.l11 ; 0x9ccc
-@..api_idx_0010_UUTT.l19:
+    jge short .forward15             ; 0x9cca
+    jmp near .back3                  ; 0x9ccc
+.forward15:
     call queue_marker_overlay        ; 0x9ccf
     call draw_party_status_glyphs    ; 0x9cd2
     mov word [bss_845e], 0           ; 0x9cd5
-@..api_idx_0010_UUTT.l20:
+.back5:
     call api_idx_0006_TMLR           ; 0x9cdb
-    cmp word [bss_845e], byte 0xfe   ; 0x9cde
-    jne short @..api_idx_0010_UUTT.l20 ; 0x9ce3
+    cmp word [bss_845e], byte -2     ; 0x9cde
+    jne short .back5                 ; 0x9ce3
     call loc_KRMP                    ; 0x9ce5
     mov word [bp - 0x10], ax         ; 0x9ce8
     cmp word [bp - 0x10], byte 0     ; 0x9ceb
-    je short @..api_idx_0010_UUTT.l21 ; 0x9cef
+    je short .forward16              ; 0x9cef
     mov ax, word [screen_cache_index] ; 0x9cf1
     inc ax                           ; 0x9cf4
     mov cx, 2                        ; 0x9cf5
@@ -298,17 +298,17 @@ api_idx_0010_UUTT:
     cwd                              ; 0x9d03
     idiv cx                          ; 0x9d04
     mov word [party_status_frame], dx ; 0x9d06
-@..api_idx_0010_UUTT.l21:
+.forward16:
     cmp word [bp - 0x10], byte 0     ; 0x9d0a
-    jne short @..api_idx_0010_UUTT.l22 ; 0x9d0e
-    jmp near @..api_idx_0010_UUTT.l10 ; 0x9d10
-@..api_idx_0010_UUTT.l22:
+    jne short .forward17             ; 0x9d0e
+    jmp near .back2                  ; 0x9d10
+.forward17:
     inc word [bp - 2]                ; 0x9d13
     mov ax, word [bp - 2]            ; 0x9d16
     cmp ax, strict word 4            ; 0x9d19
-    jge short @..api_idx_0010_UUTT.l23 ; 0x9d1c
-    jmp near @..api_idx_0010_UUTT.l10 ; 0x9d1e
-@..api_idx_0010_UUTT.l23:
+    jge short .forward18             ; 0x9d1c
+    jmp near .back2                  ; 0x9d1e
+.forward18:
     mov bx, word [bp + 4]            ; 0x9d21
     mov al, byte [bx + 0x2a]         ; 0x9d24
     cbw                              ; 0x9d27
@@ -331,8 +331,8 @@ api_idx_0010_UUTT:
     mov bx, word [bp + 4]            ; 0x9d50
     mov byte [bx + 0x2a], 0xff       ; 0x9d53
     call run_party_screen_animation  ; 0x9d57
-    jmp short @..api_idx_0010_UUTT.l25 ; 0x9d5a
-@..api_idx_0010_UUTT.l24:
+    jmp short .forward20             ; 0x9d5a
+.forward19:
     mov ax, word [bss_9058]          ; 0x9d5c
     mov cx, 2                        ; 0x9d5f
     cwd                              ; 0x9d62
@@ -340,9 +340,9 @@ api_idx_0010_UUTT:
     push ax                          ; 0x9d65
     call api_idx_0004_QUPL           ; 0x9d66
     pop cx                           ; 0x9d69
-@..api_idx_0010_UUTT.l25:
-    jmp short @..api_idx_0010_UUTT.l27 ; 0x9d6a
-@..api_idx_0010_UUTT.l26:
+.forward20:
+    jmp short .return1               ; 0x9d6a
+.forward21:
     mov ax, 2                        ; 0x9d6c
     push ax                          ; 0x9d6f
     mov ax, 0x43                     ; 0x9d70
@@ -358,5 +358,5 @@ api_idx_0010_UUTT:
     push ax                          ; 0x9d87
     call api_idx_0004_QUPL           ; 0x9d88
     pop cx                           ; 0x9d8b
-@..api_idx_0010_UUTT.l27:
+.return1:
     ret                              ; 0x9d8c

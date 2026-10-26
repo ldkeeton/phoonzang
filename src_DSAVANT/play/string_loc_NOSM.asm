@@ -39,7 +39,7 @@ string_loc_NOSM:
     xor bh, bh                       ; 0x13d5
     mov ch, byte [cs:bx + cseg_12df - IMAGE_BASE] ; 0x13d7
     mov bx, cseg_1418 - IMAGE_BASE   ; 0x13dc
-@..string_loc_NOSM.l1:
+.back1:
     mov al, byte [cs:bx]             ; 0x13df
     xor ah, ah                       ; 0x13e2
     mov si, dx                       ; 0x13e4
@@ -50,7 +50,7 @@ string_loc_NOSM:
     call opl_write                   ; 0x13ef
     add bx, byte 2                   ; 0x13f2
     cmp word [cs:bx], strict word 0xff ; 0x13f5
-    jne short @..string_loc_NOSM.l1  ; 0x13fa
+    jne short .back1                 ; 0x13fa
     mov ax, 0xa                      ; 0x13fc
     mov si, dx                       ; 0x13ff
     add si, ax                       ; 0x1401

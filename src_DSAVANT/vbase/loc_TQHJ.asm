@@ -53,9 +53,9 @@ loc_TQHJ:
     mov word [scene_index], 1        ; 0x86b2
     mov ax, 0                        ; 0x86b8
     cmp word [bp + 8], byte 0        ; 0x86bb
-    jne short @..loc_TQHJ.l1         ; 0x86bf
+    jne short .forward1              ; 0x86bf
     mov ax, 0x14                     ; 0x86c1
-@..loc_TQHJ.l1:
+.forward1:
     mov word [scene_step_a], ax      ; 0x86c4
     mov ax, dseg_9151                ; 0x86c7
     push ax                          ; 0x86ca

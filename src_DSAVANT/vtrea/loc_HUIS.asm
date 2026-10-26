@@ -13,7 +13,7 @@ loc_HUIS:
     add sp, byte 8                   ; 0x57a2
     mov word [selected_item_record], 0xffff ; 0x57a5
     cmp byte [bp - 5], 0             ; 0x57ab
-    jbe short @..loc_HUIS.l2         ; 0x57af
+    jbe short .forward2              ; 0x57af
     mov ax, 0xc6                     ; 0x57b1
     push ax                          ; 0x57b4
     mov ax, 0x109                    ; 0x57b5
@@ -29,22 +29,22 @@ loc_HUIS:
     call api_idx_007a_NHII           ; 0x57cb
     pop cx                           ; 0x57ce
     cmp ax, strict word 0xffff       ; 0x57cf
-    jne short @..loc_HUIS.l1         ; 0x57d2
+    jne short .forward1              ; 0x57d2
     mov ax, 1                        ; 0x57d4
     push ax                          ; 0x57d7
     call redraw_treasure_caption     ; 0x57d8
     pop cx                           ; 0x57db
     ret                              ; 0x57dc
-@..loc_HUIS.l1:
+.forward1:
     mov ax, 1                        ; 0x57dd
     push ax                          ; 0x57e0
     call redraw_treasure_caption     ; 0x57e1
     pop cx                           ; 0x57e4
-@..loc_HUIS.l2:
+.forward2:
     cmp word [party_return_state], byte 0x15 ; 0x57e5
-    jne short @..loc_HUIS.l3         ; 0x57ea
+    jne short .forward3              ; 0x57ea
     call api_idx_0006_OUPU           ; 0x57ec
-@..loc_HUIS.l3:
+.forward3:
     mov ax, 1                        ; 0x57ef
     push ax                          ; 0x57f2
     call redraw_treasure_caption     ; 0x57f3
@@ -54,19 +54,19 @@ loc_HUIS:
     mov word [bp - 0x8a], 0          ; 0x5803
     mov word [bp - 0x8c], 0          ; 0x5809
     mov word [bss_95e4], 0           ; 0x580f
-    cmp word [selected_item_slot], byte 0xff ; 0x5815
-    jne short @..loc_HUIS.l4         ; 0x581a
-    jmp near @..loc_HUIS.l9          ; 0x581c
-@..loc_HUIS.l4:
+    cmp word [selected_item_slot], byte -1 ; 0x5815
+    jne short .forward4              ; 0x581a
+    jmp near .forward8               ; 0x581c
+.forward4:
     mov ax, 0x26                     ; 0x581f
     imul word [selected_item_slot]   ; 0x5822
     mov bx, ax                       ; 0x5826
     cmp byte [bx + slot_records + slot_record.flag], 0 ; 0x5828
-    jle short @..loc_HUIS.l5         ; 0x582d
-    jmp near @..loc_HUIS.l9          ; 0x582f
-@..loc_HUIS.l5:
+    jle short .forward5              ; 0x582d
+    jmp near .forward8               ; 0x582f
+.forward5:
     mov word [bp - 2], 0             ; 0x5832
-@..loc_HUIS.l6:
+.back1:
     push word [bp - 2]               ; 0x5837
     mov ax, 0x26                     ; 0x583a
     imul word [selected_item_slot]   ; 0x583d
@@ -75,7 +75,7 @@ loc_HUIS:
     call test_bit                    ; 0x5845
     add sp, byte 4                   ; 0x5848
     test ax, ax                      ; 0x584b
-    je short @..loc_HUIS.l7          ; 0x584d
+    je short .forward6               ; 0x584d
     push word [bp - 2]               ; 0x584f
     push word [selected_item_slot]   ; 0x5852
     mov ax, 0x15                     ; 0x5856
@@ -89,7 +89,7 @@ loc_HUIS:
     mov bx, cx                       ; 0x586c
     mov word [bx + bss_960e], ax     ; 0x586e
     inc word [bss_95e4]              ; 0x5872
-@..loc_HUIS.l7:
+.forward6:
     push word [bp - 2]               ; 0x5876
     mov ax, 0x26                     ; 0x5879
     imul word [selected_item_slot]   ; 0x587c
@@ -98,7 +98,7 @@ loc_HUIS:
     call test_bit                    ; 0x5884
     add sp, byte 4                   ; 0x5887
     test ax, ax                      ; 0x588a
-    je short @..loc_HUIS.l8          ; 0x588c
+    je short .forward7               ; 0x588c
     mov ax, 1                        ; 0x588e
     push ax                          ; 0x5891
     push word [bp - 2]               ; 0x5892
@@ -106,14 +106,14 @@ loc_HUIS:
     push ax                          ; 0x5898
     call set_bitmap_bit              ; 0x5899
     add sp, byte 6                   ; 0x589c
-@..loc_HUIS.l8:
+.forward7:
     inc word [bp - 2]                ; 0x589f
     mov ax, word [bp - 2]            ; 0x58a2
     cmp ax, strict word 0xb          ; 0x58a5
-    jl short @..loc_HUIS.l6          ; 0x58a8
-@..loc_HUIS.l9:
+    jl short .back1                  ; 0x58a8
+.forward8:
     mov word [bp - 2], 0             ; 0x58aa
-@..loc_HUIS.l10:
+.back2:
     mov ax, 0x64                     ; 0x58af
     push ax                          ; 0x58b2
     call random_below                ; 0x58b3
@@ -128,13 +128,13 @@ loc_HUIS:
     mov cx, ax                       ; 0x58c7
     pop ax                           ; 0x58c9
     cmp ax, cx                       ; 0x58ca
-    jl short @..loc_HUIS.l11         ; 0x58cc
-    jmp near @..loc_HUIS.l19         ; 0x58ce
-@..loc_HUIS.l11:
+    jl short .forward9               ; 0x58cc
+    jmp near .forward14              ; 0x58ce
+.forward9:
     mov al, byte [bx - 0x36]         ; 0x58d1
     sub ah, ah                       ; 0x58d4
-    jmp near @..loc_HUIS.l17         ; 0x58d6
-@..loc_HUIS.l12:
+    jmp near .forward12              ; 0x58d6
+.back3:
     mov ax, 6                        ; 0x58d9
     imul word [bp - 2]               ; 0x58dc
     mov bx, ax                       ; 0x58df
@@ -162,8 +162,8 @@ loc_HUIS:
     adc dx, bx                       ; 0x5909
     add word [bp - 0x88], ax         ; 0x590b
     adc word [bp - 0x86], dx         ; 0x590f
-    jmp near @..loc_HUIS.l19         ; 0x5913
-@..loc_HUIS.l13:
+    jmp near .forward14              ; 0x5913
+.back4:
     mov ax, 6                        ; 0x5916
     imul word [bp - 2]               ; 0x5919
     mov bx, ax                       ; 0x591c
@@ -174,8 +174,8 @@ loc_HUIS:
     imul bx                          ; 0x5928
     add word [bp - 0x8c], ax         ; 0x592a
     adc word [bp - 0x8a], dx         ; 0x592e
-    jmp near @..loc_HUIS.l19         ; 0x5932
-@..loc_HUIS.l14:
+    jmp near .forward14              ; 0x5932
+.back5:
     mov ax, 6                        ; 0x5935
     imul word [bp - 2]               ; 0x5938
     mov bx, ax                       ; 0x593b
@@ -199,7 +199,7 @@ loc_HUIS:
     call loc_GMVH                    ; 0x5964
     pop cx                           ; 0x5967
     test ax, ax                      ; 0x5968
-    je short @..loc_HUIS.l15         ; 0x596a
+    je short .forward10              ; 0x596a
     mov ax, word [bss_95e4]          ; 0x596c
     shl ax, 1                        ; 0x596f
     mov bx, ax                       ; 0x5971
@@ -212,53 +212,53 @@ loc_HUIS:
     push ax                          ; 0x5982
     call assign_slot_bit             ; 0x5983
     add sp, byte 6                   ; 0x5986
-@..loc_HUIS.l15:
+.forward10:
     mov ax, word [bss_95e4]          ; 0x5989
     shl ax, 1                        ; 0x598c
     mov bx, ax                       ; 0x598e
     cmp word [bx + bss_960e], byte 0 ; 0x5990
-    jle short @..loc_HUIS.l16        ; 0x5995
+    jle short .forward11             ; 0x5995
     inc word [bss_95e4]              ; 0x5997
-@..loc_HUIS.l16:
-    jmp short @..loc_HUIS.l19        ; 0x599b
-@..loc_HUIS.l17:
+.forward11:
+    jmp short .forward14             ; 0x599b
+.forward12:
     cmp ax, strict word 1            ; 0x599d
-    jne short @..loc_HUIS.l18        ; 0x59a0
-    jmp near @..loc_HUIS.l12         ; 0x59a2
-@..loc_HUIS.l18:
+    jne short .forward13             ; 0x59a0
+    jmp near .back3                  ; 0x59a2
+.forward13:
     cmp ax, strict word 2            ; 0x59a5
-    je short @..loc_HUIS.l14         ; 0x59a8
+    je short .back5                  ; 0x59a8
     cmp ax, strict word 4            ; 0x59aa
-    jne short @..loc_HUIS.l19        ; 0x59ad
-    jmp near @..loc_HUIS.l13         ; 0x59af
-@..loc_HUIS.l19:
+    jne short .forward14             ; 0x59ad
+    jmp near .back4                  ; 0x59af
+.forward14:
     inc word [bp - 2]                ; 0x59b2
     mov ax, word [bp - 2]            ; 0x59b5
     cmp ax, strict word 8            ; 0x59b8
-    jge short @..loc_HUIS.l20        ; 0x59bb
-    jmp near @..loc_HUIS.l10         ; 0x59bd
-@..loc_HUIS.l20:
+    jge short .forward15             ; 0x59bb
+    jmp near .back2                  ; 0x59bd
+.forward15:
     mov word [bp - 0x84], 0          ; 0x59c0
     mov word [bp - 2], 0             ; 0x59c6
-    jmp short @..loc_HUIS.l23        ; 0x59cb
-@..loc_HUIS.l21:
+    jmp short .forward17             ; 0x59cb
+.back6:
     mov ax, 0x248                    ; 0x59cd
     imul word [bp - 2]               ; 0x59d0
     mov bx, ax                       ; 0x59d3
     cmp byte [bx + party_records + pc_rec.state], 0 ; 0x59d5
-    jne short @..loc_HUIS.l22        ; 0x59da
+    jne short .forward16             ; 0x59da
     inc word [bp - 0x84]             ; 0x59dc
-@..loc_HUIS.l22:
+.forward16:
     inc word [bp - 2]                ; 0x59e0
-@..loc_HUIS.l23:
+.forward17:
     mov ax, word [bp - 2]            ; 0x59e3
     cmp ax, word [party_char_count]  ; 0x59e6
-    jl short @..loc_HUIS.l21         ; 0x59ea
+    jl short .back6                  ; 0x59ea
     cmp word [bp - 0x84], byte 0     ; 0x59ec
-    jne short @..loc_HUIS.l24        ; 0x59f1
+    jne short .forward18             ; 0x59f1
     mov word [game_state], 8         ; 0x59f3
     ret                              ; 0x59f9
-@..loc_HUIS.l24:
+.forward18:
     mov ax, word [bp - 0x88]         ; 0x59fa
     mov dx, word [bp - 0x86]         ; 0x59fe
     push ax                          ; 0x5a02
@@ -291,15 +291,15 @@ loc_HUIS:
     call load_message_string         ; 0x5a43
     add sp, byte 4                   ; 0x5a46
     mov word [bp - 2], 0             ; 0x5a49
-    jmp near @..loc_HUIS.l44         ; 0x5a4e
-@..loc_HUIS.l25:
+    jmp near .forward34              ; 0x5a4e
+.back7:
     mov ax, word [bp - 2]            ; 0x5a51
     shl ax, 1                        ; 0x5a54
     mov bx, ax                       ; 0x5a56
     cmp word [bx + bss_960e], byte 0 ; 0x5a58
-    jg short @..loc_HUIS.l26         ; 0x5a5d
-    jmp near @..loc_HUIS.l43         ; 0x5a5f
-@..loc_HUIS.l26:
+    jg short .forward19              ; 0x5a5d
+    jmp near .forward33              ; 0x5a5f
+.forward19:
     mov ax, 0                        ; 0x5a62
     push ax                          ; 0x5a65
     push word [bx + bss_960e]        ; 0x5a66
@@ -312,7 +312,7 @@ loc_HUIS:
     mov al, byte [bp - 0x4b]         ; 0x5a79
     sub ah, ah                       ; 0x5a7c
     test ax, 1                       ; 0x5a7e
-    je short @..loc_HUIS.l27         ; 0x5a81
+    je short .forward20              ; 0x5a81
     lea ax, word [bp - 0x82]         ; 0x5a83
     push ax                          ; 0x5a87
     mov ax, 0x16                     ; 0x5a88
@@ -321,8 +321,8 @@ loc_HUIS:
     push ax                          ; 0x5a91
     call aztec_strcpy                ; 0x5a92
     add sp, byte 4                   ; 0x5a95
-    jmp short @..loc_HUIS.l28        ; 0x5a98
-@..loc_HUIS.l27:
+    jmp short .forward21             ; 0x5a98
+.forward20:
     mov ax, 0x16                     ; 0x5a9a
     imul word [bp - 2]               ; 0x5a9d
     add ax, list_row_name            ; 0x5aa0
@@ -333,7 +333,7 @@ loc_HUIS:
     push ax                          ; 0x5aac
     call load_message_string         ; 0x5aad
     add sp, byte 4                   ; 0x5ab0
-@..loc_HUIS.l28:
+.forward21:
     mov ax, 0x16                     ; 0x5ab3
     imul word [bp - 2]               ; 0x5ab6
     add ax, list_row_name            ; 0x5ab9
@@ -350,7 +350,7 @@ loc_HUIS:
     sub ah, ah                       ; 0x5ad4
     mov bx, ax                       ; 0x5ad6
     cmp byte [bx + cell_overlay_code + 0x58], 1 ; 0x5ad8
-    jne short @..loc_HUIS.l29        ; 0x5add
+    jne short .forward22             ; 0x5add
     push word [bp - 0x66]            ; 0x5adf
     push word [bp - 0x68]            ; 0x5ae2
     call add_random_steps            ; 0x5ae5
@@ -360,13 +360,13 @@ loc_HUIS:
     shl cx, 1                        ; 0x5af0
     mov bx, cx                       ; 0x5af2
     mov word [bx + list_row_count], ax ; 0x5af4
-    jmp short @..loc_HUIS.l30        ; 0x5af8
-@..loc_HUIS.l29:
+    jmp short .forward23             ; 0x5af8
+.forward22:
     mov ax, word [bp - 2]            ; 0x5afa
     shl ax, 1                        ; 0x5afd
     mov bx, ax                       ; 0x5aff
     mov word [bx + list_row_count], 0xffff ; 0x5b01
-@..loc_HUIS.l30:
+.forward23:
     mov al, byte [bp - 0x49]         ; 0x5b07
     sub ah, ah                       ; 0x5b0a
     mov cx, word [bp - 2]            ; 0x5b0c
@@ -377,22 +377,22 @@ loc_HUIS:
     mov al, byte [bp - 0x4b]         ; 0x5b1d
     sub ah, ah                       ; 0x5b20
     test ax, 2                       ; 0x5b22
-    je short @..loc_HUIS.l31         ; 0x5b25
+    je short .forward24              ; 0x5b25
     mov ax, 1                        ; 0x5b27
-    jmp short @..loc_HUIS.l32        ; 0x5b2a
-@..loc_HUIS.l31:
+    jmp short .forward25             ; 0x5b2a
+.forward24:
     mov ax, 0                        ; 0x5b2c
-@..loc_HUIS.l32:
+.forward25:
     mov word [bx + bss_9636], ax     ; 0x5b2f
     mov al, byte [bp - 0x4b]         ; 0x5b33
     sub ah, ah                       ; 0x5b36
     test ax, 1                       ; 0x5b38
-    je short @..loc_HUIS.l33         ; 0x5b3b
+    je short .forward26              ; 0x5b3b
     mov ax, 1                        ; 0x5b3d
-    jmp short @..loc_HUIS.l34        ; 0x5b40
-@..loc_HUIS.l33:
+    jmp short .forward27             ; 0x5b40
+.forward26:
     mov ax, 0                        ; 0x5b42
-@..loc_HUIS.l34:
+.forward27:
     mov word [bx + bss_95e6], ax     ; 0x5b45
     lea ax, word [bp - 0xb4]         ; 0x5b49
     push ax                          ; 0x5b4d
@@ -406,12 +406,12 @@ loc_HUIS:
     shl ax, 1                        ; 0x5b61
     mov bx, ax                       ; 0x5b63
     cmp word [bx + list_row_count], byte 0 ; 0x5b65
-    jle short @..loc_HUIS.l35        ; 0x5b6a
+    jle short .forward28             ; 0x5b6a
     mov ax, word [bx + list_row_count] ; 0x5b6c
-    jmp short @..loc_HUIS.l36        ; 0x5b70
-@..loc_HUIS.l35:
+    jmp short .forward29             ; 0x5b70
+.forward28:
     mov ax, 1                        ; 0x5b72
-@..loc_HUIS.l36:
+.forward29:
     push ax                          ; 0x5b75
     call format_int_decimal          ; 0x5b76
     add sp, byte 4                   ; 0x5b79
@@ -427,9 +427,9 @@ loc_HUIS:
     push ax                          ; 0x5b93
     mov ax, 0                        ; 0x5b94
     cmp byte [bp - 0x1a4], 0x3f      ; 0x5b97
-    jne short @..loc_HUIS.l37        ; 0x5b9c
+    jne short .forward30             ; 0x5b9c
     mov ax, 1                        ; 0x5b9e
-@..loc_HUIS.l37:
+.forward30:
     lea cx, word [bp - 0x1a4]        ; 0x5ba1
     add ax, cx                       ; 0x5ba5
     push ax                          ; 0x5ba7
@@ -440,7 +440,7 @@ loc_HUIS:
     mov al, byte [bp - 0x4b]         ; 0x5bb3
     sub ah, ah                       ; 0x5bb6
     test ax, 1                       ; 0x5bb8
-    je short @..loc_HUIS.l42         ; 0x5bbb
+    je short .forward32              ; 0x5bbb
     lea ax, word [bp - 0x104]        ; 0x5bbd
     push ax                          ; 0x5bc1
     call aztec_strlen                ; 0x5bc2
@@ -448,8 +448,8 @@ loc_HUIS:
     mov word [bp - 4], ax            ; 0x5bc6
     mov al, byte [bp - 0x4a]         ; 0x5bc9
     sub ah, ah                       ; 0x5bcc
-    jmp short @..loc_HUIS.l41        ; 0x5bce
-@..loc_HUIS.l38:
+    jmp short .forward31             ; 0x5bce
+.back8:
     mov ax, word [bp - 4]            ; 0x5bd0
     lea cx, word [bp - 0x104]        ; 0x5bd3
     add ax, cx                       ; 0x5bd7
@@ -458,8 +458,8 @@ loc_HUIS:
     push ax                          ; 0x5bdd
     call load_message_string         ; 0x5bde
     add sp, byte 4                   ; 0x5be1
-    jmp short @..loc_HUIS.l42        ; 0x5be4
-@..loc_HUIS.l39:
+    jmp short .forward32             ; 0x5be4
+.back9:
     mov ax, word [bp - 4]            ; 0x5be6
     lea cx, word [bp - 0x104]        ; 0x5be9
     add ax, cx                       ; 0x5bed
@@ -468,8 +468,8 @@ loc_HUIS:
     push ax                          ; 0x5bf3
     call load_message_string         ; 0x5bf4
     add sp, byte 4                   ; 0x5bf7
-    jmp short @..loc_HUIS.l42        ; 0x5bfa
-@..loc_HUIS.l40:
+    jmp short .forward32             ; 0x5bfa
+.back10:
     mov ax, word [bp - 4]            ; 0x5bfc
     lea cx, word [bp - 0x104]        ; 0x5bff
     add ax, cx                       ; 0x5c03
@@ -478,15 +478,15 @@ loc_HUIS:
     push ax                          ; 0x5c09
     call load_message_string         ; 0x5c0a
     add sp, byte 4                   ; 0x5c0d
-    jmp short @..loc_HUIS.l42        ; 0x5c10
-@..loc_HUIS.l41:
+    jmp short .forward32             ; 0x5c10
+.forward31:
     cmp ax, strict word 0xc          ; 0x5c12
-    je short @..loc_HUIS.l38         ; 0x5c15
+    je short .back8                  ; 0x5c15
     cmp ax, strict word 0xd          ; 0x5c17
-    je short @..loc_HUIS.l39         ; 0x5c1a
+    je short .back9                  ; 0x5c1a
     cmp ax, strict word 0x10         ; 0x5c1c
-    je short @..loc_HUIS.l40         ; 0x5c1f
-@..loc_HUIS.l42:
+    je short .back10                 ; 0x5c1f
+.forward32:
     mov ax, 1                        ; 0x5c21
     push ax                          ; 0x5c24
     push ax                          ; 0x5c25
@@ -495,22 +495,22 @@ loc_HUIS:
     push ax                          ; 0x5c2e
     call show_treasure_message       ; 0x5c2f
     add sp, byte 8                   ; 0x5c32
-@..loc_HUIS.l43:
+.forward33:
     inc word [bp - 2]                ; 0x5c35
-@..loc_HUIS.l44:
+.forward34:
     mov ax, word [bp - 2]            ; 0x5c38
     cmp ax, word [bss_95e4]          ; 0x5c3b
-    jge short @..loc_HUIS.l45        ; 0x5c3f
-    jmp near @..loc_HUIS.l25         ; 0x5c41
-@..loc_HUIS.l45:
+    jge short .forward35             ; 0x5c3f
+    jmp near .back7                  ; 0x5c41
+.forward35:
     cmp word [bp - 0x86], byte 0     ; 0x5c44
-    jl short @..loc_HUIS.l46         ; 0x5c49
-    jne short @..loc_HUIS.l47        ; 0x5c4b
+    jl short .forward36              ; 0x5c49
+    jne short .forward37             ; 0x5c4b
     cmp word [bp - 0x88], byte 0     ; 0x5c4d
-    ja short @..loc_HUIS.l47         ; 0x5c52
-@..loc_HUIS.l46:
-    jmp short @..loc_HUIS.l48        ; 0x5c54
-@..loc_HUIS.l47:
+    ja short .forward37              ; 0x5c52
+.forward36:
+    jmp short .forward38             ; 0x5c54
+.forward37:
     lea ax, word [bp - 0x104]        ; 0x5c56
     push ax                          ; 0x5c5a
     mov ax, MSG_EACH_SHARE_OF_LOOT_WOR_5002 ; 0x5c5b
@@ -540,15 +540,15 @@ loc_HUIS:
     push ax                          ; 0x5c9c
     call show_treasure_message       ; 0x5c9d
     add sp, byte 8                   ; 0x5ca0
-@..loc_HUIS.l48:
+.forward38:
     cmp word [bp - 0x8a], byte 0     ; 0x5ca3
-    jl short @..loc_HUIS.l49         ; 0x5ca8
-    jne short @..loc_HUIS.l50        ; 0x5caa
+    jl short .forward39              ; 0x5ca8
+    jne short .forward40             ; 0x5caa
     cmp word [bp - 0x8c], byte 0     ; 0x5cac
-    ja short @..loc_HUIS.l50         ; 0x5cb1
-@..loc_HUIS.l49:
-    jmp short @..loc_HUIS.l51        ; 0x5cb3
-@..loc_HUIS.l50:
+    ja short .forward40              ; 0x5cb1
+.forward39:
+    jmp short .forward41             ; 0x5cb3
+.forward40:
     lea ax, word [bp - 0x104]        ; 0x5cb5
     push ax                          ; 0x5cb9
     mov ax, MSG_EVERYONE_RECEIVES_A_EX_5003 ; 0x5cba
@@ -578,7 +578,7 @@ loc_HUIS:
     push ax                          ; 0x5cfb
     call show_treasure_message       ; 0x5cfc
     add sp, byte 8                   ; 0x5cff
-@..loc_HUIS.l51:
+.forward41:
     mov ax, 0                        ; 0x5d02
     push ax                          ; 0x5d05
     mov ax, 0xa4                     ; 0x5d06
@@ -594,13 +594,13 @@ loc_HUIS:
     call set_mouse_pointer_shape     ; 0x5d1c
     add sp, byte 4                   ; 0x5d1f
     mov word [bp - 2], 0             ; 0x5d22
-    jmp short @..loc_HUIS.l54        ; 0x5d27
-@..loc_HUIS.l52:
+    jmp short .forward43             ; 0x5d27
+.back11:
     mov ax, 0x248                    ; 0x5d29
     imul word [bp - 2]               ; 0x5d2c
     mov bx, ax                       ; 0x5d2f
     cmp byte [bx + party_records + pc_rec.state], 0 ; 0x5d31
-    jne short @..loc_HUIS.l53        ; 0x5d36
+    jne short .forward42             ; 0x5d36
     mov ax, word [bp - 0x8c]         ; 0x5d38
     mov dx, word [bp - 0x8a]         ; 0x5d3c
     add word [bx + party_records + pc_rec.experience], ax ; 0x5d40
@@ -609,16 +609,16 @@ loc_HUIS:
     mov dx, word [bp - 0x86]         ; 0x5d4c
     add word [bx + party_records + pc_rec.f_0014], ax ; 0x5d50
     adc word [bx + party_records + pc_rec.f_0016], dx ; 0x5d54
-@..loc_HUIS.l53:
+.forward42:
     inc word [bp - 2]                ; 0x5d58
-@..loc_HUIS.l54:
+.forward43:
     mov ax, word [bp - 2]            ; 0x5d5b
     cmp ax, word [party_char_count]  ; 0x5d5e
-    jl short @..loc_HUIS.l52         ; 0x5d62
+    jl short .back11                 ; 0x5d62
     cmp word [bss_95e4], byte 0      ; 0x5d64
-    jle short @..loc_HUIS.l55        ; 0x5d69
+    jle short .forward44             ; 0x5d69
     call api_idx_0040_LIPH           ; 0x5d6b
-@..loc_HUIS.l55:
+.forward44:
     mov word [glyph_painter], 0      ; 0x5d6e
     call update_treasure_frame       ; 0x5d74
     mov ax, 2                        ; 0x5d77

@@ -34,54 +34,54 @@ api_idx_0012_PGSL:
     mov word [bp - 0x10], dx
     mov word [bp - 0x12], ax
     cmp dx, byte 0
-    jg short @..api_idx_0012_PGSL.l1
-    jne short @..api_idx_0012_PGSL.l2
+    jg short .forward1
+    jne short .forward2
     cmp ax, strict word 0x32
-    jbe short @..api_idx_0012_PGSL.l2
-@..api_idx_0012_PGSL.l1:
-    jmp short @..api_idx_0012_PGSL.l3
-@..api_idx_0012_PGSL.l2:
-    jmp near @..api_idx_0012_PGSL.l17
-@..api_idx_0012_PGSL.l3:
+    jbe short .forward2
+.forward1:
+    jmp short .forward3
+.forward2:
+    jmp near .forward17
+.forward3:
     cmp dx, byte 0
-    jg short @..api_idx_0012_PGSL.l4
-    jne short @..api_idx_0012_PGSL.l5
+    jg short .forward4
+    jne short .forward5
     cmp ax, strict word 0x42
-    jbe short @..api_idx_0012_PGSL.l5
-@..api_idx_0012_PGSL.l4:
-    jmp short @..api_idx_0012_PGSL.l8
-@..api_idx_0012_PGSL.l5:
+    jbe short .forward5
+.forward4:
+    jmp short .forward8
+.forward5:
     mov word [bp - 0xc], 5
     mov word [bp - 0xa], 0xa
     cmp word [bp - 8], byte 3
-    jle short @..api_idx_0012_PGSL.l6
+    jle short .forward6
     mov word [bp - 8], 3
-@..api_idx_0012_PGSL.l6:
+.forward6:
     cmp word [bp - 6], byte 3
-    jle short @..api_idx_0012_PGSL.l7
+    jle short .forward7
     mov word [bp - 6], 3
-@..api_idx_0012_PGSL.l7:
-    jmp near @..api_idx_0012_PGSL.l17
-@..api_idx_0012_PGSL.l8:
+.forward7:
+    jmp near .forward17
+.forward8:
     cmp dx, byte 0
-    jg short @..api_idx_0012_PGSL.l9
-    jne short @..api_idx_0012_PGSL.l10
+    jg short .forward9
+    jne short .forward10
     cmp ax, strict word 0x4b
-    jbe short @..api_idx_0012_PGSL.l10
-@..api_idx_0012_PGSL.l9:
-    jmp short @..api_idx_0012_PGSL.l13
-@..api_idx_0012_PGSL.l10:
+    jbe short .forward10
+.forward9:
+    jmp short .forward13
+.forward10:
     mov word [bp - 0xe], 1
     mov word [bp - 0xc], 0xa
     mov word [bp - 0xa], 0x14
     cmp word [bp - 8], byte 2
-    jle short @..api_idx_0012_PGSL.l11
+    jle short .forward11
     mov word [bp - 8], 2
-@..api_idx_0012_PGSL.l11:
+.forward11:
     cmp word [bp - 6], byte 2
-    jle short @..api_idx_0012_PGSL.l12
+    jle short .forward12
     mov word [bp - 6], 2
-@..api_idx_0012_PGSL.l12:
+.forward12:
     mov ax, 0x248
     imul word [bp + 4]
     mov bx, ax
@@ -91,16 +91,16 @@ api_idx_0012_PGSL:
     idiv cx
     mov word [bp - 4], ax
     mov word [bp - 2], 0x83
-    jmp short @..api_idx_0012_PGSL.l17
-@..api_idx_0012_PGSL.l13:
+    jmp short .forward17
+.forward13:
     cmp word [bp - 0x10], byte 0
-    jg short @..api_idx_0012_PGSL.l14
-    jne short @..api_idx_0012_PGSL.l15
+    jg short .forward14
+    jne short .forward15
     cmp word [bp - 0x12], byte 0x5a
-    jbe short @..api_idx_0012_PGSL.l15
-@..api_idx_0012_PGSL.l14:
-    jmp short @..api_idx_0012_PGSL.l16
-@..api_idx_0012_PGSL.l15:
+    jbe short .forward15
+.forward14:
+    jmp short .forward16
+.forward15:
     mov word [bp - 0xe], 2
     mov word [bp - 0xc], 0x14
     mov word [bp - 0xa], 0x28
@@ -115,8 +115,8 @@ api_idx_0012_PGSL:
     idiv cx
     mov word [bp - 4], ax
     mov word [bp - 2], 0x54
-    jmp short @..api_idx_0012_PGSL.l17
-@..api_idx_0012_PGSL.l16:
+    jmp short .forward17
+.forward16:
     mov word [bp - 0xe], 4
     mov word [bp - 0xc], 0x28
     mov word [bp - 0xa], 0x50
@@ -131,7 +131,7 @@ api_idx_0012_PGSL:
     idiv cx
     mov word [bp - 4], ax
     mov word [bp - 2], 0x16
-@..api_idx_0012_PGSL.l17:
+.forward17:
     lea si, word [bp - 0xe]
     mov di, window_record
     mov cx, ds

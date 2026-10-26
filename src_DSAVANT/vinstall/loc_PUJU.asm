@@ -59,12 +59,12 @@ loc_NNGU:
     call put_text_at                 ; 0x09c4
     add sp, byte 6                   ; 0x09c7
     call loc_NJKV                    ; 0x09ca
-@..loc_NNGU.l1:
+.back1:
     call dos_con_in_noecho           ; 0x09cd
     cmp ax, strict word 0xd          ; 0x09d0
-    je short @..loc_NNGU.l2          ; 0x09d3
-    jmp short @..loc_NNGU.l1         ; 0x09d5
-@..loc_NNGU.l2:
+    je short .forward1               ; 0x09d3
+    jmp short .back1                 ; 0x09d5
+.forward1:
     mov ax, dseg_149f                ; 0x09d7
     push ax                          ; 0x09da
     mov ax, 0                        ; 0x09db

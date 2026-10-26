@@ -3,8 +3,8 @@ get_cell_wall:
     mov ax, 0
     call aztec_csav
     mov ax, word [bp + 4]
-    jmp short @..get_cell_wall.l5
-@..get_cell_wall.l1:
+    jmp short .forward1
+.back1:
     mov ax, 4
     push ax
     mov ax, word [bp + 6]
@@ -23,7 +23,7 @@ get_cell_wall:
     call read_packed_field
     add sp, byte 6
     ret
-@..get_cell_wall.l2:
+.back2:
     mov ax, 4
     push ax
     mov ax, word [bp + 6]
@@ -42,7 +42,7 @@ get_cell_wall:
     call read_packed_field
     add sp, byte 6
     ret
-@..get_cell_wall.l3:
+.back3:
     push word [bp + 6]
     push word [bp + 0xa]
     push word [bp + 8]
@@ -51,7 +51,7 @@ get_cell_wall:
     call get_cell_wall.get_cell_wall_variant_a1
     add sp, byte 0xa
     ret
-@..get_cell_wall.l4:
+.back4:
     push word [bp + 6]
     push word [bp + 0xa]
     push word [bp + 8]
@@ -60,15 +60,15 @@ get_cell_wall:
     call get_cell_wall.get_cell_wall_variant_b1
     add sp, byte 0xa
     ret
-@..get_cell_wall.l5:
+.forward1:
     cmp ax, strict word 0
-    jne short @..get_cell_wall.l6
-    jmp near @..get_cell_wall.l1
-@..get_cell_wall.l6:
+    jne short .forward2
+    jmp near .back1
+.forward2:
     cmp ax, strict word 1
-    je short @..get_cell_wall.l2
+    je short .back2
     cmp ax, strict word 2
-    je short @..get_cell_wall.l3
+    je short .back3
     cmp ax, strict word 3
-    je short @..get_cell_wall.l4
+    je short .back4
     ret

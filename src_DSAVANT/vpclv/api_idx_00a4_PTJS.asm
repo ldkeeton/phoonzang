@@ -9,9 +9,9 @@ api_idx_00a4_PTJS:
     mov al, byte [bx + party_records + pc_rec.power_floor] ; 0x4eb0
     sub ah, ah                       ; 0x4eb4
     cmp ax, word [bx + party_records + pc_rec.power_cap] ; 0x4eb6
-    jg short @..api_idx_00a4_PTJS.l1 ; 0x4eba
+    jg short .forward1               ; 0x4eba
     mov byte [bx + party_records + pc_rec.power_floor], 0 ; 0x4ebc
-@..api_idx_00a4_PTJS.l1:
+.forward1:
     push word [bp + 4]               ; 0x4ec1
     call api_idx_0006_ILTI           ; 0x4ec4
     pop cx                           ; 0x4ec7
@@ -75,7 +75,7 @@ api_idx_00a4_PTJS:
     pop cx                           ; 0x4f54
     mov word [bp - 4], 0             ; 0x4f55
     mov word [bp - 2], 0             ; 0x4f5a
-@..api_idx_00a4_PTJS.l2:
+.back1:
     mov ax, word [bp - 2]            ; 0x4f5f
     shl ax, 1                        ; 0x4f62
     mov bx, ax                       ; 0x4f64
@@ -84,15 +84,15 @@ api_idx_00a4_PTJS:
     inc word [bp - 2]                ; 0x4f6d
     mov ax, word [bp - 2]            ; 0x4f70
     cmp ax, strict word 4            ; 0x4f73
-    jl short @..api_idx_00a4_PTJS.l2 ; 0x4f76
+    jl short .back1                  ; 0x4f76
     cmp word [bp - 4], byte 0        ; 0x4f78
-    jle short @..api_idx_00a4_PTJS.l3 ; 0x4f7c
+    jle short .forward2              ; 0x4f7c
     mov ax, MSG_YOU_EARNED_A_S       ; 0x4f7e
     push ax                          ; 0x4f81
     push word [bp + 4]               ; 0x4f82
     call api_idx_0088_LVJM           ; 0x4f85
     add sp, byte 4                   ; 0x4f88
-@..api_idx_00a4_PTJS.l3:
+.forward2:
     push word [bp + 4]               ; 0x4f8b
     call api_idx_0052_LHVG           ; 0x4f8e
     pop cx                           ; 0x4f91
@@ -100,21 +100,21 @@ api_idx_00a4_PTJS:
     call api_idx_0018_IKVK           ; 0x4f95
     pop cx                           ; 0x4f98
     mov word [bp - 2], 0             ; 0x4f99
-@..api_idx_00a4_PTJS.l4:
+.back2:
     mov ax, 0x248                    ; 0x4f9e
     imul word [bp + 4]               ; 0x4fa1
     add ax, word [bp - 2]            ; 0x4fa4
     mov bx, ax                       ; 0x4fa7
     cmp byte [bx + party_records + pc_rec.f_015c], 0 ; 0x4fa9
-    jbe short @..api_idx_00a4_PTJS.l5 ; 0x4fae
+    jbe short .forward3              ; 0x4fae
     push word [bp - 2]               ; 0x4fb0
     push word [bp + 4]               ; 0x4fb3
     call api_idx_00ca_HKHO           ; 0x4fb6
     add sp, byte 4                   ; 0x4fb9
-    jmp short @..api_idx_00a4_PTJS.l4 ; 0x4fbc
-@..api_idx_00a4_PTJS.l5:
+    jmp short .back2                 ; 0x4fbc
+.forward3:
     inc word [bp - 2]                ; 0x4fbe
     mov ax, word [bp - 2]            ; 0x4fc1
     cmp ax, strict word 4            ; 0x4fc4
-    jl short @..api_idx_00a4_PTJS.l4 ; 0x4fc7
+    jl short .back2                  ; 0x4fc7
     ret                              ; 0x4fc9

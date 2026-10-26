@@ -21,7 +21,7 @@ cell_power: ; Aztec csav frame=0x0002
     sub ah, ah                       ; 0x176b
     mov bx, ax                       ; 0x176d
     cmp byte [bx + cell_overlay_code + 0x58], 1 ; 0x176f
-    jne short @..cell_power.l1       ; 0x1774
+    jne short .forward1              ; 0x1774
     mov ax, 0x248                    ; 0x1776
     imul word [bp + 4]               ; 0x1779
     push ax                          ; 0x177c
@@ -39,15 +39,15 @@ cell_power: ; Aztec csav frame=0x0002
     mov bx, ax                       ; 0x1794
     mov al, byte [bx + party_records + pc_rec.cell + 0x6] ; 0x1796
     sub ah, ah                       ; 0x179a
-    jmp short @..cell_power.l2       ; 0x179c
-@..cell_power.l1:
+    jmp short .forward2              ; 0x179c
+.forward1:
     mov ax, 1                        ; 0x179e
-@..cell_power.l2:
+.forward2:
     mov word [bp - 2], ax            ; 0x17a1
     cmp ax, strict word 1            ; 0x17a4
-    jge short @..cell_power.l3       ; 0x17a7
+    jge short .forward3              ; 0x17a7
     mov word [bp - 2], 1             ; 0x17a9
-@..cell_power.l3:
+.forward3:
     mov ax, 0x248                    ; 0x17ae
     imul word [bp + 4]               ; 0x17b1
     push ax                          ; 0x17b4

@@ -38,7 +38,7 @@ claim_type7_object:
     mov si, ax                       ; 0x050f
     mov bx, word [maze_tables]       ; 0x0511
     cmp word [bx + si], byte 0       ; 0x0515
-    jle short @..claim_type7_object.l1 ; 0x0518
+    jle short .forward1              ; 0x0518
     mov ax, 0                        ; 0x051a
     push ax                          ; 0x051d
     push word [bx + si]              ; 0x051e
@@ -66,7 +66,7 @@ claim_type7_object:
     mov ax, word [bp + 4]            ; 0x0555
     inc ax                           ; 0x0558
     mov word [party_region], ax      ; 0x0559
-@..claim_type7_object.l1:
+.forward1:
     mov ax, 1                        ; 0x055c
     push ax                          ; 0x055f
     call play_sound_effect           ; 0x0560

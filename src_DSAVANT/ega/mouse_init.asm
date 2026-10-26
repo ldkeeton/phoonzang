@@ -7,9 +7,9 @@ mouse_init:
     mov ax, ds                       ; 0x1720
     mov es, ax                       ; 0x1722
     cmp byte [cs:cseg_0105 - IMAGE_BASE], 0 ; 0x1724
-    jne short @..mouse_init.l1       ; 0x172a
-    jmp near @..mouse_init.l2        ; 0x172c
-@..mouse_init.l1:
+    jne short .forward1              ; 0x172a
+    jmp near .forward2               ; 0x172c
+.forward1:
     push ds                          ; 0x172f
     push si                          ; 0x1730
     mov si, 0x259e                   ; 0x1731
@@ -59,7 +59,7 @@ mouse_init:
     mov dx, 0x2b09                   ; 0x1796
     int 0x33 ; BIOS mouse
     pop es                           ; 0x179b
-@..mouse_init.l2:
+.forward2:
     pop es                           ; 0x179c
     mov sp, bp                       ; 0x179d
     pop bp                           ; 0x179f

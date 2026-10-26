@@ -6,7 +6,7 @@ mouse_off:
     mov ax, ds                       ; 0x1814
     mov es, ax                       ; 0x1816
     cmp byte [cs:mouse_present - IMAGE_BASE], 0 ; 0x1818
-    je short @..mouse_off.l1         ; 0x181e
+    je short .forward1               ; 0x181e
     mov byte [cs:mouse_present - IMAGE_BASE], 0 ; 0x1820
     mov ax, 0                        ; 0x1826
     int 0x33 ; BIOS mouse
@@ -63,7 +63,7 @@ mouse_off:
     pop di                           ; 0x1897
     pop es                           ; 0x1898
     pop ds                           ; 0x1899
-@..mouse_off.l1:
+.forward1:
     pop es                           ; 0x189a
     mov sp, bp                       ; 0x189b
     pop bp                           ; 0x189d

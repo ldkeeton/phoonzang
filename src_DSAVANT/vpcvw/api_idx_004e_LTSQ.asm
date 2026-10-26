@@ -23,11 +23,11 @@ api_idx_004e_LTSQ:
     pop ax                           ; 0x4313
     add ax, cx                       ; 0x4314
     cmp ax, word [bp - 0x24]         ; 0x4316
-    jge short @..api_idx_004e_LTSQ.l1 ; 0x4319
-    jmp short @..api_idx_004e_LTSQ.l2 ; 0x431b
-@..api_idx_004e_LTSQ.l1:
+    jge short .forward1              ; 0x4319
+    jmp short .forward2              ; 0x431b
+.forward1:
     mov ax, word [bp - 0x24]         ; 0x431d
-@..api_idx_004e_LTSQ.l2:
+.forward2:
     mov word [bp - 0x4c], ax         ; 0x4320
     push ax                          ; 0x4323
     mov al, byte [bx + 6]            ; 0x4324
@@ -49,7 +49,7 @@ api_idx_004e_LTSQ:
     sub ax, word [bp - 0x4e]         ; 0x434a
     mov byte [bx + 6], al            ; 0x434d
     cmp byte [bx + 6], 0             ; 0x4350
-    ja short @..api_idx_004e_LTSQ.l3 ; 0x4354
+    ja short .return1                ; 0x4354
     mov word [bx], 0                 ; 0x4356
-@..api_idx_004e_LTSQ.l3:
+.return1:
     ret                              ; 0x435a

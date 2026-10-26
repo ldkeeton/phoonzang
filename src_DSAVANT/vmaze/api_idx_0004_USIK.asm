@@ -23,27 +23,27 @@ api_idx_0004_USIK:
     shl ax, 1                        ; 0x182d
     mov bx, ax                       ; 0x182f
     mov ax, word [bx + adjacent_object_type] ; 0x1831
-    jmp near @..api_idx_0004_USIK.l16 ; 0x1835
-@..api_idx_0004_USIK.l1:
+    jmp near .forward13              ; 0x1835
+.back1:
     cmp word [bp - 2], byte 2        ; 0x1838
-    jl short @..api_idx_0004_USIK.l2 ; 0x183c
+    jl short .forward1               ; 0x183c
     cmp word [bp - 2], byte 5        ; 0x183e
-    jne short @..api_idx_0004_USIK.l4 ; 0x1842
-@..api_idx_0004_USIK.l2:
+    jne short .forward3              ; 0x1842
+.forward1:
     push word [bp - 4]               ; 0x1844
     call api_idx_000e_NSGM           ; 0x1847
     pop cx                           ; 0x184a
     test ax, ax                      ; 0x184b
-    je short @..api_idx_0004_USIK.l3 ; 0x184d
+    je short .forward2               ; 0x184d
     ret                              ; 0x184f
-@..api_idx_0004_USIK.l3:
-    jmp short @..api_idx_0004_USIK.l5 ; 0x1850
-@..api_idx_0004_USIK.l4:
+.forward2:
+    jmp short .forward4              ; 0x1850
+.forward3:
     cmp word [bp - 2], byte 3        ; 0x1852
-    jne short @..api_idx_0004_USIK.l5 ; 0x1856
+    jne short .forward4              ; 0x1856
     mov ax, word [bp - 4]            ; 0x1858
     cmp ax, word [party_tag]         ; 0x185b
-    jne short @..api_idx_0004_USIK.l5 ; 0x185f
+    jne short .forward4              ; 0x185f
     mov ax, 0xf                      ; 0x1861
     push ax                          ; 0x1864
     call ensure_sound_loaded         ; 0x1865
@@ -78,33 +78,33 @@ api_idx_0004_USIK:
     call api_idx_000e_NSGM           ; 0x18b2
     pop cx                           ; 0x18b5
     test ax, ax                      ; 0x18b6
-    je short @..api_idx_0004_USIK.l5 ; 0x18b8
+    je short .forward4               ; 0x18b8
     ret                              ; 0x18ba
-@..api_idx_0004_USIK.l5:
+.forward4:
     cmp word [location_changed], byte 0 ; 0x18bb
-    jne short @..api_idx_0004_USIK.l7 ; 0x18c0
+    jne short .forward6              ; 0x18c0
     mov ax, 2                        ; 0x18c2
     push ax                          ; 0x18c5
     mov ax, 0                        ; 0x18c6
     cmp word [bss_91ac], strict word 0x7e4 ; 0x18c9
-    jne short @..api_idx_0004_USIK.l6 ; 0x18cf
+    jne short .forward5              ; 0x18cf
     mov ax, 2                        ; 0x18d1
-@..api_idx_0004_USIK.l6:
+.forward5:
     push ax                          ; 0x18d4
     push word [bss_91ac]             ; 0x18d5
     call loc_LPNP                    ; 0x18d9
     add sp, byte 6                   ; 0x18dc
-@..api_idx_0004_USIK.l7:
-    jmp near @..api_idx_0004_USIK.l18 ; 0x18df
-@..api_idx_0004_USIK.l8:
+.forward6:
+    jmp near .return1                ; 0x18df
+.back2:
     cmp word [bp - 2], byte 6        ; 0x18e2
-    je short @..api_idx_0004_USIK.l9 ; 0x18e6
+    je short .forward7               ; 0x18e6
     cmp word [bp - 2], byte 3        ; 0x18e8
-    jne short @..api_idx_0004_USIK.l10 ; 0x18ec
-@..api_idx_0004_USIK.l9:
+    jne short .forward8              ; 0x18ec
+.forward7:
     mov ax, word [bp - 4]            ; 0x18ee
     cmp ax, word [party_tag]         ; 0x18f1
-    jne short @..api_idx_0004_USIK.l10 ; 0x18f5
+    jne short .forward8              ; 0x18f5
     mov ax, word [message_delay]     ; 0x18f7
     mov cx, 2                        ; 0x18fa
     cwd                              ; 0x18fd
@@ -115,46 +115,46 @@ api_idx_0004_USIK:
     push ax                          ; 0x1905
     call loc_LPNP                    ; 0x1906
     add sp, byte 6                   ; 0x1909
-    jmp short @..api_idx_0004_USIK.l11 ; 0x190c
-@..api_idx_0004_USIK.l10:
+    jmp short .forward9              ; 0x190c
+.forward8:
     mov ax, 2                        ; 0x190e
     push ax                          ; 0x1911
     push ax                          ; 0x1912
     push word [bss_91ac]             ; 0x1913
     call loc_LPNP                    ; 0x1917
     add sp, byte 6                   ; 0x191a
-@..api_idx_0004_USIK.l11:
-    jmp short @..api_idx_0004_USIK.l18 ; 0x191d
-@..api_idx_0004_USIK.l12:
+.forward9:
+    jmp short .return1               ; 0x191d
+.back3:
     cmp word [bp - 2], byte 2        ; 0x191f
-    jne short @..api_idx_0004_USIK.l14 ; 0x1923
+    jne short .forward11             ; 0x1923
     push word [bp - 4]               ; 0x1925
     call api_idx_000e_NSGM           ; 0x1928
     pop cx                           ; 0x192b
     test ax, ax                      ; 0x192c
-    je short @..api_idx_0004_USIK.l13 ; 0x192e
+    je short .forward10              ; 0x192e
     ret                              ; 0x1930
-@..api_idx_0004_USIK.l13:
-    jmp short @..api_idx_0004_USIK.l15 ; 0x1931
-@..api_idx_0004_USIK.l14:
+.forward10:
+    jmp short .forward12             ; 0x1931
+.forward11:
     mov ax, 2                        ; 0x1933
     push ax                          ; 0x1936
     push ax                          ; 0x1937
     push word [bss_91ac]             ; 0x1938
     call loc_LPNP                    ; 0x193c
     add sp, byte 6                   ; 0x193f
-@..api_idx_0004_USIK.l15:
-    jmp short @..api_idx_0004_USIK.l18 ; 0x1942
-@..api_idx_0004_USIK.l16:
+.forward12:
+    jmp short .return1               ; 0x1942
+.forward13:
     cmp ax, strict word 0            ; 0x1944
-    jne short @..api_idx_0004_USIK.l17 ; 0x1947
-    jmp near @..api_idx_0004_USIK.l1 ; 0x1949
-@..api_idx_0004_USIK.l17:
+    jne short .forward14             ; 0x1947
+    jmp near .back1                  ; 0x1949
+.forward14:
     cmp ax, strict word 1            ; 0x194c
-    je short @..api_idx_0004_USIK.l8 ; 0x194f
+    je short .back2                  ; 0x194f
     cmp ax, strict word 2            ; 0x1951
-    je short @..api_idx_0004_USIK.l8 ; 0x1954
+    je short .back2                  ; 0x1954
     cmp ax, strict word 3            ; 0x1956
-    je short @..api_idx_0004_USIK.l12 ; 0x1959
-@..api_idx_0004_USIK.l18:
+    je short .back3                  ; 0x1959
+.return1:
     ret                              ; 0x195b

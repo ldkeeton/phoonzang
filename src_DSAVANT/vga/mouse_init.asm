@@ -6,7 +6,7 @@ mouse_init:
     mov ax, ds                       ; 0x11fc
     mov es, ax                       ; 0x11fe
     cmp byte [cs:cseg_0105 - IMAGE_BASE], 0 ; 0x1200
-    je short @..mouse_init.l1        ; 0x1206
+    je short .forward1               ; 0x1206
     mov ax, 0                        ; 0x1208
     int 0x33 ; BIOS mouse
     push ds                          ; 0x120d
@@ -48,7 +48,7 @@ mouse_init:
     mov dx, 0x1ed4                   ; 0x1261
     int 0x33 ; BIOS mouse
     pop es                           ; 0x1266
-@..mouse_init.l1:
+.forward1:
     pop es                           ; 0x1267
     mov sp, bp                       ; 0x1268
     pop bp                           ; 0x126a

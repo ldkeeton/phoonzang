@@ -17,7 +17,7 @@ draw_maze_piece:
     add bx, ax
     mov bx, word [cs:bx]
     or bx, bx
-    jne short @..draw_maze_piece.l1
+    jne short .forward1
 draw_maze_piece.dos_con_loc1:
     mov ax, cs
     mov ds, ax
@@ -32,7 +32,7 @@ draw_maze_piece.cseg1:
     db 'MAZE SET ERROR.', 0
     db 0x0a, 0x24
 
-@..draw_maze_piece.l1:
+draw_maze_piece.forward1:
     dec bx
     mov cl, 2
     shl bx, cl
@@ -41,9 +41,9 @@ draw_maze_piece.cseg1:
     mov word [bp - 2], ax
     mov ax, word [bp + 0x12]
     cmp ax, strict word 0xffff
-    je short @..draw_maze_piece.l2
-    jmp near @..draw_maze_piece.l12
-@..draw_maze_piece.l2:
+    je short draw_maze_piece.forward2
+    jmp near draw_maze_piece.forward8
+draw_maze_piece.forward2:
     mov bx, word [bp + 0xe]
     mov ax, 5
     mul bx
@@ -59,9 +59,9 @@ draw_maze_piece.cseg1:
     xor ah, ah
     mov al, byte [si + 4]
     or ax, ax
-    jne short @..draw_maze_piece.l3
-    jmp near @..draw_maze_piece.l22
-@..draw_maze_piece.l3:
+    jne short draw_maze_piece.forward3
+    jmp near draw_maze_piece.forward13
+draw_maze_piece.forward3:
     mov cl, 3
     shl ax, cl
     mov word [bp - 4], ax
@@ -99,7 +99,7 @@ draw_maze_piece.cseg1:
     mov dx, ds
     add dx, word [bx]
     mov ds, dx
-@..draw_maze_piece.l4:
+draw_maze_piece.back1:
     push cx
     mov cx, word [bp - 4]
     push si
@@ -108,38 +108,38 @@ draw_maze_piece.cseg1:
     xchg si, ax
     xor ah, ah
     cmp word [bp + 0x10], byte 0
-    je short @..draw_maze_piece.l10
+    je short draw_maze_piece.forward6
     cmp word [bp + 0x10], byte 2
-    je short @..draw_maze_piece.l8
+    je short draw_maze_piece.back4
     cmp word [bp + 0x10], byte 3
-    je short @..draw_maze_piece.l6
-@..draw_maze_piece.l5:
+    je short draw_maze_piece.back3
+draw_maze_piece.back2:
     lodsb
     or al, byte [es:di]
     stosb
-    loop @..draw_maze_piece.l5
-    jmp short @..draw_maze_piece.l11
-@..draw_maze_piece.l6:
+    loop draw_maze_piece.back2
+    jmp short draw_maze_piece.forward7
+draw_maze_piece.back3:
     lodsb
     cmp al, 0xff
-    je short @..draw_maze_piece.l7
+    je short draw_maze_piece.forward4
     mov byte [es:di], ah
-@..draw_maze_piece.l7:
+draw_maze_piece.forward4:
     inc di
-    loop @..draw_maze_piece.l6
-    jmp short @..draw_maze_piece.l11
-@..draw_maze_piece.l8:
+    loop draw_maze_piece.back3
+    jmp short draw_maze_piece.forward7
+draw_maze_piece.back4:
     lodsb
     cmp al, 0xff
-    je short @..draw_maze_piece.l9
+    je short draw_maze_piece.forward5
     mov byte [es:di], al
-@..draw_maze_piece.l9:
+draw_maze_piece.forward5:
     inc di
-    loop @..draw_maze_piece.l8
-    jmp short @..draw_maze_piece.l11
-@..draw_maze_piece.l10:
+    loop draw_maze_piece.back4
+    jmp short draw_maze_piece.forward7
+draw_maze_piece.forward6:
     rep movsb
-@..draw_maze_piece.l11:
+draw_maze_piece.forward7:
     pop di
     add di, strict word 0x140
     pop ax
@@ -147,9 +147,9 @@ draw_maze_piece.cseg1:
     add ax, dx
     pop si
     pop cx
-    loop @..draw_maze_piece.l4
-    jmp near @..draw_maze_piece.l22
-@..draw_maze_piece.l12:
+    loop draw_maze_piece.back1
+    jmp near draw_maze_piece.forward13
+draw_maze_piece.forward8:
     mov bx, word [bp + 0xe]
     mov ax, 5
     mul bx
@@ -177,9 +177,9 @@ draw_maze_piece.cseg1:
     xor ah, ah
     mov al, byte [si + 4]
     or ax, ax
-    jne short @..draw_maze_piece.l13
-    jmp near @..draw_maze_piece.l22
-@..draw_maze_piece.l13:
+    jne short draw_maze_piece.forward9
+    jmp near draw_maze_piece.forward13
+draw_maze_piece.forward9:
     mov cl, 3
     shl ax, cl
     mov word [bp - 4], ax
@@ -217,7 +217,7 @@ draw_maze_piece.cseg1:
     mov dx, ds
     add dx, word [bx]
     mov ds, dx
-@..draw_maze_piece.l14:
+draw_maze_piece.back5:
     push cx
     mov cx, word [bp - 4]
     push si
@@ -226,44 +226,44 @@ draw_maze_piece.cseg1:
     xchg si, ax
     xor ah, ah
     cmp word [bp + 0x10], byte 0
-    je short @..draw_maze_piece.l20
+    je short draw_maze_piece.back9
     cmp word [bp + 0x10], byte 2
-    je short @..draw_maze_piece.l18
+    je short draw_maze_piece.back8
     cmp word [bp + 0x10], byte 3
-    je short @..draw_maze_piece.l16
-@..draw_maze_piece.l15:
+    je short draw_maze_piece.back7
+draw_maze_piece.back6:
     mov al, byte [si]
     dec si
     or al, byte [es:di]
     stosb
-    loop @..draw_maze_piece.l15
-    jmp short @..draw_maze_piece.l21
-@..draw_maze_piece.l16:
+    loop draw_maze_piece.back6
+    jmp short draw_maze_piece.forward12
+draw_maze_piece.back7:
     mov al, byte [si]
     dec si
     cmp al, 0xff
-    je short @..draw_maze_piece.l17
+    je short draw_maze_piece.forward10
     mov byte [es:di], ah
-@..draw_maze_piece.l17:
+draw_maze_piece.forward10:
     inc di
-    loop @..draw_maze_piece.l16
-    jmp short @..draw_maze_piece.l21
-@..draw_maze_piece.l18:
+    loop draw_maze_piece.back7
+    jmp short draw_maze_piece.forward12
+draw_maze_piece.back8:
     mov al, byte [si]
     dec si
     cmp al, 0xff
-    je short @..draw_maze_piece.l19
+    je short draw_maze_piece.forward11
     mov byte [es:di], al
-@..draw_maze_piece.l19:
+draw_maze_piece.forward11:
     inc di
-    loop @..draw_maze_piece.l18
-    jmp short @..draw_maze_piece.l21
-@..draw_maze_piece.l20:
+    loop draw_maze_piece.back8
+    jmp short draw_maze_piece.forward12
+draw_maze_piece.back9:
     mov al, byte [si]
     dec si
     stosb
-    loop @..draw_maze_piece.l20
-@..draw_maze_piece.l21:
+    loop draw_maze_piece.back9
+draw_maze_piece.forward12:
     pop di
     add di, strict word 0x140
     pop ax
@@ -271,8 +271,8 @@ draw_maze_piece.cseg1:
     add ax, dx
     pop si
     pop cx
-    loop @..draw_maze_piece.l14
-@..draw_maze_piece.l22:
+    loop draw_maze_piece.back5
+draw_maze_piece.forward13:
     pop si
     pop di
     pop es

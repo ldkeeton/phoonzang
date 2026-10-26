@@ -70,35 +70,35 @@ loc_MIPR:
     call random_below                ; 0x63a1
     pop cx                           ; 0x63a4
     test ax, ax                      ; 0x63a5
-    jne short @..loc_MIPR.l1         ; 0x63a7
+    jne short .forward1              ; 0x63a7
     add word [bss_9594], byte 8      ; 0x63a9
-@..loc_MIPR.l1:
+.forward1:
     mov ax, 0x14                     ; 0x63ae
     push ax                          ; 0x63b1
     call random_below                ; 0x63b2
     pop cx                           ; 0x63b5
     test ax, ax                      ; 0x63b6
-    jne short @..loc_MIPR.l2         ; 0x63b8
+    jne short .forward2              ; 0x63b8
     add word [bss_9594], byte 8      ; 0x63ba
-@..loc_MIPR.l2:
+.forward2:
     cmp word [bss_9594], byte 9      ; 0x63bf
-    jge short @..loc_MIPR.l3         ; 0x63c4
+    jge short .forward3              ; 0x63c4
     mov ax, 4                        ; 0x63c6
     push ax                          ; 0x63c9
     call random_below                ; 0x63ca
     pop cx                           ; 0x63cd
     add ax, strict word 8            ; 0x63ce
     mov word [bss_9594], ax          ; 0x63d1
-@..loc_MIPR.l3:
+.forward3:
     cmp word [bss_978a], byte 1      ; 0x63d4
-    jne short @..loc_MIPR.l4         ; 0x63d9
+    jne short .forward4              ; 0x63d9
     mov ax, 0xa                      ; 0x63db
     push ax                          ; 0x63de
     call random_below                ; 0x63df
     pop cx                           ; 0x63e2
     add ax, strict word 0x15         ; 0x63e3
     mov word [bss_9594], ax          ; 0x63e6
-@..loc_MIPR.l4:
+.forward4:
     mov ax, 1                        ; 0x63e9
     push ax                          ; 0x63ec
     push word [bp - 6]               ; 0x63ed
@@ -179,7 +179,7 @@ loc_MIPR:
     add sp, byte 6                   ; 0x64ae
     mov word [bp - 4], 0             ; 0x64b1
     mov word [bp - 2], 0             ; 0x64b6
-@..loc_MIPR.l5:
+.back1:
     mov ax, word [bp - 2]            ; 0x64bb
     shl ax, 1                        ; 0x64be
     mov bx, ax                       ; 0x64c0
@@ -188,9 +188,9 @@ loc_MIPR:
     inc word [bp - 2]                ; 0x64c9
     mov ax, word [bp - 2]            ; 0x64cc
     cmp ax, strict word 4            ; 0x64cf
-    jl short @..loc_MIPR.l5          ; 0x64d2
+    jl short .back1                  ; 0x64d2
     cmp word [bp - 4], byte 0        ; 0x64d4
-    jle short @..loc_MIPR.l6         ; 0x64d8
+    jle short .forward5              ; 0x64d8
     mov ax, MSG_YOU_GET_A_SKILL_BONUS ; 0x64da
     push ax                          ; 0x64dd
     push word [bp - 6]               ; 0x64de
@@ -213,25 +213,25 @@ loc_MIPR:
     push ax                          ; 0x6509
     call gfx_show_area               ; 0x650a
     add sp, byte 8                   ; 0x650d
-@..loc_MIPR.l6:
+.forward5:
     mov word [bp - 2], 0             ; 0x6510
-@..loc_MIPR.l7:
+.back2:
     mov ax, 0x248                    ; 0x6515
     imul word [bp - 6]               ; 0x6518
     add ax, word [bp - 2]            ; 0x651b
     mov bx, ax                       ; 0x651e
     cmp byte [bx + party_records + pc_rec.f_015c], 0 ; 0x6520
-    jbe short @..loc_MIPR.l8         ; 0x6525
+    jbe short .forward6              ; 0x6525
     push word [bp - 2]               ; 0x6527
     push word [bp - 6]               ; 0x652a
     call api_idx_006e_LVOK           ; 0x652d
     add sp, byte 4                   ; 0x6530
-    jmp short @..loc_MIPR.l7         ; 0x6533
-@..loc_MIPR.l8:
+    jmp short .back2                 ; 0x6533
+.forward6:
     inc word [bp - 2]                ; 0x6535
     mov ax, word [bp - 2]            ; 0x6538
     cmp ax, strict word 4            ; 0x653b
-    jl short @..loc_MIPR.l7          ; 0x653e
+    jl short .back2                  ; 0x653e
     push word [bp - 6]               ; 0x6540
     call api_idx_0008_VHMQ           ; 0x6543
     pop cx                           ; 0x6546
@@ -271,7 +271,7 @@ loc_MIPR:
     add sp, byte 0x1a                ; 0x6594
     mov word [bp - 4], ax            ; 0x6597
     cmp word [bp - 4], byte 0        ; 0x659a
-    jne short @..loc_MIPR.l9         ; 0x659e
+    jne short .return1               ; 0x659e
     mov ax, 1                        ; 0x65a0
     push ax                          ; 0x65a3
     push word [bp + 6]               ; 0x65a4
@@ -309,5 +309,5 @@ loc_MIPR:
     push word [bp - 8]               ; 0x65f4
     call aztec_close                 ; 0x65f7
     pop cx                           ; 0x65fa
-@..loc_MIPR.l9:
+.return1:
     ret                              ; 0x65fb

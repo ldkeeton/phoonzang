@@ -12,42 +12,42 @@ api_idx_0004_UQUT:
     adc dx, bx                       ; 0x0905
     mov word [bp - 2], dx            ; 0x0907
     mov word [bp - 4], ax            ; 0x090a
-@..api_idx_0004_UQUT.l1:
+.back1:
     les bx, word [tick_counter_ptr]  ; 0x090d
     mov ax, word [es:bx]             ; 0x0911
     mov dx, word [es:bx + 2]         ; 0x0914
     cmp dx, word [bp - 2]            ; 0x0918
-    jg short @..api_idx_0004_UQUT.l2 ; 0x091b
-    jne short @..api_idx_0004_UQUT.l3 ; 0x091d
+    jg short .forward1               ; 0x091b
+    jne short .forward2              ; 0x091d
     cmp ax, word [bp - 4]            ; 0x091f
-    jb short @..api_idx_0004_UQUT.l3 ; 0x0922
-@..api_idx_0004_UQUT.l2:
-    jmp short @..api_idx_0004_UQUT.l7 ; 0x0924
-@..api_idx_0004_UQUT.l3:
+    jb short .forward2               ; 0x0922
+.forward1:
+    jmp short .return1               ; 0x0924
+.forward2:
     call poll_fullscreen_hotspot     ; 0x0926
     test ax, ax                      ; 0x0929
-    je short @..api_idx_0004_UQUT.l4 ; 0x092b
+    je short .forward3               ; 0x092b
     ret                              ; 0x092d
-@..api_idx_0004_UQUT.l4:
+.forward3:
     mov ax, 1                        ; 0x092e
     push ax                          ; 0x0931
     call poll_filtered_key           ; 0x0932
     pop cx                           ; 0x0935
     test ax, ax                      ; 0x0936
-    je short @..api_idx_0004_UQUT.l5 ; 0x0938
+    je short .forward4               ; 0x0938
     mov ax, 1                        ; 0x093a
     push ax                          ; 0x093d
     call get_filtered_key            ; 0x093e
     pop cx                           ; 0x0941
     cmp al, 0xd                      ; 0x0942
-    jne short @..api_idx_0004_UQUT.l5 ; 0x0944
+    jne short .forward4              ; 0x0944
     ret                              ; 0x0946
-@..api_idx_0004_UQUT.l5:
+.forward4:
     call loc_IKLI                    ; 0x0947
     test ax, ax                      ; 0x094a
-    jne short @..api_idx_0004_UQUT.l6 ; 0x094c
+    jne short .forward5              ; 0x094c
     call loc_RULJ                    ; 0x094e
-@..api_idx_0004_UQUT.l6:
-    jmp short @..api_idx_0004_UQUT.l1 ; 0x0951
-@..api_idx_0004_UQUT.l7:
+.forward5:
+    jmp short .back1                 ; 0x0951
+.return1:
     ret                              ; 0x0953

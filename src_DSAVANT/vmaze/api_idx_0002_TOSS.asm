@@ -14,12 +14,12 @@ api_idx_0002_TOSS:
     mov cx, ax                       ; 0x0ae8
     pop ax                           ; 0x0aea
     cmp ax, cx                       ; 0x0aeb
-    jge short @..api_idx_0002_TOSS.l1 ; 0x0aed
+    jge short .forward1              ; 0x0aed
     mov ax, 0                        ; 0x0aef
-    jmp short @..api_idx_0002_TOSS.l2 ; 0x0af2
-@..api_idx_0002_TOSS.l1:
+    jmp short .forward2              ; 0x0af2
+.forward1:
     mov ax, 1                        ; 0x0af4
-@..api_idx_0002_TOSS.l2:
+.forward2:
     mov word [bp - 2], ax            ; 0x0af7
     mov ax, 4                        ; 0x0afa
     push ax                          ; 0x0afd

@@ -22,13 +22,13 @@ loc_IOMS:
     imul word [bp + 0x12]            ; 0x846d
     add ax, word [bp + 0xa]          ; 0x8470
     mov cx, word [bp + 0x10]         ; 0x8473
-    add cx, byte 0xf7                ; 0x8476
+    add cx, byte -9                  ; 0x8476
     sub ax, cx                       ; 0x8479
     mov word [bp - 8], ax            ; 0x847b
     cmp word [bp + 6], byte 0        ; 0x847e
-    jne short @..loc_IOMS.l1         ; 0x8482
-    jmp near @..loc_IOMS.l2          ; 0x8484
-@..loc_IOMS.l1:
+    jne short .forward1              ; 0x8482
+    jmp near .forward2               ; 0x8484
+.forward1:
     mov ax, dseg_90f4                ; 0x8487
     push ax                          ; 0x848a
     mov ax, word [bp - 8]            ; 0x848b
@@ -95,8 +95,8 @@ loc_IOMS:
     push ax                          ; 0x8520
     call draw_text_glyphs            ; 0x8521
     add sp, byte 4                   ; 0x8524
-    jmp short @..loc_IOMS.l3         ; 0x8527
-@..loc_IOMS.l2:
+    jmp short .forward3              ; 0x8527
+.forward2:
     mov ax, dseg_90fa                ; 0x8529
     push ax                          ; 0x852c
     mov ax, word [bp - 8]            ; 0x852d
@@ -114,22 +114,22 @@ loc_IOMS:
     call save_screen_area            ; 0x8541
     add sp, byte 0xa                 ; 0x8544
     mov word [bp - 0x1a8], ax        ; 0x8547
-@..loc_IOMS.l3:
+.forward3:
     mov word [bp - 2], 0             ; 0x854b
     mov word [bp - 4], 0             ; 0x8550
-@..loc_IOMS.l4:
+.back1:
     mov ax, word [bp - 4]            ; 0x8555
     shl ax, 1                        ; 0x8558
     mov si, ax                       ; 0x855a
     mov bx, word [bp + 0x1c]         ; 0x855c
-    cmp word [bx + si], byte 0xff    ; 0x855f
-    jne short @..loc_IOMS.l5         ; 0x8562
-    jmp near @..loc_IOMS.l9          ; 0x8564
-@..loc_IOMS.l5:
+    cmp word [bx + si], byte -1      ; 0x855f
+    jne short .forward4              ; 0x8562
+    jmp near .forward8               ; 0x8564
+.forward4:
     cmp word [bx + si], byte 1       ; 0x8567
-    je short @..loc_IOMS.l6          ; 0x856a
-    jmp near @..loc_IOMS.l8          ; 0x856c
-@..loc_IOMS.l6:
+    je short .forward5               ; 0x856a
+    jmp near .forward7               ; 0x856c
+.forward5:
     mov ax, 0x14                     ; 0x856f
     imul word [bp - 2]               ; 0x8572
     lea cx, word [bp - 0x156]        ; 0x8575
@@ -175,9 +175,9 @@ loc_IOMS:
     mov ax, word [bp + 0x16]         ; 0x85d8
     mov cx, word [bp - 4]            ; 0x85db
     cmp cx, word [bp + 0x18]         ; 0x85de
-    jne short @..loc_IOMS.l7         ; 0x85e1
+    jne short .forward6              ; 0x85e1
     mov ax, 0x1a                     ; 0x85e3
-@..loc_IOMS.l7:
+.forward6:
     push ax                          ; 0x85e6
     call gfx_set_text_color          ; 0x85e7
     add sp, byte 4                   ; 0x85ea
@@ -244,10 +244,10 @@ loc_IOMS:
     add bx, bp                       ; 0x867b
     mov word [bx - 0x2a], ax         ; 0x867d
     inc word [bp - 2]                ; 0x8680
-@..loc_IOMS.l8:
+.forward7:
     inc word [bp - 4]                ; 0x8683
-    jmp near @..loc_IOMS.l4          ; 0x8686
-@..loc_IOMS.l9:
+    jmp near .back1                  ; 0x8686
+.forward8:
     mov ax, 0                        ; 0x8689
     push ax                          ; 0x868c
     push ax                          ; 0x868d
@@ -269,23 +269,23 @@ loc_IOMS:
     call gfx_show_area               ; 0x86ab
     add sp, byte 8                   ; 0x86ae
     cmp word [mouse_active], byte 0  ; 0x86b1
-    je short @..loc_IOMS.l12         ; 0x86b6
-@..loc_IOMS.l10:
+    je short .forward10              ; 0x86b6
+.back2:
     mov ax, hotspot_rects            ; 0x86b8
     push ax                          ; 0x86bb
     call poll_hotspots               ; 0x86bc
     pop cx                           ; 0x86bf
     mov word [bp - 4], ax            ; 0x86c0
     cmp word [hotspot_hit], byte 0   ; 0x86c3
-    jne short @..loc_IOMS.l11        ; 0x86c8
+    jne short .forward9              ; 0x86c8
     call loc_IKLI                    ; 0x86ca
-@..loc_IOMS.l11:
+.forward9:
     cmp word [hotspot_hit], byte 0   ; 0x86cd
-    je short @..loc_IOMS.l10         ; 0x86d2
-    jmp near @..loc_IOMS.l26         ; 0x86d4
-@..loc_IOMS.l12:
+    je short .back2                  ; 0x86d2
+    jmp near .forward17              ; 0x86d4
+.forward10:
     mov word [bp - 4], 0             ; 0x86d7
-@..loc_IOMS.l13:
+.back3:
     mov ax, word [bp - 4]            ; 0x86dc
     cwd                              ; 0x86df
     idiv word [bp + 0x12]            ; 0x86e0
@@ -349,16 +349,16 @@ loc_IOMS:
     push ax                          ; 0x8769
     call loc_MNNG                    ; 0x876a
     add sp, byte 0xa                 ; 0x876d
-@..loc_IOMS.l14:
+.back4:
     mov ax, 1                        ; 0x8770
     push ax                          ; 0x8773
     call poll_filtered_key           ; 0x8774
     pop cx                           ; 0x8777
     test ax, ax                      ; 0x8778
-    jne short @..loc_IOMS.l15        ; 0x877a
+    jne short .forward11             ; 0x877a
     call loc_IKLI                    ; 0x877c
-    jmp short @..loc_IOMS.l14        ; 0x877f
-@..loc_IOMS.l15:
+    jmp short .back4                 ; 0x877f
+.forward11:
     mov ax, 1                        ; 0x8781
     push ax                          ; 0x8784
     call get_filtered_key            ; 0x8785
@@ -375,10 +375,10 @@ loc_IOMS:
     idiv word [bp + 0x12]            ; 0x879e
     inc ax                           ; 0x87a1
     mov word [bp - 0xc], ax          ; 0x87a2
-@..loc_IOMS.l16:
+.back5:
     mov ax, word [bp - 0x1aa]        ; 0x87a5
-    jmp near @..loc_IOMS.l21         ; 0x87a9
-@..loc_IOMS.l17:
+    jmp near .forward12              ; 0x87a9
+.back6:
     mov ax, word [bp - 4]            ; 0x87ac
     add ax, word [bp + 0x12]         ; 0x87af
     dec ax                           ; 0x87b2
@@ -392,8 +392,8 @@ loc_IOMS:
     pop ax                           ; 0x87c2
     add ax, cx                       ; 0x87c3
     mov word [bp - 4], ax            ; 0x87c5
-    jmp near @..loc_IOMS.l23         ; 0x87c8
-@..loc_IOMS.l18:
+    jmp near .forward14              ; 0x87c8
+.back7:
     mov ax, word [bp - 4]            ; 0x87cb
     inc ax                           ; 0x87ce
     cwd                              ; 0x87cf
@@ -406,8 +406,8 @@ loc_IOMS:
     pop ax                           ; 0x87de
     add ax, cx                       ; 0x87df
     mov word [bp - 4], ax            ; 0x87e1
-    jmp short @..loc_IOMS.l23        ; 0x87e4
-@..loc_IOMS.l19:
+    jmp short .forward14             ; 0x87e4
+.back8:
     mov ax, word [bp - 0xa]          ; 0x87e6
     add ax, word [bp - 0xc]          ; 0x87e9
     dec ax                           ; 0x87ec
@@ -425,8 +425,8 @@ loc_IOMS:
     pop ax                           ; 0x8806
     add ax, cx                       ; 0x8807
     mov word [bp - 4], ax            ; 0x8809
-    jmp short @..loc_IOMS.l23        ; 0x880c
-@..loc_IOMS.l20:
+    jmp short .forward14             ; 0x880c
+.back9:
     mov ax, word [bp - 0xa]          ; 0x880e
     inc ax                           ; 0x8811
     cwd                              ; 0x8812
@@ -443,28 +443,28 @@ loc_IOMS:
     pop ax                           ; 0x882b
     add ax, cx                       ; 0x882c
     mov word [bp - 4], ax            ; 0x882e
-    jmp short @..loc_IOMS.l23        ; 0x8831
-@..loc_IOMS.l21:
+    jmp short .forward14             ; 0x8831
+.forward12:
     cmp ax, strict word 8            ; 0x8833
-    je short @..loc_IOMS.l19         ; 0x8836
+    je short .back8                  ; 0x8836
     cmp ax, strict word 9            ; 0x8838
-    jne short @..loc_IOMS.l22        ; 0x883b
-    jmp near @..loc_IOMS.l17         ; 0x883d
-@..loc_IOMS.l22:
+    jne short .forward13             ; 0x883b
+    jmp near .back6                  ; 0x883d
+.forward13:
     cmp ax, strict word 0xa          ; 0x8840
-    je short @..loc_IOMS.l20         ; 0x8843
+    je short .back9                  ; 0x8843
     cmp ax, strict word 0xb          ; 0x8845
-    je short @..loc_IOMS.l18         ; 0x8848
-@..loc_IOMS.l23:
+    je short .back7                  ; 0x8848
+.forward14:
     mov ax, word [bp - 4]            ; 0x884a
     cmp ax, word [bp - 2]            ; 0x884d
-    jl short @..loc_IOMS.l24         ; 0x8850
-    jmp near @..loc_IOMS.l16         ; 0x8852
-@..loc_IOMS.l24:
+    jl short .forward15              ; 0x8850
+    jmp near .back5                  ; 0x8852
+.forward15:
     cmp word [bp - 0x1aa], byte 0xd  ; 0x8855
-    je short @..loc_IOMS.l25         ; 0x885a
-    jmp near @..loc_IOMS.l13         ; 0x885c
-@..loc_IOMS.l25:
+    je short .forward16              ; 0x885a
+    jmp near .back3                  ; 0x885c
+.forward16:
     inc word [bp - 4]                ; 0x885f
     mov ax, word [bp - 8]            ; 0x8862
     inc ax                           ; 0x8865
@@ -480,7 +480,7 @@ loc_IOMS:
     push ax                          ; 0x8875
     call gfx_show_area               ; 0x8876
     add sp, byte 8                   ; 0x8879
-@..loc_IOMS.l26:
+.forward17:
     dec word [bp - 4]                ; 0x887c
     mov ax, word [bp - 4]            ; 0x887f
     cwd                              ; 0x8882
@@ -524,9 +524,9 @@ loc_IOMS:
     call restore_saved_screen        ; 0x88de
     add sp, byte 4                   ; 0x88e1
     cmp word [bp + 0x1a], byte 0     ; 0x88e4
-    je short @..loc_IOMS.l28         ; 0x88e8
+    je short .forward19              ; 0x88e8
     cmp word [bp + 6], byte 0        ; 0x88ea
-    je short @..loc_IOMS.l27         ; 0x88ee
+    je short .forward18              ; 0x88ee
     mov ax, word [bp - 8]            ; 0x88f0
     add ax, strict word 6            ; 0x88f3
     push ax                          ; 0x88f6
@@ -541,8 +541,8 @@ loc_IOMS:
     push ax                          ; 0x890b
     call gfx_show_area               ; 0x890c
     add sp, byte 8                   ; 0x890f
-    jmp short @..loc_IOMS.l28        ; 0x8912
-@..loc_IOMS.l27:
+    jmp short .forward19             ; 0x8912
+.forward18:
     mov ax, word [bp - 8]            ; 0x8914
     inc ax                           ; 0x8917
     push ax                          ; 0x8918
@@ -557,7 +557,7 @@ loc_IOMS:
     push ax                          ; 0x8927
     call gfx_show_area               ; 0x8928
     add sp, byte 8                   ; 0x892b
-@..loc_IOMS.l28:
+.forward19:
     mov ax, word [bp - 4]            ; 0x892e
     mov word [bss_9052], ax          ; 0x8931
     shl ax, 1                        ; 0x8934

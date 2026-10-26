@@ -17,12 +17,12 @@ loc_RVQR:
     add sp, byte 4                   ; 0x03e3
     mov word [bss_9088], ax          ; 0x03e6
     cmp ax, strict word 0xffff       ; 0x03e9
-    jne short @..loc_RVQR.l1         ; 0x03ec
+    jne short .forward1              ; 0x03ec
     mov ax, 1                        ; 0x03ee
     push ax                          ; 0x03f1
     call release_and_exit            ; 0x03f2
     pop cx                           ; 0x03f5
-@..loc_RVQR.l1:
+.forward1:
     mov ax, 0x34c                    ; 0x03f6
     push ax                          ; 0x03f9
     mov ax, bss_5642                 ; 0x03fa
@@ -39,63 +39,63 @@ loc_RVQR:
     mov word [bss_9058], ax          ; 0x041b
     mov al, byte [bss_598a]          ; 0x041e
     sub ah, ah                       ; 0x0421
-    jmp short @..loc_RVQR.l6         ; 0x0423
-@..loc_RVQR.l2:
+    jmp short .forward2              ; 0x0423
+.back1:
     mov ax, 2                        ; 0x0425
     push ax                          ; 0x0428
     call release_and_exit            ; 0x0429
     pop cx                           ; 0x042c
-    jmp short @..loc_RVQR.l7         ; 0x042d
-@..loc_RVQR.l3:
+    jmp short .forward3              ; 0x042d
+.back2:
     mov word [bp - 2], 1             ; 0x042f
-    jmp short @..loc_RVQR.l7         ; 0x0434
-@..loc_RVQR.l4:
+    jmp short .forward3              ; 0x0434
+.back3:
     mov word [bp - 2], 2             ; 0x0436
-    jmp short @..loc_RVQR.l7         ; 0x043b
-@..loc_RVQR.l5:
+    jmp short .forward3              ; 0x043b
+.back4:
     mov ax, 2                        ; 0x043d
     push ax                          ; 0x0440
     call release_and_exit            ; 0x0441
     pop cx                           ; 0x0444
-    jmp short @..loc_RVQR.l7         ; 0x0445
-@..loc_RVQR.l6:
+    jmp short .forward3              ; 0x0445
+.forward2:
     cmp ax, strict word 1            ; 0x0447
-    je short @..loc_RVQR.l3          ; 0x044a
+    je short .back2                  ; 0x044a
     cmp ax, strict word 2            ; 0x044c
-    je short @..loc_RVQR.l4          ; 0x044f
+    je short .back3                  ; 0x044f
     cmp ax, 0xff                     ; 0x0451
-    je short @..loc_RVQR.l2          ; 0x0454
-    jmp short @..loc_RVQR.l5         ; 0x0456
-@..loc_RVQR.l7:
+    je short .back1                  ; 0x0454
+    jmp short .back4                 ; 0x0456
+.forward3:
     push word [bp - 2]               ; 0x0458
     call init_system_hardware        ; 0x045b
     pop cx                           ; 0x045e
     mov word [bss_9056], ax          ; 0x045f
     test ax, 1                       ; 0x0462
-    jne short @..loc_RVQR.l8         ; 0x0465
+    jne short .forward4              ; 0x0465
     test ax, 2                       ; 0x0467
-    je short @..loc_RVQR.l9          ; 0x046a
-@..loc_RVQR.l8:
-    jmp short @..loc_RVQR.l10        ; 0x046c
-@..loc_RVQR.l9:
+    je short .forward5               ; 0x046a
+.forward4:
+    jmp short .forward6              ; 0x046c
+.forward5:
     mov ax, 3                        ; 0x046e
     push ax                          ; 0x0471
     call release_and_exit            ; 0x0472
     pop cx                           ; 0x0475
-@..loc_RVQR.l10:
+.forward6:
     mov word [code_check_value], 0x905c ; 0x0476
     mov al, byte [bss_5984]          ; 0x047c
     sub ah, ah                       ; 0x047f
     mov word [bp - 0xa], ax          ; 0x0481
     cmp ax, strict word 6            ; 0x0484
-    jne short @..loc_RVQR.l11        ; 0x0487
+    jne short .forward7              ; 0x0487
     mov word [bp - 0xa], 4           ; 0x0489
-@..loc_RVQR.l11:
+.forward7:
     mov ax, word [bss_5980]          ; 0x048e
     cmp word [bp - 0xa], byte 0      ; 0x0491
-    jne short @..loc_RVQR.l12        ; 0x0495
+    jne short .forward8              ; 0x0495
     mov ax, 0                        ; 0x0497
-@..loc_RVQR.l12:
+.forward8:
     mov word [bp - 0xc], ax          ; 0x049a
     push word [bp - 0xa]             ; 0x049d
     push ax                          ; 0x04a0
@@ -105,7 +105,7 @@ loc_RVQR:
     mov word [mouse_active], 0       ; 0x04ad
     mov word [hotspot_hit], 0        ; 0x04b3
     mov word [bp - 6], 0             ; 0x04b9
-@..loc_RVQR.l13:
+.back5:
     mov ax, 0x64                     ; 0x04be
     push ax                          ; 0x04c1
     call random_below                ; 0x04c2
@@ -115,7 +115,7 @@ loc_RVQR:
     inc word [bp - 6]                ; 0x04cd
     mov ax, word [bp - 6]            ; 0x04d0
     cmp ax, strict word 0x64         ; 0x04d3
-    jl short @..loc_RVQR.l13         ; 0x04d6
+    jl short .back5                  ; 0x04d6
     call set_code_check_value        ; 0x04d8
     mov ax, 0                        ; 0x04db
     push ax                          ; 0x04de
@@ -123,18 +123,18 @@ loc_RVQR:
     call gfx_get_free_space          ; 0x04e0
     add sp, byte 4                   ; 0x04e3
     cmp dx, byte 1                   ; 0x04e6
-    jg short @..loc_RVQR.l14         ; 0x04e9
-    jne short @..loc_RVQR.l15        ; 0x04eb
+    jg short .forward9               ; 0x04e9
+    jne short .forward10             ; 0x04eb
     cmp ax, 0x6200                   ; 0x04ed
-    jb short @..loc_RVQR.l15         ; 0x04f0
-@..loc_RVQR.l14:
-    jmp short @..loc_RVQR.l16        ; 0x04f2
-@..loc_RVQR.l15:
+    jb short .forward10              ; 0x04f0
+.forward9:
+    jmp short .forward11             ; 0x04f2
+.forward10:
     mov ax, 4                        ; 0x04f4
     push ax                          ; 0x04f7
     call release_and_exit            ; 0x04f8
     pop cx                           ; 0x04fb
-@..loc_RVQR.l16:
+.forward11:
     mov ax, 0                        ; 0x04fc
     push ax                          ; 0x04ff
     mov ax, dseg_90a5                ; 0x0500
@@ -257,15 +257,15 @@ loc_RVQR:
     add sp, byte 4                   ; 0x0613
     mov word [msg_dbs_fd], ax        ; 0x0616
     cmp ax, strict word 0xffff       ; 0x0619
-    jne short @..loc_RVQR.l17        ; 0x061c
+    jne short .forward12             ; 0x061c
     mov ax, 9                        ; 0x061e
     push ax                          ; 0x0621
     call release_and_exit            ; 0x0622
     pop cx                           ; 0x0625
-@..loc_RVQR.l17:
+.forward12:
     mov word [message_block_current], 0xffff ; 0x0626
     mov word [message_cache_next], 0 ; 0x062c
-@..loc_RVQR.l18:
+.back6:
     mov ax, word [message_cache_next] ; 0x0632
     shl ax, 1                        ; 0x0635
     mov bx, ax                       ; 0x0637
@@ -273,10 +273,10 @@ loc_RVQR:
     inc word [message_cache_next]    ; 0x063f
     mov ax, word [message_cache_next] ; 0x0643
     cmp ax, strict word 4            ; 0x0646
-    jl short @..loc_RVQR.l18         ; 0x0649
+    jl short .back6                  ; 0x0649
     mov word [message_cache_next], 0 ; 0x064b
     mov word [bp - 6], 0             ; 0x0651
-@..loc_RVQR.l19:
+.back7:
     mov ax, word [bp - 6]            ; 0x0656
     shl ax, 1                        ; 0x0659
     mov bx, ax                       ; 0x065b
@@ -294,7 +294,7 @@ loc_RVQR:
     inc word [bp - 6]                ; 0x0685
     mov ax, word [bp - 6]            ; 0x0688
     cmp ax, strict word 5            ; 0x068b
-    jl short @..loc_RVQR.l19         ; 0x068e
+    jl short .back7                  ; 0x068e
     mov ax, 0                        ; 0x0690
     push ax                          ; 0x0693
     push ax                          ; 0x0694
@@ -307,12 +307,12 @@ loc_RVQR:
     add sp, byte 4                   ; 0x06a3
     mov word [data_file_fd], ax      ; 0x06a6
     cmp ax, strict word 0xffff       ; 0x06a9
-    jne short @..loc_RVQR.l20        ; 0x06ac
+    jne short .forward13             ; 0x06ac
     mov ax, 0xa                      ; 0x06ae
     push ax                          ; 0x06b1
     call release_and_exit            ; 0x06b2
     pop cx                           ; 0x06b5
-@..loc_RVQR.l20:
+.forward13:
     call ds_app_string_KVNI          ; 0x06b6
     mov ax, 1                        ; 0x06b9
     push ax                          ; 0x06bc
@@ -384,15 +384,15 @@ loc_RVQR:
     mov word [bss_0e20], dx          ; 0x077b
     mov word [bss_0e1e], ax          ; 0x077f
     cmp word [bss_0e20], byte 0      ; 0x0782
-    jne short @..loc_RVQR.l21        ; 0x0787
+    jne short .forward14             ; 0x0787
     cmp word [bss_0e1e], byte 0      ; 0x0789
-@..loc_RVQR.l21:
-    jne short @..loc_RVQR.l22        ; 0x078e
+.forward14:
+    jne short .forward15             ; 0x078e
     mov ax, 0xd                      ; 0x0790
     push ax                          ; 0x0793
     call release_and_exit            ; 0x0794
     pop cx                           ; 0x0797
-@..loc_RVQR.l22:
+.forward15:
     mov ax, 0x1000                   ; 0x0798
     mov dx, 0                        ; 0x079b
     push dx                          ; 0x079e
@@ -402,15 +402,15 @@ loc_RVQR:
     mov word [bss_0e1c], dx          ; 0x07a6
     mov word [bss_0e1a], ax          ; 0x07aa
     cmp word [bss_0e1c], byte 0      ; 0x07ad
-    jne short @..loc_RVQR.l23        ; 0x07b2
+    jne short .forward16             ; 0x07b2
     cmp word [bss_0e1a], byte 0      ; 0x07b4
-@..loc_RVQR.l23:
-    jne short @..loc_RVQR.l24        ; 0x07b9
+.forward16:
+    jne short .forward17             ; 0x07b9
     mov ax, 0xd                      ; 0x07bb
     push ax                          ; 0x07be
     call release_and_exit            ; 0x07bf
     pop cx                           ; 0x07c2
-@..loc_RVQR.l24:
+.forward17:
     mov ax, 0x1000                   ; 0x07c3
     mov dx, 0                        ; 0x07c6
     push dx                          ; 0x07c9
@@ -420,61 +420,61 @@ loc_RVQR:
     mov word [bss_0e18], dx          ; 0x07d1
     mov word [bss_0e16], ax          ; 0x07d5
     cmp word [bss_0e18], byte 0      ; 0x07d8
-    jne short @..loc_RVQR.l25        ; 0x07dd
+    jne short .forward18             ; 0x07dd
     cmp word [bss_0e16], byte 0      ; 0x07df
-@..loc_RVQR.l25:
-    jne short @..loc_RVQR.l26        ; 0x07e4
+.forward18:
+    jne short .forward19             ; 0x07e4
     mov ax, 0xd                      ; 0x07e6
     push ax                          ; 0x07e9
     call release_and_exit            ; 0x07ea
     pop cx                           ; 0x07ed
-@..loc_RVQR.l26:
+.forward19:
     push word [bss_5528]             ; 0x07ee
     call aztec_malloc                ; 0x07f2
     pop cx                           ; 0x07f5
     mov word [maze_data], ax         ; 0x07f6
     cmp word [maze_data], byte 0     ; 0x07f9
-    jne short @..loc_RVQR.l27        ; 0x07fe
+    jne short .forward20             ; 0x07fe
     mov ax, 0xd                      ; 0x0800
     push ax                          ; 0x0803
     call release_and_exit            ; 0x0804
     pop cx                           ; 0x0807
-@..loc_RVQR.l27:
+.forward20:
     push word [bss_552a]             ; 0x0808
     call aztec_malloc                ; 0x080c
     pop cx                           ; 0x080f
     mov word [maze_tables], ax       ; 0x0810
     cmp word [maze_tables], byte 0   ; 0x0813
-    jne short @..loc_RVQR.l28        ; 0x0818
+    jne short .forward21             ; 0x0818
     mov ax, 0xd                      ; 0x081a
     push ax                          ; 0x081d
     call release_and_exit            ; 0x081e
     pop cx                           ; 0x0821
-@..loc_RVQR.l28:
+.forward21:
     mov ax, 0xc00                    ; 0x0822
     push ax                          ; 0x0825
     call aztec_malloc                ; 0x0826
     pop cx                           ; 0x0829
     mov word [bss_0e10], ax          ; 0x082a
     cmp word [bss_0e10], byte 0      ; 0x082d
-    jne short @..loc_RVQR.l29        ; 0x0832
+    jne short .forward22             ; 0x0832
     mov ax, 0xd                      ; 0x0834
     push ax                          ; 0x0837
     call release_and_exit            ; 0x0838
     pop cx                           ; 0x083b
-@..loc_RVQR.l29:
+.forward22:
     mov ax, 0x400                    ; 0x083c
     push ax                          ; 0x083f
     call aztec_malloc                ; 0x0840
     pop cx                           ; 0x0843
     mov word [bss_0e0e], ax          ; 0x0844
     cmp word [bss_0e0e], byte 0      ; 0x0847
-    jne short @..loc_RVQR.l30        ; 0x084c
+    jne short .forward23             ; 0x084c
     mov ax, 0xd                      ; 0x084e
     push ax                          ; 0x0851
     call release_and_exit            ; 0x0852
     pop cx                           ; 0x0855
-@..loc_RVQR.l30:
+.forward23:
     mov word [startup_check_stage], 0 ; 0x0856
     mov ax, 0                        ; 0x085c
     push ax                          ; 0x085f
@@ -488,12 +488,12 @@ loc_RVQR:
     add sp, byte 4                   ; 0x086f
     mov word [bp - 4], ax            ; 0x0872
     cmp ax, strict word 0xffff       ; 0x0875
-    jne short @..loc_RVQR.l31        ; 0x0878
+    jne short .forward24             ; 0x0878
     mov ax, 0xe                      ; 0x087a
     push ax                          ; 0x087d
     call release_and_exit            ; 0x087e
     pop cx                           ; 0x0881
-@..loc_RVQR.l31:
+.forward24:
     mov ax, 0x300                    ; 0x0882
     push ax                          ; 0x0885
     lea ax, word [bp - 0x31a]        ; 0x0886

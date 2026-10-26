@@ -172,8 +172,8 @@ pub fn share(gpa: Allocator, files: *std.ArrayList(File)) !void {
     std.debug.print("shared {d} routines across binaries ({d} copies)\n", .{ best.count(), drop.count() });
 }
 
-/// ``own.lN equ stem.lN`` for each local label the shared file defines, so
-/// other routines of the binary (*refs*: their ``label.lN`` tokens) still
+/// ``own.local equ stem.local`` for each local label the shared file defines, so
+/// other routines of the binary (*refs*: their qualified local tokens) still
 /// reach them by the own name.
 fn localAliases(gpa: Allocator, out: *std.ArrayList(u8), text: []const u8, own: []const u8, stem: []const u8, refs: *Names) !void {
     var lines = std.mem.splitScalar(u8, text, '\n');
@@ -185,7 +185,7 @@ fn localAliases(gpa: Allocator, out: *std.ArrayList(u8), text: []const u8, own: 
     }
 }
 
-/// The ``label.lN`` tokens binary *bin*'s files use (computed once per binary).
+/// The qualified local tokens binary *bin*'s files use (computed once per binary).
 fn localRefs(gpa: Allocator, fs: []const File, bin: []const u8, cache: *std.StringHashMap(*Names)) !*Names {
     if (cache.get(bin)) |r| return r;
     const set = try gpa.create(Names);
@@ -194,8 +194,8 @@ fn localRefs(gpa: Allocator, fs: []const File, bin: []const u8, cache: *std.Stri
         if (!std.mem.eql(u8, f.bin, bin)) continue;
         for (try tokenize(gpa, f.text)) |t| {
             if (t.len == 0 or !identStart(t[0])) continue;
-            const dot = std.mem.indexOf(u8, t, ".l") orelse continue;
-            if (dot > 0) try set.put(t, {});
+            const dot = std.mem.lastIndexOfScalar(u8, t, '.') orelse continue;
+            if (dot > 0 and numberedLocal(t[dot + 1 ..])) try set.put(t, {});
         }
     }
     try cache.put(bin, set);
@@ -329,7 +329,16 @@ fn rewriteIncludes(gpa: Allocator, text: []const u8, redirect: *std.StringHashMa
             const e = std.mem.indexOfScalarPos(u8, line, pre.len, '"') orelse line.len;
             if (redirect.get(line[pre.len..e])) |inc| {
                 try out.appendSlice(gpa, inc);
-                try out.appendSlice(gpa, line[@min(e + 1, line.len)..]);
+                const suffix = std.mem.trimStart(u8, line[@min(e + 1, line.len)..], " ");
+                if (suffix.len > 0) {
+                    // Re-pad the final include after changing its path; inc
+                    // can also contain alias lines before the include.
+                    const start = if (std.mem.lastIndexOfScalar(u8, inc, '\n')) |nl| nl + 1 else 0;
+                    const len = inc.len - start;
+                    if (len < 42) try out.appendNTimes(gpa, ' ', 42 - len);
+                    try out.append(gpa, ' ');
+                    try out.appendSlice(gpa, suffix);
+                }
                 continue;
             }
         }
@@ -381,14 +390,22 @@ fn identChar(ch: u8) bool {
     return std.ascii.isAlphanumeric(ch) or ch == '_' or ch == '.' or ch == '@';
 }
 
-/// A name *set*'s binary defines: a label, an equate, or ``label.lN``.
+fn numberedLocal(loc: []const u8) bool {
+    for ([_][]const u8{ "back", "return", "forward", "l" }) |prefix| {
+        if (!std.mem.startsWith(u8, loc, prefix) or loc.len == prefix.len) continue;
+        for (loc[prefix.len..]) |ch| if (!std.ascii.isDigit(ch)) return false;
+        return true;
+    }
+    return false;
+}
+
+/// A name *set*'s binary defines: a label, an equate, or a qualified local.
 fn isName(set: *Names, t: []const u8) bool {
     if (t.len == 0 or !identStart(t[0])) return false;
     if (set.contains(t)) return true;
     const dot = std.mem.lastIndexOfScalar(u8, t, '.') orelse return false;
     const loc = t[dot + 1 ..];
-    if (loc.len < 2 or loc[0] != 'l') return false;
-    for (loc[1..]) |ch| if (!std.ascii.isDigit(ch)) return false;
+    if (!numberedLocal(loc)) return false;
     return set.contains(t[0..dot]);
 }
 

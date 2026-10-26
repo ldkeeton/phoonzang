@@ -11,12 +11,12 @@ api_idx_0006_UMQS:
     call aztec_setmem                ; 0x9221
     add sp, byte 6                   ; 0x9224
     mov word [bp - 2], 0             ; 0x9227
-@..api_idx_0006_UMQS.l1:
+.back1:
     mov ax, 6                        ; 0x922c
     imul word [bp - 2]               ; 0x922f
     mov bx, ax                       ; 0x9232
     cmp byte [bx + slot_bit_states + slot_bit_state.f_0003], 0xff ; 0x9234
-    je short @..api_idx_0006_UMQS.l2 ; 0x9239
+    je short .forward1               ; 0x9239
     mov ax, word [bp - 2]            ; 0x923b
     add ax, strict word 0xc          ; 0x923e
     push ax                          ; 0x9241
@@ -27,7 +27,7 @@ api_idx_0006_UMQS:
     call test_bit                    ; 0x924c
     add sp, byte 4                   ; 0x924f
     test ax, ax                      ; 0x9252
-    je short @..api_idx_0006_UMQS.l2 ; 0x9254
+    je short .forward1               ; 0x9254
     mov ax, 6                        ; 0x9256
     imul word [bp - 2]               ; 0x9259
     mov bx, ax                       ; 0x925c
@@ -36,11 +36,11 @@ api_idx_0006_UMQS:
     shl ax, 1                        ; 0x9263
     mov bx, ax                       ; 0x9265
     mov word [bx + bss_9bd2], 1      ; 0x9267
-@..api_idx_0006_UMQS.l2:
+.forward1:
     inc word [bp - 2]                ; 0x926d
     mov ax, word [bp - 2]            ; 0x9270
     cmp ax, strict word 0xb          ; 0x9273
-    jl short @..api_idx_0006_UMQS.l1 ; 0x9276
+    jl short .back1                  ; 0x9276
     mov ax, 0xe                      ; 0x9278
     push ax                          ; 0x927b
     mov ax, 0x26                     ; 0x927c
@@ -50,9 +50,9 @@ api_idx_0006_UMQS:
     call test_bit                    ; 0x9286
     add sp, byte 4                   ; 0x9289
     test ax, ax                      ; 0x928c
-    je short @..api_idx_0006_UMQS.l3 ; 0x928e
+    je short .forward2               ; 0x928e
     mov word [bss_9bdc], 1           ; 0x9290
-@..api_idx_0006_UMQS.l3:
+.forward2:
     mov byte [bss_8aac], 6           ; 0x9296
     mov ax, 0xd                      ; 0x929b
     push ax                          ; 0x929e
@@ -63,12 +63,12 @@ api_idx_0006_UMQS:
     call test_bit                    ; 0x92a9
     add sp, byte 4                   ; 0x92ac
     test ax, ax                      ; 0x92af
-    je short @..api_idx_0006_UMQS.l4 ; 0x92b1
+    je short .forward3               ; 0x92b1
     mov word [bss_9bde], 1           ; 0x92b3
-@..api_idx_0006_UMQS.l4:
+.forward3:
     mov word [bp - 6], 1             ; 0x92b9
     mov word [bp - 2], 0             ; 0x92be
-@..api_idx_0006_UMQS.l5:
+.back2:
     mov ax, word [bp - 2]            ; 0x92c3
     shl ax, 1                        ; 0x92c6
     shl ax, 1                        ; 0x92c8
@@ -76,34 +76,34 @@ api_idx_0006_UMQS:
     mov al, byte [bx + bss_8a6e]     ; 0x92cc
     sub ah, ah                       ; 0x92d0
     cmp ax, word [bp + 8]            ; 0x92d2
-    je short @..api_idx_0006_UMQS.l6 ; 0x92d5
+    je short .forward4               ; 0x92d5
     mov al, byte [bx + bss_8a6e + rec_8a6e.f_0001] ; 0x92d7
     sub ah, ah                       ; 0x92db
     cmp ax, word [bp + 8]            ; 0x92dd
-    jne short @..api_idx_0006_UMQS.l8 ; 0x92e0
-@..api_idx_0006_UMQS.l6:
+    jne short .forward6              ; 0x92e0
+.forward4:
     cmp byte [bx + bss_8a6e + rec_8a6e.f_0002], 0xff ; 0x92e2
-    je short @..api_idx_0006_UMQS.l7 ; 0x92e7
+    je short .forward5               ; 0x92e7
     mov al, byte [bx + bss_8a6e + rec_8a6e.f_0002] ; 0x92e9
     cbw                              ; 0x92ed
     shl ax, 1                        ; 0x92ee
     mov bx, ax                       ; 0x92f0
     cmp word [bx + bss_9bd2], byte 1 ; 0x92f2
-    jne short @..api_idx_0006_UMQS.l8 ; 0x92f7
-@..api_idx_0006_UMQS.l7:
+    jne short .forward6              ; 0x92f7
+.forward5:
     mov word [bp - 6], 0             ; 0x92f9
-@..api_idx_0006_UMQS.l8:
+.forward6:
     inc word [bp - 2]                ; 0x92fe
     mov ax, word [bp - 2]            ; 0x9301
     cmp ax, strict word 0x20         ; 0x9304
-    jl short @..api_idx_0006_UMQS.l5 ; 0x9307
+    jl short .back2                  ; 0x9307
     cmp word [bp - 6], byte 0        ; 0x9309
-    je short @..api_idx_0006_UMQS.l9 ; 0x930d
+    je short .forward7               ; 0x930d
     mov ax, 0                        ; 0x930f
     ret                              ; 0x9312
-@..api_idx_0006_UMQS.l9:
+.forward7:
     mov word [bss_9c00], 0           ; 0x9313
-@..api_idx_0006_UMQS.l10:
+.back3:
     mov word [bss_9be6], 0           ; 0x9319
     mov ax, 0                        ; 0x931f
     push ax                          ; 0x9322
@@ -123,18 +123,18 @@ api_idx_0006_UMQS:
     call api_idx_0048_OSRI           ; 0x9343
     add sp, byte 8                   ; 0x9346
     test ax, ax                      ; 0x9349
-    jne short @..api_idx_0006_UMQS.l11 ; 0x934b
+    jne short .forward8              ; 0x934b
     cmp word [bss_9c00], byte 0x14   ; 0x934d
-    jl short @..api_idx_0006_UMQS.l10 ; 0x9352
-@..api_idx_0006_UMQS.l11:
+    jl short .back3                  ; 0x9352
+.forward8:
     cmp word [bss_9c00], byte 0x14   ; 0x9354
-    jl short @..api_idx_0006_UMQS.l12 ; 0x9359
+    jl short .forward9               ; 0x9359
     mov ax, 0                        ; 0x935b
     ret                              ; 0x935e
-@..api_idx_0006_UMQS.l12:
+.forward9:
     mov word [bp - 2], 0             ; 0x935f
-    jmp short @..api_idx_0006_UMQS.l14 ; 0x9364
-@..api_idx_0006_UMQS.l13:
+    jmp short .forward10             ; 0x9364
+.back4:
     mov ax, word [bp - 2]            ; 0x9366
     shl ax, 1                        ; 0x9369
     mov bx, ax                       ; 0x936b
@@ -148,10 +148,10 @@ api_idx_0006_UMQS:
     pop ax                           ; 0x937f
     mov byte [bx + slot_records + slot_record.f_0008], al ; 0x9380
     inc word [bp - 2]                ; 0x9384
-@..api_idx_0006_UMQS.l14:
+.forward10:
     mov ax, word [bp - 2]            ; 0x9387
     cmp ax, word [bss_9be6]          ; 0x938a
-    jl short @..api_idx_0006_UMQS.l13 ; 0x938e
+    jl short .back4                  ; 0x938e
     mov ax, word [bss_9be6]          ; 0x9390
     dec ax                           ; 0x9393
     push ax                          ; 0x9394

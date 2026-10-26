@@ -4,13 +4,13 @@ fade_out_music: ; Aztec csav frame=0x0000
     call aztec_csav                  ; 0x2b65
     call gfx_is_music_playing        ; 0x2b68
     test ax, ax                      ; 0x2b6b
-    je short @..fade_out_music.l3    ; 0x2b6d
-@..fade_out_music.l1:
+    je short .return1                ; 0x2b6d
+.back1:
     cmp word [bp + 6], byte 0        ; 0x2b6f
-    jle short @..fade_out_music.l2   ; 0x2b73
+    jle short .forward1              ; 0x2b73
     call gfx_is_music_playing        ; 0x2b75
     test ax, ax                      ; 0x2b78
-    je short @..fade_out_music.l2    ; 0x2b7a
+    je short .forward1               ; 0x2b7a
     push word [bp + 6]               ; 0x2b7c
     mov ax, 0                        ; 0x2b7f
     push ax                          ; 0x2b82
@@ -28,8 +28,8 @@ fade_out_music: ; Aztec csav frame=0x0000
     push ax                          ; 0x2ba0
     call delay_ms                    ; 0x2ba1
     pop cx                           ; 0x2ba4
-    jmp short @..fade_out_music.l1   ; 0x2ba5
-@..fade_out_music.l2:
+    jmp short .back1                 ; 0x2ba5
+.forward1:
     call gfx_stop_music              ; 0x2ba7
-@..fade_out_music.l3:
+.return1:
     ret                              ; 0x2baa

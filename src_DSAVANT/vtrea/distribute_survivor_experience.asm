@@ -4,20 +4,20 @@ distribute_survivor_experience:
     call aztec_csav                  ; 0x5d83
     mov word [bp - 4], 0             ; 0x5d86
     mov word [bp - 2], 0             ; 0x5d8b
-    jmp short @..distribute_survivor_experience.l3 ; 0x5d90
-@..distribute_survivor_experience.l1:
+    jmp short .forward2              ; 0x5d90
+.back1:
     mov ax, 0x248                    ; 0x5d92
     imul word [bp - 2]               ; 0x5d95
     mov bx, ax                       ; 0x5d98
     cmp byte [bx + party_records + pc_rec.state], 0 ; 0x5d9a
-    jne short @..distribute_survivor_experience.l2 ; 0x5d9f
+    jne short .forward1              ; 0x5d9f
     inc word [bp - 4]                ; 0x5da1
-@..distribute_survivor_experience.l2:
+.forward1:
     inc word [bp - 2]                ; 0x5da4
-@..distribute_survivor_experience.l3:
+.forward2:
     mov ax, word [bp - 2]            ; 0x5da7
     cmp ax, word [party_char_count]  ; 0x5daa
-    jl short @..distribute_survivor_experience.l1 ; 0x5dae
+    jl short .back1                  ; 0x5dae
     mov ax, word [item_action_reward] ; 0x5db0
     mov dx, word [item_action_reward_hi] ; 0x5db3
     mov cx, 0x14                     ; 0x5db7
@@ -91,21 +91,21 @@ distribute_survivor_experience:
     call show_treasure_message       ; 0x5e51
     add sp, byte 8                   ; 0x5e54
     mov word [bp - 2], 0             ; 0x5e57
-    jmp short @..distribute_survivor_experience.l6 ; 0x5e5c
-@..distribute_survivor_experience.l4:
+    jmp short .forward4              ; 0x5e5c
+.back2:
     mov ax, 0x248                    ; 0x5e5e
     imul word [bp - 2]               ; 0x5e61
     mov bx, ax                       ; 0x5e64
     cmp byte [bx + party_records + pc_rec.state], 0 ; 0x5e66
-    jne short @..distribute_survivor_experience.l5 ; 0x5e6b
+    jne short .forward3              ; 0x5e6b
     mov ax, word [bp - 8]            ; 0x5e6d
     mov dx, word [bp - 6]            ; 0x5e70
     add word [bx + party_records + pc_rec.experience], ax ; 0x5e73
     adc word [bx + party_records + pc_rec.experience + 0x2], dx ; 0x5e77
-@..distribute_survivor_experience.l5:
+.forward3:
     inc word [bp - 2]                ; 0x5e7b
-@..distribute_survivor_experience.l6:
+.forward4:
     mov ax, word [bp - 2]            ; 0x5e7e
     cmp ax, word [party_char_count]  ; 0x5e81
-    jl short @..distribute_survivor_experience.l4 ; 0x5e85
+    jl short .back2                  ; 0x5e85
     ret                              ; 0x5e87

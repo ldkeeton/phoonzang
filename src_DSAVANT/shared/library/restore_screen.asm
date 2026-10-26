@@ -10,7 +10,7 @@ restore_screen:
     mov ax, ds
     mov es, ax
     cmp word [bp + 0xe], byte 3
-    jne short @..restore_screen.l2
+    jne short .forward1
     lea bx, word [bp - 0xa]
     mov dx, bx
     mov ax, ss
@@ -22,7 +22,7 @@ restore_screen:
     mov ax, word [cs:screen_buf_seg - IMAGE_BASE]
     mov ds, ax
     mov cx, word [bp - 4]
-@..restore_screen.l1:
+.back1:
     push cx
     mov dx, word [bp - 2]
     add word [bp - 2], strict word 0x140
@@ -31,13 +31,13 @@ restore_screen:
     mov ah, 0x3f
     int 0x21 ; DOS read file (handle)
     pop cx
-    loop @..restore_screen.l1
-    jmp near @..restore_screen.l9
-@..restore_screen.l2:
+    loop .back1
+    jmp near .forward6
+.forward1:
     cmp word [bp + 0xe], byte 2
-    je short @..restore_screen.l3
-    jmp near @..restore_screen.l6
-@..restore_screen.l3:
+    je short .forward2
+    jmp near .forward4
+.forward2:
     mov ax, word [bp + 0xc]
     shl ax, 1
     mov bx, maze_slots - IMAGE_BASE
@@ -63,15 +63,15 @@ restore_screen:
     mov word [bp - 6], ax
     lodsw
     lodsw
-@..restore_screen.l4:
+.back2:
     mov di, word [bp - 2]
     add word [bp - 2], strict word 0x140
     mov cx, word [bp - 6]
     rep movsb
     dec word [bp - 4]
-    jne short @..restore_screen.l4
+    jne short .back2
     cmp word [bp + 0x10], byte 0
-    je short @..restore_screen.l5
+    je short .forward3
     mov ax, word [bp + 0xc]
     shl ax, 1
     mov bx, maze_slots - IMAGE_BASE
@@ -80,9 +80,9 @@ restore_screen:
     mov word [cs:bx], 0
     dec word [cs:maze_block_count - IMAGE_BASE]
     call loc_PPJL
-@..restore_screen.l5:
-    jmp near @..restore_screen.l9
-@..restore_screen.l6:
+.forward3:
+    jmp near .forward6
+.forward4:
     mov ax, word [bp + 0xc]
     shl ax, 1
     mov bx, ems_slots - IMAGE_BASE
@@ -116,22 +116,22 @@ restore_screen:
     mov word [bp - 6], ax
     lodsw
     lodsw
-@..restore_screen.l7:
+.back3:
     mov di, word [bp - 2]
     add word [bp - 2], strict word 0x140
     mov cx, word [bp - 6]
     rep movsb
     test si, 0xc000
-    je short @..restore_screen.l8
+    je short .forward5
     inc word [cs:ems_cur_page - IMAGE_BASE]
     mov ax, word [cs:ems_cur_page - IMAGE_BASE]
     call ems_map_pages
     and si, strict word 0x3fff
-@..restore_screen.l8:
+.forward5:
     dec word [bp - 4]
-    jne short @..restore_screen.l7
+    jne short .back3
     cmp word [bp + 0x10], byte 0
-    je short @..restore_screen.l9
+    je short .forward6
     mov cx, word [cs:ems_block_count - IMAGE_BASE]
     dec cx
     mov word [cs:ems_block_count - IMAGE_BASE], cx
@@ -143,7 +143,7 @@ restore_screen:
     mov word [cs:bx], 0
     call leaf_loc_MIUO
     call loc_KLNH
-@..restore_screen.l9:
+.forward6:
     pop si
     pop di
     pop ds

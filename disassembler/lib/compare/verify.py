@@ -539,6 +539,7 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
     local_labels = _compute_local_labels(
         local_targets, owners, roots, label_map, fragment_names,
         split_ranges=split_ranges,
+        instructions=insns, branch_edges=direct_edges,
     )
     local_labels = {
         off: label for off, label in local_labels.items()

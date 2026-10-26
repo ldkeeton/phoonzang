@@ -4,14 +4,14 @@ api_idx_0004_GHUK:
     call aztec_csav                  ; 0x5374
     mov word [bss_9cd2], 0           ; 0x5377
     mov word [bp - 2], 0             ; 0x537d
-@..api_idx_0004_GHUK.l1:
+.back1:
     mov ax, word [bp - 2]            ; 0x5382
     shl ax, 1                        ; 0x5385
     mov bx, ax                       ; 0x5387
     cmp word [bx + bss_9cd4], byte 0 ; 0x5389
-    jg short @..api_idx_0004_GHUK.l2 ; 0x538e
-    jmp near @..api_idx_0004_GHUK.l4 ; 0x5390
-@..api_idx_0004_GHUK.l2:
+    jg short .forward1               ; 0x538e
+    jmp near .forward2               ; 0x5390
+.forward1:
     mov ax, word [bx + bss_9cd4]     ; 0x5393
     mov cx, word [bss_9cd2]          ; 0x5397
     shl cx, 1                        ; 0x539b
@@ -56,7 +56,7 @@ api_idx_0004_GHUK:
     mov bx, word [bss_9cd2]          ; 0x540e
     mov byte [bx + bss_99b8], al     ; 0x5412
     mov word [bp - 4], 0             ; 0x5416
-@..api_idx_0004_GHUK.l3:
+.back2:
     mov ax, word [bp - 2]            ; 0x541b
     shl ax, 1                        ; 0x541e
     add ax, word [bp - 4]            ; 0x5420
@@ -77,29 +77,29 @@ api_idx_0004_GHUK:
     inc word [bp - 4]                ; 0x544c
     mov ax, word [bp - 4]            ; 0x544f
     cmp ax, strict word 2            ; 0x5452
-    jl short @..api_idx_0004_GHUK.l3 ; 0x5455
+    jl short .back2                  ; 0x5455
     mov bx, word [bp - 2]            ; 0x5457
     mov al, byte [bx + bss_98fa]     ; 0x545a
     mov bx, word [bss_9cd2]          ; 0x545e
     mov byte [bx + bss_98fa], al     ; 0x5462
     inc word [bss_9cd2]              ; 0x5466
-@..api_idx_0004_GHUK.l4:
+.forward2:
     inc word [bp - 2]                ; 0x546a
     mov ax, word [bp - 2]            ; 0x546d
     cmp ax, strict word 0x1e         ; 0x5470
-    jge short @..api_idx_0004_GHUK.l5 ; 0x5473
-    jmp near @..api_idx_0004_GHUK.l1 ; 0x5475
-@..api_idx_0004_GHUK.l5:
+    jge short .forward3              ; 0x5473
+    jmp near .back1                  ; 0x5475
+.forward3:
     mov ax, word [bss_9cd2]          ; 0x5478
     mov word [bp - 2], ax            ; 0x547b
-    jmp short @..api_idx_0004_GHUK.l7 ; 0x547e
-@..api_idx_0004_GHUK.l6:
+    jmp short .forward4              ; 0x547e
+.back3:
     mov ax, word [bp - 2]            ; 0x5480
     shl ax, 1                        ; 0x5483
     mov bx, ax                       ; 0x5485
     mov word [bx + bss_9cd4], 0      ; 0x5487
     inc word [bp - 2]                ; 0x548d
-@..api_idx_0004_GHUK.l7:
+.forward4:
     cmp word [bp - 2], byte 0x1e     ; 0x5490
-    jl short @..api_idx_0004_GHUK.l6 ; 0x5494
+    jl short .back3                  ; 0x5494
     ret                              ; 0x5496

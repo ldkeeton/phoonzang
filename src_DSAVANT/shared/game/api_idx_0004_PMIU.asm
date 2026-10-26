@@ -52,12 +52,12 @@ api_idx_0004_PMIU:
     call gfx_show_area
     add sp, byte 8
     cmp word [bp + 6], byte 0
-    jle short @..api_idx_0004_PMIU.l1
+    jle short .forward1
     mov ax, 0
     push ax
     call play_sound_effect
     pop cx
-@..api_idx_0004_PMIU.l1:
+.forward1:
     push word [message_delay]
     call wait_for_hotspot_timeout
     pop cx

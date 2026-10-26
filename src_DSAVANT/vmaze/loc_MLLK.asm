@@ -19,32 +19,32 @@ loc_MLLK:
     mov word [bss_9b4e], 0x44        ; 0x6f40
     mov word [bss_9b4c], 0           ; 0x6f46
     mov byte [bss_9b50], 0           ; 0x6f4c
-@..loc_MLLK.l1:
+.back1:
     lea ax, word [bp - 0x105]        ; 0x6f51
     push ax                          ; 0x6f55
     push word [bp + 4]               ; 0x6f56
     call load_message_string         ; 0x6f59
     add sp, byte 4                   ; 0x6f5c
     cmp word [message_not_found], byte 0 ; 0x6f5f
-    jne short @..loc_MLLK.l3         ; 0x6f64
+    jne short .forward2              ; 0x6f64
     cmp word [bss_9b48], byte 0      ; 0x6f66
-    jne short @..loc_MLLK.l2         ; 0x6f6b
+    jne short .forward1              ; 0x6f6b
     lea ax, word [bp - 0x105]        ; 0x6f6d
     push ax                          ; 0x6f71
     call api_idx_0004_JQTM           ; 0x6f72
     pop cx                           ; 0x6f75
-@..loc_MLLK.l2:
+.forward1:
     inc word [bp + 4]                ; 0x6f76
-@..loc_MLLK.l3:
+.forward2:
     cmp word [message_not_found], byte 0 ; 0x6f79
-    je short @..loc_MLLK.l1          ; 0x6f7e
+    je short .back1                  ; 0x6f7e
     cmp byte [bss_9b50], 0           ; 0x6f80
-    je short @..loc_MLLK.l4          ; 0x6f85
+    je short .forward3               ; 0x6f85
     mov ax, bss_9b50                 ; 0x6f87
     push ax                          ; 0x6f8a
     call api_idx_0004_JGSH           ; 0x6f8b
     pop cx                           ; 0x6f8e
-@..loc_MLLK.l4:
+.forward3:
     push word [bp + 6]               ; 0x6f8f
     call loc_MVHP                    ; 0x6f92
     pop cx                           ; 0x6f95

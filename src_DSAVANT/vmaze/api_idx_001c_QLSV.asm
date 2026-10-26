@@ -74,7 +74,7 @@ api_idx_001c_QLSV:
     mov ax, word [bx + si + 0x1e0]   ; 0x7708
     mov word [bp - 6], ax            ; 0x770c
     mov word [bp - 2], 0             ; 0x770f
-@..api_idx_001c_QLSV.l1:
+.back1:
     mov ax, 4                        ; 0x7714
     push ax                          ; 0x7717
     mov ax, word [bp - 2]            ; 0x7718
@@ -92,7 +92,7 @@ api_idx_001c_QLSV:
     inc word [bp - 2]                ; 0x7735
     mov ax, word [bp - 2]            ; 0x7738
     cmp ax, strict word 4            ; 0x773b
-    jl short @..api_idx_001c_QLSV.l1 ; 0x773e
+    jl short .back1                  ; 0x773e
     push word [bp - 0x16]            ; 0x7740
     push word [bp - 0x18]            ; 0x7743
     push word [bp - 0x1a]            ; 0x7746
@@ -136,7 +136,7 @@ api_idx_001c_QLSV:
     call find_map_piece              ; 0x77a5
     add sp, byte 0xa                 ; 0x77a8
     test ax, ax                      ; 0x77ab
-    jne short @..api_idx_001c_QLSV.l2 ; 0x77ad
+    jne short .forward1              ; 0x77ad
     mov ax, word [bp - 0xc]          ; 0x77af
     mov cx, 6                        ; 0x77b2
     shl ax, cl                       ; 0x77b5
@@ -156,7 +156,7 @@ api_idx_001c_QLSV:
     push ax                          ; 0x77d8
     call set_bitfield                ; 0x77d9
     add sp, byte 8                   ; 0x77dc
-@..api_idx_001c_QLSV.l2:
+.forward1:
     push word [bp - 0xa]             ; 0x77df
     mov ax, word [bp - 8]            ; 0x77e2
     dec ax                           ; 0x77e5
@@ -170,7 +170,7 @@ api_idx_001c_QLSV:
     call find_map_piece              ; 0x77f3
     add sp, byte 0xa                 ; 0x77f6
     test ax, ax                      ; 0x77f9
-    jne short @..api_idx_001c_QLSV.l3 ; 0x77fb
+    jne short .forward2              ; 0x77fb
     mov ax, word [bp - 0xc]          ; 0x77fd
     mov cx, 6                        ; 0x7800
     shl ax, cl                       ; 0x7803
@@ -190,7 +190,7 @@ api_idx_001c_QLSV:
     push ax                          ; 0x7826
     call set_bitfield                ; 0x7827
     add sp, byte 8                   ; 0x782a
-@..api_idx_001c_QLSV.l3:
+.forward2:
     mov ax, word [party_region]      ; 0x782d
     shl ax, 1                        ; 0x7830
     mov si, ax                       ; 0x7832
@@ -199,9 +199,9 @@ api_idx_001c_QLSV:
     call loc_GRON                    ; 0x783a
     pop cx                           ; 0x783d
     cmp word [bp - 0x12], byte 1     ; 0x783e
-    jne short @..api_idx_001c_QLSV.l4 ; 0x7842
+    jne short .forward3              ; 0x7842
     call redraw_maze_view            ; 0x7844
-@..api_idx_001c_QLSV.l4:
+.forward3:
     push word [bp - 0x14]            ; 0x7847
     call mark_region_bits            ; 0x784a
     pop cx                           ; 0x784d

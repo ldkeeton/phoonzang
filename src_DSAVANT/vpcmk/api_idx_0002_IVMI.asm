@@ -22,7 +22,7 @@ api_idx_0002_IVMI:
     mov word [bx + party_records + pc_rec.power_cap], 1 ; 0x62ab
     mov word [bx + party_records + pc_rec.f_0026], 1 ; 0x62b1
     mov word [bp - 2], 0             ; 0x62b7
-@..api_idx_0002_IVMI.l1:
+.back1:
     mov ax, 0x248                    ; 0x62bc
     imul word [bp + 4]               ; 0x62bf
     add ax, word [bp - 2]            ; 0x62c2
@@ -31,7 +31,7 @@ api_idx_0002_IVMI:
     inc word [bp - 2]                ; 0x62cc
     mov ax, word [bp - 2]            ; 0x62cf
     cmp ax, strict word 8            ; 0x62d2
-    jl short @..api_idx_0002_IVMI.l1 ; 0x62d5
+    jl short .back1                  ; 0x62d5
     push word [bp + 4]               ; 0x62d7
     call api_idx_0004_GHPT           ; 0x62da
     pop cx                           ; 0x62dd

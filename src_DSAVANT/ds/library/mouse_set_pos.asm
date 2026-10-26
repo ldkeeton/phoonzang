@@ -10,13 +10,13 @@ mouse_set_pos:
     mov ax, ds                       ; 0x42bc
     mov es, ax                       ; 0x42be
     cmp byte [cs:mouse_button_count - IMAGE_BASE], 0 ; 0x42c0
-    je short @..mouse_set_pos.l1     ; 0x42c6
+    je short .forward1               ; 0x42c6
     mov cx, word [bp + 4]            ; 0x42c8
     shl cx, 1                        ; 0x42cb
     mov dx, word [bp + 6]            ; 0x42cd
     mov ax, 4                        ; 0x42d0
     int 0x33 ; BIOS mouse
-@..mouse_set_pos.l1:
+.forward1:
     pop di                           ; 0x42d5
     pop si                           ; 0x42d6
     pop es                           ; 0x42d7

@@ -16,23 +16,23 @@ queue_cell_action_overlay:
     mov word [bp - 2], ax
     mov word [bp - 4], dx
     cmp ax, strict word 1
-    jl short @..queue_cell_action_overlay.l1
+    jl short .return1
     cmp ax, strict word 3
-    jg short @..queue_cell_action_overlay.l1
+    jg short .return1
     mov ax, word [bp + 4]
     cmp ax, word [row_limit]
-    jle short @..queue_cell_action_overlay.l2
-@..queue_cell_action_overlay.l1:
+    jle short .forward1
+.return1:
     ret
-@..queue_cell_action_overlay.l2:
+.forward1:
     mov ax, word [bp - 2]
     shl ax, 1
     mov bx, ax
     mov bx, word [bx + party_char]
     cmp byte [bx + member_rec.slot], 0xff
-    jne short @..queue_cell_action_overlay.l3
+    jne short .forward2
     ret
-@..queue_cell_action_overlay.l3:
+.forward2:
     mov al, byte [bx + 0x19f]
     cbw
     mov word [bp - 6], ax
@@ -46,9 +46,9 @@ queue_cell_action_overlay:
     call advance_action_slots
     add sp, byte 0xc
     cmp byte [bp - 0x1c], 0
-    jne short @..queue_cell_action_overlay.l4
+    jne short .forward3
     ret
-@..queue_cell_action_overlay.l4:
+.forward3:
     mov ax, word [bp + 6]
     mov cx, 2
     cwd
@@ -61,9 +61,9 @@ queue_cell_action_overlay:
     imul word [bp - 6]
     mov bx, ax
     cmp byte [bx + slot_recs + slot_rec.forced], 0
-    je short @..queue_cell_action_overlay.l5
+    je short .forward4
     mov word [bp + 8], 0
-@..queue_cell_action_overlay.l5:
+.forward4:
     mov cx, word [bp - 0xa]
     shl cx, 1
     shl cx, 1
@@ -73,7 +73,7 @@ queue_cell_action_overlay:
     sub ah, ah
     mov word [bp - 0xc], ax
     cmp word [bp - 0xc], byte 0
-    jne short @..queue_cell_action_overlay.l6
+    jne short .forward5
     mov ax, 6
     imul word [bp + 4]
     mov cx, word [bp + 6]
@@ -83,8 +83,8 @@ queue_cell_action_overlay:
     mov ax, word [bx + cell_overlay_code]
     sub ax, word [bp - 2]
     mov word [bp - 0xc], ax
-    jmp short @..queue_cell_action_overlay.l8
-@..queue_cell_action_overlay.l6:
+    jmp short .forward7
+.forward5:
     mov ax, 0x64
     push ax
     mov ax, 5
@@ -94,9 +94,9 @@ queue_cell_action_overlay:
     mov cx, ax
     mov ax, 0
     cmp word [bp + 6], byte 0
-    jne short @..queue_cell_action_overlay.l7
+    jne short .forward6
     mov ax, 5
-@..queue_cell_action_overlay.l7:
+.forward6:
     add cx, ax
     mov ax, word [bp - 0xc]
     sub ax, cx
@@ -104,7 +104,7 @@ queue_cell_action_overlay:
     call clamp_between
     add sp, byte 6
     mov word [bp - 0xc], ax
-@..queue_cell_action_overlay.l8:
+.forward7:
     mov ax, word [bp + 0xe]
     dec ax
     push ax
@@ -162,14 +162,14 @@ queue_cell_action_overlay:
     add ax, cx
     mov word [bp - 0x10], ax
     cmp word [party_member_count], byte 1
-    jne short @..queue_cell_action_overlay.l9
+    jne short .forward8
     mov bx, word [party_char_hi]
     cmp byte [bx + party_char_hi_rec.f_01a1], 1
-    jne short @..queue_cell_action_overlay.l9
+    jne short .forward8
     cmp word [bp + 4], byte 0
-    jne short @..queue_cell_action_overlay.l9
+    jne short .forward8
     mov word [bp + 0xa], 0
-@..queue_cell_action_overlay.l9:
+.forward8:
     mov ax, 0xa0
     sub ax, word [bp - 0xe]
     imul word [bp + 0xa]
@@ -183,7 +183,7 @@ queue_cell_action_overlay:
     idiv cx
     mov ax, dx
     test ax, ax
-    je short @..queue_cell_action_overlay.l10
+    je short .forward9
     mov ax, 0x15e
     imul word [bp - 6]
     mov cx, ax
@@ -209,7 +209,7 @@ queue_cell_action_overlay:
     cwd
     idiv cx
     sub word [bp - 0xe], ax
-@..queue_cell_action_overlay.l10:
+.forward9:
     mov ax, word [bp + 0xe]
     dec ax
     push ax

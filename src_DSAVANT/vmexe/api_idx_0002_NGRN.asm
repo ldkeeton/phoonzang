@@ -4,12 +4,12 @@ api_idx_0002_NGRN:
     call aztec_csav                  ; 0x2d6e
     mov word [bss_91d6], 2           ; 0x2d71
     cmp word [bp + 4], byte 0        ; 0x2d77
-    jle short @..api_idx_0002_NGRN.l3 ; 0x2d7b
+    jle short .forward2              ; 0x2d7b
     cmp word [bp + 4], byte 6        ; 0x2d7d
-    jge short @..api_idx_0002_NGRN.l3 ; 0x2d81
+    jge short .forward2              ; 0x2d81
     mov word [bp - 2], 1             ; 0x2d83
-    jmp short @..api_idx_0002_NGRN.l2 ; 0x2d88
-@..api_idx_0002_NGRN.l1:
+    jmp short .forward1              ; 0x2d88
+.back1:
     push word [bp + 0x14]            ; 0x2d8a
     push word [bp + 0x12]            ; 0x2d8d
     push word [bp + 0x10]            ; 0x2d90
@@ -22,12 +22,12 @@ api_idx_0002_NGRN:
     call api_idx_0006_LIRP           ; 0x2da5
     add sp, byte 0x12                ; 0x2da8
     inc word [bp - 2]                ; 0x2dab
-@..api_idx_0002_NGRN.l2:
+.forward1:
     mov ax, word [bp - 2]            ; 0x2dae
     cmp ax, word [party_member_count] ; 0x2db1
-    jle short @..api_idx_0002_NGRN.l1 ; 0x2db5
-    jmp short @..api_idx_0002_NGRN.l4 ; 0x2db7
-@..api_idx_0002_NGRN.l3:
+    jle short .back1                 ; 0x2db5
+    jmp short .return1               ; 0x2db7
+.forward2:
     push word [bp + 0x14]            ; 0x2db9
     push word [bp + 0x12]            ; 0x2dbc
     push word [bp + 0x10]            ; 0x2dbf
@@ -42,7 +42,7 @@ api_idx_0002_NGRN:
     add sp, byte 0x12                ; 0x2dd8
     mov bx, word [bss_848e]          ; 0x2ddb
     cmp byte [bx + rec_848e.f_01a1], 0 ; 0x2ddf
-    jbe short @..api_idx_0002_NGRN.l4 ; 0x2de4
+    jbe short .return1               ; 0x2de4
     push word [bp + 0x14]            ; 0x2de6
     push word [bp + 0x12]            ; 0x2de9
     push word [bp + 0x10]            ; 0x2dec
@@ -55,5 +55,5 @@ api_idx_0002_NGRN:
     push ax                          ; 0x2e01
     call api_idx_0006_LIRP           ; 0x2e02
     add sp, byte 0x12                ; 0x2e05
-@..api_idx_0002_NGRN.l4:
+.return1:
     ret                              ; 0x2e08

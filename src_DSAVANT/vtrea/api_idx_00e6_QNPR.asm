@@ -5,7 +5,7 @@ api_idx_00e6_QNPR:
     mov bx, word [maze_tables]       ; 0x73b4
     mov si, word [party_region]      ; 0x73b8
     cmp byte [bx + si + spell_table + spell_table_rec_size*178 + spell_table_rec.f_0004], 0 ; 0x73bc
-    jbe short @..api_idx_00e6_QNPR.l1 ; 0x73c1
+    jbe short .forward1              ; 0x73c1
     mov ax, 0                        ; 0x73c3
     push ax                          ; 0x73c6
     shl si, 1                        ; 0x73c7
@@ -20,7 +20,7 @@ api_idx_00e6_QNPR:
     push ax                          ; 0x73db
     call loc_KIOQ                    ; 0x73dc
     add sp, byte 4                   ; 0x73df
-@..api_idx_00e6_QNPR.l1:
+.forward1:
     mov ax, word [party_region]      ; 0x73e2
     shl ax, 1                        ; 0x73e5
     mov si, ax                       ; 0x73e7
@@ -97,14 +97,14 @@ api_idx_00e6_QNPR:
     mov ax, word [bx + si]           ; 0x749c
     mov word [bp - 0xa], ax          ; 0x749e
     cmp word [bp - 0x1a], byte 0     ; 0x74a1
-    jne short @..api_idx_00e6_QNPR.l2 ; 0x74a5
+    jne short .forward2              ; 0x74a5
     mov ax, treasure_caption         ; 0x74a7
     push ax                          ; 0x74aa
     push word [bp - 0xa]             ; 0x74ab
     call load_message_string         ; 0x74ae
     add sp, byte 4                   ; 0x74b1
     inc word [bp - 0xa]              ; 0x74b4
-@..api_idx_00e6_QNPR.l2:
+.forward2:
     lea ax, word [bp - 0xc2]         ; 0x74b7
     push ax                          ; 0x74bb
     push word [bp - 0xa]             ; 0x74bc
@@ -112,18 +112,18 @@ api_idx_00e6_QNPR:
     add sp, byte 4                   ; 0x74c2
     inc word [bp - 0xa]              ; 0x74c5
     mov word [bp - 2], 0             ; 0x74c8
-    jmp short @..api_idx_00e6_QNPR.l4 ; 0x74cd
-@..api_idx_00e6_QNPR.l3:
+    jmp short .forward3              ; 0x74cd
+.back1:
     mov ax, word [bp - 2]            ; 0x74cf
     shl ax, 1                        ; 0x74d2
     mov bx, ax                       ; 0x74d4
     add bx, bp                       ; 0x74d6
     mov word [bx - 0xe2], 1          ; 0x74d8
     inc word [bp - 2]                ; 0x74de
-@..api_idx_00e6_QNPR.l4:
+.forward3:
     mov ax, word [bp - 2]            ; 0x74e1
     cmp ax, word [bp - 0xe]          ; 0x74e4
-    jl short @..api_idx_00e6_QNPR.l3 ; 0x74e7
+    jl short .back1                  ; 0x74e7
     mov ax, word [bp - 0xe]          ; 0x74e9
     shl ax, 1                        ; 0x74ec
     mov bx, ax                       ; 0x74ee
@@ -135,9 +135,9 @@ api_idx_00e6_QNPR:
     call redraw_treasure_caption     ; 0x7502
     pop cx                           ; 0x7505
     cmp word [bp - 0x1a], byte 1     ; 0x7506
-    je short @..api_idx_00e6_QNPR.l5 ; 0x750a
-    jmp near @..api_idx_00e6_QNPR.l7 ; 0x750c
-@..api_idx_00e6_QNPR.l5:
+    je short .forward4               ; 0x750a
+    jmp near .forward6               ; 0x750c
+.forward4:
     lea ax, word [bp - 0x72]         ; 0x750f
     push ax                          ; 0x7512
     push word [bp - 0xa]             ; 0x7513
@@ -245,9 +245,9 @@ api_idx_00e6_QNPR:
     add ax, 0xfdf0                   ; 0x75fe
     mov word [bp - 0x12], ax         ; 0x7601
     cmp ax, strict word 0            ; 0x7604
-    jle short @..api_idx_00e6_QNPR.l6 ; 0x7607
+    jle short .forward5              ; 0x7607
     cmp ax, 0x80                     ; 0x7609
-    jge short @..api_idx_00e6_QNPR.l6 ; 0x760c
+    jge short .forward5              ; 0x760c
     mov ax, 0                        ; 0x760e
     push ax                          ; 0x7611
     push word [bp - 0x12]            ; 0x7612
@@ -258,14 +258,14 @@ api_idx_00e6_QNPR:
     push ax                          ; 0x7620
     call set_bitmap_bit              ; 0x7621
     add sp, byte 6                   ; 0x7624
-@..api_idx_00e6_QNPR.l6:
-    jmp near @..api_idx_00e6_QNPR.l19 ; 0x7627
-@..api_idx_00e6_QNPR.l7:
+.forward5:
+    jmp near .forward17              ; 0x7627
+.forward6:
     mov word [bp - 0x1e], 0          ; 0x762a
     mov word [bp - 0x20], 0          ; 0x762f
     mov word [bp - 2], 0             ; 0x7634
-    jmp near @..api_idx_00e6_QNPR.l17 ; 0x7639
-@..api_idx_00e6_QNPR.l8:
+    jmp near .forward15              ; 0x7639
+.back2:
     lea ax, word [bp - 0x72]         ; 0x763c
     push ax                          ; 0x763f
     push word [bp - 0xa]             ; 0x7640
@@ -277,7 +277,7 @@ api_idx_00e6_QNPR:
     pop cx                           ; 0x7650
     mov word [bp - 0xc], ax          ; 0x7651
     cmp word [bp - 0xe], byte 6      ; 0x7654
-    jle short @..api_idx_00e6_QNPR.l9 ; 0x7658
+    jle short .forward7              ; 0x7658
     mov cx, 6                        ; 0x765a
     imul cx                          ; 0x765d
     mov cx, 3                        ; 0x765f
@@ -297,8 +297,8 @@ api_idx_00e6_QNPR:
     idiv cx                          ; 0x7680
     inc ax                           ; 0x7682
     mov word [bp - 0xe6], ax         ; 0x7683
-    jmp short @..api_idx_00e6_QNPR.l10 ; 0x7687
-@..api_idx_00e6_QNPR.l9:
+    jmp short .forward8              ; 0x7687
+.forward7:
     mov ax, 6                        ; 0x7689
     imul word [bp - 0xc]             ; 0x768c
     shl ax, 1                        ; 0x768f
@@ -317,7 +317,7 @@ api_idx_00e6_QNPR:
     idiv cx                          ; 0x76ad
     inc ax                           ; 0x76af
     mov word [bp - 0xe6], ax         ; 0x76b0
-@..api_idx_00e6_QNPR.l10:
+.forward8:
     lea ax, word [bp - 0xe2]         ; 0x76b4
     push ax                          ; 0x76b8
     mov ax, 0                        ; 0x76b9
@@ -382,34 +382,34 @@ api_idx_00e6_QNPR:
     call redraw_treasure_caption     ; 0x7741
     pop cx                           ; 0x7744
     cmp word [bp - 0x1c], byte 1     ; 0x7745
-    jne short @..api_idx_00e6_QNPR.l11 ; 0x7749
+    jne short .forward9              ; 0x7749
     mov ax, word [bp - 6]            ; 0x774b
     shl ax, 1                        ; 0x774e
     mov bx, ax                       ; 0x7750
     add bx, bp                       ; 0x7752
     mov word [bx - 0xe2], 0          ; 0x7754
-@..api_idx_00e6_QNPR.l11:
+.forward9:
     cmp word [bp - 0x16], byte 0     ; 0x775a
-    jne short @..api_idx_00e6_QNPR.l13 ; 0x775e
+    jne short .forward11             ; 0x775e
     mov ax, word [bp - 0xe]          ; 0x7760
     dec ax                           ; 0x7763
     cmp ax, word [bp - 6]            ; 0x7764
-    jne short @..api_idx_00e6_QNPR.l13 ; 0x7767
+    jne short .forward11             ; 0x7767
     mov ax, word [bp - 0x10]         ; 0x7769
     mov word [bp - 2], ax            ; 0x776c
     cmp word [bp - 0x1e], byte 0     ; 0x776f
-    jne short @..api_idx_00e6_QNPR.l12 ; 0x7773
+    jne short .forward10             ; 0x7773
     mov word [bp - 0x20], 1          ; 0x7775
-@..api_idx_00e6_QNPR.l12:
-    jmp short @..api_idx_00e6_QNPR.l16 ; 0x777a
-@..api_idx_00e6_QNPR.l13:
+.forward10:
+    jmp short .forward14             ; 0x777a
+.forward11:
     cmp word [bp - 0x14], byte 0     ; 0x777c
-    je short @..api_idx_00e6_QNPR.l14 ; 0x7780
+    je short .forward12              ; 0x7780
     mov ax, 4                        ; 0x7782
     push ax                          ; 0x7785
     call play_sound_effect           ; 0x7786
     pop cx                           ; 0x7789
-@..api_idx_00e6_QNPR.l14:
+.forward12:
     mov ax, word [bp - 6]            ; 0x778a
     add ax, strict word 0x30         ; 0x778d
     sub ah, ah                       ; 0x7790
@@ -420,32 +420,32 @@ api_idx_00e6_QNPR:
     add sp, byte 4                   ; 0x779b
     mov word [bp - 4], ax            ; 0x779e
     cmp ax, strict word 0xffff       ; 0x77a1
-    je short @..api_idx_00e6_QNPR.l15 ; 0x77a4
+    je short .forward13              ; 0x77a4
     cmp word [bp - 0x18], byte 0     ; 0x77a6
-    jne short @..api_idx_00e6_QNPR.l16 ; 0x77aa
+    jne short .forward14             ; 0x77aa
     mov bx, word [bp - 2]            ; 0x77ac
     add bx, bp                       ; 0x77af
     mov al, byte [bx - 0xc2]         ; 0x77b1
     sub ah, ah                       ; 0x77b5
     add ax, strict word 0xffd0       ; 0x77b7
     cmp ax, word [bp - 6]            ; 0x77ba
-    je short @..api_idx_00e6_QNPR.l16 ; 0x77bd
-@..api_idx_00e6_QNPR.l15:
+    je short .forward14              ; 0x77bd
+.forward13:
     mov word [bp - 0x1e], 1          ; 0x77bf
     cmp word [bp - 0x22], byte 1     ; 0x77c4
-    jne short @..api_idx_00e6_QNPR.l16 ; 0x77c8
+    jne short .forward14             ; 0x77c8
     mov ax, word [bp - 0x10]         ; 0x77ca
     mov word [bp - 2], ax            ; 0x77cd
-@..api_idx_00e6_QNPR.l16:
+.forward14:
     inc word [bp - 2]                ; 0x77d0
-@..api_idx_00e6_QNPR.l17:
+.forward15:
     mov ax, word [bp - 2]            ; 0x77d3
     cmp ax, word [bp - 0x10]         ; 0x77d6
-    jge short @..api_idx_00e6_QNPR.l18 ; 0x77d9
-    jmp near @..api_idx_00e6_QNPR.l8 ; 0x77db
-@..api_idx_00e6_QNPR.l18:
+    jge short .forward16             ; 0x77d9
+    jmp near .back2                  ; 0x77db
+.forward16:
     cmp word [bp - 0x20], byte 0     ; 0x77de
-    jne short @..api_idx_00e6_QNPR.l19 ; 0x77e2
+    jne short .forward17             ; 0x77e2
     mov ax, word [party_region]      ; 0x77e4
     shl ax, 1                        ; 0x77e7
     mov si, ax                       ; 0x77e9
@@ -470,7 +470,7 @@ api_idx_00e6_QNPR:
     push ax                          ; 0x7819
     call api_idx_0004_KGNP           ; 0x781a
     add sp, byte 6                   ; 0x781d
-@..api_idx_00e6_QNPR.l19:
+.forward17:
     mov word [treasure_caption_on], 0 ; 0x7820
     inc word [party_region]          ; 0x7826
     ret                              ; 0x782a

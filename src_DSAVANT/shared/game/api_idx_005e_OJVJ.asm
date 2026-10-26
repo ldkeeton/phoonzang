@@ -3,19 +3,19 @@ api_idx_005e_OJVJ:
     mov ax, 0xffa2
     call aztec_csav
     mov word [bp - 2], 0xf
-@..api_idx_005e_OJVJ.l1:
+.back1:
     mov bx, word [bp - 2]
     mov al, byte [bx + picture_slot_number]
     sub ah, ah
     cmp ax, word [bp + 4]
-    jne short @..api_idx_005e_OJVJ.l2
+    jne short .forward1
     mov ax, 0
     ret
-@..api_idx_005e_OJVJ.l2:
+.forward1:
     inc word [bp - 2]
     mov ax, word [bp - 2]
     cmp ax, strict word 0x12
-    jl short @..api_idx_005e_OJVJ.l1
+    jl short .back1
     mov ax, api_idx_005e_OJVJ.dseg1
     push ax
     lea ax, word [bp - 0x5e]
@@ -44,10 +44,10 @@ api_idx_005e_OJVJ:
     add sp, byte 4
     mov word [bp - 4], ax
     cmp ax, strict word 0xffff
-    jne short @..api_idx_005e_OJVJ.l3
+    jne short .forward2
     mov ax, 0xffff
     ret
-@..api_idx_005e_OJVJ.l3:
+.forward2:
     mov ax, 2
     push ax
     mov ax, 0
@@ -75,18 +75,18 @@ api_idx_005e_OJVJ:
     add cx, word [bp - 0xc]
     adc bx, word [bp - 0xa]
     cmp dx, bx
-    jl short @..api_idx_005e_OJVJ.l4
-    jne short @..api_idx_005e_OJVJ.l5
+    jl short .forward3
+    jne short .forward4
     cmp ax, cx
-    ja short @..api_idx_005e_OJVJ.l5
-@..api_idx_005e_OJVJ.l4:
-    jmp short @..api_idx_005e_OJVJ.l6
-@..api_idx_005e_OJVJ.l5:
+    ja short .forward4
+.forward3:
+    jmp short .forward5
+.forward4:
     mov ax, 0
     ret
-@..api_idx_005e_OJVJ.l6:
+.forward5:
     cmp byte [screen_store_1_enabled], 1
-    jne short @..api_idx_005e_OJVJ.l9
+    jne short .forward8
     mov ax, 0
     push ax
     mov ax, 1
@@ -94,43 +94,43 @@ api_idx_005e_OJVJ:
     call gfx_get_free_space
     add sp, byte 4
     cmp dx, word [bp - 0xa]
-    jl short @..api_idx_005e_OJVJ.l7
-    jne short @..api_idx_005e_OJVJ.l8
+    jl short .forward6
+    jne short .forward7
     cmp ax, word [bp - 0xc]
-    ja short @..api_idx_005e_OJVJ.l8
-@..api_idx_005e_OJVJ.l7:
-    jmp short @..api_idx_005e_OJVJ.l9
-@..api_idx_005e_OJVJ.l8:
+    ja short .forward7
+.forward6:
+    jmp short .forward8
+.forward7:
     mov word [bp - 0xa], 0
     mov word [bp - 0xc], 0
-    jmp short @..api_idx_005e_OJVJ.l12
-@..api_idx_005e_OJVJ.l9:
+    jmp short .forward11
+.forward8:
     cmp byte [screen_store_disk_enabled], 1
-    jne short @..api_idx_005e_OJVJ.l12
+    jne short .forward11
     mov al, byte [screen_store_drive]
     sub ah, ah
     add ax, strict word 0xffc0
     mov word [bp - 0xe], ax
     cmp ax, strict word 1
-    jl short @..api_idx_005e_OJVJ.l12
+    jl short .forward11
     cmp ax, strict word 0x1a
-    jg short @..api_idx_005e_OJVJ.l12
+    jg short .forward11
     push ax
     mov ax, 3
     push ax
     call gfx_get_free_space
     add sp, byte 4
     cmp dx, word [bp - 0xa]
-    jl short @..api_idx_005e_OJVJ.l10
-    jne short @..api_idx_005e_OJVJ.l11
+    jl short .forward9
+    jne short .forward10
     cmp ax, word [bp - 0xc]
-    ja short @..api_idx_005e_OJVJ.l11
-@..api_idx_005e_OJVJ.l10:
-    jmp short @..api_idx_005e_OJVJ.l12
-@..api_idx_005e_OJVJ.l11:
+    ja short .forward10
+.forward9:
+    jmp short .forward11
+.forward10:
     mov word [bp - 0xa], 0
     mov word [bp - 0xc], 0
-@..api_idx_005e_OJVJ.l12:
+.forward11:
     mov ax, 0
     push ax
     mov ax, 2
@@ -142,15 +142,15 @@ api_idx_005e_OJVJ:
     add cx, word [bp - 0xc]
     adc bx, word [bp - 0xa]
     cmp dx, bx
-    jl short @..api_idx_005e_OJVJ.l13
-    jne short @..api_idx_005e_OJVJ.l14
+    jl short .forward12
+    jne short .forward13
     cmp ax, cx
-    ja short @..api_idx_005e_OJVJ.l14
-@..api_idx_005e_OJVJ.l13:
-    jmp short @..api_idx_005e_OJVJ.l15
-@..api_idx_005e_OJVJ.l14:
+    ja short .forward13
+.forward12:
+    jmp short .forward14
+.forward13:
     mov ax, 0
     ret
-@..api_idx_005e_OJVJ.l15:
+.forward14:
     mov ax, 0xffff
     ret

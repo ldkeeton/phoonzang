@@ -14,31 +14,31 @@ aztec_movmem:
     mov ax, es
     mov dx, ds
     cmp ax, dx
-    jne short @..aztec_movmem.move_forward
+    jne short .move_forward
     cmp di, si
-    je short @..aztec_movmem.done
-    jb short @..aztec_movmem.move_forward
+    je short .done
+    jb short .move_forward
     std
     add di, cx
     add si, cx
     dec di
     dec si
     test cl, 1
-    je short @..aztec_movmem.nobyte
+    je short .nobyte
     movsb
-@..aztec_movmem.nobyte:
+.nobyte:
     dec di
     dec si
-    jmp short @..aztec_movmem.domove
-@..aztec_movmem.move_forward:
+    jmp short .domove
+.move_forward:
     test cl, 1
-    je short @..aztec_movmem.domove
+    je short .domove
     movsb
-@..aztec_movmem.domove:
+.domove:
     shr cx, 1
-    je short @..aztec_movmem.done
+    je short .done
     rep movsw
-@..aztec_movmem.done:
+.done:
     cld
     pop di
     pop si

@@ -4,7 +4,7 @@ api_idx_0062_SRKH:
     call aztec_csav                  ; 0x4b98
     mov word [bp - 2], 0             ; 0x4b9b
     mov word [bp - 0x62], 0          ; 0x4ba0
-@..api_idx_0062_SRKH.l1:
+.back1:
     lea ax, word [bp - 0x5e]         ; 0x4ba5
     push ax                          ; 0x4ba8
     mov ax, word [bp + 4]            ; 0x4ba9
@@ -13,25 +13,25 @@ api_idx_0062_SRKH:
     call load_message_string         ; 0x4bb0
     add sp, byte 4                   ; 0x4bb3
     cmp word [message_not_found], byte 0 ; 0x4bb6
-    jne short @..api_idx_0062_SRKH.l3 ; 0x4bbb
+    jne short .forward2              ; 0x4bbb
     lea ax, word [bp - 0x5e]         ; 0x4bbd
     push ax                          ; 0x4bc0
     call aztec_strlen                ; 0x4bc1
     pop cx                           ; 0x4bc4
     dec ax                           ; 0x4bc5
     cmp ax, word [bp - 0x62]         ; 0x4bc6
-    jle short @..api_idx_0062_SRKH.l2 ; 0x4bc9
+    jle short .forward1              ; 0x4bc9
     lea ax, word [bp - 0x5e]         ; 0x4bcb
     push ax                          ; 0x4bce
     call aztec_strlen                ; 0x4bcf
     pop cx                           ; 0x4bd2
     dec ax                           ; 0x4bd3
     mov word [bp - 0x62], ax         ; 0x4bd4
-@..api_idx_0062_SRKH.l2:
+.forward1:
     inc word [bp - 2]                ; 0x4bd7
-@..api_idx_0062_SRKH.l3:
+.forward2:
     cmp word [message_not_found], byte 0 ; 0x4bda
-    je short @..api_idx_0062_SRKH.l1 ; 0x4bdf
+    je short .back1                  ; 0x4bdf
     mov ax, 6                        ; 0x4be1
     imul word [bp - 0x62]            ; 0x4be4
     add ax, strict word 0xc          ; 0x4be7
@@ -88,7 +88,7 @@ api_idx_0062_SRKH:
     call draw_dialog_box             ; 0x4c60
     add sp, byte 8                   ; 0x4c63
     mov word [bp - 2], 0             ; 0x4c66
-@..api_idx_0062_SRKH.l4:
+.back2:
     lea ax, word [bp - 0x5e]         ; 0x4c6b
     push ax                          ; 0x4c6e
     mov ax, word [bp + 4]            ; 0x4c6f
@@ -97,7 +97,7 @@ api_idx_0062_SRKH:
     call load_message_string         ; 0x4c76
     add sp, byte 4                   ; 0x4c79
     cmp word [message_not_found], byte 0 ; 0x4c7c
-    jne short @..api_idx_0062_SRKH.l5 ; 0x4c81
+    jne short .forward3              ; 0x4c81
     mov ax, 6                        ; 0x4c83
     imul word [bp - 2]               ; 0x4c86
     add ax, word [bp - 0xa]          ; 0x4c89
@@ -133,9 +133,9 @@ api_idx_0062_SRKH:
     call draw_text_glyphs            ; 0x4ccc
     add sp, byte 4                   ; 0x4ccf
     inc word [bp - 2]                ; 0x4cd2
-@..api_idx_0062_SRKH.l5:
+.forward3:
     cmp word [message_not_found], byte 0 ; 0x4cd5
-    je short @..api_idx_0062_SRKH.l4 ; 0x4cda
+    je short .back2                  ; 0x4cda
     mov ax, word [bp - 0xe]          ; 0x4cdc
     inc ax                           ; 0x4cdf
     push ax                          ; 0x4ce0

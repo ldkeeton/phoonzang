@@ -26,20 +26,20 @@ api_idx_000e_RTSO:
     sub ah, ah                       ; 0x808e
     mov word [bp - 0xa], ax          ; 0x8090
     cmp word [bp - 0xa], byte 0      ; 0x8093
-    jne short @..api_idx_000e_RTSO.l4 ; 0x8097
-@..api_idx_000e_RTSO.l1:
+    jne short .forward3              ; 0x8097
+.back1:
     call pick_party_member           ; 0x8099
     mov word [bp - 4], ax            ; 0x809c
     cmp ax, strict word 0xffff       ; 0x809f
-    je short @..api_idx_000e_RTSO.l2 ; 0x80a2
+    je short .forward1               ; 0x80a2
     push ax                          ; 0x80a4
     call member_is_active            ; 0x80a5
     pop cx                           ; 0x80a8
     test ax, ax                      ; 0x80a9
-    jne short @..api_idx_000e_RTSO.l3 ; 0x80ab
-@..api_idx_000e_RTSO.l2:
-    jmp short @..api_idx_000e_RTSO.l1 ; 0x80ad
-@..api_idx_000e_RTSO.l3:
+    jne short .forward2              ; 0x80ab
+.forward1:
+    jmp short .back1                 ; 0x80ad
+.forward2:
     mov ax, 3                        ; 0x80af
     push ax                          ; 0x80b2
     mov ax, 0xb                      ; 0x80b3
@@ -57,12 +57,12 @@ api_idx_000e_RTSO:
     mov al, byte [bx + party_records + pc_rec.stat] ; 0x80ce
     sub ah, ah                       ; 0x80d2
     mov word [bp - 0xa], ax          ; 0x80d4
-    jmp near @..api_idx_000e_RTSO.l10 ; 0x80d7
-@..api_idx_000e_RTSO.l4:
+    jmp near .forward8               ; 0x80d7
+.forward3:
     cmp word [bp - 0xa], strict word 0xfe ; 0x80da
-    jne short @..api_idx_000e_RTSO.l6 ; 0x80df
+    jne short .forward5              ; 0x80df
     cmp word [bp - 6], byte 0x15     ; 0x80e1
-    jne short @..api_idx_000e_RTSO.l5 ; 0x80e5
+    jne short .forward4              ; 0x80e5
     mov ax, 1                        ; 0x80e7
     push ax                          ; 0x80ea
     mov ax, 0x12                     ; 0x80eb
@@ -70,7 +70,7 @@ api_idx_000e_RTSO:
     push word [member_roster_index]  ; 0x80ef
     call loc_SIKN                    ; 0x80f3
     add sp, byte 6                   ; 0x80f6
-@..api_idx_000e_RTSO.l5:
+.forward4:
     mov ax, 0x248                    ; 0x80f9
     imul word [member_roster_index]  ; 0x80fc
     mov bx, ax                       ; 0x8100
@@ -89,19 +89,19 @@ api_idx_000e_RTSO:
     pop ax                           ; 0x811d
     add ax, cx                       ; 0x811e
     mov word [bp - 0xa], ax          ; 0x8120
-    jmp short @..api_idx_000e_RTSO.l10 ; 0x8123
-@..api_idx_000e_RTSO.l6:
+    jmp short .forward8              ; 0x8123
+.forward5:
     cmp word [bp - 0xa], strict word 0xff ; 0x8125
-    jne short @..api_idx_000e_RTSO.l10 ; 0x812a
+    jne short .forward8              ; 0x812a
     mov word [bp - 0xa], 0           ; 0x812c
     mov word [bp - 4], 0             ; 0x8131
-    jmp short @..api_idx_000e_RTSO.l9 ; 0x8136
-@..api_idx_000e_RTSO.l7:
+    jmp short .forward7              ; 0x8136
+.back2:
     push word [bp - 4]               ; 0x8138
     call member_is_active            ; 0x813b
     pop cx                           ; 0x813e
     test ax, ax                      ; 0x813f
-    je short @..api_idx_000e_RTSO.l8 ; 0x8141
+    je short .forward6               ; 0x8141
     mov ax, 0x248                    ; 0x8143
     imul word [bp - 4]               ; 0x8146
     mov bx, ax                       ; 0x8149
@@ -115,36 +115,36 @@ api_idx_000e_RTSO:
     push word [bp - 4]               ; 0x815c
     call loc_SIKN                    ; 0x815f
     add sp, byte 6                   ; 0x8162
-@..api_idx_000e_RTSO.l8:
+.forward6:
     inc word [bp - 4]                ; 0x8165
-@..api_idx_000e_RTSO.l9:
+.forward7:
     mov ax, word [bp - 4]            ; 0x8168
     cmp ax, word [party_char_count]  ; 0x816b
-    jl short @..api_idx_000e_RTSO.l7 ; 0x816f
+    jl short .back2                  ; 0x816f
     mov ax, word [bp - 0xa]          ; 0x8171
     cwd                              ; 0x8174
     idiv word [party_char_count]     ; 0x8175
     mov word [bp - 0xa], ax          ; 0x8179
-@..api_idx_000e_RTSO.l10:
+.forward8:
     push word [bp - 6]               ; 0x817c
     call random_below                ; 0x817f
     pop cx                           ; 0x8182
     mov word [bp - 0xc], ax          ; 0x8183
     cmp ax, word [bp - 0xa]          ; 0x8186
-    jge short @..api_idx_000e_RTSO.l11 ; 0x8189
+    jge short .forward9              ; 0x8189
     mov ax, word [party_region]      ; 0x818b
     shl ax, 1                        ; 0x818e
     mov si, ax                       ; 0x8190
     mov bx, word [maze_tables]       ; 0x8192
     mov ax, word [bx + si]           ; 0x8196
-    jmp short @..api_idx_000e_RTSO.l12 ; 0x8198
-@..api_idx_000e_RTSO.l11:
+    jmp short .forward10             ; 0x8198
+.forward9:
     mov ax, word [party_region]      ; 0x819a
     shl ax, 1                        ; 0x819d
     mov si, ax                       ; 0x819f
     mov bx, word [maze_tables]       ; 0x81a1
     mov ax, word [bx + si + 0x1e0]   ; 0x81a5
-@..api_idx_000e_RTSO.l12:
+.forward10:
     mov word [bp - 0xe], ax          ; 0x81a9
     mov ax, 0                        ; 0x81ac
     push ax                          ; 0x81af
@@ -164,7 +164,7 @@ api_idx_000e_RTSO:
     call get_bits                    ; 0x81d0
     add sp, byte 6                   ; 0x81d3
     cmp ax, strict word 1            ; 0x81d6
-    jne short @..api_idx_000e_RTSO.l13 ; 0x81d9
+    jne short .forward11             ; 0x81d9
     mov ax, 0                        ; 0x81db
     push ax                          ; 0x81de
     push word [bp - 0xe]             ; 0x81df
@@ -175,7 +175,7 @@ api_idx_000e_RTSO:
     push ax                          ; 0x81ed
     call set_bitmap_bit              ; 0x81ee
     add sp, byte 6                   ; 0x81f1
-@..api_idx_000e_RTSO.l13:
+.forward11:
     mov ax, 2                        ; 0x81f4
     push ax                          ; 0x81f7
     mov ax, 9                        ; 0x81f8

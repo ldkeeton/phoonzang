@@ -3,7 +3,7 @@ api_idx_0088_QLNT:
     mov ax, 0xff78                   ; 0x2c15
     call aztec_csav                  ; 0x2c18
     mov word [bp - 2], 0             ; 0x2c1b
-@..api_idx_0088_QLNT.l1:
+.back1:
     mov ax, 0x248                    ; 0x2c20
     imul word [bp + 4]               ; 0x2c23
     add ax, word [bp - 2]            ; 0x2c26
@@ -17,9 +17,9 @@ api_idx_0088_QLNT:
     inc word [bp - 2]                ; 0x2c3c
     mov ax, word [bp - 2]            ; 0x2c3f
     cmp ax, strict word 0x22         ; 0x2c42
-    jl short @..api_idx_0088_QLNT.l1 ; 0x2c45
+    jl short .back1                  ; 0x2c45
     mov word [bp - 2], 0             ; 0x2c47
-@..api_idx_0088_QLNT.l2:
+.back2:
     mov ax, 0x14                     ; 0x2c4c
     imul word [bp - 2]               ; 0x2c4f
     add ax, slot_label               ; 0x2c52
@@ -32,7 +32,7 @@ api_idx_0088_QLNT:
     inc word [bp - 2]                ; 0x2c63
     mov ax, word [bp - 2]            ; 0x2c66
     cmp ax, strict word 4            ; 0x2c69
-    jle short @..api_idx_0088_QLNT.l2 ; 0x2c6c
+    jle short .back2                 ; 0x2c6c
     lea ax, word [bp - 0x88]         ; 0x2c6e
     push ax                          ; 0x2c72
     push word [bp + 6]               ; 0x2c73
@@ -45,7 +45,7 @@ api_idx_0088_QLNT:
     call api_idx_0004_PMIU           ; 0x2c85
     add sp, byte 4                   ; 0x2c88
     mov word [bp - 6], 0             ; 0x2c8b
-@..api_idx_0088_QLNT.l3:
+.back3:
     lea ax, word [bp - 0x20]         ; 0x2c90
     push ax                          ; 0x2c93
     push word [bp - 6]               ; 0x2c94
@@ -61,7 +61,7 @@ api_idx_0088_QLNT:
     call draw_known_spell_values     ; 0x2cb0
     add sp, byte 8                   ; 0x2cb3
     mov word [bp - 4], 0             ; 0x2cb6
-@..api_idx_0088_QLNT.l4:
+.back4:
     mov ax, word [bp - 4]            ; 0x2cbb
     shl ax, 1                        ; 0x2cbe
     mov bx, ax                       ; 0x2cc0
@@ -73,39 +73,39 @@ api_idx_0088_QLNT:
     mov bx, ax                       ; 0x2cd0
     mov ax, word [word bx + 0x38]    ; 0x2cd2
     mov word [bp - 2], ax            ; 0x2cd6
-    jmp short @..api_idx_0088_QLNT.l8 ; 0x2cd9
-@..api_idx_0088_QLNT.l5:
+    jmp short .forward3              ; 0x2cd9
+.back5:
     mov ax, word [bp - 2]            ; 0x2cdb
     shl ax, 1                        ; 0x2cde
     mov bx, ax                       ; 0x2ce0
     cmp word [bx + bss_95b0], byte 0 ; 0x2ce2
-    jne short @..api_idx_0088_QLNT.l6 ; 0x2ce7
+    jne short .forward1              ; 0x2ce7
     mov ax, 0x248                    ; 0x2ce9
     imul word [bp + 4]               ; 0x2cec
     add ax, word [bp - 2]            ; 0x2cef
     mov bx, ax                       ; 0x2cf2
     cmp byte [bx + party_records + pc_rec.flag], 0 ; 0x2cf4
-    jbe short @..api_idx_0088_QLNT.l7 ; 0x2cf9
-@..api_idx_0088_QLNT.l6:
+    jbe short .forward2              ; 0x2cf9
+.forward1:
     mov ax, word [bp - 4]            ; 0x2cfb
     shl ax, 1                        ; 0x2cfe
     mov bx, ax                       ; 0x2d00
     add bx, bp                       ; 0x2d02
     mov word [bx - 0x38], 1          ; 0x2d04
-@..api_idx_0088_QLNT.l7:
+.forward2:
     inc word [bp - 2]                ; 0x2d09
-@..api_idx_0088_QLNT.l8:
+.forward3:
     mov ax, word [bp - 4]            ; 0x2d0c
     shl ax, 1                        ; 0x2d0f
     shl ax, 1                        ; 0x2d11
     mov bx, ax                       ; 0x2d13
     mov ax, word [word bx + 0x3a]    ; 0x2d15
     cmp ax, word [bp - 2]            ; 0x2d19
-    jge short @..api_idx_0088_QLNT.l5 ; 0x2d1c
+    jge short .back5                 ; 0x2d1c
     inc word [bp - 4]                ; 0x2d1e
     mov ax, word [bp - 4]            ; 0x2d21
     cmp ax, strict word 4            ; 0x2d24
-    jl short @..api_idx_0088_QLNT.l4 ; 0x2d27
+    jl short .back4                  ; 0x2d27
     lea ax, word [bp - 0x38]         ; 0x2d29
     push ax                          ; 0x2d2c
     lea ax, word [bp - 0x20]         ; 0x2d2d
@@ -117,9 +117,9 @@ api_idx_0088_QLNT:
     add sp, byte 0xa                 ; 0x2d3d
     mov word [bp - 6], ax            ; 0x2d40
     cmp word [bp - 6], byte 4        ; 0x2d43
-    je short @..api_idx_0088_QLNT.l9 ; 0x2d47
-    jmp near @..api_idx_0088_QLNT.l3 ; 0x2d49
-@..api_idx_0088_QLNT.l9:
+    je short .forward4               ; 0x2d47
+    jmp near .back3                  ; 0x2d49
+.forward4:
     mov ax, 0xc6                     ; 0x2d4c
     push ax                          ; 0x2d4f
     mov ax, 0x13c                    ; 0x2d50

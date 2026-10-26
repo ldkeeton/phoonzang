@@ -34,7 +34,7 @@ api_idx_000c_JRTV:
     call draw_font_glyph             ; 0x03c7
     add sp, byte 4                   ; 0x03ca
     cmp word [bp + 8], byte 0        ; 0x03cd
-    je short @..api_idx_000c_JRTV.l1 ; 0x03d1
+    je short .forward1               ; 0x03d1
     mov ax, 0x18                     ; 0x03d3
     push ax                          ; 0x03d6
     mov ax, word [bp - 8]            ; 0x03d7
@@ -60,7 +60,7 @@ api_idx_000c_JRTV:
     push ax                          ; 0x0404
     call gfx_fill_area               ; 0x0405
     add sp, byte 0xa                 ; 0x0408
-@..api_idx_000c_JRTV.l1:
+.forward1:
     mov ax, 0                        ; 0x040b
     push ax                          ; 0x040e
     mov ax, 1                        ; 0x040f
@@ -124,7 +124,7 @@ api_idx_000c_JRTV:
     mov word [bp - 0xa], 0           ; 0x04a1
     mov word [bp - 0xc], 0           ; 0x04a6
     mov word [bp - 2], 0             ; 0x04ab
-@..api_idx_000c_JRTV.l2:
+.back1:
     mov ax, 0x248                    ; 0x04b0
     imul word [bp + 4]               ; 0x04b3
     mov cx, word [bp - 2]            ; 0x04b6
@@ -139,7 +139,7 @@ api_idx_000c_JRTV:
     inc word [bp - 2]                ; 0x04cf
     mov ax, word [bp - 2]            ; 0x04d2
     cmp ax, strict word 6            ; 0x04d5
-    jl short @..api_idx_000c_JRTV.l2 ; 0x04d8
+    jl short .back1                  ; 0x04d8
     mov ax, 0x98                     ; 0x04da
     push ax                          ; 0x04dd
     push word [bp - 0xc]             ; 0x04de
@@ -157,7 +157,7 @@ api_idx_000c_JRTV:
     call draw_power_bar              ; 0x04fa
     add sp, byte 0xe                 ; 0x04fd
     cmp word [bp + 6], byte 0        ; 0x0500
-    je short @..api_idx_000c_JRTV.l3 ; 0x0504
+    je short .return1                ; 0x0504
     mov ax, word [bp - 8]            ; 0x0506
     add ax, strict word 0x26         ; 0x0509
     push ax                          ; 0x050c
@@ -168,5 +168,5 @@ api_idx_000c_JRTV:
     push word [bp - 6]               ; 0x0517
     call gfx_show_area               ; 0x051a
     add sp, byte 8                   ; 0x051d
-@..api_idx_000c_JRTV.l3:
+.return1:
     ret                              ; 0x0520

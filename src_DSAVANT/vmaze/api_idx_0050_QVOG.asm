@@ -22,12 +22,12 @@ api_idx_0050_QVOG:
     call api_idx_0008_OMTP           ; 0x7511
     pop cx                           ; 0x7514
     cmp word [bp + 8], byte 0        ; 0x7515
-    je short @..api_idx_0050_QVOG.l1 ; 0x7519
+    je short .forward1               ; 0x7519
     mov ax, 0                        ; 0x751b
     push ax                          ; 0x751e
     call play_sound_effect           ; 0x751f
     pop cx                           ; 0x7522
-@..api_idx_0050_QVOG.l1:
+.forward1:
     push word [message_delay]        ; 0x7523
     call wait_ticks_or_key           ; 0x7527
     pop cx                           ; 0x752a

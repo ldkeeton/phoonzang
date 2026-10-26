@@ -5,12 +5,12 @@ leaf_loc_KSJN:
     mov dl, 0x80
     mov bx, word [bp - 0x34]
     mov cx, 8
-@..leaf_loc_KSJN.l1:
+.back1:
     mov al, byte [cs:bx]
     and al, dl
-    je short @..leaf_loc_KSJN.l2
+    je short .forward1
     inc word [bp - 0x3c]
-@..leaf_loc_KSJN.l2:
+.forward1:
     ror dl, 1
-    loop @..leaf_loc_KSJN.l1
+    loop .back1
     ret

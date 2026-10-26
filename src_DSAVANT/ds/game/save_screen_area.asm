@@ -4,26 +4,26 @@ save_screen_area: ; Aztec csav frame=0x000c
     call aztec_csav                  ; 0x14cd
     mov word [bp - 4], 0xffff        ; 0x14d0
     mov word [bp - 2], 0             ; 0x14d5
-@..save_screen_area.l1:
+.back1:
     mov ax, word [bp - 2]            ; 0x14da
     shl ax, 1                        ; 0x14dd
     mov bx, ax                       ; 0x14df
-    cmp word [bx + saved_screen_kind], byte 0xff ; 0x14e1
-    jne short @..save_screen_area.l2 ; 0x14e6
+    cmp word [bx + saved_screen_kind], byte -1 ; 0x14e1
+    jne short .forward1              ; 0x14e6
     mov ax, word [bp - 2]            ; 0x14e8
     mov word [bp - 4], ax            ; 0x14eb
-@..save_screen_area.l2:
+.forward1:
     inc word [bp - 2]                ; 0x14ee
     mov ax, word [bp - 2]            ; 0x14f1
     cmp ax, strict word 5            ; 0x14f4
-    jl short @..save_screen_area.l1  ; 0x14f7
-    cmp word [bp - 4], byte 0xff     ; 0x14f9
-    jne short @..save_screen_area.l3 ; 0x14fd
+    jl short .back1                  ; 0x14f7
+    cmp word [bp - 4], byte -1       ; 0x14f9
+    jne short .forward2              ; 0x14fd
     mov ax, 0x16                     ; 0x14ff
     push ax                          ; 0x1502
     call release_and_exit            ; 0x1503
     pop cx                           ; 0x1506
-@..save_screen_area.l3:
+.forward2:
     mov ax, word [bp - 4]            ; 0x1507
     shl ax, 1                        ; 0x150a
     mov bx, ax                       ; 0x150c
@@ -45,7 +45,7 @@ save_screen_area: ; Aztec csav frame=0x000c
     mov word [bp - 8], dx            ; 0x1539
     mov word [bp - 0xa], ax          ; 0x153c
     cmp byte [screen_store_1_enabled], 1 ; 0x153f
-    jne short @..save_screen_area.l6 ; 0x1544
+    jne short .forward5              ; 0x1544
     mov ax, 0                        ; 0x1546
     push ax                          ; 0x1549
     mov ax, 1                        ; 0x154a
@@ -57,19 +57,19 @@ save_screen_area: ; Aztec csav frame=0x000c
     mov ax, word [bp - 0xa]          ; 0x1558
     mov dx, word [bp - 8]            ; 0x155b
     cmp bx, dx                       ; 0x155e
-    jl short @..save_screen_area.l4  ; 0x1560
-    jne short @..save_screen_area.l5 ; 0x1562
+    jl short .forward3               ; 0x1560
+    jne short .forward4              ; 0x1562
     cmp cx, ax                       ; 0x1564
-    ja short @..save_screen_area.l5  ; 0x1566
-@..save_screen_area.l4:
-    jmp short @..save_screen_area.l6 ; 0x1568
-@..save_screen_area.l5:
+    ja short .forward4               ; 0x1566
+.forward3:
+    jmp short .forward5              ; 0x1568
+.forward4:
     mov ax, word [bp - 4]            ; 0x156a
     shl ax, 1                        ; 0x156d
     mov bx, ax                       ; 0x156f
     mov word [bx + saved_screen_kind], 1 ; 0x1571
-    jmp near @..save_screen_area.l12 ; 0x1577
-@..save_screen_area.l6:
+    jmp near .forward11              ; 0x1577
+.forward5:
     mov ax, 0                        ; 0x157a
     push ax                          ; 0x157d
     mov ax, 2                        ; 0x157e
@@ -77,42 +77,42 @@ save_screen_area: ; Aztec csav frame=0x000c
     call gfx_get_free_space          ; 0x1582
     add sp, byte 4                   ; 0x1585
     cmp dx, word [bp - 8]            ; 0x1588
-    jl short @..save_screen_area.l7  ; 0x158b
-    jne short @..save_screen_area.l8 ; 0x158d
+    jl short .forward6               ; 0x158b
+    jne short .forward7              ; 0x158d
     cmp ax, word [bp - 0xa]          ; 0x158f
-    ja short @..save_screen_area.l8  ; 0x1592
-@..save_screen_area.l7:
-    jmp short @..save_screen_area.l9 ; 0x1594
-@..save_screen_area.l8:
+    ja short .forward7               ; 0x1592
+.forward6:
+    jmp short .forward8              ; 0x1594
+.forward7:
     mov ax, word [bp - 4]            ; 0x1596
     shl ax, 1                        ; 0x1599
     mov bx, ax                       ; 0x159b
     mov word [bx + saved_screen_kind], 2 ; 0x159d
-    jmp short @..save_screen_area.l12 ; 0x15a3
-@..save_screen_area.l9:
+    jmp short .forward11             ; 0x15a3
+.forward8:
     cmp byte [screen_store_disk_enabled], 1 ; 0x15a5
-    jne short @..save_screen_area.l12 ; 0x15aa
+    jne short .forward11             ; 0x15aa
     mov al, byte [screen_store_drive] ; 0x15ac
     sub ah, ah                       ; 0x15af
     add ax, strict word 0xffc0       ; 0x15b1
     mov word [bp - 6], ax            ; 0x15b4
     cmp ax, strict word 1            ; 0x15b7
-    jl short @..save_screen_area.l12 ; 0x15ba
+    jl short .forward11              ; 0x15ba
     cmp ax, strict word 0x1a         ; 0x15bc
-    jg short @..save_screen_area.l12 ; 0x15bf
+    jg short .forward11              ; 0x15bf
     push ax                          ; 0x15c1
     mov ax, 3                        ; 0x15c2
     push ax                          ; 0x15c5
     call gfx_get_free_space          ; 0x15c6
     add sp, byte 4                   ; 0x15c9
     cmp dx, word [bp - 8]            ; 0x15cc
-    jl short @..save_screen_area.l10 ; 0x15cf
-    jne short @..save_screen_area.l11 ; 0x15d1
+    jl short .forward9               ; 0x15cf
+    jne short .forward10             ; 0x15d1
     cmp ax, word [bp - 0xa]          ; 0x15d3
-    ja short @..save_screen_area.l11 ; 0x15d6
-@..save_screen_area.l10:
-    jmp short @..save_screen_area.l12 ; 0x15d8
-@..save_screen_area.l11:
+    ja short .forward10              ; 0x15d6
+.forward9:
+    jmp short .forward11             ; 0x15d8
+.forward10:
     mov ax, word [bp - 4]            ; 0x15da
     shl ax, 1                        ; 0x15dd
     mov bx, ax                       ; 0x15df
@@ -128,7 +128,7 @@ save_screen_area: ; Aztec csav frame=0x000c
     mov byte [bx + saved_screen_file + saved_screen_file_rec.f_0001], 0x3a ; 0x15fb
     mov byte [bx + saved_screen_file + saved_screen_file_rec.f_0002], 0x5c ; 0x1600
     mov byte [bx + saved_screen_file + saved_screen_file_rec.f_0003], 0 ; 0x1605
-@..save_screen_area.l12:
+.forward11:
     push word [bp + 0xc]             ; 0x160a
     mov ax, 0x14                     ; 0x160d
     imul word [bp - 4]               ; 0x1610
@@ -140,7 +140,7 @@ save_screen_area: ; Aztec csav frame=0x000c
     shl ax, 1                        ; 0x1620
     mov bx, ax                       ; 0x1622
     cmp word [bx + saved_screen_kind], byte 3 ; 0x1624
-    jne short @..save_screen_area.l14 ; 0x1629
+    jne short .forward13             ; 0x1629
     mov ax, 0x301                    ; 0x162b
     push ax                          ; 0x162e
     mov ax, 0x14                     ; 0x162f
@@ -151,16 +151,16 @@ save_screen_area: ; Aztec csav frame=0x000c
     add sp, byte 4                   ; 0x163c
     mov word [bp - 0xc], ax          ; 0x163f
     cmp ax, strict word 0xffff       ; 0x1642
-    jne short @..save_screen_area.l13 ; 0x1645
+    jne short .forward12             ; 0x1645
     mov ax, 0x17                     ; 0x1647
     push ax                          ; 0x164a
     call release_and_exit            ; 0x164b
     pop cx                           ; 0x164e
-@..save_screen_area.l13:
-    jmp short @..save_screen_area.l15 ; 0x164f
-@..save_screen_area.l14:
+.forward12:
+    jmp short .forward14             ; 0x164f
+.forward13:
     mov word [bp - 0xc], 0           ; 0x1651
-@..save_screen_area.l15:
+.forward14:
     push word [bp - 0xc]             ; 0x1656
     mov ax, word [bp - 4]            ; 0x1659
     shl ax, 1                        ; 0x165c
@@ -182,10 +182,10 @@ save_screen_area: ; Aztec csav frame=0x000c
     shl ax, 1                        ; 0x168a
     mov bx, ax                       ; 0x168c
     cmp word [bx + saved_screen_kind], byte 3 ; 0x168e
-    jne short @..save_screen_area.l16 ; 0x1693
+    jne short .forward15             ; 0x1693
     push word [bp - 0xc]             ; 0x1695
     call aztec_close                 ; 0x1698
     pop cx                           ; 0x169b
-@..save_screen_area.l16:
+.forward15:
     mov ax, word [bp - 4]            ; 0x169c
     ret                              ; 0x169f

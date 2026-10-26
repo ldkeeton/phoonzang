@@ -17,12 +17,12 @@ api_idx_0006_KUNS:
     mov word [bp - 4], ax            ; 0x0a8d
     mov ax, 0                        ; 0x0a90
     cmp word [bp - 4], byte 0x4a     ; 0x0a93
-    jl short @..api_idx_0006_KUNS.l1 ; 0x0a97
+    jl short .forward1               ; 0x0a97
     mov ax, 2                        ; 0x0a99
     cmp word [bp - 4], byte 0x5c     ; 0x0a9c
-    jge short @..api_idx_0006_KUNS.l1 ; 0x0aa0
+    jge short .forward1              ; 0x0aa0
     mov ax, 1                        ; 0x0aa2
-@..api_idx_0006_KUNS.l1:
+.forward1:
     mov word [bp - 6], ax            ; 0x0aa5
     mov ax, 0xc                      ; 0x0aa8
     imul word [bp + 4]               ; 0x0aab

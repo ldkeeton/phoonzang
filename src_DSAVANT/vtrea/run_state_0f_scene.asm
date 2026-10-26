@@ -25,7 +25,7 @@ run_state_0f_scene:
     call score_music_enabled         ; 0x7f90
     mov word [bss_8450], ax          ; 0x7f93
     test ax, ax                      ; 0x7f96
-    je short @..run_state_0f_scene.l1 ; 0x7f98
+    je short .forward1               ; 0x7f98
     mov ax, 0                        ; 0x7f9a
     push ax                          ; 0x7f9d
     mov ax, 3                        ; 0x7f9e
@@ -47,7 +47,7 @@ run_state_0f_scene:
     call ds_app_UKGP                 ; 0x7fc5
     add sp, byte 6                   ; 0x7fc8
     mov word [bss_844c], ax          ; 0x7fcb
-@..run_state_0f_scene.l1:
+.forward1:
     lea ax, word [bp - 0x50]         ; 0x7fce
     push ax                          ; 0x7fd1
     mov ax, MSG_YOU_DEFEATED_THE_MONSTERS ; 0x7fd2
@@ -64,13 +64,13 @@ run_state_0f_scene:
     call show_treasure_message       ; 0x7fec
     add sp, byte 8                   ; 0x7fef
     cmp word [bss_8450], byte 0      ; 0x7ff2
-    je short @..run_state_0f_scene.l4 ; 0x7ff7
-@..run_state_0f_scene.l2:
+    je short .forward3               ; 0x7ff7
+.back1:
     call gfx_is_music_playing        ; 0x7ff9
     test ax, ax                      ; 0x7ffc
-    je short @..run_state_0f_scene.l3 ; 0x7ffe
-    jmp short @..run_state_0f_scene.l2 ; 0x8000
-@..run_state_0f_scene.l3:
+    je short .forward2               ; 0x7ffe
+    jmp short .back1                 ; 0x8000
+.forward2:
     mov ax, 0x190                    ; 0x8002
     push ax                          ; 0x8005
     call delay_ms                    ; 0x8006
@@ -88,17 +88,17 @@ run_state_0f_scene:
     call ds_app_UKGP                 ; 0x8027
     add sp, byte 6                   ; 0x802a
     mov word [bss_844c], ax          ; 0x802d
-@..run_state_0f_scene.l4:
+.forward3:
     cmp word [item_action_reward_hi], byte 0 ; 0x8030
-    jl short @..run_state_0f_scene.l5 ; 0x8035
-    jne short @..run_state_0f_scene.l6 ; 0x8037
+    jl short .forward4               ; 0x8035
+    jne short .forward5              ; 0x8037
     cmp word [item_action_reward], byte 0 ; 0x8039
-    ja short @..run_state_0f_scene.l6 ; 0x803e
-@..run_state_0f_scene.l5:
-    jmp short @..run_state_0f_scene.l7 ; 0x8040
-@..run_state_0f_scene.l6:
+    ja short .forward5               ; 0x803e
+.forward4:
+    jmp short .forward6              ; 0x8040
+.forward5:
     call distribute_survivor_experience ; 0x8042
-@..run_state_0f_scene.l7:
+.forward6:
     mov ax, 0                        ; 0x8045
     push ax                          ; 0x8048
     mov ax, 0xa4                     ; 0x8049
@@ -113,13 +113,13 @@ run_state_0f_scene:
     push ax                          ; 0x805e
     call set_mouse_pointer_shape     ; 0x805f
     add sp, byte 4                   ; 0x8062
-    cmp word [selected_item_record], byte 0xff ; 0x8065
-    je short @..run_state_0f_scene.l8 ; 0x806a
+    cmp word [selected_item_record], byte -1 ; 0x8065
+    je short .forward7               ; 0x806a
     mov word [party_return_state], 0xf ; 0x806c
     call loc_HUIS                    ; 0x8072
-@..run_state_0f_scene.l8:
+.forward7:
     cmp word [bss_8450], byte 0      ; 0x8075
-    je short @..run_state_0f_scene.l9 ; 0x807a
+    je short .forward8               ; 0x807a
     push word [bss_844c]             ; 0x807c
     push word [bss_844e]             ; 0x8080
     call fade_out_music              ; 0x8084
@@ -132,6 +132,6 @@ run_state_0f_scene:
     push ax                          ; 0x8095
     call app_gfx_free_score          ; 0x8096
     pop cx                           ; 0x8099
-@..run_state_0f_scene.l9:
+.forward8:
     call loc_VSIT                    ; 0x809a
     ret                              ; 0x809d

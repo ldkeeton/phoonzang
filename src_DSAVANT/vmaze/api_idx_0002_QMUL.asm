@@ -26,7 +26,7 @@ api_idx_0002_QMUL:
     call get_bits                    ; 0x8736
     add sp, byte 6                   ; 0x8739
     test ax, ax                      ; 0x873c
-    jne short @..api_idx_0002_QMUL.l1 ; 0x873e
+    jne short .forward1              ; 0x873e
     push word [bp - 2]               ; 0x8740
     mov si, word [party_region]      ; 0x8743
     mov bx, word [maze_tables]       ; 0x8747
@@ -40,8 +40,8 @@ api_idx_0002_QMUL:
     push ax                          ; 0x875c
     call loc_GTVH                    ; 0x875d
     add sp, byte 4                   ; 0x8760
-    jmp short @..api_idx_0002_QMUL.l4 ; 0x8763
-@..api_idx_0002_QMUL.l1:
+    jmp short .return1               ; 0x8763
+.forward1:
     push word [bp - 2]               ; 0x8765
     mov bx, word [maze_tables]       ; 0x8768
     mov si, word [party_region]      ; 0x876c
@@ -51,14 +51,14 @@ api_idx_0002_QMUL:
     imul cx                          ; 0x8779
     mov bx, ax                       ; 0x877b
     cmp byte [bx + slot_records + slot_record.flag], 0 ; 0x877d
-    jne short @..api_idx_0002_QMUL.l2 ; 0x8782
+    jne short .forward2              ; 0x8782
     mov ax, 1                        ; 0x8784
-    jmp short @..api_idx_0002_QMUL.l3 ; 0x8787
-@..api_idx_0002_QMUL.l2:
+    jmp short .forward3              ; 0x8787
+.forward2:
     mov ax, 0                        ; 0x8789
-@..api_idx_0002_QMUL.l3:
+.forward3:
     push ax                          ; 0x878c
     call loc_GTVH                    ; 0x878d
     add sp, byte 4                   ; 0x8790
-@..api_idx_0002_QMUL.l4:
+.return1:
     ret                              ; 0x8793

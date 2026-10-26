@@ -12,12 +12,12 @@ loc_IPHP:
     mov si, ax                       ; 0x959e
     mov byte [bx + si + 1], 0        ; 0x95a0
     mov byte [bp - 0x88], 0          ; 0x95a4
-@..loc_IPHP.l1:
+.back1:
     mov bx, word [bp - 8]            ; 0x95a9
     cmp byte [bx], 0                 ; 0x95ac
-    jne short @..loc_IPHP.l2         ; 0x95af
-    jmp near @..loc_IPHP.l7          ; 0x95b1
-@..loc_IPHP.l2:
+    jne short .forward1              ; 0x95af
+    jmp near .forward6               ; 0x95b1
+.forward1:
     mov ax, 0x20                     ; 0x95b4
     push ax                          ; 0x95b7
     push bx                          ; 0x95b8
@@ -27,11 +27,11 @@ loc_IPHP:
     push ax                          ; 0x95c2
     cmp ax, strict word 0            ; 0x95c3
     pop ax                           ; 0x95c6
-    jge short @..loc_IPHP.l3         ; 0x95c7
+    jge short .forward2              ; 0x95c7
     push word [bp - 8]               ; 0x95c9
     call aztec_strlen                ; 0x95cc
     pop cx                           ; 0x95cf
-@..loc_IPHP.l3:
+.forward2:
     mov word [bp - 6], ax            ; 0x95d0
     push ax                          ; 0x95d3
     push word [bp - 8]               ; 0x95d4
@@ -55,14 +55,14 @@ loc_IPHP:
     call aztec_strcpy                ; 0x9606
     add sp, byte 4                   ; 0x9609
     cmp byte [bp - 0x88], 0          ; 0x960c
-    je short @..loc_IPHP.l4          ; 0x9611
+    je short .forward3               ; 0x9611
     mov ax, dseg_90ee                ; 0x9613
     push ax                          ; 0x9616
     lea ax, word [bp - 0x108]        ; 0x9617
     push ax                          ; 0x961b
     call aztec_strcat                ; 0x961c
     add sp, byte 4                   ; 0x961f
-@..loc_IPHP.l4:
+.forward3:
     lea ax, word [bp - 0x158]        ; 0x9622
     push ax                          ; 0x9626
     lea ax, word [bp - 0x108]        ; 0x9627
@@ -77,7 +77,7 @@ loc_IPHP:
     add sp, byte 4                   ; 0x963e
     mov word [bp - 4], ax            ; 0x9641
     cmp ax, 0xb8                     ; 0x9644
-    jle short @..loc_IPHP.l5         ; 0x9647
+    jle short .forward4              ; 0x9647
     lea ax, word [bp - 0x88]         ; 0x9649
     push ax                          ; 0x964d
     mov ax, word [text_line_index]   ; 0x964e
@@ -99,20 +99,20 @@ loc_IPHP:
     push ax                          ; 0x967c
     call aztec_strcpy                ; 0x967d
     add sp, byte 4                   ; 0x9680
-    jmp short @..loc_IPHP.l6         ; 0x9683
-@..loc_IPHP.l5:
+    jmp short .forward5              ; 0x9683
+.forward4:
     lea ax, word [bp - 0x108]        ; 0x9685
     push ax                          ; 0x9689
     lea ax, word [bp - 0x88]         ; 0x968a
     push ax                          ; 0x968e
     call aztec_strcpy                ; 0x968f
     add sp, byte 4                   ; 0x9692
-@..loc_IPHP.l6:
+.forward5:
     mov ax, word [bp - 6]            ; 0x9695
     add word [bp - 8], ax            ; 0x9698
     add word [bp - 8], byte 1        ; 0x969b
-    jmp near @..loc_IPHP.l1          ; 0x969f
-@..loc_IPHP.l7:
+    jmp near .back1                  ; 0x969f
+.forward6:
     lea ax, word [bp - 0x88]         ; 0x96a2
     push ax                          ; 0x96a6
     mov ax, word [text_line_index]   ; 0x96a7

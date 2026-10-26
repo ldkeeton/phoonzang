@@ -51,7 +51,7 @@ api_idx_0006_HMNQ:
     mov word [bp - 4], dx            ; 0x6148
     mov word [bp - 6], ax            ; 0x614b
     call flush_keyboard              ; 0x614e
-@..api_idx_0006_HMNQ.l1:
+.back1:
     mov ax, 0                        ; 0x6151
     push ax                          ; 0x6154
     push word [bp + 8]               ; 0x6155
@@ -85,7 +85,7 @@ api_idx_0006_HMNQ:
     push ax                          ; 0x619a
     call gfx_show_area               ; 0x619b
     add sp, byte 8                   ; 0x619e
-@..api_idx_0006_HMNQ.l2:
+.back2:
     mov ax, hotspot_rects            ; 0x61a1
     push ax                          ; 0x61a4
     call poll_hotspots               ; 0x61a5
@@ -93,10 +93,10 @@ api_idx_0006_HMNQ:
     dec ax                           ; 0x61a9
     mov word [bp - 2], ax            ; 0x61aa
     cmp word [hotspot_hit], byte 0   ; 0x61ad
-    je short @..api_idx_0006_HMNQ.l2 ; 0x61b2
+    je short .back2                  ; 0x61b2
     mov ax, word [bp - 2]            ; 0x61b4
-    jmp short @..api_idx_0006_HMNQ.l5 ; 0x61b7
-@..api_idx_0006_HMNQ.l3:
+    jmp short .forward1              ; 0x61b7
+.back3:
     mov ax, 0x248                    ; 0x61b9
     imul word [bp + 4]               ; 0x61bc
     mov bx, ax                       ; 0x61bf
@@ -108,8 +108,8 @@ api_idx_0006_HMNQ:
     idiv cx                          ; 0x61ce
     mov ax, dx                       ; 0x61d0
     mov byte [bx + party_records + pc_rec.kind], al ; 0x61d2
-    jmp short @..api_idx_0006_HMNQ.l6 ; 0x61d6
-@..api_idx_0006_HMNQ.l4:
+    jmp short .forward2              ; 0x61d6
+.back4:
     mov ax, 0x248                    ; 0x61d8
     imul word [bp + 4]               ; 0x61db
     mov bx, ax                       ; 0x61de
@@ -121,17 +121,17 @@ api_idx_0006_HMNQ:
     idiv cx                          ; 0x61eb
     mov ax, dx                       ; 0x61ed
     mov byte [bx + party_records + pc_rec.kind], al ; 0x61ef
-    jmp short @..api_idx_0006_HMNQ.l6 ; 0x61f3
-@..api_idx_0006_HMNQ.l5:
+    jmp short .forward2              ; 0x61f3
+.forward1:
     cmp ax, strict word 0            ; 0x61f5
-    je short @..api_idx_0006_HMNQ.l3 ; 0x61f8
+    je short .back3                  ; 0x61f8
     cmp ax, strict word 1            ; 0x61fa
-    je short @..api_idx_0006_HMNQ.l4 ; 0x61fd
-@..api_idx_0006_HMNQ.l6:
+    je short .back4                  ; 0x61fd
+.forward2:
     cmp word [bp - 2], byte 2        ; 0x61ff
-    je short @..api_idx_0006_HMNQ.l7 ; 0x6203
-    jmp near @..api_idx_0006_HMNQ.l1 ; 0x6205
-@..api_idx_0006_HMNQ.l7:
+    je short .forward3               ; 0x6203
+    jmp near .back1                  ; 0x6205
+.forward3:
     mov ax, 1                        ; 0x6208
     push ax                          ; 0x620b
     push ax                          ; 0x620c

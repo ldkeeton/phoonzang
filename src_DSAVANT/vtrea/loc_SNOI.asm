@@ -39,14 +39,14 @@ loc_SNOI:
     mov word [screen_cache_0_seg], dx ; 0x7deb
     mov word [screen_cache], ax      ; 0x7def
     cmp word [saved_screen_pending], byte 0 ; 0x7df2
-    je short @..loc_SNOI.l1          ; 0x7df7
+    je short .forward1               ; 0x7df7
     mov ax, 1                        ; 0x7df9
     push ax                          ; 0x7dfc
     push word [saved_screen_slot]    ; 0x7dfd
     call restore_saved_screen        ; 0x7e01
     add sp, byte 4                   ; 0x7e04
     mov word [saved_screen_pending], 0 ; 0x7e07
-@..loc_SNOI.l1:
+.forward1:
     mov ax, 0                        ; 0x7e0d
     push ax                          ; 0x7e10
     mov ax, 2                        ; 0x7e11
@@ -106,11 +106,11 @@ loc_SNOI:
     call flush_keyboard              ; 0x7e9d
     mov word [treasure_caption_on], 0 ; 0x7ea0
     cmp word [bp + 4], byte 0        ; 0x7ea6
-    jle short @..loc_SNOI.l2         ; 0x7eaa
+    jle short .return1               ; 0x7eaa
     mov ax, treasure_caption         ; 0x7eac
     push ax                          ; 0x7eaf
     push word [bp + 4]               ; 0x7eb0
     call load_message_string         ; 0x7eb3
     add sp, byte 4                   ; 0x7eb6
-@..loc_SNOI.l2:
+.return1:
     ret                              ; 0x7eb9

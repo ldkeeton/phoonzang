@@ -9,7 +9,7 @@ io_loc_TSTG:
     inc dx                           ; 0x2f5b
     mov al, ah                       ; 0x2f5c
     out dx, al                       ; 0x2f5e
-@..io_loc_TSTG.l1:
+.back1:
     push cx                          ; 0x2f5f
     push si                          ; 0x2f60
     mov cx, word [cs:cseg_1af3 - IMAGE_BASE] ; 0x2f61
@@ -17,5 +17,5 @@ io_loc_TSTG:
     pop si                           ; 0x2f68
     add si, byte 0x50                ; 0x2f69
     pop cx                           ; 0x2f6c
-    loop @..io_loc_TSTG.l1           ; 0x2f6d
+    loop .back1                      ; 0x2f6d
     ret                              ; 0x2f6f

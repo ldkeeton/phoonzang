@@ -23,7 +23,7 @@ play_score:
     mov word [bp - 6], ax
     mov ax, word [cs:bx]
     or ax, ax
-    je short @..play_score.l2
+    je short .forward2
     dec ax
     shl ax, 1
     shl ax, 1
@@ -33,10 +33,10 @@ play_score:
     push word [bp - 8]
     xor ax, ax
     cmp word [bp - 6], byte 0
-    je short @..play_score.l1
+    je short .forward1
     mov ax, word [cs:bx]
     add ax, word [cs:maze_mem_seg - IMAGE_BASE]
-@..play_score.l1:
+.forward1:
     push ax
     xor ax, ax
     push ax
@@ -54,7 +54,7 @@ play_score:
     push word [bp - 6]
     call far [cs:music_start_far - IMAGE_BASE]
     add sp, byte 6
-@..play_score.l2:
+.forward2:
     pop di
     pop si
     pop es

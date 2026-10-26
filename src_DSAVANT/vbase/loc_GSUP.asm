@@ -16,13 +16,13 @@ loc_GSUP:
     pop dx                           ; 0x73df
     pop ax                           ; 0x73e0
     cmp dx, bx                       ; 0x73e1
-    jl short @..loc_GSUP.l1          ; 0x73e3
-    jne short @..loc_GSUP.l2         ; 0x73e5
+    jl short .forward1               ; 0x73e3
+    jne short .forward2              ; 0x73e5
     cmp ax, cx                       ; 0x73e7
-    jae short @..loc_GSUP.l2         ; 0x73e9
-@..loc_GSUP.l1:
-    jmp short @..loc_GSUP.l3         ; 0x73eb
-@..loc_GSUP.l2:
+    jae short .forward2              ; 0x73e9
+.forward1:
+    jmp short .forward3              ; 0x73eb
+.forward2:
     mov ax, word [scene_frame]       ; 0x73ed
     inc ax                           ; 0x73f0
     mov cx, 0xc                      ; 0x73f1
@@ -36,6 +36,6 @@ loc_GSUP:
     mov word [party_redraw_last_tick], ax ; 0x740a
     mov ax, 1                        ; 0x740d
     ret                              ; 0x7410
-@..loc_GSUP.l3:
+.forward3:
     mov ax, 0                        ; 0x7411
     ret                              ; 0x7414

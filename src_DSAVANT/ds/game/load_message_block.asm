@@ -3,13 +3,13 @@ load_message_block: ; Aztec csav frame=0x0002
     mov ax, 0xfffe                   ; 0x06c6
     call aztec_csav                  ; 0x06c9
     mov word [bp - 2], 0             ; 0x06cc
-@..load_message_block.l1:
+.back1:
     mov ax, word [bp - 2]            ; 0x06d1
     shl ax, 1                        ; 0x06d4
     mov bx, ax                       ; 0x06d6
     mov ax, word [bx + message_cache_ids] ; 0x06d8
     cmp ax, word [bp + 4]            ; 0x06dc
-    jne short @..load_message_block.l2 ; 0x06df
+    jne short .forward1              ; 0x06df
     mov ax, 0x400                    ; 0x06e1
     push ax                          ; 0x06e4
     mov ax, message_block_buffer     ; 0x06e5
@@ -24,11 +24,11 @@ load_message_block: ; Aztec csav frame=0x0002
     mov ax, word [bp + 4]            ; 0x06fb
     mov word [message_block_current], ax ; 0x06fe
     ret                              ; 0x0701
-@..load_message_block.l2:
+.forward1:
     inc word [bp - 2]                ; 0x0702
     mov ax, word [bp - 2]            ; 0x0705
     cmp ax, strict word 4            ; 0x0708
-    jl short @..load_message_block.l1 ; 0x070b
+    jl short .back1                  ; 0x070b
     mov ax, 0                        ; 0x070d
     push ax                          ; 0x0710
     call gfx_wait_sound              ; 0x0711
@@ -38,10 +38,10 @@ load_message_block: ; Aztec csav frame=0x0002
     mov ax, word [bp + 4]            ; 0x0719
     cwd                              ; 0x071c
     mov cx, 0xa                      ; 0x071d
-@..load_message_block.l3:
+.back2:
     shl ax, 1                        ; 0x0720
     rcl dx, 1                        ; 0x0722
-    loop @..load_message_block.l3    ; 0x0724
+    loop .back2                      ; 0x0724
     push dx                          ; 0x0726
     push ax                          ; 0x0727
     push word [msg_dbs_fd]           ; 0x0728

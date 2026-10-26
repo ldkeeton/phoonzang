@@ -10,7 +10,7 @@ set_rgb:
     mov es, ax                       ; 0x2788
     mov ax, word [bp + 0xe]          ; 0x278a
     cmp ax, strict word 0xffff       ; 0x278d
-    jne short @..set_rgb.l1          ; 0x2790
+    jne short .forward1              ; 0x2790
     les di, word [cs:palette_ptr - IMAGE_BASE] ; 0x2792
     mov ax, word [bp + 0xc]          ; 0x2797
     mov bx, ax                       ; 0x279a
@@ -22,14 +22,14 @@ set_rgb:
     mov ch, al                       ; 0x27a9
     mov al, byte [es:bx + di + 2]    ; 0x27ab
     mov cl, al                       ; 0x27af
-    jmp short @..set_rgb.l2          ; 0x27b1
-@..set_rgb.l1:
+    jmp short .forward2              ; 0x27b1
+.forward1:
     mov cx, word [bp + 0x12]         ; 0x27b3
     mov bx, word [bp + 0x10]         ; 0x27b6
     mov ch, bl                       ; 0x27b9
     mov bx, word [bp + 0xe]          ; 0x27bb
     mov dh, bl                       ; 0x27be
-@..set_rgb.l2:
+.forward2:
     mov bx, word [bp + 0xc]          ; 0x27c0
     mov ax, 0x1010                   ; 0x27c3
     int 0x10 ; BIOS video

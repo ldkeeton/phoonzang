@@ -69,7 +69,7 @@ class HardClassificationTests(unittest.TestCase):
             branch_edges=ctx.branch_edges,
         )
 
-        local_target = '@..dos_mem_loc_0000.l1'
+        local_target = '@..dos_mem_loc_0000.return1'
         self.assertIn(f'{local_target}:', asm_text)
         self.assertIn(f'jne short {local_target}', asm_text)
 
@@ -129,10 +129,10 @@ class HardClassificationTests(unittest.TestCase):
             branch_edges=branch_edges,
         )
 
-        self.assertIn('@..math_loc_0100.l1:', asm_text)
-        self.assertIn('@..math_loc_0100.l2:', asm_text)
-        self.assertIn('jne short @..math_loc_0100.l2', asm_text)
-        self.assertIn('jmp short @..math_loc_0100.l1', asm_text)
+        self.assertIn('@..math_loc_0100.back1:', asm_text)
+        self.assertIn('@..math_loc_0100.forward1:', asm_text)
+        self.assertIn('jne short @..math_loc_0100.forward1', asm_text)
+        self.assertIn('jmp short @..math_loc_0100.back1', asm_text)
 
     def _assert_direct_branch_overrides_data(self, opcode, target):
         ctx = PhaseContext(_branch_binary(opcode, target), entry_points=[0])

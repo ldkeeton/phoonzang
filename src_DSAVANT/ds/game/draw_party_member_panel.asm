@@ -107,33 +107,33 @@ draw_party_member_panel: ; Aztec csav frame=0x003a
     mov ax, word [bx + spell_table + spell_table_rec_size*128] ; 0x1e86
     mov word [bp - 6], ax            ; 0x1e8a
     cmp ax, strict word 0xffff       ; 0x1e8d
-    jne short @..draw_party_member_panel.l1 ; 0x1e90
+    jne short .forward1              ; 0x1e90
     mov ax, 0x248                    ; 0x1e92
     imul word [bp + 4]               ; 0x1e95
     mov bx, ax                       ; 0x1e98
     cmp byte [bx + party_records + pc_rec.status + 0x2], 0 ; 0x1e9a
-    jbe short @..draw_party_member_panel.l1 ; 0x1e9f
+    jbe short .forward1              ; 0x1e9f
     mov ax, 0                        ; 0x1ea1
-    jmp short @..draw_party_member_panel.l2 ; 0x1ea4
-@..draw_party_member_panel.l1:
+    jmp short .forward2              ; 0x1ea4
+.forward1:
     mov ax, word [bp - 6]            ; 0x1ea6
-@..draw_party_member_panel.l2:
+.forward2:
     mov word [bp - 6], ax            ; 0x1ea9
     cmp ax, strict word 0            ; 0x1eac
-    jg short @..draw_party_member_panel.l3 ; 0x1eaf
+    jg short .forward3               ; 0x1eaf
     mov ax, 0x248                    ; 0x1eb1
     imul word [bp + 4]               ; 0x1eb4
     mov bx, ax                       ; 0x1eb7
     cmp byte [bx + party_records + pc_rec.status + 0x3], 0 ; 0x1eb9
-    jbe short @..draw_party_member_panel.l3 ; 0x1ebe
+    jbe short .forward3              ; 0x1ebe
     mov ax, 1                        ; 0x1ec0
-    jmp short @..draw_party_member_panel.l4 ; 0x1ec3
-@..draw_party_member_panel.l3:
+    jmp short .forward4              ; 0x1ec3
+.forward3:
     mov ax, word [bp - 6]            ; 0x1ec5
-@..draw_party_member_panel.l4:
+.forward4:
     mov word [bp - 6], ax            ; 0x1ec8
     cmp ax, strict word 0xffff       ; 0x1ecb
-    je short @..draw_party_member_panel.l5 ; 0x1ece
+    je short .forward5               ; 0x1ece
     mov ax, word [bp - 0xc]          ; 0x1ed0
     add ax, strict word 0x15         ; 0x1ed3
     push ax                          ; 0x1ed6
@@ -149,34 +149,34 @@ draw_party_member_panel: ; Aztec csav frame=0x003a
     push ax                          ; 0x1eed
     call draw_font_glyph             ; 0x1eee
     add sp, byte 4                   ; 0x1ef1
-@..draw_party_member_panel.l5:
+.forward5:
     mov word [bp - 6], 0xffff        ; 0x1ef4
     mov word [bp - 8], 0xffff        ; 0x1ef9
     mov word [bp - 2], 0             ; 0x1efe
-@..draw_party_member_panel.l6:
+.back1:
     mov ax, 0x248                    ; 0x1f03
     imul word [bp + 4]               ; 0x1f06
     add ax, word [bp - 2]            ; 0x1f09
     mov bx, ax                       ; 0x1f0c
     cmp byte [bx + party_records + pc_rec.status], 0 ; 0x1f0e
-    jbe short @..draw_party_member_panel.l7 ; 0x1f13
+    jbe short .forward6              ; 0x1f13
     mov ax, word [bp - 2]            ; 0x1f15
     shl ax, 1                        ; 0x1f18
     mov bx, ax                       ; 0x1f1a
     mov ax, word [bx + spell_table + spell_table_rec_size*133 + spell_table_rec.f_0002] ; 0x1f1c
     cmp ax, word [bp - 8]            ; 0x1f20
-    jle short @..draw_party_member_panel.l7 ; 0x1f23
+    jle short .forward6              ; 0x1f23
     mov ax, word [bx + spell_table + spell_table_rec_size*130] ; 0x1f25
     mov word [bp - 6], ax            ; 0x1f29
     mov ax, word [bx + spell_table + spell_table_rec_size*133 + spell_table_rec.f_0002] ; 0x1f2c
     mov word [bp - 8], ax            ; 0x1f30
-@..draw_party_member_panel.l7:
+.forward6:
     inc word [bp - 2]                ; 0x1f33
     mov ax, word [bp - 2]            ; 0x1f36
     cmp ax, strict word 0xa          ; 0x1f39
-    jl short @..draw_party_member_panel.l6 ; 0x1f3c
-    cmp word [bp - 6], byte 0xff     ; 0x1f3e
-    je short @..draw_party_member_panel.l8 ; 0x1f42
+    jl short .back1                  ; 0x1f3c
+    cmp word [bp - 6], byte -1       ; 0x1f3e
+    je short .forward7               ; 0x1f42
     mov ax, word [bp - 0xc]          ; 0x1f44
     add ax, strict word 0x15         ; 0x1f47
     push ax                          ; 0x1f4a
@@ -192,27 +192,27 @@ draw_party_member_panel: ; Aztec csav frame=0x003a
     push ax                          ; 0x1f61
     call draw_font_glyph             ; 0x1f62
     add sp, byte 4                   ; 0x1f65
-@..draw_party_member_panel.l8:
+.forward7:
     mov ax, 0x248                    ; 0x1f68
     imul word [bp + 4]               ; 0x1f6b
     mov bx, ax                       ; 0x1f6e
     cmp byte [bx + party_records + pc_rec.kind], 0x13 ; 0x1f70
-    je short @..draw_party_member_panel.l9 ; 0x1f75
+    je short .forward8               ; 0x1f75
     cmp byte [bx + party_records + pc_rec.kind], 0x19 ; 0x1f77
-    jne short @..draw_party_member_panel.l10 ; 0x1f7c
-@..draw_party_member_panel.l9:
+    jne short .forward9              ; 0x1f7c
+.forward8:
     mov ax, 0xa                      ; 0x1f7e
-    jmp short @..draw_party_member_panel.l11 ; 0x1f81
-@..draw_party_member_panel.l10:
+    jmp short .forward10             ; 0x1f81
+.forward9:
     mov al, byte [bx + party_records + pc_rec.glyph_set] ; 0x1f83
     sub ah, ah                       ; 0x1f87
     shl ax, 1                        ; 0x1f89
     mov bx, ax                       ; 0x1f8b
     mov ax, word [bx + spell_table + spell_table_rec_size*136 + spell_table_rec.f_0004] ; 0x1f8d
-@..draw_party_member_panel.l11:
+.forward10:
     mov word [bp - 0x3a], ax         ; 0x1f91
     mov word [bp - 2], 0             ; 0x1f94
-@..draw_party_member_panel.l12:
+.back2:
     mov ax, word [bp - 0xc]          ; 0x1f99
     add ax, strict word 7            ; 0x1f9c
     push ax                          ; 0x1f9f
@@ -231,7 +231,7 @@ draw_party_member_panel: ; Aztec csav frame=0x003a
     sub ah, ah                       ; 0x1fc2
     mov word [bp - 4], ax            ; 0x1fc4
     cmp ax, 0xff                     ; 0x1fc7
-    je short @..draw_party_member_panel.l13 ; 0x1fca
+    je short .forward11              ; 0x1fca
     mov ax, 0x248                    ; 0x1fcc
     imul word [bp + 4]               ; 0x1fcf
     push ax                          ; 0x1fd2
@@ -242,7 +242,7 @@ draw_party_member_panel: ; Aztec csav frame=0x003a
     add ax, cx                       ; 0x1fdc
     mov bx, ax                       ; 0x1fde
     cmp word [bx + party_records + pc_rec.cell], byte 0 ; 0x1fe0
-    jle short @..draw_party_member_panel.l13 ; 0x1fe5
+    jle short .forward11             ; 0x1fe5
     mov ax, 4                        ; 0x1fe7
     push ax                          ; 0x1fea
     mov al, byte [bx + party_records + pc_rec.cell + 0x5] ; 0x1feb
@@ -250,8 +250,8 @@ draw_party_member_panel: ; Aztec csav frame=0x003a
     push ax                          ; 0x1ff1
     call draw_font_glyph             ; 0x1ff2
     add sp, byte 4                   ; 0x1ff5
-    jmp short @..draw_party_member_panel.l14 ; 0x1ff8
-@..draw_party_member_panel.l13:
+    jmp short .forward12             ; 0x1ff8
+.forward11:
     mov ax, 7                        ; 0x1ffa
     push ax                          ; 0x1ffd
     mov ax, word [bp - 0x3a]         ; 0x1ffe
@@ -260,11 +260,11 @@ draw_party_member_panel: ; Aztec csav frame=0x003a
     push ax                          ; 0x2006
     call draw_font_glyph             ; 0x2007
     add sp, byte 4                   ; 0x200a
-@..draw_party_member_panel.l14:
+.forward12:
     inc word [bp - 2]                ; 0x200d
     mov ax, word [bp - 2]            ; 0x2010
     cmp ax, strict word 2            ; 0x2013
-    jl short @..draw_party_member_panel.l12 ; 0x2016
+    jl short .back2                  ; 0x2016
     mov ax, 0x1b                     ; 0x2018
     push ax                          ; 0x201b
     mov ax, 0x248                    ; 0x201c
@@ -306,7 +306,7 @@ draw_party_member_panel: ; Aztec csav frame=0x003a
     mov word [bp - 0xe], 0           ; 0x2078
     mov word [bp - 0x10], 0          ; 0x207d
     mov word [bp - 2], 0             ; 0x2082
-@..draw_party_member_panel.l15:
+.back3:
     mov ax, 0x248                    ; 0x2087
     imul word [bp + 4]               ; 0x208a
     mov cx, word [bp - 2]            ; 0x208d
@@ -321,7 +321,7 @@ draw_party_member_panel: ; Aztec csav frame=0x003a
     inc word [bp - 2]                ; 0x20a6
     mov ax, word [bp - 2]            ; 0x20a9
     cmp ax, strict word 6            ; 0x20ac
-    jl short @..draw_party_member_panel.l15 ; 0x20af
+    jl short .back3                  ; 0x20af
     mov ax, 0x98                     ; 0x20b1
     push ax                          ; 0x20b4
     push word [bp - 0x10]            ; 0x20b5
@@ -339,7 +339,7 @@ draw_party_member_panel: ; Aztec csav frame=0x003a
     call draw_power_bar              ; 0x20d1
     add sp, byte 0xe                 ; 0x20d4
     cmp word [bp + 6], byte 0        ; 0x20d7
-    je short @..draw_party_member_panel.l16 ; 0x20db
+    je short .return1                ; 0x20db
     mov ax, word [bp - 0xc]          ; 0x20dd
     add ax, strict word 0x2b         ; 0x20e0
     push ax                          ; 0x20e3
@@ -350,5 +350,5 @@ draw_party_member_panel: ; Aztec csav frame=0x003a
     push word [bp - 0xa]             ; 0x20ee
     call gfx_show_area               ; 0x20f1
     add sp, byte 8                   ; 0x20f4
-@..draw_party_member_panel.l16:
+.return1:
     ret                              ; 0x20f7

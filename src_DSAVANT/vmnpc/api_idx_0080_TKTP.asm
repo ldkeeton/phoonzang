@@ -19,7 +19,7 @@ api_idx_0080_TKTP:
     shl ax, cl                       ; 0x96f1
     mov bx, ax                       ; 0x96f3
     cmp byte [bx + text_line_buffer], 0 ; 0x96f5
-    je short @..api_idx_0080_TKTP.l1 ; 0x96fa
+    je short .forward1               ; 0x96fa
     mov ax, dseg_90f0                ; 0x96fc
     push ax                          ; 0x96ff
     add bx, text_line_buffer         ; 0x9700
@@ -27,7 +27,7 @@ api_idx_0080_TKTP:
     push ax                          ; 0x9706
     call aztec_strcat                ; 0x9707
     add sp, byte 4                   ; 0x970a
-@..api_idx_0080_TKTP.l1:
+.forward1:
     lea ax, word [bp - 0x80]         ; 0x970d
     push ax                          ; 0x9710
     mov ax, word [text_line_index]   ; 0x9711

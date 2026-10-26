@@ -23,64 +23,64 @@ api_idx_0004_QUVO:
     mov word [bp - 2], dx            ; 0x005f
     mov word [bp - 4], ax            ; 0x0062
     cmp dx, byte 0                   ; 0x0065
-    jg short @..api_idx_0004_QUVO.l1 ; 0x0068
-    jne short @..api_idx_0004_QUVO.l2 ; 0x006a
+    jg short .forward1               ; 0x0068
+    jne short .forward2              ; 0x006a
     cmp ax, strict word 0x32         ; 0x006c
-    jbe short @..api_idx_0004_QUVO.l2 ; 0x006f
-@..api_idx_0004_QUVO.l1:
-    jmp short @..api_idx_0004_QUVO.l3 ; 0x0071
-@..api_idx_0004_QUVO.l2:
+    jbe short .forward2              ; 0x006f
+.forward1:
+    jmp short .forward3              ; 0x0071
+.forward2:
     mov ax, 0                        ; 0x0073
     ret                              ; 0x0076
-@..api_idx_0004_QUVO.l3:
+.forward3:
     cmp word [bp - 2], byte 0        ; 0x0077
-    jg short @..api_idx_0004_QUVO.l4 ; 0x007b
-    jne short @..api_idx_0004_QUVO.l5 ; 0x007d
+    jg short .forward4               ; 0x007b
+    jne short .forward5              ; 0x007d
     cmp word [bp - 4], byte 0x42     ; 0x007f
-    jbe short @..api_idx_0004_QUVO.l5 ; 0x0083
-@..api_idx_0004_QUVO.l4:
-    jmp short @..api_idx_0004_QUVO.l7 ; 0x0085
-@..api_idx_0004_QUVO.l5:
+    jbe short .forward5              ; 0x0083
+.forward4:
+    jmp short .forward6              ; 0x0085
+.forward5:
     mov ax, 0                        ; 0x0087
     cmp word [bp + 4], byte 0        ; 0x008a
-    jne short @..api_idx_0004_QUVO.l6 ; 0x008e
+    jne short .return1               ; 0x008e
     mov ax, 5                        ; 0x0090
-@..api_idx_0004_QUVO.l6:
+.return1:
     ret                              ; 0x0093
-@..api_idx_0004_QUVO.l7:
+.forward6:
     cmp word [bp - 2], byte 0        ; 0x0094
-    jg short @..api_idx_0004_QUVO.l8 ; 0x0098
-    jne short @..api_idx_0004_QUVO.l9 ; 0x009a
+    jg short .forward7               ; 0x0098
+    jne short .forward8              ; 0x009a
     cmp word [bp - 4], byte 0x4b     ; 0x009c
-    jbe short @..api_idx_0004_QUVO.l9 ; 0x00a0
-@..api_idx_0004_QUVO.l8:
-    jmp short @..api_idx_0004_QUVO.l11 ; 0x00a2
-@..api_idx_0004_QUVO.l9:
+    jbe short .forward8              ; 0x00a0
+.forward7:
+    jmp short .forward9              ; 0x00a2
+.forward8:
     mov ax, 1                        ; 0x00a4
     cmp word [bp + 4], byte 0        ; 0x00a7
-    jne short @..api_idx_0004_QUVO.l10 ; 0x00ab
+    jne short .return2               ; 0x00ab
     mov ax, 0xa                      ; 0x00ad
-@..api_idx_0004_QUVO.l10:
+.return2:
     ret                              ; 0x00b0
-@..api_idx_0004_QUVO.l11:
+.forward9:
     cmp word [bp - 2], byte 0        ; 0x00b1
-    jg short @..api_idx_0004_QUVO.l12 ; 0x00b5
-    jne short @..api_idx_0004_QUVO.l13 ; 0x00b7
+    jg short .forward10              ; 0x00b5
+    jne short .forward11             ; 0x00b7
     cmp word [bp - 4], byte 0x5a     ; 0x00b9
-    jbe short @..api_idx_0004_QUVO.l13 ; 0x00bd
-@..api_idx_0004_QUVO.l12:
-    jmp short @..api_idx_0004_QUVO.l15 ; 0x00bf
-@..api_idx_0004_QUVO.l13:
+    jbe short .forward11             ; 0x00bd
+.forward10:
+    jmp short .forward12             ; 0x00bf
+.forward11:
     mov ax, 2                        ; 0x00c1
     cmp word [bp + 4], byte 0        ; 0x00c4
-    jne short @..api_idx_0004_QUVO.l14 ; 0x00c8
+    jne short .return3               ; 0x00c8
     mov ax, 0x14                     ; 0x00ca
-@..api_idx_0004_QUVO.l14:
+.return3:
     ret                              ; 0x00cd
-@..api_idx_0004_QUVO.l15:
+.forward12:
     mov ax, 4                        ; 0x00ce
     cmp word [bp + 4], byte 0        ; 0x00d1
-    jne short @..api_idx_0004_QUVO.l16 ; 0x00d5
+    jne short .return4               ; 0x00d5
     mov ax, 0x28                     ; 0x00d7
-@..api_idx_0004_QUVO.l16:
+.return4:
     ret                              ; 0x00da

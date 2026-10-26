@@ -3,7 +3,7 @@ api_idx_0052_JQTP:
     mov ax, 0xffae                   ; 0x4826
     call aztec_csav                  ; 0x4829
     mov ax, word [bp + 4]            ; 0x482c
-    jmp near @..api_idx_0052_JQTP.l1 ; 0x482f
+    jmp near .forward1               ; 0x482f
 jumptable_4af5_case_0:
     mov ax, 8                        ; 0x4832
     push ax                          ; 0x4835
@@ -337,7 +337,7 @@ jumptable_4af5:
     dw jumptable_4af5_case_16 - IMAGE_BASE + __zres_end ; 0x4b15
     dw jumptable_4af5_case_17 - IMAGE_BASE + __zres_end ; 0x4b17
     dw jumptable_4af5_case_18 - IMAGE_BASE + __zres_end ; 0x4b19
-@..api_idx_0052_JQTP.l1:
+api_idx_0052_JQTP.forward1:
     cmp ax, strict word 0x13         ; 0x4b1b
     jae short jumptable_4af5_case_14 ; 0x4b1e
     xchg bx, ax                      ; 0x4b20

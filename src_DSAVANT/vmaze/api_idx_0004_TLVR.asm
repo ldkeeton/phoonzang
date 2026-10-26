@@ -16,7 +16,7 @@ api_idx_0004_TLVR:
     call get_bits                    ; 0x7471
     add sp, byte 6                   ; 0x7474
     cmp ax, strict word 1            ; 0x7477
-    jne short @..api_idx_0004_TLVR.l1 ; 0x747a
+    jne short .forward1              ; 0x747a
     mov ax, 2                        ; 0x747c
     push ax                          ; 0x747f
     mov ax, 0xc                      ; 0x7480
@@ -26,21 +26,21 @@ api_idx_0004_TLVR:
     add sp, byte 6                   ; 0x748a
     mov word [found_object_owner], ax ; 0x748d
     cmp ax, word [party_tag]         ; 0x7490
-    je short @..api_idx_0004_TLVR.l1 ; 0x7494
+    je short .forward1               ; 0x7494
     ret                              ; 0x7496
-@..api_idx_0004_TLVR.l1:
+.forward1:
     mov ax, word [party_region]      ; 0x7497
     shl ax, 1                        ; 0x749a
     mov si, ax                       ; 0x749c
     mov bx, word [maze_tables]       ; 0x749e
     cmp word [bx + si], byte 0       ; 0x74a2
-    jle short @..api_idx_0004_TLVR.l2 ; 0x74a5
+    jle short .forward2              ; 0x74a5
     mov ax, 0                        ; 0x74a7
     push ax                          ; 0x74aa
     push word [bx + si]              ; 0x74ab
     call loc_MLLK                    ; 0x74ad
     add sp, byte 4                   ; 0x74b0
-@..api_idx_0004_TLVR.l2:
+.forward2:
     mov ax, 1                        ; 0x74b3
     push ax                          ; 0x74b6
     mov ax, 8                        ; 0x74b7
@@ -49,9 +49,9 @@ api_idx_0004_TLVR:
     call get_bits                    ; 0x74be
     add sp, byte 6                   ; 0x74c1
     cmp ax, strict word 1            ; 0x74c4
-    jne short @..api_idx_0004_TLVR.l3 ; 0x74c7
+    jne short .forward3              ; 0x74c7
     ret                              ; 0x74c9
-@..api_idx_0004_TLVR.l3:
+.forward3:
     mov bx, word [maze_tables]       ; 0x74ca
     mov si, word [party_region]      ; 0x74ce
     mov al, byte [bx + si + spell_table + spell_table_rec_size*178 + spell_table_rec.f_0004] ; 0x74d2

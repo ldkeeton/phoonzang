@@ -5,24 +5,24 @@ api_idx_0004_GRGJ:
     mov ax, word [dseg_0038]
     mov word [bp - 4], ax
     mov word [bp - 2], 0
-@..api_idx_0004_GRGJ.l1:
+.back1:
     mov bx, word [bp + 6]
     mov si, word [bp - 2]
     cmp byte [bx + si], 0x31
-    je short @..api_idx_0004_GRGJ.l2
+    je short .forward1
     mov ax, 0x248
     imul word [bp + 4]
     add ax, word [bp - 4]
     add ax, si
     mov bx, ax
     cmp byte [bx + party_records + pc_rec.flag], 0
-    jbe short @..api_idx_0004_GRGJ.l3
-@..api_idx_0004_GRGJ.l2:
+    jbe short .forward2
+.forward1:
     mov ax, 1
-    jmp short @..api_idx_0004_GRGJ.l4
-@..api_idx_0004_GRGJ.l3:
+    jmp short .forward3
+.forward2:
     mov ax, 0
-@..api_idx_0004_GRGJ.l4:
+.forward3:
     add si, word [bp - 4]
     mov cx, si
     shl cx, 1
@@ -31,28 +31,28 @@ api_idx_0004_GRGJ:
     inc word [bp - 2]
     mov ax, word [bp - 2]
     cmp ax, strict word 0xa
-    jl short @..api_idx_0004_GRGJ.l1
+    jl short .back1
     mov ax, word [dseg_003c]
     mov word [bp - 4], ax
     mov word [bp - 2], 0
-@..api_idx_0004_GRGJ.l5:
+.back2:
     mov bx, word [bp + 8]
     mov si, word [bp - 2]
     cmp byte [bx + si], 0x31
-    je short @..api_idx_0004_GRGJ.l6
+    je short .forward4
     mov ax, 0x248
     imul word [bp + 4]
     add ax, word [bp - 4]
     add ax, si
     mov bx, ax
     cmp byte [bx + party_records + pc_rec.flag], 0
-    jbe short @..api_idx_0004_GRGJ.l7
-@..api_idx_0004_GRGJ.l6:
+    jbe short .forward5
+.forward4:
     mov ax, 1
-    jmp short @..api_idx_0004_GRGJ.l8
-@..api_idx_0004_GRGJ.l7:
+    jmp short .forward6
+.forward5:
     mov ax, 0
-@..api_idx_0004_GRGJ.l8:
+.forward6:
     add si, word [bp - 4]
     mov cx, si
     shl cx, 1
@@ -61,28 +61,28 @@ api_idx_0004_GRGJ:
     inc word [bp - 2]
     mov ax, word [bp - 2]
     cmp ax, strict word 8
-    jl short @..api_idx_0004_GRGJ.l5
+    jl short .back2
     mov ax, word [index_range2_first]
     mov word [bp - 4], ax
     mov word [bp - 2], 0
-@..api_idx_0004_GRGJ.l9:
+.back3:
     mov bx, word [bp + 0xa]
     mov si, word [bp - 2]
     cmp byte [bx + si], 0x31
-    je short @..api_idx_0004_GRGJ.l10
+    je short .forward7
     mov ax, 0x248
     imul word [bp + 4]
     add ax, word [bp - 4]
     add ax, si
     mov bx, ax
     cmp byte [bx + party_records + pc_rec.flag], 0
-    jbe short @..api_idx_0004_GRGJ.l11
-@..api_idx_0004_GRGJ.l10:
+    jbe short .forward8
+.forward7:
     mov ax, 1
-    jmp short @..api_idx_0004_GRGJ.l12
-@..api_idx_0004_GRGJ.l11:
+    jmp short .forward9
+.forward8:
     mov ax, 0
-@..api_idx_0004_GRGJ.l12:
+.forward9:
     add si, word [bp - 4]
     mov cx, si
     shl cx, 1
@@ -91,28 +91,28 @@ api_idx_0004_GRGJ:
     inc word [bp - 2]
     mov ax, word [bp - 2]
     cmp ax, strict word 6
-    jl short @..api_idx_0004_GRGJ.l9
+    jl short .back3
     mov ax, word [dseg_0044]
     mov word [bp - 4], ax
     mov word [bp - 2], 0
-@..api_idx_0004_GRGJ.l13:
+.back4:
     mov bx, word [bp + 0xc]
     mov si, word [bp - 2]
     cmp byte [bx + si], 0x31
-    je short @..api_idx_0004_GRGJ.l14
+    je short .forward10
     mov ax, 0x248
     imul word [bp + 4]
     add ax, word [bp - 4]
     add ax, si
     mov bx, ax
     cmp byte [bx + party_records + pc_rec.flag], 0
-    jbe short @..api_idx_0004_GRGJ.l15
-@..api_idx_0004_GRGJ.l14:
+    jbe short .forward11
+.forward10:
     mov ax, 1
-    jmp short @..api_idx_0004_GRGJ.l16
-@..api_idx_0004_GRGJ.l15:
+    jmp short .forward12
+.forward11:
     mov ax, 0
-@..api_idx_0004_GRGJ.l16:
+.forward12:
     add si, word [bp - 4]
     mov cx, si
     shl cx, 1
@@ -121,5 +121,5 @@ api_idx_0004_GRGJ:
     inc word [bp - 2]
     mov ax, word [bp - 2]
     cmp ax, strict word 0xa
-    jl short @..api_idx_0004_GRGJ.l13
+    jl short .back4
     ret

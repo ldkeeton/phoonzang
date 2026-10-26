@@ -41,23 +41,23 @@ api_idx_004e_PHKR:
     call loc_GMVH                    ; 0x5bd0
     pop cx                           ; 0x5bd3
     test ax, ax                      ; 0x5bd4
-    je short @..api_idx_004e_PHKR.l1 ; 0x5bd6
+    je short .forward1               ; 0x5bd6
     cmp byte [bss_91c6], 0xff        ; 0x5bd8
-    je short @..api_idx_004e_PHKR.l2 ; 0x5bdd
-@..api_idx_004e_PHKR.l1:
+    je short .forward2               ; 0x5bdd
+.forward1:
     push word [bp - 2]               ; 0x5bdf
     call loc_GMVH                    ; 0x5be2
     pop cx                           ; 0x5be5
     test ax, ax                      ; 0x5be6
-    jne short @..api_idx_004e_PHKR.l3 ; 0x5be8
+    jne short .forward3              ; 0x5be8
     mov al, byte [bp - 0x17]         ; 0x5bea
     sub ah, ah                       ; 0x5bed
     test ax, 2                       ; 0x5bef
-    je short @..api_idx_004e_PHKR.l3 ; 0x5bf2
+    je short .forward3               ; 0x5bf2
     mov ax, word [bp - 2]            ; 0x5bf4
     cmp ax, word [bss_91ae]          ; 0x5bf7
-    je short @..api_idx_004e_PHKR.l3 ; 0x5bfb
-@..api_idx_004e_PHKR.l2:
+    je short .forward3               ; 0x5bfb
+.forward2:
     mov ax, 0x98                     ; 0x5bfd
     push ax                          ; 0x5c00
     mov ax, 0x65                     ; 0x5c01
@@ -68,7 +68,7 @@ api_idx_004e_PHKR:
     add sp, byte 6                   ; 0x5c0c
     mov ax, 0                        ; 0x5c0f
     ret                              ; 0x5c12
-@..api_idx_004e_PHKR.l3:
+.forward3:
     mov ax, 0x248                    ; 0x5c13
     imul word [bp + 4]               ; 0x5c16
     push ax                          ; 0x5c19
@@ -87,7 +87,7 @@ api_idx_004e_PHKR:
     mov al, byte [bx + party_records + pc_rec.cell + 0x7] ; 0x5c33
     sub ah, ah                       ; 0x5c37
     test ax, 1                       ; 0x5c39
-    je short @..api_idx_004e_PHKR.l4 ; 0x5c3c
+    je short .forward4               ; 0x5c3c
     mov ax, 0x98                     ; 0x5c3e
     push ax                          ; 0x5c41
     mov ax, 0x65                     ; 0x5c42
@@ -98,7 +98,7 @@ api_idx_004e_PHKR:
     add sp, byte 6                   ; 0x5c4d
     mov ax, 0                        ; 0x5c50
     ret                              ; 0x5c53
-@..api_idx_004e_PHKR.l4:
+.forward4:
     mov ax, 5                        ; 0x5c54
     push ax                          ; 0x5c57
     call random_below                ; 0x5c58
@@ -130,7 +130,7 @@ api_idx_004e_PHKR:
     call loc_GMVH                    ; 0x5c8f
     pop cx                           ; 0x5c92
     test ax, ax                      ; 0x5c93
-    je short @..api_idx_004e_PHKR.l5 ; 0x5c95
+    je short .forward5               ; 0x5c95
     mov ax, word [bp - 2]            ; 0x5c97
     add ax, 0xfe70                   ; 0x5c9a
     push ax                          ; 0x5c9d
@@ -141,7 +141,7 @@ api_idx_004e_PHKR:
     push ax                          ; 0x5ca6
     call assign_slot_bit             ; 0x5ca7
     add sp, byte 6                   ; 0x5caa
-@..api_idx_004e_PHKR.l5:
+.forward5:
     push word [bp - 6]               ; 0x5cad
     push word [bp - 4]               ; 0x5cb0
     push word [bp + 4]               ; 0x5cb3

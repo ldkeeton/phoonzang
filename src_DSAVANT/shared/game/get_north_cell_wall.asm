@@ -15,30 +15,30 @@ get_north_cell_wall:
     call find_map_piece
     add sp, byte 0xa
     test ax, ax
-    je short @..get_north_cell_wall.l5
+    je short .forward4
     mov ax, word [maze_variant]
     mov cx, 2
     cwd
     idiv cx
     mov ax, dx
     test ax, ax
-    je short @..get_north_cell_wall.l1
+    je short .forward1
     mov ax, cx
-    jmp short @..get_north_cell_wall.l4
-@..get_north_cell_wall.l1:
+    jmp short .return1
+.forward1:
     mov ax, word [maze_variant]
     cmp ax, strict word 6
-    je short @..get_north_cell_wall.l2
+    je short .forward2
     cmp word [boundary_wall_open], byte 0
-    je short @..get_north_cell_wall.l3
-@..get_north_cell_wall.l2:
+    je short .forward3
+.forward2:
     mov ax, 0
-    jmp short @..get_north_cell_wall.l4
-@..get_north_cell_wall.l3:
+    jmp short .return1
+.forward3:
     mov ax, 4
-@..get_north_cell_wall.l4:
+.return1:
     ret
-@..get_north_cell_wall.l5:
+.forward4:
     mov ax, 4
     push ax
     mov ax, word [bp + 0xc]

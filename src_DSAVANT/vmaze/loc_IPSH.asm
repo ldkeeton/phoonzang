@@ -4,7 +4,7 @@ loc_IPSH:
     call aztec_csav                  ; 0x886a
     mov word [bss_9b4a], 1           ; 0x886d
     mov word [found_object_owner], 0xffff ; 0x8873
-@..loc_IPSH.l1:
+.back1:
     push word [party_region]         ; 0x8879
     push word [party_map_piece]      ; 0x887d
     push word [party_cell_y]         ; 0x8881
@@ -13,23 +13,23 @@ loc_IPSH:
     add sp, byte 8                   ; 0x888c
     mov word [party_region], ax      ; 0x888f
     cmp ax, strict word 0xffff       ; 0x8892
-    jne short @..loc_IPSH.l2         ; 0x8895
-    jmp near @..loc_IPSH.l10         ; 0x8897
-@..loc_IPSH.l2:
+    jne short .forward1              ; 0x8895
+    jmp near .return1                ; 0x8897
+.forward1:
     mov word [region_step_flag], 1   ; 0x889a
     mov bx, word [maze_tables]       ; 0x88a0
     mov si, ax                       ; 0x88a4
     mov al, byte [bx + si + 0x5a0]   ; 0x88a6
     sub ah, ah                       ; 0x88aa
-    jmp near @..loc_IPSH.l6          ; 0x88ac
+    jmp near .forward5               ; 0x88ac
 jumptable_8978_case_1:
     call api_idx_0002_NIPM           ; 0x88af
     jmp near jumptable_8978_case_0   ; 0x88b2
 jumptable_8978_case_2:
     cmp word [location_changed], byte 0 ; 0x88b5
-    je short @..loc_IPSH.l3          ; 0x88ba
+    je short loc_IPSH.forward2       ; 0x88ba
     call api_idx_001e_KGSI           ; 0x88bc
-@..loc_IPSH.l3:
+loc_IPSH.forward2:
     jmp near jumptable_8978_case_0   ; 0x88bf
 jumptable_8978_case_3:
     call api_idx_0004_TLVR           ; 0x88c2
@@ -52,14 +52,14 @@ jumptable_8978_case_8:
     mov si, ax                       ; 0x88e5
     mov bx, word [maze_tables]       ; 0x88e7
     cmp word [bx + si], byte 0       ; 0x88eb
-    jle short @..loc_IPSH.l4         ; 0x88ee
+    jle short loc_IPSH.forward3      ; 0x88ee
     mov ax, 0                        ; 0x88f0
     push ax                          ; 0x88f3
     push word [bx + si]              ; 0x88f4
     call loc_MLLK                    ; 0x88f6
     add sp, byte 4                   ; 0x88f9
-    jmp short @..loc_IPSH.l5         ; 0x88fc
-@..loc_IPSH.l4:
+    jmp short loc_IPSH.forward4      ; 0x88fc
+loc_IPSH.forward3:
     mov ax, 1                        ; 0x88fe
     push ax                          ; 0x8901
     mov ax, 0xb                      ; 0x8902
@@ -72,9 +72,9 @@ jumptable_8978_case_8:
     call get_bits                    ; 0x8915
     add sp, byte 6                   ; 0x8918
     test ax, ax                      ; 0x891b
-    je short @..loc_IPSH.l5          ; 0x891d
+    je short loc_IPSH.forward4       ; 0x891d
     call api_idx_0004_THPM           ; 0x891f
-@..loc_IPSH.l5:
+loc_IPSH.forward4:
     jmp near jumptable_8978_case_0   ; 0x8922
 jumptable_8978_case_9:
     mov word [game_state], 0x1d      ; 0x8925
@@ -150,7 +150,7 @@ jumptable_8978:
     dw jumptable_8978_case_23 - IMAGE_BASE + __zres_end ; 0x89a6
     dw jumptable_8978_case_24 - IMAGE_BASE + __zres_end ; 0x89a8
     dw jumptable_8978_case_25 - IMAGE_BASE + __zres_end ; 0x89aa
-@..loc_IPSH.l6:
+loc_IPSH.forward5:
     cmp ax, strict word 0x1a         ; 0x89ac
     jae short jumptable_8978_case_0  ; 0x89af
     xchg bx, ax                      ; 0x89b1
@@ -158,13 +158,13 @@ jumptable_8978:
     jmp [cs:bx + jumptable_8978 - IMAGE_BASE + __zres_end] ; 0x89b4
 jumptable_8978_case_0:
     cmp word [game_state], byte 5    ; 0x89b9
-    je short @..loc_IPSH.l8          ; 0x89be
+    je short loc_IPSH.forward7       ; 0x89be
     ret                              ; 0x89c0
-@..loc_IPSH.l8:
+loc_IPSH.forward7:
     cmp word [region_step_flag], byte 1 ; 0x89c1
-    jne short @..loc_IPSH.l9         ; 0x89c6
+    jne short loc_IPSH.forward8      ; 0x89c6
     inc word [party_region]          ; 0x89c8
-@..loc_IPSH.l9:
-    jmp near @..loc_IPSH.l1          ; 0x89cc
-@..loc_IPSH.l10:
+loc_IPSH.forward8:
+    jmp near loc_IPSH.back1          ; 0x89cc
+loc_IPSH.return1:
     ret                              ; 0x89cf

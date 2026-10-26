@@ -22,12 +22,12 @@ loc_OKIJ:
     imul cx                          ; 0x86de
     mov bx, ax                       ; 0x86e0
     cmp byte [bx + slot_bit_states + slot_bit_state.status], 0 ; 0x86e2
-    je short @..loc_OKIJ.l1          ; 0x86e7
+    je short .forward1               ; 0x86e7
     mov ax, 0                        ; 0x86e9
-    jmp short @..loc_OKIJ.l2         ; 0x86ec
-@..loc_OKIJ.l1:
+    jmp short .forward2              ; 0x86ec
+.forward1:
     mov ax, 1                        ; 0x86ee
-@..loc_OKIJ.l2:
+.forward2:
     push ax                          ; 0x86f1
     call loc_GTVH                    ; 0x86f2
     add sp, byte 4                   ; 0x86f5

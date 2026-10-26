@@ -3,14 +3,14 @@ api_idx_0002_JLUK:
     mov ax, 0xfffe                   ; 0x6800
     call aztec_csav                  ; 0x6803
     cmp word [saved_screen_pending], byte 0 ; 0x6806
-    je short @..api_idx_0002_JLUK.l1 ; 0x680b
+    je short .forward1               ; 0x680b
     mov ax, 1                        ; 0x680d
     push ax                          ; 0x6810
     push word [saved_screen_slot]    ; 0x6811
     call restore_saved_screen        ; 0x6815
     add sp, byte 4                   ; 0x6818
     mov word [saved_screen_pending], 0 ; 0x681b
-@..api_idx_0002_JLUK.l1:
+.forward1:
     mov ax, 1                        ; 0x6821
     push ax                          ; 0x6824
     push word [bss_8d08]             ; 0x6825
@@ -18,7 +18,7 @@ api_idx_0002_JLUK:
     call gfx_restore_area            ; 0x682d
     add sp, byte 6                   ; 0x6830
     mov word [bp - 2], 0             ; 0x6833
-@..api_idx_0002_JLUK.l2:
+.back1:
     mov ax, 1                        ; 0x6838
     push ax                          ; 0x683b
     mov ax, word [bp - 2]            ; 0x683c
@@ -32,9 +32,9 @@ api_idx_0002_JLUK:
     inc word [bp - 2]                ; 0x6853
     mov ax, word [bp - 2]            ; 0x6856
     cmp ax, strict word 6            ; 0x6859
-    jl short @..api_idx_0002_JLUK.l2 ; 0x685c
+    jl short .back1                  ; 0x685c
     mov word [bp - 2], 0             ; 0x685e
-@..api_idx_0002_JLUK.l3:
+.back2:
     mov ax, 1                        ; 0x6863
     push ax                          ; 0x6866
     mov ax, word [bp - 2]            ; 0x6867
@@ -48,7 +48,7 @@ api_idx_0002_JLUK:
     inc word [bp - 2]                ; 0x687e
     mov ax, word [bp - 2]            ; 0x6881
     cmp ax, strict word 6            ; 0x6884
-    jl short @..api_idx_0002_JLUK.l3 ; 0x6887
+    jl short .back2                  ; 0x6887
     call free_current_maze           ; 0x6889
     mov ax, 0                        ; 0x688c
     push ax                          ; 0x688f

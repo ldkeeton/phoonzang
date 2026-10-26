@@ -3,8 +3,8 @@ api_idx_0058_PMKH:
     mov ax, 0xffa8                   ; 0x89a8
     call aztec_csav                  ; 0x89ab
     mov word [bp - 2], 0             ; 0x89ae
-    jmp near @..api_idx_0058_PMKH.l4 ; 0x89b3
-@..api_idx_0058_PMKH.l1:
+    jmp near .forward3               ; 0x89b3
+.back1:
     lea ax, word [bp - 0x2c]         ; 0x89b6
     push ax                          ; 0x89b9
     push word [bp - 2]               ; 0x89ba
@@ -44,7 +44,7 @@ api_idx_0058_PMKH:
     call aztec_strncmp               ; 0x8a0e
     add sp, byte 6                   ; 0x8a11
     test ax, ax                      ; 0x8a14
-    jne short @..api_idx_0058_PMKH.l2 ; 0x8a16
+    jne short .forward1              ; 0x8a16
     lea ax, word [bp - 0x2c]         ; 0x8a18
     push ax                          ; 0x8a1b
     call aztec_strlen                ; 0x8a1c
@@ -58,7 +58,7 @@ api_idx_0058_PMKH:
     mov word [bx], 0                 ; 0x8a2e
     mov ax, word [bp - 2]            ; 0x8a32
     ret                              ; 0x8a35
-@..api_idx_0058_PMKH.l2:
+.forward1:
     lea ax, word [bp - 0x54]         ; 0x8a36
     push ax                          ; 0x8a39
     call aztec_strlen                ; 0x8a3a
@@ -70,7 +70,7 @@ api_idx_0058_PMKH:
     call aztec_strncmp               ; 0x8a46
     add sp, byte 6                   ; 0x8a49
     test ax, ax                      ; 0x8a4c
-    jne short @..api_idx_0058_PMKH.l3 ; 0x8a4e
+    jne short .forward2              ; 0x8a4e
     lea ax, word [bp - 0x54]         ; 0x8a50
     push ax                          ; 0x8a53
     call aztec_strlen                ; 0x8a54
@@ -84,13 +84,13 @@ api_idx_0058_PMKH:
     mov word [bx], 1                 ; 0x8a66
     mov ax, word [bp - 2]            ; 0x8a6a
     ret                              ; 0x8a6d
-@..api_idx_0058_PMKH.l3:
+.forward2:
     inc word [bp - 2]                ; 0x8a6e
-@..api_idx_0058_PMKH.l4:
+.forward3:
     mov ax, word [bp - 2]            ; 0x8a71
     cmp ax, word [bss_a656]          ; 0x8a74
-    jge short @..api_idx_0058_PMKH.l5 ; 0x8a78
-    jmp near @..api_idx_0058_PMKH.l1 ; 0x8a7a
-@..api_idx_0058_PMKH.l5:
+    jge short .forward4              ; 0x8a78
+    jmp near .back1                  ; 0x8a7a
+.forward4:
     mov ax, 0xffff                   ; 0x8a7d
     ret                              ; 0x8a80

@@ -3,8 +3,8 @@ api_idx_0002_SLOH:
     mov ax, 0xfffe                   ; 0xa3dd
     call aztec_csav                  ; 0xa3e0
     mov word [bp - 2], 0             ; 0xa3e3
-    jmp short @..api_idx_0002_SLOH.l2 ; 0xa3e8
-@..api_idx_0002_SLOH.l1:
+    jmp short .forward1              ; 0xa3e8
+.back1:
     mov ax, 0xa                      ; 0xa3ea
     imul word [bp - 2]               ; 0xa3ed
     mov cx, ax                       ; 0xa3f0
@@ -17,8 +17,8 @@ api_idx_0002_SLOH:
     call load_message_string         ; 0xa3ff
     add sp, byte 4                   ; 0xa402
     inc word [bp - 2]                ; 0xa405
-@..api_idx_0002_SLOH.l2:
+.forward1:
     mov ax, word [bp - 2]            ; 0xa408
     cmp ax, word [bp + 6]            ; 0xa40b
-    jl short @..api_idx_0002_SLOH.l1 ; 0xa40e
+    jl short .back1                  ; 0xa40e
     ret                              ; 0xa410

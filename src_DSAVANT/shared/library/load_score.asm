@@ -16,9 +16,9 @@ load_score:
     mov word [bp - 2], bx
     mov ax, word [cs:bx]
     or ax, ax
-    je short @..load_score.l1
+    je short .forward1
     jmp near load_score.dos_con_loc1
-@..load_score.l1:
+.forward1:
     mov bx, word [bp + 0x12]
     shl bx, 1
     add bx, score_info - IMAGE_BASE
@@ -43,8 +43,8 @@ load_score:
     mov bx, word [bp - 2]
     mov word [cs:bx + 2], ax
     mov bx, word [bp + 0xe]
-    cmp bx, byte 0xff
-    je short @..load_score.l2
+    cmp bx, byte -1
+    je short .forward2
     mov ah, 0x42
     mov al, 2
     xor cx, cx
@@ -63,7 +63,7 @@ load_score:
     xor cx, cx
     mov dx, cx
     int 0x21 ; DOS seek file (lseek)
-@..load_score.l2:
+.forward2:
     mov ah, 0x42
     mov al, 2
     mov bx, word [bp + 0xc]
@@ -87,21 +87,21 @@ load_score:
     mov word [cs:bx + 2], ax
     add ax, word [cs:maze_paras_used - IMAGE_BASE]
     cmp ax, 0x4180
-    jb short @..load_score.l3
+    jb short .forward3
     jmp near load_score.dos_con_loc2
-@..load_score.l3:
+.forward3:
     mov word [cs:maze_paras_used - IMAGE_BASE], ax
     mov ax, word [cs:bx]
     add ax, word [cs:maze_mem_seg - IMAGE_BASE]
     mov ds, ax
     mov bx, word [bp + 0xe]
-    cmp bx, byte 0xff
-    je short @..load_score.l4
+    cmp bx, byte -1
+    je short .forward4
     xor dx, dx
     mov cx, word [bp - 0xc]
     mov ah, 0x3f
     int 0x21 ; DOS read file (handle)
-@..load_score.l4:
+.forward4:
     mov bx, word [bp - 2]
     mov bx, word [cs:bx + 2]
     mov dx, bx

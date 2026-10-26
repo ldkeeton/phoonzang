@@ -7,10 +7,10 @@ api_idx_000e_OJVI:
     sub ah, ah                       ; 0x4511
     mov bx, ax                       ; 0x4513
     cmp byte [bx + cell_overlay_code + 0x58], 1 ; 0x4515
-    jne short @..api_idx_000e_OJVI.l1 ; 0x451a
+    jne short .return1               ; 0x451a
     mov bx, word [bp + 4]            ; 0x451c
     cmp byte [bx + 6], 1             ; 0x451f
-    jbe short @..api_idx_000e_OJVI.l1 ; 0x4523
+    jbe short .return1               ; 0x4523
     mov ax, 0xc                      ; 0x4525
     push ax                          ; 0x4528
     push word [bp + 6]               ; 0x4529
@@ -42,5 +42,5 @@ api_idx_000e_OJVI:
     push ax                          ; 0x456d
     call play_sound_effect           ; 0x456e
     pop cx                           ; 0x4571
-@..api_idx_000e_OJVI.l1:
+.return1:
     ret                              ; 0x4572

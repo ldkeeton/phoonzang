@@ -52,61 +52,61 @@ api_idx_0012_JIRG:
     push ax                          ; 0x85ec
     cmp ax, word [bp - 4]            ; 0x85ed
     pop ax                           ; 0x85f0
-    jge short @..api_idx_0012_JIRG.l1 ; 0x85f1
+    jge short .forward1              ; 0x85f1
     mov ax, 0x18                     ; 0x85f3
-@..api_idx_0012_JIRG.l1:
+.forward1:
     mov word [bp - 8], ax            ; 0x85f6
     mov ax, word [bp - 0xa]          ; 0x85f9
     cmp ax, word [bp - 4]            ; 0x85fc
-    jl short @..api_idx_0012_JIRG.l2 ; 0x85ff
+    jl short .forward2               ; 0x85ff
     cmp ax, word [bp - 8]            ; 0x8601
-    jge short @..api_idx_0012_JIRG.l2 ; 0x8604
+    jge short .forward2              ; 0x8604
     mov ax, 0                        ; 0x8606
-    jmp short @..api_idx_0012_JIRG.l3 ; 0x8609
-@..api_idx_0012_JIRG.l2:
+    jmp short .forward3              ; 0x8609
+.forward2:
     mov ax, 1                        ; 0x860b
-@..api_idx_0012_JIRG.l3:
+.forward3:
     mov word [bp - 0xe], ax          ; 0x860e
     mov ax, word [bp - 6]            ; 0x8611
     cmp ax, word [bp - 4]            ; 0x8614
-    jge short @..api_idx_0012_JIRG.l6 ; 0x8617
+    jge short .forward6              ; 0x8617
     cmp word [bp - 0xa], byte 0      ; 0x8619
-    jl short @..api_idx_0012_JIRG.l4 ; 0x861d
+    jl short .forward4               ; 0x861d
     cmp ax, word [bp - 0xa]          ; 0x861f
-    jle short @..api_idx_0012_JIRG.l4 ; 0x8622
+    jle short .forward4              ; 0x8622
     mov ax, 0                        ; 0x8624
-    jmp short @..api_idx_0012_JIRG.l5 ; 0x8627
-@..api_idx_0012_JIRG.l4:
+    jmp short .forward5              ; 0x8627
+.forward4:
     mov ax, word [bp - 0xe]          ; 0x8629
-@..api_idx_0012_JIRG.l5:
+.forward5:
     mov word [bp - 0xe], ax          ; 0x862c
-@..api_idx_0012_JIRG.l6:
+.forward6:
     cmp word [bp - 0x12], byte 0     ; 0x862f
-    jne short @..api_idx_0012_JIRG.l7 ; 0x8633
+    jne short .forward7              ; 0x8633
     push word [bp - 0x10]            ; 0x8635
     push word [bp - 0xe]             ; 0x8638
     call loc_GTVH                    ; 0x863b
     add sp, byte 4                   ; 0x863e
-    jmp short @..api_idx_0012_JIRG.l11 ; 0x8641
-@..api_idx_0012_JIRG.l7:
+    jmp short .return1               ; 0x8641
+.forward7:
     cmp word [bp - 0xe], byte 0      ; 0x8643
-    jne short @..api_idx_0012_JIRG.l8 ; 0x8647
+    jne short .forward8              ; 0x8647
     mov ax, word [party_region]      ; 0x8649
     shl ax, 1                        ; 0x864c
     mov si, ax                       ; 0x864e
     mov bx, word [maze_tables]       ; 0x8650
     mov ax, word [bx + si]           ; 0x8654
-    jmp short @..api_idx_0012_JIRG.l9 ; 0x8656
-@..api_idx_0012_JIRG.l8:
+    jmp short .forward9              ; 0x8656
+.forward8:
     mov ax, word [party_region]      ; 0x8658
     shl ax, 1                        ; 0x865b
     mov si, ax                       ; 0x865d
     mov bx, word [maze_tables]       ; 0x865f
     mov ax, word [bx + si + 0x1e0]   ; 0x8663
-@..api_idx_0012_JIRG.l9:
+.forward9:
     mov word [bp - 0xc], ax          ; 0x8667
     cmp ax, strict word 0            ; 0x866a
-    jle short @..api_idx_0012_JIRG.l10 ; 0x866d
+    jle short .forward10             ; 0x866d
     mov ax, 0                        ; 0x866f
     push ax                          ; 0x8672
     push word [bp - 0xc]             ; 0x8673
@@ -127,9 +127,9 @@ api_idx_0012_JIRG:
     push ax                          ; 0x869a
     call set_bitmap_bit              ; 0x869b
     add sp, byte 6                   ; 0x869e
-@..api_idx_0012_JIRG.l10:
+.forward10:
     push word [bp - 0x10]            ; 0x86a1
     call mark_region_bits            ; 0x86a4
     pop cx                           ; 0x86a7
-@..api_idx_0012_JIRG.l11:
+.return1:
     ret                              ; 0x86a8

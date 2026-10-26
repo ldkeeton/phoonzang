@@ -43,7 +43,7 @@ api_idx_0008_VHMQ:
     mov word [bp - 6], dx            ; 0x4994
     mov word [bp - 8], ax            ; 0x4997
     call flush_keyboard              ; 0x499a
-@..api_idx_0008_VHMQ.l1:
+.back1:
     mov ax, 0x13                     ; 0x499d
     push ax                          ; 0x49a0
     call random_below                ; 0x49a1
@@ -55,9 +55,9 @@ api_idx_0008_VHMQ:
     pop ax                           ; 0x49ae
     mov byte [bx + party_records + pc_rec.stat + 0x7], al ; 0x49af
     cmp byte [bx + party_records + pc_rec.gender], 1 ; 0x49b3
-    jne short @..api_idx_0008_VHMQ.l2 ; 0x49b8
+    jne short .forward1              ; 0x49b8
     inc byte [bx + party_records + pc_rec.stat + 0x7] ; 0x49ba
-@..api_idx_0008_VHMQ.l2:
+.forward1:
     mov ax, 0                        ; 0x49be
     push ax                          ; 0x49c1
     push word [bp - 2]               ; 0x49c2
@@ -103,9 +103,9 @@ api_idx_0008_VHMQ:
     call poll_hotspots               ; 0x4a21
     pop cx                           ; 0x4a24
     cmp word [hotspot_hit], byte 0   ; 0x4a25
-    jne short @..api_idx_0008_VHMQ.l3 ; 0x4a2a
-    jmp near @..api_idx_0008_VHMQ.l1 ; 0x4a2c
-@..api_idx_0008_VHMQ.l3:
+    jne short .forward2              ; 0x4a2a
+    jmp near .back1                  ; 0x4a2c
+.forward2:
     mov ax, 1                        ; 0x4a2f
     push ax                          ; 0x4a32
     push ax                          ; 0x4a33

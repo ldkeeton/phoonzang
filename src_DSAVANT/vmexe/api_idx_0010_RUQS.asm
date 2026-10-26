@@ -12,8 +12,8 @@ api_idx_0010_RUQS:
     add sp, byte 8                   ; 0x2e70
     mov ax, word [bp - 0xa]          ; 0x2e73
     mov word [bp - 2], ax            ; 0x2e76
-    jmp near @..api_idx_0010_RUQS.l19 ; 0x2e79
-@..api_idx_0010_RUQS.l1:
+    jmp near .forward16              ; 0x2e79
+.back1:
     mov ax, 0x2c                     ; 0x2e7c
     imul word [bp - 2]               ; 0x2e7f
     mov si, ax                       ; 0x2e82
@@ -22,17 +22,17 @@ api_idx_0010_RUQS:
     mov bx, ax                       ; 0x2e89
     mov bx, word [bx + party_char]   ; 0x2e8b
     cmp byte [bx + si + member_rec.item_state], 3 ; 0x2e8f
-    jb short @..api_idx_0010_RUQS.l2 ; 0x2e93
-    jmp near @..api_idx_0010_RUQS.l18 ; 0x2e95
-@..api_idx_0010_RUQS.l2:
+    jb short .forward1               ; 0x2e93
+    jmp near .forward15              ; 0x2e95
+.forward1:
     push word [bp - 2]               ; 0x2e98
     push word [bp + 4]               ; 0x2e9b
     call item_slot_usable            ; 0x2e9e
     add sp, byte 4                   ; 0x2ea1
     test ax, ax                      ; 0x2ea4
-    je short @..api_idx_0010_RUQS.l3 ; 0x2ea6
-    jmp near @..api_idx_0010_RUQS.l18 ; 0x2ea8
-@..api_idx_0010_RUQS.l3:
+    je short .forward2               ; 0x2ea6
+    jmp near .forward15              ; 0x2ea8
+.forward2:
     mov ax, 4                        ; 0x2eab
     push ax                          ; 0x2eae
     mov ax, 2                        ; 0x2eaf
@@ -49,9 +49,9 @@ api_idx_0010_RUQS:
     push ax                          ; 0x2ecc
     mov ax, 0x43                     ; 0x2ecd
     cmp word [bp + 4], byte 0        ; 0x2ed0
-    jne short @..api_idx_0010_RUQS.l4 ; 0x2ed4
+    jne short .forward3              ; 0x2ed4
     mov ax, 1                        ; 0x2ed6
-@..api_idx_0010_RUQS.l4:
+.forward3:
     push ax                          ; 0x2ed9
     mov ax, bss_90e6                 ; 0x2eda
     push ax                          ; 0x2edd
@@ -66,9 +66,9 @@ api_idx_0010_RUQS:
     add sp, byte 8                   ; 0x2ef4
     mov word [bp - 6], ax            ; 0x2ef7
     cmp ax, strict word 0            ; 0x2efa
-    jg short @..api_idx_0010_RUQS.l5 ; 0x2efd
-    jmp near @..api_idx_0010_RUQS.l17 ; 0x2eff
-@..api_idx_0010_RUQS.l5:
+    jg short .forward4               ; 0x2efd
+    jmp near .forward14              ; 0x2eff
+.forward4:
     mov ax, 0x64                     ; 0x2f02
     push ax                          ; 0x2f05
     call random_below                ; 0x2f06
@@ -85,13 +85,13 @@ api_idx_0010_RUQS:
     mov cx, ax                       ; 0x2f21
     pop ax                           ; 0x2f23
     cmp ax, cx                       ; 0x2f24
-    jg short @..api_idx_0010_RUQS.l6 ; 0x2f26
-    jmp near @..api_idx_0010_RUQS.l17 ; 0x2f28
-@..api_idx_0010_RUQS.l6:
+    jg short .forward5               ; 0x2f26
+    jmp near .forward14              ; 0x2f28
+.forward5:
     cmp word [bp + 0xc], byte 1      ; 0x2f2b
-    je short @..api_idx_0010_RUQS.l7 ; 0x2f2f
-    jmp near @..api_idx_0010_RUQS.l9 ; 0x2f31
-@..api_idx_0010_RUQS.l7:
+    je short .forward6               ; 0x2f2f
+    jmp near .forward8               ; 0x2f31
+.forward6:
     mov ax, 1                        ; 0x2f34
     push ax                          ; 0x2f37
     mov ax, 0x2c                     ; 0x2f38
@@ -165,14 +165,14 @@ api_idx_0010_RUQS:
     sub ax, word [bp - 6]            ; 0x2fd5
     mov word [bp - 4], ax            ; 0x2fd8
     cmp ax, strict word 1            ; 0x2fdb
-    jge short @..api_idx_0010_RUQS.l8 ; 0x2fde
+    jge short .forward7              ; 0x2fde
     mov word [bp - 4], 1             ; 0x2fe0
-@..api_idx_0010_RUQS.l8:
+.forward7:
     mov ax, word [bp - 4]            ; 0x2fe5
     mov word [bx + si], ax           ; 0x2fe8
     mov word [bp - 0x10], 0xda3      ; 0x2fea
-    jmp near @..api_idx_0010_RUQS.l15 ; 0x2fef
-@..api_idx_0010_RUQS.l9:
+    jmp near .forward12              ; 0x2fef
+.forward8:
     mov ax, 1                        ; 0x2ff2
     push ax                          ; 0x2ff5
     mov ax, 0x2c                     ; 0x2ff6
@@ -201,7 +201,7 @@ api_idx_0010_RUQS:
     pop ax                           ; 0x302f
     mov byte [bx + si + member_rec.item_level], al ; 0x3030
     mov word [bp - 0xe], 0           ; 0x3033
-@..api_idx_0010_RUQS.l10:
+.back2:
     mov ax, 0x2c                     ; 0x3038
     imul word [bp - 2]               ; 0x303b
     add ax, word [bp - 0xe]          ; 0x303e
@@ -219,7 +219,7 @@ api_idx_0010_RUQS:
     inc word [bp - 0xe]              ; 0x305c
     mov ax, word [bp - 0xe]          ; 0x305f
     cmp ax, strict word 4            ; 0x3062
-    jl short @..api_idx_0010_RUQS.l10 ; 0x3065
+    jl short .back2                  ; 0x3065
     mov ax, 0x2c                     ; 0x3067
     imul word [bp - 2]               ; 0x306a
     mov si, ax                       ; 0x306d
@@ -228,27 +228,27 @@ api_idx_0010_RUQS:
     mov bx, ax                       ; 0x3074
     mov bx, word [bx + party_char]   ; 0x3076
     cmp byte [bx + si + member_rec.item_level], 0 ; 0x307a
-    jge short @..api_idx_0010_RUQS.l14 ; 0x307e
+    jge short .forward11             ; 0x307e
     cmp byte [bx + si + 0x29], 0     ; 0x3080
-    jge short @..api_idx_0010_RUQS.l11 ; 0x3084
+    jge short .forward9              ; 0x3084
     mov al, byte [bx + si + 0x29]    ; 0x3086
     cbw                              ; 0x3089
     neg ax                           ; 0x308a
-    jmp short @..api_idx_0010_RUQS.l12 ; 0x308c
-@..api_idx_0010_RUQS.l11:
+    jmp short .forward10             ; 0x308c
+.forward9:
     mov al, byte [bx + si + 0x29]    ; 0x308e
     cbw                              ; 0x3091
-@..api_idx_0010_RUQS.l12:
+.forward10:
     mov cx, 0xa                      ; 0x3092
     cwd                              ; 0x3095
     idiv cx                          ; 0x3096
     mov word [bp - 0xe], ax          ; 0x3098
     cmp ax, strict word 3            ; 0x309b
-    jle short @..api_idx_0010_RUQS.l13 ; 0x309e
+    jle short .back3                 ; 0x309e
     mov word [bp - 0xe], 3           ; 0x30a0
-@..api_idx_0010_RUQS.l13:
+.back3:
     cmp word [bp - 0xe], byte 0      ; 0x30a5
-    jle short @..api_idx_0010_RUQS.l14 ; 0x30a9
+    jle short .forward11             ; 0x30a9
     mov ax, 0x2c                     ; 0x30ab
     imul word [bp - 2]               ; 0x30ae
     mov cx, 4                        ; 0x30b1
@@ -261,10 +261,10 @@ api_idx_0010_RUQS:
     mov bx, word [bx + party_char]   ; 0x30c2
     mov byte [bx + si + 0x18], 0     ; 0x30c6
     dec word [bp - 0xe]              ; 0x30ca
-    jmp short @..api_idx_0010_RUQS.l13 ; 0x30cd
-@..api_idx_0010_RUQS.l14:
+    jmp short .back3                 ; 0x30cd
+.forward11:
     mov word [bp - 0x10], 0xda6      ; 0x30cf
-@..api_idx_0010_RUQS.l15:
+.forward12:
     mov ax, 3                        ; 0x30d4
     push ax                          ; 0x30d7
     mov ax, 0x41                     ; 0x30d8
@@ -273,18 +273,18 @@ api_idx_0010_RUQS:
     call api_idx_0050_PLNP           ; 0x30df
     add sp, byte 6                   ; 0x30e2
     cmp word [bp + 4], byte 0        ; 0x30e5
-    jne short @..api_idx_0010_RUQS.l16 ; 0x30e9
+    jne short .forward13             ; 0x30e9
     mov ax, 0                        ; 0x30eb
     push ax                          ; 0x30ee
     push word [bp - 2]               ; 0x30ef
     call api_idx_0004_MLLS           ; 0x30f2
     add sp, byte 4                   ; 0x30f5
-@..api_idx_0010_RUQS.l16:
+.forward13:
     push word [bss_9058]             ; 0x30f8
     call api_idx_0004_QUPL           ; 0x30fc
     pop cx                           ; 0x30ff
-    jmp short @..api_idx_0010_RUQS.l18 ; 0x3100
-@..api_idx_0010_RUQS.l17:
+    jmp short .forward15             ; 0x3100
+.forward14:
     mov ax, 3                        ; 0x3102
     push ax                          ; 0x3105
     mov ax, 0x41                     ; 0x3106
@@ -296,13 +296,13 @@ api_idx_0010_RUQS:
     push word [bss_9058]             ; 0x3114
     call api_idx_0004_QUPL           ; 0x3118
     pop cx                           ; 0x311b
-@..api_idx_0010_RUQS.l18:
+.forward15:
     inc word [bp - 2]                ; 0x311c
-@..api_idx_0010_RUQS.l19:
+.forward16:
     mov ax, word [bp - 0xa]          ; 0x311f
     add ax, word [bp - 0xc]          ; 0x3122
     cmp ax, word [bp - 2]            ; 0x3125
-    jle short @..api_idx_0010_RUQS.l20 ; 0x3128
-    jmp near @..api_idx_0010_RUQS.l1 ; 0x312a
-@..api_idx_0010_RUQS.l20:
+    jle short .return1               ; 0x3128
+    jmp near .back1                  ; 0x312a
+.return1:
     ret                              ; 0x312d

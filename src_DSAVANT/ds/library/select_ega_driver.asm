@@ -7,12 +7,12 @@ select_ega_driver:
     mov al, byte [bx]                ; 0x3499
     pop ds                           ; 0x349b
     or al, al                        ; 0x349c
-    je short @..select_ega_driver.l1 ; 0x349e
-    jmp near @..select_ega_driver.l2 ; 0x34a0
-@..select_ega_driver.l1:
+    je short .forward1               ; 0x349e
+    jmp near .forward2               ; 0x34a0
+.forward1:
     mov word [bp - 2], 0             ; 0x34a3
     ret                              ; 0x34a8
-@..select_ega_driver.l2:
+.forward2:
     mov byte [cs:video_is_cga - IMAGE_BASE], 0 ; 0x34a9
     mov byte [cs:video_is_herc - IMAGE_BASE], 0 ; 0x34af
     mov byte [cs:video_is_ega - IMAGE_BASE], 1 ; 0x34b5

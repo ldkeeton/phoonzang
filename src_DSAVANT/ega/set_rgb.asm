@@ -13,25 +13,25 @@ set_rgb:
     add bx, word [bp + 0xc]          ; 0x3205
     mov ax, word [bp + 0xe]          ; 0x3208
     cmp ax, strict word 0xffff       ; 0x320b
-    jne short @..set_rgb.l1          ; 0x320e
+    jne short .forward1              ; 0x320e
     mov word [cs:bx], 0xff           ; 0x3210
-    jmp short @..set_rgb.l4          ; 0x3215
-@..set_rgb.l1:
+    jmp short .forward3              ; 0x3215
+.forward1:
     mov si, cseg_31e2 - IMAGE_BASE   ; 0x3217
     mov ax, 8                        ; 0x321a
     shl ax, 1                        ; 0x321d
     add si, ax                       ; 0x321f
     mov ax, word [bp + 0xe]          ; 0x3221
     mov cx, 8                        ; 0x3224
-@..set_rgb.l2:
+.back1:
     cmp byte [cs:si], al             ; 0x3227
-    jbe short @..set_rgb.l3          ; 0x322a
+    jbe short .forward2              ; 0x322a
     sub si, byte 2                   ; 0x322c
-    loop @..set_rgb.l2               ; 0x322f
-@..set_rgb.l3:
+    loop .back1                      ; 0x322f
+.forward2:
     mov al, byte [cs:si + 1]         ; 0x3231
     mov byte [cs:bx], al             ; 0x3235
-@..set_rgb.l4:
+.forward3:
     pop di                           ; 0x3238
     pop si                           ; 0x3239
     pop es                           ; 0x323a

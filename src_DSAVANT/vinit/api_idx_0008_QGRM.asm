@@ -18,14 +18,14 @@ api_idx_0008_QGRM:
     call gfx_set_text_pos            ; 0x142a
     add sp, byte 4                   ; 0x142d
     mov word [bp - 4], 0             ; 0x1430
-@..api_idx_0008_QGRM.l1:
+.back1:
     mov bx, word [bp - 4]            ; 0x1435
     mov byte [bx + picture_slot_number], 0xff ; 0x1438
     mov byte [bx + picture_slot_used], 0 ; 0x143d
     inc word [bp - 4]                ; 0x1442
     mov ax, word [bp - 4]            ; 0x1445
     cmp ax, strict word 0x12         ; 0x1448
-    jl short @..api_idx_0008_QGRM.l1 ; 0x144b
+    jl short .back1                  ; 0x144b
     mov word [saved_screen_pending], 0 ; 0x144d
     mov word [maze_state], 0         ; 0x1453
     mov word [maze_variant], 0       ; 0x1459
@@ -67,9 +67,9 @@ api_idx_0008_QGRM:
     call load_monster_picture        ; 0x14b3
     add sp, byte 4                   ; 0x14b6
     cmp word [startup_check_stage], byte 0 ; 0x14b9
-    jne short @..api_idx_0008_QGRM.l2 ; 0x14be
+    jne short .forward1              ; 0x14be
     call ds_app_RMGT                 ; 0x14c0
-@..api_idx_0008_QGRM.l2:
+.forward1:
     mov ax, 2                        ; 0x14c3
     push ax                          ; 0x14c6
     mov ax, dseg_91a1                ; 0x14c7
@@ -77,7 +77,7 @@ api_idx_0008_QGRM:
     call load_screen_file            ; 0x14cb
     add sp, byte 4                   ; 0x14ce
     mov word [bp - 2], 0             ; 0x14d1
-@..api_idx_0008_QGRM.l3:
+.back2:
     mov ax, word [bp - 2]            ; 0x14d6
     mov cx, 3                        ; 0x14d9
     cwd                              ; 0x14dc
@@ -112,11 +112,11 @@ api_idx_0008_QGRM:
     inc word [bp - 2]                ; 0x1526
     mov ax, word [bp - 2]            ; 0x1529
     cmp ax, strict word 6            ; 0x152c
-    jl short @..api_idx_0008_QGRM.l3 ; 0x152f
+    jl short .back2                  ; 0x152f
     mov word [message_block_current], 0xffff ; 0x1531
     mov word [party_char_count], 0   ; 0x1537
     mov word [bp - 2], 0             ; 0x153d
-@..api_idx_0008_QGRM.l4:
+.back3:
     mov ax, word [bp - 2]            ; 0x1542
     shl ax, 1                        ; 0x1545
     mov bx, ax                       ; 0x1547
@@ -157,7 +157,7 @@ api_idx_0008_QGRM:
     inc word [bp - 2]                ; 0x15a4
     mov ax, word [bp - 2]            ; 0x15a7
     cmp ax, strict word 6            ; 0x15aa
-    jl short @..api_idx_0008_QGRM.l4 ; 0x15ad
+    jl short .back3                  ; 0x15ad
     mov ax, 0xc4                     ; 0x15af
     push ax                          ; 0x15b2
     mov ax, 0x13c                    ; 0x15b3

@@ -7,7 +7,7 @@ api_idx_0002_SKMG:
     mov al, byte [bx + si + spell_table + spell_table_rec_size*218 + spell_table_rec.f_0004] ; 0x8f28
     sub ah, ah                       ; 0x8f2c
     mov word [bp - 2], ax            ; 0x8f2e
-@..api_idx_0002_SKMG.l1:
+.back1:
     push word [bp - 2]               ; 0x8f31
     push word [party_map_piece]      ; 0x8f34
     push word [party_cell_y]         ; 0x8f38
@@ -16,36 +16,36 @@ api_idx_0002_SKMG:
     add sp, byte 8                   ; 0x8f43
     mov word [bp - 2], ax            ; 0x8f46
     cmp ax, strict word 0xffff       ; 0x8f49
-    je short @..api_idx_0002_SKMG.l5 ; 0x8f4c
+    je short .return1                ; 0x8f4c
     mov bx, word [maze_tables]       ; 0x8f4e
     mov si, ax                       ; 0x8f52
     cmp byte [bx + si + 0x5a0], 0xf  ; 0x8f54
-    jne short @..api_idx_0002_SKMG.l4 ; 0x8f59
+    jne short .forward3              ; 0x8f59
     shl ax, 1                        ; 0x8f5b
     mov si, ax                       ; 0x8f5d
     cmp word [bx + si + 0x1e0], byte 2 ; 0x8f5f
-    je short @..api_idx_0002_SKMG.l2 ; 0x8f64
+    je short .forward1               ; 0x8f64
     mov ax, word [party_tag]         ; 0x8f66
     mov cx, 2                        ; 0x8f69
     cwd                              ; 0x8f6c
     idiv cx                          ; 0x8f6d
     mov ax, dx                       ; 0x8f6f
     cmp ax, word [bx + si + 0x1e0]   ; 0x8f71
-    jne short @..api_idx_0002_SKMG.l4 ; 0x8f75
-@..api_idx_0002_SKMG.l2:
+    jne short .forward3              ; 0x8f75
+.forward1:
     cmp word [bx + si + 0x1e0], byte 2 ; 0x8f77
-    jne short @..api_idx_0002_SKMG.l3 ; 0x8f7c
+    jne short .forward2              ; 0x8f7c
     mov ax, 8                        ; 0x8f7e
     push ax                          ; 0x8f81
     call play_sound_effect           ; 0x8f82
     pop cx                           ; 0x8f85
-@..api_idx_0002_SKMG.l3:
+.forward2:
     push word [bp - 2]               ; 0x8f86
     call move_party_to_dest          ; 0x8f89
     pop cx                           ; 0x8f8c
     ret                              ; 0x8f8d
-@..api_idx_0002_SKMG.l4:
+.forward3:
     inc word [bp - 2]                ; 0x8f8e
-    jmp short @..api_idx_0002_SKMG.l1 ; 0x8f91
-@..api_idx_0002_SKMG.l5:
+    jmp short .back1                 ; 0x8f91
+.return1:
     ret                              ; 0x8f93

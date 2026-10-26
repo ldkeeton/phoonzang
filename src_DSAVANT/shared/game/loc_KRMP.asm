@@ -20,19 +20,19 @@ loc_KRMP:
     mov ax, word [bss_9092]
     mov dx, word [bss_9094]
     cmp bx, dx
-    jg short @..loc_KRMP.l1
-    jne short @..loc_KRMP.l2
+    jg short .forward1
+    jne short .forward2
     cmp cx, ax
-    jbe short @..loc_KRMP.l2
-@..loc_KRMP.l1:
-    jmp short @..loc_KRMP.l3
-@..loc_KRMP.l2:
+    jbe short .forward2
+.forward1:
+    jmp short .forward3
+.forward2:
     mov ax, word [bss_908e]
     mov dx, word [bss_9090]
     mov word [party_redraw_last_tick_hi], dx
     mov word [party_redraw_last_tick], ax
     mov ax, 1
     ret
-@..loc_KRMP.l3:
+.forward3:
     mov ax, 0
     ret

@@ -8,29 +8,29 @@ api_idx_0004_UJRL:
     pop cx
     mov word [bp - 2], ax
     cmp ax, strict word 0xffff
-    jne short @..api_idx_0004_UJRL.l4
+    jne short .forward3
     cmp word [bss_5910], byte 0x7f
-    jl short @..api_idx_0004_UJRL.l3
+    jl short .forward2
     mov ax, 1
     push ax
     call api_idx_0008_RQRL
     pop cx
     mov word [bp - 2], ax
     cmp ax, strict word 0xffff
-    jne short @..api_idx_0004_UJRL.l2
-@..api_idx_0004_UJRL.l1:
+    jne short .forward1
+.back1:
     mov ax, 0
     push ax
     call play_sound_effect
     pop cx
-    jmp short @..api_idx_0004_UJRL.l1
-@..api_idx_0004_UJRL.l2:
-    jmp short @..api_idx_0004_UJRL.l4
-@..api_idx_0004_UJRL.l3:
+    jmp short .back1
+.forward1:
+    jmp short .forward3
+.forward2:
     mov ax, word [bss_5910]
     mov word [bp - 2], ax
     inc word [bss_5910]
-@..api_idx_0004_UJRL.l4:
+.forward3:
     mov cx, word [bp - 2]
     shl cx, 1
     shl cx, 1

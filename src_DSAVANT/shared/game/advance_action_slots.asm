@@ -9,9 +9,9 @@ advance_action_slots:
     mov bx, ax
     mov bx, word [bx + party_char]
     cmp byte [bx + member_rec.slot], 0xff
-    jne short @..advance_action_slots.l1
+    jne short .forward1
     ret
-@..advance_action_slots.l1:
+.forward1:
     mov al, byte [bx + 0x19f]
     cbw
     mov word [bp - 2], ax
@@ -32,8 +32,8 @@ advance_action_slots:
     mov al, byte [bx + slot_recs]
     sub ah, ah
     mov word [bp - 4], ax
-    jmp near @..advance_action_slots.l15
-@..advance_action_slots.l2:
+    jmp near .forward14
+.back1:
     mov ax, 0x2c
     imul word [bp + 6]
     mov si, ax
@@ -42,12 +42,12 @@ advance_action_slots:
     mov bx, ax
     mov bx, word [bx + party_char]
     cmp byte [bx + si + member_rec.item_state], 2
-    je short @..advance_action_slots.l3
+    je short .forward2
     cmp byte [bx + si + 0x11], 0
-    ja short @..advance_action_slots.l3
+    ja short .forward2
     cmp byte [bx + si + 0x10], 0
-    jbe short @..advance_action_slots.l4
-@..advance_action_slots.l3:
+    jbe short .forward3
+.forward2:
     mov ax, 0x5a
     imul word [bp + 8]
     push ax
@@ -75,8 +75,8 @@ advance_action_slots:
     mov al, byte [bx + slot_recs + slot_rec.target]
     sub ah, ah
     mov word [bp - 8], ax
-    jmp near @..advance_action_slots.l11
-@..advance_action_slots.l4:
+    jmp near .forward10
+.forward3:
     mov ax, 0x5a
     imul word [bp + 8]
     push ax
@@ -99,13 +99,13 @@ advance_action_slots:
     sub ah, ah
     mov word [bp - 0xa], ax
     cmp word [bp + 0xc], byte 0
-    je short @..advance_action_slots.l5
+    je short .forward4
     dec word [bp - 0xa]
-@..advance_action_slots.l5:
+.forward4:
     cmp word [bp - 0xa], byte 0
-    jle short @..advance_action_slots.l6
-    jmp near @..advance_action_slots.l10
-@..advance_action_slots.l6:
+    jle short .forward5
+    jmp near .forward9
+.forward5:
     mov al, byte [bx + action_slot_table]
     sub ah, ah
     mov word [bp - 6], ax
@@ -126,15 +126,15 @@ advance_action_slots:
     add ax, cx
     dec ax
     cmp ax, word [bp - 8]
-    jl short @..advance_action_slots.l7
-    jmp near @..advance_action_slots.l9
-@..advance_action_slots.l7:
+    jl short .forward6
+    jmp near .forward8
+.forward6:
     mov ax, 3
     imul word [bp + 8]
     add ax, word [bp + 0xa]
     mov bx, ax
     cmp byte [bx + action_slot_mode], 0
-    je short @..advance_action_slots.l8
+    je short .forward7
     mov byte [bx + action_slot_mode], 0
     mov ax, 0
     push ax
@@ -153,7 +153,7 @@ advance_action_slots:
     call advance_action_slots
     add sp, byte 0xc
     ret
-@..advance_action_slots.l8:
+.forward7:
     mov ax, 0x15e
     imul word [bp - 2]
     add ax, word [bp - 4]
@@ -197,7 +197,7 @@ advance_action_slots:
     mov al, byte [bx + slot_recs + slot_rec.target]
     sub ah, ah
     mov word [bp - 8], ax
-@..advance_action_slots.l9:
+.forward8:
     mov al, byte [bp - 8]
     push ax
     mov ax, 0x5a
@@ -240,7 +240,7 @@ advance_action_slots:
     pop ax
     add ax, cx
     mov word [bp - 0xa], ax
-@..advance_action_slots.l10:
+.forward9:
     mov al, byte [bp - 0xa]
     push ax
     mov ax, 0x5a
@@ -257,7 +257,7 @@ advance_action_slots:
     mov bx, cx
     pop ax
     mov byte [bx + action_slot_table + action_slot.roll], al
-@..advance_action_slots.l11:
+.forward10:
     mov ax, 0x15e
     imul word [bp - 2]
     mov cx, word [bp - 8]
@@ -274,12 +274,12 @@ advance_action_slots:
     mov bx, ax
     mov bx, word [bx + party_char]
     cmp byte [bx + member_rec.kind], 0x79
-    je short @..advance_action_slots.l12
+    je short .forward11
     mov al, byte [bx + 0x19e]
     sub ah, ah
     cmp ax, 0x8d
-    jne short @..advance_action_slots.l13
-@..advance_action_slots.l12:
+    jne short .forward12
+.forward11:
     inc word [bp - 0xe]
     mov bx, word [bp + 0xe]
     mov si, word [bp - 0xe]
@@ -292,15 +292,15 @@ advance_action_slots:
     mov bx, word [bp + 0xe]
     mov si, word [bp - 0xe]
     mov byte [bx + si - 1], al
-@..advance_action_slots.l13:
+.forward12:
     mov bx, word [bp + 0xe]
     mov si, word [bp - 0xe]
     cmp byte [bx + si], 0
-    je short @..advance_action_slots.l14
+    je short .forward13
     inc word [bp - 0xe]
-@..advance_action_slots.l14:
+.forward13:
     inc word [bp - 4]
-@..advance_action_slots.l15:
+.forward14:
     mov ax, 0x15e
     imul word [bp - 2]
     push ax
@@ -323,9 +323,9 @@ advance_action_slots:
     pop ax
     add ax, cx
     cmp ax, word [bp - 4]
-    jle short @..advance_action_slots.l16
-    jmp near @..advance_action_slots.l2
-@..advance_action_slots.l16:
+    jle short .forward15
+    jmp near .back1
+.forward15:
     mov bx, word [bp + 0xe]
     mov si, word [bp - 0xe]
     mov byte [bx + si], 0

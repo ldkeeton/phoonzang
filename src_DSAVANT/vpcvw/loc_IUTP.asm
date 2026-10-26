@@ -4,7 +4,7 @@ loc_IUTP:
     call aztec_csav                  ; 0x70cd
     mov word [bp - 0x194], 0         ; 0x70d0
     cmp word [mouse_active], byte 0  ; 0x70d6
-    je short @..loc_IUTP.l1          ; 0x70db
+    je short .forward1               ; 0x70db
     lea ax, word [bp - 0xc]          ; 0x70dd
     push ax                          ; 0x70e0
     lea ax, word [bp - 0xa]          ; 0x70e1
@@ -12,7 +12,7 @@ loc_IUTP:
     call gfx_get_mouse               ; 0x70e5
     add sp, byte 4                   ; 0x70e8
     mov word [bp - 0x194], ax        ; 0x70eb
-@..loc_IUTP.l1:
+.forward1:
     mov ax, 0                        ; 0x70ef
     push ax                          ; 0x70f2
     mov bx, word [bp + 6]            ; 0x70f3
@@ -24,7 +24,7 @@ loc_IUTP:
     call data_record_io              ; 0x7100
     add sp, byte 8                   ; 0x7103
     cmp word [bp + 0xa], byte 0      ; 0x7106
-    je short @..loc_IUTP.l4          ; 0x710a
+    je short .forward4               ; 0x710a
     mov ax, 3                        ; 0x710c
     imul word [bp + 0xa]             ; 0x710f
     push ax                          ; 0x7112
@@ -33,14 +33,14 @@ loc_IUTP:
     mov cx, ax                       ; 0x7118
     pop ax                           ; 0x711a
     cmp ax, cx                       ; 0x711b
-    jl short @..loc_IUTP.l2          ; 0x711d
+    jl short .forward2               ; 0x711d
     mov bx, word [bp + 6]            ; 0x711f
     mov al, byte [bx + 7]            ; 0x7122
     sub ah, ah                       ; 0x7125
     or ax, 0x80                      ; 0x7127
     mov byte [bx + 7], al            ; 0x712a
-    jmp short @..loc_IUTP.l3         ; 0x712d
-@..loc_IUTP.l2:
+    jmp short .forward3              ; 0x712d
+.forward2:
     lea ax, word [bp - 0xf2]         ; 0x712f
     push ax                          ; 0x7133
     mov ax, MSG_FAILURE_465          ; 0x7134
@@ -55,9 +55,9 @@ loc_IUTP:
     add sp, byte 4                   ; 0x714a
     mov ax, 0                        ; 0x714d
     ret                              ; 0x7150
-@..loc_IUTP.l3:
-    jmp short @..loc_IUTP.l5         ; 0x7151
-@..loc_IUTP.l4:
+.forward3:
+    jmp short .forward5              ; 0x7151
+.forward4:
     mov ax, 0x248                    ; 0x7153
     imul word [bp + 4]               ; 0x7156
     mov bx, ax                       ; 0x7159
@@ -72,21 +72,21 @@ loc_IUTP:
     mov cx, ax                       ; 0x716d
     pop ax                           ; 0x716f
     cmp ax, cx                       ; 0x7170
-    jl short @..loc_IUTP.l5          ; 0x7172
+    jl short .forward5               ; 0x7172
     mov bx, word [bp + 6]            ; 0x7174
     mov al, byte [bx + 7]            ; 0x7177
     sub ah, ah                       ; 0x717a
     or ax, 0x80                      ; 0x717c
     mov byte [bx + 7], al            ; 0x717f
-@..loc_IUTP.l5:
+.forward5:
     mov bx, word [bp + 6]            ; 0x7182
     mov al, byte [bx + 7]            ; 0x7185
     sub ah, ah                       ; 0x7188
     test ax, 0x80                    ; 0x718a
-    jne short @..loc_IUTP.l6         ; 0x718d
+    jne short .forward6              ; 0x718d
     mov ax, 0xffff                   ; 0x718f
     ret                              ; 0x7192
-@..loc_IUTP.l6:
+.forward6:
     lea ax, word [bp - 0x7a]         ; 0x7193
     push ax                          ; 0x7196
     push word [bp + 8]               ; 0x7197
@@ -159,32 +159,32 @@ loc_IUTP:
     add sp, byte 4                   ; 0x7247
     mov word [bp - 6], ax            ; 0x724a
     cmp ax, strict word 0xffff       ; 0x724d
-    jne short @..loc_IUTP.l7         ; 0x7250
+    jne short .forward7              ; 0x7250
     lea ax, word [bp - 0xa2]         ; 0x7252
     push ax                          ; 0x7256
     call aztec_strlen                ; 0x7257
     pop cx                           ; 0x725a
     mov word [bp - 6], ax            ; 0x725b
-@..loc_IUTP.l7:
+.forward7:
     cmp word [bp - 6], byte 0xa      ; 0x725e
-    jle short @..loc_IUTP.l8         ; 0x7262
+    jle short .forward8              ; 0x7262
     mov word [bp - 6], 0xa           ; 0x7264
-@..loc_IUTP.l8:
+.forward8:
     mov bx, word [bp - 6]            ; 0x7269
     add bx, bp                       ; 0x726c
     mov byte [bx - 0xa2], 0          ; 0x726e
     mov byte [bx - 0x97], 0          ; 0x7273
-@..loc_IUTP.l9:
+.back1:
     mov ax, word [bp - 4]            ; 0x7278
     cmp ax, word [bp - 6]            ; 0x727b
-    jle short @..loc_IUTP.l10        ; 0x727e
+    jle short .forward9              ; 0x727e
     mov bx, ax                       ; 0x7280
     add bx, bp                       ; 0x7282
     cmp byte [bx - 0xa2], 0x20       ; 0x7284
-    jne short @..loc_IUTP.l10        ; 0x7289
+    jne short .forward9              ; 0x7289
     dec word [bp - 4]                ; 0x728b
-    jmp short @..loc_IUTP.l9         ; 0x728e
-@..loc_IUTP.l10:
+    jmp short .back1                 ; 0x728e
+.forward9:
     mov ax, word [bp - 6]            ; 0x7290
     sub word [bp - 4], ax            ; 0x7293
     push word [bp - 0xc]             ; 0x7296
@@ -245,7 +245,7 @@ loc_IUTP:
     mov word [bp - 0x24], ax         ; 0x733e
     mov al, byte [bp - 0x42]         ; 0x7341
     sub ah, ah                       ; 0x7344
-    jmp near @..loc_IUTP.l11         ; 0x7346
+    jmp near .forward10              ; 0x7346
 jumptable_742b_case_0:
     mov word [bp - 0x10], 1          ; 0x7349
     mov word [bp - 0x16], 1          ; 0x734e
@@ -256,14 +256,14 @@ jumptable_742b_case_0:
     mov word [bp - 0x28], 1          ; 0x7367
     mov ax, word [dseg_001e]         ; 0x736c
     mov word [bp - 0x32], ax         ; 0x736f
-    jmp near @..loc_IUTP.l12         ; 0x7372
+    jmp near loc_IUTP.forward11      ; 0x7372
 jumptable_742b_case_4:
     mov word [bp - 0x12], 1          ; 0x7375
     mov word [bp - 0x26], 1          ; 0x737a
     mov word [bp - 0x2a], 1          ; 0x737f
     mov ax, word [dseg_001e]         ; 0x7384
     mov word [bp - 0x32], ax         ; 0x7387
-    jmp near @..loc_IUTP.l12         ; 0x738a
+    jmp near loc_IUTP.forward11      ; 0x738a
 jumptable_742b_case_5:
     mov word [bp - 0x14], 1          ; 0x738d
     mov ax, word [dseg_0022]         ; 0x7392
@@ -271,7 +271,7 @@ jumptable_742b_case_5:
     mov word [bp - 0x1e], 1          ; 0x7398
     mov word [bp - 0x28], 1          ; 0x739d
     mov word [bp - 0x32], ax         ; 0x73a2
-    jmp near @..loc_IUTP.l12         ; 0x73a5
+    jmp near loc_IUTP.forward11      ; 0x73a5
 jumptable_742b_case_6:
     mov word [bp - 0x14], 1          ; 0x73a8
     mov word [bp - 0x18], 1          ; 0x73ad
@@ -279,14 +279,14 @@ jumptable_742b_case_6:
     mov word [bp - 0x28], 1          ; 0x73b7
     mov ax, word [dseg_0024]         ; 0x73bc
     mov word [bp - 0x32], ax         ; 0x73bf
-    jmp near @..loc_IUTP.l12         ; 0x73c2
+    jmp near loc_IUTP.forward11      ; 0x73c2
 jumptable_742b_case_11:
     mov word [bp - 0x14], 1          ; 0x73c5
     mov word [bp - 0x1e], 1          ; 0x73ca
     mov word [bp - 0x28], 1          ; 0x73cf
     mov ax, word [dseg_0024]         ; 0x73d4
     mov word [bp - 0x32], ax         ; 0x73d7
-    jmp near @..loc_IUTP.l12         ; 0x73da
+    jmp near loc_IUTP.forward11      ; 0x73da
 jumptable_742b_case_12:
     mov word [bp - 0x22], 0          ; 0x73dd
     mov word [bp - 0x10], 1          ; 0x73e2
@@ -294,14 +294,14 @@ jumptable_742b_case_12:
     mov word [bp - 0x1c], 1          ; 0x73ec
     mov ax, word [dseg_0022]         ; 0x73f1
     mov word [bp - 0x32], ax         ; 0x73f4
-    jmp short @..loc_IUTP.l12        ; 0x73f7
+    jmp short loc_IUTP.forward11     ; 0x73f7
 jumptable_742b_case_13:
     mov word [bp - 0x22], 0          ; 0x73f9
     mov word [bp - 0x12], 1          ; 0x73fe
     mov word [bp - 0x20], 1          ; 0x7403
     mov ax, word [dseg_0022]         ; 0x7408
     mov word [bp - 0x32], ax         ; 0x740b
-    jmp short @..loc_IUTP.l12        ; 0x740e
+    jmp short loc_IUTP.forward11     ; 0x740e
 jumptable_742b_case_14:
     mov word [bp - 0x1e], 1          ; 0x7410
 jumptable_742b_case_15:
@@ -309,7 +309,7 @@ jumptable_742b_case_15:
     mov word [bp - 0x1c], 1          ; 0x741a
     mov word [bp - 0x28], 1          ; 0x741f
     mov word [bp - 0x32], 0xc0       ; 0x7424
-    jmp short @..loc_IUTP.l12        ; 0x7429
+    jmp short loc_IUTP.forward11     ; 0x7429
 jumptable_742b:
     dw jumptable_742b_case_0 - IMAGE_BASE + __zres_end ; 0x742b
     dw jumptable_742b_case_0 - IMAGE_BASE + __zres_end ; 0x742d
@@ -328,17 +328,17 @@ jumptable_742b:
     dw jumptable_742b_case_14 - IMAGE_BASE + __zres_end ; 0x7447
     dw jumptable_742b_case_15 - IMAGE_BASE + __zres_end ; 0x7449
     dw jumptable_742b_case_12 - IMAGE_BASE + __zres_end ; 0x744b
-@..loc_IUTP.l11:
+loc_IUTP.forward10:
     cmp ax, strict word 0x11         ; 0x744d
-    jae short @..loc_IUTP.l12        ; 0x7450
+    jae short loc_IUTP.forward11     ; 0x7450
     xchg bx, ax                      ; 0x7452
     shl bx, 1                        ; 0x7453
     jmp [cs:bx + jumptable_742b - IMAGE_BASE + __zres_end] ; 0x7455
-@..loc_IUTP.l12:
+loc_IUTP.forward11:
     cmp word [bp + 0xa], byte 0      ; 0x745a
-    je short @..loc_IUTP.l13         ; 0x745e
-    jmp near @..loc_IUTP.l48         ; 0x7460
-@..loc_IUTP.l13:
+    je short loc_IUTP.forward12      ; 0x745e
+    jmp near loc_IUTP.forward43      ; 0x7460
+loc_IUTP.forward12:
     lea ax, word [bp - 0xf2]         ; 0x7463
     push ax                          ; 0x7467
     mov al, byte [bp - 0x42]         ; 0x7468
@@ -376,9 +376,9 @@ jumptable_742b:
     add sp, byte 4                   ; 0x74b5
     add word [bp - 0xc], byte 6      ; 0x74b8
     cmp word [bp - 0x22], byte 0     ; 0x74bc
-    jne short @..loc_IUTP.l14        ; 0x74c0
-    jmp near @..loc_IUTP.l24         ; 0x74c2
-@..loc_IUTP.l14:
+    jne short loc_IUTP.forward13     ; 0x74c0
+    jmp near loc_IUTP.forward20      ; 0x74c2
+loc_IUTP.forward13:
     push word [bp - 0xc]             ; 0x74c5
     mov ax, 0x26                     ; 0x74c8
     push ax                          ; 0x74cb
@@ -391,7 +391,7 @@ jumptable_742b:
     call load_message_string         ; 0x74db
     add sp, byte 4                   ; 0x74de
     mov word [bp - 2], 0             ; 0x74e1
-@..loc_IUTP.l15:
+loc_IUTP.back2:
     mov ax, 0                        ; 0x74e6
     push ax                          ; 0x74e9
     push word [bp - 2]               ; 0x74ea
@@ -400,12 +400,12 @@ jumptable_742b:
     call test_bit                    ; 0x74f1
     add sp, byte 4                   ; 0x74f4
     cmp ax, strict word 1            ; 0x74f7
-    jne short @..loc_IUTP.l16        ; 0x74fa
+    jne short loc_IUTP.forward14     ; 0x74fa
     mov ax, 0xa9                     ; 0x74fc
-    jmp short @..loc_IUTP.l17        ; 0x74ff
-@..loc_IUTP.l16:
+    jmp short loc_IUTP.forward15     ; 0x74ff
+loc_IUTP.forward14:
     mov ax, 0xad                     ; 0x7501
-@..loc_IUTP.l17:
+loc_IUTP.forward15:
     push ax                          ; 0x7504
     call gfx_set_text_color          ; 0x7505
     add sp, byte 4                   ; 0x7508
@@ -421,7 +421,7 @@ jumptable_742b:
     inc word [bp - 2]                ; 0x7521
     mov ax, word [bp - 2]            ; 0x7524
     cmp ax, strict word 0xb          ; 0x7527
-    jl short @..loc_IUTP.l15         ; 0x752a
+    jl short loc_IUTP.back2          ; 0x752a
     push word [bp - 0xc]             ; 0x752c
     mov ax, 0x6e                     ; 0x752f
     push ax                          ; 0x7532
@@ -434,7 +434,7 @@ jumptable_742b:
     call load_message_string         ; 0x7542
     add sp, byte 4                   ; 0x7545
     mov word [bp - 2], 0             ; 0x7548
-@..loc_IUTP.l18:
+loc_IUTP.back3:
     mov ax, 0                        ; 0x754d
     push ax                          ; 0x7550
     push word [bp - 2]               ; 0x7551
@@ -443,12 +443,12 @@ jumptable_742b:
     call test_bit                    ; 0x7558
     add sp, byte 4                   ; 0x755b
     cmp ax, strict word 1            ; 0x755e
-    jne short @..loc_IUTP.l19        ; 0x7561
+    jne short loc_IUTP.forward16     ; 0x7561
     mov ax, 0xa9                     ; 0x7563
-    jmp short @..loc_IUTP.l20        ; 0x7566
-@..loc_IUTP.l19:
+    jmp short loc_IUTP.forward17     ; 0x7566
+loc_IUTP.forward16:
     mov ax, 0xad                     ; 0x7568
-@..loc_IUTP.l20:
+loc_IUTP.forward17:
     push ax                          ; 0x756b
     call gfx_set_text_color          ; 0x756c
     add sp, byte 4                   ; 0x756f
@@ -464,7 +464,7 @@ jumptable_742b:
     inc word [bp - 2]                ; 0x7588
     mov ax, word [bp - 2]            ; 0x758b
     cmp ax, strict word 2            ; 0x758e
-    jl short @..loc_IUTP.l18         ; 0x7591
+    jl short loc_IUTP.back3          ; 0x7591
     mov ax, word [bp - 0xc]          ; 0x7593
     add ax, strict word 6            ; 0x7596
     push ax                          ; 0x7599
@@ -479,7 +479,7 @@ jumptable_742b:
     call load_message_string         ; 0x75ad
     add sp, byte 4                   ; 0x75b0
     mov word [bp - 2], 0             ; 0x75b3
-@..loc_IUTP.l21:
+loc_IUTP.back4:
     mov ax, 0                        ; 0x75b8
     push ax                          ; 0x75bb
     push word [bp - 2]               ; 0x75bc
@@ -488,12 +488,12 @@ jumptable_742b:
     call test_bit                    ; 0x75c3
     add sp, byte 4                   ; 0x75c6
     cmp ax, strict word 1            ; 0x75c9
-    jne short @..loc_IUTP.l22        ; 0x75cc
+    jne short loc_IUTP.forward18     ; 0x75cc
     mov ax, 0xa9                     ; 0x75ce
-    jmp short @..loc_IUTP.l23        ; 0x75d1
-@..loc_IUTP.l22:
+    jmp short loc_IUTP.forward19     ; 0x75d1
+loc_IUTP.forward18:
     mov ax, 0xad                     ; 0x75d3
-@..loc_IUTP.l23:
+loc_IUTP.forward19:
     push ax                          ; 0x75d6
     call gfx_set_text_color          ; 0x75d7
     add sp, byte 4                   ; 0x75da
@@ -509,14 +509,14 @@ jumptable_742b:
     inc word [bp - 2]                ; 0x75f3
     mov ax, word [bp - 2]            ; 0x75f6
     cmp ax, strict word 0xe          ; 0x75f9
-    jl short @..loc_IUTP.l21         ; 0x75fc
+    jl short loc_IUTP.back4          ; 0x75fc
     add word [bp - 0xc], byte 0xc    ; 0x75fe
-    jmp short @..loc_IUTP.l25        ; 0x7602
-@..loc_IUTP.l24:
+    jmp short loc_IUTP.forward21     ; 0x7602
+loc_IUTP.forward20:
     cmp word [bp - 0x20], byte 0     ; 0x7604
-    je short @..loc_IUTP.l25         ; 0x7608
+    je short loc_IUTP.forward21      ; 0x7608
     cmp word [bp - 0x58], byte 0     ; 0x760a
-    je short @..loc_IUTP.l25         ; 0x760e
+    je short loc_IUTP.forward21      ; 0x760e
     mov ax, word [bp - 0x58]         ; 0x7610
     mov cx, 0x100                    ; 0x7613
     cwd                              ; 0x7616
@@ -558,48 +558,48 @@ jumptable_742b:
     call draw_text_glyphs            ; 0x766a
     add sp, byte 4                   ; 0x766d
     add word [bp - 0xc], byte 6      ; 0x7670
-@..loc_IUTP.l25:
+loc_IUTP.forward21:
     cmp word [bp - 0x1a], byte 0     ; 0x7674
-    jne short @..loc_IUTP.l26        ; 0x7678
-    jmp near @..loc_IUTP.l32         ; 0x767a
-@..loc_IUTP.l26:
+    jne short loc_IUTP.forward22     ; 0x7678
+    jmp near loc_IUTP.forward28      ; 0x767a
+loc_IUTP.forward22:
     mov al, byte [bp - 0x41]         ; 0x767d
     sub ah, ah                       ; 0x7680
-    jmp short @..loc_IUTP.l27        ; 0x7682
+    jmp short loc_IUTP.forward23     ; 0x7682
 jumptable_76e2_case_43:
     mov word [bp - 0x2c], 0          ; 0x7684
-    jmp near @..loc_IUTP.l28         ; 0x7689
+    jmp near loc_IUTP.forward24      ; 0x7689
 jumptable_76e2_case_44:
     mov word [bp - 0x2c], 1          ; 0x768c
-    jmp near @..loc_IUTP.l28         ; 0x7691
+    jmp near loc_IUTP.forward24      ; 0x7691
 jumptable_76e2_case_45:
     mov word [bp - 0x2c], 2          ; 0x7694
-    jmp near @..loc_IUTP.l28         ; 0x7699
+    jmp near loc_IUTP.forward24      ; 0x7699
 jumptable_76e2_case_47:
     mov word [bp - 0x2c], 3          ; 0x769c
-    jmp near @..loc_IUTP.l28         ; 0x76a1
+    jmp near loc_IUTP.forward24      ; 0x76a1
 jumptable_76e2_case_50:
     mov word [bp - 0x2c], 4          ; 0x76a4
-    jmp near @..loc_IUTP.l28         ; 0x76a9
+    jmp near loc_IUTP.forward24      ; 0x76a9
 jumptable_76e2_case_54:
     mov word [bp - 0x2c], 7          ; 0x76ac
-    jmp near @..loc_IUTP.l28         ; 0x76b1
+    jmp near loc_IUTP.forward24      ; 0x76b1
 jumptable_76e2_case_56:
     mov word [bp - 0x2c], 6          ; 0x76b4
-    jmp near @..loc_IUTP.l28         ; 0x76b9
+    jmp near loc_IUTP.forward24      ; 0x76b9
 jumptable_76e2_case_65:
     mov word [bp - 0x2c], 8          ; 0x76bc
-    jmp near @..loc_IUTP.l28         ; 0x76c1
+    jmp near loc_IUTP.forward24      ; 0x76c1
 jumptable_76e2_case_79:
     mov word [bp - 0x2c], 0x12       ; 0x76c4
-    jmp near @..loc_IUTP.l28         ; 0x76c9
+    jmp near loc_IUTP.forward24      ; 0x76c9
 jumptable_76e2_case_64:
     mov word [bp - 0x2c], 5          ; 0x76cc
-    jmp near @..loc_IUTP.l28         ; 0x76d1
+    jmp near loc_IUTP.forward24      ; 0x76d1
 jumptable_76e2_case_86:
     mov word [bp - 0x2c], 9          ; 0x76d4
-    jmp near @..loc_IUTP.l28         ; 0x76d9
-@..loc_IUTP.l27:
+    jmp near loc_IUTP.forward24      ; 0x76d9
+loc_IUTP.forward23:
     mov cx, 0x2c                     ; 0x76dc
     call aztec_cswt                  ; 0x76df
 jumptable_76e2:
@@ -690,7 +690,7 @@ jumptable_76e2:
     dw jumptable_76e2_case_64 - IMAGE_BASE + __zres_end ; 0x778a
     dw jumptable_76e2_case_79 - IMAGE_BASE + __zres_end ; 0x778c
     dw jumptable_76e2_case_86 - IMAGE_BASE + __zres_end ; 0x778e
-@..loc_IUTP.l28:
+loc_IUTP.forward24:
     mov ax, 0x248                    ; 0x7790
     imul word [bp + 4]               ; 0x7793
     mov bx, ax                       ; 0x7796
@@ -702,7 +702,7 @@ jumptable_76e2:
     call test_bit                    ; 0x77a3
     add sp, byte 4                   ; 0x77a6
     cmp ax, strict word 1            ; 0x77a9
-    jne short @..loc_IUTP.l29        ; 0x77ac
+    jne short loc_IUTP.forward25     ; 0x77ac
     mov ax, 0x248                    ; 0x77ae
     imul word [bp + 4]               ; 0x77b1
     mov bx, ax                       ; 0x77b4
@@ -714,7 +714,7 @@ jumptable_76e2:
     call test_bit                    ; 0x77c1
     add sp, byte 4                   ; 0x77c4
     cmp ax, strict word 1            ; 0x77c7
-    jne short @..loc_IUTP.l29        ; 0x77ca
+    jne short loc_IUTP.forward25     ; 0x77ca
     mov ax, 0x248                    ; 0x77cc
     imul word [bp + 4]               ; 0x77cf
     mov bx, ax                       ; 0x77d2
@@ -726,8 +726,8 @@ jumptable_76e2:
     call test_bit                    ; 0x77df
     add sp, byte 4                   ; 0x77e2
     cmp ax, strict word 1            ; 0x77e5
-    je short @..loc_IUTP.l30         ; 0x77e8
-@..loc_IUTP.l29:
+    je short loc_IUTP.forward26      ; 0x77e8
+loc_IUTP.forward25:
     lea ax, word [bp - 0xf2]         ; 0x77ea
     push ax                          ; 0x77ee
     mov ax, MSG_UNUSABLE_1567        ; 0x77ef
@@ -740,8 +740,8 @@ jumptable_76e2:
     push ax                          ; 0x7800
     call gfx_set_text_color          ; 0x7801
     add sp, byte 4                   ; 0x7804
-    jmp short @..loc_IUTP.l31        ; 0x7807
-@..loc_IUTP.l30:
+    jmp short loc_IUTP.forward27     ; 0x7807
+loc_IUTP.forward26:
     lea ax, word [bp - 0xa2]         ; 0x7809
     push ax                          ; 0x780d
     mov ax, MSG_SKILL_450            ; 0x780e
@@ -766,7 +766,7 @@ jumptable_76e2:
     push word [realm_text_colors]    ; 0x783e
     call gfx_set_text_color          ; 0x7842
     add sp, byte 4                   ; 0x7845
-@..loc_IUTP.l31:
+loc_IUTP.forward27:
     push word [bp - 0xc]             ; 0x7848
     lea ax, word [bp - 0xf2]         ; 0x784b
     push ax                          ; 0x784f
@@ -790,12 +790,12 @@ jumptable_76e2:
     call draw_text_glyphs            ; 0x7876
     add sp, byte 4                   ; 0x7879
     add word [bp - 0xc], byte 6      ; 0x787c
-@..loc_IUTP.l32:
+loc_IUTP.forward28:
     mov word [bp - 0xc], 0xa2        ; 0x7880
     cmp word [bp - 0x1c], byte 0     ; 0x7885
-    jne short @..loc_IUTP.l33        ; 0x7889
-    jmp near @..loc_IUTP.l37         ; 0x788b
-@..loc_IUTP.l33:
+    jne short loc_IUTP.forward29     ; 0x7889
+    jmp near loc_IUTP.forward32      ; 0x788b
+loc_IUTP.forward29:
     mov ax, 0                        ; 0x788e
     push ax                          ; 0x7891
     mov ax, 0x55                     ; 0x7892
@@ -803,7 +803,7 @@ jumptable_76e2:
     call gfx_set_text_color          ; 0x7896
     add sp, byte 4                   ; 0x7899
     cmp byte [bp - 0x42], 3          ; 0x789c
-    jne short @..loc_IUTP.l34        ; 0x78a0
+    jne short loc_IUTP.forward30     ; 0x78a0
     lea ax, word [bp - 0xf2]         ; 0x78a2
     push ax                          ; 0x78a6
     mov ax, MSG_SHOOT                ; 0x78a7
@@ -821,18 +821,18 @@ jumptable_76e2:
     push ax                          ; 0x78c6
     call draw_text_glyphs            ; 0x78c7
     add sp, byte 4                   ; 0x78ca
-    jmp short @..loc_IUTP.l37        ; 0x78cd
-@..loc_IUTP.l34:
+    jmp short loc_IUTP.forward32     ; 0x78cd
+loc_IUTP.forward30:
     mov word [bp - 8], 0             ; 0x78cf
     mov word [bp - 2], 0             ; 0x78d4
-@..loc_IUTP.l35:
+loc_IUTP.back5:
     push word [bp - 2]               ; 0x78d9
     lea ax, word [bp - 0x34]         ; 0x78dc
     push ax                          ; 0x78df
     call test_bit                    ; 0x78e0
     add sp, byte 4                   ; 0x78e3
     cmp ax, strict word 1            ; 0x78e6
-    jne short @..loc_IUTP.l36        ; 0x78e9
+    jne short loc_IUTP.forward31     ; 0x78e9
     mov ax, word [bp - 8]            ; 0x78eb
     mov cx, 3                        ; 0x78ee
     cwd                              ; 0x78f1
@@ -866,12 +866,12 @@ jumptable_76e2:
     call draw_text_glyphs            ; 0x7932
     add sp, byte 4                   ; 0x7935
     inc word [bp - 8]                ; 0x7938
-@..loc_IUTP.l36:
+loc_IUTP.forward31:
     inc word [bp - 2]                ; 0x793b
     mov ax, word [bp - 2]            ; 0x793e
     cmp ax, strict word 8            ; 0x7941
-    jl short @..loc_IUTP.l35         ; 0x7944
-@..loc_IUTP.l37:
+    jl short loc_IUTP.back5          ; 0x7944
+loc_IUTP.forward32:
     mov word [bp - 0xc], 0xae        ; 0x7946
     push word [bp - 0xc]             ; 0x794b
     mov ax, 0xe                      ; 0x794e
@@ -879,11 +879,11 @@ jumptable_76e2:
     call gfx_set_text_pos            ; 0x7952
     add sp, byte 4                   ; 0x7955
     cmp word [bp - 0x10], byte 0     ; 0x7958
-    jne short @..loc_IUTP.l38        ; 0x795c
+    jne short loc_IUTP.forward33     ; 0x795c
     cmp word [bp - 0x12], byte 0     ; 0x795e
-    jne short @..loc_IUTP.l38        ; 0x7962
-    jmp near @..loc_IUTP.l42         ; 0x7964
-@..loc_IUTP.l38:
+    jne short loc_IUTP.forward33     ; 0x7962
+    jmp near loc_IUTP.forward37      ; 0x7964
+loc_IUTP.forward33:
     lea ax, word [bp - 0xf2]         ; 0x7967
     push ax                          ; 0x796b
     mov ax, MSG_PS                   ; 0x796c
@@ -894,9 +894,9 @@ jumptable_76e2:
     push ax                          ; 0x7979
     mov ax, 0x37                     ; 0x797a
     cmp word [bp - 0x10], byte 0     ; 0x797d
-    je short @..loc_IUTP.l39         ; 0x7981
+    je short loc_IUTP.forward34      ; 0x7981
     mov ax, 0x33                     ; 0x7983
-@..loc_IUTP.l39:
+loc_IUTP.forward34:
     push ax                          ; 0x7986
     call gfx_set_text_color          ; 0x7987
     add sp, byte 4                   ; 0x798a
@@ -924,12 +924,12 @@ jumptable_76e2:
     mov al, byte [bp - 0x43]         ; 0x79be
     sub ah, ah                       ; 0x79c1
     test ax, 8                       ; 0x79c3
-    je short @..loc_IUTP.l40         ; 0x79c6
+    je short loc_IUTP.forward35      ; 0x79c6
     mov ax, 0x33                     ; 0x79c8
-    jmp short @..loc_IUTP.l41        ; 0x79cb
-@..loc_IUTP.l40:
+    jmp short loc_IUTP.forward36     ; 0x79cb
+loc_IUTP.forward35:
     mov ax, 0x37                     ; 0x79cd
-@..loc_IUTP.l41:
+loc_IUTP.forward36:
     push ax                          ; 0x79d0
     call gfx_set_text_color          ; 0x79d1
     add sp, byte 4                   ; 0x79d4
@@ -940,10 +940,10 @@ jumptable_76e2:
     push ax                          ; 0x79e1
     call draw_font_glyph             ; 0x79e2
     add sp, byte 4                   ; 0x79e5
-    jmp short @..loc_IUTP.l43        ; 0x79e8
-@..loc_IUTP.l42:
+    jmp short loc_IUTP.forward38     ; 0x79e8
+loc_IUTP.forward37:
     cmp word [bp - 0x14], byte 0     ; 0x79ea
-    je short @..loc_IUTP.l43         ; 0x79ee
+    je short loc_IUTP.forward38      ; 0x79ee
     lea ax, word [bp - 0xf2]         ; 0x79f0
     push ax                          ; 0x79f4
     mov ax, MSG_AC_452               ; 0x79f5
@@ -985,20 +985,20 @@ jumptable_76e2:
     push ax                          ; 0x7a4a
     call draw_text_glyphs            ; 0x7a4b
     add sp, byte 4                   ; 0x7a4e
-@..loc_IUTP.l43:
+loc_IUTP.forward38:
     cmp word [bp - 0x16], byte 0     ; 0x7a51
-    je short @..loc_IUTP.l46         ; 0x7a55
+    je short loc_IUTP.forward41      ; 0x7a55
     lea ax, word [bp - 0xf2]         ; 0x7a57
     push ax                          ; 0x7a5b
     mov al, byte [bp - 0x43]         ; 0x7a5c
     sub ah, ah                       ; 0x7a5f
     test ax, 4                       ; 0x7a61
-    je short @..loc_IUTP.l44         ; 0x7a64
+    je short loc_IUTP.forward39      ; 0x7a64
     mov ax, MSG_2HAND                ; 0x7a66
-    jmp short @..loc_IUTP.l45        ; 0x7a69
-@..loc_IUTP.l44:
+    jmp short loc_IUTP.forward40     ; 0x7a69
+loc_IUTP.forward39:
     mov ax, MSG_1HAND                ; 0x7a6b
-@..loc_IUTP.l45:
+loc_IUTP.forward40:
     push ax                          ; 0x7a6e
     call load_message_string         ; 0x7a6f
     add sp, byte 4                   ; 0x7a72
@@ -1030,10 +1030,10 @@ jumptable_76e2:
     push ax                          ; 0x7ab0
     call draw_text_glyphs            ; 0x7ab1
     add sp, byte 4                   ; 0x7ab4
-    jmp short @..loc_IUTP.l47        ; 0x7ab7
-@..loc_IUTP.l46:
+    jmp short loc_IUTP.forward42     ; 0x7ab7
+loc_IUTP.forward41:
     cmp word [bp - 0x18], byte 0     ; 0x7ab9
-    je short @..loc_IUTP.l47         ; 0x7abd
+    je short loc_IUTP.forward42      ; 0x7abd
     lea ax, word [bp - 0xf2]         ; 0x7abf
     push ax                          ; 0x7ac3
     mov al, byte [bp - 0x42]         ; 0x7ac4
@@ -1070,7 +1070,7 @@ jumptable_76e2:
     push ax                          ; 0x7b0e
     call draw_text_glyphs            ; 0x7b0f
     add sp, byte 4                   ; 0x7b12
-@..loc_IUTP.l47:
+loc_IUTP.forward42:
     push word [bp - 0xc]             ; 0x7b15
     mov ax, 0x68                     ; 0x7b18
     push ax                          ; 0x7b1b
@@ -1123,12 +1123,12 @@ jumptable_76e2:
     push ax                          ; 0x7b87
     call draw_text_glyphs            ; 0x7b88
     add sp, byte 4                   ; 0x7b8b
-    jmp near @..loc_IUTP.l79         ; 0x7b8e
-@..loc_IUTP.l48:
+    jmp near loc_IUTP.forward72      ; 0x7b8e
+loc_IUTP.forward43:
     cmp word [bp - 0x26], byte 0     ; 0x7b91
-    jne short @..loc_IUTP.l49        ; 0x7b95
-    jmp near @..loc_IUTP.l53         ; 0x7b97
-@..loc_IUTP.l49:
+    jne short loc_IUTP.forward44     ; 0x7b95
+    jmp near loc_IUTP.forward48      ; 0x7b97
+loc_IUTP.forward44:
     mov ax, 0                        ; 0x7b9a
     push ax                          ; 0x7b9d
     mov ax, 0x33                     ; 0x7b9e
@@ -1199,9 +1199,9 @@ jumptable_76e2:
     call draw_text_glyphs            ; 0x7c3f
     add sp, byte 4                   ; 0x7c42
     cmp byte [bp - 0x39], 0          ; 0x7c45
-    jne short @..loc_IUTP.l50        ; 0x7c49
-    jmp near @..loc_IUTP.l52         ; 0x7c4b
-@..loc_IUTP.l50:
+    jne short loc_IUTP.forward45     ; 0x7c49
+    jmp near loc_IUTP.forward47      ; 0x7c4b
+loc_IUTP.forward45:
     mov ax, dseg_90c0                ; 0x7c4e
     push ax                          ; 0x7c51
     lea ax, word [bp - 0xf2]         ; 0x7c52
@@ -1209,14 +1209,14 @@ jumptable_76e2:
     call aztec_strcpy                ; 0x7c57
     add sp, byte 4                   ; 0x7c5a
     cmp byte [bp - 0x39], 0          ; 0x7c5d
-    jl short @..loc_IUTP.l51         ; 0x7c61
+    jl short loc_IUTP.forward46      ; 0x7c61
     mov ax, dseg_90c2                ; 0x7c63
     push ax                          ; 0x7c66
     lea ax, word [bp - 0xf2]         ; 0x7c67
     push ax                          ; 0x7c6b
     call aztec_strcat                ; 0x7c6c
     add sp, byte 4                   ; 0x7c6f
-@..loc_IUTP.l51:
+loc_IUTP.forward46:
     lea ax, word [bp - 0x142]        ; 0x7c72
     push ax                          ; 0x7c76
     mov al, byte [bp - 0x39]         ; 0x7c77
@@ -1256,9 +1256,9 @@ jumptable_76e2:
     push ax                          ; 0x7ccb
     call draw_text_glyphs            ; 0x7ccc
     add sp, byte 4                   ; 0x7ccf
-@..loc_IUTP.l52:
+loc_IUTP.forward47:
     add word [bp - 0xc], byte 6      ; 0x7cd2
-@..loc_IUTP.l53:
+loc_IUTP.forward48:
     mov al, byte [bp - 0x3e]         ; 0x7cd6
     sub ah, ah                       ; 0x7cd9
     mov cx, 0x10                     ; 0x7cdb
@@ -1267,12 +1267,12 @@ jumptable_76e2:
     mov word [bp - 8], dx            ; 0x7ce1
     mov word [bp - 4], ax            ; 0x7ce4
     cmp word [bp - 0x28], byte 0     ; 0x7ce7
-    jne short @..loc_IUTP.l54        ; 0x7ceb
-    jmp near @..loc_IUTP.l56         ; 0x7ced
-@..loc_IUTP.l54:
+    jne short loc_IUTP.forward49     ; 0x7ceb
+    jmp near loc_IUTP.forward51      ; 0x7ced
+loc_IUTP.forward49:
     sub dx, ax                       ; 0x7cf0
     mov ax, dx                       ; 0x7cf2
-    je short @..loc_IUTP.l56         ; 0x7cf4
+    je short loc_IUTP.forward51      ; 0x7cf4
     mov ax, 0                        ; 0x7cf6
     push ax                          ; 0x7cf9
     mov ax, 0x5e                     ; 0x7cfa
@@ -1287,14 +1287,14 @@ jumptable_76e2:
     add sp, byte 4                   ; 0x7d10
     mov ax, word [bp - 8]            ; 0x7d13
     sub ax, word [bp - 4]            ; 0x7d16
-    jle short @..loc_IUTP.l55        ; 0x7d19
+    jle short loc_IUTP.forward50     ; 0x7d19
     mov ax, dseg_90c6                ; 0x7d1b
     push ax                          ; 0x7d1e
     lea ax, word [bp - 0xf2]         ; 0x7d1f
     push ax                          ; 0x7d23
     call aztec_strcat                ; 0x7d24
     add sp, byte 4                   ; 0x7d27
-@..loc_IUTP.l55:
+loc_IUTP.forward50:
     lea ax, word [bp - 0x142]        ; 0x7d2a
     push ax                          ; 0x7d2e
     mov ax, word [bp - 8]            ; 0x7d2f
@@ -1319,9 +1319,9 @@ jumptable_76e2:
     push ax                          ; 0x7d61
     call draw_text_glyphs            ; 0x7d62
     add sp, byte 4                   ; 0x7d65
-@..loc_IUTP.l56:
+loc_IUTP.forward51:
     cmp byte [bp - 0x3d], 0          ; 0x7d68
-    je short @..loc_IUTP.l57         ; 0x7d6c
+    je short loc_IUTP.forward52      ; 0x7d6c
     mov ax, 0                        ; 0x7d6e
     push ax                          ; 0x7d71
     mov ax, 0x55                     ; 0x7d72
@@ -1345,10 +1345,10 @@ jumptable_76e2:
     push ax                          ; 0x7da0
     call draw_text_glyphs            ; 0x7da1
     add sp, byte 4                   ; 0x7da4
-@..loc_IUTP.l57:
+loc_IUTP.forward52:
     add word [bp - 0xc], byte 6      ; 0x7da7
     cmp byte [bp - 0x3c], 0          ; 0x7dab
-    je short @..loc_IUTP.l58         ; 0x7daf
+    je short loc_IUTP.forward53      ; 0x7daf
     mov ax, 0                        ; 0x7db1
     push ax                          ; 0x7db4
     mov ax, 0xa4                     ; 0x7db5
@@ -1386,11 +1386,11 @@ jumptable_76e2:
     call draw_text_glyphs            ; 0x7e05
     add sp, byte 4                   ; 0x7e08
     add word [bp - 0xc], byte 6      ; 0x7e0b
-@..loc_IUTP.l58:
+loc_IUTP.forward53:
     cmp word [bp - 0x58], byte 0     ; 0x7e0f
-    jne short @..loc_IUTP.l59        ; 0x7e13
-    jmp near @..loc_IUTP.l62         ; 0x7e15
-@..loc_IUTP.l59:
+    jne short loc_IUTP.forward54     ; 0x7e13
+    jmp near loc_IUTP.forward57      ; 0x7e15
+loc_IUTP.forward54:
     mov ax, 0                        ; 0x7e18
     push ax                          ; 0x7e1b
     mov ax, 0x16                     ; 0x7e1c
@@ -1440,15 +1440,15 @@ jumptable_76e2:
     add sp, byte 4                   ; 0x7e8b
     mov bx, word [bp + 6]            ; 0x7e8e
     cmp byte [bx + 6], 0             ; 0x7e91
-    jne short @..loc_IUTP.l60        ; 0x7e95
+    jne short loc_IUTP.forward55     ; 0x7e95
     lea ax, word [bp - 0x142]        ; 0x7e97
     push ax                          ; 0x7e9b
     mov ax, MSG_MAX                  ; 0x7e9c
     push ax                          ; 0x7e9f
     call load_message_string         ; 0x7ea0
     add sp, byte 4                   ; 0x7ea3
-    jmp short @..loc_IUTP.l61        ; 0x7ea6
-@..loc_IUTP.l60:
+    jmp short loc_IUTP.forward56     ; 0x7ea6
+loc_IUTP.forward55:
     lea ax, word [bp - 0x142]        ; 0x7ea8
     push ax                          ; 0x7eac
     mov bx, word [bp + 6]            ; 0x7ead
@@ -1457,7 +1457,7 @@ jumptable_76e2:
     push ax                          ; 0x7eb5
     call format_int_decimal          ; 0x7eb6
     add sp, byte 4                   ; 0x7eb9
-@..loc_IUTP.l61:
+loc_IUTP.forward56:
     lea ax, word [bp - 0x142]        ; 0x7ebc
     push ax                          ; 0x7ec0
     lea ax, word [bp - 0xf2]         ; 0x7ec1
@@ -1485,12 +1485,12 @@ jumptable_76e2:
     call draw_text_glyphs            ; 0x7ef7
     add sp, byte 4                   ; 0x7efa
     add word [bp - 0xc], byte 6      ; 0x7efd
-@..loc_IUTP.l62:
+loc_IUTP.forward57:
     add word [bp - 0xc], byte 6      ; 0x7f01
     cmp word [bp - 0x2a], byte 0     ; 0x7f05
-    jne short @..loc_IUTP.l63        ; 0x7f09
-    jmp near @..loc_IUTP.l73         ; 0x7f0b
-@..loc_IUTP.l63:
+    jne short loc_IUTP.forward58     ; 0x7f09
+    jmp near loc_IUTP.forward67      ; 0x7f0b
+loc_IUTP.forward58:
     mov ax, 0                        ; 0x7f0e
     push ax                          ; 0x7f11
     mov ax, 1                        ; 0x7f12
@@ -1540,13 +1540,13 @@ jumptable_76e2:
     mov byte [bp - 0xf2], 0          ; 0x7f7e
     mov word [bp - 6], 0             ; 0x7f83
     mov word [bp - 2], 0             ; 0x7f88
-@..loc_IUTP.l64:
+loc_IUTP.back6:
     mov bx, word [bp - 2]            ; 0x7f8d
     add bx, bp                       ; 0x7f90
     cmp byte [bx - 0x50], 0          ; 0x7f92
-    ja short @..loc_IUTP.l65         ; 0x7f96
-    jmp near @..loc_IUTP.l67         ; 0x7f98
-@..loc_IUTP.l65:
+    ja short loc_IUTP.forward59      ; 0x7f96
+    jmp near loc_IUTP.forward61      ; 0x7f98
+loc_IUTP.forward59:
     mov word [bp - 6], 1             ; 0x7f9b
     lea ax, word [bp - 0x142]        ; 0x7fa0
     push ax                          ; 0x7fa4
@@ -1568,7 +1568,7 @@ jumptable_76e2:
     pop ax                           ; 0x7fc7
     add ax, cx                       ; 0x7fc8
     cmp ax, strict word 0x16         ; 0x7fca
-    jle short @..loc_IUTP.l66        ; 0x7fcd
+    jle short loc_IUTP.forward60     ; 0x7fcd
     lea ax, word [bp - 0xf2]         ; 0x7fcf
     push ax                          ; 0x7fd3
     call aztec_strlen                ; 0x7fd4
@@ -1600,7 +1600,7 @@ jumptable_76e2:
     add sp, byte 4                   ; 0x8012
     mov byte [bp - 0xf2], 0          ; 0x8015
     add word [bp - 0xc], byte 6      ; 0x801a
-@..loc_IUTP.l66:
+loc_IUTP.forward60:
     lea ax, word [bp - 0x142]        ; 0x801e
     push ax                          ; 0x8022
     lea ax, word [bp - 0xf2]         ; 0x8023
@@ -1613,19 +1613,19 @@ jumptable_76e2:
     push ax                          ; 0x8036
     call aztec_strcat                ; 0x8037
     add sp, byte 4                   ; 0x803a
-@..loc_IUTP.l67:
+loc_IUTP.forward61:
     inc word [bp - 2]                ; 0x803d
     mov ax, word [bp - 2]            ; 0x8040
     cmp ax, strict word 8            ; 0x8043
-    jge short @..loc_IUTP.l68        ; 0x8046
-    jmp near @..loc_IUTP.l64         ; 0x8048
-@..loc_IUTP.l68:
+    jge short loc_IUTP.forward62     ; 0x8046
+    jmp near loc_IUTP.back6          ; 0x8048
+loc_IUTP.forward62:
     lea ax, word [bp - 0xf2]         ; 0x804b
     push ax                          ; 0x804f
     call aztec_strlen                ; 0x8050
     pop cx                           ; 0x8053
     cmp ax, strict word 0            ; 0x8054
-    jle short @..loc_IUTP.l69        ; 0x8057
+    jle short loc_IUTP.forward63     ; 0x8057
     lea ax, word [bp - 0xf2]         ; 0x8059
     push ax                          ; 0x805d
     call aztec_strlen                ; 0x805e
@@ -1655,19 +1655,19 @@ jumptable_76e2:
     push ax                          ; 0x8098
     call draw_text_glyphs            ; 0x8099
     add sp, byte 4                   ; 0x809c
-@..loc_IUTP.l69:
+loc_IUTP.forward63:
     cmp word [bp - 6], byte 0        ; 0x809f
-    jne short @..loc_IUTP.l72        ; 0x80a3
+    jne short loc_IUTP.forward66     ; 0x80a3
     lea ax, word [bp - 0xf2]         ; 0x80a5
     push ax                          ; 0x80a9
     mov bx, word [bp + 6]            ; 0x80aa
     cmp word [bx], strict word 0x1d5 ; 0x80ad
-    jne short @..loc_IUTP.l70        ; 0x80b1
+    jne short loc_IUTP.forward64     ; 0x80b1
     mov ax, MSG_UNKNOWN_484          ; 0x80b3
-    jmp short @..loc_IUTP.l71        ; 0x80b6
-@..loc_IUTP.l70:
+    jmp short loc_IUTP.forward65     ; 0x80b6
+loc_IUTP.forward64:
     mov ax, MSG_NONE_483             ; 0x80b8
-@..loc_IUTP.l71:
+loc_IUTP.forward65:
     push ax                          ; 0x80bb
     call load_message_string         ; 0x80bc
     add sp, byte 4                   ; 0x80bf
@@ -1693,13 +1693,13 @@ jumptable_76e2:
     push ax                          ; 0x80ef
     call draw_text_glyphs            ; 0x80f0
     add sp, byte 4                   ; 0x80f3
-@..loc_IUTP.l72:
-    jmp near @..loc_IUTP.l79         ; 0x80f6
-@..loc_IUTP.l73:
+loc_IUTP.forward66:
+    jmp near loc_IUTP.forward72      ; 0x80f6
+loc_IUTP.forward67:
     cmp word [bp - 0x1e], byte 0     ; 0x80f9
-    jne short @..loc_IUTP.l74        ; 0x80fd
-    jmp near @..loc_IUTP.l79         ; 0x80ff
-@..loc_IUTP.l74:
+    jne short loc_IUTP.forward68     ; 0x80fd
+    jmp near loc_IUTP.forward72      ; 0x80ff
+loc_IUTP.forward68:
     mov ax, 0                        ; 0x8102
     push ax                          ; 0x8105
     mov ax, 1                        ; 0x8106
@@ -1743,7 +1743,7 @@ jumptable_76e2:
     add sp, byte 4                   ; 0x8162
     mov word [bp - 6], 0             ; 0x8165
     mov word [bp - 4], 0             ; 0x816a
-@..loc_IUTP.l75:
+loc_IUTP.back7:
     mov bx, word [bp - 4]            ; 0x816f
     add bx, bp                       ; 0x8172
     mov al, byte [bx - 0x52]         ; 0x8174
@@ -1756,9 +1756,9 @@ jumptable_76e2:
     imul dx                          ; 0x8185
     mov word [bp - 8], ax            ; 0x8187
     cmp word [bp - 2], byte 0        ; 0x818a
-    jg short @..loc_IUTP.l76         ; 0x818e
-    jmp near @..loc_IUTP.l77         ; 0x8190
-@..loc_IUTP.l76:
+    jg short loc_IUTP.forward69      ; 0x818e
+    jmp near loc_IUTP.forward70      ; 0x8190
+loc_IUTP.forward69:
     mov word [bp - 6], 1             ; 0x8193
     lea ax, word [bp - 0xf2]         ; 0x8198
     push ax                          ; 0x819c
@@ -1810,15 +1810,15 @@ jumptable_76e2:
     call draw_text_glyphs            ; 0x820e
     add sp, byte 4                   ; 0x8211
     add word [bp - 0xc], byte 6      ; 0x8214
-@..loc_IUTP.l77:
+loc_IUTP.forward70:
     inc word [bp - 4]                ; 0x8218
     mov ax, word [bp - 4]            ; 0x821b
     cmp ax, strict word 2            ; 0x821e
-    jge short @..loc_IUTP.l78        ; 0x8221
-    jmp near @..loc_IUTP.l75         ; 0x8223
-@..loc_IUTP.l78:
+    jge short loc_IUTP.forward71     ; 0x8221
+    jmp near loc_IUTP.back7          ; 0x8223
+loc_IUTP.forward71:
     cmp word [bp - 6], byte 0        ; 0x8226
-    jne short @..loc_IUTP.l79        ; 0x822a
+    jne short loc_IUTP.forward72     ; 0x822a
     lea ax, word [bp - 0xf2]         ; 0x822c
     push ax                          ; 0x8230
     mov ax, MSG_NONE_483             ; 0x8231
@@ -1847,7 +1847,7 @@ jumptable_76e2:
     push ax                          ; 0x8268
     call draw_text_glyphs            ; 0x8269
     add sp, byte 4                   ; 0x826c
-@..loc_IUTP.l79:
+loc_IUTP.forward72:
     mov ax, 0xb6                     ; 0x826f
     push ax                          ; 0x8272
     mov ax, 0xab                     ; 0x8273
@@ -1859,12 +1859,12 @@ jumptable_76e2:
     call gfx_show_area               ; 0x827f
     add sp, byte 8                   ; 0x8282
     cmp word [mouse_active], byte 0  ; 0x8285
-    je short @..loc_IUTP.l85         ; 0x828a
+    je short loc_IUTP.back10         ; 0x828a
     cmp word [bp + 0xa], byte 0      ; 0x828c
-    jne short @..loc_IUTP.l82        ; 0x8290
-@..loc_IUTP.l80:
+    jne short loc_IUTP.forward74     ; 0x8290
+loc_IUTP.back8:
     cmp word [bp - 0x194], byte 0    ; 0x8292
-    je short @..loc_IUTP.l81         ; 0x8297
+    je short loc_IUTP.forward73      ; 0x8297
     lea ax, word [bp - 0xc]          ; 0x8299
     push ax                          ; 0x829c
     lea ax, word [bp - 0xa]          ; 0x829d
@@ -1872,20 +1872,20 @@ jumptable_76e2:
     call gfx_get_mouse               ; 0x82a1
     add sp, byte 4                   ; 0x82a4
     test ax, ax                      ; 0x82a7
-    je short @..loc_IUTP.l81         ; 0x82a9
-    jmp short @..loc_IUTP.l80        ; 0x82ab
-@..loc_IUTP.l81:
-    jmp short @..loc_IUTP.l84        ; 0x82ad
-@..loc_IUTP.l82:
+    je short loc_IUTP.forward73      ; 0x82a9
+    jmp short loc_IUTP.back8         ; 0x82ab
+loc_IUTP.forward73:
+    jmp short loc_IUTP.forward75     ; 0x82ad
+loc_IUTP.forward74:
     call flush_keyboard              ; 0x82af
-@..loc_IUTP.l83:
+loc_IUTP.back9:
     call poll_fullscreen_hotspot     ; 0x82b2
     test ax, ax                      ; 0x82b5
-    jne short @..loc_IUTP.l84        ; 0x82b7
-    jmp short @..loc_IUTP.l83        ; 0x82b9
-@..loc_IUTP.l84:
-    jmp short @..loc_IUTP.l86        ; 0x82bb
-@..loc_IUTP.l85:
+    jne short loc_IUTP.forward75     ; 0x82b7
+    jmp short loc_IUTP.back9         ; 0x82b9
+loc_IUTP.forward75:
+    jmp short loc_IUTP.forward76     ; 0x82bb
+loc_IUTP.back10:
     mov ax, 1                        ; 0x82bd
     push ax                          ; 0x82c0
     call get_filtered_key            ; 0x82c1
@@ -1893,9 +1893,9 @@ jumptable_76e2:
     sub ah, ah                       ; 0x82c5
     mov word [bp - 8], ax            ; 0x82c7
     cmp word [bp - 8], byte 0xd      ; 0x82ca
-    je short @..loc_IUTP.l86         ; 0x82ce
+    je short loc_IUTP.forward76      ; 0x82ce
     cmp word [bp - 8], byte 0x1b     ; 0x82d0
-    jne short @..loc_IUTP.l85        ; 0x82d4
-@..loc_IUTP.l86:
+    jne short loc_IUTP.back10        ; 0x82d4
+loc_IUTP.forward76:
     mov ax, 0                        ; 0x82d6
     ret                              ; 0x82d9

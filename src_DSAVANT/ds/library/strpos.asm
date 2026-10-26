@@ -21,13 +21,13 @@ strpos:
     repne scasb                      ; 0x40b2
     dec di                           ; 0x40b4
     cmp al, byte [es:di]             ; 0x40b5
-    jne short @..strpos.l1           ; 0x40b8
+    jne short .forward1              ; 0x40b8
     mov ax, di                       ; 0x40ba
     sub ax, bx                       ; 0x40bc
-    jmp near @..strpos.l2            ; 0x40be
-@..strpos.l1:
+    jmp near .forward2               ; 0x40be
+.forward1:
     mov ax, 0xffff                   ; 0x40c1
-@..strpos.l2:
+.forward2:
     pop di                           ; 0x40c4
     pop es                           ; 0x40c5
     mov sp, bp                       ; 0x40c6

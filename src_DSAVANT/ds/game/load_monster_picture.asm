@@ -10,9 +10,9 @@ load_monster_picture: ; Aztec csav frame=0x0018
     mov al, byte [bx + picture_slot_number] ; 0x2874
     sub ah, ah                       ; 0x2878
     cmp ax, word [bp + 4]            ; 0x287a
-    jne short @..load_monster_picture.l1 ; 0x287d
-    jmp near @..load_monster_picture.l3 ; 0x287f
-@..load_monster_picture.l1:
+    jne short .forward1              ; 0x287d
+    jmp near .return1                ; 0x287f
+.forward1:
     mov ax, 0                        ; 0x2882
     push ax                          ; 0x2885
     push word [bp + 4]               ; 0x2886
@@ -52,12 +52,12 @@ load_monster_picture: ; Aztec csav frame=0x0018
     add sp, byte 4                   ; 0x28d7
     mov word [bp - 4], ax            ; 0x28da
     cmp ax, strict word 0xffff       ; 0x28dd
-    jne short @..load_monster_picture.l2 ; 0x28e0
+    jne short .forward2              ; 0x28e0
     mov ax, 0x12                     ; 0x28e2
     push ax                          ; 0x28e5
     call release_and_exit            ; 0x28e6
     pop cx                           ; 0x28e9
-@..load_monster_picture.l2:
+.forward2:
     push word [bp + 6]               ; 0x28ea
     push word [bp - 4]               ; 0x28ed
     call gfx_load_picture            ; 0x28f0
@@ -69,5 +69,5 @@ load_monster_picture: ; Aztec csav frame=0x0018
     mov bx, word [bp + 6]            ; 0x2900
     mov byte [bx + picture_slot_number], al ; 0x2903
     mov byte [bx + picture_slot_used], 1 ; 0x2907
-@..load_monster_picture.l3:
+.return1:
     ret                              ; 0x290c

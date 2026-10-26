@@ -6,9 +6,9 @@ api_idx_0056_VTNO:
     imul word [bp + 4]               ; 0x12d5
     mov bx, ax                       ; 0x12d8
     cmp byte [bx + party_records + pc_rec.state], 2 ; 0x12da
-    jb short @..api_idx_0056_VTNO.l1 ; 0x12df
+    jb short .forward1               ; 0x12df
     ret                              ; 0x12e1
-@..api_idx_0056_VTNO.l1:
+.forward1:
     push word [bp + 0x10]            ; 0x12e2
     push word [bp + 0xe]             ; 0x12e5
     push word [bp + 0xc]             ; 0x12e8
@@ -27,7 +27,7 @@ api_idx_0056_VTNO:
     add sp, byte 4                   ; 0x1305
     mov word [bp - 6], ax            ; 0x1308
     cmp word [bp + 8], byte 0        ; 0x130b
-    je short @..api_idx_0056_VTNO.l2 ; 0x130f
+    je short .forward2               ; 0x130f
     mov ax, 0x64                     ; 0x1311
     push ax                          ; 0x1314
     call random_below                ; 0x1315
@@ -42,18 +42,18 @@ api_idx_0056_VTNO:
     mov cx, ax                       ; 0x132b
     pop ax                           ; 0x132d
     cmp ax, cx                       ; 0x132e
-    jg short @..api_idx_0056_VTNO.l2 ; 0x1330
-    jmp near @..api_idx_0056_VTNO.l7 ; 0x1332
-@..api_idx_0056_VTNO.l2:
+    jg short .forward2               ; 0x1330
+    jmp near .return1                ; 0x1332
+.forward2:
     cmp word [bp + 0x10], strict word 0xff ; 0x1335
-    jne short @..api_idx_0056_VTNO.l3 ; 0x133a
+    jne short .forward3              ; 0x133a
     mov ax, 0x248                    ; 0x133c
     imul word [bp + 4]               ; 0x133f
     add ax, word [bp + 0xa]          ; 0x1342
     mov bx, ax                       ; 0x1345
     mov byte [bx + party_records + pc_rec.status], 0xff ; 0x1347
-    jmp short @..api_idx_0056_VTNO.l5 ; 0x134c
-@..api_idx_0056_VTNO.l3:
+    jmp short .forward5              ; 0x134c
+.forward3:
     mov ax, 0x248                    ; 0x134e
     imul word [bp + 4]               ; 0x1351
     add ax, word [bp + 0xa]          ; 0x1354
@@ -62,21 +62,21 @@ api_idx_0056_VTNO:
     sub ah, ah                       ; 0x135d
     add ax, word [bp - 6]            ; 0x135f
     cmp ax, 0xfa                     ; 0x1362
-    jle short @..api_idx_0056_VTNO.l4 ; 0x1365
+    jle short .forward4              ; 0x1365
     mov al, byte [bx + party_records + pc_rec.status] ; 0x1367
     sub ah, ah                       ; 0x136b
     mov cx, ax                       ; 0x136d
     mov ax, 0xfa                     ; 0x136f
     sub ax, cx                       ; 0x1372
     mov word [bp - 6], ax            ; 0x1374
-@..api_idx_0056_VTNO.l4:
+.forward4:
     mov al, byte [bx + party_records + pc_rec.status] ; 0x1377
     sub ah, ah                       ; 0x137b
     add ax, word [bp - 6]            ; 0x137d
     mov byte [bx + party_records + pc_rec.status], al ; 0x1380
-@..api_idx_0056_VTNO.l5:
+.forward5:
     cmp word [bp + 0xa], byte 5      ; 0x1384
-    jne short @..api_idx_0056_VTNO.l6 ; 0x1388
+    jne short .forward6              ; 0x1388
     mov al, byte [bp + 0xc]          ; 0x138a
     push ax                          ; 0x138d
     mov ax, 0x248                    ; 0x138e
@@ -84,7 +84,7 @@ api_idx_0056_VTNO:
     mov bx, ax                       ; 0x1394
     pop ax                           ; 0x1396
     mov byte [bx + party_records + pc_rec.f_023e], al ; 0x1397
-@..api_idx_0056_VTNO.l6:
+.forward6:
     lea ax, word [bp - 0x56]         ; 0x139b
     push ax                          ; 0x139e
     push word [bp + 6]               ; 0x139f
@@ -114,5 +114,5 @@ api_idx_0056_VTNO:
     push word [message_delay]        ; 0x13d7
     call api_idx_0004_UQUT           ; 0x13db
     pop cx                           ; 0x13de
-@..api_idx_0056_VTNO.l7:
+.return1:
     ret                              ; 0x13df

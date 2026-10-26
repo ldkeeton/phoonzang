@@ -12,18 +12,18 @@ detect_expanded_memory:
     mov cx, 8                        ; 0x37eb
     repe cmpsb                       ; 0x37ee
     or cx, cx                        ; 0x37f0
-    jne short @..detect_expanded_memory.l2 ; 0x37f2
+    jne short .forward2              ; 0x37f2
     mov ah, 0x42                     ; 0x37f4
     int 0x67 ; EMS (Expanded Memory)
     cmp bx, byte 0x18                ; 0x37f8
-    jb short @..detect_expanded_memory.l1 ; 0x37fb
+    jb short .forward1               ; 0x37fb
     mov bx, 0x18                     ; 0x37fd
-@..detect_expanded_memory.l1:
+.forward1:
     mov word [cs:ems_allocated_paragraphs - IMAGE_BASE], bx ; 0x3800
     mov ah, 0x43                     ; 0x3805
     int 0x67 ; EMS (Expanded Memory)
     or ah, ah                        ; 0x3809
-    jne short @..detect_expanded_memory.l2 ; 0x380b
+    jne short .forward2              ; 0x380b
     mov word [cs:ems_handle - IMAGE_BASE], dx ; 0x380d
     mov bx, word [cs:ems_allocated_paragraphs - IMAGE_BASE] ; 0x3812
     mov cl, 0xa                      ; 0x3817
@@ -32,7 +32,7 @@ detect_expanded_memory:
     mov ah, 0x41                     ; 0x3820
     int 0x67 ; EMS (Expanded Memory)
     mov word [cs:ems_page_frame_segment - IMAGE_BASE], bx ; 0x3824
-@..detect_expanded_memory.l2:
+.forward2:
     pop es                           ; 0x3829
     pop ds                           ; 0x382a
     ret                              ; 0x382b

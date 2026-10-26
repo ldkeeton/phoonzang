@@ -14,7 +14,7 @@ advance_item_slot_action:
     mov word [bp - 0xa], 0           ; 0x12ca
     mov bx, ax                       ; 0x12cf
     cmp byte [bx + member_rec.item_counter + 0x2], 0 ; 0x12d1
-    jbe short @..advance_item_slot_action.l1 ; 0x12d5
+    jbe short .forward1              ; 0x12d5
     mov ax, word [bx + 8]            ; 0x12d7
     mov bx, 5                        ; 0x12da
     imul bx                          ; 0x12dd
@@ -32,13 +32,13 @@ advance_item_slot_action:
     mov word [bx + 6], ax            ; 0x12f9
     mov ax, word [bx + 6]            ; 0x12fc
     cmp ax, word [bx + 8]            ; 0x12ff
-    jle short @..advance_item_slot_action.l1 ; 0x1302
+    jle short .forward1              ; 0x1302
     mov ax, word [bx + 8]            ; 0x1304
     mov word [bx + 6], ax            ; 0x1307
-@..advance_item_slot_action.l1:
+.forward1:
     mov bx, word [bp - 4]            ; 0x130a
     cmp word [bx + 6], byte 0        ; 0x130d
-    jg short @..advance_item_slot_action.l2 ; 0x1311
+    jg short .forward2               ; 0x1311
     mov word [bx + 6], 0             ; 0x1313
     mov ax, 6                        ; 0x1318
     push ax                          ; 0x131b
@@ -47,7 +47,7 @@ advance_item_slot_action:
     add ax, strict word 6            ; 0x1320
     mov bx, word [bp - 4]            ; 0x1323
     mov byte [bx + 0x10], al         ; 0x1326
-@..advance_item_slot_action.l2:
+.forward2:
     mov ax, word [bp + 8]            ; 0x1329
     sub ax, word [bp + 0xa]          ; 0x132c
     push ax                          ; 0x132f
@@ -64,14 +64,14 @@ advance_item_slot_action:
     mov ax, word [bx + 2]            ; 0x1349
     mov cx, word [bx + 4]            ; 0x134c
     cmp ax, cx                       ; 0x134f
-    jle short @..advance_item_slot_action.l3 ; 0x1351
+    jle short .forward3              ; 0x1351
     mov word [bx + 2], cx            ; 0x1353
-@..advance_item_slot_action.l3:
+.forward3:
     mov bx, word [bp - 4]            ; 0x1356
     cmp word [bx + 2], byte 0        ; 0x1359
-    jle short @..advance_item_slot_action.l4 ; 0x135d
-    jmp near @..advance_item_slot_action.l8 ; 0x135f
-@..advance_item_slot_action.l4:
+    jle short .forward4              ; 0x135d
+    jmp near .forward8               ; 0x135f
+.forward4:
     mov word [bx + 2], 0             ; 0x1362
     mov bx, word [bp - 4]            ; 0x1367
     mov word [bx + 6], 0             ; 0x136a
@@ -79,14 +79,14 @@ advance_item_slot_action:
     mov byte [bx + 0x22], 3          ; 0x1372
     mov word [bp - 0xa], 1           ; 0x1376
     cmp word [bp + 4], byte 0        ; 0x137b
-    jne short @..advance_item_slot_action.l5 ; 0x137f
-    jmp near @..advance_item_slot_action.l8 ; 0x1381
-@..advance_item_slot_action.l5:
+    jne short .forward5              ; 0x137f
+    jmp near .forward8               ; 0x1381
+.forward5:
     mov ax, word [bp + 4]            ; 0x1384
     cmp ax, strict word 1            ; 0x1387
-    jl short @..advance_item_slot_action.l6 ; 0x138a
+    jl short .forward6               ; 0x138a
     cmp ax, strict word 5            ; 0x138c
-    jg short @..advance_item_slot_action.l6 ; 0x138f
+    jg short .forward6               ; 0x138f
     mov ax, word [bp + 4]            ; 0x1391
     shl ax, 1                        ; 0x1394
     mov bx, ax                       ; 0x1396
@@ -95,10 +95,10 @@ advance_item_slot_action:
     mov dx, word [bx + member_ext.reward + 0x2] ; 0x139f
     add word [item_action_reward], ax ; 0x13a2
     adc word [item_action_reward_hi], dx ; 0x13a6
-@..advance_item_slot_action.l6:
+.forward6:
     mov bx, word [bp - 4]            ; 0x13aa
     cmp byte [bx + 0x2a], 0xff       ; 0x13ad
-    je short @..advance_item_slot_action.l7 ; 0x13b1
+    je short .forward7               ; 0x13b1
     mov al, byte [bx + 0x2a]         ; 0x13b3
     cbw                              ; 0x13b6
     mov cx, 0xa                      ; 0x13b7
@@ -119,7 +119,7 @@ advance_item_slot_action:
     mov word [bx + cell_slot_ref], 0 ; 0x13d9
     mov bx, word [bp - 4]            ; 0x13df
     mov byte [bx + 0x2a], 0xff       ; 0x13e2
-@..advance_item_slot_action.l7:
+.forward7:
     mov ax, word [bp + 4]            ; 0x13e6
     shl ax, 1                        ; 0x13e9
     mov bx, ax                       ; 0x13eb
@@ -127,7 +127,7 @@ advance_item_slot_action:
     mov al, byte [bx + member_ext.flags] ; 0x13f1
     sub ah, ah                       ; 0x13f5
     test ax, 1                       ; 0x13f7
-    je short @..advance_item_slot_action.l8 ; 0x13fa
+    je short .forward8               ; 0x13fa
     mov ax, 1                        ; 0x13fc
     push ax                          ; 0x13ff
     mov al, byte [bx + 0xe0]         ; 0x1400
@@ -137,52 +137,52 @@ advance_item_slot_action:
     push ax                          ; 0x140a
     call set_bitmap_bit              ; 0x140b
     add sp, byte 6                   ; 0x140e
-@..advance_item_slot_action.l8:
+.forward8:
     mov word [bp - 8], 0             ; 0x1411
-@..advance_item_slot_action.l9:
+.back1:
     mov bx, word [bp - 4]            ; 0x1416
     mov si, word [bp - 8]            ; 0x1419
     cmp byte [bx + si + 0xe], 0      ; 0x141c
-    jbe short @..advance_item_slot_action.l10 ; 0x1420
+    jbe short .forward9              ; 0x1420
     mov al, byte [bx + si + 0xe]     ; 0x1422
     sub ah, ah                       ; 0x1425
     cmp ax, 0xff                     ; 0x1427
-    je short @..advance_item_slot_action.l10 ; 0x142a
+    je short .forward9               ; 0x142a
     dec byte [bx + si + 0xe]         ; 0x142c
-@..advance_item_slot_action.l10:
+.forward9:
     inc word [bp - 8]                ; 0x142f
     mov ax, word [bp - 8]            ; 0x1432
     cmp ax, strict word 0xa          ; 0x1435
-    jl short @..advance_item_slot_action.l9 ; 0x1438
+    jl short .back1                  ; 0x1438
     mov bx, word [bp - 4]            ; 0x143a
     cmp byte [bx + 0x13], 0          ; 0x143d
-    jne short @..advance_item_slot_action.l11 ; 0x1441
+    jne short .forward10             ; 0x1441
     mov byte [bx + 0x23], 0          ; 0x1443
-@..advance_item_slot_action.l11:
+.forward10:
     mov bx, word [bp - 4]            ; 0x1447
     mov al, byte [bx + 0x29]         ; 0x144a
     cbw                              ; 0x144d
     mov word [bp - 8], ax            ; 0x144e
     cmp ax, strict word 0            ; 0x1451
-    jge short @..advance_item_slot_action.l12 ; 0x1454
+    jge short .forward11             ; 0x1454
     inc ax                           ; 0x1456
-    jmp short @..advance_item_slot_action.l13 ; 0x1457
-@..advance_item_slot_action.l12:
+    jmp short .forward12             ; 0x1457
+.forward11:
     mov ax, word [bp - 8]            ; 0x1459
     push ax                          ; 0x145c
     cmp ax, strict word 0            ; 0x145d
     pop ax                           ; 0x1460
-    jle short @..advance_item_slot_action.l13 ; 0x1461
+    jle short .forward12             ; 0x1461
     dec ax                           ; 0x1463
-@..advance_item_slot_action.l13:
+.forward12:
     mov byte [bx + 0x29], al         ; 0x1464
     cmp word [bp + 4], byte 0        ; 0x1467
-    jne short @..advance_item_slot_action.l14 ; 0x146b
+    jne short .forward13             ; 0x146b
     mov ax, 0x248                    ; 0x146d
     imul word [bp - 2]               ; 0x1470
     mov bx, ax                       ; 0x1473
     cmp byte [bx + party_records + pc_rec.flag + 0x14], 0 ; 0x1475
-    jbe short @..advance_item_slot_action.l14 ; 0x147a
+    jbe short .forward13             ; 0x147a
     mov al, byte [bx + party_records + pc_rec.flag + 0x14] ; 0x147c
     sub ah, ah                       ; 0x1480
     mov cx, 0xa                      ; 0x1482
@@ -197,31 +197,31 @@ advance_item_slot_action:
     mov cx, ax                       ; 0x1494
     mov ax, word [bp - 8]            ; 0x1496
     cmp cx, ax                       ; 0x1499
-    jge short @..advance_item_slot_action.l14 ; 0x149b
+    jge short .forward13             ; 0x149b
     inc byte [bx + 0x29]             ; 0x149d
-@..advance_item_slot_action.l14:
+.forward13:
     mov bx, word [bp - 4]            ; 0x14a0
     cmp byte [bx + 0x24], 0          ; 0x14a3
-    jbe short @..advance_item_slot_action.l15 ; 0x14a7
+    jbe short .forward14             ; 0x14a7
     dec byte [bx + 0x24]             ; 0x14a9
-@..advance_item_slot_action.l15:
+.forward14:
     mov bx, word [bp - 4]            ; 0x14ac
     cmp byte [bx + 0x2b], 3          ; 0x14af
-    jne short @..advance_item_slot_action.l16 ; 0x14b3
+    jne short .forward15             ; 0x14b3
     mov byte [bx + 0x2b], 0          ; 0x14b5
-@..advance_item_slot_action.l16:
+.forward15:
     mov bx, word [bp - 4]            ; 0x14b9
     cmp byte [bx + 0x22], 3          ; 0x14bc
-    je short @..advance_item_slot_action.l17 ; 0x14c0
+    je short .forward16              ; 0x14c0
     cmp word [bp + 4], byte 0        ; 0x14c2
-    je short @..advance_item_slot_action.l17 ; 0x14c6
+    je short .forward16              ; 0x14c6
     cmp byte [bx + 0x2b], 2          ; 0x14c8
-    jne short @..advance_item_slot_action.l17 ; 0x14cc
+    jne short .forward16             ; 0x14cc
     mov word [bx + 2], 0             ; 0x14ce
     mov bx, word [bp - 4]            ; 0x14d3
     mov word [bx + 6], 0             ; 0x14d6
     mov bx, word [bp - 4]            ; 0x14db
     mov byte [bx + 0x22], 3          ; 0x14de
-@..advance_item_slot_action.l17:
+.forward16:
     mov ax, word [bp - 0xa]          ; 0x14e2
     ret                              ; 0x14e5

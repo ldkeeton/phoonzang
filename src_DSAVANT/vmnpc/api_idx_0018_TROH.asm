@@ -12,9 +12,9 @@ api_idx_0018_TROH:
     mov ax, word [bx + cell_slot_ref] ; 0x0740
     mov word [bp - 2], ax            ; 0x0744
     cmp word [bp - 2], byte 0        ; 0x0747
-    jne short @..api_idx_0018_TROH.l1 ; 0x074b
+    jne short .forward1              ; 0x074b
     ret                              ; 0x074d
-@..api_idx_0018_TROH.l1:
+.forward1:
     lea ax, word [bp - 0x18]         ; 0x074e
     push ax                          ; 0x0751
     push word [bp + 0x10]            ; 0x0752
@@ -24,22 +24,22 @@ api_idx_0018_TROH:
     call api_idx_000c_POTM           ; 0x075e
     add sp, byte 0xa                 ; 0x0761
     cmp byte [bp - 0x18], 0          ; 0x0764
-    jne short @..api_idx_0018_TROH.l2 ; 0x0768
+    jne short .forward2              ; 0x0768
     ret                              ; 0x076a
-@..api_idx_0018_TROH.l2:
+.forward2:
     cmp word [bss_9136], byte 0x3e   ; 0x076b
-    jne short @..api_idx_0018_TROH.l3 ; 0x0770
+    jne short .forward3              ; 0x0770
     cmp word [bss_9134], byte 0x12   ; 0x0772
-    jne short @..api_idx_0018_TROH.l3 ; 0x0777
+    jne short .forward3              ; 0x0777
     mov ax, 1                        ; 0x0779
-    jmp short @..api_idx_0018_TROH.l4 ; 0x077c
-@..api_idx_0018_TROH.l3:
+    jmp short .forward4              ; 0x077c
+.forward3:
     mov ax, word [bp + 6]            ; 0x077e
     mov cx, 2                        ; 0x0781
     cwd                              ; 0x0784
     idiv cx                          ; 0x0785
     mov ax, dx                       ; 0x0787
-@..api_idx_0018_TROH.l4:
+.forward4:
     mov word [bp - 4], ax            ; 0x0789
     mov al, byte [bp - 0x18]         ; 0x078c
     sub ah, ah                       ; 0x078f
@@ -48,9 +48,9 @@ api_idx_0018_TROH:
     imul word [bp - 2]               ; 0x0797
     mov bx, ax                       ; 0x079a
     cmp byte [bx + slot_recs + slot_rec.forced], 0 ; 0x079c
-    je short @..api_idx_0018_TROH.l5 ; 0x07a1
+    je short .forward5               ; 0x07a1
     mov word [bp + 8], 0             ; 0x07a3
-@..api_idx_0018_TROH.l5:
+.forward5:
     mov cx, word [bp - 6]            ; 0x07a8
     shl cx, 1                        ; 0x07ab
     shl cx, 1                        ; 0x07ad
@@ -60,7 +60,7 @@ api_idx_0018_TROH:
     sub ah, ah                       ; 0x07b7
     mov word [bp - 8], ax            ; 0x07b9
     cmp word [bp - 8], byte 0        ; 0x07bc
-    jne short @..api_idx_0018_TROH.l6 ; 0x07c0
+    jne short .forward6              ; 0x07c0
     mov ax, 6                        ; 0x07c2
     imul word [bp + 4]               ; 0x07c5
     mov cx, word [bp + 6]            ; 0x07c8
@@ -69,8 +69,8 @@ api_idx_0018_TROH:
     mov bx, ax                       ; 0x07cf
     mov ax, word [bx + cell_overlay_code + 0x24] ; 0x07d1
     mov word [bp - 8], ax            ; 0x07d5
-    jmp short @..api_idx_0018_TROH.l8 ; 0x07d8
-@..api_idx_0018_TROH.l6:
+    jmp short .forward8              ; 0x07d8
+.forward6:
     mov ax, 0x64                     ; 0x07da
     push ax                          ; 0x07dd
     mov ax, 5                        ; 0x07de
@@ -80,9 +80,9 @@ api_idx_0018_TROH:
     mov cx, ax                       ; 0x07e8
     mov ax, 0                        ; 0x07ea
     cmp word [bp + 6], byte 0        ; 0x07ed
-    je short @..api_idx_0018_TROH.l7 ; 0x07f1
+    je short .forward7               ; 0x07f1
     mov ax, 5                        ; 0x07f3
-@..api_idx_0018_TROH.l7:
+.forward7:
     add cx, ax                       ; 0x07f6
     mov ax, word [bp - 8]            ; 0x07f8
     sub ax, cx                       ; 0x07fb
@@ -90,7 +90,7 @@ api_idx_0018_TROH:
     call clamp_between               ; 0x07fe
     add sp, byte 6                   ; 0x0801
     mov word [bp - 8], ax            ; 0x0804
-@..api_idx_0018_TROH.l8:
+.forward8:
     mov ax, word [bp + 0xe]          ; 0x0807
     dec ax                           ; 0x080a
     push ax                          ; 0x080b
@@ -149,11 +149,11 @@ api_idx_0018_TROH:
     mov word [bp - 0xc], ax          ; 0x0883
     mov bx, word [bp - 2]            ; 0x0886
     cmp byte [bx + picture_slot_number], 0x18 ; 0x0889
-    jne short @..api_idx_0018_TROH.l9 ; 0x088e
+    jne short .forward9              ; 0x088e
     cmp word [bss_9134], byte 1      ; 0x0890
-    jne short @..api_idx_0018_TROH.l9 ; 0x0895
+    jne short .forward9              ; 0x0895
     cmp byte [bp - 0x18], 4          ; 0x0897
-    jne short @..api_idx_0018_TROH.l9 ; 0x089b
+    jne short .forward9              ; 0x089b
     mov ax, 3                        ; 0x089d
     push ax                          ; 0x08a0
     call random_below                ; 0x08a1
@@ -166,7 +166,7 @@ api_idx_0018_TROH:
     call random_below                ; 0x08b0
     pop cx                           ; 0x08b3
     add word [bp - 0xc], ax          ; 0x08b4
-@..api_idx_0018_TROH.l9:
+.forward9:
     mov ax, 0xa0                     ; 0x08b7
     sub ax, word [bp - 0xa]          ; 0x08ba
     imul word [bp + 0xa]             ; 0x08bd
@@ -180,7 +180,7 @@ api_idx_0018_TROH:
     idiv cx                          ; 0x08d0
     mov ax, dx                       ; 0x08d2
     test ax, ax                      ; 0x08d4
-    je short @..api_idx_0018_TROH.l10 ; 0x08d6
+    je short .forward10              ; 0x08d6
     mov ax, 0x15e                    ; 0x08d8
     imul word [bp - 2]               ; 0x08db
     mov cx, ax                       ; 0x08de
@@ -206,7 +206,7 @@ api_idx_0018_TROH:
     cwd                              ; 0x090d
     idiv cx                          ; 0x090e
     sub word [bp - 0xa], ax          ; 0x0910
-@..api_idx_0018_TROH.l10:
+.forward10:
     mov ax, word [bp + 0xe]          ; 0x0913
     dec ax                           ; 0x0916
     push ax                          ; 0x0917

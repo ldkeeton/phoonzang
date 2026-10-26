@@ -3,14 +3,14 @@ data_file_path: ; Aztec csav frame=0x0000
     mov ax, 0                        ; 0x23a8
     call aztec_csav                  ; 0x23ab
     cmp byte [install_mode], 5       ; 0x23ae
-    jne short @..data_file_path.l1   ; 0x23b3
+    jne short .forward1              ; 0x23b3
     cmp word [bp + 6], byte 1        ; 0x23b5
-    jne short @..data_file_path.l1   ; 0x23b9
+    jne short .forward1              ; 0x23b9
     mov ax, 1                        ; 0x23bb
-    jmp short @..data_file_path.l2   ; 0x23be
-@..data_file_path.l1:
+    jmp short .forward2              ; 0x23be
+.forward1:
     mov ax, 0                        ; 0x23c0
-@..data_file_path.l2:
+.forward2:
     mov word [bp + 6], ax            ; 0x23c3
     mov ax, 0x3a                     ; 0x23c6
     push ax                          ; 0x23c9

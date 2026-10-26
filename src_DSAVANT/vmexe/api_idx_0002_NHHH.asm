@@ -20,15 +20,15 @@ api_idx_0002_NHHH:
     call aztec_ldv                   ; 0x1f2e
     mov word [bp - 2], ax            ; 0x1f31
     cmp ax, strict word 0            ; 0x1f34
-    jge short @..api_idx_0002_NHHH.l1 ; 0x1f37
+    jge short .forward1              ; 0x1f37
     mov word [bp - 2], 0             ; 0x1f39
-@..api_idx_0002_NHHH.l1:
+.forward1:
     mov ax, word [bp - 2]            ; 0x1f3e
     cmp ax, word [bp + 6]            ; 0x1f41
-    jle short @..api_idx_0002_NHHH.l2 ; 0x1f44
+    jle short .forward2              ; 0x1f44
     mov ax, word [bp + 6]            ; 0x1f46
     mov word [bp - 2], ax            ; 0x1f49
-@..api_idx_0002_NHHH.l2:
+.forward2:
     mov ax, word [bp - 2]            ; 0x1f4c
     inc ax                           ; 0x1f4f
     push ax                          ; 0x1f50

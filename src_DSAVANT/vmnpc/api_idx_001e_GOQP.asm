@@ -3,19 +3,19 @@ api_idx_001e_GOQP:
     mov ax, 0xffe2                   ; 0x70b7
     call aztec_csav                  ; 0x70ba
     mov word [game_state], 5         ; 0x70bd
-    cmp word [loaded_score_num], byte 0xff ; 0x70c3
-    je short @..api_idx_001e_GOQP.l3 ; 0x70c8
-@..api_idx_001e_GOQP.l1:
+    cmp word [loaded_score_num], byte -1 ; 0x70c3
+    je short .forward2               ; 0x70c8
+.back1:
     call gfx_is_music_playing        ; 0x70ca
     test ax, ax                      ; 0x70cd
-    je short @..api_idx_001e_GOQP.l2 ; 0x70cf
-    jmp short @..api_idx_001e_GOQP.l1 ; 0x70d1
-@..api_idx_001e_GOQP.l2:
+    je short .forward1               ; 0x70cf
+    jmp short .back1                 ; 0x70d1
+.forward1:
     mov ax, 0                        ; 0x70d3
     push ax                          ; 0x70d6
     call app_gfx_free_score          ; 0x70d7
     pop cx                           ; 0x70da
-@..api_idx_001e_GOQP.l3:
+.forward2:
     call free_current_maze           ; 0x70db
     mov ax, 0                        ; 0x70de
     push ax                          ; 0x70e1
@@ -34,14 +34,14 @@ api_idx_001e_GOQP:
     mov word [screen_cache_0_seg], dx ; 0x70fc
     mov word [screen_cache], ax      ; 0x7100
     cmp word [saved_screen_pending], byte 0 ; 0x7103
-    je short @..api_idx_001e_GOQP.l4 ; 0x7108
+    je short .forward3               ; 0x7108
     mov ax, 1                        ; 0x710a
     push ax                          ; 0x710d
     push word [saved_screen_slot]    ; 0x710e
     call restore_saved_screen        ; 0x7112
     add sp, byte 4                   ; 0x7115
     mov word [saved_screen_pending], 0 ; 0x7118
-@..api_idx_001e_GOQP.l4:
+.forward3:
     mov ax, 0                        ; 0x711e
     push ax                          ; 0x7121
     mov ax, 2                        ; 0x7122
@@ -59,7 +59,7 @@ api_idx_001e_GOQP:
     mov word [screen_cache_1_seg], dx ; 0x713c
     mov word [screen_cache_1_off], ax ; 0x7140
     mov word [bp - 2], 0             ; 0x7143
-@..api_idx_001e_GOQP.l5:
+.back2:
     mov ax, 0x18                     ; 0x7148
     push ax                          ; 0x714b
     call aztec_malloc                ; 0x714c
@@ -69,12 +69,12 @@ api_idx_001e_GOQP:
     mov bx, cx                       ; 0x7155
     mov word [bx + overlay_list + 0x2], ax ; 0x7157
     cmp word [bx + overlay_list + 0x2], byte 0 ; 0x715b
-    jne short @..api_idx_001e_GOQP.l6 ; 0x7160
+    jne short .forward4              ; 0x7160
     mov ax, 0x1d                     ; 0x7162
     push ax                          ; 0x7165
     call release_and_exit            ; 0x7166
     pop cx                           ; 0x7169
-@..api_idx_001e_GOQP.l6:
+.forward4:
     mov ax, word [bp - 2]            ; 0x716a
     shl ax, 1                        ; 0x716d
     mov bx, ax                       ; 0x716f
@@ -83,7 +83,7 @@ api_idx_001e_GOQP:
     inc word [bp - 2]                ; 0x7179
     mov ax, word [bp - 2]            ; 0x717c
     cmp ax, strict word 0xc          ; 0x717f
-    jl short @..api_idx_001e_GOQP.l5 ; 0x7182
+    jl short .back2                  ; 0x7182
     mov word [overlay_list], 0       ; 0x7184
     mov word [bss_845e], 0xfffe      ; 0x718a
     mov ax, 0                        ; 0x7190
@@ -103,14 +103,14 @@ api_idx_001e_GOQP:
     call aztec_setmem                ; 0x71ae
     add sp, byte 6                   ; 0x71b1
     mov word [bp - 2], 0xf           ; 0x71b4
-@..api_idx_001e_GOQP.l7:
+.back3:
     mov bx, word [bp - 2]            ; 0x71b9
     mov byte [bx + picture_slot_number], 0xff ; 0x71bc
     mov byte [bx + picture_slot_used], 0 ; 0x71c1
     inc word [bp - 2]                ; 0x71c6
     mov ax, word [bp - 2]            ; 0x71c9
     cmp ax, strict word 0x12         ; 0x71cc
-    jl short @..api_idx_001e_GOQP.l7 ; 0x71cf
+    jl short .back3                  ; 0x71cf
     les bx, word [tick_counter_ptr]  ; 0x71d1
     mov ax, word [es:bx]             ; 0x71d5
     mov dx, word [es:bx + 2]         ; 0x71d8

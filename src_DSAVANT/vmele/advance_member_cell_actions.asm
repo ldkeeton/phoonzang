@@ -3,8 +3,8 @@ advance_member_cell_actions:
     mov ax, 0xfff4                   ; 0x11b0
     call aztec_csav                  ; 0x11b3
     mov word [bp - 2], 0             ; 0x11b6
-    jmp near @..advance_member_cell_actions.l4 ; 0x11bb
-@..advance_member_cell_actions.l1:
+    jmp near .forward3               ; 0x11bb
+.back1:
     mov ax, 0x2c                     ; 0x11be
     imul word [bp - 2]               ; 0x11c1
     mov si, ax                       ; 0x11c4
@@ -16,9 +16,9 @@ advance_member_cell_actions:
     cbw                              ; 0x11d4
     mov word [bp - 4], ax            ; 0x11d5
     cmp ax, strict word 0xffff       ; 0x11d8
-    jne short @..advance_member_cell_actions.l2 ; 0x11db
-    jmp near @..advance_member_cell_actions.l3 ; 0x11dd
-@..advance_member_cell_actions.l2:
+    jne short .forward1              ; 0x11db
+    jmp near .forward2               ; 0x11dd
+.forward1:
     mov cx, 0xa                      ; 0x11e0
     cwd                              ; 0x11e3
     idiv cx                          ; 0x11e4
@@ -55,7 +55,7 @@ advance_member_cell_actions:
     add ax, cx                       ; 0x1238
     mov bx, ax                       ; 0x123a
     cmp word [bx + cell_slot_ref], byte 0 ; 0x123c
-    jne short @..advance_member_cell_actions.l3 ; 0x1241
+    jne short .forward2              ; 0x1241
     mov ax, 0xa                      ; 0x1243
     imul word [bp + 4]               ; 0x1246
     add ax, word [bp - 2]            ; 0x1249
@@ -80,9 +80,9 @@ advance_member_cell_actions:
     push word [bp + 4]               ; 0x127b
     call fill_action_slot_table_vmnpc ; 0x127e
     add sp, byte 8                   ; 0x1281
-@..advance_member_cell_actions.l3:
+.forward2:
     inc word [bp - 2]                ; 0x1284
-@..advance_member_cell_actions.l4:
+.forward3:
     mov ax, word [bp + 4]            ; 0x1287
     shl ax, 1                        ; 0x128a
     mov bx, ax                       ; 0x128c
@@ -90,9 +90,9 @@ advance_member_cell_actions:
     mov al, byte [bx + member_rec.item_count] ; 0x1292
     sub ah, ah                       ; 0x1296
     cmp ax, word [bp - 2]            ; 0x1298
-    jle short @..advance_member_cell_actions.l5 ; 0x129b
-    jmp near @..advance_member_cell_actions.l1 ; 0x129d
-@..advance_member_cell_actions.l5:
+    jle short .forward4              ; 0x129b
+    jmp near .back1                  ; 0x129d
+.forward4:
     call run_party_screen_animation  ; 0x12a0
     mov ax, 4                        ; 0x12a3
     push ax                          ; 0x12a6

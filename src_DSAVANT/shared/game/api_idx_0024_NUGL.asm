@@ -24,15 +24,15 @@ api_idx_0024_NUGL:
     mov bx, 0
     call aztec_ldv
     cmp dx, byte 0
-    jg short @..api_idx_0024_NUGL.l1
-    jne short @..api_idx_0024_NUGL.l2
+    jg short .forward1
+    jne short .forward2
     cmp ax, strict word 0xc
-    jb short @..api_idx_0024_NUGL.l2
-@..api_idx_0024_NUGL.l1:
-    jmp short @..api_idx_0024_NUGL.l3
-@..api_idx_0024_NUGL.l2:
+    jb short .forward2
+.forward1:
+    jmp short .forward3
+.forward2:
     cmp word [bp - 6], byte 0xc
-    jle short @..api_idx_0024_NUGL.l3
+    jle short .forward3
     dec word [bp - 4]
     mov ax, word [bp - 4]
     add ax, strict word 0x12
@@ -40,7 +40,7 @@ api_idx_0024_NUGL:
     cwd
     idiv cx
     mov word [bp - 6], dx
-@..api_idx_0024_NUGL.l3:
+.forward3:
     mov ax, 0x3c
     imul word [bp - 6]
     cwd
@@ -55,18 +55,18 @@ api_idx_0024_NUGL:
     call aztec_lrm
     mov word [bp - 8], ax
     cmp ax, strict word 0
-    jl short @..api_idx_0024_NUGL.l4
+    jl short .return1
     cmp ax, 0x1e0
-    jl short @..api_idx_0024_NUGL.l5
-@..api_idx_0024_NUGL.l4:
+    jl short .forward4
+.return1:
     ret
-@..api_idx_0024_NUGL.l5:
+.forward4:
     mov cx, 2
     cwd
     idiv cx
     mov word [bp - 0xa], ax
     mov word [bp - 2], 0
-@..api_idx_0024_NUGL.l6:
+.back1:
     mov ax, word [bp - 2]
     shl ax, 1
     mov bx, ax
@@ -75,37 +75,37 @@ api_idx_0024_NUGL:
     inc word [bp - 2]
     mov ax, word [bp - 2]
     cmp ax, strict word 4
-    jl short @..api_idx_0024_NUGL.l6
+    jl short .back1
     cmp word [bp - 0xa], byte 0x3e
-    jge short @..api_idx_0024_NUGL.l7
+    jge short .forward5
     mov ax, word [bp - 0xa]
     add ax, strict word 0x72
     mov word [bp - 0x14], ax
-@..api_idx_0024_NUGL.l7:
+.forward5:
     cmp word [bp - 0xa], byte 0x10
-    jl short @..api_idx_0024_NUGL.l8
+    jl short .forward6
     cmp word [bp - 0xa], strict word 0xd0
-    jg short @..api_idx_0024_NUGL.l8
+    jg short .forward6
     mov ax, word [bp - 0xa]
     add ax, strict word 0xffe0
     mov word [bp - 0x12], ax
-@..api_idx_0024_NUGL.l8:
+.forward6:
     cmp word [bp - 0xa], strict word 0xa2
-    jl short @..api_idx_0024_NUGL.l9
+    jl short .forward7
     cmp word [bp - 0xa], strict word 0xf0
-    jg short @..api_idx_0024_NUGL.l9
+    jg short .forward7
     mov ax, word [bp - 0xa]
     add ax, 0xff4e
     mov word [bp - 0x10], ax
-@..api_idx_0024_NUGL.l9:
+.forward7:
     mov ax, word [party_tag]
     shl ax, 1
     mov bx, ax
     add bx, bp
     cmp word [bx - 0x16], strict word 0xff01
-    jne short @..api_idx_0024_NUGL.l10
+    jne short .forward8
     ret
-@..api_idx_0024_NUGL.l10:
+.forward8:
     mov ax, word [bp - 8]
     mov cx, 0xf0
     cwd
@@ -120,13 +120,13 @@ api_idx_0024_NUGL:
     cwd
     idiv cx
     test ax, ax
-    je short @..api_idx_0024_NUGL.l11
+    je short .forward9
     mov ax, 0x22
     sub ax, word [bp - 0xc]
-    jmp short @..api_idx_0024_NUGL.l12
-@..api_idx_0024_NUGL.l11:
+    jmp short .forward10
+.forward9:
     mov ax, word [bp - 0xc]
-@..api_idx_0024_NUGL.l12:
+.forward10:
     mov word [bp - 0xe], ax
     mov ax, word [bp - 4]
     mov cx, 3
@@ -138,20 +138,20 @@ api_idx_0024_NUGL:
     mov word [bp - 0x18], dx
     mov ax, 1
     cmp dx, byte 5
-    jge short @..api_idx_0024_NUGL.l13
+    jge short .forward11
     mov ax, 0
-@..api_idx_0024_NUGL.l13:
+.forward11:
     mov word [bp - 0x1a], ax
     cmp dx, byte 5
-    jge short @..api_idx_0024_NUGL.l14
+    jge short .forward12
     inc dx
     mov ax, dx
-    jmp short @..api_idx_0024_NUGL.l15
-@..api_idx_0024_NUGL.l14:
+    jmp short .forward13
+.forward12:
     sub cx, word [bp - 0x18]
     mov ax, cx
     inc ax
-@..api_idx_0024_NUGL.l15:
+.forward13:
     mov byte [bp - 0x24], al
     mov byte [bp - 0x23], 0
     mov ax, 0

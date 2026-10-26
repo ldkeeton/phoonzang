@@ -174,7 +174,7 @@ api_idx_007c_MOJH:
     mov bx, 0
     call aztec_ldv
     add ax, strict word 0xffee
-    adc dx, byte 0xff
+    adc dx, byte -1
     mov cx, 4
     mov bx, 0
     call aztec_ldv
@@ -194,7 +194,7 @@ api_idx_007c_MOJH:
     mov cx, ax
     mov bx, dx
     add ax, strict word 0xffff
-    adc dx, byte 0xff
+    adc dx, byte -1
     mov cx, ax
     mov bx, dx
     mov ax, 0x14
@@ -239,12 +239,12 @@ api_idx_007c_MOJH:
     imul word [bp + 4]
     mov bx, ax
     cmp byte [bx + party_records + pc_rec.state], 3
-    jae short @..api_idx_007c_MOJH.l1
+    jae short .forward1
     mov ax, 0
-    jmp short @..api_idx_007c_MOJH.l2
-@..api_idx_007c_MOJH.l1:
+    jmp short .forward2
+.forward1:
     mov ax, 1
-@..api_idx_007c_MOJH.l2:
+.forward2:
     mov word [banner_plain_flag], ax
     mov word [api_idx_007c_MOJH.bss5], 0
     push word [api_idx_007c_MOJH.bss5]
@@ -257,7 +257,7 @@ api_idx_007c_MOJH:
     call gfx_set_text_color
     add sp, byte 4
     mov word [bp - 2], 0
-@..api_idx_007c_MOJH.l3:
+.back1:
     mov ax, 6
     imul word [bp - 2]
     add ax, strict word 0x23
@@ -295,7 +295,7 @@ api_idx_007c_MOJH:
     inc word [bp - 2]
     mov ax, word [bp - 2]
     cmp ax, strict word 8
-    jl short @..api_idx_007c_MOJH.l3
+    jl short .back1
     mov ax, 0
     push ax
     mov ax, 0xfd
@@ -551,14 +551,14 @@ api_idx_007c_MOJH:
     idiv cx
     mov word [bp - 8], ax
     cmp ax, strict word 1
-    jge short @..api_idx_007c_MOJH.l4
+    jge short .forward3
     cmp word [bx + party_records + pc_rec.pair_b], byte 0
-    jle short @..api_idx_007c_MOJH.l4
+    jle short .forward3
     mov ax, 1
-    jmp short @..api_idx_007c_MOJH.l5
-@..api_idx_007c_MOJH.l4:
+    jmp short .forward4
+.forward3:
     mov ax, word [bp - 8]
-@..api_idx_007c_MOJH.l5:
+.forward4:
     mov word [bp - 8], ax
     lea ax, word [bp - 0x58]
     push ax
@@ -758,33 +758,33 @@ api_idx_007c_MOJH:
     mov ax, word [bx + spell_table + spell_table_rec_size*128]
     mov word [bp - 6], ax
     cmp ax, strict word 0xffff
-    jne short @..api_idx_007c_MOJH.l6
+    jne short .forward5
     mov ax, 0x248
     imul word [bp + 4]
     mov bx, ax
     cmp byte [bx + party_records + pc_rec.status + 0x2], 0
-    jbe short @..api_idx_007c_MOJH.l6
+    jbe short .forward5
     mov ax, 0
-    jmp short @..api_idx_007c_MOJH.l7
-@..api_idx_007c_MOJH.l6:
+    jmp short .forward6
+.forward5:
     mov ax, word [bp - 6]
-@..api_idx_007c_MOJH.l7:
+.forward6:
     mov word [bp - 6], ax
     cmp ax, strict word 0
-    jg short @..api_idx_007c_MOJH.l8
+    jg short .forward7
     mov ax, 0x248
     imul word [bp + 4]
     mov bx, ax
     cmp byte [bx + party_records + pc_rec.status + 0x3], 0
-    jbe short @..api_idx_007c_MOJH.l8
+    jbe short .forward7
     mov ax, 1
-    jmp short @..api_idx_007c_MOJH.l9
-@..api_idx_007c_MOJH.l8:
+    jmp short .forward8
+.forward7:
     mov ax, word [bp - 6]
-@..api_idx_007c_MOJH.l9:
+.forward8:
     mov word [bp - 6], ax
     cmp ax, strict word 0xffff
-    je short @..api_idx_007c_MOJH.l10
+    je short .forward9
     mov ax, 0x2d
     push ax
     mov ax, 0x51
@@ -799,7 +799,7 @@ api_idx_007c_MOJH:
     call draw_font_glyph
     add sp, byte 4
     inc word [bp - 4]
-@..api_idx_007c_MOJH.l10:
+.forward9:
     mov word [bp - 0x6e], 6
     mov word [bp - 0x6c], 7
     mov word [bp - 0x6a], 5
@@ -809,7 +809,7 @@ api_idx_007c_MOJH:
     mov word [bp - 0x62], 1
     mov word [bp - 6], 0xffff
     mov word [bp - 2], 0
-@..api_idx_007c_MOJH.l11:
+.back2:
     mov ax, word [bp - 2]
     shl ax, 1
     mov bx, ax
@@ -817,18 +817,18 @@ api_idx_007c_MOJH:
     mov ax, word [bx - 0x6e]
     mov word [bp - 8], ax
     cmp word [bp - 4], byte 6
-    jge short @..api_idx_007c_MOJH.l12
+    jge short .forward10
     shl ax, 1
     mov bx, ax
     mov ax, word [bx + spell_table + spell_table_rec_size*130]
     cmp ax, word [bp - 6]
-    je short @..api_idx_007c_MOJH.l12
+    je short .forward10
     mov ax, 0x248
     imul word [bp + 4]
     add ax, word [bp - 8]
     mov bx, ax
     cmp byte [bx + party_records + pc_rec.status], 0
-    jbe short @..api_idx_007c_MOJH.l12
+    jbe short .forward10
     mov ax, word [bp - 4]
     mov cx, 3
     cwd
@@ -864,11 +864,11 @@ api_idx_007c_MOJH:
     mov ax, word [bx + spell_table + spell_table_rec_size*130]
     mov word [bp - 6], ax
     inc word [bp - 4]
-@..api_idx_007c_MOJH.l12:
+.forward10:
     inc word [bp - 2]
     mov ax, word [bp - 2]
     cmp ax, strict word 7
-    jge short @..api_idx_007c_MOJH.l13
-    jmp near @..api_idx_007c_MOJH.l11
-@..api_idx_007c_MOJH.l13:
+    jge short .return1
+    jmp near .back2
+.return1:
     ret

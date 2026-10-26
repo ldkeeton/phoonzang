@@ -7,7 +7,7 @@ loc_GPUL:
     call gfx_wait_sound              ; 0x296d
     pop cx                           ; 0x2970
     cmp word [bp + 4], byte 0        ; 0x2971
-    je short @..loc_GPUL.l1          ; 0x2975
+    je short .forward1               ; 0x2975
     mov ax, 0x55                     ; 0x2977
     push ax                          ; 0x297a
     mov ax, 1                        ; 0x297b
@@ -17,7 +17,7 @@ loc_GPUL:
     push ax                          ; 0x2983
     call api_idx_0050_TJLH           ; 0x2984
     add sp, byte 8                   ; 0x2987
-@..loc_GPUL.l1:
+.forward1:
     mov al, byte [bss_91c2]          ; 0x298a
     sub ah, ah                       ; 0x298d
     mov word [character_record_index], ax ; 0x298f

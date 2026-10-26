@@ -10,9 +10,9 @@ api_idx_0004_RMVO:
     call gfx_restore_screen
     add sp, byte 8
     mov word [bp - 2], 0
-@..api_idx_0004_RMVO.l1:
+.back1:
     mov word [bp - 4], 0
-@..api_idx_0004_RMVO.l2:
+.back2:
     mov ax, 0
     push ax
     mov ax, word [bp - 2]
@@ -57,13 +57,13 @@ api_idx_0004_RMVO:
     inc word [bp - 4]
     mov ax, word [bp - 4]
     cmp ax, strict word 2
-    jl short @..api_idx_0004_RMVO.l2
+    jl short .back2
     inc word [bp - 2]
     mov ax, word [bp - 2]
     cmp ax, strict word 6
-    jge short @..api_idx_0004_RMVO.l3
-    jmp near @..api_idx_0004_RMVO.l1
-@..api_idx_0004_RMVO.l3:
+    jge short .forward1
+    jmp near .back1
+.forward1:
     mov ax, 0
     push ax
     push ax

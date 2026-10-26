@@ -6,12 +6,12 @@ leaf_loc_MTKK:
     mov word [bp - 0x3e], ax
     mov bx, word [bp - 0x36]
     mov cx, 8
-@..leaf_loc_MTKK.l1:
+.back1:
     mov al, byte [cs:bx]
     and al, dl
-    je short @..leaf_loc_MTKK.l2
+    je short .forward1
     add word [bp - 0x3e], strict word 0x140
-@..leaf_loc_MTKK.l2:
+.forward1:
     ror dl, 1
-    loop @..leaf_loc_MTKK.l1
+    loop .back1
     ret

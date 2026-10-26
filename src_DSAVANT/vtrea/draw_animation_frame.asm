@@ -3,13 +3,13 @@ draw_animation_frame:
     mov ax, 0xfff0                   ; 0x0090
     call aztec_csav                  ; 0x0093
     cmp word [bp + 4], byte 0        ; 0x0096
-    jl short @..draw_animation_frame.l1 ; 0x009a
+    jl short .forward1               ; 0x009a
     cmp word [bp + 4], byte 6        ; 0x009c
-    jle short @..draw_animation_frame.l2 ; 0x00a0
-@..draw_animation_frame.l1:
+    jle short .forward2              ; 0x00a0
+.forward1:
     mov ax, 0xffff                   ; 0x00a2
     ret                              ; 0x00a5
-@..draw_animation_frame.l2:
+.forward2:
     mov word [bp - 2], 7             ; 0x00a6
     mov ax, word [bp + 4]            ; 0x00ab
     inc ax                           ; 0x00ae

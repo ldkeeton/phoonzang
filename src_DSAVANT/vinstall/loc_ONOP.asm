@@ -10,7 +10,7 @@ loc_ONOP:
     call aztec_strcpy                ; 0x0dea
     add sp, byte 4                   ; 0x0ded
     cmp word [bp + 8], byte 0        ; 0x0df0
-    jge short @..loc_ONOP.l1         ; 0x0df4
+    jge short .forward1              ; 0x0df4
     mov ax, dseg_15cc                ; 0x0df6
     push ax                          ; 0x0df9
     lea ax, word [bp - 0xa2]         ; 0x0dfa
@@ -20,8 +20,8 @@ loc_ONOP:
     mov ax, 0                        ; 0x0e05
     sub ax, word [bp + 8]            ; 0x0e08
     mov word [bp + 8], ax            ; 0x0e0b
-    jmp short @..loc_ONOP.l2         ; 0x0e0e
-@..loc_ONOP.l1:
+    jmp short .forward2              ; 0x0e0e
+.forward1:
     mov ax, dseg_15d8                ; 0x0e10
     push ax                          ; 0x0e13
     lea ax, word [bp - 0xa2]         ; 0x0e14
@@ -29,7 +29,7 @@ loc_ONOP:
     call aztec_strcat                ; 0x0e19
     add sp, byte 4                   ; 0x0e1c
     call loc_NJKV                    ; 0x0e1f
-@..loc_ONOP.l2:
+.forward2:
     mov ax, dseg_15e1                ; 0x0e22
     push ax                          ; 0x0e25
     lea ax, word [bp - 0xa2]         ; 0x0e26
@@ -67,7 +67,7 @@ loc_ONOP:
     call aztec_strlen                ; 0x0e7c
     pop cx                           ; 0x0e7f
     cmp ax, strict word 0            ; 0x0e80
-    jle short @..loc_ONOP.l4         ; 0x0e83
+    jle short .forward3              ; 0x0e83
     push word [bp + 6]               ; 0x0e85
     lea ax, word [bp - 0x52]         ; 0x0e88
     push ax                          ; 0x0e8b
@@ -78,7 +78,7 @@ loc_ONOP:
     push ax                          ; 0x0e98
     call aztec_strcat                ; 0x0e99
     add sp, byte 4                   ; 0x0e9c
-@..loc_ONOP.l3:
+.back1:
     lea ax, word [bp - 0xa2]         ; 0x0e9f
     push ax                          ; 0x0ea3
     call loc_NNGU                    ; 0x0ea4
@@ -90,18 +90,18 @@ loc_ONOP:
     call aztec_open                  ; 0x0eb0
     add sp, byte 4                   ; 0x0eb3
     mov word [bp - 0xa4], ax         ; 0x0eb6
-    cmp word [bp - 0xa4], byte 0xff  ; 0x0eba
-    je short @..loc_ONOP.l3          ; 0x0ebf
+    cmp word [bp - 0xa4], byte -1    ; 0x0eba
+    je short .back1                  ; 0x0ebf
     push word [bp - 0xa4]            ; 0x0ec1
     call aztec_close                 ; 0x0ec5
     pop cx                           ; 0x0ec8
-    jmp short @..loc_ONOP.l5         ; 0x0ec9
-@..loc_ONOP.l4:
+    jmp short .forward4              ; 0x0ec9
+.forward3:
     lea ax, word [bp - 0xa2]         ; 0x0ecb
     push ax                          ; 0x0ecf
     call loc_NNGU                    ; 0x0ed0
     pop cx                           ; 0x0ed3
-@..loc_ONOP.l5:
+.forward4:
     mov sp, bp                       ; 0x0ed4
     pop bp                           ; 0x0ed6
     ret                              ; 0x0ed7

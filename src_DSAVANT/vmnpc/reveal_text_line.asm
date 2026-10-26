@@ -4,9 +4,9 @@ reveal_text_line:
     call aztec_csav                  ; 0x9280
     mov word [bp - 0xc], 0           ; 0x9283
     mov word [bp - 4], 0             ; 0x9288
-@..reveal_text_line.l1:
+.back1:
     mov word [bp - 2], 0             ; 0x928d
-@..reveal_text_line.l2:
+.back2:
     mov ax, 6                        ; 0x9292
     imul word [bp - 4]               ; 0x9295
     mov cx, word [bp - 2]            ; 0x9298
@@ -14,17 +14,17 @@ reveal_text_line:
     add ax, cx                       ; 0x929d
     mov bx, ax                       ; 0x929f
     cmp word [bx + cell_slot_ref], byte 0 ; 0x92a1
-    je short @..reveal_text_line.l3  ; 0x92a6
+    je short .forward1               ; 0x92a6
     inc word [bp - 0xc]              ; 0x92a8
-@..reveal_text_line.l3:
+.forward1:
     inc word [bp - 2]                ; 0x92ab
     mov ax, word [bp - 2]            ; 0x92ae
     cmp ax, strict word 3            ; 0x92b1
-    jl short @..reveal_text_line.l2  ; 0x92b4
+    jl short .back2                  ; 0x92b4
     inc word [bp - 4]                ; 0x92b6
     mov ax, word [bp - 4]            ; 0x92b9
     cmp ax, strict word 3            ; 0x92bc
-    jl short @..reveal_text_line.l1  ; 0x92bf
+    jl short .back1                  ; 0x92bf
     mov ax, 0xa                      ; 0x92c1
     mov cx, word [bp - 0xc]          ; 0x92c4
     shl cx, 1                        ; 0x92c7
@@ -55,12 +55,12 @@ reveal_text_line:
     shl cx, 1                        ; 0x9305
     mov bx, cx                       ; 0x9307
     cmp word [bx + text_line_color], byte 0 ; 0x9309
-    je short @..reveal_text_line.l4  ; 0x930e
+    je short .forward2               ; 0x930e
     mov cx, 0x92                     ; 0x9310
-    jmp short @..reveal_text_line.l5 ; 0x9313
-@..reveal_text_line.l4:
+    jmp short .forward3              ; 0x9313
+.forward2:
     mov cx, 0x97                     ; 0x9315
-@..reveal_text_line.l5:
+.forward3:
     add ax, cx                       ; 0x9318
     push ax                          ; 0x931a
     push word [bp - 2]               ; 0x931b
@@ -72,12 +72,12 @@ reveal_text_line:
     shl ax, 1                        ; 0x932b
     mov bx, ax                       ; 0x932d
     cmp word [bx + text_line_color], byte 0 ; 0x932f
-    je short @..reveal_text_line.l6  ; 0x9334
+    je short .forward4               ; 0x9334
     mov ax, 0x55                     ; 0x9336
-    jmp short @..reveal_text_line.l7 ; 0x9339
-@..reveal_text_line.l6:
+    jmp short .forward5              ; 0x9339
+.forward4:
     mov ax, 1                        ; 0x933b
-@..reveal_text_line.l7:
+.forward5:
     push ax                          ; 0x933e
     call gfx_set_text_color          ; 0x933f
     add sp, byte 4                   ; 0x9342
@@ -94,14 +94,14 @@ reveal_text_line:
     add sp, byte 4                   ; 0x935f
     mov ax, 0                        ; 0x9362
     cmp byte [bss_598a], 2           ; 0x9365
-    jne short @..reveal_text_line.l8 ; 0x936a
+    jne short .forward6              ; 0x936a
     mov ax, 1                        ; 0x936c
-@..reveal_text_line.l8:
+.forward6:
     mov word [bp - 0xa], ax          ; 0x936f
     mov ax, word [bp - 2]            ; 0x9372
     mov word [bp - 6], ax            ; 0x9375
-    jmp short @..reveal_text_line.l12 ; 0x9378
-@..reveal_text_line.l9:
+    jmp short .forward9              ; 0x9378
+.back3:
     mov ax, 0xc                      ; 0x937a
     imul word [text_line_index]      ; 0x937d
     add ax, 0x9e                     ; 0x9381
@@ -122,7 +122,7 @@ reveal_text_line:
     call poll_filtered_key           ; 0x93a7
     pop cx                           ; 0x93aa
     test ax, ax                      ; 0x93ab
-    je short @..reveal_text_line.l10 ; 0x93ad
+    je short .forward7               ; 0x93ad
     mov ax, 1                        ; 0x93af
     push ax                          ; 0x93b2
     call get_filtered_key            ; 0x93b3
@@ -130,22 +130,22 @@ reveal_text_line:
     sub ah, ah                       ; 0x93b7
     mov word [bp - 8], ax            ; 0x93b9
     cmp ax, strict word 0x20         ; 0x93bc
-    jne short @..reveal_text_line.l10 ; 0x93bf
+    jne short .forward7              ; 0x93bf
     call api_idx_0004_RPUO           ; 0x93c1
-@..reveal_text_line.l10:
+.forward7:
     cmp word [bp - 0xe], byte 0      ; 0x93c4
-    jle short @..reveal_text_line.l11 ; 0x93c8
+    jle short .forward8              ; 0x93c8
     push word [bp - 0xe]             ; 0x93ca
     call delay_ms                    ; 0x93cd
     pop cx                           ; 0x93d0
-@..reveal_text_line.l11:
+.forward8:
     mov ax, word [bp - 6]            ; 0x93d1
     add ax, word [bp - 0xa]          ; 0x93d4
     inc ax                           ; 0x93d7
     mov word [bp - 6], ax            ; 0x93d8
-@..reveal_text_line.l12:
+.forward9:
     mov ax, word [bp - 2]            ; 0x93db
     add ax, word [bp - 4]            ; 0x93de
     cmp ax, word [bp - 6]            ; 0x93e1
-    jg short @..reveal_text_line.l9  ; 0x93e4
+    jg short .back3                  ; 0x93e4
     ret                              ; 0x93e6

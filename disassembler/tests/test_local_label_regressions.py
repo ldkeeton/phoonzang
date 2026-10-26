@@ -50,10 +50,16 @@ def _labels_by_offset(output_dir):
     labels = {}
     for path in pathlib.Path(output_dir).rglob('*.asm'):
         pending = []
+        scope = ''
         for line in path.read_text().splitlines():
             match = re.match(r'\s*([\w.@]+):\s*$', line)
             if match:
-                pending.append(match.group(1))
+                name = match.group(1)
+                if name.startswith('.'):
+                    name = scope + name
+                else:
+                    scope = name
+                pending.append(name)
                 continue
             match = re.search(r';\s*0x([0-9a-fA-F]+)\s*$', line)
             if match:
@@ -65,9 +71,9 @@ def _labels_by_offset(output_dir):
 
 def _local_labels_by_offset(output_dir):
     return {
-        offset: next(name for name in names if name.startswith('@..'))
+        offset: next(name for name in names if '.' in name)
         for offset, names in _labels_by_offset(output_dir).items()
-        if any(name.startswith('@..') for name in names)
+        if any('.' in name for name in names)
     }
 
 
@@ -100,7 +106,7 @@ class DSAVANTLocalLabelRegressionTests(unittest.TestCase):
         missing = sorted(
             offset for offset in _PREVIOUS_LOCAL_TARGETS
             if not self.local_labels.get(offset)
-            and not any(not name.startswith('@..')
+            and not any('.' not in name
                         for name in emitted_labels.get(offset, ()))
         )
         self.assertEqual(
@@ -112,8 +118,16 @@ class DSAVANTLocalLabelRegressionTests(unittest.TestCase):
     def test_shared_epilogue_label_uses_its_function_scope(self):
         self.assertEqual(
             # v4.2b's C.LIB names it ``free`` (v5.2a's library said ``_free``).
-            self.local_labels.get(0x47fb), '@..aztec_free.l1',
+            self.local_labels.get(0x47fb), 'aztec_free.back1',
         )
+
+    def test_python_output_uses_short_local_names(self):
+        paths = list(pathlib.Path(self._output.name).rglob('add_random_steps.asm'))
+        self.assertEqual(len(paths), 1)
+        text = paths[0].read_text()
+        self.assertIn('\n.back1:\n', text)
+        self.assertIn('jmp short .back1', text)
+        self.assertNotIn('@..', text)
 
     def test_sidecar_data_anchors_remain_data(self):
         data_ranges = (

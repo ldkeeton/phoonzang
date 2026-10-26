@@ -4,9 +4,9 @@ api_idx_0092_GSQH:
     call aztec_csav                  ; 0x4bcf
     mov word [bp - 0x92], 0          ; 0x4bd2
     mov word [bp - 0x4e], 0          ; 0x4bd8
-@..api_idx_0092_GSQH.l1:
+.back1:
     mov word [bp - 0x50], 0          ; 0x4bdd
-@..api_idx_0092_GSQH.l2:
+.back2:
     mov ax, 0x248                    ; 0x4be2
     imul word [bp + 4]               ; 0x4be5
     push ax                          ; 0x4be8
@@ -23,9 +23,9 @@ api_idx_0092_GSQH:
     add ax, cx                       ; 0x4bfe
     mov bx, ax                       ; 0x4c00
     cmp word [bx + party_records + pc_rec.cell], byte 0 ; 0x4c02
-    jg short @..api_idx_0092_GSQH.l3 ; 0x4c07
-    jmp near @..api_idx_0092_GSQH.l8 ; 0x4c09
-@..api_idx_0092_GSQH.l3:
+    jg short .forward1               ; 0x4c07
+    jmp near .forward6               ; 0x4c09
+.forward1:
     mov ax, 0                        ; 0x4c0c
     push ax                          ; 0x4c0f
     push word [bx + party_records + pc_rec.cell] ; 0x4c10
@@ -53,7 +53,7 @@ api_idx_0092_GSQH:
     mov al, byte [bx + party_records + pc_rec.cell + 0x7] ; 0x4c42
     sub ah, ah                       ; 0x4c46
     test ax, 0x80                    ; 0x4c48
-    je short @..api_idx_0092_GSQH.l4 ; 0x4c4b
+    je short .forward2               ; 0x4c4b
     lea ax, word [bp - 0x4a]         ; 0x4c4d
     push ax                          ; 0x4c50
     mov ax, 0x16                     ; 0x4c51
@@ -62,8 +62,8 @@ api_idx_0092_GSQH:
     push ax                          ; 0x4c5b
     call aztec_strcpy                ; 0x4c5c
     add sp, byte 4                   ; 0x4c5f
-    jmp short @..api_idx_0092_GSQH.l5 ; 0x4c62
-@..api_idx_0092_GSQH.l4:
+    jmp short .forward3              ; 0x4c62
+.forward2:
     mov ax, 0x16                     ; 0x4c64
     imul word [bp - 0x92]            ; 0x4c67
     add ax, list_row_name            ; 0x4c6b
@@ -74,7 +74,7 @@ api_idx_0092_GSQH:
     push ax                          ; 0x4c77
     call load_message_string         ; 0x4c78
     add sp, byte 4                   ; 0x4c7b
-@..api_idx_0092_GSQH.l5:
+.forward3:
     mov al, byte [bp - 0x11]         ; 0x4c7e
     sub ah, ah                       ; 0x4c81
     mov cx, word [bp - 0x92]         ; 0x4c83
@@ -102,7 +102,7 @@ api_idx_0092_GSQH:
     sub ah, ah                       ; 0x4cba
     mov bx, ax                       ; 0x4cbc
     cmp byte [bx + cell_overlay_code + 0x58], 1 ; 0x4cbe
-    jne short @..api_idx_0092_GSQH.l6 ; 0x4cc3
+    jne short .forward4              ; 0x4cc3
     mov ax, 0x248                    ; 0x4cc5
     imul word [bp + 4]               ; 0x4cc8
     push ax                          ; 0x4ccb
@@ -124,13 +124,13 @@ api_idx_0092_GSQH:
     shl cx, 1                        ; 0x4cef
     mov bx, cx                       ; 0x4cf1
     mov word [bx + list_row_count], ax ; 0x4cf3
-    jmp short @..api_idx_0092_GSQH.l7 ; 0x4cf7
-@..api_idx_0092_GSQH.l6:
+    jmp short .forward5              ; 0x4cf7
+.forward4:
     mov ax, word [bp - 0x92]         ; 0x4cf9
     shl ax, 1                        ; 0x4cfd
     mov bx, ax                       ; 0x4cff
     mov word [bx + list_row_count], 0 ; 0x4d01
-@..api_idx_0092_GSQH.l7:
+.forward5:
     mov ax, word [bp - 0x4e]         ; 0x4d07
     xchg al, ah                      ; 0x4d0a
     sub al, al                       ; 0x4d0c
@@ -141,23 +141,23 @@ api_idx_0092_GSQH:
     add bx, bp                       ; 0x4d19
     mov word [bx - 0x90], ax         ; 0x4d1b
     inc word [bp - 0x92]             ; 0x4d1f
-@..api_idx_0092_GSQH.l8:
+.forward6:
     inc word [bp - 0x50]             ; 0x4d23
     mov ax, word [bp - 0x50]         ; 0x4d26
     cmp ax, strict word 0xa          ; 0x4d29
-    jge short @..api_idx_0092_GSQH.l9 ; 0x4d2c
-    jmp near @..api_idx_0092_GSQH.l2 ; 0x4d2e
-@..api_idx_0092_GSQH.l9:
+    jge short .forward7              ; 0x4d2c
+    jmp near .back2                  ; 0x4d2e
+.forward7:
     inc word [bp - 0x4e]             ; 0x4d31
     mov ax, word [bp - 0x4e]         ; 0x4d34
     cmp ax, strict word 2            ; 0x4d37
-    jge short @..api_idx_0092_GSQH.l10 ; 0x4d3a
-    jmp near @..api_idx_0092_GSQH.l1 ; 0x4d3c
-@..api_idx_0092_GSQH.l10:
+    jge short .forward8              ; 0x4d3a
+    jmp near .back1                  ; 0x4d3c
+.forward8:
     cmp word [bp - 0x92], byte 0     ; 0x4d3f
-    jne short @..api_idx_0092_GSQH.l11 ; 0x4d44
+    jne short .forward9              ; 0x4d44
     ret                              ; 0x4d46
-@..api_idx_0092_GSQH.l11:
+.forward9:
     mov ax, dseg_90e2                ; 0x4d47
     push ax                          ; 0x4d4a
     push word [bp - 0x92]            ; 0x4d4b
@@ -173,10 +173,10 @@ api_idx_0092_GSQH:
     mov ax, word [spell_dialog_result] ; 0x4d62
     mov word [bp - 2], ax            ; 0x4d65
     cmp word [bp - 0x4c], byte 2     ; 0x4d68
-    je short @..api_idx_0092_GSQH.l12 ; 0x4d6c
+    je short .forward10              ; 0x4d6c
     cmp ax, strict word 0xffff       ; 0x4d6e
-    jne short @..api_idx_0092_GSQH.l13 ; 0x4d71
-@..api_idx_0092_GSQH.l12:
+    jne short .forward11             ; 0x4d71
+.forward10:
     mov ax, 0xc6                     ; 0x4d73
     push ax                          ; 0x4d76
     mov ax, 0x109                    ; 0x4d77
@@ -188,7 +188,7 @@ api_idx_0092_GSQH:
     call gfx_show_area               ; 0x4d83
     add sp, byte 8                   ; 0x4d86
     ret                              ; 0x4d89
-@..api_idx_0092_GSQH.l13:
+.forward11:
     mov ax, word [bp - 2]            ; 0x4d8a
     shl ax, 1                        ; 0x4d8d
     mov bx, ax                       ; 0x4d8f
@@ -214,9 +214,9 @@ api_idx_0092_GSQH:
     call api_idx_0018_RGOS           ; 0x4dbd
     add sp, byte 0xc                 ; 0x4dc0
     cmp word [bp - 0x4c], byte 0     ; 0x4dc3
-    je short @..api_idx_0092_GSQH.l14 ; 0x4dc7
-    jmp near @..api_idx_0092_GSQH.l17 ; 0x4dc9
-@..api_idx_0092_GSQH.l14:
+    je short .forward12              ; 0x4dc7
+    jmp near .forward15              ; 0x4dc9
+.forward12:
     mov ax, 0                        ; 0x4dcc
     push ax                          ; 0x4dcf
     mov ax, 0x248                    ; 0x4dd0
@@ -242,7 +242,7 @@ api_idx_0092_GSQH:
     call data_record_io              ; 0x4dfc
     add sp, byte 8                   ; 0x4dff
     cmp word [bp - 0x28], byte 0     ; 0x4e02
-    je short @..api_idx_0092_GSQH.l16 ; 0x4e06
+    je short .forward14              ; 0x4e06
     mov ax, word [bp - 0x28]         ; 0x4e08
     mov cx, 0x100                    ; 0x4e0b
     cwd                              ; 0x4e0e
@@ -253,13 +253,13 @@ api_idx_0092_GSQH:
     imul dx                          ; 0x4e1a
     mov bx, ax                       ; 0x4e1c
     cmp byte [bx + spell_table + spell_table_rec.f_0004], 1 ; 0x4e1e
-    jne short @..api_idx_0092_GSQH.l15 ; 0x4e23
+    jne short .forward13             ; 0x4e23
     call pick_party_member           ; 0x4e25
     mov word [cast_spell_target], ax ; 0x4e28
     cmp ax, strict word 0xffff       ; 0x4e2b
-    jne short @..api_idx_0092_GSQH.l15 ; 0x4e2e
+    jne short .forward13             ; 0x4e2e
     mov word [bp - 0x52], 0xffff     ; 0x4e30
-@..api_idx_0092_GSQH.l15:
+.forward13:
     mov ax, 0xc6                     ; 0x4e35
     push ax                          ; 0x4e38
     mov ax, 0x109                    ; 0x4e39
@@ -270,8 +270,8 @@ api_idx_0092_GSQH:
     push ax                          ; 0x4e44
     call gfx_show_area               ; 0x4e45
     add sp, byte 8                   ; 0x4e48
-    cmp word [bp - 0x52], byte 0xff  ; 0x4e4b
-    je short @..api_idx_0092_GSQH.l16 ; 0x4e4f
+    cmp word [bp - 0x52], byte -1    ; 0x4e4b
+    je short .forward14              ; 0x4e4f
     push word [bp - 0x50]            ; 0x4e51
     push word [bp - 0x4e]            ; 0x4e54
     push word [bp + 4]               ; 0x4e57
@@ -283,11 +283,11 @@ api_idx_0092_GSQH:
     push word [bp + 4]               ; 0x4e6a
     call apply_spell_effect_alt      ; 0x4e6d
     add sp, byte 8                   ; 0x4e70
-@..api_idx_0092_GSQH.l16:
-    jmp short @..api_idx_0092_GSQH.l19 ; 0x4e73
-@..api_idx_0092_GSQH.l17:
+.forward14:
+    jmp short .forward17             ; 0x4e73
+.forward15:
     cmp word [bp - 0x4c], byte 1     ; 0x4e75
-    jne short @..api_idx_0092_GSQH.l19 ; 0x4e79
+    jne short .forward17             ; 0x4e79
     mov ax, 0x248                    ; 0x4e7b
     imul word [bp + 4]               ; 0x4e7e
     push ax                          ; 0x4e81
@@ -306,13 +306,13 @@ api_idx_0092_GSQH:
     mov al, byte [bx + party_records + pc_rec.cell + 0x7] ; 0x4e9b
     sub ah, ah                       ; 0x4e9f
     test ax, 2                       ; 0x4ea1
-    je short @..api_idx_0092_GSQH.l18 ; 0x4ea4
+    je short .forward16              ; 0x4ea4
     mov ax, 0                        ; 0x4ea6
     push ax                          ; 0x4ea9
     call play_sound_effect           ; 0x4eaa
     pop cx                           ; 0x4ead
-    jmp short @..api_idx_0092_GSQH.l19 ; 0x4eae
-@..api_idx_0092_GSQH.l18:
+    jmp short .forward17             ; 0x4eae
+.forward16:
     mov ax, 0x248                    ; 0x4eb0
     imul word [bp + 4]               ; 0x4eb3
     push ax                          ; 0x4eb6
@@ -336,7 +336,7 @@ api_idx_0092_GSQH:
     push word [bp + 4]               ; 0x4edc
     call clear_cell_key              ; 0x4edf
     add sp, byte 6                   ; 0x4ee2
-@..api_idx_0092_GSQH.l19:
+.forward17:
     mov ax, 0xc6                     ; 0x4ee5
     push ax                          ; 0x4ee8
     mov ax, 0x109                    ; 0x4ee9

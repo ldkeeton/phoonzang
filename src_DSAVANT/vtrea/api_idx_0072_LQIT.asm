@@ -21,14 +21,14 @@ api_idx_0072_LQIT:
     add sp, byte 6                   ; 0x7183
     mov word [bp - 0x20], ax         ; 0x7186
     mov word [bp - 2], 0             ; 0x7189
-@..api_idx_0072_LQIT.l1:
+.back1:
     mov ax, word [bp - 2]            ; 0x718e
     shl ax, 1                        ; 0x7191
     mov bx, ax                       ; 0x7193
     mov word [bx + bss_965e], 2      ; 0x7195
     mov word [bp - 4], 0             ; 0x719b
-    jmp short @..api_idx_0072_LQIT.l3 ; 0x71a0
-@..api_idx_0072_LQIT.l2:
+    jmp short .forward1              ; 0x71a0
+.back2:
     mov ax, 5                        ; 0x71a2
     push ax                          ; 0x71a5
     call random_below                ; 0x71a6
@@ -38,10 +38,10 @@ api_idx_0072_LQIT:
     mov bx, cx                       ; 0x71af
     add word [bx + bss_965e], ax     ; 0x71b1
     inc word [bp - 4]                ; 0x71b5
-@..api_idx_0072_LQIT.l3:
+.forward1:
     mov ax, word [bp - 4]            ; 0x71b8
     cmp ax, word [bp - 0x20]         ; 0x71bb
-    jl short @..api_idx_0072_LQIT.l2 ; 0x71be
+    jl short .back2                  ; 0x71be
     mov ax, 0x5f                     ; 0x71c0
     push ax                          ; 0x71c3
     mov ax, 0                        ; 0x71c4
@@ -59,9 +59,9 @@ api_idx_0072_LQIT:
     inc word [bp - 2]                ; 0x71e4
     mov ax, word [bp - 2]            ; 0x71e7
     cmp ax, strict word 6            ; 0x71ea
-    jl short @..api_idx_0072_LQIT.l1 ; 0x71ed
+    jl short .back1                  ; 0x71ed
     mov word [bp - 2], 0             ; 0x71ef
-@..api_idx_0072_LQIT.l4:
+.back3:
     mov ax, word [bp - 2]            ; 0x71f4
     shl ax, 1                        ; 0x71f7
     mov bx, ax                       ; 0x71f9
@@ -70,9 +70,9 @@ api_idx_0072_LQIT:
     inc word [bp - 2]                ; 0x7202
     mov ax, word [bp - 2]            ; 0x7205
     cmp ax, strict word 2            ; 0x7208
-    jle short @..api_idx_0072_LQIT.l4 ; 0x720b
+    jle short .back3                 ; 0x720b
     mov word [bp - 0x14], 0xffff     ; 0x720d
-@..api_idx_0072_LQIT.l5:
+.back4:
     mov word [treasure_caption_on], 1 ; 0x7212
     mov ax, 0                        ; 0x7218
     push ax                          ; 0x721b
@@ -139,24 +139,24 @@ api_idx_0072_LQIT:
     call redraw_treasure_caption     ; 0x72a2
     pop cx                           ; 0x72a5
     mov ax, word [bp - 0x1c]         ; 0x72a6
-    jmp short @..api_idx_0072_LQIT.l11 ; 0x72a9
-@..api_idx_0072_LQIT.l6:
+    jmp short .forward5              ; 0x72a9
+.back5:
     cmp word [mouse_active], byte 0  ; 0x72ab
-    jne short @..api_idx_0072_LQIT.l7 ; 0x72b0
+    jne short .forward2              ; 0x72b0
     mov ax, 1                        ; 0x72b2
     push ax                          ; 0x72b5
     call redraw_treasure_caption     ; 0x72b6
     pop cx                           ; 0x72b9
-@..api_idx_0072_LQIT.l7:
+.forward2:
     call pick_party_member           ; 0x72ba
     mov word [bp - 6], ax            ; 0x72bd
     cmp ax, strict word 0xffff       ; 0x72c0
-    je short @..api_idx_0072_LQIT.l8 ; 0x72c3
+    je short .forward3               ; 0x72c3
     push ax                          ; 0x72c5
     call member_is_active            ; 0x72c6
     pop cx                           ; 0x72c9
     test ax, ax                      ; 0x72ca
-    je short @..api_idx_0072_LQIT.l8 ; 0x72cc
+    je short .forward3               ; 0x72cc
     mov ax, 0                        ; 0x72ce
     push ax                          ; 0x72d1
     push word [bp + 4]               ; 0x72d2
@@ -164,11 +164,11 @@ api_idx_0072_LQIT:
     call api_idx_0034_NSGM           ; 0x72d8
     add sp, byte 6                   ; 0x72db
     test ax, ax                      ; 0x72de
-    jne short @..api_idx_0072_LQIT.l8 ; 0x72e0
+    jne short .forward3              ; 0x72e0
     mov word [bp - 0x1c], 2          ; 0x72e2
-@..api_idx_0072_LQIT.l8:
-    jmp short @..api_idx_0072_LQIT.l12 ; 0x72e7
-@..api_idx_0072_LQIT.l9:
+.forward3:
+    jmp short .forward6              ; 0x72e7
+.back6:
     mov ax, 1                        ; 0x72e9
     push ax                          ; 0x72ec
     push word [bp + 4]               ; 0x72ed
@@ -177,18 +177,18 @@ api_idx_0072_LQIT:
     call api_idx_0034_NSGM           ; 0x72f4
     add sp, byte 6                   ; 0x72f7
     test ax, ax                      ; 0x72fa
-    jne short @..api_idx_0072_LQIT.l10 ; 0x72fc
+    jne short .forward4              ; 0x72fc
     mov word [bp - 0x1c], 2          ; 0x72fe
-@..api_idx_0072_LQIT.l10:
-    jmp short @..api_idx_0072_LQIT.l12 ; 0x7303
-@..api_idx_0072_LQIT.l11:
+.forward4:
+    jmp short .forward6              ; 0x7303
+.forward5:
     cmp ax, strict word 0            ; 0x7305
-    je short @..api_idx_0072_LQIT.l6 ; 0x7308
+    je short .back5                  ; 0x7308
     cmp ax, strict word 1            ; 0x730a
-    je short @..api_idx_0072_LQIT.l9 ; 0x730d
-@..api_idx_0072_LQIT.l12:
+    je short .back6                  ; 0x730d
+.forward6:
     cmp word [bp - 0x1c], byte 2     ; 0x730f
-    je short @..api_idx_0072_LQIT.l13 ; 0x7313
-    jmp near @..api_idx_0072_LQIT.l5 ; 0x7315
-@..api_idx_0072_LQIT.l13:
+    je short .return1                ; 0x7313
+    jmp near .back4                  ; 0x7315
+.return1:
     ret                              ; 0x7318

@@ -3,7 +3,7 @@ data_record_io: ; Aztec csav frame=0x0100
     mov ax, 0xff00                   ; 0x0883
     call aztec_csav                  ; 0x0886
     mov ax, word [bp + 4]            ; 0x0889
-    jmp short @..data_record_io.l1   ; 0x088c
+    jmp short .forward1              ; 0x088c
 jumptable_08d4_case_0:
     mov bx, word [bp + 8]            ; 0x088e
     mov al, byte [bx + record_map_2] ; 0x0891
@@ -42,7 +42,7 @@ jumptable_08d4:
     dw jumptable_08d4_case_4 - IMAGE_BASE      ; 0x08dc
     dw jumptable_08d4_case_5 - IMAGE_BASE      ; 0x08de
     dw jumptable_08d4_case_6 - IMAGE_BASE      ; 0x08e0
-@..data_record_io.l1:
+data_record_io.forward1:
     sub ax, strict word 2            ; 0x08e2
     cmp ax, strict word 7            ; 0x08e5
     jae short jumptable_08d4_case_4  ; 0x08e8
@@ -78,19 +78,19 @@ jumptable_08d4_case_4:
     add sp, byte 8                   ; 0x092e
     mov bx, word [bp + 4]            ; 0x0931
     cmp byte [bx + record_packed], 0 ; 0x0934
-    jne short @..data_record_io.l5   ; 0x0939
+    jne short data_record_io.forward5 ; 0x0939
     cmp word [bp + 0xa], byte 0      ; 0x093b
-    jne short @..data_record_io.l3   ; 0x093f
+    jne short data_record_io.forward3 ; 0x093f
     shl bx, 1                        ; 0x0941
     push word [bx + record_size]     ; 0x0943
     push word [bp + 6]               ; 0x0947
     push word [data_file_fd]         ; 0x094a
     call aztec_read                  ; 0x094e
     add sp, byte 6                   ; 0x0951
-    jmp short @..data_record_io.l4   ; 0x0954
-@..data_record_io.l3:
+    jmp short data_record_io.forward4 ; 0x0954
+data_record_io.forward3:
     cmp word [bp + 0xa], byte 1      ; 0x0956
-    jne short @..data_record_io.l4   ; 0x095a
+    jne short data_record_io.forward4 ; 0x095a
     mov ax, word [bp + 4]            ; 0x095c
     shl ax, 1                        ; 0x095f
     mov bx, ax                       ; 0x0961
@@ -99,11 +99,11 @@ jumptable_08d4_case_4:
     push word [data_file_fd]         ; 0x096a
     call aztec_write                 ; 0x096e
     add sp, byte 6                   ; 0x0971
-@..data_record_io.l4:
-    jmp short @..data_record_io.l6   ; 0x0974
-@..data_record_io.l5:
+data_record_io.forward4:
+    jmp short data_record_io.return1 ; 0x0974
+data_record_io.forward5:
     cmp word [bp + 0xa], byte 0      ; 0x0976
-    jne short @..data_record_io.l6   ; 0x097a
+    jne short data_record_io.return1 ; 0x097a
     mov ax, word [bp + 4]            ; 0x097c
     shl ax, 1                        ; 0x097f
     mov bx, ax                       ; 0x0981
@@ -118,5 +118,5 @@ jumptable_08d4_case_4:
     push ax                          ; 0x099d
     call unpack_record               ; 0x099e
     add sp, byte 4                   ; 0x09a1
-@..data_record_io.l6:
+data_record_io.return1:
     ret                              ; 0x09a4

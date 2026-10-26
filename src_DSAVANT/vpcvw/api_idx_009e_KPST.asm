@@ -4,7 +4,7 @@ api_idx_009e_KPST:
     call aztec_csav                  ; 0x1897
     mov word [bp - 4], 0             ; 0x189a
     cmp word [mouse_active], byte 0  ; 0x189f
-    je short @..api_idx_009e_KPST.l1 ; 0x18a4
+    je short .forward1               ; 0x18a4
     lea ax, word [bp - 8]            ; 0x18a6
     push ax                          ; 0x18a9
     lea ax, word [bp - 6]            ; 0x18aa
@@ -12,7 +12,7 @@ api_idx_009e_KPST:
     call gfx_get_mouse               ; 0x18ae
     add sp, byte 4                   ; 0x18b1
     mov word [bp - 4], ax            ; 0x18b4
-@..api_idx_009e_KPST.l1:
+.forward1:
     mov ax, 0                        ; 0x18b7
     push ax                          ; 0x18ba
     push ax                          ; 0x18bb
@@ -131,7 +131,7 @@ api_idx_009e_KPST:
     imul word [bp + 4]               ; 0x19d8
     mov bx, ax                       ; 0x19db
     cmp word [bx + party_records + pc_rec.power_cap], byte 0x10 ; 0x19dd
-    jge short @..api_idx_009e_KPST.l2 ; 0x19e2
+    jge short .forward2              ; 0x19e2
     mov ax, word [bx + party_records + pc_rec.power_cap] ; 0x19e4
     shl ax, 1                        ; 0x19e8
     shl ax, 1                        ; 0x19ea
@@ -141,8 +141,8 @@ api_idx_009e_KPST:
     mov dx, word [bx - 0x4e]         ; 0x19f3
     mov word [bp - 0xa], dx          ; 0x19f6
     mov word [bp - 0xc], ax          ; 0x19f9
-    jmp short @..api_idx_009e_KPST.l3 ; 0x19fc
-@..api_idx_009e_KPST.l2:
+    jmp short .forward3              ; 0x19fc
+.forward2:
     mov ax, 0x248                    ; 0x19fe
     imul word [bp + 4]               ; 0x1a01
     mov bx, ax                       ; 0x1a04
@@ -175,7 +175,7 @@ api_idx_009e_KPST:
     adc dx, word [bp - 0xe]          ; 0x1a3b
     mov word [bp - 0xa], dx          ; 0x1a3e
     mov word [bp - 0xc], ax          ; 0x1a41
-@..api_idx_009e_KPST.l3:
+.forward3:
     lea ax, word [bp - 0x9e]         ; 0x1a44
     push ax                          ; 0x1a48
     mov ax, MSG_NEXT_LVL             ; 0x1a49
@@ -240,10 +240,10 @@ api_idx_009e_KPST:
     call gfx_show_area               ; 0x1ad4
     add sp, byte 8                   ; 0x1ad7
     cmp word [mouse_active], byte 0  ; 0x1ada
-    je short @..api_idx_009e_KPST.l6 ; 0x1adf
-@..api_idx_009e_KPST.l4:
+    je short .back2                  ; 0x1adf
+.back1:
     cmp word [bp - 4], byte 0        ; 0x1ae1
-    je short @..api_idx_009e_KPST.l5 ; 0x1ae5
+    je short .forward4               ; 0x1ae5
     lea ax, word [bp - 8]            ; 0x1ae7
     push ax                          ; 0x1aea
     lea ax, word [bp - 6]            ; 0x1aeb
@@ -251,11 +251,11 @@ api_idx_009e_KPST:
     call gfx_get_mouse               ; 0x1aef
     add sp, byte 4                   ; 0x1af2
     test ax, ax                      ; 0x1af5
-    je short @..api_idx_009e_KPST.l5 ; 0x1af7
-    jmp short @..api_idx_009e_KPST.l4 ; 0x1af9
-@..api_idx_009e_KPST.l5:
-    jmp short @..api_idx_009e_KPST.l7 ; 0x1afb
-@..api_idx_009e_KPST.l6:
+    je short .forward4               ; 0x1af7
+    jmp short .back1                 ; 0x1af9
+.forward4:
+    jmp short .return1               ; 0x1afb
+.back2:
     mov ax, 1                        ; 0x1afd
     push ax                          ; 0x1b00
     call get_filtered_key            ; 0x1b01
@@ -263,8 +263,8 @@ api_idx_009e_KPST:
     sub ah, ah                       ; 0x1b05
     mov word [bp - 2], ax            ; 0x1b07
     cmp word [bp - 2], byte 0xd      ; 0x1b0a
-    je short @..api_idx_009e_KPST.l7 ; 0x1b0e
+    je short .return1                ; 0x1b0e
     cmp word [bp - 2], byte 0x1b     ; 0x1b10
-    jne short @..api_idx_009e_KPST.l6 ; 0x1b14
-@..api_idx_009e_KPST.l7:
+    jne short .back2                 ; 0x1b14
+.return1:
     ret                              ; 0x1b16

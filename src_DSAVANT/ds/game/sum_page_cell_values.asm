@@ -7,9 +7,9 @@ sum_page_cell_values: ; Aztec csav frame=0x0004
     mov bx, ax                       ; 0x17e2
     mov word [bx + party_records + pc_rec.power_total], 0 ; 0x17e4
     mov word [bp - 4], 0             ; 0x17ea
-@..sum_page_cell_values.l1:
+.back1:
     mov word [bp - 2], 0             ; 0x17ef
-@..sum_page_cell_values.l2:
+.back2:
     mov ax, 0x248                    ; 0x17f4
     imul word [bp + 4]               ; 0x17f7
     push ax                          ; 0x17fa
@@ -26,7 +26,7 @@ sum_page_cell_values: ; Aztec csav frame=0x0004
     add ax, cx                       ; 0x1810
     mov bx, ax                       ; 0x1812
     cmp word [bx + party_records + pc_rec.cell], byte 0 ; 0x1814
-    jle short @..sum_page_cell_values.l3 ; 0x1819
+    jle short .forward1              ; 0x1819
     push word [bp - 2]               ; 0x181b
     push word [bp - 4]               ; 0x181e
     push word [bp + 4]               ; 0x1821
@@ -38,13 +38,13 @@ sum_page_cell_values: ; Aztec csav frame=0x0004
     mov bx, ax                       ; 0x1831
     pop ax                           ; 0x1833
     add word [bx + party_records + pc_rec.power_total], ax ; 0x1834
-@..sum_page_cell_values.l3:
+.forward1:
     inc word [bp - 2]                ; 0x1838
     mov ax, word [bp - 2]            ; 0x183b
     cmp ax, strict word 0xa          ; 0x183e
-    jl short @..sum_page_cell_values.l2 ; 0x1841
+    jl short .back2                  ; 0x1841
     inc word [bp - 4]                ; 0x1843
     mov ax, word [bp - 4]            ; 0x1846
     cmp ax, strict word 2            ; 0x1849
-    jl short @..sum_page_cell_values.l1 ; 0x184c
+    jl short .back1                  ; 0x184c
     ret                              ; 0x184e

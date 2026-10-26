@@ -7,10 +7,10 @@ loc_GOTP_17f0:
     push dx                          ; 0x17f4
     push ds                          ; 0x17f5
     push si                          ; 0x17f6
-@..loc_GOTP_17f0.l2:
+.forward2:
     mov ax, word [cs:cseg_0d41 - IMAGE_BASE] ; 0x17f7
     sub ax, 0x2000                   ; 0x17fb
-    je short @..loc_GOTP_17f0.l4     ; 0x17fe
+    je short .forward4               ; 0x17fe
     sar ax, 1                        ; 0x1800
     sar ax, 1                        ; 0x1802
     sar ax, 1                        ; 0x1804
@@ -19,9 +19,9 @@ loc_GOTP_17f0:
     mov cx, ax                       ; 0x180a
     mov bx, word [cs:cseg_0d43 - IMAGE_BASE] ; 0x180c
     cmp bx, byte 0xc                 ; 0x1811
-    jb short @..loc_GOTP_17f0.l3     ; 0x1814
+    jb short .forward3               ; 0x1814
     mov bx, 0xa                      ; 0x1816
-@..loc_GOTP_17f0.l3:
+.forward3:
     shl bx, 1                        ; 0x1819
     neg bx                           ; 0x181b
     add bx, strict word 0x193b       ; 0x181d
@@ -30,21 +30,21 @@ loc_GOTP_17f0:
     db 0x03, 0xc1, 0x03, 0xc1, 0x03, 0xc1, 0x03, 0xc1, 0x03, 0xc1, 0x03, 0xc1, 0x03, 0xc1, 0x03, 0xc1
     db 0x03, 0xc1, 0x03, 0xc1, 0x03, 0xc1
 
-@..loc_GOTP_17f0.l4:
+.forward4:
     add ah, byte [cs:cseg_0d3c - IMAGE_BASE] ; 0x1839
     add ax, strict word 8            ; 0x183e
     sar ax, 1                        ; 0x1841
     sar ax, 1                        ; 0x1843
     sar ax, 1                        ; 0x1845
     sar ax, 1                        ; 0x1847
-    jge short @..loc_GOTP_17f0.l5    ; 0x1849
+    jge short .forward5              ; 0x1849
     xor ax, ax                       ; 0x184b
-    jmp near @..loc_GOTP_17f0.l6     ; 0x184d
-@..loc_GOTP_17f0.l5:
+    jmp near .forward6               ; 0x184d
+.forward5:
     cmp ax, 0x5ff                    ; 0x1850
-    jl short @..loc_GOTP_17f0.l6     ; 0x1853
+    jl short .forward6               ; 0x1853
     mov ax, 0x5ff                    ; 0x1855
-@..loc_GOTP_17f0.l6:
+.forward6:
     mov di, ax                       ; 0x1858
     shr di, 1                        ; 0x185a
     shr di, 1                        ; 0x185c
@@ -67,14 +67,14 @@ loc_GOTP_17f0:
     mov bl, byte [cs:di + cseg_16a9 - IMAGE_BASE] ; 0x1885
     dec bl                           ; 0x188a
     or ax, ax                        ; 0x188c
-    jge short @..loc_GOTP_17f0.l7    ; 0x188e
+    jge short .forward7              ; 0x188e
     inc bl                           ; 0x1890
-@..loc_GOTP_17f0.l7:
+.forward7:
     or bl, bl                        ; 0x1892
-    jge short @..loc_GOTP_17f0.l8    ; 0x1894
+    jge short .forward8              ; 0x1894
     inc bl                           ; 0x1896
     sar ax, 1                        ; 0x1898
-@..loc_GOTP_17f0.l8:
+.forward8:
     push ax                          ; 0x189a
     mov ah, 0xa0                     ; 0x189b
     add ah, byte [cs:cseg_0d40 - IMAGE_BASE] ; 0x189d

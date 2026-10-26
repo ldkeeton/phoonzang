@@ -15,7 +15,7 @@ api_idx_0002_KRLI:
     call random_below                ; 0xa9c6
     pop cx                           ; 0xa9c9
     cmp ax, strict word 0x18         ; 0xa9ca
-    jle short @..api_idx_0002_KRLI.l1 ; 0xa9cd
+    jle short .return1               ; 0xa9cd
     mov ax, 0x26                     ; 0xa9cf
     imul word [bp + 4]               ; 0xa9d2
     mov bx, ax                       ; 0xa9d5
@@ -47,7 +47,7 @@ api_idx_0002_KRLI:
     imul word [bp - 2]               ; 0xaa19
     mov bx, ax                       ; 0xaa1c
     cmp byte [bx + slot_bit_states + slot_bit_state.f_0004], 0xff ; 0xaa1e
-    je short @..api_idx_0002_KRLI.l1 ; 0xaa23
+    je short .return1                ; 0xaa23
     mov al, byte [bx + slot_bit_states + slot_bit_state.f_0004] ; 0xaa25
     push ax                          ; 0xaa29
     mov ax, 0x26                     ; 0xaa2a
@@ -58,7 +58,7 @@ api_idx_0002_KRLI:
     push word [bp + 4]               ; 0xaa37
     call loc_QJRN                    ; 0xaa3a
     pop cx                           ; 0xaa3d
-@..api_idx_0002_KRLI.l1:
+.return1:
     ret                              ; 0xaa3e
 loc_OGGM:
     mov ax, 0                        ; 0xaa3f
@@ -75,13 +75,13 @@ loc_OGGM:
     mov byte [bx + slot_records + slot_record.map_piece], al ; 0xaa57
     mov al, byte [bx + slot_records + slot_record.kind] ; 0xaa5b
     cmp al, byte [bx + slot_records + slot_record.f_0001] ; 0xaa5f
-    jne short @..loc_OGGM.l2         ; 0xaa63
+    jne short .forward2              ; 0xaa63
     mov ax, 0xa                      ; 0xaa65
     push ax                          ; 0xaa68
     call random_below                ; 0xaa69
     pop cx                           ; 0xaa6c
     test ax, ax                      ; 0xaa6d
-    jne short @..loc_OGGM.l2         ; 0xaa6f
+    jne short .forward2              ; 0xaa6f
     mov ax, 0x26                     ; 0xaa71
     imul word [bp + 4]               ; 0xaa74
     mov bx, ax                       ; 0xaa77
@@ -92,16 +92,16 @@ loc_OGGM:
     call random_below                ; 0xaa85
     pop cx                           ; 0xaa88
     test ax, ax                      ; 0xaa89
-    jne short @..loc_OGGM.l1         ; 0xaa8b
+    jne short .forward1              ; 0xaa8b
     mov ax, 0x26                     ; 0xaa8d
     imul word [bp + 4]               ; 0xaa90
     mov bx, ax                       ; 0xaa93
     mov byte [bx + slot_records + slot_record.f_0002], 2 ; 0xaa95
     mov byte [bx + slot_records + slot_record.map_piece], 0 ; 0xaa9a
     ret                              ; 0xaa9f
-@..loc_OGGM.l1:
-    jmp short @..loc_OGGM.l3         ; 0xaaa0
-@..loc_OGGM.l2:
+.forward1:
+    jmp short .forward3              ; 0xaaa0
+.forward2:
     mov ax, 3                        ; 0xaaa2
     push ax                          ; 0xaaa5
     mov ax, 2                        ; 0xaaa6
@@ -110,9 +110,9 @@ loc_OGGM:
     call api_idx_0002_OOUO           ; 0xaaad
     add sp, byte 6                   ; 0xaab0
     test ax, ax                      ; 0xaab3
-    je short @..loc_OGGM.l3          ; 0xaab5
+    je short .forward3               ; 0xaab5
     ret                              ; 0xaab7
-@..loc_OGGM.l3:
+.forward3:
     mov ax, 0xffff                   ; 0xaab8
     push ax                          ; 0xaabb
     push word [bp + 4]               ; 0xaabc

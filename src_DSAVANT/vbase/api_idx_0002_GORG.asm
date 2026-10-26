@@ -44,7 +44,7 @@ api_idx_0002_GORG:
     mov word [scroll_x_2], 0x140     ; 0x8bd9
     mov word [scroll_x_3], 0x1e0     ; 0x8bdf
     mov word [bp - 2], 0             ; 0x8be5
-@..api_idx_0002_GORG.l1:
+.back1:
     mov ax, word [bp - 2]            ; 0x8bea
     shl ax, 1                        ; 0x8bed
     mov bx, ax                       ; 0x8bef
@@ -61,7 +61,7 @@ api_idx_0002_GORG:
     inc word [bp - 2]                ; 0x8c0d
     mov ax, word [bp - 2]            ; 0x8c10
     cmp ax, strict word 8            ; 0x8c13
-    jl short @..api_idx_0002_GORG.l1 ; 0x8c16
+    jl short .back1                  ; 0x8c16
     mov word [actor_x], 0xff9c       ; 0x8c18
     mov word [actor_y], 0x6e         ; 0x8c1e
     mov word [scene_clip_arg], 0     ; 0x8c24

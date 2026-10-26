@@ -16,7 +16,7 @@ api_idx_0002_SSJN:
     call gfx_set_text_color          ; 0x19cc
     add sp, byte 4                   ; 0x19cf
     mov word [bp - 2], 0             ; 0x19d2
-@..api_idx_0002_SSJN.l1:
+.back1:
     mov ax, 6                        ; 0x19d7
     imul word [bp - 2]               ; 0x19da
     add ax, strict word 0x23         ; 0x19dd
@@ -49,9 +49,9 @@ api_idx_0002_SSJN:
     inc word [bp - 2]                ; 0x1a1f
     mov ax, word [bp - 2]            ; 0x1a22
     cmp ax, strict word 8            ; 0x1a25
-    jl short @..api_idx_0002_SSJN.l1 ; 0x1a28
+    jl short .back1                  ; 0x1a28
     cmp word [bss_9594], byte 0      ; 0x1a2a
-    jl short @..api_idx_0002_SSJN.l2 ; 0x1a2f
+    jl short .forward1               ; 0x1a2f
     mov ax, 0                        ; 0x1a31
     push ax                          ; 0x1a34
     mov ax, 0x16                     ; 0x1a35
@@ -83,9 +83,9 @@ api_idx_0002_SSJN:
     push word [bss_9594]             ; 0x1a71
     call draw_number_field           ; 0x1a75
     add sp, byte 6                   ; 0x1a78
-@..api_idx_0002_SSJN.l2:
+.forward1:
     cmp word [bp + 6], byte 0        ; 0x1a7b
-    je short @..api_idx_0002_SSJN.l3 ; 0x1a7f
+    je short .return1                ; 0x1a7f
     mov ax, 0x60                     ; 0x1a81
     push ax                          ; 0x1a84
     mov ax, 0xa8                     ; 0x1a85
@@ -96,5 +96,5 @@ api_idx_0002_SSJN:
     push ax                          ; 0x1a90
     call gfx_show_area               ; 0x1a91
     add sp, byte 8                   ; 0x1a94
-@..api_idx_0002_SSJN.l3:
+.return1:
     ret                              ; 0x1a97

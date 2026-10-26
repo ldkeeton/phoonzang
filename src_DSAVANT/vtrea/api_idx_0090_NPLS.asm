@@ -2,7 +2,7 @@
 api_idx_0090_NPLS:
     mov ax, 0xff70                   ; 0x0b29
     call aztec_csav                  ; 0x0b2c
-@..api_idx_0090_NPLS.l1:
+.back1:
     mov bx, word [bp + 4]            ; 0x0b2f
     mov al, byte [bx]                ; 0x0b32
     sub ah, ah                       ; 0x0b34
@@ -13,17 +13,17 @@ api_idx_0090_NPLS:
     add sp, byte 4                   ; 0x0b3e
     mov word [bp - 4], ax            ; 0x0b41
     cmp ax, strict word 0            ; 0x0b44
-    jge short @..api_idx_0090_NPLS.l2 ; 0x0b47
-    jmp near @..api_idx_0090_NPLS.l9 ; 0x0b49
-@..api_idx_0090_NPLS.l2:
-    jmp near @..api_idx_0090_NPLS.l7 ; 0x0b4c
+    jge short .forward1              ; 0x0b47
+    jmp near .forward8               ; 0x0b49
+.forward1:
+    jmp near .forward6               ; 0x0b4c
 jumptable_0c85_case_0:
     inc word [bp + 4]                ; 0x0b4f
     mov ax, bss_9154                 ; 0x0b52
     push ax                          ; 0x0b55
     call api_idx_0004_JGSH           ; 0x0b56
     pop cx                           ; 0x0b59
-    jmp near @..api_idx_0090_NPLS.l8 ; 0x0b5a
+    jmp near api_idx_0090_NPLS.forward7 ; 0x0b5a
 jumptable_0c85_case_1:
     inc word [bp + 4]                ; 0x0b5d
     mov ax, bss_9154                 ; 0x0b60
@@ -43,7 +43,7 @@ jumptable_0c85_case_1:
     push word [message_delay]        ; 0x0b7e
     call api_idx_0004_UQUT           ; 0x0b82
     pop cx                           ; 0x0b85
-    jmp near @..api_idx_0090_NPLS.l8 ; 0x0b86
+    jmp near api_idx_0090_NPLS.forward7 ; 0x0b86
 jumptable_0c85_case_2:
     inc word [bp + 4]                ; 0x0b89
     mov ax, bss_9154                 ; 0x0b8c
@@ -60,7 +60,7 @@ jumptable_0c85_case_2:
     push ax                          ; 0x0ba3
     call dissolve_or_show_area       ; 0x0ba4
     add sp, byte 8                   ; 0x0ba7
-    jmp near @..api_idx_0090_NPLS.l8 ; 0x0baa
+    jmp near api_idx_0090_NPLS.forward7 ; 0x0baa
 jumptable_0c85_case_3:
     inc word [bp + 4]                ; 0x0bad
     mov ax, 0                        ; 0x0bb0
@@ -68,7 +68,7 @@ jumptable_0c85_case_3:
     call redraw_treasure_caption     ; 0x0bb4
     pop cx                           ; 0x0bb7
     mov word [bss_9150], 0           ; 0x0bb8
-    jmp near @..api_idx_0090_NPLS.l8 ; 0x0bbe
+    jmp near api_idx_0090_NPLS.forward7 ; 0x0bbe
 jumptable_0c85_case_4:
     inc word [bp + 4]                ; 0x0bc1
     mov ax, bss_9154                 ; 0x0bc4
@@ -79,7 +79,7 @@ jumptable_0c85_case_4:
     push ax                          ; 0x0bcf
     call loc_NQGV                    ; 0x0bd0
     pop cx                           ; 0x0bd3
-    jmp near @..api_idx_0090_NPLS.l8 ; 0x0bd4
+    jmp near api_idx_0090_NPLS.forward7 ; 0x0bd4
 jumptable_0c85_case_5:
     inc word [bp + 4]                ; 0x0bd7
     mov ax, 0x10                     ; 0x0bda
@@ -117,7 +117,7 @@ jumptable_0c85_case_5:
     push ax                          ; 0x0c25
     call free_picture_slot           ; 0x0c26
     pop cx                           ; 0x0c29
-    jmp near @..api_idx_0090_NPLS.l8 ; 0x0c2a
+    jmp near api_idx_0090_NPLS.forward7 ; 0x0c2a
 jumptable_0c85_case_6:
     inc word [bp + 4]                ; 0x0c2d
     mov bx, word [bp + 4]            ; 0x0c30
@@ -125,24 +125,24 @@ jumptable_0c85_case_6:
     sub ah, ah                       ; 0x0c35
     mov word [bp - 6], ax            ; 0x0c37
     cmp ax, strict word 0x63         ; 0x0c3a
-    jne short @..api_idx_0090_NPLS.l3 ; 0x0c3d
+    jne short api_idx_0090_NPLS.forward2 ; 0x0c3d
     mov word [bp - 6], 0x20          ; 0x0c3f
-@..api_idx_0090_NPLS.l3:
+api_idx_0090_NPLS.forward2:
     cmp word [bp - 6], byte 0        ; 0x0c44
-    jle short @..api_idx_0090_NPLS.l6 ; 0x0c48
+    jle short api_idx_0090_NPLS.forward5 ; 0x0c48
     mov ax, word [bp - 6]            ; 0x0c4a
     cmp ax, strict word 5            ; 0x0c4d
-    jl short @..api_idx_0090_NPLS.l4 ; 0x0c50
+    jl short api_idx_0090_NPLS.forward3 ; 0x0c50
     cmp ax, strict word 8            ; 0x0c52
-    je short @..api_idx_0090_NPLS.l4 ; 0x0c55
+    je short api_idx_0090_NPLS.forward3 ; 0x0c55
     cmp ax, strict word 9            ; 0x0c57
-    jne short @..api_idx_0090_NPLS.l5 ; 0x0c5a
-@..api_idx_0090_NPLS.l4:
+    jne short api_idx_0090_NPLS.forward4 ; 0x0c5a
+api_idx_0090_NPLS.forward3:
     push ax                          ; 0x0c5c
     call play_sound_effect           ; 0x0c5d
     pop cx                           ; 0x0c60
-    jmp short @..api_idx_0090_NPLS.l6 ; 0x0c61
-@..api_idx_0090_NPLS.l5:
+    jmp short api_idx_0090_NPLS.forward5 ; 0x0c61
+api_idx_0090_NPLS.forward4:
     push word [bp - 6]               ; 0x0c63
     call ensure_sound_loaded         ; 0x0c66
     pop cx                           ; 0x0c69
@@ -155,9 +155,9 @@ jumptable_0c85_case_6:
     call wait_and_free_sound         ; 0x0c76
     pop cx                           ; 0x0c79
     mov word [loaded_sound_id], 0xffff ; 0x0c7a
-@..api_idx_0090_NPLS.l6:
+api_idx_0090_NPLS.forward5:
     inc word [bp + 4]                ; 0x0c80
-    jmp short @..api_idx_0090_NPLS.l8 ; 0x0c83
+    jmp short api_idx_0090_NPLS.forward7 ; 0x0c83
 jumptable_0c85:
     dw jumptable_0c85_case_0 - IMAGE_BASE + __zres_end ; 0x0c85
     dw jumptable_0c85_case_1 - IMAGE_BASE + __zres_end ; 0x0c87
@@ -166,17 +166,17 @@ jumptable_0c85:
     dw jumptable_0c85_case_4 - IMAGE_BASE + __zres_end ; 0x0c8d
     dw jumptable_0c85_case_5 - IMAGE_BASE + __zres_end ; 0x0c8f
     dw jumptable_0c85_case_6 - IMAGE_BASE + __zres_end ; 0x0c91
-@..api_idx_0090_NPLS.l7:
+api_idx_0090_NPLS.forward6:
     cmp ax, strict word 7            ; 0x0c93
-    jae short @..api_idx_0090_NPLS.l8 ; 0x0c96
+    jae short api_idx_0090_NPLS.forward7 ; 0x0c96
     xchg bx, ax                      ; 0x0c98
     shl bx, 1                        ; 0x0c99
     jmp [cs:bx + jumptable_0c85 - IMAGE_BASE + __zres_end] ; 0x0c9b
-@..api_idx_0090_NPLS.l8:
-    jmp near @..api_idx_0090_NPLS.l1 ; 0x0ca0
-@..api_idx_0090_NPLS.l9:
+api_idx_0090_NPLS.forward7:
+    jmp near api_idx_0090_NPLS.back1 ; 0x0ca0
+api_idx_0090_NPLS.forward8:
     cmp byte [bss_9154], 0           ; 0x0ca3
-    je short @..api_idx_0090_NPLS.l10 ; 0x0ca8
+    je short api_idx_0090_NPLS.forward9 ; 0x0ca8
     mov ax, bss_9154                 ; 0x0caa
     push ax                          ; 0x0cad
     lea ax, word [bp - 0x86]         ; 0x0cae
@@ -194,14 +194,14 @@ jumptable_0c85:
     push ax                          ; 0x0ccf
     call aztec_strcat                ; 0x0cd0
     add sp, byte 4                   ; 0x0cd3
-    jmp short @..api_idx_0090_NPLS.l11 ; 0x0cd6
-@..api_idx_0090_NPLS.l10:
+    jmp short api_idx_0090_NPLS.forward10 ; 0x0cd6
+api_idx_0090_NPLS.forward9:
     push word [bp + 4]               ; 0x0cd8
     lea ax, word [bp - 0x86]         ; 0x0cdb
     push ax                          ; 0x0cdf
     call aztec_strcpy                ; 0x0ce0
     add sp, byte 4                   ; 0x0ce3
-@..api_idx_0090_NPLS.l11:
+api_idx_0090_NPLS.forward10:
     mov ax, 2                        ; 0x0ce6
     push ax                          ; 0x0ce9
     lea ax, word [bp - 0x86]         ; 0x0cea
@@ -210,7 +210,7 @@ jumptable_0c85:
     add sp, byte 4                   ; 0x0cf2
     mov word [bp - 2], ax            ; 0x0cf5
     cmp ax, 0xb8                     ; 0x0cf8
-    jle short @..api_idx_0090_NPLS.l12 ; 0x0cfb
+    jle short api_idx_0090_NPLS.forward11 ; 0x0cfb
     mov ax, bss_9154                 ; 0x0cfd
     push ax                          ; 0x0d00
     call api_idx_0004_JGSH           ; 0x0d01
@@ -220,13 +220,13 @@ jumptable_0c85:
     push ax                          ; 0x0d0b
     call aztec_strcpy                ; 0x0d0c
     add sp, byte 4                   ; 0x0d0f
-    jmp short @..api_idx_0090_NPLS.l13 ; 0x0d12
-@..api_idx_0090_NPLS.l12:
+    jmp short api_idx_0090_NPLS.return1 ; 0x0d12
+api_idx_0090_NPLS.forward11:
     lea ax, word [bp - 0x86]         ; 0x0d14
     push ax                          ; 0x0d18
     mov ax, bss_9154                 ; 0x0d19
     push ax                          ; 0x0d1c
     call aztec_strcpy                ; 0x0d1d
     add sp, byte 4                   ; 0x0d20
-@..api_idx_0090_NPLS.l13:
+api_idx_0090_NPLS.return1:
     ret                              ; 0x0d23

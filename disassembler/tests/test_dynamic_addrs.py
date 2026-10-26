@@ -1954,8 +1954,9 @@ class InsertBytePropertyTests(unittest.TestCase):
             frag = os.path.join(d, included[0])
             with open(frag) as f:
                 text = f.read()
-            needle = '    jb short @..loc_0793.l1'
-            self.assertIn(needle, text)
+            branch = re.search(r'^    jb short [^\s;]+[^\n]*; 0x079a\b', text, re.M)
+            self.assertIsNotNone(branch)
+            needle = branch.group()
             with open(frag, 'w') as f:
                 f.write(text.replace(needle, needle + '\n    db 0x90', 1))
             grown = _nasm_file(master, d)

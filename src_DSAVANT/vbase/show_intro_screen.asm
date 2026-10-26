@@ -4,14 +4,14 @@ show_intro_screen:
     call aztec_csav                  ; 0x8f77
     call blank_scene_screen          ; 0x8f7a
     cmp word [mouse_active], byte 1  ; 0x8f7d
-    jne short @..show_intro_screen.l1 ; 0x8f82
+    jne short .forward1              ; 0x8f82
     call gfx_mouse_off               ; 0x8f84
-@..show_intro_screen.l1:
+.forward1:
     mov word [mouse_active], 0       ; 0x8f87
     call score_music_enabled         ; 0x8f8d
     mov word [bss_8450], ax          ; 0x8f90
     test ax, ax                      ; 0x8f93
-    je short @..show_intro_screen.l2 ; 0x8f95
+    je short .forward2               ; 0x8f95
     mov ax, 0                        ; 0x8f97
     push ax                          ; 0x8f9a
     mov ax, 5                        ; 0x8f9b
@@ -28,12 +28,12 @@ show_intro_screen:
     call ds_app_UKGP                 ; 0x8fb7
     add sp, byte 6                   ; 0x8fba
     mov word [bss_844c], ax          ; 0x8fbd
-@..show_intro_screen.l2:
+.forward2:
     mov ax, word [bp + 4]            ; 0x8fc0
-    jmp near @..show_intro_screen.l9 ; 0x8fc3
-@..show_intro_screen.l3:
+    jmp near .forward6               ; 0x8fc3
+.back1:
     cmp word [bp + 4], byte 4        ; 0x8fc6
-    jne short @..show_intro_screen.l4 ; 0x8fca
+    jne short .forward3              ; 0x8fca
     mov ax, 0x63                     ; 0x8fcc
     push ax                          ; 0x8fcf
     push ax                          ; 0x8fd0
@@ -45,8 +45,8 @@ show_intro_screen:
     push ax                          ; 0x8fdc
     call loc_TQHJ                    ; 0x8fdd
     add sp, byte 0xa                 ; 0x8fe0
-    jmp short @..show_intro_screen.l5 ; 0x8fe3
-@..show_intro_screen.l4:
+    jmp short .forward4              ; 0x8fe3
+.forward3:
     mov ax, 0x63                     ; 0x8fe5
     push ax                          ; 0x8fe8
     push ax                          ; 0x8fe9
@@ -58,7 +58,7 @@ show_intro_screen:
     push ax                          ; 0x8ff5
     call loc_TQHJ                    ; 0x8ff6
     add sp, byte 0xa                 ; 0x8ff9
-@..show_intro_screen.l5:
+.forward4:
     mov ax, 0x63                     ; 0x8ffc
     push ax                          ; 0x8fff
     push ax                          ; 0x9000
@@ -111,9 +111,9 @@ show_intro_screen:
     mov ax, 0                        ; 0x9067
     push ax                          ; 0x906a
     cmp word [bp + 4], byte 4        ; 0x906b
-    jne short @..show_intro_screen.l6 ; 0x906f
+    jne short .forward5              ; 0x906f
     mov ax, 0x63                     ; 0x9071
-@..show_intro_screen.l6:
+.forward5:
     push ax                          ; 0x9074
     mov ax, MSG_THERE_IS_NO_MORE_TIME_31570 ; 0x9075
     push ax                          ; 0x9078
@@ -141,8 +141,8 @@ show_intro_screen:
     push ax                          ; 0x90aa
     call api_idx_0002_GORG           ; 0x90ab
     add sp, byte 4                   ; 0x90ae
-    jmp near @..show_intro_screen.l13 ; 0x90b1
-@..show_intro_screen.l7:
+    jmp near .forward10              ; 0x90b1
+.back2:
     mov ax, 0                        ; 0x90b4
     push ax                          ; 0x90b7
     push ax                          ; 0x90b8
@@ -252,8 +252,8 @@ show_intro_screen:
     push ax                          ; 0x9198
     call api_idx_0002_GORG           ; 0x9199
     add sp, byte 4                   ; 0x919c
-    jmp near @..show_intro_screen.l13 ; 0x919f
-@..show_intro_screen.l8:
+    jmp near .forward10              ; 0x919f
+.back3:
     mov ax, 0                        ; 0x91a2
     push ax                          ; 0x91a5
     mov ax, 0x63                     ; 0x91a6
@@ -352,26 +352,26 @@ show_intro_screen:
     push ax                          ; 0x9275
     call api_idx_0002_GORG           ; 0x9276
     add sp, byte 4                   ; 0x9279
-    jmp short @..show_intro_screen.l13 ; 0x927c
-@..show_intro_screen.l9:
+    jmp short .forward10             ; 0x927c
+.forward6:
     cmp ax, strict word 1            ; 0x927e
-    jne short @..show_intro_screen.l10 ; 0x9281
-    jmp near @..show_intro_screen.l3 ; 0x9283
-@..show_intro_screen.l10:
+    jne short .forward7              ; 0x9281
+    jmp near .back1                  ; 0x9283
+.forward7:
     cmp ax, strict word 2            ; 0x9286
-    jne short @..show_intro_screen.l11 ; 0x9289
-    jmp near @..show_intro_screen.l7 ; 0x928b
-@..show_intro_screen.l11:
+    jne short .forward8              ; 0x9289
+    jmp near .back2                  ; 0x928b
+.forward8:
     cmp ax, strict word 3            ; 0x928e
-    jne short @..show_intro_screen.l12 ; 0x9291
-    jmp near @..show_intro_screen.l8 ; 0x9293
-@..show_intro_screen.l12:
+    jne short .forward9              ; 0x9291
+    jmp near .back3                  ; 0x9293
+.forward9:
     cmp ax, strict word 4            ; 0x9296
-    jne short @..show_intro_screen.l13 ; 0x9299
-    jmp near @..show_intro_screen.l3 ; 0x929b
-@..show_intro_screen.l13:
+    jne short .forward10             ; 0x9299
+    jmp near .back1                  ; 0x929b
+.forward10:
     cmp word [bss_8450], byte 0      ; 0x929e
-    je short @..show_intro_screen.l14 ; 0x92a3
+    je short .forward11              ; 0x92a3
     push word [bss_844c]             ; 0x92a5
     push word [bss_844e]             ; 0x92a9
     call fade_out_music              ; 0x92ad
@@ -380,17 +380,17 @@ show_intro_screen:
     push ax                          ; 0x92b6
     call app_gfx_free_score          ; 0x92b7
     pop cx                           ; 0x92ba
-@..show_intro_screen.l14:
+.forward11:
     test word [bss_9056], 0x1000     ; 0x92bb
-    je short @..show_intro_screen.l16 ; 0x92c1
+    je short .forward13              ; 0x92c1
     cmp byte [bss_5989], 1           ; 0x92c3
-    jne short @..show_intro_screen.l16 ; 0x92c8
+    jne short .forward13             ; 0x92c8
     cmp word [mouse_active], byte 0  ; 0x92ca
-    jne short @..show_intro_screen.l15 ; 0x92cf
+    jne short .forward12             ; 0x92cf
     call gfx_mouse_init              ; 0x92d1
-@..show_intro_screen.l15:
+.forward12:
     mov word [mouse_active], 1       ; 0x92d4
-@..show_intro_screen.l16:
+.forward13:
     mov ax, 0                        ; 0x92da
     push ax                          ; 0x92dd
     mov ax, dseg_91ae                ; 0x92de
@@ -398,18 +398,18 @@ show_intro_screen:
     call load_screen_file            ; 0x92e2
     add sp, byte 4                   ; 0x92e5
     mov word [bp - 2], 0             ; 0x92e8
-    jmp short @..show_intro_screen.l18 ; 0x92ed
-@..show_intro_screen.l17:
+    jmp short .forward14             ; 0x92ed
+.back4:
     mov ax, 0                        ; 0x92ef
     push ax                          ; 0x92f2
     push word [bp - 2]               ; 0x92f3
     call draw_party_member_panel     ; 0x92f6
     add sp, byte 4                   ; 0x92f9
     inc word [bp - 2]                ; 0x92fc
-@..show_intro_screen.l18:
+.forward14:
     mov ax, word [bp - 2]            ; 0x92ff
     cmp ax, word [party_char_count]  ; 0x9302
-    jl short @..show_intro_screen.l17 ; 0x9306
+    jl short .back4                  ; 0x9306
     mov ax, 0                        ; 0x9308
     push ax                          ; 0x930b
     push ax                          ; 0x930c

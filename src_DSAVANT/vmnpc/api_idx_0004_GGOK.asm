@@ -16,9 +16,9 @@ api_idx_0004_GGOK:
     call api_idx_0044_NORP           ; 0x3ab3
     add sp, byte 8                   ; 0x3ab6
     test ax, ax                      ; 0x3ab9
-    je short @..api_idx_0004_GGOK.l1 ; 0x3abb
-    jmp near @..api_idx_0004_GGOK.l5 ; 0x3abd
-@..api_idx_0004_GGOK.l1:
+    je short .forward1               ; 0x3abb
+    jmp near .return1                ; 0x3abd
+.forward1:
     mov ax, word [spell_dialog_result] ; 0x3ac0
     mov cx, 0x100                    ; 0x3ac3
     cwd                              ; 0x3ac6
@@ -29,17 +29,17 @@ api_idx_0004_GGOK:
     imul dx                          ; 0x3ad2
     mov bx, ax                       ; 0x3ad4
     cmp byte [bx + spell_table + spell_table_rec.f_0004], 1 ; 0x3ad6
-    jne short @..api_idx_0004_GGOK.l2 ; 0x3adb
+    jne short .forward2              ; 0x3adb
     call pick_party_member           ; 0x3add
     mov word [bss_9650], ax          ; 0x3ae0
     cmp ax, strict word 0xffff       ; 0x3ae3
-    jne short @..api_idx_0004_GGOK.l2 ; 0x3ae6
+    jne short .forward2              ; 0x3ae6
     mov word [bp - 2], 0xffff        ; 0x3ae8
-@..api_idx_0004_GGOK.l2:
+.forward2:
     cmp word [bp - 2], byte 0        ; 0x3aed
-    jge short @..api_idx_0004_GGOK.l3 ; 0x3af1
-    jmp near @..api_idx_0004_GGOK.l5 ; 0x3af3
-@..api_idx_0004_GGOK.l3:
+    jge short .forward3              ; 0x3af1
+    jmp near .return1                ; 0x3af3
+.forward3:
     mov ax, 6                        ; 0x3af6
     imul word [bp - 2]               ; 0x3af9
     mov bx, ax                       ; 0x3afc
@@ -86,7 +86,7 @@ api_idx_0004_GGOK:
     pop ax                           ; 0x3b61
     sub word [bx + party_records + pc_rec.pair_b], ax ; 0x3b62
     cmp word [bx + party_records + pc_rec.pair_b], byte 0 ; 0x3b66
-    jge short @..api_idx_0004_GGOK.l4 ; 0x3b6b
+    jge short .forward4              ; 0x3b6b
     mov word [bx + party_records + pc_rec.pair_b], 0 ; 0x3b6d
     mov ax, 6                        ; 0x3b73
     push ax                          ; 0x3b76
@@ -99,11 +99,11 @@ api_idx_0004_GGOK:
     mov bx, ax                       ; 0x3b85
     pop ax                           ; 0x3b87
     mov byte [bx + party_records + pc_rec.status + 0x2], al ; 0x3b88
-@..api_idx_0004_GGOK.l4:
+.forward4:
     mov ax, 1                        ; 0x3b8c
     push ax                          ; 0x3b8f
     push word [bp + 4]               ; 0x3b90
     call draw_party_member_panel     ; 0x3b93
     add sp, byte 4                   ; 0x3b96
-@..api_idx_0004_GGOK.l5:
+.return1:
     ret                              ; 0x3b99

@@ -12,31 +12,31 @@ loc_VJNU:
     add sp, byte 6                   ; 0x064b
     mov word [party_status_frame_step], 0 ; 0x064e
     mov ax, word [bp + 4]            ; 0x0654
-    jmp short @..loc_VJNU.l5         ; 0x0657
-@..loc_VJNU.l1:
+    jmp short .forward1              ; 0x0657
+.back1:
     mov ax, word [bp + 6]            ; 0x0659
     add word [party_world_y], ax     ; 0x065c
-    jmp short @..loc_VJNU.l6         ; 0x0660
-@..loc_VJNU.l2:
+    jmp short .return1               ; 0x0660
+.back2:
     mov ax, word [bp + 6]            ; 0x0662
     add word [party_world_x], ax     ; 0x0665
-    jmp short @..loc_VJNU.l6         ; 0x0669
-@..loc_VJNU.l3:
+    jmp short .return1               ; 0x0669
+.back3:
     mov ax, word [bp + 6]            ; 0x066b
     sub word [party_world_y], ax     ; 0x066e
-    jmp short @..loc_VJNU.l6         ; 0x0672
-@..loc_VJNU.l4:
+    jmp short .return1               ; 0x0672
+.back4:
     mov ax, word [bp + 6]            ; 0x0674
     sub word [party_world_x], ax     ; 0x0677
-    jmp short @..loc_VJNU.l6         ; 0x067b
-@..loc_VJNU.l5:
+    jmp short .return1               ; 0x067b
+.forward1:
     cmp ax, strict word 0            ; 0x067d
-    je short @..loc_VJNU.l1          ; 0x0680
+    je short .back1                  ; 0x0680
     cmp ax, strict word 1            ; 0x0682
-    je short @..loc_VJNU.l2          ; 0x0685
+    je short .back2                  ; 0x0685
     cmp ax, strict word 2            ; 0x0687
-    je short @..loc_VJNU.l3          ; 0x068a
+    je short .back3                  ; 0x068a
     cmp ax, strict word 3            ; 0x068c
-    je short @..loc_VJNU.l4          ; 0x068f
-@..loc_VJNU.l6:
+    je short .back4                  ; 0x068f
+.return1:
     ret                              ; 0x0691

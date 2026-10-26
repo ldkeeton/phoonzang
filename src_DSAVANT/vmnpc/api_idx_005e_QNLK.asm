@@ -25,25 +25,25 @@ api_idx_005e_QNLK:
     add ax, cx                       ; 0x6002
     mov word [bp - 2], ax            ; 0x6004
     cmp byte [bx + party_records + pc_rec.profession], 3 ; 0x6007
-    jne short @..api_idx_005e_QNLK.l1 ; 0x600c
+    jne short .forward1              ; 0x600c
     mov al, byte [bx + party_records + pc_rec.stat + 0x4] ; 0x600e
     sub ah, ah                       ; 0x6012
     shl ax, 1                        ; 0x6014
     add word [bp - 2], ax            ; 0x6016
-    jmp short @..api_idx_005e_QNLK.l3 ; 0x6019
-@..api_idx_005e_QNLK.l1:
+    jmp short .forward3              ; 0x6019
+.forward1:
     mov al, byte [bx + party_records + pc_rec.profession] ; 0x601b
     cmp al, 4                        ; 0x601f
-    je short @..api_idx_005e_QNLK.l2 ; 0x6021
+    je short .forward2               ; 0x6021
     cmp al, 6                        ; 0x6023
-    je short @..api_idx_005e_QNLK.l2 ; 0x6025
+    je short .forward2               ; 0x6025
     cmp al, 0xd                      ; 0x6027
-    jne short @..api_idx_005e_QNLK.l3 ; 0x6029
-@..api_idx_005e_QNLK.l2:
+    jne short .forward3              ; 0x6029
+.forward2:
     mov al, byte [bx + party_records + pc_rec.stat + 0x4] ; 0x602b
     sub ah, ah                       ; 0x602f
     add word [bp - 2], ax            ; 0x6031
-@..api_idx_005e_QNLK.l3:
+.forward3:
     mov al, byte [bx + party_records + pc_rec.stat + 0x6] ; 0x6034
     sub ah, ah                       ; 0x6038
     push ax                          ; 0x603a
@@ -61,16 +61,16 @@ api_idx_005e_QNLK:
     add ax, strict word 0xfff6       ; 0x6056
     mov word [bp - 2], ax            ; 0x6059
     cmp ax, strict word 0            ; 0x605c
-    jl short @..api_idx_005e_QNLK.l4 ; 0x605f
+    jl short .forward4               ; 0x605f
     cmp word [bss_9136], byte 0x30   ; 0x6061
-    jne short @..api_idx_005e_QNLK.l5 ; 0x6066
-@..api_idx_005e_QNLK.l4:
+    jne short .forward5              ; 0x6066
+.forward4:
     mov word [bp - 2], 0             ; 0x6068
-@..api_idx_005e_QNLK.l5:
+.forward5:
     cmp word [bp - 2], byte 0x5f     ; 0x606d
-    jle short @..api_idx_005e_QNLK.l6 ; 0x6071
+    jle short .forward6              ; 0x6071
     mov word [bp - 2], 0x5f          ; 0x6073
-@..api_idx_005e_QNLK.l6:
+.forward6:
     mov ax, 0x64                     ; 0x6078
     push ax                          ; 0x607b
     call random_below                ; 0x607c
@@ -116,15 +116,15 @@ api_idx_005e_QNLK:
     call loc_MLKO                    ; 0x60dd
     add sp, byte 8                   ; 0x60e0
     mov word [bp - 0xa], 0           ; 0x60e3
-@..api_idx_005e_QNLK.l7:
+.back1:
     push word [bss_9cd2]             ; 0x60e8
     call random_below                ; 0x60ec
     pop cx                           ; 0x60ef
     cmp ax, word [bp - 0xa]          ; 0x60f0
-    jle short @..api_idx_005e_QNLK.l8 ; 0x60f3
+    jle short .forward7              ; 0x60f3
     inc word [bp - 0xa]              ; 0x60f5
-    jmp short @..api_idx_005e_QNLK.l7 ; 0x60f8
-@..api_idx_005e_QNLK.l8:
+    jmp short .back1                 ; 0x60f8
+.forward7:
     mov ax, 0x64                     ; 0x60fa
     push ax                          ; 0x60fd
     call random_below                ; 0x60fe
@@ -143,21 +143,21 @@ api_idx_005e_QNLK:
     mov word [bp - 6], ax            ; 0x6116
     cwd                              ; 0x6119
     cmp dx, word [bss_91b8]          ; 0x611a
-    jl short @..api_idx_005e_QNLK.l9 ; 0x611e
-    jne short @..api_idx_005e_QNLK.l10 ; 0x6120
+    jl short .forward8               ; 0x611e
+    jne short .forward9              ; 0x6120
     cmp ax, word [bss_91b6]          ; 0x6122
-    ja short @..api_idx_005e_QNLK.l10 ; 0x6126
-@..api_idx_005e_QNLK.l9:
-    jmp short @..api_idx_005e_QNLK.l11 ; 0x6128
-@..api_idx_005e_QNLK.l10:
+    ja short .forward9               ; 0x6126
+.forward8:
+    jmp short .forward10             ; 0x6128
+.forward9:
     mov ax, word [bss_91b6]          ; 0x612a
     mov word [bp - 6], ax            ; 0x612d
-@..api_idx_005e_QNLK.l11:
+.forward10:
     mov ax, word [bp - 4]            ; 0x6130
     cmp ax, word [bp - 2]            ; 0x6133
-    jl short @..api_idx_005e_QNLK.l12 ; 0x6136
-    jmp near @..api_idx_005e_QNLK.l18 ; 0x6138
-@..api_idx_005e_QNLK.l12:
+    jl short .forward11              ; 0x6136
+    jmp near .forward17              ; 0x6138
+.forward11:
     mov ax, 0                        ; 0x613b
     push ax                          ; 0x613e
     push word [bp + 4]               ; 0x613f
@@ -172,10 +172,10 @@ api_idx_005e_QNLK:
     push word [bp + 4]               ; 0x6156
     call loc_SIKN                    ; 0x6159
     add sp, byte 6                   ; 0x615c
-    cmp word [bp - 8], byte 0xff     ; 0x615f
-    je short @..api_idx_005e_QNLK.l13 ; 0x6163
+    cmp word [bp - 8], byte -1       ; 0x615f
+    je short .forward12              ; 0x6163
     cmp word [bss_9cd2], byte 0      ; 0x6165
-    jle short @..api_idx_005e_QNLK.l13 ; 0x616a
+    jle short .forward12             ; 0x616a
     mov ax, word [bp - 0xa]          ; 0x616c
     shl ax, 1                        ; 0x616f
     mov bx, ax                       ; 0x6171
@@ -183,24 +183,24 @@ api_idx_005e_QNLK:
     call loc_GMVH                    ; 0x6177
     pop cx                           ; 0x617a
     test ax, ax                      ; 0x617b
-    jne short @..api_idx_005e_QNLK.l13 ; 0x617d
+    jne short .forward12             ; 0x617d
     mov ax, 0x64                     ; 0x617f
     push ax                          ; 0x6182
     call random_below                ; 0x6183
     pop cx                           ; 0x6186
     cmp ax, strict word 0x21         ; 0x6187
-    jge short @..api_idx_005e_QNLK.l16 ; 0x618a
-@..api_idx_005e_QNLK.l13:
+    jge short .forward15             ; 0x618a
+.forward12:
     cmp word [bp - 6], byte 0        ; 0x618c
-    jg short @..api_idx_005e_QNLK.l14 ; 0x6190
+    jg short .forward13              ; 0x6190
     lea ax, word [bp - 0x5e]         ; 0x6192
     push ax                          ; 0x6195
     mov ax, MSG_PILFER_FAILED_1572   ; 0x6196
     push ax                          ; 0x6199
     call load_message_string         ; 0x619a
     add sp, byte 4                   ; 0x619d
-    jmp short @..api_idx_005e_QNLK.l15 ; 0x61a0
-@..api_idx_005e_QNLK.l14:
+    jmp short .forward14             ; 0x61a0
+.forward13:
     mov ax, word [bp - 6]            ; 0x61a2
     cwd                              ; 0x61a5
     sub word [bss_91b6], ax          ; 0x61a6
@@ -222,9 +222,9 @@ api_idx_005e_QNLK:
     push ax                          ; 0x61cd
     call load_message_string         ; 0x61ce
     add sp, byte 4                   ; 0x61d1
-@..api_idx_005e_QNLK.l15:
-    jmp short @..api_idx_005e_QNLK.l17 ; 0x61d4
-@..api_idx_005e_QNLK.l16:
+.forward14:
+    jmp short .forward16             ; 0x61d4
+.forward15:
     mov ax, word [bp - 8]            ; 0x61d6
     mov cx, 0x100                    ; 0x61d9
     cwd                              ; 0x61dc
@@ -268,17 +268,17 @@ api_idx_005e_QNLK:
     mov bx, ax                       ; 0x6236
     mov word [bx + bss_9cd4], 0      ; 0x6238
     call api_idx_0004_GHUK           ; 0x623e
-@..api_idx_005e_QNLK.l17:
-    jmp near @..api_idx_005e_QNLK.l22 ; 0x6241
-@..api_idx_005e_QNLK.l18:
+.forward16:
+    jmp near .forward21              ; 0x6241
+.forward17:
     mov ax, word [bp - 2]            ; 0x6244
     shl ax, 1                        ; 0x6247
     cmp ax, word [bp - 4]            ; 0x6249
-    jl short @..api_idx_005e_QNLK.l19 ; 0x624c
+    jl short .forward18              ; 0x624c
     cmp word [bp - 4], byte 0x5f     ; 0x624e
-    jge short @..api_idx_005e_QNLK.l19 ; 0x6252
-    jmp near @..api_idx_005e_QNLK.l21 ; 0x6254
-@..api_idx_005e_QNLK.l19:
+    jge short .forward18             ; 0x6252
+    jmp near .forward20              ; 0x6254
+.forward18:
     lea ax, word [bp - 0x5e]         ; 0x6257
     push ax                          ; 0x625a
     mov ax, MSG_GOT_CAUGHT           ; 0x625b
@@ -305,7 +305,7 @@ api_idx_005e_QNLK:
     call loc_MLKO                    ; 0x628a
     add sp, byte 8                   ; 0x628d
     cmp word [bss_9136], byte 0x30   ; 0x6290
-    je short @..api_idx_005e_QNLK.l20 ; 0x6295
+    je short .forward19              ; 0x6295
     mov ax, 0xf                      ; 0x6297
     push ax                          ; 0x629a
     call random_below                ; 0x629b
@@ -329,7 +329,7 @@ api_idx_005e_QNLK:
     push word [bp + 4]               ; 0x62c1
     call loc_HOSN                    ; 0x62c4
     add sp, byte 6                   ; 0x62c7
-@..api_idx_005e_QNLK.l20:
+.forward19:
     mov ax, 0                        ; 0x62ca
     push ax                          ; 0x62cd
     push ax                          ; 0x62ce
@@ -341,14 +341,14 @@ api_idx_005e_QNLK:
     add sp, byte 0xa                 ; 0x62da
     mov ax, 0xffff                   ; 0x62dd
     ret                              ; 0x62e0
-@..api_idx_005e_QNLK.l21:
+.forward20:
     lea ax, word [bp - 0x5e]         ; 0x62e1
     push ax                          ; 0x62e4
     mov ax, MSG_PILFER_FAILED_1572   ; 0x62e5
     push ax                          ; 0x62e8
     call load_message_string         ; 0x62e9
     add sp, byte 4                   ; 0x62ec
-@..api_idx_005e_QNLK.l22:
+.forward21:
     mov ax, 0x5e                     ; 0x62ef
     push ax                          ; 0x62f2
     mov ax, 0x248                    ; 0x62f3

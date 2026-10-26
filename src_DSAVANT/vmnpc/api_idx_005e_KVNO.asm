@@ -48,9 +48,9 @@ api_idx_005e_KVNO:
     add ax, word [bp - 0x3a]         ; 0x584a
     mov word [bp - 4], ax            ; 0x584d
     cmp ax, strict word 1            ; 0x5850
-    jge short @..api_idx_005e_KVNO.l1 ; 0x5853
+    jge short .forward1              ; 0x5853
     mov word [bp - 4], 1             ; 0x5855
-@..api_idx_005e_KVNO.l1:
+.forward1:
     mov ax, 0x248                    ; 0x585a
     imul word [bp + 4]               ; 0x585d
     push ax                          ; 0x5860
@@ -70,14 +70,14 @@ api_idx_005e_KVNO:
     sub ah, ah                       ; 0x587e
     mov word [bp - 6], ax            ; 0x5880
     cmp ax, strict word 1            ; 0x5883
-    jge short @..api_idx_005e_KVNO.l2 ; 0x5886
+    jge short .forward2              ; 0x5886
     mov word [bp - 6], 1             ; 0x5888
-@..api_idx_005e_KVNO.l2:
+.forward2:
     mov al, byte [bp - 0x1c]         ; 0x588d
     sub ah, ah                       ; 0x5890
     mov bx, ax                       ; 0x5892
     cmp byte [bx + cell_overlay_code + 0x58], 1 ; 0x5894
-    jne short @..api_idx_005e_KVNO.l3 ; 0x5899
+    jne short .forward3              ; 0x5899
     mov ax, word [bp - 6]            ; 0x589b
     cwd                              ; 0x589e
     push ax                          ; 0x589f
@@ -92,8 +92,8 @@ api_idx_005e_KVNO:
     add dx, cx                       ; 0x58b0
     mov word [bp - 0x3c], dx         ; 0x58b2
     mov word [bp - 0x3e], ax         ; 0x58b5
-    jmp short @..api_idx_005e_KVNO.l4 ; 0x58b8
-@..api_idx_005e_KVNO.l3:
+    jmp short .forward4              ; 0x58b8
+.forward3:
     mov ax, word [bp - 0x3e]         ; 0x58ba
     mov dx, word [bp - 0x3c]         ; 0x58bd
     push ax                          ; 0x58c0
@@ -136,16 +136,16 @@ api_idx_005e_KVNO:
     call aztec_ldv                   ; 0x58ff
     mov word [bp - 0x3c], dx         ; 0x5902
     mov word [bp - 0x3e], ax         ; 0x5905
-@..api_idx_005e_KVNO.l4:
+.forward4:
     push word [bp - 8]               ; 0x5908
     call loc_GMVH                    ; 0x590b
     pop cx                           ; 0x590e
     test ax, ax                      ; 0x590f
-    je short @..api_idx_005e_KVNO.l5 ; 0x5911
+    je short .forward5               ; 0x5911
     mov ax, word [bp - 0x3e]         ; 0x5913
     mov dx, word [bp - 0x3c]         ; 0x5916
-    jmp short @..api_idx_005e_KVNO.l6 ; 0x5919
-@..api_idx_005e_KVNO.l5:
+    jmp short .forward6              ; 0x5919
+.forward5:
     mov ax, word [bss_91ac]          ; 0x591b
     cwd                              ; 0x591e
     push ax                          ; 0x591f
@@ -161,30 +161,30 @@ api_idx_005e_KVNO:
     mov cx, 0x64                     ; 0x5932
     mov bx, 0                        ; 0x5935
     call aztec_ldv                   ; 0x5938
-@..api_idx_005e_KVNO.l6:
+.forward6:
     mov word [bp - 0x3c], dx         ; 0x593b
     mov word [bp - 0x3e], ax         ; 0x593e
     push word [bp - 8]               ; 0x5941
     call loc_GMVH                    ; 0x5944
     pop cx                           ; 0x5947
     test ax, ax                      ; 0x5948
-    je short @..api_idx_005e_KVNO.l7 ; 0x594a
+    je short .forward7               ; 0x594a
     cmp byte [bss_91c6], 0xff        ; 0x594c
-    je short @..api_idx_005e_KVNO.l8 ; 0x5951
-@..api_idx_005e_KVNO.l7:
+    je short .forward8               ; 0x5951
+.forward7:
     push word [bp - 8]               ; 0x5953
     call loc_GMVH                    ; 0x5956
     pop cx                           ; 0x5959
     test ax, ax                      ; 0x595a
-    jne short @..api_idx_005e_KVNO.l9 ; 0x595c
+    jne short .forward9              ; 0x595c
     mov al, byte [bp - 0x1d]         ; 0x595e
     sub ah, ah                       ; 0x5961
     test ax, 2                       ; 0x5963
-    je short @..api_idx_005e_KVNO.l9 ; 0x5966
+    je short .forward9               ; 0x5966
     mov ax, word [bp - 8]            ; 0x5968
     cmp ax, word [bss_91ae]          ; 0x596b
-    je short @..api_idx_005e_KVNO.l9 ; 0x596f
-@..api_idx_005e_KVNO.l8:
+    je short .forward9               ; 0x596f
+.forward8:
     mov ax, 0x98                     ; 0x5971
     push ax                          ; 0x5974
     mov ax, 0x65                     ; 0x5975
@@ -195,22 +195,22 @@ api_idx_005e_KVNO:
     add sp, byte 6                   ; 0x5980
     mov ax, 0                        ; 0x5983
     ret                              ; 0x5986
-@..api_idx_005e_KVNO.l9:
+.forward9:
     cmp word [bp - 0x3c], byte 0     ; 0x5987
-    jg short @..api_idx_005e_KVNO.l10 ; 0x598b
-    jne short @..api_idx_005e_KVNO.l11 ; 0x598d
+    jg short .forward10              ; 0x598b
+    jne short .forward11             ; 0x598d
     cmp word [bp - 0x3e], byte 0     ; 0x598f
-    jbe short @..api_idx_005e_KVNO.l11 ; 0x5993
-@..api_idx_005e_KVNO.l10:
-    jmp short @..api_idx_005e_KVNO.l12 ; 0x5995
-@..api_idx_005e_KVNO.l11:
+    jbe short .forward11             ; 0x5993
+.forward10:
+    jmp short .forward12             ; 0x5995
+.forward11:
     mov ax, word [bp - 8]            ; 0x5997
     cmp ax, word [bss_91ae]          ; 0x599a
-    jne short @..api_idx_005e_KVNO.l13 ; 0x599e
-@..api_idx_005e_KVNO.l12:
+    jne short .forward13             ; 0x599e
+.forward12:
     cmp word [bp - 8], strict word 0x19a ; 0x59a0
-    jne short @..api_idx_005e_KVNO.l14 ; 0x59a5
-@..api_idx_005e_KVNO.l13:
+    jne short .forward14             ; 0x59a5
+.forward13:
     mov ax, 0x98                     ; 0x59a7
     push ax                          ; 0x59aa
     mov ax, 0x65                     ; 0x59ab
@@ -221,7 +221,7 @@ api_idx_005e_KVNO:
     add sp, byte 6                   ; 0x59b6
     mov ax, 0                        ; 0x59b9
     ret                              ; 0x59bc
-@..api_idx_005e_KVNO.l14:
+.forward14:
     mov ax, 0x248                    ; 0x59bd
     imul word [bp + 4]               ; 0x59c0
     push ax                          ; 0x59c3
@@ -240,7 +240,7 @@ api_idx_005e_KVNO:
     mov al, byte [bx + party_records + pc_rec.cell + 0x7] ; 0x59dd
     sub ah, ah                       ; 0x59e1
     test ax, 1                       ; 0x59e3
-    je short @..api_idx_005e_KVNO.l15 ; 0x59e6
+    je short .forward15              ; 0x59e6
     mov ax, 0x98                     ; 0x59e8
     push ax                          ; 0x59eb
     mov ax, 0x65                     ; 0x59ec
@@ -251,7 +251,7 @@ api_idx_005e_KVNO:
     add sp, byte 6                   ; 0x59f7
     mov ax, 0                        ; 0x59fa
     ret                              ; 0x59fd
-@..api_idx_005e_KVNO.l15:
+.forward15:
     mov ax, bss_95a8                 ; 0x59fe
     push ax                          ; 0x5a01
     mov ax, MSG_ACCEPT_GP_FOR        ; 0x5a02
@@ -299,7 +299,7 @@ api_idx_005e_KVNO:
     call str_subst_char              ; 0x5a64
     add sp, byte 6                   ; 0x5a67
     mov word [bp - 2], 0             ; 0x5a6a
-@..api_idx_005e_KVNO.l16:
+.back1:
     mov ax, word [bp - 2]            ; 0x5a6f
     shl ax, 1                        ; 0x5a72
     mov bx, ax                       ; 0x5a74
@@ -308,7 +308,7 @@ api_idx_005e_KVNO:
     inc word [bp - 2]                ; 0x5a7d
     mov ax, word [bp - 2]            ; 0x5a80
     cmp ax, strict word 1            ; 0x5a83
-    jle short @..api_idx_005e_KVNO.l16 ; 0x5a86
+    jle short .back1                 ; 0x5a86
     mov word [bp - 0x5a], 0xffff     ; 0x5a88
     lea ax, word [bp - 0x5e]         ; 0x5a8d
     push ax                          ; 0x5a90
@@ -342,9 +342,9 @@ api_idx_005e_KVNO:
     add sp, byte 0x1c                ; 0x5ac8
     mov word [bp - 2], ax            ; 0x5acb
     cmp word [bp - 2], byte 0        ; 0x5ace
-    je short @..api_idx_005e_KVNO.l17 ; 0x5ad2
-    jmp near @..api_idx_005e_KVNO.l19 ; 0x5ad4
-@..api_idx_005e_KVNO.l17:
+    je short .forward16              ; 0x5ad2
+    jmp near .forward18              ; 0x5ad4
+.forward16:
     mov ax, 0x248                    ; 0x5ad7
     imul word [bp + 4]               ; 0x5ada
     push ax                          ; 0x5add
@@ -366,7 +366,7 @@ api_idx_005e_KVNO:
     call loc_GMVH                    ; 0x5aff
     pop cx                           ; 0x5b02
     test ax, ax                      ; 0x5b03
-    je short @..api_idx_005e_KVNO.l18 ; 0x5b05
+    je short .forward17              ; 0x5b05
     mov ax, word [bp - 8]            ; 0x5b07
     add ax, 0xfe70                   ; 0x5b0a
     push ax                          ; 0x5b0d
@@ -377,7 +377,7 @@ api_idx_005e_KVNO:
     push ax                          ; 0x5b16
     call assign_slot_bit             ; 0x5b17
     add sp, byte 6                   ; 0x5b1a
-@..api_idx_005e_KVNO.l18:
+.forward17:
     push word [bp - 0xc]             ; 0x5b1d
     push word [bp - 0xa]             ; 0x5b20
     push word [bp + 4]               ; 0x5b23
@@ -412,6 +412,6 @@ api_idx_005e_KVNO:
     call api_idx_0006_SRQN           ; 0x5b69
     add sp, byte 0xa                 ; 0x5b6c
     ret                              ; 0x5b6f
-@..api_idx_005e_KVNO.l19:
+.forward18:
     mov ax, 0                        ; 0x5b70
     ret                              ; 0x5b73

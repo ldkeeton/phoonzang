@@ -58,12 +58,12 @@ api_idx_0080_MHMQ:
     add bx, bp
     mov byte [bx - 0x68], 0x20
     cmp word [bp - 6], byte 0
-    jle short @..api_idx_0080_MHMQ.l1
+    jle short .forward1
     mov bx, word [bp - 4]
     inc word [bp - 4]
     add bx, bp
     mov byte [bx - 0x68], 0x2b
-@..api_idx_0080_MHMQ.l1:
+.forward1:
     mov ax, word [bp - 4]
     lea cx, word [bp - 0x68]
     add ax, cx
@@ -85,12 +85,12 @@ api_idx_0080_MHMQ:
     add bx, bp
     mov byte [bx - 0x68], 0x28
     cmp word [bp - 8], byte 0
-    jl short @..api_idx_0080_MHMQ.l2
+    jl short .forward2
     mov bx, word [bp - 4]
     inc word [bp - 4]
     add bx, bp
     mov byte [bx - 0x68], 0x2b
-@..api_idx_0080_MHMQ.l2:
+.forward2:
     mov ax, word [bp - 4]
     lea cx, word [bp - 0x68]
     add ax, cx
@@ -150,7 +150,7 @@ api_idx_0080_MHMQ:
     mov word [bp - 0x6c], 0x114
     mov word [bp - 0x78], 0x70
     mov word [bp - 2], 0
-@..api_idx_0080_MHMQ.l3:
+.back1:
     mov ax, word [bp - 2]
     shl ax, 1
     mov bx, ax
@@ -170,12 +170,12 @@ api_idx_0080_MHMQ:
     mov al, byte [bx + party_records + pc_rec.order + 0x3]
     sub ah, ah
     cmp ax, 0xff
-    je short @..api_idx_0080_MHMQ.l4
+    je short .forward3
     mov ax, 0x5f
-    jmp short @..api_idx_0080_MHMQ.l5
-@..api_idx_0080_MHMQ.l4:
+    jmp short .forward4
+.forward3:
     mov ax, 0xeb
-@..api_idx_0080_MHMQ.l5:
+.forward4:
     push ax
     call gfx_set_text_color
     add sp, byte 4
@@ -188,14 +188,14 @@ api_idx_0080_MHMQ:
     add ax, word [bp - 8]
     mov word [bp - 6], ax
     cmp ax, strict word 0
-    jl short @..api_idx_0080_MHMQ.l6
+    jl short .forward5
     mov ax, 0
     push ax
     mov ax, 0x2b
     push ax
     call draw_font_glyph
     add sp, byte 4
-@..api_idx_0080_MHMQ.l6:
+.forward5:
     lea ax, word [bp - 0x68]
     push ax
     push word [bp - 6]
@@ -210,7 +210,7 @@ api_idx_0080_MHMQ:
     inc word [bp - 2]
     mov ax, word [bp - 2]
     cmp ax, strict word 5
-    jge short @..api_idx_0080_MHMQ.l7
-    jmp near @..api_idx_0080_MHMQ.l3
-@..api_idx_0080_MHMQ.l7:
+    jge short .return1
+    jmp near .back1
+.return1:
     ret

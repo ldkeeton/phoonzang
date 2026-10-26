@@ -43,21 +43,21 @@ jumptable_0789_case_1:
     mov al, ah                       ; 0x0670
     mov ah, dl                       ; 0x0672
     cmp ax, 0x80                     ; 0x0674
-    jb short @..loc_065a.l1          ; 0x0677
+    jb short loc_065a.forward1       ; 0x0677
     mov ax, 0x80                     ; 0x0679
-@..loc_065a.l1:
+loc_065a.forward1:
     mov word [cs:cseg_0658 - IMAGE_BASE], ax ; 0x067c
     mov bx, 0                        ; 0x0680
-@..loc_065a.l2:
+loc_065a.back1:
     mov ax, 0x7f                     ; 0x0683
     sub ax, bx                       ; 0x0686
     mul cx                           ; 0x0688
     mov al, ah                       ; 0x068a
     mov ah, dl                       ; 0x068c
     cmp ax, 0x80                     ; 0x068e
-    jb short @..loc_065a.l3          ; 0x0691
+    jb short loc_065a.forward2       ; 0x0691
     mov ax, 0x7f                     ; 0x0693
-@..loc_065a.l3:
+loc_065a.forward2:
     neg ax                           ; 0x0696
     add ax, word [cs:cseg_0658 - IMAGE_BASE] ; 0x0698
     dec ax                           ; 0x069d
@@ -67,17 +67,17 @@ jumptable_0789_case_1:
     mov byte [cs:bx + sample_count_table - IMAGE_BASE], al ; 0x06ab
     inc bx                           ; 0x06b0
     cmp bx, strict word 0x80         ; 0x06b1
-    jb short @..loc_065a.l2          ; 0x06b5
+    jb short loc_065a.back1          ; 0x06b5
     mov bx, 0                        ; 0x06b7
-@..loc_065a.l4:
+loc_065a.back2:
     mov ax, bx                       ; 0x06ba
     mul cx                           ; 0x06bc
     mov al, ah                       ; 0x06be
     mov ah, dl                       ; 0x06c0
     cmp ax, 0x80                     ; 0x06c2
-    jb short @..loc_065a.l5          ; 0x06c5
+    jb short loc_065a.forward3       ; 0x06c5
     mov ax, 0x7f                     ; 0x06c7
-@..loc_065a.l5:
+loc_065a.forward3:
     add ax, word [cs:cseg_0658 - IMAGE_BASE] ; 0x06ca
     cmp byte [cs:play_device - IMAGE_BASE], 4 ; 0x06cf
     mov si, ax                       ; 0x06d5
@@ -85,7 +85,7 @@ jumptable_0789_case_1:
     mov byte [cs:bx + cseg_19ba - IMAGE_BASE], al ; 0x06dc
     inc bx                           ; 0x06e1
     cmp bx, strict word 0x80         ; 0x06e2
-    jb short @..loc_065a.l4          ; 0x06e6
+    jb short loc_065a.back2          ; 0x06e6
     pop si                           ; 0x06e8
     pop di                           ; 0x06e9
     ret                              ; 0x06ea

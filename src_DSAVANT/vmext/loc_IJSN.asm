@@ -7,16 +7,16 @@ loc_IJSN:
     call random_below                ; 0x05ca
     pop cx                           ; 0x05cd
     cmp ax, strict word 0            ; 0x05ce
-    jle short @..loc_IJSN.l1         ; 0x05d1
+    jle short .forward1              ; 0x05d1
     mov ax, 0xa                      ; 0x05d3
     push ax                          ; 0x05d6
     call delay_ms                    ; 0x05d7
     pop cx                           ; 0x05da
-    jmp short @..loc_IJSN.l2         ; 0x05db
-@..loc_IJSN.l1:
+    jmp short .return1               ; 0x05db
+.forward1:
     mov ax, 0xa                      ; 0x05dd
     push ax                          ; 0x05e0
     call delay_ms                    ; 0x05e1
     pop cx                           ; 0x05e4
-@..loc_IJSN.l2:
+.return1:
     ret                              ; 0x05e5

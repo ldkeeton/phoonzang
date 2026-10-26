@@ -18,16 +18,16 @@ __zinsn_18f1:
 __zinsn_18ff:
     add byte [cs:sample_step_fraction - IMAGE_BASE], 0x80 ; 0x18ff
     adc word [cs:sample_offset - IMAGE_BASE], byte 0 ; 0x1905
-    jb short @..pit_sample_interrupt.l2 ; 0x190b
+    jb short pit_sample_interrupt.forward2 ; 0x190b
     dec word [cs:tick_divider - IMAGE_BASE] ; 0x190d
-    je short @..pit_sample_interrupt.l1 ; 0x1912
+    je short pit_sample_interrupt.forward1 ; 0x1912
     mov al, ah                       ; 0x1914
     out 0x20, al                     ; 0x1916
     pop bx                           ; 0x1918
     pop ds                           ; 0x1919
     pop ax                           ; 0x191a
     iret                             ; 0x191b
-@..pit_sample_interrupt.l1:
+pit_sample_interrupt.forward1:
     mov al, ah                       ; 0x191c
     out 0x20, al                     ; 0x191e
     pop bx                           ; 0x1920
@@ -36,7 +36,7 @@ __zinsn_18ff:
     sti                              ; 0x1923
     call music_player_tick           ; 0x1924
     iret                             ; 0x1927
-@..pit_sample_interrupt.l2:
+pit_sample_interrupt.forward2:
     call sound_stop_and_restore_timer ; 0x1928
     mov al, byte [cs:saved_pic_mask - IMAGE_BASE] ; 0x192b
     out 0x21, al                     ; 0x192f

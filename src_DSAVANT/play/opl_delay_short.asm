@@ -5,9 +5,9 @@ opl_delay_short:
     push dx                          ; 0x0833
     mov dx, 0x388                    ; 0x0834
     mov cx, 4                        ; 0x0837
-@..opl_delay_short.l1:
+.back1:
     in al, dx                        ; 0x083a
-    loop @..opl_delay_short.l1       ; 0x083b
+    loop .back1                      ; 0x083b
     pop dx                           ; 0x083d
     pop cx                           ; 0x083e
     pop ax                           ; 0x083f

@@ -11,8 +11,8 @@ api_idx_004c_RQSO:
     push ax
     call data_record_io
     add sp, byte 8
-    cmp word [bp + 0xa], byte 0xfe
-    jne short @..api_idx_004c_RQSO.l1
+    cmp word [bp + 0xa], byte -2
+    jne short .forward1
     mov al, byte [bp - 0x30]
     sub ah, ah
     push ax
@@ -24,22 +24,22 @@ api_idx_004c_RQSO:
     add ax, word [bp - 0x32]
     mov bx, word [bp + 8]
     mov byte [bx + 6], al
-    jmp short @..api_idx_004c_RQSO.l3
-@..api_idx_004c_RQSO.l1:
-    cmp word [bp + 0xa], byte 0xff
-    jne short @..api_idx_004c_RQSO.l2
+    jmp short .forward3
+.forward1:
+    cmp word [bp + 0xa], byte -1
+    jne short .forward2
     push word [bp - 0x30]
     push word [bp - 0x32]
     call add_random_steps
     add sp, byte 4
     mov bx, word [bp + 8]
     mov byte [bx + 6], al
-    jmp short @..api_idx_004c_RQSO.l3
-@..api_idx_004c_RQSO.l2:
+    jmp short .forward3
+.forward2:
     mov al, byte [bp + 0xa]
     mov bx, word [bp + 8]
     mov byte [bx + 6], al
-@..api_idx_004c_RQSO.l3:
+.forward3:
     mov ax, word [bp + 6]
     mov bx, word [bp + 8]
     mov word [bx], ax
@@ -66,46 +66,46 @@ api_idx_004c_RQSO:
     mov byte [bx + 0xb], al
     mov ax, 0
     cmp word [bp + 0xc], byte 0
-    je short @..api_idx_004c_RQSO.l4
+    je short .forward4
     mov ax, 0x80
-@..api_idx_004c_RQSO.l4:
+.forward4:
     mov bx, word [bp + 8]
     mov byte [bx + 7], al
     mov al, byte [bp - 0x15]
     sub ah, ah
     test ax, 8
-    je short @..api_idx_004c_RQSO.l5
+    je short .forward5
     mov bx, word [bp + 8]
     or byte [bx + 7], 4
-@..api_idx_004c_RQSO.l5:
+.forward5:
     mov al, byte [bp - 0x15]
     sub ah, ah
     test ax, 4
-    je short @..api_idx_004c_RQSO.l6
+    je short .forward6
     mov bx, word [bp + 8]
     or byte [bx + 7], 8
-@..api_idx_004c_RQSO.l6:
+.forward6:
     mov al, byte [bp - 0x15]
     sub ah, ah
     test ax, 0x10
-    je short @..api_idx_004c_RQSO.l7
+    je short .forward7
     mov bx, word [bp + 8]
     or byte [bx + 7], 0x10
-@..api_idx_004c_RQSO.l7:
+.forward7:
     mov al, byte [bp - 0x15]
     sub ah, ah
     test ax, 0x20
-    je short @..api_idx_004c_RQSO.l8
+    je short .forward8
     mov bx, word [bp + 8]
     or byte [bx + 7], 0x20
-@..api_idx_004c_RQSO.l8:
+.forward8:
     mov al, byte [bp - 0x15]
     sub ah, ah
     test ax, 2
-    je short @..api_idx_004c_RQSO.l9
+    je short .forward9
     mov bx, word [bp + 8]
     or byte [bx + 7], 0x40
-@..api_idx_004c_RQSO.l9:
+.forward9:
     push word [bp + 4]
     call sum_page_cell_values
     pop cx

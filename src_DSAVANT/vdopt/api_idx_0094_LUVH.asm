@@ -5,9 +5,9 @@ api_idx_0094_LUVH:
     mov word [party_redraw_mode], 5  ; 0x4182
     mov word [bp - 0x94], 0          ; 0x4188
     mov word [bp - 0x50], 0          ; 0x418e
-@..api_idx_0094_LUVH.l1:
+.back1:
     mov word [bp - 0x52], 0          ; 0x4193
-@..api_idx_0094_LUVH.l2:
+.back2:
     mov ax, 0x248                    ; 0x4198
     imul word [bp + 4]               ; 0x419b
     push ax                          ; 0x419e
@@ -24,9 +24,9 @@ api_idx_0094_LUVH:
     add ax, cx                       ; 0x41b4
     mov bx, ax                       ; 0x41b6
     cmp word [bx + party_records + pc_rec.cell], byte 0 ; 0x41b8
-    jg short @..api_idx_0094_LUVH.l3 ; 0x41bd
-    jmp near @..api_idx_0094_LUVH.l8 ; 0x41bf
-@..api_idx_0094_LUVH.l3:
+    jg short .forward1               ; 0x41bd
+    jmp near .forward6               ; 0x41bf
+.forward1:
     mov ax, 0                        ; 0x41c2
     push ax                          ; 0x41c5
     push word [bx + party_records + pc_rec.cell] ; 0x41c6
@@ -54,7 +54,7 @@ api_idx_0094_LUVH:
     mov al, byte [bx + party_records + pc_rec.cell + 0x7] ; 0x41f8
     sub ah, ah                       ; 0x41fc
     test ax, 0x80                    ; 0x41fe
-    je short @..api_idx_0094_LUVH.l4 ; 0x4201
+    je short .forward2               ; 0x4201
     lea ax, word [bp - 0x4c]         ; 0x4203
     push ax                          ; 0x4206
     mov ax, 0x16                     ; 0x4207
@@ -63,8 +63,8 @@ api_idx_0094_LUVH:
     push ax                          ; 0x4211
     call aztec_strcpy                ; 0x4212
     add sp, byte 4                   ; 0x4215
-    jmp short @..api_idx_0094_LUVH.l5 ; 0x4218
-@..api_idx_0094_LUVH.l4:
+    jmp short .forward3              ; 0x4218
+.forward2:
     mov ax, 0x16                     ; 0x421a
     imul word [bp - 0x94]            ; 0x421d
     add ax, list_row_name            ; 0x4221
@@ -75,7 +75,7 @@ api_idx_0094_LUVH:
     push ax                          ; 0x422d
     call load_message_string         ; 0x422e
     add sp, byte 4                   ; 0x4231
-@..api_idx_0094_LUVH.l5:
+.forward3:
     mov al, byte [bp - 0x13]         ; 0x4234
     sub ah, ah                       ; 0x4237
     mov cx, word [bp - 0x94]         ; 0x4239
@@ -103,7 +103,7 @@ api_idx_0094_LUVH:
     sub ah, ah                       ; 0x4270
     mov bx, ax                       ; 0x4272
     cmp byte [bx + cell_overlay_code + 0x58], 1 ; 0x4274
-    jne short @..api_idx_0094_LUVH.l6 ; 0x4279
+    jne short .forward4              ; 0x4279
     mov ax, 0x248                    ; 0x427b
     imul word [bp + 4]               ; 0x427e
     push ax                          ; 0x4281
@@ -125,13 +125,13 @@ api_idx_0094_LUVH:
     shl cx, 1                        ; 0x42a5
     mov bx, cx                       ; 0x42a7
     mov word [bx + list_row_count], ax ; 0x42a9
-    jmp short @..api_idx_0094_LUVH.l7 ; 0x42ad
-@..api_idx_0094_LUVH.l6:
+    jmp short .forward5              ; 0x42ad
+.forward4:
     mov ax, word [bp - 0x94]         ; 0x42af
     shl ax, 1                        ; 0x42b3
     mov bx, ax                       ; 0x42b5
     mov word [bx + list_row_count], 0 ; 0x42b7
-@..api_idx_0094_LUVH.l7:
+.forward5:
     mov ax, word [bp - 0x50]         ; 0x42bd
     xchg al, ah                      ; 0x42c0
     sub al, al                       ; 0x42c2
@@ -142,23 +142,23 @@ api_idx_0094_LUVH:
     add bx, bp                       ; 0x42cf
     mov word [bx - 0x92], ax         ; 0x42d1
     inc word [bp - 0x94]             ; 0x42d5
-@..api_idx_0094_LUVH.l8:
+.forward6:
     inc word [bp - 0x52]             ; 0x42d9
     mov ax, word [bp - 0x52]         ; 0x42dc
     cmp ax, strict word 0xa          ; 0x42df
-    jge short @..api_idx_0094_LUVH.l9 ; 0x42e2
-    jmp near @..api_idx_0094_LUVH.l2 ; 0x42e4
-@..api_idx_0094_LUVH.l9:
+    jge short .forward7              ; 0x42e2
+    jmp near .back2                  ; 0x42e4
+.forward7:
     inc word [bp - 0x50]             ; 0x42e7
     mov ax, word [bp - 0x50]         ; 0x42ea
     cmp ax, strict word 2            ; 0x42ed
-    jge short @..api_idx_0094_LUVH.l10 ; 0x42f0
-    jmp near @..api_idx_0094_LUVH.l1 ; 0x42f2
-@..api_idx_0094_LUVH.l10:
+    jge short .forward8              ; 0x42f0
+    jmp near .back1                  ; 0x42f2
+.forward8:
     cmp word [bp - 0x94], byte 0     ; 0x42f5
-    jne short @..api_idx_0094_LUVH.l11 ; 0x42fa
+    jne short .forward9              ; 0x42fa
     ret                              ; 0x42fc
-@..api_idx_0094_LUVH.l11:
+.forward9:
     mov ax, dseg_90aa                ; 0x42fd
     push ax                          ; 0x4300
     push word [bp - 0x94]            ; 0x4301
@@ -174,10 +174,10 @@ api_idx_0094_LUVH:
     mov ax, word [spell_dialog_result] ; 0x4318
     mov word [bp - 2], ax            ; 0x431b
     cmp word [bp - 0x4e], byte 2     ; 0x431e
-    je short @..api_idx_0094_LUVH.l12 ; 0x4322
+    je short .forward10              ; 0x4322
     cmp ax, strict word 0xffff       ; 0x4324
-    jne short @..api_idx_0094_LUVH.l13 ; 0x4327
-@..api_idx_0094_LUVH.l12:
+    jne short .forward11             ; 0x4327
+.forward10:
     mov ax, 0xc6                     ; 0x4329
     push ax                          ; 0x432c
     mov ax, 0x109                    ; 0x432d
@@ -189,7 +189,7 @@ api_idx_0094_LUVH:
     call gfx_show_area               ; 0x4339
     add sp, byte 8                   ; 0x433c
     ret                              ; 0x433f
-@..api_idx_0094_LUVH.l13:
+.forward11:
     mov ax, word [bp - 2]            ; 0x4340
     shl ax, 1                        ; 0x4343
     mov bx, ax                       ; 0x4345
@@ -232,18 +232,18 @@ api_idx_0094_LUVH:
     mov ax, word [bx + party_records + pc_rec.cell] ; 0x4399
     mov word [bp - 4], ax            ; 0x439d
     cmp word [bp - 0x4e], byte 0     ; 0x43a0
-    je short @..api_idx_0094_LUVH.l14 ; 0x43a4
-    jmp near @..api_idx_0094_LUVH.l30 ; 0x43a6
-@..api_idx_0094_LUVH.l14:
+    je short .forward12              ; 0x43a4
+    jmp near .forward28              ; 0x43a6
+.forward12:
     push word [bp - 0x52]            ; 0x43a9
     push word [bp - 0x50]            ; 0x43ac
     push word [bp + 4]               ; 0x43af
     call trigger_keyed_cell_object   ; 0x43b2
     add sp, byte 6                   ; 0x43b5
     test ax, ax                      ; 0x43b8
-    je short @..api_idx_0094_LUVH.l15 ; 0x43ba
-    jmp near @..api_idx_0094_LUVH.l28 ; 0x43bc
-@..api_idx_0094_LUVH.l15:
+    je short .forward13              ; 0x43ba
+    jmp near .forward26              ; 0x43bc
+.forward13:
     mov ax, 0                        ; 0x43bf
     push ax                          ; 0x43c2
     push word [bp - 4]               ; 0x43c3
@@ -254,9 +254,9 @@ api_idx_0094_LUVH:
     call data_record_io              ; 0x43ce
     add sp, byte 8                   ; 0x43d1
     cmp word [bp - 0x2a], byte 0     ; 0x43d4
-    jne short @..api_idx_0094_LUVH.l16 ; 0x43d8
-    jmp near @..api_idx_0094_LUVH.l20 ; 0x43da
-@..api_idx_0094_LUVH.l16:
+    jne short .forward14             ; 0x43d8
+    jmp near .forward18              ; 0x43da
+.forward14:
     mov ax, word [bp - 0x2a]         ; 0x43dd
     mov cx, 0x100                    ; 0x43e0
     cwd                              ; 0x43e3
@@ -267,22 +267,22 @@ api_idx_0094_LUVH:
     imul dx                          ; 0x43ef
     mov bx, ax                       ; 0x43f1
     cmp byte [bx + spell_table + spell_table_rec.f_0004], 1 ; 0x43f3
-    jne short @..api_idx_0094_LUVH.l17 ; 0x43f8
+    jne short .forward15             ; 0x43f8
     call pick_party_member           ; 0x43fa
     mov word [spell_target], ax      ; 0x43fd
     cmp ax, strict word 0xffff       ; 0x4400
-    jne short @..api_idx_0094_LUVH.l17 ; 0x4403
+    jne short .forward15             ; 0x4403
     mov word [bp - 0x54], 0xffff     ; 0x4405
-@..api_idx_0094_LUVH.l17:
-    cmp word [bp - 0x54], byte 0xff  ; 0x440a
-    je short @..api_idx_0094_LUVH.l19 ; 0x440e
+.forward15:
+    cmp word [bp - 0x54], byte -1    ; 0x440a
+    je short .forward17              ; 0x440e
     push word [bp - 0x52]            ; 0x4410
     push word [bp - 0x50]            ; 0x4413
     push word [bp + 4]               ; 0x4416
     call ds_app_UTUH                 ; 0x4419
     add sp, byte 6                   ; 0x441c
     cmp word [bp - 0x54], byte 0x4d  ; 0x441f
-    jne short @..api_idx_0094_LUVH.l18 ; 0x4423
+    jne short .forward16             ; 0x4423
     mov ax, 0xc6                     ; 0x4425
     push ax                          ; 0x4428
     mov ax, 0x109                    ; 0x4429
@@ -293,25 +293,25 @@ api_idx_0094_LUVH:
     push ax                          ; 0x4434
     call gfx_show_area               ; 0x4435
     add sp, byte 8                   ; 0x4438
-@..api_idx_0094_LUVH.l18:
+.forward16:
     push word [spell_target]         ; 0x443b
     push word [bp - 0x56]            ; 0x443f
     push word [bp - 0x54]            ; 0x4442
     push word [bp + 4]               ; 0x4445
     call apply_spell_effect          ; 0x4448
     add sp, byte 8                   ; 0x444b
-@..api_idx_0094_LUVH.l19:
-    jmp near @..api_idx_0094_LUVH.l27 ; 0x444e
-@..api_idx_0094_LUVH.l20:
+.forward17:
+    jmp near .forward25              ; 0x444e
+.forward18:
     cmp byte [bp - 0xd], 4           ; 0x4451
-    je short @..api_idx_0094_LUVH.l21 ; 0x4455
-    jmp near @..api_idx_0094_LUVH.l23 ; 0x4457
-@..api_idx_0094_LUVH.l21:
+    je short .forward19              ; 0x4455
+    jmp near .forward21              ; 0x4457
+.forward19:
     mov ax, word [game_state_arg]    ; 0x445a
     cmp ax, word [bp - 0x2e]         ; 0x445d
-    je short @..api_idx_0094_LUVH.l22 ; 0x4460
-    jmp near @..api_idx_0094_LUVH.l23 ; 0x4462
-@..api_idx_0094_LUVH.l22:
+    je short .forward20              ; 0x4460
+    jmp near .forward21              ; 0x4462
+.forward20:
     mov ax, 0                        ; 0x4465
     push ax                          ; 0x4468
     mov al, byte [bp - 0x2c]         ; 0x4469
@@ -365,44 +365,44 @@ api_idx_0094_LUVH:
     push word [bp + 4]               ; 0x44db
     call ds_app_UTUH                 ; 0x44de
     add sp, byte 6                   ; 0x44e1
-    jmp short @..api_idx_0094_LUVH.l27 ; 0x44e4
-@..api_idx_0094_LUVH.l23:
+    jmp short .forward25             ; 0x44e4
+.forward21:
     cmp byte [bp - 0xd], 5           ; 0x44e6
-    jne short @..api_idx_0094_LUVH.l26 ; 0x44ea
+    jne short .forward24             ; 0x44ea
     cmp word [game_state_arg], byte 8 ; 0x44ec
-    jne short @..api_idx_0094_LUVH.l24 ; 0x44f1
+    jne short .forward22             ; 0x44f1
     mov word [bss_8304], 1           ; 0x44f3
-    jmp short @..api_idx_0094_LUVH.l25 ; 0x44f9
-@..api_idx_0094_LUVH.l24:
+    jmp short .forward23             ; 0x44f9
+.forward22:
     mov word [pending_event], 0x807  ; 0x44fb
     mov word [pending_event_hi], 1   ; 0x4501
-@..api_idx_0094_LUVH.l25:
-    jmp short @..api_idx_0094_LUVH.l27 ; 0x4507
-@..api_idx_0094_LUVH.l26:
+.forward23:
+    jmp short .forward25             ; 0x4507
+.forward24:
     mov word [pending_event], 0x7fe  ; 0x4509
     mov word [pending_event_hi], 1   ; 0x450f
-@..api_idx_0094_LUVH.l27:
-    jmp short @..api_idx_0094_LUVH.l29 ; 0x4515
-@..api_idx_0094_LUVH.l28:
+.forward25:
+    jmp short .forward27             ; 0x4515
+.forward26:
     mov ax, word [bp - 4]            ; 0x4517
     cmp ax, 0x108                    ; 0x451a
-    je short @..api_idx_0094_LUVH.l29 ; 0x451d
+    je short .forward27              ; 0x451d
     cmp ax, 0x109                    ; 0x451f
-    je short @..api_idx_0094_LUVH.l29 ; 0x4522
+    je short .forward27              ; 0x4522
     cmp ax, 0x101                    ; 0x4524
-    je short @..api_idx_0094_LUVH.l29 ; 0x4527
+    je short .forward27              ; 0x4527
     cmp ax, 0x103                    ; 0x4529
-    je short @..api_idx_0094_LUVH.l29 ; 0x452c
+    je short .forward27              ; 0x452c
     push word [bp - 0x52]            ; 0x452e
     push word [bp - 0x50]            ; 0x4531
     push word [bp + 4]               ; 0x4534
     call ds_app_UTUH                 ; 0x4537
     add sp, byte 6                   ; 0x453a
-@..api_idx_0094_LUVH.l29:
-    jmp near @..api_idx_0094_LUVH.l33 ; 0x453d
-@..api_idx_0094_LUVH.l30:
+.forward27:
+    jmp near .forward31              ; 0x453d
+.forward28:
     cmp word [bp - 0x4e], byte 1     ; 0x4540
-    jne short @..api_idx_0094_LUVH.l33 ; 0x4544
+    jne short .forward31             ; 0x4544
     mov ax, 0x248                    ; 0x4546
     imul word [bp + 4]               ; 0x4549
     push ax                          ; 0x454c
@@ -421,16 +421,16 @@ api_idx_0094_LUVH:
     mov al, byte [bx + party_records + pc_rec.cell + 0x7] ; 0x4566
     sub ah, ah                       ; 0x456a
     test ax, 2                       ; 0x456c
-    jne short @..api_idx_0094_LUVH.l31 ; 0x456f
+    jne short .forward29             ; 0x456f
     cmp word [bp - 4], strict word 0x229 ; 0x4571
-    jne short @..api_idx_0094_LUVH.l32 ; 0x4576
-@..api_idx_0094_LUVH.l31:
+    jne short .forward30             ; 0x4576
+.forward29:
     mov ax, 0                        ; 0x4578
     push ax                          ; 0x457b
     call play_sound_effect           ; 0x457c
     pop cx                           ; 0x457f
-    jmp short @..api_idx_0094_LUVH.l33 ; 0x4580
-@..api_idx_0094_LUVH.l32:
+    jmp short .forward31             ; 0x4580
+.forward30:
     mov ax, 0x248                    ; 0x4582
     imul word [bp + 4]               ; 0x4585
     push ax                          ; 0x4588
@@ -454,7 +454,7 @@ api_idx_0094_LUVH:
     push word [bp + 4]               ; 0x45ae
     call clear_cell_key              ; 0x45b1
     add sp, byte 6                   ; 0x45b4
-@..api_idx_0094_LUVH.l33:
+.forward31:
     mov ax, 0xc6                     ; 0x45b7
     push ax                          ; 0x45ba
     mov ax, 0x109                    ; 0x45bb
@@ -466,9 +466,9 @@ api_idx_0094_LUVH:
     call gfx_show_area               ; 0x45c7
     add sp, byte 8                   ; 0x45ca
     cmp word [pending_event], byte 0 ; 0x45cd
-    jle short @..api_idx_0094_LUVH.l34 ; 0x45d2
+    jle short .return1               ; 0x45d2
     push word [pending_event]        ; 0x45d4
     call show_event_message          ; 0x45d8
     pop cx                           ; 0x45db
-@..api_idx_0094_LUVH.l34:
+.return1:
     ret                              ; 0x45dc

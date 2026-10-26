@@ -15,7 +15,7 @@ measure_text_width:
     add bx, ax                       ; 0x3ae2
     mov ax, word [cs:bx]             ; 0x3ae4
     or ax, ax                        ; 0x3ae7
-    je short @..measure_text_width.l2 ; 0x3ae9
+    je short .forward1               ; 0x3ae9
     mov es, ax                       ; 0x3aeb
     xor bx, bx                       ; 0x3aed
     mov al, byte [es:bx + 7]         ; 0x3aef
@@ -23,12 +23,12 @@ measure_text_width:
     mov word [bp - 2], ax            ; 0x3af4
     xor cx, cx                       ; 0x3af7
     mov si, word [bp + 4]            ; 0x3af9
-@..measure_text_width.l1:
+.back1:
     mov bx, 0x10                     ; 0x3afc
     xor ah, ah                       ; 0x3aff
     mov al, byte [si]                ; 0x3b01
     or al, al                        ; 0x3b03
-    je short @..measure_text_width.l2 ; 0x3b05
+    je short .forward1               ; 0x3b05
     shl ax, 1                        ; 0x3b07
     add bx, ax                       ; 0x3b09
     xor ax, ax                       ; 0x3b0b
@@ -36,8 +36,8 @@ measure_text_width:
     add cx, ax                       ; 0x3b11
     add cx, word [bp - 2]            ; 0x3b13
     inc si                           ; 0x3b16
-    jmp short @..measure_text_width.l1 ; 0x3b17
-@..measure_text_width.l2:
+    jmp short .back1                 ; 0x3b17
+.forward1:
     mov ax, cx                       ; 0x3b19
     pop si                           ; 0x3b1b
     pop es                           ; 0x3b1c

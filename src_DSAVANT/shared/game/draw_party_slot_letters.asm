@@ -3,7 +3,7 @@ draw_party_slot_letters:
     mov ax, 0xfff4
     call aztec_csav
     mov word [bp - 2], 0
-@..draw_party_slot_letters.l1:
+.back1:
     mov ax, 0x14
     imul word [bp - 2]
     mov cx, word [bp - 2]
@@ -50,5 +50,5 @@ draw_party_slot_letters:
     inc word [bp - 2]
     mov ax, word [bp - 2]
     cmp ax, strict word 6
-    jl short @..draw_party_slot_letters.l1
+    jl short .back1
     ret

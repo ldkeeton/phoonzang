@@ -10,14 +10,14 @@ flush_keyboard:
     mov es, ax                       ; 0x3e67
     mov ax, 0                        ; 0x3e69
     mov word [cs:key_queue - IMAGE_BASE], ax ; 0x3e6c
-@..flush_keyboard.l1:
+.back1:
     mov ah, 1                        ; 0x3e70
     int 0x16 ; BIOS keyboard: check keystroke
-    je short @..flush_keyboard.l2    ; 0x3e74
+    je short .forward1               ; 0x3e74
     mov ah, 0                        ; 0x3e76
     int 0x16 ; BIOS keyboard: read keystroke
-    jmp short @..flush_keyboard.l1   ; 0x3e7a
-@..flush_keyboard.l2:
+    jmp short .back1                 ; 0x3e7a
+.forward1:
     call far [cs:gfx_drv_slot_10 - IMAGE_BASE] ; 0x3e7c
     pop es                           ; 0x3e81
     pop si                           ; 0x3e82

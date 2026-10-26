@@ -10,7 +10,7 @@ api_idx_004c_LTUL:
     call gfx_restore_screen
     add sp, byte 8
     cmp word [roster_page], byte 0
-    je short @..api_idx_004c_LTUL.l1
+    je short .forward1
     mov ax, 0xac
     push ax
     mov ax, 0xa0
@@ -23,14 +23,14 @@ api_idx_004c_LTUL:
     push ax
     call draw_font_glyph
     add sp, byte 4
-@..api_idx_004c_LTUL.l1:
+.forward1:
     cmp word [roster_alt_mode], byte 0
-    jne short @..api_idx_004c_LTUL.l2
+    jne short .forward2
     cmp word [roster_page], byte 0
-    je short @..api_idx_004c_LTUL.l5
-@..api_idx_004c_LTUL.l2:
+    je short .forward3
+.forward2:
     mov word [bp - 2], 0
-@..api_idx_004c_LTUL.l3:
+.back1:
     mov ax, 0x18
     push ax
     mov ax, 0xe
@@ -50,9 +50,9 @@ api_idx_004c_LTUL:
     inc word [bp - 2]
     mov ax, word [bp - 2]
     cmp ax, strict word 6
-    jl short @..api_idx_004c_LTUL.l3
+    jl short .back1
     mov word [bp - 2], 0
-@..api_idx_004c_LTUL.l4:
+.back2:
     mov ax, 0x18
     push ax
     mov ax, 0xb6
@@ -72,10 +72,10 @@ api_idx_004c_LTUL:
     inc word [bp - 2]
     mov ax, word [bp - 2]
     cmp ax, strict word 3
-    jl short @..api_idx_004c_LTUL.l4
-@..api_idx_004c_LTUL.l5:
+    jl short .back2
+.forward3:
     mov word [bp - 2], 0
-@..api_idx_004c_LTUL.l6:
+.back3:
     mov ax, 0x248
     imul word [bp + 4]
     push ax
@@ -92,13 +92,13 @@ api_idx_004c_LTUL:
     add ax, cx
     mov bx, ax
     cmp word [bx + party_records + pc_rec.cell], byte 0
-    jg short @..api_idx_004c_LTUL.l7
-    jmp near @..api_idx_004c_LTUL.l16
-@..api_idx_004c_LTUL.l7:
+    jg short .forward4
+    jmp near .forward12
+.forward4:
     cmp word [roster_drawn], byte 0
-    je short @..api_idx_004c_LTUL.l8
-    jmp near @..api_idx_004c_LTUL.l11
-@..api_idx_004c_LTUL.l8:
+    je short .forward5
+    jmp near .forward8
+.forward5:
     mov ax, 0
     push ax
     push word [bx + party_records + pc_rec.cell]
@@ -126,7 +126,7 @@ api_idx_004c_LTUL:
     mov al, byte [bx + party_records + pc_rec.cell + 0x7]
     sub ah, ah
     test ax, 0x80
-    je short @..api_idx_004c_LTUL.l9
+    je short .forward6
     lea ax, word [bp - 0x4c]
     push ax
     mov ax, 0x16
@@ -135,8 +135,8 @@ api_idx_004c_LTUL:
     push ax
     call aztec_strcpy
     add sp, byte 4
-    jmp short @..api_idx_004c_LTUL.l10
-@..api_idx_004c_LTUL.l9:
+    jmp short .forward7
+.forward6:
     mov ax, 0x16
     imul word [bp - 2]
     add ax, roster_names
@@ -147,22 +147,22 @@ api_idx_004c_LTUL:
     push ax
     call load_message_string
     add sp, byte 4
-@..api_idx_004c_LTUL.l10:
+.forward7:
     mov al, byte [bp - 0x12]
     sub ah, ah
     mov cx, word [bp - 2]
     shl cx, 1
     mov bx, cx
     mov word [bx + roster_row_attr], ax
-@..api_idx_004c_LTUL.l11:
+.forward8:
     mov ax, word [bp - 2]
     shl ax, 1
     mov bx, ax
     mov word [bx + roster_row_color], 0x69
     cmp word [roster_page], byte 0
-    jne short @..api_idx_004c_LTUL.l14
+    jne short .forward10
     mov word [bp - 4], 0
-@..api_idx_004c_LTUL.l12:
+.back4:
     mov ax, 0x248
     imul word [bp + 4]
     add ax, word [bp - 4]
@@ -170,7 +170,7 @@ api_idx_004c_LTUL:
     mov al, byte [bx + party_records + pc_rec.order]
     sub ah, ah
     cmp ax, word [bp - 2]
-    jne short @..api_idx_004c_LTUL.l13
+    jne short .forward9
     mov ax, word [bp - 4]
     shl ax, 1
     mov bx, ax
@@ -179,12 +179,12 @@ api_idx_004c_LTUL:
     shl cx, 1
     mov bx, cx
     mov word [bx + roster_row_color], ax
-@..api_idx_004c_LTUL.l13:
+.forward9:
     inc word [bp - 4]
     mov ax, word [bp - 4]
     cmp ax, strict word 8
-    jl short @..api_idx_004c_LTUL.l12
-@..api_idx_004c_LTUL.l14:
+    jl short .back4
+.forward10:
     mov ax, 0x248
     imul word [bp + 4]
     push ax
@@ -203,12 +203,12 @@ api_idx_004c_LTUL:
     mov al, byte [bx + party_records + pc_rec.cell + 0x7]
     sub ah, ah
     test ax, 2
-    je short @..api_idx_004c_LTUL.l15
+    je short .forward11
     mov ax, word [bp - 2]
     shl ax, 1
     mov bx, ax
     mov word [bx + roster_row_color], 0x55
-@..api_idx_004c_LTUL.l15:
+.forward11:
     mov ax, word [bp - 2]
     shl ax, 1
     mov bx, ax
@@ -237,12 +237,12 @@ api_idx_004c_LTUL:
     push word [bp + 4]
     call api_idx_0004_MKGU
     add sp, byte 0xa
-@..api_idx_004c_LTUL.l16:
+.forward12:
     inc word [bp - 2]
     mov ax, word [bp - 2]
     cmp ax, strict word 0xa
-    jge short @..api_idx_004c_LTUL.l17
-    jmp near @..api_idx_004c_LTUL.l6
-@..api_idx_004c_LTUL.l17:
+    jge short .forward13
+    jmp near .back3
+.forward13:
     mov word [roster_drawn], 1
     ret

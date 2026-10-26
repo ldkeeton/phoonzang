@@ -1,39 +1,39 @@
 ; auto-generated
 clip_mouse_pointer_to_area:
     cmp byte [cs:mouse_present - IMAGE_BASE], 1 ; 0x0516
-    jne short @..clip_mouse_pointer_to_area.l1 ; 0x051c
+    jne short .forward1              ; 0x051c
     mov cx, word [cs:mouse_drawn_x - IMAGE_BASE] ; 0x051e
     mov dx, word [cs:mouse_drawn_y - IMAGE_BASE] ; 0x0523
     cmp word [bp + 0x10], cx         ; 0x0528
-    jb short @..clip_mouse_pointer_to_area.l1 ; 0x052b
+    jb short .forward1               ; 0x052b
     cmp word [bp + 0x12], dx         ; 0x052d
-    jb short @..clip_mouse_pointer_to_area.l1 ; 0x0530
+    jb short .forward1               ; 0x0530
     add cx, word [cs:cseg_14b8 - IMAGE_BASE] ; 0x0532
     dec cx                           ; 0x0537
     add dx, word [cs:cseg_14ba - IMAGE_BASE] ; 0x0538
     dec dx                           ; 0x053d
     cmp cx, word [bp + 0xc]          ; 0x053e
-    jb short @..clip_mouse_pointer_to_area.l1 ; 0x0541
+    jb short .forward1               ; 0x0541
     cmp dx, word [bp + 0xe]          ; 0x0543
-    jae short @..clip_mouse_pointer_to_area.l2 ; 0x0546
-@..clip_mouse_pointer_to_area.l1:
+    jae short .forward2              ; 0x0546
+.forward1:
     mov byte [cs:cseg_0515 - IMAGE_BASE], 0 ; 0x0548
-    jmp near @..clip_mouse_pointer_to_area.l12 ; 0x054e
-@..clip_mouse_pointer_to_area.l2:
+    jmp near .return1                ; 0x054e
+.forward2:
     mov byte [cs:cseg_0515 - IMAGE_BASE], 1 ; 0x0551
     mov cx, word [cs:mouse_drawn_x - IMAGE_BASE] ; 0x0557
     mov ax, cx                       ; 0x055c
     cmp word [bp + 0xc], cx          ; 0x055e
-    jb short @..clip_mouse_pointer_to_area.l3 ; 0x0561
+    jb short .forward3               ; 0x0561
     mov ax, word [bp + 0xc]          ; 0x0563
-@..clip_mouse_pointer_to_area.l3:
+.forward3:
     mov word [bp - 6], ax            ; 0x0566
     mov dx, word [cs:mouse_drawn_y - IMAGE_BASE] ; 0x0569
     mov bx, dx                       ; 0x056e
     cmp word [bp + 0xe], dx          ; 0x0570
-    jb short @..clip_mouse_pointer_to_area.l4 ; 0x0573
+    jb short .forward4               ; 0x0573
     mov bx, word [bp + 0xe]          ; 0x0575
-@..clip_mouse_pointer_to_area.l4:
+.forward4:
     mov word [bp - 8], bx            ; 0x0578
     sub ax, cx                       ; 0x057b
     sub bx, dx                       ; 0x057d
@@ -49,22 +49,22 @@ clip_mouse_pointer_to_area:
     add ax, word [bp - 0xe]          ; 0x059c
     dec ax                           ; 0x059f
     cmp ax, word [bp + 0x10]         ; 0x05a0
-    jb short @..clip_mouse_pointer_to_area.l5 ; 0x05a3
+    jb short .forward5               ; 0x05a3
     mov ax, word [bp + 0x10]         ; 0x05a5
     sub ax, word [bp - 6]            ; 0x05a8
     inc ax                           ; 0x05ab
     mov word [bp - 0xe], ax          ; 0x05ac
-@..clip_mouse_pointer_to_area.l5:
+.forward5:
     mov ax, word [bp - 8]            ; 0x05af
     add ax, word [bp - 0x10]         ; 0x05b2
     dec ax                           ; 0x05b5
     cmp ax, word [bp + 0x12]         ; 0x05b6
-    jb short @..clip_mouse_pointer_to_area.l6 ; 0x05b9
+    jb short .forward6               ; 0x05b9
     mov ax, word [bp + 0x12]         ; 0x05bb
     sub ax, word [bp - 8]            ; 0x05be
     inc ax                           ; 0x05c1
     mov word [bp - 0x10], ax         ; 0x05c2
-@..clip_mouse_pointer_to_area.l6:
+.forward6:
     mov ax, word [bp - 8]            ; 0x05c5
     mov bx, 0x140                    ; 0x05c8
     mul bx                           ; 0x05cb
@@ -81,7 +81,7 @@ clip_mouse_pointer_to_area:
     mov ax, cs                       ; 0x05ec
     mov es, ax                       ; 0x05ee
     mov cx, word [bp - 0x10]         ; 0x05f0
-@..clip_mouse_pointer_to_area.l7:
+.back1:
     push cx                          ; 0x05f3
     push si                          ; 0x05f4
     push di                          ; 0x05f5
@@ -92,7 +92,7 @@ clip_mouse_pointer_to_area:
     pop si                           ; 0x0601
     add si, strict word 0x140        ; 0x0602
     pop cx                           ; 0x0606
-    loop @..clip_mouse_pointer_to_area.l7 ; 0x0607
+    loop .back1                      ; 0x0607
     mov ax, cs                       ; 0x0609
     mov es, ax                       ; 0x060b
     mov ax, word [cs:screen_buf_seg - IMAGE_BASE] ; 0x060d
@@ -100,7 +100,7 @@ clip_mouse_pointer_to_area:
     mov si, word [cs:cseg_14bc - IMAGE_BASE] ; 0x0613
     mov di, word [cs:cseg_14b6 - IMAGE_BASE] ; 0x0618
     mov cx, word [cs:cseg_14ba - IMAGE_BASE] ; 0x061d
-@..clip_mouse_pointer_to_area.l8:
+.back2:
     push cx                          ; 0x0622
     push si                          ; 0x0623
     mov cx, word [cs:cseg_14b8 - IMAGE_BASE] ; 0x0624
@@ -108,7 +108,7 @@ clip_mouse_pointer_to_area:
     pop si                           ; 0x062b
     add si, strict word 0x140        ; 0x062c
     pop cx                           ; 0x0630
-    loop @..clip_mouse_pointer_to_area.l8 ; 0x0631
+    loop .back2                      ; 0x0631
     mov ax, word [cs:screen_buf_seg - IMAGE_BASE] ; 0x0633
     mov es, ax                       ; 0x0637
     mov di, word [cs:cseg_14bc - IMAGE_BASE] ; 0x0639
@@ -118,29 +118,29 @@ clip_mouse_pointer_to_area:
     mov cx, word [cs:cseg_14ba - IMAGE_BASE] ; 0x0649
     mov ax, ds                       ; 0x064e
     or ax, si                        ; 0x0650
-    jne short @..clip_mouse_pointer_to_area.l9 ; 0x0652
+    jne short .back3                 ; 0x0652
     mov si, 0x1e69                   ; 0x0654
     mov ax, cs                       ; 0x0657
     mov ds, ax                       ; 0x0659
-@..clip_mouse_pointer_to_area.l9:
+.back3:
     push cx                          ; 0x065b
     push di                          ; 0x065c
     push si                          ; 0x065d
     mov cx, word [cs:cseg_14b8 - IMAGE_BASE] ; 0x065e
-@..clip_mouse_pointer_to_area.l10:
+.back4:
     mov al, byte [si]                ; 0x0663
     cmp al, 0xff                     ; 0x0665
-    je short @..clip_mouse_pointer_to_area.l11 ; 0x0667
+    je short .forward7               ; 0x0667
     mov byte [es:di], al             ; 0x0669
-@..clip_mouse_pointer_to_area.l11:
+.forward7:
     inc si                           ; 0x066c
     inc di                           ; 0x066d
-    loop @..clip_mouse_pointer_to_area.l10 ; 0x066e
+    loop .back4                      ; 0x066e
     pop si                           ; 0x0670
     add si, word [cs:cseg_1d5c - IMAGE_BASE] ; 0x0671
     pop di                           ; 0x0676
     add di, strict word 0x140        ; 0x0677
     pop cx                           ; 0x067b
-    loop @..clip_mouse_pointer_to_area.l9 ; 0x067c
-@..clip_mouse_pointer_to_area.l12:
+    loop .back3                      ; 0x067c
+.return1:
     ret                              ; 0x067e

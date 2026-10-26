@@ -24,12 +24,12 @@ api_idx_0016_JNJG:
     add sp, byte 4
     mov word [bp - 2], ax
     cmp ax, strict word 0xffff
-    jne short @..api_idx_0016_JNJG.l1
+    jne short .forward1
     mov ax, 0x13
     push ax
     call release_and_exit
     pop cx
-@..api_idx_0016_JNJG.l1:
+.forward1:
     push word [bp + 6]
     push word [bp + 4]
     mov ax, 5

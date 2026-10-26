@@ -6,13 +6,13 @@ loc_LMUG:
     mov ax, word [es:bx]             ; 0x0eb0
     mov dx, word [es:bx + 2]         ; 0x0eb3
     cmp dx, word [bss_919c]          ; 0x0eb7
-    jl short @..loc_LMUG.l1          ; 0x0ebb
-    jne short @..loc_LMUG.l2         ; 0x0ebd
+    jl short .forward1               ; 0x0ebb
+    jne short .forward2              ; 0x0ebd
     cmp ax, word [bss_919a]          ; 0x0ebf
-    ja short @..loc_LMUG.l2          ; 0x0ec3
-@..loc_LMUG.l1:
-    jmp short @..loc_LMUG.l6         ; 0x0ec5
-@..loc_LMUG.l2:
+    ja short .forward2               ; 0x0ec3
+.forward1:
+    jmp short .forward6              ; 0x0ec5
+.forward2:
     call api_idx_0002_VUIJ           ; 0x0ec7
     mov ax, 0x3c                     ; 0x0eca
     push ax                          ; 0x0ecd
@@ -22,15 +22,15 @@ loc_LMUG:
     push ax                          ; 0x0ed3
     push dx                          ; 0x0ed4
     cmp word [maze_variant], byte 3  ; 0x0ed5
-    je short @..loc_LMUG.l3          ; 0x0eda
+    je short .forward3               ; 0x0eda
     cmp word [maze_variant], byte 5  ; 0x0edc
-    jne short @..loc_LMUG.l4         ; 0x0ee1
-@..loc_LMUG.l3:
+    jne short .forward4              ; 0x0ee1
+.forward3:
     mov ax, 0x3c                     ; 0x0ee3
-    jmp short @..loc_LMUG.l5         ; 0x0ee6
-@..loc_LMUG.l4:
+    jmp short .forward5              ; 0x0ee6
+.forward4:
     mov ax, 0                        ; 0x0ee8
-@..loc_LMUG.l5:
+.forward5:
     cwd                              ; 0x0eeb
     mov cx, ax                       ; 0x0eec
     mov bx, dx                       ; 0x0eee
@@ -45,15 +45,15 @@ loc_LMUG:
     adc dx, bx                       ; 0x0f03
     mov word [bss_919c], dx          ; 0x0f05
     mov word [bss_919a], ax          ; 0x0f09
-    jmp short @..loc_LMUG.l7         ; 0x0f0c
-@..loc_LMUG.l6:
+    jmp short .return1               ; 0x0f0c
+.forward6:
     cmp word [bp + 4], byte 0        ; 0x0f0e
-    je short @..loc_LMUG.l7          ; 0x0f12
+    je short .return1                ; 0x0f12
     mov ax, 0xa                      ; 0x0f14
     push ax                          ; 0x0f17
     call delay_ms                    ; 0x0f18
     pop cx                           ; 0x0f1b
-@..loc_LMUG.l7:
+.return1:
     ret                              ; 0x0f1c
 loc_HVLG:
     mov ax, 0                        ; 0x0f1d
@@ -72,13 +72,13 @@ loc_HVLG:
     pop dx                           ; 0x0f40
     pop ax                           ; 0x0f41
     cmp dx, bx                       ; 0x0f42
-    jl short @..loc_HVLG.l1          ; 0x0f44
-    jne short @..loc_HVLG.l2         ; 0x0f46
+    jl short .forward1               ; 0x0f44
+    jne short .forward2              ; 0x0f46
     cmp ax, cx                       ; 0x0f48
-    jae short @..loc_HVLG.l2         ; 0x0f4a
-@..loc_HVLG.l1:
-    jmp short @..loc_HVLG.l3         ; 0x0f4c
-@..loc_HVLG.l2:
+    jae short .forward2              ; 0x0f4a
+.forward1:
+    jmp short .forward3              ; 0x0f4c
+.forward2:
     les bx, word [tick_counter_ptr]  ; 0x0f4e
     mov ax, word [es:bx]             ; 0x0f52
     mov dx, word [es:bx + 2]         ; 0x0f55
@@ -86,6 +86,6 @@ loc_HVLG:
     mov word [party_redraw_last_tick], ax ; 0x0f5d
     mov ax, 1                        ; 0x0f60
     ret                              ; 0x0f63
-@..loc_HVLG.l3:
+.forward3:
     mov ax, 0                        ; 0x0f64
     ret                              ; 0x0f67

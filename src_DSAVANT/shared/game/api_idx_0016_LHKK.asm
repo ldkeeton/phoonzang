@@ -7,14 +7,14 @@ api_idx_0016_LHKK:
     sub ah, ah
     mov word [bp - 0xc], ax
     cmp byte [bx + 0xa], 0
-    je short @..api_idx_0016_LHKK.l1
-    jmp near @..api_idx_0016_LHKK.l10
-@..api_idx_0016_LHKK.l1:
+    je short .forward1
+    jmp near .forward8
+.forward1:
     mov al, byte [bx + 8]
     sub ah, ah
     mov word [bp - 2], ax
-    jmp near @..api_idx_0016_LHKK.l8
-@..api_idx_0016_LHKK.l2:
+    jmp near .forward6
+.back1:
     mov word [bp - 0xa], 0
     mov al, byte [bp - 2]
     mov byte [bp - 0x16], al
@@ -25,17 +25,17 @@ api_idx_0016_LHKK:
     sub ah, ah
     inc ax
     cmp ax, word [bp - 2]
-    jne short @..api_idx_0016_LHKK.l3
+    jne short .forward2
     mov ax, 3
-    jmp short @..api_idx_0016_LHKK.l4
-@..api_idx_0016_LHKK.l3:
+    jmp short .forward3
+.forward2:
     mov ax, 1
-@..api_idx_0016_LHKK.l4:
+.forward3:
     mov word [bp - 8], ax
     mov ax, word [bp - 6]
     mov word [bp - 4], ax
-    jmp near @..api_idx_0016_LHKK.l6
-@..api_idx_0016_LHKK.l5:
+    jmp near .forward4
+.back2:
     mov ax, 0
     push ax
     push ax
@@ -97,14 +97,14 @@ api_idx_0016_LHKK:
     mov ax, word [bx + 0x29c]
     add word [bp - 0xa], ax
     inc word [bp - 4]
-@..api_idx_0016_LHKK.l6:
+.forward4:
     mov ax, word [bp - 4]
     cmp ax, word [bp - 8]
-    jge short @..api_idx_0016_LHKK.l7
-    jmp near @..api_idx_0016_LHKK.l5
-@..api_idx_0016_LHKK.l7:
+    jge short .forward5
+    jmp near .back2
+.forward5:
     inc word [bp - 2]
-@..api_idx_0016_LHKK.l8:
+.forward6:
     mov bx, word [bp + 4]
     mov al, byte [bx + 8]
     sub ah, ah
@@ -112,18 +112,18 @@ api_idx_0016_LHKK:
     inc ax
     inc ax
     cmp ax, word [bp - 2]
-    jle short @..api_idx_0016_LHKK.l9
-    jmp near @..api_idx_0016_LHKK.l2
-@..api_idx_0016_LHKK.l9:
-    jmp near @..api_idx_0016_LHKK.l12
-@..api_idx_0016_LHKK.l10:
+    jle short .forward7
+    jmp near .back1
+.forward7:
+    jmp near .return1
+.forward8:
     mov word [bp - 0xa], 0
     mov bx, word [bp + 4]
     mov al, byte [bx + 8]
     mov byte [bp - 0x16], al
     mov byte [bp - 0x15], 0
     mov word [bp - 4], 0
-@..api_idx_0016_LHKK.l11:
+.back3:
     mov ax, 0
     push ax
     push ax
@@ -176,6 +176,6 @@ api_idx_0016_LHKK:
     inc word [bp - 4]
     mov ax, word [bp - 4]
     cmp ax, strict word 3
-    jl short @..api_idx_0016_LHKK.l11
-@..api_idx_0016_LHKK.l12:
+    jl short .back3
+.return1:
     ret

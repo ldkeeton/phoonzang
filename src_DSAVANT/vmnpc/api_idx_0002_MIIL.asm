@@ -5,8 +5,8 @@ api_idx_0002_MIIL:
     dec word [bss_9ca8]              ; 0x5161
     mov ax, word [bp + 4]            ; 0x5165
     mov word [bp - 2], ax            ; 0x5168
-    jmp short @..api_idx_0002_MIIL.l2 ; 0x516b
-@..api_idx_0002_MIIL.l1:
+    jmp short .forward1              ; 0x516b
+.back1:
     mov ax, 0x16                     ; 0x516d
     imul word [bp - 2]               ; 0x5170
     add ax, bss_96b8                 ; 0x5173
@@ -29,8 +29,8 @@ api_idx_0002_MIIL:
     mov ax, word [bx + bss_9cac]     ; 0x51a6
     mov word [bx + bss_9caa], ax     ; 0x51aa
     inc word [bp - 2]                ; 0x51ae
-@..api_idx_0002_MIIL.l2:
+.forward1:
     mov ax, word [bp - 2]            ; 0x51b1
     cmp ax, word [bss_9ca8]          ; 0x51b4
-    jl short @..api_idx_0002_MIIL.l1 ; 0x51b8
+    jl short .back1                  ; 0x51b8
     ret                              ; 0x51ba

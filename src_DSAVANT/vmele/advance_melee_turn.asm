@@ -10,49 +10,49 @@ advance_melee_turn:
     pop cx                           ; 0x31b4
     call spend_action_slot_charge    ; 0x31b5
     mov word [bp - 2], 0             ; 0x31b8
-    jmp short @..advance_melee_turn.l4 ; 0x31bd
-@..advance_melee_turn.l1:
+    jmp short .forward3              ; 0x31bd
+.back1:
     mov ax, 0x2c                     ; 0x31bf
     imul word [bp - 2]               ; 0x31c2
     mov si, ax                       ; 0x31c5
     mov bx, word [party_char]        ; 0x31c7
     cmp byte [bx + si + member_rec.f_001f], 1 ; 0x31cb
-    jb short @..advance_melee_turn.l2 ; 0x31cf
+    jb short .forward1               ; 0x31cf
     mov al, byte [bx + si + 0x1f]    ; 0x31d1
     sub ah, ah                       ; 0x31d4
     cmp ax, word [party_member_count] ; 0x31d6
-    jle short @..advance_melee_turn.l3 ; 0x31da
-@..advance_melee_turn.l2:
+    jle short .forward2              ; 0x31da
+.forward1:
     mov byte [bx + si + 0x1f], 1     ; 0x31dc
-@..advance_melee_turn.l3:
+.forward2:
     inc word [bp - 2]                ; 0x31e0
-@..advance_melee_turn.l4:
+.forward3:
     mov ax, word [bp - 2]            ; 0x31e3
     cmp ax, word [party_char_count]  ; 0x31e6
-    jl short @..advance_melee_turn.l1 ; 0x31ea
+    jl short .back1                  ; 0x31ea
     mov ax, 1                        ; 0x31ec
     push ax                          ; 0x31ef
     call restore_areas_redraw_glyph  ; 0x31f0
     pop cx                           ; 0x31f3
     cmp word [party_screen_done], byte 1 ; 0x31f4
-    je short @..advance_melee_turn.l5 ; 0x31f9
-    jmp near @..advance_melee_turn.l15 ; 0x31fb
-@..advance_melee_turn.l5:
+    je short .forward4               ; 0x31f9
+    jmp near .forward12              ; 0x31fb
+.forward4:
     mov word [bp - 2], 0             ; 0x31fe
-    jmp near @..advance_melee_turn.l13 ; 0x3203
-@..advance_melee_turn.l6:
+    jmp near .forward10              ; 0x3203
+.back2:
     cmp word [party_return_state], byte 0xf ; 0x3206
-    je short @..advance_melee_turn.l7 ; 0x320b
-    jmp near @..advance_melee_turn.l11 ; 0x320d
-@..advance_melee_turn.l7:
+    je short .forward5               ; 0x320b
+    jmp near .forward8               ; 0x320d
+.forward5:
     cmp word [e1_event_flag], byte 1 ; 0x3210
-    je short @..advance_melee_turn.l8 ; 0x3215
-    jmp near @..advance_melee_turn.l11 ; 0x3217
-@..advance_melee_turn.l8:
+    je short .forward6               ; 0x3215
+    jmp near .forward8               ; 0x3217
+.forward6:
     cmp word [character_record_index], strict word 0xe1 ; 0x321a
-    je short @..advance_melee_turn.l9 ; 0x3220
-    jmp near @..advance_melee_turn.l11 ; 0x3222
-@..advance_melee_turn.l9:
+    je short .forward7               ; 0x3220
+    jmp near .forward8               ; 0x3222
+.forward7:
     mov ax, 0x2c                     ; 0x3225
     imul word [bp - 2]               ; 0x3228
     mov si, ax                       ; 0x322b
@@ -71,7 +71,7 @@ advance_melee_turn:
     mov ax, word [bx + si + member_rec.item_charge_cap] ; 0x3253
     mov word [bx + si + member_rec.item_charges], ax ; 0x3256
     mov word [bp - 4], 0             ; 0x3259
-@..advance_melee_turn.l10:
+.back3:
     mov ax, 0x2c                     ; 0x325e
     imul word [bp - 2]               ; 0x3261
     add ax, word [bp - 4]            ; 0x3264
@@ -81,7 +81,7 @@ advance_melee_turn:
     inc word [bp - 4]                ; 0x3271
     mov ax, word [bp - 4]            ; 0x3274
     cmp ax, strict word 0xa          ; 0x3277
-    jl short @..advance_melee_turn.l10 ; 0x327a
+    jl short .back3                  ; 0x327a
     mov ax, 0x248                    ; 0x327c
     imul word [bp - 2]               ; 0x327f
     add ax, party_records            ; 0x3282
@@ -126,8 +126,8 @@ advance_melee_turn:
     push word [message_delay]        ; 0x32dd
     call wait_ticks_with_events      ; 0x32e1
     pop cx                           ; 0x32e4
-    jmp short @..advance_melee_turn.l12 ; 0x32e5
-@..advance_melee_turn.l11:
+    jmp short .forward9              ; 0x32e5
+.forward8:
     push word [bp - 2]               ; 0x32e7
     call copy_member_party_record    ; 0x32ea
     pop cx                           ; 0x32ed
@@ -136,19 +136,19 @@ advance_melee_turn:
     push word [bp - 2]               ; 0x32f2
     call draw_party_member_panel     ; 0x32f5
     add sp, byte 4                   ; 0x32f8
-@..advance_melee_turn.l12:
+.forward9:
     inc word [bp - 2]                ; 0x32fb
-@..advance_melee_turn.l13:
+.forward10:
     mov ax, word [bp - 2]            ; 0x32fe
     cmp ax, word [party_char_count]  ; 0x3301
-    jge short @..advance_melee_turn.l14 ; 0x3305
-    jmp near @..advance_melee_turn.l6 ; 0x3307
-@..advance_melee_turn.l14:
+    jge short .forward11             ; 0x3305
+    jmp near .back2                  ; 0x3307
+.forward11:
     call close_party_screen          ; 0x330a
     mov ax, word [party_return_state] ; 0x330d
     mov word [game_state], ax        ; 0x3310
-    jmp short @..advance_melee_turn.l16 ; 0x3313
-@..advance_melee_turn.l15:
+    jmp short .return1               ; 0x3313
+.forward12:
     mov word [game_state], 0xb       ; 0x3315
-@..advance_melee_turn.l16:
+.return1:
     ret                              ; 0x331b

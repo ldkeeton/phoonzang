@@ -3,12 +3,12 @@ draw_list_rows:
     mov ax, 0xfffc
     call aztec_csav
     mov word [bp - 2], 0
-    jmp near @..draw_list_rows.l8
-@..draw_list_rows.l1:
+    jmp near .forward7
+.back1:
     mov ax, word [bp + 0xc]
     add ax, word [bp - 2]
     cmp ax, word [bp + 0xe]
-    jne short @..draw_list_rows.l2
+    jne short .forward1
     mov ax, 1
     push ax
     mov ax, 0xe
@@ -33,10 +33,10 @@ draw_list_rows:
     call gfx_fill_area
     add sp, byte 0xa
     mov word [bp - 4], 0
-    jmp short @..draw_list_rows.l3
-@..draw_list_rows.l2:
+    jmp short .forward2
+.forward1:
     mov word [bp - 4], 0xb4
-@..draw_list_rows.l3:
+.forward2:
     mov ax, 0xe
     imul word [bp - 2]
     add ax, word [bp + 6]
@@ -53,14 +53,14 @@ draw_list_rows:
     shl ax, 1
     mov bx, ax
     cmp word [bx + list_row_marked], byte 0
-    je short @..draw_list_rows.l4
+    je short .forward3
     mov ax, 4
     push ax
     mov ax, 0x63
     push ax
     call draw_font_glyph
     add sp, byte 4
-@..draw_list_rows.l4:
+.forward3:
     mov ax, 0xe
     imul word [bp - 2]
     add ax, word [bp + 6]
@@ -105,7 +105,7 @@ draw_list_rows:
     shl ax, 1
     mov bx, ax
     cmp word [bx + list_row_count], byte 0
-    jle short @..draw_list_rows.l7
+    jle short .forward6
     mov ax, 0xe
     imul word [bp - 2]
     add ax, word [bp + 6]
@@ -121,12 +121,12 @@ draw_list_rows:
     mov ax, word [bp + 0xc]
     add ax, word [bp - 2]
     cmp ax, word [bp + 0xe]
-    jne short @..draw_list_rows.l5
+    jne short .forward4
     mov ax, word [bp - 4]
-    jmp short @..draw_list_rows.l6
-@..draw_list_rows.l5:
+    jmp short .forward5
+.forward4:
     mov ax, 2
-@..draw_list_rows.l6:
+.forward5:
     push ax
     call gfx_set_text_color
     add sp, byte 4
@@ -141,12 +141,12 @@ draw_list_rows:
     push word [bx + list_row_count]
     call draw_number_field
     add sp, byte 6
-@..draw_list_rows.l7:
+.forward6:
     inc word [bp - 2]
-@..draw_list_rows.l8:
+.forward7:
     mov ax, word [bp - 2]
     cmp ax, word [bp + 0xa]
-    jge short @..draw_list_rows.l9
-    jmp near @..draw_list_rows.l1
-@..draw_list_rows.l9:
+    jge short .return1
+    jmp near .back1
+.return1:
     ret

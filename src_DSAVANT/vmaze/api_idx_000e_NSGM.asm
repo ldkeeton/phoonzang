@@ -23,15 +23,15 @@ api_idx_000e_NSGM:
     call read_cell_kind_direction    ; 0x1663
     add sp, byte 6                   ; 0x1666
     cmp word [bp - 0xa], byte 1      ; 0x1669
-    je short @..api_idx_000e_NSGM.l1 ; 0x166d
+    je short .forward1               ; 0x166d
     cmp word [bp - 0xa], byte 2      ; 0x166f
-    jne short @..api_idx_000e_NSGM.l2 ; 0x1673
-@..api_idx_000e_NSGM.l1:
+    jne short .forward2              ; 0x1673
+.forward1:
     mov ax, word [bp - 0xc]          ; 0x1675
     cmp ax, word [bp + 4]            ; 0x1678
-    jne short @..api_idx_000e_NSGM.l2 ; 0x167b
+    jne short .forward2              ; 0x167b
     mov word [bss_91aa], 0           ; 0x167d
-@..api_idx_000e_NSGM.l2:
+.forward2:
     mov ax, 1                        ; 0x1683
     push ax                          ; 0x1686
     push word [bp + 4]               ; 0x1687
@@ -48,7 +48,7 @@ api_idx_000e_NSGM:
     call find_map_piece              ; 0x16a4
     add sp, byte 0xa                 ; 0x16a7
     test ax, ax                      ; 0x16aa
-    je short @..api_idx_000e_NSGM.l3 ; 0x16ac
+    je short .forward3               ; 0x16ac
     mov ax, 4                        ; 0x16ae
     push ax                          ; 0x16b1
     mov ax, MSG_YOU_ARE_IN_ROCK      ; 0x16b2
@@ -57,17 +57,17 @@ api_idx_000e_NSGM:
     add sp, byte 4                   ; 0x16b9
     mov ax, 1                        ; 0x16bc
     ret                              ; 0x16bf
-@..api_idx_000e_NSGM.l3:
+.forward3:
     cmp word [save_location_flag], byte 0 ; 0x16c0
-    jne short @..api_idx_000e_NSGM.l4 ; 0x16c5
+    jne short .forward4              ; 0x16c5
     call check_at_saved_location     ; 0x16c7
-@..api_idx_000e_NSGM.l4:
+.forward4:
     call api_idx_0004_HRPS           ; 0x16ca
-    jmp near @..api_idx_000e_NSGM.l13 ; 0x16cd
-@..api_idx_000e_NSGM.l5:
+    jmp near .forward8               ; 0x16cd
+.back1:
     call api_idx_0004_IHHI           ; 0x16d0
-    jmp near @..api_idx_000e_NSGM.l17 ; 0x16d3
-@..api_idx_000e_NSGM.l6:
+    jmp near .forward12              ; 0x16d3
+.back2:
     mov ax, 4                        ; 0x16d6
     push ax                          ; 0x16d9
     mov ax, MSG_YOU_FELL_TO_YOUR_DEATH ; 0x16da
@@ -76,17 +76,17 @@ api_idx_000e_NSGM:
     add sp, byte 4                   ; 0x16e1
     mov ax, 1                        ; 0x16e4
     ret                              ; 0x16e7
-@..api_idx_000e_NSGM.l7:
+.back3:
     mov word [bp - 0xe], 0           ; 0x16e8
-    jmp near @..api_idx_000e_NSGM.l10 ; 0x16ed
-@..api_idx_000e_NSGM.l8:
+    jmp near .forward6               ; 0x16ed
+.back4:
     mov ax, 0x248                    ; 0x16f0
     imul word [bp - 0xe]             ; 0x16f3
     mov bx, ax                       ; 0x16f6
     cmp byte [bx + party_records + pc_rec.state], 0 ; 0x16f8
-    jne short @..api_idx_000e_NSGM.l9 ; 0x16fd
+    jne short .forward5              ; 0x16fd
     cmp byte [bx + party_records + pc_rec.flag + 0x17], 0 ; 0x16ff
-    jne short @..api_idx_000e_NSGM.l9 ; 0x1704
+    jne short .forward5              ; 0x1704
     mov ax, 0x64                     ; 0x1706
     push ax                          ; 0x1709
     call random_below                ; 0x170a
@@ -100,7 +100,7 @@ api_idx_000e_NSGM:
     mov cx, ax                       ; 0x171d
     pop ax                           ; 0x171f
     cmp ax, cx                       ; 0x1720
-    jle short @..api_idx_000e_NSGM.l9 ; 0x1722
+    jle short .forward5              ; 0x1722
     mov ax, 0xfa                     ; 0x1724
     push ax                          ; 0x1727
     mov ax, 0                        ; 0x1728
@@ -133,16 +133,16 @@ api_idx_000e_NSGM:
     push word [bp - 0xe]             ; 0x1764
     call draw_party_member_panel     ; 0x1767
     add sp, byte 4                   ; 0x176a
-@..api_idx_000e_NSGM.l9:
+.forward5:
     inc word [bp - 0xe]              ; 0x176d
-@..api_idx_000e_NSGM.l10:
+.forward6:
     mov ax, word [bp - 0xe]          ; 0x1770
     cmp ax, word [party_char_count]  ; 0x1773
-    jge short @..api_idx_000e_NSGM.l11 ; 0x1777
-    jmp near @..api_idx_000e_NSGM.l8 ; 0x1779
-@..api_idx_000e_NSGM.l11:
-    jmp short @..api_idx_000e_NSGM.l17 ; 0x177c
-@..api_idx_000e_NSGM.l12:
+    jge short .forward7              ; 0x1777
+    jmp near .back4                  ; 0x1779
+.forward7:
+    jmp short .forward12             ; 0x177c
+.back5:
     mov ax, 4                        ; 0x177e
     push ax                          ; 0x1781
     mov ax, MSG_YOU_ARE_IN_ROCK      ; 0x1782
@@ -151,22 +151,22 @@ api_idx_000e_NSGM:
     add sp, byte 4                   ; 0x1789
     mov ax, 1                        ; 0x178c
     ret                              ; 0x178f
-@..api_idx_000e_NSGM.l13:
+.forward8:
     cmp ax, strict word 1            ; 0x1790
-    jne short @..api_idx_000e_NSGM.l14 ; 0x1793
-    jmp near @..api_idx_000e_NSGM.l5 ; 0x1795
-@..api_idx_000e_NSGM.l14:
+    jne short .forward9              ; 0x1793
+    jmp near .back1                  ; 0x1795
+.forward9:
     cmp ax, strict word 2            ; 0x1798
-    jne short @..api_idx_000e_NSGM.l15 ; 0x179b
-    jmp near @..api_idx_000e_NSGM.l6 ; 0x179d
-@..api_idx_000e_NSGM.l15:
+    jne short .forward10             ; 0x179b
+    jmp near .back2                  ; 0x179d
+.forward10:
     cmp ax, strict word 3            ; 0x17a0
-    jne short @..api_idx_000e_NSGM.l16 ; 0x17a3
-    jmp near @..api_idx_000e_NSGM.l7 ; 0x17a5
-@..api_idx_000e_NSGM.l16:
+    jne short .forward11             ; 0x17a3
+    jmp near .back3                  ; 0x17a5
+.forward11:
     cmp ax, strict word 4            ; 0x17a8
-    je short @..api_idx_000e_NSGM.l12 ; 0x17ab
-@..api_idx_000e_NSGM.l17:
+    je short .back5                  ; 0x17ab
+.forward12:
     mov ax, word [party_map_piece]   ; 0x17ad
     mov cx, 6                        ; 0x17b0
     shl ax, cl                       ; 0x17b3

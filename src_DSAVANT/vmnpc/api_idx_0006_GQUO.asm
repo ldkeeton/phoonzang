@@ -22,24 +22,24 @@ api_idx_0006_GQUO:
     mov word [bp - 4], 0             ; 0x5d40
     mov ax, word [bp - 6]            ; 0x5d45
     cmp ax, word [bp + 8]            ; 0x5d48
-    jne short @..api_idx_0006_GQUO.l2 ; 0x5d4b
-    cmp word [bp - 2], byte 0xff     ; 0x5d4d
-    je short @..api_idx_0006_GQUO.l2 ; 0x5d51
+    jne short .forward2              ; 0x5d4b
+    cmp word [bp - 2], byte -1       ; 0x5d4d
+    je short .forward2               ; 0x5d51
     cmp word [bp + 0xa], byte 0      ; 0x5d53
-    jne short @..api_idx_0006_GQUO.l1 ; 0x5d57
+    jne short .forward1              ; 0x5d57
     push word [bp - 2]               ; 0x5d59
     push word [bp + 4]               ; 0x5d5c
     call api_idx_005e_KVNO           ; 0x5d5f
     add sp, byte 4                   ; 0x5d62
     mov word [bp - 4], ax            ; 0x5d65
-    jmp short @..api_idx_0006_GQUO.l2 ; 0x5d68
-@..api_idx_0006_GQUO.l1:
+    jmp short .forward2              ; 0x5d68
+.forward1:
     push word [bp - 2]               ; 0x5d6a
     push word [bp + 4]               ; 0x5d6d
     call api_idx_004e_PHKR           ; 0x5d70
     add sp, byte 4                   ; 0x5d73
     mov word [bp - 4], ax            ; 0x5d76
-@..api_idx_0006_GQUO.l2:
+.forward2:
     mov ax, 0xc6                     ; 0x5d79
     push ax                          ; 0x5d7c
     mov ax, 0x109                    ; 0x5d7d

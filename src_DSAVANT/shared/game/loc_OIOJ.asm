@@ -6,9 +6,9 @@ loc_OIOJ:
     push ax
     cmp ax, strict word 1
     pop ax
-    jge short @..loc_OIOJ.l1
+    jge short .forward1
     mov ax, 1
-@..loc_OIOJ.l1:
+.forward1:
     push ax
     mov ax, 0x248
     imul word [bp + 4]
@@ -19,40 +19,40 @@ loc_OIOJ:
     push ax
     cmp ax, strict word 1
     pop ax
-    jge short @..loc_OIOJ.l2
+    jge short .forward2
     mov ax, 1
-@..loc_OIOJ.l2:
+.forward2:
     mov byte [bx + party_records + pc_rec.f_0160 + 0x1], al
     mov ax, word [bp + 0xa]
     push ax
     cmp ax, strict word 1
     pop ax
-    jge short @..loc_OIOJ.l3
+    jge short .forward3
     mov ax, 1
-@..loc_OIOJ.l3:
+.forward3:
     mov byte [bx + party_records + pc_rec.f_0160 + 0x2], al
     mov ax, word [bp + 0xc]
     push ax
     cmp ax, strict word 1
     pop ax
-    jge short @..loc_OIOJ.l4
+    jge short .forward4
     mov ax, 1
-@..loc_OIOJ.l4:
+.forward4:
     mov byte [bx + party_records + pc_rec.f_0160 + 0x3], al
     mov ax, word [bp + 0xe]
     push ax
     cmp ax, strict word 1
     pop ax
-    jge short @..loc_OIOJ.l5
+    jge short .forward5
     mov ax, 1
-@..loc_OIOJ.l5:
+.forward5:
     mov byte [bx + party_records + pc_rec.f_0160 + 0x4], al
     mov ax, word [bp + 0x10]
     push ax
     cmp ax, strict word 1
     pop ax
-    jge short @..loc_OIOJ.l6
+    jge short .forward6
     mov ax, 1
-@..loc_OIOJ.l6:
+.forward6:
     mov byte [bx + party_records + pc_rec.f_0160 + 0x5], al
     ret

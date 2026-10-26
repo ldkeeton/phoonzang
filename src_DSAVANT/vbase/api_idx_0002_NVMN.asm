@@ -30,14 +30,14 @@ api_idx_0002_NVMN:
     call gfx_show_area               ; 0x70a4
     add sp, byte 8                   ; 0x70a7
     cmp word [mouse_active], byte 1  ; 0x70aa
-    jne short @..api_idx_0002_NVMN.l1 ; 0x70af
+    jne short .forward1              ; 0x70af
     call gfx_mouse_off               ; 0x70b1
-@..api_idx_0002_NVMN.l1:
+.forward1:
     mov word [mouse_active], 0       ; 0x70b4
     call score_music_enabled         ; 0x70ba
     mov word [bss_8450], ax          ; 0x70bd
     test ax, ax                      ; 0x70c0
-    je short @..api_idx_0002_NVMN.l2 ; 0x70c2
+    je short .forward2               ; 0x70c2
     mov ax, 0                        ; 0x70c4
     push ax                          ; 0x70c7
     mov ax, 4                        ; 0x70c8
@@ -54,17 +54,17 @@ api_idx_0002_NVMN:
     call ds_app_UKGP                 ; 0x70e4
     add sp, byte 6                   ; 0x70e7
     mov word [bss_844c], ax          ; 0x70ea
-@..api_idx_0002_NVMN.l2:
+.forward2:
     cmp word [bp + 4], byte 4        ; 0x70ed
-    je short @..api_idx_0002_NVMN.l3 ; 0x70f1
+    je short .forward3               ; 0x70f1
     mov ax, 2                        ; 0x70f3
     push ax                          ; 0x70f6
     mov ax, dseg_911e                ; 0x70f7
     push ax                          ; 0x70fa
     call load_screen_file            ; 0x70fb
     add sp, byte 4                   ; 0x70fe
-    jmp short @..api_idx_0002_NVMN.l4 ; 0x7101
-@..api_idx_0002_NVMN.l3:
+    jmp short .forward4              ; 0x7101
+.forward3:
     mov ax, 0                        ; 0x7103
     push ax                          ; 0x7106
     push ax                          ; 0x7107
@@ -84,10 +84,10 @@ api_idx_0002_NVMN:
     push ax                          ; 0x7125
     call gfx_fade_in                 ; 0x7126
     pop cx                           ; 0x7129
-@..api_idx_0002_NVMN.l4:
+.forward4:
     mov word [scene_index], 0        ; 0x712a
     mov ax, word [bp + 4]            ; 0x7130
-    jmp short @..api_idx_0002_NVMN.l5 ; 0x7133
+    jmp short .forward5              ; 0x7133
 jumptable_7185_case_1:
     mov ax, 1                        ; 0x7135
     push ax                          ; 0x7138
@@ -135,7 +135,7 @@ jumptable_7185:
     dw jumptable_7185_case_3 - IMAGE_BASE + __zres_end ; 0x718b
     dw jumptable_7185_case_4 - IMAGE_BASE + __zres_end ; 0x718d
     dw jumptable_7185_case_5 - IMAGE_BASE + __zres_end ; 0x718f
-@..api_idx_0002_NVMN.l5:
+api_idx_0002_NVMN.forward5:
     cmp ax, strict word 6            ; 0x7191
     jae short jumptable_7185_case_0  ; 0x7194
     xchg bx, ax                      ; 0x7196
@@ -170,7 +170,7 @@ jumptable_7185_case_0:
     call gfx_show_area               ; 0x71cf
     add sp, byte 8                   ; 0x71d2
     cmp word [bss_8450], byte 0      ; 0x71d5
-    je short @..api_idx_0002_NVMN.l7 ; 0x71da
+    je short api_idx_0002_NVMN.forward7 ; 0x71da
     push word [bss_844c]             ; 0x71dc
     push word [bss_844e]             ; 0x71e0
     call fade_out_music              ; 0x71e4
@@ -179,17 +179,17 @@ jumptable_7185_case_0:
     push ax                          ; 0x71ed
     call app_gfx_free_score          ; 0x71ee
     pop cx                           ; 0x71f1
-@..api_idx_0002_NVMN.l7:
+api_idx_0002_NVMN.forward7:
     test word [bss_9056], 0x1000     ; 0x71f2
-    je short @..api_idx_0002_NVMN.l9 ; 0x71f8
+    je short api_idx_0002_NVMN.forward9 ; 0x71f8
     cmp byte [bss_5989], 1           ; 0x71fa
-    jne short @..api_idx_0002_NVMN.l9 ; 0x71ff
+    jne short api_idx_0002_NVMN.forward9 ; 0x71ff
     cmp word [mouse_active], byte 0  ; 0x7201
-    jne short @..api_idx_0002_NVMN.l8 ; 0x7206
+    jne short api_idx_0002_NVMN.forward8 ; 0x7206
     call gfx_mouse_init              ; 0x7208
-@..api_idx_0002_NVMN.l8:
+api_idx_0002_NVMN.forward8:
     mov word [mouse_active], 1       ; 0x720b
-@..api_idx_0002_NVMN.l9:
+api_idx_0002_NVMN.forward9:
     mov ax, 0                        ; 0x7211
     push ax                          ; 0x7214
     push ax                          ; 0x7215
@@ -210,8 +210,8 @@ jumptable_7185_case_0:
     call gfx_fade_in                 ; 0x7234
     pop cx                           ; 0x7237
     mov word [bp - 2], 0             ; 0x7238
-    jmp short @..api_idx_0002_NVMN.l11 ; 0x723d
-@..api_idx_0002_NVMN.l10:
+    jmp short api_idx_0002_NVMN.forward10 ; 0x723d
+api_idx_0002_NVMN.back1:
     mov ax, 1                        ; 0x723f
     push ax                          ; 0x7242
     mov ax, word [bp + 4]            ; 0x7243
@@ -226,16 +226,16 @@ jumptable_7185_case_0:
     call set_bitmap_bit              ; 0x7254
     add sp, byte 6                   ; 0x7257
     inc word [bp - 2]                ; 0x725a
-@..api_idx_0002_NVMN.l11:
+api_idx_0002_NVMN.forward10:
     mov ax, word [bp - 2]            ; 0x725d
     cmp ax, word [party_char_count]  ; 0x7260
-    jl short @..api_idx_0002_NVMN.l10 ; 0x7264
+    jl short api_idx_0002_NVMN.back1 ; 0x7264
     mov ax, 1                        ; 0x7266
     push ax                          ; 0x7269
     call api_idx_004e_HUKL           ; 0x726a
     pop cx                           ; 0x726d
     cmp ax, strict word 0xffff       ; 0x726e
-    jne short @..api_idx_0002_NVMN.l12 ; 0x7271
+    jne short api_idx_0002_NVMN.forward11 ; 0x7271
     mov ax, 0xc6                     ; 0x7273
     push ax                          ; 0x7276
     mov ax, 0x109                    ; 0x7277
@@ -246,7 +246,7 @@ jumptable_7185_case_0:
     push ax                          ; 0x7282
     call gfx_show_area               ; 0x7283
     add sp, byte 8                   ; 0x7286
-@..api_idx_0002_NVMN.l12:
+api_idx_0002_NVMN.forward11:
     mov ax, 0                        ; 0x7289
     push ax                          ; 0x728c
     mov ax, 0xc7                     ; 0x728d

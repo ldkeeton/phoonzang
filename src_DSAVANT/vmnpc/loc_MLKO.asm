@@ -53,12 +53,12 @@ loc_MLKO:
     call gfx_show_area               ; 0x1381
     add sp, byte 8                   ; 0x1384
     cmp word [bp + 8], byte 0        ; 0x1387
-    je short @..loc_MLKO.l1          ; 0x138b
+    je short .forward1               ; 0x138b
     mov ax, 0                        ; 0x138d
     push ax                          ; 0x1390
     call play_sound_effect           ; 0x1391
     pop cx                           ; 0x1394
-@..loc_MLKO.l1:
+.forward1:
     mov ax, 0                        ; 0x1395
     push ax                          ; 0x1398
     push word [message_delay]        ; 0x1399

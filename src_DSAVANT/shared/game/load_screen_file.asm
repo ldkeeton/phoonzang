@@ -18,12 +18,12 @@ load_screen_file:
     add sp, byte 4
     mov word [bp - 2], ax
     cmp ax, strict word 0xffff
-    jne short @..load_screen_file.l1
+    jne short .forward1
     mov ax, 0xe
     push ax
     call release_and_exit
     pop cx
-@..load_screen_file.l1:
+.forward1:
     mov ax, 0
     push ax
     push word [bp - 2]
@@ -33,7 +33,7 @@ load_screen_file:
     call aztec_close
     pop cx
     cmp word [bp + 6], byte 1
-    jne short @..load_screen_file.l2
+    jne short .forward2
     mov ax, 0xc7
     push ax
     mov ax, 0x13f
@@ -43,10 +43,10 @@ load_screen_file:
     push ax
     call gfx_show_area
     add sp, byte 8
-    jmp short @..load_screen_file.l3
-@..load_screen_file.l2:
+    jmp short .return1
+.forward2:
     cmp word [bp + 6], byte 2
-    jne short @..load_screen_file.l3
+    jne short .return1
     mov ax, 0
     push ax
     push ax
@@ -66,5 +66,5 @@ load_screen_file:
     push ax
     call gfx_fade_in
     pop cx
-@..load_screen_file.l3:
+.return1:
     ret

@@ -3,7 +3,7 @@ loc_HGUJ:
     mov ax, 0                        ; 0x4392
     call aztec_csav                  ; 0x4395
     cmp word [bp + 6], byte 1        ; 0x4398
-    jne short @..loc_HGUJ.l1         ; 0x439c
+    jne short .return1               ; 0x439c
     mov ax, 0x248                    ; 0x439e
     imul word [bp + 4]               ; 0x43a1
     mov bx, ax                       ; 0x43a4
@@ -14,5 +14,5 @@ loc_HGUJ:
     mov byte [bx + party_records + pc_rec.stat], al ; 0x43ae
     inc byte [bx + party_records + pc_rec.stat + 0x6] ; 0x43b2
     inc byte [bx + party_records + pc_rec.stat + 0x7] ; 0x43b6
-@..loc_HGUJ.l1:
+.return1:
     ret                              ; 0x43ba

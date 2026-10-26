@@ -10,8 +10,8 @@ api_idx_0006_MROT:
     dec word [party_char_count]      ; 0x61f1
     mov ax, word [bp + 4]            ; 0x61f5
     mov word [bp - 2], ax            ; 0x61f8
-    jmp short @..api_idx_0006_MROT.l2 ; 0x61fb
-@..api_idx_0006_MROT.l1:
+    jmp short .forward1              ; 0x61fb
+.back1:
     mov ax, 0x248                    ; 0x61fd
     imul word [bp - 2]               ; 0x6200
     mov si, ax                       ; 0x6203
@@ -34,23 +34,23 @@ api_idx_0006_MROT:
     mov ax, word [bx + member_icon + 0x2] ; 0x622f
     mov word [bx + member_icon], ax  ; 0x6233
     inc word [bp - 2]                ; 0x6237
-@..api_idx_0006_MROT.l2:
+.forward1:
     mov ax, word [bp - 2]            ; 0x623a
     cmp ax, word [party_char_count]  ; 0x623d
-    jl short @..api_idx_0006_MROT.l1 ; 0x6241
+    jl short .back1                  ; 0x6241
     mov word [bp - 2], 0             ; 0x6243
-    jmp short @..api_idx_0006_MROT.l4 ; 0x6248
-@..api_idx_0006_MROT.l3:
+    jmp short .forward2              ; 0x6248
+.back2:
     mov ax, 1                        ; 0x624a
     push ax                          ; 0x624d
     push word [bp - 2]               ; 0x624e
     call draw_party_member_panel     ; 0x6251
     add sp, byte 4                   ; 0x6254
     inc word [bp - 2]                ; 0x6257
-@..api_idx_0006_MROT.l4:
+.forward2:
     mov ax, word [bp - 2]            ; 0x625a
     cmp ax, word [party_char_count]  ; 0x625d
-    jl short @..api_idx_0006_MROT.l3 ; 0x6261
+    jl short .back2                  ; 0x6261
     mov ax, 0                        ; 0x6263
     push ax                          ; 0x6266
     mov ax, word [party_char_count]  ; 0x6267
@@ -62,7 +62,7 @@ api_idx_0006_MROT:
     call gfx_restore_area            ; 0x6278
     add sp, byte 6                   ; 0x627b
     cmp word [bp + 6], byte 0        ; 0x627e
-    je short @..api_idx_0006_MROT.l5 ; 0x6282
+    je short .return1                ; 0x6282
     mov ax, word [party_char_count]  ; 0x6284
     mov cx, 2                        ; 0x6287
     cwd                              ; 0x628a
@@ -89,5 +89,5 @@ api_idx_0006_MROT:
     push word [bp - 4]               ; 0x62bc
     call gfx_show_area               ; 0x62bf
     add sp, byte 8                   ; 0x62c2
-@..api_idx_0006_MROT.l5:
+.return1:
     ret                              ; 0x62c5

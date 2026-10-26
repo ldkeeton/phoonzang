@@ -20,18 +20,18 @@ draw_clock_marker_glyph:
     call aztec_lrm
     mov word [bp - 6], ax
     cmp ax, strict word 0
-    jl short @..draw_clock_marker_glyph.l1
+    jl short .return1
     cmp ax, 0x36c
-    jl short @..draw_clock_marker_glyph.l2
-@..draw_clock_marker_glyph.l1:
+    jl short .forward1
+.return1:
     ret
-@..draw_clock_marker_glyph.l2:
+.forward1:
     mov cx, 3
     cwd
     idiv cx
     mov word [bp - 8], ax
     mov word [bp - 2], 0
-@..draw_clock_marker_glyph.l3:
+.back1:
     mov ax, word [bp - 2]
     shl ax, 1
     mov bx, ax
@@ -40,54 +40,54 @@ draw_clock_marker_glyph:
     inc word [bp - 2]
     mov ax, word [bp - 2]
     cmp ax, strict word 4
-    jl short @..draw_clock_marker_glyph.l3
+    jl short .back1
     cmp word [bp - 8], byte 0x68
-    jg short @..draw_clock_marker_glyph.l4
+    jg short .forward2
     mov ax, 0x58
     sub ax, word [bp - 8]
     mov word [bp - 0x12], ax
-@..draw_clock_marker_glyph.l4:
+.forward2:
     cmp word [bp - 8], byte 0x3a
-    jl short @..draw_clock_marker_glyph.l5
+    jl short .forward3
     cmp word [bp - 8], strict word 0xfa
-    jg short @..draw_clock_marker_glyph.l5
+    jg short .forward3
     mov ax, 0xb0
     mov cx, word [bp - 8]
-    add cx, byte 0xc6
+    add cx, byte -58
     sub ax, cx
     mov word [bp - 0x14], ax
-@..draw_clock_marker_glyph.l5:
+.forward3:
     cmp word [bp - 8], strict word 0xcc
-    jl short @..draw_clock_marker_glyph.l6
+    jl short .forward4
     cmp word [bp - 8], strict word 0x124
-    jg short @..draw_clock_marker_glyph.l6
+    jg short .forward4
     mov ax, 0xb0
     mov cx, word [bp - 8]
     add cx, strict word 0xff34
     sub ax, cx
     mov word [bp - 0xe], ax
-@..draw_clock_marker_glyph.l6:
+.forward4:
     mov ax, word [party_tag]
     shl ax, 1
     mov bx, ax
     add bx, bp
     cmp word [bx - 0x14], strict word 0xff01
-    jne short @..draw_clock_marker_glyph.l7
+    jne short .forward5
     ret
-@..draw_clock_marker_glyph.l7:
+.forward5:
     cmp word [bp - 6], strict word 0x10e
-    jge short @..draw_clock_marker_glyph.l8
+    jge short .forward6
     mov ax, word [bp - 6]
     mov cx, 0xa
     cwd
     idiv cx
     add ax, strict word 5
     mov word [bp - 0xc], ax
-    jmp short @..draw_clock_marker_glyph.l12
-@..draw_clock_marker_glyph.l8:
+    jmp short .forward10
+.forward6:
     mov ax, word [bp - 6]
     cmp ax, 0x276
-    jl short @..draw_clock_marker_glyph.l9
+    jl short .forward7
     add ax, 0xfd8a
     mov cx, 9
     cwd
@@ -96,8 +96,8 @@ draw_clock_marker_glyph:
     mov ax, 0x20
     sub ax, cx
     mov word [bp - 0xc], ax
-    jmp short @..draw_clock_marker_glyph.l12
-@..draw_clock_marker_glyph.l9:
+    jmp short .forward10
+.forward7:
     mov ax, word [bp - 6]
     add ax, 0xfef2
     mov cx, 0xb4
@@ -114,16 +114,16 @@ draw_clock_marker_glyph:
     cwd
     idiv cx
     test ax, ax
-    je short @..draw_clock_marker_glyph.l10
+    je short .forward8
     mov ax, 0x24
     sub ax, word [bp - 0xa]
-    jmp short @..draw_clock_marker_glyph.l11
-@..draw_clock_marker_glyph.l10:
+    jmp short .forward9
+.forward8:
     mov ax, word [bp - 0xa]
     add ax, strict word 0x20
-@..draw_clock_marker_glyph.l11:
+.forward9:
     mov word [bp - 0xc], ax
-@..draw_clock_marker_glyph.l12:
+.forward10:
     mov byte [bp - 0x1e], 6
     mov byte [bp - 0x1d], 0
     mov ax, 0

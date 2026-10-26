@@ -3,11 +3,11 @@ roll_member_actions:
     mov ax, 0xfffa                   ; 0x1713
     call aztec_csav                  ; 0x1716
     mov word [bp - 2], 1             ; 0x1719
-    jmp near @..roll_member_actions.l6 ; 0x171e
-@..roll_member_actions.l1:
+    jmp near .forward4               ; 0x171e
+.back1:
     mov word [bp - 4], 0             ; 0x1721
-    jmp short @..roll_member_actions.l5 ; 0x1726
-@..roll_member_actions.l2:
+    jmp short .forward3              ; 0x1726
+.back2:
     mov ax, 0x64                     ; 0x1728
     push ax                          ; 0x172b
     call random_below                ; 0x172c
@@ -18,7 +18,7 @@ roll_member_actions:
     mov bx, ax                       ; 0x1738
     mov bx, word [bx + party_char]   ; 0x173a
     cmp byte [bx + member_rec.name_row], 1 ; 0x173e
-    jne short @..roll_member_actions.l4 ; 0x1743
+    jne short .forward2              ; 0x1743
     mov ax, 0x248                    ; 0x1745
     imul word [bp - 4]               ; 0x1748
     mov bx, ax                       ; 0x174b
@@ -31,12 +31,12 @@ roll_member_actions:
     pop ax                           ; 0x175d
     sub ax, cx                       ; 0x175e
     cmp ax, word [bp - 6]            ; 0x1760
-    jg short @..roll_member_actions.l3 ; 0x1763
+    jg short .forward1               ; 0x1763
     mov al, byte [bx + party_records + pc_rec.stat + 0x1] ; 0x1765
     sub ah, ah                       ; 0x1769
     cmp ax, word [bp - 6]            ; 0x176b
-    jle short @..roll_member_actions.l4 ; 0x176e
-@..roll_member_actions.l3:
+    jle short .forward2              ; 0x176e
+.forward1:
     mov ax, word [bp - 2]            ; 0x1770
     shl ax, 1                        ; 0x1773
     mov bx, ax                       ; 0x1775
@@ -49,17 +49,17 @@ roll_member_actions:
     push word [bp - 4]               ; 0x1788
     call loc_SIKN                    ; 0x178b
     add sp, byte 6                   ; 0x178e
-@..roll_member_actions.l4:
+.forward2:
     inc word [bp - 4]                ; 0x1791
-@..roll_member_actions.l5:
+.forward3:
     mov ax, word [bp - 4]            ; 0x1794
     cmp ax, word [party_char_count]  ; 0x1797
-    jl short @..roll_member_actions.l2 ; 0x179b
+    jl short .back2                  ; 0x179b
     inc word [bp - 2]                ; 0x179d
-@..roll_member_actions.l6:
+.forward4:
     mov ax, word [bp - 2]            ; 0x17a0
     cmp ax, word [party_member_count] ; 0x17a3
-    jg short @..roll_member_actions.l7 ; 0x17a7
-    jmp near @..roll_member_actions.l1 ; 0x17a9
-@..roll_member_actions.l7:
+    jg short .return1                ; 0x17a7
+    jmp near .back1                  ; 0x17a9
+.return1:
     ret                              ; 0x17ac

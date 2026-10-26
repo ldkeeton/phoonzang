@@ -19,20 +19,20 @@ api_idx_0010_STNH:
     mov ax, word [bp - 0xa]
     mov word [bp - 0xe], ax
     mov word [bp - 4], 0
-    jmp near @..api_idx_0010_STNH.l7
-@..api_idx_0010_STNH.l1:
+    jmp near .forward5
+.back1:
     mov word [bp - 2], 0
-    jmp near @..api_idx_0010_STNH.l5
-@..api_idx_0010_STNH.l2:
+    jmp near .forward3
+.back2:
     les bx, word [bp - 8]
     mov si, word [bp - 0xe]
     mov al, byte [es:bx + si]
     sub ah, ah
     mov word [bp - 0x10], ax
     cmp ax, 0xff
-    jne short @..api_idx_0010_STNH.l3
-    jmp near @..api_idx_0010_STNH.l4
-@..api_idx_0010_STNH.l3:
+    jne short .forward1
+    jmp near .forward2
+.forward1:
     mov ax, 0xffff
     push ax
     push word [bp - 0x10]
@@ -91,22 +91,22 @@ api_idx_0010_STNH:
     push ax
     call gfx_put_pixel
     add sp, byte 6
-@..api_idx_0010_STNH.l4:
+.forward2:
     inc word [bp - 0xe]
     inc word [bp - 2]
-@..api_idx_0010_STNH.l5:
+.forward3:
     mov ax, word [bp - 2]
     cmp ax, word [bp - 0xa]
-    jge short @..api_idx_0010_STNH.l6
-    jmp near @..api_idx_0010_STNH.l2
-@..api_idx_0010_STNH.l6:
+    jge short .forward4
+    jmp near .back2
+.forward4:
     inc word [bp - 4]
-@..api_idx_0010_STNH.l7:
+.forward5:
     mov ax, word [bp - 0xc]
     dec ax
     dec ax
     cmp ax, word [bp - 4]
-    jle short @..api_idx_0010_STNH.l8
-    jmp near @..api_idx_0010_STNH.l1
-@..api_idx_0010_STNH.l8:
+    jle short .return1
+    jmp near .back1
+.return1:
     ret

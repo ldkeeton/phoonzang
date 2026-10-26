@@ -21,6 +21,28 @@ from lib.compare.splitting import (
 
 
 class DirectFlowLabelTests(unittest.TestCase):
+    def test_local_roles_use_separate_counters_and_return_precedence(self):
+        md = Cs(CS_ARCH_X86, CS_MODE_16)
+        md.detail = True
+        # nop; nop; ret; retf; iret; nop
+        insns = list(md.disasm(bytes.fromhex('90 90 c3 cb cf 90'), 0x100))
+        targets = {0x101, 0x102, 0x103, 0x104, 0x105}
+        owners = {off: {0x100} for off in range(0x100, 0x110)}
+        owners[0x200] = {0x200}
+        labels = _compute_local_labels(
+            targets, owners, {0x100: routine('example', 0x100)}, {},
+            instructions=insns,
+            branch_edges={(0x105, 0x101), (0x105, 0x102),
+                          (0x200, 0x105), (0x105, 0x105)},
+        )
+        self.assertEqual([str(labels[t]) for t in sorted(targets)], [
+            '@..example.back1', '@..example.return1',
+            '@..example.return2', '@..example.return3',
+            '@..example.forward1',
+        ])
+        self.assertEqual(labels[0x101].index, 1)
+        self.assertEqual(labels[0x101].role, 'back')
+
     def test_labels_in_binary_flow_target_even_without_decoded_target(self):
         md = Cs(CS_ARCH_X86, CS_MODE_16)
         md.detail = True
@@ -225,8 +247,8 @@ class FunctionIncludeTests(unittest.TestCase):
         labels = _compute_local_labels(
             local_targets, owners, {}, label_map, {'loc_4be6'},
         )
-        self.assertEqual(labels[0x120], '@..loc_4be6.l1')
-        self.assertEqual(labels[0x124], '@..loc_4be6.l2')
+        self.assertEqual(labels[0x120], '@..loc_4be6.forward1')
+        self.assertEqual(labels[0x124], '@..loc_4be6.forward2')
 
     def test_target_in_another_fragment_is_not_local(self):
         # 0x180 is the owner's shared exit, but it is laid out inside the
@@ -247,14 +269,14 @@ class FunctionIncludeTests(unittest.TestCase):
         labels = _compute_local_labels(
             local_targets, owners, {}, label_map, set(),
         )
-        self.assertEqual(labels[0x120], '@..loc_4be6.l1')
+        self.assertEqual(labels[0x120], '@..loc_4be6.forward1')
 
     def test_unnamed_owner_locals_independent_of_other_owners(self):
         targets = {0x120, 0x220}
         owners = {0x120: {0x100}, 0x220: {0x200}}
         both = _compute_local_labels(targets, owners, {}, {}, set())
         alone = _compute_local_labels({0x220}, {0x220: {0x200}}, {}, {}, set())
-        self.assertEqual(both[0x220], '@..loc_0200.l1')
+        self.assertEqual(both[0x220], '@..loc_0200.forward1')
         self.assertEqual(alone[0x220], both[0x220])
 
     def test_named_function_include_starts_at_its_call_target_prefix(self):

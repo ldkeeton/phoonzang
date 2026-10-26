@@ -15,38 +15,38 @@ api_idx_0006_POPS:
     mov ax, word [bss_0e10]
     mov word [bp - 6], ax
     mov word [bp - 2], 0
-    jmp short @..api_idx_0006_POPS.l5
-@..api_idx_0006_POPS.l1:
+    jmp short .forward4
+.back1:
     mov bx, word [bp - 6]
     mov al, byte [bx]
     sub ah, ah
     cmp ax, word [bp + 4]
-    jne short @..api_idx_0006_POPS.l4
+    jne short .forward3
     mov al, byte [bx + 1]
     sub ah, ah
     cmp ax, word [bp + 6]
-    jne short @..api_idx_0006_POPS.l4
+    jne short .forward3
     cmp word [bp + 6], byte 6
-    jne short @..api_idx_0006_POPS.l3
+    jne short .forward2
     mov ax, word [bx + 2]
     cmp ax, word [bp + 8]
-    jne short @..api_idx_0006_POPS.l2
+    jne short .forward1
     mov ax, word [bp - 2]
     ret
-@..api_idx_0006_POPS.l2:
-    jmp short @..api_idx_0006_POPS.l4
-@..api_idx_0006_POPS.l3:
+.forward1:
+    jmp short .forward3
+.forward2:
     mov ax, word [bx + 2]
     cmp ax, word [bp - 4]
-    jne short @..api_idx_0006_POPS.l4
+    jne short .forward3
     mov ax, word [bp - 2]
     ret
-@..api_idx_0006_POPS.l4:
+.forward3:
     add word [bp - 6], byte 6
     inc word [bp - 2]
-@..api_idx_0006_POPS.l5:
+.forward4:
     mov ax, word [bp - 2]
     cmp ax, word [bss_590e]
-    jl short @..api_idx_0006_POPS.l1
+    jl short .back1
     mov ax, 0xffff
     ret

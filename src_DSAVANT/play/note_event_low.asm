@@ -15,35 +15,35 @@ loc_POIP:
     mov ah, byte [cs:cseg_0d46 - IMAGE_BASE] ; 0x10a3
     mov al, byte [cs:cseg_14e6 - IMAGE_BASE] ; 0x10a8
     cmp ah, 6                        ; 0x10ac
-    je short @..loc_10a3.l1          ; 0x10af
+    je short loc_10a3.forward1       ; 0x10af
     cmp ah, 7                        ; 0x10b1
-    je short @..loc_10a3.l2          ; 0x10b4
+    je short loc_10a3.forward2       ; 0x10b4
     cmp ah, 8                        ; 0x10b6
-    je short @..loc_10a3.l3          ; 0x10b9
+    je short loc_10a3.forward3       ; 0x10b9
     cmp ah, 9                        ; 0x10bb
-    je short @..loc_10a3.l4          ; 0x10be
+    je short loc_10a3.forward4       ; 0x10be
     cmp ah, 0xa                      ; 0x10c0
     jne short loc_RMHU               ; 0x10c3
     and al, 0xfe                     ; 0x10c5
     mov ah, 0xbd                     ; 0x10c7
     call opl_write                   ; 0x10c9
     jmp near loc_MRJU                ; 0x10cc
-@..loc_10a3.l1:
+loc_10a3.forward1:
     and al, 0xef                     ; 0x10cf
     mov ah, 0xbd                     ; 0x10d1
     call opl_write                   ; 0x10d3
     jmp near loc_MRJU                ; 0x10d6
-@..loc_10a3.l2:
+loc_10a3.forward2:
     and al, 0xf7                     ; 0x10d9
     mov ah, 0xbd                     ; 0x10db
     call opl_write                   ; 0x10dd
     jmp near loc_MRJU                ; 0x10e0
-@..loc_10a3.l3:
+loc_10a3.forward3:
     and al, 0xfb                     ; 0x10e3
     mov ah, 0xbd                     ; 0x10e5
     call opl_write                   ; 0x10e7
     jmp near loc_MRJU                ; 0x10ea
-@..loc_10a3.l4:
+loc_10a3.forward4:
     and al, 0xfd                     ; 0x10ed
     mov ah, 0xbd                     ; 0x10ef
     call opl_write                   ; 0x10f1

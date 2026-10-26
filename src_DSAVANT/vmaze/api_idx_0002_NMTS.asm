@@ -12,13 +12,13 @@ api_idx_0002_NMTS:
     shl ax, 1                        ; 0x98e5
     mov bx, ax                       ; 0x98e7
     cmp byte [bx + bss_8976 + rec_8976.f_0001], 0xff ; 0x98e9
-    je short @..api_idx_0002_NMTS.l1 ; 0x98ee
+    je short .return1                ; 0x98ee
     mov ax, 4                        ; 0x98f0
     push ax                          ; 0x98f3
     call random_below                ; 0x98f4
     pop cx                           ; 0x98f7
     test ax, ax                      ; 0x98f8
-    jne short @..api_idx_0002_NMTS.l1 ; 0x98fa
+    jne short .return1               ; 0x98fa
     mov ax, 1                        ; 0x98fc
     push ax                          ; 0x98ff
     mov ax, word [bp - 2]            ; 0x9900
@@ -34,5 +34,5 @@ api_idx_0002_NMTS:
     push ax                          ; 0x9918
     call set_bitmap_bit              ; 0x9919
     add sp, byte 6                   ; 0x991c
-@..api_idx_0002_NMTS.l1:
+.return1:
     ret                              ; 0x991f

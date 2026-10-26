@@ -20,13 +20,13 @@ periodic_party_redraw:
     mov ax, word [bss_9092]
     mov dx, word [bss_9094]
     cmp bx, dx
-    jg short @..periodic_party_redraw.l1
-    jne short @..periodic_party_redraw.l2
+    jg short .forward1
+    jne short .forward2
     cmp cx, ax
-    jbe short @..periodic_party_redraw.l2
-@..periodic_party_redraw.l1:
-    jmp short @..periodic_party_redraw.l3
-@..periodic_party_redraw.l2:
+    jbe short .forward2
+.forward1:
+    jmp short .return1
+.forward2:
     mov ax, word [bss_908e]
     mov dx, word [bss_9090]
     mov word [party_redraw_last_tick_hi], dx
@@ -56,5 +56,5 @@ periodic_party_redraw:
     push ax
     call gfx_show_area
     add sp, byte 8
-@..periodic_party_redraw.l3:
+.return1:
     ret

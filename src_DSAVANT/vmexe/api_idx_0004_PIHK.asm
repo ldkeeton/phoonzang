@@ -3,22 +3,22 @@ api_idx_0004_PIHK:
     mov ax, 0xfffc                   ; 0x1c5e
     call aztec_csav                  ; 0x1c61
     cmp word [bp + 4], byte 0        ; 0x1c64
-    jne short @..api_idx_0004_PIHK.l1 ; 0x1c68
-    jmp near @..api_idx_0004_PIHK.l5 ; 0x1c6a
-@..api_idx_0004_PIHK.l1:
+    jne short .forward1              ; 0x1c68
+    jmp near .forward5               ; 0x1c6a
+.forward1:
     cmp word [bss_8464], byte 0      ; 0x1c6d
-    jne short @..api_idx_0004_PIHK.l2 ; 0x1c72
+    jne short .forward2              ; 0x1c72
     cmp word [bss_8462], byte 0      ; 0x1c74
-    jl short @..api_idx_0004_PIHK.l2 ; 0x1c79
+    jl short .forward2               ; 0x1c79
     mov ax, word [bss_8462]          ; 0x1c7b
     cmp ax, word [party_char_count]  ; 0x1c7e
-    jge short @..api_idx_0004_PIHK.l2 ; 0x1c82
+    jge short .forward2              ; 0x1c82
     mov cx, 0x248                    ; 0x1c84
     imul cx                          ; 0x1c87
     mov bx, ax                       ; 0x1c89
     add word [bx + party_records + pc_rec.f_0010], byte 1 ; 0x1c8b
     adc word [bx + party_records + pc_rec.f_0012], byte 0 ; 0x1c90
-@..api_idx_0004_PIHK.l2:
+.forward2:
     mov ax, word [bp + 4]            ; 0x1c95
     shl ax, 1                        ; 0x1c98
     mov bx, ax                       ; 0x1c9a
@@ -26,7 +26,7 @@ api_idx_0004_PIHK:
     mov al, byte [bx + member_ext.flags] ; 0x1ca0
     sub ah, ah                       ; 0x1ca4
     test ax, 1                       ; 0x1ca6
-    je short @..api_idx_0004_PIHK.l3 ; 0x1ca9
+    je short .forward3               ; 0x1ca9
     mov ax, 1                        ; 0x1cab
     push ax                          ; 0x1cae
     mov al, byte [bx + 0xe0]         ; 0x1caf
@@ -36,13 +36,13 @@ api_idx_0004_PIHK:
     push ax                          ; 0x1cb9
     call set_bitmap_bit              ; 0x1cba
     add sp, byte 6                   ; 0x1cbd
-@..api_idx_0004_PIHK.l3:
+.forward3:
     mov ax, word [bp + 4]            ; 0x1cc0
     shl ax, 1                        ; 0x1cc3
     mov bx, ax                       ; 0x1cc5
     mov bx, word [bx + party_char_ext] ; 0x1cc7
     cmp byte [bx + member_ext.f_00e4], 0xff ; 0x1ccb
-    je short @..api_idx_0004_PIHK.l4 ; 0x1cd0
+    je short .forward4               ; 0x1cd0
     mov al, byte [bx + 0xe4]         ; 0x1cd2
     cbw                              ; 0x1cd6
     mov cx, 0x26                     ; 0x1cd7
@@ -56,7 +56,7 @@ api_idx_0004_PIHK:
     mov al, byte [bx + member_ext.f_00e4] ; 0x1cee
     cbw                              ; 0x1cf2
     mov word [selected_item_slot], ax ; 0x1cf3
-@..api_idx_0004_PIHK.l4:
+.forward4:
     mov ax, 0x2c                     ; 0x1cf6
     imul word [bp + 6]               ; 0x1cf9
     mov si, ax                       ; 0x1cfc
@@ -65,7 +65,7 @@ api_idx_0004_PIHK:
     mov bx, ax                       ; 0x1d03
     mov bx, word [bx + party_char]   ; 0x1d05
     cmp byte [bx + si + member_rec.item_cell], 0xff ; 0x1d09
-    je short @..api_idx_0004_PIHK.l5 ; 0x1d0d
+    je short .forward5               ; 0x1d0d
     mov al, byte [bx + si + 0x2a]    ; 0x1d0f
     cbw                              ; 0x1d12
     mov cx, 0xa                      ; 0x1d13
@@ -93,7 +93,7 @@ api_idx_0004_PIHK:
     add ax, cx                       ; 0x1d4f
     mov bx, ax                       ; 0x1d51
     mov word [bx + cell_slot_ref], 0 ; 0x1d53
-@..api_idx_0004_PIHK.l5:
+.forward5:
     mov ax, 0x2c                     ; 0x1d59
     imul word [bp + 6]               ; 0x1d5c
     mov si, ax                       ; 0x1d5f
@@ -143,7 +143,7 @@ api_idx_0004_PIHK:
     mov bx, word [bx + party_char]   ; 0x1ddd
     mov byte [bx + si + member_rec.f_0025], 0 ; 0x1de1
     mov word [bp - 2], 0             ; 0x1de5
-@..api_idx_0004_PIHK.l6:
+.back1:
     mov ax, 0x2c                     ; 0x1dea
     imul word [bp + 6]               ; 0x1ded
     add ax, word [bp - 2]            ; 0x1df0
@@ -156,11 +156,11 @@ api_idx_0004_PIHK:
     inc word [bp - 2]                ; 0x1e04
     mov ax, word [bp - 2]            ; 0x1e07
     cmp ax, strict word 4            ; 0x1e0a
-    jl short @..api_idx_0004_PIHK.l6 ; 0x1e0d
+    jl short .back1                  ; 0x1e0d
     cmp word [bp + 4], byte 1        ; 0x1e0f
-    jl short @..api_idx_0004_PIHK.l7 ; 0x1e13
+    jl short .return1                ; 0x1e13
     cmp word [bp + 4], byte 5        ; 0x1e15
-    jg short @..api_idx_0004_PIHK.l7 ; 0x1e19
+    jg short .return1                ; 0x1e19
     mov ax, word [bp + 4]            ; 0x1e1b
     shl ax, 1                        ; 0x1e1e
     mov bx, ax                       ; 0x1e20
@@ -169,5 +169,5 @@ api_idx_0004_PIHK:
     mov dx, word [bx + member_ext.reward + 0x2] ; 0x1e29
     add word [item_action_reward], ax ; 0x1e2c
     adc word [item_action_reward_hi], dx ; 0x1e30
-@..api_idx_0004_PIHK.l7:
+.return1:
     ret                              ; 0x1e34

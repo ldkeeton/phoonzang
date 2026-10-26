@@ -10,9 +10,9 @@ api_idx_0038_LTUV:
     mov word [bp - 0x12], 0x16
     mov ax, 7
     cmp word [bp + 0xc], byte 7
-    jge short @..api_idx_0038_LTUV.l1
+    jge short .forward1
     mov ax, word [bp + 0xc]
-@..api_idx_0038_LTUV.l1:
+.forward1:
     mov word [bp - 0x22], ax
     mov ax, api_idx_0038_LTUV.dseg1
     push ax
@@ -255,13 +255,13 @@ api_idx_0038_LTUV:
     add sp, byte 0xe
     mov ax, 7
     cmp word [bp + 0xc], byte 7
-    jge short @..api_idx_0038_LTUV.l2
+    jge short .forward2
     mov ax, word [bp + 0xc]
-@..api_idx_0038_LTUV.l2:
+.forward2:
     mov word [bp - 0x1e], ax
     mov word [bp - 2], 0
-    jmp short @..api_idx_0038_LTUV.l4
-@..api_idx_0038_LTUV.l3:
+    jmp short .forward3
+.back1:
     mov ax, 0
     push ax
     push ax
@@ -287,10 +287,10 @@ api_idx_0038_LTUV:
     call set_hotspot
     add sp, byte 0xe
     inc word [bp - 2]
-@..api_idx_0038_LTUV.l4:
+.forward3:
     mov ax, word [bp - 2]
     cmp ax, word [bp - 0x1e]
-    jl short @..api_idx_0038_LTUV.l3
+    jl short .back1
     mov ax, 0
     push ax
     push ax
@@ -319,7 +319,7 @@ api_idx_0038_LTUV:
     call gfx_show_area
     add sp, byte 8
     mov word [bp - 0x1a], 1
-@..api_idx_0038_LTUV.l5:
+.back2:
     mov ax, hotspot_rects
     push ax
     call poll_hotspots
@@ -327,17 +327,17 @@ api_idx_0038_LTUV:
     dec ax
     mov word [bp - 0x18], ax
     cmp word [space_key_hit], byte 0
-    je short @..api_idx_0038_LTUV.l9
+    je short .forward7
     mov ax, word [bp - 0x20]
     cmp ax, word [bp - 0x16]
-    jl short @..api_idx_0038_LTUV.l6
+    jl short .forward4
     inc word [bp - 0x20]
-@..api_idx_0038_LTUV.l6:
+.forward4:
     mov ax, word [bp - 0x20]
     cmp ax, strict word 0xffff
-    je short @..api_idx_0038_LTUV.l7
+    je short .forward5
     cmp ax, word [bp - 0x16]
-    jl short @..api_idx_0038_LTUV.l7
+    jl short .forward5
     mov ax, word [bp - 0x16]
     add ax, word [bp - 0x1e]
     mov cx, ax
@@ -345,23 +345,23 @@ api_idx_0038_LTUV:
     mov cx, ax
     mov ax, word [bp - 0x20]
     cmp cx, ax
-    jge short @..api_idx_0038_LTUV.l8
-@..api_idx_0038_LTUV.l7:
+    jge short .forward6
+.forward5:
     mov ax, word [bp - 0x16]
     mov word [bp - 0x20], ax
-@..api_idx_0038_LTUV.l8:
+.forward6:
     mov word [hotspot_hit], 1
     mov ax, word [bp - 0x20]
     sub ax, word [bp - 0x16]
     add ax, strict word 6
     mov word [bp - 0x18], ax
-@..api_idx_0038_LTUV.l9:
+.forward7:
     cmp word [hotspot_hit], byte 1
-    je short @..api_idx_0038_LTUV.l10
-    jmp near @..api_idx_0038_LTUV.l24
-@..api_idx_0038_LTUV.l10:
+    je short .forward8
+    jmp near .forward20
+.forward8:
     mov ax, word [bp - 0x18]
-    jmp near @..api_idx_0038_LTUV.l22
+    jmp near .forward18
 api_idx_0038_LTUV.jumptable_case1:
     lea ax, word [bp - 0xe]
     push ax
@@ -382,7 +382,7 @@ api_idx_0038_LTUV.jumptable_case1:
     call clamp_between
     add sp, byte 6
     mov word [bp - 0x14], ax
-@..api_idx_0038_LTUV.l11:
+api_idx_0038_LTUV.back3:
     lea ax, word [bp - 0xe]
     push ax
     lea ax, word [bp - 0xc]
@@ -403,7 +403,7 @@ api_idx_0038_LTUV.jumptable_case1:
     add sp, byte 6
     mov word [bp - 0x10], ax
     cmp word [bp + 0xc], byte 7
-    jle short @..api_idx_0038_LTUV.l12
+    jle short api_idx_0038_LTUV.forward9
     mov cx, 0x64
     imul cx
     push ax
@@ -411,7 +411,7 @@ api_idx_0038_LTUV.jumptable_case1:
     imul cx
     add ax, strict word 0x64
     mov cx, word [bp + 0xc]
-    add cx, byte 0xfa
+    add cx, byte -6
     cwd
     idiv cx
     mov cx, ax
@@ -419,7 +419,7 @@ api_idx_0038_LTUV.jumptable_case1:
     cwd
     idiv cx
     mov word [bp - 0x16], ax
-@..api_idx_0038_LTUV.l12:
+api_idx_0038_LTUV.forward9:
     push word [bp - 0x22]
     push word [bp - 0x20]
     push word [bp - 0x16]
@@ -484,13 +484,13 @@ api_idx_0038_LTUV.jumptable_case1:
     call gfx_show_area
     add sp, byte 8
     cmp word [bp - 0x1c], byte 0
-    je short @..api_idx_0038_LTUV.l13
-    jmp near @..api_idx_0038_LTUV.l11
-@..api_idx_0038_LTUV.l13:
-    jmp near @..api_idx_0038_LTUV.l24
+    je short api_idx_0038_LTUV.forward10
+    jmp near api_idx_0038_LTUV.back3
+api_idx_0038_LTUV.forward10:
+    jmp near api_idx_0038_LTUV.forward20
 api_idx_0038_LTUV.jumptable_case2:
     cmp word [bp - 0x18], byte 1
-    jne short @..api_idx_0038_LTUV.l15
+    jne short api_idx_0038_LTUV.forward12
     mov ax, 1
     push ax
     mov ax, word [bp - 6]
@@ -508,11 +508,11 @@ api_idx_0038_LTUV.jumptable_case2:
     call flash_area
     add sp, byte 0xa
     cmp word [bp - 0x16], byte 0
-    jle short @..api_idx_0038_LTUV.l14
+    jle short api_idx_0038_LTUV.forward11
     dec word [bp - 0x16]
-@..api_idx_0038_LTUV.l14:
-    jmp short @..api_idx_0038_LTUV.l16
-@..api_idx_0038_LTUV.l15:
+api_idx_0038_LTUV.forward11:
+    jmp short api_idx_0038_LTUV.forward13
+api_idx_0038_LTUV.forward12:
     mov ax, 1
     push ax
     mov ax, word [bp - 6]
@@ -532,11 +532,11 @@ api_idx_0038_LTUV.jumptable_case2:
     mov ax, word [bp + 0xc]
     add ax, strict word 0xfff9
     cmp ax, word [bp - 0x16]
-    jle short @..api_idx_0038_LTUV.l16
+    jle short api_idx_0038_LTUV.forward13
     inc word [bp - 0x16]
-@..api_idx_0038_LTUV.l16:
+api_idx_0038_LTUV.forward13:
     cmp word [bp + 0xc], byte 7
-    jle short @..api_idx_0038_LTUV.l17
+    jle short api_idx_0038_LTUV.forward14
     push word [bp - 0x12]
     mov ax, 0
     push ax
@@ -544,7 +544,7 @@ api_idx_0038_LTUV.jumptable_case2:
     imul word [bp - 0x12]
     add ax, strict word 0x64
     mov cx, word [bp + 0xc]
-    add cx, byte 0xf9
+    add cx, byte -7
     cwd
     idiv cx
     imul word [bp - 0x16]
@@ -555,7 +555,7 @@ api_idx_0038_LTUV.jumptable_case2:
     call clamp_between
     add sp, byte 6
     mov word [bp - 0x10], ax
-@..api_idx_0038_LTUV.l17:
+api_idx_0038_LTUV.forward14:
     push word [bp - 0x22]
     push word [bp - 0x20]
     push word [bp - 0x16]
@@ -619,10 +619,10 @@ api_idx_0038_LTUV.jumptable_case2:
     push ax
     call gfx_show_area
     add sp, byte 8
-    jmp near @..api_idx_0038_LTUV.l24
+    jmp near api_idx_0038_LTUV.forward20
 api_idx_0038_LTUV.jumptable_case3:
     cmp word [bp + 6], byte 0
-    je short @..api_idx_0038_LTUV.l18
+    je short api_idx_0038_LTUV.forward15
     mov ax, 1
     push ax
     push ax
@@ -652,11 +652,11 @@ api_idx_0038_LTUV.jumptable_case3:
     add sp, byte 0xa
     mov word [spell_dialog_button], 0
     mov word [bp - 0x1a], 0
-@..api_idx_0038_LTUV.l18:
-    jmp near @..api_idx_0038_LTUV.l24
+api_idx_0038_LTUV.forward15:
+    jmp near api_idx_0038_LTUV.forward20
 api_idx_0038_LTUV.jumptable_case4:
     cmp word [bp + 8], byte 0
-    je short @..api_idx_0038_LTUV.l19
+    je short api_idx_0038_LTUV.forward16
     mov ax, 1
     push ax
     push ax
@@ -686,11 +686,11 @@ api_idx_0038_LTUV.jumptable_case4:
     add sp, byte 0xa
     mov word [spell_dialog_button], 1
     mov word [bp - 0x1a], 0
-@..api_idx_0038_LTUV.l19:
-    jmp near @..api_idx_0038_LTUV.l24
+api_idx_0038_LTUV.forward16:
+    jmp near api_idx_0038_LTUV.forward20
 api_idx_0038_LTUV.jumptable_case5:
     cmp word [bp + 0xa], byte 0
-    je short @..api_idx_0038_LTUV.l20
+    je short api_idx_0038_LTUV.forward17
     mov ax, 1
     push ax
     push ax
@@ -720,9 +720,9 @@ api_idx_0038_LTUV.jumptable_case5:
     add sp, byte 0xa
     mov word [spell_dialog_button], 2
     mov word [bp - 0x1a], 0
-@..api_idx_0038_LTUV.l20:
-    jmp short @..api_idx_0038_LTUV.l24
-@..api_idx_0038_LTUV.l21:
+api_idx_0038_LTUV.forward17:
+    jmp short api_idx_0038_LTUV.forward20
+api_idx_0038_LTUV.back4:
     mov ax, word [bp - 0x16]
     add ax, word [bp - 0x18]
     add ax, strict word 0xfffa
@@ -756,7 +756,7 @@ api_idx_0038_LTUV.jumptable_case5:
     push ax
     call gfx_show_area
     add sp, byte 8
-    jmp short @..api_idx_0038_LTUV.l24
+    jmp short api_idx_0038_LTUV.forward20
 api_idx_0038_LTUV.jumptable1:
     dw api_idx_0038_LTUV.jumptable_case1 - IMAGE_BASE + __zres_end
     dw api_idx_0038_LTUV.jumptable_case2 - IMAGE_BASE + __zres_end
@@ -764,19 +764,19 @@ api_idx_0038_LTUV.jumptable1:
     dw api_idx_0038_LTUV.jumptable_case3 - IMAGE_BASE + __zres_end
     dw api_idx_0038_LTUV.jumptable_case4 - IMAGE_BASE + __zres_end
     dw api_idx_0038_LTUV.jumptable_case5 - IMAGE_BASE + __zres_end
-@..api_idx_0038_LTUV.l22:
+api_idx_0038_LTUV.forward18:
     cmp ax, strict word 6
-    jae short @..api_idx_0038_LTUV.l23
+    jae short api_idx_0038_LTUV.forward19
     xchg bx, ax
     shl bx, 1
     jmp [cs:bx + api_idx_0038_LTUV.jumptable1 - IMAGE_BASE + __zres_end]
-@..api_idx_0038_LTUV.l23:
-    jmp short @..api_idx_0038_LTUV.l21
-@..api_idx_0038_LTUV.l24:
+api_idx_0038_LTUV.forward19:
+    jmp short api_idx_0038_LTUV.back4
+api_idx_0038_LTUV.forward20:
     cmp word [bp - 0x1a], byte 0
-    je short @..api_idx_0038_LTUV.l25
-    jmp near @..api_idx_0038_LTUV.l5
-@..api_idx_0038_LTUV.l25:
+    je short api_idx_0038_LTUV.forward21
+    jmp near api_idx_0038_LTUV.back2
+api_idx_0038_LTUV.forward21:
     mov ax, 1
     push ax
     push word [bp - 0x38]

@@ -4,27 +4,27 @@ api_idx_0002_VNLG:
     call aztec_csav                  ; 0x0265
     mov word [boundary_wall_open], 0 ; 0x0268
     mov ax, word [game_state_arg]    ; 0x026e
-    jmp short @..api_idx_0002_VNLG.l1 ; 0x0271
+    jmp short .forward1              ; 0x0271
 jumptable_02a3_case_15:
     mov word [bp - 2], 1             ; 0x0273
-    jmp short @..api_idx_0002_VNLG.l2 ; 0x0278
+    jmp short api_idx_0002_VNLG.forward2 ; 0x0278
 jumptable_02a3_case_0:
     mov word [bp - 2], 2             ; 0x027a
-    jmp short @..api_idx_0002_VNLG.l2 ; 0x027f
+    jmp short api_idx_0002_VNLG.forward2 ; 0x027f
 jumptable_02a3_case_14:
     mov word [bp - 2], 3             ; 0x0281
-    jmp short @..api_idx_0002_VNLG.l2 ; 0x0286
+    jmp short api_idx_0002_VNLG.forward2 ; 0x0286
 jumptable_02a3_case_27:
     mov word [boundary_wall_open], 1 ; 0x0288
 jumptable_02a3_case_7:
     mov word [bp - 2], 4             ; 0x028e
-    jmp short @..api_idx_0002_VNLG.l2 ; 0x0293
+    jmp short api_idx_0002_VNLG.forward2 ; 0x0293
 jumptable_02a3_case_22:
     mov word [bp - 2], 5             ; 0x0295
-    jmp short @..api_idx_0002_VNLG.l2 ; 0x029a
+    jmp short api_idx_0002_VNLG.forward2 ; 0x029a
 jumptable_02a3_case_8:
     mov word [bp - 2], 6             ; 0x029c
-    jmp short @..api_idx_0002_VNLG.l2 ; 0x02a1
+    jmp short api_idx_0002_VNLG.forward2 ; 0x02a1
 jumptable_02a3:
     dw jumptable_02a3_case_0 - IMAGE_BASE + __zres_end ; 0x02a3
     dw jumptable_02a3_case_0 - IMAGE_BASE + __zres_end ; 0x02a5
@@ -58,24 +58,24 @@ jumptable_02a3:
     dw jumptable_02a3_case_15 - IMAGE_BASE + __zres_end ; 0x02dd
     dw jumptable_02a3_case_15 - IMAGE_BASE + __zres_end ; 0x02df
     dw jumptable_02a3_case_14 - IMAGE_BASE + __zres_end ; 0x02e1
-@..api_idx_0002_VNLG.l1:
+api_idx_0002_VNLG.forward1:
     cmp ax, strict word 0x20         ; 0x02e3
-    jae short @..api_idx_0002_VNLG.l2 ; 0x02e6
+    jae short api_idx_0002_VNLG.forward2 ; 0x02e6
     xchg bx, ax                      ; 0x02e8
     shl bx, 1                        ; 0x02e9
     jmp [cs:bx + jumptable_02a3 - IMAGE_BASE + __zres_end] ; 0x02eb
-@..api_idx_0002_VNLG.l2:
+api_idx_0002_VNLG.forward2:
     cmp word [maze_state], byte 0    ; 0x02f0
-    je short @..api_idx_0002_VNLG.l3 ; 0x02f5
+    je short api_idx_0002_VNLG.forward3 ; 0x02f5
     mov ax, word [bp - 2]            ; 0x02f7
     cmp ax, word [maze_variant]      ; 0x02fa
-    jne short @..api_idx_0002_VNLG.l3 ; 0x02fe
+    jne short api_idx_0002_VNLG.forward3 ; 0x02fe
     jmp near jumptable_052d_case_0   ; 0x0300
-@..api_idx_0002_VNLG.l3:
+api_idx_0002_VNLG.forward3:
     call free_current_maze           ; 0x0303
     mov ax, word [bp - 2]            ; 0x0306
     mov word [maze_variant], ax      ; 0x0309
-    jmp near @..api_idx_0002_VNLG.l4 ; 0x030c
+    jmp near api_idx_0002_VNLG.forward4 ; 0x030c
 jumptable_052d_case_1:
     mov ax, 0                        ; 0x030f
     push ax                          ; 0x0312
@@ -312,7 +312,7 @@ jumptable_052d:
     dw jumptable_052d_case_4 - IMAGE_BASE + __zres_end ; 0x0535
     dw jumptable_052d_case_5 - IMAGE_BASE + __zres_end ; 0x0537
     dw jumptable_052d_case_6 - IMAGE_BASE + __zres_end ; 0x0539
-@..api_idx_0002_VNLG.l4:
+api_idx_0002_VNLG.forward4:
     cmp ax, strict word 7            ; 0x053b
     jae short jumptable_052d_case_0  ; 0x053e
     xchg bx, ax                      ; 0x0540
@@ -338,13 +338,13 @@ loc_HVLG:
     pop dx                           ; 0x0572
     pop ax                           ; 0x0573
     cmp dx, bx                       ; 0x0574
-    jl short @..loc_HVLG.l1          ; 0x0576
-    jne short @..loc_HVLG.l2         ; 0x0578
+    jl short .forward1               ; 0x0576
+    jne short .forward2              ; 0x0578
     cmp ax, cx                       ; 0x057a
-    jae short @..loc_HVLG.l2         ; 0x057c
-@..loc_HVLG.l1:
-    jmp short @..loc_HVLG.l3         ; 0x057e
-@..loc_HVLG.l2:
+    jae short .forward2              ; 0x057c
+.forward1:
+    jmp short .forward3              ; 0x057e
+.forward2:
     les bx, word [tick_counter_ptr]  ; 0x0580
     mov ax, word [es:bx]             ; 0x0584
     mov dx, word [es:bx + 2]         ; 0x0587
@@ -352,6 +352,6 @@ loc_HVLG:
     mov word [party_redraw_last_tick], ax ; 0x058f
     mov ax, 1                        ; 0x0592
     ret                              ; 0x0595
-@..loc_HVLG.l3:
+.forward3:
     mov ax, 0                        ; 0x0596
     ret                              ; 0x0599

@@ -3,7 +3,7 @@ api_idx_0002_VLGM:
     mov ax, 0xfffe                   ; 0x8f64
     call aztec_csav                  ; 0x8f67
     mov word [bp - 2], 0             ; 0x8f6a
-@..api_idx_0002_VLGM.l1:
+.back1:
     mov ax, 0x248                    ; 0x8f6f
     imul word [bp + 4]               ; 0x8f72
     add ax, word [bp - 2]            ; 0x8f75
@@ -20,7 +20,7 @@ api_idx_0002_VLGM:
     mov cx, ax                       ; 0x8f8f
     pop ax                           ; 0x8f91
     cmp ax, cx                       ; 0x8f92
-    jle short @..api_idx_0002_VLGM.l2 ; 0x8f94
+    jle short .forward1              ; 0x8f94
     mov al, byte [bx + si]           ; 0x8f96
     add al, 0xbf                     ; 0x8f98
     push ax                          ; 0x8f9a
@@ -31,9 +31,9 @@ api_idx_0002_VLGM:
     mov bx, ax                       ; 0x8fa5
     pop ax                           ; 0x8fa7
     mov byte [bx + party_records + pc_rec.stat], al ; 0x8fa8
-@..api_idx_0002_VLGM.l2:
+.forward1:
     inc word [bp - 2]                ; 0x8fac
     mov ax, word [bp - 2]            ; 0x8faf
     cmp ax, strict word 7            ; 0x8fb2
-    jl short @..api_idx_0002_VLGM.l1 ; 0x8fb5
+    jl short .back1                  ; 0x8fb5
     ret                              ; 0x8fb7

@@ -3,11 +3,11 @@ loc_JJHG:
     mov ax, 0                        ; 0x1683
     call aztec_csav                  ; 0x1686
     mov ax, word [bp + 4]            ; 0x1689
-    jmp short @..loc_JJHG.l1         ; 0x168c
+    jmp short .forward1              ; 0x168c
 jumptable_1698_case_37:
     mov ax, 0                        ; 0x168e
     ret                              ; 0x1691
-@..loc_JJHG.l1:
+loc_JJHG.forward1:
     mov cx, 0x26                     ; 0x1692
     call aztec_cswt                  ; 0x1695
 jumptable_1698:
@@ -88,72 +88,72 @@ jumptable_1698:
     dw jumptable_1698_case_74 - IMAGE_BASE + __zres_end ; 0x172c
 jumptable_1698_case_74:
     cmp word [bp + 4], byte 0x3c     ; 0x172e
-    jl short @..loc_JJHG.l2          ; 0x1732
+    jl short loc_JJHG.forward2       ; 0x1732
     cmp word [bp + 4], byte 0x78     ; 0x1734
-    jge short @..loc_JJHG.l2         ; 0x1738
+    jge short loc_JJHG.forward2      ; 0x1738
     mov ax, 0                        ; 0x173a
     sub ax, word [bp + 4]            ; 0x173d
     ret                              ; 0x1740
-@..loc_JJHG.l2:
+loc_JJHG.forward2:
     cmp word [bp + 4], strict word 0xb8 ; 0x1741
-    jl short @..loc_JJHG.l3          ; 0x1746
+    jl short loc_JJHG.forward3       ; 0x1746
     cmp word [bp + 4], strict word 0xe3 ; 0x1748
-    jge short @..loc_JJHG.l3         ; 0x174d
+    jge short loc_JJHG.forward3      ; 0x174d
     mov ax, 0                        ; 0x174f
     sub ax, word [bp + 4]            ; 0x1752
     ret                              ; 0x1755
-@..loc_JJHG.l3:
+loc_JJHG.forward3:
     cmp word [bp + 4], strict word 0xe3 ; 0x1756
-    jge short @..loc_JJHG.l4         ; 0x175b
+    jge short loc_JJHG.forward4      ; 0x175b
     mov ax, word [bp + 4]            ; 0x175d
     ret                              ; 0x1760
-@..loc_JJHG.l4:
+loc_JJHG.forward4:
     cmp word [bp + 4], strict word 0x145 ; 0x1761
-    jne short @..loc_JJHG.l5         ; 0x1766
+    jne short loc_JJHG.forward5      ; 0x1766
     mov ax, 0x13a                    ; 0x1768
     ret                              ; 0x176b
-@..loc_JJHG.l5:
+loc_JJHG.forward5:
     cmp word [bp + 4], strict word 0x146 ; 0x176c
-    jne short @..loc_JJHG.l6         ; 0x1771
+    jne short loc_JJHG.forward6      ; 0x1771
     mov ax, 0x14b                    ; 0x1773
     ret                              ; 0x1776
-@..loc_JJHG.l6:
+loc_JJHG.forward6:
     cmp word [bp + 4], strict word 0x13c ; 0x1777
-    jl short @..loc_JJHG.l7          ; 0x177c
+    jl short loc_JJHG.forward7       ; 0x177c
     cmp word [bp + 4], strict word 0x14c ; 0x177e
-    jg short @..loc_JJHG.l7          ; 0x1783
+    jg short loc_JJHG.forward7       ; 0x1783
     mov ax, word [bp + 4]            ; 0x1785
     ret                              ; 0x1788
-@..loc_JJHG.l7:
+loc_JJHG.forward7:
     cmp word [bp + 4], strict word 0x1ab ; 0x1789
-    jne short @..loc_JJHG.l8         ; 0x178e
+    jne short loc_JJHG.forward8      ; 0x178e
     mov ax, 0xffae                   ; 0x1790
     ret                              ; 0x1793
-@..loc_JJHG.l8:
+loc_JJHG.forward8:
     cmp word [bp + 4], strict word 0x1d8 ; 0x1794
-    jne short @..loc_JJHG.l9         ; 0x1799
+    jne short loc_JJHG.forward9      ; 0x1799
     mov ax, 0xf5                     ; 0x179b
     ret                              ; 0x179e
-@..loc_JJHG.l9:
+loc_JJHG.forward9:
     cmp word [bp + 4], strict word 0x1d9 ; 0x179f
-    jne short @..loc_JJHG.l10        ; 0x17a4
+    jne short loc_JJHG.forward10     ; 0x17a4
     mov ax, 0xf4                     ; 0x17a6
     ret                              ; 0x17a9
-@..loc_JJHG.l10:
+loc_JJHG.forward10:
     mov ax, word [bp + 4]            ; 0x17aa
-    jmp short @..loc_JJHG.l12        ; 0x17ad
+    jmp short loc_JJHG.forward12     ; 0x17ad
 jumptable_17ce_case_19:
     cmp word [bp + 4], strict word 0xe3 ; 0x17af
-    jl short @..loc_JJHG.l11         ; 0x17b4
+    jl short loc_JJHG.forward11      ; 0x17b4
     cmp word [bp + 4], strict word 0xfe ; 0x17b6
-    jge short @..loc_JJHG.l11        ; 0x17bb
+    jge short loc_JJHG.forward11     ; 0x17bb
     mov ax, 0                        ; 0x17bd
     sub ax, word [bp + 4]            ; 0x17c0
     ret                              ; 0x17c3
-@..loc_JJHG.l11:
+loc_JJHG.forward11:
     mov ax, word [bp + 4]            ; 0x17c4
     ret                              ; 0x17c7
-@..loc_JJHG.l12:
+loc_JJHG.forward12:
     mov cx, 0x14                     ; 0x17c8
     call aztec_cswt                  ; 0x17cb
 jumptable_17ce:

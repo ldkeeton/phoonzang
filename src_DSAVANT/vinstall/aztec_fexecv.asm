@@ -21,48 +21,48 @@ aztec_fexecv:
     add sp, byte 4                   ; 0x2949
     mov bx, word [bp + 6]            ; 0x294c
     cmp word [bx], byte 0            ; 0x294f
-    je short @..aztec_fexecv.l6      ; 0x2952
+    je short .forward4               ; 0x2952
     add word [bp + 6], byte 2        ; 0x2954
-@..aztec_fexecv.l1:
+.back1:
     mov bx, word [bp + 6]            ; 0x2958
     add word [bp + 6], byte 2        ; 0x295b
     mov di, word [bx]                ; 0x295f
     test di, di                      ; 0x2961
-    je short @..aztec_fexecv.l6      ; 0x2963
+    je short .forward4               ; 0x2963
     cmp word [bp - 2], byte 1        ; 0x2965
-    jne short @..aztec_fexecv.l2     ; 0x2969
+    jne short .forward1              ; 0x2969
     lea ax, word [bp - 0x94]         ; 0x296b
     push ax                          ; 0x296f
     push di                          ; 0x2970
     call aztec_fcbinit               ; 0x2971
     add sp, byte 4                   ; 0x2974
-    jmp short @..aztec_fexecv.l3     ; 0x2977
-@..aztec_fexecv.l2:
+    jmp short .forward2              ; 0x2977
+.forward1:
     cmp word [bp - 2], byte 2        ; 0x2979
-    jne short @..aztec_fexecv.l3     ; 0x297d
+    jne short .forward2              ; 0x297d
     lea ax, word [bp - 0xa4]         ; 0x297f
     push ax                          ; 0x2983
     push di                          ; 0x2984
     call aztec_fcbinit               ; 0x2985
     add sp, byte 4                   ; 0x2988
-@..aztec_fexecv.l3:
+.forward2:
     mov byte [si], 0x20              ; 0x298b
     inc si                           ; 0x298e
-@..aztec_fexecv.l4:
+.back2:
     cmp byte [di], 0                 ; 0x298f
-    je short @..aztec_fexecv.l5      ; 0x2992
+    je short .forward3               ; 0x2992
     lea ax, word [bp - 5]            ; 0x2994
     cmp ax, si                       ; 0x2997
-    jbe short @..aztec_fexecv.l6     ; 0x2999
+    jbe short .forward4              ; 0x2999
     mov al, byte [di]                ; 0x299b
     mov byte [si], al                ; 0x299d
     inc di                           ; 0x299f
     inc si                           ; 0x29a0
-    jmp short @..aztec_fexecv.l4     ; 0x29a1
-@..aztec_fexecv.l5:
+    jmp short .back2                 ; 0x29a1
+.forward3:
     inc word [bp - 2]                ; 0x29a3
-    jmp short @..aztec_fexecv.l1     ; 0x29a6
-@..aztec_fexecv.l6:
+    jmp short .back1                 ; 0x29a6
+.forward4:
     mov ax, si                       ; 0x29a8
     lea cx, word [bp - 0x83]         ; 0x29aa
     sub ax, cx                       ; 0x29ae

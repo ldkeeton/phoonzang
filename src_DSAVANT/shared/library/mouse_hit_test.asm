@@ -11,48 +11,48 @@ mouse_hit_test:
     mov word [bp - 4], 1
     xor ax, ax
     cmp byte [cs:mouse_present - IMAGE_BASE], 0
-    je short @..mouse_hit_test.l6
+    je short .forward5
     mov bx, word [cs:mouse_hit_test.cseg1 - IMAGE_BASE]
     or bx, bx
-    je short @..mouse_hit_test.l1
+    je short .forward1
     mov word [cs:mouse_hit_test.cseg1 - IMAGE_BASE], 0
     mov word [bp - 2], bx
     mov cx, word [cs:mouse_hit_test.cseg2 - IMAGE_BASE]
     mov dx, word [cs:mouse_hit_test.cseg3 - IMAGE_BASE]
-    jmp short @..mouse_hit_test.l2
-@..mouse_hit_test.l1:
+    jmp short .forward2
+.forward1:
     mov ax, 3
     int 0x33 ; BIOS mouse
     xor bx, bx
     mov word [bp - 2], bx
     shr cx, 1
-@..mouse_hit_test.l2:
+.forward2:
     mov bx, cx
     mov si, word [bp + 0xc]
-@..mouse_hit_test.l3:
-    cmp word [si], byte 0xff
-    je short @..mouse_hit_test.l5
+.back1:
+    cmp word [si], byte -1
+    je short .forward4
     cmp bx, word [si]
-    jb short @..mouse_hit_test.l4
+    jb short .forward3
     cmp dx, word [si + 2]
-    jb short @..mouse_hit_test.l4
+    jb short .forward3
     cmp word [si + 4], bx
-    jb short @..mouse_hit_test.l4
+    jb short .forward3
     cmp word [si + 6], dx
-    jb short @..mouse_hit_test.l4
+    jb short .forward3
     mov ax, word [bp - 4]
     mov bx, word [bp - 2]
     or bx, bx
-    je short @..mouse_hit_test.l6
+    je short .forward5
     neg ax
-    jmp short @..mouse_hit_test.l6
-@..mouse_hit_test.l4:
+    jmp short .forward5
+.forward3:
     add si, byte 8
     inc word [bp - 4]
-    jmp short @..mouse_hit_test.l3
-@..mouse_hit_test.l5:
+    jmp short .back1
+.forward4:
     xor ax, ax
-@..mouse_hit_test.l6:
+.forward5:
     pop es
     pop si
     pop ds

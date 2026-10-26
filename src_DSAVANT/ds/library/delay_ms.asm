@@ -8,17 +8,17 @@ delay_ms:
     push cs                          ; 0x36d6
     pop ds                           ; 0x36d7
     mov bx, delay_loop_target - IMAGE_BASE ; 0x36d8
-@..delay_ms.l1:
+.back1:
     mov cx, word [cs:loops_per_ms - IMAGE_BASE] ; 0x36db
-@..delay_ms.l2:
+.back2:
     sub cx, byte 1                   ; 0x36e0
-    jne short @..delay_ms.l3         ; 0x36e3
+    jne short .forward1              ; 0x36e3
     nop                              ; 0x36e5
-@..delay_ms.l3:
+.forward1:
     cmp cx, word [bx]                ; 0x36e6
-    jne short @..delay_ms.l2         ; 0x36e8
+    jne short .back2                 ; 0x36e8
     dec word [bp + 4]                ; 0x36ea
-    jne short @..delay_ms.l1         ; 0x36ed
+    jne short .back1                 ; 0x36ed
     pop si                           ; 0x36ef
     pop ds                           ; 0x36f0
     mov sp, bp                       ; 0x36f1

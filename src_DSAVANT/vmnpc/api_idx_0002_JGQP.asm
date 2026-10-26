@@ -12,7 +12,7 @@ api_idx_0002_JGQP:
     add sp, byte 4                   ; 0x87aa
     mov word [bp - 2], ax            ; 0x87ad
     cmp ax, strict word 0            ; 0x87b0
-    jl short @..api_idx_0002_JGQP.l1 ; 0x87b3
+    jl short .forward1               ; 0x87b3
     push ax                          ; 0x87b5
     mov ax, 0x14                     ; 0x87b6
     imul word [bp + 4]               ; 0x87b9
@@ -24,8 +24,8 @@ api_idx_0002_JGQP:
     mov bx, word [bp + 6]            ; 0x87c9
     mov si, word [bp - 2]            ; 0x87cc
     mov byte [bx + si], 0            ; 0x87cf
-    jmp short @..api_idx_0002_JGQP.l3 ; 0x87d2
-@..api_idx_0002_JGQP.l1:
+    jmp short .return1               ; 0x87d2
+.forward1:
     mov ax, 0x40                     ; 0x87d4
     push ax                          ; 0x87d7
     mov ax, 0x14                     ; 0x87d8
@@ -36,7 +36,7 @@ api_idx_0002_JGQP:
     add sp, byte 4                   ; 0x87e5
     mov word [bp - 2], ax            ; 0x87e8
     cmp ax, strict word 0            ; 0x87eb
-    jl short @..api_idx_0002_JGQP.l2 ; 0x87ee
+    jl short .forward2               ; 0x87ee
     push ax                          ; 0x87f0
     mov ax, 0x14                     ; 0x87f1
     imul word [bp + 4]               ; 0x87f4
@@ -48,8 +48,8 @@ api_idx_0002_JGQP:
     mov bx, word [bp + 6]            ; 0x8804
     mov si, word [bp - 2]            ; 0x8807
     mov byte [bx + si], 0            ; 0x880a
-    jmp short @..api_idx_0002_JGQP.l3 ; 0x880d
-@..api_idx_0002_JGQP.l2:
+    jmp short .return1               ; 0x880d
+.forward2:
     mov ax, 0x5e                     ; 0x880f
     push ax                          ; 0x8812
     mov ax, 0x14                     ; 0x8813
@@ -60,7 +60,7 @@ api_idx_0002_JGQP:
     add sp, byte 4                   ; 0x8820
     mov word [bp - 2], ax            ; 0x8823
     cmp ax, strict word 0            ; 0x8826
-    jl short @..api_idx_0002_JGQP.l3 ; 0x8829
+    jl short .return1                ; 0x8829
     push ax                          ; 0x882b
     mov ax, 0x14                     ; 0x882c
     imul word [bp + 4]               ; 0x882f
@@ -72,5 +72,5 @@ api_idx_0002_JGQP:
     mov bx, word [bp + 6]            ; 0x883f
     mov si, word [bp - 2]            ; 0x8842
     mov byte [bx + si], 0            ; 0x8845
-@..api_idx_0002_JGQP.l3:
+.return1:
     ret                              ; 0x8848

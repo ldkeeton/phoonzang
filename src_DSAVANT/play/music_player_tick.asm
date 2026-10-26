@@ -10,13 +10,13 @@ music_player_tick:
     push dx                          ; 0x0afd
     cld                              ; 0x0afe
     dec word [cs:chain_countdown - IMAGE_BASE] ; 0x0aff
-    jne short @..music_player_tick.l1 ; 0x0b04
+    jne short .forward1              ; 0x0b04
     mov ax, word [cs:chain_period - IMAGE_BASE] ; 0x0b06
     mov word [cs:chain_countdown - IMAGE_BASE], ax ; 0x0b0a
     pushf                            ; 0x0b0e
 __zinsn_0b0f:
     call far 0x0:0x0                 ; 0x0b0f
-@..music_player_tick.l1:
+music_player_tick.forward1:
     mov ax, word [cs:music_tempo - IMAGE_BASE] ; 0x0b14
     mov word [cs:tick_divider - IMAGE_BASE], ax ; 0x0b18
     cmp byte [cs:music_enabled - IMAGE_BASE], 0 ; 0x0b1c

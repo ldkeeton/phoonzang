@@ -15,10 +15,10 @@ flash_area: ; Aztec csav frame=0x0000
     call gfx_show_area               ; 0x1123
     add sp, byte 8                   ; 0x1126
     cmp word [bp + 0xc], byte 0      ; 0x1129
-    je short @..flash_area.l1        ; 0x112d
+    je short .return1                ; 0x112d
     mov ax, 0x23                     ; 0x112f
     push ax                          ; 0x1132
     call delay_ms                    ; 0x1133
     pop cx                           ; 0x1136
-@..flash_area.l1:
+.return1:
     ret                              ; 0x1137

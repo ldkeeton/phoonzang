@@ -54,9 +54,9 @@ ds_app_string_KVNI: ; Aztec csav frame=0x0054
     add ax, strict word 0xfffc       ; 0x0c93
     mov word [bp - 4], ax            ; 0x0c96
     mov word [answer_length], ax     ; 0x0c99
-@..ds_app_string_KVNI.l1:
+.back1:
     cmp word [bp - 4], byte 0        ; 0x0c9c
-    jle short @..ds_app_string_KVNI.l2 ; 0x0ca0
+    jle short .forward1              ; 0x0ca0
     dec word [bp - 4]                ; 0x0ca2
     mov bx, word [bp - 4]            ; 0x0ca5
     add bx, bp                       ; 0x0ca8
@@ -85,8 +85,8 @@ ds_app_string_KVNI: ; Aztec csav frame=0x0054
     cwd                              ; 0x0cde
     idiv cx                          ; 0x0cdf
     mov word [bp - 2], dx            ; 0x0ce1
-    jmp short @..ds_app_string_KVNI.l1 ; 0x0ce4
-@..ds_app_string_KVNI.l2:
+    jmp short .back1                 ; 0x0ce4
+.forward1:
     mov al, byte [bp - 2]            ; 0x0ce6
     mov byte [code_table], al        ; 0x0ce9
     ret                              ; 0x0cec

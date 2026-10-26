@@ -28,14 +28,14 @@ show_area:
     sub ax, word [bp + 0xe]          ; 0x04ef
     inc ax                           ; 0x04f2
     mov dx, ax                       ; 0x04f3
-@..show_area.l1:
+.back1:
     mov di, word [bp - 2]            ; 0x04f5
     add word [bp - 2], strict word 0x140 ; 0x04f8
     mov si, di                       ; 0x04fd
     mov cx, word [bp - 4]            ; 0x04ff
     rep movsb                        ; 0x0502
     dec dx                           ; 0x0504
-    jne short @..show_area.l1        ; 0x0505
+    jne short .back1                 ; 0x0505
     call redraw_mouse_pointer        ; 0x0507
     call update_mouse_pointer        ; 0x050a
     pop si                           ; 0x050d

@@ -6,12 +6,12 @@ clamp_between: ; Aztec csav frame=0x0000
     push ax                          ; 0x0a12
     cmp ax, word [bp + 4]            ; 0x0a13
     pop ax                           ; 0x0a16
-    jg short @..clamp_between.l1     ; 0x0a17
+    jg short .return1                ; 0x0a17
     mov ax, word [bp + 4]            ; 0x0a19
     push ax                          ; 0x0a1c
     cmp ax, word [bp + 8]            ; 0x0a1d
     pop ax                           ; 0x0a20
-    jle short @..clamp_between.l1    ; 0x0a21
+    jle short .return1               ; 0x0a21
     mov ax, word [bp + 8]            ; 0x0a23
-@..clamp_between.l1:
+.return1:
     ret                              ; 0x0a26

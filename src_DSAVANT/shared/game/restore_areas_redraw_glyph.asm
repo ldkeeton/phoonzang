@@ -40,7 +40,7 @@ restore_areas_redraw_glyph:
     call gfx_draw_text
     add sp, byte 0x16
     cmp word [bp + 4], byte 0
-    je short @..restore_areas_redraw_glyph.l1
+    je short .return1
     mov ax, 0xc2
     push ax
     mov ax, 0x13a
@@ -51,5 +51,5 @@ restore_areas_redraw_glyph:
     push ax
     call gfx_show_area
     add sp, byte 8
-@..restore_areas_redraw_glyph.l1:
+.return1:
     ret

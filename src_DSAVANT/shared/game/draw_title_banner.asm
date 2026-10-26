@@ -10,7 +10,7 @@ draw_title_banner:
     call gfx_restore_screen
     add sp, byte 8
     cmp word [banner_offset], byte 0
-    jle short @..draw_title_banner.l1
+    jle short .forward1
     mov byte [bp - 0xa], 1
     mov byte [bp - 9], 0
     mov ax, 0
@@ -37,14 +37,14 @@ draw_title_banner:
     push ax
     call gfx_draw_text
     add sp, byte 0x16
-@..draw_title_banner.l1:
+.forward1:
     mov ax, 5
     cmp word [banner_plain_flag], byte 0
-    jne short @..draw_title_banner.l2
+    jne short .forward2
     mov ax, word [bp + 4]
     inc ax
     inc ax
-@..draw_title_banner.l2:
+.forward2:
     mov byte [bp - 0xa], al
     mov byte [bp - 9], 0
     mov ax, 0

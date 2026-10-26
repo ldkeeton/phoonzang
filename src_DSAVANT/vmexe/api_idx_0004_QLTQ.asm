@@ -16,27 +16,27 @@ api_idx_0004_QLTQ:
     mov cx, ax                       ; 0x2514
     mov ax, word [bp - 2]            ; 0x2516
     cmp cx, ax                       ; 0x2519
-    jge short @..api_idx_0004_QLTQ.l2 ; 0x251b
+    jge short .forward1              ; 0x251b
     mov bx, word [bp + 8]            ; 0x251d
     imul bx                          ; 0x2520
     mov cx, 0x64                     ; 0x2522
     mov bx, 0                        ; 0x2525
     call aztec_ldv                   ; 0x2528
     mov word [bp - 4], ax            ; 0x252b
-@..api_idx_0004_QLTQ.l1:
+.back1:
     cmp word [bp - 4], byte 0        ; 0x252e
-    jle short @..api_idx_0004_QLTQ.l2 ; 0x2532
+    jle short .forward1              ; 0x2532
     mov ax, 2                        ; 0x2534
     push ax                          ; 0x2537
     call random_below                ; 0x2538
     pop cx                           ; 0x253b
     sub word [bp + 8], ax            ; 0x253c
     dec word [bp - 4]                ; 0x253f
-    jmp short @..api_idx_0004_QLTQ.l1 ; 0x2542
-@..api_idx_0004_QLTQ.l2:
+    jmp short .back1                 ; 0x2542
+.forward1:
     cmp word [bp + 8], byte 1        ; 0x2544
-    jge short @..api_idx_0004_QLTQ.l3 ; 0x2548
+    jge short .forward2              ; 0x2548
     mov word [bp + 8], 1             ; 0x254a
-@..api_idx_0004_QLTQ.l3:
+.forward2:
     mov ax, word [bp + 8]            ; 0x254f
     ret                              ; 0x2552

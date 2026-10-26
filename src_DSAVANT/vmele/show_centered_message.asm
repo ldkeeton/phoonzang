@@ -55,19 +55,19 @@ show_centered_message:
     push ax                          ; 0x038b
     call play_sound_effect           ; 0x038c
     pop cx                           ; 0x038f
-    cmp word [bp - 0xc], byte 0xff   ; 0x0390
-    je short @..show_centered_message.l1 ; 0x0394
+    cmp word [bp - 0xc], byte -1     ; 0x0390
+    je short .forward1               ; 0x0394
     push word [bp - 0xc]             ; 0x0396
     call ensure_sound_loaded         ; 0x0399
     pop cx                           ; 0x039c
-    jmp short @..show_centered_message.l2 ; 0x039d
-@..show_centered_message.l1:
+    jmp short .forward2              ; 0x039d
+.forward1:
     mov ax, 0x10                     ; 0x039f
     push ax                          ; 0x03a2
     call wait_and_free_sound         ; 0x03a3
     pop cx                           ; 0x03a6
     mov word [loaded_sound_id], 0xffff ; 0x03a7
-@..show_centered_message.l2:
+.forward2:
     mov ax, 0                        ; 0x03ad
     push ax                          ; 0x03b0
     call restore_areas_redraw_glyph  ; 0x03b1

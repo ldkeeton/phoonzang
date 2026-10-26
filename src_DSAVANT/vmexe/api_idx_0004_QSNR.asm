@@ -4,20 +4,20 @@ api_idx_0004_QSNR:
     call aztec_csav                  ; 0x16c4
     mov bx, word [bp + 8]            ; 0x16c7
     cmp byte [bx], 0                 ; 0x16ca
-    je short @..api_idx_0004_QSNR.l1 ; 0x16cd
+    je short .forward1               ; 0x16cd
     mov ax, 1                        ; 0x16cf
-    jmp short @..api_idx_0004_QSNR.l2 ; 0x16d2
-@..api_idx_0004_QSNR.l1:
+    jmp short .forward2              ; 0x16d2
+.forward1:
     mov ax, 0                        ; 0x16d4
-@..api_idx_0004_QSNR.l2:
+.forward2:
     mov bx, word [bp + 0xa]          ; 0x16d7
     cmp byte [bx], 0                 ; 0x16da
-    je short @..api_idx_0004_QSNR.l3 ; 0x16dd
+    je short .forward3               ; 0x16dd
     mov cx, 1                        ; 0x16df
-    jmp short @..api_idx_0004_QSNR.l4 ; 0x16e2
-@..api_idx_0004_QSNR.l3:
+    jmp short .forward4              ; 0x16e2
+.forward3:
     mov cx, 0                        ; 0x16e4
-@..api_idx_0004_QSNR.l4:
+.forward4:
     add ax, cx                       ; 0x16e7
     mov word [bp - 4], ax            ; 0x16e9
     push word [bp + 6]               ; 0x16ec
@@ -56,28 +56,28 @@ api_idx_0004_QSNR:
     add sp, byte 4                   ; 0x1732
     mov bx, word [bp + 6]            ; 0x1735
     cmp byte [bx], 0                 ; 0x1738
-    je short @..api_idx_0004_QSNR.l5 ; 0x173b
+    je short .forward5               ; 0x173b
     push word [bp + 0xc]             ; 0x173d
     push bx                          ; 0x1740
     call loc_PHIP                    ; 0x1741
     add sp, byte 4                   ; 0x1744
-@..api_idx_0004_QSNR.l5:
+.forward5:
     mov bx, word [bp + 8]            ; 0x1747
     cmp byte [bx], 0                 ; 0x174a
-    je short @..api_idx_0004_QSNR.l6 ; 0x174d
+    je short .forward6               ; 0x174d
     push word [bp + 0xe]             ; 0x174f
     push bx                          ; 0x1752
     call loc_PHIP                    ; 0x1753
     add sp, byte 4                   ; 0x1756
-@..api_idx_0004_QSNR.l6:
+.forward6:
     mov bx, word [bp + 0xa]          ; 0x1759
     cmp byte [bx], 0                 ; 0x175c
-    je short @..api_idx_0004_QSNR.l7 ; 0x175f
+    je short .forward7               ; 0x175f
     push word [bp + 0x10]            ; 0x1761
     push bx                          ; 0x1764
     call loc_PHIP                    ; 0x1765
     add sp, byte 4                   ; 0x1768
-@..api_idx_0004_QSNR.l7:
+.forward7:
     mov ax, 7                        ; 0x176b
     imul word [bp + 4]               ; 0x176e
     add ax, 0xa2                     ; 0x1771

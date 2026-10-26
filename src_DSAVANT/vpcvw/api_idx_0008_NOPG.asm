@@ -3,7 +3,7 @@ api_idx_0008_NOPG:
     mov ax, 0xfff8                   ; 0x21fd
     call aztec_csav                  ; 0x2200
     mov ax, word [bp + 6]            ; 0x2203
-    jmp near @..api_idx_0008_NOPG.l42 ; 0x2206
+    jmp near .forward35              ; 0x2206
 jumptable_291f_case_33:
     mov ax, 0x32                     ; 0x2209
     imul word [bp + 8]               ; 0x220c
@@ -82,31 +82,31 @@ jumptable_291f_case_39:
 jumptable_291f_case_23:
     mov ax, 0                        ; 0x22c4
     cmp word [bp + 6], byte 0x13     ; 0x22c7
-    je short @..api_idx_0008_NOPG.l1 ; 0x22cb
+    je short api_idx_0008_NOPG.forward1 ; 0x22cb
     mov ax, word [bp + 0xa]          ; 0x22cd
-@..api_idx_0008_NOPG.l1:
+api_idx_0008_NOPG.forward1:
     mov word [bp - 2], ax            ; 0x22d0
     mov ax, word [party_char_count]  ; 0x22d3
     cmp word [bp + 6], byte 0x13     ; 0x22d6
-    je short @..api_idx_0008_NOPG.l2 ; 0x22da
+    je short api_idx_0008_NOPG.forward2 ; 0x22da
     mov ax, word [bp + 0xa]          ; 0x22dc
     inc ax                           ; 0x22df
-@..api_idx_0008_NOPG.l2:
+api_idx_0008_NOPG.forward2:
     mov word [bp - 4], ax            ; 0x22e0
     mov ax, word [bp + 8]            ; 0x22e3
     cmp word [bp + 6], byte 0x13     ; 0x22e6
-    je short @..api_idx_0008_NOPG.l3 ; 0x22ea
+    je short api_idx_0008_NOPG.forward3 ; 0x22ea
     shl ax, 1                        ; 0x22ec
-@..api_idx_0008_NOPG.l3:
+api_idx_0008_NOPG.forward3:
     mov word [bp - 6], ax            ; 0x22ee
     mov ax, 0                        ; 0x22f1
     cmp word [bp + 6], byte 0x13     ; 0x22f4
-    je short @..api_idx_0008_NOPG.l4 ; 0x22f8
+    je short api_idx_0008_NOPG.forward4 ; 0x22f8
     mov ax, word [bp + 8]            ; 0x22fa
-@..api_idx_0008_NOPG.l4:
+api_idx_0008_NOPG.forward4:
     mov word [bp - 8], ax            ; 0x22fd
-    jmp short @..api_idx_0008_NOPG.l7 ; 0x2300
-@..api_idx_0008_NOPG.l5:
+    jmp short api_idx_0008_NOPG.forward6 ; 0x2300
+api_idx_0008_NOPG.back1:
     mov ax, 0x248                    ; 0x2302
     imul word [bp - 2]               ; 0x2305
     mov bx, ax                       ; 0x2308
@@ -146,16 +146,16 @@ jumptable_291f_case_23:
     pop ax                           ; 0x2357
     mov word [bx + party_records + pc_rec.pair_b], ax ; 0x2358
     cmp word [bp + 6], byte 0x13     ; 0x235c
-    je short @..api_idx_0008_NOPG.l6 ; 0x2360
+    je short api_idx_0008_NOPG.forward5 ; 0x2360
     push word [bp - 2]               ; 0x2362
     call loc_IIRG                    ; 0x2365
     pop cx                           ; 0x2368
-@..api_idx_0008_NOPG.l6:
+api_idx_0008_NOPG.forward5:
     inc word [bp - 2]                ; 0x2369
-@..api_idx_0008_NOPG.l7:
+api_idx_0008_NOPG.forward6:
     mov ax, word [bp - 2]            ; 0x236c
     cmp ax, word [bp - 4]            ; 0x236f
-    jl short @..api_idx_0008_NOPG.l5 ; 0x2372
+    jl short api_idx_0008_NOPG.back1 ; 0x2372
     jmp near jumptable_291f_case_46  ; 0x2374
 jumptable_291f_case_24:
     mov ax, 0x248                    ; 0x2377
@@ -171,9 +171,9 @@ jumptable_291f_case_24:
     sub ax, cx                       ; 0x238f
     mov word [bp - 2], ax            ; 0x2391
     cmp ax, strict word 0            ; 0x2394
-    jge short @..api_idx_0008_NOPG.l8 ; 0x2397
+    jge short api_idx_0008_NOPG.forward7 ; 0x2397
     mov word [bp - 2], 0             ; 0x2399
-@..api_idx_0008_NOPG.l8:
+api_idx_0008_NOPG.forward7:
     mov al, byte [bp - 2]            ; 0x239e
     mov byte [bx + party_records + pc_rec.status + 0x3], al ; 0x23a1
     push word [bp + 0xa]             ; 0x23a5
@@ -189,10 +189,10 @@ jumptable_291f_case_27:
     sub ax, word [bp + 8]            ; 0x23bd
     mov word [bp - 2], ax            ; 0x23c0
     cmp ax, strict word 0            ; 0x23c3
-    jg short @..api_idx_0008_NOPG.l9 ; 0x23c6
+    jg short api_idx_0008_NOPG.forward8 ; 0x23c6
     mov word [bp - 2], 0             ; 0x23c8
     mov byte [bx + party_records + pc_rec.status + 0x5], 0 ; 0x23cd
-@..api_idx_0008_NOPG.l9:
+api_idx_0008_NOPG.forward8:
     mov al, byte [bp - 2]            ; 0x23d2
     mov byte [bx + party_records + pc_rec.f_023e], al ; 0x23d5
     mov al, byte [bx + party_records + pc_rec.status + 0x5] ; 0x23d9
@@ -205,10 +205,10 @@ jumptable_291f_case_27:
     sub ax, cx                       ; 0x23e9
     mov word [bp - 2], ax            ; 0x23eb
     cmp ax, strict word 0            ; 0x23ee
-    jg short @..api_idx_0008_NOPG.l10 ; 0x23f1
+    jg short api_idx_0008_NOPG.forward9 ; 0x23f1
     mov word [bp - 2], 0             ; 0x23f3
     mov byte [bx + party_records + pc_rec.f_023e], 0 ; 0x23f8
-@..api_idx_0008_NOPG.l10:
+api_idx_0008_NOPG.forward9:
     mov al, byte [bp - 2]            ; 0x23fd
     mov byte [bx + party_records + pc_rec.status + 0x5], al ; 0x2400
     push word [bp + 0xa]             ; 0x2404
@@ -220,9 +220,9 @@ jumptable_291f_case_31:
     imul word [bp + 0xa]             ; 0x2411
     mov bx, ax                       ; 0x2414
     cmp byte [bx + party_records + pc_rec.state], 2 ; 0x2416
-    je short @..api_idx_0008_NOPG.l11 ; 0x241b
-    jmp near @..api_idx_0008_NOPG.l14 ; 0x241d
-@..api_idx_0008_NOPG.l11:
+    je short api_idx_0008_NOPG.forward10 ; 0x241b
+    jmp near api_idx_0008_NOPG.forward13 ; 0x241d
+api_idx_0008_NOPG.forward10:
     mov ax, 3                        ; 0x2420
     imul word [bp + 8]               ; 0x2423
     push ax                          ; 0x2426
@@ -233,7 +233,7 @@ jumptable_291f_case_31:
     sub cx, ax                       ; 0x2432
     pop ax                           ; 0x2434
     cmp ax, cx                       ; 0x2435
-    jle short @..api_idx_0008_NOPG.l14 ; 0x2437
+    jle short api_idx_0008_NOPG.forward13 ; 0x2437
     dec byte [bx + party_records + pc_rec.stat + 0x3] ; 0x2439
     mov ax, 0xb7                     ; 0x243d
     push ax                          ; 0x2440
@@ -263,18 +263,18 @@ jumptable_291f_case_31:
     mov cx, ax                       ; 0x2474
     pop ax                           ; 0x2476
     cmp ax, cx                       ; 0x2477
-    jle short @..api_idx_0008_NOPG.l12 ; 0x2479
+    jle short api_idx_0008_NOPG.forward11 ; 0x2479
     mov byte [bx + party_records + pc_rec.state], 3 ; 0x247b
     mov word [bx + party_records + pc_rec.pair_a], 0 ; 0x2480
     mov word [bx + party_records + pc_rec.pair_b], 0 ; 0x2486
-    jmp short @..api_idx_0008_NOPG.l13 ; 0x248c
-@..api_idx_0008_NOPG.l12:
+    jmp short api_idx_0008_NOPG.forward12 ; 0x248c
+api_idx_0008_NOPG.forward11:
     mov byte [bx + party_records + pc_rec.state], 0 ; 0x248e
-@..api_idx_0008_NOPG.l13:
+api_idx_0008_NOPG.forward12:
     push word [bp + 0xa]             ; 0x2493
     call loc_IIRG                    ; 0x2496
     pop cx                           ; 0x2499
-@..api_idx_0008_NOPG.l14:
+api_idx_0008_NOPG.forward13:
     jmp near jumptable_291f_case_46  ; 0x249a
 jumptable_291f_case_36:
     mov ax, 0x248                    ; 0x249d
@@ -290,9 +290,9 @@ jumptable_291f_case_36:
     sub ax, cx                       ; 0x24b5
     mov word [bp - 2], ax            ; 0x24b7
     cmp ax, strict word 0            ; 0x24ba
-    jge short @..api_idx_0008_NOPG.l15 ; 0x24bd
+    jge short api_idx_0008_NOPG.forward14 ; 0x24bd
     mov word [bp - 2], 0             ; 0x24bf
-@..api_idx_0008_NOPG.l15:
+api_idx_0008_NOPG.forward14:
     mov al, byte [bp - 2]            ; 0x24c4
     mov byte [bx + party_records + pc_rec.status + 0x7], al ; 0x24c7
     push word [bp + 0xa]             ; 0x24cb
@@ -313,17 +313,17 @@ jumptable_291f_case_26:
     sub cx, ax                       ; 0x24ef
     pop ax                           ; 0x24f1
     cmp ax, cx                       ; 0x24f2
-    jle short @..api_idx_0008_NOPG.l16 ; 0x24f4
+    jle short api_idx_0008_NOPG.forward15 ; 0x24f4
     mov byte [bx + party_records + pc_rec.status + 0x6], 0 ; 0x24f6
-@..api_idx_0008_NOPG.l16:
+api_idx_0008_NOPG.forward15:
     push word [bp + 0xa]             ; 0x24fb
     call loc_IIRG                    ; 0x24fe
     pop cx                           ; 0x2501
     jmp near jumptable_291f_case_46  ; 0x2502
 jumptable_291f_case_35:
     mov word [bp - 2], 0             ; 0x2505
-    jmp short @..api_idx_0008_NOPG.l19 ; 0x250a
-@..api_idx_0008_NOPG.l17:
+    jmp short api_idx_0008_NOPG.forward17 ; 0x250a
+api_idx_0008_NOPG.back2:
     mov ax, 0x248                    ; 0x250c
     imul word [bp + 0xa]             ; 0x250f
     mov bx, ax                       ; 0x2512
@@ -339,35 +339,35 @@ jumptable_291f_case_35:
     sub ax, cx                       ; 0x2528
     mov word [bp - 4], ax            ; 0x252a
     cmp ax, strict word 0            ; 0x252d
-    jge short @..api_idx_0008_NOPG.l18 ; 0x2530
+    jge short api_idx_0008_NOPG.forward16 ; 0x2530
     mov word [bp - 4], 0             ; 0x2532
-@..api_idx_0008_NOPG.l18:
+api_idx_0008_NOPG.forward16:
     mov al, byte [bp - 4]            ; 0x2537
     mov byte [bx + party_records + pc_rec.status + 0x2], al ; 0x253a
     push word [bp - 2]               ; 0x253e
     call loc_IIRG                    ; 0x2541
     pop cx                           ; 0x2544
     inc word [bp - 2]                ; 0x2545
-@..api_idx_0008_NOPG.l19:
+api_idx_0008_NOPG.forward17:
     mov ax, word [bp - 2]            ; 0x2548
     cmp ax, word [party_char_count]  ; 0x254b
-    jl short @..api_idx_0008_NOPG.l17 ; 0x254f
+    jl short api_idx_0008_NOPG.back2 ; 0x254f
     jmp near jumptable_291f_case_46  ; 0x2551
 jumptable_291f_case_32:
     mov word [bp - 4], 1             ; 0x2554
-@..api_idx_0008_NOPG.l20:
+api_idx_0008_NOPG.back3:
     mov ax, word [bp - 4]            ; 0x2559
     cmp ax, strict word 1            ; 0x255c
-    je short @..api_idx_0008_NOPG.l21 ; 0x255f
+    je short api_idx_0008_NOPG.forward18 ; 0x255f
     cmp ax, strict word 2            ; 0x2561
-    je short @..api_idx_0008_NOPG.l21 ; 0x2564
+    je short api_idx_0008_NOPG.forward18 ; 0x2564
     cmp ax, strict word 4            ; 0x2566
-    je short @..api_idx_0008_NOPG.l21 ; 0x2569
+    je short api_idx_0008_NOPG.forward18 ; 0x2569
     cmp ax, strict word 8            ; 0x256b
-    je short @..api_idx_0008_NOPG.l21 ; 0x256e
+    je short api_idx_0008_NOPG.forward18 ; 0x256e
     cmp ax, strict word 9            ; 0x2570
-    jne short @..api_idx_0008_NOPG.l23 ; 0x2573
-@..api_idx_0008_NOPG.l21:
+    jne short api_idx_0008_NOPG.forward20 ; 0x2573
+api_idx_0008_NOPG.forward18:
     mov ax, 0x248                    ; 0x2575
     imul word [bp + 0xa]             ; 0x2578
     mov cx, ax                       ; 0x257b
@@ -386,16 +386,16 @@ jumptable_291f_case_32:
     sub ax, cx                       ; 0x2598
     mov word [bp - 2], ax            ; 0x259a
     cmp ax, strict word 0            ; 0x259d
-    jge short @..api_idx_0008_NOPG.l22 ; 0x25a0
+    jge short api_idx_0008_NOPG.forward19 ; 0x25a0
     mov word [bp - 2], 0             ; 0x25a2
-@..api_idx_0008_NOPG.l22:
+api_idx_0008_NOPG.forward19:
     mov al, byte [bp - 2]            ; 0x25a7
     mov byte [bx + party_records + pc_rec.status], al ; 0x25aa
-@..api_idx_0008_NOPG.l23:
+api_idx_0008_NOPG.forward20:
     inc word [bp - 4]                ; 0x25ae
     mov ax, word [bp - 4]            ; 0x25b1
     cmp ax, strict word 9            ; 0x25b4
-    jle short @..api_idx_0008_NOPG.l20 ; 0x25b7
+    jle short api_idx_0008_NOPG.back3 ; 0x25b7
     push word [bp + 0xa]             ; 0x25b9
     call loc_IIRG                    ; 0x25bc
     pop cx                           ; 0x25bf
@@ -403,31 +403,31 @@ jumptable_291f_case_32:
 jumptable_291f_case_37:
     mov ax, 0                        ; 0x25c3
     cmp word [bp + 6], byte 0x58     ; 0x25c6
-    je short @..api_idx_0008_NOPG.l24 ; 0x25ca
+    je short api_idx_0008_NOPG.forward21 ; 0x25ca
     mov ax, word [bp + 0xa]          ; 0x25cc
-@..api_idx_0008_NOPG.l24:
+api_idx_0008_NOPG.forward21:
     mov word [bp - 2], ax            ; 0x25cf
     mov ax, word [party_char_count]  ; 0x25d2
     cmp word [bp + 6], byte 0x58     ; 0x25d5
-    je short @..api_idx_0008_NOPG.l25 ; 0x25d9
+    je short api_idx_0008_NOPG.forward22 ; 0x25d9
     mov ax, word [bp + 0xa]          ; 0x25db
     inc ax                           ; 0x25de
-@..api_idx_0008_NOPG.l25:
+api_idx_0008_NOPG.forward22:
     mov word [bp - 4], ax            ; 0x25df
     mov ax, 4                        ; 0x25e2
     cmp word [bp + 6], byte 0x58     ; 0x25e5
-    je short @..api_idx_0008_NOPG.l26 ; 0x25e9
+    je short api_idx_0008_NOPG.forward23 ; 0x25e9
     mov ax, 7                        ; 0x25eb
-@..api_idx_0008_NOPG.l26:
+api_idx_0008_NOPG.forward23:
     mov word [bp - 6], ax            ; 0x25ee
     mov ax, 0                        ; 0x25f1
     cmp word [bp + 6], byte 0x58     ; 0x25f4
-    je short @..api_idx_0008_NOPG.l27 ; 0x25f8
+    je short api_idx_0008_NOPG.forward24 ; 0x25f8
     mov ax, word [bp + 8]            ; 0x25fa
-@..api_idx_0008_NOPG.l27:
+api_idx_0008_NOPG.forward24:
     mov word [bp - 8], ax            ; 0x25fd
-    jmp short @..api_idx_0008_NOPG.l30 ; 0x2600
-@..api_idx_0008_NOPG.l28:
+    jmp short api_idx_0008_NOPG.forward26 ; 0x2600
+api_idx_0008_NOPG.back4:
     mov ax, 0x248                    ; 0x2602
     imul word [bp - 2]               ; 0x2605
     mov bx, ax                       ; 0x2608
@@ -468,25 +468,25 @@ jumptable_291f_case_37:
     add word [bx + party_records + pc_rec.f_0008], byte 1 ; 0x265b
     adc word [bx + party_records + pc_rec.f_000a], byte 0 ; 0x2660
     cmp word [bp + 6], byte 0x58     ; 0x2665
-    je short @..api_idx_0008_NOPG.l29 ; 0x2669
+    je short api_idx_0008_NOPG.forward25 ; 0x2669
     push word [bp - 2]               ; 0x266b
     call loc_IIRG                    ; 0x266e
     pop cx                           ; 0x2671
-@..api_idx_0008_NOPG.l29:
+api_idx_0008_NOPG.forward25:
     inc word [bp - 2]                ; 0x2672
-@..api_idx_0008_NOPG.l30:
+api_idx_0008_NOPG.forward26:
     mov ax, word [bp - 2]            ; 0x2675
     cmp ax, word [bp - 4]            ; 0x2678
-    jl short @..api_idx_0008_NOPG.l28 ; 0x267b
+    jl short api_idx_0008_NOPG.back4 ; 0x267b
     jmp near jumptable_291f_case_46  ; 0x267d
 jumptable_291f_case_43:
     mov ax, 0x248                    ; 0x2680
     imul word [bp + 0xa]             ; 0x2683
     mov bx, ax                       ; 0x2686
     cmp byte [bx + party_records + pc_rec.state], 3 ; 0x2688
-    je short @..api_idx_0008_NOPG.l31 ; 0x268d
-    jmp near @..api_idx_0008_NOPG.l32 ; 0x268f
-@..api_idx_0008_NOPG.l31:
+    je short api_idx_0008_NOPG.forward27 ; 0x268d
+    jmp near api_idx_0008_NOPG.forward28 ; 0x268f
+api_idx_0008_NOPG.forward27:
     mov ax, 3                        ; 0x2692
     imul word [bp + 8]               ; 0x2695
     push ax                          ; 0x2698
@@ -497,7 +497,7 @@ jumptable_291f_case_43:
     sub cx, ax                       ; 0x26a4
     pop ax                           ; 0x26a6
     cmp ax, cx                       ; 0x26a7
-    jle short @..api_idx_0008_NOPG.l32 ; 0x26a9
+    jle short api_idx_0008_NOPG.forward28 ; 0x26a9
     dec byte [bx + party_records + pc_rec.stat + 0x3] ; 0x26ab
     mov byte [bx + party_records + pc_rec.state], 0 ; 0x26af
     push word [bx + party_records + pc_rec.pair_a + 0x2] ; 0x26b4
@@ -540,7 +540,7 @@ jumptable_291f_case_43:
     push word [bp + 0xa]             ; 0x270d
     call loc_IIRG                    ; 0x2710
     pop cx                           ; 0x2713
-@..api_idx_0008_NOPG.l32:
+api_idx_0008_NOPG.forward28:
     jmp near jumptable_291f_case_46  ; 0x2714
 jumptable_291f_case_44:
     push word [bp + 8]               ; 0x2717
@@ -569,10 +569,10 @@ jumptable_291f_case_44:
     add word [bx + party_records + pc_rec.pair_b], ax ; 0x274b
     mov ax, word [bx + party_records + pc_rec.pair_b] ; 0x274f
     cmp ax, word [bx + party_records + pc_rec.pair_b + 0x2] ; 0x2753
-    jle short @..api_idx_0008_NOPG.l33 ; 0x2757
+    jle short api_idx_0008_NOPG.forward29 ; 0x2757
     mov ax, word [bx + party_records + pc_rec.pair_b + 0x2] ; 0x2759
     mov word [bx + party_records + pc_rec.pair_b], ax ; 0x275d
-@..api_idx_0008_NOPG.l33:
+api_idx_0008_NOPG.forward29:
     mov ax, 0                        ; 0x2761
     push ax                          ; 0x2764
     mov ax, 2                        ; 0x2765
@@ -600,14 +600,14 @@ jumptable_291f_case_44:
     add word [bx + party_records + pc_rec.pair_a], ax ; 0x2796
     mov ax, word [bx + party_records + pc_rec.pair_a] ; 0x279a
     cmp ax, word [bx + party_records + pc_rec.pair_a + 0x2] ; 0x279e
-    jle short @..api_idx_0008_NOPG.l34 ; 0x27a2
+    jle short api_idx_0008_NOPG.forward30 ; 0x27a2
     mov ax, word [bx + party_records + pc_rec.pair_a + 0x2] ; 0x27a4
     mov word [bx + party_records + pc_rec.pair_a], ax ; 0x27a8
-@..api_idx_0008_NOPG.l34:
+api_idx_0008_NOPG.forward30:
     jmp near jumptable_291f_case_46  ; 0x27ac
 jumptable_291f_case_45:
     mov word [bp - 2], 0             ; 0x27af
-@..api_idx_0008_NOPG.l35:
+api_idx_0008_NOPG.back5:
     mov ax, 0                        ; 0x27b4
     push ax                          ; 0x27b7
     mov ax, 0xa                      ; 0x27b8
@@ -640,20 +640,20 @@ jumptable_291f_case_45:
     add word [bx + party_records + pc_rec.realm_points], ax ; 0x27f4
     mov ax, word [bx + party_records + pc_rec.realm_points] ; 0x27f8
     cmp ax, word [bx + party_records + pc_rec.realm_points + 0x2] ; 0x27fc
-    jle short @..api_idx_0008_NOPG.l36 ; 0x2800
+    jle short api_idx_0008_NOPG.forward31 ; 0x2800
     mov ax, word [bx + party_records + pc_rec.realm_points + 0x2] ; 0x2802
     mov word [bx + party_records + pc_rec.realm_points], ax ; 0x2806
-@..api_idx_0008_NOPG.l36:
+api_idx_0008_NOPG.forward31:
     inc word [bp - 2]                ; 0x280a
     mov ax, word [bp - 2]            ; 0x280d
     cmp ax, strict word 6            ; 0x2810
-    jl short @..api_idx_0008_NOPG.l35 ; 0x2813
+    jl short api_idx_0008_NOPG.back5 ; 0x2813
     jmp near jumptable_291f_case_46  ; 0x2815
 jumptable_291f_case_34:
     call api_idx_0012_SHRT           ; 0x2818
     mov word [bss_8aee], ax          ; 0x281b
     cmp ax, strict word 0xffff       ; 0x281e
-    je short @..api_idx_0008_NOPG.l37 ; 0x2821
+    je short api_idx_0008_NOPG.forward32 ; 0x2821
     mov ax, 0x248                    ; 0x2823
     imul word [bp + 4]               ; 0x2826
     push ax                          ; 0x2829
@@ -670,7 +670,7 @@ jumptable_291f_case_34:
     add ax, cx                       ; 0x2841
     mov bx, ax                       ; 0x2843
     cmp word [bx + party_records + pc_rec.cell], byte 0 ; 0x2845
-    jle short @..api_idx_0008_NOPG.l37 ; 0x284a
+    jle short api_idx_0008_NOPG.forward32 ; 0x284a
     push word [bp + 8]               ; 0x284c
     mov ax, 0x16                     ; 0x284f
     imul word [bss_8aee]             ; 0x2852
@@ -682,13 +682,13 @@ jumptable_291f_case_34:
     push word [bp + 4]               ; 0x2861
     call loc_IUTP                    ; 0x2864
     add sp, byte 8                   ; 0x2867
-@..api_idx_0008_NOPG.l37:
+api_idx_0008_NOPG.forward32:
     jmp near jumptable_291f_case_46  ; 0x286a
 jumptable_291f_case_40:
     mov word [bp - 4], 0             ; 0x286d
-@..api_idx_0008_NOPG.l38:
+api_idx_0008_NOPG.back6:
     mov word [bp - 2], 0             ; 0x2872
-@..api_idx_0008_NOPG.l39:
+api_idx_0008_NOPG.back7:
     mov ax, 0x64                     ; 0x2877
     push ax                          ; 0x287a
     call random_below                ; 0x287b
@@ -699,7 +699,7 @@ jumptable_291f_case_40:
     mov cx, ax                       ; 0x2886
     pop ax                           ; 0x2888
     cmp ax, cx                       ; 0x2889
-    jge short @..api_idx_0008_NOPG.l40 ; 0x288b
+    jge short api_idx_0008_NOPG.forward33 ; 0x288b
     mov ax, 0x248                    ; 0x288d
     imul word [bp + 0xa]             ; 0x2890
     push ax                          ; 0x2893
@@ -719,21 +719,21 @@ jumptable_291f_case_40:
     sub ah, ah                       ; 0x28b1
     and ax, strict word 0xfffd       ; 0x28b3
     mov byte [bx + party_records + pc_rec.cell + 0x7], al ; 0x28b6
-@..api_idx_0008_NOPG.l40:
+api_idx_0008_NOPG.forward33:
     inc word [bp - 2]                ; 0x28ba
     mov ax, word [bp - 2]            ; 0x28bd
     cmp ax, strict word 0xa          ; 0x28c0
-    jl short @..api_idx_0008_NOPG.l39 ; 0x28c3
+    jl short api_idx_0008_NOPG.back7 ; 0x28c3
     inc word [bp - 4]                ; 0x28c5
     mov ax, word [bp - 4]            ; 0x28c8
     cmp ax, strict word 2            ; 0x28cb
-    jl short @..api_idx_0008_NOPG.l38 ; 0x28ce
+    jl short api_idx_0008_NOPG.back6 ; 0x28ce
     jmp near jumptable_291f_case_46  ; 0x28d0
 jumptable_291f_case_42:
     call api_idx_0012_SHRT           ; 0x28d3
     mov word [bss_8aee], ax          ; 0x28d6
     cmp ax, strict word 0xffff       ; 0x28d9
-    je short @..api_idx_0008_NOPG.l41 ; 0x28dc
+    je short api_idx_0008_NOPG.forward34 ; 0x28dc
     mov ax, 0x248                    ; 0x28de
     imul word [bp + 4]               ; 0x28e1
     push ax                          ; 0x28e4
@@ -750,16 +750,16 @@ jumptable_291f_case_42:
     add ax, cx                       ; 0x28fc
     mov bx, ax                       ; 0x28fe
     cmp word [bx + party_records + pc_rec.cell], byte 0 ; 0x2900
-    jle short @..api_idx_0008_NOPG.l41 ; 0x2905
+    jle short api_idx_0008_NOPG.forward34 ; 0x2905
     push word [bp + 8]               ; 0x2907
     add ax, 0x5c34                   ; 0x290a
     push ax                          ; 0x290d
     push word [bp + 4]               ; 0x290e
     call api_idx_009a_KOSH           ; 0x2911
     add sp, byte 6                   ; 0x2914
-@..api_idx_0008_NOPG.l41:
+api_idx_0008_NOPG.forward34:
     jmp short jumptable_291f_case_46 ; 0x2917
-@..api_idx_0008_NOPG.l42:
+api_idx_0008_NOPG.forward35:
     mov cx, 0x18                     ; 0x2919
     call aztec_cswt                  ; 0x291c
 jumptable_291f:

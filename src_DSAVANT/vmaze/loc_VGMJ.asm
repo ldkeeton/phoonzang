@@ -4,11 +4,11 @@ loc_VGMJ:
     call aztec_csav                  ; 0x0b17
     call loc_OGHL                    ; 0x0b1a
     cmp word [bp + 8], byte 0        ; 0x0b1d
-    je short @..loc_VGMJ.l1          ; 0x0b21
+    je short .forward1               ; 0x0b21
     call score_music_enabled         ; 0x0b23
     mov word [bss_8450], ax          ; 0x0b26
     test ax, ax                      ; 0x0b29
-    je short @..loc_VGMJ.l1          ; 0x0b2b
+    je short .forward1               ; 0x0b2b
     mov ax, 0                        ; 0x0b2d
     push ax                          ; 0x0b30
     mov ax, 3                        ; 0x0b31
@@ -24,7 +24,7 @@ loc_VGMJ:
     call ds_app_UKGP                 ; 0x0b4a
     add sp, byte 6                   ; 0x0b4d
     mov word [bss_844c], ax          ; 0x0b50
-@..loc_VGMJ.l1:
+.forward1:
     mov ax, word [bp + 4]            ; 0x0b53
     mov word [party_entry_mode], ax  ; 0x0b56
     mov ax, word [bp + 6]            ; 0x0b59

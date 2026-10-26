@@ -11,18 +11,18 @@ string_loc_KUIU:
     pop cx                           ; 0x3633
     mov word [bss_90e4], 0           ; 0x3634
     cmp word [bss_8464], byte 0      ; 0x363a
-    je short @..string_loc_KUIU.l1   ; 0x363f
+    je short .forward1               ; 0x363f
     mov ax, word [bss_8464]          ; 0x3641
     cmp ax, strict word 6            ; 0x3644
-    jne short @..string_loc_KUIU.l3  ; 0x3647
-@..string_loc_KUIU.l1:
+    jne short .forward3              ; 0x3647
+.forward1:
     mov word [bp - 4], 6             ; 0x3649
     mov ax, word [bp - 4]            ; 0x364e
     shl ax, 1                        ; 0x3651
     mov bx, ax                       ; 0x3653
     mov bx, word [bx + party_char]   ; 0x3655
     cmp byte [bx + member_rec.item_count], 0 ; 0x3659
-    jbe short @..string_loc_KUIU.l2  ; 0x365e
+    jbe short .forward2              ; 0x365e
     mov ax, 2                        ; 0x3660
     push ax                          ; 0x3663
     mov ax, 0x41                     ; 0x3664
@@ -32,18 +32,18 @@ string_loc_KUIU:
     call api_idx_0050_PLNP           ; 0x366c
     add sp, byte 6                   ; 0x366f
     ret                              ; 0x3672
-@..string_loc_KUIU.l2:
-    jmp short @..string_loc_KUIU.l5  ; 0x3673
-@..string_loc_KUIU.l3:
+.forward2:
+    jmp short .forward5              ; 0x3673
+.forward3:
     cmp word [bp + 0x10], byte 0     ; 0x3675
-    jle short @..string_loc_KUIU.l4  ; 0x3679
+    jle short .forward4              ; 0x3679
     cmp word [party_member_count], byte 5 ; 0x367b
-    jge short @..string_loc_KUIU.l4  ; 0x3680
+    jge short .forward4              ; 0x3680
     inc word [party_member_count]    ; 0x3682
     mov ax, word [party_member_count] ; 0x3686
     mov word [bp - 4], ax            ; 0x3689
-    jmp short @..string_loc_KUIU.l5  ; 0x368c
-@..string_loc_KUIU.l4:
+    jmp short .forward5              ; 0x368c
+.forward4:
     mov ax, 2                        ; 0x368e
     push ax                          ; 0x3691
     mov ax, 0x41                     ; 0x3692
@@ -53,7 +53,7 @@ string_loc_KUIU:
     call api_idx_0050_PLNP           ; 0x369a
     add sp, byte 6                   ; 0x369d
     ret                              ; 0x36a0
-@..string_loc_KUIU.l5:
+.forward5:
     mov ax, 0                        ; 0x36a1
     push ax                          ; 0x36a4
     mov ax, 0x1a4                    ; 0x36a5
@@ -65,54 +65,54 @@ string_loc_KUIU:
     call aztec_setmem                ; 0x36b4
     add sp, byte 6                   ; 0x36b7
     mov word [bp - 0x1ac], 0         ; 0x36ba
-@..string_loc_KUIU.l6:
+.back1:
     inc word [bp - 0x1ac]            ; 0x36c0
     dec word [bp + 0x10]             ; 0x36c4
     cmp word [bp + 0x10], byte 0     ; 0x36c7
-    jle short @..string_loc_KUIU.l7  ; 0x36cb
+    jle short .forward6              ; 0x36cb
     mov ax, 3                        ; 0x36cd
     push ax                          ; 0x36d0
     call random_below                ; 0x36d1
     pop cx                           ; 0x36d4
     test ax, ax                      ; 0x36d5
-    jne short @..string_loc_KUIU.l7  ; 0x36d7
+    jne short .forward6              ; 0x36d7
     cmp word [bp - 0x1ac], byte 3    ; 0x36d9
-    jl short @..string_loc_KUIU.l6   ; 0x36de
-@..string_loc_KUIU.l7:
+    jl short .back1                  ; 0x36de
+.forward6:
     mov ax, word [bp + 0x10]         ; 0x36e0
-    jmp short @..string_loc_KUIU.l9  ; 0x36e3
+    jmp short .forward7              ; 0x36e3
 jumptable_372d_case_0:
     mov ax, word [bp + 4]            ; 0x36e5
     mov word [bp - 0x1aa], ax        ; 0x36e8
-    jmp short @..string_loc_KUIU.l11 ; 0x36ec
+    jmp short string_loc_KUIU.forward9 ; 0x36ec
 jumptable_372d_case_1:
     mov ax, word [bp + 6]            ; 0x36ee
     mov word [bp - 0x1aa], ax        ; 0x36f1
-    jmp short @..string_loc_KUIU.l11 ; 0x36f5
+    jmp short string_loc_KUIU.forward9 ; 0x36f5
 jumptable_372d_case_2:
     mov ax, word [bp + 8]            ; 0x36f7
     mov word [bp - 0x1aa], ax        ; 0x36fa
-    jmp short @..string_loc_KUIU.l11 ; 0x36fe
+    jmp short string_loc_KUIU.forward9 ; 0x36fe
 jumptable_372d_case_3:
     mov ax, word [bp + 0xa]          ; 0x3700
     mov word [bp - 0x1aa], ax        ; 0x3703
-    jmp short @..string_loc_KUIU.l11 ; 0x3707
+    jmp short string_loc_KUIU.forward9 ; 0x3707
 jumptable_372d_case_4:
     mov ax, word [bp + 0xc]          ; 0x3709
     mov word [bp - 0x1aa], ax        ; 0x370c
-    jmp short @..string_loc_KUIU.l11 ; 0x3710
+    jmp short string_loc_KUIU.forward9 ; 0x3710
 jumptable_372d_case_5:
     mov ax, word [bp + 0xe]          ; 0x3712
     mov word [bp - 0x1aa], ax        ; 0x3715
-    jmp short @..string_loc_KUIU.l11 ; 0x3719
+    jmp short string_loc_KUIU.forward9 ; 0x3719
 jumptable_372d_case_6:
     mov ax, word [bp + 0xe]          ; 0x371b
     mov word [bp - 0x1aa], ax        ; 0x371e
-    jmp short @..string_loc_KUIU.l11 ; 0x3722
-@..string_loc_KUIU.l8:
+    jmp short string_loc_KUIU.forward9 ; 0x3722
+string_loc_KUIU.back2:
     mov ax, word [bp + 4]            ; 0x3724
     mov word [bp - 0x1aa], ax        ; 0x3727
-    jmp short @..string_loc_KUIU.l11 ; 0x372b
+    jmp short string_loc_KUIU.forward9 ; 0x372b
 jumptable_372d:
     dw jumptable_372d_case_0 - IMAGE_BASE + __zres_end ; 0x372d
     dw jumptable_372d_case_1 - IMAGE_BASE + __zres_end ; 0x372f
@@ -121,15 +121,15 @@ jumptable_372d:
     dw jumptable_372d_case_4 - IMAGE_BASE + __zres_end ; 0x3735
     dw jumptable_372d_case_5 - IMAGE_BASE + __zres_end ; 0x3737
     dw jumptable_372d_case_6 - IMAGE_BASE + __zres_end ; 0x3739
-@..string_loc_KUIU.l9:
+string_loc_KUIU.forward7:
     cmp ax, strict word 7            ; 0x373b
-    jae short @..string_loc_KUIU.l10 ; 0x373e
+    jae short string_loc_KUIU.forward8 ; 0x373e
     xchg bx, ax                      ; 0x3740
     shl bx, 1                        ; 0x3741
     jmp [cs:bx + jumptable_372d - IMAGE_BASE + __zres_end] ; 0x3743
-@..string_loc_KUIU.l10:
-    jmp short @..string_loc_KUIU.l8  ; 0x3748
-@..string_loc_KUIU.l11:
+string_loc_KUIU.forward8:
+    jmp short string_loc_KUIU.back2  ; 0x3748
+string_loc_KUIU.forward9:
     mov ax, 0                        ; 0x374a
     push ax                          ; 0x374d
     push word [bp - 0x1aa]           ; 0x374e
@@ -142,10 +142,10 @@ jumptable_372d:
     call data_record_io              ; 0x3761
     add sp, byte 8                   ; 0x3764
     cmp word [bss_8464], byte 0      ; 0x3767
-    je short @..string_loc_KUIU.l12  ; 0x376c
+    je short string_loc_KUIU.forward10 ; 0x376c
     mov ax, word [bss_8464]          ; 0x376e
     cmp ax, strict word 6            ; 0x3771
-    je short @..string_loc_KUIU.l12  ; 0x3774
+    je short string_loc_KUIU.forward10 ; 0x3774
     mov ax, word [bp - 4]            ; 0x3776
     shl ax, 1                        ; 0x3779
     mov bx, ax                       ; 0x377b
@@ -156,7 +156,7 @@ jumptable_372d:
     call api_idx_005e_OJVJ           ; 0x3788
     pop cx                           ; 0x378b
     cmp ax, strict word 0xffff       ; 0x378c
-    jne short @..string_loc_KUIU.l12 ; 0x378f
+    jne short string_loc_KUIU.forward10 ; 0x378f
     dec word [party_member_count]    ; 0x3791
     mov ax, 2                        ; 0x3795
     push ax                          ; 0x3798
@@ -167,7 +167,7 @@ jumptable_372d:
     call api_idx_0050_PLNP           ; 0x37a1
     add sp, byte 6                   ; 0x37a4
     ret                              ; 0x37a7
-@..string_loc_KUIU.l12:
+string_loc_KUIU.forward10:
     mov al, byte [bp - 0x1aa]        ; 0x37a8
     mov cx, word [bp - 4]            ; 0x37ac
     shl cx, 1                        ; 0x37af
@@ -206,19 +206,19 @@ jumptable_372d:
     mov bx, ax                       ; 0x3803
     mov bx, word [bx + party_char]   ; 0x3805
     cmp byte [bx + member_rec.item_count], 1 ; 0x3809
-    jae short @..string_loc_KUIU.l13 ; 0x380e
+    jae short string_loc_KUIU.forward11 ; 0x380e
     mov byte [bx + 0x1a1], 1         ; 0x3810
-@..string_loc_KUIU.l13:
+string_loc_KUIU.forward11:
     mov ax, word [bp - 4]            ; 0x3815
     shl ax, 1                        ; 0x3818
     mov bx, ax                       ; 0x381a
     mov bx, word [bx + party_char]   ; 0x381c
     cmp byte [bx + member_rec.item_count], 9 ; 0x3820
-    jbe short @..string_loc_KUIU.l14 ; 0x3825
+    jbe short string_loc_KUIU.forward12 ; 0x3825
     mov byte [bx + 0x1a1], 9         ; 0x3827
-@..string_loc_KUIU.l14:
+string_loc_KUIU.forward12:
     mov word [bp - 2], 0             ; 0x382c
-@..string_loc_KUIU.l15:
+string_loc_KUIU.back3:
     mov ax, word [bp - 4]            ; 0x3831
     shl ax, 1                        ; 0x3834
     mov bx, ax                       ; 0x3836
@@ -228,9 +228,9 @@ jumptable_372d:
     inc word [bp - 2]                ; 0x3844
     mov ax, word [bp - 2]            ; 0x3847
     cmp ax, strict word 6            ; 0x384a
-    jl short @..string_loc_KUIU.l15  ; 0x384d
+    jl short string_loc_KUIU.back3   ; 0x384d
     mov word [bp - 2], 0             ; 0x384f
-@..string_loc_KUIU.l16:
+string_loc_KUIU.back4:
     mov ax, word [bp - 4]            ; 0x3854
     shl ax, 1                        ; 0x3857
     mov bx, ax                       ; 0x3859
@@ -240,15 +240,15 @@ jumptable_372d:
     inc word [bp - 2]                ; 0x3867
     mov ax, word [bp - 2]            ; 0x386a
     cmp ax, strict word 6            ; 0x386d
-    jl short @..string_loc_KUIU.l16  ; 0x3870
+    jl short string_loc_KUIU.back4   ; 0x3870
     mov ax, word [bp - 4]            ; 0x3872
     shl ax, 1                        ; 0x3875
     mov bx, ax                       ; 0x3877
     mov bx, word [bx + party_char]   ; 0x3879
     mov byte [bx + member_rec.name_row], 0 ; 0x387d
     mov word [bp - 2], 0             ; 0x3882
-    jmp near @..string_loc_KUIU.l18  ; 0x3887
-@..string_loc_KUIU.l17:
+    jmp near string_loc_KUIU.forward13 ; 0x3887
+string_loc_KUIU.back5:
     mov ax, word [bp - 4]            ; 0x388a
     shl ax, 1                        ; 0x388d
     mov bx, ax                       ; 0x388f
@@ -366,7 +366,7 @@ jumptable_372d:
     mov bx, word [bx + party_char]   ; 0x39af
     mov byte [bx + si + member_rec.f_0018], 0 ; 0x39b3
     inc word [bp - 2]                ; 0x39b7
-@..string_loc_KUIU.l18:
+string_loc_KUIU.forward13:
     mov ax, word [bp - 4]            ; 0x39ba
     shl ax, 1                        ; 0x39bd
     mov bx, ax                       ; 0x39bf
@@ -374,9 +374,9 @@ jumptable_372d:
     mov al, byte [bx + member_rec.item_count] ; 0x39c5
     sub ah, ah                       ; 0x39c9
     cmp ax, word [bp - 2]            ; 0x39cb
-    jle short @..string_loc_KUIU.l19 ; 0x39ce
-    jmp near @..string_loc_KUIU.l17  ; 0x39d0
-@..string_loc_KUIU.l19:
+    jle short string_loc_KUIU.forward14 ; 0x39ce
+    jmp near string_loc_KUIU.back5   ; 0x39d0
+string_loc_KUIU.forward14:
     mov ax, word [loaded_sound_id]   ; 0x39d3
     mov word [bp - 0x1ae], ax        ; 0x39d6
     mov ax, 0x11                     ; 0x39da
@@ -399,12 +399,12 @@ jumptable_372d:
     mov bx, ax                       ; 0x3a03
     mov bx, word [bx + party_char]   ; 0x3a05
     cmp byte [bx + member_rec.item_count], 1 ; 0x3a09
-    jne short @..string_loc_KUIU.l20 ; 0x3a0e
+    jne short string_loc_KUIU.forward15 ; 0x3a0e
     mov ax, 0                        ; 0x3a10
-    jmp short @..string_loc_KUIU.l21 ; 0x3a13
-@..string_loc_KUIU.l20:
+    jmp short string_loc_KUIU.forward16 ; 0x3a13
+string_loc_KUIU.forward15:
     mov ax, 1                        ; 0x3a15
-@..string_loc_KUIU.l21:
+string_loc_KUIU.forward16:
     mov cx, 4                        ; 0x3a18
     shl ax, cl                       ; 0x3a1b
     mov cx, ax                       ; 0x3a1d
@@ -425,12 +425,12 @@ jumptable_372d:
     mov bx, ax                       ; 0x3a40
     mov bx, word [bx + party_char]   ; 0x3a42
     cmp byte [bx + member_rec.item_count], 1 ; 0x3a46
-    jne short @..string_loc_KUIU.l22 ; 0x3a4b
+    jne short string_loc_KUIU.forward17 ; 0x3a4b
     mov ax, MSG_APPEARS              ; 0x3a4d
-    jmp short @..string_loc_KUIU.l23 ; 0x3a50
-@..string_loc_KUIU.l22:
+    jmp short string_loc_KUIU.forward18 ; 0x3a50
+string_loc_KUIU.forward17:
     mov ax, MSG_APPEAR               ; 0x3a52
-@..string_loc_KUIU.l23:
+string_loc_KUIU.forward18:
     push ax                          ; 0x3a55
     call load_message_string         ; 0x3a56
     add sp, byte 4                   ; 0x3a59
@@ -453,17 +453,17 @@ jumptable_372d:
     push ax                          ; 0x3a7e
     call play_sound_effect           ; 0x3a7f
     pop cx                           ; 0x3a82
-    cmp word [bp - 0x1ae], byte 0xff ; 0x3a83
-    je short @..string_loc_KUIU.l24  ; 0x3a88
+    cmp word [bp - 0x1ae], byte -1   ; 0x3a83
+    je short string_loc_KUIU.forward19 ; 0x3a88
     push word [bp - 0x1ae]           ; 0x3a8a
     call ensure_sound_loaded         ; 0x3a8e
     pop cx                           ; 0x3a91
-    jmp short @..string_loc_KUIU.l25 ; 0x3a92
-@..string_loc_KUIU.l24:
+    jmp short string_loc_KUIU.return1 ; 0x3a92
+string_loc_KUIU.forward19:
     mov ax, 0x10                     ; 0x3a94
     push ax                          ; 0x3a97
     call wait_and_free_sound         ; 0x3a98
     pop cx                           ; 0x3a9b
     mov word [loaded_sound_id], 0xffff ; 0x3a9c
-@..string_loc_KUIU.l25:
+string_loc_KUIU.return1:
     ret                              ; 0x3aa2

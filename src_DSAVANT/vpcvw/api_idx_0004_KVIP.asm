@@ -2,10 +2,10 @@
 api_idx_0004_KVIP:
     mov ax, 0xfffc                   ; 0x09a1
     call aztec_csav                  ; 0x09a4
-    cmp word [bss_940e], byte 0xff   ; 0x09a7
-    jne short @..api_idx_0004_KVIP.l1 ; 0x09ac
+    cmp word [bss_940e], byte -1     ; 0x09a7
+    jne short .forward1              ; 0x09ac
     ret                              ; 0x09ae
-@..api_idx_0004_KVIP.l1:
+.forward1:
     mov ax, word [bss_940e]          ; 0x09af
     mov cx, 5                        ; 0x09b2
     cwd                              ; 0x09b5
@@ -61,7 +61,7 @@ api_idx_0004_KVIP:
     add sp, byte 8                   ; 0x0a26
     mov bx, word [bss_942a]          ; 0x0a29
     cmp byte [bx + cell_overlay_code + 0x58], 1 ; 0x0a2d
-    jne short @..api_idx_0004_KVIP.l2 ; 0x0a32
+    jne short .forward2              ; 0x0a32
     mov ax, word [bp - 4]            ; 0x0a34
     add ax, strict word 6            ; 0x0a37
     push ax                          ; 0x0a3a
@@ -83,7 +83,7 @@ api_idx_0004_KVIP:
     push word [bss_942c]             ; 0x0a5e
     call draw_number_field           ; 0x0a62
     add sp, byte 6                   ; 0x0a65
-@..api_idx_0004_KVIP.l2:
+.forward2:
     mov ax, 0xff                     ; 0x0a68
     push ax                          ; 0x0a6b
     mov ax, 0x15                     ; 0x0a6c

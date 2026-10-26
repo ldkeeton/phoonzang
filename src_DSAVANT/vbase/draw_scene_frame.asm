@@ -3,7 +3,7 @@ draw_scene_frame:
     mov ax, 0xfff6                   ; 0x7415
     call aztec_csav                  ; 0x7418
     mov ax, word [scene_index]       ; 0x741b
-    jmp near @..draw_scene_frame.l111 ; 0x741e
+    jmp near .forward102             ; 0x741e
 jumptable_85d0_case_1:
     mov ax, 0                        ; 0x7421
     push ax                          ; 0x7424
@@ -14,7 +14,7 @@ jumptable_85d0_case_1:
     add sp, byte 8                   ; 0x7431
     mov ax, word [scene_cue_d]       ; 0x7434
     cmp ax, word [scene_tick]        ; 0x7437
-    jge short @..draw_scene_frame.l1 ; 0x743b
+    jge short draw_scene_frame.forward1 ; 0x743b
     mov ax, 0x4f                     ; 0x743d
     push ax                          ; 0x7440
     mov ax, 0xbd                     ; 0x7441
@@ -25,7 +25,7 @@ jumptable_85d0_case_1:
     push ax                          ; 0x744c
     call draw_char_clipped_top_zero  ; 0x744d
     add sp, byte 8                   ; 0x7450
-@..draw_scene_frame.l1:
+draw_scene_frame.forward1:
     mov ax, 0x2b                     ; 0x7453
     push ax                          ; 0x7456
     mov ax, 0x74                     ; 0x7457
@@ -120,9 +120,9 @@ jumptable_85d0_case_1:
     add sp, byte 8                   ; 0x7520
     mov ax, word [scene_cue_a]       ; 0x7523
     cmp ax, word [scene_tick]        ; 0x7526
-    jl short @..draw_scene_frame.l2  ; 0x752a
-    jmp near @..draw_scene_frame.l6  ; 0x752c
-@..draw_scene_frame.l2:
+    jl short draw_scene_frame.forward2 ; 0x752a
+    jmp near draw_scene_frame.forward6 ; 0x752c
+draw_scene_frame.forward2:
     mov ax, 0x67                     ; 0x752f
     push ax                          ; 0x7532
     mov ax, 0x85                     ; 0x7533
@@ -137,14 +137,14 @@ jumptable_85d0_case_1:
     push ax                          ; 0x7548
     cmp ax, strict word 6            ; 0x7549
     pop ax                           ; 0x754c
-    jl short @..draw_scene_frame.l3  ; 0x754d
+    jl short draw_scene_frame.forward3 ; 0x754d
     mov cx, 6                        ; 0x754f
     cwd                              ; 0x7552
     idiv cx                          ; 0x7553
     mov cx, dx                       ; 0x7555
     mov ax, 6                        ; 0x7557
     sub ax, cx                       ; 0x755a
-@..draw_scene_frame.l3:
+draw_scene_frame.forward3:
     mov word [bp - 8], ax            ; 0x755c
     mov ax, word [scene_frame]       ; 0x755f
     inc ax                           ; 0x7562
@@ -155,17 +155,17 @@ jumptable_85d0_case_1:
     idiv cx                          ; 0x7569
     mov word [bp - 6], dx            ; 0x756b
     cmp dx, byte 6                   ; 0x756e
-    jge short @..draw_scene_frame.l4 ; 0x7571
+    jge short draw_scene_frame.forward4 ; 0x7571
     mov ax, 6                        ; 0x7573
     sub ax, dx                       ; 0x7576
-    jmp short @..draw_scene_frame.l5 ; 0x7578
-@..draw_scene_frame.l4:
+    jmp short draw_scene_frame.forward5 ; 0x7578
+draw_scene_frame.forward4:
     mov ax, dx                       ; 0x757a
     mov cx, 6                        ; 0x757c
     cwd                              ; 0x757f
     idiv cx                          ; 0x7580
     mov ax, dx                       ; 0x7582
-@..draw_scene_frame.l5:
+draw_scene_frame.forward5:
     mov word [bp - 0xa], ax          ; 0x7584
     add ax, strict word 0x4c         ; 0x7587
     push ax                          ; 0x758a
@@ -184,14 +184,14 @@ jumptable_85d0_case_1:
     push ax                          ; 0x75a3
     call draw_char_clipped_top_zero  ; 0x75a4
     add sp, byte 8                   ; 0x75a7
-@..draw_scene_frame.l6:
+draw_scene_frame.forward6:
     mov ax, word [scene_cue_b]       ; 0x75aa
     cmp ax, word [scene_tick]        ; 0x75ad
-    jl short @..draw_scene_frame.l7  ; 0x75b1
-    jmp near @..draw_scene_frame.l15 ; 0x75b3
-@..draw_scene_frame.l7:
+    jl short draw_scene_frame.forward7 ; 0x75b1
+    jmp near draw_scene_frame.forward15 ; 0x75b3
+draw_scene_frame.forward7:
     cmp word [scene_step_a], byte 0x10 ; 0x75b6
-    jge short @..draw_scene_frame.l8 ; 0x75bb
+    jge short draw_scene_frame.forward8 ; 0x75bb
     mov ax, 0x2f                     ; 0x75bd
     push ax                          ; 0x75c0
     mov ax, 0xbe                     ; 0x75c1
@@ -204,10 +204,10 @@ jumptable_85d0_case_1:
     call draw_char_clipped_top_zero  ; 0x75d0
     add sp, byte 8                   ; 0x75d3
     inc word [scene_step_a]          ; 0x75d6
-    jmp near @..draw_scene_frame.l15 ; 0x75da
-@..draw_scene_frame.l8:
+    jmp near draw_scene_frame.forward15 ; 0x75da
+draw_scene_frame.forward8:
     cmp word [scene_step_a], byte 0x14 ; 0x75dd
-    jge short @..draw_scene_frame.l9 ; 0x75e2
+    jge short draw_scene_frame.forward9 ; 0x75e2
     mov ax, 0x2f                     ; 0x75e4
     push ax                          ; 0x75e7
     mov ax, 0xbe                     ; 0x75e8
@@ -230,8 +230,8 @@ jumptable_85d0_case_1:
     call draw_char_clipped_top_zero  ; 0x760d
     add sp, byte 8                   ; 0x7610
     inc word [scene_step_a]          ; 0x7613
-    jmp near @..draw_scene_frame.l15 ; 0x7617
-@..draw_scene_frame.l9:
+    jmp near draw_scene_frame.forward15 ; 0x7617
+draw_scene_frame.forward9:
     mov word [scene_running], 0      ; 0x761a
     mov ax, 0x2f                     ; 0x7620
     push ax                          ; 0x7623
@@ -270,32 +270,32 @@ jumptable_85d0_case_1:
     add sp, byte 8                   ; 0x766a
     mov ax, word [scene_frame]       ; 0x766d
     cmp ax, strict word 9            ; 0x7670
-    jge short @..draw_scene_frame.l12 ; 0x7673
+    jge short draw_scene_frame.forward12 ; 0x7673
     mov ax, 7                        ; 0x7675
     push ax                          ; 0x7678
     call random_below                ; 0x7679
     pop cx                           ; 0x767c
     test ax, ax                      ; 0x767d
-    je short @..draw_scene_frame.l10 ; 0x767f
+    je short draw_scene_frame.forward10 ; 0x767f
     mov ax, 0                        ; 0x7681
-    jmp short @..draw_scene_frame.l11 ; 0x7684
-@..draw_scene_frame.l10:
+    jmp short draw_scene_frame.forward11 ; 0x7684
+draw_scene_frame.forward10:
     mov ax, 1                        ; 0x7686
-@..draw_scene_frame.l11:
-    jmp short @..draw_scene_frame.l13 ; 0x7689
-@..draw_scene_frame.l12:
+draw_scene_frame.forward11:
+    jmp short draw_scene_frame.forward13 ; 0x7689
+draw_scene_frame.forward12:
     mov ax, word [scene_frame]       ; 0x768b
     mov cx, 3                        ; 0x768e
     cwd                              ; 0x7691
     idiv cx                          ; 0x7692
     mov ax, dx                       ; 0x7694
     inc ax                           ; 0x7696
-@..draw_scene_frame.l13:
+draw_scene_frame.forward13:
     mov word [bp - 6], ax            ; 0x7697
     cmp ax, strict word 3            ; 0x769a
-    jne short @..draw_scene_frame.l14 ; 0x769d
+    jne short draw_scene_frame.forward14 ; 0x769d
     mov word [bp - 6], 1             ; 0x769f
-@..draw_scene_frame.l14:
+draw_scene_frame.forward14:
     mov ax, 0x2f                     ; 0x76a4
     push ax                          ; 0x76a7
     mov ax, 0xbe                     ; 0x76a8
@@ -321,10 +321,10 @@ jumptable_85d0_case_1:
     push ax                          ; 0x76d4
     call draw_char_clipped_top_zero  ; 0x76d5
     add sp, byte 8                   ; 0x76d8
-@..draw_scene_frame.l15:
+draw_scene_frame.forward15:
     mov ax, word [scene_cue_c]       ; 0x76db
     cmp ax, word [scene_tick]        ; 0x76de
-    jge short @..draw_scene_frame.l19 ; 0x76e2
+    jge short draw_scene_frame.forward19 ; 0x76e2
     mov ax, 0x15                     ; 0x76e4
     push ax                          ; 0x76e7
     mov ax, 0x28                     ; 0x76e8
@@ -347,15 +347,15 @@ jumptable_85d0_case_1:
     add sp, byte 8                   ; 0x770d
     mov ax, word [scene_frame]       ; 0x7710
     cmp ax, strict word 4            ; 0x7713
-    jl short @..draw_scene_frame.l16 ; 0x7716
+    jl short draw_scene_frame.forward16 ; 0x7716
     cmp ax, strict word 6            ; 0x7718
-    jle short @..draw_scene_frame.l17 ; 0x771b
-@..draw_scene_frame.l16:
+    jle short draw_scene_frame.forward17 ; 0x771b
+draw_scene_frame.forward16:
     mov ax, 3                        ; 0x771d
-    jmp short @..draw_scene_frame.l18 ; 0x7720
-@..draw_scene_frame.l17:
+    jmp short draw_scene_frame.forward18 ; 0x7720
+draw_scene_frame.forward17:
     mov ax, word [scene_frame]       ; 0x7722
-@..draw_scene_frame.l18:
+draw_scene_frame.forward18:
     mov word [bp - 6], ax            ; 0x7725
     mov ax, 0x15                     ; 0x7728
     push ax                          ; 0x772b
@@ -366,7 +366,7 @@ jumptable_85d0_case_1:
     push ax                          ; 0x7736
     call draw_char_clipped_top_zero  ; 0x7737
     add sp, byte 8                   ; 0x773a
-@..draw_scene_frame.l19:
+draw_scene_frame.forward19:
     jmp near jumptable_85d0_case_0   ; 0x773d
 jumptable_85d0_case_2:
     mov ax, 6                        ; 0x7740
@@ -415,28 +415,28 @@ jumptable_85d0_case_2:
     call draw_char_clipped_top_zero  ; 0x77a8
     add sp, byte 8                   ; 0x77ab
     mov word [bp - 2], 0             ; 0x77ae
-@..draw_scene_frame.l20:
+draw_scene_frame.back1:
     mov ax, word [bp - 2]            ; 0x77b3
     shl ax, 1                        ; 0x77b6
     mov bx, ax                       ; 0x77b8
-    add word [bx + scroll_x], byte 0xf6 ; 0x77ba
-    cmp word [bx + scroll_x], byte 0xb0 ; 0x77bf
-    jg short @..draw_scene_frame.l21 ; 0x77c4
+    add word [bx + scroll_x], byte -10 ; 0x77ba
+    cmp word [bx + scroll_x], byte -80 ; 0x77bf
+    jg short draw_scene_frame.forward20 ; 0x77c4
     mov word [bx + scroll_x], 0x140  ; 0x77c6
-@..draw_scene_frame.l21:
+draw_scene_frame.forward20:
     inc word [bp - 2]                ; 0x77cc
     mov ax, word [bp - 2]            ; 0x77cf
     cmp ax, strict word 5            ; 0x77d2
-    jl short @..draw_scene_frame.l20 ; 0x77d5
+    jl short draw_scene_frame.back1  ; 0x77d5
     mov word [bp - 2], 0             ; 0x77d7
-@..draw_scene_frame.l22:
+draw_scene_frame.back2:
     mov ax, word [bp - 2]            ; 0x77dc
     inc ax                           ; 0x77df
     mov word [bp - 4], ax            ; 0x77e0
     shl ax, 1                        ; 0x77e3
     mov bx, ax                       ; 0x77e5
     cmp word [bx + sprite_pos], strict word 0x140 ; 0x77e7
-    jge short @..draw_scene_frame.l26 ; 0x77ed
+    jge short draw_scene_frame.forward24 ; 0x77ed
     push word [bx + bss_a5ea]        ; 0x77ef
     push word [bx + sprite_pos]      ; 0x77f3
     mov ax, word [bp - 2]            ; 0x77f7
@@ -447,33 +447,33 @@ jumptable_85d0_case_2:
     call draw_char_clipped_top_zero  ; 0x7802
     add sp, byte 8                   ; 0x7805
     cmp word [bp - 2], byte 2        ; 0x7808
-    jne short @..draw_scene_frame.l23 ; 0x780c
+    jne short draw_scene_frame.forward21 ; 0x780c
     mov ax, word [bp - 4]            ; 0x780e
     shl ax, 1                        ; 0x7811
     mov bx, ax                       ; 0x7813
-    add word [bx + sprite_pos], byte 0xf6 ; 0x7815
-    jmp short @..draw_scene_frame.l24 ; 0x781a
-@..draw_scene_frame.l23:
+    add word [bx + sprite_pos], byte -10 ; 0x7815
+    jmp short draw_scene_frame.forward22 ; 0x781a
+draw_scene_frame.forward21:
     mov ax, word [bp - 4]            ; 0x781c
     shl ax, 1                        ; 0x781f
     mov bx, ax                       ; 0x7821
-    add word [bx + sprite_pos], byte 0xec ; 0x7823
-@..draw_scene_frame.l24:
+    add word [bx + sprite_pos], byte -20 ; 0x7823
+draw_scene_frame.forward22:
     mov ax, word [bp - 4]            ; 0x7828
     shl ax, 1                        ; 0x782b
     mov bx, ax                       ; 0x782d
-    cmp word [bx + sprite_pos], byte 0xf0 ; 0x782f
-    jge short @..draw_scene_frame.l25 ; 0x7834
+    cmp word [bx + sprite_pos], byte -16 ; 0x782f
+    jge short draw_scene_frame.forward23 ; 0x7834
     mov word [bx + sprite_pos], 0x140 ; 0x7836
-@..draw_scene_frame.l25:
-    jmp short @..draw_scene_frame.l27 ; 0x783c
-@..draw_scene_frame.l26:
+draw_scene_frame.forward23:
+    jmp short draw_scene_frame.forward25 ; 0x783c
+draw_scene_frame.forward24:
     mov ax, 0x28                     ; 0x783e
     push ax                          ; 0x7841
     call random_below                ; 0x7842
     pop cx                           ; 0x7845
     cmp ax, word [bp - 4]            ; 0x7846
-    jne short @..draw_scene_frame.l27 ; 0x7849
+    jne short draw_scene_frame.forward25 ; 0x7849
     mov ax, word [bp - 4]            ; 0x784b
     shl ax, 1                        ; 0x784e
     mov bx, ax                       ; 0x7850
@@ -487,22 +487,22 @@ jumptable_85d0_case_2:
     shl cx, 1                        ; 0x7866
     mov bx, cx                       ; 0x7868
     mov word [bx + bss_a5ea], ax     ; 0x786a
-@..draw_scene_frame.l27:
+draw_scene_frame.forward25:
     inc word [bp - 2]                ; 0x786e
     mov ax, word [bp - 2]            ; 0x7871
     cmp ax, strict word 3            ; 0x7874
-    jge short @..draw_scene_frame.l28 ; 0x7877
-    jmp near @..draw_scene_frame.l22 ; 0x7879
-@..draw_scene_frame.l28:
+    jge short draw_scene_frame.forward26 ; 0x7877
+    jmp near draw_scene_frame.back2  ; 0x7879
+draw_scene_frame.forward26:
     mov ax, word [scene_cue_a]       ; 0x787c
     cmp ax, word [scene_tick]        ; 0x787f
-    jge short @..draw_scene_frame.l30 ; 0x7883
+    jge short draw_scene_frame.forward28 ; 0x7883
     cmp word [sprite_pos], strict word 0x104 ; 0x7885
-    jge short @..draw_scene_frame.l29 ; 0x788b
+    jge short draw_scene_frame.forward27 ; 0x788b
     cmp word [scene_step_b], byte 5  ; 0x788d
-    jge short @..draw_scene_frame.l29 ; 0x7892
+    jge short draw_scene_frame.forward27 ; 0x7892
     inc word [scene_step_b]          ; 0x7894
-@..draw_scene_frame.l29:
+draw_scene_frame.forward27:
     mov ax, 0x4b                     ; 0x7898
     push ax                          ; 0x789b
     push word [sprite_pos]           ; 0x789c
@@ -512,12 +512,12 @@ jumptable_85d0_case_2:
     call draw_char_clipped_top_zero  ; 0x78a8
     add sp, byte 8                   ; 0x78ab
     cmp word [sprite_pos], strict word 0xc8 ; 0x78ae
-    jle short @..draw_scene_frame.l30 ; 0x78b4
-    add word [sprite_pos], byte 0xfc ; 0x78b6
-@..draw_scene_frame.l30:
+    jle short draw_scene_frame.forward28 ; 0x78b4
+    add word [sprite_pos], byte -4   ; 0x78b6
+draw_scene_frame.forward28:
     mov ax, word [scene_cue_b]       ; 0x78bb
     cmp ax, word [scene_tick]        ; 0x78be
-    jge short @..draw_scene_frame.l31 ; 0x78c2
+    jge short draw_scene_frame.forward29 ; 0x78c2
     push word [actor_y]              ; 0x78c4
     push word [actor_x]              ; 0x78c8
     mov ax, 1                        ; 0x78cc
@@ -540,9 +540,9 @@ jumptable_85d0_case_2:
     call draw_char_clipped_top_zero  ; 0x78f1
     add sp, byte 8                   ; 0x78f4
     cmp word [actor_x], byte 0x50    ; 0x78f7
-    jge short @..draw_scene_frame.l31 ; 0x78fc
+    jge short draw_scene_frame.forward29 ; 0x78fc
     add word [actor_x], byte 6       ; 0x78fe
-@..draw_scene_frame.l31:
+draw_scene_frame.forward29:
     jmp near jumptable_85d0_case_0   ; 0x7903
 jumptable_85d0_case_3:
     mov ax, 0                        ; 0x7906
@@ -553,14 +553,14 @@ jumptable_85d0_case_3:
     call gfx_restore_screen          ; 0x7913
     add sp, byte 8                   ; 0x7916
     mov word [bp - 2], 0             ; 0x7919
-@..draw_scene_frame.l32:
+draw_scene_frame.back3:
     mov ax, word [bp - 2]            ; 0x791e
     inc ax                           ; 0x7921
     mov word [bp - 4], ax            ; 0x7922
     shl ax, 1                        ; 0x7925
     mov bx, ax                       ; 0x7927
     cmp word [bx + sprite_pos], strict word 0x140 ; 0x7929
-    jge short @..draw_scene_frame.l34 ; 0x792f
+    jge short draw_scene_frame.forward31 ; 0x792f
     push word [bx + bss_a5ea]        ; 0x7931
     push word [bx + sprite_pos]      ; 0x7935
     mov ax, word [bp - 2]            ; 0x7939
@@ -573,19 +573,19 @@ jumptable_85d0_case_3:
     mov ax, word [bp - 4]            ; 0x794a
     shl ax, 1                        ; 0x794d
     mov bx, ax                       ; 0x794f
-    add word [bx + sprite_pos], byte 0xec ; 0x7951
-    cmp word [bx + sprite_pos], byte 0xf0 ; 0x7956
-    jge short @..draw_scene_frame.l33 ; 0x795b
+    add word [bx + sprite_pos], byte -20 ; 0x7951
+    cmp word [bx + sprite_pos], byte -16 ; 0x7956
+    jge short draw_scene_frame.forward30 ; 0x795b
     mov word [bx + sprite_pos], 0x140 ; 0x795d
-@..draw_scene_frame.l33:
-    jmp short @..draw_scene_frame.l35 ; 0x7963
-@..draw_scene_frame.l34:
+draw_scene_frame.forward30:
+    jmp short draw_scene_frame.forward32 ; 0x7963
+draw_scene_frame.forward31:
     mov ax, 0x28                     ; 0x7965
     push ax                          ; 0x7968
     call random_below                ; 0x7969
     pop cx                           ; 0x796c
     cmp ax, word [bp - 4]            ; 0x796d
-    jne short @..draw_scene_frame.l35 ; 0x7970
+    jne short draw_scene_frame.forward32 ; 0x7970
     mov ax, word [bp - 4]            ; 0x7972
     shl ax, 1                        ; 0x7975
     mov bx, ax                       ; 0x7977
@@ -599,18 +599,18 @@ jumptable_85d0_case_3:
     shl cx, 1                        ; 0x798d
     mov bx, cx                       ; 0x798f
     mov word [bx + bss_a5ea], ax     ; 0x7991
-@..draw_scene_frame.l35:
+draw_scene_frame.forward32:
     inc word [bp - 2]                ; 0x7995
     mov ax, word [bp - 2]            ; 0x7998
     cmp ax, strict word 2            ; 0x799b
-    jge short @..draw_scene_frame.l36 ; 0x799e
-    jmp near @..draw_scene_frame.l32 ; 0x79a0
-@..draw_scene_frame.l36:
+    jge short draw_scene_frame.forward33 ; 0x799e
+    jmp near draw_scene_frame.back3  ; 0x79a0
+draw_scene_frame.forward33:
     mov ax, word [scene_cue_b]       ; 0x79a3
     cmp ax, word [scene_tick]        ; 0x79a6
-    jl short @..draw_scene_frame.l37 ; 0x79aa
-    jmp near @..draw_scene_frame.l45 ; 0x79ac
-@..draw_scene_frame.l37:
+    jl short draw_scene_frame.forward34 ; 0x79aa
+    jmp near draw_scene_frame.forward42 ; 0x79ac
+draw_scene_frame.forward34:
     push word [actor_y]              ; 0x79af
     push word [actor_x]              ; 0x79b3
     mov ax, 1                        ; 0x79b7
@@ -657,11 +657,11 @@ jumptable_85d0_case_3:
     add sp, byte 8                   ; 0x7a16
     mov ax, word [scene_cue_d]       ; 0x7a19
     cmp ax, word [scene_tick]        ; 0x7a1c
-    jge short @..draw_scene_frame.l38 ; 0x7a20
+    jge short draw_scene_frame.forward35 ; 0x7a20
     cmp word [scene_step_c], byte 6  ; 0x7a22
-    jge short @..draw_scene_frame.l38 ; 0x7a27
+    jge short draw_scene_frame.forward35 ; 0x7a27
     inc word [scene_step_c]          ; 0x7a29
-@..draw_scene_frame.l38:
+draw_scene_frame.forward35:
     mov ax, word [actor_y]           ; 0x7a2d
     inc ax                           ; 0x7a30
     inc ax                           ; 0x7a31
@@ -676,13 +676,13 @@ jumptable_85d0_case_3:
     add sp, byte 8                   ; 0x7a45
     mov ax, word [scene_cue_e]       ; 0x7a48
     cmp ax, word [scene_tick]        ; 0x7a4b
-    jl short @..draw_scene_frame.l39 ; 0x7a4f
-    jmp near @..draw_scene_frame.l42 ; 0x7a51
-@..draw_scene_frame.l39:
+    jl short draw_scene_frame.forward36 ; 0x7a4f
+    jmp near draw_scene_frame.forward39 ; 0x7a51
+draw_scene_frame.forward36:
     mov ax, word [actor_x]           ; 0x7a54
     add ax, strict word 0xfffb       ; 0x7a57
     cmp ax, word [trail_x]           ; 0x7a5a
-    jle short @..draw_scene_frame.l40 ; 0x7a5e
+    jle short draw_scene_frame.forward37 ; 0x7a5e
     mov ax, word [actor_y]           ; 0x7a60
     add ax, strict word 0x18         ; 0x7a63
     push ax                          ; 0x7a66
@@ -699,8 +699,8 @@ jumptable_85d0_case_3:
     add sp, byte 8                   ; 0x7a7e
     inc word [trail_x]               ; 0x7a81
     inc word [trail_x]               ; 0x7a85
-    jmp short @..draw_scene_frame.l42 ; 0x7a89
-@..draw_scene_frame.l40:
+    jmp short draw_scene_frame.forward39 ; 0x7a89
+draw_scene_frame.forward37:
     mov ax, word [actor_y]           ; 0x7a8b
     add ax, strict word 0x18         ; 0x7a8e
     push ax                          ; 0x7a91
@@ -715,16 +715,16 @@ jumptable_85d0_case_3:
     call draw_char_clipped_top_zero  ; 0x7aa4
     add sp, byte 8                   ; 0x7aa7
     cmp word [scene_step_d], byte 7  ; 0x7aaa
-    jge short @..draw_scene_frame.l41 ; 0x7aaf
+    jge short draw_scene_frame.forward38 ; 0x7aaf
     inc word [scene_step_d]          ; 0x7ab1
-    jmp short @..draw_scene_frame.l42 ; 0x7ab5
-@..draw_scene_frame.l41:
+    jmp short draw_scene_frame.forward39 ; 0x7ab5
+draw_scene_frame.forward38:
     mov word [scene_running], 0      ; 0x7ab7
     mov word [scene_cue_d], 0x63     ; 0x7abd
     mov word [scene_cue_e], 0x63     ; 0x7ac3
     mov word [scene_step_c], 0       ; 0x7ac9
     mov word [scene_step_d], 0       ; 0x7acf
-@..draw_scene_frame.l42:
+draw_scene_frame.forward39:
     mov ax, word [actor_y]           ; 0x7ad5
     add ax, strict word 0xffe4       ; 0x7ad8
     push ax                          ; 0x7adb
@@ -861,10 +861,10 @@ jumptable_85d0_case_3:
     mov ax, 0x36                     ; 0x7c01
     mov cx, word [scene_frame]       ; 0x7c04
     cmp cx, byte 4                   ; 0x7c08
-    jge short @..draw_scene_frame.l43 ; 0x7c0b
+    jge short draw_scene_frame.forward40 ; 0x7c0b
     add cx, byte 0x36                ; 0x7c0d
     mov ax, cx                       ; 0x7c10
-@..draw_scene_frame.l43:
+draw_scene_frame.forward40:
     push ax                          ; 0x7c12
     mov ax, 0x11                     ; 0x7c13
     push ax                          ; 0x7c16
@@ -905,15 +905,15 @@ jumptable_85d0_case_3:
     call draw_char_clipped_top_zero  ; 0x7c63
     add sp, byte 8                   ; 0x7c66
     cmp word [actor_x], byte 0x3c    ; 0x7c69
-    jle short @..draw_scene_frame.l44 ; 0x7c6e
-    add word [actor_x], byte 0xfd    ; 0x7c70
-@..draw_scene_frame.l44:
+    jle short draw_scene_frame.forward41 ; 0x7c6e
+    add word [actor_x], byte -3      ; 0x7c70
+draw_scene_frame.forward41:
     mov ax, word [actor_x]           ; 0x7c75
     add ax, strict word 0xfffb       ; 0x7c78
     cmp ax, word [trail_x]           ; 0x7c7b
-    jge short @..draw_scene_frame.l45 ; 0x7c7f
+    jge short draw_scene_frame.forward42 ; 0x7c7f
     mov word [trail_x], ax           ; 0x7c81
-@..draw_scene_frame.l45:
+draw_scene_frame.forward42:
     jmp near jumptable_85d0_case_0   ; 0x7c84
 jumptable_85d0_case_4:
     mov ax, 0                        ; 0x7c87
@@ -934,13 +934,13 @@ jumptable_85d0_case_4:
     add sp, byte 8                   ; 0x7cad
     mov ax, word [scene_cue_b]       ; 0x7cb0
     cmp ax, word [scene_tick]        ; 0x7cb3
-    jl short @..draw_scene_frame.l46 ; 0x7cb7
-    jmp near @..draw_scene_frame.l50 ; 0x7cb9
-@..draw_scene_frame.l46:
+    jl short draw_scene_frame.forward43 ; 0x7cb7
+    jmp near draw_scene_frame.forward47 ; 0x7cb9
+draw_scene_frame.forward43:
     cmp word [scene_clip_arg], byte 0x64 ; 0x7cbc
-    jl short @..draw_scene_frame.l47 ; 0x7cc1
-    jmp near @..draw_scene_frame.l50 ; 0x7cc3
-@..draw_scene_frame.l47:
+    jl short draw_scene_frame.forward44 ; 0x7cc1
+    jmp near draw_scene_frame.forward47 ; 0x7cc3
+draw_scene_frame.forward44:
     push word [scene_clip_arg]       ; 0x7cc6
     push word [actor_y]              ; 0x7cca
     push word [actor_x]              ; 0x7cce
@@ -964,15 +964,15 @@ jumptable_85d0_case_4:
     call draw_char_clipped_top       ; 0x7cfc
     add sp, byte 0xa                 ; 0x7cff
     cmp word [actor_x], byte 0x14    ; 0x7d02
-    jle short @..draw_scene_frame.l48 ; 0x7d07
+    jle short draw_scene_frame.forward45 ; 0x7d07
     inc word [scene_clip_arg]        ; 0x7d09
     inc word [scene_clip_arg]        ; 0x7d0d
     cmp word [scene_step_a], byte 8  ; 0x7d11
-    jge short @..draw_scene_frame.l48 ; 0x7d16
+    jge short draw_scene_frame.forward45 ; 0x7d16
     inc word [scene_step_a]          ; 0x7d18
-@..draw_scene_frame.l48:
+draw_scene_frame.forward45:
     cmp word [actor_x], strict word 0xa0 ; 0x7d1c
-    jge short @..draw_scene_frame.l49 ; 0x7d22
+    jge short draw_scene_frame.forward46 ; 0x7d22
     mov ax, word [scene_clip_arg]    ; 0x7d24
     mov cx, 0xa                      ; 0x7d27
     cwd                              ; 0x7d2a
@@ -980,13 +980,13 @@ jumptable_85d0_case_4:
     add ax, word [actor_x]           ; 0x7d2d
     add ax, strict word 5            ; 0x7d31
     mov word [actor_x], ax           ; 0x7d34
-@..draw_scene_frame.l49:
+draw_scene_frame.forward46:
     cmp word [actor_y], byte 0x32    ; 0x7d37
-    jle short @..draw_scene_frame.l50 ; 0x7d3c
+    jle short draw_scene_frame.forward47 ; 0x7d3c
     mov ax, word [actor_y]           ; 0x7d3e
     mov word [actor_y], ax           ; 0x7d41
     dec word [actor_y]               ; 0x7d44
-@..draw_scene_frame.l50:
+draw_scene_frame.forward47:
     jmp near jumptable_85d0_case_0   ; 0x7d48
 jumptable_85d0_case_5:
     mov ax, 0                        ; 0x7d4b
@@ -1033,28 +1033,28 @@ jumptable_85d0_case_5:
     call draw_char_clipped_top_zero  ; 0x7db0
     add sp, byte 8                   ; 0x7db3
     mov word [bp - 2], 0             ; 0x7db6
-@..draw_scene_frame.l51:
+draw_scene_frame.back4:
     mov ax, word [bp - 2]            ; 0x7dbb
     shl ax, 1                        ; 0x7dbe
     mov bx, ax                       ; 0x7dc0
     dec word [bx + scroll_x]         ; 0x7dc2
     cmp word [bx + scroll_x], strict word 0xff60 ; 0x7dc6
-    jg short @..draw_scene_frame.l52 ; 0x7dcc
+    jg short draw_scene_frame.forward48 ; 0x7dcc
     mov word [bx + scroll_x], 0x1e0  ; 0x7dce
-@..draw_scene_frame.l52:
+draw_scene_frame.forward48:
     inc word [bp - 2]                ; 0x7dd4
     mov ax, word [bp - 2]            ; 0x7dd7
     cmp ax, strict word 4            ; 0x7dda
-    jl short @..draw_scene_frame.l51 ; 0x7ddd
+    jl short draw_scene_frame.back4  ; 0x7ddd
     mov word [bp - 2], 0             ; 0x7ddf
-@..draw_scene_frame.l53:
+draw_scene_frame.back5:
     mov ax, word [bp - 2]            ; 0x7de4
     inc ax                           ; 0x7de7
     mov word [bp - 4], ax            ; 0x7de8
     shl ax, 1                        ; 0x7deb
     mov bx, ax                       ; 0x7ded
     cmp word [bx + sprite_pos], strict word 0x140 ; 0x7def
-    jge short @..draw_scene_frame.l55 ; 0x7df5
+    jge short draw_scene_frame.forward50 ; 0x7df5
     push word [bx + bss_a5ea]        ; 0x7df7
     push word [bx + sprite_pos]      ; 0x7dfb
     mov ax, word [bp - 2]            ; 0x7dff
@@ -1070,18 +1070,18 @@ jumptable_85d0_case_5:
     shl cx, 1                        ; 0x7e19
     mov bx, cx                       ; 0x7e1b
     sub word [bx + sprite_pos], ax   ; 0x7e1d
-    cmp word [bx + sprite_pos], byte 0xb0 ; 0x7e21
-    jge short @..draw_scene_frame.l54 ; 0x7e26
+    cmp word [bx + sprite_pos], byte -80 ; 0x7e21
+    jge short draw_scene_frame.forward49 ; 0x7e26
     mov word [bx + sprite_pos], 0x140 ; 0x7e28
-@..draw_scene_frame.l54:
-    jmp short @..draw_scene_frame.l57 ; 0x7e2e
-@..draw_scene_frame.l55:
+draw_scene_frame.forward49:
+    jmp short draw_scene_frame.forward52 ; 0x7e2e
+draw_scene_frame.forward50:
     mov ax, 0x1e                     ; 0x7e30
     push ax                          ; 0x7e33
     call random_below                ; 0x7e34
     pop cx                           ; 0x7e37
     cmp ax, word [bp - 4]            ; 0x7e38
-    jne short @..draw_scene_frame.l57 ; 0x7e3b
+    jne short draw_scene_frame.forward52 ; 0x7e3b
     mov ax, word [bp - 2]            ; 0x7e3d
     inc ax                           ; 0x7e40
     mov cx, 2                        ; 0x7e41
@@ -1091,10 +1091,10 @@ jumptable_85d0_case_5:
     shl ax, 1                        ; 0x7e49
     mov bx, ax                       ; 0x7e4b
     cmp word [bx + bss_a5dc], strict word 0x140 ; 0x7e4d
-    je short @..draw_scene_frame.l56 ; 0x7e53
+    je short draw_scene_frame.forward51 ; 0x7e53
     cmp word [bx + bss_a5dc], strict word 0xf0 ; 0x7e55
-    jge short @..draw_scene_frame.l57 ; 0x7e5b
-@..draw_scene_frame.l56:
+    jge short draw_scene_frame.forward52 ; 0x7e5b
+draw_scene_frame.forward51:
     mov ax, word [bp - 4]            ; 0x7e5d
     shl ax, 1                        ; 0x7e60
     mov bx, ax                       ; 0x7e62
@@ -1108,13 +1108,13 @@ jumptable_85d0_case_5:
     shl cx, 1                        ; 0x7e78
     mov bx, cx                       ; 0x7e7a
     mov word [bx + bss_a5ea], ax     ; 0x7e7c
-@..draw_scene_frame.l57:
+draw_scene_frame.forward52:
     inc word [bp - 2]                ; 0x7e80
     mov ax, word [bp - 2]            ; 0x7e83
     cmp ax, strict word 2            ; 0x7e86
-    jge short @..draw_scene_frame.l58 ; 0x7e89
-    jmp near @..draw_scene_frame.l53 ; 0x7e8b
-@..draw_scene_frame.l58:
+    jge short draw_scene_frame.forward53 ; 0x7e89
+    jmp near draw_scene_frame.back5  ; 0x7e8b
+draw_scene_frame.forward53:
     mov ax, 0                        ; 0x7e8e
     push ax                          ; 0x7e91
     push ax                          ; 0x7e92
@@ -1136,13 +1136,13 @@ jumptable_85d0_case_5:
     add sp, byte 8                   ; 0x7eb4
     mov ax, word [scene_cue_b]       ; 0x7eb7
     cmp ax, word [scene_tick]        ; 0x7eba
-    jl short @..draw_scene_frame.l59 ; 0x7ebe
-    jmp near @..draw_scene_frame.l63 ; 0x7ec0
-@..draw_scene_frame.l59:
+    jl short draw_scene_frame.forward54 ; 0x7ebe
+    jmp near draw_scene_frame.forward58 ; 0x7ec0
+draw_scene_frame.forward54:
     cmp word [scene_clip_arg], byte 0x64 ; 0x7ec3
-    jl short @..draw_scene_frame.l60 ; 0x7ec8
-    jmp near @..draw_scene_frame.l63 ; 0x7eca
-@..draw_scene_frame.l60:
+    jl short draw_scene_frame.forward55 ; 0x7ec8
+    jmp near draw_scene_frame.forward58 ; 0x7eca
+draw_scene_frame.forward55:
     push word [scene_clip_arg]       ; 0x7ecd
     push word [actor_y]              ; 0x7ed1
     push word [actor_x]              ; 0x7ed5
@@ -1166,12 +1166,12 @@ jumptable_85d0_case_5:
     call draw_char_clipped_top       ; 0x7f03
     add sp, byte 0xa                 ; 0x7f06
     cmp word [actor_x], byte 0xa     ; 0x7f09
-    jle short @..draw_scene_frame.l61 ; 0x7f0e
+    jle short draw_scene_frame.forward56 ; 0x7f0e
     inc word [scene_clip_arg]        ; 0x7f10
     inc word [scene_clip_arg]        ; 0x7f14
-@..draw_scene_frame.l61:
+draw_scene_frame.forward56:
     cmp word [actor_x], strict word 0xa0 ; 0x7f18
-    jge short @..draw_scene_frame.l62 ; 0x7f1e
+    jge short draw_scene_frame.forward57 ; 0x7f1e
     mov ax, word [scene_clip_arg]    ; 0x7f20
     mov cx, 0xa                      ; 0x7f23
     cwd                              ; 0x7f26
@@ -1179,13 +1179,13 @@ jumptable_85d0_case_5:
     add ax, word [actor_x]           ; 0x7f29
     add ax, strict word 5            ; 0x7f2d
     mov word [actor_x], ax           ; 0x7f30
-@..draw_scene_frame.l62:
+draw_scene_frame.forward57:
     cmp word [actor_y], byte 0x28    ; 0x7f33
-    jle short @..draw_scene_frame.l63 ; 0x7f38
+    jle short draw_scene_frame.forward58 ; 0x7f38
     mov ax, word [actor_y]           ; 0x7f3a
     mov word [actor_y], ax           ; 0x7f3d
     dec word [actor_y]               ; 0x7f40
-@..draw_scene_frame.l63:
+draw_scene_frame.forward58:
     jmp near jumptable_85d0_case_0   ; 0x7f44
 jumptable_85d0_case_6:
     mov ax, 0                        ; 0x7f47
@@ -1197,9 +1197,9 @@ jumptable_85d0_case_6:
     add sp, byte 8                   ; 0x7f57
     mov ax, word [scene_cue_a]       ; 0x7f5a
     cmp ax, word [scene_tick]        ; 0x7f5d
-    jl short @..draw_scene_frame.l64 ; 0x7f61
-    jmp near @..draw_scene_frame.l73 ; 0x7f63
-@..draw_scene_frame.l64:
+    jl short draw_scene_frame.forward59 ; 0x7f61
+    jmp near draw_scene_frame.forward68 ; 0x7f63
+draw_scene_frame.forward59:
     mov ax, 1                        ; 0x7f66
     push ax                          ; 0x7f69
     mov ax, 0x4b                     ; 0x7f6a
@@ -1251,16 +1251,16 @@ jumptable_85d0_case_6:
     call draw_char_clipped_top_zero  ; 0x7fce
     add sp, byte 8                   ; 0x7fd1
     cmp word [scene_step_a], byte 0  ; 0x7fd4
-    jg short @..draw_scene_frame.l65 ; 0x7fd9
+    jg short draw_scene_frame.forward60 ; 0x7fd9
     cmp word [scene_step_b], byte 0  ; 0x7fdb
-    jne short @..draw_scene_frame.l67 ; 0x7fe0
+    jne short draw_scene_frame.forward62 ; 0x7fe0
     mov ax, 3                        ; 0x7fe2
     push ax                          ; 0x7fe5
     call random_below                ; 0x7fe6
     pop cx                           ; 0x7fe9
     test ax, ax                      ; 0x7fea
-    jne short @..draw_scene_frame.l67 ; 0x7fec
-@..draw_scene_frame.l65:
+    jne short draw_scene_frame.forward62 ; 0x7fec
+draw_scene_frame.forward60:
     mov ax, 0x1d                     ; 0x7fee
     push ax                          ; 0x7ff1
     mov ax, 0xab                     ; 0x7ff2
@@ -1275,22 +1275,22 @@ jumptable_85d0_case_6:
     inc word [scene_step_a]          ; 0x8007
     mov ax, word [scene_step_a]      ; 0x800b
     cmp ax, strict word 9            ; 0x800e
-    jne short @..draw_scene_frame.l66 ; 0x8011
+    jne short draw_scene_frame.forward61 ; 0x8011
     mov word [scene_step_a], 0       ; 0x8013
-@..draw_scene_frame.l66:
-    jmp near @..draw_scene_frame.l73 ; 0x8019
-@..draw_scene_frame.l67:
+draw_scene_frame.forward61:
+    jmp near draw_scene_frame.forward68 ; 0x8019
+draw_scene_frame.forward62:
     cmp word [scene_step_b], byte 0  ; 0x801c
-    jg short @..draw_scene_frame.l68 ; 0x8021
+    jg short draw_scene_frame.forward63 ; 0x8021
     cmp word [scene_step_a], byte 0  ; 0x8023
-    jne short @..draw_scene_frame.l72 ; 0x8028
+    jne short draw_scene_frame.forward67 ; 0x8028
     mov ax, 5                        ; 0x802a
     push ax                          ; 0x802d
     call random_below                ; 0x802e
     pop cx                           ; 0x8031
     test ax, ax                      ; 0x8032
-    jne short @..draw_scene_frame.l72 ; 0x8034
-@..draw_scene_frame.l68:
+    jne short draw_scene_frame.forward67 ; 0x8034
+draw_scene_frame.forward63:
     mov ax, word [scene_step_b]      ; 0x8036
     mov cx, 6                        ; 0x8039
     cwd                              ; 0x803c
@@ -1317,18 +1317,18 @@ jumptable_85d0_case_6:
     idiv cx                          ; 0x806d
     mov ax, dx                       ; 0x806f
     test ax, ax                      ; 0x8071
-    jne short @..draw_scene_frame.l69 ; 0x8073
+    jne short draw_scene_frame.forward64 ; 0x8073
     cmp word [scene_step_b], byte 0  ; 0x8075
-    jne short @..draw_scene_frame.l70 ; 0x807a
-@..draw_scene_frame.l69:
+    jne short draw_scene_frame.forward65 ; 0x807a
+draw_scene_frame.forward64:
     inc word [scene_step_b]          ; 0x807c
-@..draw_scene_frame.l70:
+draw_scene_frame.forward65:
     cmp word [scene_step_b], byte 6  ; 0x8080
-    jne short @..draw_scene_frame.l71 ; 0x8085
+    jne short draw_scene_frame.forward66 ; 0x8085
     mov word [scene_step_b], 0       ; 0x8087
-@..draw_scene_frame.l71:
-    jmp short @..draw_scene_frame.l73 ; 0x808d
-@..draw_scene_frame.l72:
+draw_scene_frame.forward66:
+    jmp short draw_scene_frame.forward68 ; 0x808d
+draw_scene_frame.forward67:
     mov ax, 0x1d                     ; 0x808f
     push ax                          ; 0x8092
     mov ax, 0xab                     ; 0x8093
@@ -1339,7 +1339,7 @@ jumptable_85d0_case_6:
     push ax                          ; 0x809e
     call draw_char_clipped_top_zero  ; 0x809f
     add sp, byte 8                   ; 0x80a2
-@..draw_scene_frame.l73:
+draw_scene_frame.forward68:
     jmp near jumptable_85d0_case_0   ; 0x80a5
 jumptable_85d0_case_7:
     mov ax, 0                        ; 0x80a8
@@ -1387,12 +1387,12 @@ jumptable_85d0_case_7:
     mov ax, 0                        ; 0x8104
     mov cx, word [scene_frame]       ; 0x8107
     cmp cx, byte 6                   ; 0x810b
-    jge short @..draw_scene_frame.l74 ; 0x810e
+    jge short draw_scene_frame.forward69 ; 0x810e
     mov ax, 4                        ; 0x8110
     push ax                          ; 0x8113
     call random_below                ; 0x8114
     pop cx                           ; 0x8117
-@..draw_scene_frame.l74:
+draw_scene_frame.forward69:
     mov word [bp - 2], ax            ; 0x8118
     mov ax, 0x26                     ; 0x811b
     push ax                          ; 0x811e
@@ -1408,12 +1408,12 @@ jumptable_85d0_case_7:
     mov ax, 0                        ; 0x8134
     mov cx, word [scene_frame]       ; 0x8137
     cmp cx, byte 5                   ; 0x813b
-    jle short @..draw_scene_frame.l75 ; 0x813e
+    jle short draw_scene_frame.forward70 ; 0x813e
     mov ax, 4                        ; 0x8140
     push ax                          ; 0x8143
     call random_below                ; 0x8144
     pop cx                           ; 0x8147
-@..draw_scene_frame.l75:
+draw_scene_frame.forward70:
     mov word [bp - 2], ax            ; 0x8148
     mov ax, 0x27                     ; 0x814b
     push ax                          ; 0x814e
@@ -1431,15 +1431,15 @@ jumptable_85d0_case_7:
     call random_below                ; 0x8168
     pop cx                           ; 0x816b
     test ax, ax                      ; 0x816c
-    je short @..draw_scene_frame.l76 ; 0x816e
+    je short draw_scene_frame.forward71 ; 0x816e
     mov ax, word [scene_frame]       ; 0x8170
     mov cx, 4                        ; 0x8173
     cwd                              ; 0x8176
     idiv cx                          ; 0x8177
-    jmp short @..draw_scene_frame.l77 ; 0x8179
-@..draw_scene_frame.l76:
+    jmp short draw_scene_frame.forward72 ; 0x8179
+draw_scene_frame.forward71:
     mov ax, 0                        ; 0x817b
-@..draw_scene_frame.l77:
+draw_scene_frame.forward72:
     mov word [bp - 6], ax            ; 0x817e
     mov ax, 0x49                     ; 0x8181
     push ax                          ; 0x8184
@@ -1467,16 +1467,16 @@ jumptable_85d0_case_7:
     call draw_char_clipped_top_zero  ; 0x81b3
     add sp, byte 8                   ; 0x81b6
     cmp word [scene_step_a], byte 0  ; 0x81b9
-    jg short @..draw_scene_frame.l78 ; 0x81be
+    jg short draw_scene_frame.forward73 ; 0x81be
     cmp word [scene_step_b], byte 0  ; 0x81c0
-    jne short @..draw_scene_frame.l82 ; 0x81c5
+    jne short draw_scene_frame.forward77 ; 0x81c5
     mov ax, 0xf                      ; 0x81c7
     push ax                          ; 0x81ca
     call random_below                ; 0x81cb
     pop cx                           ; 0x81ce
     test ax, ax                      ; 0x81cf
-    jne short @..draw_scene_frame.l82 ; 0x81d1
-@..draw_scene_frame.l78:
+    jne short draw_scene_frame.forward77 ; 0x81d1
+draw_scene_frame.forward73:
     mov ax, word [scene_step_a]      ; 0x81d3
     mov cx, 6                        ; 0x81d6
     cwd                              ; 0x81d9
@@ -1502,31 +1502,31 @@ jumptable_85d0_case_7:
     idiv cx                          ; 0x8207
     mov ax, dx                       ; 0x8209
     test ax, ax                      ; 0x820b
-    jne short @..draw_scene_frame.l79 ; 0x820d
+    jne short draw_scene_frame.forward74 ; 0x820d
     cmp word [scene_step_a], byte 0  ; 0x820f
-    jne short @..draw_scene_frame.l80 ; 0x8214
-@..draw_scene_frame.l79:
+    jne short draw_scene_frame.forward75 ; 0x8214
+draw_scene_frame.forward74:
     inc word [scene_step_a]          ; 0x8216
-@..draw_scene_frame.l80:
+draw_scene_frame.forward75:
     cmp word [scene_step_a], byte 6  ; 0x821a
-    jne short @..draw_scene_frame.l81 ; 0x821f
+    jne short draw_scene_frame.forward76 ; 0x821f
     mov word [scene_step_a], 0       ; 0x8221
-@..draw_scene_frame.l81:
-    jmp near @..draw_scene_frame.l89 ; 0x8227
-@..draw_scene_frame.l82:
+draw_scene_frame.forward76:
+    jmp near draw_scene_frame.forward84 ; 0x8227
+draw_scene_frame.forward77:
     cmp word [scene_step_b], byte 0  ; 0x822a
-    jg short @..draw_scene_frame.l84 ; 0x822f
+    jg short draw_scene_frame.forward79 ; 0x822f
     cmp word [scene_step_a], byte 0  ; 0x8231
-    je short @..draw_scene_frame.l83 ; 0x8236
-    jmp near @..draw_scene_frame.l88 ; 0x8238
-@..draw_scene_frame.l83:
+    je short draw_scene_frame.forward78 ; 0x8236
+    jmp near draw_scene_frame.forward83 ; 0x8238
+draw_scene_frame.forward78:
     mov ax, 0xf                      ; 0x823b
     push ax                          ; 0x823e
     call random_below                ; 0x823f
     pop cx                           ; 0x8242
     test ax, ax                      ; 0x8243
-    jne short @..draw_scene_frame.l88 ; 0x8245
-@..draw_scene_frame.l84:
+    jne short draw_scene_frame.forward83 ; 0x8245
+draw_scene_frame.forward79:
     mov ax, word [scene_step_b]      ; 0x8247
     mov cx, 6                        ; 0x824a
     cwd                              ; 0x824d
@@ -1562,18 +1562,18 @@ jumptable_85d0_case_7:
     idiv cx                          ; 0x8291
     mov ax, dx                       ; 0x8293
     test ax, ax                      ; 0x8295
-    jne short @..draw_scene_frame.l85 ; 0x8297
+    jne short draw_scene_frame.forward80 ; 0x8297
     cmp word [scene_step_b], byte 0  ; 0x8299
-    jne short @..draw_scene_frame.l86 ; 0x829e
-@..draw_scene_frame.l85:
+    jne short draw_scene_frame.forward81 ; 0x829e
+draw_scene_frame.forward80:
     inc word [scene_step_b]          ; 0x82a0
-@..draw_scene_frame.l86:
+draw_scene_frame.forward81:
     cmp word [scene_step_b], byte 6  ; 0x82a4
-    jne short @..draw_scene_frame.l87 ; 0x82a9
+    jne short draw_scene_frame.forward82 ; 0x82a9
     mov word [scene_step_b], 0       ; 0x82ab
-@..draw_scene_frame.l87:
-    jmp short @..draw_scene_frame.l89 ; 0x82b1
-@..draw_scene_frame.l88:
+draw_scene_frame.forward82:
+    jmp short draw_scene_frame.forward84 ; 0x82b1
+draw_scene_frame.forward83:
     mov ax, 6                        ; 0x82b3
     push ax                          ; 0x82b6
     mov ax, 0x8a                     ; 0x82b7
@@ -1584,7 +1584,7 @@ jumptable_85d0_case_7:
     push ax                          ; 0x82c2
     call draw_char_clipped_top_zero  ; 0x82c3
     add sp, byte 8                   ; 0x82c6
-@..draw_scene_frame.l89:
+draw_scene_frame.forward84:
     mov ax, 0x66                     ; 0x82c9
     push ax                          ; 0x82cc
     mov ax, 0xdb                     ; 0x82cd
@@ -1640,36 +1640,36 @@ jumptable_85d0_case_7:
     call draw_char_clipped_top_zero  ; 0x833b
     add sp, byte 8                   ; 0x833e
     cmp word [scene_step_d], byte 0  ; 0x8341
-    jg short @..draw_scene_frame.l90 ; 0x8346
+    jg short draw_scene_frame.forward85 ; 0x8346
     mov ax, 0xa                      ; 0x8348
     push ax                          ; 0x834b
     call random_below                ; 0x834c
     pop cx                           ; 0x834f
     test ax, ax                      ; 0x8350
-    jne short @..draw_scene_frame.l93 ; 0x8352
-@..draw_scene_frame.l90:
+    jne short draw_scene_frame.forward88 ; 0x8352
+draw_scene_frame.forward85:
     mov ax, 3                        ; 0x8354
     push ax                          ; 0x8357
     call random_below                ; 0x8358
     pop cx                           ; 0x835b
     test ax, ax                      ; 0x835c
-    jne short @..draw_scene_frame.l91 ; 0x835e
+    jne short draw_scene_frame.forward86 ; 0x835e
     inc word [scene_step_d]          ; 0x8360
-@..draw_scene_frame.l91:
+draw_scene_frame.forward86:
     cmp word [scene_step_d], byte 6  ; 0x8364
-    jne short @..draw_scene_frame.l92 ; 0x8369
+    jne short draw_scene_frame.forward87 ; 0x8369
     mov word [scene_step_d], 0       ; 0x836b
-@..draw_scene_frame.l92:
+draw_scene_frame.forward87:
     cmp word [scene_step_d], byte 4  ; 0x8371
-    jne short @..draw_scene_frame.l93 ; 0x8376
+    jne short draw_scene_frame.forward88 ; 0x8376
     mov ax, 2                        ; 0x8378
     push ax                          ; 0x837b
     call random_below                ; 0x837c
     pop cx                           ; 0x837f
     test ax, ax                      ; 0x8380
-    je short @..draw_scene_frame.l93 ; 0x8382
+    je short draw_scene_frame.forward88 ; 0x8382
     mov word [scene_step_d], 0       ; 0x8384
-@..draw_scene_frame.l93:
+draw_scene_frame.forward88:
     jmp near jumptable_85d0_case_0   ; 0x838a
 jumptable_85d0_case_8:
     mov ax, 0                        ; 0x838d
@@ -1681,9 +1681,9 @@ jumptable_85d0_case_8:
     add sp, byte 8                   ; 0x839d
     mov ax, word [scene_cue_b]       ; 0x83a0
     cmp ax, word [scene_tick]        ; 0x83a3
-    jl short @..draw_scene_frame.l94 ; 0x83a7
-    jmp near @..draw_scene_frame.l98 ; 0x83a9
-@..draw_scene_frame.l94:
+    jl short draw_scene_frame.forward89 ; 0x83a7
+    jmp near draw_scene_frame.forward93 ; 0x83a9
+draw_scene_frame.forward89:
     mov ax, 0x17                     ; 0x83ac
     push ax                          ; 0x83af
     mov ax, 0x38                     ; 0x83b0
@@ -1725,35 +1725,35 @@ jumptable_85d0_case_8:
     call draw_char_clipped_top_zero  ; 0x83fe
     add sp, byte 8                   ; 0x8401
     cmp word [scene_step_c], byte 0  ; 0x8404
-    jg short @..draw_scene_frame.l95 ; 0x8409
+    jg short draw_scene_frame.forward90 ; 0x8409
     mov ax, 3                        ; 0x840b
     push ax                          ; 0x840e
     call random_below                ; 0x840f
     pop cx                           ; 0x8412
     test ax, ax                      ; 0x8413
-    jne short @..draw_scene_frame.l96 ; 0x8415
-@..draw_scene_frame.l95:
+    jne short draw_scene_frame.forward91 ; 0x8415
+draw_scene_frame.forward90:
     mov ax, 2                        ; 0x8417
     push ax                          ; 0x841a
     call random_below                ; 0x841b
     pop cx                           ; 0x841e
     test ax, ax                      ; 0x841f
-    je short @..draw_scene_frame.l96 ; 0x8421
+    je short draw_scene_frame.forward91 ; 0x8421
     mov ax, 3                        ; 0x8423
     push ax                          ; 0x8426
     call random_below                ; 0x8427
     pop cx                           ; 0x842a
     inc ax                           ; 0x842b
     mov word [scene_step_c], ax      ; 0x842c
-@..draw_scene_frame.l96:
+draw_scene_frame.forward91:
     mov ax, 8                        ; 0x842f
     push ax                          ; 0x8432
     call random_below                ; 0x8433
     pop cx                           ; 0x8436
     test ax, ax                      ; 0x8437
-    jne short @..draw_scene_frame.l97 ; 0x8439
+    jne short draw_scene_frame.forward92 ; 0x8439
     mov word [scene_step_c], 0       ; 0x843b
-@..draw_scene_frame.l97:
+draw_scene_frame.forward92:
     mov ax, 0x37                     ; 0x8441
     push ax                          ; 0x8444
     mov ax, 0x4f                     ; 0x8445
@@ -1781,18 +1781,18 @@ jumptable_85d0_case_8:
     call random_below                ; 0x8477
     pop cx                           ; 0x847a
     test ax, ax                      ; 0x847b
-    je short @..draw_scene_frame.l98 ; 0x847d
+    je short draw_scene_frame.forward93 ; 0x847d
     mov ax, 6                        ; 0x847f
     push ax                          ; 0x8482
     call random_below                ; 0x8483
     pop cx                           ; 0x8486
     mov word [scene_step_d], ax      ; 0x8487
-@..draw_scene_frame.l98:
+draw_scene_frame.forward93:
     mov ax, word [scene_cue_c]       ; 0x848a
     cmp ax, word [scene_tick]        ; 0x848d
-    jl short @..draw_scene_frame.l99 ; 0x8491
-    jmp near @..draw_scene_frame.l110 ; 0x8493
-@..draw_scene_frame.l99:
+    jl short draw_scene_frame.forward94 ; 0x8491
+    jmp near draw_scene_frame.forward101 ; 0x8493
+draw_scene_frame.forward94:
     mov ax, 0                        ; 0x8496
     push ax                          ; 0x8499
     mov ax, 0x22                     ; 0x849a
@@ -1845,12 +1845,12 @@ jumptable_85d0_case_8:
     call draw_char_clipped_top_zero  ; 0x8501
     add sp, byte 8                   ; 0x8504
     cmp word [scene_step_b], byte 0  ; 0x8507
-    jg short @..draw_scene_frame.l100 ; 0x850c
-    jmp near @..draw_scene_frame.l107 ; 0x850e
-@..draw_scene_frame.l100:
+    jg short draw_scene_frame.forward95 ; 0x850c
+    jmp near draw_scene_frame.forward98 ; 0x850e
+draw_scene_frame.forward95:
     mov ax, word [scene_step_b]      ; 0x8511
-    jmp short @..draw_scene_frame.l105 ; 0x8514
-@..draw_scene_frame.l101:
+    jmp short draw_scene_frame.forward96 ; 0x8514
+draw_scene_frame.back6:
     mov ax, 0x57                     ; 0x8516
     push ax                          ; 0x8519
     mov ax, 0xd0                     ; 0x851a
@@ -1861,8 +1861,8 @@ jumptable_85d0_case_8:
     push ax                          ; 0x8525
     call draw_char_clipped_top_zero  ; 0x8526
     add sp, byte 8                   ; 0x8529
-    jmp short @..draw_scene_frame.l106 ; 0x852c
-@..draw_scene_frame.l102:
+    jmp short draw_scene_frame.forward97 ; 0x852c
+draw_scene_frame.back7:
     mov ax, 0x4d                     ; 0x852e
     push ax                          ; 0x8531
     mov ax, 0xe4                     ; 0x8532
@@ -1873,8 +1873,8 @@ jumptable_85d0_case_8:
     push ax                          ; 0x853d
     call draw_char_clipped_top_zero  ; 0x853e
     add sp, byte 8                   ; 0x8541
-    jmp short @..draw_scene_frame.l106 ; 0x8544
-@..draw_scene_frame.l103:
+    jmp short draw_scene_frame.forward97 ; 0x8544
+draw_scene_frame.back8:
     mov ax, 0x42                     ; 0x8546
     push ax                          ; 0x8549
     mov ax, 0xfa                     ; 0x854a
@@ -1885,8 +1885,8 @@ jumptable_85d0_case_8:
     push ax                          ; 0x8555
     call draw_char_clipped_top_zero  ; 0x8556
     add sp, byte 8                   ; 0x8559
-    jmp short @..draw_scene_frame.l106 ; 0x855c
-@..draw_scene_frame.l104:
+    jmp short draw_scene_frame.forward97 ; 0x855c
+draw_scene_frame.back9:
     mov ax, 0x33                     ; 0x855e
     push ax                          ; 0x8561
     mov ax, 0x118                    ; 0x8562
@@ -1897,42 +1897,42 @@ jumptable_85d0_case_8:
     push ax                          ; 0x856d
     call draw_char_clipped_top_zero  ; 0x856e
     add sp, byte 8                   ; 0x8571
-    jmp short @..draw_scene_frame.l106 ; 0x8574
-@..draw_scene_frame.l105:
+    jmp short draw_scene_frame.forward97 ; 0x8574
+draw_scene_frame.forward96:
     cmp ax, strict word 1            ; 0x8576
-    je short @..draw_scene_frame.l101 ; 0x8579
+    je short draw_scene_frame.back6  ; 0x8579
     cmp ax, strict word 2            ; 0x857b
-    je short @..draw_scene_frame.l102 ; 0x857e
+    je short draw_scene_frame.back7  ; 0x857e
     cmp ax, strict word 3            ; 0x8580
-    je short @..draw_scene_frame.l103 ; 0x8583
+    je short draw_scene_frame.back8  ; 0x8583
     cmp ax, strict word 4            ; 0x8585
-    je short @..draw_scene_frame.l104 ; 0x8588
-@..draw_scene_frame.l106:
+    je short draw_scene_frame.back9  ; 0x8588
+draw_scene_frame.forward97:
     inc word [scene_step_b]          ; 0x858a
     mov ax, word [scene_step_b]      ; 0x858e
     cmp ax, strict word 4            ; 0x8591
-    jle short @..draw_scene_frame.l107 ; 0x8594
+    jle short draw_scene_frame.forward98 ; 0x8594
     mov word [scene_step_b], 0       ; 0x8596
-@..draw_scene_frame.l107:
+draw_scene_frame.forward98:
     cmp word [scene_step_a], byte 0  ; 0x859c
-    jg short @..draw_scene_frame.l108 ; 0x85a1
+    jg short draw_scene_frame.forward99 ; 0x85a1
     mov ax, 0xa                      ; 0x85a3
     push ax                          ; 0x85a6
     call random_below                ; 0x85a7
     pop cx                           ; 0x85aa
     test ax, ax                      ; 0x85ab
-    jne short @..draw_scene_frame.l110 ; 0x85ad
-@..draw_scene_frame.l108:
+    jne short draw_scene_frame.forward101 ; 0x85ad
+draw_scene_frame.forward99:
     inc word [scene_step_a]          ; 0x85af
     mov ax, word [scene_step_a]      ; 0x85b3
     cmp ax, strict word 2            ; 0x85b6
-    jne short @..draw_scene_frame.l109 ; 0x85b9
+    jne short draw_scene_frame.forward100 ; 0x85b9
     mov word [scene_step_b], 1       ; 0x85bb
-@..draw_scene_frame.l109:
+draw_scene_frame.forward100:
     cmp word [scene_step_a], byte 3  ; 0x85c1
-    jle short @..draw_scene_frame.l110 ; 0x85c6
+    jle short draw_scene_frame.forward101 ; 0x85c6
     mov word [scene_step_a], 0       ; 0x85c8
-@..draw_scene_frame.l110:
+draw_scene_frame.forward101:
     jmp short jumptable_85d0_case_0  ; 0x85ce
 jumptable_85d0:
     dw jumptable_85d0_case_0 - IMAGE_BASE + __zres_end ; 0x85d0
@@ -1944,7 +1944,7 @@ jumptable_85d0:
     dw jumptable_85d0_case_6 - IMAGE_BASE + __zres_end ; 0x85dc
     dw jumptable_85d0_case_7 - IMAGE_BASE + __zres_end ; 0x85de
     dw jumptable_85d0_case_8 - IMAGE_BASE + __zres_end ; 0x85e0
-@..draw_scene_frame.l111:
+draw_scene_frame.forward102:
     cmp ax, strict word 9            ; 0x85e2
     jae short jumptable_85d0_case_0  ; 0x85e5
     xchg bx, ax                      ; 0x85e7

@@ -3,18 +3,18 @@ api_idx_0004_JGSH:
     mov ax, 0xfffc
     call aztec_csav
     cmp word [api_idx_0004_JGSH.bss1], byte 3
-    jle short @..api_idx_0004_JGSH.l1
+    jle short .forward1
     mov ax, 0
     push ax
     call api_idx_0004_JGSH.loc1
     pop cx
-@..api_idx_0004_JGSH.l1:
+.forward1:
     mov bx, word [bp + 4]
     cmp byte [bx], 0
-    jne short @..api_idx_0004_JGSH.l2
+    jne short .forward2
     inc word [api_idx_0004_JGSH.bss1]
     ret
-@..api_idx_0004_JGSH.l2:
+.forward2:
     mov ax, 2
     push ax
     push bx
@@ -37,26 +37,26 @@ api_idx_0004_JGSH:
     mov si, ax
     mov al, byte [bx + si]
     sub ah, ah
-    jmp short @..api_idx_0004_JGSH.l5
-@..api_idx_0004_JGSH.l3:
+    jmp short .forward3
+.back1:
     mov bx, word [bp + 4]
     mov si, word [bp - 4]
     mov byte [bx + si], 0
     mov word [bp - 2], 0x44
-    jmp short @..api_idx_0004_JGSH.l6
-@..api_idx_0004_JGSH.l4:
+    jmp short .forward4
+.back2:
     mov bx, word [bp + 4]
     mov si, word [bp - 4]
     mov byte [bx + si], 0
     mov ax, word [api_idx_0004_JGSH.bss2]
     mov word [bp - 2], ax
-    jmp short @..api_idx_0004_JGSH.l6
-@..api_idx_0004_JGSH.l5:
+    jmp short .forward4
+.forward3:
     cmp ax, strict word 0x24
-    je short @..api_idx_0004_JGSH.l3
+    je short .back1
     cmp ax, strict word 0x5e
-    je short @..api_idx_0004_JGSH.l4
-@..api_idx_0004_JGSH.l6:
+    je short .back2
+.forward4:
     mov ax, 0xc
     imul word [api_idx_0004_JGSH.bss1]
     add ax, 0x92

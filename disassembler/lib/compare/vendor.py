@@ -164,7 +164,7 @@ def _apply_asm_annotations(records, annotations, label_map=None):
                         by_text[name.owner], name.offset, name.index,
                         name=None if name.index is not None
                         else str(name).rsplit('.', 1)[-1],
-                        source=name.source)
+                        source=name.source, role=name.role)
                 rec['text'] = swap(rec['text'])
             elif rec['type'] in ('mnem', 'db_with_comment') and rec.get('text'):
                 rec['text'] = swap(rec['text'])

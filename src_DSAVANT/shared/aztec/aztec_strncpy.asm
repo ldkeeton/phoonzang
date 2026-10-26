@@ -10,17 +10,17 @@ aztec_strncpy:
     mov es, di
     mov di, word [bp + 4]
     mov si, word [bp + 6]
-    jcxz @..aztec_strncpy.cpydone
-@..aztec_strncpy.cpyloop:
+    jcxz .cpydone
+.cpyloop:
     lodsb
     test al, al
-    je short @..aztec_strncpy.zerofill
+    je short .zerofill
     stosb
-    loop @..aztec_strncpy.cpyloop
-    jmp short @..aztec_strncpy.cpydone
-@..aztec_strncpy.zerofill:
+    loop .cpyloop
+    jmp short .cpydone
+.zerofill:
     rep stosb
-@..aztec_strncpy.cpydone:
+.cpydone:
     pop di
     pop si
     mov ax, word [bp + 4]

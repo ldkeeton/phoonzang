@@ -236,7 +236,8 @@ def _local_branch_targets(branch_targets, owners, edge_sources,
 
 
 def _compute_local_labels(local_targets, owners, function_roots, label_map,
-                          fragment_names=None, split_ranges=None):
+                          fragment_names=None, split_ranges=None,
+                          instructions=(), branch_edges=()):
     """Return local assembly names for branch targets with unique owners.
 
     A local label lives in its owner's fragment.  With *split_ranges*, a target
@@ -246,7 +247,10 @@ def _compute_local_labels(local_targets, owners, function_roots, label_map,
 
     Owners are normally scoped by their function-root name.  A root without a
     friendly name (for example a bare ``loc_`` helper that is a call target)
-    is scoped by its own address, so its locals read as ``@..loc_4be6.l1``.
+    is scoped by its own address, so its locals read as ``@..loc_4be6.forward1``.
+    Names describe direct return instructions, backward branch targets within
+    the owner, or other targets, with a separate address-ordered counter for
+    each role. A backward target is not necessarily a loop header.
     """
     def fragment_of(offset):
         for start, end, _ in split_ranges or ():
@@ -254,6 +258,12 @@ def _compute_local_labels(local_targets, owners, function_roots, label_map,
                 return start
         return None
 
+    insn_by_addr = {insn.address: insn for insn in instructions}
+    backward_targets = {
+        target for source, target in branch_edges
+        if target < source and len(owners.get(target, ())) == 1
+        and owners.get(source) == owners.get(target)
+    }
     local_labels = {}
     named_counts = {}
     for off in sorted(local_targets or ()):
@@ -278,6 +288,10 @@ def _compute_local_labels(local_targets, owners, function_roots, label_map,
             name = (candidate if isinstance(candidate, str)
                     and is_label(candidate)
                     else loc_name(owner))
-        named_counts[owner] = named_counts.get(owner, 0) + 1
-        local_labels[off] = Symbol.local(name, off, named_counts[owner])
+        insn = insn_by_addr.get(off)
+        role = ('return' if insn and insn.mnemonic in ('ret', 'retf', 'iret')
+                else 'back' if off in backward_targets else 'forward')
+        key = (owner, role)
+        named_counts[key] = named_counts.get(key, 0) + 1
+        local_labels[off] = Symbol.local(name, off, named_counts[key], role=role)
     return local_labels

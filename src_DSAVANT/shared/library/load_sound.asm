@@ -16,9 +16,9 @@ load_sound:
     mov word [bp - 2], bx
     mov ax, word [cs:bx]
     or ax, ax
-    je short @..load_sound.l1
+    je short .forward1
     jmp near load_sound.dos_con_loc1
-@..load_sound.l1:
+.forward1:
     mov ax, word [cs:maze_block_count - IMAGE_BASE]
     inc ax
     mov word [cs:maze_block_count - IMAGE_BASE], ax
@@ -56,9 +56,9 @@ load_sound:
     xor bx, bx
     mov ax, word [bx]
     or ax, ax
-    je short @..load_sound.l2
+    je short .forward2
     jmp near load_sound.loc1
-@..load_sound.l2:
+.forward2:
     mov bx, word [bp - 2]
     mov ax, word [bp - 4]
     sub ax, strict word 2
@@ -82,7 +82,7 @@ load_sound:
     mov ah, 0x3f
     int 0x21 ; DOS read file (handle)
     xor ax, ax
-@..load_sound.l3:
+.back1:
     pop di
     pop si
     pop es

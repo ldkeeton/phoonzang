@@ -3,9 +3,9 @@ queue_marker_overlay:
     mov ax, 0xfff2
     call aztec_csav
     cmp word [marker_mode], byte 0
-    jg short @..queue_marker_overlay.l1
-    jmp near @..queue_marker_overlay.l8
-@..queue_marker_overlay.l1:
+    jg short .forward1
+    jmp near .forward6
+.forward1:
     mov ax, word [party_tag]
     mov cx, word [marker_mode]
     dec cx
@@ -16,39 +16,39 @@ queue_marker_overlay:
     idiv cx
     mov word [bp - 2], dx
     mov ax, dx
-    jmp short @..queue_marker_overlay.l6
-@..queue_marker_overlay.l2:
+    jmp short .forward4
+.back1:
     mov byte [bp - 0xe], 1
     mov byte [bp - 0xd], 2
     mov ax, 5
     cmp word [bp - 2], byte 0
-    jne short @..queue_marker_overlay.l3
+    jne short .forward2
     mov ax, 4
-@..queue_marker_overlay.l3:
+.forward2:
     mov byte [bp - 0xc], al
     mov byte [bp - 0xb], 0
     mov word [bp - 4], 0
-    jmp short @..queue_marker_overlay.l7
-@..queue_marker_overlay.l4:
+    jmp short .forward5
+.back2:
     mov byte [bp - 0xe], 3
     mov byte [bp - 0xd], 0
     mov ax, 0
     cmp word [bp - 2], byte 3
-    jne short @..queue_marker_overlay.l5
+    jne short .forward3
     mov ax, 1
-@..queue_marker_overlay.l5:
+.forward3:
     mov word [bp - 4], ax
-    jmp short @..queue_marker_overlay.l7
-@..queue_marker_overlay.l6:
+    jmp short .forward5
+.forward4:
     cmp ax, strict word 0
-    je short @..queue_marker_overlay.l2
+    je short .back1
     cmp ax, strict word 1
-    je short @..queue_marker_overlay.l4
+    je short .back2
     cmp ax, strict word 2
-    je short @..queue_marker_overlay.l2
+    je short .back1
     cmp ax, strict word 3
-    je short @..queue_marker_overlay.l4
-@..queue_marker_overlay.l7:
+    je short .back2
+.forward5:
     lea ax, word [bp - 0xe]
     push ax
     mov ax, 0
@@ -79,9 +79,9 @@ queue_marker_overlay:
     push ax
     call add_overlay_item
     add sp, byte 0x12
-@..queue_marker_overlay.l8:
-    cmp word [marker_mode], byte 0xff
-    jne short @..queue_marker_overlay.l9
+.forward6:
+    cmp word [marker_mode], byte -1
+    jne short .return1
     mov byte [bp - 0xe], 1
     mov byte [bp - 0xd], 0
     lea ax, word [bp - 0xe]
@@ -105,5 +105,5 @@ queue_marker_overlay:
     push ax
     call add_overlay_item
     add sp, byte 0x12
-@..queue_marker_overlay.l9:
+.return1:
     ret

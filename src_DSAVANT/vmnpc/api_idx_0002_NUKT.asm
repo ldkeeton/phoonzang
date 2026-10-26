@@ -5,15 +5,15 @@ api_idx_0002_NUKT:
     mov al, byte [bss_91c7]          ; 0x9bd2
     sub ah, ah                       ; 0x9bd5
     cmp ax, word [bp + 4]            ; 0x9bd7
-    jne short @..api_idx_0002_NUKT.l1 ; 0x9bda
+    jne short .forward1              ; 0x9bda
     mov ax, bss_95a8                 ; 0x9bdc
     push ax                          ; 0x9bdf
     mov ax, MSG_WE_SHALL_BE_VICTORIOUS ; 0x9be0
     push ax                          ; 0x9be3
     call load_message_string         ; 0x9be4
     add sp, byte 4                   ; 0x9be7
-    jmp near @..api_idx_0002_NUKT.l4 ; 0x9bea
-@..api_idx_0002_NUKT.l1:
+    jmp near .forward4               ; 0x9bea
+.forward1:
     mov al, byte [bss_91c7]          ; 0x9bed
     sub ah, ah                       ; 0x9bf0
     mov cx, 0xc                      ; 0x9bf2
@@ -24,14 +24,14 @@ api_idx_0002_NUKT:
     cbw                              ; 0x9c00
     mov word [bp - 2], ax            ; 0x9c01
     cmp word [bp + 4], byte 0        ; 0x9c04
-    jne short @..api_idx_0002_NUKT.l2 ; 0x9c08
+    jne short .forward2              ; 0x9c08
     mov al, byte [bss_91c7]          ; 0x9c0a
     sub ah, ah                       ; 0x9c0d
     mov bx, ax                       ; 0x9c0f
     mov al, byte [bx + target_weight] ; 0x9c11
     cbw                              ; 0x9c15
     mov word [bp - 2], ax            ; 0x9c16
-@..api_idx_0002_NUKT.l2:
+.forward2:
     mov ax, 0x95a8                   ; 0x9c19
     push ax                          ; 0x9c1c
     mov al, byte [bss_91c7]          ; 0x9c1d
@@ -39,13 +39,13 @@ api_idx_0002_NUKT:
     mov cx, 3                        ; 0x9c22
     imul cx                          ; 0x9c25
     mov cx, 0                        ; 0x9c27
-    cmp word [bp - 2], byte 0xe7     ; 0x9c2a
-    jl short @..api_idx_0002_NUKT.l3 ; 0x9c2e
+    cmp word [bp - 2], byte -25      ; 0x9c2a
+    jl short .forward3               ; 0x9c2e
     mov cx, 2                        ; 0x9c30
     cmp word [bp - 2], byte 0x19     ; 0x9c33
-    jge short @..api_idx_0002_NUKT.l3 ; 0x9c37
+    jge short .forward3              ; 0x9c37
     mov cx, 1                        ; 0x9c39
-@..api_idx_0002_NUKT.l3:
+.forward3:
     add ax, cx                       ; 0x9c3c
     add ax, 0x76c                    ; 0x9c3e
     push ax                          ; 0x9c41
@@ -66,7 +66,7 @@ api_idx_0002_NUKT:
     push ax                          ; 0x9c64
     call str_subst_char              ; 0x9c65
     add sp, byte 6                   ; 0x9c68
-@..api_idx_0002_NUKT.l4:
+.forward4:
     mov ax, bss_95a8                 ; 0x9c6b
     push ax                          ; 0x9c6e
     call loc_IPHP                    ; 0x9c6f

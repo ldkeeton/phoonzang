@@ -16,7 +16,7 @@ api_idx_000e_JRRT:
     sub ah, ah                       ; 0x09fa
     mov word [bp - 4], ax            ; 0x09fc
     cmp word [bp + 6], byte 0        ; 0x09ff
-    je short @..api_idx_000e_JRRT.l1 ; 0x0a03
+    je short .forward1               ; 0x0a03
     mov ax, 0xa0                     ; 0x0a05
     sub ax, word [bp - 2]            ; 0x0a08
     imul word [bp + 6]               ; 0x0a0b
@@ -30,7 +30,7 @@ api_idx_000e_JRRT:
     cwd                              ; 0x0a20
     idiv cx                          ; 0x0a21
     add word [bp - 4], ax            ; 0x0a23
-@..api_idx_000e_JRRT.l1:
+.forward1:
     push word [bp + 6]               ; 0x0a26
     mov ax, 0                        ; 0x0a29
     push ax                          ; 0x0a2c

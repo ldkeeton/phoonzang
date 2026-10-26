@@ -7,21 +7,21 @@ format_long_decimal: ; Aztec csav frame=0x0006
     mov word [bp - 4], dx            ; 0x042e
     mov word [bp - 6], ax            ; 0x0431
     cmp dx, byte 0                   ; 0x0434
-    jg short @..format_long_decimal.l1 ; 0x0437
-    jne short @..format_long_decimal.l2 ; 0x0439
+    jg short .forward1               ; 0x0437
+    jne short .forward2              ; 0x0439
     cmp ax, strict word 0            ; 0x043b
-    jb short @..format_long_decimal.l2 ; 0x043e
-@..format_long_decimal.l1:
-    jmp short @..format_long_decimal.l3 ; 0x0440
-@..format_long_decimal.l2:
+    jb short .forward2               ; 0x043e
+.forward1:
+    jmp short .forward3              ; 0x0440
+.forward2:
     neg dx                           ; 0x0442
     neg ax                           ; 0x0444
     sbb dx, byte 0                   ; 0x0446
     mov word [bp + 6], dx            ; 0x0449
     mov word [bp + 4], ax            ; 0x044c
-@..format_long_decimal.l3:
+.forward3:
     mov word [bp - 2], 0             ; 0x044f
-@..format_long_decimal.l4:
+.back1:
     mov ax, word [bp + 4]            ; 0x0454
     mov dx, word [bp + 6]            ; 0x0457
     mov cx, 0xa                      ; 0x045a
@@ -41,26 +41,26 @@ format_long_decimal: ; Aztec csav frame=0x0006
     mov word [bp + 6], dx            ; 0x0483
     mov word [bp + 4], ax            ; 0x0486
     cmp dx, byte 0                   ; 0x0489
-    jg short @..format_long_decimal.l5 ; 0x048c
-    jne short @..format_long_decimal.l6 ; 0x048e
+    jg short .forward4               ; 0x048c
+    jne short .forward5              ; 0x048e
     cmp ax, strict word 0            ; 0x0490
-    jbe short @..format_long_decimal.l6 ; 0x0493
-@..format_long_decimal.l5:
-    jmp short @..format_long_decimal.l4 ; 0x0495
-@..format_long_decimal.l6:
+    jbe short .forward5              ; 0x0493
+.forward4:
+    jmp short .back1                 ; 0x0495
+.forward5:
     cmp word [bp - 4], byte 0        ; 0x0497
-    jg short @..format_long_decimal.l7 ; 0x049b
-    jne short @..format_long_decimal.l8 ; 0x049d
+    jg short .forward6               ; 0x049b
+    jne short .forward7              ; 0x049d
     cmp word [bp - 6], byte 0        ; 0x049f
-    jb short @..format_long_decimal.l8 ; 0x04a3
-@..format_long_decimal.l7:
-    jmp short @..format_long_decimal.l9 ; 0x04a5
-@..format_long_decimal.l8:
+    jb short .forward7               ; 0x04a3
+.forward6:
+    jmp short .forward8              ; 0x04a5
+.forward7:
     mov si, word [bp - 2]            ; 0x04a7
     inc word [bp - 2]                ; 0x04aa
     mov bx, word [bp + 8]            ; 0x04ad
     mov byte [bx + si], 0x2d         ; 0x04b0
-@..format_long_decimal.l9:
+.forward8:
     mov bx, word [bp + 8]            ; 0x04b3
     mov si, word [bp - 2]            ; 0x04b6
     mov byte [bx + si], 0            ; 0x04b9

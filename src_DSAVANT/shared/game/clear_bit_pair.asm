@@ -4,8 +4,8 @@ clear_bit_pair:
     call aztec_csav
     mov ax, word [bp + 6]
     mov word [bp - 2], ax
-    jmp short @..clear_bit_pair.l2
-@..clear_bit_pair.l1:
+    jmp short .forward1
+.back1:
     mov ax, word [bp - 2]
     mov cx, 8
     cwd
@@ -27,10 +27,10 @@ clear_bit_pair:
     and ax, cx
     mov byte [bx + si], al
     inc word [bp - 2]
-@..clear_bit_pair.l2:
+.forward1:
     mov ax, word [bp + 6]
     inc ax
     inc ax
     cmp ax, word [bp - 2]
-    jg short @..clear_bit_pair.l1
+    jg short .back1
     ret

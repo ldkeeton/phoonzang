@@ -2,16 +2,16 @@
 api_idx_00a2_IKRJ:
     mov ax, 0xff5e                   ; 0x9844
     call aztec_csav                  ; 0x9847
-    cmp word [bss_9e46], byte 0xff   ; 0x984a
-    jne short @..api_idx_00a2_IKRJ.l1 ; 0x984f
+    cmp word [bss_9e46], byte -1     ; 0x984a
+    jne short .forward1              ; 0x984f
     cmp word [bss_9e60], byte 1      ; 0x9851
-    jne short @..api_idx_00a2_IKRJ.l1 ; 0x9856
+    jne short .forward1              ; 0x9856
     mov word [bss_9e46], 1           ; 0x9858
-@..api_idx_00a2_IKRJ.l1:
-    cmp word [bss_9e7e], byte 0xff   ; 0x985e
-    jne short @..api_idx_00a2_IKRJ.l2 ; 0x9863
-    jmp near @..api_idx_00a2_IKRJ.l3 ; 0x9865
-@..api_idx_00a2_IKRJ.l2:
+.forward1:
+    cmp word [bss_9e7e], byte -1     ; 0x985e
+    jne short .forward2              ; 0x9863
+    jmp near .forward3               ; 0x9865
+.forward2:
     lea ax, word [bp - 0x52]         ; 0x9868
     push ax                          ; 0x986b
     push word [bss_9e44]             ; 0x986c
@@ -66,13 +66,13 @@ api_idx_00a2_IKRJ:
     add sp, byte 4                   ; 0x98e2
     mov ax, 0xffff                   ; 0x98e5
     ret                              ; 0x98e8
-@..api_idx_00a2_IKRJ.l3:
-    cmp word [bss_9e48], byte 0xff   ; 0x98e9
-    jne short @..api_idx_00a2_IKRJ.l7 ; 0x98ee
-    cmp word [bss_9e42], byte 0xff   ; 0x98f0
-    jne short @..api_idx_00a2_IKRJ.l7 ; 0x98f5
-    cmp word [bss_9e46], byte 0xff   ; 0x98f7
-    je short @..api_idx_00a2_IKRJ.l4 ; 0x98fc
+.forward3:
+    cmp word [bss_9e48], byte -1     ; 0x98e9
+    jne short .forward7              ; 0x98ee
+    cmp word [bss_9e42], byte -1     ; 0x98f0
+    jne short .forward7              ; 0x98f5
+    cmp word [bss_9e46], byte -1     ; 0x98f7
+    je short .forward4               ; 0x98fc
     mov ax, 0xa                      ; 0x98fe
     imul word [bss_9e46]             ; 0x9901
     add ax, bss_a658                 ; 0x9905
@@ -91,36 +91,36 @@ api_idx_00a2_IKRJ:
     push ax                          ; 0x9922
     call api_idx_0080_TKTP           ; 0x9923
     add sp, byte 4                   ; 0x9926
-    jmp short @..api_idx_00a2_IKRJ.l6 ; 0x9929
-@..api_idx_00a2_IKRJ.l4:
+    jmp short .forward6              ; 0x9929
+.forward4:
     mov ax, 2                        ; 0x992b
     push ax                          ; 0x992e
     call random_below                ; 0x992f
     pop cx                           ; 0x9932
     test ax, ax                      ; 0x9933
-    jne short @..api_idx_00a2_IKRJ.l5 ; 0x9935
+    jne short .forward5              ; 0x9935
     mov ax, 0x90f4                   ; 0x9937
     push ax                          ; 0x993a
     mov ax, MSG_I_DON_T_KNOW_ABOUT_THAT ; 0x993b
     push ax                          ; 0x993e
     call api_idx_0080_TKTP           ; 0x993f
     add sp, byte 4                   ; 0x9942
-    jmp short @..api_idx_00a2_IKRJ.l6 ; 0x9945
-@..api_idx_00a2_IKRJ.l5:
+    jmp short .forward6              ; 0x9945
+.forward5:
     mov ax, 0x90f5                   ; 0x9947
     push ax                          ; 0x994a
     mov ax, MSG_I_DON_T_UNDERSTAND   ; 0x994b
     push ax                          ; 0x994e
     call api_idx_0080_TKTP           ; 0x994f
     add sp, byte 4                   ; 0x9952
-@..api_idx_00a2_IKRJ.l6:
+.forward6:
     mov ax, 0xffff                   ; 0x9955
     ret                              ; 0x9958
-@..api_idx_00a2_IKRJ.l7:
-    cmp word [bss_9e82], byte 0xff   ; 0x9959
-    je short @..api_idx_00a2_IKRJ.l10 ; 0x995e
-    cmp word [bss_9e42], byte 0xff   ; 0x9960
-    je short @..api_idx_00a2_IKRJ.l8 ; 0x9965
+.forward7:
+    cmp word [bss_9e82], byte -1     ; 0x9959
+    je short .forward10              ; 0x995e
+    cmp word [bss_9e42], byte -1     ; 0x9960
+    je short .forward8               ; 0x9965
     lea ax, word [bp - 0x52]         ; 0x9967
     push ax                          ; 0x996a
     mov ax, 1                        ; 0x996b
@@ -148,30 +148,30 @@ api_idx_00a2_IKRJ:
     mov ax, word [bss_9e44]          ; 0x99a3
     mov word [bss_9e4c], ax          ; 0x99a6
     mov word [bss_9e50], 1           ; 0x99a9
-    jmp short @..api_idx_00a2_IKRJ.l9 ; 0x99af
-@..api_idx_00a2_IKRJ.l8:
+    jmp short .forward9              ; 0x99af
+.forward8:
     mov ax, 0x90f6                   ; 0x99b1
     push ax                          ; 0x99b4
     mov ax, MSG_YOUR_WORDS_ARE_CONFUSING ; 0x99b5
     push ax                          ; 0x99b8
     call api_idx_0080_TKTP           ; 0x99b9
     add sp, byte 4                   ; 0x99bc
-@..api_idx_00a2_IKRJ.l9:
+.forward9:
     mov ax, 0xffff                   ; 0x99bf
     ret                              ; 0x99c2
-@..api_idx_00a2_IKRJ.l10:
-    cmp word [bss_9e48], byte 0xff   ; 0x99c3
-    jne short @..api_idx_00a2_IKRJ.l12 ; 0x99c8
-    cmp word [bss_9e46], byte 0xff   ; 0x99ca
-    jne short @..api_idx_00a2_IKRJ.l12 ; 0x99cf
-    cmp word [bss_9e42], byte 0xff   ; 0x99d1
-    je short @..api_idx_00a2_IKRJ.l11 ; 0x99d6
+.forward10:
+    cmp word [bss_9e48], byte -1     ; 0x99c3
+    jne short .forward12             ; 0x99c8
+    cmp word [bss_9e46], byte -1     ; 0x99ca
+    jne short .forward12             ; 0x99cf
+    cmp word [bss_9e42], byte -1     ; 0x99d1
+    je short .forward11              ; 0x99d6
     mov word [bss_9e62], 1           ; 0x99d8
     mov word [bss_9e54], 1           ; 0x99de
     mov word [bss_9e46], 1           ; 0x99e4
     mov ax, 0                        ; 0x99ea
     ret                              ; 0x99ed
-@..api_idx_00a2_IKRJ.l11:
+.forward11:
     mov ax, 0x90f7                   ; 0x99ee
     push ax                          ; 0x99f1
     mov ax, MSG_HUH_1607             ; 0x99f2
@@ -180,6 +180,6 @@ api_idx_00a2_IKRJ:
     add sp, byte 4                   ; 0x99f9
     mov ax, 0xffff                   ; 0x99fc
     ret                              ; 0x99ff
-@..api_idx_00a2_IKRJ.l12:
+.forward12:
     mov ax, 0                        ; 0x9a00
     ret                              ; 0x9a03

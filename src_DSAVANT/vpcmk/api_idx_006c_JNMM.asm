@@ -28,7 +28,7 @@ api_idx_006c_JNMM:
     mov word [bp - 0x6a], dx         ; 0x46d2
     mov word [bp - 0x6c], ax         ; 0x46d5
     call flush_keyboard              ; 0x46d8
-@..api_idx_006c_JNMM.l1:
+.back1:
     mov ax, 0                        ; 0x46db
     push ax                          ; 0x46de
     push word [bp + 4]               ; 0x46df
@@ -69,10 +69,10 @@ api_idx_006c_JNMM:
     call draw_font_glyph             ; 0x4734
     add sp, byte 4                   ; 0x4737
     mov word [bp - 2], 0             ; 0x473a
-@..api_idx_006c_JNMM.l2:
+.back2:
     mov ax, word [bp - 2]            ; 0x473f
     cmp ax, word [bp - 6]            ; 0x4742
-    jne short @..api_idx_006c_JNMM.l3 ; 0x4745
+    jne short .forward1              ; 0x4745
     mov ax, 0                        ; 0x4747
     push ax                          ; 0x474a
     mov ax, 0x2d                     ; 0x474b
@@ -112,8 +112,8 @@ api_idx_006c_JNMM:
     push ax                          ; 0x479b
     call set_hotspot                 ; 0x479c
     add sp, byte 0xe                 ; 0x479f
-    jmp short @..api_idx_006c_JNMM.l6 ; 0x47a2
-@..api_idx_006c_JNMM.l3:
+    jmp short .forward4              ; 0x47a2
+.forward1:
     mov ax, 0                        ; 0x47a4
     push ax                          ; 0x47a7
     mov ax, word [bp - 6]            ; 0x47a8
@@ -123,12 +123,12 @@ api_idx_006c_JNMM:
     idiv cx                          ; 0x47b0
     mov ax, dx                       ; 0x47b2
     cmp ax, word [bp - 2]            ; 0x47b4
-    jne short @..api_idx_006c_JNMM.l4 ; 0x47b7
+    jne short .forward2              ; 0x47b7
     mov al, 0x20                     ; 0x47b9
-    jmp short @..api_idx_006c_JNMM.l5 ; 0x47bb
-@..api_idx_006c_JNMM.l4:
+    jmp short .forward3              ; 0x47bb
+.forward2:
     mov al, 0                        ; 0x47bd
-@..api_idx_006c_JNMM.l5:
+.forward3:
     cbw                              ; 0x47bf
     push ax                          ; 0x47c0
     mov ax, 6                        ; 0x47c1
@@ -146,13 +146,13 @@ api_idx_006c_JNMM:
     push word [bp - 2]               ; 0x47dd
     call set_hotspot                 ; 0x47e0
     add sp, byte 0xe                 ; 0x47e3
-@..api_idx_006c_JNMM.l6:
+.forward4:
     inc word [bp - 2]                ; 0x47e6
     mov ax, word [bp - 2]            ; 0x47e9
     cmp ax, strict word 7            ; 0x47ec
-    jge short @..api_idx_006c_JNMM.l7 ; 0x47ef
-    jmp near @..api_idx_006c_JNMM.l2 ; 0x47f1
-@..api_idx_006c_JNMM.l7:
+    jge short .forward5              ; 0x47ef
+    jmp near .back2                  ; 0x47f1
+.forward5:
     mov ax, 0                        ; 0x47f4
     push ax                          ; 0x47f7
     push ax                          ; 0x47f8
@@ -175,7 +175,7 @@ api_idx_006c_JNMM:
     push ax                          ; 0x4819
     call gfx_show_area               ; 0x481a
     add sp, byte 8                   ; 0x481d
-@..api_idx_006c_JNMM.l8:
+.back3:
     mov ax, hotspot_rects            ; 0x4820
     push ax                          ; 0x4823
     call poll_hotspots               ; 0x4824
@@ -183,24 +183,24 @@ api_idx_006c_JNMM:
     dec ax                           ; 0x4828
     mov word [bp - 4], ax            ; 0x4829
     cmp word [hotspot_hit], byte 0   ; 0x482c
-    je short @..api_idx_006c_JNMM.l8 ; 0x4831
+    je short .back3                  ; 0x4831
     cmp word [bp - 4], byte 7        ; 0x4833
-    jge short @..api_idx_006c_JNMM.l9 ; 0x4837
+    jge short .forward6              ; 0x4837
     mov ax, word [bp - 4]            ; 0x4839
     cmp ax, word [bp - 6]            ; 0x483c
-    je short @..api_idx_006c_JNMM.l9 ; 0x483f
+    je short .forward6               ; 0x483f
     mov word [bp - 6], ax            ; 0x4841
-    jmp near @..api_idx_006c_JNMM.l14 ; 0x4844
-@..api_idx_006c_JNMM.l9:
+    jmp near .forward11              ; 0x4844
+.forward6:
     mov ax, word [bp - 4]            ; 0x4847
     cmp ax, word [bp - 6]            ; 0x484a
-    jne short @..api_idx_006c_JNMM.l12 ; 0x484d
+    jne short .forward9              ; 0x484d
     mov ax, word [bp - 6]            ; 0x484f
     shl ax, 1                        ; 0x4852
     mov bx, ax                       ; 0x4854
     add bx, bp                       ; 0x4856
     cmp word [bx - 0x18], byte 0     ; 0x4858
-    jle short @..api_idx_006c_JNMM.l10 ; 0x485c
+    jle short .forward7              ; 0x485c
     mov ax, 0x248                    ; 0x485e
     imul word [bp + 4]               ; 0x4861
     add ax, word [bp - 6]            ; 0x4864
@@ -212,25 +212,25 @@ api_idx_006c_JNMM:
     add bx, bp                       ; 0x4874
     dec word [bx - 0x18]             ; 0x4876
     inc word [bss_9594]              ; 0x4879
-    jmp short @..api_idx_006c_JNMM.l11 ; 0x487d
-@..api_idx_006c_JNMM.l10:
+    jmp short .forward8              ; 0x487d
+.forward7:
     mov ax, 0                        ; 0x487f
     push ax                          ; 0x4882
     call play_sound_effect           ; 0x4883
     pop cx                           ; 0x4886
-@..api_idx_006c_JNMM.l11:
-    jmp short @..api_idx_006c_JNMM.l14 ; 0x4887
-@..api_idx_006c_JNMM.l12:
+.forward8:
+    jmp short .forward11             ; 0x4887
+.forward9:
     cmp word [bp - 4], byte 7        ; 0x4889
-    jne short @..api_idx_006c_JNMM.l14 ; 0x488d
+    jne short .forward11             ; 0x488d
     mov ax, 0x248                    ; 0x488f
     imul word [bp + 4]               ; 0x4892
     add ax, word [bp - 6]            ; 0x4895
     mov bx, ax                       ; 0x4898
     cmp byte [bx + party_records + pc_rec.stat], 0x12 ; 0x489a
-    jae short @..api_idx_006c_JNMM.l13 ; 0x489f
+    jae short .forward10             ; 0x489f
     cmp word [bss_9594], byte 0      ; 0x48a1
-    jle short @..api_idx_006c_JNMM.l13 ; 0x48a6
+    jle short .forward10             ; 0x48a6
     inc byte [bx + party_records + pc_rec.stat] ; 0x48a8
     mov ax, word [bp - 6]            ; 0x48ac
     shl ax, 1                        ; 0x48af
@@ -238,21 +238,21 @@ api_idx_006c_JNMM:
     add bx, bp                       ; 0x48b3
     inc word [bx - 0x18]             ; 0x48b5
     dec word [bss_9594]              ; 0x48b8
-    jmp short @..api_idx_006c_JNMM.l14 ; 0x48bc
-@..api_idx_006c_JNMM.l13:
+    jmp short .forward11             ; 0x48bc
+.forward10:
     mov ax, 0                        ; 0x48be
     push ax                          ; 0x48c1
     call play_sound_effect           ; 0x48c2
     pop cx                           ; 0x48c5
-@..api_idx_006c_JNMM.l14:
+.forward11:
     cmp word [bp - 4], byte 8        ; 0x48c6
-    je short @..api_idx_006c_JNMM.l15 ; 0x48ca
-    jmp near @..api_idx_006c_JNMM.l1 ; 0x48cc
-@..api_idx_006c_JNMM.l15:
+    je short .forward12              ; 0x48ca
+    jmp near .back1                  ; 0x48cc
+.forward12:
     cmp word [bss_9594], byte 0      ; 0x48cf
-    je short @..api_idx_006c_JNMM.l16 ; 0x48d4
-    jmp near @..api_idx_006c_JNMM.l1 ; 0x48d6
-@..api_idx_006c_JNMM.l16:
+    je short .forward13              ; 0x48d4
+    jmp near .back1                  ; 0x48d6
+.forward13:
     mov word [bss_9594], 0xffff      ; 0x48d9
     mov ax, 1                        ; 0x48df
     push ax                          ; 0x48e2

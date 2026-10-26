@@ -3,11 +3,11 @@ api_idx_0054_TNHV:
     mov ax, 0xffac                   ; 0x8a81
     call aztec_csav                  ; 0x8a84
     mov word [bp - 2], 0             ; 0x8a87
-    jmp near @..api_idx_0054_TNHV.l5 ; 0x8a8c
-@..api_idx_0054_TNHV.l1:
+    jmp near .forward4               ; 0x8a8c
+.back1:
     mov byte [bp - 0x52], 0          ; 0x8a8f
     mov ax, word [bp + 6]            ; 0x8a93
-    jmp near @..api_idx_0054_TNHV.l2 ; 0x8a96
+    jmp near .forward1               ; 0x8a96
 jumptable_8b35_case_1:
     mov ax, 0xa                      ; 0x8a99
     imul word [bp - 2]               ; 0x8a9c
@@ -89,7 +89,7 @@ jumptable_8b35:
     dw jumptable_8b35_case_7 - IMAGE_BASE + __zres_end ; 0x8b43
     dw jumptable_8b35_case_8 - IMAGE_BASE + __zres_end ; 0x8b45
     dw jumptable_8b35_case_9 - IMAGE_BASE + __zres_end ; 0x8b47
-@..api_idx_0054_TNHV.l2:
+api_idx_0054_TNHV.forward1:
     cmp ax, strict word 0xa          ; 0x8b49
     jae short jumptable_8b35_case_0  ; 0x8b4c
     xchg bx, ax                      ; 0x8b4e
@@ -116,7 +116,7 @@ jumptable_8b35_case_0:
     call aztec_strncmp               ; 0x8b7d
     add sp, byte 6                   ; 0x8b80
     test ax, ax                      ; 0x8b83
-    jne short @..api_idx_0054_TNHV.l4 ; 0x8b85
+    jne short api_idx_0054_TNHV.forward3 ; 0x8b85
     lea ax, word [bp - 0x52]         ; 0x8b87
     push ax                          ; 0x8b8a
     call aztec_strlen                ; 0x8b8b
@@ -128,13 +128,13 @@ jumptable_8b35_case_0:
     add sp, byte 4                   ; 0x8b97
     mov ax, word [bp - 2]            ; 0x8b9a
     ret                              ; 0x8b9d
-@..api_idx_0054_TNHV.l4:
+api_idx_0054_TNHV.forward3:
     inc word [bp - 2]                ; 0x8b9e
-@..api_idx_0054_TNHV.l5:
+api_idx_0054_TNHV.forward4:
     mov ax, word [bp - 2]            ; 0x8ba1
     cmp ax, word [bp + 8]            ; 0x8ba4
-    jge short @..api_idx_0054_TNHV.l6 ; 0x8ba7
-    jmp near @..api_idx_0054_TNHV.l1 ; 0x8ba9
-@..api_idx_0054_TNHV.l6:
+    jge short api_idx_0054_TNHV.forward5 ; 0x8ba7
+    jmp near api_idx_0054_TNHV.back1 ; 0x8ba9
+api_idx_0054_TNHV.forward5:
     mov ax, 0xffff                   ; 0x8bac
     ret                              ; 0x8baf

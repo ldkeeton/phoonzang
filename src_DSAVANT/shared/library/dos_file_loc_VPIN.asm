@@ -2,24 +2,24 @@
 dos_file_loc_VPIN:
     mov cx, word [bp - 2]
     xor bx, bx
-@..dos_file_loc_VPIN.l1:
+.back1:
     shl al, 1
-    jb short @..dos_file_loc_VPIN.l4
+    jb short .forward2
     test word [bx], 0x8000
-    jne short @..dos_file_loc_VPIN.l2
+    jne short .forward1
     mov bx, word [bx]
-    jmp short @..dos_file_loc_VPIN.l6
-@..dos_file_loc_VPIN.l2:
+    jmp short .forward4
+.forward1:
     mov bx, word [bx]
     neg bx
     shl bx, 1
     shl bx, 1
-@..dos_file_loc_VPIN.l3:
-    loop @..dos_file_loc_VPIN.l1
+.back2:
+    loop .back1
     mov cx, 8
     lodsb
     cmp si, strict word 0x1400
-    jb short @..dos_file_loc_VPIN.l1
+    jb short .back1
     push ax
     push di
     push bx
@@ -34,25 +34,25 @@ dos_file_loc_VPIN:
     pop bx
     pop di
     pop ax
-    jmp short @..dos_file_loc_VPIN.l1
-@..dos_file_loc_VPIN.l4:
+    jmp short .back1
+.forward2:
     test word [bx + 2], 0x8000
-    jne short @..dos_file_loc_VPIN.l5
+    jne short .forward3
     mov bx, word [bx + 2]
-    jmp short @..dos_file_loc_VPIN.l6
-@..dos_file_loc_VPIN.l5:
+    jmp short .forward4
+.forward3:
     mov bx, word [bx + 2]
     neg bx
     shl bx, 1
     shl bx, 1
-    jmp short @..dos_file_loc_VPIN.l3
-@..dos_file_loc_VPIN.l6:
+    jmp short .back2
+.forward4:
     dec cx
-    jne short @..dos_file_loc_VPIN.l7
+    jne short .forward5
     mov cx, 8
     lodsb
     cmp si, strict word 0x1400
-    jb short @..dos_file_loc_VPIN.l7
+    jb short .forward5
     push ax
     push di
     push bx
@@ -67,6 +67,6 @@ dos_file_loc_VPIN:
     pop bx
     pop di
     pop ax
-@..dos_file_loc_VPIN.l7:
+.forward5:
     mov word [bp - 2], cx
     ret

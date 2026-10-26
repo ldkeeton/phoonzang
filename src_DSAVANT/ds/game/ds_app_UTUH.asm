@@ -18,13 +18,13 @@ ds_app_UTUH: ; Aztec csav frame=0x0000
     add ax, cx                       ; 0x1c90
     mov bx, ax                       ; 0x1c92
     cmp byte [bx + party_records + pc_rec.cell + 0x6], 0 ; 0x1c94
-    jbe short @..ds_app_UTUH.l1      ; 0x1c99
+    jbe short .return1               ; 0x1c99
     dec byte [bx + party_records + pc_rec.cell + 0x6] ; 0x1c9b
-    jne short @..ds_app_UTUH.l1      ; 0x1c9f
+    jne short .return1               ; 0x1c9f
     push word [bp + 8]               ; 0x1ca1
     push word [bp + 6]               ; 0x1ca4
     push word [bp + 4]               ; 0x1ca7
     call clear_cell_key              ; 0x1caa
     add sp, byte 6                   ; 0x1cad
-@..ds_app_UTUH.l1:
+.return1:
     ret                              ; 0x1cb0

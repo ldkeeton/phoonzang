@@ -40,7 +40,7 @@ redraw_treasure_caption:
     call gfx_draw_text               ; 0x09af
     add sp, byte 0x16                ; 0x09b2
     cmp word [treasure_caption_on], byte 0 ; 0x09b5
-    je short @..redraw_treasure_caption.l1 ; 0x09ba
+    je short .forward1               ; 0x09ba
     mov ax, 0x92                     ; 0x09bc
     push ax                          ; 0x09bf
     mov ax, treasure_caption         ; 0x09c0
@@ -70,9 +70,9 @@ redraw_treasure_caption:
     push ax                          ; 0x09f6
     call draw_text_glyphs            ; 0x09f7
     add sp, byte 4                   ; 0x09fa
-@..redraw_treasure_caption.l1:
+.forward1:
     cmp word [bp + 4], byte 0        ; 0x09fd
-    je short @..redraw_treasure_caption.l2 ; 0x0a01
+    je short .return1                ; 0x0a01
     mov ax, 0xc6                     ; 0x0a03
     push ax                          ; 0x0a06
     mov ax, 0x127                    ; 0x0a07
@@ -83,5 +83,5 @@ redraw_treasure_caption:
     push ax                          ; 0x0a12
     call gfx_show_area               ; 0x0a13
     add sp, byte 8                   ; 0x0a16
-@..redraw_treasure_caption.l2:
+.return1:
     ret                              ; 0x0a19

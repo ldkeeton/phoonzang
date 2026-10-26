@@ -23,6 +23,21 @@ def _read(root, rel):
 
 
 class CodeKeyTest(unittest.TestCase):
+    def test_short_and_qualified_local_spellings_have_the_same_key(self):
+        canonical = 'owner:\njmp @..owner.back1\n@..owner.back1:\nret\n'
+        short = 'owner:\njmp .back1\n.back1:\nret\n'
+        qualified = 'owner:\njmp owner.back1\nowner.back1:\nret\n'
+        self.assertEqual(shared._code_key(canonical), shared._code_key(short))
+        self.assertEqual(shared._code_key(canonical), shared._code_key(qualified))
+
+    def test_role_counters_do_not_merge_different_local_targets(self):
+        first = ('je @..first.back1\njmp @..first.forward1\n'
+                 '@..first.back1:\nnop\n@..first.forward1:\nret\n')
+        renamed = first.replace('first', 'second').replace('back1', 'back3')
+        self.assertEqual(shared._code_key(first), shared._code_key(renamed))
+        self.assertNotEqual(shared._code_key(first), shared._code_key(
+            first.replace('forward1', 'back1')))
+
     def test_local_label_numbers_are_renamed_by_use_order(self):
         first = '''\
             je short @..first.l8

@@ -3,33 +3,33 @@ leaf_loc_MIUO:
     push ax
     mov bx, ems_slots - IMAGE_BASE
     mov cx, 0x14
-@..leaf_loc_MIUO.l1:
+.back1:
     cmp ax, word [cs:bx]
-    jae short @..leaf_loc_MIUO.l2
+    jae short .forward1
     dec word [cs:bx]
-@..leaf_loc_MIUO.l2:
+.forward1:
     inc bx
     inc bx
-    loop @..leaf_loc_MIUO.l1
+    loop .back1
     mov bx, cseg_01c3 - IMAGE_BASE
     mov cx, 0xa
-@..leaf_loc_MIUO.l3:
+.back2:
     cmp ax, word [cs:bx]
-    jae short @..leaf_loc_MIUO.l4
+    jae short .forward2
     dec word [cs:bx]
-@..leaf_loc_MIUO.l4:
+.forward2:
     inc bx
     inc bx
-    loop @..leaf_loc_MIUO.l3
+    loop .back2
     mov bx, screen_ems_slots - IMAGE_BASE
     mov cx, 0xa
-@..leaf_loc_MIUO.l5:
+.back3:
     cmp ax, word [cs:bx]
-    jae short @..leaf_loc_MIUO.l6
+    jae short .forward3
     dec word [cs:bx]
-@..leaf_loc_MIUO.l6:
+.forward3:
     inc bx
     inc bx
-    loop @..leaf_loc_MIUO.l5
+    loop .back3
     pop ax
     ret

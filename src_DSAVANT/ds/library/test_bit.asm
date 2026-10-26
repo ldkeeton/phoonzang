@@ -17,12 +17,12 @@ test_bit:
     mov al, 1                        ; 0x3ed6
     shl al, cl                       ; 0x3ed8
     test byte [bx + si], al          ; 0x3eda
-    je short @..test_bit.l1          ; 0x3edc
+    je short .forward1               ; 0x3edc
     mov ax, 1                        ; 0x3ede
-    jmp short @..test_bit.l2         ; 0x3ee1
-@..test_bit.l1:
+    jmp short .forward2              ; 0x3ee1
+.forward1:
     xor ax, ax                       ; 0x3ee3
-@..test_bit.l2:
+.forward2:
     pop si                           ; 0x3ee5
     pop es                           ; 0x3ee6
     mov sp, bp                       ; 0x3ee7

@@ -5,8 +5,8 @@ api_idx_0006_TLLQ:
     mov word [bp - 2], 0             ; 0x84f6
     mov word [bp - 4], 0             ; 0x84fb
     mov word [bp - 6], 0             ; 0x8500
-    jmp short @..api_idx_0006_TLLQ.l2 ; 0x8505
-@..api_idx_0006_TLLQ.l1:
+    jmp short .forward1              ; 0x8505
+.back1:
     mov ax, 0x248                    ; 0x8507
     imul word [bp - 6]               ; 0x850a
     mov bx, ax                       ; 0x850d
@@ -17,10 +17,10 @@ api_idx_0006_TLLQ:
     mov word [bx + party_records + pc_rec.f_0016], 0 ; 0x851d
     mov word [bx + party_records + pc_rec.f_0014], 0 ; 0x8523
     inc word [bp - 6]                ; 0x8529
-@..api_idx_0006_TLLQ.l2:
+.forward1:
     mov ax, word [bp - 6]            ; 0x852c
     cmp ax, word [party_char_count]  ; 0x852f
-    jl short @..api_idx_0006_TLLQ.l1 ; 0x8533
+    jl short .back1                  ; 0x8533
     mov ax, word [bp - 4]            ; 0x8535
     mov dx, word [bp - 2]            ; 0x8538
     push ax                          ; 0x853b

@@ -7,12 +7,12 @@ int_to_str:
     mov di, word [bp + 4]            ; 0x02b7
     mov ax, di                       ; 0x02ba
     cmp ax, strict word 0            ; 0x02bc
-    jge short @..int_to_str.l1       ; 0x02bf
+    jge short .forward1              ; 0x02bf
     neg ax                           ; 0x02c1
     mov word [bp + 4], ax            ; 0x02c3
-@..int_to_str.l1:
+.forward1:
     mov si, 0                        ; 0x02c6
-@..int_to_str.l2:
+.back1:
     mov ax, word [bp + 4]            ; 0x02c9
     mov cx, 0xa                      ; 0x02cc
     cwd                              ; 0x02cf
@@ -30,15 +30,15 @@ int_to_str:
     idiv cx                          ; 0x02e8
     mov word [bp + 4], ax            ; 0x02ea
     cmp ax, strict word 0            ; 0x02ed
-    jg short @..int_to_str.l2        ; 0x02f0
+    jg short .back1                  ; 0x02f0
     cmp di, byte 0                   ; 0x02f2
-    jge short @..int_to_str.l3       ; 0x02f5
+    jge short .forward2              ; 0x02f5
     mov ax, word [bp + 6]            ; 0x02f7
     add ax, si                       ; 0x02fa
     mov bx, ax                       ; 0x02fc
     inc si                           ; 0x02fe
     mov byte [bx], 0x2d              ; 0x02ff
-@..int_to_str.l3:
+.forward2:
     mov bx, word [bp + 6]            ; 0x0302
     mov byte [bx + si], 0            ; 0x0305
     push word [bp + 6]               ; 0x0308

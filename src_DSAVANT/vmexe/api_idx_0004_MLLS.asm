@@ -74,7 +74,7 @@ api_idx_0004_MLLS:
     add ax, strict word 0x12         ; 0x03c0
     mov word [bp - 4], ax            ; 0x03c3
     cmp word [bp + 6], byte 0        ; 0x03c6
-    je short @..api_idx_0004_MLLS.l1 ; 0x03ca
+    je short .forward1               ; 0x03ca
     mov ax, 0x17                     ; 0x03cc
     push ax                          ; 0x03cf
     mov ax, word [bp - 4]            ; 0x03d0
@@ -125,7 +125,7 @@ api_idx_0004_MLLS:
     push ax                          ; 0x0434
     call draw_text_glyphs            ; 0x0435
     add sp, byte 4                   ; 0x0438
-@..api_idx_0004_MLLS.l1:
+.forward1:
     mov ax, word [bp - 4]            ; 0x043b
     add ax, strict word 0x2b         ; 0x043e
     push ax                          ; 0x0441

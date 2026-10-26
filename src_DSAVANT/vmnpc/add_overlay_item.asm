@@ -3,24 +3,24 @@ add_overlay_item:
     mov ax, 0xfffc                   ; 0x062d
     call aztec_csav                  ; 0x0630
     mov word [bp - 2], 0             ; 0x0633
-@..add_overlay_item.l1:
+.back1:
     mov ax, word [bp - 2]            ; 0x0638
     cmp ax, word [overlay_list]      ; 0x063b
-    jge short @..add_overlay_item.l2 ; 0x063f
+    jge short .forward1              ; 0x063f
     shl ax, 1                        ; 0x0641
     mov bx, ax                       ; 0x0643
     mov bx, word [bx + overlay_list + 0x2] ; 0x0645
     mov al, byte [bx + 0x14]         ; 0x0649
     sub ah, ah                       ; 0x064c
     cmp ax, word [bp + 4]            ; 0x064e
-    jg short @..add_overlay_item.l2  ; 0x0651
+    jg short .forward1               ; 0x0651
     inc word [bp - 2]                ; 0x0653
-    jmp short @..add_overlay_item.l1 ; 0x0656
-@..add_overlay_item.l2:
+    jmp short .back1                 ; 0x0656
+.forward1:
     mov ax, word [overlay_list]      ; 0x0658
     mov word [bp - 4], ax            ; 0x065b
-    jmp short @..add_overlay_item.l4 ; 0x065e
-@..add_overlay_item.l3:
+    jmp short .forward2              ; 0x065e
+.back2:
     mov ax, word [bp - 4]            ; 0x0660
     shl ax, 1                        ; 0x0663
     mov bx, ax                       ; 0x0665
@@ -31,10 +31,10 @@ add_overlay_item:
     mov cx, 0xc                      ; 0x0673
     rep movsw                        ; 0x0676
     dec word [bp - 4]                ; 0x0678
-@..add_overlay_item.l4:
+.forward2:
     mov ax, word [bp - 4]            ; 0x067b
     cmp ax, word [bp - 2]            ; 0x067e
-    jg short @..add_overlay_item.l3  ; 0x0681
+    jg short .back2                  ; 0x0681
     mov al, byte [bp + 4]            ; 0x0683
     mov cx, word [bp - 2]            ; 0x0686
     shl cx, 1                        ; 0x0689

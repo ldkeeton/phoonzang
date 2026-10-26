@@ -7,17 +7,17 @@ pick_target_slot:
     mov bx, ax                       ; 0x0428
     mov bx, word [bx + party_char_ext] ; 0x042a
     cmp byte [bx + member_ext.class_id], 2 ; 0x042e
-    jge short @..pick_target_slot.l1 ; 0x0433
+    jge short .forward1              ; 0x0433
     mov ax, 0xffff                   ; 0x0435
     ret                              ; 0x0438
-@..pick_target_slot.l1:
+.forward1:
     mov al, byte [bx + 0xe5]         ; 0x0439
     cbw                              ; 0x043d
     mov word [bp - 0xa], ax          ; 0x043e
     mov word [bp - 2], 0             ; 0x0441
-@..pick_target_slot.l2:
+.back1:
     mov word [bp - 4], 0             ; 0x0446
-@..pick_target_slot.l3:
+.back2:
     mov ax, 0xc                      ; 0x044b
     imul word [bp - 2]               ; 0x044e
     mov cx, word [bp - 4]            ; 0x0451
@@ -29,11 +29,11 @@ pick_target_slot:
     inc word [bp - 4]                ; 0x0462
     mov ax, word [bp - 4]            ; 0x0465
     cmp ax, strict word 6            ; 0x0468
-    jl short @..pick_target_slot.l3  ; 0x046b
+    jl short .back2                  ; 0x046b
     inc word [bp - 2]                ; 0x046d
     mov ax, word [bp - 2]            ; 0x0470
     cmp ax, strict word 0xc          ; 0x0473
-    jl short @..pick_target_slot.l2  ; 0x0476
+    jl short .back1                  ; 0x0476
     mov word [bp - 0x90], 0xffff     ; 0x0478
     mov word [bp - 0x8e], 0x5e       ; 0x047e
     mov word [bp - 0x8c], 0x5e       ; 0x0484
@@ -82,16 +82,16 @@ pick_target_slot:
     idiv cx                          ; 0x0559
     mov ax, dx                       ; 0x055b
     test ax, ax                      ; 0x055d
-    jne short @..pick_target_slot.l4 ; 0x055f
+    jne short .forward2              ; 0x055f
     mov word [bp - 0x3c], 0xffff     ; 0x0561
     mov word [bp - 0x3a], 0x62       ; 0x0566
     mov word [bp - 0x38], 0x63       ; 0x056b
     mov word [bp - 0x36], 0x63       ; 0x0570
     mov word [bp - 0x34], 0x64       ; 0x0575
     mov word [bp - 0x32], 0x64       ; 0x057a
-@..pick_target_slot.l4:
+.forward2:
     mov word [bp - 2], 0             ; 0x057f
-@..pick_target_slot.l5:
+.back3:
     mov ax, 0xc                      ; 0x0584
     imul word [bp - 0xa]             ; 0x0587
     mov cx, word [bp - 2]            ; 0x058a
@@ -101,9 +101,9 @@ pick_target_slot:
     add bx, bp                       ; 0x0593
     mov ax, word [bx - 0x9c]         ; 0x0595
     cmp ax, word [bp + 6]            ; 0x0599
-    je short @..pick_target_slot.l6  ; 0x059c
-    jmp near @..pick_target_slot.l9  ; 0x059e
-@..pick_target_slot.l6:
+    je short .forward3               ; 0x059c
+    jmp near .forward5               ; 0x059e
+.forward3:
     mov ax, 0                        ; 0x05a1
     push ax                          ; 0x05a4
     mov ax, 0xc                      ; 0x05a5
@@ -126,7 +126,7 @@ pick_target_slot:
     add sp, byte 6                   ; 0x05ce
     mov word [bp - 8], ax            ; 0x05d1
     mov word [bp - 6], 0             ; 0x05d4
-@..pick_target_slot.l7:
+.back4:
     mov ax, 8                        ; 0x05d9
     push ax                          ; 0x05dc
     call random_below                ; 0x05dd
@@ -136,7 +136,7 @@ pick_target_slot:
     mov bx, word [bp - 0xc]          ; 0x05e5
     add bx, bp                       ; 0x05e8
     cmp byte [bx - 0xa8], 0          ; 0x05ea
-    jne short @..pick_target_slot.l7 ; 0x05ef
+    jne short .back4                 ; 0x05ef
     mov bx, word [bp - 0xc]          ; 0x05f1
     add bx, bp                       ; 0x05f4
     mov byte [bx - 0xa8], 1          ; 0x05f6
@@ -146,7 +146,7 @@ pick_target_slot:
     add ax, word [bp - 0xc]          ; 0x0604
     mov bx, ax                       ; 0x0607
     cmp byte [bx + target_weight], 0x23 ; 0x0609
-    jle short @..pick_target_slot.l8 ; 0x060e
+    jle short .forward4              ; 0x060e
     mov ax, 0xc                      ; 0x0610
     imul word [bp - 0xc]             ; 0x0613
     mov cx, word [bp - 8]            ; 0x0616
@@ -154,21 +154,21 @@ pick_target_slot:
     add ax, cx                       ; 0x061b
     mov bx, ax                       ; 0x061d
     add bx, bp                       ; 0x061f
-    cmp word [bx - 0x9c], byte 0xff  ; 0x0621
-    je short @..pick_target_slot.l8  ; 0x0626
+    cmp word [bx - 0x9c], byte -1    ; 0x0621
+    je short .forward4               ; 0x0626
     mov ax, word [bx - 0x9c]         ; 0x0628
     ret                              ; 0x062c
-@..pick_target_slot.l8:
+.forward4:
     cmp word [bp - 6], byte 3        ; 0x062d
-    jl short @..pick_target_slot.l7  ; 0x0631
+    jl short .back4                  ; 0x0631
     mov ax, 0xffff                   ; 0x0633
     ret                              ; 0x0636
-@..pick_target_slot.l9:
+.forward5:
     inc word [bp - 2]                ; 0x0637
     mov ax, word [bp - 2]            ; 0x063a
     cmp ax, strict word 6            ; 0x063d
-    jge short @..pick_target_slot.l10 ; 0x0640
-    jmp near @..pick_target_slot.l5  ; 0x0642
-@..pick_target_slot.l10:
+    jge short .forward6              ; 0x0640
+    jmp near .back3                  ; 0x0642
+.forward6:
     mov ax, 0xffff                   ; 0x0645
     ret                              ; 0x0648

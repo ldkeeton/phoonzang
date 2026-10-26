@@ -3,7 +3,7 @@ api_idx_0002_SLKJ:
     mov ax, 0xfffe                   ; 0x4ade
     call aztec_csav                  ; 0x4ae1
     mov word [bp - 2], 0             ; 0x4ae4
-@..api_idx_0002_SLKJ.l1:
+.back1:
     mov ax, 9                        ; 0x4ae9
     push ax                          ; 0x4aec
     push word [bp - 2]               ; 0x4aed
@@ -13,5 +13,5 @@ api_idx_0002_SLKJ:
     inc word [bp - 2]                ; 0x4af9
     mov ax, word [bp - 2]            ; 0x4afc
     cmp ax, strict word 0x60         ; 0x4aff
-    jl short @..api_idx_0002_SLKJ.l1 ; 0x4b02
+    jl short .back1                  ; 0x4b02
     ret                              ; 0x4b04

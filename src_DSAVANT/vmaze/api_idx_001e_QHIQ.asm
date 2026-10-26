@@ -35,7 +35,7 @@ api_idx_001e_QHIQ:
     sub ah, ah                       ; 0x7e98
     mov word [bp - 0x14], ax         ; 0x7e9a
     cmp word [bp - 0x14], byte 0     ; 0x7e9d
-    je short @..api_idx_001e_QHIQ.l1 ; 0x7ea1
+    je short .forward1               ; 0x7ea1
     mov ax, 0x12                     ; 0x7ea3
     push ax                          ; 0x7ea6
     call loc_GRON                    ; 0x7ea7
@@ -44,7 +44,7 @@ api_idx_001e_QHIQ:
     push ax                          ; 0x7eae
     call ensure_sound_loaded         ; 0x7eaf
     pop cx                           ; 0x7eb2
-@..api_idx_001e_QHIQ.l1:
+.forward1:
     mov ax, word [party_region]      ; 0x7eb3
     shl ax, 1                        ; 0x7eb6
     mov si, ax                       ; 0x7eb8
@@ -100,21 +100,21 @@ api_idx_001e_QHIQ:
     mov word [bp - 0xe], ax          ; 0x7f37
     mov ax, 1                        ; 0x7f3a
     cmp word [bp - 0x12], byte 0     ; 0x7f3d
-    je short @..api_idx_001e_QHIQ.l2 ; 0x7f41
+    je short .forward2               ; 0x7f41
     mov ax, 6                        ; 0x7f43
-@..api_idx_001e_QHIQ.l2:
+.forward2:
     mov word [bp - 0xc], ax          ; 0x7f46
     cmp word [bp - 0xe], byte 0      ; 0x7f49
-    je short @..api_idx_001e_QHIQ.l4 ; 0x7f4d
+    je short .forward4               ; 0x7f4d
     cmp word [bp - 0x10], byte 0     ; 0x7f4f
-    je short @..api_idx_001e_QHIQ.l4 ; 0x7f53
+    je short .forward4               ; 0x7f53
     cmp word [bp - 0x12], byte 0     ; 0x7f55
-    je short @..api_idx_001e_QHIQ.l4 ; 0x7f59
+    je short .forward4               ; 0x7f59
     cmp word [bp - 0x1a], byte 0     ; 0x7f5b
-    jne short @..api_idx_001e_QHIQ.l4 ; 0x7f5f
+    jne short .forward4              ; 0x7f5f
     mov ax, word [party_tag]         ; 0x7f61
     cmp ax, word [bp - 0x18]         ; 0x7f64
-    jne short @..api_idx_001e_QHIQ.l3 ; 0x7f67
+    jne short .forward3              ; 0x7f67
     push word [bp - 0x14]            ; 0x7f69
     push word [bp - 0x1e]            ; 0x7f6c
     push word [bp - 0x1c]            ; 0x7f6f
@@ -122,14 +122,14 @@ api_idx_001e_QHIQ:
     push ax                          ; 0x7f75
     call api_idx_0018_OIIM           ; 0x7f76
     add sp, byte 8                   ; 0x7f79
-    jmp short @..api_idx_001e_QHIQ.l4 ; 0x7f7c
-@..api_idx_001e_QHIQ.l3:
+    jmp short .forward4              ; 0x7f7c
+.forward3:
     push word [bp - 0x14]            ; 0x7f7e
     mov ax, 7                        ; 0x7f81
     push ax                          ; 0x7f84
     call loc_HMKT                    ; 0x7f85
     add sp, byte 4                   ; 0x7f88
-@..api_idx_001e_QHIQ.l4:
+.forward4:
     push word [bp - 0xa]             ; 0x7f8b
     push word [bp - 8]               ; 0x7f8e
     push word [bp - 6]               ; 0x7f91
@@ -138,16 +138,16 @@ api_idx_001e_QHIQ:
     call set_cell_wall               ; 0x7f9a
     add sp, byte 0xa                 ; 0x7f9d
     cmp word [bp - 0xe], byte 0      ; 0x7fa0
-    je short @..api_idx_001e_QHIQ.l11 ; 0x7fa4
+    je short .forward11              ; 0x7fa4
     cmp word [bp - 0x10], byte 0     ; 0x7fa6
-    je short @..api_idx_001e_QHIQ.l9 ; 0x7faa
+    je short .forward9               ; 0x7faa
     cmp word [bp - 0x12], byte 0     ; 0x7fac
-    jne short @..api_idx_001e_QHIQ.l7 ; 0x7fb0
+    jne short .forward7              ; 0x7fb0
     cmp word [bp - 0x1a], byte 0     ; 0x7fb2
-    jne short @..api_idx_001e_QHIQ.l7 ; 0x7fb6
+    jne short .forward7              ; 0x7fb6
     mov ax, word [party_tag]         ; 0x7fb8
     cmp ax, word [bp - 0x18]         ; 0x7fbb
-    jne short @..api_idx_001e_QHIQ.l5 ; 0x7fbe
+    jne short .forward5              ; 0x7fbe
     push word [bp - 0x14]            ; 0x7fc0
     push word [bp - 0x1e]            ; 0x7fc3
     push word [bp - 0x1c]            ; 0x7fc6
@@ -155,61 +155,61 @@ api_idx_001e_QHIQ:
     push ax                          ; 0x7fcc
     call api_idx_0018_OIIM           ; 0x7fcd
     add sp, byte 8                   ; 0x7fd0
-    jmp short @..api_idx_001e_QHIQ.l6 ; 0x7fd3
-@..api_idx_001e_QHIQ.l5:
+    jmp short .forward6              ; 0x7fd3
+.forward5:
     push word [bp - 0x14]            ; 0x7fd5
     mov ax, 7                        ; 0x7fd8
     push ax                          ; 0x7fdb
     call loc_HMKT                    ; 0x7fdc
     add sp, byte 4                   ; 0x7fdf
-@..api_idx_001e_QHIQ.l6:
-    jmp short @..api_idx_001e_QHIQ.l8 ; 0x7fe2
-@..api_idx_001e_QHIQ.l7:
+.forward6:
+    jmp short .forward8              ; 0x7fe2
+.forward7:
     cmp word [bp - 0x1a], byte 1     ; 0x7fe4
-    jl short @..api_idx_001e_QHIQ.l8 ; 0x7fe8
+    jl short .forward8               ; 0x7fe8
     cmp word [bp - 0x1a], byte 3     ; 0x7fea
-    jg short @..api_idx_001e_QHIQ.l8 ; 0x7fee
+    jg short .forward8               ; 0x7fee
     push word [bp - 0x14]            ; 0x7ff0
     mov ax, 7                        ; 0x7ff3
     push ax                          ; 0x7ff6
     call loc_HMKT                    ; 0x7ff7
     add sp, byte 4                   ; 0x7ffa
-@..api_idx_001e_QHIQ.l8:
+.forward8:
     call redraw_maze_view            ; 0x7ffd
-    jmp short @..api_idx_001e_QHIQ.l10 ; 0x8000
-@..api_idx_001e_QHIQ.l9:
+    jmp short .forward10             ; 0x8000
+.forward9:
     call redraw_maze_view            ; 0x8002
-@..api_idx_001e_QHIQ.l10:
-    jmp short @..api_idx_001e_QHIQ.l13 ; 0x8005
-@..api_idx_001e_QHIQ.l11:
+.forward10:
+    jmp short .forward13             ; 0x8005
+.forward11:
     cmp word [bp - 0x10], byte 0     ; 0x8007
-    je short @..api_idx_001e_QHIQ.l12 ; 0x800b
+    je short .forward12              ; 0x800b
     push word [bp - 0x14]            ; 0x800d
     mov ax, 7                        ; 0x8010
     push ax                          ; 0x8013
     call loc_HMKT                    ; 0x8014
     add sp, byte 4                   ; 0x8017
-@..api_idx_001e_QHIQ.l12:
+.forward12:
     mov ax, 2                        ; 0x801a
     push ax                          ; 0x801d
     call wait_ticks_or_key           ; 0x801e
     pop cx                           ; 0x8021
-@..api_idx_001e_QHIQ.l13:
+.forward13:
     cmp word [bp - 0x14], byte 0     ; 0x8022
-    je short @..api_idx_001e_QHIQ.l14 ; 0x8026
+    je short .forward14              ; 0x8026
     mov ax, 0x10                     ; 0x8028
     push ax                          ; 0x802b
     call wait_and_free_sound         ; 0x802c
     pop cx                           ; 0x802f
     mov word [loaded_sound_id], 0xffff ; 0x8030
-@..api_idx_001e_QHIQ.l14:
+.forward14:
     mov si, word [party_region]      ; 0x8036
     mov bx, word [maze_tables]       ; 0x803a
     cmp byte [bx + si + spell_table + spell_table_rec_size*138 + spell_table_rec.f_0004], 0 ; 0x803e
-    jbe short @..api_idx_001e_QHIQ.l15 ; 0x8043
+    jbe short .return1               ; 0x8043
     mov ax, 2                        ; 0x8045
     push ax                          ; 0x8048
     call mark_region_bits            ; 0x8049
     pop cx                           ; 0x804c
-@..api_idx_001e_QHIQ.l15:
+.return1:
     ret                              ; 0x804d

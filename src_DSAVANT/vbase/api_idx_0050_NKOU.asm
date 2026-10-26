@@ -13,7 +13,7 @@ api_idx_0050_NKOU:
     call gfx_set_text_color          ; 0x4201
     add sp, byte 4                   ; 0x4204
     cmp word [bp + 6], byte 0        ; 0x4207
-    jge short @..api_idx_0050_NKOU.l1 ; 0x420b
+    jge short .forward1              ; 0x420b
     lea ax, word [bp - 0x50]         ; 0x420d
     push ax                          ; 0x4210
     call aztec_strlen                ; 0x4211
@@ -27,7 +27,7 @@ api_idx_0050_NKOU:
     mov ax, 0xa0                     ; 0x4222
     sub ax, cx                       ; 0x4225
     mov word [bp + 6], ax            ; 0x4227
-@..api_idx_0050_NKOU.l1:
+.forward1:
     push word [bp + 8]               ; 0x422a
     push word [bp + 6]               ; 0x422d
     call gfx_set_text_pos            ; 0x4230

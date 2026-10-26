@@ -9,7 +9,7 @@ api_idx_0002_PMUV:
     call gfx_set_text_color          ; 0x2528
     add sp, byte 4                   ; 0x252b
     mov word [bp - 2], 0             ; 0x252e
-@..api_idx_0002_PMUV.l1:
+.back1:
     mov ax, word [bp - 2]            ; 0x2533
     mov cx, 4                        ; 0x2536
     cwd                              ; 0x2539
@@ -30,7 +30,7 @@ api_idx_0002_PMUV:
     call gfx_set_text_pos            ; 0x2559
     add sp, byte 4                   ; 0x255c
     cmp word [bp + 0xa], byte 0      ; 0x255f
-    je short @..api_idx_0002_PMUV.l2 ; 0x2563
+    je short .forward1               ; 0x2563
     mov ax, 0                        ; 0x2565
     push ax                          ; 0x2568
     mov ax, 0xa                      ; 0x2569
@@ -42,8 +42,8 @@ api_idx_0002_PMUV:
     push ax                          ; 0x257a
     call draw_font_glyph             ; 0x257b
     add sp, byte 4                   ; 0x257e
-    jmp short @..api_idx_0002_PMUV.l3 ; 0x2581
-@..api_idx_0002_PMUV.l2:
+    jmp short .forward2              ; 0x2581
+.forward1:
     mov ax, 0                        ; 0x2583
     push ax                          ; 0x2586
     mov ax, 0xa                      ; 0x2587
@@ -55,9 +55,9 @@ api_idx_0002_PMUV:
     push ax                          ; 0x2598
     call draw_font_glyph             ; 0x2599
     add sp, byte 4                   ; 0x259c
-@..api_idx_0002_PMUV.l3:
+.forward2:
     inc word [bp - 2]                ; 0x259f
     mov ax, word [bp - 2]            ; 0x25a2
     cmp ax, strict word 8            ; 0x25a5
-    jl short @..api_idx_0002_PMUV.l1 ; 0x25a8
+    jl short .back1                  ; 0x25a8
     ret                              ; 0x25aa

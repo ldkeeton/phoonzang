@@ -24,18 +24,18 @@ invert_area:
     sub ax, word [bp + 0xc]          ; 0x0c75
     inc ax                           ; 0x0c78
     mov word [bp - 6], ax            ; 0x0c79
-@..invert_area.l1:
+.back1:
     mov di, word [bp - 2]            ; 0x0c7c
     mov si, di                       ; 0x0c7f
     add word [bp - 2], strict word 0x140 ; 0x0c81
     mov cx, word [bp - 6]            ; 0x0c86
-@..invert_area.l2:
+.back2:
     lodsb                            ; 0x0c89
     not al                           ; 0x0c8a
     stosb                            ; 0x0c8c
-    loop @..invert_area.l2           ; 0x0c8d
+    loop .back2                      ; 0x0c8d
     dec word [bp - 4]                ; 0x0c8f
-    jne short @..invert_area.l1      ; 0x0c92
+    jne short .back1                 ; 0x0c92
     pop di                           ; 0x0c94
     pop ds                           ; 0x0c95
     pop es                           ; 0x0c96

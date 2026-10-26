@@ -13,16 +13,16 @@ api_idx_0002_KNHU:
     push ax                          ; 0x38de
     cmp ax, strict word 0            ; 0x38df
     pop ax                           ; 0x38e2
-    jge short @..api_idx_0002_KNHU.l1 ; 0x38e3
+    jge short .forward1              ; 0x38e3
     mov ax, 0                        ; 0x38e5
-@..api_idx_0002_KNHU.l1:
+.forward1:
     mov byte [bx + party_records + pc_rec.status], al ; 0x38e8
     cmp word [bp + 0xa], byte 0      ; 0x38ec
-    je short @..api_idx_0002_KNHU.l2 ; 0x38f0
+    je short .return1                ; 0x38f0
     mov ax, 1                        ; 0x38f2
     push ax                          ; 0x38f5
     push word [bp + 4]               ; 0x38f6
     call draw_party_member_panel     ; 0x38f9
     add sp, byte 4                   ; 0x38fc
-@..api_idx_0002_KNHU.l2:
+.return1:
     ret                              ; 0x38ff

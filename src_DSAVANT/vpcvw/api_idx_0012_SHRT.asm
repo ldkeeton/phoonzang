@@ -3,9 +3,9 @@ api_idx_0012_SHRT:
     mov ax, 0xffee                   ; 0x0781
     call aztec_csav                  ; 0x0784
     cmp word [mouse_active], byte 0  ; 0x0787
-    je short @..api_idx_0012_SHRT.l1 ; 0x078c
-    jmp near @..api_idx_0012_SHRT.l6 ; 0x078e
-@..api_idx_0012_SHRT.l1:
+    je short .forward1               ; 0x078c
+    jmp near .forward5               ; 0x078e
+.forward1:
     mov ax, 0xa3                     ; 0x0791
     push ax                          ; 0x0794
     mov ax, 0xb1                     ; 0x0795
@@ -65,9 +65,9 @@ api_idx_0012_SHRT:
     call gfx_show_area               ; 0x0811
     add sp, byte 8                   ; 0x0814
     mov word [bp - 4], 0xfffe        ; 0x0817
-@..api_idx_0012_SHRT.l2:
-    cmp word [bp - 4], byte 0xfe     ; 0x081c
-    jne short @..api_idx_0012_SHRT.l5 ; 0x0820
+.back1:
+    cmp word [bp - 4], byte -2       ; 0x081c
+    jne short .forward4              ; 0x0820
     mov ax, 1                        ; 0x0822
     push ax                          ; 0x0825
     call get_filtered_key            ; 0x0826
@@ -75,21 +75,21 @@ api_idx_0012_SHRT:
     sub ah, ah                       ; 0x082a
     mov word [bp - 2], ax            ; 0x082c
     cmp ax, strict word 0x1b         ; 0x082f
-    jne short @..api_idx_0012_SHRT.l3 ; 0x0832
+    jne short .forward2              ; 0x0832
     mov word [bp - 4], 0xffff        ; 0x0834
-@..api_idx_0012_SHRT.l3:
+.forward2:
     cmp ax, strict word 0x30         ; 0x0839
-    jl short @..api_idx_0012_SHRT.l4 ; 0x083c
+    jl short .forward3               ; 0x083c
     cmp ax, strict word 0x39         ; 0x083e
-    jg short @..api_idx_0012_SHRT.l4 ; 0x0841
+    jg short .forward3               ; 0x0841
     add ax, strict word 0xffd9       ; 0x0843
     mov cx, 0xa                      ; 0x0846
     cwd                              ; 0x0849
     idiv cx                          ; 0x084a
     mov word [bp - 4], dx            ; 0x084c
-@..api_idx_0012_SHRT.l4:
-    jmp short @..api_idx_0012_SHRT.l2 ; 0x084f
-@..api_idx_0012_SHRT.l5:
+.forward3:
+    jmp short .back1                 ; 0x084f
+.forward4:
     mov ax, 1                        ; 0x0851
     push ax                          ; 0x0854
     push word [bp - 0x10]            ; 0x0855
@@ -108,13 +108,13 @@ api_idx_0012_SHRT:
     add sp, byte 8                   ; 0x0874
     mov ax, word [bp - 4]            ; 0x0877
     ret                              ; 0x087a
-@..api_idx_0012_SHRT.l6:
+.forward5:
     push word [bss_0e28]             ; 0x087b
     push word [bss_0e26]             ; 0x087f
     call set_mouse_pointer_shape     ; 0x0883
     add sp, byte 4                   ; 0x0886
     mov word [bp - 2], 0             ; 0x0889
-@..api_idx_0012_SHRT.l7:
+.back2:
     mov ax, 0                        ; 0x088e
     push ax                          ; 0x0891
     mov ax, word [bp - 2]            ; 0x0892
@@ -167,7 +167,7 @@ api_idx_0012_SHRT:
     inc word [bp - 2]                ; 0x08f7
     mov ax, word [bp - 2]            ; 0x08fa
     cmp ax, strict word 0xa          ; 0x08fd
-    jl short @..api_idx_0012_SHRT.l7 ; 0x0900
+    jl short .back2                  ; 0x0900
     mov ax, 0                        ; 0x0902
     push ax                          ; 0x0905
     push ax                          ; 0x0906
@@ -181,7 +181,7 @@ api_idx_0012_SHRT:
     call set_hotspot                 ; 0x0912
     add sp, byte 0xe                 ; 0x0915
     mov word [bp - 8], 0             ; 0x0918
-@..api_idx_0012_SHRT.l8:
+.back3:
     lea ax, word [bp - 0xc]          ; 0x091d
     push ax                          ; 0x0920
     lea ax, word [bp - 0xa]          ; 0x0921
@@ -191,9 +191,9 @@ api_idx_0012_SHRT:
     mov word [bp - 6], ax            ; 0x092b
     mov ax, 0                        ; 0x092e
     cmp word [bp - 6], byte 0        ; 0x0931
-    jne short @..api_idx_0012_SHRT.l9 ; 0x0935
+    jne short .forward6              ; 0x0935
     mov ax, 1                        ; 0x0937
-@..api_idx_0012_SHRT.l9:
+.forward6:
     or word [bp - 8], ax             ; 0x093a
     mov ax, 0x14                     ; 0x093d
     push ax                          ; 0x0940
@@ -206,7 +206,7 @@ api_idx_0012_SHRT:
     dec ax                           ; 0x094d
     mov word [bp - 4], ax            ; 0x094e
     cmp word [bss_59fa], byte 0      ; 0x0951
-    je short @..api_idx_0012_SHRT.l10 ; 0x0956
+    je short .forward7               ; 0x0956
     mov ax, 0                        ; 0x0958
     mov dx, 0                        ; 0x095b
     push dx                          ; 0x095e
@@ -215,9 +215,9 @@ api_idx_0012_SHRT:
     add sp, byte 4                   ; 0x0963
     mov ax, 0xffff                   ; 0x0966
     ret                              ; 0x0969
-@..api_idx_0012_SHRT.l10:
+.forward7:
     cmp word [hotspot_hit], byte 1   ; 0x096a
-    jne short @..api_idx_0012_SHRT.l11 ; 0x096f
+    jne short .forward8              ; 0x096f
     mov ax, 0                        ; 0x0971
     mov dx, 0                        ; 0x0974
     push dx                          ; 0x0977
@@ -226,11 +226,11 @@ api_idx_0012_SHRT:
     add sp, byte 4                   ; 0x097c
     mov ax, word [bp - 4]            ; 0x097f
     ret                              ; 0x0982
-@..api_idx_0012_SHRT.l11:
+.forward8:
     cmp word [bp - 6], byte 0        ; 0x0983
-    je short @..api_idx_0012_SHRT.l8 ; 0x0987
+    je short .back3                  ; 0x0987
     cmp word [bp - 8], byte 0        ; 0x0989
-    je short @..api_idx_0012_SHRT.l8 ; 0x098d
+    je short .back3                  ; 0x098d
     mov ax, 0                        ; 0x098f
     mov dx, 0                        ; 0x0992
     push dx                          ; 0x0995

@@ -3,12 +3,12 @@ draw_spell_list: ; Aztec csav frame=0x0002
     mov ax, 0xfffe                   ; 0x1138
     call aztec_csav                  ; 0x113b
     mov word [bp - 2], 0             ; 0x113e
-    jmp near @..draw_spell_list.l4   ; 0x1143
-@..draw_spell_list.l1:
+    jmp near .forward3               ; 0x1143
+.back1:
     mov ax, word [bp + 0xc]          ; 0x1146
     add ax, word [bp - 2]            ; 0x1149
     cmp ax, word [bp + 0xe]          ; 0x114c
-    jne short @..draw_spell_list.l2  ; 0x114f
+    jne short .forward1              ; 0x114f
     mov ax, 1                        ; 0x1151
     push ax                          ; 0x1154
     mov ax, 6                        ; 0x1155
@@ -35,15 +35,15 @@ draw_spell_list: ; Aztec csav frame=0x0002
     push ax                          ; 0x1188
     call gfx_set_text_color          ; 0x1189
     add sp, byte 4                   ; 0x118c
-    jmp short @..draw_spell_list.l3  ; 0x118f
-@..draw_spell_list.l2:
+    jmp short .forward2              ; 0x118f
+.forward1:
     mov ax, 0xc3                     ; 0x1191
     push ax                          ; 0x1194
     mov ax, 0xb4                     ; 0x1195
     push ax                          ; 0x1198
     call gfx_set_text_color          ; 0x1199
     add sp, byte 4                   ; 0x119c
-@..draw_spell_list.l3:
+.forward2:
     mov ax, 6                        ; 0x119f
     imul word [bp - 2]               ; 0x11a2
     add ax, word [bp + 6]            ; 0x11a5
@@ -66,10 +66,10 @@ draw_spell_list: ; Aztec csav frame=0x0002
     call draw_text_glyphs            ; 0x11c9
     add sp, byte 4                   ; 0x11cc
     inc word [bp - 2]                ; 0x11cf
-@..draw_spell_list.l4:
+.forward3:
     mov ax, word [bp - 2]            ; 0x11d2
     cmp ax, word [bp + 0xa]          ; 0x11d5
-    jge short @..draw_spell_list.l5  ; 0x11d8
-    jmp near @..draw_spell_list.l1   ; 0x11da
-@..draw_spell_list.l5:
+    jge short .return1               ; 0x11d8
+    jmp near .back1                  ; 0x11da
+.return1:
     ret                              ; 0x11dd

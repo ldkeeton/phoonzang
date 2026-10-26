@@ -322,7 +322,7 @@ api_idx_0026_NRVO:
     call gfx_show_area
     add sp, byte 8
     mov word [bp - 0x10], 1
-@..api_idx_0026_NRVO.l1:
+.back1:
     mov ax, hotspot_rects
     push ax
     call poll_hotspots
@@ -330,11 +330,11 @@ api_idx_0026_NRVO:
     dec ax
     mov word [bp - 0xe], ax
     cmp word [hotspot_hit], byte 1
-    je short @..api_idx_0026_NRVO.l2
-    jmp near @..api_idx_0026_NRVO.l14
-@..api_idx_0026_NRVO.l2:
-    jmp near @..api_idx_0026_NRVO.l10
-@..api_idx_0026_NRVO.l3:
+    je short .forward1
+    jmp near .forward9
+.forward1:
+    jmp near .forward5
+.back2:
     call flush_keyboard
     mov ax, 1
     push ax
@@ -422,10 +422,10 @@ api_idx_0026_NRVO:
     push ax
     call gfx_show_area
     add sp, byte 8
-    jmp near @..api_idx_0026_NRVO.l14
-@..api_idx_0026_NRVO.l4:
+    jmp near .forward9
+.back3:
     cmp word [bp + 6], byte 0
-    je short @..api_idx_0026_NRVO.l5
+    je short .forward2
     mov ax, 1
     push ax
     push ax
@@ -455,11 +455,11 @@ api_idx_0026_NRVO:
     add sp, byte 0xa
     mov word [spell_dialog_button], 0
     mov word [bp - 0x10], 0
-@..api_idx_0026_NRVO.l5:
-    jmp near @..api_idx_0026_NRVO.l14
-@..api_idx_0026_NRVO.l6:
+.forward2:
+    jmp near .forward9
+.back4:
     cmp word [bp + 8], byte 0
-    je short @..api_idx_0026_NRVO.l7
+    je short .forward3
     mov ax, 1
     push ax
     push ax
@@ -489,11 +489,11 @@ api_idx_0026_NRVO:
     add sp, byte 0xa
     mov word [spell_dialog_button], 1
     mov word [bp - 0x10], 0
-@..api_idx_0026_NRVO.l7:
-    jmp short @..api_idx_0026_NRVO.l14
-@..api_idx_0026_NRVO.l8:
+.forward3:
+    jmp short .forward9
+.back5:
     cmp word [bp + 0xa], byte 0
-    je short @..api_idx_0026_NRVO.l9
+    je short .forward4
     mov ax, 1
     push ax
     push ax
@@ -523,28 +523,28 @@ api_idx_0026_NRVO:
     add sp, byte 0xa
     mov word [spell_dialog_button], 2
     mov word [bp - 0x10], 0
-@..api_idx_0026_NRVO.l9:
-    jmp short @..api_idx_0026_NRVO.l14
-@..api_idx_0026_NRVO.l10:
+.forward4:
+    jmp short .forward9
+.forward5:
     cmp ax, strict word 0
-    jne short @..api_idx_0026_NRVO.l11
-    jmp near @..api_idx_0026_NRVO.l3
-@..api_idx_0026_NRVO.l11:
+    jne short .forward6
+    jmp near .back2
+.forward6:
     cmp ax, strict word 1
-    jne short @..api_idx_0026_NRVO.l12
-    jmp near @..api_idx_0026_NRVO.l4
-@..api_idx_0026_NRVO.l12:
+    jne short .forward7
+    jmp near .back3
+.forward7:
     cmp ax, strict word 2
-    jne short @..api_idx_0026_NRVO.l13
-    jmp near @..api_idx_0026_NRVO.l6
-@..api_idx_0026_NRVO.l13:
+    jne short .forward8
+    jmp near .back4
+.forward8:
     cmp ax, strict word 3
-    je short @..api_idx_0026_NRVO.l8
-@..api_idx_0026_NRVO.l14:
+    je short .back5
+.forward9:
     cmp word [bp - 0x10], byte 0
-    je short @..api_idx_0026_NRVO.l15
-    jmp near @..api_idx_0026_NRVO.l1
-@..api_idx_0026_NRVO.l15:
+    je short .forward10
+    jmp near .back1
+.forward10:
     mov ax, 1
     push ax
     push word [bp - 0x26]

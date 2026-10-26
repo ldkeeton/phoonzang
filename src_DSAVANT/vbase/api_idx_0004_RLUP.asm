@@ -3,15 +3,15 @@ api_idx_0004_RLUP:
     mov ax, 0xfffc                   ; 0x6d1f
     call aztec_csav                  ; 0x6d22
     cmp word [bss_a4a6], byte 3      ; 0x6d25
-    jle short @..api_idx_0004_RLUP.l1 ; 0x6d2a
+    jle short .forward1              ; 0x6d2a
     call api_idx_0004_MIQG           ; 0x6d2c
-@..api_idx_0004_RLUP.l1:
+.forward1:
     mov bx, word [bp + 4]            ; 0x6d2f
     cmp byte [bx], 0                 ; 0x6d32
-    jne short @..api_idx_0004_RLUP.l2 ; 0x6d35
+    jne short .forward2              ; 0x6d35
     inc word [bss_a4a6]              ; 0x6d37
     ret                              ; 0x6d3b
-@..api_idx_0004_RLUP.l2:
+.forward2:
     mov ax, 2                        ; 0x6d3c
     push ax                          ; 0x6d3f
     push bx                          ; 0x6d40
@@ -34,26 +34,26 @@ api_idx_0004_RLUP:
     mov si, ax                       ; 0x6d66
     mov al, byte [bx + si]           ; 0x6d68
     sub ah, ah                       ; 0x6d6a
-    jmp short @..api_idx_0004_RLUP.l5 ; 0x6d6c
-@..api_idx_0004_RLUP.l3:
+    jmp short .forward3              ; 0x6d6c
+.back1:
     mov bx, word [bp + 4]            ; 0x6d6e
     mov si, word [bp - 4]            ; 0x6d71
     mov byte [bx + si], 0            ; 0x6d74
     mov word [bp - 2], 0xc           ; 0x6d77
-    jmp short @..api_idx_0004_RLUP.l6 ; 0x6d7c
-@..api_idx_0004_RLUP.l4:
+    jmp short .forward4              ; 0x6d7c
+.back2:
     mov bx, word [bp + 4]            ; 0x6d7e
     mov si, word [bp - 4]            ; 0x6d81
     mov byte [bx + si], 0            ; 0x6d84
     mov ax, word [bss_a4a8]          ; 0x6d87
     mov word [bp - 2], ax            ; 0x6d8a
-    jmp short @..api_idx_0004_RLUP.l6 ; 0x6d8d
-@..api_idx_0004_RLUP.l5:
+    jmp short .forward4              ; 0x6d8d
+.forward3:
     cmp ax, strict word 0x24         ; 0x6d8f
-    je short @..api_idx_0004_RLUP.l3 ; 0x6d92
+    je short .back1                  ; 0x6d92
     cmp ax, strict word 0x5e         ; 0x6d94
-    je short @..api_idx_0004_RLUP.l4 ; 0x6d97
-@..api_idx_0004_RLUP.l6:
+    je short .back2                  ; 0x6d97
+.forward4:
     mov ax, 0xc                      ; 0x6d99
     imul word [bss_a4a6]             ; 0x6d9c
     add ax, 0x92                     ; 0x6da0

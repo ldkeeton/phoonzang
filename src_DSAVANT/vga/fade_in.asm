@@ -12,9 +12,9 @@ fade_in:
     mov ah, 0x48                     ; 0x2810
     mov bx, 0x30                     ; 0x2812
     int 0x21 ; DOS allocate memory
-    jae short @..fade_in.l1          ; 0x2817
+    jae short .forward1              ; 0x2817
     jmp near fade_in_no_memory_exit  ; 0x2819
-@..fade_in.l1:
+.forward1:
     mov word [bp - 2], ax            ; 0x281c
     mov ax, 0x1017                   ; 0x281f
     xor bx, bx                       ; 0x2822
@@ -25,36 +25,36 @@ fade_in:
     int 0x10 ; BIOS video
     mov ax, word [bp - 2]            ; 0x2830
     mov ds, ax                       ; 0x2833
-@..fade_in.l2:
+.back1:
     mov word [bp - 4], 0             ; 0x2835
     mov ax, word [bp - 2]            ; 0x283a
     mov ds, ax                       ; 0x283d
     xor si, si                       ; 0x283f
     les di, word [cs:palette_ptr - IMAGE_BASE] ; 0x2841
     mov cx, 0x100                    ; 0x2846
-@..fade_in.l3:
+.back2:
     push cx                          ; 0x2849
     mov cx, 3                        ; 0x284a
-@..fade_in.l4:
+.back3:
     mov al, byte [si]                ; 0x284d
     cmp al, byte [es:di]             ; 0x284f
-    je short @..fade_in.l6           ; 0x2852
+    je short .forward3               ; 0x2852
     mov word [bp - 4], 1             ; 0x2854
     cmp al, byte [es:di]             ; 0x2859
-    jb short @..fade_in.l5           ; 0x285c
+    jb short .forward2               ; 0x285c
     dec byte [si]                    ; 0x285e
-    jmp short @..fade_in.l6          ; 0x2860
-@..fade_in.l5:
+    jmp short .forward3              ; 0x2860
+.forward2:
     inc byte [si]                    ; 0x2862
-@..fade_in.l6:
+.forward3:
     inc si                           ; 0x2864
     inc di                           ; 0x2865
-    loop @..fade_in.l4               ; 0x2866
+    loop .back3                      ; 0x2866
     pop cx                           ; 0x2868
-    loop @..fade_in.l3               ; 0x2869
+    loop .back2                      ; 0x2869
     mov ax, word [bp - 4]            ; 0x286b
     or ax, ax                        ; 0x286e
-    je short @..fade_in.l10          ; 0x2870
+    je short .forward5               ; 0x2870
     mov ax, word [bp - 2]            ; 0x2872
     mov ds, ax                       ; 0x2875
     xor si, si                       ; 0x2877
@@ -62,29 +62,29 @@ fade_in:
     mov dx, 0x3c8                    ; 0x287c
     mov al, 0                        ; 0x287f
     out dx, al                       ; 0x2881
-@..fade_in.l7:
+.back4:
     mov dx, 0x3da                    ; 0x2882
     in al, dx                        ; 0x2885
     test al, 1                       ; 0x2886
-    jne short @..fade_in.l7          ; 0x2888
-@..fade_in.l8:
+    jne short .back4                 ; 0x2888
+.back5:
     mov dx, 0x3da                    ; 0x288a
     in al, dx                        ; 0x288d
     test al, 1                       ; 0x288e
-    je short @..fade_in.l8           ; 0x2890
+    je short .back5                  ; 0x2890
     lodsb                            ; 0x2892
     mov dx, 0x3c9                    ; 0x2893
     out dx, al                       ; 0x2896
-    loop @..fade_in.l7               ; 0x2897
+    loop .back4                      ; 0x2897
     mov ax, word [bp + 0xc]          ; 0x2899
     or ax, ax                        ; 0x289c
-    je short @..fade_in.l9           ; 0x289e
+    je short .forward4               ; 0x289e
     push ax                          ; 0x28a0
     call far [cs:delay_hook - IMAGE_BASE] ; 0x28a1
     pop ax                           ; 0x28a6
-@..fade_in.l9:
-    jmp short @..fade_in.l2          ; 0x28a7
-@..fade_in.l10:
+.forward4:
+    jmp short .back1                 ; 0x28a7
+.forward5:
     mov bx, word [bp - 2]            ; 0x28a9
     mov es, bx                       ; 0x28ac
     mov ah, 0x49                     ; 0x28ae

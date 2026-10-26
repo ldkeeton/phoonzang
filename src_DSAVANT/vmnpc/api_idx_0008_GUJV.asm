@@ -20,7 +20,7 @@ api_idx_0008_GUJV:
     call test_bit                    ; 0x559d
     add sp, byte 4                   ; 0x55a0
     test ax, ax                      ; 0x55a3
-    je short @..api_idx_0008_GUJV.l1 ; 0x55a5
+    je short .forward1               ; 0x55a5
     mov ax, 0x248                    ; 0x55a7
     imul word [bp + 4]               ; 0x55aa
     mov bx, ax                       ; 0x55ad
@@ -34,7 +34,7 @@ api_idx_0008_GUJV:
     call test_bit                    ; 0x55bf
     add sp, byte 4                   ; 0x55c2
     test ax, ax                      ; 0x55c5
-    je short @..api_idx_0008_GUJV.l1 ; 0x55c7
+    je short .forward1               ; 0x55c7
     mov ax, 0x248                    ; 0x55c9
     imul word [bp + 4]               ; 0x55cc
     mov bx, ax                       ; 0x55cf
@@ -47,8 +47,8 @@ api_idx_0008_GUJV:
     call test_bit                    ; 0x55df
     add sp, byte 4                   ; 0x55e2
     test ax, ax                      ; 0x55e5
-    jne short @..api_idx_0008_GUJV.l2 ; 0x55e7
-@..api_idx_0008_GUJV.l1:
+    jne short .forward2              ; 0x55e7
+.forward1:
     mov ax, 0x9b                     ; 0x55e9
     push ax                          ; 0x55ec
     mov ax, 0x49                     ; 0x55ed
@@ -59,7 +59,7 @@ api_idx_0008_GUJV:
     add sp, byte 6                   ; 0x55f8
     mov ax, 0                        ; 0x55fb
     ret                              ; 0x55fe
-@..api_idx_0008_GUJV.l2:
+.forward2:
     mov ax, 0                        ; 0x55ff
     push ax                          ; 0x5602
     push word [bp + 4]               ; 0x5603
@@ -67,7 +67,7 @@ api_idx_0008_GUJV:
     add sp, byte 4                   ; 0x5609
     mov word [bp - 2], ax            ; 0x560c
     cmp ax, strict word 0xffff       ; 0x560f
-    jne short @..api_idx_0008_GUJV.l3 ; 0x5612
+    jne short .forward3              ; 0x5612
     mov ax, 0x9b                     ; 0x5614
     push ax                          ; 0x5617
     mov ax, 0x49                     ; 0x5618
@@ -78,7 +78,7 @@ api_idx_0008_GUJV:
     add sp, byte 6                   ; 0x5623
     mov ax, 0                        ; 0x5626
     ret                              ; 0x5629
-@..api_idx_0008_GUJV.l3:
+.forward3:
     mov ax, 0x248                    ; 0x562a
     imul word [bp + 4]               ; 0x562d
     mov bx, ax                       ; 0x5630
@@ -91,13 +91,13 @@ api_idx_0008_GUJV:
     mov cx, word [bx + bss_9936]     ; 0x5643
     mov bx, word [bx + bss_9938]     ; 0x5647
     cmp dx, bx                       ; 0x564b
-    jg short @..api_idx_0008_GUJV.l4 ; 0x564d
-    jne short @..api_idx_0008_GUJV.l5 ; 0x564f
+    jg short .forward4               ; 0x564d
+    jne short .forward5              ; 0x564f
     cmp ax, cx                       ; 0x5651
-    jb short @..api_idx_0008_GUJV.l5 ; 0x5653
-@..api_idx_0008_GUJV.l4:
-    jmp short @..api_idx_0008_GUJV.l6 ; 0x5655
-@..api_idx_0008_GUJV.l5:
+    jb short .forward5               ; 0x5653
+.forward4:
+    jmp short .forward6              ; 0x5655
+.forward5:
     mov ax, 0x9b                     ; 0x5657
     push ax                          ; 0x565a
     mov ax, 0x49                     ; 0x565b
@@ -108,7 +108,7 @@ api_idx_0008_GUJV:
     add sp, byte 6                   ; 0x5666
     mov ax, 0                        ; 0x5669
     ret                              ; 0x566c
-@..api_idx_0008_GUJV.l6:
+.forward6:
     mov ax, 0x9b                     ; 0x566d
     push ax                          ; 0x5670
     mov ax, 0x49                     ; 0x5671
@@ -121,7 +121,7 @@ api_idx_0008_GUJV:
     call loc_GMVH                    ; 0x5682
     pop cx                           ; 0x5685
     test ax, ax                      ; 0x5686
-    je short @..api_idx_0008_GUJV.l7 ; 0x5688
+    je short .forward7               ; 0x5688
     mov ax, word [bp - 4]            ; 0x568a
     add ax, 0xfe70                   ; 0x568d
     push ax                          ; 0x5690
@@ -132,7 +132,7 @@ api_idx_0008_GUJV:
     push ax                          ; 0x5699
     call assign_slot_bit             ; 0x569a
     add sp, byte 6                   ; 0x569d
-@..api_idx_0008_GUJV.l7:
+.forward7:
     mov ax, word [bp - 2]            ; 0x56a0
     mov cx, 0x100                    ; 0x56a3
     cwd                              ; 0x56a6

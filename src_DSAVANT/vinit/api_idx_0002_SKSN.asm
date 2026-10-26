@@ -3,14 +3,14 @@ api_idx_0002_SKSN:
     mov ax, 0xfffe                   ; 0x133d
     call aztec_csav                  ; 0x1340
     cmp word [saved_screen_pending], byte 0 ; 0x1343
-    je short @..api_idx_0002_SKSN.l1 ; 0x1348
+    je short .forward1               ; 0x1348
     mov ax, 1                        ; 0x134a
     push ax                          ; 0x134d
     push word [saved_screen_slot]    ; 0x134e
     call restore_saved_screen        ; 0x1352
     add sp, byte 4                   ; 0x1355
     mov word [saved_screen_pending], 0 ; 0x1358
-@..api_idx_0002_SKSN.l1:
+.forward1:
     mov ax, 1                        ; 0x135e
     push ax                          ; 0x1361
     push word [bss_8d08]             ; 0x1362
@@ -19,7 +19,7 @@ api_idx_0002_SKSN:
     add sp, byte 6                   ; 0x136d
     mov word [party_char_count], 0   ; 0x1370
     mov word [bp - 2], 0             ; 0x1376
-@..api_idx_0002_SKSN.l2:
+.back1:
     mov ax, 1                        ; 0x137b
     push ax                          ; 0x137e
     mov ax, word [bp - 2]            ; 0x137f
@@ -33,9 +33,9 @@ api_idx_0002_SKSN:
     inc word [bp - 2]                ; 0x1396
     mov ax, word [bp - 2]            ; 0x1399
     cmp ax, strict word 6            ; 0x139c
-    jl short @..api_idx_0002_SKSN.l2 ; 0x139f
+    jl short .back1                  ; 0x139f
     mov word [bp - 2], 0             ; 0x13a1
-@..api_idx_0002_SKSN.l3:
+.back2:
     mov ax, 1                        ; 0x13a6
     push ax                          ; 0x13a9
     mov ax, word [bp - 2]            ; 0x13aa
@@ -49,7 +49,7 @@ api_idx_0002_SKSN:
     inc word [bp - 2]                ; 0x13c1
     mov ax, word [bp - 2]            ; 0x13c4
     cmp ax, strict word 6            ; 0x13c7
-    jl short @..api_idx_0002_SKSN.l3 ; 0x13ca
+    jl short .back2                  ; 0x13ca
     call free_current_maze           ; 0x13cc
     mov ax, 0                        ; 0x13cf
     push ax                          ; 0x13d2

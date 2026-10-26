@@ -14,7 +14,7 @@ loc_HLOU:
     call get_bits                    ; 0x7a51
     add sp, byte 6                   ; 0x7a54
     cmp ax, strict word 1            ; 0x7a57
-    jne short @..loc_HLOU.l1         ; 0x7a5a
+    jne short .forward1              ; 0x7a5a
     mov si, word [party_region]      ; 0x7a5c
     mov bx, word [maze_tables]       ; 0x7a60
     mov al, byte [bx + si + spell_table + spell_table_rec_size*178 + spell_table_rec.f_0004] ; 0x7a64
@@ -24,15 +24,15 @@ loc_HLOU:
     pop cx                           ; 0x7a6e
     mov bx, word [bss_100a]          ; 0x7a6f
     mov word [bx], ax                ; 0x7a73
-    jmp short @..loc_HLOU.l2         ; 0x7a75
-@..loc_HLOU.l1:
+    jmp short .forward2              ; 0x7a75
+.forward1:
     mov bx, word [maze_tables]       ; 0x7a77
     mov si, word [party_region]      ; 0x7a7b
     mov al, byte [bx + si + spell_table + spell_table_rec_size*178 + spell_table_rec.f_0004] ; 0x7a7f
     sub ah, ah                       ; 0x7a83
     mov bx, word [bss_100a]          ; 0x7a85
     mov word [bx], ax                ; 0x7a89
-@..loc_HLOU.l2:
+.forward2:
     mov ax, 1                        ; 0x7a8b
     push ax                          ; 0x7a8e
     push ax                          ; 0x7a8f

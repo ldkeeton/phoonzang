@@ -3,7 +3,7 @@ api_idx_007a_HMNU:
     mov ax, 0xff86                   ; 0x4498
     call aztec_csav                  ; 0x449b
     mov word [bp - 2], 0             ; 0x449e
-@..api_idx_007a_HMNU.l1:
+.back1:
     mov ax, word [bp - 2]            ; 0x44a3
     shl ax, 1                        ; 0x44a6
     mov bx, ax                       ; 0x44a8
@@ -12,7 +12,7 @@ api_idx_007a_HMNU:
     inc word [bp - 2]                ; 0x44b1
     mov ax, word [bp - 2]            ; 0x44b4
     cmp ax, strict word 1            ; 0x44b7
-    jle short @..api_idx_007a_HMNU.l1 ; 0x44ba
+    jle short .back1                 ; 0x44ba
     mov word [bp - 0x76], 0xffff     ; 0x44bc
     lea ax, word [bp - 0x7a]         ; 0x44c1
     push ax                          ; 0x44c4

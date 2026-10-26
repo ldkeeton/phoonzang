@@ -14,9 +14,9 @@ draw_power_digit:
     push ax
     mov ax, 0
     cmp word [bp + 0xa], byte 0
-    je short @..draw_power_digit.l1
+    je short .forward1
     mov ax, 1
-@..draw_power_digit.l1:
+.forward1:
     add ax, strict word 0x10
     sub ah, ah
     push ax
@@ -43,9 +43,9 @@ draw_power_digit:
     call draw_font_glyph
     add sp, byte 4
     cmp word [bp + 8], byte 0
-    jne short @..draw_power_digit.l2
+    jne short .return1
     cmp word [bp + 0xa], byte 0
-    jne short @..draw_power_digit.l2
+    jne short .return1
     mov ax, 0xc2
     push ax
     mov ax, word [bp + 6]
@@ -58,5 +58,5 @@ draw_power_digit:
     push ax
     call gfx_fill_area
     add sp, byte 0xa
-@..draw_power_digit.l2:
+.return1:
     ret

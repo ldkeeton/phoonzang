@@ -7,19 +7,19 @@ loc_MPHO:
     mov al, byte [bx + si + 0x490]
     sub ah, ah
     cmp ax, word [bp + 6]
-    jg short @..loc_MPHO.l1
+    jg short .forward1
     add ax, strict word 7
     cmp ax, word [bp + 6]
-    jl short @..loc_MPHO.l1
+    jl short .forward1
     mov al, byte [bx + si + 0x4a0]
     sub ah, ah
     cmp ax, word [bp + 8]
-    jg short @..loc_MPHO.l1
+    jg short .forward1
     add ax, strict word 7
     cmp ax, word [bp + 8]
-    jl short @..loc_MPHO.l1
+    jl short .forward1
     mov ax, si
     ret
-@..loc_MPHO.l1:
+.forward1:
     mov ax, 0xffff
     ret

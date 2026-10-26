@@ -98,11 +98,11 @@ loc_TSLJ:
     call aztec_freopen               ; 0x0fc7
     add sp, byte 6                   ; 0x0fca
     mov word [bss_29ee], ax          ; 0x0fcd
-    cmp word [bp - 0x1c9], byte 0xff ; 0x0fd0
-    je short @..loc_TSLJ.l1          ; 0x0fd5
+    cmp word [bp - 0x1c9], byte -1   ; 0x0fd0
+    je short .forward1               ; 0x0fd5
     cmp word [bp - 0x1cb], byte 0    ; 0x0fd7
-    je short @..loc_TSLJ.l2          ; 0x0fdc
-@..loc_TSLJ.l1:
+    je short .forward2               ; 0x0fdc
+.forward1:
     mov ax, dseg_163c                ; 0x0fde
     push ax                          ; 0x0fe1
     lea ax, word [bp - 0x1c7]        ; 0x0fe2
@@ -133,7 +133,7 @@ loc_TSLJ:
     push ax                          ; 0x1024
     call aztec_exit                  ; 0x1025
     pop cx                           ; 0x1028
-@..loc_TSLJ.l2:
+.forward2:
     mov sp, bp                       ; 0x1029
     pop bp                           ; 0x102b
     ret                              ; 0x102c

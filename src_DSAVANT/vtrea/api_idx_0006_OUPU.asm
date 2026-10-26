@@ -9,37 +9,37 @@ api_idx_0006_OUPU:
     mov ax, word [bx + si + 0x3c0]   ; 0x551f
     mov word [bp - 4], ax            ; 0x5523
     cmp word [bx + si + 0x1e0], byte 0 ; 0x5526
-    jle short @..api_idx_0006_OUPU.l1 ; 0x552b
+    jle short .forward1              ; 0x552b
     mov ax, 0                        ; 0x552d
     push ax                          ; 0x5530
     push word [bx + si + 0x1e0]      ; 0x5531
     call loc_KIOQ                    ; 0x5535
     add sp, byte 4                   ; 0x5538
-@..api_idx_0006_OUPU.l1:
+.forward1:
     cmp word [game_state_arg], byte 0xe ; 0x553b
-    je short @..api_idx_0006_OUPU.l2 ; 0x5540
-    jmp near @..api_idx_0006_OUPU.l7 ; 0x5542
-@..api_idx_0006_OUPU.l2:
+    je short .forward2               ; 0x5540
+    jmp near .forward6               ; 0x5542
+.forward2:
     cmp word [party_map_piece], byte 8 ; 0x5545
-    je short @..api_idx_0006_OUPU.l3 ; 0x554a
-    jmp near @..api_idx_0006_OUPU.l7 ; 0x554c
-@..api_idx_0006_OUPU.l3:
+    je short .forward3               ; 0x554a
+    jmp near .forward6               ; 0x554c
+.forward3:
     cmp word [party_cell_x], byte 7  ; 0x554f
-    jne short @..api_idx_0006_OUPU.l7 ; 0x5554
+    jne short .forward6              ; 0x5554
     cmp word [party_cell_y], byte 2  ; 0x5556
-    jne short @..api_idx_0006_OUPU.l7 ; 0x555b
+    jne short .forward6              ; 0x555b
     mov ax, 1                        ; 0x555d
     push ax                          ; 0x5560
     call redraw_treasure_caption     ; 0x5561
     pop cx                           ; 0x5564
     mov word [bp - 2], 0             ; 0x5565
-    jmp short @..api_idx_0006_OUPU.l6 ; 0x556a
-@..api_idx_0006_OUPU.l4:
+    jmp short .forward5              ; 0x556a
+.back1:
     mov ax, 0x248                    ; 0x556c
     imul word [bp - 2]               ; 0x556f
     mov bx, ax                       ; 0x5572
     cmp byte [bx + party_records + pc_rec.state], 3 ; 0x5574
-    jae short @..api_idx_0006_OUPU.l5 ; 0x5579
+    jae short .forward4              ; 0x5579
     mov ax, 0xc8                     ; 0x557b
     push ax                          ; 0x557e
     call random_below                ; 0x557f
@@ -53,7 +53,7 @@ api_idx_0006_OUPU:
     mov cx, ax                       ; 0x5592
     pop ax                           ; 0x5594
     cmp ax, cx                       ; 0x5595
-    jle short @..api_idx_0006_OUPU.l5 ; 0x5597
+    jle short .forward4              ; 0x5597
     mov ax, 0x32                     ; 0x5599
     push ax                          ; 0x559c
     mov ax, 0xa                      ; 0x559d
@@ -68,13 +68,13 @@ api_idx_0006_OUPU:
     push word [bp - 2]               ; 0x55ae
     call api_idx_0056_VTNO           ; 0x55b1
     add sp, byte 0xe                 ; 0x55b4
-@..api_idx_0006_OUPU.l5:
+.forward4:
     inc word [bp - 2]                ; 0x55b7
-@..api_idx_0006_OUPU.l6:
+.forward5:
     mov ax, word [bp - 2]            ; 0x55ba
     cmp ax, word [party_char_count]  ; 0x55bd
-    jl short @..api_idx_0006_OUPU.l4 ; 0x55c1
-@..api_idx_0006_OUPU.l7:
+    jl short .back1                  ; 0x55c1
+.forward6:
     mov ax, 8                        ; 0x55c3
     push ax                          ; 0x55c6
     mov ax, 0                        ; 0x55c7
@@ -101,7 +101,7 @@ api_idx_0006_OUPU:
     call get_bits                    ; 0x55fb
     add sp, byte 6                   ; 0x55fe
     cmp ax, strict word 1            ; 0x5601
-    jne short @..api_idx_0006_OUPU.l8 ; 0x5604
+    jne short .forward7              ; 0x5604
     mov ax, 0                        ; 0x5606
     push ax                          ; 0x5609
     push word [bp - 6]               ; 0x560a
@@ -112,7 +112,7 @@ api_idx_0006_OUPU:
     push ax                          ; 0x5618
     call set_bitmap_bit              ; 0x5619
     add sp, byte 6                   ; 0x561c
-@..api_idx_0006_OUPU.l8:
+.forward7:
     mov ax, 2                        ; 0x561f
     push ax                          ; 0x5622
     mov ax, 9                        ; 0x5623
@@ -122,7 +122,7 @@ api_idx_0006_OUPU:
     add sp, byte 6                   ; 0x562d
     mov word [bp - 6], ax            ; 0x5630
     cmp ax, strict word 0            ; 0x5633
-    jle short @..api_idx_0006_OUPU.l9 ; 0x5636
+    jle short .return1               ; 0x5636
     mov ax, 1                        ; 0x5638
     push ax                          ; 0x563b
     mov bx, word [maze_tables]       ; 0x563c
@@ -138,7 +138,7 @@ api_idx_0006_OUPU:
     call set_bitmap_bit              ; 0x5657
     add sp, byte 6                   ; 0x565a
     cmp word [bp - 6], byte 1        ; 0x565d
-    jle short @..api_idx_0006_OUPU.l9 ; 0x5661
+    jle short .return1               ; 0x5661
     mov ax, 1                        ; 0x5663
     push ax                          ; 0x5666
     mov bx, word [maze_tables]       ; 0x5667
@@ -153,5 +153,5 @@ api_idx_0006_OUPU:
     push ax                          ; 0x5681
     call set_bitmap_bit              ; 0x5682
     add sp, byte 6                   ; 0x5685
-@..api_idx_0006_OUPU.l9:
+.return1:
     ret                              ; 0x5688

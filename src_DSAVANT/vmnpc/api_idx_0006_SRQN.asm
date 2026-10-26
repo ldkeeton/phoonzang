@@ -3,14 +3,14 @@ api_idx_0006_SRQN:
     mov ax, 0xfffa                   ; 0x3773
     call aztec_csav                  ; 0x3776
     cmp byte [bp + 6], 2             ; 0x3779
-    jne short @..api_idx_0006_SRQN.l2 ; 0x377d
+    jne short .forward1              ; 0x377d
     mov ax, word [bp + 8]            ; 0x377f
     cwd                              ; 0x3782
     mov cx, 8                        ; 0x3783
-@..api_idx_0006_SRQN.l1:
+.back1:
     shl ax, 1                        ; 0x3786
     rcl dx, 1                        ; 0x3788
-    loop @..api_idx_0006_SRQN.l1     ; 0x378a
+    loop .back1                      ; 0x378a
     push ax                          ; 0x378c
     push dx                          ; 0x378d
     mov al, byte [bp + 0xa]          ; 0x378e
@@ -28,26 +28,26 @@ api_idx_0006_SRQN:
     mov dx, word [bp - 4]            ; 0x37a7
     add word [bss_964a], ax          ; 0x37aa
     adc word [bss_964c], dx          ; 0x37ae
-@..api_idx_0006_SRQN.l2:
+.forward1:
     mov word [bp - 2], 0             ; 0x37b2
-@..api_idx_0006_SRQN.l3:
+.back2:
     mov ax, 6                        ; 0x37b7
     imul word [bp - 2]               ; 0x37ba
     mov bx, ax                       ; 0x37bd
     mov al, byte [bx + bss_914c]     ; 0x37bf
     cmp al, byte [bp + 6]            ; 0x37c3
-    je short @..api_idx_0006_SRQN.l4 ; 0x37c6
-    jmp near @..api_idx_0006_SRQN.l15 ; 0x37c8
-@..api_idx_0006_SRQN.l4:
+    je short .forward2               ; 0x37c6
+    jmp near .forward12              ; 0x37c8
+.forward2:
     cmp byte [bp + 6], 2             ; 0x37cb
-    jne short @..api_idx_0006_SRQN.l9 ; 0x37cf
+    jne short .forward6              ; 0x37cf
     mov ax, word [bx + bss_9148]     ; 0x37d1
     cwd                              ; 0x37d5
     mov cx, 8                        ; 0x37d6
-@..api_idx_0006_SRQN.l5:
+.back3:
     shl ax, 1                        ; 0x37d9
     rcl dx, 1                        ; 0x37db
-    loop @..api_idx_0006_SRQN.l5     ; 0x37dd
+    loop .back3                      ; 0x37dd
     push ax                          ; 0x37df
     push dx                          ; 0x37e0
     mov ax, 6                        ; 0x37e1
@@ -65,13 +65,13 @@ api_idx_0006_SRQN:
     mov word [bp - 4], dx            ; 0x37fa
     mov word [bp - 6], ax            ; 0x37fd
     cmp dx, word [bss_964c]          ; 0x3800
-    jg short @..api_idx_0006_SRQN.l6 ; 0x3804
-    jne short @..api_idx_0006_SRQN.l7 ; 0x3806
+    jg short .forward3               ; 0x3804
+    jne short .forward4              ; 0x3806
     cmp ax, word [bss_964a]          ; 0x3808
-    jbe short @..api_idx_0006_SRQN.l7 ; 0x380c
-@..api_idx_0006_SRQN.l6:
-    jmp short @..api_idx_0006_SRQN.l8 ; 0x380e
-@..api_idx_0006_SRQN.l7:
+    jbe short .forward4              ; 0x380c
+.forward3:
+    jmp short .forward5              ; 0x380e
+.forward4:
     mov word [bss_964c], 0           ; 0x3810
     mov word [bss_964a], 0           ; 0x3816
     mov ax, 6                        ; 0x381c
@@ -85,43 +85,43 @@ api_idx_0006_SRQN:
     add sp, byte 4                   ; 0x3831
     mov word [bp + 8], ax            ; 0x3834
     ret                              ; 0x3837
-@..api_idx_0006_SRQN.l8:
-    jmp near @..api_idx_0006_SRQN.l15 ; 0x3838
-@..api_idx_0006_SRQN.l9:
+.forward5:
+    jmp near .forward12              ; 0x3838
+.forward6:
     cmp byte [bp + 6], 1             ; 0x383b
-    jne short @..api_idx_0006_SRQN.l10 ; 0x383f
+    jne short .forward7              ; 0x383f
     mov ax, 6                        ; 0x3841
     imul word [bp - 2]               ; 0x3844
     mov bx, ax                       ; 0x3847
     cmp word [bx + bss_9148], byte 0 ; 0x3849
-    jne short @..api_idx_0006_SRQN.l10 ; 0x384e
+    jne short .forward7              ; 0x384e
     mov word [bp + 8], 0             ; 0x3850
-@..api_idx_0006_SRQN.l10:
+.forward7:
     mov ax, 6                        ; 0x3855
     imul word [bp - 2]               ; 0x3858
     mov bx, ax                       ; 0x385b
     mov ax, word [bx + bss_9148]     ; 0x385d
     cmp ax, word [bp + 8]            ; 0x3861
-    je short @..api_idx_0006_SRQN.l11 ; 0x3864
+    je short .forward8               ; 0x3864
     cmp word [bp + 8], byte 0        ; 0x3866
-    jne short @..api_idx_0006_SRQN.l15 ; 0x386a
-@..api_idx_0006_SRQN.l11:
+    jne short .forward12             ; 0x386a
+.forward8:
     mov al, byte [bx + bss_914a]     ; 0x386c
     cmp al, byte [bp + 0xa]          ; 0x3870
-    je short @..api_idx_0006_SRQN.l12 ; 0x3873
+    je short .forward9               ; 0x3873
     cmp byte [bp + 0xa], 0           ; 0x3875
-    jne short @..api_idx_0006_SRQN.l15 ; 0x3879
-@..api_idx_0006_SRQN.l12:
+    jne short .forward12             ; 0x3879
+.forward9:
     mov al, byte [bx + bss_914b]     ; 0x387b
     cmp al, byte [bp + 0xc]          ; 0x387f
-    je short @..api_idx_0006_SRQN.l13 ; 0x3882
+    je short .forward10              ; 0x3882
     cmp byte [bp + 0xc], 0           ; 0x3884
-    jne short @..api_idx_0006_SRQN.l15 ; 0x3888
-@..api_idx_0006_SRQN.l13:
+    jne short .forward12             ; 0x3888
+.forward10:
     cmp byte [bp + 6], 4             ; 0x388a
-    jne short @..api_idx_0006_SRQN.l14 ; 0x388e
+    jne short .forward11             ; 0x388e
     call loc_GOMR                    ; 0x3890
-@..api_idx_0006_SRQN.l14:
+.forward11:
     mov ax, 6                        ; 0x3893
     imul word [bp - 2]               ; 0x3896
     mov bx, ax                       ; 0x3899
@@ -133,12 +133,12 @@ api_idx_0006_SRQN:
     add sp, byte 4                   ; 0x38a8
     mov word [bp + 8], ax            ; 0x38ab
     ret                              ; 0x38ae
-@..api_idx_0006_SRQN.l15:
+.forward12:
     inc word [bp - 2]                ; 0x38af
     mov ax, word [bp - 2]            ; 0x38b2
     cmp ax, strict word 8            ; 0x38b5
-    jge short @..api_idx_0006_SRQN.l16 ; 0x38b8
-    jmp near @..api_idx_0006_SRQN.l3 ; 0x38ba
-@..api_idx_0006_SRQN.l16:
+    jge short .forward13             ; 0x38b8
+    jmp near .back2                  ; 0x38ba
+.forward13:
     mov ax, 0                        ; 0x38bd
     ret                              ; 0x38c0

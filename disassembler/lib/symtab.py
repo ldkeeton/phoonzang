@@ -103,15 +103,16 @@ class Symbol(str):
 
     @classmethod
     def local(cls, owner, offset, number=None, *, name=None,
-              source=Source.ADDRESS):
+              source=Source.ADDRESS, role=None):
         """A label scoped to routine *owner*: ``@..<owner>.<name>``.
 
-        Without a *name* it is the owner's *number*-th branch target,
-        ``l<number>`` (kept in :attr:`index`).
+        Without a *name* it is the owner's *number*-th target of *role*,
+        or ``l<number>`` for callers without a role (kept in :attr:`index`).
         """
-        return cls(f'{LOCAL_PREFIX}{owner}.{name or f"l{number}"}',
+        suffix = name or f'{role or "l"}{number}'
+        return cls(f'{LOCAL_PREFIX}{owner}.{suffix}',
                    kind=Kind.LOCAL, source=source, offset=offset,
-                   owner=str(owner), index=None if name else number)
+                   owner=str(owner), index=None if name else number, role=role)
 
     @classmethod
     def anchor(cls, text, offset):

@@ -12,20 +12,20 @@ api_idx_000e_SOLJ:
     mov word [bp - 4], ax            ; 0x91d1
     mov word [bp - 6], 1             ; 0x91d4
     mov word [bp - 0xa], 0           ; 0x91d9
-@..api_idx_000e_SOLJ.l1:
+.back1:
     mov ax, 0x19                     ; 0x91de
     imul word [bp - 0xa]             ; 0x91e1
     add ax, strict word 0x19         ; 0x91e4
     mov bx, word [bp + 4]            ; 0x91e7
     mov cx, word [bx + 2]            ; 0x91ea
     cmp ax, cx                       ; 0x91ed
-    jge short @..api_idx_000e_SOLJ.l2 ; 0x91ef
+    jge short .forward1              ; 0x91ef
     inc word [bp - 6]                ; 0x91f1
-@..api_idx_000e_SOLJ.l2:
+.forward1:
     inc word [bp - 0xa]              ; 0x91f4
     mov ax, word [bp - 0xa]          ; 0x91f7
     cmp ax, strict word 6            ; 0x91fa
-    jl short @..api_idx_000e_SOLJ.l1 ; 0x91fd
+    jl short .back1                  ; 0x91fd
     mov ax, word [bp - 6]            ; 0x91ff
     mov bx, word [bp + 4]            ; 0x9202
     mov cx, word [bx + 6]            ; 0x9205
@@ -44,13 +44,13 @@ api_idx_000e_SOLJ:
     inc ax                           ; 0x921e
     mov word [bp - 6], ax            ; 0x921f
     cmp ax, strict word 1            ; 0x9222
-    jge short @..api_idx_000e_SOLJ.l3 ; 0x9225
+    jge short .forward2              ; 0x9225
     mov word [bp - 6], 1             ; 0x9227
-@..api_idx_000e_SOLJ.l3:
+.forward2:
     cmp word [bp - 6], byte 6        ; 0x922c
-    jle short @..api_idx_000e_SOLJ.l4 ; 0x9230
+    jle short .forward3              ; 0x9230
     mov word [bp - 6], 6             ; 0x9232
-@..api_idx_000e_SOLJ.l4:
+.forward3:
     mov ax, word [bp - 6]            ; 0x9237
     shl ax, 1                        ; 0x923a
     shl ax, 1                        ; 0x923c
@@ -58,7 +58,7 @@ api_idx_000e_SOLJ:
     mov word [bp - 0xe], 0           ; 0x9241
     mov bx, word [bp + 4]            ; 0x9246
     mov ax, word [bx + 0xa]          ; 0x9249
-    jmp near @..api_idx_000e_SOLJ.l11 ; 0x924c
+    jmp near .forward10              ; 0x924c
 jumptable_9808_case_1:
     mov ax, 1                        ; 0x924f
     push ax                          ; 0x9252
@@ -279,11 +279,11 @@ jumptable_9808_case_10:
     push ax                          ; 0x9431
     mov bx, word [bp + 4]            ; 0x9432
     cmp byte [bx + 0xe], 0           ; 0x9435
-    jbe short @..api_idx_000e_SOLJ.l5 ; 0x9439
-    jmp short @..api_idx_000e_SOLJ.l6 ; 0x943b
-@..api_idx_000e_SOLJ.l5:
+    jbe short api_idx_000e_SOLJ.forward4 ; 0x9439
+    jmp short api_idx_000e_SOLJ.forward5 ; 0x943b
+api_idx_000e_SOLJ.forward4:
     mov ax, 0                        ; 0x943d
-@..api_idx_000e_SOLJ.l6:
+api_idx_000e_SOLJ.forward5:
     push ax                          ; 0x9440
     mov ax, 0x43                     ; 0x9441
     push ax                          ; 0x9444
@@ -294,7 +294,7 @@ jumptable_9808_case_10:
     call api_idx_0006_MRPM           ; 0x944d
     add sp, byte 0xa                 ; 0x9450
     test ax, ax                      ; 0x9453
-    jne short @..api_idx_000e_SOLJ.l7 ; 0x9455
+    jne short api_idx_000e_SOLJ.forward6 ; 0x9455
     push word [bss_90de]             ; 0x9457
     mov ax, 0                        ; 0x945b
     push ax                          ; 0x945e
@@ -335,7 +335,7 @@ jumptable_9808_case_10:
     push word [bp - 2]               ; 0x94aa
     call api_idx_000e_RMNP           ; 0x94ad
     add sp, byte 0x1a                ; 0x94b0
-@..api_idx_000e_SOLJ.l7:
+api_idx_000e_SOLJ.forward6:
     mov ax, 4                        ; 0x94b3
     push ax                          ; 0x94b6
     call random_below                ; 0x94b7
@@ -666,11 +666,11 @@ jumptable_9808_case_11:
     push ax                          ; 0x9780
     mov bx, word [bp + 4]            ; 0x9781
     cmp byte [bx + 0xe], 0           ; 0x9784
-    jbe short @..api_idx_000e_SOLJ.l8 ; 0x9788
-    jmp short @..api_idx_000e_SOLJ.l9 ; 0x978a
-@..api_idx_000e_SOLJ.l8:
+    jbe short api_idx_000e_SOLJ.forward7 ; 0x9788
+    jmp short api_idx_000e_SOLJ.forward8 ; 0x978a
+api_idx_000e_SOLJ.forward7:
     mov ax, 0                        ; 0x978c
-@..api_idx_000e_SOLJ.l9:
+api_idx_000e_SOLJ.forward8:
     push ax                          ; 0x978f
     mov ax, 0x43                     ; 0x9790
     push ax                          ; 0x9793
@@ -681,7 +681,7 @@ jumptable_9808_case_11:
     call api_idx_0006_MRPM           ; 0x979c
     add sp, byte 0xa                 ; 0x979f
     test ax, ax                      ; 0x97a2
-    jne short @..api_idx_000e_SOLJ.l10 ; 0x97a4
+    jne short api_idx_000e_SOLJ.forward9 ; 0x97a4
     push word [bss_90de]             ; 0x97a6
     mov ax, 0                        ; 0x97aa
     push ax                          ; 0x97ad
@@ -710,7 +710,7 @@ jumptable_9808_case_11:
     push word [bp - 2]               ; 0x97e0
     call api_idx_000a_LHTJ           ; 0x97e3
     add sp, byte 0x14                ; 0x97e6
-@..api_idx_000e_SOLJ.l10:
+api_idx_000e_SOLJ.forward9:
     mov ax, 3                        ; 0x97e9
     push ax                          ; 0x97ec
     call random_below                ; 0x97ed
@@ -740,7 +740,7 @@ jumptable_9808:
     dw jumptable_9808_case_10 - IMAGE_BASE + __zres_end ; 0x981c
     dw jumptable_9808_case_11 - IMAGE_BASE + __zres_end ; 0x981e
     dw jumptable_9808_case_12 - IMAGE_BASE + __zres_end ; 0x9820
-@..api_idx_000e_SOLJ.l11:
+api_idx_000e_SOLJ.forward10:
     cmp ax, strict word 0xd          ; 0x9822
     jae short jumptable_9808_case_0  ; 0x9825
     xchg bx, ax                      ; 0x9827
@@ -748,10 +748,10 @@ jumptable_9808:
     jmp [cs:bx + jumptable_9808 - IMAGE_BASE + __zres_end] ; 0x982a
 jumptable_9808_case_0:
     cmp word [bss_90e4], byte 0      ; 0x982f
-    jne short @..api_idx_000e_SOLJ.l13 ; 0x9834
+    jne short api_idx_000e_SOLJ.forward12 ; 0x9834
     push word [bss_9058]             ; 0x9836
     call api_idx_0004_QUPL           ; 0x983a
     pop cx                           ; 0x983d
-@..api_idx_000e_SOLJ.l13:
+api_idx_000e_SOLJ.forward12:
     mov ax, word [bp - 0xe]          ; 0x983e
     ret                              ; 0x9841

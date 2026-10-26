@@ -34,28 +34,28 @@ prompt_disk_swap: ; Aztec csav frame=0x00ba
     call aztec_strcpy                ; 0x2449
     add sp, byte 4                   ; 0x244c
     cmp word [bp + 8], byte 0        ; 0x244f
-    je short @..prompt_disk_swap.l1  ; 0x2453
+    je short .forward1               ; 0x2453
     push word [msg_dbs_fd]           ; 0x2455
     call aztec_close                 ; 0x2459
     pop cx                           ; 0x245c
     push word [data_file_fd]         ; 0x245d
     call aztec_close                 ; 0x2461
     pop cx                           ; 0x2464
-@..prompt_disk_swap.l1:
+.forward1:
     mov word [bp - 0xaa], 0xfffe     ; 0x2465
-@..prompt_disk_swap.l2:
+.back1:
     mov word [bp - 0xa8], 0          ; 0x246b
-@..prompt_disk_swap.l3:
+.back2:
     cmp word [bp + 6], byte 0        ; 0x2471
-    jge short @..prompt_disk_swap.l4 ; 0x2475
+    jge short .forward2              ; 0x2475
     mov ax, str_insert_savegame_disk ; 0x2477
     push ax                          ; 0x247a
     lea ax, word [bp - 0x50]         ; 0x247b
     push ax                          ; 0x247e
     call aztec_strcpy                ; 0x247f
     add sp, byte 4                   ; 0x2482
-    jmp short @..prompt_disk_swap.l5 ; 0x2485
-@..prompt_disk_swap.l4:
+    jmp short .forward3              ; 0x2485
+.forward2:
     mov ax, word [bp + 6]            ; 0x2487
     add ax, strict word 0x41         ; 0x248a
     mov byte [bp - 0xa0], al         ; 0x248d
@@ -74,7 +74,7 @@ prompt_disk_swap: ; Aztec csav frame=0x00ba
     push ax                          ; 0x24b0
     call str_subst_char              ; 0x24b1
     add sp, byte 6                   ; 0x24b4
-@..prompt_disk_swap.l5:
+.forward3:
     push word [bp - 0xb6]            ; 0x24b7
     push word [bp - 0xb4]            ; 0x24bb
     push word [bp - 0xb2]            ; 0x24bf
@@ -217,13 +217,13 @@ prompt_disk_swap: ; Aztec csav frame=0x00ba
     call gfx_show_area               ; 0x2600
     add sp, byte 8                   ; 0x2603
     mov word [bp - 0xa4], 1          ; 0x2606
-@..prompt_disk_swap.l6:
+.back3:
     mov ax, hotspot_rects            ; 0x260c
     push ax                          ; 0x260f
     call poll_hotspots               ; 0x2610
     pop cx                           ; 0x2613
     cmp word [hotspot_hit], byte 1   ; 0x2614
-    jne short @..prompt_disk_swap.l7 ; 0x2619
+    jne short .forward4              ; 0x2619
     mov ax, 1                        ; 0x261b
     push ax                          ; 0x261e
     push ax                          ; 0x261f
@@ -252,9 +252,9 @@ prompt_disk_swap: ; Aztec csav frame=0x00ba
     call flash_button                ; 0x2656
     add sp, byte 0xa                 ; 0x2659
     mov word [bp - 0xa4], 0          ; 0x265c
-@..prompt_disk_swap.l7:
+.forward4:
     cmp word [bp - 0xa4], byte 0     ; 0x2662
-    jne short @..prompt_disk_swap.l6 ; 0x2667
+    jne short .back3                 ; 0x2667
     call flush_keyboard              ; 0x2669
     mov ax, 0                        ; 0x266c
     push ax                          ; 0x266f
@@ -296,23 +296,23 @@ prompt_disk_swap: ; Aztec csav frame=0x00ba
     add sp, byte 4                   ; 0x26c6
     mov word [bp - 0xa2], ax         ; 0x26c9
     cmp word [bp + 6], byte 0        ; 0x26cd
-    jge short @..prompt_disk_swap.l10 ; 0x26d1
+    jge short .forward7              ; 0x26d1
     cmp ax, strict word 0xffff       ; 0x26d3
-    jne short @..prompt_disk_swap.l8 ; 0x26d6
+    jne short .forward5              ; 0x26d6
     mov word [bp - 0xa8], 1          ; 0x26d8
-    jmp short @..prompt_disk_swap.l9 ; 0x26de
-@..prompt_disk_swap.l8:
+    jmp short .forward6              ; 0x26de
+.forward5:
     push ax                          ; 0x26e0
     call aztec_close                 ; 0x26e1
     pop cx                           ; 0x26e4
     cmp byte [install_mode], 1       ; 0x26e5
-    jne short @..prompt_disk_swap.l9 ; 0x26ea
+    jne short .forward6              ; 0x26ea
     mov word [bp - 0xa8], 1          ; 0x26ec
-@..prompt_disk_swap.l9:
-    jmp short @..prompt_disk_swap.l14 ; 0x26f2
-@..prompt_disk_swap.l10:
-    cmp word [bp - 0xa2], byte 0xff  ; 0x26f4
-    je short @..prompt_disk_swap.l14 ; 0x26f9
+.forward6:
+    jmp short .forward11             ; 0x26f2
+.forward7:
+    cmp word [bp - 0xa2], byte -1    ; 0x26f4
+    je short .forward11              ; 0x26f9
     mov ax, 0x30c                    ; 0x26fb
     push ax                          ; 0x26fe
     mov ax, disk_header              ; 0x26ff
@@ -322,31 +322,31 @@ prompt_disk_swap: ; Aztec csav frame=0x00ba
     add sp, byte 6                   ; 0x270a
     mov word [bp - 0xa6], ax         ; 0x270d
     cmp byte [install_mode], 5       ; 0x2711
-    jne short @..prompt_disk_swap.l11 ; 0x2716
+    jne short .forward8              ; 0x2716
     mov ax, word [bp + 6]            ; 0x2718
     cmp ax, strict word 0            ; 0x271b
-    jle short @..prompt_disk_swap.l11 ; 0x271e
+    jle short .forward8              ; 0x271e
     dec ax                           ; 0x2720
     dec ax                           ; 0x2721
-    jmp short @..prompt_disk_swap.l12 ; 0x2722
-@..prompt_disk_swap.l11:
+    jmp short .forward9              ; 0x2722
+.forward8:
     mov ax, word [bp + 6]            ; 0x2724
-@..prompt_disk_swap.l12:
+.forward9:
     mov word [bp - 0xac], ax         ; 0x2727
     cmp word [bp - 0xa6], byte 0     ; 0x272b
-    jle short @..prompt_disk_swap.l13 ; 0x2730
+    jle short .forward10             ; 0x2730
     cmp ax, word [disk_header]       ; 0x2732
-    jne short @..prompt_disk_swap.l13 ; 0x2736
+    jne short .forward10             ; 0x2736
     mov word [bp - 0xa8], 1          ; 0x2738
-@..prompt_disk_swap.l13:
+.forward10:
     push word [bp - 0xa2]            ; 0x273e
     call aztec_close                 ; 0x2742
     pop cx                           ; 0x2745
-@..prompt_disk_swap.l14:
+.forward11:
     cmp word [bp - 0xa8], byte 0     ; 0x2746
-    jne short @..prompt_disk_swap.l15 ; 0x274b
-    jmp near @..prompt_disk_swap.l3  ; 0x274d
-@..prompt_disk_swap.l15:
+    jne short .forward12             ; 0x274b
+    jmp near .back2                  ; 0x274d
+.forward12:
     mov ax, word [bp - 0xaa]         ; 0x2750
     mov word [bp + 6], ax            ; 0x2754
     mov word [bp - 0xaa], 0xfffe     ; 0x2757
@@ -356,10 +356,10 @@ prompt_disk_swap: ; Aztec csav frame=0x00ba
     push ax                          ; 0x2764
     call aztec_strcpy                ; 0x2765
     add sp, byte 4                   ; 0x2768
-    cmp word [bp + 6], byte 0xfe     ; 0x276b
-    je short @..prompt_disk_swap.l16 ; 0x276f
-    jmp near @..prompt_disk_swap.l2  ; 0x2771
-@..prompt_disk_swap.l16:
+    cmp word [bp + 6], byte -2       ; 0x276b
+    je short .forward13              ; 0x276f
+    jmp near .back1                  ; 0x2771
+.forward13:
     mov ax, 1                        ; 0x2774
     push ax                          ; 0x2777
     push word [bp - 0xb8]            ; 0x2778
@@ -368,7 +368,7 @@ prompt_disk_swap: ; Aztec csav frame=0x00ba
     add sp, byte 6                   ; 0x2783
     call flush_keyboard              ; 0x2786
     cmp word [bp + 0xa], byte 0      ; 0x2789
-    je short @..prompt_disk_swap.l19 ; 0x278d
+    je short .return1                ; 0x278d
     mov ax, 0                        ; 0x278f
     push ax                          ; 0x2792
     push ax                          ; 0x2793
@@ -381,19 +381,19 @@ prompt_disk_swap: ; Aztec csav frame=0x00ba
     add sp, byte 4                   ; 0x27a2
     mov word [msg_dbs_fd], ax        ; 0x27a5
     cmp ax, strict word 0xffff       ; 0x27a8
-    jne short @..prompt_disk_swap.l17 ; 0x27ab
+    jne short .forward14             ; 0x27ab
     mov ax, 0x19                     ; 0x27ad
     push ax                          ; 0x27b0
     call release_and_exit            ; 0x27b1
     pop cx                           ; 0x27b4
-@..prompt_disk_swap.l17:
+.forward14:
     mov ax, 0                        ; 0x27b5
     push ax                          ; 0x27b8
     mov ax, 1                        ; 0x27b9
     cmp word [bp - 0xae], byte 0     ; 0x27bc
-    jne short @..prompt_disk_swap.l18 ; 0x27c1
+    jne short .forward15             ; 0x27c1
     mov ax, 0                        ; 0x27c3
-@..prompt_disk_swap.l18:
+.forward15:
     push ax                          ; 0x27c6
     mov ax, str_scenario_dbs         ; 0x27c7
     push ax                          ; 0x27ca
@@ -404,10 +404,10 @@ prompt_disk_swap: ; Aztec csav frame=0x00ba
     add sp, byte 4                   ; 0x27d5
     mov word [data_file_fd], ax      ; 0x27d8
     cmp ax, strict word 0xffff       ; 0x27db
-    jne short @..prompt_disk_swap.l19 ; 0x27de
+    jne short .return1               ; 0x27de
     mov ax, 0x1a                     ; 0x27e0
     push ax                          ; 0x27e3
     call release_and_exit            ; 0x27e4
     pop cx                           ; 0x27e7
-@..prompt_disk_swap.l19:
+.return1:
     ret                              ; 0x27e8

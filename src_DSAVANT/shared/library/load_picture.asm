@@ -16,9 +16,9 @@ load_picture:
     mov word [bp - 2], bx
     mov ax, word [cs:bx]
     or ax, ax
-    je short @..load_picture.l1
-    jmp near @..load_picture.l7
-@..load_picture.l1:
+    je short .forward1
+    jmp near .forward6
+.forward1:
     mov ax, word [cs:maze_block_count - IMAGE_BASE]
     inc ax
     mov word [cs:maze_block_count - IMAGE_BASE], ax
@@ -55,32 +55,32 @@ load_picture:
     mov word [cs:bx + 2], ax
     mov ax, word [cs:maze_paras_used - IMAGE_BASE]
     cmp ax, 0x4180
-    jb short @..load_picture.l2
+    jb short .forward2
     jmp near load_picture.dos_con_loc1
-@..load_picture.l2:
+.forward2:
     mov bx, word [bp - 2]
     mov ax, word [cs:bx]
     add ax, word [cs:maze_mem_seg - IMAGE_BASE]
     mov ds, ax
-@..load_picture.l3:
+.back1:
     mov cx, word [bp - 4]
     mov dx, word [bp - 6]
     mov bx, cx
     or bx, dx
-    je short @..load_picture.l6
+    je short .forward5
     or dx, dx
-    jne short @..load_picture.l4
+    jne short .forward3
     cmp cx, strict word 0x1000
-    jae short @..load_picture.l4
+    jae short .forward3
     sub word [bp - 4], cx
-    jmp short @..load_picture.l5
-@..load_picture.l4:
+    jmp short .forward4
+.forward3:
     sub cx, strict word 0x1000
     sbb dx, byte 0
     mov word [bp - 4], cx
     mov word [bp - 6], dx
     mov cx, 0x1000
-@..load_picture.l5:
+.forward4:
     xor dx, dx
     mov bx, word [bp + 0xc]
     mov ah, 0x3f
@@ -88,8 +88,8 @@ load_picture:
     mov ax, ds
     add ax, 0x100
     mov ds, ax
-    jmp short @..load_picture.l3
-@..load_picture.l6:
+    jmp short .back1
+.forward5:
     pop di
     pop si
     pop es
@@ -97,7 +97,7 @@ load_picture:
     mov sp, bp
     pop bp
     ret
-@..load_picture.l7:
+.forward6:
     mov ax, word [bp + 0xe]
     mov bx, 0xa
     div bx

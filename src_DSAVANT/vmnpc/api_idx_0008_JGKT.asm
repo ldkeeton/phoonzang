@@ -3,8 +3,8 @@ api_idx_0008_JGKT:
     mov ax, 0xfff8                   ; 0x000e
     call aztec_csav                  ; 0x0011
     mov word [bp - 8], 0             ; 0x0014
-    cmp word [bp + 0xa], byte 0xff   ; 0x0019
-    jne short @..api_idx_0008_JGKT.l1 ; 0x001d
+    cmp word [bp + 0xa], byte -1     ; 0x0019
+    jne short .forward1              ; 0x001d
     mov word [bp + 0xa], 0           ; 0x001f
     mov ax, 0x15e                    ; 0x0024
     imul word [bp + 4]               ; 0x0027
@@ -12,9 +12,9 @@ api_idx_0008_JGKT:
     mov al, byte [bx + slot_recs + slot_rec.forced] ; 0x002c
     sub ah, ah                       ; 0x0030
     cmp ax, 0xfe                     ; 0x0032
-    je short @..api_idx_0008_JGKT.l1 ; 0x0035
+    je short .forward1               ; 0x0035
     mov word [bp - 8], 1             ; 0x0037
-@..api_idx_0008_JGKT.l1:
+.forward1:
     mov ax, 0x15e                    ; 0x003c
     imul word [bp + 4]               ; 0x003f
     add ax, word [bp + 0xa]          ; 0x0042
@@ -22,8 +22,8 @@ api_idx_0008_JGKT:
     mov al, byte [bx + slot_recs]    ; 0x0047
     sub ah, ah                       ; 0x004b
     mov word [bp - 2], ax            ; 0x004d
-    jmp near @..api_idx_0008_JGKT.l7 ; 0x0050
-@..api_idx_0008_JGKT.l2:
+    jmp near .forward6               ; 0x0050
+.back1:
     mov ax, 0x15e                    ; 0x0053
     imul word [bp + 4]               ; 0x0056
     add ax, word [bp - 2]            ; 0x0059
@@ -32,26 +32,26 @@ api_idx_0008_JGKT:
     sub ah, ah                       ; 0x0062
     mov word [bp - 4], ax            ; 0x0064
     cmp word [bp + 0xa], byte 0      ; 0x0067
-    jne short @..api_idx_0008_JGKT.l5 ; 0x006b
+    jne short .forward4              ; 0x006b
     mov ax, 0x15e                    ; 0x006d
     imul word [bp + 4]               ; 0x0070
     mov bx, ax                       ; 0x0073
     cmp byte [bx + slot_recs + slot_rec.forced], 0 ; 0x0075
-    jbe short @..api_idx_0008_JGKT.l5 ; 0x007a
+    jbe short .forward4              ; 0x007a
     mov al, byte [bx + slot_recs + slot_rec.forced] ; 0x007c
     sub ah, ah                       ; 0x0080
     cmp ax, 0xfe                     ; 0x0082
-    jge short @..api_idx_0008_JGKT.l5 ; 0x0085
+    jge short .forward4              ; 0x0085
     cmp ax, 0xfd                     ; 0x0087
-    jne short @..api_idx_0008_JGKT.l3 ; 0x008a
+    jne short .forward2              ; 0x008a
     mov word [bp - 4], 0             ; 0x008c
     mov word [bp - 6], 0             ; 0x0091
-    jmp short @..api_idx_0008_JGKT.l4 ; 0x0096
-@..api_idx_0008_JGKT.l3:
+    jmp short .forward3              ; 0x0096
+.forward2:
     mov word [bp - 6], ax            ; 0x0098
-@..api_idx_0008_JGKT.l4:
-    jmp short @..api_idx_0008_JGKT.l6 ; 0x009b
-@..api_idx_0008_JGKT.l5:
+.forward3:
+    jmp short .forward5              ; 0x009b
+.forward4:
     mov ax, 0x15e                    ; 0x009d
     imul word [bp + 4]               ; 0x00a0
     add ax, word [bp - 2]            ; 0x00a3
@@ -70,14 +70,14 @@ api_idx_0008_JGKT:
     sub ah, ah                       ; 0x00c5
     mov word [bp - 6], ax            ; 0x00c7
     cmp word [bp - 8], byte 0        ; 0x00ca
-    je short @..api_idx_0008_JGKT.l6 ; 0x00ce
+    je short .forward5               ; 0x00ce
     mov al, byte [bx + slot_recs + slot_rec.target_rand] ; 0x00d0
     sub ah, ah                       ; 0x00d4
     push ax                          ; 0x00d6
     call random_below                ; 0x00d7
     pop cx                           ; 0x00da
     add word [bp - 6], ax            ; 0x00db
-@..api_idx_0008_JGKT.l6:
+.forward5:
     mov al, byte [bp + 0xa]          ; 0x00de
     push ax                          ; 0x00e1
     mov ax, 3                        ; 0x00e2
@@ -163,7 +163,7 @@ api_idx_0008_JGKT:
     pop ax                           ; 0x01a4
     mov byte [bx + action_slot_table + action_slot.roll], al ; 0x01a5
     inc word [bp - 2]                ; 0x01a9
-@..api_idx_0008_JGKT.l7:
+.forward6:
     mov ax, 0x15e                    ; 0x01ac
     imul word [bp + 4]               ; 0x01af
     add ax, word [bp + 0xa]          ; 0x01b2
@@ -177,7 +177,7 @@ api_idx_0008_JGKT:
     pop ax                           ; 0x01c6
     add ax, cx                       ; 0x01c7
     cmp ax, word [bp - 2]            ; 0x01c9
-    jle short @..api_idx_0008_JGKT.l8 ; 0x01cc
-    jmp near @..api_idx_0008_JGKT.l2 ; 0x01ce
-@..api_idx_0008_JGKT.l8:
+    jle short .return1               ; 0x01cc
+    jmp near .back1                  ; 0x01ce
+.return1:
     ret                              ; 0x01d1

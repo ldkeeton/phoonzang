@@ -4,27 +4,27 @@ api_idx_0002_TOSL:
     call aztec_csav                  ; 0x03ed
     mov word [boundary_wall_open], 0 ; 0x03f0
     mov ax, word [game_state_arg]    ; 0x03f6
-    jmp short @..api_idx_0002_TOSL.l1 ; 0x03f9
+    jmp short .forward1              ; 0x03f9
 jumptable_042b_case_15:
     mov word [bp - 2], 1             ; 0x03fb
-    jmp short @..api_idx_0002_TOSL.l2 ; 0x0400
+    jmp short api_idx_0002_TOSL.forward2 ; 0x0400
 jumptable_042b_case_0:
     mov word [bp - 2], 2             ; 0x0402
-    jmp short @..api_idx_0002_TOSL.l2 ; 0x0407
+    jmp short api_idx_0002_TOSL.forward2 ; 0x0407
 jumptable_042b_case_14:
     mov word [bp - 2], 3             ; 0x0409
-    jmp short @..api_idx_0002_TOSL.l2 ; 0x040e
+    jmp short api_idx_0002_TOSL.forward2 ; 0x040e
 jumptable_042b_case_27:
     mov word [boundary_wall_open], 1 ; 0x0410
 jumptable_042b_case_7:
     mov word [bp - 2], 4             ; 0x0416
-    jmp short @..api_idx_0002_TOSL.l2 ; 0x041b
+    jmp short api_idx_0002_TOSL.forward2 ; 0x041b
 jumptable_042b_case_22:
     mov word [bp - 2], 5             ; 0x041d
-    jmp short @..api_idx_0002_TOSL.l2 ; 0x0422
+    jmp short api_idx_0002_TOSL.forward2 ; 0x0422
 jumptable_042b_case_8:
     mov word [bp - 2], 6             ; 0x0424
-    jmp short @..api_idx_0002_TOSL.l2 ; 0x0429
+    jmp short api_idx_0002_TOSL.forward2 ; 0x0429
 jumptable_042b:
     dw jumptable_042b_case_0 - IMAGE_BASE + __zres_end ; 0x042b
     dw jumptable_042b_case_0 - IMAGE_BASE + __zres_end ; 0x042d
@@ -58,24 +58,24 @@ jumptable_042b:
     dw jumptable_042b_case_15 - IMAGE_BASE + __zres_end ; 0x0465
     dw jumptable_042b_case_15 - IMAGE_BASE + __zres_end ; 0x0467
     dw jumptable_042b_case_14 - IMAGE_BASE + __zres_end ; 0x0469
-@..api_idx_0002_TOSL.l1:
+api_idx_0002_TOSL.forward1:
     cmp ax, strict word 0x20         ; 0x046b
-    jae short @..api_idx_0002_TOSL.l2 ; 0x046e
+    jae short api_idx_0002_TOSL.forward2 ; 0x046e
     xchg bx, ax                      ; 0x0470
     shl bx, 1                        ; 0x0471
     jmp [cs:bx + jumptable_042b - IMAGE_BASE + __zres_end] ; 0x0473
-@..api_idx_0002_TOSL.l2:
+api_idx_0002_TOSL.forward2:
     cmp word [maze_state], byte 0    ; 0x0478
-    je short @..api_idx_0002_TOSL.l3 ; 0x047d
+    je short api_idx_0002_TOSL.forward3 ; 0x047d
     mov ax, word [bp - 2]            ; 0x047f
     cmp ax, word [maze_variant]      ; 0x0482
-    jne short @..api_idx_0002_TOSL.l3 ; 0x0486
+    jne short api_idx_0002_TOSL.forward3 ; 0x0486
     jmp near jumptable_06b5_case_0   ; 0x0488
-@..api_idx_0002_TOSL.l3:
+api_idx_0002_TOSL.forward3:
     call free_current_maze           ; 0x048b
     mov ax, word [bp - 2]            ; 0x048e
     mov word [maze_variant], ax      ; 0x0491
-    jmp near @..api_idx_0002_TOSL.l4 ; 0x0494
+    jmp near api_idx_0002_TOSL.forward4 ; 0x0494
 jumptable_06b5_case_1:
     mov ax, 0                        ; 0x0497
     push ax                          ; 0x049a
@@ -312,7 +312,7 @@ jumptable_06b5:
     dw jumptable_06b5_case_4 - IMAGE_BASE + __zres_end ; 0x06bd
     dw jumptable_06b5_case_5 - IMAGE_BASE + __zres_end ; 0x06bf
     dw jumptable_06b5_case_6 - IMAGE_BASE + __zres_end ; 0x06c1
-@..api_idx_0002_TOSL.l4:
+api_idx_0002_TOSL.forward4:
     cmp ax, strict word 7            ; 0x06c3
     jae short jumptable_06b5_case_0  ; 0x06c6
     xchg bx, ax                      ; 0x06c8

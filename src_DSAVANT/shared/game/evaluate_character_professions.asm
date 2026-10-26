@@ -3,7 +3,7 @@ evaluate_character_professions:
     mov ax, 0xfffe
     call aztec_csav
     mov word [bp - 2], 0
-@..evaluate_character_professions.l1:
+.back1:
     mov ax, 0
     push ax
     push word [bp - 2]
@@ -13,5 +13,5 @@ evaluate_character_professions:
     inc word [bp - 2]
     mov ax, word [bp - 2]
     cmp ax, strict word 0xd
-    jle short @..evaluate_character_professions.l1
+    jle short .back1
     ret

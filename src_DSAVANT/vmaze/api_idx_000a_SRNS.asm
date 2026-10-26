@@ -38,7 +38,7 @@ api_idx_000a_SRNS:
     mov cx, ax                       ; 0x78ad
     mov ax, word [bp - 6]            ; 0x78af
     cmp cx, ax                       ; 0x78b2
-    jne short @..api_idx_000a_SRNS.l1 ; 0x78b4
+    jne short .return1               ; 0x78b4
     mov ax, word [party_region]      ; 0x78b6
     shl ax, 1                        ; 0x78b9
     mov si, ax                       ; 0x78bb
@@ -54,10 +54,10 @@ api_idx_000a_SRNS:
     mov cx, ax                       ; 0x78d7
     mov ax, word [bp - 6]            ; 0x78d9
     cmp cx, ax                       ; 0x78dc
-    je short @..api_idx_000a_SRNS.l2 ; 0x78de
-@..api_idx_000a_SRNS.l1:
+    je short .forward1               ; 0x78de
+.return1:
     ret                              ; 0x78e0
-@..api_idx_000a_SRNS.l2:
+.forward1:
     mov ax, 8                        ; 0x78e1
     push ax                          ; 0x78e4
     mov ax, 0                        ; 0x78e5
@@ -81,8 +81,8 @@ api_idx_000a_SRNS:
     push word [bp - 2]               ; 0x7911
     call get_bits                    ; 0x7914
     add sp, byte 6                   ; 0x7917
-    jmp short @..api_idx_000a_SRNS.l5 ; 0x791a
-@..api_idx_000a_SRNS.l3:
+    jmp short .forward2              ; 0x791a
+.back1:
     mov ax, 0                        ; 0x791c
     push ax                          ; 0x791f
     push word [bp - 4]               ; 0x7920
@@ -93,8 +93,8 @@ api_idx_000a_SRNS:
     push ax                          ; 0x792e
     call set_bitmap_bit              ; 0x792f
     add sp, byte 6                   ; 0x7932
-    jmp short @..api_idx_000a_SRNS.l6 ; 0x7935
-@..api_idx_000a_SRNS.l4:
+    jmp short .forward3              ; 0x7935
+.back2:
     mov ax, 1                        ; 0x7937
     push ax                          ; 0x793a
     push word [bp - 4]               ; 0x793b
@@ -105,13 +105,13 @@ api_idx_000a_SRNS:
     push ax                          ; 0x7949
     call set_bitmap_bit              ; 0x794a
     add sp, byte 6                   ; 0x794d
-    jmp short @..api_idx_000a_SRNS.l6 ; 0x7950
-@..api_idx_000a_SRNS.l5:
+    jmp short .forward3              ; 0x7950
+.forward2:
     cmp ax, strict word 0            ; 0x7952
-    je short @..api_idx_000a_SRNS.l3 ; 0x7955
+    je short .back1                  ; 0x7955
     cmp ax, strict word 1            ; 0x7957
-    je short @..api_idx_000a_SRNS.l4 ; 0x795a
-@..api_idx_000a_SRNS.l6:
+    je short .back2                  ; 0x795a
+.forward3:
     mov ax, 1                        ; 0x795c
     push ax                          ; 0x795f
     mov ax, 0xe                      ; 0x7960
@@ -120,7 +120,7 @@ api_idx_000a_SRNS:
     call get_bits                    ; 0x7967
     add sp, byte 6                   ; 0x796a
     cmp ax, strict word 1            ; 0x796d
-    jne short @..api_idx_000a_SRNS.l7 ; 0x7970
+    jne short .return2               ; 0x7970
     push word [bp - 4]               ; 0x7972
     mov ax, word [bp - 8]            ; 0x7975
     mov cx, 4                        ; 0x7978
@@ -138,5 +138,5 @@ api_idx_000a_SRNS:
     push ax                          ; 0x7996
     call set_bitmap_bit              ; 0x7997
     add sp, byte 6                   ; 0x799a
-@..api_idx_000a_SRNS.l7:
+.return2:
     ret                              ; 0x799d

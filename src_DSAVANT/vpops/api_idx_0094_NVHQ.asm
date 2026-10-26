@@ -4,9 +4,9 @@ api_idx_0094_NVHQ:
     call aztec_csav                  ; 0x33de
     mov word [bp - 0x6a], 0          ; 0x33e1
     mov word [bp - 0x4e], 0          ; 0x33e6
-@..api_idx_0094_NVHQ.l1:
+.back1:
     mov word [bp - 0x50], 0          ; 0x33eb
-@..api_idx_0094_NVHQ.l2:
+.back2:
     mov ax, 0x248                    ; 0x33f0
     imul word [bp + 4]               ; 0x33f3
     push ax                          ; 0x33f6
@@ -23,9 +23,9 @@ api_idx_0094_NVHQ:
     add ax, cx                       ; 0x340c
     mov bx, ax                       ; 0x340e
     cmp word [bx + party_records + pc_rec.cell], byte 0 ; 0x3410
-    jg short @..api_idx_0094_NVHQ.l3 ; 0x3415
-    jmp near @..api_idx_0094_NVHQ.l8 ; 0x3417
-@..api_idx_0094_NVHQ.l3:
+    jg short .forward1               ; 0x3415
+    jmp near .forward6               ; 0x3417
+.forward1:
     mov ax, 0                        ; 0x341a
     push ax                          ; 0x341d
     push word [bx + party_records + pc_rec.cell] ; 0x341e
@@ -53,7 +53,7 @@ api_idx_0094_NVHQ:
     mov al, byte [bx + party_records + pc_rec.cell + 0x7] ; 0x3450
     sub ah, ah                       ; 0x3454
     test ax, 0x80                    ; 0x3456
-    je short @..api_idx_0094_NVHQ.l4 ; 0x3459
+    je short .forward2               ; 0x3459
     lea ax, word [bp - 0x4a]         ; 0x345b
     push ax                          ; 0x345e
     mov ax, 0x16                     ; 0x345f
@@ -62,8 +62,8 @@ api_idx_0094_NVHQ:
     push ax                          ; 0x3468
     call aztec_strcpy                ; 0x3469
     add sp, byte 4                   ; 0x346c
-    jmp short @..api_idx_0094_NVHQ.l5 ; 0x346f
-@..api_idx_0094_NVHQ.l4:
+    jmp short .forward3              ; 0x346f
+.forward2:
     mov ax, 0x16                     ; 0x3471
     imul word [bp - 0x6a]            ; 0x3474
     add ax, list_row_name            ; 0x3477
@@ -89,7 +89,7 @@ api_idx_0094_NVHQ:
     push ax                          ; 0x34a4
     call load_message_string         ; 0x34a5
     add sp, byte 4                   ; 0x34a8
-@..api_idx_0094_NVHQ.l5:
+.forward3:
     mov al, byte [bp - 0x11]         ; 0x34ab
     sub ah, ah                       ; 0x34ae
     mov cx, word [bp - 0x6a]         ; 0x34b0
@@ -117,7 +117,7 @@ api_idx_0094_NVHQ:
     sub ah, ah                       ; 0x34e6
     mov bx, ax                       ; 0x34e8
     cmp byte [bx + cell_overlay_code + 0x58], 1 ; 0x34ea
-    jne short @..api_idx_0094_NVHQ.l6 ; 0x34ef
+    jne short .forward4              ; 0x34ef
     mov ax, 0x248                    ; 0x34f1
     imul word [bp + 4]               ; 0x34f4
     push ax                          ; 0x34f7
@@ -139,13 +139,13 @@ api_idx_0094_NVHQ:
     shl cx, 1                        ; 0x351a
     mov bx, cx                       ; 0x351c
     mov word [bx + list_row_count], ax ; 0x351e
-    jmp short @..api_idx_0094_NVHQ.l7 ; 0x3522
-@..api_idx_0094_NVHQ.l6:
+    jmp short .forward5              ; 0x3522
+.forward4:
     mov ax, word [bp - 0x6a]         ; 0x3524
     shl ax, 1                        ; 0x3527
     mov bx, ax                       ; 0x3529
     mov word [bx + list_row_count], 0 ; 0x352b
-@..api_idx_0094_NVHQ.l7:
+.forward5:
     mov ax, word [bp - 0x4e]         ; 0x3531
     xchg al, ah                      ; 0x3534
     sub al, al                       ; 0x3536
@@ -156,24 +156,24 @@ api_idx_0094_NVHQ:
     add bx, bp                       ; 0x3542
     mov word [bx - 0x92], ax         ; 0x3544
     inc word [bp - 0x6a]             ; 0x3548
-@..api_idx_0094_NVHQ.l8:
+.forward6:
     inc word [bp - 0x50]             ; 0x354b
     mov ax, word [bp - 0x50]         ; 0x354e
     cmp ax, strict word 0xa          ; 0x3551
-    jge short @..api_idx_0094_NVHQ.l9 ; 0x3554
-    jmp near @..api_idx_0094_NVHQ.l2 ; 0x3556
-@..api_idx_0094_NVHQ.l9:
+    jge short .forward7              ; 0x3554
+    jmp near .back2                  ; 0x3556
+.forward7:
     inc word [bp - 0x4e]             ; 0x3559
     mov ax, word [bp - 0x4e]         ; 0x355c
     cmp ax, strict word 2            ; 0x355f
-    jge short @..api_idx_0094_NVHQ.l10 ; 0x3562
-    jmp near @..api_idx_0094_NVHQ.l1 ; 0x3564
-@..api_idx_0094_NVHQ.l10:
+    jge short .forward8              ; 0x3562
+    jmp near .back1                  ; 0x3564
+.forward8:
     cmp word [bp - 0x6a], byte 0     ; 0x3567
-    jne short @..api_idx_0094_NVHQ.l11 ; 0x356b
+    jne short .forward9              ; 0x356b
     mov ax, 0xffff                   ; 0x356d
     ret                              ; 0x3570
-@..api_idx_0094_NVHQ.l11:
+.forward9:
     call wait_for_party_redraw       ; 0x3571
     mov ax, 0x248                    ; 0x3574
     imul word [bp + 4]               ; 0x3577
@@ -193,10 +193,10 @@ api_idx_0094_NVHQ:
     mov ax, word [spell_dialog_result] ; 0x3597
     mov word [bp - 2], ax            ; 0x359a
     cmp word [bp - 0x4c], byte 1     ; 0x359d
-    jne short @..api_idx_0094_NVHQ.l12 ; 0x35a1
+    jne short .forward10             ; 0x35a1
     cmp ax, strict word 0xffff       ; 0x35a3
-    jne short @..api_idx_0094_NVHQ.l13 ; 0x35a6
-@..api_idx_0094_NVHQ.l12:
+    jne short .forward11             ; 0x35a6
+.forward10:
     mov ax, 0xc6                     ; 0x35a8
     push ax                          ; 0x35ab
     mov ax, 0x109                    ; 0x35ac
@@ -209,7 +209,7 @@ api_idx_0094_NVHQ:
     add sp, byte 8                   ; 0x35bb
     mov ax, 0xffff                   ; 0x35be
     ret                              ; 0x35c1
-@..api_idx_0094_NVHQ.l13:
+.forward11:
     mov ax, word [bp - 2]            ; 0x35c2
     shl ax, 1                        ; 0x35c5
     mov bx, ax                       ; 0x35c7
@@ -259,7 +259,7 @@ api_idx_0094_NVHQ:
     call data_record_io              ; 0x362b
     add sp, byte 8                   ; 0x362e
     cmp word [bp - 0x28], byte 0     ; 0x3631
-    je short @..api_idx_0094_NVHQ.l15 ; 0x3635
+    je short .forward13              ; 0x3635
     mov ax, word [bp - 0x28]         ; 0x3637
     mov cx, 0x100                    ; 0x363a
     cwd                              ; 0x363d
@@ -270,11 +270,11 @@ api_idx_0094_NVHQ:
     imul dx                          ; 0x3649
     mov bx, ax                       ; 0x364b
     cmp byte [bx + spell_table + spell_table_rec.f_0004], 1 ; 0x364d
-    jne short @..api_idx_0094_NVHQ.l15 ; 0x3652
+    jne short .forward13             ; 0x3652
     call pick_party_member           ; 0x3654
     mov word [bp - 0x94], ax         ; 0x3657
     cmp ax, strict word 0xffff       ; 0x365b
-    jne short @..api_idx_0094_NVHQ.l14 ; 0x365e
+    jne short .forward12             ; 0x365e
     mov ax, 0xc6                     ; 0x3660
     push ax                          ; 0x3663
     mov ax, 0x109                    ; 0x3664
@@ -287,7 +287,7 @@ api_idx_0094_NVHQ:
     add sp, byte 8                   ; 0x3673
     mov ax, 0xffff                   ; 0x3676
     ret                              ; 0x3679
-@..api_idx_0094_NVHQ.l14:
+.forward12:
     mov ax, 0x2c                     ; 0x367a
     imul word [bp + 4]               ; 0x367d
     mov si, ax                       ; 0x3680
@@ -301,7 +301,7 @@ api_idx_0094_NVHQ:
     mov bx, word [party_char]        ; 0x3697
     pop ax                           ; 0x369b
     mov byte [bx + si + member_rec.f_0020], al ; 0x369c
-@..api_idx_0094_NVHQ.l15:
+.forward13:
     mov ax, 0xc6                     ; 0x369f
     push ax                          ; 0x36a2
     mov ax, 0x109                    ; 0x36a3

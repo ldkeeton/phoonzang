@@ -3,9 +3,9 @@ api_idx_000c_NLKU:
     mov ax, 0xfff4                   ; 0x4060
     call aztec_csav                  ; 0x4063
     mov word [bp - 2], 0             ; 0x4066
-@..api_idx_000c_NLKU.l1:
+.back1:
     mov word [bp - 4], 0             ; 0x406b
-@..api_idx_000c_NLKU.l2:
+.back2:
     mov ax, 0x3f                     ; 0x4070
     push ax                          ; 0x4073
     mov ax, 0                        ; 0x4074
@@ -29,7 +29,7 @@ api_idx_000c_NLKU:
     pop ax                           ; 0x40a1
     mov byte [bx + bss_9f94], al     ; 0x40a2
     cmp al, 0x20                     ; 0x40a6
-    jbe short @..api_idx_000c_NLKU.l3 ; 0x40a8
+    jbe short .forward1              ; 0x40a8
     sub ah, ah                       ; 0x40aa
     add ax, strict word 0xffe0       ; 0x40ac
     imul word [bp + 6]               ; 0x40af
@@ -55,14 +55,14 @@ api_idx_000c_NLKU:
     mov bx, ax                       ; 0x40df
     pop ax                           ; 0x40e1
     mov byte [bx + bss_9f94], al     ; 0x40e2
-    jmp short @..api_idx_000c_NLKU.l4 ; 0x40e6
-@..api_idx_000c_NLKU.l3:
+    jmp short .forward2              ; 0x40e6
+.forward1:
     mov ax, 3                        ; 0x40e8
     imul word [bp - 2]               ; 0x40eb
     add ax, word [bp - 4]            ; 0x40ee
     mov bx, ax                       ; 0x40f1
     cmp byte [bx + bss_9f94], 0x20   ; 0x40f3
-    jae short @..api_idx_000c_NLKU.l4 ; 0x40f8
+    jae short .forward2              ; 0x40f8
     mov al, byte [bx + bss_9f94]     ; 0x40fa
     sub ah, ah                       ; 0x40fe
     mov cx, ax                       ; 0x4100
@@ -91,19 +91,19 @@ api_idx_000c_NLKU:
     mov bx, ax                       ; 0x4137
     pop ax                           ; 0x4139
     mov byte [bx + bss_9f94], al     ; 0x413a
-@..api_idx_000c_NLKU.l4:
+.forward2:
     inc word [bp - 4]                ; 0x413e
     mov ax, word [bp - 4]            ; 0x4141
     cmp ax, strict word 3            ; 0x4144
-    jge short @..api_idx_000c_NLKU.l5 ; 0x4147
-    jmp near @..api_idx_000c_NLKU.l2 ; 0x4149
-@..api_idx_000c_NLKU.l5:
+    jge short .forward3              ; 0x4147
+    jmp near .back2                  ; 0x4149
+.forward3:
     inc word [bp - 2]                ; 0x414c
     mov ax, word [bp - 2]            ; 0x414f
     cmp ax, 0x100                    ; 0x4152
-    jge short @..api_idx_000c_NLKU.l6 ; 0x4155
-    jmp near @..api_idx_000c_NLKU.l1 ; 0x4157
-@..api_idx_000c_NLKU.l6:
+    jge short .forward4              ; 0x4155
+    jmp near .back1                  ; 0x4157
+.forward4:
     mov ax, 0xff                     ; 0x415a
     push ax                          ; 0x415d
     mov ax, 0x200                    ; 0x415e
@@ -113,7 +113,7 @@ api_idx_000c_NLKU:
     call aztec_setmem                ; 0x4166
     add sp, byte 6                   ; 0x4169
     mov word [bp - 2], 0             ; 0x416c
-@..api_idx_000c_NLKU.l7:
+.back3:
     mov ax, 3                        ; 0x4171
     imul word [bp - 2]               ; 0x4174
     mov bx, ax                       ; 0x4177
@@ -149,7 +149,7 @@ api_idx_000c_NLKU:
     inc word [bp - 2]                ; 0x41c1
     mov ax, word [bp - 2]            ; 0x41c4
     cmp ax, 0x100                    ; 0x41c7
-    jl short @..api_idx_000c_NLKU.l7 ; 0x41ca
+    jl short .back3                  ; 0x41ca
     mov ax, 0xa294                   ; 0x41cc
     push ax                          ; 0x41cf
     mov ax, 0x9f94                   ; 0x41d0

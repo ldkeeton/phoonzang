@@ -7,15 +7,15 @@ fill_action_slot_table:
     mov bx, ax
     mov bx, word [bx + party_char]
     cmp byte [bx + member_rec.slot], 0xff
-    jne short @..fill_action_slot_table.l1
+    jne short .forward1
     ret
-@..fill_action_slot_table.l1:
+.forward1:
     mov al, byte [bx + 0x19f]
     cbw
     mov word [bp - 2], ax
     mov word [bp - 0xa], 0
-    cmp word [bp + 0xa], byte 0xff
-    jne short @..fill_action_slot_table.l2
+    cmp word [bp + 0xa], byte -1
+    jne short .forward2
     mov word [bp + 0xa], 0
     mov cx, 0x15e
     imul cx
@@ -23,9 +23,9 @@ fill_action_slot_table:
     mov al, byte [bx + slot_recs + slot_rec.forced]
     sub ah, ah
     cmp ax, 0xfe
-    je short @..fill_action_slot_table.l2
+    je short .forward2
     mov word [bp - 0xa], 1
-@..fill_action_slot_table.l2:
+.forward2:
     mov ax, 0x15e
     imul word [bp - 2]
     add ax, word [bp + 0xa]
@@ -33,8 +33,8 @@ fill_action_slot_table:
     mov al, byte [bx + slot_recs]
     sub ah, ah
     mov word [bp - 4], ax
-    jmp near @..fill_action_slot_table.l8
-@..fill_action_slot_table.l3:
+    jmp near .forward7
+.back1:
     mov ax, 0x15e
     imul word [bp - 2]
     add ax, word [bp - 4]
@@ -43,36 +43,36 @@ fill_action_slot_table:
     sub ah, ah
     mov word [bp - 6], ax
     cmp word [bp + 0xa], byte 0
-    jne short @..fill_action_slot_table.l6
+    jne short .forward5
     mov ax, 0x15e
     imul word [bp - 2]
     mov bx, ax
     cmp byte [bx + slot_recs + slot_rec.forced], 0
-    jbe short @..fill_action_slot_table.l6
+    jbe short .forward5
     mov al, byte [bx + slot_recs + slot_rec.forced]
     sub ah, ah
     cmp ax, 0xfe
-    jge short @..fill_action_slot_table.l6
+    jge short .forward5
     cmp ax, 0xfd
-    jne short @..fill_action_slot_table.l4
+    jne short .forward3
     mov word [bp - 6], 0
     mov word [bp - 8], 0
-    jmp short @..fill_action_slot_table.l5
-@..fill_action_slot_table.l4:
+    jmp short .forward4
+.forward3:
     mov word [bp - 8], ax
     mov ax, word [bp + 4]
     shl ax, 1
     mov bx, ax
     mov bx, word [bx + party_char_ext]
     cmp byte [bx + member_ext.kind], 0x47
-    jne short @..fill_action_slot_table.l5
+    jne short .forward4
     cmp word [bp - 0xa], byte 0
-    jne short @..fill_action_slot_table.l5
+    jne short .forward4
     mov word [bp - 6], 1
     mov word [bp - 8], 0xb
-@..fill_action_slot_table.l5:
-    jmp short @..fill_action_slot_table.l7
-@..fill_action_slot_table.l6:
+.forward4:
+    jmp short .forward6
+.forward5:
     mov ax, 0x15e
     imul word [bp - 2]
     add ax, word [bp - 4]
@@ -91,14 +91,14 @@ fill_action_slot_table:
     sub ah, ah
     mov word [bp - 8], ax
     cmp word [bp - 0xa], byte 0
-    je short @..fill_action_slot_table.l7
+    je short .forward6
     mov al, byte [bx + slot_recs + slot_rec.target_rand]
     sub ah, ah
     push ax
     call random_below
     pop cx
     add word [bp - 8], ax
-@..fill_action_slot_table.l7:
+.forward6:
     mov al, byte [bp + 0xa]
     push ax
     mov ax, 3
@@ -184,7 +184,7 @@ fill_action_slot_table:
     pop ax
     mov byte [bx + action_slot_table + action_slot.roll], al
     inc word [bp - 4]
-@..fill_action_slot_table.l8:
+.forward7:
     mov ax, 0x15e
     imul word [bp - 2]
     add ax, word [bp + 0xa]
@@ -198,7 +198,7 @@ fill_action_slot_table:
     pop ax
     add ax, cx
     cmp ax, word [bp - 4]
-    jle short @..fill_action_slot_table.l9
-    jmp near @..fill_action_slot_table.l3
-@..fill_action_slot_table.l9:
+    jle short .return1
+    jmp near .back1
+.return1:
     ret

@@ -22,14 +22,14 @@ loc_MOVJ:
     imul word [bp + 0x14]            ; 0x1d65
     add ax, word [bp + 0xc]          ; 0x1d68
     mov cx, word [bp + 0x12]         ; 0x1d6b
-    add cx, byte 0xf7                ; 0x1d6e
+    add cx, byte -9                  ; 0x1d6e
     sub ax, cx                       ; 0x1d71
     mov word [bp - 8], ax            ; 0x1d73
     mov bx, word [bp + 4]            ; 0x1d76
     cmp byte [bx], 0                 ; 0x1d79
-    jne short @..loc_MOVJ.l1         ; 0x1d7c
-    jmp near @..loc_MOVJ.l2          ; 0x1d7e
-@..loc_MOVJ.l1:
+    jne short .forward1              ; 0x1d7c
+    jmp near .forward2               ; 0x1d7e
+.forward1:
     mov ax, dseg_90c4                ; 0x1d81
     push ax                          ; 0x1d84
     mov ax, word [bp - 8]            ; 0x1d85
@@ -111,8 +111,8 @@ loc_MOVJ:
     push word [bp + 6]               ; 0x1e3a
     call draw_text_glyphs            ; 0x1e3d
     add sp, byte 4                   ; 0x1e40
-    jmp short @..loc_MOVJ.l3         ; 0x1e43
-@..loc_MOVJ.l2:
+    jmp short .forward3              ; 0x1e43
+.forward2:
     mov ax, dseg_90ca                ; 0x1e45
     push ax                          ; 0x1e48
     mov ax, word [bp - 8]            ; 0x1e49
@@ -130,22 +130,22 @@ loc_MOVJ:
     call save_screen_area            ; 0x1e5d
     add sp, byte 0xa                 ; 0x1e60
     mov word [bp - 0x158], ax        ; 0x1e63
-@..loc_MOVJ.l3:
+.forward3:
     mov word [bp - 2], 0             ; 0x1e67
     mov word [bp - 4], 0             ; 0x1e6c
-@..loc_MOVJ.l4:
+.back1:
     mov ax, word [bp - 4]            ; 0x1e71
     shl ax, 1                        ; 0x1e74
     mov si, ax                       ; 0x1e76
     mov bx, word [bp + 0x1e]         ; 0x1e78
-    cmp word [bx + si], byte 0xff    ; 0x1e7b
-    jne short @..loc_MOVJ.l5         ; 0x1e7e
-    jmp near @..loc_MOVJ.l9          ; 0x1e80
-@..loc_MOVJ.l5:
+    cmp word [bx + si], byte -1      ; 0x1e7b
+    jne short .forward4              ; 0x1e7e
+    jmp near .forward8               ; 0x1e80
+.forward4:
     cmp word [bx + si], byte 1       ; 0x1e83
-    je short @..loc_MOVJ.l6          ; 0x1e86
-    jmp near @..loc_MOVJ.l8          ; 0x1e88
-@..loc_MOVJ.l6:
+    je short .forward5               ; 0x1e86
+    jmp near .forward7               ; 0x1e88
+.forward5:
     mov ax, 0x14                     ; 0x1e8b
     imul word [bp - 2]               ; 0x1e8e
     lea cx, word [bp - 0x156]        ; 0x1e91
@@ -191,9 +191,9 @@ loc_MOVJ:
     mov ax, word [bp + 0x18]         ; 0x1ef4
     mov cx, word [bp - 4]            ; 0x1ef7
     cmp cx, word [bp + 0x1a]         ; 0x1efa
-    jne short @..loc_MOVJ.l7         ; 0x1efd
+    jne short .forward6              ; 0x1efd
     mov ax, 0x1a                     ; 0x1eff
-@..loc_MOVJ.l7:
+.forward6:
     push ax                          ; 0x1f02
     call gfx_set_text_color          ; 0x1f03
     add sp, byte 4                   ; 0x1f06
@@ -260,10 +260,10 @@ loc_MOVJ:
     add bx, bp                       ; 0x1f97
     mov word [bx - 0x2a], ax         ; 0x1f99
     inc word [bp - 2]                ; 0x1f9c
-@..loc_MOVJ.l8:
+.forward7:
     inc word [bp - 4]                ; 0x1f9f
-    jmp near @..loc_MOVJ.l4          ; 0x1fa2
-@..loc_MOVJ.l9:
+    jmp near .back1                  ; 0x1fa2
+.forward8:
     mov ax, 0                        ; 0x1fa5
     push ax                          ; 0x1fa8
     push ax                          ; 0x1fa9
@@ -286,19 +286,19 @@ loc_MOVJ:
     call gfx_show_area               ; 0x1fca
     add sp, byte 8                   ; 0x1fcd
     cmp word [mouse_active], byte 0  ; 0x1fd0
-    je short @..loc_MOVJ.l11         ; 0x1fd5
-@..loc_MOVJ.l10:
+    je short .forward9               ; 0x1fd5
+.back2:
     mov ax, hotspot_rects            ; 0x1fd7
     push ax                          ; 0x1fda
     call poll_hotspots               ; 0x1fdb
     pop cx                           ; 0x1fde
     mov word [bp - 4], ax            ; 0x1fdf
     cmp word [hotspot_hit], byte 0   ; 0x1fe2
-    je short @..loc_MOVJ.l10         ; 0x1fe7
-    jmp near @..loc_MOVJ.l20         ; 0x1fe9
-@..loc_MOVJ.l11:
+    je short .back2                  ; 0x1fe7
+    jmp near .forward14              ; 0x1fe9
+.forward9:
     mov word [bp - 4], 0             ; 0x1fec
-@..loc_MOVJ.l12:
+.back3:
     mov ax, word [bp - 4]            ; 0x1ff1
     cwd                              ; 0x1ff4
     idiv word [bp + 0x14]            ; 0x1ff5
@@ -362,51 +362,51 @@ loc_MOVJ:
     push ax                          ; 0x207e
     call loc_MNNG                    ; 0x207f
     add sp, byte 0xa                 ; 0x2082
-@..loc_MOVJ.l13:
+.back4:
     mov ax, 1                        ; 0x2085
     push ax                          ; 0x2088
     call poll_filtered_key           ; 0x2089
     pop cx                           ; 0x208c
     test ax, ax                      ; 0x208d
-    jne short @..loc_MOVJ.l14        ; 0x208f
-    jmp short @..loc_MOVJ.l13        ; 0x2091
-@..loc_MOVJ.l14:
+    jne short .forward10             ; 0x208f
+    jmp short .back4                 ; 0x2091
+.forward10:
     mov ax, 1                        ; 0x2093
     push ax                          ; 0x2096
     call get_filtered_key            ; 0x2097
     pop cx                           ; 0x209a
     sub ah, ah                       ; 0x209b
     mov word [bp - 0x15a], ax        ; 0x209d
-    jmp short @..loc_MOVJ.l17        ; 0x20a1
-@..loc_MOVJ.l15:
+    jmp short .forward11             ; 0x20a1
+.back5:
     mov ax, word [bp - 4]            ; 0x20a3
     add ax, word [bp - 2]            ; 0x20a6
     dec ax                           ; 0x20a9
     cwd                              ; 0x20aa
     idiv word [bp - 2]               ; 0x20ab
     mov word [bp - 4], dx            ; 0x20ae
-    jmp short @..loc_MOVJ.l18        ; 0x20b1
-@..loc_MOVJ.l16:
+    jmp short .forward12             ; 0x20b1
+.back6:
     mov ax, word [bp - 4]            ; 0x20b3
     inc ax                           ; 0x20b6
     cwd                              ; 0x20b7
     idiv word [bp - 2]               ; 0x20b8
     mov word [bp - 4], dx            ; 0x20bb
-    jmp short @..loc_MOVJ.l18        ; 0x20be
-@..loc_MOVJ.l17:
+    jmp short .forward12             ; 0x20be
+.forward11:
     cmp ax, strict word 8            ; 0x20c0
-    je short @..loc_MOVJ.l15         ; 0x20c3
+    je short .back5                  ; 0x20c3
     cmp ax, strict word 9            ; 0x20c5
-    je short @..loc_MOVJ.l16         ; 0x20c8
+    je short .back6                  ; 0x20c8
     cmp ax, strict word 0xa          ; 0x20ca
-    je short @..loc_MOVJ.l16         ; 0x20cd
+    je short .back6                  ; 0x20cd
     cmp ax, strict word 0xb          ; 0x20cf
-    je short @..loc_MOVJ.l15         ; 0x20d2
-@..loc_MOVJ.l18:
+    je short .back5                  ; 0x20d2
+.forward12:
     cmp word [bp - 0x15a], byte 0xd  ; 0x20d4
-    je short @..loc_MOVJ.l19         ; 0x20d9
-    jmp near @..loc_MOVJ.l12         ; 0x20db
-@..loc_MOVJ.l19:
+    je short .forward13              ; 0x20d9
+    jmp near .back3                  ; 0x20db
+.forward13:
     inc word [bp - 4]                ; 0x20de
     mov ax, word [bp - 8]            ; 0x20e1
     inc ax                           ; 0x20e4
@@ -422,7 +422,7 @@ loc_MOVJ:
     push ax                          ; 0x20f4
     call gfx_show_area               ; 0x20f5
     add sp, byte 8                   ; 0x20f8
-@..loc_MOVJ.l20:
+.forward14:
     dec word [bp - 4]                ; 0x20fb
     mov ax, word [bp - 4]            ; 0x20fe
     cwd                              ; 0x2101
@@ -466,10 +466,10 @@ loc_MOVJ:
     call restore_saved_screen        ; 0x215d
     add sp, byte 4                   ; 0x2160
     cmp word [bp + 0x1c], byte 0     ; 0x2163
-    je short @..loc_MOVJ.l22         ; 0x2167
+    je short .forward16              ; 0x2167
     mov bx, word [bp + 4]            ; 0x2169
     cmp byte [bx], 0                 ; 0x216c
-    je short @..loc_MOVJ.l21         ; 0x216f
+    je short .forward15              ; 0x216f
     mov ax, word [bp - 8]            ; 0x2171
     add ax, strict word 6            ; 0x2174
     push ax                          ; 0x2177
@@ -484,8 +484,8 @@ loc_MOVJ:
     push ax                          ; 0x218c
     call gfx_show_area               ; 0x218d
     add sp, byte 8                   ; 0x2190
-    jmp short @..loc_MOVJ.l22        ; 0x2193
-@..loc_MOVJ.l21:
+    jmp short .forward16             ; 0x2193
+.forward15:
     mov ax, word [bp - 8]            ; 0x2195
     inc ax                           ; 0x2198
     push ax                          ; 0x2199
@@ -500,7 +500,7 @@ loc_MOVJ:
     push ax                          ; 0x21a8
     call gfx_show_area               ; 0x21a9
     add sp, byte 8                   ; 0x21ac
-@..loc_MOVJ.l22:
+.forward16:
     mov ax, word [bp - 4]            ; 0x21af
     mov word [bss_9052], ax          ; 0x21b2
     shl ax, 1                        ; 0x21b5

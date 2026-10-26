@@ -8,9 +8,9 @@ api_idx_000c_KGOL:
     mov ax, word [bp + 0xa]          ; 0x1684
     mov cx, word [bp + 6]            ; 0x1687
     cmp cx, word [bp - 8]            ; 0x168a
-    jge short @..api_idx_000c_KGOL.l1 ; 0x168d
+    jge short .forward1              ; 0x168d
     mov ax, word [bp + 8]            ; 0x168f
-@..api_idx_000c_KGOL.l1:
+.forward1:
     mov word [bp - 6], ax            ; 0x1692
     mov ax, cx                       ; 0x1695
     cwd                              ; 0x1697

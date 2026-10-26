@@ -6,50 +6,50 @@ api_idx_0002_USJS:
     mov bx, word [bp + 6]            ; 0x457e
     mov al, byte [bx + 0x38]         ; 0x4581
     sub ah, ah                       ; 0x4584
-    jmp near @..api_idx_0002_USJS.l3 ; 0x4586
+    jmp near .forward3               ; 0x4586
 jumptable_45f0_case_0:
     mov word [bp - 2], 0             ; 0x4589
     mov bx, word [bp + 6]            ; 0x458e
     mov al, byte [bx + 0x37]         ; 0x4591
     sub ah, ah                       ; 0x4594
     test ax, 8                       ; 0x4596
-    je short @..api_idx_0002_USJS.l1 ; 0x4599
+    je short api_idx_0002_USJS.forward1 ; 0x4599
     mov word [bp - 2], 0xfffe        ; 0x459b
-@..api_idx_0002_USJS.l1:
-    jmp near @..api_idx_0002_USJS.l4 ; 0x45a0
+api_idx_0002_USJS.forward1:
+    jmp near api_idx_0002_USJS.forward4 ; 0x45a0
 jumptable_45f0_case_4:
     mov word [bp - 2], 1             ; 0x45a3
-    jmp near @..api_idx_0002_USJS.l4 ; 0x45a8
+    jmp near api_idx_0002_USJS.forward4 ; 0x45a8
 jumptable_45f0_case_5:
     mov word [bp - 2], 2             ; 0x45ab
-    jmp short @..api_idx_0002_USJS.l4 ; 0x45b0
+    jmp short api_idx_0002_USJS.forward4 ; 0x45b0
 jumptable_45f0_case_6:
     mov word [bp - 2], 3             ; 0x45b2
-    jmp short @..api_idx_0002_USJS.l4 ; 0x45b7
+    jmp short api_idx_0002_USJS.forward4 ; 0x45b7
 jumptable_45f0_case_7:
     mov word [bp - 2], 4             ; 0x45b9
-    jmp short @..api_idx_0002_USJS.l4 ; 0x45be
+    jmp short api_idx_0002_USJS.forward4 ; 0x45be
 jumptable_45f0_case_8:
     mov word [bp - 2], 5             ; 0x45c0
-    jmp short @..api_idx_0002_USJS.l4 ; 0x45c5
+    jmp short api_idx_0002_USJS.forward4 ; 0x45c5
 jumptable_45f0_case_9:
     mov word [bp - 2], 6             ; 0x45c7
-    jmp short @..api_idx_0002_USJS.l4 ; 0x45cc
+    jmp short api_idx_0002_USJS.forward4 ; 0x45cc
 jumptable_45f0_case_10:
     mov word [bp - 2], 7             ; 0x45ce
-    jmp short @..api_idx_0002_USJS.l4 ; 0x45d3
+    jmp short api_idx_0002_USJS.forward4 ; 0x45d3
 jumptable_45f0_case_11:
     mov word [bp - 2], 1             ; 0x45d5
-    jmp short @..api_idx_0002_USJS.l4 ; 0x45da
+    jmp short api_idx_0002_USJS.forward4 ; 0x45da
 jumptable_45f0_case_13:
     mov bx, word [bp + 6]            ; 0x45dc
     mov al, byte [bx + 0x37]         ; 0x45df
     sub ah, ah                       ; 0x45e2
     test ax, 8                       ; 0x45e4
-    je short @..api_idx_0002_USJS.l2 ; 0x45e7
+    je short api_idx_0002_USJS.forward2 ; 0x45e7
     mov word [bp - 2], 1             ; 0x45e9
-@..api_idx_0002_USJS.l2:
-    jmp short @..api_idx_0002_USJS.l4 ; 0x45ee
+api_idx_0002_USJS.forward2:
+    jmp short api_idx_0002_USJS.forward4 ; 0x45ee
 jumptable_45f0:
     dw jumptable_45f0_case_0 - IMAGE_BASE + __zres_end ; 0x45f0
     dw jumptable_45f0_case_0 - IMAGE_BASE + __zres_end ; 0x45f2
@@ -68,13 +68,13 @@ jumptable_45f0:
     dw jumptable_45f0_case_13 - IMAGE_BASE + __zres_end ; 0x460c
     dw jumptable_45f0_case_13 - IMAGE_BASE + __zres_end ; 0x460e
     dw jumptable_45f0_case_0 - IMAGE_BASE + __zres_end ; 0x4610
-@..api_idx_0002_USJS.l3:
+api_idx_0002_USJS.forward3:
     cmp ax, strict word 0x11         ; 0x4612
-    jae short @..api_idx_0002_USJS.l4 ; 0x4615
+    jae short api_idx_0002_USJS.forward4 ; 0x4615
     xchg bx, ax                      ; 0x4617
     shl bx, 1                        ; 0x4618
     jmp [cs:bx + jumptable_45f0 - IMAGE_BASE + __zres_end] ; 0x461a
-@..api_idx_0002_USJS.l4:
+api_idx_0002_USJS.forward4:
     mov ax, 0x248                    ; 0x461f
     imul word [bp + 4]               ; 0x4622
     mov bx, ax                       ; 0x4625
@@ -87,7 +87,7 @@ jumptable_45f0:
     call test_bit                    ; 0x4635
     add sp, byte 4                   ; 0x4638
     cmp ax, strict word 1            ; 0x463b
-    jne short @..api_idx_0002_USJS.l5 ; 0x463e
+    jne short api_idx_0002_USJS.forward5 ; 0x463e
     mov ax, 0x248                    ; 0x4640
     imul word [bp + 4]               ; 0x4643
     mov bx, ax                       ; 0x4646
@@ -100,7 +100,7 @@ jumptable_45f0:
     call test_bit                    ; 0x4656
     add sp, byte 4                   ; 0x4659
     cmp ax, strict word 1            ; 0x465c
-    jne short @..api_idx_0002_USJS.l5 ; 0x465f
+    jne short api_idx_0002_USJS.forward5 ; 0x465f
     mov ax, 0x248                    ; 0x4661
     imul word [bp + 4]               ; 0x4664
     mov bx, ax                       ; 0x4667
@@ -113,9 +113,9 @@ jumptable_45f0:
     call test_bit                    ; 0x4677
     add sp, byte 4                   ; 0x467a
     cmp ax, strict word 1            ; 0x467d
-    je short @..api_idx_0002_USJS.l6 ; 0x4680
-@..api_idx_0002_USJS.l5:
+    je short api_idx_0002_USJS.forward6 ; 0x4680
+api_idx_0002_USJS.forward5:
     mov word [bp - 2], 0xffff        ; 0x4682
-@..api_idx_0002_USJS.l6:
+api_idx_0002_USJS.forward6:
     mov ax, word [bp - 2]            ; 0x4687
     ret                              ; 0x468a

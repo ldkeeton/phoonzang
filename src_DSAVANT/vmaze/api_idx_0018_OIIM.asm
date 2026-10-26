@@ -21,18 +21,18 @@ api_idx_0018_OIIM:
     idiv cx                          ; 0x7b80
     mov word [bp - 0xe], ax          ; 0x7b82
     cmp word [bp + 4], byte 0        ; 0x7b85
-    je short @..api_idx_0018_OIIM.l1 ; 0x7b89
+    je short .forward1               ; 0x7b89
     mov cx, 0                        ; 0x7b8b
     sub cx, ax                       ; 0x7b8e
     mov word [bp - 8], cx            ; 0x7b90
     mov word [bp - 6], 0             ; 0x7b93
-    jmp short @..api_idx_0018_OIIM.l2 ; 0x7b98
-@..api_idx_0018_OIIM.l1:
+    jmp short .forward2              ; 0x7b98
+.forward1:
     mov word [bp - 8], ax            ; 0x7b9a
     mov ax, 0                        ; 0x7b9d
     sub ax, word [bx + 0x256]        ; 0x7ba0
     mov word [bp - 6], ax            ; 0x7ba4
-@..api_idx_0018_OIIM.l2:
+.forward2:
     mov ax, word [party_world_x]     ; 0x7ba7
     add ax, word [party_world_y]     ; 0x7baa
     add ax, word [party_tag]         ; 0x7bae
@@ -42,7 +42,7 @@ api_idx_0018_OIIM:
     idiv cx                          ; 0x7bb9
     mov word [bp - 0xa], dx          ; 0x7bbb
     mov word [bp - 2], 1             ; 0x7bbe
-@..api_idx_0018_OIIM.l3:
+.back1:
     mov ax, word [party_status_frame] ; 0x7bc3
     inc ax                           ; 0x7bc6
     mov cx, 2                        ; 0x7bc7
@@ -104,13 +104,13 @@ api_idx_0018_OIIM:
     add sp, byte 0x16                ; 0x7c49
     mov ax, 0xffff                   ; 0x7c4c
     cmp word [bp - 0xa], byte 0      ; 0x7c4f
-    je short @..api_idx_0018_OIIM.l4 ; 0x7c53
+    je short .forward3               ; 0x7c53
     mov ax, word [bp + 8]            ; 0x7c55
     shl ax, 1                        ; 0x7c58
     mov bx, ax                       ; 0x7c5a
     mov ax, word [bx + 0x24c]        ; 0x7c5c
     add ax, word [bp + 6]            ; 0x7c60
-@..api_idx_0018_OIIM.l4:
+.forward3:
     push ax                          ; 0x7c63
     mov ax, 2                        ; 0x7c64
     push ax                          ; 0x7c67
@@ -135,16 +135,16 @@ api_idx_0018_OIIM:
     call gfx_show_area               ; 0x7c91
     add sp, byte 8                   ; 0x7c94
     cmp word [bp + 0xa], byte 0      ; 0x7c97
-    je short @..api_idx_0018_OIIM.l5 ; 0x7c9b
+    je short .forward4               ; 0x7c9b
     mov ax, 0x10                     ; 0x7c9d
     push ax                          ; 0x7ca0
     call play_sound_effect           ; 0x7ca1
     pop cx                           ; 0x7ca4
-@..api_idx_0018_OIIM.l5:
+.forward4:
     inc word [bp - 2]                ; 0x7ca5
     mov ax, word [bp - 2]            ; 0x7ca8
     cmp ax, strict word 0xa          ; 0x7cab
-    jg short @..api_idx_0018_OIIM.l6 ; 0x7cae
-    jmp near @..api_idx_0018_OIIM.l3 ; 0x7cb0
-@..api_idx_0018_OIIM.l6:
+    jg short .return1                ; 0x7cae
+    jmp near .back1                  ; 0x7cb0
+.return1:
     ret                              ; 0x7cb3

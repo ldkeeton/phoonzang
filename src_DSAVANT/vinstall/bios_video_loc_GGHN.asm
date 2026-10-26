@@ -10,11 +10,11 @@ bios_video_loc_GGHN:
     mov al, byte [bx]                ; 0x248b
     pop ds                           ; 0x248d
     or al, al                        ; 0x248e
-    je short @..bios_video_loc_GGHN.l1 ; 0x2490
-    jmp near @..bios_video_loc_GGHN.l6 ; 0x2492
-@..bios_video_loc_GGHN.l1:
+    je short .forward1               ; 0x2490
+    jmp near .forward5               ; 0x2492
+.forward1:
     cmp byte [cs:cseg_2479 - IMAGE_BASE], 7 ; 0x2495
-    jne short @..bios_video_loc_GGHN.l2 ; 0x249b
+    jne short .forward2              ; 0x249b
     mov dx, 0x3d4                    ; 0x249d
     mov al, 0xf                      ; 0x24a0
     out dx, al                       ; 0x24a2
@@ -28,43 +28,43 @@ bios_video_loc_GGHN:
     nop                              ; 0x24ac
     in al, dx                        ; 0x24ad
     cmp al, 0x64                     ; 0x24ae
-    jne short @..bios_video_loc_GGHN.l3 ; 0x24b0
+    jne short .forward3              ; 0x24b0
     xchg al, ah                      ; 0x24b2
     out dx, al                       ; 0x24b4
-@..bios_video_loc_GGHN.l2:
+.forward2:
     mov word [bp - 2], 4             ; 0x24b5
     ret                              ; 0x24ba
-@..bios_video_loc_GGHN.l3:
+.forward3:
     mov dx, 0x3ba                    ; 0x24bb
     in al, dx                        ; 0x24be
     and al, 0x80                     ; 0x24bf
     xchg al, ah                      ; 0x24c1
     mov cx, 0x1388                   ; 0x24c3
-@..bios_video_loc_GGHN.l4:
+.back1:
     in al, dx                        ; 0x24c6
     and al, 0x80                     ; 0x24c7
     cmp al, ah                       ; 0x24c9
-    jne short @..bios_video_loc_GGHN.l5 ; 0x24cb
-    loop @..bios_video_loc_GGHN.l4   ; 0x24cd
+    jne short .forward4              ; 0x24cb
+    loop .back1                      ; 0x24cd
     mov word [bp - 2], 0             ; 0x24cf
     ret                              ; 0x24d4
-@..bios_video_loc_GGHN.l5:
+.forward4:
     mov word [bp - 2], 8             ; 0x24d5
     ret                              ; 0x24da
-@..bios_video_loc_GGHN.l6:
+.forward5:
     mov word [bp - 2], 6             ; 0x24db
     xor bx, bx                       ; 0x24e0
     mov ax, 0x1a00                   ; 0x24e2
     int 0x10 ; BIOS video
     cmp bl, 7                        ; 0x24e7
-    je short @..bios_video_loc_GGHN.l7 ; 0x24ea
+    je short .forward6               ; 0x24ea
     cmp bh, 7                        ; 0x24ec
-    je short @..bios_video_loc_GGHN.l7 ; 0x24ef
+    je short .forward6               ; 0x24ef
     cmp bl, 8                        ; 0x24f1
-    je short @..bios_video_loc_GGHN.l7 ; 0x24f4
+    je short .forward6               ; 0x24f4
     cmp bh, 8                        ; 0x24f6
-    jne short @..bios_video_loc_GGHN.l8 ; 0x24f9
-@..bios_video_loc_GGHN.l7:
+    jne short .return1               ; 0x24f9
+.forward6:
     or word [bp - 2], 1              ; 0x24fb
-@..bios_video_loc_GGHN.l8:
+.return1:
     ret                              ; 0x2500

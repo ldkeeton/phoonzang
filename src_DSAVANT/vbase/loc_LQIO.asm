@@ -2,20 +2,20 @@
 loc_LQIO:
     mov ax, 0xfdb2                   ; 0x606d
     call aztec_csav                  ; 0x6070
-@..loc_LQIO.l1:
+.back1:
     cmp word [party_char_count], byte 6 ; 0x6073
-    jl short @..loc_LQIO.l2          ; 0x6078
-    jmp near @..loc_LQIO.l10         ; 0x607a
-@..loc_LQIO.l2:
+    jl short .forward1               ; 0x6078
+    jmp near .forward6               ; 0x607a
+.forward1:
     mov ax, MSG_ADD_CHARACTER_1200   ; 0x607d
     push ax                          ; 0x6080
     call loc_PVJJ                    ; 0x6081
     pop cx                           ; 0x6084
     mov word [bp - 2], ax            ; 0x6085
     cmp ax, strict word 0xffff       ; 0x6088
-    jne short @..loc_LQIO.l3         ; 0x608b
-    jmp near @..loc_LQIO.l10         ; 0x608d
-@..loc_LQIO.l3:
+    jne short .forward2              ; 0x608b
+    jmp near .forward6               ; 0x608d
+.forward2:
     mov ax, 0                        ; 0x6090
     push ax                          ; 0x6093
     push word [bp - 2]               ; 0x6094
@@ -74,8 +74,8 @@ loc_LQIO:
     add ax, strict word 0x12         ; 0x6122
     mov word [bp - 6], ax            ; 0x6125
     mov ax, word [party_char_count]  ; 0x6128
-    jmp near @..loc_LQIO.l7          ; 0x612b
-@..loc_LQIO.l4:
+    jmp near .forward3               ; 0x612b
+.back2:
     mov ax, 0x8d                     ; 0x612e
     push ax                          ; 0x6131
     mov ax, word [bp - 4]            ; 0x6132
@@ -94,8 +94,8 @@ loc_LQIO:
     push word [bp - 4]               ; 0x6153
     call gfx_show_area               ; 0x6156
     add sp, byte 8                   ; 0x6159
-    jmp short @..loc_LQIO.l9         ; 0x615c
-@..loc_LQIO.l5:
+    jmp short .forward5              ; 0x615c
+.back3:
     mov ax, 0x8d                     ; 0x615e
     push ax                          ; 0x6161
     mov ax, word [bp - 4]            ; 0x6162
@@ -116,8 +116,8 @@ loc_LQIO:
     push ax                          ; 0x6189
     call gfx_show_area               ; 0x618a
     add sp, byte 8                   ; 0x618d
-    jmp short @..loc_LQIO.l9         ; 0x6190
-@..loc_LQIO.l6:
+    jmp short .forward5              ; 0x6190
+.back4:
     mov ax, word [bp - 6]            ; 0x6192
     add ax, strict word 0x2b         ; 0x6195
     push ax                          ; 0x6198
@@ -128,19 +128,19 @@ loc_LQIO:
     push word [bp - 4]               ; 0x61a3
     call gfx_show_area               ; 0x61a6
     add sp, byte 8                   ; 0x61a9
-    jmp short @..loc_LQIO.l9         ; 0x61ac
-@..loc_LQIO.l7:
+    jmp short .forward5              ; 0x61ac
+.forward3:
     cmp ax, strict word 4            ; 0x61ae
-    jne short @..loc_LQIO.l8         ; 0x61b1
-    jmp near @..loc_LQIO.l4          ; 0x61b3
-@..loc_LQIO.l8:
+    jne short .forward4              ; 0x61b1
+    jmp near .back2                  ; 0x61b3
+.forward4:
     cmp ax, strict word 5            ; 0x61b6
-    je short @..loc_LQIO.l5          ; 0x61b9
-    jmp short @..loc_LQIO.l6         ; 0x61bb
-@..loc_LQIO.l9:
+    je short .back3                  ; 0x61b9
+    jmp short .back4                 ; 0x61bb
+.forward5:
     inc word [party_char_count]      ; 0x61bd
-    jmp near @..loc_LQIO.l1          ; 0x61c1
-@..loc_LQIO.l10:
+    jmp near .back1                  ; 0x61c1
+.forward6:
     mov ax, 0xc6                     ; 0x61c4
     push ax                          ; 0x61c7
     mov ax, 0x109                    ; 0x61c8

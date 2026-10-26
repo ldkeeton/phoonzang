@@ -12,31 +12,31 @@ wait_ticks_abortable:
     adc dx, bx                       ; 0x11b8
     mov word [bp - 2], dx            ; 0x11ba
     mov word [bp - 4], ax            ; 0x11bd
-@..wait_ticks_abortable.l1:
+.back1:
     les bx, word [tick_counter_ptr]  ; 0x11c0
     mov ax, word [es:bx]             ; 0x11c4
     mov dx, word [es:bx + 2]         ; 0x11c7
     cmp dx, word [bp - 2]            ; 0x11cb
-    jg short @..wait_ticks_abortable.l2 ; 0x11ce
-    jne short @..wait_ticks_abortable.l3 ; 0x11d0
+    jg short .forward1               ; 0x11ce
+    jne short .forward2              ; 0x11d0
     cmp ax, word [bp - 4]            ; 0x11d2
-    jb short @..wait_ticks_abortable.l3 ; 0x11d5
-@..wait_ticks_abortable.l2:
-    jmp short @..wait_ticks_abortable.l6 ; 0x11d7
-@..wait_ticks_abortable.l3:
+    jb short .forward2               ; 0x11d5
+.forward1:
+    jmp short .return1               ; 0x11d7
+.forward2:
     call poll_fullscreen_hotspot     ; 0x11d9
     test ax, ax                      ; 0x11dc
-    je short @..wait_ticks_abortable.l4 ; 0x11de
+    je short .forward3               ; 0x11de
     ret                              ; 0x11e0
-@..wait_ticks_abortable.l4:
+.forward3:
     cmp word [bp + 6], byte 0        ; 0x11e1
-    je short @..wait_ticks_abortable.l5 ; 0x11e5
+    je short .forward4               ; 0x11e5
     cmp word [space_key_hit], byte 0 ; 0x11e7
-    je short @..wait_ticks_abortable.l5 ; 0x11ec
+    je short .forward4               ; 0x11ec
     call api_idx_0004_RPUO           ; 0x11ee
     ret                              ; 0x11f1
-@..wait_ticks_abortable.l5:
+.forward4:
     call step_party_animation        ; 0x11f2
-    jmp short @..wait_ticks_abortable.l1 ; 0x11f5
-@..wait_ticks_abortable.l6:
+    jmp short .back1                 ; 0x11f5
+.return1:
     ret                              ; 0x11f7

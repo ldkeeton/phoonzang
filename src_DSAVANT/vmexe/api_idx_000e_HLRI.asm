@@ -52,9 +52,9 @@ api_idx_000e_HLRI:
     mov ax, 0x43                     ; 0x6023
     push ax                          ; 0x6026
     cmp word [bss_8464], byte 0      ; 0x6027
-    jne short @..api_idx_000e_HLRI.l1 ; 0x602c
+    jne short .forward1              ; 0x602c
     mov ax, 1                        ; 0x602e
-@..api_idx_000e_HLRI.l1:
+.forward1:
     push ax                          ; 0x6031
     mov ax, bss_9186                 ; 0x6032
     push ax                          ; 0x6035
@@ -91,24 +91,24 @@ api_idx_000e_HLRI:
     mov cx, ax                       ; 0x6084
     pop ax                           ; 0x6086
     cmp ax, cx                       ; 0x6087
-    jge short @..api_idx_000e_HLRI.l2 ; 0x6089
+    jge short .forward2              ; 0x6089
     mov word [bss_91da], 1           ; 0x608b
-@..api_idx_000e_HLRI.l2:
+.forward2:
     cmp word [bss_8464], byte 0      ; 0x6091
-    je short @..api_idx_000e_HLRI.l3 ; 0x6096
-    jmp near @..api_idx_000e_HLRI.l9 ; 0x6098
-@..api_idx_000e_HLRI.l3:
+    je short .forward3               ; 0x6096
+    jmp near .forward9               ; 0x6098
+.forward3:
     mov ax, 0x248                    ; 0x609b
     imul word [bss_8462]             ; 0x609e
     mov bx, ax                       ; 0x60a2
     mov al, byte [bx + party_records + pc_rec.profession] ; 0x60a4
     cmp al, 5                        ; 0x60a8
-    je short @..api_idx_000e_HLRI.l4 ; 0x60aa
+    je short .forward4               ; 0x60aa
     cmp al, 4                        ; 0x60ac
-    je short @..api_idx_000e_HLRI.l4 ; 0x60ae
+    je short .forward4               ; 0x60ae
     cmp al, 0xd                      ; 0x60b0
-    jne short @..api_idx_000e_HLRI.l5 ; 0x60b2
-@..api_idx_000e_HLRI.l4:
+    jne short .forward5              ; 0x60b2
+.forward4:
     mov al, byte [bx + party_records + pc_rec.flag + 0x1d] ; 0x60b4
     sub ah, ah                       ; 0x60b8
     mov cx, 3                        ; 0x60ba
@@ -126,8 +126,8 @@ api_idx_000e_HLRI:
     pop ax                           ; 0x60d7
     sub ax, cx                       ; 0x60d8
     mov word [bp - 0xe], ax          ; 0x60da
-    jmp short @..api_idx_000e_HLRI.l6 ; 0x60dd
-@..api_idx_000e_HLRI.l5:
+    jmp short .forward6              ; 0x60dd
+.forward5:
     mov ax, 0x248                    ; 0x60df
     imul word [bss_8462]             ; 0x60e2
     mov bx, ax                       ; 0x60e6
@@ -155,15 +155,15 @@ api_idx_000e_HLRI:
     push word [bss_8462]             ; 0x6119
     call loc_SIKN                    ; 0x611d
     add sp, byte 6                   ; 0x6120
-@..api_idx_000e_HLRI.l6:
+.forward6:
     mov ax, 0x64                     ; 0x6123
     push ax                          ; 0x6126
     call random_below                ; 0x6127
     pop cx                           ; 0x612a
     cmp ax, word [bp - 0xe]          ; 0x612b
-    jle short @..api_idx_000e_HLRI.l8 ; 0x612e
+    jle short .forward8              ; 0x612e
     cmp byte [bss_5988], 1           ; 0x6130
-    je short @..api_idx_000e_HLRI.l7 ; 0x6135
+    je short .forward7               ; 0x6135
     mov ax, 0x24                     ; 0x6137
     push ax                          ; 0x613a
     call random_below                ; 0x613b
@@ -179,15 +179,15 @@ api_idx_000e_HLRI:
     mov cx, ax                       ; 0x6154
     pop ax                           ; 0x6156
     cmp ax, cx                       ; 0x6157
-    jle short @..api_idx_000e_HLRI.l7 ; 0x6159
+    jle short .forward7              ; 0x6159
     mov word [bss_91da], 0           ; 0x615b
     mov word [bss_91d8], 1           ; 0x6161
-    jmp short @..api_idx_000e_HLRI.l8 ; 0x6167
-@..api_idx_000e_HLRI.l7:
+    jmp short .forward8              ; 0x6167
+.forward7:
     mov word [bss_91da], 1           ; 0x6169
-@..api_idx_000e_HLRI.l8:
-    jmp short @..api_idx_000e_HLRI.l11 ; 0x616f
-@..api_idx_000e_HLRI.l9:
+.forward8:
+    jmp short .forward11             ; 0x616f
+.forward9:
     mov ax, 0x2c                     ; 0x6171
     imul word [bss_8462]             ; 0x6174
     mov si, ax                       ; 0x6178
@@ -217,81 +217,81 @@ api_idx_000e_HLRI:
     mov cx, ax                       ; 0x61b1
     mov ax, word [bp - 0xe]          ; 0x61b3
     cmp cx, ax                       ; 0x61b6
-    jle short @..api_idx_000e_HLRI.l11 ; 0x61b8
+    jle short .forward11             ; 0x61b8
     cmp byte [bss_5988], 2           ; 0x61ba
-    je short @..api_idx_000e_HLRI.l10 ; 0x61bf
+    je short .forward10              ; 0x61bf
     mov ax, 7                        ; 0x61c1
     push ax                          ; 0x61c4
     call random_below                ; 0x61c5
     pop cx                           ; 0x61c8
     test ax, ax                      ; 0x61c9
-    jne short @..api_idx_000e_HLRI.l10 ; 0x61cb
+    jne short .forward10             ; 0x61cb
     mov word [bss_91da], 0           ; 0x61cd
     mov word [bss_91d8], 1           ; 0x61d3
-    jmp short @..api_idx_000e_HLRI.l11 ; 0x61d9
-@..api_idx_000e_HLRI.l10:
+    jmp short .forward11             ; 0x61d9
+.forward10:
     mov word [bss_91da], 1           ; 0x61db
-@..api_idx_000e_HLRI.l11:
+.forward11:
     mov word [bp - 0xc], 1           ; 0x61e1
     cmp word [bss_8464], byte 0      ; 0x61e6
-    jne short @..api_idx_000e_HLRI.l14 ; 0x61eb
+    jne short .forward14             ; 0x61eb
     mov ax, 0x248                    ; 0x61ed
     imul word [bss_8462]             ; 0x61f0
     mov bx, ax                       ; 0x61f4
     mov al, byte [bx + party_records + pc_rec.profession] ; 0x61f6
     cmp al, 5                        ; 0x61fa
-    je short @..api_idx_000e_HLRI.l12 ; 0x61fc
+    je short .forward12              ; 0x61fc
     cmp al, 4                        ; 0x61fe
-    je short @..api_idx_000e_HLRI.l12 ; 0x6200
+    je short .forward12              ; 0x6200
     cmp al, 0xd                      ; 0x6202
-    jne short @..api_idx_000e_HLRI.l13 ; 0x6204
-@..api_idx_000e_HLRI.l12:
+    jne short .forward13             ; 0x6204
+.forward12:
     mov word [bp - 0xc], 0           ; 0x6206
-@..api_idx_000e_HLRI.l13:
-    jmp short @..api_idx_000e_HLRI.l16 ; 0x620b
-@..api_idx_000e_HLRI.l14:
+.forward13:
+    jmp short .forward16             ; 0x620b
+.forward14:
     mov ax, word [bss_8464]          ; 0x620d
     shl ax, 1                        ; 0x6210
     mov bx, ax                       ; 0x6212
     mov bx, word [bx + party_char_ext] ; 0x6214
     mov al, byte [bx + 0xd6]         ; 0x6218
     cmp al, 5                        ; 0x621c
-    je short @..api_idx_000e_HLRI.l15 ; 0x621e
+    je short .forward15              ; 0x621e
     cmp al, 4                        ; 0x6220
-    je short @..api_idx_000e_HLRI.l15 ; 0x6222
+    je short .forward15              ; 0x6222
     cmp al, 0xd                      ; 0x6224
-    jne short @..api_idx_000e_HLRI.l16 ; 0x6226
-@..api_idx_000e_HLRI.l15:
+    jne short .forward16             ; 0x6226
+.forward15:
     mov word [bp - 0xc], 0           ; 0x6228
-@..api_idx_000e_HLRI.l16:
+.forward16:
     cmp word [bss_91d8], byte 1      ; 0x622d
-    jne short @..api_idx_000e_HLRI.l17 ; 0x6232
+    jne short .forward17             ; 0x6232
     mov ax, 6                        ; 0x6234
     imul word [bp - 6]               ; 0x6237
     mov bx, ax                       ; 0x623a
     mov al, byte [bx + spell_table + spell_table_rec.f_0003] ; 0x623c
     sub ah, ah                       ; 0x6240
     test ax, 2                       ; 0x6242
-    jne short @..api_idx_000e_HLRI.l17 ; 0x6245
+    jne short .forward17             ; 0x6245
     mov word [bss_91d8], 0           ; 0x6247
     mov word [bss_91da], 1           ; 0x624d
-@..api_idx_000e_HLRI.l17:
+.forward17:
     cmp word [bss_91da], byte 1      ; 0x6253
-    jne short @..api_idx_000e_HLRI.l18 ; 0x6258
+    jne short .forward18             ; 0x6258
     mov ax, 6                        ; 0x625a
     imul word [bp - 6]               ; 0x625d
     mov bx, ax                       ; 0x6260
     mov al, byte [bx + spell_table + spell_table_rec.f_0003] ; 0x6262
     sub ah, ah                       ; 0x6266
     test ax, 1                       ; 0x6268
-    jne short @..api_idx_000e_HLRI.l18 ; 0x626b
+    jne short .forward18             ; 0x626b
     mov word [bss_91da], 0           ; 0x626d
-@..api_idx_000e_HLRI.l18:
+.forward18:
     cmp word [bp - 0xc], byte 1      ; 0x6273
-    jne short @..api_idx_000e_HLRI.l19 ; 0x6277
+    jne short .forward19             ; 0x6277
     mov bx, word [bp + 4]            ; 0x6279
     cmp byte [bx + 0xe], 0           ; 0x627c
-    jbe short @..api_idx_000e_HLRI.l19 ; 0x6280
+    jbe short .forward19             ; 0x6280
     mov ax, 4                        ; 0x6282
     push ax                          ; 0x6285
     call api_idx_0004_QUPL           ; 0x6286
@@ -307,10 +307,10 @@ api_idx_000e_HLRI:
     push word [bss_9058]             ; 0x629c
     call api_idx_0004_QUPL           ; 0x62a0
     pop cx                           ; 0x62a3
-    jmp near @..api_idx_000e_HLRI.l22 ; 0x62a4
-@..api_idx_000e_HLRI.l19:
+    jmp near .forward22              ; 0x62a4
+.forward19:
     cmp word [bss_91da], byte 1      ; 0x62a7
-    jne short @..api_idx_000e_HLRI.l20 ; 0x62ac
+    jne short .forward20             ; 0x62ac
     mov ax, 4                        ; 0x62ae
     push ax                          ; 0x62b1
     call api_idx_0004_QUPL           ; 0x62b2
@@ -326,10 +326,10 @@ api_idx_000e_HLRI:
     push word [bss_9058]             ; 0x62c8
     call api_idx_0004_QUPL           ; 0x62cc
     pop cx                           ; 0x62cf
-    jmp short @..api_idx_000e_HLRI.l22 ; 0x62d0
-@..api_idx_000e_HLRI.l20:
+    jmp short .forward22             ; 0x62d0
+.forward20:
     cmp word [bss_91d8], byte 1      ; 0x62d2
-    jne short @..api_idx_000e_HLRI.l21 ; 0x62d7
+    jne short .forward21             ; 0x62d7
     mov ax, 4                        ; 0x62d9
     push ax                          ; 0x62dc
     call api_idx_0004_QUPL           ; 0x62dd
@@ -351,15 +351,15 @@ api_idx_000e_HLRI:
     mov al, byte [bss_8462]          ; 0x6304
     mov bx, word [bp + 4]            ; 0x6307
     mov byte [bx + 0x20], al         ; 0x630a
-@..api_idx_000e_HLRI.l21:
+.forward21:
     push word [bp - 4]               ; 0x630d
     push word [bp - 6]               ; 0x6310
     push word [bp + 4]               ; 0x6313
     call api_idx_000e_ORJG           ; 0x6316
     add sp, byte 6                   ; 0x6319
-@..api_idx_000e_HLRI.l22:
+.forward22:
     cmp word [bss_8464], byte 0      ; 0x631c
-    jne short @..api_idx_000e_HLRI.l23 ; 0x6321
+    jne short .forward23             ; 0x6321
     mov ax, 6                        ; 0x6323
     imul word [bp - 6]               ; 0x6326
     mov bx, ax                       ; 0x6329
@@ -380,7 +380,7 @@ api_idx_000e_HLRI:
     mov bx, cx                       ; 0x634e
     pop ax                           ; 0x6350
     sub word [bx + party_records + pc_rec.realm_points], ax ; 0x6351
-@..api_idx_000e_HLRI.l23:
+.forward23:
     push word [bp - 4]               ; 0x6355
     call random_below                ; 0x6358
     pop cx                           ; 0x635b

@@ -26,7 +26,7 @@ api_idx_004a_UIIS:
     call gfx_show_area               ; 0x68f3
     add sp, byte 8                   ; 0x68f6
     mov word [bp - 2], 0             ; 0x68f9
-@..api_idx_004a_UIIS.l1:
+.back1:
     mov ax, word [bp - 2]            ; 0x68fe
     shl ax, 1                        ; 0x6901
     mov bx, ax                       ; 0x6903
@@ -35,11 +35,11 @@ api_idx_004a_UIIS:
     inc word [bp - 2]                ; 0x690c
     mov ax, word [bp - 2]            ; 0x690f
     cmp ax, strict word 5            ; 0x6912
-    jle short @..api_idx_004a_UIIS.l1 ; 0x6915
+    jle short .back1                 ; 0x6915
     mov word [bp - 0x1e], 0          ; 0x6917
     mov word [bp - 0x16], 0xffff     ; 0x691c
     mov word [bp - 4], 1             ; 0x6921
-@..api_idx_004a_UIIS.l2:
+.back2:
     lea ax, word [bp - 0x22]         ; 0x6926
     push ax                          ; 0x6929
     mov ax, 1                        ; 0x692a
@@ -82,25 +82,25 @@ api_idx_004a_UIIS:
     call api_idx_0004_VUIP           ; 0x697c
     add sp, byte 0xe                 ; 0x697f
     mov ax, word [bp - 2]            ; 0x6982
-    jmp short @..api_idx_004a_UIIS.l6 ; 0x6985
+    jmp short .forward4              ; 0x6985
 jumptable_69ec_case_0:
     mov word [bp - 4], 0             ; 0x6987
-    jmp near @..api_idx_004a_UIIS.l7 ; 0x698c
+    jmp near api_idx_004a_UIIS.forward5 ; 0x698c
 jumptable_69ec_case_1:
     mov ax, 1                        ; 0x698f
     push ax                          ; 0x6992
     call loc_RMVR                    ; 0x6993
     pop cx                           ; 0x6996
-    jmp short @..api_idx_004a_UIIS.l7 ; 0x6997
+    jmp short api_idx_004a_UIIS.forward5 ; 0x6997
 jumptable_69ec_case_2:
-    jmp short @..api_idx_004a_UIIS.l7 ; 0x6999
+    jmp short api_idx_004a_UIIS.forward5 ; 0x6999
 jumptable_69ec_case_3:
     mov ax, 0                        ; 0x699b
     push ax                          ; 0x699e
     call api_idx_004e_HUKL           ; 0x699f
     pop cx                           ; 0x69a2
     cmp ax, strict word 0xffff       ; 0x69a3
-    jne short @..api_idx_004a_UIIS.l3 ; 0x69a6
+    jne short api_idx_004a_UIIS.forward1 ; 0x69a6
     mov ax, 0xc6                     ; 0x69a8
     push ax                          ; 0x69ab
     mov ax, 0x109                    ; 0x69ac
@@ -111,21 +111,21 @@ jumptable_69ec_case_3:
     push ax                          ; 0x69b7
     call gfx_show_area               ; 0x69b8
     add sp, byte 8                   ; 0x69bb
-    jmp short @..api_idx_004a_UIIS.l5 ; 0x69be
-@..api_idx_004a_UIIS.l3:
+    jmp short api_idx_004a_UIIS.forward3 ; 0x69be
+api_idx_004a_UIIS.forward1:
     cmp word [bp - 2], byte 4        ; 0x69c0
-    jne short @..api_idx_004a_UIIS.l4 ; 0x69c4
+    jne short api_idx_004a_UIIS.forward2 ; 0x69c4
     mov word [dest_alt_arg], 0       ; 0x69c6
     mov word [game_state], 7         ; 0x69cc
-@..api_idx_004a_UIIS.l4:
+api_idx_004a_UIIS.forward2:
     mov word [bp - 4], 0             ; 0x69d2
-@..api_idx_004a_UIIS.l5:
-    jmp short @..api_idx_004a_UIIS.l7 ; 0x69d7
+api_idx_004a_UIIS.forward3:
+    jmp short api_idx_004a_UIIS.forward5 ; 0x69d7
 jumptable_69ec_case_5:
     mov word [dest_alt_arg], 0       ; 0x69d9
     mov word [game_state], 7         ; 0x69df
     mov word [bp - 4], 0             ; 0x69e5
-    jmp short @..api_idx_004a_UIIS.l7 ; 0x69ea
+    jmp short api_idx_004a_UIIS.forward5 ; 0x69ea
 jumptable_69ec:
     dw jumptable_69ec_case_0 - IMAGE_BASE + __zres_end ; 0x69ec
     dw jumptable_69ec_case_1 - IMAGE_BASE + __zres_end ; 0x69ee
@@ -133,15 +133,15 @@ jumptable_69ec:
     dw jumptable_69ec_case_3 - IMAGE_BASE + __zres_end ; 0x69f2
     dw jumptable_69ec_case_3 - IMAGE_BASE + __zres_end ; 0x69f4
     dw jumptable_69ec_case_5 - IMAGE_BASE + __zres_end ; 0x69f6
-@..api_idx_004a_UIIS.l6:
+api_idx_004a_UIIS.forward4:
     cmp ax, strict word 6            ; 0x69f8
-    jae short @..api_idx_004a_UIIS.l7 ; 0x69fb
+    jae short api_idx_004a_UIIS.forward5 ; 0x69fb
     xchg bx, ax                      ; 0x69fd
     shl bx, 1                        ; 0x69fe
     jmp [cs:bx + jumptable_69ec - IMAGE_BASE + __zres_end] ; 0x6a00
-@..api_idx_004a_UIIS.l7:
+api_idx_004a_UIIS.forward5:
     cmp word [bp - 4], byte 0        ; 0x6a05
-    je short @..api_idx_004a_UIIS.l8 ; 0x6a09
-    jmp near @..api_idx_004a_UIIS.l2 ; 0x6a0b
-@..api_idx_004a_UIIS.l8:
+    je short api_idx_004a_UIIS.return1 ; 0x6a09
+    jmp near api_idx_004a_UIIS.back2 ; 0x6a0b
+api_idx_004a_UIIS.return1:
     ret                              ; 0x6a0e

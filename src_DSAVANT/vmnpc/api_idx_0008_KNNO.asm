@@ -11,8 +11,8 @@ api_idx_0008_KNNO:
     mov ax, word [bp + 4]            ; 0x29c7
     mov word [bp - 8], ax            ; 0x29ca
     mov word [bp - 6], 0             ; 0x29cd
-    jmp short @..api_idx_0008_KNNO.l2 ; 0x29d2
-@..api_idx_0008_KNNO.l1:
+    jmp short .forward1              ; 0x29d2
+.back1:
     mov ax, 0                        ; 0x29d4
     push ax                          ; 0x29d7
     push word [bp - 6]               ; 0x29d8
@@ -22,18 +22,18 @@ api_idx_0008_KNNO:
     mov ax, word [bp - 6]            ; 0x29e4
     mov word [bp - 8], ax            ; 0x29e7
     inc word [bp - 6]                ; 0x29ea
-@..api_idx_0008_KNNO.l2:
+.forward1:
     mov ax, word [bp - 6]            ; 0x29ed
     cmp ax, word [party_char_count]  ; 0x29f0
-    jge short @..api_idx_0008_KNNO.l3 ; 0x29f4
-    cmp word [bp - 2], byte 0xff     ; 0x29f6
-    je short @..api_idx_0008_KNNO.l1 ; 0x29fa
-@..api_idx_0008_KNNO.l3:
-    cmp word [bp - 2], byte 0xff     ; 0x29fc
-    jne short @..api_idx_0008_KNNO.l6 ; 0x2a00
+    jge short .forward2              ; 0x29f4
+    cmp word [bp - 2], byte -1       ; 0x29f6
+    je short .back1                  ; 0x29fa
+.forward2:
+    cmp word [bp - 2], byte -1       ; 0x29fc
+    jne short .forward4              ; 0x2a00
     mov word [bp - 6], 0             ; 0x2a02
-    jmp short @..api_idx_0008_KNNO.l5 ; 0x2a07
-@..api_idx_0008_KNNO.l4:
+    jmp short .forward3              ; 0x2a07
+.back2:
     mov ax, 1                        ; 0x2a09
     push ax                          ; 0x2a0c
     push word [bp - 6]               ; 0x2a0d
@@ -43,19 +43,19 @@ api_idx_0008_KNNO:
     mov ax, word [bp - 6]            ; 0x2a19
     mov word [bp - 8], ax            ; 0x2a1c
     inc word [bp - 6]                ; 0x2a1f
-@..api_idx_0008_KNNO.l5:
+.forward3:
     mov ax, word [bp - 6]            ; 0x2a22
     cmp ax, word [party_char_count]  ; 0x2a25
-    jge short @..api_idx_0008_KNNO.l6 ; 0x2a29
-    cmp word [bp - 2], byte 0xff     ; 0x2a2b
-    je short @..api_idx_0008_KNNO.l4 ; 0x2a2f
-@..api_idx_0008_KNNO.l6:
-    cmp word [bp - 2], byte 0xff     ; 0x2a31
-    jne short @..api_idx_0008_KNNO.l9 ; 0x2a35
+    jge short .forward4              ; 0x2a29
+    cmp word [bp - 2], byte -1       ; 0x2a2b
+    je short .back2                  ; 0x2a2f
+.forward4:
+    cmp word [bp - 2], byte -1       ; 0x2a31
+    jne short .forward6              ; 0x2a35
     mov word [bp - 2], 0             ; 0x2a37
     mov word [bp - 6], 0             ; 0x2a3c
     mov word [bp - 8], 0             ; 0x2a41
-@..api_idx_0008_KNNO.l7:
+.back3:
     mov ax, 0x78                     ; 0x2a46
     imul word [bp - 6]               ; 0x2a49
     push ax                          ; 0x2a4c
@@ -69,16 +69,16 @@ api_idx_0008_KNNO:
     call loc_GMVH                    ; 0x2a5e
     pop cx                           ; 0x2a61
     test ax, ax                      ; 0x2a62
-    je short @..api_idx_0008_KNNO.l9 ; 0x2a64
+    je short .forward6               ; 0x2a64
     inc word [bp - 2]                ; 0x2a66
     mov ax, word [bp - 2]            ; 0x2a69
     cmp ax, strict word 0xa          ; 0x2a6c
-    jne short @..api_idx_0008_KNNO.l8 ; 0x2a6f
+    jne short .forward5              ; 0x2a6f
     mov word [bp - 2], 0             ; 0x2a71
     inc word [bp - 6]                ; 0x2a76
-@..api_idx_0008_KNNO.l8:
-    jmp short @..api_idx_0008_KNNO.l7 ; 0x2a79
-@..api_idx_0008_KNNO.l9:
+.forward5:
+    jmp short .back3                 ; 0x2a79
+.forward6:
     mov ax, word [bp - 2]            ; 0x2a7b
     mov cx, 0x100                    ; 0x2a7e
     cwd                              ; 0x2a81
@@ -113,7 +113,7 @@ api_idx_0008_KNNO:
     call loc_GMVH                    ; 0x2ac3
     pop cx                           ; 0x2ac6
     test ax, ax                      ; 0x2ac7
-    je short @..api_idx_0008_KNNO.l10 ; 0x2ac9
+    je short .forward7               ; 0x2ac9
     mov ax, word [bp + 6]            ; 0x2acb
     add ax, 0xfe70                   ; 0x2ace
     push ax                          ; 0x2ad1
@@ -124,7 +124,7 @@ api_idx_0008_KNNO:
     push ax                          ; 0x2ada
     call assign_slot_bit             ; 0x2adb
     add sp, byte 6                   ; 0x2ade
-@..api_idx_0008_KNNO.l10:
+.forward7:
     mov ax, bss_95a8                 ; 0x2ae1
     push ax                          ; 0x2ae4
     mov ax, MSG_GOT_AN_ITEM          ; 0x2ae5
@@ -142,7 +142,7 @@ api_idx_0008_KNNO:
     call str_subst_char              ; 0x2b01
     add sp, byte 6                   ; 0x2b04
     cmp word [bp + 8], byte 1        ; 0x2b07
-    jne short @..api_idx_0008_KNNO.l11 ; 0x2b0b
+    jne short .forward8              ; 0x2b0b
     mov ax, 1                        ; 0x2b0d
     push ax                          ; 0x2b10
     push ax                          ; 0x2b11
@@ -151,10 +151,10 @@ api_idx_0008_KNNO:
     push ax                          ; 0x2b16
     call loc_MLKO                    ; 0x2b17
     add sp, byte 8                   ; 0x2b1a
-    jmp short @..api_idx_0008_KNNO.l12 ; 0x2b1d
-@..api_idx_0008_KNNO.l11:
+    jmp short .return1               ; 0x2b1d
+.forward8:
     cmp word [bp + 8], byte 2        ; 0x2b1f
-    jne short @..api_idx_0008_KNNO.l12 ; 0x2b23
+    jne short .return1               ; 0x2b23
     mov ax, word [text_line_index]   ; 0x2b25
     mov cx, 7                        ; 0x2b28
     shl ax, cl                       ; 0x2b2b
@@ -197,5 +197,5 @@ api_idx_0008_KNNO:
     push ax                          ; 0x2b88
     call play_sound_effect           ; 0x2b89
     pop cx                           ; 0x2b8c
-@..api_idx_0008_KNNO.l12:
+.return1:
     ret                              ; 0x2b8d

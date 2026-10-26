@@ -3,14 +3,14 @@ free_current_maze: ; Aztec csav frame=0x0000
     mov ax, 0                        ; 0x138c
     call aztec_csav                  ; 0x138f
     cmp word [current_maze], byte 0  ; 0x1392
-    jge short @..free_current_maze.l1 ; 0x1397
+    jge short .forward1              ; 0x1397
     jmp near jumptable_14a2_case_0   ; 0x1399
-@..free_current_maze.l1:
+.forward1:
     push word [current_maze]         ; 0x139c
     call gfx_free_maze               ; 0x13a0
     pop cx                           ; 0x13a3
     mov ax, word [maze_variant]      ; 0x13a4
-    jmp near @..free_current_maze.l2 ; 0x13a7
+    jmp near .forward2               ; 0x13a7
 jumptable_14a2_case_1:
     mov ax, 5                        ; 0x13aa
     push ax                          ; 0x13ad
@@ -147,7 +147,7 @@ jumptable_14a2:
     dw jumptable_14a2_case_4 - IMAGE_BASE      ; 0x14aa
     dw jumptable_14a2_case_5 - IMAGE_BASE      ; 0x14ac
     dw jumptable_14a2_case_6 - IMAGE_BASE      ; 0x14ae
-@..free_current_maze.l2:
+free_current_maze.forward2:
     cmp ax, strict word 7            ; 0x14b0
     jae short jumptable_14a2_case_0  ; 0x14b3
     xchg bx, ax                      ; 0x14b5

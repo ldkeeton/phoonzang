@@ -7,27 +7,27 @@ api_idx_007c_MIHQ:
     pop cx                           ; 0x4591
     mov word [bp - 4], 0             ; 0x4592
     mov word [bp - 2], 0             ; 0x4597
-@..api_idx_007c_MIHQ.l1:
+.back1:
     mov ax, word [bp - 2]            ; 0x459c
     shl ax, 1                        ; 0x459f
     mov bx, ax                       ; 0x45a1
     cmp word [bx + profession_eligible], byte 1 ; 0x45a3
-    jne short @..api_idx_007c_MIHQ.l2 ; 0x45a8
+    jne short .forward1              ; 0x45a8
     mov ax, 1                        ; 0x45aa
-    jmp short @..api_idx_007c_MIHQ.l3 ; 0x45ad
-@..api_idx_007c_MIHQ.l2:
+    jmp short .forward2              ; 0x45ad
+.forward1:
     mov ax, 0                        ; 0x45af
-@..api_idx_007c_MIHQ.l3:
+.forward2:
     add bx, bp                       ; 0x45b2
     mov word [bx - 0x7c], ax         ; 0x45b4
     cmp word [bx - 0x7c], byte 0     ; 0x45b7
-    je short @..api_idx_007c_MIHQ.l4 ; 0x45bb
+    je short .forward3               ; 0x45bb
     inc word [bp - 4]                ; 0x45bd
-@..api_idx_007c_MIHQ.l4:
+.forward3:
     inc word [bp - 2]                ; 0x45c0
     mov ax, word [bp - 2]            ; 0x45c3
     cmp ax, strict word 0xd          ; 0x45c6
-    jle short @..api_idx_007c_MIHQ.l1 ; 0x45c9
+    jle short .back1                 ; 0x45c9
     mov word [bp - 0x60], 0xffff     ; 0x45cb
     lea ax, word [bp - 0x7c]         ; 0x45d0
     push ax                          ; 0x45d3

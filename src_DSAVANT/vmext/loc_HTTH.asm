@@ -88,17 +88,17 @@ loc_HTTH:
     call pick_party_member           ; 0x167c
     mov word [bp - 2], ax            ; 0x167f
     cmp ax, strict word 0xffff       ; 0x1682
-    je short @..loc_HTTH.l1          ; 0x1685
+    je short .forward1               ; 0x1685
     cmp ax, word [bp + 4]            ; 0x1687
-    jne short @..loc_HTTH.l2         ; 0x168a
-@..loc_HTTH.l1:
+    jne short .forward2              ; 0x168a
+.forward1:
     mov ax, 1                        ; 0x168c
     push ax                          ; 0x168f
     push word [bp + 4]               ; 0x1690
     call draw_party_member_panel     ; 0x1693
     add sp, byte 4                   ; 0x1696
     ret                              ; 0x1699
-@..loc_HTTH.l2:
+.forward2:
     mov ax, 0x248                    ; 0x169a
     imul word [bp + 4]               ; 0x169d
     mov si, ax                       ; 0x16a0

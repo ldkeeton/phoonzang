@@ -3,7 +3,7 @@ api_idx_007a_GTOG:
     mov ax, 0xff86                   ; 0x43bb
     call aztec_csav                  ; 0x43be
     mov word [bp - 2], 0             ; 0x43c1
-@..api_idx_007a_GTOG.l1:
+.back1:
     mov ax, word [bp - 2]            ; 0x43c6
     shl ax, 1                        ; 0x43c9
     mov bx, ax                       ; 0x43cb
@@ -12,7 +12,7 @@ api_idx_007a_GTOG:
     inc word [bp - 2]                ; 0x43d4
     mov ax, word [bp - 2]            ; 0x43d7
     cmp ax, strict word 0xa          ; 0x43da
-    jle short @..api_idx_007a_GTOG.l1 ; 0x43dd
+    jle short .back1                 ; 0x43dd
     mov word [bp - 0x64], 0xffff     ; 0x43df
     lea ax, word [bp - 0x7a]         ; 0x43e4
     push ax                          ; 0x43e7

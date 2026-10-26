@@ -11,7 +11,7 @@ api_idx_0002_NTRU:
     call aztec_strncmp               ; 0x8bc4
     add sp, byte 6                   ; 0x8bc7
     test ax, ax                      ; 0x8bca
-    jne short @..api_idx_0002_NTRU.l1 ; 0x8bcc
+    jne short .forward1              ; 0x8bcc
     push word [bp + 6]               ; 0x8bce
     call aztec_strlen                ; 0x8bd1
     pop cx                           ; 0x8bd4
@@ -22,6 +22,6 @@ api_idx_0002_NTRU:
     add sp, byte 4                   ; 0x8bdd
     mov ax, 0                        ; 0x8be0
     ret                              ; 0x8be3
-@..api_idx_0002_NTRU.l1:
+.forward1:
     mov ax, 0xffff                   ; 0x8be4
     ret                              ; 0x8be7

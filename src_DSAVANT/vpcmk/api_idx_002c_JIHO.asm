@@ -40,7 +40,7 @@ api_idx_002c_JIHO:
     add sp, byte 0x1a                ; 0x6791
     mov word [bp - 2], ax            ; 0x6794
     cmp word [bp - 2], byte 0        ; 0x6797
-    jne short @..api_idx_002c_JIHO.l1 ; 0x679b
+    jne short .return1               ; 0x679b
     mov bx, word [bp + 4]            ; 0x679d
     mov byte [bx + pc_file_record_base_hi + 0x2], 0 ; 0x67a0
     mov ax, 0                        ; 0x67a5
@@ -69,5 +69,5 @@ api_idx_002c_JIHO:
     push word [bp - 4]               ; 0x67da
     call aztec_close                 ; 0x67dd
     pop cx                           ; 0x67e0
-@..api_idx_002c_JIHO.l1:
+.return1:
     ret                              ; 0x67e1

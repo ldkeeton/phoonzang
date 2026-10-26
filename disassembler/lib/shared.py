@@ -45,7 +45,7 @@ from .symtab import project_tables
 FOLDER = 'shared'
 _SKIP_DIRS = {FOLDER, 'inc', 'build_out'}
 _ADDR_COMMENT = re.compile(r'[ \t]+; 0x[0-9a-fA-F]+[ \t]*$')
-_LOCAL_LABEL = re.compile(r'@\.\.[A-Za-z0-9_.]+?\.l(\d+)')
+_LOCAL_LABEL = re.compile(r'(?<![\w.])(?:(?:@\.\.)?[A-Za-z_][\w.]*?)?\.((?:l|back|return|forward)\d+)(?![\w.])')
 
 
 def _code_key(text):
@@ -845,13 +845,13 @@ def _aliases(pairs, indent=''):
 _MASK_TOKEN = re.compile(
     r"'(?:[^'\\]|\\.)*'"
     r'|"(?:[^"\\]|\\.)*"'
-    r'|@[A-Za-z0-9_.@]*'
+    r'|@[A-Za-z0-9_.@]*|\.[A-Za-z_][\w.]*'
     r'|[A-Za-z_][\w.]*'
     r'|0[xX][0-9a-fA-F]+'
     r'|\d+'
     r'|\S')
 
-_LABEL_DEF = re.compile(r'^([@A-Za-z_][\w.@]*):\s*(.*)$')
+_LABEL_DEF = re.compile(r'^([.@A-Za-z_][\w.@]*):\s*(.*)$')
 
 #: Registers never become symbols; memory addresses are only masked when the
 #: bracketed operand is not stack-relative.
@@ -931,7 +931,7 @@ def _mask_stream(text, *, data, mask_immediates=False):
         label = _LABEL_DEF.match(code)
         if label:
             name, rest = label.groups()
-            put('local' if name.startswith('@') else 'label', name, lineno)
+            put('local' if name.startswith(('@', '.')) else 'label', name, lineno)
             code = rest.strip()
             if not code:
                 continue
@@ -951,7 +951,7 @@ def _mask_stream(text, *, data, mask_immediates=False):
                     bases.pop()
             elif token[0] in "'\"":
                 put('lit', token, lineno)
-            elif token.startswith('@'):
+            elif token.startswith(('@', '.')):
                 put('local', token, lineno)
             elif re.match(r'[A-Za-z_]', token):
                 if low in _REGISTERS:

@@ -347,7 +347,7 @@ api_idx_0028_NRJN:
     call gfx_show_area               ; 0x120c
     add sp, byte 8                   ; 0x120f
     mov word [bp - 0x10], 1          ; 0x1212
-@..api_idx_0028_NRJN.l1:
+.back1:
     mov ax, hotspot_rects            ; 0x1217
     push ax                          ; 0x121a
     call poll_hotspots               ; 0x121b
@@ -355,23 +355,23 @@ api_idx_0028_NRJN:
     dec ax                           ; 0x121f
     mov word [bp - 0xe], ax          ; 0x1220
     cmp word [space_key_hit], byte 0 ; 0x1223
-    je short @..api_idx_0028_NRJN.l3 ; 0x1228
+    je short .forward2               ; 0x1228
     inc word [bp - 0x28]             ; 0x122a
     mov ax, word [bp - 0x28]         ; 0x122d
     cmp ax, strict word 1            ; 0x1230
-    jle short @..api_idx_0028_NRJN.l2 ; 0x1233
+    jle short .forward1              ; 0x1233
     mov word [bp - 0x28], 0          ; 0x1235
-@..api_idx_0028_NRJN.l2:
+.forward1:
     mov word [hotspot_hit], 1        ; 0x123a
     mov ax, word [bp - 0x28]         ; 0x1240
     mov word [bp - 0xe], ax          ; 0x1243
-@..api_idx_0028_NRJN.l3:
+.forward2:
     cmp word [hotspot_hit], byte 1   ; 0x1246
-    je short @..api_idx_0028_NRJN.l4 ; 0x124b
-    jmp near @..api_idx_0028_NRJN.l9 ; 0x124d
-@..api_idx_0028_NRJN.l4:
+    je short .forward3               ; 0x124b
+    jmp near .forward8               ; 0x124d
+.forward3:
     mov ax, word [bp - 0xe]          ; 0x1250
-    jmp near @..api_idx_0028_NRJN.l8 ; 0x1253
+    jmp near .forward7               ; 0x1253
 jumptable_14d6_case_0:
     call flush_keyboard              ; 0x1256
     mov ax, 1                        ; 0x1259
@@ -460,7 +460,7 @@ jumptable_14d6_case_0:
     push ax                          ; 0x1318
     call gfx_show_area               ; 0x1319
     add sp, byte 8                   ; 0x131c
-    jmp near @..api_idx_0028_NRJN.l9 ; 0x131f
+    jmp near api_idx_0028_NRJN.forward8 ; 0x131f
 jumptable_14d6_case_1:
     call flush_keyboard              ; 0x1322
     mov ax, 1                        ; 0x1325
@@ -546,10 +546,10 @@ jumptable_14d6_case_1:
     push ax                          ; 0x13db
     call gfx_show_area               ; 0x13dc
     add sp, byte 8                   ; 0x13df
-    jmp near @..api_idx_0028_NRJN.l9 ; 0x13e2
+    jmp near api_idx_0028_NRJN.forward8 ; 0x13e2
 jumptable_14d6_case_2:
     cmp word [bp + 6], byte 0        ; 0x13e5
-    je short @..api_idx_0028_NRJN.l5 ; 0x13e9
+    je short api_idx_0028_NRJN.forward4 ; 0x13e9
     mov ax, 1                        ; 0x13eb
     push ax                          ; 0x13ee
     push ax                          ; 0x13ef
@@ -579,11 +579,11 @@ jumptable_14d6_case_2:
     add sp, byte 0xa                 ; 0x1425
     mov word [spell_dialog_button], 0 ; 0x1428
     mov word [bp - 0x10], 0          ; 0x142e
-@..api_idx_0028_NRJN.l5:
-    jmp near @..api_idx_0028_NRJN.l9 ; 0x1433
+api_idx_0028_NRJN.forward4:
+    jmp near api_idx_0028_NRJN.forward8 ; 0x1433
 jumptable_14d6_case_3:
     cmp word [bp + 8], byte 0        ; 0x1436
-    je short @..api_idx_0028_NRJN.l6 ; 0x143a
+    je short api_idx_0028_NRJN.forward5 ; 0x143a
     mov ax, 1                        ; 0x143c
     push ax                          ; 0x143f
     push ax                          ; 0x1440
@@ -613,11 +613,11 @@ jumptable_14d6_case_3:
     add sp, byte 0xa                 ; 0x1476
     mov word [spell_dialog_button], 1 ; 0x1479
     mov word [bp - 0x10], 0          ; 0x147f
-@..api_idx_0028_NRJN.l6:
-    jmp short @..api_idx_0028_NRJN.l9 ; 0x1484
+api_idx_0028_NRJN.forward5:
+    jmp short api_idx_0028_NRJN.forward8 ; 0x1484
 jumptable_14d6_case_4:
     cmp word [bp + 0xa], byte 0      ; 0x1486
-    je short @..api_idx_0028_NRJN.l7 ; 0x148a
+    je short api_idx_0028_NRJN.forward6 ; 0x148a
     mov ax, 1                        ; 0x148c
     push ax                          ; 0x148f
     push ax                          ; 0x1490
@@ -647,25 +647,25 @@ jumptable_14d6_case_4:
     add sp, byte 0xa                 ; 0x14c6
     mov word [spell_dialog_button], 2 ; 0x14c9
     mov word [bp - 0x10], 0          ; 0x14cf
-@..api_idx_0028_NRJN.l7:
-    jmp short @..api_idx_0028_NRJN.l9 ; 0x14d4
+api_idx_0028_NRJN.forward6:
+    jmp short api_idx_0028_NRJN.forward8 ; 0x14d4
 jumptable_14d6:
     dw jumptable_14d6_case_0 - IMAGE_BASE + __zres_end ; 0x14d6
     dw jumptable_14d6_case_1 - IMAGE_BASE + __zres_end ; 0x14d8
     dw jumptable_14d6_case_2 - IMAGE_BASE + __zres_end ; 0x14da
     dw jumptable_14d6_case_3 - IMAGE_BASE + __zres_end ; 0x14dc
     dw jumptable_14d6_case_4 - IMAGE_BASE + __zres_end ; 0x14de
-@..api_idx_0028_NRJN.l8:
+api_idx_0028_NRJN.forward7:
     cmp ax, strict word 5            ; 0x14e0
-    jae short @..api_idx_0028_NRJN.l9 ; 0x14e3
+    jae short api_idx_0028_NRJN.forward8 ; 0x14e3
     xchg bx, ax                      ; 0x14e5
     shl bx, 1                        ; 0x14e6
     jmp [cs:bx + jumptable_14d6 - IMAGE_BASE + __zres_end] ; 0x14e8
-@..api_idx_0028_NRJN.l9:
+api_idx_0028_NRJN.forward8:
     cmp word [bp - 0x10], byte 0     ; 0x14ed
-    je short @..api_idx_0028_NRJN.l10 ; 0x14f1
-    jmp near @..api_idx_0028_NRJN.l1 ; 0x14f3
-@..api_idx_0028_NRJN.l10:
+    je short api_idx_0028_NRJN.forward9 ; 0x14f1
+    jmp near api_idx_0028_NRJN.back1 ; 0x14f3
+api_idx_0028_NRJN.forward9:
     mov ax, 1                        ; 0x14f6
     push ax                          ; 0x14f9
     push word [bp - 0x26]            ; 0x14fa

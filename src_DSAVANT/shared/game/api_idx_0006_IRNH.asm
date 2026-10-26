@@ -3,8 +3,8 @@ api_idx_0006_IRNH:
     mov ax, 0xfffa
     call aztec_csav
     mov ax, word [bss_845e]
-    jmp near @..api_idx_0006_IRNH.l12
-@..api_idx_0006_IRNH.l1:
+    jmp near .forward5
+.back1:
     mov ax, 0x8f
     push ax
     mov ax, 0xf7
@@ -15,8 +15,8 @@ api_idx_0006_IRNH:
     push ax
     call gfx_show_area
     add sp, byte 8
-    jmp near @..api_idx_0006_IRNH.l16
-@..api_idx_0006_IRNH.l2:
+    jmp near .forward9
+.back2:
     les bx, word [tick_counter_ptr]
     mov ax, word [es:bx]
     mov dx, word [es:bx + 2]
@@ -31,20 +31,20 @@ api_idx_0006_IRNH:
     pop dx
     pop ax
     cmp dx, bx
-    jl short @..api_idx_0006_IRNH.l3
-    jne short @..api_idx_0006_IRNH.l4
+    jl short .forward1
+    jne short .forward2
     cmp ax, cx
-    jae short @..api_idx_0006_IRNH.l4
-@..api_idx_0006_IRNH.l3:
-    jmp short @..api_idx_0006_IRNH.l5
-@..api_idx_0006_IRNH.l4:
+    jae short .forward2
+.forward1:
+    jmp short .forward3
+.forward2:
     mov ax, word [screen_cache_index]
     inc ax
     mov cx, 2
     cwd
     idiv cx
     mov word [screen_cache_index], dx
-@..api_idx_0006_IRNH.l5:
+.forward3:
     mov ax, 0
     push ax
     push ax
@@ -57,7 +57,7 @@ api_idx_0006_IRNH:
     call gfx_restore_screen
     add sp, byte 8
     mov word [bp - 2], 0
-@..api_idx_0006_IRNH.l6:
+.back3:
     mov ax, word [bp - 2]
     shl ax, 1
     mov bx, ax
@@ -66,16 +66,16 @@ api_idx_0006_IRNH:
     inc word [bp - 2]
     mov ax, word [bp - 2]
     cmp ax, strict word 0xc
-    jl short @..api_idx_0006_IRNH.l6
+    jl short .back3
     mov word [overlay_list], 0
-    jmp near @..api_idx_0006_IRNH.l16
-@..api_idx_0006_IRNH.l7:
+    jmp near .forward9
+.back4:
     call loc_KRMP
     mov word [bp - 6], ax
     mov word [bp - 2], 0
-@..api_idx_0006_IRNH.l8:
+.back5:
     mov word [bp - 4], 0
-@..api_idx_0006_IRNH.l9:
+.back6:
     push word [bp - 6]
     mov ax, 0xf8
     push ax
@@ -100,47 +100,47 @@ api_idx_0006_IRNH:
     inc word [bp - 4]
     mov ax, word [bp - 4]
     cmp ax, strict word 3
-    jl short @..api_idx_0006_IRNH.l9
+    jl short .back6
     inc word [bp - 2]
     mov ax, word [bp - 2]
     cmp ax, strict word 3
-    jl short @..api_idx_0006_IRNH.l8
+    jl short .back5
     call queue_marker_overlay
     cmp word [bp - 6], byte 0
-    je short @..api_idx_0006_IRNH.l10
+    je short .forward4
     mov ax, word [party_status_frame]
     inc ax
     mov cx, 2
     cwd
     idiv cx
     mov word [party_status_frame], dx
-@..api_idx_0006_IRNH.l10:
+.forward4:
     call draw_party_status_glyphs
-    jmp short @..api_idx_0006_IRNH.l16
-@..api_idx_0006_IRNH.l11:
+    jmp short .forward9
+.back7:
     push word [bss_845e]
     call loc_SSIO
     pop cx
-    jmp short @..api_idx_0006_IRNH.l16
-@..api_idx_0006_IRNH.l12:
+    jmp short .forward9
+.forward5:
     cmp ax, strict word 0xfffd
-    jne short @..api_idx_0006_IRNH.l13
-    jmp near @..api_idx_0006_IRNH.l1
-@..api_idx_0006_IRNH.l13:
+    jne short .forward6
+    jmp near .back1
+.forward6:
     cmp ax, strict word 0xfffe
-    jne short @..api_idx_0006_IRNH.l14
-    jmp near @..api_idx_0006_IRNH.l2
-@..api_idx_0006_IRNH.l14:
+    jne short .forward7
+    jmp near .back2
+.forward7:
     cmp ax, strict word 0xffff
-    jne short @..api_idx_0006_IRNH.l15
-    jmp near @..api_idx_0006_IRNH.l7
-@..api_idx_0006_IRNH.l15:
-    jmp short @..api_idx_0006_IRNH.l11
-@..api_idx_0006_IRNH.l16:
+    jne short .forward8
+    jmp near .back4
+.forward8:
+    jmp short .back7
+.forward9:
     inc word [bss_845e]
     mov ax, word [bss_845e]
     cmp ax, strict word 0xc
-    jne short @..api_idx_0006_IRNH.l17
+    jne short .return1
     mov word [bss_845e], 0xfffd
-@..api_idx_0006_IRNH.l17:
+.return1:
     ret

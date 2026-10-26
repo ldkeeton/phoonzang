@@ -18,11 +18,11 @@ roll_slot_values:
     mov word [bp - 0x10], 1
     mov word [bp - 0xe], 2
     mov word [bp - 2], 0
-@..roll_slot_values.l1:
+.back1:
     cmp word [bp - 2], byte 2
-    jne short @..roll_slot_values.l2
-    jmp near @..roll_slot_values.l4
-@..roll_slot_values.l2:
+    jne short .forward1
+    jmp near .forward3
+.forward1:
     mov ax, 0x248
     imul word [bp + 4]
     mov cx, word [bp - 2]
@@ -65,9 +65,9 @@ roll_slot_values:
     dec ax
     mov word [bx - 0xc], ax
     cmp word [bx - 0xc], byte 1
-    jge short @..roll_slot_values.l3
+    jge short .forward2
     mov word [bx - 0xc], 1
-@..roll_slot_values.l3:
+.forward2:
     mov ax, word [bx - 0xc]
     mov cx, 2
     cwd
@@ -87,24 +87,24 @@ roll_slot_values:
     shl ax, 1
     mov bx, ax
     mov word [bx + slot_value], cx
-@..roll_slot_values.l4:
+.forward3:
     inc word [bp - 2]
     mov ax, word [bp - 2]
     cmp ax, strict word 4
-    jge short @..roll_slot_values.l5
-    jmp near @..roll_slot_values.l1
-@..roll_slot_values.l5:
+    jge short .forward4
+    jmp near .back1
+.forward4:
     mov word [slot_value2], 0
     mov ax, word [index_range2_first]
     mov word [bp - 2], ax
-    jmp short @..roll_slot_values.l8
-@..roll_slot_values.l6:
+    jmp short .forward6
+.back2:
     mov ax, 0x248
     imul word [bp + 4]
     add ax, word [bp - 2]
     mov bx, ax
     cmp byte [bx + party_records + pc_rec.flag], 0
-    jbe short @..roll_slot_values.l7
+    jbe short .forward5
     mov ax, 2
     push ax
     call random_below
@@ -112,10 +112,10 @@ roll_slot_values:
     add ax, word [slot_value2]
     inc ax
     mov word [slot_value2], ax
-@..roll_slot_values.l7:
+.forward5:
     inc word [bp - 2]
-@..roll_slot_values.l8:
+.forward6:
     mov ax, word [bp - 2]
     cmp ax, word [index_range2_last]
-    jle short @..roll_slot_values.l6
+    jle short .back2
     ret

@@ -3,9 +3,9 @@ build_palette_map:
     mov ax, 0xfaf4                   ; 0x0211
     call aztec_csav                  ; 0x0214
     mov word [bp - 2], 0             ; 0x0217
-@..build_palette_map.l1:
+.back1:
     mov word [bp - 4], 0             ; 0x021c
-@..build_palette_map.l2:
+.back2:
     mov ax, 0x3f                     ; 0x0221
     push ax                          ; 0x0224
     mov ax, 0                        ; 0x0225
@@ -31,7 +31,7 @@ build_palette_map:
     pop ax                           ; 0x0255
     mov byte [bx - 0x30c], al        ; 0x0256
     cmp al, 0x20                     ; 0x025a
-    jbe short @..build_palette_map.l3 ; 0x025c
+    jbe short .forward1              ; 0x025c
     sub ah, ah                       ; 0x025e
     add ax, strict word 0xffe0       ; 0x0260
     imul word [bp + 6]               ; 0x0263
@@ -58,15 +58,15 @@ build_palette_map:
     add bx, bp                       ; 0x0295
     pop ax                           ; 0x0297
     mov byte [bx - 0x30c], al        ; 0x0298
-    jmp short @..build_palette_map.l4 ; 0x029c
-@..build_palette_map.l3:
+    jmp short .forward2              ; 0x029c
+.forward1:
     mov ax, 3                        ; 0x029e
     imul word [bp - 2]               ; 0x02a1
     add ax, word [bp - 4]            ; 0x02a4
     mov bx, ax                       ; 0x02a7
     add bx, bp                       ; 0x02a9
     cmp byte [bx - 0x30c], 0x20      ; 0x02ab
-    jae short @..build_palette_map.l4 ; 0x02b0
+    jae short .forward2              ; 0x02b0
     mov al, byte [bx - 0x30c]        ; 0x02b2
     sub ah, ah                       ; 0x02b6
     mov cx, ax                       ; 0x02b8
@@ -96,19 +96,19 @@ build_palette_map:
     add bx, bp                       ; 0x02f1
     pop ax                           ; 0x02f3
     mov byte [bx - 0x30c], al        ; 0x02f4
-@..build_palette_map.l4:
+.forward2:
     inc word [bp - 4]                ; 0x02f8
     mov ax, word [bp - 4]            ; 0x02fb
     cmp ax, strict word 3            ; 0x02fe
-    jge short @..build_palette_map.l5 ; 0x0301
-    jmp near @..build_palette_map.l2 ; 0x0303
-@..build_palette_map.l5:
+    jge short .forward3              ; 0x0301
+    jmp near .back2                  ; 0x0303
+.forward3:
     inc word [bp - 2]                ; 0x0306
     mov ax, word [bp - 2]            ; 0x0309
     cmp ax, 0x100                    ; 0x030c
-    jge short @..build_palette_map.l6 ; 0x030f
-    jmp near @..build_palette_map.l1 ; 0x0311
-@..build_palette_map.l6:
+    jge short .forward4              ; 0x030f
+    jmp near .back1                  ; 0x0311
+.forward4:
     mov ax, 0xff                     ; 0x0314
     push ax                          ; 0x0317
     mov ax, 0x200                    ; 0x0318
@@ -118,7 +118,7 @@ build_palette_map:
     call aztec_setmem                ; 0x0321
     add sp, byte 6                   ; 0x0324
     mov word [bp - 2], 0             ; 0x0327
-@..build_palette_map.l7:
+.back3:
     mov ax, 3                        ; 0x032c
     imul word [bp - 2]               ; 0x032f
     mov bx, ax                       ; 0x0332
@@ -156,7 +156,7 @@ build_palette_map:
     inc word [bp - 2]                ; 0x0380
     mov ax, word [bp - 2]            ; 0x0383
     cmp ax, 0x100                    ; 0x0386
-    jl short @..build_palette_map.l7 ; 0x0389
+    jl short .back3                  ; 0x0389
     lea ax, word [bp - 0x50c]        ; 0x038b
     push ax                          ; 0x038f
     lea ax, word [bp - 0x30c]        ; 0x0390

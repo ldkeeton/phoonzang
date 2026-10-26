@@ -24,14 +24,14 @@ api_idx_000a_NPNK:
     mov word [party_map_piece], ax   ; 0x0bcb
     call loc_HVLG                    ; 0x0bce
     test ax, ax                      ; 0x0bd1
-    je short @..api_idx_000a_NPNK.l1 ; 0x0bd3
+    je short .forward1               ; 0x0bd3
     mov ax, word [party_status_frame] ; 0x0bd5
     inc ax                           ; 0x0bd8
     mov cx, 2                        ; 0x0bd9
     cwd                              ; 0x0bdc
     idiv cx                          ; 0x0bdd
     mov word [party_status_frame], dx ; 0x0bdf
-@..api_idx_000a_NPNK.l1:
+.forward1:
     call redraw_maze_view            ; 0x0be3
     mov ax, 2                        ; 0x0be6
     push ax                          ; 0x0be9

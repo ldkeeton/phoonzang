@@ -14,12 +14,12 @@ api_idx_0002_OGHR:
     add sp, byte 4                   ; 0x009f
     mov word [bp - 2], ax            ; 0x00a2
     cmp ax, strict word 0xffff       ; 0x00a5
-    jne short @..api_idx_0002_OGHR.l1 ; 0x00a8
+    jne short .forward1              ; 0x00a8
     mov ax, 7                        ; 0x00aa
     push ax                          ; 0x00ad
     call release_and_exit            ; 0x00ae
     pop cx                           ; 0x00b1
-@..api_idx_0002_OGHR.l1:
+.forward1:
     mov ax, 0                        ; 0x00b2
     push ax                          ; 0x00b5
     push word [bp + 6]               ; 0x00b6

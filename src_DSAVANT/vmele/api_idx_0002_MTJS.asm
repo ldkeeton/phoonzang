@@ -4,13 +4,13 @@ api_idx_0002_MTJS:
     call aztec_csav                  ; 0x28ff
     mov ax, word [bp + 4]            ; 0x2902
     cmp ax, word [party_member_count] ; 0x2905
-    jle short @..api_idx_0002_MTJS.l1 ; 0x2909
+    jle short .forward1              ; 0x2909
     mov ax, 0xffff                   ; 0x290b
     ret                              ; 0x290e
-@..api_idx_0002_MTJS.l1:
+.forward1:
     mov word [bp - 2], 0             ; 0x290f
-    jmp short @..api_idx_0002_MTJS.l4 ; 0x2914
-@..api_idx_0002_MTJS.l2:
+    jmp short .forward3              ; 0x2914
+.back1:
     mov ax, 0x2c                     ; 0x2916
     imul word [bp - 2]               ; 0x2919
     mov si, ax                       ; 0x291c
@@ -19,7 +19,7 @@ api_idx_0002_MTJS:
     mov bx, ax                       ; 0x2923
     mov bx, word [bx + party_char]   ; 0x2925
     cmp byte [bx + si + member_rec.item_cell], 0xff ; 0x2929
-    jne short @..api_idx_0002_MTJS.l3 ; 0x292d
+    jne short .forward2              ; 0x292d
     mov ax, 6                        ; 0x292f
     imul word [bp + 6]               ; 0x2932
     mov cx, word [bp + 8]            ; 0x2935
@@ -48,9 +48,9 @@ api_idx_0002_MTJS:
     add sp, byte 8                   ; 0x2978
     mov ax, 0                        ; 0x297b
     ret                              ; 0x297e
-@..api_idx_0002_MTJS.l3:
+.forward2:
     inc word [bp - 2]                ; 0x297f
-@..api_idx_0002_MTJS.l4:
+.forward3:
     mov ax, word [bp + 4]            ; 0x2982
     shl ax, 1                        ; 0x2985
     mov bx, ax                       ; 0x2987
@@ -58,8 +58,8 @@ api_idx_0002_MTJS:
     mov al, byte [bx + member_rec.item_count] ; 0x298d
     sub ah, ah                       ; 0x2991
     cmp ax, word [bp - 2]            ; 0x2993
-    jle short @..api_idx_0002_MTJS.l5 ; 0x2996
-    jmp near @..api_idx_0002_MTJS.l2 ; 0x2998
-@..api_idx_0002_MTJS.l5:
+    jle short .forward4              ; 0x2996
+    jmp near .back1                  ; 0x2998
+.forward4:
     mov ax, 0xffff                   ; 0x299b
     ret                              ; 0x299e

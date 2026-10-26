@@ -13,12 +13,12 @@ load_file_data:
     add sp, byte 4                   ; 0x015e
     mov word [bp - 2], ax            ; 0x0161
     cmp ax, strict word 0xffff       ; 0x0164
-    jne short @..load_file_data.l1   ; 0x0167
+    jne short .forward1              ; 0x0167
     mov ax, 6                        ; 0x0169
     push ax                          ; 0x016c
     call release_and_exit            ; 0x016d
     pop cx                           ; 0x0170
-@..load_file_data.l1:
+.forward1:
     mov ax, 2                        ; 0x0171
     push ax                          ; 0x0174
     mov ax, 0                        ; 0x0175
@@ -41,18 +41,18 @@ load_file_data:
     pop cx                           ; 0x01a4
     mov word [bp - 0xc], ax          ; 0x01a5
     cmp word [bp - 8], byte 0        ; 0x01a8
-    jne short @..load_file_data.l2   ; 0x01ac
+    jne short .forward2              ; 0x01ac
     cmp word [bp - 0xa], byte 0      ; 0x01ae
-@..load_file_data.l2:
-    je short @..load_file_data.l3    ; 0x01b2
+.forward2:
+    je short .forward3               ; 0x01b2
     cmp word [bp - 0xc], byte 0      ; 0x01b4
-    jne short @..load_file_data.l4   ; 0x01b8
-@..load_file_data.l3:
+    jne short .forward4              ; 0x01b8
+.forward3:
     mov ax, 6                        ; 0x01ba
     push ax                          ; 0x01bd
     call release_and_exit            ; 0x01be
     pop cx                           ; 0x01c1
-@..load_file_data.l4:
+.forward4:
     mov ax, 0                        ; 0x01c2
     push ax                          ; 0x01c5
     mov ax, 0                        ; 0x01c6

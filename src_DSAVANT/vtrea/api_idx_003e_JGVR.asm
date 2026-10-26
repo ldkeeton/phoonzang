@@ -21,16 +21,16 @@ api_idx_003e_JGVR:
     add sp, byte 4                   ; 0x11e6
     mov word [bp - 2], ax            ; 0x11e9
     cmp word [bp - 2], byte 0        ; 0x11ec
-    je short @..api_idx_003e_JGVR.l1 ; 0x11f0
+    je short .forward1               ; 0x11f0
     mov ax, 0x248                    ; 0x11f2
     imul word [bp + 4]               ; 0x11f5
     mov bx, ax                       ; 0x11f8
     cmp byte [bx + party_records + pc_rec.state], 3 ; 0x11fa
-    jb short @..api_idx_003e_JGVR.l2 ; 0x11ff
-@..api_idx_003e_JGVR.l1:
+    jb short .forward2               ; 0x11ff
+.forward1:
     mov ax, 0                        ; 0x1201
     ret                              ; 0x1204
-@..api_idx_003e_JGVR.l2:
+.forward2:
     lea ax, word [bp - 0x2a]         ; 0x1205
     push ax                          ; 0x1208
     push word [bp - 2]               ; 0x1209
@@ -53,9 +53,9 @@ api_idx_003e_JGVR:
     mov bx, ax                       ; 0x1234
     mov ax, word [bx + party_records + pc_rec.pair_a] ; 0x1236
     cmp ax, word [bp - 2]            ; 0x123a
-    jge short @..api_idx_003e_JGVR.l3 ; 0x123d
+    jge short .forward3              ; 0x123d
     mov word [bp - 2], ax            ; 0x123f
-@..api_idx_003e_JGVR.l3:
+.forward3:
     mov ax, word [bp - 2]            ; 0x1242
     sub word [bx + party_records + pc_rec.pair_a], ax ; 0x1245
     mov ax, 0x43                     ; 0x1249
@@ -84,7 +84,7 @@ api_idx_003e_JGVR:
     imul word [bp + 4]               ; 0x127e
     mov bx, ax                       ; 0x1281
     cmp word [bx + party_records + pc_rec.pair_a], byte 0 ; 0x1283
-    jg short @..api_idx_003e_JGVR.l4 ; 0x1288
+    jg short .forward4               ; 0x1288
     mov ax, 4                        ; 0x128a
     push ax                          ; 0x128d
     call api_idx_0004_UQUT           ; 0x128e
@@ -100,7 +100,7 @@ api_idx_003e_JGVR:
     add sp, byte 8                   ; 0x12a4
     mov ax, 0                        ; 0x12a7
     ret                              ; 0x12aa
-@..api_idx_003e_JGVR.l4:
+.forward4:
     mov ax, 0x248                    ; 0x12ab
     imul word [bp + 4]               ; 0x12ae
     mov bx, ax                       ; 0x12b1

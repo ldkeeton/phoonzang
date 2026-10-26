@@ -22,7 +22,7 @@ loc_QKVM:
     add sp, byte 4                   ; 0x0a3c
     mov word [bss_2698], ax          ; 0x0a3f
     cmp ax, strict word 0xffff       ; 0x0a42
-    jne short @..loc_QKVM.l2         ; 0x0a45
+    jne short .forward1              ; 0x0a45
     mov ax, dseg_14fc                ; 0x0a47
     push ax                          ; 0x0a4a
     lea ax, word [bp - 0xa0]         ; 0x0a4b
@@ -46,11 +46,11 @@ loc_QKVM:
     call loc_NNGU                    ; 0x0a79
     pop cx                           ; 0x0a7c
     mov ax, 1                        ; 0x0a7d
-@..loc_QKVM.l1:
+.back1:
     mov sp, bp                       ; 0x0a80
     pop bp                           ; 0x0a82
     ret                              ; 0x0a83
-@..loc_QKVM.l2:
+.forward1:
     mov ax, 0                        ; 0x0a84
     push ax                          ; 0x0a87
     mov ax, 0                        ; 0x0a88
@@ -69,7 +69,7 @@ loc_QKVM:
     add sp, byte 6                   ; 0x0aa9
     mov ax, word [bp + 0x1c]         ; 0x0aac
     cmp ax, word [bss_29d2]          ; 0x0aaf
-    je short @..loc_QKVM.l3          ; 0x0ab3
+    je short .forward2               ; 0x0ab3
     mov ax, dseg_152c                ; 0x0ab5
     push ax                          ; 0x0ab8
     call loc_NNGU                    ; 0x0ab9
@@ -78,8 +78,8 @@ loc_QKVM:
     call aztec_close                 ; 0x0ac1
     pop cx                           ; 0x0ac4
     mov ax, 1                        ; 0x0ac5
-    jmp short @..loc_QKVM.l1         ; 0x0ac8
-@..loc_QKVM.l3:
+    jmp short .back1                 ; 0x0ac8
+.forward2:
     mov ax, word [bp + 0x1c]         ; 0x0aca
     mov word [bss_29d2], ax          ; 0x0acd
     mov al, byte [bp + 0xc]          ; 0x0ad0
@@ -99,27 +99,27 @@ loc_QKVM:
     mov byte [bss_29d1], al          ; 0x0af8
     mov ax, 0xa                      ; 0x0afb
     cmp word [bp + 0xe], byte 7      ; 0x0afe
-    jne short @..loc_QKVM.l4         ; 0x0b02
+    jne short .forward3              ; 0x0b02
     mov ax, 0                        ; 0x0b04
-@..loc_QKVM.l4:
+.forward3:
     mov byte [bss_29d4], al          ; 0x0b07
     mov ax, 0xa                      ; 0x0b0a
     cmp word [bp + 0xe], byte 7      ; 0x0b0d
-    jne short @..loc_QKVM.l5         ; 0x0b11
+    jne short .forward4              ; 0x0b11
     mov ax, 0                        ; 0x0b13
-@..loc_QKVM.l5:
+.forward4:
     mov byte [bss_29d5], al          ; 0x0b16
     mov ax, 0xa                      ; 0x0b19
     cmp word [bp + 0xe], byte 7      ; 0x0b1c
-    jne short @..loc_QKVM.l6         ; 0x0b20
+    jne short .forward5              ; 0x0b20
     mov ax, 0                        ; 0x0b22
-@..loc_QKVM.l6:
+.forward5:
     mov byte [bss_29d6], al          ; 0x0b25
     mov ax, 0xa                      ; 0x0b28
     cmp word [bp + 0xe], byte 7      ; 0x0b2b
-    jne short @..loc_QKVM.l7         ; 0x0b2f
+    jne short .forward6              ; 0x0b2f
     mov ax, 0                        ; 0x0b31
-@..loc_QKVM.l7:
+.forward6:
     mov byte [bss_29d7], al          ; 0x0b34
     mov ax, word [bp + 0xe]          ; 0x0b37
     mov cx, 7                        ; 0x0b3a
@@ -130,29 +130,29 @@ loc_QKVM:
     mov al, byte [bp + 0xe]          ; 0x0b45
     mov byte [bss_29dc], al          ; 0x0b48
     cmp word [bp + 0xe], byte 5      ; 0x0b4b
-    jne short @..loc_QKVM.l8         ; 0x0b4f
+    jne short .forward7              ; 0x0b4f
     mov byte [bss_29dc], 0           ; 0x0b51
-@..loc_QKVM.l8:
+.forward7:
     mov byte [bss_29dd], al          ; 0x0b56
     cmp word [bp + 0xe], byte 2      ; 0x0b59
-    je short @..loc_QKVM.l9          ; 0x0b5d
+    je short .forward8               ; 0x0b5d
     cmp word [bp + 0xe], byte 3      ; 0x0b5f
-    jne short @..loc_QKVM.l10        ; 0x0b63
-@..loc_QKVM.l9:
+    jne short .forward9              ; 0x0b63
+.forward8:
     mov byte [bss_29dd], 0           ; 0x0b65
-@..loc_QKVM.l10:
+.forward9:
     mov word [bss_29d8], 0           ; 0x0b6a
     mov word [bss_29da], 0           ; 0x0b70
     cmp word [bp + 0xe], byte 0      ; 0x0b76
-    jle short @..loc_QKVM.l11        ; 0x0b7a
+    jle short .forward10             ; 0x0b7a
     mov word [bss_29d8], 0x220       ; 0x0b7c
     mov word [bss_29da], 0x220       ; 0x0b82
-@..loc_QKVM.l11:
+.forward10:
     mov ax, 1                        ; 0x0b88
     cmp word [bp + 0x10], byte 0     ; 0x0b8b
-    jne short @..loc_QKVM.l12        ; 0x0b8f
+    jne short .forward11             ; 0x0b8f
     mov ax, 0                        ; 0x0b91
-@..loc_QKVM.l12:
+.forward11:
     mov byte [bss_29e1], al          ; 0x0b94
     mov al, byte [bp + 0xa]          ; 0x0b97
     mov byte [bss_29df], al          ; 0x0b9a
@@ -167,7 +167,7 @@ loc_QKVM:
     call aztec_strcpy                ; 0x0bb1
     add sp, byte 4                   ; 0x0bb4
     cmp word [bp + 0xa], byte 5      ; 0x0bb7
-    jne short @..loc_QKVM.l13        ; 0x0bbb
+    jne short .forward12             ; 0x0bbb
     push word [bp + 8]               ; 0x0bbd
     mov ax, bss_297e                 ; 0x0bc0
     push ax                          ; 0x0bc3
@@ -180,7 +180,7 @@ loc_QKVM:
     call aztec_strcat                ; 0x0bd2
     add sp, byte 4                   ; 0x0bd5
     mov byte [bss_29e3], 1           ; 0x0bd8
-@..loc_QKVM.l13:
+.forward12:
     mov ax, dseg_1560                ; 0x0bdd
     push ax                          ; 0x0be0
     mov ax, bss_29a6                 ; 0x0be1
@@ -207,4 +207,4 @@ loc_QKVM:
     call aztec_close                 ; 0x0c17
     pop cx                           ; 0x0c1a
     mov ax, 0                        ; 0x0c1b
-    jmp near @..loc_QKVM.l1          ; 0x0c1e
+    jmp near .back1                  ; 0x0c1e

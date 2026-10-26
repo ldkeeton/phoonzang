@@ -15,13 +15,13 @@ string_loc_RHHH:
     xor di, di                       ; 0x17bb
     mov bx, cseg_32b3 - IMAGE_BASE   ; 0x17bd
     mov cx, word [cs:cseg_2491 - IMAGE_BASE] ; 0x17c0
-@..string_loc_RHHH.l1:
+.back1:
     push cx                          ; 0x17c5
     mov cx, word [cs:cseg_248d - IMAGE_BASE] ; 0x17c6
     mov word [bp - 2], cx            ; 0x17cb
     mov al, 6                        ; 0x17ce
     mov byte [bp - 4], al            ; 0x17d0
-@..string_loc_RHHH.l2:
+.back2:
     lodsb                            ; 0x17d3
     mov ah, byte [bp - 4]            ; 0x17d4
     call leaf_loc_TTKL               ; 0x17d7
@@ -31,18 +31,18 @@ string_loc_RHHH:
     or byte [cs:di + cseg_2702 - IMAGE_BASE], al ; 0x17e9
     or byte [cs:di + cseg_2802 - IMAGE_BASE], ah ; 0x17ee
     sub byte [bp - 4], 2             ; 0x17f3
-    jae short @..string_loc_RHHH.l3  ; 0x17f7
+    jae short .forward1              ; 0x17f7
     inc di                           ; 0x17f9
     mov byte [bp - 4], 6             ; 0x17fa
-@..string_loc_RHHH.l3:
+.forward1:
     dec word [bp - 2]                ; 0x17fe
-    jne short @..string_loc_RHHH.l2  ; 0x1801
+    jne short .back2                 ; 0x1801
     cmp byte [bp - 4], 6             ; 0x1803
-    je short @..string_loc_RHHH.l4   ; 0x1807
+    je short .forward2               ; 0x1807
     inc di                           ; 0x1809
-@..string_loc_RHHH.l4:
+.forward2:
     pop cx                           ; 0x180a
-    loop @..string_loc_RHHH.l1       ; 0x180b
+    loop .back1                      ; 0x180b
     pop di                           ; 0x180d
     pop es                           ; 0x180e
     ret                              ; 0x180f

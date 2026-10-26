@@ -23,12 +23,12 @@ api_idx_0004_RPUO:
     push ax                          ; 0x1177
     call api_idx_0004_MIJS           ; 0x1178
     add sp, byte 0x14                ; 0x117b
-@..api_idx_0004_RPUO.l1:
+.back1:
     call poll_fullscreen_hotspot     ; 0x117e
     test ax, ax                      ; 0x1181
-    jne short @..api_idx_0004_RPUO.l2 ; 0x1183
-    jmp short @..api_idx_0004_RPUO.l1 ; 0x1185
-@..api_idx_0004_RPUO.l2:
+    jne short .forward1              ; 0x1183
+    jmp short .back1                 ; 0x1185
+.forward1:
     mov ax, 0xc6                     ; 0x1187
     push ax                          ; 0x118a
     mov ax, 7                        ; 0x118b

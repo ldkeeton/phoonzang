@@ -1,5 +1,5 @@
 ; auto-generated
 leaf_loc_STGJ:
-    jmp near @..leaf_loc_STGJ.l1     ; 0x0610
-@..leaf_loc_STGJ.l1:
+    jmp near .return1                ; 0x0610
+.return1:
     ret                              ; 0x0613

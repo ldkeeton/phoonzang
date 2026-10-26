@@ -6,7 +6,7 @@ api_idx_0002_TLGN:
     imul word [bp + 4]               ; 0xa7bb
     mov bx, ax                       ; 0xa7be
     cmp byte [bx + slot_records + slot_record.f_0002], 3 ; 0xa7c0
-    jne short @..api_idx_0002_TLGN.l1 ; 0xa7c5
+    jne short .forward1              ; 0xa7c5
     mov ax, 3                        ; 0xa7c7
     push ax                          ; 0xa7ca
     mov ax, 2                        ; 0xa7cb
@@ -15,18 +15,18 @@ api_idx_0002_TLGN:
     call api_idx_0002_OOUO           ; 0xa7d2
     add sp, byte 6                   ; 0xa7d5
     test ax, ax                      ; 0xa7d8
-    je short @..api_idx_0002_TLGN.l1 ; 0xa7da
+    je short .forward1               ; 0xa7da
     ret                              ; 0xa7dc
-@..api_idx_0002_TLGN.l1:
+.forward1:
     mov ax, 0x26                     ; 0xa7dd
     imul word [bp + 4]               ; 0xa7e0
     mov bx, ax                       ; 0xa7e3
     cmp byte [bx + slot_records + slot_record.f_0002], 5 ; 0xa7e5
-    je short @..api_idx_0002_TLGN.l2 ; 0xa7ea
-    jmp near @..api_idx_0002_TLGN.l6 ; 0xa7ec
-@..api_idx_0002_TLGN.l2:
+    je short .forward2               ; 0xa7ea
+    jmp near .forward6               ; 0xa7ec
+.forward2:
     cmp byte [bx + slot_records + slot_record.f_0007], 0 ; 0xa7ef
-    jge short @..api_idx_0002_TLGN.l5 ; 0xa7f4
+    jge short .forward5              ; 0xa7f4
     mov al, byte [bx + slot_records + slot_record.f_0006] ; 0xa7f6
     sub ah, ah                       ; 0xa7fa
     mov cx, 0x26                     ; 0xa7fc
@@ -39,7 +39,7 @@ api_idx_0002_TLGN:
     mov bx, ax                       ; 0xa80d
     pop ax                           ; 0xa80f
     cmp al, byte [bx + slot_records + slot_record.kind] ; 0xa810
-    je short @..api_idx_0002_TLGN.l4 ; 0xa814
+    je short .forward4               ; 0xa814
     mov byte [bx + slot_records + slot_record.f_0003], al ; 0xa816
     push word [bp + 4]               ; 0xa81a
     call loc_QJRN                    ; 0xa81d
@@ -48,18 +48,18 @@ api_idx_0002_TLGN:
     imul word [bp + 4]               ; 0xa824
     mov bx, ax                       ; 0xa827
     cmp byte [bx + slot_records + slot_record.f_0002], 0 ; 0xa829
-    jne short @..api_idx_0002_TLGN.l3 ; 0xa82e
+    jne short .forward3              ; 0xa82e
     push word [bp + 4]               ; 0xa830
     call api_idx_003a_HOUV           ; 0xa833
     pop cx                           ; 0xa836
     ret                              ; 0xa837
-@..api_idx_0002_TLGN.l3:
+.forward3:
     mov ax, 0x26                     ; 0xa838
     imul word [bp + 4]               ; 0xa83b
     mov bx, ax                       ; 0xa83e
     mov byte [bx + slot_records + slot_record.f_0002], 5 ; 0xa840
-    jmp short @..api_idx_0002_TLGN.l5 ; 0xa845
-@..api_idx_0002_TLGN.l4:
+    jmp short .forward5              ; 0xa845
+.forward4:
     mov ax, 0x10                     ; 0xa847
     push ax                          ; 0xa84a
     call random_below                ; 0xa84b
@@ -70,29 +70,29 @@ api_idx_0002_TLGN:
     mov bx, ax                       ; 0xa856
     pop ax                           ; 0xa858
     mov byte [bx + slot_records + slot_record.map_piece], al ; 0xa859
-@..api_idx_0002_TLGN.l5:
+.forward5:
     mov ax, 0x26                     ; 0xa85d
     imul word [bp + 4]               ; 0xa860
     mov bx, ax                       ; 0xa863
     cmp byte [bx + slot_records + slot_record.f_0006], 0x15 ; 0xa865
-    je short @..api_idx_0002_TLGN.l6 ; 0xa86a
+    je short .forward6               ; 0xa86a
     mov al, byte [bx + slot_records + slot_record.f_0006] ; 0xa86c
     sub ah, ah                       ; 0xa870
     mov cx, 0x26                     ; 0xa872
     imul cx                          ; 0xa875
     mov bx, ax                       ; 0xa877
     cmp byte [bx + slot_records + slot_record.flag], 0 ; 0xa879
-    jg short @..api_idx_0002_TLGN.l6 ; 0xa87e
+    jg short .forward6               ; 0xa87e
     mov ax, cx                       ; 0xa880
     imul word [bp + 4]               ; 0xa882
     mov bx, ax                       ; 0xa885
     mov byte [bx + slot_records + slot_record.f_0002], 3 ; 0xa887
-@..api_idx_0002_TLGN.l6:
+.forward6:
     mov ax, 0x26                     ; 0xa88c
     imul word [bp + 4]               ; 0xa88f
     mov bx, ax                       ; 0xa892
     cmp byte [bx + slot_records + slot_record.f_0002], 7 ; 0xa894
-    je short @..api_idx_0002_TLGN.l9 ; 0xa899
+    je short .forward8               ; 0xa899
     push word [bp + 6]               ; 0xa89b
     push word [bp + 4]               ; 0xa89e
     call api_idx_0008_OMPR           ; 0xa8a1
@@ -102,30 +102,30 @@ api_idx_0002_TLGN:
     mov bx, ax                       ; 0xa8ad
     mov al, byte [bx + slot_records + slot_record.f_0002] ; 0xa8af
     cmp al, 3                        ; 0xa8b3
-    je short @..api_idx_0002_TLGN.l7 ; 0xa8b5
+    je short .forward7               ; 0xa8b5
     cmp al, 7                        ; 0xa8b7
-    je short @..api_idx_0002_TLGN.l7 ; 0xa8b9
+    je short .forward7               ; 0xa8b9
     cmp al, 5                        ; 0xa8bb
-    jne short @..api_idx_0002_TLGN.l8 ; 0xa8bd
-@..api_idx_0002_TLGN.l7:
+    jne short .return1               ; 0xa8bd
+.forward7:
     cmp byte [bx + slot_records + slot_record.flag], 0 ; 0xa8bf
-    jg short @..api_idx_0002_TLGN.l9 ; 0xa8c4
-@..api_idx_0002_TLGN.l8:
+    jg short .forward8               ; 0xa8c4
+.return1:
     ret                              ; 0xa8c6
-@..api_idx_0002_TLGN.l9:
+.forward8:
     mov ax, 0x26                     ; 0xa8c7
     imul word [bp + 4]               ; 0xa8ca
     mov bx, ax                       ; 0xa8cd
     cmp byte [bx + slot_records + slot_record.f_0007], 0 ; 0xa8cf
-    jge short @..api_idx_0002_TLGN.l11 ; 0xa8d4
+    jge short .forward9              ; 0xa8d4
     cmp byte [bx + slot_records + slot_record.f_0002], 5 ; 0xa8d6
-    je short @..api_idx_0002_TLGN.l10 ; 0xa8db
+    je short .return2                ; 0xa8db
     push word [bp + 4]               ; 0xa8dd
     call api_idx_003a_HOUV           ; 0xa8e0
     pop cx                           ; 0xa8e3
-@..api_idx_0002_TLGN.l10:
+.return2:
     ret                              ; 0xa8e4
-@..api_idx_0002_TLGN.l11:
+.forward9:
     mov ax, 0x26                     ; 0xa8e5
     imul word [bp + 4]               ; 0xa8e8
     push ax                          ; 0xa8eb
@@ -151,35 +151,35 @@ api_idx_0002_TLGN:
     mov si, ax                       ; 0xa91c
     mov al, byte [si + bss_8a6e + rec_8a6e.f_0003] ; 0xa91e
     cmp al, byte [bx + slot_records + slot_record.map_piece] ; 0xa922
-    jbe short @..api_idx_0002_TLGN.l12 ; 0xa926
-    jmp near @..api_idx_0002_TLGN.l16 ; 0xa928
-@..api_idx_0002_TLGN.l12:
+    jbe short .forward10             ; 0xa926
+    jmp near .return3                ; 0xa928
+.forward10:
     mov byte [bx + slot_records + slot_record.map_piece], 0 ; 0xa92b
     mov al, byte [bx + slot_records + slot_record.kind] ; 0xa930
     cmp al, byte [si + bss_8a6e]     ; 0xa934
-    jne short @..api_idx_0002_TLGN.l13 ; 0xa938
+    jne short .forward11             ; 0xa938
     mov al, byte [si + bss_8a6e + rec_8a6e.f_0001] ; 0xa93a
     mov byte [bx + slot_records + slot_record.kind], al ; 0xa93e
-    jmp short @..api_idx_0002_TLGN.l14 ; 0xa942
-@..api_idx_0002_TLGN.l13:
+    jmp short .forward12             ; 0xa942
+.forward11:
     mov al, byte [bx + slot_records + slot_record.kind] ; 0xa944
     cmp al, byte [si + bss_8a6e + rec_8a6e.f_0001] ; 0xa948
-    jne short @..api_idx_0002_TLGN.l14 ; 0xa94c
+    jne short .forward12             ; 0xa94c
     mov al, byte [si + bss_8a6e]     ; 0xa94e
     mov byte [bx + slot_records + slot_record.kind], al ; 0xa952
-@..api_idx_0002_TLGN.l14:
+.forward12:
     cmp byte [bx + slot_records + slot_record.f_0002], 7 ; 0xa956
-    jne short @..api_idx_0002_TLGN.l15 ; 0xa95b
+    jne short .forward13             ; 0xa95b
     mov byte [bx + slot_records + slot_record.f_0002], 3 ; 0xa95d
-@..api_idx_0002_TLGN.l15:
+.forward13:
     dec byte [bx + slot_records + slot_record.f_0007] ; 0xa962
-    jge short @..api_idx_0002_TLGN.l16 ; 0xa966
+    jge short .return3               ; 0xa966
     cmp byte [bx + slot_records + slot_record.f_0002], 3 ; 0xa968
-    jne short @..api_idx_0002_TLGN.l16 ; 0xa96d
+    jne short .return3               ; 0xa96d
     mov byte [bx + slot_records + slot_record.f_0002], 0 ; 0xa96f
     mov al, byte [bx + slot_records + slot_record.kind] ; 0xa974
     cmp al, byte [bx + slot_records + slot_record.f_0003] ; 0xa978
-    jne short @..api_idx_0002_TLGN.l16 ; 0xa97c
+    jne short .return3               ; 0xa97c
     mov byte [bx + slot_records + slot_record.f_0002], 2 ; 0xa97e
     mov byte [bx + slot_records + slot_record.map_piece], 0 ; 0xa983
     mov al, byte [bx + slot_records + slot_record.f_0003] ; 0xa988
@@ -193,5 +193,5 @@ api_idx_0002_TLGN:
     push word [bp + 4]               ; 0xa99a
     call api_idx_0002_JLVK           ; 0xa99d
     add sp, byte 8                   ; 0xa9a0
-@..api_idx_0002_TLGN.l16:
+.return3:
     ret                              ; 0xa9a3

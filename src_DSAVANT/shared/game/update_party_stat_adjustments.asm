@@ -12,19 +12,19 @@ update_party_stat_adjustments:
     mov cx, ax
     pop ax
     cmp ax, cx
-    jge short @..update_party_stat_adjustments.l1
+    jge short .forward1
     mov ax, cx
-    jmp short @..update_party_stat_adjustments.l2
-@..update_party_stat_adjustments.l1:
+    jmp short .forward2
+.forward1:
     mov ax, word [bx + party_records + pc_rec.power_cap]
-@..update_party_stat_adjustments.l2:
+.forward2:
     mov word [bp - 2], ax
     push ax
     cmp ax, strict word 0x14
     pop ax
-    jle short @..update_party_stat_adjustments.l3
+    jle short .forward3
     mov ax, 0x14
-@..update_party_stat_adjustments.l3:
+.forward3:
     mov word [bp - 2], ax
     mov cx, 3
     cwd

@@ -5,25 +5,25 @@ api_idx_0014_LHRI:
     mov ax, word [bss_0e10]          ; 0x06e0
     mov word [bp - 4], ax            ; 0x06e3
     mov word [bp - 2], 0             ; 0x06e6
-    jmp near @..api_idx_0014_LHRI.l10 ; 0x06eb
-@..api_idx_0014_LHRI.l1:
+    jmp near .forward9               ; 0x06eb
+.back1:
     mov bx, word [bp - 4]            ; 0x06ee
     mov al, byte [bx]                ; 0x06f1
     sub ah, ah                       ; 0x06f3
     cmp ax, word [game_state_arg]    ; 0x06f5
-    je short @..api_idx_0014_LHRI.l2 ; 0x06f9
-    jmp near @..api_idx_0014_LHRI.l9 ; 0x06fb
-@..api_idx_0014_LHRI.l2:
+    je short .forward1               ; 0x06f9
+    jmp near .forward8               ; 0x06fb
+.forward1:
     cmp byte [bx + 1], 6             ; 0x06fe
-    jne short @..api_idx_0014_LHRI.l3 ; 0x0702
+    jne short .forward2              ; 0x0702
     mov ax, word [bx + 4]            ; 0x0704
     mov cx, word [bx + 2]            ; 0x0707
     shl cx, 1                        ; 0x070a
     mov si, cx                       ; 0x070c
     mov bx, word [maze_tables]       ; 0x070e
     mov word [bx + si + maze_tables_rec.f_03c0], ax ; 0x0712
-    jmp near @..api_idx_0014_LHRI.l9 ; 0x0716
-@..api_idx_0014_LHRI.l3:
+    jmp near .forward8               ; 0x0716
+.forward2:
     mov bx, word [bp - 4]            ; 0x0719
     mov ax, word [bx + 2]            ; 0x071c
     mov cx, 0x100                    ; 0x071f
@@ -76,7 +76,7 @@ api_idx_0014_LHRI:
     mov bx, word [bp - 4]            ; 0x0795
     mov al, byte [bx + 1]            ; 0x0798
     sub ah, ah                       ; 0x079b
-    jmp near @..api_idx_0014_LHRI.l8 ; 0x079d
+    jmp near .forward7               ; 0x079d
 jumptable_099e_case_0:
     mov ax, word [bp - 0x10]         ; 0x07a0
     mov cx, 0x10                     ; 0x07a3
@@ -118,7 +118,7 @@ jumptable_099e_case_0:
     call find_map_piece              ; 0x07f2
     add sp, byte 0xa                 ; 0x07f5
     test ax, ax                      ; 0x07f8
-    jne short @..api_idx_0014_LHRI.l4 ; 0x07fa
+    jne short api_idx_0014_LHRI.forward3 ; 0x07fa
     mov ax, word [bp - 6]            ; 0x07fc
     mov cx, 6                        ; 0x07ff
     shl ax, cl                       ; 0x0802
@@ -142,7 +142,7 @@ jumptable_099e_case_0:
     push ax                          ; 0x082c
     call set_bitfield                ; 0x082d
     add sp, byte 8                   ; 0x0830
-@..api_idx_0014_LHRI.l4:
+api_idx_0014_LHRI.forward3:
     push word [bp - 0xe]             ; 0x0833
     mov ax, word [bp - 0xc]          ; 0x0836
     dec ax                           ; 0x0839
@@ -156,7 +156,7 @@ jumptable_099e_case_0:
     call find_map_piece              ; 0x0847
     add sp, byte 0xa                 ; 0x084a
     test ax, ax                      ; 0x084d
-    jne short @..api_idx_0014_LHRI.l5 ; 0x084f
+    jne short api_idx_0014_LHRI.forward4 ; 0x084f
     mov ax, word [bp - 6]            ; 0x0851
     mov cx, 6                        ; 0x0854
     shl ax, cl                       ; 0x0857
@@ -181,8 +181,8 @@ jumptable_099e_case_0:
     push ax                          ; 0x0883
     call set_bitfield                ; 0x0884
     add sp, byte 8                   ; 0x0887
-@..api_idx_0014_LHRI.l5:
-    jmp near @..api_idx_0014_LHRI.l9 ; 0x088a
+api_idx_0014_LHRI.forward4:
+    jmp near api_idx_0014_LHRI.forward8 ; 0x088a
 jumptable_099e_case_1:
     mov bx, word [bp - 4]            ; 0x088d
     push word [bx + 4]               ; 0x0890
@@ -194,7 +194,7 @@ jumptable_099e_case_1:
     push ax                          ; 0x08a0
     call set_bitfield                ; 0x08a1
     add sp, byte 8                   ; 0x08a4
-    jmp near @..api_idx_0014_LHRI.l9 ; 0x08a7
+    jmp near api_idx_0014_LHRI.forward8 ; 0x08a7
 jumptable_099e_case_2:
     mov bx, word [bp - 4]            ; 0x08aa
     push word [bx + 4]               ; 0x08ad
@@ -206,7 +206,7 @@ jumptable_099e_case_2:
     push ax                          ; 0x08bd
     call set_bitfield                ; 0x08be
     add sp, byte 8                   ; 0x08c1
-    jmp near @..api_idx_0014_LHRI.l9 ; 0x08c4
+    jmp near api_idx_0014_LHRI.forward8 ; 0x08c4
 jumptable_099e_case_3:
     mov ax, word [bp - 0xe]          ; 0x08c7
     dec ax                           ; 0x08ca
@@ -221,7 +221,7 @@ jumptable_099e_case_3:
     call find_map_piece              ; 0x08db
     add sp, byte 0xa                 ; 0x08de
     test ax, ax                      ; 0x08e1
-    jne short @..api_idx_0014_LHRI.l6 ; 0x08e3
+    jne short api_idx_0014_LHRI.forward5 ; 0x08e3
     mov ax, word [bp - 6]            ; 0x08e5
     mov cx, 6                        ; 0x08e8
     shl ax, cl                       ; 0x08eb
@@ -242,8 +242,8 @@ jumptable_099e_case_3:
     push ax                          ; 0x0911
     call set_bitfield                ; 0x0912
     add sp, byte 8                   ; 0x0915
-@..api_idx_0014_LHRI.l6:
-    jmp near @..api_idx_0014_LHRI.l9 ; 0x0918
+api_idx_0014_LHRI.forward5:
+    jmp near api_idx_0014_LHRI.forward8 ; 0x0918
 jumptable_099e_case_4:
     push word [bp - 0xe]             ; 0x091b
     mov ax, word [bp - 0xc]          ; 0x091e
@@ -258,7 +258,7 @@ jumptable_099e_case_4:
     call find_map_piece              ; 0x092f
     add sp, byte 0xa                 ; 0x0932
     test ax, ax                      ; 0x0935
-    jne short @..api_idx_0014_LHRI.l7 ; 0x0937
+    jne short api_idx_0014_LHRI.forward6 ; 0x0937
     mov ax, word [bp - 6]            ; 0x0939
     mov cx, 6                        ; 0x093c
     shl ax, cl                       ; 0x093f
@@ -279,8 +279,8 @@ jumptable_099e_case_4:
     push ax                          ; 0x0965
     call set_bitfield                ; 0x0966
     add sp, byte 8                   ; 0x0969
-@..api_idx_0014_LHRI.l7:
-    jmp short @..api_idx_0014_LHRI.l9 ; 0x096c
+api_idx_0014_LHRI.forward6:
+    jmp short api_idx_0014_LHRI.forward8 ; 0x096c
 jumptable_099e_case_5:
     push word [bp - 0x10]            ; 0x096e
     mov ax, 6                        ; 0x0971
@@ -300,7 +300,7 @@ jumptable_099e_case_5:
     push ax                          ; 0x0995
     call set_bitfield                ; 0x0996
     add sp, byte 8                   ; 0x0999
-    jmp short @..api_idx_0014_LHRI.l9 ; 0x099c
+    jmp short api_idx_0014_LHRI.forward8 ; 0x099c
 jumptable_099e:
     dw jumptable_099e_case_0 - IMAGE_BASE + __zres_end ; 0x099e
     dw jumptable_099e_case_1 - IMAGE_BASE + __zres_end ; 0x09a0
@@ -308,19 +308,19 @@ jumptable_099e:
     dw jumptable_099e_case_3 - IMAGE_BASE + __zres_end ; 0x09a4
     dw jumptable_099e_case_4 - IMAGE_BASE + __zres_end ; 0x09a6
     dw jumptable_099e_case_5 - IMAGE_BASE + __zres_end ; 0x09a8
-@..api_idx_0014_LHRI.l8:
+api_idx_0014_LHRI.forward7:
     cmp ax, strict word 6            ; 0x09aa
-    jae short @..api_idx_0014_LHRI.l9 ; 0x09ad
+    jae short api_idx_0014_LHRI.forward8 ; 0x09ad
     xchg bx, ax                      ; 0x09af
     shl bx, 1                        ; 0x09b0
     jmp [cs:bx + jumptable_099e - IMAGE_BASE + __zres_end] ; 0x09b2
-@..api_idx_0014_LHRI.l9:
+api_idx_0014_LHRI.forward8:
     add word [bp - 4], byte 6        ; 0x09b7
     inc word [bp - 2]                ; 0x09bb
-@..api_idx_0014_LHRI.l10:
+api_idx_0014_LHRI.forward9:
     mov ax, word [bp - 2]            ; 0x09be
     cmp ax, word [bss_590e]          ; 0x09c1
-    jge short @..api_idx_0014_LHRI.l11 ; 0x09c5
-    jmp near @..api_idx_0014_LHRI.l1 ; 0x09c7
-@..api_idx_0014_LHRI.l11:
+    jge short api_idx_0014_LHRI.return1 ; 0x09c5
+    jmp near api_idx_0014_LHRI.back1 ; 0x09c7
+api_idx_0014_LHRI.return1:
     ret                              ; 0x09ca

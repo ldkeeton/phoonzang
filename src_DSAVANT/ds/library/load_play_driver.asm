@@ -8,7 +8,7 @@ load_play_driver:
     mov ds, bx                       ; 0x35fd
     mov dx, cseg_35ec - IMAGE_BASE   ; 0x35ff
     int 0x21 ; DOS open file handle
-    jb short @..load_play_driver.l2  ; 0x3604
+    jb short .forward1               ; 0x3604
     mov word [cs:drv_file_handle - IMAGE_BASE], ax ; 0x3606
     mov bx, ax                       ; 0x360a
     mov ah, 0x3f                     ; 0x360c
@@ -25,12 +25,12 @@ load_play_driver:
     mov di, cseg_2f67 - IMAGE_BASE   ; 0x362a
     mov ax, word [cs:cseg_2f56 - IMAGE_BASE] ; 0x362d
     mov cx, 8                        ; 0x3631
-@..load_play_driver.l1:
+.back1:
     add di, byte 2                   ; 0x3634
     stosw                            ; 0x3637
-    loop @..load_play_driver.l1      ; 0x3638
+    loop .back1                      ; 0x3638
     pop es                           ; 0x363a
     pop ds                           ; 0x363b
     ret                              ; 0x363c
-@..load_play_driver.l2:
+.forward1:
     call ds_loc_IGLJ                 ; 0x363d

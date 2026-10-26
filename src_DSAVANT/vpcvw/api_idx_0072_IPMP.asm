@@ -5,9 +5,9 @@ api_idx_0072_IPMP:
     mov word [bss_95ea], 0           ; 0x4a45
     mov word [bp - 0xc], 0           ; 0x4a4b
     mov word [bp - 0xe], 0           ; 0x4a50
-@..api_idx_0072_IPMP.l1:
+.back1:
     cmp word [bp - 0xc], byte 2      ; 0x4a55
-    jge short @..api_idx_0072_IPMP.l3 ; 0x4a59
+    jge short .forward2              ; 0x4a59
     mov ax, 0x248                    ; 0x4a5b
     imul word [bp + 4]               ; 0x4a5e
     push ax                          ; 0x4a61
@@ -24,25 +24,25 @@ api_idx_0072_IPMP:
     add ax, cx                       ; 0x4a77
     mov bx, ax                       ; 0x4a79
     cmp word [bx + party_records + pc_rec.cell], byte 0 ; 0x4a7b
-    jle short @..api_idx_0072_IPMP.l3 ; 0x4a80
+    jle short .forward2              ; 0x4a80
     inc word [bp - 0xe]              ; 0x4a82
     mov ax, word [bp - 0xe]          ; 0x4a85
     cmp ax, strict word 0xa          ; 0x4a88
-    jne short @..api_idx_0072_IPMP.l2 ; 0x4a8b
+    jne short .forward1              ; 0x4a8b
     mov word [bp - 0xe], 0           ; 0x4a8d
     inc word [bp - 0xc]              ; 0x4a92
     mov ax, word [bp - 0xc]          ; 0x4a95
     cmp ax, strict word 2            ; 0x4a98
-    jne short @..api_idx_0072_IPMP.l2 ; 0x4a9b
+    jne short .forward1              ; 0x4a9b
     mov ax, 0                        ; 0x4a9d
     push ax                          ; 0x4aa0
     call play_sound_effect           ; 0x4aa1
     pop cx                           ; 0x4aa4
     mov ax, 0xffff                   ; 0x4aa5
     ret                              ; 0x4aa8
-@..api_idx_0072_IPMP.l2:
-    jmp short @..api_idx_0072_IPMP.l1 ; 0x4aa9
-@..api_idx_0072_IPMP.l3:
+.forward1:
+    jmp short .back1                 ; 0x4aa9
+.forward2:
     mov ax, 0                        ; 0x4aab
     push ax                          ; 0x4aae
     mov bx, word [bp + 6]            ; 0x4aaf
@@ -60,88 +60,88 @@ api_idx_0072_IPMP:
     add sp, byte 4                   ; 0x4acc
     mov word [bp - 6], ax            ; 0x4acf
     cmp ax, strict word 0xffff       ; 0x4ad2
-    jne short @..api_idx_0072_IPMP.l4 ; 0x4ad5
+    jne short .forward3              ; 0x4ad5
     mov ax, 0                        ; 0x4ad7
     push ax                          ; 0x4ada
     call play_sound_effect           ; 0x4adb
     pop cx                           ; 0x4ade
     mov ax, 0xffff                   ; 0x4adf
     ret                              ; 0x4ae2
-@..api_idx_0072_IPMP.l4:
-    cmp word [bp - 6], byte 0xfe     ; 0x4ae3
-    jne short @..api_idx_0072_IPMP.l6 ; 0x4ae7
+.forward3:
+    cmp word [bp - 6], byte -2       ; 0x4ae3
+    jne short .forward5              ; 0x4ae7
     mov ax, 0                        ; 0x4ae9
     push ax                          ; 0x4aec
     push word [bp + 4]               ; 0x4aed
     call loc_IHRL                    ; 0x4af0
     add sp, byte 4                   ; 0x4af3
     test ax, ax                      ; 0x4af6
-    je short @..api_idx_0072_IPMP.l5 ; 0x4af8
+    je short .forward4               ; 0x4af8
     mov word [bp - 6], 1             ; 0x4afa
-@..api_idx_0072_IPMP.l5:
+.forward4:
     mov ax, 1                        ; 0x4aff
     push ax                          ; 0x4b02
     push word [bp + 4]               ; 0x4b03
     call loc_IHRL                    ; 0x4b06
     add sp, byte 4                   ; 0x4b09
     test ax, ax                      ; 0x4b0c
-    je short @..api_idx_0072_IPMP.l6 ; 0x4b0e
+    je short .forward5               ; 0x4b0e
     mov word [bp - 6], 0             ; 0x4b10
-@..api_idx_0072_IPMP.l6:
+.forward5:
     mov al, byte [bp - 0x2f]         ; 0x4b15
     sub ah, ah                       ; 0x4b18
     test ax, 4                       ; 0x4b1a
-    je short @..api_idx_0072_IPMP.l7 ; 0x4b1d
+    je short .forward6               ; 0x4b1d
     mov ax, 1                        ; 0x4b1f
     push ax                          ; 0x4b22
     push word [bp + 4]               ; 0x4b23
     call loc_IHRL                    ; 0x4b26
     add sp, byte 4                   ; 0x4b29
     test ax, ax                      ; 0x4b2c
-    je short @..api_idx_0072_IPMP.l7 ; 0x4b2e
+    je short .forward6               ; 0x4b2e
     call api_idx_0056_KPMS           ; 0x4b30
     mov ax, 0xffff                   ; 0x4b33
     ret                              ; 0x4b36
-@..api_idx_0072_IPMP.l7:
+.forward6:
     push word [bp - 6]               ; 0x4b37
     push word [bp + 4]               ; 0x4b3a
     call loc_IHRL                    ; 0x4b3d
     add sp, byte 4                   ; 0x4b40
     test ax, ax                      ; 0x4b43
-    je short @..api_idx_0072_IPMP.l8 ; 0x4b45
+    je short .forward7               ; 0x4b45
     call api_idx_0056_KPMS           ; 0x4b47
     mov ax, 0xffff                   ; 0x4b4a
     ret                              ; 0x4b4d
-@..api_idx_0072_IPMP.l8:
+.forward7:
     cmp word [bp - 6], byte 1        ; 0x4b4e
-    jne short @..api_idx_0072_IPMP.l9 ; 0x4b52
+    jne short .forward8              ; 0x4b52
     mov ax, 0x248                    ; 0x4b54
     imul word [bp + 4]               ; 0x4b57
     mov bx, ax                       ; 0x4b5a
     mov al, byte [bx + party_records + pc_rec.order] ; 0x4b5c
     sub ah, ah                       ; 0x4b60
     cmp ax, 0xff                     ; 0x4b62
-    je short @..api_idx_0072_IPMP.l9 ; 0x4b65
+    je short .forward8               ; 0x4b65
     mov cx, 0xc                      ; 0x4b67
     imul cx                          ; 0x4b6a
     add bx, ax                       ; 0x4b6c
     mov al, byte [bx + party_records + pc_rec.cell + 0x7] ; 0x4b6e
     sub ah, ah                       ; 0x4b72
     test ax, 8                       ; 0x4b74
-    je short @..api_idx_0072_IPMP.l9 ; 0x4b77
+    je short .forward8               ; 0x4b77
     mov ax, 0                        ; 0x4b79
     push ax                          ; 0x4b7c
     push word [bp + 4]               ; 0x4b7d
     call loc_IHRL                    ; 0x4b80
     add sp, byte 4                   ; 0x4b83
     test ax, ax                      ; 0x4b86
-    je short @..api_idx_0072_IPMP.l9 ; 0x4b88
+    je short .forward8               ; 0x4b88
     call api_idx_0056_KPMS           ; 0x4b8a
     mov ax, 0xffff                   ; 0x4b8d
     ret                              ; 0x4b90
-@..api_idx_0072_IPMP.l9:
-    cmp word [bp - 6], byte 0xfe     ; 0x4b91
-    jne short @..api_idx_0072_IPMP.l10 ; 0x4b95
+.forward8:
+    cmp word [bp - 6], byte -2       ; 0x4b91
+    jne short .forward9              ; 0x4b95
     mov ax, 0xc6                     ; 0x4b97
     push ax                          ; 0x4b9a
     mov ax, 0xbd                     ; 0x4b9b
@@ -184,13 +184,13 @@ api_idx_0072_IPMP:
     call loc_UGOG                    ; 0x4bf0
     add sp, byte 0x1a                ; 0x4bf3
     mov word [bp - 6], ax            ; 0x4bf6
-@..api_idx_0072_IPMP.l10:
+.forward9:
     cmp word [bp - 6], byte 0        ; 0x4bf9
-    jne short @..api_idx_0072_IPMP.l12 ; 0x4bfd
+    jne short .forward11             ; 0x4bfd
     mov al, byte [bp - 0x2f]         ; 0x4bff
     sub ah, ah                       ; 0x4c02
     test ax, 4                       ; 0x4c04
-    je short @..api_idx_0072_IPMP.l11 ; 0x4c07
+    je short .forward10              ; 0x4c07
     mov ax, 0x248                    ; 0x4c09
     imul word [bp + 4]               ; 0x4c0c
     mov bx, ax                       ; 0x4c0f
@@ -198,16 +198,16 @@ api_idx_0072_IPMP:
     sub ah, ah                       ; 0x4c15
     mov word [bp - 0xa], ax          ; 0x4c17
     cmp ax, 0xff                     ; 0x4c1a
-    je short @..api_idx_0072_IPMP.l11 ; 0x4c1d
+    je short .forward10              ; 0x4c1d
     push ax                          ; 0x4c1f
     push word [bp + 4]               ; 0x4c20
     call compact_grid_page           ; 0x4c23
     add sp, byte 4                   ; 0x4c26
-@..api_idx_0072_IPMP.l11:
-    jmp short @..api_idx_0072_IPMP.l13 ; 0x4c29
-@..api_idx_0072_IPMP.l12:
+.forward10:
+    jmp short .forward12             ; 0x4c29
+.forward11:
     cmp word [bp - 6], byte 1        ; 0x4c2b
-    jne short @..api_idx_0072_IPMP.l13 ; 0x4c2f
+    jne short .forward12             ; 0x4c2f
     mov ax, 0x248                    ; 0x4c31
     imul word [bp + 4]               ; 0x4c34
     mov bx, ax                       ; 0x4c37
@@ -215,19 +215,19 @@ api_idx_0072_IPMP:
     sub ah, ah                       ; 0x4c3d
     mov word [bp - 0xa], ax          ; 0x4c3f
     cmp ax, 0xff                     ; 0x4c42
-    je short @..api_idx_0072_IPMP.l13 ; 0x4c45
+    je short .forward12              ; 0x4c45
     mov cx, 0xc                      ; 0x4c47
     imul cx                          ; 0x4c4a
     add bx, ax                       ; 0x4c4c
     mov al, byte [bx + party_records + pc_rec.cell + 0x7] ; 0x4c4e
     sub ah, ah                       ; 0x4c52
     test ax, 8                       ; 0x4c54
-    je short @..api_idx_0072_IPMP.l13 ; 0x4c57
+    je short .forward12              ; 0x4c57
     push word [bp - 0xa]             ; 0x4c59
     push word [bp + 4]               ; 0x4c5c
     call compact_grid_page           ; 0x4c5f
     add sp, byte 4                   ; 0x4c62
-@..api_idx_0072_IPMP.l13:
+.forward12:
     mov ax, 0x248                    ; 0x4c65
     imul word [bp + 4]               ; 0x4c68
     add ax, word [bp - 6]            ; 0x4c6b
@@ -236,14 +236,14 @@ api_idx_0072_IPMP:
     sub ah, ah                       ; 0x4c74
     mov word [bp - 0xa], ax          ; 0x4c76
     cmp ax, 0xff                     ; 0x4c79
-    je short @..api_idx_0072_IPMP.l14 ; 0x4c7c
+    je short .forward13              ; 0x4c7c
     push ax                          ; 0x4c7e
     push word [bp + 4]               ; 0x4c7f
     call compact_grid_page           ; 0x4c82
     add sp, byte 4                   ; 0x4c85
-@..api_idx_0072_IPMP.l14:
+.forward13:
     cmp word [bp - 0xc], byte 0      ; 0x4c88
-    je short @..api_idx_0072_IPMP.l15 ; 0x4c8c
+    je short .forward14              ; 0x4c8c
     mov ax, 0x248                    ; 0x4c8e
     imul word [bp + 4]               ; 0x4c91
     mov si, ax                       ; 0x4c94
@@ -272,7 +272,7 @@ api_idx_0072_IPMP:
     rep movsw                        ; 0x4cc7
     mov word [bp - 0xc], 0           ; 0x4cc9
     mov word [bp - 0xe], 9           ; 0x4cce
-@..api_idx_0072_IPMP.l15:
+.forward14:
     mov ax, word [bp - 0xe]          ; 0x4cd3
     mov word [bss_95ea], ax          ; 0x4cd6
     mov si, word [bp + 6]            ; 0x4cd9
@@ -323,7 +323,7 @@ api_idx_0072_IPMP:
     pop ax                           ; 0x4d40
     mov byte [bx + party_records + pc_rec.order], al ; 0x4d41
     cmp byte [bp - 0x29], 0          ; 0x4d45
-    jbe short @..api_idx_0072_IPMP.l16 ; 0x4d49
+    jbe short .forward15             ; 0x4d49
     mov ax, 0x78                     ; 0x4d4b
     imul word [bp - 0xc]             ; 0x4d4e
     add cx, ax                       ; 0x4d51
@@ -337,14 +337,14 @@ api_idx_0072_IPMP:
     mov bx, ax                       ; 0x4d61
     or byte [bx + party_records + pc_rec.cell + 0x7], 2 ; 0x4d63
     call api_idx_0056_KPMS           ; 0x4d68
-@..api_idx_0072_IPMP.l16:
+.forward15:
     mov word [bp - 2], 0             ; 0x4d6b
     mov word [bp - 0xa], 0           ; 0x4d70
-@..api_idx_0072_IPMP.l17:
+.back2:
     cmp word [bp - 2], byte 8        ; 0x4d75
-    jl short @..api_idx_0072_IPMP.l18 ; 0x4d79
-    jmp near @..api_idx_0072_IPMP.l26 ; 0x4d7b
-@..api_idx_0072_IPMP.l18:
+    jl short .forward16              ; 0x4d79
+    jmp near .forward22              ; 0x4d7b
+.forward16:
     mov ax, 0x248                    ; 0x4d7e
     imul word [bp + 4]               ; 0x4d81
     add ax, word [bp - 2]            ; 0x4d84
@@ -353,9 +353,9 @@ api_idx_0072_IPMP:
     sub ah, ah                       ; 0x4d8d
     mov word [bp - 0xe], ax          ; 0x4d8f
     cmp ax, 0xff                     ; 0x4d92
-    jne short @..api_idx_0072_IPMP.l19 ; 0x4d95
-    jmp near @..api_idx_0072_IPMP.l25 ; 0x4d97
-@..api_idx_0072_IPMP.l19:
+    jne short .forward17             ; 0x4d95
+    jmp near .forward21              ; 0x4d97
+.forward17:
     mov ax, 0x248                    ; 0x4d9a
     imul word [bp + 4]               ; 0x4d9d
     push ax                          ; 0x4da0
@@ -372,10 +372,10 @@ api_idx_0072_IPMP:
     mov es, cx                       ; 0x4db8
     mov cx, 6                        ; 0x4dba
     rep movsw                        ; 0x4dbd
-@..api_idx_0072_IPMP.l20:
+.back3:
     mov ax, word [bp - 0xe]          ; 0x4dbf
     cmp ax, word [bp - 0xa]          ; 0x4dc2
-    jle short @..api_idx_0072_IPMP.l23 ; 0x4dc5
+    jle short .forward19             ; 0x4dc5
     mov ax, 0x248                    ; 0x4dc7
     imul word [bp + 4]               ; 0x4dca
     push ax                          ; 0x4dcd
@@ -398,7 +398,7 @@ api_idx_0072_IPMP:
     mov cx, 6                        ; 0x4df3
     rep movsw                        ; 0x4df6
     mov word [bp - 4], 0             ; 0x4df8
-@..api_idx_0072_IPMP.l21:
+.back4:
     mov ax, 0x248                    ; 0x4dfd
     imul word [bp + 4]               ; 0x4e00
     add ax, word [bp - 4]            ; 0x4e03
@@ -408,17 +408,17 @@ api_idx_0072_IPMP:
     mov cx, word [bp - 0xe]          ; 0x4e0e
     dec cx                           ; 0x4e11
     cmp ax, cx                       ; 0x4e12
-    jne short @..api_idx_0072_IPMP.l22 ; 0x4e14
+    jne short .forward18             ; 0x4e14
     mov al, byte [bp - 0xe]          ; 0x4e16
     mov byte [bx + party_records + pc_rec.order], al ; 0x4e19
-@..api_idx_0072_IPMP.l22:
+.forward18:
     inc word [bp - 4]                ; 0x4e1d
     mov ax, word [bp - 4]            ; 0x4e20
     cmp ax, strict word 8            ; 0x4e23
-    jl short @..api_idx_0072_IPMP.l21 ; 0x4e26
+    jl short .back4                  ; 0x4e26
     dec word [bp - 0xe]              ; 0x4e28
-    jmp short @..api_idx_0072_IPMP.l20 ; 0x4e2b
-@..api_idx_0072_IPMP.l23:
+    jmp short .back3                 ; 0x4e2b
+.forward19:
     lea si, word [bp - 0x72]         ; 0x4e2d
     mov ax, 0x248                    ; 0x4e30
     imul word [bp + 4]               ; 0x4e33
@@ -446,21 +446,21 @@ api_idx_0072_IPMP:
     mov byte [bx + party_records + pc_rec.order], al ; 0x4e64
     mov ax, word [bp - 6]            ; 0x4e68
     cmp ax, word [bp - 2]            ; 0x4e6b
-    jne short @..api_idx_0072_IPMP.l24 ; 0x4e6e
+    jne short .forward20             ; 0x4e6e
     mov ax, word [bp - 0xa]          ; 0x4e70
     mov word [bss_95ea], ax          ; 0x4e73
-@..api_idx_0072_IPMP.l24:
+.forward20:
     inc word [bp - 0xa]              ; 0x4e76
-@..api_idx_0072_IPMP.l25:
+.forward21:
     inc word [bp - 2]                ; 0x4e79
-    jmp near @..api_idx_0072_IPMP.l17 ; 0x4e7c
-@..api_idx_0072_IPMP.l26:
+    jmp near .back2                  ; 0x4e7c
+.forward22:
     cmp word [bp - 6], byte 0        ; 0x4e7f
-    je short @..api_idx_0072_IPMP.l27 ; 0x4e83
+    je short .forward23              ; 0x4e83
     mov ax, word [bp - 6]            ; 0x4e85
     cmp ax, strict word 1            ; 0x4e88
-    jne short @..api_idx_0072_IPMP.l28 ; 0x4e8b
-@..api_idx_0072_IPMP.l27:
+    jne short .forward24             ; 0x4e8b
+.forward23:
     mov al, byte [bp - 0x26]         ; 0x4e8d
     push ax                          ; 0x4e90
     mov ax, 0x248                    ; 0x4e91
@@ -474,8 +474,8 @@ api_idx_0072_IPMP:
     push word [bp + 4]               ; 0x4ea5
     call api_idx_0004_GUSS           ; 0x4ea8
     add sp, byte 6                   ; 0x4eab
-    jmp short @..api_idx_0072_IPMP.l29 ; 0x4eae
-@..api_idx_0072_IPMP.l28:
+    jmp short .forward25             ; 0x4eae
+.forward24:
     mov al, byte [bp - 0x26]         ; 0x4eb0
     push ax                          ; 0x4eb3
     mov ax, 0x248                    ; 0x4eb4
@@ -485,9 +485,9 @@ api_idx_0072_IPMP:
     mov bx, ax                       ; 0x4ebf
     pop ax                           ; 0x4ec1
     sub byte [bx + party_records + pc_rec.count], al ; 0x4ec2
-@..api_idx_0072_IPMP.l29:
+.forward25:
     mov word [bp - 2], 0             ; 0x4ec6
-@..api_idx_0072_IPMP.l30:
+.back5:
     mov ax, 0x248                    ; 0x4ecb
     imul word [bp + 4]               ; 0x4ece
     add ax, word [bp - 2]            ; 0x4ed1
@@ -497,9 +497,9 @@ api_idx_0072_IPMP:
     inc word [bp - 2]                ; 0x4ede
     mov ax, word [bp - 2]            ; 0x4ee1
     cmp ax, strict word 0xe          ; 0x4ee4
-    jl short @..api_idx_0072_IPMP.l30 ; 0x4ee7
+    jl short .back5                  ; 0x4ee7
     mov word [bp - 2], 0             ; 0x4ee9
-@..api_idx_0072_IPMP.l31:
+.back6:
     mov ax, 0x248                    ; 0x4eee
     imul word [bp + 4]               ; 0x4ef1
     add ax, word [bp - 2]            ; 0x4ef4
@@ -507,11 +507,11 @@ api_idx_0072_IPMP:
     mov al, byte [bx + party_records + pc_rec.order] ; 0x4ef9
     sub ah, ah                       ; 0x4efd
     cmp ax, 0xff                     ; 0x4eff
-    jne short @..api_idx_0072_IPMP.l32 ; 0x4f02
-    jmp near @..api_idx_0072_IPMP.l38 ; 0x4f04
-@..api_idx_0072_IPMP.l32:
+    jne short .forward26             ; 0x4f02
+    jmp near .forward31              ; 0x4f04
+.forward26:
     mov word [bp - 0x10], 0          ; 0x4f07
-@..api_idx_0072_IPMP.l33:
+.back7:
     mov ax, 0x248                    ; 0x4f0c
     imul word [bp + 4]               ; 0x4f0f
     push ax                          ; 0x4f12
@@ -560,7 +560,7 @@ api_idx_0072_IPMP:
     inc word [bp - 0x10]             ; 0x4f7a
     mov ax, word [bp - 0x10]         ; 0x4f7d
     cmp ax, strict word 2            ; 0x4f80
-    jl short @..api_idx_0072_IPMP.l33 ; 0x4f83
+    jl short .back7                  ; 0x4f83
     mov ax, 0x248                    ; 0x4f85
     imul word [bp + 4]               ; 0x4f88
     push ax                          ; 0x4f8b
@@ -588,32 +588,32 @@ api_idx_0072_IPMP:
     sub ah, ah                       ; 0x4fc1
     mov dx, word [bp - 0x14]         ; 0x4fc3
     cmp ax, dx                       ; 0x4fc6
-    jge short @..api_idx_0072_IPMP.l34 ; 0x4fc8
+    jge short .forward27             ; 0x4fc8
     mov ax, dx                       ; 0x4fca
-    jmp short @..api_idx_0072_IPMP.l35 ; 0x4fcc
-@..api_idx_0072_IPMP.l34:
+    jmp short .forward28             ; 0x4fcc
+.forward27:
     mov al, byte [bx + party_records + pc_rec.attack] ; 0x4fce
     sub ah, ah                       ; 0x4fd2
-@..api_idx_0072_IPMP.l35:
+.forward28:
     mov byte [bx + party_records + pc_rec.attack], al ; 0x4fd4
     mov al, byte [bx + party_records + pc_rec.defense] ; 0x4fd8
     sub ah, ah                       ; 0x4fdc
     cmp ax, word [bp - 0x12]         ; 0x4fde
-    jge short @..api_idx_0072_IPMP.l36 ; 0x4fe1
+    jge short .forward29             ; 0x4fe1
     mov ax, word [bp - 0x12]         ; 0x4fe3
-    jmp short @..api_idx_0072_IPMP.l37 ; 0x4fe6
-@..api_idx_0072_IPMP.l36:
+    jmp short .forward30             ; 0x4fe6
+.forward29:
     mov al, byte [bx + party_records + pc_rec.defense] ; 0x4fe8
     sub ah, ah                       ; 0x4fec
-@..api_idx_0072_IPMP.l37:
+.forward30:
     mov byte [bx + party_records + pc_rec.defense], al ; 0x4fee
-@..api_idx_0072_IPMP.l38:
+.forward31:
     inc word [bp - 2]                ; 0x4ff2
     mov ax, word [bp - 2]            ; 0x4ff5
     cmp ax, strict word 8            ; 0x4ff8
-    jge short @..api_idx_0072_IPMP.l39 ; 0x4ffb
-    jmp near @..api_idx_0072_IPMP.l31 ; 0x4ffd
-@..api_idx_0072_IPMP.l39:
+    jge short .forward32             ; 0x4ffb
+    jmp near .back6                  ; 0x4ffd
+.forward32:
     mov al, byte [bp - 0x28]         ; 0x5000
     sub ah, ah                       ; 0x5003
     ret                              ; 0x5005

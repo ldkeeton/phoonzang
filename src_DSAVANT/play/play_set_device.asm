@@ -3,9 +3,9 @@ play_set_device:
     mov ah, 0                        ; 0x0322
     int 0x13 ; BIOS disk: reset disk system
     cmp byte [bp + 0x15], 4          ; 0x0326
-    jne short @..play_set_device.l1  ; 0x032a
+    jne short .forward1              ; 0x032a
     mov byte [bp + 0x15], 1          ; 0x032c
-@..play_set_device.l1:
+.forward1:
     mov ax, 0x64                     ; 0x0330
     mov word [cs:tick_divider - IMAGE_BASE], ax ; 0x0333
     mov al, byte [bp + 0x15]         ; 0x0337
@@ -14,9 +14,9 @@ play_set_device:
     pushf                            ; 0x0344
     pop ax                           ; 0x0345
     test ah, 0x80                    ; 0x0346
-    je short @..play_set_device.l2   ; 0x0349
+    je short .forward2               ; 0x0349
     inc byte [cs:cseg_0a90 - IMAGE_BASE] ; 0x034b
-@..play_set_device.l2:
+.forward2:
     mov bl, byte [cs:play_device - IMAGE_BASE] ; 0x0350
     shl bl, 1                        ; 0x0355
     xor bh, bh                       ; 0x0357
@@ -34,10 +34,10 @@ jumptable_035e_case_2:
     mov word [cs:cseg_0a8b - IMAGE_BASE], ax ; 0x0370
     inc ax                           ; 0x0374
     cmp byte [bp + 0x15], 2          ; 0x0375
-    je short @..play_set_device.l3   ; 0x0379
+    je short play_set_device.forward3 ; 0x0379
     add ax, strict word 0xd          ; 0x037b
     dec byte [bp + 0x15]             ; 0x037e
-@..play_set_device.l3:
+play_set_device.forward3:
     mov word [cs:cseg_0a8d - IMAGE_BASE], ax ; 0x0381
     mov dx, word [cs:cseg_0a89 - IMAGE_BASE] ; 0x0385
     mov al, 7                        ; 0x038a

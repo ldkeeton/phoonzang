@@ -13,38 +13,38 @@ api_idx_0004_QUPL:
     adc dx, bx                       ; 0x1a7f
     mov word [bp - 2], dx            ; 0x1a81
     mov word [bp - 4], ax            ; 0x1a84
-@..api_idx_0004_QUPL.l1:
+.back1:
     les bx, word [tick_counter_ptr]  ; 0x1a87
     mov ax, word [es:bx]             ; 0x1a8b
     mov dx, word [es:bx + 2]         ; 0x1a8e
     cmp dx, word [bp - 2]            ; 0x1a92
-    jg short @..api_idx_0004_QUPL.l2 ; 0x1a95
-    jne short @..api_idx_0004_QUPL.l3 ; 0x1a97
+    jg short .forward1               ; 0x1a95
+    jne short .forward2              ; 0x1a97
     cmp ax, word [bp - 4]            ; 0x1a99
-    jb short @..api_idx_0004_QUPL.l3 ; 0x1a9c
-@..api_idx_0004_QUPL.l2:
-    jmp short @..api_idx_0004_QUPL.l6 ; 0x1a9e
-@..api_idx_0004_QUPL.l3:
+    jb short .forward2               ; 0x1a9c
+.forward1:
+    jmp short .return1               ; 0x1a9e
+.forward2:
     call poll_fullscreen_hotspot     ; 0x1aa0
     test ax, ax                      ; 0x1aa3
-    je short @..api_idx_0004_QUPL.l4 ; 0x1aa5
+    je short .forward3               ; 0x1aa5
     ret                              ; 0x1aa7
-@..api_idx_0004_QUPL.l4:
+.forward3:
     mov ax, 1                        ; 0x1aa8
     push ax                          ; 0x1aab
     call poll_filtered_key           ; 0x1aac
     pop cx                           ; 0x1aaf
     test ax, ax                      ; 0x1ab0
-    je short @..api_idx_0004_QUPL.l5 ; 0x1ab2
+    je short .forward4               ; 0x1ab2
     mov ax, 1                        ; 0x1ab4
     push ax                          ; 0x1ab7
     call get_filtered_key            ; 0x1ab8
     pop cx                           ; 0x1abb
     cmp al, 0xd                      ; 0x1abc
-    jne short @..api_idx_0004_QUPL.l5 ; 0x1abe
+    jne short .forward4              ; 0x1abe
     ret                              ; 0x1ac0
-@..api_idx_0004_QUPL.l5:
+.forward4:
     call api_idx_0006_TMLR           ; 0x1ac1
-    jmp short @..api_idx_0004_QUPL.l1 ; 0x1ac4
-@..api_idx_0004_QUPL.l6:
+    jmp short .back1                 ; 0x1ac4
+.return1:
     ret                              ; 0x1ac6

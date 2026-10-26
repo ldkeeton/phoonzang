@@ -10,8 +10,8 @@ api_idx_0004_MIJS:
     add sp, byte 8                   ; 0x10de
     mov word [bp - 2], dx            ; 0x10e1
     mov word [bp - 4], ax            ; 0x10e4
-    cmp word [bp + 0x14], byte 0xff  ; 0x10e7
-    je short @..api_idx_0004_MIJS.l1 ; 0x10eb
+    cmp word [bp + 0x14], byte -1    ; 0x10e7
+    je short .forward1               ; 0x10eb
     push word [bp + 0x14]            ; 0x10ed
     push word [bp + 0xa]             ; 0x10f0
     push word [bp + 8]               ; 0x10f3
@@ -19,7 +19,7 @@ api_idx_0004_MIJS:
     push word [bp + 4]               ; 0x10f9
     call gfx_fill_area               ; 0x10fc
     add sp, byte 0xa                 ; 0x10ff
-@..api_idx_0004_MIJS.l1:
+.forward1:
     push word [bp + 0x12]            ; 0x1102
     push word [bp + 0x10]            ; 0x1105
     call gfx_set_text_color          ; 0x1108

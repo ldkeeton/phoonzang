@@ -10,7 +10,7 @@ cache_area:
     mov ax, ds
     mov es, ax
     cmp word [bp + 0x14], byte 3
-    jne short @..cache_area.l5
+    jne short .forward4
     mov ax, word [bp + 0x10]
     sub ax, word [bp + 0xc]
     inc ax
@@ -35,13 +35,13 @@ cache_area:
     mov bx, word [bp + 0x16]
     mov ah, 0x40
     int 0x21 ; DOS write file (handle)
-    jae short @..cache_area.l1
+    jae short .forward1
     jmp near cache_area_disk_error
-@..cache_area.l1:
+.forward1:
     mov ax, word [cs:screen_buf_seg - IMAGE_BASE]
     mov ds, ax
     mov cx, word [bp - 4]
-@..cache_area.l2:
+.back1:
     push cx
     mov dx, word [bp - 2]
     add word [bp - 2], strict word 0x140
@@ -49,23 +49,23 @@ cache_area:
     mov bx, word [bp + 0x16]
     mov ah, 0x40
     int 0x21 ; DOS write file (handle)
-    jae short @..cache_area.l3
+    jae short .forward2
     jmp near cache_area_disk_error
-@..cache_area.l3:
+.forward2:
     cmp ax, word [bp - 6]
-    je short @..cache_area.l4
+    je short .forward3
     jmp near cache_area_disk_error
-@..cache_area.l4:
+.forward3:
     pop cx
-    loop @..cache_area.l2
+    loop .back1
     xor ax, ax
     mov dx, word [bp + 0x14]
     jmp near cache_area_restore_and_return
-@..cache_area.l5:
+.forward4:
     cmp word [bp + 0x14], byte 2
-    je short @..cache_area.l6
-    jmp near @..cache_area.l11
-@..cache_area.l6:
+    je short .forward5
+    jmp near .forward8
+.forward5:
     mov ax, word [bp + 0x10]
     sub ax, word [bp + 0xc]
     inc ax
@@ -84,24 +84,24 @@ cache_area:
     mov word [bp - 2], ax
     add ax, word [cs:maze_paras_used - IMAGE_BASE]
     cmp ax, 0x4180
-    jbe short @..cache_area.l7
+    jbe short .forward6
     jmp near cache_area_maze_mem_full
-@..cache_area.l7:
+.forward6:
     mov bx, word [cs:maze_paras_used - IMAGE_BASE]
     mov word [bp - 0xe], bx
     mov word [cs:maze_paras_used - IMAGE_BASE], ax
     mov bx, maze_slots - IMAGE_BASE
     mov cx, 0x10
     xor dx, dx
-@..cache_area.l8:
+.back2:
     mov ax, word [cs:bx]
     or ax, ax
-    je short @..cache_area.l9
+    je short .forward7
     inc dx
     add bx, byte 2
-    loop @..cache_area.l8
+    loop .back2
     jmp near cache_area_maze_slots_full
-@..cache_area.l9:
+.forward7:
     mov word [bp - 0xc], dx
     mov ax, word [cs:maze_block_count - IMAGE_BASE]
     inc ax
@@ -137,17 +137,17 @@ cache_area:
     stosw
     mov ax, word [bp - 0xa]
     stosw
-@..cache_area.l10:
+.back3:
     mov si, word [bp - 2]
     add word [bp - 2], strict word 0x140
     mov cx, word [bp - 6]
     rep movsb
     dec word [bp - 4]
-    jne short @..cache_area.l10
+    jne short .back3
     mov ax, word [bp - 0xc]
     mov dx, word [bp + 0x14]
     jmp near cache_area_restore_and_return
-@..cache_area.l11:
+.forward8:
     mov ax, word [bp + 0x10]
     sub ax, word [bp + 0xc]
     inc ax
@@ -166,24 +166,24 @@ cache_area:
     mov word [bp - 2], ax
     add ax, word [cs:ems_paras_used - IMAGE_BASE]
     cmp ax, word [cs:ems_para_limit - IMAGE_BASE]
-    jbe short @..cache_area.l12
+    jbe short .forward9
     jmp near cache_area_out_of_ems
-@..cache_area.l12:
+.forward9:
     mov bx, word [cs:ems_paras_used - IMAGE_BASE]
     mov word [bp - 0xe], bx
     mov word [cs:ems_paras_used - IMAGE_BASE], ax
     mov bx, ems_slots - IMAGE_BASE
     mov cx, 0x14
     xor dx, dx
-@..cache_area.l13:
+.back4:
     mov ax, word [cs:bx]
     or ax, ax
-    je short @..cache_area.l14
+    je short .forward10
     inc dx
     add bx, byte 2
-    loop @..cache_area.l13
+    loop .back4
     jmp near cache_area_ems_slots_full
-@..cache_area.l14:
+.forward10:
     mov word [bp - 0xc], dx
     mov ax, word [cs:ems_block_count - IMAGE_BASE]
     inc ax
@@ -227,20 +227,20 @@ cache_area:
     stosw
     mov ax, word [bp - 0xa]
     stosw
-@..cache_area.l15:
+.back5:
     mov si, word [bp - 2]
     add word [bp - 2], strict word 0x140
     mov cx, word [bp - 6]
     rep movsb
     test di, 0xc000
-    je short @..cache_area.l16
+    je short .forward11
     inc word [cs:ems_cur_page - IMAGE_BASE]
     mov ax, word [cs:ems_cur_page - IMAGE_BASE]
     call ems_map_pages
     and di, strict word 0x3fff
-@..cache_area.l16:
+.forward11:
     dec word [bp - 4]
-    jne short @..cache_area.l15
+    jne short .back5
     mov ax, word [bp - 0xc]
     mov dx, word [bp + 0x14]
     jmp near cache_area_restore_and_return

@@ -17,20 +17,20 @@ api_idx_0010_GGGV:
     mov ax, word [bp - 0xa]          ; 0x18d7
     mov word [bp - 0xe], ax          ; 0x18da
     mov word [bp - 4], 0             ; 0x18dd
-    jmp near @..api_idx_0010_GGGV.l7 ; 0x18e2
-@..api_idx_0010_GGGV.l1:
+    jmp near .forward5               ; 0x18e2
+.back1:
     mov word [bp - 2], 0             ; 0x18e5
-    jmp near @..api_idx_0010_GGGV.l5 ; 0x18ea
-@..api_idx_0010_GGGV.l2:
+    jmp near .forward3               ; 0x18ea
+.back2:
     les bx, word [bp - 8]            ; 0x18ed
     mov si, word [bp - 0xe]          ; 0x18f0
     mov al, byte [es:bx + si]        ; 0x18f3
     sub ah, ah                       ; 0x18f6
     mov word [bp - 0x10], ax         ; 0x18f8
     cmp ax, 0xff                     ; 0x18fb
-    jne short @..api_idx_0010_GGGV.l3 ; 0x18fe
-    jmp near @..api_idx_0010_GGGV.l4 ; 0x1900
-@..api_idx_0010_GGGV.l3:
+    jne short .forward1              ; 0x18fe
+    jmp near .forward2               ; 0x1900
+.forward1:
     mov ax, 0xffff                   ; 0x1903
     push ax                          ; 0x1906
     push word [bp - 0x10]            ; 0x1907
@@ -89,22 +89,22 @@ api_idx_0010_GGGV:
     push ax                          ; 0x1982
     call gfx_put_pixel               ; 0x1983
     add sp, byte 6                   ; 0x1986
-@..api_idx_0010_GGGV.l4:
+.forward2:
     inc word [bp - 0xe]              ; 0x1989
     inc word [bp - 2]                ; 0x198c
-@..api_idx_0010_GGGV.l5:
+.forward3:
     mov ax, word [bp - 2]            ; 0x198f
     cmp ax, word [bp - 0xa]          ; 0x1992
-    jge short @..api_idx_0010_GGGV.l6 ; 0x1995
-    jmp near @..api_idx_0010_GGGV.l2 ; 0x1997
-@..api_idx_0010_GGGV.l6:
+    jge short .forward4              ; 0x1995
+    jmp near .back2                  ; 0x1997
+.forward4:
     inc word [bp - 4]                ; 0x199a
-@..api_idx_0010_GGGV.l7:
+.forward5:
     mov ax, word [bp - 0xc]          ; 0x199d
     dec ax                           ; 0x19a0
     dec ax                           ; 0x19a1
     cmp ax, word [bp - 4]            ; 0x19a2
-    jle short @..api_idx_0010_GGGV.l8 ; 0x19a5
-    jmp near @..api_idx_0010_GGGV.l1 ; 0x19a7
-@..api_idx_0010_GGGV.l8:
+    jle short .return1               ; 0x19a5
+    jmp near .back1                  ; 0x19a7
+.return1:
     ret                              ; 0x19aa

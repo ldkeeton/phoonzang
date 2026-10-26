@@ -174,7 +174,7 @@ api_idx_002c_NHRR:
     call score_music_enabled         ; 0x6bd5
     mov word [bss_8450], ax          ; 0x6bd8
     test ax, ax                      ; 0x6bdb
-    je short @..api_idx_002c_NHRR.l1 ; 0x6bdd
+    je short .forward1               ; 0x6bdd
     mov ax, 0                        ; 0x6bdf
     push ax                          ; 0x6be2
     mov ax, 1                        ; 0x6be3
@@ -191,9 +191,9 @@ api_idx_002c_NHRR:
     call ds_app_UKGP                 ; 0x6bff
     add sp, byte 6                   ; 0x6c02
     mov word [bss_844c], ax          ; 0x6c05
-@..api_idx_002c_NHRR.l1:
+.forward1:
     mov word [bp - 2], 0             ; 0x6c08
-@..api_idx_002c_NHRR.l2:
+.back1:
     mov ax, 0xa                      ; 0x6c0d
     imul word [bp - 2]               ; 0x6c10
     add ax, bss_9544                 ; 0x6c13
@@ -206,7 +206,7 @@ api_idx_002c_NHRR:
     inc word [bp - 2]                ; 0x6c24
     mov ax, word [bp - 2]            ; 0x6c27
     cmp ax, strict word 8            ; 0x6c2a
-    jl short @..api_idx_002c_NHRR.l2 ; 0x6c2d
+    jl short .back1                  ; 0x6c2d
     mov ax, bss_9596                 ; 0x6c2f
     push ax                          ; 0x6c32
     mov ax, MSG_BONUS                ; 0x6c33
@@ -214,7 +214,7 @@ api_idx_002c_NHRR:
     call load_message_string         ; 0x6c37
     add sp, byte 4                   ; 0x6c3a
     mov word [bp - 2], 0             ; 0x6c3d
-@..api_idx_002c_NHRR.l3:
+.back2:
     mov ax, word [bp - 2]            ; 0x6c42
     shl ax, 1                        ; 0x6c45
     mov bx, ax                       ; 0x6c47
@@ -222,14 +222,14 @@ api_idx_002c_NHRR:
     inc word [bp - 2]                ; 0x6c4f
     mov ax, word [bp - 2]            ; 0x6c52
     cmp ax, strict word 6            ; 0x6c55
-    jl short @..api_idx_002c_NHRR.l3 ; 0x6c58
+    jl short .back2                  ; 0x6c58
     mov word [bss_976c], 7           ; 0x6c5a
     les bx, word [tick_counter_ptr]  ; 0x6c60
     mov ax, word [es:bx]             ; 0x6c64
     mov dx, word [es:bx + 2]         ; 0x6c67
     mov word [party_redraw_last_tick_hi], dx ; 0x6c6b
     mov word [party_redraw_last_tick], ax ; 0x6c6f
-@..api_idx_002c_NHRR.l4:
+.back3:
     mov word [banner_offset], 0x14   ; 0x6c72
     mov word [banner_plain_flag], 0  ; 0x6c78
     mov ax, 0                        ; 0x6c7e
@@ -275,7 +275,7 @@ api_idx_002c_NHRR:
     call gfx_restore_screen          ; 0x6cea
     add sp, byte 8                   ; 0x6ced
     mov word [bp - 2], 0             ; 0x6cf0
-@..api_idx_002c_NHRR.l5:
+.back4:
     mov ax, word [bp - 2]            ; 0x6cf5
     shl ax, 1                        ; 0x6cf8
     mov bx, ax                       ; 0x6cfa
@@ -284,31 +284,31 @@ api_idx_002c_NHRR:
     inc word [bp - 2]                ; 0x6d03
     mov ax, word [bp - 2]            ; 0x6d06
     cmp ax, strict word 5            ; 0x6d09
-    jl short @..api_idx_002c_NHRR.l5 ; 0x6d0c
+    jl short .back4                  ; 0x6d0c
     mov word [bp - 0x22], 1          ; 0x6d0e
     mov word [bp - 0x20], 0xffff     ; 0x6d13
     call api_idx_0002_RUKQ           ; 0x6d18
     mov word [bp - 0xa], ax          ; 0x6d1b
     cmp ax, strict word 0xffff       ; 0x6d1e
-    je short @..api_idx_002c_NHRR.l6 ; 0x6d21
+    je short .forward2               ; 0x6d21
     mov word [bp - 0x2c], 1          ; 0x6d23
-@..api_idx_002c_NHRR.l6:
+.forward2:
     mov word [bp - 2], 0             ; 0x6d28
-    jmp short @..api_idx_002c_NHRR.l9 ; 0x6d2d
-@..api_idx_002c_NHRR.l7:
+    jmp short .forward4              ; 0x6d2d
+.back5:
     mov bx, word [bp - 2]            ; 0x6d2f
     cmp byte [bx + pc_file_record_base_hi + 0x2], 1 ; 0x6d32
-    jne short @..api_idx_002c_NHRR.l8 ; 0x6d37
+    jne short .forward3              ; 0x6d37
     mov word [bp - 0x2a], 1          ; 0x6d39
     mov word [bp - 0x28], 1          ; 0x6d3e
     mov word [bp - 0x26], 1          ; 0x6d43
     mov word [bp - 0x24], 1          ; 0x6d48
-@..api_idx_002c_NHRR.l8:
+.forward3:
     inc word [bp - 2]                ; 0x6d4d
-@..api_idx_002c_NHRR.l9:
+.forward4:
     mov ax, word [bp - 2]            ; 0x6d50
     cmp ax, word [bss_9070]          ; 0x6d53
-    jl short @..api_idx_002c_NHRR.l7 ; 0x6d57
+    jl short .back5                  ; 0x6d57
     lea ax, word [bp - 0x2c]         ; 0x6d59
     push ax                          ; 0x6d5c
     mov ax, 0                        ; 0x6d5d
@@ -338,7 +338,7 @@ api_idx_002c_NHRR:
     call loc_TRPK                    ; 0x6d8d
     add sp, byte 0x1a                ; 0x6d90
     mov word [bp - 6], ax            ; 0x6d93
-    jmp near @..api_idx_002c_NHRR.l14 ; 0x6d96
+    jmp near .forward9               ; 0x6d96
 jumptable_6e5f_case_0:
     mov ax, 0xc7                     ; 0x6d99
     push ax                          ; 0x6d9c
@@ -352,7 +352,7 @@ jumptable_6e5f_case_0:
     push word [bp - 0xa]             ; 0x6dac
     call api_idx_0014_LVIL           ; 0x6daf
     pop cx                           ; 0x6db2
-    jmp near @..api_idx_002c_NHRR.l15 ; 0x6db3
+    jmp near api_idx_002c_NHRR.forward10 ; 0x6db3
 jumptable_6e5f_case_2:
     mov ax, 0xc7                     ; 0x6db6
     push ax                          ; 0x6db9
@@ -369,12 +369,12 @@ jumptable_6e5f_case_2:
     pop cx                           ; 0x6dd0
     mov word [bp - 8], ax            ; 0x6dd1
     cmp ax, strict word 0xffff       ; 0x6dd4
-    je short @..api_idx_002c_NHRR.l10 ; 0x6dd7
+    je short api_idx_002c_NHRR.forward5 ; 0x6dd7
     push ax                          ; 0x6dd9
     call api_idx_002c_JIHO           ; 0x6dda
     pop cx                           ; 0x6ddd
-@..api_idx_002c_NHRR.l10:
-    jmp near @..api_idx_002c_NHRR.l15 ; 0x6dde
+api_idx_002c_NHRR.forward5:
+    jmp near api_idx_002c_NHRR.forward10 ; 0x6dde
 jumptable_6e5f_case_1:
     mov ax, 0xc7                     ; 0x6de1
     push ax                          ; 0x6de4
@@ -391,12 +391,12 @@ jumptable_6e5f_case_1:
     pop cx                           ; 0x6dfb
     mov word [bp - 8], ax            ; 0x6dfc
     cmp ax, strict word 0xffff       ; 0x6dff
-    je short @..api_idx_002c_NHRR.l11 ; 0x6e02
+    je short api_idx_002c_NHRR.forward6 ; 0x6e02
     push ax                          ; 0x6e04
     call loc_RNSM                    ; 0x6e05
     pop cx                           ; 0x6e08
-@..api_idx_002c_NHRR.l11:
-    jmp short @..api_idx_002c_NHRR.l15 ; 0x6e09
+api_idx_002c_NHRR.forward6:
+    jmp short api_idx_002c_NHRR.forward10 ; 0x6e09
 jumptable_6e5f_case_3:
     mov ax, 0xc7                     ; 0x6e0b
     push ax                          ; 0x6e0e
@@ -413,12 +413,12 @@ jumptable_6e5f_case_3:
     pop cx                           ; 0x6e25
     mov word [bp - 8], ax            ; 0x6e26
     cmp ax, strict word 0xffff       ; 0x6e29
-    je short @..api_idx_002c_NHRR.l12 ; 0x6e2c
+    je short api_idx_002c_NHRR.forward7 ; 0x6e2c
     push ax                          ; 0x6e2e
     call api_idx_0018_MVRH           ; 0x6e2f
     pop cx                           ; 0x6e32
-@..api_idx_002c_NHRR.l12:
-    jmp short @..api_idx_002c_NHRR.l15 ; 0x6e33
+api_idx_002c_NHRR.forward7:
+    jmp short api_idx_002c_NHRR.forward10 ; 0x6e33
 jumptable_6e5f_case_4:
     mov ax, 0xc7                     ; 0x6e35
     push ax                          ; 0x6e38
@@ -435,31 +435,31 @@ jumptable_6e5f_case_4:
     pop cx                           ; 0x6e4f
     mov word [bp - 8], ax            ; 0x6e50
     cmp ax, strict word 0xffff       ; 0x6e53
-    je short @..api_idx_002c_NHRR.l13 ; 0x6e56
+    je short api_idx_002c_NHRR.forward8 ; 0x6e56
     push ax                          ; 0x6e58
     call api_idx_0006_JHIT           ; 0x6e59
     pop cx                           ; 0x6e5c
-@..api_idx_002c_NHRR.l13:
-    jmp short @..api_idx_002c_NHRR.l15 ; 0x6e5d
+api_idx_002c_NHRR.forward8:
+    jmp short api_idx_002c_NHRR.forward10 ; 0x6e5d
 jumptable_6e5f:
     dw jumptable_6e5f_case_0 - IMAGE_BASE + __zres_end ; 0x6e5f
     dw jumptable_6e5f_case_1 - IMAGE_BASE + __zres_end ; 0x6e61
     dw jumptable_6e5f_case_2 - IMAGE_BASE + __zres_end ; 0x6e63
     dw jumptable_6e5f_case_3 - IMAGE_BASE + __zres_end ; 0x6e65
     dw jumptable_6e5f_case_4 - IMAGE_BASE + __zres_end ; 0x6e67
-@..api_idx_002c_NHRR.l14:
+api_idx_002c_NHRR.forward9:
     cmp ax, strict word 5            ; 0x6e69
-    jae short @..api_idx_002c_NHRR.l15 ; 0x6e6c
+    jae short api_idx_002c_NHRR.forward10 ; 0x6e6c
     xchg bx, ax                      ; 0x6e6e
     shl bx, 1                        ; 0x6e6f
     jmp [cs:bx + jumptable_6e5f - IMAGE_BASE + __zres_end] ; 0x6e71
-@..api_idx_002c_NHRR.l15:
+api_idx_002c_NHRR.forward10:
     cmp word [bp - 6], byte 5        ; 0x6e76
-    je short @..api_idx_002c_NHRR.l16 ; 0x6e7a
-    jmp near @..api_idx_002c_NHRR.l4 ; 0x6e7c
-@..api_idx_002c_NHRR.l16:
+    je short api_idx_002c_NHRR.forward11 ; 0x6e7a
+    jmp near api_idx_002c_NHRR.back3 ; 0x6e7c
+api_idx_002c_NHRR.forward11:
     cmp word [bss_8450], byte 0      ; 0x6e7f
-    je short @..api_idx_002c_NHRR.l17 ; 0x6e84
+    je short api_idx_002c_NHRR.forward12 ; 0x6e84
     push word [bss_844c]             ; 0x6e86
     push word [bss_844e]             ; 0x6e8a
     call fade_out_music              ; 0x6e8e
@@ -468,7 +468,7 @@ jumptable_6e5f:
     push ax                          ; 0x6e97
     call app_gfx_free_score          ; 0x6e98
     pop cx                           ; 0x6e9b
-@..api_idx_002c_NHRR.l17:
+api_idx_002c_NHRR.forward12:
     mov ax, 0xf                      ; 0x6e9c
     push ax                          ; 0x6e9f
     call free_picture_slot           ; 0x6ea0

@@ -10,7 +10,7 @@ loc_MSKU:
 loc_NJKV:
     push bp                          ; 0x0452
     mov bp, sp                       ; 0x0453
-    add sp, byte 0xfe                ; 0x0455
+    add sp, byte -2                  ; 0x0455
     call bios_video_loc_VJJP         ; 0x0458
     mov word [bp - 2], ax            ; 0x045b
     mov ax, 7                        ; 0x045e
@@ -47,14 +47,14 @@ loc_NJKV:
 loc_GUOQ:
     push bp                          ; 0x0584
     mov bp, sp                       ; 0x0585
-    add sp, byte 0xfc                ; 0x0587
+    add sp, byte -4                  ; 0x0587
     call bios_video_loc_VJJP         ; 0x058a
     mov word [bp - 4], ax            ; 0x058d
     mov ax, 0x20                     ; 0x0590
     cmp word [bp + 4], byte 1        ; 0x0593
-    jne short @..loc_GUOQ.l1         ; 0x0597
+    jne short .forward1              ; 0x0597
     mov ax, 0x11                     ; 0x0599
-@..loc_GUOQ.l1:
+.forward1:
     mov byte [bp - 2], al            ; 0x059c
     mov byte [bp - 1], 0             ; 0x059f
     lea ax, word [bp - 2]            ; 0x05a3

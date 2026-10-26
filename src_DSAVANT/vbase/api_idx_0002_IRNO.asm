@@ -3,14 +3,14 @@ api_idx_0002_IRNO:
     mov ax, 0xfffe                   ; 0x6756
     call aztec_csav                  ; 0x6759
     cmp word [saved_screen_pending], byte 0 ; 0x675c
-    je short @..api_idx_0002_IRNO.l1 ; 0x6761
+    je short .forward1               ; 0x6761
     mov ax, 1                        ; 0x6763
     push ax                          ; 0x6766
     push word [saved_screen_slot]    ; 0x6767
     call restore_saved_screen        ; 0x676b
     add sp, byte 4                   ; 0x676e
     mov word [saved_screen_pending], 0 ; 0x6771
-@..api_idx_0002_IRNO.l1:
+.forward1:
     call free_current_maze           ; 0x6777
     mov ax, 0                        ; 0x677a
     push ax                          ; 0x677d
@@ -31,7 +31,7 @@ api_idx_0002_IRNO:
     call gfx_restore_area            ; 0x67a0
     add sp, byte 6                   ; 0x67a3
     mov word [bp - 2], 0             ; 0x67a6
-@..api_idx_0002_IRNO.l2:
+.back1:
     mov ax, 0                        ; 0x67ab
     push ax                          ; 0x67ae
     mov ax, word [bp - 2]            ; 0x67af
@@ -45,13 +45,13 @@ api_idx_0002_IRNO:
     inc word [bp - 2]                ; 0x67c6
     mov ax, word [bp - 2]            ; 0x67c9
     cmp ax, strict word 6            ; 0x67cc
-    jl short @..api_idx_0002_IRNO.l2 ; 0x67cf
+    jl short .back1                  ; 0x67cf
     cmp word [dest_alt_arg], byte 0  ; 0x67d1
-    jle short @..api_idx_0002_IRNO.l3 ; 0x67d6
+    jle short .forward2              ; 0x67d6
     push word [dest_alt_arg]         ; 0x67d8
     call api_idx_0002_NVMN           ; 0x67dc
     pop cx                           ; 0x67df
-@..api_idx_0002_IRNO.l3:
+.forward2:
     mov ax, 0xc7                     ; 0x67e0
     push ax                          ; 0x67e3
     mov ax, 0x13f                    ; 0x67e4

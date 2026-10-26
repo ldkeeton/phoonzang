@@ -4,7 +4,7 @@ CMD := name refs info data probe init libcheck check clean purge run verify rebu
 
 # The root has a `readme/` directory, so the target of the same name needs to
 # be phony or make reports it "up to date" and skips the recipe.
-.PHONY: $(CMD) stats-diff flow
+.PHONY: $(CMD) stats-diff flow zig
 
 help:
 	@cd $(ASM) && $(PY) -m make --help
@@ -23,6 +23,9 @@ stats-diff:
 # `make flow ARGS="--check"` (also --lock, --baseline, --stages, ...).
 flow:
 	@cd $(ASM) && $(PY) -m flow.generate $(ARGS)
+
+zig:
+	@zig_disassembler/run.sh $(ARGS)
 
 ifneq ($(filter $(CMD),$(MAKECMDGOALS)),)
 name refs info data probe init libcheck check clean purge run verify rebuild elf-rebuild all build prebuild decompile test readme:

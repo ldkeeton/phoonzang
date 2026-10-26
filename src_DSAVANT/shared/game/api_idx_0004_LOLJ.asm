@@ -7,7 +7,7 @@ api_idx_0004_LOLJ:
     mov bx, ax
     mov al, byte [bx + party_records + pc_rec.profession]
     sub ah, ah
-    jmp near @..api_idx_0004_LOLJ.l1
+    jmp near .forward1
 api_idx_0004_LOLJ.jumptable_case1:
     mov ax, api_idx_0004_LOLJ.dseg1
     push ax
@@ -20,7 +20,7 @@ api_idx_0004_LOLJ.jumptable_case1:
     push word [bp + 4]
     call api_idx_0004_LOLJ.api_idx1
     add sp, byte 0xa
-    jmp near @..api_idx_0004_LOLJ.l2
+    jmp near api_idx_0004_LOLJ.forward2
 api_idx_0004_LOLJ.jumptable_case2:
     mov ax, api_idx_0004_LOLJ.dseg5
     push ax
@@ -33,7 +33,7 @@ api_idx_0004_LOLJ.jumptable_case2:
     push word [bp + 4]
     call api_idx_0004_LOLJ.api_idx1
     add sp, byte 0xa
-    jmp near @..api_idx_0004_LOLJ.l2
+    jmp near api_idx_0004_LOLJ.forward2
 api_idx_0004_LOLJ.jumptable_case3:
     mov ax, api_idx_0004_LOLJ.dseg9
     push ax
@@ -46,7 +46,7 @@ api_idx_0004_LOLJ.jumptable_case3:
     push word [bp + 4]
     call api_idx_0004_LOLJ.api_idx1
     add sp, byte 0xa
-    jmp near @..api_idx_0004_LOLJ.l2
+    jmp near api_idx_0004_LOLJ.forward2
 api_idx_0004_LOLJ.jumptable_case4:
     mov ax, api_idx_0004_LOLJ.dseg13
     push ax
@@ -59,7 +59,7 @@ api_idx_0004_LOLJ.jumptable_case4:
     push word [bp + 4]
     call api_idx_0004_LOLJ.api_idx1
     add sp, byte 0xa
-    jmp near @..api_idx_0004_LOLJ.l2
+    jmp near api_idx_0004_LOLJ.forward2
 api_idx_0004_LOLJ.jumptable_case5:
     mov ax, api_idx_0004_LOLJ.dseg17
     push ax
@@ -72,7 +72,7 @@ api_idx_0004_LOLJ.jumptable_case5:
     push word [bp + 4]
     call api_idx_0004_LOLJ.api_idx1
     add sp, byte 0xa
-    jmp near @..api_idx_0004_LOLJ.l2
+    jmp near api_idx_0004_LOLJ.forward2
 api_idx_0004_LOLJ.jumptable_case6:
     mov ax, api_idx_0004_LOLJ.dseg21
     push ax
@@ -85,7 +85,7 @@ api_idx_0004_LOLJ.jumptable_case6:
     push word [bp + 4]
     call api_idx_0004_LOLJ.api_idx1
     add sp, byte 0xa
-    jmp near @..api_idx_0004_LOLJ.l2
+    jmp near api_idx_0004_LOLJ.forward2
 api_idx_0004_LOLJ.jumptable_case7:
     mov ax, api_idx_0004_LOLJ.dseg25
     push ax
@@ -98,7 +98,7 @@ api_idx_0004_LOLJ.jumptable_case7:
     push word [bp + 4]
     call api_idx_0004_LOLJ.api_idx1
     add sp, byte 0xa
-    jmp near @..api_idx_0004_LOLJ.l2
+    jmp near api_idx_0004_LOLJ.forward2
 api_idx_0004_LOLJ.jumptable_case8:
     mov ax, api_idx_0004_LOLJ.dseg29
     push ax
@@ -111,7 +111,7 @@ api_idx_0004_LOLJ.jumptable_case8:
     push word [bp + 4]
     call api_idx_0004_LOLJ.api_idx1
     add sp, byte 0xa
-    jmp near @..api_idx_0004_LOLJ.l2
+    jmp near api_idx_0004_LOLJ.forward2
 api_idx_0004_LOLJ.jumptable_case9:
     mov ax, api_idx_0004_LOLJ.dseg33
     push ax
@@ -124,7 +124,7 @@ api_idx_0004_LOLJ.jumptable_case9:
     push word [bp + 4]
     call api_idx_0004_LOLJ.api_idx1
     add sp, byte 0xa
-    jmp near @..api_idx_0004_LOLJ.l2
+    jmp near api_idx_0004_LOLJ.forward2
 api_idx_0004_LOLJ.jumptable_case10:
     mov ax, api_idx_0004_LOLJ.dseg37
     push ax
@@ -137,7 +137,7 @@ api_idx_0004_LOLJ.jumptable_case10:
     push word [bp + 4]
     call api_idx_0004_LOLJ.api_idx1
     add sp, byte 0xa
-    jmp near @..api_idx_0004_LOLJ.l2
+    jmp near api_idx_0004_LOLJ.forward2
 api_idx_0004_LOLJ.jumptable_case11:
     mov ax, api_idx_0004_LOLJ.dseg41
     push ax
@@ -150,7 +150,7 @@ api_idx_0004_LOLJ.jumptable_case11:
     push word [bp + 4]
     call api_idx_0004_LOLJ.api_idx1
     add sp, byte 0xa
-    jmp short @..api_idx_0004_LOLJ.l2
+    jmp short api_idx_0004_LOLJ.forward2
 api_idx_0004_LOLJ.jumptable_case12:
     mov ax, api_idx_0004_LOLJ.dseg45
     push ax
@@ -163,7 +163,7 @@ api_idx_0004_LOLJ.jumptable_case12:
     push word [bp + 4]
     call api_idx_0004_LOLJ.api_idx1
     add sp, byte 0xa
-    jmp short @..api_idx_0004_LOLJ.l2
+    jmp short api_idx_0004_LOLJ.forward2
 api_idx_0004_LOLJ.jumptable_case13:
     mov ax, api_idx_0004_LOLJ.dseg49
     push ax
@@ -176,7 +176,7 @@ api_idx_0004_LOLJ.jumptable_case13:
     push word [bp + 4]
     call api_idx_0004_LOLJ.api_idx1
     add sp, byte 0xa
-    jmp short @..api_idx_0004_LOLJ.l2
+    jmp short api_idx_0004_LOLJ.forward2
 api_idx_0004_LOLJ.jumptable_case14:
     mov ax, api_idx_0004_LOLJ.dseg53
     push ax
@@ -189,7 +189,7 @@ api_idx_0004_LOLJ.jumptable_case14:
     push word [bp + 4]
     call api_idx_0004_LOLJ.api_idx1
     add sp, byte 0xa
-    jmp short @..api_idx_0004_LOLJ.l2
+    jmp short api_idx_0004_LOLJ.forward2
 api_idx_0004_LOLJ.jumptable1:
     dw api_idx_0004_LOLJ.jumptable_case1 - IMAGE_BASE + __zres_end
     dw api_idx_0004_LOLJ.jumptable_case2 - IMAGE_BASE + __zres_end
@@ -205,22 +205,22 @@ api_idx_0004_LOLJ.jumptable1:
     dw api_idx_0004_LOLJ.jumptable_case12 - IMAGE_BASE + __zres_end
     dw api_idx_0004_LOLJ.jumptable_case13 - IMAGE_BASE + __zres_end
     dw api_idx_0004_LOLJ.jumptable_case14 - IMAGE_BASE + __zres_end
-@..api_idx_0004_LOLJ.l1:
+api_idx_0004_LOLJ.forward1:
     cmp ax, strict word 0xe
-    jae short @..api_idx_0004_LOLJ.l2
+    jae short api_idx_0004_LOLJ.forward2
     xchg bx, ax
     shl bx, 1
     jmp [cs:bx + api_idx_0004_LOLJ.jumptable1 - IMAGE_BASE + __zres_end]
-@..api_idx_0004_LOLJ.l2:
+api_idx_0004_LOLJ.forward2:
     mov ax, 0x248
     imul word [bp + 4]
     mov bx, ax
     cmp byte [bx + party_records + pc_rec.stat + 0x1], 0xd
-    jbe short @..api_idx_0004_LOLJ.l3
+    jbe short api_idx_0004_LOLJ.forward3
     cmp byte [bx + party_records + pc_rec.stat + 0x6], 0xd
-    jbe short @..api_idx_0004_LOLJ.l3
+    jbe short api_idx_0004_LOLJ.forward3
     mov word [api_idx_0004_LOLJ.bss1], 1
-@..api_idx_0004_LOLJ.l3:
+api_idx_0004_LOLJ.forward3:
     mov word [bp - 4], 0
     mov ax, word [bp + 6]
     shl ax, 1
@@ -228,13 +228,13 @@ api_idx_0004_LOLJ.jumptable1:
     mov bx, ax
     mov ax, word [word bx + 0x38]
     mov word [bp - 2], ax
-    jmp short @..api_idx_0004_LOLJ.l6
-@..api_idx_0004_LOLJ.l4:
+    jmp short api_idx_0004_LOLJ.forward5
+api_idx_0004_LOLJ.back1:
     mov ax, word [bp - 2]
     shl ax, 1
     mov bx, ax
     cmp word [bx + api_idx_0004_LOLJ.bss2], byte 1
-    jne short @..api_idx_0004_LOLJ.l5
+    jne short api_idx_0004_LOLJ.forward4
     mov ax, 0x14
     imul word [bp - 4]
     add ax, known_spell_names
@@ -251,16 +251,16 @@ api_idx_0004_LOLJ.jumptable1:
     mov bx, word [bp + 8]
     mov word [bx + si], ax
     inc word [bp - 4]
-@..api_idx_0004_LOLJ.l5:
+api_idx_0004_LOLJ.forward4:
     inc word [bp - 2]
-@..api_idx_0004_LOLJ.l6:
+api_idx_0004_LOLJ.forward5:
     mov ax, word [bp + 6]
     shl ax, 1
     shl ax, 1
     mov bx, ax
     mov ax, word [word bx + 0x3a]
     cmp ax, word [bp - 2]
-    jge short @..api_idx_0004_LOLJ.l4
+    jge short api_idx_0004_LOLJ.back1
     mov ax, api_idx_0004_LOLJ.slot_prompt_text1
     push ax
     mov ax, MSG_SKILL_POINTS

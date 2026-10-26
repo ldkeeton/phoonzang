@@ -7,28 +7,28 @@ load_message_string: ; Aztec csav frame=0x010a
     pop cx                           ; 0x078e
     mov word [bp - 8], ax            ; 0x078f
     test ax, ax                      ; 0x0792
-    jne short @..load_message_string.l1 ; 0x0794
+    jne short .forward1              ; 0x0794
     mov word [message_not_found], 1  ; 0x0796
     ret                              ; 0x079c
-@..load_message_string.l1:
+.forward1:
     mov bx, ax                       ; 0x079d
     mov al, byte [bx + 5]            ; 0x079f
     sub ah, ah                       ; 0x07a2
     cmp ax, word [message_block_current] ; 0x07a4
-    je short @..load_message_string.l2 ; 0x07a8
+    je short .forward2               ; 0x07a8
     push ax                          ; 0x07aa
     call load_message_block          ; 0x07ab
     pop cx                           ; 0x07ae
-@..load_message_string.l2:
+.forward2:
     mov bx, word [bp - 8]            ; 0x07af
     mov ax, word [bx + 2]            ; 0x07b2
     mov word [bp - 2], ax            ; 0x07b5
     mov ax, word [bx]                ; 0x07b8
     mov word [bp - 4], ax            ; 0x07ba
-@..load_message_string.l3:
+.back1:
     mov ax, word [bp + 4]            ; 0x07bd
     cmp ax, word [bp - 4]            ; 0x07c0
-    je short @..load_message_string.l4 ; 0x07c3
+    je short .forward3               ; 0x07c3
     mov bx, word [bp - 2]            ; 0x07c5
     mov al, byte [bx + message_block_buffer] ; 0x07c8
     sub ah, ah                       ; 0x07cc
@@ -36,8 +36,8 @@ load_message_string: ; Aztec csav frame=0x010a
     inc ax                           ; 0x07d0
     mov word [bp - 2], ax            ; 0x07d1
     inc word [bp - 4]                ; 0x07d4
-    jmp short @..load_message_string.l3 ; 0x07d7
-@..load_message_string.l4:
+    jmp short .back1                 ; 0x07d7
+.forward3:
     mov bx, word [bp - 2]            ; 0x07d9
     mov al, byte [bx + message_block_buffer] ; 0x07dc
     sub ah, ah                       ; 0x07e0
@@ -49,7 +49,7 @@ load_message_string: ; Aztec csav frame=0x010a
     mov ax, word [bp - 2]            ; 0x07f2
     add ax, word [bp - 4]            ; 0x07f5
     cmp ax, 0x400                    ; 0x07f8
-    jle short @..load_message_string.l5 ; 0x07fb
+    jle short .forward4              ; 0x07fb
     mov ax, 0x400                    ; 0x07fd
     sub ax, word [bp - 2]            ; 0x0800
     push ax                          ; 0x0803
@@ -69,7 +69,7 @@ load_message_string: ; Aztec csav frame=0x010a
     call load_message_block          ; 0x0825
     pop cx                           ; 0x0828
     mov word [bp - 2], 0             ; 0x0829
-@..load_message_string.l5:
+.forward4:
     push word [bp - 4]               ; 0x082e
     push word [bp - 0xa]             ; 0x0831
     mov ax, word [bp - 2]            ; 0x0834

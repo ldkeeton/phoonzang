@@ -10,7 +10,7 @@ find_map_piece:
     add sp, byte 6
     mov word [bp - 4], ax
     cmp ax, strict word 0xffff
-    jne short @..find_map_piece.l3
+    jne short .forward2
     push word [bp + 0xc]
     push word [bp + 0xa]
     push word [bss_8f48]
@@ -18,7 +18,7 @@ find_map_piece:
     add sp, byte 6
     mov word [bp - 4], ax
     cmp ax, strict word 0xffff
-    jne short @..find_map_piece.l3
+    jne short .forward2
     mov bx, word [bp + 8]
     mov ax, word [bx]
     inc ax
@@ -26,7 +26,7 @@ find_map_piece:
     cwd
     idiv cx
     mov word [bp - 2], dx
-@..find_map_piece.l1:
+.back1:
     push word [bp + 0xc]
     push word [bp + 0xa]
     push word [bp - 2]
@@ -34,7 +34,7 @@ find_map_piece:
     add sp, byte 6
     mov word [bp - 4], ax
     cmp ax, strict word 0xffff
-    jne short @..find_map_piece.l3
+    jne short .forward2
     mov ax, word [bp - 2]
     inc ax
     mov cx, 0x10
@@ -43,12 +43,12 @@ find_map_piece:
     mov word [bp - 2], dx
     mov bx, word [bp + 8]
     cmp dx, word [bx]
-    jne short @..find_map_piece.l2
+    jne short .forward1
     mov ax, 1
     ret
-@..find_map_piece.l2:
-    jmp short @..find_map_piece.l1
-@..find_map_piece.l3:
+.forward1:
+    jmp short .back1
+.forward2:
     mov ax, word [bp + 0xa]
     push ax
     mov bx, word [maze_data]

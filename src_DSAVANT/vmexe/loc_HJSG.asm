@@ -3,7 +3,7 @@ loc_HJSG:
     mov ax, 0                        ; 0x15ab
     call aztec_csav                  ; 0x15ae
     cmp word [bp + 6], byte 0        ; 0x15b1
-    jne short @..loc_HJSG.l1         ; 0x15b5
+    jne short .forward1              ; 0x15b5
     mov ax, 0x248                    ; 0x15b7
     imul word [bp + 8]               ; 0x15ba
     add ax, party_records            ; 0x15bd
@@ -11,8 +11,8 @@ loc_HJSG:
     push word [bp + 4]               ; 0x15c1
     call aztec_strcpy                ; 0x15c4
     add sp, byte 4                   ; 0x15c7
-    jmp short @..loc_HJSG.l2         ; 0x15ca
-@..loc_HJSG.l1:
+    jmp short .return1               ; 0x15ca
+.forward1:
     mov ax, word [bp + 6]            ; 0x15cc
     shl ax, 1                        ; 0x15cf
     mov bx, ax                       ; 0x15d1
@@ -31,5 +31,5 @@ loc_HJSG:
     push word [bp + 4]               ; 0x15ef
     call aztec_strcpy                ; 0x15f2
     add sp, byte 4                   ; 0x15f5
-@..loc_HJSG.l2:
+.return1:
     ret                              ; 0x15f8

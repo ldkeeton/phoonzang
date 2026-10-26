@@ -6,16 +6,16 @@ apply_text_control_codes:
     mov word [bp - 0xa], ax          ; 0x93f0
     mov word [bp - 6], 0             ; 0x93f3
     mov word [bp - 4], 1             ; 0x93f8
-@..apply_text_control_codes.l1:
+.back1:
     cmp word [bp - 4], byte 0        ; 0x93fd
-    jne short @..apply_text_control_codes.l2 ; 0x9401
-    jmp near @..apply_text_control_codes.l22 ; 0x9403
-@..apply_text_control_codes.l2:
+    jne short .forward1              ; 0x9401
+    jmp near .forward12              ; 0x9403
+.forward1:
     mov bx, word [bp - 0xa]          ; 0x9406
     mov al, byte [bx]                ; 0x9409
     sub ah, ah                       ; 0x940b
-    jmp near @..apply_text_control_codes.l14 ; 0x940d
-@..apply_text_control_codes.l3:
+    jmp near .forward4               ; 0x940d
+.back2:
     mov ax, 0                        ; 0x9410
     push ax                          ; 0x9413
     mov ax, 0xa4                     ; 0x9414
@@ -30,13 +30,13 @@ apply_text_control_codes:
     push ax                          ; 0x9429
     call set_mouse_pointer_shape     ; 0x942a
     add sp, byte 4                   ; 0x942d
-@..apply_text_control_codes.l4:
+.back3:
     call poll_fullscreen_hotspot     ; 0x9430
     test ax, ax                      ; 0x9433
-    jne short @..apply_text_control_codes.l5 ; 0x9435
+    jne short .forward2              ; 0x9435
     call step_party_animation        ; 0x9437
-    jmp short @..apply_text_control_codes.l4 ; 0x943a
-@..apply_text_control_codes.l5:
+    jmp short .back3                 ; 0x943a
+.forward2:
     push word [mouse_pointer_shape_seg] ; 0x943c
     push word [mouse_pointer_shape]  ; 0x9440
     call set_mouse_pointer_shape     ; 0x9444
@@ -51,14 +51,14 @@ apply_text_control_codes:
     add sp, byte 6                   ; 0x9459
     mov bx, word [bp - 0xa]          ; 0x945c
     cmp byte [bx], 0x40              ; 0x945f
-    jne short @..apply_text_control_codes.l6 ; 0x9462
+    jne short .forward3              ; 0x9462
     call next_text_line              ; 0x9464
     call next_text_line              ; 0x9467
     mov word [bp - 6], 0             ; 0x946a
-@..apply_text_control_codes.l6:
+.forward3:
     inc word [bp - 0xa]              ; 0x946f
-    jmp near @..apply_text_control_codes.l21 ; 0x9472
-@..apply_text_control_codes.l7:
+    jmp near .forward11              ; 0x9472
+.back4:
     mov ax, 1                        ; 0x9475
     push ax                          ; 0x9478
     mov ax, 0x36                     ; 0x9479
@@ -66,13 +66,13 @@ apply_text_control_codes:
     call wait_ticks_abortable        ; 0x947d
     add sp, byte 4                   ; 0x9480
     inc word [bp - 0xa]              ; 0x9483
-    jmp near @..apply_text_control_codes.l21 ; 0x9486
-@..apply_text_control_codes.l8:
+    jmp near .forward11              ; 0x9486
+.back5:
     call next_text_line              ; 0x9489
     mov word [bp - 6], 0             ; 0x948c
     inc word [bp - 0xa]              ; 0x9491
-    jmp near @..apply_text_control_codes.l21 ; 0x9494
-@..apply_text_control_codes.l9:
+    jmp near .forward11              ; 0x9494
+.back6:
     push word [bp + 6]               ; 0x9497
     mov ax, word [text_line_index]   ; 0x949a
     mov cx, 7                        ; 0x949d
@@ -90,10 +90,10 @@ apply_text_control_codes:
     mov byte [bx], 0                 ; 0x94bf
     mov word [bp - 6], 1             ; 0x94c2
     inc word [bp - 0xa]              ; 0x94c7
-    jmp near @..apply_text_control_codes.l21 ; 0x94ca
-@..apply_text_control_codes.l10:
+    jmp near .forward11              ; 0x94ca
+.back7:
     mov word [bp - 2], 0             ; 0x94cd
-@..apply_text_control_codes.l11:
+.back8:
     mov ax, word [bp - 2]            ; 0x94d2
     mov cx, 7                        ; 0x94d5
     shl ax, cl                       ; 0x94d8
@@ -106,7 +106,7 @@ apply_text_control_codes:
     inc word [bp - 2]                ; 0x94ee
     mov ax, word [bp - 2]            ; 0x94f1
     cmp ax, strict word 4            ; 0x94f4
-    jl short @..apply_text_control_codes.l11 ; 0x94f7
+    jl short .back8                  ; 0x94f7
     mov word [text_line_index], 0    ; 0x94f9
     mov word [bp - 6], 0             ; 0x94ff
     mov ax, 3                        ; 0x9504
@@ -118,8 +118,8 @@ apply_text_control_codes:
     call show_area_set               ; 0x9510
     pop cx                           ; 0x9513
     inc word [bp - 0xa]              ; 0x9514
-    jmp short @..apply_text_control_codes.l21 ; 0x9517
-@..apply_text_control_codes.l12:
+    jmp short .forward11             ; 0x9517
+.back9:
     inc word [bp - 0xa]              ; 0x9519
     mov bx, word [bp - 0xa]          ; 0x951c
     mov al, byte [bx]                ; 0x951f
@@ -129,45 +129,45 @@ apply_text_control_codes:
     call play_sound_cue              ; 0x9527
     pop cx                           ; 0x952a
     inc word [bp - 0xa]              ; 0x952b
-    jmp short @..apply_text_control_codes.l21 ; 0x952e
-@..apply_text_control_codes.l13:
+    jmp short .forward11             ; 0x952e
+.back10:
     mov word [bp - 4], 0             ; 0x9530
-    jmp short @..apply_text_control_codes.l21 ; 0x9535
-@..apply_text_control_codes.l14:
+    jmp short .forward11             ; 0x9535
+.forward4:
     cmp ax, strict word 0x21         ; 0x9537
-    jne short @..apply_text_control_codes.l15 ; 0x953a
-    jmp near @..apply_text_control_codes.l8 ; 0x953c
-@..apply_text_control_codes.l15:
+    jne short .forward5              ; 0x953a
+    jmp near .back5                  ; 0x953c
+.forward5:
     cmp ax, strict word 0x25         ; 0x953f
-    jne short @..apply_text_control_codes.l16 ; 0x9542
-    jmp near @..apply_text_control_codes.l7 ; 0x9544
-@..apply_text_control_codes.l16:
+    jne short .forward6              ; 0x9542
+    jmp near .back4                  ; 0x9544
+.forward6:
     cmp ax, strict word 0x26         ; 0x9547
-    jne short @..apply_text_control_codes.l17 ; 0x954a
-    jmp near @..apply_text_control_codes.l9 ; 0x954c
-@..apply_text_control_codes.l17:
+    jne short .forward7              ; 0x954a
+    jmp near .back6                  ; 0x954c
+.forward7:
     cmp ax, strict word 0x40         ; 0x954f
-    jne short @..apply_text_control_codes.l18 ; 0x9552
-    jmp near @..apply_text_control_codes.l3 ; 0x9554
-@..apply_text_control_codes.l18:
+    jne short .forward8              ; 0x9552
+    jmp near .back2                  ; 0x9554
+.forward8:
     cmp ax, strict word 0x5b         ; 0x9557
-    jne short @..apply_text_control_codes.l19 ; 0x955a
-    jmp near @..apply_text_control_codes.l3 ; 0x955c
-@..apply_text_control_codes.l19:
+    jne short .forward9              ; 0x955a
+    jmp near .back2                  ; 0x955c
+.forward9:
     cmp ax, strict word 0x5d         ; 0x955f
-    jne short @..apply_text_control_codes.l20 ; 0x9562
-    jmp near @..apply_text_control_codes.l10 ; 0x9564
-@..apply_text_control_codes.l20:
+    jne short .forward10             ; 0x9562
+    jmp near .back7                  ; 0x9564
+.forward10:
     cmp ax, strict word 0x7e         ; 0x9567
-    je short @..apply_text_control_codes.l12 ; 0x956a
-    jmp short @..apply_text_control_codes.l13 ; 0x956c
-@..apply_text_control_codes.l21:
-    jmp near @..apply_text_control_codes.l1 ; 0x956e
-@..apply_text_control_codes.l22:
+    je short .back9                  ; 0x956a
+    jmp short .back10                ; 0x956c
+.forward11:
+    jmp near .back1                  ; 0x956e
+.forward12:
     cmp word [bp - 6], byte 0        ; 0x9571
-    je short @..apply_text_control_codes.l23 ; 0x9575
+    je short .forward13              ; 0x9575
     call next_text_line              ; 0x9577
-@..apply_text_control_codes.l23:
+.forward13:
     push word [bp - 0xa]             ; 0x957a
     push word [bp + 4]               ; 0x957d
     call aztec_strcpy                ; 0x9580

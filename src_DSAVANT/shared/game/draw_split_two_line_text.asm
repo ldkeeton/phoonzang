@@ -23,17 +23,17 @@ draw_split_two_line_text:
     add sp, byte 4
     mov word [bp - 2], ax
     cmp ax, strict word 0xffff
-    jne short @..draw_split_two_line_text.l1
+    jne short .forward1
     lea ax, word [bp - 0x2a]
     push ax
     call aztec_strlen
     pop cx
     mov word [bp - 2], ax
-@..draw_split_two_line_text.l1:
+.forward1:
     cmp word [bp - 2], byte 0xa
-    jle short @..draw_split_two_line_text.l2
+    jle short .forward2
     mov word [bp - 2], 0xa
-@..draw_split_two_line_text.l2:
+.forward2:
     mov bx, word [bp - 2]
     add bx, bp
     mov byte [bx - 0x2a], 0

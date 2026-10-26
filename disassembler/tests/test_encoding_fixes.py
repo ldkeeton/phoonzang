@@ -32,6 +32,22 @@ def _insn(code_hex, base=0):
 class ClassATests(unittest.TestCase):
     """Segment prefix + group-1 imm8."""
 
+    def test_signed_immediates(self):
+        for code, expected in (
+            ('83 c4 fc', 'add sp, byte -4'),
+            ('83 c4 80', 'add sp, byte -128'),
+            ('83 e0 ff', 'and ax, byte -1'),
+            ('26 83 3e 18 25 f0', 'cmp word [es:0x2518], byte -16'),
+            ('83 c4 00', 'add sp, byte 0'),
+            ('83 c4 09', 'add sp, byte 9'),
+            ('83 c4 0a', 'add sp, byte 0xa'),
+            ('83 c4 7f', 'add sp, byte 0x7f'),
+        ):
+            with self.subTest(code=code):
+                text = format_instruction(_insn(code), {}, {})
+                self.assertEqual(text, expected)
+                self.assertEqual(micro_assemble(text, 0), bytes.fromhex(code))
+
     def test_cmp_es_abs(self):
         insn = _insn('26 83 3e 18 25 00')
         text = format_instruction(insn, {}, {}, data_labels={0x2518: 'dseg_2518'})
