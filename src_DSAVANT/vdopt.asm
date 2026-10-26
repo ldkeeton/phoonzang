@@ -149,7 +149,7 @@ get_cell_wall.get_cell_wall_variant_b1 equ get_cell_wall_variant_b
 
 %include "shared/game/draw_party_slot_letters.asm" ; 0x25a8
 
-%include "shared/game/api_idx_0002_TIUI.asm"     ; 0x2627
+%include "shared/game/advance_party_slot_frames.asm" ; 0x2627
 
 %include "shared/game/collect_known_spells.asm"  ; 0x2682
 

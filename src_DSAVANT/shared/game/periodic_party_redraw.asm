@@ -36,7 +36,7 @@ periodic_party_redraw:
     call periodic_party_redraw.api_idx1
     pop cx
     push word [bp + 0x6]
-    call api_idx_0002_TIUI
+    call advance_party_slot_frames
     pop cx
     mov ax, 1
     push ax

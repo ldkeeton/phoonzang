@@ -96,7 +96,7 @@ run_party_screen_animation.api_idx1 equ api_idx_0006_IRNH
 
 %include "shared/game/draw_party_slot_letters.asm" ; 0x18c2
 
-%include "shared/game/api_idx_0002_TIUI.asm"     ; 0x1941
+%include "shared/game/advance_party_slot_frames.asm" ; 0x1941
 
 api_idx_0004_OQNP equ collect_known_spells
 %include "shared/game/collect_known_spells.asm"     ; 0x199c

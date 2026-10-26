@@ -1,20 +1,20 @@
 ; auto-generated
-api_idx_0002_TIUI:
+advance_party_slot_frames:
     mov ax, 0xfffe
     call aztec_csav
     mov word [bp - 0x0002], 0
-@..api_idx_0002_TIUI.l1:
+@..advance_party_slot_frames.l1:
     cmp word [bp + 0x4], byte 0
-    jl short @..api_idx_0002_TIUI.l2
+    jl short @..advance_party_slot_frames.l2
     mov ax, word [bp - 0x0002]
     cmp ax, word [bp + 0x4]
-    jne short @..api_idx_0002_TIUI.l3
-@..api_idx_0002_TIUI.l2:
+    jne short @..advance_party_slot_frames.l3
+@..advance_party_slot_frames.l2:
     mov ax, word [bp - 0x0002]
     shl ax, 1
     mov bx, ax
     inc word [bx + party_slot_frame]
-@..api_idx_0002_TIUI.l3:
+@..advance_party_slot_frames.l3:
     mov ax, 0x14
     imul word [bp - 0x0002]
     mov cx, word [bp - 0x0002]
@@ -25,14 +25,14 @@ api_idx_0002_TIUI:
     add ax, cx
     mov bx, ax
     cmp word [bx + party_slot_glyphs], byte 0xff
-    jne short @..api_idx_0002_TIUI.l4
+    jne short @..advance_party_slot_frames.l4
     mov ax, word [bp - 0x0002]
     shl ax, 1
     mov bx, ax
     mov word [bx + party_slot_frame], 0
-@..api_idx_0002_TIUI.l4:
+@..advance_party_slot_frames.l4:
     inc word [bp - 0x0002]
     mov ax, word [bp - 0x0002]
     cmp ax, strict word 6
-    jl short @..api_idx_0002_TIUI.l1
+    jl short @..advance_party_slot_frames.l1
     ret

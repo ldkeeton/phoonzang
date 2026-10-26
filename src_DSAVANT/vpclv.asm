@@ -166,7 +166,7 @@ api_idx_0004_RMVO.bss1 equ bss_942c
 api_idx_0004_RMVO.bss2 equ bss_942a
 %include "shared/game/api_idx_0004_RMVO.asm"     ; 0x0281
 
-%include "shared/game/api_idx_0002_TIUI.asm"     ; 0x0331
+%include "shared/game/advance_party_slot_frames.asm" ; 0x0331
 
 %include "shared/game/api_idx_0002_UIHS.asm"     ; 0x038c
 

@@ -52,7 +52,7 @@ loc_TTSP:
     add sp, byte 8
     mov ax, 0xffff
     push ax
-    call api_idx_0002_TIUI
+    call advance_party_slot_frames
     pop cx
     push word [bp + 0x4]
     call api_idx_0004_RMVO

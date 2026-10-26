@@ -50,6 +50,7 @@
     "api_idx_0002_QVIM": {"name": "assign_slot_bit", "note": "Update the bit-indexed slot record and old and new slot bitmaps"},
     "api_idx_0002_RQOS": {"name": "evaluate_character_professions", "note": "Checks eligibility for all fourteen professions without allocating stat points"},
     "api_idx_0002_SJMT": {"name": "transfer_pc_file_record", "note": "Read or write a fixed-size PCFILE.DBS record"},
+    "api_idx_0002_TIUI": {"name": "advance_party_slot_frames", "note": "Advance the selected party slot animation frame, or all slots for a negative selection, and wrap at the glyph terminator"},
     "api_idx_0004_ONRQ": {"name": "add_overlay_item", "note": "inserts an overlay item in code order, hanging when the 12-slot table is full"},
     "api_idx_0004_QVPP": {"name": "find_map_piece", "note": "maps world (x, y) to piece index and local x/y; 0 if found"},
     "api_idx_0004_ULSR": {"name": "titlecase_string", "note": "lowercases an all-caps string but keeps the first letter of each word"},

@@ -352,7 +352,7 @@ loc_HTKI.draw_list_rows1 equ api_idx_0004_KHSO
 
 %include "shared/game/draw_party_slot_letters.asm" ; 0x7452
 
-%include "shared/game/api_idx_0002_TIUI.asm"     ; 0x74d1
+%include "shared/game/advance_party_slot_frames.asm" ; 0x74d1
 
 api_idx_0004_NIJP equ collect_known_spells
 %include "shared/game/collect_known_spells.asm"     ; 0x752c
