@@ -395,8 +395,8 @@ api_idx_007c_MOJH:
     mov ax, 0x248
     imul word [bp + 0x4]
     mov bx, ax
-    push word [bx + party_records + pc_rec.f_000e]
-    push word [bx + party_records + pc_rec.f_000c]
+    push word [bx + party_records + pc_rec.experience + 0x2]
+    push word [bx + party_records + pc_rec.experience]
     call draw_padded_number
     add sp, byte 8
     lea ax, word [bp - 0x0058]

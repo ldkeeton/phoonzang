@@ -58,10 +58,10 @@ run_state_0f_scene:
     push ax                          ; 0x7fdf
     mov ax, 0xffff                   ; 0x7fe0
     push ax                          ; 0x7fe3
-    push word [bss_91d4]             ; 0x7fe4
+    push word [treasure_message_row] ; 0x7fe4
     lea ax, word [bp - 0x0050]       ; 0x7fe8
     push ax                          ; 0x7feb
-    call loc_OOHI                    ; 0x7fec
+    call show_treasure_message       ; 0x7fec
     add sp, byte 8                   ; 0x7fef
     cmp word [bss_8450], byte 0      ; 0x7ff2
     je short @..run_state_0f_scene.l4 ; 0x7ff7
@@ -75,9 +75,9 @@ run_state_0f_scene:
     push ax                          ; 0x8005
     call delay_ms                    ; 0x8006
     pop cx                           ; 0x8009
-    push word [bss_91d4]             ; 0x800a
-    push word [bss_91d4]             ; 0x800e
-    call api_idx_0004_IMVS           ; 0x8012
+    push word [treasure_message_row] ; 0x800a
+    push word [treasure_message_row] ; 0x800e
+    call api_idx_0004_VQUG           ; 0x8012
     add sp, byte 4                   ; 0x8015
     mov ax, word [file_param_word]   ; 0x8018
     mov word [bss_844e], ax          ; 0x801b
@@ -97,7 +97,7 @@ run_state_0f_scene:
 @..run_state_0f_scene.l5:
     jmp short @..run_state_0f_scene.l7 ; 0x8040
 @..run_state_0f_scene.l6:
-    call api_idx_00a8_JSHI           ; 0x8042
+    call distribute_survivor_experience ; 0x8042
 @..run_state_0f_scene.l7:
     mov ax, 0                        ; 0x8045
     push ax                          ; 0x8048

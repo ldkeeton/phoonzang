@@ -17,7 +17,9 @@ struct grid_cell {			/* 12 bytes */
 
 struct pc_rec {				/* 0x248 bytes */
 	char name[8];			/* +0x000 */
-	int w8[7];			/* +0x008 */
+	int w8[2];			/* +0x008 */
+	long experience;		/* +0x00c: accumulated survivor reward */
+	int w10[3];			/* +0x010 */
 	int w16;			/* +0x016 */
 	int pair_a[2];			/* +0x018: [cur, max], the 0x1b panel bar */
 	int pair_b[2];			/* +0x01c: [cur, max], drained by casting */

@@ -1,23 +1,23 @@
 ; auto-generated
-api_idx_00a8_JSHI:
+distribute_survivor_experience:
     mov ax, 0xff58                   ; 0x5d80
     call aztec_csav                  ; 0x5d83
     mov word [bp - 0x0004], 0        ; 0x5d86
     mov word [bp - 0x0002], 0        ; 0x5d8b
-    jmp short @..api_idx_00a8_JSHI.l3 ; 0x5d90
-@..api_idx_00a8_JSHI.l1:
+    jmp short @..distribute_survivor_experience.l3 ; 0x5d90
+@..distribute_survivor_experience.l1:
     mov ax, 0x248                    ; 0x5d92
     imul word [bp - 0x0002]          ; 0x5d95
     mov bx, ax                       ; 0x5d98
     cmp byte [bx + party_records + pc_rec.state], 0 ; 0x5d9a
-    jne short @..api_idx_00a8_JSHI.l2 ; 0x5d9f
+    jne short @..distribute_survivor_experience.l2 ; 0x5d9f
     inc word [bp - 0x0004]           ; 0x5da1
-@..api_idx_00a8_JSHI.l2:
+@..distribute_survivor_experience.l2:
     inc word [bp - 0x0002]           ; 0x5da4
-@..api_idx_00a8_JSHI.l3:
+@..distribute_survivor_experience.l3:
     mov ax, word [bp - 0x0002]       ; 0x5da7
     cmp ax, word [party_char_count]  ; 0x5daa
-    jl short @..api_idx_00a8_JSHI.l1 ; 0x5dae
+    jl short @..distribute_survivor_experience.l1 ; 0x5dae
     mov ax, word [item_action_reward] ; 0x5db0
     mov dx, word [item_action_reward_hi] ; 0x5db3
     mov cx, 0x14                     ; 0x5db7
@@ -85,27 +85,27 @@ api_idx_00a8_JSHI:
     push ax                          ; 0x5e44
     mov ax, 0                        ; 0x5e45
     push ax                          ; 0x5e48
-    push word [bss_91d4]             ; 0x5e49
+    push word [treasure_message_row] ; 0x5e49
     lea ax, word [bp - 0x0058]       ; 0x5e4d
     push ax                          ; 0x5e50
-    call loc_OOHI                    ; 0x5e51
+    call show_treasure_message       ; 0x5e51
     add sp, byte 8                   ; 0x5e54
     mov word [bp - 0x0002], 0        ; 0x5e57
-    jmp short @..api_idx_00a8_JSHI.l6 ; 0x5e5c
-@..api_idx_00a8_JSHI.l4:
+    jmp short @..distribute_survivor_experience.l6 ; 0x5e5c
+@..distribute_survivor_experience.l4:
     mov ax, 0x248                    ; 0x5e5e
     imul word [bp - 0x0002]          ; 0x5e61
     mov bx, ax                       ; 0x5e64
     cmp byte [bx + party_records + pc_rec.state], 0 ; 0x5e66
-    jne short @..api_idx_00a8_JSHI.l5 ; 0x5e6b
+    jne short @..distribute_survivor_experience.l5 ; 0x5e6b
     mov ax, word [bp - 0x0008]       ; 0x5e6d
     mov dx, word [bp - 0x0006]       ; 0x5e70
-    add word [bx + party_records + pc_rec.f_000c], ax ; 0x5e73
-    adc word [bx + party_records + pc_rec.f_000e], dx ; 0x5e77
-@..api_idx_00a8_JSHI.l5:
+    add word [bx + party_records + pc_rec.experience], ax ; 0x5e73
+    adc word [bx + party_records + pc_rec.experience + 0x2], dx ; 0x5e77
+@..distribute_survivor_experience.l5:
     inc word [bp - 0x0002]           ; 0x5e7b
-@..api_idx_00a8_JSHI.l6:
+@..distribute_survivor_experience.l6:
     mov ax, word [bp - 0x0002]       ; 0x5e7e
     cmp ax, word [party_char_count]  ; 0x5e81
-    jl short @..api_idx_00a8_JSHI.l4 ; 0x5e85
+    jl short @..distribute_survivor_experience.l4 ; 0x5e85
     ret                              ; 0x5e87

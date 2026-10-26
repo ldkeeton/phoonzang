@@ -77,7 +77,7 @@ treasure_caption equ __zdseg_end + (__zobss_9128 - __zdata_start)
 bss_9150 equ __zdseg_end + (__zobss_9150 - __zdata_start)
 bss_9152 equ __zdseg_end + (__zobss_9152 - __zdata_start)
 bss_9154 equ __zdseg_end + (__zobss_9154 - __zdata_start)
-bss_91d4 equ __zdseg_end + (__zobss_91d4 - __zdata_start)
+treasure_message_row equ __zdseg_end + (__zobss_91d4 - __zdata_start)
 bss_91d6 equ __zdseg_end + (__zobss_91d6 - __zdata_start)
 bss_91fe equ __zdseg_end + (__zobss_91fe - __zdata_start)
 bss_9200 equ __zdseg_end + (__zobss_9200 - __zdata_start)
@@ -142,9 +142,9 @@ api_idx_0004_JQTM.api_idx1 equ api_idx_0090_NPLS
 
 %include "vtrea/loc_KIOQ.asm"              ; 0x0d87
 
-%include "vtrea/api_idx_0004_IMVS.asm"     ; 0x0e03
+%include "vtrea/api_idx_0004_VQUG.asm"     ; 0x0e03
 
-%include "vtrea/loc_OOHI.asm"              ; 0x0eb2
+%include "vtrea/show_treasure_message.asm" ; 0x0eb2
 
 %include "shared/game/loc_SIKN.asm"              ; 0x0f54
 
@@ -218,7 +218,7 @@ loc_HTKI.draw_list_rows1 equ api_idx_0004_SLIS
 
 %include "vtrea/loc_HUIS.asm"              ; 0x5789
 
-%include "vtrea/api_idx_00a8_JSHI.asm"     ; 0x5d80
+%include "vtrea/distribute_survivor_experience.asm" ; 0x5d80
 
 %include "shared/game/api_idx_0006_POPS.asm"     ; 0x5e88
 

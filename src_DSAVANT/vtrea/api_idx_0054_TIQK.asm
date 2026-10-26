@@ -40,10 +40,10 @@ api_idx_0054_TIQK:
     push ax                          ; 0x42bb
     mov ax, 2                        ; 0x42bc
     push ax                          ; 0x42bf
-    push word [bss_91d4]             ; 0x42c0
+    push word [treasure_message_row] ; 0x42c0
     lea ax, word [bp - 0x0054]       ; 0x42c4
     push ax                          ; 0x42c7
-    call loc_OOHI                    ; 0x42c8
+    call show_treasure_message       ; 0x42c8
     add sp, byte 8                   ; 0x42cb
     jmp short @..api_idx_0054_TIQK.l5 ; 0x42ce
 @..api_idx_0054_TIQK.l3:
@@ -70,10 +70,10 @@ api_idx_0054_TIQK:
     mov ax, 1                        ; 0x4304
     push ax                          ; 0x4307
     push ax                          ; 0x4308
-    push word [bss_91d4]             ; 0x4309
+    push word [treasure_message_row] ; 0x4309
     lea ax, word [bp - 0x0054]       ; 0x430d
     push ax                          ; 0x4310
-    call loc_OOHI                    ; 0x4311
+    call show_treasure_message       ; 0x4311
     add sp, byte 8                   ; 0x4314
 @..api_idx_0054_TIQK.l5:
     ret                              ; 0x4317

@@ -198,10 +198,10 @@ jumptable_51bc_case_0:
     push ax                          ; 0x50db
     mov ax, 2                        ; 0x50dc
     push ax                          ; 0x50df
-    push word [bss_91d4]             ; 0x50e0
+    push word [treasure_message_row] ; 0x50e0
     lea ax, word [bp - 0x0078]       ; 0x50e4
     push ax                          ; 0x50e7
-    call loc_OOHI                    ; 0x50e8
+    call show_treasure_message       ; 0x50e8
     add sp, byte 8                   ; 0x50eb
     mov ax, 0                        ; 0x50ee
     ret                              ; 0x50f1

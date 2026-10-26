@@ -1,10 +1,10 @@
 ; auto-generated
-loc_OOHI:
+show_treasure_message:
     mov ax, 0                        ; 0x0eb2
     call aztec_csav                  ; 0x0eb5
     push word [bp + 0x6]             ; 0x0eb8
     push word [bp + 0x6]             ; 0x0ebb
-    call api_idx_0004_IMVS           ; 0x0ebe
+    call api_idx_0004_VQUG           ; 0x0ebe
     add sp, byte 4                   ; 0x0ec1
     mov ax, 0                        ; 0x0ec4
     push ax                          ; 0x0ec7
@@ -49,21 +49,21 @@ loc_OOHI:
     call gfx_show_area               ; 0x0f24
     add sp, byte 8                   ; 0x0f27
     cmp word [bp + 0x8], byte 0      ; 0x0f2a
-    jle short @..loc_OOHI.l1         ; 0x0f2e
+    jle short @..show_treasure_message.l1 ; 0x0f2e
     mov ax, word [bp + 0x8]          ; 0x0f30
     dec ax                           ; 0x0f33
     push ax                          ; 0x0f34
     call play_sound_effect           ; 0x0f35
     pop cx                           ; 0x0f38
-@..loc_OOHI.l1:
+@..show_treasure_message.l1:
     push word [message_delay]        ; 0x0f39
     call api_idx_0004_UQUT           ; 0x0f3d
     pop cx                           ; 0x0f40
     cmp word [bp + 0x8], byte 0xff   ; 0x0f41
-    je short @..loc_OOHI.l2          ; 0x0f45
+    je short @..show_treasure_message.l2 ; 0x0f45
     push word [bp + 0x6]             ; 0x0f47
     push word [bp + 0x6]             ; 0x0f4a
-    call api_idx_0004_IMVS           ; 0x0f4d
+    call api_idx_0004_VQUG           ; 0x0f4d
     add sp, byte 4                   ; 0x0f50
-@..loc_OOHI.l2:
+@..show_treasure_message.l2:
     ret                              ; 0x0f53

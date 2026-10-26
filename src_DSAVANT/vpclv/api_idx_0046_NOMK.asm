@@ -70,8 +70,8 @@ api_idx_0046_NOMK:
     mov ax, 0x248                    ; 0x5066
     imul word [bp + 0x4]             ; 0x5069
     mov bx, ax                       ; 0x506c
-    mov ax, word [bx + party_records + pc_rec.f_000c] ; 0x506e
-    mov dx, word [bx + party_records + pc_rec.f_000e] ; 0x5072
+    mov ax, word [bx + party_records + pc_rec.experience] ; 0x506e
+    mov dx, word [bx + party_records + pc_rec.experience + 0x2] ; 0x5072
     cmp dx, word [bp - 0x0002]       ; 0x5076
     jl short @..api_idx_0046_NOMK.l4 ; 0x5079
     jne short @..api_idx_0046_NOMK.l5 ; 0x507b

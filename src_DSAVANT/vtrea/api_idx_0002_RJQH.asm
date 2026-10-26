@@ -5,7 +5,7 @@ api_idx_0002_RJQH:
     mov ax, 1                        ; 0x0f9c
     push ax                          ; 0x0f9f
     push ax                          ; 0x0fa0
-    call api_idx_0004_IMVS           ; 0x0fa1
+    call api_idx_0004_VQUG           ; 0x0fa1
     add sp, byte 4                   ; 0x0fa4
     mov bx, word [bp + 0x6]          ; 0x0fa7
     cmp byte [bx], 0                 ; 0x0faa

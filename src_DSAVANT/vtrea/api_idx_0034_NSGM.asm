@@ -127,7 +127,7 @@ api_idx_0034_NSGM:
     push ax                          ; 0x712d
     lea ax, word [bp - 0x0034]       ; 0x712e
     push ax                          ; 0x7131
-    call loc_OOHI                    ; 0x7132
+    call show_treasure_message       ; 0x7132
     add sp, byte 8                   ; 0x7135
     jmp short @..api_idx_0034_NSGM.l10 ; 0x7138
 @..api_idx_0034_NSGM.l9:
@@ -138,7 +138,7 @@ api_idx_0034_NSGM:
     push ax                          ; 0x7142
     lea ax, word [bp - 0x0034]       ; 0x7143
     push ax                          ; 0x7146
-    call loc_OOHI                    ; 0x7147
+    call show_treasure_message       ; 0x7147
     add sp, byte 8                   ; 0x714a
 @..api_idx_0034_NSGM.l10:
     mov ax, word [bp - 0x0008]       ; 0x714d

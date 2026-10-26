@@ -348,8 +348,8 @@ api_idx_0054_RLST:
     mov ax, 0x248                    ; 0x1e75
     imul word [bp + 0x4]             ; 0x1e78
     mov bx, ax                       ; 0x1e7b
-    push word [bx + party_records + pc_rec.f_000e] ; 0x1e7d
-    push word [bx + party_records + pc_rec.f_000c] ; 0x1e81
+    push word [bx + party_records + pc_rec.experience + 0x2] ; 0x1e7d
+    push word [bx + party_records + pc_rec.experience] ; 0x1e81
     call draw_padded_number          ; 0x1e85
     add sp, byte 8                   ; 0x1e88
     lea ax, word [bp - 0x0054]       ; 0x1e8b

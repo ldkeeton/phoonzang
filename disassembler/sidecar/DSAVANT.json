@@ -528,7 +528,7 @@
         "5b72": {"name": "saved_screen_kind", "note": "int [] per saved-screen slot: 3 when the screen was saved to the file saved_screen_file[n], -1 once freed"},
         "5b7c": {"name": "saved_screen_file", "note": "char [][20] per saved-screen slot: file name of a screen saved to disk"},
         "5be0": {"name": "saved_screen_ref", "note": "long [] per saved-screen slot: the driver's reference passed to gfx_restore_screen"},
-        "5bf4": {"name": "party_records", "note": "six 0x248-byte party records (pc_rec); panel_area and member_icon follow", "record": {"name": "pc_rec", "size": 584, "count": 6, "fields": {"0": {"name": "name", "size": 8}, "18": {"name": "pair_a", "size": 4}, "1c": {"name": "pair_b", "size": 4}, "20": "power_total", "24": "power_cap", "28": {"name": "realm_points", "size": 24}, "40": {"name": "cell", "size": 240}, "130": {"name": "slot_info", "size": 36}, "154": {"name": "order", "size": 8}, "166": {"name": "status", "size": 10}, "170": {"name": "stat", "size": 8}, "178": {"name": "flag", "size": 34}, "19a": {"name": "prev", "size": 14}, "1a8": {"name": "cur", "size": 14}, "1b6": {"name": "count", "size": 8}, "236": "kind", "237": "glyph_set", "238": "gender", "239": "profession", "23b": "state", "23c": "attack", "23d": "defense", "243": "adjusted_stat4", "244": "adjusted_stat5", "245": "stat5_plus_power", "247": "power_floor"}}},
+        "5bf4": {"name": "party_records", "note": "six 0x248-byte party records (pc_rec); panel_area and member_icon follow", "record": {"name": "pc_rec", "size": 584, "count": 6, "fields": {"0": {"name": "name", "size": 8}, "c": {"name": "experience", "size": 4}, "18": {"name": "pair_a", "size": 4}, "1c": {"name": "pair_b", "size": 4}, "20": "power_total", "24": "power_cap", "28": {"name": "realm_points", "size": 24}, "40": {"name": "cell", "size": 240}, "130": {"name": "slot_info", "size": 36}, "154": {"name": "order", "size": 8}, "166": {"name": "status", "size": 10}, "170": {"name": "stat", "size": 8}, "178": {"name": "flag", "size": 34}, "19a": {"name": "prev", "size": 14}, "1a8": {"name": "cur", "size": 14}, "1b6": {"name": "count", "size": 8}, "236": "kind", "237": "glyph_set", "238": "gender", "239": "profession", "23b": "state", "23c": "attack", "23d": "defense", "243": "adjusted_stat4", "244": "adjusted_stat5", "245": "stat5_plus_power", "247": "power_floor"}}},
         "69a4": {"name": "panel_area", "note": "long [] per party member: saved screen area each member panel restores"},
         "69bc": {"name": "member_icon", "note": "int [] per party member: slot icon glyph; moves with the party record when the party is reordered"},
         "69c8": {"name": "party_char_count", "note": "number of party_char records in use"},
@@ -1199,6 +1199,7 @@
         {"offset": "3997", "space": "ds", "note": "`add ax, list_row_name`: base of the 22-byte row name strings passed to draw_split_two_line_text"}
       ],
       "data_names": {
+        "91d4": {"name": "treasure_message_row", "note": "row passed to centered treasure messages"},
         "966a": {"name": "known_spell_ids", "note": "int[]: spell ids collect_known_spells found, parallel to known_spell_names"},
         "93ae": {"name": "list_row_marked", "note": "per-row int flag; nonzero draws a c mark glyph"},
         "93d6": {"name": "list_row_glyph", "note": "per-row glyph byte, 2-byte stride"},
@@ -1219,8 +1220,10 @@
         "95e2": {"name": "cast_spell_target", "note": "party slot picked for a targeted spell in this overlay, -1 on Esc"}
       },
       "function_names": {
+        "0ea4": {"name": "show_treasure_message", "note": "center text on a message row with color optional sound and delay"},
         "435a": {"name": "apply_spell_effect_alt", "note": "applies a cast spell: (pc, spell, power, target); larger vtrea variant of apply_spell_effect"},
         "4aca": {"name": "cast_spell_from_dialog", "note": "spell dialog for a pc, then pays the points, applies the spell, drains record word +0 and redraws the spell points"},
+        "5d72": {"name": "distribute_survivor_experience", "note": "adjust the reward by excluded record count and add each survivor share"},
         "81f2": {"name": "draw_split_two_line_text", "note": "draws text split at the first / as two lines of up to 10 chars, the second 6 px lower"},
         "0082": {"name": "draw_animation_frame", "note": "draws animation frame 0..6; returns the index, -1 if out of range"},
         "0103": {"name": "draw_treasure_panel", "note": "draws the treasure panel grid for the pending action"},

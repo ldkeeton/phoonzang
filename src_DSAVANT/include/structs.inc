@@ -60,8 +60,7 @@ struc pc_rec
     .name: resb 8
     .f_0008: resb 2
     .f_000a: resb 2
-    .f_000c: resb 2
-    .f_000e: resb 2
+    .experience: resb 4
     .f_0010: resb 2
     .f_0012: resb 2
     .f_0014: resb 2

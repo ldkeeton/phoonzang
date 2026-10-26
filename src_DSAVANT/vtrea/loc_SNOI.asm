@@ -100,7 +100,7 @@ loc_SNOI:
     push ax                          ; 0x7e84
     call load_monster_picture        ; 0x7e85
     add sp, byte 4                   ; 0x7e88
-    mov word [bss_91d4], 1           ; 0x7e8b
+    mov word [treasure_message_row], 1 ; 0x7e8b
     mov word [party_redraw_interval], 5 ; 0x7e91
     mov word [show_area_bottom], 0x8f ; 0x7e97
     call flush_keyboard              ; 0x7e9d

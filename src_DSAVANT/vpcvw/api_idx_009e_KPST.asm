@@ -219,8 +219,8 @@ api_idx_009e_KPST:
     mov ax, 0x248                    ; 0x1aa2
     imul word [bp + 0x4]             ; 0x1aa5
     mov bx, ax                       ; 0x1aa8
-    mov cx, word [bx + party_records + pc_rec.f_000c] ; 0x1aaa
-    mov bx, word [bx + party_records + pc_rec.f_000e] ; 0x1aae
+    mov cx, word [bx + party_records + pc_rec.experience] ; 0x1aaa
+    mov bx, word [bx + party_records + pc_rec.experience + 0x2] ; 0x1aae
     mov ax, word [bp - 0x000c]       ; 0x1ab2
     mov dx, word [bp - 0x000a]       ; 0x1ab5
     sub ax, cx                       ; 0x1ab8

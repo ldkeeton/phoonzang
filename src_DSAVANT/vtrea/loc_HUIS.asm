@@ -490,10 +490,10 @@ loc_HUIS:
     mov ax, 1                        ; 0x5c21
     push ax                          ; 0x5c24
     push ax                          ; 0x5c25
-    push word [bss_91d4]             ; 0x5c26
+    push word [treasure_message_row] ; 0x5c26
     lea ax, word [bp - 0x0104]       ; 0x5c2a
     push ax                          ; 0x5c2e
-    call loc_OOHI                    ; 0x5c2f
+    call show_treasure_message       ; 0x5c2f
     add sp, byte 8                   ; 0x5c32
 @..loc_HUIS.l43:
     inc word [bp - 0x0002]           ; 0x5c35
@@ -535,10 +535,10 @@ loc_HUIS:
     push ax                          ; 0x5c8f
     mov ax, 0                        ; 0x5c90
     push ax                          ; 0x5c93
-    push word [bss_91d4]             ; 0x5c94
+    push word [treasure_message_row] ; 0x5c94
     lea ax, word [bp - 0x0104]       ; 0x5c98
     push ax                          ; 0x5c9c
-    call loc_OOHI                    ; 0x5c9d
+    call show_treasure_message       ; 0x5c9d
     add sp, byte 8                   ; 0x5ca0
 @..loc_HUIS.l48:
     cmp word [bp - 0x008a], byte 0   ; 0x5ca3
@@ -573,10 +573,10 @@ loc_HUIS:
     push ax                          ; 0x5cee
     mov ax, 1                        ; 0x5cef
     push ax                          ; 0x5cf2
-    push word [bss_91d4]             ; 0x5cf3
+    push word [treasure_message_row] ; 0x5cf3
     lea ax, word [bp - 0x0104]       ; 0x5cf7
     push ax                          ; 0x5cfb
-    call loc_OOHI                    ; 0x5cfc
+    call show_treasure_message       ; 0x5cfc
     add sp, byte 8                   ; 0x5cff
 @..loc_HUIS.l51:
     mov ax, 0                        ; 0x5d02
@@ -603,8 +603,8 @@ loc_HUIS:
     jne short @..loc_HUIS.l53        ; 0x5d36
     mov ax, word [bp - 0x008c]       ; 0x5d38
     mov dx, word [bp - 0x008a]       ; 0x5d3c
-    add word [bx + party_records + pc_rec.f_000c], ax ; 0x5d40
-    adc word [bx + party_records + pc_rec.f_000e], dx ; 0x5d44
+    add word [bx + party_records + pc_rec.experience], ax ; 0x5d40
+    adc word [bx + party_records + pc_rec.experience + 0x2], dx ; 0x5d44
     mov ax, word [bp - 0x0088]       ; 0x5d48
     mov dx, word [bp - 0x0086]       ; 0x5d4c
     add word [bx + party_records + pc_rec.f_0014], ax ; 0x5d50

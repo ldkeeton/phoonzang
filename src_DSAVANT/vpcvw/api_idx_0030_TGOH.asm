@@ -103,8 +103,8 @@ api_idx_0030_TGOH:
 @..api_idx_0030_TGOH.l8:
     mov word [bx + party_records + pc_rec.power_cap], 1 ; 0x93a3
     mov byte [bx + party_records + pc_rec.f_023a], 0 ; 0x93a9
-    mov word [bx + party_records + pc_rec.f_000e], 0 ; 0x93ae
-    mov word [bx + party_records + pc_rec.f_000c], 0 ; 0x93b4
+    mov word [bx + party_records + pc_rec.experience + 0x2], 0 ; 0x93ae
+    mov word [bx + party_records + pc_rec.experience], 0 ; 0x93b4
     mov al, byte [bx + party_records + pc_rec.glyph_set] ; 0x93ba
     sub ah, ah                       ; 0x93be
     push ax                          ; 0x93c0

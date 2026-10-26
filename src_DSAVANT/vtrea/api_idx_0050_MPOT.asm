@@ -24,18 +24,18 @@ api_idx_0050_MPOT:
     push ax                          ; 0x141d
     mov ax, 0                        ; 0x141e
     push ax                          ; 0x1421
-    push word [bss_91d4]             ; 0x1422
+    push word [treasure_message_row] ; 0x1422
     lea ax, word [bp - 0x0050]       ; 0x1426
     push ax                          ; 0x1429
-    call loc_OOHI                    ; 0x142a
+    call show_treasure_message       ; 0x142a
     add sp, byte 8                   ; 0x142d
     mov ax, 0xb8                     ; 0x1430
     push ax                          ; 0x1433
     mov ax, 0                        ; 0x1434
     push ax                          ; 0x1437
-    push word [bss_91d4]             ; 0x1438
+    push word [treasure_message_row] ; 0x1438
     mov ax, bss_91d6                 ; 0x143c
     push ax                          ; 0x143f
-    call loc_OOHI                    ; 0x1440
+    call show_treasure_message       ; 0x1440
     add sp, byte 8                   ; 0x1443
     ret                              ; 0x1446
