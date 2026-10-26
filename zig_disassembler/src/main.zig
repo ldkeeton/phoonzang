@@ -73,10 +73,10 @@ pub fn main(init: std.process.Init) !void {
         l.host_starts = host_starts;
     }
 
-    var files: std.ArrayList(render.File) = .empty;
+    var prepared: std.ArrayList(render.Prepared) = .empty;
     for (order.items) |b| {
         const l = layouts.get(b.name).?;
-        try render.render(gpa, l, if (b.kind == .overlay) host_layout else null, &files);
+        try prepared.append(gpa, try render.prepare(gpa, l, if (b.kind == .overlay) host_layout else null));
         var code: usize = 0;
         for (b.state[b.code_lo..b.code_hi]) |s| {
             if (s == .start or s == .cont) code += 1;
@@ -86,7 +86,10 @@ pub fn main(init: std.process.Init) !void {
         });
     }
 
-    try shared.share(gpa, &files);
+    const resolution = try shared.resolve(gpa, prepared.items);
+    var files: std.ArrayList(render.File) = .empty;
+    for (prepared.items) |binary| try render.emit(gpa, binary, resolution, &files);
+    try files.appendSlice(gpa, resolution.files);
 
     try removeGenerated(io, gpa, cwd, out_dir);
     for (files.items) |f| {

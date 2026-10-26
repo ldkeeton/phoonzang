@@ -1,5 +1,9 @@
 PY := python3
 ASM := disassembler
+ZIG ?= zig
+OPT ?= ReleaseSafe
+ZIG_DISASSEMBLER := zig_disassembler/build_out/zig_disassembler
+ZIG_SOURCES := $(wildcard zig_disassembler/src/*.zig deziggler/src/*.zig)
 CMD := name refs info data probe init libcheck check clean purge run verify rebuild elf-rebuild set-baseline charts help all build prebuild decompile test readme
 
 # The root has a `readme/` directory, so the target of the same name needs to
@@ -24,8 +28,14 @@ stats-diff:
 flow:
 	@cd $(ASM) && $(PY) -m flow.generate $(ARGS)
 
-zig:
+zig: $(ZIG_DISASSEMBLER)
 	@zig_disassembler/run.sh $(ARGS)
+
+$(ZIG_DISASSEMBLER): $(ZIG_SOURCES) Makefile
+	@mkdir -p $(@D)
+	$(ZIG) build-exe -O $(OPT) --dep deziggler -Mmain=zig_disassembler/src/main.zig \
+		-Mdeziggler=deziggler/src/deziggler.zig --name zig_disassembler \
+		--cache-dir zig_disassembler/.cache -femit-bin=$@
 
 ifneq ($(filter $(CMD),$(MAKECMDGOALS)),)
 name refs info data probe init libcheck check clean purge run verify rebuild elf-rebuild all build prebuild decompile test readme:

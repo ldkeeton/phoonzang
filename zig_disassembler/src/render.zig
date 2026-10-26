@@ -18,7 +18,24 @@ pub const File = struct {
     bin: []const u8 = "",
     stem: []const u8 = "",
     data: bool = false,
-    master: bool = false,
+};
+
+/// Fragment texts and names ready for sharing; master emission is deferred.
+pub const Prepared = struct {
+    layout: *Layout,
+    fragments: []const File,
+    names: std.StringHashMap(void),
+};
+
+/// Resolved include target with equates in emission order (name, value).
+pub const Target = struct {
+    path: []const u8,
+    aliases: []const [2][]const u8,
+};
+
+pub const Resolution = struct {
+    targets: std.StringHashMap(Target),
+    files: []const File,
 };
 
 const PtrSpace = enum { ds, cs };
@@ -276,7 +293,7 @@ const Syms = struct {
     /// A symbol at *start*; a later one at the same start may widen it into
     /// a range ``[start, end)`` but never renames it.
     fn add(s: *Syms, gpa: Allocator, space: zg.Space, start: u32, end: u32, name: []const u8, start_only: bool) !void {
-        const g = try s.index.getOrPut(gpa, (@as(u64, @intFromEnum(space)) << 32) | start);
+        const g = try s.index.getOrPut(gpa, (@as(u64, @backingInt(space)) << 32) | start);
         if (g.found_existing) {
             const e = &s.syms.items[g.value_ptr.*];
             if (!std.mem.eql(u8, s.pool.items[e.name..][0..e.name_len], name)) s.conflicts += 1;
@@ -675,8 +692,8 @@ fn fragmentText(c: *Ctx, b: *Bin) ![]const u8 {
 }
 
 const mz_fields = [_][]const u8{
-    "e_magic",    "e_cblp: bytes in last page", "e_cp: pages",      "e_crlc: relocations", "e_cparhdr: header paragraphs", "e_minalloc",
-    "e_maxalloc", "e_ss",                       "e_sp",             "e_csum",              "e_ip",                         "e_cs",
+    "e_magic",                    "e_cblp: bytes in last page", "e_cp: pages", "e_crlc: relocations", "e_cparhdr: header paragraphs", "e_minalloc",
+    "e_maxalloc",                 "e_ss",                       "e_sp",        "e_csum",              "e_ip",                         "e_cs",
     "e_lfarlc: relocation table", "e_ovno",
 };
 const ovr_fields = [_][]const u8{ "o_magic", "o_corg: code origin", "o_csize: code size", "o_dorg: data origin", "o_dsize: data size", "o_bss: bss size", "o_entry: entry" };
@@ -692,8 +709,8 @@ fn headerWords(gpa: Allocator, out: *Buf, b: *Bin, names: []const []const u8) !v
     }
 }
 
-/// Render *b*: its routine files plus the top-level file.
-pub fn render(gpa: Allocator, l: *Layout, host: ?*Layout, files: *std.ArrayList(File)) !void {
+/// Prepare all fragment texts before resolving sharing across binaries.
+pub fn prepare(gpa: Allocator, l: *Layout, host: ?*Layout) !Prepared {
     const b = l.b;
     var syms: Syms = .{};
     try labelSymbols(gpa, l, &syms);
@@ -706,15 +723,34 @@ pub fn render(gpa: Allocator, l: *Layout, host: ?*Layout, files: *std.ArrayList(
     }
     const lines = try renderLines(gpa, b, &syms, starts.items);
     var k: usize = 0;
-    var includes: Buf = .empty;
-    for (l.frags, texts) |fr, raw| {
+    const fragments = try gpa.alloc(File, l.frags.len);
+    var names = std.StringHashMap(void).init(gpa);
+    for (l.frags, texts, fragments) |fr, raw, *file| {
         const text = try fillLines(gpa, raw, lines, starts.items, &k);
         const path = try std.fmt.allocPrint(gpa, "{s}/{s}.asm", .{ fr.dir, fr.name });
-        try files.append(gpa, .{ .path = path, .text = text, .bin = b.name, .stem = fr.name, .data = b.state[fr.start] != .start });
-        const line_start = includes.items.len;
-        try includes.print(gpa, "%include \"{s}\"", .{path});
-        try pad(&includes, gpa, line_start, 42);
-        try includes.print(gpa, "; 0x{x:0>4}\n", .{fr.start});
+        file.* = .{ .path = path, .text = text, .bin = b.name, .stem = fr.name, .data = b.state[fr.start] != .start };
+        try names.put(fr.name, {});
+    }
+    for (l.host_equs.keys()) |name| try names.put(name, {});
+    for (l.ext_equs.keys()) |name| try names.put(name, {});
+    for (l.equs.keys()) |name| try names.put(name, {});
+    return .{ .layout = l, .fragments = fragments, .names = names };
+}
+
+fn emitInclude(gpa: Allocator, out: *Buf, target: Target, start: u32) !void {
+    for (target.aliases) |alias| try out.print(gpa, "{s} equ {s}\n", .{ alias[0], alias[1] });
+    const line_start = out.items.len;
+    try out.print(gpa, "%include \"{s}\"", .{target.path});
+    try pad(out, gpa, line_start, 42);
+    try out.print(gpa, "; 0x{x:0>4}\n", .{start});
+}
+
+/// Emit private fragments and the master using the resolved include targets.
+pub fn emit(gpa: Allocator, prepared: Prepared, resolution: Resolution, files: *std.ArrayList(File)) !void {
+    const l = prepared.layout;
+    const b = l.b;
+    for (prepared.fragments) |file| {
+        if (!resolution.targets.contains(file.path)) try files.append(gpa, file);
     }
 
     var out: Buf = .empty;
@@ -764,7 +800,9 @@ pub fn render(gpa: Allocator, l: *Layout, host: ?*Layout, files: *std.ArrayList(
         .driver => {},
     }
     try out.append(gpa, '\n');
-    try out.appendSlice(gpa, includes.items);
+    for (l.frags, prepared.fragments) |fr, file| {
+        try emitInclude(gpa, &out, resolution.targets.get(file.path) orelse .{ .path = file.path, .aliases = &.{} }, fr.start);
+    }
 
     // Everything past the code: the data segment as the file carries it.
     if (b.code_hi < b.data.len) {
@@ -796,5 +834,5 @@ pub fn render(gpa: Allocator, l: *Layout, host: ?*Layout, files: *std.ArrayList(
             i = next;
         }
     }
-    try files.append(gpa, .{ .path = try std.fmt.allocPrint(gpa, "{s}.asm", .{b.name}), .text = out.items, .bin = b.name, .master = true });
+    try files.append(gpa, .{ .path = try std.fmt.allocPrint(gpa, "{s}.asm", .{b.name}), .text = out.items, .bin = b.name });
 }

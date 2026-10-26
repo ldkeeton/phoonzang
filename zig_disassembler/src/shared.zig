@@ -10,7 +10,8 @@
 
 const std = @import("std");
 const Allocator = std.mem.Allocator;
-const File = @import("render.zig").File;
+const render = @import("render.zig");
+const File = render.File;
 
 const Copy = struct {
     file: usize,
@@ -26,31 +27,19 @@ const Group = struct {
 
 const Names = std.StringHashMap(void);
 
-pub fn share(gpa: Allocator, files: *std.ArrayList(File)) !void {
-    // Every name each binary defines: its routine labels and master equates.
-    var syms = std.StringHashMap(*Names).init(gpa);
-    for (files.items) |f| {
-        const gop = try syms.getOrPut(f.bin);
-        if (!gop.found_existing) {
-            gop.value_ptr.* = try gpa.create(Names);
-            gop.value_ptr.*.* = Names.init(gpa);
-        }
-        const set = gop.value_ptr.*;
-        if (!f.master) {
-            try set.put(f.stem, {});
-            continue;
-        }
-        var lines = std.mem.splitScalar(u8, f.text, '\n');
-        while (lines.next()) |line| {
-            const sp = std.mem.indexOf(u8, line, " equ ") orelse continue;
-            if (line.len > 0 and line[0] != ' ' and line[0] != ';') try set.put(line[0..sp], {});
-        }
+/// Resolve all shared paths and bindings without changing the prepared files.
+pub fn resolve(gpa: Allocator, prepared: []const render.Prepared) !render.Resolution {
+    var files: std.ArrayList(File) = .empty;
+    var syms = std.StringHashMap(*const Names).init(gpa);
+    for (prepared) |*binary| {
+        try files.appendSlice(gpa, binary.fragments);
+        try syms.put(binary.layout.b.name, &binary.names);
     }
 
     // Candidates bucketed by shape: names numbered in order of first use.
     var buckets = std.array_hash_map.String(std.ArrayList(Copy)).empty;
     for (files.items, 0..) |f, i| {
-        if (f.master or addressNamed(f.stem)) continue;
+        if (addressNamed(f.stem)) continue;
         const toks = try tokenize(gpa, f.text);
         if (!f.data and isBareRet(toks)) continue;
         var key: std.ArrayList(u8) = .empty;
@@ -135,9 +124,9 @@ pub fn share(gpa: Allocator, files: *std.ArrayList(File)) !void {
         }
     }
 
-    // Apply: one shared file per group, masters include it with aliases.
-    var drop = std.AutoHashMap(usize, void).init(gpa);
-    var redirect = std.StringHashMap([]const u8).init(gpa); // old path -> include text
+    // Resolve include targets; render owns their NASM formatting.
+    var targets = std.StringHashMap(render.Target).init(gpa);
+    var shared_files: std.ArrayList(File) = .empty;
     var lrefs = std.StringHashMap(*Names).init(gpa);
     var bit = best.iterator();
     while (bit.next()) |kv| {
@@ -146,42 +135,29 @@ pub fn share(gpa: Allocator, files: *std.ArrayList(File)) !void {
         const text = try spell(gpa, lead.text, g.binds[0]);
         for (g.members, g.binds) |m, pairs| {
             const f = files.items[m.file];
-            var inc: std.ArrayList(u8) = .empty;
+            var aliases: std.ArrayList([2][]const u8) = .empty;
             for (pairs) |p| {
-                // The routine's own label is defined by the file; the rest of
-                // the binary still calls it by its own name.
                 if (std.mem.eql(u8, p[0], g.stem)) {
-                    try inc.print(gpa, "{s} equ {s}\n", .{ p[1], p[0] });
-                    try localAliases(gpa, &inc, text, p[1], g.stem, try localRefs(gpa, files.items, f.bin, &lrefs));
-                } else try inc.print(gpa, "{s} equ {s}\n", .{ p[0], p[1] });
+                    try aliases.append(gpa, .{ p[1], p[0] });
+                    try localAliases(gpa, &aliases, text, p[1], g.stem, try localRefs(gpa, files.items, f.bin, &lrefs));
+                } else try aliases.append(gpa, p);
             }
-            try inc.print(gpa, "%include \"{s}\"", .{kv.key_ptr.*});
-            try redirect.put(f.path, inc.items);
-            try drop.put(m.file, {});
+            try targets.put(f.path, .{ .path = kv.key_ptr.*, .aliases = aliases.items });
         }
-        try files.append(gpa, .{ .path = kv.key_ptr.*, .text = text, .stem = g.stem, .data = lead.data });
+        try shared_files.append(gpa, .{ .path = kv.key_ptr.*, .text = text, .stem = g.stem, .data = lead.data });
     }
-    var out: std.ArrayList(File) = .empty;
-    for (files.items, 0..) |f, i| {
-        if (drop.contains(i)) continue;
-        var nf = f;
-        if (f.master) nf.text = try rewriteIncludes(gpa, f.text, &redirect);
-        try out.append(gpa, nf);
-    }
-    files.* = out;
-    std.debug.print("shared {d} routines across binaries ({d} copies)\n", .{ best.count(), drop.count() });
+    std.debug.print("shared {d} routines across binaries ({d} copies)\n", .{ best.count(), targets.count() });
+    return .{ .targets = targets, .files = shared_files.items };
 }
 
-/// ``own.local equ stem.local`` for each local label the shared file defines, so
-/// other routines of the binary (*refs*: their qualified local tokens) still
-/// reach them by the own name.
-fn localAliases(gpa: Allocator, out: *std.ArrayList(u8), text: []const u8, own: []const u8, stem: []const u8, refs: *Names) !void {
+/// Bind qualified local references used elsewhere in the owning binary.
+fn localAliases(gpa: Allocator, out: *std.ArrayList([2][]const u8), text: []const u8, own: []const u8, stem: []const u8, refs: *Names) !void {
     var lines = std.mem.splitScalar(u8, text, '\n');
     while (lines.next()) |line| {
         if (line.len < 3 or line[0] != '.' or line[line.len - 1] != ':') continue;
         const l = line[0 .. line.len - 1];
         const full = try std.fmt.allocPrint(gpa, "{s}{s}", .{ own, l });
-        if (refs.contains(full)) try out.print(gpa, "{s} equ {s}{s}\n", .{ full, stem, l });
+        if (refs.contains(full)) try out.append(gpa, .{ full, try std.fmt.allocPrint(gpa, "{s}{s}", .{ stem, l }) });
     }
 }
 
@@ -204,7 +180,7 @@ fn localRefs(gpa: Allocator, fs: []const File, bin: []const u8, cache: *std.Stri
 
 /// Common-name bindings for *group* (spelled after its first copy), or null
 /// when the copies differ anywhere but in names their binaries define.
-fn bind(gpa: Allocator, fs: []const File, syms: *std.StringHashMap(*Names), group: []const Copy, stem: []const u8) !?[][]const [2][]const u8 {
+fn bind(gpa: Allocator, fs: []const File, syms: *std.StringHashMap(*const Names), group: []const Copy, stem: []const u8) !?[][]const [2][]const u8 {
     for (group) |c| {
         const f = fs[c.file];
         if (std.mem.eql(u8, f.stem, stem)) continue;
@@ -317,36 +293,6 @@ fn spell(gpa: Allocator, text: []const u8, pairs: []const [2][]const u8) ![]cons
     return out.items;
 }
 
-fn rewriteIncludes(gpa: Allocator, text: []const u8, redirect: *std.StringHashMap([]const u8)) ![]const u8 {
-    var out: std.ArrayList(u8) = .empty;
-    var lines = std.mem.splitScalar(u8, text, '\n');
-    var first = true;
-    while (lines.next()) |line| {
-        if (!first) try out.append(gpa, '\n');
-        first = false;
-        const pre = "%include \"";
-        if (std.mem.startsWith(u8, line, pre)) {
-            const e = std.mem.indexOfScalarPos(u8, line, pre.len, '"') orelse line.len;
-            if (redirect.get(line[pre.len..e])) |inc| {
-                try out.appendSlice(gpa, inc);
-                const suffix = std.mem.trimStart(u8, line[@min(e + 1, line.len)..], " ");
-                if (suffix.len > 0) {
-                    // Re-pad the final include after changing its path; inc
-                    // can also contain alias lines before the include.
-                    const start = if (std.mem.lastIndexOfScalar(u8, inc, '\n')) |nl| nl + 1 else 0;
-                    const len = inc.len - start;
-                    if (len < 42) try out.appendNTimes(gpa, ' ', 42 - len);
-                    try out.append(gpa, ' ');
-                    try out.appendSlice(gpa, suffix);
-                }
-                continue;
-            }
-        }
-        try out.appendSlice(gpa, line);
-    }
-    return out.items;
-}
-
 /// Line without its trailing ``; 0xADDR`` annotation.
 fn stripAddr(line: []const u8) []const u8 {
     const semi = std.mem.lastIndexOf(u8, line, "; 0x") orelse return line;
@@ -400,7 +346,7 @@ fn numberedLocal(loc: []const u8) bool {
 }
 
 /// A name *set*'s binary defines: a label, an equate, or a qualified local.
-fn isName(set: *Names, t: []const u8) bool {
+fn isName(set: *const Names, t: []const u8) bool {
     if (t.len == 0 or !identStart(t[0])) return false;
     if (set.contains(t)) return true;
     const dot = std.mem.lastIndexOfScalar(u8, t, '.') orelse return false;
@@ -469,3 +415,4 @@ fn band(f: File) []const u8 {
     if (std.mem.indexOf(u8, f.text, "call aztec_csav") != null) return "game";
     return "library";
 }
+
