@@ -35,7 +35,7 @@ $(ZIG_DISASSEMBLER): $(ZIG_SOURCES) Makefile
 	@mkdir -p $(@D)
 	$(ZIG) build-exe -O $(OPT) --dep deziggler -Mmain=zig_disassembler/src/main.zig \
 		-Mdeziggler=deziggler/src/deziggler.zig --name zig_disassembler \
-		--cache-dir zig_disassembler/.cache -femit-bin=$@
+		--cache-dir zig_disassembler/.cache --global-cache-dir .cache/zig -femit-bin=$@
 
 ifneq ($(filter $(CMD),$(MAKECMDGOALS)),)
 name refs info data probe init libcheck check clean purge run verify rebuild elf-rebuild all build prebuild decompile test readme:

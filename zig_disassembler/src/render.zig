@@ -14,28 +14,59 @@ const Buf = std.ArrayList(u8);
 pub const File = struct {
     path: []const u8,
     text: []const u8,
-    /// Owning binary and routine name (empty for a master).
-    bin: []const u8 = "",
-    stem: []const u8 = "",
-    data: bool = false,
 };
 
-/// Fragment texts and names ready for sharing; master emission is deferred.
+/// A named operand field inside a fragment: the bytes sharing masks, and
+/// what they must mean in every copy.
+pub const Slot = struct {
+    /// Byte offset of the field from the fragment's start, and its size.
+    at: u32,
+    size: u8,
+    target: union(enum) {
+        /// A code address inside the fragment, from its start.
+        internal: u32,
+        /// ``name + off`` in *space*, outside the fragment.
+        external: struct { space: zg.Space, name: []const u8, off: u32 },
+        /// A rel target spelled as a number: where the fragment sits matters.
+        absolute: u16,
+    },
+};
+
+pub const Fragment = struct {
+    path: []const u8,
+    text: []const u8,
+    slots: []const Slot,
+};
+
+/// Fragment texts and operand slots, ready for sharing; master emission is
+/// deferred until the shared files are decided.
 pub const Prepared = struct {
     layout: *Layout,
-    fragments: []const File,
-    names: std.StringHashMap(void),
+    host: ?*Layout,
+    fragments: []Fragment,
 };
 
-/// Resolved include target with equates in emission order (name, value).
+/// Where a fragment's ``%include`` points, with ``lhs equ rhs`` aliases.
 pub const Target = struct {
     path: []const u8,
     aliases: []const [2][]const u8,
 };
 
-pub const Resolution = struct {
-    targets: std.StringHashMap(Target),
-    files: []const File,
+/// Names a shared file spells differently from its lead copy: *own* (the
+/// lead's label, and its ``own.local`` labels) as *stem*, the rest by *names*.
+pub const Rename = struct {
+    own: []const u8,
+    stem: []const u8,
+    names: std.StringHashMap([]const u8),
+
+    fn spell(r: ?*const Rename, gpa: Allocator, name: []const u8) ![]const u8 {
+        const rn = r orelse return name;
+        if (rn.names.get(name)) |n| return n;
+        if (std.mem.eql(u8, name, rn.own)) return rn.stem;
+        if (name.len > rn.own.len and name[rn.own.len] == '.' and std.mem.startsWith(u8, name, rn.own))
+            return try std.fmt.allocPrint(gpa, "{s}{s}", .{ rn.stem, name[rn.own.len..] });
+        return name;
+    }
 };
 
 const PtrSpace = enum { ds, cs };
@@ -63,14 +94,17 @@ pub const Layout = struct {
     cs_imm: std.AutoHashMap(u32, [2]u32),
     own_names: std.StringHashMap(void),
     imm_ptrs: std.AutoHashMap(u32, PtrSpace),
+    /// Local labels another fragment spells in full (``frag.forward2``).
+    outside_locals: std.AutoHashMap(u32, void),
 
     /// The label at *f* as spelled from fragment *from* (null if none).
-    fn ref(l: *const Layout, gpa: Allocator, f: u32, from: ?usize) !?[]const u8 {
+    fn ref(l: *Layout, gpa: Allocator, f: u32, from: ?usize) !?[]const u8 {
         const v = l.labels.get(f) orelse return null;
         const fr = l.frags[v[0]];
         if (v[1] == 0) return fr.name;
         const local = l.local_names.get(f).?;
         if (from != null and from.? == v[0]) return local;
+        if (from != null) try l.outside_locals.put(f, {});
         return try std.fmt.allocPrint(gpa, "{s}{s}", .{ fr.name, local });
     }
 };
@@ -118,6 +152,95 @@ fn bandDir(gpa: Allocator, b: *Bin, f: u32) ![]const u8 {
     return b.name;
 }
 
+/// Where the Python build ends a routine early: past the last instruction its
+/// root reaches, the first data label nothing in the routine refers to starts
+/// a data object of its own (``cseg_<addr>``), and the last routine stops at
+/// the last instruction in the binary.  A library routine is a whole vendor
+/// module and is never cut.
+fn tailCuts(gpa: Allocator, b: *Bin, starts: *std.AutoHashMap(u32, []const u8), refs: []const an.Ref) !void {
+    var keys: std.ArrayList(u32) = .empty;
+    var kit = starts.keyIterator();
+    while (kit.next()) |k| try keys.append(gpa, k.*);
+    std.mem.sort(u32, keys.items, {}, std.sort.asc(u32));
+    // A plain ``loc`` callee the routine above refers to is that routine's
+    // code, whoever else calls it: the Python build cuts at named roots only.
+    var kept: std.ArrayList(u32) = .empty;
+    for (keys.items, 0..) |r, i| {
+        if (i > 0 and b.plain.contains(r)) {
+            const lo = kept.items[kept.items.len - 1];
+            const hi = if (i + 1 < keys.items.len) keys.items[i + 1] else b.code_hi;
+            const used = for (refs) |q| {
+                if (q.dst == r and q.src >= lo and q.src < hi) break true;
+            } else false;
+            if (used and b.state[lo] == .start) {
+                _ = starts.remove(r);
+                continue;
+            }
+        }
+        try kept.append(gpa, r);
+    }
+    keys.items = kept.items;
+    var cuts: std.ArrayList(u32) = .empty;
+    for (keys.items, 0..) |s, i| {
+        if (b.state[s] != .start or b.library.contains(s)) continue;
+        const e = if (i + 1 < keys.items.len) keys.items[i + 1] else b.code_hi;
+        const own_end = try reach(gpa, b, s, e);
+        var cut: ?u32 = null;
+        for (refs) |r| {
+            if (r.dst < own_end or r.dst >= e or b.state[r.dst] == .start) continue;
+            if (cut != null and cut.? <= r.dst) continue;
+            const inside = for (refs) |q| {
+                if (q.dst == r.dst and q.src >= s and q.src < e) break true;
+            } else false;
+            if (!inside) cut = r.dst;
+        }
+        if (cut == null and i + 1 == keys.items.len) {
+            // The last routine runs to the last instruction in the binary.
+            var last = own_end;
+            var f = s;
+            while (f < e) : (f += 1) if (b.insn[f]) |in| {
+                if (b.state[f] == .start) last = @max(last, f + in.len);
+            };
+            if (last < e) cut = last;
+        }
+        if (cut) |c| try cuts.append(gpa, c);
+    }
+    for (cuts.items) |c| try starts.put(c, try std.fmt.allocPrint(gpa, "cseg_{x:0>4}", .{c}));
+}
+
+/// The end of the last instruction reachable from *s* without leaving
+/// ``[s, e)``: fall-through and direct branches, and switch arms.
+fn reach(gpa: Allocator, b: *Bin, s: u32, e: u32) !u32 {
+    var seen = std.AutoHashMap(u32, void).init(gpa);
+    defer seen.deinit();
+    var work: std.ArrayList(u32) = .empty;
+    defer work.deinit(gpa);
+    try work.append(gpa, s);
+    var end = s;
+    while (work.pop()) |f| {
+        if (f < s or f >= e or b.state[f] != .start) continue;
+        if ((try seen.getOrPut(f)).found_existing) continue;
+        const in = b.insn[f].?;
+        end = @max(end, f + in.len);
+        if (in.nops > 0 and in.ops[0].kind == .rel and (in.flow == .jmp or in.flow == .jcc)) {
+            const t = b.relTarget(&in);
+            if (t >= 0) try work.append(gpa, @intCast(t));
+        }
+        if (in.flow == .jmp_ind) for (b.tables.items) |tb| if (tb.jmp == f) {
+            var at = tb.addr + 2 * tb.keys;
+            while (at + 2 <= tb.end) : (at += 2) {
+                const t = b.fileOf(std.mem.readInt(u16, b.data[at..][0..2], .little));
+                if (t >= 0) try work.append(gpa, @intCast(t));
+            }
+        };
+        switch (in.flow) {
+            .ret, .halt, .jmp, .jmp_ind, .jmp_far => {},
+            else => if (!b.dosExit(f, &in)) try work.append(gpa, f + in.len),
+        }
+    }
+    return end;
+}
+
 /// Fragments, labels and immediate-pointer facts for *b*.
 pub fn layout(gpa: Allocator, b: *Bin) !*Layout {
     var starts = std.AutoHashMap(u32, []const u8).init(gpa);
@@ -133,21 +256,17 @@ pub fn layout(gpa: Allocator, b: *Bin) !*Layout {
     }
     if (!starts.contains(b.code_lo)) try starts.put(b.code_lo, try std.fmt.allocPrint(gpa, "{s}_code_start", .{b.name}));
 
-    var keys: std.ArrayList(u32) = .empty;
-    var sit = starts.keyIterator();
-    while (sit.next()) |k| try keys.append(gpa, k.*);
-    std.mem.sort(u32, keys.items, {}, std.sort.asc(u32));
-
     const l = try gpa.create(Layout);
     l.* = .{
         .b = b,
-        .frags = try gpa.alloc(Frag, keys.items.len),
+        .frags = &.{},
         .labels = std.AutoHashMap(u32, [2]u32).init(gpa),
         .local_names = std.AutoHashMap(u32, []const u8).init(gpa),
         .own_names = std.StringHashMap(void).init(gpa),
         .imm_ptrs = std.AutoHashMap(u32, PtrSpace).init(gpa),
         .ds_starts = std.AutoHashMap(u16, void).init(gpa),
         .cs_imm = std.AutoHashMap(u32, [2]u32).init(gpa),
+        .outside_locals = std.AutoHashMap(u32, void).init(gpa),
     };
     if (b.kind != .driver) {
         if (sidecar.obj(b.sc, "data_names")) |dn| {
@@ -161,20 +280,6 @@ pub fn layout(gpa: Allocator, b: *Bin) !*Layout {
             if (m.reg == zg.direct and (in.segment() == null or in.segment() == 3)) try l.ds_starts.put(m.value, {});
         }
     }
-    var used = std.StringHashMap(void).init(gpa);
-    for (keys.items, 0..) |s, i| {
-        var name = starts.get(s).?;
-        if (used.contains(name)) name = try std.fmt.allocPrint(gpa, "{s}_{x:0>4}", .{ name, s });
-        try used.put(name, {});
-        l.frags[i] = .{
-            .start = s,
-            .end = if (i + 1 < keys.items.len) keys.items[i + 1] else b.code_hi,
-            .name = name,
-            .dir = try bandDir(gpa, b, s),
-        };
-        try l.labels.put(s, .{ @intCast(i), 0 });
-    }
-    l.own_names = used;
 
     for (sidecar.arr(b.sc, "immediate_pointers")) |pv| {
         const o = switch (pv) {
@@ -188,17 +293,19 @@ pub fn layout(gpa: Allocator, b: *Bin) !*Layout {
 
     // Named code-data objects: an immediate equal to one is its address.
     var cdn_starts = std.AutoHashMap(u32, void).init(gpa);
-    for (l.frags) |fr| if (b.state[fr.start] != .start) try cdn_starts.put(fr.start, {});
+    var cit = starts.keyIterator();
+    while (cit.next()) |k| if (b.state[k.*] != .start) try cdn_starts.put(k.*, {});
 
     // Every address something refers to gets a label.
     var targets = std.AutoHashMap(u32, void).init(gpa);
+    var refs: std.ArrayList(an.Ref) = .empty;
     var backward_sources = std.AutoHashMap(u32, std.ArrayList(u32)).init(gpa);
     var f: u32 = b.code_lo;
     while (f < b.code_hi) : (f += 1) {
         const in = b.insn[f] orelse continue;
         if (in.nops > 0 and in.ops[0].kind == .rel) {
             const t = b.relTarget(&in);
-            if (b.inCode(t) and placeable(b, t)) try targets.put(@intCast(t), {});
+            if (b.inCode(t) and placeable(b, t)) try refs.append(gpa, .{ .src = f, .dst = @intCast(t) });
             if ((in.flow == .jmp or in.flow == .jcc) and b.inCode(t) and t < f) {
                 const sources = try backward_sources.getOrPut(@intCast(t));
                 if (!sources.found_existing) sources.value_ptr.* = .empty;
@@ -209,21 +316,21 @@ pub fn layout(gpa: Allocator, b: *Bin) !*Layout {
             const cs_ref = in.segment() == 1 or (b.kind == .driver and in.segment() == null);
             if (cs_ref and m.reg == zg.direct) {
                 const t = b.fileOf(m.value);
-                if (b.inCode(t) and placeable(b, t)) try targets.put(@intCast(t), {});
+                if (b.inCode(t) and placeable(b, t)) try refs.append(gpa, .{ .src = f, .dst = @intCast(t) });
             }
             if (in.segment() == 1 and m.reg != zg.direct and m.enc_size == 2) {
                 const t = b.fileOf(m.value);
-                if (b.inCode(t) and placeable(b, t)) try targets.put(@intCast(t), {});
+                if (b.inCode(t) and placeable(b, t)) try refs.append(gpa, .{ .src = f, .dst = @intCast(t) });
             }
         }
         if (try csImmediate(b, &cdn_starts, f, &in)) |ci| {
             try l.cs_imm.put(f, ci);
-            try targets.put(ci[0], {});
+            try refs.append(gpa, .{ .src = f, .dst = ci[0] });
         }
         if ((l.imm_ptrs.get(f) orelse .ds) == .cs) {
             for (in.ops[0..in.nops]) |op| if (op.kind == .imm and op.enc_size == 2) {
                 const t = b.fileOf(op.value);
-                if (b.inCode(t) and placeable(b, t)) try targets.put(@intCast(t), {});
+                if (b.inCode(t) and placeable(b, t)) try refs.append(gpa, .{ .src = f, .dst = @intCast(t) });
             };
         }
     }
@@ -231,9 +338,34 @@ pub fn layout(gpa: Allocator, b: *Bin) !*Layout {
         var at = tb.addr + 2 * tb.keys;
         while (at + 2 <= tb.end) : (at += 2) {
             const t = b.fileOf(std.mem.readInt(u16, b.data[at..][0..2], .little));
-            if (b.inCode(t) and placeable(b, t)) try targets.put(@intCast(t), {});
+            if (b.inCode(t) and placeable(b, t)) try refs.append(gpa, .{ .src = tb.jmp, .dst = @intCast(t) });
         }
     }
+    for (refs.items) |r| try targets.put(r.dst, {});
+    try tailCuts(gpa, b, &starts, refs.items);
+
+    var keys: std.ArrayList(u32) = .empty;
+    var sit = starts.keyIterator();
+    while (sit.next()) |k| try keys.append(gpa, k.*);
+    std.mem.sort(u32, keys.items, {}, std.sort.asc(u32));
+
+    l.frags = try gpa.alloc(Frag, keys.items.len);
+    var used = std.StringHashMap(void).init(gpa);
+    for (keys.items, 0..) |st, i| {
+        var name = starts.get(st).?;
+        if (used.contains(name)) name = try std.fmt.allocPrint(gpa, "{s}_{x:0>4}", .{ name, st });
+        try used.put(name, {});
+        l.frags[i] = .{
+            .start = st,
+            .end = if (i + 1 < keys.items.len) keys.items[i + 1] else b.code_hi,
+            .name = name,
+            // Data lives under ``<bin>/data/`` whatever band it sits in.
+            .dir = if (b.state[st] == .start) try bandDir(gpa, b, st) else try std.fmt.allocPrint(gpa, "{s}/data", .{b.name}),
+        };
+        try l.labels.put(st, .{ @intCast(i), 0 });
+    }
+    l.own_names = used;
+
     const sorted = try b.sortedKeys(&targets);
     const counters = try gpa.alloc([3]u32, l.frags.len);
     for (counters) |*counter| counter.* = .{ 0, 0, 0 };
@@ -322,14 +454,47 @@ const Ctx = struct {
     syms: *Syms,
     /// Instruction starts, in the order their placeholder lines were written.
     starts: *std.ArrayList(u32),
+    /// The current fragment's named fields.
+    slots: *std.ArrayList(Slot),
+    /// Set while spelling a shared file after its lead copy.
+    rename: ?*const Rename = null,
+
+    fn spell(c: *Ctx, name: []const u8) ![]const u8 {
+        return Rename.spell(c.rename, c.gpa, name);
+    }
+
+    /// Record the field of operand *op* of the instruction at *f*, spelled
+    /// as *want* (``null``: a number).
+    fn slot(c: *Ctx, b: *Bin, f: u32, in: *const zg.Insn, op: *const zg.Operand, want: ?struct { zg.Space, zg.symbols.Ref }) !void {
+        const fr = c.l.frags[c.frag];
+        const field: u32, const size: u8 = switch (op.kind) {
+            .mem => .{ in.disp_off, op.enc_size },
+            .imm, .rel => .{ in.imm_off, in.imm_size },
+            else => return,
+        };
+        const at = f + field - fr.start;
+        const w = want orelse {
+            // A rel target with no label is an absolute number in the text.
+            if (op.kind == .rel) try c.slots.append(c.gpa, .{ .at = at, .size = size, .target = .{ .absolute = op.value } });
+            return;
+        };
+        if (w[0] == .cs) {
+            const t = b.fileOf(op.value);
+            if (t >= fr.start and t < fr.end) {
+                try c.slots.append(c.gpa, .{ .at = at, .size = size, .target = .{ .internal = @intCast(t - fr.start) } });
+                return;
+            }
+        }
+        try c.slots.append(c.gpa, .{ .at = at, .size = size, .target = .{ .external = .{ .space = w[0], .name = w[1].name, .off = w[1].off } } });
+    }
 };
 
 /// Every label of *l* as a cs symbol (full names), and each fragment as a
 /// scope.  A code-data object's label also covers its bytes (``table + 1``).
-fn labelSymbols(gpa: Allocator, l: *Layout, s: *Syms) !void {
+fn labelSymbols(gpa: Allocator, l: *Layout, s: *Syms, rename: ?*const Rename) !void {
     const b = l.b;
     for (l.frags) |fr| {
-        const n = try s.str(gpa, fr.name);
+        const n = try s.str(gpa, try Rename.spell(rename, gpa, fr.name));
         try s.scopes.append(gpa, .{ .start = b.cs(fr.start), .end = @as(u32, b.cs(fr.start)) + (fr.end - fr.start), .name = n[0], .name_len = n[1] });
     }
     var it = l.labels.iterator();
@@ -337,7 +502,7 @@ fn labelSymbols(gpa: Allocator, l: *Layout, s: *Syms) !void {
         const f = kv.key_ptr.*;
         const v = kv.value_ptr.*;
         const fr = l.frags[v[0]];
-        const name = (try l.ref(gpa, f, null)).?;
+        const name = try Rename.spell(rename, gpa, (try l.ref(gpa, f, null)).?);
         const data = v[1] == 0 and b.state[fr.start] != .start;
         const end: u32 = if (data) @as(u32, b.cs(f)) + (fr.end - fr.start) else @as(u32, b.cs(f)) + 1;
         try s.add(gpa, .cs, b.cs(f), end, name, !data);
@@ -445,7 +610,8 @@ fn indexedName(c: *Ctx, b: *Bin, in: *const zg.Insn, m: *const zg.Operand) !?DsR
 
 /// Name a ds/es/host-code operand: its symbol (a range when it names a byte
 /// inside), and the spelling deziggler must produce.
-fn named(c: *Ctx, space: zg.Space, value: u16, start: u16, name: []const u8) !zg.symbols.Ref {
+fn named(c: *Ctx, space: zg.Space, value: u16, start: u16, own: []const u8) !zg.symbols.Ref {
+    const name = try c.spell(own);
     const off = value - start;
     try c.syms.add(c.gpa, space, start, @as(u32, value) + 1, name, off == 0);
     return .{ .name = name, .off = off };
@@ -453,7 +619,7 @@ fn named(c: *Ctx, space: zg.Space, value: u16, start: u16, name: []const u8) !zg
 
 /// A code operand: own labels are already symbols; a host label becomes one.
 fn codeName(c: *Ctx, b: *Bin, v: u16) !?zg.symbols.Ref {
-    const n = (try codeRef(c, b, v)) orelse return null;
+    const n = try c.spell((try codeRef(c, b, v)) orelse return null);
     if (!b.inCode(b.fileOf(v))) try c.syms.add(c.gpa, .cs, v, @as(u32, v) + 1, n, true);
     return .{ .name = n };
 }
@@ -478,14 +644,14 @@ fn operandWant(c: *Ctx, b: *Bin, f: u32, in: *const zg.Insn, op: *const zg.Opera
             // ``[cs:bx + table]``: the table's label.
             if (seg == 1 and op.enc_size == 2) {
                 const t = b.fileOf(op.value);
-                if (b.inCode(t)) if (try c.l.ref(c.gpa, @intCast(t), c.frag)) |n| return .{ .cs, .{ .name = n } };
+                if (b.inCode(t)) if (try c.l.ref(c.gpa, @intCast(t), c.frag)) |n| return .{ .cs, .{ .name = try c.spell(n) } };
             }
             return null;
         },
         .imm => {
             if (op.sext or op.enc_size != 2) return null;
             if (c.l.cs_imm.get(f)) |ci| if (try c.l.ref(c.gpa, ci[0], c.frag)) |n|
-                return .{ .cs, .{ .name = n, .off = ci[1] } };
+                return .{ .cs, .{ .name = try c.spell(n), .off = ci[1] } };
             if (c.l.imm_ptrs.get(f)) |sp| {
                 if (sp == .cs) {
                     if (try codeName(c, b, op.value)) |r| return .{ .cs, r };
@@ -521,10 +687,12 @@ fn symbolize(c: *Ctx, b: *Bin, f: u32, in: *const zg.Insn) !void {
             .imm => .none,
             else => continue,
         };
-        if (try operandWant(c, b, f, in, op)) |w| {
+        const want = try operandWant(c, b, f, in, op);
+        if (want) |w| {
             if (w[0] != default) try c.syms.hint(c.gpa, f, i, w[0]);
             try c.syms.wants.append(c.gpa, .{ .at = f, .cs = b.cs(f), .space = w[0], .value = op.value, .expect = w[1] });
         } else if (default != .none) try c.syms.hint(c.gpa, f, i, .none);
+        try c.slot(b, f, in, op, want);
     }
 }
 
@@ -624,7 +792,15 @@ fn dataSpan(c: *Ctx, b: *Bin, out: *Buf, lo: u32, hi: u32) !void {
                 const w = std.mem.readInt(u16, b.data[j..][0..2], .little);
                 const is_key = (j - tb.?.addr) / 2 < tb.?.keys;
                 const name = if (is_key) null else try codeRef(c, b, w);
-                if (name) |n| try out.print(gpa, "    dw {s}", .{n}) else try out.print(gpa, "    dw 0x{x:0>4}", .{w});
+                if (name) |n| {
+                    try out.print(gpa, "    dw {s}", .{try c.spell(n)});
+                    const fr = c.l.frags[c.frag];
+                    const t = b.fileOf(w);
+                    try c.slots.append(gpa, .{ .at = j - fr.start, .size = 2, .target = if (t >= fr.start and t < fr.end)
+                        .{ .internal = @intCast(t - fr.start) }
+                    else
+                        .{ .external = .{ .space = .cs, .name = n, .off = 0 } } });
+                } else try out.print(gpa, "    dw 0x{x:0>4}", .{w});
                 try pad(out, gpa, line_start, 4 + 42);
                 try out.print(gpa, "; 0x{x:0>4}\n", .{j});
                 j += 2;
@@ -670,7 +846,7 @@ fn fragmentText(c: *Ctx, b: *Bin) ![]const u8 {
     const gpa = c.gpa;
     const fr = c.l.frags[c.frag];
     var out: Buf = .empty;
-    try out.print(gpa, "; auto-generated\n{s}:\n", .{fr.name});
+    try out.print(gpa, "; auto-generated\n{s}:\n", .{try c.spell(fr.name)});
     var f = fr.start;
     while (f < fr.end) {
         if (b.state[f] != .start) {
@@ -692,8 +868,8 @@ fn fragmentText(c: *Ctx, b: *Bin) ![]const u8 {
 }
 
 const mz_fields = [_][]const u8{
-    "e_magic",                    "e_cblp: bytes in last page", "e_cp: pages", "e_crlc: relocations", "e_cparhdr: header paragraphs", "e_minalloc",
-    "e_maxalloc",                 "e_ss",                       "e_sp",        "e_csum",              "e_ip",                         "e_cs",
+    "e_magic",    "e_cblp: bytes in last page", "e_cp: pages",      "e_crlc: relocations", "e_cparhdr: header paragraphs", "e_minalloc",
+    "e_maxalloc", "e_ss",                       "e_sp",             "e_csum",              "e_ip",                         "e_cs",
     "e_lfarlc: relocation table", "e_ovno",
 };
 const ovr_fields = [_][]const u8{ "o_magic", "o_corg: code origin", "o_csize: code size", "o_dorg: data origin", "o_dsize: data size", "o_bss: bss size", "o_entry: entry" };
@@ -709,48 +885,56 @@ fn headerWords(gpa: Allocator, out: *Buf, b: *Bin, names: []const []const u8) !v
     }
 }
 
-/// Prepare all fragment texts before resolving sharing across binaries.
+/// Render every fragment of *l*; the master waits for :func:`emit`.
 pub fn prepare(gpa: Allocator, l: *Layout, host: ?*Layout) !Prepared {
     const b = l.b;
     var syms: Syms = .{};
-    try labelSymbols(gpa, l, &syms);
+    try labelSymbols(gpa, l, &syms, null);
     var starts: std.ArrayList(u32) = .empty;
-    var c = Ctx{ .gpa = gpa, .l = l, .host = host, .frag = 0, .at = 0, .syms = &syms, .starts = &starts };
+    var slots: std.ArrayList(Slot) = .empty;
+    var c = Ctx{ .gpa = gpa, .l = l, .host = host, .frag = 0, .at = 0, .syms = &syms, .starts = &starts, .slots = &slots };
     const texts = try gpa.alloc([]const u8, l.frags.len);
-    for (l.frags, 0..) |_, i| {
+    const fragments = try gpa.alloc(Fragment, l.frags.len);
+    for (l.frags, texts, fragments, 0..) |fr, *t, *f, i| {
         c.frag = i;
-        texts[i] = try fragmentText(&c, b);
+        slots.clearRetainingCapacity();
+        t.* = try fragmentText(&c, b);
+        f.* = .{ .path = try std.fmt.allocPrint(gpa, "{s}/{s}.asm", .{ fr.dir, fr.name }), .text = "", .slots = try gpa.dupe(Slot, slots.items) };
     }
     const lines = try renderLines(gpa, b, &syms, starts.items);
     var k: usize = 0;
-    const fragments = try gpa.alloc(File, l.frags.len);
-    var names = std.StringHashMap(void).init(gpa);
-    for (l.frags, texts, fragments) |fr, raw, *file| {
-        const text = try fillLines(gpa, raw, lines, starts.items, &k);
-        const path = try std.fmt.allocPrint(gpa, "{s}/{s}.asm", .{ fr.dir, fr.name });
-        file.* = .{ .path = path, .text = text, .bin = b.name, .stem = fr.name, .data = b.state[fr.start] != .start };
-        try names.put(fr.name, {});
-    }
-    for (l.host_equs.keys()) |name| try names.put(name, {});
-    for (l.ext_equs.keys()) |name| try names.put(name, {});
-    for (l.equs.keys()) |name| try names.put(name, {});
-    return .{ .layout = l, .fragments = fragments, .names = names };
+    for (texts, fragments) |raw, *f| f.text = try fillLines(gpa, raw, lines, starts.items, &k);
+    return .{ .layout = l, .host = host, .fragments = fragments };
 }
 
-fn emitInclude(gpa: Allocator, out: *Buf, target: Target, start: u32) !void {
-    for (target.aliases) |alias| try out.print(gpa, "{s} equ {s}\n", .{ alias[0], alias[1] });
-    const line_start = out.items.len;
-    try out.print(gpa, "%include \"{s}\"", .{target.path});
-    try pad(out, gpa, line_start, 42);
-    try out.print(gpa, "; 0x{x:0>4}\n", .{start});
+/// Fragment *frag* of *p* spelled with *rename*: the text of a shared file
+/// led by that copy.  Replaces the binary's deziggler symbol table.
+pub fn renderShared(gpa: Allocator, p: *const Prepared, frag: usize, rename: *const Rename) ![]const u8 {
+    var syms: Syms = .{};
+    try labelSymbols(gpa, p.layout, &syms, rename);
+    var starts: std.ArrayList(u32) = .empty;
+    var slots: std.ArrayList(Slot) = .empty;
+    var c = Ctx{ .gpa = gpa, .l = p.layout, .host = p.host, .frag = frag, .at = 0, .syms = &syms, .starts = &starts, .slots = &slots, .rename = rename };
+    const raw = try fragmentText(&c, p.layout.b);
+    const lines = try renderLines(gpa, p.layout.b, &syms, starts.items);
+    var k: usize = 0;
+    return fillLines(gpa, raw, lines, starts.items, &k);
 }
 
-/// Emit private fragments and the master using the resolved include targets.
-pub fn emit(gpa: Allocator, prepared: Prepared, resolution: Resolution, files: *std.ArrayList(File)) !void {
-    const l = prepared.layout;
+/// The fragment files *targets* leaves in the binary, and its master
+/// including each fragment where *targets* says (with its aliases).
+pub fn emit(gpa: Allocator, p: *const Prepared, targets: *const std.StringHashMap(Target), files: *std.ArrayList(File)) !void {
+    const l = p.layout;
     const b = l.b;
-    for (prepared.fragments) |file| {
-        if (!resolution.targets.contains(file.path)) try files.append(gpa, file);
+    var includes: Buf = .empty;
+    for (l.frags, p.fragments) |fr, f| {
+        const target = targets.get(f.path) orelse Target{ .path = f.path, .aliases = &.{} };
+        if (targets.get(f.path) == null) try files.append(gpa, .{ .path = f.path, .text = f.text });
+        for (target.aliases) |a| try includes.print(gpa, "{s} equ {s}\n", .{ a[0], a[1] });
+        const line_start = includes.items.len;
+        try includes.print(gpa, "%include \"{s}\"", .{target.path});
+        try pad(&includes, gpa, line_start, 42);
+        try includes.print(gpa, "; 0x{x:0>4}\n", .{fr.start});
     }
 
     var out: Buf = .empty;
@@ -800,9 +984,7 @@ pub fn emit(gpa: Allocator, prepared: Prepared, resolution: Resolution, files: *
         .driver => {},
     }
     try out.append(gpa, '\n');
-    for (l.frags, prepared.fragments) |fr, file| {
-        try emitInclude(gpa, &out, resolution.targets.get(file.path) orelse .{ .path = file.path, .aliases = &.{} }, fr.start);
-    }
+    try out.appendSlice(gpa, includes.items);
 
     // Everything past the code: the data segment as the file carries it.
     if (b.code_hi < b.data.len) {
@@ -834,5 +1016,5 @@ pub fn emit(gpa: Allocator, prepared: Prepared, resolution: Resolution, files: *
             i = next;
         }
     }
-    try files.append(gpa, .{ .path = try std.fmt.allocPrint(gpa, "{s}.asm", .{b.name}), .text = out.items, .bin = b.name });
+    try files.append(gpa, .{ .path = try std.fmt.allocPrint(gpa, "{s}.asm", .{b.name}), .text = out.items });
 }

@@ -14,9 +14,12 @@ import os
 
 SPACE = {"none": 0, "cs": 1, "ds": 2, "ss": 3, "es": 4, "ext": 5}
 FLOW = ["seq", "jmp", "jcc", "call", "ret", "jmp_ind", "call_ind", "jmp_far", "call_far", "halt"]
-KIND = ["none", "reg8", "reg16", "sreg", "imm", "mem", "rel", "far", "one", "cl", "dx"]
+KIND = ["none", "reg8", "reg16", "sreg", "imm", "mem", "rel", "far", "one", "cl", "dx", "reg32", "creg", "dreg", "treg", "st"]
+ISA = ["i8086", "i186", "i286", "i386", "i486", "x87"]
 NO_SEG = 0xFF
 DIRECT = 8
+ADDR32 = 9
+NO_REG = 0xFF
 
 _LIB_PATH = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "build_out", "libdeziggler.so")
 
@@ -31,6 +34,11 @@ class Operand(ctypes.Structure):
         ("space", ctypes.c_uint8),
         ("value", ctypes.c_uint16),
         ("seg", ctypes.c_uint16),
+        ("value_hi", ctypes.c_uint16),
+        ("base", ctypes.c_uint8),
+        ("index", ctypes.c_uint8),
+        ("scale", ctypes.c_uint8),
+        ("far", ctypes.c_bool),
     ]
 
 
@@ -50,6 +58,12 @@ class Insn(ctypes.Structure):
         ("imm_size", ctypes.c_uint8),
         ("target", ctypes.c_uint16),
         ("ops", Operand * 3),
+        ("escape", ctypes.c_uint8),
+        ("osize", ctypes.c_bool),
+        ("asize", ctypes.c_bool),
+        ("isa", ctypes.c_uint8),
+        ("facts", ctypes.c_uint8),  # seg_unused, rep_unused, lock_unused, repeated, alias, prefix_order (bit 0..5)
+        ("raw", ctypes.c_uint8 * 15),
     ]
 
 

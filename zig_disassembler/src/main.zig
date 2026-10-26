@@ -86,9 +86,9 @@ pub fn main(init: std.process.Init) !void {
         });
     }
 
-    const resolution = try shared.resolve(gpa, prepared.items);
+    const resolution = try shared.resolve(gpa, io, cwd, out_dir, prepared.items);
     var files: std.ArrayList(render.File) = .empty;
-    for (prepared.items) |binary| try render.emit(gpa, binary, resolution, &files);
+    for (prepared.items) |*p| try render.emit(gpa, p, &resolution.targets, &files);
     try files.appendSlice(gpa, resolution.files);
 
     try removeGenerated(io, gpa, cwd, out_dir);

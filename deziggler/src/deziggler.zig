@@ -1,5 +1,5 @@
-//! deziggler: 8086/186 decoding plus NASM spelling that reassembles to the
-//! same bytes.  Two phases, two big calls:
+//! deziggler: 16-bit x86 decoding (8086 through 486, x87) plus NASM spelling
+//! that reassembles to the same bytes.  Two phases, two big calls:
 //!
 //! 1. ``decodeAll`` decodes every byte offset of the code range, so a caller
 //!    can discover code without calling back in.
@@ -21,14 +21,19 @@ pub const Mnem = decoder.Mnem;
 pub const Geometry = decoder.Geometry;
 pub const Operand = decoder.Operand;
 pub const Insn = decoder.Insn;
+pub const Isa = decoder.Isa;
+pub const Facts = decoder.Facts;
 pub const Symbol = symbols.Symbol;
 pub const Scope = symbols.Scope;
 pub const Hint = symbols.Hint;
 
 pub const reg8 = decoder.reg8;
 pub const reg16 = decoder.reg16;
+pub const reg32 = decoder.reg32;
 pub const sreg = decoder.sreg;
 pub const direct = decoder.direct;
+pub const addr32 = decoder.addr32;
+pub const no_reg = decoder.no_reg;
 
 pub const decode = decoder.decode;
 pub const mnemonicName = decoder.mnemonicName;

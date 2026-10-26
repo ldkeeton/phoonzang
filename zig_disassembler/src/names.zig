@@ -41,9 +41,13 @@ pub fn nameRoutines(b: *Bin, bins: *const std.StringHashMap(*Bin), routines: ?st
             try b.names.put(@intCast(f), name);
         }
     }
-    // A driver's own dispatch table names its handlers.
+    // A driver's dispatch table names its handlers, or borrows the names of
+    // the driver whose API it implements (``api``) slot by slot.
     if (sidecar.obj(b.sc, "dispatch_table")) |dt| {
-        if (sidecar.obj(dt, "names")) |nm| {
+        const own = sidecar.obj(dt, "names");
+        const api = if (sidecar.str(dt, "api")) |a| bins.get(a) else null;
+        const shared = if (api) |a| (if (sidecar.obj(a.sc, "dispatch_table")) |adt| sidecar.obj(adt, "names") else null) else null;
+        if (own orelse shared) |nm| {
             const base: u32 = @intCast(sidecar.int(dt, "base_offset") orelse 0);
             const size: u32 = @intCast(sidecar.int(dt, "entry_size") orelse 4);
             var it = nm.iterator();
@@ -66,9 +70,17 @@ pub fn nameRoutines(b: *Bin, bins: *const std.StringHashMap(*Bin), routines: ?st
     const roots = try b.sortedKeys(&b.roots);
     var bases = std.AutoHashMap(u32, []const u8).init(gpa);
     try nameAppFunctions(b, &bases);
+    var cats = std.AutoHashMap(u32, []const u8).init(gpa);
+    for (roots) |r| {
+        if (b.names.contains(r) or bases.contains(r) or b.stubs.contains(r)) continue;
+        if (try category(b, r, &bases)) |c| try cats.put(r, try std.fmt.allocPrint(gpa, "{s}_loc", .{c}));
+    }
     for (roots) |r| {
         if (b.names.contains(r) or bases.contains(r)) continue;
-        const base = if (b.stubs.get(r)) |idx| try std.fmt.allocPrint(gpa, "api_idx_{x:0>4}", .{idx}) else "loc";
+        const base = if (b.stubs.get(r)) |idx| try std.fmt.allocPrint(gpa, "api_idx_{x:0>4}", .{idx}) else cats.get(r) orelse blk: {
+            try b.plain.put(r, {});
+            break :blk "loc";
+        };
         try bases.put(r, base);
     }
     const prefix: []const u8 = if (b.kind == .mz and std.mem.eql(u8, b.name, "ds")) "ds_" else "";
@@ -91,16 +103,6 @@ pub fn nameRoutines(b: *Bin, bins: *const std.StringHashMap(*Bin), routines: ?st
                 try b.names.put(t.off, n);
                 continue;
             };
-            // Same code under another category name: the tag alone decides.
-            var it = rt.iterator();
-            const named = while (it.next()) |kv| {
-                if (std.mem.endsWith(u8, kv.key_ptr.*, &t.tag) and kv.key_ptr.len > 5 and kv.key_ptr.*[kv.key_ptr.len - 5] == '_')
-                    break sidecar.entryName(kv.value_ptr.*);
-            } else null;
-            if (named) |n| {
-                try b.names.put(t.off, n);
-                continue;
-            }
         }
         const name = if (seen.get(key).? > 1)
             try std.fmt.allocPrint(gpa, "{s}{s}_{x:0>4}", .{ prefix, key, t.off })
@@ -151,6 +153,212 @@ fn nameDriverThunks(b: *Bin, bins: *const std.StringHashMap(*Bin)) !void {
             try b.names.put(r, name);
         }
     }
+}
+
+// ── Call-target categories (``lib/match/categorize.py``) ───────────────
+
+const At = struct { at: u32, in: zg.Insn };
+
+const bios_categories = [_]struct { int: u8, name: []const u8 }{
+    .{ .int = 0x10, .name = "bios_video" },
+    .{ .int = 0x13, .name = "bios_disk" },
+    .{ .int = 0x16, .name = "bios_kbd" },
+    .{ .int = 0x1a, .name = "bios_timer" },
+    .{ .int = 0x33, .name = "bios_mouse" },
+};
+
+const dos_categories = [_]struct { name: []const u8, ah: []const u8 }{
+    .{ .name = "dos_file", .ah = &.{ 0x3c, 0x3d, 0x3e, 0x3f, 0x40, 0x41, 0x42, 0x43, 0x56, 0x57, 0x5b, 0x5c, 0x6c } },
+    .{ .name = "dos_mem", .ah = &.{ 0x48, 0x49, 0x4a } },
+    .{ .name = "dos_con", .ah = &.{ 0x01, 0x02, 0x06, 0x07, 0x08, 0x09, 0x0a, 0x0b, 0x0c } },
+    .{ .name = "dos_proc", .ah = &.{ 0x00, 0x31, 0x4c, 0x4d } },
+    .{ .name = "dos_time", .ah = &.{ 0x2a, 0x2b, 0x2c, 0x2d } },
+    .{ .name = "dos_intvec", .ah = &.{ 0x25, 0x35 } },
+    .{ .name = "dos_dpb", .ah = &.{ 0x1f, 0x32 } },
+    .{ .name = "dos_dta", .ah = &.{ 0x1a, 0x2f, 0x4e, 0x4f } },
+    .{ .name = "dos_psp", .ah = &.{ 0x51, 0x52, 0x62 } },
+};
+
+fn isReturn(m: zg.Mnem) bool {
+    return m == .ret or m == .retf or m == .iret or m == .hlt;
+}
+
+fn isCallFlow(in: *const zg.Insn) bool {
+    return in.flow == .call or in.flow == .call_ind or in.flow == .call_far;
+}
+
+/// The category of the unnamed root *r*: its body walked like a routine for a
+/// call target, else a 128-byte window (as Python's fallback reads it).
+/// ``null`` when no signal, or for a one-instruction entry prefix that falls
+/// into a named routine.
+fn category(b: *Bin, r: u32, bases: *const std.AutoHashMap(u32, []const u8)) !?[]const u8 {
+    const gpa = b.gpa;
+    var body: std.ArrayList(At) = .empty;
+    if (b.calls.contains(r)) {
+        var seen = std.AutoHashMap(u32, void).init(gpa);
+        var pending: std.ArrayList(u32) = .empty;
+        try pending.append(gpa, r);
+        while (pending.pop()) |f| {
+            if (seen.count() >= 2048) break;
+            if (seen.contains(f) or (f != r and b.roots.contains(f))) continue;
+            if (!b.inCode(f)) continue;
+            const in = b.insn[f] orelse continue;
+            try seen.put(f, {});
+            try body.append(gpa, .{ .at = f, .in = in });
+            if (isReturn(in.mnem)) continue;
+            const t = b.relTarget(&in);
+            const rel = in.nops > 0 and in.ops[0].kind == .rel;
+            switch (in.flow) {
+                .jmp => if (rel and t >= 0) try pending.append(gpa, @intCast(t)),
+                .jmp_ind, .jmp_far => {},
+                .jcc => {
+                    if (rel and t >= 0) try pending.append(gpa, @intCast(t));
+                    try pending.append(gpa, f + in.len);
+                },
+                else => try pending.append(gpa, f + in.len),
+            }
+        }
+        std.mem.sort(At, body.items, {}, struct {
+            fn lt(_: void, x: At, y: At) bool {
+                return x.at < y.at;
+            }
+        }.lt);
+    } else {
+        var f = r;
+        while (f < @min(r + 128, b.code_hi)) {
+            const in = b.all[f - b.code_lo];
+            if (in.len == 0 or f + in.len > r + 128) break;
+            try body.append(gpa, .{ .at = f, .in = in });
+            f += in.len;
+        }
+    }
+    if (body.items.len == 0) return null;
+    const cat = detect(body.items) orelse return null;
+    if (std.mem.eql(u8, cat, "leaf") and body.items.len == 1) {
+        const in = body.items[0].in;
+        const next = r + in.len;
+        const named = b.names.contains(next) or if (bases.get(next)) |n| std.mem.startsWith(u8, n, "app") else false;
+        const target = b.roots.contains(next) or b.jumps.contains(next) or b.calls.contains(next);
+        if (target and named and !isReturn(in.mnem) and in.flow != .jmp and in.flow != .jmp_ind and in.flow != .jmp_far) return null;
+    }
+    return cat;
+}
+
+/// ``mov ah, N`` nearest before ``body[i]`` (stopping at control flow).
+fn movAh(body: []const At, i: usize) ?u8 {
+    var j = i;
+    while (j > 0) {
+        j -= 1;
+        const in = &body[j].in;
+        if (in.mnem == .mov and in.nops == 2 and in.ops[0].kind == .reg8 and in.ops[0].reg == 4 and in.ops[1].kind == .imm) return @truncate(in.ops[1].value);
+        if (in.mnem == .int or in.mnem == .jmp or in.flow == .call or in.flow == .call_ind or in.flow == .call_far or in.flow == .jmp_far or isReturn(in.mnem)) break;
+    }
+    return null;
+}
+
+/// The element of a CPython ``set`` of small ints (inserted in *order*) that
+/// iteration yields first: ``next(iter(dos_ah))`` in Python.
+fn firstInPySet(order: []const u8) ?u8 {
+    if (order.len == 0) return null;
+    var table: [256]?u8 = @splat(null);
+    var mask: usize = 7;
+    var fill: usize = 0;
+    for (order, 0..) |v, n| {
+        if (pyInsert(&table, mask, v)) fill += 1;
+        if (fill * 5 >= mask * 3) {
+            var size: usize = 8;
+            while (size <= fill * 4) size <<= 1;
+            mask = size - 1;
+            table = @splat(null);
+            for (order[0 .. n + 1]) |w| _ = pyInsert(&table, mask, w);
+        }
+    }
+    for (table[0 .. mask + 1]) |e| if (e) |v| return v;
+    return null;
+}
+
+fn pyInsert(table: *[256]?u8, mask: usize, v: u8) bool {
+    var perturb: usize = v;
+    var i: usize = v & mask;
+    while (true) {
+        if (table[i]) |e| {
+            if (e == v) return false;
+        } else {
+            table[i] = v;
+            return true;
+        }
+        if (i + 9 <= mask) {
+            for (1..10) |k| {
+                if (table[i + k]) |e| {
+                    if (e == v) return false;
+                } else {
+                    table[i + k] = v;
+                    return true;
+                }
+            }
+        }
+        perturb >>= 5;
+        i = (i * 5 + 1 + perturb) & mask;
+    }
+}
+
+/// ``_detect_category`` over a routine body sorted by address.
+fn detect(body: []const At) ?[]const u8 {
+    var calls: u32 = 0;
+    var bytes: u32 = 0;
+    var ah_order: [32]u8 = undefined;
+    var ah_n: usize = 0;
+    var bios: [bios_categories.len]bool = @splat(false);
+    var any_bios = false;
+    var io = false;
+    var string = false;
+    var fpu = false;
+    var es_write = false;
+    var stride = false;
+    var transparent = false;
+    var rotate = false;
+    var loops = false;
+    for (body, 0..) |x, i| {
+        const in = &x.in;
+        bytes += in.len;
+        if (isCallFlow(in)) calls += 1;
+        if (in.mnem == .in or in.mnem == .out) io = true;
+        // Capstone spells ``rep movsb`` as one mnemonic, which Python's set misses.
+        if (in.mnem.isString() and in.rep == 0) string = true;
+        if (@intFromEnum(in.mnem) >= @intFromEnum(zg.Mnem.fadd)) fpu = true;
+        if (in.mnem == .rol or in.mnem == .ror) rotate = true;
+        if (in.mnem == .loop or in.mnem == .loope or in.mnem == .loopne) loops = true;
+        for (in.ops[0..in.nops], 0..) |op, k| {
+            if (op.kind == .imm and (op.value == 320)) stride = true;
+            if (op.kind == .imm and in.mnem == .cmp and !op.sext and op.value == 0xff) transparent = true;
+            if (op.kind == .mem and k == 0 and in.segment() == 0 and in.mnem != .cmp and in.mnem != .@"test" and in.mnem != .push) es_write = true;
+        }
+        if (in.mnem == .stosb or in.mnem == .stosw or in.mnem == .movsb or in.mnem == .movsw) es_write = true;
+        if (in.mnem == .int and in.nops == 1) {
+            const n = in.ops[0].value;
+            if (n == 0x21) {
+                if (movAh(body, i)) |ah| if (ah_n < ah_order.len and std.mem.findScalar(u8, ah_order[0..ah_n], ah) == null) {
+                    ah_order[ah_n] = ah;
+                    ah_n += 1;
+                };
+            } else for (bios_categories, 0..) |c, k| if (c.int == n) {
+                bios[k] = true;
+                any_bios = true;
+            };
+        }
+    }
+    if (any_bios) for (bios_categories, 0..) |c, k| if (bios[k]) return c.name;
+    if (firstInPySet(ah_order[0..ah_n])) |ah| {
+        for (dos_categories) |c| if (std.mem.findScalar(u8, c.ah, ah) != null) return c.name;
+        return "dos";
+    }
+    if (es_write and stride and (transparent or (rotate and loops))) return "graphics";
+    if (io) return "io";
+    if (string) return "string";
+    if (fpu) return "fpu";
+    if (calls == 0) return "leaf";
+    if (calls == 1 and bytes <= 12 and (body[body.len - 1].in.mnem == .ret or body[body.len - 1].in.mnem == .retf)) return "thunk";
+    return null;
 }
 
 fn isCall(in: *const zg.Insn) bool {
@@ -295,4 +503,39 @@ pub fn contentTag(b: *Bin, start: u32, end: u32) ![4]u8 {
     std.crypto.hash.Md5.hash(blob.items, &digest, .{});
     const letters = "GHIJKLMNOPQRSTUV";
     return .{ letters[digest[0] >> 4], letters[digest[0] & 15], letters[digest[1] >> 4], letters[digest[1] & 15] };
+}
+
+fn testBody(gpa: Allocator, code: []const u8) ![]At {
+    var out: std.ArrayList(At) = .empty;
+    var f: u32 = 0;
+    while (f < code.len) {
+        const in = zg.decode(code, f, .{ .code_lo = 0, .code_hi = @intCast(code.len), .bias = 0 });
+        try out.append(gpa, .{ .at = f, .in = in });
+        f += in.len;
+    }
+    return out.items;
+}
+
+test "detect" {
+    var arena = std.heap.ArenaAllocator.init(std.testing.allocator);
+    defer arena.deinit();
+    const gpa = arena.allocator();
+    // mov ah, 9; int 21h; ret
+    try std.testing.expectEqualStrings("dos_con", detect(try testBody(gpa, &.{ 0xB4, 0x09, 0xCD, 0x21, 0xC3 })).?);
+    // mov ax, bx; ret
+    try std.testing.expectEqualStrings("leaf", detect(try testBody(gpa, &.{ 0x8B, 0xC3, 0xC3 })).?);
+    // in al, dx; ret
+    try std.testing.expectEqualStrings("io", detect(try testBody(gpa, &.{ 0xEC, 0xC3 })).?);
+    // call +0; ret
+    try std.testing.expectEqualStrings("thunk", detect(try testBody(gpa, &.{ 0xE8, 0x00, 0x00, 0xC3 })).?);
+    // Two AH values: Python's set yields 9 (slot 1) before 0x3d (slot 5).
+    try std.testing.expectEqualStrings("dos_con", detect(try testBody(gpa, &.{ 0xB4, 0x3D, 0xCD, 0x21, 0xB4, 0x09, 0xCD, 0x21, 0xC3 })).?);
+}
+
+test "python set order" {
+    try std.testing.expectEqual(@as(?u8, 9), firstInPySet(&.{ 0x3d, 0x09 }));
+    try std.testing.expectEqual(@as(?u8, 0x40), firstInPySet(&.{ 0x3d, 0x40 }));
+    // Five entries grow the table to 32 slots.
+    try std.testing.expectEqual(@as(?u8, 0x40), firstInPySet(&.{ 0x48, 0x40, 0x3e, 0x3f, 0x09, 0x1a }));
+    try std.testing.expectEqual(@as(?u8, 0x40), firstInPySet(&.{ 0x3c, 0x3d, 0x3e, 0x3f, 0x40, 0x41 }));
 }

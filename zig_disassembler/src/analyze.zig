@@ -62,6 +62,12 @@ pub const Bin = struct {
     calls: Set,
     jumps: Set,
     roots: Set,
+    /// Declared ``dispatch_table`` entries.
+    entries: Set,
+    /// Roots of Aztec library routines matched by signature.
+    library: Set,
+    /// Roots named only ``loc`` (no category, stub or given name).
+    plain: Set,
     /// Branch targets that land inside an instruction already decoded.
     inside: Set,
     refs: std.ArrayList(Ref) = .empty,
@@ -101,7 +107,14 @@ pub const Bin = struct {
     fn decodeAt(b: *const Bin, f: u32) ?zg.Insn {
         if (!b.inCode(f)) return null;
         const in = b.all[f - b.code_lo];
-        return if (in.len == 0) null else in;
+        return if (accept(&in)) in else null;
+    }
+
+    /// What these real-mode programs can contain: 8086/186 code an assembler
+    /// would write.  386 and x87 instructions, prefixes that do nothing and
+    /// alternative encodings mark bytes as data.
+    fn accept(in: *const zg.Insn) bool {
+        return in.len != 0 and @intFromEnum(in.isa) <= @intFromEnum(zg.Isa.i186) and !in.facts.any();
     }
 
     pub fn init(gpa: Allocator, name: []const u8, data: []const u8, sc: std.json.ObjectMap) !*Bin {
@@ -119,6 +132,9 @@ pub const Bin = struct {
             .bias = 0,
             .calls = Set.init(gpa),
             .jumps = Set.init(gpa),
+            .entries = Set.init(gpa),
+            .library = Set.init(gpa),
+            .plain = Set.init(gpa),
             .roots = Set.init(gpa),
             .inside = Set.init(gpa),
             .names = std.AutoHashMap(u32, []const u8).init(gpa),
@@ -232,7 +248,8 @@ pub const Bin = struct {
                     if (b.data[i + 2] == 0xFF) try b.stubs.put(i, 0 -% b.word(i + 1));
                 }
             },
-            .driver => {},
+            // Byte 0: the ``jmp`` over the dispatch table.
+            .driver => try b.root(b.code_lo),
         }
         if (sidecar.obj(b.sc, "dispatch_table")) |dt| {
             const base: u32 = @intCast(sidecar.int(dt, "base_offset") orelse 0);
@@ -241,7 +258,9 @@ pub const Bin = struct {
             for (0..count) |k| {
                 const at = base + @as(u32, @intCast(k)) * size;
                 if (at + 4 > n or b.data[at] != 0xE8 or b.data[at + 3] != 0xCB) continue;
-                try b.seed(at);
+                // Each entry is a far-callable ``call handler; retf``.
+                try b.root(at);
+                try b.entries.put(at, {});
                 const h = b.fileOf(b.cs(at) +% 3 +% b.word(at + 1));
                 if (b.inCode(h)) {
                     try b.root(@intCast(h));
@@ -262,11 +281,51 @@ pub const Bin = struct {
         try b.seedCsav();
         try b.seedStubs();
         try b.run();
+        try b.rootPrintExits();
+        try b.run();
         for (sidecar.arr(b.sc, "force_code")) |e| {
             const r = range(e) orelse continue;
             try b.forceCode(r[0], @min(r[1], b.code_hi));
         }
         try b.gapSeeds();
+    }
+
+    /// ``mov ah, 9; int 21h; mov ax, 4c01h; int 21h``: print a message and
+    /// exit.  Each is a routine (the Python build's error-handler phase),
+    /// entered at the ``mov r, cs; mov ds, r; mov dx, msg`` before it unless
+    /// the sidecar names the print itself.  One reached only as a conditional
+    /// jump's not-taken path stays its routine's code.
+    fn rootPrintExits(b: *Bin) !void {
+        const sig = [_]u8{ 0xB4, 0x09, 0xCD, 0x21, 0xB8, 0x01, 0x4C, 0xCD, 0x21 };
+        var i = b.code_lo;
+        while (i + sig.len <= b.code_hi) : (i += 1) {
+            if (!std.mem.eql(u8, b.data[i..][0..sig.len], &sig)) continue;
+            const hard = for (i..i + sig.len) |k| {
+                if (b.state[k] == .hard) break true;
+            } else false;
+            if (hard) continue;
+            var at = i;
+            if (!b.namedInSidecar(i) and i >= b.code_lo + 7) {
+                const p = b.data[i - 7 ..][0..5];
+                // mov r16, cs (reg 1) then mov ds, that r16 (reg 3), mov dx, imm16.
+                if (p[0] == 0x8C and p[2] == 0x8E and p[4] == 0xBA and p[1] & 0xF8 == 0xC8 and
+                    p[3] & 0xF8 == 0xD8 and p[1] & 7 == p[3] & 7) at = i - 7;
+            }
+            if (!b.jumps.contains(at) and b.afterJcc(at)) continue;
+            try b.root(at);
+            i += sig.len - 1;
+        }
+    }
+
+    fn namedInSidecar(b: *const Bin, f: u32) bool {
+        const fns = sidecar.obj(b.sc, "function_names") orelse return false;
+        const adj = @as(i64, b.start_offset) + (sidecar.int(b.sc, "ghidra_base_offset") orelse 0);
+        var it = fns.iterator();
+        while (it.next()) |kv| {
+            const k = std.fmt.parseInt(i64, kv.key_ptr.*, 16) catch continue;
+            if (k + adj == f) return true;
+        }
+        return false;
     }
 
     pub fn run(b: *Bin) !void {
@@ -332,7 +391,7 @@ pub const Bin = struct {
         try b.work.append(b.gpa, f);
     }
 
-    fn dosExit(b: *Bin, off: u32, in: *const zg.Insn) bool {
+    pub fn dosExit(b: *const Bin, off: u32, in: *const zg.Insn) bool {
         if (in.opcode != 0xCD) return false;
         const v = in.ops[0].value;
         if (v == 0x20) return true;
@@ -592,6 +651,7 @@ pub const Bin = struct {
                     const name = if (hits > 1) try std.fmt.allocPrint(b.gpa, "{s}_{d}", .{ sig.name, hits }) else sig.name;
                     try b.names.put(i, name);
                     try b.root(i);
+                    try b.library.put(i, {});
                 }
             }
         }
@@ -603,6 +663,12 @@ pub const Bin = struct {
     /// that starts after a dead end and is only reached from other routines
     /// (a tail-jumped routine).
     pub fn finishRoots(b: *Bin) !void {
+        // An entry something branches to (byte 0's ``jmp`` lands on the first)
+        // is that brancher's code, as in the Python build.
+        var eit = b.entries.keyIterator();
+        while (eit.next()) |k| if (b.jumps.contains(k.*)) {
+            _ = b.roots.remove(k.*);
+        };
         var it = b.calls.keyIterator();
         while (it.next()) |k| try b.roots.put(k.*, {});
         const sorted = try b.sortedKeys(&b.roots);
@@ -626,6 +692,14 @@ pub const Bin = struct {
             if (!local) try promote.append(b.gpa, t);
         }
         for (promote.items) |t| try b.roots.put(t, {});
+    }
+
+    fn afterJcc(b: *const Bin, t: u32) bool {
+        if (t == b.code_lo) return false;
+        var p = t - 1;
+        while (p > b.code_lo and b.state[p] == .cont) p -= 1;
+        if (b.state[p] != .start) return false;
+        return b.insn[p].?.flow == .jcc;
     }
 
     fn afterDeadEnd(b: *const Bin, t: u32) bool {
