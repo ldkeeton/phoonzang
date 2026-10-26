@@ -4,36 +4,119 @@
     "description": "Navigation, hover, sidecar naming and Manx cc/as diagnostics for the generated C, Manx assembly (.s) and NASM trees.",
     "publisher": "local",
     "version": "0.0.3",
-    "engines": { "vscode": "^1.70.0" },
-    "activationEvents": ["onStartupFinished"],
+    "engines": {
+        "vscode": "^1.70.0"
+    },
+    "activationEvents": [
+        "onStartupFinished"
+    ],
     "main": "./extension.js",
     "contributes": {
+        "languages": [
+            {
+                "id": "asm-x86-nasm",
+                "aliases": [
+                    "NASM (PHOONZANG)"
+                ],
+                "extensions": [
+                    ".asm",
+                    ".s"
+                ],
+                "configuration": "./language-configuration.json"
+            }
+        ],
+        "grammars": [
+            {
+                "language": "asm-x86-nasm",
+                "scopeName": "source.phoonzang.nasm",
+                "path": "./syntaxes/nasm.tmLanguage.json"
+            }
+        ],
         "commands": [
-            { "command": "PHOONZANGAsmNav.reindex", "title": "PHOONZANG:Reindex asm labels" },
-            { "command": "PHOONZANGAsmNav.goToAddress", "title": "PHOONZANG:Go to address" },
-            { "command": "PHOONZANGAsmNav.nameRoutine", "title": "PHOONZANG:Name this routine (sidecar)" },
-            { "command": "PHOONZANGAsmNav.diffVendor", "title": "PHOONZANG:Diff against vendor seed" },
-            { "command": "PHOONZANGAsmNav.check", "title": "PHOONZANG:Check with Manx cc/as" },
-            { "command": "PHOONZANGAsmNav.makeC", "title": "PHOONZANG:Make C file (Claude)" },
-            { "command": "PHOONZANGAsmNav.makeCOpenCode", "title": "PHOONZANG:Make C file (OpenCode)" },
-            { "command": "PHOONZANGAsmNav.makeCCodex", "title": "PHOONZANG:Make C file (OpenAI Codex)" }
+            {
+                "command": "PHOONZANGAsmNav.reindex",
+                "title": "PHOONZANG:Reindex asm labels"
+            },
+            {
+                "command": "PHOONZANGAsmNav.goToAddress",
+                "title": "PHOONZANG:Go to address"
+            },
+            {
+                "command": "PHOONZANGAsmNav.nameRoutine",
+                "title": "PHOONZANG:Name this routine (sidecar)"
+            },
+            {
+                "command": "PHOONZANGAsmNav.diffVendor",
+                "title": "PHOONZANG:Diff against vendor seed"
+            },
+            {
+                "command": "PHOONZANGAsmNav.check",
+                "title": "PHOONZANG:Check with Manx cc/as"
+            },
+            {
+                "command": "PHOONZANGAsmNav.makeC",
+                "title": "PHOONZANG:Make C file (Claude)"
+            },
+            {
+                "command": "PHOONZANGAsmNav.makeCOpenCode",
+                "title": "PHOONZANG:Make C file (OpenCode)"
+            },
+            {
+                "command": "PHOONZANGAsmNav.makeCCodex",
+                "title": "PHOONZANG:Make C file (OpenAI Codex)"
+            }
         ],
         "menus": {
             "editor/context": [
-                { "command": "PHOONZANGAsmNav.nameRoutine", "when": "resourcePath =~ /src_[^/]+\\//", "group": "PHOONZANG@1" },
-                { "command": "PHOONZANGAsmNav.diffVendor", "when": "resourcePath =~ /src_[^/]+\\/.*\\.[cs]$/", "group": "PHOONZANG@2" },
-                { "command": "PHOONZANGAsmNav.makeC", "when": "resourcePath =~ /src_[^/]+\\/[^/]+\\/.*\\.asm$/", "group": "PHOONZANG@3" },
-                { "command": "PHOONZANGAsmNav.makeCOpenCode", "when": "resourcePath =~ /src_[^/]+\\/[^/]+\\/.*\\.asm$/", "group": "PHOONZANG@4" },
-                { "command": "PHOONZANGAsmNav.makeCCodex", "when": "resourcePath =~ /src_[^/]+\\/[^/]+\\/.*\\.asm$/", "group": "PHOONZANG@5" }
+                {
+                    "command": "PHOONZANGAsmNav.nameRoutine",
+                    "when": "resourcePath =~ /src_[^/]+\\//",
+                    "group": "PHOONZANG@1"
+                },
+                {
+                    "command": "PHOONZANGAsmNav.diffVendor",
+                    "when": "resourcePath =~ /src_[^/]+\\/.*\\.[cs]$/",
+                    "group": "PHOONZANG@2"
+                },
+                {
+                    "command": "PHOONZANGAsmNav.makeC",
+                    "when": "resourcePath =~ /src_[^/]+\\/[^/]+\\/.*\\.asm$/",
+                    "group": "PHOONZANG@3"
+                },
+                {
+                    "command": "PHOONZANGAsmNav.makeCOpenCode",
+                    "when": "resourcePath =~ /src_[^/]+\\/[^/]+\\/.*\\.asm$/",
+                    "group": "PHOONZANG@4"
+                },
+                {
+                    "command": "PHOONZANGAsmNav.makeCCodex",
+                    "when": "resourcePath =~ /src_[^/]+\\/[^/]+\\/.*\\.asm$/",
+                    "group": "PHOONZANG@5"
+                }
             ],
             "explorer/context": [
-                { "command": "PHOONZANGAsmNav.makeC", "when": "resourcePath =~ /src_[^/]+\\/[^/]+\\/.*\\.asm$/", "group": "PHOONZANG@3" },
-                { "command": "PHOONZANGAsmNav.makeCOpenCode", "when": "resourcePath =~ /src_[^/]+\\/[^/]+\\/.*\\.asm$/", "group": "PHOONZANG@4" },
-                { "command": "PHOONZANGAsmNav.makeCCodex", "when": "resourcePath =~ /src_[^/]+\\/[^/]+\\/.*\\.asm$/", "group": "PHOONZANG@5" }
+                {
+                    "command": "PHOONZANGAsmNav.makeC",
+                    "when": "resourcePath =~ /src_[^/]+\\/[^/]+\\/.*\\.asm$/",
+                    "group": "PHOONZANG@3"
+                },
+                {
+                    "command": "PHOONZANGAsmNav.makeCOpenCode",
+                    "when": "resourcePath =~ /src_[^/]+\\/[^/]+\\/.*\\.asm$/",
+                    "group": "PHOONZANG@4"
+                },
+                {
+                    "command": "PHOONZANGAsmNav.makeCCodex",
+                    "when": "resourcePath =~ /src_[^/]+\\/[^/]+\\/.*\\.asm$/",
+                    "group": "PHOONZANG@5"
+                }
             ]
         },
         "keybindings": [
-            { "command": "PHOONZANGAsmNav.goToAddress", "key": "ctrl+alt+g" }
+            {
+                "command": "PHOONZANGAsmNav.goToAddress",
+                "key": "ctrl+alt+g"
+            }
         ],
         "configuration": {
             "title": "PHOONZANG asm navigation",

@@ -1,0 +1,158 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "NASM (PHOONZANG)",
+  "scopeName": "source.phoonzang.nasm",
+  "patterns": [
+    {
+      "include": "#comment"
+    },
+    {
+      "include": "#label"
+    },
+    {
+      "include": "#directive"
+    },
+    {
+      "include": "#string"
+    },
+    {
+      "include": "#instruction"
+    },
+    {
+      "include": "#operands"
+    }
+  ],
+  "repository": {
+    "comment": {
+      "name": "comment.line.semicolon.nasm",
+      "begin": ";",
+      "beginCaptures": {
+        "0": {
+          "name": "punctuation.definition.comment.nasm"
+        }
+      },
+      "end": "$",
+      "patterns": [
+        {
+          "match": "(?<=;)\\s*0x[0-9a-fA-F]+\\s*$",
+          "name": "constant.numeric.address.nasm"
+        }
+      ]
+    },
+    "label": {
+      "patterns": [
+        {
+          "comment": "a global label or constant at column 0: name:, name equ, name proc",
+          "match": "^([A-Za-z_$?][\\w$?@.]*)(?=:|[ \\t]+(?:equ|proc|endp|segment|ends|label|db|dw|dd)\\b)",
+          "captures": {
+            "1": {
+              "name": "entity.name.function.nasm"
+            }
+          }
+        },
+        {
+          "comment": "a local label: .l1:, @@:, @..name.l1:",
+          "match": "^\\s*(\\.[\\w$?@.]+|@[\\w$?@.]*)(?=:)",
+          "captures": {
+            "1": {
+              "name": "variable.label.local.nasm"
+            }
+          }
+        }
+      ]
+    },
+    "directive": {
+      "patterns": [
+        {
+          "match": "(?i)^\\s*(%(?:include|define|xdefine|undef|assign|if|ifdef|ifndef|ifidn|ifnidn|elif|elifdef|elifndef|else|endif|macro|imacro|endmacro|rep|endrep|error|warning|fatal|push|pop|local|strlen|substr|rotate|use))\\b",
+          "captures": {
+            "1": {
+              "name": "keyword.control.directive.nasm"
+            }
+          }
+        },
+        {
+          "match": "(?i)\\b(?:equ|times|db|dw|dd|dq|dt|resb|resw|resd|resq|rest|incbin|section|segment|bits|org|global|extern|common|align|alignb|absolute|struc|endstruc|istruc|iend|at|cpu|include|assume|extrn|public|proc|endp|ends|end|label|even|ptr|offset|seg)\\b",
+          "name": "storage.type.directive.nasm"
+        }
+      ]
+    },
+    "instruction": {
+      "comment": "the first word of an indented line (after an optional label) is the mnemonic",
+      "match": "(?i)^(?:[A-Za-z_$?@.][\\w$?@.]*:)?[ \\t]+(?:(rep|repe|repz|repne|repnz|lock)[ \\t]+)?(?!(?:equ|times|db|dw|dd|dq|dt|resb|resw|resd|resq|rest|incbin|section|segment|bits|org|global|extern|common|align|alignb|absolute|struc|endstruc|istruc|iend|at|cpu|include|assume|extrn|public|proc|endp|ends|end|label|even|ptr|offset|seg)\\b)([a-z][a-z0-9]*)\\b(?![ \\t]*(?::|equ\\b))",
+      "captures": {
+        "1": {
+          "name": "keyword.mnemonic.prefix.nasm"
+        },
+        "2": {
+          "name": "keyword.mnemonic.nasm"
+        }
+      }
+    },
+    "operands": {
+      "patterns": [
+        {
+          "include": "#string"
+        },
+        {
+          "match": "(?i)\\b(?:[abcd][xlh]|[sd]il?|[sb]pl?|e?(?:[abcd]x|[sd]i|[sb]p|ip)|[cdefgs]s|ip|flags|st[0-7]?|cr[0-4]|dr[0-7])\\b",
+          "name": "variable.language.register.nasm"
+        },
+        {
+          "match": "(?i)\\b(?:byte|word|dword|qword|tword|oword|far|near|short|strict|nosplit)\\b",
+          "name": "storage.modifier.size.nasm"
+        },
+        {
+          "match": "\\b(?:IMAGE_BASE|VBASE|__z\\w*)\\b",
+          "name": "support.constant.nasm"
+        },
+        {
+          "match": "(?i)\\b(?:0x[0-9a-f]+|[0-9][0-9a-f]*h|0b[01]+|[0-9]+)\\b",
+          "name": "constant.numeric.nasm"
+        },
+        {
+          "match": "\\$\\$?(?![\\w$?@])",
+          "name": "variable.language.location.nasm"
+        },
+        {
+          "comment": "a label or constant used as an operand (after registers, sizes and numbers, which win at the same position)",
+          "match": "(?<![\\w$?@.])[A-Za-z_$?@.][\\w$?@.]*",
+          "name": "variable.label.nasm"
+        },
+        {
+          "match": "[-+*/%|&^~<>]|<<|>>",
+          "name": "keyword.operator.nasm"
+        },
+        {
+          "match": "[\\[\\]]",
+          "name": "punctuation.definition.memory.nasm"
+        }
+      ]
+    },
+    "string": {
+      "patterns": [
+        {
+          "name": "string.quoted.single.nasm",
+          "begin": "'",
+          "end": "'|$"
+        },
+        {
+          "name": "string.quoted.double.nasm",
+          "begin": "\"",
+          "end": "\"|$"
+        },
+        {
+          "name": "string.quoted.backtick.nasm",
+          "begin": "`",
+          "end": "`|$",
+          "patterns": [
+            {
+              "match": "\\\\.",
+              "name": "constant.character.escape.nasm"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

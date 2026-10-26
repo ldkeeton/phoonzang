@@ -2,10 +2,13 @@
     "C_Cpp.intelliSenseEngine": "Tag Parser",
     "C_Cpp.errorSquiggles": "disabled",
     "files.associations": {
-        "*.asm": "asm-intel-x86-generic",
-        "*.s": "asm-intel-x86-generic"
+        "*.asm": "asm-x86-nasm",
+        "*.s": "asm-x86-nasm"
     },
     "debug.allowBreakpointsEverywhere": true,
+    // Find All References opens the inline peek list (fresh each time) rather than
+    // the References side panel, which keeps a history of past searches.
+    "references.preferredLocation": "peek",
     "explorer.fileNesting.enabled": true,
     "explorer.fileNesting.expand": false,
     "explorer.fileNesting.patterns": {

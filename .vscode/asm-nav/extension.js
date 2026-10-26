@@ -18,46 +18,75 @@ const WORD = /[A-Za-z_$?][\w$?]*/;
 // A routine's source: C, or Manx assembly (``.s``, built by ``as``).
 const S_PATTERN = '**/src_*/**/*.s';
 const C_SELECTOR = [{ language: 'c' }, { language: 'cpp' }, { pattern: S_PATTERN }];
+// Where a name can be looked up from: a routine's source, or a NASM listing.
+const NAV_SELECTOR = [...C_SELECTOR, { pattern: '**/src_*/**/*.asm' }];
 const ANY_SELECTOR = [{ pattern: '**/src_*/**/*.{c,s,asm}' }, ...C_SELECTOR];
 
 let texts = new Map();   // uri string -> text (asm, c and s under src_*)
+let scans = new Map();   // uri string -> {uri, binary, labels, addrs}: one file's share of the index
 let defs = new Map();    // label -> [{uri, row}]
 let addrs = new Map();   // binary -> sorted [{addr, uri, row}]
+let stale = false;       // defs/addrs lag scans; merged on the next read or after REINDEX_DELAY
+let reindexTimer = null;
+const REINDEX_DELAY = 250;   // ms: a regeneration rewrites hundreds of files at once
 
 const root = () => vscode.workspace.workspaceFolders[0].uri.fsPath;
 const cfg = () => vscode.workspace.getConfiguration('PHOONZANGAsmNav');
 
 // ---------------------------------------------------------------- index
 
+// Scan a file once when it is read; merging the scans (:func:`reindex`) is then
+// cheap enough to redo for every change.
 async function load(uri) {
+    const key = uri.toString();
     try {
         const bytes = await vscode.workspace.fs.readFile(uri);
-        texts.set(uri.toString(), Buffer.from(bytes).toString('latin1'));
+        const text = Buffer.from(bytes).toString('latin1');
+        texts.set(key, text);
+        const where = locate(uri.fsPath);
+        const asm = key.endsWith('.asm');
+        scans.set(key, { uri, binary: where ? where.binary : null,
+                         labels: asm ? labels(text) : [],
+                         addrs: asm && where ? addresses(text) : [] });
     } catch (e) {
-        texts.delete(uri.toString());
+        texts.delete(key);
+        scans.delete(key);
     }
 }
 
 function reindex() {
+    clearTimeout(reindexTimer);
+    reindexTimer = null;
+    stale = false;
     defs = new Map();
     addrs = new Map();
-    for (const [key, text] of texts) {
-        if (!key.endsWith('.asm')) continue;
-        const uri = vscode.Uri.parse(key);
-        for (const l of labels(text)) {
+    for (const scan of scans.values()) {
+        for (const l of scan.labels) {
             if (!defs.has(l.name)) defs.set(l.name, []);
-            defs.get(l.name).push({ uri, row: l.row });
+            defs.get(l.name).push({ uri: scan.uri, row: l.row });
         }
-        const where = locate(uri.fsPath);
-        if (!where) continue;
-        if (!addrs.has(where.binary)) addrs.set(where.binary, []);
-        for (const a of addresses(text)) addrs.get(where.binary).push({ ...a, uri });
+        if (!scan.addrs.length) continue;
+        if (!addrs.has(scan.binary)) addrs.set(scan.binary, []);
+        const list = addrs.get(scan.binary);
+        for (const a of scan.addrs) list.push({ ...a, uri: scan.uri });
     }
     for (const list of addrs.values()) list.sort((a, b) => a.addr - b.addr);
 }
 
+// A watcher event marks the index stale; a burst of them merges once.
+function scheduleReindex() {
+    stale = true;
+    if (!reindexTimer) reindexTimer = setTimeout(reindex, REINDEX_DELAY);
+}
+
+// Readers merge a pending change now rather than answer from the old index.
+function ensureIndex() {
+    if (stale) reindex();
+}
+
 async function rebuild() {
     texts = new Map();
+    scans = new Map();
     const files = await vscode.workspace.findFiles(SRC, '**/node_modules/**');
     await Promise.all(files.map(load));
     reindex();
@@ -71,6 +100,7 @@ function nameAt(doc, pos) {
 // Aztec spells C ``name`` as ``name_`` in assembly (``#asm`` blocks, ``.s``).
 function resolve(name) {
     if (!name) return null;
+    ensureIndex();
     if (defs.has(name)) return name;
     const bare = name.replace(/_$/, '');
     return defs.has(bare) ? bare : null;
@@ -81,13 +111,12 @@ function resolve(name) {
 function hitsFor(name, doc) {
     const all = defs.get(name);
     const here = doc && locate(doc.fileName);
-    const mine = here ? all.filter((h) => { const w = locate(h.uri.fsPath); return w && w.binary === here.binary; }) : [];
+    const mine = here ? all.filter((h) => { const s = scans.get(h.uri.toString()); return s && s.binary === here.binary; }) : [];
     return mine.length ? mine : all;
 }
 
-const sameBinary = (key, doc) => {
-    const here = locate(doc.fileName);
-    const there = locate(vscode.Uri.parse(key).fsPath);
+const sameBinary = (key, here) => {
+    const there = scans.get(key);
     return !here || (there && there.binary === here.binary);
 };
 
@@ -197,6 +226,7 @@ async function goToAddress() {
     if (!m) return vscode.window.showErrorMessage(`not an address: ${input}`);
     const binary = m[1] || (here ? here.binary : 'ds');
     const target = parseInt(m[2], 16);
+    ensureIndex();
     const list = addrs.get(binary);
     if (!list) return vscode.window.showErrorMessage(`no listing for binary ${binary}`);
     let best = null;                       // greatest address <= target
@@ -332,6 +362,7 @@ function forget(uri) {
     shown.delete(uri.toString());
     checked.delete(uri.fsPath);
     texts.delete(uri.toString());
+    scans.delete(uri.toString());
 }
 
 function toDiagnostics(doc, stdout) {
@@ -814,27 +845,33 @@ function activate(context) {
     // Files can change on disk without a save in this editor: `make rebuild`,
     // `make name` (which also renames them), or another editor.  Refresh an open
     // document's diagnostics when its file changes, not just on save.
+    // Only a document shown in an editor is checked: the References panel and
+    // peek load many in the background, and each check is a Manx run in DOSBox.
+    const visible = (uri) => vscode.window.visibleTextEditors.find(
+        (e) => e.document.uri.toString() === uri.toString());
     const touch = async (uri) => {
         await load(uri);
-        reindex();
-        const doc = vscode.workspace.textDocuments.find((d) => d.uri.toString() === uri.toString());
-        if (doc && isGeneratedC(doc) &&
+        scheduleReindex();
+        const editor = visible(uri);
+        if (editor && isGeneratedC(editor.document) &&
                 (cfg().get('checkOnSave') || shown.has(uri.toString()))) {
-            checkFile(doc, true);
+            checkFile(editor.document, true);
         }
     };
     watcher.onDidChange(touch);
     watcher.onDidCreate(touch);
-    watcher.onDidDelete((uri) => { forget(uri); reindex(); });
+    watcher.onDidDelete((uri) => { forget(uri); scheduleReindex(); });
 
-    // Documents already open when the window loads never fire onDidOpen.
-    if (cfg().get('checkOnOpen')) {
-        for (const doc of vscode.workspace.textDocuments) if (isGeneratedC(doc)) checkFile(doc);
-    }
+    // Editors already open when the window loads never fire a visibility change.
+    const checkVisible = (editors) => {
+        if (!cfg().get('checkOnOpen')) return;
+        for (const e of editors) if (isGeneratedC(e.document)) checkFile(e.document);
+    };
+    checkVisible(vscode.window.visibleTextEditors);
 
     context.subscriptions.push(
         watcher, diagnostics,
-        vscode.languages.registerDefinitionProvider(C_SELECTOR, {
+        vscode.languages.registerDefinitionProvider(NAV_SELECTOR, {
             async provideDefinition(doc, pos) {
                 await ready;
                 const name = resolve(nameAt(doc, pos));
@@ -842,21 +879,25 @@ function activate(context) {
                     new vscode.Location(h.uri, new vscode.Position(h.row, 0)));
             },
         }),
-        vscode.languages.registerReferenceProvider(C_SELECTOR, {
+        vscode.languages.registerReferenceProvider(NAV_SELECTOR, {
             async provideReferences(doc, pos, ctx) {
                 await ready;
+                ensureIndex();
                 const typed = nameAt(doc, pos);
                 if (!typed) return [];
                 const name = defs.has(typed) ? typed : typed.replace(/_$/, '');
+                const here = locate(doc.fileName);
                 const out = [];
                 for (const [key, text] of texts) {
-                    if (!sameBinary(key, doc)) continue;
+                    // A substring test skips the line-by-line scan for most files.
+                    if (!text.includes(name) || !sameBinary(key, here)) continue;
+                    const uri = scans.get(key).uri;
                     // ``name_`` is the same symbol in assembly: a C file's ``#asm`` block, a ``.s``.
                     const spellings = /\.[cs]$/.test(key) ? [name, name + '_'] : [name];
                     for (const spelling of spellings) {
                         for (const o of occurrences(text, spelling)) {
                             if (o.def && !ctx.includeDeclaration) continue;
-                            out.push(new vscode.Location(vscode.Uri.parse(key),
+                            out.push(new vscode.Location(uri,
                                 new vscode.Range(o.row, o.col, o.row, o.col + spelling.length)));
                         }
                     }
@@ -894,11 +935,9 @@ function activate(context) {
         }),
         vscode.workspace.onDidDeleteFiles((e) => {
             for (const uri of e.files) forget(uri);
-            reindex();
+            scheduleReindex();
         }),
-        vscode.workspace.onDidOpenTextDocument((doc) => {
-            if (cfg().get('checkOnOpen') && isGeneratedC(doc)) checkFile(doc);
-        }),
+        vscode.window.onDidChangeVisibleTextEditors(checkVisible),
         // The References panel opens and closes documents constantly, so don't clear
         // diagnostics here (that would churn views too); just forget the checked version.
         vscode.workspace.onDidCloseTextDocument((doc) => checked.delete(doc.fileName)),
