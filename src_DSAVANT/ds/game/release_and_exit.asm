@@ -1,5 +1,5 @@
 ; auto-generated
-release_and_exit: ; Aztec csav frame=0x0000
+release_and_exit:
     mov ax, 0                        ; 0x03b8
     call aztec_csav                  ; 0x03bb
     push word [bp + 4]               ; 0x03be

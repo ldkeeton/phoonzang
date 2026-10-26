@@ -1,5 +1,5 @@
 ; auto-generated
-copy_through_char: ; Aztec csav frame=0x0004
+copy_through_char:
     mov ax, 0xfffc                   ; 0x2359
     call aztec_csav                  ; 0x235c
     mov word [bp - 2], 0             ; 0x235f

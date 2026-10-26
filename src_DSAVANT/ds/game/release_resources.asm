@@ -1,5 +1,5 @@
 ; auto-generated
-release_resources: ; Aztec csav frame=0x0002
+release_resources:
     mov ax, 0xfffe                   ; 0x0242
     call aztec_csav                  ; 0x0245
     mov word [bp - 2], 0             ; 0x0248

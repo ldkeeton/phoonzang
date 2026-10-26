@@ -1,5 +1,5 @@
 ; auto-generated
-draw_scrollbar: ; Aztec csav frame=0x0000
+draw_scrollbar:
     mov ax, 0                        ; 0x121f
     call aztec_csav                  ; 0x1222
     mov ax, 6                        ; 0x1225

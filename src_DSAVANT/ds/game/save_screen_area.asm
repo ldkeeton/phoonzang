@@ -1,5 +1,5 @@
 ; auto-generated
-save_screen_area: ; Aztec csav frame=0x000c
+save_screen_area:
     mov ax, 0xfff4                   ; 0x14ca
     call aztec_csav                  ; 0x14cd
     mov word [bp - 4], 0xffff        ; 0x14d0

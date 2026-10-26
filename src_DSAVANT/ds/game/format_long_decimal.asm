@@ -1,5 +1,5 @@
 ; auto-generated
-format_long_decimal: ; Aztec csav frame=0x0006
+format_long_decimal:
     mov ax, 0xfffa                   ; 0x0422
     call aztec_csav                  ; 0x0425
     mov ax, word [bp + 4]            ; 0x0428

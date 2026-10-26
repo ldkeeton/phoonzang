@@ -1,5 +1,5 @@
 ; auto-generated
-find_message_record: ; Aztec csav frame=0x0008
+find_message_record:
     mov ax, 0xfff8                   ; 0x065d
     call aztec_csav                  ; 0x0660
     mov ax, word [message_directory] ; 0x0663

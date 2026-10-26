@@ -1,5 +1,5 @@
 ; auto-generated
-poll_fullscreen_hotspot: ; Aztec csav frame=0x0000
+poll_fullscreen_hotspot:
     mov ax, 0                        ; 0x0d36
     call aztec_csav                  ; 0x0d39
     mov ax, 0x1b                     ; 0x0d3c

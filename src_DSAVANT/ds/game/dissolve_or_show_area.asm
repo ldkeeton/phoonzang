@@ -1,5 +1,5 @@
 ; auto-generated
-dissolve_or_show_area: ; Aztec csav frame=0x0000
+dissolve_or_show_area:
     mov ax, 0                        ; 0x0d7a
     call aztec_csav                  ; 0x0d7d
     cmp byte [no_dissolve], 0        ; 0x0d80

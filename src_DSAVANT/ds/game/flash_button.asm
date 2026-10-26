@@ -1,5 +1,5 @@
 ; auto-generated
-flash_button: ; Aztec csav frame=0x0000
+flash_button:
     mov ax, 0                        ; 0x10a6
     call aztec_csav                  ; 0x10a9
     mov ax, 6                        ; 0x10ac

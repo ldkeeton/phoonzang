@@ -1,5 +1,5 @@
 ; auto-generated
-data_record_io: ; Aztec csav frame=0x0100
+data_record_io:
     mov ax, 0xff00                   ; 0x0883
     call aztec_csav                  ; 0x0886
     mov ax, word [bp + 4]            ; 0x0889

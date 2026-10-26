@@ -1,5 +1,5 @@
 ; auto-generated
-pick_code_char: ; Aztec csav frame=0x0000
+pick_code_char:
     mov ax, 0                        ; 0x1cb1
     call aztec_csav                  ; 0x1cb4
     mov ax, 0x4b                     ; 0x1cb7

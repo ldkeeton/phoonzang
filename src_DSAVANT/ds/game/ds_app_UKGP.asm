@@ -1,5 +1,5 @@
 ; auto-generated
-ds_app_UKGP: ; Aztec csav frame=0x0004
+ds_app_UKGP:
     mov ax, 0xfffc                   ; 0x2bab
     call aztec_csav                  ; 0x2bae
     mov ax, 0xa                      ; 0x2bb1

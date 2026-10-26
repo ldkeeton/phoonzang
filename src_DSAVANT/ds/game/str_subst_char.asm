@@ -1,5 +1,5 @@
 ; auto-generated
-str_subst_char: ; Aztec csav frame=0x0106
+str_subst_char:
     mov ax, 0xfefa                   ; 0x0547
     call aztec_csav                  ; 0x054a
     mov word [bp - 2], 0             ; 0x054d

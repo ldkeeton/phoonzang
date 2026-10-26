@@ -1,5 +1,5 @@
 ; auto-generated
-load_message_block: ; Aztec csav frame=0x0002
+load_message_block:
     mov ax, 0xfffe                   ; 0x06c6
     call aztec_csav                  ; 0x06c9
     mov word [bp - 2], 0             ; 0x06cc

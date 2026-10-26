@@ -1,5 +1,5 @@
 ; auto-generated
-ds_app_UTUH: ; Aztec csav frame=0x0000
+ds_app_UTUH:
     mov ax, 0                        ; 0x1c6e
     call aztec_csav                  ; 0x1c71
     mov ax, 0x248                    ; 0x1c74

@@ -1,5 +1,5 @@
 ; auto-generated
-draw_inset_panel: ; Aztec csav frame=0x0000
+draw_inset_panel:
     mov ax, 0                        ; 0x0fdf
     call aztec_csav                  ; 0x0fe2
     mov ax, 0xc3                     ; 0x0fe5

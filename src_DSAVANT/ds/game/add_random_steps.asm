@@ -1,5 +1,5 @@
 ; auto-generated
-add_random_steps: ; Aztec csav frame=0x0002
+add_random_steps:
     mov ax, 0xfffe                   ; 0x2305
     call aztec_csav                  ; 0x2308
     mov ax, word [bp + 4]            ; 0x230b

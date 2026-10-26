@@ -1,5 +1,5 @@
 ; auto-generated
-cell_power: ; Aztec csav frame=0x0002
+cell_power:
     mov ax, 0xfffe                   ; 0x1741
     call aztec_csav                  ; 0x1744
     mov ax, 0x248                    ; 0x1747

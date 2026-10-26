@@ -1,5 +1,5 @@
 ; auto-generated
-app_free: ; Aztec csav frame=0x0000
+app_free:
     mov ax, 0                        ; 0x022f
     call aztec_csav                  ; 0x0232
     push word [bp + 6]               ; 0x0235

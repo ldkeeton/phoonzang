@@ -1,5 +1,5 @@
 ; auto-generated
-app_memmove: ; Aztec csav frame=0x0000
+app_memmove:
     mov ax, 0                        ; 0x0213
     call aztec_csav                  ; 0x0216
     push word [bp + 0xc]             ; 0x0219

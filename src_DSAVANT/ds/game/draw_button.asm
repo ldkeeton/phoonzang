@@ -1,5 +1,5 @@
 ; auto-generated
-draw_button: ; Aztec csav frame=0x0000
+draw_button:
     mov ax, 0                        ; 0x1308
     call aztec_csav                  ; 0x130b
     cmp word [bp + 0xc], byte 0      ; 0x130e

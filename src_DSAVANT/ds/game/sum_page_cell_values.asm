@@ -1,5 +1,5 @@
 ; auto-generated
-sum_page_cell_values: ; Aztec csav frame=0x0004
+sum_page_cell_values:
     mov ax, 0xfffc                   ; 0x17d6
     call aztec_csav                  ; 0x17d9
     mov ax, 0x248                    ; 0x17dc

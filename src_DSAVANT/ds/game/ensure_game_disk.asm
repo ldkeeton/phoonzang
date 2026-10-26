@@ -1,5 +1,5 @@
 ; auto-generated
-ensure_game_disk: ; Aztec csav frame=0x0018
+ensure_game_disk:
     mov ax, 0xffe8                   ; 0x27e9
     call aztec_csav                  ; 0x27ec
     mov word [bp - 0x16], 0          ; 0x27ef

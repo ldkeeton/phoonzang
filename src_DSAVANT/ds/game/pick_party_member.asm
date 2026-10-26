@@ -1,5 +1,5 @@
 ; auto-generated
-pick_party_member: ; Aztec csav frame=0x0012
+pick_party_member:
     mov ax, 0xffee                   ; 0x20f8
     call aztec_csav                  ; 0x20fb
     cmp word [mouse_active], byte 0  ; 0x20fe

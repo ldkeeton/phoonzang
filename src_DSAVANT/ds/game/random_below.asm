@@ -1,5 +1,5 @@
 ; auto-generated
-random_below: ; Aztec csav frame=0x0000
+random_below:
     mov ax, 0                        ; 0x09f0
     call aztec_csav                  ; 0x09f3
     mov ax, 0                        ; 0x09f6

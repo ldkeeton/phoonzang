@@ -641,8 +641,7 @@ def _analyze(name, orig_dir, rel_path, start_offset, output_dir=None,
     raw_imm = (ctx.sidecar_entry or {}).get('immediate_labels', {})
     immediate_labels = {int(k, 16): v for k, v in raw_imm.items()}
     label_comments = {
-        off: f'; Aztec csav frame=0x{frame:04x}'
-        for off, frame in ctx.csav_functions.items()
+        # do not add comments unless specified
     }
     split_functions = {
         signature['name']

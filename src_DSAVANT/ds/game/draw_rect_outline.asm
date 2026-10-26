@@ -1,5 +1,5 @@
 ; auto-generated
-draw_rect_outline: ; Aztec csav frame=0x0000
+draw_rect_outline:
     mov ax, 0                        ; 0x0e03
     call aztec_csav                  ; 0x0e06
     mov ax, 0                        ; 0x0e09

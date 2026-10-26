@@ -1,5 +1,5 @@
 ; auto-generated
-format_int_decimal: ; Aztec csav frame=0x0000
+format_int_decimal:
     mov ax, 0                        ; 0x04c4
     call aztec_csav                  ; 0x04c7
     push word [bp + 6]               ; 0x04ca

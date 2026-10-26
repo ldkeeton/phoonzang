@@ -1,5 +1,5 @@
 ; auto-generated
-store_word_and_pair: ; Aztec csav frame=0x0004
+store_word_and_pair:
     mov ax, 0xfffc                   ; 0x2331
     call aztec_csav                  ; 0x2334
     mov al, byte [bp + 4]            ; 0x2337

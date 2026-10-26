@@ -1,5 +1,5 @@
 ; auto-generated
-poll_hotspots: ; Aztec csav frame=0x0004
+poll_hotspots:
     mov ax, 0xfffc                   ; 0x0b54
     call aztec_csav                  ; 0x0b57
     mov word [bss_59fa], 0           ; 0x0b5a

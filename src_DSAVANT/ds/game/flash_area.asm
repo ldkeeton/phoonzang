@@ -1,5 +1,5 @@
 ; auto-generated
-flash_area: ; Aztec csav frame=0x0000
+flash_area:
     mov ax, 0                        ; 0x10ff
     call aztec_csav                  ; 0x1102
     push word [bp + 0xa]             ; 0x1105

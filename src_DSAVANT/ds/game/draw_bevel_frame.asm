@@ -1,5 +1,5 @@
 ; auto-generated
-draw_bevel_frame: ; Aztec csav frame=0x0000
+draw_bevel_frame:
     mov ax, 0                        ; 0x0f2a
     call aztec_csav                  ; 0x0f2d
     mov ax, 0xc0                     ; 0x0f30

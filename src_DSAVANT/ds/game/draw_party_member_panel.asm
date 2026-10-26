@@ -1,5 +1,5 @@
 ; auto-generated
-draw_party_member_panel: ; Aztec csav frame=0x003a
+draw_party_member_panel:
     mov ax, 0xffc6                   ; 0x1d81
     call aztec_csav                  ; 0x1d84
     mov ax, 0                        ; 0x1d87

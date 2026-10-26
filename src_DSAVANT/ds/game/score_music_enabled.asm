@@ -1,5 +1,5 @@
 ; auto-generated
-score_music_enabled: ; Aztec csav frame=0x0000
+score_music_enabled:
     mov ax, 0                        ; 0x2bed
     call aztec_csav                  ; 0x2bf0
     cmp byte [video_mode], 1         ; 0x2bf3

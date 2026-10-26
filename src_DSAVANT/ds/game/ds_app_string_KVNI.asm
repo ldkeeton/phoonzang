@@ -1,5 +1,5 @@
 ; auto-generated
-ds_app_string_KVNI: ; Aztec csav frame=0x0054
+ds_app_string_KVNI:
     mov ax, 0xffac                   ; 0x0c0b
     call aztec_csav                  ; 0x0c0e
     mov ax, 0x18                     ; 0x0c11

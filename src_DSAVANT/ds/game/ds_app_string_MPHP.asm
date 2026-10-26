@@ -1,5 +1,5 @@
 ; auto-generated
-ds_app_string_MPHP: ; Aztec csav frame=0x0054
+ds_app_string_MPHP:
     mov ax, 0xffac                   ; 0x05d0
     call aztec_csav                  ; 0x05d3
     lea ax, word [bp - 0x54]         ; 0x05d6

@@ -1,5 +1,5 @@
 ; auto-generated
-data_file_path: ; Aztec csav frame=0x0000
+data_file_path:
     mov ax, 0                        ; 0x23a8
     call aztec_csav                  ; 0x23ab
     cmp byte [install_mode], 5       ; 0x23ae

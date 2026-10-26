@@ -1,5 +1,5 @@
 ; auto-generated
-draw_power_bar: ; Aztec csav frame=0x0002
+draw_power_bar:
     mov ax, 0xfffe                   ; 0x1cf8
     call aztec_csav                  ; 0x1cfb
     mov word [bp - 2], 0             ; 0x1cfe

@@ -1,5 +1,5 @@
 ; auto-generated
-member_is_active: ; Aztec csav frame=0x0000
+member_is_active:
     mov ax, 0                        ; 0x1ccc
     call aztec_csav                  ; 0x1ccf
     mov ax, 0x248                    ; 0x1cd2

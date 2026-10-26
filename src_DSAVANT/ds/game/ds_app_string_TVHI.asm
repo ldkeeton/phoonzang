@@ -1,5 +1,5 @@
 ; auto-generated
-ds_app_string_TVHI: ; Aztec csav frame=0x0006
+ds_app_string_TVHI:
     mov ax, 0xfffa                   ; 0x03da
     call aztec_csav                  ; 0x03dd
     mov word [bp - 4], 0             ; 0x03e0

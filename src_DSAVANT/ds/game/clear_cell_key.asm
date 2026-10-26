@@ -1,5 +1,5 @@
 ; auto-generated
-clear_cell_key: ; Aztec csav frame=0x0000
+clear_cell_key:
     mov ax, 0                        ; 0x1c2f
     call aztec_csav                  ; 0x1c32
     cmp word [bp + 6], byte 0        ; 0x1c35

@@ -1,5 +1,5 @@
 ; auto-generated
-draw_padded_number: ; Aztec csav frame=0x0100
+draw_padded_number:
     mov ax, 0xff00                   ; 0x04da
     call aztec_csav                  ; 0x04dd
     lea ax, word [bp - 0xff]         ; 0x04e0

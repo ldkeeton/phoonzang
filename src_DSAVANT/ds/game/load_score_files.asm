@@ -1,5 +1,5 @@
 ; auto-generated
-load_score_files: ; Aztec csav frame=0x00a8
+load_score_files:
     mov ax, 0xff58                   ; 0x2a2e
     call aztec_csav                  ; 0x2a31
     mov al, byte [video_mode]        ; 0x2a34

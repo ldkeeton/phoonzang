@@ -1,5 +1,5 @@
 ; auto-generated
-wait_for_hotspot_timeout: ; Aztec csav frame=0x0004
+wait_for_hotspot_timeout:
     mov ax, 0xfffc                   ; 0x09a5
     call aztec_csav                  ; 0x09a8
     mov ax, word [bp + 4]            ; 0x09ab

@@ -1,5 +1,5 @@
 ; auto-generated
-draw_spell_list: ; Aztec csav frame=0x0002
+draw_spell_list:
     mov ax, 0xfffe                   ; 0x1138
     call aztec_csav                  ; 0x113b
     mov word [bp - 2], 0             ; 0x113e

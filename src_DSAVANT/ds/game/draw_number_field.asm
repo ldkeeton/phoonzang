@@ -1,5 +1,5 @@
 ; auto-generated
-draw_number_field: ; Aztec csav frame=0x0000
+draw_number_field:
     mov ax, 0                        ; 0x052e
     call aztec_csav                  ; 0x0531
     push word [bp + 8]               ; 0x0534

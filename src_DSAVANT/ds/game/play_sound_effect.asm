@@ -1,5 +1,5 @@
 ; auto-generated
-play_sound_effect: ; Aztec csav frame=0x0006
+play_sound_effect:
     mov ax, 0xfffa                   ; 0x0a27
     call aztec_csav                  ; 0x0a2a
     mov ax, 0xc                      ; 0x0a2d

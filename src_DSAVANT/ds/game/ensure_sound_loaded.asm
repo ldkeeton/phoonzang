@@ -1,5 +1,5 @@
 ; auto-generated
-ensure_sound_loaded: ; Aztec csav frame=0x0000
+ensure_sound_loaded:
     mov ax, 0                        ; 0x29f1
     call aztec_csav                  ; 0x29f4
     mov ax, word [loaded_sound_id]   ; 0x29f7

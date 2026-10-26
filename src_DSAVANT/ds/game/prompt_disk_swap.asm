@@ -1,5 +1,5 @@
 ; auto-generated
-prompt_disk_swap: ; Aztec csav frame=0x00ba
+prompt_disk_swap:
     mov ax, 0xff46                   ; 0x23ef
     call aztec_csav                  ; 0x23f2
     mov word [bp - 0xb0], 0x37       ; 0x23f5

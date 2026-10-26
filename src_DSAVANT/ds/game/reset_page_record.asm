@@ -1,5 +1,5 @@
 ; auto-generated
-reset_page_record: ; Aztec csav frame=0x0016
+reset_page_record:
     mov ax, 0xffea                   ; 0x184f
     call aztec_csav                  ; 0x1852
     mov ax, 0                        ; 0x1855

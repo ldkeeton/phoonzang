@@ -1,5 +1,5 @@
 ; auto-generated
-fade_out_music: ; Aztec csav frame=0x0000
+fade_out_music:
     mov ax, 0                        ; 0x2b62
     call aztec_csav                  ; 0x2b65
     call gfx_is_music_playing        ; 0x2b68

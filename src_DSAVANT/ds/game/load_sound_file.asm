@@ -1,5 +1,5 @@
 ; auto-generated
-load_sound_file: ; Aztec csav frame=0x0018
+load_sound_file:
     mov ax, 0xffe8                   ; 0x2923
     call aztec_csav                  ; 0x2926
     mov ax, 0                        ; 0x2929

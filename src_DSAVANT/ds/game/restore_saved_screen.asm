@@ -1,5 +1,5 @@
 ; auto-generated
-restore_saved_screen: ; Aztec csav frame=0x0002
+restore_saved_screen:
     mov ax, 0xfffe                   ; 0x16a0
     call aztec_csav                  ; 0x16a3
     mov ax, word [bp + 4]            ; 0x16a6

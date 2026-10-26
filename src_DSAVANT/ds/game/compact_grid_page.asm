@@ -1,5 +1,5 @@
 ; auto-generated
-compact_grid_page: ; Aztec csav frame=0x0008
+compact_grid_page:
     mov ax, 0xfff8                   ; 0x1a23
     call aztec_csav                  ; 0x1a26
     mov ax, 0x248                    ; 0x1a29
