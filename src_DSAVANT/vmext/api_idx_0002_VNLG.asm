@@ -81,13 +81,13 @@ jumptable_052d_case_1:
     push ax                          ; 0x0312
     mov ax, dseg_9098                ; 0x0313
     push ax                          ; 0x0316
-    call api_idx_0002_OTTG           ; 0x0317
+    call load_maze_file              ; 0x0317
     add sp, byte 4                   ; 0x031a
     mov ax, 5                        ; 0x031d
     push ax                          ; 0x0320
     mov ax, dseg_90a5                ; 0x0321
     push ax                          ; 0x0324
-    call api_idx_0002_OTTG           ; 0x0325
+    call load_maze_file              ; 0x0325
     add sp, byte 4                   ; 0x0328
     mov ax, 5                        ; 0x032b
     push ax                          ; 0x032e
@@ -120,19 +120,19 @@ jumptable_052d_case_2:
     push ax                          ; 0x036f
     mov ax, dseg_90b2                ; 0x0370
     push ax                          ; 0x0373
-    call api_idx_0002_OTTG           ; 0x0374
+    call load_maze_file              ; 0x0374
     add sp, byte 4                   ; 0x0377
     mov ax, 4                        ; 0x037a
     push ax                          ; 0x037d
     mov ax, dseg_90bf                ; 0x037e
     push ax                          ; 0x0381
-    call api_idx_0002_OTTG           ; 0x0382
+    call load_maze_file              ; 0x0382
     add sp, byte 4                   ; 0x0385
     mov ax, 6                        ; 0x0388
     push ax                          ; 0x038b
     mov ax, dseg_90cc                ; 0x038c
     push ax                          ; 0x038f
-    call api_idx_0002_OTTG           ; 0x0390
+    call load_maze_file              ; 0x0390
     add sp, byte 4                   ; 0x0393
     mov ax, 0xd                      ; 0x0396
     push ax                          ; 0x0399
@@ -147,25 +147,25 @@ jumptable_052d_case_3:
     push ax                          ; 0x03b0
     mov ax, dseg_90d9                ; 0x03b1
     push ax                          ; 0x03b4
-    call api_idx_0002_OTTG           ; 0x03b5
+    call load_maze_file              ; 0x03b5
     add sp, byte 4                   ; 0x03b8
     mov ax, 4                        ; 0x03bb
     push ax                          ; 0x03be
     mov ax, dseg_90e6                ; 0x03bf
     push ax                          ; 0x03c2
-    call api_idx_0002_OTTG           ; 0x03c3
+    call load_maze_file              ; 0x03c3
     add sp, byte 4                   ; 0x03c6
     mov ax, 5                        ; 0x03c9
     push ax                          ; 0x03cc
     mov ax, dseg_90f3                ; 0x03cd
     push ax                          ; 0x03d0
-    call api_idx_0002_OTTG           ; 0x03d1
+    call load_maze_file              ; 0x03d1
     add sp, byte 4                   ; 0x03d4
     mov ax, 6                        ; 0x03d7
     push ax                          ; 0x03da
     mov ax, dseg_9100                ; 0x03db
     push ax                          ; 0x03de
-    call api_idx_0002_OTTG           ; 0x03df
+    call load_maze_file              ; 0x03df
     add sp, byte 4                   ; 0x03e2
     mov ax, 5                        ; 0x03e5
     push ax                          ; 0x03e8
@@ -198,13 +198,13 @@ jumptable_052d_case_4:
     push ax                          ; 0x0429
     mov ax, dseg_910d                ; 0x042a
     push ax                          ; 0x042d
-    call api_idx_0002_OTTG           ; 0x042e
+    call load_maze_file              ; 0x042e
     add sp, byte 4                   ; 0x0431
     mov ax, 4                        ; 0x0434
     push ax                          ; 0x0437
     mov ax, dseg_911a                ; 0x0438
     push ax                          ; 0x043b
-    call api_idx_0002_OTTG           ; 0x043c
+    call load_maze_file              ; 0x043c
     add sp, byte 4                   ; 0x043f
     mov ax, 0xd                      ; 0x0442
     push ax                          ; 0x0445
@@ -219,19 +219,19 @@ jumptable_052d_case_5:
     push ax                          ; 0x045c
     mov ax, dseg_9127                ; 0x045d
     push ax                          ; 0x0460
-    call api_idx_0002_OTTG           ; 0x0461
+    call load_maze_file              ; 0x0461
     add sp, byte 4                   ; 0x0464
     mov ax, 4                        ; 0x0467
     push ax                          ; 0x046a
     mov ax, dseg_9134                ; 0x046b
     push ax                          ; 0x046e
-    call api_idx_0002_OTTG           ; 0x046f
+    call load_maze_file              ; 0x046f
     add sp, byte 4                   ; 0x0472
     mov ax, 5                        ; 0x0475
     push ax                          ; 0x0478
     mov ax, dseg_9141                ; 0x0479
     push ax                          ; 0x047c
-    call api_idx_0002_OTTG           ; 0x047d
+    call load_maze_file              ; 0x047d
     add sp, byte 4                   ; 0x0480
     mov ax, 0xa                      ; 0x0483
     push ax                          ; 0x0486
@@ -270,19 +270,19 @@ jumptable_052d_case_6:
     push ax                          ; 0x04d4
     mov ax, dseg_914e                ; 0x04d5
     push ax                          ; 0x04d8
-    call api_idx_0002_OTTG           ; 0x04d9
+    call load_maze_file              ; 0x04d9
     add sp, byte 4                   ; 0x04dc
     mov ax, 4                        ; 0x04df
     push ax                          ; 0x04e2
     mov ax, dseg_915b                ; 0x04e3
     push ax                          ; 0x04e6
-    call api_idx_0002_OTTG           ; 0x04e7
+    call load_maze_file              ; 0x04e7
     add sp, byte 4                   ; 0x04ea
     mov ax, 5                        ; 0x04ed
     push ax                          ; 0x04f0
     mov ax, dseg_9168                ; 0x04f1
     push ax                          ; 0x04f4
-    call api_idx_0002_OTTG           ; 0x04f5
+    call load_maze_file              ; 0x04f5
     add sp, byte 4                   ; 0x04f8
     mov ax, 0xc                      ; 0x04fb
     push ax                          ; 0x04fe

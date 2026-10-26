@@ -1,5 +1,5 @@
 ; auto-generated
-api_idx_0002_OTTG:
+load_maze_file:
     mov ax, 0xfffe
     call aztec_csav
     mov ax, 0
@@ -14,12 +14,12 @@ api_idx_0002_OTTG:
     add sp, byte 4
     mov word [bp - 0x0002], ax
     cmp ax, strict word 0xffff
-    jne short @..api_idx_0002_OTTG.l1
+    jne short @..load_maze_file.l1
     mov ax, 0x1b
     push ax
     call release_and_exit
     pop cx
-@..api_idx_0002_OTTG.l1:
+@..load_maze_file.l1:
     mov ax, 0
     push ax
     push word [bp + 0x6]

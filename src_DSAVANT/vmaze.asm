@@ -147,8 +147,7 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "vmaze/api_idx_0002_LMTG.asm"     ; 0x02da
 
-api_idx_0002_PQLV equ api_idx_0002_OTTG
-%include "shared/game/api_idx_0002_OTTG.asm"     ; 0x02fe
+%include "shared/game/load_maze_file.asm"        ; 0x02fe
 
 %include "vmaze/loc_VRKM.asm"              ; 0x0344
 

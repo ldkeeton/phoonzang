@@ -116,7 +116,7 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "shared/game/find_object_at.asm"        ; 0x01ac
 
-%include "shared/game/api_idx_0002_OTTG.asm"     ; 0x021c
+%include "shared/game/load_maze_file.asm"        ; 0x021c
 
 %include "vmext/api_idx_0002_VNLG.asm"     ; 0x0262
 
