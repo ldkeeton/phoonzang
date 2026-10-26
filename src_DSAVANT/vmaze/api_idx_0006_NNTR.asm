@@ -13,16 +13,16 @@ api_idx_0006_NNTR:
     mov ax, 6                        ; 0x99f9
     imul word [bp - 0x0002]          ; 0x99fc
     mov bx, ax                       ; 0x99ff
-    cmp byte [bx + bss_84a6 + rec_84a6.f_0001], 0 ; 0x9a01
+    cmp byte [bx + slot_bit_states + slot_bit_state.status], 0 ; 0x9a01
     jbe short @..api_idx_0006_NNTR.l3 ; 0x9a06
-    mov al, byte [bx + bss_84a6]     ; 0x9a08
+    mov al, byte [bx + slot_bit_states] ; 0x9a08
     sub ah, ah                       ; 0x9a0c
     cmp ax, word [bp - 0x0006]       ; 0x9a0e
     jne short @..api_idx_0006_NNTR.l3 ; 0x9a11
     push word [bp - 0x0002]          ; 0x9a13
     mov ax, 0x26                     ; 0x9a16
     imul word [bp + 0x4]             ; 0x9a19
-    add ax, slot_records + slot_record.f_0019 + 0x3 ; 0x9a1c
+    add ax, slot_records + slot_record.selected_bits ; 0x9a1c
     push ax                          ; 0x9a1f
     call test_bit                    ; 0x9a20
     add sp, byte 4                   ; 0x9a23
@@ -31,7 +31,7 @@ api_idx_0006_NNTR:
     push word [bp - 0x0002]          ; 0x9a2a
     mov ax, 0x26                     ; 0x9a2d
     imul word [bp + 0x4]             ; 0x9a30
-    add ax, slot_records + slot_record.f_0019 + 0x9 ; 0x9a33
+    add ax, slot_records + slot_record.marked_bits ; 0x9a33
     push ax                          ; 0x9a36
     call test_bit                    ; 0x9a37
     add sp, byte 4                   ; 0x9a3a
@@ -54,7 +54,7 @@ api_idx_0006_NNTR:
     mov ax, 0xffff                   ; 0x9a63
     push ax                          ; 0x9a66
     push word [bp + 0x4]             ; 0x9a67
-    call api_idx_0002_QVIM           ; 0x9a6a
+    call assign_slot_bit             ; 0x9a6a
     add sp, byte 6                   ; 0x9a6d
 @..api_idx_0006_NNTR.l2:
     ret                              ; 0x9a70

@@ -252,9 +252,9 @@ struc party_member_ext_1_rec
 endstruc
 
 ; records at DS 0x84a6
-struc rec_84a6
-    .f_0000: resb 1
-    .f_0001: resb 1
+struc slot_bit_state
+    .slot: resb 1
+    .status: resb 1
     .f_0002: resb 1
     .f_0003: resb 1
     .f_0004: resb 2
@@ -273,7 +273,11 @@ struc slot_record
     .f_0008: resb 14
     .f_0016: resb 2
     .flag: resb 1
-    .f_0019: resb 13
+    .f_0019: resb 1
+    .assigned_bits: resb 2
+    .selected_bits: resb 6
+    .marked_bits: resb 2
+    .pad_0024: resb 2
 endstruc
 
 ; records at DS 0x882c

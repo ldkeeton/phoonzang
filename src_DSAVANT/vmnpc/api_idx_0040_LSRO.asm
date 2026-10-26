@@ -313,7 +313,7 @@ jumptable_36f8_case_10:
     mov al, byte [bss_91c6]          ; 0x2e89
     cbw                              ; 0x2e8c
     push ax                          ; 0x2e8d
-    call api_idx_0002_QVIM           ; 0x2e8e
+    call assign_slot_bit             ; 0x2e8e
     add sp, byte 6                   ; 0x2e91
 @..api_idx_0040_LSRO.l22:
     push word [bp - 0x002c]          ; 0x2e94
@@ -1010,7 +1010,7 @@ jumptable_36f8_case_37:
     cbw                              ; 0x34e6
     mov cx, 0x26                     ; 0x34e7
     imul cx                          ; 0x34ea
-    add ax, slot_records + slot_record.f_0019 + 0x1 ; 0x34ec
+    add ax, slot_records + slot_record.assigned_bits ; 0x34ec
     push ax                          ; 0x34ef
     call test_bit                    ; 0x34f0
     add sp, byte 4                   ; 0x34f3
@@ -1138,7 +1138,7 @@ jumptable_36f8_case_42:
     push ax                          ; 0x3629
     mov ax, 0x15                     ; 0x362a
     push ax                          ; 0x362d
-    call api_idx_0002_QVIM           ; 0x362e
+    call assign_slot_bit             ; 0x362e
     add sp, byte 6                   ; 0x3631
 @..api_idx_0040_LSRO.l79:
     inc word [bp - 0x0030]           ; 0x3634

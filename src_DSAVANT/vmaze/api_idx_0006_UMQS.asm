@@ -15,14 +15,14 @@ api_idx_0006_UMQS:
     mov ax, 6                        ; 0x922c
     imul word [bp - 0x0002]          ; 0x922f
     mov bx, ax                       ; 0x9232
-    cmp byte [bx + bss_84a6 + rec_84a6.f_0003], 0xff ; 0x9234
+    cmp byte [bx + slot_bit_states + slot_bit_state.f_0003], 0xff ; 0x9234
     je short @..api_idx_0006_UMQS.l2 ; 0x9239
     mov ax, word [bp - 0x0002]       ; 0x923b
     add ax, strict word 0xc          ; 0x923e
     push ax                          ; 0x9241
     mov ax, 0x26                     ; 0x9242
     imul word [bp + 0x4]             ; 0x9245
-    add ax, slot_records + slot_record.f_0019 + 0x9 ; 0x9248
+    add ax, slot_records + slot_record.marked_bits ; 0x9248
     push ax                          ; 0x924b
     call test_bit                    ; 0x924c
     add sp, byte 4                   ; 0x924f
@@ -31,7 +31,7 @@ api_idx_0006_UMQS:
     mov ax, 6                        ; 0x9256
     imul word [bp - 0x0002]          ; 0x9259
     mov bx, ax                       ; 0x925c
-    mov al, byte [bx + bss_84a6 + rec_84a6.f_0003] ; 0x925e
+    mov al, byte [bx + slot_bit_states + slot_bit_state.f_0003] ; 0x925e
     cbw                              ; 0x9262
     shl ax, 1                        ; 0x9263
     mov bx, ax                       ; 0x9265
@@ -45,7 +45,7 @@ api_idx_0006_UMQS:
     push ax                          ; 0x927b
     mov ax, 0x26                     ; 0x927c
     imul word [bp + 0x4]             ; 0x927f
-    add ax, slot_records + slot_record.f_0019 + 0x5 ; 0x9282
+    add ax, slot_records + slot_record.selected_bits + 0x2 ; 0x9282
     push ax                          ; 0x9285
     call test_bit                    ; 0x9286
     add sp, byte 4                   ; 0x9289
@@ -58,7 +58,7 @@ api_idx_0006_UMQS:
     push ax                          ; 0x929e
     mov ax, 0x26                     ; 0x929f
     imul word [bp + 0x4]             ; 0x92a2
-    add ax, slot_records + slot_record.f_0019 + 0x5 ; 0x92a5
+    add ax, slot_records + slot_record.selected_bits + 0x2 ; 0x92a5
     push ax                          ; 0x92a8
     call test_bit                    ; 0x92a9
     add sp, byte 4                   ; 0x92ac

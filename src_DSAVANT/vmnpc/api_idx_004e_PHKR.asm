@@ -139,7 +139,7 @@ api_idx_004e_PHKR:
     mov al, byte [bss_91c6]          ; 0x5ca2
     cbw                              ; 0x5ca5
     push ax                          ; 0x5ca6
-    call api_idx_0002_QVIM           ; 0x5ca7
+    call assign_slot_bit             ; 0x5ca7
     add sp, byte 6                   ; 0x5caa
 @..api_idx_004e_PHKR.l5:
     push word [bp - 0x0006]          ; 0x5cad

@@ -30,7 +30,7 @@ api_idx_0002_NMTS:
     push ax                          ; 0x990e
     mov ax, 0x26                     ; 0x990f
     imul word [bp + 0x4]             ; 0x9912
-    add ax, slot_records + slot_record.f_0019 + 0x3 ; 0x9915
+    add ax, slot_records + slot_record.selected_bits ; 0x9915
     push ax                          ; 0x9918
     call set_bitmap_bit              ; 0x9919
     add sp, byte 6                   ; 0x991c

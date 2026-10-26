@@ -700,7 +700,7 @@ load_game_data:
     mov word [bp - 0x0008], ax       ; 0x3688
     mov ax, 0x42                     ; 0x368b
     push ax                          ; 0x368e
-    mov ax, bss_84a6                 ; 0x368f
+    mov ax, slot_bit_states          ; 0x368f
     push ax                          ; 0x3692
     push word [bp - 0x000a]          ; 0x3693
     call aztec_read                  ; 0x3696

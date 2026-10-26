@@ -583,7 +583,7 @@ api_idx_0004_JQTM.api_idx1 equ api_idx_0090_PNOU
 
 %include "vmaze/api_idx_0002_NMTS.asm"     ; 0x98cc
 
-%include "shared/game/api_idx_0002_QVIM.asm"     ; 0x9920
+%include "shared/game/assign_slot_bit.asm"       ; 0x9920
 
 %include "vmaze/api_idx_0006_NNTR.asm"     ; 0x99dd
 

@@ -214,8 +214,7 @@ loc_HTKI.draw_list_rows1 equ api_idx_0004_SLIS
 
 %include "shared/game/loc_GMVH.asm"              ; 0x56af
 
-api_idx_0002_MLKN equ api_idx_0002_QVIM
-%include "shared/game/api_idx_0002_QVIM.asm"     ; 0x56cc
+%include "shared/game/assign_slot_bit.asm"       ; 0x56cc
 
 %include "vtrea/loc_HUIS.asm"              ; 0x5789
 

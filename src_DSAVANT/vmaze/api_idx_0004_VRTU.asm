@@ -19,7 +19,7 @@ api_idx_0004_VRTU:
     mov al, byte [bx + slot_records + slot_record.f_0003] ; 0x96f8
     sub ah, ah                       ; 0x96fc
     push ax                          ; 0x96fe
-    add bx, slot_records + slot_record.f_0019 + 0x5 ; 0x96ff
+    add bx, slot_records + slot_record.selected_bits + 0x2 ; 0x96ff
     mov ax, bx                       ; 0x9703
     push ax                          ; 0x9705
     call test_bit                    ; 0x9706
@@ -59,7 +59,7 @@ api_idx_0004_VRTU:
     push word [bp - 0x0002]          ; 0x9757
     mov ax, 0x26                     ; 0x975a
     imul word [bp + 0x4]             ; 0x975d
-    add ax, slot_records + slot_record.f_0019 + 0x9 ; 0x9760
+    add ax, slot_records + slot_record.marked_bits ; 0x9760
     push ax                          ; 0x9763
     call test_bit                    ; 0x9764
     add sp, byte 4                   ; 0x9767
@@ -70,7 +70,7 @@ api_idx_0004_VRTU:
     push ax                          ; 0x9774
     mov ax, 0x26                     ; 0x9775
     imul word [bp + 0x4]             ; 0x9778
-    add ax, slot_records + slot_record.f_0019 + 0x9 ; 0x977b
+    add ax, slot_records + slot_record.marked_bits ; 0x977b
     push ax                          ; 0x977e
     call test_bit                    ; 0x977f
     add sp, byte 4                   ; 0x9782
@@ -79,7 +79,7 @@ api_idx_0004_VRTU:
     mov ax, 6                        ; 0x9789
     imul word [bp - 0x0002]          ; 0x978c
     mov bx, ax                       ; 0x978f
-    mov al, byte [bx + bss_84a6 + rec_84a6.f_0002] ; 0x9791
+    mov al, byte [bx + slot_bit_states + slot_bit_state.f_0002] ; 0x9791
     sub ah, ah                       ; 0x9795
     mov word [bp - 0x0004], ax       ; 0x9797
     push ax                          ; 0x979a
@@ -116,7 +116,7 @@ api_idx_0004_VRTU:
     push word [bp - 0x0002]          ; 0x97e0
     mov ax, 0x26                     ; 0x97e3
     imul word [bp + 0x4]             ; 0x97e6
-    add ax, slot_records + slot_record.f_0019 + 0x3 ; 0x97e9
+    add ax, slot_records + slot_record.selected_bits ; 0x97e9
     push ax                          ; 0x97ec
     call test_bit                    ; 0x97ed
     add sp, byte 4                   ; 0x97f0
@@ -127,9 +127,9 @@ api_idx_0004_VRTU:
     mov ax, 6                        ; 0x97fa
     imul word [bp - 0x0002]          ; 0x97fd
     mov bx, ax                       ; 0x9800
-    cmp byte [bx + bss_84a6 + rec_84a6.f_0001], 1 ; 0x9802
+    cmp byte [bx + slot_bit_states + slot_bit_state.status], 1 ; 0x9802
     jne short @..api_idx_0004_VRTU.l8 ; 0x9807
-    mov al, byte [bx + bss_84a6]     ; 0x9809
+    mov al, byte [bx + slot_bit_states] ; 0x9809
     push ax                          ; 0x980d
     mov ax, 0x26                     ; 0x980e
     imul word [bp + 0x4]             ; 0x9811
@@ -144,9 +144,9 @@ api_idx_0004_VRTU:
     mov ax, 6                        ; 0x9825
     imul word [bp - 0x0002]          ; 0x9828
     mov bx, ax                       ; 0x982b
-    cmp byte [bx + bss_84a6 + rec_84a6.f_0001], 0 ; 0x982d
+    cmp byte [bx + slot_bit_states + slot_bit_state.status], 0 ; 0x982d
     jne short @..api_idx_0004_VRTU.l10 ; 0x9832
-    mov al, byte [bx + bss_84a6]     ; 0x9834
+    mov al, byte [bx + slot_bit_states] ; 0x9834
     sub ah, ah                       ; 0x9838
     mov cx, 0x26                     ; 0x983a
     imul cx                          ; 0x983d
@@ -161,7 +161,7 @@ api_idx_0004_VRTU:
     mov ax, 6                        ; 0x9852
     imul word [bp - 0x0002]          ; 0x9855
     mov bx, ax                       ; 0x9858
-    mov al, byte [bx + bss_84a6]     ; 0x985a
+    mov al, byte [bx + slot_bit_states] ; 0x985a
     push ax                          ; 0x985e
     mov ax, word [bp + 0x4]          ; 0x985f
     imul cx                          ; 0x9862

@@ -294,7 +294,7 @@ api_idx_0010_TRQK:
     push word [bp - 0x0006]          ; 0xa57f
     mov ax, 0x26                     ; 0xa582
     imul word [bp + 0x4]             ; 0xa585
-    add ax, slot_records + slot_record.f_0019 + 0x5 ; 0xa588
+    add ax, slot_records + slot_record.selected_bits + 0x2 ; 0xa588
     push ax                          ; 0xa58b
     call set_bitmap_bit              ; 0xa58c
     add sp, byte 6                   ; 0xa58f

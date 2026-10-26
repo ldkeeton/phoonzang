@@ -21,7 +21,7 @@ loc_OKIJ:
     mov cx, 6                        ; 0x86db
     imul cx                          ; 0x86de
     mov bx, ax                       ; 0x86e0
-    cmp byte [bx + bss_84a6 + rec_84a6.f_0001], 0 ; 0x86e2
+    cmp byte [bx + slot_bit_states + slot_bit_state.status], 0 ; 0x86e2
     je short @..loc_OKIJ.l1          ; 0x86e7
     mov ax, 0                        ; 0x86e9
     jmp short @..loc_OKIJ.l2         ; 0x86ec

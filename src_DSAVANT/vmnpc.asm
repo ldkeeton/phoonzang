@@ -314,7 +314,7 @@ loc_HTKI.draw_list_rows1 equ api_idx_0004_KHSO
 
 %include "shared/game/loc_GMVH.asm"              ; 0x5497
 
-%include "shared/game/api_idx_0002_QVIM.asm"     ; 0x54b4
+%include "shared/game/assign_slot_bit.asm"       ; 0x54b4
 
 %include "vmnpc/api_idx_0008_GUJV.asm"     ; 0x5571
 

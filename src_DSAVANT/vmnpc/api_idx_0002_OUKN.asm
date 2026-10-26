@@ -12,11 +12,11 @@ api_idx_0002_OUKN:
     mov ax, 6                        ; 0x277f
     imul word [bp + 0x4]             ; 0x2782
     mov bx, ax                       ; 0x2785
-    cmp byte [bx + bss_84a6 + rec_84a6.f_0001], 0 ; 0x2787
+    cmp byte [bx + slot_bit_states + slot_bit_state.status], 0 ; 0x2787
     je short @..api_idx_0002_OUKN.l1 ; 0x278c
     jmp near @..api_idx_0002_OUKN.l9 ; 0x278e
 @..api_idx_0002_OUKN.l1:
-    mov al, byte [bx + bss_84a6]     ; 0x2791
+    mov al, byte [bx + slot_bit_states] ; 0x2791
     sub ah, ah                       ; 0x2795
     mov cx, 0x26                     ; 0x2797
     imul cx                          ; 0x279a
@@ -35,7 +35,7 @@ api_idx_0002_OUKN:
     mov ax, 6                        ; 0x27b7
     imul word [bp + 0x4]             ; 0x27ba
     mov bx, ax                       ; 0x27bd
-    mov al, byte [bx + bss_84a6]     ; 0x27bf
+    mov al, byte [bx + slot_bit_states] ; 0x27bf
     sub ah, ah                       ; 0x27c3
     push ax                          ; 0x27c5
     mov al, byte [bss_91c6]          ; 0x27c6
@@ -60,7 +60,7 @@ api_idx_0002_OUKN:
     mov ax, 6                        ; 0x27ed
     imul word [bp + 0x4]             ; 0x27f0
     mov bx, ax                       ; 0x27f3
-    mov al, byte [bx + bss_84a6]     ; 0x27f5
+    mov al, byte [bx + slot_bit_states] ; 0x27f5
     sub ah, ah                       ; 0x27f9
     push ax                          ; 0x27fb
     mov al, byte [bss_91c6]          ; 0x27fc
@@ -74,7 +74,7 @@ api_idx_0002_OUKN:
 @..api_idx_0002_OUKN.l6:
     cmp word [bp - 0x0002], byte 0   ; 0x280c
     je short @..api_idx_0002_OUKN.l7 ; 0x2810
-    mov al, byte [bx + bss_84a6]     ; 0x2812
+    mov al, byte [bx + slot_bit_states] ; 0x2812
     sub ah, ah                       ; 0x2816
     mov cx, 0x26                     ; 0x2818
     imul cx                          ; 0x281b
@@ -87,7 +87,7 @@ api_idx_0002_OUKN:
     mov ax, 6                        ; 0x282a
     imul word [bp + 0x4]             ; 0x282d
     mov bx, ax                       ; 0x2830
-    mov al, byte [bx + bss_84a6]     ; 0x2832
+    mov al, byte [bx + slot_bit_states] ; 0x2832
     sub ah, ah                       ; 0x2836
     add ax, MSG_SLOT_NAME_BASE       ; 0x2838
 @..api_idx_0002_OUKN.l8:
@@ -107,7 +107,7 @@ api_idx_0002_OUKN:
     mov ax, 6                        ; 0x2856
     imul word [bp + 0x4]             ; 0x2859
     mov bx, ax                       ; 0x285c
-    mov al, byte [bx + bss_84a6]     ; 0x285e
+    mov al, byte [bx + slot_bit_states] ; 0x285e
     sub ah, ah                       ; 0x2862
     add ax, MSG_SLOT_KIND_BASE       ; 0x2864
     push ax                          ; 0x2867

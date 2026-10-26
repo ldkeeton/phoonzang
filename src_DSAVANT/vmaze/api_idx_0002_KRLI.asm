@@ -35,7 +35,7 @@ api_idx_0002_KRLI:
     push ax                          ; 0xa9f8
     mov ax, 0x26                     ; 0xa9f9
     imul word [bp + 0x4]             ; 0xa9fc
-    add ax, slot_records + slot_record.f_0019 + 0x9 ; 0xa9ff
+    add ax, slot_records + slot_record.marked_bits ; 0xa9ff
     push ax                          ; 0xaa02
     call set_bitmap_bit              ; 0xaa03
     add sp, byte 6                   ; 0xaa06
@@ -46,9 +46,9 @@ api_idx_0002_KRLI:
     mov ax, 6                        ; 0xaa16
     imul word [bp - 0x0002]          ; 0xaa19
     mov bx, ax                       ; 0xaa1c
-    cmp byte [bx + bss_84a6 + rec_84a6.f_0004], 0xff ; 0xaa1e
+    cmp byte [bx + slot_bit_states + slot_bit_state.f_0004], 0xff ; 0xaa1e
     je short @..api_idx_0002_KRLI.l1 ; 0xaa23
-    mov al, byte [bx + bss_84a6 + rec_84a6.f_0004] ; 0xaa25
+    mov al, byte [bx + slot_bit_states + slot_bit_state.f_0004] ; 0xaa25
     push ax                          ; 0xaa29
     mov ax, 0x26                     ; 0xaa2a
     imul word [bp + 0x4]             ; 0xaa2d

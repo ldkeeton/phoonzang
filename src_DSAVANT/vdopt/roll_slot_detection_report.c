@@ -3,14 +3,7 @@
 
 #include "msg.h"
 
-struct slot_record {
-	char pad0[4];
-	unsigned char kind;		/* +4: < 25 means the slot is in use */
-	unsigned char map_piece;	/* +5 */
-	char pad1[18];
-	unsigned char flag;	/* +0x18 */
-	char pad2[13];
-};				/* 0x26-byte stride */
+#include "structs/slotstat.h"
 
 struct kind_info {
 	char state;

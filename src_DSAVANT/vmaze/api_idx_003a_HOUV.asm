@@ -28,7 +28,7 @@ api_idx_003a_HOUV:
     push word [bp - 0x0002]          ; 0x953a
     mov ax, 0x26                     ; 0x953d
     imul word [bp + 0x4]             ; 0x9540
-    add ax, slot_records + slot_record.f_0019 + 0x5 ; 0x9543
+    add ax, slot_records + slot_record.selected_bits + 0x2 ; 0x9543
     push ax                          ; 0x9546
     call test_bit                    ; 0x9547
     add sp, byte 4                   ; 0x954a
@@ -54,7 +54,7 @@ api_idx_003a_HOUV:
     push word [bp - 0x0002]          ; 0x957b
     mov ax, 0x26                     ; 0x957e
     imul word [bp + 0x4]             ; 0x9581
-    add ax, slot_records + slot_record.f_0019 + 0x5 ; 0x9584
+    add ax, slot_records + slot_record.selected_bits + 0x2 ; 0x9584
     push ax                          ; 0x9587
     call test_bit                    ; 0x9588
     add sp, byte 4                   ; 0x958b
@@ -126,7 +126,7 @@ api_idx_003a_HOUV:
     push word [bp - 0x0002]          ; 0x9625
     mov ax, 0x26                     ; 0x9628
     imul word [bp + 0x4]             ; 0x962b
-    add ax, slot_records + slot_record.f_0019 + 0x5 ; 0x962e
+    add ax, slot_records + slot_record.selected_bits + 0x2 ; 0x962e
     push ax                          ; 0x9631
     call test_bit                    ; 0x9632
     add sp, byte 4                   ; 0x9635

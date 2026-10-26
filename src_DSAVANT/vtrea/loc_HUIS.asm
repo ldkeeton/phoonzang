@@ -70,7 +70,7 @@ loc_HUIS:
     push word [bp - 0x0002]          ; 0x5837
     mov ax, 0x26                     ; 0x583a
     imul word [selected_item_slot]   ; 0x583d
-    add ax, slot_records + slot_record.f_0019 + 0x1 ; 0x5841
+    add ax, slot_records + slot_record.assigned_bits ; 0x5841
     push ax                          ; 0x5844
     call test_bit                    ; 0x5845
     add sp, byte 4                   ; 0x5848
@@ -80,7 +80,7 @@ loc_HUIS:
     push word [selected_item_slot]   ; 0x5852
     mov ax, 0x15                     ; 0x5856
     push ax                          ; 0x5859
-    call api_idx_0002_MLKN           ; 0x585a
+    call assign_slot_bit             ; 0x585a
     add sp, byte 6                   ; 0x585d
     mov ax, word [bp - 0x0002]       ; 0x5860
     add ax, 0x190                    ; 0x5863
@@ -93,7 +93,7 @@ loc_HUIS:
     push word [bp - 0x0002]          ; 0x5876
     mov ax, 0x26                     ; 0x5879
     imul word [selected_item_slot]   ; 0x587c
-    add ax, slot_records + slot_record.f_0019 + 0x3 ; 0x5880
+    add ax, slot_records + slot_record.selected_bits ; 0x5880
     push ax                          ; 0x5883
     call test_bit                    ; 0x5884
     add sp, byte 4                   ; 0x5887
@@ -210,7 +210,7 @@ loc_HUIS:
     push ax                          ; 0x597e
     mov ax, 0x15                     ; 0x597f
     push ax                          ; 0x5982
-    call api_idx_0002_MLKN           ; 0x5983
+    call assign_slot_bit             ; 0x5983
     add sp, byte 6                   ; 0x5986
 @..loc_HUIS.l15:
     mov ax, word [bss_95e4]          ; 0x5989

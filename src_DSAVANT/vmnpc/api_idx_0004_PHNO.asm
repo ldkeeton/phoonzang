@@ -19,7 +19,7 @@ api_idx_0004_PHNO:
     cbw                              ; 0x28cc
     mov cx, 0x26                     ; 0x28cd
     imul cx                          ; 0x28d0
-    add ax, slot_records + slot_record.f_0019 + 0x3 ; 0x28d2
+    add ax, slot_records + slot_record.selected_bits ; 0x28d2
     push ax                          ; 0x28d5
     call set_bitmap_bit              ; 0x28d6
     add sp, byte 6                   ; 0x28d9
@@ -29,7 +29,7 @@ api_idx_0004_PHNO:
     cbw                              ; 0x28e2
     mov cx, 0x26                     ; 0x28e3
     imul cx                          ; 0x28e6
-    add ax, slot_records + slot_record.f_0019 + 0x3 ; 0x28e8
+    add ax, slot_records + slot_record.selected_bits ; 0x28e8
     push ax                          ; 0x28eb
     call test_bit                    ; 0x28ec
     add sp, byte 4                   ; 0x28ef
@@ -48,7 +48,7 @@ api_idx_0004_PHNO:
     cbw                              ; 0x290d
     mov cx, 0x26                     ; 0x290e
     imul cx                          ; 0x2911
-    add ax, slot_records + slot_record.f_0019 + 0x3 ; 0x2913
+    add ax, slot_records + slot_record.selected_bits ; 0x2913
     push ax                          ; 0x2916
     call test_bit                    ; 0x2917
     add sp, byte 4                   ; 0x291a

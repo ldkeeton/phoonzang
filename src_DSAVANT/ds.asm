@@ -294,7 +294,7 @@ selected_item_slot equ __zbss_849e - __zdseg_start
 selected_item_record equ __zbss_84a0 - __zdseg_start
 item_action_reward equ __zbss_84a2 - __zdseg_start
 item_action_reward_hi equ __zbss_84a4 - __zdseg_start
-bss_84a6 equ __zbss_84a6 - __zdseg_start
+slot_bit_states equ __zbss_84a6 - __zdseg_start
 slot_records equ __zbss_84e8 - __zdseg_start
 bss_8809 equ __zbss_8809 - __zdseg_start
 bss_880a equ __zbss_880a - __zdseg_start
