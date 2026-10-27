@@ -483,26 +483,38 @@ def _binaries(sidecar):
 
 
 def _dispatch_names(sidecar, binary):
-    table = (_binaries(sidecar).get(binary) or {}).get('dispatch_table') or {}
+    if binary and binary.startswith('apis.'):
+        table = ((sidecar.get('apis') or {}).get(binary[5:]) or {}).get(
+            'dispatch_table') or {}
+    else:
+        table = _resolved_dispatch_table(sidecar, binary)
     return table.get('names') or {}
 
 
-def dispatch_owner(sidecar, binary):
-    """The binary whose ``dispatch_table.names`` name *binary*'s API slots.
+def _resolved_dispatch_table(sidecar, binary):
+    """Resolve a binary's dispatch table through its project API reference."""
+    info = (_binaries(sidecar).get(binary) or {})
+    return ((sidecar.get('apis') or {}).get(info.get('api')) or {}).get(
+        'dispatch_table') or {}
 
-    A driver table may name its slots itself.  A second driver can declare
-    ``"api": "<driver>"`` and reuse that table, so the names live one or more
-    hops away.  Returns None when no table in the chain names anything.
+
+def _dispatch_names_path(sidecar, binary):
+    info = (_binaries(sidecar).get(binary) or {})
+    if info.get('api'):
+        return ['apis', info['api'], 'dispatch_table', 'names']
+    return []
+
+
+def dispatch_owner(sidecar, binary):
+    """The API node whose ``dispatch_table.names`` name *binary*'s slots.
+
+    Returns the project-level API node that owns the names, if any.
     """
-    seen = set()
-    owner = binary
-    while owner and owner not in seen:
-        seen.add(owner)
-        table = (_binaries(sidecar).get(owner) or {}).get('dispatch_table') or {}
-        if table.get('names'):
-            return owner
-        owner = table.get('api')
-    return None
+    info = (_binaries(sidecar).get(binary) or {})
+    api_name = info.get('api')
+    table = ((sidecar.get('apis') or {}).get(api_name) or {}).get(
+        'dispatch_table') or {}
+    return f'apis.{api_name}' if api_name and table.get('names') else None
 
 
 def _sidecar_key(sidecar, binary, addr):
@@ -528,7 +540,7 @@ def _dispatch_targets(project, sidecar, driver):
     data, _ = binary_bytes(project, driver)
     if data is None:
         return {}
-    table = (_binaries(sidecar).get(driver) or {}).get('dispatch_table') or {}
+    table = _resolved_dispatch_table(sidecar, driver)
     if not table:
         return {}
     out = {}
@@ -560,12 +572,13 @@ def provenance_rows(sidecar, project, binary, routine, addr=None):
     drivers = []
     owner = dispatch_owner(sidecar, binary)
     if owner:
-        drivers.append(owner)
-    if owner != binary and binary not in drivers:
-        drivers.append(binary)
-    for driver in drivers:
+        drivers.append((owner, binary))
+    if (owner != binary and not (owner or '').startswith('apis.')
+            and not any(image == binary for _, image in drivers)):
+        drivers.append((binary, binary))
+    for driver, image in drivers:
         names = _dispatch_names(sidecar, driver)
-        targets = _dispatch_targets(project, sidecar, driver)
+        targets = _dispatch_targets(project, sidecar, image)
         for slot, name in sorted(names.items(), key=lambda row: int(row[0])):
             hit = targets.get(int(slot)) == addr
             if hit or name == routine:
@@ -594,9 +607,8 @@ def api_consumers(sidecar, binary):
     """One line per binary/wrapper that reuses *binary*'s API names."""
     out = []
     for name, info in sorted(_binaries(sidecar).items()):
-        table = info.get('dispatch_table') or {}
-        if table.get('api') == binary:
-            out.append(f'{name} reuses the {binary} dispatch table')
+        if info.get('api') == binary:
+            out.append(f'{name} references the {binary} API node')
         for slots in info.get('driver_slots') or []:
             if slots.get('driver') == binary:
                 prefix = slots.get('prefix') or ''
@@ -804,19 +816,15 @@ def plan_names(project, binary, specs):
             owner = dispatch_owner(sidecar, target)
             slots = [slot for slot, value in
                      _dispatch_names(sidecar, owner).items() if value == old]
-            if slots and owner != target:
-                raise SidecarError(
-                    f'{sym}: {owner}.dispatch_table.names['
-                    f'{", ".join(sorted(slots))}] still says {old!r}; name '
-                    f'the slot from {owner} or it overrides this entry')
+            names_path = _dispatch_names_path(sidecar, target)
             if slots:
                 for slot in sorted(slots):
                     text = set_value(
-                        text, ['binaries', target, 'dispatch_table', 'names'],
+                        text, names_path,
                         slot, name)
                     changes.append({
                         'symbol': sym, 'old': old, 'name': name,
-                        'surface': f'binaries.{target}.dispatch_table.names'
+                        'surface': f'{".".join(names_path)}'
                                    f'["{slot}"]'})
                 sidecar = json.loads(text)
             own = _binaries(sidecar).get(target) or {}

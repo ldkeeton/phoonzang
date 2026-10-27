@@ -57,8 +57,9 @@ def _validate_binary(name, info):
         _validate_driver_slots(info['driver_slots'], f'binaries.{name}.driver_slots')
 
     if 'dispatch_table' in info:
-        _validate_entry_names(info['dispatch_table'],
-                              f'binaries.{name}.dispatch_table')
+        raise SidecarError(
+            f'binaries.{name}.dispatch_table: dispatch tables belong under '
+            'the project-level "apis" object; reference one with "api"')
 
     if 'external_data' in info:
         _validate_external_data(info['external_data'],
@@ -87,8 +88,12 @@ def _validate_binary(name, info):
 
 
 def _validate_entry_names(table, where):
-    """A ``dispatch_table``'s ``names`` (``{entry number: name}``), or its
-    ``api``: the binary whose table it shares names with."""
+    """Validate a project API dispatch table's entry names."""
+    if not isinstance(table, dict):
+        raise SidecarError(f'{where} must be an object')
+    if 'api' in table:
+        raise SidecarError(f'{where}.api is not supported; binaries reference '
+                           'the project API node')
     names = table.get('names')
     if names is not None:
         if 'api' in table:
@@ -100,16 +105,13 @@ def _validate_entry_names(table, where):
                 raise SidecarError(f'{where}.names[{key}]: not an entry number')
             if not (isinstance(entry_name, str) and _IDENTIFIER.match(entry_name)):
                 raise SidecarError(f'{where}.names[{key}] must be an identifier')
-    if 'api' in table and not isinstance(table['api'], str):
-        raise SidecarError(f'{where}.api must be a binary name')
-
-
-def _entry_names(sidecar, table):
-    """*table* with the ``names`` it has or shares through ``api``."""
-    if not table or 'api' not in table:
-        return table
-    shared = sidecar['binaries'][table['api']]['dispatch_table']
-    return dict(table, names=shared.get('names', {}))
+def _binary_dispatch_table(sidecar, binary):
+    """Resolve the dispatch table referenced by a binary's API name."""
+    api_name = binary.get('api')
+    if not api_name:
+        return None
+    api = (sidecar.get('apis') or {}).get(api_name) or {}
+    return api.get('dispatch_table')
 
 
 def _validate_driver_slots(tables, where):
@@ -187,11 +189,11 @@ def per_binary(sidecar, short_name):
             result['start_offset'] = b.get('start_offset')
             result['entry_symbol'] = b.get('entry_symbol')
             result['function_names'] = b.get('function_names', {})
-            result['dispatch_table'] = _entry_names(
-                sidecar, b.get('dispatch_table'))
+            result['dispatch_table'] = _binary_dispatch_table(
+                sidecar, b)
             result['driver_slots'] = [
-                dict(slots, dispatch_table=_entry_names(
-                    sidecar, sidecar['binaries'][slots['driver']]['dispatch_table']))
+                dict(slots, dispatch_table=_binary_dispatch_table(
+                    sidecar, sidecar['binaries'][slots['driver']]))
                 for slots in b.get('driver_slots', [])]
             result['immediate_labels'] = b.get('immediate_labels', {})
             result['external_data'] = _external_data_map(b.get('external_data', {}))

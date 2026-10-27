@@ -3,7 +3,7 @@
 import json
 import os
 
-from .binary import _validate_binary
+from .binary import _validate_binary, _validate_entry_names
 from .compiler import _validate_compiler_flags
 from .constants import SIDECAR_DIR
 from .errors import SidecarError
@@ -78,26 +78,37 @@ def _validate(data):
     if 'binaries' in data:
         if not isinstance(data['binaries'], dict):
             raise SidecarError('"binaries" must be an object')
+        apis = data.get('apis', {})
+        if not isinstance(apis, dict):
+            raise SidecarError('"apis" must be an object')
+        for api_name, api in apis.items():
+            if not isinstance(api, dict):
+                raise SidecarError(f'apis.{api_name} must be an object')
+            if 'dispatch_table' in api:
+                _validate_entry_names(api['dispatch_table'],
+                                      f'apis.{api_name}.dispatch_table')
         for b_name, b_info in data['binaries'].items():
             _validate_binary(b_name, b_info)
-        geometry = ('base_offset', 'entry_size', 'count', 'format')
         for b_name, b_info in data['binaries'].items():
-            table = b_info.get('dispatch_table') or {}
-            if 'api' in table:
-                shared = (data['binaries'].get(table['api']) or {}).get(
-                    'dispatch_table') or {}
-                if 'api' in shared or any(
-                        shared.get(k) != table.get(k) for k in geometry):
+            api_ref = b_info.get('api')
+            if api_ref is not None:
+                if not isinstance(api_ref, str) or api_ref not in apis:
                     raise SidecarError(
-                        f'binaries.{b_name}.dispatch_table.api: '
-                        f'{table["api"]!r} has no table of the same shape '
-                        'with its own names')
+                        f'binaries.{b_name}.api: {api_ref!r} is not a declared API')
+                shared = (apis[api_ref].get('dispatch_table') or {})
+                if not shared:
+                    raise SidecarError(
+                        f'binaries.{b_name}.api: {api_ref!r} has no dispatch_table')
             for index, slots in enumerate(b_info.get('driver_slots', [])):
                 driver = slots['driver']
-                if not (data['binaries'].get(driver) or {}).get('dispatch_table'):
+                driver_info = data['binaries'].get(driver) or {}
+                api_ref = driver_info.get('api')
+                if not api_ref or not (apis.get(api_ref) or {}).get(
+                        'dispatch_table'):
                     raise SidecarError(
                         f'binaries.{b_name}.driver_slots[{index}].driver: '
-                        f'{driver!r} is not a binary with a "dispatch_table"')
+                        f'{driver!r} does not reference an API with a '
+                        'dispatch_table')
 
     for key in ('force_data', 'force_code'):
         if key in data:
