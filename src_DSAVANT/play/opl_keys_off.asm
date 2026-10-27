@@ -15,7 +15,7 @@ opl_keys_off:
     add ah, cl                       ; 0x01ff
     mov bl, ah                       ; 0x0201
     xor bh, bh                       ; 0x0203
-    mov al, byte [cs:bx + cseg_1429 - IMAGE_BASE] ; 0x0205
+    mov al, byte [cs:bx + opl_register_shadow - IMAGE_BASE] ; 0x0205
     and al, 0xdf                     ; 0x020a
     call opl_write                   ; 0x020c
     inc cl                           ; 0x020f

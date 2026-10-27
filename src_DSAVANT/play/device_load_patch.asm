@@ -1,5 +1,5 @@
 ; auto-generated
-loc_IMHI:
+device_load_patch:
     push bx                          ; 0x1167
     mov bl, byte [cs:music_device - IMAGE_BASE] ; 0x1168
     xor bh, bh                       ; 0x116d
@@ -8,9 +8,9 @@ loc_IMHI:
     pop bx                           ; 0x1176
     ret                              ; 0x1177
 jumptable_1178:
-    dw loc_PLIR - IMAGE_BASE                   ; 0x1178
-    dw loc_OUQR - IMAGE_BASE                   ; 0x117a
-    dw loc_PLIR - IMAGE_BASE                   ; 0x117c
-    dw loc_PLIR - IMAGE_BASE                   ; 0x117e
-    dw loc_OUQR - IMAGE_BASE                   ; 0x1180
-    dw loc_PLIR - IMAGE_BASE                   ; 0x1182
+    dw device_nop - IMAGE_BASE                 ; 0x1178
+    dw opl_load_patch - IMAGE_BASE             ; 0x117a
+    dw device_nop - IMAGE_BASE                 ; 0x117c
+    dw device_nop - IMAGE_BASE                 ; 0x117e
+    dw opl_load_patch - IMAGE_BASE             ; 0x1180
+    dw device_nop - IMAGE_BASE                 ; 0x1182

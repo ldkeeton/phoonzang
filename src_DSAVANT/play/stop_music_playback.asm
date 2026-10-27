@@ -16,9 +16,9 @@ stop_music_playback:
     pop bx                           ; 0x01d8
     ret                              ; 0x01d9
 jumptable_01da:
-    dw loc_PLIR - IMAGE_BASE                   ; 0x01da
+    dw device_nop - IMAGE_BASE                 ; 0x01da
     dw opl_keys_off - IMAGE_BASE               ; 0x01dc
-    dw loc_PLIR - IMAGE_BASE                   ; 0x01de
-    dw loc_PLIR - IMAGE_BASE                   ; 0x01e0
+    dw device_nop - IMAGE_BASE                 ; 0x01de
+    dw device_nop - IMAGE_BASE                 ; 0x01e0
     dw opl_keys_off - IMAGE_BASE               ; 0x01e2
     dw mpu_all_notes_off - IMAGE_BASE          ; 0x01e4

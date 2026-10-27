@@ -55,32 +55,34 @@ loc_JTQK_001f.load_screen1 equ wait_for_music
 
 %include "play/clamp_device.asm"           ; 0x02b3
 
-cseg_0b10 equ __zinsn_0b0f + 0x1
-cseg_0b12 equ __zinsn_0b0f + 0x3
+saved_int08_offset  equ __zinsn_0b0f + 0x1
+saved_int08_segment equ __zinsn_0b0f + 0x3
 %include "play/io_loc_PISO.asm"            ; 0x02ba
+
+%include "play/data/int08_hooked.asm"      ; 0x0321
 
 %include "play/play_set_device.asm"        ; 0x0322
 
-cseg_0848     equ __zinsn_0846 + 0x2
-cseg_08bf     equ __zinsn_08be + 0x1
-cseg_08c4     equ __zinsn_08c3 + 0x1
-cseg_08d4     equ __zinsn_08cf + 0x5
-cseg_097c     equ __zinsn_097a + 0x2
-cseg_09a4     equ __zinsn_09a3 + 0x1
-cseg_09a9     equ __zinsn_09a8 + 0x1
-cseg_09bb     equ __zinsn_09b6 + 0x5
-cseg_0a54     equ __zinsn_0a52 + 0x2
-; cseg_0b10     equ __zinsn_0b0f + 0x1
-; cseg_0b12     equ __zinsn_0b0f + 0x3
-cseg_18e8     equ __zinsn_18e7 + 0x1
-sample_offset equ __zinsn_18f1 + 0x1
-cseg_1904     equ __zinsn_18ff + 0x5
+cseg_0848           equ __zinsn_0846 + 0x2
+cseg_08bf           equ __zinsn_08be + 0x1
+cseg_08c4           equ __zinsn_08c3 + 0x1
+cseg_08d4           equ __zinsn_08cf + 0x5
+cseg_097c           equ __zinsn_097a + 0x2
+cseg_09a4           equ __zinsn_09a3 + 0x1
+cseg_09a9           equ __zinsn_09a8 + 0x1
+cseg_09bb           equ __zinsn_09b6 + 0x5
+cseg_0a54           equ __zinsn_0a52 + 0x2
+; saved_int08_offset  equ __zinsn_0b0f + 0x1
+; saved_int08_segment equ __zinsn_0b0f + 0x3
+cseg_18e8           equ __zinsn_18e7 + 0x1
+sample_offset       equ __zinsn_18f1 + 0x1
+cseg_1904           equ __zinsn_18ff + 0x5
 %include "play/play_install_handler.asm"   ; 0x03e2
 
-%include "play/leaf_loc_STGJ.asm"          ; 0x0610
+%include "play/io_delay.asm"               ; 0x0610
 
-; cseg_0b10 equ __zinsn_0b0f + 0x1
-; cseg_0b12 equ __zinsn_0b0f + 0x3
+; saved_int08_offset  equ __zinsn_0b0f + 0x1
+; saved_int08_segment equ __zinsn_0b0f + 0x3
 %include "play/loc_0614.asm"               ; 0x0614
 
 %include "play/opl_silent_note_pulse.asm"  ; 0x06ec
@@ -110,11 +112,11 @@ dissolve_area.show_area1 equ loc_121d
 ; cseg_09a9 equ __zinsn_09a8 + 0x1
 %include "play/loc_PNPV.asm"               ; 0x099f
 
-; cseg_0b10 equ __zinsn_0b0f + 0x1
-; cseg_0b12 equ __zinsn_0b0f + 0x3
+; saved_int08_offset  equ __zinsn_0b0f + 0x1
+; saved_int08_segment equ __zinsn_0b0f + 0x3
 %include "play/sound_stop_and_restore_timer.asm" ; 0x09d4
 
-%include "play/string_loc_OJPI.asm"        ; 0x0a2a
+%include "play/set_int08_vector.asm"       ; 0x0a2a
 
 %include "play/speaker_sample_interrupt.asm" ; 0x0a41
 
@@ -172,57 +174,17 @@ dissolve_area.show_area1 equ loc_121d
 
 %include "play/data/note_started.asm"      ; 0x0ad8
 
-%include "play/music_stop.asm"             ; 0x0ad9
+; saved_int08_offset  equ __zinsn_0b0f + 0x1
+; saved_int08_segment equ __zinsn_0b0f + 0x3
+%include "play/music_tick_exit.asm"        ; 0x0ad9
 
-%include "play/music_player_tick.asm"      ; 0x0af6
+%include "play/device_load_patch.asm"      ; 0x1167
 
-; cseg_0b10 equ __zinsn_0b0f + 0x1
-; cseg_0b12 equ __zinsn_0b0f + 0x3
-%include "play/restore_timer_handler.asm"  ; 0x0c97
+%include "play/device_nop.asm"             ; 0x1184
 
-%include "play/music_loop_event.asm"       ; 0x0cca
+%include "play/device_note_on.asm"         ; 0x1185
 
-%include "play/data/cseg_0cdf.asm"         ; 0x0cdf
-
-%include "play/data/opl_voice_count.asm"   ; 0x0d3a
-
-%include "play/data/cseg_0d3b.asm"         ; 0x0d3b
-
-%include "play/data/opl_note_semitone.asm" ; 0x0d3c
-
-%include "play/data/cseg_0d3d.asm"         ; 0x0d3d
-
-%include "play/data/opl_note_index.asm"    ; 0x0d3e
-
-%include "play/data/cseg_0d3f.asm"         ; 0x0d3f
-
-%include "play/data/opl_channel_index.asm" ; 0x0d40
-
-%include "play/data/opl_pitch_value.asm"   ; 0x0d41
-
-%include "play/data/opl_pitch_range.asm"   ; 0x0d43
-
-%include "play/data/cseg_0d45.asm"         ; 0x0d45
-
-%include "play/string_loc_SLGG.asm"        ; 0x0d50
-
-%include "play/store_nibble_event.asm"     ; 0x0e01
-
-%include "play/skip_byte_event.asm"        ; 0x0e11
-
-%include "play/store_word_event.asm"       ; 0x0e15
-
-%include "play/skip_word_event.asm"        ; 0x0e1d
-
-%include "play/note_event_high.asm"        ; 0x0e24
-
-%include "play/note_event_low.asm"         ; 0x1081
-
-%include "play/loc_IMHI.asm"               ; 0x1167
-
-%include "play/loc_PLIR.asm"               ; 0x1184
-
-%include "play/loc_ONLU.asm"               ; 0x1185
+%include "play/device_note_off.asm"        ; 0x11a2
 
 %include "play/data/event_byte_counts.asm" ; 0x11bf
 
@@ -247,15 +209,21 @@ mpu401_read_ready_flag equ mpu401_write_ready_flag + 0x1
 
 %include "play/data/opl_operator_map.asm"  ; 0x12df
 
-%include "play/leaf_loc_QSMI.asm"          ; 0x12f1
+%include "play/opl_channel_operators.asm"  ; 0x12f1
 
-%include "play/loc_QKNN.asm"               ; 0x1302
+%include "play/opl_apply_volume.asm"       ; 0x1302
 
 %include "play/opl_write_note_pair.asm"    ; 0x1344
 
-%include "play/loc_OUQR.asm"               ; 0x137a
+%include "play/opl_load_patch.asm"         ; 0x137a
 
-%include "play/data/cseg_1429.asm"         ; 0x1429
+%include "play/data/opl_register_shadow.asm" ; 0x1429
+
+%include "play/data/opl_register_shadow_b1_bc.asm" ; 0x14da
+
+%include "play/data/opl_rhythm_register_shadow.asm" ; 0x14e6
+
+%include "play/data/opl_register_shadow_c0_ff.asm" ; 0x14e9
 
 %include "play/data/opl_fnum_table.asm"    ; 0x1529
 
@@ -267,7 +235,7 @@ mpu401_read_ready_flag equ mpu401_write_ready_flag + 0x1
 
 %include "play/opl_note_on.asm"            ; 0x1775
 
-%include "play/loc_VHII.asm"               ; 0x18cb
+%include "play/opl_note_off.asm"           ; 0x18cb
 
 ; sample_offset equ __zinsn_18f1 + 0x1
 %include "play/pit_sample_interrupt.asm"   ; 0x18e4
@@ -276,5 +244,7 @@ mpu401_read_ready_flag equ mpu401_write_ready_flag + 0x1
 
 %include "play/data/sample_count_table.asm" ; 0x193a
 
-%include "play/data/cseg_19ba.asm"         ; 0x19ba
+%include "play/data/opl_velocity_curve_prefix.asm" ; 0x19ba
+
+%include "play/data/opl_velocity_scale_table.asm" ; 0x1a3a
 

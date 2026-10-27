@@ -23,22 +23,22 @@ play_install_handler:
     mov es, ax                       ; 0x0415
     mov di, 0x20                     ; 0x0417
     cli                              ; 0x041a
-    cmp byte [cs:cseg_0321 - IMAGE_BASE], 0 ; 0x041b
+    cmp byte [cs:int08_hooked - IMAGE_BASE], 0 ; 0x041b
     jne short .forward4              ; 0x0421
-    mov byte [cs:cseg_0321 - IMAGE_BASE], 1 ; 0x0423
+    mov byte [cs:int08_hooked - IMAGE_BASE], 1 ; 0x0423
     in al, 0x21                      ; 0x0429
     mov byte [cs:saved_pic_mask - IMAGE_BASE], al ; 0x042b
     mov ax, word [es:di]             ; 0x042f
-    mov word [cs:cseg_0b10 - IMAGE_BASE], ax ; 0x0432
+    mov word [cs:saved_int08_offset - IMAGE_BASE], ax ; 0x0432
     mov ax, word [es:di + 2]         ; 0x0436
-    mov word [cs:cseg_0b12 - IMAGE_BASE], ax ; 0x043a
+    mov word [cs:saved_int08_segment - IMAGE_BASE], ax ; 0x043a
 .forward4:
     mov al, 0x34                     ; 0x043e
     out 0x43, al                     ; 0x0440
-    call leaf_loc_STGJ               ; 0x0442
+    call io_delay                    ; 0x0442
     mov ax, 0x48                     ; 0x0445
     out 0x40, al                     ; 0x0448
-    call leaf_loc_STGJ               ; 0x044a
+    call io_delay                    ; 0x044a
     mov al, ah                       ; 0x044d
     out 0x40, al                     ; 0x044f
     cmp byte [cs:cseg_0a90 - IMAGE_BASE], 0 ; 0x0451
@@ -174,7 +174,7 @@ play_install_handler.forward13:
     out 0x43, al                     ; 0x059d
     mov ax, 0x48                     ; 0x059f
     out 0x40, al                     ; 0x05a2
-    call leaf_loc_STGJ               ; 0x05a4
+    call io_delay                    ; 0x05a4
     mov al, ah                       ; 0x05a7
     out 0x40, al                     ; 0x05a9
     mov al, 0xfe                     ; 0x05ab
@@ -209,7 +209,7 @@ play_install_handler.back3:
     mov bl, 0x48                     ; 0x05fb
     mul bl                           ; 0x05fd
     out 0x40, al                     ; 0x05ff
-    call leaf_loc_STGJ               ; 0x0601
+    call io_delay                    ; 0x0601
     mov al, ah                       ; 0x0604
     out 0x40, al                     ; 0x0606
 play_install_handler.forward17:

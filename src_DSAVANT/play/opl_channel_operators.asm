@@ -1,5 +1,5 @@
 ; auto-generated
-leaf_loc_QSMI:
+opl_channel_operators:
     push ax                          ; 0x12f1
     push bx                          ; 0x12f2
     xor ah, ah                       ; 0x12f3

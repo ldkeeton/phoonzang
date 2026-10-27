@@ -3,7 +3,7 @@ opl_write_note_pair:
     push dx                          ; 0x1344
     mov dx, ax                       ; 0x1345
     mov al, byte [cs:playback_volume - IMAGE_BASE] ; 0x1347
-    mov cl, byte [cs:cseg_0d3f - IMAGE_BASE] ; 0x134b
+    mov cl, byte [cs:opl_note_velocity - IMAGE_BASE] ; 0x134b
     shl cl, 1                        ; 0x1350
     inc cl                           ; 0x1352
     xor ah, ah                       ; 0x1354

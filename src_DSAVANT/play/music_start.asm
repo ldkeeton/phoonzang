@@ -14,7 +14,7 @@ music_start:
     mov byte [cs:loop_at_end - IMAGE_BASE], al ; 0x0046
     mov word [cs:tick_divider - IMAGE_BASE], 1 ; 0x004a
     mov word [cs:restart_delay - IMAGE_BASE], 1 ; 0x0051
-    mov bx, cseg_0d03 - IMAGE_BASE   ; 0x0058
+    mov bx, opl_voice_records - IMAGE_BASE ; 0x0058
 .back1:
     mov byte [cs:bx], 0              ; 0x005b
     mov byte [cs:bx + 1], 0          ; 0x005f
@@ -43,9 +43,9 @@ loc_VVTT:
     call [cs:bx + jumptable_00aa - IMAGE_BASE] ; 0x00a4
     ret                              ; 0x00a9
 jumptable_00aa:
-    dw loc_PLIR - IMAGE_BASE                   ; 0x00aa
+    dw device_nop - IMAGE_BASE                 ; 0x00aa
     dw opl_init - IMAGE_BASE                   ; 0x00ac
-    dw loc_PLIR - IMAGE_BASE                   ; 0x00ae
-    dw loc_PLIR - IMAGE_BASE                   ; 0x00b0
+    dw device_nop - IMAGE_BASE                 ; 0x00ae
+    dw device_nop - IMAGE_BASE                 ; 0x00b0
     dw opl_init - IMAGE_BASE                   ; 0x00b2
     dw mpu401_reset_with_retries - IMAGE_BASE  ; 0x00b4

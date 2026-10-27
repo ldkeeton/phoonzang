@@ -1,5 +1,5 @@
 ; auto-generated
-loc_OUQR:
+opl_load_patch:
     push bx                          ; 0x137a
     push cx                          ; 0x137b
     push dx                          ; 0x137c
@@ -29,7 +29,7 @@ loc_OUQR:
     mov bl, byte [cs:opl_channel_index - IMAGE_BASE] ; 0x13b6
     mov ah, bl                       ; 0x13bb
     xor bh, bh                       ; 0x13bd
-    mov al, byte [cs:bx + cseg_14da - IMAGE_BASE] ; 0x13bf
+    mov al, byte [cs:bx + opl_register_shadow_b1_bc - IMAGE_BASE] ; 0x13bf
     add ah, 0xb1                     ; 0x13c4
     and al, 0xdf                     ; 0x13c7
     call opl_write                   ; 0x13c9

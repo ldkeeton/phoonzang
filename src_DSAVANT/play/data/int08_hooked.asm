@@ -1,3 +1,3 @@
 ; auto-generated
-cseg_0d3d:
+int08_hooked:
     db 0x00

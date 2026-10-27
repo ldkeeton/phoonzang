@@ -1,5 +1,5 @@
 ; auto-generated
-string_loc_OJPI:
+set_int08_vector:
     pushf                            ; 0x0a2a
     push di                          ; 0x0a2b
     push es                          ; 0x0a2c

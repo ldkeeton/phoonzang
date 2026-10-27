@@ -1,12 +1,12 @@
 ; auto-generated
-loc_QKNN:
+opl_apply_volume:
     push cx                          ; 0x1302
     push dx                          ; 0x1303
     mov al, byte [cs:opl_channel_index - IMAGE_BASE] ; 0x1304
     inc al                           ; 0x1308
-    call leaf_loc_QSMI               ; 0x130a
-    mov bx, cseg_1a3a - IMAGE_BASE   ; 0x130d
-    mov al, byte [cs:cseg_0d3f - IMAGE_BASE] ; 0x1310
+    call opl_channel_operators       ; 0x130a
+    mov bx, opl_velocity_scale_table - IMAGE_BASE ; 0x130d
+    mov al, byte [cs:opl_note_velocity - IMAGE_BASE] ; 0x1310
     shl al, 1                        ; 0x1314
     xor ah, ah                       ; 0x1316
     mov cl, byte [cs:playback_volume - IMAGE_BASE] ; 0x1318
@@ -18,7 +18,7 @@ loc_QKNN:
     mov bl, byte [cs:opl_channel_index - IMAGE_BASE] ; 0x1327
     inc bl                           ; 0x132c
     mov al, 1                        ; 0x132e
-    and al, byte [cs:bx + cseg_14e9 - IMAGE_BASE] ; 0x1330
+    and al, byte [cs:bx + opl_register_shadow_c0_ff - IMAGE_BASE] ; 0x1330
     je short .forward1               ; 0x1335
     mov al, dl                       ; 0x1337
     call opl_write_note_pair         ; 0x1339
