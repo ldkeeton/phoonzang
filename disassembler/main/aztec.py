@@ -249,7 +249,7 @@ def _aztec_c_overrides(project, name, data, label_map, out_dir,
     # fragment inside one function (malloc's unreachable return jump) is not
     # another function; its complete compiler output is still byte-checked.
     from lib.sidecar.loader import load as load_sidecar
-    from lib.sidecar.binary import per_binary
+    from lib.sidecar.binary import per_binary, fragment_lengths
     entry = per_binary(load_sidecar(project) or {}, name)
     adjust = start_offset + entry.get('ghidra_base_offset', 0)
     runtime_roots = {
@@ -258,6 +258,7 @@ def _aztec_c_overrides(project, name, data, label_map, out_dir,
         if info.get('role') == 'aztec'}
     declared_roots = sorted(int(key, 16) + adjust
                             for key in entry.get('function_names', {}))
+    declared_lengths = fragment_lengths(entry, start_offset)
     for label in hand:
         routine = canonical(label) or label
         path = c_path(dest, label, home(label))
@@ -277,13 +278,16 @@ def _aztec_c_overrides(project, name, data, label_map, out_dir,
         start = starts.get(routine)
         band = band_for(bands, start) if start is not None else None
         source_roots = declared_roots if start in runtime_roots else roots
-        recorded_end = None if start in runtime_roots else recorded.get(start)
+        recorded_end = (start + declared_lengths[start] if start in declared_lengths
+                        else None if start in runtime_roots else recorded.get(start))
+        next_root = (recorded_end if start in declared_lengths else
+                     next((r for r in source_roots if r > start), None)
+                     if start is not None else None)
         try:
             length = routine_source.owned_length(
                 start, len(func.code),
                 recorded_end=recorded_end,
-                next_root=(next((r for r in source_roots if r > start), None)
-                           if start is not None else None),
+                next_root=next_root,
                 band_end=(band[1] + 1) if band is not None else None)
         except routine_source.FragmentLengthError as exc:
             errors.append(f'error: {os.path.basename(path)}: {exc}')

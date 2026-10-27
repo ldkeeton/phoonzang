@@ -283,3 +283,20 @@ def _validate_function_names(block, where):
         for field in ('name', 'role', 'library'):
             if field in info and (not isinstance(info[field], str) or not info[field]):
                 raise SidecarError(f'{where}[{key}].{field}: expected non-empty string')
+        if 'length' in info:
+            length = info['length']
+            if isinstance(length, bool) or not isinstance(length, int) or length <= 0:
+                raise SidecarError(f'{where}[{key}].length: expected a positive integer')
+    spans = sorted((int(key, 16), int(key, 16) + info['length'], key)
+                   for key, info in block.items() if 'length' in info)
+    for (_, end, first), (start, _, second) in zip(spans, spans[1:]):
+        if start < end:
+            raise SidecarError(f'{where}[{second}].length: overlaps [{first}]')
+
+
+def fragment_lengths(entry, start_offset=0):
+    """Declared fragment sizes keyed by file offset, independent of source."""
+    adjust = start_offset + entry.get('ghidra_base_offset', 0)
+    return {int(key, 16) + adjust: info['length']
+            for key, info in entry.get('function_names', {}).items()
+            if 'length' in info}

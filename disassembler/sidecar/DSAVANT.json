@@ -858,7 +858,7 @@
         "2677": {"name": "aztec_atol", "role": "aztec", "library": "atol"},
         "271c": {"name": "aztec_fexecv", "role": "aztec", "library": "fexecv"},
         "27d9": {"name": "aztec_fcbinit", "role": "aztec", "library": "fcbinit"},
-        "27fe": {"name": "aztec_mkdir", "role": "aztec", "library": "mkdir"},
+        "27fe": {"name": "aztec_mkdir", "role": "aztec", "library": "mkdir", "length": 37, "note": "Three directory operations share this fragment: mkdir, rmdir and chdir."},
         "2815": {"name": "aztec_rmdir", "role": "aztec", "library": "rmdir"},
         "281c": {"name": "aztec_chdir", "role": "aztec", "library": "chdir"},
         "2827": {"name": "aztec_fexec", "role": "aztec", "library": "fexec"},
@@ -1906,6 +1906,8 @@
     "vga": {
       "function_names": {
         "28ba": {"name": "fade_in_no_memory_exit", "note": "prints a no-memory message and terminates to DOS with errorlevel 1"},
+        "3131": {"name": "check_frame_index", "length": 110, "note": "checks frame index and reports an oversized frame"},
+        "3156": {"name": "frame_too_big_exit", "note": "prints the frame and slot error and exits to DOS"},
         "3188": {"name": "table_entry_ptr", "note": "points ds:bx at entry al of the 4-byte offset/paragraph table at ds:2"},
         "0516": {"name": "clip_mouse_pointer_to_area", "note": "clips the saved mouse rectangle against the dissolve rectangle"},
         "067f": {"name": "redraw_mouse_pointer", "note": "copies the saved mouse shape into the screen buffer"},

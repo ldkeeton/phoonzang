@@ -13,3 +13,13 @@ loc_SGGJ:
 loc_USUN_2a13:
     pop bp                           ; 0x2a13
     ret                              ; 0x2a14
+aztec_rmdir:
+    push bp                          ; 0x2a15
+    mov bp, sp                       ; 0x2a16
+    mov ah, 0x3a                     ; 0x2a18
+    jmp short loc_SGGJ               ; 0x2a1a
+aztec_chdir:
+    push bp                          ; 0x2a1c
+    mov bp, sp                       ; 0x2a1d
+    mov ah, 0x3b                     ; 0x2a1f
+    jmp short loc_SGGJ               ; 0x2a21

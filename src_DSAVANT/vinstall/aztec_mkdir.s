@@ -22,5 +22,15 @@ dircommon:
 ok:
 	pret
 	pend aztec_mkdir
+;
+	procdef aztec_rmdir,<<nnamea,ptr>>
+	mov ah,3ah
+	jmp short dircommon
+	pend aztec_rmdir
+;
+	procdef aztec_chdir,<<xnamea,ptr>>
+	mov ah,3bh
+	jmp short dircommon
+	pend aztec_chdir
 	finish
 	end

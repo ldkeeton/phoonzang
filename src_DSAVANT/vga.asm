@@ -385,17 +385,11 @@ get_palette.cseg1 equ palette_ptr
 
 %include "shared/data/text_state_bytes.asm"   ; 0x2d53
 
-draw_text.leaf_loc1     equ leaf_loc_NIGK
+draw_text.leaf_loc1     equ check_frame_index
 draw_text.graphics_loc1 equ graphics_loc_PVIU
 %include "shared/library/draw_text.asm"               ; 0x2d6c
 
-%include "vga/leaf_loc_NIGK.asm"           ; 0x3131
-
-%include "vga/dos_con_loc_IJTT.asm"        ; 0x3156
-
-%include "vga/data/cseg_316f.asm"          ; 0x316f
-
-%include "shared/library/table_entry_ptr.asm"         ; 0x3188
+%include "vga/check_frame_index.asm"       ; 0x3131
 
 %include "shared/library/leaf_loc_NOSG.asm"           ; 0x319f
 

@@ -414,7 +414,7 @@ draw_text.graphics_loc1 equ graphics_loc_NVPK
 
 %include "ega/data/slot_digit_lo.asm"      ; 0x3a35
 
-%include "shared/library/table_entry_ptr.asm"         ; 0x3a3a
+%include "ega/table_entry_ptr.asm"         ; 0x3a3a
 
 %include "shared/library/leaf_loc_NOSG.asm"           ; 0x3a51
 

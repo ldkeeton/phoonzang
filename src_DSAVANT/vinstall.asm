@@ -346,10 +346,6 @@ ctp_ equ __zctp_ - __zdseg_start
 errno equ __zerrno - __zdseg_start
 %include "vinstall/aztec_mkdir.asm"        ; 0x29fe
 
-%include "vinstall/aztec_rmdir.asm"        ; 0x2a15
-
-%include "vinstall/aztec_chdir.asm"        ; 0x2a1c
-
 %include "vinstall/data/aztec_fexec_save_ss.asm" ; 0x2a23
 
 %include "vinstall/data/aztec_fexec_save_sp.asm" ; 0x2a25

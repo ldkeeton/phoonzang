@@ -868,6 +868,7 @@ def _render(a, exact_bytes, show_offsets, host_data_offsets,
             message_names = constant_names(messages, bases)
             message_bases = _message_bases(bases)
     entry = a.ctx.sidecar_entry or {}
+    from lib.sidecar.binary import fragment_lengths
     def checked_verify(*args, **kwargs):
         from lib.compare.cgate import CGateError
         try:
@@ -889,6 +890,7 @@ def _render(a, exact_bytes, show_offsets, host_data_offsets,
         immediate_labels=immediate_labels,
         split_functions=split_functions,
         declared_roots=ctx.dispatch_handlers,
+        fragment_lengths=fragment_lengths(entry, start_offset),
         hard_data=ctx.hard_data,
         function_roots=function_roots,
         branch_targets=ctx.branch_targets,

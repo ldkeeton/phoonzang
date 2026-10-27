@@ -316,7 +316,7 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
            carve_1=None, trace=None,
            foreign_label_map=None,
            immediate_labels=None, split_functions=None, hard_data=None,
-           declared_roots=None,
+           declared_roots=None, fragment_lengths=None,
            function_roots=None, branch_targets=None, branch_edges=None,
            extra_flow_edges=None, label_comments=None, c_overrides=None,
            c_checks=None, asm_annotations=None,
@@ -526,10 +526,22 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
                 c_override_lengths[off] = length
                 c_override_roots[off] = label
 
+    fragment_lengths = fragment_lengths or {}
+    from lib.sidecar.errors import SidecarError
+    for off, length in fragment_lengths.items():
+        if off not in (label_map or {}) or off + length > total:
+            raise SidecarError(f'fragment at 0x{off:x} is outside the image or has no label')
+        if any(insn.address < off + length < insn.address + insn.size
+               for insn in insns):
+            raise SidecarError(f'fragment at 0x{off:x} ends inside an instruction')
+        if off in c_override_lengths and c_override_lengths[off] != length:
+            raise SidecarError(f'conflicting fragment lengths at 0x{off:x}')
+    fixed_lengths = {**c_override_lengths, **fragment_lengths}
     split_ranges = _select_split_ranges(
         label_map, split_functions, func_boundaries, binary_size=total,
-        c_override_lengths=c_override_lengths,
-        c_override_roots=c_override_roots, declared_roots=declared_roots,
+        c_override_lengths=fixed_lengths,
+        c_override_roots=c_override_roots,
+        declared_roots=set(declared_roots or ()) | set(fragment_lengths),
         code_end=max((i.address + i.size for i in insns), default=None),
         code_start=min((i.address for i in insns), default=None),
     )
@@ -1318,12 +1330,12 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
 
     # A C fragment is exactly what its .c compiles to: no pass moves it.
     split_ranges = _extend_split_ranges_with_local_tails(
-        split_ranges, records, fixed=c_override_lengths)
+        split_ranges, records, fixed=fixed_lengths)
     stagelog.step('verify.split_local_tails', 2, 'repair', repairs='verify.split_select',
                   why='a referenced @.. local block belongs to its root',
                   track={'split_ranges': stagelog.ranges_by_start(split_ranges)})
     split_ranges = _split_off_foreign_objects(split_ranges, records, owners,
-                                              fixed=c_override_lengths)
+                                              fixed=fixed_lengths)
     split_ranges = _cap_split_ranges_to_bands(split_ranges, bands)
     stagelog.step('verify.split_foreign', 2, 'repair', repairs='verify.split_select',
                   why='an unnamed tail (data blob, bare loc_ callee) is not its routine',
