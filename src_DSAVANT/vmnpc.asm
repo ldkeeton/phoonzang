@@ -462,10 +462,8 @@ periodic_party_redraw.draw_realm_spell_points1 equ api_idx_000c_VQMU
 
 %include "shared/aztec/aztec_strncpy.asm"         ; 0xae4e
 
+loc_LNNU equ aztec_strcmp.loc1
 %include "shared/aztec/aztec_strcmp.asm"          ; 0xae76
-
-loc_LNNU equ aztec_strncmp.loc1
-%include "shared/aztec/aztec_strncmp.asm"         ; 0xae94
 
 __zdata_start:
 %include "vmnpc/data/dseg_9098.asm"        ; 0xaedd

@@ -492,10 +492,8 @@ aztec_lrm.loc1 equ loc_QRUP
 
 %include "shared/aztec/aztec_lud.asm"          ; 0x3471
 
+loc_TMNK equ aztec_strcmp.loc1
 %include "shared/aztec/aztec_strcmp.asm"       ; 0x3508
-
-loc_TMNK equ aztec_strncmp.loc1
-%include "shared/aztec/aztec_strncmp.asm"      ; 0x3526
 
 %include "shared/aztec/aztec_strlen.asm"       ; 0x356f
 

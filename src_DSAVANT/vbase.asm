@@ -364,10 +364,8 @@ api_idx_0004_JQTM.api_idx1 equ loc_VMSS
 
 %include "shared/aztec/aztec_cswt.asm"            ; 0x936e
 
+loc_NQQK equ aztec_strcmp.loc1
 %include "shared/aztec/aztec_strcmp.asm"          ; 0x9386
-
-loc_NQQK equ aztec_strncmp.loc1
-%include "shared/aztec/aztec_strncmp.asm"         ; 0x93a4
 
 __zdata_start:
 %include "shared/data/pc_file_name.asm"     ; 0x93ed
