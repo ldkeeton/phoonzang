@@ -6,48 +6,48 @@ IMAGE_BASE equ -0x0100
 %endif
 
 
-thunk_loc_TMGR       equ loc_LPSH
-loc_LPSH.mouse_init1 equ loc_MMRI
+thunk_loc_HNGM       equ loc_LPSH
+loc_LPSH.mouse_init1 equ music_start
 %include "shared/library/loc_LPSH.asm"         ; 0x0000
 
-loc_JTQK_0007.mouse_off1 equ leaf_loc_UMNS
+loc_JTQK_0007.mouse_off1 equ configure_music_device
 %include "shared/library/loc_JTQK_0007.asm"          ; 0x0007
 
-loc_JTQK_000b.mouse_hit_test1 equ leaf_loc_GJRP
+loc_JTQK_000b.mouse_hit_test1 equ music_set_data
 %include "shared/library/loc_JTQK_000b.asm"          ; 0x000b
 
-loc_JTQK_000f.leaf_loc1 equ loc_TJIS
+loc_JTQK_000f.leaf_loc1 equ stop_music_playback
 %include "shared/library/loc_JTQK_000f.asm"          ; 0x000f
 
-loc_JTQK_0013.update_mouse_pointer1 equ io_loc_QVTL
+loc_JTQK_0013.update_mouse_pointer1 equ music_set_tempo_volume
 %include "shared/library/loc_JTQK_0013.asm"          ; 0x0013
 
 loc_JTQK_0017.load_picture1 equ play_select_device
 %include "shared/library/loc_JTQK_0017.asm"          ; 0x0017
 
-loc_JTQK_001b.draw_text1 equ leaf_loc_IQNG
+loc_JTQK_001b.draw_text1 equ music_is_playing
 %include "shared/library/loc_JTQK_001b.asm"          ; 0x001b
 
-loc_JTQK_001f.load_screen1 equ leaf_loc_IUKK
+loc_JTQK_001f.load_screen1 equ wait_for_music
 %include "shared/library/loc_JTQK_001f.asm"          ; 0x001f
 
-%include "play/loc_MMRI.asm"               ; 0x0023
+%include "play/music_start.asm"            ; 0x0023
 
 %include "play/mpu401_reset_with_retries.asm" ; 0x00b6
 
 %include "play/opl_init.asm"               ; 0x00c4
 
-%include "play/leaf_loc_UMNS.asm"          ; 0x00fe
+%include "play/configure_music_device.asm" ; 0x00fe
 
 %include "play/string_loc_SIQR.asm"        ; 0x0102
 
-%include "play/leaf_loc_GJRP.asm"          ; 0x0154
+%include "play/music_set_data.asm"         ; 0x0154
 
-%include "play/leaf_loc_IQNG.asm"          ; 0x016e
+%include "play/music_is_playing.asm"       ; 0x016e
 
-%include "play/leaf_loc_IUKK.asm"          ; 0x0183
+%include "play/wait_for_music.asm"         ; 0x0183
 
-%include "play/loc_TJIS.asm"               ; 0x01b0
+%include "play/stop_music_playback.asm"    ; 0x01b0
 
 %include "play/opl_keys_off.asm"           ; 0x01e6
 
@@ -55,7 +55,7 @@ loc_JTQK_001f.load_screen1 equ leaf_loc_IUKK
 
 %include "play/mpu_all_notes_off.asm"      ; 0x0222
 
-%include "play/io_loc_QVTL.asm"            ; 0x023f
+%include "play/music_set_tempo_volume.asm" ; 0x023f
 
 %include "play/play_select_device.asm"     ; 0x0294
 

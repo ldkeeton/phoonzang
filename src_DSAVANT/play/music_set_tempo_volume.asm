@@ -1,5 +1,5 @@
 ; auto-generated
-io_loc_QVTL:
+music_set_tempo_volume:
     push bp                          ; 0x023f
     mov bp, sp                       ; 0x0240
     push bx                          ; 0x0242

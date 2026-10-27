@@ -1,5 +1,5 @@
 ; auto-generated
-leaf_loc_IQNG:
+music_is_playing:
     mov al, byte [cs:music_enabled - IMAGE_BASE] ; 0x016e
     cmp al, 0                        ; 0x0172
     je short .forward1               ; 0x0174

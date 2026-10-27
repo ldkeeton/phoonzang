@@ -24,6 +24,7 @@ from main.clean import clear_build_out
 from lib import progress
 
 from .common import APPS, JOBS, PROJECT, Workers, _extra_flags, _verbose
+from .clean import clean_cache
 
 
 def _stats_enabled():
@@ -95,9 +96,11 @@ def asm_app(app, *, source_moves=None):
 
 
 def _prepare(app, *, prebuild=True):
-    """What every build does first: drop the built binaries, make sure prebuild
-    exists.  ``src_<app>/`` itself is left alone until the build has laid out
-    every file (:func:`main.build._sync`)."""
+    """Clear one project's caches and build outputs before generating it.
+
+    ``src_<app>/`` itself is left alone until the build has laid out every
+    file (:func:`main.build._sync`)."""
+    clean_cache(app)
     if _verbose():
         progress.log(f'{app} | prepare: clearing build_out')
     clear_build_out(app)

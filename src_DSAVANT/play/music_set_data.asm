@@ -1,5 +1,5 @@
 ; auto-generated
-leaf_loc_GJRP:
+music_set_data:
     push bp                          ; 0x0154
     mov bp, sp                       ; 0x0155
     mov ax, word [bp + 8]            ; 0x0157

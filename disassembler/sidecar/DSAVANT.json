@@ -58,7 +58,17 @@
        "base_offset": 3,
         "entry_size": 4,
         "count": 8,
-        "format": "e8_rel16_cb"
+        "format": "e8_rel16_cb",
+        "names": {
+          "0": "music_start",
+          "1": "configure_music_device",
+          "2": "music_set_data",
+          "3": "stop_music_playback",
+          "4": "music_set_tempo_volume",
+          "5": "play_select_device",
+          "6": "music_is_playing",
+          "7": "wait_for_music"
+        }
       }
     },
     "video_drv": {
@@ -2298,7 +2308,6 @@
         "00c4": {"name": "opl_init"},
         "01e6": {"name": "opl_keys_off", "note": "clears the key-on bit (0x20) of OPL registers B0h+n for n = 0..opl_voice_count from the shadow at 1429; B1h base on devices 1 and 4; falls through into 0203"},
         "0222": {"name": "mpu_all_notes_off", "note": "sends controller 123 (all notes off) = 0 on each 0b0h|n control-change status, channels 1-9"},
-        "0294": {"name": "play_select_device"},
         "02b3": {"name": "clamp_device", "note": "al >= 6 becomes 0; called on play_device before play_install_handler"},
         "0322": {"name": "play_set_device", "note": "entered by jmp in the caller's frame: INT 13h reset, then stores the device byte [bp+15h] (4 becomes 1) in play_device"},
         "03e2": {"name": "play_install_handler", "note": "entered by jmp in the caller's frame: installs the INT 08h handler picked by play_device through the table at 0495"},

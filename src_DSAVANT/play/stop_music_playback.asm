@@ -1,5 +1,5 @@
 ; auto-generated
-loc_TJIS:
+stop_music_playback:
     push bx                          ; 0x01b0
     cmp byte [cs:music_enabled - IMAGE_BASE], 0 ; 0x01b1
     je short .forward2               ; 0x01b7

@@ -2,7 +2,7 @@
 play_install_handler:
     cmp byte [bp + 0x12], 0          ; 0x03e2
     jne short .forward1              ; 0x03e6
-    call loc_TJIS                    ; 0x03e8
+    call stop_music_playback         ; 0x03e8
 .back1:
     test byte [cs:timer_handler_installed - IMAGE_BASE], 0xff ; 0x03eb
     je short .back1                  ; 0x03f1

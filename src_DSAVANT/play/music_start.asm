@@ -1,5 +1,5 @@
 ; auto-generated
-loc_MMRI:
+music_start:
     push bp                          ; 0x0023
     mov bp, sp                       ; 0x0024
     push bx                          ; 0x0026

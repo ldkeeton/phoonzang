@@ -1,5 +1,5 @@
 ; auto-generated
-leaf_loc_IUKK:
+wait_for_music:
     push bp                          ; 0x0183
     mov bp, sp                       ; 0x0184
     cmp word [bp + 8], byte 0        ; 0x0186
