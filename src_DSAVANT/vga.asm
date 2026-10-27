@@ -360,8 +360,6 @@ cseg_22fe        equ dos_con_loc_QMKK.cseg1
 
 %include "vga/fade_out.asm"                ; 0x28f0
 
-%include "vga/dos_mem_loc_QHMQ.asm"        ; 0x29bf
-
 %include "vga/reset_rgb.asm"               ; 0x29f6
 
 %include "vga/set_palette.asm"             ; 0x2acf

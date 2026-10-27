@@ -104,3 +104,17 @@ fade_out:
     mov sp, bp                       ; 0x29bb
     pop bp                           ; 0x29bd
     ret                              ; 0x29be
+dos_mem_loc_QHMQ:
+    mov ax, cs                       ; 0x29bf
+    mov ds, ax                       ; 0x29c1
+    mov dx, cseg_29cf - IMAGE_BASE   ; 0x29c3
+    mov ah, 9                        ; 0x29c6
+    int 0x21 ; DOS string output
+    mov ax, 0x4c01                   ; 0x29ca
+    int 0x21 ; DOS function dispatcher
+cseg_29cf:
+
+    db 0x0d, 0x0a, 0x07
+    db 'Memory unavailable in fade_out().', 0
+    db 0x0a, 0x24
+
