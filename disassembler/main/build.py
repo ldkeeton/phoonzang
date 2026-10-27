@@ -67,15 +67,15 @@ from .projects import copy_assets, discover_binaries
 def check_build_sidecar_use(project, bins):
     """Fail on a build-wide sidecar entry no binary applied.
 
-    One ``routines``/``api_dispatch`` entry names code in every binary that
-    carries it, a ``vendor_patches`` entry a library routine, a
+    One ``api_dispatch`` entry names code in every binary that carries it,
+    a ``vendor_patches`` entry a library routine, a
     ``compiler_flags`` prefix the C routines it covers; each must have done
     so somewhere.  Every ``binaries`` entry must name a binary of the app.
     """
     sidecar = load_sidecar(project) or {}
     used = collect_sidecar_use(labels_dir(project), bins)
     problems = []
-    for key in ('routines', 'api_dispatch', 'vendor_patches'):
+    for key in ('api_dispatch', 'vendor_patches'):
         for entry in sidecar.get(key) or {}:
             if entry not in used.get(key, ()):
                 problems.append(f'{key}[{entry}]: no binary has it')

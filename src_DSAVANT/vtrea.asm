@@ -246,7 +246,7 @@ jumptable_5fd3        equ log_maze_change.jumptable1
 
 %include "shared/game/api_idx_0004_KGNP.asm"     ; 0x7319
 
-%include "vtrea/api_idx_00e6_QNPR.asm"     ; 0x73ae
+%include "vtrea/api_idx_00e6_QHNU.asm"     ; 0x73ae
 
 %include "shared/game/mark_region_bits.asm"      ; 0x782b
 
@@ -291,8 +291,8 @@ draw_spell_cost.dseg1 equ dseg_9100
 
 %include "shared/game/draw_realm_spell_points.asm" ; 0x8bf4
 
-periodic_party_redraw.party_redraw_mode1 equ party_redraw_interval
-periodic_party_redraw.api_idx1           equ draw_realm_spell_points
+periodic_party_redraw.party_redraw_mode1       equ party_redraw_interval
+periodic_party_redraw.draw_realm_spell_points1 equ draw_realm_spell_points
 %include "shared/game/periodic_party_redraw.asm" ; 0x8c8d
 
 %include "vtrea/spell_select_dialog.asm"   ; 0x8d1e

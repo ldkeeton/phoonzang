@@ -1,5 +1,5 @@
 ; auto-generated
-api_idx_0004_JLQH:
+api_idx_0004_IKPN:
     mov ax, 0xfffc                   ; 0x1308
     call aztec_csav                  ; 0x130b
     mov word [bp - 4], 0             ; 0x130e

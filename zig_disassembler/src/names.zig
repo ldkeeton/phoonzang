@@ -1,6 +1,5 @@
 //! Routine names: sidecar, signatures, driver thunks, Aztec ``app`` wrappers,
-//! and content-tagged generic names (``loc_HQRK``) that key the sidecar's
-//! ``routines`` table.
+//! and content-tagged generic names (``loc_HQRK``).
 
 const std = @import("std");
 const zg = @import("deziggler");
@@ -24,9 +23,8 @@ const affinity = [_]struct { tag: []const u8, keys: []const []const u8 }{
     .{ .tag = "string", .keys = &.{"str"} },
 };
 
-/// Name every root of *b*.  *bins* resolves ``driver_slots.driver``;
-/// *routines* is the sidecar's tag-keyed ``routines`` table.
-pub fn nameRoutines(b: *Bin, bins: *const std.StringHashMap(*Bin), routines: ?std.json.ObjectMap) !void {
+/// Name every root of *b*.  *bins* resolves ``driver_slots.driver``.
+pub fn nameRoutines(b: *Bin, bins: *const std.StringHashMap(*Bin)) !void {
     const gpa = b.gpa;
     // Sidecar function names outrank everything.
     if (sidecar.obj(b.sc, "function_names")) |fns| {
@@ -98,12 +96,6 @@ pub fn nameRoutines(b: *Bin, bins: *const std.StringHashMap(*Bin), routines: ?st
     }
     for (todo.items) |t| {
         const key = try std.fmt.allocPrint(gpa, "{s}_{s}", .{ t.base, &t.tag });
-        if (routines) |rt| {
-            if (rt.get(key)) |v| if (sidecar.entryName(v)) |n| {
-                try b.names.put(t.off, n);
-                continue;
-            };
-        }
         const name = if (seen.get(key).? > 1)
             try std.fmt.allocPrint(gpa, "{s}{s}_{x:0>4}", .{ prefix, key, t.off })
         else

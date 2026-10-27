@@ -53,7 +53,7 @@ api_idx_000e_NSGM:
     push ax                          ; 0x16b1
     mov ax, MSG_YOU_ARE_IN_ROCK      ; 0x16b2
     push ax                          ; 0x16b5
-    call api_idx_0002_UGJG           ; 0x16b6
+    call api_idx_0002_QLPH           ; 0x16b6
     add sp, byte 4                   ; 0x16b9
     mov ax, 1                        ; 0x16bc
     ret                              ; 0x16bf
@@ -72,7 +72,7 @@ api_idx_000e_NSGM:
     push ax                          ; 0x16d9
     mov ax, MSG_YOU_FELL_TO_YOUR_DEATH ; 0x16da
     push ax                          ; 0x16dd
-    call api_idx_0002_UGJG           ; 0x16de
+    call api_idx_0002_QLPH           ; 0x16de
     add sp, byte 4                   ; 0x16e1
     mov ax, 1                        ; 0x16e4
     ret                              ; 0x16e7
@@ -147,7 +147,7 @@ api_idx_000e_NSGM:
     push ax                          ; 0x1781
     mov ax, MSG_YOU_ARE_IN_ROCK      ; 0x1782
     push ax                          ; 0x1785
-    call api_idx_0002_UGJG           ; 0x1786
+    call api_idx_0002_QLPH           ; 0x1786
     add sp, byte 4                   ; 0x1789
     mov ax, 1                        ; 0x178c
     ret                              ; 0x178f

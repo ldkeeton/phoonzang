@@ -124,7 +124,7 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "vmext/loc_IJSN.asm"              ; 0x05c0
 
-%include "vmext/api_idx_0004_KQNK.asm"     ; 0x05e6
+%include "vmext/api_idx_0004_KHVI.asm"     ; 0x05e6
 
 %include "vmext/loc_VJNU.asm"              ; 0x0636
 
@@ -136,7 +136,7 @@ get_cell_wall.get_cell_wall_variant_b1 equ get_west_cell_wall
 
 %include "shared/game/api_idx_0008_OMTP.asm"     ; 0x0764
 
-api_idx_0050_GORG equ show_message
+api_idx_0050_SMLN equ show_message
 %include "shared/game/show_message.asm"     ; 0x081a
 
 %include "vmext/loc_NHMQ.asm"              ; 0x0836
@@ -171,7 +171,7 @@ jumptable_08e9         equ api_idx_0004_HRPS.jumptable1
 
 %include "shared/game/api_idx_0006_TMNI.asm"     ; 0x14c7
 
-%include "vmext/api_idx_0008_OKSM.asm"     ; 0x151e
+%include "vmext/api_idx_0008_VJQV.asm"     ; 0x151e
 
 %include "vmext/loc_HTTH.asm"              ; 0x15af
 
@@ -348,56 +348,55 @@ api_idx_0012_RMOL.bss10    equ bss_91f7
 
 %include "shared/game/draw_clock_marker_glyph.asm" ; 0x3d29
 
-api_idx_0030_MLHO          equ api_idx_0030_JQMM
-api_idx_0030_JQMM.bss1     equ bss_91de
-api_idx_0030_JQMM.bss2     equ bss_91c5
-api_idx_0030_JQMM.bss3     equ bss_91ac
-api_idx_0030_JQMM.bss4     equ bss_9aee
-api_idx_0030_JQMM.bss5     equ bss_91f7
-api_idx_0030_JQMM.bss6     equ bss_928e
-api_idx_0030_JQMM.bss7     equ bss_9274
-api_idx_0030_JQMM.bss8     equ bss_9210
-api_idx_0030_JQMM.bss9     equ bss_92c0
-api_idx_0030_JQMM.bss10    equ bss_9242
-api_idx_0030_JQMM.bss11    equ bss_92f4
-api_idx_0030_JQMM.bss12    equ bss_92f2
-api_idx_0030_JQMM.bss13    equ bss_9b08
-api_idx_0030_JQMM.bss14    equ bss_91a6
-jumptable_4471_case_1      equ api_idx_0030_JQMM.jumptable_case1
-api_idx_0030_JQMM.loc1     equ loc_UMHI_193b
-api_idx_0030_JQMM.loc2     equ loc_LPLI_194f
-jumptable_4471_case_0      equ api_idx_0030_JQMM.jumptable_case2
-jumptable_4471_case_2      equ api_idx_0030_JQMM.jumptable_case3
-jumptable_4471_case_3      equ api_idx_0030_JQMM.jumptable_case4
-jumptable_4471_case_4      equ api_idx_0030_JQMM.jumptable_case5
-jumptable_4471_case_5      equ api_idx_0030_JQMM.jumptable_case6
-jumptable_4471_case_6      equ api_idx_0030_JQMM.jumptable_case7
-jumptable_4471             equ api_idx_0030_JQMM.jumptable1
-api_idx_0030_JQMM.bss15    equ bss_91a4
-api_idx_0030_JQMM.bss16    equ grid_origin_y
-api_idx_0030_JQMM.bss17    equ bss_91ae
-api_idx_0030_JQMM.bss18    equ grid_origin_x
-api_idx_0030_JQMM.bss19    equ bss_9b0e
-api_idx_0030_JQMM.api_idx1 equ api_idx_0008_UNPO
-api_idx_0030_JQMM.bss20    equ bss_9b10
-api_idx_0030_JQMM.bss21    equ bss_9b12
-api_idx_0030_JQMM.bss22    equ bss_9b14
-api_idx_0030_JQMM.bss23    equ bss_9b16
-api_idx_0030_JQMM.bss24    equ bss_9b18
-api_idx_0030_JQMM.bss25    equ bss_9b1a
-api_idx_0030_JQMM.bss26    equ bss_9aec
-api_idx_0030_JQMM.api_idx2 equ api_idx_0010_NIMV
-api_idx_0030_JQMM.api_idx3 equ api_idx_0012_STJU
-api_idx_0030_JQMM.api_idx4 equ api_idx_0012_JLRR
-api_idx_0030_JQMM.bss27    equ bss_91b8
-api_idx_0030_JQMM.bss28    equ bss_9182
-api_idx_0030_JQMM.bss29    equ save_location_flag
-api_idx_0030_JQMM.bss30    equ bss_918c
-api_idx_0030_JQMM.bss31    equ bss_9192
-api_idx_0030_JQMM.bss32    equ bss_9198
-%include "shared/game/api_idx_0030_JQMM.asm"     ; 0x3e8c
+api_idx_0030_GVGM.bss1                equ bss_91de
+api_idx_0030_GVGM.bss2                equ bss_91c5
+api_idx_0030_GVGM.bss3                equ bss_91ac
+api_idx_0030_GVGM.bss4                equ bss_9aee
+api_idx_0030_GVGM.bss5                equ bss_91f7
+api_idx_0030_GVGM.bss6                equ bss_928e
+api_idx_0030_GVGM.bss7                equ bss_9274
+api_idx_0030_GVGM.bss8                equ bss_9210
+api_idx_0030_GVGM.bss9                equ bss_92c0
+api_idx_0030_GVGM.bss10               equ bss_9242
+api_idx_0030_GVGM.bss11               equ bss_92f4
+api_idx_0030_GVGM.bss12               equ bss_92f2
+api_idx_0030_GVGM.bss13               equ bss_9b08
+api_idx_0030_GVGM.bss14               equ bss_91a6
+jumptable_4471_case_1                 equ api_idx_0030_GVGM.jumptable_case1
+api_idx_0030_GVGM.loc1                equ loc_UMHI_193b
+api_idx_0030_GVGM.loc2                equ loc_LPLI_194f
+jumptable_4471_case_0                 equ api_idx_0030_GVGM.jumptable_case2
+jumptable_4471_case_2                 equ api_idx_0030_GVGM.jumptable_case3
+jumptable_4471_case_3                 equ api_idx_0030_GVGM.jumptable_case4
+jumptable_4471_case_4                 equ api_idx_0030_GVGM.jumptable_case5
+jumptable_4471_case_5                 equ api_idx_0030_GVGM.jumptable_case6
+jumptable_4471_case_6                 equ api_idx_0030_GVGM.jumptable_case7
+jumptable_4471                        equ api_idx_0030_GVGM.jumptable1
+api_idx_0030_GVGM.bss15               equ bss_91a4
+api_idx_0030_GVGM.grid_origin_y1      equ grid_origin_y
+api_idx_0030_GVGM.bss16               equ bss_91ae
+api_idx_0030_GVGM.grid_origin_x1      equ grid_origin_x
+api_idx_0030_GVGM.bss17               equ bss_9b0e
+api_idx_0030_GVGM.api_idx1            equ api_idx_0008_UNPO
+api_idx_0030_GVGM.bss18               equ bss_9b10
+api_idx_0030_GVGM.bss19               equ bss_9b12
+api_idx_0030_GVGM.bss20               equ bss_9b14
+api_idx_0030_GVGM.bss21               equ bss_9b16
+api_idx_0030_GVGM.bss22               equ bss_9b18
+api_idx_0030_GVGM.bss23               equ bss_9b1a
+api_idx_0030_GVGM.bss24               equ bss_9aec
+api_idx_0030_GVGM.api_idx2            equ api_idx_0010_NIMV
+api_idx_0030_GVGM.api_idx3            equ api_idx_0012_STJU
+api_idx_0030_GVGM.api_idx4            equ api_idx_0012_JLRR
+api_idx_0030_GVGM.bss25               equ bss_91b8
+api_idx_0030_GVGM.bss26               equ bss_9182
+api_idx_0030_GVGM.save_location_flag1 equ save_location_flag
+api_idx_0030_GVGM.bss27               equ bss_918c
+api_idx_0030_GVGM.bss28               equ bss_9192
+api_idx_0030_GVGM.bss29               equ bss_9198
+%include "shared/game/api_idx_0030_GVGM.asm"     ; 0x3e8c
 
-redraw_maze_view.api_idx1 equ api_idx_0030_MLHO
+redraw_maze_view.api_idx1 equ api_idx_0030_GVGM
 %include "shared/game/redraw_maze_view.asm"      ; 0x51fb
 
 %include "shared/aztec/aztec_ovbgn.asm"           ; 0x521b

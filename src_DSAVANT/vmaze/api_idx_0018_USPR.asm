@@ -128,7 +128,7 @@ api_idx_0018_USPR:
     cmp word [bp - 0x16], byte 0     ; 0x1de8
     jne short .forward9              ; 0x1dec
     mov word [bp - 0x16], 1          ; 0x1dee
-    call api_idx_0004_JLQH           ; 0x1df3
+    call api_idx_0004_IKPN           ; 0x1df3
     test ax, ax                      ; 0x1df6
     je short .forward9               ; 0x1df8
     mov bx, word [maze_tables]       ; 0x1dfa

@@ -162,8 +162,8 @@ draw_spell_cost.dseg1 equ dseg_909a
 
 %include "shared/game/draw_realm_spell_points.asm" ; 0x285e
 
-periodic_party_redraw.party_redraw_mode1 equ party_redraw_mode
-periodic_party_redraw.api_idx1           equ draw_realm_spell_points
+periodic_party_redraw.party_redraw_mode1       equ party_redraw_mode
+periodic_party_redraw.draw_realm_spell_points1 equ draw_realm_spell_points
 %include "shared/game/periodic_party_redraw.asm" ; 0x28f7
 
 %include "vdopt/pick_spell_dialog.asm"     ; 0x2988

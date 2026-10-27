@@ -1,5 +1,5 @@
 ; auto-generated
-api_idx_0022_MNNV:
+api_idx_0022_VNNP:
     mov ax, 0xffde                   ; 0x2215
     call aztec_csav                  ; 0x2218
     cmp word [party_region], byte 0  ; 0x221b
@@ -831,7 +831,7 @@ jumptable_2a3c_case_0:
     jmp near jumptable_2a3c_case_3   ; 0x29cf
 jumptable_2a3c_case_1:
     cmp word [maze_variant], byte 1  ; 0x29d2
-    jne short api_idx_0022_MNNV.forward44 ; 0x29d7
+    jne short api_idx_0022_VNNP.forward44 ; 0x29d7
     mov ax, 0                        ; 0x29d9
     push ax                          ; 0x29dc
     push ax                          ; 0x29dd
@@ -847,8 +847,8 @@ jumptable_2a3c_case_1:
     push ax                          ; 0x29f1
     call set_hotspot                 ; 0x29f2
     add sp, byte 0xe                 ; 0x29f5
-    jmp short api_idx_0022_MNNV.forward45 ; 0x29f8
-api_idx_0022_MNNV.forward44:
+    jmp short api_idx_0022_VNNP.forward45 ; 0x29f8
+api_idx_0022_VNNP.forward44:
     mov ax, 0                        ; 0x29fa
     push ax                          ; 0x29fd
     push ax                          ; 0x29fe
@@ -864,7 +864,7 @@ api_idx_0022_MNNV.forward44:
     push ax                          ; 0x2a12
     call set_hotspot                 ; 0x2a13
     add sp, byte 0xe                 ; 0x2a16
-api_idx_0022_MNNV.forward45:
+api_idx_0022_VNNP.forward45:
     jmp short jumptable_2a3c_case_3  ; 0x2a19
 jumptable_2a3c_case_6:
     mov ax, 0                        ; 0x2a1b
@@ -892,7 +892,7 @@ jumptable_2a3c:
     dw jumptable_2a3c_case_3 - IMAGE_BASE + __zres_end ; 0x2a46
     dw jumptable_2a3c_case_6 - IMAGE_BASE + __zres_end ; 0x2a48
     dw jumptable_2a3c_case_6 - IMAGE_BASE + __zres_end ; 0x2a4a
-api_idx_0022_MNNV.forward46:
+api_idx_0022_VNNP.forward46:
     sub ax, strict word 4            ; 0x2a4c
     cmp ax, strict word 8            ; 0x2a4f
     jae short jumptable_2a3c_case_3  ; 0x2a52
@@ -914,9 +914,9 @@ jumptable_2a3c_case_3:
     add sp, byte 0xe                 ; 0x2a6f
     mov ax, 0                        ; 0x2a72
     cmp word [bss_91b4], byte 0      ; 0x2a75
-    je short api_idx_0022_MNNV.forward48 ; 0x2a7a
+    je short api_idx_0022_VNNP.forward48 ; 0x2a7a
     mov ax, 1                        ; 0x2a7c
-api_idx_0022_MNNV.forward48:
+api_idx_0022_VNNP.forward48:
     mov word [bp - 0x1a], ax         ; 0x2a7f
     les bx, word [tick_counter_ptr]  ; 0x2a82
     mov ax, word [es:bx]             ; 0x2a86
@@ -925,7 +925,7 @@ api_idx_0022_MNNV.forward48:
     adc dx, byte 0                   ; 0x2a90
     mov word [bss_919c], dx          ; 0x2a93
     mov word [bss_919a], ax          ; 0x2a97
-api_idx_0022_MNNV.back11:
+api_idx_0022_VNNP.back11:
     mov ax, hotspot_rects            ; 0x2a9a
     push ax                          ; 0x2a9d
     call poll_hotspots               ; 0x2a9e
@@ -934,7 +934,7 @@ api_idx_0022_MNNV.back11:
     mov word [bp - 2], ax            ; 0x2aa3
     call loc_HVLG                    ; 0x2aa6
     test ax, ax                      ; 0x2aa9
-    je short api_idx_0022_MNNV.forward49 ; 0x2aab
+    je short api_idx_0022_VNNP.forward49 ; 0x2aab
     mov ax, word [party_status_frame] ; 0x2aad
     inc ax                           ; 0x2ab0
     mov cx, 2                        ; 0x2ab1
@@ -942,64 +942,64 @@ api_idx_0022_MNNV.back11:
     idiv cx                          ; 0x2ab5
     mov word [party_status_frame], dx ; 0x2ab7
     cmp word [hotspot_hit], byte 0   ; 0x2abb
-    jne short api_idx_0022_MNNV.forward49 ; 0x2ac0
+    jne short api_idx_0022_VNNP.forward49 ; 0x2ac0
     call redraw_maze_view            ; 0x2ac2
-api_idx_0022_MNNV.forward49:
+api_idx_0022_VNNP.forward49:
     cmp word [hotspot_hit], byte 0   ; 0x2ac5
-    jne short api_idx_0022_MNNV.forward52 ; 0x2aca
+    jne short api_idx_0022_VNNP.forward52 ; 0x2aca
     les bx, word [tick_counter_ptr]  ; 0x2acc
     mov ax, word [es:bx]             ; 0x2ad0
     mov dx, word [es:bx + 2]         ; 0x2ad3
     cmp dx, word [bss_919c]          ; 0x2ad7
-    jl short api_idx_0022_MNNV.forward50 ; 0x2adb
-    jne short api_idx_0022_MNNV.forward51 ; 0x2add
+    jl short api_idx_0022_VNNP.forward50 ; 0x2adb
+    jne short api_idx_0022_VNNP.forward51 ; 0x2add
     cmp ax, word [bss_919a]          ; 0x2adf
-    ja short api_idx_0022_MNNV.forward51 ; 0x2ae3
-api_idx_0022_MNNV.forward50:
-    jmp short api_idx_0022_MNNV.forward52 ; 0x2ae5
-api_idx_0022_MNNV.forward51:
+    ja short api_idx_0022_VNNP.forward51 ; 0x2ae3
+api_idx_0022_VNNP.forward50:
+    jmp short api_idx_0022_VNNP.forward52 ; 0x2ae5
+api_idx_0022_VNNP.forward51:
     mov ax, 0                        ; 0x2ae7
     push ax                          ; 0x2aea
     call loc_LMUG                    ; 0x2aeb
     pop cx                           ; 0x2aee
-api_idx_0022_MNNV.forward52:
+api_idx_0022_VNNP.forward52:
     cmp word [hotspot_hit], byte 0   ; 0x2aef
-    je short api_idx_0022_MNNV.back11 ; 0x2af4
+    je short api_idx_0022_VNNP.back11 ; 0x2af4
     cmp word [bp - 2], byte 0xc      ; 0x2af6
-    jl short api_idx_0022_MNNV.forward54 ; 0x2afa
+    jl short api_idx_0022_VNNP.forward54 ; 0x2afa
     cmp word [bp - 2], byte 0x12     ; 0x2afc
-    jge short api_idx_0022_MNNV.forward54 ; 0x2b00
+    jge short api_idx_0022_VNNP.forward54 ; 0x2b00
     mov ax, word [bp - 2]            ; 0x2b02
     add ax, strict word 0xfff4       ; 0x2b05
     mov word [member_roster_index], ax ; 0x2b08
     cmp ax, word [party_char_count]  ; 0x2b0b
-    jge short api_idx_0022_MNNV.forward53 ; 0x2b0f
+    jge short api_idx_0022_VNNP.forward53 ; 0x2b0f
     mov word [game_state], 0x1f      ; 0x2b11
-api_idx_0022_MNNV.forward53:
-    jmp near api_idx_0022_MNNV.forward72 ; 0x2b17
-api_idx_0022_MNNV.forward54:
+api_idx_0022_VNNP.forward53:
+    jmp near api_idx_0022_VNNP.forward72 ; 0x2b17
+api_idx_0022_VNNP.forward54:
     cmp word [bp - 2], byte 0x12     ; 0x2b1a
-    jl short api_idx_0022_MNNV.forward56 ; 0x2b1e
+    jl short api_idx_0022_VNNP.forward56 ; 0x2b1e
     cmp word [bp - 2], byte 0x18     ; 0x2b20
-    jge short api_idx_0022_MNNV.forward56 ; 0x2b24
+    jge short api_idx_0022_VNNP.forward56 ; 0x2b24
     mov ax, word [bp - 2]            ; 0x2b26
     add ax, strict word 0xffee       ; 0x2b29
     mov word [member_roster_index], ax ; 0x2b2c
     cmp ax, word [party_char_count]  ; 0x2b2f
-    jge short api_idx_0022_MNNV.forward55 ; 0x2b33
+    jge short api_idx_0022_VNNP.forward55 ; 0x2b33
     mov ax, 1                        ; 0x2b35
     push ax                          ; 0x2b38
     call api_idx_0002_IPQN           ; 0x2b39
     pop cx                           ; 0x2b3c
     mov word [game_state], 0x11      ; 0x2b3d
     mov word [party_return_state], 5 ; 0x2b43
-api_idx_0022_MNNV.forward55:
-    jmp near api_idx_0022_MNNV.forward72 ; 0x2b49
-api_idx_0022_MNNV.forward56:
+api_idx_0022_VNNP.forward55:
+    jmp near api_idx_0022_VNNP.forward72 ; 0x2b49
+api_idx_0022_VNNP.forward56:
     cmp word [bp - 2], byte 0        ; 0x2b4c
-    jl short api_idx_0022_MNNV.forward57 ; 0x2b50
+    jl short api_idx_0022_VNNP.forward57 ; 0x2b50
     cmp word [bp - 2], byte 5        ; 0x2b52
-    jg short api_idx_0022_MNNV.forward57 ; 0x2b56
+    jg short api_idx_0022_VNNP.forward57 ; 0x2b56
     push word [bp - 2]               ; 0x2b58
     call api_idx_0010_HOIJ           ; 0x2b5b
     pop cx                           ; 0x2b5e
@@ -1007,9 +1007,9 @@ api_idx_0022_MNNV.forward56:
     push ax                          ; 0x2b62
     call delay_ms                    ; 0x2b63
     pop cx                           ; 0x2b66
-api_idx_0022_MNNV.forward57:
+api_idx_0022_VNNP.forward57:
     mov ax, word [bp - 2]            ; 0x2b67
-    jmp near api_idx_0022_MNNV.forward70 ; 0x2b6a
+    jmp near api_idx_0022_VNNP.forward70 ; 0x2b6a
 jumptable_2d1b_case_0:
     mov ax, 0                        ; 0x2b6d
     push ax                          ; 0x2b70
@@ -1025,9 +1025,9 @@ jumptable_2d1b_case_1:
     call api_idx_0002_LMTG           ; 0x2b86
     mov ax, 1                        ; 0x2b89
     cmp word [bp - 2], byte 1        ; 0x2b8c
-    jne short api_idx_0022_MNNV.forward58 ; 0x2b90
+    jne short api_idx_0022_VNNP.forward58 ; 0x2b90
     mov ax, 3                        ; 0x2b92
-api_idx_0022_MNNV.forward58:
+api_idx_0022_VNNP.forward58:
     add ax, word [party_tag]         ; 0x2b95
     mov cx, 4                        ; 0x2b99
     cwd                              ; 0x2b9c
@@ -1035,14 +1035,14 @@ api_idx_0022_MNNV.forward58:
     mov word [party_tag], dx         ; 0x2b9f
     mov word [bss_91aa], 1           ; 0x2ba3
     cmp dx, word [found_object_owner] ; 0x2ba9
-    jne short api_idx_0022_MNNV.forward59 ; 0x2bad
+    jne short api_idx_0022_VNNP.forward59 ; 0x2bad
     mov word [location_changed], 1   ; 0x2baf
     mov bx, word [maze_tables]       ; 0x2bb5
     mov si, word [party_map_piece]   ; 0x2bb9
     mov al, byte [bx + si + spell_table + spell_table_rec_size*218 + spell_table_rec.f_0004] ; 0x2bbd
     sub ah, ah                       ; 0x2bc1
     mov word [party_region], ax      ; 0x2bc3
-api_idx_0022_MNNV.forward59:
+api_idx_0022_VNNP.forward59:
     mov ax, 1                        ; 0x2bc6
     push ax                          ; 0x2bc9
     call api_idx_0002_IPQN           ; 0x2bca
@@ -1052,12 +1052,12 @@ jumptable_2d1b_case_3:
     mov ax, 3                        ; 0x2bd1
     mov cx, word [bp - 2]            ; 0x2bd4
     cmp cx, byte 3                   ; 0x2bd7
-    je short api_idx_0022_MNNV.forward60 ; 0x2bda
+    je short api_idx_0022_VNNP.forward60 ; 0x2bda
     mov ax, 2                        ; 0x2bdc
     cmp cx, byte 4                   ; 0x2bdf
-    jne short api_idx_0022_MNNV.forward60 ; 0x2be2
+    jne short api_idx_0022_VNNP.forward60 ; 0x2be2
     mov ax, 1                        ; 0x2be4
-api_idx_0022_MNNV.forward60:
+api_idx_0022_VNNP.forward60:
     push ax                          ; 0x2be7
     call api_idx_0004_USIK           ; 0x2be8
     pop cx                           ; 0x2beb
@@ -1075,23 +1075,23 @@ api_idx_0022_MNNV.forward60:
 
 jumptable_2d1b_case_25:
     cmp word [bp - 0x1c], byte 0     ; 0x2c44
-    jle short api_idx_0022_MNNV.forward62 ; 0x2c48
+    jle short api_idx_0022_VNNP.forward62 ; 0x2c48
     mov ax, word [bp - 0x1c]         ; 0x2c4a
     dec ax                           ; 0x2c4d
     push ax                          ; 0x2c4e
     call api_idx_0002_SKMG           ; 0x2c4f
     pop cx                           ; 0x2c52
     cmp word [game_state], byte 5    ; 0x2c53
-    je short api_idx_0022_MNNV.forward61 ; 0x2c58
+    je short api_idx_0022_VNNP.forward61 ; 0x2c58
     ret                              ; 0x2c5a
-api_idx_0022_MNNV.forward61:
-    jmp short api_idx_0022_MNNV.forward63 ; 0x2c5b
-api_idx_0022_MNNV.forward62:
+api_idx_0022_VNNP.forward61:
+    jmp short api_idx_0022_VNNP.forward63 ; 0x2c5b
+api_idx_0022_VNNP.forward62:
     mov ax, 0                        ; 0x2c5d
     push ax                          ; 0x2c60
     call check_cell_objects          ; 0x2c61
     pop cx                           ; 0x2c64
-api_idx_0022_MNNV.forward63:
+api_idx_0022_VNNP.forward63:
     jmp near jumptable_2d1b_case_12  ; 0x2c65
 jumptable_2d1b_case_7:
     mov ax, 1                        ; 0x2c68
@@ -1107,34 +1107,34 @@ jumptable_2d1b_case_8:
     call pick_party_member           ; 0x2c7b
     mov word [member_roster_index], ax ; 0x2c7e
     cmp ax, strict word 0xffff       ; 0x2c81
-    je short api_idx_0022_MNNV.forward65 ; 0x2c84
+    je short api_idx_0022_VNNP.forward65 ; 0x2c84
     push ax                          ; 0x2c86
     call member_is_active            ; 0x2c87
     pop cx                           ; 0x2c8a
     test ax, ax                      ; 0x2c8b
-    je short api_idx_0022_MNNV.forward65 ; 0x2c8d
+    je short api_idx_0022_VNNP.forward65 ; 0x2c8d
     mov ax, 1                        ; 0x2c8f
     push ax                          ; 0x2c92
     call api_idx_0002_IPQN           ; 0x2c93
     pop cx                           ; 0x2c96
     mov ax, 0x14                     ; 0x2c97
     cmp word [bp - 2], byte 8        ; 0x2c9a
-    jne short api_idx_0022_MNNV.forward64 ; 0x2c9e
+    jne short api_idx_0022_VNNP.forward64 ; 0x2c9e
     mov ax, 0x13                     ; 0x2ca0
-api_idx_0022_MNNV.forward64:
+api_idx_0022_VNNP.forward64:
     mov word [game_state], ax        ; 0x2ca3
     mov word [party_return_state], 5 ; 0x2ca6
-api_idx_0022_MNNV.forward65:
+api_idx_0022_VNNP.forward65:
     jmp near jumptable_2d1b_case_12  ; 0x2cac
 jumptable_2d1b_case_10:
     call api_idx_0002_QLLK           ; 0x2caf
     jmp near jumptable_2d1b_case_12  ; 0x2cb2
 jumptable_2d1b_case_6:
     cmp word [bp - 0x22], byte 0     ; 0x2cb5
-    jne short api_idx_0022_MNNV.forward67 ; 0x2cb9
+    jne short api_idx_0022_VNNP.forward67 ; 0x2cb9
     call api_idx_0018_USPR           ; 0x2cbb
     cmp ax, strict word 1            ; 0x2cbe
-    jne short api_idx_0022_MNNV.forward66 ; 0x2cc1
+    jne short api_idx_0022_VNNP.forward66 ; 0x2cc1
     push word [party_map_piece]      ; 0x2cc3
     call api_idx_0002_TOSS           ; 0x2cc7
     pop cx                           ; 0x2cca
@@ -1150,32 +1150,32 @@ jumptable_2d1b_case_6:
     push ax                          ; 0x2cde
     call loc_VGMJ                    ; 0x2cdf
     add sp, byte 6                   ; 0x2ce2
-api_idx_0022_MNNV.forward66:
-    jmp short api_idx_0022_MNNV.forward68 ; 0x2ce5
-api_idx_0022_MNNV.forward67:
+api_idx_0022_VNNP.forward66:
+    jmp short api_idx_0022_VNNP.forward68 ; 0x2ce5
+api_idx_0022_VNNP.forward67:
     mov ax, 0                        ; 0x2ce7
     push ax                          ; 0x2cea
     call play_sound_effect           ; 0x2ceb
     pop cx                           ; 0x2cee
-api_idx_0022_MNNV.forward68:
+api_idx_0022_VNNP.forward68:
     jmp short jumptable_2d1b_case_12 ; 0x2cef
 jumptable_2d1b_case_9:
     mov word [game_state], 0x18      ; 0x2cf1
     jmp short jumptable_2d1b_case_12 ; 0x2cf7
 jumptable_2d1b_case_24:
     cmp word [bp - 0x1a], byte 0     ; 0x2cf9
-    je short api_idx_0022_MNNV.forward69 ; 0x2cfd
+    je short api_idx_0022_VNNP.forward69 ; 0x2cfd
     call pick_party_member           ; 0x2cff
     mov word [member_roster_index], ax ; 0x2d02
     cmp ax, strict word 0xffff       ; 0x2d05
-    je short api_idx_0022_MNNV.forward69 ; 0x2d08
+    je short api_idx_0022_VNNP.forward69 ; 0x2d08
     push ax                          ; 0x2d0a
     call member_is_active            ; 0x2d0b
     pop cx                           ; 0x2d0e
     test ax, ax                      ; 0x2d0f
-    je short api_idx_0022_MNNV.forward69 ; 0x2d11
+    je short api_idx_0022_VNNP.forward69 ; 0x2d11
     mov word [game_state], 0x1e      ; 0x2d13
-api_idx_0022_MNNV.forward69:
+api_idx_0022_VNNP.forward69:
     jmp short jumptable_2d1b_case_12 ; 0x2d19
 jumptable_2d1b:
     dw jumptable_2d1b_case_0 - IMAGE_BASE + __zres_end ; 0x2d1b
@@ -1204,7 +1204,7 @@ jumptable_2d1b:
     dw jumptable_2d1b_case_12 - IMAGE_BASE + __zres_end ; 0x2d49
     dw jumptable_2d1b_case_24 - IMAGE_BASE + __zres_end ; 0x2d4b
     dw jumptable_2d1b_case_25 - IMAGE_BASE + __zres_end ; 0x2d4d
-api_idx_0022_MNNV.forward70:
+api_idx_0022_VNNP.forward70:
     cmp ax, strict word 0x1a         ; 0x2d4f
     jae short jumptable_2d1b_case_12 ; 0x2d52
     xchg bx, ax                      ; 0x2d54
@@ -1212,9 +1212,9 @@ api_idx_0022_MNNV.forward70:
     jmp [cs:bx + jumptable_2d1b - IMAGE_BASE + __zres_end] ; 0x2d57
 jumptable_2d1b_case_12:
     cmp word [bp - 2], byte 0        ; 0x2d5c
-    jl short api_idx_0022_MNNV.forward72 ; 0x2d60
+    jl short api_idx_0022_VNNP.forward72 ; 0x2d60
     cmp word [bp - 2], byte 5        ; 0x2d62
-    jg short api_idx_0022_MNNV.forward72 ; 0x2d66
+    jg short api_idx_0022_VNNP.forward72 ; 0x2d66
     mov ax, word [bp - 2]            ; 0x2d68
     shl ax, 1                        ; 0x2d6b
     shl ax, 1                        ; 0x2d6d
@@ -1226,9 +1226,9 @@ jumptable_2d1b_case_12:
     push word [bx + 0x120]           ; 0x2d7f
     call gfx_show_area               ; 0x2d83
     add sp, byte 8                   ; 0x2d86
-api_idx_0022_MNNV.forward72:
+api_idx_0022_VNNP.forward72:
     cmp word [game_state], byte 5    ; 0x2d89
-    jne short api_idx_0022_MNNV.return1 ; 0x2d8e
-    jmp near api_idx_0022_MNNV.back2 ; 0x2d90
-api_idx_0022_MNNV.return1:
+    jne short api_idx_0022_VNNP.return1 ; 0x2d8e
+    jmp near api_idx_0022_VNNP.back2 ; 0x2d90
+api_idx_0022_VNNP.return1:
     ret                              ; 0x2d93

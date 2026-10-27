@@ -33,7 +33,7 @@ periodic_party_redraw:
     mov word [party_redraw_last_tick], ax
     call draw_marker_glyph
     push word [bp + 4]
-    call periodic_party_redraw.api_idx1
+    call periodic_party_redraw.draw_realm_spell_points1
     pop cx
     push word [bp + 6]
     call advance_party_slot_frames

@@ -1,5 +1,5 @@
 ; auto-generated
-api_idx_0006_IRNH:
+api_idx_0006_LJUS:
     mov ax, 0xfffa
     call aztec_csav
     mov ax, word [bss_845e]
@@ -24,7 +24,7 @@ api_idx_0006_IRNH:
     sbb dx, word [party_redraw_last_tick_hi]
     push ax
     push dx
-    mov ax, word [api_idx_0006_IRNH.panel_redraw_ticks1]
+    mov ax, word [api_idx_0006_LJUS.panel_redraw_ticks1]
     cwd
     mov cx, ax
     mov bx, dx

@@ -19,7 +19,7 @@ loc_JTQK_000b.mouse_hit_test1 equ leaf_loc_GJRP
 loc_JTQK_000f.leaf_loc1 equ loc_TJIS
 %include "shared/library/loc_JTQK_000f.asm"          ; 0x000f
 
-loc_JTQK_0013.bios_mouse_loc1 equ io_loc_QVTL
+loc_JTQK_0013.update_mouse_pointer1 equ io_loc_QVTL
 %include "shared/library/loc_JTQK_0013.asm"          ; 0x0013
 
 loc_JTQK_0017.load_picture1 equ play_select_device

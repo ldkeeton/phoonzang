@@ -8,9 +8,6 @@ from lib.sidecar.errors import SidecarError
 from make import naming
 
 SIDECAR = '''{
-  "routines": {
-    "x_loc_JKLM": {"name": "shared_x"}
-  },
   "binaries": {
     "ds": {
       "type": "mz",
@@ -81,8 +78,7 @@ class SetValueTest(unittest.TestCase):
 
 
 class PlanNamesTest(unittest.TestCase):
-    def _plan(self, specs, sidecar_text=SIDECAR, binary='play', tag=None,
-              addr=0x294):
+    def _plan(self, specs, sidecar_text=SIDECAR, binary='play', addr=0x294):
         with tempfile.TemporaryDirectory() as tmp:
             path = os.path.join(tmp, 'P.json')
             with open(path, 'w') as f:
@@ -91,9 +87,7 @@ class PlanNamesTest(unittest.TestCase):
                     mock.patch.object(naming, '_asm_file',
                                       return_value='x.asm'), \
                     mock.patch.object(naming, '_routine_addr',
-                                      return_value=addr), \
-                    mock.patch.object(naming, '_label_tag_key',
-                                      return_value=tag):
+                                      return_value=addr):
                 return naming.plan_names('P', binary, specs)
 
     def test_updates_every_surface_in_one_plan(self):
@@ -109,59 +103,6 @@ class PlanNamesTest(unittest.TestCase):
         self.assertEqual([row['surface'] for row in changes],
                          ['binaries.play.function_names["0294"]',
                           'binaries.play.dispatch_table.names["0"]'])
-
-    def test_renames_routines_entry_when_only_tag_names_it(self):
-        text, sidecar, renames, changes = self._plan(
-            [('shared_x', 'locate_x', 'finds x')], binary='ds',
-            tag='x_loc_JKLM', addr=0x10)
-        entry = sidecar['routines']['x_loc_JKLM']
-        self.assertEqual(entry['name'], 'locate_x')
-        self.assertEqual(entry['note'], 'finds x')
-        self.assertNotIn('function_names', sidecar['binaries']['ds'])
-        self.assertEqual([row['surface'] for row in changes],
-                         ['routines["x_loc_JKLM"]'])
-        self.assertEqual(renames, {'shared_x': 'locate_x'})
-        self.assertEqual(json.loads(text)['routines']['x_loc_JKLM']['name'],
-                         'locate_x')
-
-    def test_names_a_routines_tag_directly(self):
-        _text, sidecar, renames, changes = self._plan(
-            [('x_loc_JKLM', 'locate_x', None)], binary='ds',
-            tag='x_loc_JKLM', addr=0x10)
-        self.assertEqual(sidecar['routines']['x_loc_JKLM']['name'],
-                         'locate_x')
-        self.assertEqual([row['surface'] for row in changes],
-                         ['routines["x_loc_JKLM"]'])
-        self.assertEqual(renames, {'shared_x': 'locate_x'})
-
-    def test_ambiguous_routines_name_needs_the_tag(self):
-        sidecar = json.loads(SIDECAR)
-        sidecar['routines']['y_loc_JKLM'] = {'name': 'shared_x'}
-        with self.assertRaisesRegex(SidecarError, 'name the tag'):
-            self._plan([('shared_x', 'locate_x', None)],
-                       sidecar_text=json.dumps(sidecar), binary='ds',
-                       tag=None, addr=0x10)
-
-    def test_updates_function_names_and_routines_together(self):
-        sidecar = json.loads(SIDECAR)
-        sidecar['routines']['x_loc_JKLM']['note'] = 'shared note'
-        sidecar['binaries']['ds']['function_names'] = {
-            '0010': {'name': 'shared_x', 'note': 'function note'}}
-        _text, sidecar, renames, changes = self._plan(
-            [('shared_x', 'locate_x', None)],
-            sidecar_text=json.dumps(sidecar), binary='ds',
-            tag='x_loc_JKLM', addr=0x10)
-        self.assertEqual(
-            sidecar['binaries']['ds']['function_names']['0010']['name'],
-            'locate_x')
-        self.assertEqual(sidecar['routines']['x_loc_JKLM']['name'],
-                         'locate_x')
-        self.assertEqual(sidecar['routines']['x_loc_JKLM']['note'],
-                         'shared note')
-        self.assertEqual([row['surface'] for row in changes],
-                         ['binaries.ds.function_names["0010"]',
-                          'routines["x_loc_JKLM"]'])
-        self.assertEqual(renames, {'shared_x': 'locate_x'})
 
     def test_names_the_dispatch_owner_instead(self):
         sidecar = json.loads(SIDECAR)
@@ -210,17 +151,6 @@ class ProvenanceTest(unittest.TestCase):
             'vga reuses the play dispatch table',
         ])
 
-    def test_routines_entry_must_match_the_content_tag(self):
-        sidecar = json.loads(SIDECAR)
-        with mock.patch.object(naming, '_label_tag_key',
-                               return_value='other_loc_ZZZZ'):
-            rows = naming.provenance_rows(sidecar, 'P', 'ds', 'shared_x', 0x10)
-        self.assertNotIn('routines', [row['surface'] for row in rows])
-        with mock.patch.object(naming, '_label_tag_key',
-                               return_value='x_loc_JKLM'):
-            rows = naming.provenance_rows(sidecar, 'P', 'ds', 'shared_x', 0x10)
-        self.assertEqual([(row['surface'], row['key']) for row in rows],
-                         [('routines', 'x_loc_JKLM')])
 
 
 class JournalTest(unittest.TestCase):
@@ -421,8 +351,7 @@ class SharedAliasTest(unittest.TestCase):
                          [('bin1', 'bss_1234'), ('bin2', 'bss_2234')])
 
     def test_name_fans_alias_out_to_each_donor(self):
-        sidecar = {'routines': {},
-                   'binaries': {
+        sidecar = {'binaries': {
                        'ds': {'type': 'mz', 'data_names': {}},
                        'bin1': {'type': 'aztec_overlay', 'data_names': {}},
                        'bin2': {'type': 'aztec_overlay',

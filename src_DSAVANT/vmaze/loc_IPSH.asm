@@ -28,7 +28,7 @@ jumptable_8978_case_1:
 jumptable_8978_case_2:
     cmp word [location_changed], byte 0 ; 0x88b5
     je short loc_IPSH.forward2       ; 0x88ba
-    call api_idx_001e_KGSI           ; 0x88bc
+    call api_idx_001e_SRJO           ; 0x88bc
 loc_IPSH.forward2:
     jmp near jumptable_8978_case_0   ; 0x88bf
 jumptable_8978_case_3:

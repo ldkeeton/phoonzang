@@ -84,38 +84,6 @@ class DataNamesTest(unittest.TestCase):
             self.validate({'zz': {'name': 'party_char'}})
 
 
-class BuildWideUseTest(unittest.TestCase):
-    def test_a_routine_no_binary_has_fails(self):
-        from lib.link import write_sidecar_use_export
-        from main import build
-        sidecar = {'routines': {'api_idx_000a_IQHO': {'name': 'draw'},
-                                'api_idx_000c_LGVL': {'name': 'letters'}},
-                   'binaries': {'ds': {}}}
-        with tempfile.TemporaryDirectory() as tmp, \
-                mock.patch('lib.link.labels_dir', return_value=tmp), \
-                mock.patch.object(build, 'labels_dir', return_value=tmp), \
-                mock.patch.object(build, 'load_sidecar', return_value=sidecar):
-            write_sidecar_use_export('P', 'ds',
-                                     {'routines': ['api_idx_000a_IQHO']})
-            self.assertTrue(os.path.exists(
-                os.path.join(tmp, 'ds_sidecaruse.json')))
-            with self.assertRaisesRegex(
-                    SidecarError, r'routines\[api_idx_000c_LGVL\]: no binary '
-                                  r'has it'):
-                build.check_build_sidecar_use('P', {'ds': None})
-
-
-class RoutineEntryTest(unittest.TestCase):
-    def test_a_library_routine_takes_a_string_role_and_library(self):
-        from lib.sidecar.routines import _validate_routines
-        _validate_routines({'loc_KSUH': {'name': 'aztec_printf',
-                                         'role': 'aztec', 'library': 'printf'}})
-        with self.assertRaisesRegex(SidecarError,
-                                    r'routines\.loc_KSUH\.library'):
-            _validate_routines({'loc_KSUH': {'name': 'aztec_printf',
-                                             'library': ['printf']}})
-
-
 class DriverSlotsTest(unittest.TestCase):
     def test_a_slot_table_names_a_binary_with_a_dispatch_table(self):
         from lib.sidecar.loader import _validate

@@ -1,5 +1,5 @@
 ; auto-generated
-api_idx_0030_JQMM:
+api_idx_0030_GVGM:
     mov ax, 0xffd0
     call aztec_csav
     mov word [bp - 0x24], 0
@@ -156,7 +156,7 @@ api_idx_0030_JQMM:
     push ax
     mov ax, 0x19
     push ax
-    mov ax, api_idx_0030_JQMM.bss1
+    mov ax, api_idx_0030_GVGM.bss1
     push ax
     call aztec_setmem
     add sp, byte 6
@@ -164,7 +164,7 @@ api_idx_0030_JQMM:
     push ax
     mov ax, 0x19
     push ax
-    mov ax, api_idx_0030_JQMM.bss2
+    mov ax, api_idx_0030_GVGM.bss2
     push ax
     call aztec_setmem
     add sp, byte 6
@@ -172,7 +172,7 @@ api_idx_0030_JQMM:
     push ax
     mov ax, 0x19
     push ax
-    mov ax, api_idx_0030_JQMM.bss3
+    mov ax, api_idx_0030_GVGM.bss3
     push ax
     call aztec_setmem
     add sp, byte 6
@@ -180,7 +180,7 @@ api_idx_0030_JQMM:
     push ax
     mov ax, 0x19
     push ax
-    mov ax, api_idx_0030_JQMM.bss4
+    mov ax, api_idx_0030_GVGM.bss4
     push ax
     call aztec_setmem
     add sp, byte 6
@@ -188,7 +188,7 @@ api_idx_0030_JQMM:
     push ax
     mov ax, 0x19
     push ax
-    mov ax, api_idx_0030_JQMM.bss5
+    mov ax, api_idx_0030_GVGM.bss5
     push ax
     call aztec_setmem
     add sp, byte 6
@@ -196,7 +196,7 @@ api_idx_0030_JQMM:
     push ax
     mov ax, 0x32
     push ax
-    mov ax, api_idx_0030_JQMM.bss6
+    mov ax, api_idx_0030_GVGM.bss6
     push ax
     call aztec_setmem
     add sp, byte 6
@@ -204,7 +204,7 @@ api_idx_0030_JQMM:
     push ax
     mov ax, 0x19
     push ax
-    mov ax, api_idx_0030_JQMM.bss7
+    mov ax, api_idx_0030_GVGM.bss7
     push ax
     call aztec_setmem
     add sp, byte 6
@@ -212,7 +212,7 @@ api_idx_0030_JQMM:
     push ax
     mov ax, 0x32
     push ax
-    mov ax, api_idx_0030_JQMM.bss8
+    mov ax, api_idx_0030_GVGM.bss8
     push ax
     call aztec_setmem
     add sp, byte 6
@@ -220,7 +220,7 @@ api_idx_0030_JQMM:
     push ax
     mov ax, 0x32
     push ax
-    mov ax, api_idx_0030_JQMM.bss9
+    mov ax, api_idx_0030_GVGM.bss9
     push ax
     call aztec_setmem
     add sp, byte 6
@@ -228,7 +228,7 @@ api_idx_0030_JQMM:
     push ax
     mov ax, 0x32
     push ax
-    mov ax, api_idx_0030_JQMM.bss10
+    mov ax, api_idx_0030_GVGM.bss10
     push ax
     call aztec_setmem
     add sp, byte 6
@@ -236,11 +236,11 @@ api_idx_0030_JQMM:
     push ax
     mov ax, 0x7f8
     push ax
-    mov ax, api_idx_0030_JQMM.bss11
+    mov ax, api_idx_0030_GVGM.bss11
     push ax
     call aztec_setmem
     add sp, byte 6
-    mov word [api_idx_0030_JQMM.bss12], 0
+    mov word [api_idx_0030_GVGM.bss12], 0
     mov ax, word [bp - 0x12]
     mov word [bp - 0x14], ax
     mov ax, 0xffff
@@ -259,28 +259,28 @@ api_idx_0030_JQMM:
     push ax
     call offset_relative_map_position
     add sp, byte 0xe
-    mov word [api_idx_0030_JQMM.bss13], 5
+    mov word [api_idx_0030_GVGM.bss13], 5
     mov ax, word [party_world_x]
     add ax, word [party_world_y]
     add ax, word [party_tag]
     mov cx, 2
     cwd
     idiv cx
-    mov word [api_idx_0030_JQMM.bss14], dx
+    mov word [api_idx_0030_GVGM.bss14], dx
     mov word [boundary_wall_variant], 0
     mov ax, word [maze_variant]
     jmp near .forward24
-api_idx_0030_JQMM.jumptable_case1:
+api_idx_0030_GVGM.jumptable_case1:
     mov word [boundary_wall_variant], 0
     cmp word [game_state_arg], byte 0x1e
-    jne short api_idx_0030_JQMM.forward9
+    jne short api_idx_0030_GVGM.forward9
     cmp word [party_map_piece], byte 8
-    jne short api_idx_0030_JQMM.forward9
-    jmp short api_idx_0030_JQMM.forward10
-api_idx_0030_JQMM.forward9:
+    jne short api_idx_0030_GVGM.forward9
+    jmp short api_idx_0030_GVGM.forward10
+api_idx_0030_GVGM.forward9:
     mov ax, 0x1f
     push ax
-    call api_idx_0030_JQMM.loc1
+    call api_idx_0030_GVGM.loc1
     pop cx
     push ax
     mov ax, 0
@@ -288,17 +288,17 @@ api_idx_0030_JQMM.forward9:
     mov ax, 0x1f
     push ax
     push ax
-    call api_idx_0030_JQMM.loc2
+    call api_idx_0030_GVGM.loc2
     add sp, byte 4
     push ax
     mov ax, 0
     push ax
     call gfx_draw_maze_piece
     add sp, byte 8
-api_idx_0030_JQMM.forward10:
+api_idx_0030_GVGM.forward10:
     mov ax, 0x20
     push ax
-    call api_idx_0030_JQMM.loc1
+    call api_idx_0030_GVGM.loc1
     pop cx
     push ax
     mov ax, 0
@@ -306,15 +306,15 @@ api_idx_0030_JQMM.forward10:
     mov ax, 0x20
     push ax
     push ax
-    call api_idx_0030_JQMM.loc2
+    call api_idx_0030_GVGM.loc2
     add sp, byte 4
     push ax
     mov ax, 0
     push ax
     call gfx_draw_maze_piece
     add sp, byte 8
-    jmp near api_idx_0030_JQMM.jumptable_case2
-api_idx_0030_JQMM.jumptable_case3:
+    jmp near api_idx_0030_GVGM.jumptable_case2
+api_idx_0030_GVGM.jumptable_case3:
     mov word [boundary_wall_variant], 1
     mov ax, 0xff
     push ax
@@ -332,7 +332,7 @@ api_idx_0030_JQMM.jumptable_case3:
     call api_idx_0024_NUGL
     mov ax, 4
     push ax
-    call api_idx_0030_JQMM.loc1
+    call api_idx_0030_GVGM.loc1
     pop cx
     push ax
     mov ax, 2
@@ -340,7 +340,7 @@ api_idx_0030_JQMM.jumptable_case3:
     mov ax, 4
     push ax
     push ax
-    call api_idx_0030_JQMM.loc2
+    call api_idx_0030_GVGM.loc2
     add sp, byte 4
     push ax
     mov ax, 1
@@ -349,7 +349,7 @@ api_idx_0030_JQMM.jumptable_case3:
     add sp, byte 8
     mov ax, 0x3e
     push ax
-    call api_idx_0030_JQMM.loc1
+    call api_idx_0030_GVGM.loc1
     pop cx
     push ax
     mov ax, 0
@@ -357,15 +357,15 @@ api_idx_0030_JQMM.jumptable_case3:
     mov ax, 0x3e
     push ax
     push ax
-    call api_idx_0030_JQMM.loc2
+    call api_idx_0030_GVGM.loc2
     add sp, byte 4
     push ax
     mov ax, 1
     push ax
     call gfx_draw_maze_piece
     add sp, byte 8
-    jmp near api_idx_0030_JQMM.jumptable_case2
-api_idx_0030_JQMM.jumptable_case4:
+    jmp near api_idx_0030_GVGM.jumptable_case2
+api_idx_0030_GVGM.jumptable_case4:
     mov word [boundary_wall_variant], 2
     mov ax, 0xff
     push ax
@@ -382,19 +382,19 @@ api_idx_0030_JQMM.jumptable_case4:
     call draw_clock_marker_glyph
     call api_idx_0024_NUGL
     cmp word [game_state_arg], byte 0xe
-    jne short api_idx_0030_JQMM.forward12
+    jne short api_idx_0030_GVGM.forward12
     cmp word [party_map_piece], byte 9
-    jle short api_idx_0030_JQMM.forward12
+    jle short api_idx_0030_GVGM.forward12
     cmp word [party_map_piece], byte 0xa
-    jg short api_idx_0030_JQMM.forward11
+    jg short api_idx_0030_GVGM.forward11
     mov ax, word [party_tag]
     cmp ax, strict word 2
-    je short api_idx_0030_JQMM.forward11
+    je short api_idx_0030_GVGM.forward11
     cmp word [party_tag], byte 0
-    je short api_idx_0030_JQMM.forward12
+    je short api_idx_0030_GVGM.forward12
     cmp word [party_cell_y], byte 5
-    jge short api_idx_0030_JQMM.forward12
-api_idx_0030_JQMM.forward11:
+    jge short api_idx_0030_GVGM.forward12
+api_idx_0030_GVGM.forward11:
     mov ax, 0
     push ax
     mov ax, 0x50
@@ -406,11 +406,11 @@ api_idx_0030_JQMM.forward11:
     push ax
     call gfx_fill_area
     add sp, byte 0xa
-    jmp short api_idx_0030_JQMM.forward13
-api_idx_0030_JQMM.forward12:
+    jmp short api_idx_0030_GVGM.forward13
+api_idx_0030_GVGM.forward12:
     mov ax, 4
     push ax
-    call api_idx_0030_JQMM.loc1
+    call api_idx_0030_GVGM.loc1
     pop cx
     push ax
     mov ax, 0
@@ -418,7 +418,7 @@ api_idx_0030_JQMM.forward12:
     mov ax, 4
     push ax
     push ax
-    call api_idx_0030_JQMM.loc2
+    call api_idx_0030_GVGM.loc2
     add sp, byte 4
     push ax
     mov ax, 4
@@ -427,7 +427,7 @@ api_idx_0030_JQMM.forward12:
     add sp, byte 8
     mov ax, 0xad
     push ax
-    call api_idx_0030_JQMM.loc1
+    call api_idx_0030_GVGM.loc1
     pop cx
     push ax
     mov ax, 0
@@ -435,24 +435,24 @@ api_idx_0030_JQMM.forward12:
     mov ax, 0xad
     push ax
     push ax
-    call api_idx_0030_JQMM.loc2
+    call api_idx_0030_GVGM.loc2
     add sp, byte 4
     push ax
     mov ax, 2
     push ax
     call gfx_draw_maze_piece
     add sp, byte 8
-api_idx_0030_JQMM.forward13:
-    jmp near api_idx_0030_JQMM.jumptable_case2
-api_idx_0030_JQMM.jumptable_case5:
+api_idx_0030_GVGM.forward13:
+    jmp near api_idx_0030_GVGM.jumptable_case2
+api_idx_0030_GVGM.jumptable_case5:
     mov word [boundary_wall_variant], 3
     mov ax, 0xff
     push ax
     mov ax, 0x48
     cmp word [boundary_wall_open], byte 0
-    je short api_idx_0030_JQMM.forward14
+    je short api_idx_0030_GVGM.forward14
     mov ax, 0x8e
-api_idx_0030_JQMM.forward14:
+api_idx_0030_GVGM.forward14:
     push ax
     mov ax, 0xf7
     push ax
@@ -466,7 +466,7 @@ api_idx_0030_JQMM.forward14:
     call api_idx_0024_NUGL
     mov ax, 4
     push ax
-    call api_idx_0030_JQMM.loc1
+    call api_idx_0030_GVGM.loc1
     pop cx
     push ax
     mov ax, 2
@@ -474,7 +474,7 @@ api_idx_0030_JQMM.forward14:
     mov ax, 4
     push ax
     push ax
-    call api_idx_0030_JQMM.loc2
+    call api_idx_0030_GVGM.loc2
     add sp, byte 4
     push ax
     mov ax, 1
@@ -482,10 +482,10 @@ api_idx_0030_JQMM.forward14:
     call gfx_draw_maze_piece
     add sp, byte 8
     cmp word [boundary_wall_open], byte 0
-    jne short api_idx_0030_JQMM.forward15
+    jne short api_idx_0030_GVGM.forward15
     mov ax, 0x2a
     push ax
-    call api_idx_0030_JQMM.loc1
+    call api_idx_0030_GVGM.loc1
     pop cx
     push ax
     mov ax, 0
@@ -493,16 +493,16 @@ api_idx_0030_JQMM.forward14:
     mov ax, 0x2a
     push ax
     push ax
-    call api_idx_0030_JQMM.loc2
+    call api_idx_0030_GVGM.loc2
     add sp, byte 4
     push ax
     mov ax, 4
     push ax
     call gfx_draw_maze_piece
     add sp, byte 8
-api_idx_0030_JQMM.forward15:
-    jmp near api_idx_0030_JQMM.jumptable_case2
-api_idx_0030_JQMM.jumptable_case6:
+api_idx_0030_GVGM.forward15:
+    jmp near api_idx_0030_GVGM.jumptable_case2
+api_idx_0030_GVGM.jumptable_case6:
     mov word [boundary_wall_variant], 4
     mov ax, 0xff
     push ax
@@ -532,7 +532,7 @@ api_idx_0030_JQMM.jumptable_case6:
     add sp, byte 0xa
     mov ax, 0x2a
     push ax
-    call api_idx_0030_JQMM.loc1
+    call api_idx_0030_GVGM.loc1
     pop cx
     push ax
     mov ax, 0
@@ -540,15 +540,15 @@ api_idx_0030_JQMM.jumptable_case6:
     mov ax, 0x2a
     push ax
     push ax
-    call api_idx_0030_JQMM.loc2
+    call api_idx_0030_GVGM.loc2
     add sp, byte 4
     push ax
     mov ax, 4
     push ax
     call gfx_draw_maze_piece
     add sp, byte 8
-    jmp near api_idx_0030_JQMM.jumptable_case2
-api_idx_0030_JQMM.jumptable_case7:
+    jmp near api_idx_0030_GVGM.jumptable_case2
+api_idx_0030_GVGM.jumptable_case7:
     mov word [boundary_wall_variant], 5
     mov ax, 0xff
     push ax
@@ -566,7 +566,7 @@ api_idx_0030_JQMM.jumptable_case7:
     call api_idx_0024_NUGL
     mov ax, 0x3e
     push ax
-    call api_idx_0030_JQMM.loc1
+    call api_idx_0030_GVGM.loc1
     pop cx
     push ax
     mov ax, 0
@@ -574,7 +574,7 @@ api_idx_0030_JQMM.jumptable_case7:
     mov ax, 0x3e
     push ax
     push ax
-    call api_idx_0030_JQMM.loc2
+    call api_idx_0030_GVGM.loc2
     add sp, byte 4
     push ax
     mov ax, 1
@@ -582,33 +582,33 @@ api_idx_0030_JQMM.jumptable_case7:
     call gfx_draw_maze_piece
     add sp, byte 8
     cmp word [game_state_arg], byte 8
-    jne short api_idx_0030_JQMM.forward20
+    jne short api_idx_0030_GVGM.forward20
     cmp word [party_map_piece], byte 6
-    jne short api_idx_0030_JQMM.forward20
+    jne short api_idx_0030_GVGM.forward20
     cmp word [party_cell_y], byte 4
-    jne short api_idx_0030_JQMM.forward20
+    jne short api_idx_0030_GVGM.forward20
     mov ax, word [party_cell_x]
     cmp ax, strict word 2
-    je short api_idx_0030_JQMM.forward16
+    je short api_idx_0030_GVGM.forward16
     cmp ax, strict word 1
-    jne short api_idx_0030_JQMM.forward17
-api_idx_0030_JQMM.forward16:
+    jne short api_idx_0030_GVGM.forward17
+api_idx_0030_GVGM.forward16:
     mov ax, word [party_tag]
     cmp ax, strict word 1
-    je short api_idx_0030_JQMM.forward19
-api_idx_0030_JQMM.forward17:
+    je short api_idx_0030_GVGM.forward19
+api_idx_0030_GVGM.forward17:
     mov ax, word [party_cell_x]
     cmp ax, strict word 5
-    je short api_idx_0030_JQMM.forward18
+    je short api_idx_0030_GVGM.forward18
     cmp ax, strict word 6
-    jne short api_idx_0030_JQMM.forward20
-api_idx_0030_JQMM.forward18:
+    jne short api_idx_0030_GVGM.forward20
+api_idx_0030_GVGM.forward18:
     mov ax, word [party_tag]
     cmp ax, strict word 3
-    jne short api_idx_0030_JQMM.forward20
-api_idx_0030_JQMM.forward19:
-    jmp short api_idx_0030_JQMM.forward21
-api_idx_0030_JQMM.forward20:
+    jne short api_idx_0030_GVGM.forward20
+api_idx_0030_GVGM.forward19:
+    jmp short api_idx_0030_GVGM.forward21
+api_idx_0030_GVGM.forward20:
     mov ax, 0
     push ax
     mov ax, 0x50
@@ -620,19 +620,19 @@ api_idx_0030_JQMM.forward20:
     push ax
     call gfx_fill_area
     add sp, byte 0xa
-api_idx_0030_JQMM.forward21:
+api_idx_0030_GVGM.forward21:
     cmp word [game_state_arg], byte 8
-    je short api_idx_0030_JQMM.forward22
+    je short api_idx_0030_GVGM.forward22
     cmp word [game_state_arg], byte 0xb
-    jne short api_idx_0030_JQMM.forward23
+    jne short api_idx_0030_GVGM.forward23
     cmp word [party_map_piece], byte 6
-    jne short api_idx_0030_JQMM.forward23
+    jne short api_idx_0030_GVGM.forward23
     cmp word [party_cell_y], byte 3
-    jle short api_idx_0030_JQMM.forward23
-api_idx_0030_JQMM.forward22:
+    jle short api_idx_0030_GVGM.forward23
+api_idx_0030_GVGM.forward22:
     mov ax, 4
     push ax
-    call api_idx_0030_JQMM.loc1
+    call api_idx_0030_GVGM.loc1
     pop cx
     push ax
     mov ax, 2
@@ -640,37 +640,37 @@ api_idx_0030_JQMM.forward22:
     mov ax, 4
     push ax
     push ax
-    call api_idx_0030_JQMM.loc2
+    call api_idx_0030_GVGM.loc2
     add sp, byte 4
     push ax
     mov ax, 1
     push ax
     call gfx_draw_maze_piece
     add sp, byte 8
-api_idx_0030_JQMM.forward23:
-    jmp short api_idx_0030_JQMM.jumptable_case2
-api_idx_0030_JQMM.jumptable1:
-    dw api_idx_0030_JQMM.jumptable_case2 - IMAGE_BASE + __zres_end
-    dw api_idx_0030_JQMM.jumptable_case1 - IMAGE_BASE + __zres_end
-    dw api_idx_0030_JQMM.jumptable_case3 - IMAGE_BASE + __zres_end
-    dw api_idx_0030_JQMM.jumptable_case4 - IMAGE_BASE + __zres_end
-    dw api_idx_0030_JQMM.jumptable_case5 - IMAGE_BASE + __zres_end
-    dw api_idx_0030_JQMM.jumptable_case6 - IMAGE_BASE + __zres_end
-    dw api_idx_0030_JQMM.jumptable_case7 - IMAGE_BASE + __zres_end
-api_idx_0030_JQMM.forward24:
+api_idx_0030_GVGM.forward23:
+    jmp short api_idx_0030_GVGM.jumptable_case2
+api_idx_0030_GVGM.jumptable1:
+    dw api_idx_0030_GVGM.jumptable_case2 - IMAGE_BASE + __zres_end
+    dw api_idx_0030_GVGM.jumptable_case1 - IMAGE_BASE + __zres_end
+    dw api_idx_0030_GVGM.jumptable_case3 - IMAGE_BASE + __zres_end
+    dw api_idx_0030_GVGM.jumptable_case4 - IMAGE_BASE + __zres_end
+    dw api_idx_0030_GVGM.jumptable_case5 - IMAGE_BASE + __zres_end
+    dw api_idx_0030_GVGM.jumptable_case6 - IMAGE_BASE + __zres_end
+    dw api_idx_0030_GVGM.jumptable_case7 - IMAGE_BASE + __zres_end
+api_idx_0030_GVGM.forward24:
     cmp ax, strict word 7
-    jae short api_idx_0030_JQMM.jumptable_case2
+    jae short api_idx_0030_GVGM.jumptable_case2
     xchg bx, ax
     shl bx, 1
-    jmp [cs:bx + api_idx_0030_JQMM.jumptable1 - IMAGE_BASE + __zres_end]
-api_idx_0030_JQMM.jumptable_case2:
+    jmp [cs:bx + api_idx_0030_GVGM.jumptable1 - IMAGE_BASE + __zres_end]
+api_idx_0030_GVGM.jumptable_case2:
     mov word [cell_wall_override_disabled], 0
-api_idx_0030_JQMM.back1:
+api_idx_0030_GVGM.back1:
     mov ax, word [cell_wall_override_disabled]
-    cmp ax, word [api_idx_0030_JQMM.bss13]
-    jl short api_idx_0030_JQMM.forward26
-    jmp near api_idx_0030_JQMM.forward38
-api_idx_0030_JQMM.forward26:
+    cmp ax, word [api_idx_0030_GVGM.bss13]
+    jl short api_idx_0030_GVGM.forward26
+    jmp near api_idx_0030_GVGM.forward38
+api_idx_0030_GVGM.forward26:
     mov ax, word [party_world_x]
     add ax, word [party_world_y]
     add ax, word [party_tag]
@@ -681,7 +681,7 @@ api_idx_0030_JQMM.forward26:
     mov cx, 2
     cwd
     idiv cx
-    mov word [api_idx_0030_JQMM.bss15], dx
+    mov word [api_idx_0030_GVGM.bss15], dx
     mov ax, 1
     push ax
     mov ax, 0
@@ -699,45 +699,45 @@ api_idx_0030_JQMM.forward26:
     call offset_relative_map_position
     add sp, byte 0xe
     test ax, ax
-    je short api_idx_0030_JQMM.forward33
+    je short api_idx_0030_GVGM.forward33
     mov ax, word [boundary_wall_variant]
     mov cx, 2
     cwd
     idiv cx
     mov ax, dx
     cmp ax, strict word 1
-    jne short api_idx_0030_JQMM.forward31
+    jne short api_idx_0030_GVGM.forward31
     mov ax, word [boundary_wall_variant]
     cmp ax, strict word 5
-    je short api_idx_0030_JQMM.forward29
+    je short api_idx_0030_GVGM.forward29
     cmp word [boundary_wall_open], byte 0
-    je short api_idx_0030_JQMM.forward27
-    mov word [api_idx_0030_JQMM.bss16], 0
-    jmp short api_idx_0030_JQMM.forward28
-api_idx_0030_JQMM.forward27:
+    je short api_idx_0030_GVGM.forward27
+    mov word [api_idx_0030_GVGM.grid_origin_y1], 0
+    jmp short api_idx_0030_GVGM.forward28
+api_idx_0030_GVGM.forward27:
     mov ax, 5
     imul word [cell_wall_override_disabled]
     mov bx, ax
-    mov byte [bx + api_idx_0030_JQMM.bss17], 1
-    mov word [api_idx_0030_JQMM.bss16], 4
-api_idx_0030_JQMM.forward28:
-    jmp short api_idx_0030_JQMM.forward30
-api_idx_0030_JQMM.forward29:
+    mov byte [bx + api_idx_0030_GVGM.bss16], 1
+    mov word [api_idx_0030_GVGM.grid_origin_y1], 4
+api_idx_0030_GVGM.forward28:
+    jmp short api_idx_0030_GVGM.forward30
+api_idx_0030_GVGM.forward29:
     mov ax, 5
     imul word [cell_wall_override_disabled]
     mov bx, ax
-    mov byte [bx + api_idx_0030_JQMM.bss17], 3
-    mov word [api_idx_0030_JQMM.bss16], 0
-api_idx_0030_JQMM.forward30:
-    jmp short api_idx_0030_JQMM.forward32
-api_idx_0030_JQMM.forward31:
-    mov word [api_idx_0030_JQMM.bss16], 2
-api_idx_0030_JQMM.forward32:
-    mov ax, word [api_idx_0030_JQMM.bss16]
-    mov word [api_idx_0030_JQMM.bss18], ax
-    mov word [api_idx_0030_JQMM.bss19], ax
-    jmp short api_idx_0030_JQMM.forward34
-api_idx_0030_JQMM.forward33:
+    mov byte [bx + api_idx_0030_GVGM.bss16], 3
+    mov word [api_idx_0030_GVGM.grid_origin_y1], 0
+api_idx_0030_GVGM.forward30:
+    jmp short api_idx_0030_GVGM.forward32
+api_idx_0030_GVGM.forward31:
+    mov word [api_idx_0030_GVGM.grid_origin_y1], 2
+api_idx_0030_GVGM.forward32:
+    mov ax, word [api_idx_0030_GVGM.grid_origin_y1]
+    mov word [api_idx_0030_GVGM.grid_origin_x1], ax
+    mov word [api_idx_0030_GVGM.bss17], ax
+    jmp short api_idx_0030_GVGM.forward34
+api_idx_0030_GVGM.forward33:
     mov ax, 0
     push ax
     push word [bp - 0x12]
@@ -745,9 +745,9 @@ api_idx_0030_JQMM.forward33:
     push word [bp - 0xe]
     push word [bp - 0xc]
     push word [bp - 0xa]
-    call api_idx_0030_JQMM.api_idx1
+    call api_idx_0030_GVGM.api_idx1
     add sp, byte 0xc
-    mov word [api_idx_0030_JQMM.bss16], ax
+    mov word [api_idx_0030_GVGM.grid_origin_y1], ax
     mov ax, 0
     push ax
     push word [bp - 0x12]
@@ -758,7 +758,7 @@ api_idx_0030_JQMM.forward33:
     push ax
     call get_relative_cell_wall
     add sp, byte 0xe
-    mov word [api_idx_0030_JQMM.bss18], ax
+    mov word [api_idx_0030_GVGM.grid_origin_x1], ax
     mov ax, 0
     push ax
     push word [bp - 0x12]
@@ -770,8 +770,8 @@ api_idx_0030_JQMM.forward33:
     push ax
     call get_relative_cell_wall
     add sp, byte 0xe
-    mov word [api_idx_0030_JQMM.bss19], ax
-api_idx_0030_JQMM.forward34:
+    mov word [api_idx_0030_GVGM.bss17], ax
+api_idx_0030_GVGM.forward34:
     mov ax, 0xffff
     push ax
     push word [bp - 0x12]
@@ -779,9 +779,9 @@ api_idx_0030_JQMM.forward34:
     push word [bp - 0xe]
     push word [bp - 0xc]
     push word [bp - 0xa]
-    call api_idx_0030_JQMM.api_idx1
+    call api_idx_0030_GVGM.api_idx1
     add sp, byte 0xc
-    mov word [api_idx_0030_JQMM.bss20], ax
+    mov word [api_idx_0030_GVGM.bss18], ax
     mov ax, 1
     push ax
     push word [bp - 0x12]
@@ -789,11 +789,11 @@ api_idx_0030_JQMM.forward34:
     push word [bp - 0xe]
     push word [bp - 0xc]
     push word [bp - 0xa]
-    call api_idx_0030_JQMM.api_idx1
+    call api_idx_0030_GVGM.api_idx1
     add sp, byte 0xc
-    mov word [api_idx_0030_JQMM.bss21], ax
+    mov word [api_idx_0030_GVGM.bss19], ax
     cmp word [cell_wall_override_disabled], byte 1
-    jle short api_idx_0030_JQMM.forward35
+    jle short api_idx_0030_GVGM.forward35
     mov ax, 0xfffe
     push ax
     push word [bp - 0x12]
@@ -801,9 +801,9 @@ api_idx_0030_JQMM.forward34:
     push word [bp - 0xe]
     push word [bp - 0xc]
     push word [bp - 0xa]
-    call api_idx_0030_JQMM.api_idx1
+    call api_idx_0030_GVGM.api_idx1
     add sp, byte 0xc
-    mov word [api_idx_0030_JQMM.bss22], ax
+    mov word [api_idx_0030_GVGM.bss20], ax
     mov ax, 2
     push ax
     push word [bp - 0x12]
@@ -811,9 +811,9 @@ api_idx_0030_JQMM.forward34:
     push word [bp - 0xe]
     push word [bp - 0xc]
     push word [bp - 0xa]
-    call api_idx_0030_JQMM.api_idx1
+    call api_idx_0030_GVGM.api_idx1
     add sp, byte 0xc
-    mov word [api_idx_0030_JQMM.bss23], ax
+    mov word [api_idx_0030_GVGM.bss21], ax
     mov ax, 0xffff
     push ax
     push word [bp - 0x12]
@@ -825,7 +825,7 @@ api_idx_0030_JQMM.forward34:
     push ax
     call get_relative_cell_wall
     add sp, byte 0xe
-    mov word [api_idx_0030_JQMM.bss24], ax
+    mov word [api_idx_0030_GVGM.bss22], ax
     mov ax, 1
     push ax
     push word [bp - 0x12]
@@ -837,23 +837,23 @@ api_idx_0030_JQMM.forward34:
     push ax
     call get_relative_cell_wall
     add sp, byte 0xe
-    mov word [api_idx_0030_JQMM.bss25], ax
-    jmp short api_idx_0030_JQMM.forward36
-api_idx_0030_JQMM.forward35:
-    mov word [api_idx_0030_JQMM.bss22], 0
-    mov word [api_idx_0030_JQMM.bss23], 0
-    mov word [api_idx_0030_JQMM.bss24], 0
-    mov word [api_idx_0030_JQMM.bss25], 0
-api_idx_0030_JQMM.forward36:
-    cmp word [api_idx_0030_JQMM.bss16], byte 0
-    jne short api_idx_0030_JQMM.forward37
+    mov word [api_idx_0030_GVGM.bss23], ax
+    jmp short api_idx_0030_GVGM.forward36
+api_idx_0030_GVGM.forward35:
+    mov word [api_idx_0030_GVGM.bss20], 0
+    mov word [api_idx_0030_GVGM.bss21], 0
+    mov word [api_idx_0030_GVGM.bss22], 0
+    mov word [api_idx_0030_GVGM.bss23], 0
+api_idx_0030_GVGM.forward36:
+    cmp word [api_idx_0030_GVGM.grid_origin_y1], byte 0
+    jne short api_idx_0030_GVGM.forward37
     mov ax, word [requested_row_limit]
     cmp ax, word [cell_wall_override_disabled]
-    jne short api_idx_0030_JQMM.forward37
+    jne short api_idx_0030_GVGM.forward37
     inc word [requested_row_limit]
-api_idx_0030_JQMM.forward37:
-    mov ax, word [api_idx_0030_JQMM.bss15]
-    mov word [api_idx_0030_JQMM.bss26], ax
+api_idx_0030_GVGM.forward37:
+    mov ax, word [api_idx_0030_GVGM.bss15]
+    mov word [api_idx_0030_GVGM.bss24], ax
     mov ax, 0x1e
     push ax
     push ax
@@ -912,9 +912,9 @@ api_idx_0030_JQMM.forward37:
     push ax
     mov ax, 2
     push ax
-    push word [api_idx_0030_JQMM.bss16]
+    push word [api_idx_0030_GVGM.grid_origin_y1]
     push word [cell_wall_override_disabled]
-    call api_idx_0030_JQMM.api_idx2
+    call api_idx_0030_GVGM.api_idx2
     add sp, byte 0x4a
     mov ax, 0xffff
     push ax
@@ -968,7 +968,7 @@ api_idx_0030_JQMM.forward37:
     mov ax, 2
     push ax
     push word [cell_wall_override_disabled]
-    call api_idx_0030_JQMM.api_idx3
+    call api_idx_0030_GVGM.api_idx3
     add sp, byte 0x40
     mov ax, 0x39
     push ax
@@ -1030,9 +1030,9 @@ api_idx_0030_JQMM.forward37:
     push ax
     mov ax, 1
     push ax
-    push word [api_idx_0030_JQMM.bss18]
+    push word [api_idx_0030_GVGM.grid_origin_x1]
     push word [cell_wall_override_disabled]
-    call api_idx_0030_JQMM.api_idx4
+    call api_idx_0030_GVGM.api_idx4
     add sp, byte 0x40
     mov ax, 0x34
     push ax
@@ -1093,9 +1093,9 @@ api_idx_0030_JQMM.forward37:
     push ax
     mov ax, 3
     push ax
-    push word [api_idx_0030_JQMM.bss19]
+    push word [api_idx_0030_GVGM.bss17]
     push word [cell_wall_override_disabled]
-    call api_idx_0030_JQMM.api_idx4
+    call api_idx_0030_GVGM.api_idx4
     add sp, byte 0x40
     mov ax, 0x43
     push ax
@@ -1155,9 +1155,9 @@ api_idx_0030_JQMM.forward37:
     mov ax, 0
     push ax
     push ax
-    push word [api_idx_0030_JQMM.bss24]
+    push word [api_idx_0030_GVGM.bss22]
     push word [cell_wall_override_disabled]
-    call api_idx_0030_JQMM.api_idx4
+    call api_idx_0030_GVGM.api_idx4
     add sp, byte 0x40
     mov ax, 0x3e
     push ax
@@ -1218,16 +1218,16 @@ api_idx_0030_JQMM.forward37:
     push ax
     mov ax, 4
     push ax
-    push word [api_idx_0030_JQMM.bss25]
+    push word [api_idx_0030_GVGM.bss23]
     push word [cell_wall_override_disabled]
-    call api_idx_0030_JQMM.api_idx4
+    call api_idx_0030_GVGM.api_idx4
     add sp, byte 0x40
-    mov ax, word [api_idx_0030_JQMM.bss15]
+    mov ax, word [api_idx_0030_GVGM.bss15]
     inc ax
     mov cx, 2
     cwd
     idiv cx
-    mov word [api_idx_0030_JQMM.bss26], dx
+    mov word [api_idx_0030_GVGM.bss24], dx
     mov ax, 0x22
     push ax
     push ax
@@ -1285,9 +1285,9 @@ api_idx_0030_JQMM.forward37:
     push ax
     mov ax, 1
     push ax
-    push word [api_idx_0030_JQMM.bss20]
+    push word [api_idx_0030_GVGM.bss18]
     push word [cell_wall_override_disabled]
-    call api_idx_0030_JQMM.api_idx2
+    call api_idx_0030_GVGM.api_idx2
     add sp, byte 0x4a
     mov ax, 0xc9
     push ax
@@ -1349,10 +1349,10 @@ api_idx_0030_JQMM.forward37:
     mov ax, 1
     push ax
     push word [cell_wall_override_disabled]
-    call api_idx_0030_JQMM.api_idx3
+    call api_idx_0030_GVGM.api_idx3
     add sp, byte 0x40
-    mov ax, word [api_idx_0030_JQMM.bss15]
-    mov word [api_idx_0030_JQMM.bss26], ax
+    mov ax, word [api_idx_0030_GVGM.bss15]
+    mov word [api_idx_0030_GVGM.bss24], ax
     mov ax, 0x26
     push ax
     push ax
@@ -1412,9 +1412,9 @@ api_idx_0030_JQMM.forward37:
     mov ax, 0
     push ax
     push ax
-    push word [api_idx_0030_JQMM.bss22]
+    push word [api_idx_0030_GVGM.bss20]
     push word [cell_wall_override_disabled]
-    call api_idx_0030_JQMM.api_idx2
+    call api_idx_0030_GVGM.api_idx2
     add sp, byte 0x4a
     mov ax, 0xd3
     push ax
@@ -1475,14 +1475,14 @@ api_idx_0030_JQMM.forward37:
     push ax
     push ax
     push word [cell_wall_override_disabled]
-    call api_idx_0030_JQMM.api_idx3
+    call api_idx_0030_GVGM.api_idx3
     add sp, byte 0x40
-    mov ax, word [api_idx_0030_JQMM.bss15]
+    mov ax, word [api_idx_0030_GVGM.bss15]
     inc ax
     mov cx, 2
     cwd
     idiv cx
-    mov word [api_idx_0030_JQMM.bss26], dx
+    mov word [api_idx_0030_GVGM.bss24], dx
     mov ax, 0x2a
     push ax
     push ax
@@ -1540,9 +1540,9 @@ api_idx_0030_JQMM.forward37:
     push ax
     mov ax, 3
     push ax
-    push word [api_idx_0030_JQMM.bss21]
+    push word [api_idx_0030_GVGM.bss19]
     push word [cell_wall_override_disabled]
-    call api_idx_0030_JQMM.api_idx2
+    call api_idx_0030_GVGM.api_idx2
     add sp, byte 0x4a
     mov ax, 0xc4
     push ax
@@ -1604,10 +1604,10 @@ api_idx_0030_JQMM.forward37:
     mov ax, 3
     push ax
     push word [cell_wall_override_disabled]
-    call api_idx_0030_JQMM.api_idx3
+    call api_idx_0030_GVGM.api_idx3
     add sp, byte 0x40
-    mov ax, word [api_idx_0030_JQMM.bss15]
-    mov word [api_idx_0030_JQMM.bss26], ax
+    mov ax, word [api_idx_0030_GVGM.bss15]
+    mov word [api_idx_0030_GVGM.bss24], ax
     mov ax, 0x2e
     push ax
     push ax
@@ -1668,9 +1668,9 @@ api_idx_0030_JQMM.forward37:
     push ax
     mov ax, 4
     push ax
-    push word [api_idx_0030_JQMM.bss23]
+    push word [api_idx_0030_GVGM.bss21]
     push word [cell_wall_override_disabled]
-    call api_idx_0030_JQMM.api_idx2
+    call api_idx_0030_GVGM.api_idx2
     add sp, byte 0x4a
     mov ax, 0xce
     push ax
@@ -1732,38 +1732,38 @@ api_idx_0030_JQMM.forward37:
     mov ax, 4
     push ax
     push word [cell_wall_override_disabled]
-    call api_idx_0030_JQMM.api_idx3
+    call api_idx_0030_GVGM.api_idx3
     add sp, byte 0x40
     inc word [cell_wall_override_disabled]
-    jmp near api_idx_0030_JQMM.back1
-api_idx_0030_JQMM.forward38:
-    mov ax, word [api_idx_0030_JQMM.bss13]
+    jmp near api_idx_0030_GVGM.back1
+api_idx_0030_GVGM.forward38:
+    mov ax, word [api_idx_0030_GVGM.bss13]
     dec ax
     mov word [cell_wall_override_disabled], ax
-    jmp near api_idx_0030_JQMM.forward84
-api_idx_0030_JQMM.back2:
+    jmp near api_idx_0030_GVGM.forward84
+api_idx_0030_GVGM.back2:
     mov word [bp - 4], 0xff
-api_idx_0030_JQMM.back3:
-    mov ax, word [api_idx_0030_JQMM.bss12]
+api_idx_0030_GVGM.back3:
+    mov ax, word [api_idx_0030_GVGM.bss12]
     dec ax
     mov word [bp - 2], ax
-    jmp short api_idx_0030_JQMM.forward41
-api_idx_0030_JQMM.back4:
+    jmp short api_idx_0030_GVGM.forward41
+api_idx_0030_GVGM.back4:
     mov ax, 0x11
     imul word [bp - 2]
-    add ax, api_idx_0030_JQMM.bss11
+    add ax, api_idx_0030_GVGM.bss11
     mov word [bp - 0x26], ax
     mov bx, ax
     mov al, byte [bx + 0xd]
     sub ah, ah
     cmp ax, word [cell_wall_override_disabled]
-    jne short api_idx_0030_JQMM.forward40
+    jne short api_idx_0030_GVGM.forward40
     mov al, byte [bx + 0xc]
     sub ah, ah
     cmp ax, word [bp - 4]
-    jne short api_idx_0030_JQMM.forward40
+    jne short api_idx_0030_GVGM.forward40
     cmp word [bx], byte -1
-    je short api_idx_0030_JQMM.forward39
+    je short api_idx_0030_GVGM.forward39
     push word [bx + 4]
     mov al, byte [bx + 8]
     sub ah, ah
@@ -1774,10 +1774,10 @@ api_idx_0030_JQMM.back4:
     push ax
     call gfx_draw_maze_piece
     add sp, byte 8
-api_idx_0030_JQMM.forward39:
+api_idx_0030_GVGM.forward39:
     mov bx, word [bp - 0x26]
     cmp word [bx + 2], byte -1
-    je short api_idx_0030_JQMM.forward40
+    je short api_idx_0030_GVGM.forward40
     push word [bx + 6]
     mov al, byte [bx + 9]
     sub ah, ah
@@ -1788,61 +1788,61 @@ api_idx_0030_JQMM.forward39:
     push ax
     call gfx_draw_maze_piece
     add sp, byte 8
-api_idx_0030_JQMM.forward40:
+api_idx_0030_GVGM.forward40:
     dec word [bp - 2]
-api_idx_0030_JQMM.forward41:
+api_idx_0030_GVGM.forward41:
     cmp word [bp - 2], byte 0
-    jge short api_idx_0030_JQMM.back4
+    jge short api_idx_0030_GVGM.back4
     mov ax, 0
     cmp word [bp - 4], strict word 0xff
-    je short api_idx_0030_JQMM.forward42
+    je short api_idx_0030_GVGM.forward42
     mov ax, 0xffff
     cmp word [bp - 4], strict word 0xfb
-    jne short api_idx_0030_JQMM.forward42
+    jne short api_idx_0030_GVGM.forward42
     mov ax, 1
-api_idx_0030_JQMM.forward42:
+api_idx_0030_GVGM.forward42:
     mov word [bp - 0x18], ax
     cmp ax, strict word 0xffff
-    jne short api_idx_0030_JQMM.forward43
-    jmp near api_idx_0030_JQMM.forward49
-api_idx_0030_JQMM.forward43:
-    mov ax, word [api_idx_0030_JQMM.bss12]
+    jne short api_idx_0030_GVGM.forward43
+    jmp near api_idx_0030_GVGM.forward49
+api_idx_0030_GVGM.forward43:
+    mov ax, word [api_idx_0030_GVGM.bss12]
     dec ax
     mov word [bp - 2], ax
-    jmp near api_idx_0030_JQMM.forward48
-api_idx_0030_JQMM.back5:
+    jmp near api_idx_0030_GVGM.forward48
+api_idx_0030_GVGM.back5:
     mov ax, 0x11
     imul word [bp - 2]
-    add ax, api_idx_0030_JQMM.bss11
+    add ax, api_idx_0030_GVGM.bss11
     mov word [bp - 0x26], ax
     mov bx, ax
     mov al, byte [bx + 0xd]
     sub ah, ah
     cmp ax, word [cell_wall_override_disabled]
-    je short api_idx_0030_JQMM.forward44
-    jmp near api_idx_0030_JQMM.forward47
-api_idx_0030_JQMM.forward44:
+    je short api_idx_0030_GVGM.forward44
+    jmp near api_idx_0030_GVGM.forward47
+api_idx_0030_GVGM.forward44:
     mov al, byte [bx + 0xc]
     sub ah, ah
     cmp ax, 0xfa
-    jl short api_idx_0030_JQMM.forward45
-    jmp near api_idx_0030_JQMM.forward47
-api_idx_0030_JQMM.forward45:
+    jl short api_idx_0030_GVGM.forward45
+    jmp near api_idx_0030_GVGM.forward47
+api_idx_0030_GVGM.forward45:
     mov al, byte [bx + 0x10]
     sub ah, ah
     cmp ax, word [bp - 0x18]
-    jne short api_idx_0030_JQMM.forward47
+    jne short api_idx_0030_GVGM.forward47
     cmp byte [bx + 0xc], 4
-    jne short api_idx_0030_JQMM.forward46
+    jne short api_idx_0030_GVGM.forward46
     cmp byte [bx + 9], 1
-    jne short api_idx_0030_JQMM.forward46
+    jne short api_idx_0030_GVGM.forward46
     push bx
     call api_idx_0016_LHKK
     pop cx
-    jmp short api_idx_0030_JQMM.forward47
-api_idx_0030_JQMM.forward46:
+    jmp short api_idx_0030_GVGM.forward47
+api_idx_0030_GVGM.forward46:
     mov word [bp - 6], 0
-api_idx_0030_JQMM.back6:
+api_idx_0030_GVGM.back6:
     mov bx, word [bp - 0x26]
     mov si, word [bp - 6]
     mov al, byte [bx + si + 8]
@@ -1852,7 +1852,7 @@ api_idx_0030_JQMM.back6:
     inc word [bp - 6]
     mov ax, word [bp - 6]
     cmp ax, strict word 4
-    jl short api_idx_0030_JQMM.back6
+    jl short api_idx_0030_GVGM.back6
     mov byte [bp - 0x2c], 0
     mov bx, word [bp - 0x26]
     mov al, byte [bx + 0xe]
@@ -1878,56 +1878,56 @@ api_idx_0030_JQMM.back6:
     push ax
     call gfx_draw_text
     add sp, byte 0x16
-api_idx_0030_JQMM.forward47:
+api_idx_0030_GVGM.forward47:
     dec word [bp - 2]
-api_idx_0030_JQMM.forward48:
+api_idx_0030_GVGM.forward48:
     cmp word [bp - 2], byte 0
-    jl short api_idx_0030_JQMM.forward49
-    jmp near api_idx_0030_JQMM.back5
-api_idx_0030_JQMM.forward49:
+    jl short api_idx_0030_GVGM.forward49
+    jmp near api_idx_0030_GVGM.back5
+api_idx_0030_GVGM.forward49:
     dec word [bp - 4]
     mov ax, word [bp - 4]
     cmp ax, 0xfb
-    jl short api_idx_0030_JQMM.forward50
-    jmp near api_idx_0030_JQMM.back3
-api_idx_0030_JQMM.forward50:
+    jl short api_idx_0030_GVGM.forward50
+    jmp near api_idx_0030_GVGM.back3
+api_idx_0030_GVGM.forward50:
     mov al, byte [bss_5b55]
     sub ah, ah
     cmp ax, 0xff
-    jne short api_idx_0030_JQMM.forward51
-    jmp near api_idx_0030_JQMM.forward70
-api_idx_0030_JQMM.forward51:
+    jne short api_idx_0030_GVGM.forward51
+    jmp near api_idx_0030_GVGM.forward70
+api_idx_0030_GVGM.forward51:
     cmp word [cell_wall_override_disabled], byte 0
-    je short api_idx_0030_JQMM.forward52
-    jmp near api_idx_0030_JQMM.forward70
-api_idx_0030_JQMM.forward52:
+    je short api_idx_0030_GVGM.forward52
+    jmp near api_idx_0030_GVGM.forward70
+api_idx_0030_GVGM.forward52:
     cmp word [boundary_wall_variant], byte 0
-    jne short api_idx_0030_JQMM.forward53
-    cmp byte [api_idx_0030_JQMM.bss27], 3
-    jne short api_idx_0030_JQMM.forward53
-    jmp near api_idx_0030_JQMM.forward70
-api_idx_0030_JQMM.forward53:
+    jne short api_idx_0030_GVGM.forward53
+    cmp byte [api_idx_0030_GVGM.bss25], 3
+    jne short api_idx_0030_GVGM.forward53
+    jmp near api_idx_0030_GVGM.forward70
+api_idx_0030_GVGM.forward53:
     mov ax, word [boundary_wall_variant]
     mov cx, 2
     cwd
     idiv cx
     mov ax, dx
     test ax, ax
-    jne short api_idx_0030_JQMM.forward54
+    jne short api_idx_0030_GVGM.forward54
     cmp word [requested_row_limit], byte 1
-    jg short api_idx_0030_JQMM.forward54
-    jmp near api_idx_0030_JQMM.forward70
-api_idx_0030_JQMM.forward54:
+    jg short api_idx_0030_GVGM.forward54
+    jmp near api_idx_0030_GVGM.forward70
+api_idx_0030_GVGM.forward54:
     mov word [bp - 6], 0
-api_idx_0030_JQMM.back7:
+api_idx_0030_GVGM.back7:
     mov ax, word [bp - 6]
     shl ax, 1
     mov bx, ax
-    cmp word [bx + api_idx_0030_JQMM.bss28], byte 0
-    jg short api_idx_0030_JQMM.forward55
-    jmp near api_idx_0030_JQMM.forward59
-api_idx_0030_JQMM.forward55:
-    mov al, byte [bx + api_idx_0030_JQMM.bss28]
+    cmp word [bx + api_idx_0030_GVGM.bss26], byte 0
+    jg short api_idx_0030_GVGM.forward55
+    jmp near api_idx_0030_GVGM.forward59
+api_idx_0030_GVGM.forward55:
+    mov al, byte [bx + api_idx_0030_GVGM.bss26]
     mov byte [bp - 0x30], al
     mov byte [bp - 0x2f], 0
     mov ax, 0
@@ -1935,7 +1935,7 @@ api_idx_0030_JQMM.forward55:
     push ax
     lea ax, word [bp - 0x30]
     push ax
-    push word [bx + api_idx_0030_JQMM.bss29]
+    push word [bx + api_idx_0030_GVGM.save_location_flag1]
     mov ax, 0x90
     push ax
     mov ax, 0x20
@@ -1944,22 +1944,22 @@ api_idx_0030_JQMM.forward55:
     push ax
     mov ax, 0x48
     push ax
-    mov bx, word [bx + api_idx_0030_JQMM.bss28]
+    mov bx, word [bx + api_idx_0030_GVGM.bss26]
     mov al, byte [bx + bss_7b05 + 0x15c]
     sub ah, ah
     mov cx, word [bp - 6]
     shl cx, 1
     mov bx, cx
-    add ax, word [bx + api_idx_0030_JQMM.bss30]
+    add ax, word [bx + api_idx_0030_GVGM.bss27]
     push ax
-    mov ax, word [bx + api_idx_0030_JQMM.bss28]
+    mov ax, word [bx + api_idx_0030_GVGM.bss26]
     shl ax, 1
-    add ax, word [bx + api_idx_0030_JQMM.bss29]
+    add ax, word [bx + api_idx_0030_GVGM.save_location_flag1]
     mov bx, ax
     mov al, byte [bx + bss_7b05 + 0x113]
     sub ah, ah
     mov bx, cx
-    add ax, word [bx + api_idx_0030_JQMM.bss31]
+    add ax, word [bx + api_idx_0030_GVGM.bss28]
     push ax
     mov ax, 0xd
     push ax
@@ -1968,33 +1968,33 @@ api_idx_0030_JQMM.forward55:
     mov ax, word [bp - 6]
     shl ax, 1
     mov bx, ax
-    cmp word [bx + api_idx_0030_JQMM.bss32], byte 0
-    je short api_idx_0030_JQMM.forward56
-    dec word [bx + api_idx_0030_JQMM.bss28]
-    jmp short api_idx_0030_JQMM.forward57
-api_idx_0030_JQMM.forward56:
-    inc word [bx + api_idx_0030_JQMM.bss28]
-api_idx_0030_JQMM.forward57:
+    cmp word [bx + api_idx_0030_GVGM.bss29], byte 0
+    je short api_idx_0030_GVGM.forward56
+    dec word [bx + api_idx_0030_GVGM.bss26]
+    jmp short api_idx_0030_GVGM.forward57
+api_idx_0030_GVGM.forward56:
+    inc word [bx + api_idx_0030_GVGM.bss26]
+api_idx_0030_GVGM.forward57:
     mov al, byte [bss_7d3c]
     sub ah, ah
-    cmp ax, word [bx + api_idx_0030_JQMM.bss28]
-    jge short api_idx_0030_JQMM.forward58
-    mov word [bx + api_idx_0030_JQMM.bss28], 0
-api_idx_0030_JQMM.forward58:
-    jmp near api_idx_0030_JQMM.forward69
-api_idx_0030_JQMM.forward59:
+    cmp ax, word [bx + api_idx_0030_GVGM.bss26]
+    jge short api_idx_0030_GVGM.forward58
+    mov word [bx + api_idx_0030_GVGM.bss26], 0
+api_idx_0030_GVGM.forward58:
+    jmp near api_idx_0030_GVGM.forward69
+api_idx_0030_GVGM.forward59:
     cmp word [bss_8f22], byte 0
-    je short api_idx_0030_JQMM.forward60
-    jmp near api_idx_0030_JQMM.forward69
-api_idx_0030_JQMM.forward60:
+    je short api_idx_0030_GVGM.forward60
+    jmp near api_idx_0030_GVGM.forward69
+api_idx_0030_GVGM.forward60:
     mov ax, 0x64
     push ax
     call random_below
     pop cx
     cmp ax, word [bp - 6]
-    jle short api_idx_0030_JQMM.forward61
-    jmp near api_idx_0030_JQMM.forward69
-api_idx_0030_JQMM.forward61:
+    jle short api_idx_0030_GVGM.forward61
+    jmp near api_idx_0030_GVGM.forward69
+api_idx_0030_GVGM.forward61:
     mov ax, 2
     push ax
     call random_below
@@ -2002,63 +2002,63 @@ api_idx_0030_JQMM.forward61:
     mov cx, word [bp - 6]
     shl cx, 1
     mov bx, cx
-    mov word [bx + api_idx_0030_JQMM.bss29], ax
+    mov word [bx + api_idx_0030_GVGM.save_location_flag1], ax
     mov ax, word [boundary_wall_variant]
     mov cx, 2
     cwd
     idiv cx
     mov ax, dx
     test ax, ax
-    je short api_idx_0030_JQMM.forward62
+    je short api_idx_0030_GVGM.forward62
     push cx
     call random_below
     pop cx
-    jmp short api_idx_0030_JQMM.forward63
-api_idx_0030_JQMM.forward62:
+    jmp short api_idx_0030_GVGM.forward63
+api_idx_0030_GVGM.forward62:
     mov ax, 0
-api_idx_0030_JQMM.forward63:
+api_idx_0030_GVGM.forward63:
     mov cx, word [bp - 6]
     shl cx, 1
     mov bx, cx
-    mov word [bx + api_idx_0030_JQMM.bss32], ax
+    mov word [bx + api_idx_0030_GVGM.bss29], ax
     mov ax, 1
-    cmp word [bx + api_idx_0030_JQMM.bss32], byte 0
-    je short api_idx_0030_JQMM.forward64
+    cmp word [bx + api_idx_0030_GVGM.bss29], byte 0
+    je short api_idx_0030_GVGM.forward64
     mov al, byte [bss_7d3c]
     sub ah, ah
-api_idx_0030_JQMM.forward64:
-    mov word [bx + api_idx_0030_JQMM.bss28], ax
+api_idx_0030_GVGM.forward64:
+    mov word [bx + api_idx_0030_GVGM.bss26], ax
     mov ax, word [boundary_wall_variant]
     mov cx, 1
     cwd
     idiv cx
     mov ax, dx
     test ax, ax
-    je short api_idx_0030_JQMM.forward65
+    je short api_idx_0030_GVGM.forward65
     mov ax, 0x1e
-    jmp short api_idx_0030_JQMM.forward66
-api_idx_0030_JQMM.forward65:
+    jmp short api_idx_0030_GVGM.forward66
+api_idx_0030_GVGM.forward65:
     mov ax, 0xa
-api_idx_0030_JQMM.forward66:
+api_idx_0030_GVGM.forward66:
     mov word [bp - 2], ax
-    cmp word [bx + api_idx_0030_JQMM.bss29], byte 0
-    je short api_idx_0030_JQMM.forward67
+    cmp word [bx + api_idx_0030_GVGM.save_location_flag1], byte 0
+    je short api_idx_0030_GVGM.forward67
     push ax
     call random_below
     pop cx
-    jmp short api_idx_0030_JQMM.forward68
-api_idx_0030_JQMM.forward67:
+    jmp short api_idx_0030_GVGM.forward68
+api_idx_0030_GVGM.forward67:
     push word [bp - 2]
     call random_below
     pop cx
     mov cx, ax
     mov ax, 0
     sub ax, cx
-api_idx_0030_JQMM.forward68:
+api_idx_0030_GVGM.forward68:
     mov cx, word [bp - 6]
     shl cx, 1
     mov bx, cx
-    mov word [bx + api_idx_0030_JQMM.bss31], ax
+    mov word [bx + api_idx_0030_GVGM.bss28], ax
     mov ax, 5
     push ax
     call random_below
@@ -2066,23 +2066,23 @@ api_idx_0030_JQMM.forward68:
     mov cx, word [bp - 6]
     shl cx, 1
     mov bx, cx
-    mov word [bx + api_idx_0030_JQMM.bss30], ax
-api_idx_0030_JQMM.forward69:
+    mov word [bx + api_idx_0030_GVGM.bss27], ax
+api_idx_0030_GVGM.forward69:
     inc word [bp - 6]
     mov ax, word [bp - 6]
     cmp ax, strict word 3
-    jge short api_idx_0030_JQMM.forward70
-    jmp near api_idx_0030_JQMM.back7
-api_idx_0030_JQMM.forward70:
+    jge short api_idx_0030_GVGM.forward70
+    jmp near api_idx_0030_GVGM.back7
+api_idx_0030_GVGM.forward70:
     cmp word [boundary_wall_variant], byte 0
-    je short api_idx_0030_JQMM.forward71
+    je short api_idx_0030_GVGM.forward71
     mov ax, word [boundary_wall_variant]
     cmp ax, strict word 2
-    jg short api_idx_0030_JQMM.forward71
-    jmp near api_idx_0030_JQMM.forward83
-api_idx_0030_JQMM.forward71:
+    jg short api_idx_0030_GVGM.forward71
+    jmp near api_idx_0030_GVGM.forward83
+api_idx_0030_GVGM.forward71:
     mov word [bp - 0x14], 0
-api_idx_0030_JQMM.back8:
+api_idx_0030_GVGM.back8:
     mov ax, word [bp - 0x14]
     shl ax, 1
     mov bx, ax
@@ -2095,13 +2095,13 @@ api_idx_0030_JQMM.back8:
     mov ax, word [bp - 2]
     add cx, ax
     mov bx, cx
-    mov al, byte [bx + api_idx_0030_JQMM.bss1]
+    mov al, byte [bx + api_idx_0030_GVGM.bss1]
     sub ah, ah
     mov word [bp - 0x1a], ax
     test ax, ax
-    jne short api_idx_0030_JQMM.forward72
-    jmp near api_idx_0030_JQMM.forward82
-api_idx_0030_JQMM.forward72:
+    jne short api_idx_0030_GVGM.forward72
+    jmp near api_idx_0030_GVGM.forward82
+api_idx_0030_GVGM.forward72:
     mov ax, 0x28
     imul word [cell_wall_override_disabled]
     mov cx, word [bp - 2]
@@ -2111,19 +2111,19 @@ api_idx_0030_JQMM.forward72:
     add ax, cx
     mov bx, ax
     cmp word [bx + 0x2a6], byte 0
-    jne short api_idx_0030_JQMM.forward73
-    jmp near api_idx_0030_JQMM.forward82
-api_idx_0030_JQMM.forward73:
+    jne short api_idx_0030_GVGM.forward73
+    jmp near api_idx_0030_GVGM.forward82
+api_idx_0030_GVGM.forward73:
     cmp word [bp - 0x1a], byte 1
-    je short api_idx_0030_JQMM.forward74
+    je short api_idx_0030_GVGM.forward74
     cmp word [boundary_wall_open], byte 0
-    je short api_idx_0030_JQMM.forward76
-api_idx_0030_JQMM.forward74:
+    je short api_idx_0030_GVGM.forward76
+api_idx_0030_GVGM.forward74:
     mov ax, 0
     cmp word [boundary_wall_open], byte 0
-    je short api_idx_0030_JQMM.forward75
+    je short api_idx_0030_GVGM.forward75
     mov ax, 0xff
-api_idx_0030_JQMM.forward75:
+api_idx_0030_GVGM.forward75:
     push ax
     push word [bx + 0x2ac]
     push word [bx + 0x2aa]
@@ -2131,12 +2131,12 @@ api_idx_0030_JQMM.forward75:
     push word [bx + 0x2a6]
     call gfx_fill_area
     add sp, byte 0xa
-    jmp near api_idx_0030_JQMM.forward81
-api_idx_0030_JQMM.forward76:
+    jmp near api_idx_0030_GVGM.forward81
+api_idx_0030_GVGM.forward76:
     cmp word [cell_wall_override_disabled], byte 0
-    jg short api_idx_0030_JQMM.forward77
-    jmp near api_idx_0030_JQMM.forward81
-api_idx_0030_JQMM.forward77:
+    jg short api_idx_0030_GVGM.forward77
+    jmp near api_idx_0030_GVGM.forward81
+api_idx_0030_GVGM.forward77:
     mov ax, word [bp - 2]
     shl ax, 1
     shl ax, 1
@@ -2144,9 +2144,9 @@ api_idx_0030_JQMM.forward77:
     shl ax, 1
     mov bx, ax
     cmp byte [bx + glyph_y_table + 0x7eb], 0
-    jne short api_idx_0030_JQMM.forward78
-    jmp near api_idx_0030_JQMM.forward81
-api_idx_0030_JQMM.forward78:
+    jne short api_idx_0030_GVGM.forward78
+    jmp near api_idx_0030_GVGM.forward81
+api_idx_0030_GVGM.forward78:
     mov ax, 2
     push ax
     call random_below
@@ -2158,7 +2158,7 @@ api_idx_0030_JQMM.forward78:
     mov cx, 2
     cwd
     idiv cx
-    mov word [api_idx_0030_JQMM.bss15], dx
+    mov word [api_idx_0030_GVGM.bss15], dx
     mov al, byte [cell_wall_override_disabled]
     mov byte [bp - 0x30], al
     mov byte [bp - 0x2f], 0
@@ -2173,14 +2173,14 @@ api_idx_0030_JQMM.forward78:
     sub ah, ah
     mov word [bp - 6], ax
     cmp ax, 0xff
-    jne short api_idx_0030_JQMM.forward80
+    jne short api_idx_0030_GVGM.forward80
     mov ax, 0xffee
-    cmp word [api_idx_0030_JQMM.bss15], byte 0
-    je short api_idx_0030_JQMM.forward79
+    cmp word [api_idx_0030_GVGM.bss15], byte 0
+    je short api_idx_0030_GVGM.forward79
     mov ax, 0xffea
-api_idx_0030_JQMM.forward79:
+api_idx_0030_GVGM.forward79:
     mov word [bp - 6], ax
-api_idx_0030_JQMM.forward80:
+api_idx_0030_GVGM.forward80:
     mov ax, 0
     push ax
     push ax
@@ -2208,23 +2208,23 @@ api_idx_0030_JQMM.forward80:
     push ax
     call gfx_draw_text
     add sp, byte 0x16
-api_idx_0030_JQMM.forward81:
+api_idx_0030_GVGM.forward81:
     cmp word [boundary_wall_open], byte 0
-    je short api_idx_0030_JQMM.forward82
+    je short api_idx_0030_GVGM.forward82
     call draw_clock_marker_glyph
     call api_idx_0024_NUGL
-api_idx_0030_JQMM.forward82:
+api_idx_0030_GVGM.forward82:
     inc word [bp - 0x14]
     mov ax, word [bp - 0x14]
     cmp ax, strict word 5
-    jge short api_idx_0030_JQMM.forward83
-    jmp near api_idx_0030_JQMM.back8
-api_idx_0030_JQMM.forward83:
+    jge short api_idx_0030_GVGM.forward83
+    jmp near api_idx_0030_GVGM.back8
+api_idx_0030_GVGM.forward83:
     dec word [cell_wall_override_disabled]
-api_idx_0030_JQMM.forward84:
+api_idx_0030_GVGM.forward84:
     cmp word [cell_wall_override_disabled], byte 0
-    jl short api_idx_0030_JQMM.forward85
-    jmp near api_idx_0030_JQMM.back2
-api_idx_0030_JQMM.forward85:
+    jl short api_idx_0030_GVGM.forward85
+    jmp near api_idx_0030_GVGM.back2
+api_idx_0030_GVGM.forward85:
     call draw_party_status_glyphs
     ret

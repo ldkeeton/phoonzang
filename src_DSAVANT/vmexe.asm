@@ -98,12 +98,12 @@ advance_action_slots.fill_action_slot_table_vmnpc1 equ fill_action_slot_table
 loc_KRMP.panel_redraw_ticks1 equ bss_90e2
 %include "shared/game/loc_KRMP.asm"              ; 0x1849
 
-%include "vmexe/api_idx_0006_TMLR.asm"     ; 0x18a8
+%include "vmexe/api_idx_0006_GMTP.asm"     ; 0x18a8
 
-run_party_screen_animation.api_idx1 equ api_idx_0006_TMLR
+run_party_screen_animation.api_idx1 equ api_idx_0006_GMTP
 %include "shared/game/run_party_screen_animation.asm" ; 0x1a35
 
-loc_UTQS.api_idx1 equ api_idx_0006_TMLR
+loc_UTQS.api_idx1 equ api_idx_0006_GMTP
 %include "shared/game/loc_UTQS.asm"              ; 0x1a4c
 
 %include "vmexe/api_idx_0004_QUPL.asm"     ; 0x1a5f

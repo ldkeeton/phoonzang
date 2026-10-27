@@ -109,10 +109,10 @@ advance_action_slots.fill_action_slot_table_vmnpc1 equ fill_action_slot_table_vm
 loc_KRMP.panel_redraw_ticks1 equ panel_redraw_ticks
 %include "shared/game/loc_KRMP.asm"              ; 0x2b19
 
-api_idx_0006_IRNH.panel_redraw_ticks1 equ panel_redraw_ticks
-%include "shared/game/api_idx_0006_IRNH.asm"     ; 0x2b78
+api_idx_0006_LJUS.panel_redraw_ticks1 equ panel_redraw_ticks
+%include "shared/game/api_idx_0006_LJUS.asm"     ; 0x2b78
 
-run_party_screen_animation.api_idx1 equ api_idx_0006_IRNH
+run_party_screen_animation.api_idx1 equ api_idx_0006_LJUS
 %include "shared/game/run_party_screen_animation.asm" ; 0x2cc7
 
 %include "vmele/play_action_overlays.asm"  ; 0x2cde

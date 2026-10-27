@@ -24,7 +24,6 @@ pub fn main(init: std.process.Init) !void {
     const text = try cwd.readFileAlloc(io, sidecar_path, gpa, .unlimited);
     const root = (try std.json.parseFromSliceLeaky(std.json.Value, gpa, text, .{})).object;
     const sigs: []const an.Signature = &.{};
-    const routines = sidecar.obj(root, "routines");
     const binaries = sidecar.obj(root, "binaries") orelse return error.NoBinaries;
 
     var bins = std.StringHashMap(*an.Bin).init(gpa);
@@ -54,7 +53,7 @@ pub fn main(init: std.process.Init) !void {
     for (order.items) |b| {
         try b.discover(sigs);
         try b.finishRoots();
-        try names.nameRoutines(b, &bins, routines);
+        try names.nameRoutines(b, &bins);
     }
 
     var layouts = std.StringHashMap(*render.Layout).init(gpa);

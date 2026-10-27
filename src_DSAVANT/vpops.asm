@@ -82,10 +82,10 @@ advance_action_slots.fill_action_slot_table_vmnpc1 equ fill_action_slot_table
 loc_KRMP.panel_redraw_ticks1 equ bss_90d6
 %include "shared/game/loc_KRMP.asm"              ; 0x0ec8
 
-api_idx_0006_IRNH.panel_redraw_ticks1 equ bss_90d6
-%include "shared/game/api_idx_0006_IRNH.asm"     ; 0x0f27
+api_idx_0006_LJUS.panel_redraw_ticks1 equ bss_90d6
+%include "shared/game/api_idx_0006_LJUS.asm"     ; 0x0f27
 
-run_party_screen_animation.api_idx1 equ api_idx_0006_IRNH
+run_party_screen_animation.api_idx1 equ api_idx_0006_LJUS
 %include "shared/game/run_party_screen_animation.asm" ; 0x1076
 
 %include "vpops/wait_for_party_redraw.asm" ; 0x108d
@@ -111,8 +111,8 @@ draw_spell_cost.dseg1 equ dseg_90bb
 
 %include "shared/game/draw_realm_spell_points.asm" ; 0x1b78
 
-periodic_party_redraw.party_redraw_mode1 equ bss_90d6
-periodic_party_redraw.api_idx1           equ draw_realm_spell_points
+periodic_party_redraw.party_redraw_mode1       equ bss_90d6
+periodic_party_redraw.draw_realm_spell_points1 equ draw_realm_spell_points
 %include "shared/game/periodic_party_redraw.asm" ; 0x1c11
 
 %include "vpops/action_spell_dialog.asm"   ; 0x1ca2

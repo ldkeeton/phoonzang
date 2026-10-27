@@ -365,11 +365,11 @@ loc_IMPO              equ draw_spell_cost
 draw_spell_cost.dseg1 equ dseg_90e4
 %include "shared/game/draw_spell_cost.asm"              ; 0x7667
 
-api_idx_000c_GHTR equ draw_realm_spell_points
+api_idx_000c_VQMU equ draw_realm_spell_points
 %include "shared/game/draw_realm_spell_points.asm"     ; 0x7708
 
-periodic_party_redraw.party_redraw_mode1 equ bss_93d6
-periodic_party_redraw.api_idx1           equ api_idx_000c_GHTR
+periodic_party_redraw.party_redraw_mode1       equ bss_93d6
+periodic_party_redraw.draw_realm_spell_points1 equ api_idx_000c_VQMU
 %include "shared/game/periodic_party_redraw.asm" ; 0x77a1
 
 %include "vmnpc/loc_UVUO.asm"              ; 0x7832

@@ -1,5 +1,5 @@
 ; auto-generated
-api_idx_0008_OKSM:
+api_idx_0008_VJQV:
     mov ax, 0xfff8                   ; 0x151e
     call aztec_csav                  ; 0x1521
     push word [bp + 4]               ; 0x1524

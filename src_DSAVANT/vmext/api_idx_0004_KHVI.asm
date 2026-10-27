@@ -1,5 +1,5 @@
 ; auto-generated
-api_idx_0004_KQNK:
+api_idx_0004_KHVI:
     mov ax, 0xfffc                   ; 0x05e6
     call aztec_csav                  ; 0x05e9
     call flush_keyboard              ; 0x05ec

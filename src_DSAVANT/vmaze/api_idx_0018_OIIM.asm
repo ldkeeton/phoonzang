@@ -49,7 +49,7 @@ api_idx_0018_OIIM:
     cwd                              ; 0x7bca
     idiv cx                          ; 0x7bcb
     mov word [party_status_frame], dx ; 0x7bcd
-    call api_idx_0030_JQMM           ; 0x7bd1
+    call api_idx_0030_QUNV           ; 0x7bd1
     mov al, byte [bp - 0xc]          ; 0x7bd4
     mov byte [bp - 0x18], al         ; 0x7bd7
     mov byte [bp - 0x17], 0          ; 0x7bda

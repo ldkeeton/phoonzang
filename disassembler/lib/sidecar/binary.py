@@ -155,7 +155,6 @@ def per_binary(sidecar, short_name):
         'force_code': sidecar.get('force_code', []),
         'api_dispatch': sidecar.get('api_dispatch', {}),
         'function_names': {},
-        'routines': sidecar.get('routines', {}),
         'vendor_patches': sidecar.get('vendor_patches', {}),
         'dispatch_table': None,
         'driver_slots': [],

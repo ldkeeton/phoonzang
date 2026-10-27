@@ -5,7 +5,7 @@ wait_for_party_redraw:
 .back1:
     cmp word [bss_845e], byte -2     ; 0x1093
     je short .return1                ; 0x1098
-    call api_idx_0006_IRNH           ; 0x109a
+    call api_idx_0006_LJUS           ; 0x109a
     jmp short .back1                 ; 0x109d
 .return1:
     ret                              ; 0x109f

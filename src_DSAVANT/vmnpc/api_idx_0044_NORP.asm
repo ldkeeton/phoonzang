@@ -51,7 +51,7 @@ api_idx_0044_NORP:
     add sp, byte 8                   ; 0x78f6
     call draw_marker_glyph           ; 0x78f9
     push word [bp + 4]               ; 0x78fc
-    call api_idx_000c_GHTR           ; 0x78ff
+    call api_idx_000c_VQMU           ; 0x78ff
     pop cx                           ; 0x7902
     mov ax, 1                        ; 0x7903
     push ax                          ; 0x7906

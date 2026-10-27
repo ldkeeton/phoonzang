@@ -527,22 +527,7 @@ def _analyze(name, orig_dir, rel_path, start_offset, output_dir=None,
     stagelog.step('names.tag_generics', 1, 'repair', repairs='label.categorize',
         why='address-derived names become content tags',
         track={'label_map': label_map, 'function_roots': function_roots})
-    # A sidecar ``routines`` entry names code by its content tag, so one entry
-    # covers every binary that carries that routine.  One with a ``role`` and
-    # ``library`` points at a library routine, which the vendor compile proves.
-    routines = (sidecar_entry or {}).get('routines') or {}
-    for off, label in list(label_map.items()):
-        if isinstance(label, str) and 'name' in routines.get(label, {}):
-            entry = routines[label]
-            label_map[off] = label.renamed(
-                entry['name'], Source.SIDECAR,
-                **{k: entry[k] for k in ('role', 'library') if k in entry})
-            if function_roots.get(off) == label:
-                function_roots[off] = label_map[off]
     _retag_app_functions(label_map, ctx, function_roots)
-    stagelog.step('names.sidecar_routines', 1, 'repair', repairs='names.tag_generics',
-        why='sidecar routines rename content tags',
-        track={'label_map': label_map, 'function_roots': function_roots})
 
     if diag_enabled() and _ITERATIVE:
         squashed_arr = ctx.layers['squashed'].to_numpy()
@@ -1273,10 +1258,7 @@ def _check_sidecar_use(a, project, name):
         return
     from lib.sidecar.compiler import matching_prefix
     names = {str(label) for label in a.label_map.values()}
-    routines = sidecar.get('routines') or {}
     write_sidecar_use_export(project, name, {
-        'routines': [key for key, entry in routines.items()
-                     if entry.get('name') in names],
         'api_dispatch': [key for key, entry in
                          (sidecar.get('api_dispatch') or {}).items()
                          if entry.get('name') in names],

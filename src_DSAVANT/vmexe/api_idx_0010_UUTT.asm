@@ -200,7 +200,7 @@ api_idx_0010_UUTT:
     mov word [bp - 2], 0             ; 0x9c10
 .back2:
     mov word [bss_845e], 0xfffe      ; 0x9c15
-    call api_idx_0006_TMLR           ; 0x9c1b
+    call api_idx_0006_GMTP           ; 0x9c1b
     mov word [bp - 4], 0             ; 0x9c1e
 .back3:
     mov word [bp - 6], 0             ; 0x9c23
@@ -280,7 +280,7 @@ api_idx_0010_UUTT:
     call draw_party_status_glyphs    ; 0x9cd2
     mov word [bss_845e], 0           ; 0x9cd5
 .back5:
-    call api_idx_0006_TMLR           ; 0x9cdb
+    call api_idx_0006_GMTP           ; 0x9cdb
     cmp word [bss_845e], byte -2     ; 0x9cde
     jne short .back5                 ; 0x9ce3
     call loc_KRMP                    ; 0x9ce5

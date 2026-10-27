@@ -44,7 +44,7 @@ api_idx_0004_QUPL:
     jne short .forward4              ; 0x1abe
     ret                              ; 0x1ac0
 .forward4:
-    call api_idx_0006_TMLR           ; 0x1ac1
+    call api_idx_0006_GMTP           ; 0x1ac1
     jmp short .back1                 ; 0x1ac4
 .return1:
     ret                              ; 0x1ac6

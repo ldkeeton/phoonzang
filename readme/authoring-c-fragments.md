@@ -34,12 +34,11 @@ such binary.
 `JSON=1` makes `info`, `refs`, `data` and `probe` machine-readable. `LEN=n`
 sets how many bytes `data` prints.
 
-The name `info` marks effective is the one to rename. A routine can be named
-only by the project-wide `routines` block, keyed by its content tag (for
-example `dos_file_loc_IRLV`). `make name` updates that surface too; you can
-also name the tag itself, `make name PROJECT BIN dos_file_loc_IRLV=...`.
-Sources are renamed only after the sidecar validates; a failed build restores
-both sources and the sidecar, and drops label exports the failed build wrote.
+`function_names` is the address-based naming surface for routines. `make name`
+updates that entry and any applicable dispatch-table slot. Names are scoped to
+each binary and keyed by the function's file address. Sources are renamed only
+after the sidecar validates; a failed build restores both sources and the
+sidecar, and drops label exports the failed build wrote.
 
 ## Shared fragments
 
@@ -75,9 +74,9 @@ calling the other donors' name and still links to it.
 * `probe` compiles one candidate with the routine's tool and flags and prints
   length, members, fixups and instructions. Use it for codegen questions
   instead of a full rebuild.
-* `name` updates every surface naming the routine: its `function_names` entry,
-  the project-wide `routines` entry keyed by its content tag, its
-  `dispatch_table` slot, and hand-source files/references. Names owned by
+* `name` updates every surface naming the routine: its address-keyed
+  `function_names` entry, its `dispatch_table` slot, and hand-source
+  files/references. Names owned by
   another binary's API are rejected with the owner named. A failed build rolls
   the rename back. `DRY_RUN=1 make name ...` (or `--dry-run`) prints the plan
   without writing, including the source references it would rewrite and any

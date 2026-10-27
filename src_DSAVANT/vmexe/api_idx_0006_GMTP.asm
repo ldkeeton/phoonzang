@@ -1,5 +1,5 @@
 ; auto-generated
-api_idx_0006_TMLR:
+api_idx_0006_GMTP:
     mov ax, 0xfffa                   ; 0x18a8
     call aztec_csav                  ; 0x18ab
     mov ax, word [bss_845e]          ; 0x18ae

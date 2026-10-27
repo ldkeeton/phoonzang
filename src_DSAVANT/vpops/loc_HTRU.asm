@@ -228,7 +228,7 @@ loc_HTRU:
     call poll_hotspots               ; 0x1332
     pop cx                           ; 0x1335
     mov word [bp - 4], ax            ; 0x1336
-    call api_idx_0006_IRNH           ; 0x1339
+    call api_idx_0006_LJUS           ; 0x1339
     cmp word [hotspot_hit], byte 0   ; 0x133c
     je short .back3                  ; 0x1341
     jmp near .forward34              ; 0x1343
@@ -318,7 +318,7 @@ loc_HTRU:
     pop cx                           ; 0x1408
     test ax, ax                      ; 0x1409
     jne short .forward11             ; 0x140b
-    call api_idx_0006_IRNH           ; 0x140d
+    call api_idx_0006_LJUS           ; 0x140d
     jmp short .back6                 ; 0x1410
 .forward11:
     mov ax, 1                        ; 0x1412

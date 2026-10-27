@@ -1,5 +1,5 @@
 ; auto-generated
-api_idx_00e6_QNPR:
+api_idx_00e6_QHNU:
     mov ax, 0xff1a                   ; 0x73ae
     call aztec_csav                  ; 0x73b1
     mov bx, word [maze_tables]       ; 0x73b4

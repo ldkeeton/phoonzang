@@ -11,7 +11,6 @@ from .messages import (_validate_message_bases, _validate_message_calls,
                        _validate_message_data)
 from .pointers import _validate_corpus
 from .ranges import _reject_range_conflicts, _validate_ranges
-from .routines import _validate_routines
 from .vendor import _validate_vendor_patches
 
 #: The text of each sidecar already validated, by path: a build loads the same
@@ -69,7 +68,6 @@ def _validate(data):
 
     _validate_compiler_flags(data.get('compiler_flags'))
     _validate_vendor_patches(data.get('vendor_patches'))
-    _validate_routines(data.get('routines'))
     if 'message_calls' in data:
         _validate_message_calls(data['message_calls'], 'message_calls')
     if 'message_bases' in data:

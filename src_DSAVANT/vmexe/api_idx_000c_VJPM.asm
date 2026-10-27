@@ -468,7 +468,7 @@ api_idx_000c_VJPM.forward26:
     jge short api_idx_000c_VJPM.forward27 ; 0x738f
     jmp near api_idx_000c_VJPM.back4 ; 0x7391
 api_idx_000c_VJPM.forward27:
-    call api_idx_0006_TMLR           ; 0x7394
+    call api_idx_0006_GMTP           ; 0x7394
     dec word [dest_alt_arg]          ; 0x7397
     jle short api_idx_000c_VJPM.back7 ; 0x739b
     jmp near api_idx_000c_VJPM.back3 ; 0x739d

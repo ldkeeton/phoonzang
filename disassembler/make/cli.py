@@ -45,10 +45,10 @@ Commands (space-separated):
                             untracked sources cannot be recovered
   make name PROJECT BIN SYMBOL=NAME[:NOTE] ...
                             name routines/globals as the build spells them (cseg_0d3a,
-                            bss_1234, io_loc_KRUO, a routines tag, or a current name):
-                            writes every naming surface (function_names, routines,
-                            dispatch_table slots), renames hand sources and their
-                            references, then build + rebuild; DRY_RUN=1 / --dry-run
+                            bss_1234, io_loc_KRUO, or a current name):
+                            writes function_names and dispatch_table slots,
+                            renames hand sources and references, then build +
+                            rebuild; DRY_RUN=1 / --dry-run
                             lists the changes without writing.  A dotted shared
                             alias (stem.bss1) names each donor's bss_XXXX
   make info PROJECT BIN ROUTINE  fragment span, co-tenant routines, callers, source

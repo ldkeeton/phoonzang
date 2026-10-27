@@ -1,10 +1,9 @@
 """``make name`` / ``make refs`` — name a routine's symbols in one step.
 
 ``make name PROJECT BIN SYMBOL=NAME[:NOTE] ...`` resolves each symbol as the
-build spells it (``cseg_0d3a``, ``bss_1234``, ``io_loc_KRUO``, a content-tag
-``routines`` key, or a name already given) to its sidecar entry, writes every
-naming surface the routine has (``function_names``, the project-wide
-``routines`` entry keyed by content tag, and the ``dispatch_table`` slot),
+build spells it (``cseg_0d3a``, ``bss_1234``, ``io_loc_KRUO``, or a name already
+given) to its sidecar entry, writes every naming surface the routine has
+(``function_names`` and the ``dispatch_table`` slot),
 renames the hand-owned sources and every reference in them, then builds and
 rebuilds the project.  The sources are renamed before the build because a hand
 source whose routine the sidecar renamed is an orphan the build refuses.  A
@@ -402,53 +401,6 @@ def _entry(sidecar, path, key):
     return dict(block.get(key, {}))
 
 
-def _label_tag_key(project, binary, addr):
-    """The content-tag key of this binary's routine at *addr*, or None.
-
-    The build exports each label's ``base``/``tag``; the global ``routines``
-    block is keyed by the tagged spelling (``dos_file_loc_IRLV``).
-    """
-    if project is None or addr is None:
-        return None
-    from lib.cross_ref import read_label_json
-    from lib.link import LinkError
-    path = os.path.join(labels_dir(project), f'{binary}_labels.json')
-    try:
-        labels = read_label_json(path)
-    except (OSError, ValueError, KeyError, LinkError):
-        return None
-    symbol = labels.get(addr)
-    if symbol is None:
-        return None
-    base = getattr(symbol, 'base', None)
-    tag = getattr(symbol, 'tag', None)
-    if not base or not tag:
-        return None
-    return f'{getattr(symbol, "prefix", "") or ""}{base}_{tag}'
-
-
-def _routine_routines_key(sidecar, project, binary, addr, name):
-    """The global ``routines`` key naming the routine at *addr*, or None.
-
-    Prefer the exported content tag so one entry cannot be confused with a
-    same-named routine in another binary.  Without a label export, a unique
-    name match is safe; several matches need the tag spelling instead.
-    """
-    routines = sidecar.get('routines') or {}
-    tag_key = _label_tag_key(project, binary, addr)
-    if tag_key is not None:
-        return tag_key if tag_key in routines else None
-    matches = [key for key, entry in routines.items()
-               if entry.get('name') == name]
-    if len(matches) == 1:
-        return matches[0]
-    if len(matches) > 1:
-        raise SidecarError(
-            f'{name}: named by several routines entries '
-            f'({", ".join(sorted(matches))}); name the tag itself')
-    return None
-
-
 def _routine_address(project, binary, *names):
     """The listing address of the first *name* found in this binary's asm."""
     for name in names:
@@ -494,8 +446,6 @@ def resolve(sidecar, project, binary, symbol):
         path, key = ['binaries', binary, 'data_names'], _named(own['data_names'], symbol)
     elif _named(bins[owner].get('data_names'), symbol):
         path, key = ['binaries', owner, 'data_names'], _named(bins[owner]['data_names'], symbol)
-    elif symbol in (sidecar.get('routines') or {}):
-        path, key = ['routines'], symbol
     elif binary != SHARED_DIR and (_asm_file(project, binary, symbol)
                                    or _label_file(project, binary, symbol)):
         # A branch target inside a routine (``loc_3a3a``) becomes a routine.
@@ -508,27 +458,18 @@ def resolve(sidecar, project, binary, symbol):
         # the header); the others are the address minus ``start_offset``.
         offset = 0 if own.get('ghidra_base_offset') is not None else own.get('start_offset', 0)
         fn_key = f'{addr - offset:04x}'
-        # A routine with no function_names entry may be named only by the
-        # global routines block (keyed by content tag); rename that surface
-        # rather than adding an untagged function_names entry that would
-        # erase the tag the routines entry matches on.
-        rkey = (None if fn_key in (own.get('function_names') or {})
-                else _routine_routines_key(
-                    sidecar, project, binary, addr, symbol))
-        if rkey is not None:
-            path, key = ['routines'], rkey
-        else:
-            path, key = ['binaries', binary, 'function_names'], fn_key
+        path, key = ['binaries', binary, 'function_names'], fn_key
     elif _asm_file(project, SHARED_DIR, symbol):
-        key = symbol if _TAGGED.search(symbol) else _named(sidecar.get('routines'), symbol)
-        if key is None:
-            raise SidecarError(f'{symbol}: shared routine with no content tag or routines entry')
-        path = ['routines']
+        raise SidecarError(f'{symbol}: name a shared routine from the binary whose address it uses')
     elif (binary != SHARED_DIR and _TAGGED.search(symbol)
           and _shared_equ(project, binary, symbol)):
-        # This binary's copy of a shared routine under its own content tag
-        # (``api_idx_0004_RTNM equ api_idx_0004_OVUO``): its routines entry.
-        path, key = ['routines'], symbol
+        asm_path = _asm_file(project, binary, symbol) or _label_file(
+            project, binary, symbol)
+        addr = _routine_addr(asm_path, symbol) if asm_path else None
+        if addr is None:
+            raise SidecarError(f'{symbol}: no listing address in its asm')
+        offset = 0 if own.get('ghidra_base_offset') is not None else own.get('start_offset', 0)
+        path, key = ['binaries', binary, 'function_names'], f'{addr - offset:04x}'
     else:
         raise SidecarError(f'{symbol}: not a cseg_/bss_/dseg_ address, a named global, '
                            f'or a routine in {binary}/ or {SHARED_DIR}/')
@@ -604,10 +545,8 @@ def provenance_rows(sidecar, project, binary, routine, addr=None):
     """Every sidecar surface that names *routine* or its address.
 
     Each row is ``{surface, key, name, note, effective}``.  ``effective`` marks
-    the name the build applies last.  ``function_names`` runs first, then the
-    dispatch/driver names, then a ``routines`` entry keyed by the content tag;
-    an untagged ``function_names`` rename replaces the tag, so that routines
-    entry no longer matches and the later ``function_names`` name wins.
+    the name the build applies last.  ``function_names`` runs first, followed
+    by dispatch and driver names.
     """
     rows = []
     own = _binaries(sidecar).get(binary) or {}
@@ -618,22 +557,6 @@ def provenance_rows(sidecar, project, binary, routine, addr=None):
             rows.append({'surface': 'function_names', 'key': slot,
                          'name': name, 'note': entry.get('note'),
                          'effective': False})
-    routines = sidecar.get('routines') or {}
-    tag_key = _label_tag_key(project, binary, addr)
-    if tag_key is not None:
-        # Only the entry keyed by this routine's content tag names it; a
-        # same-named entry for another binary does not.
-        entry = routines.get(tag_key)
-        if entry is not None:
-            rows.append({'surface': 'routines', 'key': tag_key,
-                         'name': entry.get('name'), 'note': entry.get('note'),
-                         'effective': False})
-    else:
-        for tag, entry in sorted(routines.items()):
-            if entry.get('name') == routine:
-                rows.append({'surface': 'routines', 'key': tag,
-                             'name': entry.get('name'),
-                             'note': entry.get('note'), 'effective': False})
     drivers = []
     owner = dispatch_owner(sidecar, binary)
     if owner:
@@ -660,10 +583,8 @@ def provenance_rows(sidecar, project, binary, routine, addr=None):
                              'key': slot, 'name': wrapped, 'note': None,
                              'effective': False})
     dispatch = [row for row in rows if row['surface'].endswith('dispatch_table')]
-    plain = [row for row in rows if not row['surface'].endswith('dispatch_table')
-             and row['surface'] != 'routines']
-    tagged = [row for row in rows if row['surface'] == 'routines']
-    chosen = (dispatch or plain or tagged)
+    plain = [row for row in rows if not row['surface'].endswith('dispatch_table')]
+    chosen = dispatch or plain
     if chosen:
         chosen[-1]['effective'] = True
     return rows
@@ -811,10 +732,7 @@ def _source_change_lines(change):
 def _routine_companions(sidecar, project, binary, old, addr, primary):
     """Surfaces naming the same routine through another block.
 
-    A routine can have both a ``function_names`` entry and a global
-    ``routines`` entry keyed by its content tag.  Renaming only one leaves the
-    other applying the old name (or strips the tag the routines entry needs),
-    so the plan updates every one it can identify.
+    The function address and dispatch table can both name one routine.
     """
     found = []
     own = _binaries(sidecar).get(binary) or {}
@@ -824,9 +742,6 @@ def _routine_companions(sidecar, project, binary, old, addr, primary):
             (('binaries', binary, 'function_names'), fn_key) != primary):
         found.append((['binaries', binary, 'function_names'], fn_key,
                       functions[fn_key]))
-    rkey = _routine_routines_key(sidecar, project, binary, addr, old)
-    if rkey is not None and (('routines',), rkey) != primary:
-        found.append((['routines'], rkey, (sidecar.get('routines') or {})[rkey]))
     return found
 
 
@@ -870,8 +785,7 @@ def plan_names(project, binary, specs):
         sidecar = json.loads(text)
         changes.append({'symbol': sym, 'old': old, 'name': name,
                         'surface': f'{".".join(path)}["{key}"]'})
-        is_routine = (path == ['routines']
-                      or path == ['binaries', target, 'function_names'])
+        is_routine = path == ['binaries', target, 'function_names']
         if is_routine and old != name:
             conflict = _shared_source_conflict(project, target, sym, name)
             if conflict:
