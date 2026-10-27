@@ -55,7 +55,7 @@ loc_RMHU:
     xor ch, ch                       ; 0x1100
 loc_GJLP:
     mov bx, cseg_0d03 - IMAGE_BASE   ; 0x1102
-    mov ah, byte [cs:cseg_0d3c - IMAGE_BASE] ; 0x1105
+    mov ah, byte [cs:opl_note_semitone - IMAGE_BASE] ; 0x1105
     mov dh, byte [cs:si]             ; 0x110a
     mov dl, byte [cs:cseg_0d3f - IMAGE_BASE] ; 0x110d
     xor al, al                       ; 0x1112
@@ -68,7 +68,7 @@ loc_RPSI:
     jne short loc_JHMG               ; 0x1124
     mov byte [cs:bx], 0              ; 0x1126
     mov word [cs:bx + 3], 0          ; 0x112a
-    mov byte [cs:cseg_0d40 - IMAGE_BASE], al ; 0x1130
+    mov byte [cs:opl_channel_index - IMAGE_BASE], al ; 0x1130
     call loc_NLST                    ; 0x1134
 loc_JHMG:
     inc al                           ; 0x1137

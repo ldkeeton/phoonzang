@@ -32,9 +32,9 @@ music_player_tick.forward1:
 loc_MRJU:
     lodsb                            ; 0x0b44
     cmp al, 0xfe                     ; 0x0b45
-    jne short loc_GOTP_0b4c          ; 0x0b47
+    jne short loc_GOTP               ; 0x0b47
     jmp near music_loop_event        ; 0x0b49
-loc_GOTP_0b4c:
+loc_GOTP:
     cmp al, 0xff                     ; 0x0b4c
     jne short loc_IGJL               ; 0x0b4e
     jmp near loc_STUU                ; 0x0b50
@@ -43,7 +43,7 @@ loc_IGJL:
     je short loc_IKVT                ; 0x0b59
     jmp near loc_TSRL                ; 0x0b5b
 loc_IKVT:
-    mov es, word [cs:music_data_segment - IMAGE_BASE] ; 0x0b5e
+    mov es, word [cs:music_patch_segment - IMAGE_BASE] ; 0x0b5e
     push ax                          ; 0x0b63
     mov al, byte [cs:playback_volume - IMAGE_BASE] ; 0x0b64
     cmp al, byte [cs:last_playback_volume - IMAGE_BASE] ; 0x0b68
@@ -76,7 +76,7 @@ loc_STSS:
     jne short loc_MQMP               ; 0x0bb0
     jmp short loc_MRJU               ; 0x0bb2
 loc_MQMP:
-    mov bx, word [cs:music_data_offset - IMAGE_BASE] ; 0x0bb4
+    mov bx, word [cs:music_patch_offset - IMAGE_BASE] ; 0x0bb4
     xor ah, ah                       ; 0x0bb9
     add bx, ax                       ; 0x0bbb
     mov al, 0xc0                     ; 0x0bbd

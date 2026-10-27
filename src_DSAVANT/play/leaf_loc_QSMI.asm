@@ -1,9 +1,9 @@
 ; auto-generated
-leaf_loc_NRKL:
+leaf_loc_QSMI:
     push ax                          ; 0x12f1
     push bx                          ; 0x12f2
     xor ah, ah                       ; 0x12f3
-    mov bx, cseg_12df - IMAGE_BASE   ; 0x12f5
+    mov bx, opl_operator_map - IMAGE_BASE ; 0x12f5
     shl ax, 1                        ; 0x12f8
     add bx, ax                       ; 0x12fa
     mov dx, word [cs:bx]             ; 0x12fc

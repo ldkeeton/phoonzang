@@ -38,7 +38,7 @@ string_loc_SLGG:
     je short .forward2               ; 0x0dae
     sub al, 0xc                      ; 0x0db0
 .forward2:
-    mov byte [cs:cseg_0d3c - IMAGE_BASE], al ; 0x0db2
+    mov byte [cs:opl_note_semitone - IMAGE_BASE], al ; 0x0db2
     mov al, ah                       ; 0x0db6
     cmp byte [cs:play_device - IMAGE_BASE], 5 ; 0x0db8
     je short .forward3               ; 0x0dbe

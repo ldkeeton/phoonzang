@@ -164,9 +164,9 @@ dissolve_area.show_area1 equ loc_121d
 
 %include "play/data/last_playback_volume.asm" ; 0x0aa9
 
-%include "play/data/music_data_segment.asm" ; 0x0aac
+%include "play/data/music_patch_segment.asm" ; 0x0aac
 
-%include "play/data/music_data_offset.asm" ; 0x0aae
+%include "play/data/music_patch_offset.asm" ; 0x0aae
 
 %include "play/data/event_class_flag.asm"  ; 0x0ad7
 
@@ -188,6 +188,22 @@ dissolve_area.show_area1 equ loc_121d
 
 %include "play/data/cseg_0d3b.asm"         ; 0x0d3b
 
+%include "play/data/opl_note_semitone.asm" ; 0x0d3c
+
+%include "play/data/cseg_0d3d.asm"         ; 0x0d3d
+
+%include "play/data/opl_note_index.asm"    ; 0x0d3e
+
+%include "play/data/cseg_0d3f.asm"         ; 0x0d3f
+
+%include "play/data/opl_channel_index.asm" ; 0x0d40
+
+%include "play/data/opl_pitch_value.asm"   ; 0x0d41
+
+%include "play/data/opl_pitch_range.asm"   ; 0x0d43
+
+%include "play/data/cseg_0d45.asm"         ; 0x0d45
+
 %include "play/string_loc_SLGG.asm"        ; 0x0d50
 
 %include "play/store_nibble_event.asm"     ; 0x0e01
@@ -199,8 +215,6 @@ dissolve_area.show_area1 equ loc_121d
 %include "play/skip_word_event.asm"        ; 0x0e1d
 
 %include "play/note_event_high.asm"        ; 0x0e24
-
-%include "play/string_loc_JSPK.asm"        ; 0x0e51
 
 %include "play/note_event_low.asm"         ; 0x1081
 
@@ -231,19 +245,27 @@ mpu401_read_ready_flag equ mpu401_write_ready_flag + 0x1
 
 %include "play/loc_OSJN.asm"               ; 0x12af
 
-%include "play/data/cseg_12df.asm"         ; 0x12df
+%include "play/data/opl_operator_map.asm"  ; 0x12df
 
-%include "play/leaf_loc_NRKL.asm"          ; 0x12f1
+%include "play/leaf_loc_QSMI.asm"          ; 0x12f1
 
 %include "play/loc_QKNN.asm"               ; 0x1302
+
+%include "play/opl_write_note_pair.asm"    ; 0x1344
 
 %include "play/loc_OUQR.asm"               ; 0x137a
 
 %include "play/data/cseg_1429.asm"         ; 0x1429
 
-%include "play/loc_NVPH.asm"               ; 0x1775
+%include "play/data/opl_fnum_table.asm"    ; 0x1529
 
-%include "play/loc_GOTP_17f0.asm"          ; 0x17f0
+%include "play/data/opl_semitone_octave.asm" ; 0x16a9
+
+%include "play/data/opl_semitone_step.asm" ; 0x1709
+
+%include "play/data/opl_key_on_bit.asm"    ; 0x1774
+
+%include "play/opl_note_on.asm"            ; 0x1775
 
 %include "play/loc_VHII.asm"               ; 0x18cb
 

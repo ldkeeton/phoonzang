@@ -17,8 +17,8 @@ codeseg	segment	byte public 'code'
 	extrn	music_tempo:word
 	extrn	playback_volume:byte
 	extrn	last_playback_volume:byte
-	extrn	music_data_segment:word
-	extrn	music_data_offset:word
+	extrn	music_patch_segment:word
+	extrn	music_patch_offset:word
 	extrn	event_class_flag:byte
 	extrn	note_started:byte
 	extrn	event_byte_counts:byte
@@ -73,7 +73,7 @@ next_event:
 	.if	<byte ptr cs:music_device> ne 5
 		jmp	dispatch_event	;only device 5 (MPU-401) uses the inline encoding
 	.endif
-	mov	es,word ptr cs:music_data_segment
+	mov	es,word ptr cs:music_patch_segment
 	pushs	ax
 	mov	al,byte ptr cs:playback_volume
 	.if	al ne <byte ptr cs:last_playback_volume>
@@ -103,7 +103,7 @@ next_event:
 	.if	al == 3eh
 		jmp	next_event	;3eh: no data byte to send
 	.endif
-	mov	bx,word ptr cs:music_data_offset
+	mov	bx,word ptr cs:music_patch_offset
 	xor	ah,ah
 	add	bx,ax
 	mov	al,0c0h

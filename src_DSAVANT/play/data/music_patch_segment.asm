@@ -1,3 +1,3 @@
 ; auto-generated
-music_data_segment:
+music_patch_segment:
     db 0x00, 0x00
