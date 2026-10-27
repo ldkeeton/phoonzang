@@ -20,7 +20,11 @@ ASM = ('__z_STKSIZ:\n    db 0x00, 0x01\n__z_STKRED:\n    db 0x00, 0x08\n'
                      'library objects not converted')
 class DataModulesTest(unittest.TestCase):
     def test_the_library_modules(self):
-        found = {stem(m): m for m in data_modules('DSAVANT')}
+        # Matching vendor data modules is discovery: only prebuild does it.
+        data_modules.cache_clear()
+        self.addCleanup(data_modules.cache_clear)
+        with mock.patch('main.options.AZTEC_PREBUILD', True):
+            found = {stem(m): m for m in data_modules('DSAVANT')}
         self.assertEqual(found['ctp_'].file, 'ctype.c')
         self.assertEqual(len(found['ctp_'].data), 129)
         self.assertEqual(found['stksiz'], STKSIZ)

@@ -37,6 +37,9 @@ def stem(module):
 @functools.lru_cache(maxsize=None)
 def data_modules(project):
     """``(DataModule, ...)`` for every library module that is only data."""
+    from main.options import AZTEC_PREBUILD
+    if not AZTEC_PREBUILD:
+        return ()
     from .sources import VERSION, catalog
     try:
         vendor = catalog(VERSION)
@@ -72,3 +75,4 @@ def _data_module(module, vendor):
         ((external_label(libobjs.aztec_spelling(name)), offset)
          for name, _, offset in module.pubdefs), key=lambda p: p[1]))
     return [DataModule(filename, publics, bytes(data))]
+

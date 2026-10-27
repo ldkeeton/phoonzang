@@ -1,29 +1,22 @@
-/* auto-generated */
-/* Copyright (C) 1982 1983 1984 by Manx Software Systems */
+/* Copyright (C) Manx Software Systems. */
 #include "errno.h"
 #include "fcntl.h"
-
 extern int errno;
 extern char _ioflg[];
 
-aztec_creat(name, mode)
-char *name;
-{
-	return aztec_open(name, O_WRONLY|O_TRUNC|O_CREAT, mode);
-}
-
+/* Opens a DOS file and initializes its runtime descriptor flags. */
 aztec_open(name, flag, mode)
 char *name;
 {
 	register int fd, m;
 
-	m = 0x3d00 | (flag&0x00f3);
+	m = 15616 | (flag&243);
 	if ((flag&O_TRUNC) != 0)
-		m = 0x3c00;
+		m = 15360;
 
-	if ((fd = aztec_impl_sys(m,name,0)) == -1) {
+	if ((fd = aztec_impl_sys(m, name, 0)) == -1) {
 		if ((flag&O_CREAT) != 0)
-			fd = aztec_impl_sys(0x3c,name,0);
+			fd = aztec_impl_sys(60, name, 0);
 	} else if ((flag&O_EXCL) != 0) {
 		aztec_close(fd);
 		errno = EEXIST;

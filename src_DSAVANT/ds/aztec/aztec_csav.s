@@ -1,4 +1,3 @@
-; auto-generated
 ; Copyright (C) 1983 by Manx Software Systems
 ; :ts=8
 	include lmacros.h
@@ -7,14 +6,9 @@ dataseg segment para public 'data'
 	extrn	_lowwater_:word
 dataseg ends
 	assume ds:dataseg,cs:codeseg
-ifdef FARPROC
-	extrn	aztec_impl_stkover_:far
-else
-	extrn	aztec_impl_stkover_:near
-endif
-	extrn	$begin:far
-	dw	near ptr $begin
-	public	$csav, $cret
+	extrn	$cret:near
+	extrn	ds_loc_4676_:near
+	public	$csav
 $csav	proc
 	pop	bx
 ifdef FARPROC
@@ -24,37 +18,23 @@ endif
 	mov	bp,sp
 	add	sp,ax
 	cmp	sp,bp			;check for wrap around
-	ja	stackfault
+	ja	ds_loc_4676_
 	cmp	sp,word ptr _sbot_	;or moving into the RED zone
-	jb	stackfault
+	jb	ds_loc_4676_
 	cmp	sp,word ptr _lowwater_
 	ja	nodeeper
 	mov	word ptr _lowwater_,sp
 nodeeper:
-	push	di
-	push	si
+	pushs	di,si
 ifdef	FARPROC
 	push	cs
 	mov	ax,offset $cret
-	push	ax
-	push	dx
-	push	bx
+	pushs	ax,dx,bx
 	ret
 else
 	call	bx
 endif
 $csav	endp
 
-$cret	proc
-	pop	si
-	pop	di
-	mov	sp,bp
-	pop	bp
-	ret
-$cret	endp
-
-stackfault:
-	mov	sp,bp		;put stack back the way it was
-	jmp	aztec_impl_stkover_
 	finish
 	end

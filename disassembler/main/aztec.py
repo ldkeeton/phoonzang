@@ -19,8 +19,16 @@ from .options import (
 )
 
 
+class SourceBuildError(Exception):
+    """Source validation failed, but generated files are available."""
+
+    def __init__(self, errors, files):
+        super().__init__('\n'.join(dict.fromkeys(errors)))
+        self.files = files
+
+
 def _aztec_c_overrides(project, name, data, label_map, out_dir,
-                       function_roots=None, start_offset=0):
+                       function_roots=None, start_offset=0, errors=None):
     """Resolve Aztec runtime routines to C and compile the current seeds.
 
     Returns ``(overrides, checks, entries, files)``.  Prebuild-derived
@@ -31,11 +39,11 @@ def _aztec_c_overrides(project, name, data, label_map, out_dir,
     the C includes.
 
     ``ASM_AZTEC_PREBUILD=1`` runs the DOSBox search and writes
-    ``.cache/<project>/prebuild/``; otherwise the prebuilt manifest is read and a
-    missing prebuild is a hard error.  Prebuild module C is always seeded from
-    the cached vendor source.  A hand-owned C file is compiled only for the
+    ``.cache/<project>/prebuild/``; an ordinary build does no vendor matching.
+    Prebuild module C is always seeded from the cached vendor source.  A hand-owned C file is compiled only for the
     semantic gate, as is a hand-owned ``.s``.
     """
+    errors = errors if errors is not None else []
     if not project or AZTEC_MUX_DISABLED:
         return {}, {}, {}, {}
     labels = [(addr, nm) for addr, nm in label_map.items()
@@ -61,23 +69,20 @@ def _aztec_c_overrides(project, name, data, label_map, out_dir,
     from lib.aztec import cache
     from lib.aztec.objread import external_label, fixup_width
     entries = {}
-    mode = 'prebuild' if (AZTEC_PREBUILD or AZTEC_MUX_REFRESH) else 'build'
+    # Only discovery matches vendor modules; a build compiles hand-owned sources.
+    discover = AZTEC_PREBUILD or AZTEC_MUX_REFRESH
     tried = {str(nm) for _, nm in labels}
     more = False
-    while labels:
+    while discover and labels:
         try:
             entries = cache.load_or_build(
-                project, name, data, labels, mode=mode, more=more,
+                project, name, data, labels, mode='prebuild', more=more,
                 present={str(nm) for nm in label_map.values()})
-        except cache.PrebuildMissing as exc:
-            raise SystemExit(f'error: {exc}')
         except Exception as exc:
             # Every recovered routine's C would silently drop out of the build.
             raise SystemExit(f'error: aztec mux: {exc}') from exc
         _name_routines(project, name, data, entries, label_map,
                        function_roots, start_offset)
-        if mode != 'prebuild':
-            break
         tried.update(entries)   # a recovered routine under its new name
         # A routine named only now (a C routine's callee, a matched module's
         # neighbour) is searched for too -- when a vendor file defines it; a
@@ -112,13 +117,13 @@ def _aztec_c_overrides(project, name, data, label_map, out_dir,
         stripped = label[len(prefix):] if label.startswith(prefix) else None
         return stripped if stripped in known else None
 
-    sources = sorted(set(found_local) | {
+    sources = sorted({label for label in found_local if canonical(label) is not None} | {
         label for label in found_shared if canonical(label) is not None})
     orphans = sorted(os.path.basename(found_local[label])
                      for label in found_local
                      if canonical(label) is None)
     if orphans:
-        raise SystemExit(
+        errors.append(
             f'error: source file(s) in {dest} with no matching asm routine: '
             f'{", ".join(orphans)} (check the sidecar names: function_names '
             f'and dispatch_table.names must agree; `make info` / `make refs` '
@@ -131,9 +136,13 @@ def _aztec_c_overrides(project, name, data, label_map, out_dir,
         return _band_home(dest, bands,
                           starts.get(canonical(label) or label))
 
+    invalid = set()
     for label, path in sorted(found_local.items()):
+        if canonical(label) is None:
+            continue
         if os.path.dirname(path) != home(label):
-            raise SystemExit(
+            invalid.add(label)
+            errors.append(
                 f'error: {path}: move it to {home(label)}/, beside its .asm')
     module_of = {member: span for span in spans.values()
                  for member in span.members}
@@ -141,10 +150,13 @@ def _aztec_c_overrides(project, name, data, label_map, out_dir,
         routine = canonical(label) or label
         span = module_of.get(routine)
         if span is not None and routine not in spans:
-            raise SystemExit(
+            invalid.add(label)
+            errors.append(
                 f'error: {c_path(dest, label, home(label))}: {routine} is '
                 f'part of module {span.file}, whose source is '
                 f'{span.name}{cache.seed_suffix(span.entry)}; merge it there')
+
+    sources = [label for label in sources if label not in invalid]
 
     # Everything the loops below compile goes through DOSBox up front, one
     # session per tool and flags instead of one per routine; the loops then
@@ -165,7 +177,8 @@ def _aztec_c_overrides(project, name, data, label_map, out_dir,
     try:
         failed = cache.precompile(project, name, batch)
     except Exception as exc:
-        raise SystemExit(f'error: {exc}') from exc
+        errors.append(f'error: {exc}')
+        failed = {label: exc for label, _, _ in batch}
 
     overrides, checks = {}, {}
     for module, span in sorted(spans.items()):
@@ -173,9 +186,10 @@ def _aztec_c_overrides(project, name, data, label_map, out_dir,
         path = c_path(dest, module, home(module), cache.seed_suffix(entry))
         if not path.endswith(cache.seed_suffix(entry)):
             # The tool follows the vendor's: as for its .asm, cc for its .c.
-            raise SystemExit(
+            errors.append(
                 f'error: {path}: {module} is the vendor\'s {entry["file"]}; '
                 f'its source is {module}{cache.seed_suffix(entry)}')
+            continue
         text, generated = _seed_aztec_c(cache, project, name, module, entry,
                                         dest, home(module))
         try:
@@ -184,9 +198,10 @@ def _aztec_c_overrides(project, name, data, label_map, out_dir,
             compiled, func = cache.compile_source_module(
                 project, name, module, entry, text)
         except Exception as exc:
-            raise SystemExit(
+            errors.append(
                 f'error: {os.path.basename(path)}: compile failed '
-                f'({exc})') from exc
+                f'({exc})')
+            continue
         overrides[module] = {
             # The linker resolves the module's relocations against the build's
             # label maps once those exist (lib.compare.coverrides).
@@ -230,6 +245,19 @@ def _aztec_c_overrides(project, name, data, label_map, out_dir,
     # recorded span, the next routine, and its sidecar band.
     recorded = _recorded_spans(project, name)
     roots = sorted(function_roots or ())
+    # Concrete runtime entries bound their hand-owned sources.  An inferred
+    # fragment inside one function (malloc's unreachable return jump) is not
+    # another function; its complete compiler output is still byte-checked.
+    from lib.sidecar.loader import load as load_sidecar
+    from lib.sidecar.binary import per_binary
+    entry = per_binary(load_sidecar(project) or {}, name)
+    adjust = start_offset + entry.get('ghidra_base_offset', 0)
+    runtime_roots = {
+        int(key, 16) + adjust
+        for key, info in entry.get('function_names', {}).items()
+        if info.get('role') == 'aztec'}
+    declared_roots = sorted(int(key, 16) + adjust
+                            for key in entry.get('function_names', {}))
     for label in hand:
         routine = canonical(label) or label
         path = c_path(dest, label, home(label))
@@ -243,19 +271,23 @@ def _aztec_c_overrides(project, name, data, label_map, out_dir,
             compiled, func = cache.compile_source_module(
                 project, name, routine, entry, text)
         except Exception as exc:
-            raise SystemExit(f'error: {os.path.basename(path)}: compile '
+            errors.append(f'error: {os.path.basename(path)}: compile '
                              f'failed ({exc})')
+            continue
         start = starts.get(routine)
         band = band_for(bands, start) if start is not None else None
+        source_roots = declared_roots if start in runtime_roots else roots
+        recorded_end = None if start in runtime_roots else recorded.get(start)
         try:
             length = routine_source.owned_length(
                 start, len(func.code),
-                recorded_end=recorded.get(start),
-                next_root=(next((r for r in roots if r > start), None)
+                recorded_end=recorded_end,
+                next_root=(next((r for r in source_roots if r > start), None)
                            if start is not None else None),
                 band_end=(band[1] + 1) if band is not None else None)
         except routine_source.FragmentLengthError as exc:
-            raise SystemExit(f'error: {os.path.basename(path)}: {exc}')
+            errors.append(f'error: {os.path.basename(path)}: {exc}')
+            continue
         checks[label] = {
             'func': func, 'text': text, 'path': path,
             'start': start,
@@ -304,8 +336,9 @@ def _aztec_c_overrides(project, name, data, label_map, out_dir,
             compiled, func = cache.compile_source_module(
                 project, name, routine, entry, text)
         except Exception as exc:
-            raise SystemExit(f'error: {os.path.basename(path)}: compile '
+            errors.append(f'error: {os.path.basename(path)}: compile '
                              f'failed ({exc})')
+            continue
         checks[label] = {
             'func': func, 'text': text, 'path': path,
             'start': span.start,

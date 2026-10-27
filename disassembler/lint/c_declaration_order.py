@@ -33,11 +33,29 @@ def _check(text, path):
     #: A declaration wrapped at a comma continues on the next line; the rest
     #: of it is not a statement.
     continuing = False
+    typedefs = set()
+    asm = False
 
-    for number, line in enumerate(mask_noncode(text).splitlines(), 1):
+    def declaration(code):
+        return _DECL.match(code) or code.split(None, 1)[0] in typedefs
+
+    lines = zip(text.splitlines(), mask_noncode(text).splitlines())
+    for number, (raw, line) in enumerate(lines, 1):
         code = line.strip()
-        if not code or code.startswith('#'):
+        if raw.strip() == '#asm':
+            asm = True
+            if len(stack) > 1:
+                stack[-1]['seen'] = True
             continue
+        if raw.strip() == '#endasm':
+            asm = False
+            continue
+        if asm or not code or code.startswith('#'):
+            continue
+        if code.startswith('typedef ') and code.endswith(';'):
+            alias = re.search(r'([A-Za-z_]\w*)\s*;$', code)
+            if alias:
+                typedefs.add(alias[1])
         if continuing:
             if code.endswith(';'):
                 continuing = False
@@ -47,20 +65,25 @@ def _check(text, path):
             continue
 
         closed_members = False
+        closed_typedef = False
         while code.startswith('}'):
             if len(stack) > 1:
                 closed_members = closed_members or stack[-1]['members']
+                closed_typedef = closed_typedef or stack[-1].get('typedef', False)
                 stack.pop()
             code = code[1:].lstrip()
         if not code or code[0] in ';,.':
             continue
 
         if closed_members and code.endswith(';'):
+            # Remember aliases on multiline typedef struct/union definitions.
+            if closed_typedef:
+                typedefs.update(re.findall(r'[A-Za-z_]\w*', code))
             continue
 
         if '{' in code and code.count('{') == code.count('}'):
             # A one-line block, member list or brace initializer.
-            if _DECL.match(code):
+            if declaration(code):
                 if stack[-1]['seen'] and not stack[-1]['members']:
                     findings.append((number, line, code))
             else:
@@ -77,7 +100,8 @@ def _check(text, path):
                 header = False
                 continue
             if _MEMBER_DECL.match(code) and _DECL.match(code):
-                stack.append({'seen': False, 'members': True})
+                stack.append({'seen': False, 'members': True,
+                              'typedef': code.startswith('typedef ')})
                 continue
             if _STMT.match(code):
                 stack[-1]['seen'] = True
@@ -95,10 +119,10 @@ def _check(text, path):
 
         if _STMT.match(code) or _LABEL.match(code):
             stack[-1]['seen'] = True
-        elif _DECL.match(code):
+        elif declaration(code):
             if stack[-1]['seen'] and not stack[-1]['members']:
                 findings.append((number, line, code))
-            if not code.endswith(';'):
+            if code.endswith(','):
                 continuing = True
         else:
             stack[-1]['seen'] = True

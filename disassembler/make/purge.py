@@ -39,23 +39,40 @@ def _restore(project):
     print(f'Restored {restored} hand-owned sources in {prefix} from Git HEAD')
 
 
+def _hand_owned(project):
+    root = Path(PROJECT) / f'src_{project}'
+    return [Path(base) / name
+            for base, _, files in os.walk(root)
+            for name in files
+            if Path(name).suffix.lower() in SUFFIXES
+            and not is_generated(os.path.join(base, name))]
+
+
 def cmd_purge(args, all_projects):
     revert = bool(args and args[0] == 'revert')
     projects = args[1:] if revert else args
     unknown = set(projects) - set(all_projects)
     if unknown:
         raise SystemExit(f'Unknown project(s): {", ".join(sorted(unknown))}')
-    for project in projects or all_projects:
-        if revert:
+    projects = projects or all_projects
+    if revert:
+        for project in projects:
             _restore(project)
-            continue
+        return
+    doomed = {project: _hand_owned(project) for project in projects}
+    for project, paths in doomed.items():
+        print(f'{len(paths)} hand-owned sources in src_{project} will be deleted, '
+              'along with build_out')
+    print('Uncommitted sources cannot be recovered with `make purge revert`.')
+    try:
+        answer = input('Type "purge" to continue: ')
+    except EOFError:
+        answer = ''
+    if answer.strip() != 'purge':
+        raise SystemExit('Purge cancelled; nothing was deleted')
+    for project, paths in doomed.items():
         clear_build_out(project)
-        root = Path(PROJECT) / f'src_{project}'
-        removed = 0
-        for base, dirs, files in os.walk(root):
-            for name in files:
-                path = Path(base) / name
-                if path.suffix.lower() in SUFFIXES and not is_generated(str(path)):
-                    path.unlink()
-                    removed += 1
-        print(f'Purged {removed} hand-owned sources from {root}; removed build_out')
+        for path in paths:
+            path.unlink()
+        print(f'Purged {len(paths)} hand-owned sources from src_{project}; '
+              'removed build_out')

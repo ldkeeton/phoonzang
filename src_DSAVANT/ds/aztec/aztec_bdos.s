@@ -1,8 +1,7 @@
-; auto-generated
 ;Copyright (C) 1983 by Manx Software Systems
 ; :ts=8
 	include lmacros.h
-	procdef	bdos,<<func,word>,<dxval,word>,<cxval,word>>
+	procdef	aztec_bdos,<<func,word>,<dxval,word>,<cxval,word>>
 	push	es
 	mov	ax,func
 	test	ah,ah
@@ -16,6 +15,6 @@ valok:
 	pop	es
 	and	ax,0ffH
 	pret
-	pend	bdos
+	pend	aztec_bdos
 	finish
 	end

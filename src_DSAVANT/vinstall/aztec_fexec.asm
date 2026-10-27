@@ -1,8 +1,4 @@
 ; auto-generated
-aztec_fexec_save_ss:
-    db 0x00, 0x00
-aztec_fexec_save_sp:
-    db 0x00, 0x00
 aztec_fexec:
     push bp                          ; 0x2a27
     mov bp, sp                       ; 0x2a28
@@ -21,16 +17,16 @@ aztec_fexec:
     mov es, ax                       ; 0x2a49
     mov ax, word [bp + 8]            ; 0x2a4b
     mov word [cline], ax             ; 0x2a4e
-    mov word [cline + 0x2], es       ; 0x2a51
+    mov word [dseg_2312], es         ; 0x2a51
     mov ax, word [bp + 0xa]          ; 0x2a55
     mov word [fcb1], ax              ; 0x2a58
-    mov word [fcb1 + 0x2], es        ; 0x2a5b
+    mov word [dseg_2316], es         ; 0x2a5b
     mov ax, word [bp + 0xc]          ; 0x2a5f
     mov word [fcb2], ax              ; 0x2a62
-    mov word [fcb2 + 0x2], es        ; 0x2a65
+    mov word [dseg_231a], es         ; 0x2a65
     mov ax, ds                       ; 0x2a69
     mov es, ax                       ; 0x2a6b
-    mov bx, env                      ; 0x2a6d
+    mov bx, 0x230e                   ; 0x2a6d
     mov dx, word [bp + 4]            ; 0x2a70
     mov ax, 0x4b00                   ; 0x2a73
     int 0x21 ; DOS function dispatcher
@@ -38,13 +34,13 @@ aztec_fexec:
     mov sp, word [cs:aztec_fexec_save_sp - IMAGE_BASE] ; 0x2a7d
     pop es                           ; 0x2a82
     pop ds                           ; 0x2a83
-    jae short .noerror               ; 0x2a84
+    jae short .forward1              ; 0x2a84
     mov word [errno], ax             ; 0x2a86
     mov ax, 0xffff                   ; 0x2a89
-    jmp short .done                  ; 0x2a8c
-.noerror:
+    jmp short .forward2              ; 0x2a8c
+.forward1:
     sub ax, ax                       ; 0x2a8e
-.done:
+.forward2:
     pop word [dseg_002e]             ; 0x2a90
     pop word [dseg_0030]             ; 0x2a94
     popf                             ; 0x2a98

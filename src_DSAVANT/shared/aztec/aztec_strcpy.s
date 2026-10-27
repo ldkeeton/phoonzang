@@ -1,11 +1,9 @@
-; auto-generated
 ; :ts=8
 ;Copyright (C) 1983, 1985 by Manx Software Systems
 	include lmacros.h
-	procdef strcpy,<<str1,ptr>,<str2,ptr>>
+	procdef aztec_strcpy,<<str1,ptr>,<str2,ptr>>
 	cld
-	push	si
-	push	di
+	pushs	si,di
 	pushds
 ifndef LONGPTR
 	mov	di,ds
@@ -27,10 +25,9 @@ nowords:
 	movsb
 nobyte:
 	popds
-	pop	di
-	pop	si
+	pops	di,si
 	retptrm	str1
 	pret
-	pend	strcpy
+	pend	aztec_strcpy
 	finish
 	end

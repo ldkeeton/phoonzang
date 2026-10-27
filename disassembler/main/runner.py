@@ -255,7 +255,7 @@ def _analyze(name, orig_dir, rel_path, start_offset, output_dir=None,
                 continue
             if off in ctx.code_targets:
                 label_map[off] = (
-                    _sidecar_routine(info['name'], off)
+                    _sidecar_routine(info['name'], off, info)
                     if 'name' in info else
                     Symbol.generated('fn', off, Kind.ROUTINE,
                                      text=f'fn_{hex_off}'))
@@ -605,9 +605,10 @@ def _analyze(name, orig_dir, rel_path, start_offset, output_dir=None,
     out_dir = output_dir or ASM_DIR
     progress.log(f'{name} | resolving Aztec C routines')
     t_aztec = time.perf_counter()
+    source_errors = []
     c_overrides, c_checks, _entries, header_files = _aztec_c_overrides(
         project, name, data, ctx.label_map, out_dir, function_roots,
-        start_offset)
+        start_offset, errors=source_errors)
     asm_annotations = _aztec_asm_annotations(_entries, ctx.label_map,
                                              c_overrides)
     stagelog.step('aztec.overrides', 1, metrics={'c': len(c_overrides),
@@ -684,6 +685,7 @@ def _analyze(name, orig_dir, rel_path, start_offset, output_dir=None,
         foreign_prefix=foreign_prefix, carve_1=carve_1, immediate_labels=immediate_labels,
         label_comments=label_comments, split_functions=split_functions,
         out_dir=out_dir, c_overrides=c_overrides, c_checks=c_checks,
+        source_errors=source_errors,
         entries=_entries,
         header_files=header_files,
         asm_annotations=asm_annotations, classify_timing=classify_timing,
@@ -694,7 +696,7 @@ def _analyze(name, orig_dir, rel_path, start_offset, output_dir=None,
     )
 
 
-def _sidecar_routine(name, offset):
+def _sidecar_routine(name, offset, info=None):
     """A routine the sidecar names.
 
     The sidecar spells a runtime-library routine ``aztec_<C name>``
@@ -704,6 +706,9 @@ def _sidecar_routine(name, offset):
     role = library = None
     if name.startswith('aztec_'):
         role, library = 'aztec', name[len('aztec_'):]
+    if info:
+        role = info.get('role', role)
+        library = info.get('library', library)
     return Symbol(name, kind=Kind.ROUTINE, source=Source.SIDECAR,
                   offset=offset, role=role, library=library)
 
@@ -863,7 +868,18 @@ def _render(a, exact_bytes, show_offsets, host_data_offsets,
             message_names = constant_names(messages, bases)
             message_bases = _message_bases(bases)
     entry = a.ctx.sidecar_entry or {}
-    asm_text, stats, emit_bytes, label_positions, split_sources = verify(
+    def checked_verify(*args, **kwargs):
+        from lib.compare.cgate import CGateError
+        try:
+            return verify(*args, **kwargs)
+        except CGateError as exc:
+            a.source_errors.append(str(exc))
+            # Render the original disassembly when source validation fails.
+            kwargs['c_checks'] = {}
+            kwargs['c_overrides'] = {}
+            return verify(*args, **kwargs)
+
+    asm_text, stats, emit_bytes, label_positions, split_sources = checked_verify(
         data, start_offset, instructions, name, ctx.label_map,
         bitmap=ctx.bitmap, code_targets=ctx.code_target_set,
         exact_bytes=exact_bytes, show_offsets=show_offsets,
@@ -998,10 +1014,13 @@ def _emit(a, r, exact_bytes):
              for ov in (a.c_overrides or {}).values() if ov.get('generated')}
     # A vendor data module's file has its vendor .c beside it; every compiled
     # source's data is checked against the named objects in the image.
-    seeds.update(_data_sources(project, name, out_dir, split_sources,
-                               segments=ctx.segments, data=a.data,
-                               overrides=(*((a.c_overrides or {}).values()),
-                                          *((a.c_checks or {}).values()))))
+    try:
+        seeds.update(_data_sources(project, name, out_dir, split_sources,
+                                   segments=ctx.segments, data=a.data,
+                                   overrides=(*((a.c_overrides or {}).values()),
+                                              *((a.c_checks or {}).values()))))
+    except SystemExit as exc:
+        a.source_errors.append(str(exc))
     for include_path in list(split_sources):
         if include_path.endswith('.asm'):
             split_sources[include_path] = stamp(split_sources[include_path],
@@ -1175,9 +1194,13 @@ def _process(name, orig_dir, rel_path, start_offset, exact_bytes=False,
         # `make prebuild`: the mux manifest is written; nothing downstream of
         # this point (emit/NASM/build_out) belongs to a prebuild.
         return a.ctx.bitmap, a.label_map
+    from .aztec import SourceBuildError
     try:
         files = step(a, exact_bytes, show_offsets, host_data_offsets,
                      ds_starts, emit, record_layouts)
+    except SourceBuildError as exc:
+        write_files(a.out_dir, exc.files)
+        raise
     finally:
         finish(a)
     if files:
@@ -1216,6 +1239,9 @@ def step(a, exact_bytes, show_offsets, host_data_offsets, ds_starts, emit,
     progress.log(f'{a.name} | emitting sources')
     files = _emit(a, r, exact_bytes)
     progress.log(f'{a.name} | emit done ({len(files)} file(s))')
+    if a.source_errors:
+        from .aztec import SourceBuildError
+        raise SourceBuildError(a.source_errors, files)
     return files
 
 
@@ -1254,7 +1280,13 @@ def _check_sidecar_use(a, project, name):
                          if entry.get('name') in names],
         'vendor_patches': [label for label in sidecar.get('vendor_patches', ())
                            if label in names],
+        # Hand-owned C is compiled with the same flags as generated C.
         'compiler_flags': [p for p in (matching_prefix(project, label)
-                                       for label in a.c_overrides or ())
+                                       for label in (
+                                           *(a.c_overrides or ()),
+                                           *(label for label, check
+                                             in (a.c_checks or {}).items()
+                                             if str(check.get('path', '')
+                                                    ).endswith('.c'))))
                            if p is not None],
     })

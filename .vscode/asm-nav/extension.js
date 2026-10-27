@@ -2,9 +2,9 @@
 // Navigation and tooling for the generated C / NASM trees (``src_<PROJECT>/``):
 //   * Go to Definition / Find References from C (and Manx assembly, ``.s``) into
 //     the NASM listings (``.asm``)
-//   * hover: address, sidecar name/note, vendor provenance
-//   * Go to address, Name this routine (writes the sidecar), vendor diff
-//   * Manx ``cc``/``as`` diagnostics on save, and a provenance CodeLens
+//   * hover: address, sidecar name/note
+//   * Go to address, Name this routine (writes the sidecar)
+//   * Manx ``cc``/``as`` diagnostics on save, and a compiler CodeLens
 const fs = require('fs');
 const path = require('path');
 const { execFile, spawn } = require('child_process');
@@ -120,7 +120,7 @@ const sameBinary = (key, here) => {
     return !here || (there && there.binary === here.binary);
 };
 
-// ------------------------------------------------- sidecar / manifest data
+// ------------------------------------------------- sidecar data
 
 const fileCache = new Map();
 
@@ -138,43 +138,11 @@ function readJson(file) {
 }
 
 const sidecarPath = (project) => path.join(root(), 'disassembler', 'sidecar', `${project}.json`);
-const manifestPath = (project, binary) =>
-    path.join(root(), '.cache', project, 'prebuild', `${binary}_aztec_mux.json`);
-const seedPath = (where) =>
-    path.join(root(), '.cache', where.project, 'prebuild', 'src', where.binary, `${where.label}.${where.ext}`);
-
 function sidecarName(where, addr) {
     const data = readJson(sidecarPath(where.project));
     const key = data && addr !== null ? sidecar.keyFor(data, where.binary, addr) : null;
     return key && data.binaries[where.binary].function_names
         ? { key, entry: data.binaries[where.binary].function_names[key] } : { key };
-}
-
-function manifestEntry(where) {
-    const data = readJson(manifestPath(where.project, where.binary));
-    return data && data.functions ? data.functions[where.label] : null;
-}
-
-// A vendor module's file is named after its source (lib/aztec/modules.py):
-// ``aztec_croot`` is croot.c.  Two vendor files of one stem take their vendor
-// directory too: ``aztec_misc_lmalloc`` (lmalloc.c), ``aztec_dos20_lmalloc``
-// (lmalloc.asm).
-function moduleEntry(where) {
-    const data = readJson(manifestPath(where.project, where.binary));
-    if (!data || !data.functions || !where.label.startsWith('aztec_')) return null;
-    const entries = Object.values(data.functions);
-    const clean = (s) => s.toLowerCase().replace(/[^a-z0-9_]+/g, '_');
-    const stemOf = (f) => clean(f.replace(/\.[^.]*$/, ''));
-    const want = where.label.slice('aztec_'.length);
-    const plain = entries.find((e) => stemOf(e.file) === want);
-    if (plain) return plain;
-    const srcRoot = path.join(root(), 'disassembler', 'dos_compilers', 'aztec_src');
-    return entries.find((e) => {
-        const stem = stemOf(e.file);
-        if (!want.endsWith('_' + stem)) return false;
-        const dir = want.slice(0, -stem.length - 1);
-        return fs.existsSync(path.join(srcRoot, e.source_version, dir, e.file));
-    }) || null;
 }
 
 // ---------------------------------------------------------------- hover
@@ -203,11 +171,7 @@ function describe(name, doc) {
             md.appendMarkdown(`\n\nsidecar \`${named.key}\`: **${named.entry.name}**`);
             if (named.entry.note) md.appendMarkdown(`\n\n_${named.entry.note}_`);
         }
-        const m = where.label === name ? manifestEntry(where) : manifestEntry({ ...where, label: name });
-        if (m) {
-            md.appendMarkdown(`\n\nvendor \`${m.file}\` (${m.source_version}) · cc ${m.compiler} · ` +
-                `routine ${m.original_length} bytes`);
-        }
+
     }
     return md;
 }
@@ -327,20 +291,6 @@ async function nameRoutine(uri, suggestion) {
     fs.writeFileSync(file, next);
     vscode.window.showInformationMessage(
         `${key} → ${newName} in ${path.basename(file)}. Rebuild (make build ${where.project} ${where.binary}) to apply.`);
-}
-
-// ------------------------------------------------------------ vendor diff
-
-async function diffVendor(uri) {
-    uri = uri || (vscode.window.activeTextEditor && vscode.window.activeTextEditor.document.uri);
-    const where = uri && locate(uri.fsPath);
-    if (!where || !SOURCE_EXT.has(where.ext)) return vscode.window.showErrorMessage('open a generated .c or .s file');
-    const seed = seedPath(where);
-    if (!fs.existsSync(seed)) {
-        return vscode.window.showErrorMessage(`no vendor seed at ${seed} — run make prebuild ${where.project}`);
-    }
-    await vscode.commands.executeCommand('vscode.diff', vscode.Uri.file(seed), uri,
-        `vendor seed ↔ ${where.label}.${where.ext}`);
 }
 
 // ------------------------------------------------------------ Manx cc / as
@@ -823,19 +773,6 @@ function makeCBatch(kind, uris) {
     term.show();
 }
 
-// ---------------------------------------------------------------- lens
-
-function provenance(doc) {
-    const where = locate(doc.fileName);
-    const m = where && moduleEntry(where);
-    if (m) {
-        return `vendor module ${m.file} (${m.source_version}, cc ${m.compiler}), ` +
-            `compiled whole into this fragment`;
-    }
-    if (/auto-generated/.test(doc.lineAt(0).text)) return 'generated (decompiled)';
-    return /\.s$/.test(doc.fileName) ? 'hand-written Manx assembly' : 'hand-written C';
-}
-
 // ------------------------------------------------------------- activate
 
 function activate(context) {
@@ -917,8 +854,6 @@ function activate(context) {
                 provideCodeLenses(doc) {
                     const top = new vscode.Range(0, 0, 0, 0);
                     return [
-                        new vscode.CodeLens(top, { title: provenance(doc),
-                            command: 'PHOONZANGAsmNav.diffVendor', arguments: [doc.uri] }),
                         new vscode.CodeLens(top, { title: `$(check) Manx ${/\.s$/.test(doc.fileName) ? 'as' : 'cc'}`,
                             command: 'PHOONZANGAsmNav.check', arguments: [doc.uri] }),
                     ];
@@ -944,7 +879,6 @@ function activate(context) {
         vscode.commands.registerCommand('PHOONZANGAsmNav.reindex', rebuild),
         vscode.commands.registerCommand('PHOONZANGAsmNav.goToAddress', async () => { await ready; return goToAddress(); }),
         vscode.commands.registerCommand('PHOONZANGAsmNav.nameRoutine', async () => { await ready; return nameRoutine(); }),
-        vscode.commands.registerCommand('PHOONZANGAsmNav.diffVendor', diffVendor),
         vscode.commands.registerCommand('PHOONZANGAsmNav.makeC', (uri, uris) => makeC('claude', uri, uris)),
         vscode.commands.registerCommand('PHOONZANGAsmNav.makeCOpenCode', (uri, uris) => makeC('opencode', uri, uris)),
         vscode.commands.registerCommand('PHOONZANGAsmNav.makeCCodex', (uri, uris) => makeC('codex', uri, uris)),

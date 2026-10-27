@@ -480,7 +480,7 @@ api_idx_0016_JNJG.dseg1 equ dseg_93c9
 
 %include "shared/aztec/aztec_ovbgn.asm"           ; 0x97ee
 
-%include "shared/aztec/aztec_cswit.asm"           ; 0x982c
+%include "shared/aztec/aztec_cswt.asm"            ; 0x982c
 
 __zdata_start:
 %include "vpcvw/data/dseg_9098.asm"        ; 0x9844

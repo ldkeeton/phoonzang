@@ -333,7 +333,8 @@ def _inject_jump_tables(records, specs, binary_data, start_offset,
             resolved.append((value, target))
 
         adjust = o_corg if o_corg is not None else 0
-        label = _table_symbol(start)
+        # A sidecar code_data_names entry at the table names it.
+        label = spec.get('name') or _table_symbol(start)
         spec = {**spec, 'table_end': end, 'label': label, 'adjust': adjust}
 
         entries = []

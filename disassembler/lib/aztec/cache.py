@@ -16,8 +16,8 @@ Compiling through DOSBox is slow, so ``make prebuild <project>`` resolves every
 module, ``.s``) per module, written to
 ``src_<project>/<binary>/`` only when absent, so a no-clean debug rebuild keeps
 hand edits.
-A build that finds ``aztec_*`` labels but no prebuild data fails loudly with
-:class:`PrebuildMissing` rather than silently repeating the expensive search.
+The build never reads it: prebuild is discovery, and its output stays in
+``.cache``.
 """
 
 import collections
@@ -36,10 +36,6 @@ from .objread import fixup_width
 _ASM_DIR = os.path.dirname(os.path.dirname(os.path.dirname(
     os.path.abspath(__file__))))
 _ROOT = os.path.dirname(_ASM_DIR)
-
-
-class PrebuildMissing(RuntimeError):
-    """Raised when a build needs prebuild data that has not been generated."""
 
 
 def manifest_path(project, binary):
@@ -123,8 +119,8 @@ def load_or_build(project, binary, data, aztec_labels, *, mode='build',
     ``aztec_labels`` is an iterable of ``(address, label_name)``.
 
     ``mode='prebuild'`` runs the DOSBox search and writes the prebuild tree
-    (manifest + per-routine ``src/`` seeds); ``mode='build'`` reads it and
-    raises :class:`PrebuildMissing` if it is absent.  ``more`` adds
+    (manifest + per-routine ``src/`` seeds) under ``.cache``; any other mode
+    returns nothing, since the build compiles only hand-owned sources.  ``more`` adds
     *aztec_labels* -- routines named after the first search -- to the
     manifest the first search wrote; a miss whose label is no longer among
     the *present* names (proof renamed it since) is dropped.
@@ -133,13 +129,7 @@ def load_or_build(project, binary, data, aztec_labels, *, mode='build',
     if mode == 'prebuild':
         return _prebuild(project, binary, data, aztec_labels, path, verbose,
                          more, present)
-    functions = _load(path)
-    if functions is None:
-        raise PrebuildMissing(
-            f'{path} missing; run "make prebuild {project}" first')
-    if verbose:
-        print(f'  aztec mux: {len(functions)} cached routines ({binary})')
-    return functions
+    return {}
 
 
 def _prebuild(project, binary, data, aztec_labels, path, verbose,
@@ -336,6 +326,13 @@ def _compile_seeds(engine, project, binary, functions, objcache_dir,
         text = seed_source_text(project, binary, label, entry, engine)
         if text is None:
             continue
+        dest = os.path.join(prebuild_dir(project), 'src', binary)
+        os.makedirs(dest, exist_ok=True)
+        from .modules import module_name, clashing_stems
+        name = module_name(entry['file'], clashing_stems(project),
+                           entry['source_version'])
+        with open(os.path.join(dest, name + seed_suffix(entry)), 'w') as f:
+            f.write(text)
         headers_dir = sources.staged_include_dir(project, entry['includes'])
         key = _module_key(project, binary, label, entry, text)
         kind, flags = _tool(project, binary, label, entry)

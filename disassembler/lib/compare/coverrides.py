@@ -565,6 +565,12 @@ def _apply_c_overrides(records, c_overrides, binary_data, label_map,
             # image-size symbols the renderer defines; a C external such
             # as ``_Cend``/``_Uend`` names them.
             sym_equ = {**(mem_equ or {}), **(geometry or {})}
+            # A table the sidecar names (``aztec_format_conv_routines``) is
+            # linkable even when no operand prints it.
+            for r in records:
+                if (r['type'] == 'jump_table'
+                        and getattr(r['label'], 'space', None) is Space.CSEG):
+                    sym_equ.setdefault(r['label'], r['start'])
             sym_index = symbol_index(
                 label_map, foreign_label_map, data_labels, sym_equ,
                 binary_data, segments, image_base)
@@ -578,6 +584,7 @@ def _apply_c_overrides(records, c_overrides, binary_data, label_map,
 
     replacements = []
     unplaced = []
+    source_errors = []
     # What the linked C replaced, and the names it prints in their place.
     linked_spans = []
     linked_names = set()
@@ -604,6 +611,9 @@ def _apply_c_overrides(records, c_overrides, binary_data, label_map,
                 # A new ``.s`` seed the build cannot place (it names module
                 # data the splitter gave a neighbour).  Every one is listed
                 # before the build fails, so one run shows them all.
+                if override.get('check_only'):
+                    source_errors.append(f'{label}: {exc}')
+                    continue
                 if not (override.get('asm_stub') and override.get('generated')):
                     raise
                 unplaced.append(f'{label}: {exc}')
@@ -621,15 +631,21 @@ def _apply_c_overrides(records, c_overrides, binary_data, label_map,
         # would shift every following address, so it is a hard error.
         length = override.get('length') or len(compiled)
         if len(compiled) > length:
-            raise CGateError(
-                f'C override: {label!r} compiled to {len(compiled)} bytes, '
-                f'exceeds the original {length} bytes')
+            error = (f'C override: {label!r} compiled to {len(compiled)} bytes, '
+                     f'exceeds the original {length} bytes')
+            if override.get('check_only'):
+                source_errors.append(error)
+                continue
+            raise CGateError(error)
 
         if not allow_diff:
             report = check_against_original(
                 label, start, binary_data[start:start + length], compiled,
                 exact=exact_bytes)
             if report:
+                if override.get('check_only'):
+                    source_errors.extend(report)
+                    continue
                 raise CGateError('\n'.join(report))
 
         # Hand-owned C is compiled and checked against the original bytes, but
@@ -730,6 +746,8 @@ def _apply_c_overrides(records, c_overrides, binary_data, label_map,
         replacements.append((start, end,
                              _merge_label_records(new_records, labels_in)))
 
+    if source_errors:
+        raise CGateError('\n'.join(source_errors))
     if unplaced:
         raise ValueError('.s seed(s) the build cannot place:\n  '
                          + '\n  '.join(unplaced))

@@ -118,10 +118,12 @@ def _select_split_ranges(label_map, split_functions, func_boundaries=None,
             original_end = selected[index + 1][0]
         else:
             original_end = None
-            if func_boundaries and start in func_boundaries:
+            if code_end is not None and code_end > start:
+                # It ends with the code, not in the data after it (an
+                # overlay's data block), whatever the boundary scan found.
+                original_end = code_end
+            elif func_boundaries and start in func_boundaries:
                 original_end = func_boundaries[start][0]
-                if code_end is not None and code_end > original_end:
-                    original_end = code_end
             if original_end is None:
                 original_end = binary_size
         capped = None

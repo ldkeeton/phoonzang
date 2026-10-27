@@ -1,13 +1,9 @@
-; auto-generated
 ; :ts=8
 ;Copyright (C) 1983 by Manx Software Systems
 	include lmacros.h
-	procdef sysint,<<num,byte>,<sregs,ptr>,<dregs,ptr>>
+	procdef aztec_sysint,<<num,byte>,<sregs,ptr>,<dregs,ptr>>
 	sub	sp,14
-	push	si
-	push	di
-	push	es
-	push	ds
+	pushs	si,di,es,ds
 ;
 ;	build instruction sequence on the stack to issue int
 ;		and restore ss:sp to value before int.
@@ -40,8 +36,7 @@
 	push	bp
 	call	ss:dword ptr -14[bp]
 	pop	bp
-	push	ds		;save values so we have working registers
-	push	bx
+	pushs	ds,bx	; save values so we have working registers
 	ldptr	bx,dregs,ds
 ifdef LONGPTR
 	mov	[bx],ax
@@ -64,13 +59,11 @@ else
 	mov	8[bx],si
 	mov	10[bx],di
 endif
-	pop	es
-	pop	di
-	pop	si
+	pops	es,di,si
 	pushf
 	pop	ax
 	add	sp,14
 	pret
-	pend	sysint
+	pend	aztec_sysint
 	finish
 	end

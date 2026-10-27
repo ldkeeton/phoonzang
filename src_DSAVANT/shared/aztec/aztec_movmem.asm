@@ -14,31 +14,31 @@ aztec_movmem:
     mov ax, es
     mov dx, ds
     cmp ax, dx
-    jne short .move_forward
+    jne short .forward2
     cmp di, si
-    je short .done
-    jb short .move_forward
+    je short .forward4
+    jb short .forward2
     std
     add di, cx
     add si, cx
     dec di
     dec si
     test cl, 1
-    je short .nobyte
+    je short .forward1
     movsb
-.nobyte:
+.forward1:
     dec di
     dec si
-    jmp short .domove
-.move_forward:
+    jmp short .forward3
+.forward2:
     test cl, 1
-    je short .domove
+    je short .forward3
     movsb
-.domove:
+.forward3:
     shr cx, 1
-    je short .done
+    je short .forward4
     rep movsw
-.done:
+.forward4:
     cld
     pop di
     pop si

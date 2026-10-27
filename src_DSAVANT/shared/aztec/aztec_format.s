@@ -1,4 +1,3 @@
-; auto-generated
 ; Copyright (C) Manx Software Systems, Inc.  1987
 ; All Rights Reserved.
 ; :ts=8
@@ -37,20 +36,13 @@ LEFTJUST equ	08H
 ALTFORM	equ	10H
 CASEMAP	equ	20H
 
-CONVCOUNT equ	21
-conversions db	'LlhFNoxXudiscpneEfgG%'
-conv_routines dw ldblopt,longopt,shortopt,FARopt,NEARopt
-	dw	octal,hex,upperhex,unsigned,decimal,decimal
-	dw	string,char,pointer,numchar
-	dw	fltformat,cap_fltformat,fltformat,fltformat,cap_fltformat
-	dw	default
-
-digits	db	'0123456789abcdef'
-
-ifndef FLOAT
-nofltmsg db	' -lm first',0
-endif
-
+CONVCOUNT equ 21
+	extrn aztec_format_conversions_:byte, aztec_format_conv_routines_:word
+	extrn aztec_format_digits_:byte, aztec_format_nofltmsg_:byte
+conversions equ aztec_format_conversions_
+conv_routines equ aztec_format_conv_routines_
+digits equ aztec_format_digits_
+nofltmsg equ aztec_format_nofltmsg_
 charcount equ	word ptr -2[bp]
 fldwidth equ	word ptr -4[bp]
 precision equ	word ptr -6[bp]
@@ -63,10 +55,10 @@ pos_sign equ	byte ptr -14[bp]
 buffer	equ	byte ptr -340[bp]
 autosize equ	340
 
-	procdef	format,<<result,fptr>, <fmtstr,ptr>, <args,ptr>>
+	extrn aztec_format_get_pointer_:near, aztec_format_do_width_:near
+	procdef	aztec_format,<<result,fptr>, <fmtstr,ptr>, <args,ptr>>
 	sub	sp,autosize
-	push	di
-	push	si
+	pushs	di,si
 ifdef LONGPTR
 	mov	dsvalue,ds
 endif
@@ -82,15 +74,14 @@ main_loop:
 default:
 	test	al,al
 	jz	finishup
-	call	emitchar
+	call	loc_NJTI_
 	jmp	main_loop
 finishup:
 	mov	ax,charcount
 ifdef LONGPTR
 	mov	ds,dsvalue
 endif
-	pop	si
-	pop	di
+	pops	si,di
 	mov	sp,bp
 	pret
 
@@ -128,7 +119,7 @@ not_alter:
 	mov	fillc,'0'
 	lodsb			;skip over '0'
 not_zero:
-	call	do_width
+	call	aztec_format_do_width_
 	test	dx,dx
 	jns	pos_width
 	neg	dx
@@ -138,7 +129,7 @@ pos_width:
 	cmp	al,'.'		;check for precision field
 	jne	no_precision
 	lodsb			;skip over '.'
-	call	do_width
+	call	aztec_format_do_width_
 	mov	precision,dx
 no_precision:
 	mov	di,cs
@@ -282,21 +273,21 @@ width_ok:
 
 	cmp	fillc,'0'	;if padding with zeros
 	jne	wpad_loop
-	call	emitsign	;then we must emit sign chars if required
+	call	loc_MRST_	;then we must emit sign chars if required
 wpad_loop:
 	mov	al,fillc	;emit padding needed to get min field width
-	call	emitchar
+	call	loc_NJTI_
 	dec	fldwidth
 	jg	wpad_loop
 
 left_justify:
-	call	emitsign	;emit sign chars if required
+	call	loc_MRST_	;emit sign chars if required
 
 zpad_loop:		;emit any padding needed because of precision
 	dec	precision
 	js	outchars
 	mov	al,'0'
-	call	emitchar
+	call	loc_NJTI_
 	jmp	zpad_loop
 
 outchars:		;emit the characters generated
@@ -304,14 +295,14 @@ outchars:		;emit the characters generated
 	js	trail_pad
 	mov	al,es:byte ptr [di]
 	inc	di
-	call	emitchar
+	call	loc_NJTI_
 	jmp	outchars
 
 trail_pad:		;emit trailing field width padding
 	dec	fldwidth
 	js	outdone
 	mov	al,' '		;trailing pad is always space
-	call	emitchar
+	call	loc_NJTI_
 	jmp	trail_pad
 outdone:
 	jmp	main_loop
@@ -322,10 +313,9 @@ cap_fltformat:
 fltformat:
 ifndef FLOAT
 	add	word ptr args,DBLSIZE
-	mov	ax,cs
-	mov	es,ax
+	movseg	es,cs
 	mov	di,offset nofltmsg
-	sub	fldwidth,size nofltmsg - 1
+	sub	fldwidth,10
 	jmp	outchars
 else
 
@@ -382,7 +372,7 @@ repne	scasb
 endif
 
 string:
-	call	get_pointer
+	call	aztec_format_get_pointer_
 	push	di		;save for output routine
 	mov	al,0
 	mov	cx,0ffffH
@@ -404,8 +394,7 @@ char:
 	mov	word ptr args,di
 	mov	buffer,al
 	mov	cx,1
-	mov	ax,ss
-	mov	es,ax
+	movseg	es,ss
 set_buffer:
 	lea	di,buffer	;get buffer address back
 	mov	precision,0	;precision already dealt with
@@ -415,7 +404,7 @@ pointer:
 	jmp	main_loop
 
 numchar:
-	call	get_pointer
+	call	aztec_format_get_pointer_
 	mov	ax,charcount
 	mov	es:word ptr [di],ax
 	test	options,LONGOPT
@@ -424,19 +413,19 @@ numchar:
 nc_done:
 	jmp	main_loop
 
-emitsign proc	near
+loc_MRST_:
 	mov	al,sign		;check if sign chars required
 	test	al,al
-	jz	emitreturn
+	jz	loc_PLIR_
 	cmp	al,'x'		;check for 0x prefix
 	jne	normalsign
 	mov	al,'0'
-	call	emitchar
+	call	loc_NJTI_
 	mov	al,'x'
 normalsign:
 	mov	sign,0		;mark sign as already emitted
 			;fall through into emitchar routine and return
-emitchar:
+loc_NJTI_:
 	inc	charcount
 	test	options,CASEMAP
 	jz	nocasefix
@@ -458,58 +447,9 @@ ifdef LONGPTR
 	mov	ds,word ptr fmtstr+2	;get internal DS back
 endif
 	pop	es		;restore
-emitreturn:
-	ret
-emitsign endp
-
-get_pointer proc near
-	loades	di,args
-ifndef LONGPTR
-	test	options,FAROPT
-	jnz	load_longptr
-	mov	di,[di]
-	add	word ptr args,2
-	ret
-load_longptr:
-endif
-	les	di,es:dword ptr [di]
-	add	word ptr args,4
-	ret
-get_pointer endp
-
-; process a field width or precision specifier
-
-do_width	proc	near
-	cmp	al,'*'		;variable field width indicator
-	jne	fixed_width
-	loades	di,args
-	mov	dx,es:[di]
-	add	di,INTSIZE	;bump to next argument
-	mov	word ptr args,di
-	lodsb			;skip over '*'
+loc_PLIR_:
 	ret
 
-fixed_width:
-	sub	dx,dx
-	mov	ah,0
-pack_digits:
-	cmp	al,'0'		;is character a digit ?
-	jb	pack_done	;no, then we are done.
-	cmp	al,'9'
-	ja	pack_done
-	sub	al,'0'		;put into absolute range 0-9
-	shl	dx,1
-	mov	cx,dx		;CX = DX*2
-	shl	dx,1		;DX*4
-	shl	dx,1		;DX*8
-	add	dx,cx		;DX*10
-	add	dx,ax		;accumulate value given
-	lodsb			;fetch next byte of format string
-	jmp	pack_digits
-pack_done:
-	ret
-do_width	endp
-
-	pend	format
+	pend aztec_format
 	finish
 	end

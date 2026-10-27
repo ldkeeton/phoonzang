@@ -5,9 +5,9 @@ aztec_bdos:
     push es                          ; 0x449a
     mov ax, word [bp + 4]            ; 0x449b
     test ah, ah                      ; 0x449e
-    jne short .valok                 ; 0x44a0
+    jne short .forward1              ; 0x44a0
     xchg al, ah                      ; 0x44a2
-.valok:
+.forward1:
     mov dx, word [bp + 6]            ; 0x44a4
     mov cx, word [bp + 8]            ; 0x44a7
     int 0x21 ; DOS function dispatcher

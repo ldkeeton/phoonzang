@@ -1,4 +1,3 @@
-; auto-generated
 ; Copyright (C) 1984 by Manx Software Systems
 ; :ts=8
 	include	lmacros.h
@@ -6,7 +5,7 @@ dataseg	segment	para public 'data'
 	extrn	errno_:word
 dataseg	ends
 	assume	ds:dataseg
-	procdef	mkdir,<<namea,ptr>>
+	procdef	aztec_mkdir,<<namea,ptr>>
 ;			char *mkdir(name)
 ;			char *name;
 ;
@@ -22,16 +21,6 @@ dircommon:
 	mov	ax,-1
 ok:
 	pret
-	pend	mkdir
-;
-	procdef	rmdir,<<nnamea,ptr>>
-	mov	ah,3aH
-	jmp	dircommon
-	pend	rmdir
-;
-	procdef	chdir,<<xnamea,ptr>>
-	mov	ah,3bH
-	jmp	dircommon
-	pend	chdir
+	pend aztec_mkdir
 	finish
 	end

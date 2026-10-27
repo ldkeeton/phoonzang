@@ -380,17 +380,8 @@ def _source_summary(project, binary, routine):
 def _tool_summary(project, binary, routine, suffix):
     """``(tool, flags, provenance)`` for the source the build would use."""
     from lib.aztec import cache
-    entry = None
-    try:
-        with open(cache.manifest_path(project, binary)) as f:
-            entry = json.load(f).get('functions', {}).get(routine)
-    except (OSError, ValueError):
-        pass
-    if entry is None:
-        entry = cache.default_entry(routine, project, suffix)
-        provenance = 'default'
-    else:
-        provenance = entry.get('file')
+    entry = cache.default_entry(routine, project, suffix)
+    provenance = 'default'
     try:
         kind, flags = cache._tool(project, binary, routine, entry)
     except Exception as exc:      # a broken sidecar should not hide info
@@ -687,14 +678,7 @@ def cmd_probe(project, binary, routine, source=None, json_out=False,
     with open(path) as f:
         text = f.read()
     suffix = os.path.splitext(path)[1]
-    entry = None
-    try:
-        with open(cache.manifest_path(project, binary)) as f:
-            entry = json.load(f).get('functions', {}).get(routine)
-    except (OSError, ValueError):
-        pass
-    if entry is None:
-        entry = cache.default_entry(routine, project, suffix)
+    entry = cache.default_entry(routine, project, suffix)
     module, whole = cache.compile_source_module(project, binary, routine,
                                                 entry, text)
     raw_code = whole.code

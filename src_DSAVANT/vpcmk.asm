@@ -480,6 +480,9 @@ api_idx_0016_JNJG.dseg1 equ dseg_94e9
 
 %include "shared/aztec/aztec_strcmp.asm"          ; 0x6fca
 
+loc_OTSS equ aztec_strncmp.loc1
+%include "shared/aztec/aztec_strncmp.asm"         ; 0x6fe8
+
 __zdata_start:
 %include "shared/data/pc_file_name.asm"     ; 0x7031
 

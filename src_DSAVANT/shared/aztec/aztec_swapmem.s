@@ -1,10 +1,8 @@
-; auto-generated
 ; :ts=8
 ;Copyright (C) 1984 by Manx Software Systems
 	include	lmacros.h
-	procdef swapmem,<<str1,ptr>,<str2,ptr>,<len,word>>
-	push	si
-	push	di
+	procdef aztec_swapmem,<<str1,ptr>,<str2,ptr>,<len,word>>
+	pushs	si,di
 	pushds
 ifndef LONGPTR
 	mov	di,ds
@@ -30,9 +28,8 @@ swaploop:
 	loop	swaploop
 done:
 	popds
-	pop	di
-	pop	si
+	pops	di,si
 	pret
-	pend	swapmem
+	pend	aztec_swapmem
 	finish
 	end

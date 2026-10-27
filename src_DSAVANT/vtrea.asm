@@ -299,7 +299,7 @@ periodic_party_redraw.api_idx1           equ draw_realm_spell_points
 
 %include "shared/aztec/aztec_ovbgn.asm"           ; 0x99c5
 
-%include "shared/aztec/aztec_cswit.asm"           ; 0x9a03
+%include "shared/aztec/aztec_cswt.asm"            ; 0x9a03
 
 __zdata_start:
 %include "vtrea/data/dseg_9098.asm"        ; 0x9a1b

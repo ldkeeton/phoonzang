@@ -187,7 +187,7 @@ loc_HTKI.draw_list_rows1 equ draw_list_rows
 
 %include "shared/aztec/aztec_ovbgn.asm"           ; 0x46d9
 
-%include "shared/aztec/aztec_cswit.asm"           ; 0x4717
+%include "shared/aztec/aztec_cswt.asm"            ; 0x4717
 
 __zdata_start:
 %include "vdopt/data/report_line1_none.asm" ; 0x472f

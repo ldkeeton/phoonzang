@@ -1,12 +1,10 @@
-; auto-generated
 ;Copyright (C) 1984, 1985 by Manx Software Systems
 ; :ts=8
 	include	lmacros.h
-	procdef movmem,<<arg1,ptr>,<arg2,ptr>,<len,word>>
+	procdef aztec_movmem,<<arg1,ptr>,<arg2,ptr>,<len,word>>
 	pushf
 	cld
-	push	si
-	push	di
+	pushs	si,di
 	pushds
 ifndef LONGPTR
 	mov	di,ds
@@ -46,10 +44,9 @@ rep	movsw
 done:
 	cld
 	popds
-	pop	di
-	pop	si
+	pops	di,si
 	popf
 	pret
-	pend	movmem
+	pend	aztec_movmem
 	finish
 	end

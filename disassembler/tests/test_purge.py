@@ -33,7 +33,8 @@ class PurgeTests(unittest.TestCase):
             (src / 'build_out' / 'game.exe').write_bytes(b'binary')
             with patch('make.purge.PROJECT', tmp), patch(
                     'make.purge.clear_build_out',
-                    side_effect=lambda project: shutil.rmtree(src / 'build_out')):
+                    side_effect=lambda project: shutil.rmtree(src / 'build_out')), \
+                    patch('builtins.input', return_value='purge'):
                 cmd_purge([], ['TEST'])
                 for name in originals:
                     self.assertFalse((src / name).exists())
@@ -49,3 +50,22 @@ class PurgeTests(unittest.TestCase):
                 (src / 'hand.c').write_text('new human edits\n')
                 cmd_purge(['revert'], ['TEST'])
                 self.assertEqual((src / 'hand.c').read_text(), 'new human edits\n')
+
+    def test_purge_needs_the_word_typed(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            src = Path(tmp) / 'src_TEST'
+            src.mkdir()
+            (src / 'hand.c').write_text('void hand(void) {}\n')
+            (src / 'build_out').mkdir()
+            cleared = []
+            with patch('make.purge.PROJECT', tmp), patch(
+                    'make.purge.clear_build_out', side_effect=cleared.append):
+                for answer in ('y', 'yes', ''):
+                    with patch('builtins.input', return_value=answer), \
+                            self.assertRaises(SystemExit):
+                        cmd_purge([], ['TEST'])
+                with patch('builtins.input', side_effect=EOFError), \
+                        self.assertRaises(SystemExit):
+                    cmd_purge([], ['TEST'])
+            self.assertTrue((src / 'hand.c').exists())
+            self.assertEqual(cleared, [])

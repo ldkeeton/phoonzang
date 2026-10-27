@@ -1,8 +1,7 @@
-; auto-generated
 ; :ts=8
 ;Copyright (C) 1983 by Manx Software Systems
 	include	lmacros.h
-	procdef strlen,<<str1,ptr>>
+	procdef aztec_strlen,<<str1,ptr>>
 	cld
 	push	di
 ifndef LONGPTR
@@ -19,6 +18,6 @@ repne	scasb
 	dec	ax
 	pop	di
 	pret
-	pend	strlen
+	pend	aztec_strlen
 	finish
 	end

@@ -1,7 +1,6 @@
-; auto-generated
 ; Copyright (C) 1983  by Manx Software Systems
 	include lmacros.h
-	procdef toupper,<<val1,byte>>
+	procdef aztec_toupper,<<val1,byte>>
 ;
 	mov	al,val1
 	sub	ah,ah
@@ -12,20 +11,8 @@
 	sub	al,'a'-'A'
 tu_done:
 	pret
-	pend	toupper
+	pend	aztec_toupper
 ;
 ;
-	procdef tolower,<<val2,byte>>
-;
-	mov	al,val2
-	sub	ah,ah
-	cmp	al,'A'
-	jl	skip
-	cmp	al,'Z'
-	jg	skip
-	add	al,'a'-'A'
-skip:
-	pret
-	pend	tolower
 	finish
 	end

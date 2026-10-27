@@ -125,6 +125,26 @@ def _function_instructions(root, instruction_map, function_roots,
     return sorted(body, key=lambda insn: insn.address)
 
 
+def _dead_back_jump(off, instruction_map, previous_map, function_roots):
+    """True for a lone ``jmp`` back into the routine before it, unreachable.
+
+    Aztec C emits a ``for(;;)`` loop's closing jump even when the body already
+    ends in one (malloc's ``jmp loc1`` at ds 0x47e5): nothing branches to it and
+    it follows an unconditional transfer, so it is the tail of the preceding
+    routine, not a function of its own.
+    """
+    insn = instruction_map.get(off)
+    previous = previous_map.get(off)
+    if (insn is None or previous is None
+            or insn.mnemonic not in _UNCONDITIONAL_JUMPS
+            or previous.mnemonic not in (*_RETURN_MNEMONICS,
+                                         *_UNCONDITIONAL_JUMPS)
+            or not insn.operands or insn.operands[0].type != CS_OP_IMM):
+        return False
+    target = insn.operands[0].imm
+    return target < off and target not in function_roots
+
+
 def _detect_category(insns, off, body_size):
     """Return a category prefix string, or None if no signal found."""
     has_call = False
@@ -230,13 +250,24 @@ def categorize_call_targets(data, call_targets, label_map, instructions=None,
     bounded_targets = set(call_targets if bounded_targets is None
                           else bounded_targets)
     instruction_map = None
+    previous_map = {}
     if instructions is not None:
         instruction_map = {insn.address: insn for insn in instructions}
+        previous_map = {insn.address + insn.size: insn
+                        for insn in instructions}
 
     for off in sorted(call_targets):
         if off in label_map:
             continue
         if off + 3 > len(data):
+            continue
+        if (instruction_map is not None and off not in bounded_targets
+                and _dead_back_jump(off, instruction_map, previous_map,
+                                    function_roots)):
+            if trace is not None and trace.watches(off):
+                trace.event('labeling', 'call_target_category', addr=off,
+                            result_category=None,
+                            suppression_reason='dead_back_jump')
             continue
 
         if instruction_map is not None and off in bounded_targets:

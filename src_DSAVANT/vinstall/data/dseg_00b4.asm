@@ -2582,7 +2582,5 @@ __zdseg_22af:
 __zdseg_22e3:
 
     db 'To Play The Game, Type: WIZARDRY <cr>', 0
-    db 0x00
+    db 0x00, 0x2e, 0x00, 0x2e, 0x00
 
-__zdseg_230a:
-    db 0x2e, 0x00, 0x2e, 0x00

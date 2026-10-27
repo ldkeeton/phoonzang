@@ -24,7 +24,6 @@ from main.clean import clear_build_out
 from lib import progress
 
 from .common import APPS, JOBS, PROJECT, Workers, _extra_flags, _verbose
-from .prebuild import _ensure_prebuild
 
 
 def _stats_enabled():
@@ -52,7 +51,7 @@ def _generate(workers):
                 if status != 0:
                     print(f'  FAILED: {futures[f]}')
                     failed.append(futures[f])
-                elif files is not None:
+                if files is not None:
                     emitted[futures[f]] = files
         return failed, emitted
     return run
@@ -102,8 +101,6 @@ def _prepare(app, *, prebuild=True):
     if _verbose():
         progress.log(f'{app} | prepare: clearing build_out')
     clear_build_out(app)
-    if prebuild:
-        _ensure_prebuild(app)
     if _stats_enabled():
         clear_project_stats(app)
     if _verbose():

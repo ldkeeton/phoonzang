@@ -108,12 +108,15 @@ _PSP equ __z_PSP - __zdseg_start
 bad8087 equ __zbad8087 - __zdseg_start
 cls_ equ __zcls_ - __zdseg_start
 aztec_croot_empty_str equ __zaztec_croot_empty_str - __zdseg_start
+aztec_croot_too_many_args equ __zaztec_croot_too_many_args - __zdseg_start
 dseg_0cae equ __zdseg_0cae - __zdseg_start
 _STKSIZ equ __z_STKSIZ - __zdseg_start
 _STKRED equ __z_STKRED - __zdseg_start
 _HEAPSIZ equ __z_HEAPSIZ - __zdseg_start
 _STKLOW equ __z_STKLOW - __zdseg_start
 _ioflg equ __z_ioflg - __zdseg_start
+dseg_0cdd equ __zdseg_0cdd - __zdseg_start
+dseg_0cde equ __zdseg_0cde - __zdseg_start
 _ttrd equ __z_ttrd - __zdseg_start
 _ttwr equ __z_ttwr - __zdseg_start
 _Eol equ __z_Eol - __zdseg_start
@@ -859,53 +862,192 @@ __zdseg_end equ (__zimage_end - __zdseg_start) + __zbss_size
 
 %include "ds/aztec/aztec_ovloader.asm"     ; 0x4379
 
+%include "ds/aztec/aztec_impl_ovld.asm"    ; 0x4386
+
+%include "ds/aztec/aztec_loadabort.asm"    ; 0x4462
+
 %include "ds/aztec/aztec_bdos.asm"         ; 0x4497
 
-%include "ds/aztec/aztec_csread.asm"       ; 0x44b4
+%include "ds/aztec/aztec_impl_csread.asm"  ; 0x44b4
 
 %include "ds/aztec/aztec_sprintf.asm"      ; 0x44d4
+
+%include "ds/aztec/aztec_spsub.asm"        ; 0x44ff
 
 %include "ds/aztec/aztec_movblock.asm"     ; 0x4517
 
 %include "ds/aztec/aztec_setmem.asm"       ; 0x454d
 
+aztec_strcat.loc1 equ ds_loc_KRNT
 %include "shared/aztec/aztec_strcat.asm"       ; 0x4574
+
+ds_loc_KRNT equ aztec_strncat.loc1
+ds_loc_JPNO equ aztec_strncat.loc2
+ds_loc_OSMM equ aztec_strncat.loc3
+%include "shared/aztec/aztec_strncat.asm"      ; 0x457c
 
 %include "shared/aztec/aztec_strcpy.asm"       ; 0x45ab
 
-%include "ds/aztec/aztec_dos20_lmalloc.asm" ; 0x45d7
+%include "ds/aztec/aztec_lmalloc.asm"      ; 0x45d7
 
-%include "ds/aztec/aztec_csav.asm"         ; 0x4650
+%include "ds/aztec/aztec_lfree.asm"        ; 0x460d
 
-%include "shared/aztec/aztec_misc_lmalloc.asm" ; 0x467b
+%include "ds/aztec/aztec_lrealloc.asm"     ; 0x4625
 
-%include "shared/aztec/aztec_format.asm"       ; 0x480d
+%include "ds/data/aztec_csav_begin.asm"    ; 0x4650
 
-%include "shared/aztec/aztec_open.asm"         ; 0x4b39
+%include "ds/aztec/aztec_csav.asm"         ; 0x4652
 
-%include "shared/aztec/aztec_lsubs.asm"        ; 0x4be6
+%include "ds/aztec/aztec_cret.asm"         ; 0x4670
+
+%include "ds/aztec/ds_loc_4676.asm"        ; 0x4676
+
+%include "shared/aztec/aztec_realloc.asm"      ; 0x467b
+
+ds_loc_LPSH equ aztec_malloc.loc1
+%include "shared/aztec/aztec_malloc.asm"       ; 0x46ea
+
+%include "shared/aztec/aztec_free.asm"         ; 0x47e8
+
+%include "shared/data/aztec_format_conversions.asm" ; 0x480d
+
+%include "ds/data/cseg_480e.asm"           ; 0x480e
+
+aztec_format_conv_routines.jumptable_case1  equ jumptable_4822_case_0
+aztec_format_conv_routines.jumptable_case2  equ jumptable_4822_case_1
+aztec_format_conv_routines.jumptable_case3  equ jumptable_4822_case_2
+aztec_format_conv_routines.jumptable_case4  equ jumptable_4822_case_3
+aztec_format_conv_routines.jumptable_case5  equ jumptable_4822_case_5
+aztec_format_conv_routines.jumptable_case6  equ jumptable_4822_case_6
+aztec_format_conv_routines.jumptable_case7  equ jumptable_4822_case_7
+aztec_format_conv_routines.jumptable_case8  equ jumptable_4822_case_8
+aztec_format_conv_routines.jumptable_case9  equ jumptable_4822_case_9
+aztec_format_conv_routines.jumptable_case10 equ jumptable_4822_case_11
+aztec_format_conv_routines.jumptable_case11 equ jumptable_4822_case_12
+aztec_format_conv_routines.jumptable_case12 equ jumptable_4822_case_13
+aztec_format_conv_routines.jumptable_case13 equ jumptable_4822_case_14
+aztec_format_conv_routines.jumptable_case14 equ jumptable_4822_case_15
+aztec_format_conv_routines.jumptable_case15 equ jumptable_4822_case_16
+aztec_format_conv_routines.jumptable_case16 equ jumptable_4822_case_20
+%include "shared/data/aztec_format_conv_routines.asm" ; 0x4822
+
+%include "shared/data/aztec_format_digits.asm" ; 0x484c
+
+%include "shared/data/aztec_format_nofltmsg.asm" ; 0x485c
+
+jumptable_4822_case_20 equ aztec_format.jumptable_case1
+ds_loc_NJTI            equ aztec_format.loc1
+aztec_format.cseg1     equ cseg_480e
+jumptable_4822_case_0  equ aztec_format.jumptable_case2
+jumptable_4822_case_1  equ aztec_format.jumptable_case3
+jumptable_4822_case_2  equ aztec_format.jumptable_case4
+jumptable_4822_case_3  equ aztec_format.jumptable_case5
+jumptable_4822_case_5  equ aztec_format.jumptable_case6
+jumptable_4822_case_7  equ aztec_format.jumptable_case7
+jumptable_4822_case_6  equ aztec_format.jumptable_case8
+jumptable_4822_case_8  equ aztec_format.jumptable_case9
+jumptable_4822_case_9  equ aztec_format.jumptable_case10
+ds_loc_MRST            equ aztec_format.loc2
+jumptable_4822_case_16 equ aztec_format.jumptable_case11
+jumptable_4822_case_15 equ aztec_format.jumptable_case12
+jumptable_4822_case_11 equ aztec_format.jumptable_case13
+jumptable_4822_case_12 equ aztec_format.jumptable_case14
+jumptable_4822_case_13 equ aztec_format.jumptable_case15
+jumptable_4822_case_14 equ aztec_format.jumptable_case16
+ds_loc_PLIR            equ aztec_format.loc3
+%include "shared/aztec/aztec_format.asm"       ; 0x4867
+
+%include "shared/aztec/aztec_format_get_pointer.asm" ; 0x4aed
+
+%include "shared/aztec/aztec_format_do_width.asm" ; 0x4b07
+
+%include "shared/aztec/aztec_creat.asm"        ; 0x4b39
+
+%include "shared/aztec/aztec_open.asm"         ; 0x4b50
+
+ds_loc_QRUP equ aztec_ldv.loc1
+ds_loc_OGHL equ aztec_ldv.loc2
+%include "shared/aztec/aztec_ldv.asm"          ; 0x4be6
+
+aztec_lrm.loc1 equ ds_loc_QRUP
+%include "shared/aztec/aztec_lrm.asm"          ; 0x4c14
+
+%include "shared/aztec/aztec_lum.asm"          ; 0x4c38
+
+%include "shared/aztec/aztec_lud.asm"          ; 0x4c40
 
 %include "shared/aztec/aztec_strlen.asm"       ; 0x4cd7
 
-%include "shared/aztec/aztec_sys.asm"          ; 0x4cf4
+%include "shared/aztec/aztec_impl_sys.asm"     ; 0x4cf4
 
-%include "shared/aztec/aztec_sbegin.asm"       ; 0x4d36
+%include "shared/data/aztec_begin_exitad.asm"  ; 0x4d36
 
-%include "shared/aztec/aztec_croot.asm"        ; 0x4ea3
+%include "shared/data/aztec_begin_exitcs.asm"  ; 0x4d38
 
-%include "shared/aztec/aztec_fltstub.asm"      ; 0x4f85
+aztec_begin.loc1 equ ds_loc_GIPI
+%include "shared/aztec/aztec_begin.asm"        ; 0x4d3a
 
-%include "ds/aztec/aztec_stkover.asm"      ; 0x4f87
+ds_loc_GIPI equ aztec_impl_exit.loc1
+%include "shared/aztec/aztec_impl_exit.asm"    ; 0x4e7e
 
-%include "shared/aztec/aztec_io.asm"           ; 0x4fa2
+%include "shared/aztec/aztec_exit_return.asm"  ; 0x4e84
 
-%include "shared/aztec/aztec_ttyio.asm"        ; 0x505c
+%include "shared/data/aztec_dbgentry_retip.asm" ; 0x4e89
+
+%include "shared/data/aztec_dbgentry_retcs.asm" ; 0x4e8b
+
+%include "shared/aztec/aztec_dbgentry.asm"     ; 0x4e8d
+
+%include "shared/aztec/aztec_dbgcaller.asm"    ; 0x4ea0
+
+%include "shared/aztec/aztec_noper.asm"        ; 0x4ea3
+
+aztec_Croot.dseg1 equ dseg_0cdd
+aztec_Croot.dseg2 equ dseg_0cde
+%include "shared/aztec/aztec_Croot.asm"        ; 0x4ea7
+
+%include "shared/aztec/aztec_exit.asm"         ; 0x4f73
+
+%include "shared/aztec/aztec_fltinit.asm"      ; 0x4f85
+
+%include "ds/aztec/aztec_impl_stkover.asm" ; 0x4f87
+
+aztec_impl_read.loc1 equ ds_loc_IGMS
+%include "shared/aztec/aztec_impl_read.asm"    ; 0x4fa2
+
+aztec_impl_write.loc1 equ ds_loc_IGMS
+%include "shared/aztec/aztec_impl_write.asm"   ; 0x4fac
+
+aztec_read.loc1 equ ds_loc_NOQM
+%include "shared/aztec/aztec_read.asm"         ; 0x4fb6
+
+ds_loc_NOQM equ aztec_write.loc1
+ds_loc_IGMS equ aztec_write.loc2
+ds_loc_SROM equ aztec_write.loc3
+ds_loc_USUN equ aztec_write.loc4
+%include "shared/aztec/aztec_write.asm"        ; 0x4fbd
+
+%include "shared/aztec/aztec_close.asm"        ; 0x4fec
+
+%include "shared/aztec/aztec_lseek.asm"        ; 0x5004
+
+%include "shared/aztec/aztec_unlink.asm"       ; 0x5023
+
+%include "shared/aztec/aztec_rename.asm"       ; 0x503b
+
+%include "shared/aztec/aztec_impl_tty_rd.asm"  ; 0x505c
+
+%include "shared/aztec/aztec_impl_tty_wr.asm"  ; 0x50c1
 
 %include "shared/aztec/aztec_movmem.asm"       ; 0x5123
 
 %include "shared/aztec/aztec_isatty.asm"       ; 0x5168
 
-%include "shared/aztec/aztec_ssbrk.asm"        ; 0x5188
+%include "shared/aztec/aztec_sbrk.asm"         ; 0x5188
+
+%include "shared/aztec/aztec_brk.asm"          ; 0x51bc
+
+%include "shared/aztec/aztec_rsvstk.asm"       ; 0x5248
 
 
 ; End of host resident code
@@ -1008,11 +1150,21 @@ aztec_MEMRY.bss1 equ bss_b198
 
 %include "shared/data/aztec_croot_empty_str.asm" ; 0x10dfe
 
+%include "shared/data/aztec_croot_too_many_args.asm" ; 0x10dff
+
 %include "ds/data/dseg_0cae.asm"           ; 0x10e0e
 
-%include "shared/data/stksiz.asm"              ; 0x10e34
+%include "shared/data/STKSIZ.asm"              ; 0x10e34
+
+%include "shared/data/STKRED.asm"              ; 0x10e36
+
+%include "shared/data/HEAPSIZ.asm"             ; 0x10e38
+
+%include "shared/data/STKLOW.asm"              ; 0x10e3a
 
 %include "shared/data/ioflg.asm"               ; 0x10e3c
+
+%include "ds/data/dseg_0cdd.asm"           ; 0x10e3d
 
 %include "shared/data/ttrd.asm"                ; 0x10e50
 

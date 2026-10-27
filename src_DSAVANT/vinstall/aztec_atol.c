@@ -1,4 +1,3 @@
-/* auto-generated */
 /* Copyright (C) 1982 by Manx Software Systems */
 #include <ctype.h>
 

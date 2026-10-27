@@ -1,7 +1,7 @@
 import polars as pl
 import numpy as np
 
-from lib.model import PhaseContext, CONF_DATA, SeedInfo, TargetInfo
+from lib.model import PhaseContext, CONF_CODE, CONF_DATA, SeedInfo, TargetInfo
 from lib.sidecar.offsets import _parse_offset
 from lib.pipeline.phase import Phase, PhaseContract
 
@@ -11,7 +11,7 @@ class SidecarPhase(Phase):
         input_slot='seed',
         output_slot='sidecar',
         writes_columns=['sidecar'],
-        reads_ctx=['sidecar_entry', 'seeds', 'hard_data'],
+        reads_ctx=['sidecar_entry', 'seeds', 'hard_data', 'start_offset'],
         writes_ctx=['seeds', 'code_targets'],
         requires_binary=True,
     )
@@ -39,6 +39,22 @@ class SidecarPhase(Phase):
                 else:
                     use.skipped('force_data', r['start'], 'outside the file')
             result[s:e] = CONF_DATA
+
+        # Concrete function findings replace discovery's signature seeds.
+        # Use the same coordinate adjustment as the naming pass.
+        adjust = ctx.start_offset + sidecar.get('ghidra_base_offset', 0)
+        for key, info in sidecar.get('function_names', {}).items():
+            if info.get('role') != 'aztec':
+                continue
+            off = _parse_offset(key, 'function_names') + adjust
+            if not 0 <= off < n or ctx.hard_data[off]:
+                continue
+            ctx.code_targets.setdefault(off, TargetInfo(
+                address=off, reason='function_names', confidence=CONF_CODE,
+                source_offset=-1))
+            ctx.seeds.append(SeedInfo(
+                address=off, source_phase='sidecar', confidence=CONF_CODE,
+                reason='function_names'))
 
         for r in sidecar.get('force_code', []):
             s = _parse_offset(r['start'], 'force_code.start')

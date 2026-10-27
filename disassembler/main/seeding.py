@@ -15,14 +15,17 @@ from lib.cachedirs import aztec_funcs_path
 
 
 def _load_aztec_signatures(project=None):
-    """The compiler-runtime signatures (Manx Aztec C86 v4.2b) ``make prebuild``
-    builds per project (.cache/<project>/aztec_funcs.json).  The program's own
-    routines are named by the sidecar's ``routines``, by content tag."""
+    """Load disposable signature patterns only for explicit discovery.
+
+    Ordinary analysis uses the sidecar's concrete function_names findings.
+    """
+    from .options import AZTEC_PREBUILD, AZTEC_MUX_REFRESH
     db = {'signatures': []}
-    funcs_path = aztec_funcs_path(project) if project else None
-    if funcs_path and os.path.exists(funcs_path):
-        with open(funcs_path) as f:
-            db['signatures'] = list(json.load(f).get('signatures', []))
+    if project and (AZTEC_PREBUILD or AZTEC_MUX_REFRESH):
+        path = aztec_funcs_path(project)
+        if os.path.isfile(path):
+            with open(path) as f:
+                db['signatures'] = json.load(f).get('signatures', [])
     return db
 
 

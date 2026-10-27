@@ -464,6 +464,9 @@ periodic_party_redraw.api_idx1           equ api_idx_000c_GHTR
 
 %include "shared/aztec/aztec_strcmp.asm"          ; 0xae76
 
+loc_LNNU equ aztec_strncmp.loc1
+%include "shared/aztec/aztec_strncmp.asm"         ; 0xae94
+
 __zdata_start:
 %include "vmnpc/data/dseg_9098.asm"        ; 0xaedd
 

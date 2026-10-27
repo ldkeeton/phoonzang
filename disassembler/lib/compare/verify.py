@@ -1051,6 +1051,11 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
     injected = {}
     if table_specs:
         load_offset = getattr(segments, 'load_offset', 0) or 0
+        cseg_names = getattr(segments, 'cseg_names', None) or {}
+        for spec in table_specs:
+            table_name = cseg_names.get(spec['table_addr'])
+            if table_name is not None and table_name.source is Source.SIDECAR:
+                spec['name'] = table_name
         records, injected, synthesized = _inject_jump_tables(
             records, table_specs, binary_data, start_offset,
             label_map, local_labels, o_corg=o_corg, load_offset=load_offset,

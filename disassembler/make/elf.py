@@ -286,17 +286,14 @@ def resplice_c(app, binary, check_only=False, only=None):
                               f'{binary}_aztec_spans.json')
     labels_path = os.path.join(labels_dir(app),
                                f'{binary}_labels.json')
-    manifest = cache.manifest_path(app, binary)
+    from lib.sidecar.constants import SIDECAR_DIR
+    sidecar_json = os.path.join(SIDECAR_DIR, f'{app}.json')
     if not all(os.path.isfile(p) for p in (spans_path, labels_path)):
         return
     with open(spans_path) as f:
         spans = json.load(f)
-    # A binary with no recovered library routine has no manifest; its C
-    # (a shared routine's, say) all takes the default provenance.
+    # Every routine's source is hand-owned: it takes the default provenance.
     entries = {}
-    if os.path.isfile(manifest):
-        with open(manifest) as f:
-            entries = json.load(f)['functions']
     from lib.cross_ref import read_label_json
     label_map = read_label_json(labels_path)
     context = _load_render_context(app, binary)
@@ -401,7 +398,7 @@ def resplice_c(app, binary, check_only=False, only=None):
     # before it existed must not skip the source that gate needs to check.
     env = hashlib.sha1(repr((exact_here, lenient, 'data-owner-v1',
                              'publics-v1', 'symbol-refs-v1')).encode())
-    for path in (labels_path, spans_path, manifest, context_path(app, binary)):
+    for path in (labels_path, spans_path, sidecar_json, context_path(app, binary)):
         if os.path.isfile(path):
             with open(path, 'rb') as f:
                 env.update(f.read())

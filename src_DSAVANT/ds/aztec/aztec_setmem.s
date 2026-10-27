@@ -1,8 +1,7 @@
-; auto-generated
 ; :ts=8
 ;Copyright (C) 1983 by Manx Software Systems
 	include	lmacros.h
-	procdef setmem,<<src,ptr>,<len,word>,<val,byte>>
+	procdef aztec_setmem,<<src,ptr>,<len,word>,<val,byte>>
 	pushf
 	cld
 	push	di
@@ -26,6 +25,6 @@ done:
 	pop	di
 	popf
 	pret
-	pend	setmem
+	pend	aztec_setmem
 	finish
 	end

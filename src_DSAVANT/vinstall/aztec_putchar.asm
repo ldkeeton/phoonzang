@@ -2,7 +2,7 @@
 aztec_putchar:
     push bp                          ; 0x2c7a
     mov bp, sp                       ; 0x2c7b
-    mov ax, Cbuffs + 0xd             ; 0x2c7d
+    mov ax, 0x2357                   ; 0x2c7d
     push ax                          ; 0x2c80
     push word [bp + 4]               ; 0x2c81
     call aztec_aputc                 ; 0x2c84

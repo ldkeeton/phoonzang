@@ -11,10 +11,10 @@ aztec_ovbgn:
     mov cx, _Uend
     sub cx, di
     shr cx, 1
-    je short .nobss
+    je short .forward1
     sub ax, ax
     rep stosw
-.nobss:
+.forward1:
     call ovmain
     mov bp, word [save_bp]
     mov sp, word [save_sp]

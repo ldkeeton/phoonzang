@@ -51,6 +51,20 @@ class VerificationRecordsTest(unittest.TestCase):
             _apply_c_overrides(
                 records, {'f': check}, ORIG, {0: 'f'}, {}, {}, {})
 
+    def test_reports_both_independent_source_failures(self):
+        from lib.compare.coverrides import _apply_c_overrides
+        from lib.compare.cgate import CGateError
+
+        records = [{'type': 'label', 'offset': 0, 'name': 'first'},
+                   {'type': 'label', 'offset': len(ORIG), 'name': 'second'}]
+        checks = {name: {'code': b'\x90' * len(ORIG), 'check_only': True}
+                  for name in ('first', 'second')}
+        with self.assertRaises(CGateError) as error:
+            _apply_c_overrides(records, checks, ORIG * 2,
+                               {0: 'first', len(ORIG): 'second'}, {}, {}, {})
+        self.assertIn('first: C does not match', str(error.exception))
+        self.assertIn('second: C does not match', str(error.exception))
+
 
 if __name__ == '__main__':
     unittest.main()

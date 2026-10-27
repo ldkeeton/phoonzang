@@ -753,7 +753,7 @@ fn parseHexBytes(gpa: Allocator, s: []const u8) ![]u8 {
     return out.items;
 }
 
-/// The Aztec C86 v4.2b runtime signatures (``.cache/DSAVANT/aztec_funcs.json``).
+/// The sidecar aztec block containing runtime signatures.
 pub fn loadSignatures(gpa: Allocator, text: []const u8) ![]Signature {
     const parsed = try std.json.parseFromSliceLeaky(std.json.Value, gpa, text, .{});
     var out: std.ArrayList(Signature) = .empty;

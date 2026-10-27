@@ -21,6 +21,8 @@ def _validate_binary(name, info):
     if not isinstance(info, dict):
         raise SidecarError(f'binaries.{name}: must be an object')
 
+    if 'function_names' in info:
+        _validate_function_names(info['function_names'], f'binaries.{name}.function_names')
     btype = info.get('type')
     if btype is not None and btype not in _BINARY_TYPES:
         raise SidecarError(f'binaries.{name}: unknown type {btype!r}')
@@ -268,3 +270,16 @@ def _expected_use(result, short_name):
     for offset in result['code_data_names']:
         use.expect('code_data_names', f'{offset:04x}')
     return use
+
+def _validate_function_names(block, where):
+    from .errors import SidecarError
+    from .offsets import _parse_offset
+    if not isinstance(block, dict):
+        raise SidecarError(f'{where}: must be an object')
+    for key, info in block.items():
+        _parse_offset(key, f'{where}[{key}]')
+        if not isinstance(info, dict):
+            raise SidecarError(f'{where}[{key}]: must be an object')
+        for field in ('name', 'role', 'library'):
+            if field in info and (not isinstance(info[field], str) or not info[field]):
+                raise SidecarError(f'{where}[{key}].{field}: expected non-empty string')

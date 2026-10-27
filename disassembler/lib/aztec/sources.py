@@ -110,6 +110,7 @@ def header_files(project, versions=None):
     """``{lower-case name: text}`` of the staged headers, lmacros merged."""
     out = {}
     for version in (versions or VERSIONS):
+        stage_headers(project, version)
         root = staged_include_dir(project, version)
         if not os.path.isdir(root):
             continue
@@ -144,7 +145,7 @@ def install_headers(project, out_dir, versions=None):
     files = header_files(project, versions)
     if not files:
         raise FileNotFoundError(
-            f'{project}: headers are not staged; run "make prebuild {project}"')
+            f'{project}: vendor headers unavailable; run "make init"')
     dest = project_include_dir(project, out_dir)
     os.makedirs(dest, exist_ok=True)
     for name, text in files.items():

@@ -223,6 +223,12 @@ def _resolve_mem_symbols(insns, segment_flow, segments, label_map, start_offset,
         if (getattr(segments, 'kind', None) != 'overlay'
                 and getattr(sym, 'source', None) is Source.SIDECAR):
             equ.setdefault(sym, offset)
+    for offset, sym in getattr(segments, 'cseg_names', {}).items():
+        # Likewise in the code segment (csav.asm's unreferenced
+        # ``dw $begin``): the name starts its own data object.
+        if (getattr(sym, 'source', None) is Source.SIDECAR
+                and offset not in (label_map or {})):
+            equ.setdefault(sym, offset)
     if indexed:
         symbols.update(_resolve_indexed_symbols(
             insns, segment_flow, segments, named, ds_starts, equ))
@@ -515,11 +521,12 @@ def _resolve_declared_immediates(insns, declared, segments, label_map, mem_equ,
     end in a loop bound (``cmp bx, 0xe3a``) or its start taken back off a
     pointer (``sub bx, 0x257d``).  Each entry names the instruction's file
     ``offset`` and the ``space`` (``cs`` or ``ds``); the instruction must be
-    ``mov``/``add``/``sub``/``cmp reg16, imm16`` whose value is a byte of this
-    image (``cs``) or of its data segment (``ds``: a row of a DS array added
-    to a scaled index, ``imul``'d by the row size), or the sidecar is wrong and
-    this raises.  A ``cs`` entry in an overlay is not supported (its CS values
-    are ``o_corg``-based); a ``ds`` name is the same in every binary.
+    ``mov``/``add``/``sub``/``cmp reg16, imm16`` or ``mov word [mem], imm16``
+    whose value is a byte of this image (``cs``) or of its data segment
+    (``ds``: a row of a DS array added to a scaled index, ``imul``'d by the
+    row size), or the sidecar is wrong and this raises.  A ``cs`` entry in an overlay is not supported (its CS values
+    are ``o_corg``-based); a ``ds`` name is the same in every binary.  A ``ds``
+    entry's optional ``name`` spells the operand.
     """
     from capstone import CS_OP_IMM, CS_OP_REG
     from lib.sidecar.errors import SidecarError
@@ -538,15 +545,23 @@ def _resolve_declared_immediates(insns, declared, segments, label_map, mem_equ,
                 f'{where}: only a ds or non-overlay cs pointer is supported')
         insn = by_addr.get(entry['offset'])
         ops = insn.operands if insn is not None else ()
+        # ``mov word [first], first``: a pointer stored straight to memory.
         if (insn is None or insn.mnemonic not in _DECLARABLE or len(ops) != 2
-                or ops[0].type != CS_OP_REG or ops[1].type != CS_OP_IMM
-                or ops[0].size != 2):
-            raise SidecarError(f'{where}: not a decoded `op reg16, imm16`')
+                or ops[0].type not in (CS_OP_REG, CS_OP_MEM)
+                or ops[1].type != CS_OP_IMM or ops[0].size != 2
+                or (ops[0].type == CS_OP_MEM and insn.mnemonic != 'mov')):
+            raise SidecarError(
+                f'{where}: not a decoded `op reg16, imm16` or `mov word [mem], imm16`')
         value = ops[1].imm & 0xFFFF
         if space == 'ds':
             if segments is None or segments.data_space(value) is None:
                 raise SidecarError(f'{where}: this image has no data segment')
-            name = data_symbol(segments, value)
+            # A ``name`` is the linker's for that place (``_Uorg``/``_Uend``),
+            # spelled at this operand only: the object there keeps its own.
+            name = (Symbol(entry['name'], kind=Kind.DATA,
+                           source=Source.SIDECAR, offset=value,
+                           space=_data_space(segments, value))
+                    if entry.get('name') else data_symbol(segments, value))
             mem_equ.setdefault(name, value)
             result[(insn.address, 1)] = str(name)
             continue

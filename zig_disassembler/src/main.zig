@@ -10,8 +10,6 @@ const render = @import("render.zig");
 const shared = @import("shared.zig");
 
 const sidecar_path = "disassembler/sidecar/DSAVANT.json";
-/// Aztec C86 v4.2b runtime signatures (built by the Python prebuild).
-const signatures_path = ".cache/DSAVANT/aztec_funcs.json";
 const app_dir = "apps/DSAVANT";
 /// Default output tree; the first argument overrides it.
 const default_out_dir = "src_DSAVANT";
@@ -25,7 +23,7 @@ pub fn main(init: std.process.Init) !void {
 
     const text = try cwd.readFileAlloc(io, sidecar_path, gpa, .unlimited);
     const root = (try std.json.parseFromSliceLeaky(std.json.Value, gpa, text, .{})).object;
-    const sigs = try an.loadSignatures(gpa, try cwd.readFileAlloc(io, signatures_path, gpa, .unlimited));
+    const sigs: []const an.Signature = &.{};
     const routines = sidecar.obj(root, "routines");
     const binaries = sidecar.obj(root, "binaries") orelse return error.NoBinaries;
 

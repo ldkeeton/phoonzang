@@ -13,13 +13,13 @@ aztec_setmem:
     mov ah, al                       ; 0x4560
     mov dx, cx                       ; 0x4562
     shr cx, 1                        ; 0x4564
-    je short .skip                   ; 0x4566
+    je short .forward1               ; 0x4566
     rep stosw                        ; 0x4568
-.skip:
+.forward1:
     test dl, 1                       ; 0x456a
-    je short .done                   ; 0x456d
+    je short .forward2               ; 0x456d
     stosb                            ; 0x456f
-.done:
+.forward2:
     pop di                           ; 0x4570
     popf                             ; 0x4571
     pop bp                           ; 0x4572

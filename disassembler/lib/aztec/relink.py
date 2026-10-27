@@ -275,6 +275,8 @@ def link(label, start, func, index, original, labels_in=(), labels_at=None,
     """
     code = bytearray(func.code)
     out = Linked(code)
+    printed = {str(name): offset for offset, name in (labels_at or {}).items()
+               if getattr(name, 'kind', None) is not Kind.LOCAL}
     def unknown(fx, why):
         what = fx.symbol or ' '.join(x.strip() for x in fx.expr or ())
         raise RelinkError(f'{label}: relocation at +0x{fx.offset:x} '
@@ -298,6 +300,11 @@ def link(label, start, func, index, original, labels_in=(), labels_at=None,
         binary's asm being on disk.
         """
         target = index.code.get(name)
+        if target is not None:
+            return target, name
+        # A fragment the render rooted itself (``ds_loc_4676``, a tail laid
+        # out past another routine) is printed but not in the exported map.
+        target = printed.get(name)
         if target is not None:
             return target, name
         if not resolve_by_address:
@@ -441,17 +448,18 @@ def link(label, start, func, index, original, labels_in=(), labels_at=None,
                 out.minted[sym] = value
             elif name in index.data:
                 put_data(fx, name, index.data[name])
-            elif name in index.code:
+            elif name in index.code or name in printed:
                 # A code address as a value (a function pointer): the label
                 # is a file offset, the value its CS offset.
                 if index.image_base is None:
                     unknown(fx, 'a code address as a value needs the image '
                                 'base, which this image does not have')
                 overlay = index.code_origin is not None
-                if overlay and name not in index.own_code:
+                if (overlay and name not in index.own_code
+                        and name not in printed):
                     unknown(fx, 'an overlay can take the address only of '
                                 'its own code')
-                target = index.code[name]
+                target = index.code.get(name, printed.get(name))
                 _put(code, site, 2, target - index.image_base
                      + (index.code_origin or 0) + fx.addend)
                 out.refs[site] = Ref(

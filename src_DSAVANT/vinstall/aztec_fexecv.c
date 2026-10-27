@@ -1,4 +1,3 @@
-/* auto-generated */
 /* Copyright (C) 1983, 1984 by Manx Software Systems */
 
 aztec_fexecv(path, argv)
@@ -34,4 +33,3 @@ done:
 	*cp = '\r';		/* add CR to make some dos commands happy */
 	return aztec_fexec(path, 0, buffer, fcb1, fcb2);
 }
-

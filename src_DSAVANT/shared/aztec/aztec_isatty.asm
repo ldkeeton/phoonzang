@@ -5,15 +5,15 @@ aztec_isatty:
     mov bx, word [bp + 4]
     mov ax, 0x4400
     int 0x21 ; DOS function dispatcher
-    jb short .not_tty
+    jb short .forward1
     test dl, 0x80
-    je short .not_tty
+    je short .forward1
     test dl, 3
-    je short .not_tty
+    je short .forward1
     mov ax, 1
     pop bp
     ret
-.not_tty:
+.forward1:
     sub ax, ax
     pop bp
     ret

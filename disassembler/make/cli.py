@@ -134,8 +134,6 @@ def main():
         # whole .cache go first (the build lock and pinned baselines survive).
         cmd_clean([])
         cmd_lint(all_projects, True)
-        for project in all_projects:
-            cmd_prebuild(project)
         _build_projects(all_projects, all_projects, prebuild=False)
         cmd_verify([])
         cmd_elf_rebuild(None, None, all_projects)

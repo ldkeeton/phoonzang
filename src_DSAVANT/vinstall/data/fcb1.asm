@@ -1,3 +1,3 @@
 ; auto-generated
 __zfcb1:
-    times 4 db 0
+    db 0x00, 0x00

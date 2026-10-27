@@ -1,12 +1,10 @@
-; auto-generated
 ; Copyright (C) 1983 by Manx Software Systems
 ; :ts=8
 	include lmacros.h
-	procdef	isatty, <<fd,word>>
+	procdef	aztec_isatty, <<fd,word>>
 ;			isatty(fd)
 	mov	bx,fd
-	mov	ax,4400H
-	int	21H
+	dosx	4400H
 	jc	not_tty		;error, then not a tty
 	test	dl,80h		;is the channel a device?
 	jz	not_tty		;no, ...
@@ -17,6 +15,6 @@
 not_tty:
 	sub	ax,ax
 	pret
-	pend	isatty
+	pend	aztec_isatty
 	finish
 	end

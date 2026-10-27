@@ -12,24 +12,24 @@ aztec_movblock:
     les di, word [bp + 8]            ; 0x4523
     lds si, word [bp + 4]            ; 0x4526
     cmp cx, byte 4                   ; 0x4529
-    jne short .not_int               ; 0x452c
+    jne short .forward1              ; 0x452c
     cli                              ; 0x452e
-.not_int:
+.forward1:
     test cx, cx                      ; 0x452f
-    jne short .not_mov_all           ; 0x4531
+    jne short .forward2              ; 0x4531
     mov cx, 0x8000                   ; 0x4533
-    jmp short .movwords              ; 0x4536
-.not_mov_all:
+    jmp short .forward3              ; 0x4536
+.forward2:
     mov dx, cx                       ; 0x4538
     shr cx, 1                        ; 0x453a
-    je short .mv_skip                ; 0x453c
-.movwords:
+    je short .forward4               ; 0x453c
+.forward3:
     rep movsw                        ; 0x453e
-.mv_skip:
+.forward4:
     test dl, 1                       ; 0x4540
-    je short .done                   ; 0x4543
+    je short .forward5               ; 0x4543
     movsb                            ; 0x4545
-.done:
+.forward5:
     popf                             ; 0x4546
     pop es                           ; 0x4547
     pop ds                           ; 0x4548

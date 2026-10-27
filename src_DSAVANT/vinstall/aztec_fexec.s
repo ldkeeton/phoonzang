@@ -1,4 +1,3 @@
-; auto-generated
 ; Copyright (C) 1984 by Manx Software Systems
 ; :ts=8
 	include lmacros.h
@@ -11,18 +10,18 @@ fcb2	dw	?,?
 	extrn	errno_:word
 dataseg	ends
 	assume	ds:dataseg
-save_ss	dw	0
-save_sp	dw	0
-	procdef	fexec,<<filname,ptr>,<enva,word>,<clinea,ptr>,<fcb1a,ptr>,<fcb2a,ptr>>
+	extrn aztec_fexec_save_ss_:word
+save_ss equ aztec_fexec_save_ss_
+	extrn aztec_fexec_save_sp_:word
+save_sp equ aztec_fexec_save_sp_
+	procdef	aztec_fexec,<<filname,ptr>,<enva,word>,<clinea,ptr>,<fcb1a,ptr>,<fcb2a,ptr>>
 ;			char *fexec(name,env,cline,fcb1,fcb2)
 ;
-	push	si
-	push	di
+	pushs	si,di
 	pushf
 	push	[030H]
 	push	[02EH]
-	push	ds
-	push	es
+	pushs	ds,es
 	mov	cs:save_ss,ss
 	mov	cs:save_sp,sp
 ;
@@ -31,8 +30,7 @@ save_sp	dw	0
 	mov	ax,enva
 	mov	env,ax
 ifndef LONGPTR
-	mov	ax,ds
-	mov	es,ax
+	movseg	es,ds
 endif
 	ldptr	ax,clinea,es
 	mov	cline,ax
@@ -44,16 +42,13 @@ endif
 	mov	fcb2,ax
 	mov	fcb2+2,es
 ;
-	mov	ax,ds
-	mov	es,ax
+	movseg	es,ds
 	mov	bx,offset env	;param
 	ldptr	dx,filname,ds		;name of file to exec
-	mov	ax,04b00H
-	int	21h
+	dosx	04b00H
 	mov	ss,cs:save_ss
 	mov	sp,cs:save_sp
-	pop	es
-	pop	ds
+	pops	es,ds
 	jnc	noerror
 	mov	errno_,ax
 	mov	ax,-1
@@ -64,9 +59,8 @@ done:
 	pop	[02EH]
 	pop	[030H]
 	popf
-	pop	di
-	pop	si
+	pops	di,si
 	pret
-	pend	fexec
+	pend	aztec_fexec
 	finish
 	end

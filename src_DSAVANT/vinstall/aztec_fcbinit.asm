@@ -12,9 +12,9 @@ aztec_fcbinit:
     int 0x21 ; DOS function dispatcher
     and ax, 0xff                     ; 0x29ed
     cmp byte [es:di + 1], 0x20       ; 0x29f0
-    jne short .nameok                ; 0x29f5
+    jne short .forward1              ; 0x29f5
     mov ax, 0xffff                   ; 0x29f7
-.nameok:
+.forward1:
     pop si                           ; 0x29fa
     pop di                           ; 0x29fb
     pop bp                           ; 0x29fc

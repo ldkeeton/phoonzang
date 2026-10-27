@@ -1,12 +1,8 @@
-; auto-generated
 ;Copyright (C) 1983, 1985 by Manx Software Systems
 ; :ts=8
 	include	lmacros.h
-	procdef movblock,<<src,dword>,<dest,dword>,<len,word>>
-	push	di
-	push	si
-	push	ds
-	push	es
+	procdef aztec_movblock,<<src,dword>,<dest,dword>,<len,word>>
+	pushs	di,si,ds,es
 	pushf
 	cld
 	mov	cx,len
@@ -32,11 +28,8 @@ mv_skip:
 	movsb
 done:
 	popf
-	pop	es
-	pop	ds
-	pop	si
-	pop	di
+	pops	es,ds,si,di
 	pret
-	pend	movblock
+	pend	aztec_movblock
 	finish
 	end

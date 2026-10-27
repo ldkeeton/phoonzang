@@ -56,7 +56,7 @@ Wizardry VII seems to have been originally compiled with Manx Aztec v4.2b
 
 ## Wizardry VII coverage
 
-Progress: **229 / 1215** (18.8%).
+Progress: **269 / 1256** (21.4%).
 
 ![C coverage heatmap](readme/heatmap.svg)
  

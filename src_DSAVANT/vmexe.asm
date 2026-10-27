@@ -207,7 +207,7 @@ api_idx_005e_OJVJ.dseg1 equ dseg_90a6
 
 %include "shared/aztec/aztec_ovbgn.asm"           ; 0xa4ca
 
-%include "shared/aztec/aztec_cswit.asm"           ; 0xa508
+%include "shared/aztec/aztec_cswt.asm"            ; 0xa508
 
 %include "shared/aztec/aztec_swapmem.asm"         ; 0xa520
 

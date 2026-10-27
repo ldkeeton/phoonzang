@@ -385,6 +385,16 @@ def _build_project(project, run_batch, nasm_batch, *, only=None, report=print,
     report(f'\n=== {project} ({len(bins)} binaries) ===')
 
     emitted = {}    # {binary: its files}, written once the layout is final
+    source_failed = set()
+    generate_batch = run_batch
+
+    def run_batch(items):
+        failed, files = generate_batch(items)
+        # A source check can fail after exporting usable labels and ASM.
+        # Continue the dependent passes so their surrounding sources emit too.
+        source_failed.update(name for name in failed if name in files)
+        return [name for name in failed if name not in files], files
+
     progress.log(f'{project} | detecting cross-references')
     cross_refs = detect_cross_refs(app_dir, bins)
     progress.log(f'{project} | cross-references: {len(cross_refs)} consumer(s)')
@@ -410,6 +420,7 @@ def _build_project(project, run_batch, nasm_batch, *, only=None, report=print,
         early = [n for n in sorted(bins) if n not in source_names
                  and n not in family and n not in cross_refs
                  and n not in drivers]
+    completed = False
     pool = early_run = None
     early_emitted = {}
     if early:
@@ -502,11 +513,13 @@ def _build_project(project, run_batch, nasm_batch, *, only=None, report=print,
         if failed:
             report(f'{project}: asm generation failed: '
                    f'{", ".join(sorted(set(failed)))}')
-            report(f'{project}: skipping source sync and assembly because '
-                   'ASM generation failed')
+            report(f'{project}: skipping assembly because ASM generation failed')
             return failed
 
         stagelog.step('project.consumers', 0, metrics={'consumers': len(targets)})
+
+        if only is not None and source_failed:
+            return sorted(source_failed)
 
         if only is not None:
             # Sharing is a whole-tree decision: the binary's routines go back to
@@ -526,17 +539,16 @@ def _build_project(project, run_batch, nasm_batch, *, only=None, report=print,
             # in build_out, so only this binary's scope is pruned.
             _sync(out_dir, files, report, scopes=[f'{only}.asm', only],
                   shared=shared, source_moves=source_moves)
+            completed = True
             progress.log(f'{project} | copying assets for {only}')
             copy_assets(app_dir, os.path.join(out_dir, 'build_out'),
                         {bins[only][0]})
             progress.log(f'{project} | assembling {only}')
             return _batch(nasm_batch, [(only, bins[only][0])])
 
-        # A batch may finish every independent worker to collect diagnostics,
-        # but a failed generation must never replace the last usable source tree.
+        # A generation failure without output prevents dependent passes.
         if failed:
-            report(f'{project}: skipping source sync and assembly because '
-                   'ASM generation failed')
+            report(f'{project}: skipping assembly because ASM generation failed')
             return failed
 
         # 4. the host declares the union of the DS offsets its consumers reference
@@ -556,6 +568,10 @@ def _build_project(project, run_batch, nasm_batch, *, only=None, report=print,
                 return failed
             stagelog.step('project.host_emit', 0, 'recompute', repairs='project.export_sources',
                 why='the host\'s labels come first, its source waits for the overlay DS union')
+
+        if source_failed:
+            report(f'{project}: source checks failed; writing inspection output')
+            return sorted(source_failed)
 
         check_build_sidecar_use(project, bins)
         stagelog.step('project.sidecar_use', 0, 'measure',
@@ -586,6 +602,7 @@ def _build_project(project, run_batch, nasm_batch, *, only=None, report=print,
         # The headers are build outputs too; keep them through synchronization.
         files.update(headers)
         _sync(out_dir, files, report, shared=shared, source_moves=source_moves)
+        completed = True
         progress.log(f'{project} | copying assets')
         copy_assets(app_dir, os.path.join(out_dir, 'build_out'),
                     {rel for rel, _s in bins.values()})
@@ -598,6 +615,17 @@ def _build_project(project, run_batch, nasm_batch, *, only=None, report=print,
     finally:
         if pool is not None:
             pool.shutdown(wait=True)
+            emitted.update(early_emitted)
+        if not completed and emitted:
+            # Keep inspectable output even after failure; partial trees must
+            # never prune files belonging to a binary that did not emit.
+            files, _, _ = reshare_partial(merge_files(emitted), out_dir)
+            files.update(headers)
+            files = {rel: text for rel, text in files.items()
+                     if not hand_owned(os.path.join(out_dir, rel))}
+            written, unchanged, _ = sync(out_dir, files, scopes=[])
+            report(f'  Failure output: {written} written, '
+                   f'{unchanged} unchanged; no files removed')
 
 
 def _worker_kwargs(flags):
@@ -638,12 +666,18 @@ def inprocess_runners(project):
     runs = {}
 
     def run_batch(items):
-        emitted = {}
+        from .aztec import SourceBuildError
+        emitted, failed = {}, []
         for name, flags in items:
-            files = runs.setdefault(name, BinaryRun(p, name)).step(flags)
+            try:
+                files = runs.setdefault(name, BinaryRun(p, name)).step(flags)
+            except SourceBuildError as exc:
+                print(str(exc))
+                failed.append(name)
+                files = exc.files
             if files is not None:
                 emitted[name] = files
-        return [], emitted
+        return failed, emitted
 
     def nasm_batch(items):
         return [name for name, rel in items

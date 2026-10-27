@@ -214,6 +214,35 @@ class DeclarationOrderTest(unittest.TestCase):
         self.assertEqual(len(found), 1)
         self.assertEqual(found[0].line, 6)
 
+    def test_top_level_inline_assembly_does_not_poison_c_declarations(self):
+        text = ('#asm\nentry: mov ax,bx\n#endasm\n'
+                'static\nfoo()\n{\n\tint a;\n\treturn a;\n}\n')
+        self.assertEqual(list(self.rule.check(text, 'x.c')), [])
+
+    def test_declaration_after_inline_assembly_is_still_found(self):
+        text = ('foo()\n{\n#asm\nmov ax,bx\n#endasm\n'
+                '\tint late;\n}\n')
+        found = list(self.rule.check(text, 'x.c'))
+        self.assertEqual([item.line for item in found], [6])
+
+    def test_split_static_headers_preserve_declaration_checks(self):
+        text = ('static\nfirst()\n{\n\tint a;\n\ta = 1;\n}\n'
+                'static\nsecond()\n{\n\tint b;\n\tb = 1;\n\tint late;\n}\n')
+        found = list(self.rule.check(text, 'x.c'))
+        self.assertEqual([item.line for item in found], [12])
+
+    def test_typedef_declarations_do_not_count_as_statements(self):
+        text = ('typedef unsigned size_t;\n'
+                'typedef struct list {\n\tstruct list *next;\n} l_t;\n'
+                'foo()\n{\n\tl_t *p;\n\tsize_t n;\n\tchar *s;\n'
+                '\tn = 1;\n\tsize_t late;\n}\n')
+        found = list(self.rule.check(text, 'x.c'))
+        self.assertEqual([item.line for item in found], [11])
+
+    def test_multiline_declaration_continuation_is_accepted(self):
+        text = 'foo()\n{\n\tint a,\n\t    b;\n\tint c;\n\ta = b;\n}\n'
+        self.assertEqual(list(self.rule.check(text, 'x.c')), [])
+
 
 class CommaSpaceTest(unittest.TestCase):
     def setUp(self):
