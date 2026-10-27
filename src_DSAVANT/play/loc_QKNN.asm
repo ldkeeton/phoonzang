@@ -4,7 +4,7 @@ loc_QKNN:
     push dx                          ; 0x1303
     mov al, byte [cs:cseg_0d40 - IMAGE_BASE] ; 0x1304
     inc al                           ; 0x1308
-    call leaf_loc_VSLO               ; 0x130a
+    call leaf_loc_NRKL               ; 0x130a
     mov bx, cseg_1a3a - IMAGE_BASE   ; 0x130d
     mov al, byte [cs:cseg_0d3f - IMAGE_BASE] ; 0x1310
     shl al, 1                        ; 0x1314

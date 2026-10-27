@@ -110,27 +110,6 @@ def _prepare(app, *, prebuild=True):
         progress.log(f'{app} | prepare: done')
 
 
-def cmd_build_binary(app, binary):
-    app_dir = os.path.join(APPS, app)
-    out_dir = src_dir(app, PROJECT)
-    bins = discover_binaries(app_dir)
-    if binary not in bins:
-        print(f'Unknown binary "{binary}" in {app}')
-        print(f'Known: {", ".join(sorted(bins))}')
-        sys.exit(1)
-
-    _prepare(app)
-    if _verbose():
-        progress.log(f'{app}/{binary} | build start')
-    with Workers(app) as workers:
-        failed = build_project(app, _generate(workers), _assemble(out_dir),
-                               only=binary)
-    if failed:
-        workers.print_errors()
-        sys.exit(1)
-    print(f'build {app}/{binary} -> {bins[binary][0]}  [OK]')
-
-
 def _routine_donors(app, routine):
     """The binaries whose span sidecar contains *routine*."""
     from lib.cachedirs import spans_dir

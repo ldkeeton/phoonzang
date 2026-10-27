@@ -1,5 +1,5 @@
 ; auto-generated
-ds_dos_mem_loc_OHLH:
+ds_loc_OHLH:
     push bp                          ; 0x36bc
     mov bp, sp                       ; 0x36bd
     cld                              ; 0x36bf

@@ -15,6 +15,7 @@ from main.runner import process
 from capstone import Cs, CS_ARCH_X86, CS_MODE_16
 from lib.match.categorize import categorize_call_targets
 from lib.match.pattern import match_patterns
+from lib.model import PhaseContext, SeedInfo, TargetInfo
 
 
 def _disassemble(data):
@@ -24,6 +25,51 @@ def _disassemble(data):
 
 
 class FunctionCategoryTests(unittest.TestCase):
+    def test_decode_only_seeds_do_not_establish_function_entries(self):
+        ctx = PhaseContext(b'\x90' * 16, entry_points=[])
+        ctx.seeds = [SeedInfo(address=i, source_phase=phase,
+                              confidence=0.9, reason='test')
+                     for i, phase in enumerate((
+                         'error_handler', 'force_code', 'sidecar', 'pattern_seed'))]
+        self.assertEqual(ctx.function_entry_seeds, {2, 3})
+        self.assertEqual(len(ctx.seeds), 4)
+
+    def test_decode_only_seed_does_not_need_an_unused_label(self):
+        ctx = PhaseContext(b'\x90' * 16, entry_points=[])
+        ctx.seeds = [SeedInfo(4, 'error_handler', 0.9)]
+        ctx.code_targets[4] = TargetInfo(4, 'seed', 0.9)
+        ctx.entry_targets.add(4)
+        self.assertNotIn(4, ctx.label_target_set)
+        ctx.code_targets[4] = TargetInfo(4, 'direct_call', 1.0)
+        self.assertIn(4, ctx.label_target_set)
+
+    def test_string_ops_inside_named_function_do_not_create_an_entry(self):
+        # configure_music_device's shape: frame, saved registers, string ops,
+        # restored registers and return. The target at push di is internal.
+        data = bytes.fromhex('55 89 e5 06 57 ab 5f 07 5d c3')
+        labels = categorize_call_targets(
+            data, {0, 4}, {0: routine('configure_music_device', 0)},
+            instructions=_disassemble(data), function_roots={0},
+            bounded_targets={0},
+        )
+        self.assertNotIn(4, labels)
+
+    def test_proven_string_entry_keeps_its_category(self):
+        data = bytes.fromhex('57 ab 5f c3')
+        labels = categorize_call_targets(
+            data, {0}, {}, instructions=_disassemble(data),
+            function_roots={0}, bounded_targets={0},
+        )
+        self.assertEqual(labels[0], 'string_loc_0000')
+
+    def test_classified_body_does_not_borrow_string_ops_after_return(self):
+        data = bytes.fromhex('90 c3 ab c3')
+        labels = categorize_call_targets(
+            data, {0}, {}, instructions=_disassemble(data),
+            function_roots={0}, bounded_targets={0},
+        )
+        self.assertEqual(labels[0], 'leaf_loc_0000')
+
     def test_named_signature_anchors_to_call_target_prefix(self):
         data = bytes.fromhex('5b 55 8b ec 03 e0 3b e5 c3')
         known_db = {

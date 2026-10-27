@@ -6,7 +6,6 @@ IMAGE_BASE equ -0x0100
 %endif
 
 
-loc_LPSH.mouse_init1 equ mouse_init
 %include "shared/library/loc_LPSH.asm"                ; 0x0000
 
 loc_JTQK_0007.mouse_off1 equ mouse_off
@@ -122,7 +121,7 @@ loc_JTQK_001f.load_screen1 equ load_screen
 
 %include "shared/library/loc_JTQK_00d7.asm"           ; 0x00d7
 
-%include "shared/library/loc_JULP.asm"                ; 0x00db
+%include "shared/library/thunk_loc_JULP.asm"          ; 0x00db
 
 %include "shared/data/maze_mem_seg.asm"       ; 0x00e1
 
@@ -217,29 +216,14 @@ cseg_0d2e equ save_area_out_of_memory.cseg1
 
 %include "shared/library/area_restore_and_return.asm" ; 0x0d4f
 
-restore_area.dos_con_loc1 equ dos_con_loc_TMRV
-restore_area.loc1         equ loc_0deb
+cseg_0dc0 equ restore_area.cseg1
 %include "shared/library/restore_area.asm"            ; 0x0d57
-
-dos_con_loc_TMRV equ dos_con_loc_SUSK
-cseg_0dc0        equ dos_con_loc_SUSK.cseg1
-%include "shared/library/dos_con_loc_SUSK.asm"        ; 0x0db0
-
-loc_0deb equ loc_08ca
-%include "shared/library/loc_08ca.asm"                ; 0x0deb
 
 %include "shared/library/load_screen.asm"             ; 0x0df3
 
-save_screen.dos_con_loc1 equ dos_con_loc_KOIJ
-save_screen.dos_con_loc2 equ dos_con_loc_UNVT
+cseg_0f80 equ save_screen.cseg1
+cseg_0fbe equ save_screen.cseg2
 %include "shared/library/save_screen.asm"             ; 0x0ebd
-
-cseg_0f80 equ dos_con_loc_KOIJ.cseg1
-%include "shared/library/dos_con_loc_KOIJ.asm"        ; 0x0f70
-
-dos_con_loc_UNVT equ dos_con_loc_HUUH
-cseg_0fbe        equ dos_con_loc_HUUH.cseg1
-%include "shared/library/dos_con_loc_HUUH.asm"        ; 0x0fae
 
 %include "shared/data/maze_map_slots.asm"     ; 0x0fe7
 
@@ -249,27 +233,10 @@ cseg_0fbe        equ dos_con_loc_HUUH.cseg1
 
 %include "shared/data/maze_paras_used.asm"    ; 0x10cd
 
-load_maze.dos_con_loc1 equ dos_con_loc_OIUO
-load_maze.dos_con_loc2 equ dos_con_loc_GNNJ
-load_maze.loc1         equ loc_SMNJ
+cseg_125d equ load_maze.cseg1
+cseg_1231 equ load_maze.cseg2
+cseg_128c equ load_maze.cseg3
 %include "shared/library/load_maze.asm"               ; 0x10cf
-
-dos_con_loc_GNNJ.cseg1        equ cseg_125d
-loc_SMNJ                      equ dos_con_loc_GNNJ.loc1
-dos_con_loc_GNNJ.dos_con_loc1 equ dos_con_loc_MQHQ
-%include "shared/library/dos_con_loc_GNNJ.asm"        ; 0x10ff
-
-dos_con_loc_OIUO       equ dos_con_loc_NRMP
-dos_con_loc_NRMP.cseg1 equ cseg_1231
-%include "shared/library/dos_con_loc_NRMP.asm"        ; 0x1211
-
-dos_con_loc_MQHQ       equ dos_con_loc_GKGP
-dos_con_loc_GKGP.cseg1 equ cseg_128c
-%include "shared/library/dos_con_loc_GKGP.asm"        ; 0x1221
-
-%include "ega/data/cseg_1231.asm"          ; 0x1231
-
-%include "shared/library/loc_LQTO.asm"                ; 0x12bb
 
 %include "shared/library/leaf_loc_MIUO.asm"           ; 0x1355
 
@@ -285,8 +252,8 @@ leaf_loc_TPOL.cseg2 equ cseg_138e
 
 %include "shared/library/free_maze.asm"               ; 0x1490
 
-dos_con_loc_14fb equ draw_maze_piece.dos_con_loc1
-cseg_150b        equ draw_maze_piece.cseg1
+loc_14fb  equ draw_maze_piece.loc1
+cseg_150b equ draw_maze_piece.cseg1
 %include "shared/library/draw_maze_piece.asm"         ; 0x14d8
 
 %include "ega/mouse_init.asm"              ; 0x1719
@@ -310,10 +277,6 @@ mouse_hit_test.cseg3 equ cseg_2a06
 %include "shared/library/get_mouse.asm"               ; 0x1992
 
 %include "ega/set_mouse_pointer.asm"       ; 0x19c1
-
-dos_con_loc_NUII equ dos_con_loc_JJUT
-cseg_1aaf        equ dos_con_loc_JJUT.cseg1
-%include "shared/library/dos_con_loc_JJUT.asm"        ; 0x1a9f
 
 %include "ega/data/cseg_1ad5.asm"          ; 0x1ad5
 
@@ -343,18 +306,10 @@ leaf_loc_OLKS.cseg1 equ cseg_2a02
 
 %include "shared/library/free_picture.asm"            ; 0x303d
 
-load_picture.dos_con_loc1 equ dos_con_loc_QMKK
+loc_3176  equ load_picture.loc1
+cseg_3186 equ load_picture.cseg1
+cseg_31b6 equ load_picture.cseg2
 %include "shared/library/load_picture.asm"            ; 0x3085
-
-cseg_3186 equ dos_con_loc_KGLK.cseg1
-%include "shared/library/dos_con_loc_KGLK.asm"        ; 0x3176
-
-%include "shared/data/picture_error_tens.asm" ; 0x3196
-
-%include "shared/data/picture_error_ones.asm" ; 0x3197
-
-cseg_31b6 equ dos_con_loc_QMKK.cseg1
-%include "shared/library/dos_con_loc_QMKK.asm"        ; 0x31a6
 
 dissolve_area.show_area1 equ show_area
 %include "shared/library/dissolve_area.asm"           ; 0x31df
@@ -543,18 +498,11 @@ cseg_441e equ cache_area_maze_slots_full.cseg1
 
 %include "shared/library/restore_screen.asm"          ; 0x4457
 
-dos_file_loc_MUHV.loc1         equ loc_461f
-dos_file_loc_MUHV.dos_con_loc1 equ dos_con_loc_TORI
-%include "shared/library/dos_file_loc_MUHV.asm"       ; 0x45bd
+cseg_45fb equ dos_file_loc_MJUK.cseg1
+%include "shared/library/dos_file_loc_MJUK.asm"       ; 0x45bd
 
-dos_con_loc_TORI equ dos_con_loc_KVVK
-cseg_45fb        equ dos_con_loc_KVVK.cseg1
-%include "shared/library/dos_con_loc_KVVK.asm"        ; 0x45eb
-
-loc_461f equ loc_3d6d
-%include "shared/library/loc_3d6d.asm"                ; 0x461f
-
-cache_maze.dos_con_loc1 equ dos_con_loc_TUHU
+cache_maze.dos_file_loc1 equ dos_file_loc_MJUK
+cache_maze.loc1          equ loc_47f0
 %include "shared/library/cache_maze.asm"              ; 0x4624
 
 %include "shared/library/cache_maze_restore_and_return.asm" ; 0x47a0
@@ -564,10 +512,11 @@ cseg_47b8 equ cache_maze_slot_in_use.cseg1
 
 %include "shared/library/cache_maze_return_zero.asm"  ; 0x47ea
 
-dos_con_loc_TUHU equ dos_con_loc_JUQV
-cseg_4800        equ dos_con_loc_JUQV.cseg1
-%include "shared/library/dos_con_loc_JUQV.asm"        ; 0x47f0
+loc_47f0  equ loc_3f3e
+cseg_4800 equ loc_3f3e.cseg1
+%include "shared/library/loc_3f3e.asm"                ; 0x47f0
 
+cache_screen.dos_file_loc1 equ dos_file_loc_MJUK
 %include "shared/library/cache_screen.asm"            ; 0x4825
 
 %include "shared/library/cache_screen_restore_and_return.asm" ; 0x492b
@@ -582,23 +531,9 @@ cseg_498d equ cache_screen_out_of_ems.cseg1
 
 %include "shared/data/sound_slots.asm"        ; 0x49b4
 
-load_sound.dos_con_loc1 equ dos_con_loc_TVRM
-load_sound.loc1         equ loc_4b52
-load_sound.dos_con_loc2 equ dos_con_loc_LGMH
+cseg_4aea equ load_sound.cseg1
+cseg_4b26 equ load_sound.cseg2
 %include "shared/library/load_sound.asm"              ; 0x4a08
-
-dos_con_loc_TVRM equ dos_con_loc_KPVS
-cseg_4aea        equ dos_con_loc_KPVS.cseg1
-%include "shared/library/dos_con_loc_KPVS.asm"        ; 0x4ada
-
-dos_con_loc_LGMH equ dos_con_loc_KOGR
-cseg_4b26        equ dos_con_loc_KOGR.cseg1
-%include "shared/library/dos_con_loc_KOGR.asm"        ; 0x4b16
-
-loc_4b52              equ loc_42a0
-loc_4b9c              equ loc_42a0.loc1
-loc_42a0.dos_con_loc1 equ dos_con_loc_LGMH
-%include "shared/library/loc_42a0.asm"                ; 0x4b52
 
 %include "shared/library/string_loc_RQON.asm"         ; 0x4bb2
 
@@ -636,16 +571,9 @@ leaf_loc_RJJR equ leaf_loc_IQGS
 
 %include "shared/data/score_info.asm"         ; 0x4ea3
 
-load_score.dos_con_loc1 equ dos_con_loc_OOVK
-load_score.dos_con_loc2 equ dos_con_loc_LIIS
+cseg_4fd4 equ load_score.cseg1
+cseg_5010 equ load_score.cseg2
 %include "shared/library/load_score.asm"              ; 0x4ead
-
-cseg_4fd4 equ dos_con_loc_OOVK.cseg1
-%include "shared/library/dos_con_loc_OOVK.asm"        ; 0x4fc4
-
-dos_con_loc_LIIS equ dos_con_loc_HPIH
-cseg_5010        equ dos_con_loc_HPIH.cseg1
-%include "shared/library/dos_con_loc_HPIH.asm"        ; 0x5000
 
 %include "shared/library/play_score.asm"              ; 0x503c
 

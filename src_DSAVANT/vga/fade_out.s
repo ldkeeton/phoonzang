@@ -2,7 +2,7 @@
 codeseg	segment	byte public 'code'
 	assume	cs:codeseg
 	extrn	delay_hook:dword
-	public	fade_out_,dos_mem_loc_QHMQ_
+	public	fade_out_,fade_out_no_memory_exit_
 palette_seg	equ	-2
 changed	equ	-4
 target_rgb	equ	-10
@@ -26,7 +26,7 @@ fade_out_	proc	near
 	mov	ah,48h
 	mov	bx,30h		;DOS allocate 48 paragraphs
 	int	21h
-	jnear	c,dos_mem_loc_QHMQ_
+	jnear	c,fade_out_no_memory_exit_
 	mov	word ptr [bp+palette_seg],ax
 	mov	ax,1017h
 	xor	bx,bx
@@ -101,12 +101,12 @@ palette_done:
 	ret
 fade_out_	endp
 ; Report allocation failure and exit with status 1.
-dos_mem_loc_QHMQ_	proc	near
+fade_out_no_memory_exit_	proc	near
 	movseg	ds,cs
 	mov	dx,offset no_memory_msg
 	dos	9
 	dosx	4c01h
-dos_mem_loc_QHMQ_	endp
+fade_out_no_memory_exit_	endp
 no_memory_msg	db	0dh,0ah,7,'Memory unavailable in fade_out().',0,0ah,'$'
 codeseg	ends
 	end

@@ -450,57 +450,57 @@ jumptable_147e_case_0:
     mov word [bss_9b08], 8           ; 0x149f
     mov ax, 0xffff                   ; 0x14a5
     cmp word [bp + 4], byte 1        ; 0x14a8
-    jle short api_idx_0012_UROU.forward52 ; 0x14ac
+    jle short api_idx_0012_UROU.forward53 ; 0x14ac
     mov ax, 0x16                     ; 0x14ae
-api_idx_0012_UROU.forward52:
+api_idx_0012_UROU.forward53:
     mov word [bss_9afc], ax          ; 0x14b1
     mov ax, 0xffff                   ; 0x14b4
     cmp word [bp + 4], byte 1        ; 0x14b7
-    jle short api_idx_0012_UROU.forward53 ; 0x14bb
+    jle short api_idx_0012_UROU.forward54 ; 0x14bb
     mov ax, 0x17                     ; 0x14bd
-api_idx_0012_UROU.forward53:
+api_idx_0012_UROU.forward54:
     mov word [bss_9b04], ax          ; 0x14c0
     mov ax, word [bss_9af0]          ; 0x14c3
     cmp word [bp + 4], byte 3        ; 0x14c6
-    jle short api_idx_0012_UROU.forward54 ; 0x14ca
+    jle short api_idx_0012_UROU.forward55 ; 0x14ca
     mov ax, 0x1a                     ; 0x14cc
-api_idx_0012_UROU.forward54:
+api_idx_0012_UROU.forward55:
     mov word [bss_9ae2], ax          ; 0x14cf
     mov ax, word [bss_9af0]          ; 0x14d2
     cmp word [bp + 4], byte 3        ; 0x14d5
-    jle short api_idx_0012_UROU.forward55 ; 0x14d9
+    jle short api_idx_0012_UROU.forward56 ; 0x14d9
     mov ax, 0x1b                     ; 0x14db
-api_idx_0012_UROU.forward55:
+api_idx_0012_UROU.forward56:
     mov word [bss_9ae4], ax          ; 0x14de
     mov ax, word [bss_9af0]          ; 0x14e1
     cmp word [bp + 4], byte 3        ; 0x14e4
-    jle short api_idx_0012_UROU.forward56 ; 0x14e8
+    jle short api_idx_0012_UROU.forward57 ; 0x14e8
     mov ax, 0x1c                     ; 0x14ea
-api_idx_0012_UROU.forward56:
+api_idx_0012_UROU.forward57:
     mov word [bss_9aee], ax          ; 0x14ed
     mov ax, word [bss_9af0]          ; 0x14f0
     cmp word [bp + 4], byte 3        ; 0x14f3
-    jle short api_idx_0012_UROU.forward57 ; 0x14f7
+    jle short api_idx_0012_UROU.forward58 ; 0x14f7
     mov ax, 0x1e                     ; 0x14f9
-api_idx_0012_UROU.forward57:
+api_idx_0012_UROU.forward58:
     mov word [bss_9aec], ax          ; 0x14fc
     mov ax, word [bss_9af0]          ; 0x14ff
     cmp word [bp + 4], byte 3        ; 0x1502
-    jle short api_idx_0012_UROU.forward58 ; 0x1506
+    jle short api_idx_0012_UROU.forward59 ; 0x1506
     mov ax, 0x1d                     ; 0x1508
-api_idx_0012_UROU.forward58:
+api_idx_0012_UROU.forward59:
     mov word [bss_9ae8], ax          ; 0x150b
     mov ax, word [bss_9af0]          ; 0x150e
     cmp word [bp + 4], byte 3        ; 0x1511
-    jle short api_idx_0012_UROU.forward59 ; 0x1515
+    jle short api_idx_0012_UROU.forward60 ; 0x1515
     mov ax, 0x1f                     ; 0x1517
-api_idx_0012_UROU.forward59:
+api_idx_0012_UROU.forward60:
     mov word [bss_9ae6], ax          ; 0x151a
     mov word [bp - 2], 0             ; 0x151d
-    jmp short api_idx_0012_UROU.forward61 ; 0x1522
+    jmp short api_idx_0012_UROU.forward62 ; 0x1522
 api_idx_0012_UROU.back1:
     mov word [bp - 4], 0             ; 0x1524
-    jmp short api_idx_0012_UROU.forward60 ; 0x1529
+    jmp short api_idx_0012_UROU.forward61 ; 0x1529
 api_idx_0012_UROU.back2:
     mov ax, word [bss_9af0]          ; 0x152b
     push ax                          ; 0x152e
@@ -516,13 +516,13 @@ api_idx_0012_UROU.back2:
     mov word [bx + bss_9346], 0xffff ; 0x1545
     mov word [bx + bss_95d0], 0xffff ; 0x154b
     inc word [bp - 4]                ; 0x1551
-api_idx_0012_UROU.forward60:
+api_idx_0012_UROU.forward61:
     mov ax, word [bp - 8]            ; 0x1554
     inc ax                           ; 0x1557
     cmp ax, word [bp - 4]            ; 0x1558
     jge short api_idx_0012_UROU.back2 ; 0x155b
     inc word [bp - 2]                ; 0x155d
-api_idx_0012_UROU.forward61:
+api_idx_0012_UROU.forward62:
     mov ax, word [bp - 6]            ; 0x1560
     inc ax                           ; 0x1563
     cmp ax, word [bp - 2]            ; 0x1564
@@ -544,23 +544,23 @@ api_idx_0012_UROU.forward61:
     call gfx_fill_area               ; 0x158d
     add sp, byte 0xa                 ; 0x1590
     mov word [bp - 4], 1             ; 0x1593
-    jmp short api_idx_0012_UROU.forward66 ; 0x1598
+    jmp short api_idx_0012_UROU.forward67 ; 0x1598
 api_idx_0012_UROU.back3:
     mov word [bp - 2], 1             ; 0x159a
-    jmp short api_idx_0012_UROU.forward65 ; 0x159f
+    jmp short api_idx_0012_UROU.forward66 ; 0x159f
 api_idx_0012_UROU.back4:
     cmp word [bss_9858], byte 0      ; 0x15a1
-    jne short api_idx_0012_UROU.forward62 ; 0x15a6
+    jne short api_idx_0012_UROU.forward63 ; 0x15a6
     cmp word [bp + 6], byte 0        ; 0x15a8
-    jne short api_idx_0012_UROU.forward63 ; 0x15ac
+    jne short api_idx_0012_UROU.forward64 ; 0x15ac
     cmp word [bp + 4], byte 4        ; 0x15ae
-    jle short api_idx_0012_UROU.forward63 ; 0x15b2
-api_idx_0012_UROU.forward62:
-    mov ax, 1                        ; 0x15b4
-    jmp short api_idx_0012_UROU.forward64 ; 0x15b7
+    jle short api_idx_0012_UROU.forward64 ; 0x15b2
 api_idx_0012_UROU.forward63:
-    mov ax, 0                        ; 0x15b9
+    mov ax, 1                        ; 0x15b4
+    jmp short api_idx_0012_UROU.forward65 ; 0x15b7
 api_idx_0012_UROU.forward64:
+    mov ax, 0                        ; 0x15b9
+api_idx_0012_UROU.forward65:
     push ax                          ; 0x15bc
     push word [bp - 4]               ; 0x15bd
     push word [bp - 2]               ; 0x15c0
@@ -578,43 +578,43 @@ api_idx_0012_UROU.forward64:
     call api_idx_0014_HTUV           ; 0x15db
     add sp, byte 0xa                 ; 0x15de
     inc word [bp - 2]                ; 0x15e1
-api_idx_0012_UROU.forward65:
+api_idx_0012_UROU.forward66:
     mov ax, word [bp - 2]            ; 0x15e4
     cmp ax, word [bp - 6]            ; 0x15e7
     jle short api_idx_0012_UROU.back4 ; 0x15ea
     inc word [bp - 4]                ; 0x15ec
-api_idx_0012_UROU.forward66:
+api_idx_0012_UROU.forward67:
     mov ax, word [bp - 4]            ; 0x15ef
     cmp ax, word [bp - 8]            ; 0x15f2
     jle short api_idx_0012_UROU.back3 ; 0x15f5
     cmp word [bp + 4], byte 1        ; 0x15f7
-    jle short api_idx_0012_UROU.forward69 ; 0x15fb
+    jle short api_idx_0012_UROU.forward70 ; 0x15fb
     mov word [bp - 4], 1             ; 0x15fd
-    jmp short api_idx_0012_UROU.forward68 ; 0x1602
+    jmp short api_idx_0012_UROU.forward69 ; 0x1602
 api_idx_0012_UROU.back5:
     mov word [bp - 2], 1             ; 0x1604
-    jmp short api_idx_0012_UROU.forward67 ; 0x1609
+    jmp short api_idx_0012_UROU.forward68 ; 0x1609
 api_idx_0012_UROU.back6:
     push word [bp - 4]               ; 0x160b
     push word [bp - 2]               ; 0x160e
     call loc_GTJK                    ; 0x1611
     add sp, byte 4                   ; 0x1614
     inc word [bp - 2]                ; 0x1617
-api_idx_0012_UROU.forward67:
+api_idx_0012_UROU.forward68:
     mov ax, word [bp - 2]            ; 0x161a
     cmp ax, word [bp - 6]            ; 0x161d
     jle short api_idx_0012_UROU.back6 ; 0x1620
     inc word [bp - 4]                ; 0x1622
-api_idx_0012_UROU.forward68:
+api_idx_0012_UROU.forward69:
     mov ax, word [bp - 4]            ; 0x1625
     cmp ax, word [bp - 8]            ; 0x1628
     jle short api_idx_0012_UROU.back5 ; 0x162b
-api_idx_0012_UROU.forward69:
+api_idx_0012_UROU.forward70:
     mov word [bp - 4], 1             ; 0x162d
-    jmp short api_idx_0012_UROU.forward72 ; 0x1632
+    jmp short api_idx_0012_UROU.forward73 ; 0x1632
 api_idx_0012_UROU.back7:
     mov word [bp - 2], 1             ; 0x1634
-    jmp short api_idx_0012_UROU.forward71 ; 0x1639
+    jmp short api_idx_0012_UROU.forward72 ; 0x1639
 api_idx_0012_UROU.back8:
     mov ax, 0x24                     ; 0x163b
     imul word [bp - 2]               ; 0x163e
@@ -623,7 +623,7 @@ api_idx_0012_UROU.back8:
     add ax, cx                       ; 0x1646
     mov bx, ax                       ; 0x1648
     cmp word [bx + bss_90ba], byte -1 ; 0x164a
-    je short api_idx_0012_UROU.forward70 ; 0x164f
+    je short api_idx_0012_UROU.forward71 ; 0x164f
     mov ax, 0                        ; 0x1651
     push ax                          ; 0x1654
     push ax                          ; 0x1655
@@ -636,22 +636,22 @@ api_idx_0012_UROU.back8:
     push ax                          ; 0x1663
     call draw_grid_cell_char         ; 0x1664
     add sp, byte 0xa                 ; 0x1667
-api_idx_0012_UROU.forward70:
-    inc word [bp - 2]                ; 0x166a
 api_idx_0012_UROU.forward71:
+    inc word [bp - 2]                ; 0x166a
+api_idx_0012_UROU.forward72:
     mov ax, word [bp - 2]            ; 0x166d
     cmp ax, word [bp - 6]            ; 0x1670
     jle short api_idx_0012_UROU.back8 ; 0x1673
     inc word [bp - 4]                ; 0x1675
-api_idx_0012_UROU.forward72:
+api_idx_0012_UROU.forward73:
     mov ax, word [bp - 4]            ; 0x1678
     cmp ax, word [bp - 8]            ; 0x167b
     jle short api_idx_0012_UROU.back7 ; 0x167e
     mov word [bp - 4], 0             ; 0x1680
-    jmp short api_idx_0012_UROU.forward76 ; 0x1685
+    jmp short api_idx_0012_UROU.forward77 ; 0x1685
 api_idx_0012_UROU.back9:
     mov word [bp - 2], 0             ; 0x1687
-    jmp short api_idx_0012_UROU.forward75 ; 0x168c
+    jmp short api_idx_0012_UROU.forward76 ; 0x168c
 api_idx_0012_UROU.back10:
     mov ax, 0x24                     ; 0x168e
     imul word [bp - 2]               ; 0x1691
@@ -660,7 +660,7 @@ api_idx_0012_UROU.back10:
     add ax, cx                       ; 0x1699
     mov bx, ax                       ; 0x169b
     cmp word [bx + bss_9346], byte -1 ; 0x169d
-    je short api_idx_0012_UROU.forward73 ; 0x16a2
+    je short api_idx_0012_UROU.forward74 ; 0x16a2
     mov ax, 0xffff                   ; 0x16a4
     push ax                          ; 0x16a7
     push ax                          ; 0x16a8
@@ -673,7 +673,7 @@ api_idx_0012_UROU.back10:
     push ax                          ; 0x16b6
     call draw_grid_cell_char         ; 0x16b7
     add sp, byte 0xa                 ; 0x16ba
-api_idx_0012_UROU.forward73:
+api_idx_0012_UROU.forward74:
     mov ax, 0x24                     ; 0x16bd
     imul word [bp - 2]               ; 0x16c0
     mov cx, word [bp - 4]            ; 0x16c3
@@ -681,7 +681,7 @@ api_idx_0012_UROU.forward73:
     add ax, cx                       ; 0x16c8
     mov bx, ax                       ; 0x16ca
     cmp word [bx + bss_95d0], byte -1 ; 0x16cc
-    je short api_idx_0012_UROU.forward74 ; 0x16d1
+    je short api_idx_0012_UROU.forward75 ; 0x16d1
     mov ax, 0xffff                   ; 0x16d3
     push ax                          ; 0x16d6
     push ax                          ; 0x16d7
@@ -694,26 +694,26 @@ api_idx_0012_UROU.forward73:
     push ax                          ; 0x16e5
     call draw_grid_cell_char         ; 0x16e6
     add sp, byte 0xa                 ; 0x16e9
-api_idx_0012_UROU.forward74:
-    inc word [bp - 2]                ; 0x16ec
 api_idx_0012_UROU.forward75:
+    inc word [bp - 2]                ; 0x16ec
+api_idx_0012_UROU.forward76:
     mov ax, word [bp - 6]            ; 0x16ef
     inc ax                           ; 0x16f2
     cmp ax, word [bp - 2]            ; 0x16f3
     jge short api_idx_0012_UROU.back10 ; 0x16f6
     inc word [bp - 4]                ; 0x16f8
-api_idx_0012_UROU.forward76:
+api_idx_0012_UROU.forward77:
     mov ax, word [bp - 8]            ; 0x16fb
     inc ax                           ; 0x16fe
     cmp ax, word [bp - 4]            ; 0x16ff
     jge short api_idx_0012_UROU.back9 ; 0x1702
     cmp word [bss_9858], byte 0      ; 0x1704
-    je short api_idx_0012_UROU.forward80 ; 0x1709
+    je short api_idx_0012_UROU.forward81 ; 0x1709
     mov word [bp - 4], 0             ; 0x170b
-    jmp short api_idx_0012_UROU.forward79 ; 0x1710
+    jmp short api_idx_0012_UROU.forward80 ; 0x1710
 api_idx_0012_UROU.back11:
     mov word [bp - 2], 0             ; 0x1712
-    jmp short api_idx_0012_UROU.forward78 ; 0x1717
+    jmp short api_idx_0012_UROU.forward79 ; 0x1717
 api_idx_0012_UROU.back12:
     mov ax, 0x24                     ; 0x1719
     imul word [bp - 2]               ; 0x171c
@@ -722,7 +722,7 @@ api_idx_0012_UROU.back12:
     add ax, cx                       ; 0x1724
     mov bx, ax                       ; 0x1726
     cmp word [bx + bss_985a], byte 1 ; 0x1728
-    jne short api_idx_0012_UROU.forward77 ; 0x172d
+    jne short api_idx_0012_UROU.forward78 ; 0x172d
     mov ax, word [bp - 4]            ; 0x172f
     dec ax                           ; 0x1732
     push ax                          ; 0x1733
@@ -731,18 +731,18 @@ api_idx_0012_UROU.back12:
     push ax                          ; 0x1738
     call loc_TIPV                    ; 0x1739
     add sp, byte 4                   ; 0x173c
-api_idx_0012_UROU.forward77:
-    inc word [bp - 2]                ; 0x173f
 api_idx_0012_UROU.forward78:
+    inc word [bp - 2]                ; 0x173f
+api_idx_0012_UROU.forward79:
     mov ax, word [bp - 2]            ; 0x1742
     cmp ax, word [bp - 6]            ; 0x1745
     jle short api_idx_0012_UROU.back12 ; 0x1748
     inc word [bp - 4]                ; 0x174a
-api_idx_0012_UROU.forward79:
+api_idx_0012_UROU.forward80:
     mov ax, word [bp - 4]            ; 0x174d
     cmp ax, word [bp - 8]            ; 0x1750
     jle short api_idx_0012_UROU.back11 ; 0x1753
-api_idx_0012_UROU.forward80:
+api_idx_0012_UROU.forward81:
     mov ax, 7                        ; 0x1755
     imul word [bp - 8]               ; 0x1758
     add ax, word [grid_origin_y]     ; 0x175b
@@ -809,9 +809,9 @@ api_idx_0012_UROU.forward80:
 api_idx_0012_UROU.back13:
     call poll_fullscreen_hotspot     ; 0x17f2
     test ax, ax                      ; 0x17f5
-    je short api_idx_0012_UROU.forward81 ; 0x17f7
-    jmp near api_idx_0012_UROU.forward82 ; 0x17f9
-api_idx_0012_UROU.forward81:
+    je short api_idx_0012_UROU.forward82 ; 0x17f7
+    jmp near api_idx_0012_UROU.forward83 ; 0x17f9
+api_idx_0012_UROU.forward82:
     mov ax, 0                        ; 0x17fc
     push ax                          ; 0x17ff
     push ax                          ; 0x1800
@@ -916,7 +916,7 @@ api_idx_0012_UROU.forward81:
     call delay_ms                    ; 0x18eb
     pop cx                           ; 0x18ee
     jmp near api_idx_0012_UROU.back13 ; 0x18ef
-api_idx_0012_UROU.forward82:
+api_idx_0012_UROU.forward83:
     mov ax, 1                        ; 0x18f2
     push ax                          ; 0x18f5
     push word [bp - 0x10]            ; 0x18f6

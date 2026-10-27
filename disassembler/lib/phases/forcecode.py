@@ -73,7 +73,9 @@ class ForceCodePhase(Phase):
                 p = off - i
                 if ctx.is_hard_data(p):
                     continue
-                if data[p] == 0x55:
+                # A byte spelling PUSH BP is common in data/immediates. Only
+                # a complete frame prologue can move a known entry backward.
+                if data[p:p + 3] in (b'\x55\x89\xe5', b'\x55\x8b\xec'):
                     try:
                         prev = list(md.disasm(data[p:off], p))
                     except Exception:

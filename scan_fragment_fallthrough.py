@@ -6,6 +6,8 @@ Resolves per-binary label aliases and filters known DOS termination paths.
 Direct jumps may indicate shared implementations or ordinary tail calls. This is a
 source-level candidate scan, not proof that routines should be merged:
 independent entry points, shared epilogues and decoded data need review.
+Fallthrough into an independently called entry is omitted from reports,
+mirroring the disassembler's direct-call routine roots (not proof of intent).
 Offsets come from include comments; instruction sizes are not verified.
 """
 
@@ -259,6 +261,25 @@ def scan(root, binaries=(), show_rejected=False):
             return next((row for row in fragments[fid]['rows'][start:]
                          if not row.endswith(':')), '')
 
+        def independently_called_entry(source, destination):
+            # A call to an interior block does not establish this boundary.
+            # Unlike diagnostic references, root evidence must be reachable.
+            entry = next((i for i, row in enumerate(fragments[destination]['rows'])
+                          if not row.endswith(':')), None)
+            callers = []
+            for fid, index, (_, (_, target_index)) in references[destination]:
+                row = fragments[fid]['rows'][index]
+                if (fid not in (source, destination)
+                        and row.split()[0].lower() == 'call'
+                        and index in flows[fid][1]
+                        and target_index <= entry):
+                    callers.append(fragments[fid]['path'])
+            # A body branching back into the prefix needs ownership review.
+            if any(fid == destination and is_branch(fragments[fid]['rows'][index])
+                   for fid, index, _ in references[source]):
+                return []
+            return sorted(set(callers))
+
         def add(source, destination, operation, first, reachable, notes):
             key = (fragments[source]['path'], fragments[destination]['path'],
                    operation, first, reachable)
@@ -282,7 +303,12 @@ def scan(root, binaries=(), show_rejected=False):
                 continue
             reachable = flows[source][0]
             if reachable or show_rejected:
-                add(source, destination, last, first, reachable, ['edge: fallthrough'])
+                notes = ['edge: fallthrough']
+                callers = independently_called_entry(source, destination) if reachable else []
+                if callers and first.split()[0].lower() not in DATA:
+                    notes.append(f'{master.stem}: intentional entry-prefix fallthrough; '
+                                 'destination entry independently called from ' + ', '.join(callers))
+                add(source, destination, last, first, reachable, notes)
 
         for destination, refs in references.items():
             entry_index = next((i for i, row in enumerate(fragments[destination]['rows'])
@@ -329,12 +355,79 @@ def scan(root, binaries=(), show_rejected=False):
     return hits, details
 
 
+def edge_status(key, locations, notes):
+    """Keep mixed evidence across binaries a candidate, rather than hiding it."""
+    if not key[4]:
+        return 'rejected'
+    recognized = {note.split(':', 1)[0] for note in notes
+                  if ': intentional entry-prefix fallthrough;' in note}
+    if all(location.split(':', 1)[0] in recognized for location in locations):
+        return 'intentional'
+    return 'candidate'
+
+
+def merge_items(report):
+    """Fold edges that differ only in the source instruction into one item."""
+    merged = {}
+    for item in report:
+        key = (item['source'], item['destination'], item['first'], item['status'])
+        if key not in merged:
+            merged[key] = dict(item, last=[], locations=[], notes=[])
+        group = merged[key]
+        for field, values in (('last', [item['last']]), ('locations', item['locations']),
+                              ('notes', item['notes'])):
+            group[field] += [value for value in values if value not in group[field]]
+    return list(merged.values())
+
+
+def format_item(number, item):
+    """Render one edge as a block: header, endpoints, then notes per binary."""
+    binaries = list(dict.fromkeys(location.split(':', 1)[0] for location in item['locations']))
+    edges, general, per_binary = [], [], collections.defaultdict(list)
+    for note in item['notes']:
+        prefix, _, text = note.partition(': ')
+        if prefix == 'edge':
+            edges.append(text)
+            continue
+        if prefix not in binaries:
+            general.append(note)
+            continue
+        # The branch instruction is already shown under from:.
+        text = text[text.index('resolves to '):] if ' resolves to ' in text else text
+        if text not in per_binary[prefix]:
+            per_binary[prefix].append(text)
+    shared = [text for text in per_binary[binaries[0]]
+              if all(text in per_binary[binary] for binary in binaries)]
+    tag = ' [unreachable]' if item['status'] == 'rejected' else ''
+    lines = [f'#{number}{tag} {" + ".join(edges)}',
+             f'  from: {item["source"]}']
+    lines += [f'        {last}' for last in item['last']]
+    lines += [f'  to:   {item["destination"]}',
+              f'        {item["first"]}',
+              f'  at:   {", ".join(item["locations"])}']
+    lines += [f'  note: {note}' for note in general + shared]
+    for binary in binaries:
+        texts = [text for text in per_binary[binary] if text not in shared]
+        if not texts:
+            continue
+        lines.append(f'  {binary}:')
+        for text in texts:
+            head, sep, callers = text.partition(' called from ')
+            if sep and ', ' in callers:
+                lines.append(f'    - {head} called from:')
+                lines += [f'        {caller}' for caller in callers.split(', ')]
+            else:
+                lines.append(f'    - {text}')
+    return '\n'.join(lines)
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('root', nargs='?', type=pathlib.Path,
                         default=pathlib.Path(__file__).resolve().parent / 'src_DSAVANT')
     parser.add_argument('--binary', action='append', default=[], help='binary to scan (repeatable)')
-    parser.add_argument('--all', action='store_true', help='also show rejected textual candidates')
+    parser.add_argument('--all', action='store_true',
+                        help='also show edges whose source is unreachable')
     parser.add_argument('--json', action='store_true', help='emit a machine-readable report')
     args = parser.parse_args(argv)
     try:
@@ -342,19 +435,17 @@ def main(argv=None):
     except (OSError, ValueError) as exc:
         parser.error(str(exc))
     report = [dict(source=a, destination=b, last=last, first=start,
-                   status='candidate' if reachable else 'rejected',
+                   status=edge_status(key, locations, details[key]),
                    locations=locations, notes=details[key])
               for key, locations in hits.items()
               for a, b, last, start, reachable in [key]]
+    report = [item for item in report if item['status'] != 'intentional']
     if args.json:
-        print(json.dumps(report, indent=2))
+        print(json.dumps(report))
     else:
-        for item in report:
-            print(f'[{item["status"]}] {item["source"]} -> {item["destination"]}\n'
-                  f'  {item["last"]} -> {item["first"]} [{", ".join(item["locations"])}]')
-            for note in item['notes']:
-                print(f'  {note}')
-        print('\n' + FOLLOW_UP_PROMPT)
+        for number, item in enumerate(merge_items(report), 1):
+            print(format_item(number, item) + '\n')
+        print('-' * 72 + '\n' + FOLLOW_UP_PROMPT)
 
 
 if __name__ == '__main__':

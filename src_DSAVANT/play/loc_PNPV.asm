@@ -1,5 +1,5 @@
 ; auto-generated
-io_loc_PNPV:
+loc_PNPV:
     push ax                          ; 0x099f
     push ds                          ; 0x09a0
     push dx                          ; 0x09a1
@@ -16,9 +16,9 @@ __zinsn_09a8:
 __zinsn_09b6:
     add byte [cs:sample_step_fraction - IMAGE_BASE], 0x80 ; 0x09b6
     adc word [cs:cseg_09a9 - IMAGE_BASE], byte 0 ; 0x09bc
-    jb short loc_0969                ; 0x09c2
+    jb short loc_PNPV.back2          ; 0x09c2
     dec word [cs:tick_divider - IMAGE_BASE] ; 0x09c4
-    je short loc_095d                ; 0x09c9
+    je short loc_PNPV.back1          ; 0x09c9
     mov al, 0x20                     ; 0x09cb
     out 0x20, al                     ; 0x09cd
     pop bx                           ; 0x09cf

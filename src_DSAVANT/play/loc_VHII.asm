@@ -1,5 +1,5 @@
 ; auto-generated
-io_loc_VHII:
+loc_VHII:
     push ax                          ; 0x18cb
     push bx                          ; 0x18cc
     mov al, byte [cs:cseg_0d40 - IMAGE_BASE] ; 0x18cd

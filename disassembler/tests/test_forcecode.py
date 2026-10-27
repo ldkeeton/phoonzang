@@ -54,10 +54,20 @@ class ForceCodeSwitchCaseTests(unittest.TestCase):
         return ForceCodePhase().run(None, ctx).to_numpy()
 
     def test_a_function_label_scans_back_for_its_prologue(self):
+        data = b'\x55\x89\xe5' + b'\x90' * 4 + b'\xc3'
+        label = Symbol('io_loc_KXYZ', kind=Kind.ROUTINE, source=Source.TAG,
+                       offset=7)
+        ctx = _ctx(data, 'unused')
+        ctx.label_map = {7: label}
+        result = ForceCodePhase().run(None, ctx).to_numpy()
+        self.assertTrue(all(result[i] > 0.5 for i in range(7)))
+
+    def test_a_lone_push_bp_before_a_function_does_not_prove_a_prologue(self):
         label = Symbol('io_loc_KXYZ', kind=Kind.ROUTINE, source=Source.TAG,
                        offset=7)
         result = self._forced(label)
-        self.assertTrue(all(result[i] > 0.5 for i in range(7)))
+        self.assertTrue(all(result[i] == 0.0 for i in range(7)))
+        self.assertGreater(result[7], 0.5)
 
     def test_a_switch_case_is_not_a_function_entry(self):
         label = Symbol('jumptable_0010_case_1', kind=Kind.ROUTINE,

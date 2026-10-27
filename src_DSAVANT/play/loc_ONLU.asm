@@ -24,8 +24,8 @@ loc_NLST:
     ret                              ; 0x11b2
 jumptable_11b3:
     dw loc_PLIR - IMAGE_BASE                   ; 0x11b3
-    dw io_loc_VHII - IMAGE_BASE                ; 0x11b5
-    dw string_loc_OSJN - IMAGE_BASE            ; 0x11b7
-    dw string_loc_OSJN - IMAGE_BASE            ; 0x11b9
-    dw io_loc_VHII - IMAGE_BASE                ; 0x11bb
+    dw loc_VHII - IMAGE_BASE                   ; 0x11b5
+    dw loc_OSJN - IMAGE_BASE                   ; 0x11b7
+    dw loc_OSJN - IMAGE_BASE                   ; 0x11b9
+    dw loc_VHII - IMAGE_BASE                   ; 0x11bb
     dw loc_PLIR - IMAGE_BASE                   ; 0x11bd

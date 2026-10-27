@@ -22,7 +22,7 @@ fade_out:
     mov bx, 0x30                     ; 0x291b
     int 0x21 ; DOS allocate memory
     jae short .forward1              ; 0x2920
-    jmp near dos_mem_loc_QHMQ        ; 0x2922
+    jmp near fade_out_no_memory_exit ; 0x2922
 .forward1:
     mov word [bp - 2], ax            ; 0x2925
     mov ax, 0x1017                   ; 0x2928
@@ -104,7 +104,7 @@ fade_out:
     mov sp, bp                       ; 0x29bb
     pop bp                           ; 0x29bd
     ret                              ; 0x29be
-dos_mem_loc_QHMQ:
+fade_out_no_memory_exit:
     mov ax, cs                       ; 0x29bf
     mov ds, ax                       ; 0x29c1
     mov dx, cseg_29cf - IMAGE_BASE   ; 0x29c3

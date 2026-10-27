@@ -17,7 +17,7 @@ load_score:
     mov ax, word [cs:bx]
     or ax, ax
     je short .forward1
-    jmp near load_score.dos_con_loc1
+    jmp near .forward5
 .forward1:
     mov bx, word [bp + 0x12]
     shl bx, 1
@@ -88,7 +88,7 @@ load_score:
     add ax, word [cs:maze_paras_used - IMAGE_BASE]
     cmp ax, 0x4180
     jb short .forward3
-    jmp near load_score.dos_con_loc2
+    jmp near .forward6
 .forward3:
     mov word [cs:maze_paras_used - IMAGE_BASE], ax
     mov ax, word [cs:bx]
@@ -117,3 +117,31 @@ load_score:
     mov sp, bp
     pop bp
     ret
+.forward5:
+    mov ax, cs
+    mov ds, ax
+    mov dx, load_score.cseg1 - IMAGE_BASE
+    mov ah, 9
+    int 0x21 ; DOS string output
+    mov ax, 0x4c01
+    int 0x21 ; DOS function dispatcher
+load_score.cseg1:
+
+    db 0x0d, 0x0a, 0x07
+    db 'In LOAD_SCORE() ... slot already used.', 0
+    db 0x0a, 0x24
+
+load_score.forward6:
+    mov ax, cs
+    mov ds, ax
+    mov dx, load_score.cseg2 - IMAGE_BASE
+    mov ah, 9
+    int 0x21 ; DOS string output
+    mov ax, 0x4c01
+    int 0x21 ; DOS function dispatcher
+load_score.cseg2:
+
+    db 0x0d, 0x0a, 0x07
+    db 'In LOAD_SCORE() ... not enough memory.', 0
+    db 0x0a, 0x24
+

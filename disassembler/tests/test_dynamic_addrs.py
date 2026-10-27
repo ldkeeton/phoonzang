@@ -98,6 +98,19 @@ def _edit_data(master, old, new):
     return False
 
 
+def _edit_included_code(master, old, new):
+    """Edit an instruction without assuming it starts a fragment."""
+    master = pathlib.Path(master)
+    includes = re.findall(r'^%include "([^"]+)"', master.read_text(), re.M)
+    paths = [master, *(master.parent / name for name in includes)]
+    matches = [path for path in paths if old in path.read_text()]
+    if len(matches) != 1:
+        return False
+    path = matches[0]
+    path.write_text(path.read_text().replace(old, new, 1))
+    return True
+
+
 def _mz_header(e_ss):
     header = bytearray(0x200)
     struct.pack_into(
@@ -1996,16 +2009,8 @@ class InsertBytePropertyTests(unittest.TestCase):
             self.assertEqual(original[0x509:0x50d], b'\x2e\xa3\xbf\x09')
             self.assertEqual(original[0x2d6:0x2da], b'\x2e\xa3\x10\x0c')
             self.assertEqual(original[0x1196:0x119a], b'\x84\x12\x75\x18')
-            with open(master) as f:
-                included = re.findall(r'%include "([^"]+)"\s*; 0x08af\b', f.read())
-            self.assertEqual(len(included), 1, included)
-            frag = os.path.join(d, included[0])
-            with open(frag) as f:
-                text = f.read()
             needle = '    cli                              ; 0x08af\n'
-            self.assertIn(needle, text)
-            with open(frag, 'w') as f:
-                f.write(text.replace(needle, '    nop\n' + needle, 1))
+            self.assertTrue(_edit_included_code(master, needle, '    nop\n' + needle))
             grown = _nasm_file(master, d)
 
         self.assertEqual(len(grown), len(original) + 1)
@@ -2035,14 +2040,8 @@ class InsertBytePropertyTests(unittest.TestCase):
             self.assertEqual(original[0x6ab:0x6b0], b'\x2e\x88\x87\x3a\x1a')
             self.assertEqual(original[0x9b0:0x9b3], b'\xbb\x3a\x1a')
             self.assertEqual(original[0x65c:0x65f], b'\xbf\x3a\x1a')
-            with open(master) as f:
-                included = re.findall(r'%include "([^"]+)"\s*; 0x08af\b', f.read())
-            frag = os.path.join(d, included[0])
-            with open(frag) as f:
-                text = f.read()
             needle = '    cli                              ; 0x08af\n'
-            with open(frag, 'w') as f:
-                f.write(text.replace(needle, '    nop\n' + needle, 1))
+            self.assertTrue(_edit_included_code(master, needle, '    nop\n' + needle))
             grown = _nasm_file(master, d)
 
         self.assertEqual(len(grown), len(original) + 1)

@@ -156,6 +156,16 @@ class PhaseContext:
         return set(self.code_targets.keys())
 
     @property
+    def function_entry_seeds(self):
+        """Seeds that establish entries, rather than only finding code.
+
+        An inline print-and-exit block and a force-code repair must decode,
+        but neither proves an independently callable function starts there.
+        """
+        return {seed.address for seed in self.seeds
+                if seed.source_phase not in ('error_handler', 'force_code')}
+
+    @property
     def label_target_set(self):
         """Code targets suitable for global function-style labels.
 
@@ -163,6 +173,15 @@ class PhaseContext:
         are emitted as local labels when they stay within a function.
         """
         targets = self.code_target_set
+        # Finding code at an inline handler does not require a global name.
+        # Keep real flow targets; local and external branches are named by
+        # the ownership pass, and calls retain their direct_call provenance.
+        entries = self.function_entry_seeds
+        decode_only = {seed.address for seed in self.seeds
+                       if seed.address not in entries
+                       and self.code_targets.get(seed.address) is not None
+                       and self.code_targets[seed.address].reason == 'seed'}
+        targets -= decode_only - self.branch_targets
         return (targets - self.branch_targets) | (targets & self.entry_targets)
 
     def is_hard_data(self, address):

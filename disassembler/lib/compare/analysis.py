@@ -32,7 +32,7 @@ def _compute_func_boundaries(label_map, binary_data):
         if not has_entry_prefix:
             for i in range(min(16, off), 0, -1):
                 p = off - i
-                if binary_data[p] == 0x55:
+                if binary_data[p:p + 3] in (b'\x55\x89\xe5', b'\x55\x8b\xec'):
                     try:
                         prev = list(md.disasm(binary_data[p:off], p))
                     except Exception:

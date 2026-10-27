@@ -329,16 +329,25 @@ def _analyze(name, orig_dir, rel_path, start_offset, output_dir=None,
     # whatever bytes follow (play's `loc_0154` lost its `leaf_` name to a call in
     # the neighbouring data; `io_loc_016e`/`io_loc_0183` borrowed an `out` from a
     # data blob 100 bytes away).  D7.2c-2d.
-    bounded_targets = direct_call_targets | ctx.dispatch_handlers
+    # Categories describe an established entry; incidental string/I/O ops at
+    # a classifier target must not invent a new function inside its caller.
+    bounded_targets = (direct_call_targets | ctx.dispatch_handlers
+                       | ctx.function_entry_seeds)
+    if mz_entry_point is not None:
+        bounded_targets.add(mz_entry_point)
+    category_roots = bounded_targets | {
+        address for address, label in label_map.items()
+        if label.kind is Kind.ROUTINE
+    }
     label_map = categorize_call_targets(
         data, label_targets, label_map, instructions=instructions,
-        function_roots=label_targets, bounded_targets=bounded_targets,
+        function_roots=category_roots, bounded_targets=bounded_targets,
         trace=ctx.trace,
     )
     stagelog.step('label.categorize', 1, track={'label_map': label_map})
     function_roots = _function_roots(
         label_map, instructions,
-        entry_points=(seed.address for seed in ctx.seeds),
+        entry_points=ctx.function_entry_seeds,
         binary_size=len(data), start_offset=start_offset,
     )
     # A switch arm is a block of the function that dispatches it, not a function
@@ -360,7 +369,7 @@ def _analyze(name, orig_dir, rel_path, start_offset, output_dir=None,
         for target in table.targets
     }
     pinned = (direct_call_targets | ctx.dispatch_handlers
-              | {seed.address for seed in ctx.seeds})
+              | ctx.function_entry_seeds)
     for address in switch_arms - pinned:
         root_name = function_roots.get(address)
         if address in function_roots and (
@@ -398,7 +407,7 @@ def _analyze(name, orig_dir, rel_path, start_offset, output_dir=None,
     # Addresses entered from outside the image keep the caller convention;
     # every other root starts in the state its callers hand it.
     segment_entries = (ctx.dispatch_handlers
-                       | {seed.address for seed in ctx.seeds}
+                       | ctx.function_entry_seeds
                        | {target for table in ctx.jump_tables
                           for target in table.targets})
     ctx.segment_flow = analyze_segments(
@@ -426,6 +435,23 @@ def _analyze(name, orig_dir, rel_path, start_offset, output_dir=None,
     label_targets |= external_branch_targets
     for off in external_branch_targets:
         label_map.setdefault(off, Symbol.generated('loc', off, Kind.LABEL))
+
+    # Speculative table scans can restart decoding inside a function even
+    # when the candidate table is never validated. Do not name these guesses
+    # when ownership reaches them by fallthrough and no real flow enters them.
+    # Operand/data references can still acquire labels during verify.
+    referenced_targets = {target for _, target in direct_edges | extra_flow_edges}
+    decode_only_targets = set()
+    for off in tuple(label_targets):
+        target_info = ctx.code_targets.get(off)
+        if (target_info is not None and target_info.reason == 'jt_target'
+                and not target_info.hard
+                and off not in label_map and off not in function_roots
+                and off not in bounded_targets
+                and off not in referenced_targets
+                and owners.get(off)):
+            label_targets.discard(off)
+            decode_only_targets.add(off)
 
     for off in label_targets:
         if off not in label_map:
@@ -662,6 +688,7 @@ def _analyze(name, orig_dir, rel_path, start_offset, output_dir=None,
         )
 
     return SimpleNamespace(
+        decode_only_targets=decode_only_targets,
         prebuild_only=False, name=name, project=project, data=data,
         start_offset=start_offset, ctx=ctx, trace_writer=trace_writer,
         instructions=instructions, label_map=label_map,
@@ -867,7 +894,8 @@ def _render(a, exact_bytes, show_offsets, host_data_offsets,
 
     asm_text, stats, emit_bytes, label_positions, split_sources = checked_verify(
         data, start_offset, instructions, name, ctx.label_map,
-        bitmap=ctx.bitmap, code_targets=ctx.code_target_set,
+        bitmap=ctx.bitmap,
+        code_targets=ctx.code_target_set - a.decode_only_targets,
         exact_bytes=exact_bytes, show_offsets=show_offsets,
         carve_1=carve_1,
         trace=ctx.trace,

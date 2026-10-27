@@ -5,7 +5,7 @@ import sys
 
 from lib import buildlock, childproc
 
-from .build import _build_projects, cmd_build_binary, cmd_rebuild
+from .build import _build_projects, cmd_rebuild
 from .charts import cmd_charts, cmd_set_baseline
 from .clean import cmd_clean
 from .purge import cmd_purge
@@ -31,8 +31,8 @@ Commands (space-separated):
   make all                  clean, prebuild (Aztec mux), build, verify all,
                             elf-rebuild, make test, make test slow
   make all notest           the same, without the tests at the end
-  make build PROJECT [BIN]  asm + nasm + assets (seeds .c; runs prebuild first if
-                            missing; BIN keeps the last full build's shared/ layout)
+  make build [PROJECT]      asm + nasm + assets for every binary (seeds .c;
+                            runs prebuild first if missing; default: all projects)
   make prebuild [PROJECT...]  clean .cache, rebuild aztec libs + signature DB, run the Aztec C mux
   make check PROJECT [SECONDS] smoke-test game (default 5s, requires build first)
   make run PROJECT          run game in dosbox-x
@@ -336,20 +336,15 @@ def main():
         return
 
     if '--build' in flags:
-        cmd_lint(all_projects, True)
-        if len(args) == 2:
-            project, binary = args
-            if project not in all_projects:
-                print(f'Unknown project: {project}')
-                print(f'Known: {", ".join(all_projects)}')
-                sys.exit(1)
-            cmd_build_binary(project, binary)
-        elif len(args) <= 1:
-            targets = args or all_projects
-            _build_projects(targets, all_projects)
-        else:
-            print('Usage: make build PROJECT [BIN]')
+        if len(args) > 1:
+            print('Usage: make build [PROJECT]')
             sys.exit(1)
+        if args and args[0] not in all_projects:
+            print(f'Unknown project: {args[0]}')
+            print(f'Known: {", ".join(all_projects)}')
+            sys.exit(1)
+        cmd_lint(all_projects, True)
+        _build_projects(args or all_projects, all_projects)
         return
 
     # No known flag — error

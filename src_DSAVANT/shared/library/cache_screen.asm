@@ -29,7 +29,7 @@ cache_screen:
     je short .forward2
     mov ax, word [bp + 0xe]
     mov word [bp - 4], ax
-    call dos_file_loc_MUHV
+    call cache_screen.dos_file_loc1
     jmp near cache_screen_restore_and_return
 .forward2:
     mov ax, word [bp + 0xe]

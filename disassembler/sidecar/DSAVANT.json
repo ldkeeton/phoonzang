@@ -2029,10 +2029,10 @@
     "vga": {
       "function_names": {
         "28f0": {"name": "fade_out", "length": 262, "note": "fade palette toward requested RGB values"},
+        "29bf": {"name": "fade_out_no_memory_exit", "note": "prints the FADE_OUT allocation failure and exits to DOS with status 1; public tail in fade_out.s"},
         "29f6": {"name": "reset_rgb", "length": 217, "note": "Load the VGA DAC from palette_ptr, or fill all 256 entries with one RGB colour"},
         "12c9": {"name": "update_mouse_pointer", "note": "polls INT 33h/3 and redraws the pointer if it moved since last drawn, unless mouse_glide_active or no mouse; clears mouse_redraw_pending"},
         "1e1a": {"name": "draw_mouse_pointer_at", "note": "far-returning entry: unless already busy, sets its busy flag, stores the pointer position (cx/2, dx) and falls into the adapter pointer drawer"},
-        "28ba": {"name": "fade_in_no_memory_exit", "note": "prints a no-memory message and terminates to DOS with errorlevel 1"},
         "2a97": {"name": "reset_rgb_no_memory", "note": "Print the RESET_RGB allocation failure and exit with status 1"},
         "3131": {"name": "check_frame_index", "length": 110, "note": "checks frame index and reports an oversized frame"},
         "3156": {"name": "frame_too_big_exit", "note": "prints the frame and slot error and exits to DOS"},

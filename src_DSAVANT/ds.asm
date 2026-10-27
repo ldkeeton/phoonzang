@@ -670,7 +670,7 @@ __zdseg_end equ (__zimage_end - __zdseg_start) + __zbss_size
 
 %include "ds/library/calibrate_loops_per_ms.asm" ; 0x3674
 
-%include "ds/library/ds_dos_mem_loc_OHLH.asm" ; 0x36bc
+%include "ds/library/ds_loc_OHLH.asm"      ; 0x36bc
 
 %include "ds/library/no_operation.asm"     ; 0x36cd
 
@@ -679,8 +679,6 @@ __zdseg_end equ (__zimage_end - __zdseg_start) + __zbss_size
 %include "ds/library/delay_ms.asm"         ; 0x36d0
 
 %include "ds/library/allocate_driver_blocks.asm" ; 0x36f5
-
-%include "ds/library/ds_dos_mem_loc_JMGG.asm" ; 0x371d
 
 %include "ds/library/free_driver_blocks.asm" ; 0x3760
 

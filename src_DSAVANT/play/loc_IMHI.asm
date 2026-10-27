@@ -9,8 +9,8 @@ loc_IMHI:
     ret                              ; 0x1177
 jumptable_1178:
     dw loc_PLIR - IMAGE_BASE                   ; 0x1178
-    dw string_loc_NOSM - IMAGE_BASE            ; 0x117a
+    dw loc_OUQR - IMAGE_BASE                   ; 0x117a
     dw loc_PLIR - IMAGE_BASE                   ; 0x117c
     dw loc_PLIR - IMAGE_BASE                   ; 0x117e
-    dw string_loc_NOSM - IMAGE_BASE            ; 0x1180
+    dw loc_OUQR - IMAGE_BASE                   ; 0x1180
     dw loc_PLIR - IMAGE_BASE                   ; 0x1182

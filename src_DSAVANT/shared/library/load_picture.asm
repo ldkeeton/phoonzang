@@ -56,7 +56,7 @@ load_picture:
     mov ax, word [cs:maze_paras_used - IMAGE_BASE]
     cmp ax, 0x4180
     jb short .forward2
-    jmp near load_picture.dos_con_loc1
+    jmp near .forward7
 .forward2:
     mov bx, word [bp - 2]
     mov ax, word [cs:bx]
@@ -103,3 +103,35 @@ load_picture:
     div bx
     or byte [cs:picture_error_tens - IMAGE_BASE], al
     or byte [cs:picture_error_ones - IMAGE_BASE], dl
+load_picture.loc1:
+    mov ax, cs
+    mov ds, ax
+    mov dx, load_picture.cseg1 - IMAGE_BASE
+    mov ah, 9
+    int 0x21 ; DOS string output
+    mov ax, 0x4c01
+    int 0x21 ; DOS function dispatcher
+load_picture.cseg1:
+
+    db 0x0d, 0x0a, 0x07
+    db 'Picture slot '
+
+picture_error_tens:
+    db 0x30
+picture_error_ones:
+    db '0 not freed.', 0
+    db 0x0a, 0x24
+load_picture.forward7:
+    mov ax, cs
+    mov ds, ax
+    mov dx, load_picture.cseg2 - IMAGE_BASE
+    mov ah, 9
+    int 0x21 ; DOS string output
+    mov ax, 0x4c01
+    int 0x21 ; DOS function dispatcher
+load_picture.cseg2:
+
+    db 0x0d, 0x0a, 0x07
+    db 'Memory unavailable loading picture.', 0
+    db 0x0a, 0x24
+

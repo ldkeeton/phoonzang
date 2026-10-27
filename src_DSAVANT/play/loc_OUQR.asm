@@ -1,5 +1,5 @@
 ; auto-generated
-string_loc_NOSM:
+loc_OUQR:
     push bx                          ; 0x137a
     push cx                          ; 0x137b
     push dx                          ; 0x137c

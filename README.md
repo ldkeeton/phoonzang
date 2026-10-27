@@ -1,3 +1,5 @@
+<!-- Auto-generated from readme/README.md.tmpl; run make readme to regenerate. -->
+
 # PHOONZANG
 
 The 16-bit disassembler and decompiler. Currently focused on Wizardry VII: Crusaders of the Dark Savant. Long term plan is to build database of decompiled dos apps and games.
@@ -56,7 +58,7 @@ Wizardry VII seems to have been originally compiled with Manx Aztec v4.2b
 
 ## Wizardry VII coverage
 
-Progress: **269 / 1256** (21.4%).
+Progress: **268 / 1226** (21.9%).
 
 ![C coverage heatmap](readme/heatmap.svg)
  
@@ -70,7 +72,7 @@ Run from the repo root.
 | `make libcheck` | rebuild Aztec v4.2b C.LIB from dos_compilers/aztec_src/ and compare to the shipped one |
 | `make all` | clean, prebuild (Aztec mux), build, verify all, |
 | `make all notest` | the same, without the tests at the end |
-| `make build PROJECT [BIN]` | asm + nasm + assets (seeds .c; runs prebuild first if |
+| `make build [PROJECT]` | asm + nasm + assets for every binary (seeds .c; |
 | `make prebuild [PROJECT...]` | clean .cache, rebuild aztec libs + signature DB, run the Aztec C mux |
 | `make run PROJECT` | run game in dosbox-x |
 | `make verify [PROJECT...]` | verify one or all projects |

@@ -6,9 +6,7 @@ IMAGE_BASE equ -0x0100
 %endif
 
 
-thunk_loc_HNGM       equ loc_LPSH
-loc_LPSH.mouse_init1 equ music_start
-%include "shared/library/loc_LPSH.asm"         ; 0x0000
+%include "play/leaf_loc_HNGM.asm"          ; 0x0000
 
 loc_JTQK_0007.mouse_off1 equ configure_music_device
 %include "shared/library/loc_JTQK_0007.asm"          ; 0x0007
@@ -39,8 +37,6 @@ loc_JTQK_001f.load_screen1 equ wait_for_music
 
 %include "play/configure_music_device.asm" ; 0x00fe
 
-%include "play/string_loc_SIQR.asm"        ; 0x0102
-
 %include "play/music_set_data.asm"         ; 0x0154
 
 %include "play/music_is_playing.asm"       ; 0x016e
@@ -50,8 +46,6 @@ loc_JTQK_001f.load_screen1 equ wait_for_music
 %include "play/stop_music_playback.asm"    ; 0x01b0
 
 %include "play/opl_keys_off.asm"           ; 0x01e6
-
-%include "play/io_loc_MNPU.asm"            ; 0x0203
 
 %include "play/mpu_all_notes_off.asm"      ; 0x0222
 
@@ -99,28 +93,22 @@ cseg_1904     equ __zinsn_18ff + 0x5
 
 %include "play/opl_delay_short.asm"        ; 0x0831
 
-%include "play/io_loc_UVLK_0841.asm"       ; 0x0841
+%include "play/loc_UVLK_0841.asm"          ; 0x0841
 
 loc_121d equ __zinsn_121c + 0x1
-io_loc_LPSH              equ dissolve_area
+loc_LPSH                 equ dissolve_area
 dissolve_area.show_area1 equ loc_121d
-%include "shared/library/dissolve_area.asm"            ; 0x086b
+%include "shared/library/dissolve_area.asm"               ; 0x086b
 
 %include "play/data/cseg_086e.asm"         ; 0x086e
 
-%include "play/io_loc_PVQO.asm"            ; 0x0870
-
 ; cseg_08c4 equ __zinsn_08c3 + 0x1
-%include "play/io_loc_TGPU.asm"            ; 0x08af
+%include "play/io_loc_UMQR.asm"            ; 0x0870
 
-%include "play/loc_095d.asm"               ; 0x095d
-
-%include "play/loc_0969.asm"               ; 0x0969
-
-%include "play/io_loc_UVLK_0975.asm"       ; 0x0975
+%include "play/loc_UVLK_0975.asm"          ; 0x0975
 
 ; cseg_09a9 equ __zinsn_09a8 + 0x1
-%include "play/io_loc_PNPV.asm"            ; 0x099f
+%include "play/loc_PNPV.asm"               ; 0x099f
 
 ; cseg_0b10 equ __zinsn_0b0f + 0x1
 ; cseg_0b12 equ __zinsn_0b0f + 0x3
@@ -212,7 +200,7 @@ dissolve_area.show_area1 equ loc_121d
 
 %include "play/note_event_high.asm"        ; 0x0e24
 
-%include "play/leaf_loc_JSPM.asm"          ; 0x0f55
+%include "play/string_loc_JSPK.asm"        ; 0x0e51
 
 %include "play/note_event_low.asm"         ; 0x1081
 
@@ -241,15 +229,15 @@ dissolve_area.show_area1 equ loc_121d
 mpu401_read_ready_flag equ mpu401_write_ready_flag + 0x1
 %include "play/mpu401_reset_and_sync.asm"  ; 0x1217
 
-%include "play/string_loc_OSJN.asm"        ; 0x12af
+%include "play/loc_OSJN.asm"               ; 0x12af
 
 %include "play/data/cseg_12df.asm"         ; 0x12df
 
-%include "play/leaf_loc_VSLO.asm"          ; 0x12f1
+%include "play/leaf_loc_NRKL.asm"          ; 0x12f1
 
 %include "play/loc_QKNN.asm"               ; 0x1302
 
-%include "play/string_loc_NOSM.asm"        ; 0x137a
+%include "play/loc_OUQR.asm"               ; 0x137a
 
 %include "play/data/cseg_1429.asm"         ; 0x1429
 
@@ -257,7 +245,7 @@ mpu401_read_ready_flag equ mpu401_write_ready_flag + 0x1
 
 %include "play/loc_GOTP_17f0.asm"          ; 0x17f0
 
-%include "play/io_loc_VHII.asm"            ; 0x18cb
+%include "play/loc_VHII.asm"               ; 0x18cb
 
 ; sample_offset equ __zinsn_18f1 + 0x1
 %include "play/pit_sample_interrupt.asm"   ; 0x18e4

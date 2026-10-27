@@ -12,7 +12,7 @@ set_mouse_pointer:
     cmp ax, strict word 0x51         ; 0x13d7
     jb short .forward1               ; 0x13da
 .back1:
-    jmp near dos_con_loc_JJUT        ; 0x13dc
+    jmp near .forward6               ; 0x13dc
 .forward1:
     mov bx, word [bp + 0x12]         ; 0x13df
     mul bx                           ; 0x13e2
@@ -74,3 +74,17 @@ set_mouse_pointer:
     mov sp, bp                       ; 0x1472
     pop bp                           ; 0x1474
     ret                              ; 0x1475
+.forward6:
+    mov ax, cs                       ; 0x1476
+    mov ds, ax                       ; 0x1478
+    mov dx, cseg_1486 - IMAGE_BASE   ; 0x147a
+    mov ah, 9                        ; 0x147d
+    int 0x21 ; DOS string output
+    mov ax, 0x4c01                   ; 0x1481
+    int 0x21 ; DOS function dispatcher
+cseg_1486:
+
+    db 0x0d, 0x0a, 0x07
+    db 'Mouse pointer size out of range.', 0
+    db 0x0a, 0x24
+

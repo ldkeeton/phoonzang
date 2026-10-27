@@ -21,7 +21,7 @@ save_screen:
     mov ax, word [cs:bx]
     or ax, ax
     je short .forward2
-    jmp near save_screen.dos_con_loc1
+    jmp near .forward6
 .forward2:
     mov ax, word [cs:maze_block_count - IMAGE_BASE]
     inc ax
@@ -41,7 +41,7 @@ save_screen:
     mov word [cs:maze_paras_used - IMAGE_BASE], dx
     cmp dx, strict word 0x4180
     jb short .forward3
-    jmp near save_screen.dos_con_loc2
+    jmp near .forward7
 .forward3:
     mov ax, word [bp + 0xc]
     neg ax
@@ -80,3 +80,31 @@ save_screen:
     mov sp, bp
     pop bp
     ret
+.forward6:
+    mov ax, cs
+    mov ds, ax
+    mov dx, save_screen.cseg1 - IMAGE_BASE
+    mov ah, 9
+    int 0x21 ; DOS string output
+    mov ax, 0x4c01
+    int 0x21 ; DOS function dispatcher
+save_screen.cseg1:
+
+    db 0x0d, 0x0a, 0x07
+    db 'SAVE_SCREEN called with bad slot number.', 0
+    db 0x0a, 0x24
+
+save_screen.forward7:
+    mov ax, cs
+    mov ds, ax
+    mov dx, save_screen.cseg2 - IMAGE_BASE
+    mov ah, 9
+    int 0x21 ; DOS string output
+    mov ax, 0x4c01
+    int 0x21 ; DOS function dispatcher
+save_screen.cseg2:
+
+    db 0x0d, 0x0a, 0x07
+    db 'SAVE_SCREEN called with table full.', 0
+    db 0x0a, 0x24
+

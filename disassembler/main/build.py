@@ -30,13 +30,9 @@ load-bearing:
 The caller supplies two batch runners -- *run_batch* and *nasm_batch* -- so
 ``make`` can run each step as a thread pool of subprocesses while ``python -m
 main`` runs it in process.  An emitting step hands back its binary's files
-(:func:`main.runner._emit`) rather than writing them.  A partial build (``make build PROJECT BINARY``)
-stops after step 3: the host-data union and the ``shared/`` placement are
-whole-project decisions.  A family binary's partial build still runs the
-family's labels-only pass: its ``ds_starts`` union is this build's too.
+(:func:`main.runner._emit`) rather than writing them.
 """
 
-import json
 import os
 from concurrent.futures import ThreadPoolExecutor
 
@@ -209,52 +205,6 @@ def merge_files(emitted):
     return files
 
 
-def _restamp_export(path):
-    """A previous build's export data, for its writer to re-stamp.
-
-    Returns the data, or ``None`` when there is no usable export.
-    """
-    try:
-        with open(path) as f:
-            record = json.load(f)
-    except (OSError, ValueError):
-        return None
-    data = (record.get('data')
-            if isinstance(record, dict) and 'run' in record else record)
-    return data or None
-
-
-def _host_partial_args(project):
-    """The last full build's host unions, for a partial build of the host.
-
-    The union of the overlays' host-data references and the family's DS starts
-    are whole-project decisions a partial build does not make.  The previous
-    full build's files still say what they said when nothing else changed;
-    re-stamp them for this build and hand them to the host, so it emits the
-    same names it did then.
-    """
-    from lib.link import (DS_STARTS_NAME, HOST_DATA_OFFSETS_NAME,
-                          write_ds_starts, write_host_data_offsets)
-    path = os.path.join(labels_dir(project), HOST_DATA_OFFSETS_NAME)
-    data = _restamp_export(path)
-    if not data:
-        return []
-    write_host_data_offsets(project, data)
-    args = [f'--host-data-offsets={path}']
-    path = os.path.join(labels_dir(project), DS_STARTS_NAME)
-    data = _restamp_export(path)
-    if data:
-        write_ds_starts(project, data)
-        args.append(f'--ds-starts={path}')
-    path = _records_path(project)
-    data = _restamp_export(path)
-    if data is not None:
-        from lib.record_layout import write_layouts
-        write_layouts(project, data)
-        args.append(f'--records={path}')
-    return args
-
-
 def _records_path(project):
     from lib.record_layout import RECORDS_NAME
     return os.path.join(labels_dir(project), RECORDS_NAME)
@@ -302,10 +252,9 @@ def _write_record_layouts(project, host, family, starts_path, report):
     return len(layouts)
 
 
-def _sync(out_dir, files, report, scopes=None, shared=None, source_moves=None):
+def _sync(out_dir, files, report, shared=None, source_moves=None):
     """Bring *out_dir* to this build's *files*: the tree is left alone until
-    the layout is final, then only what changed is written or removed.  A
-    partial build prunes only its own *scopes*."""
+    the layout is final, then only what changed is written or removed."""
     # A generated prebuild seed may have the same output path as a preserved,
     # hand-owned C/S review source.  Keep the seed in the logical file set
     # through sharing, then avoid replacing that hand-owned file on disk.
@@ -315,16 +264,15 @@ def _sync(out_dir, files, report, scopes=None, shared=None, source_moves=None):
              if rel not in moved
              if not (rel.endswith(('.c', '.s'))
                      and hand_owned(os.path.join(out_dir, rel)))}
-    check_companions(out_dir, files, scopes=scopes, moves=moves)
-    written, unchanged, removed = sync(out_dir, files, scopes,
-                                       skip=('build_out',))
+    check_companions(out_dir, files, moves=moves)
+    written, unchanged, removed = sync(out_dir, files, skip=('build_out',))
     if moves:
         source_moves(out_dir, moves)
     report(f'  {os.path.basename(out_dir)}: {written} written, '
            f'{unchanged} unchanged, {removed} removed')
 
 
-def build_project(project, run_batch, nasm_batch, *, only=None, report=print,
+def build_project(project, run_batch, nasm_batch, *, report=print,
                   overlap=False, source_moves=None):
     """Run the whole project build, recording its level-0 stage ledger.
 
@@ -337,7 +285,7 @@ def build_project(project, run_batch, nasm_batch, *, only=None, report=print,
     try:
         with write_once():
             failed = _build_project(project, run_batch, nasm_batch,
-                                    only=only, report=report,
+                                    report=report,
                                     overlap=overlap, source_moves=source_moves)
     finally:
         end_run(previous_run)
@@ -348,14 +296,13 @@ def build_project(project, run_batch, nasm_batch, *, only=None, report=print,
     return failed
 
 
-def _build_project(project, run_batch, nasm_batch, *, only=None, report=print,
+def _build_project(project, run_batch, nasm_batch, *, report=print,
                    overlap=False, source_moves=None):
     """Generate *project*; return the names that failed (empty on success).
 
     *run_batch(items)* takes ``(name, extra_args)`` pairs, generates each binary
     and returns the failed names; *nasm_batch(items)* takes ``(name, rel_path)``
-    pairs and assembles them, likewise.  *only* limits the build to one binary
-    plus the sources it references, and stops before the whole-project steps.
+    pairs and assembles them, likewise.
     """
     app_dir = os.path.join(APPS_DIR, project)
     out_dir = src_dir(project, PROJECT_ROOT)
@@ -377,10 +324,6 @@ def _build_project(project, run_batch, nasm_batch, *, only=None, report=print,
     if not bins:
         report(f'{project}: no binaries found')
         return []
-    if only is not None and only not in bins:
-        report(f'Unknown binary "{only}" in {project}')
-        report(f'Known: {", ".join(sorted(bins))}')
-        return [only]
 
     report(f'\n=== {project} ({len(bins)} binaries) ===')
 
@@ -416,7 +359,7 @@ def _build_project(project, run_batch, nasm_batch, *, only=None, report=print,
     # nothing from the passes below: it runs alongside them, and only the
     # host's DS union (step 4) waits for it.
     early = []
-    if overlap and only is None:
+    if overlap:
         early = [n for n in sorted(bins) if n not in source_names
                  and n not in family and n not in cross_refs
                  and n not in drivers]
@@ -441,18 +384,10 @@ def _build_project(project, run_batch, nasm_batch, *, only=None, report=print,
                 return failed
 
         # 1. the sources, so each consumer below can be handed their labels
-        needed = source_names
-        if only is not None:
-            needed = ({src for _, src in cross_refs.get(only, [])}
-                      | ({only} if only in source_names else set()))
-        # The host is emitted once, in step 4; a partial build never reaches it,
-        # so it takes the last full build's whole-project unions instead.
-        host_partial = (_host_partial_args(project)
-                        if only == host else [])
+        # The host is emitted once, in step 4, after collecting its unions.
         items = [(name, ['--export-labels']
-                  + (['--labels-only'] if name == host and only != host else [])
-                  + (host_partial if name == host else []))
-                 for name in sorted(source_names & set(bins) & needed)]
+                  + (['--labels-only'] if name == host else []))
+                 for name in sorted(source_names & set(bins))]
         progress.log(f'{project} | export sources: {len(items)} binary(ies)')
         failed = _generate(run_batch, items, emitted)
         stagelog.step('project.export_sources', 0, metrics={'sources': len(items)})
@@ -465,14 +400,12 @@ def _build_project(project, run_batch, nasm_batch, *, only=None, report=print,
         consumers = [n for n in sorted(bins)
                      if n not in source_names and n not in drivers]
         targets = consumers
-        if only is not None:
-            targets = [only] if only in targets else []
         starts = None
         if any(n in family for n in targets):
             # 3a. a labels-only pass exports the DS starts each family binary
             #     names absolutely; their union lets every one of them bind an
             #     indexed operand to an object another binary names.  The union
-            #     needs the whole family, even for one binary's partial build.
+            #     needs the whole family.
             first = [n for n in consumers if n in family]
             progress.log(f'{project} | ds_starts pass: {len(first)} family binary(ies)')
             failed = _generate(run_batch, [
@@ -517,34 +450,6 @@ def _build_project(project, run_batch, nasm_batch, *, only=None, report=print,
             return failed
 
         stagelog.step('project.consumers', 0, metrics={'consumers': len(targets)})
-
-        if only is not None and source_failed:
-            return sorted(source_failed)
-
-        if only is not None:
-            # Sharing is a whole-tree decision: the binary's routines go back to
-            # the shared files its master included last full build, where its
-            # new copies still match them (:func:`reshare_partial`).
-            progress.log(f'{project} | syncing partial build: {only}')
-            files, shared, diverged = reshare_partial(merge_files(emitted),
-                                                      out_dir)
-            files.update(headers)
-            if shared:
-                report(f'  Shared: {sum(len(v) for v in shared.values())} '
-                       f'fragments -> {len(shared)} files in shared/')
-            for name, rel in diverged:
-                report(f'  {name}: its copy differs from {rel}; kept its '
-                       f'own until a full build re-decides')
-            # Assembling it alone must not leave the others' stale artifacts
-            # in build_out, so only this binary's scope is pruned.
-            _sync(out_dir, files, report, scopes=[f'{only}.asm', only],
-                  shared=shared, source_moves=source_moves)
-            completed = True
-            progress.log(f'{project} | copying assets for {only}')
-            copy_assets(app_dir, os.path.join(out_dir, 'build_out'),
-                        {bins[only][0]})
-            progress.log(f'{project} | assembling {only}')
-            return _batch(nasm_batch, [(only, bins[only][0])])
 
         # A generation failure without output prevents dependent passes.
         if failed:

@@ -1,5 +1,5 @@
 ; auto-generated
-leaf_loc_VSLO:
+leaf_loc_NRKL:
     push ax                          ; 0x12f1
     push bx                          ; 0x12f2
     xor ah, ah                       ; 0x12f3

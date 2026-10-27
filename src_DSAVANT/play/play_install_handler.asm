@@ -62,21 +62,21 @@ play_install_handler:
     jmp near .forward6               ; 0x0492
 jumptable_0495:
     dw pit_sample_interrupt - IMAGE_BASE       ; 0x0495
-    dw io_loc_TGPU - IMAGE_BASE                ; 0x0497
-    dw io_loc_PNPV - IMAGE_BASE                ; 0x0499
-    dw io_loc_PNPV - IMAGE_BASE                ; 0x049b
+    dw loc_TGPU - IMAGE_BASE                   ; 0x0497
+    dw loc_PNPV - IMAGE_BASE                   ; 0x0499
+    dw loc_PNPV - IMAGE_BASE                   ; 0x049b
     dw pit_sample_interrupt - IMAGE_BASE       ; 0x049d
-    dw io_loc_TGPU - IMAGE_BASE                ; 0x049f
-    dw io_loc_PNPV - IMAGE_BASE                ; 0x04a1
-    dw io_loc_PNPV - IMAGE_BASE                ; 0x04a3
+    dw loc_TGPU - IMAGE_BASE                   ; 0x049f
+    dw loc_PNPV - IMAGE_BASE                   ; 0x04a1
+    dw loc_PNPV - IMAGE_BASE                   ; 0x04a3
     dw speaker_sample_interrupt - IMAGE_BASE   ; 0x04a5
-    dw io_loc_UVLK_0841 - IMAGE_BASE           ; 0x04a7
-    dw io_loc_UVLK_0975 - IMAGE_BASE           ; 0x04a9
-    dw io_loc_UVLK_0975 - IMAGE_BASE           ; 0x04ab
+    dw loc_UVLK_0841 - IMAGE_BASE              ; 0x04a7
+    dw loc_UVLK_0975 - IMAGE_BASE              ; 0x04a9
+    dw loc_UVLK_0975 - IMAGE_BASE              ; 0x04ab
     dw speaker_sample_interrupt - IMAGE_BASE   ; 0x04ad
-    dw io_loc_UVLK_0841 - IMAGE_BASE           ; 0x04af
-    dw io_loc_UVLK_0975 - IMAGE_BASE           ; 0x04b1
-    dw io_loc_UVLK_0975 - IMAGE_BASE           ; 0x04b3
+    dw loc_UVLK_0841 - IMAGE_BASE              ; 0x04af
+    dw loc_UVLK_0975 - IMAGE_BASE              ; 0x04b1
+    dw loc_UVLK_0975 - IMAGE_BASE              ; 0x04b3
 play_install_handler.forward6:
     cld                              ; 0x04b5
     xor ax, ax                       ; 0x04b6

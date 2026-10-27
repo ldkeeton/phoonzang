@@ -29,7 +29,7 @@ cache_maze:
     je short .forward2
     mov ax, word [bp + 0xe]
     mov word [bp - 4], ax
-    call dos_file_loc_MUHV
+    call cache_maze.dos_file_loc1
     jmp near cache_maze_restore_and_return
 .forward2:
     mov ax, word [bp + 0xe]
@@ -93,7 +93,7 @@ cache_maze:
     mov ax, word [cs:ems_paras_used - IMAGE_BASE]
     cmp ax, word [cs:ems_para_limit - IMAGE_BASE]
     jbe short .forward4
-    jmp near cache_maze.dos_con_loc1
+    jmp near cache_maze.loc1
 .forward4:
     mov ax, di
     mov cl, 0xa

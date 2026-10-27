@@ -13,7 +13,7 @@ fade_in:
     mov bx, 0x30                     ; 0x2812
     int 0x21 ; DOS allocate memory
     jae short .forward1              ; 0x2817
-    jmp near fade_in_no_memory_exit  ; 0x2819
+    jmp near .forward6               ; 0x2819
 .forward1:
     mov word [bp - 2], ax            ; 0x281c
     mov ax, 0x1017                   ; 0x281f
@@ -96,3 +96,17 @@ fade_in:
     mov sp, bp                       ; 0x28b6
     pop bp                           ; 0x28b8
     ret                              ; 0x28b9
+.forward6:
+    mov ax, cs                       ; 0x28ba
+    mov ds, ax                       ; 0x28bc
+    mov dx, cseg_28ca - IMAGE_BASE   ; 0x28be
+    mov ah, 9                        ; 0x28c1
+    int 0x21 ; DOS string output
+    mov ax, 0x4c01                   ; 0x28c5
+    int 0x21 ; DOS function dispatcher
+cseg_28ca:
+
+    db 0x0d, 0x0a, 0x07
+    db 'Memory unavailable in fade_in().', 0
+    db 0x0a, 0x24
+
