@@ -475,7 +475,7 @@ const AGENTS = {
         // Codex is an executable, not a shell. Run it through the user's login shell
         // so shell aliases/wrappers and the PATH used by VS Code terminals resolve.
         terminalArgs(prompt, model) {
-            const args = ['exec', '--cd', root(), '--sandbox', 'workspace-write'];
+            const args = ['--cd', root(), '--sandbox', 'workspace-write'];
             if (model) args.push('--model', model);
             args.push(prompt);
             const quote = (s) => `'${String(s).replace(/'/g, `'\\''`)}'`;

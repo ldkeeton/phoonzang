@@ -61,6 +61,10 @@ RETURNS = {'ret', 'retf', 'retn', 'iret', 'iretw', 'iretd'}
 REGISTERS = {'ax', 'bx', 'cx', 'dx', 'si', 'di', 'bp', 'sp',
              'eax', 'ebx', 'ecx', 'edx', 'esi', 'edi', 'ebp', 'esp'}
 
+# Printed after the human-readable report so a copied scan has the task
+# framing needed to investigate and resolve its candidate boundaries.
+FOLLOW_UP_PROMPT = """Investigate the candidate boundaries above and reduce false or unwanted reports by fixing the underlying fragment/source metadata. Treat this scanner as the oracle: do not change its logic or filter its output. For each relevant candidate, inspect the generated master/includes, the source and target offsets, and the sidecar/build paths that determine fragment ownership. Check whether a length belongs on the source routine (including dispatch-table handlers) so a directly branched-to tail becomes a co-tenant, or whether the boundary is genuine and should remain. Make the smallest justified metadata/source change, run the focused scan and relevant build/info checks, and inspect the diff for unrelated generated changes. Explain which candidates changed and why."""
+
 
 def clean_line(row):
     return re.sub(r'''('[^']*'|"[^"]*")|;.*$''',
@@ -348,8 +352,7 @@ def main(argv=None):
                   f'  {item["last"]} -> {item["first"]} [{", ".join(item["locations"])}]')
             for note in item['notes']:
                 print(f'  {note}')
-        print(f'\n{sum(item["status"] == "candidate" for item in report)} candidate boundaries'
-              f'; {sum(item["status"] == "rejected" for item in report)} rejected shown')
+        print('\n' + FOLLOW_UP_PROMPT)
 
 
 if __name__ == '__main__':

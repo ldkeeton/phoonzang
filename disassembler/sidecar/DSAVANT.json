@@ -1946,9 +1946,11 @@
     },
     "vga": {
       "function_names": {
+        "29f6": {"name": "reset_rgb", "length": 217, "note": "Load the VGA DAC from palette_ptr, or fill all 256 entries with one RGB colour"},
         "12c9": {"name": "update_mouse_pointer", "note": "polls INT 33h/3 and redraws the pointer if it moved since last drawn, unless mouse_glide_active or no mouse; clears mouse_redraw_pending"},
         "1e1a": {"name": "draw_mouse_pointer_at", "note": "far-returning entry: unless already busy, sets its busy flag, stores the pointer position (cx/2, dx) and falls into the adapter pointer drawer"},
         "28ba": {"name": "fade_in_no_memory_exit", "note": "prints a no-memory message and terminates to DOS with errorlevel 1"},
+        "2a97": {"name": "reset_rgb_no_memory", "note": "Print the RESET_RGB allocation failure and exit with status 1"},
         "3131": {"name": "check_frame_index", "length": 110, "note": "checks frame index and reports an oversized frame"},
         "3156": {"name": "frame_too_big_exit", "note": "prints the frame and slot error and exits to DOS"},
         "3188": {"name": "table_entry_ptr", "note": "points ds:bx at entry al of the 4-byte offset/paragraph table at ds:2"},
@@ -2018,6 +2020,7 @@
         "22de": {"name": "picture_error_tens", "note": "tens digit patched into the picture not freed message"},
         "22df": {"name": "picture_error_ones", "note": "ones digit patched into the picture not freed message"},
         "2327": {"name": "rgb_to_palette", "note": "512-byte RGB-to-palette index map, 0xff = no entry"},
+        "2aa7": {"name": "reset_rgb_no_memory_msg", "note": "$-terminated RESET_RGB out-of-memory message"},
         "2d2b": {"name": "text_state_words", "note": "20 words cleared by draw_text before each string"},
         "2d53": {"name": "text_state_bytes", "note": "25 bytes cleared by draw_text before each string"},
         "371b": {"name": "intensity_limits", "note": "ceiling table indexed by a source byte; graphics_loc clamps the sum to it"},

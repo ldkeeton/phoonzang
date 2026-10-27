@@ -364,8 +364,6 @@ cseg_22fe        equ dos_con_loc_QMKK.cseg1
 
 %include "vga/reset_rgb.asm"               ; 0x29f6
 
-%include "vga/dos_con_loc_HJPN.asm"        ; 0x2a97
-
 %include "vga/set_palette.asm"             ; 0x2acf
 
 %include "shared/library/get_free_space.asm"          ; 0x2b01

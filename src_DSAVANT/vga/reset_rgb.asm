@@ -37,7 +37,7 @@ reset_rgb:
     mov bx, 0x30                     ; 0x2a35
     int 0x21 ; DOS allocate memory
     jae short .forward2              ; 0x2a3a
-    jmp near dos_con_loc_HJPN        ; 0x2a3c
+    jmp near reset_rgb_no_memory     ; 0x2a3c
 .forward2:
     mov word [bp - 2], ax            ; 0x2a3f
     mov ds, ax                       ; 0x2a42
@@ -85,3 +85,17 @@ reset_rgb:
     mov sp, bp                       ; 0x2a93
     pop bp                           ; 0x2a95
     ret                              ; 0x2a96
+reset_rgb_no_memory:
+    mov ax, cs                       ; 0x2a97
+    mov ds, ax                       ; 0x2a99
+    mov dx, reset_rgb_no_memory_msg - IMAGE_BASE ; 0x2a9b
+    mov ah, 9                        ; 0x2a9e
+    int 0x21 ; DOS string output
+    mov ax, 0x4c01                   ; 0x2aa2
+    int 0x21 ; DOS function dispatcher
+reset_rgb_no_memory_msg:
+
+    db 0x0d, 0x0a, 0x07
+    db 'Memory unavailable in RESET_RGB().', 0
+    db 0x0a, 0x24
+
