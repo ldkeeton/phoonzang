@@ -38,7 +38,7 @@ jumptable_035e_case_2:
     add ax, strict word 0xd          ; 0x037b
     dec byte [bp + 0x15]             ; 0x037e
 play_set_device.forward3:
-    mov word [cs:cseg_0a8d - IMAGE_BASE], ax ; 0x0381
+    mov word [cs:sample_output_port - IMAGE_BASE], ax ; 0x0381
     mov dx, word [cs:cseg_0a89 - IMAGE_BASE] ; 0x0385
     mov al, 7                        ; 0x038a
     out dx, al                       ; 0x038c

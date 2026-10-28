@@ -261,7 +261,7 @@ def resplice_c(app, binary, check_only=False, only=None):
     needs the span/label sidecars a prior ``make build`` wrote, and is a no-op
     without them.
     """
-    from lib.aztec import cache, relink, sources
+    from lib.aztec import cache, headers, relink, sources
     from lib.aztec.compile import project_headers
     from lib.aztec.modules import entry_for
     from lib.aztec.objread import external_label, fixup_width
@@ -277,7 +277,7 @@ def resplice_c(app, binary, check_only=False, only=None):
     from lib.symtab import Kind
 
     out_dir = src_dir(app, PROJECT)
-    sources.install_headers(app, out_dir)
+    headers.write_vendor_headers(app, out_dir)
     include_dir = sources.project_include_dir(app, out_dir)
     dest = os.path.join(out_dir, binary)
     from lib.cachedirs import labels_dir, render_dir, spans_dir

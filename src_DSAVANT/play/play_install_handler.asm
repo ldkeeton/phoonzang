@@ -62,21 +62,21 @@ play_install_handler:
     jmp near .forward6               ; 0x0492
 jumptable_0495:
     dw pit_sample_interrupt - IMAGE_BASE       ; 0x0495
-    dw loc_TGPU - IMAGE_BASE                   ; 0x0497
-    dw loc_PNPV - IMAGE_BASE                   ; 0x0499
-    dw loc_PNPV - IMAGE_BASE                   ; 0x049b
+    dw io_loc_sample_device_tick - IMAGE_BASE  ; 0x0497
+    dw io_loc_port_sample_tick - IMAGE_BASE    ; 0x0499
+    dw io_loc_port_sample_tick - IMAGE_BASE    ; 0x049b
     dw pit_sample_interrupt - IMAGE_BASE       ; 0x049d
-    dw loc_TGPU - IMAGE_BASE                   ; 0x049f
-    dw loc_PNPV - IMAGE_BASE                   ; 0x04a1
-    dw loc_PNPV - IMAGE_BASE                   ; 0x04a3
+    dw io_loc_sample_device_tick - IMAGE_BASE  ; 0x049f
+    dw io_loc_port_sample_tick - IMAGE_BASE    ; 0x04a1
+    dw io_loc_port_sample_tick - IMAGE_BASE    ; 0x04a3
     dw speaker_sample_interrupt - IMAGE_BASE   ; 0x04a5
-    dw loc_UVLK_0841 - IMAGE_BASE              ; 0x04a7
-    dw loc_UVLK_0975 - IMAGE_BASE              ; 0x04a9
-    dw loc_UVLK_0975 - IMAGE_BASE              ; 0x04ab
+    dw loc_UVLK - IMAGE_BASE                   ; 0x04a7
+    dw sample_fraction_tick - IMAGE_BASE       ; 0x04a9
+    dw sample_fraction_tick - IMAGE_BASE       ; 0x04ab
     dw speaker_sample_interrupt - IMAGE_BASE   ; 0x04ad
-    dw loc_UVLK_0841 - IMAGE_BASE              ; 0x04af
-    dw loc_UVLK_0975 - IMAGE_BASE              ; 0x04b1
-    dw loc_UVLK_0975 - IMAGE_BASE              ; 0x04b3
+    dw loc_UVLK - IMAGE_BASE                   ; 0x04af
+    dw sample_fraction_tick - IMAGE_BASE       ; 0x04b1
+    dw sample_fraction_tick - IMAGE_BASE       ; 0x04b3
 play_install_handler.forward6:
     cld                              ; 0x04b5
     xor ax, ax                       ; 0x04b6
@@ -125,11 +125,11 @@ play_install_handler.forward10:
     mov di, ax                       ; 0x051e
     mov bx, ax                       ; 0x0520
     mov word [cs:sample_offset - IMAGE_BASE], ax ; 0x0522
-    mov word [cs:cseg_08c4 - IMAGE_BASE], ax ; 0x0526
-    mov word [cs:cseg_09a9 - IMAGE_BASE], ax ; 0x052a
+    mov word [cs:sample_stream_offset - IMAGE_BASE], ax ; 0x0526
+    mov word [cs:sample_stream_offset_alt - IMAGE_BASE], ax ; 0x052a
     mov al, byte [bx]                ; 0x052e
-    mov byte [cs:cseg_086f - IMAGE_BASE], al ; 0x0530
-    mov byte [cs:cseg_086e - IMAGE_BASE], 0 ; 0x0534
+    mov byte [cs:sample_limit - IMAGE_BASE], al ; 0x0530
+    mov byte [cs:sample_position - IMAGE_BASE], 0 ; 0x0534
     mov al, 0xff                     ; 0x053a
     sub al, byte [bp + 0x10]         ; 0x053c
     mov byte [cs:cseg_1904 - IMAGE_BASE], al ; 0x053f
@@ -193,7 +193,7 @@ play_install_handler.forward14:
     cmp byte [cs:play_device - IMAGE_BASE], 2 ; 0x05cf
     jne short play_install_handler.forward16 ; 0x05d5
 play_install_handler.forward15:
-    mov dx, word [cs:cseg_0a8d - IMAGE_BASE] ; 0x05d7
+    mov dx, word [cs:sample_output_port - IMAGE_BASE] ; 0x05d7
 play_install_handler.forward16:
     mov si, word [cs:tick_divider - IMAGE_BASE] ; 0x05dc
     sti                              ; 0x05e1
