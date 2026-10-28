@@ -334,10 +334,15 @@ get_palette.cseg1 equ palette_ptr
 
 %include "shared/data/text_state_bytes.asm"   ; 0x2d53
 
-draw_text.leaf_loc1 equ check_frame_index
 %include "shared/drv/draw_text.asm"               ; 0x2d6c
 
-%include "vga/check_frame_index.asm"       ; 0x3131
+frame_digit_tens      equ check_frame_index.frame_digit_hi1
+frame_digit_ones      equ check_frame_index.frame_digit_lo1
+slot_digit_tens       equ check_frame_index.slot_digit_hi1
+slot_digit_ones       equ check_frame_index.slot_digit_lo1
+frame_too_big_exit    equ check_frame_index.loc1
+frame_too_big_message equ check_frame_index.msg_frame_too_big1
+%include "shared/drv/check_frame_index.asm"       ; 0x3131
 
 %include "shared/drv/leaf_loc_NOSG.asm"           ; 0x319f
 

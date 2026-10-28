@@ -219,6 +219,38 @@ class ShareFilesTest(unittest.TestCase):
         self.assertFalse([p for p in files if p.endswith('.c')])
 
 
+    def _hand_s(self, root, bodies):
+        for b, body in bodies.items():
+            os.makedirs(os.path.join(root, b))
+            with open(os.path.join(root, b, 'f.s'), 'w') as f:
+                f.write(body)
+
+    def test_hand_owned_s_does_not_change_assembly_sharing(self):
+        with tempfile.TemporaryDirectory() as root:
+            self._hand_s(root, {'a': 'f proc\n', 'b': 'f proc near\n'})
+            files, result = shared.share_files(self._files(), root, {})
+        self.assertEqual(result, {'shared/ovr/f.asm': ['a/f.asm', 'b/f.asm']})
+        self.assertNotIn('b/f.asm', files)
+        self.assertFalse([p for p in files if p.endswith('.s')])
+
+    def test_conflicting_hand_s_stays_in_place(self):
+        with tempfile.TemporaryDirectory() as root:
+            self._hand_s(root, {'a': 'f proc\n', 'b': 'f proc near\n'})
+            out = io.StringIO()
+            with contextlib.redirect_stdout(out):
+                moves = shared.companion_moves(
+                    root, {'shared/ovr/f.asm': ['a/f.asm', 'b/f.asm']})
+        self.assertEqual(moves, [])
+        self.assertIn('conflicting source', out.getvalue())
+
+    def test_matching_hand_s_moves_beside_the_shared_file(self):
+        with tempfile.TemporaryDirectory() as root:
+            self._hand_s(root, {'a': 'f proc\n', 'b': 'f proc\n'})
+            moves = shared.companion_moves(
+                root, {'shared/ovr/f.asm': ['a/f.asm', 'b/f.asm']})
+        self.assertEqual(moves, [('a/f.s', 'shared/ovr/f.s'),
+                                 ('b/f.s', 'shared/ovr/f.s')])
+
 class AddressDataTest(unittest.TestCase):
     """A data file named for its address is its binary's own."""
 
@@ -644,14 +676,33 @@ class PartialShareWarningTest(unittest.TestCase):
         verbose.start()
         self.addCleanup(verbose.stop)
 
-    def _share(self, root, names):
-        from lib.symtab import Space, Symbol
+    def _share(self, root, names, generated=False):
+        from lib.symtab import Kind, Space, Symbol
         files, tables = {}, {}
         for binary, name in zip(('a', 'b'), names):
             files[f'{binary}/f.asm'] = (
                 f'f:\n    mov ax, [{name}]\n    ret\n')
             files[f'{binary}.asm'] = f'%include "{binary}/f.asm"\n'
-            tables[binary] = {name: Symbol.data(Space.BSS, 0x9000, name)}
+            sym = (Symbol.generated('bss', int(name[4:], 16), Kind.DATA,
+                                    space=Space.BSS) if generated
+                   else Symbol.data(Space.BSS, 0x9000, name))
+            tables[binary] = {name: sym}
+        return shared.share_files(files, root, tables)
+
+    def _share_internal(self, root, names):
+        """Copies that each define the byte they read, under *names*."""
+        from lib.symtab import Kind, Space, Symbol
+        files, tables = {}, {}
+        for binary, name in zip(('a', 'b'), names):
+            files[f'{binary}/f.asm'] = (
+                f'f:\n    or byte [cs:{name}], al\n    ret\n'
+                f'{name}:\n    db 0x30\n')
+            files[f'{binary}.asm'] = f'%include "{binary}/f.asm"\n'
+            sym = (Symbol.generated('cseg', int(name[5:], 16), Kind.DATA,
+                                    space=Space.CSEG)
+                   if name.startswith('cseg_')
+                   else Symbol.data(Space.CSEG, 0x3166, name))
+            tables[binary] = {name: sym}
         return shared.share_files(files, root, tables)
 
     def test_warns_with_per_binary_names_and_keeps_sharing(self):
@@ -662,9 +713,9 @@ class PartialShareWarningTest(unittest.TestCase):
         self.assertEqual(groups['shared/ovr/f.asm'], ['a/f.asm', 'b/f.asm'])
         self.assertIn('f.spell_ids1', files['shared/ovr/f.asm'])
         warning = output.getvalue()
-        self.assertIn('warning: partial share shared/ovr/f.asm', warning)
-        self.assertIn('a=spell_ids', warning)
-        self.assertIn('b=spell_list', warning)
+        self.assertIn('  shared/ovr/f.asm', warning)
+        self.assertIn('spell_ids (a)', warning)
+        self.assertIn('spell_list (b)', warning)
 
     def test_matching_names_are_quiet(self):
         output = io.StringIO()
@@ -673,7 +724,35 @@ class PartialShareWarningTest(unittest.TestCase):
             self._share(root, ('spell_ids', 'spell_ids'))
         self.assertEqual(output.getvalue(), '')
 
-    def test_inconsistent_names_are_quiet_without_verbose_one(self):
+    def test_named_internal_labels_warn_without_verbose(self):
+        with mock.patch.dict(os.environ), tempfile.TemporaryDirectory() as root:
+            os.environ.pop('VERBOSE', None)
+            output = io.StringIO()
+            with contextlib.redirect_stdout(output):
+                _, groups = self._share_internal(
+                    root, ('frame_digit_hi', 'frame_digit_tens'))
+        self.assertIn('shared/ovr/f.asm', groups)
+        warning = output.getvalue()
+        self.assertIn('  shared/ovr/f.asm', warning)
+        self.assertIn('frame_digit_hi (a)', warning)
+        self.assertIn('frame_digit_tens (b)', warning)
+
+    def test_a_name_one_binary_lacks_warns(self):
+        output = io.StringIO()
+        with tempfile.TemporaryDirectory() as root, \
+                contextlib.redirect_stdout(output):
+            self._share_internal(root, ('frame_digit_hi', 'cseg_3a21'))
+        self.assertIn('cseg_3a21 (b)', output.getvalue())
+
+    def test_generated_internal_labels_are_quiet(self):
+        output = io.StringIO()
+        with tempfile.TemporaryDirectory() as root, \
+                contextlib.redirect_stdout(output):
+            _, groups = self._share_internal(root, ('cseg_3166', 'cseg_3a21'))
+        self.assertIn('shared/ovr/f.asm', groups)
+        self.assertEqual(output.getvalue(), '')
+
+    def test_generated_names_are_quiet_without_verbose_one(self):
         for value in (None, '', '0'):
             with self.subTest(verbose=value), \
                     mock.patch.dict(os.environ), \
@@ -684,7 +763,8 @@ class PartialShareWarningTest(unittest.TestCase):
                     os.environ['VERBOSE'] = value
                 output = io.StringIO()
                 with contextlib.redirect_stdout(output):
-                    _, groups = self._share(root, ('spell_ids', 'spell_list'))
+                    _, groups = self._share(root, ('bss_0d00', 'bss_0e10'),
+                                            generated=True)
                 self.assertIn('shared/ovr/f.asm', groups)
                 self.assertEqual(output.getvalue(), '')
 
@@ -702,7 +782,7 @@ class PartialShareWarningTest(unittest.TestCase):
                 }, root)
             self.assertFalse(diverged)
             self.assertIn('shared/ovr/f.asm', groups)
-            self.assertIn('a=spell_ids', output.getvalue())
+            self.assertIn('spell_ids (a)', output.getvalue())
 
     def test_internal_labels_and_routine_aliases_are_quiet(self):
         output = io.StringIO()

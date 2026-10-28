@@ -8,9 +8,10 @@ into one file in ``shared/`` that every binary's master ``%include``s.
 Only generated files are touched (see :mod:`lib.autogen`).  The placement is
 decided on the build's files as data (:func:`share_files`), before any is
 written, so a routine shared is written once, to ``shared/``, and its masters
-already include it there.  Prebuild-derived C seeds and hand-owned ``.s``
-sources can guide sharing.  Hand-owned ``.c`` files are checked against the
-binary. Only the naming transaction moves them into a shared folder.
+already include it there.  Prebuild-derived C seeds can guide sharing.
+Hand-owned ``.c`` and ``.s`` files never do: they are checked against the
+binary, and only move beside a shared file after the placement is decided
+(:func:`companion_moves`).
 
 Copies without C that differ only in the label names they use (each binary's
 own ``bss_0d00``, ``loc_HOIR``: names its symbol table, ``.cache/<project>/
@@ -427,9 +428,8 @@ def _fragments(files, out_dir):
     *files* are the generated files (``{relative path: text}``); anything else
     under *out_dir* is a human's.  The source, ``(suffix, text)``, is a
     prebuild-generated C/S file beside the fragment, else a generated shared
-    source or a hand-owned ``.s``.  Hand-owned C is never considered here.  A
-    fragment whose own assembly source was taken over by hand is left out: it
-    is not ours to move.
+    source.  Hand-owned C and ``.s`` are never considered here: they never
+    change the assembly (:func:`companion_moves` places them afterwards).
     """
     def source(base, where):
         path = beside(base, where)
@@ -448,22 +448,14 @@ def _fragments(files, out_dir):
         if not sep or top in _SKIP_DIRS or not rel.endswith('.asm'):
             continue
         own, own_suffix = source(rel[:-4], files.__contains__)
-        shared_base = _shared_base(rel)
-        shared, shared_suffix = shared_source(shared_base,
+        shared, shared_suffix = shared_source(_shared_base(rel),
                                               files.__contains__)
         if own:
             ctext = (own_suffix, files[own])
-        elif source(rel[:-4], lambda p: p.endswith('.s')
-                    and _on_disk(out_dir, p))[0]:
-            continue
         elif shared:
             ctext = (shared_suffix, files[shared])
         else:
-            path, suffix = shared_source(
-                shared_base, lambda p: p.endswith('.s')
-                and _on_disk(out_dir, p))
-            ctext = (suffix, _read(os.path.join(out_dir, path))) if path \
-                else None
+            ctext = None
         found[rel] = (files[rel], ctext)
     return found
 
@@ -528,7 +520,7 @@ def share_files(files, out_dir, tables):
                 files[shared_rel[:-4] + ctext[0]] = ctext[1]
         shared[shared_rel] = members
 
-    _apply(files, shared, bindings, out_dir)
+    _apply(files, shared, bindings, out_dir, tables)
     return files, shared
 
 
@@ -563,11 +555,12 @@ def check_companions(out_dir, files, scopes=None, moves=()):
 def companion_moves(out_dir, shared):
     """Plan hand-owned source moves after deciding the assembly placement.
 
-    Source text does not feed back into disassembly or sharing.  Conflicting
-    companions must be resolved before any file is moved or synchronized.
+    Source text does not feed back into disassembly or sharing.  Companions
+    that cannot sit beside the shared file as one source stay where they are
+    (with a warning) until a person reconciles them.
     """
-    moves, contents, kinds = [], {}, {}
-    for target, members in sorted(shared.items()):
+    def plan(target, members):
+        moves, contents, kinds = [], {}, {}
         for member in members:
             for suffix in SUFFIXES:
                 source = member[:-4] + suffix
@@ -576,18 +569,26 @@ def companion_moves(out_dir, shared):
                     continue
                 dest = target[:-4] + suffix
                 if _stem(member) != _stem(target):
-                    raise ValueError(f'{source}: cannot move beside {target} '
-                                     'without renaming its routine')
-                other = kinds.setdefault(target, suffix)
-                if other != suffix:
-                    raise ValueError(f'{target}: both .c and .s companions')
+                    return f'{source}: cannot move beside {target} ' \
+                           'without renaming its routine'
+                if kinds.setdefault(target, suffix) != suffix:
+                    return f'{target}: both .c and .s companions'
                 text = _read(path)
                 previous = contents.setdefault(dest, text)
                 existing = beside(os.path.join(out_dir, target[:-4]))
                 if previous != text or (existing is not None and
                         (not existing.endswith(suffix) or _read(existing) != text)):
-                    raise ValueError(f'{source}: conflicting source beside {target}')
+                    return f'{source}: conflicting source beside {target}'
                 moves.append((source, dest))
+        return moves
+
+    moves = []
+    for target, members in sorted(shared.items()):
+        planned = plan(target, members)
+        if isinstance(planned, str):
+            print(f'warning: {planned}; companions left in place')
+        else:
+            moves += planned
     return moves
 
 
@@ -607,30 +608,56 @@ def move_companions(out_dir, moves, journal=None):
             os.rename(source, dest)
 
 
-def _warn_partial_shares(shared, bindings):
-    """With VERBOSE=1, report external names still using shared aliases."""
-    if os.environ.get('VERBOSE') != '1':
-        return
+def _warn_partial_shares(shared, bindings, tables=None):
+    """Report the names a shared file's copies spell differently.
+
+    A copy aliases a common name only where the binaries disagree, so each
+    binding is a mismatch.  One that a person named in some binary (a sidecar
+    or library name, :func:`_generic` false in *tables*) is always reported:
+    the names should be made to agree.  With VERBOSE=1, generated external
+    names (``bss_0d00`` here, ``bss_0e10`` there) are too.
+    """
+    verbose = os.environ.get('VERBOSE') == '1'
+    tables = tables or {}
+    report = []
     for path, members in sorted(shared.items()):
-        aliases = defaultdict(list)
+        prefix = _stem(path) + '.'
+        # common -> {own spelling: [binary, ...]}
+        aliases, named, internal = defaultdict(dict), set(), set()
         for rel in sorted(members):
+            table = tables.get(_binary(rel), {})
             for common, own, defined in bindings.get(rel, ()):
-                if common.startswith(_stem(path) + '.') and not defined:
-                    aliases[common].append(f'{_binary(rel)}={own}')
-        if aliases:
-            detail = '; '.join(f'{common}: {", ".join(names)}'
-                               for common, names in sorted(aliases.items()))
-            print(f'warning: partial share {path}: inconsistent symbol names '
-                  f'({detail}); normalize corresponding sidecar names '
-                  'before sharing C')
+                if not common.startswith(prefix):
+                    continue
+                if not _generic(table.get(own)):
+                    named.add(common)
+                if defined:
+                    internal.add(common)
+                aliases[common].setdefault(own, []).append(_binary(rel))
+        rows = [(common[len(prefix):], '  |  '.join(
+                    f'{own} ({", ".join(binaries)})'
+                    for own, binaries in spellings.items()))
+                for common, spellings in sorted(aliases.items())
+                if common in named or (verbose and common not in internal)]
+        if rows:
+            report.append((path, rows))
+    if report:
+        width = max(len(name) for _, rows in report for name, _ in rows)
+        print(f'warning: {len(report)} shared file(s) where binaries name the '
+              'same symbol differently;\n'
+              '         give them one sidecar name, or they should not share:')
+        for path, rows in report:
+            print(f'  {path}')
+            for name, spellings in rows:
+                print(f'    {name:<{width}}  {spellings}')
 
 
-def _apply(files, shared, bindings, out_dir):
+def _apply(files, shared, bindings, out_dir, tables=None):
     """Point the masters at the *shared* files and drop the copies they
     replace (with their sources) from *files*."""
     _place_equs(files, out_dir)
     _rewrite_includes(files, shared, bindings)
-    _warn_partial_shares(shared, bindings)
+    _warn_partial_shares(shared, bindings, tables)
     for members in shared.values():
         for rel in members:
             files.pop(rel, None)
@@ -687,14 +714,16 @@ def reshare_partial(files, out_dir):
             defined = set(re.findall(r'^([\w.]+):', text, re.M))
             shared.setdefault(shared_rel, []).append(rels[0])
             bindings[rels[0]] = [(c, o, c in defined) for c, o in pairs]
-    _apply(files, shared, bindings, out_dir)
+    project = project_of_src_dir(out_dir)
+    _apply(files, shared, bindings, out_dir,
+           project_tables(project) if project else {})
     return files, shared, diverged
 
 
 def _still_shared(files, out_dir, rel, shared_rel, text, pairs):
     """True when *rel*, spelled with the common names *pairs* give, is the
     shared file *text*, and its source (if it has one) is the shared one."""
-    if rel not in files or beside(rel[:-4], lambda p: _on_disk(out_dir, p)):
+    if rel not in files:
         return False
     if _code_key(_common_names(files[rel], pairs)) != _code_key(text):
         return False

@@ -44,7 +44,7 @@ draw_text:
     mov al, byte [ss:si]
     or al, al
     je short .back1
-    call draw_text.leaf_loc1
+    call check_frame_index
     xor ah, ah
     mov al, byte [bx + 2]
     mov word [bp - 2], ax
@@ -447,7 +447,7 @@ draw_text:
     mov al, byte [ss:si]
     or al, al
     je short .forward46
-    call draw_text.leaf_loc1
+    call check_frame_index
     call render_text_glyph_by_mode
     inc word [bp + 0x1c]
     jmp short .back10

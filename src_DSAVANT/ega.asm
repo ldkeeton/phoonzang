@@ -351,24 +351,15 @@ get_palette.cseg1 equ cseg_00f7
 
 %include "shared/data/text_state_bytes.asm"   ; 0x3605
 
-draw_text.leaf_loc1 equ leaf_loc_TVGR
 %include "shared/drv/draw_text.asm"               ; 0x361e
 
-%include "ega/leaf_loc_TVGR.asm"           ; 0x39e3
-
-%include "ega/print_msg_and_exit.asm"      ; 0x3a0f
-
-%include "ega/data/msg_frame_too_big.asm"  ; 0x3a18
-
-%include "ega/data/frame_digit_hi.asm"     ; 0x3a21
-
-%include "ega/data/frame_digit_lo.asm"     ; 0x3a22
-
-%include "ega/data/slot_digit_hi.asm"      ; 0x3a34
-
-%include "ega/data/slot_digit_lo.asm"      ; 0x3a35
-
-%include "ega/table_entry_ptr.asm"         ; 0x3a3a
+frame_digit_hi    equ check_frame_index.frame_digit_hi1
+frame_digit_lo    equ check_frame_index.frame_digit_lo1
+slot_digit_hi     equ check_frame_index.slot_digit_hi1
+slot_digit_lo     equ check_frame_index.slot_digit_lo1
+loc_3a08          equ check_frame_index.loc1
+msg_frame_too_big equ check_frame_index.msg_frame_too_big1
+%include "shared/drv/check_frame_index.asm"       ; 0x39e3
 
 %include "shared/drv/leaf_loc_NOSG.asm"           ; 0x3a51
 
