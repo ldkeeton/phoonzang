@@ -448,7 +448,7 @@ draw_text:
     or al, al
     je short .forward46
     call draw_text.leaf_loc1
-    call draw_text.graphics_loc1
+    call render_text_glyph_by_mode
     inc word [bp + 0x1c]
     jmp short .back10
 .forward46:

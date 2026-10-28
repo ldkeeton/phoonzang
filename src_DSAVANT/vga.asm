@@ -334,106 +334,15 @@ get_palette.cseg1 equ palette_ptr
 
 %include "shared/data/text_state_bytes.asm"   ; 0x2d53
 
-draw_text.leaf_loc1     equ check_frame_index
-draw_text.graphics_loc1 equ graphics_loc_PVIU
+draw_text.leaf_loc1 equ check_frame_index
 %include "shared/overlay/draw_text.asm"               ; 0x2d6c
 
 %include "vga/check_frame_index.asm"       ; 0x3131
 
 %include "shared/overlay/leaf_loc_NOSG.asm"           ; 0x319f
 
-graphics_loc_PVIU           equ graphics_loc_NVPK
-graphics_loc_NVPK.loc1      equ loc_3498
-graphics_loc_NVPK.loc2      equ loc_35d8
-graphics_loc_NVPK.loc3      equ loc_337c
-graphics_loc_NVPK.leaf_loc1 equ leaf_loc_QLNN
-%include "shared/overlay/graphics_loc_NVPK.asm"       ; 0x31d9
-
-%include "shared/overlay/leaf_loc_MTKK.asm"           ; 0x3340
-
-leaf_loc_QLNN equ leaf_loc_KSJN
-%include "shared/overlay/leaf_loc_KSJN.asm"           ; 0x3360
-
-loc_338d           equ loc_337c.loc1
-loc_339d           equ loc_337c.loc2
-loc_3490           equ loc_337c.loc3
-loc_33aa           equ loc_337c.loc4
-loc_337c.leaf_loc1 equ leaf_loc_QLNN
-loc_33bb           equ loc_337c.loc5
-loc_3463           equ loc_337c.loc6
-loc_33cb           equ loc_337c.loc7
-loc_33d5           equ loc_337c.loc8
-loc_33dd           equ loc_337c.loc9
-loc_345e           equ loc_337c.loc10
-loc_33eb           equ loc_337c.loc11
-loc_3459           equ loc_337c.loc12
-loc_33f5           equ loc_337c.loc13
-loc_3451           equ loc_337c.loc14
-loc_343d           equ loc_337c.loc15
-loc_3422           equ loc_337c.loc16
-loc_341d           equ loc_337c.loc17
-loc_343a           equ loc_337c.loc18
-loc_3437           equ loc_337c.loc19
-loc_3444           equ loc_337c.loc20
-loc_344a           equ loc_337c.loc21
-loc_3475           equ loc_337c.loc22
-loc_3492           equ loc_337c.loc23
-loc_3495           equ loc_337c.loc24
-%include "shared/overlay/loc_337c.asm"                ; 0x337c
-
-loc_34d0           equ loc_3498.loc1
-loc_34dd           equ loc_3498.loc2
-loc_35d0           equ loc_3498.loc3
-loc_34ea           equ loc_3498.loc4
-loc_3498.leaf_loc1 equ leaf_loc_QLNN
-loc_34fb           equ loc_3498.loc5
-loc_35a3           equ loc_3498.loc6
-loc_350b           equ loc_3498.loc7
-loc_3515           equ loc_3498.loc8
-loc_351d           equ loc_3498.loc9
-loc_359e           equ loc_3498.loc10
-loc_352b           equ loc_3498.loc11
-loc_3599           equ loc_3498.loc12
-loc_3535           equ loc_3498.loc13
-loc_3591           equ loc_3498.loc14
-loc_357d           equ loc_3498.loc15
-loc_3562           equ loc_3498.loc16
-loc_355d           equ loc_3498.loc17
-loc_357a           equ loc_3498.loc18
-loc_3577           equ loc_3498.loc19
-loc_3584           equ loc_3498.loc20
-loc_358a           equ loc_3498.loc21
-loc_35b5           equ loc_3498.loc22
-loc_35d2           equ loc_3498.loc23
-loc_35d5           equ loc_3498.loc24
-%include "shared/overlay/loc_3498.asm"                ; 0x3498
-
-loc_3610           equ loc_35d8.loc1
-loc_3620           equ loc_35d8.loc2
-loc_3713           equ loc_35d8.loc3
-loc_362d           equ loc_35d8.loc4
-loc_35d8.leaf_loc1 equ leaf_loc_QLNN
-loc_363e           equ loc_35d8.loc5
-loc_36e6           equ loc_35d8.loc6
-loc_364e           equ loc_35d8.loc7
-loc_3658           equ loc_35d8.loc8
-loc_3660           equ loc_35d8.loc9
-loc_36e1           equ loc_35d8.loc10
-loc_366e           equ loc_35d8.loc11
-loc_36dc           equ loc_35d8.loc12
-loc_3678           equ loc_35d8.loc13
-loc_36d4           equ loc_35d8.loc14
-loc_36c0           equ loc_35d8.loc15
-loc_36a5           equ loc_35d8.loc16
-loc_36a0           equ loc_35d8.loc17
-loc_36bd           equ loc_35d8.loc18
-loc_36ba           equ loc_35d8.loc19
-loc_36c7           equ loc_35d8.loc20
-loc_36cd           equ loc_35d8.loc21
-loc_36f8           equ loc_35d8.loc22
-loc_3715           equ loc_35d8.loc23
-loc_3718           equ loc_35d8.loc24
-%include "shared/overlay/loc_35d8.asm"                ; 0x35d8
+leaf_loc_QLNN equ render_text_glyph_by_mode.leaf_loc1
+%include "shared/overlay/render_text_glyph_by_mode.asm" ; 0x31d9
 
 %include "shared/data/intensity_limits.asm"   ; 0x371b
 
