@@ -9,7 +9,7 @@ extern struct member_ext *party_char_ext[];	/* 0xe8-byte extended records */
 extern int cell_slot_ref[][3];			/* cells: member*10 + item slot, 0 free */
 extern int message_delay;
 extern char space_text[];		/* single space between count and name */
-extern advance_item_slot_action(), restore_areas_redraw_glyph(),
+extern advance_item_slot_action(), redraw_glyph_strip(),
 	wait_ticks_with_events(), format_int_decimal(), aztec_strcat(),
 	aztec_strlen(), load_message_string(), show_centered_message(),
 	titlecase_string();
@@ -43,7 +43,7 @@ int member;
 		}
 	}
 	if (fired > 0) {
-		restore_areas_redraw_glyph(1);	/* show the message strip */
+		redraw_glyph_strip(1);	/* show the message strip */
 		wait_ticks_with_events(1);
 		if (party_char[member]->item_count == 1)
 			buf[0] = 0;		/* one slot: leave out the count */

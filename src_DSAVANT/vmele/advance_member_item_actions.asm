@@ -111,7 +111,7 @@ advance_member_item_actions:
 .forward6:
     mov ax, 1                        ; 0x15f5
     push ax                          ; 0x15f8
-    call restore_areas_redraw_glyph  ; 0x15f9
+    call redraw_glyph_strip          ; 0x15f9
     pop cx                           ; 0x15fc
     mov ax, 1                        ; 0x15fd
     push ax                          ; 0x1600

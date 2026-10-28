@@ -56,7 +56,7 @@ dseg_90ee equ __zdseg_end + (__zdseg_90ee - __zdata_start)
 dseg_90f4 equ __zdseg_end + (__zdseg_90f4 - __zdata_start)
 dseg_90fa equ __zdseg_end + (__zdseg_90fa - __zdata_start)
 dseg_9100 equ __zdseg_end + (__zdseg_9100 - __zdata_start)
-str_swap_file_v equ __zdseg_end + (__zstr_swap_file_v - __zdata_start)
+spell_screen_temp_file equ __zdseg_end + (__zspell_screen_temp_file - __zdata_start)
 save_si equ __zdseg_end + (__zsave_si - __zdata_start)
 save_di equ __zdseg_end + (__zsave_di - __zdata_start)
 save_sp equ __zdseg_end + (__zsave_sp - __zdata_start)
@@ -291,7 +291,12 @@ draw_spell_cost.dseg1 equ dseg_9100
 
 %include "shared/ovr/periodic_party_redraw.asm" ; 0x8c8d
 
-%include "vtrea/spell_select_dialog.asm"   ; 0x8d1e
+jumptable_9967_case_0 equ pick_spell_dialog.jumptable_case1
+jumptable_9967_case_1 equ pick_spell_dialog.jumptable_case2
+jumptable_9967_case_3 equ pick_spell_dialog.jumptable_case3
+jumptable_9967_case_4 equ pick_spell_dialog.jumptable_case4
+jumptable_9967        equ pick_spell_dialog.jumptable1
+%include "shared/ovr/pick_spell_dialog.asm"     ; 0x8d1e
 
 %include "shared/ovr/aztec_ovbgn.asm"           ; 0x99c5
 
@@ -300,7 +305,7 @@ draw_spell_cost.dseg1 equ dseg_9100
 __zdata_start:
 %include "vtrea/data/dseg_9098.asm"        ; 0x9a1b
 
-%include "vtrea/data/str_swap_file_v.asm"  ; 0x9a87
+%include "shared/data/spell_screen_temp_file.asm" ; 0x9a87
 
 %include "shared/data/save_si.asm"          ; 0x9a8d
 

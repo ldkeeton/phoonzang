@@ -49,7 +49,7 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "vmele/flash_message_line.asm"    ; 0x0164
 
-%include "shared/ovr/restore_areas_redraw_glyph.asm" ; 0x0244
+%include "shared/ovr/redraw_glyph_strip.asm"    ; 0x0244
 
 %include "shared/ovr/titlecase_string.asm"      ; 0x02c2
 

@@ -21,7 +21,7 @@ extern struct {
 } overlay_list;
 
 extern gfx_wait_sound(), gfx_restore_screen(), save_screen_area(),
-	free_picture_slot(), wait_and_free_sound(), restore_areas_redraw_glyph(),
+	free_picture_slot(), wait_and_free_sound(), redraw_glyph_strip(),
 	gfx_restore_area(), dissolve_or_show_area(), load_monster_picture(),
 	aztec_free();
 
@@ -47,7 +47,7 @@ close_party_screen()
 		wait_and_free_sound(16);
 		loaded_sound_id = -1;
 	}
-	restore_areas_redraw_glyph(0);
+	redraw_glyph_strip(0);
 	free_picture_slot(1);
 	free_picture_slot(2);
 	gfx_restore_area(saved_area_b, 1);

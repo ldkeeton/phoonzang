@@ -26,7 +26,7 @@ extern struct {
 extern clamp_between(), gfx_is_music_playing(), app_gfx_free_score(),
 	free_current_maze(), free_picture_slot(), load_sound_file(),
 	load_monster_picture(), restore_saved_screen(),
-	release_and_exit(), restore_areas_redraw_glyph(), setup_melee_party(),
+	release_and_exit(), redraw_glyph_strip(), setup_melee_party(),
 	wait_for_hotspot_timeout(), aztec_strcpy(), titlecase_string(),
 	aztec_strlen(), load_message_string(), show_centered_message(),
 	advance_melee_item_slots();
@@ -87,13 +87,13 @@ start_melee_battle()
 	saved_area_b = gfx_save_area(65, 146, 255, 164);
 	load_monster_picture(2, 1);	/* monster 2 into picture slot 1 */
 	load_monster_picture(3, 2);	/* monster 3 into picture slot 2 */
-	restore_areas_redraw_glyph(0);
+	redraw_glyph_strip(0);
 	setup_melee_party();
 	show_melee_result = party_return_state == 18 ? 0 : 1;
 	npc_melee = party_return_state == 18 ? 1 : 0;
 	if (party_return_state == 18		/* 0x12: to the NPC state */
 	    && party_member_count > 1) {
-		restore_areas_redraw_glyph(1);
+		redraw_glyph_strip(1);
 		wait_for_hotspot_timeout(1);
 		aztec_strcpy(buf, party_member_ext_1);
 		titlecase_string(buf);

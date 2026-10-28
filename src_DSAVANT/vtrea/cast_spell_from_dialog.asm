@@ -8,7 +8,7 @@ cast_spell_from_dialog:
     mov ax, MSG_CAST                 ; 0x4ae3
     push ax                          ; 0x4ae6
     push word [bp + 4]               ; 0x4ae7
-    call spell_select_dialog         ; 0x4aea
+    call pick_spell_dialog           ; 0x4aea
     add sp, byte 8                   ; 0x4aed
     test ax, ax                      ; 0x4af0
     je short .forward1               ; 0x4af2

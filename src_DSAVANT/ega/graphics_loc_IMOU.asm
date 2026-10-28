@@ -115,7 +115,7 @@ graphics_loc_IMOU:
     mov bx, cseg_32b3 - IMAGE_BASE   ; 0x0a75
     mov ah, byte [bp - 0x1c]         ; 0x0a78
     lodsb                            ; 0x0a7b
-    call leaf_loc_OHGP               ; 0x0a7c
+    call expand_pixel_to_planes      ; 0x0a7c
     mov bl, byte [bp - 0x1e]         ; 0x0a7f
     and byte [es:di], bl             ; 0x0a82
     or byte [es:di], dl              ; 0x0a85

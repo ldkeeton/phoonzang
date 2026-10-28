@@ -348,10 +348,29 @@ class OtherNameTest(unittest.TestCase):
         self.assertIn('f_GGGG equ draw', files['a.asm'])
 
     def test_two_people_s_names_never_alias(self):
-        _, result = self._share(
-            {'a': ('fade_in', ['ret']), 'b': ('fade_out', ['ret'])},
-            {'a': self._named('fade_in'), 'b': self._named('fade_out')})
+        output = io.StringIO()
+        with contextlib.redirect_stdout(output):
+            _, result = self._share(
+                {'a': ('fade_in', ['ret']), 'b': ('fade_out', ['ret'])},
+                {'a': self._named('fade_in'), 'b': self._named('fade_out')})
         self.assertEqual(result, {})
+        self.assertIn('fade_in (a)  |  fade_out (b)', output.getvalue())
+
+    def test_two_named_routines_of_one_binary_are_quiet(self):
+        files = {'a/fade_in.asm': 'fade_in:\n    ret\n',
+                 'b/fade_in.asm': 'fade_in:\n    ret\n',
+                 'b/fade_out.asm': 'fade_out:\n    ret\n',
+                 'a.asm': '%include "a/fade_in.asm"\n',
+                 'b.asm': '%include "b/fade_in.asm"\n'
+                          '%include "b/fade_out.asm"\n'}
+        output = io.StringIO()
+        with tempfile.TemporaryDirectory() as root, \
+                contextlib.redirect_stdout(output):
+            shared.share_files(
+                files, root,
+                {'a': self._named('fade_in'),
+                 'b': {**self._named('fade_in'), **self._named('fade_out')}})
+        self.assertEqual(output.getvalue(), '')
 
     def test_empty_functions_under_two_tags_stay(self):
         files = {'a/f_GGGG.asm': 'f_GGGG:\n    ret\n',
@@ -716,6 +735,39 @@ class PartialShareWarningTest(unittest.TestCase):
         self.assertIn('  shared/ovr/f.asm', warning)
         self.assertIn('spell_ids (a)', warning)
         self.assertIn('spell_list (b)', warning)
+
+    def test_differently_named_routines_called_are_quiet(self):
+        from lib.symtab import Kind, Source, Symbol
+        files, tables = {}, {}
+        for binary, name in (('a', 'draw_menu'), ('b', 'draw_list')):
+            files[f'{binary}/f.asm'] = f'f:\n    call {name}\n    ret\n'
+            files[f'{binary}.asm'] = f'%include "{binary}/f.asm"\n'
+            tables[binary] = {name: Symbol(name, kind=Kind.ROUTINE,
+                                           source=Source.SIDECAR)}
+        output = io.StringIO()
+        with tempfile.TemporaryDirectory() as root, \
+                contextlib.redirect_stdout(output):
+            _, groups = shared.share_files(files, root, tables)
+        self.assertIn('shared/ovr/f.asm', groups)
+        self.assertEqual(output.getvalue(), '')
+
+    def test_named_jump_tables_defined_in_the_file_warn(self):
+        from lib.symtab import Kind, Source, Symbol
+        files, tables = {}, {}
+        for binary, name in (('a', 'spell_cases'), ('b', 'jumptable_9967')):
+            files[f'{binary}/f.asm'] = (
+                f'f:\n    jmp [cs:bx + {name}]\n{name}:\n    dw f\n')
+            files[f'{binary}.asm'] = f'%include "{binary}/f.asm"\n'
+            tables[binary] = {name: Symbol(
+                name, kind=Kind.TABLE, source=Source.SIDECAR
+                if binary == 'a' else Source.ADDRESS)}
+        output = io.StringIO()
+        with tempfile.TemporaryDirectory() as root, \
+                contextlib.redirect_stdout(output):
+            _, groups = shared.share_files(files, root, tables)
+        self.assertIn('shared/ovr/f.asm', groups)
+        self.assertIn('spell_cases (a)', output.getvalue())
+        self.assertIn('jumptable_9967 (b)', output.getvalue())
 
     def test_matching_names_are_quiet(self):
         output = io.StringIO()

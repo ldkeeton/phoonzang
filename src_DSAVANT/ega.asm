@@ -323,9 +323,7 @@ dissolve_area.show_area1 equ show_area
 
 %include "ega/set_palette.asm"             ; 0x3244
 
-%include "ega/leaf_loc_TTKL.asm"           ; 0x3245
-
-%include "ega/leaf_loc_OHGP.asm"           ; 0x3252
+%include "ega/expand_transparent_pixel_to_planes.asm" ; 0x3245
 
 %include "ega/data/cseg_32b3.asm"          ; 0x32b3
 

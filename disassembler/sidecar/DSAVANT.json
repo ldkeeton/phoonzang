@@ -41,8 +41,7 @@
     {"routine": "show_message", "arg": 1, "args": 1},
     {"routine": "show_event_message", "arg": 1, "args": 1},
     {"routine": "pick_spell_dialog", "arg": 2, "args": 4},
-    {"routine": "action_spell_dialog", "arg": 2, "args": 4},
-    {"routine": "spell_select_dialog", "arg": 2, "args": 4}
+    {"routine": "action_spell_dialog", "arg": 2, "args": 4}
   ],
   "message_bases": [
     {"value": 120, "name": "MSG_CLASS_BASE", "note": "class names, MSG_CLASS_BASE + class"},
@@ -640,8 +639,8 @@
         "8f44": {"name": "party_world_y", "note": "party y in level coordinates"},
         "8f46": {"name": "party_world_x", "note": "party x in level coordinates"},
         "904c": {"name": "startup_check_stage", "note": "0 unchecked 1 copy protection answered 2 message checksum verified"},
-        "904e": {"name": "spell_dialog_result", "note": "spell_select_dialog result: (power << 8) + spell + 0x100, -1 while open"},
-        "9050": {"name": "spell_dialog_button", "note": "which spell_select_dialog button closed it: 0 first, 1 second"},
+        "904e": {"name": "spell_dialog_result", "note": "pick_spell_dialog result: (power << 8) + spell + 0x100, -1 while open"},
+        "9050": {"name": "spell_dialog_button", "note": "which pick_spell_dialog button closed it: 0 first, 1 second"},
         "905a": {"name": "message_delay", "note": "int: tick count passed to wait_ticks_or_key after a message"},
         "905e": {"name": "party_return_state", "note": "game state the party screen returns to"},
         "9060": {"name": "screen_cache", "note": "array of far pointers to the cached screens"},
@@ -1255,7 +1254,7 @@
         "0040": {"name": "draw_active_member_panel", "note": "draws an active member panel and level glyph; arg 2 also draws its stat box"},
         "00f4": {"name": "wait_ticks_with_events", "note": "waits a tick count while pumping the party screen state machine; returns early on a fullscreen hotspot or a pending Return"},
         "0156": {"name": "flash_message_line", "note": "flashes a centred message line on a text row, then restores the row"},
-        "0236": {"name": "restore_areas_redraw_glyph", "note": "restores both saved areas, redraws glyph 1, optionally shows the strip"},
+        "0236": {"name": "redraw_glyph_strip", "note": "restores both saved areas, redraws glyph 1, optionally shows the strip"},
         "02b4": {"name": "titlecase_string", "note": "lowercases an all-caps string but keeps the first letter of each word"},
         "02fc": {"name": "show_centered_message", "note": "centres a text line at y=164, plays its message sound, then reloads the previous sound"},
         "03ab": {"name": "find_picture_slot", "note": "finds or takes a free monster picture slot for a picture number, loading the picture if needed"},
@@ -1310,7 +1309,7 @@
         "0a75": {"name": "queue_cell_action_overlay", "note": "queues one cell's action glyphs as overlay items, projected by nearness"},
         "0cbb": {"name": "queue_marker_overlay", "note": "queues glyph strings for the marker as overlay items: a facing-dependent glyph when marker_mode > 0, glyph 1 at marker_x/marker_y when -1"},
         "1a27": {"name": "run_party_screen_animation", "note": "runs one full 12-step pass of the party screen state machine"},
-        "1ab9": {"name": "restore_areas_redraw_glyph", "note": "restores both saved areas, redraws glyph 1, optionally shows the strip"},
+        "1ab9": {"name": "redraw_glyph_strip", "note": "restores both saved areas, redraws glyph 1, optionally shows the strip"},
         "1f4f": {"name": "item_slot_usable", "note": "nonzero when a party member item slot is usable; empty is never, flag 1 fails a one-in-three roll"},
         "1780": {"name": "api_idx_000e_PTNT"},
         "17c3": {"name": "ovmain"},
@@ -1894,7 +1893,7 @@
         "93d6": {"name": "list_row_glyph", "note": "per-row glyph byte, 2-byte stride"},
         "93fe": {"name": "list_row_name", "note": "per-row 22-byte name strings"},
         "95b6": {"name": "list_row_count", "note": "per-row int count, drawn when positive"},
-        "9104": {"name": "str_swap_file_v", "note": "\"V.$$$\" swap file name spell_select_dialog passes to save_screen_area"},
+        "9104": {"name": "spell_screen_temp_file", "note": "\"V.$$$\" swap file name pick_spell_dialog passes to save_screen_area"},
         "9114": {"name": "glyph_painter", "note": "1 selects draw_animated_glyph_pair, else draw_party_glyph_row"},
         "9116": {"name": "animation_index", "note": "0..6 animation index; -1 disables the frame update"},
         "9118": {"name": "sound_request", "note": "nonzero plays sound effect 5 and clears it"},
@@ -1966,7 +1965,7 @@
         "8b45": {"name": "draw_spell_cost", "note": "clears the cost box and prints cost in 3 digits when 0 < cost <= available, else ***"},
         "8be6": {"name": "draw_realm_spell_points", "note": "prints a character's spell points for each of the six realms, centred in its own colour"},
         "8c7f": {"name": "periodic_party_redraw", "note": "once party_redraw_interval ticks have passed, redraws the party panel and slot letters"},
-        "8d10": {"name": "spell_select_dialog", "note": "modal spell dialog for a character: realm hotspots F/W/A/E/M/D, scrolling known-spell list, power 1..7, two buttons; returns spell_dialog_button and leaves (power<<8)+spell+0x100 in spell_dialog_result"},
+        "8d10": {"name": "pick_spell_dialog", "note": "modal spell dialog for a character: realm hotspots F/W/A/E/M/D, scrolling known-spell list, power 1..7, two buttons; returns spell_dialog_button and leaves (power<<8)+spell+0x100 in spell_dialog_result"},
         "0000": {"name": "ovmain"},
         "99b7": {"name": "aztec_ovbgn"},
         "99f5": {"name": "aztec_cswt"}
@@ -2232,6 +2231,9 @@
         "4ea3": {"name": "score_info", "note": "one word per score, stored by load_score"}
       },
       "function_names": {
+        "3245": {"name": "expand_transparent_pixel_to_planes", "length": 110, "note": "owns 0x3245-0x32b2, including the opaque call entry and shared expansion body; AL=0xff returns zero planes and mask, otherwise branches to 0x3253 with BX already saved"},
+        "3252": {"name": "expand_pixel_to_planes", "note": "call entry used by graphics_loc_IMOU; saves BX and falls into the shared expansion body, translating AL through CS:BX and shifting the four plane pairs by AH"},
+        "3253": {"name": "expand_pixel_to_planes_body", "note": "shared instruction entry with BX already saved by either 0x3245 or 0x3252; restores BX and returns at 0x32b2"},
         "3a08": {"name": "frame_too_big_exit", "note": "prints the frame and slot error and exits to DOS"},
         "1900": {"name": "request_mouse_redraw", "note": "sets mouse_redraw_pending when a mouse is present"},
         "0496": {"name": "fill_screen_buffer", "note": "fills the 64000-byte screen buffer at screen_buf_seg with one byte"},
@@ -2288,7 +2290,7 @@
         {"offset": "1ad5", "space": "cs", "note": "cursor save-buffer pointer (CS 0x1bfd -> file 0x1afd, a 0x480-byte buffer): loaded as `mov si, word [cs:cseg_1ad5]` (0x1838, 0x184a, 0x1860, 0x1876) and handed to leaf_loc_PUST, which copies from it with `rep movsb` (0x18b1) under DS = CS; it is also added to a row offset (`add ax, word [cs:cseg_1ad5]`, 0x0a33, 0x2c37). Its partner cseg_1ad7 (CS 0x207d, the second buffer) is proven by the scorer's own consumer scan (leaf_loc_KNIM 0x0bb3). The scan stops at a call, so this one is stated here"}
       ],
       "immediate_pointers": [
-        {"offset": "17bd", "space": "cs", "note": "`mov bx, 0x33b3`: the nibble table leaf_loc_OHGP translates through with `cs xlatb` (0x3254). Handed in bx to leaf_loc_TTKL, which reaches that `cs xlatb` only past a conditional jump, so the automatic scan stops short"},
+        {"offset": "17bd", "space": "cs", "note": "`mov bx, 0x33b3`: the nibble table expand_pixel_to_planes translates through with `cs xlatb` (0x3254). Handed in bx to expand_transparent_pixel_to_planes, which reaches that `cs xlatb` only past a conditional jump, so the automatic scan stops short"},
         {"offset": "3202", "space": "cs", "note": "`mov bx, 0x33b3; add bx, word [bp + 0xc]; mov word [cs:bx], 0xff` (0x3210): an entry of the same 0x32b3 table, indexed by an argument the scan cannot prove is an index"},
         {"offset": "2cab", "space": "cs", "note": "`mov si, 0x2602`: the four 0x100-byte plane buffers at 0x2502 that io_loc_QMLN adds to si (0x2f7a). si is overwritten by `xor si, si` (0x2cb2) before any read"},
         {"offset": "2f7a", "space": "cs", "note": "`add si, 0x2602`: the caller passes si = plane * 0x100 (0x2cb2-0x2cc9) and sets DS = CS (0x2cb0); the sum is read as `mov al, byte [si]` (0x2fa8)"},

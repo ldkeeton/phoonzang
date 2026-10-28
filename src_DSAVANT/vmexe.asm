@@ -107,7 +107,7 @@ loc_UTQS.api_idx1 equ api_idx_0006_GMTP
 
 %include "vmexe/api_idx_0004_QUPL.asm"     ; 0x1a5f
 
-%include "shared/ovr/restore_areas_redraw_glyph.asm" ; 0x1ac7
+%include "shared/ovr/redraw_glyph_strip.asm"    ; 0x1ac7
 
 %include "vmexe/api_idx_0004_UONH.asm"     ; 0x1b45
 

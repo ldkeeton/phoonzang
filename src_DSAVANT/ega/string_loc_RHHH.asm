@@ -24,7 +24,7 @@ string_loc_RHHH:
 .back2:
     lodsb                            ; 0x17d3
     mov ah, byte [bp - 4]            ; 0x17d4
-    call leaf_loc_TTKL               ; 0x17d7
+    call expand_transparent_pixel_to_planes ; 0x17d7
     or byte [cs:di + cseg_2902 - IMAGE_BASE], ch ; 0x17da
     or byte [cs:di + cseg_2502 - IMAGE_BASE], dl ; 0x17df
     or byte [cs:di + cseg_2602 - IMAGE_BASE], dh ; 0x17e4

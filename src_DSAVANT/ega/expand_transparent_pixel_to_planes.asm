@@ -1,7 +1,16 @@
 ; auto-generated
-leaf_loc_OHGP:
+expand_transparent_pixel_to_planes:
+    push bx                          ; 0x3245
+    cmp al, 0xff                     ; 0x3246
+    jne short expand_pixel_to_planes_body ; 0x3248
+    xor cx, cx                       ; 0x324a
+    xor ax, ax                       ; 0x324c
+    xor dx, dx                       ; 0x324e
+    pop bx                           ; 0x3250
+    ret                              ; 0x3251
+expand_pixel_to_planes:
     push bx                          ; 0x3252
-loc_JRJS:
+expand_pixel_to_planes_body:
     push ax                          ; 0x3253
     cs xlatb                         ; 0x3254
     mov ah, al                       ; 0x3256

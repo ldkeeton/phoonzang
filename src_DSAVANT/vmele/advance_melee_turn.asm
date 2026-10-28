@@ -32,7 +32,7 @@ advance_melee_turn:
     jl short .back1                  ; 0x31ea
     mov ax, 1                        ; 0x31ec
     push ax                          ; 0x31ef
-    call restore_areas_redraw_glyph  ; 0x31f0
+    call redraw_glyph_strip          ; 0x31f0
     pop cx                           ; 0x31f3
     cmp word [party_screen_done], byte 1 ; 0x31f4
     je short .forward4               ; 0x31f9

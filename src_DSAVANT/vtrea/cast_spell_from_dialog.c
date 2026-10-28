@@ -16,7 +16,7 @@ int pc;
 	int spell, power;
 
 	/* zero: a spell was chosen */
-	if (spell_select_dialog(pc, MSG_CAST, 1, 1) == 0) {
+	if (pick_spell_dialog(pc, MSG_CAST, 1, 1) == 0) {
 		power = spell_dialog_result / 256;	/* (power << 8) + spell + 0x100 */
 		spell = spell_dialog_result % 256;
 		if (spell_table[spell].targeted == 1) {

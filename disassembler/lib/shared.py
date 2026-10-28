@@ -43,7 +43,7 @@ from .cachedirs import project_of_src_dir
 from .routine_source import SUFFIXES, beside
 from .sidecar.bands import BAND_NAMES
 from .sidecar.loader import load as load_sidecar
-from .symtab import project_tables
+from .symtab import Kind, project_tables
 
 FOLDER = 'shared'
 
@@ -479,9 +479,11 @@ def share_files(files, out_dir, tables):
     # Names carry a content tag (lib.names), so one stem is mostly one body.
     # Where a stem still has several (a label that differs only in which
     # generic routine it calls), the largest group is shared and the rest stay.
-    best = {}
+    best, split = {}, []
     for ctext, rels in _buckets(fragments, tables):
-        for base, members, binds in _clusters(fragments, rels, ctext, tables):
+        clusters = list(_clusters(fragments, rels, ctext, tables))
+        split.extend(_split_by_names(fragments, clusters, tables))
+        for base, members, binds in clusters:
             if len({p.split('/')[0] for p in members}) < 2:
                 continue
             # A group takes only its own members' source: another group of
@@ -521,7 +523,46 @@ def share_files(files, out_dir, tables):
         shared[shared_rel] = members
 
     _apply(files, shared, bindings, out_dir, tables)
+    _warn_split_names(split)
     return files, shared
+
+
+def _split_by_names(fragments, clusters, tables):
+    """``[{name: [binary, ...]}]``: copies of one code that stay apart only
+    because people named them differently (:func:`_bind` never aliases a
+    person's name), one entry per such code.  A binary that holds two of
+    the names has two routines, not one named twice."""
+    if len(clusters) < 2:
+        return []
+    where = {rel: i for i, (_, members, _) in enumerate(clusters)
+             for rel in members}
+    by_shape = defaultdict(list)
+    for rel in where:
+        by_shape[_shape(rel, fragments[rel][0], tables)].append(rel)
+    out = []
+    for rels in by_shape.values():
+        names = defaultdict(list)
+        for rel in sorted(rels):
+            names[_stem(rel)].append(_binary(rel))
+        named = [n for n, binaries in names.items()
+                 if not _generic(tables.get(binaries[0], {}).get(n))]
+        binaries = [b for bs in names.values() for b in bs]
+        if (len(named) > 1 and len(set(binaries)) == len(binaries)
+                and len({where[rel] for rel in rels}) > 1):
+            out.append(dict(names))
+    return out
+
+
+def _warn_split_names(split):
+    """Report the routines whose copies match but carry different names."""
+    if not split:
+        return
+    print(f'warning: {len(split)} routine(s) with the same code in several '
+          'binaries under different names;\n'
+          '         give them one sidecar name to share one file:')
+    for names in sorted(split, key=sorted):
+        print('    ' + '  |  '.join(f'{name} ({", ".join(binaries)})'
+                                    for name, binaries in sorted(names.items())))
 
 
 def check_companions(out_dir, files, scopes=None, moves=()):
@@ -608,14 +649,21 @@ def move_companions(out_dir, moves, journal=None):
             os.rename(source, dest)
 
 
+#: The kinds of a name that labels code: a call or jump target.
+_CODE = {Kind.ROUTINE, Kind.LABEL, Kind.LOCAL, Kind.TABLE}
+
+
 def _warn_partial_shares(shared, bindings, tables=None):
     """Report the names a shared file's copies spell differently.
 
     A copy aliases a common name only where the binaries disagree, so each
     binding is a mismatch.  One that a person named in some binary (a sidecar
-    or library name, :func:`_generic` false in *tables*) is always reported:
-    the names should be made to agree.  With VERBOSE=1, generated external
-    names (``bss_0d00`` here, ``bss_0e10`` there) are too.
+    or library name, :func:`_generic` false in *tables*) is reported: the
+    names should be made to agree.  A routine called is not: each binary
+    calls its own, which a different name rightly tells apart (the same code
+    under two names is :func:`_warn_split_names`'s).  A label the file
+    defines (a jump table, a case) is the same code in every copy, so it is.  With VERBOSE=1,
+    generated external names (``bss_0d00`` here, ``bss_0e10`` there) are too.
     """
     verbose = os.environ.get('VERBOSE') == '1'
     tables = tables or {}
@@ -624,12 +672,16 @@ def _warn_partial_shares(shared, bindings, tables=None):
         prefix = _stem(path) + '.'
         # common -> {own spelling: [binary, ...]}
         aliases, named, internal = defaultdict(dict), set(), set()
+        code = defaultdict(lambda: True)
         for rel in sorted(members):
             table = tables.get(_binary(rel), {})
             for common, own, defined in bindings.get(rel, ()):
                 if not common.startswith(prefix):
                     continue
-                if not _generic(table.get(own)):
+                sym = table.get(own)
+                code[common] &= (not defined and sym is not None
+                                 and sym.kind in _CODE)
+                if not _generic(sym):
                     named.add(common)
                 if defined:
                     internal.add(common)
@@ -638,7 +690,8 @@ def _warn_partial_shares(shared, bindings, tables=None):
                     f'{own} ({", ".join(binaries)})'
                     for own, binaries in spellings.items()))
                 for common, spellings in sorted(aliases.items())
-                if common in named or (verbose and common not in internal)]
+                if not code[common] and (
+                    common in named or (verbose and common not in internal))]
         if rows:
             report.append((path, rows))
     if report:

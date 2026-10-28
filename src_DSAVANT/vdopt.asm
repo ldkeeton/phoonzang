@@ -162,7 +162,12 @@ draw_spell_cost.dseg1 equ dseg_909a
 
 %include "shared/ovr/periodic_party_redraw.asm" ; 0x28f7
 
-%include "vdopt/pick_spell_dialog.asm"     ; 0x2988
+jumptable_35d1_case_0 equ pick_spell_dialog.jumptable_case1
+jumptable_35d1_case_1 equ pick_spell_dialog.jumptable_case2
+jumptable_35d1_case_3 equ pick_spell_dialog.jumptable_case3
+jumptable_35d1_case_4 equ pick_spell_dialog.jumptable_case4
+jumptable_35d1        equ pick_spell_dialog.jumptable1
+%include "shared/ovr/pick_spell_dialog.asm"     ; 0x2988
 
 %include "shared/ovr/api_idx_0008_RQRL.asm"     ; 0x362f
 
@@ -191,7 +196,7 @@ __zdata_start:
 
 %include "vdopt/data/dseg_909a.asm"        ; 0x4731
 
-%include "vdopt/data/spell_screen_temp_file.asm" ; 0x4735
+%include "shared/data/spell_screen_temp_file.asm" ; 0x4735
 
 %include "vdopt/data/dseg_90a4.asm"        ; 0x473b
 

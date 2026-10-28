@@ -4,7 +4,7 @@ show_centered_message:
     call aztec_csav                  ; 0x030d
     mov ax, 1                        ; 0x0310
     push ax                          ; 0x0313
-    call restore_areas_redraw_glyph  ; 0x0314
+    call redraw_glyph_strip          ; 0x0314
     pop cx                           ; 0x0317
     mov ax, 2                        ; 0x0318
     push ax                          ; 0x031b
@@ -70,7 +70,7 @@ show_centered_message:
 .forward2:
     mov ax, 0                        ; 0x03ad
     push ax                          ; 0x03b0
-    call restore_areas_redraw_glyph  ; 0x03b1
+    call redraw_glyph_strip          ; 0x03b1
     pop cx                           ; 0x03b4
     call flush_keyboard              ; 0x03b5
     ret                              ; 0x03b8

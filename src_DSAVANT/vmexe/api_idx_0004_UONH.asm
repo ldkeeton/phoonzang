@@ -42,7 +42,7 @@ api_idx_0004_UONH:
 .forward2:
     mov ax, 0                        ; 0x1ba7
     push ax                          ; 0x1baa
-    call restore_areas_redraw_glyph  ; 0x1bab
+    call redraw_glyph_strip          ; 0x1bab
     pop cx                           ; 0x1bae
     cmp word [bp - 4], byte 0        ; 0x1baf
     je short .forward3               ; 0x1bb3

@@ -28,7 +28,7 @@ api_idx_0014_OSKJ:
 .forward1:
     mov ax, 1                        ; 0x64c5
     push ax                          ; 0x64c8
-    call restore_areas_redraw_glyph  ; 0x64c9
+    call redraw_glyph_strip          ; 0x64c9
     pop cx                           ; 0x64cc
     mov word [bp - 4], 0             ; 0x64cd
     mov word [bp - 6], 0             ; 0x64d2
@@ -398,7 +398,7 @@ api_idx_0014_OSKJ:
 .forward20:
     mov ax, 1                        ; 0x68a9
     push ax                          ; 0x68ac
-    call restore_areas_redraw_glyph  ; 0x68ad
+    call redraw_glyph_strip          ; 0x68ad
     pop cx                           ; 0x68b0
     mov ax, 4                        ; 0x68b1
     push ax                          ; 0x68b4
@@ -445,7 +445,7 @@ api_idx_0014_OSKJ:
     pop cx                           ; 0x6916
     mov ax, 1                        ; 0x6917
     push ax                          ; 0x691a
-    call restore_areas_redraw_glyph  ; 0x691b
+    call redraw_glyph_strip          ; 0x691b
     pop cx                           ; 0x691e
 .forward22:
     cmp word [bp - 6], byte 0        ; 0x691f
@@ -927,7 +927,7 @@ jumptable_6ea7_case_8:
     call run_party_screen_animation  ; 0x6deb
     mov ax, 0                        ; 0x6dee
     push ax                          ; 0x6df1
-    call restore_areas_redraw_glyph  ; 0x6df2
+    call redraw_glyph_strip          ; 0x6df2
     pop cx                           ; 0x6df5
     mov word [game_state], 0x11      ; 0x6df6
     mov word [party_return_state], 0xd ; 0x6dfc

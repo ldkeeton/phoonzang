@@ -252,7 +252,7 @@ party_screen:
 .forward13:
     mov ax, 1                        ; 0x1c66
     push ax                          ; 0x1c69
-    call restore_areas_redraw_glyph  ; 0x1c6a
+    call redraw_glyph_strip          ; 0x1c6a
     pop cx                           ; 0x1c6d
     mov ax, 1                        ; 0x1c6e
     push ax                          ; 0x1c71
