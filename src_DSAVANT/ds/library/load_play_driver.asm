@@ -33,7 +33,7 @@ load_play_driver:
     pop ds                           ; 0x363b
     ret                              ; 0x363c
 .forward1:
-    call ds_loc_IGLJ                 ; 0x363d
+    call restore_video_and_release_memory ; 0x363d
 sound_driver_error_exit:
     mov ax, cs                       ; 0x3640
     mov ds, ax                       ; 0x3642

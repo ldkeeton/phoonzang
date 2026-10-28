@@ -1,7 +1,7 @@
 ; Loads the driver, or restores the system and prints a fatal load error.
 	include	lmacros.h
 	assume	cs:codeseg
-	extrn	ds_loc_IGLJ_:near
+	extrn	restore_video_and_release_memory_:near
 	extrn	cseg_2f56_:word
 	extrn	cseg_2f67_:word
 	extrn	cseg_35ec_:word
@@ -38,7 +38,7 @@ copy_segments:
 	pops	es,ds
 	ret
 open_error:
-	call ds_loc_IGLJ_
+	call restore_video_and_release_memory_
 load_play_driver_ endp
 	public	sound_driver_error_exit
 sound_driver_error_exit proc near

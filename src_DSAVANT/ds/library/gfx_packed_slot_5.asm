@@ -1,5 +1,5 @@
 ; auto-generated
-ds_loc_QURR:
+gfx_packed_slot_5:
     push bp                          ; 0x4175
     mov bp, sp                       ; 0x4176
     cld                              ; 0x4178
@@ -20,7 +20,7 @@ ds_loc_QURR:
     push ax                          ; 0x4190
     push ax                          ; 0x4191
     push ax                          ; 0x4192
-    call far [cs:cseg_2f7b - IMAGE_BASE] ; 0x4193
+    call far [cs:gfx_drv_slot_5 - IMAGE_BASE] ; 0x4193
     add sp, byte 0xe                 ; 0x4198
     pop di                           ; 0x419b
     pop si                           ; 0x419c

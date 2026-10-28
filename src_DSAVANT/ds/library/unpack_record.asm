@@ -22,7 +22,7 @@ unpack_record:
 .back1:
     cmp word [bp - 4], byte 0        ; 0x4029
     je short .forward1               ; 0x402d
-    call ds_string_loc_SSGO          ; 0x402f
+    call decode_packed_tree_leaf     ; 0x402f
     mov byte [di], bl                ; 0x4032
     inc di                           ; 0x4034
     dec word [bp - 4]                ; 0x4035

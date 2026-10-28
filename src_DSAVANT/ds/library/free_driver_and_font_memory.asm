@@ -1,5 +1,5 @@
 ; auto-generated
-ds_loc_RMTO:
+free_driver_and_font_memory:
     push es                          ; 0x3796
     push si                          ; 0x3797
     lea si, word [cseg_2f58 - IMAGE_BASE] ; 0x3798

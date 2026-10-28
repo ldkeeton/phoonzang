@@ -1,0 +1,3 @@
+; auto-generated
+gfx_drv_cache_area:
+    db 0x9f, 0x01, 0x00, 0x00

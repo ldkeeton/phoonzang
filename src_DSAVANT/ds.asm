@@ -583,9 +583,17 @@ __zdseg_end equ (__zimage_end - __zdseg_start) + __zbss_size
 
 %include "ds/data/cseg_2f67.asm"           ; 0x2f67
 
+%include "ds/data/gfx_drv_slot_5.asm"      ; 0x2f7b
+
 %include "ds/data/play_drv_wait.asm"       ; 0x2f83
 
 %include "ds/data/cseg_2f87.asm"           ; 0x2f87
+
+%include "ds/data/gfx_drv_draw_text.asm"   ; 0x2f9f
+
+%include "ds/data/cseg_2fa3.asm"           ; 0x2fa3
+
+%include "ds/data/gfx_drv_draw_maze_piece.asm" ; 0x2fab
 
 %include "ds/data/gfx_drv_slot_10.asm"     ; 0x2faf
 
@@ -593,9 +601,53 @@ __zdseg_end equ (__zimage_end - __zdseg_start) + __zbss_size
 
 %include "ds/data/cseg_2fb7.asm"           ; 0x2fb7
 
+%include "ds/data/gfx_drv_set_text_pos.asm" ; 0x2fbb
+
+%include "ds/data/cseg_2fbf.asm"           ; 0x2fbf
+
+%include "ds/data/gfx_drv_fill_screen_buffer.asm" ; 0x2fc3
+
+%include "ds/data/gfx_drv_show_area.asm"   ; 0x2fc7
+
+%include "ds/data/cseg_2fcb.asm"           ; 0x2fcb
+
+%include "ds/data/gfx_drv_fill_area.asm"   ; 0x2fcf
+
+%include "ds/data/cseg_2fd3.asm"           ; 0x2fd3
+
+%include "ds/data/gfx_drv_dissolve_area.asm" ; 0x2ff3
+
+%include "ds/data/cseg_2ff7.asm"           ; 0x2ff7
+
+%include "ds/data/gfx_drv_fade_in.asm"     ; 0x2fff
+
+%include "ds/data/gfx_drv_fade_out.asm"    ; 0x3003
+
+%include "ds/data/cseg_3007.asm"           ; 0x3007
+
+%include "ds/data/gfx_drv_cache_area.asm"  ; 0x3023
+
+%include "ds/data/cseg_3027.asm"           ; 0x3027
+
+%include "ds/data/gfx_drv_cache_maze.asm"  ; 0x302f
+
+%include "ds/data/gfx_drv_cache_screen_to_storage.asm" ; 0x3033
+
+%include "ds/data/cseg_3037.asm"           ; 0x3037
+
+%include "ds/data/gfx_drv_wait_sound.asm"  ; 0x3043
+
+%include "ds/data/gfx_drv_stop_sound.asm"  ; 0x3047
+
+%include "ds/data/cseg_304b.asm"           ; 0x304b
+
+%include "ds/data/gfx_drv_stop_music.asm"  ; 0x305b
+
+%include "ds/data/cseg_305f.asm"           ; 0x305f
+
 %include "ds/library/init_system_hardware.asm" ; 0x3067
 
-%include "ds/library/ds_loc_IGLJ.asm"      ; 0x30a3
+%include "ds/library/restore_video_and_release_memory.asm" ; 0x30a3
 
 %include "ds/library/restore_saved_video_state.asm" ; 0x30c3
 
@@ -627,7 +679,7 @@ __zdseg_end equ (__zimage_end - __zdseg_start) + __zbss_size
 
 %include "ds/library/calibrate_loops_per_ms.asm" ; 0x3674
 
-%include "ds/library/ds_loc_OHLH.asm"      ; 0x36bc
+%include "ds/library/far_delay_ms.asm"     ; 0x36bc
 
 %include "ds/library/no_operation.asm"     ; 0x36cd
 
@@ -641,7 +693,7 @@ __zdseg_end equ (__zimage_end - __zdseg_start) + __zbss_size
 
 %include "ds/library/free_font_memory.asm" ; 0x377b
 
-%include "ds/library/ds_loc_RMTO.asm"      ; 0x3796
+%include "ds/library/free_driver_and_font_memory.asm" ; 0x3796
 
 %include "ds/library/detect_mouse.asm"     ; 0x37a5
 
@@ -651,7 +703,7 @@ __zdseg_end equ (__zimage_end - __zdseg_start) + __zbss_size
 
 %include "ds/library/release_expanded_memory.asm" ; 0x382c
 
-%include "ds/library/ds_leaf_loc_PUGK.asm" ; 0x383e
+%include "ds/library/get_loops_per_ms.asm" ; 0x383e
 
 %include "ds/data/font_seg_table.asm"      ; 0x384a
 
@@ -697,7 +749,7 @@ __zdseg_end equ (__zimage_end - __zdseg_start) + __zbss_size
 
 %include "ds/library/gfx_restore_area.asm" ; 0x3b96
 
-%include "ds/library/ds_loc_JRJK.asm"      ; 0x3ba3
+%include "ds/library/random_15bit.asm"     ; 0x3ba3
 
 %include "ds/library/stir_random_seeds.asm" ; 0x3c0d
 
@@ -725,7 +777,7 @@ __zdseg_end equ (__zimage_end - __zdseg_start) + __zbss_size
 
 %include "ds/library/unpack_record.asm"    ; 0x4002
 
-%include "ds/library/ds_string_loc_SSGO.asm" ; 0x4046
+%include "ds/library/decode_packed_tree_leaf.asm" ; 0x4046
 
 %include "ds/library/strpos.asm"           ; 0x4091
 
@@ -741,7 +793,7 @@ __zdseg_end equ (__zimage_end - __zdseg_start) + __zbss_size
 
 %include "ds/library/gfx_stop_sound.asm"   ; 0x4168
 
-%include "ds/library/ds_loc_QURR.asm"      ; 0x4175
+%include "ds/library/gfx_packed_slot_5.asm" ; 0x4175
 
 %include "ds/library/gfx_load_score.asm"   ; 0x41a3
 

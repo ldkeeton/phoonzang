@@ -58,7 +58,7 @@ load_video_driver:
     pop ds                           ; 0x35b3
     ret                              ; 0x35b4
 .forward1:
-    call ds_loc_IGLJ                 ; 0x35b5
+    call restore_video_and_release_memory ; 0x35b5
 display_driver_error_exit:
     mov ax, cs                       ; 0x35b8
     mov ds, ax                       ; 0x35ba

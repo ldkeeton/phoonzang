@@ -1,5 +1,5 @@
 ; auto-generated
-ds_string_loc_SSGO:
+decode_packed_tree_leaf:
     mov cx, word [bp - 2]            ; 0x4046
     xor bx, bx                       ; 0x4049
 .back1:

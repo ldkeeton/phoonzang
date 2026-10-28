@@ -1,5 +1,5 @@
 ; auto-generated
-ds_loc_IGLJ:
+restore_video_and_release_memory:
     push bp                          ; 0x30a3
     mov bp, sp                       ; 0x30a4
     cld                              ; 0x30a6
@@ -11,7 +11,7 @@ ds_loc_IGLJ:
     mov ax, ds                       ; 0x30ae
     mov es, ax                       ; 0x30b0
     call restore_saved_video_state   ; 0x30b2
-    call ds_loc_RMTO                 ; 0x30b5
+    call free_driver_and_font_memory ; 0x30b5
     call release_expanded_memory     ; 0x30b8
     pop di                           ; 0x30bb
     pop si                           ; 0x30bc

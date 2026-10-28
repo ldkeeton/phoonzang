@@ -1,0 +1,3 @@
+; auto-generated
+gfx_drv_show_area:
+    db 0x43, 0x01, 0x00, 0x00

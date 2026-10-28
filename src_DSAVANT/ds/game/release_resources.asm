@@ -150,6 +150,6 @@ release_resources.forward18:
 release_resources.forward19:
     cmp word [bp - 2], byte 1        ; 0x03ae
     jne short release_resources.return1 ; 0x03b2
-    call ds_loc_IGLJ                 ; 0x03b4
+    call restore_video_and_release_memory ; 0x03b4
 release_resources.return1:
     ret                              ; 0x03b7

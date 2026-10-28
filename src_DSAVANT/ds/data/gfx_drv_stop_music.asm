@@ -1,0 +1,3 @@
+; auto-generated
+gfx_drv_stop_music:
+    db 0xd7, 0x01, 0x00, 0x00

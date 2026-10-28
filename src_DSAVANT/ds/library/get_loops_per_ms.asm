@@ -1,5 +1,5 @@
 ; auto-generated
-ds_leaf_loc_PUGK:
+get_loops_per_ms:
     push bp                          ; 0x383e
     mov bp, sp                       ; 0x383f
     cld                              ; 0x3841

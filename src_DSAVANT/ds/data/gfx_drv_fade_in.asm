@@ -1,0 +1,3 @@
+; auto-generated
+gfx_drv_fade_in:
+    db 0x7b, 0x01, 0x00, 0x00

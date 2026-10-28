@@ -1,5 +1,5 @@
 ; auto-generated
-ds_loc_OHLH:
+far_delay_ms:
     push bp                          ; 0x36bc
     mov bp, sp                       ; 0x36bd
     cld                              ; 0x36bf

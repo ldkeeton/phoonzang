@@ -1,5 +1,5 @@
 ; auto-generated
-ds_loc_JRJK:
+random_15bit:
     push bp                          ; 0x3ba3
     mov bp, sp                       ; 0x3ba4
     cld                              ; 0x3ba6

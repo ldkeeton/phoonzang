@@ -1,0 +1,3 @@
+; auto-generated
+gfx_drv_cache_maze:
+    db 0xab, 0x01, 0x00, 0x00
