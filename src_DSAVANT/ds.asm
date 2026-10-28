@@ -649,7 +649,7 @@ __zdseg_end equ (__zimage_end - __zdseg_start) + __zbss_size
 
 %include "ds/library/detect_expanded_memory.asm" ; 0x37d9
 
-%include "ds/library/ds_leaf_loc_KIKO.asm" ; 0x382c
+%include "ds/library/release_expanded_memory.asm" ; 0x382c
 
 %include "ds/library/ds_leaf_loc_PUGK.asm" ; 0x383e
 

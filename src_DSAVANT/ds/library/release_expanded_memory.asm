@@ -1,5 +1,5 @@
 ; auto-generated
-ds_leaf_loc_KIKO:
+release_expanded_memory:
     push ds                          ; 0x382c
     push es                          ; 0x382d
     mov dx, word [cs:ems_handle - IMAGE_BASE] ; 0x382e

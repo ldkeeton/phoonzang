@@ -12,7 +12,7 @@ ds_loc_IGLJ:
     mov es, ax                       ; 0x30b0
     call restore_saved_video_state   ; 0x30b2
     call ds_loc_RMTO                 ; 0x30b5
-    call ds_leaf_loc_KIKO            ; 0x30b8
+    call release_expanded_memory     ; 0x30b8
     pop di                           ; 0x30bb
     pop si                           ; 0x30bc
     pop es                           ; 0x30bd

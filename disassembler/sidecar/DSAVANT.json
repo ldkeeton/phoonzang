@@ -194,6 +194,7 @@
         {"offset": "10e38", "note": "stack/heap size constant 0x0100; read as `mov si, word es:[dseg_0cd8]; shl si, cl` (0x4da7) - a number"}
       ],
       "function_names": {
+        "382c": {"name": "release_expanded_memory", "note": "Releases the recorded EMS handle when nonzero"},
         "398a": {"name": "read_font_glyph", "note": "seeks the font file to source * bytes_per_glyph and reads one glyph record into the font segment at 110h + map[glyph] * bytes_per_glyph"},
         "39f6": {"name": "get_font_glyph", "note": "returns dx:ax = the glyph record in the font segment and copies the font header bytes 0 and 1 into the caller's width and height words"},
         "4091": {"name": "strpos", "note": "ds: index of a char in a string, 0xFFFF if absent (repne scasb)"},
@@ -313,7 +314,7 @@
         "30c3": {"name": "restore_saved_video_state", "note": "restores the startup equipment byte at 0040:0010 and sets the saved video mode via int 10h/00h"},
         "30e2": {"name": "seed_random_from_timer", "note": "seeds the random generator from the BIOS tick count"},
         "30f7": {
-          "name": "detect_video_adapter",
+          "name": "detect_video_adapter", "length": 1023,
           "note": "saves the video mode (INT 10h AH=0Fh), then picks VGA (AX=1A00h display code 7/8) or EGA (0040:0087) and jumps to select_vga_driver / select_ega_driver; [bp+4] bit 0 clear skips the VGA probe"
         },
         "343e": {
