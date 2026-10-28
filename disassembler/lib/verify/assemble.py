@@ -27,6 +27,38 @@ _label_re_key = 0
 _stats = {'spawns': 0, 'hits': 0, 'time': 0.0}
 
 
+class NasmError(RuntimeError):
+    """NASM could not run at all, as opposed to rejecting a line.
+
+    A rejected line is a normal result (the caller keeps the raw operand); a
+    NASM that cannot start, write its output or finish must stop the build, or
+    every label it was checking silently falls back to a number."""
+
+
+def _run_nasm(argv, timeout):
+    """Run NASM; raise :class:`NasmError` unless it ran and either succeeded
+    or reported an error against a source line (``file:N: error:``)."""
+    try:
+        r = subprocess.run(argv, capture_output=True, timeout=timeout)
+    except (OSError, subprocess.TimeoutExpired) as exc:
+        raise NasmError(f'{NASM} could not run: {exc}') from exc
+    if r.returncode != 0 and not _ERR_RE.search(
+            r.stderr.decode(errors='replace')):
+        raise NasmError(f'{NASM} failed (exit {r.returncode}) without a line '
+                        f'error: {r.stderr.decode(errors="replace").strip()}')
+    return r
+
+
+def _read_output(path):
+    """The bytes NASM wrote to *path*; it said it succeeded, so missing or
+    unreadable output is an environment fault."""
+    try:
+        with open(path, 'rb') as f:
+            return f.read()
+    except OSError as exc:
+        raise NasmError(f'{NASM} output unreadable: {exc}') from exc
+
+
 def assemble_stats():
     return dict(_stats)
 
@@ -214,28 +246,28 @@ def micro_assemble(nasm_text, offset, label_map=None, local_labels=None, foreign
            f'{nasm_text}\n')
 
     fd, asm_path = tempfile.mkstemp(suffix='.asm', text=True)
+    bin_path = asm_path + '.bin'
     t0 = time.perf_counter()
     try:
         with os.fdopen(fd, 'w') as f:
             f.write(asm)
-        r = subprocess.run(
-            [NASM, '-O0', '-f', 'bin', '-w-number-overflow', '-o', '/dev/stdout', asm_path],
-            capture_output=True, timeout=30,
+        # A file, not /dev/stdout: a sandbox may refuse that device.
+        r = _run_nasm(
+            [NASM, '-O0', '-f', 'bin', '-w-number-overflow', '-o', bin_path, asm_path],
+            timeout=30,
         )
+        built = _read_output(bin_path) if r.returncode == 0 else None
     finally:
-        try:
-            os.unlink(asm_path)
-        except OSError:
-            pass
+        for path in (asm_path, bin_path):
+            try:
+                os.unlink(path)
+            except OSError:
+                pass
     _stats['spawns'] += 1
     _stats['time'] += time.perf_counter() - t0
 
-    if r.returncode != 0:
-        _assemble_cache[key] = None
-        return None
-
-    _assemble_cache[key] = r.stdout
-    return r.stdout
+    _assemble_cache[key] = built
+    return built
 
 
 _LINE_RE = re.compile(r'^\s*(\d+)\s+([0-9A-Fa-f]{8})\s+([0-9A-Fa-f()]+)\s*(.*)$')
@@ -310,10 +342,10 @@ def assemble_batch(requests, label_map=None, local_labels=None,
             with os.fdopen(fd, 'w') as f:
                 f.write('\n'.join(lines) + '\n')
             t0 = time.perf_counter()
-            r = subprocess.run(
+            r = _run_nasm(
                 [NASM, '-O0', '-f', 'bin', '-w-number-overflow',
                  '-o', bin_path, '-l', lst_path, asm_path],
-                capture_output=True, timeout=120,
+                timeout=120,
             )
             _stats['spawns'] += 1
             _stats['time'] += time.perf_counter() - t0
@@ -331,8 +363,7 @@ def assemble_batch(requests, label_map=None, local_labels=None,
                     return None
                 continue
 
-            with open(bin_path, 'rb') as f:
-                blob = f.read()
+            blob = _read_output(bin_path)
             lengths = {}
             with open(lst_path) as f:
                 for line in f:

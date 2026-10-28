@@ -2,7 +2,7 @@
 
 DOSBox-X installs its own SIGINT/SIGTERM handlers, so a terminal Ctrl-C does
 not reliably stop it, and an interrupted Python build can leave it (and the
-``/tmp/asmaz-*`` work directory it runs in) behind.  Every child started
+``.cache/tmp/asmaz-*`` work directory it runs in) behind.  Every child started
 through :func:`run` is therefore:
 
 * the leader of its own process group (``start_new_session=True``), so the
@@ -23,9 +23,10 @@ import shutil
 import signal
 import subprocess
 import sys
-import tempfile
 import threading
 import time
+
+from .cachedirs import use_cache_tmp
 
 #: Process groups (``pid`` of a child started with ``start_new_session``) that
 #: will be signalled on interruption.
@@ -37,7 +38,7 @@ _terminating = False
 
 #: Temp work-directory prefixes used by the Aztec drivers.
 WORK_PREFIXES = ('asmaz-', 'asmazb-', 'azlibchk-', 'asmazlib-')
-_TMP_ROOT = tempfile.gettempdir()
+_TMP_ROOT = use_cache_tmp()
 
 #: Seconds between SIGTERM and SIGKILL when shutting a child down.
 GRACE = 2.0

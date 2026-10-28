@@ -16,6 +16,7 @@ Layout::
     .cache/<project>/stages/            pipeline stage ledgers (.jsonl)
     .cache/_all/                        cross-project outputs only
                                         (images, images_layers, summary/delta)
+    .cache/tmp/                         scratch for NASM, DOSBox and every child
     .cache/_baseline/<project>/         pinned stats baseline for stats-diff; survives
                                         ``make clean`` and ``make prebuild``
     .cache/_flow/                       ``make flow`` output only: pipeline.lock,
@@ -37,6 +38,21 @@ ALL_DIR = os.path.join(CACHE_ROOT, '_all')
 FLOW_DIR = os.path.join(CACHE_ROOT, '_flow')
 BASELINE_ROOT = os.path.join(CACHE_ROOT, '_baseline')
 SRC_PREFIX = 'src_'
+
+
+TMP_DIR = os.path.join(CACHE_ROOT, 'tmp')
+
+
+def use_cache_tmp():
+    """Point ``tempfile`` and every child's ``TMPDIR`` at ``.cache/tmp``.
+
+    A sandboxed shell may refuse writes outside the workspace (``/tmp``), so
+    scratch files for NASM, DOSBox and the rest stay under ``.cache``."""
+    import tempfile
+    os.makedirs(TMP_DIR, exist_ok=True)
+    tempfile.tempdir = TMP_DIR
+    os.environ['TMPDIR'] = TMP_DIR
+    return TMP_DIR
 
 
 def project_cache(project):
@@ -133,5 +149,6 @@ def list_cached_projects():
     return sorted(n for n in os.listdir(CACHE_ROOT)
                   if n not in (os.path.basename(ALL_DIR),
                                os.path.basename(FLOW_DIR),
-                               os.path.basename(BASELINE_ROOT))
+                               os.path.basename(BASELINE_ROOT),
+                               os.path.basename(TMP_DIR))
                   and os.path.isdir(os.path.join(CACHE_ROOT, n)))
