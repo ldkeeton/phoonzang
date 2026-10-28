@@ -51,10 +51,6 @@ loc_JTQK_001f.load_screen1 equ wait_for_music
 
 %include "play/music_set_tempo_volume.asm" ; 0x023f
 
-saved_int08_offset  equ __zinsn_0b0f + 0x1
-saved_int08_segment equ __zinsn_0b0f + 0x3
-%include "play/play_select_device.asm"     ; 0x0294
-
 sample_counter_seed_e    equ __zinsn_0846 + 0x2
 sample_data_segment_b    equ __zinsn_08be + 0x1
 sample_stream_offset     equ __zinsn_08c3 + 0x1
@@ -64,12 +60,12 @@ sample_data_segment_c    equ __zinsn_09a3 + 0x1
 sample_stream_offset_alt equ __zinsn_09a8 + 0x1
 sample_counter_seed_c    equ __zinsn_09b6 + 0x5
 sample_counter_seed_d    equ __zinsn_0a52 + 0x2
-; saved_int08_offset       equ __zinsn_0b0f + 0x1
-; saved_int08_segment      equ __zinsn_0b0f + 0x3
+saved_int08_offset       equ __zinsn_0b0f + 0x1
+saved_int08_segment      equ __zinsn_0b0f + 0x3
 sample_data_segment_a    equ __zinsn_18e7 + 0x1
 sample_offset            equ __zinsn_18f1 + 0x1
 sample_counter_seed_a    equ __zinsn_18ff + 0x5
-%include "play/play_configure_timer_handler.asm" ; 0x03e2
+%include "play/play_select_device.asm"     ; 0x0294
 
 %include "play/play_build_velocity_curves.asm" ; 0x065a
 
