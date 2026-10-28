@@ -286,14 +286,3 @@ def public_functions(data):
                            if fx.seg == seg and offv <= fx.offset < end],
                 'omf': m,
             }
-
-
-if __name__ == '__main__':
-    import sys
-    data = open(sys.argv[1], 'rb').read()
-    mods = find_modules(data)
-    print('modules', len(mods))
-    funcs = list(public_functions(data))
-    print('public code funcs', len(funcs))
-    for f in funcs[:20]:
-        print(f"{f['name']:24} {f['module']:20} len={f['length']:4} {f['bytes'][:10].hex()}")

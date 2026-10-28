@@ -13,17 +13,17 @@ Produces three kinds of output:
      the disassembler pipeline executed phase-by-phase with timing and
      event counts.
 
-Usage (from disassembler/):
-  python3 -m flow.generate                                  # both
-  python3 -m flow.generate DSAVANT                          # trace for one project
-  python3 -m flow.generate DSAVANT ds                       # trace for one binary
-  python3 -m flow.generate --arch                           # architecture only
-  python3 -m flow.generate --stages [PROJECT]               # PIPELINE.md + diagrams
-  python3 -m flow.generate --html [PROJECT]                 # one-page health view
-  python3 -m flow.generate --baseline [PROJECT]             # pin waste numbers
-  python3 -m flow.generate --lock                           # rewrite .cache/_flow/pipeline.lock
-  python3 -m flow.generate --check [PROJECT]                # lock + ledger check
-  python3 -m flow.generate --trace                          # trace only
+Usage (from the repo root, through make):
+  make flow                                     # both
+  make flow ARGS="DSAVANT"                      # trace for one project
+  make flow ARGS="DSAVANT ds"                   # trace for one binary
+  make flow ARGS="--arch"                       # architecture only
+  make flow ARGS="--stages [PROJECT]"           # PIPELINE.md + diagrams
+  make flow ARGS="--html [PROJECT]"             # one-page health view
+  make flow ARGS="--baseline [PROJECT]"         # pin waste numbers
+  make flow ARGS="--lock"                       # rewrite .cache/_flow/pipeline.lock
+  make flow ARGS="--check [PROJECT]"            # lock + ledger check
+  make flow ARGS="--trace"                      # trace only
 """
 
 import os
@@ -120,7 +120,7 @@ def process_trace(project, binary_name):
     """Generate pipeline trace flow from JSONL."""
     jsonl_path = base.find_detailed_jsonl(project, binary_name)
     if not jsonl_path:
-        print(f'  [trace] no JSONL trace for {project}/{binary_name} (run python -m main --trace)')
+        print(f'  [trace] no JSONL trace for {project}/{binary_name} (run EXTRA_FLAGS=--trace make build)')
         return
 
     out_dir = os.path.join(BUILD_OUT, 'trace')
@@ -206,7 +206,7 @@ def main():
                         process_trace(project, name)
                         traced_bins += 1
         if not traced_bins:
-            print('  (no JSONL traces found — run python -m main --trace first)')
+            print('  (no JSONL traces found — run EXTRA_FLAGS=--trace make build first)')
 
     # Summary
     for sub in ('arch', 'trace'):
@@ -223,4 +223,6 @@ def main():
 
 
 if __name__ == '__main__':
+    from lib.entry import require_make
+    require_make()
     main()

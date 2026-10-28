@@ -98,31 +98,6 @@ def _report(binary, returncode, stdout, stderr, sink=None, errors=None,
             print(f'  {line}', file=sys.stderr)
 
 
-def _asm_one(app, binary, extra_args=None, sink=None):
-    """Run ``python -m main <app> <binary>`` and report its output.
-
-    Empty stdout is normal (e.g. a prebuild binary with no ``aztec_*`` labels),
-    so blank lines are dropped rather than reprinted.  A worker that succeeds
-    prints only its own one-line summary (plus anything that looks like a
-    warning); a worker that fails prints everything.  ``EXTRA_FLAGS=--verbose``
-    or ``VERBOSE=1`` prints it all either way.  When *sink* is a list the kept
-    lines are appended to it instead of printed, letting callers group and order
-    parallel output deterministically.
-    """
-    cmd = _main_cmd(app, binary)
-    if extra_args:
-        cmd.extend(extra_args)
-    # With VERBOSE the worker's stderr (its progress lines) goes straight to
-    # ours as it is written, as a build worker's is echoed.
-    live = _verbose()
-    r = childproc.run(cmd, stdout=subprocess.PIPE,
-                      stderr=None if live else subprocess.PIPE, text=True,
-                      cwd=ASM)
-    _report(binary, r.returncode, r.stdout, r.stderr or '', sink,
-            streamed=live)
-    return r.returncode
-
-
 _echo_lock = threading.Lock()
 
 
@@ -237,7 +212,7 @@ class Workers:
         self.errors = []
 
     def run(self, binary, flags=None, sink=None):
-        """One build step of *binary*, reported like :func:`_asm_one`.
+        """One build step of *binary*, its output reported by :func:`_report`.
 
         Returns ``(status, files)``: the files an emitting step lays out, else
         ``None``.

@@ -69,7 +69,7 @@ from lib import progress
 from lib.report import write_report, write_layers, write_summary, print_short_report
 
 from .aztec import _aztec_asm_annotations, _aztec_c_overrides, _data_sources
-from lib.autogen import is_generated, stamp, write_text
+from lib.autogen import is_generated, stamp
 from .emit import _write_address_inventory, _write_render_context
 from .options import (
     ALLOW_DIFF,
@@ -83,7 +83,6 @@ from .options import (
     _MAX_FUNC_SIZE,
     _TRACE,
     _TRACE_ADDRESSES,
-    _DECOMPILE,
 )
 from .phases import _build_classify_phases, _build_refine_phases
 from .seeding import (
@@ -93,17 +92,6 @@ from .seeding import (
     _seed_aztec_stubs,
     _seed_csav_functions,
 )
-
-
-def process(name, *args, **kwargs):
-    """Run one binary through the pipeline, recording its stage ledger."""
-    project = kwargs.get('project')
-    ledger = stagelog.begin(f'{project}/{name}')
-    try:
-        return _process(name, *args, **kwargs)
-    finally:
-        stagelog.end(ledger, stagelog.ledger_path(project, name)
-                     if project else None)
 
 
 def _analyze(name, orig_dir, rel_path, start_offset, output_dir=None,
@@ -1010,7 +998,7 @@ def _emit(a, r, exact_bytes):
     Returns the binary's files under ``src_<project>/`` as ``{relative path:
     text}``, each stamped as generated.  Nothing is written there here: the
     build places the routines every binary shares (:mod:`lib.shared`) and then
-    writes each file once (:func:`write_files`).
+    writes each file once (:func:`main.build._sync`).
     """
     (name, project, ctx, instructions, label_map, out_dir, entries,
      immediate_labels, classify_timing, code_bytes, data_bytes, pct,
@@ -1144,23 +1132,7 @@ def _emit(a, r, exact_bytes):
         write_layers(ctx)
         write_summary(ctx, asm_text)
     print_short_report(ctx)
-
-
-    if _DECOMPILE:
-        from lib.decompile.driver import decompile
-        c_text = decompile(instructions, label_map, ctx.code_target_set, name)
-        files[f'{name}.c'] = c_text
-        print(f'  decompile: {len(instructions)} insns -> '
-              f'{os.path.join(out_dir, name)}.c')
     return {rel: stamp(text, rel) for rel, text in files.items()}
-
-
-def write_files(out_dir, files):
-    """Write a build's ``{relative path: text}`` under *out_dir*, each once."""
-    for rel, text in sorted(files.items()):
-        path = os.path.join(out_dir, rel)
-        os.makedirs(os.path.dirname(path), exist_ok=True)
-        write_text(path, text)
 
 
 def _export_labels(a):
@@ -1184,43 +1156,6 @@ def _export_labels(a):
         write_label_json(exported, json_path)
         write_label_json(getattr(a.ctx.segments, 'data_names', None) or {},
                          os.path.join(target_dir, f'{name}_datanames.json'))
-
-
-def _process(name, orig_dir, rel_path, start_offset, exact_bytes=False,
-             show_offsets=True, output_dir=None, project=None,
-             sidecar_entry=None, foreign_label_map=None, export_labels=False,
-             host_model=None, foreign_prefix=None, host_data_offsets=None,
-             emit=True, ds_starts=frozenset(), record_layouts=None):
-    """Generate one binary: analyse, render, export its labels, then emit.
-
-    ``emit=False`` is the labels phase: the same analysis and render (so the
-    labels are the ones the emitting run will produce), but no source is
-    written and no status is printed.  The build uses it for the host, whose
-    emitted source must wait for its consumers' DS offsets.
-    """
-    a = analyze(name, orig_dir, rel_path, start_offset, output_dir=output_dir,
-                project=project, sidecar_entry=sidecar_entry,
-                foreign_label_map=foreign_label_map,
-                export_labels=export_labels, host_model=host_model,
-                foreign_prefix=foreign_prefix)
-    if a is None:
-        return None
-    if a.prebuild_only:
-        # `make prebuild`: the mux manifest is written; nothing downstream of
-        # this point (emit/NASM/build_out) belongs to a prebuild.
-        return a.ctx.bitmap, a.label_map
-    from .aztec import SourceBuildError
-    try:
-        files = step(a, exact_bytes, show_offsets, host_data_offsets,
-                     ds_starts, emit, record_layouts)
-    except SourceBuildError as exc:
-        write_files(a.out_dir, exc.files)
-        raise
-    finally:
-        finish(a)
-    if files:
-        write_files(a.out_dir, files)
-    return a.ctx.bitmap, a.label_map
 
 
 def analyze(name, *args, export_labels=False, **kwargs):

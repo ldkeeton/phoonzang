@@ -1,7 +1,7 @@
 """Per-binary diagnostic logging for pipeline and verify stages.
 
 Usage:
-  - Enable via ``--diag`` on the ``python -m main`` command line.
+  - Enable via ``--diag`` in ``EXTRA_FLAGS`` (``EXTRA_FLAGS=--diag make build``).
   - A ``Diag`` context manager records key->value pairs; on close it flushes
     to ``src_PROJECT/diag/NAME.diag``.
 

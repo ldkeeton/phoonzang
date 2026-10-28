@@ -10,7 +10,7 @@ from lib.cachedirs import aztec_funcs_path, prebuild_dir
 from main.projects import discover_binaries
 
 from .clean import clean_cache
-from .common import APPS, JOBS, _asm_one
+from .common import APPS, JOBS, Workers
 
 
 def cmd_prebuild(app):
@@ -23,6 +23,18 @@ def cmd_prebuild(app):
     """
     clean_cache(app)
     _run_prebuild(app)
+
+
+def _prebuild_one(app, name, sink, errors):
+    """Run *name*'s prebuild step in its own worker; return its status.
+
+    The worker is closed at once, so no more than ``JOBS`` are alive.  A
+    failure's stderr is appended to *errors* as ``(binary, text)``.
+    """
+    with Workers(app) as workers:
+        status, _ = workers.run(name, None, sink)
+        errors.extend(workers.errors)
+    return status
 
 
 def _run_prebuild(app):
@@ -57,10 +69,11 @@ def _run_prebuild(app):
     targets = sorted(bins)
     progress.log(f'prebuild {app} | resolving {len(targets)} binaries')
     outputs = {name: [] for name in targets}
-    failures = []
+    failures, errors = [], []
     try:
         with ThreadPoolExecutor(max_workers=JOBS) as ex:
-            futures = {ex.submit(_asm_one, app, name, None, outputs[name]): name
+            futures = {ex.submit(_prebuild_one, app, name, outputs[name],
+                                 errors): name
                        for name in targets}
             for future in as_completed(futures):
                 rc = future.result()
@@ -84,6 +97,12 @@ def _run_prebuild(app):
         print(f'\n{name}')
         for line in outputs[name]:
             print(line)
+
+    sys.stdout.flush()   # stderr is unbuffered; keep the order on a pipe
+    for binary, err in sorted(errors):
+        print(f'\n{binary}:', file=sys.stderr)
+        for line in err.split('\n'):
+            print(f'  {line}', file=sys.stderr)
 
     if failures:
         print(f'prebuild {app}: {len(set(failures))} binary(ies) failed')

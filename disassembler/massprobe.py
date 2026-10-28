@@ -4,6 +4,10 @@
 Runs every compiler in the dos_compilers toolbox with a broad set of flags,
 compiles a probe that contains the constructs used by dissolve_area, parses
 the resulting OMF object, and scores the code against the target routine.
+
+Usage::
+
+    python3 massprobe.py --help
 """
 from __future__ import annotations
 

@@ -2,6 +2,10 @@
 
 import sys
 
+from lib.entry import require_make
+
+require_make()
+
 from lib import childproc
 from lib.sidecar.errors import SidecarError
 from lib.compare.records import UnencodedInstructionError

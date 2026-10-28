@@ -149,8 +149,8 @@ def _handle(signum, frame):
 def install():
     """Install the interrupt handlers (idempotent).
 
-    Call this early in a top-level program -- the ``make`` driver and
-    ``python -m main`` -- so Ctrl-C, SIGTERM, SIGHUP and SIGQUIT all clean up
+    Call this early in a top-level program -- the ``make`` driver and each
+    ``python -m main --worker`` -- so Ctrl-C, SIGTERM, SIGHUP and SIGQUIT all clean up
     the children even when the main thread is waiting in a thread pool.
     """
     global _installed

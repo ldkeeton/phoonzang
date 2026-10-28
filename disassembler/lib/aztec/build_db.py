@@ -24,8 +24,7 @@ in VMEXE): the other occurrences are not the routine and fail that check.
 
 Output: .cache/<project>/aztec_funcs.json (signatures for ``lib.match.pattern``).
 
-``make prebuild PROJECT`` runs this.  Standalone, from ``disassembler/``:
-``python3 -m lib.aztec.build_db PROJECT`` (the library OMF under
+``make prebuild PROJECT`` runs this (the library OMF under
 ``.cache/<project>/aztec_lib_obj`` is generated on demand by :mod:`.libobjs`).
 """
 
@@ -285,17 +284,3 @@ def build_for_project(project):
     total, emitted = build(objs, os.path.join(_ROOT, 'apps', project), out, exes)
     print(f'  aztec db: {total} symbols -> {emitted} signatures -> {out}')
     return out
-
-
-def main(argv=None):
-    import sys
-    args = sys.argv[1:] if argv is None else argv
-    if len(args) != 1:
-        print('Usage: python3 -m lib.aztec.build_db PROJECT')
-        return 1
-    build_for_project(args[0])
-    return 0
-
-
-if __name__ == '__main__':
-    raise SystemExit(main())

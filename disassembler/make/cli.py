@@ -9,7 +9,7 @@ from .build import _build_projects, cmd_rebuild
 from .charts import cmd_charts, cmd_set_baseline
 from .clean import cmd_clean
 from .purge import cmd_purge
-from .common import _apps, _asm_one
+from .common import _apps
 from .elf import cmd_elf_rebuild
 from .init import cmd_init
 from .inspect import cmd_data, cmd_info, cmd_probe
@@ -336,17 +336,6 @@ def main():
             print(f'Unknown project: {project}')
             sys.exit(1)
         cmd_elf_rebuild(project, binary, all_projects)
-        return
-
-    if '--decompile' in flags:
-        if len(args) < 2:
-            print('Usage: make decompile PROJECT BINARY')
-            sys.exit(1)
-        project, binary = args[0], args[1]
-        if project not in all_projects:
-            print(f'Unknown project: {project}')
-            sys.exit(1)
-        _asm_one(project, binary, ['--decompile'])
         return
 
     if '--build' in flags:

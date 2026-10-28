@@ -10,6 +10,10 @@ _ASM = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 if _ASM not in sys.path:
     sys.path.insert(0, _ASM)
 
+from lib.entry import require_make  # noqa: E402
+
+require_make()
+
 from .cli import main  # noqa: E402
 
 if __name__ == '__main__':

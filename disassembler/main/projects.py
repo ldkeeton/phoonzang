@@ -81,26 +81,6 @@ def _build_host_model(project_dir, bins, sidecar):
     return model
 
 
-def process_project(project_name):
-    """Generate every binary of *project_name* (the one sequence, in process).
-
-    The whole order lives in :mod:`main.build`; this is the ``python -m main``
-    entry point to it, so it does exactly what ``make build`` does -- including
-    the ``shared/`` placement, which it used to skip.
-    """
-    from .build import build_project, inprocess_runners
-
-    project_dir = os.path.join(APPS_DIR, project_name)
-    if not os.path.isdir(project_dir):
-        print(f'{project_name}: SKIP (not found in apps/)')
-        return
-    run_batch, nasm_batch, close = inprocess_runners(project_name)
-    try:
-        build_project(project_name, run_batch, nasm_batch)
-    finally:
-        close()
-
-
 def load_whitelist():
     path = os.path.join(APPS_DIR, 'apps.json')
     if not os.path.exists(path):

@@ -239,14 +239,3 @@ def summarize(report):
             f'{code.get("inside", 0)}/{code.get("dead", 0)}, '
             f'data {data.get("outside", 0)}/{data.get("inside", 0)}/'
             f'{data.get("dead", 0)})')
-
-
-if __name__ == '__main__':
-    import sys
-    tree = sys.argv[1] if len(sys.argv) > 1 else 'src_DSAVANT'
-    found = scan(tree)
-    print(summarize(found))
-    for entry in found['entries']:
-        outs = [e['name'] for e in entry['extra'] if e['reach'] == 'outside']
-        if outs:
-            print(f'  {entry["file"]}: {", ".join(outs)}')

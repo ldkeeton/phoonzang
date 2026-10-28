@@ -20,27 +20,9 @@ AZTEC_PREBUILD_ONLY = bool(os.environ.get('ASM_AZTEC_PREBUILD_ONLY'))
 EXACT_BYTES = '--exact-bytes' in sys.argv
 # Restore the lenient C splice: no byte-for-byte gate, short compiles NOP-padded.
 ALLOW_DIFF = '--allow-diff' in sys.argv
-EXPORT_LABELS = '--export-labels' in sys.argv
-# Labels phase: analyse and render, export the labels, write no source.
-LABELS_ONLY = '--labels-only' in sys.argv
-FOREIGN_LABELS_PATH = None
-FOREIGN_PREFIX = None
-HOST_DATA_OFFSETS_PATH = None
-DS_STARTS_PATH = None
-RECORDS_PATH = None
 _MAX_FUNC_SIZE = None
 for a in sys.argv:
-    if a.startswith('--foreign-labels='):
-        FOREIGN_LABELS_PATH = a.split('=', 1)[1]
-    elif a.startswith('--foreign-prefix='):
-        FOREIGN_PREFIX = a.split('=', 1)[1]
-    elif a.startswith('--host-data-offsets='):
-        HOST_DATA_OFFSETS_PATH = a.split('=', 1)[1]
-    elif a.startswith('--ds-starts='):
-        DS_STARTS_PATH = a.split('=', 1)[1]
-    elif a.startswith('--records='):
-        RECORDS_PATH = a.split('=', 1)[1]
-    elif a.startswith('--max-func-size='):
+    if a.startswith('--max-func-size='):
         try:
             _MAX_FUNC_SIZE = int(a.split('=', 1)[1])
         except ValueError:
@@ -62,7 +44,6 @@ for arg in sys.argv:
 _DIAG = '--diag' in sys.argv
 # Instruction offsets are shown by default; this flag suppresses the comments.
 _SHOW_OFFSETS = '--no-show-offsets' not in sys.argv
-_DECOMPILE = '--decompile' in sys.argv
 # Stats (reports, layers, summaries) are only written when explicitly requested.
 STATS = '--stats' in sys.argv
 # Per-phase timing breakdowns and the full per-binary stats line are opt-in: a
