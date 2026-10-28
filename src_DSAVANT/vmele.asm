@@ -43,15 +43,15 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "vmele/ovmain.asm"                ; 0x000e
 
-%include "shared/overlay/draw_active_member_panel.asm" ; 0x004e
+%include "shared/ovr/draw_active_member_panel.asm" ; 0x004e
 
 %include "vmele/wait_ticks_with_events.asm" ; 0x0102
 
 %include "vmele/flash_message_line.asm"    ; 0x0164
 
-%include "shared/overlay/restore_areas_redraw_glyph.asm" ; 0x0244
+%include "shared/ovr/restore_areas_redraw_glyph.asm" ; 0x0244
 
-%include "shared/overlay/titlecase_string.asm"      ; 0x02c2
+%include "shared/ovr/titlecase_string.asm"      ; 0x02c2
 
 %include "vmele/show_centered_message.asm" ; 0x030a
 
@@ -61,7 +61,7 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 api_idx_005e_RKOR       equ api_idx_005e_OJVJ
 api_idx_005e_OJVJ.dseg1 equ dseg_9098
-%include "shared/overlay/api_idx_005e_OJVJ.asm"     ; 0x0649
+%include "shared/ovr/api_idx_005e_OJVJ.asm"     ; 0x0649
 
 %include "vmele/add_party_member.asm"      ; 0x07ad
 
@@ -75,7 +75,7 @@ api_idx_005e_OJVJ.dseg1 equ dseg_9098
 
 %include "vmele/advance_member_item_actions.asm" ; 0x14e6
 
-%include "shared/overlay/loc_SIKN.asm"              ; 0x16d1
+%include "shared/ovr/loc_SIKN.asm"              ; 0x16d1
 
 %include "vmele/roll_member_actions.asm"   ; 0x1713
 
@@ -90,15 +90,15 @@ api_idx_005e_OJVJ.dseg1 equ dseg_9098
 %include "vmele/advance_melee_item_slots.asm" ; 0x1f39
 
 advance_action_slots.fill_action_slot_table_vmnpc1 equ fill_action_slot_table_vmnpc
-%include "shared/overlay/advance_action_slots.asm"  ; 0x2138
+%include "shared/ovr/advance_action_slots.asm"  ; 0x2138
 
-%include "shared/overlay/add_overlay_item.asm"      ; 0x245b
+%include "shared/ovr/add_overlay_item.asm"      ; 0x245b
 
-%include "shared/overlay/queue_cell_action_overlay.asm" ; 0x2565
+%include "shared/ovr/queue_cell_action_overlay.asm" ; 0x2565
 
-%include "shared/overlay/queue_marker_overlay.asm"  ; 0x27ab
+%include "shared/ovr/queue_marker_overlay.asm"  ; 0x27ab
 
-%include "shared/overlay/loc_SSIO.asm"              ; 0x28a0
+%include "shared/ovr/loc_SSIO.asm"              ; 0x28a0
 
 %include "vmele/api_idx_0002_MTJS.asm"     ; 0x28fc
 
@@ -107,13 +107,13 @@ advance_action_slots.fill_action_slot_table_vmnpc1 equ fill_action_slot_table_vm
 %include "vmele/fill_row_action_slots.asm" ; 0x29c5
 
 loc_KRMP.panel_redraw_ticks1 equ panel_redraw_ticks
-%include "shared/overlay/loc_KRMP.asm"              ; 0x2b19
+%include "shared/ovr/loc_KRMP.asm"              ; 0x2b19
 
 api_idx_0006_LJUS.panel_redraw_ticks1 equ panel_redraw_ticks
-%include "shared/overlay/api_idx_0006_LJUS.asm"     ; 0x2b78
+%include "shared/ovr/api_idx_0006_LJUS.asm"     ; 0x2b78
 
 run_party_screen_animation.api_idx1 equ api_idx_0006_LJUS
-%include "shared/overlay/run_party_screen_animation.asm" ; 0x2cc7
+%include "shared/ovr/run_party_screen_animation.asm" ; 0x2cc7
 
 %include "vmele/play_action_overlays.asm"  ; 0x2cde
 
@@ -131,9 +131,9 @@ run_party_screen_animation.api_idx1 equ api_idx_0006_LJUS
 
 %include "vmele/redraw_party_before_battle.asm" ; 0x36b8
 
-%include "shared/overlay/aztec_ovbgn.asm"           ; 0x3710
+%include "shared/ovr/aztec_ovbgn.asm"           ; 0x3710
 
-%include "shared/overlay/aztec_swapmem.asm"         ; 0x374e
+%include "shared/ovr/aztec_swapmem.asm"         ; 0x374e
 
 __zdata_start:
 %include "vmele/data/dseg_9098.asm"        ; 0x3773

@@ -9,25 +9,25 @@ IMAGE_BASE equ -0x0100
 %include "play/leaf_loc_HNGM.asm"          ; 0x0000
 
 loc_JTQK_0007.mouse_off1 equ configure_music_device
-%include "shared/overlay/loc_JTQK_0007.asm"          ; 0x0007
+%include "shared/drv/loc_JTQK_0007.asm"          ; 0x0007
 
 loc_JTQK_000b.mouse_hit_test1 equ music_set_data
-%include "shared/overlay/loc_JTQK_000b.asm"          ; 0x000b
+%include "shared/drv/loc_JTQK_000b.asm"          ; 0x000b
 
 loc_JTQK_000f.leaf_loc1 equ stop_music_playback
-%include "shared/overlay/loc_JTQK_000f.asm"          ; 0x000f
+%include "shared/drv/loc_JTQK_000f.asm"          ; 0x000f
 
 loc_JTQK_0013.update_mouse_pointer1 equ music_set_tempo_volume
-%include "shared/overlay/loc_JTQK_0013.asm"          ; 0x0013
+%include "shared/drv/loc_JTQK_0013.asm"          ; 0x0013
 
 loc_JTQK_0017.load_picture1 equ play_select_device
-%include "shared/overlay/loc_JTQK_0017.asm"          ; 0x0017
+%include "shared/drv/loc_JTQK_0017.asm"          ; 0x0017
 
 loc_JTQK_001b.draw_text1 equ music_is_playing
-%include "shared/overlay/loc_JTQK_001b.asm"          ; 0x001b
+%include "shared/drv/loc_JTQK_001b.asm"          ; 0x001b
 
 loc_JTQK_001f.load_screen1 equ wait_for_music
-%include "shared/overlay/loc_JTQK_001f.asm"          ; 0x001f
+%include "shared/drv/loc_JTQK_001f.asm"          ; 0x001f
 
 %include "play/music_start.asm"            ; 0x0023
 
@@ -84,7 +84,7 @@ sample_counter_seed_a    equ __zinsn_18ff + 0x5
 loc_121d equ __zinsn_121c + 0x1
 loc_LPSH                 equ dissolve_area
 dissolve_area.show_area1 equ loc_121d
-%include "shared/overlay/dissolve_area.asm"               ; 0x086b
+%include "shared/drv/dissolve_area.asm"               ; 0x086b
 
 %include "play/data/sample_position.asm"   ; 0x086e
 

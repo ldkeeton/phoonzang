@@ -26,8 +26,9 @@ other copy's label is an ``equ`` of it.  Data shares only under one name.
 
 A file shared with a banded binary sits in the band folder its copy there
 does (``ds/aztec/x.asm`` -> ``shared/aztec/x.asm``, :mod:`lib.sidecar.bands`);
-one shared only between unbanded binaries (the overlays) sits in
-``shared/overlay/``, and data in ``shared/data/``.  A hand-owned source is found in
+one shared only between drivers (``raw_drv`` binaries) sits in
+``shared/drv/``, one shared otherwise between unbanded binaries (the overlays)
+in ``shared/ovr/``, and data in ``shared/data/``.  A hand-owned source is found in
 ``shared/`` or any of its folders.
 """
 
@@ -40,12 +41,19 @@ from .autogen import MARKER_ASM, MARKER_C, hand_owned, is_generated, stamp
 from .cachedirs import project_of_src_dir
 from .routine_source import SUFFIXES, beside
 from .sidecar.bands import BAND_NAMES
+from .sidecar.loader import load as load_sidecar
 from .symtab import project_tables
 
 FOLDER = 'shared'
 
 #: The folder of a file no banded binary shares: the overlays'.
-OVERLAY = 'overlay'
+OVERLAY = 'ovr'
+
+#: The folder of a file only drivers share.
+DRIVER = 'drv'
+
+#: Every folder a shared routine may sit in.
+_FOLDERS = BAND_NAMES + (OVERLAY, DRIVER)
 _SKIP_DIRS = {FOLDER, 'inc', 'build_out'}
 _ADDR_COMMENT = re.compile(r'[ \t]+; 0x[0-9a-fA-F]+[ \t]*$')
 _LOCAL_LABEL = re.compile(r'(?<![\w.])(?:(?:@\.\.)?[A-Za-z_][\w.]*?)?\.((?:l|back|return|forward)\d+)(?![\w.])')
@@ -356,11 +364,10 @@ def _on_disk(out_dir, rel):
 
 
 def shared_dirs(out_dir):
-    """``shared/`` and its band and overlay folders: where a shared routine's
-    files are."""
+    """``shared/`` and its band, overlay and driver folders: where a shared
+    routine's files are."""
     root = os.path.join(out_dir, FOLDER)
-    return [root] + [os.path.join(root, band)
-                     for band in BAND_NAMES + (OVERLAY,)]
+    return [root] + [os.path.join(root, band) for band in _FOLDERS]
 
 
 def _homes(base):
@@ -368,18 +375,29 @@ def _homes(base):
     stem = os.path.basename(base)
     if base.startswith(f'{FOLDER}/data/'):
         return [base]
-    return [f'{FOLDER}/{band}/{stem}'
-            for band in BAND_NAMES + (OVERLAY,)] + [base]
+    return [f'{FOLDER}/{band}/{stem}' for band in _FOLDERS] + [base]
 
 
-def _band(rels):
+def _drivers(out_dir):
+    """The binaries of *out_dir*'s project that are drivers (``raw_drv``)."""
+    project = project_of_src_dir(out_dir)
+    sidecar = (load_sidecar(project) if project else None) or {}
+    return frozenset(name for name, info in sidecar.get('binaries', {}).items()
+                     if info.get('type') == 'raw_drv')
+
+
+def _band(rels, drivers=frozenset()):
     """The folder of a shared file: the band its banded binary's copy sits in
-    (``ds/aztec/x.asm``), else :data:`OVERLAY`."""
+    (``ds/aztec/x.asm``), :data:`DRIVER` when only *drivers* share it, else
+    :data:`OVERLAY`."""
+    binaries = set()
     for rel in rels:
         parts = rel.split(os.sep)
         if parts[0] != FOLDER and len(parts) == 3 and parts[1] in BAND_NAMES:
             return parts[1]
-    return OVERLAY
+        if parts[0] != FOLDER:
+            binaries.add(parts[0])
+    return DRIVER if binaries and binaries <= drivers else OVERLAY
 
 
 #: A data file named for its address (``vmele/data/dseg_9098.asm``,
@@ -464,6 +482,7 @@ def share_files(files, out_dir, tables):
     """
     files = dict(files)
     fragments = _fragments(files, out_dir)
+    drivers = _drivers(out_dir)
 
     # Names carry a content tag (lib.names), so one stem is mostly one body.
     # Where a stem still has several (a label that differs only in which
@@ -489,7 +508,7 @@ def share_files(files, out_dir, tables):
         source = next((rel for rel in members
                        if _stem(rel) == os.path.basename(base)), members[0])
         home = base if base.startswith(f'{FOLDER}/data/') else (
-            f'{FOLDER}/{_band(members)}/{os.path.basename(base)}')
+            f'{FOLDER}/{_band(members, drivers)}/{os.path.basename(base)}')
         shared_rel = f'{home}.asm'
         text = _text_for(fragments, members)
         if binds:
@@ -1117,14 +1136,14 @@ def _host_split(out_dir):
     return (host.group(1) if host else None), overlays
 
 
-def _target(members, data):
+def _target(members, data, drivers=frozenset()):
     shared = next((m for m in members if m.binary == FOLDER), None)
     if shared:
         return shared.rel
     first = members[0]
     if data:
         return f'{FOLDER}/data/{first.stem}.asm'
-    return f'{FOLDER}/{_band(m.rel for m in members)}/{first.stem}.asm'
+    return f'{FOLDER}/{_band((m.rel for m in members), drivers)}/{first.stem}.asm'
 
 
 def _diffs(members):
@@ -1157,7 +1176,7 @@ def _is_bare_return(text):
     return code == ['ret']
 
 
-def _findings(frags, served=frozenset(), hosts=None):
+def _findings(frags, served=frozenset(), hosts=None, drivers=frozenset()):
     code, data = defaultdict(list), defaultdict(lambda: defaultdict(list))
     for frag in frags:
         if frag.data:
@@ -1175,7 +1194,7 @@ def _findings(frags, served=frozenset(), hosts=None):
         group = tuple(sorted(group, key=lambda f: (f.binary != FOLDER, f.rel)))
         diffs, more = _diffs(group)
         findings.append(_Finding('code', group[0].stem, group,
-                                 _target(group, data=False), diffs, more))
+                                 _target(group, False, drivers), diffs, more))
     for stem, bodies in data.items():
         involved = {f.binary for body in bodies.values() for f in body}
         binaries = involved - {FOLDER}
@@ -1195,11 +1214,12 @@ def _findings(frags, served=frozenset(), hosts=None):
         group = tuple(sorted(group, key=lambda f: (f.binary != FOLDER, f.rel)))
         diffs, more = _diffs(group)
         findings.append(_Finding('data', stem, group,
-                                 _target(group, data=True), diffs, more))
+                                 _target(group, True, drivers), diffs, more))
     return _sort_findings(findings)
 
 
-def _immediate_findings(frags, served=frozenset(), hosts=None):
+def _immediate_findings(frags, served=frozenset(), hosts=None,
+                        drivers=frozenset()):
     """Address-immediate groups: the same code with a bare address named."""
     groups = defaultdict(list)
     for frag in frags:
@@ -1211,7 +1231,7 @@ def _immediate_findings(frags, served=frozenset(), hosts=None):
         group = tuple(sorted(group, key=lambda f: (f.binary != FOLDER, f.rel)))
         diffs, more = _diffs(group)
         findings.append(_Finding('immediate', group[0].stem, group,
-                                 _target(group, data=False), diffs, more))
+                                 _target(group, False, drivers), diffs, more))
     return findings
 
 
@@ -1233,7 +1253,8 @@ def scan(out_dir):
     frags = list(_audit_fragments(out_dir))
     served = _included(out_dir)
     hosts = _host_split(out_dir)
-    findings = _findings(frags, served, hosts)
+    drivers = _drivers(out_dir)
+    findings = _findings(frags, served, hosts, drivers)
     covered = {m.rel for f in findings if f.kind == 'code' for m in f.members}
     immediate = []
     for frag in frags:
@@ -1244,7 +1265,7 @@ def scan(out_dir):
                                           mask_immediates=True)
         immediate.append(_Fragment(frag.rel, frag.binary, frag.stem, False,
                                    frag.text, tuple(stream), key, lines))
-    findings.extend(_immediate_findings(immediate, served, hosts))
+    findings.extend(_immediate_findings(immediate, served, hosts, drivers))
     return _sort_findings(findings)
 
 

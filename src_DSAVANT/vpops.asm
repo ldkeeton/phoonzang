@@ -54,39 +54,39 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "vpops/ovmain.asm"                ; 0x000e
 
-%include "shared/overlay/draw_split_two_line_text.asm" ; 0x0022
+%include "shared/ovr/draw_split_two_line_text.asm" ; 0x0022
 
-%include "shared/overlay/redraw_glyph_strip.asm"    ; 0x00cb
+%include "shared/ovr/redraw_glyph_strip.asm"    ; 0x00cb
 
-%include "shared/overlay/loc_VNIO.asm"              ; 0x0149
+%include "shared/ovr/loc_VNIO.asm"              ; 0x0149
 
-%include "shared/overlay/redraw_area_set.asm"       ; 0x018d
+%include "shared/ovr/redraw_area_set.asm"       ; 0x018d
 
-%include "shared/overlay/show_area_set.asm"         ; 0x02af
+%include "shared/ovr/show_area_set.asm"         ; 0x02af
 
 %include "vpops/api_idx_0054_NQHV.asm"     ; 0x035f
 
-%include "shared/overlay/fill_action_slot_table.asm" ; 0x0504
+%include "shared/ovr/fill_action_slot_table.asm" ; 0x0504
 
 advance_action_slots.fill_action_slot_table_vmnpc1 equ fill_action_slot_table
-%include "shared/overlay/advance_action_slots.asm"  ; 0x0704
+%include "shared/ovr/advance_action_slots.asm"  ; 0x0704
 
-%include "shared/overlay/add_overlay_item.asm"      ; 0x0a27
+%include "shared/ovr/add_overlay_item.asm"      ; 0x0a27
 
-%include "shared/overlay/queue_cell_action_overlay.asm" ; 0x0b31
+%include "shared/ovr/queue_cell_action_overlay.asm" ; 0x0b31
 
-%include "shared/overlay/queue_marker_overlay.asm"  ; 0x0d77
+%include "shared/ovr/queue_marker_overlay.asm"  ; 0x0d77
 
-%include "shared/overlay/loc_SSIO.asm"              ; 0x0e6c
+%include "shared/ovr/loc_SSIO.asm"              ; 0x0e6c
 
 loc_KRMP.panel_redraw_ticks1 equ bss_90d6
-%include "shared/overlay/loc_KRMP.asm"              ; 0x0ec8
+%include "shared/ovr/loc_KRMP.asm"              ; 0x0ec8
 
 api_idx_0006_LJUS.panel_redraw_ticks1 equ bss_90d6
-%include "shared/overlay/api_idx_0006_LJUS.asm"     ; 0x0f27
+%include "shared/ovr/api_idx_0006_LJUS.asm"     ; 0x0f27
 
 run_party_screen_animation.api_idx1 equ api_idx_0006_LJUS
-%include "shared/overlay/run_party_screen_animation.asm" ; 0x1076
+%include "shared/ovr/run_party_screen_animation.asm" ; 0x1076
 
 %include "vpops/wait_for_party_redraw.asm" ; 0x108d
 
@@ -94,38 +94,38 @@ run_party_screen_animation.api_idx1 equ api_idx_0006_LJUS
 
 %include "vpops/api_idx_000c_JUIH.asm"     ; 0x178a
 
-%include "shared/overlay/draw_party_slot_letters.asm" ; 0x18c2
+%include "shared/ovr/draw_party_slot_letters.asm" ; 0x18c2
 
-%include "shared/overlay/advance_party_slot_frames.asm" ; 0x1941
+%include "shared/ovr/advance_party_slot_frames.asm" ; 0x1941
 
 api_idx_0004_OQNP equ collect_known_spells
-%include "shared/overlay/collect_known_spells.asm"     ; 0x199c
+%include "shared/ovr/collect_known_spells.asm"     ; 0x199c
 
-%include "shared/overlay/draw_marker_glyph.asm"     ; 0x1a0d
+%include "shared/ovr/draw_marker_glyph.asm"     ; 0x1a0d
 
-%include "shared/overlay/draw_power_digit.asm"      ; 0x1a4b
+%include "shared/ovr/draw_power_digit.asm"      ; 0x1a4b
 
 loc_VGIT              equ draw_spell_cost
 draw_spell_cost.dseg1 equ dseg_90bb
-%include "shared/overlay/draw_spell_cost.asm"              ; 0x1ad7
+%include "shared/ovr/draw_spell_cost.asm"              ; 0x1ad7
 
-%include "shared/overlay/draw_realm_spell_points.asm" ; 0x1b78
+%include "shared/ovr/draw_realm_spell_points.asm" ; 0x1b78
 
 periodic_party_redraw.party_redraw_mode1       equ bss_90d6
 periodic_party_redraw.draw_realm_spell_points1 equ draw_realm_spell_points
-%include "shared/overlay/periodic_party_redraw.asm" ; 0x1c11
+%include "shared/ovr/periodic_party_redraw.asm" ; 0x1c11
 
 %include "vpops/action_spell_dialog.asm"   ; 0x1ca2
 
 %include "vpops/pick_spell_action.asm"     ; 0x2947
 
-%include "shared/overlay/api_idx_0018_RGOS.asm"     ; 0x29f2
+%include "shared/ovr/api_idx_0018_RGOS.asm"     ; 0x29f2
 
 api_idx_0004_LUOM equ draw_list_rows
-%include "shared/overlay/draw_list_rows.asm"     ; 0x2aef
+%include "shared/ovr/draw_list_rows.asm"     ; 0x2aef
 
 loc_HTKI.draw_list_rows1 equ api_idx_0004_LUOM
-%include "shared/overlay/loc_HTKI.asm"              ; 0x2c51
+%include "shared/ovr/loc_HTKI.asm"              ; 0x2c51
 
 %include "vpops/api_idx_0038_PVVG.asm"     ; 0x2c92
 
@@ -145,7 +145,7 @@ loc_HTKI.draw_list_rows1 equ api_idx_0004_LUOM
 
 %include "vpops/api_idx_0004_NRTK.asm"     ; 0x4e3b
 
-%include "shared/overlay/aztec_ovbgn.asm"           ; 0x4e9d
+%include "shared/ovr/aztec_ovbgn.asm"           ; 0x4e9d
 
 __zdata_start:
 %include "vpops/data/dseg_9098.asm"        ; 0x4edb

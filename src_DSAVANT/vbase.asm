@@ -190,7 +190,7 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "vbase/ovmain.asm"                ; 0x000e
 
-%include "shared/overlay/transfer_pc_file_record.asm" ; 0x0036
+%include "shared/ovr/transfer_pc_file_record.asm" ; 0x0036
 
 %include "vbase/api_idx_0004_VUIP.asm"     ; 0x00b5
 
@@ -198,7 +198,7 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 api_idx_0016_KOOO       equ api_idx_0016_JNJG
 api_idx_0016_JNJG.dseg1 equ dseg_90a9
-%include "shared/overlay/api_idx_0016_JNJG.asm"     ; 0x0559
+%include "shared/ovr/api_idx_0016_JNJG.asm"     ; 0x0559
 
 %include "vbase/api_idx_0006_MHOR.asm"     ; 0x05b6
 
@@ -210,16 +210,16 @@ jumptable_0d04_case_3   equ api_idx_0038_LTUV.jumptable_case3
 jumptable_0d04_case_4   equ api_idx_0038_LTUV.jumptable_case4
 jumptable_0d04_case_5   equ api_idx_0038_LTUV.jumptable_case5
 jumptable_0d04          equ api_idx_0038_LTUV.jumptable1
-%include "shared/overlay/api_idx_0038_LTUV.asm"     ; 0x0606
+%include "shared/ovr/api_idx_0038_LTUV.asm"     ; 0x0606
 
-%include "shared/overlay/input_text_field.asm"      ; 0x0d3f
+%include "shared/ovr/input_text_field.asm"      ; 0x0d3f
 
 %include "vbase/api_idx_0028_NRJN.asm"     ; 0x0ef7
 
 %include "vbase/loc_KPLK.asm"              ; 0x150d
 
 api_idx_004c_MUGV equ api_idx_004c_RQSO
-%include "shared/overlay/api_idx_004c_RQSO.asm"     ; 0x156e
+%include "shared/ovr/api_idx_004c_RQSO.asm"     ; 0x156e
 
 %include "vbase/loc_JJHG.asm"              ; 0x1683
 
@@ -227,7 +227,7 @@ api_idx_004c_MUGV equ api_idx_004c_RQSO
 
 %include "vbase/loc_GLHQ.asm"              ; 0x1a12
 
-%include "shared/overlay/loc_OIOJ.asm"              ; 0x1c09
+%include "shared/ovr/loc_OIOJ.asm"              ; 0x1c09
 
 jumptable_1ee4_case_0  equ api_idx_0004_MMTP.jumptable_case1
 jumptable_1ee4_case_1  equ api_idx_0004_MMTP.jumptable_case2
@@ -243,7 +243,7 @@ jumptable_1ee4_case_11 equ api_idx_0004_MMTP.jumptable_case11
 jumptable_1ee4_case_12 equ api_idx_0004_MMTP.jumptable_case12
 jumptable_1ee4_case_13 equ api_idx_0004_MMTP.jumptable_case13
 jumptable_1ee4         equ api_idx_0004_MMTP.jumptable1
-%include "shared/overlay/api_idx_0004_MMTP.asm"     ; 0x1c80
+%include "shared/ovr/api_idx_0004_MMTP.asm"     ; 0x1c80
 
 %include "vbase/loc_MJMJ.asm"              ; 0x1f0e
 
@@ -310,7 +310,7 @@ jumptable_1ee4         equ api_idx_0004_MMTP.jumptable1
 %include "vbase/loc_TJHG.asm"              ; 0x6c5c
 
 api_idx_0004_TTGQ.loc1 equ loc_TJHG
-%include "shared/overlay/api_idx_0004_TTGQ.asm"     ; 0x6c87
+%include "shared/ovr/api_idx_0004_TTGQ.asm"     ; 0x6c87
 
 %include "vbase/api_idx_0004_MIQG.asm"     ; 0x6cd0
 
@@ -320,11 +320,11 @@ api_idx_0004_TTGQ.loc1 equ loc_TJHG
 
 api_idx_0004_OTSN          equ api_idx_0004_JQTM
 api_idx_0004_JQTM.api_idx1 equ loc_VMSS
-%include "shared/overlay/api_idx_0004_JQTM.asm"     ; 0x6f16
+%include "shared/ovr/api_idx_0004_JQTM.asm"     ; 0x6f16
 
 %include "vbase/loc_LIQV.asm"              ; 0x6f79
 
-%include "shared/overlay/load_screen_file.asm"      ; 0x6fda
+%include "shared/ovr/load_screen_file.asm"      ; 0x6fda
 
 %include "vbase/api_idx_0002_NVMN.asm"     ; 0x706d
 
@@ -360,12 +360,12 @@ api_idx_0004_JQTM.api_idx1 equ loc_VMSS
 
 %include "vbase/show_intro_screen.asm"     ; 0x8f74
 
-%include "shared/overlay/aztec_ovbgn.asm"           ; 0x9330
+%include "shared/ovr/aztec_ovbgn.asm"           ; 0x9330
 
-%include "shared/overlay/aztec_cswt.asm"            ; 0x936e
+%include "shared/ovr/aztec_cswt.asm"            ; 0x936e
 
 loc_NQQK equ aztec_strcmp.loc1
-%include "shared/overlay/aztec_strcmp.asm"          ; 0x9386
+%include "shared/ovr/aztec_strcmp.asm"          ; 0x9386
 
 __zdata_start:
 %include "shared/data/pc_file_name.asm"     ; 0x93ed

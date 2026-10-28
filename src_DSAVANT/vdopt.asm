@@ -82,20 +82,20 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "vdopt/ovmain.asm"                ; 0x000e
 
-%include "shared/overlay/loc_MPHO.asm"              ; 0x00a5
+%include "shared/ovr/loc_MPHO.asm"              ; 0x00a5
 
-%include "shared/overlay/find_map_piece.asm"        ; 0x00df
+%include "shared/ovr/find_map_piece.asm"        ; 0x00df
 
-%include "shared/overlay/find_object_at.asm"        ; 0x019b
+%include "shared/ovr/find_object_at.asm"        ; 0x019b
 
-%include "shared/overlay/draw_split_two_line_text.asm" ; 0x020b
+%include "shared/ovr/draw_split_two_line_text.asm" ; 0x020b
 
-%include "shared/overlay/loc_RULJ.asm"              ; 0x02b4
+%include "shared/ovr/loc_RULJ.asm"              ; 0x02b4
 
 api_idx_0004_TTGQ.loc1 equ loc_RULJ
-%include "shared/overlay/api_idx_0004_TTGQ.asm"     ; 0x02c3
+%include "shared/ovr/api_idx_0004_TTGQ.asm"     ; 0x02c3
 
-%include "shared/overlay/api_idx_0006_POPS.asm"     ; 0x030c
+%include "shared/ovr/api_idx_0006_POPS.asm"     ; 0x030c
 
 api_idx_0004_PSJH     equ log_maze_change
 jumptable_0457_case_0 equ log_maze_change.jumptable_case1
@@ -103,9 +103,9 @@ jumptable_0457_case_1 equ log_maze_change.jumptable_case2
 jumptable_0457_case_5 equ log_maze_change.jumptable_case3
 jumptable_0457_case_6 equ log_maze_change.jumptable_case4
 jumptable_0457        equ log_maze_change.jumptable1
-%include "shared/overlay/log_maze_change.asm"     ; 0x0382
+%include "shared/ovr/log_maze_change.asm"     ; 0x0382
 
-%include "shared/overlay/clear_bit_pair.asm"        ; 0x0473
+%include "shared/ovr/clear_bit_pair.asm"        ; 0x0473
 
 %include "vdopt/claim_type7_object.asm"    ; 0x04b7
 
@@ -121,7 +121,7 @@ jumptable_0457        equ log_maze_change.jumptable1
 
 get_cell_wall.get_cell_wall_variant_a1 equ get_cell_wall_variant_a
 get_cell_wall.get_cell_wall_variant_b1 equ get_cell_wall_variant_b
-%include "shared/overlay/get_cell_wall.asm"         ; 0x08b9
+%include "shared/ovr/get_cell_wall.asm"         ; 0x08b9
 
 %include "vdopt/loc_MOTJ.asm"              ; 0x095a
 
@@ -135,49 +135,49 @@ get_cell_wall.get_cell_wall_variant_b1 equ get_cell_wall_variant_b
 
 %include "vdopt/api_idx_0012_UROU.asm"     ; 0x0fd3
 
-%include "shared/overlay/restore_area_a_draw_glyph.asm" ; 0x190b
+%include "shared/ovr/restore_area_a_draw_glyph.asm" ; 0x190b
 
 %include "vdopt/draw_centered_lines.asm"   ; 0x195b
 
 %include "vdopt/roll_slot_detection_report.asm" ; 0x1a5d
 
-%include "shared/overlay/loc_QQUT.asm"              ; 0x1c7f
+%include "shared/ovr/loc_QQUT.asm"              ; 0x1c7f
 
 %include "vdopt/apply_spell_effect.asm"    ; 0x1ccf
 
 %include "vdopt/trigger_keyed_cell_object.asm" ; 0x238d
 
-%include "shared/overlay/draw_party_slot_letters.asm" ; 0x25a8
+%include "shared/ovr/draw_party_slot_letters.asm" ; 0x25a8
 
-%include "shared/overlay/advance_party_slot_frames.asm" ; 0x2627
+%include "shared/ovr/advance_party_slot_frames.asm" ; 0x2627
 
-%include "shared/overlay/collect_known_spells.asm"  ; 0x2682
+%include "shared/ovr/collect_known_spells.asm"  ; 0x2682
 
-%include "shared/overlay/draw_marker_glyph.asm"     ; 0x26f3
+%include "shared/ovr/draw_marker_glyph.asm"     ; 0x26f3
 
-%include "shared/overlay/draw_power_digit.asm"      ; 0x2731
+%include "shared/ovr/draw_power_digit.asm"      ; 0x2731
 
 draw_spell_cost.dseg1 equ dseg_909a
-%include "shared/overlay/draw_spell_cost.asm"       ; 0x27bd
+%include "shared/ovr/draw_spell_cost.asm"       ; 0x27bd
 
-%include "shared/overlay/draw_realm_spell_points.asm" ; 0x285e
+%include "shared/ovr/draw_realm_spell_points.asm" ; 0x285e
 
 periodic_party_redraw.party_redraw_mode1       equ party_redraw_mode
 periodic_party_redraw.draw_realm_spell_points1 equ draw_realm_spell_points
-%include "shared/overlay/periodic_party_redraw.asm" ; 0x28f7
+%include "shared/ovr/periodic_party_redraw.asm" ; 0x28f7
 
 %include "vdopt/pick_spell_dialog.asm"     ; 0x2988
 
-%include "shared/overlay/api_idx_0008_RQRL.asm"     ; 0x362f
+%include "shared/ovr/api_idx_0008_RQRL.asm"     ; 0x362f
 
-%include "shared/overlay/api_idx_0004_UJRL.asm"     ; 0x36bb
+%include "shared/ovr/api_idx_0004_UJRL.asm"     ; 0x36bb
 
-%include "shared/overlay/api_idx_0018_RGOS.asm"     ; 0x378c
+%include "shared/ovr/api_idx_0018_RGOS.asm"     ; 0x378c
 
-%include "shared/overlay/draw_list_rows.asm"        ; 0x3889
+%include "shared/ovr/draw_list_rows.asm"        ; 0x3889
 
 loc_HTKI.draw_list_rows1 equ draw_list_rows
-%include "shared/overlay/loc_HTKI.asm"              ; 0x39eb
+%include "shared/ovr/loc_HTKI.asm"              ; 0x39eb
 
 %include "vdopt/api_idx_0038_QQIU.asm"     ; 0x3a2c
 
@@ -185,9 +185,9 @@ loc_HTKI.draw_list_rows1 equ draw_list_rows
 
 %include "vdopt/cast_spell_from_menu.asm"  ; 0x45dd
 
-%include "shared/overlay/aztec_ovbgn.asm"           ; 0x46d9
+%include "shared/ovr/aztec_ovbgn.asm"           ; 0x46d9
 
-%include "shared/overlay/aztec_cswt.asm"            ; 0x4717
+%include "shared/ovr/aztec_cswt.asm"            ; 0x4717
 
 __zdata_start:
 %include "vdopt/data/report_line1_none.asm" ; 0x472f

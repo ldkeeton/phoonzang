@@ -62,7 +62,7 @@ dseg_916e equ __zdseg_end + (__zdseg_916e - __zdata_start)
 dseg_917b equ __zdseg_end + (__zdseg_917b - __zdata_start)
 %include "vinit/loc_RVQR.asm"              ; 0x03a8
 
-%include "shared/overlay/load_screen_file.asm"      ; 0x08b7
+%include "shared/ovr/load_screen_file.asm"      ; 0x08b7
 
 bss_91b8 equ __zdseg_end + (__zobss_91b8 - __zdata_start)
 %include "vinit/api_idx_0002_PUOP.asm"     ; 0x094a
@@ -90,7 +90,7 @@ save_bp  equ __zdseg_end + (__zsave_bp - __zdata_start)
 save_ret equ __zdseg_end + (__zsave_ret - __zdata_start)
 _Uorg    equ __zdseg_end + (__zobss_91b8 - __zdata_start)
 _Uend    equ __zdseg_end + (__zobss_end - __zdata_start)
-%include "shared/overlay/aztec_ovbgn.asm"           ; 0x15d9
+%include "shared/ovr/aztec_ovbgn.asm"           ; 0x15d9
 
 __zdata_start:
 %include "vinit/data/dseg_9098.asm"        ; 0x1617

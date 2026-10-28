@@ -73,11 +73,11 @@ class ShareIdenticalTest(unittest.TestCase):
         with tempfile.TemporaryDirectory() as root:
             self._tree(root)
             result = shared.share_identical(root)
-            self.assertEqual(result, {'shared/overlay/f.asm': ['a/f.asm', 'b/f.asm']})
+            self.assertEqual(result, {'shared/ovr/f.asm': ['a/f.asm', 'b/f.asm']})
             self.assertFalse(os.path.exists(os.path.join(root, 'a')))
-            self.assertIn('%include "shared/overlay/f.asm"   ; 0x0100', _read(root, 'a.asm'))
-            self.assertIn('%include "shared/overlay/f.asm"', _read(root, 'b.asm'))
-            self.assertNotIn('; 0x', _read(root, 'shared/overlay/f.asm'))
+            self.assertIn('%include "shared/ovr/f.asm"   ; 0x0100', _read(root, 'a.asm'))
+            self.assertIn('%include "shared/ovr/f.asm"', _read(root, 'b.asm'))
+            self.assertNotIn('; 0x', _read(root, 'shared/ovr/f.asm'))
 
     def test_different_code_or_hand_c_stays(self):
         with tempfile.TemporaryDirectory() as root:
@@ -97,7 +97,7 @@ class ShareIdenticalTest(unittest.TestCase):
                      .replace('push bp', 'push si'))
                 _put(root, f'{b}.asm', f'%include "{b}/f.asm"\n')
             result = shared.share_identical(root)
-            self.assertEqual(result, {'shared/overlay/f.asm': ['c/f.asm', 'd/f.asm', 'e/f.asm']})
+            self.assertEqual(result, {'shared/ovr/f.asm': ['c/f.asm', 'd/f.asm', 'e/f.asm']})
             self.assertTrue(os.path.exists(os.path.join(root, 'a', 'f.asm')))
 
     def test_hand_owned_fragment_is_untouched(self):
@@ -119,7 +119,7 @@ class KeepAddressesTest(unittest.TestCase):
                 _put(root, f'{b}/f.asm', BODY.format(name='f', a='0100', b='0101', c='0103'))
                 _put(root, f'{b}.asm', f'%include "{b}/f.asm"\n')
             shared.share_identical(root)
-            self.assertIn('; 0x0100', _read(root, 'shared/overlay/f.asm'))
+            self.assertIn('; 0x0100', _read(root, 'shared/ovr/f.asm'))
 
 
 class CommonNameTest(unittest.TestCase):
@@ -170,9 +170,9 @@ class SharedCTest(unittest.TestCase):
         with tempfile.TemporaryDirectory() as root:
             self._tree(root)
             shared.share_identical(root)
-            self.assertTrue(os.path.exists(os.path.join(root, 'shared', 'overlay', 'f.c')))
+            self.assertTrue(os.path.exists(os.path.join(root, 'shared', 'ovr', 'f.c')))
             self.assertFalse(os.path.exists(os.path.join(root, 'a', 'f.c')))
-            self.assertNotIn('; 0x', _read(root, 'shared/overlay/f.asm'))
+            self.assertNotIn('; 0x', _read(root, 'shared/ovr/f.asm'))
 
     def test_differing_c_stays(self):
         with tempfile.TemporaryDirectory() as root:
@@ -204,9 +204,9 @@ class ShareFilesTest(unittest.TestCase):
         with tempfile.TemporaryDirectory() as root:
             files, result = shared.share_files(self._files(), root, {})
             self.assertEqual(os.listdir(root), [])
-        self.assertEqual(result, {'shared/overlay/f.asm': ['a/f.asm', 'b/f.asm']})
-        self.assertEqual(sorted(files), ['a.asm', 'b.asm', 'shared/overlay/f.asm'])
-        self.assertIn('%include "shared/overlay/f.asm"', files['a.asm'])
+        self.assertEqual(result, {'shared/ovr/f.asm': ['a/f.asm', 'b/f.asm']})
+        self.assertEqual(sorted(files), ['a.asm', 'b.asm', 'shared/ovr/f.asm'])
+        self.assertIn('%include "shared/ovr/f.asm"', files['a.asm'])
 
     def test_hand_owned_c_does_not_change_assembly_sharing(self):
         with tempfile.TemporaryDirectory() as root:
@@ -214,7 +214,7 @@ class ShareFilesTest(unittest.TestCase):
             with open(os.path.join(root, 'b', 'f.c'), 'w') as f:
                 f.write('int f;\n')
             files, result = shared.share_files(self._files(), root, {})
-        self.assertEqual(result, {'shared/overlay/f.asm': ['a/f.asm', 'b/f.asm']})
+        self.assertEqual(result, {'shared/ovr/f.asm': ['a/f.asm', 'b/f.asm']})
         self.assertNotIn('b/f.asm', files)
         self.assertFalse([p for p in files if p.endswith('.c')])
 
@@ -281,12 +281,12 @@ class OtherNameTest(unittest.TestCase):
              'c': ('f_GGGG', ['push bp'])},
             {'a': self._table('f_GGGG'), 'b': self._table('f_HHHH'),
              'c': self._table('f_GGGG')})
-        self.assertEqual(result, {'shared/overlay/f_GGGG.asm':
+        self.assertEqual(result, {'shared/ovr/f_GGGG.asm':
                                   ['a/f_GGGG.asm', 'b/f_HHHH.asm', 'c/f_GGGG.asm']})
-        self.assertIn('f_HHHH equ f_GGGG\n%include "shared/overlay/f_GGGG.asm"',
+        self.assertIn('f_HHHH equ f_GGGG\n%include "shared/ovr/f_GGGG.asm"',
                       files['b.asm'])
-        self.assertEqual(files['a.asm'], '%include "shared/overlay/f_GGGG.asm"\n')
-        self.assertIn('@..f_GGGG.l1:', files['shared/overlay/f_GGGG.asm'])
+        self.assertEqual(files['a.asm'], '%include "shared/ovr/f_GGGG.asm"\n')
+        self.assertIn('@..f_GGGG.l1:', files['shared/ovr/f_GGGG.asm'])
 
     def test_label_and_the_names_it_uses_both_alias(self):
         files, result = self._share(
@@ -294,8 +294,8 @@ class OtherNameTest(unittest.TestCase):
              'b': ('f_HHHH', ['mov ax, [bss_20]'])},
             {'a': self._table('f_GGGG', 'bss_10'),
              'b': self._table('f_HHHH', 'bss_20')})
-        self.assertEqual(list(result), ['shared/overlay/f_GGGG.asm'])
-        self.assertIn('mov ax, [f_GGGG.bss1]', files['shared/overlay/f_GGGG.asm'])
+        self.assertEqual(list(result), ['shared/ovr/f_GGGG.asm'])
+        self.assertIn('mov ax, [f_GGGG.bss1]', files['shared/ovr/f_GGGG.asm'])
         self.assertIn('f_GGGG.bss1 equ bss_20', files['b.asm'])
         self.assertIn('f_HHHH      equ f_GGGG', files['b.asm'])
 
@@ -312,7 +312,7 @@ class OtherNameTest(unittest.TestCase):
              'c': ('draw', ['push bp'])},
             {'a': self._table('f_GGGG'), 'b': self._table('f_GGGG'),
              'c': self._named('draw')})
-        self.assertEqual(list(result), ['shared/overlay/draw.asm'])
+        self.assertEqual(list(result), ['shared/ovr/draw.asm'])
         self.assertIn('f_GGGG equ draw', files['a.asm'])
 
     def test_two_people_s_names_never_alias(self):
@@ -369,8 +369,8 @@ class OtherNameTest(unittest.TestCase):
              'b': ('f_HHHH', ['mov ax, [bss_20]'])},
             {'a': self._table('f_GGGG', 'bss_10'),
              'b': self._table('f_HHHH', 'bss_20')},
-            {'shared/overlay/f_HHHH.c': 'f_HHHH() {}\n'})
-        self.assertEqual(result, {'shared/overlay/f_GGGG.asm':
+            {'shared/ovr/f_HHHH.c': 'f_HHHH() {}\n'})
+        self.assertEqual(result, {'shared/ovr/f_GGGG.asm':
                                   ['a/f_GGGG.asm', 'b/f_HHHH.asm']})
         self.assertRegex(files['b.asm'], r'f_HHHH\s+equ f_GGGG')
         self.assertIn('f_GGGG.bss1 equ bss_10', files['a.asm'])
@@ -383,8 +383,8 @@ class OtherNameTest(unittest.TestCase):
              'd': ('draw', ['push bp'])},
             {'a': self._table('f_HHHH'), 'c': self._named('draw'),
              'd': self._named('draw')},
-            {'shared/overlay/f_HHHH.c': 'f_HHHH() {}\n'})
-        self.assertEqual(result, {'shared/overlay/draw.asm':
+            {'shared/ovr/f_HHHH.c': 'f_HHHH() {}\n'})
+        self.assertEqual(result, {'shared/ovr/draw.asm':
                                   ['a/f_HHHH.asm', 'c/draw.asm', 'd/draw.asm']})
         self.assertFalse([rel for rel in files
                           if os.path.basename(rel).startswith('draw.')
@@ -394,9 +394,9 @@ class OtherNameTest(unittest.TestCase):
         _, result = self._share_with_hand(
             {'a': ('f_GGGG', ['push bp']), 'b': ('f_HHHH', ['push bp'])},
             {'a': self._table('f_GGGG'), 'b': self._table('f_HHHH')},
-            {'shared/overlay/f_GGGG.c': 'f_GGGG() {}\n',
-             'shared/overlay/f_HHHH.c': 'f_HHHH() { }\n'})
-        self.assertEqual(result, {'shared/overlay/f_GGGG.asm':
+            {'shared/ovr/f_GGGG.c': 'f_GGGG() {}\n',
+             'shared/ovr/f_HHHH.c': 'f_HHHH() { }\n'})
+        self.assertEqual(result, {'shared/ovr/f_GGGG.asm':
                                   ['a/f_GGGG.asm', 'b/f_HHHH.asm']})
 
     def test_different_code_under_two_tags_stays(self):
@@ -412,9 +412,9 @@ class ServedBinaryTest(unittest.TestCase):
     def test_a_binary_that_includes_the_shared_copy_is_served(self):
         with tempfile.TemporaryDirectory() as root:
             for rel, text in {
-                'shared/overlay/helper.asm': 'helper:\n    ret\n',
+                'shared/ovr/helper.asm': 'helper:\n    ret\n',
                 'a/other.asm': 'other:\n    ret\n',
-                'a.asm': '%include "shared/overlay/helper.asm"\n',
+                'a.asm': '%include "shared/ovr/helper.asm"\n',
             }.items():
                 _put(root, rel, text)
             self.assertEqual(shared.scan(root), [])
@@ -445,11 +445,11 @@ class HostOverlayTest(unittest.TestCase):
     def test_a_host_copy_and_an_overlay_shared_file_are_not_reported(self):
         self.assertEqual(self._tree({
             'host/x.asm': 'x:\n' + self.BODY,
-            'shared/overlay/y.asm': 'y:\n' + self.BODY,
+            'shared/ovr/y.asm': 'y:\n' + self.BODY,
             'over.asm': '%include "include/host_symbols.inc"\n'
-                        '%include "shared/overlay/y.asm"\n',
+                        '%include "shared/ovr/y.asm"\n',
             'over2.asm': '%include "include/host_symbols.inc"\n'
-                         '%include "shared/overlay/y.asm"\n'}), [])
+                         '%include "shared/ovr/y.asm"\n'}), [])
 
     def test_two_overlay_copies_are_reported(self):
         found = self._tree({'over/x.asm': 'x:\n' + self.BODY,
@@ -475,7 +475,7 @@ class HostOverlayTest(unittest.TestCase):
 
 
 class BandTest(unittest.TestCase):
-    """A shared file goes in its banded copy's band folder, else overlay/."""
+    """A shared file goes in its banded copy's band folder, else ovr/."""
 
     def _share(self, name, ops, homes=('a', 'b'), root=None):
         files = {}
@@ -497,11 +497,18 @@ class BandTest(unittest.TestCase):
 
     def test_unbanded_copies_are_overlay(self):
         _, result = self._share('aztec_strlen', ['push bp'])
-        self.assertEqual(list(result), ['shared/overlay/aztec_strlen.asm'])
+        self.assertEqual(list(result), ['shared/ovr/aztec_strlen.asm'])
+
+    def test_copies_only_drivers_share_are_drv(self):
+        for drivers, folder in (({'a', 'b'}, 'drv'), ({'a'}, 'ovr')):
+            with self.subTest(drivers=drivers), mock.patch.object(
+                    shared, '_drivers', return_value=frozenset(drivers)):
+                _, result = self._share('f', ['push bp'])
+                self.assertEqual(list(result), [f'shared/{folder}/f.asm'])
 
     def test_compiled_c_is_not_a_band(self):
         _, result = self._share('f', ['mov ax, 0xfff6', 'call aztec_csav'])
-        self.assertEqual(list(result), ['shared/overlay/f.asm'])
+        self.assertEqual(list(result), ['shared/ovr/f.asm'])
 
     def test_hand_c_does_not_change_the_folder(self):
         with tempfile.TemporaryDirectory() as root:
@@ -509,7 +516,7 @@ class BandTest(unittest.TestCase):
             with open(os.path.join(root, 'shared', 'f.c'), 'w') as f:
                 f.write('int f;\n')
             files, result = self._share('f', ['push bp'], root=root)
-        self.assertEqual(list(result), ['shared/overlay/f.asm'])
+        self.assertEqual(list(result), ['shared/ovr/f.asm'])
         self.assertFalse([p for p in files if p.endswith('.c')])
 
 
@@ -534,7 +541,7 @@ class ResharePartialTest(unittest.TestCase):
             files, result, diverged = shared.reshare_partial(
                 {'a/f.asm': BODY.format(name='f', a='7', b='8', c='9'),
                  'a.asm': '%include "a/f.asm"\n'}, root)
-        self.assertEqual(result, {'shared/overlay/f.asm': ['a/f.asm']})
+        self.assertEqual(result, {'shared/ovr/f.asm': ['a/f.asm']})
         self.assertEqual(diverged, [])
         self.assertEqual(files, {'a.asm': full['a.asm']})
 
@@ -546,7 +553,7 @@ class ResharePartialTest(unittest.TestCase):
             files, result, _ = shared.reshare_partial(
                 {'b/f_HHHH.asm': BODY.format(name='f_HHHH', a='1', b='2', c='3'),
                  'b.asm': '%include "b/f_HHHH.asm"\n'}, root)
-        self.assertEqual(result, {'shared/overlay/f_GGGG.asm': ['b/f_HHHH.asm']})
+        self.assertEqual(result, {'shared/ovr/f_GGGG.asm': ['b/f_HHHH.asm']})
         self.assertEqual(files['b.asm'], full['b.asm'])
 
     def test_a_changed_copy_keeps_its_own(self):
@@ -557,7 +564,7 @@ class ResharePartialTest(unittest.TestCase):
             files, result, diverged = shared.reshare_partial(
                 {'a/f.asm': changed, 'a.asm': '%include "a/f.asm"\n'}, root)
         self.assertEqual(result, {})
-        self.assertEqual(diverged, [('a', 'shared/overlay/f.asm')])
+        self.assertEqual(diverged, [('a', 'shared/ovr/f.asm')])
         self.assertEqual(files['a/f.asm'], changed)
 
     def test_a_changed_c_keeps_its_own(self):
@@ -574,8 +581,8 @@ class ResharePartialTest(unittest.TestCase):
             _, other, diverged = shared.reshare_partial(
                 {'a/f.asm': asm, 'a/f.c': 'int g;\n',
                  'a.asm': '%include "a/f.asm"\n'}, root)
-        self.assertEqual(list(same), ['shared/overlay/f.asm'])
-        self.assertEqual((other, diverged), ({}, [('a', 'shared/overlay/f.asm')]))
+        self.assertEqual(list(same), ['shared/ovr/f.asm'])
+        self.assertEqual((other, diverged), ({}, [('a', 'shared/ovr/f.asm')]))
 
     def test_every_binary_the_partial_build_emits_reshares(self):
         with tempfile.TemporaryDirectory() as root:
@@ -584,7 +591,7 @@ class ResharePartialTest(unittest.TestCase):
             files, result, _ = shared.reshare_partial(
                 {'a/f.asm': body, 'a.asm': '%include "a/f.asm"\n',
                  'b/f.asm': body, 'b.asm': '%include "b/f.asm"\n'}, root)
-        self.assertEqual(result, {'shared/overlay/f.asm': ['a/f.asm', 'b/f.asm']})
+        self.assertEqual(result, {'shared/ovr/f.asm': ['a/f.asm', 'b/f.asm']})
         self.assertEqual(files, {'a.asm': full['a.asm'], 'b.asm': full['b.asm']})
 
     def test_no_full_build_leaves_the_files_alone(self):
@@ -614,9 +621,9 @@ class IncludeAliasesTest(unittest.TestCase):
         master = ('x equ y\n\n'
                   'cseg_382b equ f.cseg1\n'
                   'f.bss1 equ bss_0d00\n'
-                  '%include "shared/overlay/f.asm"   ; 0x381b\n')
+                  '%include "shared/ovr/f.asm"   ; 0x381b\n')
         self.assertEqual(
-            sorted(shared.include_aliases(master, 'shared/overlay/f.asm')),
+            sorted(shared.include_aliases(master, 'shared/ovr/f.asm')),
             [('f.bss1', 'bss_0d00'), ('f.cseg1', 'cseg_382b')])
 
     def test_no_include_has_no_aliases(self):
@@ -626,7 +633,7 @@ class IncludeAliasesTest(unittest.TestCase):
 class IsSharedTest(unittest.TestCase):
     def test_a_routine_in_shared_is_shared(self):
         with tempfile.TemporaryDirectory() as root:
-            _put(root, 'shared/overlay/f.asm', 'f:\n    ret\n')
+            _put(root, 'shared/ovr/f.asm', 'f:\n    ret\n')
             self.assertTrue(shared.is_shared(root, 'f'))
             self.assertFalse(shared.is_shared(root, 'g'))
 
@@ -652,10 +659,10 @@ class PartialShareWarningTest(unittest.TestCase):
         with tempfile.TemporaryDirectory() as root, \
                 contextlib.redirect_stdout(output):
             files, groups = self._share(root, ('spell_ids', 'spell_list'))
-        self.assertEqual(groups['shared/overlay/f.asm'], ['a/f.asm', 'b/f.asm'])
-        self.assertIn('f.spell_ids1', files['shared/overlay/f.asm'])
+        self.assertEqual(groups['shared/ovr/f.asm'], ['a/f.asm', 'b/f.asm'])
+        self.assertIn('f.spell_ids1', files['shared/ovr/f.asm'])
         warning = output.getvalue()
-        self.assertIn('warning: partial share shared/overlay/f.asm', warning)
+        self.assertIn('warning: partial share shared/ovr/f.asm', warning)
         self.assertIn('a=spell_ids', warning)
         self.assertIn('b=spell_list', warning)
 
@@ -678,7 +685,7 @@ class PartialShareWarningTest(unittest.TestCase):
                 output = io.StringIO()
                 with contextlib.redirect_stdout(output):
                     _, groups = self._share(root, ('spell_ids', 'spell_list'))
-                self.assertIn('shared/overlay/f.asm', groups)
+                self.assertIn('shared/ovr/f.asm', groups)
                 self.assertEqual(output.getvalue(), '')
 
     def test_partial_build_warns_for_preserved_alias(self):
@@ -694,14 +701,14 @@ class PartialShareWarningTest(unittest.TestCase):
                     'a/f.asm': 'f:\n    mov ax, [spell_ids]\n    ret\n',
                 }, root)
             self.assertFalse(diverged)
-            self.assertIn('shared/overlay/f.asm', groups)
+            self.assertIn('shared/ovr/f.asm', groups)
             self.assertIn('a=spell_ids', output.getvalue())
 
     def test_internal_labels_and_routine_aliases_are_quiet(self):
         output = io.StringIO()
         with contextlib.redirect_stdout(output):
             shared._warn_partial_shares(
-                {'shared/overlay/f.asm': ['a/f.asm']},
+                {'shared/ovr/f.asm': ['a/f.asm']},
                 {'a/f.asm': [('f', 'other_f', True),
                              ('f.loc1', 'local_label', True)]})
         self.assertEqual(output.getvalue(), '')

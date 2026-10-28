@@ -174,14 +174,14 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "vpcvw/ovmain.asm"                ; 0x000e
 
-%include "shared/overlay/load_screen_file_immediate.asm" ; 0x0027
+%include "shared/ovr/load_screen_file_immediate.asm" ; 0x0027
 
-%include "shared/overlay/draw_party_glyph_row.asm"  ; 0x008b
+%include "shared/ovr/draw_party_glyph_row.asm"  ; 0x008b
 
 api_idx_0012_PJTU equ api_idx_0012_PGSL
-%include "shared/overlay/api_idx_0012_PGSL.asm"     ; 0x014b
+%include "shared/ovr/api_idx_0012_PGSL.asm"     ; 0x014b
 
-%include "shared/overlay/api_idx_0004_PMIU.asm"     ; 0x02c7
+%include "shared/ovr/api_idx_0004_PMIU.asm"     ; 0x02c7
 
 %include "vpcvw/api_idx_000c_JRTV.asm"     ; 0x037b
 
@@ -193,20 +193,20 @@ api_idx_0012_PJTU equ api_idx_0012_PGSL
 
 %include "vpcvw/api_idx_0012_MVLS.asm"     ; 0x0a96
 
-%include "shared/overlay/draw_party_slot_letters.asm" ; 0x0cd6
+%include "shared/ovr/draw_party_slot_letters.asm" ; 0x0cd6
 
 api_idx_0004_RMVO.bss1 equ bss_9404
 api_idx_0004_RMVO.bss2 equ bss_9402
-%include "shared/overlay/api_idx_0004_RMVO.asm"     ; 0x0d55
+%include "shared/ovr/api_idx_0004_RMVO.asm"     ; 0x0d55
 
-%include "shared/overlay/advance_party_slot_frames.asm" ; 0x0e05
+%include "shared/ovr/advance_party_slot_frames.asm" ; 0x0e05
 
-%include "shared/overlay/clamp_value_to_range.asm"  ; 0x0e60
+%include "shared/ovr/clamp_value_to_range.asm"  ; 0x0e60
 
-%include "shared/overlay/api_idx_0010_STNH.asm"     ; 0x0ea1
+%include "shared/ovr/api_idx_0010_STNH.asm"     ; 0x0ea1
 
 draw_title_banner.bss1 equ bss_940c
-%include "shared/overlay/draw_title_banner.asm"     ; 0x0f9e
+%include "shared/ovr/draw_title_banner.asm"     ; 0x0f9e
 
 api_idx_007c_OKMO          equ api_idx_007c_MOJH
 api_idx_007c_MOJH.bss1     equ bss_93f0
@@ -215,40 +215,40 @@ api_idx_007c_MOJH.bss3     equ bss_93f4
 api_idx_007c_MOJH.bss4     equ bss_93f2
 api_idx_007c_MOJH.bss5     equ bss_9432
 api_idx_007c_MOJH.api_idx1 equ api_idx_0012_PJTU
-%include "shared/overlay/api_idx_007c_MOJH.asm"     ; 0x1046
+%include "shared/ovr/api_idx_007c_MOJH.asm"     ; 0x1046
 
 %include "vpcvw/api_idx_009e_KPST.asm"     ; 0x1894
 
 api_idx_0008_SKNL equ api_idx_0008_JJHR
-%include "shared/overlay/api_idx_0008_JJHR.asm"     ; 0x1b17
+%include "shared/ovr/api_idx_0008_JJHR.asm"     ; 0x1b17
 
 loc_UGOG       equ loc_TRPK
 loc_TRPK.dseg1 equ dseg_909b
 loc_TRPK.dseg2 equ dseg_90a1
-%include "shared/overlay/loc_TRPK.asm"              ; 0x1ca0
+%include "shared/ovr/loc_TRPK.asm"              ; 0x1ca0
 
 %include "vpcvw/loc_IIRG.asm"              ; 0x2190
 
-%include "shared/overlay/loc_QQUT.asm"              ; 0x21ad
+%include "shared/ovr/loc_QQUT.asm"              ; 0x21ad
 
 %include "vpcvw/api_idx_0008_NOPG.asm"     ; 0x21fd
 
 api_idx_0004_NONK equ collect_known_spells
-%include "shared/overlay/collect_known_spells.asm"     ; 0x297e
+%include "shared/ovr/collect_known_spells.asm"     ; 0x297e
 
-%include "shared/overlay/draw_marker_glyph.asm"     ; 0x29ef
+%include "shared/ovr/draw_marker_glyph.asm"     ; 0x29ef
 
-%include "shared/overlay/draw_power_digit.asm"      ; 0x2a2d
+%include "shared/ovr/draw_power_digit.asm"      ; 0x2a2d
 
 loc_GPGU              equ draw_spell_cost
 draw_spell_cost.dseg1 equ dseg_90a7
-%include "shared/overlay/draw_spell_cost.asm"              ; 0x2ab9
+%include "shared/ovr/draw_spell_cost.asm"              ; 0x2ab9
 
-%include "shared/overlay/draw_realm_spell_points.asm" ; 0x2b5a
+%include "shared/ovr/draw_realm_spell_points.asm" ; 0x2b5a
 
 periodic_party_redraw.party_redraw_mode1       equ bss_9562
 periodic_party_redraw.draw_realm_spell_points1 equ draw_realm_spell_points
-%include "shared/overlay/periodic_party_redraw.asm" ; 0x2bf3
+%include "shared/ovr/periodic_party_redraw.asm" ; 0x2bf3
 
 api_idx_0050_QTGU          equ api_idx_0050_MINM
 api_idx_0050_MINM.dseg1    equ dseg_90ab
@@ -260,7 +260,7 @@ jumptable_38dd_case_1      equ api_idx_0050_MINM.jumptable_case2
 jumptable_38dd_case_3      equ api_idx_0050_MINM.jumptable_case3
 jumptable_38dd_case_4      equ api_idx_0050_MINM.jumptable_case4
 jumptable_38dd             equ api_idx_0050_MINM.jumptable1
-%include "shared/overlay/api_idx_0050_MINM.asm"     ; 0x2c84
+%include "shared/ovr/api_idx_0050_MINM.asm"     ; 0x2c84
 
 %include "vpcvw/api_idx_0004_UUMM.asm"     ; 0x3974
 
@@ -272,7 +272,7 @@ jumptable_38dd             equ api_idx_0050_MINM.jumptable1
 
 api_idx_0004_VRNJ          equ api_idx_0004_JQTM
 api_idx_0004_JQTM.api_idx1 equ api_idx_0084_ILTP
-%include "shared/overlay/api_idx_0004_JQTM.asm"     ; 0x3c18
+%include "shared/ovr/api_idx_0004_JQTM.asm"     ; 0x3c18
 
 %include "vpcvw/api_idx_0056_QRVG.asm"     ; 0x3c7b
 
@@ -282,7 +282,7 @@ api_idx_0004_JQTM.api_idx1 equ api_idx_0084_ILTP
 
 loc_TTSP.bss1 equ bss_9562
 loc_TTSP.bss2 equ bss_9432
-%include "shared/overlay/loc_TTSP.asm"              ; 0x4011
+%include "shared/ovr/loc_TTSP.asm"              ; 0x4011
 
 %include "vpcvw/loc_JTQP.asm"              ; 0x40b7
 
@@ -304,7 +304,7 @@ loc_TTSP.bss2 equ bss_9432
 
 %include "vpcvw/loc_IHRL.asm"              ; 0x474b
 
-%include "shared/overlay/api_idx_0004_GUSS.asm"     ; 0x4793
+%include "shared/ovr/api_idx_0004_GUSS.asm"     ; 0x4793
 
 %include "vpcvw/api_idx_0048_RUIH.asm"     ; 0x4a1c
 
@@ -314,26 +314,26 @@ loc_TTSP.bss2 equ bss_9432
 
 %include "vpcvw/api_idx_0010_GVMH.asm"     ; 0x5050
 
-%include "shared/overlay/api_idx_0008_RQRL.asm"     ; 0x539e
+%include "shared/ovr/api_idx_0008_RQRL.asm"     ; 0x539e
 
-%include "shared/overlay/api_idx_0004_UJRL.asm"     ; 0x542a
+%include "shared/ovr/api_idx_0004_UJRL.asm"     ; 0x542a
 
 %include "vpcvw/api_idx_00c2_OUOT.asm"     ; 0x54fb
 
 %include "vpcvw/api_idx_0014_VORK.asm"     ; 0x616c
 
-%include "shared/overlay/draw_split_two_line_text.asm" ; 0x6977
+%include "shared/ovr/draw_split_two_line_text.asm" ; 0x6977
 
 api_idx_0080_MHMQ.bss1     equ bss_93fc
 api_idx_0080_MHMQ.bss2     equ bss_93fa
 api_idx_0080_MHMQ.bss3     equ bss_9400
 api_idx_0080_MHMQ.bss4     equ bss_93fe
 api_idx_0080_MHMQ.api_idx1 equ api_idx_0012_PJTU
-%include "shared/overlay/api_idx_0080_MHMQ.asm"     ; 0x6a20
+%include "shared/ovr/api_idx_0080_MHMQ.asm"     ; 0x6a20
 
-%include "shared/overlay/api_idx_0004_MKGU.asm"     ; 0x6c47
+%include "shared/ovr/api_idx_0004_MKGU.asm"     ; 0x6c47
 
-%include "shared/overlay/api_idx_004c_LTUL.asm"     ; 0x6d13
+%include "shared/ovr/api_idx_004c_LTUL.asm"     ; 0x6d13
 
 %include "vpcvw/api_idx_009a_KOSH.asm"     ; 0x6f62
 
@@ -419,17 +419,17 @@ jumptable_85bc                      equ api_idx_0004_LOLJ.jumptable1
 api_idx_0004_LOLJ.bss1              equ bss_96d0
 api_idx_0004_LOLJ.bss2              equ bss_9698
 api_idx_0004_LOLJ.slot_prompt_text1 equ bss_96dc
-%include "shared/overlay/api_idx_0004_LOLJ.asm"     ; 0x8421
+%include "shared/ovr/api_idx_0004_LOLJ.asm"     ; 0x8421
 
-%include "shared/overlay/draw_known_spell_values.asm" ; 0x8676
+%include "shared/ovr/draw_known_spell_values.asm" ; 0x8676
 
-%include "shared/overlay/api_idx_0058_GKGM.asm"     ; 0x8730
+%include "shared/ovr/api_idx_0058_GKGM.asm"     ; 0x8730
 
-%include "shared/overlay/input_text_field.asm"      ; 0x88b6
+%include "shared/ovr/input_text_field.asm"      ; 0x88b6
 
 api_idx_0026_QIGS       equ api_idx_0026_NRVO
 api_idx_0026_NRVO.dseg1 equ dseg_92e2
-%include "shared/overlay/api_idx_0026_NRVO.asm"     ; 0x8a6e
+%include "shared/ovr/api_idx_0026_NRVO.asm"     ; 0x8a6e
 
 %include "vpcvw/api_idx_0002_VLGM.asm"     ; 0x8f64
 
@@ -438,7 +438,7 @@ api_idx_0026_NRVO.dseg1 equ dseg_92e2
 %include "vpcvw/evaluate_character_profession.asm" ; 0x902e
 
 evaluate_character_professions.check_profession_requirements1 equ evaluate_character_profession
-%include "shared/overlay/evaluate_character_professions.asm" ; 0x91b2
+%include "shared/ovr/evaluate_character_professions.asm" ; 0x91b2
 
 jumptable_928f_case_0  equ loc_SRNN.jumptable_case1
 loc_SRNN.dseg1         equ dseg_9366
@@ -464,13 +464,13 @@ loc_SRNN.dseg10        equ dseg_93b7
 jumptable_928f_case_10 equ loc_SRNN.jumptable_case11
 loc_SRNN.dseg11        equ dseg_93c0
 jumptable_928f         equ loc_SRNN.jumptable1
-%include "shared/overlay/loc_SRNN.asm"              ; 0x91d9
+%include "shared/ovr/loc_SRNN.asm"              ; 0x91d9
 
 %include "vpcvw/api_idx_0030_TGOH.asm"     ; 0x92b3
 
 api_idx_0016_TVKP       equ api_idx_0016_JNJG
 api_idx_0016_JNJG.dseg1 equ dseg_93c9
-%include "shared/overlay/api_idx_0016_JNJG.asm"     ; 0x9434
+%include "shared/ovr/api_idx_0016_JNJG.asm"     ; 0x9434
 
 %include "vpcvw/api_idx_0022_PNPP.asm"     ; 0x9491
 
@@ -478,9 +478,9 @@ api_idx_0016_JNJG.dseg1 equ dseg_93c9
 
 %include "vpcvw/api_idx_0018_VTUP.asm"     ; 0x9740
 
-%include "shared/overlay/aztec_ovbgn.asm"           ; 0x97ee
+%include "shared/ovr/aztec_ovbgn.asm"           ; 0x97ee
 
-%include "shared/overlay/aztec_cswt.asm"            ; 0x982c
+%include "shared/ovr/aztec_cswt.asm"            ; 0x982c
 
 __zdata_start:
 %include "vpcvw/data/dseg_9098.asm"        ; 0x9844

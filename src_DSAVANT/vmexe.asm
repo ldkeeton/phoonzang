@@ -50,28 +50,28 @@ bss_91d8 equ __zdseg_end + (__zobss_91d8 - __zdata_start)
 bss_91da equ __zdseg_end + (__zobss_91da - __zdata_start)
 _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
-%include "shared/overlay/replace_slashes_with_spaces.asm" ; 0x000e
+%include "shared/ovr/replace_slashes_with_spaces.asm" ; 0x000e
 
 %include "vmexe/api_idx_0004_QUVO.asm"     ; 0x0034
 
-%include "shared/overlay/api_idx_0012_PGSL.asm"     ; 0x00db
+%include "shared/ovr/api_idx_0012_PGSL.asm"     ; 0x00db
 
-%include "shared/overlay/draw_active_member_panel.asm" ; 0x0257
+%include "shared/ovr/draw_active_member_panel.asm" ; 0x0257
 
 %include "vmexe/api_idx_0004_MLLS.asm"     ; 0x030b
 
-%include "shared/overlay/fill_action_slot_table.asm" ; 0x0456
+%include "shared/ovr/fill_action_slot_table.asm" ; 0x0456
 
 advance_action_slots.fill_action_slot_table_vmnpc1 equ fill_action_slot_table
-%include "shared/overlay/advance_action_slots.asm"  ; 0x0656
+%include "shared/ovr/advance_action_slots.asm"  ; 0x0656
 
-%include "shared/overlay/add_overlay_item.asm"      ; 0x0979
+%include "shared/ovr/add_overlay_item.asm"      ; 0x0979
 
-%include "shared/overlay/queue_cell_action_overlay.asm" ; 0x0a83
+%include "shared/ovr/queue_cell_action_overlay.asm" ; 0x0a83
 
-%include "shared/overlay/queue_marker_overlay.asm"  ; 0x0cc9
+%include "shared/ovr/queue_marker_overlay.asm"  ; 0x0cc9
 
-%include "shared/overlay/loc_SSIO.asm"              ; 0x0dbe
+%include "shared/ovr/loc_SSIO.asm"              ; 0x0dbe
 
 %include "vmexe/api_idx_0016_MUKH.asm"     ; 0x0e1a
 
@@ -96,23 +96,23 @@ advance_action_slots.fill_action_slot_table_vmnpc1 equ fill_action_slot_table
 %include "vmexe/loc_TGJH.asm"              ; 0x182b
 
 loc_KRMP.panel_redraw_ticks1 equ bss_90e2
-%include "shared/overlay/loc_KRMP.asm"              ; 0x1849
+%include "shared/ovr/loc_KRMP.asm"              ; 0x1849
 
 %include "vmexe/api_idx_0006_GMTP.asm"     ; 0x18a8
 
 run_party_screen_animation.api_idx1 equ api_idx_0006_GMTP
-%include "shared/overlay/run_party_screen_animation.asm" ; 0x1a35
+%include "shared/ovr/run_party_screen_animation.asm" ; 0x1a35
 
 loc_UTQS.api_idx1 equ api_idx_0006_GMTP
-%include "shared/overlay/loc_UTQS.asm"              ; 0x1a4c
+%include "shared/ovr/loc_UTQS.asm"              ; 0x1a4c
 
 %include "vmexe/api_idx_0004_QUPL.asm"     ; 0x1a5f
 
-%include "shared/overlay/restore_areas_redraw_glyph.asm" ; 0x1ac7
+%include "shared/ovr/restore_areas_redraw_glyph.asm" ; 0x1ac7
 
 %include "vmexe/api_idx_0004_UONH.asm"     ; 0x1b45
 
-%include "shared/overlay/loc_SIKN.asm"              ; 0x1bf4
+%include "shared/ovr/loc_SIKN.asm"              ; 0x1bf4
 
 %include "vmexe/loc_MUTI.asm"              ; 0x1c36
 
@@ -152,7 +152,7 @@ loc_UTQS.api_idx1 equ api_idx_0006_GMTP
 
 %include "vmexe/api_idx_0002_NGRN.asm"     ; 0x2d6b
 
-%include "shared/overlay/loc_QQUT.asm"              ; 0x2e09
+%include "shared/ovr/loc_QQUT.asm"              ; 0x2e09
 
 %include "vmexe/api_idx_0010_RUQS.asm"     ; 0x2e59
 
@@ -161,7 +161,7 @@ loc_UTQS.api_idx1 equ api_idx_0006_GMTP
 %include "vmexe/api_idx_0004_PMSR.asm"     ; 0x33e2
 
 api_idx_005e_OJVJ.dseg1 equ dseg_90a6
-%include "shared/overlay/api_idx_005e_OJVJ.asm"     ; 0x34bc
+%include "shared/ovr/api_idx_005e_OJVJ.asm"     ; 0x34bc
 
 %include "vmexe/string_loc_KUIU.asm"       ; 0x3620
 
@@ -205,11 +205,11 @@ api_idx_005e_OJVJ.dseg1 equ dseg_90a6
 
 %include "vmexe/api_idx_005a_UJPS.asm"     ; 0x9f4f
 
-%include "shared/overlay/aztec_ovbgn.asm"           ; 0xa4ca
+%include "shared/ovr/aztec_ovbgn.asm"           ; 0xa4ca
 
-%include "shared/overlay/aztec_cswt.asm"            ; 0xa508
+%include "shared/ovr/aztec_cswt.asm"            ; 0xa508
 
-%include "shared/overlay/aztec_swapmem.asm"         ; 0xa520
+%include "shared/ovr/aztec_swapmem.asm"         ; 0xa520
 
 __zdata_start:
 %include "vmexe/data/dseg_9098.asm"        ; 0xa545
