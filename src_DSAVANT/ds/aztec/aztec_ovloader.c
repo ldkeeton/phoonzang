@@ -12,8 +12,21 @@ struct ovrheader {			/* overlay header header */
 	unsigned short o_entry;
 };
 
-char *ovname;
+static char *ovname;
 
+#asm
+	public	ovloader_
+ovloader_ proc near
+	mov	bx, sp
+	mov	ax, word ptr 2[bx]
+	mov	ovname_, ax
+	call	aztec_impl_ovld_
+	jmp	ax
+ovloader_ endp
+#endasm
+
+static
+/* Loads the named overlay and returns its entry address. */
 aztec_impl_ovld()
 {
 	int fd, flag;
@@ -69,4 +82,15 @@ aztec_impl_ovld()
 		aztec_loadabort(50);
 	aztec_close(fd);
 	return hdr.o_entry;
+}
+
+static
+/* Reports an overlay load failure and exits. */
+aztec_loadabort(code)
+{
+	char buffer[80];
+
+	aztec_sprintf(buffer, "Error %d loading overlay: %s$", code, ovname);
+	aztec_bdos(9, buffer);
+	aztec_exit(100);
 }

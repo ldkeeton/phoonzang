@@ -23,7 +23,40 @@ from .objread import external_label
 
 #: *file* is the vendor source (``stksiz.c``); *publics* ``((label, offset),
 #: ...)`` in offset order; *data* the module's initialized bytes.
-DataModule = namedtuple('DataModule', 'file publics data')
+DataModule = namedtuple('DataModule', 'file publics data declared',
+                       defaults=(False,))
+
+
+def declared_data_modules(entry, segments, image):
+    """Explicit data_names lengths, independent of vendor prebuild discovery.
+
+    Lengths are bytes, starting at the named DS object. Interior public names
+    remain at their addresses; the file takes its first object's stem.
+    """
+    if segments is None or segments.kind == 'overlay':
+        return ()
+    names = (entry or {}).get('data_names') or {}
+    result, previous_end = [], 0
+    for offset, info in sorted(names.items()):
+        if 'length' not in info:
+            continue
+        origin = segments.data_origin
+        end = offset + info['length']
+        if (origin is None or offset < previous_end
+                or segments.data_space(offset) != 'dseg'
+                or end > len(image) - origin
+                or (segments.bss_boundary is not None
+                    and end > segments.bss_boundary)):
+            raise ValueError(f'data_names[{offset:04x}].length overlaps another '
+                             'span or exceeds initialized DS data')
+        publics = tuple((item['name'], at - offset)
+                        for at, item in sorted(names.items())
+                        if offset <= at < end)
+        filename = info['name'].strip('_') + '.c'
+        result.append(DataModule(filename, publics,
+                                 bytes(image[origin + offset:origin + end]), True))
+        previous_end = end
+    return tuple(result)
 
 
 def stem(module):

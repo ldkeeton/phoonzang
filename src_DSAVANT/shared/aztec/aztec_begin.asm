@@ -143,3 +143,25 @@ aztec_begin:
     int 0x21 ; DOS string output
     mov al, 0xfd
     jmp short aztec_begin.loc1
+aztec_impl_exit:
+    pop ax
+    pop ax
+aztec_begin.loc1:
+    mov ah, 0x4c
+    int 0x21 ; DOS exit with return code
+aztec_exit_return:
+    jmp far [cs:aztec_begin_exitad - IMAGE_BASE]
+aztec_dbgentry_retip:
+    db 0x00, 0x00
+aztec_dbgentry_retcs:
+    db 0x00, 0x00
+aztec_dbgentry:
+    pop word [cs:aztec_dbgentry_retip - IMAGE_BASE]
+    pop word [cs:aztec_dbgentry_retcs - IMAGE_BASE]
+    pop ds
+    call aztec_dbgcaller
+    jmp far [cs:aztec_dbgentry_retip - IMAGE_BASE]
+aztec_dbgcaller:
+    push di
+    push si
+    retf

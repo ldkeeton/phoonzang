@@ -1,5 +1,5 @@
-/* Copyright (C) Manx Software Systems. */
-char *buff;
+/* Copyright (C) 1982 by Manx Software Systems */
+static char *buff;
 
 aztec_sprintf(str, fmt, args)
 char *str, *fmt; unsigned args;
@@ -11,4 +11,11 @@ char *str, *fmt; unsigned args;
 	i = aztec_format(aztec_spsub, fmt, &args);
 	*buff = 0;
 	return i;
+}
+
+static
+/* Appends one formatted character to the output buffer. */
+aztec_spsub(c)
+{
+	return (*buff++ = c)&255;
 }

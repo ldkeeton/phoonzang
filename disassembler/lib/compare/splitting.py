@@ -487,21 +487,26 @@ def _group_module(ranges, roots, binary_data, module, ends):
     first = module.publics[0][0]
     base = next((at for at, name in roots.items() if str(name) == first),
                 None)
-    if base is None or binary_data is None:
+    def ungrouped():
+        if module.declared:
+            raise ValueError(f'{module.file}: declared data length must cover '
+                             'contiguous data objects and end at a record boundary')
         return ranges
+    if base is None or binary_data is None:
+        return ungrouped()
     end = base + len(module.data)
     if (bytes(binary_data[base:end]) != module.data or end not in ends
             or any(str(roots.get(base + offset)) != label
                    for label, offset in module.publics)):
-        return ranges
+        return ungrouped()
     inside = sorted(r for r in ranges if base <= r[0] < end)
     at = base
     for start, stop, _ in inside:
         if start != at:
-            return ranges
+            return ungrouped()
         at = stop
-    if at < end:
-        return ranges
+    if at != end:
+        return ungrouped()
     return sorted([r for r in ranges if r not in inside]
                   + [(base, end, stem(module))])
 

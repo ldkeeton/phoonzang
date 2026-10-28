@@ -1,3 +1,9 @@
 ; auto-generated
 __z_STKSIZ:
     db 0x00, 0x01
+__z_STKRED:
+    db 0x00, 0x08
+__z_HEAPSIZ:
+    db 0x00, 0x01
+__z_STKLOW:
+    db 0x00, 0x00

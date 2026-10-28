@@ -8,6 +8,8 @@ source-level candidate scan, not proof that routines should be merged:
 independent entry points, shared epilogues and decoded data need review.
 Fallthrough into an independently called entry is omitted from reports,
 mirroring the disassembler's direct-call routine roots (not proof of intent).
+Single-jump forwarding stubs into independently called entries are also omitted.
+Unconditional jumps to entries proven to terminate without returning are omitted.
 Offsets come from include comments; instruction sizes are not verified.
 """
 
@@ -144,6 +146,85 @@ def reaches_end(operations):
     return walk(operations, scopes, labels.get)[0]
 
 
+def nonreturning_entries(fragments, resolve, adjacent):
+    """Return a checker using a least fixed point over reachable control flow.
+
+    DOS termination seeds the proof. Both conditional successors must be
+    proven; a call is safe if its callee or its continuation is proven.
+    A normal direct call may return, but is never itself termination evidence.
+    Returns, data, unresolved transfers and cycles alone cannot prove anything.
+    For INT 21h, require an immediately preceding AH/AX assignment recognized
+    by dos_exit; do not infer register state across intervening instructions.
+    Labels, branches and calls also reset that evidence.
+    """
+    following = dict(adjacent)
+    proven = set()
+
+    def check(fid, index):
+        root = (fid, index, ())
+        rules, pending = {}, [root]
+
+        def target(row, scope):
+            found = resolve(direct_target(row, scope))
+            return (*found[1], ()) if found else None
+
+        while pending:
+            node = pending.pop()
+            if node in rules or node in proven:
+                continue
+            fid, index, block = node
+            rows = fragments[fid]['rows']
+            # Rules are ORs of ANDs. An empty AND is proven termination;
+            # an empty OR is unknown or a possible return.
+            choices = []
+            if index == len(rows):
+                if fid in following:
+                    choices = [((following[fid], 0, ()),)]
+            else:
+                row = rows[index]
+                mnemonic = row.split()[0].lower()
+                scope = fragments[fid]['scopes'][index]
+                current = block + (row,)
+                if row.endswith(':'):
+                    choices = [((fid, index + 1, ()),)]
+                elif mnemonic in RETURNS | DATA:
+                    pass
+                elif dos_exit(current):
+                    choices = [()]
+                elif is_branch(row):
+                    jump = target(row, scope)
+                    if jump is not None:
+                        choices = [(jump,)] if mnemonic in ('jmp', 'ljmp') else [
+                            (jump, (fid, index + 1, ()))]
+                elif mnemonic in ('call', 'lcall'):
+                    callee = target(row, scope)
+                    if callee is not None:
+                        choices = [(callee,), ((fid, index + 1, ()),)]
+                elif mnemonic not in ('hlt', 'ud2'):
+                    choices = [((fid, index + 1, (row,)),)]
+            rules[node] = choices
+            pending.extend(successor for choice in choices for successor in choice)
+
+        # Work backwards from termination. Recursive calls and loops need
+        # independent termination evidence, so cannot certify themselves.
+        dependents = collections.defaultdict(set)
+        for node, choices in rules.items():
+            for choice in choices:
+                for successor in choice:
+                    dependents[successor].add(node)
+        pending = list(rules)
+        while pending:
+            node = pending.pop()
+            if node not in proven and any(
+                    all(successor in proven for successor in choice)
+                    for choice in rules[node]):
+                proven.add(node)
+                pending.extend(dependents[node])
+        return root in proven
+
+    return check
+
+
 def read_master(root, master):
     """Index includes and symbol-only EQU chains in their assembly scope."""
     fragments, aliases, labels, adjacent = [], {}, {}, []
@@ -240,6 +321,7 @@ def scan(root, binaries=(), show_rejected=False):
                 resolved[alias] = result
             return result
 
+        nonreturning = nonreturning_entries(fragments, resolve, adjacent)
         flows, references = [], collections.defaultdict(list)
         for fid, fragment in enumerate(fragments):
             def local_target(name):
@@ -325,6 +407,20 @@ def scan(root, binaries=(), show_rejected=False):
                 first = first_code(destination, target_index)
                 notes = ['edge: direct branch',
                          f'{master.stem}: {row} resolves to {name} ({kind})']
+                if (reachable and not interior
+                        and row.split()[0].lower() in ('jmp', 'ljmp')
+                        and nonreturning(destination, target_index)):
+                    notes.append(f'{master.stem}: intentional non-returning handler; '
+                                 'destination control flow proven non-returning')
+                operations = [operation for operation in fragments[source]['rows']
+                              if not operation.endswith(':')]
+                if (reachable and not interior
+                        and row.split()[0].lower() in ('jmp', 'ljmp')
+                        and len(operations) == 1
+                        and first and first.split()[0].lower() not in DATA
+                        and independently_called_entry(source, destination)):
+                    notes.append(f'{master.stem}: intentional forwarding stub; '
+                                 'destination entry independently called')
                 if not first or first.split()[0].lower() in DATA:
                     notes.append(f'{master.stem}: target is data or has no instruction; review code/data classification')
                 add(source, destination, row, first, reachable, notes)
@@ -358,7 +454,9 @@ def edge_status(key, locations, notes):
     if not key[4]:
         return 'rejected'
     recognized = {note.split(':', 1)[0] for note in notes
-                  if ': intentional entry-prefix fallthrough;' in note}
+                  if ': intentional entry-prefix fallthrough;' in note
+                  or ': intentional forwarding stub;' in note
+                  or ': intentional non-returning handler;' in note}
     if all(location.split(':', 1)[0] in recognized for location in locations):
         return 'intentional'
     return 'candidate'

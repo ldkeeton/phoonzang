@@ -660,7 +660,7 @@ def _aztec_asm_annotations(entries, label_map, c_overrides=None):
 
 
 def _data_sources(project, binary, out_dir, split_sources, segments=None,
-                  data=None, overrides=()):
+                  data=None, overrides=(), sidecar_entry=None):
     """``{relative path: text}``: the C source beside each generated data file.
 
     A library module that is only data (:mod:`lib.aztec.datamodules`) is one
@@ -679,11 +679,13 @@ def _data_sources(project, binary, out_dir, split_sources, segments=None,
     from lib.aztec import cache
     from lib.aztec.compile import LIBRARY_PREFIX
     from lib.aztec.dataowners import DataOwnerError, validate
-    from lib.aztec.datamodules import data_modules, stem
+    from lib.aztec.datamodules import data_modules, declared_data_modules, stem
     sources = []
     seeds = {}
     todo = []
-    for module in data_modules(project):
+    modules = (*data_modules(project),
+               *declared_data_modules(sidecar_entry, segments, data))
+    for module in modules:
         name = stem(module)
         rel = f'{binary}/data/{name}.asm'
         text = split_sources.get(rel)
@@ -702,6 +704,8 @@ def _data_sources(project, binary, out_dir, split_sources, segments=None,
                 shown = os.path.relpath(path, out_dir)
                 break
         if source is None:
+            if module.declared:
+                continue  # A length owns data; it does not require a C source.
             source = cache.seed_source_text(project, binary, label, entry)
             seeds[c_rel] = source
         todo.append((module, rel, label, entry, shown, source))

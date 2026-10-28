@@ -1,7 +1,6 @@
 ; Copyright (C) 1983 1984 by Manx Software Systems
 ; :ts=8
 	include lmacros.h
-	extrn loc_GIPI_:near
 codeseg	segment	word public 'code'
 	public	$MEMRY
 	public	_mbot_, _sbot_, _mtop_,_lowwater_
@@ -35,10 +34,8 @@ ifdef FARPROC
 else
 	extrn aztec_Croot_:near, $fltinit:near
 endif
-	public aztec_begin_
-
-	extrn aztec_impl_exit_:near
-aztec_begin_ proc	far
+	public	aztec_begin_
+aztec_begin_	proc	far
 	mov	bp,dataseg
 	test	bp,bp
 	jnz	notcom
@@ -105,7 +102,7 @@ heapok:
 	dos	4aH	; SETBLOCK system call
 	jnc	heapdone
 	mov	al,254
-	jmp	loc_GIPI_
+	jmp	exits
 heapdone:
 	mov	es,bp		;restore ES
 	cld
@@ -177,15 +174,42 @@ nostk:
 	call	$fltinit
 	jc	no_8087
 	call	aztec_Croot_		;Croot(argp, first)
-	jmp	short loc_GIPI_
+	jmp	short exits
 ;
 no_8087:
 	mov	ah,9		;dos print message
 	mov	dx,offset bad8087
 	int	21h		;tell the user about it
 	mov	al,253
-	jmp	short loc_GIPI_
+	jmp	short exits
 
-aztec_begin_ endp
-codeseg ends
-	end aztec_begin_
+	public aztec_impl_exit_
+aztec_impl_exit_:
+	pops	ax,ax	; fetch return code
+ifdef FARPROC
+	pop	ax
+endif
+exits:
+	dos	4cH
+	jmp	dword ptr exitad
+aztec_begin_	endp
+
+retip	dw	0
+retcs	dw	0
+
+	public $dbgentry
+$dbgentry proc far
+	pop	cs:retip
+	pop	cs:retcs	; save return address into debugger
+	pop	ds		;set DS
+	call	near ptr caller
+	jmp	dword ptr cs:retip ; return to debugger
+$dbgentry endp
+
+caller	proc far
+	pushs	di,si	; CS value of local function; IP value call local function
+	ret		;far return instruction
+caller	endp
+
+codeseg	ends
+	end	aztec_begin_

@@ -14,7 +14,8 @@ from lib.diagnostics import phase as diag_phase, emit as diag_emit, enabled as d
 
 from lib.decode import disassemble
 from lib.compare.verify import verify
-from lib.aztec.datamodules import data_modules as vendor_data_modules
+from lib.aztec.datamodules import (data_modules as vendor_data_modules,
+                                  declared_data_modules)
 from lib.verify.assemble import clear_assemble_cache
 from lib.compare.records import (
     find_db_with_comment_lines,
@@ -925,7 +926,8 @@ def _render(a, exact_bytes, show_offsets, host_data_offsets,
         message_bases=message_bases,
         sidecar_use=(ctx.sidecar_entry or {}).get('use'),
         bands=(ctx.sidecar_entry or {}).get('bands') or (),
-        data_modules=vendor_data_modules(project) if project else (),
+        data_modules=(*(vendor_data_modules(project) if project else ()),
+                      *declared_data_modules(ctx.sidecar_entry, ctx.segments, data)),
     )
     stagelog.step('verify', 1, metrics={'lines': asm_text.count('\\n')})
     progress.log(f'{name} | verify done')
@@ -1021,6 +1023,7 @@ def _emit(a, r, exact_bytes):
     try:
         seeds.update(_data_sources(project, name, out_dir, split_sources,
                                    segments=ctx.segments, data=a.data,
+                                   sidecar_entry=ctx.sidecar_entry,
                                    overrides=(*((a.c_overrides or {}).values()),
                                               *((a.c_checks or {}).values()))))
     except SystemExit as exc:

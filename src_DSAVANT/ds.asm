@@ -827,29 +827,20 @@ __zdseg_end equ (__zimage_end - __zdseg_start) + __zbss_size
 
 %include "ds/aztec/aztec_ovloader.asm"     ; 0x4379
 
-%include "ds/aztec/aztec_impl_ovld.asm"    ; 0x4386
-
-%include "ds/aztec/aztec_loadabort.asm"    ; 0x4462
-
 %include "ds/aztec/aztec_bdos.asm"         ; 0x4497
 
 %include "ds/aztec/aztec_impl_csread.asm"  ; 0x44b4
 
 %include "ds/aztec/aztec_sprintf.asm"      ; 0x44d4
 
-%include "ds/aztec/aztec_spsub.asm"        ; 0x44ff
-
 %include "ds/aztec/aztec_movblock.asm"     ; 0x4517
 
 %include "ds/aztec/aztec_setmem.asm"       ; 0x454d
 
-aztec_strcat.loc1 equ ds_loc_KRNT
+ds_loc_KRNT equ aztec_strcat.loc1
+ds_loc_JPNO equ aztec_strcat.loc2
+ds_loc_OSMM equ aztec_strcat.loc3
 %include "shared/aztec/aztec_strcat.asm"       ; 0x4574
-
-ds_loc_KRNT equ aztec_strncat.loc1
-ds_loc_JPNO equ aztec_strncat.loc2
-ds_loc_OSMM equ aztec_strncat.loc3
-%include "shared/aztec/aztec_strncat.asm"      ; 0x457c
 
 %include "shared/aztec/aztec_strcpy.asm"       ; 0x45ab
 
@@ -863,16 +854,8 @@ ds_loc_OSMM equ aztec_strncat.loc3
 
 %include "ds/aztec/aztec_csav.asm"         ; 0x4652
 
-%include "ds/aztec/aztec_cret.asm"         ; 0x4670
-
-%include "ds/aztec/ds_loc_4676.asm"        ; 0x4676
-
+ds_loc_LPSH equ aztec_realloc.loc1
 %include "shared/aztec/aztec_realloc.asm"      ; 0x467b
-
-ds_loc_LPSH equ aztec_malloc.loc1
-%include "shared/aztec/aztec_malloc.asm"       ; 0x46ea
-
-%include "shared/aztec/aztec_free.asm"         ; 0x47e8
 
 %include "shared/data/aztec_format_conversions.asm" ; 0x480d
 
@@ -928,18 +911,9 @@ ds_loc_PLIR            equ aztec_format.loc3
 
 %include "shared/aztec/aztec_creat.asm"        ; 0x4b39
 
-%include "shared/aztec/aztec_open.asm"         ; 0x4b50
-
 ds_loc_QRUP equ aztec_ldv.loc1
 ds_loc_OGHL equ aztec_ldv.loc2
 %include "shared/aztec/aztec_ldv.asm"          ; 0x4be6
-
-aztec_lrm.loc1 equ ds_loc_QRUP
-%include "shared/aztec/aztec_lrm.asm"          ; 0x4c14
-
-%include "shared/aztec/aztec_lum.asm"          ; 0x4c38
-
-%include "shared/aztec/aztec_lud.asm"          ; 0x4c40
 
 %include "shared/aztec/aztec_strlen.asm"       ; 0x4cd7
 
@@ -949,60 +923,24 @@ aztec_lrm.loc1 equ ds_loc_QRUP
 
 %include "shared/data/aztec_begin_exitcs.asm"  ; 0x4d38
 
-aztec_begin.loc1 equ ds_loc_GIPI
+ds_loc_GIPI equ aztec_begin.loc1
 %include "shared/aztec/aztec_begin.asm"        ; 0x4d3a
 
-ds_loc_GIPI equ aztec_impl_exit.loc1
-%include "shared/aztec/aztec_impl_exit.asm"    ; 0x4e7e
-
-%include "ds/aztec/aztec_exit_return.asm"  ; 0x4e84
-
-%include "shared/data/aztec_dbgentry_retip.asm" ; 0x4e89
-
-%include "shared/data/aztec_dbgentry_retcs.asm" ; 0x4e8b
-
-%include "shared/aztec/aztec_dbgentry.asm"     ; 0x4e8d
-
-%include "shared/aztec/aztec_dbgcaller.asm"    ; 0x4ea0
-
+aztec_noper.dseg1 equ dseg_0cdd
+aztec_noper.dseg2 equ dseg_0cde
 %include "shared/aztec/aztec_noper.asm"        ; 0x4ea3
-
-aztec_Croot.dseg1 equ dseg_0cdd
-aztec_Croot.dseg2 equ dseg_0cde
-%include "shared/aztec/aztec_Croot.asm"        ; 0x4ea7
-
-%include "shared/aztec/aztec_exit.asm"         ; 0x4f73
 
 %include "shared/aztec/aztec_fltinit.asm"      ; 0x4f85
 
 %include "ds/aztec/aztec_impl_stkover.asm" ; 0x4f87
 
-aztec_impl_read.loc1 equ ds_loc_IGMS
+ds_loc_IGMS equ aztec_impl_read.loc1
+ds_loc_NOQM equ aztec_impl_read.loc2
+ds_loc_SROM equ aztec_impl_read.loc3
+ds_loc_USUN equ aztec_impl_read.loc4
 %include "shared/aztec/aztec_impl_read.asm"    ; 0x4fa2
 
-aztec_impl_write.loc1 equ ds_loc_IGMS
-%include "shared/aztec/aztec_impl_write.asm"   ; 0x4fac
-
-aztec_read.loc1 equ ds_loc_NOQM
-%include "shared/aztec/aztec_read.asm"         ; 0x4fb6
-
-ds_loc_NOQM equ aztec_write.loc1
-ds_loc_IGMS equ aztec_write.loc2
-ds_loc_SROM equ aztec_write.loc3
-ds_loc_USUN equ aztec_write.loc4
-%include "shared/aztec/aztec_write.asm"        ; 0x4fbd
-
-%include "shared/aztec/aztec_close.asm"        ; 0x4fec
-
-%include "shared/aztec/aztec_lseek.asm"        ; 0x5004
-
-%include "shared/aztec/aztec_unlink.asm"       ; 0x5023
-
-%include "shared/aztec/aztec_rename.asm"       ; 0x503b
-
 %include "shared/aztec/aztec_impl_tty_rd.asm"  ; 0x505c
-
-%include "shared/aztec/aztec_impl_tty_wr.asm"  ; 0x50c1
 
 %include "shared/aztec/aztec_movmem.asm"       ; 0x5123
 
@@ -1120,12 +1058,6 @@ aztec_MEMRY.bss1 equ bss_b198
 %include "ds/data/dseg_0cae.asm"           ; 0x10e0e
 
 %include "shared/data/STKSIZ.asm"              ; 0x10e34
-
-%include "shared/data/STKRED.asm"              ; 0x10e36
-
-%include "shared/data/HEAPSIZ.asm"             ; 0x10e38
-
-%include "shared/data/STKLOW.asm"              ; 0x10e3a
 
 %include "shared/data/ioflg.asm"               ; 0x10e3c
 

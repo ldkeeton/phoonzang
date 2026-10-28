@@ -19,6 +19,10 @@ def _validate_data_names(block, where):
     an address spelling, which would read as the generated name of some other
     object.
 
+    An optional positive ``length`` owns that many initialized data bytes as
+    one fragment, retaining labels inside it. The span must cover contiguous
+    data objects and end on a record boundary; overlapping spans are invalid.
+
     An optional ``"record"`` names the object's record layout
     (:mod:`lib.record_layout`): ``{"name": "slot_rec", "size": n?, "fields":
     {"26": "target", "30": {"name": "target_rand", "size": 8}}}``, field keys
@@ -40,6 +44,9 @@ def _validate_data_names(block, where):
         if name in seen:
             raise SidecarError(f'{at}.name {name!r} also names [{seen[name]}]')
         seen[name] = key
+        if 'length' in info and (type(info['length']) is not int
+                                 or info['length'] <= 0):
+            raise SidecarError(f'{at}.length must be a positive integer')
         if 'record' in info:
             _validate_record(info['record'], f'{at}.record')
 
