@@ -263,9 +263,9 @@ def sibling_symbols(project, binary, image, label_map, entries,
     ``strcat_`` before ``strncat_``.  Each that is byte-exact at its place
     (relocations aside) names a generic label there, and so does each static
     routine a matched one takes the address of.  The modules come from the
-    prebuild's object cache; nothing is compiled here.
+    object cache; nothing is compiled here.
     """
-    from lib.cachedirs import prebuild_dir
+    from lib.cachedirs import objs_dir
     from lib.sidecar.compiler import asm_flags, compiler_flags
     from lib.sidecar.vendor import vendor_patches
     from lib.symtab import Kind, Source, Symbol
@@ -273,7 +273,7 @@ def sibling_symbols(project, binary, image, label_map, entries,
     from .compile import CompiledModule
     from .compile import LIBRARY_PREFIX
     from .mux import MuxEngine, compare
-    objs = os.path.join(prebuild_dir(project), 'objs')
+    objs = objs_dir(project)
     lib = _library(project)
     engine = MuxEngine(objcache_dir=objs, patches=vendor_patches(project),
                        asm_flags=asm_flags(project),

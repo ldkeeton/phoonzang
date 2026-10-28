@@ -28,7 +28,7 @@ import os
 import re
 import sys
 
-from lib.autogen import hand_owned
+from lib.autogen import hand_owned, is_auto_header
 from lib.cachedirs import labels_dir, src_dir
 from lib.sidecar.constants import SIDECAR_DIR
 from lib.sidecar.errors import SidecarError
@@ -644,7 +644,8 @@ def _hand_files(project):
     for dirpath, _, files in os.walk(top):
         for f in sorted(files):
             p = os.path.join(dirpath, f)
-            if f.endswith(_REWRITE_SUFFIXES) and hand_owned(p):
+            if (f.endswith(_REWRITE_SUFFIXES) and hand_owned(p)
+                    and not is_auto_header(p)):
                 yield p
 
 

@@ -4,7 +4,7 @@ import os
 import shutil
 
 from lib.buildlock import LOCK_NAME
-from lib.cachedirs import BASELINE_ROOT, CACHE_ROOT, project_cache
+from lib.cachedirs import BASELINE_ROOT, BUILD_KEEP, CACHE_ROOT, project_cache
 from main.clean import clean_all
 from main.clean import clean_project
 
@@ -26,6 +26,27 @@ def clean_cache(project):
     shutil.rmtree(cache)
     print(f'Removed {cache}')
     return True
+
+
+def clean_derived(project):
+    """Remove everything in one project's ``.cache`` except
+    :data:`~lib.cachedirs.BUILD_KEEP`.
+
+    What a build derives (labels, symbols, spans, render contexts, ...) is
+    keyed by routine name and goes stale when one is renamed; the compiled
+    modules and staged headers are keyed by content and never do.
+    """
+    cache = project_cache(project)
+    if not os.path.isdir(cache):
+        return
+    for name in os.listdir(cache):
+        if name in BUILD_KEEP:
+            continue
+        path = os.path.join(cache, name)
+        if os.path.isdir(path) and not os.path.islink(path):
+            shutil.rmtree(path)
+        else:
+            os.remove(path)
 
 
 def cmd_clean(apps):

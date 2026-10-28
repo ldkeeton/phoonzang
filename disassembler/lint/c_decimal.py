@@ -13,20 +13,19 @@ an ``(unsigned)`` cast so the rewrite keeps the original type.
 import bisect
 import re
 
-from pygments.lexers import CLexer
 from pygments.token import Comment, Number
 
+from .c_common import tokens
 from .core import Finding, Rule, register
 
 
-_LEXER = CLexer(stripnl=False, ensurenl=False)
 _HEX = re.compile(r'0[xX]([0-9a-fA-F]+)([uUlL]*)')
 
 
 def _lex(text, base=0):
     """``(offset, token)`` for every Hex number token, including preprocessor
     directives (whose body Pygments leaves inside ``Comment.Preproc``)."""
-    for index, token_type, value in _LEXER.get_tokens_unprocessed(text):
+    for index, token_type, value in tokens(text):
         if token_type in Number.Hex:
             match = _HEX.fullmatch(value)
             if match:

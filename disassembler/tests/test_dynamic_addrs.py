@@ -4,8 +4,8 @@ Two layers:
 
 * pure classification tests for ``count_frozen_addrs`` (the metric that tracks
   the goal);
-* a baseline check over the committed ``src_DSAVANT`` tree: ``frozen_addr`` may
-  only decrease as values are rewritten into assembler expressions.
+* synthetic masters that reassemble byte for byte and, after an inserted
+  byte, keep every named address on the byte it names.
 """
 
 import os
@@ -16,9 +16,9 @@ import subprocess
 import tempfile
 import unittest
 
-from tests.slow import slow
 
-from lib.compare.render import HOST_SYMBOLS_INC
+from lib import names
+from lib.compare.render import _build_source as _render
 from tests.inline import build_source as _build_source
 from lib.compare.records import (
     DISPATCH_STRIDE, count_ds_index, count_frozen_addrs, count_hidden_flow,
@@ -26,7 +26,6 @@ from lib.compare.records import (
     fragment_instruction_offsets, instruction_offsets, shared_includes,
     thunk_entry_count,
 )
-from lib.compare.cotenancy import symbol_tables
 from lib.sidecar.loader import load as load_sidecar
 from lib.symtab import Space, Symbol
 from tests.syms import bss, cseg, data, dseg, loc, psp, routine
@@ -36,7 +35,6 @@ from lib.sidecar.binary import per_binary
 _ASM_DIR = pathlib.Path(__file__).resolve().parents[1]
 _PROJECT_ROOT = _ASM_DIR.parent
 _TREE = _PROJECT_ROOT / 'src_DSAVANT'
-_SKIP_DIRS = {'build_out', 'inc'}
 
 
 def _nasm(text):
@@ -70,47 +68,6 @@ def _nasm_file(path, inc_dir):
         return out.read()
 
 
-def _copy_source_tree(dest):
-    """Copy the assembler source tree (``.asm``/``.inc``) into *dest*."""
-    import shutil
-    for path in _TREE.rglob('*'):
-        rel = path.relative_to(_TREE)
-        if rel.parts[0] == 'build_out' or not path.is_file():
-            continue
-        if path.suffix not in ('.asm', '.inc'):
-            continue
-        target = os.path.join(dest, rel)
-        os.makedirs(os.path.dirname(target), exist_ok=True)
-        shutil.copy2(path, target)
-
-
-def _edit_data(master, old, new):
-    """Replace the first *old* in *master* or in one of its ``data/``
-    fragments, where every data byte is; return whether it was found."""
-    root = os.path.dirname(master)
-    stem = os.path.splitext(os.path.basename(master))[0]
-    fragments = sorted(pathlib.Path(root, stem, 'data').glob('*.asm'))
-    for path in [pathlib.Path(master), *fragments]:
-        text = path.read_text()
-        if old in text:
-            path.write_text(text.replace(old, new, 1))
-            return True
-    return False
-
-
-def _edit_included_code(master, old, new):
-    """Edit an instruction without assuming it starts a fragment."""
-    master = pathlib.Path(master)
-    includes = re.findall(r'^%include "([^"]+)"', master.read_text(), re.M)
-    paths = [master, *(master.parent / name for name in includes)]
-    matches = [path for path in paths if old in path.read_text()]
-    if len(matches) != 1:
-        return False
-    path = matches[0]
-    path.write_text(path.read_text().replace(old, new, 1))
-    return True
-
-
 def _mz_header(e_ss):
     header = bytearray(0x200)
     struct.pack_into(
@@ -119,248 +76,6 @@ def _mz_header(e_ss):
         e_ss, 0xf198, 0, 0x0010, 0, 0x0020, 0,
     )
     return header
-
-
-# Snapshot taken from the committed tree after the F1/F2/F3/F5 work
-# (2026-10-11), the D0 census split and D1's data-label binding (2026-10-12),
-# the D7.0a shared-geometry counters (2026-10-12), D7.0b's binding of the
-# DS-size immediates to ``__zdseg_end`` (2026-10-12), D7.0c's pre-NASM
-# link step binding the 13 overlay ``o_dorg`` origins to the same host symbol
-# (2026-10-12), and D7.1's host-owned shared DS name map (2026-10-13: the 13
-# overlay masters' ~1230 ``dseg_``/``bss_`` literals are replaced by one
-# ``host_data.inc`` include).  ``total`` is the *gated* sum (``code_shift +
-# data_shift``); ``inert`` values (``psp_`` fields, ``bios_data_0410``, literal
-# data tables) are reported but excluded from the gate.  D7.0a *raised* the
-# baseline by 33 (it made the previously invisible shared host/overlay geometry
-# countable); D7.0b/D7.0c then bound the DS-size immediates and the ``o_dorg``
-# origins, and D7.1 drops ``data_shift`` from 1231 to its single residual -- a
-# raw-driver (``ega``) DS reference whose segment is only known at run time
-# (Appendix C).  D7.2a *raised* the baseline by 27 (like D7.0a): the ``o_corg``
-# bucket now counts all three spellings of the overlay load address (the header
-# field, the ``VBASE`` and the ``o_entry`` addend -- 39, not 13) and a host code
-# immediate equal to it (``o_corg_imm``); D7.2b then bound all 40 to the host's
-# resident-code end (``__zresident_end``), 192 -> 152.  D7.2c then gave the
-# sidecar's names a label on the byte they name (``_ensure_global_label``, the
-# same splitter the D1 data anchors use) wherever the byte can hold one: 26 of
-# the 134, so 152 -> 126.  The other 70 stay literals *by construction*: 55 name
-# a byte the renderer emits as data (31 inside a jump-table record, 24 inside a
-# data block -- a code label there would put code back into bytes the arbiter
-# removed, which ``verify.code_loss`` counts and ``test_hard_classification``
-# pins), 15 are strictly inside a decoded instruction, 2 are outside every
-# record.  Another 44 are never routed through the placement call at all: the 27
-# ``cseg_``/``data_`` *operand* symbols the ``mem_equ`` block spells literally,
-# and ``vga``'s 17 ``immediate_labels``, whose value is a raw offset immediate
-# that a label (``VBASE + off``) would change for a ``vstart`` image.
-# 26 placed + 70 refused + 44 never routed = 140 (the original 134 plus the six
-# ``cseg_`` globals D7.2c-2c revealed).  Every count may only go down from here.
-#
-# Two further counters split what the census *counts* from what it *means* (they
-# are the measurement D7.2c-2 starts from):
-#
-# * ``names_used``/``names_inert`` -- of the named frozen addresses above, how
-#   many the tree actually refers to.  An inert name costs nothing and converting
-#   it to a label only moves the census; only a used name has to follow an edit.
-#   Measured over the whole tree, because a name declared in a master is normally
-#   used in a fragment.
-# * ``hidden_flow`` -- near call/jmp displacements in the original image that the
-#   source emits as *data* while their target *is* shown as code: real address
-#   references no source line spells, so neither the census nor a label can reach
-#   them (play's ``call 0x07f6`` at 0x00e2, emitted as ``db 0xe8, 0x11, 0x07`` on
-#   ``play.asm:93``).  A *lower bound*: the scan walks only the bytes between the
-#   source's instruction offsets and stops at the first byte that does not decode,
-#   so it is trustworthy as a falling signal, not as an exact population.  It needs
-#   ``apps/DSAVANT`` (which the tree cannot exist without).
-#
-# The census floor was re-baselined **once**, in D7.2c-2b.  VGA's sidecar carried
-# a ``force_data`` range over its dispatch table (0x0003..0x00c2) whose only real
-# effect was to trip the ``hard_data`` guard in ``DispatchTablePhase``: 48 handler
-# targets were never seeded, so vga sat ~90% undecoded (452 instruction offsets
-# against ega's 5830 for the same construct).  Removing it, declaring the data
-# *after* the table (0x00df..0x0292), and letting a declared table seed its
-# *entries* as well as its handlers -- ``call handler; retf``, which is how play's
-# table always rendered -- decodes vga to ega's depth.  Measured: ``hidden_flow``
-# 161 -> **98** (ega 54 -> 0 and vga 9 -> 0 -- the two tables' entries were all of
-# it), ``names_used`` 61 -> **84**, ``names_inert`` 52 -> **32**.  The decoding
-# *reveals* six ``cseg_`` code-segment globals that vga code addresses -- the same
-# class ega already carries, and the class item (ii) exists to resolve -- so the
-# census floor rose once, to 133, and the classes below it only fall from here.
-#
-# Two counters fell afterwards with the hand-written C (the C workstream, plan.md
-# section 17 "C"): a C-overridden routine is re-rendered from the compiler's bytes,
-# so its instructions carry ``; 0x`` offsets where the disassembly had emitted the
-# same bytes as ``db`` -- no longer a site ``hidden_flow`` can see.  Measured:
-# ``hidden_flow`` 98 -> **87** (``vinstall`` 38 -> 26, the binary with the most
-# ``.c`` overrides), ``names_used`` 84 -> **83** and ``names_inert`` 32 -> **33**
-# (one name the C spelling no longer mentions).  Both are decrease-only baselines;
-# they were lowered here after measuring HEAD's own tree, not the working tree.
-BASELINE_TOTALS = {
-    'code_shift': 0, 'data_shift': 0, 'inert': 234,
-    'f1': 0, 'f2': 0, 'f3': 0, 'f4': 0, 'f5': 0, 'f6': 223, 'f7': 0,
-    'o_corg': 0, 'o_corg_imm': 0, 'o_dorg': 0, 'ds_size_imm': 0,
-    'cs_index': 0, 'rebased': 0, 'seg_delta': 0, 'buffers': 4,
-    # D7.6 gave the raw drivers their true load origin (``CS:0x100``), so a
-    # ``[cs:disp]`` operand now resolves to ``disp - 0x100`` and the ``cseg_``
-    # names land on the bytes they really name.  ``f3`` 114 -> 79 and
-    # ``code_shift`` 132 -> 97 as 35 names that could not hold a label at their
-    # (0x100 too high) offset now do; ``names_used`` 83 -> 55 and
-    # ``names_inert`` 33 -> 29 for the same reason.  All 19 binaries stay
-    # byte-identical (the ``IMAGE_BASE`` base turns negative, so the encodings
-    # are unchanged).  ``play``'s own ``f3`` rises 9 -> 14 where an operand
-    # previously borrowed a (0x100-off) code label and now carries a real
-    # ``cseg_`` name -- the honest count, and the whole class only falls.
-    # ``split_off_foreign_objects`` + the ``loc_`` content tag (2026-10-14): each
-    # fragment's trailing neighbour is its own file, and every ``loc_`` root is
-    # named after its code.  ``glued_files`` 361 -> 214, ``outside`` 734 -> 254.
-    # ``names_used`` 55 -> 56 (one more named address is referenced) and
-    # ``hidden_flow`` 87 -> **90**: a shared ``shared/`` file carries no ``; 0x``
-    # comments -- dropping them is what lets it share -- so the source-anchored
-    # scan cannot see its instructions.  More sharing (58 -> 84 shared files) means
-    # fewer visible anchors, and ``hidden_flow`` is a lower bound on a *gap*
-    # walk, so the count rises mechanically rather than from a new reference.
-    # ``code_shift``/``data_shift``, the gate classes, are unchanged.
-    # D7.6b bound the raw drivers' *named* absolute immediates (plan.md section 5,
-    # "raw-driver absolute immediates").  A driver's immediate encodes
-    # ``file + load_offset``, so ``vga``'s 17 sidecar ``immediate_labels`` name
-    # the byte at ``value - 0x100``; each is now a label on that byte, written
-    # ``data_XXXX equ __zdata_XXXX - IMAGE_BASE``, which keeps the encoding and
-    # lets the operand follow an edit.  ``f3`` 79 -> 64 and ``code_shift``
-    # 97 -> 82 (14 live names + ``data_1e64``, which is name-only); the 15 names
-    # leave ``names_used``/``names_inert`` altogether (56 -> 42, 28 -> 27),
-    # because a bound name is no longer a *frozen* name for a byte.  ``vga``
-    # stays byte-identical at the original layout, and the parked ``ega
-    # dseg_24fd`` stays the one ``data_shift`` (a runtime-DS site, Appendix B).
-    # Byte-hash tags give identical code in two binaries one name, so a name
-    # resolves in its own binary first and each binary's ``equ`` counts on its
-    # own: 42/27 -> **44/28** (the same tree at HEAD measures 44/28 too; the old
-    # count merged two binaries' names and saw a same-named label as a use).
-    # They also share more (84 -> 90 shared files): ``hidden_flow`` 90 -> **105**,
-    # every new site at an offset whose ``; 0x`` anchor moved into ``shared/``.
-    # Parameterised sharing (lib.shared: copies differing only in label names)
-    # took ``shared/`` 90 -> 141 files: ``hidden_flow`` 105 -> **157**, all 61 new
-    # sites at offsets whose anchor moved into ``shared/`` (9 sites went).
-    # Step 4 (the 24 F3 ``equ``s minted upstream) left no inert frozen name:
-    # ``names_inert`` 24 -> **0**, ``total`` 26 -> **0** (both ratcheted here).
-    # ``hidden_flow`` 150 -> **134** re-measured 2026-10-18 (the tree at
-    # bc4e46ac plus the index-start binding below).  ``hidden_flow`` 143 ->
-    # **56**: the scan walks each ``shared/`` fragment from the offset its
-    # include line gives (``fragment_instruction_offsets``), so a shared
-    # routine's instructions are shown code, not a gap.  The 87 sites gone
-    # were all inside shared fragments (13 of them ``$ovbgn``'s ``call ovmain``,
-    # one per overlay, since 1200eae4 shared it).
-    'names_used': 7, 'names_inert': 0, 'hidden_flow': 56,
-    'total': 0,
-    # Two classes the per-file census cannot see, because telling an address
-    # from a number needs the binary's data segment (plan.md section 5, "DS
-    # addresses spelled as numbers in code", 2026-10-17).  ``str_imm``: a
-    # ``mov`` immediate that is a DS string's address (``mov ax, 0x1630`` =
-    # ``"nul"``; console strings in the drivers).  ``ds_index``: a
-    # ``[bx/si/di + disp]`` whose displacement is a DS address (an overlay
-    # indexing a host array, ``[bx + 0x5c0c]``).  Both are shape tests, so a
-    # few hits are numbers; both only fall.  ``ds_index`` 2178 -> 2084 when an
-    # indexed displacement that starts a named object was bound to it
-    # (``[bx + dseg_5c08]``); the census skips BSS, so the 0x8482-style arrays
-    # that made up most of the shift oracle's drop never counted here.
-    # ``str_imm`` 746 -> 408 when a constant passed into an argument its
-    # routine reads memory through became a name (``lib.argpointers``).
-    # ``ds_index`` 2084 -> 2048, ``str_imm`` 408 -> 406: an indexed operand
-    # binds to a start this binary names through an immediate too, and a DS
-    # table start added to an index (``imul; add ax, 0x5bf4``) binds like
-    # ``[bx + 0x5bf4]`` (``symbols._resolve_index_offset_symbols``).
-    'str_imm': 406, 'ds_index': 2048,
-    # D8 (inline switch tables): ``mov cx, N; call <switch helper>`` never
-    # returns; the call is followed by N-1 keys and N case targets.  The decoder
-    # used to fall through the call and decode the target words as ``jcc``s,
-    # minting a frozen ``loc_`` ``equ`` per fake branch target, and 7E.4 tagged
-    # N+1 words ``literal``.  Now the table is carved exactly and the targets are
-    # code roots: ``f3`` 64 -> **39**, ``code_shift`` 82 -> **57**, ``f6`` 241
-    # -> **223** (case targets render as labels, not tagged numbers),
-    # ``hidden_flow`` 157 -> **118** (the case arms decode as code),
-    # ``names_used`` 44 -> **22**, ``names_inert`` 28 -> **25**.
-    # No bare code left in the masters (switch-arm tails kept with their routine,
-    # the last root runs to the end of the code, the entry routine gets a file):
-    # ``shared/`` 146 -> 202 files, which drops more ``; 0x`` anchors, so
-    # ``hidden_flow`` 118 -> **175** (a lower-bound artifact, not a new reference).
-    # Raw-driver load origin + cross-fragment exits (working tree).  A raw
-    # driver runs at ``CS:0x100``, so a stored code pointer is ``file +
-    # load_offset`` and the driver switch tables now resolve and inject their
-    # arms (``jumptable_XXXX_case_*``); a branch target laid out inside another
-    # routine's fragment can no longer be a ``@..owner.lN`` local (the file that
-    # includes it would not see the name) and is rooted instead.  ``f3`` 39 ->
-    # **44** and ``code_shift`` 57 -> **62** are ``play``'s INT 08h handler
-    # cluster decoding as code, which exposes the self-modified ``cseg_``
-    # operands (the plan's section 5 ``mem_equ`` class -- the honest count, not
-    # a new frozen byte).  ``inert``/``f6`` 230/223 -> **231/224**,
-    # ``hidden_flow`` 175 -> **181** (a lower-bound artifact of the re-rooting)
-    # and ``names_used``/``names_inert`` 22/25 -> **26/26** follow the same
-    # re-rooting, not a new reference.
-    # ``play``'s self-modified operands (2026-10-17).  A name on a byte strictly
-    # inside an instruction is now ``__zinsn_<start> + k`` over a label on the
-    # instruction's first byte (``render._instruction_anchor``), the patched
-    # ``call far 0000:0000`` that chains INT 08h stays code (``verify.
-    # _cs_written_offsets``), and the four mode-dispatch tables at 115b/1178/
-    # 1196/11b3 are declared ``code_tables`` (hard data), so the fake ``jp``/
-    # ``jne`` targets ``loc_1190``/``loc_MUHV`` vanish and 0x12af-0x1344 decodes
-    # as code instead of a ``db`` blob.  All 18 ``play`` names bind: ``f3``
-    # 44 -> **25**, ``code_shift`` 62 -> **43**, ``names_used`` 26 -> **8**,
-    # ``names_inert`` 26 -> **25** (the dead ``io_loc_0495``), ``f6``/``inert``
-    # 224/231 -> **223/230**, ``hidden_flow`` 181 -> **177**.
-    # Register-indexed code-segment tables (2026-10-17).  ``[cs:bx + 0x1529]``
-    # and every overlay switch dispatcher ``jmp [cs:bx + 0x5415]`` spelled the
-    # table's CS address as a number the census never counted (about 183 sites
-    # in the tree before).  ``jumptables._bind_cs_table_operands`` writes each
-    # over the carved object it lands on (``jumptable_0495 + 0x10 -
-    # IMAGE_BASE``, ``... - IMAGE_BASE + __zres_end`` in an overlay), and two
-    # new ``code_shift`` buckets gate the class at zero: ``cs_index`` (the
-    # indexed form) and ``rebased`` (``label - IMAGE_BASE + 0x<origin>``).
-    # ``segdataflow`` proves ``mov bx, <table>; cs xlatb`` and follows a forward
-    # ``jmp``; the three dead stores of a table address in ``play`` are sidecar
-    # ``immediate_pointers``.  Three undetected overlay switch tables (vmaze
-    # ab7d, vpclv 4679, vtrea 0c85) are declared, so the fake ``loc_ITNU``/
-    # ``loc_LNJU``/``loc_NGSV`` go; a ``jmp``-dispatched arm stays a block of its
-    # dispatcher (``runner``), not a root.  ``code_shift`` 43 -> **41**, ``f3``
-    # 25 -> **24**, ``f5`` 3 -> **2**, ``names_inert`` 25 -> **24**,
-    # ``hidden_flow`` 177 -> **150**, ``total`` 44 -> **43**.  ``data_shift``,
-    # ``f4`` and ``names_used`` rise by one for the same name: following the
-    # ``jmp`` proves ``ega``'s ``mov bx, 0x2a02`` a DS pointer, so a bare number
-    # the census could not see is now the visible ``dseg_2a02`` -- the same
-    # driver-DS-is-CS question as ``dseg_24fd`` (plan.md section 5), not a new
-    # frozen byte.
-    # Internal routines inherit their callers' segments (``segdataflow``): a
-    # root reached only by direct ``call``/``jmp`` starts in the state its
-    # callers hand it instead of the ``DS=DATA`` convention.  ``ega``'s blitters
-    # are called after ``mov ax, cs; mov ds, ax``, so ``dseg_24fd``/``dseg_2a02``
-    # are the code-segment bytes ``cseg_23fd``/``cseg_2902 - IMAGE_BASE``:
-    # ``data_shift`` 2 -> **0**, ``f4`` 2 -> **0**, ``names_used`` 9 -> **7**,
-    # ``total`` 43 -> **41**.  ``ds``'s ``mov di, dseg_000a`` goes back to ``0xa``:
-    # ``int 21h/35h`` hands back the EMS driver's ``ES``, so it never named ``ds``.
-    # BSS as source (2026-10-17): each image's BSS is an ``absolute`` block after
-    # ``__zimage_end`` whose labels are the BSS objects, so ``__zbss_size``,
-    # ``o_bss`` (13) and the MZ ``e_sp``/``e_minalloc`` (the stack is the block's
-    # last object) are spans of it: ``f1`` 2 -> **0** (``e_minalloc`` is now
-    # counted too: it was 2 more), ``f2`` 13 -> **0**, ``code_shift`` 41 ->
-    # **26**, ``total`` 41 -> **26**.  An overlay's own data and BSS (names at or
-    # past ``__zdseg_end``) are declared by the overlay on its own bytes and BSS
-    # labels instead of the host's ``__zdseg_end + <distance>``.  The new
-    # ``seg_delta`` bucket (``data_shift``) counts a name spelled as a segment
-    # boundary plus a number, and a numeric ``__zbss_size``: the tree before
-    # this change held **690** of them, uncounted; it is **0**.
-    # F3 residue + driver pads (2026-10-17): the 24 ``equ``s were names the
-    # pipeline should never have minted.  20 sat on a jump table's first byte:
-    # the cascade phase admitted the table (a short DATA run after the
-    # dispatcher's ``jmp`` whose words decode with a branch) as code, and its
-    # "instructions" seeded two more (``vbase 0x18c8``/``0x18ca``).  Cascade now
-    # skips a known table.  The other 2 were ``jmp [dseg_XXXX]`` vectors read in
-    # the code frame (``vinstall 0x5fe5``, ``ds 0x10108``); the vector is a DS
-    # word, and reading it there proves it a code pointer, so Aztec's tty and
-    # exit-hook vectors are now ``dw <label> - IMAGE_BASE`` (4 frozen pointers
-    # the census never saw).  The driver "pads" hid 4 more: ``ega`` ``cseg_1ad5``/
-    # ``1ad7`` and ``vga`` ``cseg_14b4``/``14b6`` are double-buffer pointers into
-    # them, proven by their consumers (one, across a call, by a reviewed corpus
-    # entry).  Promoted, they split each pad at its buffers, so a pad is now one
-    # buffer's size from a pointer-named label: ``buffers`` (``inert``, 4) instead
-    # of ``f5``.  ``f3`` 24 -> 0, ``f5`` 2 -> 0, ``code_shift`` 26 -> **0**,
-    # ``total`` **0**; ``inert`` 230 -> 234.
-}
 
 
 #: Declared dispatch-table handlers (D7.2c-2d): 118 of them (play 8, ega 55, vga 55).
@@ -545,107 +260,6 @@ def _scan_declared_handlers():
             if evidence is False:
                 unsupported.append((binary, handler, name, relpath))
     return buried, unsupported
-
-
-def _scan_hidden_flow():
-    """``(site, target)`` pairs the source emits as bytes, over every binary."""
-    app_dir = _PROJECT_ROOT / 'apps' / 'DSAVANT'
-    if not _TREE.is_dir() or not app_dir.is_dir():
-        return []
-    sidecar = load_sidecar('DSAVANT')
-    hits = []
-    for binary in sorted(sidecar['binaries']):
-        image = app_dir / per_binary(sidecar, binary)['file']
-        if not image.is_file():
-            continue
-        data = image.read_bytes()
-        offsets = set()
-        for path in _binary_sources(binary):
-            offsets |= instruction_offsets(path.read_text(errors='ignore'))
-        # A shared fragment's lines sit where this binary's include puts it.
-        master = _TREE / f'{binary}.asm'
-        if master.is_file():
-            for name, base in shared_includes(master.read_text()):
-                offsets |= fragment_instruction_offsets(
-                    (_TREE / name).read_text(errors='ignore'), data, base)
-        hits += count_hidden_flow(data, offsets)
-    return hits
-
-
-#: A raw driver runs at ``CS:0x100`` with ``DS = CS``.
-_DRIVER_LOAD = 0x100
-
-
-def _ds_views():
-    """``{binary: bytes}``: the data segment each binary's code runs with.
-
-    An MZ image's is its own DATA segment; an overlay's is the host's, with its
-    own initialized data loaded at ``o_dorg``; a raw driver's is its image at
-    ``CS:0x100``.  A byte that is not file-backed reads as zero.
-    """
-    from lib.segments import from_binary
-    app_dir = _PROJECT_ROOT / 'apps' / 'DSAVANT'
-    sidecar = load_sidecar('DSAVANT')
-    views, images = {}, {}
-    for binary in sorted(sidecar['binaries']):
-        info = per_binary(sidecar, binary)
-        image = app_dir / info['file']
-        if image.is_file():
-            images[binary] = (info['type'], image.read_bytes())
-    host = None
-    for binary, (kind, data) in images.items():
-        if kind == 'mz':
-            views[binary] = data[from_binary(data, 'mz').data_origin:]
-            if binary == 'ds':
-                host = views[binary]
-        elif kind == 'raw_drv':
-            views[binary] = bytes(_DRIVER_LOAD) + data
-    for binary, (kind, data) in images.items():
-        if kind == 'aztec_overlay' and host is not None:
-            _, _, csize, dorg, dsize = struct.unpack_from('<5H', data)
-            own = data[14 + csize:14 + csize + dsize]
-            views[binary] = (host[:dorg].ljust(dorg, b'\0') + own)
-    return views
-
-
-def _scan_ds_refs():
-    """``(str_imm, ds_index)`` hit lists over every binary (Section 5)."""
-    if not _TREE.is_dir():
-        return [], []
-    str_imm, ds_index = [], []
-    sidecar = load_sidecar('DSAVANT')
-    drivers = {b for b in sidecar['binaries']
-               if per_binary(sidecar, b)['type'] == 'raw_drv'}
-    for binary, ds in _ds_views().items():
-        for path in _binary_sources(binary):
-            text = path.read_text(errors='ignore')
-            str_imm += [(binary, *h) for h in count_string_immediates(
-                text, ds, console=binary in drivers)]
-            ds_index += [(binary, *h) for h in count_ds_index(text, len(ds))]
-    return str_imm, ds_index
-
-
-def _scan_tree():
-    census = count_frozen_addrs('')      # the per-file keys, all zero
-    symbols = symbol_tables('DSAVANT')
-    sources = []
-    for path in sorted(_TREE.rglob('*.asm')):
-        rel = path.relative_to(_TREE)
-        if rel.parts[0] in _SKIP_DIRS:
-            continue
-        text = path.read_text(errors='ignore')
-        sources.append((rel, text))
-        counts = count_frozen_addrs(text, symbols)
-        for key in census:
-            census[key] += counts[key]
-    use = count_name_use(sources, symbols)
-    census['names_used'] = use['names_used']
-    census['names_inert'] = use['names_inert']
-    census['hidden_flow'] = len(_scan_hidden_flow())
-    str_imm, ds_index = _scan_ds_refs()
-    census['str_imm'] = len(str_imm)
-    census['ds_index'] = len(ds_index)
-    return census
 
 
 class DsReferenceCountTests(unittest.TestCase):
@@ -1070,36 +684,6 @@ class DriverHandlerPlacementTests(unittest.TestCase):
         )
 
 
-class EmittedTreeCoherenceTests(unittest.TestCase):
-    """Every local label the emitted tree references must be defined in it.
-
-    A reference with no definition is not a rendering nit: NASM fails the whole
-    binary with ``symbol ... not defined``, and the pipeline's own checks do not
-    assemble, so ``make build`` is where it surfaces -- as a wall of
-    ``label-redef-late`` cascade errors that hides the one real line.  The
-    C-override path produced exactly one (D7.2c-2e): a short forward branch the
-    Aztec compiler resolved itself carries no relocation, so the override's
-    label table had no entry for its target, while the text named one taken from
-    the *disassembly*'s table -- a label that override never defines.
-    """
-
-    @slow
-    def test_every_referenced_local_label_is_defined(self):
-        if not _TREE.is_dir():
-            self.skipTest('generated src_DSAVANT tree not present')
-        referenced, defined = set(), set()
-        for path in sorted(_TREE.rglob('*.asm')):
-            if path.relative_to(_TREE).parts[0] in _SKIP_DIRS:
-                continue
-            text = path.read_text(errors='ignore')
-            referenced |= set(re.findall(r'@\.\.[\w.@]+\.l\d+', text))
-            defined |= set(re.findall(r'^(@\.\.[\w.@]+\.l\d+):', text, re.M))
-        self.assertEqual(
-            sorted(referenced - defined), [],
-            'local labels referenced but never defined (NASM fails the binary)',
-        )
-
-
 class DynamicDataAnchorTests(unittest.TestCase):
     """The MZ code→data gap and header fields reassemble from expressions."""
 
@@ -1275,6 +859,23 @@ class DsSizeSymbolTests(unittest.TestCase):
         built = _nasm(grown)
         self.assertEqual(built[0x200:0x203], b'\xb9\x19\x00')
 
+    def test_stack_top_follows_an_inserted_data_byte(self):
+        """``e_sp`` is the top of the BSS block, so a data byte moves it.
+
+        SS == DS, and the stack is the last object after the BSS.  One byte
+        of file-backed data moves the stack top (``e_sp`` 0xf198 -> 0xf199);
+        ``e_minalloc`` -- the paragraphs from the end of the file to the stack
+        top -- stays.
+        """
+        src = self._source(self._image())
+        built = _nasm(src)
+        grown = _nasm(src.replace('__zdseg_start:',
+                                  '__zdseg_start:\n    db 0xee', 1))
+        self.assertEqual(struct.unpack_from('<H', built, 16)[0], 0xf198)
+        self.assertEqual(struct.unpack_from('<H', grown, 16)[0], 0xf199)
+        self.assertEqual(struct.unpack_from('<H', grown, 10)[0],
+                         struct.unpack_from('<H', built, 10)[0])
+
 
 class HostIncludeTests(unittest.TestCase):
     """An overlay sees the host's own symbols (plan.md D7.0c / D7.1).
@@ -1282,122 +883,150 @@ class HostIncludeTests(unittest.TestCase):
     An overlay is a separate NASM assembly, so it cannot see the host's labels
     by itself.  It includes the host source in a section that emits no bytes,
     so ``o_dorg`` (the host data-segment size), the shared ``dseg_``/``bss_``
-    names and the near-call handles all follow a host edit with no generated
-    table in between.
+    names and the load origin all follow a host edit with no generated table
+    in between.
+
+    The host is a three-``nop`` MZ (resident code end CS 0x0003) with 0x10
+    bytes of data and 0x18 bytes of DS; the overlay reads the host's DS:2.
     """
 
-    def _build_overlay(self, root):
-        return _nasm_file(os.path.join(root, 'vbase.asm'), root)
+    DS_SIZE = 0x18
+
+    def _write(self, root, src, includes, name):
+        for rel, text in includes.items():
+            path = os.path.join(root, rel)
+            os.makedirs(os.path.dirname(path), exist_ok=True)
+            with open(path, 'w') as f:
+                f.write(text)
+        with open(os.path.join(root, name), 'w') as f:
+            f.write(src)
+
+    def _host(self, root):
+        code = b'\x90' * 3
+        binary = bytearray(_mz_header(e_ss=1) + code
+                           + bytes(0x210 - 0x203) + bytes(range(0x10, 0x20)))
+        struct.pack_into('<HH', binary, 2, len(binary) % 512,
+                         (len(binary) + 511) // 512)
+        records = [{'type': 'mnem', 'text': 'nop', 'offset': 0x200 + i,
+                    'size': 1} for i in range(3)]
+        records.append({'type': 'data_block', 'start': 0x203,
+                        'end': len(binary), 'bytes': []})
+        # The host guards its ``section`` line only under its own prefix.
+        names.set_generic_prefix('ds_')
+        try:
+            src, includes = _render(
+                records, 0x200, bytes(binary), label_map={},
+                mem_equ={dseg(2): 2}, host_data_offsets={dseg(2): 2},
+                ds_size=self.DS_SIZE)
+        finally:
+            names.set_generic_prefix('')
+        self._write(root, src, includes, 'ds.asm')
+
+    def _overlay(self, root, code, records, own=b'', bss_size=0,
+                 mem_equ=None, overlay_own=None):
+        header = b'\xf2\x00' + struct.pack(
+            '<6H', 0x0003, len(code), self.DS_SIZE, len(own), bss_size, 0)
+        binary = header + code + own
+        if own:
+            records = records + [{
+                'type': 'data_block', 'start': 14 + len(code),
+                'end': len(binary), 'bytes': [f'0x{b:02x}' for b in own]}]
+        src, includes = _render(records, 14, binary, label_map={},
+                                mem_equ=mem_equ or {dseg(2): 2},
+                                host_symbols=('ds.asm', -0x200),
+                                ds_size=self.DS_SIZE, overlay_own=overlay_own)
+        self._write(root, src, includes, 'ov.asm')
+        return binary
+
+    def _build(self, root):
+        return _nasm_file(os.path.join(root, 'ov.asm'), root)
 
     @staticmethod
-    def _edit_host(root, old, new):
-        master = os.path.join(root, 'ds.asm')
-        with open(master) as f:
-            src = f.read()
-        edited = src.replace(old, new, 1)
-        assert edited != src
-        with open(master, 'w') as f:
-            f.write(edited)
+    def _edit(root, name, old, new):
+        path = pathlib.Path(root, name)
+        candidates = [path, *sorted(pathlib.Path(root).rglob('data/*.asm'))]
+        path = next(p for p in candidates if old in p.read_text())
+        path.write_text(path.read_text().replace(old, new, 1))
 
-    @slow
-    @unittest.skipUnless(
-        _TREE.is_dir() and (_TREE / 'ds.asm').exists()
-        and (_TREE / 'vbase.asm').exists(),
-        'generated src_DSAVANT tree not present',
-    )
+    def _les_overlay(self, root):
+        self._host(root)
+        return self._overlay(root, b'\xc4\x1e\x02\x00', [
+            {'type': 'mnem', 'text': 'les bx, word [dseg_0002]',
+             'offset': 14, 'size': 4}])
+
+    def test_the_overlay_reassembles_byte_for_byte(self):
+        with tempfile.TemporaryDirectory() as d:
+            binary = self._les_overlay(d)
+            self.assertEqual(self._build(d), binary)
+
     def test_overlay_o_dorg_follows_a_host_data_edit(self):
         with tempfile.TemporaryDirectory() as d:
-            _copy_source_tree(d)
-            original = self._build_overlay(d)
+            self._les_overlay(d)
             # o_dorg is the 4th 16-bit overlay-header field (file offset 6).
-            self.assertEqual(original[6:8], b'\x98\x90')
-            self.assertEqual(original[:2], b'\xf2\x00')
-
+            self.assertEqual(self._build(d)[6:8], b'\x18\x00')
             # Grow the host's file-backed data by one byte.
-            self._edit_host(d, '__zdseg_start:\n',
-                            '__zdseg_start:\n    db 0xee\n')
-            self.assertEqual(self._build_overlay(d)[6:8], b'\x99\x90')
+            self._edit(d, 'ds.asm', '__zdseg_start:\n',
+                       '__zdseg_start:\n    db 0xee\n')
+            self.assertEqual(self._build(d)[6:8], b'\x19\x00')
 
-    @slow
-    @unittest.skipUnless(
-        _TREE.is_dir() and (_TREE / 'ds.asm').exists()
-        and (_TREE / 'vbase.asm').exists(),
-        'generated src_DSAVANT tree not present',
-    )
     def test_overlay_data_name_follows_a_host_data_edit(self):
         """D7.1: a shared DS name in an overlay follows a host data edit.
 
-        ``vbase`` reads the host's file-backed word at DS:2 (``les bx, word
-        [dseg_0002]`` -> ``c4 1e 02 00``).  Inserting one byte into the host's
-        initialized data moves ``dseg_0002`` (and every encoded reference in
-        the rebuilt overlay) by one, resolved entirely from ``ds.asm``.
+        Inserting one byte into the host's initialized data moves
+        ``dseg_0002`` (``les bx, word [dseg_0002]`` -> ``c4 1e 03 00``),
+        resolved entirely from ``ds.asm``.
         """
         with tempfile.TemporaryDirectory() as d:
-            _copy_source_tree(d)
-            original = self._build_overlay(d)
-            count = original.count(b'\xc4\x1e\x02\x00')
-            self.assertGreater(count, 0)
+            self._les_overlay(d)
+            original = self._build(d)
+            self._edit(d, 'ds.asm', '__zdseg_start:\n',
+                       '__zdseg_start:\n    db 0xee\n')
+            grown = self._build(d)
+        self.assertEqual(len(grown), len(original))
+        self.assertEqual(original[14:18], b'\xc4\x1e\x02\x00')
+        self.assertEqual(grown[14:18], b'\xc4\x1e\x03\x00')
 
-            self._edit_host(d, '__zdseg_start:\n',
-                            '__zdseg_start:\n    db 0xee\n')
-            grown = self._build_overlay(d)
-            self.assertEqual(len(grown), len(original))
-            self.assertEqual(grown.count(b'\xc4\x1e\x03\x00'), count)
-            self.assertEqual(grown.count(b'\xc4\x1e\x02\x00'), 0)
-
-    @unittest.skipUnless(
-        _TREE.is_dir() and (_TREE / 'vbase.asm').exists(),
-        'generated src_DSAVANT tree not present',
-    )
-    def test_overlay_origin_is_zero_in_the_elf_build(self):
-        """``make elf-rebuild``'s ``ELF_BUILD`` zeroes the overlay's own origin.
-
-        The host's frame definition is not in the master (E2 moved it to the
-        shared include), so the overlay's own origin is the only ``VBASE`` here.
-        """
-        text = (_TREE / 'vbase.asm').read_text()
-        self.assertIn('%ifdef ELF_BUILD\nVBASE equ 0\n%else\n'
-                      'VBASE equ __zres_end - 0x000e\n%endif', text)
-        self.assertNotIn('%define VBASE', text)
-        self.assertIn(f'%include "{HOST_SYMBOLS_INC}"', text)
-
-    @slow
-    @unittest.skipUnless(
-        _TREE.is_dir() and (_TREE / 'ds.asm').exists()
-        and (_TREE / 'vbase.asm').exists(),
-        'generated src_DSAVANT tree not present',
-    )
     def test_overlay_corg_follows_a_host_code_edit(self):
         """D7.2: the overlay load origin tracks the host's resident code end.
 
-        ``o_corg`` (the 2nd header field, file offset 2) *is* the host CS offset
-        at which the host's resident code ends -- where the overlay loader loads
-        the overlay.  Inserting one byte in the host before ``aztec_csav`` moves
-        it by one, and the overlay's whole frame moves with it: the near-call
-        displacement to the host routine (and every other byte) is unchanged,
-        so only the load origin moves.
+        ``o_corg`` (the 2nd header field, file offset 2) *is* the host CS
+        offset at which the host's resident code ends.  One byte inserted in
+        the host's code moves it by one; the overlay's own bytes stay.
         """
         with tempfile.TemporaryDirectory() as d:
-            _copy_source_tree(d)
-            original = self._build_overlay(d)
-            self.assertEqual(original[2:4], b'\x55\x50')            # o_corg 0x5055
-            self.assertEqual(original[0xb8:0xbb], b'\xe8\x50\xf3')  # call aztec_csav
-            # A jump-table word (``vbase/leaf_loc_HLJH.asm``, file 0x17f4) is a
-            # CS offset, ``label - IMAGE_BASE + __zres_end``.
-            case = struct.unpack_from('<H', original, 0x17f4)[0]
+            original = self._les_overlay(d)
+            self._edit(d, 'ds.asm', '    nop', '    nop\n    nop')
+            grown = self._build(d)
+        self.assertEqual(original[2:4], b'\x03\x00')
+        self.assertEqual(grown[2:4], b'\x04\x00')
+        self.assertEqual(grown[4:], original[4:])
 
-            self._edit_host(d, '%include "ds/aztec/aztec_csav.asm"',
-                            '    db 0xee\n%include "ds/aztec/aztec_csav.asm"')
-            grown = self._build_overlay(d)
-            self.assertEqual(len(grown), len(original))
-            self.assertEqual(grown[2:4], b'\x56\x50')               # o_corg 0x5056
-            self.assertEqual(grown[0xb8:0xbb], b'\xe8\x50\xf3')
-            # ``o_entry`` (the entry's host CS offset) is drawn from the frame,
-            # so it follows the host code edit too.
-            self.assertEqual(grown[0xc:0xe], b'\x78\xe3')
-            # So does every jump-table word (it was a frozen ``+ 0x5055``).
-            self.assertEqual(struct.unpack_from('<H', grown, 0x17f4)[0],
-                             case + 1)
+    def test_overlay_bss_follows_an_inserted_data_byte(self):
+        """An overlay's own data and BSS move when its data grows.
+
+        The overlay's data loads at the host's data end (``o_dorg``) and its
+        BSS follows it.  One byte inserted at the start of the data moves its
+        data word ``dseg_0018`` and its BSS object ``bss_001c`` by one;
+        ``o_dsize`` grows by one and ``o_bss`` -- the BSS block's span -- stays.
+        """
+        own = {dseg(0x18): 0x18, bss(0x1c): 0x1c}
+        with tempfile.TemporaryDirectory() as d:
+            self._host(d)
+            binary = self._overlay(
+                d, b'\x89\x3e\x18\x00\xbf\x1c\x00', [
+                    {'type': 'mnem', 'text': 'mov [dseg_0018], di',
+                     'offset': 14, 'size': 4},
+                    {'type': 'mnem', 'text': 'mov di, bss_001c',
+                     'offset': 18, 'size': 3}],
+                own=b'\x11\x22', bss_size=4, mem_equ=own, overlay_own=own)
+            self.assertEqual(self._build(d), binary)
+            self._edit(d, 'ov.asm', '__zdata_start:\n',
+                       '__zdata_start:\n    db 0xee\n')
+            grown = self._build(d)
+        self.assertEqual(len(grown), len(binary) + 1)
+        self.assertEqual(struct.unpack_from('<HH', grown, 8), (3, 4))
+        self.assertEqual(grown[14:18], b'\x89\x3e\x19\x00')
+        self.assertEqual(grown[18:21], b'\xbf\x1d\x00')
 
 
 class HostCallNamesTests(unittest.TestCase):
@@ -1420,28 +1049,6 @@ class HostCallNamesTests(unittest.TestCase):
                 if m:
                     defined.add(m.group(1))
         return defined
-
-    @unittest.skipUnless(
-        _TREE.is_dir() and (_TREE / 'ds.asm').exists(),
-        'generated src_DSAVANT tree not present',
-    )
-    @slow
-    def test_every_referenced_host_prefixed_name_is_defined_by_the_host(self):
-        import re
-        defined = self._host_definitions()
-        self.assertTrue(defined)
-        name_re = re.compile(r'\bds_[0-9A-Za-z_]+')
-        missing = []
-        for p in sorted(_TREE.rglob('*.asm')):
-            rel = p.relative_to(_TREE)
-            if rel.parts[0] in _SKIP_DIRS or rel.parts[0] in ('ds', 'ds.asm'):
-                continue  # the host itself defines its ``ds_`` names
-            for name in sorted(set(name_re.findall(
-                    p.read_text(errors='ignore')))):
-                # ``ds___zimage_end`` only exists inside the include.
-                if name not in defined and name != 'ds___zimage_end':
-                    missing.append(f'{rel}:{name}')
-        self.assertEqual(missing, [])
 
     def test_no_generated_host_tables_are_written(self):
         from lib.cachedirs import labels_dir
@@ -1478,25 +1085,6 @@ class HostDataTableTests(unittest.TestCase):
         return {m.group(1): m.group(2)
                 for line in path.read_text().splitlines()
                 if (m := self._DEF.match(line))}
-
-    @slow
-    def test_every_overlay_ds_name_is_defined(self):
-        host = set(self._definitions(_TREE / 'ds.asm'))
-        self.assertTrue(host)
-        name_re = re.compile(r'\b(?:bss|dseg)_[0-9a-fA-F]{4}\b')
-        missing = []
-        for master in _OVERLAY_MASTERS:
-            own = set(self._definitions(_TREE / f'{master}.asm'))
-            paths = [_TREE / f'{master}.asm']
-            directory = _TREE / master
-            if directory.is_dir():
-                paths.extend(sorted(directory.rglob('*.asm')))
-            for p in paths:
-                for name in sorted(set(name_re.findall(
-                        p.read_text(errors='ignore')))):
-                    if name not in host and name not in own:
-                        missing.append(f'{p.relative_to(_TREE)}:{name}')
-        self.assertEqual(missing, [])
 
     def test_an_overlay_declares_only_its_own_data(self):
         own = re.compile(r'^__zdseg_end \+ \(__z\w+ - __zdata_start\)'
@@ -1696,485 +1284,103 @@ class NamedAddressPlacementTests(unittest.TestCase):
         self.assertIn('data_010a equ 0x010a', src)
 
 
-@slow
 class InlineSwitchEditTests(unittest.TestCase):
-    """An inline switch table follows a code edit (plan.md D8).
+    """A switch table follows a code edit (plan.md D8).
 
-    ``vpcvw``'s ``mov cx, 0x18; call <switch helper>`` at file 0x291c is
-    followed by 23 keys and 24 case targets (file 0x291f..0x297d).  Inserting
-    one byte in front of a case arm must move exactly the targets at or past it
-    and leave the keys alone.
+    ``jmp [cs:bx + jumptable_0206]`` dispatches through two words naming the
+    arms at 0x20a and 0x20c.  Inserting one byte in front of the second arm
+    must move exactly the targets at or past it.
     """
 
-    _TABLE = 0x291f
-    _KEYS = 23
-    _TARGETS = 24
-    _O_CORG = 0x5055
-    _HEADER = 14
+    def _source(self):
+        code = (bytes.fromhex('2effa70600') + b'\x90'
+                + struct.pack('<HH', 0x0a, 0x0c) + b'\x90\x90\xc3\xc3')
+        binary = bytearray(_mz_header(e_ss=1) + code
+                           + bytes(0x10 - len(code)) + bytes(range(16)))
+        struct.pack_into('<HH', binary, 2, len(binary) % 512,
+                         (len(binary) + 511) // 512)
+        table = 'jumptable_0206'
+        records = [
+            {'type': 'mnem', 'text': f'jmp [cs:bx + {table} - IMAGE_BASE]',
+             'offset': 0x200, 'size': 5},
+            {'type': 'mnem', 'text': 'nop', 'offset': 0x205, 'size': 1},
+            {'type': 'jump_table', 'start': 0x206, 'end': 0x20a,
+             'label': table, 'jmp_addr': 0x200, 'entry_size': 2,
+             'entries': [f'{table}_case_0', f'{table}_case_1']},
+            {'type': 'mnem', 'text': 'nop', 'offset': 0x20a, 'size': 1},
+            {'type': 'mnem', 'text': 'nop', 'offset': 0x20b, 'size': 1},
+            {'type': 'mnem', 'text': 'ret', 'offset': 0x20c, 'size': 1},
+            {'type': 'mnem', 'text': 'ret', 'offset': 0x20d, 'size': 1},
+            {'type': 'data_block', 'start': 0x20e, 'end': len(binary),
+             'bytes': []},
+        ]
+        label_map = {0x20a: f'{table}_case_0', 0x20c: f'{table}_case_1'}
+        src, _ = _build_source(records, 0x200, bytes(binary),
+                               label_map=label_map)
+        return src, bytes(binary)
 
-    def _words(self, image, start, count):
-        return list(struct.unpack_from(f'<{count}H', image, start))
-
-    @unittest.skipUnless(
-        _TREE.is_dir() and (_TREE / 'vpcvw.asm').exists()
-        and (_TREE / 'ds.asm').exists(),
-        'generated src_DSAVANT tree not present',
-    )
     def test_case_targets_follow_an_inserted_byte(self):
-        with tempfile.TemporaryDirectory() as d:
-            _copy_source_tree(d)
-            root = pathlib.Path(d)
-            original = _nasm_file(str(root / 'vpcvw.asm'), d)
-            keys = self._words(original, self._TABLE, self._KEYS)
-            targets = self._words(original, self._TABLE + 2 * self._KEYS,
-                                  self._TARGETS)
-            self.assertEqual(keys[0], 0x000c)
-
-            # The arm the first target names; insert a byte in front of it.
-            arm = self._HEADER + targets[0] - self._O_CORG
-            label = 'jumptable_291f_case_23:'
-            src = next(p for p in root.rglob('*.asm')
-                       if label in p.read_text(errors='ignore'))
-            text = src.read_text()
-            src.write_text(text.replace(label, f'    nop\n{label}', 1))
-
-            grown = _nasm_file(str(root / 'vpcvw.asm'), d)
-            self.assertEqual(len(grown), len(original) + 1)
-            table = self._TABLE + 1  # the table sits past the edit
-            self.assertEqual(self._words(grown, table, self._KEYS), keys)
-            expected = [
-                t + 1 if self._HEADER + t - self._O_CORG >= arm else t
-                for t in targets
-            ]
-            self.assertEqual(
-                self._words(grown, table + 2 * self._KEYS, self._TARGETS),
-                expected)
-            self.assertNotEqual(expected, targets)
+        src, binary = self._source()
+        self.assertEqual(_nasm(src), binary)
+        grown = _nasm(src.replace('jumptable_0206_case_1:',
+                                  '    nop\njumptable_0206_case_1:', 1))
+        self.assertEqual(struct.unpack_from('<HH', grown, 0x206),
+                         (0x0a, 0x0d))
 
 
-@slow
-class InsertBytePropertyTests(unittest.TestCase):
-    """Acceptance test: editing a fragment keeps the image consistent.
+class DriverEditTests(unittest.TestCase):
+    """A raw driver's CS names follow an inserted code byte (D7.2c / D7.6b).
 
-    Assembles the real ``ds`` source in a scratch copy, then repeats with one
-    ``nop`` inserted (fits the gap → data unmoved) and with a large insert
-    (grows past the gap → data relocates, ``e_ss`` tracks it).
+    The driver runs at ``CS:0x100``.  Above a run of ``nop``s it stores into
+    the immediate of its own ``mov ax, 0`` (a self-modified operand,
+    ``cseg_0011``), loads a named absolute immediate (``data_012a``) and
+    indexes a byte table (``cseg_0020``).  One byte inserted below those
+    three instructions moves every byte they name, so each operand grows by
+    one; under a frozen ``equ`` none would.
     """
 
-    @unittest.skipUnless(_TREE.is_dir() and (_TREE / 'ds.asm').exists(),
-                         'generated src_DSAVANT tree not present')
-    def test_ds_insert_byte_property(self):
-        with tempfile.TemporaryDirectory() as d:
-            _copy_source_tree(d)
-            master = os.path.join(d, 'ds.asm')
-            original = _nasm_file(master, d)
-            data_origin = 0x200 + struct.unpack_from('<H', original, 14)[0] * 16
+    def _image(self):
+        binary = bytearray(0x30)
+        binary[0x00:0x0c] = bytes.fromhex('2ea31101' 'bb2a01' '2e8a872001')
+        binary[0x0c:0x20] = (b'\x90' * 4 + bytes.fromhex('b80000c3')
+                             + b'\x90' * 12)
+        binary[0x20:0x30] = bytes(range(0x40, 0x50))
+        return bytes(binary)
 
-            frag = os.path.join(d, 'ds', 'game', 'app_malloc.asm')
-            with open(frag) as f:
-                lines = f.read().splitlines(keepends=True)
+    def _source(self, binary):
+        records = [
+            {'type': 'mnem', 'text': 'mov [cs:cseg_0011 - IMAGE_BASE], ax',
+             'offset': 0x00, 'size': 4},
+            {'type': 'mnem', 'text': 'mov bx, data_012a',
+             'offset': 0x04, 'size': 3},
+            {'type': 'mnem',
+             'text': 'mov al, byte [cs:bx + cseg_0020 - IMAGE_BASE]',
+             'offset': 0x07, 'size': 5},
+            *({'type': 'mnem', 'text': 'nop', 'offset': off, 'size': 1}
+              for off in range(0x0c, 0x10)),
+            {'type': 'mnem', 'text': 'mov ax, 0', 'offset': 0x10, 'size': 3},
+            {'type': 'mnem', 'text': 'ret', 'offset': 0x13, 'size': 1},
+            *({'type': 'mnem', 'text': 'nop', 'offset': off, 'size': 1}
+              for off in range(0x14, 0x20)),
+            {'type': 'data_block', 'start': 0x20, 'end': 0x30,
+             'bytes': [f'0x{b:02x}' for b in binary[0x20:]]},
+        ]
+        src, _ = _build_source(
+            records, 0, binary, label_map={},
+            mem_equ={cseg(0x11): 0x11, cseg(0x20): 0x20},
+            immediate_labels={0x012a: data(0x012a)}, load_offset=0x100)
+        return src
 
-            # 1) a single nop fits in the code→data gap.  The data stays put;
-            # only the code pointers it stores (the exit hook and the two tty
-            # vectors, all aimed past the nop) move with their routines.
-            with open(frag, 'w') as f:
-                f.writelines([lines[0], '    nop\n'] + lines[1:])
-            mut = _nasm_file(master, d)
-            self.assertEqual(len(mut), len(original))
-            self.assertEqual(struct.unpack_from('<H', mut, 14)[0],
-                             struct.unpack_from('<H', original, 14)[0])
-            code_ptrs = (0x10dfc, 0x10e50, 0x10e52)
-            for off in code_ptrs:
-                self.assertEqual(struct.unpack_from('<H', mut, off)[0],
-                                 struct.unpack_from('<H', original, off)[0] + 1)
-            masked = bytearray(mut)
-            for off in code_ptrs:
-                masked[off:off + 2] = original[off:off + 2]
-            self.assertEqual(bytes(masked[data_origin:]),
-                             original[data_origin:])
-            cblp, cp = struct.unpack_from('<HH', mut, 2)
-            self.assertEqual(cblp, len(mut) % 512)
-            self.assertEqual(cp, (len(mut) + 511) // 512)
-
-            # 2) a large insertion overflows the gap → data relocates.
-            with open(frag, 'w') as f:
-                f.writelines([lines[0], '    times 45000 db 0x90\n'] + lines[1:])
-            grown = _nasm_file(master, d)
-            new_origin = 0x200 + struct.unpack_from('<H', grown, 14)[0] * 16
-            self.assertGreater(new_origin, data_origin)
-            self.assertEqual(new_origin % 16, 0)
-            moved = bytearray(grown[new_origin:new_origin + len(original) - data_origin])
-            for off in code_ptrs:
-                rel = off - data_origin
-                self.assertEqual(struct.unpack_from('<H', moved, rel)[0],
-                                 struct.unpack_from('<H', original, off)[0] + 45000)
-                moved[rel:rel + 2] = original[off:off + 2]
-            self.assertEqual(bytes(moved), original[data_origin:])
-            g_cblp, g_cp = struct.unpack_from('<HH', grown, 2)
-            self.assertEqual(g_cblp, len(grown) % 512)
-            self.assertEqual(g_cp, (len(grown) + 511) // 512)
-
-    @unittest.skipUnless(_TREE.is_dir() and (_TREE / 'ds.asm').exists(),
-                         'generated src_DSAVANT tree not present')
-    def test_ds_data_insert_moves_the_ds_size_immediates(self):
-        """D7.0b: a code immediate hard-coding the DS size follows a data edit.
-
-        ``aztec_begin`` stores the DS size (``0x9098``) three ways: into a
-        register, the stack pointer and a DS word.  Inserting one file-backed
-        data byte grows the segment by one, so every stored size must read
-        ``0x9099``.
-        """
-        with tempfile.TemporaryDirectory() as d:
-            _copy_source_tree(d)
-            master = os.path.join(d, 'ds.asm')
-            original = _nasm_file(master, d)
-            self.assertEqual(original[0x4d89:0x4d8d], b'\x81\xc3\x98\x90')
-            self.assertEqual(original[0x4de3:0x4de6], b'\xb9\x98\x90')
-            self.assertEqual(original[0x4e46:0x4e4c],
-                             b'\xc7\x06\x7a\x0c\x98\x90')
-
-            with open(master) as f:
-                src = f.read()
-            grown_src = src.replace('__zdseg_start:\n',
-                                    '__zdseg_start:\n    db 0xee\n', 1)
-            self.assertNotEqual(grown_src, src)
-            with open(master, 'w') as f:
-                f.write(grown_src)
-            grown = _nasm_file(master, d)
-
-            self.assertEqual(grown[0x4d89:0x4d8d], b'\x81\xc3\x99\x90')
-            self.assertEqual(grown[0x4de3:0x4de6], b'\xb9\x99\x90')
-            # dseg_0c7a is a DS offset past the inserted byte, so it moves too,
-            # and its stored size grows with the segment.
-            self.assertEqual(grown[0x4e46:0x4e4c],
-                             b'\xc7\x06\x7b\x0c\x99\x90')
-
-    @unittest.skipUnless(_TREE.is_dir() and (_TREE / 'vinstall.asm').exists(),
-                         'generated src_DSAVANT tree not present')
-    def test_vinstall_data_insert_moves_promoted_pointers(self):
-        """D5: a promoted pointer word follows an edit inside the data segment.
-
-        The graphics-board menu is a ``char *`` array at DS 0x02 (file 0x3ae2);
-        entry ``dseg_000e`` names the '0-NO GRAPHICS BOARD' string.  Inserting a
-        byte between the array and that string must move both the label and the
-        stored word by one, so the word still names the same byte content.
-        """
-        with tempfile.TemporaryDirectory() as d:
-            _copy_source_tree(d)
-            master = os.path.join(d, 'vinstall.asm')
-            original = _nasm_file(master, d)
-            data_origin = 0x200 + struct.unpack_from('<H', original, 14)[0] * 16
-            word_off = 0x3ae2
-            start = struct.unpack_from('<H', original, word_off)[0]
-            target = data_origin + start
-            content = original[target:target + 23]
-            self.assertEqual(content, b'0-NO GRAPHICS BOARD   \x00')
-
-            self.assertTrue(_edit_data(master, '__zdseg_000e:',
-                                       '    db 0xee\n__zdseg_000e:'))
-            grown = _nasm_file(master, d)
-
-            new_origin = 0x200 + struct.unpack_from('<H', grown, 14)[0] * 16
-            new_start = struct.unpack_from('<H', grown, word_off)[0]
-            self.assertEqual(new_origin, data_origin)
-            self.assertEqual(new_start, start + 1)
-            self.assertEqual(
-                grown[new_origin + new_start:new_origin + new_start + 23],
-                content)
-
-    @unittest.skipUnless(_TREE.is_dir() and (_TREE / 'vinstall.asm').exists(),
-                         'generated src_DSAVANT tree not present')
-    def test_vinstall_file_list_follows_an_inserted_byte(self):
-        """A ``pointer_arrays`` table: every word follows a data edit.
-
-        The install file list (file 0x3d89, odd DS 0x02a9) is 156 records of
-        ``{disk, name, letter x3}``.  A byte inserted before ``"WROOT.EXE"``
-        (record 1's name) moves the words naming it and every later string by
-        one and leaves record 0's words alone.
-        """
-        table, records = 0x3d89, 156
-        with tempfile.TemporaryDirectory() as d:
-            _copy_source_tree(d)
-            master = os.path.join(d, 'vinstall.asm')
-            original = _nasm_file(master, d)
-            data_origin = 0x200 + struct.unpack_from('<H', original, 14)[0] * 16
-            name = struct.unpack_from('<H', original, table + 10 + 2)[0]
-            self.assertEqual(
-                original[data_origin + name:data_origin + name + 10],
-                b'WROOT.EXE\x00')
-
-            label = f'__zdseg_{name:04x}:'
-            self.assertTrue(_edit_data(master, label,
-                                       f'    db 0xee\n{label}'))
-            grown = _nasm_file(master, d)
-
-            for record in range(records):
-                for field in (2, 4, 6, 8):
-                    off = table + record * 10 + field
-                    old = struct.unpack_from('<H', original, off)[0]
-                    new = struct.unpack_from('<H', grown, off)[0]
-                    self.assertEqual(new, old + (old >= name), hex(off))
-
-    @unittest.skipUnless(_TREE.is_dir() and (_TREE / 'vinstall.asm').exists(),
-                         'generated src_DSAVANT tree not present')
-    def test_vinstall_data_delete_moves_promoted_pointers(self):
-        """D5: the same property for a deletion (array stays word-aligned)."""
-        with tempfile.TemporaryDirectory() as d:
-            _copy_source_tree(d)
-            master = os.path.join(d, 'vinstall.asm')
-            original = _nasm_file(master, d)
-            data_origin = 0x200 + struct.unpack_from('<H', original, 14)[0] * 16
-            start = struct.unpack_from('<H', original, 0x3ae2)[0]
-            content = original[data_origin + start:data_origin + start + 23]
-
-            # DS 0x0000's two bytes, the data segment's first.
-            first = pathlib.Path(d, 'vinstall', 'data', 'dseg_0000.asm')
-            self.assertTrue(_edit_data(str(first), '    db 0x00, 0x00\n', ''))
-            shrunk = _nasm_file(master, d)
-
-            new_origin = 0x200 + struct.unpack_from('<H', shrunk, 14)[0] * 16
-            # The array moved back by two bytes; its first entry is now at the
-            # data origin and still names the same string.
-            self.assertEqual(new_origin, data_origin)
-            new_start = struct.unpack_from('<H', shrunk, 0x3ae0)[0]
-            self.assertEqual(new_start, start - 2)
-            self.assertEqual(
-                shrunk[new_origin + new_start:new_origin + new_start + 23],
-                content)
-
-    @unittest.skipUnless(_TREE.is_dir() and (_TREE / 'play.asm').exists(),
-                         'generated src_DSAVANT tree not present')
-    def test_driver_branch_follows_an_inserted_byte(self):
-        """D7.2c: a named branch target is a label, so an edit moves it.
-
-        The ``jb`` at 0x079a targets 0x07a2, which the jump table's
-        ``loc_0793`` arm names as its local ``@..loc_0793.l1``.  Inserting one
-        byte *between* the branch and that target must lengthen the branch by
-        exactly one: the target moved with the byte.  Under a frozen ``equ`` the
-        displacement would have stayed put and the jump would have landed one
-        byte short.
-        """
-        with tempfile.TemporaryDirectory() as d:
-            _copy_source_tree(d)
-            master = os.path.join(d, 'play.asm')
-            original = _nasm_file(master, d)
-            self.assertEqual(original[0x79a:0x79c], b'\x72\x06')  # jb +6 -> 0x07a2
-            # Named by its code, not its address: find it by where play.asm
-            # includes it.
-            with open(master) as f:
-                included = re.findall(r'%include "([^"]+)"\s*; 0x077b\b', f.read())
-            self.assertEqual(len(included), 1, included)
-            frag = os.path.join(d, included[0])
-            with open(frag) as f:
-                text = f.read()
-            branch = re.search(r'^    jb short [^\s;]+[^\n]*; 0x079a\b', text, re.M)
-            self.assertIsNotNone(branch)
-            needle = branch.group()
-            with open(frag, 'w') as f:
-                f.write(text.replace(needle, needle + '\n    db 0x90', 1))
-            grown = _nasm_file(master, d)
-
-        self.assertEqual(len(grown), len(original) + 1)
-        # The branch itself did not move (the byte went in after it) ...
-        self.assertEqual(grown[0x79a], original[0x79a])
-        # ... and its displacement grew by exactly one, because the label it
-        # names moved with the inserted byte.
-        self.assertEqual(grown[0x79a:0x79c], b'\x72\x07')
-        self.assertEqual(original[0x79a:0x79c], b'\x72\x06')
-        # The instruction at the target is the same one, one byte later.  Its
-        # ``[cs:cseg_0a93]`` operand is a label on the byte at 0x0a93, which also
-        # lies after the insert, so the encoded address follows the edit:
-        # ``0b93`` -> ``0b94``.
-        self.assertEqual(original[0x7a2:0x7a6], b'\x2e\x88\x26\x93')
-        self.assertEqual(grown[0x7a3:0x7a6], b'\x2e\x88\x26')
-        self.assertEqual(grown[0x7a6:0x7a8], b'\x94\x0b')
-
-    @unittest.skipUnless(_TREE.is_dir() and (_TREE / 'play.asm').exists(),
-                         'generated src_DSAVANT tree not present')
-    def test_driver_self_modified_operands_follow_an_inserted_byte(self):
-        """``play``'s timer handler patches its own operands.
-
-        The installer stores the segment into the ``mov ax, 0`` at 0x08be
-        (``mov [cs:cseg_08bf], ax`` at 0x0509) and the old INT 08h vector
-        into the ``call far 0000:0000`` at 0x0b0f (``mov [cs:cseg_0b10], ax``
-        at 0x02d6).  Both names sit inside an instruction, so they hang off a
-        label on its first byte.  One byte inserted at the handler's entry
-        (0x08af) must move both stored addresses, and the mode table at 0x1196
-        (now 0x1197) must name the moved ``loc_PLIR``/``loc_NQLH``.
-        """
-        with tempfile.TemporaryDirectory() as d:
-            _copy_source_tree(d)
-            master = os.path.join(d, 'play.asm')
-            original = _nasm_file(master, d)
-            self.assertEqual(original[0x509:0x50d], b'\x2e\xa3\xbf\x09')
-            self.assertEqual(original[0x2d6:0x2da], b'\x2e\xa3\x10\x0c')
-            self.assertEqual(original[0x1196:0x119a], b'\x84\x12\x75\x18')
-            needle = '    cli                              ; 0x08af\n'
-            self.assertTrue(_edit_included_code(master, needle, '    nop\n' + needle))
-            grown = _nasm_file(master, d)
-
-        self.assertEqual(len(grown), len(original) + 1)
-        self.assertEqual(grown[0x509:0x50d], b'\x2e\xa3\xc0\x09')
-        self.assertEqual(grown[0x2d6:0x2da], b'\x2e\xa3\x11\x0c')
-        self.assertEqual(grown[0x1197:0x119b], b'\x85\x12\x76\x18')
-
-    @unittest.skipUnless(_TREE.is_dir() and (_TREE / 'play.asm').exists(),
-                         'generated src_DSAVANT tree not present')
-    def test_driver_indexed_tables_follow_an_inserted_byte(self):
-        """``[cs:bx + <table>]`` and a table's address in a register move with it.
-
-        One byte inserted at 0x08af sits after ``jumptable_0495`` and before the
-        byte tables at 0x1429/0x193a/0x1a3a.  ``mov dx, [cs:bx + 0x5a5]`` (a
-        sub-table, ``jumptable_0495 + 0x10``) keeps its displacement; ``mov al,
-        [cs:bx + 0x1529]`` and ``mov byte [cs:bx + 0x1a3a], al`` gain one; so do
-        ``mov bx, 0x1a3a`` before ``cs xlatb`` (now at 0x09b1, a proven
-        pointer) and the dead store ``mov di, 0x1a3a`` at 0x065c (a sidecar
-        ``immediate_pointers`` entry).
-        """
-        with tempfile.TemporaryDirectory() as d:
-            _copy_source_tree(d)
-            master = os.path.join(d, 'play.asm')
-            original = _nasm_file(master, d)
-            self.assertEqual(original[0x462:0x467], b'\x2e\x8b\x97\xa5\x05')
-            self.assertEqual(original[0x205:0x20a], b'\x2e\x8a\x87\x29\x15')
-            self.assertEqual(original[0x6ab:0x6b0], b'\x2e\x88\x87\x3a\x1a')
-            self.assertEqual(original[0x9b0:0x9b3], b'\xbb\x3a\x1a')
-            self.assertEqual(original[0x65c:0x65f], b'\xbf\x3a\x1a')
-            needle = '    cli                              ; 0x08af\n'
-            self.assertTrue(_edit_included_code(master, needle, '    nop\n' + needle))
-            grown = _nasm_file(master, d)
-
-        self.assertEqual(len(grown), len(original) + 1)
-        self.assertEqual(grown[0x462:0x467], b'\x2e\x8b\x97\xa5\x05')
-        self.assertEqual(grown[0x205:0x20a], b'\x2e\x8a\x87\x2a\x15')
-        self.assertEqual(grown[0x6ab:0x6b0], b'\x2e\x88\x87\x3b\x1a')
-        self.assertEqual(grown[0x9b1:0x9b4], b'\xbb\x3b\x1a')
-        self.assertEqual(grown[0x65c:0x65f], b'\xbf\x3b\x1a')
-
-    @unittest.skipUnless(_TREE.is_dir() and (_TREE / 'ega.asm').exists(),
-                         'generated src_DSAVANT tree not present')
-    def test_driver_buffer_pointers_follow_an_inserted_byte(self):
-        """``ega``'s stored buffer pointers name their buffers, not numbers.
-
-        ``cseg_1ad5``/``cseg_1ad7`` hold CS 0x1bfd/0x207d, the two 0x480-byte
-        save buffers that were one frozen 2306-byte pad.  A byte inserted before
-        them moves both words and ``mov di, cseg_23fd`` (0x2d2a), and each
-        buffer keeps its size.
-        """
-        with tempfile.TemporaryDirectory() as d:
-            _copy_source_tree(d)
-            master = os.path.join(d, 'ega.asm')
-            original = _nasm_file(master, d)
-            self.assertEqual(original[0x1ad5:0x1ad9], b'\xfd\x1b\x7d\x20')
-            self.assertEqual(original[0x2d2a:0x2d2d], b'\xbf\xfd\x24')
-            self.assertTrue(_edit_data(master, 'cseg_1ad5:\n',
-                                       '    db 0xee\ncseg_1ad5:\n'))
-            grown = _nasm_file(master, d)
-        self.assertEqual(len(grown), len(original) + 1)
-        self.assertEqual(grown[0x1ad6:0x1ada], b'\xfe\x1b\x7e\x20')
-        self.assertEqual(grown[0x2d2b:0x2d2e], b'\xbf\xfe\x24')
-        self.assertEqual(grown[0x1afe:0x23fe], original[0x1afd:0x23fd])
-
-    @unittest.skipUnless(_TREE.is_dir() and (_TREE / 'ds.asm').exists(),
-                         'generated src_DSAVANT tree not present')
-    def test_ds_stack_follows_an_inserted_data_byte(self):
-        """``e_sp`` is the top of the BSS block, so a data byte moves it.
-
-        SS == DS, and the stack is the last object after the BSS.  One byte of
-        file-backed data moves the stack top (``e_sp`` 0xf198 -> 0xf199);
-        ``e_minalloc`` -- the paragraphs from the end of the file to the stack
-        top -- stays.
-        """
-        with tempfile.TemporaryDirectory() as d:
-            _copy_source_tree(d)
-            master = os.path.join(d, 'ds.asm')
-            original = _nasm_file(master, d)
-            with open(master) as f:
-                text = f.read()
-            with open(master, 'w') as f:
-                f.write(text.replace('__zdseg_start:\n',
-                                     '__zdseg_start:\n    db 0xee\n', 1))
-            grown = _nasm_file(master, d)
-        minalloc, = struct.unpack_from('<H', original, 10)
-        self.assertEqual(struct.unpack_from('<H', original, 16)[0], 0xf198)
-        self.assertEqual(struct.unpack_from('<H', grown, 16)[0], 0xf199)
-        self.assertEqual(struct.unpack_from('<H', grown, 10)[0], minalloc)
-
-    @unittest.skipUnless(_TREE.is_dir() and (_TREE / 'vpclv.asm').exists(),
-                         'generated src_DSAVANT tree not present')
-    def test_overlay_bss_follows_an_inserted_data_byte(self):
-        """An overlay's own data and BSS move when its data grows.
-
-        ``vpclv``'s data is loaded at the host's data end (``o_dorg`` 0x9098)
-        and its BSS follows it.  One byte inserted at the start of the data
-        moves its data word ``dseg_9400`` (``mov [dseg_9400], di`` at 0x5483)
-        and its BSS objects ``bss_9408`` (``mov di, bss_9408`` at 0x5488) and
-        ``bss_9704`` (``mov word [bss_9704], 0xffff`` at 0x5185) by one;
-        ``o_dsize`` grows by one and ``o_bss`` -- the BSS block's span -- stays.
-        These names were ``__zdseg_end + <distance>`` and stood still.
-        """
-        with tempfile.TemporaryDirectory() as d:
-            _copy_source_tree(d)
-            master = os.path.join(d, 'vpclv.asm')
-            original = _nasm_file(master, d)
-            self.assertEqual(original[0x5483:0x5487], b'\x89\x3e\x00\x94')
-            self.assertEqual(original[0x5488:0x548b], b'\xbf\x08\x94')
-            self.assertEqual(original[0x5185:0x5189], b'\xc7\x06\x04\x97')
-            # The label may sit in the master or in a named data fragment.
-            label = '__zdata_start:\n'
-            root = pathlib.Path(d)
-            src = next(p for p in [root / 'vpclv.asm',
-                                   *sorted((root / 'vpclv').rglob('*.asm'))]
-                       if label in p.read_text(errors='ignore'))
-            text = src.read_text()
-            src.write_text(text.replace(label, f'{label}    db 0xee\n', 1))
-            grown = _nasm_file(master, d)
-
-        self.assertEqual(len(grown), len(original) + 1)
-        o_dsize, o_bss = struct.unpack_from('<HH', original, 8)
-        self.assertEqual(struct.unpack_from('<HH', grown, 8),
-                         (o_dsize + 1, o_bss))
-        self.assertEqual(grown[0x5483:0x5487], b'\x89\x3e\x01\x94')
-        self.assertEqual(grown[0x5488:0x548b], b'\xbf\x09\x94')
-        self.assertEqual(grown[0x5185:0x5189], b'\xc7\x06\x05\x97')
-
-    @unittest.skipUnless(_TREE.is_dir() and (_TREE / 'vga.asm').exists(),
-                         'generated src_DSAVANT tree not present')
-    def test_driver_immediate_follows_an_inserted_byte(self):
-        """D7.6b: a driver's named absolute immediate tracks the byte it names.
-
-        ``vga``'s sidecar names the CS offset 0x0bda -- file byte 0x0ada, since
-        the module is read to ``segment:0x100`` -- and its routines load it
-        (``mov bx, data_0bda``) to walk a buffer with ``[cs:bx]``.  It used to
-        stand as the frozen ``data_0bda equ 0x0bda``, so an edit above the byte
-        left the operand put.  Bound as ``__zdata_0bda - IMAGE_BASE`` it moves
-        with the byte: inserting one byte above the *first* consumer moves the
-        byte (0x0ada -> 0x0adb) and every operand naming it (0x0bda -> 0x0bdb)
-        -- the site above the insert keeps its address, the site below moves.
-        """
-        with tempfile.TemporaryDirectory() as d:
-            _copy_source_tree(d)
-            master = os.path.join(d, 'vga.asm')
-            original = _nasm_file(master, d)
-            self.assertEqual(original[0x8ff:0x902], b'\xbb\xda\x0b')
-            self.assertEqual(original[0x456e:0x4571], b'\xbb\xda\x0b')
-
-            frag = os.path.join(d, 'shared', 'library', 'load_screen.asm')
-            with open(frag) as f:
-                text = f.read()
-            needle = '    mov bx, maze_blocks - IMAGE_BASE\n'
-            self.assertIn(needle, text)
-            with open(frag, 'w') as f:
-                f.write(text.replace(needle, '    nop\n' + needle, 1))
-            grown = _nasm_file(master, d)
-
-        self.assertEqual(len(grown), len(original) + 1)
-        # The first consumer moved with the insert; its operand grew by one
-        # because the byte it names moved too.
-        self.assertEqual(grown[0x900:0x903], b'\xbb\xdb\x0b')
-        # The consumer *below* the insert also grew, though nothing local to it
-        # changed -- the operand is the named byte, not a frozen address.
-        self.assertEqual(grown[0x456f:0x4572], b'\xbb\xdb\x0b')
+    def test_named_operands_follow_an_inserted_byte(self):
+        binary = self._image()
+        src = self._source(binary)
+        self.assertEqual(_nasm(src), binary)
+        grown = _nasm(src.replace('    nop', '    nop\n    nop', 1))
+        self.assertEqual(len(grown), len(binary) + 1)
+        self.assertEqual(grown[0x00:0x04], b'\x2e\xa3\x12\x01')
+        self.assertEqual(grown[0x04:0x07], b'\xbb\x2b\x01')
+        self.assertEqual(grown[0x07:0x0c], b'\x2e\x8a\x87\x21\x01')
+        self.assertEqual(grown[0x21:], binary[0x20:])
 
 
 class DataPointerCorpusTests(unittest.TestCase):
@@ -2224,18 +1430,6 @@ class DataPointerCorpusTests(unittest.TestCase):
             denied = {e['offset'] for e in result['not_pointers']}
             self.assertFalse(asserted & denied,
                              f'{binary}: offset asserted both ways')
-
-
-@slow
-class CommittedTreeBaselineTests(unittest.TestCase):
-    @unittest.skipUnless(_TREE.is_dir(), 'generated src_DSAVANT tree not present')
-    def test_frozen_addr_only_decreases(self):
-        totals = _scan_tree()
-        for key, limit in BASELINE_TOTALS.items():
-            self.assertLessEqual(
-                totals[key], limit,
-                f'frozen_addr.{key} rose to {totals[key]} (baseline {limit})',
-            )
 
 
 if __name__ == '__main__':

@@ -1,4 +1,4 @@
-; auto-generated
+; auto headers
 %ifndef MSG_INC
 %define MSG_INC
 

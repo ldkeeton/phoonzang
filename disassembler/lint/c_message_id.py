@@ -12,13 +12,12 @@ The rule is a style check.  It never feeds the ASM renderer.
 import re
 from functools import lru_cache
 
-from pygments.lexers import CLexer
 from pygments.token import Comment, String
 
+from .c_common import tokens
 from .core import Finding, Rule, register
 
 
-_LEXER = CLexer(stripnl=False, ensurenl=False)
 _CALL = re.compile(r'\b([A-Za-z_]\w*)\s*\(')
 _LITERAL = re.compile(r'^\s*(?:\([^)]*\)\s*)?'
                       r'(0[xX][0-9a-fA-F]+|\d+)\b')
@@ -39,7 +38,7 @@ def _calls():
 def _mask(text):
     """Replace comments and string literals with spaces, preserving offsets."""
     chars = list(text)
-    for index, token, value in _LEXER.get_tokens_unprocessed(text):
+    for index, token, value in tokens(text):
         if token in Comment or token in String:
             for offset in range(index, min(index + len(value), len(chars))):
                 if chars[offset] != '\n':

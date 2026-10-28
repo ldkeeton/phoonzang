@@ -307,18 +307,14 @@ def _build_project(project, run_batch, nasm_batch, *, report=print,
     app_dir = os.path.join(APPS_DIR, project)
     out_dir = src_dir(project, PROJECT_ROOT)
     os.makedirs(out_dir, exist_ok=True)
-    # Both headers bind names from packed data and sidecar bases.  ASM gets
-    # the full catalog; C gets proven code uses plus hand-written C uses.
-    # Install them once before workers compile or render; no ASM rescan.
-    from lib import msgids
-    from .messages import collect_message_ids
-    used_ids = collect_message_ids(project)
-    headers, header_stats = msgids.generate_project(
-        project, PROJECT_ROOT, used_ids=used_ids)
-
-    # Install the self-contained header tree before any worker compiles.
-    from lib.aztec import sources
-    sources.install_headers(project, out_dir)
+    # The static headers in include/ come from ``make headers``; the build
+    # only reads them.
+    from lib.aztec import headers
+    absent = headers.missing(project, out_dir)
+    if absent:
+        raise FileNotFoundError(
+            f'{project}: {", ".join(absent)} missing; '
+            f'run "make headers {project}"')
 
     bins = discover_binaries(app_dir)
     if not bins:
@@ -504,8 +500,6 @@ def _build_project(project, run_batch, nasm_batch, *, report=print,
                                                 'code', 'data')})
 
         progress.log(f'{project} | syncing {len(files)} generated file(s)')
-        # The headers are build outputs too; keep them through synchronization.
-        files.update(headers)
         _sync(out_dir, files, report, shared=shared, source_moves=source_moves)
         completed = True
         progress.log(f'{project} | copying assets')
@@ -525,7 +519,6 @@ def _build_project(project, run_batch, nasm_batch, *, report=print,
             # Keep inspectable output even after failure; partial trees must
             # never prune files belonging to a binary that did not emit.
             files, _, _ = reshare_partial(merge_files(emitted), out_dir)
-            files.update(headers)
             files = {rel: text for rel, text in files.items()
                      if not hand_owned(os.path.join(out_dir, rel))}
             written, unchanged, _ = sync(out_dir, files, scopes=[])

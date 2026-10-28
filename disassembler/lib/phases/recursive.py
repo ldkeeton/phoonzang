@@ -691,7 +691,7 @@ class RecursiveDescentPhase(Phase):
                 mnem = insn.mnemonic
 
                 # Never let an instruction straddle an explicit data range.
-                if ctx.hard_data[insn.address:insn_end].any():
+                if ctx.any_hard_data(insn.address, insn_end):
                     if spec_start < insn.address:
                         fork_ranges.append((spec_start, insn.address))
                         fork_exits.append('fallthrough')

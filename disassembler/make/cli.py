@@ -15,6 +15,7 @@ from .init import cmd_init
 from .inspect import cmd_data, cmd_info, cmd_probe
 from .lint import cmd_lint
 from .naming import cmd_name, cmd_refs, specs_from_makeflags
+from .headers import cmd_headers
 from .prebuild import cmd_prebuild
 from .readme import cmd_readme
 from .run import _parse_check_args, cmd_check, cmd_run
@@ -28,11 +29,13 @@ Commands (space-separated):
   make init                 sparse-clone only the dos_compilers folders listed in sidecars,
                             then unpack the Aztec runtime sources into dos_compilers/aztec_src/
   make libcheck             rebuild Aztec v4.2b C.LIB from dos_compilers/aztec_src/ and compare to the shipped one
-  make all                  clean, prebuild (Aztec mux), build, verify all,
-                            elf-rebuild, make test, make test slow
+  make all                  clean, headers, build, verify all,
+                            elf-rebuild, make test
   make all notest           the same, without the tests at the end
-  make build [PROJECT]      asm + nasm + assets for every binary (seeds .c;
-                            runs prebuild first if missing; default: all projects)
+  make build [PROJECT]      asm + nasm + assets for every binary (default: all
+                            projects); reads include/ headers from make headers
+  make headers [PROJECT...] write include/ msg.h, msg.inc, lmacros.h and the
+                            vendor C headers the sources include
   make prebuild [PROJECT...]  clean .cache, rebuild aztec libs + signature DB, run the Aztec C mux
   make check PROJECT [SECONDS] smoke-test game (default 5s, requires build first)
   make run PROJECT          run game in dosbox-x
@@ -77,8 +80,9 @@ Commands (space-separated):
   make charts               regenerate all PNGs + CSVs from existing stats
   make readme               regenerate README.md + readme/heatmap.svg
   make test [TEST...]       run the unit test suite in disassembler/tests (optionally
-                            only the named dotted tests); skips @slow tests
-  make test slow            run only the @slow tests (>= 100 ms)
+                            only the named dotted tests); every test must
+                            finish within 100 ms or it fails
+  make test measure         time every test with the budget off; list the slow ones
 
 Env:
   VERBOSE=1                 live progress from the build driver and every worker, tagged
@@ -134,15 +138,15 @@ def main():
         # whole .cache go first (the build lock and pinned baselines survive).
         cmd_clean([])
         cmd_lint(all_projects, True)
-        _build_projects(all_projects, all_projects, prebuild=False)
+        for project in all_projects:
+            cmd_headers(project)
+        _build_projects(all_projects, all_projects)
         cmd_verify([])
         cmd_elf_rebuild(None, None, all_projects)
 
         if 'notest' in args:
             return
-        fast_ok = run_tests([])
-        slow_ok = run_tests(['slow'])
-        sys.exit(0 if fast_ok and slow_ok else 1)
+        sys.exit(0 if run_tests([]) else 1)
 
     if '--init' in flags:
         cmd_init()
@@ -162,6 +166,16 @@ def main():
 
     if '--clean' in flags:
         cmd_clean(args)
+        return
+
+    if '--headers' in flags:
+        for project in args:
+            if project not in all_projects:
+                print(f'Unknown project: {project}')
+                print(f'Known: {", ".join(all_projects)}')
+                sys.exit(1)
+        for project in (args or all_projects):
+            cmd_headers(project)
         return
 
     if '--prebuild' in flags:

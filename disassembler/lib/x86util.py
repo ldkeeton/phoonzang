@@ -70,6 +70,34 @@ def is_indirect(insn):
 _MAX_INSN = 15
 
 
+class Insn:
+    """A capstone instruction whose attributes are read from it once.
+
+    Each capstone attribute is a ctypes call (``mnemonic`` also decodes its
+    bytes); the passes read the same few millions of times.  The common ones
+    are copied up front, the rest kept after their first read.
+    """
+
+    __slots__ = ('_insn', 'address', 'size', 'mnemonic', 'op_str', '__dict__')
+
+    def __init__(self, insn):
+        self._insn = insn
+        self.address, self.size = insn.address, insn.size
+        self.mnemonic, self.op_str = insn.mnemonic, insn.op_str
+
+    def __getattr__(self, name):
+        value = self.__dict__[name] = getattr(self._insn, name)
+        return value
+
+    def __repr__(self):
+        return repr(self._insn)
+
+
+def _decode_one(md, data, off):
+    insn = next(md.disasm(data[off:off + _MAX_INSN], off, 1), None)
+    return None if insn is None else Insn(insn)
+
+
 #: The last ``bytes`` decoded and its instructions (or None) by offset: each
 #: classify iteration, and the prune after it, walks much of the same code.
 _decoded = (None, {})
@@ -80,11 +108,11 @@ def _decode_at(md, data, off):
     global _decoded
     if _decoded[0] is not data:
         if not isinstance(data, bytes):
-            return next(md.disasm(data[off:off + _MAX_INSN], off, 1), None)
+            return _decode_one(md, data, off)
         _decoded = (data, {})
     cache = _decoded[1]
     if off not in cache:
-        cache[off] = next(md.disasm(data[off:off + _MAX_INSN], off, 1), None)
+        cache[off] = _decode_one(md, data, off)
     return cache[off]
 
 

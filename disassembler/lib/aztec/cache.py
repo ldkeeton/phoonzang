@@ -25,6 +25,7 @@ import json
 import os
 
 from lib.autogen import MARKER_ASM, MARKER_C
+from lib import cachedirs
 from lib.cachedirs import prebuild_dir
 
 from . import listing, objcache, sources
@@ -48,8 +49,8 @@ def cache_path(project, binary):
 
 
 def objs_dir(project):
-    """Baseline compiled objects inside the prebuild tree."""
-    return os.path.join(prebuild_dir(project), 'objs')
+    """The content-keyed compiled-module cache."""
+    return cachedirs.objs_dir(project)
 
 
 def is_asm_entry(entry):
@@ -135,10 +136,7 @@ def load_or_build(project, binary, data, aztec_labels, *, mode='build',
 def _prebuild(project, binary, data, aztec_labels, path, verbose,
               more=False, present=None):
     from . import compile as azc
-    # Stage the vendor include tree first: the build reads headers only from
-    # prebuild, and the merged lmacros.h is generated from this copy.
-    sources.stage_headers(project)
-    objcache_dir = os.path.join(prebuild_dir(project), 'objs')
+    objcache_dir = objs_dir(project)
     os.makedirs(objcache_dir, exist_ok=True)
     from lib.sidecar.compiler import asm_flags, compiler_flags
     from lib.sidecar.vendor import vendor_patches
@@ -333,7 +331,8 @@ def _compile_seeds(engine, project, binary, functions, objcache_dir,
                            entry['source_version'])
         with open(os.path.join(dest, name + seed_suffix(entry)), 'w') as f:
             f.write(text)
-        headers_dir = sources.staged_include_dir(project, entry['includes'])
+        # Vendor seeds compile against the release's own INCLUDE.
+        headers_dir = None
         key = _module_key(project, binary, label, entry, text)
         kind, flags = _tool(project, binary, label, entry)
         requests.setdefault(

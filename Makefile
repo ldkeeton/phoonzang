@@ -4,7 +4,7 @@ ZIG ?= zig
 OPT ?= ReleaseSafe
 ZIG_DISASSEMBLER := zig_disassembler/build_out/zig_disassembler
 ZIG_SOURCES := $(wildcard zig_disassembler/src/*.zig deziggler/src/*.zig)
-CMD := name refs info data probe init libcheck check clean purge run verify rebuild elf-rebuild set-baseline charts help all build prebuild decompile test readme
+CMD := name refs info data probe init libcheck check clean purge run verify rebuild elf-rebuild set-baseline charts help all build headers prebuild decompile test readme
 
 # The root has a `readme/` directory, so the target of the same name needs to
 # be phony or make reports it "up to date" and skips the recipe.
@@ -38,7 +38,7 @@ $(ZIG_DISASSEMBLER): $(ZIG_SOURCES) Makefile
 		--cache-dir zig_disassembler/.cache --global-cache-dir .cache/zig -femit-bin=$@
 
 ifneq ($(filter $(CMD),$(MAKECMDGOALS)),)
-name refs info data probe init libcheck check clean purge run verify rebuild elf-rebuild all build prebuild decompile test readme:
+name refs info data probe init libcheck check clean purge run verify rebuild elf-rebuild all build headers prebuild decompile test readme:
 	@cd $(ASM) && $(PY) -m make --$@ $(filter-out $(CMD),$(MAKECMDGOALS))
 $(filter-out $(CMD),$(MAKECMDGOALS)):
 	@true

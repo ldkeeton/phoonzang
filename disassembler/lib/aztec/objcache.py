@@ -1,18 +1,18 @@
 """Content-hash cache of compiled Aztec modules.
 
 Each ``(source version, file, compiler, flags, source text)`` combination is
-compiled at most once and stored as JSON under a cache directory.  Prebuild
-uses ``.cache/<project>/prebuild/objs`` so the long DOSBox work is never
-repeated for an unchanged module.
+compiled at most once and stored as JSON under a cache directory,
+``.cache/<project>/objs``, which ``make build`` keeps so the long DOSBox work is
+never repeated for an unchanged module.
 
 Failures are cached too: some ``(source, compiler)`` pairings make the DOS
-compiler fail outright, and retrying them on every prebuild
-is pure waste.  Deleting the prebuild tree retries them.
+compiler fail outright, and retrying them on every build
+is pure waste.  ``make clean`` retries them.
 
-There is no format version: ``.cache`` is rebuilt by ``make prebuild`` (which
-starts empty), so an entry never outlives the code that wrote it.
+Only ``make clean`` (or ``make prebuild``) empties it.  :data:`FORMAT` is part
+of every key: bump it when what an entry means changes.
 
-Writes are atomic (temp file + rename) because prebuild may compile the same
+Writes are atomic (temp file + rename) because the build may compile the same
 module from several binaries concurrently.
 """
 

@@ -69,7 +69,7 @@ class HandOwnedCTest(unittest.TestCase):
                                    return_value=(compiled, func)),
                       patch.object(cache, 'own_key', return_value='app_ret'),
                       patch.object(cache, 'data_spans', return_value=[])):
-                    overrides, checks, _, _ = aztec._aztec_c_overrides(
+                    overrides, checks, _ = aztec._aztec_c_overrides(
                         'P', 'vinstall', b'\xc3', {0: 'app_ret'},
                         self._dir.name, function_roots={0: 'app_ret'})
                 self.assertEqual(overrides, {})

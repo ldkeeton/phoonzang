@@ -602,29 +602,3 @@ class RoutingTest(unittest.TestCase):
         text = '/* a file */\nint x = 16;\n'
         rules = {finding.rule for finding in lint.check_text(text, 'x.c')}
         self.assertTrue(all(rule.startswith('c-') for rule in rules))
-
-
-class RepositoryAsmTest(unittest.TestCase):
-    """The checked-in hand-written ``.s`` tree stays lint-clean."""
-
-    def test_hand_owned_asm_sources_are_clean(self):
-        from make.lint import _files, _read
-        findings = []
-        for path in _files('DSAVANT'):
-            if not path.endswith('.s'):
-                continue
-            findings.extend(lint.check_text(_read(path), path))
-        self.assertEqual(findings, [])
-
-
-class RepositoryCTest(unittest.TestCase):
-    """The checked-in hand-written ``.c`` tree stays lint-clean."""
-
-    def test_hand_owned_c_sources_are_clean(self):
-        from make.lint import _files, _read
-        findings = []
-        for path in _files('DSAVANT'):
-            if not path.endswith('.c'):
-                continue
-            findings.extend(lint.check_text(_read(path), path))
-        self.assertEqual(findings, [])

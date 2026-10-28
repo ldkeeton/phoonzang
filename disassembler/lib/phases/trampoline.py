@@ -49,7 +49,7 @@ class TrampolinePhase(Phase):
             if not undecided[off]:
                 off += 1
                 continue
-            if ctx.hard_data[off:min(off + 6, n)].any():
+            if ctx.any_hard_data(off, min(off + 6, n)):
                 off += 1
                 continue
 

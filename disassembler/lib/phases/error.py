@@ -113,7 +113,7 @@ class ErrorHandlerPhase(Phase):
             if not undecided[off]:
                 off += 1
                 continue
-            if ctx.hard_data[off:min(off + 9, n)].any():
+            if ctx.any_hard_data(off, min(off + 9, n)):
                 off += 1
                 continue
             end_after_exit = _find_print_exit(data, off)
@@ -125,7 +125,7 @@ class ErrorHandlerPhase(Phase):
             handler_start = None if off in named else _print_prologue_start(data, off)
             if handler_start is None:
                 handler_start = _find_handler_start(data, off, md)
-            if ctx.hard_data[handler_start:end_after_exit].any():
+            if ctx.any_hard_data(handler_start, end_after_exit):
                 off = end_after_exit
                 continue
             for i in range(handler_start, end_after_exit):

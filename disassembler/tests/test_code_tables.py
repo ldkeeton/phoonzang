@@ -23,7 +23,6 @@ from lib.phases.recursive import (
     _register_mov_code_tables,
 )
 from lib.segments import from_binary as build_segment_model
-from tests.slow import slow
 
 _PROJECT_ROOT = pathlib.Path(__file__).resolve().parents[2]
 _PLAY = _PROJECT_ROOT / 'apps' / 'DSAVANT' / 'PLAY.DRV'
@@ -189,7 +188,6 @@ class SidecarCodeTableValidationTests(unittest.TestCase):
             _validate_code_tables([{'table': '20', 'entry_size': 3}], 't')
 
 
-@slow
 @unittest.skipUnless(_TREE.is_dir() and (_TREE / 'play.asm').exists(),
                      'generated src_DSAVANT tree not present')
 class PlayBoundaryTreeTests(unittest.TestCase):

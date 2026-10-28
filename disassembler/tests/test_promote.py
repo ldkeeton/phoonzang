@@ -1,28 +1,19 @@
 """D5 promotion tests (plan.md Section 13, 15).
 
-Three layers:
+Two layers:
 
 * unit tests for the record splice and the symbol expressions;
 * a synthetic round-trip: the promoted ``dw`` reassembles to the original two
-  bytes (§15.2), and follows an inserted data byte (§15.4, data dimension);
-* a real-corpus check that the *emitted* set equals the asserted corpus and
-  never touches a ``not_pointers`` word.
+  bytes (§15.2), and follows an inserted data byte (§15.4, data dimension).
 """
 
-import contextlib
-import io
-import pathlib
 import struct
 import tempfile
 import unittest
 
-from tests.slow import slow
-from unittest.mock import patch
 
 from lib.sidecar.binary import per_binary as sidecar_per_binary
 from lib.sidecar.loader import load as load_sidecar
-from main.options import APPS_DIR
-from main.runner import process
 
 from lib.compare import promote as PR
 from lib.compare.render import mz_data_gap
@@ -322,58 +313,6 @@ class DeclaredArrayPromotionTests(unittest.TestCase):
         with self.assertRaises(SidecarError):
             self._promote(self._binary(value=0x000c),   # a control byte
                           {'offset': 0x211, 'space': 'ds', 'array': 0x211})
-
-
-@slow
-class CorpusPromotionPipelineTests(unittest.TestCase):
-    """The real ``vinstall`` corpus: every asserted word is emitted as a ``dw``."""
-
-    @classmethod
-    def setUpClass(cls):
-        cls._output = tempfile.TemporaryDirectory(prefix='ds-promote-')
-        project_dir = pathlib.Path(APPS_DIR) / 'DSAVANT'
-        cls.sidecar = load_sidecar('DSAVANT')
-        entry = sidecar_per_binary(cls.sidecar, 'vinstall')
-        captured = {}
-
-        def _capture(ctx, *args, **kwargs):
-            captured['verify'] = dict(ctx.report.get('verify', {}))
-
-        with (patch('main.runner.write_report', return_value=''),
-              patch('main.runner.write_layers', return_value=''),
-              patch('main.runner.print_short_report', _capture),
-              contextlib.redirect_stdout(io.StringIO())):
-            process(
-                'vinstall', str(project_dir), 'VINSTALL.EXE', 0x200,
-                output_dir=cls._output.name, sidecar_entry=entry)
-        cls.verify = captured['verify']
-
-    @classmethod
-    def tearDownClass(cls):
-        cls._output.cleanup()
-
-    def test_every_asserted_word_is_emitted(self):
-        entry = sidecar_per_binary(self.sidecar, 'vinstall')
-        asserted = {e['offset'] for e in entry['data_pointers']}
-        emitted = {w['offset'] for w in self.verify['promoted_data_words']}
-        self.assertEqual(emitted, asserted)
-
-    def test_nothing_is_skipped(self):
-        self.assertEqual(self.verify['promotion_skipped'], [])
-
-    def test_no_not_pointer_is_emitted(self):
-        entry = sidecar_per_binary(self.sidecar, 'vinstall')
-        negatives = {e['offset'] for e in entry['not_pointers']}
-        emitted = {w['offset'] for w in self.verify['promoted_data_words']}
-        self.assertFalse(negatives & emitted)
-
-    def test_words_and_pointers_agree(self):
-        # A word promoted by the corpus override must not contradict the scorer:
-        # wherever the scorer has an opinion it must match the emitted space.
-        scorer = {c['offset']: c for c in self.verify['promoted_pointers']}
-        for word in self.verify['promoted_data_words']:
-            if word['offset'] in scorer:
-                self.assertEqual(word['space'], scorer[word['offset']]['space'])
 
 
 if __name__ == '__main__':

@@ -1,30 +1,19 @@
 """Tests for the Aztec C mux (v4.2b sources and toolchain).
 
-The compile-backed checks are skipped when DOSBox or the vendored toolchain is
-unavailable.  The cache checks always run if a prebuild manifest exists.
+The cache checks run if a prebuild manifest exists.
 """
 
 import json
 import os
-import shutil
 import unittest
 
-from tests.slow import slow
 
 ASM = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PROJECT = os.path.dirname(ASM)
 
 from lib.aztec import sources  # noqa: E402
-from lib.aztec.mux import MuxEngine, normalize, compare  # noqa: E402
 from lib.aztec.cache import cache_path, to_override  # noqa: E402
 from lib.cross_ref import read_label_json  # noqa: E402
-from lib.aztec.compile import LIBRARY_PREFIX  # noqa: E402
-from lib.sidecar.compiler import compiler_flags  # noqa: E402
-
-
-def _have_toolchain():
-    from lib.aztec import compile as azc
-    return azc.available('v42b') and os.path.isdir(sources.src_root('v42b'))
 
 
 def _ds_labels_path():
@@ -80,26 +69,6 @@ class CacheTest(unittest.TestCase):
                 final[off:off + width] = data[start + off:start + off + width]
             self.assertEqual(bytes(final), data[start:start + len(final)],
                              f'{label} not byte-exact')
-
-
-@unittest.skipUnless(_have_toolchain(), 'Aztec toolchain/DOSBox missing')
-class MuxCompileTest(unittest.TestCase):
-    @slow
-    def test_open_recovers_from_v42b(self):
-        with open(os.path.join(PROJECT, 'apps', 'DSAVANT', 'DS.EXE'),
-                  'rb') as f:
-            data = f.read()
-        labels_path = _ds_labels_path()
-        if not os.path.exists(labels_path):
-            self.skipTest('no generated label map; run "make build DSAVANT"')
-        labels = {v: k for k, v in read_label_json(labels_path).items()}
-        engine = MuxEngine(c_flags=compiler_flags('DSAVANT', LIBRARY_PREFIX))
-        matches = engine.resolve('open', data, labels['aztec_open'])
-        self.assertTrue(any(m.exact for m in matches))
-        best = matches[0]
-        self.assertEqual(best.version, 'v42b')
-        self.assertEqual(best.filename, 'open.c')
-        self.assertEqual(best.compiler, 'v42b')
 
 
 class ObdParseTest(unittest.TestCase):

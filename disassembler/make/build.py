@@ -24,7 +24,7 @@ from main.clean import clear_build_out
 from lib import progress
 
 from .common import APPS, JOBS, PROJECT, Workers, _extra_flags, _verbose
-from .clean import clean_cache
+from .clean import clean_derived
 
 
 def _stats_enabled():
@@ -95,12 +95,13 @@ def asm_app(app, *, source_moves=None):
     print(f'{app}: build OK')
 
 
-def _prepare(app, *, prebuild=True):
-    """Clear one project's caches and build outputs before generating it.
+def _prepare(app):
+    """Clear one project's derived caches and build outputs before generating it.
 
-    ``src_<app>/`` itself is left alone until the build has laid out every
-    file (:func:`main.build._sync`)."""
-    clean_cache(app)
+    The compiled-module cache and staged headers are kept.  ``src_<app>/``
+    itself is left alone until the build has laid out every file
+    (:func:`main.build._sync`)."""
+    clean_derived(app)
     if _verbose():
         progress.log(f'{app} | prepare: clearing build_out')
     clear_build_out(app)
@@ -198,12 +199,12 @@ def cmd_rebuild(app=None, binary=None, all_projects=(), only=None):
         _rebuild_project(project, binary, only)
 
 
-def _build_projects(targets, all_projects, *, prebuild=True, source_moves=None):
+def _build_projects(targets, all_projects, *, source_moves=None):
     for project in targets:
         if project not in all_projects:
             print(f'Unknown project: {project}')
             print(f'Known: {", ".join(all_projects)}')
             sys.exit(1)
     for project in targets:
-        _prepare(project, prebuild=prebuild)
+        _prepare(project)
         asm_app(project, source_moves=source_moves)

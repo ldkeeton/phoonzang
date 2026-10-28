@@ -258,7 +258,7 @@ class MessageCollectionTest(unittest.TestCase):
                            side_effect=AssertionError('C compilation')), \
                 mock.patch('main.runner.verify',
                            side_effect=AssertionError('rendering')):
-            self.assertEqual(collect_message_ids('P'), {2026})
+            self.assertEqual(collect_message_ids('P', jobs=1), {2026})
         self.assertEqual(finish.call_count, 2)
         self.assertTrue(all(call.kwargs['messages_only']
                             for call in analyze_code.call_args_list))

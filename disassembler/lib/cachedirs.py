@@ -2,8 +2,8 @@
 
 Layout::
 
-    .cache/<project>/prebuild/          mux manifests, compiled module seeds (objs/),
-                                        staged vendor headers (include/<version>/)
+    .cache/<project>/objs/              compiled Aztec modules, keyed by source content
+    .cache/<project>/prebuild/          ``make prebuild`` only: mux manifests, C seeds
     .cache/<project>/aztec_lib_obj/     runtime-library OMF (c m ms s ovl)
     .cache/<project>/aztec_funcs.json   runtime signature DB built from those
     .cache/<project>/render/            render contexts
@@ -22,9 +22,10 @@ Layout::
                                         pipeline.baseline.json, reports/diagrams
 
 ``make prebuild <project>`` removes ``.cache/<project>`` and rebuilds it, and
-``make clean`` removes all of ``.cache``.  ``make build`` trusts whatever is
-there, so nothing under ``.cache`` carries a format version: clean or prebuild
-is the invalidation.
+``make clean`` removes all of ``.cache``.  ``make build`` removes everything in
+``.cache/<project>`` except ``objs/``, which is keyed by content and survives
+renames; nothing under ``.cache`` carries a format version,
+so clean or prebuild is the invalidation.
 """
 
 import os
@@ -44,6 +45,15 @@ def project_cache(project):
 
 def prebuild_dir(project):
     return os.path.join(project_cache(project), 'prebuild')
+
+
+def objs_dir(project):
+    return os.path.join(project_cache(project), 'objs')
+
+
+#: What ``make build`` keeps in ``.cache/<project>``: content-keyed, so a
+#: renamed routine never makes it stale.
+BUILD_KEEP = ('objs',)
 
 
 def aztec_lib_obj_dir(project):

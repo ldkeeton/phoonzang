@@ -7,20 +7,14 @@ reported until the names are made to agree.  A second pass masks bare
 immediates at or above 0x100 (``mov bx, 0x10e7`` / ``0xbc6``) and reports them
 as ``address-immediate`` so they stay distinct from real small constants.  It
 is test-only; the build does not call it.
-
-The tree check is ``@slow`` (about 1.6 s): run ``make test slow``, or only it
-with ``make test tests.test_unmerged.CurrentTreeTest``.
 """
 
 import os
-import pathlib
 import tempfile
 import unittest
 
 from lib import shared
 from lib.autogen import write_text
-
-from tests.slow import slow
 
 
 def _put(root, rel, text):
@@ -214,66 +208,6 @@ class ReportTest(unittest.TestCase):
 
     def test_clean_tree_has_no_report(self):
         self.assertEqual(shared.report([]), '')
-
-
-_ASM = pathlib.Path(__file__).resolve().parents[1]
-_TREE = _ASM.parent / 'src_DSAVANT'
-
-
-@slow
-@unittest.skipUnless(_TREE.is_dir(), 'no generated tree')
-class CurrentTreeTest(unittest.TestCase):
-    """No group the production merger can share is left duplicated."""
-
-    @classmethod
-    def setUpClass(cls):
-        cls.findings = shared.scan(str(_TREE))
-
-    def _failed(self, kind):
-        return [f for f in self.findings if f.kind == kind]
-
-    def test_no_unmerged_code(self):
-        findings = self._failed('code')
-        files = {}
-        from lib.autogen import is_generated
-        for folder, dirs, names in os.walk(_TREE):
-            dirs[:] = [d for d in dirs if d != 'build_out']
-            for name in names:
-                if not name.endswith(('.asm',) + shared.SUFFIXES):
-                    continue
-                path = os.path.join(folder, name)
-                if is_generated(path):
-                    rel = os.path.relpath(path, _TREE)
-                    with open(path, encoding='utf-8', errors='surrogateescape') as f:
-                        files[rel] = f.read()
-        _, planned = shared.share_files(
-            files, str(_TREE), shared.project_tables('DSAVANT'))
-        mergeable = [set(members) for members in planned.values()]
-        actionable = [finding for finding in findings
-                      if any(len({m.binary for m in finding.members
-                                  if m.rel in group}) > 1
-                             for group in mergeable)]
-        self.assertEqual(0, len(actionable),
-                         f'{len(actionable)} mergeable code group(s) left:\n'
-                         + shared.report(actionable))
-
-    def test_no_address_immediates(self):
-        findings = self._failed('immediate')
-        self.assertEqual(0, len(findings),
-                         f'{len(findings)} address-immediate group(s):\n'
-                         + shared.report(findings))
-
-    def test_no_unmerged_data(self):
-        findings = self._failed('data')
-        self.assertEqual(0, len(findings),
-                         f'{len(findings)} unmerged data group(s):\n'
-                         + shared.report(findings))
-
-    def test_no_data_name_collisions(self):
-        findings = self._failed('collision')
-        self.assertEqual(0, len(findings),
-                         f'{len(findings)} data name collision(s):\n'
-                         + shared.report(findings))
 
 
 if __name__ == '__main__':

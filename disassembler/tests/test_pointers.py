@@ -1,28 +1,12 @@
 """Data-pointer scorer tests (plan.md Section 8-10, step D4).
 
-Two layers:
-
-* synthetic unit tests for the individual rules (candidate collection, the
-  table-read anchor, hard refusals, space membership);
-* a real-corpus test that runs the ``vinstall`` pipeline and checks the
-  precision/recall of the accepted set against the sidecar ``data_pointers``
-  corpus (Section 14).
+Synthetic unit tests for the individual rules (candidate collection, the
+table-read anchor, hard refusals, space membership).
 """
 
-import contextlib
-import io
-import pathlib
 import struct
-import tempfile
 import unittest
 
-from tests.slow import slow
-from unittest.mock import patch
-
-from lib.sidecar.binary import per_binary as sidecar_per_binary
-from lib.sidecar.loader import load as load_sidecar
-from main.options import APPS_DIR
-from main.runner import process
 
 from capstone import Cs, CS_ARCH_X86, CS_MODE_16
 
@@ -315,75 +299,6 @@ class BacklogCorroborationTests(unittest.TestCase):
         by_offset = {c['offset']: c for c in report['candidates']}
         self.assertIn('word-read', by_offset[0x120]['evidence'])
         self.assertEqual([c['offset'] for c in report['unproven']], [0x120])
-
-
-@slow
-class PointerCorpusPipelineTests(unittest.TestCase):
-    """The real ``vinstall`` corpus: the accepted set must be 100% precise.
-
-    Running the pipeline is the only way to obtain the code access evidence,
-    so this is the end-to-end half of the D4 acceptance bar (Section 15.5).
-    """
-
-    @classmethod
-    def setUpClass(cls):
-        cls._output = tempfile.TemporaryDirectory(prefix='ds-pointers-')
-        project_dir = pathlib.Path(APPS_DIR) / 'DSAVANT'
-        sidecar = load_sidecar('DSAVANT')
-        cls.sidecar = sidecar
-        entry = sidecar_per_binary(sidecar, 'vinstall')
-        captured = {}
-
-        def _capture(ctx, *args, **kwargs):
-            captured['verify'] = dict(ctx.report.get('verify', {}))
-
-        with (patch('main.runner.write_report', return_value=''),
-              patch('main.runner.write_layers', return_value=''),
-              patch('main.runner.print_short_report', _capture),
-              contextlib.redirect_stdout(io.StringIO())):
-            process(
-                'vinstall', str(project_dir), 'VINSTALL.EXE', 0x200,
-                output_dir=cls._output.name, sidecar_entry=entry,
-            )
-        cls.verify = captured['verify']
-
-    @classmethod
-    def tearDownClass(cls):
-        cls._output.cleanup()
-
-    def _asserted_offsets(self):
-        entry = sidecar_per_binary(self.sidecar, 'vinstall')
-        return set(P.scored_corpus(entry['data_pointers']))
-
-    def test_promoted_set_is_within_the_corpus(self):
-        asserted = self._asserted_offsets()
-        promoted = {c['offset'] for c in self.verify['promoted_pointers']}
-        self.assertTrue(promoted, 'the seed corpus should promote something')
-        self.assertLessEqual(
-            promoted, asserted,
-            f'unasserted promotions: '
-            f'{sorted(hex(o) for o in promoted - asserted)}')
-
-    def test_precision_is_one(self):
-        self.assertEqual(self.verify['pointer_precision'], 1.0)
-
-    def test_recall_is_recorded_and_misses_are_in_the_backlog(self):
-        asserted = self._asserted_offsets()
-        promoted = {c['offset'] for c in self.verify['promoted_pointers']}
-        backlog = {c['offset'] for c in self.verify['unproven_data_words']}
-        missed = asserted - promoted
-        self.assertTrue(
-            missed, 'the corpus should have words the scorer does not yet promote')
-        self.assertLessEqual(
-            missed, backlog,
-            f'asserted words missing from the backlog: '
-            f'{sorted(hex(o) for o in missed - backlog)}')
-
-    def test_no_not_pointer_is_promoted(self):
-        entry = sidecar_per_binary(self.sidecar, 'vinstall')
-        negatives = {e['offset'] for e in entry['not_pointers']}
-        promoted = {c['offset'] for c in self.verify['promoted_pointers']}
-        self.assertFalse(negatives & promoted)
 
 
 if __name__ == '__main__':

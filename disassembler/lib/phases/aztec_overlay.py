@@ -114,7 +114,7 @@ class AztecOverlayPhase(Phase):
         # Scan for B8 xx xx E8 xx xx where the call target is outside the
         # file (patched runtime thunk in the main program's segment).
         for i in range(0, n - 5):
-            if ctx.hard_data[i:i + 6].any():
+            if ctx.any_hard_data(i, i + 6):
                 continue
             if data[i] != 0xB8 or data[i + 3] != 0xE8:
                 continue

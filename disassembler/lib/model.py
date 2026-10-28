@@ -92,7 +92,10 @@ class PhaseContext:
                 sidecar_entry.get('force_code', []),
                 f'binary {name or "<unnamed>"}',
             )
-        self.hard_data = np.zeros(n, dtype=bool)
+        # The array is a view of ``_hard``: phases write either, and the
+        # per-byte checks below read the bytes without numpy's call overhead.
+        self._hard = bytearray(n)
+        self.hard_data = np.frombuffer(self._hard, dtype=bool)
         self.hard_code = np.zeros(n, dtype=bool)
         for index, data_range in enumerate(
                 (sidecar_entry or {}).get('force_data', [])):
@@ -185,8 +188,11 @@ class PhaseContext:
         return (targets - self.branch_targets) | (targets & self.entry_targets)
 
     def is_hard_data(self, address):
-        return (0 <= address < len(self.hard_data)
-                and bool(self.hard_data[address]))
+        return 0 <= address < len(self._hard) and self._hard[address] != 0
+
+    def any_hard_data(self, start, end):
+        """``hard_data[start:end].any()``, without building the slice."""
+        return self._hard.find(1, start, end) >= 0
 
     @property
     def bitmap(self):

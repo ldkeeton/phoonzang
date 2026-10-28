@@ -1,4 +1,4 @@
-/* auto-generated */
+/* auto headers */
 #ifndef MSG_H
 #define MSG_H
 

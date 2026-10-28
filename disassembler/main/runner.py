@@ -617,7 +617,7 @@ def _analyze(name, orig_dir, rel_path, start_offset, output_dir=None,
     progress.log(f'{name} | resolving Aztec C routines')
     t_aztec = time.perf_counter()
     source_errors = []
-    c_overrides, c_checks, _entries, header_files = _aztec_c_overrides(
+    c_overrides, c_checks, _entries = _aztec_c_overrides(
         project, name, data, ctx.label_map, out_dir, function_roots,
         start_offset, errors=source_errors)
     asm_annotations = _aztec_asm_annotations(_entries, ctx.label_map,
@@ -699,7 +699,6 @@ def _analyze(name, orig_dir, rel_path, start_offset, output_dir=None,
         out_dir=out_dir, c_overrides=c_overrides, c_checks=c_checks,
         source_errors=source_errors,
         entries=_entries,
-        header_files=header_files,
         asm_annotations=asm_annotations, classify_timing=classify_timing,
         code_bytes=code_bytes, data_bytes=data_bytes, pct=pct,
         t_total=t_total, t_classify=t_classify, t_classify_end=t_classify_end,
@@ -1040,8 +1039,7 @@ def _emit(a, r, exact_bytes):
         if include_path.endswith('.asm'):
             split_sources[include_path] = stamp(split_sources[include_path],
                                                 include_path)
-    files = {**a.header_files, **seeds,
-             **split_sources}
+    files = {**seeds, **split_sources}
     asm_path = os.path.join(out_dir, f'{name}.asm')
     files[f'{name}.asm'] = asm_text
     spans = stats.get('aztec_spans') or {}

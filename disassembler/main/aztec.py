@@ -8,9 +8,6 @@ from lib.autogen import hand_owned
 from lib.shared import FOLDER, shared_dirs
 from lib.sidecar.bands import band_for
 
-#: Where the vendor headers the C includes are copied (``src_<project>/include``).
-INCLUDE_FOLDER = 'include'
-
 from .options import (
     AZTEC_MUX_DISABLED,
     AZTEC_MUX_REFRESH,
@@ -31,12 +28,11 @@ def _aztec_c_overrides(project, name, data, label_map, out_dir,
                        function_roots=None, start_offset=0, errors=None):
     """Resolve Aztec runtime routines to C and compile the current seeds.
 
-    Returns ``(overrides, checks, entries, files)``.  Prebuild-derived
+    Returns ``(overrides, checks, entries)``.  Prebuild-derived
     *overrides* feed the byte-preserving splice in :func:`lib.compare.verify`
     from generated Aztec prebuild C and .s (the vendor's original source);
     hand-owned sources are check-only inputs.
-    *entries* records the winning provenance and *files* are vendor headers
-    the C includes.
+    *entries* records the winning provenance.
 
     ``ASM_AZTEC_PREBUILD=1`` runs the DOSBox search and writes
     ``.cache/<project>/prebuild/``; an ordinary build does no vendor matching.
@@ -45,7 +41,7 @@ def _aztec_c_overrides(project, name, data, label_map, out_dir,
     """
     errors = errors if errors is not None else []
     if not project or AZTEC_MUX_DISABLED:
-        return {}, {}, {}, {}
+        return {}, {}, {}
     labels = [(addr, nm) for addr, nm in label_map.items()
               if getattr(nm, 'role', None) == 'aztec']
     dest = os.path.join(out_dir, name)
@@ -65,7 +61,7 @@ def _aztec_c_overrides(project, name, data, label_map, out_dir,
         found_sources.setdefault(label, path)
     hand_sources = sorted(found_sources)
     if not labels and not hand_sources:
-        return {}, {}, {}, {}
+        return {}, {}, {}
     from lib.aztec import cache
     from lib.aztec.objread import external_label, fixup_width
     entries = {}
@@ -94,7 +90,7 @@ def _aztec_c_overrides(project, name, data, label_map, out_dir,
         tried.update(str(nm) for _, nm in labels)
         more = True
     if AZTEC_PREBUILD_ONLY:
-        return {}, {}, entries, {}
+        return {}, {}, entries
     # Each vendor module the image holds byte-exact is one fragment with one
     # .c, both named after the vendor file (croot.c -> aztec_croot.c and
     # aztec_croot.asm): the whole module.  Its routines are labels inside
@@ -360,8 +356,7 @@ def _aztec_c_overrides(project, name, data, label_map, out_dir,
             'file': entry['file'], 'compiler': entry['compiler'],
             'includes': entry['includes'], 'check_only': True,
         }
-    headers = _headers(out_dir)
-    return overrides, checks, entries, headers
+    return overrides, checks, entries
 
 
 def _vendor_defines(key):
@@ -511,32 +506,6 @@ def _name_c_callees(project, binary, data, entries, label_map,
             function_roots[target] = sym
         label_map[target] = sym
         taken.add(new)
-
-
-def _headers(out_dir):
-    """The generated headers already installed in ``<out_dir>/include/``.
-
-    The build installs them from prebuild before compiling
-    (:func:`lib.aztec.sources.install_headers`); the compiler reads this same
-    tree.  Returning them here keeps the build's sync from pruning them.  The
-    renderer's ``host_symbols.inc`` and ``structs.inc`` are not vendor
-    headers and come from the normal emitted files instead.
-    """
-    from lib.autogen import is_generated
-    from lib.aztec import sources
-    include = os.path.join(out_dir, INCLUDE_FOLDER)
-    files = {}
-    if not os.path.isdir(include):
-        return files
-    for name in sorted(os.listdir(include)):
-        path = os.path.join(include, name)
-        if (name in (sources.HOST_SYMBOLS_INC, sources.STRUCTS_INC)
-                or not os.path.isfile(path)):
-            continue
-        if is_generated(path):
-            with open(path) as f:
-                files[f'{INCLUDE_FOLDER}/{name}'] = f.read()
-    return files
 
 
 def _hand_shared_source_tree(out_dir):

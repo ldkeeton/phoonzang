@@ -7,6 +7,7 @@ next rule can use it too.
 """
 
 import bisect
+import functools
 import re
 
 from pygments.lexers import CLexer
@@ -14,6 +15,16 @@ from pygments.token import Comment, String
 
 
 LEXER = CLexer(stripnl=False, ensurenl=False)
+
+
+@functools.lru_cache(maxsize=4096)
+def tokens(text):
+    """Pygments' ``(offset, token, value)`` stream for *text*.
+
+    Every rule asks for the same file's views, and some for the same line's,
+    so each text is lexed once per lint run.
+    """
+    return tuple(LEXER.get_tokens_unprocessed(text))
 
 
 def _noncode(token):
@@ -44,7 +55,7 @@ def noncode_lines(text):
             first_nonblank[starts[index] + len(line) - len(stripped)] = index + 1
 
     lines = set()
-    for offset, token, value in LEXER.get_tokens_unprocessed(text):
+    for offset, token, value in tokens(text):
         if not _noncode(token):
             continue
         if offset in first_nonblank:
@@ -107,7 +118,7 @@ def split_trailing_comment(line):
     line for code with a comment beside it.
     """
     body = line.rstrip('\r\n')
-    for start, token, value in LEXER.get_tokens_unprocessed(body):
+    for start, token, value in tokens(body):
         if not _noncode(token) or token in String:
             continue
         if not value.lstrip().startswith('/*'):
@@ -134,7 +145,7 @@ def comment_lines(text):
             first_nonblank[starts[index] + len(line) - len(stripped)] = index + 1
 
     lines = set()
-    for offset, token, value in LEXER.get_tokens_unprocessed(text):
+    for offset, token, value in tokens(text):
         if token not in Comment:
             continue
         if offset in first_nonblank:
@@ -147,6 +158,7 @@ def comment_lines(text):
     return lines
 
 
+@functools.lru_cache(maxsize=256)
 def mask_noncode(text):
     """*text* with comments and strings blanked, newlines and offsets kept.
 
@@ -155,7 +167,7 @@ def mask_noncode(text):
     """
     pieces = []
     previous = 0
-    for offset, token, value in LEXER.get_tokens_unprocessed(text):
+    for offset, token, value in tokens(text):
         if not _noncode(token):
             continue
         pieces.append(text[previous:offset])

@@ -1,4 +1,4 @@
-/* auto-generated */
+/* auto headers */
 extern int errno;
 extern char *sys_errlist[];
 extern int sys_nerr;

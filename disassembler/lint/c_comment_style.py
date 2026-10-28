@@ -8,13 +8,13 @@ escape the old C has no syntax for.
 
 from pygments.token import Comment
 
-from .c_common import LEXER, line_col, line_starts
+from .c_common import line_col, line_starts, tokens
 from .core import Finding, Rule, register
 
 
 def _single_line_comments(text):
     """``(offset, comment text)`` for every ``//`` comment."""
-    for offset, token, value in LEXER.get_tokens_unprocessed(text):
+    for offset, token, value in tokens(text):
         if token in Comment.Single and value.startswith('//'):
             yield offset, value
 

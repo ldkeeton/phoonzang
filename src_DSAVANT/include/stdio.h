@@ -1,4 +1,4 @@
-/* auto-generated */
+/* auto headers */
 /* Copyright Manx Software Systems, Inc. 1982-1987.  All rights reserved */
 
 #ifndef _BUSY

@@ -58,23 +58,51 @@ def _word(data, offset):
     return struct.unpack_from('<H', data, offset)[0]
 
 
-def _decode_record(packed, count, tree):
-    """Decode *count* symbols from the Huffman *tree*."""
-    bits = []
-    for byte in packed:
-        bits.extend((byte >> shift) & 1 for shift in range(7, -1, -1))
+def _tree_words(tree):
+    """The Huffman *tree* as words: node byte offset ``n`` reads ``[n // 2]``."""
+    return struct.unpack(f'<{len(tree) // 2}H', tree[:len(tree) & ~1])
+
+
+def _byte_step(node, byte, words):
+    """Walk one packed *byte* from *node*: ``(symbols, node, error)``.
+
+    *error* is set when a bit indexes past the tree; the symbols before it
+    still count, because a record may end before that bit is read.
+    """
     out = []
-    node = 0
-    for bit in bits:
-        if len(out) >= count:
-            break
-        value = _word(tree, node + (2 if bit else 0))
+    for shift in range(7, -1, -1):
+        try:
+            value = words[(node >> 1) + ((byte >> shift) & 1)]
+        except IndexError:
+            return ''.join(out), node, True
         if value & 0x8000:
             node = ((-value) & 0xffff) * 4
             continue
         out.append(chr(value))
         node = 0
-    return ''.join(out)
+    return ''.join(out), node, False
+
+
+def _decode_record(packed, count, words, steps):
+    """Decode *count* symbols from the Huffman tree's *words*.
+
+    *steps* memoizes :func:`_byte_step` by ``(node, byte)`` across records,
+    so each packed byte is one lookup instead of eight tree reads.
+    """
+    out = ''
+    node = 0
+    for byte in packed:
+        if len(out) >= count:
+            break
+        key = node << 8 | byte
+        step = steps.get(key)
+        if step is None:
+            step = steps[key] = _byte_step(node, byte, words)
+        symbols, node, error = step
+        out += symbols
+        if error and len(out) < count:
+            raise IndexError('message tree index out of range')
+    return out[:count]
 
 
 def message_data(sidecar):
@@ -108,6 +136,7 @@ def decode_messages(app_dir, spec):
     with open(os.path.join(app_dir, spec['directory']), 'rb') as f:
         directory = f.read()
 
+    words = _tree_words(tree)
     records = []
     count = _word(directory, 0) if len(directory) >= 2 else 0
     for index in range(count):
@@ -120,6 +149,7 @@ def decode_messages(app_dir, spec):
 
     messages = {}
     skipped = []
+    steps = {}
     for first, offset, records_here, block in records:
         data = blocks[block * 1024:(block + 1) * 1024]
         if not data:
@@ -136,7 +166,8 @@ def decode_messages(app_dir, spec):
                 skipped.append(number)
                 continue
             try:
-                messages[number] = _decode_record(record[1:], record[0], tree)
+                messages[number] = _decode_record(record[1:], record[0], words,
+                                                  steps)
             except (IndexError, struct.error):
                 skipped.append(number)
     return messages, skipped
@@ -252,9 +283,9 @@ def _base_entry(entry):
 
 def inc_text(constants):
     """The ``include/msg.inc`` text."""
-    from lib.autogen import MARKER_ASM
+    from lib.autogen import HEADERS_ASM
     lines = [
-        MARKER_ASM,
+        HEADERS_ASM,
         '%ifndef MSG_INC',
         '%define MSG_INC',
         '',
@@ -272,9 +303,9 @@ def inc_text(constants):
 
 def header_text(constants):
     """The ``include/msg.h`` text, converted from the same constants."""
-    from lib.autogen import MARKER_C
+    from lib.autogen import HEADERS_C
     lines = [
-        MARKER_C,
+        HEADERS_C,
         '#ifndef MSG_H',
         '#define MSG_H',
         '',

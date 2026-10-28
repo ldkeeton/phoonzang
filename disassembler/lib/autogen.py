@@ -13,6 +13,11 @@ from lib.nasm_locals import output_text
 MARKER_ASM = '; auto-generated'
 MARKER_C = '/* auto-generated */'
 
+#: The first line of what ``make headers`` writes into ``include/``.  It is not
+#: a generated marker: the build, ``make clean`` and sync leave these alone.
+HEADERS_ASM = '; auto headers'
+HEADERS_C = '/* auto headers */'
+
 _C_SUFFIXES = ('.c', '.h')
 _MAX_LISTED = 10
 
@@ -47,6 +52,19 @@ def is_generated(path):
         return False
     line = first.decode('utf-8', 'ignore').rstrip()
     return line in (MARKER_ASM, MARKER_C)
+
+
+def is_auto_header(path):
+    """True when *path* is a regular file ``make headers`` wrote."""
+    if os.path.islink(path) or not os.path.isfile(path):
+        return False
+    try:
+        with open(path, 'rb') as f:
+            first = f.readline(256)
+    except OSError:
+        return False
+    line = first.decode('utf-8', 'ignore').rstrip()
+    return line in (HEADERS_ASM, HEADERS_C)
 
 
 #: The paths written inside :func:`write_once`, or ``None`` outside it.

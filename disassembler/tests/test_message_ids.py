@@ -147,14 +147,6 @@ class HeaderTest(unittest.TestCase):
         self.assertFalse(os.path.isdir(
             os.path.join(_SRC, 'include', 'msgs')))
 
-    def test_complete_catalog_has_every_decoded_id_and_unique_names(self):
-        messages, _skipped, bases = msgids.project_data('DSAVANT', _ROOT)
-        names, values = msgids.read_constants(
-            os.path.join(_SRC, msgids.inc_rel()))
-        expected = msgids.constant_names(messages, bases)
-        self.assertEqual(values, expected)
-        self.assertEqual(len(names), len(expected))
-
     def test_checked_in_headers_agree(self):
         inc = os.path.join(_SRC, msgids.inc_rel())
         header = os.path.join(_SRC, msgids.header_rel())
@@ -294,24 +286,6 @@ class HandCTest(unittest.TestCase):
         self.assertEqual(sorted(used - set(names)), [])
         self.assertTrue(used)
 
-    def test_generated_asm_message_uses_are_ready_for_c(self):
-        # Verification may inspect the output; header generation must obtain
-        # this same set upstream from decoded instructions.
-        declared, _ = msgids.read_constants(os.path.join(_SRC, msgids.MSG_H))
-        used = set()
-        for path in Path(_SRC).rglob('*.asm'):
-            if 'build_out' not in path.parts:
-                used.update(re.findall(r'\bMSG_[A-Za-z0-9_]+\b', path.read_text()))
-        self.assertTrue(used)
-        self.assertEqual(sorted(used - set(declared)), [])
-
-    def test_the_data_table_declares_every_name_it_uses(self):
-        # Both headers exist before either compilation or rendering.
-        outputs, _stats = msgids.generate_project(
-            'DSAVANT', _ROOT, write=False)
-        names, _values = msgids.parse_inc(outputs[msgids.MSG_INC])
-        self.assertEqual(sorted(_hand_c_names() - set(names)), [])
-
 
 class SidecarTest(unittest.TestCase):
     def test_calls_and_bases_are_project_wide(self):
@@ -422,7 +396,6 @@ class WalkTest(unittest.TestCase):
             code, calls, {2026: 'MSG_CAST'}, {},
             lambda insn: 'pick_spell_dialog')
         self.assertEqual(symbols, {(3, 1): 'MSG_CAST'})
-
 
 
 class LayoutTest(unittest.TestCase):

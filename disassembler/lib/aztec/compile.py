@@ -16,6 +16,7 @@ and ``OBD.TXT`` yields the relocations; the two share the same segment
 offsets, so relocations can be attributed to each function.
 """
 
+import concurrent.futures
 import contextlib
 import os
 import re
@@ -40,6 +41,10 @@ _DOSCOMP = os.path.join(
     os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))),
     'dos_compilers')
 
+#: Most modules one DOSBox session of :func:`compile_batch` compiles; a
+#: larger group runs as several sessions at once.
+_BATCH_CHUNK = 8
+
 #: The one Aztec release the game was built with.
 VERSION = 'v42b'
 
@@ -47,9 +52,9 @@ VERSION = 'v42b'
 #: ``compiler_flags`` entry for this prefix is how Manx built the library.
 LIBRARY_PREFIX = 'aztec_'
 
-#: A hand-written ``.s`` includes the project's ``lmacros.h``.  The build
-#: installs the merged header in ``src_<project>/include`` and mounts that
-#: directory as INCLUDE.
+#: A hand-written ``.s`` includes the project's ``lmacros.h``.  ``make headers``
+#: writes the merged header into ``src_<project>/include``, which the build
+#: mounts as INCLUDE.
 _LMACROS_RE = re.compile(r'^\s*include\s+lmacros\.h\b', re.I | re.M)
 
 #: A C ``#include "name.h"`` or ``#include <name.h>``.
@@ -82,9 +87,9 @@ def project_headers(source_text, include_dir=None):
     the high-level lmacros text when it includes ``lmacros.h``, and with
     *include_dir* the project headers a C source ``#include``s.
 
-    The vendor base comes from prebuild and is fixed for the cached tree; the
-    master fragment and the hand-owned struct headers are what a build or an
-    edit can change.
+    The vendor base is fixed (``make headers`` copies it unchanged); the
+    master fragment and the hand-owned struct headers are what an edit can
+    change.
     """
     text = sources.master_text() if _LMACROS_RE.search(source_text) else ''
     if include_dir:
@@ -427,7 +432,7 @@ def compile_module(source_text, name, *, compiler=VERSION, includes=None,
     ``compiler`` selects the code generator; ``includes`` selects the header
     tree (defaults to the same version as the compiler).  *headers_dir* is the
     include directory to mount; the build passes the project's
-    ``src_<project>/include``, while prebuild passes its staged copy.
+    ``src_<project>/include``, and prebuild's vendor seeds use the release's.
     """
     inc_version = includes or compiler
     cbin = _compiler_dir(compiler)
@@ -536,13 +541,13 @@ def _dosbox_argv(exe, work, cmds):
 
 
 def compile_batch(requests, *, verbose=False):
-    """Compile many modules with as few DOSBox launches as possible.
+    """Compile many modules in a few concurrent DOSBox sessions.
 
     ``requests`` is an iterable of
     ``(key, dos_name, source_text, compiler, includes, flags[, kind[, headers_dir]])``
     tuples (``kind`` is ``'c'`` by default, ``'asm'`` for a hand-written
-    module).  One DOSBox session is used per
-    ``(compiler, includes, flags, kind, headers_dir)`` group: mixing compilers
+    module).  A DOSBox session never spans two
+    ``(compiler, includes, flags, kind, headers_dir)`` groups: mixing compilers
     in a single session wedges the DOS ``cc`` driver, and repeatedly opening
     and closing DOSBox is both slow and unreliable.
 
@@ -555,11 +560,25 @@ def compile_batch(requests, *, verbose=False):
         headers_dir = rest[1] if len(rest) > 1 else None
         groups.setdefault((compiler, includes, tuple(flags), kind, headers_dir),
                           []).append((key, dos_name, source_text))
+    # Each group splits into sessions of at most _BATCH_CHUNK modules, run
+    # side by side: one long session is the build's critical path, and the
+    # sessions share nothing but the read-only compiler and include mounts.
+    sessions = [(group, members[i:i + _BATCH_CHUNK])
+                for group, members in groups.items()
+                for i in range(0, len(members), _BATCH_CHUNK)]
+    if len(sessions) == 1 or os.environ.get('ASM_DOSBOX_LOCK'):
+        workers = 1
+    else:
+        workers = min(len(sessions), os.cpu_count() or 4)
     results = {}
-    for (compiler, includes, flags, kind, headers_dir), members in groups.items():
-        results.update(_compile_group(compiler, includes, flags, members,
-                                      verbose=verbose, kind=kind,
-                                      headers_dir=headers_dir))
+    with concurrent.futures.ThreadPoolExecutor(max_workers=workers) as pool:
+        futures = [pool.submit(_compile_group, compiler, includes, flags,
+                               chunk, verbose=verbose, kind=kind,
+                               headers_dir=headers_dir)
+                   for (compiler, includes, flags, kind, headers_dir), chunk
+                   in sessions]
+        for future in futures:
+            results.update(future.result())
     return results
 
 

@@ -1,4 +1,4 @@
-; auto-generated
+; auto headers
 	nlist
 ; Copyright (C) 1985 by Manx Software Systems, Inc.
 ; :ts=8
