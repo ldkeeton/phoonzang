@@ -178,7 +178,7 @@ load_maze.cseg3:
 load_maze.forward8:
     mov ax, word [bp + 0xc]
     shl ax, 1
-    mov si, cseg_01c3 - IMAGE_BASE
+    mov si, cache_maze_slot_table - IMAGE_BASE
     add si, ax
     mov ax, word [cs:si]
     dec ax

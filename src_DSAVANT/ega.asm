@@ -171,7 +171,7 @@ loc_JTQK_001f.load_screen1 equ load_screen
 
 %include "shared/data/ems_slots.asm"          ; 0x019b
 
-%include "ega/data/cseg_01c3.asm"          ; 0x01c3
+%include "shared/data/cache_maze_slot_table.asm" ; 0x01c3
 
 %include "shared/data/screen_ems_slots.asm"   ; 0x01d7
 
@@ -470,29 +470,11 @@ loc_3fca           equ loc_35d8.loc24
 %include "shared/data/intensity_limits.asm"   ; 0x3fcd
 
 cseg_40dd equ cache_area_disk_error.cseg1
+cseg_4379 equ cache_area_disk_error.cseg2
+cseg_43b0 equ cache_area_disk_error.cseg3
+cseg_43e1 equ cache_area_disk_error.cseg4
+cseg_441e equ cache_area_disk_error.cseg5
 %include "shared/library/cache_area_disk_error.asm"   ; 0x40cd
-
-%include "shared/library/cache_area.asm"              ; 0x4111
-
-cseg_4379 equ cache_area_out_of_ems.cseg1
-%include "shared/library/cache_area_out_of_ems.asm"   ; 0x4369
-
-%include "shared/library/cache_area_clear_result.asm" ; 0x4394
-
-%include "shared/library/cache_area_restore_and_return.asm" ; 0x4398
-
-cseg_43b0 equ cache_area_ems_slots_full.cseg1
-%include "shared/library/cache_area_ems_slots_full.asm" ; 0x43a0
-
-cseg_43e1 equ cache_area_maze_mem_full.cseg1
-%include "shared/library/cache_area_maze_mem_full.asm" ; 0x43d1
-
-%include "shared/library/cache_area_return_zero.asm"  ; 0x4408
-
-cseg_441e equ cache_area_maze_slots_full.cseg1
-%include "shared/library/cache_area_maze_slots_full.asm" ; 0x440e
-
-%include "shared/data/ems_cur_page.asm"       ; 0x4440
 
 %include "shared/library/ems_map_pages.asm"           ; 0x4442
 
@@ -501,19 +483,9 @@ cseg_441e equ cache_area_maze_slots_full.cseg1
 cseg_45fb equ copy_file_region.cseg1
 %include "shared/library/copy_file_region.asm"        ; 0x45bd
 
-cache_maze.loc1 equ loc_47f0
+cseg_47b8 equ cache_maze.cseg1
+cseg_4800 equ cache_maze.cseg2
 %include "shared/library/cache_maze.asm"              ; 0x4624
-
-%include "shared/library/cache_maze_restore_and_return.asm" ; 0x47a0
-
-cseg_47b8 equ cache_maze_slot_in_use.cseg1
-%include "shared/library/cache_maze_slot_in_use.asm"  ; 0x47a8
-
-%include "shared/library/cache_maze_return_zero.asm"  ; 0x47ea
-
-loc_47f0  equ loc_3f3e
-cseg_4800 equ loc_3f3e.cseg1
-%include "shared/library/loc_3f3e.asm"                ; 0x47f0
 
 %include "shared/library/cache_screen_to_storage.asm" ; 0x4825
 

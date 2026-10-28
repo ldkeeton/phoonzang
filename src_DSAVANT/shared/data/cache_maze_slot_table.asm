@@ -1,5 +1,5 @@
 ; auto-generated
-cseg_01c3:
+cache_maze_slot_table:
 
     times 20 db 0
 

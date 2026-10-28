@@ -2049,7 +2049,8 @@
         "0516": {"name": "clip_mouse_pointer_to_area", "note": "clips the saved mouse rectangle against the dissolve rectangle"},
         "067f": {"name": "redraw_mouse_pointer", "note": "copies the saved mouse shape into the screen buffer"},
         "1308": {"name": "request_mouse_redraw", "note": "sets mouse_redraw_pending when a mouse is present"},
-        "381b": {"name": "cache_area_disk_error", "note": "prints the CACHEAREA() disk-write error from a code-segment string via int 21h/9 and exits to DOS with code 1"},
+        "381b": {"name": "cache_area_disk_error", "length": 885, "note": "owns the contiguous CACHEAREA code block: disk error, cache_area, return paths, and allocation errors"},
+        "3d72": {"name": "cache_maze", "length": 513, "note": "owns the contiguous CACHEMAZE code block, including shared return paths and slot/EMS errors"},
         "3aee": {"name": "cache_area_ems_slots_full", "note": "prints CACHEAREA out of EMS slots and exits"},
         "3b1f": {"name": "cache_area_maze_mem_full", "note": "prints CACHEAREA out of MAZE/PIC memory and exits"},
         "3b56": {"name": "cache_area_return_zero", "note": "returns 0 in dx:ax through the cache_area epilogue"},
@@ -2066,6 +2067,7 @@
         "40cb": {"name": "cache_screen_out_of_ems", "note": "prints CACHESCREEN insufficient EMS and exits"},
         "3eee": {"name": "cache_maze_restore_and_return", "note": "common epilogue: pops saved si/di/ds/es, restores frame, returns"},
         "3ef6": {"name": "cache_maze_slot_in_use", "note": "prints CACHEMAZE slot already in use and exits"},
+        "3f3e": {"name": "cache_maze_insufficient_ems", "note": "prints CACHEMAZE insufficient EMS and exits"},
         "3f38": {"name": "cache_maze_return_zero", "note": "returns 0 in dx:ax through the cache_maze epilogue"},
         "07fd": {"name": "save_area_out_of_memory", "note": "prints SAVEAREA out of memory and exits"},
         "082a": {"name": "save_area_clear_result", "note": "zeroes dx:ax and falls into the save_area epilogue"},
@@ -2079,6 +2081,7 @@
         {"start": "082a", "end": "082d", "note": "xor dx,dx / mov ax,dx tail that falls into the save_area epilogue; no caller"}
       ],
       "code_data_names": {
+        "01c3": {"name": "cache_maze_slot_table", "note": "20-byte cache-maze slot table, indexed by slot number in words; each entry is a block id or zero when free"},
         "00e1": {"name": "maze_mem_seg", "note": "segment base of MAZE memory, added to a block paragraph"},
         "00e5": {"name": "screen_buf_seg", "note": "segment of the 320-byte-stride screen buffer"},
         "00e9": {"name": "scratch_buf_seg", "note": "segment of the scratch buffer that pictures, sounds and cached screens are staged through"},
@@ -2160,6 +2163,7 @@
     },
     "ega": {
       "code_data_names": {
+        "01c3": {"name": "cache_maze_slot_table", "note": "20-byte cache-maze slot table, indexed by slot number in words; each entry is a block id or zero when free"},
         "00e1": {"name": "maze_mem_seg", "note": "segment base of MAZE memory, added to a block paragraph"},
         "00e5": {"name": "screen_buf_seg", "note": "segment of the 320-byte-stride screen buffer"},
         "00e9": {"name": "scratch_buf_seg", "note": "segment of the scratch buffer that pictures, sounds and cached screens are staged through"},
@@ -2215,7 +2219,8 @@
         "2a4f": {"name": "draw_mouse_pointer_at", "note": "far-returning entry: unless already busy, sets its busy flag, stores the pointer position (cx/2, dx) and falls into the adapter pointer drawer"},
         "3a0f": {"name": "print_msg_and_exit", "note": "prints the $-terminated string at ds:dx, then exits to DOS with errorlevel 1"},
         "3a3a": {"name": "table_entry_ptr", "note": "points ds:bx at entry al of the 4-byte offset/paragraph table at ds:2"},
-        "40cd": {"name": "cache_area_disk_error", "note": "prints the CACHEAREA disk write error and exits"},
+        "40cd": {"name": "cache_area_disk_error", "length": 885, "note": "owns the contiguous CACHEAREA code block: disk error, cache_area, return paths, and allocation errors"},
+        "4624": {"name": "cache_maze", "length": 513, "note": "owns the contiguous CACHEMAZE code block, including shared return paths and slot/EMS errors"},
         "4111": {"name": "cache_area", "note": "copies a screen rectangle to a file, MAZE memory or EMS and returns its slot index"},
         "4369": {"name": "cache_area_out_of_ems", "note": "prints CACHEAREA out of EMS and exits"},
         "4398": {"name": "cache_area_restore_and_return", "note": "common epilogue: pops saved si/di/ds/es, restores frame, returns"},
@@ -2233,6 +2238,7 @@
         "497d": {"name": "cache_screen_out_of_ems", "note": "prints CACHESCREEN insufficient EMS and exits"},
         "47a0": {"name": "cache_maze_restore_and_return", "note": "common epilogue: pops saved si/di/ds/es, restores frame, returns"},
         "47a8": {"name": "cache_maze_slot_in_use", "note": "prints CACHEMAZE slot already in use and exits"},
+        "47f0": {"name": "cache_maze_insufficient_ems", "note": "prints CACHEMAZE insufficient EMS and exits"},
         "47ea": {"name": "cache_maze_return_zero", "note": "returns 0 in dx:ax through the cache_maze epilogue"},
         "0d1e": {"name": "save_area_out_of_memory", "note": "prints SAVEAREA out of memory and exits"},
         "0d4b": {"name": "save_area_clear_result", "note": "zeroes dx:ax and falls into the save_area epilogue"},

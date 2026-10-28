@@ -15,7 +15,7 @@ cache_maze:
     dec word [cs:ems_block_count - IMAGE_BASE]
     mov ax, word [bp + 0xe]
     shl ax, 1
-    mov bx, cseg_01c3 - IMAGE_BASE
+    mov bx, cache_maze_slot_table - IMAGE_BASE
     add bx, ax
     mov ax, word [cs:bx]
     mov word [cs:bx], 0
@@ -34,7 +34,7 @@ cache_maze:
 .forward2:
     mov ax, word [bp + 0xe]
     shl ax, 1
-    mov bx, cseg_01c3 - IMAGE_BASE
+    mov bx, cache_maze_slot_table - IMAGE_BASE
     add bx, ax
     mov ax, word [cs:bx]
     or ax, ax
@@ -93,7 +93,7 @@ cache_maze:
     mov ax, word [cs:ems_paras_used - IMAGE_BASE]
     cmp ax, word [cs:ems_para_limit - IMAGE_BASE]
     jbe short .forward4
-    jmp near cache_maze.loc1
+    jmp near cache_maze_insufficient_ems
 .forward4:
     mov ax, di
     mov cl, 0xa
@@ -150,3 +150,43 @@ cache_maze:
     mov si, 0
     rep movsb
     jmp short .back1
+cache_maze_restore_and_return:
+    pop si
+    pop di
+    pop ds
+    pop es
+    mov sp, bp
+    pop bp
+    ret
+cache_maze_slot_in_use:
+    mov ax, cs
+    mov ds, ax
+    mov dx, cache_maze.cseg1 - IMAGE_BASE
+    mov ah, 9
+    int 0x21 ; DOS string output
+    mov ax, 0x4c01
+    int 0x21 ; DOS function dispatcher
+cache_maze.cseg1:
+
+    db 0x0d, 0x0a, 0x07
+    db 'CACHEMAZE().  Requested slot already in use.', 0
+    db 0x0a, 0x24
+
+cache_maze_return_zero:
+    xor dx, dx
+    mov ax, dx
+    jmp short cache_maze_restore_and_return
+cache_maze_insufficient_ems:
+    mov ax, cs
+    mov ds, ax
+    mov dx, cache_maze.cseg2 - IMAGE_BASE
+    mov ah, 9
+    int 0x21 ; DOS string output
+    mov ax, 0x4c01
+    int 0x21 ; DOS function dispatcher
+cache_maze.cseg2:
+
+    db 0x0d, 0x0a, 0x07
+    db 'CACHEMAZE().  Insufficient EMS.', 0
+    db 0x0a, 0x24
+

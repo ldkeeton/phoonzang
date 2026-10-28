@@ -11,7 +11,7 @@ decrement_cached_slot_ids:
     inc bx
     inc bx
     loop .back1
-    mov bx, cseg_01c3 - IMAGE_BASE
+    mov bx, cache_maze_slot_table - IMAGE_BASE
     mov cx, 0xa
 .back2:
     cmp ax, word [cs:bx]
