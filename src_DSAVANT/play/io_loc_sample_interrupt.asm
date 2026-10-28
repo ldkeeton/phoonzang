@@ -24,7 +24,7 @@ loc_GILG:
     pop ax                           ; 0x089c
     iret                             ; 0x089d
 loc_MTMG:
-    mov byte [cs:cseg_08ae - IMAGE_BASE], 0 ; 0x089e
+    mov byte [cs:play_device_timer_flag - IMAGE_BASE], 0 ; 0x089e
     mov al, 0x20                     ; 0x08a4
     out 0x20, al                     ; 0x08a6
     pop bx                           ; 0x08a8
@@ -33,7 +33,7 @@ loc_MTMG:
     pop ax                           ; 0x08ab
     iret                             ; 0x08ac
     db 0xb0
-cseg_08ae:
+play_device_timer_flag:
     db 0x00
 io_loc_sample_device_tick:
     cli                              ; 0x08af
@@ -41,7 +41,7 @@ io_loc_sample_device_tick:
     push ds                          ; 0x08b1
     push dx                          ; 0x08b2
     push bx                          ; 0x08b3
-    cmp byte [cs:cseg_08ae - IMAGE_BASE], 0 ; 0x08b4
+    cmp byte [cs:play_device_timer_flag - IMAGE_BASE], 0 ; 0x08b4
     js short loc_GILG                ; 0x08ba
     jne short .forward2              ; 0x08bc
 __zinsn_08be:
@@ -83,7 +83,7 @@ io_loc_sample_device_tick.forward1:
     dec bx                           ; 0x0904
     mov al, byte [bx]                ; 0x0905
     mov byte [cs:sample_position - IMAGE_BASE], al ; 0x0907
-    mov byte [cs:cseg_08ae - IMAGE_BASE], 1 ; 0x090b
+    mov byte [cs:play_device_timer_flag - IMAGE_BASE], 1 ; 0x090b
     mov al, 0x20                     ; 0x0911
     out 0x20, al                     ; 0x0913
     pop bx                           ; 0x0915

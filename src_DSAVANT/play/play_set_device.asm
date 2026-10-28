@@ -10,12 +10,12 @@ play_set_device:
     mov word [cs:tick_divider - IMAGE_BASE], ax ; 0x0333
     mov al, byte [bp + 0x15]         ; 0x0337
     mov byte [cs:play_device - IMAGE_BASE], al ; 0x033a
-    mov byte [cs:cseg_0a90 - IMAGE_BASE], 0 ; 0x033e
+    mov byte [cs:play_sample_mode_flag - IMAGE_BASE], 0 ; 0x033e
     pushf                            ; 0x0344
     pop ax                           ; 0x0345
     test ah, 0x80                    ; 0x0346
     je short .forward2               ; 0x0349
-    inc byte [cs:cseg_0a90 - IMAGE_BASE] ; 0x034b
+    inc byte [cs:play_sample_mode_flag - IMAGE_BASE] ; 0x034b
 .forward2:
     mov bl, byte [cs:play_device - IMAGE_BASE] ; 0x0350
     shl bl, 1                        ; 0x0355

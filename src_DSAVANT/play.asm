@@ -63,31 +63,27 @@ saved_int08_segment equ __zinsn_0b0f + 0x3
 
 %include "play/play_set_device.asm"        ; 0x0322
 
-cseg_0848                equ __zinsn_0846 + 0x2
-cseg_08bf                equ __zinsn_08be + 0x1
+sample_counter_seed_e    equ __zinsn_0846 + 0x2
+sample_data_segment_b    equ __zinsn_08be + 0x1
 sample_stream_offset     equ __zinsn_08c3 + 0x1
-cseg_08d4                equ __zinsn_08cf + 0x5
-cseg_097c                equ __zinsn_097a + 0x2
-cseg_09a4                equ __zinsn_09a3 + 0x1
+sample_counter_seed_b    equ __zinsn_08cf + 0x5
+sample_counter_seed_f    equ __zinsn_097a + 0x2
+sample_data_segment_c    equ __zinsn_09a3 + 0x1
 sample_stream_offset_alt equ __zinsn_09a8 + 0x1
-cseg_09bb                equ __zinsn_09b6 + 0x5
-cseg_0a54                equ __zinsn_0a52 + 0x2
+sample_counter_seed_c    equ __zinsn_09b6 + 0x5
+sample_counter_seed_d    equ __zinsn_0a52 + 0x2
 ; saved_int08_offset       equ __zinsn_0b0f + 0x1
 ; saved_int08_segment      equ __zinsn_0b0f + 0x3
-cseg_18e8                equ __zinsn_18e7 + 0x1
+sample_data_segment_a    equ __zinsn_18e7 + 0x1
 sample_offset            equ __zinsn_18f1 + 0x1
-cseg_1904                equ __zinsn_18ff + 0x5
-%include "play/play_install_handler.asm"   ; 0x03e2
+sample_counter_seed_a    equ __zinsn_18ff + 0x5
+%include "play/play_configure_timer_handler.asm" ; 0x03e2
 
-%include "play/io_delay.asm"               ; 0x0610
-
-; saved_int08_offset  equ __zinsn_0b0f + 0x1
-; saved_int08_segment equ __zinsn_0b0f + 0x3
-%include "play/loc_0614.asm"               ; 0x0614
+%include "play/play_build_velocity_curves.asm" ; 0x065a
 
 %include "play/opl_silent_note_pulse.asm"  ; 0x06ec
 
-%include "play/leaf_loc_JKKL.asm"          ; 0x077b
+%include "play/build_sample_count_table.asm" ; 0x077b
 
 %include "play/opl_write.asm"              ; 0x07f6
 
@@ -95,7 +91,7 @@ cseg_1904                equ __zinsn_18ff + 0x5
 
 %include "play/opl_delay_short.asm"        ; 0x0831
 
-%include "play/loc_UVLK.asm"               ; 0x0841
+%include "play/sample_fraction_interrupt.asm" ; 0x0841
 
 loc_121d equ __zinsn_121c + 0x1
 loc_LPSH                 equ dissolve_area
@@ -118,7 +114,7 @@ dissolve_area.show_area1 equ loc_121d
 
 %include "play/speaker_sample_interrupt.asm" ; 0x0a41
 
-%include "play/io_loc_MPGK.asm"            ; 0x0a6d
+%include "play/mark_timer_handler_installed.asm" ; 0x0a6d
 
 %include "play/data/music_device.asm"      ; 0x0a7c
 
@@ -140,7 +136,9 @@ dissolve_area.show_area1 equ loc_121d
 
 %include "play/data/saved_pic_mask.asm"    ; 0x0a8f
 
-%include "play/data/cseg_0a90.asm"         ; 0x0a90
+%include "play/data/play_sample_mode_flag.asm" ; 0x0a90
+
+%include "play/data/cseg_0a92.asm"         ; 0x0a92
 
 %include "play/data/timer_handler_installed.asm" ; 0x0a94
 

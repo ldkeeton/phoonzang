@@ -1,35 +1,5 @@
 ; auto-generated
-loc_0614:
-    cmp byte [cs:int08_hooked - IMAGE_BASE], 0 ; 0x0614
-    jne short loc_061f               ; 0x061a
-    jmp near jumptable_035e_case_0   ; 0x061c
-loc_061f:
-    cld                              ; 0x061f
-    cli                              ; 0x0620
-    xor ax, ax                       ; 0x0621
-    mov es, ax                       ; 0x0623
-    mov di, 0x20                     ; 0x0625
-    mov ax, word [cs:saved_int08_offset - IMAGE_BASE] ; 0x0628
-    stosw                            ; 0x062c
-    mov ax, word [cs:saved_int08_segment - IMAGE_BASE] ; 0x062d
-    stosw                            ; 0x0631
-    mov byte [cs:int08_hooked - IMAGE_BASE], 0 ; 0x0632
-    call io_loc_MPGK                 ; 0x0638
-    mov al, 0x36                     ; 0x063b
-    out 0x43, al                     ; 0x063d
-    call io_delay                    ; 0x063f
-    mov ax, 0                        ; 0x0642
-    out 0x40, al                     ; 0x0645
-    call io_delay                    ; 0x0647
-    mov al, ah                       ; 0x064a
-    out 0x40, al                     ; 0x064c
-    mov al, byte [cs:saved_pic_mask - IMAGE_BASE] ; 0x064e
-    out 0x21, al                     ; 0x0652
-    sti                              ; 0x0654
-    jmp near jumptable_035e_case_0   ; 0x0655
-cseg_0658:
-    db 0x00, 0x00
-jumptable_0789_case_1:
+play_build_velocity_curves:
     push di                          ; 0x065a
     push si                          ; 0x065b
     mov di, sample_count_table - IMAGE_BASE ; 0x065c
@@ -43,21 +13,21 @@ jumptable_0789_case_1:
     mov al, ah                       ; 0x0670
     mov ah, dl                       ; 0x0672
     cmp ax, 0x80                     ; 0x0674
-    jb short loc_065a.forward1       ; 0x0677
+    jb short .forward1               ; 0x0677
     mov ax, 0x80                     ; 0x0679
-loc_065a.forward1:
+.forward1:
     mov word [cs:cseg_0658 - IMAGE_BASE], ax ; 0x067c
     mov bx, 0                        ; 0x0680
-loc_065a.back1:
+.back1:
     mov ax, 0x7f                     ; 0x0683
     sub ax, bx                       ; 0x0686
     mul cx                           ; 0x0688
     mov al, ah                       ; 0x068a
     mov ah, dl                       ; 0x068c
     cmp ax, 0x80                     ; 0x068e
-    jb short loc_065a.forward2       ; 0x0691
+    jb short .forward2               ; 0x0691
     mov ax, 0x7f                     ; 0x0693
-loc_065a.forward2:
+.forward2:
     neg ax                           ; 0x0696
     add ax, word [cs:cseg_0658 - IMAGE_BASE] ; 0x0698
     dec ax                           ; 0x069d
@@ -67,17 +37,17 @@ loc_065a.forward2:
     mov byte [cs:bx + sample_count_table - IMAGE_BASE], al ; 0x06ab
     inc bx                           ; 0x06b0
     cmp bx, strict word 0x80         ; 0x06b1
-    jb short loc_065a.back1          ; 0x06b5
+    jb short .back1                  ; 0x06b5
     mov bx, 0                        ; 0x06b7
-loc_065a.back2:
+.back2:
     mov ax, bx                       ; 0x06ba
     mul cx                           ; 0x06bc
     mov al, ah                       ; 0x06be
     mov ah, dl                       ; 0x06c0
     cmp ax, 0x80                     ; 0x06c2
-    jb short loc_065a.forward3       ; 0x06c5
+    jb short .forward3               ; 0x06c5
     mov ax, 0x7f                     ; 0x06c7
-loc_065a.forward3:
+.forward3:
     add ax, word [cs:cseg_0658 - IMAGE_BASE] ; 0x06ca
     cmp byte [cs:play_device - IMAGE_BASE], 4 ; 0x06cf
     mov si, ax                       ; 0x06d5
@@ -85,7 +55,7 @@ loc_065a.forward3:
     mov byte [cs:bx + opl_velocity_curve_prefix - IMAGE_BASE], al ; 0x06dc
     inc bx                           ; 0x06e1
     cmp bx, strict word 0x80         ; 0x06e2
-    jb short loc_065a.back2          ; 0x06e6
+    jb short .back2                  ; 0x06e6
     pop si                           ; 0x06e8
     pop di                           ; 0x06e9
     ret                              ; 0x06ea

@@ -1,5 +1,5 @@
 ; auto-generated
-io_loc_MPGK:
+mark_timer_handler_installed:
     in al, 0x61                      ; 0x0a6d
     and al, 0xfe                     ; 0x0a6f
     out 0x61, al                     ; 0x0a71

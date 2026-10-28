@@ -15,4 +15,4 @@ play_select_device:
     mov al, byte [cs:play_device - IMAGE_BASE] ; 0x02a6
     call clamp_device                ; 0x02aa
     mov byte [bp + 0x15], al         ; 0x02ad
-    jmp near play_install_handler    ; 0x02b0
+    jmp near play_configure_timer_handler ; 0x02b0

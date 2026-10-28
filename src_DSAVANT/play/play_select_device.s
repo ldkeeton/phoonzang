@@ -5,7 +5,7 @@ codeseg	segment	byte public 'code'
 	extrn	play_device:byte
 	extrn	clamp_device_:near
 	extrn	play_set_device_:near
-	extrn	play_install_handler_:near
+	extrn	play_configure_timer_handler_:near
 request	equ	14h		;stack arg byte: 0ffh = set device
 device	equ	15h		;stack arg byte: device number
 	public	play_select_device_
@@ -21,7 +21,7 @@ current:
 	mov	al,cs:play_device
 	call	clamp_device_		;out-of-range device becomes 0
 	mov	byte ptr device[bp],al
-	jmp	play_install_handler_
+	jmp	play_configure_timer_handler_
 play_select_device_ endp
 codeseg	ends
 	end

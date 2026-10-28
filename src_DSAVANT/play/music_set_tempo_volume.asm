@@ -13,7 +13,7 @@ music_set_tempo_volume:
     div bx                           ; 0x0257
 .forward1:
     mov word [cs:chain_period - IMAGE_BASE], ax ; 0x0259
-    cmp byte [cs:cseg_0a90 - IMAGE_BASE], 0 ; 0x025d
+    cmp byte [cs:play_sample_mode_flag - IMAGE_BASE], 0 ; 0x025d
     je short .forward2               ; 0x0263
     cmp byte [cs:music_enabled - IMAGE_BASE], 0 ; 0x0265
     je short .forward2               ; 0x026b
