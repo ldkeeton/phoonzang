@@ -133,7 +133,8 @@ def _buckets(fragments, tables):
     keys, hosts = {}, _hosts(tables)
     shapes = {}
     for rel, (text, ctext) in fragments.items():
-        if binary_local(rel):
+        is_data = os.path.basename(os.path.dirname(rel)) == 'data'
+        if binary_local(rel) or (not is_data and _is_single_instruction(text)):
             keys[rel] = []
             continue
         base = _shared_base(rel)
@@ -169,6 +170,26 @@ def _buckets(fragments, tables):
     return sorted(((next((fragments[r][1] for r in rels
                           if fragments[r][1] is not None), None), rels)
                    for rels in out.values()), key=repr)
+
+
+def _is_single_instruction(text):
+    """Recognize a generated instruction body, ignoring labels and EQU aliases."""
+    instructions = []
+    for line in text.splitlines():
+        code = _strip_comment(line).strip()
+        while match := _LABEL_DEF.match(code):
+            code = match.group(2).strip()
+        if not code or _EQU.match(code):
+            continue
+        # Keep mixed code/data and preprocessor bodies out of this shortcut.
+        if code.startswith('%') or code.split()[0].lower() in {
+                'db', 'dw', 'dd', 'dq', 'dt', 'times', 'resb', 'resw',
+                'incbin', 'align'}:
+            return False
+        instructions.append(code)
+        if len(instructions) > 1:
+            return False
+    return len(instructions) == 1
 
 
 def _family(sym):

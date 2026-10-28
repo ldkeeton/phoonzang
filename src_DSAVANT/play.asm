@@ -82,9 +82,7 @@ sample_counter_seed_a    equ __zinsn_18ff + 0x5
 %include "play/sample_fraction_interrupt.asm" ; 0x0841
 
 loc_121d equ __zinsn_121c + 0x1
-loc_LPSH                 equ dissolve_area
-dissolve_area.show_area1 equ loc_121d
-%include "shared/drv/dissolve_area.asm"               ; 0x086b
+%include "play/loc_LPSH.asm"               ; 0x086b
 
 %include "play/data/sample_position.asm"   ; 0x086e
 

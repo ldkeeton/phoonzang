@@ -306,8 +306,7 @@ cseg_3186 equ load_picture.cseg1
 cseg_31b6 equ load_picture.cseg2
 %include "shared/drv/load_picture.asm"            ; 0x3085
 
-dissolve_area.show_area1 equ show_area
-%include "shared/drv/dissolve_area.asm"           ; 0x31df
+%include "ega/dissolve_area.asm"           ; 0x31df
 
 %include "ega/data/cseg_31e2.asm"          ; 0x31e2
 

@@ -527,7 +527,7 @@ aztec_begin.loc1 equ loc_GIPI
 loc_GIPI equ aztec_impl_exit.loc1
 %include "shared/aztec/aztec_impl_exit.asm"    ; 0x3716
 
-%include "shared/aztec/aztec_exit_return.asm"  ; 0x371c
+%include "vinstall/aztec_exit_return.asm"  ; 0x371c
 
 %include "shared/data/aztec_dbgentry_retip.asm" ; 0x3721
 

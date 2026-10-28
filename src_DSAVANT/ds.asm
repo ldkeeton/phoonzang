@@ -955,7 +955,7 @@ aztec_begin.loc1 equ ds_loc_GIPI
 ds_loc_GIPI equ aztec_impl_exit.loc1
 %include "shared/aztec/aztec_impl_exit.asm"    ; 0x4e7e
 
-%include "shared/aztec/aztec_exit_return.asm"  ; 0x4e84
+%include "ds/aztec/aztec_exit_return.asm"  ; 0x4e84
 
 %include "shared/data/aztec_dbgentry_retip.asm" ; 0x4e89
 
