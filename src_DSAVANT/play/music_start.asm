@@ -29,7 +29,7 @@ music_start:
     call loc_VVTT                    ; 0x0084
     cmp ax, strict word 0            ; 0x0087
     jne short .forward1              ; 0x008a
-    call io_loc_PISO                 ; 0x008c
+    call hook_int08_and_configure_pit ; 0x008c
     mov byte [cs:music_enabled - IMAGE_BASE], 1 ; 0x008f
 .forward1:
     pop bx                           ; 0x0095

@@ -38,6 +38,8 @@ codeseg	segment	byte public 'code'
 	extrn	music_enabled:byte
 	extrn	music_tempo:word
 	public	play_configure_timer_handler
+	public	play_set_device_return
+	public	io_delay
 install_mode_byte	equ	12h	;caller byte tested before playback setup
 install_flags	equ	14h	;bit 1 selects the early return; bit 0 waits for the timer
 sample_count_arg	equ	12h	;caller byte passed to the table builder
@@ -60,7 +62,7 @@ play_configure_timer_handler proc near
 	je	install_continue
 	test	byte ptr cs:timer_handler_installed,0ffh
 	jne	install_continue
-	jmp	near ptr install_return
+	jmp	near ptr play_set_device_return
 install_continue:
 	cli
 	test	byte ptr cs:timer_handler_installed,0ffh
@@ -201,10 +203,10 @@ install_clear_timer_flag:
 	out	21h,al		;PIC mask port
 	sti
 	test	byte ptr install_flags[bp],1
-	je	install_return
+	je	play_set_device_return
 	.repeat
 	.until	<byte ptr cs:timer_handler_installed> and 0ffh ;wait until the timer flag is set
-install_return:
+play_set_device_return:
 	pops	bx,dx,ds,es,si,di,bp
 	sti
 	ret
@@ -252,7 +254,7 @@ install_start_music_timer:
 install_restore_mask:
 	mov	al,byte ptr cs:saved_pic_mask
 	out	21h,al		;PIC mask port
-	jmp	short install_return
+	jmp	short play_set_device_return
 play_configure_timer_handler endp
 
 io_delay proc near
@@ -264,7 +266,7 @@ io_delay endp
 install_restore_timer:
 	cmp	byte ptr cs:int08_hooked,0
 	jne	install_restore_vector
-	jmp	near ptr install_return
+	jmp	near ptr play_set_device_return
 install_restore_vector:
 	cld
 	cli
@@ -288,7 +290,7 @@ install_restore_vector:
 	mov	al,byte ptr cs:saved_pic_mask
 	out	21h,al
 	sti
-	jmp	near ptr install_return
+	jmp	near ptr play_set_device_return
 cseg_0658 label byte
 	db	0,0
 jumptable_0789_case_1 label near

@@ -2287,7 +2287,7 @@
         {"start": "0870", "end": "0874", "note": "Unreachable INT 08h handler entry: `cli` and the push ax/ds/dx/bx of io_loc_TGPU's prologue (0x08af), falling into the body at 0x0875 that io_loc_TGPU's `js` shares. Not in the 0495 handler table and never loaded as an immediate; the bytes before it (0x086e/0x086f) are the counter and limit that body compares."}
       ],
       "code_tables": [
-        {"table": "035e", "jmp": "0359", "entry_size": 2, "count": 5, "note": "Device dispatch read by `jmp [cs:bx+0x45e]` (0x0359). Declared here so the decoder roots its five arms before the table's bytes are decoded as code: target 0x368 is mid-instruction in that decode, which stops the auto-scan before it can prove three targets"},
+        {"table": "035e", "jmp": "0359", "entry_size": 2, "count": 5, "note": "play_device_setup_dispatch_table: device index selects the shared return, OPL pulse, port setup for devices 2/3, or no-op return. The table overlaps code at 0x368, so declare it before decoding the arms."},
         {"table": "0495", "entry_size": 2, "count": 16, "note": "INT 08h handler dispatch table: loc_03e2 loads `mov dx, word [cs:bx+0x595]` (four overlapping 4-entry sub-tables at file 0495/049d/04a5/04ad, indexed by cseg_0a7d) and the installer at 04b5 stores DX into 0000:0020. Values are runtime CS offsets (file + 0x100): the targets are the handler entries 0841, 08af, 0975, 099f, 0a41 and 18e4"},
         {"table": "0789", "jmp": "0784", "entry_size": 2, "count": 5, "note": "Device dispatch read by `jmp [cs:bx+0x789]` at 0784; case 1 enters the velocity-curve builder at 065a"},
         {"table": "115b", "entry_size": 2, "count": 6, "note": "Mode dispatch table read by `call [cs:bx+0x125b]` (0x1154); see jump_tables. Declared here too so the decoder roots its targets (0x1302 is code, not a db blob) and carves the words as data"},
@@ -2296,7 +2296,7 @@
         {"table": "11b3", "entry_size": 2, "count": 6, "note": "Mode dispatch table read by `call [cs:bx+0x12b3]` (0x11ac); as 115b. Six entries: the bytes after it are a byte table"}
       ],
       "jump_tables": [
-        {"table": "035e", "jmp": "0359", "entry_size": 2, "count": 5, "note": "Device dispatch: `mov bl, cs:[play_device]; shl bl, 1; xor bh, bh; jmp [cs:bx+0x45e]`. Five entries; two duplicate case 2 (0x368). The table's own bytes alias the first instructions of the arms (`0x368` is mid-instruction when the table is decoded as code), so the auto-scan cannot prove it without the declaration"},
+        {"table": "035e", "jmp": "0359", "entry_size": 2, "count": 5, "note": "play_device_setup_dispatch_table indexed by play_device: return, OPL pulse, port setup shared by devices 2/3, and no-op return. The table overlaps the code arm at 0x368."},
         {"table": "0789", "jmp": "0784", "entry_size": 2, "count": 5, "note": "Device dispatch through `jmp [cs:bx+0x789]`; five entries target 0793, 065a, and 07db (with duplicate cases)."},
         {"table": "115b", "jmp": "1154", "entry_size": 2, "count": 6, "note": "Mode dispatch: `mov bl, cs:[cseg_0a7c]; shl bx, 1; call [cs:bx+0x125b]`. The mode is 0-5 (`cmp byte cs:[cseg_0a7c], 5` at 0x0b53), so six code pointers"},
         {"table": "1178", "jmp": "1171", "entry_size": 2, "count": 6, "note": "Mode dispatch through `call [cs:bx+0x1278]`; six entries, as 115b"},
@@ -2317,9 +2317,15 @@
         "00c4": {"name": "opl_init"},
         "01e6": {"name": "opl_keys_off", "note": "clears the key-on bit (0x20) of OPL registers B0h+n for n = 0..opl_voice_count from the shadow at 1429; B1h base on devices 1 and 4; falls through into 0203"},
         "0222": {"name": "mpu_all_notes_off", "note": "sends controller 123 (all notes off) = 0 on each 0b0h|n control-change status, channels 1-9"},
+        "0294": {"name": "play_select_device", "length": 334, "note": "owns the API entry and its device-selection tail through the byte before the shared timer-handler entry at 03e2"},
         "02b3": {"name": "clamp_device", "note": "al >= 6 becomes 0; called on play_device before play_install_handler"},
+        "02ba": {"name": "hook_int08_and_configure_pit", "note": "saves and hooks the INT 08h vector, captures the current PIT count, and programs PIT channel 0"},
         "0322": {"name": "play_set_device", "note": "entered by jmp in the caller's frame: INT 13h reset, then stores the device byte [bp+15h] (4 becomes 1) in play_device"},
+        "0368": {"name": "play_device_setup_port_case", "note": "configures the sample output ports for devices 2 and 3"},
+        "03ca": {"name": "play_device_setup_noop_case", "note": "device dispatch arm that returns through the shared setup epilogue"},
+        "03dc": {"name": "play_device_setup_opl_pulse_case", "note": "device dispatch arm that pulses the OPL before returning"},
         "03e2": {"name": "play_configure_timer_handler", "length": 632, "note": "configures or restores the playback timer and interrupt vector"},
+        "0592": {"name": "play_set_device_return", "note": "shared device-dispatch epilogue reached by play_set_device handlers"},
         "0610": {"name": "io_delay", "note": "jmp $+3 / ret; called between back-to-back PIT port writes and reads"},
         "065a": {"name": "play_build_velocity_curves", "note": "builds the 128-byte sample-count and velocity-curve tables from the caller's byte"},
         "06ec": {"name": "opl_silent_note_pulse", "note": "resets PIT 0 to count 65536, keys OPL channel 0 on (A0h=8Fh, B0h=2Eh) with its carrier level 3Fh for 0952h PIT ticks, keys it off, then writes 3Fh to reg 40h without the shadow"},
@@ -2363,6 +2369,7 @@
         "18e4": {"name": "pit_sample_interrupt", "note": "INT 08h handler: plays one sample byte through PIT channel 2, counts down the music divider, and restores the timer when the sample ends"}
       },
       "code_data_names": {
+        "035e": {"name": "play_device_setup_dispatch_table", "note": "five-entry output-device setup dispatch table"},
         "0321": {"name": "int08_hooked", "note": "byte: 0 when INT 08h still holds the saved vector; play_install_handler sets 1, the music timer installer 0ffh; cleared on restore"},
         "0848": {"name": "sample_counter_seed_e", "note": "byte derived from the caller extent and copied into playback data"},
         "086e": {"name": "sample_position", "note": "current sample-table index"},

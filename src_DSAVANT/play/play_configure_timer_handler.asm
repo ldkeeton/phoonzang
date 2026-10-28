@@ -12,7 +12,7 @@ play_configure_timer_handler:
     je short .forward2               ; 0x03fa
     test byte [cs:timer_handler_installed - IMAGE_BASE], 0xff ; 0x03fc
     jne short .forward2              ; 0x0402
-    jmp near jumptable_035e_case_0   ; 0x0404
+    jmp near play_set_device_return  ; 0x0404
 .forward2:
     cli                              ; 0x0407
     test byte [cs:timer_handler_installed - IMAGE_BASE], 0xff ; 0x0408
@@ -155,11 +155,11 @@ play_configure_timer_handler.forward12:
     out 0x21, al                     ; 0x0581
     sti                              ; 0x0583
     test byte [bp + 0x14], 1         ; 0x0584
-    je short jumptable_035e_case_0   ; 0x0588
+    je short play_set_device_return  ; 0x0588
 play_configure_timer_handler.back2:
     test byte [cs:timer_handler_installed - IMAGE_BASE], 0xff ; 0x058a
     je short play_configure_timer_handler.back2 ; 0x0590
-jumptable_035e_case_0:
+play_set_device_return:
     pop bx                           ; 0x0592
     pop dx                           ; 0x0593
     pop ds                           ; 0x0594
@@ -215,7 +215,7 @@ play_configure_timer_handler.back3:
 play_configure_timer_handler.forward17:
     mov al, byte [cs:saved_pic_mask - IMAGE_BASE] ; 0x0608
     out 0x21, al                     ; 0x060c
-    jmp short jumptable_035e_case_0  ; 0x060e
+    jmp short play_set_device_return ; 0x060e
 io_delay:
     jmp near .return1                ; 0x0610
 .return1:
@@ -223,7 +223,7 @@ io_delay:
 play_configure_timer_handler.forward18:
     cmp byte [cs:int08_hooked - IMAGE_BASE], 0 ; 0x0614
     jne short play_configure_timer_handler.forward19 ; 0x061a
-    jmp near jumptable_035e_case_0   ; 0x061c
+    jmp near play_set_device_return  ; 0x061c
 play_configure_timer_handler.forward19:
     cld                              ; 0x061f
     cli                              ; 0x0620
@@ -247,6 +247,6 @@ play_configure_timer_handler.forward19:
     mov al, byte [cs:saved_pic_mask - IMAGE_BASE] ; 0x064e
     out 0x21, al                     ; 0x0652
     sti                              ; 0x0654
-    jmp near jumptable_035e_case_0   ; 0x0655
+    jmp near play_set_device_return  ; 0x0655
 cseg_0658:
     db 0x00, 0x00

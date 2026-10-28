@@ -51,17 +51,9 @@ loc_JTQK_001f.load_screen1 equ wait_for_music
 
 %include "play/music_set_tempo_volume.asm" ; 0x023f
 
-%include "play/play_select_device.asm"     ; 0x0294
-
-%include "play/clamp_device.asm"           ; 0x02b3
-
 saved_int08_offset  equ __zinsn_0b0f + 0x1
 saved_int08_segment equ __zinsn_0b0f + 0x3
-%include "play/io_loc_PISO.asm"            ; 0x02ba
-
-%include "play/data/int08_hooked.asm"      ; 0x0321
-
-%include "play/play_set_device.asm"        ; 0x0322
+%include "play/play_select_device.asm"     ; 0x0294
 
 sample_counter_seed_e    equ __zinsn_0846 + 0x2
 sample_data_segment_b    equ __zinsn_08be + 0x1
