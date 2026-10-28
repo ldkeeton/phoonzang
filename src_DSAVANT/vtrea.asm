@@ -115,7 +115,7 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "vtrea/draw_treasure_panel.asm"   ; 0x0111
 
-%include "shared/game/draw_party_glyph_row.asm"  ; 0x067b
+%include "shared/overlay/draw_party_glyph_row.asm"  ; 0x067b
 
 %include "vtrea/draw_animated_glyph_pair.asm" ; 0x073b
 
@@ -132,13 +132,13 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 api_idx_0004_JGSH.bss1 equ bss_9150
 api_idx_0004_JGSH.loc1 equ loc_NQGV
 api_idx_0004_JGSH.bss2 equ bss_9152
-%include "shared/game/api_idx_0004_JGSH.asm"     ; 0x0a6a
+%include "shared/overlay/api_idx_0004_JGSH.asm"     ; 0x0a6a
 
 %include "vtrea/api_idx_0090_NPLS.asm"     ; 0x0b29
 
 api_idx_0004_QHUH          equ api_idx_0004_JQTM
 api_idx_0004_JQTM.api_idx1 equ api_idx_0090_NPLS
-%include "shared/game/api_idx_0004_JQTM.asm"     ; 0x0d24
+%include "shared/overlay/api_idx_0004_JQTM.asm"     ; 0x0d24
 
 %include "vtrea/loc_KIOQ.asm"              ; 0x0d87
 
@@ -146,7 +146,7 @@ api_idx_0004_JQTM.api_idx1 equ api_idx_0090_NPLS
 
 %include "vtrea/show_treasure_message.asm" ; 0x0eb2
 
-%include "shared/game/loc_SIKN.asm"              ; 0x0f54
+%include "shared/overlay/loc_SIKN.asm"              ; 0x0f54
 
 %include "vtrea/api_idx_0002_RJQH.asm"     ; 0x0f96
 
@@ -172,27 +172,27 @@ api_idx_0004_JQTM.api_idx1 equ api_idx_0090_NPLS
 
 %include "vtrea/api_idx_0084_IMVQ.asm"     ; 0x25ab
 
-%include "shared/game/api_idx_0008_RQRL.asm"     ; 0x3552
+%include "shared/overlay/api_idx_0008_RQRL.asm"     ; 0x3552
 
-%include "shared/game/api_idx_0004_UJRL.asm"     ; 0x35de
+%include "shared/overlay/api_idx_0004_UJRL.asm"     ; 0x35de
 
-%include "shared/game/api_idx_0006_TMNI.asm"     ; 0x36af
+%include "shared/overlay/api_idx_0006_TMNI.asm"     ; 0x36af
 
-%include "shared/game/api_idx_0006_KPLV.asm"     ; 0x3706
+%include "shared/overlay/api_idx_0006_KPLV.asm"     ; 0x3706
 
-%include "shared/game/api_idx_0018_RGOS.asm"     ; 0x37b6
+%include "shared/overlay/api_idx_0018_RGOS.asm"     ; 0x37b6
 
 api_idx_0004_SLIS equ draw_list_rows
-%include "shared/game/draw_list_rows.asm"     ; 0x38b3
+%include "shared/overlay/draw_list_rows.asm"     ; 0x38b3
 
 loc_HTKI.draw_list_rows1 equ api_idx_0004_SLIS
-%include "shared/game/loc_HTKI.asm"              ; 0x3a15
+%include "shared/overlay/loc_HTKI.asm"              ; 0x3a15
 
 %include "vtrea/api_idx_0038_ULQM.asm"     ; 0x3a56
 
 %include "vtrea/api_idx_0054_TIQK.asm"     ; 0x4254
 
-%include "shared/game/loc_QQUT.asm"              ; 0x4318
+%include "shared/overlay/loc_QQUT.asm"              ; 0x4318
 
 %include "vtrea/apply_spell_effect_alt.asm" ; 0x4368
 
@@ -202,25 +202,25 @@ loc_HTKI.draw_list_rows1 equ api_idx_0004_SLIS
 
 %include "vtrea/api_idx_007a_NHII.asm"     ; 0x4f0c
 
-%include "shared/game/api_idx_004c_RQSO.asm"     ; 0x51d7
+%include "shared/overlay/api_idx_004c_RQSO.asm"     ; 0x51d7
 
-%include "shared/game/api_idx_0004_ONJT.asm"     ; 0x52ec
+%include "shared/overlay/api_idx_0004_ONJT.asm"     ; 0x52ec
 
 %include "vtrea/api_idx_0040_LIPH.asm"     ; 0x5348
 
 %include "vtrea/api_idx_0006_OUPU.asm"     ; 0x550e
 
-%include "shared/game/replace_slashes_with_spaces.asm" ; 0x5689
+%include "shared/overlay/replace_slashes_with_spaces.asm" ; 0x5689
 
-%include "shared/game/loc_GMVH.asm"              ; 0x56af
+%include "shared/overlay/loc_GMVH.asm"              ; 0x56af
 
-%include "shared/game/assign_slot_bit.asm"       ; 0x56cc
+%include "shared/overlay/assign_slot_bit.asm"       ; 0x56cc
 
 %include "vtrea/loc_HUIS.asm"              ; 0x5789
 
 %include "vtrea/distribute_survivor_experience.asm" ; 0x5d80
 
-%include "shared/game/api_idx_0006_POPS.asm"     ; 0x5e88
+%include "shared/overlay/api_idx_0006_POPS.asm"     ; 0x5e88
 
 api_idx_0004_JVLM     equ log_maze_change
 jumptable_5fd3_case_0 equ log_maze_change.jumptable_case1
@@ -228,13 +228,13 @@ jumptable_5fd3_case_1 equ log_maze_change.jumptable_case2
 jumptable_5fd3_case_5 equ log_maze_change.jumptable_case3
 jumptable_5fd3_case_6 equ log_maze_change.jumptable_case4
 jumptable_5fd3        equ log_maze_change.jumptable1
-%include "shared/game/log_maze_change.asm"     ; 0x5efe
+%include "shared/overlay/log_maze_change.asm"     ; 0x5efe
 
 %include "vtrea/api_idx_006a_NKMN.asm"     ; 0x5fef
 
 %include "vtrea/api_idx_0074_MHUG.asm"     ; 0x66eb
 
-%include "shared/game/clear_bit_pair.asm"        ; 0x6e69
+%include "shared/overlay/clear_bit_pair.asm"        ; 0x6e69
 
 %include "vtrea/api_idx_0004_IHLT.asm"     ; 0x6ead
 
@@ -244,13 +244,13 @@ jumptable_5fd3        equ log_maze_change.jumptable1
 
 %include "vtrea/api_idx_0072_LQIT.asm"     ; 0x7151
 
-%include "shared/game/api_idx_0004_KGNP.asm"     ; 0x7319
+%include "shared/overlay/api_idx_0004_KGNP.asm"     ; 0x7319
 
 %include "vtrea/api_idx_00e6_QHNU.asm"     ; 0x73ae
 
-%include "shared/game/mark_region_bits.asm"      ; 0x782b
+%include "shared/overlay/mark_region_bits.asm"      ; 0x782b
 
-%include "shared/game/loc_QTKU.asm"              ; 0x788f
+%include "shared/overlay/loc_QTKU.asm"              ; 0x788f
 
 %include "vtrea/api_idx_0074_SGUS.asm"     ; 0x78ed
 
@@ -268,38 +268,38 @@ jumptable_5fd3        equ log_maze_change.jumptable1
 
 %include "vtrea/run_state_1d_scene.asm"    ; 0x81db
 
-%include "shared/game/draw_split_two_line_text.asm" ; 0x8200
+%include "shared/overlay/draw_split_two_line_text.asm" ; 0x8200
 
-%include "shared/game/loc_RULJ.asm"              ; 0x82a9
+%include "shared/overlay/loc_RULJ.asm"              ; 0x82a9
 
-%include "shared/game/api_idx_0008_JJHR.asm"     ; 0x82b8
+%include "shared/overlay/api_idx_0008_JJHR.asm"     ; 0x82b8
 
 %include "vtrea/loc_IOMS.asm"              ; 0x8441
 
-%include "shared/game/draw_party_slot_letters.asm" ; 0x893e
+%include "shared/overlay/draw_party_slot_letters.asm" ; 0x893e
 
-%include "shared/game/advance_party_slot_frames.asm" ; 0x89bd
+%include "shared/overlay/advance_party_slot_frames.asm" ; 0x89bd
 
-%include "shared/game/collect_known_spells.asm"  ; 0x8a18
+%include "shared/overlay/collect_known_spells.asm"  ; 0x8a18
 
-%include "shared/game/draw_marker_glyph.asm"     ; 0x8a89
+%include "shared/overlay/draw_marker_glyph.asm"     ; 0x8a89
 
-%include "shared/game/draw_power_digit.asm"      ; 0x8ac7
+%include "shared/overlay/draw_power_digit.asm"      ; 0x8ac7
 
 draw_spell_cost.dseg1 equ dseg_9100
-%include "shared/game/draw_spell_cost.asm"       ; 0x8b53
+%include "shared/overlay/draw_spell_cost.asm"       ; 0x8b53
 
-%include "shared/game/draw_realm_spell_points.asm" ; 0x8bf4
+%include "shared/overlay/draw_realm_spell_points.asm" ; 0x8bf4
 
 periodic_party_redraw.party_redraw_mode1       equ party_redraw_interval
 periodic_party_redraw.draw_realm_spell_points1 equ draw_realm_spell_points
-%include "shared/game/periodic_party_redraw.asm" ; 0x8c8d
+%include "shared/overlay/periodic_party_redraw.asm" ; 0x8c8d
 
 %include "vtrea/spell_select_dialog.asm"   ; 0x8d1e
 
-%include "shared/aztec/aztec_ovbgn.asm"           ; 0x99c5
+%include "shared/overlay/aztec_ovbgn.asm"           ; 0x99c5
 
-%include "shared/aztec/aztec_cswt.asm"            ; 0x9a03
+%include "shared/overlay/aztec_cswt.asm"            ; 0x9a03
 
 __zdata_start:
 %include "vtrea/data/dseg_9098.asm"        ; 0x9a1b

@@ -147,7 +147,7 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "vmaze/api_idx_0002_LMTG.asm"     ; 0x02da
 
-%include "shared/game/load_maze_file.asm"        ; 0x02fe
+%include "shared/overlay/load_maze_file.asm"        ; 0x02fe
 
 %include "vmaze/loc_VRKM.asm"              ; 0x0344
 
@@ -171,34 +171,34 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "vmaze/loc_LMUG.asm"              ; 0x0ea6
 
-%include "shared/game/loc_QQOI.asm"              ; 0x0f68
+%include "shared/overlay/loc_QQOI.asm"              ; 0x0f68
 
 %include "vmaze/wait_ticks_or_key.asm"     ; 0x0f8e
 
-%include "shared/game/api_idx_0008_OMTP.asm"     ; 0x0fde
+%include "shared/overlay/api_idx_0008_OMTP.asm"     ; 0x0fde
 
-%include "shared/game/show_message.asm"          ; 0x1094
+%include "shared/overlay/show_message.asm"          ; 0x1094
 
-%include "shared/game/loc_QTKU.asm"              ; 0x10b0
+%include "shared/overlay/loc_QTKU.asm"              ; 0x10b0
 
 %include "vmaze/api_idx_0002_QLPH.asm"     ; 0x110e
 
 get_cell_wall.get_cell_wall_variant_a1 equ get_north_cell_wall
 get_cell_wall.get_cell_wall_variant_b1 equ get_west_cell_wall
-%include "shared/game/get_cell_wall.asm"         ; 0x1165
+%include "shared/overlay/get_cell_wall.asm"         ; 0x1165
 
 %include "vmaze/api_idx_0002_IPQN.asm"     ; 0x1206
 
 %include "vmaze/loc_KOGT.asm"              ; 0x1240
 
-%include "shared/game/loc_IVLM.asm"              ; 0x12a2
+%include "shared/overlay/loc_IVLM.asm"              ; 0x12a2
 
 %include "vmaze/loc_LPNP.asm"              ; 0x12d3
 
 %include "vmaze/api_idx_0004_IKPN.asm"     ; 0x1308
 
 check_at_saved_location.save_location_flag1 equ save_location_flag
-%include "shared/game/check_at_saved_location.asm" ; 0x13c0
+%include "shared/overlay/check_at_saved_location.asm" ; 0x13c0
 
 %include "vmaze/api_idx_0004_IHHI.asm"     ; 0x13f7
 
@@ -206,7 +206,7 @@ jumptable_1556_case_1  equ api_idx_0004_HRPS.jumptable_case1
 jumptable_1556_case_14 equ api_idx_0004_HRPS.jumptable_case2
 jumptable_1556_case_0  equ api_idx_0004_HRPS.jumptable_case3
 jumptable_1556         equ api_idx_0004_HRPS.jumptable1
-%include "shared/game/api_idx_0004_HRPS.asm"     ; 0x1504
+%include "shared/overlay/api_idx_0004_HRPS.asm"     ; 0x1504
 
 %include "vmaze/api_idx_000e_NSGM.asm"     ; 0x162b
 
@@ -218,38 +218,38 @@ jumptable_1556         equ api_idx_0004_HRPS.jumptable1
 
 %include "vmaze/api_idx_0010_HOIJ.asm"     ; 0x2033
 
-%include "shared/game/api_idx_0006_TMNI.asm"     ; 0x20dc
+%include "shared/overlay/api_idx_0006_TMNI.asm"     ; 0x20dc
 
 api_idx_0006_TGQJ equ api_idx_0006_KPLV
-%include "shared/game/api_idx_0006_KPLV.asm"     ; 0x2133
+%include "shared/overlay/api_idx_0006_KPLV.asm"     ; 0x2133
 
 %include "vmaze/loc_MMGL.asm"              ; 0x21e3
 
 %include "vmaze/api_idx_0022_VNNP.asm"     ; 0x2215
 
-%include "shared/game/get_north_cell_wall.asm"   ; 0x2d94
+%include "shared/overlay/get_north_cell_wall.asm"   ; 0x2d94
 
-%include "shared/game/get_west_cell_wall.asm"    ; 0x2e0c
+%include "shared/overlay/get_west_cell_wall.asm"    ; 0x2e0c
 
 loc_UMHI_2e84      equ loc_UMHI_1913
 loc_UMHI_1913.bss1 equ bss_91d0
-%include "shared/game/loc_UMHI_1913.asm"         ; 0x2e84
+%include "shared/overlay/loc_UMHI_1913.asm"         ; 0x2e84
 
 loc_LPLI_2e98      equ loc_LPLI_1927
 loc_LPLI_1927.bss1 equ bss_91d0
-%include "shared/game/loc_LPLI_1927.asm"         ; 0x2e98
+%include "shared/overlay/loc_LPLI_1927.asm"         ; 0x2e98
 
 loc_UMHI_2eac      equ loc_UMHI_193b
 loc_UMHI_193b.bss1 equ bss_91d2
-%include "shared/game/loc_UMHI_193b.asm"         ; 0x2eac
+%include "shared/overlay/loc_UMHI_193b.asm"         ; 0x2eac
 
 loc_LPLI_2ec0      equ loc_LPLI_194f
 loc_LPLI_194f.bss1 equ bss_91d2
-%include "shared/game/loc_LPLI_194f.asm"         ; 0x2ec0
+%include "shared/overlay/loc_LPLI_194f.asm"         ; 0x2ec0
 
-%include "shared/game/offset_relative_map_position.asm" ; 0x2ed4
+%include "shared/overlay/offset_relative_map_position.asm" ; 0x2ed4
 
-%include "shared/game/read_cell_kind_direction.asm" ; 0x2f55
+%include "shared/overlay/read_cell_kind_direction.asm" ; 0x2f55
 
 jumptable_3000_case_0   equ api_idx_0008_LJTR.jumptable_case1
 jumptable_3000_case_3   equ api_idx_0008_LJTR.jumptable_case2
@@ -293,7 +293,7 @@ jumptable_3356_case_15  equ api_idx_0008_LJTR.jumptable_case27
 api_idx_0008_LJTR.bss10 equ bss_92f0
 jumptable_3356_case_16  equ api_idx_0008_LJTR.jumptable_case28
 jumptable_3356          equ api_idx_0008_LJTR.jumptable4
-%include "shared/game/api_idx_0008_LJTR.asm"     ; 0x2f8e
+%include "shared/overlay/api_idx_0008_LJTR.asm"     ; 0x2f8e
 
 jumptable_340d_case_0  equ get_relative_cell_wall.jumptable_case1
 jumptable_340d_case_3  equ get_relative_cell_wall.jumptable_case2
@@ -310,7 +310,7 @@ jumptable_3563_case_6  equ get_relative_cell_wall.jumptable_case11
 jumptable_3563_case_10 equ get_relative_cell_wall.jumptable_case12
 jumptable_3563_case_11 equ get_relative_cell_wall.jumptable_case13
 jumptable_3563         equ get_relative_cell_wall.jumptable2
-%include "shared/game/get_relative_cell_wall.asm" ; 0x33c0
+%include "shared/overlay/get_relative_cell_wall.asm" ; 0x33c0
 
 api_idx_0004_OVUO.bss1  equ bss_931e
 api_idx_0004_OVUO.bss2  equ bss_932c
@@ -326,7 +326,7 @@ api_idx_0004_OVUO.bss11 equ bss_9326
 api_idx_0004_OVUO.bss12 equ bss_932d
 api_idx_0004_OVUO.bss13 equ bss_932f
 api_idx_0004_OVUO.bss14 equ bss_9330
-%include "shared/game/api_idx_0004_OVUO.asm"     ; 0x358c
+%include "shared/overlay/api_idx_0004_OVUO.asm"     ; 0x358c
 
 api_idx_0010_RPIL          equ api_idx_0010_NIMV
 api_idx_0010_NIMV.loc1     equ loc_LPLI_2e98
@@ -350,7 +350,7 @@ jumptable_3ed8_case_11     equ api_idx_0010_NIMV.jumptable_case12
 jumptable_3ed8_case_12     equ api_idx_0010_NIMV.jumptable_case13
 jumptable_3ed8_case_14     equ api_idx_0010_NIMV.jumptable_case14
 jumptable_3ed8             equ api_idx_0010_NIMV.jumptable2
-%include "shared/game/api_idx_0010_NIMV.asm"     ; 0x3802
+%include "shared/overlay/api_idx_0010_NIMV.asm"     ; 0x3802
 
 api_idx_0012_VQVU          equ api_idx_0012_JLRR
 jumptable_4404_case_8      equ api_idx_0012_JLRR.jumptable_case1
@@ -372,7 +372,7 @@ jumptable_4607_case_1      equ api_idx_0012_JLRR.jumptable_case10
 jumptable_4607_case_2      equ api_idx_0012_JLRR.jumptable_case11
 jumptable_4607_case_4      equ api_idx_0012_JLRR.jumptable_case12
 jumptable_4607             equ api_idx_0012_JLRR.jumptable2
-%include "shared/game/api_idx_0012_JLRR.asm"     ; 0x3f56
+%include "shared/overlay/api_idx_0012_JLRR.asm"     ; 0x3f56
 
 api_idx_0012_RMOL.bss1     equ bss_926e
 api_idx_0012_RMOL.bss2     equ bss_92ec
@@ -395,13 +395,13 @@ api_idx_0012_RMOL.bss7     equ bss_923c
 api_idx_0012_RMOL.bss8     equ bss_92ba
 api_idx_0012_RMOL.bss9     equ bss_92a0
 api_idx_0012_RMOL.bss10    equ bss_9223
-%include "shared/game/api_idx_0012_RMOL.asm"     ; 0x4665
+%include "shared/overlay/api_idx_0012_RMOL.asm"     ; 0x4665
 
-%include "shared/game/api_idx_0016_LHKK.asm"     ; 0x4f53
+%include "shared/overlay/api_idx_0016_LHKK.asm"     ; 0x4f53
 
-%include "shared/game/api_idx_0024_NUGL.asm"     ; 0x50f4
+%include "shared/overlay/api_idx_0024_NUGL.asm"     ; 0x50f4
 
-%include "shared/game/draw_clock_marker_glyph.asm" ; 0x529a
+%include "shared/overlay/draw_clock_marker_glyph.asm" ; 0x529a
 
 api_idx_0030_QUNV                     equ api_idx_0030_GVGM
 api_idx_0030_GVGM.bss1                equ bss_920a
@@ -450,53 +450,53 @@ api_idx_0030_GVGM.save_location_flag1 equ bss_91c8
 api_idx_0030_GVGM.bss27               equ bss_91b6
 api_idx_0030_GVGM.bss28               equ bss_91bc
 api_idx_0030_GVGM.bss29               equ bss_91c2
-%include "shared/game/api_idx_0030_GVGM.asm"     ; 0x53fd
+%include "shared/overlay/api_idx_0030_GVGM.asm"     ; 0x53fd
 
 redraw_maze_view.api_idx1 equ api_idx_0030_QUNV
-%include "shared/game/redraw_maze_view.asm"      ; 0x676c
+%include "shared/overlay/redraw_maze_view.asm"      ; 0x676c
 
-%include "shared/game/loc_MPHO.asm"              ; 0x678c
+%include "shared/overlay/loc_MPHO.asm"              ; 0x678c
 
-%include "shared/game/find_map_piece.asm"        ; 0x67c6
+%include "shared/overlay/find_map_piece.asm"        ; 0x67c6
 
-%include "shared/game/find_object_at.asm"        ; 0x6882
+%include "shared/overlay/find_object_at.asm"        ; 0x6882
 
 %include "vmaze/save_level_state.asm"      ; 0x68f2
 
-%include "shared/game/api_idx_0006_POPS.asm"     ; 0x6960
+%include "shared/overlay/api_idx_0006_POPS.asm"     ; 0x6960
 
 jumptable_6aab_case_0 equ log_maze_change.jumptable_case1
 jumptable_6aab_case_1 equ log_maze_change.jumptable_case2
 jumptable_6aab_case_5 equ log_maze_change.jumptable_case3
 jumptable_6aab_case_6 equ log_maze_change.jumptable_case4
 jumptable_6aab        equ log_maze_change.jumptable1
-%include "shared/game/log_maze_change.asm"       ; 0x69d6
+%include "shared/overlay/log_maze_change.asm"       ; 0x69d6
 
 %include "vmaze/loc_GRON.asm"              ; 0x6ac7
 
-%include "shared/game/restore_area_a_draw_glyph.asm" ; 0x6b0a
+%include "shared/overlay/restore_area_a_draw_glyph.asm" ; 0x6b0a
 
 %include "vmaze/loc_MVHP.asm"              ; 0x6b5a
 
 api_idx_0004_JGSH.bss1 equ bss_9b4c
 api_idx_0004_JGSH.loc1 equ loc_MVHP
 api_idx_0004_JGSH.bss2 equ bss_9b4e
-%include "shared/game/api_idx_0004_JGSH.asm"     ; 0x6c0a
+%include "shared/overlay/api_idx_0004_JGSH.asm"     ; 0x6c0a
 
 %include "vmaze/api_idx_0090_PNOU.asm"     ; 0x6cc9
 
 api_idx_0004_JQTM.api_idx1 equ api_idx_0090_PNOU
-%include "shared/game/api_idx_0004_JQTM.asm"     ; 0x6eb1
+%include "shared/overlay/api_idx_0004_JQTM.asm"     ; 0x6eb1
 
 %include "vmaze/loc_MLLK.asm"              ; 0x6f14
 
-%include "shared/game/loc_SIKN.asm"              ; 0x6fbf
+%include "shared/overlay/loc_SIKN.asm"              ; 0x6fbf
 
 %include "vmaze/api_idx_0002_KUOJ.asm"     ; 0x7001
 
 %include "vmaze/api_idx_001e_SRJO.asm"     ; 0x7034
 
-%include "shared/game/mark_region_bits.asm"      ; 0x7242
+%include "shared/overlay/mark_region_bits.asm"      ; 0x7242
 
 %include "vmaze/move_party_to_dest.asm"    ; 0x72a6
 
@@ -534,7 +534,7 @@ api_idx_0004_JQTM.api_idx1 equ api_idx_0090_PNOU
 
 %include "vmaze/api_idx_0010_TVMI.asm"     ; 0x820b
 
-%include "shared/game/api_idx_0004_KGNP.asm"     ; 0x83b3
+%include "shared/overlay/api_idx_0004_KGNP.asm"     ; 0x83b3
 
 %include "vmaze/api_idx_000e_LLMU.asm"     ; 0x8448
 
@@ -550,7 +550,7 @@ api_idx_0004_JQTM.api_idx1 equ api_idx_0090_PNOU
 
 %include "vmaze/loc_IPSH.asm"              ; 0x8867
 
-%include "shared/game/clear_bit_pair.asm"        ; 0x89d0
+%include "shared/overlay/clear_bit_pair.asm"        ; 0x89d0
 
 %include "vmaze/claim_cell.asm"            ; 0x8a14
 
@@ -584,7 +584,7 @@ api_idx_0004_JQTM.api_idx1 equ api_idx_0090_PNOU
 
 %include "vmaze/api_idx_0002_NMTS.asm"     ; 0x98cc
 
-%include "shared/game/assign_slot_bit.asm"       ; 0x9920
+%include "shared/overlay/assign_slot_bit.asm"       ; 0x9920
 
 %include "vmaze/api_idx_0006_NNTR.asm"     ; 0x99dd
 
@@ -610,7 +610,7 @@ api_idx_0004_JQTM.api_idx1 equ api_idx_0090_PNOU
 
 %include "vmaze/api_idx_0032_TNQM.asm"     ; 0xab9b
 
-%include "shared/aztec/aztec_ovbgn.asm"           ; 0xac30
+%include "shared/overlay/aztec_ovbgn.asm"           ; 0xac30
 
 __zdata_start:
 %include "vmaze/data/dseg_9098.asm"        ; 0xac6e

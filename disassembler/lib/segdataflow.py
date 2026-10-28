@@ -894,7 +894,9 @@ def _transfer(insn, state, model, relocs, binary_data):
         value = _source_space(insn, ops[0], state, model, relocs, binary_data)
         out.stack = (out.stack or ()) + (value,)
     elif mnem == 'int':
-        _clobber(out, ('ax', 'bx', 'cx', 'dx'))
+        # A service may return a far pointer in ES (``int 21h`` 35h: the
+        # vector's ES:BX), as a call may.
+        _clobber(out, _CALL_CLOBBER)
     elif mnem in ('call', 'lcall'):
         _clobber(out, _CALL_CLOBBER)
         out.stack = None

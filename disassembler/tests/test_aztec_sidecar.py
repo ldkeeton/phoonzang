@@ -19,8 +19,11 @@ class ConcreteFunctionNamesTest(unittest.TestCase):
         self.assertTrue(all('aztec' not in b for b in sidecar['binaries'].values()))
         names = sidecar['binaries']['ds']['function_names']
         self.assertTrue(any(info.get('name') == 'aztec_impl_tty_rd'
-                            and info.get('library') == '__tty_rd'
                             for info in names.values()))
+        # A routine's role comes from its band, not the sidecar.
+        self.assertFalse([info for b in sidecar['binaries'].values()
+                          for info in b.get('function_names', {}).values()
+                          if 'role' in info or 'library' in info])
 
     def test_normal_analysis_does_not_read_signature_cache(self):
         with mock.patch('main.options.AZTEC_PREBUILD', False), \
@@ -46,21 +49,23 @@ class ConcreteFunctionNamesTest(unittest.TestCase):
                 ctx = PhaseContext(bytes(64), start_offset=start,
                                    sidecar_entry={
                                        'ghidra_base_offset': base,
-                                       'function_names': {key: {'name': 'callee', 'role': 'aztec'}}})
+                                       'function_names': {key: {'name': 'aztec_callee'}}})
                 SidecarPhase().run(None, ctx)
                 self.assertIn(20, ctx.code_targets)
                 self.assertEqual(ctx.code_targets[20].reason, 'function_names')
 
     def test_concrete_functions_do_not_override_hard_data(self):
         ctx = PhaseContext(bytes(64), sidecar_entry={
-            'function_names': {'10': {'name': 'bad', 'role': 'aztec'}},
+            'function_names': {'10': {'name': 'aztec_bad'}},
             'force_data': [{'start': '10', 'end': '12'}]})
         SidecarPhase().run(None, ctx)
         self.assertNotIn(16, ctx.code_targets)
 
-    def test_concrete_names_preserve_vendor_symbol_identity(self):
+    def test_the_aztec_band_makes_a_runtime_routine(self):
         from main.runner import _sidecar_routine
-        sym = _sidecar_routine('aztec_impl_tty_rd', 20,
-                               {'role': 'aztec', 'library': '__tty_rd'})
-        self.assertEqual(sym.library, '__tty_rd')
-        self.assertEqual(sym.role, 'aztec')
+        bands = [(0x10, 0x1f, 'aztec')]
+        self.assertEqual(_sidecar_routine('callee', 0x14, None, bands).role,
+                         'aztec')
+        self.assertIsNone(_sidecar_routine('aztec_callee', 0x24, None,
+                                           bands).role)
+        self.assertIsNone(_sidecar_routine('aztec_callee', 0x14).role)

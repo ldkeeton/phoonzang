@@ -181,20 +181,20 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "vpcmk/ovmain.asm"                ; 0x000e
 
-%include "shared/game/load_screen_file_immediate.asm" ; 0x0021
+%include "shared/overlay/load_screen_file_immediate.asm" ; 0x0021
 
-%include "shared/game/transfer_pc_file_record.asm" ; 0x0085
+%include "shared/overlay/transfer_pc_file_record.asm" ; 0x0085
 
-%include "shared/game/input_text_field.asm"      ; 0x0104
+%include "shared/overlay/input_text_field.asm"      ; 0x0104
 
 api_idx_0008_VRRI equ api_idx_0008_JJHR
-%include "shared/game/api_idx_0008_JJHR.asm"     ; 0x02bc
+%include "shared/overlay/api_idx_0008_JJHR.asm"     ; 0x02bc
 
 loc_TRPK.dseg1 equ dseg_90a3
 loc_TRPK.dseg2 equ dseg_90a9
-%include "shared/game/loc_TRPK.asm"              ; 0x0445
+%include "shared/overlay/loc_TRPK.asm"              ; 0x0445
 
-%include "shared/game/api_idx_0058_GKGM.asm"     ; 0x0935
+%include "shared/overlay/api_idx_0058_GKGM.asm"     ; 0x0935
 
 api_idx_0038_LTUV.dseg1 equ dseg_90af
 jumptable_11b9_case_0   equ api_idx_0038_LTUV.jumptable_case1
@@ -203,35 +203,35 @@ jumptable_11b9_case_3   equ api_idx_0038_LTUV.jumptable_case3
 jumptable_11b9_case_4   equ api_idx_0038_LTUV.jumptable_case4
 jumptable_11b9_case_5   equ api_idx_0038_LTUV.jumptable_case5
 jumptable_11b9          equ api_idx_0038_LTUV.jumptable1
-%include "shared/game/api_idx_0038_LTUV.asm"     ; 0x0abb
+%include "shared/overlay/api_idx_0038_LTUV.asm"     ; 0x0abb
 
 api_idx_0026_NRVO.dseg1 equ dseg_90b5
-%include "shared/game/api_idx_0026_NRVO.asm"     ; 0x11f4
+%include "shared/overlay/api_idx_0026_NRVO.asm"     ; 0x11f4
 
-%include "shared/game/draw_party_slot_letters.asm" ; 0x16ea
+%include "shared/overlay/draw_party_slot_letters.asm" ; 0x16ea
 
 api_idx_0004_RMVO.bss1 equ bss_953a
 api_idx_0004_RMVO.bss2 equ bss_9538
-%include "shared/game/api_idx_0004_RMVO.asm"     ; 0x1769
+%include "shared/overlay/api_idx_0004_RMVO.asm"     ; 0x1769
 
-%include "shared/game/advance_party_slot_frames.asm" ; 0x1819
+%include "shared/overlay/advance_party_slot_frames.asm" ; 0x1819
 
-%include "shared/game/clamp_value_to_range.asm"  ; 0x1874
+%include "shared/overlay/clamp_value_to_range.asm"  ; 0x1874
 
 %include "vpcmk/api_idx_0010_GGGV.asm"     ; 0x18b5
 
 %include "vpcmk/api_idx_0002_SSJN.asm"     ; 0x19ab
 
 draw_title_banner.bss1 equ bss_9542
-%include "shared/game/draw_title_banner.asm"     ; 0x1a98
+%include "shared/overlay/draw_title_banner.asm"     ; 0x1a98
 
 %include "vpcmk/api_idx_0054_RLST.asm"     ; 0x1b40
 
-%include "shared/game/api_idx_0004_PMIU.asm"     ; 0x2090
+%include "shared/overlay/api_idx_0004_PMIU.asm"     ; 0x2090
 
 api_idx_0004_GRKI      equ api_idx_0004_GRGJ
 api_idx_0004_GRGJ.bss1 equ bss_95b0
-%include "shared/game/api_idx_0004_GRGJ.asm"     ; 0x2144
+%include "shared/overlay/api_idx_0004_GRGJ.asm"     ; 0x2144
 
 api_idx_0004_SNNO                   equ api_idx_0004_LOLJ
 jumptable_240e_case_0               equ api_idx_0004_LOLJ.jumptable_case1
@@ -309,34 +309,34 @@ jumptable_240e                      equ api_idx_0004_LOLJ.jumptable1
 api_idx_0004_LOLJ.bss1              equ bss_95e8
 api_idx_0004_LOLJ.bss2              equ bss_95b0
 api_idx_0004_LOLJ.slot_prompt_text1 equ slot_prompt_text
-%include "shared/game/api_idx_0004_LOLJ.asm"     ; 0x2273
+%include "shared/overlay/api_idx_0004_LOLJ.asm"     ; 0x2273
 
-%include "shared/game/draw_known_spell_values.asm" ; 0x24c8
+%include "shared/overlay/draw_known_spell_values.asm" ; 0x24c8
 
 api_idx_002e_JGHT equ api_idx_002e_ILPL
-%include "shared/game/api_idx_002e_ILPL.asm"     ; 0x2582
+%include "shared/overlay/api_idx_002e_ILPL.asm"     ; 0x2582
 
 api_idx_0032_HGIM.api_idx1 equ api_idx_002e_JGHT
-%include "shared/game/api_idx_0032_HGIM.asm"     ; 0x26f1
+%include "shared/overlay/api_idx_0032_HGIM.asm"     ; 0x26f1
 
 %include "vpcmk/api_idx_0088_QLNT.asm"     ; 0x2c15
 
 api_idx_0004_VQQR equ collect_known_spells
-%include "shared/game/collect_known_spells.asm"     ; 0x2d63
+%include "shared/overlay/collect_known_spells.asm"     ; 0x2d63
 
-%include "shared/game/draw_marker_glyph.asm"     ; 0x2dd4
+%include "shared/overlay/draw_marker_glyph.asm"     ; 0x2dd4
 
-%include "shared/game/draw_power_digit.asm"      ; 0x2e12
+%include "shared/overlay/draw_power_digit.asm"      ; 0x2e12
 
 loc_HRLN              equ draw_spell_cost
 draw_spell_cost.dseg1 equ dseg_92d2
-%include "shared/game/draw_spell_cost.asm"              ; 0x2e9e
+%include "shared/overlay/draw_spell_cost.asm"              ; 0x2e9e
 
-%include "shared/game/draw_realm_spell_points.asm" ; 0x2f3f
+%include "shared/overlay/draw_realm_spell_points.asm" ; 0x2f3f
 
 periodic_party_redraw.party_redraw_mode1       equ bss_976c
 periodic_party_redraw.draw_realm_spell_points1 equ draw_realm_spell_points
-%include "shared/game/periodic_party_redraw.asm" ; 0x2fd8
+%include "shared/overlay/periodic_party_redraw.asm" ; 0x2fd8
 
 api_idx_0050_NHHL          equ api_idx_0050_MINM
 api_idx_0050_MINM.dseg1    equ dseg_92d6
@@ -348,13 +348,13 @@ jumptable_3cc2_case_1      equ api_idx_0050_MINM.jumptable_case2
 jumptable_3cc2_case_3      equ api_idx_0050_MINM.jumptable_case3
 jumptable_3cc2_case_4      equ api_idx_0050_MINM.jumptable_case4
 jumptable_3cc2             equ api_idx_0050_MINM.jumptable1
-%include "shared/game/api_idx_0050_MINM.asm"     ; 0x3069
+%include "shared/overlay/api_idx_0050_MINM.asm"     ; 0x3069
 
 %include "vpcmk/api_idx_006e_LVOK.asm"     ; 0x3d59
 
 loc_TTSP.bss1 equ bss_976c
 loc_TTSP.bss2 equ bss_95ae
-%include "shared/game/loc_TTSP.asm"              ; 0x3f87
+%include "shared/overlay/loc_TTSP.asm"              ; 0x3f87
 
 %include "vpcmk/api_idx_0002_IRKS.asm"     ; 0x402d
 
@@ -363,7 +363,7 @@ loc_TTSP.bss2 equ bss_95ae
 %include "vpcmk/check_profession_requirements.asm" ; 0x4107
 
 evaluate_character_professions.check_profession_requirements1 equ check_profession_requirements
-%include "shared/game/evaluate_character_professions.asm" ; 0x4291
+%include "shared/overlay/evaluate_character_professions.asm" ; 0x4291
 
 loc_VQPO               equ loc_SRNN
 jumptable_436e_case_0  equ loc_SRNN.jumptable_case1
@@ -390,7 +390,7 @@ loc_SRNN.dseg10        equ dseg_93ab
 jumptable_436e_case_10 equ loc_SRNN.jumptable_case11
 loc_SRNN.dseg11        equ dseg_93b4
 jumptable_436e         equ loc_SRNN.jumptable1
-%include "shared/game/loc_SRNN.asm"              ; 0x42b8
+%include "shared/overlay/loc_SRNN.asm"              ; 0x42b8
 
 %include "vpcmk/loc_HGUJ.asm"              ; 0x4392
 
@@ -412,15 +412,15 @@ jumptable_436e         equ loc_SRNN.jumptable1
 
 %include "vpcmk/loc_LTLR.asm"              ; 0x4c82
 
-%include "shared/game/loc_NJOH.asm"              ; 0x4ead
+%include "shared/overlay/loc_NJOH.asm"              ; 0x4ead
 
-%include "shared/game/api_idx_0006_VJKJ.asm"     ; 0x4f00
+%include "shared/overlay/api_idx_0006_VJKJ.asm"     ; 0x4f00
 
-%include "shared/game/update_party_stat_adjustments.asm" ; 0x4f95
+%include "shared/overlay/update_party_stat_adjustments.asm" ; 0x4f95
 
 %include "vpcmk/api_idx_0004_GHPT.asm"     ; 0x5087
 
-%include "shared/game/roll_slot_values.asm"      ; 0x5580
+%include "shared/overlay/roll_slot_values.asm"      ; 0x5580
 
 %include "vpcmk/api_idx_0002_GVOH.asm"     ; 0x56b0
 
@@ -428,7 +428,7 @@ jumptable_436e         equ loc_SRNN.jumptable1
 
 %include "vpcmk/api_idx_000a_HMMT.asm"     ; 0x5a8a
 
-%include "shared/game/loc_OIOJ.asm"              ; 0x5d7e
+%include "shared/overlay/loc_OIOJ.asm"              ; 0x5d7e
 
 api_idx_0004_QSJP      equ api_idx_0004_MMTP
 jumptable_6059_case_0  equ api_idx_0004_MMTP.jumptable_case1
@@ -445,10 +445,10 @@ jumptable_6059_case_11 equ api_idx_0004_MMTP.jumptable_case11
 jumptable_6059_case_12 equ api_idx_0004_MMTP.jumptable_case12
 jumptable_6059_case_13 equ api_idx_0004_MMTP.jumptable_case13
 jumptable_6059         equ api_idx_0004_MMTP.jumptable1
-%include "shared/game/api_idx_0004_MMTP.asm"     ; 0x5df5
+%include "shared/overlay/api_idx_0004_MMTP.asm"     ; 0x5df5
 
 api_idx_0016_JNJG.dseg1 equ dseg_94e9
-%include "shared/game/api_idx_0016_JNJG.asm"     ; 0x6083
+%include "shared/overlay/api_idx_0016_JNJG.asm"     ; 0x6083
 
 %include "vpcmk/api_idx_0006_HMNQ.asm"     ; 0x60e0
 
@@ -476,10 +476,10 @@ api_idx_0016_JNJG.dseg1 equ dseg_94e9
 
 %include "vpcmk/api_idx_002c_NHRR.asm"     ; 0x6a3f
 
-%include "shared/aztec/aztec_ovbgn.asm"           ; 0x6f8c
+%include "shared/overlay/aztec_ovbgn.asm"           ; 0x6f8c
 
 loc_OTSS equ aztec_strcmp.loc1
-%include "shared/aztec/aztec_strcmp.asm"          ; 0x6fca
+%include "shared/overlay/aztec_strcmp.asm"          ; 0x6fca
 
 __zdata_start:
 %include "shared/data/pc_file_name.asm"     ; 0x7031

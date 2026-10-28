@@ -152,6 +152,23 @@ def _library(project):
     return lib
 
 
+@functools.lru_cache(maxsize=None)
+def _publics_by_label(project):
+    """``{asm label: library public}`` for every routine public, by
+    :func:`routine_label`; a label two publics would take is left out."""
+    found = {}
+    for key in _library(project).entries:
+        found.setdefault(routine_label(key), set()).add(key)
+    return {label: keys.pop() for label, keys in found.items()
+            if len(keys) == 1}
+
+
+def library_public(project, label):
+    """The library public an asm *label* names (``aztec_open`` -> ``open``),
+    or None."""
+    return _publics_by_label(project).get(str(label)) if project else None
+
+
 def _library_routines(lib, image, label_map):
     """``(start, _Code)`` for each signature-matched module.
 

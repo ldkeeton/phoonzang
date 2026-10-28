@@ -24,11 +24,11 @@ The routine's own label is one of those names: copies whose content tags differ
 their code agrees.  The shared file takes the name most copies carry, and each
 other copy's label is an ``equ`` of it.  Data shares only under one name.
 
-The files sit in band folders, as a banded binary's do (``ds/game/``,
-:mod:`lib.sidecar.bands`), though by what the code is rather than where it
-was linked: ``shared/aztec/`` the C library, ``shared/game/`` compiled C,
-``shared/library/`` assembly, ``shared/data/`` data.  A hand-owned source is
-found in ``shared/`` or any of them.
+A file shared with a banded binary sits in the band folder its copy there
+does (``ds/aztec/x.asm`` -> ``shared/aztec/x.asm``, :mod:`lib.sidecar.bands`);
+one shared only between unbanded binaries (the overlays) sits in
+``shared/overlay/``, and data in ``shared/data/``.  A hand-owned source is found in
+``shared/`` or any of its folders.
 """
 
 import os
@@ -43,6 +43,9 @@ from .sidecar.bands import BAND_NAMES
 from .symtab import project_tables
 
 FOLDER = 'shared'
+
+#: The folder of a file no banded binary shares: the overlays'.
+OVERLAY = 'overlay'
 _SKIP_DIRS = {FOLDER, 'inc', 'build_out'}
 _ADDR_COMMENT = re.compile(r'[ \t]+; 0x[0-9a-fA-F]+[ \t]*$')
 _LOCAL_LABEL = re.compile(r'(?<![\w.])(?:(?:@\.\.)?[A-Za-z_][\w.]*?)?\.((?:l|back|return|forward)\d+)(?![\w.])')
@@ -353,9 +356,11 @@ def _on_disk(out_dir, rel):
 
 
 def shared_dirs(out_dir):
-    """``shared/`` and its band folders: where a shared routine's files are."""
+    """``shared/`` and its band and overlay folders: where a shared routine's
+    files are."""
     root = os.path.join(out_dir, FOLDER)
-    return [root] + [os.path.join(root, band) for band in BAND_NAMES]
+    return [root] + [os.path.join(root, band)
+                     for band in BAND_NAMES + (OVERLAY,)]
 
 
 def _homes(base):
@@ -363,21 +368,18 @@ def _homes(base):
     stem = os.path.basename(base)
     if base.startswith(f'{FOLDER}/data/'):
         return [base]
-    return [f'{FOLDER}/{band}/{stem}' for band in BAND_NAMES] + [base]
+    return [f'{FOLDER}/{band}/{stem}'
+            for band in BAND_NAMES + (OVERLAY,)] + [base]
 
 
-def _band(rel, text, ctext, tables):
-    """The band folder of *rel*'s shared file: ``aztec`` for the C library
-    (a vendor match), ``game`` for compiled C (a ``csav`` frame, a ``.c``),
-    ``library`` for the rest, hand assembly."""
-    stem = _stem(rel)
-    sym = tables.get(_binary(rel), {}).get(stem)
-    if getattr(sym, 'role', None) == 'aztec' or stem.startswith('aztec_'):
-        return 'aztec'
-    if (ctext is not None and ctext[0] == '.c') or re.search(
-            r'^\s*call\s+(?:near\s+)?aztec_csav\b', text, re.M):
-        return 'game'
-    return 'library'
+def _band(rels):
+    """The folder of a shared file: the band its banded binary's copy sits in
+    (``ds/aztec/x.asm``), else :data:`OVERLAY`."""
+    for rel in rels:
+        parts = rel.split(os.sep)
+        if parts[0] != FOLDER and len(parts) == 3 and parts[1] in BAND_NAMES:
+            return parts[1]
+    return OVERLAY
 
 
 #: A data file named for its address (``vmele/data/dseg_9098.asm``,
@@ -487,8 +489,7 @@ def share_files(files, out_dir, tables):
         source = next((rel for rel in members
                        if _stem(rel) == os.path.basename(base)), members[0])
         home = base if base.startswith(f'{FOLDER}/data/') else (
-            f'{FOLDER}/{_band(source, fragments[source][0], ctext, tables)}/'
-            f'{os.path.basename(base)}')
+            f'{FOLDER}/{_band(members)}/{os.path.basename(base)}')
         shared_rel = f'{home}.asm'
         text = _text_for(fragments, members)
         if binds:
@@ -1123,13 +1124,7 @@ def _target(members, data):
     first = members[0]
     if data:
         return f'{FOLDER}/data/{first.stem}.asm'
-    if first.stem.startswith('aztec_'):
-        band = 'aztec'
-    elif re.search(r'^\s*call\s+(?:near\s+)?aztec_csav\b', first.text, re.M):
-        band = 'game'
-    else:
-        band = 'library'
-    return f'{FOLDER}/{band}/{first.stem}.asm'
+    return f'{FOLDER}/{_band(m.rel for m in members)}/{first.stem}.asm'
 
 
 def _diffs(members):

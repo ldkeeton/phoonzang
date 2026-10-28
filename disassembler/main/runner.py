@@ -60,7 +60,9 @@ from lib.names import (
 )
 from lib import symtab
 from lib.symtab import GENERIC, Kind, Source, Space, Symbol
+from lib.sidecar.bands import band_for
 from lib.sidecar.usage import SidecarUse
+from lib.aztec.libnames import library_public
 from lib.sidecar.patches import PatchError, normalize as normalize_patches
 from lib import stagelog
 from lib import progress
@@ -255,7 +257,8 @@ def _analyze(name, orig_dir, rel_path, start_offset, output_dir=None,
                 continue
             if off in ctx.code_targets:
                 label_map[off] = (
-                    _sidecar_routine(info['name'], off, info)
+                    _sidecar_routine(info['name'], off, project,
+                                     sidecar_entry.get('bands'))
                     if 'name' in info else
                     Symbol.generated('fn', off, Kind.ROUTINE,
                                      text=f'fn_{hex_off}'))
@@ -707,19 +710,17 @@ def _analyze(name, orig_dir, rel_path, start_offset, output_dir=None,
     )
 
 
-def _sidecar_routine(name, offset, info=None):
+def _sidecar_routine(name, offset, project=None, bands=None):
     """A routine the sidecar names.
 
-    The sidecar spells a runtime-library routine ``aztec_<C name>``
-    (``aztec_flsh_``); this is the one place that reads that spelling, so
-    everything downstream checks ``role``/``library`` instead.
+    A routine in its binary's ``aztec`` band (:mod:`lib.sidecar.bands`) is a
+    runtime-library routine: ``role`` says so, and ``library`` is the public
+    its label names, which everything downstream checks.
     """
     role = library = None
-    if name.startswith('aztec_'):
-        role, library = 'aztec', name[len('aztec_'):]
-    if info:
-        role = info.get('role', role)
-        library = info.get('library', library)
+    band = band_for(bands or (), offset)
+    if band and band[2] == 'aztec':
+        role, library = 'aztec', library_public(project, name)
     return Symbol(name, kind=Kind.ROUTINE, source=Source.SIDECAR,
                   offset=offset, role=role, library=library)
 

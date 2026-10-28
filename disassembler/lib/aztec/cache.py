@@ -286,11 +286,12 @@ def _tool(project, binary, label, entry):
 
 
 def _cname(label, entry=None):
-    """The C name behind a game label: the manifest's, else ``aztec_open`` ->
-    ``open`` (a hand-written routine, whose seed defines the label itself)."""
+    """The C name behind a game label: the manifest's, else the library public
+    the label's symbol names, else the label (a hand-written routine, whose
+    seed defines the label itself)."""
     if entry and entry.get('cname'):
         return entry['cname']
-    return label[len('aztec_'):] if label.startswith('aztec_') else label
+    return getattr(label, 'library', None) or str(label)
 
 
 def own_key(label, entry=None):

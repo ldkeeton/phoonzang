@@ -374,7 +374,7 @@ loc_OSMM equ aztec_strncat.loc3
 
 %include "shared/aztec/aztec_strcpy.asm"       ; 0x2add
 
-%include "shared/aztec/aztec_strncpy.asm"      ; 0x2b09
+%include "shared/overlay/aztec_strncpy.asm"      ; 0x2b09
 
 %include "vinstall/aztec_sysint.asm"       ; 0x2b31
 
@@ -493,7 +493,7 @@ aztec_lrm.loc1 equ loc_QRUP
 %include "shared/aztec/aztec_lud.asm"          ; 0x3471
 
 loc_TMNK equ aztec_strcmp.loc1
-%include "shared/aztec/aztec_strcmp.asm"       ; 0x3508
+%include "shared/overlay/aztec_strcmp.asm"       ; 0x3508
 
 %include "shared/aztec/aztec_strlen.asm"       ; 0x356f
 

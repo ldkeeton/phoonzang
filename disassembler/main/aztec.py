@@ -249,9 +249,9 @@ def _aztec_c_overrides(project, name, data, label_map, out_dir,
     entry = per_binary(load_sidecar(project) or {}, name)
     adjust = start_offset + entry.get('ghidra_base_offset', 0)
     runtime_roots = {
-        int(key, 16) + adjust
-        for key, info in entry.get('function_names', {}).items()
-        if info.get('role') == 'aztec'}
+        root for root in (int(key, 16) + adjust
+                          for key in entry.get('function_names', {}))
+        if (band_for(entry['bands'], root) or (0, 0, None))[2] == 'aztec'}
     declared_roots = sorted(int(key, 16) + adjust
                             for key in entry.get('function_names', {}))
     declared_lengths = fragment_lengths(entry, start_offset)
@@ -638,8 +638,9 @@ def _aztec_asm_annotations(entries, label_map, c_overrides=None):
         inside = [label for label, note in out.items()
                   if start <= note['start'] < end]
         if not inside:
-            if module.startswith('aztec_') and module not in out:
-                # No hand-written routine, but the module's shared tails
+            if module not in out:
+                # A vendor module (the only overrides with a ``start``) with
+                # no hand-written routine, but the module's shared tails
                 # still want module-relative names (vendor.py).
                 out[module] = {'start': start, 'end': end, 'labels': {},
                                'comments': {}, 'data_labels': {},

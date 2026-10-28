@@ -205,17 +205,17 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "vmnpc/api_idx_0018_TROH.asm"     ; 0x0727
 
-%include "shared/game/queue_marker_overlay.asm"  ; 0x0961
+%include "shared/overlay/queue_marker_overlay.asm"  ; 0x0961
 
-%include "shared/game/loc_SSIO.asm"              ; 0x0a56
+%include "shared/overlay/loc_SSIO.asm"              ; 0x0a56
 
-%include "shared/game/redraw_glyph_strip.asm"    ; 0x0ab2
+%include "shared/overlay/redraw_glyph_strip.asm"    ; 0x0ab2
 
-%include "shared/game/loc_VNIO.asm"              ; 0x0b30
+%include "shared/overlay/loc_VNIO.asm"              ; 0x0b30
 
-%include "shared/game/redraw_area_set.asm"       ; 0x0b74
+%include "shared/overlay/redraw_area_set.asm"       ; 0x0b74
 
-%include "shared/game/show_area_set.asm"         ; 0x0c96
+%include "shared/overlay/show_area_set.asm"         ; 0x0c96
 
 %include "vmnpc/api_idx_0054_UKJH.asm"     ; 0x0d46
 
@@ -224,15 +224,15 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 %include "vmnpc/next_text_line.asm"        ; 0x0e15
 
 loc_KRMP.panel_redraw_ticks1 equ bss_93d6
-%include "shared/game/loc_KRMP.asm"              ; 0x0ef1
+%include "shared/overlay/loc_KRMP.asm"              ; 0x0ef1
 
 %include "vmnpc/step_party_animation.asm"  ; 0x0f50
 
 run_party_screen_animation.api_idx1 equ step_party_animation
-%include "shared/game/run_party_screen_animation.asm" ; 0x109f
+%include "shared/overlay/run_party_screen_animation.asm" ; 0x109f
 
 loc_UTQS.api_idx1 equ step_party_animation
-%include "shared/game/loc_UTQS.asm"              ; 0x10b6
+%include "shared/overlay/loc_UTQS.asm"              ; 0x10b6
 
 %include "vmnpc/api_idx_0004_MIJS.asm"     ; 0x10c9
 
@@ -258,7 +258,7 @@ loc_UTQS.api_idx1 equ step_party_animation
 
 %include "vmnpc/ovmain.asm"                ; 0x21bf
 
-%include "shared/game/api_idx_004c_RQSO.asm"     ; 0x21d2
+%include "shared/overlay/api_idx_004c_RQSO.asm"     ; 0x21d2
 
 %include "vmnpc/api_idx_0004_PULL.asm"     ; 0x22e7
 
@@ -286,13 +286,13 @@ loc_UTQS.api_idx1 equ step_party_animation
 
 %include "vmnpc/api_idx_0004_GGOK.asm"     ; 0x3a96
 
-%include "shared/game/api_idx_0018_RGOS.asm"     ; 0x3b9a
+%include "shared/overlay/api_idx_0018_RGOS.asm"     ; 0x3b9a
 
 api_idx_0004_KHSO equ draw_list_rows
-%include "shared/game/draw_list_rows.asm"     ; 0x3c97
+%include "shared/overlay/draw_list_rows.asm"     ; 0x3c97
 
 loc_HTKI.draw_list_rows1 equ api_idx_0004_KHSO
-%include "shared/game/loc_HTKI.asm"              ; 0x3df9
+%include "shared/overlay/loc_HTKI.asm"              ; 0x3df9
 
 %include "vmnpc/api_idx_0038_IJUK.asm"     ; 0x3e3a
 
@@ -312,15 +312,15 @@ loc_HTKI.draw_list_rows1 equ api_idx_0004_KHSO
 
 %include "vmnpc/api_idx_0004_GHUK.asm"     ; 0x5371
 
-%include "shared/game/loc_GMVH.asm"              ; 0x5497
+%include "shared/overlay/loc_GMVH.asm"              ; 0x5497
 
-%include "shared/game/assign_slot_bit.asm"       ; 0x54b4
+%include "shared/overlay/assign_slot_bit.asm"       ; 0x54b4
 
 %include "vmnpc/api_idx_0008_GUJV.asm"     ; 0x5571
 
 %include "vmnpc/api_idx_0006_RKSL.asm"     ; 0x573e
 
-%include "shared/game/replace_slashes_with_spaces.asm" ; 0x57bb
+%include "shared/overlay/replace_slashes_with_spaces.asm" ; 0x57bb
 
 %include "vmnpc/api_idx_005e_KVNO.asm"     ; 0x57e1
 
@@ -350,27 +350,27 @@ loc_HTKI.draw_list_rows1 equ api_idx_0004_KHSO
 
 %include "vmnpc/play_sound_cue.asm"        ; 0x742e
 
-%include "shared/game/draw_party_slot_letters.asm" ; 0x7452
+%include "shared/overlay/draw_party_slot_letters.asm" ; 0x7452
 
-%include "shared/game/advance_party_slot_frames.asm" ; 0x74d1
+%include "shared/overlay/advance_party_slot_frames.asm" ; 0x74d1
 
 api_idx_0004_NIJP equ collect_known_spells
-%include "shared/game/collect_known_spells.asm"     ; 0x752c
+%include "shared/overlay/collect_known_spells.asm"     ; 0x752c
 
-%include "shared/game/draw_marker_glyph.asm"     ; 0x759d
+%include "shared/overlay/draw_marker_glyph.asm"     ; 0x759d
 
-%include "shared/game/draw_power_digit.asm"      ; 0x75db
+%include "shared/overlay/draw_power_digit.asm"      ; 0x75db
 
 loc_IMPO              equ draw_spell_cost
 draw_spell_cost.dseg1 equ dseg_90e4
-%include "shared/game/draw_spell_cost.asm"              ; 0x7667
+%include "shared/overlay/draw_spell_cost.asm"              ; 0x7667
 
 api_idx_000c_VQMU equ draw_realm_spell_points
-%include "shared/game/draw_realm_spell_points.asm"     ; 0x7708
+%include "shared/overlay/draw_realm_spell_points.asm"     ; 0x7708
 
 periodic_party_redraw.party_redraw_mode1       equ bss_93d6
 periodic_party_redraw.draw_realm_spell_points1 equ api_idx_000c_VQMU
-%include "shared/game/periodic_party_redraw.asm" ; 0x77a1
+%include "shared/overlay/periodic_party_redraw.asm" ; 0x77a1
 
 %include "vmnpc/loc_UVUO.asm"              ; 0x7832
 
@@ -378,11 +378,11 @@ periodic_party_redraw.draw_realm_spell_points1 equ api_idx_000c_VQMU
 
 %include "vmnpc/api_idx_0006_TLLQ.asm"     ; 0x84f0
 
-%include "shared/game/draw_split_two_line_text.asm" ; 0x8550
+%include "shared/overlay/draw_split_two_line_text.asm" ; 0x8550
 
 %include "vmnpc/loc_HOSN.asm"              ; 0x85f9
 
-%include "shared/game/loc_SIKN.asm"              ; 0x8662
+%include "shared/overlay/loc_SIKN.asm"              ; 0x8662
 
 %include "vmnpc/api_idx_0002_GRRR.asm"     ; 0x86a4
 
@@ -404,7 +404,7 @@ periodic_party_redraw.draw_realm_spell_points1 equ api_idx_000c_VQMU
 
 %include "vmnpc/api_idx_0002_UHGS.asm"     ; 0x8be8
 
-%include "shared/game/titlecase_string.asm"      ; 0x8c2a
+%include "shared/overlay/titlecase_string.asm"      ; 0x8c2a
 
 %include "vmnpc/api_idx_0084_VMPP.asm"     ; 0x8c72
 
@@ -458,12 +458,12 @@ periodic_party_redraw.draw_realm_spell_points1 equ api_idx_000c_VQMU
 
 %include "vmnpc/api_idx_006a_QKPT.asm"     ; 0xab8d
 
-%include "shared/aztec/aztec_ovbgn.asm"           ; 0xae10
+%include "shared/overlay/aztec_ovbgn.asm"           ; 0xae10
 
-%include "shared/aztec/aztec_strncpy.asm"         ; 0xae4e
+%include "shared/overlay/aztec_strncpy.asm"         ; 0xae4e
 
 loc_LNNU equ aztec_strcmp.loc1
-%include "shared/aztec/aztec_strcmp.asm"          ; 0xae76
+%include "shared/overlay/aztec_strcmp.asm"          ; 0xae76
 
 __zdata_start:
 %include "vmnpc/data/dseg_9098.asm"        ; 0xaedd

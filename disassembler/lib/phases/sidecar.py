@@ -43,9 +43,7 @@ class SidecarPhase(Phase):
         # Concrete function findings replace discovery's signature seeds.
         # Use the same coordinate adjustment as the naming pass.
         adjust = ctx.start_offset + sidecar.get('ghidra_base_offset', 0)
-        for key, info in sidecar.get('function_names', {}).items():
-            if info.get('role') != 'aztec':
-                continue
+        for key in sidecar.get('function_names', {}):
             off = _parse_offset(key, 'function_names') + adjust
             if not 0 <= off < n or ctx.hard_data[off]:
                 continue

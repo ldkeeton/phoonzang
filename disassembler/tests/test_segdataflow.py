@@ -152,6 +152,11 @@ class ImmediatePointerTest(unittest.TestCase):
         # mov di, 0x1a3a; inc di; stosb -- ES is DATA: only code tables.
         self.assertEqual(self._proven('bf3a1a' '47' 'aa'), {})
 
+    def test_an_interrupt_may_return_es(self):
+        # mov ax, 0x3567; int 21h; mov di, 0xa; stosb -- ES:BX is the
+        # vector's handler (ds detect_expanded_memory), not DATA.
+        self.assertEqual(self._proven('b86735' 'cd21' 'bf0a00' 'aa'), {})
+
     def test_a_dos_ds_dx_service(self):
         # mov ax, cs; mov ds, ax; mov dx, 0x1a3a; mov ah, 9; int 21h
         self.assertEqual(self._proven('8cc8' '8ed8' 'ba3a1a' 'b409' 'cd21'),

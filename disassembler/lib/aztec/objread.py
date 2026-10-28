@@ -46,7 +46,8 @@ def external_label(symbol):
     (``$csav``, ``$cret``) and are the library's ``aztec_`` labels.
     """
     if symbol and symbol.startswith('$'):
-        return 'aztec_' + symbol[1:]
+        from .compile import routine_label
+        return routine_label(symbol)
     if not symbol or not symbol.endswith('_'):
         return symbol
     return symbol[:-1]

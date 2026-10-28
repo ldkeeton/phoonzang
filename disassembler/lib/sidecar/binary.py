@@ -281,7 +281,7 @@ def _validate_function_names(block, where):
         _parse_offset(key, f'{where}[{key}]')
         if not isinstance(info, dict):
             raise SidecarError(f'{where}[{key}]: must be an object')
-        for field in ('name', 'role', 'library'):
+        for field in ('name',):
             if field in info and (not isinstance(info[field], str) or not info[field]):
                 raise SidecarError(f'{where}[{key}].{field}: expected non-empty string')
         if 'length' in info:
