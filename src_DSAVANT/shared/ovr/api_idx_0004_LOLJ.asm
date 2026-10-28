@@ -261,7 +261,7 @@ api_idx_0004_LOLJ.forward5:
     mov ax, word [word bx + 0x3a]
     cmp ax, word [bp - 2]
     jge short api_idx_0004_LOLJ.back1
-    mov ax, api_idx_0004_LOLJ.slot_prompt_text1
+    mov ax, slot_prompt_text
     push ax
     mov ax, MSG_SKILL_POINTS
     push ax

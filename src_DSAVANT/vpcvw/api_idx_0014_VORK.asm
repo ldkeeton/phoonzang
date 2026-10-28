@@ -247,7 +247,7 @@ api_idx_0014_VORK:
     mov ax, word [bp - 2]            ; 0x63c0
     cmp ax, strict word 6            ; 0x63c3
     jl short .back3                  ; 0x63c6
-    mov word [bss_9562], 7           ; 0x63c8
+    mov word [party_redraw_interval], 7 ; 0x63c8
     les bx, word [tick_counter_ptr]  ; 0x63ce
     mov ax, word [es:bx]             ; 0x63d2
     mov dx, word [es:bx + 2]         ; 0x63d5

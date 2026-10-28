@@ -14,7 +14,7 @@ loc_JTQK_0007.mouse_off1 equ configure_music_device
 loc_JTQK_000b.mouse_hit_test1 equ music_set_data
 %include "shared/drv/loc_JTQK_000b.asm"          ; 0x000b
 
-loc_JTQK_000f.leaf_loc1 equ stop_music_playback
+loc_JTQK_000f.request_mouse_redraw1 equ stop_music_playback
 %include "shared/drv/loc_JTQK_000f.asm"          ; 0x000f
 
 loc_JTQK_0013.update_mouse_pointer1 equ music_set_tempo_volume

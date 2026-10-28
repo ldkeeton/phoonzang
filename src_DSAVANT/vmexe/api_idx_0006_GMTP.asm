@@ -44,7 +44,7 @@ api_idx_0006_GMTP:
     sbb dx, word [party_redraw_last_tick_hi] ; 0x190e
     push ax                          ; 0x1912
     push dx                          ; 0x1913
-    mov ax, word [bss_90e2]          ; 0x1914
+    mov ax, word [party_redraw_interval] ; 0x1914
     cwd                              ; 0x1917
     mov cx, ax                       ; 0x1918
     mov bx, dx                       ; 0x191a

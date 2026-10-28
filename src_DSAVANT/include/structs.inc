@@ -300,11 +300,4 @@ struc rec_8a6e
     .f_0002: resb 1
     .f_0003: resb 1
 endstruc
-
-; records at DS 0x91a8
-struc location_changed_rec
-    .pad_0000: resb 4
-    .f_0004: resb 32
-    .f_0024: resb 92
-endstruc
 %endif

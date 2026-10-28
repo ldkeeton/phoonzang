@@ -4,7 +4,7 @@ api_idx_0084_VMPP:
     call aztec_csav                  ; 0x8c75
     lea ax, word [bp - 0x50]         ; 0x8c78
     push ax                          ; 0x8c7b
-    push word [location_changed]     ; 0x8c7c
+    push word [bss_91a8]             ; 0x8c7c
     call load_message_string         ; 0x8c80
     add sp, byte 4                   ; 0x8c83
     mov al, byte [bp - 0x50]         ; 0x8c86

@@ -495,7 +495,7 @@ pick_spell_dialog:
     push ax                          ; 0x2e1c
     call gfx_show_area               ; 0x2e1d
     add sp, byte 8                   ; 0x2e20
-    mov word [party_redraw_mode], 5  ; 0x2e23
+    mov word [party_redraw_interval], 5 ; 0x2e23
     les bx, word [tick_counter_ptr]  ; 0x2e29
     mov ax, word [es:bx]             ; 0x2e2d
     mov dx, word [es:bx + 2]         ; 0x2e30

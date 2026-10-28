@@ -24,7 +24,7 @@ api_idx_0006_LJUS:
     sbb dx, word [party_redraw_last_tick_hi]
     push ax
     push dx
-    mov ax, word [api_idx_0006_LJUS.panel_redraw_ticks1]
+    mov ax, word [party_redraw_interval]
     cwd
     mov cx, ax
     mov bx, dx

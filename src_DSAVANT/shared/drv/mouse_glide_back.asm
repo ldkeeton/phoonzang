@@ -62,7 +62,7 @@ mouse_glide_back:
     or ax, ax
     je short .back1
     push ax
-    call far [cs:mouse_glide_back.cseg1 - IMAGE_BASE]
+    call far [cs:delay_hook - IMAGE_BASE]
     pop ax
     jmp short .back1
 .forward7:

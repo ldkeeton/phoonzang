@@ -2,7 +2,7 @@
 api_idx_0094_LUVH:
     mov ax, 0xff6c                   ; 0x417c
     call aztec_csav                  ; 0x417f
-    mov word [party_redraw_mode], 5  ; 0x4182
+    mov word [party_redraw_interval], 5 ; 0x4182
     mov word [bp - 0x94], 0          ; 0x4188
     mov word [bp - 0x50], 0          ; 0x418e
 .back1:

@@ -2,7 +2,7 @@
 check_at_saved_location:
     mov ax, 0
     call aztec_csav
-    mov word [check_at_saved_location.save_location_flag1], 0
+    mov word [save_location_flag], 0
     mov ax, word [game_state_arg]
     cmp ax, word [saved_level]
     jne short .return1
@@ -15,6 +15,6 @@ check_at_saved_location:
     mov ax, word [party_cell_y]
     cmp ax, word [saved_cell_y]
     jne short .return1
-    mov word [check_at_saved_location.save_location_flag1], 1
+    mov word [save_location_flag], 1
 .return1:
     ret

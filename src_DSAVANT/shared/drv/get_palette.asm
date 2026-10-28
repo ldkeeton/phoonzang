@@ -9,7 +9,7 @@ get_palette:
     push si
     mov ax, ds
     mov es, ax
-    lds si, word [cs:get_palette.cseg1 - IMAGE_BASE]
+    lds si, word [cs:palette_ptr - IMAGE_BASE]
     mov di, word [bp + 0xc]
     mov cx, 0x300
     rep movsb

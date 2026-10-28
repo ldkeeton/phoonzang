@@ -72,7 +72,7 @@ bss_9b08 equ __zdseg_end + (__zobss_9b08 - __zdata_start)
 grid_origin_y equ __zdseg_end + (__zobss_9b0a - __zdata_start)
 grid_origin_x equ __zdseg_end + (__zobss_9b0c - __zdata_start)
 known_spell_ids equ __zdseg_end + (__zobss_9b0e - __zdata_start)
-party_redraw_mode equ __zdseg_end + (__zobss_9b5e - __zdata_start)
+party_redraw_interval equ __zdseg_end + (__zobss_9b5e - __zdata_start)
 list_row_marked equ __zdseg_end + (__zobss_9b60 - __zdata_start)
 list_row_glyph equ __zdseg_end + (__zobss_9b88 - __zdata_start)
 list_row_name equ __zdseg_end + (__zobss_9bb0 - __zdata_start)
@@ -115,12 +115,10 @@ jumptable_0457        equ log_maze_change.jumptable1
 
 %include "vdopt/roll_claim_type7_object.asm" ; 0x06e8
 
-%include "vdopt/get_cell_wall_variant_a.asm" ; 0x07d9
+%include "vdopt/get_north_cell_wall.asm"   ; 0x07d9
 
-%include "vdopt/get_cell_wall_variant_b.asm" ; 0x0849
+%include "vdopt/get_west_cell_wall.asm"    ; 0x0849
 
-get_cell_wall.get_cell_wall_variant_a1 equ get_cell_wall_variant_a
-get_cell_wall.get_cell_wall_variant_b1 equ get_cell_wall_variant_b
 %include "shared/ovr/get_cell_wall.asm"         ; 0x08b9
 
 %include "vdopt/loc_MOTJ.asm"              ; 0x095a
@@ -162,8 +160,6 @@ draw_spell_cost.dseg1 equ dseg_909a
 
 %include "shared/ovr/draw_realm_spell_points.asm" ; 0x285e
 
-periodic_party_redraw.party_redraw_mode1       equ party_redraw_mode
-periodic_party_redraw.draw_realm_spell_points1 equ draw_realm_spell_points
 %include "shared/ovr/periodic_party_redraw.asm" ; 0x28f7
 
 %include "vdopt/pick_spell_dialog.asm"     ; 0x2988
@@ -176,7 +172,6 @@ periodic_party_redraw.draw_realm_spell_points1 equ draw_realm_spell_points
 
 %include "shared/ovr/draw_list_rows.asm"        ; 0x3889
 
-loc_HTKI.draw_list_rows1 equ draw_list_rows
 %include "shared/ovr/loc_HTKI.asm"              ; 0x39eb
 
 %include "vdopt/api_idx_0038_QQIU.asm"     ; 0x3a2c

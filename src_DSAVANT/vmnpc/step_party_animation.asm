@@ -23,7 +23,7 @@ step_party_animation:
     sbb dx, word [party_redraw_last_tick_hi] ; 0x0f84
     push ax                          ; 0x0f88
     push dx                          ; 0x0f89
-    mov ax, word [bss_93d6]          ; 0x0f8a
+    mov ax, word [party_redraw_interval] ; 0x0f8a
     cwd                              ; 0x0f8d
     mov cx, ax                       ; 0x0f8e
     mov bx, dx                       ; 0x0f90

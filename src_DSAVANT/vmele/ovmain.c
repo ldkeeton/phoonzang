@@ -1,14 +1,14 @@
 /* overlay entry: reset the battle flags, then run the handler for the
    current game state and report success */
 
-extern int panel_redraw_ticks, show_melee_result, npc_melee;
+extern int party_redraw_interval, show_melee_result, npc_melee;
 extern int battle_setup_done, game_state;
 extern start_melee_battle(), advance_melee_turn(),
 	redraw_party_before_battle();
 
 ovmain()
 {
-	panel_redraw_ticks = 5;		/* ticks between panel redraws */
+	party_redraw_interval = 5;		/* ticks between panel redraws */
 	show_melee_result = 0;
 	npc_melee = 0;
 	battle_setup_done = 0;

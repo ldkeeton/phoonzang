@@ -493,7 +493,7 @@ action_spell_dialog:
     push ax                          ; 0x2134
     call gfx_show_area               ; 0x2135
     add sp, byte 8                   ; 0x2138
-    mov word [bss_90d6], 5           ; 0x213b
+    mov word [party_redraw_interval], 5 ; 0x213b
     les bx, word [tick_counter_ptr]  ; 0x2141
     mov ax, word [es:bx]             ; 0x2145
     mov dx, word [es:bx + 2]         ; 0x2148

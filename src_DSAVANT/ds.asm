@@ -399,39 +399,6 @@ bss_9090 equ __zbss_9090 - __zdseg_start
 bss_9092 equ __zbss_9092 - __zdseg_start
 bss_9094 equ __zbss_9094 - __zdseg_start
 _TTrem equ __zbss_9096 - __zdseg_start
-save_location_flag equ __zbss_919e - __zdseg_start
-location_changed equ __zbss_91a8 - __zdseg_start
-grid_origin_y equ __zbss_9b0a - __zdseg_start
-grid_origin_x equ __zbss_9b0c - __zdseg_start
-party_redraw_mode equ __zbss_9b5e - __zdseg_start
-region_step_flag equ __zbss_9bd0 - __zdseg_start
-spell_target equ __zbss_9d90 - __zdseg_start
-scene_index equ __zbss_a4a4 - __zdseg_start
-scene_tick equ __zbss_a5aa - __zdseg_start
-scene_running equ __zbss_a5ac - __zdseg_start
-scene_frame equ __zbss_a5b0 - __zdseg_start
-scene_backdrop_ref equ __zbss_a5b2 - __zdseg_start
-scene_backdrop_ref_hi equ __zbss_a5b4 - __zdseg_start
-scene_cue_a equ __zbss_a5b6 - __zdseg_start
-scene_cue_b equ __zbss_a5b8 - __zdseg_start
-scene_cue_c equ __zbss_a5ba - __zdseg_start
-scene_cue_d equ __zbss_a5bc - __zdseg_start
-scene_cue_e equ __zbss_a5be - __zdseg_start
-scene_digit_cycle equ __zbss_a5c6 - __zdseg_start
-scene_step_a equ __zbss_a5ce - __zdseg_start
-scroll_x equ __zbss_a5d0 - __zdseg_start
-scroll_x_1 equ __zbss_a5d2 - __zdseg_start
-scroll_x_2 equ __zbss_a5d4 - __zdseg_start
-scroll_x_3 equ __zbss_a5d6 - __zdseg_start
-scroll_x_4 equ __zbss_a5d8 - __zdseg_start
-sprite_pos equ __zbss_a5da - __zdseg_start
-actor_x equ __zbss_a5e2 - __zdseg_start
-trail_x equ __zbss_a5e4 - __zdseg_start
-actor_y equ __zbss_a5f2 - __zdseg_start
-scene_step_b equ __zbss_a5fa - __zdseg_start
-scene_step_c equ __zbss_a5fc - __zdseg_start
-scene_step_d equ __zbss_a5fe - __zdseg_start
-scene_clip_arg equ __zbss_a600 - __zdseg_start
 bss_b198 equ __zbss_b198 - __zdseg_start
 __zbss_size equ __zbss_end - __zimage_end
 __zdseg_end equ (__zimage_end - __zdseg_start) + __zbss_size
@@ -1731,73 +1698,7 @@ __zbss_9094:
 __zbss_9096:
     resb 0x0002
 __zbss_end:
-    resb 0x0106
-__zbss_919e:
-    resb 0x000a
-__zbss_91a8:
-    resb 0x0962
-__zbss_9b0a:
-    resb 0x0002
-__zbss_9b0c:
-    resb 0x0052
-__zbss_9b5e:
-    resb 0x0072
-__zbss_9bd0:
-    resb 0x01c0
-__zbss_9d90:
-    resb 0x0714
-__zbss_a4a4:
-    resb 0x0106
-__zbss_a5aa:
-    resb 0x0002
-__zbss_a5ac:
-    resb 0x0004
-__zbss_a5b0:
-    resb 0x0002
-__zbss_a5b2:
-    resb 0x0002
-__zbss_a5b4:
-    resb 0x0002
-__zbss_a5b6:
-    resb 0x0002
-__zbss_a5b8:
-    resb 0x0002
-__zbss_a5ba:
-    resb 0x0002
-__zbss_a5bc:
-    resb 0x0002
-__zbss_a5be:
-    resb 0x0008
-__zbss_a5c6:
-    resb 0x0008
-__zbss_a5ce:
-    resb 0x0002
-__zbss_a5d0:
-    resb 0x0002
-__zbss_a5d2:
-    resb 0x0002
-__zbss_a5d4:
-    resb 0x0002
-__zbss_a5d6:
-    resb 0x0002
-__zbss_a5d8:
-    resb 0x0002
-__zbss_a5da:
-    resb 0x0008
-__zbss_a5e2:
-    resb 0x0002
-__zbss_a5e4:
-    resb 0x000e
-__zbss_a5f2:
-    resb 0x0008
-__zbss_a5fa:
-    resb 0x0002
-__zbss_a5fc:
-    resb 0x0002
-__zbss_a5fe:
-    resb 0x0002
-__zbss_a600:
-    resb 0x0b98
+    resb 0x2100
 __zbss_b198:
     resb 0x4000
 __zstack_top:

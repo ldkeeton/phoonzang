@@ -48,6 +48,7 @@ _IDENT = re.compile(r'^[A-Za-z_]\w*$')
 #: A symbol spec: an identifier, or a shared common alias (``stem.bss1``).
 _SYMBOL = re.compile(r'^[A-Za-z_]\w*(?:\.[A-Za-z_]\w*)*$')
 _INCLUDE_LINE = re.compile(r'^[ \t]*%include\s+"([^"]+)"')
+_INCLUDE_LINE_M = re.compile(_INCLUDE_LINE.pattern, re.M)
 _EQU_LINE = re.compile(r'^[ \t]*([A-Za-z_][\w.]*)[ \t]+equ[ \t]+(.*?)[ \t]*$')
 #: An alias line ``_place_equs`` commented because an earlier include used it.
 _COMMENTED_EQU_LINE = re.compile(
@@ -280,17 +281,46 @@ def _shared_alias_index(project):
     return {common: sorted(set(pairs)) for common, pairs in out.items()}
 
 
+@functools.lru_cache(maxsize=None)
+def _shared_text(project, rel):
+    try:
+        with open(os.path.join(src_dir(project, PROJECT), rel)) as f:
+            return f.read()
+    except OSError:
+        return ''
+
+
+def _shared_includers(project, symbol):
+    """The binaries whose masters include a shared file that spells *symbol*."""
+    return [binary for binary, _path in _master_paths(project)
+            if any(symbol in _TOKEN.findall(_shared_text(project, rel))
+                   for rel in _INCLUDE_LINE_M.findall(_master_text(project, binary))
+                   if rel.startswith(f'{SHARED_DIR}/'))]
+
+
 def _expand_shared_specs(project, binary, specs):
     """Give each spec a target binary, fanning a shared alias out to donors.
 
     ``make name PROJECT BIN stem.bss1=NAME`` names the equivalent
     ``bss_XXXX`` in every binary that includes the shared fragment, whichever
-    binary (or the ``shared`` source folder) selected the routine.
+    binary (or the ``shared`` source folder) selected the routine.  Data a
+    shared file spells itself (``bss_XXXX`` or a name already given), named
+    from ``shared``, goes to each includer that holds it in its own BSS; the
+    host's ``data_names`` would hand it to every overlay, most of which keep
+    something else there.
     """
     index = _shared_alias_index(project)
     out = []
     chosen = {}
     for sym, name, note in specs:
+        if (binary == SHARED_DIR and _IDENT.match(sym)
+                and not _asm_file(project, SHARED_DIR, sym)
+                and not _label_file(project, SHARED_DIR, sym)):
+            donors = [donor for donor in _shared_includers(project, sym)
+                      if _defines_local(project, donor, sym)]
+            if donors:
+                out.extend((sym, name, note, donor) for donor in donors)
+                continue
         pairs = index.get(sym)
         if not pairs:
             if (_asm_file(project, SHARED_DIR, sym)
@@ -1048,6 +1078,7 @@ def _rename_in_masters(project, renames, journal=None):
             with open(path, 'w') as f:
                 f.write(new)
     _master_text.cache_clear()
+    _shared_text.cache_clear()
 
 
 def _label_snapshot(project):

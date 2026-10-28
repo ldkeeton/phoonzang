@@ -13,7 +13,7 @@ show_area:
     mov word [bp - 0x36], ax         ; 0x04c3
     mov ax, ds                       ; 0x04c6
     mov es, ax                       ; 0x04c8
-    call leaf_loc_LMQV               ; 0x04ca
+    call request_mouse_redraw        ; 0x04ca
     call graphics_loc_IMOU           ; 0x04cd
     mov ax, word [cs:screen_buf_seg - IMAGE_BASE] ; 0x04d0
     mov ds, ax                       ; 0x04d4

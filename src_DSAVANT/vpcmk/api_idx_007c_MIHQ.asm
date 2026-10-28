@@ -111,7 +111,7 @@ api_idx_007c_MIHQ:
     sub ah, ah                       ; 0x467d
     push ax                          ; 0x467f
     push word [bp + 4]               ; 0x4680
-    call check_profession_requirements ; 0x4683
+    call evaluate_character_profession ; 0x4683
     add sp, byte 6                   ; 0x4686
     mov ax, 1                        ; 0x4689
     push ax                          ; 0x468c

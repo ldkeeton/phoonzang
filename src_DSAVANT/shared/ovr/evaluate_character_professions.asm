@@ -8,7 +8,7 @@ evaluate_character_professions:
     push ax
     push word [bp - 2]
     push word [bp + 4]
-    call evaluate_character_professions.check_profession_requirements1
+    call evaluate_character_profession
     add sp, byte 6
     inc word [bp - 2]
     mov ax, word [bp - 2]

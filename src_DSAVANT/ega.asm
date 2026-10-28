@@ -14,7 +14,7 @@ loc_JTQK_0007.mouse_off1 equ mouse_off
 loc_JTQK_000b.mouse_hit_test1 equ mouse_hit_test
 %include "shared/drv/loc_JTQK_000b.asm"           ; 0x000b
 
-loc_JTQK_000f.leaf_loc1 equ leaf_loc_LMQV
+loc_JTQK_000f.request_mouse_redraw1 equ request_mouse_redraw
 %include "shared/drv/loc_JTQK_000f.asm"           ; 0x000f
 
 loc_JTQK_0013.update_mouse_pointer1 equ update_mouse_pointer
@@ -129,7 +129,9 @@ loc_JTQK_001f.load_screen1 equ load_screen
 
 %include "shared/data/scratch_buf_seg.asm"    ; 0x00e9
 
-%include "ega/data/cseg_00f7.asm"          ; 0x00f7
+%include "shared/data/palette_ptr.asm"        ; 0x00f7
+
+%include "shared/data/delay_hook.asm"         ; 0x00fb
 
 %include "shared/data/ems_para_limit.asm"     ; 0x00ff
 
@@ -207,14 +209,8 @@ loc_JTQK_001f.load_screen1 equ load_screen
 
 %include "ega/invert_area.asm"             ; 0x0c45
 
+cseg_0d2e equ save_area.cseg1
 %include "shared/drv/save_area.asm"               ; 0x0c9b
-
-cseg_0d2e equ save_area_out_of_memory.cseg1
-%include "shared/drv/save_area_out_of_memory.asm" ; 0x0d1e
-
-%include "shared/drv/save_area_clear_result.asm"  ; 0x0d4b
-
-%include "shared/drv/area_restore_and_return.asm" ; 0x0d4f
 
 cseg_0dc0 equ restore_area.cseg1
 %include "shared/drv/restore_area.asm"            ; 0x0d57
@@ -266,8 +262,7 @@ cseg_150b equ draw_maze_piece.cseg1
 
 %include "shared/drv/update_mouse_pointer.asm"    ; 0x18c1
 
-leaf_loc_LMQV equ request_mouse_redraw
-%include "shared/drv/request_mouse_redraw.asm"           ; 0x1900
+%include "shared/drv/request_mouse_redraw.asm"    ; 0x1900
 
 mouse_hit_test.cseg1 equ cseg_2a02
 mouse_hit_test.cseg2 equ cseg_2a04
@@ -336,15 +331,12 @@ dissolve_area.show_area1 equ show_area
 
 %include "shared/drv/get_free_space.asm"          ; 0x33b3
 
-mouse_glide_to.cseg1 equ cseg_00fb
 %include "shared/drv/mouse_glide_to.asm"          ; 0x341e
 
-mouse_glide_back.cseg1 equ cseg_00fb
 %include "shared/drv/mouse_glide_back.asm"        ; 0x34c0
 
 %include "shared/drv/free_screen.asm"             ; 0x3570
 
-get_palette.cseg1 equ cseg_00f7
 %include "shared/drv/get_palette.asm"             ; 0x35ba
 
 %include "shared/data/text_state_words.asm"   ; 0x35dd
@@ -353,12 +345,6 @@ get_palette.cseg1 equ cseg_00f7
 
 %include "shared/drv/draw_text.asm"               ; 0x361e
 
-frame_digit_hi    equ check_frame_index.frame_digit_hi1
-frame_digit_lo    equ check_frame_index.frame_digit_lo1
-slot_digit_hi     equ check_frame_index.slot_digit_hi1
-slot_digit_lo     equ check_frame_index.slot_digit_lo1
-loc_3a08          equ check_frame_index.loc1
-msg_frame_too_big equ check_frame_index.msg_frame_too_big1
 %include "shared/drv/check_frame_index.asm"       ; 0x39e3
 
 %include "shared/drv/leaf_loc_NOSG.asm"           ; 0x3a51

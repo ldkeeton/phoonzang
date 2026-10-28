@@ -2,7 +2,7 @@
 api_idx_0004_NRTK:
     mov ax, 0xfffc                   ; 0x4e3b
     call aztec_csav                  ; 0x4e3e
-    mov word [bss_90d6], 5           ; 0x4e41
+    mov word [party_redraw_interval], 5 ; 0x4e41
     mov word [bss_9386], 2           ; 0x4e47
     mov word [bss_9388], 2           ; 0x4e4d
     mov word [bss_938a], 3           ; 0x4e53

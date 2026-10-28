@@ -39,7 +39,7 @@ save_sp equ __zdseg_end + (__zsave_sp - __zdata_start)
 save_bp equ __zdseg_end + (__zsave_bp - __zdata_start)
 save_ret equ __zdseg_end + (__zsave_ret - __zdata_start)
 _Uorg equ __zdseg_end + (__zobss_90d6 - __zdata_start)
-bss_90d6 equ __zdseg_end + (__zobss_90d6 - __zdata_start)
+party_redraw_interval equ __zdseg_end + (__zobss_90d6 - __zdata_start)
 bss_90d8 equ __zdseg_end + (__zobss_90d8 - __zdata_start)
 known_spell_ids equ __zdseg_end + (__zobss_9106 - __zdata_start)
 list_row_marked equ __zdseg_end + (__zobss_9156 - __zdata_start)
@@ -79,10 +79,8 @@ advance_action_slots.fill_action_slot_table_vmnpc1 equ fill_action_slot_table
 
 %include "shared/ovr/loc_SSIO.asm"              ; 0x0e6c
 
-loc_KRMP.panel_redraw_ticks1 equ bss_90d6
 %include "shared/ovr/loc_KRMP.asm"              ; 0x0ec8
 
-api_idx_0006_LJUS.panel_redraw_ticks1 equ bss_90d6
 %include "shared/ovr/api_idx_0006_LJUS.asm"     ; 0x0f27
 
 run_party_screen_animation.api_idx1 equ api_idx_0006_LJUS
@@ -111,8 +109,6 @@ draw_spell_cost.dseg1 equ dseg_90bb
 
 %include "shared/ovr/draw_realm_spell_points.asm" ; 0x1b78
 
-periodic_party_redraw.party_redraw_mode1       equ bss_90d6
-periodic_party_redraw.draw_realm_spell_points1 equ draw_realm_spell_points
 %include "shared/ovr/periodic_party_redraw.asm" ; 0x1c11
 
 %include "vpops/action_spell_dialog.asm"   ; 0x1ca2
@@ -121,10 +117,8 @@ periodic_party_redraw.draw_realm_spell_points1 equ draw_realm_spell_points
 
 %include "shared/ovr/api_idx_0018_RGOS.asm"     ; 0x29f2
 
-api_idx_0004_LUOM equ draw_list_rows
-%include "shared/ovr/draw_list_rows.asm"     ; 0x2aef
+%include "shared/ovr/draw_list_rows.asm"        ; 0x2aef
 
-loc_HTKI.draw_list_rows1 equ api_idx_0004_LUOM
 %include "shared/ovr/loc_HTKI.asm"              ; 0x2c51
 
 %include "vpops/api_idx_0038_PVVG.asm"     ; 0x2c92

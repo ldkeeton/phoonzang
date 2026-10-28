@@ -223,7 +223,7 @@ api_idx_002c_NHRR:
     mov ax, word [bp - 2]            ; 0x6c52
     cmp ax, strict word 6            ; 0x6c55
     jl short .back2                  ; 0x6c58
-    mov word [bss_976c], 7           ; 0x6c5a
+    mov word [party_redraw_interval], 7 ; 0x6c5a
     les bx, word [tick_counter_ptr]  ; 0x6c60
     mov ax, word [es:bx]             ; 0x6c64
     mov dx, word [es:bx + 2]         ; 0x6c67

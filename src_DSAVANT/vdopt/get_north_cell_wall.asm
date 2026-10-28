@@ -1,5 +1,5 @@
 ; auto-generated
-get_cell_wall_variant_a:
+get_north_cell_wall:
     mov ax, 0                        ; 0x07d9
     call aztec_csav                  ; 0x07dc
     mov ax, word [bp + 6]            ; 0x07df

@@ -40,7 +40,7 @@ bss_90ca equ __zdseg_end + (__zobss_90ca - __zdata_start)
 bss_90dc equ __zdseg_end + (__zobss_90dc - __zdata_start)
 bss_90de equ __zdseg_end + (__zobss_90de - __zdata_start)
 bss_90e0 equ __zdseg_end + (__zobss_90e0 - __zdata_start)
-bss_90e2 equ __zdseg_end + (__zobss_90e2 - __zdata_start)
+party_redraw_interval equ __zdseg_end + (__zobss_90e2 - __zdata_start)
 bss_90e4 equ __zdseg_end + (__zobss_90e4 - __zdata_start)
 bss_90e6 equ __zdseg_end + (__zobss_90e6 - __zdata_start)
 bss_9136 equ __zdseg_end + (__zobss_9136 - __zdata_start)
@@ -95,7 +95,6 @@ advance_action_slots.fill_action_slot_table_vmnpc1 equ fill_action_slot_table
 
 %include "vmexe/loc_TGJH.asm"              ; 0x182b
 
-loc_KRMP.panel_redraw_ticks1 equ bss_90e2
 %include "shared/ovr/loc_KRMP.asm"              ; 0x1849
 
 %include "vmexe/api_idx_0006_GMTP.asm"     ; 0x18a8

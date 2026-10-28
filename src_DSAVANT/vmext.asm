@@ -51,11 +51,11 @@ _Uorg equ __zdseg_end + (__zobss_9180 - __zdata_start)
 bss_9180 equ __zdseg_end + (__zobss_9180 - __zdata_start)
 bss_9182 equ __zdseg_end + (__zobss_9182 - __zdata_start)
 boundary_wall_open equ __zdseg_end + (__zobss_9188 - __zdata_start)
-bss_918a equ __zdseg_end + (__zobss_918a - __zdata_start)
+save_location_flag equ __zdseg_end + (__zobss_918a - __zdata_start)
 bss_918c equ __zdseg_end + (__zobss_918c - __zdata_start)
 bss_9192 equ __zdseg_end + (__zobss_9192 - __zdata_start)
 bss_9198 equ __zdseg_end + (__zobss_9198 - __zdata_start)
-save_location_flag equ __zdseg_end + (__zobss_919e - __zdata_start)
+bss_919e equ __zdseg_end + (__zobss_919e - __zdata_start)
 bss_91a4 equ __zdseg_end + (__zobss_91a4 - __zdata_start)
 bss_91a6 equ __zdseg_end + (__zobss_91a6 - __zdata_start)
 boundary_wall_variant equ __zdseg_end + (__zobss_91a8 - __zdata_start)
@@ -97,8 +97,8 @@ bss_9304 equ __zdseg_end + (__zobss_9304 - __zdata_start)
 bss_9aec equ __zdseg_end + (__zobss_9aec - __zdata_start)
 bss_9aee equ __zdseg_end + (__zobss_9aee - __zdata_start)
 bss_9b08 equ __zdseg_end + (__zobss_9b08 - __zdata_start)
-grid_origin_y equ __zdseg_end + (__zobss_9b0a - __zdata_start)
-grid_origin_x equ __zdseg_end + (__zobss_9b0c - __zdata_start)
+bss_9b0a equ __zdseg_end + (__zobss_9b0a - __zdata_start)
+bss_9b0c equ __zdseg_end + (__zobss_9b0c - __zdata_start)
 bss_9b0e equ __zdseg_end + (__zobss_9b0e - __zdata_start)
 bss_9b10 equ __zdseg_end + (__zobss_9b10 - __zdata_start)
 bss_9b12 equ __zdseg_end + (__zobss_9b12 - __zdata_start)
@@ -130,8 +130,6 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "shared/ovr/loc_IVLM.asm"              ; 0x0692
 
-get_cell_wall.get_cell_wall_variant_a1 equ get_north_cell_wall
-get_cell_wall.get_cell_wall_variant_b1 equ get_west_cell_wall
 %include "shared/ovr/get_cell_wall.asm"         ; 0x06c3
 
 %include "shared/ovr/api_idx_0008_OMTP.asm"     ; 0x0764
@@ -141,7 +139,6 @@ api_idx_0050_SMLN equ show_message
 
 %include "vmext/loc_NHMQ.asm"              ; 0x0836
 
-check_at_saved_location.save_location_flag1 equ bss_918a
 %include "shared/ovr/check_at_saved_location.asm" ; 0x0860
 
 api_idx_0004_JIVL      equ api_idx_0004_HRPS
@@ -348,52 +345,52 @@ api_idx_0012_RMOL.bss10    equ bss_91f7
 
 %include "shared/ovr/draw_clock_marker_glyph.asm" ; 0x3d29
 
-api_idx_0030_GVGM.bss1                equ bss_91de
-api_idx_0030_GVGM.bss2                equ bss_91c5
-api_idx_0030_GVGM.bss3                equ bss_91ac
-api_idx_0030_GVGM.bss4                equ bss_9aee
-api_idx_0030_GVGM.bss5                equ bss_91f7
-api_idx_0030_GVGM.bss6                equ bss_928e
-api_idx_0030_GVGM.bss7                equ bss_9274
-api_idx_0030_GVGM.bss8                equ bss_9210
-api_idx_0030_GVGM.bss9                equ bss_92c0
-api_idx_0030_GVGM.bss10               equ bss_9242
-api_idx_0030_GVGM.bss11               equ bss_92f4
-api_idx_0030_GVGM.bss12               equ bss_92f2
-api_idx_0030_GVGM.bss13               equ bss_9b08
-api_idx_0030_GVGM.bss14               equ bss_91a6
-jumptable_4471_case_1                 equ api_idx_0030_GVGM.jumptable_case1
-api_idx_0030_GVGM.loc1                equ loc_UMHI_193b
-api_idx_0030_GVGM.loc2                equ loc_LPLI_194f
-jumptable_4471_case_0                 equ api_idx_0030_GVGM.jumptable_case2
-jumptable_4471_case_2                 equ api_idx_0030_GVGM.jumptable_case3
-jumptable_4471_case_3                 equ api_idx_0030_GVGM.jumptable_case4
-jumptable_4471_case_4                 equ api_idx_0030_GVGM.jumptable_case5
-jumptable_4471_case_5                 equ api_idx_0030_GVGM.jumptable_case6
-jumptable_4471_case_6                 equ api_idx_0030_GVGM.jumptable_case7
-jumptable_4471                        equ api_idx_0030_GVGM.jumptable1
-api_idx_0030_GVGM.bss15               equ bss_91a4
-api_idx_0030_GVGM.grid_origin_y1      equ grid_origin_y
-api_idx_0030_GVGM.bss16               equ bss_91ae
-api_idx_0030_GVGM.grid_origin_x1      equ grid_origin_x
-api_idx_0030_GVGM.bss17               equ bss_9b0e
-api_idx_0030_GVGM.api_idx1            equ api_idx_0008_UNPO
-api_idx_0030_GVGM.bss18               equ bss_9b10
-api_idx_0030_GVGM.bss19               equ bss_9b12
-api_idx_0030_GVGM.bss20               equ bss_9b14
-api_idx_0030_GVGM.bss21               equ bss_9b16
-api_idx_0030_GVGM.bss22               equ bss_9b18
-api_idx_0030_GVGM.bss23               equ bss_9b1a
-api_idx_0030_GVGM.bss24               equ bss_9aec
-api_idx_0030_GVGM.api_idx2            equ api_idx_0010_NIMV
-api_idx_0030_GVGM.api_idx3            equ api_idx_0012_STJU
-api_idx_0030_GVGM.api_idx4            equ api_idx_0012_JLRR
-api_idx_0030_GVGM.bss25               equ bss_91b8
-api_idx_0030_GVGM.bss26               equ bss_9182
-api_idx_0030_GVGM.save_location_flag1 equ save_location_flag
-api_idx_0030_GVGM.bss27               equ bss_918c
-api_idx_0030_GVGM.bss28               equ bss_9192
-api_idx_0030_GVGM.bss29               equ bss_9198
+api_idx_0030_GVGM.bss1     equ bss_91de
+api_idx_0030_GVGM.bss2     equ bss_91c5
+api_idx_0030_GVGM.bss3     equ bss_91ac
+api_idx_0030_GVGM.bss4     equ bss_9aee
+api_idx_0030_GVGM.bss5     equ bss_91f7
+api_idx_0030_GVGM.bss6     equ bss_928e
+api_idx_0030_GVGM.bss7     equ bss_9274
+api_idx_0030_GVGM.bss8     equ bss_9210
+api_idx_0030_GVGM.bss9     equ bss_92c0
+api_idx_0030_GVGM.bss10    equ bss_9242
+api_idx_0030_GVGM.bss11    equ bss_92f4
+api_idx_0030_GVGM.bss12    equ bss_92f2
+api_idx_0030_GVGM.bss13    equ bss_9b08
+api_idx_0030_GVGM.bss14    equ bss_91a6
+jumptable_4471_case_1      equ api_idx_0030_GVGM.jumptable_case1
+api_idx_0030_GVGM.loc1     equ loc_UMHI_193b
+api_idx_0030_GVGM.loc2     equ loc_LPLI_194f
+jumptable_4471_case_0      equ api_idx_0030_GVGM.jumptable_case2
+jumptable_4471_case_2      equ api_idx_0030_GVGM.jumptable_case3
+jumptable_4471_case_3      equ api_idx_0030_GVGM.jumptable_case4
+jumptable_4471_case_4      equ api_idx_0030_GVGM.jumptable_case5
+jumptable_4471_case_5      equ api_idx_0030_GVGM.jumptable_case6
+jumptable_4471_case_6      equ api_idx_0030_GVGM.jumptable_case7
+jumptable_4471             equ api_idx_0030_GVGM.jumptable1
+api_idx_0030_GVGM.bss15    equ bss_91a4
+api_idx_0030_GVGM.bss16    equ bss_9b0a
+api_idx_0030_GVGM.bss17    equ bss_91ae
+api_idx_0030_GVGM.bss18    equ bss_9b0c
+api_idx_0030_GVGM.bss19    equ bss_9b0e
+api_idx_0030_GVGM.api_idx1 equ api_idx_0008_UNPO
+api_idx_0030_GVGM.bss20    equ bss_9b10
+api_idx_0030_GVGM.bss21    equ bss_9b12
+api_idx_0030_GVGM.bss22    equ bss_9b14
+api_idx_0030_GVGM.bss23    equ bss_9b16
+api_idx_0030_GVGM.bss24    equ bss_9b18
+api_idx_0030_GVGM.bss25    equ bss_9b1a
+api_idx_0030_GVGM.bss26    equ bss_9aec
+api_idx_0030_GVGM.api_idx2 equ api_idx_0010_NIMV
+api_idx_0030_GVGM.api_idx3 equ api_idx_0012_STJU
+api_idx_0030_GVGM.api_idx4 equ api_idx_0012_JLRR
+api_idx_0030_GVGM.bss27    equ bss_91b8
+api_idx_0030_GVGM.bss28    equ bss_9182
+api_idx_0030_GVGM.bss29    equ bss_919e
+api_idx_0030_GVGM.bss30    equ bss_918c
+api_idx_0030_GVGM.bss31    equ bss_9192
+api_idx_0030_GVGM.bss32    equ bss_9198
 %include "shared/ovr/api_idx_0030_GVGM.asm"     ; 0x3e8c
 
 redraw_maze_view.api_idx1 equ api_idx_0030_GVGM

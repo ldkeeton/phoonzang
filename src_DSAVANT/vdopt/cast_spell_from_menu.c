@@ -8,14 +8,15 @@
 
 extern struct spell_info spell_table[];
 extern struct pc_rec party_records[];
-extern int party_redraw_mode, spell_target, spell_dialog_result, pending_event;
+extern int party_redraw_interval, spell_target, spell_dialog_result,
+	pending_event;
 
 cast_spell_from_menu(pc)
 int pc;
 {
 	int spell, power;
 
-	party_redraw_mode = 5;
+	party_redraw_interval = 5;
 	/* zero: a spell was chosen */
 	if (pick_spell_dialog(pc, MSG_CAST, 1, 1) == 0) {
 		power = spell_dialog_result / 256;	/* (power << 8) + spell + 0x100 */

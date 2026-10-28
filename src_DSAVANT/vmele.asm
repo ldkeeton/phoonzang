@@ -34,7 +34,7 @@ save_sp equ __zdseg_end + (__zsave_sp - __zdata_start)
 save_bp equ __zdseg_end + (__zsave_bp - __zdata_start)
 save_ret equ __zdseg_end + (__zsave_ret - __zdata_start)
 _Uorg equ __zdseg_end + (__zobss_90b6 - __zdata_start)
-panel_redraw_ticks equ __zdseg_end + (__zobss_90b6 - __zdata_start)
+party_redraw_interval equ __zdseg_end + (__zobss_90b6 - __zdata_start)
 show_melee_result equ __zdseg_end + (__zobss_90b8 - __zdata_start)
 npc_melee equ __zdseg_end + (__zobss_90ba - __zdata_start)
 battle_setup_done equ __zdseg_end + (__zobss_90bc - __zdata_start)
@@ -106,10 +106,8 @@ advance_action_slots.fill_action_slot_table_vmnpc1 equ fill_action_slot_table_vm
 
 %include "vmele/fill_row_action_slots.asm" ; 0x29c5
 
-loc_KRMP.panel_redraw_ticks1 equ panel_redraw_ticks
 %include "shared/ovr/loc_KRMP.asm"              ; 0x2b19
 
-api_idx_0006_LJUS.panel_redraw_ticks1 equ panel_redraw_ticks
 %include "shared/ovr/api_idx_0006_LJUS.asm"     ; 0x2b78
 
 run_party_screen_animation.api_idx1 equ api_idx_0006_LJUS

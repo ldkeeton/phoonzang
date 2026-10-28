@@ -1,5 +1,5 @@
 ; auto-generated
-check_profession_requirements:
+evaluate_character_profession:
     mov ax, 0                        ; 0x4107
     call aztec_csav                  ; 0x410a
     mov ax, word [bp + 6]            ; 0x410d
@@ -12,7 +12,7 @@ jumptable_4267_case_0:
     push word [bp + 4]               ; 0x411d
     call check_profession_stat_budget ; 0x4120
     add sp, byte 8                   ; 0x4123
-    jmp near check_profession_requirements.return1 ; 0x4126
+    jmp near evaluate_character_profession.return1 ; 0x4126
 jumptable_4267_case_1:
     push word [bp + 8]               ; 0x4129
     mov ax, profession_1_stat_requirements ; 0x412c
@@ -21,7 +21,7 @@ jumptable_4267_case_1:
     push word [bp + 4]               ; 0x4133
     call check_profession_stat_budget ; 0x4136
     add sp, byte 8                   ; 0x4139
-    jmp near check_profession_requirements.return1 ; 0x413c
+    jmp near evaluate_character_profession.return1 ; 0x413c
 jumptable_4267_case_2:
     push word [bp + 8]               ; 0x413f
     mov ax, profession_2_stat_requirements ; 0x4142
@@ -30,7 +30,7 @@ jumptable_4267_case_2:
     push word [bp + 4]               ; 0x4149
     call check_profession_stat_budget ; 0x414c
     add sp, byte 8                   ; 0x414f
-    jmp near check_profession_requirements.return1 ; 0x4152
+    jmp near evaluate_character_profession.return1 ; 0x4152
 jumptable_4267_case_3:
     push word [bp + 8]               ; 0x4155
     mov ax, profession_3_stat_requirements ; 0x4158
@@ -39,7 +39,7 @@ jumptable_4267_case_3:
     push word [bp + 4]               ; 0x415f
     call check_profession_stat_budget ; 0x4162
     add sp, byte 8                   ; 0x4165
-    jmp near check_profession_requirements.return1 ; 0x4168
+    jmp near evaluate_character_profession.return1 ; 0x4168
 jumptable_4267_case_4:
     push word [bp + 8]               ; 0x416b
     mov ax, profession_4_stat_requirements ; 0x416e
@@ -48,7 +48,7 @@ jumptable_4267_case_4:
     push word [bp + 4]               ; 0x4175
     call check_profession_stat_budget ; 0x4178
     add sp, byte 8                   ; 0x417b
-    jmp near check_profession_requirements.return1 ; 0x417e
+    jmp near evaluate_character_profession.return1 ; 0x417e
 jumptable_4267_case_5:
     push word [bp + 8]               ; 0x4181
     mov ax, profession_5_stat_requirements ; 0x4184
@@ -57,7 +57,7 @@ jumptable_4267_case_5:
     push word [bp + 4]               ; 0x418b
     call check_profession_stat_budget ; 0x418e
     add sp, byte 8                   ; 0x4191
-    jmp near check_profession_requirements.return1 ; 0x4194
+    jmp near evaluate_character_profession.return1 ; 0x4194
 jumptable_4267_case_6:
     push word [bp + 8]               ; 0x4197
     mov ax, profession_6_stat_requirements ; 0x419a
@@ -66,7 +66,7 @@ jumptable_4267_case_6:
     push word [bp + 4]               ; 0x41a1
     call check_profession_stat_budget ; 0x41a4
     add sp, byte 8                   ; 0x41a7
-    jmp near check_profession_requirements.return1 ; 0x41aa
+    jmp near evaluate_character_profession.return1 ; 0x41aa
 jumptable_4267_case_7:
     push word [bp + 8]               ; 0x41ad
     mov ax, profession_7_stat_requirements ; 0x41b0
@@ -75,16 +75,16 @@ jumptable_4267_case_7:
     push word [bp + 4]               ; 0x41b7
     call check_profession_stat_budget ; 0x41ba
     add sp, byte 8                   ; 0x41bd
-    jmp near check_profession_requirements.return1 ; 0x41c0
+    jmp near evaluate_character_profession.return1 ; 0x41c0
 jumptable_4267_case_8:
     cmp word [bp + 8], byte 0        ; 0x41c3
-    jne short check_profession_requirements.forward1 ; 0x41c7
+    jne short evaluate_character_profession.forward1 ; 0x41c7
     mov ax, 0x248                    ; 0x41c9
     imul word [bp + 4]               ; 0x41cc
     mov bx, ax                       ; 0x41cf
     cmp byte [bx + party_records + pc_rec.gender], 1 ; 0x41d1
-    jne short check_profession_requirements.forward2 ; 0x41d6
-check_profession_requirements.forward1:
+    jne short evaluate_character_profession.forward2 ; 0x41d6
+evaluate_character_profession.forward1:
     push word [bp + 8]               ; 0x41d8
     mov ax, profession_8_stat_requirements ; 0x41db
     push ax                          ; 0x41de
@@ -92,14 +92,14 @@ check_profession_requirements.forward1:
     push word [bp + 4]               ; 0x41e2
     call check_profession_stat_budget ; 0x41e5
     add sp, byte 8                   ; 0x41e8
-    jmp short check_profession_requirements.forward3 ; 0x41eb
-check_profession_requirements.forward2:
+    jmp short evaluate_character_profession.forward3 ; 0x41eb
+evaluate_character_profession.forward2:
     mov ax, word [bp + 6]            ; 0x41ed
     shl ax, 1                        ; 0x41f0
     mov bx, ax                       ; 0x41f2
     mov word [bx + profession_eligible], 0 ; 0x41f4
-check_profession_requirements.forward3:
-    jmp near check_profession_requirements.return1 ; 0x41fa
+evaluate_character_profession.forward3:
+    jmp near evaluate_character_profession.return1 ; 0x41fa
 jumptable_4267_case_9:
     push word [bp + 8]               ; 0x41fd
     mov ax, profession_9_stat_requirements ; 0x4200
@@ -108,7 +108,7 @@ jumptable_4267_case_9:
     push word [bp + 4]               ; 0x4207
     call check_profession_stat_budget ; 0x420a
     add sp, byte 8                   ; 0x420d
-    jmp near check_profession_requirements.return1 ; 0x4210
+    jmp near evaluate_character_profession.return1 ; 0x4210
 jumptable_4267_case_10:
     push word [bp + 8]               ; 0x4213
     mov ax, profession_10_stat_requirements ; 0x4216
@@ -117,7 +117,7 @@ jumptable_4267_case_10:
     push word [bp + 4]               ; 0x421d
     call check_profession_stat_budget ; 0x4220
     add sp, byte 8                   ; 0x4223
-    jmp short check_profession_requirements.return1 ; 0x4226
+    jmp short evaluate_character_profession.return1 ; 0x4226
 jumptable_4267_case_11:
     push word [bp + 8]               ; 0x4228
     mov ax, profession_11_stat_requirements ; 0x422b
@@ -126,7 +126,7 @@ jumptable_4267_case_11:
     push word [bp + 4]               ; 0x4232
     call check_profession_stat_budget ; 0x4235
     add sp, byte 8                   ; 0x4238
-    jmp short check_profession_requirements.return1 ; 0x423b
+    jmp short evaluate_character_profession.return1 ; 0x423b
 jumptable_4267_case_12:
     push word [bp + 8]               ; 0x423d
     mov ax, profession_12_stat_requirements ; 0x4240
@@ -135,7 +135,7 @@ jumptable_4267_case_12:
     push word [bp + 4]               ; 0x4247
     call check_profession_stat_budget ; 0x424a
     add sp, byte 8                   ; 0x424d
-    jmp short check_profession_requirements.return1 ; 0x4250
+    jmp short evaluate_character_profession.return1 ; 0x4250
 jumptable_4267_case_13:
     push word [bp + 8]               ; 0x4252
     mov ax, profession_13_stat_requirements ; 0x4255
@@ -144,7 +144,7 @@ jumptable_4267_case_13:
     push word [bp + 4]               ; 0x425c
     call check_profession_stat_budget ; 0x425f
     add sp, byte 8                   ; 0x4262
-    jmp short check_profession_requirements.return1 ; 0x4265
+    jmp short evaluate_character_profession.return1 ; 0x4265
 jumptable_4267:
     dw jumptable_4267_case_0 - IMAGE_BASE + __zres_end ; 0x4267
     dw jumptable_4267_case_1 - IMAGE_BASE + __zres_end ; 0x4269
@@ -160,11 +160,11 @@ jumptable_4267:
     dw jumptable_4267_case_11 - IMAGE_BASE + __zres_end ; 0x427d
     dw jumptable_4267_case_12 - IMAGE_BASE + __zres_end ; 0x427f
     dw jumptable_4267_case_13 - IMAGE_BASE + __zres_end ; 0x4281
-check_profession_requirements.forward4:
+evaluate_character_profession.forward4:
     cmp ax, strict word 0xe          ; 0x4283
-    jae short check_profession_requirements.return1 ; 0x4286
+    jae short evaluate_character_profession.return1 ; 0x4286
     xchg bx, ax                      ; 0x4288
     shl bx, 1                        ; 0x4289
     jmp [cs:bx + jumptable_4267 - IMAGE_BASE + __zres_end] ; 0x428b
-check_profession_requirements.return1:
+evaluate_character_profession.return1:
     ret                              ; 0x4290

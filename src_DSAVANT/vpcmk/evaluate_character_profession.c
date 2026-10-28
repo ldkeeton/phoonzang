@@ -22,7 +22,7 @@ extern char profession_13_stat_requirements[];
 
 /* Check one profession, optionally spending points to meet its stat
    requirements. */
-check_profession_requirements(character, profession, allocate_points)
+evaluate_character_profession(character, profession, allocate_points)
 int character, profession, allocate_points;
 {
 	switch (profession) { /* Fourteen profession requirement sets. */

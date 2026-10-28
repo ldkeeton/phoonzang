@@ -174,7 +174,7 @@ slot_value2 equ __zdseg_end + (__zobss_960c - __zdata_start)
 slot_label equ __zdseg_end + (__zobss_9610 - __zdata_start)
 slot_limit equ __zdseg_end + (__zobss_96d8 - __zdata_start)
 known_spell_ids equ __zdseg_end + (__zobss_971c - __zdata_start)
-bss_976c equ __zdseg_end + (__zobss_976c - __zdata_start)
+party_redraw_interval equ __zdseg_end + (__zobss_976c - __zdata_start)
 profession_eligible equ __zdseg_end + (__zobss_976e - __zdata_start)
 bss_978a equ __zdseg_end + (__zobss_978a - __zdata_start)
 _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
@@ -233,82 +233,81 @@ api_idx_0004_GRKI      equ api_idx_0004_GRGJ
 api_idx_0004_GRGJ.bss1 equ bss_95b0
 %include "shared/ovr/api_idx_0004_GRGJ.asm"     ; 0x2144
 
-api_idx_0004_SNNO                   equ api_idx_0004_LOLJ
-jumptable_240e_case_0               equ api_idx_0004_LOLJ.jumptable_case1
-api_idx_0004_LOLJ.dseg1             equ dseg_90d9
-api_idx_0004_LOLJ.dseg2             equ dseg_90d2
-api_idx_0004_LOLJ.dseg3             equ dseg_90c9
-api_idx_0004_LOLJ.dseg4             equ dseg_90be
-api_idx_0004_LOLJ.api_idx1          equ api_idx_0004_GRKI
-jumptable_240e_case_1               equ api_idx_0004_LOLJ.jumptable_case2
-api_idx_0004_LOLJ.dseg5             equ dseg_90ff
-api_idx_0004_LOLJ.dseg6             equ dseg_90f8
-api_idx_0004_LOLJ.dseg7             equ dseg_90ef
-api_idx_0004_LOLJ.dseg8             equ dseg_90e4
-jumptable_240e_case_2               equ api_idx_0004_LOLJ.jumptable_case3
-api_idx_0004_LOLJ.dseg9             equ dseg_9125
-api_idx_0004_LOLJ.dseg10            equ dseg_911e
-api_idx_0004_LOLJ.dseg11            equ dseg_9115
-api_idx_0004_LOLJ.dseg12            equ dseg_910a
-jumptable_240e_case_3               equ api_idx_0004_LOLJ.jumptable_case4
-api_idx_0004_LOLJ.dseg13            equ dseg_914b
-api_idx_0004_LOLJ.dseg14            equ dseg_9144
-api_idx_0004_LOLJ.dseg15            equ dseg_913b
-api_idx_0004_LOLJ.dseg16            equ dseg_9130
-jumptable_240e_case_4               equ api_idx_0004_LOLJ.jumptable_case5
-api_idx_0004_LOLJ.dseg17            equ dseg_9171
-api_idx_0004_LOLJ.dseg18            equ dseg_916a
-api_idx_0004_LOLJ.dseg19            equ dseg_9161
-api_idx_0004_LOLJ.dseg20            equ dseg_9156
-jumptable_240e_case_5               equ api_idx_0004_LOLJ.jumptable_case6
-api_idx_0004_LOLJ.dseg21            equ dseg_9197
-api_idx_0004_LOLJ.dseg22            equ dseg_9190
-api_idx_0004_LOLJ.dseg23            equ dseg_9187
-api_idx_0004_LOLJ.dseg24            equ dseg_917c
-jumptable_240e_case_6               equ api_idx_0004_LOLJ.jumptable_case7
-api_idx_0004_LOLJ.dseg25            equ dseg_91bd
-api_idx_0004_LOLJ.dseg26            equ dseg_91b6
-api_idx_0004_LOLJ.dseg27            equ dseg_91ad
-api_idx_0004_LOLJ.dseg28            equ dseg_91a2
-jumptable_240e_case_7               equ api_idx_0004_LOLJ.jumptable_case8
-api_idx_0004_LOLJ.dseg29            equ dseg_91e3
-api_idx_0004_LOLJ.dseg30            equ dseg_91dc
-api_idx_0004_LOLJ.dseg31            equ dseg_91d3
-api_idx_0004_LOLJ.dseg32            equ dseg_91c8
-jumptable_240e_case_8               equ api_idx_0004_LOLJ.jumptable_case9
-api_idx_0004_LOLJ.dseg33            equ dseg_9209
-api_idx_0004_LOLJ.dseg34            equ dseg_9202
-api_idx_0004_LOLJ.dseg35            equ dseg_91f9
-api_idx_0004_LOLJ.dseg36            equ dseg_91ee
-jumptable_240e_case_9               equ api_idx_0004_LOLJ.jumptable_case10
-api_idx_0004_LOLJ.dseg37            equ dseg_922f
-api_idx_0004_LOLJ.dseg38            equ dseg_9228
-api_idx_0004_LOLJ.dseg39            equ dseg_921f
-api_idx_0004_LOLJ.dseg40            equ dseg_9214
-jumptable_240e_case_10              equ api_idx_0004_LOLJ.jumptable_case11
-api_idx_0004_LOLJ.dseg41            equ dseg_9255
-api_idx_0004_LOLJ.dseg42            equ dseg_924e
-api_idx_0004_LOLJ.dseg43            equ dseg_9245
-api_idx_0004_LOLJ.dseg44            equ dseg_923a
-jumptable_240e_case_11              equ api_idx_0004_LOLJ.jumptable_case12
-api_idx_0004_LOLJ.dseg45            equ dseg_927b
-api_idx_0004_LOLJ.dseg46            equ dseg_9274
-api_idx_0004_LOLJ.dseg47            equ dseg_926b
-api_idx_0004_LOLJ.dseg48            equ dseg_9260
-jumptable_240e_case_12              equ api_idx_0004_LOLJ.jumptable_case13
-api_idx_0004_LOLJ.dseg49            equ dseg_92a1
-api_idx_0004_LOLJ.dseg50            equ dseg_929a
-api_idx_0004_LOLJ.dseg51            equ dseg_9291
-api_idx_0004_LOLJ.dseg52            equ dseg_9286
-jumptable_240e_case_13              equ api_idx_0004_LOLJ.jumptable_case14
-api_idx_0004_LOLJ.dseg53            equ dseg_92c7
-api_idx_0004_LOLJ.dseg54            equ dseg_92c0
-api_idx_0004_LOLJ.dseg55            equ dseg_92b7
-api_idx_0004_LOLJ.dseg56            equ dseg_92ac
-jumptable_240e                      equ api_idx_0004_LOLJ.jumptable1
-api_idx_0004_LOLJ.bss1              equ bss_95e8
-api_idx_0004_LOLJ.bss2              equ bss_95b0
-api_idx_0004_LOLJ.slot_prompt_text1 equ slot_prompt_text
+api_idx_0004_SNNO          equ api_idx_0004_LOLJ
+jumptable_240e_case_0      equ api_idx_0004_LOLJ.jumptable_case1
+api_idx_0004_LOLJ.dseg1    equ dseg_90d9
+api_idx_0004_LOLJ.dseg2    equ dseg_90d2
+api_idx_0004_LOLJ.dseg3    equ dseg_90c9
+api_idx_0004_LOLJ.dseg4    equ dseg_90be
+api_idx_0004_LOLJ.api_idx1 equ api_idx_0004_GRKI
+jumptable_240e_case_1      equ api_idx_0004_LOLJ.jumptable_case2
+api_idx_0004_LOLJ.dseg5    equ dseg_90ff
+api_idx_0004_LOLJ.dseg6    equ dseg_90f8
+api_idx_0004_LOLJ.dseg7    equ dseg_90ef
+api_idx_0004_LOLJ.dseg8    equ dseg_90e4
+jumptable_240e_case_2      equ api_idx_0004_LOLJ.jumptable_case3
+api_idx_0004_LOLJ.dseg9    equ dseg_9125
+api_idx_0004_LOLJ.dseg10   equ dseg_911e
+api_idx_0004_LOLJ.dseg11   equ dseg_9115
+api_idx_0004_LOLJ.dseg12   equ dseg_910a
+jumptable_240e_case_3      equ api_idx_0004_LOLJ.jumptable_case4
+api_idx_0004_LOLJ.dseg13   equ dseg_914b
+api_idx_0004_LOLJ.dseg14   equ dseg_9144
+api_idx_0004_LOLJ.dseg15   equ dseg_913b
+api_idx_0004_LOLJ.dseg16   equ dseg_9130
+jumptable_240e_case_4      equ api_idx_0004_LOLJ.jumptable_case5
+api_idx_0004_LOLJ.dseg17   equ dseg_9171
+api_idx_0004_LOLJ.dseg18   equ dseg_916a
+api_idx_0004_LOLJ.dseg19   equ dseg_9161
+api_idx_0004_LOLJ.dseg20   equ dseg_9156
+jumptable_240e_case_5      equ api_idx_0004_LOLJ.jumptable_case6
+api_idx_0004_LOLJ.dseg21   equ dseg_9197
+api_idx_0004_LOLJ.dseg22   equ dseg_9190
+api_idx_0004_LOLJ.dseg23   equ dseg_9187
+api_idx_0004_LOLJ.dseg24   equ dseg_917c
+jumptable_240e_case_6      equ api_idx_0004_LOLJ.jumptable_case7
+api_idx_0004_LOLJ.dseg25   equ dseg_91bd
+api_idx_0004_LOLJ.dseg26   equ dseg_91b6
+api_idx_0004_LOLJ.dseg27   equ dseg_91ad
+api_idx_0004_LOLJ.dseg28   equ dseg_91a2
+jumptable_240e_case_7      equ api_idx_0004_LOLJ.jumptable_case8
+api_idx_0004_LOLJ.dseg29   equ dseg_91e3
+api_idx_0004_LOLJ.dseg30   equ dseg_91dc
+api_idx_0004_LOLJ.dseg31   equ dseg_91d3
+api_idx_0004_LOLJ.dseg32   equ dseg_91c8
+jumptable_240e_case_8      equ api_idx_0004_LOLJ.jumptable_case9
+api_idx_0004_LOLJ.dseg33   equ dseg_9209
+api_idx_0004_LOLJ.dseg34   equ dseg_9202
+api_idx_0004_LOLJ.dseg35   equ dseg_91f9
+api_idx_0004_LOLJ.dseg36   equ dseg_91ee
+jumptable_240e_case_9      equ api_idx_0004_LOLJ.jumptable_case10
+api_idx_0004_LOLJ.dseg37   equ dseg_922f
+api_idx_0004_LOLJ.dseg38   equ dseg_9228
+api_idx_0004_LOLJ.dseg39   equ dseg_921f
+api_idx_0004_LOLJ.dseg40   equ dseg_9214
+jumptable_240e_case_10     equ api_idx_0004_LOLJ.jumptable_case11
+api_idx_0004_LOLJ.dseg41   equ dseg_9255
+api_idx_0004_LOLJ.dseg42   equ dseg_924e
+api_idx_0004_LOLJ.dseg43   equ dseg_9245
+api_idx_0004_LOLJ.dseg44   equ dseg_923a
+jumptable_240e_case_11     equ api_idx_0004_LOLJ.jumptable_case12
+api_idx_0004_LOLJ.dseg45   equ dseg_927b
+api_idx_0004_LOLJ.dseg46   equ dseg_9274
+api_idx_0004_LOLJ.dseg47   equ dseg_926b
+api_idx_0004_LOLJ.dseg48   equ dseg_9260
+jumptable_240e_case_12     equ api_idx_0004_LOLJ.jumptable_case13
+api_idx_0004_LOLJ.dseg49   equ dseg_92a1
+api_idx_0004_LOLJ.dseg50   equ dseg_929a
+api_idx_0004_LOLJ.dseg51   equ dseg_9291
+api_idx_0004_LOLJ.dseg52   equ dseg_9286
+jumptable_240e_case_13     equ api_idx_0004_LOLJ.jumptable_case14
+api_idx_0004_LOLJ.dseg53   equ dseg_92c7
+api_idx_0004_LOLJ.dseg54   equ dseg_92c0
+api_idx_0004_LOLJ.dseg55   equ dseg_92b7
+api_idx_0004_LOLJ.dseg56   equ dseg_92ac
+jumptable_240e             equ api_idx_0004_LOLJ.jumptable1
+api_idx_0004_LOLJ.bss1     equ bss_95e8
+api_idx_0004_LOLJ.bss2     equ bss_95b0
 %include "shared/ovr/api_idx_0004_LOLJ.asm"     ; 0x2273
 
 %include "shared/ovr/draw_known_spell_values.asm" ; 0x24c8
@@ -334,15 +333,12 @@ draw_spell_cost.dseg1 equ dseg_92d2
 
 %include "shared/ovr/draw_realm_spell_points.asm" ; 0x2f3f
 
-periodic_party_redraw.party_redraw_mode1       equ bss_976c
-periodic_party_redraw.draw_realm_spell_points1 equ draw_realm_spell_points
 %include "shared/ovr/periodic_party_redraw.asm" ; 0x2fd8
 
 api_idx_0050_NHHL          equ api_idx_0050_MINM
 api_idx_0050_MINM.dseg1    equ dseg_92d6
 api_idx_0050_MINM.loc1     equ loc_HRLN
 api_idx_0050_MINM.api_idx1 equ api_idx_0004_VQQR
-api_idx_0050_MINM.bss1     equ bss_976c
 jumptable_3cc2_case_0      equ api_idx_0050_MINM.jumptable_case1
 jumptable_3cc2_case_1      equ api_idx_0050_MINM.jumptable_case2
 jumptable_3cc2_case_3      equ api_idx_0050_MINM.jumptable_case3
@@ -352,17 +348,15 @@ jumptable_3cc2             equ api_idx_0050_MINM.jumptable1
 
 %include "vpcmk/api_idx_006e_LVOK.asm"     ; 0x3d59
 
-loc_TTSP.bss1 equ bss_976c
-loc_TTSP.bss2 equ bss_95ae
+loc_TTSP.bss1 equ bss_95ae
 %include "shared/ovr/loc_TTSP.asm"              ; 0x3f87
 
 %include "vpcmk/api_idx_0002_IRKS.asm"     ; 0x402d
 
 %include "vpcmk/check_profession_stat_budget.asm" ; 0x4081
 
-%include "vpcmk/check_profession_requirements.asm" ; 0x4107
+%include "vpcmk/evaluate_character_profession.asm" ; 0x4107
 
-evaluate_character_professions.check_profession_requirements1 equ check_profession_requirements
 %include "shared/ovr/evaluate_character_professions.asm" ; 0x4291
 
 loc_VQPO               equ loc_SRNN

@@ -63,7 +63,7 @@ bss_91a0 equ __zdseg_end + (__zobss_91a0 - __zdata_start)
 bss_91a2 equ __zdseg_end + (__zobss_91a2 - __zdata_start)
 bss_91a4 equ __zdseg_end + (__zobss_91a4 - __zdata_start)
 bss_91a6 equ __zdseg_end + (__zobss_91a6 - __zdata_start)
-location_changed equ __zdseg_end + (__zobss_91a8 - __zdata_start)
+bss_91a8 equ __zdseg_end + (__zobss_91a8 - __zdata_start)
 bss_91aa equ __zdseg_end + (__zobss_91aa - __zdata_start)
 bss_91ac equ __zdseg_end + (__zobss_91ac - __zdata_start)
 bss_91ae equ __zdseg_end + (__zobss_91ae - __zdata_start)
@@ -85,7 +85,7 @@ text_line_color equ __zdseg_end + (__zobss_93cc - __zdata_start)
 bss_93ce equ __zdseg_end + (__zobss_93ce - __zdata_start)
 bss_93d2 equ __zdseg_end + (__zobss_93d2 - __zdata_start)
 text_line_index equ __zdseg_end + (__zobss_93d4 - __zdata_start)
-bss_93d6 equ __zdseg_end + (__zobss_93d6 - __zdata_start)
+party_redraw_interval equ __zdseg_end + (__zobss_93d6 - __zdata_start)
 bss_93d8 equ __zdseg_end + (__zobss_93d8 - __zdata_start)
 bss_93da equ __zdseg_end + (__zobss_93da - __zdata_start)
 bss_93dc equ __zdseg_end + (__zobss_93dc - __zdata_start)
@@ -223,7 +223,6 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "vmnpc/next_text_line.asm"        ; 0x0e15
 
-loc_KRMP.panel_redraw_ticks1 equ bss_93d6
 %include "shared/ovr/loc_KRMP.asm"              ; 0x0ef1
 
 %include "vmnpc/step_party_animation.asm"  ; 0x0f50
@@ -288,10 +287,8 @@ loc_UTQS.api_idx1 equ step_party_animation
 
 %include "shared/ovr/api_idx_0018_RGOS.asm"     ; 0x3b9a
 
-api_idx_0004_KHSO equ draw_list_rows
-%include "shared/ovr/draw_list_rows.asm"     ; 0x3c97
+%include "shared/ovr/draw_list_rows.asm"        ; 0x3c97
 
-loc_HTKI.draw_list_rows1 equ api_idx_0004_KHSO
 %include "shared/ovr/loc_HTKI.asm"              ; 0x3df9
 
 %include "vmnpc/api_idx_0038_IJUK.asm"     ; 0x3e3a
@@ -365,11 +362,8 @@ loc_IMPO              equ draw_spell_cost
 draw_spell_cost.dseg1 equ dseg_90e4
 %include "shared/ovr/draw_spell_cost.asm"              ; 0x7667
 
-api_idx_000c_VQMU equ draw_realm_spell_points
-%include "shared/ovr/draw_realm_spell_points.asm"     ; 0x7708
+%include "shared/ovr/draw_realm_spell_points.asm" ; 0x7708
 
-periodic_party_redraw.party_redraw_mode1       equ bss_93d6
-periodic_party_redraw.draw_realm_spell_points1 equ api_idx_000c_VQMU
 %include "shared/ovr/periodic_party_redraw.asm" ; 0x77a1
 
 %include "vmnpc/loc_UVUO.asm"              ; 0x7832

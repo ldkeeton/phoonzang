@@ -22,6 +22,6 @@ loc_HTKI:
     push word [bp + 8]
     push word [bp + 6]
     push word [bp + 4]
-    call loc_HTKI.draw_list_rows1
+    call draw_list_rows
     add sp, byte 0xc
     ret

@@ -712,30 +712,30 @@ api_idx_0030_GVGM.forward26:
     je short api_idx_0030_GVGM.forward29
     cmp word [boundary_wall_open], byte 0
     je short api_idx_0030_GVGM.forward27
-    mov word [api_idx_0030_GVGM.grid_origin_y1], 0
+    mov word [api_idx_0030_GVGM.bss16], 0
     jmp short api_idx_0030_GVGM.forward28
 api_idx_0030_GVGM.forward27:
     mov ax, 5
     imul word [cell_wall_override_disabled]
     mov bx, ax
-    mov byte [bx + api_idx_0030_GVGM.bss16], 1
-    mov word [api_idx_0030_GVGM.grid_origin_y1], 4
+    mov byte [bx + api_idx_0030_GVGM.bss17], 1
+    mov word [api_idx_0030_GVGM.bss16], 4
 api_idx_0030_GVGM.forward28:
     jmp short api_idx_0030_GVGM.forward30
 api_idx_0030_GVGM.forward29:
     mov ax, 5
     imul word [cell_wall_override_disabled]
     mov bx, ax
-    mov byte [bx + api_idx_0030_GVGM.bss16], 3
-    mov word [api_idx_0030_GVGM.grid_origin_y1], 0
+    mov byte [bx + api_idx_0030_GVGM.bss17], 3
+    mov word [api_idx_0030_GVGM.bss16], 0
 api_idx_0030_GVGM.forward30:
     jmp short api_idx_0030_GVGM.forward32
 api_idx_0030_GVGM.forward31:
-    mov word [api_idx_0030_GVGM.grid_origin_y1], 2
+    mov word [api_idx_0030_GVGM.bss16], 2
 api_idx_0030_GVGM.forward32:
-    mov ax, word [api_idx_0030_GVGM.grid_origin_y1]
-    mov word [api_idx_0030_GVGM.grid_origin_x1], ax
-    mov word [api_idx_0030_GVGM.bss17], ax
+    mov ax, word [api_idx_0030_GVGM.bss16]
+    mov word [api_idx_0030_GVGM.bss18], ax
+    mov word [api_idx_0030_GVGM.bss19], ax
     jmp short api_idx_0030_GVGM.forward34
 api_idx_0030_GVGM.forward33:
     mov ax, 0
@@ -747,7 +747,7 @@ api_idx_0030_GVGM.forward33:
     push word [bp - 0xa]
     call api_idx_0030_GVGM.api_idx1
     add sp, byte 0xc
-    mov word [api_idx_0030_GVGM.grid_origin_y1], ax
+    mov word [api_idx_0030_GVGM.bss16], ax
     mov ax, 0
     push ax
     push word [bp - 0x12]
@@ -758,7 +758,7 @@ api_idx_0030_GVGM.forward33:
     push ax
     call get_relative_cell_wall
     add sp, byte 0xe
-    mov word [api_idx_0030_GVGM.grid_origin_x1], ax
+    mov word [api_idx_0030_GVGM.bss18], ax
     mov ax, 0
     push ax
     push word [bp - 0x12]
@@ -770,7 +770,7 @@ api_idx_0030_GVGM.forward33:
     push ax
     call get_relative_cell_wall
     add sp, byte 0xe
-    mov word [api_idx_0030_GVGM.bss17], ax
+    mov word [api_idx_0030_GVGM.bss19], ax
 api_idx_0030_GVGM.forward34:
     mov ax, 0xffff
     push ax
@@ -781,7 +781,7 @@ api_idx_0030_GVGM.forward34:
     push word [bp - 0xa]
     call api_idx_0030_GVGM.api_idx1
     add sp, byte 0xc
-    mov word [api_idx_0030_GVGM.bss18], ax
+    mov word [api_idx_0030_GVGM.bss20], ax
     mov ax, 1
     push ax
     push word [bp - 0x12]
@@ -791,7 +791,7 @@ api_idx_0030_GVGM.forward34:
     push word [bp - 0xa]
     call api_idx_0030_GVGM.api_idx1
     add sp, byte 0xc
-    mov word [api_idx_0030_GVGM.bss19], ax
+    mov word [api_idx_0030_GVGM.bss21], ax
     cmp word [cell_wall_override_disabled], byte 1
     jle short api_idx_0030_GVGM.forward35
     mov ax, 0xfffe
@@ -803,7 +803,7 @@ api_idx_0030_GVGM.forward34:
     push word [bp - 0xa]
     call api_idx_0030_GVGM.api_idx1
     add sp, byte 0xc
-    mov word [api_idx_0030_GVGM.bss20], ax
+    mov word [api_idx_0030_GVGM.bss22], ax
     mov ax, 2
     push ax
     push word [bp - 0x12]
@@ -813,7 +813,7 @@ api_idx_0030_GVGM.forward34:
     push word [bp - 0xa]
     call api_idx_0030_GVGM.api_idx1
     add sp, byte 0xc
-    mov word [api_idx_0030_GVGM.bss21], ax
+    mov word [api_idx_0030_GVGM.bss23], ax
     mov ax, 0xffff
     push ax
     push word [bp - 0x12]
@@ -825,7 +825,7 @@ api_idx_0030_GVGM.forward34:
     push ax
     call get_relative_cell_wall
     add sp, byte 0xe
-    mov word [api_idx_0030_GVGM.bss22], ax
+    mov word [api_idx_0030_GVGM.bss24], ax
     mov ax, 1
     push ax
     push word [bp - 0x12]
@@ -837,15 +837,15 @@ api_idx_0030_GVGM.forward34:
     push ax
     call get_relative_cell_wall
     add sp, byte 0xe
-    mov word [api_idx_0030_GVGM.bss23], ax
+    mov word [api_idx_0030_GVGM.bss25], ax
     jmp short api_idx_0030_GVGM.forward36
 api_idx_0030_GVGM.forward35:
-    mov word [api_idx_0030_GVGM.bss20], 0
-    mov word [api_idx_0030_GVGM.bss21], 0
     mov word [api_idx_0030_GVGM.bss22], 0
     mov word [api_idx_0030_GVGM.bss23], 0
+    mov word [api_idx_0030_GVGM.bss24], 0
+    mov word [api_idx_0030_GVGM.bss25], 0
 api_idx_0030_GVGM.forward36:
-    cmp word [api_idx_0030_GVGM.grid_origin_y1], byte 0
+    cmp word [api_idx_0030_GVGM.bss16], byte 0
     jne short api_idx_0030_GVGM.forward37
     mov ax, word [requested_row_limit]
     cmp ax, word [cell_wall_override_disabled]
@@ -853,7 +853,7 @@ api_idx_0030_GVGM.forward36:
     inc word [requested_row_limit]
 api_idx_0030_GVGM.forward37:
     mov ax, word [api_idx_0030_GVGM.bss15]
-    mov word [api_idx_0030_GVGM.bss24], ax
+    mov word [api_idx_0030_GVGM.bss26], ax
     mov ax, 0x1e
     push ax
     push ax
@@ -912,7 +912,7 @@ api_idx_0030_GVGM.forward37:
     push ax
     mov ax, 2
     push ax
-    push word [api_idx_0030_GVGM.grid_origin_y1]
+    push word [api_idx_0030_GVGM.bss16]
     push word [cell_wall_override_disabled]
     call api_idx_0030_GVGM.api_idx2
     add sp, byte 0x4a
@@ -1030,7 +1030,7 @@ api_idx_0030_GVGM.forward37:
     push ax
     mov ax, 1
     push ax
-    push word [api_idx_0030_GVGM.grid_origin_x1]
+    push word [api_idx_0030_GVGM.bss18]
     push word [cell_wall_override_disabled]
     call api_idx_0030_GVGM.api_idx4
     add sp, byte 0x40
@@ -1093,7 +1093,7 @@ api_idx_0030_GVGM.forward37:
     push ax
     mov ax, 3
     push ax
-    push word [api_idx_0030_GVGM.bss17]
+    push word [api_idx_0030_GVGM.bss19]
     push word [cell_wall_override_disabled]
     call api_idx_0030_GVGM.api_idx4
     add sp, byte 0x40
@@ -1155,7 +1155,7 @@ api_idx_0030_GVGM.forward37:
     mov ax, 0
     push ax
     push ax
-    push word [api_idx_0030_GVGM.bss22]
+    push word [api_idx_0030_GVGM.bss24]
     push word [cell_wall_override_disabled]
     call api_idx_0030_GVGM.api_idx4
     add sp, byte 0x40
@@ -1218,7 +1218,7 @@ api_idx_0030_GVGM.forward37:
     push ax
     mov ax, 4
     push ax
-    push word [api_idx_0030_GVGM.bss23]
+    push word [api_idx_0030_GVGM.bss25]
     push word [cell_wall_override_disabled]
     call api_idx_0030_GVGM.api_idx4
     add sp, byte 0x40
@@ -1227,7 +1227,7 @@ api_idx_0030_GVGM.forward37:
     mov cx, 2
     cwd
     idiv cx
-    mov word [api_idx_0030_GVGM.bss24], dx
+    mov word [api_idx_0030_GVGM.bss26], dx
     mov ax, 0x22
     push ax
     push ax
@@ -1285,7 +1285,7 @@ api_idx_0030_GVGM.forward37:
     push ax
     mov ax, 1
     push ax
-    push word [api_idx_0030_GVGM.bss18]
+    push word [api_idx_0030_GVGM.bss20]
     push word [cell_wall_override_disabled]
     call api_idx_0030_GVGM.api_idx2
     add sp, byte 0x4a
@@ -1352,7 +1352,7 @@ api_idx_0030_GVGM.forward37:
     call api_idx_0030_GVGM.api_idx3
     add sp, byte 0x40
     mov ax, word [api_idx_0030_GVGM.bss15]
-    mov word [api_idx_0030_GVGM.bss24], ax
+    mov word [api_idx_0030_GVGM.bss26], ax
     mov ax, 0x26
     push ax
     push ax
@@ -1412,7 +1412,7 @@ api_idx_0030_GVGM.forward37:
     mov ax, 0
     push ax
     push ax
-    push word [api_idx_0030_GVGM.bss20]
+    push word [api_idx_0030_GVGM.bss22]
     push word [cell_wall_override_disabled]
     call api_idx_0030_GVGM.api_idx2
     add sp, byte 0x4a
@@ -1482,7 +1482,7 @@ api_idx_0030_GVGM.forward37:
     mov cx, 2
     cwd
     idiv cx
-    mov word [api_idx_0030_GVGM.bss24], dx
+    mov word [api_idx_0030_GVGM.bss26], dx
     mov ax, 0x2a
     push ax
     push ax
@@ -1540,7 +1540,7 @@ api_idx_0030_GVGM.forward37:
     push ax
     mov ax, 3
     push ax
-    push word [api_idx_0030_GVGM.bss19]
+    push word [api_idx_0030_GVGM.bss21]
     push word [cell_wall_override_disabled]
     call api_idx_0030_GVGM.api_idx2
     add sp, byte 0x4a
@@ -1607,7 +1607,7 @@ api_idx_0030_GVGM.forward37:
     call api_idx_0030_GVGM.api_idx3
     add sp, byte 0x40
     mov ax, word [api_idx_0030_GVGM.bss15]
-    mov word [api_idx_0030_GVGM.bss24], ax
+    mov word [api_idx_0030_GVGM.bss26], ax
     mov ax, 0x2e
     push ax
     push ax
@@ -1668,7 +1668,7 @@ api_idx_0030_GVGM.forward37:
     push ax
     mov ax, 4
     push ax
-    push word [api_idx_0030_GVGM.bss21]
+    push word [api_idx_0030_GVGM.bss23]
     push word [cell_wall_override_disabled]
     call api_idx_0030_GVGM.api_idx2
     add sp, byte 0x4a
@@ -1903,7 +1903,7 @@ api_idx_0030_GVGM.forward51:
 api_idx_0030_GVGM.forward52:
     cmp word [boundary_wall_variant], byte 0
     jne short api_idx_0030_GVGM.forward53
-    cmp byte [api_idx_0030_GVGM.bss25], 3
+    cmp byte [api_idx_0030_GVGM.bss27], 3
     jne short api_idx_0030_GVGM.forward53
     jmp near api_idx_0030_GVGM.forward70
 api_idx_0030_GVGM.forward53:
@@ -1923,11 +1923,11 @@ api_idx_0030_GVGM.back7:
     mov ax, word [bp - 6]
     shl ax, 1
     mov bx, ax
-    cmp word [bx + api_idx_0030_GVGM.bss26], byte 0
+    cmp word [bx + api_idx_0030_GVGM.bss28], byte 0
     jg short api_idx_0030_GVGM.forward55
     jmp near api_idx_0030_GVGM.forward59
 api_idx_0030_GVGM.forward55:
-    mov al, byte [bx + api_idx_0030_GVGM.bss26]
+    mov al, byte [bx + api_idx_0030_GVGM.bss28]
     mov byte [bp - 0x30], al
     mov byte [bp - 0x2f], 0
     mov ax, 0
@@ -1935,7 +1935,7 @@ api_idx_0030_GVGM.forward55:
     push ax
     lea ax, word [bp - 0x30]
     push ax
-    push word [bx + api_idx_0030_GVGM.save_location_flag1]
+    push word [bx + api_idx_0030_GVGM.bss29]
     mov ax, 0x90
     push ax
     mov ax, 0x20
@@ -1944,22 +1944,22 @@ api_idx_0030_GVGM.forward55:
     push ax
     mov ax, 0x48
     push ax
-    mov bx, word [bx + api_idx_0030_GVGM.bss26]
+    mov bx, word [bx + api_idx_0030_GVGM.bss28]
     mov al, byte [bx + bss_7b05 + 0x15c]
     sub ah, ah
     mov cx, word [bp - 6]
     shl cx, 1
     mov bx, cx
-    add ax, word [bx + api_idx_0030_GVGM.bss27]
+    add ax, word [bx + api_idx_0030_GVGM.bss30]
     push ax
-    mov ax, word [bx + api_idx_0030_GVGM.bss26]
+    mov ax, word [bx + api_idx_0030_GVGM.bss28]
     shl ax, 1
-    add ax, word [bx + api_idx_0030_GVGM.save_location_flag1]
+    add ax, word [bx + api_idx_0030_GVGM.bss29]
     mov bx, ax
     mov al, byte [bx + bss_7b05 + 0x113]
     sub ah, ah
     mov bx, cx
-    add ax, word [bx + api_idx_0030_GVGM.bss28]
+    add ax, word [bx + api_idx_0030_GVGM.bss31]
     push ax
     mov ax, 0xd
     push ax
@@ -1968,18 +1968,18 @@ api_idx_0030_GVGM.forward55:
     mov ax, word [bp - 6]
     shl ax, 1
     mov bx, ax
-    cmp word [bx + api_idx_0030_GVGM.bss29], byte 0
+    cmp word [bx + api_idx_0030_GVGM.bss32], byte 0
     je short api_idx_0030_GVGM.forward56
-    dec word [bx + api_idx_0030_GVGM.bss26]
+    dec word [bx + api_idx_0030_GVGM.bss28]
     jmp short api_idx_0030_GVGM.forward57
 api_idx_0030_GVGM.forward56:
-    inc word [bx + api_idx_0030_GVGM.bss26]
+    inc word [bx + api_idx_0030_GVGM.bss28]
 api_idx_0030_GVGM.forward57:
     mov al, byte [bss_7d3c]
     sub ah, ah
-    cmp ax, word [bx + api_idx_0030_GVGM.bss26]
+    cmp ax, word [bx + api_idx_0030_GVGM.bss28]
     jge short api_idx_0030_GVGM.forward58
-    mov word [bx + api_idx_0030_GVGM.bss26], 0
+    mov word [bx + api_idx_0030_GVGM.bss28], 0
 api_idx_0030_GVGM.forward58:
     jmp near api_idx_0030_GVGM.forward69
 api_idx_0030_GVGM.forward59:
@@ -2002,7 +2002,7 @@ api_idx_0030_GVGM.forward61:
     mov cx, word [bp - 6]
     shl cx, 1
     mov bx, cx
-    mov word [bx + api_idx_0030_GVGM.save_location_flag1], ax
+    mov word [bx + api_idx_0030_GVGM.bss29], ax
     mov ax, word [boundary_wall_variant]
     mov cx, 2
     cwd
@@ -2020,14 +2020,14 @@ api_idx_0030_GVGM.forward63:
     mov cx, word [bp - 6]
     shl cx, 1
     mov bx, cx
-    mov word [bx + api_idx_0030_GVGM.bss29], ax
+    mov word [bx + api_idx_0030_GVGM.bss32], ax
     mov ax, 1
-    cmp word [bx + api_idx_0030_GVGM.bss29], byte 0
+    cmp word [bx + api_idx_0030_GVGM.bss32], byte 0
     je short api_idx_0030_GVGM.forward64
     mov al, byte [bss_7d3c]
     sub ah, ah
 api_idx_0030_GVGM.forward64:
-    mov word [bx + api_idx_0030_GVGM.bss26], ax
+    mov word [bx + api_idx_0030_GVGM.bss28], ax
     mov ax, word [boundary_wall_variant]
     mov cx, 1
     cwd
@@ -2041,7 +2041,7 @@ api_idx_0030_GVGM.forward65:
     mov ax, 0xa
 api_idx_0030_GVGM.forward66:
     mov word [bp - 2], ax
-    cmp word [bx + api_idx_0030_GVGM.save_location_flag1], byte 0
+    cmp word [bx + api_idx_0030_GVGM.bss29], byte 0
     je short api_idx_0030_GVGM.forward67
     push ax
     call random_below
@@ -2058,7 +2058,7 @@ api_idx_0030_GVGM.forward68:
     mov cx, word [bp - 6]
     shl cx, 1
     mov bx, cx
-    mov word [bx + api_idx_0030_GVGM.bss28], ax
+    mov word [bx + api_idx_0030_GVGM.bss31], ax
     mov ax, 5
     push ax
     call random_below
@@ -2066,7 +2066,7 @@ api_idx_0030_GVGM.forward68:
     mov cx, word [bp - 6]
     shl cx, 1
     mov bx, cx
-    mov word [bx + api_idx_0030_GVGM.bss27], ax
+    mov word [bx + api_idx_0030_GVGM.bss30], ax
 api_idx_0030_GVGM.forward69:
     inc word [bp - 6]
     mov ax, word [bp - 6]

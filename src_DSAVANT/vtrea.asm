@@ -182,10 +182,8 @@ api_idx_0004_JQTM.api_idx1 equ api_idx_0090_NPLS
 
 %include "shared/ovr/api_idx_0018_RGOS.asm"     ; 0x37b6
 
-api_idx_0004_SLIS equ draw_list_rows
-%include "shared/ovr/draw_list_rows.asm"     ; 0x38b3
+%include "shared/ovr/draw_list_rows.asm"        ; 0x38b3
 
-loc_HTKI.draw_list_rows1 equ api_idx_0004_SLIS
 %include "shared/ovr/loc_HTKI.asm"              ; 0x3a15
 
 %include "vtrea/api_idx_0038_ULQM.asm"     ; 0x3a56
@@ -291,8 +289,6 @@ draw_spell_cost.dseg1 equ dseg_9100
 
 %include "shared/ovr/draw_realm_spell_points.asm" ; 0x8bf4
 
-periodic_party_redraw.party_redraw_mode1       equ party_redraw_interval
-periodic_party_redraw.draw_realm_spell_points1 equ draw_realm_spell_points
 %include "shared/ovr/periodic_party_redraw.asm" ; 0x8c8d
 
 %include "vtrea/spell_select_dialog.asm"   ; 0x8d1e

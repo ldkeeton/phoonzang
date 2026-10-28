@@ -656,39 +656,6 @@
         "9074": {"name": "pc_file_record_base_hi", "note": "High word of the PCFILE.DBS record base offset"},
         "908a": {"name": "party_redraw_last_tick", "note": "long: tick count at the last periodic_party_redraw refresh"},
         "908c": {"name": "party_redraw_last_tick_hi", "note": "high word of party_redraw_last_tick"},
-        "919e": {"name": "save_location_flag", "note": "nonzero: record the destination as the saved location"},
-        "91a8": {"name": "location_changed", "note": "set when the party is placed at a new location"},
-        "9b0a": {"name": "grid_origin_y", "note": "y pixel origin of the 7-pixel character grid"},
-        "9b0c": {"name": "grid_origin_x", "note": "x pixel origin of the 7-pixel character grid"},
-        "9b5e": {"name": "party_redraw_mode", "note": "word set to 5 before the spell dialog (periodic_party_redraw bss1)"},
-        "9bd0": {"name": "region_step_flag", "note": "cleared on move; when 1 loc_IPSH advances party_region"},
-        "9d90": {"name": "spell_target", "note": "party slot picked for a targeted spell, -1 on Esc"},
-        "a4a4": {"name": "scene_index", "note": "scene number 1..8 that draw_scene_frame draws; set by each scene starter"},
-        "a5aa": {"name": "scene_tick", "note": "tick counter compared against the scene_cue_* ticks; reset to 1 by blank_scene_screen"},
-        "a5ac": {"name": "scene_running", "note": "cleared when a scene reaches the end of its final sequence"},
-        "a5b0": {"name": "scene_frame", "note": "frame count, zeroed when a scene starts; drives the modulo animation cycles"},
-        "a5b2": {"name": "scene_backdrop_ref", "note": "long: saved-screen reference that gfx_restore_screen redraws as the backdrop"},
-        "a5b4": {"name": "scene_backdrop_ref_hi", "note": "high word of scene_backdrop_ref"},
-        "a5b6": {"name": "scene_cue_a", "note": "a layer draws once scene_tick passes this tick"},
-        "a5b8": {"name": "scene_cue_b", "note": "a layer draws once scene_tick passes this tick"},
-        "a5ba": {"name": "scene_cue_c", "note": "a layer draws once scene_tick passes this tick"},
-        "a5bc": {"name": "scene_cue_d", "note": "a layer draws once scene_tick passes this tick; set to 99 when scene 3 ends"},
-        "a5be": {"name": "scene_cue_e", "note": "a layer draws once scene_tick passes this tick; set to 99 when scene 3 ends"},
-        "a5c6": {"name": "scene_digit_cycle", "note": "unsigned char[6]: '1'-based digits picking animation cels by frame"},
-        "a5ce": {"name": "scene_step_a", "note": "per-scene animation step counter"},
-        "a5d0": {"name": "scroll_x", "note": "int[5]: x positions of scrolling glyphs, wrapping when they leave the left edge"},
-        "a5d2": {"name": "scroll_x_1", "note": "scroll_x[1]"},
-        "a5d4": {"name": "scroll_x_2", "note": "scroll_x[2]"},
-        "a5d6": {"name": "scroll_x_3", "note": "scroll_x[3]"},
-        "a5d8": {"name": "scroll_x_4", "note": "scroll_x[4]"},
-        "a5da": {"name": "sprite_pos", "note": "int[2][8]: row 0 x, row 1 y of scene sprites; x 320 marks off screen"},
-        "a5e2": {"name": "actor_x", "note": "sprite_pos[0][4]: x of the main moving figure"},
-        "a5e4": {"name": "trail_x", "note": "sprite_pos[0][5]: x of the glyph that trails actor_x in scene 3"},
-        "a5f2": {"name": "actor_y", "note": "sprite_pos[1][4]: y of the main moving figure"},
-        "a5fa": {"name": "scene_step_b", "note": "per-scene animation step counter"},
-        "a5fc": {"name": "scene_step_c", "note": "per-scene animation step counter"},
-        "a5fe": {"name": "scene_step_d", "note": "per-scene animation step counter"},
-        "a600": {"name": "scene_clip_arg", "note": "last argument to draw_char_clipped_top in scenes 4 and 5; grows by 2 per frame up to 100"},
         "0c6c": {"name": "endmarker"},
         "0c70": {"name": "aztec_MEMRY"},
         "0c72": {"name": "errno"},
@@ -1068,6 +1035,32 @@
     },
     "vbase": {
       "data_names": {
+        "a600": {"name": "scene_clip_arg", "note": "last argument to draw_char_clipped_top in scenes 4 and 5; grows by 2 per frame up to 100"},
+        "a5fe": {"name": "scene_step_d", "note": "per-scene animation step counter"},
+        "a5fc": {"name": "scene_step_c", "note": "per-scene animation step counter"},
+        "a5fa": {"name": "scene_step_b", "note": "per-scene animation step counter"},
+        "a5f2": {"name": "actor_y", "note": "sprite_pos[1][4]: y of the main moving figure"},
+        "a5e4": {"name": "trail_x", "note": "sprite_pos[0][5]: x of the glyph that trails actor_x in scene 3"},
+        "a5e2": {"name": "actor_x", "note": "sprite_pos[0][4]: x of the main moving figure"},
+        "a5da": {"name": "sprite_pos", "note": "int[2][8]: row 0 x, row 1 y of scene sprites; x 320 marks off screen"},
+        "a5d8": {"name": "scroll_x_4", "note": "scroll_x[4]"},
+        "a5d6": {"name": "scroll_x_3", "note": "scroll_x[3]"},
+        "a5d4": {"name": "scroll_x_2", "note": "scroll_x[2]"},
+        "a5d2": {"name": "scroll_x_1", "note": "scroll_x[1]"},
+        "a5d0": {"name": "scroll_x", "note": "int[5]: x positions of scrolling glyphs, wrapping when they leave the left edge"},
+        "a5ce": {"name": "scene_step_a", "note": "per-scene animation step counter"},
+        "a5c6": {"name": "scene_digit_cycle", "note": "unsigned char[6]: '1'-based digits picking animation cels by frame"},
+        "a5be": {"name": "scene_cue_e", "note": "a layer draws once scene_tick passes this tick; set to 99 when scene 3 ends"},
+        "a5bc": {"name": "scene_cue_d", "note": "a layer draws once scene_tick passes this tick; set to 99 when scene 3 ends"},
+        "a5ba": {"name": "scene_cue_c", "note": "a layer draws once scene_tick passes this tick"},
+        "a5b8": {"name": "scene_cue_b", "note": "a layer draws once scene_tick passes this tick"},
+        "a5b6": {"name": "scene_cue_a", "note": "a layer draws once scene_tick passes this tick"},
+        "a5b4": {"name": "scene_backdrop_ref_hi", "note": "high word of scene_backdrop_ref"},
+        "a5b2": {"name": "scene_backdrop_ref", "note": "long: saved-screen reference that gfx_restore_screen redraws as the backdrop"},
+        "a5b0": {"name": "scene_frame", "note": "frame count, zeroed when a scene starts; drives the modulo animation cycles"},
+        "a5ac": {"name": "scene_running", "note": "cleared when a scene reaches the end of its final sequence"},
+        "a5aa": {"name": "scene_tick", "note": "tick counter compared against the scene_cue_* ticks; reset to 1 by blank_scene_screen"},
+        "a4a4": {"name": "scene_index", "note": "scene number 1..8 that draw_scene_frame draws; set by each scene starter"},
         "9098": {"name": "pc_file_name", "note": "PCFILE.DBS filename"},
         "910d": {"name": "screen_temp_file", "note": "\"V.$$$\" screen-save file name"},
         "95b2": {"name": "intro_screen_number", "note": "1-4 picks the new-game intro screen; 0 skips it"},
@@ -1134,6 +1127,10 @@
     },
     "vdopt": {
       "data_names": {
+        "9d90": {"name": "spell_target", "note": "party slot picked for a targeted spell, -1 on Esc"},
+        "9b5e": {"name": "party_redraw_interval", "note": "timer ticks between periodic_party_redraw refreshes; set to 5 before the spell dialog"},
+        "9b0c": {"name": "grid_origin_x", "note": "x pixel origin of the 7-pixel character grid"},
+        "9b0a": {"name": "grid_origin_y", "note": "y pixel origin of the 7-pixel character grid"},
         "9b0e": {"name": "known_spell_ids", "note": "int[]: spell ids collect_known_spells found, parallel to known_spell_names"},
         "909e": {"name": "spell_screen_temp_file", "note": "screen save name suffix \"V.$$$\""},
         "9b60": {"name": "list_row_marked", "note": "per-row int flag; nonzero draws a c mark glyph"},
@@ -1182,8 +1179,8 @@
         "0557": {"name": "show_event_message", "note": "draws message string id in a box, plays a sound, restores the area"},
         "064d": {"name": "find_party_type7_object", "note": "returns the first type 7 object in the party cell whose 2-bit party_tag field is 1 or 2, else -1"},
         "06da": {"name": "roll_claim_type7_object", "note": "rolls three dice of 0..2*skill-1 against the party type 7 object level; claims it on success, posts event 0x841+outcome, returns -1 if none"},
-        "07cb": {"name": "get_cell_wall_variant_a", "note": "get_cell_wall helper for maze_data offset 0x90"},
-        "083b": {"name": "get_cell_wall_variant_b", "note": "get_cell_wall helper for maze_data offset 0x290"},
+        "07cb": {"name": "get_north_cell_wall", "note": "Read the north (maze_data 0x90) wall plane; unlike vmaze its boundary case ignores boundary_wall_open"},
+        "083b": {"name": "get_west_cell_wall", "note": "Read the west (maze_data 0x290) wall plane; unlike vmaze its boundary case ignores boundary_wall_open"},
         "08ab": {"name": "get_cell_wall", "note": "reads the 4-bit wall field on one side of a maze cell"},
         "0f71": {"name": "draw_grid_cell_char", "note": "draws one character at a 7-pixel grid cell plus pixel offset, relative to the grid origin"},
         "18fd": {"name": "restore_area_a_draw_glyph", "note": "restores saved screen area a and redraws glyph 1 in color 14 at (0x37,0x9a)"},
@@ -1220,7 +1217,7 @@
       "data_names": {
         "90a2": {"name": "space_text", "note": "a single space that separates the count from the item name"},
         "90a4": {"name": "screen_temp_name", "note": "spool file name for save_screen_area"},
-        "90b6": {"name": "panel_redraw_ticks", "note": "ticks between party panel redraws"},
+        "90b6": {"name": "party_redraw_interval", "note": "timer ticks between periodic_party_redraw refreshes"},
         "90b8": {"name": "show_melee_result", "note": "int: nonzero flashes the melee result message in play_action_overlays"},
         "90ba": {"name": "npc_melee", "note": "int: 1 when the melee ends into VMNPC (next game state 0x12)"},
         "90bc": {"name": "battle_setup_done", "note": "set when the state 0x0a setup ran, else the party screen opens here"},
@@ -1322,6 +1319,7 @@
         "a512": {"name": "aztec_swapmem"}
       },
       "data_names": {
+        "90e2": {"name": "party_redraw_interval", "note": "timer ticks between periodic_party_redraw refreshes"},
         "90bc": {"name": "window_record", "note": "7-word window record api_idx_0012 fills from the box arguments and returns the address of"},
         "0c6c": {"name": "endmarker"},
         "0c70": {"name": "aztec_MEMRY"},
@@ -1365,6 +1363,8 @@
     },
     "vmaze": {
       "data_names": {
+        "9bd0": {"name": "region_step_flag", "note": "cleared on move; when 1 loc_IPSH advances party_region"},
+        "919e": {"name": "save_location_flag", "note": "nonzero: record the destination as the saved location"},
         "91a8": {"name": "location_changed", "note": "set when the party is placed at a new location"},
         "91a6": {"name": "boundary_wall_open", "note": "Nonzero makes the out-of-map variant 3 wall return zero"},
         "91d4": {"name": "boundary_wall_variant", "note": "Variant selecting boundary wall return values"},
@@ -1446,6 +1446,8 @@
     },
     "vmnpc": {
       "function_names": {
+        "76fa": {"name": "draw_realm_spell_points", "note": "prints a character's spell points for each of the six realms, centred in its own colour"},
+        "3c89": {"name": "draw_list_rows", "note": "draws a page of list rows with highlight bar, mark, glyph, name and count"},
         "061f": {"name": "add_overlay_item", "note": "inserts an item into the overlay list kept sorted by its first-argument key (no overflow check)"},
         "0953": {"name": "queue_marker_overlay", "note": "queues glyph strings for the marker as overlay items: a facing-dependent glyph when marker_mode > 0, glyph 1 at marker_x/marker_y when -1"},
         "0aa4": {"name": "redraw_glyph_strip", "note": "restores both saved areas, draws glyph 1 at 55,154, optionally shows the strip"},
@@ -1480,6 +1482,7 @@
         {"offset": "ae29", "space": "ds", "name": "_Uend", "note": "$ovbgn's `mov cx,offset _Uend_`: the end of the overlay's BSS"}
       ],
       "data_names": {
+        "93d6": {"name": "party_redraw_interval", "note": "timer ticks between periodic_party_redraw refreshes"},
         "9df2": {"name": "known_spell_ids", "note": "int[]: spell ids collect_known_spells found, parallel to known_spell_names"},
         "91cc": {"name": "text_line_buffer", "note": "four 128-byte text line buffers"},
         "93cc": {"name": "text_line_color", "note": "per-line draw color; nonzero means stored, 2 highlights"},
@@ -1546,6 +1549,8 @@
         "981e": {"name": "aztec_cswt"}
       },
       "data_names": {
+        "96dc": {"name": "slot_prompt_text", "note": "text drawn at (6,0xae) above the slot rows"},
+        "9562": {"name": "party_redraw_interval", "note": "timer ticks between periodic_party_redraw refreshes"},
         "9512": {"name": "known_spell_ids", "note": "int[]: spell ids collect_known_spells found, parallel to known_spell_names"},
         "940a": {"name": "saved_screen", "note": "gfx_save_screen handle (long) restored before drawing the banner"},
         "942e": {"name": "banner_offset", "note": "vertical shift of the banner text rows"},
@@ -1637,6 +1642,7 @@
         "5464": {"name": "aztec_ovbgn"}
       },
       "data_names": {
+        "948c": {"name": "party_redraw_interval", "note": "timer ticks between periodic_party_redraw refreshes"},
         "943c": {"name": "known_spell_ids", "note": "int[]: spell ids collect_known_spells found, parallel to known_spell_names"},
         "9432": {"name": "saved_screen", "note": "gfx_save_screen handle (long) restored before drawing the banner"},
         "9436": {"name": "banner_offset", "note": "vertical shift of the banner text rows"},
@@ -1724,7 +1730,7 @@
         "2f31": {"name": "draw_realm_spell_points", "note": "prints a character's spell points for each of the six realms, centred in its own colour"},
         "2fca": {"name": "periodic_party_redraw", "note": "once party_redraw_interval ticks have passed, redraws the party panel and slot letters"},
         "4073": {"name": "check_profession_stat_budget", "note": "Compare eight encoded stat minima against the point budget and optionally allocate stats"},
-        "40f9": {"name": "check_profession_requirements", "note": "Dispatch one profession stat requirement check with an optional allocation mode"},
+        "40f9": {"name": "evaluate_character_profession", "note": "Dispatch one profession stat requirement check with an optional allocation mode"},
         "0000": {"name": "ovmain"},
         "4283": {"name": "evaluate_character_professions", "note": "Checks eligibility for all fourteen professions without allocating stat points"},
         "4f87": {"name": "update_party_stat_adjustments", "note": "derive bounded stat 4 and stat 5 adjustments from power and supplied ratios"},
@@ -1740,6 +1746,7 @@
         {"offset": "6fa5", "space": "ds", "name": "_Uend", "note": "$ovbgn's `mov cx,offset _Uend_`: the end of the overlay's BSS"}
       ],
       "data_names": {
+        "976c": {"name": "party_redraw_interval", "note": "timer ticks between periodic_party_redraw refreshes"},
         "9098": {"name": "pc_file_name", "note": "PCFILE.DBS filename"},
         "92dc": {"name": "profession_0_stat_requirements", "note": "Eight stat minima encoded as A plus the required value for profession 0"},
         "92e5": {"name": "profession_1_stat_requirements", "note": "Eight stat minima encoded as A plus the required value for profession 1"},
@@ -1809,6 +1816,7 @@
         {"offset": "4eb6", "space": "ds", "name": "_Uend", "note": "$ovbgn's `mov cx,offset _Uend_`: the end of the overlay's BSS"}
       ],
       "data_names": {
+        "90d6": {"name": "party_redraw_interval", "note": "timer ticks between periodic_party_redraw refreshes"},
         "9106": {"name": "known_spell_ids", "note": "int[]: spell ids collect_known_spells found, parallel to known_spell_names"},
         "9156": {"name": "list_row_marked", "note": "per-row int flag; nonzero draws a c mark glyph"},
         "917e": {"name": "list_row_glyph", "note": "per-row glyph byte, 2-byte stride"},
@@ -1844,6 +1852,7 @@
         "90d4": {"name": "save_ret"}
       },
       "function_names": {
+        "2ae1": {"name": "draw_list_rows", "note": "draws a page of list rows with highlight bar, mark, glyph, name and count"},
         "0014": {"name": "draw_split_two_line_text", "note": "draws text split at the first / as two lines of up to 10 chars, the second 6 px lower"},
         "00bd": {"name": "redraw_glyph_strip", "note": "restores both saved areas, draws glyph 1 at 55,154, optionally shows the strip"},
         "017f": {"name": "redraw_area_set", "note": "repaints one of four fixed screen-area sets around the glyph strip"},
@@ -1928,6 +1937,7 @@
         "9112": {"name": "save_ret"}
       },
       "function_names": {
+        "38a5": {"name": "draw_list_rows", "note": "draws a page of list rows with highlight bar, mark, glyph, name and count"},
         "066d": {"name": "draw_party_glyph_row", "note": "draws one row of party glyphs from the party tag and count"},
         "0ea4": {"name": "show_treasure_message", "note": "center text on a message row with color optional sound and delay"},
         "435a": {"name": "apply_spell_effect_alt", "note": "applies a cast spell: (pc, spell, power, target); larger vtrea variant of apply_spell_effect"},
@@ -1975,6 +1985,7 @@
     },
     "vmext": {
       "data_names": {
+        "918a": {"name": "save_location_flag", "note": "nonzero: record the destination as the saved location"},
         "91a8": {"name": "boundary_wall_variant", "note": "Variant selecting boundary wall return values"},
         "9188": {"name": "boundary_wall_open", "note": "Nonzero makes the out-of-map variant 3 wall return zero"},
         "91aa": {"name": "cell_wall_override_disabled", "note": "Nonzero suppresses wall overrides for cell kinds 5 and 6"},
@@ -2070,9 +2081,10 @@
         "3ef6": {"name": "cache_maze_slot_in_use", "note": "prints CACHEMAZE slot already in use and exits"},
         "3f3e": {"name": "cache_maze_insufficient_ems", "note": "prints CACHEMAZE insufficient EMS and exits"},
         "3f38": {"name": "cache_maze_return_zero", "note": "returns 0 in dx:ax through the cache_maze epilogue"},
+        "077a": {"name": "save_area", "length": 188, "note": "owns the SAVEAREA implementation, allocation-failure exit and message, unused clear-result tail, and stack epilogue; retains named internal entries"},
         "07fd": {"name": "save_area_out_of_memory", "note": "prints SAVEAREA out of memory and exits"},
         "082a": {"name": "save_area_clear_result", "note": "zeroes dx:ax and falls into the save_area epilogue"},
-        "082e": {"name": "area_restore_and_return", "note": "common epilogue of save_area and restore_area: pops saved si/di/ds/es, restores frame, returns"}
+        "082e": {"name": "area_restore_and_return", "note": "internal save_area epilogue: pops saved si/di/ds/es, restores frame, returns; restore_area has its own epilogue"}
       },
       "force_code": [
         {"start": "3ae2", "end": "3ae5", "note": "xor dx,dx / mov ax,dx tail that falls into the cache_area epilogue; no caller"},
@@ -2169,6 +2181,8 @@
     },
     "ega": {
       "code_data_names": {
+        "00fb": {"name": "delay_hook", "note": "far pointer to the inter-pass delay hook"},
+        "00f7": {"name": "palette_ptr", "note": "far pointer to the palette"},
         "01c3": {"name": "cache_maze_slot_table", "note": "20-byte cache-maze slot table, indexed by slot number in words; each entry is a block id or zero when free"},
         "00e1": {"name": "maze_mem_seg", "note": "segment base of MAZE memory, added to a block paragraph"},
         "00e5": {"name": "screen_buf_seg", "note": "segment of the 320-byte-stride screen buffer"},
@@ -2204,11 +2218,11 @@
         "3197": {"name": "picture_error_ones", "note": "ones digit patched into the picture not freed message"},
         "35dd": {"name": "text_state_words", "note": "20 words cleared by draw_text before each string"},
         "3605": {"name": "text_state_bytes", "note": "25 bytes cleared by draw_text before each string"},
-        "3a18": {"name": "msg_frame_too_big", "note": "CR LF BEL \"Frame NN too big in slot NN.\" $-terminated error message"},
-        "3a21": {"name": "frame_digit_hi", "note": "first frame digit of msg_frame_too_big, ORed into an ASCII 0"},
-        "3a22": {"name": "frame_digit_lo", "note": "second frame digit of msg_frame_too_big, ORed into an ASCII 0"},
-        "3a34": {"name": "slot_digit_hi", "note": "first slot digit of msg_frame_too_big, ORed into an ASCII 0"},
-        "3a35": {"name": "slot_digit_lo", "note": "second slot digit of msg_frame_too_big, ORed into an ASCII 0"},
+        "3a18": {"name": "frame_too_big_message", "note": "CR LF BEL \"Frame NN too big in slot NN.\" $-terminated error message"},
+        "3a21": {"name": "frame_digit_tens", "note": "first frame digit of frame_too_big_message, ORed into an ASCII 0"},
+        "3a22": {"name": "frame_digit_ones", "note": "second frame digit of frame_too_big_message, ORed into an ASCII 0"},
+        "3a34": {"name": "slot_digit_tens", "note": "first slot digit of frame_too_big_message, ORed into an ASCII 0"},
+        "3a35": {"name": "slot_digit_ones", "note": "second slot digit of frame_too_big_message, ORed into an ASCII 0"},
         "3fcd": {"name": "intensity_limits", "note": "ceiling table indexed by a source byte; graphics_loc clamps the sum to it"},
         "4440": {"name": "ems_cur_page", "note": "EMS logical page mapped at frame page 0"},
         "4943": {"name": "screen_slot_in_use_message", "note": "DOS message for an occupied screen cache slot"},
@@ -2218,6 +2232,8 @@
         "4ea3": {"name": "score_info", "note": "one word per score, stored by load_score"}
       },
       "function_names": {
+        "3a08": {"name": "frame_too_big_exit", "note": "prints the frame and slot error and exits to DOS"},
+        "1900": {"name": "request_mouse_redraw", "note": "sets mouse_redraw_pending when a mouse is present"},
         "0496": {"name": "fill_screen_buffer", "note": "fills the 64000-byte screen buffer at screen_buf_seg with one byte"},
         "1355": {"name": "decrement_cached_slot_ids", "note": "decrements larger slot indices in the EMS, maze and screen tables"},
         "1392": {"name": "release_and_compact_ems_blocks", "note": "releases one EMS block entry and compacts the remaining blocks"},
@@ -2247,9 +2263,10 @@
         "47a8": {"name": "cache_maze_slot_in_use", "note": "prints CACHEMAZE slot already in use and exits"},
         "47f0": {"name": "cache_maze_insufficient_ems", "note": "prints CACHEMAZE insufficient EMS and exits"},
         "47ea": {"name": "cache_maze_return_zero", "note": "returns 0 in dx:ax through the cache_maze epilogue"},
+        "0c9b": {"name": "save_area", "length": 188, "note": "owns the SAVEAREA implementation, allocation-failure exit and message, unused clear-result tail, and stack epilogue; retains named internal entries"},
         "0d1e": {"name": "save_area_out_of_memory", "note": "prints SAVEAREA out of memory and exits"},
         "0d4b": {"name": "save_area_clear_result", "note": "zeroes dx:ax and falls into the save_area epilogue"},
-        "0d4f": {"name": "area_restore_and_return", "note": "common epilogue of save_area and restore_area: pops saved si/di/ds/es, restores frame, returns"}
+        "0d4f": {"name": "area_restore_and_return", "note": "internal save_area epilogue: pops saved si/di/ds/es, restores frame, returns; restore_area has its own epilogue"}
       },
       "force_code": [
         {"start": "4394", "end": "4397", "note": "xor dx,dx / mov ax,dx tail that falls into the cache_area epilogue; no caller"},

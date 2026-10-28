@@ -8,7 +8,7 @@
 
 extern int party_slot_frame[];
 extern int hotspot_rects[];
-extern int spell_dialog_result, party_redraw_mode, spell_dialog_button,
+extern int spell_dialog_result, party_redraw_interval, spell_dialog_button,
 	space_key_hit, hotspot_hit;
 extern long party_redraw_last_tick;
 extern long far *tick_counter_ptr;
@@ -85,7 +85,7 @@ int pc, button_msg, ok_enabled, limit_by_points;
 			6 * i + box_y0 + 40, 0, 0);
 	set_hotspot(25, -1, 0, 0, 0, 0, 0);
 	gfx_show_area(box_x0 - 1, box_y0 - 1, box_x1 + 1, box_y1 + 1);
-	party_redraw_mode = 5;
+	party_redraw_interval = 5;
 	party_redraw_last_tick = *tick_counter_ptr;
 	running = 1;
 	do {

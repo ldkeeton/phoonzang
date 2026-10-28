@@ -501,7 +501,7 @@ api_idx_0050_MINM:
     push ax
     call gfx_show_area
     add sp, byte 8
-    mov word [api_idx_0050_MINM.bss1], 7
+    mov word [party_redraw_interval], 7
     les bx, word [tick_counter_ptr]
     mov ax, word [es:bx]
     mov dx, word [es:bx + 2]

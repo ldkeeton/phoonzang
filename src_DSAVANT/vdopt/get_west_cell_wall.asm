@@ -1,5 +1,5 @@
 ; auto-generated
-get_cell_wall_variant_b:
+get_west_cell_wall:
     mov ax, 0                        ; 0x0849
     call aztec_csav                  ; 0x084c
     push word [bp + 6]               ; 0x084f

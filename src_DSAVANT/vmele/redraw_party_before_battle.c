@@ -1,9 +1,9 @@
 /* state 0x0b: redraws each member's panel, refreshes the action slot table
    and the screen animation, then hands over to the battle state */
 
-extern int panel_redraw_ticks;			/* tick interval between panel redraws */
-extern int party_char_count;			/* number of party_char records */
-extern int battle_setup_done;			/* set by the battle setup of state 0x0a */
+extern int party_redraw_interval;			/* tick interval between panel redraws */
+extern int party_char_count;				/* number of party_char records */
+extern int battle_setup_done;				/* set by the battle setup of state 0x0a */
 extern int game_state;
 extern copy_member_party_record();
 extern draw_active_member_panel();
@@ -16,7 +16,7 @@ redraw_party_before_battle()
 {
 	int member;
 
-	panel_redraw_ticks = 5;			/* 5 ticks between panel redraws */
+	party_redraw_interval = 5;			/* 5 ticks between panel redraws */
 	for (member = 0; member < party_char_count; member++) {
 		copy_member_party_record(member);
 			/* copy the roster record to its pc record */

@@ -14,7 +14,7 @@ loc_JTQK_0007.mouse_off1 equ mouse_off
 loc_JTQK_000b.mouse_hit_test1 equ mouse_hit_test
 %include "shared/drv/loc_JTQK_000b.asm"           ; 0x000b
 
-loc_JTQK_000f.leaf_loc1 equ request_mouse_redraw
+loc_JTQK_000f.request_mouse_redraw1 equ request_mouse_redraw
 %include "shared/drv/loc_JTQK_000f.asm"           ; 0x000f
 
 loc_JTQK_0013.update_mouse_pointer1 equ update_mouse_pointer
@@ -129,9 +129,9 @@ loc_JTQK_001f.load_screen1 equ load_screen
 
 %include "shared/data/scratch_buf_seg.asm"    ; 0x00e9
 
-%include "vga/data/palette_ptr.asm"        ; 0x00f7
+%include "shared/data/palette_ptr.asm"        ; 0x00f7
 
-%include "vga/data/delay_hook.asm"         ; 0x00fb
+%include "shared/data/delay_hook.asm"         ; 0x00fb
 
 %include "shared/data/ems_para_limit.asm"     ; 0x00ff
 
@@ -209,14 +209,8 @@ loc_JTQK_001f.load_screen1 equ load_screen
 
 %include "vga/invert_area.asm"             ; 0x0728
 
+cseg_080d equ save_area.cseg1
 %include "shared/drv/save_area.asm"               ; 0x077a
-
-cseg_080d equ save_area_out_of_memory.cseg1
-%include "shared/drv/save_area_out_of_memory.asm" ; 0x07fd
-
-%include "shared/drv/save_area_clear_result.asm"  ; 0x082a
-
-%include "shared/drv/area_restore_and_return.asm" ; 0x082e
 
 cseg_089f equ restore_area.cseg1
 %include "shared/drv/restore_area.asm"            ; 0x0836
@@ -319,15 +313,12 @@ cseg_22fe equ load_picture.cseg2
 
 %include "shared/drv/get_free_space.asm"          ; 0x2b01
 
-mouse_glide_to.cseg1 equ delay_hook
 %include "shared/drv/mouse_glide_to.asm"          ; 0x2b6c
 
-mouse_glide_back.cseg1 equ delay_hook
 %include "shared/drv/mouse_glide_back.asm"        ; 0x2c0e
 
 %include "shared/drv/free_screen.asm"             ; 0x2cbe
 
-get_palette.cseg1 equ palette_ptr
 %include "shared/drv/get_palette.asm"             ; 0x2d08
 
 %include "shared/data/text_state_words.asm"   ; 0x2d2b
@@ -336,12 +327,6 @@ get_palette.cseg1 equ palette_ptr
 
 %include "shared/drv/draw_text.asm"               ; 0x2d6c
 
-frame_digit_tens      equ check_frame_index.frame_digit_hi1
-frame_digit_ones      equ check_frame_index.frame_digit_lo1
-slot_digit_tens       equ check_frame_index.slot_digit_hi1
-slot_digit_ones       equ check_frame_index.slot_digit_lo1
-frame_too_big_exit    equ check_frame_index.loc1
-frame_too_big_message equ check_frame_index.msg_frame_too_big1
 %include "shared/drv/check_frame_index.asm"       ; 0x3131
 
 %include "shared/drv/leaf_loc_NOSG.asm"           ; 0x319f

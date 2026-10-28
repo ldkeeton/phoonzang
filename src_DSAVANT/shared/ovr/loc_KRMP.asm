@@ -13,7 +13,7 @@ loc_KRMP:
     sbb dx, word [party_redraw_last_tick_hi]
     mov word [bss_9094], dx
     mov word [bss_9092], ax
-    mov ax, word [loc_KRMP.panel_redraw_ticks1]
+    mov ax, word [party_redraw_interval]
     cwd
     mov cx, ax
     mov bx, dx

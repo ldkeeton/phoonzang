@@ -51,7 +51,7 @@ api_idx_0044_NORP:
     add sp, byte 8                   ; 0x78f6
     call draw_marker_glyph           ; 0x78f9
     push word [bp + 4]               ; 0x78fc
-    call api_idx_000c_VQMU           ; 0x78ff
+    call draw_realm_spell_points     ; 0x78ff
     pop cx                           ; 0x7902
     mov ax, 1                        ; 0x7903
     push ax                          ; 0x7906
@@ -493,7 +493,7 @@ api_idx_0044_NORP:
     push ax                          ; 0x7cfe
     call gfx_show_area               ; 0x7cff
     add sp, byte 8                   ; 0x7d02
-    mov word [bss_93d6], 5           ; 0x7d05
+    mov word [party_redraw_interval], 5 ; 0x7d05
     les bx, word [tick_counter_ptr]  ; 0x7d0b
     mov ax, word [es:bx]             ; 0x7d0f
     mov dx, word [es:bx + 2]         ; 0x7d12

@@ -113,11 +113,11 @@ api_idx_000c_RMGQ:
     call test_bit                    ; 0x0ad0
     add sp, byte 4                   ; 0x0ad3
     mov word [bp - 6], ax            ; 0x0ad6
-    cmp word [bss_918a], byte 0      ; 0x0ad9
+    cmp word [save_location_flag], byte 0 ; 0x0ad9
     jne short .forward6              ; 0x0ade
     call check_at_saved_location     ; 0x0ae0
 .forward6:
-    cmp word [bss_918a], byte 0      ; 0x0ae3
+    cmp word [save_location_flag], byte 0 ; 0x0ae3
     jne short .forward7              ; 0x0ae8
     call api_idx_0004_JIVL           ; 0x0aea
     test ax, ax                      ; 0x0aed

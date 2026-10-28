@@ -2,7 +2,7 @@
 api_idx_000c_VJPM:
     mov ax, 0xfff4                   ; 0x6f33
     call aztec_csav                  ; 0x6f36
-    mov word [bss_90e2], 5           ; 0x6f39
+    mov word [party_redraw_interval], 5 ; 0x6f39
     mov word [bp - 2], 0             ; 0x6f3f
 .back1:
     mov word [bp - 4], 0             ; 0x6f44

@@ -116,7 +116,7 @@ api_idx_001e_GOQP:
     mov dx, word [es:bx + 2]         ; 0x71d8
     mov word [party_redraw_last_tick_hi], dx ; 0x71dc
     mov word [party_redraw_last_tick], ax ; 0x71e0
-    mov word [bss_93d6], 5           ; 0x71e3
+    mov word [party_redraw_interval], 5 ; 0x71e3
     mov ax, 0xc6                     ; 0x71e9
     push ax                          ; 0x71ec
     mov ax, 0x13a                    ; 0x71ed

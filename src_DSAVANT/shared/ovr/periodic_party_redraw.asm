@@ -13,7 +13,7 @@ periodic_party_redraw:
     sbb dx, word [party_redraw_last_tick_hi]
     mov word [bss_9094], dx
     mov word [bss_9092], ax
-    mov ax, word [periodic_party_redraw.party_redraw_mode1]
+    mov ax, word [party_redraw_interval]
     cwd
     mov cx, ax
     mov bx, dx
@@ -33,7 +33,7 @@ periodic_party_redraw:
     mov word [party_redraw_last_tick], ax
     call draw_marker_glyph
     push word [bp + 4]
-    call periodic_party_redraw.draw_realm_spell_points1
+    call draw_realm_spell_points
     pop cx
     push word [bp + 6]
     call advance_party_slot_frames

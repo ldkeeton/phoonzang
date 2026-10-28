@@ -48,7 +48,7 @@ get_cell_wall:
     push word [bp + 8]
     push word [bp + 0xe]
     push word [bp + 0xc]
-    call get_cell_wall.get_cell_wall_variant_a1
+    call get_north_cell_wall
     add sp, byte 0xa
     ret
 .back4:
@@ -57,7 +57,7 @@ get_cell_wall:
     push word [bp + 8]
     push word [bp + 0xe]
     push word [bp + 0xc]
-    call get_cell_wall.get_cell_wall_variant_b1
+    call get_west_cell_wall
     add sp, byte 0xa
     ret
 .forward1:
