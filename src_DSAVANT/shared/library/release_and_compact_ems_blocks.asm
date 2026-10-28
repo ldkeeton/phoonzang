@@ -1,5 +1,5 @@
 ; auto-generated
-loc_KLNH:
+release_and_compact_ems_blocks:
     dec ax
     mov cl, 2
     shl ax, cl
@@ -26,14 +26,14 @@ loc_KLNH:
     mov ax, si
     mov cl, 0xa
     shr ax, cl
-    mov word [cs:loc_KLNH.cseg1 - IMAGE_BASE], ax
+    mov word [cs:release_and_compact_ems_blocks.cseg1 - IMAGE_BASE], ax
     and si, strict word 0x3ff
     mov cl, 4
     shl si, cl
     mov ax, di
     mov cl, 0xa
     shr ax, cl
-    mov word [cs:loc_KLNH.cseg2 - IMAGE_BASE], ax
+    mov word [cs:release_and_compact_ems_blocks.cseg2 - IMAGE_BASE], ax
     and di, strict word 0x3ff
     mov cl, 4
     shl di, cl
@@ -46,7 +46,7 @@ loc_KLNH:
     xor dx, dx
     cmp di, strict word 0x4000
     jne short .forward2
-    inc word [cs:loc_KLNH.cseg2 - IMAGE_BASE]
+    inc word [cs:release_and_compact_ems_blocks.cseg2 - IMAGE_BASE]
     inc dx
 .forward2:
     cmp si, strict word 0x4000
@@ -54,7 +54,7 @@ loc_KLNH:
     cmp si, strict word 0x8000
     jne short .forward4
 .forward3:
-    inc word [cs:loc_KLNH.cseg1 - IMAGE_BASE]
+    inc word [cs:release_and_compact_ems_blocks.cseg1 - IMAGE_BASE]
     inc dx
 .forward4:
     or dx, dx

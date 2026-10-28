@@ -19,8 +19,8 @@ cache_maze:
     add bx, ax
     mov ax, word [cs:bx]
     mov word [cs:bx], 0
-    call leaf_loc_MIUO
-    call loc_KLNH
+    call decrement_cached_slot_ids
+    call release_and_compact_ems_blocks
     jmp near cache_maze_restore_and_return
 .forward1:
     mov word [bp - 2], ax
@@ -29,7 +29,7 @@ cache_maze:
     je short .forward2
     mov ax, word [bp + 0xe]
     mov word [bp - 4], ax
-    call cache_maze.dos_file_loc1
+    call copy_file_region
     jmp near cache_maze_restore_and_return
 .forward2:
     mov ax, word [bp + 0xe]

@@ -240,13 +240,13 @@ cseg_0d10 equ load_maze.cseg2
 cseg_0d6b equ load_maze.cseg3
 %include "shared/library/load_maze.asm"               ; 0x0bae
 
-%include "shared/library/leaf_loc_MIUO.asm"           ; 0x0e34
+%include "shared/library/decrement_cached_slot_ids.asm" ; 0x0e34
 
 %include "vga/data/cseg_0e6d.asm"          ; 0x0e6d
 
-loc_KLNH.cseg1 equ cseg_0e6d
-loc_KLNH.cseg2 equ cseg_0e6f
-%include "shared/library/loc_KLNH.asm"                ; 0x0e71
+release_and_compact_ems_blocks.cseg1 equ cseg_0e6d
+release_and_compact_ems_blocks.cseg2 equ cseg_0e6f
+%include "shared/library/release_and_compact_ems_blocks.asm" ; 0x0e71
 
 leaf_loc_TPOL.cseg1 equ cseg_0e6f
 leaf_loc_TPOL.cseg2 equ cseg_0e6d
@@ -466,12 +466,10 @@ cseg_3b6c equ cache_area_maze_slots_full.cseg1
 
 %include "shared/library/restore_screen.asm"          ; 0x3ba5
 
-dos_file_loc_UKPI equ dos_file_loc_MJUK
-cseg_3d49         equ dos_file_loc_MJUK.cseg1
-%include "shared/library/dos_file_loc_MJUK.asm"       ; 0x3d0b
+cseg_3d49 equ copy_file_region.cseg1
+%include "shared/library/copy_file_region.asm"        ; 0x3d0b
 
-cache_maze.dos_file_loc1 equ dos_file_loc_UKPI
-cache_maze.loc1          equ loc_3f3e
+cache_maze.loc1 equ loc_3f3e
 %include "shared/library/cache_maze.asm"              ; 0x3d72
 
 %include "shared/library/cache_maze_restore_and_return.asm" ; 0x3eee
@@ -484,18 +482,7 @@ cseg_3f06 equ cache_maze_slot_in_use.cseg1
 cseg_3f4e equ loc_3f3e.cseg1
 %include "shared/library/loc_3f3e.asm"                ; 0x3f3e
 
-cache_screen.dos_file_loc1 equ dos_file_loc_UKPI
-%include "shared/library/cache_screen.asm"            ; 0x3f73
-
-%include "shared/library/cache_screen_restore_and_return.asm" ; 0x4079
-
-cseg_4091 equ cache_screen_slot_in_use.cseg1
-%include "shared/library/cache_screen_slot_in_use.asm" ; 0x4081
-
-%include "shared/library/cache_screen_return_zero.asm" ; 0x40c5
-
-cseg_40db equ cache_screen_out_of_ems.cseg1
-%include "shared/library/cache_screen_out_of_ems.asm" ; 0x40cb
+%include "shared/library/cache_screen_to_storage.asm" ; 0x3f73
 
 %include "shared/data/sound_slots.asm"        ; 0x4102
 

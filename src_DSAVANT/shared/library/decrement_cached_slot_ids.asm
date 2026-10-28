@@ -1,5 +1,5 @@
 ; auto-generated
-leaf_loc_MIUO:
+decrement_cached_slot_ids:
     push ax
     mov bx, ems_slots - IMAGE_BASE
     mov cx, 0x14

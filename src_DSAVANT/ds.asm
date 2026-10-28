@@ -856,7 +856,7 @@ __zdseg_end equ (__zimage_end - __zdseg_start) + __zbss_size
 
 %include "ds/library/gfx_cache_maze.asm"   ; 0x435f
 
-%include "ds/library/gfx_cache_screen.asm" ; 0x436c
+%include "ds/library/gfx_cache_screen_to_storage.asm" ; 0x436c
 
 %include "ds/aztec/aztec_ovloader.asm"     ; 0x4379
 

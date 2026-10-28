@@ -293,6 +293,17 @@ def _expand_shared_specs(project, binary, specs):
     for sym, name, note in specs:
         pairs = index.get(sym)
         if not pairs:
+            if (_asm_file(project, SHARED_DIR, sym)
+                    or _label_file(project, SHARED_DIR, sym)):
+                donors = [
+                    (donor, sym) for donor, _path in _master_paths(project)
+                    if (_shared_include_address(project, donor, sym) is not None
+                        or _shared_member_address(project, donor, sym) is not None)
+                ]
+                if donors:
+                    out.extend((own, name, note, donor)
+                               for donor, own in donors)
+                    continue
             out.append((sym, name, note, binary))
             continue
         for donor, own in pairs:
@@ -412,7 +423,61 @@ def _routine_address(project, binary, *names):
             addr = _routine_addr(path, name)
             if addr is not None:
                 return addr
+        addr = _shared_include_address(project, binary, name)
+        if addr is not None:
+            return addr
+        addr = _shared_member_address(project, binary, name)
+        if addr is not None:
+            return addr
     return None
+
+
+def _shared_include_address(project, binary, symbol):
+    """The listing address of a shared routine included by *binary*."""
+    if binary == SHARED_DIR:
+        return None
+    shared_symbol = _shared_equ(project, binary, symbol) or symbol
+    path = _asm_file(project, SHARED_DIR, shared_symbol)
+    if not path:
+        return None
+    rel = os.path.relpath(path, src_dir(project, PROJECT)).replace(os.sep, '/')
+    for line in _master_text(project, binary).splitlines():
+        include = _INCLUDE_LINE.match(line)
+        address = _ADDR_COMMENT.search(line)
+        if (include and include.group(1).replace('\\', '/') == rel
+                and address):
+            return int(address.group(1), 16)
+    return None
+
+
+def _shared_member_address(project, binary, symbol):
+    """Address a public member defined inside a shared hand-source module."""
+    if binary == SHARED_DIR:
+        return None
+    asm_path = _label_file(project, SHARED_DIR, symbol)
+    if not asm_path:
+        return None
+    from lib.routine_source import beside
+    source = beside(os.path.splitext(asm_path)[0])
+    if not source:
+        return None
+    root = os.path.splitext(os.path.basename(asm_path))[0]
+    base = _shared_include_address(project, binary, root)
+    if base is None:
+        return None
+    from lib.aztec import cache as azcache
+    try:
+        with open(source) as f:
+            text = f.read()
+        entry = azcache.default_entry(root, project, os.path.splitext(source)[1])
+        module, whole = azcache.compile_source_module(
+            project, binary, root, entry, text)
+    except (OSError, RuntimeError, ValueError):
+        return None
+    keys = (symbol.lower(), symbol.rstrip('_').lower())
+    offset = next((whole.members[key] for key in keys
+                   if key in whole.members), None)
+    return None if offset is None else base + offset
 
 
 def resolve(sidecar, project, binary, symbol):
@@ -459,6 +524,18 @@ def resolve(sidecar, project, binary, symbol):
         offset = 0 if own.get('ghidra_base_offset') is not None else own.get('start_offset', 0)
         fn_key = f'{addr - offset:04x}'
         path, key = ['binaries', binary, 'function_names'], fn_key
+    elif binary != SHARED_DIR and _shared_include_address(
+            project, binary, symbol) is not None:
+        addr = _shared_include_address(project, binary, symbol)
+        offset = (0 if own.get('ghidra_base_offset') is not None else
+                  own.get('start_offset', 0))
+        path, key = ['binaries', binary, 'function_names'], f'{addr - offset:04x}'
+    elif binary != SHARED_DIR and _shared_member_address(
+            project, binary, symbol) is not None:
+        addr = _shared_member_address(project, binary, symbol)
+        offset = (0 if own.get('ghidra_base_offset') is not None else
+                  own.get('start_offset', 0))
+        path, key = ['binaries', binary, 'function_names'], f'{addr - offset:04x}'
     elif _asm_file(project, SHARED_DIR, symbol):
         raise SidecarError(f'{symbol}: name a shared routine from the binary whose address it uses')
     elif (binary != SHARED_DIR and _TAGGED.search(symbol)

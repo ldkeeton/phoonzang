@@ -1,5 +1,5 @@
 ; auto-generated
-gfx_cache_screen:
+gfx_cache_screen_to_storage:
     push bp                          ; 0x436c
     mov bp, sp                       ; 0x436d
     cld                              ; 0x436f

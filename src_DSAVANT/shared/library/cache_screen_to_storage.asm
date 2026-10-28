@@ -1,5 +1,5 @@
 ; auto-generated
-cache_screen:
+cache_screen_to_storage:
     push bp
     mov bp, sp
     sub sp, byte 0x14
@@ -19,8 +19,8 @@ cache_screen:
     add bx, ax
     mov ax, word [cs:bx]
     mov word [cs:bx], 0
-    call leaf_loc_MIUO
-    call loc_KLNH
+    call decrement_cached_slot_ids
+    call release_and_compact_ems_blocks
     jmp near cache_screen_restore_and_return
 .forward1:
     mov word [bp - 2], ax
@@ -29,7 +29,7 @@ cache_screen:
     je short .forward2
     mov ax, word [bp + 0xe]
     mov word [bp - 4], ax
-    call cache_screen.dos_file_loc1
+    call copy_file_region
     jmp near cache_screen_restore_and_return
 .forward2:
     mov ax, word [bp + 0xe]
@@ -103,3 +103,43 @@ cache_screen:
     mov si, 0
     rep movsb
     jmp short .back1
+cache_screen_restore_and_return:
+    pop si
+    pop di
+    pop ds
+    pop es
+    mov sp, bp
+    pop bp
+    ret
+cache_screen_slot_in_use:
+    mov ax, cs
+    mov ds, ax
+    mov dx, screen_slot_in_use_message - IMAGE_BASE
+    mov ah, 9
+    int 0x21 ; DOS string output
+    mov ax, 0x4c01
+    int 0x21 ; DOS function dispatcher
+screen_slot_in_use_message:
+
+    db 0x0d, 0x0a, 0x07
+    db 'CACHESCREEN().  Requested slot already in use.', 0
+    db 0x0a, 0x24
+
+cache_screen_return_zero:
+    xor dx, dx
+    mov ax, dx
+    jmp short cache_screen_restore_and_return
+cache_screen_out_of_ems:
+    mov ax, cs
+    mov ds, ax
+    mov dx, screen_ems_limit_message - IMAGE_BASE
+    mov ah, 9
+    int 0x21 ; DOS string output
+    mov ax, 0x4c01
+    int 0x21 ; DOS function dispatcher
+screen_ems_limit_message:
+
+    db 0x0d, 0x0a, 0x07
+    db 'CACHESCREEN().  Insufficient EMS.', 0
+    db 0x0a, 0x24
+

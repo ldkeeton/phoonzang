@@ -1,5 +1,5 @@
 ; auto-generated
-dos_file_loc_MJUK:
+copy_file_region:
     push ds
     push es
     push si
@@ -27,18 +27,18 @@ dos_file_loc_MJUK:
 .forward1:
     mov ax, cs
     mov ds, ax
-    mov dx, dos_file_loc_MJUK.cseg1 - IMAGE_BASE
+    mov dx, copy_file_region.cseg1 - IMAGE_BASE
     mov ah, 9
     int 0x21 ; DOS string output
     mov ax, 0x4c01
     int 0x21 ; DOS function dispatcher
-dos_file_loc_MJUK.cseg1:
+copy_file_region.cseg1:
 
     db 0x0d, 0x0a, 0x07
     db 'Error occurred writing to disk', 0
     db 0x0a, 0x24
 
-dos_file_loc_MJUK.forward2:
+copy_file_region.forward2:
     pop di
     pop si
     pop es

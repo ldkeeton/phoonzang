@@ -238,13 +238,13 @@ cseg_1231 equ load_maze.cseg2
 cseg_128c equ load_maze.cseg3
 %include "shared/library/load_maze.asm"               ; 0x10cf
 
-%include "shared/library/leaf_loc_MIUO.asm"           ; 0x1355
+%include "shared/library/decrement_cached_slot_ids.asm" ; 0x1355
 
 %include "ega/data/cseg_138e.asm"          ; 0x138e
 
-loc_KLNH.cseg1 equ cseg_138e
-loc_KLNH.cseg2 equ cseg_1390
-%include "shared/library/loc_KLNH.asm"                ; 0x1392
+release_and_compact_ems_blocks.cseg1 equ cseg_138e
+release_and_compact_ems_blocks.cseg2 equ cseg_1390
+%include "shared/library/release_and_compact_ems_blocks.asm" ; 0x1392
 
 leaf_loc_TPOL.cseg1 equ cseg_1390
 leaf_loc_TPOL.cseg2 equ cseg_138e
@@ -498,11 +498,10 @@ cseg_441e equ cache_area_maze_slots_full.cseg1
 
 %include "shared/library/restore_screen.asm"          ; 0x4457
 
-cseg_45fb equ dos_file_loc_MJUK.cseg1
-%include "shared/library/dos_file_loc_MJUK.asm"       ; 0x45bd
+cseg_45fb equ copy_file_region.cseg1
+%include "shared/library/copy_file_region.asm"        ; 0x45bd
 
-cache_maze.dos_file_loc1 equ dos_file_loc_MJUK
-cache_maze.loc1          equ loc_47f0
+cache_maze.loc1 equ loc_47f0
 %include "shared/library/cache_maze.asm"              ; 0x4624
 
 %include "shared/library/cache_maze_restore_and_return.asm" ; 0x47a0
@@ -516,18 +515,7 @@ loc_47f0  equ loc_3f3e
 cseg_4800 equ loc_3f3e.cseg1
 %include "shared/library/loc_3f3e.asm"                ; 0x47f0
 
-cache_screen.dos_file_loc1 equ dos_file_loc_MJUK
-%include "shared/library/cache_screen.asm"            ; 0x4825
-
-%include "shared/library/cache_screen_restore_and_return.asm" ; 0x492b
-
-cseg_4943 equ cache_screen_slot_in_use.cseg1
-%include "shared/library/cache_screen_slot_in_use.asm" ; 0x4933
-
-%include "shared/library/cache_screen_return_zero.asm" ; 0x4977
-
-cseg_498d equ cache_screen_out_of_ems.cseg1
-%include "shared/library/cache_screen_out_of_ems.asm" ; 0x497d
+%include "shared/library/cache_screen_to_storage.asm" ; 0x4825
 
 %include "shared/data/sound_slots.asm"        ; 0x49b4
 

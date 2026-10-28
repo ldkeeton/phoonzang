@@ -515,10 +515,20 @@ def _build_project(project, run_batch, nasm_batch, *, report=print,
         if pool is not None:
             pool.shutdown(wait=True)
             emitted.update(early_emitted)
-        if not completed and emitted:
+        # A consumer rendered from a failed source's labels is damaged by
+        # them: keep its last good files and write only the failed source.
+        tainted = {n for n, refs in cross_refs.items()
+                   if n not in source_failed
+                   and any(src in source_failed for _, src in refs)}
+        kept = {n: f for n, f in emitted.items() if n not in tainted}
+        if not completed and kept:
             # Keep inspectable output even after failure; partial trees must
             # never prune files belonging to a binary that did not emit.
-            files, _, _ = reshare_partial(merge_files(emitted), out_dir)
+            if tainted:
+                report(f'  Failure output: kept last good '
+                       f'{", ".join(sorted(tainted))} (rendered from failed '
+                       f'source labels)')
+            files, _, _ = reshare_partial(merge_files(kept), out_dir)
             files = {rel: text for rel, text in files.items()
                      if not hand_owned(os.path.join(out_dir, rel))}
             written, unchanged, _ = sync(out_dir, files, scopes=[])

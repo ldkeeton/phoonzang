@@ -141,8 +141,8 @@ restore_screen:
     add bx, ax
     mov ax, word [cs:bx]
     mov word [cs:bx], 0
-    call leaf_loc_MIUO
-    call loc_KLNH
+    call decrement_cached_slot_ids
+    call release_and_compact_ems_blocks
 .forward6:
     pop si
     pop di

@@ -65,11 +65,7 @@ REGISTERS = {'ax', 'bx', 'cx', 'dx', 'si', 'di', 'bp', 'sp',
 
 # Printed after the human-readable report so a copied scan has the task
 # framing needed to investigate and resolve its candidate boundaries.
-FOLLOW_UP_PROMPT = """Investigate the candidate boundaries above and fix fragment ownership where the code supports it. The executable bytes and their decoded instruction/data boundaries are authoritative for instruction content, addresses, and byte spans. Handwritten `.s` files are editable project source: rewrite, merge, split, or delete them when needed to represent the executable accurately. Do not preserve an inaccurate `.s` layout just because it exists.
-
-For each candidate, inspect the master includes, source and destination offsets, sidecar ownership, callers, and dispatch tables where relevant. Give routines and internal entries meaningful names based on their behavior. Update sidecar names, source labels, callers/references, and generated output consistently, while preserving required entry points and exact byte addresses. Translate executable instructions into readable assembly; use data directives only for actual data, tables, or padding.
-
-When fragments share an implementation, group the complete contiguous routine and its attached tables/data through the next justified independent boundary. Preserve genuinely independent entry points as named co-tenants. Treat this scanner as the review guide: do not change its logic or filter its output to hide candidates. Make the smallest complete source/ownership change, regenerate, inspect the diff for unrelated edits, and verify the affected spans, co-tenants, bytes, and remaining candidates. Report what changed and why."""
+FOLLOW_UP_PROMPT = """For each candidate, inspect the executable bytes, decoded boundaries, sidecar, callers, and tables. Fix ownership and names in the authoritative source: edit handwritten `.s` files, but change generated `.asm` through its sidecar or generator inputs and regenerate. Preserve real entry points and addresses; use instructions for code and data directives only for data or padding. Do not change or filter the scanner. Verify affected bytes and boundaries, then briefly report the changes and rationale."""
 
 
 def clean_line(row):

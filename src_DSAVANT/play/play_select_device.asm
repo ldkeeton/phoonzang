@@ -90,7 +90,7 @@ play_set_device:
     mov bl, byte [cs:play_device - IMAGE_BASE] ; 0x0350
     shl bl, 1                        ; 0x0355
     xor bh, bh                       ; 0x0357
-    jmp [cs:bx + 0x45e]              ; 0x0359
+    jmp [cs:bx + play_device_setup_dispatch_table - IMAGE_BASE] ; 0x0359
 play_device_setup_dispatch_table:
 play_device_setup_dispatch_table:
     dw play_set_device_return - IMAGE_BASE     ; 0x035e
@@ -190,19 +190,19 @@ play_configure_timer_handler:
     mov bl, byte [cs:play_device - IMAGE_BASE] ; 0x0459
     shl bl, 1                        ; 0x045e
     xor bh, bh                       ; 0x0460
-    mov dx, word [cs:bx + 0x5a5]     ; 0x0462
+    mov dx, word [cs:bx + jumptable_0495 + 0x10 - IMAGE_BASE] ; 0x0462
     cmp byte [cs:timer_handler_installed - IMAGE_BASE], 0 ; 0x0467
     je short .forward6               ; 0x046d
-    mov dx, word [cs:bx + 0x5ad]     ; 0x046f
+    mov dx, word [cs:bx + jumptable_0495 + 0x18 - IMAGE_BASE] ; 0x046f
     jmp near .forward6               ; 0x0474
 .forward5:
     mov bl, byte [cs:play_device - IMAGE_BASE] ; 0x0477
     shl bl, 1                        ; 0x047c
     xor bh, bh                       ; 0x047e
-    mov dx, word [cs:bx + 0x595]     ; 0x0480
+    mov dx, word [cs:bx + jumptable_0495 - IMAGE_BASE] ; 0x0480
     cmp byte [cs:timer_handler_installed - IMAGE_BASE], 0 ; 0x0485
     je short .forward6               ; 0x048b
-    mov dx, word [cs:bx + 0x59d]     ; 0x048d
+    mov dx, word [cs:bx + jumptable_0495 + 0x8 - IMAGE_BASE] ; 0x048d
     jmp near .forward6               ; 0x0492
 jumptable_0495:
     dw pit_sample_interrupt - IMAGE_BASE       ; 0x0495
