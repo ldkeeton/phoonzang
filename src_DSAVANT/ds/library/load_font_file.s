@@ -1,8 +1,7 @@
 ; load_font_file(handle, slot): reads the 16-byte font header from handle
 ; into the segment at font_header_seg, allocates a DOS block for the whole
 ; font, records its segment in font_seg_table[slot], copies the header in and
-; reads the rest. A read error prints font_io_error_msg and exits (falls into
-; the following DOS print/exit code); an allocation error jumps to
+; reads the rest. A read error prints font_io_error_msg and exits through its DOS print/exit tail; an allocation error jumps to
 ; font_memory_error.
 	include	lmacros.h
 	assume	cs:codeseg
@@ -94,6 +93,10 @@ glyph_bytes	equ	-8	;glyph count * bytes per glyph
 l5:	;read error: ds:dx = message for the DOS print that follows
 	movseg	ds,cs
 	mov	dx,offset font_io_error_msg_
+	public	font_io_error_exit
+font_io_error_exit:
+	dos	9
+	dosx	4c01h
 	pend	load_font_file
 	finish
 	end

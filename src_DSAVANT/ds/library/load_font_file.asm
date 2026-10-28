@@ -99,3 +99,8 @@ load_font_file:
     mov ax, cs                       ; 0x392f
     mov ds, ax                       ; 0x3931
     mov dx, font_io_error_msg - IMAGE_BASE ; 0x3933
+font_io_error_exit:
+    mov ah, 9                        ; 0x3936
+    int 0x21 ; DOS string output
+    mov ax, 0x4c01                   ; 0x393a
+    int 0x21 ; DOS function dispatcher

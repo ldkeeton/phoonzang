@@ -24,3 +24,8 @@ read_misc_table:
     mov ax, cs                       ; 0x3fce
     mov ds, ax                       ; 0x3fd0
     mov dx, misc_table_io_error_msg - IMAGE_BASE ; 0x3fd2
+misc_table_io_error_exit:
+    mov ah, 9                        ; 0x3fd5
+    int 0x21 ; DOS string output
+    mov ax, 0x4c01                   ; 0x3fd9
+    int 0x21 ; DOS function dispatcher

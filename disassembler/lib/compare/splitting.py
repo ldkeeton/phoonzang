@@ -504,7 +504,10 @@ def _group_module(ranges, roots, binary_data, module, ends):
     for start, stop, _ in inside:
         if start != at:
             return ungrouped()
-        at = stop
+        # An inferred object can include unnamed padding after the module.
+        # The checked record boundary permits cutting there; the leftover
+        # data splitter retains the bytes beyond the module's exact length.
+        at = min(stop, end)
     if at != end:
         return ungrouped()
     return sorted([r for r in ranges if r not in inside]

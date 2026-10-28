@@ -324,24 +324,21 @@
           "name": "select_ega_driver",
           "note": "hand-written asm, shares its caller's frame: no EGA (0040:0087 zero) gives [bp-2] = 0; else mode 0eh, the 16-colour palette at cs 0x32f6, [bp-2] = 2, [bp-4] = 'ega.drv'"
         },
-        "3534": {"name": "load_video_driver", "note": "loads the detected video driver and copies its tables"},
+        "3534": {"name": "load_video_driver", "length": 184, "note": "loads the detected video driver and copies its tables; owns its fallthrough display-error exit and message"},
         "35b8": {"name": "display_driver_error_exit", "note": "prints the display driver load error and exits with code 1"},
-        "35f5": {"name": "load_play_driver", "note": "loads play.drv and builds its segment table"},
+        "35f5": {"name": "load_play_driver", "length": 125, "note": "loads play.drv and builds its segment table; owns its fallthrough sound-error exit and message"},
         "3640": {"name": "sound_driver_error_exit", "note": "prints the sound driver load error and exits with code 1"},
         "3674": {"name": "calibrate_loops_per_ms", "note": "counts loop iterations over one 18.2 Hz BIOS tick, divides by 55 ticks/ms and scales 15/16 for loops_per_ms"},
         "36cd": {"name": "no_operation", "note": "'empty near procedure that returns immediately without touching any register'"},
-        "36d0": {
-          "name": "delay_ms",
-          "note": "hand-written asm: [bp+4] times, counts loops_per_ms (calibrated to one millisecond) down to delay_loop_target (always 0)"
-        },
+        "36d0": {"name": "delay_ms", "note": "hand-written asm: [bp+4] times, counts loops_per_ms (calibrated to one millisecond) down to delay_loop_target (always 0)"},
         "36f5": {"name": "allocate_driver_blocks", "note": "allocates each driver memory block in the code-segment table, freeing the blocks on a DOS failure"},
         "3760": {"name": "free_driver_blocks", "note": "frees the driver blocks from si back to the table start"},
         "377b": {"name": "free_font_memory", "note": "frees every DOS block in font_seg_table, stopping at the 0xffff end marker"},
         "37a5": {"name": "detect_mouse", "note": "checks the INT 33h vector and resets the mouse; sets bit 12 of the caller result"},
         "37d9": {"name": "detect_expanded_memory", "note": "probes int 67h and records the EMS page frame and pages"},
         "3860": {
-          "name": "load_font_file",
-          "note": "hand-written asm: reads the 16-byte font header from handle [bp+4] into the segment at cs 0x2f4a, allocates a DOS block for the font, records it in font_seg_table[[bp+6]] and reads the rest; I/O errors print font_io_error_msg and exit"
+          "name": "load_font_file", "length": 223,
+          "note": "hand-written asm: reads the 16-byte font header from handle [bp+4] into the segment at cs 0x2f4a, allocates a DOS block for the font, records it in font_seg_table[[bp+6]] and reads the rest; owns the fallthrough DOS print/exit tail; I/O errors print font_io_error_msg and exit"
         },
         "3936": {"name": "font_io_error_exit", "note": "prints the font read error and exits; entered from load_font_file's l5 tail with ds:dx set"},
         "395b": {
@@ -375,7 +372,7 @@
         "3eeb": {"name": "set_bitfield", "note": "stores value into the width-bit field at index of a packed bit array"},
         "3f3d": {"name": "read_packed_field", "note": "Extract an indexed fixed-width bit field from a byte buffer"},
         "3f81": {"name": "get_bits", "note": "returns (value >> shift) masked to width bits"},
-        "3fa9": {"name": "read_misc_table", "note": "hand-written asm: reads 0x400 bytes from handle [bp+4] to misc_table_seg:0; a read error prints misc_table_io_error_msg and falls into the DOS print/exit code"},
+        "3fa9": {"name": "read_misc_table", "length": 53, "note": "hand-written asm: reads 0x400 bytes from handle [bp+4] to misc_table_seg:0; owns the fallthrough DOS print/exit tail for misc_table_io_error_msg"},
         "3fd5": {"name": "misc_table_io_error_exit", "note": "prints the misc table read error and exits; entered from read_misc_table's l1 tail with ds:dx set"},
         "4002": {
           "name": "unpack_record",

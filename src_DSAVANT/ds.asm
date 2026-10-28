@@ -609,12 +609,6 @@ __zdseg_end equ (__zimage_end - __zdseg_start) + __zbss_size
 
 %include "ds/library/detect_video_adapter.asm" ; 0x30f7
 
-%include "ds/data/vga_palette.asm"         ; 0x313e
-
-%include "ds/library/select_vga_driver.asm" ; 0x343e
-
-%include "ds/library/select_ega_driver.asm" ; 0x3490
-
 %include "ds/data/ega_palette.asm"         ; 0x34f6
 
 %include "ds/data/vga_drv_name.asm"        ; 0x3507
@@ -625,13 +619,9 @@ __zdseg_end equ (__zimage_end - __zdseg_start) + __zbss_size
 
 %include "ds/library/load_video_driver.asm" ; 0x3534
 
-%include "ds/library/display_driver_error_exit.asm" ; 0x35b8
-
 %include "ds/data/cseg_35ec.asm"           ; 0x35ec
 
 %include "ds/library/load_play_driver.asm" ; 0x35f5
-
-%include "ds/library/sound_driver_error_exit.asm" ; 0x3640
 
 %include "ds/data/loops_per_ms.asm"        ; 0x3672
 
@@ -666,8 +656,6 @@ __zdseg_end equ (__zimage_end - __zdseg_start) + __zbss_size
 %include "ds/data/font_seg_table.asm"      ; 0x384a
 
 %include "ds/library/load_font_file.asm"   ; 0x3860
-
-%include "ds/library/font_io_error_exit.asm" ; 0x3936
 
 %include "ds/data/font_io_error_msg.asm"   ; 0x393f
 
@@ -732,8 +720,6 @@ __zdseg_end equ (__zimage_end - __zdseg_start) + __zbss_size
 %include "ds/library/get_bits.asm"         ; 0x3f81
 
 %include "ds/library/read_misc_table.asm"  ; 0x3fa9
-
-%include "ds/library/misc_table_io_error_exit.asm" ; 0x3fd5
 
 %include "ds/data/misc_table_io_error_msg.asm" ; 0x3fde
 
