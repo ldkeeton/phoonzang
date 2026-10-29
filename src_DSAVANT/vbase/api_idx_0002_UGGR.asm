@@ -1,5 +1,5 @@
 ; auto-generated
-api_idx_0002_NVMN:
+api_idx_0002_UGGR:
     mov ax, 0xfffe                   ; 0x706d
     call aztec_csav                  ; 0x7070
     mov ax, 0                        ; 0x7073
@@ -93,7 +93,7 @@ jumptable_7185_case_1:
     push ax                          ; 0x7138
     mov ax, MSG_THERE_IS_MUCH_TO_LEAR_28310 ; 0x7139
     push ax                          ; 0x713c
-    call loc_LIQV                    ; 0x713d
+    call play_scene_message_sequence ; 0x713d
     add sp, byte 4                   ; 0x7140
     jmp short jumptable_7185_case_0  ; 0x7143
 jumptable_7185_case_2:
@@ -101,7 +101,7 @@ jumptable_7185_case_2:
     push ax                          ; 0x7148
     mov ax, MSG_UPON_A_GREAT_METAL_VE_28610 ; 0x7149
     push ax                          ; 0x714c
-    call loc_LIQV                    ; 0x714d
+    call play_scene_message_sequence ; 0x714d
     add sp, byte 4                   ; 0x7150
     jmp short jumptable_7185_case_0  ; 0x7153
 jumptable_7185_case_3:
@@ -109,7 +109,7 @@ jumptable_7185_case_3:
     push ax                          ; 0x7158
     mov ax, MSG_WITHIN_THE_CONFINES_O_28670 ; 0x7159
     push ax                          ; 0x715c
-    call loc_LIQV                    ; 0x715d
+    call play_scene_message_sequence ; 0x715d
     add sp, byte 4                   ; 0x7160
     jmp short jumptable_7185_case_0  ; 0x7163
 jumptable_7185_case_4:
@@ -117,7 +117,7 @@ jumptable_7185_case_4:
     push ax                          ; 0x7168
     mov ax, MSG_THERE_IS_DARKNESS_ALL_28230 ; 0x7169
     push ax                          ; 0x716c
-    call loc_LIQV                    ; 0x716d
+    call play_scene_message_sequence ; 0x716d
     add sp, byte 4                   ; 0x7170
     jmp short jumptable_7185_case_0  ; 0x7173
 jumptable_7185_case_5:
@@ -125,7 +125,7 @@ jumptable_7185_case_5:
     push ax                          ; 0x7178
     mov ax, 0x6f54                   ; 0x7179
     push ax                          ; 0x717c
-    call loc_LIQV                    ; 0x717d
+    call play_scene_message_sequence ; 0x717d
     add sp, byte 4                   ; 0x7180
     jmp short jumptable_7185_case_0  ; 0x7183
 jumptable_7185:
@@ -135,7 +135,7 @@ jumptable_7185:
     dw jumptable_7185_case_3 - IMAGE_BASE + __zres_end ; 0x718b
     dw jumptable_7185_case_4 - IMAGE_BASE + __zres_end ; 0x718d
     dw jumptable_7185_case_5 - IMAGE_BASE + __zres_end ; 0x718f
-api_idx_0002_NVMN.forward5:
+api_idx_0002_UGGR.forward5:
     cmp ax, strict word 6            ; 0x7191
     jae short jumptable_7185_case_0  ; 0x7194
     xchg bx, ax                      ; 0x7196
@@ -170,7 +170,7 @@ jumptable_7185_case_0:
     call call_show_area              ; 0x71cf
     add sp, byte 8                   ; 0x71d2
     cmp word [bss_8450], byte 0      ; 0x71d5
-    je short api_idx_0002_NVMN.forward7 ; 0x71da
+    je short api_idx_0002_UGGR.forward7 ; 0x71da
     push word [bss_844c]             ; 0x71dc
     push word [bss_844e]             ; 0x71e0
     call fade_out_music              ; 0x71e4
@@ -179,17 +179,17 @@ jumptable_7185_case_0:
     push ax                          ; 0x71ed
     call free_loaded_score           ; 0x71ee
     pop cx                           ; 0x71f1
-api_idx_0002_NVMN.forward7:
+api_idx_0002_UGGR.forward7:
     test word [startup_hardware_flags], 0x1000 ; 0x71f2
-    je short api_idx_0002_NVMN.forward9 ; 0x71f8
+    je short api_idx_0002_UGGR.forward9 ; 0x71f8
     cmp byte [startup_aux_option_b], 1 ; 0x71fa
-    jne short api_idx_0002_NVMN.forward9 ; 0x71ff
+    jne short api_idx_0002_UGGR.forward9 ; 0x71ff
     cmp word [mouse_active], byte 0  ; 0x7201
-    jne short api_idx_0002_NVMN.forward8 ; 0x7206
+    jne short api_idx_0002_UGGR.forward8 ; 0x7206
     call call_mouse_init             ; 0x7208
-api_idx_0002_NVMN.forward8:
+api_idx_0002_UGGR.forward8:
     mov word [mouse_active], 1       ; 0x720b
-api_idx_0002_NVMN.forward9:
+api_idx_0002_UGGR.forward9:
     mov ax, 0                        ; 0x7211
     push ax                          ; 0x7214
     push ax                          ; 0x7215
@@ -210,8 +210,8 @@ api_idx_0002_NVMN.forward9:
     call call_fade_in                ; 0x7234
     pop cx                           ; 0x7237
     mov word [bp - 2], 0             ; 0x7238
-    jmp short api_idx_0002_NVMN.forward10 ; 0x723d
-api_idx_0002_NVMN.back1:
+    jmp short api_idx_0002_UGGR.forward10 ; 0x723d
+api_idx_0002_UGGR.back1:
     mov ax, 1                        ; 0x723f
     push ax                          ; 0x7242
     mov ax, word [bp + 4]            ; 0x7243
@@ -226,16 +226,16 @@ api_idx_0002_NVMN.back1:
     call set_bitmap_bit              ; 0x7254
     add sp, byte 6                   ; 0x7257
     inc word [bp - 2]                ; 0x725a
-api_idx_0002_NVMN.forward10:
+api_idx_0002_UGGR.forward10:
     mov ax, word [bp - 2]            ; 0x725d
     cmp ax, word [party_char_count]  ; 0x7260
-    jl short api_idx_0002_NVMN.back1 ; 0x7264
+    jl short api_idx_0002_UGGR.back1 ; 0x7264
     mov ax, 1                        ; 0x7266
     push ax                          ; 0x7269
     call api_idx_004e_HUKL           ; 0x726a
     pop cx                           ; 0x726d
     cmp ax, strict word 0xffff       ; 0x726e
-    jne short api_idx_0002_NVMN.forward11 ; 0x7271
+    jne short api_idx_0002_UGGR.forward11 ; 0x7271
     mov ax, 0xc6                     ; 0x7273
     push ax                          ; 0x7276
     mov ax, 0x109                    ; 0x7277
@@ -246,7 +246,7 @@ api_idx_0002_NVMN.forward10:
     push ax                          ; 0x7282
     call call_show_area              ; 0x7283
     add sp, byte 8                   ; 0x7286
-api_idx_0002_NVMN.forward11:
+api_idx_0002_UGGR.forward11:
     mov ax, 0                        ; 0x7289
     push ax                          ; 0x728c
     mov ax, 0xc7                     ; 0x728d

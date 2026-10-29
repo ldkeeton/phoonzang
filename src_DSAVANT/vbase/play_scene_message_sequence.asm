@@ -1,5 +1,5 @@
 ; auto-generated
-loc_LIQV:
+play_scene_message_sequence:
     mov ax, 0xfefa                   ; 0x6f79
     call aztec_csav                  ; 0x6f7c
     call loc_SVUQ                    ; 0x6f7f
@@ -17,7 +17,7 @@ loc_LIQV:
     jne short .forward1              ; 0x6fac
     lea ax, word [bp - 0x105]        ; 0x6fae
     push ax                          ; 0x6fb2
-    call api_idx_0004_OTSN           ; 0x6fb3
+    call api_idx_0004_VRNJ           ; 0x6fb3
     pop cx                           ; 0x6fb6
     inc word [bp + 4]                ; 0x6fb7
 .forward1:

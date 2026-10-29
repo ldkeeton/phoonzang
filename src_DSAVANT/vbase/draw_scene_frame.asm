@@ -437,7 +437,7 @@ draw_scene_frame.back2:
     mov bx, ax                       ; 0x77e5
     cmp word [bx + sprite_pos], strict word 0x140 ; 0x77e7
     jge short draw_scene_frame.forward24 ; 0x77ed
-    push word [bx + bss_a5ea]        ; 0x77ef
+    push word [bx + scene_sprite_y]  ; 0x77ef
     push word [bx + sprite_pos]      ; 0x77f3
     mov ax, word [bp - 2]            ; 0x77f7
     add ax, strict word 6            ; 0x77fa
@@ -486,7 +486,7 @@ draw_scene_frame.forward24:
     mov cx, word [bp - 4]            ; 0x7863
     shl cx, 1                        ; 0x7866
     mov bx, cx                       ; 0x7868
-    mov word [bx + bss_a5ea], ax     ; 0x786a
+    mov word [bx + scene_sprite_y], ax ; 0x786a
 draw_scene_frame.forward25:
     inc word [bp - 2]                ; 0x786e
     mov ax, word [bp - 2]            ; 0x7871
@@ -561,7 +561,7 @@ draw_scene_frame.back3:
     mov bx, ax                       ; 0x7927
     cmp word [bx + sprite_pos], strict word 0x140 ; 0x7929
     jge short draw_scene_frame.forward31 ; 0x792f
-    push word [bx + bss_a5ea]        ; 0x7931
+    push word [bx + scene_sprite_y]  ; 0x7931
     push word [bx + sprite_pos]      ; 0x7935
     mov ax, word [bp - 2]            ; 0x7939
     add ax, strict word 6            ; 0x793c
@@ -598,7 +598,7 @@ draw_scene_frame.forward31:
     mov cx, word [bp - 4]            ; 0x798a
     shl cx, 1                        ; 0x798d
     mov bx, cx                       ; 0x798f
-    mov word [bx + bss_a5ea], ax     ; 0x7991
+    mov word [bx + scene_sprite_y], ax ; 0x7991
 draw_scene_frame.forward32:
     inc word [bp - 2]                ; 0x7995
     mov ax, word [bp - 2]            ; 0x7998
@@ -1055,7 +1055,7 @@ draw_scene_frame.back5:
     mov bx, ax                       ; 0x7ded
     cmp word [bx + sprite_pos], strict word 0x140 ; 0x7def
     jge short draw_scene_frame.forward50 ; 0x7df5
-    push word [bx + bss_a5ea]        ; 0x7df7
+    push word [bx + scene_sprite_y]  ; 0x7df7
     push word [bx + sprite_pos]      ; 0x7dfb
     mov ax, word [bp - 2]            ; 0x7dff
     add ax, strict word 5            ; 0x7e02
@@ -1107,7 +1107,7 @@ draw_scene_frame.forward51:
     mov cx, word [bp - 4]            ; 0x7e75
     shl cx, 1                        ; 0x7e78
     mov bx, cx                       ; 0x7e7a
-    mov word [bx + bss_a5ea], ax     ; 0x7e7c
+    mov word [bx + scene_sprite_y], ax ; 0x7e7c
 draw_scene_frame.forward52:
     inc word [bp - 2]                ; 0x7e80
     mov ax, word [bp - 2]            ; 0x7e83

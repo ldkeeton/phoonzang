@@ -158,7 +158,7 @@ bss_a4a8 equ __zdseg_end + (__zobss_a4a8 - __zdata_start)
 bss_a4aa equ __zdseg_end + (__zobss_a4aa - __zdata_start)
 scene_tick equ __zdseg_end + (__zobss_a5aa - __zdata_start)
 scene_running equ __zdseg_end + (__zobss_a5ac - __zdata_start)
-bss_a5ae equ __zdseg_end + (__zobss_a5ae - __zdata_start)
+scene_frame_delay_ticks equ __zdseg_end + (__zobss_a5ae - __zdata_start)
 scene_frame equ __zdseg_end + (__zobss_a5b0 - __zdata_start)
 scene_backdrop_ref equ __zdseg_end + (__zobss_a5b2 - __zdata_start)
 scene_backdrop_ref_hi equ __zdseg_end + (__zobss_a5b4 - __zdata_start)
@@ -176,11 +176,11 @@ scroll_x_3 equ __zdseg_end + (__zobss_a5d6 - __zdata_start)
 scroll_x_4 equ __zdseg_end + (__zobss_a5d8 - __zdata_start)
 sprite_pos equ __zdseg_end + (__zobss_a5da - __zdata_start)
 bss_a5dc equ __zdseg_end + (__zobss_a5dc - __zdata_start)
-bss_a5e0 equ __zdseg_end + (__zobss_a5e0 - __zdata_start)
+scene_sprite_three_x equ __zdseg_end + (__zobss_a5e0 - __zdata_start)
 actor_x equ __zdseg_end + (__zobss_a5e2 - __zdata_start)
 trail_x equ __zdseg_end + (__zobss_a5e4 - __zdata_start)
-bss_a5ea equ __zdseg_end + (__zobss_a5ea - __zdata_start)
-bss_a5f0 equ __zdseg_end + (__zobss_a5f0 - __zdata_start)
+scene_sprite_y equ __zdseg_end + (__zobss_a5ea - __zdata_start)
+scene_sprite_three_y equ __zdseg_end + (__zobss_a5f0 - __zdata_start)
 actor_y equ __zdseg_end + (__zobss_a5f2 - __zdata_start)
 scene_step_b equ __zdseg_end + (__zobss_a5fa - __zdata_start)
 scene_step_c equ __zdseg_end + (__zobss_a5fc - __zdata_start)
@@ -317,19 +317,18 @@ api_idx_0004_TTGQ.loc1 equ loc_TJHG
 
 %include "vbase/loc_VMSS.asm"              ; 0x6dd9
 
-api_idx_0004_OTSN          equ api_idx_0004_JQTM
-api_idx_0004_JQTM.api_idx1 equ loc_VMSS
-%include "shared/ovr/api_idx_0004_JQTM.asm"     ; 0x6f16
+api_idx_0004_VRNJ.loc1 equ loc_VMSS
+%include "shared/ovr/api_idx_0004_VRNJ.asm"     ; 0x6f16
 
-%include "vbase/loc_LIQV.asm"              ; 0x6f79
+%include "vbase/play_scene_message_sequence.asm" ; 0x6f79
 
 %include "shared/ovr/load_screen_file.asm"      ; 0x6fda
 
-%include "vbase/api_idx_0002_NVMN.asm"     ; 0x706d
+%include "vbase/api_idx_0002_UGGR.asm"     ; 0x706d
 
-%include "vbase/loc_GUNQ.asm"              ; 0x72c2
+%include "vbase/free_scene_picture.asm"    ; 0x72c2
 
-%include "vbase/api_idx_0016_LTLN.asm"     ; 0x72d0
+%include "vbase/load_numbered_scene_picture.asm" ; 0x72d0
 
 %include "vbase/draw_char_clipped_top_zero.asm" ; 0x7340
 
@@ -343,7 +342,7 @@ api_idx_0004_JQTM.api_idx1 equ loc_VMSS
 
 %include "vbase/loc_TQHJ.asm"              ; 0x8634
 
-%include "vbase/api_idx_0002_GLIS.asm"     ; 0x8756
+%include "vbase/play_intro_scene_two.asm"  ; 0x8756
 
 %include "vbase/api_idx_0002_UUUJ.asm"     ; 0x8881
 

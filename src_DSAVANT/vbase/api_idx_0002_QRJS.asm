@@ -27,13 +27,13 @@ api_idx_0002_QRJS:
     push ax                          ; 0x8ea4
     mov ax, 0xe                      ; 0x8ea5
     push ax                          ; 0x8ea8
-    call api_idx_0016_LTLN           ; 0x8ea9
+    call load_numbered_scene_picture ; 0x8ea9
     add sp, byte 4                   ; 0x8eac
     mov ax, 0x10                     ; 0x8eaf
     push ax                          ; 0x8eb2
     mov ax, 0xf                      ; 0x8eb3
     push ax                          ; 0x8eb6
-    call api_idx_0016_LTLN           ; 0x8eb7
+    call load_numbered_scene_picture ; 0x8eb7
     add sp, byte 4                   ; 0x8eba
     mov ax, word [bp + 6]            ; 0x8ebd
     mov word [scene_cue_b], ax       ; 0x8ec0
@@ -51,7 +51,7 @@ api_idx_0002_QRJS:
     mov word [scene_step_d], 0       ; 0x8ee9
     mov word [scene_frame], 0        ; 0x8eef
     mov word [scene_index], 8        ; 0x8ef5
-    mov word [bss_a5ae], 5           ; 0x8efb
+    mov word [scene_frame_delay_ticks], 5 ; 0x8efb
     les bx, word [tick_counter_ptr]  ; 0x8f01
     mov ax, word [es:bx]             ; 0x8f05
     mov dx, word [es:bx + 2]         ; 0x8f08
@@ -80,15 +80,15 @@ api_idx_0002_QRJS:
     mov ax, 0                        ; 0x8f3d
     push ax                          ; 0x8f40
     push word [bp + 4]               ; 0x8f41
-    call loc_LIQV                    ; 0x8f44
+    call play_scene_message_sequence ; 0x8f44
     add sp, byte 4                   ; 0x8f47
     mov ax, 0xf                      ; 0x8f4a
     push ax                          ; 0x8f4d
-    call loc_GUNQ                    ; 0x8f4e
+    call free_scene_picture          ; 0x8f4e
     pop cx                           ; 0x8f51
     mov ax, 0x10                     ; 0x8f52
     push ax                          ; 0x8f55
-    call loc_GUNQ                    ; 0x8f56
+    call free_scene_picture          ; 0x8f56
     pop cx                           ; 0x8f59
     mov ax, 0                        ; 0x8f5a
     push ax                          ; 0x8f5d

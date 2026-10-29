@@ -27,13 +27,13 @@ loc_JTTS:
     push ax                          ; 0x8aad
     mov ax, 9                        ; 0x8aae
     push ax                          ; 0x8ab1
-    call api_idx_0016_LTLN           ; 0x8ab2
+    call load_numbered_scene_picture ; 0x8ab2
     add sp, byte 4                   ; 0x8ab5
     mov ax, 0x11                     ; 0x8ab8
     push ax                          ; 0x8abb
     mov ax, 6                        ; 0x8abc
     push ax                          ; 0x8abf
-    call api_idx_0016_LTLN           ; 0x8ac0
+    call load_numbered_scene_picture ; 0x8ac0
     add sp, byte 4                   ; 0x8ac3
     mov ax, word [bp + 6]            ; 0x8ac6
     mov word [scene_cue_b], ax       ; 0x8ac9
@@ -43,7 +43,7 @@ loc_JTTS:
     mov word [actor_x], 0xff9c       ; 0x8ade
     mov word [actor_y], 0x55         ; 0x8ae4
     mov word [scene_clip_arg], 0     ; 0x8aea
-    mov word [bss_a5ae], 5           ; 0x8af0
+    mov word [scene_frame_delay_ticks], 5 ; 0x8af0
     les bx, word [tick_counter_ptr]  ; 0x8af6
     mov ax, word [es:bx]             ; 0x8afa
     mov dx, word [es:bx + 2]         ; 0x8afd
@@ -72,15 +72,15 @@ loc_JTTS:
     mov ax, 0                        ; 0x8b32
     push ax                          ; 0x8b35
     push word [bp + 4]               ; 0x8b36
-    call loc_LIQV                    ; 0x8b39
+    call play_scene_message_sequence ; 0x8b39
     add sp, byte 4                   ; 0x8b3c
     mov ax, 0x11                     ; 0x8b3f
     push ax                          ; 0x8b42
-    call loc_GUNQ                    ; 0x8b43
+    call free_scene_picture          ; 0x8b43
     pop cx                           ; 0x8b46
     mov ax, 0xf                      ; 0x8b47
     push ax                          ; 0x8b4a
-    call loc_GUNQ                    ; 0x8b4b
+    call free_scene_picture          ; 0x8b4b
     pop cx                           ; 0x8b4e
     mov ax, 0                        ; 0x8b4f
     push ax                          ; 0x8b52

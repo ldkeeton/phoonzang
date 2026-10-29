@@ -27,13 +27,13 @@ api_idx_0002_GORG:
     push ax                          ; 0x8ba2
     mov ax, 0xa                      ; 0x8ba3
     push ax                          ; 0x8ba6
-    call api_idx_0016_LTLN           ; 0x8ba7
+    call load_numbered_scene_picture ; 0x8ba7
     add sp, byte 4                   ; 0x8baa
     mov ax, 0x11                     ; 0x8bad
     push ax                          ; 0x8bb0
     mov ax, 6                        ; 0x8bb1
     push ax                          ; 0x8bb4
-    call api_idx_0016_LTLN           ; 0x8bb5
+    call load_numbered_scene_picture ; 0x8bb5
     add sp, byte 4                   ; 0x8bb8
     mov ax, word [bp + 6]            ; 0x8bbb
     mov word [scene_cue_b], ax       ; 0x8bbe
@@ -57,7 +57,7 @@ api_idx_0002_GORG:
     mov cx, word [bp - 2]            ; 0x8c02
     shl cx, 1                        ; 0x8c05
     mov bx, cx                       ; 0x8c07
-    mov word [bx + bss_a5ea], ax     ; 0x8c09
+    mov word [bx + scene_sprite_y], ax ; 0x8c09
     inc word [bp - 2]                ; 0x8c0d
     mov ax, word [bp - 2]            ; 0x8c10
     cmp ax, strict word 8            ; 0x8c13
@@ -65,7 +65,7 @@ api_idx_0002_GORG:
     mov word [actor_x], 0xff9c       ; 0x8c18
     mov word [actor_y], 0x6e         ; 0x8c1e
     mov word [scene_clip_arg], 0     ; 0x8c24
-    mov word [bss_a5ae], 5           ; 0x8c2a
+    mov word [scene_frame_delay_ticks], 5 ; 0x8c2a
     les bx, word [tick_counter_ptr]  ; 0x8c30
     mov ax, word [es:bx]             ; 0x8c34
     mov dx, word [es:bx + 2]         ; 0x8c37
@@ -94,15 +94,15 @@ api_idx_0002_GORG:
     mov ax, 0                        ; 0x8c6c
     push ax                          ; 0x8c6f
     push word [bp + 4]               ; 0x8c70
-    call loc_LIQV                    ; 0x8c73
+    call play_scene_message_sequence ; 0x8c73
     add sp, byte 4                   ; 0x8c76
     mov ax, 0x11                     ; 0x8c79
     push ax                          ; 0x8c7c
-    call loc_GUNQ                    ; 0x8c7d
+    call free_scene_picture          ; 0x8c7d
     pop cx                           ; 0x8c80
     mov ax, 0xf                      ; 0x8c81
     push ax                          ; 0x8c84
-    call loc_GUNQ                    ; 0x8c85
+    call free_scene_picture          ; 0x8c85
     pop cx                           ; 0x8c88
     mov ax, 0                        ; 0x8c89
     push ax                          ; 0x8c8c

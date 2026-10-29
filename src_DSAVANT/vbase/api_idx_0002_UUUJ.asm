@@ -6,7 +6,7 @@ api_idx_0002_UUUJ:
     push ax                          ; 0x888a
     mov ax, 5                        ; 0x888b
     push ax                          ; 0x888e
-    call api_idx_0016_LTLN           ; 0x888f
+    call load_numbered_scene_picture ; 0x888f
     add sp, byte 4                   ; 0x8892
     mov word [bp - 2], 0             ; 0x8895
 .back1:
@@ -67,7 +67,7 @@ api_idx_0002_UUUJ:
     add sp, byte 8                   ; 0x8921
     mov ax, 0xf                      ; 0x8924
     push ax                          ; 0x8927
-    call loc_GUNQ                    ; 0x8928
+    call free_scene_picture          ; 0x8928
     pop cx                           ; 0x892b
     mov ax, 0                        ; 0x892c
     push ax                          ; 0x892f
@@ -88,19 +88,19 @@ api_idx_0002_UUUJ:
     push ax                          ; 0x8951
     mov ax, 4                        ; 0x8952
     push ax                          ; 0x8955
-    call api_idx_0016_LTLN           ; 0x8956
+    call load_numbered_scene_picture ; 0x8956
     add sp, byte 4                   ; 0x8959
     mov ax, 0x10                     ; 0x895c
     push ax                          ; 0x895f
     mov ax, 8                        ; 0x8960
     push ax                          ; 0x8963
-    call api_idx_0016_LTLN           ; 0x8964
+    call load_numbered_scene_picture ; 0x8964
     add sp, byte 4                   ; 0x8967
     mov ax, 0x11                     ; 0x896a
     push ax                          ; 0x896d
     mov ax, 7                        ; 0x896e
     push ax                          ; 0x8971
-    call api_idx_0016_LTLN           ; 0x8972
+    call load_numbered_scene_picture ; 0x8972
     add sp, byte 4                   ; 0x8975
     mov ax, word [bp + 6]            ; 0x8978
     mov word [scene_cue_b], ax       ; 0x897b
@@ -122,13 +122,13 @@ api_idx_0002_UUUJ:
     mov cx, word [bp - 2]            ; 0x89a7
     shl cx, 1                        ; 0x89aa
     mov bx, cx                       ; 0x89ac
-    mov word [bx + bss_a5ea], ax     ; 0x89ae
+    mov word [bx + scene_sprite_y], ax ; 0x89ae
     inc word [bp - 2]                ; 0x89b2
     mov ax, word [bp - 2]            ; 0x89b5
     cmp ax, strict word 8            ; 0x89b8
     jl short .back2                  ; 0x89bb
-    mov word [bss_a5e0], 0x13e       ; 0x89bd
-    mov word [bss_a5f0], 0x2a        ; 0x89c3
+    mov word [scene_sprite_three_x], 0x13e ; 0x89bd
+    mov word [scene_sprite_three_y], 0x2a ; 0x89c3
     mov word [actor_x], 0x140        ; 0x89c9
     mov word [actor_y], 0x46         ; 0x89cf
     mov word [trail_x], 0xffe2       ; 0x89d5
@@ -136,7 +136,7 @@ api_idx_0002_UUUJ:
     mov word [scene_step_d], 0       ; 0x89e1
     mov word [scene_frame], 0        ; 0x89e7
     mov word [scene_index], 3        ; 0x89ed
-    mov word [bss_a5ae], 5           ; 0x89f3
+    mov word [scene_frame_delay_ticks], 5 ; 0x89f3
     les bx, word [tick_counter_ptr]  ; 0x89f9
     mov ax, word [es:bx]             ; 0x89fd
     mov dx, word [es:bx + 2]         ; 0x8a00
@@ -165,19 +165,19 @@ api_idx_0002_UUUJ:
     mov ax, 0                        ; 0x8a35
     push ax                          ; 0x8a38
     push word [bp + 4]               ; 0x8a39
-    call loc_LIQV                    ; 0x8a3c
+    call play_scene_message_sequence ; 0x8a3c
     add sp, byte 4                   ; 0x8a3f
     mov ax, 0x11                     ; 0x8a42
     push ax                          ; 0x8a45
-    call loc_GUNQ                    ; 0x8a46
+    call free_scene_picture          ; 0x8a46
     pop cx                           ; 0x8a49
     mov ax, 0x10                     ; 0x8a4a
     push ax                          ; 0x8a4d
-    call loc_GUNQ                    ; 0x8a4e
+    call free_scene_picture          ; 0x8a4e
     pop cx                           ; 0x8a51
     mov ax, 0xf                      ; 0x8a52
     push ax                          ; 0x8a55
-    call loc_GUNQ                    ; 0x8a56
+    call free_scene_picture          ; 0x8a56
     pop cx                           ; 0x8a59
     mov ax, 0                        ; 0x8a5a
     push ax                          ; 0x8a5d

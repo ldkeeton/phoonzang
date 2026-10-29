@@ -1,5 +1,5 @@
 ; auto-generated
-api_idx_0016_LTLN:
+load_numbered_scene_picture:
     mov ax, 0xffea                   ; 0x72d0
     call aztec_csav                  ; 0x72d3
     mov ax, 0                        ; 0x72d6

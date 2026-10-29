@@ -482,8 +482,9 @@ api_idx_0004_JGSH.bss2 equ bss_9b4e
 
 %include "vmaze/api_idx_0090_PNOU.asm"     ; 0x6cc9
 
-api_idx_0004_JQTM.api_idx1 equ api_idx_0090_PNOU
-%include "shared/ovr/api_idx_0004_JQTM.asm"     ; 0x6eb1
+api_idx_0004_JQTM      equ api_idx_0004_VRNJ
+api_idx_0004_VRNJ.loc1 equ api_idx_0090_PNOU
+%include "shared/ovr/api_idx_0004_VRNJ.asm"     ; 0x6eb1
 
 %include "vmaze/loc_MLLK.asm"              ; 0x6f14
 

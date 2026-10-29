@@ -27,19 +27,19 @@ loc_TQHJ:
     push ax                          ; 0x866d
     mov ax, 1                        ; 0x866e
     push ax                          ; 0x8671
-    call api_idx_0016_LTLN           ; 0x8672
+    call load_numbered_scene_picture ; 0x8672
     add sp, byte 4                   ; 0x8675
     mov ax, 0x10                     ; 0x8678
     push ax                          ; 0x867b
     mov ax, 2                        ; 0x867c
     push ax                          ; 0x867f
-    call api_idx_0016_LTLN           ; 0x8680
+    call load_numbered_scene_picture ; 0x8680
     add sp, byte 4                   ; 0x8683
     mov ax, 0x11                     ; 0x8686
     push ax                          ; 0x8689
     mov ax, 3                        ; 0x868a
     push ax                          ; 0x868d
-    call api_idx_0016_LTLN           ; 0x868e
+    call load_numbered_scene_picture ; 0x868e
     add sp, byte 4                   ; 0x8691
     mov ax, word [bp + 6]            ; 0x8694
     mov word [scene_cue_a], ax       ; 0x8697
@@ -63,7 +63,7 @@ loc_TQHJ:
     push ax                          ; 0x86ce
     call aztec_strcpy                ; 0x86cf
     add sp, byte 4                   ; 0x86d2
-    mov word [bss_a5ae], 5           ; 0x86d5
+    mov word [scene_frame_delay_ticks], 5 ; 0x86d5
     les bx, word [tick_counter_ptr]  ; 0x86db
     mov ax, word [es:bx]             ; 0x86df
     mov dx, word [es:bx + 2]         ; 0x86e2
@@ -92,19 +92,19 @@ loc_TQHJ:
     mov ax, 0                        ; 0x8717
     push ax                          ; 0x871a
     push word [bp + 4]               ; 0x871b
-    call loc_LIQV                    ; 0x871e
+    call play_scene_message_sequence ; 0x871e
     add sp, byte 4                   ; 0x8721
     mov ax, 0x11                     ; 0x8724
     push ax                          ; 0x8727
-    call loc_GUNQ                    ; 0x8728
+    call free_scene_picture          ; 0x8728
     pop cx                           ; 0x872b
     mov ax, 0x10                     ; 0x872c
     push ax                          ; 0x872f
-    call loc_GUNQ                    ; 0x8730
+    call free_scene_picture          ; 0x8730
     pop cx                           ; 0x8733
     mov ax, 0xf                      ; 0x8734
     push ax                          ; 0x8737
-    call loc_GUNQ                    ; 0x8738
+    call free_scene_picture          ; 0x8738
     pop cx                           ; 0x873b
     mov ax, 0                        ; 0x873c
     push ax                          ; 0x873f

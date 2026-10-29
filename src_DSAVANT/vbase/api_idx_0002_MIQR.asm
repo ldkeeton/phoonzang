@@ -27,7 +27,7 @@ api_idx_0002_MIQR:
     push ax                          ; 0x8dbd
     mov ax, 0xc                      ; 0x8dbe
     push ax                          ; 0x8dc1
-    call api_idx_0016_LTLN           ; 0x8dc2
+    call load_numbered_scene_picture ; 0x8dc2
     add sp, byte 4                   ; 0x8dc5
     mov ax, dseg_9193                ; 0x8dc8
     push ax                          ; 0x8dcb
@@ -41,7 +41,7 @@ api_idx_0002_MIQR:
     mov word [scene_step_d], 0       ; 0x8de8
     mov word [scene_frame], 0        ; 0x8dee
     mov word [scene_index], 7        ; 0x8df4
-    mov word [bss_a5ae], 5           ; 0x8dfa
+    mov word [scene_frame_delay_ticks], 5 ; 0x8dfa
     les bx, word [tick_counter_ptr]  ; 0x8e00
     mov ax, word [es:bx]             ; 0x8e04
     mov dx, word [es:bx + 2]         ; 0x8e07
@@ -70,11 +70,11 @@ api_idx_0002_MIQR:
     mov ax, 0                        ; 0x8e3c
     push ax                          ; 0x8e3f
     push word [bp + 4]               ; 0x8e40
-    call loc_LIQV                    ; 0x8e43
+    call play_scene_message_sequence ; 0x8e43
     add sp, byte 4                   ; 0x8e46
     mov ax, 0xf                      ; 0x8e49
     push ax                          ; 0x8e4c
-    call loc_GUNQ                    ; 0x8e4d
+    call free_scene_picture          ; 0x8e4d
     pop cx                           ; 0x8e50
     mov ax, 0                        ; 0x8e51
     push ax                          ; 0x8e54

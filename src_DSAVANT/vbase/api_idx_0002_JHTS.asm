@@ -27,7 +27,7 @@ api_idx_0002_JHTS:
     push ax                          ; 0x8cdc
     mov ax, 0xd                      ; 0x8cdd
     push ax                          ; 0x8ce0
-    call api_idx_0016_LTLN           ; 0x8ce1
+    call load_numbered_scene_picture ; 0x8ce1
     add sp, byte 4                   ; 0x8ce4
     mov ax, word [bp + 6]            ; 0x8ce7
     mov word [scene_cue_a], ax       ; 0x8cea
@@ -41,7 +41,7 @@ api_idx_0002_JHTS:
     mov word [scene_step_b], 0       ; 0x8d01
     mov word [scene_frame], 0        ; 0x8d07
     mov word [scene_index], 6        ; 0x8d0d
-    mov word [bss_a5ae], 5           ; 0x8d13
+    mov word [scene_frame_delay_ticks], 5 ; 0x8d13
     les bx, word [tick_counter_ptr]  ; 0x8d19
     mov ax, word [es:bx]             ; 0x8d1d
     mov dx, word [es:bx + 2]         ; 0x8d20
@@ -70,11 +70,11 @@ api_idx_0002_JHTS:
     mov ax, 0                        ; 0x8d55
     push ax                          ; 0x8d58
     push word [bp + 4]               ; 0x8d59
-    call loc_LIQV                    ; 0x8d5c
+    call play_scene_message_sequence ; 0x8d5c
     add sp, byte 4                   ; 0x8d5f
     mov ax, 0xf                      ; 0x8d62
     push ax                          ; 0x8d65
-    call loc_GUNQ                    ; 0x8d66
+    call free_scene_picture          ; 0x8d66
     pop cx                           ; 0x8d69
     mov ax, 0                        ; 0x8d6a
     push ax                          ; 0x8d6d

@@ -9,7 +9,7 @@ loc_GSUP:
     sbb dx, word [party_redraw_last_tick_hi] ; 0x73d1
     push ax                          ; 0x73d5
     push dx                          ; 0x73d6
-    mov ax, word [bss_a5ae]          ; 0x73d7
+    mov ax, word [scene_frame_delay_ticks] ; 0x73d7
     cwd                              ; 0x73da
     mov cx, ax                       ; 0x73db
     mov bx, dx                       ; 0x73dd

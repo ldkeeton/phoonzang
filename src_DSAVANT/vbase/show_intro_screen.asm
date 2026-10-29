@@ -66,7 +66,7 @@ show_intro_screen:
     push ax                          ; 0x9004
     mov ax, MSG_IN_THE_DEEP_REGIONS_O_31520 ; 0x9005
     push ax                          ; 0x9008
-    call api_idx_0002_GLIS           ; 0x9009
+    call play_intro_scene_two        ; 0x9009
     add sp, byte 8                   ; 0x900c
     mov ax, 0x63                     ; 0x900f
     push ax                          ; 0x9012
@@ -127,7 +127,7 @@ show_intro_screen:
     push ax                          ; 0x908a
     mov ax, MSG_INSIDE_A_TINY_BIRD_OF_31580 ; 0x908b
     push ax                          ; 0x908e
-    call api_idx_0002_GLIS           ; 0x908f
+    call play_intro_scene_two        ; 0x908f
     add sp, byte 8                   ; 0x9092
     mov ax, 0                        ; 0x9095
     push ax                          ; 0x9098
@@ -168,7 +168,7 @@ show_intro_screen:
     push ax                          ; 0x90e2
     mov ax, MSG_SOMEWHERE_AMONG_THE_S_31720 ; 0x90e3
     push ax                          ; 0x90e6
-    call api_idx_0002_GLIS           ; 0x90e7
+    call play_intro_scene_two        ; 0x90e7
     add sp, byte 8                   ; 0x90ea
     mov ax, 0x63                     ; 0x90ed
     push ax                          ; 0x90f0
@@ -238,7 +238,7 @@ show_intro_screen:
     push ax                          ; 0x9178
     mov ax, MSG_INSIDE_A_TINY_BIRD_OF_31780 ; 0x9179
     push ax                          ; 0x917c
-    call api_idx_0002_GLIS           ; 0x917d
+    call play_intro_scene_two        ; 0x917d
     add sp, byte 8                   ; 0x9180
     mov ax, 0                        ; 0x9183
     push ax                          ; 0x9186
@@ -272,7 +272,7 @@ show_intro_screen:
     push ax                          ; 0x91c1
     mov ax, MSG_AND_THEN_THERE_WERE_S_31110 ; 0x91c2
     push ax                          ; 0x91c5
-    call api_idx_0002_GLIS           ; 0x91c6
+    call play_intro_scene_two        ; 0x91c6
     add sp, byte 8                   ; 0x91c9
     mov ax, 1                        ; 0x91cc
     push ax                          ; 0x91cf
@@ -302,7 +302,7 @@ show_intro_screen:
     push ax                          ; 0x9203
     mov ax, MSG_WE_TRAVEL_TO_A_DISTAN_31160 ; 0x9204
     push ax                          ; 0x9207
-    call api_idx_0002_GLIS           ; 0x9208
+    call play_intro_scene_two        ; 0x9208
     add sp, byte 8                   ; 0x920b
     mov ax, 0                        ; 0x920e
     push ax                          ; 0x9211
@@ -338,7 +338,7 @@ show_intro_screen:
     push ax                          ; 0x9255
     mov ax, MSG_SEVERAL_DAYS_LATER_YO_31220 ; 0x9256
     push ax                          ; 0x9259
-    call api_idx_0002_GLIS           ; 0x925a
+    call play_intro_scene_two        ; 0x925a
     add sp, byte 8                   ; 0x925d
     mov ax, 0                        ; 0x9260
     push ax                          ; 0x9263

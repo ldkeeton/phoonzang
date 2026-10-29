@@ -1,5 +1,5 @@
 ; auto-generated
-loc_GUNQ:
+free_scene_picture:
     mov ax, 0                        ; 0x72c2
     call aztec_csav                  ; 0x72c5
     push word [bp + 4]               ; 0x72c8

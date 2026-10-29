@@ -49,7 +49,7 @@ api_idx_0002_IRNO:
     cmp word [dest_alt_arg], byte 0  ; 0x67d1
     jle short .forward2              ; 0x67d6
     push word [dest_alt_arg]         ; 0x67d8
-    call api_idx_0002_NVMN           ; 0x67dc
+    call api_idx_0002_UGGR           ; 0x67dc
     pop cx                           ; 0x67df
 .forward2:
     mov ax, 0xc7                     ; 0x67e0

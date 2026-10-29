@@ -267,9 +267,8 @@ jumptable_38dd             equ api_idx_0050_MINM.jumptable1
 
 %include "vpcvw/api_idx_0084_ILTP.asm"     ; 0x3b66
 
-api_idx_0004_VRNJ          equ api_idx_0004_JQTM
-api_idx_0004_JQTM.api_idx1 equ api_idx_0084_ILTP
-%include "shared/ovr/api_idx_0004_JQTM.asm"     ; 0x3c18
+api_idx_0004_VRNJ.loc1 equ api_idx_0084_ILTP
+%include "shared/ovr/api_idx_0004_VRNJ.asm"     ; 0x3c18
 
 %include "vpcvw/api_idx_0056_QRVG.asm"     ; 0x3c7b
 
