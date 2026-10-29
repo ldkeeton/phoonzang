@@ -1,0 +1,3 @@
+; auto-generated
+drv_slot_load_screen:
+    db 0x1f, 0x01, 0x00, 0x00

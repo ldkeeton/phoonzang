@@ -66,6 +66,26 @@ def driver_thunk_entries(data, targets, slots, start_offset):
     return entries
 
 
+def slot_names(data, slots):
+    """``{pointer offset: name}`` for the far pointers of the declared table:
+    ``<slot_prefix>_<api name>`` of the entry each initially points at.  An
+    entry the driver's ``dispatch_table`` leaves unnamed gets none."""
+    prefix = slots.get('slot_prefix')
+    if not prefix:
+        return {}
+    api = slots['dispatch_table']
+    names = api.get('names') or {}
+    table = int(slots['offset'], 16)
+    out = {}
+    for slot in range(table, table + 4 * slots['count'], 4):
+        value = int.from_bytes(data[slot:slot + 2], 'little')
+        n, rem = divmod(value - _DRIVER_LOAD - api['base_offset'],
+                        api['entry_size'])
+        if rem == 0 and names.get(str(n)):
+            out[slot] = f'{prefix}_{names[str(n)]}'
+    return out
+
+
 def entry_handlers(data, table):
     """``{entry number: handler offset}`` for a declared ``dispatch_table``:
     entry *n* is ``call handler; retf`` at ``base_offset + entry_size*n``."""

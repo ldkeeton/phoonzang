@@ -1,0 +1,3 @@
+; auto-generated
+drv_slot_play_select_device:
+    db 0x17, 0x01, 0x00, 0x00

@@ -19,12 +19,12 @@ graphics_loc_OSKV:
     mov word [cs:cseg_14c2 - IMAGE_BASE], ax ; 0x1e63
     mov cx, 0x140                    ; 0x1e67
     sub cx, bx                       ; 0x1e6a
-    cmp cx, word [cs:cseg_1d5c - IMAGE_BASE] ; 0x1e6c
+    cmp cx, word [cs:mouse_image_stride - IMAGE_BASE] ; 0x1e6c
     jb short .forward2               ; 0x1e71
-    mov cx, word [cs:cseg_1d5c - IMAGE_BASE] ; 0x1e73
+    mov cx, word [cs:mouse_image_stride - IMAGE_BASE] ; 0x1e73
 .forward2:
     mov word [cs:cseg_14be - IMAGE_BASE], cx ; 0x1e78
-    mov di, word [cs:cseg_14b6 - IMAGE_BASE] ; 0x1e7d
+    mov di, word [cs:mouse_redraw_background_offset - IMAGE_BASE] ; 0x1e7d
     mov ax, cs                       ; 0x1e82
     mov es, ax                       ; 0x1e84
     mov ax, 0xa000                   ; 0x1e86
@@ -44,11 +44,11 @@ graphics_loc_OSKV:
     jne short .forward3              ; 0x1ea8
     jmp near .forward10              ; 0x1eaa
 .forward3:
-    add ax, word [cs:cseg_14ba - IMAGE_BASE] ; 0x1ead
+    add ax, word [cs:mouse_drawn_height - IMAGE_BASE] ; 0x1ead
     dec ax                           ; 0x1eb2
     mov word [bp - 2], ax            ; 0x1eb3
     mov ax, word [cs:mouse_drawn_x - IMAGE_BASE] ; 0x1eb6
-    add ax, word [cs:cseg_14b8 - IMAGE_BASE] ; 0x1eba
+    add ax, word [cs:mouse_drawn_width - IMAGE_BASE] ; 0x1eba
     dec ax                           ; 0x1ebf
     mov word [bp - 4], ax            ; 0x1ec0
     mov cx, word [cs:cseg_14b0 - IMAGE_BASE] ; 0x1ec3
@@ -116,17 +116,17 @@ graphics_loc_OSKV:
 .forward9:
     mov ax, word [bp - 8]            ; 0x1f75
     sub ax, word [cs:mouse_drawn_y - IMAGE_BASE] ; 0x1f78
-    mov bx, word [cs:cseg_14b8 - IMAGE_BASE] ; 0x1f7d
+    mov bx, word [cs:mouse_drawn_width - IMAGE_BASE] ; 0x1f7d
     mul bx                           ; 0x1f82
     add ax, word [bp - 6]            ; 0x1f84
     sub ax, word [cs:mouse_drawn_x - IMAGE_BASE] ; 0x1f87
-    add ax, word [cs:cseg_14b4 - IMAGE_BASE] ; 0x1f8c
+    add ax, word [cs:mouse_saved_background_offset - IMAGE_BASE] ; 0x1f8c
     mov si, ax                       ; 0x1f91
     mov ax, word [bp - 0xc]          ; 0x1f93
     mov bx, word [cs:cseg_14be - IMAGE_BASE] ; 0x1f96
     mul bx                           ; 0x1f9b
     add ax, word [bp - 0xa]          ; 0x1f9d
-    add ax, word [cs:cseg_14b6 - IMAGE_BASE] ; 0x1fa0
+    add ax, word [cs:mouse_redraw_background_offset - IMAGE_BASE] ; 0x1fa0
     mov di, ax                       ; 0x1fa5
     mov ax, cs                       ; 0x1fa7
     mov ds, ax                       ; 0x1fa9
@@ -141,16 +141,16 @@ graphics_loc_OSKV:
     pop di                           ; 0x1fb8
     add di, word [cs:cseg_14be - IMAGE_BASE] ; 0x1fb9
     pop si                           ; 0x1fbe
-    add si, word [cs:cseg_14b8 - IMAGE_BASE] ; 0x1fbf
+    add si, word [cs:mouse_drawn_width - IMAGE_BASE] ; 0x1fbf
     pop cx                           ; 0x1fc4
     loop .back2                      ; 0x1fc5
 .forward10:
     mov ax, 0xa000                   ; 0x1fc7
     mov es, ax                       ; 0x1fca
     mov di, word [cs:cseg_14c2 - IMAGE_BASE] ; 0x1fcc
-    mov ax, word [cs:cseg_1d66 - IMAGE_BASE] ; 0x1fd1
+    mov ax, word [cs:mouse_image_segment - IMAGE_BASE] ; 0x1fd1
     mov ds, ax                       ; 0x1fd5
-    mov si, word [cs:cseg_1d64 - IMAGE_BASE] ; 0x1fd7
+    mov si, word [cs:mouse_image_offset - IMAGE_BASE] ; 0x1fd7
     mov cx, word [cs:cseg_14c0 - IMAGE_BASE] ; 0x1fdc
     mov ax, ds                       ; 0x1fe1
     or ax, si                        ; 0x1fe3
@@ -176,7 +176,7 @@ graphics_loc_OSKV:
     inc di                           ; 0x2002
     loop .back4                      ; 0x2003
     pop si                           ; 0x2005
-    add si, word [cs:cseg_1d5c - IMAGE_BASE] ; 0x2006
+    add si, word [cs:mouse_image_stride - IMAGE_BASE] ; 0x2006
     pop di                           ; 0x200b
     add di, strict word 0x140        ; 0x200c
     pop cx                           ; 0x2010
@@ -188,7 +188,7 @@ graphics_loc_OSKV:
     jne short .forward13             ; 0x201c
     jmp near .forward20              ; 0x201e
 .forward13:
-    mov si, word [cs:cseg_14b6 - IMAGE_BASE] ; 0x2021
+    mov si, word [cs:mouse_redraw_background_offset - IMAGE_BASE] ; 0x2021
     mov cx, word [cs:cseg_14c0 - IMAGE_BASE] ; 0x2026
 .back5:
     push cx                          ; 0x202b
@@ -208,7 +208,7 @@ graphics_loc_OSKV:
     inc di                           ; 0x2042
     loop .back6                      ; 0x2043
     pop bx                           ; 0x2045
-    add bx, word [cs:cseg_1d5c - IMAGE_BASE] ; 0x2046
+    add bx, word [cs:mouse_image_stride - IMAGE_BASE] ; 0x2046
     pop si                           ; 0x204b
     add si, word [cs:cseg_14be - IMAGE_BASE] ; 0x204c
     pop di                           ; 0x2051
@@ -222,7 +222,7 @@ graphics_loc_OSKV:
     mov cx, 0x88                     ; 0x2062
     mov al, 0xff                     ; 0x2065
     rep stosb                        ; 0x2067
-    mov ax, word [cs:cseg_14b8 - IMAGE_BASE] ; 0x2069
+    mov ax, word [cs:mouse_drawn_width - IMAGE_BASE] ; 0x2069
     add ax, strict word 7            ; 0x206d
     mov cl, 3                        ; 0x2070
     shr ax, cl                       ; 0x2072
@@ -285,17 +285,17 @@ graphics_loc_OSKV:
     loop .back9                      ; 0x20ef
 .forward18:
     mov bx, data_1dc4                ; 0x20f1
-    mov si, word [cs:cseg_14b4 - IMAGE_BASE] ; 0x20f4
-    mov di, word [cs:cseg_14bc - IMAGE_BASE] ; 0x20f9
+    mov si, word [cs:mouse_saved_background_offset - IMAGE_BASE] ; 0x20f4
+    mov di, word [cs:mouse_screen_offset - IMAGE_BASE] ; 0x20f9
     mov ax, 0xa000                   ; 0x20fe
     mov es, ax                       ; 0x2101
-    mov cx, word [cs:cseg_14ba - IMAGE_BASE] ; 0x2103
+    mov cx, word [cs:mouse_drawn_height - IMAGE_BASE] ; 0x2103
 .back10:
     push cx                          ; 0x2108
     push si                          ; 0x2109
     push bx                          ; 0x210a
     push di                          ; 0x210b
-    mov cx, word [cs:cseg_14b8 - IMAGE_BASE] ; 0x210c
+    mov cx, word [cs:mouse_drawn_width - IMAGE_BASE] ; 0x210c
 .back11:
     mov ah, byte [bx]                ; 0x2111
     inc bx                           ; 0x2113
@@ -316,24 +316,24 @@ graphics_loc_OSKV:
     pop bx                           ; 0x212c
     add bx, word [bp - 2]            ; 0x212d
     pop si                           ; 0x2130
-    add si, word [cs:cseg_14b8 - IMAGE_BASE] ; 0x2131
+    add si, word [cs:mouse_drawn_width - IMAGE_BASE] ; 0x2131
     pop cx                           ; 0x2136
     loop .back10                     ; 0x2137
 .forward20:
-    mov ax, word [cs:cseg_14b4 - IMAGE_BASE] ; 0x2139
-    mov bx, word [cs:cseg_14b6 - IMAGE_BASE] ; 0x213d
-    mov word [cs:cseg_14b6 - IMAGE_BASE], ax ; 0x2142
-    mov word [cs:cseg_14b4 - IMAGE_BASE], bx ; 0x2146
+    mov ax, word [cs:mouse_saved_background_offset - IMAGE_BASE] ; 0x2139
+    mov bx, word [cs:mouse_redraw_background_offset - IMAGE_BASE] ; 0x213d
+    mov word [cs:mouse_redraw_background_offset - IMAGE_BASE], ax ; 0x2142
+    mov word [cs:mouse_saved_background_offset - IMAGE_BASE], bx ; 0x2146
     mov ax, word [cs:cseg_14b0 - IMAGE_BASE] ; 0x214b
     mov word [cs:mouse_drawn_x - IMAGE_BASE], ax ; 0x214f
     mov ax, word [cs:cseg_14b2 - IMAGE_BASE] ; 0x2153
     mov word [cs:mouse_drawn_y - IMAGE_BASE], ax ; 0x2157
     mov ax, word [cs:cseg_14c0 - IMAGE_BASE] ; 0x215b
-    mov word [cs:cseg_14ba - IMAGE_BASE], ax ; 0x215f
+    mov word [cs:mouse_drawn_height - IMAGE_BASE], ax ; 0x215f
     mov ax, word [cs:cseg_14be - IMAGE_BASE] ; 0x2163
-    mov word [cs:cseg_14b8 - IMAGE_BASE], ax ; 0x2167
+    mov word [cs:mouse_drawn_width - IMAGE_BASE], ax ; 0x2167
     mov ax, word [cs:cseg_14c2 - IMAGE_BASE] ; 0x216b
-    mov word [cs:cseg_14bc - IMAGE_BASE], ax ; 0x216f
+    mov word [cs:mouse_screen_offset - IMAGE_BASE], ax ; 0x216f
     mov sp, bp                       ; 0x2173
     pop bp                           ; 0x2175
     xor al, al                       ; 0x2176

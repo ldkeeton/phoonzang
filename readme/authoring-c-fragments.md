@@ -37,8 +37,8 @@ sets how many bytes `data` prints.
 `function_names` is the address-based naming surface for routines. `make name`
 updates that entry and any applicable dispatch-table slot. Names are scoped to
 each binary and keyed by the function's file address. Sources are renamed only
-after the sidecar validates; a failed build restores both sources and the
-sidecar, and drops label exports the failed build wrote.
+after the sidecar validates; a rename the sidecar rejects writes nothing. The
+build that follows is not undone: a failure there leaves the rename in place.
 
 ## Shared fragments
 
@@ -77,8 +77,11 @@ calling the other donors' name and still links to it.
 * `name` updates every surface naming the routine: its address-keyed
   `function_names` entry, its `dispatch_table` slot, and hand-source
   files/references. Names owned by
-  another binary's API are rejected with the owner named. A failed build rolls
-  the rename back. `DRY_RUN=1 make name ...` (or `--dry-run`) prints the plan
+  another binary's API are rejected with the owner named. Renaming a driver's
+  API name also renames the thunks a program wraps it as (`call_<name>`) and
+  their callers. A thunk or slot pointer named from an API is renamed from
+  the driver, and the build rejects a sidecar name that repeats one an API
+  slot or `entry_symbol` already gives. `DRY_RUN=1 make name ...` (or `--dry-run`) prints the plan
   without writing, including the source references it would rewrite and any
   source file it would rename.
 

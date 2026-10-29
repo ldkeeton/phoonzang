@@ -1,0 +1,3 @@
+; auto-generated
+drv_slot_restore_screen:
+    db 0xa7, 0x01, 0x00, 0x00

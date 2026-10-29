@@ -1,0 +1,3 @@
+; auto-generated
+drv_slot_save_area:
+    db 0x53, 0x01, 0x00, 0x00

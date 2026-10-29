@@ -22,7 +22,7 @@ load_video_driver:
     int 0x21 ; DOS close file handle
     mov ax, cs                       ; 0x3565
     mov es, ax                       ; 0x3567
-    mov di, cseg_2f87 - IMAGE_BASE   ; 0x3569
+    mov di, drv_slot_mouse_init - IMAGE_BASE ; 0x3569
     mov ax, word [cs:cseg_2f52 - IMAGE_BASE] ; 0x356c
     mov cx, 0x37                     ; 0x3570
 .back1:

@@ -1,9 +1,9 @@
 ; returns the next key from key_queue (filtering by mode), else waits on
-; play_drv_wait and reads DOS keyboard input
+; drv_slot_wait_for_music and reads DOS keyboard input
 	include	lmacros.h
 	assume	cs:codeseg
 	extrn	key_queue_:word
-	extrn	play_drv_wait_:dword
+	extrn	drv_slot_wait_for_music_:dword
 	procdef	get_filtered_key,<<mode,word>>
 	cld
 	pushs	si,ds,es
@@ -74,7 +74,7 @@ drop_key:	;discard oldest: count--, shift the queue left one byte
 read_key:
 	xor	ax,ax
 	push	ax
-	call	dword ptr cs:play_drv_wait_	;play driver wait hook, arg 0
+	call	dword ptr cs:drv_slot_wait_for_music_	;play driver wait hook, arg 0
 	pop	ax
 	dos	7	; DOS 07h: unechoed key input, waits
 	mov	ah,0

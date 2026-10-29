@@ -183,7 +183,7 @@ loc_JTQK_001f.load_screen1 equ load_screen
 
 %include "shared/data/ems_paras_used.asm"     ; 0x0291
 
-%include "shared/drv/graphics_loc_VNKS.asm"       ; 0x0293
+%include "shared/drv/draw_glyph.asm"              ; 0x0293
 
 %include "shared/drv/set_text_opaque.asm"         ; 0x0439
 
@@ -296,8 +296,8 @@ draw_mouse_pointer_at.cseg3 equ cseg_1aed
 
 %include "ega/io_loc_QMLN.asm"             ; 0x2f70
 
-leaf_loc_OLKS.cseg1 equ cseg_2a02
-%include "shared/drv/leaf_loc_OLKS.asm"           ; 0x3035
+clear_mouse_click.cseg1 equ cseg_2a02
+%include "shared/drv/clear_mouse_click.asm"       ; 0x3035
 
 %include "shared/drv/free_picture.asm"            ; 0x303d
 

@@ -1,0 +1,3 @@
+; auto-generated
+drv_slot_mouse_glide_back:
+    db 0x8b, 0x01, 0x00, 0x00

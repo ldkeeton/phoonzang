@@ -22,15 +22,15 @@ set_mouse_pointer:
     jae short .back1                 ; 0x13eb
     call request_mouse_redraw        ; 0x13ed
     mov ax, word [bp + 0xc]          ; 0x13f0
-    mov word [cs:cseg_1d64 - IMAGE_BASE], ax ; 0x13f3
+    mov word [cs:mouse_image_offset - IMAGE_BASE], ax ; 0x13f3
     mov ax, word [bp + 0xe]          ; 0x13f7
-    mov word [cs:cseg_1d66 - IMAGE_BASE], ax ; 0x13fa
+    mov word [cs:mouse_image_segment - IMAGE_BASE], ax ; 0x13fa
     mov ax, word [bp + 0x10]         ; 0x13fe
-    mov word [cs:cseg_1d5c - IMAGE_BASE], ax ; 0x1401
+    mov word [cs:mouse_image_stride - IMAGE_BASE], ax ; 0x1401
     mov ax, word [bp + 0x12]         ; 0x1405
     mov word [cs:cseg_1d5e - IMAGE_BASE], ax ; 0x1408
-    mov ax, word [cs:cseg_1d64 - IMAGE_BASE] ; 0x140c
-    or ax, word [cs:cseg_1d66 - IMAGE_BASE] ; 0x1410
+    mov ax, word [cs:mouse_image_offset - IMAGE_BASE] ; 0x140c
+    or ax, word [cs:mouse_image_segment - IMAGE_BASE] ; 0x1410
     jne short .forward2              ; 0x1415
     mov ax, cs                       ; 0x1417
     mov ds, ax                       ; 0x1419

@@ -3,7 +3,8 @@
 ``<label>.asm`` is the disassembly (NASM).  The source it is rebuilt from sits
 next to it with the same stem: ``<label>.c``, C compiled by Aztec ``cc``, or
 ``<label>.s``, Manx assembly assembled by Aztec ``as``.  A routine has at most
-one of the two.
+one of the two.  A grouped fragment (sidecar ``function_names`` ``length``)
+may name its files with ``file`` instead of its head routine's label.
 """
 
 import os

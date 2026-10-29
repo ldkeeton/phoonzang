@@ -79,7 +79,7 @@ get_filtered_key:
 .back4:
     xor ax, ax                       ; 0x3dfe
     push ax                          ; 0x3e00
-    call far [cs:play_drv_wait - IMAGE_BASE] ; 0x3e01
+    call far [cs:drv_slot_wait_for_music - IMAGE_BASE] ; 0x3e01
     pop ax                           ; 0x3e06
     mov ah, 7                        ; 0x3e07
     int 0x21 ; DOS keyboard input (no echo)

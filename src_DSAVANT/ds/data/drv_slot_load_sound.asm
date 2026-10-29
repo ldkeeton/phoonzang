@@ -1,0 +1,3 @@
+; auto-generated
+drv_slot_load_sound:
+    db 0xb3, 0x01, 0x00, 0x00

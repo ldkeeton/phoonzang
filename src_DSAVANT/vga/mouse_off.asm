@@ -14,24 +14,24 @@ mouse_off:
     push es                          ; 0x1288
     push di                          ; 0x1289
     push si                          ; 0x128a
-    mov si, word [cs:cseg_14b4 - IMAGE_BASE] ; 0x128b
+    mov si, word [cs:mouse_saved_background_offset - IMAGE_BASE] ; 0x128b
     mov ax, cs                       ; 0x1290
     mov ds, ax                       ; 0x1292
     mov ax, 0xa000                   ; 0x1294
     mov es, ax                       ; 0x1297
-    mov di, word [cs:cseg_14bc - IMAGE_BASE] ; 0x1299
-    mov si, word [cs:cseg_14b4 - IMAGE_BASE] ; 0x129e
-    mov cx, word [cs:cseg_14ba - IMAGE_BASE] ; 0x12a3
+    mov di, word [cs:mouse_screen_offset - IMAGE_BASE] ; 0x1299
+    mov si, word [cs:mouse_saved_background_offset - IMAGE_BASE] ; 0x129e
+    mov cx, word [cs:mouse_drawn_height - IMAGE_BASE] ; 0x12a3
 .back1:
     push cx                          ; 0x12a8
     push si                          ; 0x12a9
     push di                          ; 0x12aa
-    mov cx, word [cs:cseg_14b8 - IMAGE_BASE] ; 0x12ab
+    mov cx, word [cs:mouse_drawn_width - IMAGE_BASE] ; 0x12ab
     rep movsb                        ; 0x12b0
     pop di                           ; 0x12b2
     add di, strict word 0x140        ; 0x12b3
     pop si                           ; 0x12b7
-    add si, word [cs:cseg_1d5c - IMAGE_BASE] ; 0x12b8
+    add si, word [cs:mouse_image_stride - IMAGE_BASE] ; 0x12b8
     pop cx                           ; 0x12bd
     loop .back1                      ; 0x12be
     pop si                           ; 0x12c0

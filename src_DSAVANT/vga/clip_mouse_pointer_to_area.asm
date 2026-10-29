@@ -8,19 +8,19 @@ clip_mouse_pointer_to_area:
     jb short .forward1               ; 0x052b
     cmp word [bp + 0x12], dx         ; 0x052d
     jb short .forward1               ; 0x0530
-    add cx, word [cs:cseg_14b8 - IMAGE_BASE] ; 0x0532
+    add cx, word [cs:mouse_drawn_width - IMAGE_BASE] ; 0x0532
     dec cx                           ; 0x0537
-    add dx, word [cs:cseg_14ba - IMAGE_BASE] ; 0x0538
+    add dx, word [cs:mouse_drawn_height - IMAGE_BASE] ; 0x0538
     dec dx                           ; 0x053d
     cmp cx, word [bp + 0xc]          ; 0x053e
     jb short .forward1               ; 0x0541
     cmp dx, word [bp + 0xe]          ; 0x0543
     jae short .forward2              ; 0x0546
 .forward1:
-    mov byte [cs:cseg_0515 - IMAGE_BASE], 0 ; 0x0548
+    mov byte [cs:mouse_area_intersects - IMAGE_BASE], 0 ; 0x0548
     jmp near .return1                ; 0x054e
 .forward2:
-    mov byte [cs:cseg_0515 - IMAGE_BASE], 1 ; 0x0551
+    mov byte [cs:mouse_area_intersects - IMAGE_BASE], 1 ; 0x0551
     mov cx, word [cs:mouse_drawn_x - IMAGE_BASE] ; 0x0557
     mov ax, cx                       ; 0x055c
     cmp word [bp + 0xc], cx          ; 0x055e
@@ -39,8 +39,8 @@ clip_mouse_pointer_to_area:
     sub bx, dx                       ; 0x057d
     mov word [bp - 0xa], ax          ; 0x057f
     mov word [bp - 0xc], bx          ; 0x0582
-    mov cx, word [cs:cseg_14b8 - IMAGE_BASE] ; 0x0585
-    mov dx, word [cs:cseg_14ba - IMAGE_BASE] ; 0x058a
+    mov cx, word [cs:mouse_drawn_width - IMAGE_BASE] ; 0x0585
+    mov dx, word [cs:mouse_drawn_height - IMAGE_BASE] ; 0x058a
     sub cx, ax                       ; 0x058f
     mov word [bp - 0xe], cx          ; 0x0591
     sub dx, bx                       ; 0x0594
@@ -71,10 +71,10 @@ clip_mouse_pointer_to_area:
     add ax, word [bp - 6]            ; 0x05cd
     mov si, ax                       ; 0x05d0
     mov ax, word [bp - 0xc]          ; 0x05d2
-    mov bx, word [cs:cseg_14b8 - IMAGE_BASE] ; 0x05d5
+    mov bx, word [cs:mouse_drawn_width - IMAGE_BASE] ; 0x05d5
     mul bx                           ; 0x05da
     add ax, word [bp - 0xa]          ; 0x05dc
-    add ax, word [cs:cseg_14b4 - IMAGE_BASE] ; 0x05df
+    add ax, word [cs:mouse_saved_background_offset - IMAGE_BASE] ; 0x05df
     mov di, ax                       ; 0x05e4
     mov ax, word [cs:screen_buf_seg - IMAGE_BASE] ; 0x05e6
     mov ds, ax                       ; 0x05ea
@@ -88,7 +88,7 @@ clip_mouse_pointer_to_area:
     mov cx, word [bp - 0xe]          ; 0x05f6
     rep movsb                        ; 0x05f9
     pop di                           ; 0x05fb
-    add di, word [cs:cseg_14b8 - IMAGE_BASE] ; 0x05fc
+    add di, word [cs:mouse_drawn_width - IMAGE_BASE] ; 0x05fc
     pop si                           ; 0x0601
     add si, strict word 0x140        ; 0x0602
     pop cx                           ; 0x0606
@@ -97,13 +97,13 @@ clip_mouse_pointer_to_area:
     mov es, ax                       ; 0x060b
     mov ax, word [cs:screen_buf_seg - IMAGE_BASE] ; 0x060d
     mov ds, ax                       ; 0x0611
-    mov si, word [cs:cseg_14bc - IMAGE_BASE] ; 0x0613
-    mov di, word [cs:cseg_14b6 - IMAGE_BASE] ; 0x0618
-    mov cx, word [cs:cseg_14ba - IMAGE_BASE] ; 0x061d
+    mov si, word [cs:mouse_screen_offset - IMAGE_BASE] ; 0x0613
+    mov di, word [cs:mouse_redraw_background_offset - IMAGE_BASE] ; 0x0618
+    mov cx, word [cs:mouse_drawn_height - IMAGE_BASE] ; 0x061d
 .back2:
     push cx                          ; 0x0622
     push si                          ; 0x0623
-    mov cx, word [cs:cseg_14b8 - IMAGE_BASE] ; 0x0624
+    mov cx, word [cs:mouse_drawn_width - IMAGE_BASE] ; 0x0624
     rep movsb                        ; 0x0629
     pop si                           ; 0x062b
     add si, strict word 0x140        ; 0x062c
@@ -111,11 +111,11 @@ clip_mouse_pointer_to_area:
     loop .back2                      ; 0x0631
     mov ax, word [cs:screen_buf_seg - IMAGE_BASE] ; 0x0633
     mov es, ax                       ; 0x0637
-    mov di, word [cs:cseg_14bc - IMAGE_BASE] ; 0x0639
-    mov ax, word [cs:cseg_1d66 - IMAGE_BASE] ; 0x063e
+    mov di, word [cs:mouse_screen_offset - IMAGE_BASE] ; 0x0639
+    mov ax, word [cs:mouse_image_segment - IMAGE_BASE] ; 0x063e
     mov ds, ax                       ; 0x0642
-    mov si, word [cs:cseg_1d64 - IMAGE_BASE] ; 0x0644
-    mov cx, word [cs:cseg_14ba - IMAGE_BASE] ; 0x0649
+    mov si, word [cs:mouse_image_offset - IMAGE_BASE] ; 0x0644
+    mov cx, word [cs:mouse_drawn_height - IMAGE_BASE] ; 0x0649
     mov ax, ds                       ; 0x064e
     or ax, si                        ; 0x0650
     jne short .back3                 ; 0x0652
@@ -126,7 +126,7 @@ clip_mouse_pointer_to_area:
     push cx                          ; 0x065b
     push di                          ; 0x065c
     push si                          ; 0x065d
-    mov cx, word [cs:cseg_14b8 - IMAGE_BASE] ; 0x065e
+    mov cx, word [cs:mouse_drawn_width - IMAGE_BASE] ; 0x065e
 .back4:
     mov al, byte [si]                ; 0x0663
     cmp al, 0xff                     ; 0x0665
@@ -137,7 +137,7 @@ clip_mouse_pointer_to_area:
     inc di                           ; 0x066d
     loop .back4                      ; 0x066e
     pop si                           ; 0x0670
-    add si, word [cs:cseg_1d5c - IMAGE_BASE] ; 0x0671
+    add si, word [cs:mouse_image_stride - IMAGE_BASE] ; 0x0671
     pop di                           ; 0x0676
     add di, strict word 0x140        ; 0x0677
     pop cx                           ; 0x067b

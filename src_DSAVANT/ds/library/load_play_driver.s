@@ -3,7 +3,7 @@
 	assume	cs:codeseg
 	extrn	restore_video_and_release_memory_:near
 	extrn	cseg_2f56_:word
-	extrn	cseg_2f67_:word
+	extrn	drv_slot_music_start_:word
 	extrn	cseg_35ec_:word
 	extrn	drv_file_handle_:word
 	public	load_play_driver_
@@ -28,7 +28,7 @@ load_play_driver_ proc near
 	mov bx, word ptr cs:drv_file_handle_
 	int 021h
 	movseg	es,cs
-	mov di, offset cseg_2f67_
+	mov di, offset drv_slot_music_start_
 	mov ax, word ptr cs:cseg_2f56_
 	mov cx, 8
 copy_segments:

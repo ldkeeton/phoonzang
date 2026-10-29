@@ -50,7 +50,15 @@ def _aztec_c_overrides(project, name, data, label_map, out_dir,
     # compiled for verification only; generated Aztec prebuild sources supply
     # their reassembled instructions.
     bands = _sidecar_bands(project, name)
-    found_local = _hand_source_tree(dest, bands)
+    # A fragment the sidecar ``file`` names is its head routine's: the label
+    # at the entry's address.
+    from lib.sidecar.loader import load as load_sidecar
+    from lib.sidecar.binary import per_binary, fragment_files
+    entry = per_binary(load_sidecar(project) or {}, name)
+    found_local = _hand_source_tree(dest, bands, {
+        stem: str(label_map[start])
+        for start, stem in fragment_files(entry, start_offset).items()
+        if start in label_map})
     found_shared = _hand_shared_source_tree(out_dir)
     found_c = {label: path for label, path in found_local.items()
                if path.endswith('.c')}
@@ -148,7 +156,7 @@ def _aztec_c_overrides(project, name, data, label_map, out_dir,
         if span is not None and routine not in spans:
             invalid.add(label)
             errors.append(
-                f'error: {c_path(dest, label, home(label))}: {routine} is '
+                f'error: {found_sources[label]}: {routine} is '
                 f'part of module {span.file}, whose source is '
                 f'{span.name}{cache.seed_suffix(span.entry)}; merge it there')
 
@@ -244,9 +252,7 @@ def _aztec_c_overrides(project, name, data, label_map, out_dir,
     # Concrete runtime entries bound their hand-owned sources.  An inferred
     # fragment inside one function (malloc's unreachable return jump) is not
     # another function; its complete compiler output is still byte-checked.
-    from lib.sidecar.loader import load as load_sidecar
-    from lib.sidecar.binary import per_binary, fragment_lengths
-    entry = per_binary(load_sidecar(project) or {}, name)
+    from lib.sidecar.binary import fragment_lengths
     adjust = start_offset + entry.get('ghidra_base_offset', 0)
     runtime_roots = {
         root for root in (int(key, 16) + adjust
@@ -257,7 +263,7 @@ def _aztec_c_overrides(project, name, data, label_map, out_dir,
     declared_lengths = fragment_lengths(entry, start_offset)
     for label in hand:
         routine = canonical(label) or label
-        path = c_path(dest, label, home(label))
+        path = found_sources.get(label) or c_path(dest, label, home(label))
         with open(path) as f:
             text = f.read()
         entry = cache.default_entry(routine, project,
@@ -553,12 +559,19 @@ def _band_home(dest, bands, start):
     return os.path.join(dest, band[2]) if band else dest
 
 
-def _hand_source_tree(dest, bands):
-    """``{label: path}`` for hand-owned C/assembly sources in binary folders."""
+def _hand_source_tree(dest, bands, labels=None):
+    """``{label: path}`` for hand-owned C/assembly sources in binary folders.
+
+    *labels* (``{stem: label}``, sidecar ``file``) gives a source whose file
+    is named for its fragment rather than its head routine that routine's
+    label.
+    """
+    labels = labels or {}
     found = {}
     for folder in [dest] + [os.path.join(dest, b[2]) for b in bands]:
-        for label, filename in routine_source.sources_in(
+        for stem, filename in routine_source.sources_in(
                 folder, hand_owned).items():
+            label = labels.get(stem, stem)
             if label in found:
                 raise SystemExit(f'error: {label} has a source in both '
                                  f'{os.path.dirname(found[label])} and '

@@ -1,3 +1,0 @@
-; auto-generated
-play_drv_wait:
-    db 0x1f, 0x01, 0x00, 0x00

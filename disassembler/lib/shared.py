@@ -463,10 +463,19 @@ def _fragments(files, out_dir):
                 return path, suffix
         return None, None
 
+    # A fragment the sidecar names (``function_names`` ``file``) is one
+    # binary's grouping, not a routine another binary could share.
+    from .sidecar.binary import file_names
+    project = project_of_src_dir(out_dir)
+    named = {}
     found = {}
     for rel in sorted(files):
         top, sep, _ = rel.partition('/')
         if not sep or top in _SKIP_DIRS or not rel.endswith('.asm'):
+            continue
+        if top not in named:
+            named[top] = file_names(project, top)
+        if os.path.basename(rel)[:-4] in named[top]:
             continue
         own, own_suffix = source(rel[:-4], files.__contains__)
         shared, shared_suffix = shared_source(_shared_base(rel),

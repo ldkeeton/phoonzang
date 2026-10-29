@@ -111,8 +111,10 @@ def _prepare(app):
 
 
 def _routine_donors(app, routine):
-    """The binaries whose span sidecar contains *routine*."""
+    """The binaries whose span sidecar contains *routine*, or the routine
+    whose fragment file *routine* names (sidecar ``file``)."""
     from lib.cachedirs import spans_dir
+    from lib.sidecar.binary import labels_for
     out = []
     for name in sorted(discover_binaries(os.path.join(APPS, app))):
         path = os.path.join(spans_dir(app), f'{name}_aztec_spans.json')
@@ -121,7 +123,7 @@ def _routine_donors(app, routine):
                 spans = json.load(f)
         except (OSError, ValueError):
             continue
-        if routine in spans:
+        if labels_for(app, name).get(routine, routine) in spans:
             out.append(name)
     return out
 

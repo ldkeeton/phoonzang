@@ -1,0 +1,3 @@
+; auto-generated
+drv_slot_get_free_space:
+    db 0xa3, 0x01, 0x00, 0x00

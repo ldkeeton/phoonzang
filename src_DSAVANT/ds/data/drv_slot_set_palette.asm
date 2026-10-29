@@ -1,0 +1,3 @@
+; auto-generated
+drv_slot_set_palette:
+    db 0x9b, 0x01, 0x00, 0x00

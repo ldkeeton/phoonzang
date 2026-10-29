@@ -1,4 +1,5 @@
 """Failed source checks still return generated files to the build."""
+from contextlib import redirect_stdout
 import io
 import json
 import unittest
@@ -31,7 +32,10 @@ class FailureOutputTest(unittest.TestCase):
             def run(self, name, flags):
                 return 2, {'example.asm': '; generated'}
 
-        failed, emitted = _generate(Workers())([('example', None)])
+        output = io.StringIO()
+        with redirect_stdout(output):
+            failed, emitted = _generate(Workers())([('example', None)])
+        self.assertIn('FAILED: example', output.getvalue())
         self.assertEqual(failed, ['example'])
         self.assertEqual(emitted['example'],
                          {'example.asm': '; generated'})

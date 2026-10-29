@@ -1,0 +1,3 @@
+; auto-generated
+drv_slot_get_rgb:
+    db 0x77, 0x01, 0x00, 0x00

@@ -31,7 +31,7 @@ from lib.match.pattern import match_patterns
 from lib.match.trampoline import match_trampolines
 from lib.match.driver_slots import (driver_thunk_entries, entry_handlers,
                                     thunk_pointer_args,
-                                    thunk_name)
+                                    slot_names, thunk_name)
 from lib.match.categorize import categorize_call_targets
 from lib.phases.settle import SettlePhase
 from lib.phases.forcecode import ForceCodePhase
@@ -245,14 +245,23 @@ def _analyze(name, orig_dir, rel_path, start_offset, output_dir=None,
                 use.skipped('function_names', hex_off, 'not a hex offset')
                 continue
             if off in ctx.code_targets:
+                # A nameless start at the MZ entry takes ``entry_symbol``
+                # now: a placeholder would scope its local labels.
+                entry_symbol = (sidecar_entry.get('entry_symbol')
+                                if off == mz_entry_point else None)
                 label_map[off] = (
                     _sidecar_routine(info['name'], off, project,
                                      sidecar_entry.get('bands'))
                     if 'name' in info else
+                    _sidecar_routine(entry_symbol, off) if entry_symbol else
                     Symbol.generated('fn', off, Kind.ROUTINE,
                                      text=f'fn_{hex_off}'))
-                use.final_names[('function_names', hex_off)] = (
-                    off, str(label_map[off]))
+                if 'name' in info:
+                    use.final_names[('function_names', hex_off)] = (
+                        off, str(label_map[off]))
+                else:
+                    # Only a start (``length``/``file``): any surface names it.
+                    use.applied('function_names', hex_off)
             else:
                 use.skipped('function_names', hex_off,
                             f'file offset 0x{off:04x} is not a code target')
@@ -288,7 +297,9 @@ def _analyze(name, orig_dir, rel_path, start_offset, output_dir=None,
             use.expect('driver_slots', f"{slots['offset']}[{n}]")
             use.final_names[('driver_slots', f"{slots['offset']}[{n}]")] = (
                 off, str(label_map[off]))
-        if entries:
+        # A table whose pointers are only called directly (no thunk) is
+        # still applied when it names them (``slot_prefix``).
+        if entries or slot_names(data, slots):
             use.applied('driver_slots', slots['offset'])
         else:
             use.skipped('driver_slots', slots['offset'],
@@ -629,7 +640,10 @@ def _analyze(name, orig_dir, rel_path, start_offset, output_dir=None,
             project, name, data, ctx.label_map, ctx.segments, foreign_prefix,
             _entries)
         _apply_sidecar_data_names(ctx.segments, ctx.sidecar_entry)
-        _apply_sidecar_code_data_names(ctx.segments, ctx.sidecar_entry)
+        derived = _apply_driver_slot_names(ctx.segments, ctx.sidecar_entry,
+                                           data)
+        _apply_sidecar_code_data_names(ctx.segments, ctx.sidecar_entry,
+                                       derived)
         _apply_vendor_code_data_names(ctx.segments, asm_annotations)
     t_aztec_end = time.perf_counter()
     progress.log(f'{name} | analysis done '
@@ -767,8 +781,26 @@ def _apply_sidecar_data_names(segments, sidecar_entry):
         use.applied('data_names', ident)
 
 
-def _apply_sidecar_code_data_names(segments, sidecar_entry):
-    """Name the CS-reached data the sidecar's ``code_data_names`` names."""
+def _apply_driver_slot_names(segments, sidecar_entry, data):
+    """Name each declared driver slot pointer for the API entry it points at
+    (``driver_slots`` ``slot_prefix``); ``code_data_names`` overrides.
+    Returns ``{offset: name}`` of the pointers it named."""
+    named = {}
+    for slots in (sidecar_entry or {}).get('driver_slots') or ():
+        for offset, name in slot_names(data, slots).items():
+            segments.cseg_names[offset] = Symbol(
+                name, kind=Kind.DATA, source=Source.SIDECAR, offset=offset,
+                space=Space.CSEG)
+            named[offset] = name
+    return named
+
+
+def _apply_sidecar_code_data_names(segments, sidecar_entry, derived=None):
+    """Name the CS-reached data the sidecar's ``code_data_names`` names.
+
+    An entry spelling the name a slot pointer already derives (*derived*,
+    ``{offset: name}``) is a second copy of it, and is reported."""
+    derived = derived or {}
     entries = (sidecar_entry or {}).get('code_data_names') or {}
     if not entries:
         return
@@ -778,6 +810,11 @@ def _apply_sidecar_code_data_names(segments, sidecar_entry):
         if not 0 <= offset < (segments.file_size or 0):
             use.skipped('code_data_names', ident,
                         f'file offset 0x{offset:04x} is not in the image')
+            continue
+        if offset in derived and derived[offset] == info['name']:
+            use.skipped('code_data_names', ident,
+                        f'repeats the driver_slots slot name {info["name"]!r}; '
+                        f'drop it')
             continue
         segments.cseg_names[offset] = Symbol(
             info['name'], kind=Kind.DATA, source=Source.SIDECAR, offset=offset,
@@ -870,7 +907,7 @@ def _render(a, exact_bytes, show_offsets, host_data_offsets,
             message_names = constant_names(messages, bases)
             message_bases = _message_bases(bases)
     entry = a.ctx.sidecar_entry or {}
-    from lib.sidecar.binary import fragment_lengths
+    from lib.sidecar.binary import fragment_files, fragment_lengths
     def checked_verify(*args, **kwargs):
         from lib.compare.cgate import CGateError
         try:
@@ -894,6 +931,7 @@ def _render(a, exact_bytes, show_offsets, host_data_offsets,
         split_functions=split_functions,
         declared_roots=ctx.dispatch_handlers,
         fragment_lengths=fragment_lengths(entry, start_offset),
+        fragment_files=fragment_files(entry, start_offset),
         hard_data=ctx.hard_data,
         function_roots=function_roots,
         branch_targets=ctx.branch_targets,

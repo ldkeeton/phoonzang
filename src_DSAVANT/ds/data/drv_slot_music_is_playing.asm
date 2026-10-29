@@ -1,0 +1,3 @@
+; auto-generated
+drv_slot_music_is_playing:
+    db 0x1b, 0x01, 0x00, 0x00

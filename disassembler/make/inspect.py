@@ -64,12 +64,22 @@ def asm_file(project, binary, label):
                                                           label)
 
 
+def routine_asm(project, binary, routine):
+    """:func:`asm_file`, or for a routine inside a grouped fragment
+    (sidecar ``length``) the fragment that defines it."""
+    from .naming import _label_file
+    path = asm_file(project, binary, routine)
+    if path is None and binary != SHARED_DIR:
+        path = _label_file(project, binary, routine)
+    return path
+
+
 def source_path(project, binary, routine):
     """The hand source beside the routine's asm, if any.
 
     Both a ``.c`` and a ``.s`` is an error: the build would pick the ``.c``
     and silently ignore the assembly."""
-    path = asm_file(project, binary, routine)
+    path = routine_asm(project, binary, routine)
     if path is None:
         return None
     stem = os.path.splitext(path)[0]
@@ -303,7 +313,7 @@ def _shared_source(project, routine):
 
 def _fragment(project, binary, routine):
     """The fragment's span and its top-level members."""
-    path = asm_file(project, binary, routine)
+    path = routine_asm(project, binary, routine)
     if path is None:
         raise SystemExit(f'error: no {routine}.asm in {binary}/ or {SHARED_DIR}/')
     if binary == SHARED_DIR:

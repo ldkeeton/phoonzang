@@ -1,5 +1,8 @@
 """Per-binary sidecar validation and lookup."""
 
+import os
+import re
+
 from .bands import _validate_bands, parse_bands
 from .char_tables import _char_tables, _validate_char_tables
 from .compiler import _validate_compiler_flags
@@ -118,7 +121,8 @@ def _validate_driver_slots(tables, where):
     """``driver_slots``: the far-pointer tables a program calls a driver's API
     through (``offset``/``count``), each with the binary whose
     ``dispatch_table`` it points into (``driver``) and the ``prefix`` its
-    thunks are named with."""
+    thunks are named with; an optional ``slot_prefix`` names the far pointers
+    themselves."""
     if not isinstance(tables, list):
         raise SidecarError(f'{where} must be a list')
     for index, slots in enumerate(tables):
@@ -135,6 +139,11 @@ def _validate_driver_slots(tables, where):
                 and _IDENTIFIER.match(slots['prefix'])):
             raise SidecarError(f'{at}.prefix must be an identifier: the '
                                'thunks are named <prefix>_<entry name>')
+        if 'slot_prefix' in slots and not (
+                isinstance(slots['slot_prefix'], str)
+                and _IDENTIFIER.match(slots['slot_prefix'])):
+            raise SidecarError(f'{at}.slot_prefix must be an identifier: the '
+                               'pointers are named <slot_prefix>_<entry name>')
 
 
 def per_binary(sidecar, short_name):
@@ -293,6 +302,24 @@ def _validate_function_names(block, where):
     for (_, end, first), (start, _, second) in zip(spans, spans[1:]):
         if start < end:
             raise SidecarError(f'{where}[{second}].length: overlaps [{first}]')
+    # ``file`` names a grouped fragment's .asm and its .c/.s instead of the
+    # head label; the label stays the routine's name everywhere else.
+    names = {info['name'] for info in block.values() if 'name' in info}
+    files = {}
+    for key, info in block.items():
+        if 'file' not in info:
+            continue
+        stem = info['file']
+        at = f'{where}[{key}].file'
+        if not isinstance(stem, str) or not _IDENTIFIER.match(stem):
+            raise SidecarError(f'{at}: expected an identifier')
+        if 'length' not in info:
+            raise SidecarError(f'{at}: needs "length" on the same entry')
+        if stem in names:
+            raise SidecarError(f'{at}: {stem!r} is a routine name')
+        if stem in files:
+            raise SidecarError(f'{at}: {stem!r} is also [{files[stem]}].file')
+        files[stem] = key
 
 
 def fragment_lengths(entry, start_offset=0):
@@ -301,3 +328,56 @@ def fragment_lengths(entry, start_offset=0):
     return {int(key, 16) + adjust: info['length']
             for key, info in entry.get('function_names', {}).items()
             if 'length' in info}
+
+
+def fragment_files(entry, start_offset=0):
+    """``{start: stem}`` of the fragments a sidecar ``file`` names,
+    keyed like :func:`fragment_lengths`."""
+    adjust = start_offset + entry.get('ghidra_base_offset', 0)
+    return {int(key, 16) + adjust: info['file']
+            for key, info in entry.get('function_names', {}).items()
+            if 'file' in info}
+
+
+def file_names(project, binary):
+    """The fragment stems *binary*'s sidecar ``file`` entries name, or an
+    empty set."""
+    from .loader import load
+    sidecar = load(project) if project else None
+    entry = per_binary(sidecar, binary) if sidecar else {}
+    return set(fragment_files(entry or {}).values())
+
+
+_HEAD_LABEL = re.compile(r'^([A-Za-z_.?@$][\w.?@$]*):', re.M)
+
+
+def head_label(text):
+    """The first label of a fragment's asm: the routine it starts with."""
+    m = _HEAD_LABEL.search(text)
+    return m.group(1) if m else None
+
+
+def stems_for(project, binary):
+    """``{label: stem}`` for *binary*'s fragments a sidecar ``file`` names.
+
+    The ``file`` entry is keyed by address; its routine's name can come from
+    any naming surface (a dispatch table), so it is read from the generated
+    ``<stem>.asm`` -- a fragment not built yet is left out."""
+    from lib.cachedirs import src_dir
+    stems = file_names(project, binary)
+    out = {}
+    if not stems:
+        return out
+    for dirpath, _, files in os.walk(os.path.join(src_dir(project), binary)):
+        for f in files:
+            if f.endswith('.asm') and f[:-4] in stems:
+                with open(os.path.join(dirpath, f)) as fh:
+                    label = head_label(fh.read())
+                if label:
+                    out[label] = f[:-4]
+    return out
+
+
+def labels_for(project, binary):
+    """``{stem: label}``, the inverse of :func:`stems_for`."""
+    return {stem: label for label, stem in stems_for(project, binary).items()}

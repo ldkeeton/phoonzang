@@ -15,7 +15,7 @@ from lib.cachedirs import src_dir
 from lib.dwarf_line import fix_elf as _fix_elf_debug_line
 from lib.link import include_args
 from lib.shared import FOLDER, is_shared, shared_dirs
-from lib.sidecar.binary import per_binary as sidecar_per_binary
+from lib.sidecar.binary import stems_for, per_binary as sidecar_per_binary
 from lib.sidecar.loader import load as load_sidecar
 from lib.sidecar.patches import PatchError, normalize as normalize_patches
 from lib.symtab import Symbol
@@ -330,14 +330,19 @@ def resplice_c(app, binary, check_only=False, only=None):
         os.path.join(dest, d) for d in (os.listdir(dest)
                                         if os.path.isdir(dest) else ())
         if d != 'data' and os.path.isdir(os.path.join(dest, d)))
+    # A fragment the sidecar names (``function_names`` ``file``) is keyed by
+    # its head routine; its files keep the sidecar's stem.
+    stem_of = stems_for(app, binary)
+    label_of = {stem: label for label, stem in stem_of.items()}
     own_dir = {}
     own_src = {}
     for folder in folders:
         for name in os.listdir(folder):
             if name.endswith(('.asm',) + routine_source.SUFFIXES):
-                own_dir.setdefault(routine_source.stem(name), folder)
-        for label, name in routine_source.sources_in(folder).items():
-            own_src.setdefault(label, name)
+                stem = routine_source.stem(name)
+                own_dir.setdefault(label_of.get(stem, stem), folder)
+        for stem, name in routine_source.sources_in(folder).items():
+            own_src.setdefault(label_of.get(stem, stem), name)
     # Sources shared between binaries live in shared/ or its band folders
     # beside their .asm (lib.shared).
     shared_dir = os.path.join(out_dir, FOLDER)
@@ -349,12 +354,13 @@ def resplice_c(app, binary, check_only=False, only=None):
     def has_own_asm(label):
         # a same-named routine owned by this binary is not the shared one
         return os.path.exists(os.path.join(own_dir.get(label, dest),
-                                           label + '.asm'))
+                                           stem_of.get(label, label) + '.asm'))
 
     c_labels = set(own_src) | {label for label in shared_src
                                if label in spans and not has_own_asm(label)}
     c_labels = sorted(c_labels)
     if only is not None:
+        only = label_of.get(only, only)
         if only not in c_labels:
             raise SystemExit(
                 f'error: {only}: no .c/.s source for it in {app}/{binary}')
@@ -363,7 +369,8 @@ def resplice_c(app, binary, check_only=False, only=None):
     def where(label, suffix):
         shared = os.path.join(shared_home.get(label, shared_dir),
                               label + suffix)
-        own = os.path.join(own_dir.get(label, dest), label + suffix)
+        own = os.path.join(own_dir.get(label, dest),
+                           stem_of.get(label, label) + suffix)
         if has_own_asm(label):
             return own
         return shared if os.path.exists(shared) else own

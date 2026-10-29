@@ -1,0 +1,3 @@
+; auto-generated
+drv_slot_clear_mouse_click:
+    db 0x2b, 0x01, 0x00, 0x00

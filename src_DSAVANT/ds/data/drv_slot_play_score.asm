@@ -1,0 +1,3 @@
+; auto-generated
+drv_slot_play_score:
+    db 0xcb, 0x01, 0x00, 0x00

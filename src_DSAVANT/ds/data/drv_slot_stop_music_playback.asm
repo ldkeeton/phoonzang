@@ -1,0 +1,3 @@
+; auto-generated
+drv_slot_stop_music_playback:
+    db 0x0f, 0x01, 0x00, 0x00

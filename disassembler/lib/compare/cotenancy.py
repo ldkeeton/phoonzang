@@ -192,8 +192,17 @@ def scan(out_dir, symbols=None, files=None):
     code = {'outside': 0, 'inside': 0, 'dead': 0}
     data = {'outside': 0, 'inside': 0, 'dead': 0}
     entries = []
+    # A fragment the sidecar names (``function_names`` ``file``) is rooted at
+    # its head routine, not at a label spelled like the file.
+    from lib.sidecar.binary import file_names, head_label
+    project = project_of_src_dir(out_dir)
+    named = {}
     for rel, text in sorted(frags.items()):
-        root = os.path.basename(rel)[:-4]
+        binary = binary_of(rel)
+        if binary not in named:
+            named[binary] = file_names(project, binary)
+        stem = os.path.basename(rel)[:-4]
+        root = (head_label(text) or stem) if stem in named[binary] else stem
         # A fragment with a .c or .s is one compiled object (a vendor
         # module's entry points, ``mkdir``/``rmdir``/``chdir``): every label
         # is its own.

@@ -1,0 +1,3 @@
+; auto-generated
+drv_slot_music_set_data:
+    db 0x0b, 0x01, 0x00, 0x00

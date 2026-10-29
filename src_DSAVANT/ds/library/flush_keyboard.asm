@@ -18,7 +18,7 @@ flush_keyboard:
     int 0x16 ; BIOS keyboard: read keystroke
     jmp short .back1                 ; 0x3e7a
 .forward1:
-    call far [cs:drv_slot_10 - IMAGE_BASE] ; 0x3e7c
+    call far [cs:drv_slot_clear_mouse_click - IMAGE_BASE] ; 0x3e7c
     pop es                           ; 0x3e81
     pop si                           ; 0x3e82
     pop di                           ; 0x3e83

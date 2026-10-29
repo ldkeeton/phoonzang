@@ -183,7 +183,7 @@ loc_JTQK_001f.load_screen1 equ load_screen
 
 %include "shared/data/ems_paras_used.asm"     ; 0x0291
 
-%include "shared/drv/graphics_loc_VNKS.asm"       ; 0x0293
+%include "shared/drv/draw_glyph.asm"              ; 0x0293
 
 %include "shared/drv/set_text_opaque.asm"         ; 0x0439
 
@@ -197,7 +197,7 @@ loc_JTQK_001f.load_screen1 equ load_screen
 
 %include "vga/show_area.asm"               ; 0x04b5
 
-%include "vga/data/cseg_0515.asm"          ; 0x0515
+%include "vga/data/mouse_area_intersects.asm" ; 0x0515
 
 %include "vga/clip_mouse_pointer_to_area.asm" ; 0x0516
 
@@ -276,6 +276,28 @@ data_1e5c equ __zdata_1e5c - IMAGE_BASE
 
 %include "vga/data/cseg_14b0.asm"          ; 0x14b0
 
+%include "vga/data/mouse_saved_background_offset.asm" ; 0x14b4
+
+%include "vga/data/mouse_redraw_background_offset.asm" ; 0x14b6
+
+%include "vga/data/mouse_drawn_width.asm"  ; 0x14b8
+
+%include "vga/data/mouse_drawn_height.asm" ; 0x14ba
+
+%include "vga/data/mouse_screen_offset.asm" ; 0x14bc
+
+%include "vga/data/cseg_14be.asm"          ; 0x14be
+
+%include "vga/data/mouse_image_stride.asm" ; 0x1d5c
+
+%include "vga/data/cseg_1d5e.asm"          ; 0x1d5e
+
+%include "vga/data/mouse_image_offset.asm" ; 0x1d64
+
+%include "vga/data/mouse_image_segment.asm" ; 0x1d66
+
+%include "vga/data/cseg_1d68.asm"          ; 0x1d68
+
 draw_mouse_pointer_at.cseg1 equ cseg_1dd3
 draw_mouse_pointer_at.cseg2 equ cseg_14b0
 draw_mouse_pointer_at.cseg3 equ cseg_14b2
@@ -285,8 +307,8 @@ data_1dc4 equ __zdata_1dc4 - IMAGE_BASE
 data_1e4c equ __zdata_1e4c - IMAGE_BASE
 %include "vga/graphics_loc_OSKV.asm"       ; 0x1e35
 
-leaf_loc_OLKS.cseg1 equ cseg_1dcd
-%include "shared/drv/leaf_loc_OLKS.asm"           ; 0x217d
+clear_mouse_click.cseg1 equ cseg_1dcd
+%include "shared/drv/clear_mouse_click.asm"       ; 0x217d
 
 %include "shared/drv/free_picture.asm"            ; 0x2185
 

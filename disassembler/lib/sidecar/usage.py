@@ -45,10 +45,20 @@ class SidecarUse:
         return [ident for k, ident in self._expected if k == key]
 
     def check_names(self, label_map):
-        """Settle each naming entry against the final *label_map*."""
+        """Settle each naming entry against the final *label_map*.
+
+        A ``function_names`` pin that spells the name a dispatch slot already
+        gives the routine is a second copy of it, left stale by the next
+        rename of the slot."""
+        derived = {(offset, name): (key, ident) for (key, ident), (offset, name)
+                   in self.final_names.items() if key != 'function_names'}
         for (key, ident), (offset, name) in self.final_names.items():
             final = label_map.get(offset)
-            if str(final) == name:
+            source = derived.get((offset, name))
+            if key == 'function_names' and source:
+                self.skipped(key, ident, f'repeats {source[0]}["{source[1]}"] '
+                                         f'{name!r}; drop its "name"')
+            elif str(final) == name:
                 self.applied(key, ident)
             else:
                 self.skipped(key, ident, f'{name!r} at 0x{offset:04x} was '

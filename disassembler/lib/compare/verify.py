@@ -316,7 +316,7 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
            carve_1=None, trace=None,
            foreign_label_map=None,
            immediate_labels=None, split_functions=None, hard_data=None,
-           declared_roots=None, fragment_lengths=None,
+           declared_roots=None, fragment_lengths=None, fragment_files=None,
            function_roots=None, branch_targets=None, branch_edges=None,
            extra_flow_edges=None, label_comments=None, c_overrides=None,
            c_checks=None, asm_annotations=None,
@@ -1406,6 +1406,7 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
         structs_inc=_structs_inc(record_layouts),
         message_symbols=message_symbols,
         message_inc=message_inc,
+        file_stems=fragment_files,
     )
     t6 = time.perf_counter()
     progress.log(f'{name} | verify: source built')

@@ -1,0 +1,3 @@
+; auto-generated
+drv_slot_mouse_off:
+    db 0x07, 0x01, 0x00, 0x00

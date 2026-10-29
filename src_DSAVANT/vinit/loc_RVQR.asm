@@ -99,7 +99,7 @@ loc_RVQR:
     mov word [bp - 0xc], ax          ; 0x049a
     push word [bp - 0xa]             ; 0x049d
     push ax                          ; 0x04a0
-    call call_packed_slot_5          ; 0x04a1
+    call call_play_select_device     ; 0x04a1
     add sp, byte 4                   ; 0x04a4
     mov word [code_check_word], 0x905c ; 0x04a7
     mov word [mouse_active], 0       ; 0x04ad

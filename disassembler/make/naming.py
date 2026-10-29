@@ -394,11 +394,14 @@ def _shared_source_conflict(project, target, own, name):
 
 
 def _asm_file(project, folder, label):
-    """``src_<project>/<folder>/**/<label>.asm``, or None."""
+    """``src_<project>/<folder>/**/<label>.asm`` -- or the sidecar ``file``
+    stem the routine's fragment is named for -- or None."""
+    from lib.sidecar.binary import stems_for
+    name = f'{stems_for(project, folder).get(label, label)}.asm'
     top = os.path.join(src_dir(project, PROJECT), folder)
     for dirpath, _, files in os.walk(top):
-        if f'{label}.asm' in files:
-            return os.path.join(dirpath, f'{label}.asm')
+        if name in files:
+            return os.path.join(dirpath, name)
     return None
 
 
@@ -660,6 +663,37 @@ def _dispatch_targets(project, sidecar, driver):
     return out
 
 
+def _derived_slot_pointer(project, sidecar, binary, symbol):
+    """The error for *symbol* if it is a far pointer a ``driver_slots``
+    ``slot_prefix`` names (by that name or its ``cseg_`` address): its name
+    comes from the driver's API, so a pin of its own would hide a rename."""
+    own = _binaries(sidecar).get(binary) or {}
+    if project is None or not own.get('driver_slots'):
+        return None
+    from lib.match.driver_slots import slot_names
+    from .inspect import binary_bytes
+    data, _ = binary_bytes(project, binary)
+    if data is None:
+        return None
+    m = _CSEG.match(symbol)
+    for slots in own['driver_slots']:
+        driver = slots.get('driver')
+        table = _resolved_dispatch_table(sidecar, driver)
+        if not table or not slots.get('slot_prefix'):
+            continue
+        for offset, name in slot_names(
+                data, dict(slots, dispatch_table=table)).items():
+            if name == symbol or (m and int(m.group(1), 16) == offset):
+                api_name = name[len(slots['slot_prefix']) + 1:]
+                slot = next(k for k, v in table['names'].items()
+                            if v == api_name)
+                return (f'{symbol}: {binary}.driver_slots["{slots["offset"]}"]'
+                        f' names it from {driver}.dispatch_table.names'
+                        f'["{slot}"] {api_name!r}; name the slot from '
+                        f'{driver}')
+    return None
+
+
 def provenance_rows(sidecar, project, binary, routine, addr=None):
     """Every sidecar surface that names *routine* or its address.
 
@@ -888,6 +922,9 @@ def plan_names(project, binary, specs):
         else:
             sym, name, note = spec
             target = binary
+        derived = _derived_slot_pointer(project, sidecar, target, sym)
+        if derived:
+            raise SidecarError(derived)
         path, key, entry = resolve(sidecar, project, target, sym)
         # Donors of one alias that include the same shared routine name it
         # through one entry.
@@ -897,15 +934,27 @@ def plan_names(project, binary, specs):
         if entry.get('name') == name and not note:
             continue    # a donor already so named; nothing to write
         old = entry.get('name') or sym
-        entry = dict(entry)
-        entry['name'] = name
-        if note:
-            entry['note'] = note
-        text = set_entry(text, path, key, entry)
-        sidecar = json.loads(text)
-        changes.append({'symbol': sym, 'old': old, 'name': name,
-                        'surface': f'{".".join(path)}["{key}"]'})
         is_routine = path == ['binaries', target, 'function_names']
+        # A routine a dispatch slot already names takes the new name there
+        # (a shared copy's slot may be renamed already); a pin of its own
+        # would only repeat it, so a note goes on without one.
+        slot_named = (is_routine and 'name' not in entry and any(
+            value in (old, name) for value in _dispatch_names(
+                sidecar, dispatch_owner(sidecar, target)).values()))
+        if slot_named and note:
+            text = set_entry(text, path, key, dict(entry, note=note))
+            sidecar = json.loads(text)
+            changes.append({'symbol': sym, 'old': old, 'name': name,
+                            'surface': f'{".".join(path)}["{key}"] (note)'})
+        elif not slot_named:
+            entry = dict(entry)
+            entry['name'] = name
+            if note:
+                entry['note'] = note
+            text = set_entry(text, path, key, entry)
+            sidecar = json.loads(text)
+            changes.append({'symbol': sym, 'old': old, 'name': name,
+                            'surface': f'{".".join(path)}["{key}"]'})
         if is_routine and old != name:
             conflict = _shared_source_conflict(project, target, sym, name)
             if conflict:
@@ -934,6 +983,51 @@ def plan_names(project, binary, specs):
                         'symbol': sym, 'old': old, 'name': name,
                         'surface': f'{".".join(names_path)}'
                                    f'["{slot}"]'})
+                sidecar = json.loads(text)
+                # Every driver on this API names the slot's routine; a pin
+                # in another one spells the same name.
+                api = (_binaries(sidecar).get(target) or {}).get('api')
+                for other, info in sorted(_binaries(sidecar).items()):
+                    if other == target or not api or info.get('api') != api:
+                        continue
+                    for fkey, fentry in sorted(
+                            (info.get('function_names') or {}).items()):
+                        if fentry.get('name') == old:
+                            fentry = dict(fentry, name=name)
+                            fpath = ['binaries', other, 'function_names']
+                            text = set_entry(text, fpath, fkey, fentry)
+                            changes.append({
+                                'symbol': sym, 'old': old, 'name': name,
+                                'surface': f'{".".join(fpath)}["{fkey}"]'})
+                sidecar = json.loads(text)
+                # A program's thunks for these slots are named
+                # ``<prefix>_<slot name>`` (driver_slots); its sources call
+                # them by that name.
+                for owner_name, info in sorted(_binaries(sidecar).items()):
+                    for driver_slots in info.get('driver_slots') or []:
+                        driver = driver_slots.get('driver')
+                        prefix = driver_slots.get('prefix') or ''
+                        if not (driver == target or (
+                                api and (_binaries(sidecar).get(driver)
+                                         or {}).get('api') == api)):
+                            continue
+                        # The pointers too (``slot_prefix``).
+                        for pre in (prefix, driver_slots.get('slot_prefix')):
+                            if pre:
+                                renames[f'{pre}_{old}'] = f'{pre}_{name}'
+                        # A thunk too irregular to derive is pinned by the
+                        # same name (``call_play_select_device``).
+                        for fkey, fentry in sorted(
+                                (info.get('function_names') or {}).items()):
+                            if prefix and fentry.get('name') == f'{prefix}_{old}':
+                                fentry = dict(fentry, name=f'{prefix}_{name}')
+                                fpath = ['binaries', owner_name,
+                                         'function_names']
+                                text = set_entry(text, fpath, fkey, fentry)
+                                changes.append({
+                                    'symbol': sym, 'old': f'{prefix}_{old}',
+                                    'name': fentry['name'],
+                                    'surface': f'{".".join(fpath)}["{fkey}"]'})
                 sidecar = json.loads(text)
             own = _binaries(sidecar).get(target) or {}
             for driver_slots in own.get('driver_slots') or []:
@@ -1378,7 +1472,10 @@ def cmd_refs(project, binary, routine, json_out=False):
     label yet -- the C still has to spell them ``bss_6eb5``/``dseg_...`` --
     and the width each symbol is used at.
     """
-    path = _asm_file(project, binary, routine) or _asm_file(project, SHARED_DIR, routine)
+    # A routine inside a grouped fragment (``length``) reports the group's.
+    path = (_asm_file(project, binary, routine)
+            or _asm_file(project, SHARED_DIR, routine)
+            or _label_file(project, binary, routine))
     if path is None:
         raise SystemExit(f'error: no {routine}.asm in {binary}/ or {SHARED_DIR}/')
     files = [path] + [os.path.splitext(path)[0] + s for s in ('.c', '.s')

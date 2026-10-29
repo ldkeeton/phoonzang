@@ -3,7 +3,7 @@
 	include	lmacros.h
 	assume	cs:codeseg
 	extrn	key_queue_:word
-	extrn	drv_slot_10_:dword
+	extrn	drv_slot_clear_mouse_click_:dword
 	public	flush_keyboard_
 flush_keyboard_ proc near
 	push	bp
@@ -19,7 +19,7 @@ drain:
 	kbd	0	; int 16h/0: read and discard it
 	jmp	drain
 drained:
-	call	dword ptr cs:drv_slot_10_
+	call	dword ptr cs:drv_slot_clear_mouse_click_
 	pops	es,si,di
 	mov	sp,bp
 	pop	bp

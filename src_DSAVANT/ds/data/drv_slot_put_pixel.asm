@@ -1,0 +1,3 @@
+; auto-generated
+drv_slot_put_pixel:
+    db 0x47, 0x01, 0x00, 0x00

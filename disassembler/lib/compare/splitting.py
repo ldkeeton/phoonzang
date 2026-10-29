@@ -546,14 +546,18 @@ def _layout_labels_first(records):
 
 
 def _partition_function_records(records, split_ranges, split_dir, bands=(),
-                                data_starts=()):
+                                data_starts=(), file_stems=None):
     """Replace selected contiguous function spans with include records.
 
     *bands* (:mod:`lib.sidecar.bands`) puts each fragment in its band's
     folder (``ds/game/x.asm``).  A range starting in *data_starts* is a data
     object (:func:`_select_data_ranges`): its file goes in the binary's
     ``data`` folder (``vinstall/data/ctp_.asm``), banded or not.
+    *file_stems* (``{start: stem}``, sidecar ``file``) names a fragment's
+    file other than after its head label.
     """
+    file_stems = file_stems or {}
+
     def folder(start, name):
         if start in data_starts:
             return f'{split_dir}/data'
@@ -657,7 +661,7 @@ def _partition_function_records(records, split_ranges, split_dir, bands=(),
 
         start, end, name = owner
         if name not in include_inserted:
-            filename = _file_stem(name)
+            filename = file_stems.get(start) or _file_stem(name)
             if not filename:
                 raise ValueError(f'cannot make include filename for function {name!r}')
             main_records.append({
@@ -682,7 +686,7 @@ def _partition_function_records(records, split_ranges, split_dir, bands=(),
 
     split_sources = {}
     for start, _, name in ranges:
-        filename = _file_stem(name)
+        filename = file_stems.get(start) or _file_stem(name)
         split_sources[f'{folder(start, name)}/{filename}.asm'] = \
             split_records[name]
     return main_records, split_sources

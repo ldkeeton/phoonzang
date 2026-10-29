@@ -918,7 +918,7 @@ def _build_source(records, start_offset, binary_data, label_map=None, show_offse
                   label_defined=None, ds_size=None, host_symbols=None,
                   host_data_offsets=None, load_offset=0, overlay_own=None,
                   bands=(), data_modules=(), structs_inc=None,
-                  message_symbols=None, message_inc=None):
+                  message_symbols=None, message_inc=None, file_stems=None):
     """Render the master NASM source and any generated includes.
 
     *structs_inc* is the text of the host family's record layouts
@@ -1283,6 +1283,7 @@ def _build_source(records, start_offset, binary_data, label_map=None, show_offse
     main_records, split_records = _partition_function_records(
         records, [*(split_ranges or ()), *data_ranges], split_dir, bands,
         data_starts={start for start, _, _ in data_ranges},
+        file_stems=file_stems,
     )
     out.extend(_render_records(main_records, binary_data, show_offsets, gap=gap,
                                ds_size=ds_size, ds_end_symbol=ds_end_symbol,

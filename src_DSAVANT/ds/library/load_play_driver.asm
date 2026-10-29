@@ -22,7 +22,7 @@ load_play_driver:
     int 0x21 ; DOS close file handle
     mov ax, cs                       ; 0x3626
     mov es, ax                       ; 0x3628
-    mov di, cseg_2f67 - IMAGE_BASE   ; 0x362a
+    mov di, drv_slot_music_start - IMAGE_BASE ; 0x362a
     mov ax, word [cs:cseg_2f56 - IMAGE_BASE] ; 0x362d
     mov cx, 8                        ; 0x3631
 .back1:

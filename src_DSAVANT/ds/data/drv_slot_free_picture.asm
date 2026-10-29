@@ -1,0 +1,3 @@
+; auto-generated
+drv_slot_free_picture:
+    db 0x5b, 0x01, 0x00, 0x00

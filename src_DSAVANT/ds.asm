@@ -581,69 +581,129 @@ __zdseg_end equ (__zimage_end - __zdseg_start) + __zbss_size
 
 %include "ds/data/mouse_button_count.asm"  ; 0x2f66
 
-%include "ds/data/cseg_2f67.asm"           ; 0x2f67
+%include "ds/data/drv_slot_music_start.asm" ; 0x2f67
 
-%include "ds/data/drv_slot_5.asm"          ; 0x2f7b
+%include "ds/data/drv_slot_configure_music_device.asm" ; 0x2f6b
 
-%include "ds/data/play_drv_wait.asm"       ; 0x2f83
+%include "ds/data/drv_slot_music_set_data.asm" ; 0x2f6f
 
-%include "ds/data/cseg_2f87.asm"           ; 0x2f87
+%include "ds/data/drv_slot_stop_music_playback.asm" ; 0x2f73
+
+%include "ds/data/drv_slot_music_set_tempo_volume.asm" ; 0x2f77
+
+%include "ds/data/drv_slot_play_select_device.asm" ; 0x2f7b
+
+%include "ds/data/drv_slot_music_is_playing.asm" ; 0x2f7f
+
+%include "ds/data/drv_slot_wait_for_music.asm" ; 0x2f83
+
+%include "ds/data/drv_slot_mouse_init.asm" ; 0x2f87
+
+%include "ds/data/drv_slot_mouse_off.asm"  ; 0x2f8b
+
+%include "ds/data/drv_slot_mouse_hit_test.asm" ; 0x2f8f
+
+%include "ds/data/drv_slot_load_picture.asm" ; 0x2f9b
 
 %include "ds/data/drv_slot_draw_text.asm"  ; 0x2f9f
 
-%include "ds/data/cseg_2fa3.asm"           ; 0x2fa3
+%include "ds/data/drv_slot_load_screen.asm" ; 0x2fa3
+
+%include "ds/data/drv_slot_load_maze.asm"  ; 0x2fa7
 
 %include "ds/data/drv_slot_draw_maze_piece.asm" ; 0x2fab
 
-%include "ds/data/drv_slot_10.asm"         ; 0x2faf
+%include "ds/data/drv_slot_clear_mouse_click.asm" ; 0x2faf
 
 %include "ds/data/drv_slot_draw_glyph.asm" ; 0x2fb3
 
-%include "ds/data/cseg_2fb7.asm"           ; 0x2fb7
+%include "ds/data/drv_slot_set_text_color.asm" ; 0x2fb7
 
 %include "ds/data/drv_slot_set_text_pos.asm" ; 0x2fbb
 
-%include "ds/data/cseg_2fbf.asm"           ; 0x2fbf
+%include "ds/data/drv_slot_get_text_pos.asm" ; 0x2fbf
 
 %include "ds/data/drv_slot_fill_screen_buffer.asm" ; 0x2fc3
 
 %include "ds/data/drv_slot_show_area.asm"  ; 0x2fc7
 
-%include "ds/data/cseg_2fcb.asm"           ; 0x2fcb
+%include "ds/data/drv_slot_put_pixel.asm"  ; 0x2fcb
 
 %include "ds/data/drv_slot_fill_area.asm"  ; 0x2fcf
 
-%include "ds/data/cseg_2fd3.asm"           ; 0x2fd3
+%include "ds/data/drv_slot_invert_area.asm" ; 0x2fd3
+
+%include "ds/data/drv_slot_save_area.asm"  ; 0x2fd7
+
+%include "ds/data/drv_slot_restore_area.asm" ; 0x2fdb
+
+%include "ds/data/drv_slot_free_picture.asm" ; 0x2fdf
+
+%include "ds/data/drv_slot_get_mouse.asm"  ; 0x2fe3
+
+%include "ds/data/drv_slot_set_mouse_pointer.asm" ; 0x2fe7
+
+%include "ds/data/drv_slot_set_text_opaque.asm" ; 0x2feb
+
+%include "ds/data/drv_slot_save_screen.asm" ; 0x2fef
 
 %include "ds/data/drv_slot_dissolve_area.asm" ; 0x2ff3
 
-%include "ds/data/cseg_2ff7.asm"           ; 0x2ff7
+%include "ds/data/drv_slot_set_rgb.asm"    ; 0x2ff7
+
+%include "ds/data/drv_slot_get_rgb.asm"    ; 0x2ffb
 
 %include "ds/data/drv_slot_fade_in.asm"    ; 0x2fff
 
 %include "ds/data/drv_slot_fade_out.asm"   ; 0x3003
 
-%include "ds/data/cseg_3007.asm"           ; 0x3007
+%include "ds/data/drv_slot_reset_rgb.asm"  ; 0x3007
+
+%include "ds/data/drv_slot_mouse_glide_to.asm" ; 0x300b
+
+%include "ds/data/drv_slot_mouse_glide_back.asm" ; 0x300f
+
+%include "ds/data/drv_slot_free_maze.asm"  ; 0x3013
+
+%include "ds/data/drv_slot_free_screen.asm" ; 0x3017
+
+%include "ds/data/drv_slot_get_palette.asm" ; 0x301b
+
+%include "ds/data/drv_slot_set_palette.asm" ; 0x301f
 
 %include "ds/data/drv_slot_cache_area.asm" ; 0x3023
 
-%include "ds/data/cseg_3027.asm"           ; 0x3027
+%include "ds/data/drv_slot_get_free_space.asm" ; 0x3027
+
+%include "ds/data/drv_slot_restore_screen.asm" ; 0x302b
 
 %include "ds/data/drv_slot_cache_maze.asm" ; 0x302f
 
 %include "ds/data/drv_slot_cache_screen_to_storage.asm" ; 0x3033
 
-%include "ds/data/cseg_3037.asm"           ; 0x3037
+%include "ds/data/drv_slot_load_sound.asm" ; 0x3037
+
+%include "ds/data/drv_slot_free_sound.asm" ; 0x303b
+
+%include "ds/data/drv_slot_play_sound.asm" ; 0x303f
 
 %include "ds/data/drv_slot_wait_sound.asm" ; 0x3043
 
 %include "ds/data/drv_slot_stop_sound.asm" ; 0x3047
 
-%include "ds/data/cseg_304b.asm"           ; 0x304b
+%include "ds/data/drv_slot_load_score.asm" ; 0x304b
+
+%include "ds/data/drv_slot_play_score.asm" ; 0x304f
+
+%include "ds/data/drv_slot_free_score.asm" ; 0x3053
+
+%include "ds/data/drv_slot_is_music_playing.asm" ; 0x3057
 
 %include "ds/data/drv_slot_stop_music.asm" ; 0x305b
 
-%include "ds/data/cseg_305f.asm"           ; 0x305f
+%include "ds/data/drv_slot_set_music_tempo_volume.asm" ; 0x305f
+
+%include "ds/data/cseg_3063.asm"           ; 0x3063
 
 %include "ds/library/init_system_hardware.asm" ; 0x3067
 
@@ -717,7 +777,7 @@ __zdseg_end equ (__zimage_end - __zdseg_start) + __zbss_size
 
 %include "ds/library/get_font_glyph.asm"   ; 0x39f6
 
-%include "ds/library/call_set_text_pos.asm" ; 0x3a50
+%include "ds/library/call_thunks_text_pos.asm" ; 0x3a50
 
 %include "ds/library/draw_font_glyph.asm"  ; 0x3a77
 
@@ -725,7 +785,7 @@ __zdseg_end equ (__zimage_end - __zdseg_start) + __zbss_size
 
 %include "ds/library/measure_text_width.asm" ; 0x3aca
 
-%include "ds/library/call_show_area.asm"   ; 0x3b21
+%include "ds/library/call_thunks_area.asm" ; 0x3b21
 
 %include "ds/library/random_15bit.asm"     ; 0x3ba3
 
@@ -761,11 +821,11 @@ __zdseg_end equ (__zimage_end - __zdseg_start) + __zbss_size
 
 %include "ds/library/strstr.asm"           ; 0x40ca
 
-%include "ds/library/call_free_sound.asm"  ; 0x4134
+%include "ds/library/call_thunks_media.asm" ; 0x4134
 
 %include "ds/library/mouse_set_pos.asm"    ; 0x42b4
 
-%include "ds/library/call_set_text_opaque.asm" ; 0x42dd
+%include "ds/library/call_thunks_screen.asm" ; 0x42dd
 
 %include "ds/aztec/aztec_ovloader.asm"     ; 0x4379
 
