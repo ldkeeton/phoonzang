@@ -1,5 +1,5 @@
 ; auto-generated
-loc_GSUP:
+advance_scene_frame:
     mov ax, 0                        ; 0x73bc
     call aztec_csav                  ; 0x73bf
     les bx, word [tick_counter_ptr]  ; 0x73c2

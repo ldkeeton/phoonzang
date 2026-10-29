@@ -4,7 +4,7 @@ loc_TJHG:
     call aztec_csav                  ; 0x6c5f
     cmp word [scene_index], byte 0   ; 0x6c62
     jle short .return1               ; 0x6c67
-    call loc_GSUP                    ; 0x6c69
+    call advance_scene_frame         ; 0x6c69
     test ax, ax                      ; 0x6c6c
     je short .return1                ; 0x6c6e
     call draw_scene_frame            ; 0x6c70

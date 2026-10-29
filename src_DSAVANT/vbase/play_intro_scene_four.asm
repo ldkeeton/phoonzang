@@ -1,10 +1,10 @@
 ; auto-generated
-loc_JTTS:
+play_intro_scene_four:
     mov ax, 0                        ; 0x8a74
     call aztec_csav                  ; 0x8a77
     mov ax, 0                        ; 0x8a7a
     push ax                          ; 0x8a7d
-    mov ax, dseg_9158                ; 0x8a7e
+    mov ax, scene_four_screen_filename ; 0x8a7e
     push ax                          ; 0x8a81
     call load_screen_file            ; 0x8a82
     add sp, byte 4                   ; 0x8a85

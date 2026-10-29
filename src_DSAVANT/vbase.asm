@@ -45,7 +45,7 @@ main_screen_filename equ __zdseg_end + (__zmain_screen_filename - __zdata_start)
 dseg_9138 equ __zdseg_end + (__zdseg_9138 - __zdata_start)
 dseg_9144 equ __zdseg_end + (__zdseg_9144 - __zdata_start)
 dseg_9151 equ __zdseg_end + (__zdseg_9151 - __zdata_start)
-dseg_9158 equ __zdseg_end + (__zdseg_9158 - __zdata_start)
+scene_four_screen_filename equ __zdseg_end + (__zscene_four_screen_filename - __zdata_start)
 scene_five_screen_filename equ __zdseg_end + (__zscene_five_screen_filename - __zdata_start)
 scene_six_screen_filename equ __zdseg_end + (__zscene_six_screen_filename - __zdata_start)
 scene_six_digit_cycle equ __zdseg_end + (__zscene_six_digit_cycle - __zdata_start)
@@ -217,14 +217,13 @@ jumptable_0d04          equ api_idx_0038_LTUV.jumptable1
 
 %include "vbase/show_load_disk_error.asm"  ; 0x150d
 
-api_idx_004c_MUGV equ api_idx_004c_RQSO
 %include "shared/ovr/api_idx_004c_RQSO.asm"     ; 0x156e
 
-%include "vbase/loc_JJHG.asm"              ; 0x1683
+%include "vbase/map_bane_item_number.asm"  ; 0x1683
 
 %include "vbase/loc_UOUN.asm"              ; 0x1820
 
-%include "vbase/loc_GLHQ.asm"              ; 0x1a12
+%include "vbase/map_bane_party_selector.asm" ; 0x1a12
 
 %include "shared/ovr/loc_OIOJ.asm"              ; 0x1c09
 
@@ -260,9 +259,9 @@ jumptable_1ee4         equ api_idx_0004_MMTP.jumptable1
 
 %include "vbase/draw_message_at_position.asm" ; 0x41e7
 
-%include "vbase/loc_HIQU.asm"              ; 0x4245
+%include "vbase/draw_setting_slider_markers.asm" ; 0x4245
 
-%include "vbase/loc_HOMM.asm"              ; 0x4292
+%include "vbase/draw_inset_two_digit_number.asm" ; 0x4292
 
 %include "vbase/loc_RSMG.asm"              ; 0x42e3
 
@@ -334,7 +333,7 @@ process_scene_message_words.loc1 equ loc_VMSS
 
 %include "vbase/draw_char_clipped_top.asm" ; 0x737d
 
-%include "vbase/loc_GSUP.asm"              ; 0x73bc
+%include "vbase/advance_scene_frame.asm"   ; 0x73bc
 
 %include "vbase/draw_scene_frame.asm"      ; 0x7415
 
@@ -346,7 +345,7 @@ process_scene_message_words.loc1 equ loc_VMSS
 
 %include "vbase/play_intro_scene_three.asm" ; 0x8881
 
-%include "vbase/loc_JTTS.asm"              ; 0x8a74
+%include "vbase/play_intro_scene_four.asm" ; 0x8a74
 
 %include "vbase/play_intro_scene_five.asm" ; 0x8b69
 
@@ -389,6 +388,8 @@ __zdata_start:
 %include "vbase/data/main_screen_filename.asm" ; 0x9480
 
 %include "vbase/data/dseg_9138.asm"        ; 0x948d
+
+%include "vbase/data/scene_four_screen_filename.asm" ; 0x94ad
 
 %include "vbase/data/scene_five_screen_filename.asm" ; 0x94ba
 

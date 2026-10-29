@@ -1,5 +1,5 @@
 ; auto-generated
-loc_GLHQ:
+map_bane_party_selector:
     mov ax, 0                        ; 0x1a12
     call aztec_csav                  ; 0x1a15
     mov ax, word [bp + 4]            ; 0x1a18
@@ -321,12 +321,12 @@ jumptable_1b5a:
     dw jumptable_1b5a_case_76 - IMAGE_BASE + __zres_end ; 0x1bf2
     dw jumptable_1b5a_case_77 - IMAGE_BASE + __zres_end ; 0x1bf4
     dw jumptable_1b5a_case_78 - IMAGE_BASE + __zres_end ; 0x1bf6
-loc_GLHQ.forward1:
+map_bane_party_selector.forward1:
     cmp ax, strict word 0x4f         ; 0x1bf8
-    jae short loc_GLHQ.forward2      ; 0x1bfb
+    jae short map_bane_party_selector.forward2 ; 0x1bfb
     xchg bx, ax                      ; 0x1bfd
     shl bx, 1                        ; 0x1bfe
     jmp [cs:bx + jumptable_1b5a - IMAGE_BASE + __zres_end] ; 0x1c00
-loc_GLHQ.forward2:
+map_bane_party_selector.forward2:
     mov ax, 0xffff                   ; 0x1c05
     ret                              ; 0x1c08

@@ -426,6 +426,8 @@ const isGeneratedC = (doc) => doc.uri.scheme === 'file' &&
 
 // The CLI invocation and the prompt differ: each agent gets a prompt shaped for
 // how it works.  prepareMakeC resolves the routine and supplies both.
+const shellQuote = (s) => `'${String(s).replace(/'/g, `'\\''`)}'`;
+
 const AGENTS = {
     claude: {
         label: 'Claude',
@@ -443,6 +445,17 @@ const AGENTS = {
         // No IDE integration: don't auto-connect, and drop the port the Claude VS Code
         // extension injects into integrated terminals.
         env: { CLAUDE_CODE_AUTO_CONNECT_IDE: 'false', CLAUDE_CODE_SSE_PORT: null },
+        // Started directly, Claude inherits VS Code's process PATH, where /usr/bin
+        // precedes the pyenv shims and make picks a python3 without capstone.  A
+        // login shell runs the profile (pyenv init) first; exec keeps the tab
+        // closing when Claude exits.
+        terminalArgs(prompt, model) {
+            const cli = cfg().get('claude');
+            const args = this.args(prompt, model);
+            if (process.platform === 'win32') return { shellPath: cli, shellArgs: args };
+            return { shellPath: process.env.SHELL || '/bin/bash',
+                shellArgs: ['-lc', `exec ${[cli, ...args].map(shellQuote).join(' ')}`] };
+        },
     },
     opencode: {
         label: 'OpenCode',
@@ -476,7 +489,7 @@ const AGENTS = {
             const args = ['--cd', root(), '--sandbox', 'workspace-write'];
             if (model) args.push('--model', model);
             args.push(prompt);
-            const quote = (s) => `'${String(s).replace(/'/g, `'\\''`)}'`;
+            const quote = shellQuote;
             const cleanEnvironment = `for var in $(env | grep -E 'PROXY|proxy|npm_config|YARN|BUNDLE|CARGO' | cut -d= -f1); do unset "$var"; done; `;
             const command = `${process.platform === 'win32' ? '' : cleanEnvironment}${quote(cfg().get('codex'))} ${args.map(quote).join(' ')}`;
             return process.platform === 'win32'

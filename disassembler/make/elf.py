@@ -482,6 +482,12 @@ def resplice_c(app, binary, check_only=False, only=None):
                         default=start)
         lead = first - start
 
+        # A C ``switch`` table renders as the build's own record, and the
+        # link must not scan it for branches.
+        tables = [r for r in (context or {}).get('jump_tables', ())
+                  if start + lead <= r['start'] and r['end'] <= end]
+        table_spans = [(r['start'] - start, r['end'] - start) for r in tables]
+
         linked = None
         if index is not None:
             # Resolve the C's own relocations against the asm namespace; the
@@ -504,7 +510,8 @@ def resplice_c(app, binary, check_only=False, only=None):
                     raise SystemExit(f'error: {exc}')
             try:
                 linked = relink.link(label, start, func, index, data,
-                                     labels_in, labels_at, spans_here,
+                                     labels_in, labels_at,
+                                     [*spans_here, *table_spans],
                                      resolve_by_address=is_shared(out_dir,
                                                                   label))
             except relink.RelinkError as exc:
@@ -556,9 +563,6 @@ def resplice_c(app, binary, check_only=False, only=None):
             foreign_label_map = context['foreign_label_map']
             immediate_labels = context['immediate_labels']
             exact_bytes = context['exact_bytes']
-            # A C ``switch`` table renders as the build's own record.
-            tables = [r for r in context.get('jump_tables', ())
-                      if start + lead <= r['start'] and r['end'] <= end]
             label_addrs = {name: offset for offset, name, _
                            in context['label_records']}
         else:
@@ -587,8 +591,7 @@ def resplice_c(app, binary, check_only=False, only=None):
             immediate_labels, exact_bytes=exact_bytes, data_labels=data_labels,
             mem_symbols=mem_symbols, mem_equ=mem_equ, image_base=image_base,
             linked=linked, skip=lead,
-            data_spans=[*spans_here, *((r['start'] - start, r['end'] - start)
-                                       for r in tables)],
+            data_spans=[*spans_here, *table_spans],
             label_offsets=[r['offset'] for r in label_records],
             jump_tables=tables, label_addrs=label_addrs,
             message_symbols=message_symbols, message_equ=message_equ)

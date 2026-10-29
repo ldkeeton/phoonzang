@@ -181,7 +181,7 @@ loc_RMVR:
     mov ax, word [bp - 8]            ; 0x4eb1
     add ax, strict word 0x2f         ; 0x4eb4
     push ax                          ; 0x4eb7
-    call loc_HIQU                    ; 0x4eb8
+    call draw_setting_slider_markers ; 0x4eb8
     add sp, byte 6                   ; 0x4ebb
     mov ax, 1                        ; 0x4ebe
     push ax                          ; 0x4ec1
@@ -248,7 +248,7 @@ loc_RMVR:
     mov ax, word [bp - 8]            ; 0x4f4c
     add ax, strict word 0x5f         ; 0x4f4f
     push ax                          ; 0x4f52
-    call loc_HIQU                    ; 0x4f53
+    call draw_setting_slider_markers ; 0x4f53
     add sp, byte 6                   ; 0x4f56
     mov ax, 1                        ; 0x4f59
     push ax                          ; 0x4f5c
@@ -270,7 +270,7 @@ loc_RMVR:
     mov ax, word [bp - 8]            ; 0x4f80
     add ax, strict word 0x5f         ; 0x4f83
     push ax                          ; 0x4f86
-    call loc_HIQU                    ; 0x4f87
+    call draw_setting_slider_markers ; 0x4f87
     add sp, byte 6                   ; 0x4f8a
     mov ax, 1                        ; 0x4f8d
     push ax                          ; 0x4f90
@@ -292,7 +292,7 @@ loc_RMVR:
     mov ax, word [bp - 8]            ; 0x4fb4
     add ax, strict word 0x5f         ; 0x4fb7
     push ax                          ; 0x4fba
-    call loc_HIQU                    ; 0x4fbb
+    call draw_setting_slider_markers ; 0x4fbb
     add sp, byte 6                   ; 0x4fbe
     lea ax, word [bp - 0x68]         ; 0x4fc1
     push ax                          ; 0x4fc4
@@ -335,7 +335,7 @@ loc_RMVR:
     mov ax, word [bp - 8]            ; 0x5017
     add ax, strict word 0x5f         ; 0x501a
     push ax                          ; 0x501d
-    call loc_HIQU                    ; 0x501e
+    call draw_setting_slider_markers ; 0x501e
     add sp, byte 6                   ; 0x5021
     mov ax, 1                        ; 0x5024
     push ax                          ; 0x5027
@@ -426,7 +426,7 @@ loc_RMVR:
     mov ax, word [bp - 8]            ; 0x50ea
     add ax, 0xdd                     ; 0x50ed
     push ax                          ; 0x50f0
-    call loc_HIQU                    ; 0x50f1
+    call draw_setting_slider_markers ; 0x50f1
     add sp, byte 6                   ; 0x50f4
     mov ax, 1                        ; 0x50f7
     push ax                          ; 0x50fa
@@ -448,7 +448,7 @@ loc_RMVR:
     mov ax, word [bp - 8]            ; 0x511e
     add ax, 0xdd                     ; 0x5121
     push ax                          ; 0x5124
-    call loc_HIQU                    ; 0x5125
+    call draw_setting_slider_markers ; 0x5125
     add sp, byte 6                   ; 0x5128
     mov ax, word [bp - 0xa]          ; 0x512b
     add ax, 0x8c                     ; 0x512e

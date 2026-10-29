@@ -434,6 +434,66 @@ class SwitchTableTest(unittest.TestCase):
         self.assertEqual(linked.failed[0][0], self.START + 6)
 
 
+class CswtSwitchTableTest(unittest.TestCase):
+    """A sparse ``switch`` (``mov cx, N; call $cswt``): keys, then targets.
+
+    ``$cswt`` never returns, so the table after its ``call`` is data even
+    though a ``call`` falls through; a key (0x0075) must not read as a ``jnz``.
+    """
+
+    START = 0x4400
+    BASE = 0x200
+    HELPER = 0x4500
+    # mov cx, 3 ; call $cswt ; dw 0x75, 0 ; dw .1, .1, .2 ; .1: ret ; .2: ret
+    CODE = bytes.fromhex('b90300' 'e80000' '75000000' '000000000000' 'c3c3')
+    TABLE = (6, 16)
+
+    def link(self, spans):
+        fixups = [Fixup(4, 'WREL', 'GBLSYM', 0, '$cswt'),
+                  Fixup(10, 'WABS', 'LCLSYM', None, '.1'),
+                  Fixup(12, 'WABS', 'LCLSYM', None, '.1'),
+                  Fixup(14, 'WABS', 'LCLSYM', None, '.2')]
+        func = Func('_f', 'f', 0, self.CODE, fixups, {'.1': 16, '.2': 17})
+        original = bytearray(self.HELPER + 1)
+        for site, target in ((10, 16), (12, 16), (14, 17)):
+            original[self.START + site:self.START + site + 2] = (
+                (self.START + target - self.BASE).to_bytes(2, 'little'))
+        self.label_map = {self.START: 'aztec_f', self.HELPER: 'aztec_cswt',
+                          self.START + 16: 'jt_case_2',
+                          self.START + 17: 'jt_case_4'}
+        index = relink.SymbolIndex(self.label_map, None, None, {},
+                                   image_base=self.BASE)
+        return relink.link('aztec_f', self.START, func, index,
+                           bytes(original), data_spans=spans)
+
+    def test_keys_are_not_branches(self):
+        call = [Fixup(4, 'WREL', 'GBLSYM', 0, '$cswt')]
+        self.assertTrue(relink._resolved_branches(self.CODE, call))
+        self.assertEqual(
+            relink._resolved_branches(self.CODE, call, [self.TABLE]), {})
+
+    def test_table_after_the_call_is_claimed(self):
+        linked = self.link([self.TABLE])
+        lo, hi = self.TABLE
+        table = {'type': 'jump_table', 'start': self.START + lo,
+                 'end': self.START + hi, 'label': 'jt', 'jmp_addr': -1,
+                 'entry_size': 2,
+                 'entries': [0x75, None, 'jt_case_2', 'jt_case_2',
+                             'jt_case_4'],
+                 'adjust': 0, 'literal': False, 'keys': 2, 'note': ''}
+        records = _c_bytes_to_records(
+            bytes(linked.code), self.START, self.label_map, {}, None, None,
+            linked=linked, image_base=self.BASE, data_spans=[self.TABLE],
+            jump_tables=[table])
+        self.assertEqual(
+            [r['entries'] for r in records if r['type'] == 'jump_table'],
+            [table['entries']])
+        self.assertFalse([r for r in records if r['type'] != 'jump_table'
+                          and lo <= r.get('offset', -1) - self.START < hi])
+        self.assertFalse(linked.failed)
+        self.assertFalse(linked.unmatched)
+
+
 class OverlaySwitchTableTest(unittest.TestCase):
     """An overlay's switch table words are CS offsets from its ``o_corg``."""
 

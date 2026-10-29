@@ -1,5 +1,5 @@
 ; auto-generated
-loc_HOMM:
+draw_inset_two_digit_number:
     mov ax, 0                        ; 0x4292
     call aztec_csav                  ; 0x4295
     mov ax, word [bp + 8]            ; 0x4298

@@ -5,5 +5,3 @@ __zdseg_9144:
     db 'VIDSCN01.VGA', 0
 __zdseg_9151:
     db '123432', 0
-__zdseg_9158:
-    db 'STARSCRN.VGA', 0

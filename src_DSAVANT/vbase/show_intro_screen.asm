@@ -133,7 +133,7 @@ show_intro_screen:
     push ax                          ; 0x9098
     mov ax, MSG_31590                ; 0x9099
     push ax                          ; 0x909c
-    call loc_JTTS                    ; 0x909d
+    call play_intro_scene_four       ; 0x909d
     add sp, byte 4                   ; 0x90a0
     mov ax, 0                        ; 0x90a3
     push ax                          ; 0x90a6
@@ -244,7 +244,7 @@ show_intro_screen:
     push ax                          ; 0x9186
     mov ax, MSG_THE_STRANGE_WORLD_LOS_31800 ; 0x9187
     push ax                          ; 0x918a
-    call loc_JTTS                    ; 0x918b
+    call play_intro_scene_four       ; 0x918b
     add sp, byte 4                   ; 0x918e
     mov ax, 0                        ; 0x9191
     push ax                          ; 0x9194
@@ -344,7 +344,7 @@ show_intro_screen:
     push ax                          ; 0x9263
     mov ax, MSG_THE_PLANET_GUARDIA_31230 ; 0x9264
     push ax                          ; 0x9267
-    call loc_JTTS                    ; 0x9268
+    call play_intro_scene_four       ; 0x9268
     add sp, byte 4                   ; 0x926b
     mov ax, 0                        ; 0x926e
     push ax                          ; 0x9271

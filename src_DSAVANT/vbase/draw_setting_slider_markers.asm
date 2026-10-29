@@ -1,5 +1,5 @@
 ; auto-generated
-loc_HIQU:
+draw_setting_slider_markers:
     mov ax, 0                        ; 0x4245
     call aztec_csav                  ; 0x4248
     mov ax, 0                        ; 0x424b

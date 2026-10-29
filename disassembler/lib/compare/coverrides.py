@@ -63,21 +63,32 @@ def _claim_table(table, base, linked, name_to_addr):
     """Match a jump table's relocations to its entries; False: not plain.
 
     ``cc``'s dense ``switch`` puts its ``dw`` table in the code, each word a
-    relocation to a case label.  A word is claimed when its relocation lands
-    where the entry's label does; any other is a failure to report.
+    relocation to a case label.  A sparse one (``mov cx, N; call $cswt``)
+    puts ``keys`` literal case values first, then the targets.  A target word
+    is claimed when its relocation lands where the entry's label does; any
+    other, or a relocation on a key, is a failure to report.
     """
+    keys = table.get('keys', 0)
+    entries = table['entries']
     # An overlay's table is shifted to its ``o_corg`` (``adjust``); only the
     # relocations, which carry that shift, can vouch for its entries.
+    # A zero key is rendered from the bytes, so its entry is None.
     if (table.get('entry_size', 2) != 2
             or (table.get('adjust', 0) and linked is None)
-            or table.get('keys', 0)
-            or not all(isinstance(e, str) for e in table['entries'])):
+            or not all(e is None or isinstance(e, int)
+                       for e in entries[:keys])
+            or not all(isinstance(e, str) for e in entries[keys:])):
         return False
     if linked is None:
         return True
-    for i, entry in enumerate(table['entries']):
+    for i, entry in enumerate(entries):
         site = table['start'] - base + 2 * i
         ref = linked.refs.get(site)
+        if i < keys:
+            if ref is not None:
+                linked.failed.append((base + site, f'dw {entry}', ref.text,
+                                      'a literal key'))
+            continue
         if ref is None:
             continue
         target = next(iter(ref.equ.values()), None)
@@ -148,7 +159,9 @@ def _c_bytes_to_records(data, base, label_map, local_labels, foreign_label_map,
         """Instructions, and ``(lo, hi)`` for each data span, in order.
 
         A span that code falls into (``caller``'s ``db 0cbH``, a ``retf``)
-        is an instruction spelled as bytes, and is decoded as one.
+        is an instruction spelled as bytes, and is decoded as one -- unless
+        it is one of the disassembly's tables: ``$cswt`` never returns, so
+        the table after its ``call`` is data.
         """
         pos = skip
         last = None             # the instruction before *pos*; None: none
@@ -161,7 +174,8 @@ def _c_bytes_to_records(data, base, label_map, local_labels, foreign_label_map,
                 last = ('ret' if is_dos_terminator(data, insn, base)
                         else insn.mnemonic)
                 yield insn
-            if last is not None and last not in _NO_FALLTHROUGH:
+            if (last is not None and last not in _NO_FALLTHROUGH
+                    and (base + lo, base + hi) not in tables):
                 pos = lo
                 continue
             hi = min(hi, len(data))
@@ -379,12 +393,16 @@ def _link(label, start, override, records, binary_data, index):
     labels_at = {r['offset']: r['name'] for r in records if r['type'] == 'label'}
     _check_publics(label, start, override, labels_at)
     # A jump table is labelled by its own record (``format``'s
-    # ``conv_routines`` is ``jumptable_4822``).
+    # ``conv_routines`` is ``jumptable_4822``), and is data, not code to scan
+    # for branches (a ``$cswt`` key 0x0075 reads as a ``jnz``).
+    spans = list(override.get('data_spans', ()))
     for r in records:
         if r['type'] == 'jump_table':
             labels_at.setdefault(r['start'], r['label'])
+            if start <= r['start'] and r['end'] <= start + length:
+                spans.append((r['start'] - start, r['end'] - start))
     return relink.link(label, start, func, index, binary_data, labels_in,
-                       labels_at, override.get('data_spans', ()),
+                       labels_at, spans,
                        resolve_by_address=bool(override.get('shared')))
 
 

@@ -818,7 +818,7 @@ import_bane_party.back8:
     test ax, ax                      ; 0x2767
     je short import_bane_party.forward42 ; 0x2769
     push word [bp - 4]               ; 0x276b
-    call loc_GLHQ                    ; 0x276e
+    call map_bane_party_selector     ; 0x276e
     pop cx                           ; 0x2771
     mov word [bp - 6], ax            ; 0x2772
     cmp ax, strict word 0            ; 0x2775
@@ -1103,7 +1103,7 @@ import_bane_party.back13:
     mov ax, 0x19b                    ; 0x2a62
     push ax                          ; 0x2a65
     push word [party_char_count]     ; 0x2a66
-    call api_idx_004c_MUGV           ; 0x2a6a
+    call api_idx_004c_RQSO           ; 0x2a6a
     add sp, byte 0xa                 ; 0x2a6d
     inc word [bp - 0x18]             ; 0x2a70
 import_bane_party.forward53:
@@ -1201,7 +1201,7 @@ import_bane_party.forward56:
     push ax                          ; 0x2b55
     push word [bp - 4]               ; 0x2b56
     push word [party_char_count]     ; 0x2b59
-    call api_idx_004c_MUGV           ; 0x2b5d
+    call api_idx_004c_RQSO           ; 0x2b5d
     add sp, byte 0xa                 ; 0x2b60
     inc word [bp - 0x18]             ; 0x2b63
 import_bane_party.forward57:
@@ -1223,7 +1223,7 @@ import_bane_party.forward57:
     push ax                          ; 0x2b8c
     push word [bp - 6]               ; 0x2b8d
     push word [party_char_count]     ; 0x2b90
-    call api_idx_004c_MUGV           ; 0x2b94
+    call api_idx_004c_RQSO           ; 0x2b94
     add sp, byte 0xa                 ; 0x2b97
     inc word [bp - 0x18]             ; 0x2b9a
 import_bane_party.forward58:
@@ -1243,7 +1243,7 @@ import_bane_party.back14:
     jmp near import_bane_party.forward63 ; 0x2bc1
 import_bane_party.forward59:
     push ax                          ; 0x2bc4
-    call loc_JJHG                    ; 0x2bc5
+    call map_bane_item_number        ; 0x2bc5
     pop cx                           ; 0x2bc8
     mov word [bp - 6], ax            ; 0x2bc9
     cmp ax, strict word 0            ; 0x2bcc
@@ -1297,7 +1297,7 @@ import_bane_party.forward62:
     push ax                          ; 0x2c3b
     push word [bp - 6]               ; 0x2c3c
     push word [party_char_count]     ; 0x2c3f
-    call api_idx_004c_MUGV           ; 0x2c43
+    call api_idx_004c_RQSO           ; 0x2c43
     add sp, byte 0xa                 ; 0x2c46
     inc word [bp - 0x18]             ; 0x2c49
     mov ax, word [bp - 0x18]         ; 0x2c4c
@@ -1329,7 +1329,7 @@ import_bane_party.back15:
     jmp near import_bane_party.forward70 ; 0x2c8b
 import_bane_party.forward66:
     push ax                          ; 0x2c8e
-    call loc_JJHG                    ; 0x2c8f
+    call map_bane_item_number        ; 0x2c8f
     pop cx                           ; 0x2c92
     mov word [bp - 6], ax            ; 0x2c93
     cmp ax, strict word 0            ; 0x2c96
@@ -1384,7 +1384,7 @@ import_bane_party.forward69:
     push ax                          ; 0x2d08
     push word [bp - 6]               ; 0x2d09
     push word [party_char_count]     ; 0x2d0c
-    call api_idx_004c_MUGV           ; 0x2d10
+    call api_idx_004c_RQSO           ; 0x2d10
     add sp, byte 0xa                 ; 0x2d13
     inc word [bp - 0x18]             ; 0x2d16
     mov ax, word [bp - 0x18]         ; 0x2d19
@@ -1411,7 +1411,7 @@ import_bane_party.forward72:
     shl ax, 1                        ; 0x2d4c
     mov bx, ax                       ; 0x2d4e
     push word [bx + bss_9442]        ; 0x2d50
-    call loc_JJHG                    ; 0x2d54
+    call map_bane_item_number        ; 0x2d54
     pop cx                           ; 0x2d57
     mov word [bp - 6], ax            ; 0x2d58
     cmp ax, strict word 0            ; 0x2d5b
@@ -1448,7 +1448,7 @@ import_bane_party.forward74:
     push ax                          ; 0x2da0
     push word [bp - 6]               ; 0x2da1
     push word [party_char_count]     ; 0x2da4
-    call api_idx_004c_MUGV           ; 0x2da8
+    call api_idx_004c_RQSO           ; 0x2da8
     add sp, byte 0xa                 ; 0x2dab
 import_bane_party.forward75:
     inc word [party_char_count]      ; 0x2dae

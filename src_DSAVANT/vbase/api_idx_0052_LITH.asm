@@ -39,7 +39,7 @@ jumptable_4688_case_1:
     mov al, byte [startup_option_byte] ; 0x4386
     sub ah, ah                       ; 0x4389
     push ax                          ; 0x438b
-    call loc_HOMM                    ; 0x438c
+    call draw_inset_two_digit_number ; 0x438c
     add sp, byte 6                   ; 0x438f
     jmp near api_idx_0052_LITH.return1 ; 0x4392
 jumptable_4688_case_2:
@@ -197,7 +197,7 @@ jumptable_4688_case_9:
     mov al, byte [music_volume]      ; 0x44f0
     sub ah, ah                       ; 0x44f3
     push ax                          ; 0x44f5
-    call loc_HOMM                    ; 0x44f6
+    call draw_inset_two_digit_number ; 0x44f6
     add sp, byte 6                   ; 0x44f9
     jmp near api_idx_0052_LITH.return1 ; 0x44fc
 jumptable_4688_case_10:
