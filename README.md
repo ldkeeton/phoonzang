@@ -58,7 +58,7 @@ Wizardry VII seems to have been originally compiled with Manx Aztec v4.2b
 
 ## Wizardry VII coverage
 
-Progress: **268 / 1226** (21.9%).
+Progress: **271 / 1099** (24.7%).
 
 ![C coverage heatmap](readme/heatmap.svg)
  
@@ -70,9 +70,9 @@ Run from the repo root.
 |---|---|
 | `make init` | sparse-clone only the dos_compilers folders listed in sidecars, |
 | `make libcheck` | rebuild Aztec v4.2b C.LIB from dos_compilers/aztec_src/ and compare to the shipped one |
-| `make all` | clean, prebuild (Aztec mux), build, verify all, |
+| `make all` | clean, headers, build, verify all, |
 | `make all notest` | the same, without the tests at the end |
-| `make build [PROJECT]` | asm + nasm + assets for every binary (seeds .c; |
+| `make build [PROJECT]` | asm + nasm + assets for every binary (default: all |
 | `make prebuild [PROJECT...]` | clean .cache, rebuild aztec libs + signature DB, run the Aztec C mux |
 | `make run PROJECT` | run game in dosbox-x |
 | `make verify [PROJECT...]` | verify one or all projects |
@@ -89,7 +89,7 @@ Run from the repo root.
 | `make charts` | regenerate all PNGs + CSVs from existing stats |
 | `make readme` | regenerate README.md + readme/heatmap.svg |
 | `make test [TEST...]` | run the unit test suite in disassembler/tests (optionally |
-| `make test slow` | run only the @slow tests (>= 100 ms) |
+| `make test measure` | time every test with the budget off; list the slow ones |
 | `make set-baseline` | # pin -> .cache/_baseline |
 | `make stats-diff` | # read the delta |
 

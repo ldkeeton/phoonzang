@@ -1303,6 +1303,8 @@
         "41d9": {"name": "draw_message_at_position", "note": "Load and draw a message at coordinates, centering it for negative x"},
         "4237": {"name": "draw_setting_slider_markers", "note": "Draws the two setting slider endpoint glyphs at a chosen row."},
         "4284": {"name": "draw_inset_two_digit_number", "note": "Draw a two-digit number inside a small inset panel at the given position"},
+        "42d5": {"name": "draw_configuration_box_text", "note": "Draw framed text at a position"},
+        "4327": {"name": "draw_configuration_control", "note": "Draw a configuration control at the dialog origin"},
         "46aa": {"name": "draw_configuration_number", "note": "Clear and display a two-column configuration number"},
         "4719": {"name": "draw_configuration_text", "note": "Draw a framed configuration text field and expose it"},
         "47ad": {"name": "refresh_configuration_button", "note": "Refresh the border and exposed area of a configuration button"},

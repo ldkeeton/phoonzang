@@ -263,9 +263,9 @@ jumptable_1ee4         equ api_idx_0004_MMTP.jumptable1
 
 %include "vbase/draw_inset_two_digit_number.asm" ; 0x4292
 
-%include "vbase/loc_RSMG.asm"              ; 0x42e3
+%include "vbase/draw_configuration_box_text.asm" ; 0x42e3
 
-%include "vbase/api_idx_0052_LITH.asm"     ; 0x4335
+%include "vbase/draw_configuration_control.asm" ; 0x4335
 
 %include "vbase/draw_configuration_number.asm" ; 0x46b8
 
