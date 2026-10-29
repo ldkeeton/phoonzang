@@ -1,3 +1,0 @@
-; auto-generated
-drv_slot_get_mouse:
-    db 0x5f, 0x01, 0x00, 0x00

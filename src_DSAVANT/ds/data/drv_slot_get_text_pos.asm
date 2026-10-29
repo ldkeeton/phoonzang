@@ -1,3 +1,0 @@
-; auto-generated
-drv_slot_get_text_pos:
-    db 0x3b, 0x01, 0x00, 0x00

@@ -1,3 +1,0 @@
-; auto-generated
-drv_slot_mouse_glide_to:
-    db 0x87, 0x01, 0x00, 0x00

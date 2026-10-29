@@ -8,6 +8,7 @@ import unittest
 from lib.compare.splitting import _partition_function_records
 from lib.sidecar.binary import (_validate_function_names, fragment_files,
                                 head_label)
+from lib.sidecar.data_names import _validate_data_names
 from lib.sidecar.bands import parse_bands
 from lib.sidecar.errors import SidecarError
 from main import aztec
@@ -30,6 +31,24 @@ class ValidateTest(unittest.TestCase):
                  '20': {'name': 'call_b', 'length': 4, 'file': 'grp'}}):
             with self.subTest(block=block), self.assertRaises(SidecarError):
                 _validate_function_names(block, 'x')
+
+
+class DataFileTest(unittest.TestCase):
+    """``data_names``/``code_data_names`` take ``file`` by the same rules."""
+
+    def test_accepts_file_on_a_span(self):
+        _validate_data_names(
+            {'10': {'name': 'slot_a', 'length': 8, 'file': 'slots'}}, 'x')
+
+    def test_rejects(self):
+        for block in (
+                {'10': {'name': 'slot_a', 'file': 'slots'}},
+                {'10': {'name': 'slot_a', 'length': 8, 'file': 'slot_b'},
+                 '20': {'name': 'slot_b'}},
+                {'10': {'name': 'slot_a', 'length': 4, 'file': 'grp'},
+                 '20': {'name': 'slot_b', 'length': 4, 'file': 'grp'}}):
+            with self.subTest(block=block), self.assertRaises(SidecarError):
+                _validate_data_names(block, 'x')
 
 
 class HelpersTest(unittest.TestCase):

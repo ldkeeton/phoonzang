@@ -72,49 +72,65 @@ def merge_promotions(accepted, data_pointers):
     return [merged[offset] for offset in sorted(merged)]
 
 
-def _split_records(records, binary_data, offset, expr):
-    """Swap the two bytes at *offset* for a ``data_ptr`` record, or None.
+def _split_records(records, binary_data, offset, expr, size=2):
+    """Swap the *size* bytes at *offset* for a ``data_ptr`` record, or None.
 
-    *offset* must be even and covered by a single ``data_block`` or by two
+    The bytes must be covered by a single ``data_block`` or by *size*
     adjacent one-byte ``db`` records; anything else (a mnemonic, a jump table,
     a partial overlap) returns ``None`` so the caller keeps the word raw.
     """
+    end = offset + size
     hits = []
     for i, rec in enumerate(records):
         if rec['type'] == 'label':
             continue
         s, e = _record_span(rec)
-        if s < offset + 2 and e > offset:
+        if s < end and e > offset:
             hits.append((i, rec, s, e))
     if not hits:
         return None
 
-    if len(hits) == 1 and hits[0][1]['type'] == 'data_block':
+    if (len(hits) == 1 and hits[0][1]['type'] == 'data_block'
+            and hits[0][2] <= offset and hits[0][3] >= end):
         i, rec, s, e = hits[0]
         out = list(records[:i])
         if s < offset:
             out.append({**rec, 'end': offset,
                         'bytes': [f'0x{b:02x}' for b in binary_data[s:offset]]})
-        out.append({'type': 'data_ptr', 'offset': offset, 'size': 2,
+        out.append({'type': 'data_ptr', 'offset': offset, 'size': size,
                     'text': expr})
-        if e > offset + 2:
-            out.append({**rec, 'start': offset + 2,
+        if e > end:
+            out.append({**rec, 'start': end,
                         'bytes': [f'0x{b:02x}'
-                                  for b in binary_data[offset + 2:e]]})
+                                  for b in binary_data[end:e]]})
         out.extend(records[i + 1:])
         return out
 
-    if (len(hits) == 2
+    if (len(hits) == size
             and all(r['type'] in ('db', 'db_with_comment')
                     for _, r, _, _ in hits)
             and all(r.get('size', 1) == 1 for _, r, _, _ in hits)
-            and hits[0][2] == offset and hits[1][2] == offset + 1):
+            and [h[2] for h in hits] == list(range(offset, end))):
         out = list(records[:hits[0][0]])
-        out.append({'type': 'data_ptr', 'offset': offset, 'size': 2,
+        out.append({'type': 'data_ptr', 'offset': offset, 'size': size,
                     'text': expr})
-        out.extend(records[hits[1][0] + 1:])
+        out.extend(records[hits[-1][0] + 1:])
         return out
     return None
+
+
+def promote_far_words(records, binary_data, words):
+    """Splice a ``dw`` for each far pointer in *words* (``{offset: text}``,
+    *text* spelling both words), keeping the raw bytes where the records do
+    not allow it.  Returns ``(records, skipped offsets)``."""
+    skipped = []
+    for offset, text in sorted(words.items()):
+        out = _split_records(records, binary_data, offset, text, size=4)
+        if out is None:
+            skipped.append(offset)
+        else:
+            records = out
+    return records, skipped
 
 
 def _check_array_word(binary_data, data_origin, bss_boundary, table, offset,

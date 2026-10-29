@@ -467,6 +467,7 @@
       "driver_slots": [
         {
           "offset": "2f87",
+          "file": "drv_slots_video",
           "count": 55,
           "driver": "ega",
           "prefix": "call",
@@ -475,6 +476,7 @@
         },
         {
           "offset": "2f67",
+          "file": "drv_slots_play",
           "count": 8,
           "driver": "play",
           "prefix": "call",
@@ -1185,6 +1187,11 @@
         "9a34": {"name": "loaded_state_status_offset", "note": "Loaded state status_offset field"},
         "9a4a": {"name": "loaded_state_member_count", "note": "Field member_count of loaded_game_state"},
         "9a4c": {"name": "loaded_party_member", "note": "584 byte staging record for a loaded party member"},
+        "9c94": {"name": "base_palette_rgb", "note": "256 source palette entries with three unsigned six bit components"},
+        "9f94": {"name": "adjusted_palette_rgb", "note": "256 adjusted RGB palette entries"},
+        "9f95": {"name": "adjusted_palette_green", "note": "Green component of the first adjusted palette entry"},
+        "9f96": {"name": "adjusted_palette_blue", "note": "Blue component of the first adjusted palette entry"},
+        "a294": {"name": "quantized_rgb_lookup", "note": "Eight by eight by eight RGB cells holding palette indexes or 255 when unfilled"},
         "a600": {"name": "scene_clip_arg", "note": "last argument to draw_char_clipped_top in scenes 4 and 5; grows by 2 per frame up to 100"},
         "a5fe": {"name": "scene_step_d", "note": "per-scene animation step counter"},
         "a5fc": {"name": "scene_step_c", "note": "per-scene animation step counter"},
@@ -1257,6 +1264,7 @@
         "14ff": {"name": "show_load_disk_error", "note": "Show disk error text and wait for input"},
         "1fa1": {"name": "import_bane_party", "note": "Import party records from a Bane save file"},
         "2fe1": {"name": "load_game_data", "note": "Load game state blocks and restore device settings"},
+        "4052": {"name": "adjust_palette_and_rgb_lookup", "note": "Adjusts palette brightness and contrast and rebuilds the quantized RGB lookup"},
         "62d7": {"name": "copy_protection_prompt", "note": "draws four clue lines from the code characters and reads the answer word"},
         "6657": {"name": "begin_game", "note": "starts a game after loading: resets party and maze state and shows the intro"},
         "6fcc": {"name": "load_screen_file", "note": "Load a screen file and optionally show it immediately or fade it in"},

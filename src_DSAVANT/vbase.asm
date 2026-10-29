@@ -146,11 +146,11 @@ loaded_state_status equ __zdseg_end + (__zobss_9a32 - __zdata_start)
 loaded_state_status_offset equ __zdseg_end + (__zobss_9a34 - __zdata_start)
 loaded_state_member_count equ __zdseg_end + (__zobss_9a4a - __zdata_start)
 loaded_party_member equ __zdseg_end + (__zobss_9a4c - __zdata_start)
-bss_9c94 equ __zdseg_end + (__zobss_9c94 - __zdata_start)
-bss_9f94 equ __zdseg_end + (__zobss_9f94 - __zdata_start)
-bss_9f95 equ __zdseg_end + (__zobss_9f95 - __zdata_start)
-bss_9f96 equ __zdseg_end + (__zobss_9f96 - __zdata_start)
-bss_a294 equ __zdseg_end + (__zobss_a294 - __zdata_start)
+base_palette_rgb equ __zdseg_end + (__zobss_9c94 - __zdata_start)
+adjusted_palette_rgb equ __zdseg_end + (__zobss_9f94 - __zdata_start)
+adjusted_palette_green equ __zdseg_end + (__zobss_9f95 - __zdata_start)
+adjusted_palette_blue equ __zdseg_end + (__zobss_9f96 - __zdata_start)
+quantized_rgb_lookup equ __zdseg_end + (__zobss_a294 - __zdata_start)
 copy_protection_result equ __zdseg_end + (__zobss_a494 - __zdata_start)
 scene_index equ __zdseg_end + (__zobss_a4a4 - __zdata_start)
 bss_a4a6 equ __zdseg_end + (__zobss_a4a6 - __zdata_start)
@@ -256,7 +256,7 @@ jumptable_1ee4         equ api_idx_0004_MMTP.jumptable1
 
 %include "vbase/api_idx_0002_QRVU.asm"     ; 0x3fac
 
-%include "vbase/api_idx_000c_NLKU.asm"     ; 0x4060
+%include "vbase/adjust_palette_and_rgb_lookup.asm" ; 0x4060
 
 %include "vbase/api_idx_0050_NKOU.asm"     ; 0x41e7
 

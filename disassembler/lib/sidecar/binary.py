@@ -7,7 +7,8 @@ from .bands import _validate_bands, parse_bands
 from .char_tables import _char_tables, _validate_char_tables
 from .compiler import _validate_compiler_flags
 from .constants import _BINARY_TYPES, _IDENTIFIER
-from .data_names import _data_names_map, _validate_data_names
+from .data_names import (_data_names_map, _validate_data_names,
+                         _validate_file_stems)
 from .errors import SidecarError
 from .external_data import _external_data_map, _validate_external_data
 from .offsets import _parse_offset
@@ -122,7 +123,7 @@ def _validate_driver_slots(tables, where):
     through (``offset``/``count``), each with the binary whose
     ``dispatch_table`` it points into (``driver``) and the ``prefix`` its
     thunks are named with; an optional ``slot_prefix`` names the far pointers
-    themselves."""
+    themselves, and an optional ``file`` makes the table one data file."""
     if not isinstance(tables, list):
         raise SidecarError(f'{where} must be a list')
     for index, slots in enumerate(tables):
@@ -139,6 +140,10 @@ def _validate_driver_slots(tables, where):
                 and _IDENTIFIER.match(slots['prefix'])):
             raise SidecarError(f'{at}.prefix must be an identifier: the '
                                'thunks are named <prefix>_<entry name>')
+        if 'file' in slots and not (isinstance(slots['file'], str)
+                                    and _IDENTIFIER.match(slots['file'])):
+            raise SidecarError(f'{at}.file must be an identifier: the '
+                               'pointers are one data file of that name')
         if 'slot_prefix' in slots and not (
                 isinstance(slots['slot_prefix'], str)
                 and _IDENTIFIER.match(slots['slot_prefix'])):
@@ -304,22 +309,7 @@ def _validate_function_names(block, where):
             raise SidecarError(f'{where}[{second}].length: overlaps [{first}]')
     # ``file`` names a grouped fragment's .asm and its .c/.s instead of the
     # head label; the label stays the routine's name everywhere else.
-    names = {info['name'] for info in block.values() if 'name' in info}
-    files = {}
-    for key, info in block.items():
-        if 'file' not in info:
-            continue
-        stem = info['file']
-        at = f'{where}[{key}].file'
-        if not isinstance(stem, str) or not _IDENTIFIER.match(stem):
-            raise SidecarError(f'{at}: expected an identifier')
-        if 'length' not in info:
-            raise SidecarError(f'{at}: needs "length" on the same entry')
-        if stem in names:
-            raise SidecarError(f'{at}: {stem!r} is a routine name')
-        if stem in files:
-            raise SidecarError(f'{at}: {stem!r} is also [{files[stem]}].file')
-        files[stem] = key
+    _validate_file_stems(block, where, 'routine')
 
 
 def fragment_lengths(entry, start_offset=0):

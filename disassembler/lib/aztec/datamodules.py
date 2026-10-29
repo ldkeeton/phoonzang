@@ -22,16 +22,18 @@ from .build_db import LIB_DIRS
 from .objread import external_label
 
 #: *file* is the vendor source (``stksiz.c``); *publics* ``((label, offset),
-#: ...)`` in offset order; *data* the module's initialized bytes.
-DataModule = namedtuple('DataModule', 'file publics data declared',
-                       defaults=(False,))
+#: ...)`` in offset order; *data* the module's initialized bytes; *name* a
+#: sidecar ``file`` that names the fragment instead of its objects.
+DataModule = namedtuple('DataModule', 'file publics data declared name',
+                       defaults=(False, None))
 
 
 def declared_data_modules(entry, segments, image):
     """Explicit data_names lengths, independent of vendor prebuild discovery.
 
     Lengths are bytes, starting at the named DS object. Interior public names
-    remain at their addresses; the file takes its first object's stem.
+    remain at their addresses; the file takes its first object's stem, or the
+    entry's ``file``.
     """
     if segments is None or segments.kind == 'overlay':
         return ()
@@ -52,16 +54,19 @@ def declared_data_modules(entry, segments, image):
         publics = tuple((item['name'], at - offset)
                         for at, item in sorted(names.items())
                         if offset <= at < end)
-        filename = info['name'].strip('_') + '.c'
+        filename = info.get('file', info['name'].strip('_')) + '.c'
         result.append(DataModule(filename, publics,
-                                 bytes(image[origin + offset:origin + end]), True))
+                                 bytes(image[origin + offset:origin + end]), True,
+                                 info.get('file')))
         previous_end = end
     return tuple(result)
 
 
 def stem(module):
     """The fragment's name: its object's, or the vendor file's for several
-    (``ctp_``, ``stksiz``)."""
+    (``ctp_``, ``stksiz``), unless the sidecar names it."""
+    if module.name:
+        return module.name
     if len(module.publics) == 1:
         return module.publics[0][0]
     return os.path.splitext(module.file)[0]

@@ -330,8 +330,14 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
            foreign_pointer_params=None,
            message_calls=(), message_names=None, message_bases=None,
            foreign_message_params=None,
-           sidecar_use=None, bands=(), data_modules=()):
+           sidecar_use=None, bands=(), data_modules=(),
+           driver_slot_words=None, drivers_inc=None, data_groups=()):
     """Produce NASM source text from *binary_data* and *instructions*.
+
+    *driver_slot_words* ``{offset: text}`` are the ``driver_slots`` far
+    pointers, spelled with the entry macros *drivers_inc* defines
+    (:mod:`lib.match.driver_slots`).  *data_groups* ``[(start, end, stem)]``
+    are sidecar-declared spans of data that make one file each.
 
     *sidecar_use* (a :class:`lib.sidecar.usage.SidecarUse`) learns which of
     the sidecar entries handed in here were applied.  *bands* (the sidecar's,
@@ -1321,6 +1327,14 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
     if sidecar_use is not None:
         _note_pointer_corpus(sidecar_use, data_pointers, not_pointers,
                              promotion_report, segments, emit_class)
+    if driver_slot_words:
+        from lib.compare.promote import promote_far_words
+        records, kept_raw = promote_far_words(records, binary_data,
+                                              driver_slot_words)
+        if kept_raw:
+            raise ValueError('driver_slots: no data record holds the far '
+                             'pointer(s) at ' + ', '.join(
+                                 f'0x{off:04x}' for off in kept_raw))
 
     stagelog.step('verify.pointer_promotion', 2, track={'labels': _label_records(records)},
                   metrics={'records': len(records)})
@@ -1407,6 +1421,8 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
         message_symbols=message_symbols,
         message_inc=message_inc,
         file_stems=fragment_files,
+        drivers_inc=drivers_inc if driver_slot_words else None,
+        data_groups=data_groups,
     )
     t6 = time.perf_counter()
     progress.log(f'{name} | verify: source built')

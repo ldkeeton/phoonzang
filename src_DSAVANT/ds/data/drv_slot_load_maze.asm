@@ -1,3 +1,0 @@
-; auto-generated
-drv_slot_load_maze:
-    db 0x23, 0x01, 0x00, 0x00

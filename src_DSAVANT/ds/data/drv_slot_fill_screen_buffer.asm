@@ -1,3 +1,0 @@
-; auto-generated
-drv_slot_fill_screen_buffer:
-    db 0x3f, 0x01, 0x00, 0x00

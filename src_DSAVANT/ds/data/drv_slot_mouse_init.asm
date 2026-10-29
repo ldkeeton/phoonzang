@@ -1,3 +1,0 @@
-; auto-generated
-drv_slot_mouse_init:
-    db 0x03, 0x01, 0x00, 0x00

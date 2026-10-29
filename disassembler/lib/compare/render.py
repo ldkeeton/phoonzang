@@ -5,6 +5,7 @@ import struct
 
 from lib.compare.splitting import (_partition_function_records,
                                    _select_data_ranges,
+                                   _group_data_ranges,
                                    _select_leftover_data_ranges)
 from lib.names import data_space, generic_prefix
 from lib.symtab import GENERIC, Kind, Space, Symbol
@@ -847,6 +848,15 @@ def _structs_include_lines(structs_inc):
     return [f'%include "{STRUCTS_INC}"']
 
 
+def _drivers_include_lines(drivers_inc):
+    """The line that pulls in the driver entry macros, when the binary calls
+    a driver through ``driver_slots``."""
+    if not drivers_inc:
+        return []
+    from lib.match.driver_slots import DRIVERS_INC
+    return [f'%include "{DRIVERS_INC}"']
+
+
 def _message_include_lines(message_inc):
     """The line that pulls in the binary's message-id constants, if any."""
     if not message_inc:
@@ -918,12 +928,18 @@ def _build_source(records, start_offset, binary_data, label_map=None, show_offse
                   label_defined=None, ds_size=None, host_symbols=None,
                   host_data_offsets=None, load_offset=0, overlay_own=None,
                   bands=(), data_modules=(), structs_inc=None,
-                  message_symbols=None, message_inc=None, file_stems=None):
+                  message_symbols=None, message_inc=None, file_stems=None,
+                  drivers_inc=None, data_groups=()):
     """Render the master NASM source and any generated includes.
 
     *structs_inc* is the text of the host family's record layouts
     (:func:`lib.record_layout.inc_text`): the master includes it first, and
     it is emitted to ``STRUCTS_INC`` once, like ``HOST_SYMBOLS_INC``.
+    *drivers_inc* (:func:`lib.match.driver_slots.inc_text`) is emitted to
+    ``DRIVERS_INC`` the same way.
+
+    *data_groups* ``[(start, end, stem)]`` are sidecar-declared spans of data
+    that make one file each, labels inside kept.
 
     *host_symbols* is ``(master_file, host_vbase)`` for an overlay with a host:
     the master pulls the host source in through ``HOST_SYMBOLS_INC`` -- which is
@@ -956,6 +972,7 @@ def _build_source(records, start_offset, binary_data, label_map=None, show_offse
         vbase_text = (f'{corg_symbol} - 0x{start_offset:04x}' if corg_symbol
                       else _signed_hex(vbase))
         out = ['bits 16', *_structs_include_lines(structs_inc),
+               *_drivers_include_lines(drivers_inc),
                *_message_include_lines(message_inc)]
         if host_symbols:
             # The host source comes *first*: it defines the absolute anchor the
@@ -974,6 +991,7 @@ def _build_source(records, start_offset, binary_data, label_map=None, show_offse
             out.append('section .text vstart=VBASE')
     else:
         out = ['org 0', 'bits 16', *_structs_include_lines(structs_inc),
+               *_drivers_include_lines(drivers_inc),
                *_message_include_lines(message_inc)]
     code_value = (lambda addr: f'0x{addr:04x} + VBASE') if vbase else (
         lambda addr: f'0x{addr:04x}')
@@ -1276,6 +1294,7 @@ def _build_source(records, start_offset, binary_data, label_map=None, show_offse
     records = _split_ds_start(records, gap)
     data_ranges = _select_data_ranges(records, data_roots, binary_data,
                                       data_modules)
+    data_ranges = _group_data_ranges(data_ranges, records, data_groups)
     # Every other data byte too: the master file is layout only.
     data_ranges = sorted([*data_ranges, *_select_leftover_data_ranges(
         records, [*(split_ranges or ()), *data_ranges],
@@ -1312,6 +1331,9 @@ def _build_source(records, start_offset, binary_data, label_map=None, show_offse
     if structs_inc:
         from lib.record_layout import STRUCTS_INC
         split_sources[STRUCTS_INC] = structs_inc
+    if drivers_inc:
+        from lib.match.driver_slots import DRIVERS_INC
+        split_sources[DRIVERS_INC] = drivers_inc
     if is_mz or (start_offset >= 14 and len(binary_data) >= 14
                  and binary_data[:2] == b'\xf2\x00'):
         # End-of-image anchor for the dynamic header fields (e_cblp/e_cp,

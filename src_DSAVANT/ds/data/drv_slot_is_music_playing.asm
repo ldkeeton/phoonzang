@@ -1,3 +1,0 @@
-; auto-generated
-drv_slot_is_music_playing:
-    db 0xd3, 0x01, 0x00, 0x00

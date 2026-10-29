@@ -1,3 +1,0 @@
-; auto-generated
-drv_slot_fade_out:
-    db 0x7f, 0x01, 0x00, 0x00

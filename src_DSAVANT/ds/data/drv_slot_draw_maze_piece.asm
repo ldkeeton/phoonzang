@@ -1,3 +1,0 @@
-; auto-generated
-drv_slot_draw_maze_piece:
-    db 0x27, 0x01, 0x00, 0x00

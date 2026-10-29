@@ -1,3 +1,0 @@
-; auto-generated
-drv_slot_free_maze:
-    db 0x8f, 0x01, 0x00, 0x00

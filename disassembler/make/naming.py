@@ -685,8 +685,13 @@ def _derived_slot_pointer(project, sidecar, binary, symbol):
                 data, dict(slots, dispatch_table=table)).items():
             if name == symbol or (m and int(m.group(1), 16) == offset):
                 api_name = name[len(slots['slot_prefix']) + 1:]
-                slot = next(k for k, v in table['names'].items()
-                            if v == api_name)
+                slot = next((k for k, v in (table.get('names') or {}).items()
+                             if v == api_name), None)
+                if slot is None:
+                    return (f'{symbol}: {binary}.driver_slots'
+                            f'["{slots["offset"]}"] names it for an entry '
+                            f'{driver}.dispatch_table.names leaves unnamed; '
+                            f'name the entry in {driver}')
                 return (f'{symbol}: {binary}.driver_slots["{slots["offset"]}"]'
                         f' names it from {driver}.dispatch_table.names'
                         f'["{slot}"] {api_name!r}; name the slot from '

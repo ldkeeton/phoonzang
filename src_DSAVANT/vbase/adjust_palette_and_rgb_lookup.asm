@@ -1,5 +1,5 @@
 ; auto-generated
-api_idx_000c_NLKU:
+adjust_palette_and_rgb_lookup:
     mov ax, 0xfff4                   ; 0x4060
     call aztec_csav                  ; 0x4063
     mov word [bp - 2], 0             ; 0x4066
@@ -14,7 +14,7 @@ api_idx_000c_NLKU:
     imul word [bp - 2]               ; 0x407b
     add ax, word [bp - 4]            ; 0x407e
     mov bx, ax                       ; 0x4081
-    mov al, byte [bx + bss_9c94]     ; 0x4083
+    mov al, byte [bx + base_palette_rgb] ; 0x4083
     sub ah, ah                       ; 0x4087
     add ax, word [bp + 4]            ; 0x4089
     push ax                          ; 0x408c
@@ -27,7 +27,7 @@ api_idx_000c_NLKU:
     add ax, word [bp - 4]            ; 0x409c
     mov bx, ax                       ; 0x409f
     pop ax                           ; 0x40a1
-    mov byte [bx + bss_9f94], al     ; 0x40a2
+    mov byte [bx + adjusted_palette_rgb], al ; 0x40a2
     cmp al, 0x20                     ; 0x40a6
     jbe short .forward1              ; 0x40a8
     sub ah, ah                       ; 0x40aa
@@ -41,7 +41,7 @@ api_idx_000c_NLKU:
     push ax                          ; 0x40be
     mov ax, 0                        ; 0x40bf
     push ax                          ; 0x40c2
-    mov al, byte [bx + bss_9f94]     ; 0x40c3
+    mov al, byte [bx + adjusted_palette_rgb] ; 0x40c3
     sub ah, ah                       ; 0x40c7
     add ax, word [bp - 6]            ; 0x40c9
     push ax                          ; 0x40cc
@@ -54,16 +54,16 @@ api_idx_000c_NLKU:
     add ax, word [bp - 4]            ; 0x40dc
     mov bx, ax                       ; 0x40df
     pop ax                           ; 0x40e1
-    mov byte [bx + bss_9f94], al     ; 0x40e2
+    mov byte [bx + adjusted_palette_rgb], al ; 0x40e2
     jmp short .forward2              ; 0x40e6
 .forward1:
     mov ax, 3                        ; 0x40e8
     imul word [bp - 2]               ; 0x40eb
     add ax, word [bp - 4]            ; 0x40ee
     mov bx, ax                       ; 0x40f1
-    cmp byte [bx + bss_9f94], 0x20   ; 0x40f3
+    cmp byte [bx + adjusted_palette_rgb], 0x20 ; 0x40f3
     jae short .forward2              ; 0x40f8
-    mov al, byte [bx + bss_9f94]     ; 0x40fa
+    mov al, byte [bx + adjusted_palette_rgb] ; 0x40fa
     sub ah, ah                       ; 0x40fe
     mov cx, ax                       ; 0x4100
     mov ax, 0x20                     ; 0x4102
@@ -77,7 +77,7 @@ api_idx_000c_NLKU:
     push ax                          ; 0x4116
     mov ax, 0                        ; 0x4117
     push ax                          ; 0x411a
-    mov al, byte [bx + bss_9f94]     ; 0x411b
+    mov al, byte [bx + adjusted_palette_rgb] ; 0x411b
     sub ah, ah                       ; 0x411f
     sub ax, word [bp - 6]            ; 0x4121
     push ax                          ; 0x4124
@@ -90,7 +90,7 @@ api_idx_000c_NLKU:
     add ax, word [bp - 4]            ; 0x4134
     mov bx, ax                       ; 0x4137
     pop ax                           ; 0x4139
-    mov byte [bx + bss_9f94], al     ; 0x413a
+    mov byte [bx + adjusted_palette_rgb], al ; 0x413a
 .forward2:
     inc word [bp - 4]                ; 0x413e
     mov ax, word [bp - 4]            ; 0x4141
@@ -108,7 +108,7 @@ api_idx_000c_NLKU:
     push ax                          ; 0x415d
     mov ax, 0x200                    ; 0x415e
     push ax                          ; 0x4161
-    mov ax, bss_a294                 ; 0x4162
+    mov ax, quantized_rgb_lookup     ; 0x4162
     push ax                          ; 0x4165
     call aztec_setmem                ; 0x4166
     add sp, byte 6                   ; 0x4169
@@ -117,18 +117,18 @@ api_idx_000c_NLKU:
     mov ax, 3                        ; 0x4171
     imul word [bp - 2]               ; 0x4174
     mov bx, ax                       ; 0x4177
-    mov al, byte [bx + bss_9f94]     ; 0x4179
+    mov al, byte [bx + adjusted_palette_rgb] ; 0x4179
     sub ah, ah                       ; 0x417d
     mov cx, 8                        ; 0x417f
     cwd                              ; 0x4182
     idiv cx                          ; 0x4183
     mov word [bp - 8], ax            ; 0x4185
-    mov al, byte [bx + bss_9f95]     ; 0x4188
+    mov al, byte [bx + adjusted_palette_green] ; 0x4188
     sub ah, ah                       ; 0x418c
     cwd                              ; 0x418e
     idiv cx                          ; 0x418f
     mov word [bp - 0xa], ax          ; 0x4191
-    mov al, byte [bx + bss_9f96]     ; 0x4194
+    mov al, byte [bx + adjusted_palette_blue] ; 0x4194
     sub ah, ah                       ; 0x4198
     cwd                              ; 0x419a
     idiv cx                          ; 0x419b
@@ -145,7 +145,7 @@ api_idx_000c_NLKU:
     add cx, dx                       ; 0x41b6
     add cx, word [bp - 0xc]          ; 0x41b8
     mov bx, cx                       ; 0x41bb
-    mov byte [bx + bss_a294], al     ; 0x41bd
+    mov byte [bx + quantized_rgb_lookup], al ; 0x41bd
     inc word [bp - 2]                ; 0x41c1
     mov ax, word [bp - 2]            ; 0x41c4
     cmp ax, 0x100                    ; 0x41c7

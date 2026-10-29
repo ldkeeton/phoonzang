@@ -5,7 +5,8 @@ import unittest
 
 from lib.aztec.datamodules import DataModule
 from lib.compare.render import _note_data_root
-from lib.compare.splitting import (_partition_function_records,
+from lib.compare.splitting import (_group_data_ranges,
+                                   _partition_function_records,
                                    _select_data_ranges,
                                    _select_leftover_data_ranges)
 from lib.compare.records import _label_record
@@ -50,6 +51,36 @@ class SelectDataRangesTest(unittest.TestCase):
             data_starts={0x100})
         self.assertEqual(list(files), ['vinstall/data/ctp_.asm'])
         self.assertEqual(main[0]['text'], '%include "vinstall/data/ctp_.asm"')
+
+
+class GroupDataRangesTest(unittest.TestCase):
+    """A sidecar group (``driver_slots`` ``file``) is one file."""
+    RECORDS = [label('slot_a', 0x100), block(0x100, 0x104),
+               label('slot_b', 0x104),
+               {'type': 'data_ptr', 'offset': 0x104, 'size': 4, 'text': 'x'},
+               label('after', 0x108), block(0x108, 0x10c)]
+    RANGES = [(0x100, 0x104, 'slot_a'), (0x104, 0x108, 'slot_b'),
+              (0x108, 0x10c, 'after')]
+
+    def test_the_group_takes_the_ranges_inside_it(self):
+        self.assertEqual(
+            _group_data_ranges(self.RANGES, self.RECORDS,
+                               [(0x100, 0x108, 'slots')]),
+            [(0x100, 0x108, 'slots'), (0x108, 0x10c, 'after')])
+
+    def test_no_groups_changes_nothing(self):
+        self.assertIs(_group_data_ranges(self.RANGES, self.RECORDS, ()),
+                      self.RANGES)
+
+    def test_a_group_must_end_on_a_record_boundary(self):
+        with self.assertRaises(ValueError):
+            _group_data_ranges(self.RANGES, self.RECORDS,
+                               [(0x100, 0x106, 'slots')])
+
+    def test_a_group_holds_data_only(self):
+        records = [label('slot_a', 0x100), block(0x100, 0x104), mnem(0x104)]
+        with self.assertRaises(ValueError):
+            _group_data_ranges([], records, [(0x100, 0x105, 'slots')])
 
 
 def mnem(off, size=1):

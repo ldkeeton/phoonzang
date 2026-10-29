@@ -106,6 +106,18 @@ class SplitRecordTests(unittest.TestCase):
         self.assertEqual(out[1]['end'], 0x214)
         self.assertEqual(out[3]['start'], 0x216)
 
+    def test_splits_a_far_pointer(self):
+        binary = _synthetic()
+        records = _records(binary)
+        out, skipped = PR.promote_far_words(records, binary,
+                                            {0x214: 'gfx_entry(3), 0'})
+        self.assertEqual(skipped, [])
+        ptr = next(r for r in out if r['type'] == 'data_ptr')
+        self.assertEqual((ptr['offset'], ptr['size'], ptr['text']),
+                         (0x214, 4, 'gfx_entry(3), 0'))
+        self.assertEqual(next(r for r in out if r['type'] == 'data_block'
+                              and r['start'] == 0x218)['start'], 0x218)
+
     def test_refuses_a_mnemonic_span(self):
         binary = _synthetic()
         records = _records(binary)

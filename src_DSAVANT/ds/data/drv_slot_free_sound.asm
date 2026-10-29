@@ -1,3 +1,0 @@
-; auto-generated
-drv_slot_free_sound:
-    db 0xb7, 0x01, 0x00, 0x00

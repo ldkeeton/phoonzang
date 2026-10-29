@@ -1,3 +1,0 @@
-; auto-generated
-drv_slot_restore_area:
-    db 0x57, 0x01, 0x00, 0x00

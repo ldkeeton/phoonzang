@@ -387,6 +387,38 @@ def _select_data_ranges(records, roots, binary_data=None, modules=()):
     return ranges
 
 
+def _group_data_ranges(ranges, records, groups):
+    """*ranges* with each declared group ``(start, end, stem)`` made one file.
+
+    A group is the sidecar's (a ``driver_slots`` ``file``, a CS
+    ``code_data_names`` ``length``): it takes the ranges inside it, keeps the
+    labels inside it, and must cover data records only, from a record
+    boundary to a record boundary.
+    """
+    if not groups:
+        return ranges
+    from lib.compare.render import _DATA_RECORD_TYPES
+    spans = [_record_span(rec) + (rec['type'],) for rec in records
+             if rec['type'] != 'label']
+    for start, end, stem in groups:
+        for lo, hi, kind in spans:
+            if hi <= start or lo >= end or lo == hi:
+                continue
+            if lo < start or hi > end:
+                raise ValueError(f'{stem}: 0x{start:04x}..0x{end:04x} cuts the '
+                                 f'record at 0x{lo:04x}..0x{hi:04x}')
+            if kind not in _DATA_RECORD_TYPES + ('data_ptr',):
+                raise ValueError(f'{stem}: 0x{start:04x}..0x{end:04x} holds a '
+                                 f'{kind} record at 0x{lo:04x}')
+        for lo, hi, name in ranges:
+            if lo < end and hi > start and not (start <= lo and hi <= end):
+                raise ValueError(f'{stem}: 0x{start:04x}..0x{end:04x} overlaps '
+                                 f'{name} at 0x{lo:04x}..0x{hi:04x}')
+        ranges = [r for r in ranges if not (start <= r[0] and r[1] <= end)]
+        ranges.append((start, end, stem))
+    return sorted(ranges)
+
+
 #: Layout labels: the image's own frame (header sizes, the BSS block), never an
 #: object's.  They stay in the master file, ahead of a fragment that starts on
 #: the same byte.

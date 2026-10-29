@@ -1,3 +1,0 @@
-; auto-generated
-drv_slot_reset_rgb:
-    db 0x83, 0x01, 0x00, 0x00

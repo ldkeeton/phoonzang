@@ -1,3 +1,0 @@
-; auto-generated
-drv_slot_wait_sound:
-    db 0xbf, 0x01, 0x00, 0x00

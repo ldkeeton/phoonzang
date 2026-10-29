@@ -1,3 +1,0 @@
-; auto-generated
-drv_slot_get_palette:
-    db 0x97, 0x01, 0x00, 0x00

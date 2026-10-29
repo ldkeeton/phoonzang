@@ -28,7 +28,7 @@ loc_RMVR:
 .forward1:
     mov ax, 0x300                    ; 0x4d4a
     push ax                          ; 0x4d4d
-    mov ax, bss_9c94                 ; 0x4d4e
+    mov ax, base_palette_rgb         ; 0x4d4e
     push ax                          ; 0x4d51
     push word [bp - 6]               ; 0x4d52
     call aztec_read                  ; 0x4d55
@@ -1791,7 +1791,7 @@ jumptable_5e7f_case_19:
     mov al, byte [palette_base_setting] ; 0x5d08
     cbw                              ; 0x5d0b
     push ax                          ; 0x5d0c
-    call api_idx_000c_NLKU           ; 0x5d0d
+    call adjust_palette_and_rgb_lookup ; 0x5d0d
     add sp, byte 4                   ; 0x5d10
     jmp near loc_RMVR.forward43      ; 0x5d13
 jumptable_5e7f_case_20:
@@ -1815,7 +1815,7 @@ jumptable_5e7f_case_20:
     mov al, byte [palette_base_setting] ; 0x5d3d
     cbw                              ; 0x5d40
     push ax                          ; 0x5d41
-    call api_idx_000c_NLKU           ; 0x5d42
+    call adjust_palette_and_rgb_lookup ; 0x5d42
     add sp, byte 4                   ; 0x5d45
     jmp near loc_RMVR.forward43      ; 0x5d48
 jumptable_5e7f_case_21:
@@ -1839,7 +1839,7 @@ jumptable_5e7f_case_21:
     mov al, byte [palette_base_setting] ; 0x5d72
     cbw                              ; 0x5d75
     push ax                          ; 0x5d76
-    call api_idx_000c_NLKU           ; 0x5d77
+    call adjust_palette_and_rgb_lookup ; 0x5d77
     add sp, byte 4                   ; 0x5d7a
     jmp near loc_RMVR.forward43      ; 0x5d7d
 jumptable_5e7f_case_22:
@@ -1862,7 +1862,7 @@ jumptable_5e7f_case_22:
     mov al, byte [palette_base_setting] ; 0x5da4
     cbw                              ; 0x5da7
     push ax                          ; 0x5da8
-    call api_idx_000c_NLKU           ; 0x5da9
+    call adjust_palette_and_rgb_lookup ; 0x5da9
     add sp, byte 4                   ; 0x5dac
     jmp near loc_RMVR.forward43      ; 0x5daf
 jumptable_5e7f_case_23:
@@ -1951,7 +1951,7 @@ jumptable_5e7f_case_24:
     mov al, byte [palette_base_setting] ; 0x5e72
     cbw                              ; 0x5e75
     push ax                          ; 0x5e76
-    call api_idx_000c_NLKU           ; 0x5e77
+    call adjust_palette_and_rgb_lookup ; 0x5e77
     add sp, byte 4                   ; 0x5e7a
     jmp short loc_RMVR.forward43     ; 0x5e7d
 jumptable_5e7f:

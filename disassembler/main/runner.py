@@ -30,8 +30,8 @@ from lib.verify.assemble import assemble_stats, reset_assemble_stats
 from lib.match.pattern import match_patterns
 from lib.match.trampoline import match_trampolines
 from lib.match.driver_slots import (driver_thunk_entries, entry_handlers,
-                                    thunk_pointer_args,
-                                    slot_names, thunk_name)
+                                    thunk_pointer_args, inc_text as drivers_inc_text,
+                                    slot_names, slot_words, thunk_name)
 from lib.match.categorize import categorize_call_targets
 from lib.phases.settle import SettlePhase
 from lib.phases.forcecode import ForceCodePhase
@@ -795,6 +795,34 @@ def _apply_driver_slot_names(segments, sidecar_entry, data):
     return named
 
 
+def _driver_slot_render(sidecar_entry, data):
+    """The ``driver_slots`` far pointers spelled as driver entries: the
+    ``driver_slot_words`` and ``drivers_inc`` verify emits."""
+    tables = (sidecar_entry or {}).get('driver_slots') or ()
+    words = {}
+    for slots in tables:
+        words.update(slot_words(data, slots))
+    return {'driver_slot_words': words,
+            'drivers_inc': drivers_inc_text(tables) if words else None}
+
+
+def _declared_cs_data_groups(sidecar_entry):
+    """``[(start, end, stem)]``: the CS data the sidecar makes one file each,
+    a ``driver_slots`` table with a ``file`` and a ``code_data_names``
+    entry with a ``length`` (named by its ``file``, else its name)."""
+    entry = sidecar_entry or {}
+    groups = []
+    for slots in entry.get('driver_slots') or ():
+        if slots.get('file'):
+            start = int(slots['offset'], 16)
+            groups.append((start, start + 4 * slots['count'], slots['file']))
+    for offset, info in (entry.get('code_data_names') or {}).items():
+        if 'length' in info:
+            groups.append((offset, offset + info['length'],
+                           info.get('file', info['name'])))
+    return groups
+
+
 def _apply_sidecar_code_data_names(segments, sidecar_entry, derived=None):
     """Name the CS-reached data the sidecar's ``code_data_names`` names.
 
@@ -966,6 +994,8 @@ def _render(a, exact_bytes, show_offsets, host_data_offsets,
         bands=(ctx.sidecar_entry or {}).get('bands') or (),
         data_modules=(*(vendor_data_modules(project) if project else ()),
                       *declared_data_modules(ctx.sidecar_entry, ctx.segments, data)),
+        **_driver_slot_render(ctx.sidecar_entry, data),
+        data_groups=_declared_cs_data_groups(ctx.sidecar_entry),
     )
     stagelog.step('verify', 1, metrics={'lines': asm_text.count('\\n')})
     progress.log(f'{name} | verify done')

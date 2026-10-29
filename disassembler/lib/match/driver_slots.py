@@ -10,12 +10,20 @@ thunk is a routine whose whole body is::
 
 so the slot it calls says which entry it is: ``<prefix>_<api name>``, or
 ``<prefix>_entry_NN`` while the driver's ``dispatch_table`` leaves it unnamed.
+
+A slot's offset word is emitted as ``<driver>_entry(n)``, a macro
+:func:`inc_text` defines from the driver's ``dispatch_table`` and load base,
+so the table spells the entry it holds instead of a bare address in another
+image.  Its segment word is 0 until the loader patches it.
 """
 
 from capstone import Cs, CS_ARCH_X86, CS_MODE_16
 from capstone.x86 import X86_OP_MEM, X86_REG_CS, X86_REG_INVALID
 
 from lib.segments import _DRIVER_LOAD
+
+#: The generated include defining the entry macros (:func:`inc_text`).
+DRIVERS_INC = 'include/drivers.inc'
 
 _THUNK_SHAPE = ('push', 'mov', 'cld', 'lcall', 'mov', 'pop', 'ret')
 #: The thunk's argument 0 is word 4 of the handler's arguments
@@ -41,6 +49,61 @@ def _thunk_slot(md, data, off, start_offset):
     return (op.mem.disp & 0xFFFF) + start_offset
 
 
+def _entry_number(value, api):
+    """The dispatch entry a slot holding *value* points at, or None."""
+    n, rem = divmod(value - _DRIVER_LOAD - api['base_offset'],
+                    api['entry_size'])
+    if rem == 0 and 0 <= n < api['count']:
+        return n
+    return None
+
+
+def slot_entries(data, slots):
+    """``{pointer offset: entry number}`` for the far pointers of the declared
+    table whose offset word is an entry of the driver's ``dispatch_table``."""
+    api = slots['dispatch_table']
+    table = int(slots['offset'], 16)
+    out = {}
+    for slot in range(table, table + 4 * slots['count'], 4):
+        n = _entry_number(int.from_bytes(data[slot:slot + 2], 'little'), api)
+        if n is not None:
+            out[slot] = n
+    return out
+
+
+def entry_macro(slots):
+    """The macro a slot of *slots* spells its entry with: ``<driver>_entry``."""
+    return f"{slots['driver']}_entry"
+
+
+def slot_words(data, slots):
+    """``{pointer offset: dw text}`` for the far pointers of the declared
+    table: ``<driver>_entry(n), 0``, the segment word left to the loader."""
+    macro = entry_macro(slots)
+    return {off: f'{macro}({n}), 0'
+            for off, n in slot_entries(data, slots).items()}
+
+
+def inc_text(tables):
+    """The include defining each driver's entry macro, from the
+    ``dispatch_table`` (and load base) of every table in *tables*."""
+    macros = {}
+    for slots in tables:
+        api = slots['dispatch_table']
+        macros[entry_macro(slots)] = (
+            f'(0x{_DRIVER_LOAD:x} + 0x{api["base_offset"]:x}'
+            f' + 0x{api["entry_size"]:x}*(n))')
+    lines = ['; auto-generated',
+             '; Driver jump-table entries, as the driver is loaded',
+             '; (lib/match/driver_slots.py, sidecar dispatch_table).',
+             '%ifndef DRIVERS_INC',
+             '%define DRIVERS_INC']
+    lines.extend(f'%define {name}(n) {expr}'
+                 for name, expr in sorted(macros.items()))
+    lines.append('%endif')
+    return '\n'.join(lines) + '\n'
+
+
 def driver_thunk_entries(data, targets, slots, start_offset):
     """``{thunk offset: entry number}`` for each routine in *targets* that
     calls through a slot of the declared table.
@@ -58,32 +121,23 @@ def driver_thunk_entries(data, targets, slots, start_offset):
         slot = _thunk_slot(md, data, off, start_offset)
         if slot is None or not table <= slot < end or (slot - table) % 4:
             continue
-        value = int.from_bytes(data[slot:slot + 2], 'little')
-        n, rem = divmod(value - _DRIVER_LOAD - api['base_offset'],
-                        api['entry_size'])
-        if rem == 0 and 0 <= n < api['count']:
+        n = _entry_number(int.from_bytes(data[slot:slot + 2], 'little'), api)
+        if n is not None:
             entries[off] = n
     return entries
 
 
 def slot_names(data, slots):
     """``{pointer offset: name}`` for the far pointers of the declared table:
-    ``<slot_prefix>_<api name>`` of the entry each initially points at.  An
-    entry the driver's ``dispatch_table`` leaves unnamed gets none."""
+    ``<slot_prefix>_<api name>`` of the entry each initially points at, or
+    ``<slot_prefix>_entry_NN`` while the driver's ``dispatch_table`` leaves
+    it unnamed, so every pointer is an object of its own."""
     prefix = slots.get('slot_prefix')
     if not prefix:
         return {}
-    api = slots['dispatch_table']
-    names = api.get('names') or {}
-    table = int(slots['offset'], 16)
-    out = {}
-    for slot in range(table, table + 4 * slots['count'], 4):
-        value = int.from_bytes(data[slot:slot + 2], 'little')
-        n, rem = divmod(value - _DRIVER_LOAD - api['base_offset'],
-                        api['entry_size'])
-        if rem == 0 and names.get(str(n)):
-            out[slot] = f'{prefix}_{names[str(n)]}'
-    return out
+    names = slots['dispatch_table'].get('names') or {}
+    return {off: f"{prefix}_{names.get(str(n)) or f'entry_{n:02d}'}"
+            for off, n in slot_entries(data, slots).items()}
 
 
 def entry_handlers(data, table):

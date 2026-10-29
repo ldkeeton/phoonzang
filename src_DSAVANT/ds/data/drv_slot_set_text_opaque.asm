@@ -1,3 +1,0 @@
-; auto-generated
-drv_slot_set_text_opaque:
-    db 0x67, 0x01, 0x00, 0x00

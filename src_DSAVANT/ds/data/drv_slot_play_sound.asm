@@ -1,3 +1,0 @@
-; auto-generated
-drv_slot_play_sound:
-    db 0xbb, 0x01, 0x00, 0x00

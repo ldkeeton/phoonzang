@@ -1,3 +1,0 @@
-; auto-generated
-drv_slot_cache_maze:
-    db 0xab, 0x01, 0x00, 0x00

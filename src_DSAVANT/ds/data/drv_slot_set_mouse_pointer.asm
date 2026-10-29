@@ -1,3 +1,0 @@
-; auto-generated
-drv_slot_set_mouse_pointer:
-    db 0x63, 0x01, 0x00, 0x00

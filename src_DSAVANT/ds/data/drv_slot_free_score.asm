@@ -1,3 +1,0 @@
-; auto-generated
-drv_slot_free_score:
-    db 0xcf, 0x01, 0x00, 0x00

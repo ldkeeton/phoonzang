@@ -22,6 +22,8 @@ def _validate_data_names(block, where):
     An optional positive ``length`` owns that many initialized data bytes as
     one fragment, retaining labels inside it. The span must cover contiguous
     data objects and end on a record boundary; overlapping spans are invalid.
+    With ``length``, an optional ``file`` names that fragment instead of
+    the object, as a ``function_names`` ``file`` names a group of routines.
 
     An optional ``"record"`` names the object's record layout
     (:mod:`lib.record_layout`): ``{"name": "slot_rec", "size": n?, "fields":
@@ -49,6 +51,33 @@ def _validate_data_names(block, where):
             raise SidecarError(f'{at}.length must be a positive integer')
         if 'record' in info:
             _validate_record(info['record'], f'{at}.record')
+    _validate_file_stems(block, where, 'object')
+
+
+def _validate_file_stems(block, where, kind):
+    """The ``file`` keys of a ``function_names``/``data_names`` block.
+
+    ``file`` names a grouped fragment's .asm (and its .c/.s) instead of its
+    first *kind*'s name: it needs ``length`` on the same entry, is an
+    identifier, is no *kind* name of the block, and names one group only.
+    """
+    names = {info['name'] for info in block.values()
+             if isinstance(info, dict) and 'name' in info}
+    files = {}
+    for key, info in block.items():
+        if not isinstance(info, dict) or 'file' not in info:
+            continue
+        stem = info['file']
+        at = f'{where}[{key}].file'
+        if not isinstance(stem, str) or not _IDENTIFIER.match(stem):
+            raise SidecarError(f'{at}: expected an identifier')
+        if 'length' not in info:
+            raise SidecarError(f'{at}: needs "length" on the same entry')
+        if stem in names:
+            raise SidecarError(f'{at}: {stem!r} is a {kind} name')
+        if stem in files:
+            raise SidecarError(f'{at}: {stem!r} is also [{files[stem]}].file')
+        files[stem] = key
 
 
 def _validate_record(record, where):

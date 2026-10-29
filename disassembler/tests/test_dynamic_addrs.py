@@ -631,8 +631,9 @@ class DriverDispatchAbiTests(unittest.TestCase):
         """``DS.EXE`` holds a far pointer to every declared entry."""
         runs = sorted(c for _, c in far_entry_runs(self._image('DS.EXE')))
         # 8 slots for play.drv and 56 for the display driver: the display driver
-        # ships 55 entries, and its loader patches 55 segment words, so the 56th
-        # slot is a spare the host never calls.
+        # ships 55 entries, and its loader patches 55 segment words.  The 56th
+        # (0x1df, one past the last entry) is never called: load_video_driver
+        # reads it as where in the driver to copy the host's tables.
         self.assertEqual(runs, [8, 56])
         sidecar = load_sidecar('DSAVANT')
         for binary in ('play', 'ega', 'vga'):

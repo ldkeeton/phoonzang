@@ -1,3 +1,0 @@
-; auto-generated
-drv_slot_invert_area:
-    db 0x4f, 0x01, 0x00, 0x00
