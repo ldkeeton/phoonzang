@@ -124,7 +124,7 @@ def _has_prefix(insn, prefix_byte):
 
 
 def _fmt_num(v):
-    """Decimal below 10, otherwise ``0x`` + unpadded hex (matches deziggler ``num``)."""
+    """Decimal below 10, otherwise ``0x`` + unpadded hex."""
     return str(v) if v < 10 else f'0x{v:x}'
 
 
