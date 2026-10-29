@@ -1,29 +1,160 @@
-Reproduce {{asm}} as source that builds to byte-exact matching asm; never hand-edit the asm. Write {{c}} (K&R C for the Manx Aztec `cc`{{cstyle}}) only if `cc` could have generated this code; otherwise write {{s}} (Manx `as` assembly{{style}}).{{hand}}
+Reproduce {{asm}} as byte-exact source; never hand-edit generated asm. Write {{c}} in Manx Aztec K&R C{{cstyle}} only when its compiler could generate the code; otherwise write {{s}} in Manx assembly{{style}} using the project macros. Compiler flags: {{flags}}.{{hand}}
 
-Scope and naming. Preserve existing descriptive names, including the target routine's name. Naming work resolves unnamed symbols; it is not an opportunity to improve already-named routines, globals, fields, or aliases. Do not modify disassembler code, heuristics, rendering, symbol resolution, or tests to improve naming or asm presentation. If existing tooling cannot express a desired name or record layout, keep its supported spelling and report the limitation separately; do not expand the tooling as part of this task. A named standalone label and a named struct-field expression both count as named.
+Preserve existing descriptive names. Use declared structs and arrays instead of raw layout arithmetic in C. Keep changes scoped to the routine, necessary shared declarations, and unresolved-reference naming; do not change disassembler tooling. The sidecar is {{sidecar}}.
 
-Deciding the form. This binary's `cc` flags: {{flags}}. `make info`'s `tool` line shows them too; an `unrecorded` tool means no source exists yet, not that the code is C.
+1. Write the source with the routine still named {{label}}. Iterate with `make probe {{project}} {{binary}} {{label}}` and verify with `make rebuild {{project}} {{binary}} {{label}}` (for shared/ routines, omit the binary to check every donor).
+2. Give parameters and locals descriptive names (use equ names for assembly stack slots). Add a brief routine header and short comments explaining purpose at loops, branches, and magic numbers. Describe only what the code shows; use C89 comments in C.
+3. Independently check the target's name: if it is generated (such as api_idx_0002_GLIS), assign a descriptive name; preserve an already-descriptive target name. Run `make refs {{project}} {{binary}} {{label}}`. Name the listed unresolved references, excluding "label inside" rows, and the target if needed, in one `make name {{project}} {{binary}} SYMBOL=NAME:'note' ...` call. Add a descriptive note for each. New routine names use lowercase_underscore and preserve required prefixes. For referenced symbols, rename only those listed by make refs; this restriction does not apply to the target itself.
+4. Fix any rebuild failures after naming. Run make refs again to confirm no unresolved references remain except "label inside" rows. Finish with a full `make rebuild`.
+
+Do not finish until the target has a descriptive name, parameters and locals have descriptive names, required comments are present, unresolved references are named (except "label inside" rows), and the full rebuild passes. A clean make refs result does not verify the target's own name.
+
+Report only the routine's final name, or what remains unfinished and why. Report any tooling limitation separately if it affected the result.
+
+# Reversing one fragment
+
+A generated `<routine>.asm` is a fragment, not necessarily one routine. It ends
+at the next named routine, so a bare `loc_` callee can be glued after the root.
+
+## Splitting
+
+Companion `.c` and `.s` files are verification inputs. Their compiled code
+must fit the recorded routine span and pass the byte/semantic gate.
+
+`make info` shows the root and co-tenant spans. If a check
+reports `[DIFF]` against the whole fragment, compare the compiled length with
+the **root** size, not the old fragment size.
+
+## Loop
+
+```sh
+make info  PROJECT BIN ROUTINE    # span, co-tenants, callers, source, tool/flags, names
+make refs  PROJECT BIN ROUTINE    # symbols still needing names: value, space, width
+make data  PROJECT DS OFFSET      # bytes/BSS state at a DS object
+# write src_PROJECT/BIN/ROUTINE.c (or .s), first routine only
+make probe PROJECT BIN ROUTINE    # compile one source, no gate
+make build PROJECT                # after a split or rename changes the asm tree
+make rebuild PROJECT BIN ROUTINE
+make refs  PROJECT BIN ROUTINE    # final list to name
+make name  PROJECT BIN ROUTINE=NAME:'note' SYMBOL=NAME:'note' ...
+make rebuild                      # full check before calling it done
+```
+
+A routine kept in `src_<project>/shared/` is selected through any binary that
+contains it; `make rebuild PROJECT ROUTINE` (no binary) gates it against every
+such binary.
+
+`JSON=1` makes `info`, `refs`, `data` and `probe` machine-readable. `LEN=n`
+sets how many bytes `data` prints.
+
+`function_names` is the address-based naming surface for routines. `make name`
+updates that entry and any applicable dispatch-table slot. Names are scoped to
+each binary and keyed by the function's file address. Sources are renamed only
+after the sidecar validates; a rename the sidecar rejects writes nothing. The
+build that follows is not undone: a failure there leaves the rename in place.
+
+## Shared fragments
+
+A routine in `src_<project>/shared/` has no label/span sidecar of its own; use
+any binary that contains it for `info`/`refs`, or `make rebuild PROJECT
+ROUTINE` to gate it against all of them.
+
+A shared copy that differs only in its data names or call targets spells each
+by a dotted common alias (`stem.bss1`, `stem.api_idx1`), which C cannot use.
+`make refs` lists those aliases with every donor's own name. In C, spell any
+one donor's name (`api_idx_0004_ONRQ`): each binary links it to its own copy,
+so the source builds before anything is named. `make name PROJECT BIN
+stem.api_idx1=NAME` writes all donors' entries at once (the alias itself
+selects the donors) and rewrites the C to match.
+
+Donors share a name only when their code matches: a routine with a shared
+hand source is the source of every routine of that name, so `make name`
+rejects giving a different copy that name. Give that copy its own name (from
+its binary: `make name PROJECT vmele api_idx_000a_PKVL=NAME_alt`); the C keeps
+calling the other donors' name and still links to it.
+
+## Tools
+
+* `info` reports the fragment span, co-tenants, callers, source, and the
+  `cc`/`as` flags. It also lists every naming surface for the routine and
+  marks the one the build applies last.
+* `refs` lists the referenced symbols that still need names, with value, space,
+  use width, canonical name, and definition. Already-named callees are omitted,
+  so an empty list means no referenced symbols remain unresolved (apart from
+  excluded "label inside" rows). Check the target’s own name independently:
+  generated names such as `api_idx_0002_GLIS` still need descriptive names.
+  Unlabelled absolute operands
+  show the name the source must use (`bss_6eb5`).
+* `data` reports whether a DS offset is file-backed or BSS and dumps bytes when
+  present. It accepts an offset or build name.
+* `probe` compiles one candidate with the routine's tool and flags and prints
+  length, members, fixups and instructions. Use it for codegen questions
+  instead of a full rebuild.
+* `name` updates every surface naming the routine: its address-keyed
+  `function_names` entry, its `dispatch_table` slot, and hand-source
+  files/references. Names owned by
+  another binary's API are rejected with the owner named. Renaming a driver's
+  API name also renames the thunks a program wraps it as (`call_<name>`) and
+  their callers. A thunk or slot pointer named from an API is renamed from
+  the driver, and the build rejects a sidecar name that repeats one an API
+  slot or `entry_symbol` already gives. `DRY_RUN=1 make name ...` (or `--dry-run`) prints the plan
+  without writing, including the source references it would rewrite and any
+  source file it would rename.
+
+## Scope and naming
+
+Preserve existing descriptive names, including the target routine's name. Naming work resolves unnamed symbols; it is not an opportunity to improve already-named routines, globals, fields, or aliases. Do not modify disassembler code, heuristics, rendering, symbol resolution, or tests to improve naming or asm presentation. If existing tooling cannot express a desired name or record layout, keep its supported spelling and report the limitation separately; do not expand the tooling as part of this task. A named standalone label and a named struct-field expression both count as named.
+
+## Choosing C or assembly
+
+Use the `cc` flags supplied in the task. `make info`'s `tool` line shows them too; an `unrecorded` tool means no source exists yet, not that the code is C.
 - `cc` output looks like: a prologue on every routine, `mov ax,-N` / `call aztec_csav` under `+b` (N = local frame size, 0 with no locals), `push bp` / `mov bp,sp` without it; arguments at `[bp+4]`, `[bp+6]`, ...; arguments pushed right to left and popped after the call (`pop cx`, `add sp,n`); `cbw` / `sub ah,ah` widening; `push ax` ... `pop ax` temporaries; `jne x` / `jmp near y` pairs and other unoptimized branches; only `si`/`di` kept across a call.
 - Hand-written looks like: no prologue at all under `+b`, or the body runs in its caller's frame; arguments or results in registers (a call with no push/pop around it); a value in `ax`-`dx` still used after a `call`; a counter in a register `register` cannot get; `in`/`out`, `cli`/`sti`, `pushf`/`popf`, `int`; segment-register juggling (`push cs; pop ds`); `cld` and string ops; code-segment data; padding `nop`s, or jumps `cc` would shorten; falling through into the next routine (`make info`'s `next` line names it).
 One clear hand-written sign outweighs a C-like shape: `cc` never emits port I/O or register-passed arguments.
 
-A .s: `include lmacros.h`, the project's, built from `disassembler/lib/aztec/lmacros_master.h`, which lists each macro's exact expansion. Use its structured blocks `.if`/`.elseif`/`.else`/`.endif`, `.while`/`.endw`, `.repeat`/`.until`, `.break`/`.continue` in place of labels and jumps (conditions `ax == 5`, `al lt 3`, `cx sge 1` (signed), `dl and 2`, `carry?`, `not cx`; no `!`, `<`, `>`). Then use the call, push/pop, clamp, `procdef`/`pret`, `movseg`, `outp`, `fatal` and `jnear` shorthands; write out a custom prologue/epilogue, and use plain instructions where no macro fits. Indent each block body one tab past its directive. Spell routines in `public`, `proc` and `extrn` the way C sees them, `NAME_` (the build drops one trailing `_`); data takes no `_` (`extrn play_device:byte`).
+## Assembly source
 
-A .c: locals are laid out in declaration order from `bp-2` down, with an array's element 0 at its lowest address, so the frame size and offsets give you the declarations. K&R has no initialized auto arrays: write the stores out. Signedness shows in the code: `cbw` / `jl` mean signed, `sub ah,ah` / `jb` mean unsigned. An `extern` may take any type that gives the same addressing; prefer the shared struct views in `src_DSAVANT/include/structs/`. Don't write layout-dependent C, which hard-codes the data layout instead of declaring it. That means raw byte offsets (`p[415]`, `*(int *)(rec + 6)`), hand-scaled indexes (`t[b * 90 + c * 30 + i * 3 + 1]`), casts used to pick a field's width or sign, and reaching into a neighbouring field (`ranges[t * 4 - 1]`). Declare the layout instead: a struct for each record (fields at their offsets, `pad` arrays for the gaps, a comment with each known field's offset), real multi-dimensional arrays, and pointers typed to the struct (`struct member_rec *party_char[]`). A struct only this .c uses may stay in it. A record that another .c also declares, or that a header under `src_DSAVANT/include/structs/` already describes, goes in that header (an 8.3 name), pulled in with `#include "structs/member.h"`: extend the existing header rather than declaring a second copy, so each layout stays in a single place. The build writes `src_DSAVANT/include/structs.inc` from the original code: one `struc` per record it found, with the field offsets the code actually uses (`.f_0026`, or the names given in the sidecar's `data_names` `record`). Use it as the layout to start from: match its stride and field offsets in the C view. Name unresolved records and fields in the sidecar where existing tooling supports it (`slot_rec.target`). C layouts must be properly declared independently of how the asm displays them: standalone field labels or numeric displacements in generated asm do not require tooling changes. `extern` declarations stay in the .c. Then write `party_char[m]->slot`, `table[b][c][i].target`. Aztec folds field offsets into the same `[bx + label+off]` displacement, so this costs no bytes; keep each expression's shape and operand order. When several labels sit at fixed offsets inside one record (`rec_count` at +4 from `rec_first`), they are a single struct. Declare that layout in C. For unnamed field labels, use a sidecar `record` with `size` and `count` to consolidate them only where existing tooling supports it. Preserve already-named field labels and their existing users; do not delete meaningful names or convert other routines solely to obtain struct-field notation in the asm. Never put a whole routine body in `#asm`: that is what a .s is for, and labels in `#asm` become linker symbols. `#asm` is only for a few instructions inside real C.
+`include lmacros.h`, the project's, built from `disassembler/lib/aztec/lmacros_master.h`, which lists each macro's exact expansion. Use its structured blocks `.if`/`.elseif`/`.else`/`.endif`, `.while`/`.endw`, `.repeat`/`.until`, `.break`/`.continue` in place of labels and jumps (conditions `ax == 5`, `al lt 3`, `cx sge 1` (signed), `dl and 2`, `carry?`, `not cx`; no `!`, `<`, `>`). Then use the call, push/pop, clamp, `procdef`/`pret`, `movseg`, `outp`, `fatal` and `jnear` shorthands; write out a custom prologue/epilogue, and use plain instructions where no macro fits. Indent each block body one tab past its directive. Spell routines in `public`, `proc` and `extrn` the way C sees them, `NAME_` (the build drops one trailing `_`); data takes no `_` (`extrn play_device:byte`).
 
-Commands (repo root):
-- `make probe {{project}} {{binary}} {{label}}` compiles your source with the routine's exact tool and flags and prints its code, length and fixups; use it to iterate on codegen.
-- `make rebuild {{project}} {{binary}} {{label}}` gates one routine against the original bytes (for a routine under shared/, `make rebuild {{project}} {{label}}` gates it against every binary that contains it). `make rebuild` alone recompiles every .c/.s and is the final pass/fail gate.
-- `make refs {{project}} {{binary}} {{label}}` lists the address-named and content-tagged symbols the routine references. Treat this as the authoritative list of references needing names. Already-named callees are omitted; declare them `extrn`/`extern` yourself without renaming them. An omitted alias is not a naming task merely because its spelling looks generated. A dotted shared alias (`stem.bss1`) can't be spelled in C: spell one donor's own name (`bss_95f4`), even when the address falls inside a named array (spelling it as the element, `slot_value[2]`, makes the copies' asm differ). In step 3, name it by the dotted alias (`{{label}}.bss1=NAME`), which names every donor's address at once.
-- `make name {{project}} {{binary}} SYMBOL=NAME[:NOTE] ...` writes the sidecar, renames the hand-written sources and every reference in them (file, routine, `NAME_` in .s, `extern`/`extrn`, C callers), then builds and rebuilds. Give SYMBOL as the build spells it (`cseg_0d3a`, `bss_1234`, `io_loc_KRUO`, `{{label}}`) or by its current name, and single-quote any spec whose note has spaces.
-- `make build {{project}}` regenerates the asm from the disassembly and sources. The sidecar ({{sidecar}}) and the tooling under disassembler/ are there to read when you need them.
+## C declarations and layouts
 
-Steps:
-1. Write the source with the routine still named `{{label}}`. Iterate with `make probe`, then run `make rebuild {{project}} {{binary}} {{label}}` until it passes. If the only differences left are symbol or label names on the same instructions and offsets, the bytes match: go on to step 2 (`make name`, if needed in step 3, or `make build` regenerates the asm). A report that the source compiles to a different size than its fragment means the bytes do not match yet.
-2. Give parameters and locals descriptive names in the source itself (C names; `equ` names for .s and #asm stack arguments and locals). Add terse comments that say why, not what: a one-line header above the routine (a `;` line in a .s, `/* */` in C, never `//`), and short trailing comments on loops, branches and magic numbers (BIOS/DOS function numbers, port numbers, key codes, header offsets, strides, flag bits). Describe only what the code shows; don't guess intent.
-3. Run `make refs {{project}} {{binary}} {{label}}`. Name the listed unresolved references (globals, code-segment data, called routines, including those only in `extrn` lines), except "label inside" rows, in one `make name {{project}} {{binary}} SYMBOL=NAME:'note' ...` call. Give each a note saying what it holds or does. Preserve `{{label}}` if it is already descriptive; include `{{label}}=NAME:'note'` only if the target itself still has an unresolved generated name. Any new routine name must be descriptive lowercase_underscore and keep any prefix its flags need. Do not rename symbols omitted by `make refs`. Skip `make name` if neither the target nor its references need names.
-4. If `make name` reports a rebuild failure, fix the source and run `make rebuild` until it passes. Run `make refs` again to confirm that no unresolved references remain, excluding "label inside" rows. Do not use a spelling-based scan to turn already-resolved aliases into extra renaming work. No layout-dependent C may remain in a .c. Finish with a full `make rebuild`.
+locals are laid out in declaration order from `bp-2` down, with an array's element 0 at its lowest address, so the frame size and offsets give you the declarations. K&R has no initialized auto arrays: write the stores out. Signedness shows in the code: `cbw` / `jl` mean signed, `sub ah,ah` / `jb` mean unsigned. An `extern` may take any type that gives the same addressing; prefer the shared struct views in `src_DSAVANT/include/structs/`. Don't write layout-dependent C, which hard-codes the data layout instead of declaring it. That means raw byte offsets (`p[415]`, `*(int *)(rec + 6)`), hand-scaled indexes (`t[b * 90 + c * 30 + i * 3 + 1]`), casts used to pick a field's width or sign, and reaching into a neighbouring field (`ranges[t * 4 - 1]`). Declare the layout instead: a struct for each record (fields at their offsets, `pad` arrays for the gaps, a comment with each known field's offset), real multi-dimensional arrays, and pointers typed to the struct (`struct member_rec *party_char[]`). A struct only this .c uses may stay in it. A record that another .c also declares, or that a header under `src_DSAVANT/include/structs/` already describes, goes in that header (an 8.3 name), pulled in with `#include "structs/member.h"`: extend the existing header rather than declaring a second copy, so each layout stays in a single place. The build writes `src_DSAVANT/include/structs.inc` from the original code: one `struc` per record it found, with the field offsets the code actually uses (`.f_0026`, or the names given in the sidecar's `data_names` `record`). Use it as the layout to start from: match its stride and field offsets in the C view. Name unresolved records and fields in the sidecar where existing tooling supports it (`slot_rec.target`). C layouts must be properly declared independently of how the asm displays them: standalone field labels or numeric displacements in generated asm do not require tooling changes. `extern` declarations stay in the .c. Then write `party_char[m]->slot`, `table[b][c][i].target`. Aztec folds field offsets into the same `[bx + label+off]` displacement, so this costs no bytes; keep each expression's shape and operand order. When several labels sit at fixed offsets inside one record (`rec_count` at +4 from `rec_first`), they are a single struct. Declare that layout in C. For unnamed field labels, use a sidecar `record` with `size` and `count` to consolidate them only where existing tooling supports it. Preserve already-named field labels and their existing users; do not delete meaningful names or convert other routines solely to obtain struct-field notation in the asm. Never put a whole routine body in `#asm`: that is what a .s is for, and labels in `#asm` become linker symbols. `#asm` is only for a few instructions inside real C.
 
-Your final message: only the routine's final name, whether preserved or newly assigned, or, if you could not finish, what is left and why. Report any tooling limitation separately if one affected the result.
 
-{{guide}}
+Spell an unlabelled DS object by its canonical name (`bss_6eb5`,
+`dseg_6eb5`). A wrong `bss_`/`dseg_` prefix is an error, not a fallback.
+
+## Naming and completion
+
+Treat `make refs` as the authoritative list of referenced symbols needing
+names. Exclude "label inside" rows. Declare already-named callees with
+`extern`/`extrn` without renaming them. An omitted alias is not a naming task
+merely because its spelling looks generated. Independently rename a generated
+target name; preserve a descriptive target name. New routine names use
+lowercase_underscore and retain any prefix required by their flags.
+
+For a shared data alias, use one donor’s own name in C even if its address is
+inside a named array: spelling it as an element such as `slot_value[2]` can
+make the copies’ asm differ. Name it through the dotted alias
+(`ROUTINE.bss1=NAME`) to name every donor’s address together.
+
+`make name PROJECT BIN SYMBOL=NAME[:NOTE] ...` accepts build spellings or
+current names. Single-quote specifications containing spaces. Give each new
+name a note describing what it holds or does. It updates the sidecar and
+hand-written sources and references, then builds and rebuilds.
+
+Give parameters and locals descriptive names, using `equ` for assembly stack
+slots. Add a brief routine header and short comments explaining purpose at
+loops, branches, and magic numbers. Describe only what the code shows; use
+`/* */` in C and `;` in assembly.
+
+If only symbol or label names differ on the same instructions and offsets,
+the bytes match; `make name` or `make build` regenerates the asm. A compiled
+size different from the recorded root span means the bytes do not match;
+check for co-tenants before comparing against the whole fragment. Fix any
+rebuild failures after naming.
+
+Completion requires a descriptive target name, descriptive parameters and
+locals, required comments, no unresolved references except "label inside"
+rows, and a passing full `make rebuild`. A clean `make refs` result does not
+verify the target’s own name.

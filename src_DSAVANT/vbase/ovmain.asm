@@ -4,15 +4,15 @@ ovmain:
     call aztec_csav                  ; 0x0011
     cmp word [game_state], byte 7    ; 0x0014
     jne short .forward1              ; 0x0019
-    call api_idx_0002_IRNO           ; 0x001b
+    call restore_base_screen         ; 0x001b
 .forward1:
     cmp word [game_state], byte 4    ; 0x001e
     jne short .forward2              ; 0x0023
-    call api_idx_004a_LKJS           ; 0x0025
+    call run_character_menu          ; 0x0025
 .forward2:
     cmp word [game_state], byte 0x18 ; 0x0028
     jne short .forward3              ; 0x002d
-    call api_idx_004a_UIIS           ; 0x002f
+    call run_resume_play_menu        ; 0x002f
 .forward3:
     mov ax, 0                        ; 0x0032
     ret                              ; 0x0035

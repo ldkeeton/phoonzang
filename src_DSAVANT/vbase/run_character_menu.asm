@@ -1,5 +1,5 @@
 ; auto-generated
-api_idx_004a_LKJS:
+run_character_menu:
     mov ax, 0xffb6                   ; 0x6a0f
     call aztec_csav                  ; 0x6a12
     mov word [party_status_frame], 0 ; 0x6a15
@@ -116,64 +116,64 @@ api_idx_004a_LKJS:
     jmp near .forward13              ; 0x6b3f
 jumptable_6bfb_case_1:
     call loc_LQIO                    ; 0x6b42
-    jmp near api_idx_004a_LKJS.forward14 ; 0x6b45
+    jmp near run_character_menu.forward14 ; 0x6b45
 jumptable_6bfb_case_2:
     call pick_party_member           ; 0x6b48
     mov word [member_roster_index], ax ; 0x6b4b
     cmp ax, strict word 0xffff       ; 0x6b4e
-    je short api_idx_004a_LKJS.forward9 ; 0x6b51
+    je short run_character_menu.forward9 ; 0x6b51
     mov word [game_state], 0x11      ; 0x6b53
     mov word [party_return_state], 4 ; 0x6b59
-api_idx_004a_LKJS.forward9:
-    jmp near api_idx_004a_LKJS.forward14 ; 0x6b5f
+run_character_menu.forward9:
+    jmp near run_character_menu.forward14 ; 0x6b5f
 jumptable_6bfb_case_3:
     call pick_party_member           ; 0x6b62
     mov word [member_roster_index], ax ; 0x6b65
     cmp ax, strict word 0xffff       ; 0x6b68
-    je short api_idx_004a_LKJS.forward10 ; 0x6b6b
+    je short run_character_menu.forward10 ; 0x6b6b
     mov ax, 1                        ; 0x6b6d
     push ax                          ; 0x6b70
     push word [member_roster_index]  ; 0x6b71
     call api_idx_0006_MROT           ; 0x6b75
     add sp, byte 4                   ; 0x6b78
-api_idx_004a_LKJS.forward10:
-    jmp near api_idx_004a_LKJS.forward14 ; 0x6b7b
+run_character_menu.forward10:
+    jmp near run_character_menu.forward14 ; 0x6b7b
 jumptable_6bfb_case_0:
     call loc_ROTV                    ; 0x6b7e
     mov word [game_state], 0x10      ; 0x6b81
-    jmp near api_idx_004a_LKJS.forward14 ; 0x6b87
+    jmp near run_character_menu.forward14 ; 0x6b87
 jumptable_6bfb_case_4:
     mov word [bp - 2], 0             ; 0x6b8a
-    jmp short api_idx_004a_LKJS.forward11 ; 0x6b8f
-api_idx_004a_LKJS.back5:
+    jmp short run_character_menu.forward11 ; 0x6b8f
+run_character_menu.back5:
     mov ax, word [bp - 2]            ; 0x6b91
     shl ax, 1                        ; 0x6b94
     mov bx, ax                       ; 0x6b96
     mov bx, word [bx + member_roster_index + 0x2] ; 0x6b98
     mov byte [bx + pc_file_record_base_hi + 0x2], 1 ; 0x6b9c
     inc word [bp - 2]                ; 0x6ba1
-api_idx_004a_LKJS.forward11:
+run_character_menu.forward11:
     mov ax, word [bp - 2]            ; 0x6ba4
     cmp ax, word [party_char_count]  ; 0x6ba7
-    jl short api_idx_004a_LKJS.back5 ; 0x6bab
+    jl short run_character_menu.back5 ; 0x6bab
     mov ax, 0                        ; 0x6bad
     push ax                          ; 0x6bb0
     call begin_game                  ; 0x6bb1
     pop cx                           ; 0x6bb4
-    jmp short api_idx_004a_LKJS.forward14 ; 0x6bb5
+    jmp short run_character_menu.forward14 ; 0x6bb5
 jumptable_6bfb_case_5:
     mov ax, 1                        ; 0x6bb7
     push ax                          ; 0x6bba
     call begin_game                  ; 0x6bbb
     pop cx                           ; 0x6bbe
-    jmp short api_idx_004a_LKJS.forward14 ; 0x6bbf
+    jmp short run_character_menu.forward14 ; 0x6bbf
 jumptable_6bfb_case_6:
     mov ax, 0                        ; 0x6bc1
     push ax                          ; 0x6bc4
     call loc_RMVR                    ; 0x6bc5
     pop cx                           ; 0x6bc8
     test ax, ax                      ; 0x6bc9
-    je short api_idx_004a_LKJS.forward12 ; 0x6bcb
+    je short run_character_menu.forward12 ; 0x6bcb
     mov ax, 0x912                    ; 0x6bcd
     push ax                          ; 0x6bd0
     call api_idx_0062_SRKH           ; 0x6bd1
@@ -181,19 +181,19 @@ jumptable_6bfb_case_6:
     call loc_ROTV                    ; 0x6bd5
     call api_idx_0002_JLUK           ; 0x6bd8
     mov word [game_state], 3         ; 0x6bdb
-api_idx_004a_LKJS.forward12:
-    jmp short api_idx_004a_LKJS.forward14 ; 0x6be1
+run_character_menu.forward12:
+    jmp short run_character_menu.forward14 ; 0x6be1
 jumptable_6bfb_case_7:
     mov ax, 2                        ; 0x6be3
     push ax                          ; 0x6be6
     call begin_game                  ; 0x6be7
     pop cx                           ; 0x6bea
-    jmp short api_idx_004a_LKJS.forward14 ; 0x6beb
+    jmp short run_character_menu.forward14 ; 0x6beb
 jumptable_6bfb_case_8:
     call loc_ROTV                    ; 0x6bed
     call api_idx_0002_JLUK           ; 0x6bf0
     mov word [game_state], 3         ; 0x6bf3
-    jmp short api_idx_004a_LKJS.forward14 ; 0x6bf9
+    jmp short run_character_menu.forward14 ; 0x6bf9
 jumptable_6bfb:
     dw jumptable_6bfb_case_0 - IMAGE_BASE + __zres_end ; 0x6bfb
     dw jumptable_6bfb_case_1 - IMAGE_BASE + __zres_end ; 0x6bfd
@@ -204,13 +204,13 @@ jumptable_6bfb:
     dw jumptable_6bfb_case_6 - IMAGE_BASE + __zres_end ; 0x6c07
     dw jumptable_6bfb_case_7 - IMAGE_BASE + __zres_end ; 0x6c09
     dw jumptable_6bfb_case_8 - IMAGE_BASE + __zres_end ; 0x6c0b
-api_idx_004a_LKJS.forward13:
+run_character_menu.forward13:
     cmp ax, strict word 9            ; 0x6c0d
-    jae short api_idx_004a_LKJS.forward14 ; 0x6c10
+    jae short run_character_menu.forward14 ; 0x6c10
     xchg bx, ax                      ; 0x6c12
     shl bx, 1                        ; 0x6c13
     jmp [cs:bx + jumptable_6bfb - IMAGE_BASE + __zres_end] ; 0x6c15
-api_idx_004a_LKJS.forward14:
-    jmp near api_idx_004a_LKJS.back2 ; 0x6c1a
-api_idx_004a_LKJS.return1:
+run_character_menu.forward14:
+    jmp near run_character_menu.back2 ; 0x6c1a
+run_character_menu.return1:
     ret                              ; 0x6c1d

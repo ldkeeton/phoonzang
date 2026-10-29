@@ -139,7 +139,7 @@ show_intro_screen:
     push ax                          ; 0x90a6
     mov ax, MSG_WE_HAVE_ARRIVED_EXCLA_31600 ; 0x90a7
     push ax                          ; 0x90aa
-    call api_idx_0002_GORG           ; 0x90ab
+    call play_intro_scene_five       ; 0x90ab
     add sp, byte 4                   ; 0x90ae
     jmp near .forward10              ; 0x90b1
 .back2:
@@ -250,7 +250,7 @@ show_intro_screen:
     push ax                          ; 0x9194
     mov ax, MSG_HERE_AT_LAST_BELA_YEL_31810 ; 0x9195
     push ax                          ; 0x9198
-    call api_idx_0002_GORG           ; 0x9199
+    call play_intro_scene_five       ; 0x9199
     add sp, byte 4                   ; 0x919c
     jmp near .forward10              ; 0x919f
 .back3:
@@ -350,7 +350,7 @@ show_intro_screen:
     push ax                          ; 0x9271
     mov ax, MSG_HSSST_WE_HAVE_ARRIVED_31240 ; 0x9272
     push ax                          ; 0x9275
-    call api_idx_0002_GORG           ; 0x9276
+    call play_intro_scene_five       ; 0x9276
     add sp, byte 4                   ; 0x9279
     jmp short .forward10             ; 0x927c
 .forward6:

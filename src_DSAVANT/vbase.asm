@@ -46,7 +46,7 @@ dseg_9138 equ __zdseg_end + (__zdseg_9138 - __zdata_start)
 dseg_9144 equ __zdseg_end + (__zdseg_9144 - __zdata_start)
 dseg_9151 equ __zdseg_end + (__zdseg_9151 - __zdata_start)
 dseg_9158 equ __zdseg_end + (__zdseg_9158 - __zdata_start)
-dseg_9165 equ __zdseg_end + (__zdseg_9165 - __zdata_start)
+scene_five_screen_filename equ __zdseg_end + (__zscene_five_screen_filename - __zdata_start)
 dseg_9172 equ __zdseg_end + (__zdseg_9172 - __zdata_start)
 dseg_917f equ __zdseg_end + (__zdseg_917f - __zdata_start)
 dseg_9186 equ __zdseg_end + (__zdseg_9186 - __zdata_start)
@@ -294,13 +294,13 @@ jumptable_1ee4         equ api_idx_0004_MMTP.jumptable1
 
 %include "vbase/begin_game.asm"            ; 0x6665
 
-%include "vbase/api_idx_0002_IRNO.asm"     ; 0x6756
+%include "vbase/restore_base_screen.asm"   ; 0x6756
 
 %include "vbase/api_idx_0002_JLUK.asm"     ; 0x6800
 
-%include "vbase/api_idx_004a_UIIS.asm"     ; 0x68bd
+%include "vbase/run_resume_play_menu.asm"  ; 0x68bd
 
-%include "vbase/api_idx_004a_LKJS.asm"     ; 0x6a0f
+%include "vbase/run_character_menu.asm"    ; 0x6a0f
 
 %include "vbase/loc_SVUQ.asm"              ; 0x6c1e
 
@@ -348,7 +348,7 @@ api_idx_0004_VRNJ.loc1 equ loc_VMSS
 
 %include "vbase/loc_JTTS.asm"              ; 0x8a74
 
-%include "vbase/api_idx_0002_GORG.asm"     ; 0x8b69
+%include "vbase/play_intro_scene_five.asm" ; 0x8b69
 
 %include "vbase/api_idx_0002_JHTS.asm"     ; 0x8ca3
 
@@ -377,6 +377,10 @@ __zdata_start:
 %include "vbase/data/screen_temp_file.asm" ; 0x9462
 
 %include "vbase/data/dseg_9114.asm"        ; 0x9469
+
+%include "vbase/data/scene_five_screen_filename.asm" ; 0x94ba
+
+%include "vbase/data/dseg_9172.asm"        ; 0x94c7
 
 %include "shared/data/save_si.asm"          ; 0x9511
 

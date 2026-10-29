@@ -1,5 +1,5 @@
 ; auto-generated
-api_idx_0002_IRNO:
+restore_base_screen:
     mov ax, 0xfffe                   ; 0x6756
     call aztec_csav                  ; 0x6759
     cmp word [saved_screen_pending], byte 0 ; 0x675c

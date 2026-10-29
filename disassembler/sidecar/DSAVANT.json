@@ -1132,6 +1132,7 @@
     "vbase": {
       "data_names": {
         "90cf": {"name": "default_game_data_name", "note": "Default game data filename"},
+        "9165": {"name": "scene_five_screen_filename", "note": "VIDSCN02.VGA filename loaded for the scene 5 backdrop"},
         "91c6": {"name": "game_data_drive", "note": "Drive prefix of the configured game data path"},
         "91da": {"name": "selected_game_drive", "note": "Drive prefix of the selected game directory"},
         "91ee": {"name": "game_load_path", "note": "Full pathname opened for game data"},
@@ -1271,6 +1272,9 @@
         "4052": {"name": "adjust_palette_and_rgb_lookup", "note": "Adjusts palette brightness and contrast and rebuilds the quantized RGB lookup"},
         "62d7": {"name": "copy_protection_prompt", "note": "draws four clue lines from the code characters and reads the answer word"},
         "6657": {"name": "begin_game", "note": "starts a game after loading: resets party and maze state and shows the intro"},
+        "6748": {"name": "restore_base_screen", "note": "Restore saved screen areas, clear the party count, and enter state 4"},
+        "68af": {"name": "run_resume_play_menu", "note": "Run the resume-play menu and apply the selected game state"},
+        "6a01": {"name": "run_character_menu", "note": "Run the character menu until a selection changes game state"},
         "6f6b": {"name": "play_scene_message_sequence", "note": "Loads and displays successive messages until a message is missing"},
         "6fcc": {"name": "load_screen_file", "note": "Load a screen file and optionally show it immediately or fade it in"},
         "72b4": {"name": "free_scene_picture", "note": "Releases the picture in the supplied slot"},
@@ -1280,6 +1284,7 @@
         "7407": {"name": "draw_scene_frame", "note": "draws one frame of the scene selected by scene_index (1..8) and advances its animation state"},
         "85e2": {"name": "blank_scene_screen", "note": "sets scene_tick to 1, fades out and blanks the 320x200 screen"},
         "8748": {"name": "play_intro_scene_two", "note": "Initializes scene two animation and cues, plays its message sequence, then releases the scene pictures"},
+        "8b5b": {"name": "play_intro_scene_five", "note": "Initialize scene 5 backdrop and sprites, play messages, and release pictures"},
         "8f66": {"name": "show_intro_screen", "note": "draws the intro screen the given number selects"},
         "0000": {"name": "ovmain"},
         "9322": {"name": "aztec_ovbgn"},

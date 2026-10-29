@@ -638,15 +638,6 @@ async function prepareMakeC(uri, label, batch) {
         flagList };
 }
 
-// readme/authoring-c-fragments.md, inlined at the end of each prompt so the agent
-// has it up front instead of spending a turn reading it.
-function authoringGuide() {
-    const file = path.join(root(), 'readme', 'authoring-c-fragments.md');
-    const text = fs.existsSync(file) ? fs.readFileSync(file, 'utf8').trim() : '';
-    return text ? `Reference: readme/authoring-c-fragments.md (fragment splits and the ` +
-        `\`make info\`/\`probe\`/\`data\` loop), already included in full:\n\n${text}` : '';
-}
-
 // Claude Code's prompt.  The text lives in prompt.txt beside this file and is
 // read on every use, so it can be edited without reloading the window;
 // {{name}} placeholders are filled per job.
@@ -672,7 +663,6 @@ function claudePrompt(job) {
         binary: where.binary,
         label: where.label,
         sidecar: rel(sidecarPath(where.project)),
-        guide: authoringGuide(),
     };
     return text.replace(/\{\{(\w+)\}\}/g, (m, key) => key in values ? values[key] : m).trim();
 }
