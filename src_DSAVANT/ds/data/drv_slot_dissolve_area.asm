@@ -1,0 +1,3 @@
+; auto-generated
+drv_slot_dissolve_area:
+    db 0x6f, 0x01, 0x00, 0x00

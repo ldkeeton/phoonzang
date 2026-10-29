@@ -5,7 +5,7 @@ show_intro_screen:
     call blank_scene_screen          ; 0x8f7a
     cmp word [mouse_active], byte 1  ; 0x8f7d
     jne short .forward1              ; 0x8f82
-    call gfx_mouse_off               ; 0x8f84
+    call call_mouse_off              ; 0x8f84
 .forward1:
     mov word [mouse_active], 0       ; 0x8f87
     call score_music_enabled         ; 0x8f8d
@@ -378,7 +378,7 @@ show_intro_screen:
     add sp, byte 4                   ; 0x92b0
     mov ax, 0                        ; 0x92b3
     push ax                          ; 0x92b6
-    call app_gfx_free_score          ; 0x92b7
+    call free_loaded_score           ; 0x92b7
     pop cx                           ; 0x92ba
 .forward11:
     test word [bss_9056], 0x1000     ; 0x92bb
@@ -387,7 +387,7 @@ show_intro_screen:
     jne short .forward13             ; 0x92c8
     cmp word [mouse_active], byte 0  ; 0x92ca
     jne short .forward12             ; 0x92cf
-    call gfx_mouse_init              ; 0x92d1
+    call call_mouse_init             ; 0x92d1
 .forward12:
     mov word [mouse_active], 1       ; 0x92d4
 .forward13:
@@ -414,7 +414,7 @@ show_intro_screen:
     push ax                          ; 0x930b
     push ax                          ; 0x930c
     push ax                          ; 0x930d
-    call gfx_reset_rgb               ; 0x930e
+    call call_reset_rgb              ; 0x930e
     add sp, byte 6                   ; 0x9311
     mov ax, 0xc7                     ; 0x9314
     push ax                          ; 0x9317
@@ -423,10 +423,10 @@ show_intro_screen:
     mov ax, 0                        ; 0x931c
     push ax                          ; 0x931f
     push ax                          ; 0x9320
-    call gfx_show_area               ; 0x9321
+    call call_show_area              ; 0x9321
     add sp, byte 8                   ; 0x9324
     mov ax, 0                        ; 0x9327
     push ax                          ; 0x932a
-    call gfx_fade_in                 ; 0x932b
+    call call_fade_in                ; 0x932b
     pop cx                           ; 0x932e
     ret                              ; 0x932f

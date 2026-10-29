@@ -14,7 +14,7 @@ pick_party_member:
     push ax                          ; 0x2113
     mov ax, 0x9a                     ; 0x2114
     push ax                          ; 0x2117
-    call gfx_save_area               ; 0x2118
+    call call_save_area              ; 0x2118
     add sp, byte 8                   ; 0x211b
     mov word [bp - 0x10], dx         ; 0x211e
     mov word [bp - 0x12], ax         ; 0x2121
@@ -22,7 +22,7 @@ pick_party_member:
     push ax                          ; 0x2127
     mov ax, 0x9a                     ; 0x2128
     push ax                          ; 0x212b
-    call gfx_set_text_pos            ; 0x212c
+    call call_set_text_pos           ; 0x212c
     add sp, byte 4                   ; 0x212f
     mov ax, 7                        ; 0x2132
     push ax                          ; 0x2135
@@ -34,7 +34,7 @@ pick_party_member:
     push ax                          ; 0x2143
     mov ax, 0x9a                     ; 0x2144
     push ax                          ; 0x2147
-    call gfx_set_text_pos            ; 0x2148
+    call call_set_text_pos           ; 0x2148
     add sp, byte 4                   ; 0x214b
     mov ax, 7                        ; 0x214e
     push ax                          ; 0x2151
@@ -46,7 +46,7 @@ pick_party_member:
     push ax                          ; 0x215f
     mov ax, 0xa6                     ; 0x2160
     push ax                          ; 0x2163
-    call gfx_set_text_pos            ; 0x2164
+    call call_set_text_pos           ; 0x2164
     add sp, byte 4                   ; 0x2167
     mov ax, 7                        ; 0x216a
     push ax                          ; 0x216d
@@ -62,7 +62,7 @@ pick_party_member:
     push ax                          ; 0x2183
     mov ax, 0x9a                     ; 0x2184
     push ax                          ; 0x2187
-    call gfx_show_area               ; 0x2188
+    call call_show_area              ; 0x2188
     add sp, byte 8                   ; 0x218b
     mov word [bp - 4], 0xfffe        ; 0x218e
 .back1:
@@ -93,7 +93,7 @@ pick_party_member:
     push ax                          ; 0x21cb
     push word [bp - 0x10]            ; 0x21cc
     push word [bp - 0x12]            ; 0x21cf
-    call gfx_restore_area            ; 0x21d2
+    call call_restore_area           ; 0x21d2
     add sp, byte 6                   ; 0x21d5
     mov ax, 0xa3                     ; 0x21d8
     push ax                          ; 0x21db
@@ -103,7 +103,7 @@ pick_party_member:
     push ax                          ; 0x21e3
     mov ax, 0x9a                     ; 0x21e4
     push ax                          ; 0x21e7
-    call gfx_show_area               ; 0x21e8
+    call call_show_area              ; 0x21e8
     add sp, byte 8                   ; 0x21eb
     mov ax, word [bp - 4]            ; 0x21ee
     ret                              ; 0x21f1
@@ -171,7 +171,7 @@ pick_party_member:
     push ax                          ; 0x2284
     lea ax, word [bp - 0xa]          ; 0x2285
     push ax                          ; 0x2288
-    call gfx_get_mouse               ; 0x2289
+    call call_get_mouse              ; 0x2289
     add sp, byte 4                   ; 0x228c
     mov word [bp - 6], ax            ; 0x228f
     mov ax, 0                        ; 0x2292

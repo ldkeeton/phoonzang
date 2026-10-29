@@ -5,7 +5,7 @@ loc_PHIP:
     mov ax, 0                        ; 0x1619
     push ax                          ; 0x161c
     push word [bp + 6]               ; 0x161d
-    call gfx_set_text_color          ; 0x1620
+    call call_set_text_color         ; 0x1620
     add sp, byte 4                   ; 0x1623
     mov ax, 0                        ; 0x1626
     push ax                          ; 0x1629

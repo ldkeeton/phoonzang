@@ -69,7 +69,7 @@ loc_TRPK:
     push ax
     mov ax, 1
     push ax
-    call gfx_set_text_color
+    call call_set_text_color
     add sp, byte 4
     mov ax, word [bp + 0xa]
     add ax, strict word 0xfff3
@@ -87,7 +87,7 @@ loc_TRPK:
     mov ax, 0xa0
     sub ax, cx
     push ax
-    call gfx_set_text_pos
+    call call_set_text_pos
     add sp, byte 4
     mov ax, 0
     push ax
@@ -179,7 +179,7 @@ loc_TRPK:
     mov ax, 0x1a
 .forward6:
     push ax
-    call gfx_set_text_color
+    call call_set_text_color
     add sp, byte 4
     mov ax, word [bp + 0xa]
     add ax, word [bp - 0xc]
@@ -205,7 +205,7 @@ loc_TRPK:
     add ax, word [bp - 0xa]
     inc ax
     push ax
-    call gfx_set_text_pos
+    call call_set_text_pos
     add sp, byte 4
     mov ax, 0
     push ax
@@ -266,7 +266,7 @@ loc_TRPK:
     mov ax, 0
     push ax
     push ax
-    call gfx_show_area
+    call call_show_area
     add sp, byte 8
     cmp word [mouse_active], byte 0
     je short .forward9
@@ -324,7 +324,7 @@ loc_TRPK:
     mov ax, word [bp + 8]
     dec ax
     push ax
-    call gfx_show_area
+    call call_show_area
     add sp, byte 8
     mov ax, 0
     push ax
@@ -473,7 +473,7 @@ loc_TRPK:
     mov ax, word [bp + 8]
     dec ax
     push ax
-    call gfx_show_area
+    call call_show_area
     add sp, byte 8
 .forward16:
     dec word [bp - 4]
@@ -534,7 +534,7 @@ loc_TRPK:
     mov ax, word [bp + 8]
     add ax, strict word 0xfffa
     push ax
-    call gfx_show_area
+    call call_show_area
     add sp, byte 8
     jmp short .forward18
 .forward17:
@@ -550,7 +550,7 @@ loc_TRPK:
     mov ax, word [bp + 8]
     dec ax
     push ax
-    call gfx_show_area
+    call call_show_area
     add sp, byte 8
 .forward18:
     mov ax, word [bp - 4]

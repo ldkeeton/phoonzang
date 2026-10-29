@@ -7,19 +7,19 @@ api_idx_0054_RLST:
     push ax                          ; 0x1b4a
     push word [bss_9526]             ; 0x1b4b
     push word [bss_9524]             ; 0x1b4f
-    call gfx_restore_screen          ; 0x1b53
+    call call_restore_screen         ; 0x1b53
     add sp, byte 8                   ; 0x1b56
     mov ax, 0                        ; 0x1b59
     push ax                          ; 0x1b5c
     push ax                          ; 0x1b5d
     push word [bss_952a]             ; 0x1b5e
     push word [bss_9528]             ; 0x1b62
-    call gfx_restore_screen          ; 0x1b66
+    call call_restore_screen         ; 0x1b66
     add sp, byte 8                   ; 0x1b69
     mov ax, 0                        ; 0x1b6c
     push ax                          ; 0x1b6f
     push ax                          ; 0x1b70
-    call gfx_set_text_color          ; 0x1b71
+    call call_set_text_color         ; 0x1b71
     add sp, byte 4                   ; 0x1b74
     mov ax, 0x4c                     ; 0x1b77
     push ax                          ; 0x1b7a
@@ -38,7 +38,7 @@ api_idx_0054_RLST:
     mov ax, 0x28                     ; 0x1b96
     sub ax, cx                       ; 0x1b99
     push ax                          ; 0x1b9b
-    call gfx_set_text_pos            ; 0x1b9c
+    call call_set_text_pos           ; 0x1b9c
     add sp, byte 4                   ; 0x1b9f
     mov ax, 0                        ; 0x1ba2
     push ax                          ; 0x1ba5
@@ -52,13 +52,13 @@ api_idx_0054_RLST:
     push ax                          ; 0x1bb9
     mov ax, 1                        ; 0x1bba
     push ax                          ; 0x1bbd
-    call gfx_set_text_color          ; 0x1bbe
+    call call_set_text_color         ; 0x1bbe
     add sp, byte 4                   ; 0x1bc1
     mov ax, 6                        ; 0x1bc4
     push ax                          ; 0x1bc7
     mov ax, 0x5a                     ; 0x1bc8
     push ax                          ; 0x1bcb
-    call gfx_set_text_pos            ; 0x1bcc
+    call call_set_text_pos           ; 0x1bcc
     add sp, byte 4                   ; 0x1bcf
     lea ax, word [bp - 0x54]         ; 0x1bd2
     push ax                          ; 0x1bd5
@@ -105,13 +105,13 @@ api_idx_0054_RLST:
     push ax                          ; 0x1c39
     mov ax, 0x84                     ; 0x1c3a
     push ax                          ; 0x1c3d
-    call gfx_set_text_color          ; 0x1c3e
+    call call_set_text_color         ; 0x1c3e
     add sp, byte 4                   ; 0x1c41
     mov ax, 0xc                      ; 0x1c44
     push ax                          ; 0x1c47
     mov ax, 0x5a                     ; 0x1c48
     push ax                          ; 0x1c4b
-    call gfx_set_text_pos            ; 0x1c4c
+    call call_set_text_pos           ; 0x1c4c
     add sp, byte 4                   ; 0x1c4f
     lea ax, word [bp - 0x54]         ; 0x1c52
     push ax                          ; 0x1c55
@@ -134,13 +134,13 @@ api_idx_0054_RLST:
     push ax                          ; 0x1c7f
     mov ax, 0x84                     ; 0x1c80
     push ax                          ; 0x1c83
-    call gfx_set_text_color          ; 0x1c84
+    call call_set_text_color         ; 0x1c84
     add sp, byte 4                   ; 0x1c87
     mov ax, 0x12                     ; 0x1c8a
     push ax                          ; 0x1c8d
     mov ax, 0x5a                     ; 0x1c8e
     push ax                          ; 0x1c91
-    call gfx_set_text_pos            ; 0x1c92
+    call call_set_text_pos           ; 0x1c92
     add sp, byte 4                   ; 0x1c95
     lea ax, word [bp - 0x54]         ; 0x1c98
     push ax                          ; 0x1c9b
@@ -253,7 +253,7 @@ api_idx_0054_RLST:
     push ax                          ; 0x1d9a
     mov ax, 0xfd                     ; 0x1d9b
     push ax                          ; 0x1d9e
-    call gfx_set_text_color          ; 0x1d9f
+    call call_set_text_color         ; 0x1d9f
     add sp, byte 4                   ; 0x1da2
     lea ax, word [bp - 0x54]         ; 0x1da5
     push ax                          ; 0x1da8
@@ -265,7 +265,7 @@ api_idx_0054_RLST:
     push ax                          ; 0x1db6
     mov ax, 0xe4                     ; 0x1db7
     push ax                          ; 0x1dba
-    call gfx_set_text_pos            ; 0x1dbb
+    call call_set_text_pos           ; 0x1dbb
     add sp, byte 4                   ; 0x1dbe
     mov ax, 0                        ; 0x1dc1
     push ax                          ; 0x1dc4
@@ -303,7 +303,7 @@ api_idx_0054_RLST:
     mov ax, 6                        ; 0x1e0d
     imul cx                          ; 0x1e10
     push ax                          ; 0x1e12
-    call gfx_set_text_pos            ; 0x1e13
+    call call_set_text_pos           ; 0x1e13
     add sp, byte 4                   ; 0x1e16
     mov ax, 0                        ; 0x1e19
     push ax                          ; 0x1e1c
@@ -315,7 +315,7 @@ api_idx_0054_RLST:
     push ax                          ; 0x1e2a
     mov ax, 0x47                     ; 0x1e2b
     push ax                          ; 0x1e2e
-    call gfx_set_text_color          ; 0x1e2f
+    call call_set_text_color         ; 0x1e2f
     add sp, byte 4                   ; 0x1e32
     lea ax, word [bp - 0x54]         ; 0x1e35
     push ax                          ; 0x1e38
@@ -327,7 +327,7 @@ api_idx_0054_RLST:
     push ax                          ; 0x1e46
     mov ax, 0xe4                     ; 0x1e47
     push ax                          ; 0x1e4a
-    call gfx_set_text_pos            ; 0x1e4b
+    call call_set_text_pos           ; 0x1e4b
     add sp, byte 4                   ; 0x1e4e
     mov ax, 0                        ; 0x1e51
     push ax                          ; 0x1e54
@@ -362,7 +362,7 @@ api_idx_0054_RLST:
     push ax                          ; 0x1e9c
     mov ax, 0xe4                     ; 0x1e9d
     push ax                          ; 0x1ea0
-    call gfx_set_text_pos            ; 0x1ea1
+    call call_set_text_pos           ; 0x1ea1
     add sp, byte 4                   ; 0x1ea4
     mov ax, 0                        ; 0x1ea7
     push ax                          ; 0x1eaa
@@ -391,7 +391,7 @@ api_idx_0054_RLST:
     push ax                          ; 0x1ee4
     mov ax, 0x1d                     ; 0x1ee5
     push ax                          ; 0x1ee8
-    call gfx_set_text_color          ; 0x1ee9
+    call call_set_text_color         ; 0x1ee9
     add sp, byte 4                   ; 0x1eec
     lea ax, word [bp - 0x54]         ; 0x1eef
     push ax                          ; 0x1ef2
@@ -403,7 +403,7 @@ api_idx_0054_RLST:
     push ax                          ; 0x1f00
     mov ax, 6                        ; 0x1f01
     push ax                          ; 0x1f04
-    call gfx_set_text_pos            ; 0x1f05
+    call call_set_text_pos           ; 0x1f05
     add sp, byte 4                   ; 0x1f08
     mov ax, 0                        ; 0x1f0b
     push ax                          ; 0x1f0e
@@ -421,7 +421,7 @@ api_idx_0054_RLST:
     push ax                          ; 0x1f2a
     mov ax, 0x1b                     ; 0x1f2b
     push ax                          ; 0x1f2e
-    call gfx_set_text_color          ; 0x1f2f
+    call call_set_text_color         ; 0x1f2f
     add sp, byte 4                   ; 0x1f32
     lea ax, word [bp - 0x54]         ; 0x1f35
     push ax                          ; 0x1f38
@@ -461,7 +461,7 @@ api_idx_0054_RLST:
     push ax                          ; 0x1f8e
     mov ax, 0x1d                     ; 0x1f8f
     push ax                          ; 0x1f92
-    call gfx_set_text_color          ; 0x1f93
+    call call_set_text_color         ; 0x1f93
     add sp, byte 4                   ; 0x1f96
     lea ax, word [bp - 0x54]         ; 0x1f99
     push ax                          ; 0x1f9c
@@ -473,7 +473,7 @@ api_idx_0054_RLST:
     push ax                          ; 0x1faa
     mov ax, 6                        ; 0x1fab
     push ax                          ; 0x1fae
-    call gfx_set_text_pos            ; 0x1faf
+    call call_set_text_pos           ; 0x1faf
     add sp, byte 4                   ; 0x1fb2
     mov ax, 0                        ; 0x1fb5
     push ax                          ; 0x1fb8
@@ -491,7 +491,7 @@ api_idx_0054_RLST:
     push ax                          ; 0x1fd4
     mov ax, 0x1b                     ; 0x1fd5
     push ax                          ; 0x1fd8
-    call gfx_set_text_color          ; 0x1fd9
+    call call_set_text_color         ; 0x1fd9
     add sp, byte 4                   ; 0x1fdc
     mov ax, 0x248                    ; 0x1fdf
     imul word [bp + 4]               ; 0x1fe2
@@ -534,7 +534,7 @@ api_idx_0054_RLST:
     push ax                          ; 0x203d
     mov ax, 0x1d                     ; 0x203e
     push ax                          ; 0x2041
-    call gfx_set_text_color          ; 0x2042
+    call call_set_text_color         ; 0x2042
     add sp, byte 4                   ; 0x2045
     mov ax, 0                        ; 0x2048
     push ax                          ; 0x204b

@@ -56,7 +56,7 @@ next_text_line:
     add ax, cx                       ; 0x0e90
     push ax                          ; 0x0e92
     push word [bp - 2]               ; 0x0e93
-    call gfx_set_text_pos            ; 0x0e96
+    call call_set_text_pos           ; 0x0e96
     add sp, byte 4                   ; 0x0e99
     mov ax, 0                        ; 0x0e9c
     push ax                          ; 0x0e9f
@@ -71,7 +71,7 @@ next_text_line:
     mov ax, 1                        ; 0x0eb3
 .forward8:
     push ax                          ; 0x0eb6
-    call gfx_set_text_color          ; 0x0eb7
+    call call_set_text_color         ; 0x0eb7
     add sp, byte 4                   ; 0x0eba
     mov ax, word [bp - 4]            ; 0x0ebd
     shl ax, 1                        ; 0x0ec0

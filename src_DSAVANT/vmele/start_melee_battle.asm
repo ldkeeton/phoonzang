@@ -15,14 +15,14 @@ start_melee_battle:
     cmp word [loaded_score_num], byte -1 ; 0x3406
     je short .forward2               ; 0x340b
 .back1:
-    call gfx_is_music_playing        ; 0x340d
+    call call_is_music_playing       ; 0x340d
     test ax, ax                      ; 0x3410
     je short .forward1               ; 0x3412
     jmp short .back1                 ; 0x3414
 .forward1:
     mov ax, 0                        ; 0x3416
     push ax                          ; 0x3419
-    call app_gfx_free_score          ; 0x341a
+    call free_loaded_score           ; 0x341a
     pop cx                           ; 0x341d
 .forward2:
     call free_current_maze           ; 0x341e
@@ -104,7 +104,7 @@ start_melee_battle:
     push ax                          ; 0x34c2
     mov ax, 0x48                     ; 0x34c3
     push ax                          ; 0x34c6
-    call gfx_cache_area              ; 0x34c7
+    call call_cache_area             ; 0x34c7
     add sp, byte 0xc                 ; 0x34ca
     mov word [screen_cache_0_seg], dx ; 0x34cd
     mov word [screen_cache], ax      ; 0x34d1
@@ -129,7 +129,7 @@ start_melee_battle:
     push ax                          ; 0x3502
     mov ax, 0x48                     ; 0x3503
     push ax                          ; 0x3506
-    call gfx_cache_area              ; 0x3507
+    call call_cache_area             ; 0x3507
     add sp, byte 0xc                 ; 0x350a
     mov word [screen_cache_1_seg], dx ; 0x350d
     mov word [screen_cache_1_off], ax ; 0x3511
@@ -208,7 +208,7 @@ start_melee_battle:
     push ax                          ; 0x35c9
     mov ax, 8                        ; 0x35ca
     push ax                          ; 0x35cd
-    call gfx_save_area               ; 0x35ce
+    call call_save_area              ; 0x35ce
     add sp, byte 8                   ; 0x35d1
     mov word [saved_area_a_hi], dx   ; 0x35d4
     mov word [saved_area_a], ax      ; 0x35d8
@@ -220,7 +220,7 @@ start_melee_battle:
     push ax                          ; 0x35e6
     mov ax, 0x41                     ; 0x35e7
     push ax                          ; 0x35ea
-    call gfx_save_area               ; 0x35eb
+    call call_save_area              ; 0x35eb
     add sp, byte 8                   ; 0x35ee
     mov word [saved_area_b_hi], dx   ; 0x35f1
     mov word [saved_area_b], ax      ; 0x35f5

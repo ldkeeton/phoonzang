@@ -24,7 +24,7 @@ api_idx_0002_OGHR:
     push ax                          ; 0x00b5
     push word [bp + 6]               ; 0x00b6
     push word [bp - 2]               ; 0x00b9
-    call gfx_load_maze               ; 0x00bc
+    call call_load_maze              ; 0x00bc
     add sp, byte 6                   ; 0x00bf
     push word [bp - 2]               ; 0x00c2
     call aztec_close                 ; 0x00c5

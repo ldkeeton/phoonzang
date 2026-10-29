@@ -14,7 +14,7 @@ api_idx_0012_SHRT:
     push ax                          ; 0x079c
     mov ax, 0x9a                     ; 0x079d
     push ax                          ; 0x07a0
-    call gfx_save_area               ; 0x07a1
+    call call_save_area              ; 0x07a1
     add sp, byte 8                   ; 0x07a4
     mov word [bp - 0x10], dx         ; 0x07a7
     mov word [bp - 0x12], ax         ; 0x07aa
@@ -22,7 +22,7 @@ api_idx_0012_SHRT:
     push ax                          ; 0x07b0
     mov ax, 0x9a                     ; 0x07b1
     push ax                          ; 0x07b4
-    call gfx_set_text_pos            ; 0x07b5
+    call call_set_text_pos           ; 0x07b5
     add sp, byte 4                   ; 0x07b8
     mov ax, 7                        ; 0x07bb
     push ax                          ; 0x07be
@@ -34,7 +34,7 @@ api_idx_0012_SHRT:
     push ax                          ; 0x07cc
     mov ax, 0x9a                     ; 0x07cd
     push ax                          ; 0x07d0
-    call gfx_set_text_pos            ; 0x07d1
+    call call_set_text_pos           ; 0x07d1
     add sp, byte 4                   ; 0x07d4
     mov ax, 7                        ; 0x07d7
     push ax                          ; 0x07da
@@ -46,7 +46,7 @@ api_idx_0012_SHRT:
     push ax                          ; 0x07e8
     mov ax, 0xa6                     ; 0x07e9
     push ax                          ; 0x07ec
-    call gfx_set_text_pos            ; 0x07ed
+    call call_set_text_pos           ; 0x07ed
     add sp, byte 4                   ; 0x07f0
     mov ax, 7                        ; 0x07f3
     push ax                          ; 0x07f6
@@ -62,7 +62,7 @@ api_idx_0012_SHRT:
     push ax                          ; 0x080c
     mov ax, 0x9a                     ; 0x080d
     push ax                          ; 0x0810
-    call gfx_show_area               ; 0x0811
+    call call_show_area              ; 0x0811
     add sp, byte 8                   ; 0x0814
     mov word [bp - 4], 0xfffe        ; 0x0817
 .back1:
@@ -94,7 +94,7 @@ api_idx_0012_SHRT:
     push ax                          ; 0x0854
     push word [bp - 0x10]            ; 0x0855
     push word [bp - 0x12]            ; 0x0858
-    call gfx_restore_area            ; 0x085b
+    call call_restore_area           ; 0x085b
     add sp, byte 6                   ; 0x085e
     mov ax, 0xa3                     ; 0x0861
     push ax                          ; 0x0864
@@ -104,7 +104,7 @@ api_idx_0012_SHRT:
     push ax                          ; 0x086c
     mov ax, 0x9a                     ; 0x086d
     push ax                          ; 0x0870
-    call gfx_show_area               ; 0x0871
+    call call_show_area              ; 0x0871
     add sp, byte 8                   ; 0x0874
     mov ax, word [bp - 4]            ; 0x0877
     ret                              ; 0x087a
@@ -186,7 +186,7 @@ api_idx_0012_SHRT:
     push ax                          ; 0x0920
     lea ax, word [bp - 0xa]          ; 0x0921
     push ax                          ; 0x0924
-    call gfx_get_mouse               ; 0x0925
+    call call_get_mouse              ; 0x0925
     add sp, byte 4                   ; 0x0928
     mov word [bp - 6], ax            ; 0x092b
     mov ax, 0                        ; 0x092e

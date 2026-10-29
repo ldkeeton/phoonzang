@@ -29,7 +29,7 @@ int load_mode;
 		load_result = load_game_data(load_mode);
 	}
 	if (load_result == -1) {
-		gfx_show_area(54, 142, 265, 198);	/* copy-protection dialog area */
+		call_show_area(54, 142, 265, 198);	/* copy-protection dialog area */
 		return;
 	}
 	ensure_game_disk(0, game_state_arg);

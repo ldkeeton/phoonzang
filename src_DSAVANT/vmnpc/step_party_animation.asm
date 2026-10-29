@@ -12,7 +12,7 @@ step_party_animation:
     push ax                          ; 0x0f67
     mov ax, 0x48                     ; 0x0f68
     push ax                          ; 0x0f6b
-    call gfx_show_area               ; 0x0f6c
+    call call_show_area              ; 0x0f6c
     add sp, byte 8                   ; 0x0f6f
     jmp near .forward9               ; 0x0f72
 .back2:
@@ -53,7 +53,7 @@ step_party_animation:
     mov bx, ax                       ; 0x0fba
     push word [bx + screen_cache_0_seg] ; 0x0fbc
     push word [bx + screen_cache]    ; 0x0fc0
-    call gfx_restore_screen          ; 0x0fc4
+    call call_restore_screen         ; 0x0fc4
     add sp, byte 8                   ; 0x0fc7
     mov word [bp - 2], 0             ; 0x0fca
 .back3:

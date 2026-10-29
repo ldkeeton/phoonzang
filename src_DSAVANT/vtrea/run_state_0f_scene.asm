@@ -20,7 +20,7 @@ run_state_0f_scene:
     push ax                          ; 0x7f85
     mov ax, 0x12e                    ; 0x7f86
     push ax                          ; 0x7f89
-    call gfx_mouse_glide_to          ; 0x7f8a
+    call call_mouse_glide_to         ; 0x7f8a
     add sp, byte 6                   ; 0x7f8d
     call score_music_enabled         ; 0x7f90
     mov word [bss_8450], ax          ; 0x7f93
@@ -66,7 +66,7 @@ run_state_0f_scene:
     cmp word [bss_8450], byte 0      ; 0x7ff2
     je short .forward3               ; 0x7ff7
 .back1:
-    call gfx_is_music_playing        ; 0x7ff9
+    call call_is_music_playing       ; 0x7ff9
     test ax, ax                      ; 0x7ffc
     je short .forward2               ; 0x7ffe
     jmp short .back1                 ; 0x8000
@@ -105,7 +105,7 @@ run_state_0f_scene:
     push ax                          ; 0x804c
     mov ax, 0x12e                    ; 0x804d
     push ax                          ; 0x8050
-    call gfx_mouse_glide_back        ; 0x8051
+    call call_mouse_glide_back       ; 0x8051
     add sp, byte 6                   ; 0x8054
     mov ax, 0                        ; 0x8057
     mov dx, 0                        ; 0x805a
@@ -126,11 +126,11 @@ run_state_0f_scene:
     add sp, byte 4                   ; 0x8087
     mov ax, 1                        ; 0x808a
     push ax                          ; 0x808d
-    call app_gfx_free_score          ; 0x808e
+    call free_loaded_score           ; 0x808e
     pop cx                           ; 0x8091
     mov ax, 0                        ; 0x8092
     push ax                          ; 0x8095
-    call app_gfx_free_score          ; 0x8096
+    call free_loaded_score           ; 0x8096
     pop cx                           ; 0x8099
 .forward8:
     call loc_VSIT                    ; 0x809a

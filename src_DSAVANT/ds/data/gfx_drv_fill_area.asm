@@ -1,3 +1,0 @@
-; auto-generated
-gfx_drv_fill_area:
-    db 0x4b, 0x01, 0x00, 0x00

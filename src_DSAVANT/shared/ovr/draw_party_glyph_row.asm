@@ -80,7 +80,7 @@ draw_party_glyph_row:
     push ax
     mov ax, 3
     push ax
-    call gfx_draw_text
+    call call_draw_text
     add sp, byte 0x16
 .return1:
     ret

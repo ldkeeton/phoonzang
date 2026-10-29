@@ -83,7 +83,7 @@ loc_HTRU:
     mov ax, 0                        ; 0x11e4
     push ax                          ; 0x11e7
     push word [bp + 0x18]            ; 0x11e8
-    call gfx_set_text_color          ; 0x11eb
+    call call_set_text_color         ; 0x11eb
     add sp, byte 4                   ; 0x11ee
     mov ax, word [bp + 0xc]          ; 0x11f1
     add ax, word [bp - 0xc]          ; 0x11f4
@@ -108,7 +108,7 @@ loc_HTRU:
     add ax, word [bp - 0xa]          ; 0x121f
     inc ax                           ; 0x1222
     push ax                          ; 0x1223
-    call gfx_set_text_pos            ; 0x1224
+    call call_set_text_pos           ; 0x1224
     add sp, byte 4                   ; 0x1227
     mov ax, 0                        ; 0x122a
     push ax                          ; 0x122d
@@ -635,7 +635,7 @@ loc_HTRU:
     mov ax, word [bp - 6]            ; 0x16e4
     add ax, word [bp - 0xa]          ; 0x16e7
     push ax                          ; 0x16ea
-    call gfx_invert_area             ; 0x16eb
+    call call_invert_area            ; 0x16eb
     add sp, byte 8                   ; 0x16ee
     mov ax, word [bp - 0xc]          ; 0x16f1
     add ax, word [bp + 0xc]          ; 0x16f4
@@ -652,7 +652,7 @@ loc_HTRU:
     mov ax, word [bp - 6]            ; 0x170f
     add ax, word [bp - 0xa]          ; 0x1712
     push ax                          ; 0x1715
-    call gfx_show_area               ; 0x1716
+    call call_show_area              ; 0x1716
     add sp, byte 8                   ; 0x1719
     mov ax, 0x19                     ; 0x171c
     push ax                          ; 0x171f
@@ -673,7 +673,7 @@ loc_HTRU:
     mov ax, word [bp - 6]            ; 0x1742
     add ax, word [bp - 0xa]          ; 0x1745
     push ax                          ; 0x1748
-    call gfx_invert_area             ; 0x1749
+    call call_invert_area            ; 0x1749
     add sp, byte 8                   ; 0x174c
     mov ax, word [bp + 0xc]          ; 0x174f
     add ax, word [bp - 0xc]          ; 0x1752
@@ -690,7 +690,7 @@ loc_HTRU:
     mov ax, word [bp - 6]            ; 0x176d
     add ax, word [bp - 0xa]          ; 0x1770
     push ax                          ; 0x1773
-    call gfx_show_area               ; 0x1774
+    call call_show_area              ; 0x1774
     add sp, byte 8                   ; 0x1777
     mov ax, word [bp - 4]            ; 0x177a
     mov word [bss_9052], ax          ; 0x177d

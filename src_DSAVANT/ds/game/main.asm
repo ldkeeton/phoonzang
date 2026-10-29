@@ -170,7 +170,7 @@ main.forward1:
 jumptable_2edc_case_9:
     mov ax, 0                        ; 0x2f29
     push ax                          ; 0x2f2c
-    call gfx_wait_sound              ; 0x2f2d
+    call call_wait_sound             ; 0x2f2d
     pop cx                           ; 0x2f30
     jmp near main.back1              ; 0x2f31
     ret                              ; 0x2f34

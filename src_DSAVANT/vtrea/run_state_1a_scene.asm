@@ -22,7 +22,7 @@ run_state_1a_scene:
     push ax                          ; 0x814a
     mov ax, 0x37                     ; 0x814b
     push ax                          ; 0x814e
-    call gfx_show_area               ; 0x814f
+    call call_show_area              ; 0x814f
     add sp, byte 8                   ; 0x8152
     call score_music_enabled         ; 0x8155
     mov word [bss_8450], ax          ; 0x8158
@@ -59,7 +59,7 @@ run_state_1a_scene:
     add sp, byte 4                   ; 0x81a7
     mov ax, 1                        ; 0x81aa
     push ax                          ; 0x81ad
-    call app_gfx_free_score          ; 0x81ae
+    call free_loaded_score           ; 0x81ae
     pop cx                           ; 0x81b1
 .forward3:
     call loc_VSIT                    ; 0x81b2

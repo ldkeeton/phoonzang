@@ -24,7 +24,7 @@ ds_app_UKGP:
     push ax                          ; 0x2bdc
     push word [bp + 6]               ; 0x2bdd
     push word [bp + 4]               ; 0x2be0
-    call gfx_play_score              ; 0x2be3
+    call call_play_score             ; 0x2be3
     add sp, byte 8                   ; 0x2be6
     mov ax, word [bp - 4]            ; 0x2be9
     ret                              ; 0x2bec

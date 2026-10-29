@@ -185,7 +185,7 @@ play_action_overlays:
     push ax                          ; 0x2eb2
     mov ax, 0x37                     ; 0x2eb3
     push ax                          ; 0x2eb6
-    call gfx_show_area               ; 0x2eb7
+    call call_show_area              ; 0x2eb7
     add sp, byte 8                   ; 0x2eba
     mov word [show_melee_result], 0  ; 0x2ebd
 .return1:

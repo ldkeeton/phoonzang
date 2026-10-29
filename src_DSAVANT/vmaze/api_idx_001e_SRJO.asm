@@ -22,7 +22,7 @@ api_idx_001e_SRJO:
     push ax                          ; 0x7063
     mov ax, 0                        ; 0x7064
     push ax                          ; 0x7067
-    call gfx_show_area               ; 0x7068
+    call call_show_area              ; 0x7068
     add sp, byte 8                   ; 0x706b
 .forward1:
     mov ax, word [party_region]      ; 0x706e

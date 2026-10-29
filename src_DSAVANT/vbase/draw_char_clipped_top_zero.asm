@@ -23,6 +23,6 @@ draw_char_clipped_top_zero:
     push word [bp + 0xa]             ; 0x736d
     push word [bp + 8]               ; 0x7370
     push word [bp + 4]               ; 0x7373
-    call gfx_draw_text               ; 0x7376
+    call call_draw_text              ; 0x7376
     add sp, byte 0x16                ; 0x7379
     ret                              ; 0x737c

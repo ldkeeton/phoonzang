@@ -19,13 +19,13 @@ loc_HOMM:
     inc ax                           ; 0x42ba
     inc ax                           ; 0x42bb
     push ax                          ; 0x42bc
-    call gfx_set_text_pos            ; 0x42bd
+    call call_set_text_pos           ; 0x42bd
     add sp, byte 4                   ; 0x42c0
     mov ax, 0xc3                     ; 0x42c3
     push ax                          ; 0x42c6
     mov ax, 0xb4                     ; 0x42c7
     push ax                          ; 0x42ca
-    call gfx_set_text_color          ; 0x42cb
+    call call_set_text_color         ; 0x42cb
     add sp, byte 4                   ; 0x42ce
     mov ax, 0                        ; 0x42d1
     push ax                          ; 0x42d4

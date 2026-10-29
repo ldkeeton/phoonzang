@@ -9,7 +9,7 @@ loc_KPLK:
     mov ax, 0                        ; 0x151b
     push ax                          ; 0x151e
     push ax                          ; 0x151f
-    call gfx_show_area               ; 0x1520
+    call call_show_area              ; 0x1520
     add sp, byte 8                   ; 0x1523
     mov ax, 0x1a                     ; 0x1526
     push ax                          ; 0x1529
@@ -42,6 +42,6 @@ loc_KPLK:
     mov ax, 0                        ; 0x1562
     push ax                          ; 0x1565
     push ax                          ; 0x1566
-    call gfx_show_area               ; 0x1567
+    call call_show_area              ; 0x1567
     add sp, byte 8                   ; 0x156a
     ret                              ; 0x156d

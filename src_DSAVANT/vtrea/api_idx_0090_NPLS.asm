@@ -111,7 +111,7 @@ jumptable_0c85_case_5:
     push ax                          ; 0x0c17
     mov ax, 0x10                     ; 0x0c18
     push ax                          ; 0x0c1b
-    call gfx_draw_text               ; 0x0c1c
+    call call_draw_text              ; 0x0c1c
     add sp, byte 0x16                ; 0x0c1f
     mov ax, 0x10                     ; 0x0c22
     push ax                          ; 0x0c25

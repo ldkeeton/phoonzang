@@ -1,3 +1,0 @@
-; auto-generated
-gfx_drv_stop_sound:
-    db 0xc3, 0x01, 0x00, 0x00

@@ -185,7 +185,7 @@ api_idx_0092_GSQH:
     push ax                          ; 0x4d7e
     mov ax, 0x36                     ; 0x4d7f
     push ax                          ; 0x4d82
-    call gfx_show_area               ; 0x4d83
+    call call_show_area              ; 0x4d83
     add sp, byte 8                   ; 0x4d86
     ret                              ; 0x4d89
 .forward11:
@@ -268,7 +268,7 @@ api_idx_0092_GSQH:
     push ax                          ; 0x4e40
     mov ax, 0x36                     ; 0x4e41
     push ax                          ; 0x4e44
-    call gfx_show_area               ; 0x4e45
+    call call_show_area              ; 0x4e45
     add sp, byte 8                   ; 0x4e48
     cmp word [bp - 0x52], byte -1    ; 0x4e4b
     je short .forward14              ; 0x4e4f
@@ -345,7 +345,7 @@ api_idx_0092_GSQH:
     push ax                          ; 0x4ef0
     mov ax, 0x36                     ; 0x4ef1
     push ax                          ; 0x4ef4
-    call gfx_show_area               ; 0x4ef5
+    call call_show_area              ; 0x4ef5
     add sp, byte 8                   ; 0x4ef8
     mov ax, 1                        ; 0x4efb
     push ax                          ; 0x4efe

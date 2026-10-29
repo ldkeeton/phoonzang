@@ -8,7 +8,7 @@ draw_inset_panel:
     push word [bp + 8]               ; 0x0fec
     push word [bp + 6]               ; 0x0fef
     push word [bp + 4]               ; 0x0ff2
-    call gfx_fill_area               ; 0x0ff5
+    call call_fill_area              ; 0x0ff5
     add sp, byte 0xa                 ; 0x0ff8
     push word [bp + 0xa]             ; 0x0ffb
     push word [bp + 8]               ; 0x0ffe

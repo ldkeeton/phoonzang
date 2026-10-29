@@ -6,13 +6,13 @@ api_idx_002e_ILPL:
     push ax
     mov ax, 0x16
     push ax
-    call gfx_set_text_color
+    call call_set_text_color
     add sp, byte 4
     mov ax, 0xae
     push ax
     mov ax, 6
     push ax
-    call gfx_set_text_pos
+    call call_set_text_pos
     add sp, byte 4
     mov ax, 0
     push ax
@@ -94,7 +94,7 @@ api_idx_002e_ILPL:
     imul cx
     add ax, strict word 0xfffb
     push ax
-    call gfx_set_text_pos
+    call call_set_text_pos
     add sp, byte 4
     mov word [bp - 6], 0
     mov word [bp - 2], 0
@@ -114,7 +114,7 @@ api_idx_002e_ILPL:
     push ax
     mov ax, 1
     push ax
-    call gfx_set_text_color
+    call call_set_text_color
     add sp, byte 4
     mov ax, 0
     push ax
@@ -129,7 +129,7 @@ api_idx_002e_ILPL:
     shl ax, 1
     mov bx, ax
     push word [word bx + 0x30]
-    call gfx_set_text_color
+    call call_set_text_color
     add sp, byte 4
     mov ax, 0
     push ax

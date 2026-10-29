@@ -10,6 +10,6 @@ draw_power_bar(left, top, width, height, cur, max, color)
 	/* full height at max, nothing at zero or below */
 	len = cur == max ? height : cur > 0 ? len : 0;
 	if (len > 0)
-		gfx_fill_area(left, top + height - len, left + width - 1,
+		call_fill_area(left, top + height - len, left + width - 1,
 			top + height - 1, color);	/* grows up from the box bottom */
 }

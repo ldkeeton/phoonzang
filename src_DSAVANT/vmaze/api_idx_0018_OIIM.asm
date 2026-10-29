@@ -100,7 +100,7 @@ api_idx_0018_OIIM:
     push ax                          ; 0x7c41
     mov ax, 5                        ; 0x7c42
     push ax                          ; 0x7c45
-    call gfx_draw_text               ; 0x7c46
+    call call_draw_text              ; 0x7c46
     add sp, byte 0x16                ; 0x7c49
     mov ax, 0xffff                   ; 0x7c4c
     cmp word [bp - 0xa], byte 0      ; 0x7c4f
@@ -122,7 +122,7 @@ api_idx_0018_OIIM:
     push ax                          ; 0x7c76
     mov ax, 0                        ; 0x7c77
     push ax                          ; 0x7c7a
-    call gfx_draw_maze_piece         ; 0x7c7b
+    call call_draw_maze_piece        ; 0x7c7b
     add sp, byte 8                   ; 0x7c7e
     mov ax, 0x8f                     ; 0x7c81
     push ax                          ; 0x7c84
@@ -132,7 +132,7 @@ api_idx_0018_OIIM:
     push ax                          ; 0x7c8c
     mov ax, 0x48                     ; 0x7c8d
     push ax                          ; 0x7c90
-    call gfx_show_area               ; 0x7c91
+    call call_show_area              ; 0x7c91
     add sp, byte 8                   ; 0x7c94
     cmp word [bp + 0xa], byte 0      ; 0x7c97
     je short .forward4               ; 0x7c9b

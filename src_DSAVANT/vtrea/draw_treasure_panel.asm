@@ -225,7 +225,7 @@ draw_treasure_panel:
     push ax                          ; 0x0495
     mov ax, 0x48                     ; 0x0496
     push ax                          ; 0x0499
-    call gfx_cache_area              ; 0x049a
+    call call_cache_area             ; 0x049a
     add sp, byte 0xc                 ; 0x049d
     mov word [bp - 0x116], dx        ; 0x04a0
     mov word [bp - 0x118], ax        ; 0x04a4
@@ -241,7 +241,7 @@ draw_treasure_panel:
     push ax                          ; 0x04be
     mov ax, 0x48                     ; 0x04bf
     push ax                          ; 0x04c2
-    call gfx_show_area               ; 0x04c3
+    call call_show_area              ; 0x04c3
     add sp, byte 8                   ; 0x04c6
     mov ax, 5                        ; 0x04c9
     push ax                          ; 0x04cc
@@ -297,7 +297,7 @@ draw_treasure_panel:
     push ax                          ; 0x0556
     push word [bp - 0x116]           ; 0x0557
     push word [bp - 0x118]           ; 0x055b
-    call gfx_restore_screen          ; 0x055f
+    call call_restore_screen         ; 0x055f
     add sp, byte 8                   ; 0x0562
     cmp word [animation_index], byte 0 ; 0x0565
     jl short .forward13              ; 0x056a
@@ -356,7 +356,7 @@ draw_treasure_panel:
     push ax                          ; 0x05ec
     push word [bp - 0xf2]            ; 0x05ed
     push word [bp - 0xf6]            ; 0x05f1
-    call gfx_draw_text               ; 0x05f5
+    call call_draw_text              ; 0x05f5
     add sp, byte 0x16                ; 0x05f8
     push word [show_area_bottom]     ; 0x05fb
     mov ax, 0xf8                     ; 0x05ff
@@ -365,7 +365,7 @@ draw_treasure_panel:
     push ax                          ; 0x0606
     mov ax, 0x48                     ; 0x0607
     push ax                          ; 0x060a
-    call gfx_show_area               ; 0x060b
+    call call_show_area              ; 0x060b
     add sp, byte 8                   ; 0x060e
     mov ax, word [bp - 0xa]          ; 0x0611
     add word [bp - 0x100], ax        ; 0x0614
@@ -406,6 +406,6 @@ draw_treasure_panel:
     push ax                          ; 0x066b
     push word [bp - 0x116]           ; 0x066c
     push word [bp - 0x118]           ; 0x0670
-    call gfx_restore_screen          ; 0x0674
+    call call_restore_screen         ; 0x0674
     add sp, byte 8                   ; 0x0677
     ret                              ; 0x067a

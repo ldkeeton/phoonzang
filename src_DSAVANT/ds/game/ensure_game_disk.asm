@@ -52,7 +52,7 @@ ensure_game_disk:
     mov ax, 0                        ; 0x2857
     push ax                          ; 0x285a
     push ax                          ; 0x285b
-    call gfx_show_area               ; 0x285c
+    call call_show_area              ; 0x285c
     add sp, byte 8                   ; 0x285f
 .return1:
     ret                              ; 0x2862

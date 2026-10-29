@@ -40,7 +40,7 @@ begin_game:
     push ax                          ; 0x66c1
     mov ax, 0x36                     ; 0x66c2
     push ax                          ; 0x66c5
-    call gfx_show_area               ; 0x66c6
+    call call_show_area              ; 0x66c6
     add sp, byte 8                   ; 0x66c9
     ret                              ; 0x66cc
 .forward5:

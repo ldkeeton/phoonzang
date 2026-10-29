@@ -23,7 +23,7 @@ draw_realm_spell_points:
     shl ax, 1
     mov bx, ax
     push word [word bx + 6]
-    call gfx_set_text_color
+    call call_set_text_color
     add sp, byte 4
     mov ax, word [bp - 2]
     shl ax, 1
@@ -48,7 +48,7 @@ draw_realm_spell_points:
     add ax, strict word 9
     sub ax, cx
     push ax
-    call gfx_set_text_pos
+    call call_set_text_pos
     add sp, byte 4
     mov ax, 0
     push ax

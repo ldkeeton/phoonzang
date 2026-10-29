@@ -1,3 +1,0 @@
-; auto-generated
-gfx_drv_dissolve_area:
-    db 0x6f, 0x01, 0x00, 0x00

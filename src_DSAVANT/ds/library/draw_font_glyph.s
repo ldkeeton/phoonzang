@@ -4,7 +4,7 @@
 	include	lmacros.h
 	assume	cs:codeseg
 	extrn	font_seg_table_:word
-	extrn	gfx_drv_draw_glyph_:dword
+	extrn	drv_slot_draw_glyph_:dword
 	procdef	draw_font_glyph,<<glyph,word>,<font,word>>
 	cld
 	mov	ax,font
@@ -14,7 +14,7 @@
 	mov	ax,word ptr cs:[bx]
 	or	ax,ax
 	je	no_font		;font not loaded: nothing to draw
-	call	dword ptr cs:gfx_drv_draw_glyph_
+	call	dword ptr cs:drv_slot_draw_glyph_
 no_font:
 	mov	sp,bp
 	pret

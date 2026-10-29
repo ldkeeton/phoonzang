@@ -10,7 +10,7 @@ api_idx_0006_JHIT:
     push ax                          ; 0x6898
     mov ax, 0xe                      ; 0x6899
     push ax                          ; 0x689c
-    call gfx_save_area               ; 0x689d
+    call call_save_area              ; 0x689d
     add sp, byte 8                   ; 0x68a0
     mov word [bp - 4], dx            ; 0x68a3
     mov word [bp - 6], ax            ; 0x68a6
@@ -32,7 +32,7 @@ api_idx_0006_JHIT:
     push ax                          ; 0x68d1
     push word [bp - 4]               ; 0x68d2
     push word [bp - 6]               ; 0x68d5
-    call gfx_restore_area            ; 0x68d8
+    call call_restore_area           ; 0x68d8
     add sp, byte 6                   ; 0x68db
     mov al, byte [party_records + pc_rec.kind] ; 0x68de
     sub ah, ah                       ; 0x68e1

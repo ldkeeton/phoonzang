@@ -109,13 +109,13 @@ api_idx_0044_NORP:
     mov ax, word [bp - 0xc]          ; 0x797c
     add ax, strict word 0x48         ; 0x797f
     push ax                          ; 0x7982
-    call gfx_set_text_pos            ; 0x7983
+    call call_set_text_pos           ; 0x7983
     add sp, byte 4                   ; 0x7986
     mov ax, 0                        ; 0x7989
     push ax                          ; 0x798c
     mov ax, 0xcd                     ; 0x798d
     push ax                          ; 0x7990
-    call gfx_set_text_color          ; 0x7991
+    call call_set_text_color         ; 0x7991
     add sp, byte 4                   ; 0x7994
     mov ax, 2                        ; 0x7997
     push ax                          ; 0x799a
@@ -491,7 +491,7 @@ api_idx_0044_NORP:
     push ax                          ; 0x7cfa
     mov ax, 9                        ; 0x7cfb
     push ax                          ; 0x7cfe
-    call gfx_show_area               ; 0x7cff
+    call call_show_area              ; 0x7cff
     add sp, byte 8                   ; 0x7d02
     mov word [party_redraw_interval], 5 ; 0x7d05
     les bx, word [tick_counter_ptr]  ; 0x7d0b
@@ -535,7 +535,7 @@ jumptable_8492_case_0:
     push ax                          ; 0x7d75
     lea ax, word [bp - 0xe]          ; 0x7d76
     push ax                          ; 0x7d79
-    call gfx_get_mouse               ; 0x7d7a
+    call call_get_mouse              ; 0x7d7a
     add sp, byte 4                   ; 0x7d7d
     mov ax, 4                        ; 0x7d80
     push ax                          ; 0x7d83
@@ -555,7 +555,7 @@ api_idx_0044_NORP.back6:
     push ax                          ; 0x7da3
     lea ax, word [bp - 0xe]          ; 0x7da4
     push ax                          ; 0x7da7
-    call gfx_get_mouse               ; 0x7da8
+    call call_get_mouse              ; 0x7da8
     add sp, byte 4                   ; 0x7dab
     mov word [bp - 0x1e], ax         ; 0x7dae
     push word [bp - 0x14]            ; 0x7db1
@@ -649,7 +649,7 @@ api_idx_0044_NORP.forward6:
     mov ax, word [bp - 0xc]          ; 0x7e80
     add ax, strict word 6            ; 0x7e83
     push ax                          ; 0x7e86
-    call gfx_show_area               ; 0x7e87
+    call call_show_area              ; 0x7e87
     add sp, byte 8                   ; 0x7e8a
     cmp word [bp - 0x1e], byte 0     ; 0x7e8d
     je short api_idx_0044_NORP.forward7 ; 0x7e91
@@ -785,7 +785,7 @@ api_idx_0044_NORP.forward11:
     mov ax, word [bp - 0xc]          ; 0x7fc0
     add ax, strict word 6            ; 0x7fc3
     push ax                          ; 0x7fc6
-    call gfx_show_area               ; 0x7fc7
+    call call_show_area              ; 0x7fc7
     add sp, byte 8                   ; 0x7fca
     jmp near api_idx_0044_NORP.forward40 ; 0x7fcd
 jumptable_8492_case_3:
@@ -1028,7 +1028,7 @@ api_idx_0044_NORP.forward25:
     mov ax, word [bp - 0xc]          ; 0x81f5
     add ax, strict word 0xb          ; 0x81f8
     push ax                          ; 0x81fb
-    call gfx_show_area               ; 0x81fc
+    call call_show_area              ; 0x81fc
     add sp, byte 8                   ; 0x81ff
     mov ax, word [bp - 6]            ; 0x8202
     add ax, strict word 0x1b         ; 0x8205
@@ -1042,7 +1042,7 @@ api_idx_0044_NORP.forward25:
     mov ax, word [bp - 0xc]          ; 0x8217
     add ax, strict word 0x5e         ; 0x821a
     push ax                          ; 0x821d
-    call gfx_show_area               ; 0x821e
+    call call_show_area              ; 0x821e
     add sp, byte 8                   ; 0x8221
     jmp near api_idx_0044_NORP.forward37 ; 0x8224
 api_idx_0044_NORP.forward26:
@@ -1151,7 +1151,7 @@ api_idx_0044_NORP.forward30:
     mov ax, word [bp - 0xc]          ; 0x8327
     add ax, strict word 6            ; 0x832a
     push ax                          ; 0x832d
-    call gfx_show_area               ; 0x832e
+    call call_show_area              ; 0x832e
     add sp, byte 8                   ; 0x8331
     mov ax, word [bp - 6]            ; 0x8334
     add ax, strict word 0x1b         ; 0x8337
@@ -1165,7 +1165,7 @@ api_idx_0044_NORP.forward30:
     mov ax, word [bp - 0xc]          ; 0x8349
     add ax, strict word 0x5e         ; 0x834c
     push ax                          ; 0x834f
-    call gfx_show_area               ; 0x8350
+    call call_show_area              ; 0x8350
     add sp, byte 8                   ; 0x8353
     jmp near api_idx_0044_NORP.forward37 ; 0x8356
 api_idx_0044_NORP.forward31:
@@ -1282,7 +1282,7 @@ api_idx_0044_NORP.forward36:
     mov ax, word [bp - 0xc]          ; 0x8461
     add ax, strict word 6            ; 0x8464
     push ax                          ; 0x8467
-    call gfx_show_area               ; 0x8468
+    call call_show_area              ; 0x8468
     add sp, byte 8                   ; 0x846b
     mov ax, word [bp - 6]            ; 0x846e
     add ax, strict word 0x1b         ; 0x8471
@@ -1296,7 +1296,7 @@ api_idx_0044_NORP.forward36:
     mov ax, word [bp - 0xc]          ; 0x8483
     add ax, strict word 0x5e         ; 0x8486
     push ax                          ; 0x8489
-    call gfx_show_area               ; 0x848a
+    call call_show_area              ; 0x848a
     add sp, byte 8                   ; 0x848d
 api_idx_0044_NORP.forward37:
     jmp short api_idx_0044_NORP.forward40 ; 0x8490
@@ -1336,7 +1336,7 @@ api_idx_0044_NORP.forward41:
     mov ax, word [bp - 4]            ; 0x84d1
     dec ax                           ; 0x84d4
     push ax                          ; 0x84d5
-    call gfx_show_area               ; 0x84d6
+    call call_show_area              ; 0x84d6
     add sp, byte 8                   ; 0x84d9
     mov ax, word [bp - 0x3e]         ; 0x84dc
     xchg al, ah                      ; 0x84df

@@ -161,12 +161,12 @@ build_palette_map:
     push ax                          ; 0x038f
     lea ax, word [bp - 0x30c]        ; 0x0390
     push ax                          ; 0x0394
-    call gfx_set_palette             ; 0x0395
+    call call_set_palette            ; 0x0395
     add sp, byte 4                   ; 0x0398
     mov ax, 0xffff                   ; 0x039b
     push ax                          ; 0x039e
     push ax                          ; 0x039f
     push ax                          ; 0x03a0
-    call gfx_reset_rgb               ; 0x03a1
+    call call_reset_rgb              ; 0x03a1
     add sp, byte 6                   ; 0x03a4
     ret                              ; 0x03a7

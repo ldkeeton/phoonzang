@@ -18,6 +18,6 @@ loc_TIPV:
     inc ax                           ; 0x0f75
     inc ax                           ; 0x0f76
     push ax                          ; 0x0f77
-    call gfx_put_pixel               ; 0x0f78
+    call call_put_pixel              ; 0x0f78
     add sp, byte 6                   ; 0x0f7b
     ret                              ; 0x0f7e

@@ -22,7 +22,7 @@ apply_text_control_codes:
     push ax                          ; 0x9417
     mov ax, 0x12e                    ; 0x9418
     push ax                          ; 0x941b
-    call gfx_mouse_glide_back        ; 0x941c
+    call call_mouse_glide_back       ; 0x941c
     add sp, byte 6                   ; 0x941f
     mov ax, 0                        ; 0x9422
     mov dx, 0                        ; 0x9425
@@ -47,7 +47,7 @@ apply_text_control_codes:
     push ax                          ; 0x9451
     mov ax, 0x12e                    ; 0x9452
     push ax                          ; 0x9455
-    call gfx_mouse_glide_to          ; 0x9456
+    call call_mouse_glide_to         ; 0x9456
     add sp, byte 6                   ; 0x9459
     mov bx, word [bp - 0xa]          ; 0x945c
     cmp byte [bx], 0x40              ; 0x945f

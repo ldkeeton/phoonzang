@@ -1,3 +1,0 @@
-; auto-generated
-gfx_drv_slot_10:
-    db 0x2b, 0x01, 0x00, 0x00

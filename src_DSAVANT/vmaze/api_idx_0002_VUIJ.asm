@@ -31,7 +31,7 @@ loc_OGHL:
     call aztec_csav                  ; 0x0143
     mov ax, 1                        ; 0x0146
     push ax                          ; 0x0149
-    call gfx_wait_sound              ; 0x014a
+    call call_wait_sound             ; 0x014a
     pop cx                           ; 0x014d
     cmp word [bss_9194], byte 0      ; 0x014e
     je short .forward1               ; 0x0153

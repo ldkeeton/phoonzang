@@ -56,7 +56,7 @@ api_idx_0006_HMNQ:
     push ax                          ; 0x6154
     push word [bp + 8]               ; 0x6155
     push word [bp + 6]               ; 0x6158
-    call gfx_restore_area            ; 0x615b
+    call call_restore_area           ; 0x615b
     add sp, byte 6                   ; 0x615e
     mov ax, 0                        ; 0x6161
     push ax                          ; 0x6164
@@ -83,7 +83,7 @@ api_idx_0006_HMNQ:
     push ax                          ; 0x6196
     mov ax, 0xe                      ; 0x6197
     push ax                          ; 0x619a
-    call gfx_show_area               ; 0x619b
+    call call_show_area              ; 0x619b
     add sp, byte 8                   ; 0x619e
 .back2:
     mov ax, hotspot_rects            ; 0x61a1
@@ -159,7 +159,7 @@ api_idx_0006_HMNQ:
     push ax                          ; 0x623c
     push word [bp - 4]               ; 0x623d
     push word [bp - 6]               ; 0x6240
-    call gfx_restore_area            ; 0x6243
+    call call_restore_area           ; 0x6243
     add sp, byte 6                   ; 0x6246
     mov ax, 0x12                     ; 0x6249
     push ax                          ; 0x624c
@@ -175,6 +175,6 @@ api_idx_0006_HMNQ:
     mov ax, 0                        ; 0x6262
     push ax                          ; 0x6265
     push ax                          ; 0x6266
-    call gfx_show_area               ; 0x6267
+    call call_show_area              ; 0x6267
     add sp, byte 8                   ; 0x626a
     ret                              ; 0x626d

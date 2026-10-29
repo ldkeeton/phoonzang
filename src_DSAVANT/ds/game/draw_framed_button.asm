@@ -22,7 +22,7 @@ draw_framed_button:
     push ax                          ; 0x1063
     mov ax, 0x55                     ; 0x1064
     push ax                          ; 0x1067
-    call gfx_set_text_color          ; 0x1068
+    call call_set_text_color         ; 0x1068
     add sp, byte 4                   ; 0x106b
     mov ax, word [bp + 6]            ; 0x106e
     inc ax                           ; 0x1071
@@ -42,7 +42,7 @@ draw_framed_button:
     add ax, word [bp + 4]            ; 0x108d
     inc ax                           ; 0x1090
     push ax                          ; 0x1091
-    call gfx_set_text_pos            ; 0x1092
+    call call_set_text_pos           ; 0x1092
     add sp, byte 4                   ; 0x1095
     mov ax, 0                        ; 0x1098
     push ax                          ; 0x109b

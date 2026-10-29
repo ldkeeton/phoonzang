@@ -6,14 +6,14 @@ api_idx_001e_GOQP:
     cmp word [loaded_score_num], byte -1 ; 0x70c3
     je short .forward2               ; 0x70c8
 .back1:
-    call gfx_is_music_playing        ; 0x70ca
+    call call_is_music_playing       ; 0x70ca
     test ax, ax                      ; 0x70cd
     je short .forward1               ; 0x70cf
     jmp short .back1                 ; 0x70d1
 .forward1:
     mov ax, 0                        ; 0x70d3
     push ax                          ; 0x70d6
-    call app_gfx_free_score          ; 0x70d7
+    call free_loaded_score           ; 0x70d7
     pop cx                           ; 0x70da
 .forward2:
     call free_current_maze           ; 0x70db
@@ -29,7 +29,7 @@ api_idx_001e_GOQP:
     push ax                          ; 0x70f1
     mov ax, 0x48                     ; 0x70f2
     push ax                          ; 0x70f5
-    call gfx_cache_area              ; 0x70f6
+    call call_cache_area             ; 0x70f6
     add sp, byte 0xc                 ; 0x70f9
     mov word [screen_cache_0_seg], dx ; 0x70fc
     mov word [screen_cache], ax      ; 0x7100
@@ -54,7 +54,7 @@ api_idx_001e_GOQP:
     push ax                          ; 0x7131
     mov ax, 0x48                     ; 0x7132
     push ax                          ; 0x7135
-    call gfx_cache_area              ; 0x7136
+    call call_cache_area             ; 0x7136
     add sp, byte 0xc                 ; 0x7139
     mov word [screen_cache_1_seg], dx ; 0x713c
     mov word [screen_cache_1_off], ax ; 0x7140
@@ -125,7 +125,7 @@ api_idx_001e_GOQP:
     push ax                          ; 0x71f4
     mov ax, 8                        ; 0x71f5
     push ax                          ; 0x71f8
-    call gfx_save_area               ; 0x71f9
+    call call_save_area              ; 0x71f9
     add sp, byte 8                   ; 0x71fc
     mov word [saved_area_a_hi], dx   ; 0x71ff
     mov word [saved_area_a], ax      ; 0x7203
@@ -137,7 +137,7 @@ api_idx_001e_GOQP:
     push ax                          ; 0x7211
     mov ax, 0x41                     ; 0x7212
     push ax                          ; 0x7215
-    call gfx_save_area               ; 0x7216
+    call call_save_area              ; 0x7216
     add sp, byte 8                   ; 0x7219
     mov word [saved_area_b_hi], dx   ; 0x721c
     mov word [saved_area_b], ax      ; 0x7220

@@ -59,7 +59,7 @@ api_idx_0006_MROT:
     mov bx, ax                       ; 0x626e
     push word [bx + panel_area + 0x2] ; 0x6270
     push word [bx + panel_area]      ; 0x6274
-    call gfx_restore_area            ; 0x6278
+    call call_restore_area           ; 0x6278
     add sp, byte 6                   ; 0x627b
     cmp word [bp + 6], byte 0        ; 0x627e
     je short .return1                ; 0x6282
@@ -87,7 +87,7 @@ api_idx_0006_MROT:
     push ax                          ; 0x62b8
     push word [bp - 6]               ; 0x62b9
     push word [bp - 4]               ; 0x62bc
-    call gfx_show_area               ; 0x62bf
+    call call_show_area              ; 0x62bf
     add sp, byte 8                   ; 0x62c2
 .return1:
     ret                              ; 0x62c5

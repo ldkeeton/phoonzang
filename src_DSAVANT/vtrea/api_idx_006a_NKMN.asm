@@ -40,7 +40,7 @@ api_idx_006a_NKMN:
     push ax                          ; 0x6058
     mov ax, 0x1c                     ; 0x6059
     push ax                          ; 0x605c
-    call gfx_set_text_color          ; 0x605d
+    call call_set_text_color         ; 0x605d
     add sp, byte 4                   ; 0x6060
     mov ax, word [bp - 8]            ; 0x6063
     add ax, strict word 9            ; 0x6066
@@ -60,7 +60,7 @@ api_idx_006a_NKMN:
     add ax, word [bp - 6]            ; 0x6084
     add ax, strict word 9            ; 0x6087
     push ax                          ; 0x608a
-    call gfx_set_text_pos            ; 0x608b
+    call call_set_text_pos           ; 0x608b
     add sp, byte 4                   ; 0x608e
     mov ax, 0                        ; 0x6091
     push ax                          ; 0x6094
@@ -72,7 +72,7 @@ api_idx_006a_NKMN:
     push ax                          ; 0x60a2
     mov ax, 1                        ; 0x60a3
     push ax                          ; 0x60a6
-    call gfx_set_text_color          ; 0x60a7
+    call call_set_text_color         ; 0x60a7
     add sp, byte 4                   ; 0x60aa
     mov ax, word [bp - 8]            ; 0x60ad
     add ax, strict word 0x15         ; 0x60b0
@@ -93,7 +93,7 @@ api_idx_006a_NKMN:
     add ax, strict word 0x2d         ; 0x60d2
     sub ax, cx                       ; 0x60d5
     push ax                          ; 0x60d7
-    call gfx_set_text_pos            ; 0x60d8
+    call call_set_text_pos           ; 0x60d8
     add sp, byte 4                   ; 0x60db
     mov ax, 0                        ; 0x60de
     push ax                          ; 0x60e1
@@ -142,7 +142,7 @@ api_idx_006a_NKMN:
     add ax, strict word 0x2d         ; 0x6146
     sub ax, cx                       ; 0x6149
     push ax                          ; 0x614b
-    call gfx_set_text_pos            ; 0x614c
+    call call_set_text_pos           ; 0x614c
     add sp, byte 4                   ; 0x614f
     mov ax, 0                        ; 0x6152
     push ax                          ; 0x6155
@@ -316,7 +316,7 @@ api_idx_006a_NKMN:
     mov ax, word [bp - 6]            ; 0x62d8
     dec ax                           ; 0x62db
     push ax                          ; 0x62dc
-    call gfx_show_area               ; 0x62dd
+    call call_show_area              ; 0x62dd
     add sp, byte 8                   ; 0x62e0
     mov word [bp - 0x16], 1          ; 0x62e3
     mov word [bp - 0x1c], 0          ; 0x62e8
@@ -394,13 +394,13 @@ api_idx_006a_NKMN:
     mov word [bp - 0x14], ax         ; 0x6398
     mov ax, 1                        ; 0x639b
     push ax                          ; 0x639e
-    call gfx_set_text_opaque         ; 0x639f
+    call call_set_text_opaque        ; 0x639f
     pop cx                           ; 0x63a2
     mov ax, 0xc3                     ; 0x63a3
     push ax                          ; 0x63a6
     mov ax, 0xb4                     ; 0x63a7
     push ax                          ; 0x63aa
-    call gfx_set_text_color          ; 0x63ab
+    call call_set_text_color         ; 0x63ab
     add sp, byte 4                   ; 0x63ae
     mov ax, word [bp - 8]            ; 0x63b1
     add ax, strict word 9            ; 0x63b4
@@ -410,7 +410,7 @@ api_idx_006a_NKMN:
     add ax, word [bp - 6]            ; 0x63be
     add ax, strict word 0x5b         ; 0x63c1
     push ax                          ; 0x63c4
-    call gfx_set_text_pos            ; 0x63c5
+    call call_set_text_pos           ; 0x63c5
     add sp, byte 4                   ; 0x63c8
     mov ax, 0                        ; 0x63cb
     push ax                          ; 0x63ce
@@ -421,7 +421,7 @@ api_idx_006a_NKMN:
     add sp, byte 6                   ; 0x63d9
     mov ax, 0                        ; 0x63dc
     push ax                          ; 0x63df
-    call gfx_set_text_opaque         ; 0x63e0
+    call call_set_text_opaque        ; 0x63e0
     pop cx                           ; 0x63e3
     mov ax, word [bp - 0x1a]         ; 0x63e4
     mov cx, word [bp - 2]            ; 0x63e7
@@ -494,7 +494,7 @@ api_idx_006a_NKMN:
     add ax, word [bp - 6]            ; 0x647e
     add ax, strict word 0x5e         ; 0x6481
     push ax                          ; 0x6484
-    call gfx_fill_area               ; 0x6485
+    call call_fill_area              ; 0x6485
     add sp, byte 0xa                 ; 0x6488
 .forward14:
     inc word [bp - 2]                ; 0x648b
@@ -516,7 +516,7 @@ api_idx_006a_NKMN:
     mov ax, word [bp - 6]            ; 0x64ae
     add ax, strict word 0x59         ; 0x64b1
     push ax                          ; 0x64b4
-    call gfx_show_area               ; 0x64b5
+    call call_show_area              ; 0x64b5
     add sp, byte 8                   ; 0x64b8
     call loc_IKLI                    ; 0x64bb
     test ax, ax                      ; 0x64be
@@ -618,7 +618,7 @@ api_idx_006a_NKMN:
     add ax, word [bp - 6]            ; 0x65a1
     add ax, strict word 0x59         ; 0x65a4
     push ax                          ; 0x65a7
-    call gfx_show_area               ; 0x65a8
+    call call_show_area              ; 0x65a8
     add sp, byte 8                   ; 0x65ab
     mov ax, 4                        ; 0x65ae
     push ax                          ; 0x65b1
@@ -696,7 +696,7 @@ api_idx_006a_NKMN:
     add ax, word [bp - 6]            ; 0x665f
     add ax, strict word 0x59         ; 0x6662
     push ax                          ; 0x6665
-    call gfx_show_area               ; 0x6666
+    call call_show_area              ; 0x6666
     add sp, byte 8                   ; 0x6669
     mov ax, 4                        ; 0x666c
     push ax                          ; 0x666f
@@ -751,7 +751,7 @@ api_idx_006a_NKMN:
     mov ax, word [bp - 6]            ; 0x66dc
     dec ax                           ; 0x66df
     push ax                          ; 0x66e0
-    call gfx_show_area               ; 0x66e1
+    call call_show_area              ; 0x66e1
     add sp, byte 8                   ; 0x66e4
     mov ax, word [spell_dialog_button] ; 0x66e7
     ret                              ; 0x66ea

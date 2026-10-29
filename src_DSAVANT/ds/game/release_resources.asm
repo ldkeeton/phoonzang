@@ -101,12 +101,12 @@ jumptable_0363_case_4:
     mov word [bp - 2], 1             ; 0x0347
     mov ax, 1                        ; 0x034c
     push ax                          ; 0x034f
-    call gfx_wait_sound              ; 0x0350
+    call call_wait_sound             ; 0x0350
     pop cx                           ; 0x0353
-    call gfx_stop_sound              ; 0x0354
+    call call_stop_sound             ; 0x0354
     cmp word [mouse_active], byte 0  ; 0x0357
     je short jumptable_0363_case_1   ; 0x035c
-    call gfx_mouse_off               ; 0x035e
+    call call_mouse_off              ; 0x035e
 jumptable_0363_case_1:
     jmp short release_resources.forward19 ; 0x0361
 jumptable_0363:

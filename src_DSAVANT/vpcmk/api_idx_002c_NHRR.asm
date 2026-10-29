@@ -25,7 +25,7 @@ api_idx_002c_NHRR:
     mov ax, 0                        ; 0x6a71
     push ax                          ; 0x6a74
     push ax                          ; 0x6a75
-    call gfx_cache_area              ; 0x6a76
+    call call_cache_area             ; 0x6a76
     add sp, byte 0xc                 ; 0x6a79
     mov word [bp - 0xc], dx          ; 0x6a7c
     mov word [bp - 0xe], ax          ; 0x6a7f
@@ -49,7 +49,7 @@ api_idx_002c_NHRR:
     mov ax, 6                        ; 0x6ab2
     push ax                          ; 0x6ab5
     push ax                          ; 0x6ab6
-    call gfx_cache_area              ; 0x6ab7
+    call call_cache_area             ; 0x6ab7
     add sp, byte 0xc                 ; 0x6aba
     mov word [bss_9526], dx          ; 0x6abd
     mov word [bss_9524], ax          ; 0x6ac1
@@ -65,7 +65,7 @@ api_idx_002c_NHRR:
     push ax                          ; 0x6ad7
     mov ax, 0xe4                     ; 0x6ad8
     push ax                          ; 0x6adb
-    call gfx_cache_area              ; 0x6adc
+    call call_cache_area             ; 0x6adc
     add sp, byte 0xc                 ; 0x6adf
     mov word [bss_952a], dx          ; 0x6ae2
     mov word [bss_9528], ax          ; 0x6ae6
@@ -81,7 +81,7 @@ api_idx_002c_NHRR:
     push ax                          ; 0x6afc
     mov ax, 1                        ; 0x6afd
     push ax                          ; 0x6b00
-    call gfx_cache_area              ; 0x6b01
+    call call_cache_area             ; 0x6b01
     add sp, byte 0xc                 ; 0x6b04
     mov word [roster_screen_a], dx   ; 0x6b07
     mov word [roster_screen_b], ax   ; 0x6b0b
@@ -97,7 +97,7 @@ api_idx_002c_NHRR:
     push ax                          ; 0x6b21
     mov ax, 0xdc                     ; 0x6b22
     push ax                          ; 0x6b25
-    call gfx_cache_area              ; 0x6b26
+    call call_cache_area             ; 0x6b26
     add sp, byte 0xc                 ; 0x6b29
     mov word [bss_9532], dx          ; 0x6b2c
     mov word [bss_9530], ax          ; 0x6b30
@@ -113,7 +113,7 @@ api_idx_002c_NHRR:
     push ax                          ; 0x6b46
     mov ax, 0x114                    ; 0x6b47
     push ax                          ; 0x6b4a
-    call gfx_cache_area              ; 0x6b4b
+    call call_cache_area             ; 0x6b4b
     add sp, byte 0xc                 ; 0x6b4e
     mov word [bss_9536], dx          ; 0x6b51
     mov word [bss_9534], ax          ; 0x6b55
@@ -129,7 +129,7 @@ api_idx_002c_NHRR:
     push ax                          ; 0x6b6b
     mov ax, 0xb8                     ; 0x6b6c
     push ax                          ; 0x6b6f
-    call gfx_cache_area              ; 0x6b70
+    call call_cache_area             ; 0x6b70
     add sp, byte 0xc                 ; 0x6b73
     mov word [bss_953a], dx          ; 0x6b76
     mov word [bss_9538], ax          ; 0x6b7a
@@ -145,7 +145,7 @@ api_idx_002c_NHRR:
     push ax                          ; 0x6b90
     mov ax, 0x66                     ; 0x6b91
     push ax                          ; 0x6b94
-    call gfx_cache_area              ; 0x6b95
+    call call_cache_area             ; 0x6b95
     add sp, byte 0xc                 ; 0x6b98
     mov word [bss_953e], dx          ; 0x6b9b
     mov word [bss_953c], ax          ; 0x6b9f
@@ -161,7 +161,7 @@ api_idx_002c_NHRR:
     push ax                          ; 0x6bb5
     mov ax, 0x5a                     ; 0x6bb6
     push ax                          ; 0x6bb9
-    call gfx_cache_area              ; 0x6bba
+    call call_cache_area             ; 0x6bba
     add sp, byte 0xc                 ; 0x6bbd
     mov word [bss_9542], dx          ; 0x6bc0
     mov word [saved_screen], ax      ; 0x6bc4
@@ -237,42 +237,42 @@ api_idx_002c_NHRR:
     push ax                          ; 0x6c82
     push word [bss_9526]             ; 0x6c83
     push word [bss_9524]             ; 0x6c87
-    call gfx_restore_screen          ; 0x6c8b
+    call call_restore_screen         ; 0x6c8b
     add sp, byte 8                   ; 0x6c8e
     mov ax, 0                        ; 0x6c91
     push ax                          ; 0x6c94
     push ax                          ; 0x6c95
     push word [bss_952a]             ; 0x6c96
     push word [bss_9528]             ; 0x6c9a
-    call gfx_restore_screen          ; 0x6c9e
+    call call_restore_screen         ; 0x6c9e
     add sp, byte 8                   ; 0x6ca1
     mov ax, 0                        ; 0x6ca4
     push ax                          ; 0x6ca7
     push ax                          ; 0x6ca8
     push word [roster_screen_a]      ; 0x6ca9
     push word [roster_screen_b]      ; 0x6cad
-    call gfx_restore_screen          ; 0x6cb1
+    call call_restore_screen         ; 0x6cb1
     add sp, byte 8                   ; 0x6cb4
     mov ax, 0                        ; 0x6cb7
     push ax                          ; 0x6cba
     push ax                          ; 0x6cbb
     push word [bss_9532]             ; 0x6cbc
     push word [bss_9530]             ; 0x6cc0
-    call gfx_restore_screen          ; 0x6cc4
+    call call_restore_screen         ; 0x6cc4
     add sp, byte 8                   ; 0x6cc7
     mov ax, 0                        ; 0x6cca
     push ax                          ; 0x6ccd
     push ax                          ; 0x6cce
     push word [bss_9536]             ; 0x6ccf
     push word [bss_9534]             ; 0x6cd3
-    call gfx_restore_screen          ; 0x6cd7
+    call call_restore_screen         ; 0x6cd7
     add sp, byte 8                   ; 0x6cda
     mov ax, 0                        ; 0x6cdd
     push ax                          ; 0x6ce0
     push ax                          ; 0x6ce1
     push word [bss_953a]             ; 0x6ce2
     push word [bss_9538]             ; 0x6ce6
-    call gfx_restore_screen          ; 0x6cea
+    call call_restore_screen         ; 0x6cea
     add sp, byte 8                   ; 0x6ced
     mov word [bp - 2], 0             ; 0x6cf0
 .back4:
@@ -347,7 +347,7 @@ jumptable_6e5f_case_0:
     mov ax, 0                        ; 0x6da1
     push ax                          ; 0x6da4
     push ax                          ; 0x6da5
-    call gfx_show_area               ; 0x6da6
+    call call_show_area              ; 0x6da6
     add sp, byte 8                   ; 0x6da9
     push word [bp - 0xa]             ; 0x6dac
     call api_idx_0014_LVIL           ; 0x6daf
@@ -361,7 +361,7 @@ jumptable_6e5f_case_2:
     mov ax, 0                        ; 0x6dbe
     push ax                          ; 0x6dc1
     push ax                          ; 0x6dc2
-    call gfx_show_area               ; 0x6dc3
+    call call_show_area              ; 0x6dc3
     add sp, byte 8                   ; 0x6dc6
     mov ax, MSG_DELETE_WHO           ; 0x6dc9
     push ax                          ; 0x6dcc
@@ -383,7 +383,7 @@ jumptable_6e5f_case_1:
     mov ax, 0                        ; 0x6de9
     push ax                          ; 0x6dec
     push ax                          ; 0x6ded
-    call gfx_show_area               ; 0x6dee
+    call call_show_area              ; 0x6dee
     add sp, byte 8                   ; 0x6df1
     mov ax, MSG_REVIEW_WHO           ; 0x6df4
     push ax                          ; 0x6df7
@@ -405,7 +405,7 @@ jumptable_6e5f_case_3:
     mov ax, 0                        ; 0x6e13
     push ax                          ; 0x6e16
     push ax                          ; 0x6e17
-    call gfx_show_area               ; 0x6e18
+    call call_show_area              ; 0x6e18
     add sp, byte 8                   ; 0x6e1b
     mov ax, MSG_RENAME_WHO           ; 0x6e1e
     push ax                          ; 0x6e21
@@ -427,7 +427,7 @@ jumptable_6e5f_case_4:
     mov ax, 0                        ; 0x6e3d
     push ax                          ; 0x6e40
     push ax                          ; 0x6e41
-    call gfx_show_area               ; 0x6e42
+    call call_show_area              ; 0x6e42
     add sp, byte 8                   ; 0x6e45
     mov ax, MSG_CHANGE_WHO           ; 0x6e48
     push ax                          ; 0x6e4b
@@ -466,7 +466,7 @@ api_idx_002c_NHRR.forward11:
     add sp, byte 4                   ; 0x6e91
     mov ax, 0                        ; 0x6e94
     push ax                          ; 0x6e97
-    call app_gfx_free_score          ; 0x6e98
+    call free_loaded_score           ; 0x6e98
     pop cx                           ; 0x6e9b
 api_idx_002c_NHRR.forward12:
     mov ax, 0xf                      ; 0x6e9c
@@ -479,7 +479,7 @@ api_idx_002c_NHRR.forward12:
     push ax                          ; 0x6eab
     push word [bss_9542]             ; 0x6eac
     push word [saved_screen]         ; 0x6eb0
-    call gfx_restore_screen          ; 0x6eb4
+    call call_restore_screen         ; 0x6eb4
     add sp, byte 8                   ; 0x6eb7
     mov ax, 0                        ; 0x6eba
     push ax                          ; 0x6ebd
@@ -487,7 +487,7 @@ api_idx_002c_NHRR.forward12:
     push ax                          ; 0x6ec1
     push word [bss_953e]             ; 0x6ec2
     push word [bss_953c]             ; 0x6ec6
-    call gfx_restore_screen          ; 0x6eca
+    call call_restore_screen         ; 0x6eca
     add sp, byte 8                   ; 0x6ecd
     mov ax, 0                        ; 0x6ed0
     push ax                          ; 0x6ed3
@@ -495,7 +495,7 @@ api_idx_002c_NHRR.forward12:
     push ax                          ; 0x6ed7
     push word [bss_953a]             ; 0x6ed8
     push word [bss_9538]             ; 0x6edc
-    call gfx_restore_screen          ; 0x6ee0
+    call call_restore_screen         ; 0x6ee0
     add sp, byte 8                   ; 0x6ee3
     mov ax, 0                        ; 0x6ee6
     push ax                          ; 0x6ee9
@@ -503,7 +503,7 @@ api_idx_002c_NHRR.forward12:
     push ax                          ; 0x6eed
     push word [bss_9536]             ; 0x6eee
     push word [bss_9534]             ; 0x6ef2
-    call gfx_restore_screen          ; 0x6ef6
+    call call_restore_screen         ; 0x6ef6
     add sp, byte 8                   ; 0x6ef9
     mov ax, 0                        ; 0x6efc
     push ax                          ; 0x6eff
@@ -511,7 +511,7 @@ api_idx_002c_NHRR.forward12:
     push ax                          ; 0x6f03
     push word [bss_9532]             ; 0x6f04
     push word [bss_9530]             ; 0x6f08
-    call gfx_restore_screen          ; 0x6f0c
+    call call_restore_screen         ; 0x6f0c
     add sp, byte 8                   ; 0x6f0f
     mov ax, 0                        ; 0x6f12
     push ax                          ; 0x6f15
@@ -519,7 +519,7 @@ api_idx_002c_NHRR.forward12:
     push ax                          ; 0x6f19
     push word [roster_screen_a]      ; 0x6f1a
     push word [roster_screen_b]      ; 0x6f1e
-    call gfx_restore_screen          ; 0x6f22
+    call call_restore_screen         ; 0x6f22
     add sp, byte 8                   ; 0x6f25
     mov ax, 0                        ; 0x6f28
     push ax                          ; 0x6f2b
@@ -527,7 +527,7 @@ api_idx_002c_NHRR.forward12:
     push ax                          ; 0x6f2f
     push word [bss_952a]             ; 0x6f30
     push word [bss_9528]             ; 0x6f34
-    call gfx_restore_screen          ; 0x6f38
+    call call_restore_screen         ; 0x6f38
     add sp, byte 8                   ; 0x6f3b
     mov ax, 0                        ; 0x6f3e
     push ax                          ; 0x6f41
@@ -535,7 +535,7 @@ api_idx_002c_NHRR.forward12:
     push ax                          ; 0x6f45
     push word [bss_9526]             ; 0x6f46
     push word [bss_9524]             ; 0x6f4a
-    call gfx_restore_screen          ; 0x6f4e
+    call call_restore_screen         ; 0x6f4e
     add sp, byte 8                   ; 0x6f51
     mov ax, 0                        ; 0x6f54
     push ax                          ; 0x6f57
@@ -543,7 +543,7 @@ api_idx_002c_NHRR.forward12:
     push ax                          ; 0x6f5b
     push word [bp - 0xc]             ; 0x6f5c
     push word [bp - 0xe]             ; 0x6f5f
-    call gfx_restore_screen          ; 0x6f62
+    call call_restore_screen         ; 0x6f62
     add sp, byte 8                   ; 0x6f65
     mov ax, 1                        ; 0x6f68
     push ax                          ; 0x6f6b
@@ -560,6 +560,6 @@ api_idx_002c_NHRR.forward12:
     mov ax, 0                        ; 0x6f80
     push ax                          ; 0x6f83
     push ax                          ; 0x6f84
-    call gfx_show_area               ; 0x6f85
+    call call_show_area              ; 0x6f85
     add sp, byte 8                   ; 0x6f88
     ret                              ; 0x6f8b

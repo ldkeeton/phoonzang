@@ -10,7 +10,7 @@ api_idx_0016_JNJG:
     add sp, byte 4
     mov ax, 0
     push ax
-    call gfx_wait_sound
+    call call_wait_sound
     pop cx
     mov ax, 0
     push ax

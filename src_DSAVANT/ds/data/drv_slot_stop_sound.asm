@@ -1,0 +1,3 @@
+; auto-generated
+drv_slot_stop_sound:
+    db 0xc3, 0x01, 0x00, 0x00

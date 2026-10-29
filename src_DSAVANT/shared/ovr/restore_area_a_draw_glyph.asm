@@ -6,7 +6,7 @@ restore_area_a_draw_glyph:
     push ax
     push word [saved_area_a_hi]
     push word [saved_area_a]
-    call gfx_restore_area
+    call call_restore_area
     add sp, byte 6
     mov byte [bp - 0xa], 1
     mov byte [bp - 9], 0
@@ -31,6 +31,6 @@ restore_area_a_draw_glyph:
     push ax
     mov ax, 0xe
     push ax
-    call gfx_draw_text
+    call call_draw_text
     add sp, byte 0x16
     ret

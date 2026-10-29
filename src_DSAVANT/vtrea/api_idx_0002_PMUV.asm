@@ -6,7 +6,7 @@ api_idx_0002_PMUV:
     push ax                          ; 0x2523
     mov ax, 0xb4                     ; 0x2524
     push ax                          ; 0x2527
-    call gfx_set_text_color          ; 0x2528
+    call call_set_text_color         ; 0x2528
     add sp, byte 4                   ; 0x252b
     mov word [bp - 2], 0             ; 0x252e
 .back1:
@@ -27,7 +27,7 @@ api_idx_0002_PMUV:
     imul cx                          ; 0x2553
     add ax, word [bp + 6]            ; 0x2555
     push ax                          ; 0x2558
-    call gfx_set_text_pos            ; 0x2559
+    call call_set_text_pos           ; 0x2559
     add sp, byte 4                   ; 0x255c
     cmp word [bp + 0xa], byte 0      ; 0x255f
     je short .forward1               ; 0x2563

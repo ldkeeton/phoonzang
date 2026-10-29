@@ -36,7 +36,7 @@ loc_SSIO:
     mov al, byte [bx + overlay_list_rec.f_0015]
     sub ah, ah
     push ax
-    call gfx_draw_text
+    call call_draw_text
     add sp, byte 0x16
 .return1:
     ret

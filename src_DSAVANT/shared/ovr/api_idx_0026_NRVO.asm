@@ -108,7 +108,7 @@ api_idx_0026_NRVO:
     push ax
     mov ax, 0x9b
     push ax
-    call gfx_set_text_color
+    call call_set_text_color
     add sp, byte 4
     mov ax, word [bp - 4]
     add ax, strict word 0x16
@@ -130,7 +130,7 @@ api_idx_0026_NRVO:
     add ax, word [bp - 2]
     add ax, strict word 0x5d
     push ax
-    call gfx_set_text_pos
+    call call_set_text_pos
     add sp, byte 4
     mov ax, 0
     push ax
@@ -263,7 +263,7 @@ api_idx_0026_NRVO:
     mov ax, word [bp - 2]
     dec ax
     push ax
-    call gfx_show_area
+    call call_show_area
     add sp, byte 8
     call flush_keyboard
     mov ax, 0
@@ -319,7 +319,7 @@ api_idx_0026_NRVO:
     mov ax, word [bp - 2]
     add ax, strict word 0x5d
     push ax
-    call gfx_show_area
+    call call_show_area
     add sp, byte 8
     mov word [bp - 0x10], 1
 .back1:
@@ -365,7 +365,7 @@ api_idx_0026_NRVO:
     mov ax, word [bp - 2]
     add ax, strict word 0x5d
     push ax
-    call gfx_show_area
+    call call_show_area
     add sp, byte 8
     mov ax, 0
     push ax
@@ -420,7 +420,7 @@ api_idx_0026_NRVO:
     mov ax, word [bp - 2]
     add ax, strict word 0x5d
     push ax
-    call gfx_show_area
+    call call_show_area
     add sp, byte 8
     jmp near .forward9
 .back3:

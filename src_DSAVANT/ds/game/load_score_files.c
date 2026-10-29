@@ -32,7 +32,7 @@ load_score_files(num, arg)
 		aztec_strcat(path, score_ext_pba);
 	if ((fd_pic = aztec_open(data_file_path(path, 1), 0)) == -1)
 		release_and_exit(16);
-	err = gfx_load_score(fd_csf, fd_pic, mode, arg);
+	err = call_load_score(fd_csf, fd_pic, mode, arg);
 	if (err)
 		release_and_exit(17);
 	aztec_close(fd_csf);

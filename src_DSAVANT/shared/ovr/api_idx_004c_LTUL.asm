@@ -7,7 +7,7 @@ api_idx_004c_LTUL:
     push ax
     push word [roster_screen_a]
     push word [roster_screen_b]
-    call gfx_restore_screen
+    call call_restore_screen
     add sp, byte 8
     cmp word [roster_page], byte 0
     je short .forward1
@@ -15,7 +15,7 @@ api_idx_004c_LTUL:
     push ax
     mov ax, 0xa0
     push ax
-    call gfx_set_text_pos
+    call call_set_text_pos
     add sp, byte 4
     mov ax, 4
     push ax
@@ -45,7 +45,7 @@ api_idx_004c_LTUL:
     push ax
     mov ax, 1
     push ax
-    call gfx_fill_area
+    call call_fill_area
     add sp, byte 0xa
     inc word [bp - 2]
     mov ax, word [bp - 2]
@@ -67,7 +67,7 @@ api_idx_004c_LTUL:
     imul word [bp - 2]
     inc ax
     push ax
-    call gfx_fill_area
+    call call_fill_area
     add sp, byte 0xa
     inc word [bp - 2]
     mov ax, word [bp - 2]

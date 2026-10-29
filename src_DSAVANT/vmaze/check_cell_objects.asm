@@ -56,7 +56,7 @@ check_cell_objects:
     push ax                          ; 0x8ccc
     mov ax, 0                        ; 0x8ccd
     push ax                          ; 0x8cd0
-    call gfx_show_area               ; 0x8cd1
+    call call_show_area              ; 0x8cd1
     add sp, byte 8                   ; 0x8cd4
     mov bx, word [maze_tables]       ; 0x8cd7
     mov si, word [party_map_piece]   ; 0x8cdb
@@ -140,7 +140,7 @@ check_cell_objects:
     push ax                          ; 0x8da3
     mov ax, 0                        ; 0x8da4
     push ax                          ; 0x8da7
-    call gfx_show_area               ; 0x8da8
+    call call_show_area              ; 0x8da8
     add sp, byte 8                   ; 0x8dab
 .forward10:
     cmp word [bp - 0xa], byte 0      ; 0x8dae
@@ -169,6 +169,6 @@ check_cell_objects:
     push ax                          ; 0x8ddd
     mov ax, 0                        ; 0x8dde
     push ax                          ; 0x8de1
-    call gfx_show_area               ; 0x8de2
+    call call_show_area              ; 0x8de2
     add sp, byte 8                   ; 0x8de5
     ret                              ; 0x8de8

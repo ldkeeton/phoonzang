@@ -16,7 +16,7 @@ dissolve_or_show_area:
     push ax                          ; 0x0da3
     mov ax, 0x12e                    ; 0x0da4
     push ax                          ; 0x0da7
-    call gfx_mouse_glide_to          ; 0x0da8
+    call call_mouse_glide_to         ; 0x0da8
     add sp, byte 6                   ; 0x0dab
 .forward1:
     mov ax, 0                        ; 0x0dae
@@ -25,7 +25,7 @@ dissolve_or_show_area:
     push word [bp + 8]               ; 0x0db5
     push word [bp + 6]               ; 0x0db8
     push word [bp + 4]               ; 0x0dbb
-    call gfx_dissolve_area           ; 0x0dbe
+    call call_dissolve_area          ; 0x0dbe
     add sp, byte 0xa                 ; 0x0dc1
     cmp word [mouse_active], byte 0  ; 0x0dc4
     je short .forward2               ; 0x0dc9
@@ -35,7 +35,7 @@ dissolve_or_show_area:
     push ax                          ; 0x0dd2
     mov ax, 0x12e                    ; 0x0dd3
     push ax                          ; 0x0dd6
-    call gfx_mouse_glide_back        ; 0x0dd7
+    call call_mouse_glide_back       ; 0x0dd7
     add sp, byte 6                   ; 0x0dda
     mov ax, 0                        ; 0x0ddd
     mov dx, 0                        ; 0x0de0
@@ -50,7 +50,7 @@ dissolve_or_show_area:
     push word [bp + 8]               ; 0x0df0
     push word [bp + 6]               ; 0x0df3
     push word [bp + 4]               ; 0x0df6
-    call gfx_show_area               ; 0x0df9
+    call call_show_area              ; 0x0df9
     add sp, byte 8                   ; 0x0dfc
 .forward4:
     call flush_keyboard              ; 0x0dff

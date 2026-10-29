@@ -1,0 +1,3 @@
+; auto-generated
+drv_slot_draw_text:
+    db 0x1b, 0x01, 0x00, 0x00

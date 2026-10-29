@@ -11,7 +11,7 @@ loc_KVVL:
     mov ax, 0                        ; 0x0a68
     push ax                          ; 0x0a6b
     push ax                          ; 0x0a6c
-    call gfx_fill_area               ; 0x0a6d
+    call call_fill_area              ; 0x0a6d
     add sp, byte 0xa                 ; 0x0a70
     mov ax, 0                        ; 0x0a73
     push ax                          ; 0x0a76
@@ -41,7 +41,7 @@ loc_KVVL:
     mov ax, 0                        ; 0x0aae
     push ax                          ; 0x0ab1
     push ax                          ; 0x0ab2
-    call gfx_show_area               ; 0x0ab3
+    call call_show_area              ; 0x0ab3
     add sp, byte 8                   ; 0x0ab6
     cmp word [bp + 0xa], byte 0      ; 0x0ab9
     je short .return1                ; 0x0abd

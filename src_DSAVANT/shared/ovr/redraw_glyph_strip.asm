@@ -6,13 +6,13 @@ redraw_glyph_strip:
     push ax
     push word [saved_area_a_hi]
     push word [saved_area_a]
-    call gfx_restore_area
+    call call_restore_area
     add sp, byte 6
     mov ax, 0
     push ax
     push word [saved_area_b_hi]
     push word [saved_area_b]
-    call gfx_restore_area
+    call call_restore_area
     add sp, byte 6
     mov byte [bp - 0xa], 1
     mov byte [bp - 9], 0
@@ -37,7 +37,7 @@ redraw_glyph_strip:
     push ax
     mov ax, 0xe
     push ax
-    call gfx_draw_text
+    call call_draw_text
     add sp, byte 0x16
     cmp word [bp + 4], byte 0
     je short .return1
@@ -49,7 +49,7 @@ redraw_glyph_strip:
     push ax
     mov ax, 8
     push ax
-    call gfx_show_area
+    call call_show_area
     add sp, byte 8
 .return1:
     ret

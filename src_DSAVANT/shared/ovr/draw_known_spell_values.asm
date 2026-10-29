@@ -7,7 +7,7 @@ draw_known_spell_values:
     push ax
     push word [roster_screen_a]
     push word [roster_screen_b]
-    call gfx_restore_screen
+    call call_restore_screen
     add sp, byte 8
     mov word [bp - 2], 0
     jmp near .forward1
@@ -18,7 +18,7 @@ draw_known_spell_values:
     shl ax, 1
     mov bx, ax
     push word [word bx + 0x30]
-    call gfx_set_text_color
+    call call_set_text_color
     add sp, byte 4
     mov ax, 6
     imul word [bp - 2]
@@ -26,7 +26,7 @@ draw_known_spell_values:
     push ax
     mov ax, 6
     push ax
-    call gfx_set_text_pos
+    call call_set_text_pos
     add sp, byte 4
     mov ax, 0
     push ax
@@ -42,13 +42,13 @@ draw_known_spell_values:
     push ax
     mov ax, 0x85
     push ax
-    call gfx_set_text_pos
+    call call_set_text_pos
     add sp, byte 4
     mov ax, 0
     push ax
     mov ax, 1
     push ax
-    call gfx_set_text_color
+    call call_set_text_color
     add sp, byte 4
     mov ax, 0
     push ax

@@ -109,13 +109,13 @@ pick_spell_dialog:
     mov ax, word [bp - 0xc]
     add ax, strict word 0x48
     push ax
-    call gfx_set_text_pos
+    call call_set_text_pos
     add sp, byte 4
     mov ax, 0
     push ax
     mov ax, 0xcd
     push ax
-    call gfx_set_text_color
+    call call_set_text_color
     add sp, byte 4
     mov ax, 2
     push ax
@@ -493,7 +493,7 @@ pick_spell_dialog:
     mov ax, word [bp - 4]
     dec ax
     push ax
-    call gfx_show_area
+    call call_show_area
     add sp, byte 8
     mov word [party_redraw_interval], 5
     les bx, word [tick_counter_ptr]
@@ -554,7 +554,7 @@ pick_spell_dialog.jumptable_case1:
     push ax
     lea ax, word [bp - 0xe]
     push ax
-    call gfx_get_mouse
+    call call_get_mouse
     add sp, byte 4
     mov ax, 4
     push ax
@@ -574,7 +574,7 @@ pick_spell_dialog.back6:
     push ax
     lea ax, word [bp - 0xe]
     push ax
-    call gfx_get_mouse
+    call call_get_mouse
     add sp, byte 4
     mov word [bp - 0x1e], ax
     push word [bp - 0x14]
@@ -668,7 +668,7 @@ pick_spell_dialog.forward9:
     mov ax, word [bp - 0xc]
     add ax, strict word 6
     push ax
-    call gfx_show_area
+    call call_show_area
     add sp, byte 8
     cmp word [bp - 0x1e], byte 0
     je short pick_spell_dialog.forward10
@@ -804,7 +804,7 @@ pick_spell_dialog.forward14:
     mov ax, word [bp - 0xc]
     add ax, strict word 6
     push ax
-    call gfx_show_area
+    call call_show_area
     add sp, byte 8
     jmp near pick_spell_dialog.forward43
 pick_spell_dialog.jumptable_case3:
@@ -1047,7 +1047,7 @@ pick_spell_dialog.forward28:
     mov ax, word [bp - 0xc]
     add ax, strict word 0xb
     push ax
-    call gfx_show_area
+    call call_show_area
     add sp, byte 8
     mov ax, word [bp - 6]
     add ax, strict word 0x1b
@@ -1061,7 +1061,7 @@ pick_spell_dialog.forward28:
     mov ax, word [bp - 0xc]
     add ax, strict word 0x5e
     push ax
-    call gfx_show_area
+    call call_show_area
     add sp, byte 8
     jmp near pick_spell_dialog.forward40
 pick_spell_dialog.forward29:
@@ -1170,7 +1170,7 @@ pick_spell_dialog.forward33:
     mov ax, word [bp - 0xc]
     add ax, strict word 6
     push ax
-    call gfx_show_area
+    call call_show_area
     add sp, byte 8
     mov ax, word [bp - 6]
     add ax, strict word 0x1b
@@ -1184,7 +1184,7 @@ pick_spell_dialog.forward33:
     mov ax, word [bp - 0xc]
     add ax, strict word 0x5e
     push ax
-    call gfx_show_area
+    call call_show_area
     add sp, byte 8
     jmp near pick_spell_dialog.forward40
 pick_spell_dialog.forward34:
@@ -1301,7 +1301,7 @@ pick_spell_dialog.forward39:
     mov ax, word [bp - 0xc]
     add ax, strict word 6
     push ax
-    call gfx_show_area
+    call call_show_area
     add sp, byte 8
     mov ax, word [bp - 6]
     add ax, strict word 0x1b
@@ -1315,7 +1315,7 @@ pick_spell_dialog.forward39:
     mov ax, word [bp - 0xc]
     add ax, strict word 0x5e
     push ax
-    call gfx_show_area
+    call call_show_area
     add sp, byte 8
 pick_spell_dialog.forward40:
     jmp short pick_spell_dialog.forward43
@@ -1355,7 +1355,7 @@ pick_spell_dialog.forward44:
     mov ax, word [bp - 4]
     dec ax
     push ax
-    call gfx_show_area
+    call call_show_area
     add sp, byte 8
     mov ax, word [bp - 0x3e]
     xchg al, ah

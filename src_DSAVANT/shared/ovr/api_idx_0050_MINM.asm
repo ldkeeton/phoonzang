@@ -115,13 +115,13 @@ api_idx_0050_MINM:
     mov ax, word [bp - 0xc]
     add ax, strict word 0x48
     push ax
-    call gfx_set_text_pos
+    call call_set_text_pos
     add sp, byte 4
     mov ax, 0
     push ax
     mov ax, 0xcd
     push ax
-    call gfx_set_text_color
+    call call_set_text_color
     add sp, byte 4
     mov ax, 2
     push ax
@@ -499,7 +499,7 @@ api_idx_0050_MINM:
     mov ax, word [bp - 4]
     dec ax
     push ax
-    call gfx_show_area
+    call call_show_area
     add sp, byte 8
     mov word [party_redraw_interval], 7
     les bx, word [tick_counter_ptr]
@@ -560,7 +560,7 @@ api_idx_0050_MINM.jumptable_case1:
     push ax
     lea ax, word [bp - 0xe]
     push ax
-    call gfx_get_mouse
+    call call_get_mouse
     add sp, byte 4
     mov ax, 4
     push ax
@@ -580,7 +580,7 @@ api_idx_0050_MINM.back6:
     push ax
     lea ax, word [bp - 0xe]
     push ax
-    call gfx_get_mouse
+    call call_get_mouse
     add sp, byte 4
     mov word [bp - 0x1e], ax
     push word [bp - 0x14]
@@ -674,7 +674,7 @@ api_idx_0050_MINM.forward9:
     mov ax, word [bp - 0xc]
     add ax, strict word 6
     push ax
-    call gfx_show_area
+    call call_show_area
     add sp, byte 8
     cmp word [bp - 0x1e], byte 0
     je short api_idx_0050_MINM.forward10
@@ -810,7 +810,7 @@ api_idx_0050_MINM.forward14:
     mov ax, word [bp - 0xc]
     add ax, strict word 6
     push ax
-    call gfx_show_area
+    call call_show_area
     add sp, byte 8
     jmp near api_idx_0050_MINM.forward43
 api_idx_0050_MINM.jumptable_case3:
@@ -1053,7 +1053,7 @@ api_idx_0050_MINM.forward28:
     mov ax, word [bp - 0xc]
     add ax, strict word 0xb
     push ax
-    call gfx_show_area
+    call call_show_area
     add sp, byte 8
     mov ax, word [bp - 6]
     add ax, strict word 0x1b
@@ -1067,7 +1067,7 @@ api_idx_0050_MINM.forward28:
     mov ax, word [bp - 0xc]
     add ax, strict word 0x5e
     push ax
-    call gfx_show_area
+    call call_show_area
     add sp, byte 8
     jmp near api_idx_0050_MINM.forward40
 api_idx_0050_MINM.forward29:
@@ -1176,7 +1176,7 @@ api_idx_0050_MINM.forward33:
     mov ax, word [bp - 0xc]
     add ax, strict word 6
     push ax
-    call gfx_show_area
+    call call_show_area
     add sp, byte 8
     mov ax, word [bp - 6]
     add ax, strict word 0x1b
@@ -1190,7 +1190,7 @@ api_idx_0050_MINM.forward33:
     mov ax, word [bp - 0xc]
     add ax, strict word 0x5e
     push ax
-    call gfx_show_area
+    call call_show_area
     add sp, byte 8
     jmp near api_idx_0050_MINM.forward40
 api_idx_0050_MINM.forward34:
@@ -1307,7 +1307,7 @@ api_idx_0050_MINM.forward39:
     mov ax, word [bp - 0xc]
     add ax, strict word 6
     push ax
-    call gfx_show_area
+    call call_show_area
     add sp, byte 8
     mov ax, word [bp - 6]
     add ax, strict word 0x1b
@@ -1321,7 +1321,7 @@ api_idx_0050_MINM.forward39:
     mov ax, word [bp - 0xc]
     add ax, strict word 0x5e
     push ax
-    call gfx_show_area
+    call call_show_area
     add sp, byte 8
 api_idx_0050_MINM.forward40:
     jmp short api_idx_0050_MINM.forward43
@@ -1361,7 +1361,7 @@ api_idx_0050_MINM.forward44:
     mov ax, word [bp - 4]
     dec ax
     push ax
-    call gfx_show_area
+    call call_show_area
     add sp, byte 8
     mov word [bp - 2], 0
 api_idx_0050_MINM.back8:

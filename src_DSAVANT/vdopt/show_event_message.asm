@@ -15,7 +15,7 @@ show_event_message:
     push ax                          ; 0x0583
     mov ax, 0                        ; 0x0584
     push ax                          ; 0x0587
-    call gfx_show_area               ; 0x0588
+    call call_show_area              ; 0x0588
     add sp, byte 8                   ; 0x058b
     lea ax, word [bp - 0x58]         ; 0x058e
     push ax                          ; 0x0591
@@ -46,7 +46,7 @@ show_event_message:
     mov ax, 0x92                     ; 0x05c7
     push ax                          ; 0x05ca
     push word [bp - 2]               ; 0x05cb
-    call gfx_save_area               ; 0x05ce
+    call call_save_area              ; 0x05ce
     add sp, byte 8                   ; 0x05d1
     mov word [bp - 6], dx            ; 0x05d4
     mov word [bp - 8], ax            ; 0x05d7
@@ -54,12 +54,12 @@ show_event_message:
     push ax                          ; 0x05dd
     mov ax, 0x16                     ; 0x05de
     push ax                          ; 0x05e1
-    call gfx_set_text_color          ; 0x05e2
+    call call_set_text_color         ; 0x05e2
     add sp, byte 4                   ; 0x05e5
     mov ax, 0x92                     ; 0x05e8
     push ax                          ; 0x05eb
     push word [bp - 2]               ; 0x05ec
-    call gfx_set_text_pos            ; 0x05ef
+    call call_set_text_pos           ; 0x05ef
     add sp, byte 4                   ; 0x05f2
     mov ax, 0                        ; 0x05f5
     push ax                          ; 0x05f8
@@ -73,7 +73,7 @@ show_event_message:
     mov ax, 0x92                     ; 0x060a
     push ax                          ; 0x060d
     push word [bp - 2]               ; 0x060e
-    call gfx_show_area               ; 0x0611
+    call call_show_area              ; 0x0611
     add sp, byte 8                   ; 0x0614
     cmp word [pending_event_hi], byte 0 ; 0x0617
     je short .forward1               ; 0x061c
@@ -93,7 +93,7 @@ show_event_message:
     push ax                          ; 0x0637
     push word [bp - 6]               ; 0x0638
     push word [bp - 8]               ; 0x063b
-    call gfx_restore_area            ; 0x063e
+    call call_restore_area           ; 0x063e
     add sp, byte 6                   ; 0x0641
     mov ax, 0x98                     ; 0x0644
     push ax                          ; 0x0647
@@ -103,6 +103,6 @@ show_event_message:
     push ax                          ; 0x064f
     mov ax, 0                        ; 0x0650
     push ax                          ; 0x0653
-    call gfx_show_area               ; 0x0654
+    call call_show_area              ; 0x0654
     add sp, byte 8                   ; 0x0657
     ret                              ; 0x065a

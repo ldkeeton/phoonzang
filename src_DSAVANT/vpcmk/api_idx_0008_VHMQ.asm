@@ -7,7 +7,7 @@ api_idx_0008_VHMQ:
     push ax                          ; 0x493e
     push word [bss_953e]             ; 0x493f
     push word [bss_953c]             ; 0x4943
-    call gfx_restore_screen          ; 0x4947
+    call call_restore_screen         ; 0x4947
     add sp, byte 8                   ; 0x494a
     mov ax, 0x53                     ; 0x494d
     push ax                          ; 0x4950
@@ -17,7 +17,7 @@ api_idx_0008_VHMQ:
     push ax                          ; 0x4958
     mov ax, 0x8b                     ; 0x4959
     push ax                          ; 0x495c
-    call gfx_save_area               ; 0x495d
+    call call_save_area              ; 0x495d
     add sp, byte 8                   ; 0x4960
     mov word [bp - 2], dx            ; 0x4963
     mov word [bp - 4], ax            ; 0x4966
@@ -62,19 +62,19 @@ api_idx_0008_VHMQ:
     push ax                          ; 0x49c1
     push word [bp - 2]               ; 0x49c2
     push word [bp - 4]               ; 0x49c5
-    call gfx_restore_area            ; 0x49c8
+    call call_restore_area           ; 0x49c8
     add sp, byte 6                   ; 0x49cb
     mov ax, 0x4d                     ; 0x49ce
     push ax                          ; 0x49d1
     mov ax, 0x8b                     ; 0x49d2
     push ax                          ; 0x49d5
-    call gfx_set_text_pos            ; 0x49d6
+    call call_set_text_pos           ; 0x49d6
     add sp, byte 4                   ; 0x49d9
     mov ax, 0                        ; 0x49dc
     push ax                          ; 0x49df
     mov ax, 1                        ; 0x49e0
     push ax                          ; 0x49e3
-    call gfx_set_text_color          ; 0x49e4
+    call call_set_text_color         ; 0x49e4
     add sp, byte 4                   ; 0x49e7
     mov ax, 0                        ; 0x49ea
     push ax                          ; 0x49ed
@@ -96,7 +96,7 @@ api_idx_0008_VHMQ:
     push ax                          ; 0x4a12
     mov ax, 0x8b                     ; 0x4a13
     push ax                          ; 0x4a16
-    call gfx_show_area               ; 0x4a17
+    call call_show_area              ; 0x4a17
     add sp, byte 8                   ; 0x4a1a
     mov ax, hotspot_rects            ; 0x4a1d
     push ax                          ; 0x4a20
@@ -133,13 +133,13 @@ api_idx_0008_VHMQ:
     push ax                          ; 0x4a63
     push word [bp - 6]               ; 0x4a64
     push word [bp - 8]               ; 0x4a67
-    call gfx_restore_area            ; 0x4a6a
+    call call_restore_area           ; 0x4a6a
     add sp, byte 6                   ; 0x4a6d
     mov ax, 1                        ; 0x4a70
     push ax                          ; 0x4a73
     push word [bp - 2]               ; 0x4a74
     push word [bp - 4]               ; 0x4a77
-    call gfx_restore_area            ; 0x4a7a
+    call call_restore_area           ; 0x4a7a
     add sp, byte 6                   ; 0x4a7d
     mov ax, 0                        ; 0x4a80
     push ax                          ; 0x4a83
@@ -153,6 +153,6 @@ api_idx_0008_VHMQ:
     mov ax, 0                        ; 0x4a95
     push ax                          ; 0x4a98
     push ax                          ; 0x4a99
-    call gfx_show_area               ; 0x4a9a
+    call call_show_area              ; 0x4a9a
     add sp, byte 8                   ; 0x4a9d
     ret                              ; 0x4aa0

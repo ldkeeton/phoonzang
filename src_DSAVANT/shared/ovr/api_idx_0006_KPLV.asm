@@ -10,13 +10,13 @@ api_idx_0006_KPLV:
     push ax
     push word [bss_8d08]
     push word [bss_8d06]
-    call gfx_restore_area
+    call call_restore_area
     add sp, byte 6
     mov ax, 0xb9
     push ax
     mov ax, 0x131
     push ax
-    call gfx_set_text_pos
+    call call_set_text_pos
     add sp, byte 4
     mov ax, 4
     push ax
@@ -34,7 +34,7 @@ api_idx_0006_KPLV:
     push ax
     mov ax, 0x131
     push ax
-    call gfx_show_area
+    call call_show_area
     add sp, byte 8
     mov ax, 1
     ret
@@ -59,7 +59,7 @@ api_idx_0006_KPLV:
     push ax
     push word [bss_8d08]
     push word [bss_8d06]
-    call gfx_restore_area
+    call call_restore_area
     add sp, byte 6
     mov ax, 0xc4
     push ax
@@ -69,7 +69,7 @@ api_idx_0006_KPLV:
     push ax
     mov ax, 0x131
     push ax
-    call gfx_show_area
+    call call_show_area
     add sp, byte 8
     mov ax, 0
     ret

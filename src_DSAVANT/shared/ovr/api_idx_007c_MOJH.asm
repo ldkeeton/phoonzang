@@ -7,14 +7,14 @@ api_idx_007c_MOJH:
     push ax
     push word [api_idx_007c_MOJH.bss1]
     push word [api_idx_007c_MOJH.bss2]
-    call gfx_restore_screen
+    call call_restore_screen
     add sp, byte 8
     mov ax, 0
     push ax
     push ax
     push word [api_idx_007c_MOJH.bss3]
     push word [api_idx_007c_MOJH.bss4]
-    call gfx_restore_screen
+    call call_restore_screen
     add sp, byte 8
     mov ax, 0x12
     push ax
@@ -26,7 +26,7 @@ api_idx_007c_MOJH:
     mov ax, 0
     push ax
     push ax
-    call gfx_set_text_color
+    call call_set_text_color
     add sp, byte 4
     mov ax, 0x4c
     push ax
@@ -45,7 +45,7 @@ api_idx_007c_MOJH:
     mov ax, 0x28
     sub ax, cx
     push ax
-    call gfx_set_text_pos
+    call call_set_text_pos
     add sp, byte 4
     mov ax, 0
     push ax
@@ -59,13 +59,13 @@ api_idx_007c_MOJH:
     push ax
     mov ax, 1
     push ax
-    call gfx_set_text_color
+    call call_set_text_color
     add sp, byte 4
     mov ax, 6
     push ax
     mov ax, 0x5a
     push ax
-    call gfx_set_text_pos
+    call call_set_text_pos
     add sp, byte 4
     lea ax, word [bp - 0x58]
     push ax
@@ -112,13 +112,13 @@ api_idx_007c_MOJH:
     push ax
     mov ax, 0x84
     push ax
-    call gfx_set_text_color
+    call call_set_text_color
     add sp, byte 4
     mov ax, 0xc
     push ax
     mov ax, 0x5a
     push ax
-    call gfx_set_text_pos
+    call call_set_text_pos
     add sp, byte 4
     lea ax, word [bp - 0x58]
     push ax
@@ -141,7 +141,7 @@ api_idx_007c_MOJH:
     push ax
     mov ax, 0x5a
     push ax
-    call gfx_set_text_pos
+    call call_set_text_pos
     add sp, byte 4
     lea ax, word [bp - 0x58]
     push ax
@@ -254,7 +254,7 @@ api_idx_007c_MOJH:
     push ax
     mov ax, 0x55
     push ax
-    call gfx_set_text_color
+    call call_set_text_color
     add sp, byte 4
     mov word [bp - 2], 0
 .back1:
@@ -264,7 +264,7 @@ api_idx_007c_MOJH:
     push ax
     mov ax, 0x73
     push ax
-    call gfx_set_text_pos
+    call call_set_text_pos
     add sp, byte 4
     lea ax, word [bp - 0x58]
     push ax
@@ -300,7 +300,7 @@ api_idx_007c_MOJH:
     push ax
     mov ax, 0xfd
     push ax
-    call gfx_set_text_color
+    call call_set_text_color
     add sp, byte 4
     lea ax, word [bp - 0x58]
     push ax
@@ -312,7 +312,7 @@ api_idx_007c_MOJH:
     push ax
     mov ax, 0xe4
     push ax
-    call gfx_set_text_pos
+    call call_set_text_pos
     add sp, byte 4
     mov ax, 0
     push ax
@@ -350,7 +350,7 @@ api_idx_007c_MOJH:
     mov ax, 6
     imul cx
     push ax
-    call gfx_set_text_pos
+    call call_set_text_pos
     add sp, byte 4
     mov ax, 0
     push ax
@@ -362,7 +362,7 @@ api_idx_007c_MOJH:
     push ax
     mov ax, 0x47
     push ax
-    call gfx_set_text_color
+    call call_set_text_color
     add sp, byte 4
     lea ax, word [bp - 0x58]
     push ax
@@ -374,7 +374,7 @@ api_idx_007c_MOJH:
     push ax
     mov ax, 0xe4
     push ax
-    call gfx_set_text_pos
+    call call_set_text_pos
     add sp, byte 4
     mov ax, 0
     push ax
@@ -409,7 +409,7 @@ api_idx_007c_MOJH:
     push ax
     mov ax, 0xe4
     push ax
-    call gfx_set_text_pos
+    call call_set_text_pos
     add sp, byte 4
     mov ax, 0
     push ax
@@ -438,7 +438,7 @@ api_idx_007c_MOJH:
     push ax
     mov ax, 0x1d
     push ax
-    call gfx_set_text_color
+    call call_set_text_color
     add sp, byte 4
     lea ax, word [bp - 0x58]
     push ax
@@ -450,7 +450,7 @@ api_idx_007c_MOJH:
     push ax
     mov ax, 6
     push ax
-    call gfx_set_text_pos
+    call call_set_text_pos
     add sp, byte 4
     mov ax, 0
     push ax
@@ -468,7 +468,7 @@ api_idx_007c_MOJH:
     push ax
     mov ax, 0x1b
     push ax
-    call gfx_set_text_color
+    call call_set_text_color
     add sp, byte 4
     lea ax, word [bp - 0x58]
     push ax
@@ -508,7 +508,7 @@ api_idx_007c_MOJH:
     push ax
     mov ax, 0x1d
     push ax
-    call gfx_set_text_color
+    call call_set_text_color
     add sp, byte 4
     lea ax, word [bp - 0x58]
     push ax
@@ -520,7 +520,7 @@ api_idx_007c_MOJH:
     push ax
     mov ax, 6
     push ax
-    call gfx_set_text_pos
+    call call_set_text_pos
     add sp, byte 4
     mov ax, 0
     push ax
@@ -538,7 +538,7 @@ api_idx_007c_MOJH:
     push ax
     mov ax, 0x1b
     push ax
-    call gfx_set_text_color
+    call call_set_text_color
     add sp, byte 4
     mov ax, 0x248
     imul word [bp + 4]
@@ -581,7 +581,7 @@ api_idx_007c_MOJH:
     push ax
     mov ax, 0x1d
     push ax
-    call gfx_set_text_color
+    call call_set_text_color
     add sp, byte 4
     mov ax, 0
     push ax
@@ -613,7 +613,7 @@ api_idx_007c_MOJH:
     push ax
     mov ax, 0xc4
     push ax
-    call gfx_set_text_color
+    call call_set_text_color
     add sp, byte 4
     lea ax, word [bp - 0x58]
     push ax
@@ -625,7 +625,7 @@ api_idx_007c_MOJH:
     push ax
     mov ax, 0x5b
     push ax
-    call gfx_set_text_pos
+    call call_set_text_pos
     add sp, byte 4
     mov ax, 0
     push ax
@@ -676,7 +676,7 @@ api_idx_007c_MOJH:
     mov ax, 0
     push ax
     push word [bp - 0x70]
-    call gfx_set_text_color
+    call call_set_text_color
     add sp, byte 4
     lea ax, word [bp - 0x58]
     push ax
@@ -688,7 +688,7 @@ api_idx_007c_MOJH:
     push ax
     mov ax, 0x5b
     push ax
-    call gfx_set_text_pos
+    call call_set_text_pos
     add sp, byte 4
     mov ax, 0
     push ax
@@ -789,7 +789,7 @@ api_idx_007c_MOJH:
     push ax
     mov ax, 0x51
     push ax
-    call gfx_set_text_pos
+    call call_set_text_pos
     add sp, byte 4
     mov ax, 6
     push ax
@@ -846,7 +846,7 @@ api_idx_007c_MOJH:
     imul cx
     add ax, strict word 0x51
     push ax
-    call gfx_set_text_pos
+    call call_set_text_pos
     add sp, byte 4
     mov ax, 6
     push ax

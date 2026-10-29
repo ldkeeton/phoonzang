@@ -32,7 +32,7 @@ char *buf;
 		index = record_map_8[index];
 		break;
 	}
-	gfx_wait_sound(0);
+	call_wait_sound(0);
 	/* each type is a fixed-size array starting at record_base[type] */
 	aztec_lseek(data_file_fd, (long)index * record_size[type] + record_base[type],
 		0);

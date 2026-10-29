@@ -9,7 +9,7 @@ loc_IUTP:
     push ax                          ; 0x70e0
     lea ax, word [bp - 0xa]          ; 0x70e1
     push ax                          ; 0x70e4
-    call gfx_get_mouse               ; 0x70e5
+    call call_get_mouse              ; 0x70e5
     add sp, byte 4                   ; 0x70e8
     mov word [bp - 0x194], ax        ; 0x70eb
 .forward1:
@@ -97,13 +97,13 @@ loc_IUTP:
     push ax                          ; 0x71a4
     push word [roster_screen_a]      ; 0x71a5
     push word [roster_screen_b]      ; 0x71a9
-    call gfx_restore_screen          ; 0x71ad
+    call call_restore_screen         ; 0x71ad
     add sp, byte 8                   ; 0x71b0
     mov word [bp - 0xc], 0x72        ; 0x71b3
     mov word [bp - 0xa], 0x1a        ; 0x71b8
     push word [bp - 0xc]             ; 0x71bd
     push word [bp - 0xa]             ; 0x71c0
-    call gfx_set_text_pos            ; 0x71c3
+    call call_set_text_pos           ; 0x71c3
     add sp, byte 4                   ; 0x71c6
     mov ax, 4                        ; 0x71c9
     push ax                          ; 0x71cc
@@ -115,7 +115,7 @@ loc_IUTP:
     add word [bp - 0xa], byte 0x60   ; 0x71d9
     push word [bp - 0xc]             ; 0x71dd
     push word [bp - 0xa]             ; 0x71e0
-    call gfx_set_text_pos            ; 0x71e3
+    call call_set_text_pos           ; 0x71e3
     add sp, byte 4                   ; 0x71e6
     mov ax, 4                        ; 0x71e9
     push ax                          ; 0x71ec
@@ -129,7 +129,7 @@ loc_IUTP:
     push ax                          ; 0x7201
     mov ax, 1                        ; 0x7202
     push ax                          ; 0x7205
-    call gfx_set_text_color          ; 0x7206
+    call call_set_text_color         ; 0x7206
     add sp, byte 4                   ; 0x7209
     mov ax, 0                        ; 0x720c
     push ax                          ; 0x720f
@@ -197,7 +197,7 @@ loc_IUTP:
     mov ax, word [bp - 0xa]          ; 0x72a6
     sub ax, cx                       ; 0x72a9
     push ax                          ; 0x72ab
-    call gfx_set_text_pos            ; 0x72ac
+    call call_set_text_pos           ; 0x72ac
     add sp, byte 4                   ; 0x72af
     mov ax, 0                        ; 0x72b2
     push ax                          ; 0x72b5
@@ -217,7 +217,7 @@ loc_IUTP:
     mov ax, word [bp - 0xa]          ; 0x72d6
     sub ax, cx                       ; 0x72d9
     push ax                          ; 0x72db
-    call gfx_set_text_pos            ; 0x72dc
+    call call_set_text_pos           ; 0x72dc
     add sp, byte 4                   ; 0x72df
     mov ax, 0                        ; 0x72e2
     push ax                          ; 0x72e5
@@ -350,7 +350,7 @@ loc_IUTP.forward12:
     mov ax, 0                        ; 0x7477
     push ax                          ; 0x747a
     push word [bp - 0x32]            ; 0x747b
-    call gfx_set_text_color          ; 0x747e
+    call call_set_text_color         ; 0x747e
     add sp, byte 4                   ; 0x7481
     push word [bp - 0xc]             ; 0x7484
     lea ax, word [bp - 0xf2]         ; 0x7487
@@ -366,7 +366,7 @@ loc_IUTP.forward12:
     mov ax, 0x50                     ; 0x749d
     sub ax, cx                       ; 0x74a0
     push ax                          ; 0x74a2
-    call gfx_set_text_pos            ; 0x74a3
+    call call_set_text_pos           ; 0x74a3
     add sp, byte 4                   ; 0x74a6
     mov ax, 0                        ; 0x74a9
     push ax                          ; 0x74ac
@@ -382,7 +382,7 @@ loc_IUTP.forward13:
     push word [bp - 0xc]             ; 0x74c5
     mov ax, 0x26                     ; 0x74c8
     push ax                          ; 0x74cb
-    call gfx_set_text_pos            ; 0x74cc
+    call call_set_text_pos           ; 0x74cc
     add sp, byte 4                   ; 0x74cf
     lea ax, word [bp - 0xf2]         ; 0x74d2
     push ax                          ; 0x74d6
@@ -407,7 +407,7 @@ loc_IUTP.forward14:
     mov ax, 0xad                     ; 0x7501
 loc_IUTP.forward15:
     push ax                          ; 0x7504
-    call gfx_set_text_color          ; 0x7505
+    call call_set_text_color         ; 0x7505
     add sp, byte 4                   ; 0x7508
     mov ax, 0                        ; 0x750b
     push ax                          ; 0x750e
@@ -425,7 +425,7 @@ loc_IUTP.forward15:
     push word [bp - 0xc]             ; 0x752c
     mov ax, 0x6e                     ; 0x752f
     push ax                          ; 0x7532
-    call gfx_set_text_pos            ; 0x7533
+    call call_set_text_pos           ; 0x7533
     add sp, byte 4                   ; 0x7536
     lea ax, word [bp - 0xf2]         ; 0x7539
     push ax                          ; 0x753d
@@ -450,7 +450,7 @@ loc_IUTP.forward16:
     mov ax, 0xad                     ; 0x7568
 loc_IUTP.forward17:
     push ax                          ; 0x756b
-    call gfx_set_text_color          ; 0x756c
+    call call_set_text_color         ; 0x756c
     add sp, byte 4                   ; 0x756f
     mov ax, 0                        ; 0x7572
     push ax                          ; 0x7575
@@ -470,7 +470,7 @@ loc_IUTP.forward17:
     push ax                          ; 0x7599
     mov ax, 0x26                     ; 0x759a
     push ax                          ; 0x759d
-    call gfx_set_text_pos            ; 0x759e
+    call call_set_text_pos           ; 0x759e
     add sp, byte 4                   ; 0x75a1
     lea ax, word [bp - 0xf2]         ; 0x75a4
     push ax                          ; 0x75a8
@@ -495,7 +495,7 @@ loc_IUTP.forward18:
     mov ax, 0xad                     ; 0x75d3
 loc_IUTP.forward19:
     push ax                          ; 0x75d6
-    call gfx_set_text_color          ; 0x75d7
+    call call_set_text_color         ; 0x75d7
     add sp, byte 4                   ; 0x75da
     mov ax, 0                        ; 0x75dd
     push ax                          ; 0x75e0
@@ -543,13 +543,13 @@ loc_IUTP.forward20:
     mov ax, 0x50                     ; 0x7647
     sub ax, cx                       ; 0x764a
     push ax                          ; 0x764c
-    call gfx_set_text_pos            ; 0x764d
+    call call_set_text_pos           ; 0x764d
     add sp, byte 4                   ; 0x7650
     mov ax, 0                        ; 0x7653
     push ax                          ; 0x7656
     mov ax, 0x16                     ; 0x7657
     push ax                          ; 0x765a
-    call gfx_set_text_color          ; 0x765b
+    call call_set_text_color         ; 0x765b
     add sp, byte 4                   ; 0x765e
     mov ax, 0                        ; 0x7661
     push ax                          ; 0x7664
@@ -738,7 +738,7 @@ loc_IUTP.forward25:
     push ax                          ; 0x77fc
     mov ax, 0x69                     ; 0x77fd
     push ax                          ; 0x7800
-    call gfx_set_text_color          ; 0x7801
+    call call_set_text_color         ; 0x7801
     add sp, byte 4                   ; 0x7804
     jmp short loc_IUTP.forward27     ; 0x7807
 loc_IUTP.forward26:
@@ -764,7 +764,7 @@ loc_IUTP.forward26:
     mov ax, 0                        ; 0x783a
     push ax                          ; 0x783d
     push word [realm_text_colors]    ; 0x783e
-    call gfx_set_text_color          ; 0x7842
+    call call_set_text_color         ; 0x7842
     add sp, byte 4                   ; 0x7845
 loc_IUTP.forward27:
     push word [bp - 0xc]             ; 0x7848
@@ -781,7 +781,7 @@ loc_IUTP.forward27:
     mov ax, 0x50                     ; 0x7861
     sub ax, cx                       ; 0x7864
     push ax                          ; 0x7866
-    call gfx_set_text_pos            ; 0x7867
+    call call_set_text_pos           ; 0x7867
     add sp, byte 4                   ; 0x786a
     mov ax, 0                        ; 0x786d
     push ax                          ; 0x7870
@@ -800,7 +800,7 @@ loc_IUTP.forward29:
     push ax                          ; 0x7891
     mov ax, 0x55                     ; 0x7892
     push ax                          ; 0x7895
-    call gfx_set_text_color          ; 0x7896
+    call call_set_text_color         ; 0x7896
     add sp, byte 4                   ; 0x7899
     cmp byte [bp - 0x42], 3          ; 0x789c
     jne short loc_IUTP.forward30     ; 0x78a0
@@ -813,7 +813,7 @@ loc_IUTP.forward29:
     push word [bp - 0xc]             ; 0x78b1
     mov ax, 0xe                      ; 0x78b4
     push ax                          ; 0x78b7
-    call gfx_set_text_pos            ; 0x78b8
+    call call_set_text_pos           ; 0x78b8
     add sp, byte 4                   ; 0x78bb
     mov ax, 0                        ; 0x78be
     push ax                          ; 0x78c1
@@ -850,7 +850,7 @@ loc_IUTP.back5:
     imul cx                          ; 0x790b
     add ax, strict word 0xe          ; 0x790d
     push ax                          ; 0x7910
-    call gfx_set_text_pos            ; 0x7911
+    call call_set_text_pos           ; 0x7911
     add sp, byte 4                   ; 0x7914
     lea ax, word [bp - 0xf2]         ; 0x7917
     push ax                          ; 0x791b
@@ -876,7 +876,7 @@ loc_IUTP.forward32:
     push word [bp - 0xc]             ; 0x794b
     mov ax, 0xe                      ; 0x794e
     push ax                          ; 0x7951
-    call gfx_set_text_pos            ; 0x7952
+    call call_set_text_pos           ; 0x7952
     add sp, byte 4                   ; 0x7955
     cmp word [bp - 0x10], byte 0     ; 0x7958
     jne short loc_IUTP.forward33     ; 0x795c
@@ -898,7 +898,7 @@ loc_IUTP.forward33:
     mov ax, 0x33                     ; 0x7983
 loc_IUTP.forward34:
     push ax                          ; 0x7986
-    call gfx_set_text_color          ; 0x7987
+    call call_set_text_color         ; 0x7987
     add sp, byte 4                   ; 0x798a
     mov ax, 0                        ; 0x798d
     push ax                          ; 0x7990
@@ -911,7 +911,7 @@ loc_IUTP.forward34:
     push ax                          ; 0x79a1
     mov ax, 0x37                     ; 0x79a2
     push ax                          ; 0x79a5
-    call gfx_set_text_color          ; 0x79a6
+    call call_set_text_color         ; 0x79a6
     add sp, byte 4                   ; 0x79a9
     mov ax, 0                        ; 0x79ac
     push ax                          ; 0x79af
@@ -931,7 +931,7 @@ loc_IUTP.forward35:
     mov ax, 0x37                     ; 0x79cd
 loc_IUTP.forward36:
     push ax                          ; 0x79d0
-    call gfx_set_text_color          ; 0x79d1
+    call call_set_text_color         ; 0x79d1
     add sp, byte 4                   ; 0x79d4
     mov ax, 0                        ; 0x79d7
     push ax                          ; 0x79da
@@ -953,7 +953,7 @@ loc_IUTP.forward37:
     mov ax, 0                        ; 0x79ff
     push ax                          ; 0x7a02
     push word [bp - 0x24]            ; 0x7a03
-    call gfx_set_text_color          ; 0x7a06
+    call call_set_text_color         ; 0x7a06
     add sp, byte 4                   ; 0x7a09
     mov ax, 0                        ; 0x7a0c
     push ax                          ; 0x7a0f
@@ -1016,13 +1016,13 @@ loc_IUTP.forward40:
     mov ax, 0x50                     ; 0x7a8e
     sub ax, cx                       ; 0x7a91
     push ax                          ; 0x7a93
-    call gfx_set_text_pos            ; 0x7a94
+    call call_set_text_pos           ; 0x7a94
     add sp, byte 4                   ; 0x7a97
     mov ax, 0                        ; 0x7a9a
     push ax                          ; 0x7a9d
     mov ax, 0x16                     ; 0x7a9e
     push ax                          ; 0x7aa1
-    call gfx_set_text_color          ; 0x7aa2
+    call call_set_text_color         ; 0x7aa2
     add sp, byte 4                   ; 0x7aa5
     mov ax, 0                        ; 0x7aa8
     push ax                          ; 0x7aab
@@ -1056,13 +1056,13 @@ loc_IUTP.forward41:
     mov ax, 0x50                     ; 0x7aec
     sub ax, cx                       ; 0x7aef
     push ax                          ; 0x7af1
-    call gfx_set_text_pos            ; 0x7af2
+    call call_set_text_pos           ; 0x7af2
     add sp, byte 4                   ; 0x7af5
     mov ax, 0                        ; 0x7af8
     push ax                          ; 0x7afb
     mov ax, 0x16                     ; 0x7afc
     push ax                          ; 0x7aff
-    call gfx_set_text_color          ; 0x7b00
+    call call_set_text_color         ; 0x7b00
     add sp, byte 4                   ; 0x7b03
     mov ax, 0                        ; 0x7b06
     push ax                          ; 0x7b09
@@ -1074,13 +1074,13 @@ loc_IUTP.forward42:
     push word [bp - 0xc]             ; 0x7b15
     mov ax, 0x68                     ; 0x7b18
     push ax                          ; 0x7b1b
-    call gfx_set_text_pos            ; 0x7b1c
+    call call_set_text_pos           ; 0x7b1c
     add sp, byte 4                   ; 0x7b1f
     mov ax, 0                        ; 0x7b22
     push ax                          ; 0x7b25
     mov ax, 9                        ; 0x7b26
     push ax                          ; 0x7b29
-    call gfx_set_text_color          ; 0x7b2a
+    call call_set_text_color         ; 0x7b2a
     add sp, byte 4                   ; 0x7b2d
     mov ax, 0                        ; 0x7b30
     push ax                          ; 0x7b33
@@ -1133,7 +1133,7 @@ loc_IUTP.forward44:
     push ax                          ; 0x7b9d
     mov ax, 0x33                     ; 0x7b9e
     push ax                          ; 0x7ba1
-    call gfx_set_text_color          ; 0x7ba2
+    call call_set_text_color         ; 0x7ba2
     add sp, byte 4                   ; 0x7ba5
     lea ax, word [bp - 0xf2]         ; 0x7ba8
     push ax                          ; 0x7bac
@@ -1190,7 +1190,7 @@ loc_IUTP.forward44:
     push word [bp - 0xc]             ; 0x7c29
     mov ax, 0xe                      ; 0x7c2c
     push ax                          ; 0x7c2f
-    call gfx_set_text_pos            ; 0x7c30
+    call call_set_text_pos           ; 0x7c30
     add sp, byte 4                   ; 0x7c33
     mov ax, 0                        ; 0x7c36
     push ax                          ; 0x7c39
@@ -1248,7 +1248,7 @@ loc_IUTP.forward46:
     imul cx                          ; 0x7cb7
     add ax, strict word 0xe          ; 0x7cb9
     push ax                          ; 0x7cbc
-    call gfx_set_text_pos            ; 0x7cbd
+    call call_set_text_pos           ; 0x7cbd
     add sp, byte 4                   ; 0x7cc0
     mov ax, 0                        ; 0x7cc3
     push ax                          ; 0x7cc6
@@ -1277,7 +1277,7 @@ loc_IUTP.forward49:
     push ax                          ; 0x7cf9
     mov ax, 0x5e                     ; 0x7cfa
     push ax                          ; 0x7cfd
-    call gfx_set_text_color          ; 0x7cfe
+    call call_set_text_color         ; 0x7cfe
     add sp, byte 4                   ; 0x7d01
     lea ax, word [bp - 0xf2]         ; 0x7d04
     push ax                          ; 0x7d08
@@ -1311,7 +1311,7 @@ loc_IUTP.forward50:
     push word [bp - 0xc]             ; 0x7d4c
     mov ax, 0xe                      ; 0x7d4f
     push ax                          ; 0x7d52
-    call gfx_set_text_pos            ; 0x7d53
+    call call_set_text_pos           ; 0x7d53
     add sp, byte 4                   ; 0x7d56
     mov ax, 0                        ; 0x7d59
     push ax                          ; 0x7d5c
@@ -1326,7 +1326,7 @@ loc_IUTP.forward51:
     push ax                          ; 0x7d71
     mov ax, 0x55                     ; 0x7d72
     push ax                          ; 0x7d75
-    call gfx_set_text_color          ; 0x7d76
+    call call_set_text_color         ; 0x7d76
     add sp, byte 4                   ; 0x7d79
     lea ax, word [bp - 0xf2]         ; 0x7d7c
     push ax                          ; 0x7d80
@@ -1337,7 +1337,7 @@ loc_IUTP.forward51:
     push word [bp - 0xc]             ; 0x7d8b
     mov ax, 0x6e                     ; 0x7d8e
     push ax                          ; 0x7d91
-    call gfx_set_text_pos            ; 0x7d92
+    call call_set_text_pos           ; 0x7d92
     add sp, byte 4                   ; 0x7d95
     mov ax, 0                        ; 0x7d98
     push ax                          ; 0x7d9b
@@ -1353,7 +1353,7 @@ loc_IUTP.forward52:
     push ax                          ; 0x7db4
     mov ax, 0xa4                     ; 0x7db5
     push ax                          ; 0x7db8
-    call gfx_set_text_color          ; 0x7db9
+    call call_set_text_color         ; 0x7db9
     add sp, byte 4                   ; 0x7dbc
     lea ax, word [bp - 0xf2]         ; 0x7dbf
     push ax                          ; 0x7dc3
@@ -1377,7 +1377,7 @@ loc_IUTP.forward52:
     push word [bp - 0xc]             ; 0x7def
     mov ax, 0xe                      ; 0x7df2
     push ax                          ; 0x7df5
-    call gfx_set_text_pos            ; 0x7df6
+    call call_set_text_pos           ; 0x7df6
     add sp, byte 4                   ; 0x7df9
     mov ax, 0                        ; 0x7dfc
     push ax                          ; 0x7dff
@@ -1395,7 +1395,7 @@ loc_IUTP.forward54:
     push ax                          ; 0x7e1b
     mov ax, 0x16                     ; 0x7e1c
     push ax                          ; 0x7e1f
-    call gfx_set_text_color          ; 0x7e20
+    call call_set_text_color         ; 0x7e20
     add sp, byte 4                   ; 0x7e23
     mov ax, word [bp - 0x58]         ; 0x7e26
     mov cx, 0x100                    ; 0x7e29
@@ -1413,7 +1413,7 @@ loc_IUTP.forward54:
     push word [bp - 0xc]             ; 0x7e47
     mov ax, 0xe                      ; 0x7e4a
     push ax                          ; 0x7e4d
-    call gfx_set_text_pos            ; 0x7e4e
+    call call_set_text_pos           ; 0x7e4e
     add sp, byte 4                   ; 0x7e51
     mov ax, 0                        ; 0x7e54
     push ax                          ; 0x7e57
@@ -1425,7 +1425,7 @@ loc_IUTP.forward54:
     push ax                          ; 0x7e66
     mov ax, 1                        ; 0x7e67
     push ax                          ; 0x7e6a
-    call gfx_set_text_color          ; 0x7e6b
+    call call_set_text_color         ; 0x7e6b
     add sp, byte 4                   ; 0x7e6e
     lea ax, word [bp - 0xf2]         ; 0x7e71
     push ax                          ; 0x7e75
@@ -1476,7 +1476,7 @@ loc_IUTP.forward56:
     imul cx                          ; 0x7ee2
     add ax, strict word 0xe          ; 0x7ee4
     push ax                          ; 0x7ee7
-    call gfx_set_text_pos            ; 0x7ee8
+    call call_set_text_pos           ; 0x7ee8
     add sp, byte 4                   ; 0x7eeb
     mov ax, 0                        ; 0x7eee
     push ax                          ; 0x7ef1
@@ -1495,7 +1495,7 @@ loc_IUTP.forward58:
     push ax                          ; 0x7f11
     mov ax, 1                        ; 0x7f12
     push ax                          ; 0x7f15
-    call gfx_set_text_color          ; 0x7f16
+    call call_set_text_color         ; 0x7f16
     add sp, byte 4                   ; 0x7f19
     lea ax, word [bp - 0xf2]         ; 0x7f1c
     push ax                          ; 0x7f20
@@ -1517,7 +1517,7 @@ loc_IUTP.forward58:
     mov ax, 0x50                     ; 0x7f44
     sub ax, cx                       ; 0x7f47
     push ax                          ; 0x7f49
-    call gfx_set_text_pos            ; 0x7f4a
+    call call_set_text_pos           ; 0x7f4a
     add sp, byte 4                   ; 0x7f4d
     mov ax, 0                        ; 0x7f50
     push ax                          ; 0x7f53
@@ -1530,12 +1530,12 @@ loc_IUTP.forward58:
     push ax                          ; 0x7f66
     mov ax, 0x2e                     ; 0x7f67
     push ax                          ; 0x7f6a
-    call gfx_set_text_color          ; 0x7f6b
+    call call_set_text_color         ; 0x7f6b
     add sp, byte 4                   ; 0x7f6e
     push word [bp - 0xc]             ; 0x7f71
     mov ax, 0xe                      ; 0x7f74
     push ax                          ; 0x7f77
-    call gfx_set_text_pos            ; 0x7f78
+    call call_set_text_pos           ; 0x7f78
     add sp, byte 4                   ; 0x7f7b
     mov byte [bp - 0xf2], 0          ; 0x7f7e
     mov word [bp - 6], 0             ; 0x7f83
@@ -1590,7 +1590,7 @@ loc_IUTP.forward59:
     mov ax, 0x50                     ; 0x7ffa
     sub ax, cx                       ; 0x7ffd
     push ax                          ; 0x7fff
-    call gfx_set_text_pos            ; 0x8000
+    call call_set_text_pos           ; 0x8000
     add sp, byte 4                   ; 0x8003
     mov ax, 0                        ; 0x8006
     push ax                          ; 0x8009
@@ -1647,7 +1647,7 @@ loc_IUTP.forward62:
     mov ax, 0x50                     ; 0x8084
     sub ax, cx                       ; 0x8087
     push ax                          ; 0x8089
-    call gfx_set_text_pos            ; 0x808a
+    call call_set_text_pos           ; 0x808a
     add sp, byte 4                   ; 0x808d
     mov ax, 0                        ; 0x8090
     push ax                          ; 0x8093
@@ -1685,7 +1685,7 @@ loc_IUTP.forward65:
     mov ax, 0x50                     ; 0x80db
     sub ax, cx                       ; 0x80de
     push ax                          ; 0x80e0
-    call gfx_set_text_pos            ; 0x80e1
+    call call_set_text_pos           ; 0x80e1
     add sp, byte 4                   ; 0x80e4
     mov ax, 0                        ; 0x80e7
     push ax                          ; 0x80ea
@@ -1704,7 +1704,7 @@ loc_IUTP.forward68:
     push ax                          ; 0x8105
     mov ax, 1                        ; 0x8106
     push ax                          ; 0x8109
-    call gfx_set_text_color          ; 0x810a
+    call call_set_text_color         ; 0x810a
     add sp, byte 4                   ; 0x810d
     lea ax, word [bp - 0xf2]         ; 0x8110
     push ax                          ; 0x8114
@@ -1726,7 +1726,7 @@ loc_IUTP.forward68:
     mov ax, 0x50                     ; 0x8138
     sub ax, cx                       ; 0x813b
     push ax                          ; 0x813d
-    call gfx_set_text_pos            ; 0x813e
+    call call_set_text_pos           ; 0x813e
     add sp, byte 4                   ; 0x8141
     mov ax, 0                        ; 0x8144
     push ax                          ; 0x8147
@@ -1739,7 +1739,7 @@ loc_IUTP.forward68:
     push ax                          ; 0x815a
     mov ax, 0xa9                     ; 0x815b
     push ax                          ; 0x815e
-    call gfx_set_text_color          ; 0x815f
+    call call_set_text_color         ; 0x815f
     add sp, byte 4                   ; 0x8162
     mov word [bp - 6], 0             ; 0x8165
     mov word [bp - 4], 0             ; 0x816a
@@ -1770,7 +1770,7 @@ loc_IUTP.forward69:
     push word [bp - 0xc]             ; 0x81aa
     mov ax, 0x26                     ; 0x81ad
     push ax                          ; 0x81b0
-    call gfx_set_text_pos            ; 0x81b1
+    call call_set_text_pos           ; 0x81b1
     add sp, byte 4                   ; 0x81b4
     mov ax, 0                        ; 0x81b7
     push ax                          ; 0x81ba
@@ -1801,7 +1801,7 @@ loc_IUTP.forward69:
     imul cx                          ; 0x81f9
     add ax, strict word 0x26         ; 0x81fb
     push ax                          ; 0x81fe
-    call gfx_set_text_pos            ; 0x81ff
+    call call_set_text_pos           ; 0x81ff
     add sp, byte 4                   ; 0x8202
     mov ax, 0                        ; 0x8205
     push ax                          ; 0x8208
@@ -1839,7 +1839,7 @@ loc_IUTP.forward71:
     mov ax, 0x50                     ; 0x8254
     sub ax, cx                       ; 0x8257
     push ax                          ; 0x8259
-    call gfx_set_text_pos            ; 0x825a
+    call call_set_text_pos           ; 0x825a
     add sp, byte 4                   ; 0x825d
     mov ax, 0                        ; 0x8260
     push ax                          ; 0x8263
@@ -1856,7 +1856,7 @@ loc_IUTP.forward72:
     push ax                          ; 0x827a
     mov ax, 1                        ; 0x827b
     push ax                          ; 0x827e
-    call gfx_show_area               ; 0x827f
+    call call_show_area              ; 0x827f
     add sp, byte 8                   ; 0x8282
     cmp word [mouse_active], byte 0  ; 0x8285
     je short loc_IUTP.back10         ; 0x828a
@@ -1869,7 +1869,7 @@ loc_IUTP.back8:
     push ax                          ; 0x829c
     lea ax, word [bp - 0xa]          ; 0x829d
     push ax                          ; 0x82a0
-    call gfx_get_mouse               ; 0x82a1
+    call call_get_mouse              ; 0x82a1
     add sp, byte 4                   ; 0x82a4
     test ax, ax                      ; 0x82a7
     je short loc_IUTP.forward73      ; 0x82a9

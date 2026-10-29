@@ -25,6 +25,6 @@ draw_marker_glyph:
     push ax
     mov ax, 1
     push ax
-    call gfx_draw_text
+    call call_draw_text
     add sp, byte 0x16
     ret

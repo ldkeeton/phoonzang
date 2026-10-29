@@ -30,7 +30,7 @@ api_idx_0030_GVGM:
     push ax
     mov ax, 0x48
     push ax
-    call gfx_fill_area
+    call call_fill_area
     add sp, byte 0xa
     mov ax, word [bp - 0x12]
     mov cx, 6
@@ -68,7 +68,7 @@ api_idx_0030_GVGM:
     push ax
     mov ax, 0x48
     push ax
-    call gfx_fill_area
+    call call_fill_area
     add sp, byte 0xa
     mov ax, word [game_state_arg]
     cmp ax, word [saved_level]
@@ -113,7 +113,7 @@ api_idx_0030_GVGM:
     push ax
     mov ax, 0xc
     push ax
-    call gfx_draw_text
+    call call_draw_text
     add sp, byte 0x16
 .forward4:
     call draw_party_status_glyphs
@@ -144,7 +144,7 @@ api_idx_0030_GVGM:
     push ax
     mov ax, 0x48
     push ax
-    call gfx_fill_area
+    call call_fill_area
     add sp, byte 0xa
     call draw_clock_marker_glyph
     call api_idx_0024_NUGL
@@ -293,7 +293,7 @@ api_idx_0030_GVGM.forward9:
     push ax
     mov ax, 0
     push ax
-    call gfx_draw_maze_piece
+    call call_draw_maze_piece
     add sp, byte 8
 api_idx_0030_GVGM.forward10:
     mov ax, 0x20
@@ -311,7 +311,7 @@ api_idx_0030_GVGM.forward10:
     push ax
     mov ax, 0
     push ax
-    call gfx_draw_maze_piece
+    call call_draw_maze_piece
     add sp, byte 8
     jmp near api_idx_0030_GVGM.jumptable_case2
 api_idx_0030_GVGM.jumptable_case3:
@@ -326,7 +326,7 @@ api_idx_0030_GVGM.jumptable_case3:
     push ax
     mov ax, 0x48
     push ax
-    call gfx_fill_area
+    call call_fill_area
     add sp, byte 0xa
     call draw_clock_marker_glyph
     call api_idx_0024_NUGL
@@ -345,7 +345,7 @@ api_idx_0030_GVGM.jumptable_case3:
     push ax
     mov ax, 1
     push ax
-    call gfx_draw_maze_piece
+    call call_draw_maze_piece
     add sp, byte 8
     mov ax, 0x3e
     push ax
@@ -362,7 +362,7 @@ api_idx_0030_GVGM.jumptable_case3:
     push ax
     mov ax, 1
     push ax
-    call gfx_draw_maze_piece
+    call call_draw_maze_piece
     add sp, byte 8
     jmp near api_idx_0030_GVGM.jumptable_case2
 api_idx_0030_GVGM.jumptable_case4:
@@ -377,7 +377,7 @@ api_idx_0030_GVGM.jumptable_case4:
     push ax
     mov ax, 0x48
     push ax
-    call gfx_fill_area
+    call call_fill_area
     add sp, byte 0xa
     call draw_clock_marker_glyph
     call api_idx_0024_NUGL
@@ -404,7 +404,7 @@ api_idx_0030_GVGM.forward11:
     mov ax, 0x48
     push ax
     push ax
-    call gfx_fill_area
+    call call_fill_area
     add sp, byte 0xa
     jmp short api_idx_0030_GVGM.forward13
 api_idx_0030_GVGM.forward12:
@@ -423,7 +423,7 @@ api_idx_0030_GVGM.forward12:
     push ax
     mov ax, 4
     push ax
-    call gfx_draw_maze_piece
+    call call_draw_maze_piece
     add sp, byte 8
     mov ax, 0xad
     push ax
@@ -440,7 +440,7 @@ api_idx_0030_GVGM.forward12:
     push ax
     mov ax, 2
     push ax
-    call gfx_draw_maze_piece
+    call call_draw_maze_piece
     add sp, byte 8
 api_idx_0030_GVGM.forward13:
     jmp near api_idx_0030_GVGM.jumptable_case2
@@ -460,7 +460,7 @@ api_idx_0030_GVGM.forward14:
     push ax
     mov ax, 0x48
     push ax
-    call gfx_fill_area
+    call call_fill_area
     add sp, byte 0xa
     call draw_clock_marker_glyph
     call api_idx_0024_NUGL
@@ -479,7 +479,7 @@ api_idx_0030_GVGM.forward14:
     push ax
     mov ax, 1
     push ax
-    call gfx_draw_maze_piece
+    call call_draw_maze_piece
     add sp, byte 8
     cmp word [boundary_wall_open], byte 0
     jne short api_idx_0030_GVGM.forward15
@@ -498,7 +498,7 @@ api_idx_0030_GVGM.forward14:
     push ax
     mov ax, 4
     push ax
-    call gfx_draw_maze_piece
+    call call_draw_maze_piece
     add sp, byte 8
 api_idx_0030_GVGM.forward15:
     jmp near api_idx_0030_GVGM.jumptable_case2
@@ -514,7 +514,7 @@ api_idx_0030_GVGM.jumptable_case6:
     push ax
     mov ax, 0x48
     push ax
-    call gfx_fill_area
+    call call_fill_area
     add sp, byte 0xa
     call draw_clock_marker_glyph
     call api_idx_0024_NUGL
@@ -528,7 +528,7 @@ api_idx_0030_GVGM.jumptable_case6:
     push ax
     mov ax, 0x48
     push ax
-    call gfx_fill_area
+    call call_fill_area
     add sp, byte 0xa
     mov ax, 0x2a
     push ax
@@ -545,7 +545,7 @@ api_idx_0030_GVGM.jumptable_case6:
     push ax
     mov ax, 4
     push ax
-    call gfx_draw_maze_piece
+    call call_draw_maze_piece
     add sp, byte 8
     jmp near api_idx_0030_GVGM.jumptable_case2
 api_idx_0030_GVGM.jumptable_case7:
@@ -560,7 +560,7 @@ api_idx_0030_GVGM.jumptable_case7:
     push ax
     mov ax, 0x48
     push ax
-    call gfx_fill_area
+    call call_fill_area
     add sp, byte 0xa
     call draw_clock_marker_glyph
     call api_idx_0024_NUGL
@@ -579,7 +579,7 @@ api_idx_0030_GVGM.jumptable_case7:
     push ax
     mov ax, 1
     push ax
-    call gfx_draw_maze_piece
+    call call_draw_maze_piece
     add sp, byte 8
     cmp word [game_state_arg], byte 8
     jne short api_idx_0030_GVGM.forward20
@@ -618,7 +618,7 @@ api_idx_0030_GVGM.forward20:
     mov ax, 0x48
     push ax
     push ax
-    call gfx_fill_area
+    call call_fill_area
     add sp, byte 0xa
 api_idx_0030_GVGM.forward21:
     cmp word [game_state_arg], byte 8
@@ -645,7 +645,7 @@ api_idx_0030_GVGM.forward22:
     push ax
     mov ax, 1
     push ax
-    call gfx_draw_maze_piece
+    call call_draw_maze_piece
     add sp, byte 8
 api_idx_0030_GVGM.forward23:
     jmp short api_idx_0030_GVGM.jumptable_case2
@@ -1772,7 +1772,7 @@ api_idx_0030_GVGM.back4:
     mov al, byte [bx + 0xe]
     sub ah, ah
     push ax
-    call gfx_draw_maze_piece
+    call call_draw_maze_piece
     add sp, byte 8
 api_idx_0030_GVGM.forward39:
     mov bx, word [bp - 0x26]
@@ -1786,7 +1786,7 @@ api_idx_0030_GVGM.forward39:
     mov al, byte [bx + 0xe]
     sub ah, ah
     push ax
-    call gfx_draw_maze_piece
+    call call_draw_maze_piece
     add sp, byte 8
 api_idx_0030_GVGM.forward40:
     dec word [bp - 2]
@@ -1876,7 +1876,7 @@ api_idx_0030_GVGM.back6:
     mov al, byte [bx + 0xc]
     sub ah, ah
     push ax
-    call gfx_draw_text
+    call call_draw_text
     add sp, byte 0x16
 api_idx_0030_GVGM.forward47:
     dec word [bp - 2]
@@ -1963,7 +1963,7 @@ api_idx_0030_GVGM.forward55:
     push ax
     mov ax, 0xd
     push ax
-    call gfx_draw_text
+    call call_draw_text
     add sp, byte 0x16
     mov ax, word [bp - 6]
     shl ax, 1
@@ -2129,7 +2129,7 @@ api_idx_0030_GVGM.forward75:
     push word [bx + 0x2aa]
     push word [bx + 0x2a8]
     push word [bx + 0x2a6]
-    call gfx_fill_area
+    call call_fill_area
     add sp, byte 0xa
     jmp near api_idx_0030_GVGM.forward81
 api_idx_0030_GVGM.forward76:
@@ -2206,7 +2206,7 @@ api_idx_0030_GVGM.forward80:
     push word [bp - 6]
     mov ax, 9
     push ax
-    call gfx_draw_text
+    call call_draw_text
     add sp, byte 0x16
 api_idx_0030_GVGM.forward81:
     cmp word [boundary_wall_open], byte 0

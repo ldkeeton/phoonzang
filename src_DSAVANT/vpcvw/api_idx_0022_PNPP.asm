@@ -42,7 +42,7 @@ api_idx_0022_PNPP:
     push ax                          ; 0x94ec
     push word [bss_93f0]             ; 0x94ed
     push word [bss_93ee]             ; 0x94f1
-    call gfx_restore_screen          ; 0x94f5
+    call call_restore_screen         ; 0x94f5
     add sp, byte 8                   ; 0x94f8
     mov ax, 0x4a                     ; 0x94fb
     push ax                          ; 0x94fe
@@ -52,7 +52,7 @@ api_idx_0022_PNPP:
     push ax                          ; 0x9506
     mov ax, 0xe                      ; 0x9507
     push ax                          ; 0x950a
-    call gfx_save_area               ; 0x950b
+    call call_save_area              ; 0x950b
     add sp, byte 8                   ; 0x950e
     mov word [bp - 8], dx            ; 0x9511
     mov word [bp - 0xa], ax          ; 0x9514
@@ -113,7 +113,7 @@ api_idx_0022_PNPP:
     push ax                          ; 0x958c
     push word [bp - 8]               ; 0x958d
     push word [bp - 0xa]             ; 0x9590
-    call gfx_restore_area            ; 0x9593
+    call call_restore_area           ; 0x9593
     add sp, byte 6                   ; 0x9596
     mov ax, word [bp + 4]            ; 0x9599
     shl ax, 1                        ; 0x959c
@@ -142,7 +142,7 @@ api_idx_0022_PNPP:
     push ax                          ; 0x95d5
     mov ax, 0xe                      ; 0x95d6
     push ax                          ; 0x95d9
-    call gfx_show_area               ; 0x95da
+    call call_show_area              ; 0x95da
     add sp, byte 8                   ; 0x95dd
 .back2:
     mov ax, hotspot_rects            ; 0x95e0
@@ -218,13 +218,13 @@ api_idx_0022_PNPP:
     push ax                          ; 0x967b
     push word [bp - 4]               ; 0x967c
     push word [bp - 6]               ; 0x967f
-    call gfx_restore_area            ; 0x9682
+    call call_restore_area           ; 0x9682
     add sp, byte 6                   ; 0x9685
     mov ax, 1                        ; 0x9688
     push ax                          ; 0x968b
     push word [bp - 8]               ; 0x968c
     push word [bp - 0xa]             ; 0x968f
-    call gfx_restore_area            ; 0x9692
+    call call_restore_area           ; 0x9692
     add sp, byte 6                   ; 0x9695
     mov ax, 0x12                     ; 0x9698
     push ax                          ; 0x969b
@@ -240,7 +240,7 @@ api_idx_0022_PNPP:
     mov ax, 0                        ; 0x96b1
     push ax                          ; 0x96b4
     push ax                          ; 0x96b5
-    call gfx_show_area               ; 0x96b6
+    call call_show_area              ; 0x96b6
     add sp, byte 8                   ; 0x96b9
     cmp word [bp - 0xc], byte 1      ; 0x96bc
     jne short .return1               ; 0x96c0

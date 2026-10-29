@@ -4,7 +4,7 @@ load_monster_picture:
     call aztec_csav                  ; 0x2866
     mov ax, 0                        ; 0x2869
     push ax                          ; 0x286c
-    call gfx_wait_sound              ; 0x286d
+    call call_wait_sound             ; 0x286d
     pop cx                           ; 0x2870
     mov bx, word [bp + 6]            ; 0x2871
     mov al, byte [bx + picture_slot_number] ; 0x2874
@@ -60,7 +60,7 @@ load_monster_picture:
 .forward2:
     push word [bp + 6]               ; 0x28ea
     push word [bp - 4]               ; 0x28ed
-    call gfx_load_picture            ; 0x28f0
+    call call_load_picture           ; 0x28f0
     add sp, byte 4                   ; 0x28f3
     push word [bp - 4]               ; 0x28f6
     call aztec_close                 ; 0x28f9

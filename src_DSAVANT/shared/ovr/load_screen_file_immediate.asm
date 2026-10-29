@@ -4,7 +4,7 @@ load_screen_file_immediate:
     call aztec_csav
     mov ax, 0
     push ax
-    call gfx_wait_sound
+    call call_wait_sound
     pop cx
     mov ax, 0
     push ax
@@ -27,7 +27,7 @@ load_screen_file_immediate:
     mov ax, 0
     push ax
     push word [bp - 2]
-    call gfx_load_screen
+    call call_load_screen
     add sp, byte 4
     push word [bp - 2]
     call aztec_close
@@ -41,7 +41,7 @@ load_screen_file_immediate:
     mov ax, 0
     push ax
     push ax
-    call gfx_show_area
+    call call_show_area
     add sp, byte 8
 .return1:
     ret

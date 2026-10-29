@@ -9,7 +9,7 @@ char ch;
 
 	text[0] = ch;
 	text[1] = 0;	/* NUL-terminate */
-	gfx_draw_text(15, 7*col + grid_origin_x + xoff, 7*row + grid_origin_y + yoff,
+	call_draw_text(15, 7*col + grid_origin_x + xoff, 7*row + grid_origin_y + yoff,
 		72, 248, 33, 143, 0, text, 0,
 			0);	/* 7-pixel cells; clip x 72..248, y 33..143 */
 }

@@ -120,7 +120,7 @@ jumptable_6e12_case_5:
     push ax                          ; 0x6dd7
     mov ax, 0x10                     ; 0x6dd8
     push ax                          ; 0x6ddb
-    call gfx_draw_text               ; 0x6ddc
+    call call_draw_text              ; 0x6ddc
     add sp, byte 0x16                ; 0x6ddf
     mov ax, 0x10                     ; 0x6de2
     push ax                          ; 0x6de5

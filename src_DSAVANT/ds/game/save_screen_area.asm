@@ -50,7 +50,7 @@ save_screen_area:
     push ax                          ; 0x1549
     mov ax, 1                        ; 0x154a
     push ax                          ; 0x154d
-    call gfx_get_free_space          ; 0x154e
+    call call_get_free_space         ; 0x154e
     add sp, byte 4                   ; 0x1551
     mov cx, ax                       ; 0x1554
     mov bx, dx                       ; 0x1556
@@ -74,7 +74,7 @@ save_screen_area:
     push ax                          ; 0x157d
     mov ax, 2                        ; 0x157e
     push ax                          ; 0x1581
-    call gfx_get_free_space          ; 0x1582
+    call call_get_free_space         ; 0x1582
     add sp, byte 4                   ; 0x1585
     cmp dx, word [bp - 8]            ; 0x1588
     jl short .forward6               ; 0x158b
@@ -103,7 +103,7 @@ save_screen_area:
     push ax                          ; 0x15c1
     mov ax, 3                        ; 0x15c2
     push ax                          ; 0x15c5
-    call gfx_get_free_space          ; 0x15c6
+    call call_get_free_space         ; 0x15c6
     add sp, byte 4                   ; 0x15c9
     cmp dx, word [bp - 8]            ; 0x15cc
     jl short .forward9               ; 0x15cf
@@ -170,7 +170,7 @@ save_screen_area:
     push word [bp + 8]               ; 0x1667
     push word [bp + 6]               ; 0x166a
     push word [bp + 4]               ; 0x166d
-    call gfx_cache_area              ; 0x1670
+    call call_cache_area             ; 0x1670
     add sp, byte 0xc                 ; 0x1673
     mov cx, word [bp - 4]            ; 0x1676
     shl cx, 1                        ; 0x1679

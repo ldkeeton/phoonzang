@@ -16,7 +16,7 @@ restore_saved_screen(n, flag)
 			release_and_exit(24);
 	} else
 		fd = 0;	/* in-memory save: driver ignores fd */
-	gfx_restore_screen(saved_screen_ref[n], flag, fd);
+	call_restore_screen(saved_screen_ref[n], flag, fd);
 	if (saved_screen_kind[n] == 3)
 		aztec_close(fd);
 	if (flag) {

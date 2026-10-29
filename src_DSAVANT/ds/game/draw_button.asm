@@ -17,7 +17,7 @@ draw_button:
     push ax                          ; 0x132e
     mov ax, 1                        ; 0x132f
     push ax                          ; 0x1332
-    call gfx_set_text_color          ; 0x1333
+    call call_set_text_color         ; 0x1333
     add sp, byte 4                   ; 0x1336
     mov ax, word [bp + 6]            ; 0x1339
     inc ax                           ; 0x133c
@@ -37,7 +37,7 @@ draw_button:
     add ax, word [bp + 4]            ; 0x1358
     inc ax                           ; 0x135b
     push ax                          ; 0x135c
-    call gfx_set_text_pos            ; 0x135d
+    call call_set_text_pos           ; 0x135d
     add sp, byte 4                   ; 0x1360
     mov ax, 0                        ; 0x1363
     push ax                          ; 0x1366

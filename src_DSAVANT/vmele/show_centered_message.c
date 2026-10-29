@@ -2,8 +2,8 @@
    was playing before its message sound */
 
 extern int loaded_sound_id;
-extern measure_text_width(), gfx_set_text_color(), gfx_set_text_pos(),
-	draw_text_glyphs(), gfx_show_area(), play_sound_effect(),
+extern measure_text_width(), call_set_text_color(), call_set_text_pos(),
+	draw_text_glyphs(), call_show_area(), play_sound_effect(),
 	ensure_sound_loaded(), wait_and_free_sound(), redraw_glyph_strip(),
 	flush_keyboard();
 
@@ -17,12 +17,12 @@ int sound_id;
 	width = measure_text_width(text, 2);	/* 2: font slot */
 	left = 160 - (width + 1) / 2;		/* screen centre column */
 	right = left + width;
-	gfx_set_text_color(85, 0);
-	gfx_set_text_pos(left, 164);		/* text row */
+	call_set_text_color(85, 0);
+	call_set_text_pos(left, 164);		/* text row */
 	draw_text_glyphs(text, 2);
 	old_sound = loaded_sound_id;
 	ensure_sound_loaded(sound_id);
-	gfx_show_area(left, 164, right, 176);	/* message box */
+	call_show_area(left, 164, right, 176);	/* message box */
 	play_sound_effect(16);			/* message sound slot */
 	if (old_sound != -1)			/* -1: nothing was loaded */
 		ensure_sound_loaded(old_sound);

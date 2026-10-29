@@ -34,7 +34,7 @@ loc_SNOI:
     push ax                          ; 0x7de0
     mov ax, 0x48                     ; 0x7de1
     push ax                          ; 0x7de4
-    call gfx_cache_area              ; 0x7de5
+    call call_cache_area             ; 0x7de5
     add sp, byte 0xc                 ; 0x7de8
     mov word [screen_cache_0_seg], dx ; 0x7deb
     mov word [screen_cache], ax      ; 0x7def
@@ -59,7 +59,7 @@ loc_SNOI:
     push ax                          ; 0x7e20
     mov ax, 0x48                     ; 0x7e21
     push ax                          ; 0x7e24
-    call gfx_cache_area              ; 0x7e25
+    call call_cache_area             ; 0x7e25
     add sp, byte 0xc                 ; 0x7e28
     mov word [screen_cache_1_seg], dx ; 0x7e2b
     mov word [screen_cache_1_off], ax ; 0x7e2f
@@ -72,7 +72,7 @@ loc_SNOI:
     push ax                          ; 0x7e40
     mov ax, 0x19                     ; 0x7e41
     push ax                          ; 0x7e44
-    call gfx_save_area               ; 0x7e45
+    call call_save_area              ; 0x7e45
     add sp, byte 8                   ; 0x7e48
     mov word [saved_area_a_hi], dx   ; 0x7e4b
     mov word [saved_area_a], ax      ; 0x7e4f
@@ -84,7 +84,7 @@ loc_SNOI:
     push ax                          ; 0x7e5d
     mov ax, 0x41                     ; 0x7e5e
     push ax                          ; 0x7e61
-    call gfx_save_area               ; 0x7e62
+    call call_save_area              ; 0x7e62
     add sp, byte 8                   ; 0x7e65
     mov word [saved_area_b_hi], dx   ; 0x7e68
     mov word [saved_area_b], ax      ; 0x7e6c

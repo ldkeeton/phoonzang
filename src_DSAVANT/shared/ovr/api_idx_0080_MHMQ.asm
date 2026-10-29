@@ -7,14 +7,14 @@ api_idx_0080_MHMQ:
     push ax
     push word [api_idx_0080_MHMQ.bss1]
     push word [api_idx_0080_MHMQ.bss2]
-    call gfx_restore_screen
+    call call_restore_screen
     add sp, byte 8
     mov ax, 0
     push ax
     push ax
     push word [api_idx_0080_MHMQ.bss3]
     push word [api_idx_0080_MHMQ.bss4]
-    call gfx_restore_screen
+    call call_restore_screen
     add sp, byte 8
     push word [bp + 4]
     call api_idx_0080_MHMQ.api_idx1
@@ -114,7 +114,7 @@ api_idx_0080_MHMQ:
     push ax
     mov ax, 0xeb
     push ax
-    call gfx_set_text_color
+    call call_set_text_color
     add sp, byte 4
     mov ax, 0x1e
     push ax
@@ -131,7 +131,7 @@ api_idx_0080_MHMQ:
     mov ax, 0x10e
     sub ax, cx
     push ax
-    call gfx_set_text_pos
+    call call_set_text_pos
     add sp, byte 4
     mov ax, 0
     push ax
@@ -159,7 +159,7 @@ api_idx_0080_MHMQ:
     mov bx, ax
     add bx, bp
     push word [bx - 0x74]
-    call gfx_set_text_pos
+    call call_set_text_pos
     add sp, byte 4
     mov ax, 0
     push ax
@@ -177,7 +177,7 @@ api_idx_0080_MHMQ:
     mov ax, 0xeb
 .forward4:
     push ax
-    call gfx_set_text_color
+    call call_set_text_color
     add sp, byte 4
     mov ax, 0x248
     imul word [bp + 4]

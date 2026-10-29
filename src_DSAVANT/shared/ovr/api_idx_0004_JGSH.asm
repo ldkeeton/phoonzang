@@ -62,13 +62,13 @@ api_idx_0004_JGSH:
     add ax, 0x92
     push ax
     push word [bp - 2]
-    call gfx_set_text_pos
+    call call_set_text_pos
     add sp, byte 4
     mov ax, 0
     push ax
     mov ax, 0x55
     push ax
-    call gfx_set_text_color
+    call call_set_text_color
     add sp, byte 4
     mov ax, 2
     push ax

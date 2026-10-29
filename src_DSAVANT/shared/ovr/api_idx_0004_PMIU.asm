@@ -10,7 +10,7 @@ api_idx_0004_PMIU:
     push ax
     mov ax, 0
     push ax
-    call gfx_save_area
+    call call_save_area
     add sp, byte 8
     mov word [bp - 2], dx
     mov word [bp - 4], ax
@@ -28,13 +28,13 @@ api_idx_0004_PMIU:
     mov ax, 0xa0
     sub ax, cx
     push ax
-    call gfx_set_text_pos
+    call call_set_text_pos
     add sp, byte 4
     mov ax, 0
     push ax
     mov ax, 0x55
     push ax
-    call gfx_set_text_color
+    call call_set_text_color
     add sp, byte 4
     mov ax, 0
     push ax
@@ -49,7 +49,7 @@ api_idx_0004_PMIU:
     push ax
     mov ax, 0
     push ax
-    call gfx_show_area
+    call call_show_area
     add sp, byte 8
     cmp word [bp + 6], byte 0
     jle short .forward1
@@ -65,7 +65,7 @@ api_idx_0004_PMIU:
     push ax
     push word [bp - 2]
     push word [bp - 4]
-    call gfx_restore_area
+    call call_restore_area
     add sp, byte 6
     mov ax, 0xc2
     push ax
@@ -75,6 +75,6 @@ api_idx_0004_PMIU:
     push ax
     mov ax, 0
     push ax
-    call gfx_show_area
+    call call_show_area
     add sp, byte 8
     ret

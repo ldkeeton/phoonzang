@@ -186,7 +186,7 @@ api_idx_0094_LUVH:
     push ax                          ; 0x4334
     mov ax, 0x36                     ; 0x4335
     push ax                          ; 0x4338
-    call gfx_show_area               ; 0x4339
+    call call_show_area              ; 0x4339
     add sp, byte 8                   ; 0x433c
     ret                              ; 0x433f
 .forward11:
@@ -291,7 +291,7 @@ api_idx_0094_LUVH:
     push ax                          ; 0x4430
     mov ax, 0x36                     ; 0x4431
     push ax                          ; 0x4434
-    call gfx_show_area               ; 0x4435
+    call call_show_area              ; 0x4435
     add sp, byte 8                   ; 0x4438
 .forward16:
     push word [spell_target]         ; 0x443b
@@ -463,7 +463,7 @@ api_idx_0094_LUVH:
     push ax                          ; 0x45c2
     mov ax, 0x36                     ; 0x45c3
     push ax                          ; 0x45c6
-    call gfx_show_area               ; 0x45c7
+    call call_show_area              ; 0x45c7
     add sp, byte 8                   ; 0x45ca
     cmp word [pending_event], byte 0 ; 0x45cd
     jle short .return1               ; 0x45d2

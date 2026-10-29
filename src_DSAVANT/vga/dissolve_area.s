@@ -16,7 +16,7 @@ codeseg	segment	byte public 'code'
 	extrn	redraw_mouse_pointer:near	;redraw the cursor from the buffer
 	extrn	update_mouse_pointer:near ;reinstall the mouse pointer
 
-; stack arguments (past the stub's far return and gfx_dissolve_area's frame)
+; stack arguments (past the stub's far return and call_dissolve_area's frame)
 x1		equ	0ch		;left column
 y1		equ	0eh		;top row
 x2		equ	10h		;right column

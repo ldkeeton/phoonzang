@@ -40,7 +40,7 @@ api_idx_0074_MHUG:
     push ax                          ; 0x6754
     mov ax, 0x1c                     ; 0x6755
     push ax                          ; 0x6758
-    call gfx_set_text_color          ; 0x6759
+    call call_set_text_color         ; 0x6759
     add sp, byte 4                   ; 0x675c
     mov ax, word [bp - 8]            ; 0x675f
     add ax, strict word 9            ; 0x6762
@@ -60,7 +60,7 @@ api_idx_0074_MHUG:
     add ax, word [bp - 6]            ; 0x6780
     add ax, strict word 9            ; 0x6783
     push ax                          ; 0x6786
-    call gfx_set_text_pos            ; 0x6787
+    call call_set_text_pos           ; 0x6787
     add sp, byte 4                   ; 0x678a
     mov ax, 0                        ; 0x678d
     push ax                          ; 0x6790
@@ -126,7 +126,7 @@ api_idx_0074_MHUG:
     push ax                          ; 0x6814
     mov ax, 1                        ; 0x6815
     push ax                          ; 0x6818
-    call gfx_set_text_color          ; 0x6819
+    call call_set_text_color         ; 0x6819
     add sp, byte 4                   ; 0x681c
     mov ax, word [bp - 8]            ; 0x681f
     add ax, strict word 6            ; 0x6822
@@ -145,7 +145,7 @@ api_idx_0074_MHUG:
     add ax, 0x93                     ; 0x683e
     sub ax, cx                       ; 0x6841
     push ax                          ; 0x6843
-    call gfx_set_text_pos            ; 0x6844
+    call call_set_text_pos           ; 0x6844
     add sp, byte 4                   ; 0x6847
     mov ax, 0                        ; 0x684a
     push ax                          ; 0x684d
@@ -164,7 +164,7 @@ api_idx_0074_MHUG:
     push ax                          ; 0x686c
     mov ax, 0x9b                     ; 0x686d
     push ax                          ; 0x6870
-    call gfx_set_text_color          ; 0x6871
+    call call_set_text_color         ; 0x6871
     add sp, byte 4                   ; 0x6874
     mov ax, word [bp - 8]            ; 0x6877
     add ax, strict word 0x1e         ; 0x687a
@@ -183,7 +183,7 @@ api_idx_0074_MHUG:
     add ax, 0x93                     ; 0x6896
     sub ax, cx                       ; 0x6899
     push ax                          ; 0x689b
-    call gfx_set_text_pos            ; 0x689c
+    call call_set_text_pos           ; 0x689c
     add sp, byte 4                   ; 0x689f
     mov ax, 0                        ; 0x68a2
     push ax                          ; 0x68a5
@@ -237,7 +237,7 @@ api_idx_0074_MHUG:
     add ax, word [bp - 6]            ; 0x6914
     add ax, strict word 0x5c         ; 0x6917
     push ax                          ; 0x691a
-    call gfx_fill_area               ; 0x691b
+    call call_fill_area              ; 0x691b
     add sp, byte 0xa                 ; 0x691e
     mov ax, word [bp - 8]            ; 0x6921
     add ax, strict word 0x2d         ; 0x6924
@@ -294,7 +294,7 @@ api_idx_0074_MHUG:
     add ax, word [bp - 6]            ; 0x6996
     add ax, strict word 0x5c         ; 0x6999
     push ax                          ; 0x699c
-    call gfx_fill_area               ; 0x699d
+    call call_fill_area              ; 0x699d
     add sp, byte 0xa                 ; 0x69a0
     inc word [bp - 2]                ; 0x69a3
     mov ax, word [bp - 2]            ; 0x69a6
@@ -366,7 +366,7 @@ api_idx_0074_MHUG:
     mov ax, word [bp - 6]            ; 0x6a32
     dec ax                           ; 0x6a35
     push ax                          ; 0x6a36
-    call gfx_show_area               ; 0x6a37
+    call call_show_area              ; 0x6a37
     add sp, byte 8                   ; 0x6a3a
     mov ax, 0x37                     ; 0x6a3d
     cmp word [bp + 0xc], byte 0      ; 0x6a40
@@ -516,7 +516,7 @@ api_idx_0074_MHUG:
     push ax                          ; 0x6b90
     push word [bp - 0x14]            ; 0x6b91
     push word [bp - 0x12]            ; 0x6b94
-    call gfx_show_area               ; 0x6b97
+    call call_show_area              ; 0x6b97
     add sp, byte 8                   ; 0x6b9a
     mov ax, word [bp - 0x14]         ; 0x6b9d
     add ax, strict word 0x2b         ; 0x6ba0
@@ -525,7 +525,7 @@ api_idx_0074_MHUG:
     push ax                          ; 0x6ba7
     push word [bp - 0x14]            ; 0x6ba8
     push word [bp - 0x12]            ; 0x6bab
-    call gfx_show_area               ; 0x6bae
+    call call_show_area              ; 0x6bae
     add sp, byte 8                   ; 0x6bb1
     jmp short .forward13             ; 0x6bb4
 .back5:
@@ -536,7 +536,7 @@ api_idx_0074_MHUG:
     push ax                          ; 0x6bc0
     push word [bp - 0x14]            ; 0x6bc1
     push word [bp - 0x12]            ; 0x6bc4
-    call gfx_show_area               ; 0x6bc7
+    call call_show_area              ; 0x6bc7
     add sp, byte 8                   ; 0x6bca
     mov ax, word [bp - 0x14]         ; 0x6bcd
     add ax, strict word 0x2b         ; 0x6bd0
@@ -547,7 +547,7 @@ api_idx_0074_MHUG:
     push word [bp - 0x14]            ; 0x6bdb
     mov ax, 0x10a                    ; 0x6bde
     push ax                          ; 0x6be1
-    call gfx_show_area               ; 0x6be2
+    call call_show_area              ; 0x6be2
     add sp, byte 8                   ; 0x6be5
     jmp short .forward13             ; 0x6be8
 .back6:
@@ -559,7 +559,7 @@ api_idx_0074_MHUG:
     push ax                          ; 0x6bf7
     push word [bp - 0x14]            ; 0x6bf8
     push word [bp - 0x12]            ; 0x6bfb
-    call gfx_show_area               ; 0x6bfe
+    call call_show_area              ; 0x6bfe
     add sp, byte 8                   ; 0x6c01
     jmp short .forward13             ; 0x6c04
 .forward11:
@@ -627,7 +627,7 @@ api_idx_0074_MHUG:
     add ax, word [bp - 6]            ; 0x6c8a
     add ax, strict word 0x5c         ; 0x6c8d
     push ax                          ; 0x6c90
-    call gfx_fill_area               ; 0x6c91
+    call call_fill_area              ; 0x6c91
     add sp, byte 0xa                 ; 0x6c94
     inc word [bp - 2]                ; 0x6c97
     mov ax, word [bp - 2]            ; 0x6c9a
@@ -645,7 +645,7 @@ api_idx_0074_MHUG:
     mov ax, word [bp - 6]            ; 0x6cb7
     add ax, strict word 0x5c         ; 0x6cba
     push ax                          ; 0x6cbd
-    call gfx_show_area               ; 0x6cbe
+    call call_show_area              ; 0x6cbe
     add sp, byte 8                   ; 0x6cc1
     call loc_IKLI                    ; 0x6cc4
     test ax, ax                      ; 0x6cc7
@@ -691,7 +691,7 @@ api_idx_0074_MHUG:
     push ax                          ; 0x6d1e
     mov ax, 0x1a                     ; 0x6d1f
     push ax                          ; 0x6d22
-    call gfx_set_text_color          ; 0x6d23
+    call call_set_text_color         ; 0x6d23
     add sp, byte 4                   ; 0x6d26
     mov ax, word [bp - 8]            ; 0x6d29
     add ax, strict word 0x18         ; 0x6d2c
@@ -711,7 +711,7 @@ api_idx_0074_MHUG:
     add ax, word [bp - 6]            ; 0x6d4a
     add ax, strict word 9            ; 0x6d4d
     push ax                          ; 0x6d50
-    call gfx_set_text_pos            ; 0x6d51
+    call call_set_text_pos           ; 0x6d51
     add sp, byte 4                   ; 0x6d54
     mov ax, 0                        ; 0x6d57
     push ax                          ; 0x6d5a
@@ -731,7 +731,7 @@ api_idx_0074_MHUG:
     mov ax, word [bp - 6]            ; 0x6d7a
     add ax, strict word 8            ; 0x6d7d
     push ax                          ; 0x6d80
-    call gfx_show_area               ; 0x6d81
+    call call_show_area              ; 0x6d81
     add sp, byte 8                   ; 0x6d84
     mov ax, 4                        ; 0x6d87
     push ax                          ; 0x6d8a
@@ -829,7 +829,7 @@ api_idx_0074_MHUG:
     mov ax, word [bp - 6]            ; 0x6e5a
     dec ax                           ; 0x6e5d
     push ax                          ; 0x6e5e
-    call gfx_show_area               ; 0x6e5f
+    call call_show_area              ; 0x6e5f
     add sp, byte 8                   ; 0x6e62
     mov ax, word [spell_dialog_button] ; 0x6e65
     ret                              ; 0x6e68

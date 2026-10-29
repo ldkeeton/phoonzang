@@ -153,7 +153,7 @@ api_idx_0010_TVMI:
     push ax                          ; 0x8375
     mov ax, 0                        ; 0x8376
     push ax                          ; 0x8379
-    call gfx_show_area               ; 0x837a
+    call call_show_area              ; 0x837a
     add sp, byte 8                   ; 0x837d
 .forward10:
     cmp word [bp - 0x10], byte 0     ; 0x8380

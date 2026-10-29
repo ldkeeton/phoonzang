@@ -15,7 +15,7 @@ extern struct kind_info kind_state_table[];
 extern int game_state_arg, party_map_piece;
 extern long saved_area_a;
 extern char flag_bitset[], report_line1_none[], report_line2_none[];
-long gfx_save_area();
+long call_save_area();
 
 roll_slot_detection_report(level)
 int level;
@@ -50,7 +50,7 @@ int level;
 	}
 	free_picture_slot(2);
 	load_monster_picture(0, 14);
-	saved_area_a = gfx_save_area(55, 146, 265, 198);	/* box corners */
+	saved_area_a = call_save_area(55, 146, 265, 198);	/* box corners */
 	restore_area_a_draw_glyph();
 	found = 0;
 	for (slot = 0; slot < 20; slot++) {
@@ -84,7 +84,7 @@ hit:
 		load_message_string(MSG_FAILURE_486, title);
 		draw_centered_lines(title, report_line1_none, report_line2_none);
 	}
-	gfx_restore_area(saved_area_a, 1);
+	call_restore_area(saved_area_a, 1);
 	dissolve_or_show_area(55, 146, 265, 198);
 	free_picture_slot(14);
 	load_monster_picture(3, 2);

@@ -15,7 +15,7 @@ loc_TJHG:
     mov ax, 0                        ; 0x6c7b
     push ax                          ; 0x6c7e
     push ax                          ; 0x6c7f
-    call gfx_show_area               ; 0x6c80
+    call call_show_area              ; 0x6c80
     add sp, byte 8                   ; 0x6c83
 .return1:
     ret                              ; 0x6c86

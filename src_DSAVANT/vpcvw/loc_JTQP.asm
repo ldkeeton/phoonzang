@@ -21,7 +21,7 @@ loc_JTQP:
     mov ax, 0                        ; 0x40e3
     push ax                          ; 0x40e6
     push ax                          ; 0x40e7
-    call gfx_show_area               ; 0x40e8
+    call call_show_area              ; 0x40e8
     add sp, byte 8                   ; 0x40eb
 .return1:
     ret                              ; 0x40ee

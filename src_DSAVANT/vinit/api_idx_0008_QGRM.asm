@@ -4,18 +4,18 @@ api_idx_0008_QGRM:
     call aztec_csav                  ; 0x140c
     mov ax, 0                        ; 0x140f
     push ax                          ; 0x1412
-    call gfx_set_text_opaque         ; 0x1413
+    call call_set_text_opaque        ; 0x1413
     pop cx                           ; 0x1416
     mov ax, 0                        ; 0x1417
     push ax                          ; 0x141a
     mov ax, 1                        ; 0x141b
     push ax                          ; 0x141e
-    call gfx_set_text_color          ; 0x141f
+    call call_set_text_color         ; 0x141f
     add sp, byte 4                   ; 0x1422
     mov ax, 0                        ; 0x1425
     push ax                          ; 0x1428
     push ax                          ; 0x1429
-    call gfx_set_text_pos            ; 0x142a
+    call call_set_text_pos           ; 0x142a
     add sp, byte 4                   ; 0x142d
     mov word [bp - 4], 0             ; 0x1430
 .back1:
@@ -101,7 +101,7 @@ api_idx_0008_QGRM:
     push ax                          ; 0x1508
     push word [bp - 8]               ; 0x1509
     push word [bp - 6]               ; 0x150c
-    call gfx_save_area               ; 0x150f
+    call call_save_area              ; 0x150f
     add sp, byte 8                   ; 0x1512
     mov cx, word [bp - 2]            ; 0x1515
     shl cx, 1                        ; 0x1518
@@ -146,7 +146,7 @@ api_idx_0008_QGRM:
     push ax                          ; 0x1586
     push word [bp - 8]               ; 0x1587
     push word [bp - 6]               ; 0x158a
-    call gfx_save_area               ; 0x158d
+    call call_save_area              ; 0x158d
     add sp, byte 8                   ; 0x1590
     mov cx, word [bp - 2]            ; 0x1593
     shl cx, 1                        ; 0x1596
@@ -166,7 +166,7 @@ api_idx_0008_QGRM:
     push ax                          ; 0x15ba
     mov ax, 0x131                    ; 0x15bb
     push ax                          ; 0x15be
-    call gfx_save_area               ; 0x15bf
+    call call_save_area              ; 0x15bf
     add sp, byte 8                   ; 0x15c2
     mov word [bss_8d08], dx          ; 0x15c5
     mov word [bss_8d06], ax          ; 0x15c9

@@ -117,14 +117,14 @@ api_idx_0062_SRKH:
     mov ax, 0xa0                     ; 0x4ca8
     sub ax, cx                       ; 0x4cab
     push ax                          ; 0x4cad
-    call gfx_set_text_pos            ; 0x4cae
+    call call_set_text_pos           ; 0x4cae
     add sp, byte 4                   ; 0x4cb1
     mov ax, 0                        ; 0x4cb4
     push ax                          ; 0x4cb7
     mov al, byte [bp - 0x5e]         ; 0x4cb8
     sub ah, ah                       ; 0x4cbb
     push ax                          ; 0x4cbd
-    call gfx_set_text_color          ; 0x4cbe
+    call call_set_text_color         ; 0x4cbe
     add sp, byte 4                   ; 0x4cc1
     mov ax, 0                        ; 0x4cc4
     push ax                          ; 0x4cc7
@@ -148,7 +148,7 @@ api_idx_0062_SRKH:
     mov ax, word [bp - 8]            ; 0x4ceb
     dec ax                           ; 0x4cee
     push ax                          ; 0x4cef
-    call gfx_show_area               ; 0x4cf0
+    call call_show_area              ; 0x4cf0
     add sp, byte 8                   ; 0x4cf3
     mov ax, word [message_delay]     ; 0x4cf6
     shl ax, 1                        ; 0x4cf9

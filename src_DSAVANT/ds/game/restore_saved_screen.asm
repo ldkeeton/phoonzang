@@ -35,7 +35,7 @@ restore_saved_screen:
     mov bx, ax                       ; 0x16ec
     push word [bx + saved_screen_ref + 0x2] ; 0x16ee
     push word [bx + saved_screen_ref] ; 0x16f2
-    call gfx_restore_screen          ; 0x16f6
+    call call_restore_screen         ; 0x16f6
     add sp, byte 8                   ; 0x16f9
     mov ax, word [bp + 4]            ; 0x16fc
     shl ax, 1                        ; 0x16ff

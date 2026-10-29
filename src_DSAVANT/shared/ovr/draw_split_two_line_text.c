@@ -16,9 +16,9 @@ int x, y, color;
 		split = 10;
 	buf[split] = 0;
 	buf[split + 11] = 0;	/* cap the second line at 10 chars too */
-	gfx_set_text_color(color, 0);
-	gfx_set_text_pos(x, y);
+	call_set_text_color(color, 0);
+	call_set_text_pos(x, y);
 	draw_text_glyphs(buf, 0);
-	gfx_set_text_pos(x, y + 6);	/* next line, 6 pixels down */
+	call_set_text_pos(x, y + 6);	/* next line, 6 pixels down */
 	draw_text_glyphs(&buf[split + 1], 0);
 }

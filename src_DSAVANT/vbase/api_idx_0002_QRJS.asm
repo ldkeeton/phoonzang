@@ -19,7 +19,7 @@ api_idx_0002_QRJS:
     mov ax, 0                        ; 0x8e8f
     push ax                          ; 0x8e92
     push ax                          ; 0x8e93
-    call gfx_cache_area              ; 0x8e94
+    call call_cache_area             ; 0x8e94
     add sp, byte 0xc                 ; 0x8e97
     mov word [scene_backdrop_ref_hi], dx ; 0x8e9a
     mov word [scene_backdrop_ref], ax ; 0x8e9e
@@ -62,7 +62,7 @@ api_idx_0002_QRJS:
     push ax                          ; 0x8f19
     push ax                          ; 0x8f1a
     push ax                          ; 0x8f1b
-    call gfx_reset_rgb               ; 0x8f1c
+    call call_reset_rgb              ; 0x8f1c
     add sp, byte 6                   ; 0x8f1f
     mov ax, 0xc7                     ; 0x8f22
     push ax                          ; 0x8f25
@@ -71,11 +71,11 @@ api_idx_0002_QRJS:
     mov ax, 0                        ; 0x8f2a
     push ax                          ; 0x8f2d
     push ax                          ; 0x8f2e
-    call gfx_show_area               ; 0x8f2f
+    call call_show_area              ; 0x8f2f
     add sp, byte 8                   ; 0x8f32
     mov ax, 0                        ; 0x8f35
     push ax                          ; 0x8f38
-    call gfx_fade_in                 ; 0x8f39
+    call call_fade_in                ; 0x8f39
     pop cx                           ; 0x8f3c
     mov ax, 0                        ; 0x8f3d
     push ax                          ; 0x8f40
@@ -96,7 +96,7 @@ api_idx_0002_QRJS:
     push ax                          ; 0x8f61
     push word [scene_backdrop_ref_hi] ; 0x8f62
     push word [scene_backdrop_ref]   ; 0x8f66
-    call gfx_restore_screen          ; 0x8f6a
+    call call_restore_screen         ; 0x8f6a
     add sp, byte 8                   ; 0x8f6d
     call blank_scene_screen          ; 0x8f70
     ret                              ; 0x8f73

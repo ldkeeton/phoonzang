@@ -4,7 +4,8 @@ import os
 import shutil
 
 from lib.buildlock import LOCK_NAME
-from lib.cachedirs import BASELINE_ROOT, BUILD_KEEP, CACHE_ROOT, project_cache
+from lib.cachedirs import (BASELINE_ROOT, BUILD_KEEP, CACHE_ROOT, project_cache,
+                            use_cache_tmp)
 from main.clean import clean_all
 from main.clean import clean_project
 
@@ -66,6 +67,9 @@ def cmd_clean(apps):
                     shutil.rmtree(path)
                 else:
                     os.remove(path)
+            # ``make all`` goes on in this process, whose tempfile and TMPDIR
+            # still point at .cache/tmp.
+            use_cache_tmp()
             print(f'Removed {CACHE_ROOT}')
         return
     for app in apps:

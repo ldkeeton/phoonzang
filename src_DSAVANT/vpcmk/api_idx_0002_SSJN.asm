@@ -7,13 +7,13 @@ api_idx_0002_SSJN:
     push ax                          ; 0x19b5
     push word [bss_953e]             ; 0x19b6
     push word [bss_953c]             ; 0x19ba
-    call gfx_restore_screen          ; 0x19be
+    call call_restore_screen         ; 0x19be
     add sp, byte 8                   ; 0x19c1
     mov ax, 0                        ; 0x19c4
     push ax                          ; 0x19c7
     mov ax, 0x55                     ; 0x19c8
     push ax                          ; 0x19cb
-    call gfx_set_text_color          ; 0x19cc
+    call call_set_text_color         ; 0x19cc
     add sp, byte 4                   ; 0x19cf
     mov word [bp - 2], 0             ; 0x19d2
 .back1:
@@ -23,7 +23,7 @@ api_idx_0002_SSJN:
     push ax                          ; 0x19e0
     mov ax, 0x73                     ; 0x19e1
     push ax                          ; 0x19e4
-    call gfx_set_text_pos            ; 0x19e5
+    call call_set_text_pos           ; 0x19e5
     add sp, byte 4                   ; 0x19e8
     mov ax, 0                        ; 0x19eb
     push ax                          ; 0x19ee
@@ -56,13 +56,13 @@ api_idx_0002_SSJN:
     push ax                          ; 0x1a34
     mov ax, 0x16                     ; 0x1a35
     push ax                          ; 0x1a38
-    call gfx_set_text_color          ; 0x1a39
+    call call_set_text_color         ; 0x1a39
     add sp, byte 4                   ; 0x1a3c
     mov ax, 0x59                     ; 0x1a3f
     push ax                          ; 0x1a42
     mov ax, 0x67                     ; 0x1a43
     push ax                          ; 0x1a46
-    call gfx_set_text_pos            ; 0x1a47
+    call call_set_text_pos           ; 0x1a47
     add sp, byte 4                   ; 0x1a4a
     mov ax, 0                        ; 0x1a4d
     push ax                          ; 0x1a50
@@ -74,7 +74,7 @@ api_idx_0002_SSJN:
     push ax                          ; 0x1a5e
     mov ax, 1                        ; 0x1a5f
     push ax                          ; 0x1a62
-    call gfx_set_text_color          ; 0x1a63
+    call call_set_text_color         ; 0x1a63
     add sp, byte 4                   ; 0x1a66
     mov ax, 0                        ; 0x1a69
     push ax                          ; 0x1a6c
@@ -94,7 +94,7 @@ api_idx_0002_SSJN:
     push ax                          ; 0x1a8c
     mov ax, 0x66                     ; 0x1a8d
     push ax                          ; 0x1a90
-    call gfx_show_area               ; 0x1a91
+    call call_show_area              ; 0x1a91
     add sp, byte 8                   ; 0x1a94
 .return1:
     ret                              ; 0x1a97

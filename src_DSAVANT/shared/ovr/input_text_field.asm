@@ -4,7 +4,7 @@ input_text_field:
     call aztec_csav
     push word [bp + 0xe]
     push word [bp + 0xc]
-    call gfx_set_text_color
+    call call_set_text_color
     add sp, byte 4
     push word [bp + 4]
     call aztec_strlen
@@ -36,13 +36,13 @@ input_text_field:
     push ax
     push word [bp + 8]
     push word [bp + 6]
-    call gfx_fill_area
+    call call_fill_area
     add sp, byte 0xa
     cmp word [bp - 6], byte 0
     je short .forward2
     push word [bp + 8]
     push word [bp + 6]
-    call gfx_set_text_pos
+    call call_set_text_pos
     add sp, byte 4
     mov ax, 0
     push ax
@@ -59,7 +59,7 @@ input_text_field:
     push ax
     push word [bp + 8]
     push word [bp + 6]
-    call gfx_show_area
+    call call_show_area
     add sp, byte 8
     mov ax, word [bp - 6]
     inc ax
@@ -93,7 +93,7 @@ input_text_field:
     push ax
     push word [bp + 8]
     push word [bp + 6]
-    call gfx_fill_area
+    call call_fill_area
     add sp, byte 0xa
     mov ax, word [bp + 8]
     add ax, strict word 5
@@ -103,7 +103,7 @@ input_text_field:
     push ax
     push word [bp + 8]
     push word [bp + 6]
-    call gfx_show_area
+    call call_show_area
     add sp, byte 8
     cmp word [bp - 2], byte 0xd
     jne short .forward6
@@ -160,7 +160,7 @@ input_text_field:
     inc word [bp - 4]
     push word [bp + 8]
     push word [bp + 6]
-    call gfx_set_text_pos
+    call call_set_text_pos
     add sp, byte 4
     mov ax, 0
     push ax
@@ -177,7 +177,7 @@ input_text_field:
     push ax
     push word [bp + 8]
     push word [bp + 6]
-    call gfx_show_area
+    call call_show_area
     add sp, byte 8
     add word [bp + 6], byte 6
 .forward13:

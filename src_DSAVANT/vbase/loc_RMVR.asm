@@ -1017,7 +1017,7 @@ loc_RMVR:
     mov ax, word [bp - 8]            ; 0x5625
     dec ax                           ; 0x5628
     push ax                          ; 0x5629
-    call gfx_show_area               ; 0x562a
+    call call_show_area              ; 0x562a
     add sp, byte 8                   ; 0x562d
     mov word [bp - 0x18], 1          ; 0x5630
     mov word [bp - 0x16], 0          ; 0x5635
@@ -1073,7 +1073,7 @@ loc_RMVR:
     mov ax, word [bp - 8]            ; 0x56aa
     dec ax                           ; 0x56ad
     push ax                          ; 0x56ae
-    call gfx_show_area               ; 0x56af
+    call call_show_area              ; 0x56af
     add sp, byte 8                   ; 0x56b2
     jmp near .forward24              ; 0x56b5
 .back4:
@@ -1104,7 +1104,7 @@ loc_RMVR:
     mov ax, word [bp - 8]            ; 0x56eb
     dec ax                           ; 0x56ee
     push ax                          ; 0x56ef
-    call gfx_show_area               ; 0x56f0
+    call call_show_area              ; 0x56f0
     add sp, byte 8                   ; 0x56f3
     jmp near .forward24              ; 0x56f6
 .back5:
@@ -1717,7 +1717,7 @@ loc_RMVR.forward36:
     mov ax, word [bp - 8]            ; 0x5c63
     dec ax                           ; 0x5c66
     push ax                          ; 0x5c67
-    call gfx_show_area               ; 0x5c68
+    call call_show_area              ; 0x5c68
     add sp, byte 8                   ; 0x5c6b
 jumptable_5e7f_case_18:
     cmp word [bp - 0x14], byte 0x12  ; 0x5c6e
@@ -2009,7 +2009,7 @@ loc_RMVR.forward44:
     mov ax, word [bp - 8]            ; 0x5ee9
     dec ax                           ; 0x5eec
     push ax                          ; 0x5eed
-    call gfx_show_area               ; 0x5eee
+    call call_show_area              ; 0x5eee
     add sp, byte 8                   ; 0x5ef1
 loc_RMVR.forward45:
     cmp word [bp - 0x18], byte 0     ; 0x5ef4
@@ -2033,7 +2033,7 @@ loc_RMVR.forward46:
     mov ax, word [bp - 8]            ; 0x5f19
     dec ax                           ; 0x5f1c
     push ax                          ; 0x5f1d
-    call gfx_show_area               ; 0x5f1e
+    call call_show_area              ; 0x5f1e
     add sp, byte 8                   ; 0x5f21
     mov ax, word [spell_dialog_button] ; 0x5f24
     ret                              ; 0x5f27

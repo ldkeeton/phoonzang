@@ -88,7 +88,7 @@ api_idx_0018_USPR:
     mov ax, word [bp - 8]            ; 0x1d86
     cmp ax, word [bp - 0x12]         ; 0x1d89
     jl short .forward5               ; 0x1d8c
-    call gfx_is_music_playing        ; 0x1d8e
+    call call_is_music_playing       ; 0x1d8e
     test ax, ax                      ; 0x1d91
     jne short .forward5              ; 0x1d93
     jmp near .forward27              ; 0x1d95
@@ -296,10 +296,10 @@ api_idx_0018_USPR:
     jl short .forward26              ; 0x1f75
     cmp word [bss_8450], byte 0      ; 0x1f77
     je short .forward25              ; 0x1f7c
-    call gfx_stop_music              ; 0x1f7e
+    call call_stop_music             ; 0x1f7e
     mov ax, 0                        ; 0x1f81
     push ax                          ; 0x1f84
-    call app_gfx_free_score          ; 0x1f85
+    call free_loaded_score           ; 0x1f85
     pop cx                           ; 0x1f88
 .forward25:
     mov ax, 1                        ; 0x1f89
@@ -315,7 +315,7 @@ api_idx_0018_USPR:
     push ax                          ; 0x1f9b
     mov ax, 0                        ; 0x1f9c
     push ax                          ; 0x1f9f
-    call gfx_show_area               ; 0x1fa0
+    call call_show_area              ; 0x1fa0
     add sp, byte 8                   ; 0x1fa3
     mov ax, 2                        ; 0x1fa6
     push ax                          ; 0x1fa9
@@ -367,7 +367,7 @@ api_idx_0018_USPR:
     add sp, byte 4                   ; 0x2021
     mov ax, 0                        ; 0x2024
     push ax                          ; 0x2027
-    call app_gfx_free_score          ; 0x2028
+    call free_loaded_score           ; 0x2028
     pop cx                           ; 0x202b
 .forward31:
     call loc_VRKM                    ; 0x202c

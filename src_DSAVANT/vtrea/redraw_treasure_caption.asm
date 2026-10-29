@@ -6,13 +6,13 @@ redraw_treasure_caption:
     push ax                          ; 0x095d
     push word [saved_area_a_hi]      ; 0x095e
     push word [saved_area_a]         ; 0x0962
-    call gfx_restore_area            ; 0x0966
+    call call_restore_area           ; 0x0966
     add sp, byte 6                   ; 0x0969
     mov ax, 0                        ; 0x096c
     push ax                          ; 0x096f
     push word [saved_area_b_hi]      ; 0x0970
     push word [saved_area_b]         ; 0x0974
-    call gfx_restore_area            ; 0x0978
+    call call_restore_area           ; 0x0978
     add sp, byte 6                   ; 0x097b
     mov byte [bp - 0xa], 1           ; 0x097e
     mov byte [bp - 9], 0             ; 0x0982
@@ -37,7 +37,7 @@ redraw_treasure_caption:
     push ax                          ; 0x09aa
     mov ax, 0xe                      ; 0x09ab
     push ax                          ; 0x09ae
-    call gfx_draw_text               ; 0x09af
+    call call_draw_text              ; 0x09af
     add sp, byte 0x16                ; 0x09b2
     cmp word [treasure_caption_on], byte 0 ; 0x09b5
     je short .forward1               ; 0x09ba
@@ -56,13 +56,13 @@ redraw_treasure_caption:
     mov ax, 0xa1                     ; 0x09d5
     sub ax, cx                       ; 0x09d8
     push ax                          ; 0x09da
-    call gfx_set_text_pos            ; 0x09db
+    call call_set_text_pos           ; 0x09db
     add sp, byte 4                   ; 0x09de
     mov ax, 0                        ; 0x09e1
     push ax                          ; 0x09e4
     mov ax, 0x17                     ; 0x09e5
     push ax                          ; 0x09e8
-    call gfx_set_text_color          ; 0x09e9
+    call call_set_text_color         ; 0x09e9
     add sp, byte 4                   ; 0x09ec
     mov ax, 0                        ; 0x09ef
     push ax                          ; 0x09f2
@@ -81,7 +81,7 @@ redraw_treasure_caption:
     push ax                          ; 0x0a0e
     mov ax, 0x19                     ; 0x0a0f
     push ax                          ; 0x0a12
-    call gfx_show_area               ; 0x0a13
+    call call_show_area              ; 0x0a13
     add sp, byte 8                   ; 0x0a16
 .return1:
     ret                              ; 0x0a19

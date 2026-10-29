@@ -17,7 +17,7 @@ draw_scene_frame()
 
 	switch (scene_index) {	/* scenes 1..8; 0 and others draw nothing */
 	case 1:
-		gfx_restore_screen(scene_backdrop_ref, 0, 0);	/* backdrop */
+		call_restore_screen(scene_backdrop_ref, 0, 0);	/* backdrop */
 		if (scene_cue_d < scene_tick)
 			draw_char_clipped_top_zero(17, 6, 189, 79);
 		draw_char_clipped_top_zero(17, scene_frame % 3 + 1, 116, 43);
@@ -105,7 +105,7 @@ draw_scene_frame()
 		}
 		break;
 	case 3:
-		gfx_restore_screen(scene_backdrop_ref, 0, 0);	/* backdrop */
+		call_restore_screen(scene_backdrop_ref, 0, 0);	/* backdrop */
 		for (slot = 0; slot < 2; slot++) {		/* objects 1..2 */
 			obj = slot + 1;
 			if (sprite_pos[0][obj] < 320) {
@@ -174,7 +174,7 @@ draw_scene_frame()
 		}
 		break;
 	case 4:
-		gfx_restore_screen(scene_backdrop_ref, 0, 0);	/* backdrop */
+		call_restore_screen(scene_backdrop_ref, 0, 0);	/* backdrop */
 		draw_char_clipped_top_zero(15, scene_step_a, 112, 18);
 		if (scene_cue_b < scene_tick && scene_clip_arg < 100) {
 			draw_char_clipped_top(17, 6, actor_x, actor_y, scene_clip_arg);
@@ -193,7 +193,7 @@ draw_scene_frame()
 		}
 		break;
 	case 5:
-		gfx_restore_screen(scene_backdrop_ref, 0, 0);	/* backdrop */
+		call_restore_screen(scene_backdrop_ref, 0, 0);	/* backdrop */
 		draw_char_clipped_top_zero(15, 3, scroll_x[0], 0);
 		draw_char_clipped_top_zero(15, 4, scroll_x[1], 0);
 		draw_char_clipped_top_zero(15, 3, scroll_x[2], 0);
@@ -235,7 +235,7 @@ draw_scene_frame()
 		}
 		break;
 	case 6:
-		gfx_restore_screen(scene_backdrop_ref, 0, 0);	/* backdrop */
+		call_restore_screen(scene_backdrop_ref, 0, 0);	/* backdrop */
 		if (scene_cue_a < scene_tick) {
 			draw_char_clipped_top_zero(15, 1, 75, 1);
 			draw_char_clipped_top_zero(15, 2, 147, 66);
@@ -258,7 +258,7 @@ draw_scene_frame()
 		}
 		break;
 	case 7:
-		gfx_restore_screen(scene_backdrop_ref, 0, 0);	/* backdrop */
+		call_restore_screen(scene_backdrop_ref, 0, 0);	/* backdrop */
 		draw_char_clipped_top_zero(15, scene_step_c + 1, 7, 3);
 		draw_char_clipped_top_zero(15, (scene_step_c + 3) % 7 + 8, 295, 3);
 		scene_step_c = (scene_step_c + 1) % 7;
@@ -300,7 +300,7 @@ draw_scene_frame()
 		}
 		break;
 	case 8:
-		gfx_restore_screen(scene_backdrop_ref, 0, 0);	/* backdrop */
+		call_restore_screen(scene_backdrop_ref, 0, 0);	/* backdrop */
 		if (scene_cue_b < scene_tick) {
 			draw_char_clipped_top_zero(15, 1, 56, 23);
 			draw_char_clipped_top_zero(15, 2, 147, 39);

@@ -68,7 +68,7 @@ api_idx_005e_OJVJ:
     push ax
     mov ax, 2
     push ax
-    call gfx_get_free_space
+    call call_get_free_space
     add sp, byte 4
     mov cx, word [bp - 8]
     mov bx, word [bp - 6]
@@ -91,7 +91,7 @@ api_idx_005e_OJVJ:
     push ax
     mov ax, 1
     push ax
-    call gfx_get_free_space
+    call call_get_free_space
     add sp, byte 4
     cmp dx, word [bp - 0xa]
     jl short .forward6
@@ -118,7 +118,7 @@ api_idx_005e_OJVJ:
     push ax
     mov ax, 3
     push ax
-    call gfx_get_free_space
+    call call_get_free_space
     add sp, byte 4
     cmp dx, word [bp - 0xa]
     jl short .forward9
@@ -135,7 +135,7 @@ api_idx_005e_OJVJ:
     push ax
     mov ax, 2
     push ax
-    call gfx_get_free_space
+    call call_get_free_space
     add sp, byte 4
     mov cx, word [bp - 8]
     mov bx, word [bp - 6]

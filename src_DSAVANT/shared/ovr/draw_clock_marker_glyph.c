@@ -2,7 +2,7 @@
 
 extern long game_time;			/* 0x8f1c: 32-bit clock, minutes */
 extern int party_tag;
-extern gfx_draw_text();
+extern call_draw_text();
 
 /* places the marker by three-minute notch, one x per party slot, and draws
    it; a slot whose marker is unset (0xff01) is not drawn */
@@ -37,6 +37,6 @@ draw_clock_marker_glyph()
 	}
 	glyph[0] = 6;			/* 6: marker glyph */
 	glyph[1] = 0;			/* NUL-terminate */
-	gfx_draw_text(6, marker_x[party_tag] + 72, 70 - glyph_y_off, 72, 248,
+	call_draw_text(6, marker_x[party_tag] + 72, 70 - glyph_y_off, 72, 248,
 		32, 144, 0, glyph, 0, 0);	/* clip 72..248 x 32..144 */
 }

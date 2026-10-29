@@ -19,7 +19,7 @@ load_message_block(block)
 			return;
 		}
 	}
-	gfx_wait_sound(0);
+	call_wait_sound(0);
 	aztec_lseek(msg_dbs_fd, (long)block * 1024, 0);	/* block offset in MSG.DBS */
 	aztec_read(msg_dbs_fd, message_block_buffer, 1024);
 	message_block_current = block;

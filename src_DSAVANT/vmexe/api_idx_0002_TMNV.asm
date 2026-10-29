@@ -34,6 +34,6 @@ api_idx_0002_TMNV:
     push ax                          ; 0x1691
     mov ax, 8                        ; 0x1692
     push ax                          ; 0x1695
-    call gfx_show_area               ; 0x1696
+    call call_show_area              ; 0x1696
     add sp, byte 8                   ; 0x1699
     ret                              ; 0x169c

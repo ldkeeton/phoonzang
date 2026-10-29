@@ -41,11 +41,11 @@ draw_split_two_line_text:
     mov ax, 0
     push ax
     push word [bp + 0xa]
-    call gfx_set_text_color
+    call call_set_text_color
     add sp, byte 4
     push word [bp + 8]
     push word [bp + 6]
-    call gfx_set_text_pos
+    call call_set_text_pos
     add sp, byte 4
     mov ax, 0
     push ax
@@ -57,7 +57,7 @@ draw_split_two_line_text:
     add ax, strict word 6
     push ax
     push word [bp + 6]
-    call gfx_set_text_pos
+    call call_set_text_pos
     add sp, byte 4
     mov ax, 0
     push ax

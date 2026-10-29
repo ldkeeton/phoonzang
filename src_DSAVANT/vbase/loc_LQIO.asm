@@ -83,7 +83,7 @@ loc_LQIO:
     push ax                          ; 0x6138
     push word [bp - 6]               ; 0x6139
     push word [bp - 4]               ; 0x613c
-    call gfx_show_area               ; 0x613f
+    call call_show_area              ; 0x613f
     add sp, byte 8                   ; 0x6142
     mov ax, word [bp - 6]            ; 0x6145
     add ax, strict word 0x2b         ; 0x6148
@@ -92,7 +92,7 @@ loc_LQIO:
     push ax                          ; 0x614f
     push word [bp - 6]               ; 0x6150
     push word [bp - 4]               ; 0x6153
-    call gfx_show_area               ; 0x6156
+    call call_show_area              ; 0x6156
     add sp, byte 8                   ; 0x6159
     jmp short .forward5              ; 0x615c
 .back3:
@@ -103,7 +103,7 @@ loc_LQIO:
     push ax                          ; 0x6168
     push word [bp - 6]               ; 0x6169
     push word [bp - 4]               ; 0x616c
-    call gfx_show_area               ; 0x616f
+    call call_show_area              ; 0x616f
     add sp, byte 8                   ; 0x6172
     mov ax, word [bp - 6]            ; 0x6175
     add ax, strict word 0x2b         ; 0x6178
@@ -114,7 +114,7 @@ loc_LQIO:
     push word [bp - 6]               ; 0x6183
     mov ax, 0x10a                    ; 0x6186
     push ax                          ; 0x6189
-    call gfx_show_area               ; 0x618a
+    call call_show_area              ; 0x618a
     add sp, byte 8                   ; 0x618d
     jmp short .forward5              ; 0x6190
 .back4:
@@ -126,7 +126,7 @@ loc_LQIO:
     push ax                          ; 0x619f
     push word [bp - 6]               ; 0x61a0
     push word [bp - 4]               ; 0x61a3
-    call gfx_show_area               ; 0x61a6
+    call call_show_area              ; 0x61a6
     add sp, byte 8                   ; 0x61a9
     jmp short .forward5              ; 0x61ac
 .forward3:
@@ -149,6 +149,6 @@ loc_LQIO:
     push ax                          ; 0x61cf
     mov ax, 0x36                     ; 0x61d0
     push ax                          ; 0x61d3
-    call gfx_show_area               ; 0x61d4
+    call call_show_area              ; 0x61d4
     add sp, byte 8                   ; 0x61d7
     ret                              ; 0x61da

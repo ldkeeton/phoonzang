@@ -45,8 +45,8 @@ int pc, button_msg, ok_enabled, limit_by_points;
 	draw_button(panel_x + 6, box_y0 + 6, 8, 1, ok_enabled, label);
 	load_message_string(button_msg + 1, label);
 	draw_button(panel_x + 66, box_y0 + 6, 8, 1, 1, label);
-	gfx_set_text_pos(panel_x + 72, box_y0 + 20);
-	gfx_set_text_color(205, 0);
+	call_set_text_pos(panel_x + 72, box_y0 + 20);
+	call_set_text_color(205, 0);
 	draw_font_glyph(10, 2);
 	spell = -1;
 	power = 0;
@@ -84,7 +84,7 @@ int pc, button_msg, ok_enabled, limit_by_points;
 		set_hotspot(i + 18, panel_x + 6, 6 * i + box_y0 + 34, panel_x + 98,
 			6 * i + box_y0 + 40, 0, 0);
 	set_hotspot(25, -1, 0, 0, 0, 0, 0);
-	gfx_show_area(box_x0 - 1, box_y0 - 1, box_x1 + 1, box_y1 + 1);
+	call_show_area(box_x0 - 1, box_y0 - 1, box_x1 + 1, box_y1 + 1);
 	party_redraw_interval = 5;
 	party_redraw_last_tick = *tick_counter_ptr;
 	running = 1;
@@ -104,10 +104,10 @@ int pc, button_msg, ok_enabled, limit_by_points;
 		if (hotspot_hit == 1) {
 			switch (hit) {
 			case 0:	/* drag the scroll thumb while the button is held */
-				gfx_get_mouse(&mouse_x, &mouse_y);
+				call_get_mouse(&mouse_x, &mouse_y);
 				grab_dy = clamp_between(mouse_y - (box_y0 + thumb_y + 42), 0, 4);
 				do {
-					mouse_btn = gfx_get_mouse(&mouse_x, &mouse_y);
+					mouse_btn = call_get_mouse(&mouse_x, &mouse_y);
 					thumb_y = clamp_between(mouse_y - (box_y0 + 42) - grab_dy, 0,
 						thumb_travel);
 					if (spell_count > 7)	/* more than the 7 visible rows */
@@ -118,7 +118,7 @@ int pc, button_msg, ok_enabled, limit_by_points;
 					draw_scrollbar(panel_x + 106, box_y0 + 34, 8, 7, thumb_y);
 					set_hotspot(0, panel_x + 106, box_y0 + thumb_y + 42, panel_x + 114,
 						box_y0 + thumb_y + 46, 0, 0);
-					gfx_show_area(panel_x + 6, box_y0 + 34, panel_x + 114, box_y0 + 76);
+					call_show_area(panel_x + 6, box_y0 + 34, panel_x + 114, box_y0 + 76);
 				} while (mouse_btn);
 				break;
 			case 1:
@@ -140,7 +140,7 @@ int pc, button_msg, ok_enabled, limit_by_points;
 				draw_scrollbar(panel_x + 106, box_y0 + 34, 8, 7, thumb_y);
 				set_hotspot(0, panel_x + 106, box_y0 + thumb_y + 42, panel_x + 114,
 					box_y0 + thumb_y + 46, 0, 0);
-				gfx_show_area(panel_x + 6, box_y0 + 34, panel_x + 114, box_y0 + 76);
+				call_show_area(panel_x + 6, box_y0 + 34, panel_x + 114, box_y0 + 76);
 				break;
 			case 3:	/* first button: needs a spell and, when limiting, enough points */
 				if (ok_enabled) {
@@ -177,8 +177,8 @@ int pc, button_msg, ok_enabled, limit_by_points;
 								? party_records[pc].realm_points[realm][0] : i));
 					} else
 						draw_spell_cost(panel_x + 94, box_y0 + 21, realm, 0, 0);
-					gfx_show_area(panel_x + 11, box_y0 + 20, panel_x + 86, box_y0 + 28);
-					gfx_show_area(panel_x + 94, box_y0 + 21, panel_x + 114, box_y0 + 27);
+					call_show_area(panel_x + 11, box_y0 + 20, panel_x + 86, box_y0 + 28);
+					call_show_area(panel_x + 94, box_y0 + 21, panel_x + 114, box_y0 + 27);
 				} else if (hit >= 12 && hit <= 17) {	/* realm: refill the list */
 					realm = hit - 12;
 					spell = -1;
@@ -194,8 +194,8 @@ int pc, button_msg, ok_enabled, limit_by_points;
 					set_hotspot(0, panel_x + 106, box_y0 + thumb_y + 42, panel_x + 114,
 						box_y0 + thumb_y + 46, 0, 0);
 					draw_spell_cost(panel_x + 94, box_y0 + 21, realm, 0, 0);
-					gfx_show_area(panel_x + 6, box_y0 + 34, panel_x + 114, box_y0 + 76);
-					gfx_show_area(panel_x + 94, box_y0 + 21, panel_x + 114, box_y0 + 27);
+					call_show_area(panel_x + 6, box_y0 + 34, panel_x + 114, box_y0 + 76);
+					call_show_area(panel_x + 94, box_y0 + 21, panel_x + 114, box_y0 + 27);
 				} else if (hit >= 18 && rows_shown + 18 > hit) {	/* list row */
 					sel_row = list_top + hit - 18;
 					spell = known_spell_ids[sel_row];
@@ -208,15 +208,15 @@ int pc, button_msg, ok_enabled, limit_by_points;
 						spell_table[spell].cost * (power + 1),
 						!limit_by_points ? 999 : (party_records[pc].realm_points[realm][0] < i
 							? party_records[pc].realm_points[realm][0] : i));
-					gfx_show_area(panel_x + 6, box_y0 + 34, panel_x + 114, box_y0 + 76);
-					gfx_show_area(panel_x + 94, box_y0 + 21, panel_x + 114, box_y0 + 27);
+					call_show_area(panel_x + 6, box_y0 + 34, panel_x + 114, box_y0 + 76);
+					call_show_area(panel_x + 94, box_y0 + 21, panel_x + 114, box_y0 + 27);
 				}
 				break;
 			}
 		}
 	} while (running);
 	restore_saved_screen(saved_area, 1);
-	gfx_show_area(box_x0 - 1, box_y0 - 1, box_x1 + 1, box_y1 + 1);
+	call_show_area(box_x0 - 1, box_y0 - 1, box_x1 + 1, box_y1 + 1);
 	spell_dialog_result = (power << 8) + spell + 256;
 	return spell_dialog_button;
 }

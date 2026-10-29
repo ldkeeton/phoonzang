@@ -271,7 +271,7 @@ loc_OTGM:
     push ax                          ; 0x1372
     mov ax, 2                        ; 0x1373
     push ax                          ; 0x1376
-    call gfx_get_free_space          ; 0x1377
+    call call_get_free_space         ; 0x1377
     add sp, byte 4                   ; 0x137a
     cmp dx, byte 0                   ; 0x137d
     jl short .forward17              ; 0x1380
@@ -293,7 +293,7 @@ loc_OTGM:
     push ax                          ; 0x139f
     mov ax, 0x48                     ; 0x13a0
     push ax                          ; 0x13a3
-    call gfx_cache_area              ; 0x13a4
+    call call_cache_area             ; 0x13a4
     add sp, byte 0xc                 ; 0x13a7
     mov word [bp - 0x11a], dx        ; 0x13aa
     mov word [bp - 0x11c], ax        ; 0x13ae
@@ -353,7 +353,7 @@ loc_OTGM:
     push ax                          ; 0x1446
     push word [bp - 0x11a]           ; 0x1447
     push word [bp - 0x11c]           ; 0x144b
-    call gfx_restore_screen          ; 0x144f
+    call call_restore_screen         ; 0x144f
     add sp, byte 8                   ; 0x1452
     mov ax, 0x18                     ; 0x1455
     imul word [bp - 0x10]            ; 0x1458
@@ -394,7 +394,7 @@ loc_OTGM:
     push word [bp - 0xf6]            ; 0x14b0
     push word [bp - 0xf4]            ; 0x14b4
     push word [bp - 0xf8]            ; 0x14b8
-    call gfx_draw_text               ; 0x14bc
+    call call_draw_text              ; 0x14bc
     add sp, byte 0x16                ; 0x14bf
     mov ax, 0x90                     ; 0x14c2
     push ax                          ; 0x14c5
@@ -404,7 +404,7 @@ loc_OTGM:
     push ax                          ; 0x14cd
     mov ax, 0x48                     ; 0x14ce
     push ax                          ; 0x14d1
-    call gfx_show_area               ; 0x14d2
+    call call_show_area              ; 0x14d2
     add sp, byte 8                   ; 0x14d5
     mov ax, word [bp - 0xa]          ; 0x14d8
     add word [bp - 0x102], ax        ; 0x14db
@@ -445,12 +445,12 @@ loc_OTGM:
     push ax                          ; 0x1532
     push word [bp - 0x11a]           ; 0x1533
     push word [bp - 0x11c]           ; 0x1537
-    call gfx_restore_screen          ; 0x153b
+    call call_restore_screen         ; 0x153b
     add sp, byte 8                   ; 0x153e
 .forward24:
     mov ax, 1                        ; 0x1541
     push ax                          ; 0x1544
-    call gfx_wait_sound              ; 0x1545
+    call call_wait_sound             ; 0x1545
     pop cx                           ; 0x1548
     cmp word [bp + 0x10], byte 0     ; 0x1549
     je short .forward27              ; 0x154d
@@ -465,7 +465,7 @@ loc_OTGM:
     push ax                          ; 0x1566
     mov ax, 0x48                     ; 0x1567
     push ax                          ; 0x156a
-    call gfx_show_area               ; 0x156b
+    call call_show_area              ; 0x156b
     add sp, byte 8                   ; 0x156e
     jmp short .forward26             ; 0x1571
 .forward25:
@@ -492,7 +492,7 @@ loc_OTGM:
     push ax                          ; 0x159f
     mov ax, 0x48                     ; 0x15a0
     push ax                          ; 0x15a3
-    call gfx_show_area               ; 0x15a4
+    call call_show_area              ; 0x15a4
     add sp, byte 8                   ; 0x15a7
 .return1:
     ret                              ; 0x15aa

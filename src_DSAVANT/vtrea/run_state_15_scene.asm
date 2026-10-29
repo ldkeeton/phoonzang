@@ -43,7 +43,7 @@ run_state_15_scene:
     add sp, byte 4                   ; 0x810c
     mov ax, 1                        ; 0x810f
     push ax                          ; 0x8112
-    call app_gfx_free_score          ; 0x8113
+    call free_loaded_score           ; 0x8113
     pop cx                           ; 0x8116
 .forward2:
     inc word [party_region]          ; 0x8117

@@ -4,7 +4,7 @@ close_party_screen:
     call aztec_csav                  ; 0x2ec7
     mov ax, 1                        ; 0x2eca
     push ax                          ; 0x2ecd
-    call gfx_wait_sound              ; 0x2ece
+    call call_wait_sound             ; 0x2ece
     pop cx                           ; 0x2ed1
     mov ax, 0                        ; 0x2ed2
     push ax                          ; 0x2ed5
@@ -12,7 +12,7 @@ close_party_screen:
     push ax                          ; 0x2ed9
     push word [screen_cache_1_seg]   ; 0x2eda
     push word [screen_cache_1_off]   ; 0x2ede
-    call gfx_restore_screen          ; 0x2ee2
+    call call_restore_screen         ; 0x2ee2
     add sp, byte 8                   ; 0x2ee5
     mov ax, screen_temp_name         ; 0x2ee8
     push ax                          ; 0x2eeb
@@ -34,7 +34,7 @@ close_party_screen:
     push ax                          ; 0x2f12
     push word [screen_cache_0_seg]   ; 0x2f13
     push word [screen_cache]         ; 0x2f17
-    call gfx_restore_screen          ; 0x2f1b
+    call call_restore_screen         ; 0x2f1b
     add sp, byte 8                   ; 0x2f1e
     mov ax, 0xc                      ; 0x2f21
     push ax                          ; 0x2f24
@@ -92,13 +92,13 @@ close_party_screen:
     push ax                          ; 0x2f91
     push word [saved_area_b_hi]      ; 0x2f92
     push word [saved_area_b]         ; 0x2f96
-    call gfx_restore_area            ; 0x2f9a
+    call call_restore_area           ; 0x2f9a
     add sp, byte 6                   ; 0x2f9d
     mov ax, 1                        ; 0x2fa0
     push ax                          ; 0x2fa3
     push word [saved_area_a_hi]      ; 0x2fa4
     push word [saved_area_a]         ; 0x2fa8
-    call gfx_restore_area            ; 0x2fac
+    call call_restore_area           ; 0x2fac
     add sp, byte 6                   ; 0x2faf
     cmp word [party_return_state], byte 0x17 ; 0x2fb2
     jne short .forward2              ; 0x2fb7

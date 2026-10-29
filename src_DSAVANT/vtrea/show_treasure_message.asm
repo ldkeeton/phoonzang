@@ -9,7 +9,7 @@ show_treasure_message:
     mov ax, 0                        ; 0x0ec4
     push ax                          ; 0x0ec7
     push word [bp + 0xa]             ; 0x0ec8
-    call gfx_set_text_color          ; 0x0ecb
+    call call_set_text_color         ; 0x0ecb
     add sp, byte 4                   ; 0x0ece
     mov ax, 7                        ; 0x0ed1
     imul word [bp + 6]               ; 0x0ed4
@@ -27,7 +27,7 @@ show_treasure_message:
     mov ax, 0xa0                     ; 0x0eef
     sub ax, cx                       ; 0x0ef2
     push ax                          ; 0x0ef4
-    call gfx_set_text_pos            ; 0x0ef5
+    call call_set_text_pos           ; 0x0ef5
     add sp, byte 4                   ; 0x0ef8
     mov ax, 0                        ; 0x0efb
     push ax                          ; 0x0efe
@@ -46,7 +46,7 @@ show_treasure_message:
     push ax                          ; 0x0f1f
     mov ax, 0x19                     ; 0x0f20
     push ax                          ; 0x0f23
-    call gfx_show_area               ; 0x0f24
+    call call_show_area              ; 0x0f24
     add sp, byte 8                   ; 0x0f27
     cmp word [bp + 8], byte 0        ; 0x0f2a
     jle short .forward1              ; 0x0f2e

@@ -69,7 +69,7 @@ loc_IOMS:
     push ax                          ; 0x84e4
     mov ax, 1                        ; 0x84e5
     push ax                          ; 0x84e8
-    call gfx_set_text_color          ; 0x84e9
+    call call_set_text_color         ; 0x84e9
     add sp, byte 4                   ; 0x84ec
     mov ax, word [bp + 0xa]          ; 0x84ef
     add ax, strict word 0xfff3       ; 0x84f2
@@ -87,7 +87,7 @@ loc_IOMS:
     mov ax, 0xa0                     ; 0x850c
     sub ax, cx                       ; 0x850f
     push ax                          ; 0x8511
-    call gfx_set_text_pos            ; 0x8512
+    call call_set_text_pos           ; 0x8512
     add sp, byte 4                   ; 0x8515
     mov ax, 0                        ; 0x8518
     push ax                          ; 0x851b
@@ -179,7 +179,7 @@ loc_IOMS:
     mov ax, 0x1a                     ; 0x85e3
 .forward6:
     push ax                          ; 0x85e6
-    call gfx_set_text_color          ; 0x85e7
+    call call_set_text_color         ; 0x85e7
     add sp, byte 4                   ; 0x85ea
     mov ax, word [bp + 0xa]          ; 0x85ed
     add ax, word [bp - 0xc]          ; 0x85f0
@@ -205,7 +205,7 @@ loc_IOMS:
     add ax, word [bp - 0xa]          ; 0x861c
     inc ax                           ; 0x861f
     push ax                          ; 0x8620
-    call gfx_set_text_pos            ; 0x8621
+    call call_set_text_pos           ; 0x8621
     add sp, byte 4                   ; 0x8624
     mov ax, 0                        ; 0x8627
     push ax                          ; 0x862a
@@ -266,7 +266,7 @@ loc_IOMS:
     mov ax, 0                        ; 0x86a6
     push ax                          ; 0x86a9
     push ax                          ; 0x86aa
-    call gfx_show_area               ; 0x86ab
+    call call_show_area              ; 0x86ab
     add sp, byte 8                   ; 0x86ae
     cmp word [mouse_active], byte 0  ; 0x86b1
     je short .forward10              ; 0x86b6
@@ -328,7 +328,7 @@ loc_IOMS:
     mov ax, word [bp + 8]            ; 0x8736
     dec ax                           ; 0x8739
     push ax                          ; 0x873a
-    call gfx_show_area               ; 0x873b
+    call call_show_area              ; 0x873b
     add sp, byte 8                   ; 0x873e
     mov ax, 0                        ; 0x8741
     push ax                          ; 0x8744
@@ -478,7 +478,7 @@ loc_IOMS:
     mov ax, word [bp + 8]            ; 0x8871
     dec ax                           ; 0x8874
     push ax                          ; 0x8875
-    call gfx_show_area               ; 0x8876
+    call call_show_area              ; 0x8876
     add sp, byte 8                   ; 0x8879
 .forward17:
     dec word [bp - 4]                ; 0x887c
@@ -539,7 +539,7 @@ loc_IOMS:
     mov ax, word [bp + 8]            ; 0x8905
     add ax, strict word 0xfffa       ; 0x8908
     push ax                          ; 0x890b
-    call gfx_show_area               ; 0x890c
+    call call_show_area              ; 0x890c
     add sp, byte 8                   ; 0x890f
     jmp short .forward19             ; 0x8912
 .forward18:
@@ -555,7 +555,7 @@ loc_IOMS:
     mov ax, word [bp + 8]            ; 0x8923
     dec ax                           ; 0x8926
     push ax                          ; 0x8927
-    call gfx_show_area               ; 0x8928
+    call call_show_area              ; 0x8928
     add sp, byte 8                   ; 0x892b
 .forward19:
     mov ax, word [bp - 4]            ; 0x892e

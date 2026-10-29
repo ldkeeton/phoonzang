@@ -15,7 +15,7 @@ load_sound_file(num, n, flag)
 	int fd;
 	char name[20];
 
-	gfx_wait_sound(0);
+	call_wait_sound(0);
 	data_record_io(9, &sound_slot_info[n], num, 0);
 	load = 1;
 	if (sound_slot_info[n].size == 0) {
@@ -29,7 +29,7 @@ load_sound_file(num, n, flag)
 		name[6] = num % 10 + '0';
 		if ((fd = aztec_open(data_file_path(name, 1), 0)) == -1)
 			release_and_exit(11);
-		if (gfx_load_sound(fd, n))
+		if (call_load_sound(fd, n))
 			release_and_exit(12);
 		aztec_close(fd);
 	}

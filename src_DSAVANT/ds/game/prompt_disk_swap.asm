@@ -18,13 +18,13 @@ prompt_disk_swap:
     mov ax, word [bp - 0xb0]         ; 0x241f
     dec ax                           ; 0x2423
     push ax                          ; 0x2424
-    call gfx_save_area               ; 0x2425
+    call call_save_area              ; 0x2425
     add sp, byte 8                   ; 0x2428
     mov word [bp - 0xb8], dx         ; 0x242b
     mov word [bp - 0xba], ax         ; 0x242f
     mov ax, 0                        ; 0x2433
     push ax                          ; 0x2436
-    call gfx_wait_sound              ; 0x2437
+    call call_wait_sound             ; 0x2437
     pop cx                           ; 0x243a
     mov ax, word [bp + 6]            ; 0x243b
     mov word [bp - 0xae], ax         ; 0x243e
@@ -85,7 +85,7 @@ prompt_disk_swap:
     push ax                          ; 0x24d0
     mov ax, 1                        ; 0x24d1
     push ax                          ; 0x24d4
-    call gfx_set_text_color          ; 0x24d5
+    call call_set_text_color         ; 0x24d5
     add sp, byte 4                   ; 0x24d8
     mov ax, word [bp - 0xb2]         ; 0x24db
     add ax, strict word 0xc          ; 0x24df
@@ -106,7 +106,7 @@ prompt_disk_swap:
     idiv cx                          ; 0x2501
     add ax, word [bp - 0xb0]         ; 0x2503
     push ax                          ; 0x2507
-    call gfx_set_text_pos            ; 0x2508
+    call call_set_text_pos           ; 0x2508
     add sp, byte 4                   ; 0x250b
     mov ax, 0                        ; 0x250e
     push ax                          ; 0x2511
@@ -147,7 +147,7 @@ prompt_disk_swap:
     idiv cx                          ; 0x2562
     add ax, word [bp - 0xb0]         ; 0x2564
     push ax                          ; 0x2568
-    call gfx_set_text_pos            ; 0x2569
+    call call_set_text_pos           ; 0x2569
     add sp, byte 4                   ; 0x256c
     mov ax, 0                        ; 0x256f
     push ax                          ; 0x2572
@@ -214,7 +214,7 @@ prompt_disk_swap:
     mov ax, word [bp - 0xb0]         ; 0x25fa
     dec ax                           ; 0x25fe
     push ax                          ; 0x25ff
-    call gfx_show_area               ; 0x2600
+    call call_show_area              ; 0x2600
     add sp, byte 8                   ; 0x2603
     mov word [bp - 0xa4], 1          ; 0x2606
 .back3:
@@ -260,7 +260,7 @@ prompt_disk_swap:
     push ax                          ; 0x266f
     push word [bp - 0xb8]            ; 0x2670
     push word [bp - 0xba]            ; 0x2674
-    call gfx_restore_area            ; 0x2678
+    call call_restore_area           ; 0x2678
     add sp, byte 6                   ; 0x267b
     mov ax, word [bp - 0xb6]         ; 0x267e
     inc ax                           ; 0x2682
@@ -274,7 +274,7 @@ prompt_disk_swap:
     mov ax, word [bp - 0xb0]         ; 0x2690
     dec ax                           ; 0x2694
     push ax                          ; 0x2695
-    call gfx_show_area               ; 0x2696
+    call call_show_area              ; 0x2696
     add sp, byte 8                   ; 0x2699
     lea ax, word [bp - 0x78]         ; 0x269c
     push ax                          ; 0x269f
@@ -364,7 +364,7 @@ prompt_disk_swap:
     push ax                          ; 0x2777
     push word [bp - 0xb8]            ; 0x2778
     push word [bp - 0xba]            ; 0x277c
-    call gfx_restore_area            ; 0x2780
+    call call_restore_area           ; 0x2780
     add sp, byte 6                   ; 0x2783
     call flush_keyboard              ; 0x2786
     cmp word [bp + 0xa], byte 0      ; 0x2789

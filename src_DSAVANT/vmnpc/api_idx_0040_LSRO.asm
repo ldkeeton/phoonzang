@@ -111,7 +111,7 @@ api_idx_0040_LSRO.forward6:
     je short api_idx_0040_LSRO.forward7 ; 0x2c96
     mov ax, 1                        ; 0x2c98
     push ax                          ; 0x2c9b
-    call gfx_wait_sound              ; 0x2c9c
+    call call_wait_sound             ; 0x2c9c
     pop cx                           ; 0x2c9f
     push word [bp - 0x2c]            ; 0x2ca0
     call free_picture_slot           ; 0x2ca3

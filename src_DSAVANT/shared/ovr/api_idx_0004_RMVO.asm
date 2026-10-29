@@ -7,7 +7,7 @@ api_idx_0004_RMVO:
     push ax
     push word [api_idx_0004_RMVO.bss1]
     push word [api_idx_0004_RMVO.bss2]
-    call gfx_restore_screen
+    call call_restore_screen
     add sp, byte 8
     mov word [bp - 2], 0
 .back1:
@@ -23,7 +23,7 @@ api_idx_0004_RMVO:
     add ax, cx
     mov bx, ax
     push word [word bx + 6]
-    call gfx_set_text_color
+    call call_set_text_color
     add sp, byte 4
     mov ax, word [bp - 2]
     shl ax, 1
@@ -36,7 +36,7 @@ api_idx_0004_RMVO:
     mov bx, ax
     push word [bx + 0x15e]
     push word [bx + 0x15c]
-    call gfx_set_text_pos
+    call call_set_text_pos
     add sp, byte 4
     mov ax, 3
     push ax

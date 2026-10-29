@@ -31,7 +31,7 @@ load_message_block:
     jl short .back1                  ; 0x070b
     mov ax, 0                        ; 0x070d
     push ax                          ; 0x0710
-    call gfx_wait_sound              ; 0x0711
+    call call_wait_sound             ; 0x0711
     pop cx                           ; 0x0714
     mov ax, 0                        ; 0x0715
     push ax                          ; 0x0718

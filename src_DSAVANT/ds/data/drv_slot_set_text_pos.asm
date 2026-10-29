@@ -1,0 +1,3 @@
+; auto-generated
+drv_slot_set_text_pos:
+    db 0x37, 0x01, 0x00, 0x00

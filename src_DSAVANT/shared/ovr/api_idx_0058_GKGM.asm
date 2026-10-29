@@ -21,7 +21,7 @@ api_idx_0058_GKGM:
     mov ax, word [bp + 6]
     add ax, strict word 0xffe7
     push ax
-    call gfx_save_area
+    call call_save_area
     add sp, byte 8
     mov word [bp - 0x56], dx
     mov word [bp - 0x58], ax
@@ -48,7 +48,7 @@ api_idx_0058_GKGM:
     push ax
     mov ax, 1
     push ax
-    call gfx_set_text_color
+    call call_set_text_color
     add sp, byte 4
     mov ax, word [bp + 8]
     add ax, strict word 0xfff3
@@ -66,7 +66,7 @@ api_idx_0058_GKGM:
     mov ax, 0xa1
     sub ax, cx
     push ax
-    call gfx_set_text_pos
+    call call_set_text_pos
     add sp, byte 4
     mov ax, 0
     push ax
@@ -98,7 +98,7 @@ api_idx_0058_GKGM:
     push ax
     mov ax, 0x1a
     push ax
-    call gfx_set_text_color
+    call call_set_text_color
     add sp, byte 4
     mov ax, word [bp + 8]
     inc ax
@@ -119,7 +119,7 @@ api_idx_0058_GKGM:
     add ax, word [bp + 6]
     inc ax
     push ax
-    call gfx_set_text_pos
+    call call_set_text_pos
     add sp, byte 4
     mov ax, 0
     push ax
@@ -163,7 +163,7 @@ api_idx_0058_GKGM:
     mov ax, 0
     push ax
     push ax
-    call gfx_show_area
+    call call_show_area
     add sp, byte 8
     mov ax, word [bp - 0x58]
     mov dx, word [bp - 0x56]

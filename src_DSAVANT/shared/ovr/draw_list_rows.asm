@@ -30,7 +30,7 @@ draw_list_rows:
     mov ax, word [bp + 4]
     add ax, strict word 0x1c
     push ax
-    call gfx_fill_area
+    call call_fill_area
     add sp, byte 0xa
     mov word [bp - 4], 0
     jmp short .forward2
@@ -46,7 +46,7 @@ draw_list_rows:
     inc ax
     inc ax
     push ax
-    call gfx_set_text_pos
+    call call_set_text_pos
     add sp, byte 4
     mov ax, word [bp + 0xc]
     add ax, word [bp - 2]
@@ -69,7 +69,7 @@ draw_list_rows:
     mov ax, word [bp + 4]
     add ax, strict word 0xf
     push ax
-    call gfx_set_text_pos
+    call call_set_text_pos
     add sp, byte 4
     mov ax, 4
     push ax
@@ -114,7 +114,7 @@ draw_list_rows:
     mov ax, word [bp + 4]
     add ax, strict word 0x47
     push ax
-    call gfx_set_text_pos
+    call call_set_text_pos
     add sp, byte 4
     mov ax, 0
     push ax
@@ -128,7 +128,7 @@ draw_list_rows:
     mov ax, 2
 .forward5:
     push ax
-    call gfx_set_text_color
+    call call_set_text_color
     add sp, byte 4
     mov ax, 0
     push ax

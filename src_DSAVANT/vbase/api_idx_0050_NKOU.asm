@@ -10,7 +10,7 @@ api_idx_0050_NKOU:
     mov ax, 0xc2                     ; 0x41fa
     push ax                          ; 0x41fd
     push word [bp + 0xa]             ; 0x41fe
-    call gfx_set_text_color          ; 0x4201
+    call call_set_text_color         ; 0x4201
     add sp, byte 4                   ; 0x4204
     cmp word [bp + 6], byte 0        ; 0x4207
     jge short .forward1              ; 0x420b
@@ -30,7 +30,7 @@ api_idx_0050_NKOU:
 .forward1:
     push word [bp + 8]               ; 0x422a
     push word [bp + 6]               ; 0x422d
-    call gfx_set_text_pos            ; 0x4230
+    call call_set_text_pos           ; 0x4230
     add sp, byte 4                   ; 0x4233
     mov ax, 0                        ; 0x4236
     push ax                          ; 0x4239

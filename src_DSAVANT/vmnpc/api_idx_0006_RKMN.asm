@@ -29,13 +29,13 @@ api_idx_0006_RKMN:
     push ax                          ; 0x72f7
     push word [saved_area_b_hi]      ; 0x72f8
     push word [saved_area_b]         ; 0x72fc
-    call gfx_restore_area            ; 0x7300
+    call call_restore_area           ; 0x7300
     add sp, byte 6                   ; 0x7303
     mov ax, 1                        ; 0x7306
     push ax                          ; 0x7309
     push word [saved_area_a_hi]      ; 0x730a
     push word [saved_area_a]         ; 0x730e
-    call gfx_restore_area            ; 0x7312
+    call call_restore_area           ; 0x7312
     add sp, byte 6                   ; 0x7315
     cmp word [game_state], byte 0xa  ; 0x7318
     je short .forward2               ; 0x731d
@@ -107,7 +107,7 @@ api_idx_0006_RKMN:
     push ax                          ; 0x73b7
     push word [screen_cache_1_seg]   ; 0x73b8
     push word [screen_cache_1_off]   ; 0x73bc
-    call gfx_restore_screen          ; 0x73c0
+    call call_restore_screen         ; 0x73c0
     add sp, byte 8                   ; 0x73c3
     mov ax, dseg_90dc                ; 0x73c6
     push ax                          ; 0x73c9
@@ -129,6 +129,6 @@ api_idx_0006_RKMN:
     push ax                          ; 0x73f0
     push word [screen_cache_0_seg]   ; 0x73f1
     push word [screen_cache]         ; 0x73f5
-    call gfx_restore_screen          ; 0x73f9
+    call call_restore_screen         ; 0x73f9
     add sp, byte 8                   ; 0x73fc
     ret                              ; 0x73ff

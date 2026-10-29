@@ -3,7 +3,7 @@ extern char pc_file_name[];
 extern int pc_file_record_size;
 extern long pc_file_record_base;
 extern char *data_file_path();
-extern int gfx_wait_sound(), aztec_open(), aztec_lseek();
+extern int call_wait_sound(), aztec_open(), aztec_lseek();
 extern int aztec_read(), aztec_write(), aztec_close();
 
 /* Transfer one fixed-size record at the configured file offset. */
@@ -13,7 +13,7 @@ int record_index, operation;
 {
 	int record_fd;
 
-	gfx_wait_sound(0);
+	call_wait_sound(0);
 	record_fd =
 		aztec_open(data_file_path(pc_file_name, 0), 2);	/* Read/write mode. */
 	aztec_lseek(record_fd,

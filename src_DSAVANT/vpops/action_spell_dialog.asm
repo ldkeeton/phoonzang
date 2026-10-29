@@ -109,13 +109,13 @@ action_spell_dialog:
     mov ax, word [bp - 0xc]          ; 0x1db2
     add ax, strict word 0x48         ; 0x1db5
     push ax                          ; 0x1db8
-    call gfx_set_text_pos            ; 0x1db9
+    call call_set_text_pos           ; 0x1db9
     add sp, byte 4                   ; 0x1dbc
     mov ax, 0                        ; 0x1dbf
     push ax                          ; 0x1dc2
     mov ax, 0xcd                     ; 0x1dc3
     push ax                          ; 0x1dc6
-    call gfx_set_text_color          ; 0x1dc7
+    call call_set_text_color         ; 0x1dc7
     add sp, byte 4                   ; 0x1dca
     mov ax, 2                        ; 0x1dcd
     push ax                          ; 0x1dd0
@@ -491,7 +491,7 @@ action_spell_dialog:
     push ax                          ; 0x2130
     mov ax, 9                        ; 0x2131
     push ax                          ; 0x2134
-    call gfx_show_area               ; 0x2135
+    call call_show_area              ; 0x2135
     add sp, byte 8                   ; 0x2138
     mov word [party_redraw_interval], 5 ; 0x213b
     les bx, word [tick_counter_ptr]  ; 0x2141
@@ -552,7 +552,7 @@ jumptable_28e9_case_0:
     push ax                          ; 0x21cc
     lea ax, word [bp - 0xe]          ; 0x21cd
     push ax                          ; 0x21d0
-    call gfx_get_mouse               ; 0x21d1
+    call call_get_mouse              ; 0x21d1
     add sp, byte 4                   ; 0x21d4
     mov ax, 4                        ; 0x21d7
     push ax                          ; 0x21da
@@ -572,7 +572,7 @@ action_spell_dialog.back6:
     push ax                          ; 0x21fa
     lea ax, word [bp - 0xe]          ; 0x21fb
     push ax                          ; 0x21fe
-    call gfx_get_mouse               ; 0x21ff
+    call call_get_mouse              ; 0x21ff
     add sp, byte 4                   ; 0x2202
     mov word [bp - 0x1e], ax         ; 0x2205
     push word [bp - 0x14]            ; 0x2208
@@ -666,7 +666,7 @@ action_spell_dialog.forward9:
     mov ax, word [bp - 0xc]          ; 0x22d7
     add ax, strict word 6            ; 0x22da
     push ax                          ; 0x22dd
-    call gfx_show_area               ; 0x22de
+    call call_show_area              ; 0x22de
     add sp, byte 8                   ; 0x22e1
     cmp word [bp - 0x1e], byte 0     ; 0x22e4
     je short action_spell_dialog.forward10 ; 0x22e8
@@ -802,7 +802,7 @@ action_spell_dialog.forward14:
     mov ax, word [bp - 0xc]          ; 0x2417
     add ax, strict word 6            ; 0x241a
     push ax                          ; 0x241d
-    call gfx_show_area               ; 0x241e
+    call call_show_area              ; 0x241e
     add sp, byte 8                   ; 0x2421
     jmp near action_spell_dialog.forward43 ; 0x2424
 jumptable_28e9_case_3:
@@ -1045,7 +1045,7 @@ action_spell_dialog.forward28:
     mov ax, word [bp - 0xc]          ; 0x264c
     add ax, strict word 0xb          ; 0x264f
     push ax                          ; 0x2652
-    call gfx_show_area               ; 0x2653
+    call call_show_area              ; 0x2653
     add sp, byte 8                   ; 0x2656
     mov ax, word [bp - 6]            ; 0x2659
     add ax, strict word 0x1b         ; 0x265c
@@ -1059,7 +1059,7 @@ action_spell_dialog.forward28:
     mov ax, word [bp - 0xc]          ; 0x266e
     add ax, strict word 0x5e         ; 0x2671
     push ax                          ; 0x2674
-    call gfx_show_area               ; 0x2675
+    call call_show_area              ; 0x2675
     add sp, byte 8                   ; 0x2678
     jmp near action_spell_dialog.forward40 ; 0x267b
 action_spell_dialog.forward29:
@@ -1168,7 +1168,7 @@ action_spell_dialog.forward33:
     mov ax, word [bp - 0xc]          ; 0x277e
     add ax, strict word 6            ; 0x2781
     push ax                          ; 0x2784
-    call gfx_show_area               ; 0x2785
+    call call_show_area              ; 0x2785
     add sp, byte 8                   ; 0x2788
     mov ax, word [bp - 6]            ; 0x278b
     add ax, strict word 0x1b         ; 0x278e
@@ -1182,7 +1182,7 @@ action_spell_dialog.forward33:
     mov ax, word [bp - 0xc]          ; 0x27a0
     add ax, strict word 0x5e         ; 0x27a3
     push ax                          ; 0x27a6
-    call gfx_show_area               ; 0x27a7
+    call call_show_area              ; 0x27a7
     add sp, byte 8                   ; 0x27aa
     jmp near action_spell_dialog.forward40 ; 0x27ad
 action_spell_dialog.forward34:
@@ -1299,7 +1299,7 @@ action_spell_dialog.forward39:
     mov ax, word [bp - 0xc]          ; 0x28b8
     add ax, strict word 6            ; 0x28bb
     push ax                          ; 0x28be
-    call gfx_show_area               ; 0x28bf
+    call call_show_area              ; 0x28bf
     add sp, byte 8                   ; 0x28c2
     mov ax, word [bp - 6]            ; 0x28c5
     add ax, strict word 0x1b         ; 0x28c8
@@ -1313,7 +1313,7 @@ action_spell_dialog.forward39:
     mov ax, word [bp - 0xc]          ; 0x28da
     add ax, strict word 0x5e         ; 0x28dd
     push ax                          ; 0x28e0
-    call gfx_show_area               ; 0x28e1
+    call call_show_area              ; 0x28e1
     add sp, byte 8                   ; 0x28e4
 action_spell_dialog.forward40:
     jmp short action_spell_dialog.forward43 ; 0x28e7
@@ -1353,7 +1353,7 @@ action_spell_dialog.forward44:
     mov ax, word [bp - 4]            ; 0x2928
     dec ax                           ; 0x292b
     push ax                          ; 0x292c
-    call gfx_show_area               ; 0x292d
+    call call_show_area              ; 0x292d
     add sp, byte 8                   ; 0x2930
     mov ax, word [bp - 0x3e]         ; 0x2933
     xchg al, ah                      ; 0x2936

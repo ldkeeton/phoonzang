@@ -60,7 +60,7 @@ api_idx_0012_MVLS:
     push ax                          ; 0x0b10
     lea ax, word [bp - 4]            ; 0x0b11
     push ax                          ; 0x0b14
-    call gfx_get_mouse               ; 0x0b15
+    call call_get_mouse              ; 0x0b15
     add sp, byte 4                   ; 0x0b18
     mov ax, word [bp - 6]            ; 0x0b1b
     add ax, word [bp + 0x10]         ; 0x0b1e
@@ -75,7 +75,7 @@ api_idx_0012_MVLS:
     mov dx, 0                        ; 0x0b31
     push dx                          ; 0x0b34
     push ax                          ; 0x0b35
-    call gfx_set_mouse_pointer       ; 0x0b36
+    call call_set_mouse_pointer      ; 0x0b36
     add sp, byte 0xc                 ; 0x0b39
     call flush_keyboard              ; 0x0b3c
     jmp near .forward5               ; 0x0b3f
@@ -88,7 +88,7 @@ api_idx_0012_MVLS:
     push ax                          ; 0x0b4f
     push word [bp - 0xa]             ; 0x0b50
     push word [bp - 8]               ; 0x0b53
-    call gfx_save_area               ; 0x0b56
+    call call_save_area              ; 0x0b56
     add sp, byte 8                   ; 0x0b59
     mov word [bp - 0xc], dx          ; 0x0b5c
     mov word [bp - 0xe], ax          ; 0x0b5f
@@ -102,7 +102,7 @@ api_idx_0012_MVLS:
     push ax                          ; 0x0b73
     push word [bp - 0xa]             ; 0x0b74
     push word [bp - 8]               ; 0x0b77
-    call gfx_fill_area               ; 0x0b7a
+    call call_fill_area              ; 0x0b7a
     add sp, byte 0xa                 ; 0x0b7d
     push word [bp + 0xc]             ; 0x0b80
     push word [bp + 0xa]             ; 0x0b83
@@ -115,11 +115,11 @@ api_idx_0012_MVLS:
     push ax                          ; 0x0b98
     mov ax, 0x15                     ; 0x0b99
     push ax                          ; 0x0b9c
-    call gfx_set_text_color          ; 0x0b9d
+    call call_set_text_color         ; 0x0b9d
     add sp, byte 4                   ; 0x0ba0
     push word [bp - 0xa]             ; 0x0ba3
     push word [bp - 8]               ; 0x0ba6
-    call gfx_set_text_pos            ; 0x0ba9
+    call call_set_text_pos           ; 0x0ba9
     add sp, byte 4                   ; 0x0bac
     mov ax, 0                        ; 0x0baf
     push ax                          ; 0x0bb2
@@ -135,7 +135,7 @@ api_idx_0012_MVLS:
     push ax                          ; 0x0bca
     push word [bp - 0xa]             ; 0x0bcb
     push word [bp - 8]               ; 0x0bce
-    call gfx_save_area               ; 0x0bd1
+    call call_save_area              ; 0x0bd1
     add sp, byte 8                   ; 0x0bd4
     mov word [bp - 0x10], dx         ; 0x0bd7
     mov word [bp - 0x12], ax         ; 0x0bda
@@ -153,19 +153,19 @@ api_idx_0012_MVLS:
     push ax                          ; 0x0bfa
     push word [bp - 0x10]            ; 0x0bfb
     push word [bp - 0x12]            ; 0x0bfe
-    call gfx_restore_area            ; 0x0c01
+    call call_restore_area           ; 0x0c01
     add sp, byte 6                   ; 0x0c04
     mov ax, 1                        ; 0x0c07
     push ax                          ; 0x0c0a
     push word [bp - 0xc]             ; 0x0c0b
     push word [bp - 0xe]             ; 0x0c0e
-    call gfx_restore_area            ; 0x0c11
+    call call_restore_area           ; 0x0c11
     add sp, byte 6                   ; 0x0c14
     lea ax, word [bp - 6]            ; 0x0c17
     push ax                          ; 0x0c1a
     lea ax, word [bp - 4]            ; 0x0c1b
     push ax                          ; 0x0c1e
-    call gfx_get_mouse               ; 0x0c1f
+    call call_get_mouse              ; 0x0c1f
     add sp, byte 4                   ; 0x0c22
     mov ax, 0x13f                    ; 0x0c25
     push ax                          ; 0x0c28
@@ -197,7 +197,7 @@ api_idx_0012_MVLS:
     push ax                          ; 0x0c66
     push word [bss_0e20]             ; 0x0c67
     push word [bss_0e1e]             ; 0x0c6b
-    call gfx_set_mouse_pointer       ; 0x0c6f
+    call call_set_mouse_pointer      ; 0x0c6f
     add sp, byte 0xc                 ; 0x0c72
     call flush_keyboard              ; 0x0c75
 .forward5:
@@ -236,6 +236,6 @@ api_idx_0012_MVLS:
     push ax                          ; 0x0cca
     mov ax, 1                        ; 0x0ccb
     push ax                          ; 0x0cce
-    call gfx_show_area               ; 0x0ccf
+    call call_show_area              ; 0x0ccf
     add sp, byte 8                   ; 0x0cd2
     ret                              ; 0x0cd5

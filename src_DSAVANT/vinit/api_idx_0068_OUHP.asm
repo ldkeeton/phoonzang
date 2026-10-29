@@ -38,7 +38,7 @@ api_idx_0068_OUHP:
     mov ax, 0                        ; 0x0b1f
     push ax                          ; 0x0b22
     push ax                          ; 0x0b23
-    call gfx_fill_area               ; 0x0b24
+    call call_fill_area              ; 0x0b24
     add sp, byte 0xa                 ; 0x0b27
     mov ax, 0                        ; 0x0b2a
     push ax                          ; 0x0b2d
@@ -50,7 +50,7 @@ api_idx_0068_OUHP:
     push ax                          ; 0x0b3b
     push ax                          ; 0x0b3c
     push ax                          ; 0x0b3d
-    call gfx_reset_rgb               ; 0x0b3e
+    call call_reset_rgb              ; 0x0b3e
     add sp, byte 6                   ; 0x0b41
     mov ax, 0xc7                     ; 0x0b44
     push ax                          ; 0x0b47
@@ -59,11 +59,11 @@ api_idx_0068_OUHP:
     mov ax, 0                        ; 0x0b4c
     push ax                          ; 0x0b4f
     push ax                          ; 0x0b50
-    call gfx_show_area               ; 0x0b51
+    call call_show_area              ; 0x0b51
     add sp, byte 8                   ; 0x0b54
     mov ax, 0                        ; 0x0b57
     push ax                          ; 0x0b5a
-    call gfx_fade_in                 ; 0x0b5b
+    call call_fade_in                ; 0x0b5b
     pop cx                           ; 0x0b5e
     mov word [bss_91b8], 0           ; 0x0b5f
     call api_idx_0002_PUOP           ; 0x0b65
@@ -318,7 +318,7 @@ api_idx_0068_OUHP:
     mov ax, 0                        ; 0x0d68
     push ax                          ; 0x0d6b
     push ax                          ; 0x0d6c
-    call gfx_fill_area               ; 0x0d6d
+    call call_fill_area              ; 0x0d6d
     add sp, byte 0xa                 ; 0x0d70
 .forward20:
     call api_idx_0002_PUOP           ; 0x0d73
@@ -371,7 +371,7 @@ api_idx_0068_OUHP:
     mov ax, 0                        ; 0x0dd6
     push ax                          ; 0x0dd9
     push ax                          ; 0x0dda
-    call gfx_show_area               ; 0x0ddb
+    call call_show_area              ; 0x0ddb
     add sp, byte 8                   ; 0x0dde
 .forward25:
     mov ax, 5                        ; 0x0de1
@@ -421,7 +421,7 @@ api_idx_0068_OUHP:
     mov ax, 0                        ; 0x0e3c
     push ax                          ; 0x0e3f
     push ax                          ; 0x0e40
-    call gfx_show_area               ; 0x0e41
+    call call_show_area              ; 0x0e41
     add sp, byte 8                   ; 0x0e44
     mov ax, 0xc                      ; 0x0e47
     push ax                          ; 0x0e4a
@@ -439,7 +439,7 @@ api_idx_0068_OUHP:
     push ax                          ; 0x0e62
     mov ax, 0x37                     ; 0x0e63
     push ax                          ; 0x0e66
-    call gfx_cache_area              ; 0x0e67
+    call call_cache_area             ; 0x0e67
     add sp, byte 0xc                 ; 0x0e6a
     mov word [bp - 0xa], dx          ; 0x0e6d
     mov word [bp - 0xc], ax          ; 0x0e70
@@ -450,7 +450,7 @@ api_idx_0068_OUHP:
     push ax                          ; 0x0e7c
     push word [bp - 0xa]             ; 0x0e7d
     push word [bp - 0xc]             ; 0x0e80
-    call gfx_restore_screen          ; 0x0e83
+    call call_restore_screen         ; 0x0e83
     add sp, byte 8                   ; 0x0e86
     push word [bp - 2]               ; 0x0e89
     mov ax, 1                        ; 0x0e8c
@@ -465,7 +465,7 @@ api_idx_0068_OUHP:
     push ax                          ; 0x0ea1
     mov ax, 0x37                     ; 0x0ea2
     push ax                          ; 0x0ea5
-    call gfx_show_area               ; 0x0ea6
+    call call_show_area              ; 0x0ea6
     add sp, byte 8                   ; 0x0ea9
     add word [bp - 2], byte -5       ; 0x0eac
     cmp word [bp - 2], byte 0        ; 0x0eb0
@@ -476,7 +476,7 @@ api_idx_0068_OUHP:
     push ax                          ; 0x0ebd
     push word [bp - 0xa]             ; 0x0ebe
     push word [bp - 0xc]             ; 0x0ec1
-    call gfx_restore_screen          ; 0x0ec4
+    call call_restore_screen         ; 0x0ec4
     add sp, byte 8                   ; 0x0ec7
     jmp short .forward30             ; 0x0eca
 .forward29:
@@ -493,7 +493,7 @@ api_idx_0068_OUHP:
     mov ax, 0                        ; 0x0ee2
     push ax                          ; 0x0ee5
     push ax                          ; 0x0ee6
-    call gfx_show_area               ; 0x0ee7
+    call call_show_area              ; 0x0ee7
     add sp, byte 8                   ; 0x0eea
 .forward30:
     mov ax, 0xf                      ; 0x0eed
@@ -512,7 +512,7 @@ api_idx_0068_OUHP:
     push ax                          ; 0x0f08
     mov ax, 0                        ; 0x0f09
     push ax                          ; 0x0f0c
-    call gfx_cache_area              ; 0x0f0d
+    call call_cache_area             ; 0x0f0d
     add sp, byte 0xc                 ; 0x0f10
     mov word [bp - 0xa], dx          ; 0x0f13
     mov word [bp - 0xc], ax          ; 0x0f16
@@ -571,13 +571,13 @@ api_idx_0068_OUHP:
     mov ax, word [bp - 0x64]         ; 0x0f9c
     dec ax                           ; 0x0f9f
     push ax                          ; 0x0fa0
-    call gfx_set_text_pos            ; 0x0fa1
+    call call_set_text_pos           ; 0x0fa1
     add sp, byte 4                   ; 0x0fa4
     mov ax, 0                        ; 0x0fa7
     push ax                          ; 0x0faa
     mov ax, 0xc                      ; 0x0fab
     push ax                          ; 0x0fae
-    call gfx_set_text_color          ; 0x0faf
+    call call_set_text_color         ; 0x0faf
     add sp, byte 4                   ; 0x0fb2
     mov ax, 2                        ; 0x0fb5
     push ax                          ; 0x0fb8
@@ -591,13 +591,13 @@ api_idx_0068_OUHP:
     mov ax, word [bp - 0x64]         ; 0x0fcc
     inc ax                           ; 0x0fcf
     push ax                          ; 0x0fd0
-    call gfx_set_text_pos            ; 0x0fd1
+    call call_set_text_pos           ; 0x0fd1
     add sp, byte 4                   ; 0x0fd4
     mov ax, 0                        ; 0x0fd7
     push ax                          ; 0x0fda
     mov ax, 0xc                      ; 0x0fdb
     push ax                          ; 0x0fde
-    call gfx_set_text_color          ; 0x0fdf
+    call call_set_text_color         ; 0x0fdf
     add sp, byte 4                   ; 0x0fe2
     mov ax, 2                        ; 0x0fe5
     push ax                          ; 0x0fe8
@@ -609,13 +609,13 @@ api_idx_0068_OUHP:
     add ax, strict word 0x67         ; 0x0ff8
     push ax                          ; 0x0ffb
     push word [bp - 0x64]            ; 0x0ffc
-    call gfx_set_text_pos            ; 0x0fff
+    call call_set_text_pos           ; 0x0fff
     add sp, byte 4                   ; 0x1002
     mov ax, 0                        ; 0x1005
     push ax                          ; 0x1008
     mov ax, 0xc                      ; 0x1009
     push ax                          ; 0x100c
-    call gfx_set_text_color          ; 0x100d
+    call call_set_text_color         ; 0x100d
     add sp, byte 4                   ; 0x1010
     mov ax, 2                        ; 0x1013
     push ax                          ; 0x1016
@@ -627,13 +627,13 @@ api_idx_0068_OUHP:
     add ax, strict word 0x65         ; 0x1026
     push ax                          ; 0x1029
     push word [bp - 0x64]            ; 0x102a
-    call gfx_set_text_pos            ; 0x102d
+    call call_set_text_pos           ; 0x102d
     add sp, byte 4                   ; 0x1030
     mov ax, 0                        ; 0x1033
     push ax                          ; 0x1036
     mov ax, 0xc                      ; 0x1037
     push ax                          ; 0x103a
-    call gfx_set_text_color          ; 0x103b
+    call call_set_text_color         ; 0x103b
     add sp, byte 4                   ; 0x103e
     mov ax, 2                        ; 0x1041
     push ax                          ; 0x1044
@@ -645,13 +645,13 @@ api_idx_0068_OUHP:
     add ax, strict word 0x66         ; 0x1054
     push ax                          ; 0x1057
     push word [bp - 0x64]            ; 0x1058
-    call gfx_set_text_pos            ; 0x105b
+    call call_set_text_pos           ; 0x105b
     add sp, byte 4                   ; 0x105e
     mov ax, 0                        ; 0x1061
     push ax                          ; 0x1064
     mov ax, 1                        ; 0x1065
     push ax                          ; 0x1068
-    call gfx_set_text_color          ; 0x1069
+    call call_set_text_color         ; 0x1069
     add sp, byte 4                   ; 0x106c
     mov ax, 2                        ; 0x106f
     push ax                          ; 0x1072
@@ -699,7 +699,7 @@ api_idx_0068_OUHP:
     mov ax, word [bp - 0x64]         ; 0x10d5
     dec ax                           ; 0x10d8
     push ax                          ; 0x10d9
-    call gfx_set_text_pos            ; 0x10da
+    call call_set_text_pos           ; 0x10da
     add sp, byte 4                   ; 0x10dd
     mov ax, 0                        ; 0x10e0
     push ax                          ; 0x10e3
@@ -708,7 +708,7 @@ api_idx_0068_OUHP:
     mov ax, 0x22                     ; 0x10ea
 .forward36:
     push ax                          ; 0x10ed
-    call gfx_set_text_color          ; 0x10ee
+    call call_set_text_color         ; 0x10ee
     add sp, byte 4                   ; 0x10f1
     push word [bp - 0x68]            ; 0x10f4
     push word [bp - 0x5e]            ; 0x10f7
@@ -721,7 +721,7 @@ api_idx_0068_OUHP:
     mov ax, word [bp - 0x64]         ; 0x110a
     inc ax                           ; 0x110d
     push ax                          ; 0x110e
-    call gfx_set_text_pos            ; 0x110f
+    call call_set_text_pos           ; 0x110f
     add sp, byte 4                   ; 0x1112
     mov ax, 0                        ; 0x1115
     push ax                          ; 0x1118
@@ -730,7 +730,7 @@ api_idx_0068_OUHP:
     mov ax, 0x22                     ; 0x111f
 .forward37:
     push ax                          ; 0x1122
-    call gfx_set_text_color          ; 0x1123
+    call call_set_text_color         ; 0x1123
     add sp, byte 4                   ; 0x1126
     push word [bp - 0x68]            ; 0x1129
     push word [bp - 0x5e]            ; 0x112c
@@ -741,7 +741,7 @@ api_idx_0068_OUHP:
     add ax, strict word 0x67         ; 0x113b
     push ax                          ; 0x113e
     push word [bp - 0x64]            ; 0x113f
-    call gfx_set_text_pos            ; 0x1142
+    call call_set_text_pos           ; 0x1142
     add sp, byte 4                   ; 0x1145
     mov ax, 0                        ; 0x1148
     push ax                          ; 0x114b
@@ -750,7 +750,7 @@ api_idx_0068_OUHP:
     mov ax, 0x22                     ; 0x1152
 .forward38:
     push ax                          ; 0x1155
-    call gfx_set_text_color          ; 0x1156
+    call call_set_text_color         ; 0x1156
     add sp, byte 4                   ; 0x1159
     push word [bp - 0x68]            ; 0x115c
     push word [bp - 0x5e]            ; 0x115f
@@ -761,7 +761,7 @@ api_idx_0068_OUHP:
     add ax, strict word 0x65         ; 0x116e
     push ax                          ; 0x1171
     push word [bp - 0x64]            ; 0x1172
-    call gfx_set_text_pos            ; 0x1175
+    call call_set_text_pos           ; 0x1175
     add sp, byte 4                   ; 0x1178
     mov ax, 0                        ; 0x117b
     push ax                          ; 0x117e
@@ -770,7 +770,7 @@ api_idx_0068_OUHP:
     mov ax, 0x22                     ; 0x1185
 .forward39:
     push ax                          ; 0x1188
-    call gfx_set_text_color          ; 0x1189
+    call call_set_text_color         ; 0x1189
     add sp, byte 4                   ; 0x118c
     push word [bp - 0x68]            ; 0x118f
     push word [bp - 0x5e]            ; 0x1192
@@ -781,7 +781,7 @@ api_idx_0068_OUHP:
     add ax, strict word 0x66         ; 0x11a1
     push ax                          ; 0x11a4
     push word [bp - 0x64]            ; 0x11a5
-    call gfx_set_text_pos            ; 0x11a8
+    call call_set_text_pos           ; 0x11a8
     add sp, byte 4                   ; 0x11ab
     mov ax, 0                        ; 0x11ae
     push ax                          ; 0x11b1
@@ -791,7 +791,7 @@ api_idx_0068_OUHP:
     mov ax, 0x16                     ; 0x11bb
 .forward40:
     push ax                          ; 0x11be
-    call gfx_set_text_color          ; 0x11bf
+    call call_set_text_color         ; 0x11bf
     add sp, byte 4                   ; 0x11c2
     push word [bp - 0x68]            ; 0x11c5
     push word [bp - 0x5e]            ; 0x11c8
@@ -833,7 +833,7 @@ api_idx_0068_OUHP:
     push ax                          ; 0x1219
     mov ax, 0x32                     ; 0x121a
     push ax                          ; 0x121d
-    call gfx_dissolve_area           ; 0x121e
+    call call_dissolve_area          ; 0x121e
     add sp, byte 0xa                 ; 0x1221
     mov ax, 0x10                     ; 0x1224
     push ax                          ; 0x1227
@@ -844,7 +844,7 @@ api_idx_0068_OUHP:
     push ax                          ; 0x1230
     push word [bp - 0xa]             ; 0x1231
     push word [bp - 0xc]             ; 0x1234
-    call gfx_restore_screen          ; 0x1237
+    call call_restore_screen         ; 0x1237
     add sp, byte 8                   ; 0x123a
     call api_idx_0002_PUOP           ; 0x123d
     test ax, ax                      ; 0x1240
@@ -879,14 +879,14 @@ api_idx_0068_OUHP:
     push ax                          ; 0x1289
     push word [bp - 0xa]             ; 0x128a
     push word [bp - 0xc]             ; 0x128d
-    call gfx_restore_screen          ; 0x1290
+    call call_restore_screen         ; 0x1290
     add sp, byte 8                   ; 0x1293
     cmp word [bss_8450], byte 0      ; 0x1296
     je short .back6                  ; 0x129b
     cmp word [bss_91b8], byte 0      ; 0x129d
     jne short .forward49             ; 0x12a2
 .back5:
-    call gfx_is_music_playing        ; 0x12a4
+    call call_is_music_playing       ; 0x12a4
     test ax, ax                      ; 0x12a7
     je short .forward49              ; 0x12a9
     jmp short .back5                 ; 0x12ab
@@ -897,7 +897,7 @@ api_idx_0068_OUHP:
     add sp, byte 4                   ; 0x12b8
     mov ax, 0                        ; 0x12bb
     push ax                          ; 0x12be
-    call app_gfx_free_score          ; 0x12bf
+    call free_loaded_score           ; 0x12bf
     pop cx                           ; 0x12c2
     jmp short .forward50             ; 0x12c3
 .back6:
@@ -912,7 +912,7 @@ api_idx_0068_OUHP:
     push ax                          ; 0x12d5
     push ax                          ; 0x12d6
     push ax                          ; 0x12d7
-    call gfx_fade_out                ; 0x12d8
+    call call_fade_out               ; 0x12d8
     add sp, byte 8                   ; 0x12db
     mov ax, 0                        ; 0x12de
     push ax                          ; 0x12e1
@@ -923,7 +923,7 @@ api_idx_0068_OUHP:
     mov ax, 0                        ; 0x12ea
     push ax                          ; 0x12ed
     push ax                          ; 0x12ee
-    call gfx_fill_area               ; 0x12ef
+    call call_fill_area              ; 0x12ef
     add sp, byte 0xa                 ; 0x12f2
     mov ax, 0xc7                     ; 0x12f5
     push ax                          ; 0x12f8
@@ -932,17 +932,17 @@ api_idx_0068_OUHP:
     mov ax, 0                        ; 0x12fd
     push ax                          ; 0x1300
     push ax                          ; 0x1301
-    call gfx_show_area               ; 0x1302
+    call call_show_area              ; 0x1302
     add sp, byte 8                   ; 0x1305
     mov ax, 1                        ; 0x1308
     push ax                          ; 0x130b
-    call gfx_wait_sound              ; 0x130c
+    call call_wait_sound             ; 0x130c
     pop cx                           ; 0x130f
     test word [bss_9056], 0x1000     ; 0x1310
     je short .forward51              ; 0x1316
     cmp byte [bss_5989], 1           ; 0x1318
     jne short .forward51             ; 0x131d
-    call gfx_mouse_init              ; 0x131f
+    call call_mouse_init             ; 0x131f
     mov word [mouse_active], 1       ; 0x1322
     jmp short .forward52             ; 0x1328
 .forward51:

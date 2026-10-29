@@ -19,7 +19,7 @@ loc_JTTS:
     mov ax, 0                        ; 0x8a98
     push ax                          ; 0x8a9b
     push ax                          ; 0x8a9c
-    call gfx_cache_area              ; 0x8a9d
+    call call_cache_area             ; 0x8a9d
     add sp, byte 0xc                 ; 0x8aa0
     mov word [scene_backdrop_ref_hi], dx ; 0x8aa3
     mov word [scene_backdrop_ref], ax ; 0x8aa7
@@ -54,7 +54,7 @@ loc_JTTS:
     push ax                          ; 0x8b0e
     push ax                          ; 0x8b0f
     push ax                          ; 0x8b10
-    call gfx_reset_rgb               ; 0x8b11
+    call call_reset_rgb              ; 0x8b11
     add sp, byte 6                   ; 0x8b14
     mov ax, 0xc7                     ; 0x8b17
     push ax                          ; 0x8b1a
@@ -63,11 +63,11 @@ loc_JTTS:
     mov ax, 0                        ; 0x8b1f
     push ax                          ; 0x8b22
     push ax                          ; 0x8b23
-    call gfx_show_area               ; 0x8b24
+    call call_show_area              ; 0x8b24
     add sp, byte 8                   ; 0x8b27
     mov ax, 0                        ; 0x8b2a
     push ax                          ; 0x8b2d
-    call gfx_fade_in                 ; 0x8b2e
+    call call_fade_in                ; 0x8b2e
     pop cx                           ; 0x8b31
     mov ax, 0                        ; 0x8b32
     push ax                          ; 0x8b35
@@ -88,7 +88,7 @@ loc_JTTS:
     push ax                          ; 0x8b56
     push word [scene_backdrop_ref_hi] ; 0x8b57
     push word [scene_backdrop_ref]   ; 0x8b5b
-    call gfx_restore_screen          ; 0x8b5f
+    call call_restore_screen         ; 0x8b5f
     add sp, byte 8                   ; 0x8b62
     call blank_scene_screen          ; 0x8b65
     ret                              ; 0x8b68

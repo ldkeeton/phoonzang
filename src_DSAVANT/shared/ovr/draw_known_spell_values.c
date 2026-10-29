@@ -4,7 +4,7 @@
 extern int roster_screen_a, roster_screen_b;
 extern char known_spell_names[][20];
 extern struct pc_rec party_records[];
-extern int gfx_restore_screen(), gfx_set_text_color(), gfx_set_text_pos();
+extern int call_restore_screen(), call_set_text_color(), call_set_text_pos();
 extern int draw_text_glyphs(), draw_number_field();
 
 extern int realm_text_colors[];
@@ -16,13 +16,13 @@ int spell_ids[];
 {
 	int row;
 
-	gfx_restore_screen(roster_screen_b, roster_screen_a, 0, 0);
+	call_restore_screen(roster_screen_b, roster_screen_a, 0, 0);
 	for (row = 0; row < count; row++) { /* Six pixels per text row. */
-		gfx_set_text_color(realm_text_colors[realm], 0);
-		gfx_set_text_pos(6, 6 * row + 114);
+		call_set_text_color(realm_text_colors[realm], 0);
+		call_set_text_pos(6, 6 * row + 114);
 		draw_text_glyphs(known_spell_names[row], 0);
-		gfx_set_text_pos(133, 6 * row + 114);
-		gfx_set_text_color(1, 0);
+		call_set_text_pos(133, 6 * row + 114);
+		call_set_text_color(1, 0);
 		draw_number_field(party_records[character].flag[spell_ids[row]], 3,
 			0);	/* Three-digit field. */
 	}

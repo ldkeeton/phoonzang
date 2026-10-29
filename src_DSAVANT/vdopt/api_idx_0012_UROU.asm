@@ -541,7 +541,7 @@ api_idx_0012_UROU.forward62:
     push ax                          ; 0x1584
     push word [grid_origin_y]        ; 0x1585
     push word [grid_origin_x]        ; 0x1589
-    call gfx_fill_area               ; 0x158d
+    call call_fill_area              ; 0x158d
     add sp, byte 0xa                 ; 0x1590
     mov word [bp - 4], 1             ; 0x1593
     jmp short api_idx_0012_UROU.forward67 ; 0x1598
@@ -765,7 +765,7 @@ api_idx_0012_UROU.forward81:
     push ax                          ; 0x1786
     mov ax, 0x48                     ; 0x1787
     push ax                          ; 0x178a
-    call gfx_show_area               ; 0x178b
+    call call_show_area              ; 0x178b
     add sp, byte 8                   ; 0x178e
     call flush_keyboard              ; 0x1791
     mov ax, word [bp - 8]            ; 0x1794
@@ -802,7 +802,7 @@ api_idx_0012_UROU.forward81:
     imul cx                          ; 0x17df
     add ax, word [grid_origin_x]     ; 0x17e1
     push ax                          ; 0x17e5
-    call gfx_save_area               ; 0x17e6
+    call call_save_area              ; 0x17e6
     add sp, byte 8                   ; 0x17e9
     mov word [bp - 0x10], dx         ; 0x17ec
     mov word [bp - 0x12], ax         ; 0x17ef
@@ -863,7 +863,7 @@ api_idx_0012_UROU.forward82:
     imul cx                          ; 0x186a
     add ax, word [grid_origin_x]     ; 0x186c
     push ax                          ; 0x1870
-    call gfx_show_area               ; 0x1871
+    call call_show_area              ; 0x1871
     add sp, byte 8                   ; 0x1874
     mov ax, 0x12c                    ; 0x1877
     push ax                          ; 0x187a
@@ -873,7 +873,7 @@ api_idx_0012_UROU.forward82:
     push ax                          ; 0x1882
     push word [bp - 0x10]            ; 0x1883
     push word [bp - 0x12]            ; 0x1886
-    call gfx_restore_area            ; 0x1889
+    call call_restore_area           ; 0x1889
     add sp, byte 6                   ; 0x188c
     mov ax, word [bp - 8]            ; 0x188f
     mov cx, 2                        ; 0x1892
@@ -909,7 +909,7 @@ api_idx_0012_UROU.forward82:
     imul cx                          ; 0x18da
     add ax, word [grid_origin_x]     ; 0x18dc
     push ax                          ; 0x18e0
-    call gfx_show_area               ; 0x18e1
+    call call_show_area              ; 0x18e1
     add sp, byte 8                   ; 0x18e4
     mov ax, 0x12c                    ; 0x18e7
     push ax                          ; 0x18ea
@@ -921,7 +921,7 @@ api_idx_0012_UROU.forward83:
     push ax                          ; 0x18f5
     push word [bp - 0x10]            ; 0x18f6
     push word [bp - 0x12]            ; 0x18f9
-    call gfx_restore_area            ; 0x18fc
+    call call_restore_area           ; 0x18fc
     add sp, byte 6                   ; 0x18ff
     mov ax, 0xf                      ; 0x1902
     push ax                          ; 0x1905

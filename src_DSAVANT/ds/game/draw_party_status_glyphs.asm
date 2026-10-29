@@ -12,7 +12,7 @@ draw_party_status_glyphs:
     mov bx, ax                       ; 0x2c7f
     push word [bx + party_status_areas + 0x2] ; 0x2c81
     push word [bx + party_status_areas] ; 0x2c85
-    call gfx_restore_area            ; 0x2c89
+    call call_restore_area           ; 0x2c89
     add sp, byte 6                   ; 0x2c8c
     mov ax, word [bp - 2]            ; 0x2c8f
     mov cx, 3                        ; 0x2c92
@@ -138,7 +138,7 @@ draw_party_status_glyphs.forward5:
     push word [bp - 8]               ; 0x2da3
     mov ax, 8                        ; 0x2da6
     push ax                          ; 0x2da9
-    call gfx_draw_text               ; 0x2daa
+    call call_draw_text              ; 0x2daa
     add sp, byte 0x16                ; 0x2dad
 draw_party_status_glyphs.forward6:
     inc word [bp - 2]                ; 0x2db0
@@ -155,6 +155,6 @@ draw_party_status_glyphs.forward7:
     push ax                          ; 0x2dc9
     mov ax, 0x44                     ; 0x2dca
     push ax                          ; 0x2dcd
-    call gfx_show_area               ; 0x2dce
+    call call_show_area              ; 0x2dce
     add sp, byte 8                   ; 0x2dd1
     ret                              ; 0x2dd4

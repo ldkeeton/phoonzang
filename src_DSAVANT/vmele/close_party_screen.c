@@ -20,21 +20,21 @@ extern struct {
 	char *items[12];
 } overlay_list;
 
-extern gfx_wait_sound(), gfx_restore_screen(), save_screen_area(),
+extern call_wait_sound(), call_restore_screen(), save_screen_area(),
 	free_picture_slot(), wait_and_free_sound(), redraw_glyph_strip(),
-	gfx_restore_area(), dissolve_or_show_area(), load_monster_picture(),
+	call_restore_area(), dissolve_or_show_area(), load_monster_picture(),
 	aztec_free();
 
 close_party_screen()
 {
 	int i, slot;
 
-	gfx_wait_sound(1);			/* flush queued sound first */
-	gfx_restore_screen(screen_cache[1], 1, 0);
+	call_wait_sound(1);			/* flush queued sound first */
+	call_restore_screen(screen_cache[1], 1, 0);
 	saved_screen_slot = save_screen_area(72, 33, 247, 143,
 		screen_temp_name);		/* keep the area for the return state */
 	saved_screen_pending = 1;
-	gfx_restore_screen(screen_cache[0], 1, 0);
+	call_restore_screen(screen_cache[0], 1, 0);
 	free_picture_slot(12);
 	free_picture_slot(7);
 	wait_and_free_sound(5);
@@ -50,8 +50,8 @@ close_party_screen()
 	redraw_glyph_strip(0);
 	free_picture_slot(1);
 	free_picture_slot(2);
-	gfx_restore_area(saved_area_b, 1);
-	gfx_restore_area(saved_area_a, 1);
+	call_restore_area(saved_area_b, 1);
+	call_restore_area(saved_area_a, 1);
 	if (party_return_state == 23)		/* back to the combat screen */
 		dissolve_or_show_area(55, 146, 265, 198);
 	for (i = 0; i < 7; i++) {		/* 7 party slots */

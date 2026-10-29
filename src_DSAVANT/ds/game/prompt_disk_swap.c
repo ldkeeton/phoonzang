@@ -8,7 +8,7 @@ extern int hotspot_hit;
 extern int hotspot_rects[];
 extern int disk_header[];
 extern char disk_drive_name[];
-long gfx_save_area();
+long call_save_area();
 
 prompt_disk_swap(fname, drive, close_first, reopen)
 char *fname;
@@ -30,8 +30,8 @@ char *fname;
 	y0 = 143;
 	x1 = 264;
 	y1 = 197;
-	saved = gfx_save_area(x0 - 1, y0 - 1, x1 + 1, y1 + 1);
-	gfx_wait_sound(0);
+	saved = call_save_area(x0 - 1, y0 - 1, x1 + 1, y1 + 1);
+	call_wait_sound(0);
 	orig_drive = drive;
 	aztec_strcpy(name, fname);
 	if (close_first) {
@@ -51,18 +51,18 @@ char *fname;
 				str_subst_char(msg, path, '^');	/* '^' -> drive letter */
 			}
 			draw_dialog_box(x0, y0, x1, y1);
-			gfx_set_text_color(1, 194);
+			call_set_text_color(1, 194);
 			/* centre the line; glyphs are 6 pixels wide */
-			gfx_set_text_pos((x1 - x0 + 1 - aztec_strlen(msg) * 6) / 2 + x0, y0 + 12);
+			call_set_text_pos((x1 - x0 + 1 - aztec_strlen(msg) * 6) / 2 + x0, y0 + 12);
 			draw_text_glyphs(msg, 0);
 			aztec_strcpy(msg, "INTO DRIVE ^");
 			str_subst_char(msg, name, '^');
-			gfx_set_text_pos((x1 - x0 + 1 - aztec_strlen(msg) * 6) / 2 + x0, y0 + 18);
+			call_set_text_pos((x1 - x0 + 1 - aztec_strlen(msg) * 6) / 2 + x0, y0 + 18);
 			draw_text_glyphs(msg, 0);
 			draw_button(x0 + 68, y0 + 39, 12, 1, 1, "CONTINUE");
 			set_hotspot(0, x0 + 68, y0 + 39, x0 + 140, y0 + 47, 13, 0);
 			set_hotspot(1, -1, 0, 0, 0, 0, 0);
-			gfx_show_area(x0 - 1, y0 - 1, x1 + 1, y1 + 1);
+			call_show_area(x0 - 1, y0 - 1, x1 + 1, y1 + 1);
 			waiting = 1;
 			do {	/* until the CONTINUE button is hit */
 				poll_hotspots(hotspot_rects);
@@ -73,8 +73,8 @@ char *fname;
 				}
 			} while (waiting);
 			flush_keyboard();
-			gfx_restore_area(saved, 0);
-			gfx_show_area(x0 - 1, y0 - 1, x1 + 1, y1 + 1);
+			call_restore_area(saved, 0);
+			call_show_area(x0 - 1, y0 - 1, x1 + 1, y1 + 1);
 			aztec_strcpy(path, name);
 			aztec_strcat(path, "DISK.HDR");
 			fd = aztec_open(path, 0);
@@ -99,7 +99,7 @@ char *fname;
 		next = -2;
 		aztec_strcpy(name, disk_drive_name);
 	} while (drive != -2);	/* -2: no further disk */
-	gfx_restore_area(saved, 1);
+	call_restore_area(saved, 1);
 	flush_keyboard();
 	if (reopen) {
 		if ((msg_dbs_fd = aztec_open(data_file_path("MSG.DBS", 0), 0)) == -1)

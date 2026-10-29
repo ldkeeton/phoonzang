@@ -45,7 +45,7 @@ api_idx_0010_GGGV:
     shl ax, 1                        ; 0x191d
     add ax, word [bp + 6]            ; 0x191f
     push ax                          ; 0x1922
-    call gfx_put_pixel               ; 0x1923
+    call call_put_pixel              ; 0x1923
     add sp, byte 6                   ; 0x1926
     push word [bp - 0x10]            ; 0x1929
     mov ax, word [bp - 4]            ; 0x192c
@@ -57,7 +57,7 @@ api_idx_0010_GGGV:
     add ax, word [bp + 6]            ; 0x193a
     inc ax                           ; 0x193d
     push ax                          ; 0x193e
-    call gfx_put_pixel               ; 0x193f
+    call call_put_pixel              ; 0x193f
     add sp, byte 6                   ; 0x1942
     push word [bp - 0x10]            ; 0x1945
     mov ax, word [bp - 4]            ; 0x1948
@@ -69,7 +69,7 @@ api_idx_0010_GGGV:
     shl ax, 1                        ; 0x1955
     add ax, word [bp + 6]            ; 0x1957
     push ax                          ; 0x195a
-    call gfx_put_pixel               ; 0x195b
+    call call_put_pixel              ; 0x195b
     add sp, byte 6                   ; 0x195e
     mov ax, 1                        ; 0x1961
     push ax                          ; 0x1964
@@ -87,7 +87,7 @@ api_idx_0010_GGGV:
     add ax, word [bp + 6]            ; 0x197e
     inc ax                           ; 0x1981
     push ax                          ; 0x1982
-    call gfx_put_pixel               ; 0x1983
+    call call_put_pixel              ; 0x1983
     add sp, byte 6                   ; 0x1986
 .forward2:
     inc word [bp - 0xe]              ; 0x1989

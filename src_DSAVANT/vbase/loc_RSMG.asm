@@ -22,13 +22,13 @@ loc_RSMG:
     inc ax                           ; 0x4310
     inc ax                           ; 0x4311
     push ax                          ; 0x4312
-    call gfx_set_text_pos            ; 0x4313
+    call call_set_text_pos           ; 0x4313
     add sp, byte 4                   ; 0x4316
     mov ax, 0xc3                     ; 0x4319
     push ax                          ; 0x431c
     mov ax, 0xb4                     ; 0x431d
     push ax                          ; 0x4320
-    call gfx_set_text_color          ; 0x4321
+    call call_set_text_color         ; 0x4321
     add sp, byte 4                   ; 0x4324
     mov ax, 0                        ; 0x4327
     push ax                          ; 0x432a

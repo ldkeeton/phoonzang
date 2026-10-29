@@ -11,7 +11,7 @@ update_treasure_frame:
     mov bx, ax                       ; 0x07f0
     push word [bx + screen_cache_0_seg] ; 0x07f2
     push word [bx + screen_cache]    ; 0x07f6
-    call gfx_restore_screen          ; 0x07fa
+    call call_restore_screen         ; 0x07fa
     add sp, byte 8                   ; 0x07fd
     cmp word [glyph_painter], byte 1 ; 0x0800
     jne short .forward1              ; 0x0805
@@ -43,7 +43,7 @@ update_treasure_frame:
     push ax                          ; 0x084a
     mov ax, 0x48                     ; 0x084b
     push ax                          ; 0x084e
-    call gfx_show_area               ; 0x084f
+    call call_show_area              ; 0x084f
     add sp, byte 8                   ; 0x0852
     cmp word [sound_request], byte 0 ; 0x0855
     je short .return1                ; 0x085a

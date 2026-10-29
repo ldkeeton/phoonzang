@@ -7,7 +7,7 @@ draw_title_banner:
     push ax
     push word [draw_title_banner.bss1]
     push word [saved_screen]
-    call gfx_restore_screen
+    call call_restore_screen
     add sp, byte 8
     cmp word [banner_offset], byte 0
     jle short .forward1
@@ -35,7 +35,7 @@ draw_title_banner:
     push ax
     mov ax, 0xf
     push ax
-    call gfx_draw_text
+    call call_draw_text
     add sp, byte 0x16
 .forward1:
     mov ax, 5
@@ -70,6 +70,6 @@ draw_title_banner:
     push ax
     mov ax, 0xf
     push ax
-    call gfx_draw_text
+    call call_draw_text
     add sp, byte 0x16
     ret

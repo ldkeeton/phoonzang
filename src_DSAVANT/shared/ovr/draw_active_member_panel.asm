@@ -46,7 +46,7 @@ draw_active_member_panel:
     mov ax, word [bp - 6]
     add ax, strict word 0x1c
     push ax
-    call gfx_set_text_pos
+    call call_set_text_pos
     add sp, byte 4
     mov ax, 6
     push ax
@@ -64,7 +64,7 @@ draw_active_member_panel:
     push ax
     push word [bp - 8]
     push word [bp - 6]
-    call gfx_show_area
+    call call_show_area
     add sp, byte 8
 .forward3:
     jmp short .return1

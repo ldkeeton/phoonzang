@@ -75,6 +75,6 @@ main()
 			aztec_exit(0);
 			break;
 		}
-		gfx_wait_sound(0);
+		call_wait_sound(0);
 	}
 }

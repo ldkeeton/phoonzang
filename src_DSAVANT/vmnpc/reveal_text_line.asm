@@ -64,7 +64,7 @@ reveal_text_line:
     add ax, cx                       ; 0x9318
     push ax                          ; 0x931a
     push word [bp - 2]               ; 0x931b
-    call gfx_set_text_pos            ; 0x931e
+    call call_set_text_pos           ; 0x931e
     add sp, byte 4                   ; 0x9321
     mov ax, 0                        ; 0x9324
     push ax                          ; 0x9327
@@ -79,7 +79,7 @@ reveal_text_line:
     mov ax, 1                        ; 0x933b
 .forward5:
     push ax                          ; 0x933e
-    call gfx_set_text_color          ; 0x933f
+    call call_set_text_color         ; 0x933f
     add sp, byte 4                   ; 0x9342
     mov ax, word [text_line_index]   ; 0x9345
     shl ax, 1                        ; 0x9348
@@ -114,7 +114,7 @@ reveal_text_line:
     add ax, 0x92                     ; 0x9393
     push ax                          ; 0x9396
     push word [bp - 6]               ; 0x9397
-    call gfx_show_area               ; 0x939a
+    call call_show_area              ; 0x939a
     add sp, byte 8                   ; 0x939d
     call step_party_animation        ; 0x93a0
     mov ax, 1                        ; 0x93a3

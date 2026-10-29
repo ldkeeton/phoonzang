@@ -6,7 +6,7 @@ api_idx_0004_MIJS:
     push word [bp + 8]               ; 0x10d2
     push word [bp + 6]               ; 0x10d5
     push word [bp + 4]               ; 0x10d8
-    call gfx_save_area               ; 0x10db
+    call call_save_area              ; 0x10db
     add sp, byte 8                   ; 0x10de
     mov word [bp - 2], dx            ; 0x10e1
     mov word [bp - 4], ax            ; 0x10e4
@@ -17,16 +17,16 @@ api_idx_0004_MIJS:
     push word [bp + 8]               ; 0x10f3
     push word [bp + 6]               ; 0x10f6
     push word [bp + 4]               ; 0x10f9
-    call gfx_fill_area               ; 0x10fc
+    call call_fill_area              ; 0x10fc
     add sp, byte 0xa                 ; 0x10ff
 .forward1:
     push word [bp + 0x12]            ; 0x1102
     push word [bp + 0x10]            ; 0x1105
-    call gfx_set_text_color          ; 0x1108
+    call call_set_text_color         ; 0x1108
     add sp, byte 4                   ; 0x110b
     push word [bp + 0xe]             ; 0x110e
     push word [bp + 0xc]             ; 0x1111
-    call gfx_set_text_pos            ; 0x1114
+    call call_set_text_pos           ; 0x1114
     add sp, byte 4                   ; 0x1117
     mov ax, 0                        ; 0x111a
     push ax                          ; 0x111d
@@ -37,13 +37,13 @@ api_idx_0004_MIJS:
     push word [bp + 8]               ; 0x112a
     push word [bp + 6]               ; 0x112d
     push word [bp + 4]               ; 0x1130
-    call gfx_show_area               ; 0x1133
+    call call_show_area              ; 0x1133
     add sp, byte 8                   ; 0x1136
     mov ax, 1                        ; 0x1139
     push ax                          ; 0x113c
     push word [bp - 2]               ; 0x113d
     push word [bp - 4]               ; 0x1140
-    call gfx_restore_area            ; 0x1143
+    call call_restore_area           ; 0x1143
     add sp, byte 6                   ; 0x1146
     call flush_keyboard              ; 0x1149
     ret                              ; 0x114c

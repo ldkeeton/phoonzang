@@ -118,13 +118,13 @@ api_idx_0074_SGUS:
     mov ax, 0xa3                     ; 0x7a09
     push ax                          ; 0x7a0c
     push word [bp - 0x20]            ; 0x7a0d
-    call gfx_set_text_pos            ; 0x7a10
+    call call_set_text_pos           ; 0x7a10
     add sp, byte 4                   ; 0x7a13
     mov ax, 0                        ; 0x7a16
     push ax                          ; 0x7a19
     mov ax, 0xb8                     ; 0x7a1a
     push ax                          ; 0x7a1d
-    call gfx_set_text_color          ; 0x7a1e
+    call call_set_text_color         ; 0x7a1e
     add sp, byte 4                   ; 0x7a21
     mov ax, 0                        ; 0x7a24
     push ax                          ; 0x7a27
@@ -145,7 +145,7 @@ api_idx_0074_SGUS:
     mov ax, 0xa3                     ; 0x7a47
     push ax                          ; 0x7a4a
     push word [bp - 0x20]            ; 0x7a4b
-    call gfx_show_area               ; 0x7a4e
+    call call_show_area              ; 0x7a4e
     add sp, byte 8                   ; 0x7a51
     mov ax, 0x11                     ; 0x7a54
     push ax                          ; 0x7a57

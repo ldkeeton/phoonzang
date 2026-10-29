@@ -4,7 +4,7 @@ transfer_pc_file_record:
     call aztec_csav
     mov ax, 0
     push ax
-    call gfx_wait_sound
+    call call_wait_sound
     pop cx
     mov ax, 2
     push ax

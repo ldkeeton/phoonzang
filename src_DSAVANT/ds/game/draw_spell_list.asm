@@ -27,13 +27,13 @@ draw_spell_list:
     add ax, word [bp + 6]            ; 0x1174
     push ax                          ; 0x1177
     push word [bp + 4]               ; 0x1178
-    call gfx_fill_area               ; 0x117b
+    call call_fill_area              ; 0x117b
     add sp, byte 0xa                 ; 0x117e
     mov ax, 1                        ; 0x1181
     push ax                          ; 0x1184
     mov ax, 0                        ; 0x1185
     push ax                          ; 0x1188
-    call gfx_set_text_color          ; 0x1189
+    call call_set_text_color         ; 0x1189
     add sp, byte 4                   ; 0x118c
     jmp short .forward2              ; 0x118f
 .forward1:
@@ -41,7 +41,7 @@ draw_spell_list:
     push ax                          ; 0x1194
     mov ax, 0xb4                     ; 0x1195
     push ax                          ; 0x1198
-    call gfx_set_text_color          ; 0x1199
+    call call_set_text_color         ; 0x1199
     add sp, byte 4                   ; 0x119c
 .forward2:
     mov ax, 6                        ; 0x119f
@@ -53,7 +53,7 @@ draw_spell_list:
     inc ax                           ; 0x11ad
     inc ax                           ; 0x11ae
     push ax                          ; 0x11af
-    call gfx_set_text_pos            ; 0x11b0
+    call call_set_text_pos           ; 0x11b0
     add sp, byte 4                   ; 0x11b3
     mov ax, 0                        ; 0x11b6
     push ax                          ; 0x11b9

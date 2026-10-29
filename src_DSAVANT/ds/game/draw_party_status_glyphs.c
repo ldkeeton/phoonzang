@@ -5,9 +5,9 @@ extern int party_status_frame, party_status_frame_step,
 	party_status_frame_seen, party_status_heading;
 extern int party_status_timer[];			/* six 4-byte records, +0 word first */
 extern int party_tag;
-extern gfx_restore_area();
-extern gfx_draw_text();
-extern gfx_show_area();
+extern call_restore_area();
+extern call_draw_text();
+extern call_show_area();
 
 draw_party_status_glyphs()
 {
@@ -15,7 +15,7 @@ draw_party_status_glyphs()
 	char buf[10];
 
 	for (slot = 0; slot < 6; slot++) {	/* six party slots */
-		gfx_restore_area(party_status_areas[slot], 0);
+		call_restore_area(party_status_areas[slot], 0);
 		/* 25-pixel spacing, 40-pixel gap after the third slot */
 		x = slot / 3 * 40 + slot * 25 + 69;
 		y = 7;
@@ -54,9 +54,9 @@ draw_party_status_glyphs()
 			buf[0] = glyph;
 			buf[1] = 0;		/* NUL-terminate */
 			/* clip to the full 320x200 screen (0..0x13f, 0..0xc7) */
-			gfx_draw_text(8, x, y, 0, 319, 0, 199, 0,
+			call_draw_text(8, x, y, 0, 319, 0, 199, 0,
 				      buf, 0, 0);
 		}
 	}
-	gfx_show_area(68, 6, 252, 22);	/* reveal the icon strip */
+	call_show_area(68, 6, 252, 22);	/* reveal the icon strip */
 }

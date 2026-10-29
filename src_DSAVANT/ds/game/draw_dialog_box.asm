@@ -8,7 +8,7 @@ draw_dialog_box:
     push word [bp + 8]               ; 0x0eee
     push word [bp + 6]               ; 0x0ef1
     push word [bp + 4]               ; 0x0ef4
-    call gfx_fill_area               ; 0x0ef7
+    call call_fill_area              ; 0x0ef7
     add sp, byte 0xa                 ; 0x0efa
     push word [bp + 0xa]             ; 0x0efd
     push word [bp + 8]               ; 0x0f00

@@ -444,7 +444,7 @@ api_idx_0012_RMOL:
     add sp, byte 4
     push ax
     push word [bp + 0x10]
-    call gfx_draw_maze_piece
+    call call_draw_maze_piece
     add sp, byte 8
     mov ax, word [bp + 4]
     cmp ax, strict word 2
@@ -521,7 +521,7 @@ api_idx_0012_RMOL.jumptable_case1:
     add sp, byte 4
     push ax
     push word [bp + 0xa]
-    call gfx_draw_maze_piece
+    call call_draw_maze_piece
     add sp, byte 8
 api_idx_0012_RMOL.forward37:
     jmp near api_idx_0012_RMOL.forward45
@@ -546,7 +546,7 @@ api_idx_0012_RMOL.jumptable_case2:
     add sp, byte 4
     push ax
     push word [bp + 0x16]
-    call gfx_draw_maze_piece
+    call call_draw_maze_piece
     add sp, byte 8
 api_idx_0012_RMOL.forward38:
     jmp short api_idx_0012_RMOL.forward45
@@ -580,7 +580,7 @@ api_idx_0012_RMOL.forward41:
 api_idx_0012_RMOL.forward42:
     push ax
     push word [bp + 0x14]
-    call gfx_draw_maze_piece
+    call call_draw_maze_piece
     add sp, byte 8
 api_idx_0012_RMOL.forward43:
     jmp short api_idx_0012_RMOL.forward45
@@ -638,7 +638,7 @@ api_idx_0012_RMOL.forward47:
     push ax
     mov ax, 3
     push ax
-    call gfx_draw_maze_piece
+    call call_draw_maze_piece
     add sp, byte 8
     jmp short api_idx_0012_RMOL.forward52
 api_idx_0012_RMOL.forward48:
@@ -665,7 +665,7 @@ api_idx_0012_RMOL.forward51:
     push ax
     mov ax, 3
     push ax
-    call gfx_draw_maze_piece
+    call call_draw_maze_piece
     add sp, byte 8
 api_idx_0012_RMOL.forward52:
     mov ax, 0xa

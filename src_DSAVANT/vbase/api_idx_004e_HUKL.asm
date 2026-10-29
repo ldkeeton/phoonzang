@@ -18,7 +18,7 @@ api_idx_004e_HUKL:
     mov word [bp - 0x10], ax         ; 0x38b0
     mov ax, 0                        ; 0x38b3
     push ax                          ; 0x38b6
-    call gfx_wait_sound              ; 0x38b7
+    call call_wait_sound             ; 0x38b7
     pop cx                           ; 0x38ba
     lea ax, word [bp - 0x3a]         ; 0x38bb
     push ax                          ; 0x38be
@@ -198,7 +198,7 @@ api_idx_004e_HUKL:
     mov ax, 0                        ; 0x3a52
     push ax                          ; 0x3a55
     push ax                          ; 0x3a56
-    call gfx_show_area               ; 0x3a57
+    call call_show_area              ; 0x3a57
     add sp, byte 8                   ; 0x3a5a
     mov ax, 0x301                    ; 0x3a5d
     push ax                          ; 0x3a60

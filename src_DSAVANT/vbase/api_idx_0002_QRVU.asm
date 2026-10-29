@@ -53,7 +53,7 @@ api_idx_0002_QRVU:
     mov word [bss_9058], ax          ; 0x4020
     mov ax, 1                        ; 0x4023
     push ax                          ; 0x4026
-    call gfx_wait_sound              ; 0x4027
+    call call_wait_sound             ; 0x4027
     pop cx                           ; 0x402a
     test word [bss_9056], 0x1000     ; 0x402b
     je short .forward4               ; 0x4031
@@ -61,14 +61,14 @@ api_idx_0002_QRVU:
     jne short .forward4              ; 0x4038
     cmp word [mouse_active], byte 0  ; 0x403a
     jne short .forward3              ; 0x403f
-    call gfx_mouse_init              ; 0x4041
+    call call_mouse_init             ; 0x4041
 .forward3:
     mov word [mouse_active], 1       ; 0x4044
     jmp short .forward6              ; 0x404a
 .forward4:
     cmp word [mouse_active], byte 1  ; 0x404c
     jne short .forward5              ; 0x4051
-    call gfx_mouse_off               ; 0x4053
+    call call_mouse_off              ; 0x4053
 .forward5:
     mov word [mouse_active], 0       ; 0x4056
 .forward6:

@@ -13,7 +13,7 @@ api_idx_004a_UIIS:
     push ax                          ; 0x68d8
     mov ax, 0x48                     ; 0x68d9
     push ax                          ; 0x68dc
-    call gfx_fill_area               ; 0x68dd
+    call call_fill_area              ; 0x68dd
     add sp, byte 0xa                 ; 0x68e0
     mov ax, 0x8f                     ; 0x68e3
     push ax                          ; 0x68e6
@@ -23,7 +23,7 @@ api_idx_004a_UIIS:
     push ax                          ; 0x68ee
     mov ax, 0x48                     ; 0x68ef
     push ax                          ; 0x68f2
-    call gfx_show_area               ; 0x68f3
+    call call_show_area              ; 0x68f3
     add sp, byte 8                   ; 0x68f6
     mov word [bp - 2], 0             ; 0x68f9
 .back1:
@@ -109,7 +109,7 @@ jumptable_69ec_case_3:
     push ax                          ; 0x69b3
     mov ax, 0x36                     ; 0x69b4
     push ax                          ; 0x69b7
-    call gfx_show_area               ; 0x69b8
+    call call_show_area              ; 0x69b8
     add sp, byte 8                   ; 0x69bb
     jmp short api_idx_004a_UIIS.forward3 ; 0x69be
 api_idx_004a_UIIS.forward1:

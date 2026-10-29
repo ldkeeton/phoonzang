@@ -13,7 +13,7 @@ api_idx_0006_GMTP:
     push ax                          ; 0x18bf
     mov ax, 0x48                     ; 0x18c0
     push ax                          ; 0x18c3
-    call gfx_show_area               ; 0x18c4
+    call call_show_area              ; 0x18c4
     add sp, byte 8                   ; 0x18c7
     cmp word [bss_90dc], byte 0      ; 0x18ca
     je short .forward1               ; 0x18cf
@@ -25,7 +25,7 @@ api_idx_0006_GMTP:
     jne short .forward1              ; 0x18de
     mov ax, 1                        ; 0x18e0
     push ax                          ; 0x18e3
-    call gfx_wait_sound              ; 0x18e4
+    call call_wait_sound             ; 0x18e4
     pop cx                           ; 0x18e7
 .forward1:
     mov word [bss_90dc], 0           ; 0x18e8
@@ -74,7 +74,7 @@ api_idx_0006_GMTP:
     mov bx, ax                       ; 0x1944
     push word [bx + screen_cache_0_seg] ; 0x1946
     push word [bx + screen_cache]    ; 0x194a
-    call gfx_restore_screen          ; 0x194e
+    call call_restore_screen         ; 0x194e
     add sp, byte 8                   ; 0x1951
     mov word [bp - 2], 0             ; 0x1954
 .back3:

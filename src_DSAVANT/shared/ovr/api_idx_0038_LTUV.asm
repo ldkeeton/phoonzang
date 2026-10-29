@@ -316,7 +316,7 @@ api_idx_0038_LTUV:
     mov ax, word [bp - 4]
     dec ax
     push ax
-    call gfx_show_area
+    call call_show_area
     add sp, byte 8
     mov word [bp - 0x1a], 1
 .back2:
@@ -367,7 +367,7 @@ api_idx_0038_LTUV.jumptable_case1:
     push ax
     lea ax, word [bp - 0xc]
     push ax
-    call gfx_get_mouse
+    call call_get_mouse
     add sp, byte 4
     mov ax, 4
     push ax
@@ -387,7 +387,7 @@ api_idx_0038_LTUV.back3:
     push ax
     lea ax, word [bp - 0xc]
     push ax
-    call gfx_get_mouse
+    call call_get_mouse
     add sp, byte 4
     mov word [bp - 0x1c], ax
     push word [bp - 0x12]
@@ -481,7 +481,7 @@ api_idx_0038_LTUV.forward9:
     mov ax, word [bp - 4]
     add ax, strict word 0x5d
     push ax
-    call gfx_show_area
+    call call_show_area
     add sp, byte 8
     cmp word [bp - 0x1c], byte 0
     je short api_idx_0038_LTUV.forward10
@@ -617,7 +617,7 @@ api_idx_0038_LTUV.forward14:
     mov ax, word [bp - 4]
     add ax, strict word 0x5d
     push ax
-    call gfx_show_area
+    call call_show_area
     add sp, byte 8
     jmp near api_idx_0038_LTUV.forward20
 api_idx_0038_LTUV.jumptable_case3:
@@ -754,7 +754,7 @@ api_idx_0038_LTUV.back4:
     mov ax, word [bp - 4]
     add ax, strict word 0x5d
     push ax
-    call gfx_show_area
+    call call_show_area
     add sp, byte 8
     jmp short api_idx_0038_LTUV.forward20
 api_idx_0038_LTUV.jumptable1:

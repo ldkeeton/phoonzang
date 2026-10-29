@@ -111,7 +111,7 @@ trigger_keyed_cell_object:
     push ax                          ; 0x24a1
     mov ax, 0x36                     ; 0x24a2
     push ax                          ; 0x24a5
-    call gfx_show_area               ; 0x24a6
+    call call_show_area              ; 0x24a6
     add sp, byte 8                   ; 0x24a9
     mov bx, word [maze_tables]       ; 0x24ac
     mov si, word [bp - 8]            ; 0x24b0

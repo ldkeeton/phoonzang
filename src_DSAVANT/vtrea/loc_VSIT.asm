@@ -8,7 +8,7 @@ loc_VSIT:
     push ax                          ; 0x7ec7
     push word [screen_cache_1_seg]   ; 0x7ec8
     push word [screen_cache_1_off]   ; 0x7ecc
-    call gfx_restore_screen          ; 0x7ed0
+    call call_restore_screen         ; 0x7ed0
     add sp, byte 8                   ; 0x7ed3
     mov ax, 0                        ; 0x7ed6
     push ax                          ; 0x7ed9
@@ -16,7 +16,7 @@ loc_VSIT:
     push ax                          ; 0x7edd
     push word [screen_cache_0_seg]   ; 0x7ede
     push word [screen_cache]         ; 0x7ee2
-    call gfx_restore_screen          ; 0x7ee6
+    call call_restore_screen         ; 0x7ee6
     add sp, byte 8                   ; 0x7ee9
     call draw_party_glyph_row        ; 0x7eec
     mov ax, 0xf                      ; 0x7eef
@@ -47,13 +47,13 @@ loc_VSIT:
     push ax                          ; 0x7f22
     push word [saved_area_b_hi]      ; 0x7f23
     push word [saved_area_b]         ; 0x7f27
-    call gfx_restore_area            ; 0x7f2b
+    call call_restore_area           ; 0x7f2b
     add sp, byte 6                   ; 0x7f2e
     mov ax, 1                        ; 0x7f31
     push ax                          ; 0x7f34
     push word [saved_area_a_hi]      ; 0x7f35
     push word [saved_area_a]         ; 0x7f39
-    call gfx_restore_area            ; 0x7f3d
+    call call_restore_area           ; 0x7f3d
     add sp, byte 6                   ; 0x7f40
     mov ax, 0xc6                     ; 0x7f43
     push ax                          ; 0x7f46

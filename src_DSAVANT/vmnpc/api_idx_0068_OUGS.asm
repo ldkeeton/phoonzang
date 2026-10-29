@@ -44,7 +44,7 @@ api_idx_0068_OUGS:
     push ax                          ; 0x521b
     mov ax, 0x36                     ; 0x521c
     push ax                          ; 0x521f
-    call gfx_show_area               ; 0x5220
+    call call_show_area              ; 0x5220
     add sp, byte 8                   ; 0x5223
     ret                              ; 0x5226
 .forward3:
@@ -129,7 +129,7 @@ api_idx_0068_OUGS:
     push ax                          ; 0x52e4
     mov ax, 0x36                     ; 0x52e5
     push ax                          ; 0x52e8
-    call gfx_show_area               ; 0x52e9
+    call call_show_area              ; 0x52e9
     add sp, byte 8                   ; 0x52ec
     push word [bp - 0x50]            ; 0x52ef
     push word [bp - 0x4e]            ; 0x52f2
@@ -151,7 +151,7 @@ api_idx_0068_OUGS:
     push ax                          ; 0x531c
     mov ax, 0x36                     ; 0x531d
     push ax                          ; 0x5320
-    call gfx_show_area               ; 0x5321
+    call call_show_area              ; 0x5321
     add sp, byte 8                   ; 0x5324
     mov ax, 1                        ; 0x5327
     push ax                          ; 0x532a

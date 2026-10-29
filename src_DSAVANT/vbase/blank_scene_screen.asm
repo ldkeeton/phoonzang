@@ -8,7 +8,7 @@ blank_scene_screen:
     push ax                          ; 0x8600
     push ax                          ; 0x8601
     push ax                          ; 0x8602
-    call gfx_fade_out                ; 0x8603
+    call call_fade_out               ; 0x8603
     add sp, byte 8                   ; 0x8606
     mov ax, 0                        ; 0x8609
     push ax                          ; 0x860c
@@ -19,7 +19,7 @@ blank_scene_screen:
     mov ax, 0                        ; 0x8615
     push ax                          ; 0x8618
     push ax                          ; 0x8619
-    call gfx_fill_area               ; 0x861a
+    call call_fill_area              ; 0x861a
     add sp, byte 0xa                 ; 0x861d
     mov ax, 0xc7                     ; 0x8620
     push ax                          ; 0x8623
@@ -28,6 +28,6 @@ blank_scene_screen:
     mov ax, 0                        ; 0x8628
     push ax                          ; 0x862b
     push ax                          ; 0x862c
-    call gfx_show_area               ; 0x862d
+    call call_show_area              ; 0x862d
     add sp, byte 8                   ; 0x8630
     ret                              ; 0x8633

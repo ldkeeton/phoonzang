@@ -45,7 +45,7 @@ api_idx_002c_JIHO:
     mov byte [bx + pc_file_record_base_hi + 0x2], 0 ; 0x67a0
     mov ax, 0                        ; 0x67a5
     push ax                          ; 0x67a8
-    call gfx_wait_sound              ; 0x67a9
+    call call_wait_sound             ; 0x67a9
     pop cx                           ; 0x67ac
     mov ax, 2                        ; 0x67ad
     push ax                          ; 0x67b0

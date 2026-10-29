@@ -13,7 +13,7 @@ show_area_set:
     push ax
     mov ax, 0x73
     push ax
-    call gfx_show_area
+    call call_show_area
     add sp, byte 8
     mov ax, 0xc2
     push ax
@@ -23,7 +23,7 @@ show_area_set:
     push ax
     mov ax, 8
     push ax
-    call gfx_show_area
+    call call_show_area
     add sp, byte 8
     mov ax, 0xc2
     push ax
@@ -33,7 +33,7 @@ show_area_set:
     push ax
     mov ax, 0xe7
     push ax
-    call gfx_show_area
+    call call_show_area
     add sp, byte 8
     jmp short .return1
 .back2:
@@ -45,7 +45,7 @@ show_area_set:
     push ax
     mov ax, 0x62
     push ax
-    call gfx_show_area
+    call call_show_area
     add sp, byte 8
     jmp short .return1
 .back3:
@@ -57,7 +57,7 @@ show_area_set:
     push ax
     mov ax, 0x73
     push ax
-    call gfx_show_area
+    call call_show_area
     add sp, byte 8
     jmp short .return1
 .back4:
@@ -69,7 +69,7 @@ show_area_set:
     push ax
     mov ax, 8
     push ax
-    call gfx_show_area
+    call call_show_area
     add sp, byte 8
     jmp short .return1
 .forward1:

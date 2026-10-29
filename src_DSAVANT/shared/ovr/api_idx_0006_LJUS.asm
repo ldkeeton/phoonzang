@@ -13,7 +13,7 @@ api_idx_0006_LJUS:
     push ax
     mov ax, 0x48
     push ax
-    call gfx_show_area
+    call call_show_area
     add sp, byte 8
     jmp near .forward9
 .back2:
@@ -54,7 +54,7 @@ api_idx_0006_LJUS:
     mov bx, ax
     push word [bx + screen_cache_0_seg]
     push word [bx + screen_cache]
-    call gfx_restore_screen
+    call call_restore_screen
     add sp, byte 8
     mov word [bp - 2], 0
 .back3:

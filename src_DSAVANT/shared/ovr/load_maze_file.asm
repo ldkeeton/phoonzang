@@ -24,7 +24,7 @@ load_maze_file:
     push ax
     push word [bp + 6]
     push word [bp - 2]
-    call gfx_load_maze
+    call call_load_maze
     add sp, byte 6
     push word [bp - 2]
     call aztec_close

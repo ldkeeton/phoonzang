@@ -101,7 +101,7 @@ load_score_files:
     push word [bp - 0xa8]            ; 0x2b16
     push word [bp - 4]               ; 0x2b1a
     push word [bp - 2]               ; 0x2b1d
-    call gfx_load_score              ; 0x2b20
+    call call_load_score             ; 0x2b20
     add sp, byte 8                   ; 0x2b23
     mov word [bp - 0xa6], ax         ; 0x2b26
     cmp word [bp - 0xa6], byte 0     ; 0x2b2a

@@ -15,7 +15,7 @@ api_idx_0002_JLUK:
     push ax                          ; 0x6824
     push word [bss_8d08]             ; 0x6825
     push word [bss_8d06]             ; 0x6829
-    call gfx_restore_area            ; 0x682d
+    call call_restore_area           ; 0x682d
     add sp, byte 6                   ; 0x6830
     mov word [bp - 2], 0             ; 0x6833
 .back1:
@@ -27,7 +27,7 @@ api_idx_0002_JLUK:
     mov bx, ax                       ; 0x6843
     push word [bx + panel_area + 0x2] ; 0x6845
     push word [bx + panel_area]      ; 0x6849
-    call gfx_restore_area            ; 0x684d
+    call call_restore_area           ; 0x684d
     add sp, byte 6                   ; 0x6850
     inc word [bp - 2]                ; 0x6853
     mov ax, word [bp - 2]            ; 0x6856
@@ -43,7 +43,7 @@ api_idx_0002_JLUK:
     mov bx, ax                       ; 0x686e
     push word [bx + party_status_areas + 0x2] ; 0x6870
     push word [bx + party_status_areas] ; 0x6874
-    call gfx_restore_area            ; 0x6878
+    call call_restore_area           ; 0x6878
     add sp, byte 6                   ; 0x687b
     inc word [bp - 2]                ; 0x687e
     mov ax, word [bp - 2]            ; 0x6881

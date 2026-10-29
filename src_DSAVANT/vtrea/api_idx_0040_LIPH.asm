@@ -55,7 +55,7 @@ api_idx_0040_LIPH:
     push ax                          ; 0x53c4
     mov ax, 0x36                     ; 0x53c5
     push ax                          ; 0x53c8
-    call gfx_show_area               ; 0x53c9
+    call call_show_area              ; 0x53c9
     add sp, byte 8                   ; 0x53cc
 .forward2:
     call pick_party_member           ; 0x53cf
@@ -183,6 +183,6 @@ api_idx_0040_LIPH:
     push ax                          ; 0x5502
     mov ax, 0x36                     ; 0x5503
     push ax                          ; 0x5506
-    call gfx_show_area               ; 0x5507
+    call call_show_area              ; 0x5507
     add sp, byte 8                   ; 0x550a
     ret                              ; 0x550d

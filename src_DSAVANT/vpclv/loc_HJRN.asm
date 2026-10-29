@@ -20,7 +20,7 @@ loc_HJRN:
     mov ax, 0                        ; 0x21b2
     push ax                          ; 0x21b5
     push ax                          ; 0x21b6
-    call gfx_show_area               ; 0x21b7
+    call call_show_area              ; 0x21b7
     add sp, byte 8                   ; 0x21ba
 .return1:
     ret                              ; 0x21bd

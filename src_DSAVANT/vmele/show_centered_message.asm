@@ -26,12 +26,12 @@ show_centered_message:
     push ax                          ; 0x0342
     mov ax, 0x55                     ; 0x0343
     push ax                          ; 0x0346
-    call gfx_set_text_color          ; 0x0347
+    call call_set_text_color         ; 0x0347
     add sp, byte 4                   ; 0x034a
     mov ax, 0xa4                     ; 0x034d
     push ax                          ; 0x0350
     push word [bp - 2]               ; 0x0351
-    call gfx_set_text_pos            ; 0x0354
+    call call_set_text_pos           ; 0x0354
     add sp, byte 4                   ; 0x0357
     mov ax, 2                        ; 0x035a
     push ax                          ; 0x035d
@@ -49,7 +49,7 @@ show_centered_message:
     mov ax, 0xa4                     ; 0x037b
     push ax                          ; 0x037e
     push word [bp - 2]               ; 0x037f
-    call gfx_show_area               ; 0x0382
+    call call_show_area              ; 0x0382
     add sp, byte 8                   ; 0x0385
     mov ax, 0x10                     ; 0x0388
     push ax                          ; 0x038b

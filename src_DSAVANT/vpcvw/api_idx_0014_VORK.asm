@@ -71,7 +71,7 @@ api_idx_0014_VORK:
     mov ax, 0                        ; 0x6212
     push ax                          ; 0x6215
     push ax                          ; 0x6216
-    call gfx_cache_area              ; 0x6217
+    call call_cache_area             ; 0x6217
     add sp, byte 0xc                 ; 0x621a
     mov word [bp - 0x12], dx         ; 0x621d
     mov word [bp - 0x14], ax         ; 0x6220
@@ -92,7 +92,7 @@ api_idx_0014_VORK:
     mov ax, 6                        ; 0x6241
     push ax                          ; 0x6244
     push ax                          ; 0x6245
-    call gfx_cache_area              ; 0x6246
+    call call_cache_area             ; 0x6246
     add sp, byte 0xc                 ; 0x6249
     mov word [bss_93f0], dx          ; 0x624c
     mov word [bss_93ee], ax          ; 0x6250
@@ -108,7 +108,7 @@ api_idx_0014_VORK:
     push ax                          ; 0x6266
     mov ax, 0xe4                     ; 0x6267
     push ax                          ; 0x626a
-    call gfx_cache_area              ; 0x626b
+    call call_cache_area             ; 0x626b
     add sp, byte 0xc                 ; 0x626e
     mov word [bss_93f4], dx          ; 0x6271
     mov word [bss_93f2], ax          ; 0x6275
@@ -124,7 +124,7 @@ api_idx_0014_VORK:
     push ax                          ; 0x628b
     mov ax, 1                        ; 0x628c
     push ax                          ; 0x628f
-    call gfx_cache_area              ; 0x6290
+    call call_cache_area             ; 0x6290
     add sp, byte 0xc                 ; 0x6293
     mov word [roster_screen_a], dx   ; 0x6296
     mov word [roster_screen_b], ax   ; 0x629a
@@ -140,7 +140,7 @@ api_idx_0014_VORK:
     push ax                          ; 0x62b0
     mov ax, 0xdc                     ; 0x62b1
     push ax                          ; 0x62b4
-    call gfx_cache_area              ; 0x62b5
+    call call_cache_area             ; 0x62b5
     add sp, byte 0xc                 ; 0x62b8
     mov word [bss_93fc], dx          ; 0x62bb
     mov word [bss_93fa], ax          ; 0x62bf
@@ -156,7 +156,7 @@ api_idx_0014_VORK:
     push ax                          ; 0x62d5
     mov ax, 0x114                    ; 0x62d6
     push ax                          ; 0x62d9
-    call gfx_cache_area              ; 0x62da
+    call call_cache_area             ; 0x62da
     add sp, byte 0xc                 ; 0x62dd
     mov word [bss_9400], dx          ; 0x62e0
     mov word [bss_93fe], ax          ; 0x62e4
@@ -172,7 +172,7 @@ api_idx_0014_VORK:
     push ax                          ; 0x62fa
     mov ax, 0xb8                     ; 0x62fb
     push ax                          ; 0x62fe
-    call gfx_cache_area              ; 0x62ff
+    call call_cache_area             ; 0x62ff
     add sp, byte 0xc                 ; 0x6302
     mov word [bss_9404], dx          ; 0x6305
     mov word [bss_9402], ax          ; 0x6309
@@ -188,7 +188,7 @@ api_idx_0014_VORK:
     push ax                          ; 0x631f
     mov ax, 0x5a                     ; 0x6320
     push ax                          ; 0x6323
-    call gfx_cache_area              ; 0x6324
+    call call_cache_area             ; 0x6324
     add sp, byte 0xc                 ; 0x6327
     mov word [bss_940c], dx          ; 0x632a
     mov word [saved_screen], ax      ; 0x632e
@@ -761,7 +761,7 @@ api_idx_0014_VORK.forward15:
     add sp, byte 4                   ; 0x681f
     mov ax, 0                        ; 0x6822
     push ax                          ; 0x6825
-    call app_gfx_free_score          ; 0x6826
+    call free_loaded_score           ; 0x6826
     pop cx                           ; 0x6829
 api_idx_0014_VORK.forward16:
     mov ax, 0xf                      ; 0x682a
@@ -774,7 +774,7 @@ api_idx_0014_VORK.forward16:
     push ax                          ; 0x6839
     push word [bss_940c]             ; 0x683a
     push word [saved_screen]         ; 0x683e
-    call gfx_restore_screen          ; 0x6842
+    call call_restore_screen         ; 0x6842
     add sp, byte 8                   ; 0x6845
     mov ax, 0                        ; 0x6848
     push ax                          ; 0x684b
@@ -782,7 +782,7 @@ api_idx_0014_VORK.forward16:
     push ax                          ; 0x684f
     push word [bss_9404]             ; 0x6850
     push word [bss_9402]             ; 0x6854
-    call gfx_restore_screen          ; 0x6858
+    call call_restore_screen         ; 0x6858
     add sp, byte 8                   ; 0x685b
     mov ax, 0                        ; 0x685e
     push ax                          ; 0x6861
@@ -790,7 +790,7 @@ api_idx_0014_VORK.forward16:
     push ax                          ; 0x6865
     push word [bss_9400]             ; 0x6866
     push word [bss_93fe]             ; 0x686a
-    call gfx_restore_screen          ; 0x686e
+    call call_restore_screen         ; 0x686e
     add sp, byte 8                   ; 0x6871
     mov ax, 0                        ; 0x6874
     push ax                          ; 0x6877
@@ -798,7 +798,7 @@ api_idx_0014_VORK.forward16:
     push ax                          ; 0x687b
     push word [bss_93fc]             ; 0x687c
     push word [bss_93fa]             ; 0x6880
-    call gfx_restore_screen          ; 0x6884
+    call call_restore_screen         ; 0x6884
     add sp, byte 8                   ; 0x6887
     mov ax, 0                        ; 0x688a
     push ax                          ; 0x688d
@@ -806,7 +806,7 @@ api_idx_0014_VORK.forward16:
     push ax                          ; 0x6891
     push word [roster_screen_a]      ; 0x6892
     push word [roster_screen_b]      ; 0x6896
-    call gfx_restore_screen          ; 0x689a
+    call call_restore_screen         ; 0x689a
     add sp, byte 8                   ; 0x689d
     mov ax, 0                        ; 0x68a0
     push ax                          ; 0x68a3
@@ -814,7 +814,7 @@ api_idx_0014_VORK.forward16:
     push ax                          ; 0x68a7
     push word [bss_93f4]             ; 0x68a8
     push word [bss_93f2]             ; 0x68ac
-    call gfx_restore_screen          ; 0x68b0
+    call call_restore_screen         ; 0x68b0
     add sp, byte 8                   ; 0x68b3
     mov ax, 0                        ; 0x68b6
     push ax                          ; 0x68b9
@@ -822,7 +822,7 @@ api_idx_0014_VORK.forward16:
     push ax                          ; 0x68bd
     push word [bss_93f0]             ; 0x68be
     push word [bss_93ee]             ; 0x68c2
-    call gfx_restore_screen          ; 0x68c6
+    call call_restore_screen         ; 0x68c6
     add sp, byte 8                   ; 0x68c9
     mov ax, 0                        ; 0x68cc
     push ax                          ; 0x68cf
@@ -830,7 +830,7 @@ api_idx_0014_VORK.forward16:
     push ax                          ; 0x68d3
     push word [bp - 0x12]            ; 0x68d4
     push word [bp - 0x14]            ; 0x68d7
-    call gfx_restore_screen          ; 0x68da
+    call call_restore_screen         ; 0x68da
     add sp, byte 8                   ; 0x68dd
     call draw_party_glyph_row        ; 0x68e0
     cmp word [party_return_state], byte 0xd ; 0x68e3
@@ -897,6 +897,6 @@ api_idx_0014_VORK.forward19:
     mov ax, 0                        ; 0x696b
     push ax                          ; 0x696e
     push ax                          ; 0x696f
-    call gfx_show_area               ; 0x6970
+    call call_show_area              ; 0x6970
     add sp, byte 8                   ; 0x6973
     ret                              ; 0x6976

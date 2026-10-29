@@ -25,7 +25,7 @@ draw_spell_cost:
     push ax
     push word [bp + 6]
     push word [bp + 4]
-    call gfx_fill_area
+    call call_fill_area
     add sp, byte 0xa
     mov ax, word [bp + 6]
     inc ax
@@ -34,7 +34,7 @@ draw_spell_cost:
     inc ax
     inc ax
     push ax
-    call gfx_set_text_pos
+    call call_set_text_pos
     add sp, byte 4
     cmp word [bp + 0xa], byte 0
     jle short .forward1
@@ -45,7 +45,7 @@ draw_spell_cost:
     push ax
     mov ax, 1
     push ax
-    call gfx_set_text_color
+    call call_set_text_color
     add sp, byte 4
     mov ax, 0
     push ax
@@ -59,7 +59,7 @@ draw_spell_cost:
     mov ax, 0
     push ax
     push ax
-    call gfx_set_text_color
+    call call_set_text_color
     add sp, byte 4
     mov ax, 0
     push ax

@@ -51,7 +51,7 @@ claim_cell:
     push ax                          ; 0x8a88
     mov ax, 0                        ; 0x8a89
     push ax                          ; 0x8a8c
-    call gfx_show_area               ; 0x8a8d
+    call call_show_area              ; 0x8a8d
     add sp, byte 8                   ; 0x8a90
     push word [party_cell_y]         ; 0x8a93
     push word [party_cell_x]         ; 0x8a97

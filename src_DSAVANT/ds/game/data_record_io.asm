@@ -52,7 +52,7 @@ data_record_io.forward1:
 jumptable_08d4_case_4:
     mov ax, 0                        ; 0x08f2
     push ax                          ; 0x08f5
-    call gfx_wait_sound              ; 0x08f6
+    call call_wait_sound             ; 0x08f6
     pop cx                           ; 0x08f9
     mov ax, 0                        ; 0x08fa
     push ax                          ; 0x08fd

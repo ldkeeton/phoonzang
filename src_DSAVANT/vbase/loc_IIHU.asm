@@ -28,7 +28,7 @@ loc_IIHU:
     push ax                          ; 0x4762
     push word [bp + 8]               ; 0x4763
     push word [bp + 6]               ; 0x4766
-    call gfx_fill_area               ; 0x4769
+    call call_fill_area              ; 0x4769
     add sp, byte 0xa                 ; 0x476c
     mov ax, word [bp + 8]            ; 0x476f
     inc ax                           ; 0x4772
@@ -37,13 +37,13 @@ loc_IIHU:
     inc ax                           ; 0x4777
     inc ax                           ; 0x4778
     push ax                          ; 0x4779
-    call gfx_set_text_pos            ; 0x477a
+    call call_set_text_pos           ; 0x477a
     add sp, byte 4                   ; 0x477d
     mov ax, 1                        ; 0x4780
     push ax                          ; 0x4783
     mov ax, 0                        ; 0x4784
     push ax                          ; 0x4787
-    call gfx_set_text_color          ; 0x4788
+    call call_set_text_color         ; 0x4788
     add sp, byte 4                   ; 0x478b
     mov ax, 0                        ; 0x478e
     push ax                          ; 0x4791
@@ -61,6 +61,6 @@ loc_IIHU:
     push ax                          ; 0x47ad
     push word [bp + 8]               ; 0x47ae
     push word [bp + 6]               ; 0x47b1
-    call gfx_show_area               ; 0x47b4
+    call call_show_area              ; 0x47b4
     add sp, byte 8                   ; 0x47b7
     ret                              ; 0x47ba

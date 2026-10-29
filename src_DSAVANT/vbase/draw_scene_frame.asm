@@ -10,7 +10,7 @@ jumptable_85d0_case_1:
     push ax                          ; 0x7425
     push word [scene_backdrop_ref_hi] ; 0x7426
     push word [scene_backdrop_ref]   ; 0x742a
-    call gfx_restore_screen          ; 0x742e
+    call call_restore_screen         ; 0x742e
     add sp, byte 8                   ; 0x7431
     mov ax, word [scene_cue_d]       ; 0x7434
     cmp ax, word [scene_tick]        ; 0x7437
@@ -550,7 +550,7 @@ jumptable_85d0_case_3:
     push ax                          ; 0x790a
     push word [scene_backdrop_ref_hi] ; 0x790b
     push word [scene_backdrop_ref]   ; 0x790f
-    call gfx_restore_screen          ; 0x7913
+    call call_restore_screen         ; 0x7913
     add sp, byte 8                   ; 0x7916
     mov word [bp - 2], 0             ; 0x7919
 draw_scene_frame.back3:
@@ -921,7 +921,7 @@ jumptable_85d0_case_4:
     push ax                          ; 0x7c8b
     push word [scene_backdrop_ref_hi] ; 0x7c8c
     push word [scene_backdrop_ref]   ; 0x7c90
-    call gfx_restore_screen          ; 0x7c94
+    call call_restore_screen         ; 0x7c94
     add sp, byte 8                   ; 0x7c97
     mov ax, 0x12                     ; 0x7c9a
     push ax                          ; 0x7c9d
@@ -994,7 +994,7 @@ jumptable_85d0_case_5:
     push ax                          ; 0x7d4f
     push word [scene_backdrop_ref_hi] ; 0x7d50
     push word [scene_backdrop_ref]   ; 0x7d54
-    call gfx_restore_screen          ; 0x7d58
+    call call_restore_screen         ; 0x7d58
     add sp, byte 8                   ; 0x7d5b
     mov ax, 0                        ; 0x7d5e
     push ax                          ; 0x7d61
@@ -1193,7 +1193,7 @@ jumptable_85d0_case_6:
     push ax                          ; 0x7f4b
     push word [scene_backdrop_ref_hi] ; 0x7f4c
     push word [scene_backdrop_ref]   ; 0x7f50
-    call gfx_restore_screen          ; 0x7f54
+    call call_restore_screen         ; 0x7f54
     add sp, byte 8                   ; 0x7f57
     mov ax, word [scene_cue_a]       ; 0x7f5a
     cmp ax, word [scene_tick]        ; 0x7f5d
@@ -1347,7 +1347,7 @@ jumptable_85d0_case_7:
     push ax                          ; 0x80ac
     push word [scene_backdrop_ref_hi] ; 0x80ad
     push word [scene_backdrop_ref]   ; 0x80b1
-    call gfx_restore_screen          ; 0x80b5
+    call call_restore_screen         ; 0x80b5
     add sp, byte 8                   ; 0x80b8
     mov ax, 3                        ; 0x80bb
     push ax                          ; 0x80be
@@ -1677,7 +1677,7 @@ jumptable_85d0_case_8:
     push ax                          ; 0x8391
     push word [scene_backdrop_ref_hi] ; 0x8392
     push word [scene_backdrop_ref]   ; 0x8396
-    call gfx_restore_screen          ; 0x839a
+    call call_restore_screen         ; 0x839a
     add sp, byte 8                   ; 0x839d
     mov ax, word [scene_cue_b]       ; 0x83a0
     cmp ax, word [scene_tick]        ; 0x83a3

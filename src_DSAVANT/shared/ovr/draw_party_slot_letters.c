@@ -16,7 +16,7 @@ int x, y, row;
 		buf[0] = party_slot_glyphs[20 * i + party_slot_frame[i] * 2];
 		buf[1] = 0;
 		/* clip to the full 320x200 screen (0..0x13f, 0..0xc7) */
-		gfx_draw_text(2, party_slot_x[row][i] + x,
+		call_draw_text(2, party_slot_x[row][i] + x,
 			party_slot_y[row][i] + y,
 			0, 319, 0, 199, 0, buf, 0, 0);
 	}

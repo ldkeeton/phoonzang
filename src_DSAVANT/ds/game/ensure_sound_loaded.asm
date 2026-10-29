@@ -7,7 +7,7 @@ ensure_sound_loaded:
     je short .return1                ; 0x29fd
     mov ax, 1                        ; 0x29ff
     push ax                          ; 0x2a02
-    call gfx_wait_sound              ; 0x2a03
+    call call_wait_sound             ; 0x2a03
     pop cx                           ; 0x2a06
     cmp word [loaded_sound_id], byte -1 ; 0x2a07
     je short .forward1               ; 0x2a0c

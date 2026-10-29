@@ -7,14 +7,14 @@ free_current_maze:
     jmp near jumptable_14a2_case_0   ; 0x1399
 .forward1:
     push word [current_maze]         ; 0x139c
-    call gfx_free_maze               ; 0x13a0
+    call call_free_maze              ; 0x13a0
     pop cx                           ; 0x13a3
     mov ax, word [maze_variant]      ; 0x13a4
     jmp near .forward2               ; 0x13a7
 jumptable_14a2_case_1:
     mov ax, 5                        ; 0x13aa
     push ax                          ; 0x13ad
-    call gfx_free_maze               ; 0x13ae
+    call call_free_maze              ; 0x13ae
     pop cx                           ; 0x13b1
     mov ax, 5                        ; 0x13b2
     push ax                          ; 0x13b5
@@ -36,11 +36,11 @@ jumptable_14a2_case_1:
 jumptable_14a2_case_2:
     mov ax, 4                        ; 0x13d5
     push ax                          ; 0x13d8
-    call gfx_free_maze               ; 0x13d9
+    call call_free_maze              ; 0x13d9
     pop cx                           ; 0x13dc
     mov ax, 6                        ; 0x13dd
     push ax                          ; 0x13e0
-    call gfx_free_maze               ; 0x13e1
+    call call_free_maze              ; 0x13e1
     pop cx                           ; 0x13e4
     mov ax, 0xd                      ; 0x13e5
     push ax                          ; 0x13e8
@@ -50,15 +50,15 @@ jumptable_14a2_case_2:
 jumptable_14a2_case_3:
     mov ax, 4                        ; 0x13f0
     push ax                          ; 0x13f3
-    call gfx_free_maze               ; 0x13f4
+    call call_free_maze              ; 0x13f4
     pop cx                           ; 0x13f7
     mov ax, 5                        ; 0x13f8
     push ax                          ; 0x13fb
-    call gfx_free_maze               ; 0x13fc
+    call call_free_maze              ; 0x13fc
     pop cx                           ; 0x13ff
     mov ax, 6                        ; 0x1400
     push ax                          ; 0x1403
-    call gfx_free_maze               ; 0x1404
+    call call_free_maze              ; 0x1404
     pop cx                           ; 0x1407
     mov ax, 5                        ; 0x1408
     push ax                          ; 0x140b
@@ -80,7 +80,7 @@ jumptable_14a2_case_3:
 jumptable_14a2_case_4:
     mov ax, 4                        ; 0x142b
     push ax                          ; 0x142e
-    call gfx_free_maze               ; 0x142f
+    call call_free_maze              ; 0x142f
     pop cx                           ; 0x1432
     mov ax, 0xd                      ; 0x1433
     push ax                          ; 0x1436
@@ -90,11 +90,11 @@ jumptable_14a2_case_4:
 jumptable_14a2_case_5:
     mov ax, 4                        ; 0x143e
     push ax                          ; 0x1441
-    call gfx_free_maze               ; 0x1442
+    call call_free_maze              ; 0x1442
     pop cx                           ; 0x1445
     mov ax, 5                        ; 0x1446
     push ax                          ; 0x1449
-    call gfx_free_maze               ; 0x144a
+    call call_free_maze              ; 0x144a
     pop cx                           ; 0x144d
     mov ax, 0xa                      ; 0x144e
     push ax                          ; 0x1451
@@ -120,11 +120,11 @@ jumptable_14a2_case_5:
 jumptable_14a2_case_6:
     mov ax, 4                        ; 0x1478
     push ax                          ; 0x147b
-    call gfx_free_maze               ; 0x147c
+    call call_free_maze              ; 0x147c
     pop cx                           ; 0x147f
     mov ax, 5                        ; 0x1480
     push ax                          ; 0x1483
-    call gfx_free_maze               ; 0x1484
+    call call_free_maze              ; 0x1484
     pop cx                           ; 0x1487
     mov ax, 0xc                      ; 0x1488
     push ax                          ; 0x148b

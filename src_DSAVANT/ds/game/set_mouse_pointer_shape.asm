@@ -24,7 +24,7 @@ set_mouse_pointer_shape:
     add ax, strict word 2            ; 0x0b2b
     push dx                          ; 0x0b2e
     push ax                          ; 0x0b2f
-    call gfx_set_mouse_pointer       ; 0x0b30
+    call call_set_mouse_pointer      ; 0x0b30
     add sp, byte 0xc                 ; 0x0b33
     jmp short .forward3              ; 0x0b36
 .forward2:
@@ -38,7 +38,7 @@ set_mouse_pointer_shape:
     mov dx, 0                        ; 0x0b45
     push dx                          ; 0x0b48
     push ax                          ; 0x0b49
-    call gfx_set_mouse_pointer       ; 0x0b4a
+    call call_set_mouse_pointer      ; 0x0b4a
     add sp, byte 0xc                 ; 0x0b4d
 .forward3:
     call flush_keyboard              ; 0x0b50

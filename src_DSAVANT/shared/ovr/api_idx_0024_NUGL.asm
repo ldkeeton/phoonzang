@@ -176,6 +176,6 @@ api_idx_0024_NUGL:
     push ax
     mov ax, 6
     push ax
-    call gfx_draw_text
+    call call_draw_text
     add sp, byte 0x16
     ret

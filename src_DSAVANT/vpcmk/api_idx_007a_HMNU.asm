@@ -52,13 +52,13 @@ api_idx_007a_HMNU:
     push ax                          ; 0x450c
     mov ax, 1                        ; 0x450d
     push ax                          ; 0x4510
-    call gfx_set_text_color          ; 0x4511
+    call call_set_text_color         ; 0x4511
     add sp, byte 4                   ; 0x4514
     mov ax, 6                        ; 0x4517
     push ax                          ; 0x451a
     mov ax, 0x5a                     ; 0x451b
     push ax                          ; 0x451e
-    call gfx_set_text_pos            ; 0x451f
+    call call_set_text_pos           ; 0x451f
     add sp, byte 4                   ; 0x4522
     lea ax, word [bp - 0x52]         ; 0x4525
     push ax                          ; 0x4528

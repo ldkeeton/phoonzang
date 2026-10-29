@@ -394,7 +394,7 @@ api_idx_0038_ULQM:
     mov ax, word [bp - 4]            ; 0x3ded
     dec ax                           ; 0x3df0
     push ax                          ; 0x3df1
-    call gfx_show_area               ; 0x3df2
+    call call_show_area              ; 0x3df2
     add sp, byte 8                   ; 0x3df5
     mov word [bp - 0x1a], 1          ; 0x3df8
     mov word [party_redraw_interval], 5 ; 0x3dfd
@@ -450,7 +450,7 @@ jumptable_4213_case_0:
     push ax                          ; 0x3e74
     lea ax, word [bp - 0xc]          ; 0x3e75
     push ax                          ; 0x3e78
-    call gfx_get_mouse               ; 0x3e79
+    call call_get_mouse              ; 0x3e79
     add sp, byte 4                   ; 0x3e7c
     mov ax, 4                        ; 0x3e7f
     push ax                          ; 0x3e82
@@ -470,7 +470,7 @@ api_idx_0038_ULQM.back3:
     push ax                          ; 0x3ea2
     lea ax, word [bp - 0xc]          ; 0x3ea3
     push ax                          ; 0x3ea6
-    call gfx_get_mouse               ; 0x3ea7
+    call call_get_mouse              ; 0x3ea7
     add sp, byte 4                   ; 0x3eaa
     mov word [bp - 0x1c], ax         ; 0x3ead
     push word [bp - 0x12]            ; 0x3eb0
@@ -565,7 +565,7 @@ api_idx_0038_ULQM.forward15:
     mov ax, word [bp - 4]            ; 0x3f7e
     add ax, strict word 0x5d         ; 0x3f81
     push ax                          ; 0x3f84
-    call gfx_show_area               ; 0x3f85
+    call call_show_area              ; 0x3f85
     add sp, byte 8                   ; 0x3f88
     cmp word [bp - 0x1c], byte 0     ; 0x3f8b
     je short api_idx_0038_ULQM.forward16 ; 0x3f8f
@@ -705,7 +705,7 @@ api_idx_0038_ULQM.forward20:
     mov ax, word [bp - 4]            ; 0x40be
     add ax, strict word 0x5d         ; 0x40c1
     push ax                          ; 0x40c4
-    call gfx_show_area               ; 0x40c5
+    call call_show_area              ; 0x40c5
     add sp, byte 8                   ; 0x40c8
     jmp near api_idx_0038_ULQM.forward26 ; 0x40cb
 jumptable_4213_case_3:
@@ -842,7 +842,7 @@ api_idx_0038_ULQM.back4:
     mov ax, word [bp - 4]            ; 0x4204
     add ax, strict word 0x5d         ; 0x4207
     push ax                          ; 0x420a
-    call gfx_show_area               ; 0x420b
+    call call_show_area              ; 0x420b
     add sp, byte 8                   ; 0x420e
     jmp short api_idx_0038_ULQM.forward26 ; 0x4211
 jumptable_4213:

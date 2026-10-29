@@ -34,7 +34,7 @@ draw_animated_glyph_pair:
     push ax                          ; 0x0782
     mov ax, 3                        ; 0x0783
     push ax                          ; 0x0786
-    call gfx_draw_text               ; 0x0787
+    call call_draw_text              ; 0x0787
     add sp, byte 0x16                ; 0x078a
     mov byte [bp - 0xa], 1           ; 0x078d
     mov ax, word [animation_frame]   ; 0x0791
@@ -71,6 +71,6 @@ draw_animated_glyph_pair:
     push ax                          ; 0x07d2
     mov ax, 0xf                      ; 0x07d3
     push ax                          ; 0x07d6
-    call gfx_draw_text               ; 0x07d7
+    call call_draw_text              ; 0x07d7
     add sp, byte 0x16                ; 0x07da
     ret                              ; 0x07dd

@@ -57,7 +57,7 @@ draw_power_bar:
     sub ax, word [bp - 2]            ; 0x1d73
     push ax                          ; 0x1d76
     push word [bp + 4]               ; 0x1d77
-    call gfx_fill_area               ; 0x1d7a
+    call call_fill_area              ; 0x1d7a
     add sp, byte 0xa                 ; 0x1d7d
 .return1:
     ret                              ; 0x1d80

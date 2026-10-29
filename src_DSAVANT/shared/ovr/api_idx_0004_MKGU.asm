@@ -37,7 +37,7 @@ api_idx_0004_MKGU:
     mov word [bp - 4], ax
     push ax
     push word [bp - 2]
-    call gfx_set_text_pos
+    call call_set_text_pos
     add sp, byte 4
     mov ax, 4
     push ax
@@ -67,13 +67,13 @@ api_idx_0004_MKGU:
     mov ax, word [bp - 2]
     add ax, strict word 0x38
     push ax
-    call gfx_set_text_pos
+    call call_set_text_pos
     add sp, byte 4
     mov ax, 0
     push ax
     mov ax, 2
     push ax
-    call gfx_set_text_color
+    call call_set_text_color
     add sp, byte 4
     mov ax, 0
     push ax

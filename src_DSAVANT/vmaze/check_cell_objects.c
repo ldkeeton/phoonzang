@@ -27,7 +27,7 @@ int announce;
 		show_message(MSG_SEARCHING);
 		wait_ticks_or_key(message_delay);
 	}
-	gfx_show_area(0, 146, 319, 152);	/* message strip */
+	call_show_area(0, 146, 319, 152);	/* message strip */
 	obj = maze_tables->map_first[party_map_piece];
 	for (;;) {	/* each object at the party's x, y, map piece */
 		obj = find_object_at(party_cell_x, party_cell_y, party_map_piece, obj);
@@ -52,12 +52,12 @@ int announce;
 	if (shown == 2) {
 		show_message(MSG_SEARCHING);
 		wait_ticks_or_key(message_delay);
-		gfx_show_area(0, 146, 319, 152);
+		call_show_area(0, 146, 319, 152);
 	}
 	if (shown) {
 		show_message(MSG_NOTHING_2045);
 		play_sound_effect(0);
 		wait_ticks_or_key(message_delay / 2);	/* half the usual delay */
 	}
-	gfx_show_area(0, 146, 319, 152);
+	call_show_area(0, 146, 319, 152);
 }

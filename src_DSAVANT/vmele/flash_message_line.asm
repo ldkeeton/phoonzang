@@ -14,7 +14,7 @@ flash_message_line:
     push ax                          ; 0x0181
     mov ax, 0                        ; 0x0182
     push ax                          ; 0x0185
-    call gfx_show_area               ; 0x0186
+    call call_show_area              ; 0x0186
     add sp, byte 8                   ; 0x0189
     push word [bp + 4]               ; 0x018c
     call aztec_strlen                ; 0x018f
@@ -47,7 +47,7 @@ flash_message_line:
     add ax, 0x92                     ; 0x01cf
     push ax                          ; 0x01d2
     push word [bp - 2]               ; 0x01d3
-    call gfx_save_area               ; 0x01d6
+    call call_save_area              ; 0x01d6
     add sp, byte 8                   ; 0x01d9
     mov word [bp - 6], dx            ; 0x01dc
     mov word [bp - 8], ax            ; 0x01df
@@ -55,14 +55,14 @@ flash_message_line:
     push ax                          ; 0x01e5
     mov ax, 0x16                     ; 0x01e6
     push ax                          ; 0x01e9
-    call gfx_set_text_color          ; 0x01ea
+    call call_set_text_color         ; 0x01ea
     add sp, byte 4                   ; 0x01ed
     mov ax, 6                        ; 0x01f0
     imul word [bp + 6]               ; 0x01f3
     add ax, 0x92                     ; 0x01f6
     push ax                          ; 0x01f9
     push word [bp - 2]               ; 0x01fa
-    call gfx_set_text_pos            ; 0x01fd
+    call call_set_text_pos           ; 0x01fd
     add sp, byte 4                   ; 0x0200
     mov ax, 0                        ; 0x0203
     push ax                          ; 0x0206
@@ -79,13 +79,13 @@ flash_message_line:
     add ax, 0x92                     ; 0x0223
     push ax                          ; 0x0226
     push word [bp - 2]               ; 0x0227
-    call gfx_show_area               ; 0x022a
+    call call_show_area              ; 0x022a
     add sp, byte 8                   ; 0x022d
     mov ax, 1                        ; 0x0230
     push ax                          ; 0x0233
     push word [bp - 6]               ; 0x0234
     push word [bp - 8]               ; 0x0237
-    call gfx_restore_area            ; 0x023a
+    call call_restore_area           ; 0x023a
     add sp, byte 6                   ; 0x023d
     call flush_keyboard              ; 0x0240
     ret                              ; 0x0243

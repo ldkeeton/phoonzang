@@ -232,7 +232,7 @@ api_idx_00ac_MSQO.forward12:
     mov ax, 6                        ; 0x47e2
     push ax                          ; 0x47e5
     push ax                          ; 0x47e6
-    call gfx_show_area               ; 0x47e7
+    call call_show_area              ; 0x47e7
     add sp, byte 8                   ; 0x47ea
     mov ax, 1                        ; 0x47ed
     push ax                          ; 0x47f0
@@ -296,6 +296,6 @@ api_idx_00ac_MSQO.forward13:
     mov ax, 6                        ; 0x4878
     push ax                          ; 0x487b
     push ax                          ; 0x487c
-    call gfx_show_area               ; 0x487d
+    call call_show_area              ; 0x487d
     add sp, byte 8                   ; 0x4880
     ret                              ; 0x4883

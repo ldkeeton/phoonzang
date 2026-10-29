@@ -32,6 +32,6 @@ draw_grid_cell_char:
     push ax                          ; 0x0fc7
     mov ax, 0xf                      ; 0x0fc8
     push ax                          ; 0x0fcb
-    call gfx_draw_text               ; 0x0fcc
+    call call_draw_text              ; 0x0fcc
     add sp, byte 0x16                ; 0x0fcf
     ret                              ; 0x0fd2

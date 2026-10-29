@@ -1,0 +1,9 @@
+; auto-generated
+call_cache_screen_to_storage:
+    push bp                          ; 0x436c
+    mov bp, sp                       ; 0x436d
+    cld                              ; 0x436f
+    call far [cs:drv_slot_cache_screen_to_storage - IMAGE_BASE] ; 0x4370
+    mov sp, bp                       ; 0x4375
+    pop bp                           ; 0x4377
+    ret                              ; 0x4378

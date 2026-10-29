@@ -19,7 +19,7 @@ api_idx_0002_JHTS:
     mov ax, 0                        ; 0x8cc7
     push ax                          ; 0x8cca
     push ax                          ; 0x8ccb
-    call gfx_cache_area              ; 0x8ccc
+    call call_cache_area             ; 0x8ccc
     add sp, byte 0xc                 ; 0x8ccf
     mov word [scene_backdrop_ref_hi], dx ; 0x8cd2
     mov word [scene_backdrop_ref], ax ; 0x8cd6
@@ -52,7 +52,7 @@ api_idx_0002_JHTS:
     push ax                          ; 0x8d31
     push ax                          ; 0x8d32
     push ax                          ; 0x8d33
-    call gfx_reset_rgb               ; 0x8d34
+    call call_reset_rgb              ; 0x8d34
     add sp, byte 6                   ; 0x8d37
     mov ax, 0xc7                     ; 0x8d3a
     push ax                          ; 0x8d3d
@@ -61,11 +61,11 @@ api_idx_0002_JHTS:
     mov ax, 0                        ; 0x8d42
     push ax                          ; 0x8d45
     push ax                          ; 0x8d46
-    call gfx_show_area               ; 0x8d47
+    call call_show_area              ; 0x8d47
     add sp, byte 8                   ; 0x8d4a
     mov ax, 0                        ; 0x8d4d
     push ax                          ; 0x8d50
-    call gfx_fade_in                 ; 0x8d51
+    call call_fade_in                ; 0x8d51
     pop cx                           ; 0x8d54
     mov ax, 0                        ; 0x8d55
     push ax                          ; 0x8d58
@@ -82,7 +82,7 @@ api_idx_0002_JHTS:
     push ax                          ; 0x8d71
     push word [scene_backdrop_ref_hi] ; 0x8d72
     push word [scene_backdrop_ref]   ; 0x8d76
-    call gfx_restore_screen          ; 0x8d7a
+    call call_restore_screen         ; 0x8d7a
     add sp, byte 8                   ; 0x8d7d
     call blank_scene_screen          ; 0x8d80
     ret                              ; 0x8d83

@@ -46,7 +46,7 @@ draw_scrollbar:
     push ax                          ; 0x128e
     mov ax, 0                        ; 0x128f
     push ax                          ; 0x1292
-    call gfx_set_text_color          ; 0x1293
+    call call_set_text_color         ; 0x1293
     add sp, byte 4                   ; 0x1296
     mov ax, word [bp + 6]            ; 0x1299
     inc ax                           ; 0x129c
@@ -55,7 +55,7 @@ draw_scrollbar:
     inc ax                           ; 0x12a1
     inc ax                           ; 0x12a2
     push ax                          ; 0x12a3
-    call gfx_set_text_pos            ; 0x12a4
+    call call_set_text_pos           ; 0x12a4
     add sp, byte 4                   ; 0x12a7
     mov ax, 0                        ; 0x12aa
     push ax                          ; 0x12ad
@@ -72,7 +72,7 @@ draw_scrollbar:
     inc ax                           ; 0x12c8
     inc ax                           ; 0x12c9
     push ax                          ; 0x12ca
-    call gfx_set_text_pos            ; 0x12cb
+    call call_set_text_pos           ; 0x12cb
     add sp, byte 4                   ; 0x12ce
     mov ax, 0                        ; 0x12d1
     push ax                          ; 0x12d4

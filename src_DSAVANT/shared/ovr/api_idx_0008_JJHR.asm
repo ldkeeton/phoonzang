@@ -31,7 +31,7 @@ api_idx_0008_JJHR:
     add ax, word [bp - 2]
     dec ax
     push ax
-    call gfx_save_area
+    call call_save_area
     add sp, byte 8
     mov word [bp - 6], dx
     mov word [bp - 8], ax
@@ -57,7 +57,7 @@ api_idx_0008_JJHR:
     mov ax, 0xc0
     push ax
     push word [bp + 0x14]
-    call gfx_set_text_color
+    call call_set_text_color
     add sp, byte 4
     mov ax, word [bp + 0xa]
     add ax, word [bp - 4]
@@ -79,7 +79,7 @@ api_idx_0008_JJHR:
     add ax, word [bp - 2]
     inc ax
     push ax
-    call gfx_set_text_pos
+    call call_set_text_pos
     add sp, byte 4
     mov ax, 0
     push ax
@@ -104,13 +104,13 @@ api_idx_0008_JJHR:
     add ax, word [bp - 2]
     dec ax
     push ax
-    call gfx_show_area
+    call call_show_area
     add sp, byte 8
     mov ax, 1
     push ax
     push word [bp - 6]
     push word [bp - 8]
-    call gfx_restore_area
+    call call_restore_area
     add sp, byte 6
     ret
 loc_MNNG:
@@ -129,7 +129,7 @@ loc_MNNG:
     mov ax, word [bp + 4]
     dec ax
     push ax
-    call gfx_fill_area
+    call call_fill_area
     add sp, byte 0xa
     push word [bp + 0xc]
     mov ax, word [bp + 0xa]
@@ -144,7 +144,7 @@ loc_MNNG:
     mov ax, word [bp + 8]
     inc ax
     push ax
-    call gfx_fill_area
+    call call_fill_area
     add sp, byte 0xa
     push word [bp + 0xc]
     mov ax, word [bp + 0xa]
@@ -159,7 +159,7 @@ loc_MNNG:
     mov ax, word [bp + 4]
     dec ax
     push ax
-    call gfx_fill_area
+    call call_fill_area
     add sp, byte 0xa
     push word [bp + 0xc]
     mov ax, word [bp + 0xa]
@@ -174,6 +174,6 @@ loc_MNNG:
     mov ax, word [bp + 4]
     dec ax
     push ax
-    call gfx_fill_area
+    call call_fill_area
     add sp, byte 0xa
     ret

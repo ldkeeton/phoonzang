@@ -17,7 +17,7 @@ api_idx_0032_HGIM:
     push ax
     mov ax, 3
     push ax
-    call gfx_save_area
+    call call_save_area
     add sp, byte 8
     mov word [bp - 0x2c], dx
     mov word [bp - 0x2e], ax
@@ -36,7 +36,7 @@ api_idx_0032_HGIM:
     push ax
     mov ax, 1
     push ax
-    call gfx_set_text_color
+    call call_set_text_color
     add sp, byte 4
     mov ax, 6
     imul word [bp - 0xa]
@@ -44,7 +44,7 @@ api_idx_0032_HGIM:
     push ax
     mov ax, 0x7f
     push ax
-    call gfx_set_text_pos
+    call call_set_text_pos
     add sp, byte 4
     mov ax, 0
     push ax
@@ -58,7 +58,7 @@ api_idx_0032_HGIM:
     push ax
     mov ax, 0x97
     push ax
-    call gfx_set_text_pos
+    call call_set_text_pos
     add sp, byte 4
     mov ax, 0
     push ax
@@ -155,7 +155,7 @@ api_idx_0032_HGIM:
     push ax
     push word [bp - 0x2c]
     push word [bp - 0x2e]
-    call gfx_restore_area
+    call call_restore_area
     add sp, byte 6
     mov ax, word [bp - 0xc]
     mov word [bp - 4], ax
@@ -216,7 +216,7 @@ api_idx_0032_HGIM:
     mov ax, 0x1a
 .forward10:
     push ax
-    call gfx_set_text_color
+    call call_set_text_color
     add sp, byte 4
     mov ax, 0xbe
     push ax
@@ -237,7 +237,7 @@ api_idx_0032_HGIM:
     add ax, word [bp - 6]
     inc ax
     push ax
-    call gfx_set_text_pos
+    call call_set_text_pos
     add sp, byte 4
     mov ax, 0
     push ax
@@ -319,7 +319,7 @@ api_idx_0032_HGIM:
     push ax
     mov ax, 1
     push ax
-    call gfx_show_area
+    call call_show_area
     add sp, byte 8
     cmp word [mouse_active], byte 0
     je short .forward14
@@ -362,7 +362,7 @@ api_idx_0032_HGIM:
     push ax
     mov ax, 3
     push ax
-    call gfx_show_area
+    call call_show_area
     add sp, byte 8
     mov ax, 0
     push ax
@@ -569,7 +569,7 @@ api_idx_0032_HGIM:
     push ax
     push word [bp - 0x2c]
     push word [bp - 0x2e]
-    call gfx_restore_area
+    call call_restore_area
     add sp, byte 6
     mov ax, word [bp - 0x2a]
     ret

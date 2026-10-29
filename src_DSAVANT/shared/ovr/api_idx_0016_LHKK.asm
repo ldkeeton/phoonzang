@@ -87,7 +87,7 @@ api_idx_0016_LHKK:
     mov al, byte [bx + 0xc]
     sub ah, ah
     push ax
-    call gfx_draw_text
+    call call_draw_text
     add sp, byte 0x16
     mov bx, word [bp + 4]
     mov al, byte [bx + 0xd]
@@ -164,7 +164,7 @@ api_idx_0016_LHKK:
     mov al, byte [bx + 0xc]
     sub ah, ah
     push ax
-    call gfx_draw_text
+    call call_draw_text
     add sp, byte 0x16
     mov bx, word [bp + 4]
     mov al, byte [bx + 0xd]

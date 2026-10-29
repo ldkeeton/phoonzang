@@ -6,11 +6,11 @@ loc_HIQU:
     push ax                          ; 0x424e
     mov ax, 1                        ; 0x424f
     push ax                          ; 0x4252
-    call gfx_set_text_color          ; 0x4253
+    call call_set_text_color         ; 0x4253
     add sp, byte 4                   ; 0x4256
     push word [bp + 6]               ; 0x4259
     push word [bp + 4]               ; 0x425c
-    call gfx_set_text_pos            ; 0x425f
+    call call_set_text_pos           ; 0x425f
     add sp, byte 4                   ; 0x4262
     mov ax, 0                        ; 0x4265
     push ax                          ; 0x4268
@@ -22,7 +22,7 @@ loc_HIQU:
     mov ax, word [bp + 4]            ; 0x4276
     add ax, word [bp + 8]            ; 0x4279
     push ax                          ; 0x427c
-    call gfx_set_text_pos            ; 0x427d
+    call call_set_text_pos           ; 0x427d
     add sp, byte 4                   ; 0x4280
     mov ax, 0                        ; 0x4283
     push ax                          ; 0x4286

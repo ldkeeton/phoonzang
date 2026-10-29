@@ -62,7 +62,7 @@ play_sound_effect:
     push word [bp - 4]               ; 0x0ac6
     push word [bx + sound_slot_info + sound_slot_info_rec.f_0008] ; 0x0ac9
     push word [bp - 2]               ; 0x0acd
-    call gfx_play_sound              ; 0x0ad0
+    call call_play_sound             ; 0x0ad0
     add sp, byte 8                   ; 0x0ad3
 .return1:
     ret                              ; 0x0ad6

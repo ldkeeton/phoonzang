@@ -4,7 +4,7 @@ load_screen_file:
     call aztec_csav
     mov ax, 0
     push ax
-    call gfx_wait_sound
+    call call_wait_sound
     pop cx
     mov ax, 0
     push ax
@@ -27,7 +27,7 @@ load_screen_file:
     mov ax, 0
     push ax
     push word [bp - 2]
-    call gfx_load_screen
+    call call_load_screen
     add sp, byte 4
     push word [bp - 2]
     call aztec_close
@@ -41,7 +41,7 @@ load_screen_file:
     mov ax, 0
     push ax
     push ax
-    call gfx_show_area
+    call call_show_area
     add sp, byte 8
     jmp short .return1
 .forward2:
@@ -51,7 +51,7 @@ load_screen_file:
     push ax
     push ax
     push ax
-    call gfx_reset_rgb
+    call call_reset_rgb
     add sp, byte 6
     mov ax, 0xc7
     push ax
@@ -60,11 +60,11 @@ load_screen_file:
     mov ax, 0
     push ax
     push ax
-    call gfx_show_area
+    call call_show_area
     add sp, byte 8
     mov ax, 0
     push ax
-    call gfx_fade_in
+    call call_fade_in
     pop cx
 .return1:
     ret

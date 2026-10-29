@@ -4,7 +4,7 @@ load_sound_file:
     call aztec_csav                  ; 0x2926
     mov ax, 0                        ; 0x2929
     push ax                          ; 0x292c
-    call gfx_wait_sound              ; 0x292d
+    call call_wait_sound             ; 0x292d
     pop cx                           ; 0x2930
     mov ax, 0                        ; 0x2931
     push ax                          ; 0x2934
@@ -73,7 +73,7 @@ load_sound_file:
 .forward4:
     push word [bp + 6]               ; 0x29d1
     push word [bp - 4]               ; 0x29d4
-    call gfx_load_sound              ; 0x29d7
+    call call_load_sound             ; 0x29d7
     add sp, byte 4                   ; 0x29da
     test ax, ax                      ; 0x29dd
     je short .forward5               ; 0x29df

@@ -14,7 +14,7 @@ flash_button:
     push ax                          ; 0x10c1
     push word [bp + 6]               ; 0x10c2
     push word [bp + 4]               ; 0x10c5
-    call gfx_invert_area             ; 0x10c8
+    call call_invert_area            ; 0x10c8
     add sp, byte 8                   ; 0x10cb
     mov ax, 6                        ; 0x10ce
     imul word [bp + 0xa]             ; 0x10d1
@@ -28,7 +28,7 @@ flash_button:
     push ax                          ; 0x10e3
     push word [bp + 6]               ; 0x10e4
     push word [bp + 4]               ; 0x10e7
-    call gfx_show_area               ; 0x10ea
+    call call_show_area              ; 0x10ea
     add sp, byte 8                   ; 0x10ed
     cmp word [bp + 0xc], byte 0      ; 0x10f0
     je short .return1                ; 0x10f4

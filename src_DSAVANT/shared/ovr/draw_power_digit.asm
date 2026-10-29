@@ -8,7 +8,7 @@ draw_power_digit:
     add ax, word [bp + 4]
     dec ax
     push ax
-    call gfx_set_text_pos
+    call call_set_text_pos
     add sp, byte 4
     mov ax, 7
     push ax
@@ -27,12 +27,12 @@ draw_power_digit:
     imul word [bp + 8]
     add ax, word [bp + 4]
     push ax
-    call gfx_set_text_pos
+    call call_set_text_pos
     add sp, byte 4
     mov ax, 0
     push ax
     push ax
-    call gfx_set_text_color
+    call call_set_text_color
     add sp, byte 4
     mov ax, 2
     push ax
@@ -56,7 +56,7 @@ draw_power_digit:
     push ax
     push word [bp + 6]
     push ax
-    call gfx_fill_area
+    call call_fill_area
     add sp, byte 0xa
 .return1:
     ret

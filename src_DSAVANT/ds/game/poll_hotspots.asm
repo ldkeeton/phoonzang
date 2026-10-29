@@ -57,7 +57,7 @@ poll_hotspots:
     cmp word [mouse_active], byte 0  ; 0x0bde
     je short .forward6               ; 0x0be3
     push word [bp + 4]               ; 0x0be5
-    call gfx_mouse_hit_test          ; 0x0be8
+    call call_mouse_hit_test         ; 0x0be8
     pop cx                           ; 0x0beb
     mov word [bp - 2], ax            ; 0x0bec
 .forward6:

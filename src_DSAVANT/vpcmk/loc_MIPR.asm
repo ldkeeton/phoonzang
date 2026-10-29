@@ -23,7 +23,7 @@ loc_MIPR:
     mov ax, 0                        ; 0x6331
     push ax                          ; 0x6334
     push ax                          ; 0x6335
-    call gfx_set_text_color          ; 0x6336
+    call call_set_text_color         ; 0x6336
     add sp, byte 4                   ; 0x6339
     mov ax, 0x4c                     ; 0x633c
     push ax                          ; 0x633f
@@ -42,7 +42,7 @@ loc_MIPR:
     mov ax, 0x28                     ; 0x635b
     sub ax, cx                       ; 0x635e
     push ax                          ; 0x6360
-    call gfx_set_text_pos            ; 0x6361
+    call call_set_text_pos           ; 0x6361
     add sp, byte 4                   ; 0x6364
     mov ax, 0                        ; 0x6367
     push ax                          ; 0x636a
@@ -131,7 +131,7 @@ loc_MIPR:
     mov ax, 0                        ; 0x642e
     push ax                          ; 0x6431
     push ax                          ; 0x6432
-    call gfx_show_area               ; 0x6433
+    call call_show_area              ; 0x6433
     add sp, byte 8                   ; 0x6436
     mov ax, 0x4a                     ; 0x6439
     push ax                          ; 0x643c
@@ -141,7 +141,7 @@ loc_MIPR:
     push ax                          ; 0x6444
     mov ax, 0xe                      ; 0x6445
     push ax                          ; 0x6448
-    call gfx_save_area               ; 0x6449
+    call call_save_area              ; 0x6449
     add sp, byte 8                   ; 0x644c
     mov word [bp - 0x27a], dx        ; 0x644f
     mov word [bp - 0x27c], ax        ; 0x6453
@@ -158,7 +158,7 @@ loc_MIPR:
     push ax                          ; 0x6478
     push word [bp - 0x27a]           ; 0x6479
     push word [bp - 0x27c]           ; 0x647d
-    call gfx_restore_area            ; 0x6481
+    call call_restore_area           ; 0x6481
     add sp, byte 6                   ; 0x6484
     mov ax, 0                        ; 0x6487
     push ax                          ; 0x648a
@@ -201,7 +201,7 @@ loc_MIPR:
     push ax                          ; 0x64eb
     push word [roster_screen_a]      ; 0x64ec
     push word [roster_screen_b]      ; 0x64f0
-    call gfx_restore_screen          ; 0x64f4
+    call call_restore_screen         ; 0x64f4
     add sp, byte 8                   ; 0x64f7
     mov ax, 0xc6                     ; 0x64fa
     push ax                          ; 0x64fd
@@ -211,7 +211,7 @@ loc_MIPR:
     push ax                          ; 0x6505
     mov ax, 1                        ; 0x6506
     push ax                          ; 0x6509
-    call gfx_show_area               ; 0x650a
+    call call_show_area              ; 0x650a
     add sp, byte 8                   ; 0x650d
 .forward5:
     mov word [bp - 2], 0             ; 0x6510
@@ -285,7 +285,7 @@ loc_MIPR:
     mov byte [bx + pc_file_record_base_hi + 0x2], 1 ; 0x65ba
     mov ax, 0                        ; 0x65bf
     push ax                          ; 0x65c2
-    call gfx_wait_sound              ; 0x65c3
+    call call_wait_sound             ; 0x65c3
     pop cx                           ; 0x65c6
     mov ax, 2                        ; 0x65c7
     push ax                          ; 0x65ca
