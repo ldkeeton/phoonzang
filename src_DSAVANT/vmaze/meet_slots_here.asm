@@ -1,5 +1,5 @@
 ; auto-generated
-api_idx_0008_OMPR:
+meet_slots_here:
     mov ax, 0xfff8                   ; 0xa5ba
     call aztec_csav                  ; 0xa5bd
     mov word [bp - 6], 0             ; 0xa5c0
@@ -44,7 +44,7 @@ api_idx_0008_OMPR:
     mov ax, 0x26                     ; 0xa61d
     imul word [bp + 4]               ; 0xa620
     mov bx, ax                       ; 0xa623
-    mov al, byte [bx + slot_records + slot_record.turn_count] ; 0xa625
+    mov al, byte [bx + slot_records + slot_record.map_piece] ; 0xa625
     sub ah, ah                       ; 0xa629
     push ax                          ; 0xa62b
     call random_below                ; 0xa62c
@@ -53,7 +53,7 @@ api_idx_0008_OMPR:
     mov ax, 0x26                     ; 0xa631
     imul word [bp - 6]               ; 0xa634
     mov bx, ax                       ; 0xa637
-    mov al, byte [bx + slot_records + slot_record.turn_count] ; 0xa639
+    mov al, byte [bx + slot_records + slot_record.map_piece] ; 0xa639
     sub ah, ah                       ; 0xa63d
     push ax                          ; 0xa63f
     call random_below                ; 0xa640
@@ -104,7 +104,7 @@ api_idx_0008_OMPR:
     pop ax                           ; 0xa6ae
     add ax, cx                       ; 0xa6af
     mov bx, ax                       ; 0xa6b1
-    mov al, byte [bx + target_weight] ; 0xa6b3
+    mov al, byte [bx + faction_attitudes] ; 0xa6b3
     cbw                              ; 0xa6b7
     mov word [bp - 8], ax            ; 0xa6b8
     mov ax, 0xa                      ; 0xa6bb
@@ -120,13 +120,13 @@ api_idx_0008_OMPR:
     push ax                          ; 0xa6d1
     push word [bp - 6]               ; 0xa6d2
     push word [bp + 4]               ; 0xa6d5
-    call api_idx_0010_IOJT           ; 0xa6d8
+    call trade_with_slot             ; 0xa6d8
     add sp, byte 6                   ; 0xa6db
     mov ax, word [bp - 6]            ; 0xa6de
     cmp ax, word [bp + 6]            ; 0xa6e1
     jne short .forward8              ; 0xa6e4
     push word [bp + 4]               ; 0xa6e6
-    call api_idx_003a_SOVP           ; 0xa6e9
+    call choose_random_destination   ; 0xa6e9
     pop cx                           ; 0xa6ec
 .forward8:
     jmp near .forward15              ; 0xa6ed
@@ -181,7 +181,7 @@ api_idx_0008_OMPR:
 .forward11:
     push word [bp - 6]               ; 0xa756
     push word [bp + 4]               ; 0xa759
-    call api_idx_0012_UGVV           ; 0xa75c
+    call fight_slot                  ; 0xa75c
     add sp, byte 4                   ; 0xa75f
     mov word [bp - 2], ax            ; 0xa762
     mov ax, word [bp - 6]            ; 0xa765

@@ -375,7 +375,7 @@ api_idx_005e_KVNO:
     mov al, byte [bss_91c6]          ; 0x5b12
     cbw                              ; 0x5b15
     push ax                          ; 0x5b16
-    call assign_slot_bit             ; 0x5b17
+    call give_quest_map              ; 0x5b17
     add sp, byte 6                   ; 0x5b1a
 .forward17:
     push word [bp - 0xc]             ; 0x5b1d

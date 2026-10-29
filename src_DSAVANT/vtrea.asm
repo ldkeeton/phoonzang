@@ -209,7 +209,7 @@ process_scene_message_words.loc1 equ api_idx_0090_LKIM
 
 %include "shared/ovr/loc_GMVH.asm"              ; 0x56af
 
-%include "shared/ovr/assign_slot_bit.asm"       ; 0x56cc
+%include "shared/ovr/give_quest_map.asm"        ; 0x56cc
 
 %include "vtrea/loc_HUIS.asm"              ; 0x5789
 

@@ -145,7 +145,7 @@ pick_target_slot:
     imul word [bp - 0xa]             ; 0x0601
     add ax, word [bp - 0xc]          ; 0x0604
     mov bx, ax                       ; 0x0607
-    cmp byte [bx + target_weight], 0x23 ; 0x0609
+    cmp byte [bx + faction_attitudes], 0x23 ; 0x0609
     jle short .forward4              ; 0x060e
     mov ax, 0xc                      ; 0x0610
     imul word [bp - 0xc]             ; 0x0613

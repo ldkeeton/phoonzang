@@ -3,15 +3,11 @@
 
 #include "msg.h"
 
+#include "structs/location.h"
 #include "structs/slotstat.h"
 
-struct location_info {
-	char state;
-	char pad[3];
-};				/* 4-byte stride */
-
 extern struct slot_record slot_records[];
-extern struct location_info location_state_table[];
+extern struct location_record location_records[];
 extern int game_state_arg, party_map_piece;
 extern long saved_area_a;
 extern char flag_bitset[], report_line1_none[], report_line2_none[];
@@ -58,11 +54,12 @@ int level;
 			continue;
 		if (random_below(100) < chance_any)
 			goto hit;
-		if (location_state_table[slot_records[slot].location].state == game_state_arg
+		if (location_records[slot_records[slot].location].game_state
+			== game_state_arg
 			&& random_below(100) < chance_state)
 			goto hit;
-		/* The original compares the turn counter with the map piece. */
-		if (slot_records[slot].turn_count != party_map_piece)
+		/* The closest check: the NPC is on the party's map piece number. */
+		if (slot_records[slot].map_piece != party_map_piece)
 			continue;
 		if (random_below(100) < chance_piece)
 			goto hit;

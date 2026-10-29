@@ -26,7 +26,7 @@ retreat_slot_if_wounded:
     mov al, byte [bx + slot_records + slot_record.home_location] ; 0x94d8
     mov byte [bx + slot_records + slot_record.destination], al ; 0x94dc
     push word [bp + 4]               ; 0x94e0
-    call refresh_slot_state          ; 0x94e3
+    call travel_to_destination       ; 0x94e3
     pop cx                           ; 0x94e6
     mov ax, 1                        ; 0x94e7
     ret                              ; 0x94ea

@@ -27,7 +27,7 @@ jumptable_ab7d_case_1:
     jmp near dispatch_slot_action.return1 ; 0xab0a
 jumptable_ab7d_case_2:
     push word [bp + 4]               ; 0xab0d
-    call update_slot_at_location     ; 0xab10
+    call linger_at_location          ; 0xab10
     pop cx                           ; 0xab13
     jmp near dispatch_slot_action.return1 ; 0xab14
 jumptable_ab7d_case_3:
@@ -39,7 +39,7 @@ jumptable_ab7d_case_3:
     jmp short dispatch_slot_action.return1 ; 0xab24
 jumptable_ab7d_case_4:
     push word [bp + 4]               ; 0xab26
-    call search_slot_for_item        ; 0xab29
+    call search_quest_map_site       ; 0xab29
     pop cx                           ; 0xab2c
     jmp short dispatch_slot_action.return1 ; 0xab2d
 jumptable_ab7d_case_5:
@@ -55,7 +55,7 @@ jumptable_ab7d_case_5:
     jmp short dispatch_slot_action.return1 ; 0xab47
 jumptable_ab7d_case_6:
     push word [bp + 4]               ; 0xab49
-    call rest_slot_or_wander         ; 0xab4c
+    call wait_at_location            ; 0xab4c
     pop cx                           ; 0xab4f
     jmp short dispatch_slot_action.return1 ; 0xab50
 jumptable_ab7d_case_7:

@@ -29,7 +29,7 @@ api_idx_0038_OUTM:
     shl ax, 1                        ; 0x24f6
     shl ax, 1                        ; 0x24f8
     mov bx, ax                       ; 0x24fa
-    mov al, byte [bx + location_state_table] ; 0x24fc
+    mov al, byte [bx + location_records + location_record.game_state] ; 0x24fc
     cbw                              ; 0x2500
     cmp ax, word [game_state_arg]    ; 0x2501
     je short .forward1               ; 0x2505
@@ -100,7 +100,7 @@ api_idx_0038_OUTM:
     pop ax                           ; 0x25a9
     add ax, cx                       ; 0x25aa
     mov bx, ax                       ; 0x25ac
-    cmp byte [bx + loaded_fifteen_byte_records], 0xff ; 0x25ae
+    cmp byte [bx + slot_event_logs], 0xff ; 0x25ae
     jne short .forward5              ; 0x25b3
 .forward4:
     cmp word [bp - 8], byte 5        ; 0x25b5
@@ -123,7 +123,7 @@ api_idx_0038_OUTM:
     pop ax                           ; 0x25dc
     add ax, cx                       ; 0x25dd
     mov bx, ax                       ; 0x25df
-    cmp byte [bx + loaded_fifteen_byte_records], 0xff ; 0x25e1
+    cmp byte [bx + slot_event_logs], 0xff ; 0x25e1
     jne short .forward6              ; 0x25e6
     jmp near .forward12              ; 0x25e8
 .forward6:
@@ -142,7 +142,7 @@ api_idx_0038_OUTM:
     imul word [bp - 2]               ; 0x260c
     add ax, cx                       ; 0x260f
     mov bx, ax                       ; 0x2611
-    mov al, byte [bx + loaded_fifteen_byte_records + loaded_fifteen_byte_records_rec.f_0001] ; 0x2613
+    mov al, byte [bx + slot_event_logs + slot_event.kind] ; 0x2613
     cbw                              ; 0x2617
     add ax, MSG_HAS_BEEN_FIGHTING_AT ; 0x2618
     push ax                          ; 0x261b
@@ -172,7 +172,7 @@ api_idx_0038_OUTM:
     pop ax                           ; 0x2650
     add ax, cx                       ; 0x2651
     mov bx, ax                       ; 0x2653
-    mov al, byte [bx + loaded_fifteen_byte_records + loaded_fifteen_byte_records_rec.f_0001] ; 0x2655
+    mov al, byte [bx + slot_event_logs + slot_event.kind] ; 0x2655
     cbw                              ; 0x2659
     jmp short .forward10             ; 0x265a
 jumptable_268c_case_0:
@@ -222,7 +222,7 @@ api_idx_0038_OUTM.forward11:
     pop ax                           ; 0x26c4
     add ax, cx                       ; 0x26c5
     mov bx, ax                       ; 0x26c7
-    mov al, byte [bx + loaded_fifteen_byte_records] ; 0x26c9
+    mov al, byte [bx + slot_event_logs] ; 0x26c9
     cbw                              ; 0x26cd
     add ax, word [bp - 0xa]          ; 0x26ce
     push ax                          ; 0x26d1
@@ -239,7 +239,7 @@ api_idx_0038_OUTM.forward11:
     pop ax                           ; 0x26eb
     add ax, cx                       ; 0x26ec
     mov bx, ax                       ; 0x26ee
-    mov al, byte [bx + loaded_fifteen_byte_records + loaded_fifteen_byte_records_rec.f_0002] ; 0x26f0
+    mov al, byte [bx + slot_event_logs + slot_event.detail] ; 0x26f0
     cbw                              ; 0x26f4
     add ax, word [bp - 0xc]          ; 0x26f5
     push ax                          ; 0x26f8

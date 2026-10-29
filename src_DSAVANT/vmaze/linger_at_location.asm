@@ -1,5 +1,5 @@
 ; auto-generated
-update_slot_at_location:
+linger_at_location:
     mov ax, 0xfff0                   ; 0xa2df
     call aztec_csav                  ; 0xa2e2
     mov ax, 0x26                     ; 0xa2e5
@@ -22,7 +22,7 @@ update_slot_at_location:
     mov ax, 0x26                     ; 0xa30f
     imul word [bp + 4]               ; 0xa312
     mov bx, ax                       ; 0xa315
-    inc byte [bx + slot_records + slot_record.turn_count] ; 0xa317
+    inc byte [bx + slot_records + slot_record.map_piece] ; 0xa317
     mov ax, 3                        ; 0xa31b
     push ax                          ; 0xa31e
     mov ax, 2                        ; 0xa31f
@@ -43,7 +43,7 @@ update_slot_at_location:
     shl ax, 1                        ; 0xa342
     shl ax, 1                        ; 0xa344
     mov bx, ax                       ; 0xa346
-    mov al, byte [bx + loaded_short_records] ; 0xa348
+    mov al, byte [bx + location_records] ; 0xa348
     sub ah, ah                       ; 0xa34c
     mov word [bp - 8], ax            ; 0xa34e
     cmp ax, strict word 0            ; 0xa351
@@ -63,7 +63,7 @@ update_slot_at_location:
     imul cx                          ; 0xa373
     add ax, word [bp - 8]            ; 0xa375
     mov bx, ax                       ; 0xa378
-    mov al, byte [bx + target_weight] ; 0xa37a
+    mov al, byte [bx + faction_attitudes] ; 0xa37a
     cbw                              ; 0xa37e
     mov word [bp - 0xa], ax          ; 0xa37f
     mov ax, 0x64                     ; 0xa382
@@ -83,7 +83,7 @@ update_slot_at_location:
     test ax, ax                      ; 0xa3a0
     jne short .forward3              ; 0xa3a2
     push word [bp + 4]               ; 0xa3a4
-    call api_idx_003a_SOVP           ; 0xa3a7
+    call choose_random_destination   ; 0xa3a7
     pop cx                           ; 0xa3aa
     mov ax, 0x26                     ; 0xa3ab
     imul word [bp + 4]               ; 0xa3ae
@@ -155,7 +155,7 @@ update_slot_at_location:
     pop ax                           ; 0xa44e
     add ax, cx                       ; 0xa44f
     mov bx, ax                       ; 0xa451
-    mov al, byte [bx + target_weight] ; 0xa453
+    mov al, byte [bx + faction_attitudes] ; 0xa453
     cbw                              ; 0xa457
     mov word [bp - 0xe], ax          ; 0xa458
     mov ax, 0xa                      ; 0xa45b
@@ -171,7 +171,7 @@ update_slot_at_location:
     push ax                          ; 0xa471
     push word [bp - 0xc]             ; 0xa472
     push word [bp + 4]               ; 0xa475
-    call api_idx_0010_IOJT           ; 0xa478
+    call trade_with_slot             ; 0xa478
     add sp, byte 6                   ; 0xa47b
     jmp near .forward15              ; 0xa47e
 .forward10:
@@ -224,7 +224,7 @@ update_slot_at_location:
     jle short .forward12             ; 0xa4e7
     push word [bp - 0xc]             ; 0xa4e9
     push word [bp + 4]               ; 0xa4ec
-    call api_idx_0012_UGVV           ; 0xa4ef
+    call fight_slot                  ; 0xa4ef
     add sp, byte 4                   ; 0xa4f2
     mov word [bp - 4], ax            ; 0xa4f5
     cmp word [bp - 4], byte 0        ; 0xa4f8
@@ -275,7 +275,7 @@ update_slot_at_location:
     mov ax, 0x26                     ; 0xa553
     imul word [bp + 4]               ; 0xa556
     mov bx, ax                       ; 0xa559
-    mov al, byte [bx + slot_records + slot_record.turn_count] ; 0xa55b
+    mov al, byte [bx + slot_records + slot_record.map_piece] ; 0xa55b
     sub ah, ah                       ; 0xa55f
     mov cx, 4                        ; 0xa561
     cwd                              ; 0xa564
@@ -284,17 +284,17 @@ update_slot_at_location:
     test ax, ax                      ; 0xa569
     jne short .forward17             ; 0xa56b
     push word [bp + 4]               ; 0xa56d
-    call api_idx_0006_NNTR           ; 0xa570
+    call take_quest_map_here         ; 0xa570
     pop cx                           ; 0xa573
     push word [bp + 4]               ; 0xa574
-    call api_idx_0002_NMTS           ; 0xa577
+    call learn_location_rumor        ; 0xa577
     pop cx                           ; 0xa57a
     mov ax, 1                        ; 0xa57b
     push ax                          ; 0xa57e
     push word [bp - 6]               ; 0xa57f
     mov ax, 0x26                     ; 0xa582
     imul word [bp + 4]               ; 0xa585
-    add ax, slot_records + slot_record.selected_bits + 0x2 ; 0xa588
+    add ax, slot_records + slot_record.visited_locations ; 0xa588
     push ax                          ; 0xa58b
     call set_bitmap_bit              ; 0xa58c
     add sp, byte 6                   ; 0xa58f
@@ -309,7 +309,7 @@ update_slot_at_location:
     mov al, byte [bx + slot_records + slot_record.max_health] ; 0xa5a5
     mov byte [bx + slot_records + slot_record.health], al ; 0xa5a9
 .forward18:
-    cmp byte [bx + slot_records + slot_record.turn_count], 0x18 ; 0xa5ad
+    cmp byte [bx + slot_records + slot_record.map_piece], 0x18 ; 0xa5ad
     jbe short .return2               ; 0xa5b2
     mov byte [bx + slot_records + slot_record.activity], 0 ; 0xa5b4
 .return2:

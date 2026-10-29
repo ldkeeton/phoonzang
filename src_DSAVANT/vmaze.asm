@@ -127,13 +127,13 @@ maze_message_row equ __zdseg_end + (__zobss_9b4c - __zdata_start)
 maze_message_previous_x equ __zdseg_end + (__zobss_9b4e - __zdata_start)
 maze_message_glyph_buffer equ __zdseg_end + (__zobss_9b50 - __zdata_start)
 region_step_flag equ __zdseg_end + (__zobss_9bd0 - __zdata_start)
-bss_9bd2 equ __zdseg_end + (__zobss_9bd2 - __zdata_start)
+open_gates equ __zdseg_end + (__zobss_9bd2 - __zdata_start)
 bss_9bdc equ __zdseg_end + (__zobss_9bdc - __zdata_start)
 bss_9bde equ __zdseg_end + (__zobss_9bde - __zdata_start)
-bss_9be6 equ __zdseg_end + (__zobss_9be6 - __zdata_start)
-bss_9be8 equ __zdseg_end + (__zobss_9be8 - __zdata_start)
-bss_9c00 equ __zdseg_end + (__zobss_9c00 - __zdata_start)
-bss_9c02 equ __zdseg_end + (__zobss_9c02 - __zdata_start)
+found_path_length equ __zdseg_end + (__zobss_9be6 - __zdata_start)
+found_path equ __zdseg_end + (__zobss_9be8 - __zdata_start)
+path_search_depth equ __zdseg_end + (__zobss_9c00 - __zdata_start)
+edges_in_use equ __zdseg_end + (__zobss_9c02 - __zdata_start)
 slot_pair_processed equ __zdseg_end + (__zobss_9c42 - __zdata_start)
 _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
@@ -538,7 +538,7 @@ process_scene_message_words.loc1 equ api_idx_0090_QKJQ
 
 %include "vmaze/handle_region_level_event.asm" ; 0x8568
 
-%include "vmaze/update_region_slot_bit_flags.asm" ; 0x86a9
+%include "vmaze/update_region_quest_map_flags.asm" ; 0x86a9
 
 %include "vmaze/handle_region_flag_2_event.asm" ; 0x86f9
 
@@ -560,55 +560,55 @@ process_scene_message_words.loc1 equ api_idx_0090_QKJQ
 
 %include "vmaze/api_idx_0002_SKMG.asm"     ; 0x8f1a
 
-%include "vmaze/api_idx_0002_TJNR.asm"     ; 0x8f94
+%include "vmaze/append_edge_between.asm"   ; 0x8f94
 
-%include "vmaze/api_idx_0048_OSRI.asm"     ; 0x9029
+%include "vmaze/search_path_from.asm"      ; 0x9029
 
-%include "vmaze/api_idx_0006_UMQS.asm"     ; 0x920f
+%include "vmaze/plan_slot_path.asm"        ; 0x920f
 
-%include "vmaze/find_or_add_loaded_record.asm" ; 0x93ab
+%include "vmaze/log_slot_event.asm"        ; 0x93ab
 
 %include "vmaze/slot_is_at_location.asm"   ; 0x9448
 
-%include "vmaze/refresh_slot_state.asm"    ; 0x946a
+%include "vmaze/travel_to_destination.asm" ; 0x946a
 
 %include "vmaze/retreat_slot_if_wounded.asm" ; 0x94a6
 
-%include "vmaze/api_idx_003a_SOVP.asm"     ; 0x94ef
+%include "vmaze/choose_random_destination.asm" ; 0x94ef
 
-%include "vmaze/adjust_target_weight.asm"  ; 0x9658
+%include "vmaze/adjust_faction_attitude.asm" ; 0x9658
 
 %include "vmaze/choose_slot_goal.asm"      ; 0x96ce
 
-%include "vmaze/api_idx_0002_NMTS.asm"     ; 0x98cc
+%include "vmaze/learn_location_rumor.asm"  ; 0x98cc
 
-%include "shared/ovr/assign_slot_bit.asm"       ; 0x9920
+%include "shared/ovr/give_quest_map.asm"        ; 0x9920
 
-%include "vmaze/api_idx_0006_NNTR.asm"     ; 0x99dd
+%include "vmaze/take_quest_map_here.asm"   ; 0x99dd
 
-%include "vmaze/api_idx_0010_IOJT.asm"     ; 0x9a80
+%include "vmaze/trade_with_slot.asm"       ; 0x9a80
 
-%include "vmaze/api_idx_0004_SRMT.asm"     ; 0x9e79
+%include "vmaze/take_maps_from_slot.asm"   ; 0x9e79
 
-%include "vmaze/api_idx_0012_UGVV.asm"     ; 0x9ef7
+%include "vmaze/fight_slot.asm"            ; 0x9ef7
 
 %include "vmaze/mark_slot_pair_processed.asm" ; 0xa215
 
 %include "vmaze/heal_slot_health.asm"      ; 0xa28c
 
-%include "vmaze/update_slot_at_location.asm" ; 0xa2df
+%include "vmaze/linger_at_location.asm"    ; 0xa2df
 
-%include "vmaze/api_idx_0008_OMPR.asm"     ; 0xa5ba
+%include "vmaze/meet_slots_here.asm"       ; 0xa5ba
 
 %include "vmaze/advance_slot_along_path.asm" ; 0xa7b2
 
-%include "vmaze/search_slot_for_item.asm"  ; 0xa9a4
+%include "vmaze/search_quest_map_site.asm" ; 0xa9a4
 
-%include "vmaze/rest_slot_or_wander.asm"   ; 0xaa3f
+%include "vmaze/wait_at_location.asm"      ; 0xaa3f
 
 %include "vmaze/dispatch_slot_action.asm"  ; 0xaad3
 
-%include "vmaze/api_idx_0032_TNQM.asm"     ; 0xab9b
+%include "vmaze/run_roaming_npc_turns.asm" ; 0xab9b
 
 %include "shared/ovr/aztec_ovbgn.asm"           ; 0xac30
 

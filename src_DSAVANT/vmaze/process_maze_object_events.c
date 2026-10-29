@@ -11,7 +11,7 @@ extern int find_object_at();
 extern int get_bits();
 extern int show_maze_message_sequence();
 extern int advance_maze_region();
-extern int update_region_slot_bit_flags();
+extern int update_region_quest_map_flags();
 extern int store_party_region_level();
 extern int run_region_keyed_action();
 extern int show_region_message();
@@ -90,7 +90,7 @@ process_maze_object_events()
 			handle_region_level_event();
 			break;
 		case 14:
-			update_region_slot_bit_flags();
+			update_region_quest_map_flags();
 			break;
 		case 15:
 			break;

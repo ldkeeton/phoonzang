@@ -42,7 +42,7 @@ advance_slot_along_path:
     je short .forward4               ; 0xa814
     mov byte [bx + slot_records + slot_record.destination], al ; 0xa816
     push word [bp + 4]               ; 0xa81a
-    call refresh_slot_state          ; 0xa81d
+    call travel_to_destination       ; 0xa81d
     pop cx                           ; 0xa820
     mov ax, 0x26                     ; 0xa821
     imul word [bp + 4]               ; 0xa824
@@ -50,7 +50,7 @@ advance_slot_along_path:
     cmp byte [bx + slot_records + slot_record.activity], 0 ; 0xa829
     jne short .forward3              ; 0xa82e
     push word [bp + 4]               ; 0xa830
-    call api_idx_003a_SOVP           ; 0xa833
+    call choose_random_destination   ; 0xa833
     pop cx                           ; 0xa836
     ret                              ; 0xa837
 .forward3:
@@ -69,7 +69,7 @@ advance_slot_along_path:
     imul word [bp + 4]               ; 0xa853
     mov bx, ax                       ; 0xa856
     pop ax                           ; 0xa858
-    mov byte [bx + slot_records + slot_record.turn_count], al ; 0xa859
+    mov byte [bx + slot_records + slot_record.map_piece], al ; 0xa859
 .forward5:
     mov ax, 0x26                     ; 0xa85d
     imul word [bp + 4]               ; 0xa860
@@ -95,7 +95,7 @@ advance_slot_along_path:
     je short .forward8               ; 0xa899
     push word [bp + 6]               ; 0xa89b
     push word [bp + 4]               ; 0xa89e
-    call api_idx_0008_OMPR           ; 0xa8a1
+    call meet_slots_here             ; 0xa8a1
     add sp, byte 4                   ; 0xa8a4
     mov ax, 0x26                     ; 0xa8a7
     imul word [bp + 4]               ; 0xa8aa
@@ -121,7 +121,7 @@ advance_slot_along_path:
     cmp byte [bx + slot_records + slot_record.activity], 5 ; 0xa8d6
     je short .return2                ; 0xa8db
     push word [bp + 4]               ; 0xa8dd
-    call api_idx_003a_SOVP           ; 0xa8e0
+    call choose_random_destination   ; 0xa8e0
     pop cx                           ; 0xa8e3
 .return2:
     ret                              ; 0xa8e4
@@ -144,28 +144,28 @@ advance_slot_along_path:
     mov ax, 0x26                     ; 0xa909
     imul word [bp + 4]               ; 0xa90c
     mov bx, ax                       ; 0xa90f
-    inc byte [bx + slot_records + slot_record.turn_count] ; 0xa911
+    inc byte [bx + slot_records + slot_record.map_piece] ; 0xa911
     mov ax, word [bp - 2]            ; 0xa915
     shl ax, 1                        ; 0xa918
     shl ax, 1                        ; 0xa91a
     mov si, ax                       ; 0xa91c
-    mov al, byte [si + loaded_four_byte_records + loaded_four_byte_records_rec.f_0003] ; 0xa91e
-    cmp al, byte [bx + slot_records + slot_record.turn_count] ; 0xa922
+    mov al, byte [si + path_edges + path_edge.length] ; 0xa91e
+    cmp al, byte [bx + slot_records + slot_record.map_piece] ; 0xa922
     jbe short .forward10             ; 0xa926
     jmp near .return3                ; 0xa928
 .forward10:
-    mov byte [bx + slot_records + slot_record.turn_count], 0 ; 0xa92b
+    mov byte [bx + slot_records + slot_record.map_piece], 0 ; 0xa92b
     mov al, byte [bx + slot_records + slot_record.location] ; 0xa930
-    cmp al, byte [si + loaded_four_byte_records] ; 0xa934
+    cmp al, byte [si + path_edges]   ; 0xa934
     jne short .forward11             ; 0xa938
-    mov al, byte [si + loaded_four_byte_records + loaded_four_byte_records_rec.f_0001] ; 0xa93a
+    mov al, byte [si + path_edges + path_edge.end_b] ; 0xa93a
     mov byte [bx + slot_records + slot_record.location], al ; 0xa93e
     jmp short .forward12             ; 0xa942
 .forward11:
     mov al, byte [bx + slot_records + slot_record.location] ; 0xa944
-    cmp al, byte [si + loaded_four_byte_records + loaded_four_byte_records_rec.f_0001] ; 0xa948
+    cmp al, byte [si + path_edges + path_edge.end_b] ; 0xa948
     jne short .forward12             ; 0xa94c
-    mov al, byte [si + loaded_four_byte_records] ; 0xa94e
+    mov al, byte [si + path_edges]   ; 0xa94e
     mov byte [bx + slot_records + slot_record.location], al ; 0xa952
 .forward12:
     cmp byte [bx + slot_records + slot_record.activity], 7 ; 0xa956
@@ -181,7 +181,7 @@ advance_slot_along_path:
     cmp al, byte [bx + slot_records + slot_record.destination] ; 0xa978
     jne short .return3               ; 0xa97c
     mov byte [bx + slot_records + slot_record.activity], 2 ; 0xa97e
-    mov byte [bx + slot_records + slot_record.turn_count], 0 ; 0xa983
+    mov byte [bx + slot_records + slot_record.map_piece], 0 ; 0xa983
     mov al, byte [bx + slot_records + slot_record.destination] ; 0xa988
     sub ah, ah                       ; 0xa98c
     push ax                          ; 0xa98e
@@ -191,7 +191,7 @@ advance_slot_along_path:
     sub ah, ah                       ; 0xa997
     push ax                          ; 0xa999
     push word [bp + 4]               ; 0xa99a
-    call find_or_add_loaded_record   ; 0xa99d
+    call log_slot_event              ; 0xa99d
     add sp, byte 8                   ; 0xa9a0
 .return3:
     ret                              ; 0xa9a3

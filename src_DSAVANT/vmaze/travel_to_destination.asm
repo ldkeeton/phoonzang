@@ -1,5 +1,5 @@
 ; auto-generated
-refresh_slot_state:
+travel_to_destination:
     mov ax, 0                        ; 0x946a
     call aztec_csav                  ; 0x946d
     mov ax, 0x26                     ; 0x9470
@@ -13,7 +13,7 @@ refresh_slot_state:
     sub ah, ah                       ; 0x9488
     push ax                          ; 0x948a
     push word [bp + 4]               ; 0x948b
-    call api_idx_0006_UMQS           ; 0x948e
+    call plan_slot_path              ; 0x948e
     add sp, byte 6                   ; 0x9491
     test ax, ax                      ; 0x9494
     jne short .return1               ; 0x9496

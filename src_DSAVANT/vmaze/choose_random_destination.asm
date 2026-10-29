@@ -1,5 +1,5 @@
 ; auto-generated
-api_idx_003a_SOVP:
+choose_random_destination:
     mov ax, 0xffc6                   ; 0x94ef
     call aztec_csav                  ; 0x94f2
     mov ax, 0                        ; 0x94f5
@@ -21,14 +21,14 @@ api_idx_003a_SOVP:
     shl ax, 1                        ; 0x9528
     shl ax, 1                        ; 0x952a
     mov bx, ax                       ; 0x952c
-    cmp byte [bx + loaded_short_records + loaded_short_records_rec.f_0002], 0x1b ; 0x952e
+    cmp byte [bx + location_records + location_record.reveals_location], 0x1b ; 0x952e
     jne short .forward1              ; 0x9533
-    mov byte [bx + loaded_short_records + loaded_short_records_rec.f_0002], 8 ; 0x9535
+    mov byte [bx + location_records + location_record.reveals_location], 8 ; 0x9535
 .forward1:
     push word [bp - 2]               ; 0x953a
     mov ax, 0x26                     ; 0x953d
     imul word [bp + 4]               ; 0x9540
-    add ax, slot_records + slot_record.selected_bits + 0x2 ; 0x9543
+    add ax, slot_records + slot_record.visited_locations ; 0x9543
     push ax                          ; 0x9546
     call test_bit                    ; 0x9547
     add sp, byte 4                   ; 0x954a
@@ -38,7 +38,7 @@ api_idx_003a_SOVP:
     shl ax, 1                        ; 0x9554
     shl ax, 1                        ; 0x9556
     mov bx, ax                       ; 0x9558
-    mov al, byte [bx + loaded_short_records + loaded_short_records_rec.f_0002] ; 0x955a
+    mov al, byte [bx + location_records + location_record.reveals_location] ; 0x955a
     sub ah, ah                       ; 0x955e
     shl ax, 1                        ; 0x9560
     mov bx, ax                       ; 0x9562
@@ -54,7 +54,7 @@ api_idx_003a_SOVP:
     push word [bp - 2]               ; 0x957b
     mov ax, 0x26                     ; 0x957e
     imul word [bp + 4]               ; 0x9581
-    add ax, slot_records + slot_record.selected_bits + 0x2 ; 0x9584
+    add ax, slot_records + slot_record.visited_locations ; 0x9584
     push ax                          ; 0x9587
     call test_bit                    ; 0x9588
     add sp, byte 4                   ; 0x958b
@@ -85,7 +85,7 @@ api_idx_003a_SOVP:
     shl ax, 1                        ; 0x95c2
     shl ax, 1                        ; 0x95c4
     mov bx, ax                       ; 0x95c6
-    mov al, byte [bx + loaded_short_records] ; 0x95c8
+    mov al, byte [bx + location_records] ; 0x95c8
     sub ah, ah                       ; 0x95cc
     mov word [bp - 4], ax            ; 0x95ce
     mov ax, 0                        ; 0x95d1
@@ -100,7 +100,7 @@ api_idx_003a_SOVP:
     imul cx                          ; 0x95eb
     add ax, word [bp - 4]            ; 0x95ed
     mov bx, ax                       ; 0x95f0
-    mov al, byte [bx + target_weight] ; 0x95f2
+    mov al, byte [bx + faction_attitudes] ; 0x95f2
     cbw                              ; 0x95f6
 .forward4:
     mov word [bp - 6], ax            ; 0x95f7
@@ -126,7 +126,7 @@ api_idx_003a_SOVP:
     push word [bp - 2]               ; 0x9625
     mov ax, 0x26                     ; 0x9628
     imul word [bp + 4]               ; 0x962b
-    add ax, slot_records + slot_record.selected_bits + 0x2 ; 0x962e
+    add ax, slot_records + slot_record.visited_locations ; 0x962e
     push ax                          ; 0x9631
     call test_bit                    ; 0x9632
     add sp, byte 4                   ; 0x9635
@@ -142,6 +142,6 @@ api_idx_003a_SOVP:
     pop ax                           ; 0x964b
     mov byte [bx + slot_records + slot_record.destination], al ; 0x964c
     push word [bp + 4]               ; 0x9650
-    call refresh_slot_state          ; 0x9653
+    call travel_to_destination       ; 0x9653
     pop cx                           ; 0x9656
     ret                              ; 0x9657

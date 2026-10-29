@@ -313,7 +313,7 @@ api_idx_0040_INKU.back3:
     mov al, byte [bss_91c6]          ; 0x2e89
     cbw                              ; 0x2e8c
     push ax                          ; 0x2e8d
-    call assign_slot_bit             ; 0x2e8e
+    call give_quest_map              ; 0x2e8e
     add sp, byte 6                   ; 0x2e91
 api_idx_0040_INKU.forward19:
     push word [bp - 0x2c]            ; 0x2e94
@@ -856,7 +856,7 @@ api_idx_0040_INKU.forward60:
     mov al, byte [bss_91c7]          ; 0x3378
     sub ah, ah                       ; 0x337b
     mov bx, ax                       ; 0x337d
-    mov al, byte [bx + target_weight] ; 0x337f
+    mov al, byte [bx + faction_attitudes] ; 0x337f
     cbw                              ; 0x3383
     add ax, word [bp - 0x3a]         ; 0x3384
     push ax                          ; 0x3387
@@ -867,7 +867,7 @@ api_idx_0040_INKU.forward60:
     sub ah, ah                       ; 0x3392
     mov bx, ax                       ; 0x3394
     pop ax                           ; 0x3396
-    mov byte [bx + target_weight], al ; 0x3397
+    mov byte [bx + faction_attitudes], al ; 0x3397
     jmp near api_idx_0040_INKU.forward76 ; 0x339b
 jumptable_36f8_case_32:
     mov word [bp - 0x2c], 0          ; 0x339e
@@ -1010,7 +1010,7 @@ api_idx_0040_INKU.back8:
     cbw                              ; 0x34e6
     mov cx, 0x26                     ; 0x34e7
     imul cx                          ; 0x34ea
-    add ax, slot_records + slot_record.assigned_bits ; 0x34ec
+    add ax, slot_records + slot_record.held_maps ; 0x34ec
     push ax                          ; 0x34ef
     call test_bit                    ; 0x34f0
     add sp, byte 4                   ; 0x34f3
@@ -1065,7 +1065,7 @@ jumptable_36f8_case_41:
     mov al, byte [bss_91c7]          ; 0x357c
     sub ah, ah                       ; 0x357f
     mov bx, ax                       ; 0x3581
-    mov al, byte [bx + target_weight] ; 0x3583
+    mov al, byte [bx + faction_attitudes] ; 0x3583
     cbw                              ; 0x3587
     cmp ax, word [bp - 0x26]         ; 0x3588
     jge short api_idx_0040_INKU.forward69 ; 0x358b
@@ -1138,7 +1138,7 @@ api_idx_0040_INKU.back9:
     push ax                          ; 0x3629
     mov ax, 0x15                     ; 0x362a
     push ax                          ; 0x362d
-    call assign_slot_bit             ; 0x362e
+    call give_quest_map              ; 0x362e
     add sp, byte 6                   ; 0x3631
 api_idx_0040_INKU.forward70:
     inc word [bp - 0x30]             ; 0x3634

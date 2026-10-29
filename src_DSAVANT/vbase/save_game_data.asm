@@ -604,7 +604,7 @@ save_game_data:
 .forward31:
     mov ax, 0x80                     ; 0x3e25
     push ax                          ; 0x3e28
-    mov ax, loaded_four_byte_records ; 0x3e29
+    mov ax, path_edges               ; 0x3e29
     push ax                          ; 0x3e2c
     push word [bp - 0xa]             ; 0x3e2d
     call aztec_write                 ; 0x3e30
@@ -612,7 +612,7 @@ save_game_data:
     mov word [bp - 8], ax            ; 0x3e36
     mov ax, 0x90                     ; 0x3e39
     push ax                          ; 0x3e3c
-    mov ax, target_weight            ; 0x3e3d
+    mov ax, faction_attitudes        ; 0x3e3d
     push ax                          ; 0x3e40
     push word [bp - 0xa]             ; 0x3e41
     call aztec_write                 ; 0x3e44
@@ -620,7 +620,7 @@ save_game_data:
     mov word [bp - 8], ax            ; 0x3e4a
     mov ax, 0x68                     ; 0x3e4d
     push ax                          ; 0x3e50
-    mov ax, loaded_short_records     ; 0x3e51
+    mov ax, location_records         ; 0x3e51
     push ax                          ; 0x3e54
     push word [bp - 0xa]             ; 0x3e55
     call aztec_write                 ; 0x3e58
@@ -628,7 +628,7 @@ save_game_data:
     mov word [bp - 8], ax            ; 0x3e5e
     mov ax, 0x14a                    ; 0x3e61
     push ax                          ; 0x3e64
-    mov ax, loaded_fifteen_byte_records ; 0x3e65
+    mov ax, slot_event_logs          ; 0x3e65
     push ax                          ; 0x3e68
     push word [bp - 0xa]             ; 0x3e69
     call aztec_write                 ; 0x3e6c
@@ -644,7 +644,7 @@ save_game_data:
     mov word [bp - 8], ax            ; 0x3e86
     mov ax, 0x42                     ; 0x3e89
     push ax                          ; 0x3e8c
-    mov ax, slot_bit_states          ; 0x3e8d
+    mov ax, quest_maps               ; 0x3e8d
     push ax                          ; 0x3e90
     push word [bp - 0xa]             ; 0x3e91
     call aztec_write                 ; 0x3e94

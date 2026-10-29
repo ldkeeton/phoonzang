@@ -19,7 +19,7 @@ choose_slot_goal:
     mov al, byte [bx + slot_records + slot_record.destination] ; 0x96f8
     sub ah, ah                       ; 0x96fc
     push ax                          ; 0x96fe
-    add bx, slot_records + slot_record.selected_bits + 0x2 ; 0x96ff
+    add bx, slot_records + slot_record.visited_locations ; 0x96ff
     mov ax, bx                       ; 0x9703
     push ax                          ; 0x9705
     call test_bit                    ; 0x9706
@@ -38,13 +38,13 @@ choose_slot_goal:
     sub ah, ah                       ; 0x9727
     push ax                          ; 0x9729
     push word [bp + 4]               ; 0x972a
-    call find_or_add_loaded_record   ; 0x972d
+    call log_slot_event              ; 0x972d
     add sp, byte 8                   ; 0x9730
     mov ax, 0x26                     ; 0x9733
     imul word [bp + 4]               ; 0x9736
     mov bx, ax                       ; 0x9739
     mov byte [bx + slot_records + slot_record.activity], 2 ; 0x973b
-    mov byte [bx + slot_records + slot_record.turn_count], 0 ; 0x9740
+    mov byte [bx + slot_records + slot_record.map_piece], 0 ; 0x9740
     ret                              ; 0x9745
 .forward1:
     push word [bp + 4]               ; 0x9746
@@ -59,7 +59,7 @@ choose_slot_goal:
     push word [bp - 2]               ; 0x9757
     mov ax, 0x26                     ; 0x975a
     imul word [bp + 4]               ; 0x975d
-    add ax, slot_records + slot_record.marked_bits ; 0x9760
+    add ax, slot_records + slot_record.map_history ; 0x9760
     push ax                          ; 0x9763
     call test_bit                    ; 0x9764
     add sp, byte 4                   ; 0x9767
@@ -70,7 +70,7 @@ choose_slot_goal:
     push ax                          ; 0x9774
     mov ax, 0x26                     ; 0x9775
     imul word [bp + 4]               ; 0x9778
-    add ax, slot_records + slot_record.marked_bits ; 0x977b
+    add ax, slot_records + slot_record.map_history ; 0x977b
     push ax                          ; 0x977e
     call test_bit                    ; 0x977f
     add sp, byte 4                   ; 0x9782
@@ -79,7 +79,7 @@ choose_slot_goal:
     mov ax, 6                        ; 0x9789
     imul word [bp - 2]               ; 0x978c
     mov bx, ax                       ; 0x978f
-    mov al, byte [bx + slot_bit_states + slot_bit_state.location] ; 0x9791
+    mov al, byte [bx + quest_maps + quest_map.site_location] ; 0x9791
     sub ah, ah                       ; 0x9795
     mov word [bp - 4], ax            ; 0x9797
     push ax                          ; 0x979a
@@ -96,7 +96,7 @@ choose_slot_goal:
     pop ax                           ; 0x97b4
     mov byte [bx + slot_records + slot_record.target], al ; 0x97b5
     mov byte [bx + slot_records + slot_record.activity], 4 ; 0x97b9
-    mov byte [bx + slot_records + slot_record.turn_count], 0 ; 0x97be
+    mov byte [bx + slot_records + slot_record.map_piece], 0 ; 0x97be
     ret                              ; 0x97c3
 .forward3:
     mov al, byte [bp - 4]            ; 0x97c4
@@ -107,7 +107,7 @@ choose_slot_goal:
     pop ax                           ; 0x97d0
     mov byte [bx + slot_records + slot_record.destination], al ; 0x97d1
     push word [bp + 4]               ; 0x97d5
-    call refresh_slot_state          ; 0x97d8
+    call travel_to_destination       ; 0x97d8
     pop cx                           ; 0x97db
     ret                              ; 0x97dc
 .forward4:
@@ -116,7 +116,7 @@ choose_slot_goal:
     push word [bp - 2]               ; 0x97e0
     mov ax, 0x26                     ; 0x97e3
     imul word [bp + 4]               ; 0x97e6
-    add ax, slot_records + slot_record.selected_bits ; 0x97e9
+    add ax, slot_records + slot_record.known_maps ; 0x97e9
     push ax                          ; 0x97ec
     call test_bit                    ; 0x97ed
     add sp, byte 4                   ; 0x97f0
@@ -127,9 +127,9 @@ choose_slot_goal:
     mov ax, 6                        ; 0x97fa
     imul word [bp - 2]               ; 0x97fd
     mov bx, ax                       ; 0x9800
-    cmp byte [bx + slot_bit_states + slot_bit_state.status], 1 ; 0x9802
+    cmp byte [bx + quest_maps + quest_map.status], 1 ; 0x9802
     jne short .forward7              ; 0x9807
-    mov al, byte [bx + slot_bit_states] ; 0x9809
+    mov al, byte [bx + quest_maps]   ; 0x9809
     push ax                          ; 0x980d
     mov ax, 0x26                     ; 0x980e
     imul word [bp + 4]               ; 0x9811
@@ -137,16 +137,16 @@ choose_slot_goal:
     pop ax                           ; 0x9816
     mov byte [bx + slot_records + slot_record.destination], al ; 0x9817
     push word [bp + 4]               ; 0x981b
-    call refresh_slot_state          ; 0x981e
+    call travel_to_destination       ; 0x981e
     pop cx                           ; 0x9821
     jmp near .return1                ; 0x9822
 .forward7:
     mov ax, 6                        ; 0x9825
     imul word [bp - 2]               ; 0x9828
     mov bx, ax                       ; 0x982b
-    cmp byte [bx + slot_bit_states + slot_bit_state.status], 0 ; 0x982d
+    cmp byte [bx + quest_maps + quest_map.status], 0 ; 0x982d
     jne short .return1               ; 0x9832
-    mov al, byte [bx + slot_bit_states] ; 0x9834
+    mov al, byte [bx + quest_maps]   ; 0x9834
     sub ah, ah                       ; 0x9838
     mov cx, 0x26                     ; 0x983a
     imul cx                          ; 0x983d
@@ -161,7 +161,7 @@ choose_slot_goal:
     mov ax, 6                        ; 0x9852
     imul word [bp - 2]               ; 0x9855
     mov bx, ax                       ; 0x9858
-    mov al, byte [bx + slot_bit_states] ; 0x985a
+    mov al, byte [bx + quest_maps]   ; 0x985a
     push ax                          ; 0x985e
     mov ax, word [bp + 4]            ; 0x985f
     imul cx                          ; 0x9862
@@ -169,7 +169,7 @@ choose_slot_goal:
     pop ax                           ; 0x9866
     mov byte [bx + slot_records + slot_record.target], al ; 0x9867
     push word [bp + 4]               ; 0x986b
-    call refresh_slot_state          ; 0x986e
+    call travel_to_destination       ; 0x986e
     pop cx                           ; 0x9871
     mov ax, 0x26                     ; 0x9872
     imul word [bp + 4]               ; 0x9875
@@ -177,7 +177,7 @@ choose_slot_goal:
     cmp byte [bx + slot_records + slot_record.activity], 0 ; 0x987a
     jne short .forward8              ; 0x987f
     push word [bp + 4]               ; 0x9881
-    call api_idx_003a_SOVP           ; 0x9884
+    call choose_random_destination   ; 0x9884
     pop cx                           ; 0x9887
     ret                              ; 0x9888
 .forward8:
@@ -192,13 +192,13 @@ choose_slot_goal:
     push ax                          ; 0x98a0
     push word [bp - 2]               ; 0x98a1
     push word [bp + 4]               ; 0x98a4
-    call find_or_add_loaded_record   ; 0x98a7
+    call log_slot_event              ; 0x98a7
     add sp, byte 8                   ; 0x98aa
 .return1:
     ret                              ; 0x98ad
 .forward9:
     push word [bp + 4]               ; 0x98ae
-    call api_idx_003a_SOVP           ; 0x98b1
+    call choose_random_destination   ; 0x98b1
     pop cx                           ; 0x98b4
     ret                              ; 0x98b5
 .forward10:
@@ -209,6 +209,6 @@ choose_slot_goal:
     jmp near .back1                  ; 0x98c1
 .forward11:
     push word [bp + 4]               ; 0x98c4
-    call api_idx_003a_SOVP           ; 0x98c7
+    call choose_random_destination   ; 0x98c7
     pop cx                           ; 0x98ca
     ret                              ; 0x98cb

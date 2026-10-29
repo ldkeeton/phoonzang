@@ -3,7 +3,7 @@
 
 extern char *party_char_ext[];
 extern int maze_variant;
-extern char target_weight[];
+extern char faction_attitudes[];
 extern char *aztec_setmem();
 extern int clamp_between();
 extern int random_below();
@@ -88,7 +88,7 @@ int char_idx, target;
 				picked[pick] = 1;
 				tries++;
 				/* weight byte 0x23 is the cutoff */
-				if (target_weight[class_id * 12 + pick] > 35) {
+				if (faction_attitudes[class_id * 12 + pick] > 35) {
 					if (target_table[pick][prev] != -1)
 						return target_table[pick][prev];
 				}

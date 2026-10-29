@@ -1,5 +1,5 @@
 ; auto-generated
-api_idx_0012_UGVV:
+fight_slot:
     mov ax, 0xffee                   ; 0x9ef7
     call aztec_csav                  ; 0x9efa
     mov ax, 0xf                      ; 0x9efd
@@ -14,7 +14,7 @@ api_idx_0012_UGVV:
     push ax                          ; 0x9f11
     push word [bp + 6]               ; 0x9f12
     push word [bp + 4]               ; 0x9f15
-    call adjust_target_weight        ; 0x9f18
+    call adjust_faction_attitude     ; 0x9f18
     add sp, byte 6                   ; 0x9f1b
     mov ax, 0xf                      ; 0x9f1e
     push ax                          ; 0x9f21
@@ -28,7 +28,7 @@ api_idx_0012_UGVV:
     push ax                          ; 0x9f32
     push word [bp + 4]               ; 0x9f33
     push word [bp + 6]               ; 0x9f36
-    call adjust_target_weight        ; 0x9f39
+    call adjust_faction_attitude     ; 0x9f39
     add sp, byte 6                   ; 0x9f3c
     mov ax, 0x26                     ; 0x9f3f
     imul word [bp + 6]               ; 0x9f42
@@ -125,7 +125,7 @@ api_idx_0012_UGVV:
     jle short .forward6              ; 0xa018
     push word [bp + 6]               ; 0xa01a
     push word [bp + 4]               ; 0xa01d
-    call api_idx_0004_SRMT           ; 0xa020
+    call take_maps_from_slot         ; 0xa020
     add sp, byte 4                   ; 0xa023
     mov word [bp - 0xe], 1           ; 0xa026
     jmp short .forward7              ; 0xa02b
@@ -150,7 +150,7 @@ api_idx_0012_UGVV:
     jne short .forward7              ; 0xa055
     push word [bp + 6]               ; 0xa057
     push word [bp + 4]               ; 0xa05a
-    call api_idx_0010_IOJT           ; 0xa05d
+    call trade_with_slot             ; 0xa05d
     add sp, byte 4                   ; 0xa060
     mov word [bp - 0xe], 1           ; 0xa063
 .forward7:
@@ -214,7 +214,7 @@ api_idx_0012_UGVV:
 .forward11:
     push word [bp + 6]               ; 0xa104
     push word [bp + 4]               ; 0xa107
-    call api_idx_0004_SRMT           ; 0xa10a
+    call take_maps_from_slot         ; 0xa10a
     add sp, byte 4                   ; 0xa10d
     mov word [bp - 0xe], 1           ; 0xa110
     jmp near .forward15              ; 0xa115
@@ -271,7 +271,7 @@ api_idx_0012_UGVV:
     jne short .forward15             ; 0xa192
 .forward14:
     push word [bp + 6]               ; 0xa194
-    call api_idx_003a_SOVP           ; 0xa197
+    call choose_random_destination   ; 0xa197
     pop cx                           ; 0xa19a
     mov ax, 0x26                     ; 0xa19b
     imul word [bp + 6]               ; 0xa19e
@@ -304,7 +304,7 @@ api_idx_0012_UGVV:
     cmp byte [bx + slot_records + slot_record.activity], 7 ; 0xa1e5
     jne short .forward17             ; 0xa1ea
     push word [bp + 4]               ; 0xa1ec
-    call api_idx_003a_SOVP           ; 0xa1ef
+    call choose_random_destination   ; 0xa1ef
     pop cx                           ; 0xa1f2
 .forward17:
     mov ax, 0x26                     ; 0xa1f3
@@ -316,7 +316,7 @@ api_idx_0012_UGVV:
     push word [bp - 0x12]            ; 0xa202
     push word [bp + 6]               ; 0xa205
     push word [bp + 4]               ; 0xa208
-    call find_or_add_loaded_record   ; 0xa20b
+    call log_slot_event              ; 0xa20b
     add sp, byte 8                   ; 0xa20e
     mov ax, word [bp - 0xe]          ; 0xa211
     ret                              ; 0xa214

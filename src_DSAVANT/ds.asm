@@ -299,15 +299,11 @@ selected_item_slot equ __zbss_849e - __zdseg_start
 selected_item_record equ __zbss_84a0 - __zdseg_start
 item_action_reward equ __zbss_84a2 - __zdseg_start
 item_action_reward_hi equ __zbss_84a4 - __zdseg_start
-slot_bit_states equ __zbss_84a6 - __zdseg_start
+quest_maps equ __zbss_84a6 - __zdseg_start
 slot_records equ __zbss_84e8 - __zdseg_start
-bss_8809 equ __zbss_8809 - __zdseg_start
-bss_880a equ __zbss_880a - __zdseg_start
-bss_8822 equ __zbss_8822 - __zdseg_start
-loaded_fifteen_byte_records equ __zbss_882c - __zdseg_start
-loaded_short_records equ __zbss_8976 - __zdseg_start
-location_state_table equ __zbss_8979 - __zdseg_start
-target_weight equ __zbss_89de - __zdseg_start
+slot_event_logs equ __zbss_882c - __zdseg_start
+location_records equ __zbss_8976 - __zdseg_start
+faction_attitudes equ __zbss_89de - __zdseg_start
 intro_layout_value_1 equ __zbss_89df - __zdseg_start
 intro_layout_value_2 equ __zbss_89e0 - __zdseg_start
 intro_layout_value_3 equ __zbss_89e1 - __zdseg_start
@@ -328,8 +324,7 @@ intro_layout_copy_7 equ __zbss_8a32 - __zdseg_start
 intro_layout_copy_8 equ __zbss_8a3e - __zdseg_start
 intro_layout_copy_9 equ __zbss_8a4a - __zdseg_start
 intro_layout_copy_10 equ __zbss_8a56 - __zdseg_start
-loaded_four_byte_records equ __zbss_8a6e - __zdseg_start
-bss_8aac equ __zbss_8aac - __zdseg_start
+path_edges equ __zbss_8a6e - __zdseg_start
 bss_8aee equ __zbss_8aee - __zdseg_start
 member_roster_index equ __zbss_8af0 - __zdseg_start
 current_map_block_b equ __zbss_8afe - __zdseg_start
@@ -1319,19 +1314,11 @@ __zbss_84a4:
 __zbss_84a6:
     resb 0x0042
 __zbss_84e8:
-    resb 0x0321
-__zbss_8809:
-    resb 0x0001
-__zbss_880a:
-    resb 0x0018
-__zbss_8822:
-    resb 0x000a
+    resb 0x0344
 __zbss_882c:
     resb 0x014a
 __zbss_8976:
-    resb 0x0003
-__zbss_8979:
-    resb 0x0065
+    resb 0x0068
 __zbss_89de:
     resb 0x0001
 __zbss_89df:
@@ -1375,9 +1362,7 @@ __zbss_8a4a:
 __zbss_8a56:
     resb 0x0018
 __zbss_8a6e:
-    resb 0x003e
-__zbss_8aac:
-    resb 0x0042
+    resb 0x0080
 __zbss_8aee:
     resb 0x0002
 __zbss_8af0:

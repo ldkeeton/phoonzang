@@ -24,10 +24,10 @@ extern int previous_party_world_x, previous_party_world_y,
 extern int saved_cell_x, saved_cell_y, saved_map_piece, saved_level,
 	saved_position_extra;
 extern long game_time, game_time_aux_a, game_time_aux_b;
-extern char loaded_four_byte_records[], target_weight[],
-	loaded_short_records[],
-	loaded_fifteen_byte_records[];
-extern char slot_records[], slot_bit_states[], code_characters[];
+extern char path_edges[], faction_attitudes[],
+	location_records[],
+	slot_event_logs[];
+extern char slot_records[], quest_maps[], code_characters[];
 extern int party_char_count;
 extern long aztec_lseek();
 
@@ -196,12 +196,12 @@ int save_mode;
 			prompt_disk_swap(game_data_drive, disk_number, keep_disk, 1);
 		return -1;
 	}
-	write_count = aztec_write(fd, loaded_four_byte_records, 128);
-	write_count = aztec_write(fd, target_weight, 144);
-	write_count = aztec_write(fd, loaded_short_records, 104);
-	write_count = aztec_write(fd, loaded_fifteen_byte_records, 330);
+	write_count = aztec_write(fd, path_edges, 128);
+	write_count = aztec_write(fd, faction_attitudes, 144);
+	write_count = aztec_write(fd, location_records, 104);
+	write_count = aztec_write(fd, slot_event_logs, 330);
 	write_count = aztec_write(fd, slot_records, 836);
-	write_count = aztec_write(fd, slot_bit_states, 66);
+	write_count = aztec_write(fd, quest_maps, 66);
 	if (write_count <= 0) {
 		show_load_disk_error(error_text);
 		aztec_close(fd);

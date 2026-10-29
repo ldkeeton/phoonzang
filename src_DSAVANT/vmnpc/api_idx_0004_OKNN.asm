@@ -6,7 +6,7 @@ api_idx_0004_OKNN:
     mov word [bp - 2], 0             ; 0x28ac
 .back1:
     push word [bp - 2]               ; 0x28b1
-    mov ax, bss_8822                 ; 0x28b4
+    mov ax, slot_records + slot_record_size*21 + slot_record.known_maps ; 0x28b4
     push ax                          ; 0x28b7
     call test_bit                    ; 0x28b8
     add sp, byte 4                   ; 0x28bb
@@ -19,7 +19,7 @@ api_idx_0004_OKNN:
     cbw                              ; 0x28cc
     mov cx, 0x26                     ; 0x28cd
     imul cx                          ; 0x28d0
-    add ax, slot_records + slot_record.selected_bits ; 0x28d2
+    add ax, slot_records + slot_record.known_maps ; 0x28d2
     push ax                          ; 0x28d5
     call set_bitmap_bit              ; 0x28d6
     add sp, byte 6                   ; 0x28d9
@@ -29,7 +29,7 @@ api_idx_0004_OKNN:
     cbw                              ; 0x28e2
     mov cx, 0x26                     ; 0x28e3
     imul cx                          ; 0x28e6
-    add ax, slot_records + slot_record.selected_bits ; 0x28e8
+    add ax, slot_records + slot_record.known_maps ; 0x28e8
     push ax                          ; 0x28eb
     call test_bit                    ; 0x28ec
     add sp, byte 4                   ; 0x28ef
@@ -38,7 +38,7 @@ api_idx_0004_OKNN:
     mov ax, 1                        ; 0x28f6
     push ax                          ; 0x28f9
     push word [bp - 2]               ; 0x28fa
-    mov ax, bss_8822                 ; 0x28fd
+    mov ax, slot_records + slot_record_size*21 + slot_record.known_maps ; 0x28fd
     push ax                          ; 0x2900
     call set_bitmap_bit              ; 0x2901
     add sp, byte 6                   ; 0x2904
@@ -48,7 +48,7 @@ api_idx_0004_OKNN:
     cbw                              ; 0x290d
     mov cx, 0x26                     ; 0x290e
     imul cx                          ; 0x2911
-    add ax, slot_records + slot_record.selected_bits ; 0x2913
+    add ax, slot_records + slot_record.known_maps ; 0x2913
     push ax                          ; 0x2916
     call test_bit                    ; 0x2917
     add sp, byte 4                   ; 0x291a

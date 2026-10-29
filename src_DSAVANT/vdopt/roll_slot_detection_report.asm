@@ -89,7 +89,7 @@ roll_slot_detection_report.forward3:
     shl ax, 1                        ; 0x1b2f
     shl ax, 1                        ; 0x1b31
     mov bx, ax                       ; 0x1b33
-    mov al, byte [bx + location_state_table] ; 0x1b35
+    mov al, byte [bx + location_records + location_record.game_state] ; 0x1b35
     cbw                              ; 0x1b39
     cmp ax, word [game_state_arg]    ; 0x1b3a
     jne short roll_slot_detection_report.forward4 ; 0x1b3e
@@ -103,7 +103,7 @@ roll_slot_detection_report.forward4:
     mov ax, 0x26                     ; 0x1b4d
     imul word [bp - 2]               ; 0x1b50
     mov bx, ax                       ; 0x1b53
-    mov al, byte [bx + slot_records + slot_record.turn_count] ; 0x1b55
+    mov al, byte [bx + slot_records + slot_record.map_piece] ; 0x1b55
     sub ah, ah                       ; 0x1b59
     cmp ax, word [party_map_piece]   ; 0x1b5b
     je short roll_slot_detection_report.forward5 ; 0x1b5f

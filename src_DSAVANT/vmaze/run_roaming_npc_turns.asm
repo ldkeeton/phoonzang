@@ -1,5 +1,5 @@
 ; auto-generated
-api_idx_0032_TNQM:
+run_roaming_npc_turns:
     mov ax, 0xffce                   ; 0xab9b
     call aztec_csav                  ; 0xab9e
     mov ax, 0                        ; 0xaba1
@@ -24,13 +24,13 @@ api_idx_0032_TNQM:
     shl ax, 1                        ; 0xabcd
     shl ax, 1                        ; 0xabcf
     mov bx, ax                       ; 0xabd1
-    mov al, byte [bx + location_state_table] ; 0xabd3
+    mov al, byte [bx + location_records + location_record.game_state] ; 0xabd3
     cbw                              ; 0xabd7
     cmp ax, word [game_state_arg]    ; 0xabd8
     jne short .forward1              ; 0xabdc
     mov al, byte [bp - 4]            ; 0xabde
-    mov byte [bss_8809], al          ; 0xabe1
-    mov byte [bss_880a], al          ; 0xabe4
+    mov byte [slot_records + slot_record_size*21 + slot_record.destination], al ; 0xabe1
+    mov byte [slot_records + slot_record_size*21 + slot_record.location], al ; 0xabe4
 .forward1:
     inc word [bp - 4]                ; 0xabe7
     mov ax, word [bp - 4]            ; 0xabea

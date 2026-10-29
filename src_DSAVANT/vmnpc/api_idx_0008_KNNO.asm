@@ -122,7 +122,7 @@ api_idx_0008_KNNO:
     push ax                          ; 0x2ad6
     mov ax, 0x15                     ; 0x2ad7
     push ax                          ; 0x2ada
-    call assign_slot_bit             ; 0x2adb
+    call give_quest_map              ; 0x2adb
     add sp, byte 6                   ; 0x2ade
 .forward7:
     mov ax, bss_95a8                 ; 0x2ae1

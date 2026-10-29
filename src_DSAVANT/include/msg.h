@@ -5,7 +5,9 @@
 #define MSG_CLASS_BASE 120            /* "class names, MSG_CLASS_BASE + class" */
 #define MSG_ORDINAL_BASE 1059         /* "ordinals, MSG_ORDINAL_BASE + n" */
 #define MSG_SLOT_NAME_BASE 1700       /* "NPC slot names, MSG_SLOT_NAME_BASE + slot" */
+#define MSG_FACTION_NAME_BASE 1750    /* "Faction names, MSG_FACTION_NAME_BASE + slot_record.faction" */
 #define MSG_LOCATION_NAME_BASE 1770   /* "Location names, MSG_LOCATION_NAME_BASE + location" */
+#define MSG_MAP_NAME_BASE 1800        /* "Quest map names, MSG_MAP_NAME_BASE + map" */
 #define MSG_CODE_CHAR_BASE 2500       /* "code-character words, MSG_CODE_CHAR_BASE + index" */
 #define MSG_SPELL_NAME_BASE 4000      /* "spell names, MSG_SPELL_NAME_BASE + spell" */
 #define MSG_HUMAN 100                 /* "HUMAN" */
@@ -174,8 +176,6 @@
 #define MSG_YOU_DON_T_HAVE_ENOUGH_GOLD 1644/* "You don't have enough gold..." */
 #define MSG_PERHAPS_YOU_D_LIKE_TO_1645 1645/* "Perhaps you'd like to hear some interesting rumors..." */
 #define MSG_NO_YES_YEA_YEP_SURE_OK_1690 1690/* "?NO/?YES/?YEA/?YEP/?SURE/?OK/" */
-#define MSG_YOU_1750 1750             /* "you" */
-#define MSG_TEMPLE_1800 1800          /* "?Temple?" */
 #define MSG_HAS_BEEN_FIGHTING_AT 1850 /* "^ has been fighting # at $" */
 #define MSG_HAS_POSSESSION_OF_THE_MAP 1880/* "$ has possession of the # Map" */
 #define MSG_IT_IS_RUMORED_THAT_POS_1881 1881/* "It is rumored that $ possesses the # Map" */

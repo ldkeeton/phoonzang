@@ -159,7 +159,7 @@ api_idx_0022_LKUK:
     call aztec_lrm                   ; 0x23b1
     or dx, ax                        ; 0x23b4
     jne short .forward9              ; 0x23b6
-    call api_idx_0032_TNQM           ; 0x23b8
+    call run_roaming_npc_turns       ; 0x23b8
 .forward9:
     mov ax, word [game_time]         ; 0x23bb
     mov dx, word [game_time_hi]      ; 0x23be
@@ -384,14 +384,14 @@ api_idx_0022_LKUK:
     shl ax, 1                        ; 0x25d3
     shl ax, 1                        ; 0x25d5
     mov bx, ax                       ; 0x25d7
-    mov al, byte [bx + location_state_table] ; 0x25d9
+    mov al, byte [bx + location_records + location_record.game_state] ; 0x25d9
     cbw                              ; 0x25dd
     cmp ax, word [game_state_arg]    ; 0x25de
     jne short .forward29             ; 0x25e2
     mov ax, word [bp - 8]            ; 0x25e4
     imul cx                          ; 0x25e7
     mov bx, ax                       ; 0x25e9
-    mov al, byte [bx + slot_records + slot_record.turn_count] ; 0x25eb
+    mov al, byte [bx + slot_records + slot_record.map_piece] ; 0x25eb
     sub ah, ah                       ; 0x25ef
     cmp ax, word [party_map_piece]   ; 0x25f1
     jne short .forward29             ; 0x25f5

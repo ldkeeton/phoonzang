@@ -1,5 +1,5 @@
 ; auto-generated
-update_region_slot_bit_flags:
+update_region_quest_map_flags:
     mov ax, 0                        ; 0x86a9
     call aztec_csav                  ; 0x86ac
     mov ax, 2                        ; 0x86af
@@ -21,7 +21,7 @@ update_region_slot_bit_flags:
     mov cx, 6                        ; 0x86db
     imul cx                          ; 0x86de
     mov bx, ax                       ; 0x86e0
-    cmp byte [bx + slot_bit_states + slot_bit_state.status], 0 ; 0x86e2
+    cmp byte [bx + quest_maps + quest_map.status], 0 ; 0x86e2
     je short .forward1               ; 0x86e7
     mov ax, 0                        ; 0x86e9
     jmp short .forward2              ; 0x86ec

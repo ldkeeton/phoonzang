@@ -92,7 +92,7 @@ jumptable_8978_case_13:
     call handle_region_level_event   ; 0x8943
     jmp short jumptable_8978_case_0  ; 0x8946
 jumptable_8978_case_14:
-    call update_region_slot_bit_flags ; 0x8948
+    call update_region_quest_map_flags ; 0x8948
     jmp short jumptable_8978_case_0  ; 0x894b
 jumptable_8978_case_15:
     jmp short jumptable_8978_case_0  ; 0x894d

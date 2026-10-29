@@ -1,12 +1,12 @@
 ; auto-generated
-api_idx_0006_UMQS:
+plan_slot_path:
     mov ax, 0xfffa                   ; 0x920f
     call aztec_csav                  ; 0x9212
     mov ax, 0                        ; 0x9215
     push ax                          ; 0x9218
     mov ax, 0x14                     ; 0x9219
     push ax                          ; 0x921c
-    mov ax, bss_9bd2                 ; 0x921d
+    mov ax, open_gates               ; 0x921d
     push ax                          ; 0x9220
     call aztec_setmem                ; 0x9221
     add sp, byte 6                   ; 0x9224
@@ -15,14 +15,14 @@ api_idx_0006_UMQS:
     mov ax, 6                        ; 0x922c
     imul word [bp - 2]               ; 0x922f
     mov bx, ax                       ; 0x9232
-    cmp byte [bx + slot_bit_states + slot_bit_state.flag_index], 0xff ; 0x9234
+    cmp byte [bx + quest_maps + quest_map.gate_key], 0xff ; 0x9234
     je short .forward1               ; 0x9239
     mov ax, word [bp - 2]            ; 0x923b
     add ax, strict word 0xc          ; 0x923e
     push ax                          ; 0x9241
     mov ax, 0x26                     ; 0x9242
     imul word [bp + 4]               ; 0x9245
-    add ax, slot_records + slot_record.marked_bits ; 0x9248
+    add ax, slot_records + slot_record.map_history ; 0x9248
     push ax                          ; 0x924b
     call test_bit                    ; 0x924c
     add sp, byte 4                   ; 0x924f
@@ -31,11 +31,11 @@ api_idx_0006_UMQS:
     mov ax, 6                        ; 0x9256
     imul word [bp - 2]               ; 0x9259
     mov bx, ax                       ; 0x925c
-    mov al, byte [bx + slot_bit_states + slot_bit_state.flag_index] ; 0x925e
+    mov al, byte [bx + quest_maps + quest_map.gate_key] ; 0x925e
     cbw                              ; 0x9262
     shl ax, 1                        ; 0x9263
     mov bx, ax                       ; 0x9265
-    mov word [bx + bss_9bd2], 1      ; 0x9267
+    mov word [bx + open_gates], 1    ; 0x9267
 .forward1:
     inc word [bp - 2]                ; 0x926d
     mov ax, word [bp - 2]            ; 0x9270
@@ -45,7 +45,7 @@ api_idx_0006_UMQS:
     push ax                          ; 0x927b
     mov ax, 0x26                     ; 0x927c
     imul word [bp + 4]               ; 0x927f
-    add ax, slot_records + slot_record.selected_bits + 0x2 ; 0x9282
+    add ax, slot_records + slot_record.visited_locations ; 0x9282
     push ax                          ; 0x9285
     call test_bit                    ; 0x9286
     add sp, byte 4                   ; 0x9289
@@ -53,12 +53,12 @@ api_idx_0006_UMQS:
     je short .forward2               ; 0x928e
     mov word [bss_9bdc], 1           ; 0x9290
 .forward2:
-    mov byte [bss_8aac], 6           ; 0x9296
+    mov byte [path_edges + path_edge_size*15 + path_edge.gate_key], 6 ; 0x9296
     mov ax, 0xd                      ; 0x929b
     push ax                          ; 0x929e
     mov ax, 0x26                     ; 0x929f
     imul word [bp + 4]               ; 0x92a2
-    add ax, slot_records + slot_record.selected_bits + 0x2 ; 0x92a5
+    add ax, slot_records + slot_record.visited_locations ; 0x92a5
     push ax                          ; 0x92a8
     call test_bit                    ; 0x92a9
     add sp, byte 4                   ; 0x92ac
@@ -73,22 +73,22 @@ api_idx_0006_UMQS:
     shl ax, 1                        ; 0x92c6
     shl ax, 1                        ; 0x92c8
     mov bx, ax                       ; 0x92ca
-    mov al, byte [bx + loaded_four_byte_records] ; 0x92cc
+    mov al, byte [bx + path_edges]   ; 0x92cc
     sub ah, ah                       ; 0x92d0
     cmp ax, word [bp + 8]            ; 0x92d2
     je short .forward4               ; 0x92d5
-    mov al, byte [bx + loaded_four_byte_records + loaded_four_byte_records_rec.f_0001] ; 0x92d7
+    mov al, byte [bx + path_edges + path_edge.end_b] ; 0x92d7
     sub ah, ah                       ; 0x92db
     cmp ax, word [bp + 8]            ; 0x92dd
     jne short .forward6              ; 0x92e0
 .forward4:
-    cmp byte [bx + loaded_four_byte_records + loaded_four_byte_records_rec.f_0002], 0xff ; 0x92e2
+    cmp byte [bx + path_edges + path_edge.gate_key], 0xff ; 0x92e2
     je short .forward5               ; 0x92e7
-    mov al, byte [bx + loaded_four_byte_records + loaded_four_byte_records_rec.f_0002] ; 0x92e9
+    mov al, byte [bx + path_edges + path_edge.gate_key] ; 0x92e9
     cbw                              ; 0x92ed
     shl ax, 1                        ; 0x92ee
     mov bx, ax                       ; 0x92f0
-    cmp word [bx + bss_9bd2], byte 1 ; 0x92f2
+    cmp word [bx + open_gates], byte 1 ; 0x92f2
     jne short .forward6              ; 0x92f7
 .forward5:
     mov word [bp - 6], 0             ; 0x92f9
@@ -102,32 +102,32 @@ api_idx_0006_UMQS:
     mov ax, 0                        ; 0x930f
     ret                              ; 0x9312
 .forward7:
-    mov word [bss_9c00], 0           ; 0x9313
+    mov word [path_search_depth], 0  ; 0x9313
 .back3:
-    mov word [bss_9be6], 0           ; 0x9319
+    mov word [found_path_length], 0  ; 0x9319
     mov ax, 0                        ; 0x931f
     push ax                          ; 0x9322
     mov ax, 0x40                     ; 0x9323
     push ax                          ; 0x9326
-    mov ax, bss_9c02                 ; 0x9327
+    mov ax, edges_in_use             ; 0x9327
     push ax                          ; 0x932a
     call aztec_setmem                ; 0x932b
     add sp, byte 6                   ; 0x932e
-    inc word [bss_9c00]              ; 0x9331
+    inc word [path_search_depth]     ; 0x9331
     mov ax, 0                        ; 0x9335
     push ax                          ; 0x9338
     mov ax, 1                        ; 0x9339
     push ax                          ; 0x933c
     push word [bp + 8]               ; 0x933d
     push word [bp + 6]               ; 0x9340
-    call api_idx_0048_OSRI           ; 0x9343
+    call search_path_from            ; 0x9343
     add sp, byte 8                   ; 0x9346
     test ax, ax                      ; 0x9349
     jne short .forward8              ; 0x934b
-    cmp word [bss_9c00], byte 0x14   ; 0x934d
+    cmp word [path_search_depth], byte 0x14 ; 0x934d
     jl short .back3                  ; 0x9352
 .forward8:
-    cmp word [bss_9c00], byte 0x14   ; 0x9354
+    cmp word [path_search_depth], byte 0x14 ; 0x9354
     jl short .forward9               ; 0x9359
     mov ax, 0                        ; 0x935b
     ret                              ; 0x935e
@@ -138,7 +138,7 @@ api_idx_0006_UMQS:
     mov ax, word [bp - 2]            ; 0x9366
     shl ax, 1                        ; 0x9369
     mov bx, ax                       ; 0x936b
-    mov al, byte [bx + bss_9be8]     ; 0x936d
+    mov al, byte [bx + found_path]   ; 0x936d
     push ax                          ; 0x9371
     mov ax, 0x26                     ; 0x9372
     imul word [bp + 4]               ; 0x9375
@@ -150,9 +150,9 @@ api_idx_0006_UMQS:
     inc word [bp - 2]                ; 0x9384
 .forward10:
     mov ax, word [bp - 2]            ; 0x9387
-    cmp ax, word [bss_9be6]          ; 0x938a
+    cmp ax, word [found_path_length] ; 0x938a
     jl short .back4                  ; 0x938e
-    mov ax, word [bss_9be6]          ; 0x9390
+    mov ax, word [found_path_length] ; 0x9390
     dec ax                           ; 0x9393
     push ax                          ; 0x9394
     mov ax, 0x26                     ; 0x9395
@@ -160,6 +160,6 @@ api_idx_0006_UMQS:
     mov bx, ax                       ; 0x939b
     pop ax                           ; 0x939d
     mov byte [bx + slot_records + slot_record.path_step], al ; 0x939e
-    mov byte [bx + slot_records + slot_record.turn_count], 0 ; 0x93a2
+    mov byte [bx + slot_records + slot_record.map_piece], 0 ; 0x93a2
     mov ax, 1                        ; 0x93a7
     ret                              ; 0x93aa

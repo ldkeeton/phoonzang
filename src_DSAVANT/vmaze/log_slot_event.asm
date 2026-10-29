@@ -1,5 +1,5 @@
 ; auto-generated
-find_or_add_loaded_record:
+log_slot_event:
     mov ax, 0xfffe                   ; 0x93ab
     call aztec_csav                  ; 0x93ae
     mov word [bp - 2], 0             ; 0x93b1
@@ -13,15 +13,15 @@ find_or_add_loaded_record:
     pop ax                           ; 0x93c5
     add ax, cx                       ; 0x93c6
     mov bx, ax                       ; 0x93c8
-    mov al, byte [bx + loaded_fifteen_byte_records] ; 0x93ca
+    mov al, byte [bx + slot_event_logs] ; 0x93ca
     cbw                              ; 0x93ce
     cmp ax, word [bp + 6]            ; 0x93cf
     jne short .forward1              ; 0x93d2
-    mov al, byte [bx + loaded_fifteen_byte_records + loaded_fifteen_byte_records_rec.f_0001] ; 0x93d4
+    mov al, byte [bx + slot_event_logs + slot_event.kind] ; 0x93d4
     cbw                              ; 0x93d8
     cmp ax, word [bp + 8]            ; 0x93d9
     jne short .forward1              ; 0x93dc
-    mov al, byte [bx + loaded_fifteen_byte_records + loaded_fifteen_byte_records_rec.f_0002] ; 0x93de
+    mov al, byte [bx + slot_event_logs + slot_event.detail] ; 0x93de
     cbw                              ; 0x93e2
     cmp ax, word [bp + 0xa]          ; 0x93e3
     jne short .forward1              ; 0x93e6
@@ -47,11 +47,11 @@ find_or_add_loaded_record:
     add cx, ax                       ; 0x9415
     mov bx, cx                       ; 0x9417
     pop ax                           ; 0x9419
-    mov byte [bx + loaded_fifteen_byte_records], al ; 0x941a
+    mov byte [bx + slot_event_logs], al ; 0x941a
     mov al, byte [bp + 8]            ; 0x941e
-    mov byte [bx + loaded_fifteen_byte_records + loaded_fifteen_byte_records_rec.f_0001], al ; 0x9421
+    mov byte [bx + slot_event_logs + slot_event.kind], al ; 0x9421
     mov al, byte [bp + 0xa]          ; 0x9425
-    mov byte [bx + loaded_fifteen_byte_records + loaded_fifteen_byte_records_rec.f_0002], al ; 0x9428
+    mov byte [bx + slot_event_logs + slot_event.detail], al ; 0x9428
     mov ax, 0x26                     ; 0x942c
     imul word [bp + 4]               ; 0x942f
     mov bx, ax                       ; 0x9432

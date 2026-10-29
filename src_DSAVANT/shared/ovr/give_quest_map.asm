@@ -1,5 +1,5 @@
 ; auto-generated
-assign_slot_bit:
+give_quest_map:
     mov ax, 0xfffe
     call aztec_csav
     mov al, byte [bp + 4]
@@ -8,14 +8,14 @@ assign_slot_bit:
     imul word [bp + 8]
     mov bx, ax
     pop ax
-    mov byte [bx + slot_bit_states], al
-    mov byte [bx + slot_bit_states + slot_bit_state.status], 0
+    mov byte [bx + quest_maps], al
+    mov byte [bx + quest_maps + quest_map.status], 0
     mov ax, 1
     push ax
     push word [bp + 8]
     mov ax, 0x26
     imul word [bp + 4]
-    add ax, slot_records + slot_record.assigned_bits
+    add ax, slot_records + slot_record.held_maps
     push ax
     call set_bitmap_bit
     add sp, byte 6
@@ -24,7 +24,7 @@ assign_slot_bit:
     push word [bp + 8]
     mov ax, 0x26
     imul word [bp + 4]
-    add ax, slot_records + slot_record.marked_bits
+    add ax, slot_records + slot_record.map_history
     push ax
     call set_bitmap_bit
     add sp, byte 6
@@ -35,7 +35,7 @@ assign_slot_bit:
     push word [bp + 8]
     mov ax, 0x26
     imul word [bp - 2]
-    add ax, slot_records + slot_record.selected_bits
+    add ax, slot_records + slot_record.known_maps
     push ax
     call set_bitmap_bit
     add sp, byte 6
@@ -48,7 +48,7 @@ assign_slot_bit:
     push word [bp + 8]
     mov ax, 0x26
     imul word [bp + 4]
-    add ax, slot_records + slot_record.selected_bits
+    add ax, slot_records + slot_record.known_maps
     push ax
     call set_bitmap_bit
     add sp, byte 6
@@ -59,7 +59,7 @@ assign_slot_bit:
     push word [bp + 8]
     mov ax, 0x26
     imul word [bp + 6]
-    add ax, slot_records + slot_record.assigned_bits
+    add ax, slot_records + slot_record.held_maps
     push ax
     call set_bitmap_bit
     add sp, byte 6
@@ -68,7 +68,7 @@ assign_slot_bit:
     push word [bp + 8]
     mov ax, 0x26
     imul word [bp + 6]
-    add ax, slot_records + slot_record.selected_bits
+    add ax, slot_records + slot_record.known_maps
     push ax
     call set_bitmap_bit
     add sp, byte 6

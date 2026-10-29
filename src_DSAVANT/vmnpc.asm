@@ -311,7 +311,7 @@ loc_UTQS.api_idx1 equ step_party_animation
 
 %include "shared/ovr/loc_GMVH.asm"              ; 0x5497
 
-%include "shared/ovr/assign_slot_bit.asm"       ; 0x54b4
+%include "shared/ovr/give_quest_map.asm"        ; 0x54b4
 
 %include "vmnpc/api_idx_0008_GUJV.asm"     ; 0x5571
 

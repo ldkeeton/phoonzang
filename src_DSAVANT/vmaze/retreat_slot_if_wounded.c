@@ -3,7 +3,7 @@
 #include "structs/slotstat.h"
 
 extern int random_below();
-extern int refresh_slot_state();
+extern int travel_to_destination();
 extern struct slot_record slot_records[];
 
 retreat_slot_if_wounded(slot_index)
@@ -15,7 +15,7 @@ int slot_index;
 		    slot_records[slot_index].max_health / 2) {
 			slot_records[slot_index].destination =
 			    slot_records[slot_index].home_location;
-			refresh_slot_state(slot_index);
+			travel_to_destination(slot_index);
 			return 1;
 		}
 	}

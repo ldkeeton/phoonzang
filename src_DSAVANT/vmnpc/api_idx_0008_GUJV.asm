@@ -130,7 +130,7 @@ api_idx_0008_GUJV:
     push ax                          ; 0x5695
     mov ax, 0x15                     ; 0x5696
     push ax                          ; 0x5699
-    call assign_slot_bit             ; 0x569a
+    call give_quest_map              ; 0x569a
     add sp, byte 6                   ; 0x569d
 .forward7:
     mov ax, word [bp - 2]            ; 0x56a0

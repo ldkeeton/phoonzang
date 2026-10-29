@@ -660,7 +660,7 @@ load_game_data:
     mov word [game_time_aux_b], ax   ; 0x3624
     mov ax, 0x80                     ; 0x3627
     push ax                          ; 0x362a
-    mov ax, loaded_four_byte_records ; 0x362b
+    mov ax, path_edges               ; 0x362b
     push ax                          ; 0x362e
     push word [bp - 0xa]             ; 0x362f
     call aztec_read                  ; 0x3632
@@ -668,7 +668,7 @@ load_game_data:
     mov word [bp - 8], ax            ; 0x3638
     mov ax, 0x90                     ; 0x363b
     push ax                          ; 0x363e
-    mov ax, target_weight            ; 0x363f
+    mov ax, faction_attitudes        ; 0x363f
     push ax                          ; 0x3642
     push word [bp - 0xa]             ; 0x3643
     call aztec_read                  ; 0x3646
@@ -676,7 +676,7 @@ load_game_data:
     mov word [bp - 8], ax            ; 0x364c
     mov ax, 0x68                     ; 0x364f
     push ax                          ; 0x3652
-    mov ax, loaded_short_records     ; 0x3653
+    mov ax, location_records         ; 0x3653
     push ax                          ; 0x3656
     push word [bp - 0xa]             ; 0x3657
     call aztec_read                  ; 0x365a
@@ -684,7 +684,7 @@ load_game_data:
     mov word [bp - 8], ax            ; 0x3660
     mov ax, 0x14a                    ; 0x3663
     push ax                          ; 0x3666
-    mov ax, loaded_fifteen_byte_records ; 0x3667
+    mov ax, slot_event_logs          ; 0x3667
     push ax                          ; 0x366a
     push word [bp - 0xa]             ; 0x366b
     call aztec_read                  ; 0x366e
@@ -700,7 +700,7 @@ load_game_data:
     mov word [bp - 8], ax            ; 0x3688
     mov ax, 0x42                     ; 0x368b
     push ax                          ; 0x368e
-    mov ax, slot_bit_states          ; 0x368f
+    mov ax, quest_maps               ; 0x368f
     push ax                          ; 0x3692
     push word [bp - 0xa]             ; 0x3693
     call aztec_read                  ; 0x3696

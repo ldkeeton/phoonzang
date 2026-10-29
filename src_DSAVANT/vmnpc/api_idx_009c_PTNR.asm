@@ -89,7 +89,7 @@ api_idx_009c_PTNR:
     mov al, byte [bss_91c7]          ; 0x6867
     sub ah, ah                       ; 0x686a
     mov bx, ax                       ; 0x686c
-    mov al, byte [bx + target_weight] ; 0x686e
+    mov al, byte [bx + faction_attitudes] ; 0x686e
     cbw                              ; 0x6872
     mov word [bp - 0xa], ax          ; 0x6873
     cmp byte [bss_91c6], 0xff        ; 0x6876
@@ -363,7 +363,7 @@ api_idx_009c_PTNR.forward23:
     mov word [bp - 8], 0             ; 0x6afc
 api_idx_009c_PTNR.back8:
     push word [bp - 8]               ; 0x6b01
-    mov ax, bss_8822                 ; 0x6b04
+    mov ax, slot_records + slot_record_size*21 + slot_record.known_maps ; 0x6b04
     push ax                          ; 0x6b07
     call test_bit                    ; 0x6b08
     add sp, byte 4                   ; 0x6b0b
@@ -442,14 +442,14 @@ api_idx_009c_PTNR.forward30:
     mov al, byte [bss_91c7]          ; 0x6bb4
     sub ah, ah                       ; 0x6bb7
     mov bx, ax                       ; 0x6bb9
-    cmp byte [bx + target_weight], 0 ; 0x6bbb
+    cmp byte [bx + faction_attitudes], 0 ; 0x6bbb
     jle short api_idx_009c_PTNR.forward31 ; 0x6bc0
-    mov al, byte [bx + target_weight] ; 0x6bc2
+    mov al, byte [bx + faction_attitudes] ; 0x6bc2
     cbw                              ; 0x6bc6
     mov cx, 5                        ; 0x6bc7
     cwd                              ; 0x6bca
     idiv cx                          ; 0x6bcb
-    mov byte [bx + target_weight], al ; 0x6bcd
+    mov byte [bx + faction_attitudes], al ; 0x6bcd
 api_idx_009c_PTNR.forward31:
     mov ax, 0xf                      ; 0x6bd1
     push ax                          ; 0x6bd4
@@ -535,7 +535,7 @@ api_idx_009c_PTNR.forward35:
     mov al, byte [bss_91c7]          ; 0x6c89
     sub ah, ah                       ; 0x6c8c
     mov bx, ax                       ; 0x6c8e
-    mov al, byte [bx + target_weight] ; 0x6c90
+    mov al, byte [bx + faction_attitudes] ; 0x6c90
     cbw                              ; 0x6c94
     add ax, word [bss_964e]          ; 0x6c95
     mov word [bp - 2], ax            ; 0x6c99

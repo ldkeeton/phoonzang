@@ -274,7 +274,7 @@ api_idx_0018_USPR:
     mov ax, dx                       ; 0x1f3d
     test ax, ax                      ; 0x1f3f
     jne short .forward26             ; 0x1f41
-    call api_idx_0032_TNQM           ; 0x1f43
+    call run_roaming_npc_turns       ; 0x1f43
     dec word [bp - 0xe]              ; 0x1f46
     mov ax, 0x3cf                    ; 0x1f49
     cmp byte [startup_aux_option_a], 1 ; 0x1f4c

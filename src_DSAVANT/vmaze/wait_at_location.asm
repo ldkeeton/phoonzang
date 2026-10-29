@@ -1,5 +1,5 @@
 ; auto-generated
-rest_slot_or_wander:
+wait_at_location:
     mov ax, 0                        ; 0xaa3f
     call aztec_csav                  ; 0xaa42
     mov ax, 0x10                     ; 0xaa45
@@ -11,7 +11,7 @@ rest_slot_or_wander:
     imul word [bp + 4]               ; 0xaa51
     mov bx, ax                       ; 0xaa54
     pop ax                           ; 0xaa56
-    mov byte [bx + slot_records + slot_record.turn_count], al ; 0xaa57
+    mov byte [bx + slot_records + slot_record.map_piece], al ; 0xaa57
     mov al, byte [bx + slot_records + slot_record.location] ; 0xaa5b
     cmp al, byte [bx + slot_records + slot_record.home_location] ; 0xaa5f
     jne short .forward2              ; 0xaa63
@@ -36,7 +36,7 @@ rest_slot_or_wander:
     imul word [bp + 4]               ; 0xaa90
     mov bx, ax                       ; 0xaa93
     mov byte [bx + slot_records + slot_record.activity], 2 ; 0xaa95
-    mov byte [bx + slot_records + slot_record.turn_count], 0 ; 0xaa9a
+    mov byte [bx + slot_records + slot_record.map_piece], 0 ; 0xaa9a
     ret                              ; 0xaa9f
 .forward1:
     jmp short .forward3              ; 0xaaa0
@@ -55,7 +55,7 @@ rest_slot_or_wander:
     mov ax, 0xffff                   ; 0xaab8
     push ax                          ; 0xaabb
     push word [bp + 4]               ; 0xaabc
-    call api_idx_0008_OMPR           ; 0xaabf
+    call meet_slots_here             ; 0xaabf
     add sp, byte 4                   ; 0xaac2
     mov ax, 0x26                     ; 0xaac5
     imul word [bp + 4]               ; 0xaac8

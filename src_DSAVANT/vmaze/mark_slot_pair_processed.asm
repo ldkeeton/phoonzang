@@ -14,7 +14,7 @@ mark_slot_pair_processed:
     push ax                          ; 0xa22e
     push word [bp + 6]               ; 0xa22f
     push word [bp + 4]               ; 0xa232
-    call find_or_add_loaded_record   ; 0xa235
+    call log_slot_event              ; 0xa235
     add sp, byte 8                   ; 0xa238
     mov ax, 0xf                      ; 0xa23b
     push ax                          ; 0xa23e
@@ -24,7 +24,7 @@ mark_slot_pair_processed:
     push ax                          ; 0xa246
     push word [bp + 6]               ; 0xa247
     push word [bp + 4]               ; 0xa24a
-    call adjust_target_weight        ; 0xa24d
+    call adjust_faction_attitude     ; 0xa24d
     add sp, byte 6                   ; 0xa250
     mov ax, 0xf                      ; 0xa253
     push ax                          ; 0xa256
@@ -34,7 +34,7 @@ mark_slot_pair_processed:
     push ax                          ; 0xa25e
     push word [bp + 4]               ; 0xa25f
     push word [bp + 6]               ; 0xa262
-    call adjust_target_weight        ; 0xa265
+    call adjust_faction_attitude     ; 0xa265
     add sp, byte 6                   ; 0xa268
 .forward1:
     mov ax, 0x16                     ; 0xa26b

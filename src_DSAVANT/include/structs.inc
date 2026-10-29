@@ -248,12 +248,12 @@ struc party_member_ext_1_rec
 endstruc
 
 ; records at DS 0x84a6
-struc slot_bit_state
-    .slot: resb 1
+struc quest_map
+    .holder: resb 1
     .status: resb 1
-    .location: resb 1
-    .flag_index: resb 1
-    .goal_location: resb 2
+    .site_location: resb 1
+    .gate_key: resb 1
+    .next_destination: resb 2
 endstruc
 
 ; records at DS 0x84e8
@@ -263,38 +263,39 @@ struc slot_record
     .activity: resb 1
     .destination: resb 1
     .location: resb 1
-    .turn_count: resb 1
+    .map_piece: resb 1
     .target: resb 1
     .path_step: resb 1
     .path: resb 14
     .event_ring_next: resb 2
     .health: resb 1
     .max_health: resb 1
-    .assigned_bits: resb 2
-    .selected_bits: resb 6
-    .marked_bits: resb 2
-    .pad_0024: resb 2
+    .held_maps: resb 2
+    .known_maps: resb 2
+    .visited_locations: resb 4
+    .map_history: resb 4
 endstruc
 
 ; records at DS 0x882c
-struc loaded_fifteen_byte_records_rec
-    .f_0000: resb 1
-    .f_0001: resb 1
-    .f_0002: resb 13
+struc slot_event
+    .subject: resb 1
+    .kind: resb 1
+    .detail: resb 1
 endstruc
 
 ; records at DS 0x8976
-struc loaded_short_records_rec
-    .f_0000: resb 1
-    .f_0001: resb 1
-    .f_0002: resb 2
+struc location_record
+    .owner_faction: resb 1
+    .rumored_map: resb 1
+    .reveals_location: resb 1
+    .game_state: resb 1
 endstruc
 
 ; records at DS 0x8a6e
-struc loaded_four_byte_records_rec
-    .f_0000: resb 1
-    .f_0001: resb 1
-    .f_0002: resb 1
-    .f_0003: resb 1
+struc path_edge
+    .end_a: resb 1
+    .end_b: resb 1
+    .gate_key: resb 1
+    .length: resb 1
 endstruc
 %endif
