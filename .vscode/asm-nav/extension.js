@@ -46,7 +46,10 @@ async function load(uri) {
         const where = locate(uri.fsPath);
         const asm = /\.asm$/i.test(uri.fsPath);
         scans.set(key, { uri, project: /[/\\](src_[^/\\]+)[/\\]/.exec(uri.fsPath)?.[1], binary: where ? where.binary : null,
-                         labels: asm || /\.s$/i.test(uri.fsPath) ? labels(text).map(l => /\.s$/i.test(uri.fsPath) ? { ...l, name: l.name.replace(/_$/, ''), definition: true } : l) : /\.[ch]$/i.test(uri.fsPath) ? cSymbols(text) : [],
+                         labels: asm || /\.s$/i.test(uri.fsPath) ? labels(text).map(l => ({ ...l,
+                             name: /\.s$/i.test(uri.fsPath) ? l.name.replace(/_$/, '') : l.name,
+                             definition: true,
+                         })) : /\.[ch]$/i.test(uri.fsPath) ? cSymbols(text) : [],
                          addrs: asm && where ? addresses(text) : [] });
     } catch (e) {
         texts.delete(key);
@@ -135,13 +138,32 @@ function visibleFrom(uri, doc) {
     return !project || scans.get(uri.toString())?.project === project;
 }
 function hitsFor(name, doc) {
-    const all = (defs.get(name) || []).filter(h => visibleFrom(h.uri, doc) &&
+    const fromC = doc && /\.c$/i.test(doc.fileName);
+    const project = doc && /[/\\](src_[^/\\]+)[/\\]/.exec(doc.fileName)?.[1];
+    const all = (defs.get(name) || []).filter(h =>
+        (visibleFrom(h.uri, doc) || (fromC && listing(h.uri.fsPath) &&
+            scans.get(h.uri.toString())?.project === project)) &&
         (!h.static || h.uri.fsPath === doc?.fileName));
     const here = doc && locate(doc.fileName);
     const mine = here ? all.filter(h => {
         const binary = scans.get(h.uri.toString())?.binary;
         return binary === here.binary || binary === SHARED_DIR || binary === 'include';
     }) : [];
+
+    // From C, navigate to an actual C definition whenever one exists. C
+    // externs are declarations, not useful destinations; only use a Manx
+    // assembly (.s or NASM listing) definition when the project has no C definition.
+    if (fromC) {
+        const definitions = all.filter(h => h.definition);
+        const cDefinitions = definitions.filter(h => /\.[ch]$/i.test(h.uri.fsPath));
+        const asmDefinitions = definitions.filter(h => /\.(?:s|asm)$/i.test(h.uri.fsPath));
+        const preferred = hits => {
+            const local = hits.filter(h => mine.includes(h));
+            return local.length ? local : hits;
+        };
+        return preferred(cDefinitions.length ? cDefinitions : asmDefinitions);
+    }
+
     const hits = mine.length ? mine : all;
     const definitions = hits.filter(h => h.definition);
     return definitions.length ? definitions : hits;

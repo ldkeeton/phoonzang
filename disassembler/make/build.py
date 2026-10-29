@@ -9,6 +9,7 @@ analysis, and both that step and the NASM step run on a thread pool.
 import json
 import os
 import sys
+import tempfile
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
 from main.projects import discover_binaries
@@ -163,12 +164,27 @@ def _rebuild_targets(app, bins, binary, only):
     return targets, binary
 
 
+def _compare_built(app_dir, out_dir, name, rel_path, listing):
+    """The assembled ``build_out`` file against the shipped one, as ``make
+    verify`` compares them, on the code map of the assembly's *listing*."""
+    from main.verify import compare_image, listing_map, locator
+    with open(os.path.join(out_dir, 'build_out', rel_path), 'rb') as f:
+        built = f.read()
+    with open(listing, errors='replace') as f:
+        bitmap, labels = listing_map(f.read(), len(built))
+    return compare_image(
+        name, os.path.join(app_dir, rel_path), rel_path, built, bitmap,
+        exact_bytes='--exact-bytes' in _extra_flags(),
+        where=locator(out_dir, name, labels))
+
+
 def _rebuild_project(app, binary=None, only=None):
-    """Recompile every ``.c`` (gated against the original) then NASM-assemble.
+    """Recompile every ``.c`` (gated against the original), NASM-assemble,
+    then compare each whole binary with the shipped one (as ``make verify``).
 
     *only* limits the C gate to one routine's source; the binary still
-    assembles, so the check covers both "the C reproduces its bytes" and
-    "the fragment assembles in place".
+    assembles and is compared, so the check covers "the C reproduces its
+    bytes", "the fragment assembles in place" and "the image still matches".
 
     ``BIN`` is a real binary when a routine follows it.  With only two
     arguments the selector is the routine, gated against every binary whose
@@ -186,9 +202,15 @@ def _rebuild_project(app, binary=None, only=None):
     for name in targets:
         if _verbose():
             progress.log(f'{app}/{name} | nasm')
-        if nasm_binary(out_dir, name, bins[name][0]) != 0:
-            print(f'rebuild {app}/{name} -> {bins[name][0]}  [FAILED]')
-            sys.exit(1)
+        with tempfile.TemporaryDirectory() as tmp:
+            listing = os.path.join(tmp, f'{name}.lst')
+            if nasm_binary(out_dir, name, bins[name][0],
+                           listing=listing) != 0:
+                print(f'rebuild {app}/{name} -> {bins[name][0]}  [FAILED]')
+                sys.exit(1)
+            if not _compare_built(app_dir, out_dir, name, bins[name][0],
+                                  listing):
+                sys.exit(1)
         if _verbose():
             print(f'rebuild {app}/{name} -> {bins[name][0]}  [OK]')
     print(f'rebuild {app}: {len(targets)} binar{"y" if len(targets) == 1 else "ies"} OK')

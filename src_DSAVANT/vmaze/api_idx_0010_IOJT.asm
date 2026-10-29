@@ -209,7 +209,7 @@ api_idx_0010_IOJT:
     push ax                          ; 0x9c77
     push word [bp + 6]               ; 0x9c78
     push word [bp + 4]               ; 0x9c7b
-    call loc_HULT                    ; 0x9c7e
+    call adjust_target_weight        ; 0x9c7e
     add sp, byte 6                   ; 0x9c81
     mov ax, 5                        ; 0x9c84
     push ax                          ; 0x9c87
@@ -218,19 +218,19 @@ api_idx_0010_IOJT:
     push ax                          ; 0x9c8c
     push word [bp + 4]               ; 0x9c8d
     push word [bp + 6]               ; 0x9c90
-    call loc_HULT                    ; 0x9c93
+    call adjust_target_weight        ; 0x9c93
     add sp, byte 6                   ; 0x9c96
 .forward11:
     mov ax, 0x16                     ; 0x9c99
     imul word [bp + 4]               ; 0x9c9c
     add ax, word [bp + 6]            ; 0x9c9f
     mov bx, ax                       ; 0x9ca2
-    mov byte [bx + bss_9c42], 1      ; 0x9ca4
+    mov byte [bx + slot_pair_processed], 1 ; 0x9ca4
     mov ax, 0x16                     ; 0x9ca9
     imul word [bp + 6]               ; 0x9cac
     add ax, word [bp + 4]            ; 0x9caf
     mov bx, ax                       ; 0x9cb2
-    mov byte [bx + bss_9c42], 1      ; 0x9cb4
+    mov byte [bx + slot_pair_processed], 1 ; 0x9cb4
     mov ax, 0x26                     ; 0x9cb9
     imul word [bp + 4]               ; 0x9cbc
     mov bx, ax                       ; 0x9cbf
@@ -343,7 +343,7 @@ api_idx_0010_IOJT:
     push ax                          ; 0x9db7
     push word [bp - 0xc]             ; 0x9db8
     push word [bp + 4]               ; 0x9dbb
-    call api_idx_0002_NVPU           ; 0x9dbe
+    call find_or_add_loaded_record   ; 0x9dbe
     add sp, byte 8                   ; 0x9dc1
     push word [bp - 0xc]             ; 0x9dc4
     push word [bp + 6]               ; 0x9dc7
@@ -415,7 +415,7 @@ api_idx_0010_IOJT:
     push ax                          ; 0x9e5c
     push word [bp - 0xa]             ; 0x9e5d
     push word [bp + 6]               ; 0x9e60
-    call api_idx_0002_NVPU           ; 0x9e63
+    call find_or_add_loaded_record   ; 0x9e63
     add sp, byte 8                   ; 0x9e66
     push word [bp - 0xa]             ; 0x9e69
     push word [bp + 4]               ; 0x9e6c

@@ -191,7 +191,7 @@ api_idx_0002_TLGN:
     sub ah, ah                       ; 0xa997
     push ax                          ; 0xa999
     push word [bp + 4]               ; 0xa99a
-    call api_idx_0002_NVPU           ; 0xa99d
+    call find_or_add_loaded_record   ; 0xa99d
     add sp, byte 8                   ; 0xa9a0
 .return3:
     ret                              ; 0xa9a3

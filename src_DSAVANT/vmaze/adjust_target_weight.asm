@@ -1,5 +1,5 @@
 ; auto-generated
-loc_HULT:
+adjust_target_weight:
     mov ax, 0                        ; 0x9658
     call aztec_csav                  ; 0x965b
     mov ax, 0x64                     ; 0x965e

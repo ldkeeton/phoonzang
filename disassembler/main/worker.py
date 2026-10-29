@@ -35,7 +35,6 @@ from lib.sidecar.binary import per_binary as sidecar_per_binary
 from lib.sidecar.errors import SidecarError
 from lib.sidecar.loader import load as load_sidecar
 
-from .aztec import SourceBuildError
 from .options import APPS_DIR, EXACT_BYTES, PROJECT_ROOT, _SHOW_OFFSETS
 from .projects import _build_host_model, discover_binaries
 
@@ -168,10 +167,6 @@ def _answer(run, reply):
         with redirect_stdout(out), redirect_stderr(err):
             try:
                 files = run.step(command['flags'])
-            except SourceBuildError as exc:
-                files = exc.files
-                print(exc, file=sys.stderr)
-                status = 2
             except UnencodedInstructionError as exc:
                 print(f'ERROR: {exc}', file=sys.stderr)
                 status = 2

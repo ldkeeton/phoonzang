@@ -48,7 +48,7 @@ api_idx_0006_NNTR:
     push ax                          ; 0x9a53
     push word [bp - 2]               ; 0x9a54
     push word [bp + 4]               ; 0x9a57
-    call api_idx_0002_NVPU           ; 0x9a5a
+    call find_or_add_loaded_record   ; 0x9a5a
     add sp, byte 8                   ; 0x9a5d
     push word [bp - 2]               ; 0x9a60
     mov ax, 0xffff                   ; 0x9a63

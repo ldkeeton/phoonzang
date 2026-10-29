@@ -33,7 +33,9 @@ Commands (space-separated):
                             elf-rebuild, make test
   make all notest           the same, without the tests at the end
   make build [PROJECT]      asm + nasm + assets for every binary (default: all
-                            projects); reads include/ headers from make headers
+                            projects); reads include/ headers from make headers.
+                            A .c/.s that does not match is a warning here and an
+                            error in make rebuild
   make headers [PROJECT...] write include/ msg.h, msg.inc, lmacros.h and the
                             vendor C headers the sources include
   make prebuild [PROJECT...]  clean .cache, rebuild aztec libs + signature DB, run the Aztec C mux
@@ -70,7 +72,8 @@ Commands (space-separated):
                             resolves relocations and gates the linked bytes against
                             the original fragment
   make rebuild [PROJECT [BIN [ROUTINE]]]  recompile .c (must match the original bytes;
-                            --allow-diff to relax) + nasm; default: everything.
+                            --allow-diff to relax) + nasm, then compare each binary
+                            with the original as verify does; default: everything.
                             With two arguments the selector is the routine, gated
                             against every binary that contains it
   make elf-rebuild [PROJECT [BIN]]  full rebuild from current sources (C resplice +

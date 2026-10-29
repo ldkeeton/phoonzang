@@ -20,7 +20,7 @@ api_idx_0008_OMPR:
     imul word [bp + 4]               ; 0xa5e4
     add ax, word [bp - 6]            ; 0xa5e7
     mov bx, ax                       ; 0xa5ea
-    cmp byte [bx + bss_9c42], 0      ; 0xa5ec
+    cmp byte [bx + slot_pair_processed], 0 ; 0xa5ec
     je short .forward3               ; 0xa5f1
     jmp near .forward15              ; 0xa5f3
 .forward3:
@@ -209,7 +209,7 @@ api_idx_0008_OMPR:
 .forward14:
     push word [bp - 6]               ; 0xa797
     push word [bp + 4]               ; 0xa79a
-    call loc_KHPH                    ; 0xa79d
+    call mark_slot_pair_processed    ; 0xa79d
     add sp, byte 4                   ; 0xa7a0
 .forward15:
     inc word [bp - 6]                ; 0xa7a3

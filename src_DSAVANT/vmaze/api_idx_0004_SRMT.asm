@@ -37,7 +37,7 @@ api_idx_0004_SRMT:
     push ax                          ; 0x9ecf
     push word [bp - 2]               ; 0x9ed0
     push word [bp + 4]               ; 0x9ed3
-    call api_idx_0002_NVPU           ; 0x9ed6
+    call find_or_add_loaded_record   ; 0x9ed6
     add sp, byte 8                   ; 0x9ed9
     push word [bp - 2]               ; 0x9edc
     push word [bp + 6]               ; 0x9edf

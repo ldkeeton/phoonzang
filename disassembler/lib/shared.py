@@ -1137,7 +1137,7 @@ class _Diff:
 
 @dataclass(frozen=True)
 class _Finding:
-    kind: str                     # code | data | collision
+    kind: str                     # code | data | collision | twin
     stem: str
     members: tuple = ()
     target: str = ''
@@ -1351,13 +1351,42 @@ def _immediate_findings(frags, served=frozenset(), hosts=None,
 
 def _sort_findings(findings):
     findings.sort(key=lambda f: (
-        {'code': 0, 'immediate': 1, 'data': 2, 'collision': 3}[f.kind],
+        {'code': 0, 'immediate': 1, 'data': 2, 'collision': 3,
+         'twin': 4}[f.kind],
         -len(f.members), f.stem))
     return findings
 
 
+#: A master's ``equ`` giving one content-tagged name another of its base
+#: (``api_idx_0012_RLJJ equ api_idx_0012_PGSL``).
+_TWIN_ALIAS = re.compile(
+    r'^[ \t]*((\S+?)_([G-V]{4})(?:_[0-9a-f]+)?)[ \t]+equ[ \t]+'
+    r'((\S+?)_([G-V]{4})(?:_[0-9a-f]+)?)[ \t]*$', re.M)
+
+
+def _twin_findings(out_dir):
+    """Shared code its copies hashed differently (:func:`lib.names.content_tag`).
+
+    Diagnostic only: the copies already share one file, each binary's own
+    tag an ``equ`` of it.  The tag hashes bytes the layout moves (a table's
+    address, say), so the names stay apart; sharing goes by the code.
+    """
+    findings = []
+    for name in sorted(os.listdir(out_dir)):
+        path = os.path.join(out_dir, name)
+        if not (name.endswith('.asm') and os.path.isfile(path)):
+            continue
+        for match in _TWIN_ALIAS.finditer(_read(path)):
+            own, base, tag, common, other, other_tag = match.groups()
+            if base == other and tag != other_tag:
+                findings.append(_Finding('twin', own, target=common,
+                                         bodies=(name[:-4],)))
+    return findings
+
+
 def scan(out_dir):
-    """Every unmerged code/data group and data-name collision under *out_dir*.
+    """Every unmerged code/data group and data-name collision under *out_dir*,
+    and every shared routine whose copies carry different content tags.
 
     Address-like immediates are a second pass so they cannot split a group the
     name/memory pass already matched: a group reported as ``code`` is excluded,
@@ -1380,6 +1409,7 @@ def scan(out_dir):
         immediate.append(_Fragment(frag.rel, frag.binary, frag.stem, False,
                                    frag.text, tuple(stream), key, lines))
     findings.extend(_immediate_findings(immediate, served, hosts, drivers))
+    findings.extend(_twin_findings(out_dir))
     return _sort_findings(findings)
 
 
@@ -1403,7 +1433,8 @@ def report(findings):
              f'{counts["code"]} code group(s), '
              f'{counts["immediate"]} address-immediate group(s), '
              f'{counts["data"]} data group(s), '
-             f'{counts["collision"]} data name collision(s)']
+             f'{counts["collision"]} data name collision(s), '
+             f'{counts["twin"]} twin-tag alias(es)']
     for finding in findings:
         lines.append('')
         if finding.kind == 'collision':
@@ -1415,6 +1446,11 @@ def report(findings):
                 sample = _sample_line(body[0])
                 if sample:
                     lines.append(f'      {sample}')
+            continue
+        if finding.kind == 'twin':
+            lines.append(f'twin-tag alias (already shared): '
+                         f'{finding.bodies[0]}: '
+                         f'{finding.stem} equ {finding.target}')
             continue
         if finding.kind == 'immediate':
             noun, unit = 'address-immediate', 'instructions'

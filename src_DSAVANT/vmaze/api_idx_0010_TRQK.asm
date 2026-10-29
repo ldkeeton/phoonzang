@@ -109,7 +109,7 @@ api_idx_0010_TRQK:
     imul word [bp + 4]               ; 0xa3dd
     add ax, word [bp - 0xc]          ; 0xa3e0
     mov bx, ax                       ; 0xa3e3
-    cmp byte [bx + bss_9c42], 0      ; 0xa3e5
+    cmp byte [bx + slot_pair_processed], 0 ; 0xa3e5
     je short .forward6               ; 0xa3ea
     jmp near .forward15              ; 0xa3ec
 .forward6:
@@ -245,7 +245,7 @@ api_idx_0010_TRQK:
 .forward13:
     push word [bp - 0xc]             ; 0xa513
     push word [bp + 4]               ; 0xa516
-    call loc_KHPH                    ; 0xa519
+    call mark_slot_pair_processed    ; 0xa519
     add sp, byte 4                   ; 0xa51c
     mov ax, 5                        ; 0xa51f
     push ax                          ; 0xa522

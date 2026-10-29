@@ -16,14 +16,6 @@ from .options import (
 )
 
 
-class SourceBuildError(Exception):
-    """Source validation failed, but generated files are available."""
-
-    def __init__(self, errors, files):
-        super().__init__('\n'.join(dict.fromkeys(errors)))
-        self.files = files
-
-
 def _aztec_c_overrides(project, name, data, label_map, out_dir,
                        function_roots=None, start_offset=0, errors=None):
     """Resolve Aztec runtime routines to C and compile the current seeds.

@@ -6,7 +6,7 @@ api_idx_0032_TNQM:
     push ax                          ; 0xaba4
     mov ax, 0x1e4                    ; 0xaba5
     push ax                          ; 0xaba8
-    mov ax, bss_9c42                 ; 0xaba9
+    mov ax, slot_pair_processed      ; 0xaba9
     push ax                          ; 0xabac
     call aztec_setmem                ; 0xabad
     add sp, byte 6                   ; 0xabb0

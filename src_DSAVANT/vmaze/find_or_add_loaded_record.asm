@@ -1,5 +1,5 @@
 ; auto-generated
-api_idx_0002_NVPU:
+find_or_add_loaded_record:
     mov ax, 0xfffe                   ; 0x93ab
     call aztec_csav                  ; 0x93ae
     mov word [bp - 2], 0             ; 0x93b1

@@ -38,7 +38,7 @@ api_idx_0004_VRTU:
     sub ah, ah                       ; 0x9727
     push ax                          ; 0x9729
     push word [bp + 4]               ; 0x972a
-    call api_idx_0002_NVPU           ; 0x972d
+    call find_or_add_loaded_record   ; 0x972d
     add sp, byte 8                   ; 0x9730
     mov ax, 0x26                     ; 0x9733
     imul word [bp + 4]               ; 0x9736
@@ -192,7 +192,7 @@ api_idx_0004_VRTU:
     push ax                          ; 0x98a0
     push word [bp - 2]               ; 0x98a1
     push word [bp + 4]               ; 0x98a4
-    call api_idx_0002_NVPU           ; 0x98a7
+    call find_or_add_loaded_record   ; 0x98a7
     add sp, byte 8                   ; 0x98aa
 .return1:
     ret                              ; 0x98ad

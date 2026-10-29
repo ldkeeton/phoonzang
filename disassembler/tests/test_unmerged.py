@@ -206,6 +206,18 @@ class ReportTest(unittest.TestCase):
         self.assertIn('label', text)
         self.assertIn('bss_10 | bss_20', text)
 
+    def test_differently_tagged_twins_are_reported(self):
+        findings = _findings({
+            'vpclv.asm': 'api_idx_0012_RLJJ equ api_idx_0012_PGSL\n'
+                         'loc_UGOG_01c2 equ loc_TRPK\n'
+                         'free_sound.leaf_loc3 equ leaf_loc_SSGH\n',
+        })
+        self.assertEqual([(f.kind, f.stem, f.target) for f in findings],
+                         [('twin', 'api_idx_0012_RLJJ', 'api_idx_0012_PGSL'),
+                          ('twin', 'loc_UGOG_01c2', 'loc_TRPK')])
+        self.assertIn('twin-tag alias (already shared): vpclv: api_idx_0012_RLJJ equ '
+                      'api_idx_0012_PGSL', shared.report(findings))
+
     def test_clean_tree_has_no_report(self):
         self.assertEqual(shared.report([]), '')
 

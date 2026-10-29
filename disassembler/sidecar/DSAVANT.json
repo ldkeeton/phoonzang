@@ -1649,7 +1649,8 @@
         "918a": {"name": "save_di"},
         "918c": {"name": "save_sp"},
         "918e": {"name": "save_bp"},
-        "9190": {"name": "save_ret"}
+        "9190": {"name": "save_ret"},
+        "9c42": {"name": "slot_pair_processed", "note": "22-column byte flags for directed slot pairs already processed"}
       },
       "function_names": {
         "02f0": {"name": "load_maze_file", "note": "Open a maze file, load it into the requested slot, and close it"},
@@ -1679,7 +1680,10 @@
         "8b44": {"name": "check_type8_object", "note": "checks a type-8 object flags against party_tag; check_cell_objects stops when it returns 1"},
         "8c39": {"name": "check_cell_objects", "note": "on entering a cell, optionally shows message 0x7fb and acts on the first object of type 7, 8 or 0x19 there"},
         "0000": {"name": "ovmain"},
+        "939d": {"name": "find_or_add_loaded_record", "note": "finds a matching loaded 15-byte record or adds it to the slot record list"},
+        "964a": {"name": "adjust_target_weight", "note": "adds a delta to a directed slot-pair weight within its supported range"},
         "9912": {"name": "assign_slot_bit", "note": "Update the bit-indexed slot record and old and new slot bitmaps"},
+        "a207": {"name": "mark_slot_pair_processed", "note": "optionally adjusts a slot-pair weight, then marks both directed pairs processed"},
         "ac22": {"name": "aztec_ovbgn"}
       },
       "immediate_pointers": [

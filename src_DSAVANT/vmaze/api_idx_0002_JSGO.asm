@@ -26,7 +26,7 @@ api_idx_0002_JSGO:
     push ax                          ; 0xa9e1
     push word [bp - 2]               ; 0xa9e2
     push word [bp + 4]               ; 0xa9e5
-    call api_idx_0002_NVPU           ; 0xa9e8
+    call find_or_add_loaded_record   ; 0xa9e8
     add sp, byte 8                   ; 0xa9eb
     mov ax, 1                        ; 0xa9ee
     push ax                          ; 0xa9f1

@@ -130,20 +130,22 @@ def _patches_for(out_dir, name):
             .get('byte_patches') or ())
 
 
-def nasm_binary(out_dir, name, rel_path, patches=None):
+def nasm_binary(out_dir, name, rel_path, patches=None, listing=None):
     """Assemble one binary with NASM; return its exit status.
 
     After a successful assembly, each ``byte_patches`` entry writes its
     ``apply`` bytes into ``build_out``.  The source keeps the compiler's
     (``natural``) bytes, so a byte-exact C routine can gate and verify; only
-    the shipped artifact gets the post-link edit.
+    the shipped artifact gets the post-link edit.  *listing* is a path for
+    NASM's listing (:func:`main.verify.listing_map`).
     """
     asm_path = os.path.join(out_dir, f'{name}.asm')
     bin_path = os.path.join(out_dir, 'build_out', rel_path)
     os.makedirs(os.path.dirname(bin_path), exist_ok=True)
     r = childproc.run(
         ['nasm', '-O0', '-f', 'bin', '-w-number-overflow', '-w-other',
-         *include_args(out_dir), '-o', bin_path, asm_path],
+         *include_args(out_dir), '-o', bin_path,
+         *(('-l', listing) if listing else ()), asm_path],
         capture_output=True, text=True,
     )
     if r.returncode != 0:
@@ -322,15 +324,6 @@ def _build_project(project, run_batch, nasm_batch, *, report=print,
     report(f'\n=== {project} ({len(bins)} binaries) ===')
 
     emitted = {}    # {binary: its files}, written once the layout is final
-    source_failed = set()
-    generate_batch = run_batch
-
-    def run_batch(items):
-        failed, files = generate_batch(items)
-        # A source check can fail after exporting usable labels and ASM.
-        # Continue the dependent passes so their surrounding sources emit too.
-        source_failed.update(name for name in failed if name in files)
-        return [name for name in failed if name not in files], files
 
     progress.log(f'{project} | detecting cross-references')
     cross_refs = detect_cross_refs(app_dir, bins)
@@ -468,10 +461,6 @@ def _build_project(project, run_batch, nasm_batch, *, report=print,
             stagelog.step('project.host_emit', 0, 'recompute', repairs='project.export_sources',
                 why='the host\'s labels come first, its source waits for the overlay DS union')
 
-        if source_failed:
-            report(f'{project}: source checks failed; writing inspection output')
-            return sorted(source_failed)
-
         check_build_sidecar_use(project, bins)
         stagelog.step('project.sidecar_use', 0, 'measure',
             why='a build-wide sidecar entry is applied by some binary or is stale')
@@ -513,27 +502,17 @@ def _build_project(project, run_batch, nasm_batch, *, report=print,
         if pool is not None:
             pool.shutdown(wait=True)
             emitted.update(early_emitted)
-        # A consumer rendered from a failed source's labels is damaged by
-        # them: keep its last good files and write only the failed source.
-        tainted = {n for n, refs in cross_refs.items()
-                   if n not in source_failed
-                   and any(src in source_failed for _, src in refs)}
-        kept = {n: f for n, f in emitted.items() if n not in tainted}
-        if not completed and kept:
+        if not completed and emitted:
             # Keep inspectable output even after failure; partial trees must
             # never prune files belonging to a binary that did not emit.
-            if tainted:
-                report(f'  Failure output: kept last good '
-                       f'{", ".join(sorted(tainted))} (rendered from failed '
-                       f'source labels)')
             # With every binary emitted the full decision applies; the
             # partial one keys on the old masters' names, so a routine
             # renamed in this build would leave shared/ for each binary.
-            if set(kept) >= set(bins):
-                files, _ = share_files(merge_files(kept), out_dir,
+            if set(emitted) >= set(bins):
+                files, _ = share_files(merge_files(emitted), out_dir,
                                        project_tables(project))
             else:
-                files, _, _ = reshare_partial(merge_files(kept), out_dir)
+                files, _, _ = reshare_partial(merge_files(emitted), out_dir)
             files = {rel: text for rel, text in files.items()
                      if not hand_owned(os.path.join(out_dir, rel))}
             written, unchanged, _ = sync(out_dir, files, scopes=[])

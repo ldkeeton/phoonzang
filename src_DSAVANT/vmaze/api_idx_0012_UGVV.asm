@@ -14,7 +14,7 @@ api_idx_0012_UGVV:
     push ax                          ; 0x9f11
     push word [bp + 6]               ; 0x9f12
     push word [bp + 4]               ; 0x9f15
-    call loc_HULT                    ; 0x9f18
+    call adjust_target_weight        ; 0x9f18
     add sp, byte 6                   ; 0x9f1b
     mov ax, 0xf                      ; 0x9f1e
     push ax                          ; 0x9f21
@@ -28,7 +28,7 @@ api_idx_0012_UGVV:
     push ax                          ; 0x9f32
     push word [bp + 4]               ; 0x9f33
     push word [bp + 6]               ; 0x9f36
-    call loc_HULT                    ; 0x9f39
+    call adjust_target_weight        ; 0x9f39
     add sp, byte 6                   ; 0x9f3c
     mov ax, 0x26                     ; 0x9f3f
     imul word [bp + 6]               ; 0x9f42
@@ -316,7 +316,7 @@ api_idx_0012_UGVV:
     push word [bp - 0x12]            ; 0xa202
     push word [bp + 6]               ; 0xa205
     push word [bp + 4]               ; 0xa208
-    call api_idx_0002_NVPU           ; 0xa20b
+    call find_or_add_loaded_record   ; 0xa20b
     add sp, byte 8                   ; 0xa20e
     mov ax, word [bp - 0xe]          ; 0xa211
     ret                              ; 0xa214

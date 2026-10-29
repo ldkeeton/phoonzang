@@ -134,7 +134,7 @@ bss_9be6 equ __zdseg_end + (__zobss_9be6 - __zdata_start)
 bss_9be8 equ __zdseg_end + (__zobss_9be8 - __zdata_start)
 bss_9c00 equ __zdseg_end + (__zobss_9c00 - __zdata_start)
 bss_9c02 equ __zdseg_end + (__zobss_9c02 - __zdata_start)
-bss_9c42 equ __zdseg_end + (__zobss_9c42 - __zdata_start)
+slot_pair_processed equ __zdseg_end + (__zobss_9c42 - __zdata_start)
 _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "vmaze/ovmain.asm"                ; 0x000e
@@ -564,7 +564,7 @@ process_scene_message_words.loc1 equ api_idx_0090_QKJQ
 
 %include "vmaze/api_idx_0006_UMQS.asm"     ; 0x920f
 
-%include "vmaze/api_idx_0002_NVPU.asm"     ; 0x93ab
+%include "vmaze/find_or_add_loaded_record.asm" ; 0x93ab
 
 %include "vmaze/loc_PQKO.asm"              ; 0x9448
 
@@ -572,7 +572,7 @@ process_scene_message_words.loc1 equ api_idx_0090_QKJQ
 
 %include "vmaze/api_idx_003a_SOVP.asm"     ; 0x94ef
 
-%include "vmaze/loc_HULT.asm"              ; 0x9658
+%include "vmaze/adjust_target_weight.asm"  ; 0x9658
 
 %include "vmaze/api_idx_0004_VRTU.asm"     ; 0x96ce
 
@@ -588,7 +588,7 @@ process_scene_message_words.loc1 equ api_idx_0090_QKJQ
 
 %include "vmaze/api_idx_0012_UGVV.asm"     ; 0x9ef7
 
-%include "vmaze/loc_KHPH.asm"              ; 0xa215
+%include "vmaze/mark_slot_pair_processed.asm" ; 0xa215
 
 %include "vmaze/api_idx_0002_OOUO.asm"     ; 0xa28c
 

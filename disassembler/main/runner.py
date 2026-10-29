@@ -1274,9 +1274,11 @@ def step(a, exact_bytes, show_offsets, host_data_offsets, ds_starts, emit,
     progress.log(f'{a.name} | emitting sources')
     files = _emit(a, r, exact_bytes)
     progress.log(f'{a.name} | emit done ({len(files)} file(s))')
-    if a.source_errors:
-        from .aztec import SourceBuildError
-        raise SourceBuildError(a.source_errors, files)
+    # A .c/.s that fails its check is reported, not fatal: no hand source
+    # feeds the .asm, so the tree is complete.  ``make rebuild`` fails on it.
+    for error in dict.fromkeys(a.source_errors):
+        for line in str(error).split('\n'):
+            print(f'{a.name}: warning: {line}')
     return files
 
 
