@@ -719,10 +719,6 @@ __zdseg_end equ (__zimage_end - __zdseg_start) + __zbss_size
 
 %include "ds/library/call_set_text_pos.asm" ; 0x3a50
 
-%include "ds/library/call_get_text_pos.asm" ; 0x3a5d
-
-%include "ds/library/call_set_text_color.asm" ; 0x3a6a
-
 %include "ds/library/draw_font_glyph.asm"  ; 0x3a77
 
 %include "ds/library/draw_text_glyphs.asm" ; 0x3a95
@@ -730,24 +726,6 @@ __zdseg_end equ (__zimage_end - __zdseg_start) + __zbss_size
 %include "ds/library/measure_text_width.asm" ; 0x3aca
 
 %include "ds/library/call_show_area.asm"   ; 0x3b21
-
-%include "ds/library/call_fill_screen_buffer.asm" ; 0x3b2e
-
-%include "ds/library/call_put_pixel.asm"   ; 0x3b3b
-
-%include "ds/library/call_fill_area.asm"   ; 0x3b48
-
-%include "ds/library/call_invert_area.asm" ; 0x3b55
-
-%include "ds/library/call_get_free_space.asm" ; 0x3b62
-
-%include "ds/library/call_save_area.asm"   ; 0x3b6f
-
-%include "ds/library/call_cache_area.asm"  ; 0x3b7c
-
-%include "ds/library/call_restore_screen.asm" ; 0x3b89
-
-%include "ds/library/call_restore_area.asm" ; 0x3b96
 
 %include "ds/library/random_15bit.asm"     ; 0x3ba3
 
@@ -785,83 +763,9 @@ __zdseg_end equ (__zimage_end - __zdseg_start) + __zbss_size
 
 %include "ds/library/call_free_sound.asm"  ; 0x4134
 
-%include "ds/library/call_load_sound.asm"  ; 0x4141
-
-%include "ds/library/call_play_sound.asm"  ; 0x414e
-
-%include "ds/library/call_wait_sound.asm"  ; 0x415b
-
-%include "ds/library/call_stop_sound.asm"  ; 0x4168
-
-%include "ds/library/call_packed_slot_5.asm" ; 0x4175
-
-%include "ds/library/call_load_score.asm"  ; 0x41a3
-
-%include "ds/library/call_play_score.asm"  ; 0x41b0
-
-%include "ds/library/call_free_score.asm"  ; 0x41bd
-
-%include "ds/library/call_is_music_playing.asm" ; 0x41ca
-
-%include "ds/library/call_stop_music.asm"  ; 0x41d7
-
-%include "ds/library/call_set_music_tempo_volume.asm" ; 0x41e4
-
-%include "ds/library/call_load_picture.asm" ; 0x41f1
-
-%include "ds/library/call_free_picture.asm" ; 0x41fe
-
-%include "ds/library/call_free_maze.asm"   ; 0x420b
-
-%include "ds/library/call_draw_text.asm"   ; 0x4218
-
-%include "ds/library/call_load_screen.asm" ; 0x4225
-
-%include "ds/library/call_free_screen.asm" ; 0x4232
-
-%include "ds/library/call_save_screen.asm" ; 0x423f
-
-%include "ds/library/call_dissolve_area.asm" ; 0x424c
-
-%include "ds/library/call_load_maze.asm"   ; 0x4259
-
-%include "ds/library/call_draw_maze_piece.asm" ; 0x4266
-
-%include "ds/library/call_mouse_init.asm"  ; 0x4273
-
-%include "ds/library/call_mouse_off.asm"   ; 0x4280
-
-%include "ds/library/call_mouse_hit_test.asm" ; 0x428d
-
-%include "ds/library/call_get_mouse.asm"   ; 0x429a
-
-%include "ds/library/call_set_mouse_pointer.asm" ; 0x42a7
-
 %include "ds/library/mouse_set_pos.asm"    ; 0x42b4
 
 %include "ds/library/call_set_text_opaque.asm" ; 0x42dd
-
-%include "ds/library/call_set_rgb.asm"     ; 0x42ea
-
-%include "ds/library/call_get_rgb.asm"     ; 0x42f7
-
-%include "ds/library/call_fade_in.asm"     ; 0x4304
-
-%include "ds/library/call_fade_out.asm"    ; 0x4311
-
-%include "ds/library/call_reset_rgb.asm"   ; 0x431e
-
-%include "ds/library/call_mouse_glide_to.asm" ; 0x432b
-
-%include "ds/library/call_mouse_glide_back.asm" ; 0x4338
-
-%include "ds/library/call_get_palette.asm" ; 0x4345
-
-%include "ds/library/call_set_palette.asm" ; 0x4352
-
-%include "ds/library/call_cache_maze.asm"  ; 0x435f
-
-%include "ds/library/call_cache_screen_to_storage.asm" ; 0x436c
 
 %include "ds/aztec/aztec_ovloader.asm"     ; 0x4379
 

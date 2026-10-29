@@ -295,6 +295,10 @@ codeseg	segment	byte public 'code'
 ;	jnear cc,t	j<not cc> past / jmp t / past:	(cc a jcc suffix, as
 ;			above; MASM 6 lengthens an out-of-range jcc this way;
 ;			t forward or extrn, so the jmp is e9)
+; Driver thunks:
+;	drvcall name,slot	public name_ / name_ proc: push bp / mov bp,sp /
+;			cld / call dword ptr cs:slot / mov sp,bp / pop bp / ret
+;			(slot is the dword driver entry, declared extrn here)
 
 dos	macro	fn, alv
 	mov	ah,fn
@@ -397,6 +401,20 @@ else
 	mov	ax,4c00h+code
 endif
 	int	21h
+	endm
+
+drvcall	macro	pname, slot
+	extrn	slot:dword
+	public	pname&_
+pname&_	proc	near
+	push	bp
+	mov	bp,sp
+	cld
+	call	dword ptr cs:slot
+	mov	sp,bp
+	pop	bp
+	ret
+pname&_	endp
 	endm
 
 ; Block state.  _hn_ numbers labels.  The .if stack is _hd_ deep; at depth d,

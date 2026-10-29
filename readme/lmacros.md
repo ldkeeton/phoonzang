@@ -301,7 +301,30 @@ A conditional jump with no distance limit. *cc* is a jump condition such as
 
 ---
 
+## drvcall
+
+**Syntax**
+
+```
+drvcall name, slot
+```
+
+A whole driver thunk: declares *slot* (a dword far pointer in the code
+segment) `extrn`, then defines public `name_` as `push bp` / `mov bp,sp` /
+`cld` / `call dword ptr cs:slot` / `mov sp,bp` / `pop bp` / `ret`. The driver
+gets the caller's arguments on the stack as they are.
+
+**Example**
+
+```asm
+	drvcall	call_show_area,drv_slot_show_area
+	drvcall	call_put_pixel,cseg_2fcb
+```
+
+---
+
 ## Examples in the tree
 
 - [load_font_file.s](../src_DSAVANT/ds/library/load_font_file.s)
 - [detect_expanded_memory.s](../src_DSAVANT/ds/library/detect_expanded_memory.s)
+- [call_free_sound.s](../src_DSAVANT/ds/library/call_free_sound.s)
