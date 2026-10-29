@@ -1,5 +1,5 @@
 ; auto-generated
-loc_GRON:
+play_maze_sound_effect:
     mov ax, 0                        ; 0x6ac7
     call aztec_csav                  ; 0x6aca
     cmp word [bp + 4], byte 0        ; 0x6acd

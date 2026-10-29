@@ -96,7 +96,7 @@ claim_cell:
     add sp, byte 8                   ; 0x8afb
     mov ax, 0x12                     ; 0x8afe
     push ax                          ; 0x8b01
-    call loc_GRON                    ; 0x8b02
+    call play_maze_sound_effect      ; 0x8b02
     pop cx                           ; 0x8b05
     call redraw_maze_view            ; 0x8b06
     mov ax, word [party_tag]         ; 0x8b09

@@ -466,7 +466,7 @@ jumptable_6aab_case_6 equ log_maze_change.jumptable_case4
 jumptable_6aab        equ log_maze_change.jumptable1
 %include "shared/ovr/log_maze_change.asm"       ; 0x69d6
 
-%include "vmaze/loc_GRON.asm"              ; 0x6ac7
+%include "vmaze/play_maze_sound_effect.asm" ; 0x6ac7
 
 %include "shared/ovr/restore_area_a_draw_glyph.asm" ; 0x6b0a
 

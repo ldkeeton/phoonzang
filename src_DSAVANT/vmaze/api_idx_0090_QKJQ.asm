@@ -139,7 +139,7 @@ jumptable_6e12_case_6:
     mov word [bp - 6], 0x20          ; 0x6e01
 api_idx_0090_QKJQ.forward4:
     push word [bp - 6]               ; 0x6e06
-    call loc_GRON                    ; 0x6e09
+    call play_maze_sound_effect      ; 0x6e09
     pop cx                           ; 0x6e0c
     inc word [bp + 4]                ; 0x6e0d
     jmp short api_idx_0090_QKJQ.forward6 ; 0x6e10

@@ -34,7 +34,7 @@ check_type8_object:
     mov al, byte [bx + si + spell_table + spell_table_rec_size*178 + spell_table_rec.f_0004] ; 0x8ba2
     sub ah, ah                       ; 0x8ba6
     push ax                          ; 0x8ba8
-    call loc_GRON                    ; 0x8ba9
+    call play_maze_sound_effect      ; 0x8ba9
     pop cx                           ; 0x8bac
     mov ax, 8                        ; 0x8bad
     push ax                          ; 0x8bb0

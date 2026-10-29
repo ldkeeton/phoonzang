@@ -12,7 +12,7 @@ api_idx_0002_OUMQ:
 jumptable_741a_case_1:
     mov ax, 0x11                     ; 0x73ce
     push ax                          ; 0x73d1
-    call loc_GRON                    ; 0x73d2
+    call play_maze_sound_effect      ; 0x73d2
     pop cx                           ; 0x73d5
 jumptable_741a_case_0:
     push word [party_region]         ; 0x73d6

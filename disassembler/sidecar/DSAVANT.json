@@ -1670,6 +1670,7 @@
         "6874": {"name": "find_object_at", "note": "returns next object index from start whose x, y, map piece match and type is nonzero (subject to a state bit), else -1"},
         "68e4": {"name": "save_level_state", "note": "copies the current level per-level state to its stores"},
         "69c8": {"name": "log_maze_change", "note": "appends a 6-byte maze change record to the change log"},
+        "6ab9": {"name": "play_maze_sound_effect", "note": "routes maze sound IDs through direct playback or replaceable slot 16"},
         "6afc": {"name": "restore_area_a_draw_glyph", "note": "restores saved screen area a and redraws glyph 1 in color 14 at (0x37,0x9a)"},
         "6ea3": {"name": "process_scene_message_words", "note": "Split scene text at spaces and process words with underscore substitution"},
         "7234": {"name": "mark_region_bits", "note": "sets the current region bit in per-level bitmaps when arg > 0 (both when > 1)"},

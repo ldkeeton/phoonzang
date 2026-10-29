@@ -196,7 +196,7 @@ api_idx_001c_QLSV:
     mov si, ax                       ; 0x7832
     mov bx, word [maze_tables]       ; 0x7834
     push word [bx + si]              ; 0x7838
-    call loc_GRON                    ; 0x783a
+    call play_maze_sound_effect      ; 0x783a
     pop cx                           ; 0x783d
     cmp word [bp - 0x12], byte 1     ; 0x783e
     jne short .forward3              ; 0x7842

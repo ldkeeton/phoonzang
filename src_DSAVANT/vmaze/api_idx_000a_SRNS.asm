@@ -7,7 +7,7 @@ api_idx_000a_SRNS:
     mov al, byte [bx + si + spell_table + spell_table_rec_size*178 + spell_table_rec.f_0004] ; 0x785d
     sub ah, ah                       ; 0x7861
     push ax                          ; 0x7863
-    call loc_GRON                    ; 0x7864
+    call play_maze_sound_effect      ; 0x7864
     pop cx                           ; 0x7867
     mov ax, word [party_region]      ; 0x7868
     shl ax, 1                        ; 0x786b

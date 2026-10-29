@@ -38,7 +38,7 @@ api_idx_001e_QHIQ:
     je short .forward1               ; 0x7ea1
     mov ax, 0x12                     ; 0x7ea3
     push ax                          ; 0x7ea6
-    call loc_GRON                    ; 0x7ea7
+    call play_maze_sound_effect      ; 0x7ea7
     pop cx                           ; 0x7eaa
     mov ax, 0x10                     ; 0x7eab
     push ax                          ; 0x7eae
