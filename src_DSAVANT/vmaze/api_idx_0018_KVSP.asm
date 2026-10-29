@@ -1,0 +1,150 @@
+; auto-generated
+api_idx_0018_KVSP:
+    mov ax, 0xffe8                   ; 0x7b53
+    call aztec_csav                  ; 0x7b56
+    mov ax, word [bp + 6]            ; 0x7b59
+    inc ax                           ; 0x7b5c
+    mov word [bp - 0xc], ax          ; 0x7b5d
+    mov bx, ax                       ; 0x7b60
+    mov al, byte [bx + glyph_y_table + 0x2bc] ; 0x7b62
+    sub ah, ah                       ; 0x7b66
+    dec ax                           ; 0x7b68
+    mov word [bp - 4], ax            ; 0x7b69
+    mov ax, word [bp + 6]            ; 0x7b6c
+    shl ax, 1                        ; 0x7b6f
+    mov bx, ax                       ; 0x7b71
+    mov ax, word [bx + 0x256]        ; 0x7b73
+    mov cx, 0x64                     ; 0x7b77
+    imul cx                          ; 0x7b7a
+    mov cx, 0xa                      ; 0x7b7c
+    cwd                              ; 0x7b7f
+    idiv cx                          ; 0x7b80
+    mov word [bp - 0xe], ax          ; 0x7b82
+    cmp word [bp + 4], byte 0        ; 0x7b85
+    je short .forward1               ; 0x7b89
+    mov cx, 0                        ; 0x7b8b
+    sub cx, ax                       ; 0x7b8e
+    mov word [bp - 8], cx            ; 0x7b90
+    mov word [bp - 6], 0             ; 0x7b93
+    jmp short .forward2              ; 0x7b98
+.forward1:
+    mov word [bp - 8], ax            ; 0x7b9a
+    mov ax, 0                        ; 0x7b9d
+    sub ax, word [bx + 0x256]        ; 0x7ba0
+    mov word [bp - 6], ax            ; 0x7ba4
+.forward2:
+    mov ax, word [party_world_x]     ; 0x7ba7
+    add ax, word [party_world_y]     ; 0x7baa
+    add ax, word [party_tag]         ; 0x7bae
+    add ax, word [bp + 6]            ; 0x7bb2
+    mov cx, 2                        ; 0x7bb5
+    cwd                              ; 0x7bb8
+    idiv cx                          ; 0x7bb9
+    mov word [bp - 0xa], dx          ; 0x7bbb
+    mov word [bp - 2], 1             ; 0x7bbe
+.back1:
+    mov ax, word [party_status_frame] ; 0x7bc3
+    inc ax                           ; 0x7bc6
+    mov cx, 2                        ; 0x7bc7
+    cwd                              ; 0x7bca
+    idiv cx                          ; 0x7bcb
+    mov word [party_status_frame], dx ; 0x7bcd
+    call api_idx_0030_KNRH           ; 0x7bd1
+    mov al, byte [bp - 0xc]          ; 0x7bd4
+    mov byte [bp - 0x18], al         ; 0x7bd7
+    mov byte [bp - 0x17], 0          ; 0x7bda
+    mov ax, 0                        ; 0x7bde
+    push ax                          ; 0x7be1
+    push ax                          ; 0x7be2
+    lea ax, word [bp - 0x18]         ; 0x7be3
+    push ax                          ; 0x7be6
+    push word [bp - 0xa]             ; 0x7be7
+    mov ax, 0x90                     ; 0x7bea
+    push ax                          ; 0x7bed
+    push word [bp - 4]               ; 0x7bee
+    mov ax, 0xf8                     ; 0x7bf1
+    push ax                          ; 0x7bf4
+    mov ax, 0x48                     ; 0x7bf5
+    push ax                          ; 0x7bf8
+    mov ax, word [bp - 2]            ; 0x7bf9
+    imul word [bp - 8]               ; 0x7bfc
+    mov cx, 0x64                     ; 0x7bff
+    cwd                              ; 0x7c02
+    idiv cx                          ; 0x7c03
+    push ax                          ; 0x7c05
+    mov bx, word [bp - 0xc]          ; 0x7c06
+    mov al, byte [bx + glyph_y_table + 0x2bc] ; 0x7c09
+    sub ah, ah                       ; 0x7c0d
+    mov cx, ax                       ; 0x7c0f
+    pop ax                           ; 0x7c11
+    add ax, cx                       ; 0x7c12
+    add ax, word [bp - 6]            ; 0x7c14
+    push ax                          ; 0x7c17
+    mov ax, 0xa                      ; 0x7c18
+    imul word [bp + 6]               ; 0x7c1b
+    mov cx, word [bp + 8]            ; 0x7c1e
+    shl cx, 1                        ; 0x7c21
+    add ax, cx                       ; 0x7c23
+    mov bx, ax                       ; 0x7c25
+    mov ax, word [bx + 0x36e]        ; 0x7c27
+    push ax                          ; 0x7c2b
+    mov ax, word [bp - 0xc]          ; 0x7c2c
+    shl ax, 1                        ; 0x7c2f
+    add ax, word [bp - 0xa]          ; 0x7c31
+    mov bx, ax                       ; 0x7c34
+    mov al, byte [bx + glyph_y_table + 0x273] ; 0x7c36
+    sub ah, ah                       ; 0x7c3a
+    mov cx, ax                       ; 0x7c3c
+    pop ax                           ; 0x7c3e
+    add ax, cx                       ; 0x7c3f
+    push ax                          ; 0x7c41
+    mov ax, 5                        ; 0x7c42
+    push ax                          ; 0x7c45
+    call call_draw_text              ; 0x7c46
+    add sp, byte 0x16                ; 0x7c49
+    mov ax, 0xffff                   ; 0x7c4c
+    cmp word [bp - 0xa], byte 0      ; 0x7c4f
+    je short .forward3               ; 0x7c53
+    mov ax, word [bp + 8]            ; 0x7c55
+    shl ax, 1                        ; 0x7c58
+    mov bx, ax                       ; 0x7c5a
+    mov ax, word [bx + 0x24c]        ; 0x7c5c
+    add ax, word [bp + 6]            ; 0x7c60
+.forward3:
+    push ax                          ; 0x7c63
+    mov ax, 2                        ; 0x7c64
+    push ax                          ; 0x7c67
+    mov ax, word [bp + 8]            ; 0x7c68
+    shl ax, 1                        ; 0x7c6b
+    mov bx, ax                       ; 0x7c6d
+    mov ax, word [bx + 0x24c]        ; 0x7c6f
+    add ax, word [bp + 6]            ; 0x7c73
+    push ax                          ; 0x7c76
+    mov ax, 0                        ; 0x7c77
+    push ax                          ; 0x7c7a
+    call call_draw_maze_piece        ; 0x7c7b
+    add sp, byte 8                   ; 0x7c7e
+    mov ax, 0x8f                     ; 0x7c81
+    push ax                          ; 0x7c84
+    mov ax, 0xf7                     ; 0x7c85
+    push ax                          ; 0x7c88
+    mov ax, 0x20                     ; 0x7c89
+    push ax                          ; 0x7c8c
+    mov ax, 0x48                     ; 0x7c8d
+    push ax                          ; 0x7c90
+    call call_show_area              ; 0x7c91
+    add sp, byte 8                   ; 0x7c94
+    cmp word [bp + 0xa], byte 0      ; 0x7c97
+    je short .forward4               ; 0x7c9b
+    mov ax, 0x10                     ; 0x7c9d
+    push ax                          ; 0x7ca0
+    call play_sound_effect           ; 0x7ca1
+    pop cx                           ; 0x7ca4
+.forward4:
+    inc word [bp - 2]                ; 0x7ca5
+    mov ax, word [bp - 2]            ; 0x7ca8
+    cmp ax, strict word 0xa          ; 0x7cab
+    jg short .return1                ; 0x7cae
+    jmp near .back1                  ; 0x7cb0
+.return1:
+    ret                              ; 0x7cb3

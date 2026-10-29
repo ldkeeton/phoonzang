@@ -552,6 +552,7 @@ def _analyze(name, orig_dir, rel_path, start_offset, output_dir=None,
                if label_map.get(off) == lbl},
         relocs=_relocation_offsets(ctx.segments),
         code_off=lambda value: _code_off(ctx, value),
+        tables=_table_words(ctx.jump_tables),
     )
     stagelog.step('names.tag_generics', 1, 'repair', repairs='label.categorize',
         why='address-derived names become content tags',
@@ -711,6 +712,19 @@ def _analyze(name, orig_dir, rel_path, start_offset, output_dir=None,
         t_flow_disasm_start=t_flow_disasm_start, t_disasm=t_disasm,
         t_aztec=t_aztec, t_aztec_end=t_aztec_end,
     )
+
+
+def _table_words(jump_tables):
+    """File offsets of the code-pointer words in each validated switch table
+    (an inline key/target table's leading keys are not pointers)."""
+    return {
+        word
+        for table in jump_tables
+        if table.validated and table.validation_ok and table.jmp_addr >= 0
+        for index, word in enumerate(range(
+            table.table_addr, (table.table_end or table.table_addr) - 1, 2))
+        if index >= table.keys
+    }
 
 
 def _sidecar_routine(name, offset, project=None, bands=None):

@@ -201,15 +201,15 @@ load_member_icon.dseg1 equ dseg_90a9
 
 %include "vbase/find_unused_member_icon.asm" ; 0x05b6
 
-api_idx_0038_MNUL       equ api_idx_0038_LTUV
-api_idx_0038_LTUV.dseg1 equ dseg_90b6
-jumptable_0d04_case_0   equ api_idx_0038_LTUV.jumptable_case1
-jumptable_0d04_case_1   equ api_idx_0038_LTUV.jumptable_case2
-jumptable_0d04_case_3   equ api_idx_0038_LTUV.jumptable_case3
-jumptable_0d04_case_4   equ api_idx_0038_LTUV.jumptable_case4
-jumptable_0d04_case_5   equ api_idx_0038_LTUV.jumptable_case5
-jumptable_0d04          equ api_idx_0038_LTUV.jumptable1
-%include "shared/ovr/api_idx_0038_LTUV.asm"     ; 0x0606
+api_idx_0038_VIPJ       equ api_idx_0038_IPTM
+api_idx_0038_IPTM.dseg1 equ dseg_90b6
+jumptable_0d04_case_0   equ api_idx_0038_IPTM.jumptable_case1
+jumptable_0d04_case_1   equ api_idx_0038_IPTM.jumptable_case2
+jumptable_0d04_case_3   equ api_idx_0038_IPTM.jumptable_case3
+jumptable_0d04_case_4   equ api_idx_0038_IPTM.jumptable_case4
+jumptable_0d04_case_5   equ api_idx_0038_IPTM.jumptable_case5
+jumptable_0d04          equ api_idx_0038_IPTM.jumptable1
+%include "shared/ovr/api_idx_0038_IPTM.asm"     ; 0x0606
 
 %include "shared/ovr/input_text_field.asm"      ; 0x0d3f
 
@@ -221,7 +221,7 @@ jumptable_0d04          equ api_idx_0038_LTUV.jumptable1
 
 %include "vbase/map_bane_item_number.asm"  ; 0x1683
 
-%include "vbase/loc_UOUN.asm"              ; 0x1820
+%include "vbase/loc_QKIR.asm"              ; 0x1820
 
 %include "vbase/map_bane_party_selector.asm" ; 0x1a12
 
@@ -281,7 +281,7 @@ jumptable_1ee4         equ draw_member_panel_glyphs.jumptable1
 
 %include "vbase/show_centered_message_dialog.asm" ; 0x4b95
 
-%include "vbase/loc_RMVR.asm"              ; 0x4d0e
+%include "vbase/loc_ITUI.asm"              ; 0x4d0e
 
 %include "vbase/loc_LQIO.asm"              ; 0x606d
 
@@ -314,9 +314,9 @@ api_idx_0004_TTGQ.loc1 equ loc_TJHG
 
 %include "vbase/draw_scene_message_line.asm" ; 0x6d1f
 
-%include "vbase/loc_VMSS.asm"              ; 0x6dd9
+%include "vbase/loc_LIUH.asm"              ; 0x6dd9
 
-process_scene_message_words.loc1 equ loc_VMSS
+process_scene_message_words.loc1 equ loc_LIUH
 %include "shared/ovr/process_scene_message_words.asm" ; 0x6f16
 
 %include "vbase/play_scene_message_sequence.asm" ; 0x6f79

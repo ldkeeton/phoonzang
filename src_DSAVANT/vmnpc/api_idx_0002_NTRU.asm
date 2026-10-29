@@ -18,7 +18,7 @@ api_idx_0002_NTRU:
     dec ax                           ; 0x8bd5
     push ax                          ; 0x8bd6
     push word [bp + 4]               ; 0x8bd7
-    call api_idx_0002_GRRR           ; 0x8bda
+    call api_idx_0002_SRQM           ; 0x8bda
     add sp, byte 4                   ; 0x8bdd
     mov ax, 0                        ; 0x8be0
     ret                              ; 0x8be3

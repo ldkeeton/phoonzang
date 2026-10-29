@@ -59,7 +59,7 @@ api_idx_000a_PJIK:
     push word [bp - 8]               ; 0x2967
     push word [bp - 2]               ; 0x296a
     push word [bp + 4]               ; 0x296d
-    call api_idx_0022_ROKS           ; 0x2970
+    call api_idx_0022_ROTQ           ; 0x2970
     add sp, byte 0xe                 ; 0x2973
     cmp word [bp + 4], byte 0        ; 0x2976
     jne short .forward7              ; 0x297a

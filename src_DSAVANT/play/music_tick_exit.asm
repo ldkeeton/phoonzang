@@ -81,7 +81,7 @@ loc_NSTK:
     mov byte [cs:event_command - IMAGE_BASE], bl ; 0x0b8f
     cmp byte [cs:event_command - IMAGE_BASE], 4 ; 0x0b94
     je short loc_STSS                ; 0x0b9a
-    jmp near loc_QUTJ                ; 0x0b9c
+    jmp near loc_LSGQ                ; 0x0b9c
 loc_STSS:
     mov al, byte [cs:event_channel - IMAGE_BASE] ; 0x0b9f
     xor ah, ah                       ; 0x0ba3
@@ -103,26 +103,26 @@ loc_MQMP:
     mov al, byte [es:bx]             ; 0x0bc9
     call mpu_send_byte               ; 0x0bcc
     jmp near loc_MRJU                ; 0x0bcf
-loc_QUTJ:
+loc_LSGQ:
     mov bl, byte [cs:event_channel - IMAGE_BASE] ; 0x0bd2
     xor bh, bh                       ; 0x0bd7
     cmp byte [cs:bx + channel_last_byte - IMAGE_BASE], 0x3e ; 0x0bd9
-    jne short loc_TVJU               ; 0x0bdf
+    jne short loc_LMOR               ; 0x0bdf
     mov byte [cs:event_channel - IMAGE_BASE], 8 ; 0x0be1
     mov bx, byte_remap_table - IMAGE_BASE ; 0x0be7
     mov al, byte [si]                ; 0x0bea
 loc_VHVP:
     cmp al, byte [cs:bx]             ; 0x0bec
-    je short loc_PLOS                ; 0x0bef
+    je short loc_GKVJ                ; 0x0bef
     add bx, byte 2                   ; 0x0bf1
     cmp word [cs:bx], strict word 0xff ; 0x0bf4
     jne short loc_VHVP               ; 0x0bf9
     lodsw                            ; 0x0bfb
     jmp near loc_MRJU                ; 0x0bfc
-loc_PLOS:
+loc_GKVJ:
     mov al, byte [cs:bx + 1]         ; 0x0bff
     mov byte [si], al                ; 0x0c03
-loc_TVJU:
+loc_LMOR:
     mov bl, byte [cs:event_command - IMAGE_BASE] ; 0x0c05
     xor bh, bh                       ; 0x0c0a
     mov cl, byte [cs:bx + event_byte_counts - IMAGE_BASE] ; 0x0c0c
@@ -263,7 +263,7 @@ opl_voice_candidate:
     db 0x00
 opl_voice_record_ptr:
     db 0x00, 0x00
-string_loc_SLGG:
+string_loc_PUTK:
     push ax                          ; 0x0d50
     push bx                          ; 0x0d51
     push cx                          ; 0x0d52
@@ -354,7 +354,7 @@ skip_word_event:
 event_dispatch_padding:
     db 0x00, 0x00, 0x00
 note_event_high:
-    call string_loc_SLGG             ; 0x0e24
+    call string_loc_PUTK             ; 0x0e24
     cmp byte [cs:channel_patch_value - IMAGE_BASE], 0xff ; 0x0e27
     jne short .forward1              ; 0x0e2d
     jmp near loc_MRJU                ; 0x0e2f
@@ -369,7 +369,7 @@ note_event_high:
 .forward3:
     cmp byte [cs:music_device - IMAGE_BASE], 1 ; 0x0e48
     jmp near loc_LPMH                ; 0x0e4e
-string_loc_JSPK:
+string_loc_MNKP:
     mov al, byte [cs:opl_note_velocity - IMAGE_BASE] ; 0x0e51
     xor ah, ah                       ; 0x0e55
     mov bx, opl_velocity_scale_table - IMAGE_BASE ; 0x0e57
@@ -458,11 +458,11 @@ loc_LPMH:
     push si                          ; 0x0f28
     push dx                          ; 0x0f29
     mov bx, opl_voice_records - IMAGE_BASE ; 0x0f2a
-loc_MGMT:
+loc_GNSL:
     inc word [cs:bx + 3]             ; 0x0f2d
     add bx, byte 5                   ; 0x0f31
     cmp bx, opl_voice_count - IMAGE_BASE ; 0x0f34
-    jb short loc_MGMT                ; 0x0f38
+    jb short loc_GNSL                ; 0x0f38
     mov cl, byte [cs:opl_operator_count - IMAGE_BASE] ; 0x0f3a
     xor ch, ch                       ; 0x0f3f
     mov si, opl_operator_slot_0 - IMAGE_BASE ; 0x0f41
@@ -471,13 +471,13 @@ loc_NPTG:
     mov byte [cs:opl_note_index - IMAGE_BASE], ah ; 0x0f47
     cmp byte [cs:special_note_match - IMAGE_BASE], 0 ; 0x0f4c
     jmp near loc_GLKJ                ; 0x0f52
-loc_VKUV:
+loc_IOMM:
     mov bx, opl_voice_records - IMAGE_BASE ; 0x0f55
     mov al, byte [cs:opl_note_index - IMAGE_BASE] ; 0x0f58
 .back1:
     cmp al, byte [cs:bx + 2]         ; 0x0f5c
     jne short .forward1              ; 0x0f60
-    jmp near loc_RUNQ                ; 0x0f62
+    jmp near loc_LPPM                ; 0x0f62
 .forward1:
     inc al                           ; 0x0f65
     add bx, byte 5                   ; 0x0f67
@@ -489,7 +489,7 @@ loc_GLKJ:
     mov dx, 0                        ; 0x0f76
     mov byte [cs:opl_voice_candidate - IMAGE_BASE], 0xff ; 0x0f79
     xor al, al                       ; 0x0f7f
-loc_OIUN:
+loc_QRJR:
     cmp byte [cs:bx], 0              ; 0x0f81
     jne short loc_KRQV               ; 0x0f85
     cmp dx, word [cs:bx + 3]         ; 0x0f87
@@ -501,12 +501,12 @@ loc_KRQV:
     add bx, byte 5                   ; 0x0f9a
     inc al                           ; 0x0f9d
     cmp al, byte [cs:opl_voice_count - IMAGE_BASE] ; 0x0f9f
-    jb short loc_OIUN                ; 0x0fa4
+    jb short loc_QRJR                ; 0x0fa4
     mov al, byte [cs:opl_voice_candidate - IMAGE_BASE] ; 0x0fa6
     cmp al, 0xff                     ; 0x0faa
     je short loc_VJMI                ; 0x0fac
     mov bx, word [cs:opl_voice_record_ptr - IMAGE_BASE] ; 0x0fae
-    jmp near loc_VQRR                ; 0x0fb3
+    jmp near loc_PUST                ; 0x0fb3
 loc_VJMI:
     mov bx, opl_voice_records - IMAGE_BASE ; 0x0fb6
     xor al, al                       ; 0x0fb9
@@ -514,7 +514,7 @@ loc_VJMI:
     mov word [cs:opl_voice_record_ptr - IMAGE_BASE], bx ; 0x0fbe
     mov ah, byte [cs:opl_note_index - IMAGE_BASE] ; 0x0fc3
     mov byte [cs:opl_voice_candidate - IMAGE_BASE], 0xff ; 0x0fc8
-loc_KQGN:
+loc_OGRU:
     cmp ah, byte [cs:bx + 2]         ; 0x0fce
     jne short loc_LGMV               ; 0x0fd2
     cmp dx, word [cs:bx + 3]         ; 0x0fd4
@@ -526,11 +526,11 @@ loc_LGMV:
     add bx, byte 5                   ; 0x0fe7
     inc al                           ; 0x0fea
     cmp al, byte [cs:opl_voice_count - IMAGE_BASE] ; 0x0fec
-    jb short loc_KQGN                ; 0x0ff1
+    jb short loc_OGRU                ; 0x0ff1
     mov bx, word [cs:opl_voice_record_ptr - IMAGE_BASE] ; 0x0ff3
     mov al, byte [cs:opl_voice_candidate - IMAGE_BASE] ; 0x0ff8
     cmp al, 0xff                     ; 0x0ffc
-    jne short loc_RUNQ               ; 0x0ffe
+    jne short loc_LPPM               ; 0x0ffe
 loc_NGKV:
     mov bx, opl_voice_records - IMAGE_BASE ; 0x1000
     xor al, al                       ; 0x1003
@@ -538,7 +538,7 @@ loc_NGKV:
     mov byte [cs:opl_voice_candidate - IMAGE_BASE], al ; 0x1008
     mov word [cs:opl_voice_record_ptr - IMAGE_BASE], bx ; 0x100c
     mov ah, byte [cs:opl_note_index - IMAGE_BASE] ; 0x1011
-loc_ILTG:
+loc_TRTS:
     cmp dx, word [cs:bx + 3]         ; 0x1016
     ja short loc_JHLQ                ; 0x101a
     mov dx, word [cs:bx + 3]         ; 0x101c
@@ -548,16 +548,16 @@ loc_JHLQ:
     add bx, byte 5                   ; 0x1029
     inc al                           ; 0x102c
     cmp al, byte [cs:opl_voice_count - IMAGE_BASE] ; 0x102e
-    jb short loc_ILTG                ; 0x1033
+    jb short loc_TRTS                ; 0x1033
     mov bx, word [cs:opl_voice_record_ptr - IMAGE_BASE] ; 0x1035
     mov al, byte [cs:opl_voice_candidate - IMAGE_BASE] ; 0x103a
-loc_VQRR:
+loc_PUST:
     mov byte [cs:opl_channel_index - IMAGE_BASE], al ; 0x103e
     mov al, byte [cs:bx + 2]         ; 0x1042
     cmp al, byte [cs:opl_note_index - IMAGE_BASE] ; 0x1046
-    je short loc_RUNQ                ; 0x104b
+    je short loc_LPPM                ; 0x104b
     call device_load_patch           ; 0x104d
-loc_RUNQ:
+loc_LPPM:
     mov al, byte [cs:opl_note_velocity - IMAGE_BASE] ; 0x1050
     mov byte [cs:bx], al             ; 0x1054
     mov word [cs:bx + 3], 0          ; 0x1057
@@ -576,7 +576,7 @@ loc_RUON:
     pop si                           ; 0x107d
     jmp near loc_MRJU                ; 0x107e
 note_event_low:
-    call string_loc_SLGG             ; 0x1081
+    call string_loc_PUTK             ; 0x1081
     cmp byte [cs:channel_patch_value - IMAGE_BASE], 0xff ; 0x1084
     jne short loc_JSJL               ; 0x108a
     jmp near loc_MRJU                ; 0x108c
@@ -635,22 +635,22 @@ loc_GJLP:
     mov dh, byte [cs:si]             ; 0x110a
     mov dl, byte [cs:opl_note_velocity - IMAGE_BASE] ; 0x110d
     xor al, al                       ; 0x1112
-loc_RPSI:
+loc_VJUR:
     cmp byte [cs:bx], 0              ; 0x1114
-    je short loc_JHMG                ; 0x1118
+    je short loc_PLOU                ; 0x1118
     cmp byte [cs:bx + 1], ah         ; 0x111a
-    jne short loc_JHMG               ; 0x111e
+    jne short loc_PLOU               ; 0x111e
     cmp byte [cs:bx + 2], dh         ; 0x1120
-    jne short loc_JHMG               ; 0x1124
+    jne short loc_PLOU               ; 0x1124
     mov byte [cs:bx], 0              ; 0x1126
     mov word [cs:bx + 3], 0          ; 0x112a
     mov byte [cs:opl_channel_index - IMAGE_BASE], al ; 0x1130
     call device_note_off             ; 0x1134
-loc_JHMG:
+loc_PLOU:
     inc al                           ; 0x1137
     add bx, byte 5                   ; 0x1139
     cmp al, byte [cs:opl_voice_count - IMAGE_BASE] ; 0x113c
-    jb short loc_RPSI                ; 0x1141
+    jb short loc_VJUR                ; 0x1141
     inc si                           ; 0x1143
     loop loc_GJLP                    ; 0x1144
     pop si                           ; 0x1146

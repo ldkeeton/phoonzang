@@ -168,7 +168,7 @@ api_idx_0094_LUVH:
     push ax                          ; 0x430a
     mov ax, MSG_USE_2030             ; 0x430b
     push ax                          ; 0x430e
-    call api_idx_0038_QQIU           ; 0x430f
+    call api_idx_0038_IJVP           ; 0x430f
     add sp, byte 0xc                 ; 0x4312
     mov word [bp - 0x4e], ax         ; 0x4315
     mov ax, word [spell_dialog_result] ; 0x4318

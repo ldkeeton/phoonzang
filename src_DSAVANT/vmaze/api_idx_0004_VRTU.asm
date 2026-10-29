@@ -38,7 +38,7 @@ api_idx_0004_VRTU:
     sub ah, ah                       ; 0x9727
     push ax                          ; 0x9729
     push word [bp + 4]               ; 0x972a
-    call api_idx_0002_JLVK           ; 0x972d
+    call api_idx_0002_NVPU           ; 0x972d
     add sp, byte 8                   ; 0x9730
     mov ax, 0x26                     ; 0x9733
     imul word [bp + 4]               ; 0x9736
@@ -177,7 +177,7 @@ api_idx_0004_VRTU:
     cmp byte [bx + slot_records + slot_record.f_0002], 0 ; 0x987a
     jne short .forward8              ; 0x987f
     push word [bp + 4]               ; 0x9881
-    call api_idx_003a_HOUV           ; 0x9884
+    call api_idx_003a_SOVP           ; 0x9884
     pop cx                           ; 0x9887
     ret                              ; 0x9888
 .forward8:
@@ -192,13 +192,13 @@ api_idx_0004_VRTU:
     push ax                          ; 0x98a0
     push word [bp - 2]               ; 0x98a1
     push word [bp + 4]               ; 0x98a4
-    call api_idx_0002_JLVK           ; 0x98a7
+    call api_idx_0002_NVPU           ; 0x98a7
     add sp, byte 8                   ; 0x98aa
 .return1:
     ret                              ; 0x98ad
 .forward9:
     push word [bp + 4]               ; 0x98ae
-    call api_idx_003a_HOUV           ; 0x98b1
+    call api_idx_003a_SOVP           ; 0x98b1
     pop cx                           ; 0x98b4
     ret                              ; 0x98b5
 .forward10:
@@ -209,6 +209,6 @@ api_idx_0004_VRTU:
     jmp near .back1                  ; 0x98c1
 .forward11:
     push word [bp + 4]               ; 0x98c4
-    call api_idx_003a_HOUV           ; 0x98c7
+    call api_idx_003a_SOVP           ; 0x98c7
     pop cx                           ; 0x98ca
     ret                              ; 0x98cb

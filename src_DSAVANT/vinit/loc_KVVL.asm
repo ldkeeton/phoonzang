@@ -16,14 +16,14 @@ loc_KVVL:
     mov ax, 0                        ; 0x0a73
     push ax                          ; 0x0a76
     push word [bp + 4]               ; 0x0a77
-    call api_idx_000e_JRRT           ; 0x0a7a
+    call api_idx_000e_GTMH           ; 0x0a7a
     add sp, byte 4                   ; 0x0a7d
     cmp word [bp + 6], byte 0        ; 0x0a80
     je short .forward1               ; 0x0a84
     mov ax, 0                        ; 0x0a86
     push ax                          ; 0x0a89
     push word [bp + 6]               ; 0x0a8a
-    call api_idx_000e_JRRT           ; 0x0a8d
+    call api_idx_000e_GTMH           ; 0x0a8d
     add sp, byte 4                   ; 0x0a90
 .forward1:
     cmp word [bp + 8], byte 0        ; 0x0a93
@@ -31,7 +31,7 @@ loc_KVVL:
     mov ax, 0                        ; 0x0a99
     push ax                          ; 0x0a9c
     push word [bp + 8]               ; 0x0a9d
-    call api_idx_000e_JRRT           ; 0x0aa0
+    call api_idx_000e_GTMH           ; 0x0aa0
     add sp, byte 4                   ; 0x0aa3
 .forward2:
     mov ax, 0xc7                     ; 0x0aa6

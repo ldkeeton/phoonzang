@@ -6,7 +6,7 @@ loc_PKMT:
     push ax                          ; 0x24cb
     mov ax, 2                        ; 0x24cc
     push ax                          ; 0x24cf
-    call api_idx_0004_UONH           ; 0x24d0
+    call api_idx_0004_OHJS           ; 0x24d0
     add sp, byte 4                   ; 0x24d3
     mov ax, 2                        ; 0x24d6
     push ax                          ; 0x24d9

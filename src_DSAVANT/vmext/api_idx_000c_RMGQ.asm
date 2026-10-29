@@ -119,7 +119,7 @@ api_idx_000c_RMGQ:
 .forward6:
     cmp word [save_location_flag], byte 0 ; 0x0ae3
     jne short .forward7              ; 0x0ae8
-    call api_idx_0004_JIVL           ; 0x0aea
+    call api_idx_0004_SMLK           ; 0x0aea
     test ax, ax                      ; 0x0aed
     je short .forward8               ; 0x0aef
 .forward7:

@@ -13,7 +13,7 @@ api_idx_0006_RKSL:
     mov ax, MSG_GP_1577              ; 0x5758
     push ax                          ; 0x575b
     push word [bp + 4]               ; 0x575c
-    call api_idx_0038_LJOP           ; 0x575f
+    call api_idx_0038_KUIN           ; 0x575f
     add sp, byte 0xc                 ; 0x5762
     mov word [bp - 2], ax            ; 0x5765
     mov ax, word [spell_dialog_result] ; 0x5768

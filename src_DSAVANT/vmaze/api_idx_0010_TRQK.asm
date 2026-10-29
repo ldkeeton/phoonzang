@@ -83,7 +83,7 @@ api_idx_0010_TRQK:
     test ax, ax                      ; 0xa3a0
     jne short .forward3              ; 0xa3a2
     push word [bp + 4]               ; 0xa3a4
-    call api_idx_003a_HOUV           ; 0xa3a7
+    call api_idx_003a_SOVP           ; 0xa3a7
     pop cx                           ; 0xa3aa
     mov ax, 0x26                     ; 0xa3ab
     imul word [bp + 4]               ; 0xa3ae
@@ -224,7 +224,7 @@ api_idx_0010_TRQK:
     jle short .forward12             ; 0xa4e7
     push word [bp - 0xc]             ; 0xa4e9
     push word [bp + 4]               ; 0xa4ec
-    call api_idx_0012_NJUH           ; 0xa4ef
+    call api_idx_0012_UGVV           ; 0xa4ef
     add sp, byte 4                   ; 0xa4f2
     mov word [bp - 4], ax            ; 0xa4f5
     cmp word [bp - 4], byte 0        ; 0xa4f8

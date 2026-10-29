@@ -14,7 +14,7 @@ loc_KHPH:
     push ax                          ; 0xa22e
     push word [bp + 6]               ; 0xa22f
     push word [bp + 4]               ; 0xa232
-    call api_idx_0002_JLVK           ; 0xa235
+    call api_idx_0002_NVPU           ; 0xa235
     add sp, byte 8                   ; 0xa238
     mov ax, 0xf                      ; 0xa23b
     push ax                          ; 0xa23e

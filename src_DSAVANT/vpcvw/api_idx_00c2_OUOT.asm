@@ -21,7 +21,7 @@ api_idx_00c2_OUOT:
     sub ah, ah                       ; 0x5526
     test ax, 2                       ; 0x5528
     je short .forward1               ; 0x552b
-    call api_idx_0056_KPMS           ; 0x552d
+    call api_idx_0056_QHUP           ; 0x552d
     mov ax, 0x248                    ; 0x5530
     imul word [bp + 4]               ; 0x5533
     push ax                          ; 0x5536
@@ -48,7 +48,7 @@ api_idx_00c2_OUOT:
     push word [bp + 6]               ; 0x5566
     push word [roster_page]          ; 0x5569
     push word [bp + 4]               ; 0x556d
-    call api_idx_0010_GVMH           ; 0x5570
+    call api_idx_0010_NNNH           ; 0x5570
     add sp, byte 8                   ; 0x5573
 .return1:
     ret                              ; 0x5576
@@ -702,7 +702,7 @@ api_idx_00c2_OUOT:
     sub ah, ah                       ; 0x5b65
     test ax, 2                       ; 0x5b67
     je short .forward26              ; 0x5b6a
-    call api_idx_0056_KPMS           ; 0x5b6c
+    call api_idx_0056_QHUP           ; 0x5b6c
     mov word [bp - 0x1a], 2          ; 0x5b6f
     jmp near .forward31              ; 0x5b74
 .forward26:
@@ -948,7 +948,7 @@ api_idx_00c2_OUOT:
     imul word [bp - 0x18]            ; 0x5dc8
     add ax, bss_9616                 ; 0x5dcb
     push ax                          ; 0x5dce
-    call api_idx_0008_SKNL           ; 0x5dcf
+    call api_idx_0008_RORM           ; 0x5dcf
     add sp, byte 0x12                ; 0x5dd2
     mov ax, word [bp - 4]            ; 0x5dd5
     shl ax, 1                        ; 0x5dd8
@@ -986,7 +986,7 @@ api_idx_00c2_OUOT:
     lea ax, word [bp - 0x2c]         ; 0x5e1f
     push ax                          ; 0x5e22
     push word [bp + 4]               ; 0x5e23
-    call api_idx_009e_ITUJ           ; 0x5e26
+    call api_idx_009e_HMOI           ; 0x5e26
     add sp, byte 4                   ; 0x5e29
     push word [bp + 4]               ; 0x5e2c
     call api_idx_004c_LTUL           ; 0x5e2f
@@ -1047,7 +1047,7 @@ api_idx_00c2_OUOT:
     lea ax, word [bp - 0x2c]         ; 0x5ead
     push ax                          ; 0x5eb0
     push word [bp + 4]               ; 0x5eb1
-    call loc_IUTP                    ; 0x5eb4
+    call loc_TQUO                    ; 0x5eb4
     add sp, byte 8                   ; 0x5eb7
     cmp ax, strict word 0xffff       ; 0x5eba
     jne short .forward39             ; 0x5ebd
@@ -1284,7 +1284,7 @@ api_idx_00c2_OUOT:
     mov ax, 0                        ; 0x60f1
     push ax                          ; 0x60f4
     push word [bp + 4]               ; 0x60f5
-    call api_idx_0010_GVMH           ; 0x60f8
+    call api_idx_0010_NNNH           ; 0x60f8
     add sp, byte 8                   ; 0x60fb
 .forward49:
     jmp short .forward51             ; 0x60fe

@@ -208,19 +208,17 @@ api_idx_0004_RMVO.bss2 equ bss_9402
 draw_title_banner.bss1 equ bss_940c
 %include "shared/ovr/draw_title_banner.asm"     ; 0x0f9e
 
-api_idx_007c_OKMO          equ api_idx_007c_MOJH
-api_idx_007c_MOJH.bss1     equ bss_93f0
-api_idx_007c_MOJH.bss2     equ bss_93ee
-api_idx_007c_MOJH.bss3     equ bss_93f4
-api_idx_007c_MOJH.bss4     equ bss_93f2
-api_idx_007c_MOJH.bss5     equ bss_9432
-api_idx_007c_MOJH.api_idx1 equ api_idx_0012_PJTU
-%include "shared/ovr/api_idx_007c_MOJH.asm"     ; 0x1046
+api_idx_007c_OKMO.bss1     equ bss_93f0
+api_idx_007c_OKMO.bss2     equ bss_93ee
+api_idx_007c_OKMO.bss3     equ bss_93f4
+api_idx_007c_OKMO.bss4     equ bss_93f2
+api_idx_007c_OKMO.bss5     equ bss_9432
+api_idx_007c_OKMO.api_idx1 equ api_idx_0012_PJTU
+%include "shared/ovr/api_idx_007c_OKMO.asm"     ; 0x1046
 
 %include "vpcvw/api_idx_009e_KPST.asm"     ; 0x1894
 
-api_idx_0008_SKNL equ api_idx_0008_JJHR
-%include "shared/ovr/api_idx_0008_JJHR.asm"     ; 0x1b17
+%include "shared/ovr/api_idx_0008_RORM.asm"     ; 0x1b17
 
 loc_UGOG       equ loc_TRPK
 loc_TRPK.dseg1 equ dseg_909b
@@ -231,7 +229,7 @@ loc_TRPK.dseg2 equ dseg_90a1
 
 %include "shared/ovr/loc_QQUT.asm"              ; 0x21ad
 
-%include "vpcvw/api_idx_0008_NOPG.asm"     ; 0x21fd
+%include "vpcvw/api_idx_0008_SJVU.asm"     ; 0x21fd
 
 api_idx_0004_NONK equ collect_known_spells
 %include "shared/ovr/collect_known_spells.asm"     ; 0x297e
@@ -248,18 +246,18 @@ draw_spell_cost.dseg1 equ dseg_90a7
 
 %include "shared/ovr/periodic_party_redraw.asm" ; 0x2bf3
 
-api_idx_0050_QTGU          equ api_idx_0050_MINM
-api_idx_0050_MINM.dseg1    equ dseg_90ab
-api_idx_0050_MINM.loc1     equ loc_GPGU
-api_idx_0050_MINM.api_idx1 equ api_idx_0004_NONK
-jumptable_38dd_case_0      equ api_idx_0050_MINM.jumptable_case1
-jumptable_38dd_case_1      equ api_idx_0050_MINM.jumptable_case2
-jumptable_38dd_case_3      equ api_idx_0050_MINM.jumptable_case3
-jumptable_38dd_case_4      equ api_idx_0050_MINM.jumptable_case4
-jumptable_38dd             equ api_idx_0050_MINM.jumptable1
-%include "shared/ovr/api_idx_0050_MINM.asm"     ; 0x2c84
+api_idx_0050_HVVP          equ api_idx_0050_GSJV
+api_idx_0050_GSJV.dseg1    equ dseg_90ab
+api_idx_0050_GSJV.loc1     equ loc_GPGU
+api_idx_0050_GSJV.api_idx1 equ api_idx_0004_NONK
+jumptable_38dd_case_0      equ api_idx_0050_GSJV.jumptable_case1
+jumptable_38dd_case_1      equ api_idx_0050_GSJV.jumptable_case2
+jumptable_38dd_case_3      equ api_idx_0050_GSJV.jumptable_case3
+jumptable_38dd_case_4      equ api_idx_0050_GSJV.jumptable_case4
+jumptable_38dd             equ api_idx_0050_GSJV.jumptable1
+%include "shared/ovr/api_idx_0050_GSJV.asm"     ; 0x2c84
 
-%include "vpcvw/api_idx_0004_UUMM.asm"     ; 0x3974
+%include "vpcvw/api_idx_0004_JNUN.asm"     ; 0x3974
 
 %include "vpcvw/loc_NRTK.asm"              ; 0x3a6a
 
@@ -270,11 +268,11 @@ jumptable_38dd             equ api_idx_0050_MINM.jumptable1
 process_scene_message_words.loc1 equ api_idx_0084_ILTP
 %include "shared/ovr/process_scene_message_words.asm" ; 0x3c18
 
-%include "vpcvw/api_idx_0056_QRVG.asm"     ; 0x3c7b
+%include "vpcvw/api_idx_0056_NTHV.asm"     ; 0x3c7b
 
 %include "vpcvw/loc_NKUR.asm"              ; 0x3cde
 
-%include "vpcvw/api_idx_009e_ITUJ.asm"     ; 0x3cfe
+%include "vpcvw/api_idx_009e_HMOI.asm"     ; 0x3cfe
 
 loc_TTSP.bss1 equ bss_9432
 %include "shared/ovr/loc_TTSP.asm"              ; 0x4011
@@ -293,9 +291,9 @@ loc_TTSP.bss1 equ bss_9432
 
 %include "vpcvw/api_idx_000e_OJVI.asm"     ; 0x4505
 
-%include "vpcvw/api_idx_0002_USJS.asm"     ; 0x4573
+%include "vpcvw/api_idx_0002_UINV.asm"     ; 0x4573
 
-%include "vpcvw/api_idx_0056_KPMS.asm"     ; 0x468b
+%include "vpcvw/api_idx_0056_QHUP.asm"     ; 0x468b
 
 %include "vpcvw/loc_IHRL.asm"              ; 0x474b
 
@@ -307,7 +305,7 @@ loc_TTSP.bss1 equ bss_9432
 
 %include "vpcvw/api_idx_0002_TJIU.asm"     ; 0x5006
 
-%include "vpcvw/api_idx_0010_GVMH.asm"     ; 0x5050
+%include "vpcvw/api_idx_0010_NNNH.asm"     ; 0x5050
 
 %include "shared/ovr/api_idx_0008_RQRL.asm"     ; 0x539e
 
@@ -315,7 +313,7 @@ loc_TTSP.bss1 equ bss_9432
 
 %include "vpcvw/api_idx_00c2_OUOT.asm"     ; 0x54fb
 
-%include "vpcvw/api_idx_0014_VORK.asm"     ; 0x616c
+%include "vpcvw/api_idx_0014_PSHN.asm"     ; 0x616c
 
 %include "shared/ovr/draw_split_two_line_text.asm" ; 0x6977
 
@@ -328,92 +326,93 @@ api_idx_0080_MHMQ.api_idx1 equ api_idx_0012_PJTU
 
 %include "shared/ovr/api_idx_0004_MKGU.asm"     ; 0x6c47
 
-%include "shared/ovr/api_idx_004c_LTUL.asm"     ; 0x6d13
+api_idx_004c_LTUL equ api_idx_004c_HTUT
+%include "shared/ovr/api_idx_004c_HTUT.asm"     ; 0x6d13
 
 %include "vpcvw/api_idx_009a_KOSH.asm"     ; 0x6f62
 
-%include "vpcvw/api_idx_001a_HRLU.asm"     ; 0x706c
+%include "vpcvw/api_idx_001a_VHJM.asm"     ; 0x706c
 
-%include "vpcvw/loc_IUTP.asm"              ; 0x70ca
+%include "vpcvw/loc_TQUO.asm"              ; 0x70ca
 
 %include "vpcvw/api_idx_0004_IKOQ.asm"     ; 0x82da
 
-api_idx_0004_PONI          equ api_idx_0004_LOLJ
-jumptable_85bc_case_0      equ api_idx_0004_LOLJ.jumptable_case1
-api_idx_0004_LOLJ.dseg1    equ dseg_90e9
-api_idx_0004_LOLJ.dseg2    equ dseg_90e2
-api_idx_0004_LOLJ.dseg3    equ dseg_90d9
-api_idx_0004_LOLJ.dseg4    equ dseg_90ce
-api_idx_0004_LOLJ.api_idx1 equ api_idx_0004_IKOQ
-jumptable_85bc_case_1      equ api_idx_0004_LOLJ.jumptable_case2
-api_idx_0004_LOLJ.dseg5    equ dseg_910f
-api_idx_0004_LOLJ.dseg6    equ dseg_9108
-api_idx_0004_LOLJ.dseg7    equ dseg_90ff
-api_idx_0004_LOLJ.dseg8    equ dseg_90f4
-jumptable_85bc_case_2      equ api_idx_0004_LOLJ.jumptable_case3
-api_idx_0004_LOLJ.dseg9    equ dseg_9135
-api_idx_0004_LOLJ.dseg10   equ dseg_912e
-api_idx_0004_LOLJ.dseg11   equ dseg_9125
-api_idx_0004_LOLJ.dseg12   equ dseg_911a
-jumptable_85bc_case_3      equ api_idx_0004_LOLJ.jumptable_case4
-api_idx_0004_LOLJ.dseg13   equ dseg_915b
-api_idx_0004_LOLJ.dseg14   equ dseg_9154
-api_idx_0004_LOLJ.dseg15   equ dseg_914b
-api_idx_0004_LOLJ.dseg16   equ dseg_9140
-jumptable_85bc_case_4      equ api_idx_0004_LOLJ.jumptable_case5
-api_idx_0004_LOLJ.dseg17   equ dseg_9181
-api_idx_0004_LOLJ.dseg18   equ dseg_917a
-api_idx_0004_LOLJ.dseg19   equ dseg_9171
-api_idx_0004_LOLJ.dseg20   equ dseg_9166
-jumptable_85bc_case_5      equ api_idx_0004_LOLJ.jumptable_case6
-api_idx_0004_LOLJ.dseg21   equ dseg_91a7
-api_idx_0004_LOLJ.dseg22   equ dseg_91a0
-api_idx_0004_LOLJ.dseg23   equ dseg_9197
-api_idx_0004_LOLJ.dseg24   equ dseg_918c
-jumptable_85bc_case_6      equ api_idx_0004_LOLJ.jumptable_case7
-api_idx_0004_LOLJ.dseg25   equ dseg_91cd
-api_idx_0004_LOLJ.dseg26   equ dseg_91c6
-api_idx_0004_LOLJ.dseg27   equ dseg_91bd
-api_idx_0004_LOLJ.dseg28   equ dseg_91b2
-jumptable_85bc_case_7      equ api_idx_0004_LOLJ.jumptable_case8
-api_idx_0004_LOLJ.dseg29   equ dseg_91f3
-api_idx_0004_LOLJ.dseg30   equ dseg_91ec
-api_idx_0004_LOLJ.dseg31   equ dseg_91e3
-api_idx_0004_LOLJ.dseg32   equ dseg_91d8
-jumptable_85bc_case_8      equ api_idx_0004_LOLJ.jumptable_case9
-api_idx_0004_LOLJ.dseg33   equ dseg_9219
-api_idx_0004_LOLJ.dseg34   equ dseg_9212
-api_idx_0004_LOLJ.dseg35   equ dseg_9209
-api_idx_0004_LOLJ.dseg36   equ dseg_91fe
-jumptable_85bc_case_9      equ api_idx_0004_LOLJ.jumptable_case10
-api_idx_0004_LOLJ.dseg37   equ dseg_923f
-api_idx_0004_LOLJ.dseg38   equ dseg_9238
-api_idx_0004_LOLJ.dseg39   equ dseg_922f
-api_idx_0004_LOLJ.dseg40   equ dseg_9224
-jumptable_85bc_case_10     equ api_idx_0004_LOLJ.jumptable_case11
-api_idx_0004_LOLJ.dseg41   equ dseg_9265
-api_idx_0004_LOLJ.dseg42   equ dseg_925e
-api_idx_0004_LOLJ.dseg43   equ dseg_9255
-api_idx_0004_LOLJ.dseg44   equ dseg_924a
-jumptable_85bc_case_11     equ api_idx_0004_LOLJ.jumptable_case12
-api_idx_0004_LOLJ.dseg45   equ dseg_928b
-api_idx_0004_LOLJ.dseg46   equ dseg_9284
-api_idx_0004_LOLJ.dseg47   equ dseg_927b
-api_idx_0004_LOLJ.dseg48   equ dseg_9270
-jumptable_85bc_case_12     equ api_idx_0004_LOLJ.jumptable_case13
-api_idx_0004_LOLJ.dseg49   equ dseg_92b1
-api_idx_0004_LOLJ.dseg50   equ dseg_92aa
-api_idx_0004_LOLJ.dseg51   equ dseg_92a1
-api_idx_0004_LOLJ.dseg52   equ dseg_9296
-jumptable_85bc_case_13     equ api_idx_0004_LOLJ.jumptable_case14
-api_idx_0004_LOLJ.dseg53   equ dseg_92d7
-api_idx_0004_LOLJ.dseg54   equ dseg_92d0
-api_idx_0004_LOLJ.dseg55   equ dseg_92c7
-api_idx_0004_LOLJ.dseg56   equ dseg_92bc
-jumptable_85bc             equ api_idx_0004_LOLJ.jumptable1
-api_idx_0004_LOLJ.bss1     equ bss_96d0
-api_idx_0004_LOLJ.bss2     equ bss_9698
-%include "shared/ovr/api_idx_0004_LOLJ.asm"     ; 0x8421
+api_idx_0004_QULR          equ api_idx_0004_QJGR
+jumptable_85bc_case_0      equ api_idx_0004_QJGR.jumptable_case1
+api_idx_0004_QJGR.dseg1    equ dseg_90e9
+api_idx_0004_QJGR.dseg2    equ dseg_90e2
+api_idx_0004_QJGR.dseg3    equ dseg_90d9
+api_idx_0004_QJGR.dseg4    equ dseg_90ce
+api_idx_0004_QJGR.api_idx1 equ api_idx_0004_IKOQ
+jumptable_85bc_case_1      equ api_idx_0004_QJGR.jumptable_case2
+api_idx_0004_QJGR.dseg5    equ dseg_910f
+api_idx_0004_QJGR.dseg6    equ dseg_9108
+api_idx_0004_QJGR.dseg7    equ dseg_90ff
+api_idx_0004_QJGR.dseg8    equ dseg_90f4
+jumptable_85bc_case_2      equ api_idx_0004_QJGR.jumptable_case3
+api_idx_0004_QJGR.dseg9    equ dseg_9135
+api_idx_0004_QJGR.dseg10   equ dseg_912e
+api_idx_0004_QJGR.dseg11   equ dseg_9125
+api_idx_0004_QJGR.dseg12   equ dseg_911a
+jumptable_85bc_case_3      equ api_idx_0004_QJGR.jumptable_case4
+api_idx_0004_QJGR.dseg13   equ dseg_915b
+api_idx_0004_QJGR.dseg14   equ dseg_9154
+api_idx_0004_QJGR.dseg15   equ dseg_914b
+api_idx_0004_QJGR.dseg16   equ dseg_9140
+jumptable_85bc_case_4      equ api_idx_0004_QJGR.jumptable_case5
+api_idx_0004_QJGR.dseg17   equ dseg_9181
+api_idx_0004_QJGR.dseg18   equ dseg_917a
+api_idx_0004_QJGR.dseg19   equ dseg_9171
+api_idx_0004_QJGR.dseg20   equ dseg_9166
+jumptable_85bc_case_5      equ api_idx_0004_QJGR.jumptable_case6
+api_idx_0004_QJGR.dseg21   equ dseg_91a7
+api_idx_0004_QJGR.dseg22   equ dseg_91a0
+api_idx_0004_QJGR.dseg23   equ dseg_9197
+api_idx_0004_QJGR.dseg24   equ dseg_918c
+jumptable_85bc_case_6      equ api_idx_0004_QJGR.jumptable_case7
+api_idx_0004_QJGR.dseg25   equ dseg_91cd
+api_idx_0004_QJGR.dseg26   equ dseg_91c6
+api_idx_0004_QJGR.dseg27   equ dseg_91bd
+api_idx_0004_QJGR.dseg28   equ dseg_91b2
+jumptable_85bc_case_7      equ api_idx_0004_QJGR.jumptable_case8
+api_idx_0004_QJGR.dseg29   equ dseg_91f3
+api_idx_0004_QJGR.dseg30   equ dseg_91ec
+api_idx_0004_QJGR.dseg31   equ dseg_91e3
+api_idx_0004_QJGR.dseg32   equ dseg_91d8
+jumptable_85bc_case_8      equ api_idx_0004_QJGR.jumptable_case9
+api_idx_0004_QJGR.dseg33   equ dseg_9219
+api_idx_0004_QJGR.dseg34   equ dseg_9212
+api_idx_0004_QJGR.dseg35   equ dseg_9209
+api_idx_0004_QJGR.dseg36   equ dseg_91fe
+jumptable_85bc_case_9      equ api_idx_0004_QJGR.jumptable_case10
+api_idx_0004_QJGR.dseg37   equ dseg_923f
+api_idx_0004_QJGR.dseg38   equ dseg_9238
+api_idx_0004_QJGR.dseg39   equ dseg_922f
+api_idx_0004_QJGR.dseg40   equ dseg_9224
+jumptable_85bc_case_10     equ api_idx_0004_QJGR.jumptable_case11
+api_idx_0004_QJGR.dseg41   equ dseg_9265
+api_idx_0004_QJGR.dseg42   equ dseg_925e
+api_idx_0004_QJGR.dseg43   equ dseg_9255
+api_idx_0004_QJGR.dseg44   equ dseg_924a
+jumptable_85bc_case_11     equ api_idx_0004_QJGR.jumptable_case12
+api_idx_0004_QJGR.dseg45   equ dseg_928b
+api_idx_0004_QJGR.dseg46   equ dseg_9284
+api_idx_0004_QJGR.dseg47   equ dseg_927b
+api_idx_0004_QJGR.dseg48   equ dseg_9270
+jumptable_85bc_case_12     equ api_idx_0004_QJGR.jumptable_case13
+api_idx_0004_QJGR.dseg49   equ dseg_92b1
+api_idx_0004_QJGR.dseg50   equ dseg_92aa
+api_idx_0004_QJGR.dseg51   equ dseg_92a1
+api_idx_0004_QJGR.dseg52   equ dseg_9296
+jumptable_85bc_case_13     equ api_idx_0004_QJGR.jumptable_case14
+api_idx_0004_QJGR.dseg53   equ dseg_92d7
+api_idx_0004_QJGR.dseg54   equ dseg_92d0
+api_idx_0004_QJGR.dseg55   equ dseg_92c7
+api_idx_0004_QJGR.dseg56   equ dseg_92bc
+jumptable_85bc             equ api_idx_0004_QJGR.jumptable1
+api_idx_0004_QJGR.bss1     equ bss_96d0
+api_idx_0004_QJGR.bss2     equ bss_9698
+%include "shared/ovr/api_idx_0004_QJGR.asm"     ; 0x8421
 
 %include "shared/ovr/draw_known_spell_values.asm" ; 0x8676
 
@@ -433,31 +432,32 @@ api_idx_0026_NRVO.dseg1 equ dseg_92e2
 
 %include "shared/ovr/evaluate_character_professions.asm" ; 0x91b2
 
-jumptable_928f_case_0  equ loc_SRNN.jumptable_case1
-loc_SRNN.dseg1         equ dseg_9366
-loc_SRNN.api_idx1      equ api_idx_0002_VLGM
-jumptable_928f_case_1  equ loc_SRNN.jumptable_case2
-loc_SRNN.dseg2         equ dseg_936f
-jumptable_928f_case_2  equ loc_SRNN.jumptable_case3
-loc_SRNN.dseg3         equ dseg_9378
-jumptable_928f_case_3  equ loc_SRNN.jumptable_case4
-loc_SRNN.dseg4         equ dseg_9381
-jumptable_928f_case_4  equ loc_SRNN.jumptable_case5
-loc_SRNN.dseg5         equ dseg_938a
-jumptable_928f_case_5  equ loc_SRNN.jumptable_case6
-loc_SRNN.dseg6         equ dseg_9393
-jumptable_928f_case_6  equ loc_SRNN.jumptable_case7
-loc_SRNN.dseg7         equ dseg_939c
-jumptable_928f_case_7  equ loc_SRNN.jumptable_case8
-loc_SRNN.dseg8         equ dseg_93a5
-jumptable_928f_case_8  equ loc_SRNN.jumptable_case9
-loc_SRNN.dseg9         equ dseg_93ae
-jumptable_928f_case_9  equ loc_SRNN.jumptable_case10
-loc_SRNN.dseg10        equ dseg_93b7
-jumptable_928f_case_10 equ loc_SRNN.jumptable_case11
-loc_SRNN.dseg11        equ dseg_93c0
-jumptable_928f         equ loc_SRNN.jumptable1
-%include "shared/ovr/loc_SRNN.asm"              ; 0x91d9
+loc_UUPQ               equ loc_TRSS
+jumptable_928f_case_0  equ loc_TRSS.jumptable_case1
+loc_TRSS.dseg1         equ dseg_9366
+loc_TRSS.api_idx1      equ api_idx_0002_VLGM
+jumptable_928f_case_1  equ loc_TRSS.jumptable_case2
+loc_TRSS.dseg2         equ dseg_936f
+jumptable_928f_case_2  equ loc_TRSS.jumptable_case3
+loc_TRSS.dseg3         equ dseg_9378
+jumptable_928f_case_3  equ loc_TRSS.jumptable_case4
+loc_TRSS.dseg4         equ dseg_9381
+jumptable_928f_case_4  equ loc_TRSS.jumptable_case5
+loc_TRSS.dseg5         equ dseg_938a
+jumptable_928f_case_5  equ loc_TRSS.jumptable_case6
+loc_TRSS.dseg6         equ dseg_9393
+jumptable_928f_case_6  equ loc_TRSS.jumptable_case7
+loc_TRSS.dseg7         equ dseg_939c
+jumptable_928f_case_7  equ loc_TRSS.jumptable_case8
+loc_TRSS.dseg8         equ dseg_93a5
+jumptable_928f_case_8  equ loc_TRSS.jumptable_case9
+loc_TRSS.dseg9         equ dseg_93ae
+jumptable_928f_case_9  equ loc_TRSS.jumptable_case10
+loc_TRSS.dseg10        equ dseg_93b7
+jumptable_928f_case_10 equ loc_TRSS.jumptable_case11
+loc_TRSS.dseg11        equ dseg_93c0
+jumptable_928f         equ loc_TRSS.jumptable1
+%include "shared/ovr/loc_TRSS.asm"              ; 0x91d9
 
 %include "vpcvw/api_idx_0030_TGOH.asm"     ; 0x92b3
 

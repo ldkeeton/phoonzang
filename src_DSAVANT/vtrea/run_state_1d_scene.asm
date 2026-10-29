@@ -10,7 +10,7 @@ run_state_1d_scene:
     push ax                          ; 0x81ec
     call redraw_treasure_caption     ; 0x81ed
     pop cx                           ; 0x81f0
-    call api_idx_0074_SGUS           ; 0x81f1
+    call api_idx_0074_JJVR           ; 0x81f1
     mov ax, 1                        ; 0x81f4
     push ax                          ; 0x81f7
     call redraw_treasure_caption     ; 0x81f8

@@ -105,7 +105,8 @@ def _is_branch(insn):
 
 
 def content_tag(instructions, data, start, end, *,
-                relocs=frozenset(), code_off=None, code_labels=frozenset()):
+                relocs=frozenset(), code_off=None, code_labels=frozenset(),
+                tables=frozenset()):
     """Four letters (``G``-``V``) identifying the code in ``[start, end)``.
 
     A hash of the routine's own bytes, so it does not depend on how we decode
@@ -119,8 +120,9 @@ def content_tag(instructions, data, start, end, *,
     * an absolute ``DS``/``SS`` memory operand (``[0x9b00]``: where a binary
       linked its globals) or ``CS`` one (``ES`` stays raw: BIOS, far data);
     * an imm16 naming a code label (``code_off`` maps it to a file offset,
-      *code_labels* are the labels), and every MZ relocation word (*relocs*:
-      the loader patches it).
+      *code_labels* are the labels), a ``CS`` operand indexed by a register
+      (``jmp [cs:bx + table]``), each switch-table word (*tables*: their file
+      offsets), and every MZ relocation word (*relocs*: the loader patches it).
 
     What a masked field points at never counts: our names for it change, the
     bytes do not.  Constants and register-relative displacements (frames, struct fields) are
@@ -152,7 +154,13 @@ def content_tag(instructions, data, start, end, *,
                 put(insn.address + insn.imm_offset, insn.imm_size)
             continue
         for op in insn.operands:
-            if (op.type == X86_OP_MEM and op.mem.base == 0
+            if (op.type == X86_OP_MEM and op.mem.segment == X86_REG_CS
+                    and code_off and insn.disp_size
+                    and (op.mem.base or op.mem.index)):
+                file = code_off(op.mem.disp & 0xFFFF)
+                put(insn.address + insn.disp_offset, insn.disp_size,
+                    file - start if start <= file < end else 0)
+            elif (op.type == X86_OP_MEM and op.mem.base == 0
                     and op.mem.index == 0 and insn.disp_size):
                 at = insn.address + insn.disp_offset
                 if op.mem.segment == X86_REG_ES:
@@ -172,6 +180,9 @@ def content_tag(instructions, data, start, end, *,
                     put(at, 2, file - start)
                 else:
                     put(at, 2)
+    for at in sorted(t for t in tables if start <= t < end and code_off):
+        file = code_off(int.from_bytes(data[at:at + 2], 'little'))
+        put(at, 2, file - start if start <= file < end else 0)
     for at in sorted(r for r in relocs if start <= r < end):
         put(at, 2)
         ids.append('R')
@@ -180,7 +191,7 @@ def content_tag(instructions, data, start, end, *,
 
 
 def tag_generics(label_map, function_roots, instructions, data, size,
-                 stubs=(), relocs=(), code_off=None):
+                 stubs=(), relocs=(), code_off=None, tables=()):
     """Append each generic routine's :func:`content_tag` to its name, in place.
 
     The name then says which code it is: two functions never share one across
@@ -191,12 +202,11 @@ def tag_generics(label_map, function_roots, instructions, data, size,
     Every address is dropped from the name; only copies of the *same* code
     within one binary keep theirs (``..._HQRK_02e3``), the one thing that can
     tell identical bytes apart, and without a count that would shift.
-    *relocs* (MZ relocation word offsets) and *code_off* (an embedded CS value
-    to its file offset) let :func:`content_tag` mask what the layout moves.
+    *relocs* (MZ relocation word offsets), *code_off* (an embedded CS value
+    to its file offset) and *tables* (switch-table word offsets) let
+    :func:`content_tag` mask what the layout moves.
     Returns ``{old: new}``.
     """
-    # A routine runs to the next *named* root: that is where its file ends (a
-    # plain ``loc_`` root, or an anonymous call target, is inside its body).
     roots = sorted(off for off, name in function_roots.items()
                    if isinstance(name, str)
                    and not is_label(name) and not is_data(name))
@@ -205,6 +215,7 @@ def tag_generics(label_map, function_roots, instructions, data, size,
     every = sorted(function_roots)
 
     relocs = frozenset(relocs)
+    tables = frozenset(tables)
     code_labels = frozenset(function_roots) | frozenset(
         off for off, name in label_map.items()
         if isinstance(name, str) and not is_data(name))
@@ -212,22 +223,8 @@ def tag_generics(label_map, function_roots, instructions, data, size,
     def tag(lo, hi, off, end):
         return content_tag(instructions[lo:hi], data, off, end,
                            relocs=relocs, code_off=code_off,
-                           code_labels=code_labels)
+                           code_labels=code_labels, tables=tables)
 
-    todo = []
-    for index, off in enumerate(roots):
-        name = label_map.get(off)
-        if not isinstance(name, str):
-            continue
-        if off not in stubs and (not is_generic(name) or is_label(name)
-                                 or is_data(name)):
-            continue
-        end = roots[index + 1] if index + 1 < len(roots) else size
-        lo = bisect.bisect_left(addrs, off)
-        hi = bisect.bisect_left(addrs, end)
-        # The address goes: the name is the code's, not the place's.  A stub
-        # keeps its dispatch index (``api_idx_0008``), which is not an address.
-        todo.append((off, name, tag(lo, hi, off, end)))
     # A bare ``loc_`` root becomes a file of its own once a fragment is cut at it
     # (``splitting._split_off_foreign_objects``), so it needs a content-derived
     # name too: an address-derived one would rename the file whenever bytes above
@@ -238,6 +235,25 @@ def tag_generics(label_map, function_roots, instructions, data, size,
         off for off, name in label_map.items()
         if isinstance(name, str) and is_generic(name) and is_label(name)
         and getattr(name, 'role', None) != 'case')
+    # A routine runs to the next named or ``loc_`` root: a ``loc_`` root has a
+    # tag of its own, and counting its bytes here too would retag this routine
+    # whenever that one is named.  An anonymous call target is inside its body.
+    stops = sorted(set(roots) | set(loc_roots))
+    todo = []
+    for off in roots:
+        name = label_map.get(off)
+        if not isinstance(name, str):
+            continue
+        if off not in stubs and (not is_generic(name) or is_label(name)
+                                 or is_data(name)):
+            continue
+        index = bisect.bisect_right(stops, off)
+        end = stops[index] if index < len(stops) else size
+        lo = bisect.bisect_left(addrs, off)
+        hi = bisect.bisect_left(addrs, end)
+        # The address goes: the name is the code's, not the place's.  A stub
+        # keeps its dispatch index (``api_idx_0008``), which is not an address.
+        todo.append((off, name, tag(lo, hi, off, end)))
     bounds = sorted(set(every) | set(loc_roots))
     for off in loc_roots:
         name = label_map[off]

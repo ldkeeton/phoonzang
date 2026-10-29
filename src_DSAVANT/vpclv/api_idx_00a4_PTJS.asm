@@ -13,7 +13,7 @@ api_idx_00a4_PTJS:
     mov byte [bx + party_records + pc_rec.power_floor], 0 ; 0x4ebc
 .forward1:
     push word [bp + 4]               ; 0x4ec1
-    call api_idx_0006_ILTI           ; 0x4ec4
+    call api_idx_0006_KHMT           ; 0x4ec4
     pop cx                           ; 0x4ec7
     mov ax, 0                        ; 0x4ec8
     push ax                          ; 0x4ecb
@@ -65,13 +65,13 @@ api_idx_00a4_PTJS:
     call api_idx_00b4_QLQS           ; 0x4f3c
     pop cx                           ; 0x4f3f
     push word [bp + 4]               ; 0x4f40
-    call api_idx_00ac_MSQO           ; 0x4f43
+    call api_idx_00ac_RQRT           ; 0x4f43
     pop cx                           ; 0x4f46
     push word [bp + 4]               ; 0x4f47
-    call api_idx_0004_KJII           ; 0x4f4a
+    call api_idx_0004_GJKI           ; 0x4f4a
     pop cx                           ; 0x4f4d
     push word [bp + 4]               ; 0x4f4e
-    call loc_KPKJ                    ; 0x4f51
+    call loc_LSTQ                    ; 0x4f51
     pop cx                           ; 0x4f54
     mov word [bp - 4], 0             ; 0x4f55
     mov word [bp - 2], 0             ; 0x4f5a
@@ -94,10 +94,10 @@ api_idx_00a4_PTJS:
     add sp, byte 4                   ; 0x4f88
 .forward2:
     push word [bp + 4]               ; 0x4f8b
-    call api_idx_0052_LHVG           ; 0x4f8e
+    call api_idx_0052_NKUS           ; 0x4f8e
     pop cx                           ; 0x4f91
     push word [bp + 4]               ; 0x4f92
-    call api_idx_0018_IKVK           ; 0x4f95
+    call api_idx_0018_SRUO           ; 0x4f95
     pop cx                           ; 0x4f98
     mov word [bp - 2], 0             ; 0x4f99
 .back2:
@@ -109,7 +109,7 @@ api_idx_00a4_PTJS:
     jbe short .forward3              ; 0x4fae
     push word [bp - 2]               ; 0x4fb0
     push word [bp + 4]               ; 0x4fb3
-    call api_idx_00ca_HKHO           ; 0x4fb6
+    call api_idx_00ca_KSLQ           ; 0x4fb6
     add sp, byte 4                   ; 0x4fb9
     jmp short .back2                 ; 0x4fbc
 .forward3:

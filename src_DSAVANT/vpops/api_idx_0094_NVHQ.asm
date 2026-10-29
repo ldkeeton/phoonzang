@@ -187,7 +187,7 @@ api_idx_0094_NVHQ:
     push ax                          ; 0x3589
     mov ax, MSG_3030                 ; 0x358a
     push ax                          ; 0x358d
-    call api_idx_0038_PVVG           ; 0x358e
+    call api_idx_0038_ONOS           ; 0x358e
     add sp, byte 0xc                 ; 0x3591
     mov word [bp - 0x4c], ax         ; 0x3594
     mov ax, word [spell_dialog_result] ; 0x3597

@@ -1,0 +1,326 @@
+; auto-generated
+api_idx_0014_NJLK:
+    mov ax, 0xffec                   ; 0x06da
+    call aztec_csav                  ; 0x06dd
+    mov ax, word [runtime_buffer_3k] ; 0x06e0
+    mov word [bp - 4], ax            ; 0x06e3
+    mov word [bp - 2], 0             ; 0x06e6
+    jmp near .forward9               ; 0x06eb
+.back1:
+    mov bx, word [bp - 4]            ; 0x06ee
+    mov al, byte [bx]                ; 0x06f1
+    sub ah, ah                       ; 0x06f3
+    cmp ax, word [game_state_arg]    ; 0x06f5
+    je short .forward1               ; 0x06f9
+    jmp near .forward8               ; 0x06fb
+.forward1:
+    cmp byte [bx + 1], 6             ; 0x06fe
+    jne short .forward2              ; 0x0702
+    mov ax, word [bx + 4]            ; 0x0704
+    mov cx, word [bx + 2]            ; 0x0707
+    shl cx, 1                        ; 0x070a
+    mov si, cx                       ; 0x070c
+    mov bx, word [maze_tables]       ; 0x070e
+    mov word [bx + si + maze_tables_rec.f_03c0], ax ; 0x0712
+    jmp near .forward8               ; 0x0716
+.forward2:
+    mov bx, word [bp - 4]            ; 0x0719
+    mov ax, word [bx + 2]            ; 0x071c
+    mov cx, 0x100                    ; 0x071f
+    cwd                              ; 0x0722
+    idiv cx                          ; 0x0723
+    mov word [bp - 0x10], ax         ; 0x0725
+    mov ax, word [bx + 2]            ; 0x0728
+    cwd                              ; 0x072b
+    idiv cx                          ; 0x072c
+    mov word [bp - 0x12], dx         ; 0x072e
+    mov ax, word [bp - 0x10]         ; 0x0731
+    mov word [bp - 6], ax            ; 0x0734
+    mov ax, dx                       ; 0x0737
+    mov cx, 0x10                     ; 0x0739
+    cwd                              ; 0x073c
+    idiv cx                          ; 0x073d
+    mov word [bp - 8], ax            ; 0x073f
+    mov word [bp - 0xa], dx          ; 0x0742
+    mov ax, word [bp - 6]            ; 0x0745
+    mov cx, 6                        ; 0x0748
+    shl ax, cl                       ; 0x074b
+    shl dx, 1                        ; 0x074d
+    shl dx, 1                        ; 0x074f
+    shl dx, 1                        ; 0x0751
+    mov cx, dx                       ; 0x0753
+    add ax, cx                       ; 0x0755
+    mov cx, ax                       ; 0x0757
+    mov ax, word [bp - 8]            ; 0x0759
+    add cx, ax                       ; 0x075c
+    mov word [bp - 0x14], cx         ; 0x075e
+    mov ax, word [bx + 4]            ; 0x0761
+    mov cx, 0x100                    ; 0x0764
+    cwd                              ; 0x0767
+    idiv cx                          ; 0x0768
+    mov word [bp - 0x10], ax         ; 0x076a
+    mov ax, word [bx + 4]            ; 0x076d
+    cwd                              ; 0x0770
+    idiv cx                          ; 0x0771
+    mov word [bp - 0x12], dx         ; 0x0773
+    mov bx, word [maze_data]         ; 0x0776
+    mov si, word [bp - 6]            ; 0x077a
+    mov al, byte [bx + si + 0x490]   ; 0x077d
+    sub ah, ah                       ; 0x0781
+    add ax, word [bp - 8]            ; 0x0783
+    mov word [bp - 0xc], ax          ; 0x0786
+    mov al, byte [bx + si + 0x4a0]   ; 0x0789
+    sub ah, ah                       ; 0x078d
+    add ax, word [bp - 0xa]          ; 0x078f
+    mov word [bp - 0xe], ax          ; 0x0792
+    mov bx, word [bp - 4]            ; 0x0795
+    mov al, byte [bx + 1]            ; 0x0798
+    sub ah, ah                       ; 0x079b
+    jmp near .forward7               ; 0x079d
+jumptable_099e_case_0:
+    mov ax, word [bp - 0x10]         ; 0x07a0
+    mov cx, 0x10                     ; 0x07a3
+    cwd                              ; 0x07a6
+    idiv cx                          ; 0x07a7
+    push ax                          ; 0x07a9
+    mov ax, 4                        ; 0x07aa
+    push ax                          ; 0x07ad
+    push word [bp - 0x14]            ; 0x07ae
+    mov ax, word [maze_data]         ; 0x07b1
+    add ax, 0x90                     ; 0x07b4
+    push ax                          ; 0x07b7
+    call set_bitfield                ; 0x07b8
+    add sp, byte 8                   ; 0x07bb
+    mov ax, word [bp - 0x10]         ; 0x07be
+    mov cx, 0x10                     ; 0x07c1
+    cwd                              ; 0x07c4
+    idiv cx                          ; 0x07c5
+    mov ax, dx                       ; 0x07c7
+    push ax                          ; 0x07c9
+    mov ax, 4                        ; 0x07ca
+    push ax                          ; 0x07cd
+    push word [bp - 0x14]            ; 0x07ce
+    mov ax, word [maze_data]         ; 0x07d1
+    add ax, 0x290                    ; 0x07d4
+    push ax                          ; 0x07d7
+    call set_bitfield                ; 0x07d8
+    add sp, byte 8                   ; 0x07db
+    mov ax, word [bp - 0xe]          ; 0x07de
+    dec ax                           ; 0x07e1
+    push ax                          ; 0x07e2
+    push word [bp - 0xc]             ; 0x07e3
+    lea ax, word [bp - 6]            ; 0x07e6
+    push ax                          ; 0x07e9
+    lea ax, word [bp - 0xa]          ; 0x07ea
+    push ax                          ; 0x07ed
+    lea ax, word [bp - 8]            ; 0x07ee
+    push ax                          ; 0x07f1
+    call find_map_piece              ; 0x07f2
+    add sp, byte 0xa                 ; 0x07f5
+    test ax, ax                      ; 0x07f8
+    jne short api_idx_0014_NJLK.forward3 ; 0x07fa
+    mov ax, word [bp - 6]            ; 0x07fc
+    mov cx, 6                        ; 0x07ff
+    shl ax, cl                       ; 0x0802
+    mov cx, word [bp - 0xa]          ; 0x0804
+    shl cx, 1                        ; 0x0807
+    shl cx, 1                        ; 0x0809
+    shl cx, 1                        ; 0x080b
+    add ax, cx                       ; 0x080d
+    add ax, word [bp - 8]            ; 0x080f
+    mov word [bp - 0x14], ax         ; 0x0812
+    mov ax, word [bp - 0x12]         ; 0x0815
+    mov cx, 0x10                     ; 0x0818
+    cwd                              ; 0x081b
+    idiv cx                          ; 0x081c
+    push ax                          ; 0x081e
+    mov ax, 4                        ; 0x081f
+    push ax                          ; 0x0822
+    push word [bp - 0x14]            ; 0x0823
+    mov ax, word [maze_data]         ; 0x0826
+    add ax, 0x90                     ; 0x0829
+    push ax                          ; 0x082c
+    call set_bitfield                ; 0x082d
+    add sp, byte 8                   ; 0x0830
+api_idx_0014_NJLK.forward3:
+    push word [bp - 0xe]             ; 0x0833
+    mov ax, word [bp - 0xc]          ; 0x0836
+    dec ax                           ; 0x0839
+    push ax                          ; 0x083a
+    lea ax, word [bp - 6]            ; 0x083b
+    push ax                          ; 0x083e
+    lea ax, word [bp - 0xa]          ; 0x083f
+    push ax                          ; 0x0842
+    lea ax, word [bp - 8]            ; 0x0843
+    push ax                          ; 0x0846
+    call find_map_piece              ; 0x0847
+    add sp, byte 0xa                 ; 0x084a
+    test ax, ax                      ; 0x084d
+    jne short api_idx_0014_NJLK.forward4 ; 0x084f
+    mov ax, word [bp - 6]            ; 0x0851
+    mov cx, 6                        ; 0x0854
+    shl ax, cl                       ; 0x0857
+    mov cx, word [bp - 0xa]          ; 0x0859
+    shl cx, 1                        ; 0x085c
+    shl cx, 1                        ; 0x085e
+    shl cx, 1                        ; 0x0860
+    add ax, cx                       ; 0x0862
+    add ax, word [bp - 8]            ; 0x0864
+    mov word [bp - 0x14], ax         ; 0x0867
+    mov ax, word [bp - 0x12]         ; 0x086a
+    mov cx, 0x10                     ; 0x086d
+    cwd                              ; 0x0870
+    idiv cx                          ; 0x0871
+    mov ax, dx                       ; 0x0873
+    push ax                          ; 0x0875
+    mov ax, 4                        ; 0x0876
+    push ax                          ; 0x0879
+    push word [bp - 0x14]            ; 0x087a
+    mov ax, word [maze_data]         ; 0x087d
+    add ax, 0x290                    ; 0x0880
+    push ax                          ; 0x0883
+    call set_bitfield                ; 0x0884
+    add sp, byte 8                   ; 0x0887
+api_idx_0014_NJLK.forward4:
+    jmp near api_idx_0014_NJLK.forward8 ; 0x088a
+jumptable_099e_case_1:
+    mov bx, word [bp - 4]            ; 0x088d
+    push word [bx + 4]               ; 0x0890
+    mov ax, 4                        ; 0x0893
+    push ax                          ; 0x0896
+    push word [bp - 0x14]            ; 0x0897
+    mov ax, word [maze_data]         ; 0x089a
+    add ax, 0x90                     ; 0x089d
+    push ax                          ; 0x08a0
+    call set_bitfield                ; 0x08a1
+    add sp, byte 8                   ; 0x08a4
+    jmp near api_idx_0014_NJLK.forward8 ; 0x08a7
+jumptable_099e_case_2:
+    mov bx, word [bp - 4]            ; 0x08aa
+    push word [bx + 4]               ; 0x08ad
+    mov ax, 4                        ; 0x08b0
+    push ax                          ; 0x08b3
+    push word [bp - 0x14]            ; 0x08b4
+    mov ax, word [maze_data]         ; 0x08b7
+    add ax, 0x290                    ; 0x08ba
+    push ax                          ; 0x08bd
+    call set_bitfield                ; 0x08be
+    add sp, byte 8                   ; 0x08c1
+    jmp near api_idx_0014_NJLK.forward8 ; 0x08c4
+jumptable_099e_case_3:
+    mov ax, word [bp - 0xe]          ; 0x08c7
+    dec ax                           ; 0x08ca
+    push ax                          ; 0x08cb
+    push word [bp - 0xc]             ; 0x08cc
+    lea ax, word [bp - 6]            ; 0x08cf
+    push ax                          ; 0x08d2
+    lea ax, word [bp - 0xa]          ; 0x08d3
+    push ax                          ; 0x08d6
+    lea ax, word [bp - 8]            ; 0x08d7
+    push ax                          ; 0x08da
+    call find_map_piece              ; 0x08db
+    add sp, byte 0xa                 ; 0x08de
+    test ax, ax                      ; 0x08e1
+    jne short api_idx_0014_NJLK.forward5 ; 0x08e3
+    mov ax, word [bp - 6]            ; 0x08e5
+    mov cx, 6                        ; 0x08e8
+    shl ax, cl                       ; 0x08eb
+    mov cx, word [bp - 0xa]          ; 0x08ed
+    shl cx, 1                        ; 0x08f0
+    shl cx, 1                        ; 0x08f2
+    shl cx, 1                        ; 0x08f4
+    add ax, cx                       ; 0x08f6
+    add ax, word [bp - 8]            ; 0x08f8
+    mov word [bp - 0x14], ax         ; 0x08fb
+    mov bx, word [bp - 4]            ; 0x08fe
+    push word [bx + 4]               ; 0x0901
+    mov ax, 4                        ; 0x0904
+    push ax                          ; 0x0907
+    push word [bp - 0x14]            ; 0x0908
+    mov ax, word [maze_data]         ; 0x090b
+    add ax, 0x90                     ; 0x090e
+    push ax                          ; 0x0911
+    call set_bitfield                ; 0x0912
+    add sp, byte 8                   ; 0x0915
+api_idx_0014_NJLK.forward5:
+    jmp near api_idx_0014_NJLK.forward8 ; 0x0918
+jumptable_099e_case_4:
+    push word [bp - 0xe]             ; 0x091b
+    mov ax, word [bp - 0xc]          ; 0x091e
+    dec ax                           ; 0x0921
+    push ax                          ; 0x0922
+    lea ax, word [bp - 6]            ; 0x0923
+    push ax                          ; 0x0926
+    lea ax, word [bp - 0xa]          ; 0x0927
+    push ax                          ; 0x092a
+    lea ax, word [bp - 8]            ; 0x092b
+    push ax                          ; 0x092e
+    call find_map_piece              ; 0x092f
+    add sp, byte 0xa                 ; 0x0932
+    test ax, ax                      ; 0x0935
+    jne short api_idx_0014_NJLK.forward6 ; 0x0937
+    mov ax, word [bp - 6]            ; 0x0939
+    mov cx, 6                        ; 0x093c
+    shl ax, cl                       ; 0x093f
+    mov cx, word [bp - 0xa]          ; 0x0941
+    shl cx, 1                        ; 0x0944
+    shl cx, 1                        ; 0x0946
+    shl cx, 1                        ; 0x0948
+    add ax, cx                       ; 0x094a
+    add ax, word [bp - 8]            ; 0x094c
+    mov word [bp - 0x14], ax         ; 0x094f
+    mov bx, word [bp - 4]            ; 0x0952
+    push word [bx + 4]               ; 0x0955
+    mov ax, 4                        ; 0x0958
+    push ax                          ; 0x095b
+    push word [bp - 0x14]            ; 0x095c
+    mov ax, word [maze_data]         ; 0x095f
+    add ax, 0x290                    ; 0x0962
+    push ax                          ; 0x0965
+    call set_bitfield                ; 0x0966
+    add sp, byte 8                   ; 0x0969
+api_idx_0014_NJLK.forward6:
+    jmp short api_idx_0014_NJLK.forward8 ; 0x096c
+jumptable_099e_case_5:
+    push word [bp - 0x10]            ; 0x096e
+    mov ax, 6                        ; 0x0971
+    push ax                          ; 0x0974
+    push word [bp - 0x14]            ; 0x0975
+    mov ax, word [maze_data]         ; 0x0978
+    add ax, 0x4b0                    ; 0x097b
+    push ax                          ; 0x097e
+    call set_bitfield                ; 0x097f
+    add sp, byte 8                   ; 0x0982
+    push word [bp - 0x12]            ; 0x0985
+    mov ax, 2                        ; 0x0988
+    push ax                          ; 0x098b
+    push word [bp - 0x14]            ; 0x098c
+    mov ax, word [maze_data]         ; 0x098f
+    add ax, 0x7b0                    ; 0x0992
+    push ax                          ; 0x0995
+    call set_bitfield                ; 0x0996
+    add sp, byte 8                   ; 0x0999
+    jmp short api_idx_0014_NJLK.forward8 ; 0x099c
+jumptable_099e:
+    dw jumptable_099e_case_0 - IMAGE_BASE + __zres_end ; 0x099e
+    dw jumptable_099e_case_1 - IMAGE_BASE + __zres_end ; 0x09a0
+    dw jumptable_099e_case_2 - IMAGE_BASE + __zres_end ; 0x09a2
+    dw jumptable_099e_case_3 - IMAGE_BASE + __zres_end ; 0x09a4
+    dw jumptable_099e_case_4 - IMAGE_BASE + __zres_end ; 0x09a6
+    dw jumptable_099e_case_5 - IMAGE_BASE + __zres_end ; 0x09a8
+api_idx_0014_NJLK.forward7:
+    cmp ax, strict word 6            ; 0x09aa
+    jae short api_idx_0014_NJLK.forward8 ; 0x09ad
+    xchg bx, ax                      ; 0x09af
+    shl bx, 1                        ; 0x09b0
+    jmp [cs:bx + jumptable_099e - IMAGE_BASE + __zres_end] ; 0x09b2
+api_idx_0014_NJLK.forward8:
+    add word [bp - 4], byte 6        ; 0x09b7
+    inc word [bp - 2]                ; 0x09bb
+api_idx_0014_NJLK.forward9:
+    mov ax, word [bp - 2]            ; 0x09be
+    cmp ax, word [runtime_six_byte_count] ; 0x09c1
+    jge short api_idx_0014_NJLK.return1 ; 0x09c5
+    jmp near api_idx_0014_NJLK.back1 ; 0x09c7
+api_idx_0014_NJLK.return1:
+    ret                              ; 0x09ca

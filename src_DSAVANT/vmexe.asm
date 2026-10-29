@@ -73,7 +73,7 @@ advance_action_slots.fill_action_slot_table_vmnpc1 equ fill_action_slot_table
 
 %include "shared/ovr/loc_SSIO.asm"              ; 0x0dbe
 
-%include "vmexe/api_idx_0016_MUKH.asm"     ; 0x0e1a
+%include "vmexe/api_idx_0016_SLUJ.asm"     ; 0x0e1a
 
 %include "vmexe/loc_OTGM.asm"              ; 0x0f67
 
@@ -109,13 +109,13 @@ loc_UTQS.api_idx1 equ api_idx_0006_GMTP
 
 %include "shared/ovr/redraw_glyph_strip.asm"    ; 0x1ac7
 
-%include "vmexe/api_idx_0004_UONH.asm"     ; 0x1b45
+%include "vmexe/api_idx_0004_OHJS.asm"     ; 0x1b45
 
 %include "shared/ovr/loc_SIKN.asm"              ; 0x1bf4
 
 %include "vmexe/loc_MUTI.asm"              ; 0x1c36
 
-%include "vmexe/api_idx_0004_PIHK.asm"     ; 0x1c5e
+%include "vmexe/api_idx_0004_OVIO.asm"     ; 0x1c5e
 
 %include "vmexe/loc_NJKR.asm"              ; 0x1e35
 
@@ -127,11 +127,11 @@ loc_UTQS.api_idx1 equ api_idx_0006_GMTP
 
 %include "vmexe/api_idx_0006_QJOL.asm"     ; 0x209c
 
-%include "vmexe/api_idx_0022_ROKS.asm"     ; 0x2242
+%include "vmexe/api_idx_0022_ROTQ.asm"     ; 0x2242
 
 %include "vmexe/loc_PKMT.asm"              ; 0x24c2
 
-%include "vmexe/api_idx_0004_QLTQ.asm"     ; 0x24f0
+%include "vmexe/api_idx_0004_PUIS.asm"     ; 0x24f0
 
 %include "vmexe/loc_QUJT.asm"              ; 0x2553
 
@@ -149,24 +149,24 @@ loc_UTQS.api_idx1 equ api_idx_0006_GMTP
 
 %include "vmexe/api_idx_0006_LIRP.asm"     ; 0x2c7b
 
-%include "vmexe/api_idx_0002_NGRN.asm"     ; 0x2d6b
+%include "vmexe/api_idx_0002_HKLS.asm"     ; 0x2d6b
 
 %include "shared/ovr/loc_QQUT.asm"              ; 0x2e09
 
 %include "vmexe/api_idx_0010_RUQS.asm"     ; 0x2e59
 
-%include "vmexe/api_idx_0006_NIMO.asm"     ; 0x312e
+%include "vmexe/api_idx_0006_HURS.asm"     ; 0x312e
 
 %include "vmexe/api_idx_0004_PMSR.asm"     ; 0x33e2
 
 api_idx_005e_OJVJ.dseg1 equ dseg_90a6
 %include "shared/ovr/api_idx_005e_OJVJ.asm"     ; 0x34bc
 
-%include "vmexe/string_loc_KUIU.asm"       ; 0x3620
+%include "vmexe/string_loc_HILJ.asm"       ; 0x3620
 
 %include "vmexe/loc_RKLS.asm"              ; 0x3aa3
 
-%include "vmexe/api_idx_000e_ORJG.asm"     ; 0x3b07
+%include "vmexe/api_idx_000e_KPGJ.asm"     ; 0x3b07
 
 %include "vmexe/api_idx_000e_HLRI.asm"     ; 0x5fa1
 
@@ -174,29 +174,29 @@ api_idx_005e_OJVJ.dseg1 equ dseg_90a6
 
 %include "vmexe/api_idx_0008_NUPQ.asm"     ; 0x63cd
 
-%include "vmexe/api_idx_0014_OSKJ.asm"     ; 0x6476
+%include "vmexe/api_idx_0014_PIUH.asm"     ; 0x6476
 
 %include "vmexe/loc_HOUQ.asm"              ; 0x6edc
 
-%include "vmexe/api_idx_000c_VJPM.asm"     ; 0x6f33
+%include "vmexe/api_idx_000c_LNRS.asm"     ; 0x6f33
 
 %include "vmexe/api_idx_0004_NRKR.asm"     ; 0x73f6
 
-%include "vmexe/api_idx_000a_VQTM.asm"     ; 0x7434
+%include "vmexe/api_idx_000a_KOQU.asm"     ; 0x7434
 
 %include "vmexe/api_idx_000c_NRPK.asm"     ; 0x7911
 
-%include "vmexe/api_idx_00ac_OJJU.asm"     ; 0x7962
+%include "vmexe/api_idx_00ac_HRGR.asm"     ; 0x7962
 
 %include "vmexe/api_idx_0006_MRPM.asm"     ; 0x908d
 
-%include "vmexe/api_idx_000e_SOLJ.asm"     ; 0x91b5
+%include "vmexe/api_idx_000e_LLRS.asm"     ; 0x91b5
 
 %include "vmexe/loc_SKVJ.asm"              ; 0x9842
 
 %include "vmexe/api_idx_0006_PSQH.asm"     ; 0x989b
 
-%include "vmexe/api_idx_0010_UUTT.asm"     ; 0x9a2f
+%include "vmexe/api_idx_0010_KMMG.asm"     ; 0x9a2f
 
 %include "vmexe/loc_IRGI.asm"              ; 0x9d8d
 

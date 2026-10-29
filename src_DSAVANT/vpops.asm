@@ -121,13 +121,13 @@ draw_spell_cost.dseg1 equ dseg_90bb
 
 %include "shared/ovr/loc_HTKI.asm"              ; 0x2c51
 
-%include "vpops/api_idx_0038_PVVG.asm"     ; 0x2c92
+%include "vpops/api_idx_0038_ONOS.asm"     ; 0x2c92
 
 %include "vpops/api_idx_0094_NVHQ.asm"     ; 0x33db
 
 %include "vpops/api_idx_0006_QUSK.asm"     ; 0x36c0
 
-%include "vpops/api_idx_00d4_LUPQ.asm"     ; 0x3710
+%include "vpops/api_idx_00d4_UHLT.asm"     ; 0x3710
 
 %include "vpops/api_idx_0004_PKLV.asm"     ; 0x4528
 

@@ -20,7 +20,7 @@ loc_NJKR:
     push ax                          ; 0x1e67
     mov ax, 2                        ; 0x1e68
     push ax                          ; 0x1e6b
-    call api_idx_0004_UONH           ; 0x1e6c
+    call api_idx_0004_OHJS           ; 0x1e6c
     add sp, byte 4                   ; 0x1e6f
     mov ax, 2                        ; 0x1e72
     push ax                          ; 0x1e75
@@ -47,7 +47,7 @@ loc_NJKR:
     mov ax, 4                        ; 0x1ea1
     push ax                          ; 0x1ea4
     push ax                          ; 0x1ea5
-    call api_idx_0004_UONH           ; 0x1ea6
+    call api_idx_0004_OHJS           ; 0x1ea6
     add sp, byte 4                   ; 0x1ea9
     mov ax, 0x41                     ; 0x1eac
     push ax                          ; 0x1eaf

@@ -167,7 +167,7 @@ api_idx_0092_GSQH:
     push ax                          ; 0x4d54
     mov ax, MSG_USE_2030             ; 0x4d55
     push ax                          ; 0x4d58
-    call api_idx_0038_ULQM           ; 0x4d59
+    call api_idx_0038_NNNK           ; 0x4d59
     add sp, byte 0xc                 ; 0x4d5c
     mov word [bp - 0x4c], ax         ; 0x4d5f
     mov ax, word [spell_dialog_result] ; 0x4d62

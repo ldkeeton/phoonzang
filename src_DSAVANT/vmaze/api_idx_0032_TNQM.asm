@@ -55,7 +55,7 @@ api_idx_0032_TNQM:
     add bx, bp                       ; 0xac18
     mov word [bx - 0x32], 1          ; 0xac1a
     push word [bp - 2]               ; 0xac1f
-    call loc_SNPU                    ; 0xac22
+    call loc_VJUG                    ; 0xac22
     pop cx                           ; 0xac25
     inc word [bp - 6]                ; 0xac26
     cmp word [bp - 6], byte 0x16     ; 0xac29

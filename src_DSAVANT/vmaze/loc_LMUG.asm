@@ -13,7 +13,7 @@ loc_LMUG:
 .forward1:
     jmp short .forward6              ; 0x0ec5
 .forward2:
-    call api_idx_0002_VUIJ           ; 0x0ec7
+    call api_idx_0002_QNMM           ; 0x0ec7
     mov ax, 0x3c                     ; 0x0eca
     push ax                          ; 0x0ecd
     call random_below                ; 0x0ece

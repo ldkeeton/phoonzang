@@ -343,7 +343,7 @@ api_idx_0010_IOJT:
     push ax                          ; 0x9db7
     push word [bp - 0xc]             ; 0x9db8
     push word [bp + 4]               ; 0x9dbb
-    call api_idx_0002_JLVK           ; 0x9dbe
+    call api_idx_0002_NVPU           ; 0x9dbe
     add sp, byte 8                   ; 0x9dc1
     push word [bp - 0xc]             ; 0x9dc4
     push word [bp + 6]               ; 0x9dc7
@@ -415,7 +415,7 @@ api_idx_0010_IOJT:
     push ax                          ; 0x9e5c
     push word [bp - 0xa]             ; 0x9e5d
     push word [bp + 6]               ; 0x9e60
-    call api_idx_0002_JLVK           ; 0x9e63
+    call api_idx_0002_NVPU           ; 0x9e63
     add sp, byte 8                   ; 0x9e66
     push word [bp - 0xa]             ; 0x9e69
     push word [bp + 4]               ; 0x9e6c

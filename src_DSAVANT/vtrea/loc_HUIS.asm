@@ -26,7 +26,7 @@ loc_HUIS:
     add sp, byte 8                   ; 0x57c4
     lea ax, word [bp - 0x3a]         ; 0x57c7
     push ax                          ; 0x57ca
-    call api_idx_007a_NHII           ; 0x57cb
+    call api_idx_007a_QUNG           ; 0x57cb
     pop cx                           ; 0x57ce
     cmp ax, strict word 0xffff       ; 0x57cf
     jne short .forward1              ; 0x57d2

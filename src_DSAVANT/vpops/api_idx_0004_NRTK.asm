@@ -15,7 +15,7 @@ api_idx_0004_NRTK:
     push ax                          ; 0x4e6a
     call show_area_set               ; 0x4e6b
     pop cx                           ; 0x4e6e
-    call api_idx_00d4_LUPQ           ; 0x4e6f
+    call api_idx_00d4_UHLT           ; 0x4e6f
     mov word [bp - 4], ax            ; 0x4e72
     mov ax, 3                        ; 0x4e75
     push ax                          ; 0x4e78

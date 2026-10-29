@@ -55,7 +55,7 @@ api_idx_0008_GUJV:
     push ax                          ; 0x55f0
     mov ax, MSG_UNUSABLE_1506        ; 0x55f1
     push ax                          ; 0x55f4
-    call api_idx_0054_LVHV           ; 0x55f5
+    call api_idx_0054_IJQR           ; 0x55f5
     add sp, byte 6                   ; 0x55f8
     mov ax, 0                        ; 0x55fb
     ret                              ; 0x55fe
@@ -74,7 +74,7 @@ api_idx_0008_GUJV:
     push ax                          ; 0x561b
     mov ax, MSG_FULL                 ; 0x561c
     push ax                          ; 0x561f
-    call api_idx_0054_LVHV           ; 0x5620
+    call api_idx_0054_IJQR           ; 0x5620
     add sp, byte 6                   ; 0x5623
     mov ax, 0                        ; 0x5626
     ret                              ; 0x5629
@@ -104,7 +104,7 @@ api_idx_0008_GUJV:
     push ax                          ; 0x565e
     mov ax, MSG_SHORT_GP             ; 0x565f
     push ax                          ; 0x5662
-    call api_idx_0054_LVHV           ; 0x5663
+    call api_idx_0054_IJQR           ; 0x5663
     add sp, byte 6                   ; 0x5666
     mov ax, 0                        ; 0x5669
     ret                              ; 0x566c
@@ -115,7 +115,7 @@ api_idx_0008_GUJV:
     push ax                          ; 0x5674
     mov ax, MSG_SOLD_1507            ; 0x5675
     push ax                          ; 0x5678
-    call api_idx_0054_LVHV           ; 0x5679
+    call api_idx_0054_IJQR           ; 0x5679
     add sp, byte 6                   ; 0x567c
     push word [bp - 4]               ; 0x567f
     call loc_GMVH                    ; 0x5682
@@ -187,7 +187,7 @@ api_idx_0008_GUJV:
     shl ax, 1                        ; 0x571b
     mov bx, ax                       ; 0x571d
     mov word [bx + bss_9cd4], 0      ; 0x571f
-    call api_idx_0004_GHUK           ; 0x5725
+    call api_idx_0004_GJHP           ; 0x5725
     mov ax, 0                        ; 0x5728
     push ax                          ; 0x572b
     push ax                          ; 0x572c

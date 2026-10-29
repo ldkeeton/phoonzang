@@ -24,7 +24,7 @@ api_idx_0006_LIRP:
     mov ax, 2                        ; 0x2cba
     push ax                          ; 0x2cbd
     push ax                          ; 0x2cbe
-    call api_idx_0004_UONH           ; 0x2cbf
+    call api_idx_0004_OHJS           ; 0x2cbf
     add sp, byte 4                   ; 0x2cc2
     mov ax, 2                        ; 0x2cc5
     push ax                          ; 0x2cc8

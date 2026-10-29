@@ -99,6 +99,6 @@ loc_MGPH:
     push ax                          ; 0xa53a
     mov ax, 0x1bf8                   ; 0xa53b
     push ax                          ; 0xa53e
-    call api_idx_0002_NSKK           ; 0xa53f
+    call api_idx_0002_JNUL           ; 0xa53f
     add sp, byte 4                   ; 0xa542
     ret                              ; 0xa545

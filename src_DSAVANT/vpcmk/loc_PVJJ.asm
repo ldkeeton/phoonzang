@@ -113,7 +113,7 @@ loc_PVJJ:
     mov ax, 0                        ; 0x6a13
     push ax                          ; 0x6a16
     push word [bp + 4]               ; 0x6a17
-    call api_idx_0038_LTUV           ; 0x6a1a
+    call api_idx_0038_IPTM           ; 0x6a1a
     add sp, byte 0xa                 ; 0x6a1d
     cmp ax, strict word 1            ; 0x6a20
     jne short .forward6              ; 0x6a23

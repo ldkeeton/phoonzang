@@ -132,7 +132,7 @@ api_idx_0072_LQIT:
     push word [bss_9052]             ; 0x7290
     lea ax, word [bp - 0x72]         ; 0x7294
     push ax                          ; 0x7297
-    call api_idx_0008_JJHR           ; 0x7298
+    call api_idx_0008_RORM           ; 0x7298
     add sp, byte 0x12                ; 0x729b
     mov ax, 0                        ; 0x729e
     push ax                          ; 0x72a1

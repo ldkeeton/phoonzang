@@ -19,7 +19,7 @@ api_idx_0040_LIPH:
     push ax                          ; 0x536c
     mov ax, MSG_DIVVY_LOOT           ; 0x536d
     push ax                          ; 0x5370
-    call api_idx_0038_ULQM           ; 0x5371
+    call api_idx_0038_NNNK           ; 0x5371
     add sp, byte 0xc                 ; 0x5374
     mov word [bp - 6], ax            ; 0x5377
     mov ax, word [spell_dialog_result] ; 0x537a

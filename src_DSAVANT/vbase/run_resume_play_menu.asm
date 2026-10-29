@@ -89,7 +89,7 @@ jumptable_69ec_case_0:
 jumptable_69ec_case_1:
     mov ax, 1                        ; 0x698f
     push ax                          ; 0x6992
-    call loc_RMVR                    ; 0x6993
+    call loc_ITUI                    ; 0x6993
     pop cx                           ; 0x6996
     jmp short run_resume_play_menu.forward5 ; 0x6997
 jumptable_69ec_case_2:

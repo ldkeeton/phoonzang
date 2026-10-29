@@ -13,7 +13,7 @@ api_idx_0058_PMKH:
     lea ax, word [bp - 0x54]         ; 0x89c3
     push ax                          ; 0x89c6
     push word [bp - 2]               ; 0x89c7
-    call api_idx_0006_UKIH           ; 0x89ca
+    call api_idx_0006_TMJK           ; 0x89ca
     add sp, byte 4                   ; 0x89cd
     lea ax, word [bp - 0x2c]         ; 0x89d0
     push ax                          ; 0x89d3
@@ -52,7 +52,7 @@ api_idx_0058_PMKH:
     dec ax                           ; 0x8a20
     push ax                          ; 0x8a21
     push word [bp + 4]               ; 0x8a22
-    call api_idx_0002_GRRR           ; 0x8a25
+    call api_idx_0002_SRQM           ; 0x8a25
     add sp, byte 4                   ; 0x8a28
     mov bx, word [bp + 6]            ; 0x8a2b
     mov word [bx], 0                 ; 0x8a2e
@@ -78,7 +78,7 @@ api_idx_0058_PMKH:
     dec ax                           ; 0x8a58
     push ax                          ; 0x8a59
     push word [bp + 4]               ; 0x8a5a
-    call api_idx_0002_GRRR           ; 0x8a5d
+    call api_idx_0002_SRQM           ; 0x8a5d
     add sp, byte 4                   ; 0x8a60
     mov bx, word [bp + 6]            ; 0x8a63
     mov word [bx], 1                 ; 0x8a66

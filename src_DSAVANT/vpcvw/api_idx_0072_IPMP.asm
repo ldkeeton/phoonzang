@@ -56,7 +56,7 @@ api_idx_0072_IPMP:
     lea ax, word [bp - 0x66]         ; 0x4ac2
     push ax                          ; 0x4ac5
     push word [bp + 4]               ; 0x4ac6
-    call api_idx_0002_USJS           ; 0x4ac9
+    call api_idx_0002_UINV           ; 0x4ac9
     add sp, byte 4                   ; 0x4acc
     mov word [bp - 6], ax            ; 0x4acf
     cmp ax, strict word 0xffff       ; 0x4ad2
@@ -99,7 +99,7 @@ api_idx_0072_IPMP:
     add sp, byte 4                   ; 0x4b29
     test ax, ax                      ; 0x4b2c
     je short .forward6               ; 0x4b2e
-    call api_idx_0056_KPMS           ; 0x4b30
+    call api_idx_0056_QHUP           ; 0x4b30
     mov ax, 0xffff                   ; 0x4b33
     ret                              ; 0x4b36
 .forward6:
@@ -109,7 +109,7 @@ api_idx_0072_IPMP:
     add sp, byte 4                   ; 0x4b40
     test ax, ax                      ; 0x4b43
     je short .forward7               ; 0x4b45
-    call api_idx_0056_KPMS           ; 0x4b47
+    call api_idx_0056_QHUP           ; 0x4b47
     mov ax, 0xffff                   ; 0x4b4a
     ret                              ; 0x4b4d
 .forward7:
@@ -136,7 +136,7 @@ api_idx_0072_IPMP:
     add sp, byte 4                   ; 0x4b83
     test ax, ax                      ; 0x4b86
     je short .forward8               ; 0x4b88
-    call api_idx_0056_KPMS           ; 0x4b8a
+    call api_idx_0056_QHUP           ; 0x4b8a
     mov ax, 0xffff                   ; 0x4b8d
     ret                              ; 0x4b90
 .forward8:
@@ -336,7 +336,7 @@ api_idx_0072_IPMP:
     add ax, cx                       ; 0x4d5f
     mov bx, ax                       ; 0x4d61
     or byte [bx + party_records + pc_rec.cell + 0x7], 2 ; 0x4d63
-    call api_idx_0056_KPMS           ; 0x4d68
+    call api_idx_0056_QHUP           ; 0x4d68
 .forward15:
     mov word [bp - 2], 0             ; 0x4d6b
     mov word [bp - 0xa], 0           ; 0x4d70

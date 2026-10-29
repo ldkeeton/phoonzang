@@ -516,7 +516,7 @@ jumptable_2326_case_39:
     push ax                          ; 0x21a6
     push ax                          ; 0x21a7
     push word [bp + 8]               ; 0x21a8
-    call api_idx_0012_UROU           ; 0x21ab
+    call api_idx_0012_JQVQ           ; 0x21ab
     add sp, byte 6                   ; 0x21ae
     jmp near jumptable_2326_case_50  ; 0x21b1
 jumptable_2326_case_40:
@@ -525,7 +525,7 @@ jumptable_2326_case_40:
     mov ax, 0                        ; 0x21b8
     push ax                          ; 0x21bb
     push word [bp + 8]               ; 0x21bc
-    call api_idx_0012_UROU           ; 0x21bf
+    call api_idx_0012_JQVQ           ; 0x21bf
     add sp, byte 6                   ; 0x21c2
     jmp near jumptable_2326_case_50  ; 0x21c5
 jumptable_2326_case_47:
@@ -662,7 +662,7 @@ apply_spell_effect.forward29:
     mov ax, 1                        ; 0x2308
     push ax                          ; 0x230b
     push word [bp - 2]               ; 0x230c
-    call api_idx_0012_UROU           ; 0x230f
+    call api_idx_0012_JQVQ           ; 0x230f
     add sp, byte 6                   ; 0x2312
     jmp short jumptable_2326_case_50 ; 0x2315
 jumptable_2326_case_41:

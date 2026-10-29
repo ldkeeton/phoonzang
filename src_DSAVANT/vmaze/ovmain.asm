@@ -36,8 +36,8 @@ ovmain:
 .forward2:
     cmp word [game_state], byte 5    ; 0x0085
     jne short .forward3              ; 0x008a
-    call api_idx_0002_TOSL           ; 0x008c
-    call api_idx_0022_VNNP           ; 0x008f
+    call api_idx_0002_UTNP           ; 0x008c
+    call api_idx_0022_LKUK           ; 0x008f
 .forward3:
     call loc_OGHL                    ; 0x0092
     call api_idx_0002_LMTG           ; 0x0095
@@ -55,7 +55,7 @@ ovmain:
     cmp ax, strict word 0x14         ; 0x00b4
     je short .forward4               ; 0x00b7
     mov word [bss_8f22], 1           ; 0x00b9
-    call api_idx_0030_QUNV           ; 0x00bf
+    call api_idx_0030_KNRH           ; 0x00bf
     mov ax, dseg_9098                ; 0x00c2
     push ax                          ; 0x00c5
     mov ax, 0x8f                     ; 0x00c6
@@ -76,7 +76,7 @@ ovmain:
     cwd                              ; 0x00ec
     idiv cx                          ; 0x00ed
     mov word [party_status_frame], dx ; 0x00ef
-    call api_idx_0030_QUNV           ; 0x00f3
+    call api_idx_0030_KNRH           ; 0x00f3
     mov word [screen_cache_index], 1 ; 0x00f6
     mov word [bss_8f22], 0           ; 0x00fc
 .forward4:

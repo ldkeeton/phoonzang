@@ -97,12 +97,12 @@ loc_LHRG:
     sar ax, 1                        ; 0x1847
     jge short loc_QISJ               ; 0x1849
     xor ax, ax                       ; 0x184b
-    jmp near loc_MRSL                ; 0x184d
+    jmp near loc_UIKP                ; 0x184d
 loc_QISJ:
     cmp ax, 0x5ff                    ; 0x1850
-    jl short loc_MRSL                ; 0x1853
+    jl short loc_UIKP                ; 0x1853
     mov ax, 0x5ff                    ; 0x1855
-loc_MRSL:
+loc_UIKP:
     mov di, ax                       ; 0x1858
     shr di, 1                        ; 0x185a
     shr di, 1                        ; 0x185c

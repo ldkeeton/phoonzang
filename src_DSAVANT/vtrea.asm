@@ -134,9 +134,9 @@ api_idx_0004_JGSH.loc1 equ loc_NQGV
 api_idx_0004_JGSH.bss2 equ bss_9152
 %include "shared/ovr/api_idx_0004_JGSH.asm"     ; 0x0a6a
 
-%include "vtrea/api_idx_0090_NPLS.asm"     ; 0x0b29
+%include "vtrea/api_idx_0090_LKIM.asm"     ; 0x0b29
 
-process_scene_message_words.loc1 equ api_idx_0090_NPLS
+process_scene_message_words.loc1 equ api_idx_0090_LKIM
 %include "shared/ovr/process_scene_message_words.asm" ; 0x0d24
 
 %include "vtrea/loc_KIOQ.asm"              ; 0x0d87
@@ -161,15 +161,15 @@ process_scene_message_words.loc1 equ api_idx_0090_NPLS
 
 %include "vtrea/api_idx_0006_UHJH.asm"     ; 0x148d
 
-%include "vtrea/api_idx_00b8_LTRM.asm"     ; 0x14e7
+%include "vtrea/api_idx_00b8_HONM.asm"     ; 0x14e7
 
-%include "vtrea/api_idx_0060_VPPJ.asm"     ; 0x1fd5
+%include "vtrea/api_idx_0060_VTPV.asm"     ; 0x1fd5
 
 %include "vtrea/loc_OVQV.asm"              ; 0x242c
 
 %include "vtrea/api_idx_0002_PMUV.asm"     ; 0x251a
 
-%include "vtrea/api_idx_0084_IMVQ.asm"     ; 0x25ab
+%include "vtrea/api_idx_0084_ILQU.asm"     ; 0x25ab
 
 %include "shared/ovr/api_idx_0008_RQRL.asm"     ; 0x3552
 
@@ -185,9 +185,9 @@ process_scene_message_words.loc1 equ api_idx_0090_NPLS
 
 %include "shared/ovr/loc_HTKI.asm"              ; 0x3a15
 
-%include "vtrea/api_idx_0038_ULQM.asm"     ; 0x3a56
+%include "vtrea/api_idx_0038_NNNK.asm"     ; 0x3a56
 
-%include "vtrea/api_idx_0054_TIQK.asm"     ; 0x4254
+%include "vtrea/api_idx_0054_NJIS.asm"     ; 0x4254
 
 %include "shared/ovr/loc_QQUT.asm"              ; 0x4318
 
@@ -197,7 +197,7 @@ process_scene_message_words.loc1 equ api_idx_0090_NPLS
 
 %include "vtrea/api_idx_0092_GSQH.asm"     ; 0x4bcc
 
-%include "vtrea/api_idx_007a_NHII.asm"     ; 0x4f0c
+%include "vtrea/api_idx_007a_QUNG.asm"     ; 0x4f0c
 
 %include "shared/ovr/api_idx_004c_RQSO.asm"     ; 0x51d7
 
@@ -219,7 +219,7 @@ process_scene_message_words.loc1 equ api_idx_0090_NPLS
 
 %include "shared/ovr/api_idx_0006_POPS.asm"     ; 0x5e88
 
-api_idx_0004_JVLM     equ log_maze_change
+api_idx_0004_GHVL     equ log_maze_change
 jumptable_5fd3_case_0 equ log_maze_change.jumptable_case1
 jumptable_5fd3_case_1 equ log_maze_change.jumptable_case2
 jumptable_5fd3_case_5 equ log_maze_change.jumptable_case3
@@ -233,7 +233,7 @@ jumptable_5fd3        equ log_maze_change.jumptable1
 
 %include "shared/ovr/clear_bit_pair.asm"        ; 0x6e69
 
-%include "vtrea/api_idx_0004_IHLT.asm"     ; 0x6ead
+%include "vtrea/api_idx_0004_RTSK.asm"     ; 0x6ead
 
 %include "vtrea/loc_RVKS.asm"              ; 0x6f41
 
@@ -249,7 +249,7 @@ jumptable_5fd3        equ log_maze_change.jumptable1
 
 %include "shared/ovr/loc_QTKU.asm"              ; 0x788f
 
-%include "vtrea/api_idx_0074_SGUS.asm"     ; 0x78ed
+%include "vtrea/api_idx_0074_JJVR.asm"     ; 0x78ed
 
 %include "vtrea/loc_SNOI.asm"              ; 0x7d99
 
@@ -269,7 +269,7 @@ jumptable_5fd3        equ log_maze_change.jumptable1
 
 %include "shared/ovr/loc_RULJ.asm"              ; 0x82a9
 
-%include "shared/ovr/api_idx_0008_JJHR.asm"     ; 0x82b8
+%include "shared/ovr/api_idx_0008_RORM.asm"     ; 0x82b8
 
 %include "vtrea/loc_IOMS.asm"              ; 0x8441
 

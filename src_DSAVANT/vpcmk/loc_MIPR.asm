@@ -111,10 +111,10 @@ loc_MIPR:
     call api_idx_006c_JNMM           ; 0x6400
     pop cx                           ; 0x6403
     push word [bp - 6]               ; 0x6404
-    call api_idx_0002_IVMI           ; 0x6407
+    call api_idx_0002_OKLI           ; 0x6407
     pop cx                           ; 0x640a
     push word [bp - 6]               ; 0x640b
-    call loc_LTLR                    ; 0x640e
+    call loc_JUPL                    ; 0x640e
     pop cx                           ; 0x6411
     push word [bp - 6]               ; 0x6412
     call api_idx_0054_RLST           ; 0x6415
@@ -224,7 +224,7 @@ loc_MIPR:
     jbe short .forward6              ; 0x6525
     push word [bp - 2]               ; 0x6527
     push word [bp - 6]               ; 0x652a
-    call api_idx_006e_LVOK           ; 0x652d
+    call api_idx_006e_LMUM           ; 0x652d
     add sp, byte 4                   ; 0x6530
     jmp short .back2                 ; 0x6533
 .forward6:
@@ -233,7 +233,7 @@ loc_MIPR:
     cmp ax, strict word 4            ; 0x653b
     jl short .back2                  ; 0x653e
     push word [bp - 6]               ; 0x6540
-    call api_idx_0008_VHMQ           ; 0x6543
+    call api_idx_0008_SNVI           ; 0x6543
     pop cx                           ; 0x6546
     push word [bp - 6]               ; 0x6547
     call api_idx_0002_SLKJ           ; 0x654a

@@ -13,7 +13,7 @@ api_idx_0004_GGOK:
     mov ax, MSG_CAST                 ; 0x3aac
     push ax                          ; 0x3aaf
     push word [bp + 4]               ; 0x3ab0
-    call api_idx_0044_NORP           ; 0x3ab3
+    call api_idx_0044_QRMH           ; 0x3ab3
     add sp, byte 8                   ; 0x3ab6
     test ax, ax                      ; 0x3ab9
     je short .forward1               ; 0x3abb

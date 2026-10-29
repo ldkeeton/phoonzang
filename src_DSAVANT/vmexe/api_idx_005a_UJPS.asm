@@ -572,7 +572,7 @@ api_idx_005a_UJPS:
     push word [bp - 4]               ; 0xa4b0
     push word [bp - 6]               ; 0xa4b3
     push word [bp + 4]               ; 0xa4b6
-    call api_idx_000e_ORJG           ; 0xa4b9
+    call api_idx_000e_KPGJ           ; 0xa4b9
     add sp, byte 6                   ; 0xa4bc
 .forward39:
     jmp short .return1               ; 0xa4bf

@@ -64,7 +64,7 @@ api_idx_004e_PHKR:
     push ax                          ; 0x5c04
     mov ax, MSG_YOU_NEED_IT          ; 0x5c05
     push ax                          ; 0x5c08
-    call api_idx_0054_LVHV           ; 0x5c09
+    call api_idx_0054_IJQR           ; 0x5c09
     add sp, byte 6                   ; 0x5c0c
     mov ax, 0                        ; 0x5c0f
     ret                              ; 0x5c12
@@ -94,7 +94,7 @@ api_idx_004e_PHKR:
     push ax                          ; 0x5c45
     mov ax, MSG_EQUIPPED             ; 0x5c46
     push ax                          ; 0x5c49
-    call api_idx_0054_LVHV           ; 0x5c4a
+    call api_idx_0054_IJQR           ; 0x5c4a
     add sp, byte 6                   ; 0x5c4d
     mov ax, 0                        ; 0x5c50
     ret                              ; 0x5c53
@@ -156,7 +156,7 @@ api_idx_004e_PHKR:
     push ax                          ; 0x5cca
     mov ax, MSG_THANKS               ; 0x5ccb
     push ax                          ; 0x5cce
-    call api_idx_0054_LVHV           ; 0x5ccf
+    call api_idx_0054_IJQR           ; 0x5ccf
     add sp, byte 6                   ; 0x5cd2
     mov ax, 0xc6                     ; 0x5cd5
     push ax                          ; 0x5cd8

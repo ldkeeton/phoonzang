@@ -26,7 +26,7 @@ api_idx_0068_OUGS:
     push ax                          ; 0x51f1
     mov ax, MSG_USE_1514             ; 0x51f2
     push ax                          ; 0x51f5
-    call api_idx_0038_IJUK           ; 0x51f6
+    call api_idx_0038_LJHT           ; 0x51f6
     add sp, byte 0xc                 ; 0x51f9
     mov word [bp - 0x4c], ax         ; 0x51fc
     mov ax, word [spell_dialog_result] ; 0x51ff

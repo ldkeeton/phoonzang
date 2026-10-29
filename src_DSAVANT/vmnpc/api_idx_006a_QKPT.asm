@@ -153,7 +153,7 @@ api_idx_006a_QKPT:
     lea cx, word [bp - 0x56]         ; 0xad75
     add ax, cx                       ; 0xad78
     push ax                          ; 0xad7a
-    call api_idx_0004_GSIV           ; 0xad7b
+    call api_idx_0004_UMTI           ; 0xad7b
     pop cx                           ; 0xad7e
     mov word [bss_b030], ax          ; 0xad7f
     push word [bp - 2]               ; 0xad82
@@ -184,7 +184,7 @@ api_idx_006a_QKPT:
     pop cx                           ; 0xadbf
     cmp ax, strict word 0            ; 0xadc0
     jle short .forward6              ; 0xadc3
-    call api_idx_00a2_IKRJ           ; 0xadc5
+    call api_idx_00a2_LJUU           ; 0xadc5
     test ax, ax                      ; 0xadc8
     jne short .forward6              ; 0xadca
     call loc_LTIS                    ; 0xadcc

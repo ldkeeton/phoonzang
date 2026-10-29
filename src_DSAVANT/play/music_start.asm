@@ -26,7 +26,7 @@ music_start:
     mov al, byte [cs:music_device - IMAGE_BASE] ; 0x0078
     mov ax, word [cs:chain_period - IMAGE_BASE] ; 0x007c
     mov word [cs:chain_countdown - IMAGE_BASE], ax ; 0x0080
-    call loc_VVTT                    ; 0x0084
+    call loc_HPIL                    ; 0x0084
     cmp ax, strict word 0            ; 0x0087
     jne short .forward1              ; 0x008a
     call hook_int08_and_configure_pit ; 0x008c
@@ -35,7 +35,7 @@ music_start:
     pop bx                           ; 0x0095
     pop bp                           ; 0x0096
     ret                              ; 0x0097
-loc_VVTT:
+loc_HPIL:
     mov bl, byte [cs:music_device - IMAGE_BASE] ; 0x0098
     xor bh, bh                       ; 0x009d
     shl bx, 1                        ; 0x009f

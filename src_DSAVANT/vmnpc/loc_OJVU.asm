@@ -28,7 +28,7 @@ loc_OJVU:
     sub ah, ah                       ; 0x9cbb
     push ax                          ; 0x9cbd
     push word [bss_b04e]             ; 0x9cbe
-    call api_idx_0040_LSRO           ; 0x9cc2
+    call api_idx_0040_INKU           ; 0x9cc2
     add sp, byte 4                   ; 0x9cc5
     cmp ax, strict word 1            ; 0x9cc8
     jne short .forward2              ; 0x9ccb
@@ -42,7 +42,7 @@ loc_OJVU:
     sub ah, ah                       ; 0x9cdf
     dec ax                           ; 0x9ce1
     push ax                          ; 0x9ce2
-    call api_idx_0002_NUKT           ; 0x9ce3
+    call api_idx_0002_LIOM           ; 0x9ce3
     pop cx                           ; 0x9ce6
     jmp short .return1               ; 0x9ce7
 .forward4:

@@ -50,7 +50,7 @@ api_idx_0002_TLGN:
     cmp byte [bx + slot_records + slot_record.f_0002], 0 ; 0xa829
     jne short .forward3              ; 0xa82e
     push word [bp + 4]               ; 0xa830
-    call api_idx_003a_HOUV           ; 0xa833
+    call api_idx_003a_SOVP           ; 0xa833
     pop cx                           ; 0xa836
     ret                              ; 0xa837
 .forward3:
@@ -121,7 +121,7 @@ api_idx_0002_TLGN:
     cmp byte [bx + slot_records + slot_record.f_0002], 5 ; 0xa8d6
     je short .return2                ; 0xa8db
     push word [bp + 4]               ; 0xa8dd
-    call api_idx_003a_HOUV           ; 0xa8e0
+    call api_idx_003a_SOVP           ; 0xa8e0
     pop cx                           ; 0xa8e3
 .return2:
     ret                              ; 0xa8e4
@@ -191,7 +191,7 @@ api_idx_0002_TLGN:
     sub ah, ah                       ; 0xa997
     push ax                          ; 0xa999
     push word [bp + 4]               ; 0xa99a
-    call api_idx_0002_JLVK           ; 0xa99d
+    call api_idx_0002_NVPU           ; 0xa99d
     add sp, byte 8                   ; 0xa9a0
 .return3:
     ret                              ; 0xa9a3

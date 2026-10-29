@@ -17,7 +17,7 @@ ovmain:
     push ax                          ; 0x17fd
     call call_mouse_glide_to         ; 0x17fe
     add sp, byte 6                   ; 0x1801
-    call api_idx_000c_VJPM           ; 0x1804
+    call api_idx_000c_LNRS           ; 0x1804
     mov ax, 0                        ; 0x1807
     push ax                          ; 0x180a
     mov ax, 0xa4                     ; 0x180b

@@ -23,6 +23,6 @@ loc_VUSH:
     push word [bp + 8]               ; 0x47a9
     push word [bp + 6]               ; 0x47ac
     push word [bp + 4]               ; 0x47af
-    call api_idx_0054_OPGG           ; 0x47b2
+    call api_idx_0054_OPNV           ; 0x47b2
     add sp, byte 0xe                 ; 0x47b5
     ret                              ; 0x47b8

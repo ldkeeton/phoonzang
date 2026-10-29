@@ -82,7 +82,7 @@ jumptable_4a7d_case_39:
 jumptable_4a7d_case_29:
     push word [bp + 8]               ; 0x442f
     push word [bp + 4]               ; 0x4432
-    call api_idx_0054_TIQK           ; 0x4435
+    call api_idx_0054_NJIS           ; 0x4435
     add sp, byte 4                   ; 0x4438
     jmp near jumptable_4a7d_case_44  ; 0x443b
 jumptable_4a7d_case_33:

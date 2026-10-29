@@ -119,7 +119,7 @@ api_idx_0006_GMTP:
     add sp, byte 0xe                 ; 0x19bd
     push word [bp - 4]               ; 0x19c0
     push word [bp - 2]               ; 0x19c3
-    call api_idx_0016_MUKH           ; 0x19c6
+    call api_idx_0016_SLUJ           ; 0x19c6
     add sp, byte 4                   ; 0x19c9
     inc word [bp - 4]                ; 0x19cc
     mov ax, word [bp - 4]            ; 0x19cf

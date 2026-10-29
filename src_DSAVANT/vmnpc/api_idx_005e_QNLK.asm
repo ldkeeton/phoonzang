@@ -164,7 +164,7 @@ api_idx_005e_QNLK:
     call api_idx_0004_PULL           ; 0x6142
     add sp, byte 4                   ; 0x6145
     mov word [bp - 8], ax            ; 0x6148
-    call api_idx_0004_GHUK           ; 0x614b
+    call api_idx_0004_GJHP           ; 0x614b
     mov ax, 3                        ; 0x614e
     push ax                          ; 0x6151
     mov ax, 0xf                      ; 0x6152
@@ -267,7 +267,7 @@ api_idx_005e_QNLK:
     shl ax, 1                        ; 0x6234
     mov bx, ax                       ; 0x6236
     mov word [bx + bss_9cd4], 0      ; 0x6238
-    call api_idx_0004_GHUK           ; 0x623e
+    call api_idx_0004_GJHP           ; 0x623e
 .forward16:
     jmp near .forward21              ; 0x6241
 .forward17:

@@ -45,7 +45,7 @@ codeseg	segment	byte public 'code'
 	extrn	device_note_off:near
 	extrn	device_nop:near
 	extrn	opl_apply_volume:near
-	public	restore_timer_handler,music_loop_event,string_loc_SLGG
+	public	restore_timer_handler,music_loop_event,string_loc_PUTK
 	public	store_nibble_event,skip_byte_event,store_word_event,skip_word_event
 	public	note_event_high,note_event_low
 	public	opl_voice_records,opl_voice_count,opl_note_semitone,opl_note_index
@@ -286,7 +286,7 @@ opl_voice_candidate label byte
 opl_voice_record_ptr label byte
 	dw	0
 
-string_loc_SLGG proc near
+string_loc_PUTK proc near
 	pushs	ax,bx,cx,es,si
 	and	al,0fh
 	mov	byte ptr cs:event_channel_index,al
@@ -349,7 +349,7 @@ remap_found:
 pitch_done:
 	pops	es,cx,bx,ax
 	ret
-string_loc_SLGG endp
+string_loc_PUTK endp
 
 store_nibble_event proc near
 	mov	bx,offset channel_patch_index
@@ -378,7 +378,7 @@ event_dispatch_padding label byte
 	db	0,0,0
 ; High and low OPL event handlers are dispatched by this player's opcode decoder.
 note_event_high proc near
-	call	string_loc_SLGG
+	call	string_loc_PUTK
 	cmp	byte ptr cs:channel_patch_value,0ffh
 	jne	note_high_have_patch
 	jmp	near ptr next_event
@@ -598,7 +598,7 @@ note_done:
 note_event_high endp
 
 note_event_low proc near
-	call	string_loc_SLGG
+	call	string_loc_PUTK
 	cmp	byte ptr cs:channel_patch_value,0ffh
 	jne	note_low_have_patch
 	jmp	near ptr next_event

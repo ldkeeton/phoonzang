@@ -142,7 +142,7 @@ api_idx_0010_LPLH:
     push ax                          ; 0x27ab
     mov ax, 2                        ; 0x27ac
     push ax                          ; 0x27af
-    call api_idx_0004_UONH           ; 0x27b0
+    call api_idx_0004_OHJS           ; 0x27b0
     add sp, byte 4                   ; 0x27b3
     push word [bp - 2]               ; 0x27b6
     push word [bp + 4]               ; 0x27b9

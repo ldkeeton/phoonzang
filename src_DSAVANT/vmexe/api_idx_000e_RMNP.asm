@@ -92,7 +92,7 @@ api_idx_000e_RMNP:
     push word [bp - 8]               ; 0x2b68
     push word [bp - 2]               ; 0x2b6b
     push word [bp + 4]               ; 0x2b6e
-    call api_idx_0022_ROKS           ; 0x2b71
+    call api_idx_0022_ROTQ           ; 0x2b71
     add sp, byte 0xe                 ; 0x2b74
     cmp ax, strict word 0            ; 0x2b77
     jle short .forward12             ; 0x2b7a

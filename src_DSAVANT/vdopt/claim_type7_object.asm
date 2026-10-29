@@ -31,7 +31,7 @@ claim_type7_object:
     mov ax, 6                        ; 0x04fc
     push ax                          ; 0x04ff
     push word [game_state_arg]       ; 0x0500
-    call api_idx_0004_PSJH           ; 0x0504
+    call api_idx_0004_GHVL           ; 0x0504
     add sp, byte 0x12                ; 0x0507
     mov ax, word [bp + 4]            ; 0x050a
     shl ax, 1                        ; 0x050d

@@ -118,13 +118,13 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "shared/ovr/load_maze_file.asm"        ; 0x021c
 
-%include "vmext/api_idx_0002_VNLG.asm"     ; 0x0262
+%include "vmext/api_idx_0002_UOVS.asm"     ; 0x0262
 
 %include "shared/ovr/loc_QQOI.asm"              ; 0x059a
 
 %include "vmext/loc_IJSN.asm"              ; 0x05c0
 
-%include "vmext/api_idx_0004_KHVI.asm"     ; 0x05e6
+%include "vmext/api_idx_0004_OOHR.asm"     ; 0x05e6
 
 %include "vmext/loc_VJNU.asm"              ; 0x0636
 
@@ -134,33 +134,32 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "shared/ovr/api_idx_0008_OMTP.asm"     ; 0x0764
 
-api_idx_0050_SMLN equ show_message
+api_idx_0050_JOKU equ show_message
 %include "shared/ovr/show_message.asm"     ; 0x081a
 
 %include "vmext/loc_NHMQ.asm"              ; 0x0836
 
 %include "shared/ovr/check_at_saved_location.asm" ; 0x0860
 
-api_idx_0004_JIVL      equ api_idx_0004_HRPS
-jumptable_08e9_case_1  equ api_idx_0004_HRPS.jumptable_case1
-jumptable_08e9_case_14 equ api_idx_0004_HRPS.jumptable_case2
-jumptable_08e9_case_0  equ api_idx_0004_HRPS.jumptable_case3
-jumptable_08e9         equ api_idx_0004_HRPS.jumptable1
-%include "shared/ovr/api_idx_0004_HRPS.asm"     ; 0x0897
+jumptable_08e9_case_1  equ api_idx_0004_SMLK.jumptable_case1
+jumptable_08e9_case_14 equ api_idx_0004_SMLK.jumptable_case2
+jumptable_08e9_case_0  equ api_idx_0004_SMLK.jumptable_case3
+jumptable_08e9         equ api_idx_0004_SMLK.jumptable1
+%include "shared/ovr/api_idx_0004_SMLK.asm"     ; 0x0897
 
 %include "vmext/api_idx_000c_RMGQ.asm"     ; 0x09be
 
 %include "vmext/api_idx_0002_JSVP.asm"     ; 0x0b49
 
-%include "vmext/api_idx_000a_NPNK.asm"     ; 0x0b8c
+%include "vmext/api_idx_000a_ISJL.asm"     ; 0x0b8c
 
 %include "vmext/loc_VUVO.asm"              ; 0x0c0d
 
-%include "vmext/api_idx_008a_SRHN.asm"     ; 0x0c1f
+%include "vmext/api_idx_008a_IMUJ.asm"     ; 0x0c1f
 
 %include "vmext/loc_TLQV.asm"              ; 0x0eac
 
-%include "vmext/api_idx_0012_VNOV.asm"     ; 0x0ee0
+%include "vmext/api_idx_0012_QKSO.asm"     ; 0x0ee0
 
 %include "shared/ovr/api_idx_004c_RQSO.asm"     ; 0x1356
 
@@ -168,7 +167,7 @@ jumptable_08e9         equ api_idx_0004_HRPS.jumptable1
 
 %include "shared/ovr/api_idx_0006_TMNI.asm"     ; 0x14c7
 
-%include "vmext/api_idx_0008_VJQV.asm"     ; 0x151e
+%include "vmext/api_idx_0008_JSRN.asm"     ; 0x151e
 
 %include "vmext/loc_HTTH.asm"              ; 0x15af
 
@@ -192,50 +191,49 @@ loc_LPLI_194f.bss1 equ bss_91a6
 
 %include "shared/ovr/read_cell_kind_direction.asm" ; 0x19e4
 
-api_idx_0008_UNPO       equ api_idx_0008_LJTR
-jumptable_1a8f_case_0   equ api_idx_0008_LJTR.jumptable_case1
-jumptable_1a8f_case_3   equ api_idx_0008_LJTR.jumptable_case2
-jumptable_1a8f_case_1   equ api_idx_0008_LJTR.jumptable_case3
-api_idx_0008_LJTR.bss1  equ bss_91ae
-jumptable_1a8f_case_5   equ api_idx_0008_LJTR.jumptable_case4
-jumptable_1a8f          equ api_idx_0008_LJTR.jumptable1
-jumptable_1b11_case_0   equ api_idx_0008_LJTR.jumptable_case5
-jumptable_1b11_case_1   equ api_idx_0008_LJTR.jumptable_case6
-jumptable_1b11_case_2   equ api_idx_0008_LJTR.jumptable_case7
-jumptable_1b11          equ api_idx_0008_LJTR.jumptable2
-jumptable_1ba0_case_1   equ api_idx_0008_LJTR.jumptable_case8
-jumptable_1ba0_case_2   equ api_idx_0008_LJTR.jumptable_case9
-api_idx_0008_LJTR.bss2  equ bss_91c7
-jumptable_1ba0_case_5   equ api_idx_0008_LJTR.jumptable_case10
-jumptable_1ba0_case_0   equ api_idx_0008_LJTR.jumptable_case11
-api_idx_0008_LJTR.bss3  equ bss_91e0
-api_idx_0008_LJTR.bss4  equ bss_91e5
-jumptable_1ba0          equ api_idx_0008_LJTR.jumptable3
-jumptable_1de5_case_0   equ api_idx_0008_LJTR.jumptable_case12
-jumptable_1de5_case_1   equ api_idx_0008_LJTR.jumptable_case13
-jumptable_1de5_case_2   equ api_idx_0008_LJTR.jumptable_case14
-jumptable_1de5_case_3   equ api_idx_0008_LJTR.jumptable_case15
-jumptable_1de5_case_4   equ api_idx_0008_LJTR.jumptable_case16
-jumptable_1de5_case_5   equ api_idx_0008_LJTR.jumptable_case17
-jumptable_1de5_case_6   equ api_idx_0008_LJTR.jumptable_case18
-jumptable_1de5_case_7   equ api_idx_0008_LJTR.jumptable_case19
-api_idx_0008_LJTR.bss5  equ bss_91f9
-jumptable_1de5_case_8   equ api_idx_0008_LJTR.jumptable_case20
-api_idx_0008_LJTR.bss6  equ bss_9214
-jumptable_1de5_case_9   equ api_idx_0008_LJTR.jumptable_case21
-api_idx_0008_LJTR.bss7  equ bss_9246
-jumptable_1de5_case_10  equ api_idx_0008_LJTR.jumptable_case22
-jumptable_1de5_case_11  equ api_idx_0008_LJTR.jumptable_case23
-jumptable_1de5_case_12  equ api_idx_0008_LJTR.jumptable_case24
-api_idx_0008_LJTR.bss8  equ bss_9276
-jumptable_1de5_case_13  equ api_idx_0008_LJTR.jumptable_case25
-jumptable_1de5_case_14  equ api_idx_0008_LJTR.jumptable_case26
-api_idx_0008_LJTR.bss9  equ bss_9292
-jumptable_1de5_case_15  equ api_idx_0008_LJTR.jumptable_case27
-api_idx_0008_LJTR.bss10 equ bss_92c4
-jumptable_1de5_case_16  equ api_idx_0008_LJTR.jumptable_case28
-jumptable_1de5          equ api_idx_0008_LJTR.jumptable4
-%include "shared/ovr/api_idx_0008_LJTR.asm"     ; 0x1a1d
+jumptable_1a8f_case_0   equ api_idx_0008_NJHP.jumptable_case1
+jumptable_1a8f_case_3   equ api_idx_0008_NJHP.jumptable_case2
+jumptable_1a8f_case_1   equ api_idx_0008_NJHP.jumptable_case3
+api_idx_0008_NJHP.bss1  equ bss_91ae
+jumptable_1a8f_case_5   equ api_idx_0008_NJHP.jumptable_case4
+jumptable_1a8f          equ api_idx_0008_NJHP.jumptable1
+jumptable_1b11_case_0   equ api_idx_0008_NJHP.jumptable_case5
+jumptable_1b11_case_1   equ api_idx_0008_NJHP.jumptable_case6
+jumptable_1b11_case_2   equ api_idx_0008_NJHP.jumptable_case7
+jumptable_1b11          equ api_idx_0008_NJHP.jumptable2
+jumptable_1ba0_case_1   equ api_idx_0008_NJHP.jumptable_case8
+jumptable_1ba0_case_2   equ api_idx_0008_NJHP.jumptable_case9
+api_idx_0008_NJHP.bss2  equ bss_91c7
+jumptable_1ba0_case_5   equ api_idx_0008_NJHP.jumptable_case10
+jumptable_1ba0_case_0   equ api_idx_0008_NJHP.jumptable_case11
+api_idx_0008_NJHP.bss3  equ bss_91e0
+api_idx_0008_NJHP.bss4  equ bss_91e5
+jumptable_1ba0          equ api_idx_0008_NJHP.jumptable3
+jumptable_1de5_case_0   equ api_idx_0008_NJHP.jumptable_case12
+jumptable_1de5_case_1   equ api_idx_0008_NJHP.jumptable_case13
+jumptable_1de5_case_2   equ api_idx_0008_NJHP.jumptable_case14
+jumptable_1de5_case_3   equ api_idx_0008_NJHP.jumptable_case15
+jumptable_1de5_case_4   equ api_idx_0008_NJHP.jumptable_case16
+jumptable_1de5_case_5   equ api_idx_0008_NJHP.jumptable_case17
+jumptable_1de5_case_6   equ api_idx_0008_NJHP.jumptable_case18
+jumptable_1de5_case_7   equ api_idx_0008_NJHP.jumptable_case19
+api_idx_0008_NJHP.bss5  equ bss_91f9
+jumptable_1de5_case_8   equ api_idx_0008_NJHP.jumptable_case20
+api_idx_0008_NJHP.bss6  equ bss_9214
+jumptable_1de5_case_9   equ api_idx_0008_NJHP.jumptable_case21
+api_idx_0008_NJHP.bss7  equ bss_9246
+jumptable_1de5_case_10  equ api_idx_0008_NJHP.jumptable_case22
+jumptable_1de5_case_11  equ api_idx_0008_NJHP.jumptable_case23
+jumptable_1de5_case_12  equ api_idx_0008_NJHP.jumptable_case24
+api_idx_0008_NJHP.bss8  equ bss_9276
+jumptable_1de5_case_13  equ api_idx_0008_NJHP.jumptable_case25
+jumptable_1de5_case_14  equ api_idx_0008_NJHP.jumptable_case26
+api_idx_0008_NJHP.bss9  equ bss_9292
+jumptable_1de5_case_15  equ api_idx_0008_NJHP.jumptable_case27
+api_idx_0008_NJHP.bss10 equ bss_92c4
+jumptable_1de5_case_16  equ api_idx_0008_NJHP.jumptable_case28
+jumptable_1de5          equ api_idx_0008_NJHP.jumptable4
+%include "shared/ovr/api_idx_0008_NJHP.asm"     ; 0x1a1d
 
 jumptable_1e9c_case_0  equ get_relative_cell_wall.jumptable_case1
 jumptable_1e9c_case_3  equ get_relative_cell_wall.jumptable_case2
@@ -271,73 +269,72 @@ api_idx_0004_OVUO.bss13 equ bss_9303
 api_idx_0004_OVUO.bss14 equ bss_9304
 %include "shared/ovr/api_idx_0004_OVUO.asm"     ; 0x201b
 
-api_idx_0010_NIMV.loc1     equ loc_LPLI_1927
-api_idx_0010_NIMV.loc2     equ loc_UMHI_1913
-jumptable_2515_case_1      equ api_idx_0010_NIMV.jumptable_case1
-api_idx_0010_NIMV.api_idx1 equ api_idx_0004_RTNM
-jumptable_2515_case_0      equ api_idx_0010_NIMV.jumptable_case2
-jumptable_2515_case_5      equ api_idx_0010_NIMV.jumptable_case3
-jumptable_2515_case_2      equ api_idx_0010_NIMV.jumptable_case4
-jumptable_2515_case_4      equ api_idx_0010_NIMV.jumptable_case5
-api_idx_0010_NIMV.bss1     equ bss_9aec
-jumptable_2515             equ api_idx_0010_NIMV.jumptable1
-jumptable_2967_case_8      equ api_idx_0010_NIMV.jumptable_case6
-jumptable_2967_case_7      equ api_idx_0010_NIMV.jumptable_case7
-jumptable_2967_case_1      equ api_idx_0010_NIMV.jumptable_case8
-api_idx_0010_NIMV.bss2     equ bss_91a4
-jumptable_2967_case_0      equ api_idx_0010_NIMV.jumptable_case9
-jumptable_2967_case_5      equ api_idx_0010_NIMV.jumptable_case10
-jumptable_2967_case_10     equ api_idx_0010_NIMV.jumptable_case11
-jumptable_2967_case_11     equ api_idx_0010_NIMV.jumptable_case12
-jumptable_2967_case_12     equ api_idx_0010_NIMV.jumptable_case13
-jumptable_2967_case_14     equ api_idx_0010_NIMV.jumptable_case14
-jumptable_2967             equ api_idx_0010_NIMV.jumptable2
-%include "shared/ovr/api_idx_0010_NIMV.asm"     ; 0x2291
+api_idx_0010_KRNM.loc1     equ loc_LPLI_1927
+api_idx_0010_KRNM.loc2     equ loc_UMHI_1913
+jumptable_2515_case_1      equ api_idx_0010_KRNM.jumptable_case1
+api_idx_0010_KRNM.api_idx1 equ api_idx_0004_RTNM
+jumptable_2515_case_0      equ api_idx_0010_KRNM.jumptable_case2
+jumptable_2515_case_5      equ api_idx_0010_KRNM.jumptable_case3
+jumptable_2515_case_2      equ api_idx_0010_KRNM.jumptable_case4
+jumptable_2515_case_4      equ api_idx_0010_KRNM.jumptable_case5
+api_idx_0010_KRNM.bss1     equ bss_9aec
+jumptable_2515             equ api_idx_0010_KRNM.jumptable1
+jumptable_2967_case_8      equ api_idx_0010_KRNM.jumptable_case6
+jumptable_2967_case_7      equ api_idx_0010_KRNM.jumptable_case7
+jumptable_2967_case_1      equ api_idx_0010_KRNM.jumptable_case8
+api_idx_0010_KRNM.bss2     equ bss_91a4
+jumptable_2967_case_0      equ api_idx_0010_KRNM.jumptable_case9
+jumptable_2967_case_5      equ api_idx_0010_KRNM.jumptable_case10
+jumptable_2967_case_10     equ api_idx_0010_KRNM.jumptable_case11
+jumptable_2967_case_11     equ api_idx_0010_KRNM.jumptable_case12
+jumptable_2967_case_12     equ api_idx_0010_KRNM.jumptable_case13
+jumptable_2967_case_14     equ api_idx_0010_KRNM.jumptable_case14
+jumptable_2967             equ api_idx_0010_KRNM.jumptable2
+%include "shared/ovr/api_idx_0010_KRNM.asm"     ; 0x2291
 
-jumptable_2e93_case_8      equ api_idx_0012_JLRR.jumptable_case1
-jumptable_2e93_case_3      equ api_idx_0012_JLRR.jumptable_case2
-api_idx_0012_JLRR.api_idx1 equ api_idx_0004_RTNM
-api_idx_0012_JLRR.loc1     equ loc_UMHI_193b
-api_idx_0012_JLRR.loc2     equ loc_LPLI_194f
-jumptable_2e93_case_1      equ api_idx_0012_JLRR.jumptable_case3
-jumptable_2e93_case_0      equ api_idx_0012_JLRR.jumptable_case4
-jumptable_2e93_case_7      equ api_idx_0012_JLRR.jumptable_case5
-jumptable_2e93_case_2      equ api_idx_0012_JLRR.jumptable_case6
-jumptable_2e93_case_4      equ api_idx_0012_JLRR.jumptable_case7
-api_idx_0012_JLRR.loc3     equ loc_UMHI_1913
-api_idx_0012_JLRR.loc4     equ loc_LPLI_1927
-jumptable_2e93_case_5      equ api_idx_0012_JLRR.jumptable_case8
-jumptable_2e93             equ api_idx_0012_JLRR.jumptable1
-jumptable_3096_case_0      equ api_idx_0012_JLRR.jumptable_case9
-jumptable_3096_case_1      equ api_idx_0012_JLRR.jumptable_case10
-jumptable_3096_case_2      equ api_idx_0012_JLRR.jumptable_case11
-jumptable_3096_case_4      equ api_idx_0012_JLRR.jumptable_case12
-jumptable_3096             equ api_idx_0012_JLRR.jumptable2
-%include "shared/ovr/api_idx_0012_JLRR.asm"     ; 0x29e5
+jumptable_2e93_case_8      equ api_idx_0012_PNUU.jumptable_case1
+jumptable_2e93_case_3      equ api_idx_0012_PNUU.jumptable_case2
+api_idx_0012_PNUU.api_idx1 equ api_idx_0004_RTNM
+api_idx_0012_PNUU.loc1     equ loc_UMHI_193b
+api_idx_0012_PNUU.loc2     equ loc_LPLI_194f
+jumptable_2e93_case_1      equ api_idx_0012_PNUU.jumptable_case3
+jumptable_2e93_case_0      equ api_idx_0012_PNUU.jumptable_case4
+jumptable_2e93_case_7      equ api_idx_0012_PNUU.jumptable_case5
+jumptable_2e93_case_2      equ api_idx_0012_PNUU.jumptable_case6
+jumptable_2e93_case_4      equ api_idx_0012_PNUU.jumptable_case7
+api_idx_0012_PNUU.loc3     equ loc_UMHI_1913
+api_idx_0012_PNUU.loc4     equ loc_LPLI_1927
+jumptable_2e93_case_5      equ api_idx_0012_PNUU.jumptable_case8
+jumptable_2e93             equ api_idx_0012_PNUU.jumptable1
+jumptable_3096_case_0      equ api_idx_0012_PNUU.jumptable_case9
+jumptable_3096_case_1      equ api_idx_0012_PNUU.jumptable_case10
+jumptable_3096_case_2      equ api_idx_0012_PNUU.jumptable_case11
+jumptable_3096_case_4      equ api_idx_0012_PNUU.jumptable_case12
+jumptable_3096             equ api_idx_0012_PNUU.jumptable2
+%include "shared/ovr/api_idx_0012_PNUU.asm"     ; 0x29e5
 
-api_idx_0012_STJU          equ api_idx_0012_RMOL
-api_idx_0012_RMOL.bss1     equ bss_9242
-api_idx_0012_RMOL.bss2     equ bss_92c0
-api_idx_0012_RMOL.loc1     equ loc_UMHI_193b
-api_idx_0012_RMOL.loc2     equ loc_LPLI_194f
-api_idx_0012_RMOL.api_idx1 equ api_idx_0004_RTNM
-api_idx_0012_RMOL.bss3     equ bss_91a4
-api_idx_0012_RMOL.bss4     equ bss_91c5
-api_idx_0012_RMOL.loc3     equ loc_LPLI_1927
-api_idx_0012_RMOL.loc4     equ loc_UMHI_1913
-api_idx_0012_RMOL.bss5     equ bss_91ac
-jumptable_35fa_case_1      equ api_idx_0012_RMOL.jumptable_case1
-jumptable_35fa_case_2      equ api_idx_0012_RMOL.jumptable_case2
-jumptable_35fa_case_3      equ api_idx_0012_RMOL.jumptable_case3
-api_idx_0012_RMOL.bss6     equ bss_91a6
-jumptable_35fa_case_4      equ api_idx_0012_RMOL.jumptable_case4
-jumptable_35fa_case_0      equ api_idx_0012_RMOL.jumptable_case5
-jumptable_35fa             equ api_idx_0012_RMOL.jumptable1
-api_idx_0012_RMOL.bss7     equ bss_9210
-api_idx_0012_RMOL.bss8     equ bss_928e
-api_idx_0012_RMOL.bss9     equ bss_9274
-api_idx_0012_RMOL.bss10    equ bss_91f7
-%include "shared/ovr/api_idx_0012_RMOL.asm"     ; 0x30f4
+api_idx_0012_GMMP.bss1     equ bss_9242
+api_idx_0012_GMMP.bss2     equ bss_92c0
+api_idx_0012_GMMP.loc1     equ loc_UMHI_193b
+api_idx_0012_GMMP.loc2     equ loc_LPLI_194f
+api_idx_0012_GMMP.api_idx1 equ api_idx_0004_RTNM
+api_idx_0012_GMMP.bss3     equ bss_91a4
+api_idx_0012_GMMP.bss4     equ bss_91c5
+api_idx_0012_GMMP.loc3     equ loc_LPLI_1927
+api_idx_0012_GMMP.loc4     equ loc_UMHI_1913
+api_idx_0012_GMMP.bss5     equ bss_91ac
+jumptable_35fa_case_1      equ api_idx_0012_GMMP.jumptable_case1
+jumptable_35fa_case_2      equ api_idx_0012_GMMP.jumptable_case2
+jumptable_35fa_case_3      equ api_idx_0012_GMMP.jumptable_case3
+api_idx_0012_GMMP.bss6     equ bss_91a6
+jumptable_35fa_case_4      equ api_idx_0012_GMMP.jumptable_case4
+jumptable_35fa_case_0      equ api_idx_0012_GMMP.jumptable_case5
+jumptable_35fa             equ api_idx_0012_GMMP.jumptable1
+api_idx_0012_GMMP.bss7     equ bss_9210
+api_idx_0012_GMMP.bss8     equ bss_928e
+api_idx_0012_GMMP.bss9     equ bss_9274
+api_idx_0012_GMMP.bss10    equ bss_91f7
+%include "shared/ovr/api_idx_0012_GMMP.asm"     ; 0x30f4
 
 %include "shared/ovr/api_idx_0016_LHKK.asm"     ; 0x39e2
 
@@ -345,55 +342,53 @@ api_idx_0012_RMOL.bss10    equ bss_91f7
 
 %include "shared/ovr/draw_clock_marker_glyph.asm" ; 0x3d29
 
-api_idx_0030_GVGM.bss1     equ bss_91de
-api_idx_0030_GVGM.bss2     equ bss_91c5
-api_idx_0030_GVGM.bss3     equ bss_91ac
-api_idx_0030_GVGM.bss4     equ bss_9aee
-api_idx_0030_GVGM.bss5     equ bss_91f7
-api_idx_0030_GVGM.bss6     equ bss_928e
-api_idx_0030_GVGM.bss7     equ bss_9274
-api_idx_0030_GVGM.bss8     equ bss_9210
-api_idx_0030_GVGM.bss9     equ bss_92c0
-api_idx_0030_GVGM.bss10    equ bss_9242
-api_idx_0030_GVGM.bss11    equ bss_92f4
-api_idx_0030_GVGM.bss12    equ bss_92f2
-api_idx_0030_GVGM.bss13    equ bss_9b08
-api_idx_0030_GVGM.bss14    equ bss_91a6
-jumptable_4471_case_1      equ api_idx_0030_GVGM.jumptable_case1
-api_idx_0030_GVGM.loc1     equ loc_UMHI_193b
-api_idx_0030_GVGM.loc2     equ loc_LPLI_194f
-jumptable_4471_case_0      equ api_idx_0030_GVGM.jumptable_case2
-jumptable_4471_case_2      equ api_idx_0030_GVGM.jumptable_case3
-jumptable_4471_case_3      equ api_idx_0030_GVGM.jumptable_case4
-jumptable_4471_case_4      equ api_idx_0030_GVGM.jumptable_case5
-jumptable_4471_case_5      equ api_idx_0030_GVGM.jumptable_case6
-jumptable_4471_case_6      equ api_idx_0030_GVGM.jumptable_case7
-jumptable_4471             equ api_idx_0030_GVGM.jumptable1
-api_idx_0030_GVGM.bss15    equ bss_91a4
-api_idx_0030_GVGM.bss16    equ bss_9b0a
-api_idx_0030_GVGM.bss17    equ bss_91ae
-api_idx_0030_GVGM.bss18    equ bss_9b0c
-api_idx_0030_GVGM.bss19    equ bss_9b0e
-api_idx_0030_GVGM.api_idx1 equ api_idx_0008_UNPO
-api_idx_0030_GVGM.bss20    equ bss_9b10
-api_idx_0030_GVGM.bss21    equ bss_9b12
-api_idx_0030_GVGM.bss22    equ bss_9b14
-api_idx_0030_GVGM.bss23    equ bss_9b16
-api_idx_0030_GVGM.bss24    equ bss_9b18
-api_idx_0030_GVGM.bss25    equ bss_9b1a
-api_idx_0030_GVGM.bss26    equ bss_9aec
-api_idx_0030_GVGM.api_idx2 equ api_idx_0010_NIMV
-api_idx_0030_GVGM.api_idx3 equ api_idx_0012_STJU
-api_idx_0030_GVGM.api_idx4 equ api_idx_0012_JLRR
-api_idx_0030_GVGM.bss27    equ bss_91b8
-api_idx_0030_GVGM.bss28    equ bss_9182
-api_idx_0030_GVGM.bss29    equ bss_919e
-api_idx_0030_GVGM.bss30    equ bss_918c
-api_idx_0030_GVGM.bss31    equ bss_9192
-api_idx_0030_GVGM.bss32    equ bss_9198
-%include "shared/ovr/api_idx_0030_GVGM.asm"     ; 0x3e8c
+api_idx_0030_HINM.bss1     equ bss_91de
+api_idx_0030_HINM.bss2     equ bss_91c5
+api_idx_0030_HINM.bss3     equ bss_91ac
+api_idx_0030_HINM.bss4     equ bss_9aee
+api_idx_0030_HINM.bss5     equ bss_91f7
+api_idx_0030_HINM.bss6     equ bss_928e
+api_idx_0030_HINM.bss7     equ bss_9274
+api_idx_0030_HINM.bss8     equ bss_9210
+api_idx_0030_HINM.bss9     equ bss_92c0
+api_idx_0030_HINM.bss10    equ bss_9242
+api_idx_0030_HINM.bss11    equ bss_92f4
+api_idx_0030_HINM.bss12    equ bss_92f2
+api_idx_0030_HINM.bss13    equ bss_9b08
+api_idx_0030_HINM.bss14    equ bss_91a6
+jumptable_4471_case_1      equ api_idx_0030_HINM.jumptable_case1
+api_idx_0030_HINM.loc1     equ loc_UMHI_193b
+api_idx_0030_HINM.loc2     equ loc_LPLI_194f
+jumptable_4471_case_0      equ api_idx_0030_HINM.jumptable_case2
+jumptable_4471_case_2      equ api_idx_0030_HINM.jumptable_case3
+jumptable_4471_case_3      equ api_idx_0030_HINM.jumptable_case4
+jumptable_4471_case_4      equ api_idx_0030_HINM.jumptable_case5
+jumptable_4471_case_5      equ api_idx_0030_HINM.jumptable_case6
+jumptable_4471_case_6      equ api_idx_0030_HINM.jumptable_case7
+jumptable_4471             equ api_idx_0030_HINM.jumptable1
+api_idx_0030_HINM.bss15    equ bss_91a4
+api_idx_0030_HINM.bss16    equ bss_9b0a
+api_idx_0030_HINM.bss17    equ bss_91ae
+api_idx_0030_HINM.bss18    equ bss_9b0c
+api_idx_0030_HINM.bss19    equ bss_9b0e
+api_idx_0030_HINM.api_idx1 equ api_idx_0008_NJHP
+api_idx_0030_HINM.bss20    equ bss_9b10
+api_idx_0030_HINM.bss21    equ bss_9b12
+api_idx_0030_HINM.bss22    equ bss_9b14
+api_idx_0030_HINM.bss23    equ bss_9b16
+api_idx_0030_HINM.bss24    equ bss_9b18
+api_idx_0030_HINM.bss25    equ bss_9b1a
+api_idx_0030_HINM.bss26    equ bss_9aec
+api_idx_0030_HINM.api_idx2 equ api_idx_0012_GMMP
+api_idx_0030_HINM.bss27    equ bss_91b8
+api_idx_0030_HINM.bss28    equ bss_9182
+api_idx_0030_HINM.bss29    equ bss_919e
+api_idx_0030_HINM.bss30    equ bss_918c
+api_idx_0030_HINM.bss31    equ bss_9192
+api_idx_0030_HINM.bss32    equ bss_9198
+%include "shared/ovr/api_idx_0030_HINM.asm"     ; 0x3e8c
 
-redraw_maze_view.api_idx1 equ api_idx_0030_GVGM
+redraw_maze_view.api_idx1 equ api_idx_0030_HINM
 %include "shared/ovr/redraw_maze_view.asm"      ; 0x51fb
 
 %include "shared/ovr/aztec_ovbgn.asm"           ; 0x521b

@@ -170,7 +170,7 @@ jumptable_6bfb_case_5:
 jumptable_6bfb_case_6:
     mov ax, 0                        ; 0x6bc1
     push ax                          ; 0x6bc4
-    call loc_RMVR                    ; 0x6bc5
+    call loc_ITUI                    ; 0x6bc5
     pop cx                           ; 0x6bc8
     test ax, ax                      ; 0x6bc9
     je short run_character_menu.forward12 ; 0x6bcb

@@ -6,7 +6,7 @@ IMAGE_BASE equ -0x0100
 %endif
 
 
-%include "play/leaf_loc_HNGM.asm"          ; 0x0000
+%include "play/leaf_loc_LPSH.asm"          ; 0x0000
 
 loc_JTQK_0007.mouse_off1 equ configure_music_device
 %include "shared/drv/loc_JTQK_0007.asm"          ; 0x0007

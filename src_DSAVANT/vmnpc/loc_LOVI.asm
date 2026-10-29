@@ -10,6 +10,6 @@ loc_LOVI:
     call api_idx_0086_JRHU           ; 0x741e
     call loc_MGPH                    ; 0x7421
     call api_idx_0054_UKJH           ; 0x7424
-    call api_idx_009c_MRKK           ; 0x7427
-    call api_idx_0006_RKMN           ; 0x742a
+    call api_idx_009c_PTNR           ; 0x7427
+    call api_idx_0006_MKIU           ; 0x742a
     ret                              ; 0x742d

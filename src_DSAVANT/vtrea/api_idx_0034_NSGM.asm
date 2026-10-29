@@ -107,7 +107,7 @@ api_idx_0034_NSGM:
     cmp word [bp - 8], byte 2        ; 0x70fe
     jne short .forward8              ; 0x7102
     push word [bp + 6]               ; 0x7104
-    call api_idx_0004_IHLT           ; 0x7107
+    call api_idx_0004_RTSK           ; 0x7107
     pop cx                           ; 0x710a
 .forward8:
     lea ax, word [bp - 0x34]         ; 0x710b

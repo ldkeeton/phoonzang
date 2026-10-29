@@ -69,7 +69,7 @@ bss_91b8 equ __zdseg_end + (__zobss_91b8 - __zdata_start)
 
 %include "vinit/api_idx_0004_OIGN.asm"     ; 0x0988
 
-%include "vinit/api_idx_000e_JRRT.asm"     ; 0x09d3
+%include "vinit/api_idx_000e_GTMH.asm"     ; 0x09d3
 
 %include "vinit/loc_KVVL.asm"              ; 0x0a56
 

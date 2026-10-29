@@ -97,7 +97,7 @@ api_idx_0004_TTGQ.loc1 equ loc_RULJ
 
 %include "shared/ovr/api_idx_0006_POPS.asm"     ; 0x030c
 
-api_idx_0004_PSJH     equ log_maze_change
+api_idx_0004_GHVL     equ log_maze_change
 jumptable_0457_case_0 equ log_maze_change.jumptable_case1
 jumptable_0457_case_1 equ log_maze_change.jumptable_case2
 jumptable_0457_case_5 equ log_maze_change.jumptable_case3
@@ -123,7 +123,7 @@ jumptable_0457        equ log_maze_change.jumptable1
 
 %include "vdopt/loc_MOTJ.asm"              ; 0x095a
 
-%include "vdopt/api_idx_0014_HTUV.asm"     ; 0x09c0
+%include "vdopt/api_idx_0014_TSLT.asm"     ; 0x09c0
 
 %include "vdopt/loc_GTJK.asm"              ; 0x0ede
 
@@ -131,7 +131,7 @@ jumptable_0457        equ log_maze_change.jumptable1
 
 %include "vdopt/draw_grid_cell_char.asm"   ; 0x0f7f
 
-%include "vdopt/api_idx_0012_UROU.asm"     ; 0x0fd3
+%include "vdopt/api_idx_0012_JQVQ.asm"     ; 0x0fd3
 
 %include "shared/ovr/restore_area_a_draw_glyph.asm" ; 0x190b
 
@@ -179,7 +179,7 @@ jumptable_35d1        equ pick_spell_dialog.jumptable1
 
 %include "shared/ovr/loc_HTKI.asm"              ; 0x39eb
 
-%include "vdopt/api_idx_0038_QQIU.asm"     ; 0x3a2c
+%include "vdopt/api_idx_0038_IJVP.asm"     ; 0x3a2c
 
 %include "vdopt/api_idx_0094_LUVH.asm"     ; 0x417c
 

@@ -50,7 +50,7 @@ loc_LPSI:
     push ax                          ; 0x0a3e
     call app_memmove                 ; 0x0a3f
     add sp, byte 0xa                 ; 0x0a42
-    call api_idx_0014_LHRI           ; 0x0a45
+    call api_idx_0014_NJLK           ; 0x0a45
     mov bx, word [maze_data]         ; 0x0a48
     mov si, word [party_map_piece]   ; 0x0a4c
     mov al, byte [bx + si + 0x490]   ; 0x0a50
@@ -61,5 +61,5 @@ loc_LPSI:
     sub ah, ah                       ; 0x0a61
     add ax, word [party_cell_y]      ; 0x0a63
     mov word [party_world_y], ax     ; 0x0a67
-    call api_idx_0002_TOSL           ; 0x0a6a
+    call api_idx_0002_UTNP           ; 0x0a6a
     ret                              ; 0x0a6d

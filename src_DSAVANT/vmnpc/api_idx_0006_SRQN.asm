@@ -81,7 +81,7 @@ api_idx_0006_SRQN:
     sub ah, ah                       ; 0x3828
     push ax                          ; 0x382a
     push word [bp + 4]               ; 0x382b
-    call api_idx_0040_LSRO           ; 0x382e
+    call api_idx_0040_INKU           ; 0x382e
     add sp, byte 4                   ; 0x3831
     mov word [bp + 8], ax            ; 0x3834
     ret                              ; 0x3837
@@ -129,7 +129,7 @@ api_idx_0006_SRQN:
     sub ah, ah                       ; 0x389f
     push ax                          ; 0x38a1
     push word [bp + 4]               ; 0x38a2
-    call api_idx_0040_LSRO           ; 0x38a5
+    call api_idx_0040_INKU           ; 0x38a5
     add sp, byte 4                   ; 0x38a8
     mov word [bp + 8], ax            ; 0x38ab
     ret                              ; 0x38ae

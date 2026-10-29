@@ -11,7 +11,7 @@ loc_QUJT:
     mov ax, 0                        ; 0x2565
     push ax                          ; 0x2568
     push word [bp + 4]               ; 0x2569
-    call api_idx_0004_QLTQ           ; 0x256c
+    call api_idx_0004_PUIS           ; 0x256c
     add sp, byte 8                   ; 0x256f
     mov word [bp + 8], ax            ; 0x2572
     jmp short .forward2              ; 0x2575
@@ -22,7 +22,7 @@ loc_QUJT:
     mov ax, 1                        ; 0x257e
     push ax                          ; 0x2581
     push word [bp + 4]               ; 0x2582
-    call api_idx_0004_QLTQ           ; 0x2585
+    call api_idx_0004_PUIS           ; 0x2585
     add sp, byte 8                   ; 0x2588
     mov word [bp + 8], ax            ; 0x258b
     jmp short .forward2              ; 0x258e
@@ -33,7 +33,7 @@ loc_QUJT:
     mov ax, 3                        ; 0x2597
     push ax                          ; 0x259a
     push word [bp + 4]               ; 0x259b
-    call api_idx_0004_QLTQ           ; 0x259e
+    call api_idx_0004_PUIS           ; 0x259e
     add sp, byte 8                   ; 0x25a1
     mov word [bp + 8], ax            ; 0x25a4
     jmp short .forward2              ; 0x25a7
@@ -51,7 +51,7 @@ loc_QUJT:
     mov ax, 4                        ; 0x25bf
     push ax                          ; 0x25c2
     push word [bp + 4]               ; 0x25c3
-    call api_idx_0004_QLTQ           ; 0x25c6
+    call api_idx_0004_PUIS           ; 0x25c6
     add sp, byte 8                   ; 0x25c9
     mov word [bp + 8], ax            ; 0x25cc
     ret                              ; 0x25cf

@@ -355,7 +355,7 @@ api_idx_000e_HLRI:
     push word [bp - 4]               ; 0x630d
     push word [bp - 6]               ; 0x6310
     push word [bp + 4]               ; 0x6313
-    call api_idx_000e_ORJG           ; 0x6316
+    call api_idx_000e_KPGJ           ; 0x6316
     add sp, byte 6                   ; 0x6319
 .forward22:
     cmp word [bss_8464], byte 0      ; 0x631c

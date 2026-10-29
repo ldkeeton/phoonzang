@@ -30,24 +30,24 @@ ovmain:
 .forward1:
     cmp word [game_state], byte 0x17 ; 0x006a
     jne short .forward2              ; 0x006f
-    call api_idx_0002_VNLG           ; 0x0071
+    call api_idx_0002_UOVS           ; 0x0071
     mov ax, 0xa                      ; 0x0074
     push ax                          ; 0x0077
     call random_below                ; 0x0078
     pop cx                           ; 0x007b
     add ax, strict word 4            ; 0x007c
     push ax                          ; 0x007f
-    call api_idx_008a_SRHN           ; 0x0080
+    call api_idx_008a_IMUJ           ; 0x0080
     pop cx                           ; 0x0083
 .forward2:
     cmp word [game_state], byte 0x1b ; 0x0084
     jne short .forward3              ; 0x0089
-    call api_idx_0012_VNOV           ; 0x008b
+    call api_idx_0012_QKSO           ; 0x008b
 .forward3:
     cmp word [game_state], byte 0x1e ; 0x008e
     jne short .forward4              ; 0x0093
     push word [member_roster_index]  ; 0x0095
-    call api_idx_0008_VJQV           ; 0x0099
+    call api_idx_0008_JSRN           ; 0x0099
     pop cx                           ; 0x009c
 .forward4:
     cmp word [game_state], byte 0x1f ; 0x009d

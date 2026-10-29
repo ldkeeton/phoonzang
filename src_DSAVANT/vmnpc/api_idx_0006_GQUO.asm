@@ -14,7 +14,7 @@ api_idx_0006_GQUO:
     mov ax, 0                        ; 0x5d2a
     push ax                          ; 0x5d2d
     push word [bp + 6]               ; 0x5d2e
-    call api_idx_0038_IJUK           ; 0x5d31
+    call api_idx_0038_LJHT           ; 0x5d31
     add sp, byte 0xc                 ; 0x5d34
     mov word [bp - 6], ax            ; 0x5d37
     mov ax, word [spell_dialog_result] ; 0x5d3a

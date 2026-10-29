@@ -37,7 +37,7 @@ api_idx_0010_RUQS:
     push ax                          ; 0x2eae
     mov ax, 2                        ; 0x2eaf
     push ax                          ; 0x2eb2
-    call api_idx_0004_UONH           ; 0x2eb3
+    call api_idx_0004_OHJS           ; 0x2eb3
     add sp, byte 4                   ; 0x2eb6
     push word [bp - 2]               ; 0x2eb9
     push word [bp + 4]               ; 0x2ebc

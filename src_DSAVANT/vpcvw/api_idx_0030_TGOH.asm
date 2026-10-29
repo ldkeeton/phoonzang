@@ -109,7 +109,7 @@ api_idx_0030_TGOH:
     sub ah, ah                       ; 0x93be
     push ax                          ; 0x93c0
     push word [bp + 4]               ; 0x93c1
-    call loc_SRNN                    ; 0x93c4
+    call loc_UUPQ                    ; 0x93c4
     add sp, byte 4                   ; 0x93c7
     mov ax, 1                        ; 0x93ca
     push ax                          ; 0x93cd

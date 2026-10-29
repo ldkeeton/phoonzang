@@ -12,7 +12,7 @@ loc_UIIS:
 .forward1:
     push word [bp + 8]               ; 0x899b
     push word [bp + 4]               ; 0x899e
-    call api_idx_0006_UKIH           ; 0x89a1
+    call api_idx_0006_TMJK           ; 0x89a1
     add sp, byte 4                   ; 0x89a4
 .return1:
     ret                              ; 0x89a7

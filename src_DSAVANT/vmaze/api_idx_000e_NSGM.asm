@@ -62,7 +62,7 @@ api_idx_000e_NSGM:
     jne short .forward4              ; 0x16c5
     call check_at_saved_location     ; 0x16c7
 .forward4:
-    call api_idx_0004_HRPS           ; 0x16ca
+    call api_idx_0004_SMLK           ; 0x16ca
     jmp near .forward8               ; 0x16cd
 .back1:
     call api_idx_0004_IHHI           ; 0x16d0

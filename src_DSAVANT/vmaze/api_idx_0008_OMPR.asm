@@ -126,7 +126,7 @@ api_idx_0008_OMPR:
     cmp ax, word [bp + 6]            ; 0xa6e1
     jne short .forward8              ; 0xa6e4
     push word [bp + 4]               ; 0xa6e6
-    call api_idx_003a_HOUV           ; 0xa6e9
+    call api_idx_003a_SOVP           ; 0xa6e9
     pop cx                           ; 0xa6ec
 .forward8:
     jmp near .forward15              ; 0xa6ed
@@ -181,7 +181,7 @@ api_idx_0008_OMPR:
 .forward11:
     push word [bp - 6]               ; 0xa756
     push word [bp + 4]               ; 0xa759
-    call api_idx_0012_NJUH           ; 0xa75c
+    call api_idx_0012_UGVV           ; 0xa75c
     add sp, byte 4                   ; 0xa75f
     mov word [bp - 2], ax            ; 0xa762
     mov ax, word [bp - 6]            ; 0xa765

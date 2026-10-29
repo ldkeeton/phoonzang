@@ -391,7 +391,7 @@ cseg_4274 equ load_sound.cseg2
 free_sound.leaf_loc1    equ leaf_loc_PTSI
 free_sound.leaf_loc2    equ leaf_loc_VRNL
 free_sound.dos_con_loc1 equ dos_con_loc_GOSI
-free_sound.leaf_loc3    equ leaf_loc_IQGS
+free_sound.leaf_loc3    equ leaf_loc_HLKP
 %include "shared/drv/free_sound.asm"              ; 0x439a
 
 leaf_loc_PTSI equ leaf_loc_OSUJ
@@ -410,7 +410,7 @@ dos_con_loc_GOSI equ dos_con_loc_GJMS
 cseg_448c        equ dos_con_loc_GJMS.cseg1
 %include "shared/drv/dos_con_loc_GJMS.asm"        ; 0x4461
 
-%include "shared/drv/leaf_loc_IQGS.asm"           ; 0x44a3
+%include "shared/drv/leaf_loc_HLKP.asm"           ; 0x44a3
 
 %include "shared/drv/play_sound.asm"              ; 0x4527
 

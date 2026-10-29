@@ -15,7 +15,7 @@ mouse_init:
     mov si, 0x259e                   ; 0x1731
     mov ax, cs                       ; 0x1734
     mov ds, ax                       ; 0x1736
-    call string_loc_RHHH             ; 0x1738
+    call string_loc_TPVR             ; 0x1738
     pop si                           ; 0x173b
     pop ds                           ; 0x173c
     mov ax, 0                        ; 0x173d

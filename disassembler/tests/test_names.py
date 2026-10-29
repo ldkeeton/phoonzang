@@ -191,6 +191,18 @@ class ContentTagTests(unittest.TestCase):
                                      0x100, 0x104, relocs={0x101})
         self.assertEqual(tag(0x1234), tag(0x5678))
 
+    def test_switch_table_and_dispatch_are_rebased(self):
+        # ``jmp [cs:bx + table] / ret / table: dw <ret>`` at 0x100 and 0x900.
+        def tag(base, target=5):
+            table = (base + 6).to_bytes(2, 'little')
+            code = (bytes([0x2E, 0xFF, 0xA7]) + table + b'\xC3'
+                    + (base + target).to_bytes(2, 'little'))
+            return names.content_tag(
+                _decode(code[:6], base), bytes(base) + code, base, base + 8,
+                code_off=lambda v: v, tables={base + 6})
+        self.assertEqual(tag(0x100), tag(0x900))
+        self.assertNotEqual(tag(0x100), tag(0x100, target=0))
+
     def test_generic_names_still_read_as_generic_with_a_tag(self):
         tagged = _gen('leaf_loc', 0x10).tagged('HQRK')
         self.assertEqual(tagged, 'leaf_loc_HQRK')
@@ -240,6 +252,18 @@ class TagGenericsTests(unittest.TestCase):
         twin, _ = self._run({0x10: code, 0x20: code}, stubs={0x10, 0x20})
         self.assertRegex(twin[0x10], r'^api_idx_0008_[G-V]{4}_0010$')
         self.assertRegex(twin[0x20], r'^api_idx_0008_[G-V]{4}_0020$')
+
+    def test_routine_stops_at_a_following_loc_root(self):
+        # ``push bp / ret`` then a ``loc_`` root whose code differs: the
+        # routine's tag must not change with it (naming the ``loc_`` would).
+        def tag(tail):
+            data = bytes([0x55, 0xC3]) + tail
+            routine, loc = _gen('leaf_loc', 0), _gen('loc', 2, Kind.LABEL)
+            label_map = {0: routine, 2: loc}
+            names.tag_generics(label_map, {0: routine, 2: loc},
+                               _decode(data, 0), data, len(data))
+            return label_map[0]
+        self.assertEqual(tag(bytes([0x90, 0xC3])), tag(bytes([0x40, 0xC3])))
 
     def test_callee_name_counts_only_when_stable(self):
         # ``call; ret`` twice, into different routines (0x20 and 0x22).

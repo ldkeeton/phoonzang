@@ -254,7 +254,7 @@ cseg_150b equ draw_maze_piece.cseg1
 
 %include "ega/mouse_init.asm"              ; 0x1719
 
-%include "ega/string_loc_RHHH.asm"         ; 0x17a1
+%include "ega/string_loc_TPVR.asm"         ; 0x17a1
 
 %include "ega/mouse_off.asm"               ; 0x1810
 
@@ -384,7 +384,7 @@ cseg_4b26 equ load_sound.cseg2
 free_sound.leaf_loc1    equ leaf_loc_OSUJ
 free_sound.leaf_loc2    equ leaf_loc_JRKU
 free_sound.dos_con_loc1 equ dos_con_loc_GJMS
-free_sound.leaf_loc3    equ leaf_loc_RJJR
+free_sound.leaf_loc3    equ leaf_loc_SSGH
 %include "shared/drv/free_sound.asm"              ; 0x4c4c
 
 %include "shared/drv/leaf_loc_OSUJ.asm"           ; 0x4ca9
@@ -400,8 +400,8 @@ free_sound.leaf_loc3    equ leaf_loc_RJJR
 cseg_4d3e equ dos_con_loc_GJMS.cseg1
 %include "shared/drv/dos_con_loc_GJMS.asm"        ; 0x4d13
 
-leaf_loc_RJJR equ leaf_loc_IQGS
-%include "shared/drv/leaf_loc_IQGS.asm"           ; 0x4d55
+leaf_loc_SSGH equ leaf_loc_HLKP
+%include "shared/drv/leaf_loc_HLKP.asm"           ; 0x4d55
 
 %include "shared/drv/play_sound.asm"              ; 0x4dd9
 

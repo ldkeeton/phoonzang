@@ -148,7 +148,7 @@ api_idx_0008_HUTJ:
     push ax                          ; 0x3a37
     mov ax, 0xffff                   ; 0x3a38
     push ax                          ; 0x3a3b
-    call api_idx_0038_POGI           ; 0x3a3c
+    call api_idx_0038_OUTM           ; 0x3a3c
     add sp, byte 6                   ; 0x3a3f
     test ax, ax                      ; 0x3a42
     jne short .forward6              ; 0x3a44

@@ -161,10 +161,10 @@ api_idx_0018_USPR:
     inc word [bp - 8]                ; 0x1e3d
     add word [game_time], byte 0xa   ; 0x1e40
     adc word [game_time_hi], byte 0  ; 0x1e45
-    call api_idx_0002_ITLQ           ; 0x1e4a
+    call api_idx_0002_GSIL           ; 0x1e4a
     mov ax, 0xa                      ; 0x1e4d
     push ax                          ; 0x1e50
-    call api_idx_0002_IPQN           ; 0x1e51
+    call api_idx_0002_RRIU           ; 0x1e51
     pop cx                           ; 0x1e54
     cmp word [bp - 8], byte 0x18     ; 0x1e55
     jne short .forward14             ; 0x1e59
@@ -230,7 +230,7 @@ api_idx_0018_USPR:
 .forward20:
     push ax                          ; 0x1ed7
     push word [bp - 2]               ; 0x1ed8
-    call api_idx_000a_TQHL           ; 0x1edb
+    call api_idx_000a_URTS           ; 0x1edb
     add sp, byte 0xa                 ; 0x1ede
     mov ax, 5                        ; 0x1ee1
     push ax                          ; 0x1ee4
@@ -370,6 +370,6 @@ api_idx_0018_USPR:
     call free_loaded_score           ; 0x2028
     pop cx                           ; 0x202b
 .forward31:
-    call loc_VRKM                    ; 0x202c
+    call loc_QMTV                    ; 0x202c
     mov ax, 0                        ; 0x202f
     ret                              ; 0x2032

@@ -9,13 +9,13 @@ loc_LTIS:
     cmp word [bss_9e42], byte -1     ; 0xa2b3
     jne short .forward2              ; 0xa2b8
 .forward1:
-    call loc_SMSJ                    ; 0xa2ba
+    call loc_PLLR                    ; 0xa2ba
 .forward2:
     cmp word [bss_9e46], byte -1     ; 0xa2bd
     je short .return1                ; 0xa2c2
     cmp word [bss_9e42], byte -1     ; 0xa2c4
     je short .return1                ; 0xa2c9
-    call api_idx_0054_UOTQ           ; 0xa2cb
+    call api_idx_0054_SSQP           ; 0xa2cb
     mov ax, word [bss_9e42]          ; 0xa2ce
     mov word [bss_9e4a], ax          ; 0xa2d1
     mov ax, word [bss_9e44]          ; 0xa2d4

@@ -114,7 +114,7 @@ api_idx_00b4_QLQS:
     call api_idx_0004_PMIU           ; 0x4dd3
     add sp, byte 4                   ; 0x4dd6
     push word [bp + 4]               ; 0x4dd9
-    call api_idx_007c_MOJH           ; 0x4ddc
+    call api_idx_007c_OKMO           ; 0x4ddc
     pop cx                           ; 0x4ddf
     mov ax, 0x67                     ; 0x4de0
     push ax                          ; 0x4de3

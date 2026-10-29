@@ -241,7 +241,7 @@ loc_UTQS.api_idx1 equ step_party_animation
 
 %include "vmnpc/api_idx_0004_THQU.asm"     ; 0x11f8
 
-%include "vmnpc/api_idx_0054_LVHV.asm"     ; 0x128c
+%include "vmnpc/api_idx_0054_IJQR.asm"     ; 0x128c
 
 %include "vmnpc/loc_MLKO.asm"              ; 0x130b
 
@@ -261,21 +261,21 @@ loc_UTQS.api_idx1 equ step_party_animation
 
 %include "vmnpc/api_idx_0004_PULL.asm"     ; 0x22e7
 
-%include "vmnpc/api_idx_0004_VLIO.asm"     ; 0x2372
+%include "vmnpc/api_idx_0004_QNRH.asm"     ; 0x2372
 
 %include "vmnpc/loc_LRGG.asm"              ; 0x2472
 
-%include "vmnpc/api_idx_0038_POGI.asm"     ; 0x24ae
+%include "vmnpc/api_idx_0038_OUTM.asm"     ; 0x24ae
 
 %include "vmnpc/api_idx_0002_OUKN.asm"     ; 0x2768
 
-%include "vmnpc/api_idx_0004_PHNO.asm"     ; 0x28a1
+%include "vmnpc/api_idx_0004_OKNN.asm"     ; 0x28a1
 
 %include "vmnpc/loc_GPUL.asm"              ; 0x2963
 
 %include "vmnpc/api_idx_0008_KNNO.asm"     ; 0x29b1
 
-%include "vmnpc/api_idx_0040_LSRO.asm"     ; 0x2b8e
+%include "vmnpc/api_idx_0040_INKU.asm"     ; 0x2b8e
 
 %include "vmnpc/api_idx_0006_SRQN.asm"     ; 0x3773
 
@@ -291,15 +291,15 @@ loc_UTQS.api_idx1 equ step_party_animation
 
 %include "shared/ovr/loc_HTKI.asm"              ; 0x3df9
 
-%include "vmnpc/api_idx_0038_IJUK.asm"     ; 0x3e3a
+%include "vmnpc/api_idx_0038_LJHT.asm"     ; 0x3e3a
 
-%include "vmnpc/api_idx_0054_OPGG.asm"     ; 0x4514
+%include "vmnpc/api_idx_0054_OPNV.asm"     ; 0x4514
 
 %include "vmnpc/loc_VUSH.asm"              ; 0x4775
 
 %include "vmnpc/loc_GOMR.asm"              ; 0x47b9
 
-%include "vmnpc/api_idx_0038_LJOP.asm"     ; 0x47d9
+%include "vmnpc/api_idx_0038_KUIN.asm"     ; 0x47d9
 
 %include "vmnpc/api_idx_004c_OGSK.asm"     ; 0x4fea
 
@@ -307,7 +307,7 @@ loc_UTQS.api_idx1 equ step_party_animation
 
 %include "vmnpc/api_idx_0068_OUGS.asm"     ; 0x51bb
 
-%include "vmnpc/api_idx_0004_GHUK.asm"     ; 0x5371
+%include "vmnpc/api_idx_0004_GJHP.asm"     ; 0x5371
 
 %include "shared/ovr/loc_GMVH.asm"              ; 0x5497
 
@@ -331,9 +331,9 @@ loc_UTQS.api_idx1 equ step_party_animation
 
 %include "vmnpc/api_idx_005e_QNLK.asm"     ; 0x5fd0
 
-%include "vmnpc/api_idx_00d2_SNMN.asm"     ; 0x631e
+%include "vmnpc/api_idx_00d2_RUSS.asm"     ; 0x631e
 
-%include "vmnpc/api_idx_009c_MRKK.asm"     ; 0x677a
+%include "vmnpc/api_idx_009c_PTNR.asm"     ; 0x677a
 
 %include "vmnpc/loc_JSTI.asm"              ; 0x6d9d
 
@@ -341,7 +341,7 @@ loc_UTQS.api_idx1 equ step_party_animation
 
 %include "vmnpc/api_idx_001e_GOQP.asm"     ; 0x70b7
 
-%include "vmnpc/api_idx_0006_RKMN.asm"     ; 0x72bf
+%include "vmnpc/api_idx_0006_MKIU.asm"     ; 0x72bf
 
 %include "vmnpc/loc_LOVI.asm"              ; 0x7400
 
@@ -368,7 +368,7 @@ draw_spell_cost.dseg1 equ dseg_90e4
 
 %include "vmnpc/loc_UVUO.asm"              ; 0x7832
 
-%include "vmnpc/api_idx_0044_NORP.asm"     ; 0x786c
+%include "vmnpc/api_idx_0044_QRMH.asm"     ; 0x786c
 
 %include "vmnpc/api_idx_0006_TLLQ.asm"     ; 0x84f0
 
@@ -378,21 +378,21 @@ draw_spell_cost.dseg1 equ dseg_90e4
 
 %include "shared/ovr/loc_SIKN.asm"              ; 0x8662
 
-%include "vmnpc/api_idx_0002_GRRR.asm"     ; 0x86a4
+%include "vmnpc/api_idx_0002_SRQM.asm"     ; 0x86a4
 
-%include "vmnpc/loc_NLPS.asm"              ; 0x86c6
+%include "vmnpc/loc_TQJT.asm"              ; 0x86c6
 
 %include "vmnpc/api_idx_0004_JVTH.asm"     ; 0x8738
 
 %include "vmnpc/api_idx_0002_JGQP.asm"     ; 0x8793
 
-%include "vmnpc/api_idx_0006_UKIH.asm"     ; 0x8849
+%include "vmnpc/api_idx_0006_TMJK.asm"     ; 0x8849
 
 %include "vmnpc/loc_UIIS.asm"              ; 0x8981
 
 %include "vmnpc/api_idx_0058_PMKH.asm"     ; 0x89a8
 
-%include "vmnpc/api_idx_0054_TNHV.asm"     ; 0x8a81
+%include "vmnpc/api_idx_0054_OQIS.asm"     ; 0x8a81
 
 %include "vmnpc/api_idx_0002_NTRU.asm"     ; 0x8bb0
 
@@ -408,7 +408,7 @@ draw_spell_cost.dseg1 equ dseg_90e4
 
 %include "vmnpc/api_idx_00a8_PUTL.asm"     ; 0x8ead
 
-%include "vmnpc/api_idx_0004_GSIV.asm"     ; 0x8f85
+%include "vmnpc/api_idx_0004_UMTI.asm"     ; 0x8f85
 
 %include "vmnpc/reveal_text_line.asm"      ; 0x927d
 
@@ -420,17 +420,17 @@ draw_spell_cost.dseg1 equ dseg_90e4
 
 %include "vmnpc/api_idx_0100_KHVV.asm"     ; 0x9748
 
-%include "vmnpc/api_idx_00a2_IKRJ.asm"     ; 0x9844
+%include "vmnpc/api_idx_00a2_LJUU.asm"     ; 0x9844
 
-%include "vmnpc/loc_SMSJ.asm"              ; 0x9a04
+%include "vmnpc/loc_PLLR.asm"              ; 0x9a04
 
-%include "vmnpc/api_idx_0002_NUKT.asm"     ; 0x9bcc
+%include "vmnpc/api_idx_0002_LIOM.asm"     ; 0x9bcc
 
 %include "vmnpc/loc_OJVU.asm"              ; 0x9c7a
 
 %include "vmnpc/loc_UPRU.asm"              ; 0x9d06
 
-%include "vmnpc/api_idx_0054_UOTQ.asm"     ; 0x9d30
+%include "vmnpc/api_idx_0054_SSQP.asm"     ; 0x9d30
 
 %include "vmnpc/loc_LTIS.asm"              ; 0xa29f
 
@@ -440,7 +440,7 @@ draw_spell_cost.dseg1 equ dseg_90e4
 
 %include "vmnpc/api_idx_0002_SLOH.asm"     ; 0xa3dd
 
-%include "vmnpc/api_idx_0002_NSKK.asm"     ; 0xa411
+%include "vmnpc/api_idx_0002_JNUL.asm"     ; 0xa411
 
 %include "vmnpc/loc_MGPH.asm"              ; 0xa441
 

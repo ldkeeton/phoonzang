@@ -73,7 +73,7 @@ api_idx_0002_UTVG:
     jl short .forward4               ; 0x2040
     push word [bp + 6]               ; 0x2042
     push word [bp + 4]               ; 0x2045
-    call api_idx_0004_PIHK           ; 0x2048
+    call api_idx_0004_OVIO           ; 0x2048
     add sp, byte 4                   ; 0x204b
     cmp word [bp + 4], byte 0        ; 0x204e
     jne short .forward4              ; 0x2052

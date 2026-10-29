@@ -120,7 +120,7 @@ api_idx_001e_QHIQ:
     push word [bp - 0x1c]            ; 0x7f6f
     mov ax, 0                        ; 0x7f72
     push ax                          ; 0x7f75
-    call api_idx_0018_OIIM           ; 0x7f76
+    call api_idx_0018_KVSP           ; 0x7f76
     add sp, byte 8                   ; 0x7f79
     jmp short .forward4              ; 0x7f7c
 .forward3:
@@ -153,7 +153,7 @@ api_idx_001e_QHIQ:
     push word [bp - 0x1c]            ; 0x7fc6
     mov ax, 1                        ; 0x7fc9
     push ax                          ; 0x7fcc
-    call api_idx_0018_OIIM           ; 0x7fcd
+    call api_idx_0018_KVSP           ; 0x7fcd
     add sp, byte 8                   ; 0x7fd0
     jmp short .forward6              ; 0x7fd3
 .forward5:

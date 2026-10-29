@@ -44,7 +44,7 @@ api_idx_0068_OUHP:
     push ax                          ; 0x0b2d
     mov ax, 1                        ; 0x0b2e
     push ax                          ; 0x0b31
-    call api_idx_000e_JRRT           ; 0x0b32
+    call api_idx_000e_GTMH           ; 0x0b32
     add sp, byte 4                   ; 0x0b35
     mov ax, 0                        ; 0x0b38
     push ax                          ; 0x0b3b
@@ -328,7 +328,7 @@ api_idx_0068_OUHP:
     push ax                          ; 0x0d7d
     mov ax, 1                        ; 0x0d7e
     push ax                          ; 0x0d81
-    call api_idx_000e_JRRT           ; 0x0d82
+    call api_idx_000e_GTMH           ; 0x0d82
     add sp, byte 4                   ; 0x0d85
 .forward21:
     call api_idx_0002_PUOP           ; 0x0d88
@@ -338,7 +338,7 @@ api_idx_0068_OUHP:
     push ax                          ; 0x0d92
     mov ax, 2                        ; 0x0d93
     push ax                          ; 0x0d96
-    call api_idx_000e_JRRT           ; 0x0d97
+    call api_idx_000e_GTMH           ; 0x0d97
     add sp, byte 4                   ; 0x0d9a
 .forward22:
     call api_idx_0002_PUOP           ; 0x0d9d
@@ -348,7 +348,7 @@ api_idx_0068_OUHP:
     push ax                          ; 0x0da7
     mov ax, 3                        ; 0x0da8
     push ax                          ; 0x0dab
-    call api_idx_000e_JRRT           ; 0x0dac
+    call api_idx_000e_GTMH           ; 0x0dac
     add sp, byte 4                   ; 0x0daf
 .forward23:
     call api_idx_0002_PUOP           ; 0x0db2
@@ -358,7 +358,7 @@ api_idx_0068_OUHP:
     push ax                          ; 0x0dbc
     mov ax, 4                        ; 0x0dbd
     push ax                          ; 0x0dc0
-    call api_idx_000e_JRRT           ; 0x0dc1
+    call api_idx_000e_GTMH           ; 0x0dc1
     add sp, byte 4                   ; 0x0dc4
 .forward24:
     call api_idx_0002_PUOP           ; 0x0dc7
@@ -455,7 +455,7 @@ api_idx_0068_OUHP:
     push word [bp - 2]               ; 0x0e89
     mov ax, 1                        ; 0x0e8c
     push ax                          ; 0x0e8f
-    call api_idx_000e_JRRT           ; 0x0e90
+    call api_idx_000e_GTMH           ; 0x0e90
     add sp, byte 4                   ; 0x0e93
     mov ax, 0x62                     ; 0x0e96
     push ax                          ; 0x0e99
@@ -484,7 +484,7 @@ api_idx_0068_OUHP:
     push ax                          ; 0x0ecf
     mov ax, 1                        ; 0x0ed0
     push ax                          ; 0x0ed3
-    call api_idx_000e_JRRT           ; 0x0ed4
+    call api_idx_000e_GTMH           ; 0x0ed4
     add sp, byte 4                   ; 0x0ed7
     mov ax, 0xc7                     ; 0x0eda
     push ax                          ; 0x0edd
