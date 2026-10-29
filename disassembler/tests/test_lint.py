@@ -208,6 +208,10 @@ class DeclarationOrderTest(unittest.TestCase):
                 'foo(a)\nint a;\n{\n\ta = 1;\n}\n')
         self.assertEqual(list(self.rule.check(text, 'x.c')), [])
 
+    def test_wrapped_knr_header_parameter_declarations_are_accepted(self):
+        text = ('foo(a,\n\tb)\nint a,\n\tb;\n{\n\ta = b;\n}\n')
+        self.assertEqual(list(self.rule.check(text, 'x.c')), [])
+
     def test_declaration_after_a_label_is_found(self):
         text = 'foo()\n{\n\tint a;\n\ta = 1;\nlabel:\n\tint b;\n}\n'
         found = list(self.rule.check(text, 'x.c'))

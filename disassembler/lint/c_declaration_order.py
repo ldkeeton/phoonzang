@@ -35,6 +35,9 @@ def _check(text, path):
     continuing = False
     typedefs = set()
     asm = False
+    #: A top-level line whose parentheses are still open (a function header
+    #: wrapped across lines), with the number and text of its first line.
+    wrapped = None
 
     def declaration(code):
         return _DECL.match(code) or code.split(None, 1)[0] in typedefs
@@ -62,6 +65,17 @@ def _check(text, path):
             continue
         if initializer:
             initializer += code.count('{') - code.count('}')
+            continue
+        if wrapped is not None:
+            code = wrapped[2] + ' ' + code
+            if code.count('(') > code.count(')'):
+                wrapped = (wrapped[0], wrapped[1], code)
+                continue
+            number, line = wrapped[0], wrapped[1]
+            wrapped = None
+        elif (len(stack) == 1 and not header
+                and code.count('(') > code.count(')')):
+            wrapped = (number, line, code)
             continue
 
         closed_members = False
@@ -127,7 +141,8 @@ def _check(text, path):
         else:
             stack[-1]['seen'] = True
 
-    return [Finding(path, number, line.index(code) + 1, 'c-declaration-order',
+    return [Finding(path, number, line.index(code.split(None, 1)[0]) + 1,
+                    'c-declaration-order',
                     'declaration after a statement; put declarations first')
             for number, line, code in findings]
 

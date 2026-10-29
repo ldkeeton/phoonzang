@@ -1080,7 +1080,7 @@ import_bane_party.back13:
     cmp ax, strict word 8            ; 0x2a23
     jl short import_bane_party.back13 ; 0x2a26
     push word [party_char_count]     ; 0x2a28
-    call api_idx_0004_MMTP           ; 0x2a2c
+    call draw_member_panel_glyphs    ; 0x2a2c
     pop cx                           ; 0x2a2f
     mov word [bp - 0x16], 0          ; 0x2a30
     mov word [bp - 0x18], 0          ; 0x2a35
@@ -1519,7 +1519,7 @@ import_bane_party.back18:
     push ax                          ; 0x2e66
     mov ax, 0xffa6                   ; 0x2e67
     push ax                          ; 0x2e6a
-    call loc_MJMJ                    ; 0x2e6b
+    call initialize_intro_layout     ; 0x2e6b
     add sp, byte 0x14                ; 0x2e6e
     mov word [intro_screen_number], 1 ; 0x2e71
     jmp near import_bane_party.forward83 ; 0x2e77
@@ -1552,7 +1552,7 @@ import_bane_party.back19:
     push ax                          ; 0x2ed0
     mov ax, 0xffce                   ; 0x2ed1
     push ax                          ; 0x2ed4
-    call loc_MJMJ                    ; 0x2ed5
+    call initialize_intro_layout     ; 0x2ed5
     add sp, byte 0x14                ; 0x2ed8
     mov word [intro_screen_number], 2 ; 0x2edb
     jmp near import_bane_party.forward83 ; 0x2ee1
@@ -1583,7 +1583,7 @@ import_bane_party.back20:
     push ax                          ; 0x2f2e
     mov ax, 0                        ; 0x2f2f
     push ax                          ; 0x2f32
-    call loc_MJMJ                    ; 0x2f33
+    call initialize_intro_layout     ; 0x2f33
     add sp, byte 0x14                ; 0x2f36
     mov word [intro_screen_number], 3 ; 0x2f39
     jmp short import_bane_party.forward83 ; 0x2f3f

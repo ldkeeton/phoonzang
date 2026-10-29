@@ -526,7 +526,14 @@ def _build_project(project, run_batch, nasm_batch, *, report=print,
                 report(f'  Failure output: kept last good '
                        f'{", ".join(sorted(tainted))} (rendered from failed '
                        f'source labels)')
-            files, _, _ = reshare_partial(merge_files(kept), out_dir)
+            # With every binary emitted the full decision applies; the
+            # partial one keys on the old masters' names, so a routine
+            # renamed in this build would leave shared/ for each binary.
+            if set(kept) >= set(bins):
+                files, _ = share_files(merge_files(kept), out_dir,
+                                       project_tables(project))
+            else:
+                files, _, _ = reshare_partial(merge_files(kept), out_dir)
             files = {rel: text for rel, text in files.items()
                      if not hand_owned(os.path.join(out_dir, rel))}
             written, unchanged, _ = sync(out_dir, files, scopes=[])

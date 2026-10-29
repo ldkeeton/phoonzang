@@ -225,25 +225,25 @@ jumptable_0d04          equ api_idx_0038_LTUV.jumptable1
 
 %include "vbase/map_bane_party_selector.asm" ; 0x1a12
 
-%include "shared/ovr/loc_OIOJ.asm"              ; 0x1c09
+%include "shared/ovr/draw_member_glyph_row.asm" ; 0x1c09
 
-jumptable_1ee4_case_0  equ api_idx_0004_MMTP.jumptable_case1
-jumptable_1ee4_case_1  equ api_idx_0004_MMTP.jumptable_case2
-jumptable_1ee4_case_2  equ api_idx_0004_MMTP.jumptable_case3
-jumptable_1ee4_case_4  equ api_idx_0004_MMTP.jumptable_case4
-jumptable_1ee4_case_5  equ api_idx_0004_MMTP.jumptable_case5
-jumptable_1ee4_case_6  equ api_idx_0004_MMTP.jumptable_case6
-jumptable_1ee4_case_7  equ api_idx_0004_MMTP.jumptable_case7
-jumptable_1ee4_case_8  equ api_idx_0004_MMTP.jumptable_case8
-jumptable_1ee4_case_9  equ api_idx_0004_MMTP.jumptable_case9
-jumptable_1ee4_case_10 equ api_idx_0004_MMTP.jumptable_case10
-jumptable_1ee4_case_11 equ api_idx_0004_MMTP.jumptable_case11
-jumptable_1ee4_case_12 equ api_idx_0004_MMTP.jumptable_case12
-jumptable_1ee4_case_13 equ api_idx_0004_MMTP.jumptable_case13
-jumptable_1ee4         equ api_idx_0004_MMTP.jumptable1
-%include "shared/ovr/api_idx_0004_MMTP.asm"     ; 0x1c80
+jumptable_1ee4_case_0  equ draw_member_panel_glyphs.jumptable_case1
+jumptable_1ee4_case_1  equ draw_member_panel_glyphs.jumptable_case2
+jumptable_1ee4_case_2  equ draw_member_panel_glyphs.jumptable_case3
+jumptable_1ee4_case_4  equ draw_member_panel_glyphs.jumptable_case4
+jumptable_1ee4_case_5  equ draw_member_panel_glyphs.jumptable_case5
+jumptable_1ee4_case_6  equ draw_member_panel_glyphs.jumptable_case6
+jumptable_1ee4_case_7  equ draw_member_panel_glyphs.jumptable_case7
+jumptable_1ee4_case_8  equ draw_member_panel_glyphs.jumptable_case8
+jumptable_1ee4_case_9  equ draw_member_panel_glyphs.jumptable_case9
+jumptable_1ee4_case_10 equ draw_member_panel_glyphs.jumptable_case10
+jumptable_1ee4_case_11 equ draw_member_panel_glyphs.jumptable_case11
+jumptable_1ee4_case_12 equ draw_member_panel_glyphs.jumptable_case12
+jumptable_1ee4_case_13 equ draw_member_panel_glyphs.jumptable_case13
+jumptable_1ee4         equ draw_member_panel_glyphs.jumptable1
+%include "shared/ovr/draw_member_panel_glyphs.asm" ; 0x1c80
 
-%include "vbase/loc_MJMJ.asm"              ; 0x1f0e
+%include "vbase/initialize_intro_layout.asm" ; 0x1f0e
 
 %include "vbase/read_class_experience_threshold.asm" ; 0x1f6f
 

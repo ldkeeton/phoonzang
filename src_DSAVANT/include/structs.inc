@@ -75,10 +75,7 @@ struc pc_rec
     .cell: resb 240
     .slot_info: resb 36
     .order: resb 8
-    .f_015c: resb 1
-    .f_015d: resb 1
-    .f_015e: resb 1
-    .f_015f: resb 1
+    .spell_school: resb 4
     .f_0160: resb 6
     .status: resb 10
     .stat: resb 8

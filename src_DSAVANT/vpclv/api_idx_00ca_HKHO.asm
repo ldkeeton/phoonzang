@@ -107,7 +107,7 @@ api_idx_00ca_HKHO:
     imul word [bp + 4]               ; 0x1f3e
     add ax, word [bp + 6]            ; 0x1f41
     mov bx, ax                       ; 0x1f44
-    mov byte [bx + party_records + pc_rec.f_015c], 0 ; 0x1f46
+    mov byte [bx + party_records + pc_rec.spell_school], 0 ; 0x1f46
     mov ax, 0x10                     ; 0x1f4b
     push ax                          ; 0x1f4e
     mov ax, 0x248                    ; 0x1f4f
@@ -275,7 +275,7 @@ api_idx_00ca_HKHO:
     add word [bx + party_records + pc_rec.realm_points], ax ; 0x20ce
     add cx, word [bp + 6]            ; 0x20d2
     mov bx, cx                       ; 0x20d5
-    dec byte [bx + party_records + pc_rec.f_015c] ; 0x20d7
+    dec byte [bx + party_records + pc_rec.spell_school] ; 0x20d7
     push word [bp + 4]               ; 0x20db
     call api_idx_0004_RMVO           ; 0x20de
     pop cx                           ; 0x20e1

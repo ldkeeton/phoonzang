@@ -31,7 +31,8 @@ struct pc_rec {				/* 0x248 bytes */
 	struct grid_cell cell[2][10];	/* +0x040 */
 	unsigned char slot_info[2][18];	/* +0x130: reset by reset_page_record */
 	unsigned char order[8];		/* +0x154: cell index per slot, 0xff free */
-	char pad0[10];			/* +0x15c */
+	unsigned char spell_school[4];	/* +0x15c: mage, priest, alchemist, psionic */
+	char pad0[6];			/* +0x160 */
 	unsigned char status[10];	/* +0x166: [2] set 6..11 when pair_b[0] hits 0 */
 	unsigned char stat[8];		/* +0x170 */
 	unsigned char flag[34];		/* +0x178 */

@@ -220,7 +220,7 @@ loc_MIPR:
     imul word [bp - 6]               ; 0x6518
     add ax, word [bp - 2]            ; 0x651b
     mov bx, ax                       ; 0x651e
-    cmp byte [bx + party_records + pc_rec.f_015c], 0 ; 0x6520
+    cmp byte [bx + party_records + pc_rec.spell_school], 0 ; 0x6520
     jbe short .forward6              ; 0x6525
     push word [bp - 2]               ; 0x6527
     push word [bp - 6]               ; 0x652a

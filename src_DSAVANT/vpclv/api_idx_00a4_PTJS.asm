@@ -105,7 +105,7 @@ api_idx_00a4_PTJS:
     imul word [bp + 4]               ; 0x4fa1
     add ax, word [bp - 2]            ; 0x4fa4
     mov bx, ax                       ; 0x4fa7
-    cmp byte [bx + party_records + pc_rec.f_015c], 0 ; 0x4fa9
+    cmp byte [bx + party_records + pc_rec.spell_school], 0 ; 0x4fa9
     jbe short .forward3              ; 0x4fae
     push word [bp - 2]               ; 0x4fb0
     push word [bp + 4]               ; 0x4fb3

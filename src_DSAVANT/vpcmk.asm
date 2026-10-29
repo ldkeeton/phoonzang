@@ -420,26 +420,25 @@ jumptable_436e         equ loc_SRNN.jumptable1
 
 %include "vpcmk/loc_QVUI.asm"              ; 0x5706
 
-%include "vpcmk/api_idx_000a_HMMT.asm"     ; 0x5a8a
+%include "vpcmk/api_idx_000a_NJQS.asm"     ; 0x5a8a
 
-%include "shared/ovr/loc_OIOJ.asm"              ; 0x5d7e
+%include "shared/ovr/draw_member_glyph_row.asm" ; 0x5d7e
 
-api_idx_0004_QSJP      equ api_idx_0004_MMTP
-jumptable_6059_case_0  equ api_idx_0004_MMTP.jumptable_case1
-jumptable_6059_case_1  equ api_idx_0004_MMTP.jumptable_case2
-jumptable_6059_case_2  equ api_idx_0004_MMTP.jumptable_case3
-jumptable_6059_case_4  equ api_idx_0004_MMTP.jumptable_case4
-jumptable_6059_case_5  equ api_idx_0004_MMTP.jumptable_case5
-jumptable_6059_case_6  equ api_idx_0004_MMTP.jumptable_case6
-jumptable_6059_case_7  equ api_idx_0004_MMTP.jumptable_case7
-jumptable_6059_case_8  equ api_idx_0004_MMTP.jumptable_case8
-jumptable_6059_case_9  equ api_idx_0004_MMTP.jumptable_case9
-jumptable_6059_case_10 equ api_idx_0004_MMTP.jumptable_case10
-jumptable_6059_case_11 equ api_idx_0004_MMTP.jumptable_case11
-jumptable_6059_case_12 equ api_idx_0004_MMTP.jumptable_case12
-jumptable_6059_case_13 equ api_idx_0004_MMTP.jumptable_case13
-jumptable_6059         equ api_idx_0004_MMTP.jumptable1
-%include "shared/ovr/api_idx_0004_MMTP.asm"     ; 0x5df5
+jumptable_6059_case_0  equ draw_member_panel_glyphs.jumptable_case1
+jumptable_6059_case_1  equ draw_member_panel_glyphs.jumptable_case2
+jumptable_6059_case_2  equ draw_member_panel_glyphs.jumptable_case3
+jumptable_6059_case_4  equ draw_member_panel_glyphs.jumptable_case4
+jumptable_6059_case_5  equ draw_member_panel_glyphs.jumptable_case5
+jumptable_6059_case_6  equ draw_member_panel_glyphs.jumptable_case6
+jumptable_6059_case_7  equ draw_member_panel_glyphs.jumptable_case7
+jumptable_6059_case_8  equ draw_member_panel_glyphs.jumptable_case8
+jumptable_6059_case_9  equ draw_member_panel_glyphs.jumptable_case9
+jumptable_6059_case_10 equ draw_member_panel_glyphs.jumptable_case10
+jumptable_6059_case_11 equ draw_member_panel_glyphs.jumptable_case11
+jumptable_6059_case_12 equ draw_member_panel_glyphs.jumptable_case12
+jumptable_6059_case_13 equ draw_member_panel_glyphs.jumptable_case13
+jumptable_6059         equ draw_member_panel_glyphs.jumptable1
+%include "shared/ovr/draw_member_panel_glyphs.asm" ; 0x5df5
 
 api_idx_0016_JNJG      equ load_member_icon
 load_member_icon.dseg1 equ dseg_94e9

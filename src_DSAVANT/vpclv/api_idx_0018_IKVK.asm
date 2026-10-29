@@ -204,7 +204,7 @@ api_idx_0018_IKVK.forward5:
     jmp near api_idx_0018_IKVK.return1 ; 0x4b7f
 api_idx_0018_IKVK.forward6:
     add bx, word [bp - 0x14]         ; 0x4b82
-    inc byte [bx + party_records + pc_rec.f_015c] ; 0x4b85
+    inc byte [bx + party_records + pc_rec.spell_school] ; 0x4b85
     mov word [bp - 2], 0             ; 0x4b89
 api_idx_0018_IKVK.back2:
     mov word [bp - 0x12], 0          ; 0x4b8e

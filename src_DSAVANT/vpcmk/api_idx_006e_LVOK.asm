@@ -221,7 +221,7 @@ api_idx_006e_LVOK:
     add word [bx + party_records + pc_rec.realm_points], ax ; 0x3f72
     add cx, word [bp + 6]            ; 0x3f76
     mov bx, cx                       ; 0x3f79
-    dec byte [bx + party_records + pc_rec.f_015c] ; 0x3f7b
+    dec byte [bx + party_records + pc_rec.spell_school] ; 0x3f7b
     push word [bp + 4]               ; 0x3f7f
     call api_idx_0004_RMVO           ; 0x3f82
     pop cx                           ; 0x3f85
