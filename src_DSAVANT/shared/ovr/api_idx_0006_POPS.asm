@@ -46,7 +46,7 @@ api_idx_0006_POPS:
     inc word [bp - 2]
 .forward4:
     mov ax, word [bp - 2]
-    cmp ax, word [bss_590e]
+    cmp ax, word [runtime_six_byte_count]
     jl short .back1
     mov ax, 0xffff
     ret

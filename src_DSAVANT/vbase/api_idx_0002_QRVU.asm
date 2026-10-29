@@ -57,7 +57,7 @@ api_idx_0002_QRVU:
     pop cx                           ; 0x402a
     test word [startup_hardware_flags], 0x1000 ; 0x402b
     je short .forward4               ; 0x4031
-    cmp byte [bss_5989], 1           ; 0x4033
+    cmp byte [startup_aux_option_b], 1 ; 0x4033
     jne short .forward4              ; 0x4038
     cmp word [mouse_active], byte 0  ; 0x403a
     jne short .forward3              ; 0x403f

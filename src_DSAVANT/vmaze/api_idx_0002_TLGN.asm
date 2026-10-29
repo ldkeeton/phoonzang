@@ -149,23 +149,23 @@ api_idx_0002_TLGN:
     shl ax, 1                        ; 0xa918
     shl ax, 1                        ; 0xa91a
     mov si, ax                       ; 0xa91c
-    mov al, byte [si + bss_8a6e + rec_8a6e.f_0003] ; 0xa91e
+    mov al, byte [si + loaded_four_byte_records + loaded_four_byte_records_rec.f_0003] ; 0xa91e
     cmp al, byte [bx + slot_records + slot_record.map_piece] ; 0xa922
     jbe short .forward10             ; 0xa926
     jmp near .return3                ; 0xa928
 .forward10:
     mov byte [bx + slot_records + slot_record.map_piece], 0 ; 0xa92b
     mov al, byte [bx + slot_records + slot_record.kind] ; 0xa930
-    cmp al, byte [si + bss_8a6e]     ; 0xa934
+    cmp al, byte [si + loaded_four_byte_records] ; 0xa934
     jne short .forward11             ; 0xa938
-    mov al, byte [si + bss_8a6e + rec_8a6e.f_0001] ; 0xa93a
+    mov al, byte [si + loaded_four_byte_records + loaded_four_byte_records_rec.f_0001] ; 0xa93a
     mov byte [bx + slot_records + slot_record.kind], al ; 0xa93e
     jmp short .forward12             ; 0xa942
 .forward11:
     mov al, byte [bx + slot_records + slot_record.kind] ; 0xa944
-    cmp al, byte [si + bss_8a6e + rec_8a6e.f_0001] ; 0xa948
+    cmp al, byte [si + loaded_four_byte_records + loaded_four_byte_records_rec.f_0001] ; 0xa948
     jne short .forward12             ; 0xa94c
-    mov al, byte [si + bss_8a6e]     ; 0xa94e
+    mov al, byte [si + loaded_four_byte_records] ; 0xa94e
     mov byte [bx + slot_records + slot_record.kind], al ; 0xa952
 .forward12:
     cmp byte [bx + slot_records + slot_record.f_0002], 7 ; 0xa956

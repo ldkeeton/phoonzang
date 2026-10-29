@@ -29,7 +29,7 @@ loc_LQIO:
     shl si, 1                        ; 0x60ae
     mov word [si + member_roster_index + 0x2], bx ; 0x60b0
     push word [party_char_count]     ; 0x60b4
-    call api_idx_0006_MHOR           ; 0x60b8
+    call find_unused_member_icon     ; 0x60b8
     pop cx                           ; 0x60bb
     mov cx, word [party_char_count]  ; 0x60bc
     shl cx, 1                        ; 0x60c0
@@ -39,7 +39,7 @@ loc_LQIO:
     mov al, byte [bp - 0x18]         ; 0x60c9
     sub ah, ah                       ; 0x60cc
     push ax                          ; 0x60ce
-    call api_idx_0016_KOOO           ; 0x60cf
+    call load_member_icon            ; 0x60cf
     add sp, byte 4                   ; 0x60d2
     lea si, word [bp - 0x24e]        ; 0x60d5
     mov ax, 0x248                    ; 0x60d9

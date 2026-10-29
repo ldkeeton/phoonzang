@@ -71,7 +71,7 @@ add_party_member:
     sub ah, ah                       ; 0x085e
     test ax, 1                       ; 0x0860
     jne short .forward5              ; 0x0863
-    mov al, byte [bss_5988]          ; 0x0865
+    mov al, byte [startup_aux_option_a] ; 0x0865
     sub ah, ah                       ; 0x0868
     jmp short .forward4              ; 0x086a
 .back1:
@@ -162,7 +162,7 @@ add_party_member:
     mov ax, word [bp - 2]            ; 0x094a
     cmp ax, strict word 6            ; 0x094d
     jl short .back4                  ; 0x0950
-    cmp byte [bss_5988], 2           ; 0x0952
+    cmp byte [startup_aux_option_a], 2 ; 0x0952
     jne short .forward8              ; 0x0957
     mov ax, word [bp + 6]            ; 0x0959
     shl ax, 1                        ; 0x095c
@@ -265,7 +265,7 @@ add_party_member:
     mov bx, ax                       ; 0x0a4e
     mov bx, word [bx + party_char]   ; 0x0a50
     mov byte [bx + si + member_rec.item_cell], 0xff ; 0x0a54
-    mov al, byte [bss_5988]          ; 0x0a58
+    mov al, byte [startup_aux_option_a] ; 0x0a58
     sub ah, ah                       ; 0x0a5b
     jmp near .forward9               ; 0x0a5d
 .back6:
@@ -375,10 +375,10 @@ add_party_member:
     add sp, byte 6                   ; 0x0b68
     mov word [bp - 6], ax            ; 0x0b6b
     mov ax, 0x96                     ; 0x0b6e
-    cmp byte [bss_5988], 1           ; 0x0b71
+    cmp byte [startup_aux_option_a], 1 ; 0x0b71
     je short .forward16              ; 0x0b76
     mov ax, 0x64                     ; 0x0b78
-    cmp byte [bss_5988], 2           ; 0x0b7b
+    cmp byte [startup_aux_option_a], 2 ; 0x0b7b
     jne short .forward16             ; 0x0b80
     mov ax, 0x4b                     ; 0x0b82
 .forward16:

@@ -25,7 +25,7 @@ jumptable_4a7d_case_38:
     add word [party_status_timer], ax ; 0x43a2
     mov ax, 0                        ; 0x43a6
     push ax                          ; 0x43a9
-    push word [bss_82f4]             ; 0x43aa
+    push word [party_status_offset]  ; 0x43aa
     mov ax, word [bp + 8]            ; 0x43ae
     dec ax                           ; 0x43b1
     mov cx, 2                        ; 0x43b2
@@ -35,7 +35,7 @@ jumptable_4a7d_case_38:
     push ax                          ; 0x43b9
     call loc_QQUT                    ; 0x43ba
     add sp, byte 6                   ; 0x43bd
-    mov word [bss_82f4], ax          ; 0x43c0
+    mov word [party_status_offset], ax ; 0x43c0
     jmp near jumptable_4a7d_case_44  ; 0x43c3
 jumptable_4a7d_case_30:
     mov ax, 0x32                     ; 0x43c6

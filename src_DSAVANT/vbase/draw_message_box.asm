@@ -1,5 +1,5 @@
 ; auto-generated
-api_idx_0004_VUIP:
+draw_message_box:
     mov ax, 0xfffc                   ; 0x00b5
     call aztec_csav                  ; 0x00b8
     mov ax, word [bp + 6]            ; 0x00bb

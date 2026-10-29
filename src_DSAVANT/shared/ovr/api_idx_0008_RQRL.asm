@@ -46,7 +46,7 @@ api_idx_0008_RQRL:
     inc word [bp - 2]
 .forward5:
     mov ax, word [bp - 2]
-    cmp ax, word [bss_5910]
+    cmp ax, word [runtime_eight_byte_count]
     jl short .back1
     cmp word [bp + 4], byte 0
     je short .forward7

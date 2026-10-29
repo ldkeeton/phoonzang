@@ -3834,7 +3834,7 @@ jumptable_5eb8_case_82:
     add word [party_status_timer], ax ; 0x5df1
     mov ax, 0                        ; 0x5df5
     push ax                          ; 0x5df8
-    push word [bss_82f4]             ; 0x5df9
+    push word [party_status_offset]  ; 0x5df9
     mov ax, word [bp + 8]            ; 0x5dfd
     dec ax                           ; 0x5e00
     mov cx, 2                        ; 0x5e01
@@ -3844,7 +3844,7 @@ jumptable_5eb8_case_82:
     push ax                          ; 0x5e08
     call loc_QQUT                    ; 0x5e09
     add sp, byte 6                   ; 0x5e0c
-    mov word [bss_82f4], ax          ; 0x5e0f
+    mov word [party_status_offset], ax ; 0x5e0f
     jmp near jumptable_5eb8_case_47  ; 0x5e12
 jumptable_5eb8_case_49:
     mov ax, 0x32                     ; 0x5e15

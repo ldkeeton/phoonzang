@@ -100,7 +100,7 @@ api_idx_0038_POGI:
     pop ax                           ; 0x25a9
     add ax, cx                       ; 0x25aa
     mov bx, ax                       ; 0x25ac
-    cmp byte [bx + bss_882c], 0xff   ; 0x25ae
+    cmp byte [bx + loaded_fifteen_byte_records], 0xff ; 0x25ae
     jne short .forward5              ; 0x25b3
 .forward4:
     cmp word [bp - 8], byte 5        ; 0x25b5
@@ -123,7 +123,7 @@ api_idx_0038_POGI:
     pop ax                           ; 0x25dc
     add ax, cx                       ; 0x25dd
     mov bx, ax                       ; 0x25df
-    cmp byte [bx + bss_882c], 0xff   ; 0x25e1
+    cmp byte [bx + loaded_fifteen_byte_records], 0xff ; 0x25e1
     jne short .forward6              ; 0x25e6
     jmp near .forward12              ; 0x25e8
 .forward6:
@@ -142,7 +142,7 @@ api_idx_0038_POGI:
     imul word [bp - 2]               ; 0x260c
     add ax, cx                       ; 0x260f
     mov bx, ax                       ; 0x2611
-    mov al, byte [bx + bss_882c + rec_882c.f_0001] ; 0x2613
+    mov al, byte [bx + loaded_fifteen_byte_records + loaded_fifteen_byte_records_rec.f_0001] ; 0x2613
     cbw                              ; 0x2617
     add ax, MSG_HAS_BEEN_FIGHTING_AT ; 0x2618
     push ax                          ; 0x261b
@@ -172,7 +172,7 @@ api_idx_0038_POGI:
     pop ax                           ; 0x2650
     add ax, cx                       ; 0x2651
     mov bx, ax                       ; 0x2653
-    mov al, byte [bx + bss_882c + rec_882c.f_0001] ; 0x2655
+    mov al, byte [bx + loaded_fifteen_byte_records + loaded_fifteen_byte_records_rec.f_0001] ; 0x2655
     cbw                              ; 0x2659
     jmp short .forward10             ; 0x265a
 jumptable_268c_case_0:
@@ -222,7 +222,7 @@ api_idx_0038_POGI.forward11:
     pop ax                           ; 0x26c4
     add ax, cx                       ; 0x26c5
     mov bx, ax                       ; 0x26c7
-    mov al, byte [bx + bss_882c]     ; 0x26c9
+    mov al, byte [bx + loaded_fifteen_byte_records] ; 0x26c9
     cbw                              ; 0x26cd
     add ax, word [bp - 0xa]          ; 0x26ce
     push ax                          ; 0x26d1
@@ -239,7 +239,7 @@ api_idx_0038_POGI.forward11:
     pop ax                           ; 0x26eb
     add ax, cx                       ; 0x26ec
     mov bx, ax                       ; 0x26ee
-    mov al, byte [bx + bss_882c + rec_882c.f_0002] ; 0x26f0
+    mov al, byte [bx + loaded_fifteen_byte_records + loaded_fifteen_byte_records_rec.f_0002] ; 0x26f0
     cbw                              ; 0x26f4
     add ax, word [bp - 0xc]          ; 0x26f5
     push ax                          ; 0x26f8

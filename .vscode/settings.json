@@ -5,6 +5,7 @@
         "*.asm": "asm-x86-nasm",
         "*.s": "asm-x86-nasm"
     },
+    "editor.semanticHighlighting.enabled": true,
     "debug.allowBreakpointsEverywhere": true,
     // Find All References opens the inline peek list (fresh each time) rather than
     // the References side panel, which keeps a history of past searches.

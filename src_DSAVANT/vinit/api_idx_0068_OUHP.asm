@@ -940,7 +940,7 @@ api_idx_0068_OUHP:
     pop cx                           ; 0x130f
     test word [startup_hardware_flags], 0x1000 ; 0x1310
     je short .forward51              ; 0x1316
-    cmp byte [bss_5989], 1           ; 0x1318
+    cmp byte [startup_aux_option_b], 1 ; 0x1318
     jne short .forward51             ; 0x131d
     call call_mouse_init             ; 0x131f
     mov word [mouse_active], 1       ; 0x1322

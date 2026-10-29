@@ -8,9 +8,9 @@ api_idx_0002_TJNR:
     shl ax, 1                        ; 0x8fa2
     shl ax, 1                        ; 0x8fa4
     mov bx, ax                       ; 0x8fa6
-    cmp byte [bx + bss_8a6e + rec_8a6e.f_0002], 0xff ; 0x8fa8
+    cmp byte [bx + loaded_four_byte_records + loaded_four_byte_records_rec.f_0002], 0xff ; 0x8fa8
     je short .forward1               ; 0x8fad
-    mov al, byte [bx + bss_8a6e + rec_8a6e.f_0002] ; 0x8faf
+    mov al, byte [bx + loaded_four_byte_records + loaded_four_byte_records_rec.f_0002] ; 0x8faf
     cbw                              ; 0x8fb3
     shl ax, 1                        ; 0x8fb4
     mov bx, ax                       ; 0x8fb6
@@ -21,20 +21,20 @@ api_idx_0002_TJNR:
     shl ax, 1                        ; 0x8fc2
     shl ax, 1                        ; 0x8fc4
     mov bx, ax                       ; 0x8fc6
-    mov al, byte [bx + bss_8a6e]     ; 0x8fc8
+    mov al, byte [bx + loaded_four_byte_records] ; 0x8fc8
     sub ah, ah                       ; 0x8fcc
     cmp ax, word [bp + 4]            ; 0x8fce
     jne short .forward2              ; 0x8fd1
-    mov al, byte [bx + bss_8a6e + rec_8a6e.f_0001] ; 0x8fd3
+    mov al, byte [bx + loaded_four_byte_records + loaded_four_byte_records_rec.f_0001] ; 0x8fd3
     sub ah, ah                       ; 0x8fd7
     cmp ax, word [bp + 6]            ; 0x8fd9
     je short .forward3               ; 0x8fdc
 .forward2:
-    mov al, byte [bx + bss_8a6e + rec_8a6e.f_0001] ; 0x8fde
+    mov al, byte [bx + loaded_four_byte_records + loaded_four_byte_records_rec.f_0001] ; 0x8fde
     sub ah, ah                       ; 0x8fe2
     cmp ax, word [bp + 4]            ; 0x8fe4
     jne short .forward5              ; 0x8fe7
-    mov al, byte [bx + bss_8a6e]     ; 0x8fe9
+    mov al, byte [bx + loaded_four_byte_records] ; 0x8fe9
     sub ah, ah                       ; 0x8fed
     cmp ax, word [bp + 6]            ; 0x8fef
     jne short .forward5              ; 0x8ff2

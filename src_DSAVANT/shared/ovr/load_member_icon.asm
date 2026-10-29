@@ -1,8 +1,8 @@
 ; auto-generated
-api_idx_0016_JNJG:
+load_member_icon:
     mov ax, 0xffea
     call aztec_csav
-    mov ax, api_idx_0016_JNJG.dseg1
+    mov ax, load_member_icon.dseg1
     push ax
     lea ax, word [bp - 0x16]
     push ax

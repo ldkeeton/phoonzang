@@ -462,9 +462,9 @@ jumptable_928f         equ loc_SRNN.jumptable1
 
 %include "vpcvw/api_idx_0030_TGOH.asm"     ; 0x92b3
 
-api_idx_0016_TVKP       equ api_idx_0016_JNJG
-api_idx_0016_JNJG.dseg1 equ dseg_93c9
-%include "shared/ovr/api_idx_0016_JNJG.asm"     ; 0x9434
+api_idx_0016_TVKP      equ load_member_icon
+load_member_icon.dseg1 equ dseg_93c9
+%include "shared/ovr/load_member_icon.asm"     ; 0x9434
 
 %include "vpcvw/api_idx_0022_PNPP.asm"     ; 0x9491
 

@@ -30,12 +30,12 @@ api_idx_0018_USPR:
     mov word [bss_91ae], 0           ; 0x1cd5
     mov ax, word [game_time]         ; 0x1cdb
     mov dx, word [game_time_hi]      ; 0x1cde
-    sub ax, word [bss_8f18]          ; 0x1ce2
-    sbb dx, word [bss_8f1a]          ; 0x1ce6
-    add word [bss_8f14], ax          ; 0x1cea
-    adc word [bss_8f16], dx          ; 0x1cee
-    mov ax, word [bss_8f14]          ; 0x1cf2
-    mov dx, word [bss_8f16]          ; 0x1cf5
+    sub ax, word [game_time_aux_a]   ; 0x1ce2
+    sbb dx, word [game_time_aux_a_hi] ; 0x1ce6
+    add word [game_time_aux_b], ax   ; 0x1cea
+    adc word [game_time_aux_b_hi], dx ; 0x1cee
+    mov ax, word [game_time_aux_b]   ; 0x1cf2
+    mov dx, word [game_time_aux_b_hi] ; 0x1cf5
     mov cx, 0x3c                     ; 0x1cf9
     mov bx, 0                        ; 0x1cfc
     call aztec_ldv                   ; 0x1cff
@@ -46,14 +46,14 @@ api_idx_0018_USPR:
     jl short .forward2               ; 0x1d0e
     inc word [bp - 0xe]              ; 0x1d10
     add word [bp - 0xc], byte -4     ; 0x1d13
-    add word [bss_8f14], strict word 0xff10 ; 0x1d17
-    adc word [bss_8f16], byte -1     ; 0x1d1d
+    add word [game_time_aux_b], strict word 0xff10 ; 0x1d17
+    adc word [game_time_aux_b_hi], byte -1 ; 0x1d1d
     jmp short .back1                 ; 0x1d22
 .forward2:
     mov ax, word [game_time]         ; 0x1d24
     mov dx, word [game_time_hi]      ; 0x1d27
-    mov word [bss_8f1a], dx          ; 0x1d2b
-    mov word [bss_8f18], ax          ; 0x1d2f
+    mov word [game_time_aux_a_hi], dx ; 0x1d2b
+    mov word [game_time_aux_a], ax   ; 0x1d2f
     cmp word [bss_8450], byte 0      ; 0x1d32
     jne short .forward3              ; 0x1d37
     mov ax, 0x30                     ; 0x1d39
@@ -277,7 +277,7 @@ api_idx_0018_USPR:
     call api_idx_0032_TNQM           ; 0x1f43
     dec word [bp - 0xe]              ; 0x1f46
     mov ax, 0x3cf                    ; 0x1f49
-    cmp byte [bss_5988], 1           ; 0x1f4c
+    cmp byte [startup_aux_option_a], 1 ; 0x1f4c
     jne short .forward24             ; 0x1f51
     mov ax, 0x3de                    ; 0x1f53
 .forward24:

@@ -451,7 +451,7 @@ api_idx_005a_UJPS:
     sub ah, ah                       ; 0xa37f
     cmp ax, word [bp - 0x10]         ; 0xa381
     jge short .forward31             ; 0xa384
-    cmp byte [bss_5988], 1           ; 0xa386
+    cmp byte [startup_aux_option_a], 1 ; 0xa386
     je short .forward30              ; 0xa38b
     mov ax, 0x24                     ; 0xa38d
     push ax                          ; 0xa390
@@ -490,7 +490,7 @@ api_idx_005a_UJPS:
     dec ax                           ; 0xa3dd
     cmp ax, word [bp - 0x10]         ; 0xa3de
     jge short .forward34             ; 0xa3e1
-    cmp byte [bss_5988], 2           ; 0xa3e3
+    cmp byte [startup_aux_option_a], 2 ; 0xa3e3
     je short .forward33              ; 0xa3e8
     mov ax, 7                        ; 0xa3ea
     push ax                          ; 0xa3ed

@@ -280,21 +280,21 @@ struc slot_record
 endstruc
 
 ; records at DS 0x882c
-struc rec_882c
+struc loaded_fifteen_byte_records_rec
     .f_0000: resb 1
     .f_0001: resb 1
     .f_0002: resb 13
 endstruc
 
 ; records at DS 0x8976
-struc rec_8976
+struc loaded_short_records_rec
     .f_0000: resb 1
     .f_0001: resb 1
     .f_0002: resb 2
 endstruc
 
 ; records at DS 0x8a6e
-struc rec_8a6e
+struc loaded_four_byte_records_rec
     .f_0000: resb 1
     .f_0001: resb 1
     .f_0002: resb 1

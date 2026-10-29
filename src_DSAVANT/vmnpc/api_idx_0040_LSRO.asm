@@ -249,19 +249,19 @@ api_idx_0040_LSRO.forward17:
     jmp near api_idx_0040_LSRO.forward76 ; 0x2ddb
 jumptable_36f8_case_8:
     mov ax, word [game_state_arg]    ; 0x2dde
-    cmp ax, word [bss_8f3c]          ; 0x2de1
+    cmp ax, word [previous_game_state_arg] ; 0x2de1
     jne short api_idx_0040_LSRO.forward18 ; 0x2de5
-    mov ax, word [bss_8f36]          ; 0x2de7
+    mov ax, word [previous_party_cell_x] ; 0x2de7
     mov word [party_cell_x], ax      ; 0x2dea
-    mov ax, word [bss_8f34]          ; 0x2ded
+    mov ax, word [previous_party_cell_y] ; 0x2ded
     mov word [party_cell_y], ax      ; 0x2df0
-    mov ax, word [bss_8f32]          ; 0x2df3
+    mov ax, word [previous_party_map_piece] ; 0x2df3
     mov word [party_map_piece], ax   ; 0x2df6
-    mov ax, word [bss_8f3a]          ; 0x2df9
+    mov ax, word [previous_party_world_x] ; 0x2df9
     mov word [party_world_x], ax     ; 0x2dfc
-    mov ax, word [bss_8f38]          ; 0x2dff
+    mov ax, word [previous_party_world_y] ; 0x2dff
     mov word [party_world_y], ax     ; 0x2e02
-    mov ax, word [bss_8f30]          ; 0x2e05
+    mov ax, word [previous_party_tag] ; 0x2e05
     mov word [party_tag], ax         ; 0x2e08
     mov bx, word [maze_tables]       ; 0x2e0b
     mov si, word [party_map_piece]   ; 0x2e0f

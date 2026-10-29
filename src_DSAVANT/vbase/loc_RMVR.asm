@@ -1332,14 +1332,14 @@ loc_RMVR.forward25:
     mov ax, word [bp - 0x14]         ; 0x58e0
     jmp near loc_RMVR.forward42      ; 0x58e3
 jumptable_5e7f_case_0:
-    mov al, byte [bss_5989]          ; 0x58e6
+    mov al, byte [startup_aux_option_b] ; 0x58e6
     sub ah, ah                       ; 0x58e9
     inc ax                           ; 0x58eb
     mov cx, 2                        ; 0x58ec
     cwd                              ; 0x58ef
     idiv cx                          ; 0x58f0
     mov ax, dx                       ; 0x58f2
-    mov byte [bss_5989], al          ; 0x58f4
+    mov byte [startup_aux_option_b], al ; 0x58f4
     push word [bp - 0xa]             ; 0x58f7
     push word [bp - 8]               ; 0x58fa
     mov ax, 0                        ; 0x58fd
@@ -1381,7 +1381,7 @@ jumptable_5e7f_case_3:
     mov ax, word [bp - 8]            ; 0x5954
     add ax, strict word 0x27         ; 0x5957
     push ax                          ; 0x595a
-    mov ax, bss_593a                 ; 0x595b
+    mov ax, selected_game_directory  ; 0x595b
     push ax                          ; 0x595e
     call loc_IIHU                    ; 0x595f
     add sp, byte 8                   ; 0x5962
@@ -1399,7 +1399,7 @@ jumptable_5e7f_case_3:
     mov ax, word [bp - 8]            ; 0x597c
     add ax, strict word 0x29         ; 0x597f
     push ax                          ; 0x5982
-    mov ax, bss_593a                 ; 0x5983
+    mov ax, selected_game_directory  ; 0x5983
     push ax                          ; 0x5986
     call input_text_field            ; 0x5987
     add sp, byte 0xe                 ; 0x598a
@@ -1420,7 +1420,7 @@ jumptable_5e7f_case_4:
     mov ax, word [bp - 8]            ; 0x59ae
     add ax, strict word 0x27         ; 0x59b1
     push ax                          ; 0x59b4
-    mov ax, bss_594e                 ; 0x59b5
+    mov ax, selected_game_filename   ; 0x59b5
     push ax                          ; 0x59b8
     call loc_IIHU                    ; 0x59b9
     add sp, byte 8                   ; 0x59bc
@@ -1438,7 +1438,7 @@ jumptable_5e7f_case_4:
     mov ax, word [bp - 8]            ; 0x59d6
     add ax, strict word 0x29         ; 0x59d9
     push ax                          ; 0x59dc
-    mov ax, bss_594e                 ; 0x59dd
+    mov ax, selected_game_filename   ; 0x59dd
     push ax                          ; 0x59e0
     call input_text_field            ; 0x59e1
     add sp, byte 0xe                 ; 0x59e4
@@ -1598,10 +1598,10 @@ loc_RMVR.back10:
 loc_RMVR.forward31:
     cmp byte [video_mode], 0         ; 0x5b50
     jbe short loc_RMVR.forward32     ; 0x5b55
-    mov word [bss_5982], 0x220       ; 0x5b57
+    mov word [sound_aux_setting], 0x220 ; 0x5b57
     jmp short loc_RMVR.forward33     ; 0x5b5d
 loc_RMVR.forward32:
-    mov word [bss_5982], 0           ; 0x5b5f
+    mov word [sound_aux_setting], 0  ; 0x5b5f
 loc_RMVR.forward33:
     jmp near loc_RMVR.forward43      ; 0x5b65
 jumptable_5e7f_case_13:
@@ -1637,14 +1637,14 @@ jumptable_5e7f_case_14:
     add sp, byte 6                   ; 0x5bac
     jmp near loc_RMVR.forward43      ; 0x5baf
 jumptable_5e7f_case_15:
-    mov al, byte [bss_5988]          ; 0x5bb2
+    mov al, byte [startup_aux_option_a] ; 0x5bb2
     sub ah, ah                       ; 0x5bb5
     inc ax                           ; 0x5bb7
     mov cx, 3                        ; 0x5bb8
     cwd                              ; 0x5bbb
     idiv cx                          ; 0x5bbc
     mov ax, dx                       ; 0x5bbe
-    mov byte [bss_5988], al          ; 0x5bc0
+    mov byte [startup_aux_option_a], al ; 0x5bc0
     push word [bp - 0xa]             ; 0x5bc3
     push word [bp - 8]               ; 0x5bc6
     mov ax, 0xa                      ; 0x5bc9

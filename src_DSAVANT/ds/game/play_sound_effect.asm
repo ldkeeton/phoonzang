@@ -44,7 +44,7 @@ play_sound_effect:
     mov word [bp - 6], 2             ; 0x0a98
 .forward6:
     mov bx, word [bp - 6]            ; 0x0a9d
-    mov al, byte [bx + bss_597c]     ; 0x0aa0
+    mov al, byte [bx + device_option_bytes] ; 0x0aa0
     sub ah, ah                       ; 0x0aa4
     imul word [bp - 4]               ; 0x0aa6
     mov cx, 0xa                      ; 0x0aa9

@@ -42,9 +42,9 @@ api_idx_008a_SRHN:
     mov ax, word [party_tag]         ; 0x0c87
     mov word [bp - 2], ax            ; 0x0c8a
     mov ax, word [game_state_arg]    ; 0x0c8d
-    cmp ax, word [bss_8f3c]          ; 0x0c90
+    cmp ax, word [previous_game_state_arg] ; 0x0c90
     jne short .forward1              ; 0x0c94
-    mov ax, word [bss_8f30]          ; 0x0c96
+    mov ax, word [previous_party_tag] ; 0x0c96
     inc ax                           ; 0x0c99
     inc ax                           ; 0x0c9a
     mov cx, 4                        ; 0x0c9b
@@ -156,7 +156,7 @@ api_idx_008a_SRHN:
     mov word [bp - 0xa], 1           ; 0x0d85
     jmp short .forward12             ; 0x0d8a
 .forward11:
-    mov ax, word [bss_8f30]          ; 0x0d8c
+    mov ax, word [previous_party_tag] ; 0x0d8c
     mov word [party_tag], ax         ; 0x0d8f
 .forward12:
     cmp word [bp - 0xa], byte 0      ; 0x0d92
@@ -212,7 +212,7 @@ api_idx_008a_SRHN:
     call api_idx_000a_NPNK           ; 0x0dfc
     jmp short .forward19             ; 0x0dff
 .forward18:
-    mov ax, word [bss_8f30]          ; 0x0e01
+    mov ax, word [previous_party_tag] ; 0x0e01
     mov word [party_tag], ax         ; 0x0e04
     mov ax, 0x98                     ; 0x0e07
     push ax                          ; 0x0e0a

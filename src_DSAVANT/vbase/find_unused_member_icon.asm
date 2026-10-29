@@ -1,5 +1,5 @@
 ; auto-generated
-api_idx_0006_MHOR:
+find_unused_member_icon:
     mov ax, 0xfffa                   ; 0x05b6
     call aztec_csav                  ; 0x05b9
     mov word [bp - 2], 0             ; 0x05bc

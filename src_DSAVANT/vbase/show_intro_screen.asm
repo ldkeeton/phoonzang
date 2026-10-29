@@ -383,7 +383,7 @@ show_intro_screen:
 .forward11:
     test word [startup_hardware_flags], 0x1000 ; 0x92bb
     je short .forward13              ; 0x92c1
-    cmp byte [bss_5989], 1           ; 0x92c3
+    cmp byte [startup_aux_option_b], 1 ; 0x92c3
     jne short .forward13             ; 0x92c8
     cmp word [mouse_active], byte 0  ; 0x92ca
     jne short .forward12             ; 0x92cf

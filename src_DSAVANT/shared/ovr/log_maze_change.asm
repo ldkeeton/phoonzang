@@ -12,10 +12,10 @@ log_maze_change:
     mov word [bp - 2], ax
     cmp ax, strict word 0xffff
     jne short .forward1
-    mov ax, word [bss_590e]
+    mov ax, word [runtime_six_byte_count]
     mov word [bp - 2], ax
-    inc word [bss_590e]
-    mov ax, word [bss_590e]
+    inc word [runtime_six_byte_count]
+    mov ax, word [runtime_six_byte_count]
     cmp ax, 0x200
     jl short .forward1
 .back1:

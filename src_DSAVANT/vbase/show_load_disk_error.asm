@@ -1,5 +1,5 @@
 ; auto-generated
-loc_KPLK:
+show_load_disk_error:
     mov ax, 0                        ; 0x150d
     call aztec_csav                  ; 0x1510
     mov ax, 0xc7                     ; 0x1513
@@ -24,7 +24,7 @@ loc_KPLK:
     mov ax, 3                        ; 0x153a
     push ax                          ; 0x153d
     push word [bp + 4]               ; 0x153e
-    call api_idx_0004_VUIP           ; 0x1541
+    call draw_message_box            ; 0x1541
     add sp, byte 0xe                 ; 0x1544
     call flush_keyboard              ; 0x1547
     mov ax, 0                        ; 0x154a

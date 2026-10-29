@@ -158,6 +158,68 @@
                     "description": "Python used to run .vscode/cccheck.py."
                 }
             }
-        }
+        },
+        "semanticTokenModifiers": [
+            {
+                "id": "local",
+                "description": "A variable declared in a C block."
+            },
+            {
+                "id": "globalScope",
+                "description": "A variable with file or external scope."
+            }
+        ],
+        "semanticTokenScopes": [
+            {
+                "language": "c",
+                "scopes": {
+                    "variable": [
+                        "variable.other.readwrite.c"
+                    ],
+                    "variable.local": [
+                        "variable.other.local.c",
+                        "variable.other.readwrite.c"
+                    ],
+                    "variable.globalScope": [
+                        "variable.other.global.c",
+                        "variable.other.readwrite.c"
+                    ],
+                    "variable.readonly": [
+                        "variable.other.constant.c"
+                    ],
+                    "parameter": [
+                        "variable.parameter.c"
+                    ],
+                    "property": [
+                        "variable.other.member.c",
+                        "variable.other.property.c"
+                    ],
+                    "property.readonly": [
+                        "variable.other.constant.property.c"
+                    ],
+                    "struct": [
+                        "entity.name.type.struct.c"
+                    ],
+                    "type": [
+                        "entity.name.type.typedef.c",
+                        "entity.name.type.c"
+                    ],
+                    "enum": [
+                        "entity.name.type.enum.c"
+                    ],
+                    "enumMember": [
+                        "variable.other.enummember.c",
+                        "constant.other.enum.c"
+                    ],
+                    "function": [
+                        "entity.name.function.c"
+                    ],
+                    "macro": [
+                        "entity.name.function.preprocessor.c",
+                        "entity.name.constant.preprocessor.c"
+                    ]
+                }
+            }
+        ]
     }
 }

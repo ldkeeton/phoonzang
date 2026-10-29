@@ -31,7 +31,7 @@ dseg_90a9 equ __zdseg_end + (__zdseg_90a9 - __zdata_start)
 dseg_90b6 equ __zdseg_end + (__zdseg_90b6 - __zdata_start)
 dseg_90bc equ __zdseg_end + (__zdseg_90bc - __zdata_start)
 dseg_90c2 equ __zdseg_end + (__zdseg_90c2 - __zdata_start)
-dseg_90cf equ __zdseg_end + (__zdseg_90cf - __zdata_start)
+default_game_data_name equ __zdseg_end + (__zdefault_game_data_name - __zdata_start)
 dseg_90db equ __zdseg_end + (__zdseg_90db - __zdata_start)
 dseg_90e8 equ __zdseg_end + (__zdseg_90e8 - __zdata_start)
 dseg_90f5 equ __zdseg_end + (__zdseg_90f5 - __zdata_start)
@@ -60,11 +60,11 @@ save_sp equ __zdseg_end + (__zsave_sp - __zdata_start)
 save_bp equ __zdseg_end + (__zsave_bp - __zdata_start)
 save_ret equ __zdseg_end + (__zsave_ret - __zdata_start)
 _Uorg equ __zdseg_end + (__zobss_91c6 - __zdata_start)
-bss_91c6 equ __zdseg_end + (__zobss_91c6 - __zdata_start)
-bss_91da equ __zdseg_end + (__zobss_91da - __zdata_start)
-bss_91ee equ __zdseg_end + (__zobss_91ee - __zdata_start)
-bss_91ef equ __zdseg_end + (__zobss_91ef - __zdata_start)
-bss_91f0 equ __zdseg_end + (__zobss_91f0 - __zdata_start)
+game_data_drive equ __zdseg_end + (__zobss_91c6 - __zdata_start)
+selected_game_drive equ __zdseg_end + (__zobss_91da - __zdata_start)
+game_load_path equ __zdseg_end + (__zobss_91ee - __zdata_start)
+game_load_path_next equ __zdseg_end + (__zobss_91ef - __zdata_start)
+game_load_path_third equ __zdseg_end + (__zobss_91f0 - __zdata_start)
 bss_9220 equ __zdseg_end + (__zobss_9220 - __zdata_start)
 bss_93be equ __zdseg_end + (__zobss_93be - __zdata_start)
 bss_93c0 equ __zdseg_end + (__zobss_93c0 - __zdata_start)
@@ -96,56 +96,56 @@ bss_95ae equ __zdseg_end + (__zobss_95ae - __zdata_start)
 bss_95af equ __zdseg_end + (__zobss_95af - __zdata_start)
 bss_95b0 equ __zdseg_end + (__zobss_95b0 - __zdata_start)
 intro_screen_number equ __zdseg_end + (__zobss_95b2 - __zdata_start)
-bss_95b4 equ __zdseg_end + (__zobss_95b4 - __zdata_start)
-bss_9884 equ __zdseg_end + (__zobss_9884 - __zdata_start)
-bss_98d4 equ __zdseg_end + (__zobss_98d4 - __zdata_start)
-bss_98d5 equ __zdseg_end + (__zobss_98d5 - __zdata_start)
-bss_98d6 equ __zdseg_end + (__zobss_98d6 - __zdata_start)
-bss_98ea equ __zdseg_end + (__zobss_98ea - __zdata_start)
-bss_98eb equ __zdseg_end + (__zobss_98eb - __zdata_start)
-bss_98ee equ __zdseg_end + (__zobss_98ee - __zdata_start)
-bss_98f2 equ __zdseg_end + (__zobss_98f2 - __zdata_start)
-bss_98f4 equ __zdseg_end + (__zobss_98f4 - __zdata_start)
-bss_98f6 equ __zdseg_end + (__zobss_98f6 - __zdata_start)
-bss_98f7 equ __zdseg_end + (__zobss_98f7 - __zdata_start)
-bss_98f8 equ __zdseg_end + (__zobss_98f8 - __zdata_start)
-bss_98f9 equ __zdseg_end + (__zobss_98f9 - __zdata_start)
-bss_98fa equ __zdseg_end + (__zobss_98fa - __zdata_start)
-bss_98fb equ __zdseg_end + (__zobss_98fb - __zdata_start)
-bss_98fc equ __zdseg_end + (__zobss_98fc - __zdata_start)
-bss_98fd equ __zdseg_end + (__zobss_98fd - __zdata_start)
-bss_98fe equ __zdseg_end + (__zobss_98fe - __zdata_start)
-bss_9900 equ __zdseg_end + (__zobss_9900 - __zdata_start)
-bss_9980 equ __zdseg_end + (__zobss_9980 - __zdata_start)
-bss_9a00 equ __zdseg_end + (__zobss_9a00 - __zdata_start)
-bss_9a02 equ __zdseg_end + (__zobss_9a02 - __zdata_start)
-bss_9a04 equ __zdseg_end + (__zobss_9a04 - __zdata_start)
-bss_9a06 equ __zdseg_end + (__zobss_9a06 - __zdata_start)
-bss_9a08 equ __zdseg_end + (__zobss_9a08 - __zdata_start)
-bss_9a0a equ __zdseg_end + (__zobss_9a0a - __zdata_start)
-bss_9a0c equ __zdseg_end + (__zobss_9a0c - __zdata_start)
-bss_9a0e equ __zdseg_end + (__zobss_9a0e - __zdata_start)
-bss_9a10 equ __zdseg_end + (__zobss_9a10 - __zdata_start)
-bss_9a12 equ __zdseg_end + (__zobss_9a12 - __zdata_start)
-bss_9a14 equ __zdseg_end + (__zobss_9a14 - __zdata_start)
-bss_9a16 equ __zdseg_end + (__zobss_9a16 - __zdata_start)
-bss_9a18 equ __zdseg_end + (__zobss_9a18 - __zdata_start)
-bss_9a1a equ __zdseg_end + (__zobss_9a1a - __zdata_start)
-bss_9a1c equ __zdseg_end + (__zobss_9a1c - __zdata_start)
-bss_9a1e equ __zdseg_end + (__zobss_9a1e - __zdata_start)
-bss_9a20 equ __zdseg_end + (__zobss_9a20 - __zdata_start)
-bss_9a22 equ __zdseg_end + (__zobss_9a22 - __zdata_start)
-bss_9a24 equ __zdseg_end + (__zobss_9a24 - __zdata_start)
-bss_9a26 equ __zdseg_end + (__zobss_9a26 - __zdata_start)
-bss_9a28 equ __zdseg_end + (__zobss_9a28 - __zdata_start)
-bss_9a2a equ __zdseg_end + (__zobss_9a2a - __zdata_start)
-bss_9a2c equ __zdseg_end + (__zobss_9a2c - __zdata_start)
-bss_9a2e equ __zdseg_end + (__zobss_9a2e - __zdata_start)
-bss_9a30 equ __zdseg_end + (__zobss_9a30 - __zdata_start)
-bss_9a32 equ __zdseg_end + (__zobss_9a32 - __zdata_start)
-bss_9a34 equ __zdseg_end + (__zobss_9a34 - __zdata_start)
-bss_9a4a equ __zdseg_end + (__zobss_9a4a - __zdata_start)
-bss_9a4c equ __zdseg_end + (__zobss_9a4c - __zdata_start)
+preserved_load_header equ __zdseg_end + (__zobss_95b4 - __zdata_start)
+preserved_header_paths equ __zdseg_end + (__zobss_9884 - __zdata_start)
+preserved_header_store_one equ __zdseg_end + (__zobss_98d4 - __zdata_start)
+preserved_header_store_disk equ __zdseg_end + (__zobss_98d5 - __zdata_start)
+preserved_header_store_drive equ __zdseg_end + (__zobss_98d6 - __zdata_start)
+preserved_header_palette_base equ __zdseg_end + (__zobss_98ea - __zdata_start)
+preserved_header_palette_scale equ __zdseg_end + (__zobss_98eb - __zdata_start)
+preserved_header_options equ __zdseg_end + (__zobss_98ee - __zdata_start)
+preserved_header_sound_port equ __zdseg_end + (__zobss_98f2 - __zdata_start)
+preserved_header_sound_extra equ __zdseg_end + (__zobss_98f4 - __zdata_start)
+preserved_header_sound_device equ __zdseg_end + (__zobss_98f6 - __zdata_start)
+preserved_header_video equ __zdseg_end + (__zobss_98f7 - __zdata_start)
+preserved_header_startup equ __zdseg_end + (__zobss_98f8 - __zdata_start)
+preserved_header_install equ __zdseg_end + (__zobss_98f9 - __zdata_start)
+preserved_header_option_a equ __zdseg_end + (__zobss_98fa - __zdata_start)
+preserved_header_option_b equ __zdseg_end + (__zobss_98fb - __zdata_start)
+preserved_header_hardware equ __zdseg_end + (__zobss_98fc - __zdata_start)
+preserved_header_option_c equ __zdseg_end + (__zobss_98fd - __zdata_start)
+preserved_header_dissolve equ __zdseg_end + (__zobss_98fe - __zdata_start)
+game_block_a equ __zdseg_end + (__zobss_9900 - __zdata_start)
+game_block_b equ __zdseg_end + (__zobss_9980 - __zdata_start)
+loaded_game_state equ __zdseg_end + (__zobss_9a00 - __zdata_start)
+loaded_state_world_x equ __zdseg_end + (__zobss_9a02 - __zdata_start)
+loaded_state_world_y equ __zdseg_end + (__zobss_9a04 - __zdata_start)
+loaded_state_cell_x equ __zdseg_end + (__zobss_9a06 - __zdata_start)
+loaded_state_cell_y equ __zdseg_end + (__zobss_9a08 - __zdata_start)
+loaded_state_map_piece equ __zdseg_end + (__zobss_9a0a - __zdata_start)
+loaded_state_tag equ __zdseg_end + (__zobss_9a0c - __zdata_start)
+loaded_state_previous_level equ __zdseg_end + (__zobss_9a0e - __zdata_start)
+loaded_state_previous_world_x equ __zdseg_end + (__zobss_9a10 - __zdata_start)
+loaded_state_previous_world_y equ __zdseg_end + (__zobss_9a12 - __zdata_start)
+loaded_state_previous_cell_x equ __zdseg_end + (__zobss_9a14 - __zdata_start)
+loaded_state_previous_cell_y equ __zdseg_end + (__zobss_9a16 - __zdata_start)
+loaded_state_previous_map_piece equ __zdseg_end + (__zobss_9a18 - __zdata_start)
+loaded_state_previous_tag equ __zdseg_end + (__zobss_9a1a - __zdata_start)
+loaded_state_saved_x equ __zdseg_end + (__zobss_9a1c - __zdata_start)
+loaded_state_saved_y equ __zdseg_end + (__zobss_9a1e - __zdata_start)
+loaded_state_saved_piece equ __zdseg_end + (__zobss_9a20 - __zdata_start)
+loaded_state_saved_level equ __zdseg_end + (__zobss_9a22 - __zdata_start)
+loaded_state_saved_extra equ __zdseg_end + (__zobss_9a24 - __zdata_start)
+loaded_state_time equ __zdseg_end + (__zobss_9a26 - __zdata_start)
+loaded_state_time_hi equ __zdseg_end + (__zobss_9a28 - __zdata_start)
+loaded_state_time_a equ __zdseg_end + (__zobss_9a2a - __zdata_start)
+loaded_state_time_a_hi equ __zdseg_end + (__zobss_9a2c - __zdata_start)
+loaded_state_time_b equ __zdseg_end + (__zobss_9a2e - __zdata_start)
+loaded_state_time_b_hi equ __zdseg_end + (__zobss_9a30 - __zdata_start)
+loaded_state_status equ __zdseg_end + (__zobss_9a32 - __zdata_start)
+loaded_state_status_offset equ __zdseg_end + (__zobss_9a34 - __zdata_start)
+loaded_state_member_count equ __zdseg_end + (__zobss_9a4a - __zdata_start)
+loaded_party_member equ __zdseg_end + (__zobss_9a4c - __zdata_start)
 bss_9c94 equ __zdseg_end + (__zobss_9c94 - __zdata_start)
 bss_9f94 equ __zdseg_end + (__zobss_9f94 - __zdata_start)
 bss_9f95 equ __zdseg_end + (__zobss_9f95 - __zdata_start)
@@ -192,15 +192,14 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "shared/ovr/transfer_pc_file_record.asm" ; 0x0036
 
-%include "vbase/api_idx_0004_VUIP.asm"     ; 0x00b5
+%include "vbase/draw_message_box.asm"      ; 0x00b5
 
 %include "vbase/loc_LSRQ.asm"              ; 0x023a
 
-api_idx_0016_KOOO       equ api_idx_0016_JNJG
-api_idx_0016_JNJG.dseg1 equ dseg_90a9
-%include "shared/ovr/api_idx_0016_JNJG.asm"     ; 0x0559
+load_member_icon.dseg1 equ dseg_90a9
+%include "shared/ovr/load_member_icon.asm"      ; 0x0559
 
-%include "vbase/api_idx_0006_MHOR.asm"     ; 0x05b6
+%include "vbase/find_unused_member_icon.asm" ; 0x05b6
 
 api_idx_0038_MNUL       equ api_idx_0038_LTUV
 api_idx_0038_LTUV.dseg1 equ dseg_90b6
@@ -214,9 +213,9 @@ jumptable_0d04          equ api_idx_0038_LTUV.jumptable1
 
 %include "shared/ovr/input_text_field.asm"      ; 0x0d3f
 
-%include "vbase/api_idx_0028_NRJN.asm"     ; 0x0ef7
+%include "vbase/choose_game_file.asm"      ; 0x0ef7
 
-%include "vbase/loc_KPLK.asm"              ; 0x150d
+%include "vbase/show_load_disk_error.asm"  ; 0x150d
 
 api_idx_004c_MUGV equ api_idx_004c_RQSO
 %include "shared/ovr/api_idx_004c_RQSO.asm"     ; 0x156e
@@ -249,7 +248,7 @@ jumptable_1ee4         equ api_idx_0004_MMTP.jumptable1
 
 %include "vbase/api_idx_0040_TGSS.asm"     ; 0x1f6f
 
-%include "vbase/api_idx_0072_OUII.asm"     ; 0x1faf
+%include "vbase/import_bane_party.asm"     ; 0x1faf
 
 %include "vbase/load_game_data.asm"        ; 0x2fef
 
@@ -371,6 +370,10 @@ __zdata_start:
 %include "shared/data/pc_file_name.asm"     ; 0x93ed
 
 %include "vbase/data/dseg_90a3.asm"        ; 0x93f8
+
+%include "vbase/data/default_game_data_name.asm" ; 0x9424
+
+%include "vbase/data/dseg_90db.asm"        ; 0x9430
 
 %include "vbase/data/screen_temp_file.asm" ; 0x9462
 

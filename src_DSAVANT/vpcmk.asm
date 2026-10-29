@@ -441,8 +441,9 @@ jumptable_6059_case_13 equ api_idx_0004_MMTP.jumptable_case13
 jumptable_6059         equ api_idx_0004_MMTP.jumptable1
 %include "shared/ovr/api_idx_0004_MMTP.asm"     ; 0x5df5
 
-api_idx_0016_JNJG.dseg1 equ dseg_94e9
-%include "shared/ovr/api_idx_0016_JNJG.asm"     ; 0x6083
+api_idx_0016_JNJG      equ load_member_icon
+load_member_icon.dseg1 equ dseg_94e9
+%include "shared/ovr/load_member_icon.asm"     ; 0x6083
 
 %include "vpcmk/api_idx_0006_HMNQ.asm"     ; 0x60e0
 

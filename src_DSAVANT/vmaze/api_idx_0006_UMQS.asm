@@ -73,18 +73,18 @@ api_idx_0006_UMQS:
     shl ax, 1                        ; 0x92c6
     shl ax, 1                        ; 0x92c8
     mov bx, ax                       ; 0x92ca
-    mov al, byte [bx + bss_8a6e]     ; 0x92cc
+    mov al, byte [bx + loaded_four_byte_records] ; 0x92cc
     sub ah, ah                       ; 0x92d0
     cmp ax, word [bp + 8]            ; 0x92d2
     je short .forward4               ; 0x92d5
-    mov al, byte [bx + bss_8a6e + rec_8a6e.f_0001] ; 0x92d7
+    mov al, byte [bx + loaded_four_byte_records + loaded_four_byte_records_rec.f_0001] ; 0x92d7
     sub ah, ah                       ; 0x92db
     cmp ax, word [bp + 8]            ; 0x92dd
     jne short .forward6              ; 0x92e0
 .forward4:
-    cmp byte [bx + bss_8a6e + rec_8a6e.f_0002], 0xff ; 0x92e2
+    cmp byte [bx + loaded_four_byte_records + loaded_four_byte_records_rec.f_0002], 0xff ; 0x92e2
     je short .forward5               ; 0x92e7
-    mov al, byte [bx + bss_8a6e + rec_8a6e.f_0002] ; 0x92e9
+    mov al, byte [bx + loaded_four_byte_records + loaded_four_byte_records_rec.f_0002] ; 0x92e9
     cbw                              ; 0x92ed
     shl ax, 1                        ; 0x92ee
     mov bx, ax                       ; 0x92f0

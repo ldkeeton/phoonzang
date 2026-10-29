@@ -162,7 +162,7 @@ api_idx_000e_HLRI:
     pop cx                           ; 0x612a
     cmp ax, word [bp - 0xe]          ; 0x612b
     jle short .forward8              ; 0x612e
-    cmp byte [bss_5988], 1           ; 0x6130
+    cmp byte [startup_aux_option_a], 1 ; 0x6130
     je short .forward7               ; 0x6135
     mov ax, 0x24                     ; 0x6137
     push ax                          ; 0x613a
@@ -218,7 +218,7 @@ api_idx_000e_HLRI:
     mov ax, word [bp - 0xe]          ; 0x61b3
     cmp cx, ax                       ; 0x61b6
     jle short .forward11             ; 0x61b8
-    cmp byte [bss_5988], 2           ; 0x61ba
+    cmp byte [startup_aux_option_a], 2 ; 0x61ba
     je short .forward10              ; 0x61bf
     mov ax, 7                        ; 0x61c1
     push ax                          ; 0x61c4

@@ -1212,7 +1212,7 @@ api_idx_00ac_OJJU.forward55:
     mov word [bp - 0x58], ax         ; 0x8536
     cmp word [party_status_timer], byte 0 ; 0x8539
     jle short api_idx_00ac_OJJU.forward56 ; 0x853e
-    mov ax, word [bss_82f4]          ; 0x8540
+    mov ax, word [party_status_offset] ; 0x8540
     add word [bp - 0x58], ax         ; 0x8543
 api_idx_00ac_OJJU.forward56:
     mov ax, word [bp - 0x4e]         ; 0x8546

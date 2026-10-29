@@ -79,7 +79,7 @@ api_idx_004a_UIIS:
     push word [bss_9052]             ; 0x6974
     lea ax, word [bp - 0x4a]         ; 0x6978
     push ax                          ; 0x697b
-    call api_idx_0004_VUIP           ; 0x697c
+    call draw_message_box            ; 0x697c
     add sp, byte 0xe                 ; 0x697f
     mov ax, word [bp - 2]            ; 0x6982
     jmp short .forward4              ; 0x6985

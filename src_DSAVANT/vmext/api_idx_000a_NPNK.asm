@@ -12,15 +12,15 @@ api_idx_000a_NPNK:
     mov word [bp - 8], ax            ; 0x0ba7
     mov ax, word [party_map_piece]   ; 0x0baa
     mov word [bp - 0xa], ax          ; 0x0bad
-    mov ax, word [bss_8f3a]          ; 0x0bb0
+    mov ax, word [previous_party_world_x] ; 0x0bb0
     mov word [party_world_x], ax     ; 0x0bb3
-    mov ax, word [bss_8f38]          ; 0x0bb6
+    mov ax, word [previous_party_world_y] ; 0x0bb6
     mov word [party_world_y], ax     ; 0x0bb9
-    mov ax, word [bss_8f36]          ; 0x0bbc
+    mov ax, word [previous_party_cell_x] ; 0x0bbc
     mov word [party_cell_x], ax      ; 0x0bbf
-    mov ax, word [bss_8f34]          ; 0x0bc2
+    mov ax, word [previous_party_cell_y] ; 0x0bc2
     mov word [party_cell_y], ax      ; 0x0bc5
-    mov ax, word [bss_8f32]          ; 0x0bc8
+    mov ax, word [previous_party_map_piece] ; 0x0bc8
     mov word [party_map_piece], ax   ; 0x0bcb
     call loc_HVLG                    ; 0x0bce
     test ax, ax                      ; 0x0bd1

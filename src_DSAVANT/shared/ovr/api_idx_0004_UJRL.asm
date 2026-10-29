@@ -9,7 +9,7 @@ api_idx_0004_UJRL:
     mov word [bp - 2], ax
     cmp ax, strict word 0xffff
     jne short .forward3
-    cmp word [bss_5910], byte 0x7f
+    cmp word [runtime_eight_byte_count], byte 0x7f
     jl short .forward2
     mov ax, 1
     push ax
@@ -27,9 +27,9 @@ api_idx_0004_UJRL:
 .forward1:
     jmp short .forward3
 .forward2:
-    mov ax, word [bss_5910]
+    mov ax, word [runtime_eight_byte_count]
     mov word [bp - 2], ax
-    inc word [bss_5910]
+    inc word [runtime_eight_byte_count]
 .forward3:
     mov cx, word [bp - 2]
     shl cx, 1

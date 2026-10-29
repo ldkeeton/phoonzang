@@ -1,5 +1,5 @@
 ; auto-generated
-api_idx_0028_NRJN:
+choose_game_file:
     mov ax, 0xffd8                   ; 0x0ef7
     call aztec_csav                  ; 0x0efa
     mov word [spell_dialog_result], 0xffff ; 0x0efd
@@ -460,7 +460,7 @@ jumptable_14d6_case_0:
     push ax                          ; 0x1318
     call call_show_area              ; 0x1319
     add sp, byte 8                   ; 0x131c
-    jmp near api_idx_0028_NRJN.forward8 ; 0x131f
+    jmp near choose_game_file.forward8 ; 0x131f
 jumptable_14d6_case_1:
     call flush_keyboard              ; 0x1322
     mov ax, 1                        ; 0x1325
@@ -546,10 +546,10 @@ jumptable_14d6_case_1:
     push ax                          ; 0x13db
     call call_show_area              ; 0x13dc
     add sp, byte 8                   ; 0x13df
-    jmp near api_idx_0028_NRJN.forward8 ; 0x13e2
+    jmp near choose_game_file.forward8 ; 0x13e2
 jumptable_14d6_case_2:
     cmp word [bp + 6], byte 0        ; 0x13e5
-    je short api_idx_0028_NRJN.forward4 ; 0x13e9
+    je short choose_game_file.forward4 ; 0x13e9
     mov ax, 1                        ; 0x13eb
     push ax                          ; 0x13ee
     push ax                          ; 0x13ef
@@ -579,11 +579,11 @@ jumptable_14d6_case_2:
     add sp, byte 0xa                 ; 0x1425
     mov word [spell_dialog_button], 0 ; 0x1428
     mov word [bp - 0x10], 0          ; 0x142e
-api_idx_0028_NRJN.forward4:
-    jmp near api_idx_0028_NRJN.forward8 ; 0x1433
+choose_game_file.forward4:
+    jmp near choose_game_file.forward8 ; 0x1433
 jumptable_14d6_case_3:
     cmp word [bp + 8], byte 0        ; 0x1436
-    je short api_idx_0028_NRJN.forward5 ; 0x143a
+    je short choose_game_file.forward5 ; 0x143a
     mov ax, 1                        ; 0x143c
     push ax                          ; 0x143f
     push ax                          ; 0x1440
@@ -613,11 +613,11 @@ jumptable_14d6_case_3:
     add sp, byte 0xa                 ; 0x1476
     mov word [spell_dialog_button], 1 ; 0x1479
     mov word [bp - 0x10], 0          ; 0x147f
-api_idx_0028_NRJN.forward5:
-    jmp short api_idx_0028_NRJN.forward8 ; 0x1484
+choose_game_file.forward5:
+    jmp short choose_game_file.forward8 ; 0x1484
 jumptable_14d6_case_4:
     cmp word [bp + 0xa], byte 0      ; 0x1486
-    je short api_idx_0028_NRJN.forward6 ; 0x148a
+    je short choose_game_file.forward6 ; 0x148a
     mov ax, 1                        ; 0x148c
     push ax                          ; 0x148f
     push ax                          ; 0x1490
@@ -647,25 +647,25 @@ jumptable_14d6_case_4:
     add sp, byte 0xa                 ; 0x14c6
     mov word [spell_dialog_button], 2 ; 0x14c9
     mov word [bp - 0x10], 0          ; 0x14cf
-api_idx_0028_NRJN.forward6:
-    jmp short api_idx_0028_NRJN.forward8 ; 0x14d4
+choose_game_file.forward6:
+    jmp short choose_game_file.forward8 ; 0x14d4
 jumptable_14d6:
     dw jumptable_14d6_case_0 - IMAGE_BASE + __zres_end ; 0x14d6
     dw jumptable_14d6_case_1 - IMAGE_BASE + __zres_end ; 0x14d8
     dw jumptable_14d6_case_2 - IMAGE_BASE + __zres_end ; 0x14da
     dw jumptable_14d6_case_3 - IMAGE_BASE + __zres_end ; 0x14dc
     dw jumptable_14d6_case_4 - IMAGE_BASE + __zres_end ; 0x14de
-api_idx_0028_NRJN.forward7:
+choose_game_file.forward7:
     cmp ax, strict word 5            ; 0x14e0
-    jae short api_idx_0028_NRJN.forward8 ; 0x14e3
+    jae short choose_game_file.forward8 ; 0x14e3
     xchg bx, ax                      ; 0x14e5
     shl bx, 1                        ; 0x14e6
     jmp [cs:bx + jumptable_14d6 - IMAGE_BASE + __zres_end] ; 0x14e8
-api_idx_0028_NRJN.forward8:
+choose_game_file.forward8:
     cmp word [bp - 0x10], byte 0     ; 0x14ed
-    je short api_idx_0028_NRJN.forward9 ; 0x14f1
-    jmp near api_idx_0028_NRJN.back1 ; 0x14f3
-api_idx_0028_NRJN.forward9:
+    je short choose_game_file.forward9 ; 0x14f1
+    jmp near choose_game_file.back1  ; 0x14f3
+choose_game_file.forward9:
     mov ax, 1                        ; 0x14f6
     push ax                          ; 0x14f9
     push word [bp - 0x26]            ; 0x14fa

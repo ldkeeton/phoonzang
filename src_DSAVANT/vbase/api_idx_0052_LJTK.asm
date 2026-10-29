@@ -7,7 +7,7 @@ api_idx_0052_LJTK:
 jumptable_4688_case_0:
     lea ax, word [bp - 0x52]         ; 0x4341
     push ax                          ; 0x4344
-    mov al, byte [bss_5989]          ; 0x4345
+    mov al, byte [startup_aux_option_b] ; 0x4345
     sub ah, ah                       ; 0x4348
     add ax, MSG_KEYBOARD             ; 0x434a
     push ax                          ; 0x434d
@@ -51,7 +51,7 @@ jumptable_4688_case_2:
     mov ax, word [bp + 6]            ; 0x43a0
     add ax, strict word 0x27         ; 0x43a3
     push ax                          ; 0x43a6
-    mov ax, bss_593a                 ; 0x43a7
+    mov ax, selected_game_directory  ; 0x43a7
     push ax                          ; 0x43aa
     call loc_RSMG                    ; 0x43ab
     add sp, byte 8                   ; 0x43ae
@@ -65,7 +65,7 @@ jumptable_4688_case_3:
     mov ax, word [bp + 6]            ; 0x43bf
     add ax, strict word 0x27         ; 0x43c2
     push ax                          ; 0x43c5
-    mov ax, bss_594e                 ; 0x43c6
+    mov ax, selected_game_filename   ; 0x43c6
     push ax                          ; 0x43c9
     call loc_RSMG                    ; 0x43ca
     add sp, byte 8                   ; 0x43cd
@@ -125,7 +125,7 @@ jumptable_4688_case_5:
     push ax                          ; 0x444c
     mov ax, 2                        ; 0x444d
     push ax                          ; 0x4450
-    mov al, byte [bss_597c]          ; 0x4451
+    mov al, byte [device_option_bytes] ; 0x4451
     sub ah, ah                       ; 0x4454
     push ax                          ; 0x4456
     call draw_number_field           ; 0x4457
@@ -203,7 +203,7 @@ jumptable_4688_case_9:
 jumptable_4688_case_10:
     lea ax, word [bp - 0x52]         ; 0x44ff
     push ax                          ; 0x4502
-    mov al, byte [bss_5988]          ; 0x4503
+    mov al, byte [startup_aux_option_a] ; 0x4503
     sub ah, ah                       ; 0x4506
     add ax, MSG_NORMAL               ; 0x4508
     push ax                          ; 0x450b

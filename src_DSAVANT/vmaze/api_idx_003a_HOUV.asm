@@ -21,9 +21,9 @@ api_idx_003a_HOUV:
     shl ax, 1                        ; 0x9528
     shl ax, 1                        ; 0x952a
     mov bx, ax                       ; 0x952c
-    cmp byte [bx + bss_8976 + rec_8976.f_0002], 0x1b ; 0x952e
+    cmp byte [bx + loaded_short_records + loaded_short_records_rec.f_0002], 0x1b ; 0x952e
     jne short .forward1              ; 0x9533
-    mov byte [bx + bss_8976 + rec_8976.f_0002], 8 ; 0x9535
+    mov byte [bx + loaded_short_records + loaded_short_records_rec.f_0002], 8 ; 0x9535
 .forward1:
     push word [bp - 2]               ; 0x953a
     mov ax, 0x26                     ; 0x953d
@@ -38,7 +38,7 @@ api_idx_003a_HOUV:
     shl ax, 1                        ; 0x9554
     shl ax, 1                        ; 0x9556
     mov bx, ax                       ; 0x9558
-    mov al, byte [bx + bss_8976 + rec_8976.f_0002] ; 0x955a
+    mov al, byte [bx + loaded_short_records + loaded_short_records_rec.f_0002] ; 0x955a
     sub ah, ah                       ; 0x955e
     shl ax, 1                        ; 0x9560
     mov bx, ax                       ; 0x9562
@@ -85,7 +85,7 @@ api_idx_003a_HOUV:
     shl ax, 1                        ; 0x95c2
     shl ax, 1                        ; 0x95c4
     mov bx, ax                       ; 0x95c6
-    mov al, byte [bx + bss_8976]     ; 0x95c8
+    mov al, byte [bx + loaded_short_records] ; 0x95c8
     sub ah, ah                       ; 0x95cc
     mov word [bp - 4], ax            ; 0x95ce
     mov ax, 0                        ; 0x95d1

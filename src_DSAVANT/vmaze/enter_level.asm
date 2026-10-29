@@ -165,7 +165,7 @@ enter_level:
     inc word [bp - 2]                ; 0x0e4a
 .forward5:
     mov ax, word [bp - 2]            ; 0x0e4d
-    cmp ax, word [bss_5910]          ; 0x0e50
+    cmp ax, word [runtime_eight_byte_count] ; 0x0e50
     jl short .back3                  ; 0x0e54
     mov word [game_state], 5         ; 0x0e56
     ret                              ; 0x0e5c

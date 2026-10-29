@@ -25,7 +25,7 @@ jumptable_2326_case_43:
     add word [party_status_timer], ax ; 0x1d09
     mov ax, 0                        ; 0x1d0d
     push ax                          ; 0x1d10
-    push word [bss_82f4]             ; 0x1d11
+    push word [party_status_offset]  ; 0x1d11
     mov ax, word [bp + 8]            ; 0x1d15
     dec ax                           ; 0x1d18
     mov cx, 2                        ; 0x1d19
@@ -35,7 +35,7 @@ jumptable_2326_case_43:
     push ax                          ; 0x1d20
     call loc_QQUT                    ; 0x1d21
     add sp, byte 6                   ; 0x1d24
-    mov word [bss_82f4], ax          ; 0x1d27
+    mov word [party_status_offset], ax ; 0x1d27
     jmp near jumptable_2326_case_50  ; 0x1d2a
 jumptable_2326_case_33:
     mov ax, 0x32                     ; 0x1d2d

@@ -32,15 +32,15 @@ api_idx_0048_OSRI:
     shl ax, 1                        ; 0x906f
     shl ax, 1                        ; 0x9071
     mov bx, ax                       ; 0x9073
-    mov al, byte [bx + bss_8a6e]     ; 0x9075
+    mov al, byte [bx + loaded_four_byte_records] ; 0x9075
     sub ah, ah                       ; 0x9079
     cmp ax, word [bp + 4]            ; 0x907b
     je short .forward4               ; 0x907e
     jmp near .forward10              ; 0x9080
 .forward4:
-    cmp byte [bx + bss_8a6e + rec_8a6e.f_0002], 0xff ; 0x9083
+    cmp byte [bx + loaded_four_byte_records + loaded_four_byte_records_rec.f_0002], 0xff ; 0x9083
     je short .forward5               ; 0x9088
-    mov al, byte [bx + bss_8a6e + rec_8a6e.f_0002] ; 0x908a
+    mov al, byte [bx + loaded_four_byte_records + loaded_four_byte_records_rec.f_0002] ; 0x908a
     cbw                              ; 0x908e
     shl ax, 1                        ; 0x908f
     mov bx, ax                       ; 0x9091
@@ -78,7 +78,7 @@ api_idx_0048_OSRI:
     shl ax, 1                        ; 0x90e0
     shl ax, 1                        ; 0x90e2
     mov bx, ax                       ; 0x90e4
-    mov al, byte [bx + bss_8a6e + rec_8a6e.f_0001] ; 0x90e6
+    mov al, byte [bx + loaded_four_byte_records + loaded_four_byte_records_rec.f_0001] ; 0x90e6
     sub ah, ah                       ; 0x90ea
     push ax                          ; 0x90ec
     call api_idx_0048_OSRI           ; 0x90ed
@@ -89,7 +89,7 @@ api_idx_0048_OSRI:
     shl ax, 1                        ; 0x90fa
     shl ax, 1                        ; 0x90fc
     mov bx, ax                       ; 0x90fe
-    mov al, byte [bx + bss_8a6e + rec_8a6e.f_0001] ; 0x9100
+    mov al, byte [bx + loaded_four_byte_records + loaded_four_byte_records_rec.f_0001] ; 0x9100
     sub ah, ah                       ; 0x9104
     push ax                          ; 0x9106
     push word [bp + 4]               ; 0x9107
@@ -115,15 +115,15 @@ api_idx_0048_OSRI:
     shl ax, 1                        ; 0x9132
     shl ax, 1                        ; 0x9134
     mov bx, ax                       ; 0x9136
-    mov al, byte [bx + bss_8a6e + rec_8a6e.f_0001] ; 0x9138
+    mov al, byte [bx + loaded_four_byte_records + loaded_four_byte_records_rec.f_0001] ; 0x9138
     sub ah, ah                       ; 0x913c
     cmp ax, word [bp + 4]            ; 0x913e
     je short .forward11              ; 0x9141
     jmp near .forward16              ; 0x9143
 .forward11:
-    cmp byte [bx + bss_8a6e + rec_8a6e.f_0002], 0xff ; 0x9146
+    cmp byte [bx + loaded_four_byte_records + loaded_four_byte_records_rec.f_0002], 0xff ; 0x9146
     je short .forward12              ; 0x914b
-    mov al, byte [bx + bss_8a6e + rec_8a6e.f_0002] ; 0x914d
+    mov al, byte [bx + loaded_four_byte_records + loaded_four_byte_records_rec.f_0002] ; 0x914d
     cbw                              ; 0x9151
     shl ax, 1                        ; 0x9152
     mov bx, ax                       ; 0x9154
@@ -161,7 +161,7 @@ api_idx_0048_OSRI:
     shl ax, 1                        ; 0x91a3
     shl ax, 1                        ; 0x91a5
     mov bx, ax                       ; 0x91a7
-    mov al, byte [bx + bss_8a6e]     ; 0x91a9
+    mov al, byte [bx + loaded_four_byte_records] ; 0x91a9
     sub ah, ah                       ; 0x91ad
     push ax                          ; 0x91af
     call api_idx_0048_OSRI           ; 0x91b0
@@ -172,7 +172,7 @@ api_idx_0048_OSRI:
     shl ax, 1                        ; 0x91bd
     shl ax, 1                        ; 0x91bf
     mov bx, ax                       ; 0x91c1
-    mov al, byte [bx + bss_8a6e]     ; 0x91c3
+    mov al, byte [bx + loaded_four_byte_records] ; 0x91c3
     sub ah, ah                       ; 0x91c7
     push ax                          ; 0x91c9
     push word [bp + 4]               ; 0x91ca

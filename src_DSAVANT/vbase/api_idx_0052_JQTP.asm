@@ -38,7 +38,7 @@ jumptable_4af5_case_2:
     mov ax, word [bp + 6]            ; 0x4875
     add ax, strict word 0x27         ; 0x4878
     push ax                          ; 0x487b
-    mov ax, bss_593a                 ; 0x487c
+    mov ax, selected_game_directory  ; 0x487c
     push ax                          ; 0x487f
     call loc_IIHU                    ; 0x4880
     add sp, byte 8                   ; 0x4883
@@ -52,7 +52,7 @@ jumptable_4af5_case_3:
     mov ax, word [bp + 6]            ; 0x4894
     add ax, strict word 0x27         ; 0x4897
     push ax                          ; 0x489a
-    mov ax, bss_594e                 ; 0x489b
+    mov ax, selected_game_filename   ; 0x489b
     push ax                          ; 0x489e
     call loc_IIHU                    ; 0x489f
     add sp, byte 8                   ; 0x48a2
@@ -76,7 +76,7 @@ jumptable_4af5_case_5:
     mov ax, word [bp + 6]            ; 0x48ca
     add ax, strict word 0x69         ; 0x48cd
     push ax                          ; 0x48d0
-    mov al, byte [bss_597c]          ; 0x48d1
+    mov al, byte [device_option_bytes] ; 0x48d1
     sub ah, ah                       ; 0x48d4
     push ax                          ; 0x48d6
     call loc_GHNH                    ; 0x48d7

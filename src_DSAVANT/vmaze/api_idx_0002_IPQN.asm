@@ -13,7 +13,7 @@ api_idx_0002_IPQN:
     cmp word [bx + party_status_timer], byte 0 ; 0x1221
     jg short .forward1               ; 0x1226
     mov word [bx + party_status_timer], 0 ; 0x1228
-    mov word [bx + bss_82f4], 0      ; 0x122e
+    mov word [bx + party_status_offset], 0 ; 0x122e
 .forward1:
     inc word [bp - 2]                ; 0x1234
     mov ax, word [bp - 2]            ; 0x1237

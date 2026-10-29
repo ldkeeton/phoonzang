@@ -1,7 +1,6 @@
 'use strict';
 // Navigation and tooling for the generated C / NASM trees (``src_<PROJECT>/``):
-//   * Go to Definition / Find References from C (and Manx assembly, ``.s``) into
-//     the NASM listings (``.asm``)
+//   * Source navigation within C / Manx assembly, separate from NASM listings
 //   * hover: address, sidecar name/note
 //   * Go to address, Name this routine (writes the sidecar)
 //   * Manx ``cc``/``as`` diagnostics on save, and a compiler CodeLens
@@ -9,10 +8,10 @@ const fs = require('fs');
 const path = require('path');
 const { execFile, spawn } = require('child_process');
 const vscode = require('vscode');
-const { labels, occurrences, addresses, routineStart, locate } = require('./scan');
+const { labels, occurrences, addresses, routineStart, locate, cCode, cSymbols, cSemanticTokens } = require('./scan');
 const sidecar = require('./sidecar');
 
-const SRC = 'src_*/**/*.{asm,c,s}';
+const SRC = 'src_*/**/*.{asm,c,h,s}';
 const SHARED_DIR = 'shared';   // src_<PROJECT>/shared/ holds routines shared between binaries
 const WORD = /[A-Za-z_$?][\w$?]*/;
 // A routine's source: C, or Manx assembly (``.s``, built by ``as``).
@@ -20,8 +19,9 @@ const S_PATTERN = '**/src_*/**/*.s';
 const C_SELECTOR = [{ language: 'c' }, { language: 'cpp' }, { pattern: S_PATTERN }];
 // Where a name can be looked up from: a routine's source, or a NASM listing.
 const NAV_SELECTOR = [...C_SELECTOR, { pattern: '**/src_*/**/*.asm' }];
-const ANY_SELECTOR = [{ pattern: '**/src_*/**/*.{c,s,asm}' }, ...C_SELECTOR];
+const ANY_SELECTOR = [{ pattern: '**/src_*/**/*.{c,h,s,asm}' }, ...C_SELECTOR];
 
+const semanticChanges = new vscode.EventEmitter();
 let texts = new Map();   // uri string -> text (asm, c and s under src_*)
 let scans = new Map();   // uri string -> {uri, binary, labels, addrs}: one file's share of the index
 let defs = new Map();    // label -> [{uri, row}]
@@ -40,13 +40,13 @@ const cfg = () => vscode.workspace.getConfiguration('PHOONZANGAsmNav');
 async function load(uri) {
     const key = uri.toString();
     try {
-        const bytes = await vscode.workspace.fs.readFile(uri);
-        const text = Buffer.from(bytes).toString('latin1');
+        const open = vscode.workspace.textDocuments.find(doc => doc.uri.toString() === key);
+        const text = open ? open.getText() : Buffer.from(await vscode.workspace.fs.readFile(uri)).toString('latin1');
         texts.set(key, text);
         const where = locate(uri.fsPath);
-        const asm = key.endsWith('.asm');
-        scans.set(key, { uri, binary: where ? where.binary : null,
-                         labels: asm ? labels(text) : [],
+        const asm = /\.asm$/i.test(uri.fsPath);
+        scans.set(key, { uri, project: /[/\\](src_[^/\\]+)[/\\]/.exec(uri.fsPath)?.[1], binary: where ? where.binary : null,
+                         labels: asm || /\.s$/i.test(uri.fsPath) ? labels(text).map(l => /\.s$/i.test(uri.fsPath) ? { ...l, name: l.name.replace(/_$/, ''), definition: true } : l) : /\.[ch]$/i.test(uri.fsPath) ? cSymbols(text) : [],
                          addrs: asm && where ? addresses(text) : [] });
     } catch (e) {
         texts.delete(key);
@@ -60,10 +60,29 @@ function reindex() {
     stale = false;
     defs = new Map();
     addrs = new Map();
+    // Build source declarations using the project's typedefs, including headers.
+    for (const scan of scans.values()) {
+        if (!/\.[ch]$/i.test(scan.uri.fsPath)) continue;
+        const known = new Map();
+        for (const other of scans.values()) if (other.project === scan.project) {
+            for (const symbol of other.labels) if (['type', 'struct', 'union', 'enum', 'macro'].includes(symbol.kind)) known.set(symbol.name, symbol.kind);
+        }
+        const text = texts.get(scan.uri.toString());
+        const base = cSymbols(text);
+        const declarations = cSemanticTokens(text, known).filter(t =>
+            t.modifiers.includes('declaration') &&
+            (t.kind === 'global' || t.kind === 'function'));
+        scan.labels = base.concat(declarations.map(t => ({
+            name: text.slice(t.offset, t.offset + t.length), row: t.row, col: t.col,
+            kind: t.kind, definition: t.modifiers.includes('definition') || (t.kind === 'global' &&
+                !/\bextern\b/.test(text.split('\n')[t.row].slice(0, t.col))),
+            static: t.modifiers.includes('static'),
+        })));
+    }
     for (const scan of scans.values()) {
         for (const l of scan.labels) {
             if (!defs.has(l.name)) defs.set(l.name, []);
-            defs.get(l.name).push({ uri: scan.uri, row: l.row });
+            defs.get(l.name).push({ ...l, uri: scan.uri });
         }
         if (!scan.addrs.length) continue;
         if (!addrs.has(scan.binary)) addrs.set(scan.binary, []);
@@ -71,6 +90,7 @@ function reindex() {
         for (const a of scan.addrs) list.push({ ...a, uri: scan.uri });
     }
     for (const list of addrs.values()) list.sort((a, b) => a.addr - b.addr);
+    semanticChanges.fire();
 }
 
 // A watcher event marks the index stale; a burst of them merges once.
@@ -106,13 +126,25 @@ function resolve(name) {
     return defs.has(bare) ? bare : null;
 }
 
-// Definitions of ``name`` visible from ``doc``: its own binary's when it has
-// one (``ds`` and ``vinstall`` each carry their own ``aztec_open``), else all.
+// Source and disassembly are independent navigation domains.
+const listing = file => /\.asm$/i.test(file);
+function visibleFrom(uri, doc) {
+    if (!doc) return true;
+    if (listing(uri.fsPath) !== listing(doc.fileName)) return false;
+    const project = /[/\\](src_[^/\\]+)[/\\]/.exec(doc.fileName)?.[1];
+    return !project || scans.get(uri.toString())?.project === project;
+}
 function hitsFor(name, doc) {
-    const all = defs.get(name);
+    const all = (defs.get(name) || []).filter(h => visibleFrom(h.uri, doc) &&
+        (!h.static || h.uri.fsPath === doc?.fileName));
     const here = doc && locate(doc.fileName);
-    const mine = here ? all.filter((h) => { const s = scans.get(h.uri.toString()); return s && s.binary === here.binary; }) : [];
-    return mine.length ? mine : all;
+    const mine = here ? all.filter(h => {
+        const binary = scans.get(h.uri.toString())?.binary;
+        return binary === here.binary || binary === SHARED_DIR || binary === 'include';
+    }) : [];
+    const hits = mine.length ? mine : all;
+    const definitions = hits.filter(h => h.definition);
+    return definitions.length ? definitions : hits;
 }
 
 const sameBinary = (key, here) => {
@@ -149,6 +181,7 @@ function sidecarName(where, addr) {
 
 function describe(name, doc) {
     const hit = hitsFor(name, doc)[0];
+    if (!hit) return null;
     const text = texts.get(hit.uri.toString());
     const where = locate(hit.uri.fsPath);
     const addr = routineStart(text, hit.row);
@@ -157,7 +190,7 @@ function describe(name, doc) {
     if (where) md.appendMarkdown(` — \`${where.binary}\``);
     if (addr !== null) md.appendMarkdown(` · \`0x${addr.toString(16)}\``);
     if (addr === null) {
-        md.appendCodeblock(text.split('\n')[hit.row].trim(), 'asm');
+        md.appendCodeblock(text.split('\n')[hit.row].trim(), /\.[ch]$/i.test(hit.uri.fsPath) ? 'c' : 'asm');
     }
     if (where && where.binary === SHARED_DIR) {
         const { key, entry } = sharedEntry(where) || {};
@@ -807,13 +840,49 @@ function activate(context) {
     checkVisible(vscode.window.visibleTextEditors);
 
     context.subscriptions.push(
-        watcher, diagnostics,
+        watcher, diagnostics, semanticChanges,
+        vscode.workspace.onDidChangeTextDocument(async ({ document }) => {
+            if (!/[\\/]src_[^\\/]+[\\/].*\.(?:c|h|s|asm)$/.test(document.fileName)) return;
+            await load(document.uri);
+            scheduleReindex();
+        }),
+        vscode.languages.registerDocumentSemanticTokensProvider(
+            [{ pattern: '**/src_*/**/*.{c,h}' }], {
+                onDidChangeSemanticTokens: semanticChanges.event,
+                async provideDocumentSemanticTokens(doc) {
+                    await ready;
+                    ensureIndex();
+                    const builder = new vscode.SemanticTokensBuilder();
+                    const known = new Map();
+                    const project = /[/\\](src_[^/\\]+)[/\\]/.exec(doc.fileName)?.[1];
+                    for (const [name, hits] of defs) {
+                        const hit = hits.find(h => h.kind && (!project ||
+                            h.uri.fsPath.split(/[/\\]/).includes(project)));
+                        if (hit) known.set(name, hit.kind);
+                    }
+                    for (const hit of cSymbols(doc.getText())) known.set(hit.name, hit.kind);
+                    const tokenKinds = ['type', 'struct', 'enum', 'macro', 'variable', 'parameter', 'property', 'function', 'enumMember'];
+                    const modifierKinds = ['declaration', 'definition', 'readonly', 'static', 'local', 'globalScope'];
+                    for (const token of cSemanticTokens(doc.getText(), known)) {
+                        const kind = token.kind === 'union' ? 'struct' :
+                            ['local', 'global'].includes(token.kind) ? 'variable' : token.kind;
+                        const modifiers = (token.modifiers || []).reduce((bits, modifier) => {
+                            const index = modifierKinds.indexOf(modifier);
+                            return index < 0 ? bits : bits | (1 << index);
+                        }, 0);
+                        builder.push(token.row, token.col, token.length, tokenKinds.indexOf(kind), modifiers);
+                    }
+                    return builder.build();
+                },
+            }, new vscode.SemanticTokensLegend(
+                ['type', 'struct', 'enum', 'macro', 'variable', 'parameter', 'property', 'function', 'enumMember'],
+                ['declaration', 'definition', 'readonly', 'static', 'local', 'globalScope'])),
         vscode.languages.registerDefinitionProvider(NAV_SELECTOR, {
             async provideDefinition(doc, pos) {
                 await ready;
                 const name = resolve(nameAt(doc, pos));
                 return name && hitsFor(name, doc).map((h) =>
-                    new vscode.Location(h.uri, new vscode.Position(h.row, 0)));
+                    new vscode.Location(h.uri, new vscode.Position(h.row, h.col || 0)));
             },
         }),
         vscode.languages.registerReferenceProvider(NAV_SELECTOR, {
@@ -824,15 +893,18 @@ function activate(context) {
                 if (!typed) return [];
                 const name = defs.has(typed) ? typed : typed.replace(/_$/, '');
                 const here = locate(doc.fileName);
+                const global = (defs.get(name) || []).some(h => h.kind) || here?.binary === SHARED_DIR;
                 const out = [];
                 for (const [key, text] of texts) {
                     // A substring test skips the line-by-line scan for most files.
-                    if (!text.includes(name) || !sameBinary(key, here)) continue;
+                    if (!text.includes(name) || (!global && !sameBinary(key, here) && scans.get(key).binary !== SHARED_DIR && scans.get(key).binary !== 'include')) continue;
                     const uri = scans.get(key).uri;
+                    if (!visibleFrom(uri, doc)) continue;
                     // ``name_`` is the same symbol in assembly: a C file's ``#asm`` block, a ``.s``.
                     const spellings = /\.[cs]$/.test(key) ? [name, name + '_'] : [name];
                     for (const spelling of spellings) {
-                        for (const o of occurrences(text, spelling)) {
+                        for (const o of occurrences(/\.[ch]$/.test(key) ? cCode(text) : text, spelling)) {
+                            o.def ||= scans.get(key).labels.some(l => l.name === spelling && l.row === o.row && l.col === o.col);
                             if (o.def && !ctx.includeDeclaration) continue;
                             out.push(new vscode.Location(uri,
                                 new vscode.Range(o.row, o.col, o.row, o.col + spelling.length)));
@@ -846,7 +918,8 @@ function activate(context) {
             async provideHover(doc, pos) {
                 await ready;
                 const name = resolve(nameAt(doc, pos));
-                return name ? new vscode.Hover(describe(name, doc)) : null;
+                const description = name && describe(name, doc);
+                return description ? new vscode.Hover(description) : null;
             },
         }),
         vscode.languages.registerCodeLensProvider(

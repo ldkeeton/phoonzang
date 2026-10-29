@@ -319,7 +319,7 @@ api_idx_0014_LHRI.forward8:
     inc word [bp - 2]                ; 0x09bb
 api_idx_0014_LHRI.forward9:
     mov ax, word [bp - 2]            ; 0x09be
-    cmp ax, word [bss_590e]          ; 0x09c1
+    cmp ax, word [runtime_six_byte_count] ; 0x09c1
     jge short api_idx_0014_LHRI.return1 ; 0x09c5
     jmp near api_idx_0014_LHRI.back1 ; 0x09c7
 api_idx_0014_LHRI.return1:

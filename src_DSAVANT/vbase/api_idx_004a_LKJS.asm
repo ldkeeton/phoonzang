@@ -110,7 +110,7 @@ api_idx_004a_LKJS:
     push word [bss_9052]             ; 0x6b2e
     lea ax, word [bp - 0x4a]         ; 0x6b32
     push ax                          ; 0x6b35
-    call api_idx_0004_VUIP           ; 0x6b36
+    call draw_message_box            ; 0x6b36
     add sp, byte 0xe                 ; 0x6b39
     mov ax, word [bp - 4]            ; 0x6b3c
     jmp near .forward13              ; 0x6b3f

@@ -31,7 +31,7 @@ api_idx_0006_TMNI:
     inc word [bp - 2]
 .forward2:
     mov ax, word [bp - 2]
-    cmp ax, word [bss_5910]
+    cmp ax, word [runtime_eight_byte_count]
     jl short .back1
     mov ax, 0
     ret

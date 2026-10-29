@@ -43,7 +43,7 @@ api_idx_0010_TRQK:
     shl ax, 1                        ; 0xa342
     shl ax, 1                        ; 0xa344
     mov bx, ax                       ; 0xa346
-    mov al, byte [bx + bss_8976]     ; 0xa348
+    mov al, byte [bx + loaded_short_records] ; 0xa348
     sub ah, ah                       ; 0xa34c
     mov word [bp - 8], ax            ; 0xa34e
     cmp ax, strict word 0            ; 0xa351

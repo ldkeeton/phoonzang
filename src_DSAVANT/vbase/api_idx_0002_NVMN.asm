@@ -182,7 +182,7 @@ jumptable_7185_case_0:
 api_idx_0002_NVMN.forward7:
     test word [startup_hardware_flags], 0x1000 ; 0x71f2
     je short api_idx_0002_NVMN.forward9 ; 0x71f8
-    cmp byte [bss_5989], 1           ; 0x71fa
+    cmp byte [startup_aux_option_b], 1 ; 0x71fa
     jne short api_idx_0002_NVMN.forward9 ; 0x71ff
     cmp word [mouse_active], byte 0  ; 0x7201
     jne short api_idx_0002_NVMN.forward8 ; 0x7206
