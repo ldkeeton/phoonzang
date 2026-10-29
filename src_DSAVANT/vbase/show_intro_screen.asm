@@ -9,7 +9,7 @@ show_intro_screen:
 .forward1:
     mov word [mouse_active], 0       ; 0x8f87
     call score_music_enabled         ; 0x8f8d
-    mov word [bss_8450], ax          ; 0x8f90
+    mov word [story_music_enabled], ax ; 0x8f90
     test ax, ax                      ; 0x8f93
     je short .forward2               ; 0x8f95
     mov ax, 0                        ; 0x8f97
@@ -19,15 +19,15 @@ show_intro_screen:
     call load_score_files            ; 0x8f9f
     add sp, byte 4                   ; 0x8fa2
     mov ax, word [dseg_0116]         ; 0x8fa5
-    mov word [bss_844e], ax          ; 0x8fa8
+    mov word [story_score_number], ax ; 0x8fa8
     mov ax, 1                        ; 0x8fab
     push ax                          ; 0x8fae
-    push word [bss_844e]             ; 0x8faf
+    push word [story_score_number]   ; 0x8faf
     mov ax, 0                        ; 0x8fb3
     push ax                          ; 0x8fb6
     call ds_app_UKGP                 ; 0x8fb7
     add sp, byte 6                   ; 0x8fba
-    mov word [bss_844c], ax          ; 0x8fbd
+    mov word [story_score_volume], ax ; 0x8fbd
 .forward2:
     mov ax, word [bp + 4]            ; 0x8fc0
     jmp near .forward6               ; 0x8fc3
@@ -75,19 +75,19 @@ show_intro_screen:
     push ax                          ; 0x9017
     mov ax, MSG_EVEN_AS_I_SPEAK_AN_EV_31530 ; 0x9018
     push ax                          ; 0x901b
-    call api_idx_0002_UUUJ           ; 0x901c
+    call play_intro_scene_three      ; 0x901c
     add sp, byte 8                   ; 0x901f
     mov ax, 0                        ; 0x9022
     push ax                          ; 0x9025
     mov ax, MSG_WITHIN_THE_BLACK_SHIP_31535 ; 0x9026
     push ax                          ; 0x9029
-    call api_idx_0002_MIQR           ; 0x902a
+    call play_intro_scene_seven      ; 0x902a
     add sp, byte 4                   ; 0x902d
     mov ax, 0                        ; 0x9030
     push ax                          ; 0x9033
     mov ax, MSG_ABOARD_THE_SHIP_OF_TH_31550 ; 0x9034
     push ax                          ; 0x9037
-    call api_idx_0002_JHTS           ; 0x9038
+    call play_intro_scene_six        ; 0x9038
     add sp, byte 4                   ; 0x903b
     mov ax, 0x63                     ; 0x903e
     push ax                          ; 0x9041
@@ -95,7 +95,7 @@ show_intro_screen:
     push ax                          ; 0x9045
     mov ax, MSG_THE_T_RANG_31560     ; 0x9046
     push ax                          ; 0x9049
-    call api_idx_0002_QRJS           ; 0x904a
+    call play_intro_scene_eight      ; 0x904a
     add sp, byte 6                   ; 0x904d
     mov ax, 0                        ; 0x9050
     push ax                          ; 0x9053
@@ -103,7 +103,7 @@ show_intro_screen:
     push ax                          ; 0x9057
     mov ax, MSG_THE_UMPANI_31565     ; 0x9058
     push ax                          ; 0x905b
-    call api_idx_0002_QRJS           ; 0x905c
+    call play_intro_scene_eight      ; 0x905c
     add sp, byte 6                   ; 0x905f
     mov ax, 0x63                     ; 0x9062
     push ax                          ; 0x9065
@@ -159,7 +159,7 @@ show_intro_screen:
     push ax                          ; 0x90cf
     mov ax, MSG_THEY_CALL_THEMSELVES_31715 ; 0x90d0
     push ax                          ; 0x90d3
-    call api_idx_0002_QRJS           ; 0x90d4
+    call play_intro_scene_eight      ; 0x90d4
     add sp, byte 6                   ; 0x90d7
     mov ax, 0x63                     ; 0x90da
     push ax                          ; 0x90dd
@@ -176,7 +176,7 @@ show_intro_screen:
     push ax                          ; 0x90f4
     mov ax, MSG_THEY_ALSO_SPOKE_OF_TE_31730 ; 0x90f5
     push ax                          ; 0x90f8
-    call api_idx_0002_QRJS           ; 0x90f9
+    call play_intro_scene_eight      ; 0x90f9
     add sp, byte 6                   ; 0x90fc
     mov ax, 0x63                     ; 0x90ff
     push ax                          ; 0x9102
@@ -185,19 +185,19 @@ show_intro_screen:
     push ax                          ; 0x9107
     mov ax, MSG_AND_OF_A_BLACK_SHIP_A_31735 ; 0x9108
     push ax                          ; 0x910b
-    call api_idx_0002_UUUJ           ; 0x910c
+    call play_intro_scene_three      ; 0x910c
     add sp, byte 8                   ; 0x910f
     mov ax, 0                        ; 0x9112
     push ax                          ; 0x9115
     mov ax, MSG_AND_WITHIN_THE_BLACK_31740 ; 0x9116
     push ax                          ; 0x9119
-    call api_idx_0002_MIQR           ; 0x911a
+    call play_intro_scene_seven      ; 0x911a
     add sp, byte 4                   ; 0x911d
     mov ax, 0                        ; 0x9120
     push ax                          ; 0x9123
     mov ax, MSG_A_YOUNG_GIRL_VI_DOMIN_31750 ; 0x9124
     push ax                          ; 0x9127
-    call api_idx_0002_JHTS           ; 0x9128
+    call play_intro_scene_six        ; 0x9128
     add sp, byte 4                   ; 0x912b
     mov ax, 0                        ; 0x912e
     push ax                          ; 0x9131
@@ -281,19 +281,19 @@ show_intro_screen:
     push ax                          ; 0x91d4
     mov ax, MSG_AN_EVIL_PRESENCE_APPE_31120 ; 0x91d5
     push ax                          ; 0x91d8
-    call api_idx_0002_UUUJ           ; 0x91d9
+    call play_intro_scene_three      ; 0x91d9
     add sp, byte 8                   ; 0x91dc
     mov ax, 0x63                     ; 0x91df
     push ax                          ; 0x91e2
     mov ax, MSG_YOU_EMERGE_FROM_YOUR_31130 ; 0x91e3
     push ax                          ; 0x91e6
-    call api_idx_0002_JHTS           ; 0x91e7
+    call play_intro_scene_six        ; 0x91e7
     add sp, byte 4                   ; 0x91ea
     mov ax, 0                        ; 0x91ed
     push ax                          ; 0x91f0
     mov ax, MSG_I_AM_HE_THAT_IS_CALLE_31150 ; 0x91f1
     push ax                          ; 0x91f4
-    call api_idx_0002_MIQR           ; 0x91f5
+    call play_intro_scene_seven      ; 0x91f5
     add sp, byte 4                   ; 0x91f8
     mov ax, 0x63                     ; 0x91fb
     push ax                          ; 0x91fe
@@ -308,7 +308,7 @@ show_intro_screen:
     push ax                          ; 0x9211
     mov ax, MSG_WITH_IT_I_SHALL_AQUIR_31170 ; 0x9212
     push ax                          ; 0x9215
-    call api_idx_0002_MIQR           ; 0x9216
+    call play_intro_scene_seven      ; 0x9216
     add sp, byte 4                   ; 0x9219
     mov ax, 0x63                     ; 0x921c
     push ax                          ; 0x921f
@@ -316,19 +316,19 @@ show_intro_screen:
     push ax                          ; 0x9223
     mov ax, MSG_I_SHALL_COMMAND_THE_T_31190 ; 0x9224
     push ax                          ; 0x9227
-    call api_idx_0002_QRJS           ; 0x9228
+    call play_intro_scene_eight      ; 0x9228
     add sp, byte 6                   ; 0x922b
     mov ax, 0                        ; 0x922e
     push ax                          ; 0x9231
     mov ax, MSG_UNTIL_WE_ARRIVE_YOU_W_31200 ; 0x9232
     push ax                          ; 0x9235
-    call api_idx_0002_MIQR           ; 0x9236
+    call play_intro_scene_seven      ; 0x9236
     add sp, byte 4                   ; 0x9239
     mov ax, 0                        ; 0x923c
     push ax                          ; 0x923f
     mov ax, MSG_A_YOUNG_GIRL_APPROACH_31210 ; 0x9240
     push ax                          ; 0x9243
-    call api_idx_0002_JHTS           ; 0x9244
+    call play_intro_scene_six        ; 0x9244
     add sp, byte 4                   ; 0x9247
     mov ax, 0x63                     ; 0x924a
     push ax                          ; 0x924d
@@ -370,10 +370,10 @@ show_intro_screen:
     jne short .forward10             ; 0x9299
     jmp near .back1                  ; 0x929b
 .forward10:
-    cmp word [bss_8450], byte 0      ; 0x929e
+    cmp word [story_music_enabled], byte 0 ; 0x929e
     je short .forward11              ; 0x92a3
-    push word [bss_844c]             ; 0x92a5
-    push word [bss_844e]             ; 0x92a9
+    push word [story_score_volume]   ; 0x92a5
+    push word [story_score_number]   ; 0x92a9
     call fade_out_music              ; 0x92ad
     add sp, byte 4                   ; 0x92b0
     mov ax, 0                        ; 0x92b3

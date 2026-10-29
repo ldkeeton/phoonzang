@@ -77,8 +77,8 @@ api_idx_0022_VNNP:
     mov word [bss_91b4], 0           ; 0x22f8
     mov ax, 0                        ; 0x22fe
     push ax                          ; 0x2301
-    push word [bss_8d08]             ; 0x2302
-    push word [bss_8d06]             ; 0x2306
+    push word [base_screen_area_segment] ; 0x2302
+    push word [base_screen_area]     ; 0x2306
     call call_restore_area           ; 0x230a
     add sp, byte 6                   ; 0x230d
     mov ax, 0xc4                     ; 0x2310
@@ -326,7 +326,7 @@ api_idx_0022_VNNP:
     add ax, word [party_cell_x]      ; 0x2541
     mov word [bp - 0xa], ax          ; 0x2545
     push ax                          ; 0x2548
-    mov ax, bss_8b7e                 ; 0x2549
+    mov ax, current_map_block_a      ; 0x2549
     push ax                          ; 0x254c
     call test_bit                    ; 0x254d
     add sp, byte 4                   ; 0x2550
@@ -453,7 +453,7 @@ api_idx_0022_VNNP:
     mov ax, 1                        ; 0x2681
     push ax                          ; 0x2684
     push word [bp - 0xa]             ; 0x2685
-    mov ax, bss_8afe                 ; 0x2688
+    mov ax, current_map_block_b      ; 0x2688
     push ax                          ; 0x268b
     call set_bitmap_bit              ; 0x268c
     add sp, byte 6                   ; 0x268f

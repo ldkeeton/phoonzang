@@ -32,27 +32,27 @@ dseg_90b6 equ __zdseg_end + (__zdseg_90b6 - __zdata_start)
 dseg_90bc equ __zdseg_end + (__zdseg_90bc - __zdata_start)
 dseg_90c2 equ __zdseg_end + (__zdseg_90c2 - __zdata_start)
 default_game_data_name equ __zdseg_end + (__zdefault_game_data_name - __zdata_start)
-dseg_90db equ __zdseg_end + (__zdseg_90db - __zdata_start)
+ending_save_filename equ __zdseg_end + (__zending_save_filename - __zdata_start)
 scenario_header_filename equ __zdseg_end + (__zscenario_header_filename - __zdata_start)
-dseg_90f5 equ __zdseg_end + (__zdseg_90f5 - __zdata_start)
+message_dialog_temp_file equ __zdseg_end + (__zmessage_dialog_temp_file - __zdata_start)
 dseg_90fb equ __zdseg_end + (__zdseg_90fb - __zdata_start)
 dseg_9107 equ __zdseg_end + (__zdseg_9107 - __zdata_start)
 screen_temp_file equ __zdseg_end + (__zscreen_temp_file - __zdata_start)
 dseg_9114 equ __zdseg_end + (__zdseg_9114 - __zdata_start)
 dseg_911c equ __zdseg_end + (__zdseg_911c - __zdata_start)
-dseg_911e equ __zdseg_end + (__zdseg_911e - __zdata_start)
-dseg_912b equ __zdseg_end + (__zdseg_912b - __zdata_start)
+star_screen_filename equ __zdseg_end + (__zstar_screen_filename - __zdata_start)
+main_screen_filename equ __zdseg_end + (__zmain_screen_filename - __zdata_start)
 dseg_9138 equ __zdseg_end + (__zdseg_9138 - __zdata_start)
 dseg_9144 equ __zdseg_end + (__zdseg_9144 - __zdata_start)
 dseg_9151 equ __zdseg_end + (__zdseg_9151 - __zdata_start)
 dseg_9158 equ __zdseg_end + (__zdseg_9158 - __zdata_start)
 scene_five_screen_filename equ __zdseg_end + (__zscene_five_screen_filename - __zdata_start)
-dseg_9172 equ __zdseg_end + (__zdseg_9172 - __zdata_start)
-dseg_917f equ __zdseg_end + (__zdseg_917f - __zdata_start)
-dseg_9186 equ __zdseg_end + (__zdseg_9186 - __zdata_start)
-dseg_9193 equ __zdseg_end + (__zdseg_9193 - __zdata_start)
-dseg_919a equ __zdseg_end + (__zdseg_919a - __zdata_start)
-dseg_91a7 equ __zdseg_end + (__zdseg_91a7 - __zdata_start)
+scene_six_screen_filename equ __zdseg_end + (__zscene_six_screen_filename - __zdata_start)
+scene_six_digit_cycle equ __zdseg_end + (__zscene_six_digit_cycle - __zdata_start)
+scene_seven_screen_filename equ __zdseg_end + (__zscene_seven_screen_filename - __zdata_start)
+scene_seven_digit_cycle equ __zdseg_end + (__zscene_seven_digit_cycle - __zdata_start)
+scene_eight_screen_filename equ __zdseg_end + (__zscene_eight_screen_filename - __zdata_start)
+scene_eight_digit_cycle equ __zdseg_end + (__zscene_eight_digit_cycle - __zdata_start)
 dseg_91ae equ __zdseg_end + (__zdseg_91ae - __zdata_start)
 save_si equ __zdseg_end + (__zsave_si - __zdata_start)
 save_di equ __zdseg_end + (__zsave_di - __zdata_start)
@@ -246,19 +246,19 @@ jumptable_1ee4         equ api_idx_0004_MMTP.jumptable1
 
 %include "vbase/loc_MJMJ.asm"              ; 0x1f0e
 
-%include "vbase/api_idx_0040_TGSS.asm"     ; 0x1f6f
+%include "vbase/read_class_experience_threshold.asm" ; 0x1f6f
 
 %include "vbase/import_bane_party.asm"     ; 0x1faf
 
 %include "vbase/load_game_data.asm"        ; 0x2fef
 
-%include "vbase/api_idx_004e_HUKL.asm"     ; 0x388c
+%include "vbase/save_game_data.asm"        ; 0x388c
 
 %include "vbase/write_scenario_header_and_apply_devices.asm" ; 0x3fac
 
 %include "vbase/adjust_palette_and_rgb_lookup.asm" ; 0x4060
 
-%include "vbase/api_idx_0050_NKOU.asm"     ; 0x41e7
+%include "vbase/draw_message_at_position.asm" ; 0x41e7
 
 %include "vbase/loc_HIQU.asm"              ; 0x4245
 
@@ -266,27 +266,27 @@ jumptable_1ee4         equ api_idx_0004_MMTP.jumptable1
 
 %include "vbase/loc_RSMG.asm"              ; 0x42e3
 
-%include "vbase/api_idx_0052_LJTK.asm"     ; 0x4335
+%include "vbase/api_idx_0052_LITH.asm"     ; 0x4335
 
-%include "vbase/loc_GHNH.asm"              ; 0x46b8
+%include "vbase/draw_configuration_number.asm" ; 0x46b8
 
-%include "vbase/loc_IIHU.asm"              ; 0x4727
+%include "vbase/draw_configuration_text.asm" ; 0x4727
 
-%include "vbase/loc_LLMG.asm"              ; 0x47bb
+%include "vbase/refresh_configuration_button.asm" ; 0x47bb
 
-%include "vbase/api_idx_0052_JQTP.asm"     ; 0x4826
+%include "vbase/refresh_configuration_control.asm" ; 0x4826
 
 %include "vbase/loc_MLQO.asm"              ; 0x4b29
 
 %include "vbase/loc_NGTJ.asm"              ; 0x4b5e
 
-%include "vbase/api_idx_0062_SRKH.asm"     ; 0x4b95
+%include "vbase/show_centered_message_dialog.asm" ; 0x4b95
 
 %include "vbase/loc_RMVR.asm"              ; 0x4d0e
 
 %include "vbase/loc_LQIO.asm"              ; 0x606d
 
-%include "vbase/api_idx_0006_MROT.asm"     ; 0x61db
+%include "vbase/remove_party_member.asm"   ; 0x61db
 
 %include "vbase/loc_ROTV.asm"              ; 0x62c6
 
@@ -296,7 +296,7 @@ jumptable_1ee4         equ api_idx_0004_MMTP.jumptable1
 
 %include "vbase/restore_base_screen.asm"   ; 0x6756
 
-%include "vbase/api_idx_0002_JLUK.asm"     ; 0x6800
+%include "vbase/cleanup_game_screen.asm"   ; 0x6800
 
 %include "vbase/run_resume_play_menu.asm"  ; 0x68bd
 
@@ -324,7 +324,7 @@ process_scene_message_words.loc1 equ loc_VMSS
 
 %include "shared/ovr/load_screen_file.asm"      ; 0x6fda
 
-%include "vbase/api_idx_0002_UGGR.asm"     ; 0x706d
+%include "vbase/play_story_sequence.asm"   ; 0x706d
 
 %include "vbase/free_scene_picture.asm"    ; 0x72c2
 
@@ -344,17 +344,17 @@ process_scene_message_words.loc1 equ loc_VMSS
 
 %include "vbase/play_intro_scene_two.asm"  ; 0x8756
 
-%include "vbase/api_idx_0002_UUUJ.asm"     ; 0x8881
+%include "vbase/play_intro_scene_three.asm" ; 0x8881
 
 %include "vbase/loc_JTTS.asm"              ; 0x8a74
 
 %include "vbase/play_intro_scene_five.asm" ; 0x8b69
 
-%include "vbase/api_idx_0002_JHTS.asm"     ; 0x8ca3
+%include "vbase/play_intro_scene_six.asm"  ; 0x8ca3
 
-%include "vbase/api_idx_0002_MIQR.asm"     ; 0x8d84
+%include "vbase/play_intro_scene_seven.asm" ; 0x8d84
 
-%include "vbase/api_idx_0002_QRJS.asm"     ; 0x8e6b
+%include "vbase/play_intro_scene_eight.asm" ; 0x8e6b
 
 %include "vbase/show_intro_screen.asm"     ; 0x8f74
 
@@ -372,19 +372,39 @@ __zdata_start:
 
 %include "vbase/data/default_game_data_name.asm" ; 0x9424
 
-%include "vbase/data/dseg_90db.asm"        ; 0x9430
+%include "vbase/data/ending_save_filename.asm" ; 0x9430
 
 %include "vbase/data/scenario_header_filename.asm" ; 0x943d
 
-%include "vbase/data/dseg_90f5.asm"        ; 0x944a
+%include "vbase/data/message_dialog_temp_file.asm" ; 0x944a
+
+%include "vbase/data/dseg_90fb.asm"        ; 0x9450
 
 %include "vbase/data/screen_temp_file.asm" ; 0x9462
 
 %include "vbase/data/dseg_9114.asm"        ; 0x9469
 
+%include "vbase/data/star_screen_filename.asm" ; 0x9473
+
+%include "vbase/data/main_screen_filename.asm" ; 0x9480
+
+%include "vbase/data/dseg_9138.asm"        ; 0x948d
+
 %include "vbase/data/scene_five_screen_filename.asm" ; 0x94ba
 
-%include "vbase/data/dseg_9172.asm"        ; 0x94c7
+%include "vbase/data/scene_six_screen_filename.asm" ; 0x94c7
+
+%include "vbase/data/scene_six_digit_cycle.asm" ; 0x94d4
+
+%include "vbase/data/scene_seven_screen_filename.asm" ; 0x94db
+
+%include "vbase/data/scene_seven_digit_cycle.asm" ; 0x94e8
+
+%include "vbase/data/scene_eight_screen_filename.asm" ; 0x94ef
+
+%include "vbase/data/scene_eight_digit_cycle.asm" ; 0x94fc
+
+%include "vbase/data/dseg_91ae.asm"        ; 0x9503
 
 %include "shared/data/save_si.asm"          ; 0x9511
 

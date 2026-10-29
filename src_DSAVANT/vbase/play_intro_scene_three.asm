@@ -1,5 +1,5 @@
 ; auto-generated
-api_idx_0002_UUUJ:
+play_intro_scene_three:
     mov ax, 0xfffe                   ; 0x8881
     call aztec_csav                  ; 0x8884
     mov ax, 0xf                      ; 0x8887

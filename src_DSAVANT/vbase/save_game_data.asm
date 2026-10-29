@@ -1,5 +1,5 @@
 ; auto-generated
-api_idx_004e_HUKL:
+save_game_data:
     mov ax, 0xffb2                   ; 0x388c
     call aztec_csav                  ; 0x388f
     mov word [bp - 0xe], 0           ; 0x3892
@@ -35,7 +35,7 @@ api_idx_004e_HUKL:
     mov word [bp - 0x12], 1          ; 0x38d7
     cmp word [bp + 4], byte 1        ; 0x38dc
     jne short .forward3              ; 0x38e0
-    mov ax, dseg_90db                ; 0x38e2
+    mov ax, ending_save_filename     ; 0x38e2
     push ax                          ; 0x38e5
     lea ax, word [bp - 0x26]         ; 0x38e6
     push ax                          ; 0x38e9
@@ -259,7 +259,7 @@ api_idx_004e_HUKL:
     push dx                          ; 0x3adc
     push ax                          ; 0x3add
     push ds                          ; 0x3ade
-    mov ax, bss_8b7e                 ; 0x3adf
+    mov ax, current_map_block_a      ; 0x3adf
     push ax                          ; 0x3ae2
     call app_memmove                 ; 0x3ae3
     add sp, byte 0xa                 ; 0x3ae6
@@ -275,7 +275,7 @@ api_idx_004e_HUKL:
     push dx                          ; 0x3b00
     push ax                          ; 0x3b01
     push ds                          ; 0x3b02
-    mov ax, bss_8afe                 ; 0x3b03
+    mov ax, current_map_block_b      ; 0x3b03
     push ax                          ; 0x3b06
     call app_memmove                 ; 0x3b07
     add sp, byte 0xa                 ; 0x3b0a

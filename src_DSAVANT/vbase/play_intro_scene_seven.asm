@@ -1,10 +1,10 @@
 ; auto-generated
-api_idx_0002_MIQR:
+play_intro_scene_seven:
     mov ax, 0xfffe                   ; 0x8d84
     call aztec_csav                  ; 0x8d87
     mov ax, 0                        ; 0x8d8a
     push ax                          ; 0x8d8d
-    mov ax, dseg_9186                ; 0x8d8e
+    mov ax, scene_seven_screen_filename ; 0x8d8e
     push ax                          ; 0x8d91
     call load_screen_file            ; 0x8d92
     add sp, byte 4                   ; 0x8d95
@@ -29,7 +29,7 @@ api_idx_0002_MIQR:
     push ax                          ; 0x8dc1
     call load_numbered_scene_picture ; 0x8dc2
     add sp, byte 4                   ; 0x8dc5
-    mov ax, dseg_9193                ; 0x8dc8
+    mov ax, scene_seven_digit_cycle  ; 0x8dc8
     push ax                          ; 0x8dcb
     mov ax, scene_digit_cycle        ; 0x8dcc
     push ax                          ; 0x8dcf

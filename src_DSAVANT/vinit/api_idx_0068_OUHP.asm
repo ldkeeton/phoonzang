@@ -3,7 +3,7 @@ api_idx_0068_OUHP:
     mov ax, 0xff98                   ; 0x0ac7
     call aztec_csav                  ; 0x0aca
     call score_music_enabled         ; 0x0acd
-    mov word [bss_8450], ax          ; 0x0ad0
+    mov word [story_music_enabled], ax ; 0x0ad0
     test ax, ax                      ; 0x0ad3
     je short .forward1               ; 0x0ad5
     mov ax, 0                        ; 0x0ad7
@@ -12,7 +12,7 @@ api_idx_0068_OUHP:
     call load_score_files            ; 0x0adc
     add sp, byte 4                   ; 0x0adf
     mov ax, word [dseg_010c]         ; 0x0ae2
-    mov word [bss_844e], ax          ; 0x0ae5
+    mov word [story_score_number], ax ; 0x0ae5
 .forward1:
     mov word [bp - 8], 0             ; 0x0ae8
 .back1:
@@ -69,15 +69,15 @@ api_idx_0068_OUHP:
     call api_idx_0002_PUOP           ; 0x0b65
     test ax, ax                      ; 0x0b68
     jne short .forward3              ; 0x0b6a
-    cmp word [bss_8450], byte 0      ; 0x0b6c
+    cmp word [story_music_enabled], byte 0 ; 0x0b6c
     je short .forward2               ; 0x0b71
     mov ax, 0                        ; 0x0b73
     push ax                          ; 0x0b76
-    push word [bss_844e]             ; 0x0b77
+    push word [story_score_number]   ; 0x0b77
     push ax                          ; 0x0b7b
     call ds_app_UKGP                 ; 0x0b7c
     add sp, byte 6                   ; 0x0b7f
-    mov word [bss_844c], ax          ; 0x0b82
+    mov word [story_score_volume], ax ; 0x0b82
 .forward2:
     mov ax, 0xb4                     ; 0x0b85
     push ax                          ; 0x0b88
@@ -881,7 +881,7 @@ api_idx_0068_OUHP:
     push word [bp - 0xc]             ; 0x128d
     call call_restore_screen         ; 0x1290
     add sp, byte 8                   ; 0x1293
-    cmp word [bss_8450], byte 0      ; 0x1296
+    cmp word [story_music_enabled], byte 0 ; 0x1296
     je short .back6                  ; 0x129b
     cmp word [bss_91b8], byte 0      ; 0x129d
     jne short .forward49             ; 0x12a2
@@ -891,8 +891,8 @@ api_idx_0068_OUHP:
     je short .forward49              ; 0x12a9
     jmp short .back5                 ; 0x12ab
 .forward49:
-    push word [bss_844c]             ; 0x12ad
-    push word [bss_844e]             ; 0x12b1
+    push word [story_score_volume]   ; 0x12ad
+    push word [story_score_number]   ; 0x12b1
     call fade_out_music              ; 0x12b5
     add sp, byte 4                   ; 0x12b8
     mov ax, 0                        ; 0x12bb

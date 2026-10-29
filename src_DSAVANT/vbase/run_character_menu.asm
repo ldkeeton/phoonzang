@@ -134,7 +134,7 @@ jumptable_6bfb_case_3:
     mov ax, 1                        ; 0x6b6d
     push ax                          ; 0x6b70
     push word [member_roster_index]  ; 0x6b71
-    call api_idx_0006_MROT           ; 0x6b75
+    call remove_party_member         ; 0x6b75
     add sp, byte 4                   ; 0x6b78
 run_character_menu.forward10:
     jmp near run_character_menu.forward14 ; 0x6b7b
@@ -176,10 +176,10 @@ jumptable_6bfb_case_6:
     je short run_character_menu.forward12 ; 0x6bcb
     mov ax, 0x912                    ; 0x6bcd
     push ax                          ; 0x6bd0
-    call api_idx_0062_SRKH           ; 0x6bd1
+    call show_centered_message_dialog ; 0x6bd1
     pop cx                           ; 0x6bd4
     call loc_ROTV                    ; 0x6bd5
-    call api_idx_0002_JLUK           ; 0x6bd8
+    call cleanup_game_screen         ; 0x6bd8
     mov word [game_state], 3         ; 0x6bdb
 run_character_menu.forward12:
     jmp short run_character_menu.forward14 ; 0x6be1
@@ -191,7 +191,7 @@ jumptable_6bfb_case_7:
     jmp short run_character_menu.forward14 ; 0x6beb
 jumptable_6bfb_case_8:
     call loc_ROTV                    ; 0x6bed
-    call api_idx_0002_JLUK           ; 0x6bf0
+    call cleanup_game_screen         ; 0x6bf0
     mov word [game_state], 3         ; 0x6bf3
     jmp short run_character_menu.forward14 ; 0x6bf9
 jumptable_6bfb:

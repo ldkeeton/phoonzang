@@ -1,5 +1,5 @@
 ; auto-generated
-api_idx_0002_UGGR:
+play_story_sequence:
     mov ax, 0xfffe                   ; 0x706d
     call aztec_csav                  ; 0x7070
     mov ax, 0                        ; 0x7073
@@ -35,7 +35,7 @@ api_idx_0002_UGGR:
 .forward1:
     mov word [mouse_active], 0       ; 0x70b4
     call score_music_enabled         ; 0x70ba
-    mov word [bss_8450], ax          ; 0x70bd
+    mov word [story_music_enabled], ax ; 0x70bd
     test ax, ax                      ; 0x70c0
     je short .forward2               ; 0x70c2
     mov ax, 0                        ; 0x70c4
@@ -44,22 +44,22 @@ api_idx_0002_UGGR:
     push ax                          ; 0x70cb
     call load_score_files            ; 0x70cc
     add sp, byte 4                   ; 0x70cf
-    mov ax, word [dseg_0114]         ; 0x70d2
-    mov word [bss_844e], ax          ; 0x70d5
+    mov ax, word [loaded_score_number] ; 0x70d2
+    mov word [story_score_number], ax ; 0x70d5
     mov ax, 1                        ; 0x70d8
     push ax                          ; 0x70db
-    push word [bss_844e]             ; 0x70dc
+    push word [story_score_number]   ; 0x70dc
     mov ax, 0                        ; 0x70e0
     push ax                          ; 0x70e3
     call ds_app_UKGP                 ; 0x70e4
     add sp, byte 6                   ; 0x70e7
-    mov word [bss_844c], ax          ; 0x70ea
+    mov word [story_score_volume], ax ; 0x70ea
 .forward2:
     cmp word [bp + 4], byte 4        ; 0x70ed
     je short .forward3               ; 0x70f1
     mov ax, 2                        ; 0x70f3
     push ax                          ; 0x70f6
-    mov ax, dseg_911e                ; 0x70f7
+    mov ax, star_screen_filename     ; 0x70f7
     push ax                          ; 0x70fa
     call load_screen_file            ; 0x70fb
     add sp, byte 4                   ; 0x70fe
@@ -135,7 +135,7 @@ jumptable_7185:
     dw jumptable_7185_case_3 - IMAGE_BASE + __zres_end ; 0x718b
     dw jumptable_7185_case_4 - IMAGE_BASE + __zres_end ; 0x718d
     dw jumptable_7185_case_5 - IMAGE_BASE + __zres_end ; 0x718f
-api_idx_0002_UGGR.forward5:
+play_story_sequence.forward5:
     cmp ax, strict word 6            ; 0x7191
     jae short jumptable_7185_case_0  ; 0x7194
     xchg bx, ax                      ; 0x7196
@@ -169,27 +169,27 @@ jumptable_7185_case_0:
     push ax                          ; 0x71ce
     call call_show_area              ; 0x71cf
     add sp, byte 8                   ; 0x71d2
-    cmp word [bss_8450], byte 0      ; 0x71d5
-    je short api_idx_0002_UGGR.forward7 ; 0x71da
-    push word [bss_844c]             ; 0x71dc
-    push word [bss_844e]             ; 0x71e0
+    cmp word [story_music_enabled], byte 0 ; 0x71d5
+    je short play_story_sequence.forward7 ; 0x71da
+    push word [story_score_volume]   ; 0x71dc
+    push word [story_score_number]   ; 0x71e0
     call fade_out_music              ; 0x71e4
     add sp, byte 4                   ; 0x71e7
     mov ax, 0                        ; 0x71ea
     push ax                          ; 0x71ed
     call free_loaded_score           ; 0x71ee
     pop cx                           ; 0x71f1
-api_idx_0002_UGGR.forward7:
+play_story_sequence.forward7:
     test word [startup_hardware_flags], 0x1000 ; 0x71f2
-    je short api_idx_0002_UGGR.forward9 ; 0x71f8
+    je short play_story_sequence.forward9 ; 0x71f8
     cmp byte [startup_aux_option_b], 1 ; 0x71fa
-    jne short api_idx_0002_UGGR.forward9 ; 0x71ff
+    jne short play_story_sequence.forward9 ; 0x71ff
     cmp word [mouse_active], byte 0  ; 0x7201
-    jne short api_idx_0002_UGGR.forward8 ; 0x7206
+    jne short play_story_sequence.forward8 ; 0x7206
     call call_mouse_init             ; 0x7208
-api_idx_0002_UGGR.forward8:
+play_story_sequence.forward8:
     mov word [mouse_active], 1       ; 0x720b
-api_idx_0002_UGGR.forward9:
+play_story_sequence.forward9:
     mov ax, 0                        ; 0x7211
     push ax                          ; 0x7214
     push ax                          ; 0x7215
@@ -210,8 +210,8 @@ api_idx_0002_UGGR.forward9:
     call call_fade_in                ; 0x7234
     pop cx                           ; 0x7237
     mov word [bp - 2], 0             ; 0x7238
-    jmp short api_idx_0002_UGGR.forward10 ; 0x723d
-api_idx_0002_UGGR.back1:
+    jmp short play_story_sequence.forward10 ; 0x723d
+play_story_sequence.back1:
     mov ax, 1                        ; 0x723f
     push ax                          ; 0x7242
     mov ax, word [bp + 4]            ; 0x7243
@@ -226,16 +226,16 @@ api_idx_0002_UGGR.back1:
     call set_bitmap_bit              ; 0x7254
     add sp, byte 6                   ; 0x7257
     inc word [bp - 2]                ; 0x725a
-api_idx_0002_UGGR.forward10:
+play_story_sequence.forward10:
     mov ax, word [bp - 2]            ; 0x725d
     cmp ax, word [party_char_count]  ; 0x7260
-    jl short api_idx_0002_UGGR.back1 ; 0x7264
+    jl short play_story_sequence.back1 ; 0x7264
     mov ax, 1                        ; 0x7266
     push ax                          ; 0x7269
-    call api_idx_004e_HUKL           ; 0x726a
+    call save_game_data              ; 0x726a
     pop cx                           ; 0x726d
     cmp ax, strict word 0xffff       ; 0x726e
-    jne short api_idx_0002_UGGR.forward11 ; 0x7271
+    jne short play_story_sequence.forward11 ; 0x7271
     mov ax, 0xc6                     ; 0x7273
     push ax                          ; 0x7276
     mov ax, 0x109                    ; 0x7277
@@ -246,7 +246,7 @@ api_idx_0002_UGGR.forward10:
     push ax                          ; 0x7282
     call call_show_area              ; 0x7283
     add sp, byte 8                   ; 0x7286
-api_idx_0002_UGGR.forward11:
+play_story_sequence.forward11:
     mov ax, 0                        ; 0x7289
     push ax                          ; 0x728c
     mov ax, 0xc7                     ; 0x728d
@@ -269,7 +269,7 @@ api_idx_0002_UGGR.forward11:
     add sp, byte 8                   ; 0x72b0
     mov ax, 2                        ; 0x72b3
     push ax                          ; 0x72b6
-    mov ax, dseg_912b                ; 0x72b7
+    mov ax, main_screen_filename     ; 0x72b7
     push ax                          ; 0x72ba
     call load_screen_file            ; 0x72bb
     add sp, byte 4                   ; 0x72be

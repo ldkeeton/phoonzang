@@ -1,5 +1,5 @@
 ; auto-generated
-api_idx_0050_NKOU:
+draw_message_at_position:
     mov ax, 0xffb0                   ; 0x41e7
     call aztec_csav                  ; 0x41ea
     lea ax, word [bp - 0x50]         ; 0x41ed

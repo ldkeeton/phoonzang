@@ -179,7 +179,7 @@ api_idx_000c_RLGP:
     call load_monster_picture        ; 0x5310
     add sp, byte 4                   ; 0x5313
     call score_music_enabled         ; 0x5316
-    mov word [bss_8450], ax          ; 0x5319
+    mov word [story_music_enabled], ax ; 0x5319
     test ax, ax                      ; 0x531c
     je short .forward3               ; 0x531e
     mov ax, 0                        ; 0x5320
@@ -188,15 +188,15 @@ api_idx_000c_RLGP:
     call load_score_files            ; 0x5325
     add sp, byte 4                   ; 0x5328
     mov ax, word [dseg_010c]         ; 0x532b
-    mov word [bss_844e], ax          ; 0x532e
+    mov word [story_score_number], ax ; 0x532e
     mov ax, 1                        ; 0x5331
     push ax                          ; 0x5334
-    push word [bss_844e]             ; 0x5335
+    push word [story_score_number]   ; 0x5335
     mov ax, 0                        ; 0x5339
     push ax                          ; 0x533c
     call ds_app_UKGP                 ; 0x533d
     add sp, byte 6                   ; 0x5340
-    mov word [bss_844c], ax          ; 0x5343
+    mov word [story_score_volume], ax ; 0x5343
 .forward3:
     mov word [roster_drawn], 0       ; 0x5346
     mov word [roster_alt_mode], 0    ; 0x534c
@@ -214,10 +214,10 @@ api_idx_000c_RLGP:
     mov ax, word [bp - 2]            ; 0x536f
     cmp ax, word [party_char_count]  ; 0x5372
     jl short .back2                  ; 0x5376
-    cmp word [bss_8450], byte 0      ; 0x5378
+    cmp word [story_music_enabled], byte 0 ; 0x5378
     je short .forward5               ; 0x537d
-    push word [bss_844c]             ; 0x537f
-    push word [bss_844e]             ; 0x5383
+    push word [story_score_volume]   ; 0x537f
+    push word [story_score_number]   ; 0x5383
     call fade_out_music              ; 0x5387
     add sp, byte 4                   ; 0x538a
     mov ax, 0                        ; 0x538d

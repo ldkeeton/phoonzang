@@ -1,6 +1,6 @@
 Reproduce {{asm}} as byte-exact source; never hand-edit generated asm. Write {{c}} in Manx Aztec K&R C{{cstyle}} only when its compiler could generate the code; otherwise write {{s}} in Manx assembly{{style}} using the project macros. Compiler flags: {{flags}}.{{hand}}
 
-Preserve existing descriptive names. Use declared structs and arrays instead of raw layout arithmetic in C. Keep changes scoped to the routine, necessary shared declarations, and unresolved-reference naming; do not change disassembler tooling. The sidecar is {{sidecar}}.
+Do not rename anything that already has a descriptive name, including the target routine, callees, globals, fields, and aliases. Use declared structs and arrays instead of raw layout arithmetic in C. Keep changes scoped to the routine, necessary shared declarations, and unresolved-reference naming; do not change disassembler tooling. The sidecar is {{sidecar}}.
 
 1. Write the source with the routine still named {{label}}. Iterate with `make probe {{project}} {{binary}} {{label}}` and verify with `make rebuild {{project}} {{binary}} {{label}}` (for shared/ routines, omit the binary to check every donor).
 2. Give parameters and locals descriptive names (use equ names for assembly stack slots). Add a brief routine header and short comments explaining purpose at loops, branches, and magic numbers. Describe only what the code shows; use C89 comments in C.

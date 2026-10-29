@@ -1,5 +1,5 @@
 ; auto-generated
-api_idx_0040_TGSS:
+read_class_experience_threshold:
     mov ax, 0xffc0                   ; 0x1f6f
     call aztec_csav                  ; 0x1f72
     mov ax, 0                        ; 0x1f75

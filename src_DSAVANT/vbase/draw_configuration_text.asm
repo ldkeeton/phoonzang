@@ -1,5 +1,5 @@
 ; auto-generated
-loc_IIHU:
+draw_configuration_text:
     mov ax, 0                        ; 0x4727
     call aztec_csav                  ; 0x472a
     mov ax, word [bp + 8]            ; 0x472d

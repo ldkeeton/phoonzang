@@ -1,10 +1,10 @@
 ; auto-generated
-api_idx_0002_JHTS:
+play_intro_scene_six:
     mov ax, 0xfffe                   ; 0x8ca3
     call aztec_csav                  ; 0x8ca6
     mov ax, 0                        ; 0x8ca9
     push ax                          ; 0x8cac
-    mov ax, dseg_9172                ; 0x8cad
+    mov ax, scene_six_screen_filename ; 0x8cad
     push ax                          ; 0x8cb0
     call load_screen_file            ; 0x8cb1
     add sp, byte 4                   ; 0x8cb4
@@ -31,7 +31,7 @@ api_idx_0002_JHTS:
     add sp, byte 4                   ; 0x8ce4
     mov ax, word [bp + 6]            ; 0x8ce7
     mov word [scene_cue_a], ax       ; 0x8cea
-    mov ax, dseg_917f                ; 0x8ced
+    mov ax, scene_six_digit_cycle    ; 0x8ced
     push ax                          ; 0x8cf0
     mov ax, scene_digit_cycle        ; 0x8cf1
     push ax                          ; 0x8cf4

@@ -4,7 +4,7 @@ api_idx_0018_USPR:
     call aztec_csav                  ; 0x1c97
     call loc_OGHL                    ; 0x1c9a
     call score_music_enabled         ; 0x1c9d
-    mov word [bss_8450], ax          ; 0x1ca0
+    mov word [story_music_enabled], ax ; 0x1ca0
     test ax, ax                      ; 0x1ca3
     je short .forward1               ; 0x1ca5
     mov ax, 0                        ; 0x1ca7
@@ -14,14 +14,14 @@ api_idx_0018_USPR:
     call load_score_files            ; 0x1caf
     add sp, byte 4                   ; 0x1cb2
     mov ax, word [dseg_010e]         ; 0x1cb5
-    mov word [bss_844e], ax          ; 0x1cb8
+    mov word [story_score_number], ax ; 0x1cb8
     mov ax, 0                        ; 0x1cbb
     push ax                          ; 0x1cbe
-    push word [bss_844e]             ; 0x1cbf
+    push word [story_score_number]   ; 0x1cbf
     push ax                          ; 0x1cc3
     call ds_app_UKGP                 ; 0x1cc4
     add sp, byte 6                   ; 0x1cc7
-    mov word [bss_844c], ax          ; 0x1cca
+    mov word [story_score_volume], ax ; 0x1cca
 .forward1:
     mov ax, MSG_RESTING              ; 0x1ccd
     push ax                          ; 0x1cd0
@@ -54,7 +54,7 @@ api_idx_0018_USPR:
     mov dx, word [game_time_hi]      ; 0x1d27
     mov word [game_time_aux_a_hi], dx ; 0x1d2b
     mov word [game_time_aux_a], ax   ; 0x1d2f
-    cmp word [bss_8450], byte 0      ; 0x1d32
+    cmp word [story_music_enabled], byte 0 ; 0x1d32
     jne short .forward3              ; 0x1d37
     mov ax, 0x30                     ; 0x1d39
     jmp short .forward4              ; 0x1d3c
@@ -294,7 +294,7 @@ api_idx_0018_USPR:
     mov ax, word [bp - 0x10]         ; 0x1f70
     cmp cx, ax                       ; 0x1f73
     jl short .forward26              ; 0x1f75
-    cmp word [bss_8450], byte 0      ; 0x1f77
+    cmp word [story_music_enabled], byte 0 ; 0x1f77
     je short .forward25              ; 0x1f7c
     call call_stop_music             ; 0x1f7e
     mov ax, 0                        ; 0x1f81
@@ -359,10 +359,10 @@ api_idx_0018_USPR:
     cmp ax, word [party_char_count]  ; 0x2006
     jl short .back6                  ; 0x200a
     call loc_QQOI                    ; 0x200c
-    cmp word [bss_8450], byte 0      ; 0x200f
+    cmp word [story_music_enabled], byte 0 ; 0x200f
     je short .forward31              ; 0x2014
-    push word [bss_844c]             ; 0x2016
-    push word [bss_844e]             ; 0x201a
+    push word [story_score_volume]   ; 0x2016
+    push word [story_score_number]   ; 0x201a
     call fade_out_music              ; 0x201e
     add sp, byte 4                   ; 0x2021
     mov ax, 0                        ; 0x2024

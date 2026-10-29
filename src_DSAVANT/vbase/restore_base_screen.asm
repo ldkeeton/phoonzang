@@ -26,8 +26,8 @@ restore_base_screen:
     add sp, byte 0xa                 ; 0x6791
     mov ax, 0                        ; 0x6794
     push ax                          ; 0x6797
-    push word [bss_8d08]             ; 0x6798
-    push word [bss_8d06]             ; 0x679c
+    push word [base_screen_area_segment] ; 0x6798
+    push word [base_screen_area]     ; 0x679c
     call call_restore_area           ; 0x67a0
     add sp, byte 6                   ; 0x67a3
     mov word [bp - 2], 0             ; 0x67a6
@@ -49,7 +49,7 @@ restore_base_screen:
     cmp word [dest_alt_arg], byte 0  ; 0x67d1
     jle short .forward2              ; 0x67d6
     push word [dest_alt_arg]         ; 0x67d8
-    call api_idx_0002_UGGR           ; 0x67dc
+    call play_story_sequence         ; 0x67dc
     pop cx                           ; 0x67df
 .forward2:
     mov ax, 0xc7                     ; 0x67e0

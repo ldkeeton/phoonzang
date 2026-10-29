@@ -58,7 +58,7 @@ dseg_010c equ __zdseg_010c - __zdseg_start
 dseg_010e equ __zdseg_010e - __zdseg_start
 file_param_word equ __zfile_param_word - __zdseg_start
 dseg_0112 equ __zdseg_0112 - __zdseg_start
-dseg_0114 equ __zdseg_0114 - __zdseg_start
+loaded_score_number equ __zloaded_score_number - __zdseg_start
 dseg_0116 equ __zdseg_0116 - __zdseg_start
 party_slot_x equ __zparty_slot_x - __zdseg_start
 party_slot_y equ __zparty_slot_y - __zdseg_start
@@ -196,8 +196,8 @@ palette_base_setting equ __zbss_5978 - __zdseg_start
 palette_scale_setting equ __zbss_5979 - __zdseg_start
 bss_597a equ __zbss_597a - __zdseg_start
 device_option_bytes equ __zbss_597c - __zdseg_start
-bss_597d equ __zbss_597d - __zdseg_start
-bss_597e equ __zbss_597e - __zdseg_start
+monster_volume equ __zbss_597d - __zdseg_start
+background_volume equ __zbss_597e - __zdseg_start
 music_volume equ __zbss_597f - __zdseg_start
 sound_port_setting equ __zbss_5980 - __zdseg_start
 sound_aux_setting equ __zbss_5982 - __zdseg_start
@@ -275,9 +275,9 @@ bss_8320 equ __zbss_8320 - __zdseg_start
 action_slot_table equ __zbss_8322 - __zdseg_start
 action_slot_mode equ __zbss_8430 - __zdseg_start
 cell_slot_ref equ __zbss_843a - __zdseg_start
-bss_844c equ __zbss_844c - __zdseg_start
-bss_844e equ __zbss_844e - __zdseg_start
-bss_8450 equ __zbss_8450 - __zdseg_start
+story_score_volume equ __zbss_844c - __zdseg_start
+story_score_number equ __zbss_844e - __zdseg_start
+story_music_enabled equ __zbss_8450 - __zdseg_start
 party_entry_mode equ __zbss_8452 - __zdseg_start
 row_limit equ __zbss_8454 - __zdseg_start
 requested_row_limit equ __zbss_8456 - __zdseg_start
@@ -332,13 +332,13 @@ loaded_four_byte_records equ __zbss_8a6e - __zdseg_start
 bss_8aac equ __zbss_8aac - __zdseg_start
 bss_8aee equ __zbss_8aee - __zdseg_start
 member_roster_index equ __zbss_8af0 - __zdseg_start
-bss_8afe equ __zbss_8afe - __zdseg_start
-bss_8b7e equ __zbss_8b7e - __zdseg_start
+current_map_block_b equ __zbss_8afe - __zdseg_start
+current_map_block_a equ __zbss_8b7e - __zdseg_start
 bss_8bfe equ __zbss_8bfe - __zdseg_start
 bss_8c7e equ __zbss_8c7e - __zdseg_start
 adjacent_object_type equ __zbss_8cfe - __zdseg_start
-bss_8d06 equ __zbss_8d06 - __zdseg_start
-bss_8d08 equ __zbss_8d08 - __zdseg_start
+base_screen_area equ __zbss_8d06 - __zdseg_start
+base_screen_area_segment equ __zbss_8d08 - __zdseg_start
 saved_area_b equ __zbss_8d0a - __zdseg_start
 saved_area_b_hi equ __zbss_8d0c - __zdseg_start
 saved_area_a equ __zbss_8d0e - __zdseg_start
@@ -872,6 +872,10 @@ __zdseg_start:
 %include "ds/data/file_param_word.asm"     ; 0x10270
 
 %include "ds/data/dseg_0112.asm"           ; 0x10272
+
+%include "ds/data/loaded_score_number.asm" ; 0x10274
+
+%include "ds/data/dseg_0116.asm"           ; 0x10276
 
 %include "ds/data/party_slot_x.asm"        ; 0x10304
 

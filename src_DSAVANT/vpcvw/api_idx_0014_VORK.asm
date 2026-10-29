@@ -199,7 +199,7 @@ api_idx_0014_VORK:
     call load_monster_picture        ; 0x6339
     add sp, byte 4                   ; 0x633c
     call score_music_enabled         ; 0x633f
-    mov word [bss_8450], ax          ; 0x6342
+    mov word [story_music_enabled], ax ; 0x6342
     test ax, ax                      ; 0x6345
     je short .forward4               ; 0x6347
     mov ax, 0                        ; 0x6349
@@ -209,15 +209,15 @@ api_idx_0014_VORK:
     call load_score_files            ; 0x6351
     add sp, byte 4                   ; 0x6354
     mov ax, word [file_param_word]   ; 0x6357
-    mov word [bss_844e], ax          ; 0x635a
+    mov word [story_score_number], ax ; 0x635a
     mov ax, 1                        ; 0x635d
     push ax                          ; 0x6360
-    push word [bss_844e]             ; 0x6361
+    push word [story_score_number]   ; 0x6361
     mov ax, 0                        ; 0x6365
     push ax                          ; 0x6368
     call ds_app_UKGP                 ; 0x6369
     add sp, byte 6                   ; 0x636c
-    mov word [bss_844c], ax          ; 0x636f
+    mov word [story_score_volume], ax ; 0x636f
 .forward4:
     mov word [roster_drawn], 0       ; 0x6372
     mov word [roster_alt_mode], 0    ; 0x6378
@@ -753,10 +753,10 @@ jumptable_67c3_case_15:
     je short api_idx_0014_VORK.forward15 ; 0x6808
     jmp near api_idx_0014_VORK.back4 ; 0x680a
 api_idx_0014_VORK.forward15:
-    cmp word [bss_8450], byte 0      ; 0x680d
+    cmp word [story_music_enabled], byte 0 ; 0x680d
     je short api_idx_0014_VORK.forward16 ; 0x6812
-    push word [bss_844c]             ; 0x6814
-    push word [bss_844e]             ; 0x6818
+    push word [story_score_volume]   ; 0x6814
+    push word [story_score_number]   ; 0x6818
     call fade_out_music              ; 0x681c
     add sp, byte 4                   ; 0x681f
     mov ax, 0                        ; 0x6822

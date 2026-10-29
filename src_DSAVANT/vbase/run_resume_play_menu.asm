@@ -97,7 +97,7 @@ jumptable_69ec_case_2:
 jumptable_69ec_case_3:
     mov ax, 0                        ; 0x699b
     push ax                          ; 0x699e
-    call api_idx_004e_HUKL           ; 0x699f
+    call save_game_data              ; 0x699f
     pop cx                           ; 0x69a2
     cmp ax, strict word 0xffff       ; 0x69a3
     jne short run_resume_play_menu.forward1 ; 0x69a6

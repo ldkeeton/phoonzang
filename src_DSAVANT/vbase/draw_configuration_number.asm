@@ -1,5 +1,5 @@
 ; auto-generated
-loc_GHNH:
+draw_configuration_number:
     mov ax, 0                        ; 0x46b8
     call aztec_csav                  ; 0x46bb
     mov ax, 1                        ; 0x46be

@@ -25,7 +25,7 @@ run_state_1a_scene:
     call call_show_area              ; 0x814f
     add sp, byte 8                   ; 0x8152
     call score_music_enabled         ; 0x8155
-    mov word [bss_8450], ax          ; 0x8158
+    mov word [story_music_enabled], ax ; 0x8158
     test ax, ax                      ; 0x815b
     je short .forward2               ; 0x815d
     mov ax, 1                        ; 0x815f
@@ -35,14 +35,14 @@ run_state_1a_scene:
     call load_score_files            ; 0x8167
     add sp, byte 4                   ; 0x816a
     mov ax, word [file_param_word]   ; 0x816d
-    mov word [bss_844e], ax          ; 0x8170
+    mov word [story_score_number], ax ; 0x8170
     mov ax, 1                        ; 0x8173
     push ax                          ; 0x8176
-    push word [bss_844e]             ; 0x8177
+    push word [story_score_number]   ; 0x8177
     push ax                          ; 0x817b
     call ds_app_UKGP                 ; 0x817c
     add sp, byte 6                   ; 0x817f
-    mov word [bss_844c], ax          ; 0x8182
+    mov word [story_score_volume], ax ; 0x8182
 .forward2:
     push word [selected_item_record] ; 0x8185
     call api_idx_0072_LQIT           ; 0x8189
@@ -51,10 +51,10 @@ run_state_1a_scene:
     push ax                          ; 0x8190
     call redraw_treasure_caption     ; 0x8191
     pop cx                           ; 0x8194
-    cmp word [bss_8450], byte 0      ; 0x8195
+    cmp word [story_music_enabled], byte 0 ; 0x8195
     je short .forward3               ; 0x819a
-    push word [bss_844c]             ; 0x819c
-    push word [bss_844e]             ; 0x81a0
+    push word [story_score_volume]   ; 0x819c
+    push word [story_score_number]   ; 0x81a0
     call fade_out_music              ; 0x81a4
     add sp, byte 4                   ; 0x81a7
     mov ax, 1                        ; 0x81aa

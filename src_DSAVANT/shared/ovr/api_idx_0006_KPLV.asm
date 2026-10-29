@@ -8,8 +8,8 @@ api_idx_0006_KPLV:
     je short .forward1
     mov ax, 0
     push ax
-    push word [bss_8d08]
-    push word [bss_8d06]
+    push word [base_screen_area_segment]
+    push word [base_screen_area]
     call call_restore_area
     add sp, byte 6
     mov ax, 0xb9
@@ -57,8 +57,8 @@ api_idx_0006_KPLV:
     add sp, byte 6
     mov ax, 0
     push ax
-    push word [bss_8d08]
-    push word [bss_8d06]
+    push word [base_screen_area_segment]
+    push word [base_screen_area]
     call call_restore_area
     add sp, byte 6
     mov ax, 0xc4

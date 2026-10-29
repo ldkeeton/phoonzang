@@ -85,7 +85,7 @@ api_idx_000c_RMGQ:
     cmp ax, strict word 1            ; 0x0a8c
     je short .forward4               ; 0x0a8f
     push word [bp - 2]               ; 0x0a91
-    mov ax, bss_8b7e                 ; 0x0a94
+    mov ax, current_map_block_a      ; 0x0a94
     push ax                          ; 0x0a97
     call test_bit                    ; 0x0a98
     add sp, byte 4                   ; 0x0a9b

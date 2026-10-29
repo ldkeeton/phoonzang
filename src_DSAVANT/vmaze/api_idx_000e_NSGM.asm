@@ -180,7 +180,7 @@ api_idx_000e_NSGM:
     mov ax, 1                        ; 0x17c8
     push ax                          ; 0x17cb
     push word [bp - 2]               ; 0x17cc
-    mov ax, bss_8afe                 ; 0x17cf
+    mov ax, current_map_block_b      ; 0x17cf
     push ax                          ; 0x17d2
     call set_bitmap_bit              ; 0x17d3
     add sp, byte 6                   ; 0x17d6

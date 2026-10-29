@@ -172,7 +172,7 @@ api_idx_002c_NHRR:
     call load_monster_picture        ; 0x6bcf
     add sp, byte 4                   ; 0x6bd2
     call score_music_enabled         ; 0x6bd5
-    mov word [bss_8450], ax          ; 0x6bd8
+    mov word [story_music_enabled], ax ; 0x6bd8
     test ax, ax                      ; 0x6bdb
     je short .forward1               ; 0x6bdd
     mov ax, 0                        ; 0x6bdf
@@ -182,15 +182,15 @@ api_idx_002c_NHRR:
     call load_score_files            ; 0x6be7
     add sp, byte 4                   ; 0x6bea
     mov ax, word [dseg_010e]         ; 0x6bed
-    mov word [bss_844e], ax          ; 0x6bf0
+    mov word [story_score_number], ax ; 0x6bf0
     mov ax, 1                        ; 0x6bf3
     push ax                          ; 0x6bf6
-    push word [bss_844e]             ; 0x6bf7
+    push word [story_score_number]   ; 0x6bf7
     mov ax, 0                        ; 0x6bfb
     push ax                          ; 0x6bfe
     call ds_app_UKGP                 ; 0x6bff
     add sp, byte 6                   ; 0x6c02
-    mov word [bss_844c], ax          ; 0x6c05
+    mov word [story_score_volume], ax ; 0x6c05
 .forward1:
     mov word [bp - 2], 0             ; 0x6c08
 .back1:
@@ -458,10 +458,10 @@ api_idx_002c_NHRR.forward10:
     je short api_idx_002c_NHRR.forward11 ; 0x6e7a
     jmp near api_idx_002c_NHRR.back3 ; 0x6e7c
 api_idx_002c_NHRR.forward11:
-    cmp word [bss_8450], byte 0      ; 0x6e7f
+    cmp word [story_music_enabled], byte 0 ; 0x6e7f
     je short api_idx_002c_NHRR.forward12 ; 0x6e84
-    push word [bss_844c]             ; 0x6e86
-    push word [bss_844e]             ; 0x6e8a
+    push word [story_score_volume]   ; 0x6e86
+    push word [story_score_number]   ; 0x6e8a
     call fade_out_music              ; 0x6e8e
     add sp, byte 4                   ; 0x6e91
     mov ax, 0                        ; 0x6e94

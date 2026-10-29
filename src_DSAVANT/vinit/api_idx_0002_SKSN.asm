@@ -13,8 +13,8 @@ api_idx_0002_SKSN:
 .forward1:
     mov ax, 1                        ; 0x135e
     push ax                          ; 0x1361
-    push word [bss_8d08]             ; 0x1362
-    push word [bss_8d06]             ; 0x1366
+    push word [base_screen_area_segment] ; 0x1362
+    push word [base_screen_area]     ; 0x1366
     call call_restore_area           ; 0x136a
     add sp, byte 6                   ; 0x136d
     mov word [party_char_count], 0   ; 0x1370

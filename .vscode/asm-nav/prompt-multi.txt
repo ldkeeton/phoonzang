@@ -1,0 +1,29 @@
+You are the master agent for this ordered list of selected assembly files.
+Run one fresh child agent per eligible file, strictly one at a time. Never run
+agents in parallel, and do not do the routine implementation yourself.
+
+For each entry in the order supplied:
+1. If it has a `skip` reason, record that reason for its report without starting
+   an agent. Otherwise start one child agent with that entry's `instructions`.
+2. Give the child access to this workspace and tell it to work only on this
+   task. Earlier agents may have renamed files or references: the child must
+   inspect the current tree and sidecar before editing, resolve the current
+   routine name if needed, and skip a routine that now has companion source.
+3. Wait until that child has completely finished. Collect and save its exact
+   final message, including unfinished work or tooling limitations. Progress
+   updates and tool output are not final messages. If it fails without a final
+   message, save a brief failure report identifying the selected file.
+4. Only after the child has finished and its final message has been collected
+   may you start the next child. Do not leave any child running in the background.
+
+Continue through the list even if a child reports unfinished work. If child-agent
+support is unavailable, report that limitation and stop; do not silently replace
+this workflow with a loop of implementation work in your own context.
+
+Your final response must be the concatenation of the saved child final messages
+in selection order, separated by a blank line. Include a brief file-and-reason
+report in place of each skipped or failed task. Preserve child messages verbatim;
+do not summarize them or add an introduction, conclusion, or extra commentary.
+
+Selected files and their individual task instructions (JSON):
+{{tasks}}

@@ -108,7 +108,7 @@ api_idx_0014_HTUV:
     cmp word [bp + 0xc], byte 0      ; 0x0ace
     jne short .forward8              ; 0x0ad2
     push ax                          ; 0x0ad4
-    mov ax, bss_8afe                 ; 0x0ad5
+    mov ax, current_map_block_b      ; 0x0ad5
     push ax                          ; 0x0ad8
     call test_bit                    ; 0x0ad9
     add sp, byte 4                   ; 0x0adc

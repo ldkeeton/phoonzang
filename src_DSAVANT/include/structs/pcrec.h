@@ -38,7 +38,8 @@ struct pc_rec {				/* 0x248 bytes */
 	unsigned char prev[14];		/* +0x19a: slot spacing last frame */
 	unsigned char cur[14];		/* +0x1a8: slot spacing this frame */
 	unsigned char count[8];		/* +0x1b6: per-slot tallies */
-	char pad1[120];			/* +0x1be */
+	char pad1[116];			/* +0x1be */
+	unsigned char story_flags[4];	/* +0x232: completed story message bits */
 	unsigned char kind;		/* +0x236: 0x13 and 0x19 use glyph base 10 */
 	unsigned char glyph_set;	/* +0x237: picks the panel's glyph base */
 	unsigned char gender;		/* +0x238: 0 male, 1 female (MSG_MALE + gender) */

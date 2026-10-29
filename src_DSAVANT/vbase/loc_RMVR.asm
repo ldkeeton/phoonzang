@@ -77,7 +77,7 @@ loc_RMVR:
     push ax                          ; 0x4dc5
     mov ax, MSG_CRUSADERS_OF_THE_DARK_2300 ; 0x4dc6
     push ax                          ; 0x4dc9
-    call api_idx_0050_NKOU           ; 0x4dca
+    call draw_message_at_position    ; 0x4dca
     add sp, byte 8                   ; 0x4dcd
     mov ax, 1                        ; 0x4dd0
     push ax                          ; 0x4dd3
@@ -89,7 +89,7 @@ loc_RMVR:
     push ax                          ; 0x4de1
     mov ax, MSG_V                    ; 0x4de2
     push ax                          ; 0x4de5
-    call api_idx_0050_NKOU           ; 0x4de6
+    call draw_message_at_position    ; 0x4de6
     add sp, byte 8                   ; 0x4de9
     mov ax, 0                        ; 0x4dec
     push ax                          ; 0x4def
@@ -147,7 +147,7 @@ loc_RMVR:
     push ax                          ; 0x4e63
     mov ax, MSG_GAME_CONFIGURATION   ; 0x4e64
     push ax                          ; 0x4e67
-    call api_idx_0050_NKOU           ; 0x4e68
+    call draw_message_at_position    ; 0x4e68
     add sp, byte 8                   ; 0x4e6b
     mov ax, 1                        ; 0x4e6e
     push ax                          ; 0x4e71
@@ -159,7 +159,7 @@ loc_RMVR:
     push ax                          ; 0x4e7f
     mov ax, MSG_INPUT_DEVICE         ; 0x4e80
     push ax                          ; 0x4e83
-    call api_idx_0050_NKOU           ; 0x4e84
+    call draw_message_at_position    ; 0x4e84
     add sp, byte 8                   ; 0x4e87
     mov ax, 1                        ; 0x4e8a
     push ax                          ; 0x4e8d
@@ -171,7 +171,7 @@ loc_RMVR:
     push ax                          ; 0x4e9b
     mov ax, MSG_DELAY                ; 0x4e9c
     push ax                          ; 0x4e9f
-    call api_idx_0050_NKOU           ; 0x4ea0
+    call draw_message_at_position    ; 0x4ea0
     add sp, byte 8                   ; 0x4ea3
     mov ax, 0x1e                     ; 0x4ea6
     push ax                          ; 0x4ea9
@@ -193,7 +193,7 @@ loc_RMVR:
     push ax                          ; 0x4ecf
     mov ax, MSG_PATH                 ; 0x4ed0
     push ax                          ; 0x4ed3
-    call api_idx_0050_NKOU           ; 0x4ed4
+    call draw_message_at_position    ; 0x4ed4
     add sp, byte 8                   ; 0x4ed7
     mov ax, 1                        ; 0x4eda
     push ax                          ; 0x4edd
@@ -205,7 +205,7 @@ loc_RMVR:
     push ax                          ; 0x4eeb
     mov ax, MSG_FILE                 ; 0x4eec
     push ax                          ; 0x4eef
-    call api_idx_0050_NKOU           ; 0x4ef0
+    call draw_message_at_position    ; 0x4ef0
     add sp, byte 8                   ; 0x4ef3
     lea ax, word [bp - 0x68]         ; 0x4ef6
     push ax                          ; 0x4ef9
@@ -238,7 +238,7 @@ loc_RMVR:
     push ax                          ; 0x4f36
     mov ax, MSG_EFFECTS_VOL          ; 0x4f37
     push ax                          ; 0x4f3a
-    call api_idx_0050_NKOU           ; 0x4f3b
+    call draw_message_at_position    ; 0x4f3b
     add sp, byte 8                   ; 0x4f3e
     mov ax, 0x1e                     ; 0x4f41
     push ax                          ; 0x4f44
@@ -260,7 +260,7 @@ loc_RMVR:
     push ax                          ; 0x4f6a
     mov ax, MSG_MONSTER_VOL          ; 0x4f6b
     push ax                          ; 0x4f6e
-    call api_idx_0050_NKOU           ; 0x4f6f
+    call draw_message_at_position    ; 0x4f6f
     add sp, byte 8                   ; 0x4f72
     mov ax, 0x1e                     ; 0x4f75
     push ax                          ; 0x4f78
@@ -282,7 +282,7 @@ loc_RMVR:
     push ax                          ; 0x4f9e
     mov ax, MSG_BACKGND_VOL          ; 0x4f9f
     push ax                          ; 0x4fa2
-    call api_idx_0050_NKOU           ; 0x4fa3
+    call draw_message_at_position    ; 0x4fa3
     add sp, byte 8                   ; 0x4fa6
     mov ax, 0x1e                     ; 0x4fa9
     push ax                          ; 0x4fac
@@ -325,7 +325,7 @@ loc_RMVR:
     push ax                          ; 0x5001
     mov ax, MSG_MUSIC_VOL            ; 0x5002
     push ax                          ; 0x5005
-    call api_idx_0050_NKOU           ; 0x5006
+    call draw_message_at_position    ; 0x5006
     add sp, byte 8                   ; 0x5009
     mov ax, 0x1e                     ; 0x500c
     push ax                          ; 0x500f
@@ -347,7 +347,7 @@ loc_RMVR:
     push ax                          ; 0x5035
     mov ax, MSG_PLAY_LEVEL           ; 0x5036
     push ax                          ; 0x5039
-    call api_idx_0050_NKOU           ; 0x503a
+    call draw_message_at_position    ; 0x503a
     add sp, byte 8                   ; 0x503d
     mov ax, 1                        ; 0x5040
     push ax                          ; 0x5043
@@ -359,7 +359,7 @@ loc_RMVR:
     push ax                          ; 0x5051
     mov ax, MSG_FADE                 ; 0x5052
     push ax                          ; 0x5055
-    call api_idx_0050_NKOU           ; 0x5056
+    call draw_message_at_position    ; 0x5056
     add sp, byte 8                   ; 0x5059
     lea ax, word [bp - 0x68]         ; 0x505c
     push ax                          ; 0x505f
@@ -392,7 +392,7 @@ loc_RMVR:
     push ax                          ; 0x509c
     mov ax, MSG_RAMNAME              ; 0x509d
     push ax                          ; 0x50a0
-    call api_idx_0050_NKOU           ; 0x50a1
+    call draw_message_at_position    ; 0x50a1
     add sp, byte 8                   ; 0x50a4
     mov ax, 1                        ; 0x50a7
     push ax                          ; 0x50aa
@@ -404,7 +404,7 @@ loc_RMVR:
     push ax                          ; 0x50b8
     mov ax, MSG_GRAPHICS             ; 0x50b9
     push ax                          ; 0x50bc
-    call api_idx_0050_NKOU           ; 0x50bd
+    call draw_message_at_position    ; 0x50bd
     add sp, byte 8                   ; 0x50c0
     mov ax, 1                        ; 0x50c3
     push ax                          ; 0x50c6
@@ -416,7 +416,7 @@ loc_RMVR:
     push ax                          ; 0x50d4
     mov ax, MSG_BRIGHT               ; 0x50d5
     push ax                          ; 0x50d8
-    call api_idx_0050_NKOU           ; 0x50d9
+    call draw_message_at_position    ; 0x50d9
     add sp, byte 8                   ; 0x50dc
     mov ax, 0x24                     ; 0x50df
     push ax                          ; 0x50e2
@@ -438,7 +438,7 @@ loc_RMVR:
     push ax                          ; 0x5108
     mov ax, MSG_CONTRAST             ; 0x5109
     push ax                          ; 0x510c
-    call api_idx_0050_NKOU           ; 0x510d
+    call draw_message_at_position    ; 0x510d
     add sp, byte 8                   ; 0x5110
     mov ax, 0x24                     ; 0x5113
     push ax                          ; 0x5116
@@ -511,7 +511,7 @@ loc_RMVR:
     push word [bp - 0xa]             ; 0x51b0
     push word [bp - 8]               ; 0x51b3
     push word [bp - 2]               ; 0x51b6
-    call api_idx_0052_LJTK           ; 0x51b9
+    call api_idx_0052_LITH           ; 0x51b9
     add sp, byte 6                   ; 0x51bc
     inc word [bp - 2]                ; 0x51bf
     mov ax, word [bp - 2]            ; 0x51c2
@@ -1036,7 +1036,7 @@ loc_RMVR:
     push word [bp - 0xa]             ; 0x5656
     push word [bp - 8]               ; 0x5659
     push word [bp - 0x16]            ; 0x565c
-    call api_idx_0052_JQTP           ; 0x565f
+    call refresh_configuration_control ; 0x565f
     add sp, byte 6                   ; 0x5662
     mov ax, 1                        ; 0x5665
     push ax                          ; 0x5668
@@ -1049,7 +1049,7 @@ loc_RMVR:
     push word [bp - 0xa]             ; 0x5675
     push word [bp - 8]               ; 0x5678
     push word [bp - 0x16]            ; 0x567b
-    call api_idx_0052_LJTK           ; 0x567e
+    call api_idx_0052_LITH           ; 0x567e
     add sp, byte 6                   ; 0x5681
     mov ax, word [bp - 0x16]         ; 0x5684
     add ax, strict word 0x12         ; 0x5687
@@ -1080,7 +1080,7 @@ loc_RMVR:
     push word [bp - 0xa]             ; 0x56b8
     push word [bp - 8]               ; 0x56bb
     push word [bp - 0x16]            ; 0x56be
-    call api_idx_0052_LJTK           ; 0x56c1
+    call api_idx_0052_LITH           ; 0x56c1
     add sp, byte 6                   ; 0x56c4
     mov ax, word [bp - 0x16]         ; 0x56c7
     inc ax                           ; 0x56ca
@@ -1344,7 +1344,7 @@ jumptable_5e7f_case_0:
     push word [bp - 8]               ; 0x58fa
     mov ax, 0                        ; 0x58fd
     push ax                          ; 0x5900
-    call api_idx_0052_LJTK           ; 0x5901
+    call api_idx_0052_LITH           ; 0x5901
     add sp, byte 6                   ; 0x5904
     jmp near loc_RMVR.forward43      ; 0x5907
 jumptable_5e7f_case_1:
@@ -1355,7 +1355,7 @@ jumptable_5e7f_case_1:
     push word [bp - 8]               ; 0x5918
     mov ax, 1                        ; 0x591b
     push ax                          ; 0x591e
-    call api_idx_0052_LJTK           ; 0x591f
+    call api_idx_0052_LITH           ; 0x591f
     add sp, byte 6                   ; 0x5922
 loc_RMVR.forward26:
     jmp near loc_RMVR.forward43      ; 0x5925
@@ -1367,7 +1367,7 @@ jumptable_5e7f_case_2:
     push word [bp - 8]               ; 0x5936
     mov ax, 1                        ; 0x5939
     push ax                          ; 0x593c
-    call api_idx_0052_LJTK           ; 0x593d
+    call api_idx_0052_LITH           ; 0x593d
     add sp, byte 6                   ; 0x5940
 loc_RMVR.forward27:
     jmp near loc_RMVR.forward43      ; 0x5943
@@ -1383,7 +1383,7 @@ jumptable_5e7f_case_3:
     push ax                          ; 0x595a
     mov ax, selected_game_directory  ; 0x595b
     push ax                          ; 0x595e
-    call loc_IIHU                    ; 0x595f
+    call draw_configuration_text     ; 0x595f
     add sp, byte 8                   ; 0x5962
     mov ax, 0                        ; 0x5965
     push ax                          ; 0x5968
@@ -1407,7 +1407,7 @@ jumptable_5e7f_case_3:
     push word [bp - 8]               ; 0x5990
     mov ax, 2                        ; 0x5993
     push ax                          ; 0x5996
-    call api_idx_0052_LJTK           ; 0x5997
+    call api_idx_0052_LITH           ; 0x5997
     add sp, byte 6                   ; 0x599a
     jmp near loc_RMVR.forward43      ; 0x599d
 jumptable_5e7f_case_4:
@@ -1422,7 +1422,7 @@ jumptable_5e7f_case_4:
     push ax                          ; 0x59b4
     mov ax, selected_game_filename   ; 0x59b5
     push ax                          ; 0x59b8
-    call loc_IIHU                    ; 0x59b9
+    call draw_configuration_text     ; 0x59b9
     add sp, byte 8                   ; 0x59bc
     mov ax, 0                        ; 0x59bf
     push ax                          ; 0x59c2
@@ -1446,7 +1446,7 @@ jumptable_5e7f_case_4:
     push word [bp - 8]               ; 0x59ea
     mov ax, 3                        ; 0x59ed
     push ax                          ; 0x59f0
-    call api_idx_0052_LJTK           ; 0x59f1
+    call api_idx_0052_LITH           ; 0x59f1
     add sp, byte 6                   ; 0x59f4
     jmp near loc_RMVR.forward43      ; 0x59f7
 jumptable_5e7f_case_5:
@@ -1467,7 +1467,7 @@ loc_RMVR.back9:
     push word [bp - 8]               ; 0x5a1b
     mov ax, 4                        ; 0x5a1e
     push ax                          ; 0x5a21
-    call api_idx_0052_LJTK           ; 0x5a22
+    call api_idx_0052_LITH           ; 0x5a22
     add sp, byte 6                   ; 0x5a25
 loc_RMVR.forward28:
     cmp byte [sound_device_setting], 0 ; 0x5a28
@@ -1491,7 +1491,7 @@ jumptable_5e7f_case_6:
     push word [bp - 8]               ; 0x5a55
     mov ax, 5                        ; 0x5a58
     push ax                          ; 0x5a5b
-    call api_idx_0052_LJTK           ; 0x5a5c
+    call api_idx_0052_LITH           ; 0x5a5c
     add sp, byte 6                   ; 0x5a5f
     jmp near loc_RMVR.forward43      ; 0x5a62
 jumptable_5e7f_case_7:
@@ -1507,7 +1507,7 @@ jumptable_5e7f_case_7:
     push word [bp - 8]               ; 0x5a7a
     mov ax, 5                        ; 0x5a7d
     push ax                          ; 0x5a80
-    call api_idx_0052_LJTK           ; 0x5a81
+    call api_idx_0052_LITH           ; 0x5a81
     add sp, byte 6                   ; 0x5a84
     jmp near loc_RMVR.forward43      ; 0x5a87
 jumptable_5e7f_case_8:
@@ -1523,7 +1523,7 @@ jumptable_5e7f_case_8:
     push word [bp - 8]               ; 0x5a9f
     mov ax, 6                        ; 0x5aa2
     push ax                          ; 0x5aa5
-    call api_idx_0052_LJTK           ; 0x5aa6
+    call api_idx_0052_LITH           ; 0x5aa6
     add sp, byte 6                   ; 0x5aa9
     jmp near loc_RMVR.forward43      ; 0x5aac
 jumptable_5e7f_case_9:
@@ -1538,7 +1538,7 @@ jumptable_5e7f_case_9:
     push word [bp - 8]               ; 0x5ac1
     mov ax, 6                        ; 0x5ac4
     push ax                          ; 0x5ac7
-    call api_idx_0052_LJTK           ; 0x5ac8
+    call api_idx_0052_LITH           ; 0x5ac8
     add sp, byte 6                   ; 0x5acb
     jmp near loc_RMVR.forward43      ; 0x5ace
 jumptable_5e7f_case_10:
@@ -1554,7 +1554,7 @@ jumptable_5e7f_case_10:
     push word [bp - 8]               ; 0x5ae6
     mov ax, 7                        ; 0x5ae9
     push ax                          ; 0x5aec
-    call api_idx_0052_LJTK           ; 0x5aed
+    call api_idx_0052_LITH           ; 0x5aed
     add sp, byte 6                   ; 0x5af0
     jmp near loc_RMVR.forward43      ; 0x5af3
 jumptable_5e7f_case_11:
@@ -1570,7 +1570,7 @@ jumptable_5e7f_case_11:
     push word [bp - 8]               ; 0x5b0b
     mov ax, 7                        ; 0x5b0e
     push ax                          ; 0x5b11
-    call api_idx_0052_LJTK           ; 0x5b12
+    call api_idx_0052_LITH           ; 0x5b12
     add sp, byte 6                   ; 0x5b15
     jmp near loc_RMVR.forward43      ; 0x5b18
 jumptable_5e7f_case_12:
@@ -1593,7 +1593,7 @@ loc_RMVR.back10:
     push word [bp - 8]               ; 0x5b43
     mov ax, 8                        ; 0x5b46
     push ax                          ; 0x5b49
-    call api_idx_0052_LJTK           ; 0x5b4a
+    call api_idx_0052_LITH           ; 0x5b4a
     add sp, byte 6                   ; 0x5b4d
 loc_RMVR.forward31:
     cmp byte [video_mode], 0         ; 0x5b50
@@ -1617,7 +1617,7 @@ jumptable_5e7f_case_13:
     push word [bp - 8]               ; 0x5b7d
     mov ax, 9                        ; 0x5b80
     push ax                          ; 0x5b83
-    call api_idx_0052_LJTK           ; 0x5b84
+    call api_idx_0052_LITH           ; 0x5b84
     add sp, byte 6                   ; 0x5b87
     jmp near loc_RMVR.forward43      ; 0x5b8a
 jumptable_5e7f_case_14:
@@ -1633,7 +1633,7 @@ jumptable_5e7f_case_14:
     push word [bp - 8]               ; 0x5ba2
     mov ax, 9                        ; 0x5ba5
     push ax                          ; 0x5ba8
-    call api_idx_0052_LJTK           ; 0x5ba9
+    call api_idx_0052_LITH           ; 0x5ba9
     add sp, byte 6                   ; 0x5bac
     jmp near loc_RMVR.forward43      ; 0x5baf
 jumptable_5e7f_case_15:
@@ -1649,7 +1649,7 @@ jumptable_5e7f_case_15:
     push word [bp - 8]               ; 0x5bc6
     mov ax, 0xa                      ; 0x5bc9
     push ax                          ; 0x5bcc
-    call api_idx_0052_LJTK           ; 0x5bcd
+    call api_idx_0052_LITH           ; 0x5bcd
     add sp, byte 6                   ; 0x5bd0
     jmp near loc_RMVR.forward43      ; 0x5bd3
 jumptable_5e7f_case_16:
@@ -1665,7 +1665,7 @@ jumptable_5e7f_case_16:
     push word [bp - 8]               ; 0x5bea
     mov ax, 0xb                      ; 0x5bed
     push ax                          ; 0x5bf0
-    call api_idx_0052_LJTK           ; 0x5bf1
+    call api_idx_0052_LITH           ; 0x5bf1
     add sp, byte 6                   ; 0x5bf4
     jmp near loc_RMVR.forward43      ; 0x5bf7
 jumptable_5e7f_case_17:
@@ -1703,7 +1703,7 @@ loc_RMVR.forward36:
     push word [bp - 8]               ; 0x5c47
     mov ax, 0xc                      ; 0x5c4a
     push ax                          ; 0x5c4d
-    call api_idx_0052_LJTK           ; 0x5c4e
+    call api_idx_0052_LITH           ; 0x5c4e
     add sp, byte 6                   ; 0x5c51
     mov ax, word [bp - 0xe]          ; 0x5c54
     inc ax                           ; 0x5c57
@@ -1742,7 +1742,7 @@ loc_RMVR.forward37:
     push ax                          ; 0x5c9b
     mov ax, screen_store_drive       ; 0x5c9c
     push ax                          ; 0x5c9f
-    call loc_IIHU                    ; 0x5ca0
+    call draw_configuration_text     ; 0x5ca0
     add sp, byte 8                   ; 0x5ca3
     mov ax, 0                        ; 0x5ca6
     push ax                          ; 0x5ca9
@@ -1766,7 +1766,7 @@ loc_RMVR.forward37:
     push word [bp - 8]               ; 0x5cd1
     mov ax, 0xd                      ; 0x5cd4
     push ax                          ; 0x5cd7
-    call api_idx_0052_LJTK           ; 0x5cd8
+    call api_idx_0052_LITH           ; 0x5cd8
     add sp, byte 6                   ; 0x5cdb
 loc_RMVR.forward38:
     jmp near loc_RMVR.forward43      ; 0x5cde
@@ -1783,7 +1783,7 @@ jumptable_5e7f_case_19:
     push word [bp - 8]               ; 0x5cf6
     mov ax, 0xf                      ; 0x5cf9
     push ax                          ; 0x5cfc
-    call api_idx_0052_LJTK           ; 0x5cfd
+    call api_idx_0052_LITH           ; 0x5cfd
     add sp, byte 6                   ; 0x5d00
     mov al, byte [palette_scale_setting] ; 0x5d03
     cbw                              ; 0x5d06
@@ -1807,7 +1807,7 @@ jumptable_5e7f_case_20:
     push word [bp - 8]               ; 0x5d2b
     mov ax, 0xf                      ; 0x5d2e
     push ax                          ; 0x5d31
-    call api_idx_0052_LJTK           ; 0x5d32
+    call api_idx_0052_LITH           ; 0x5d32
     add sp, byte 6                   ; 0x5d35
     mov al, byte [palette_scale_setting] ; 0x5d38
     cbw                              ; 0x5d3b
@@ -1831,7 +1831,7 @@ jumptable_5e7f_case_21:
     push word [bp - 8]               ; 0x5d60
     mov ax, 0x10                     ; 0x5d63
     push ax                          ; 0x5d66
-    call api_idx_0052_LJTK           ; 0x5d67
+    call api_idx_0052_LITH           ; 0x5d67
     add sp, byte 6                   ; 0x5d6a
     mov al, byte [palette_scale_setting] ; 0x5d6d
     cbw                              ; 0x5d70
@@ -1854,7 +1854,7 @@ jumptable_5e7f_case_22:
     push word [bp - 8]               ; 0x5d92
     mov ax, 0x10                     ; 0x5d95
     push ax                          ; 0x5d98
-    call api_idx_0052_LJTK           ; 0x5d99
+    call api_idx_0052_LITH           ; 0x5d99
     add sp, byte 6                   ; 0x5d9c
     mov al, byte [palette_scale_setting] ; 0x5d9f
     cbw                              ; 0x5da2
@@ -1994,7 +1994,7 @@ loc_RMVR.forward43:
     push word [bp - 0xa]             ; 0x5ecb
     push word [bp - 8]               ; 0x5ece
     push word [bp - 0x16]            ; 0x5ed1
-    call api_idx_0052_JQTP           ; 0x5ed4
+    call refresh_configuration_control ; 0x5ed4
     add sp, byte 6                   ; 0x5ed7
 loc_RMVR.forward44:
     mov ax, word [bp - 0xe]          ; 0x5eda

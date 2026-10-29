@@ -1,5 +1,5 @@
 ; auto-generated
-api_idx_0006_MROT:
+remove_party_member:
     mov ax, 0xfffa                   ; 0x61db
     call aztec_csav                  ; 0x61de
     mov ax, word [bp + 4]            ; 0x61e1

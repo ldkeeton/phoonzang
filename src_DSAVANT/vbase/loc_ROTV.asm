@@ -10,7 +10,7 @@ loc_ROTV:
     mov ax, word [party_char_count]  ; 0x62d7
     dec ax                           ; 0x62da
     push ax                          ; 0x62db
-    call api_idx_0006_MROT           ; 0x62dc
+    call remove_party_member         ; 0x62dc
     add sp, byte 4                   ; 0x62df
     jmp short .back1                 ; 0x62e2
 .return1:

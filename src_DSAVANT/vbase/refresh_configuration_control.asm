@@ -1,5 +1,5 @@
 ; auto-generated
-api_idx_0052_JQTP:
+refresh_configuration_control:
     mov ax, 0xffae                   ; 0x4826
     call aztec_csav                  ; 0x4829
     mov ax, word [bp + 4]            ; 0x482c
@@ -13,7 +13,7 @@ jumptable_4af5_case_0:
     mov ax, word [bp + 6]            ; 0x483d
     add ax, strict word 0x5c         ; 0x4840
     push ax                          ; 0x4843
-    call loc_LLMG                    ; 0x4844
+    call refresh_configuration_button ; 0x4844
     add sp, byte 6                   ; 0x4847
     jmp near jumptable_4af5_case_14  ; 0x484a
 jumptable_4af5_case_1:
@@ -26,7 +26,7 @@ jumptable_4af5_case_1:
     mov al, byte [startup_option_byte] ; 0x485b
     sub ah, ah                       ; 0x485e
     push ax                          ; 0x4860
-    call loc_GHNH                    ; 0x4861
+    call draw_configuration_number   ; 0x4861
     add sp, byte 6                   ; 0x4864
     jmp near jumptable_4af5_case_14  ; 0x4867
 jumptable_4af5_case_2:
@@ -40,7 +40,7 @@ jumptable_4af5_case_2:
     push ax                          ; 0x487b
     mov ax, selected_game_directory  ; 0x487c
     push ax                          ; 0x487f
-    call loc_IIHU                    ; 0x4880
+    call draw_configuration_text     ; 0x4880
     add sp, byte 8                   ; 0x4883
     jmp near jumptable_4af5_case_14  ; 0x4886
 jumptable_4af5_case_3:
@@ -54,7 +54,7 @@ jumptable_4af5_case_3:
     push ax                          ; 0x489a
     mov ax, selected_game_filename   ; 0x489b
     push ax                          ; 0x489e
-    call loc_IIHU                    ; 0x489f
+    call draw_configuration_text     ; 0x489f
     add sp, byte 8                   ; 0x48a2
     jmp near jumptable_4af5_case_14  ; 0x48a5
 jumptable_4af5_case_4:
@@ -66,7 +66,7 @@ jumptable_4af5_case_4:
     mov ax, word [bp + 6]            ; 0x48b3
     add ax, strict word 8            ; 0x48b6
     push ax                          ; 0x48b9
-    call loc_LLMG                    ; 0x48ba
+    call refresh_configuration_button ; 0x48ba
     add sp, byte 6                   ; 0x48bd
     jmp near jumptable_4af5_case_14  ; 0x48c0
 jumptable_4af5_case_5:
@@ -79,7 +79,7 @@ jumptable_4af5_case_5:
     mov al, byte [device_option_bytes] ; 0x48d1
     sub ah, ah                       ; 0x48d4
     push ax                          ; 0x48d6
-    call loc_GHNH                    ; 0x48d7
+    call draw_configuration_number   ; 0x48d7
     add sp, byte 6                   ; 0x48da
     jmp near jumptable_4af5_case_14  ; 0x48dd
 jumptable_4af5_case_6:
@@ -89,10 +89,10 @@ jumptable_4af5_case_6:
     mov ax, word [bp + 6]            ; 0x48e7
     add ax, strict word 0x69         ; 0x48ea
     push ax                          ; 0x48ed
-    mov al, byte [bss_597d]          ; 0x48ee
+    mov al, byte [monster_volume]    ; 0x48ee
     sub ah, ah                       ; 0x48f1
     push ax                          ; 0x48f3
-    call loc_GHNH                    ; 0x48f4
+    call draw_configuration_number   ; 0x48f4
     add sp, byte 6                   ; 0x48f7
     jmp near jumptable_4af5_case_14  ; 0x48fa
 jumptable_4af5_case_7:
@@ -102,10 +102,10 @@ jumptable_4af5_case_7:
     mov ax, word [bp + 6]            ; 0x4904
     add ax, strict word 0x69         ; 0x4907
     push ax                          ; 0x490a
-    mov al, byte [bss_597e]          ; 0x490b
+    mov al, byte [background_volume] ; 0x490b
     sub ah, ah                       ; 0x490e
     push ax                          ; 0x4910
-    call loc_GHNH                    ; 0x4911
+    call draw_configuration_number   ; 0x4911
     add sp, byte 6                   ; 0x4914
     jmp near jumptable_4af5_case_14  ; 0x4917
 jumptable_4af5_case_8:
@@ -117,7 +117,7 @@ jumptable_4af5_case_8:
     mov ax, word [bp + 6]            ; 0x4925
     add ax, strict word 8            ; 0x4928
     push ax                          ; 0x492b
-    call loc_LLMG                    ; 0x492c
+    call refresh_configuration_button ; 0x492c
     add sp, byte 6                   ; 0x492f
     jmp near jumptable_4af5_case_14  ; 0x4932
 jumptable_4af5_case_9:
@@ -130,7 +130,7 @@ jumptable_4af5_case_9:
     mov al, byte [music_volume]      ; 0x4943
     sub ah, ah                       ; 0x4946
     push ax                          ; 0x4948
-    call loc_GHNH                    ; 0x4949
+    call draw_configuration_number   ; 0x4949
     add sp, byte 6                   ; 0x494c
     jmp near jumptable_4af5_case_14  ; 0x494f
 jumptable_4af5_case_10:
@@ -142,7 +142,7 @@ jumptable_4af5_case_10:
     mov ax, word [bp + 6]            ; 0x495d
     add ax, 0xe6                     ; 0x4960
     push ax                          ; 0x4963
-    call loc_LLMG                    ; 0x4964
+    call refresh_configuration_button ; 0x4964
     add sp, byte 6                   ; 0x4967
     jmp near jumptable_4af5_case_14  ; 0x496a
 jumptable_4af5_case_11:
@@ -154,7 +154,7 @@ jumptable_4af5_case_11:
     mov ax, word [bp + 6]            ; 0x4978
     add ax, 0xc2                     ; 0x497b
     push ax                          ; 0x497e
-    call loc_LLMG                    ; 0x497f
+    call refresh_configuration_button ; 0x497f
     add sp, byte 6                   ; 0x4982
     jmp near jumptable_4af5_case_14  ; 0x4985
 jumptable_4af5_case_12:
@@ -166,7 +166,7 @@ jumptable_4af5_case_12:
     mov ax, word [bp + 6]            ; 0x4993
     add ax, 0xa1                     ; 0x4996
     push ax                          ; 0x4999
-    call loc_LLMG                    ; 0x499a
+    call refresh_configuration_button ; 0x499a
     add sp, byte 6                   ; 0x499d
     jmp near jumptable_4af5_case_14  ; 0x49a0
 jumptable_4af5_case_13:
@@ -180,7 +180,7 @@ jumptable_4af5_case_13:
     push ax                          ; 0x49b4
     mov ax, screen_store_drive       ; 0x49b5
     push ax                          ; 0x49b8
-    call loc_IIHU                    ; 0x49b9
+    call draw_configuration_text     ; 0x49b9
     add sp, byte 8                   ; 0x49bc
     jmp near jumptable_4af5_case_14  ; 0x49bf
 jumptable_4af5_case_15:
@@ -302,7 +302,7 @@ jumptable_4af5_case_17:
     mov ax, word [bp + 6]            ; 0x4acc
     add ax, 0xb2                     ; 0x4acf
     push ax                          ; 0x4ad2
-    call loc_LLMG                    ; 0x4ad3
+    call refresh_configuration_button ; 0x4ad3
     add sp, byte 6                   ; 0x4ad6
     jmp short jumptable_4af5_case_14 ; 0x4ad9
 jumptable_4af5_case_18:
@@ -314,7 +314,7 @@ jumptable_4af5_case_18:
     mov ax, word [bp + 6]            ; 0x4ae6
     add ax, 0xe6                     ; 0x4ae9
     push ax                          ; 0x4aec
-    call loc_LLMG                    ; 0x4aed
+    call refresh_configuration_button ; 0x4aed
     add sp, byte 6                   ; 0x4af0
     jmp short jumptable_4af5_case_14 ; 0x4af3
 jumptable_4af5:
@@ -337,7 +337,7 @@ jumptable_4af5:
     dw jumptable_4af5_case_16 - IMAGE_BASE + __zres_end ; 0x4b15
     dw jumptable_4af5_case_17 - IMAGE_BASE + __zres_end ; 0x4b17
     dw jumptable_4af5_case_18 - IMAGE_BASE + __zres_end ; 0x4b19
-api_idx_0052_JQTP.forward1:
+refresh_configuration_control.forward1:
     cmp ax, strict word 0x13         ; 0x4b1b
     jae short jumptable_4af5_case_14 ; 0x4b1e
     xchg bx, ax                      ; 0x4b20

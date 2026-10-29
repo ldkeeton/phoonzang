@@ -1,5 +1,5 @@
 ; auto-generated
-api_idx_0062_SRKH:
+show_centered_message_dialog:
     mov ax, 0xff9e                   ; 0x4b95
     call aztec_csav                  ; 0x4b98
     mov word [bp - 2], 0             ; 0x4b9b
@@ -64,7 +64,7 @@ api_idx_0062_SRKH:
     add ax, word [bp - 6]            ; 0x4c2c
     dec ax                           ; 0x4c2f
     mov word [bp - 0xe], ax          ; 0x4c30
-    mov ax, dseg_90f5                ; 0x4c33
+    mov ax, message_dialog_temp_file ; 0x4c33
     push ax                          ; 0x4c36
     mov ax, word [bp - 0xe]          ; 0x4c37
     inc ax                           ; 0x4c3a

@@ -1,5 +1,5 @@
 ; auto-generated
-api_idx_0002_JLUK:
+cleanup_game_screen:
     mov ax, 0xfffe                   ; 0x6800
     call aztec_csav                  ; 0x6803
     cmp word [saved_screen_pending], byte 0 ; 0x6806
@@ -13,8 +13,8 @@ api_idx_0002_JLUK:
 .forward1:
     mov ax, 1                        ; 0x6821
     push ax                          ; 0x6824
-    push word [bss_8d08]             ; 0x6825
-    push word [bss_8d06]             ; 0x6829
+    push word [base_screen_area_segment] ; 0x6825
+    push word [base_screen_area]     ; 0x6829
     call call_restore_area           ; 0x682d
     add sp, byte 6                   ; 0x6830
     mov word [bp - 2], 0             ; 0x6833

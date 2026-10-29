@@ -168,8 +168,8 @@ api_idx_0008_QGRM:
     push ax                          ; 0x15be
     call call_save_area              ; 0x15bf
     add sp, byte 8                   ; 0x15c2
-    mov word [bss_8d08], dx          ; 0x15c5
-    mov word [bss_8d06], ax          ; 0x15c9
+    mov word [base_screen_area_segment], dx ; 0x15c5
+    mov word [base_screen_area], ax  ; 0x15c9
     mov word [character_record_index], 0 ; 0x15cc
     mov word [game_state], 4         ; 0x15d2
     ret                              ; 0x15d8

@@ -5,7 +5,7 @@ struct status_pair {
 	int offset; /* +2 */
 };
 struct load_header {
-	char pad[720]; /* +0 */
+	char region_state[45][16]; /* +0: sixteen bytes per region */
 	char paths[4][20]; /* +0x2d0 */
 	unsigned char store_one, store_disk; /* +0x320, +0x321 */
 	char store_drive[20]; /* +0x322 */

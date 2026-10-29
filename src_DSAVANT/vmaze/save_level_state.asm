@@ -27,7 +27,7 @@ save_level_state:
     push dx                          ; 0x692e
     push ax                          ; 0x692f
     push ds                          ; 0x6930
-    mov ax, bss_8b7e                 ; 0x6931
+    mov ax, current_map_block_a      ; 0x6931
     push ax                          ; 0x6934
     call app_memmove                 ; 0x6935
     add sp, byte 0xa                 ; 0x6938
@@ -43,7 +43,7 @@ save_level_state:
     push dx                          ; 0x6952
     push ax                          ; 0x6953
     push ds                          ; 0x6954
-    mov ax, bss_8afe                 ; 0x6955
+    mov ax, current_map_block_b      ; 0x6955
     push ax                          ; 0x6958
     call app_memmove                 ; 0x6959
     add sp, byte 0xa                 ; 0x695c

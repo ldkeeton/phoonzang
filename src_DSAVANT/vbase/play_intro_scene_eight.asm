@@ -1,10 +1,10 @@
 ; auto-generated
-api_idx_0002_QRJS:
+play_intro_scene_eight:
     mov ax, 0xfffe                   ; 0x8e6b
     call aztec_csav                  ; 0x8e6e
     mov ax, 0                        ; 0x8e71
     push ax                          ; 0x8e74
-    mov ax, dseg_919a                ; 0x8e75
+    mov ax, scene_eight_screen_filename ; 0x8e75
     push ax                          ; 0x8e78
     call load_screen_file            ; 0x8e79
     add sp, byte 4                   ; 0x8e7c
@@ -39,7 +39,7 @@ api_idx_0002_QRJS:
     mov word [scene_cue_b], ax       ; 0x8ec0
     mov ax, word [bp + 8]            ; 0x8ec3
     mov word [scene_cue_c], ax       ; 0x8ec6
-    mov ax, dseg_91a7                ; 0x8ec9
+    mov ax, scene_eight_digit_cycle  ; 0x8ec9
     push ax                          ; 0x8ecc
     mov ax, scene_digit_cycle        ; 0x8ecd
     push ax                          ; 0x8ed0

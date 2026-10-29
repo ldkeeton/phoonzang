@@ -23,7 +23,7 @@ run_state_0f_scene:
     call call_mouse_glide_to         ; 0x7f8a
     add sp, byte 6                   ; 0x7f8d
     call score_music_enabled         ; 0x7f90
-    mov word [bss_8450], ax          ; 0x7f93
+    mov word [story_music_enabled], ax ; 0x7f93
     test ax, ax                      ; 0x7f96
     je short .forward1               ; 0x7f98
     mov ax, 0                        ; 0x7f9a
@@ -39,14 +39,14 @@ run_state_0f_scene:
     call load_score_files            ; 0x7fb0
     add sp, byte 4                   ; 0x7fb3
     mov ax, word [dseg_0112]         ; 0x7fb6
-    mov word [bss_844e], ax          ; 0x7fb9
+    mov word [story_score_number], ax ; 0x7fb9
     mov ax, 0                        ; 0x7fbc
     push ax                          ; 0x7fbf
-    push word [bss_844e]             ; 0x7fc0
+    push word [story_score_number]   ; 0x7fc0
     push ax                          ; 0x7fc4
     call ds_app_UKGP                 ; 0x7fc5
     add sp, byte 6                   ; 0x7fc8
-    mov word [bss_844c], ax          ; 0x7fcb
+    mov word [story_score_volume], ax ; 0x7fcb
 .forward1:
     lea ax, word [bp - 0x50]         ; 0x7fce
     push ax                          ; 0x7fd1
@@ -63,7 +63,7 @@ run_state_0f_scene:
     push ax                          ; 0x7feb
     call show_treasure_message       ; 0x7fec
     add sp, byte 8                   ; 0x7fef
-    cmp word [bss_8450], byte 0      ; 0x7ff2
+    cmp word [story_music_enabled], byte 0 ; 0x7ff2
     je short .forward3               ; 0x7ff7
 .back1:
     call call_is_music_playing       ; 0x7ff9
@@ -80,14 +80,14 @@ run_state_0f_scene:
     call api_idx_0004_VQUG           ; 0x8012
     add sp, byte 4                   ; 0x8015
     mov ax, word [file_param_word]   ; 0x8018
-    mov word [bss_844e], ax          ; 0x801b
+    mov word [story_score_number], ax ; 0x801b
     mov ax, 1                        ; 0x801e
     push ax                          ; 0x8021
-    push word [bss_844e]             ; 0x8022
+    push word [story_score_number]   ; 0x8022
     push ax                          ; 0x8026
     call ds_app_UKGP                 ; 0x8027
     add sp, byte 6                   ; 0x802a
-    mov word [bss_844c], ax          ; 0x802d
+    mov word [story_score_volume], ax ; 0x802d
 .forward3:
     cmp word [item_action_reward_hi], byte 0 ; 0x8030
     jl short .forward4               ; 0x8035
@@ -118,10 +118,10 @@ run_state_0f_scene:
     mov word [party_return_state], 0xf ; 0x806c
     call loc_HUIS                    ; 0x8072
 .forward7:
-    cmp word [bss_8450], byte 0      ; 0x8075
+    cmp word [story_music_enabled], byte 0 ; 0x8075
     je short .forward8               ; 0x807a
-    push word [bss_844c]             ; 0x807c
-    push word [bss_844e]             ; 0x8080
+    push word [story_score_volume]   ; 0x807c
+    push word [story_score_number]   ; 0x8080
     call fade_out_music              ; 0x8084
     add sp, byte 4                   ; 0x8087
     mov ax, 1                        ; 0x808a

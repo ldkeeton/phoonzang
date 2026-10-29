@@ -6,7 +6,7 @@ loc_VGMJ:
     cmp word [bp + 8], byte 0        ; 0x0b1d
     je short .forward1               ; 0x0b21
     call score_music_enabled         ; 0x0b23
-    mov word [bss_8450], ax          ; 0x0b26
+    mov word [story_music_enabled], ax ; 0x0b26
     test ax, ax                      ; 0x0b29
     je short .forward1               ; 0x0b2b
     mov ax, 0                        ; 0x0b2d
@@ -16,14 +16,14 @@ loc_VGMJ:
     call load_score_files            ; 0x0b35
     add sp, byte 4                   ; 0x0b38
     mov ax, word [dseg_0112]         ; 0x0b3b
-    mov word [bss_844e], ax          ; 0x0b3e
+    mov word [story_score_number], ax ; 0x0b3e
     mov ax, 0                        ; 0x0b41
     push ax                          ; 0x0b44
-    push word [bss_844e]             ; 0x0b45
+    push word [story_score_number]   ; 0x0b45
     push ax                          ; 0x0b49
     call ds_app_UKGP                 ; 0x0b4a
     add sp, byte 6                   ; 0x0b4d
-    mov word [bss_844c], ax          ; 0x0b50
+    mov word [story_score_volume], ax ; 0x0b50
 .forward1:
     mov ax, word [bp + 4]            ; 0x0b53
     mov word [party_entry_mode], ax  ; 0x0b56

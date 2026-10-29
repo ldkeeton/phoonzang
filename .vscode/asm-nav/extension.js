@@ -6,7 +6,7 @@
 //   * Manx ``cc``/``as`` diagnostics on save, and a compiler CodeLens
 const fs = require('fs');
 const path = require('path');
-const { execFile, spawn } = require('child_process');
+const { execFile } = require('child_process');
 const vscode = require('vscode');
 const { labels, occurrences, addresses, routineStart, locate, cCode, cSymbols, cSemanticTokens } = require('./scan');
 const sidecar = require('./sidecar');
@@ -440,16 +440,6 @@ const AGENTS = {
             if (model) args.push('--model', model);
             return args;
         },
-        // Headless, for a batch: one --print session per routine, streamed as JSON so
-        // the conversation can still be shown as it happens.
-        batchArgs(prompt, model) {
-            const args = ['-p', prompt, '--output-format', 'stream-json', '--verbose',
-                '--permission-mode', 'auto',
-                '--allowedTools=Read,Write,Edit,Bash(make rebuild),Bash(make name:*),Bash(make refs:*)'];
-            if (model) args.push('--model', model);
-            return args;
-        },
-        format: formatClaudeEvent,
         // No IDE integration: don't auto-connect, and drop the port the Claude VS Code
         // extension injects into integrated terminals.
         env: { CLAUDE_CODE_AUTO_CONNECT_IDE: 'false', CLAUDE_CODE_SSE_PORT: null },
@@ -465,23 +455,6 @@ const AGENTS = {
             if (model) args.push('--model', model);
             return args;
         },
-        // Headless, for a batch: `run` prints the conversation and exits when done.
-        // --standalone: by default `run` goes through the shared background service,
-        // which works in whatever directory that service started in (not our cwd).
-        // `run` also ignores the model last picked in the TUI and falls back to a free
-        // default, so take the TUI's most recent one when none is configured.
-        batchArgs(prompt, model) {
-            const args = ['run', prompt, '--auto', '--standalone'];
-            if (!model) {
-                const state = readJson(path.join(require('os').homedir(),
-                    '.local', 'state', 'opencode', 'model.json'));
-                const recent = state && (state.recent || [])[0];
-                if (recent) model = `${recent.providerID}/${recent.modelID}`;
-            }
-            if (model) args.push('--model', model);
-            return args;
-        },
-        format: (line) => ({ text: line }),
         env: {},
     },
     codex: {
@@ -496,14 +469,6 @@ const AGENTS = {
             args.push(prompt);
             return args;
         },
-        // Codex exec emits JSONL events; keep the session sandboxed to this workspace.
-        batchArgs(prompt, model) {
-            const args = ['exec', '--json', '--cd', root(), '--sandbox', 'workspace-write'];
-            if (model) args.push('--model', model);
-            args.push(prompt);
-            return args;
-        },
-        format: formatCodexEvent,
         env: { CODEX_DEBUG: '1' },
         // Codex is an executable, not a shell. Run it through the user's login shell
         // so shell aliases/wrappers and the PATH used by VS Code terminals resolve.
@@ -522,58 +487,6 @@ const AGENTS = {
         },
     },
 };
-
-// One line of Claude's stream-json as readable text; `result` is the final message.
-function formatClaudeEvent(line) {
-    let ev;
-    try { ev = JSON.parse(line); } catch (e) { return { text: line }; }
-    const content = (ev.message && ev.message.content) || [];
-    if (ev.type === 'assistant') {
-        return { text: content.map((c) => {
-            if (c.type === 'text') return c.text;
-            if (c.type !== 'tool_use') return '';
-            const input = c.input || {};
-            const what = input.command || input.file_path || input.pattern || '';
-            return `\x1b[36m▸ ${c.name}\x1b[0m ${String(what).split('\n')[0].slice(0, 200)}`;
-        }).filter(Boolean).join('\n') };
-    }
-    if (ev.type === 'user') {
-        const failed = content.filter((c) => c.type === 'tool_result' && c.is_error);
-        return { text: failed.map((c) => {
-            const body = typeof c.content === 'string' ? c.content : JSON.stringify(c.content);
-            return `\x1b[31m  ✗ ${body.split('\n')[0].slice(0, 200)}\x1b[0m`;
-        }).join('\n') };
-    }
-    if (ev.type === 'result') {
-        return { text: `\x1b[1m${ev.result || ev.subtype}\x1b[0m`, result: ev.result || ev.subtype };
-    }
-    return { text: '' };
-}
-
-// Render Codex JSONL events in the batch terminal; item.started exposes tool calls,
-// while item.completed may contain the final assistant message or command output.
-function formatCodexEvent(line) {
-    let ev;
-    try { ev = JSON.parse(line); } catch (e) { return { text: line }; }
-    const item = ev.item || {};
-    if (ev.type === 'item.started' || ev.type === 'item.updated' || ev.type === 'item.completed') {
-        if (item.type === 'command_execution') {
-            const cmd = (item.command || '').split('\n')[0];
-            if (ev.type === 'item.started') return { text: `\x1b[36m▸ command\x1b[0m ${cmd.slice(0, 200)}` };
-            if (ev.type === 'item.completed' && item.aggregated_output)
-                return { text: item.aggregated_output };
-        }
-        if ((item.type === 'agent_message' || item.type === 'reasoning') && item.text) {
-            return { text: item.text, result: ev.type === 'item.completed' ? item.text : '' };
-        }
-    }
-    if (ev.type === 'turn.completed') {
-        return { text: '', result: ev.last_agent_message || ev.last_agent_message_text || '' };
-    }
-    if (ev.type === 'error' || ev.type === 'turn.failed')
-        return { text: `\x1b[31m${ev.message || ev.error || JSON.stringify(ev)}\x1b[0m` };
-    return { text: '' };
-}
 
 // Everything both agents share: resolve the routine, confirm a redo, work out the
 // sidecar key and compiler flags, and build the prompt.  Null when there is
@@ -694,8 +607,14 @@ async function makeC(kind, uri, uris) {
         vscode.window.showErrorMessage(e.message);
         return;
     }
+    openAgentTerminal(agent, prompt, where.label, async () => {
+        await openMade(cFile, sFile);
+    });
+}
+
+function openAgentTerminal(agent, prompt, title, onClose) {
     const term = vscode.window.createTerminal({
-        name: `${agent.label}: ${where.label}`, cwd: root(),
+        name: `${agent.label}: ${title}`, cwd: root(),
         ...(agent.terminalArgs ? agent.terminalArgs(prompt, agent.model()) : {
             shellPath: agent.cli(), shellArgs: agent.args(prompt, agent.model()),
         }),
@@ -705,95 +624,46 @@ async function makeC(kind, uri, uris) {
     const sub = vscode.window.onDidCloseTerminal(async (t) => {
         if (t !== term) return;
         sub.dispose();
-        await openMade(cFile, sFile);
+        if (onClose) await onClose();
     });
 }
 
-// Several routines, one after another in a single tab: each gets its own headless
-// agent process, so every routine starts from a clean context, and the next starts
-// only when the last has exited.  Each job is resolved just before it runs, since an
-// earlier routine's `make name` may rename the files.  Closing the tab stops the batch.
-function makeCBatch(kind, uris) {
+// Multi-select sends one ordered work list to a master agent. The prompt owns
+// sequential delegation and the final concatenated report.
+async function makeCBatch(kind, uris) {
     const agent = AGENTS[kind];
-    const emitter = new vscode.EventEmitter();
-    const write = (text) => emitter.fire(text.replace(/\r?\n/g, '\r\n'));
-    let child = null, stopped = false;
-    // The extension host's PWD is wherever VS Code was launched; match it to the cwd.
-    const env = { ...process.env, PWD: root() };
-    if (kind === 'codex') {
-        for (const key of Object.keys(env)) {
-            if (/PROXY|proxy|npm_config|YARN|BUNDLE|CARGO/.test(key)) delete env[key];
-        }
-    }
-    for (const [k, v] of Object.entries(agent.env)) {
-        if (v === null) delete env[k]; else env[k] = v;
-    }
-
-    const runOne = (job) => new Promise((resolve) => {
-        // Agent formatters identify final messages where their CLI exposes them;
-        // otherwise the last printed line is used for the batch summary.
-        let result = '', last = '', pending = '';
-        const emit = (line) => {
-            const out = agent.format(line);
-            if (out.result) result = out.result;
-            const plain = line.replace(/\x1b\[[0-9;?]*[A-Za-z]/g, '').trim();
-            if (plain) last = plain;
-            if (out.text) write(out.text + '\n');
-        };
-        const feed = (chunk) => {
-            const lines = (pending + chunk).split('\n');
-            pending = lines.pop();
-            lines.forEach(emit);
-        };
-        let prompt;
-        try {
-            prompt = agent.prompt(job);
-        } catch (e) {
-            write(`\x1b[31m${e.message}\x1b[0m\n`);
-            resolve({ code: -1, result: '' });
-            return;
-        }
-        child = spawn(agent.cli(), agent.batchArgs(prompt, agent.model()),
-            { cwd: root(), env, stdio: ['ignore', 'pipe', 'pipe'] });
-        child.stdout.setEncoding('utf8').on('data', feed);
-        child.stderr.setEncoding('utf8').on('data', (d) => write(`\x1b[2m${d}\x1b[0m`));
-        child.on('error', (e) => { write(`\x1b[31m${e.message}\x1b[0m\n`); });
-        child.on('close', (code) => {
-            if (pending) emit(pending);
-            child = null;
-            resolve({ code, result: result || last });
-        });
-    });
-
-    const run = async () => {
-        const summary = [];
-        for (const [i, uri] of uris.entries()) {
-            if (stopped) break;
-            const name = path.basename(uri.fsPath, '.asm');
-            write(`\x1b[1;33m=== [${i + 1}/${uris.length}] ${name} ===\x1b[0m\n`);
+    try {
+        const tasks = [];
+        for (const uri of uris) {
             const job = await prepareMakeC(uri, agent.label, true);
-            if (!job || job.skip) {
-                write(`— skip: ${(job && job.skip) || 'nothing to do'}\n\n`);
-                continue;
-            }
-            const { result } = await runOne(job);
-            if (stopped) break;
-            summary.push(result);
-            write('\n');
+            tasks.push({
+                file: path.relative(root(), uri.fsPath),
+                ...(job && !job.skip
+                    ? { instructions: agent.prompt(job) }
+                    : { skip: (job && job.skip) || 'nothing to do' }),
+            });
         }
-        write(`\x1b[1m=== batch ${stopped ? 'stopped' : 'finished'} ===\x1b[0m\n${summary.join('\n')}\n`);
-    };
-
-    const term = vscode.window.createTerminal({
-        name: `${agent.label}: batch (${uris.length})`,
-        location: vscode.TerminalLocation.Editor,
-        pty: {
-            onDidWrite: emitter.event,
-            open: () => { run(); },
-            close: () => { stopped = true; if (child) child.kill(); },
-        },
-    });
-    term.show();
+        const template = fs.readFileSync(path.join(__dirname, 'prompt-multi.txt'), 'utf8');
+        const prompt = template.replace(/\{\{tasks\}\}/g, () => JSON.stringify(tasks, null, 2)).trim();
+        // Keep the large task list off the command line: Linux limits each
+        // argument to ~128 KiB, even when ARG_MAX is much larger.
+        const cache = path.join(root(), '.cache');
+        fs.mkdirSync(cache, { recursive: true });
+        const sessionDir = fs.mkdtempSync(path.join(cache, 'asm-nav-multi-'));
+        const promptFile = path.join(sessionDir, 'prompt.txt');
+        fs.writeFileSync(promptFile, prompt, { mode: 0o600 });
+        const cleanup = () => fs.rmSync(sessionDir, { recursive: true, force: true });
+        const bootstrap = `Read the UTF-8 task file at ${JSON.stringify(promptFile)} and follow its instructions. ` +
+            'You are the master agent; run the listed child agents strictly one at a time and concatenate their final messages.';
+        try {
+            openAgentTerminal(agent, bootstrap, `multi (${uris.length})`, cleanup);
+        } catch (e) {
+            cleanup();
+            throw e;
+        }
+    } catch (e) {
+        vscode.window.showErrorMessage(e.message);
+    }
 }
 
 // ------------------------------------------------------------- activate

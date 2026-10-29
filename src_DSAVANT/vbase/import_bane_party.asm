@@ -884,7 +884,7 @@ import_bane_party.back9:
     mov al, byte [bx + 0x239]        ; 0x2816
     sub ah, ah                       ; 0x281a
     push ax                          ; 0x281c
-    call api_idx_0040_TGSS           ; 0x281d
+    call read_class_experience_threshold ; 0x281d
     add sp, byte 4                   ; 0x2820
     mov bx, word [bp - 0x14]         ; 0x2823
     mov word [bx + 0xe], dx          ; 0x2826

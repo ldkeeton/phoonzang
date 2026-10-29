@@ -24,7 +24,7 @@ api_idx_0002_SMVN:
     add ax, word [bp + 6]            ; 0x0b99
     mov word [bp - 2], ax            ; 0x0b9c
     push ax                          ; 0x0b9f
-    mov ax, bss_8b7e                 ; 0x0ba0
+    mov ax, current_map_block_a      ; 0x0ba0
     push ax                          ; 0x0ba3
     call test_bit                    ; 0x0ba4
     add sp, byte 4                   ; 0x0ba7
@@ -34,7 +34,7 @@ api_idx_0002_SMVN:
 .forward1:
     push word [bp + 0xa]             ; 0x0bb0
     push word [bp - 2]               ; 0x0bb3
-    mov ax, bss_8b7e                 ; 0x0bb6
+    mov ax, current_map_block_a      ; 0x0bb6
     push ax                          ; 0x0bb9
     call set_bitmap_bit              ; 0x0bba
     add sp, byte 6                   ; 0x0bbd
