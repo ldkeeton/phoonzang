@@ -34,7 +34,7 @@ api_idx_0006_LIRP:
     push ax                          ; 0x2cd0
     call api_idx_0050_PLNP           ; 0x2cd1
     add sp, byte 6                   ; 0x2cd4
-    push word [bss_9058]             ; 0x2cd7
+    push word [startup_option]       ; 0x2cd7
     call api_idx_0004_QUPL           ; 0x2cdb
     pop cx                           ; 0x2cde
     ret                              ; 0x2cdf

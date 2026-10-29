@@ -164,7 +164,7 @@ jumptable_3f96_case_4:
     mov ax, word [bp - 0x2c]         ; 0x3e70
     mov cx, 4                        ; 0x3e73
     shl ax, cl                       ; 0x3e76
-    add ax, bss_5642                 ; 0x3e78
+    add ax, scenario_header_data     ; 0x3e78
     push ax                          ; 0x3e7b
     call set_bitmap_bit              ; 0x3e7c
     add sp, byte 6                   ; 0x3e7f
@@ -188,7 +188,7 @@ jumptable_3f96_case_4:
     mov ax, word [bp - 0x2c]         ; 0x3ea8
     mov cx, 4                        ; 0x3eab
     shl ax, cl                       ; 0x3eae
-    add ax, bss_5642                 ; 0x3eb0
+    add ax, scenario_header_data     ; 0x3eb0
     push ax                          ; 0x3eb3
     call set_bitmap_bit              ; 0x3eb4
     add sp, byte 6                   ; 0x3eb7

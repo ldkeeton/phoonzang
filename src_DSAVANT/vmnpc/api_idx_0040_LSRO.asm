@@ -563,7 +563,7 @@ jumptable_36f8_case_15:
     mov ax, word [game_state_arg]    ; 0x30e1
     mov cx, 4                        ; 0x30e4
     shl ax, cl                       ; 0x30e7
-    add ax, bss_5642                 ; 0x30e9
+    add ax, scenario_header_data     ; 0x30e9
     push ax                          ; 0x30ec
     call set_bitmap_bit              ; 0x30ed
     add sp, byte 6                   ; 0x30f0

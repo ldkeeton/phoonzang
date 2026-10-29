@@ -12,7 +12,7 @@ api_idx_0006_POPS:
     add ax, cx
     add ax, word [bp + 0xc]
     mov word [bp - 4], ax
-    mov ax, word [bss_0e10]
+    mov ax, word [runtime_buffer_3k]
     mov word [bp - 6], ax
     mov word [bp - 2], 0
     jmp short .forward4

@@ -7,7 +7,7 @@ save_level_state:
     mov ax, word [game_state_arg]    ; 0x68fc
     mov cx, 4                        ; 0x68ff
     shl ax, cl                       ; 0x6902
-    add ax, bss_5642                 ; 0x6904
+    add ax, scenario_header_data     ; 0x6904
     push ax                          ; 0x6907
     mov ax, word [game_state_arg]    ; 0x6908
     shl ax, cl                       ; 0x690b
@@ -21,8 +21,8 @@ save_level_state:
     mov cx, 7                        ; 0x691e
     shl ax, cl                       ; 0x6921
     mov cx, ax                       ; 0x6923
-    mov ax, word [bss_0e1a]          ; 0x6925
-    mov dx, word [bss_0e1c]          ; 0x6928
+    mov ax, word [runtime_buffer_4k_a] ; 0x6925
+    mov dx, word [runtime_buffer_4k_a_seg] ; 0x6928
     add ax, cx                       ; 0x692c
     push dx                          ; 0x692e
     push ax                          ; 0x692f
@@ -37,8 +37,8 @@ save_level_state:
     mov cx, 7                        ; 0x6942
     shl ax, cl                       ; 0x6945
     mov cx, ax                       ; 0x6947
-    mov ax, word [bss_0e16]          ; 0x6949
-    mov dx, word [bss_0e18]          ; 0x694c
+    mov ax, word [runtime_buffer_4k_b] ; 0x6949
+    mov dx, word [runtime_buffer_4k_b_seg] ; 0x694c
     add ax, cx                       ; 0x6950
     push dx                          ; 0x6952
     push ax                          ; 0x6953

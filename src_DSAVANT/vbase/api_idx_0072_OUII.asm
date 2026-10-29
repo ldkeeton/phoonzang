@@ -1611,7 +1611,7 @@ api_idx_0072_OUII.forward84:
     mov ax, 1                        ; 0x2f6c
     push ax                          ; 0x2f6f
     push ax                          ; 0x2f70
-    mov ax, bss_5642                 ; 0x2f71
+    mov ax, scenario_header_data     ; 0x2f71
     push ax                          ; 0x2f74
     call set_bitmap_bit              ; 0x2f75
     add sp, byte 6                   ; 0x2f78
@@ -1619,7 +1619,7 @@ api_idx_0072_OUII.forward84:
     push ax                          ; 0x2f7e
     mov ax, 2                        ; 0x2f7f
     push ax                          ; 0x2f82
-    mov ax, bss_5642                 ; 0x2f83
+    mov ax, scenario_header_data     ; 0x2f83
     push ax                          ; 0x2f86
     call set_bitmap_bit              ; 0x2f87
     add sp, byte 6                   ; 0x2f8a
@@ -1630,7 +1630,7 @@ api_idx_0072_OUII.forward84:
     mov ax, word [game_state_arg]    ; 0x2f95
     mov cx, 4                        ; 0x2f98
     shl ax, cl                       ; 0x2f9b
-    add ax, bss_5642                 ; 0x2f9d
+    add ax, scenario_header_data     ; 0x2f9d
     push ax                          ; 0x2fa0
     call set_bitmap_bit              ; 0x2fa1
     add sp, byte 6                   ; 0x2fa4
@@ -1641,7 +1641,7 @@ api_idx_0072_OUII.forward84:
     mov ax, word [game_state_arg]    ; 0x2faf
     mov cx, 4                        ; 0x2fb2
     shl ax, cl                       ; 0x2fb5
-    add ax, bss_5642                 ; 0x2fb7
+    add ax, scenario_header_data     ; 0x2fb7
     push ax                          ; 0x2fba
     call set_bitmap_bit              ; 0x2fbb
     add sp, byte 6                   ; 0x2fbe

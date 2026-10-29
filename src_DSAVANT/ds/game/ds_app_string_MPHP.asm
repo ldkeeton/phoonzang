@@ -59,6 +59,6 @@ ds_app_string_MPHP:
     cmp al, byte [bp - 2]            ; 0x0651
     jne short .return1               ; 0x0654
     mov ax, word [answer_check_word] ; 0x0656
-    mov word [bss_100a], ax          ; 0x0659
+    mov word [startup_sound_check], ax ; 0x0659
 .return1:
     ret                              ; 0x065c

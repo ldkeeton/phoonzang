@@ -253,12 +253,12 @@ api_idx_0014_OSKJ:
     mov ax, word [bp - 0xe]          ; 0x6718
     cmp ax, strict word 4            ; 0x671b
     jl short .back1                  ; 0x671e
-    push word [bss_9058]             ; 0x6720
+    push word [startup_option]       ; 0x6720
     call api_idx_0004_QUPL           ; 0x6724
     pop cx                           ; 0x6727
     ret                              ; 0x6728
 .forward12:
-    push word [bss_9058]             ; 0x6729
+    push word [startup_option]       ; 0x6729
     call api_idx_0004_QUPL           ; 0x672d
     pop cx                           ; 0x6730
     cmp word [bp - 6], byte 0        ; 0x6731
@@ -440,7 +440,7 @@ api_idx_0014_OSKJ:
     push ax                          ; 0x690a
     call play_sound_effect           ; 0x690b
     pop cx                           ; 0x690e
-    push word [bss_9058]             ; 0x690f
+    push word [startup_option]       ; 0x690f
     call api_idx_0004_QUPL           ; 0x6913
     pop cx                           ; 0x6916
     mov ax, 1                        ; 0x6917

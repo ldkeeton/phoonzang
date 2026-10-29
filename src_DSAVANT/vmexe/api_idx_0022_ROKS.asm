@@ -207,7 +207,7 @@ api_idx_0022_ROKS:
     mov bx, word [bx + party_char]   ; 0x2428
     cmp word [bx + si + member_rec.item_charges], byte 0 ; 0x242c
     jg short .forward11              ; 0x2430
-    mov ax, word [bss_9058]          ; 0x2432
+    mov ax, word [startup_option]    ; 0x2432
     mov cx, 2                        ; 0x2435
     cwd                              ; 0x2438
     idiv cx                          ; 0x2439
@@ -250,7 +250,7 @@ api_idx_0022_ROKS:
     call api_idx_0004_MLLS           ; 0x2488
     add sp, byte 4                   ; 0x248b
 .forward12:
-    mov ax, word [bss_9058]          ; 0x248e
+    mov ax, word [startup_option]    ; 0x248e
     mov cx, 2                        ; 0x2491
     cwd                              ; 0x2494
     idiv cx                          ; 0x2495
@@ -269,7 +269,7 @@ api_idx_0022_ROKS:
     call api_idx_0050_PLNP           ; 0x24aa
     add sp, byte 6                   ; 0x24ad
 .forward15:
-    mov ax, word [bss_9058]          ; 0x24b0
+    mov ax, word [startup_option]    ; 0x24b0
     mov cx, 2                        ; 0x24b3
     cwd                              ; 0x24b6
     idiv cx                          ; 0x24b7

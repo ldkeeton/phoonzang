@@ -1061,7 +1061,7 @@ jumptable_5eb8_case_35:
     push ax                          ; 0x449d
     call api_idx_0050_PLNP           ; 0x449e
     add sp, byte 6                   ; 0x44a1
-    push word [bss_9058]             ; 0x44a4
+    push word [startup_option]       ; 0x44a4
     call api_idx_0004_QUPL           ; 0x44a8
     pop cx                           ; 0x44ab
     mov word [bp - 2], 0             ; 0x44ac
@@ -4022,7 +4022,7 @@ api_idx_000e_ORJG.forward118:
 jumptable_5eb8_case_47:
     cmp word [bss_90e4], byte 0      ; 0x5f91
     jne short api_idx_000e_ORJG.return1 ; 0x5f96
-    push word [bss_9058]             ; 0x5f98
+    push word [startup_option]       ; 0x5f98
     call api_idx_0004_QUPL           ; 0x5f9c
     pop cx                           ; 0x5f9f
 api_idx_000e_ORJG.return1:

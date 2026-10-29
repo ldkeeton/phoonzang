@@ -108,7 +108,7 @@ api_idx_0006_OUPU:
     mov ax, word [game_state_arg]    ; 0x560d
     mov cx, 4                        ; 0x5610
     shl ax, cl                       ; 0x5613
-    add ax, bss_5642                 ; 0x5615
+    add ax, scenario_header_data     ; 0x5615
     push ax                          ; 0x5618
     call set_bitmap_bit              ; 0x5619
     add sp, byte 6                   ; 0x561c
@@ -149,7 +149,7 @@ api_idx_0006_OUPU:
     mov ax, word [game_state_arg]    ; 0x5676
     mov cx, 4                        ; 0x5679
     shl ax, cl                       ; 0x567c
-    add ax, bss_5642                 ; 0x567e
+    add ax, scenario_header_data     ; 0x567e
     push ax                          ; 0x5681
     call set_bitmap_bit              ; 0x5682
     add sp, byte 6                   ; 0x5685

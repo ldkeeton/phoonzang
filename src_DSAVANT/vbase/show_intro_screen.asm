@@ -381,7 +381,7 @@ show_intro_screen:
     call free_loaded_score           ; 0x92b7
     pop cx                           ; 0x92ba
 .forward11:
-    test word [bss_9056], 0x1000     ; 0x92bb
+    test word [startup_hardware_flags], 0x1000 ; 0x92bb
     je short .forward13              ; 0x92c1
     cmp byte [bss_5989], 1           ; 0x92c3
     jne short .forward13             ; 0x92c8

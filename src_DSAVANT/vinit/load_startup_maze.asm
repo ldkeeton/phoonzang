@@ -1,5 +1,5 @@
 ; auto-generated
-api_idx_0002_OGHR:
+load_startup_maze:
     mov ax, 0xfffe                   ; 0x0084
     call aztec_csav                  ; 0x0087
     mov ax, 0                        ; 0x008a

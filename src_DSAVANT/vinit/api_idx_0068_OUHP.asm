@@ -938,7 +938,7 @@ api_idx_0068_OUHP:
     push ax                          ; 0x130b
     call call_wait_sound             ; 0x130c
     pop cx                           ; 0x130f
-    test word [bss_9056], 0x1000     ; 0x1310
+    test word [startup_hardware_flags], 0x1000 ; 0x1310
     je short .forward51              ; 0x1316
     cmp byte [bss_5989], 1           ; 0x1318
     jne short .forward51             ; 0x131d

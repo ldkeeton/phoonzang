@@ -15,7 +15,7 @@ loc_PKMT:
     push word [bp + 4]               ; 0x24de
     call api_idx_0050_PLNP           ; 0x24e1
     add sp, byte 6                   ; 0x24e4
-    push word [bss_9058]             ; 0x24e7
+    push word [startup_option]       ; 0x24e7
     call api_idx_0004_QUPL           ; 0x24eb
     pop cx                           ; 0x24ee
     ret                              ; 0x24ef

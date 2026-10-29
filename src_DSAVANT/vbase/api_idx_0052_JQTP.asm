@@ -23,7 +23,7 @@ jumptable_4af5_case_1:
     mov ax, word [bp + 6]            ; 0x4854
     add ax, strict word 0x39         ; 0x4857
     push ax                          ; 0x485a
-    mov al, byte [bss_5986]          ; 0x485b
+    mov al, byte [startup_option_byte] ; 0x485b
     sub ah, ah                       ; 0x485e
     push ax                          ; 0x4860
     call loc_GHNH                    ; 0x4861
@@ -218,7 +218,7 @@ jumptable_4af5_case_15:
     push ax                          ; 0x4a0d
     mov ax, 3                        ; 0x4a0e
     push ax                          ; 0x4a11
-    mov al, byte [bss_5978]          ; 0x4a12
+    mov al, byte [palette_base_setting] ; 0x4a12
     cbw                              ; 0x4a15
     push ax                          ; 0x4a16
     call draw_number_field           ; 0x4a17
@@ -273,7 +273,7 @@ jumptable_4af5_case_16:
     push ax                          ; 0x4a8d
     mov ax, 3                        ; 0x4a8e
     push ax                          ; 0x4a91
-    mov al, byte [bss_5979]          ; 0x4a92
+    mov al, byte [palette_scale_setting] ; 0x4a92
     cbw                              ; 0x4a95
     push ax                          ; 0x4a96
     call draw_number_field           ; 0x4a97

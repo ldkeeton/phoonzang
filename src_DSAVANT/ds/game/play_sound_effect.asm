@@ -18,7 +18,7 @@ play_sound_effect:
     mov ax, word [bx + sound_slot_info] ; 0x0a52
     mov word [bp - 2], ax            ; 0x0a56
 .forward2:
-    cmp byte [bss_5984], 0           ; 0x0a59
+    cmp byte [sound_device_setting], 0 ; 0x0a59
     jbe short .forward3              ; 0x0a5e
     mov ax, word [bp - 4]            ; 0x0a60
     shl ax, 1                        ; 0x0a63

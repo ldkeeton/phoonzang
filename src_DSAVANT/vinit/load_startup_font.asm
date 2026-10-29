@@ -1,5 +1,5 @@
 ; auto-generated
-api_idx_0002_JOSN:
+load_startup_font:
     mov ax, 0xfffe                   ; 0x0045
     call aztec_csav                  ; 0x0048
     mov ax, 0                        ; 0x004b

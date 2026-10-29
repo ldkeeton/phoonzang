@@ -109,8 +109,8 @@ api_idx_0012_SHRT:
     mov ax, word [bp - 4]            ; 0x0877
     ret                              ; 0x087a
 .forward5:
-    push word [bss_0e28]             ; 0x087b
-    push word [bss_0e26]             ; 0x087f
+    push word [pointer_image_two_seg] ; 0x087b
+    push word [pointer_image_two]    ; 0x087f
     call set_mouse_pointer_shape     ; 0x0883
     add sp, byte 4                   ; 0x0886
     mov word [bp - 2], 0             ; 0x0889

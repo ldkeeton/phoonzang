@@ -242,7 +242,7 @@ api_idx_0010_LPLH:
     call api_idx_0004_MLLS           ; 0x2899
     add sp, byte 4                   ; 0x289c
 .forward16:
-    mov ax, word [bss_9058]          ; 0x289f
+    mov ax, word [startup_option]    ; 0x289f
     mov cx, 2                        ; 0x28a2
     cwd                              ; 0x28a5
     idiv cx                          ; 0x28a6
@@ -260,7 +260,7 @@ api_idx_0010_LPLH:
     call api_idx_0050_PLNP           ; 0x28bb
     add sp, byte 6                   ; 0x28be
 .forward18:
-    mov ax, word [bss_9058]          ; 0x28c1
+    mov ax, word [startup_option]    ; 0x28c1
     mov cx, 2                        ; 0x28c4
     cwd                              ; 0x28c7
     idiv cx                          ; 0x28c8

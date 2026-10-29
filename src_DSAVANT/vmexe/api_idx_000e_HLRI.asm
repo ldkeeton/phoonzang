@@ -304,7 +304,7 @@ api_idx_000e_HLRI:
     push ax                          ; 0x6295
     call api_idx_0050_PLNP           ; 0x6296
     add sp, byte 6                   ; 0x6299
-    push word [bss_9058]             ; 0x629c
+    push word [startup_option]       ; 0x629c
     call api_idx_0004_QUPL           ; 0x62a0
     pop cx                           ; 0x62a3
     jmp near .forward22              ; 0x62a4
@@ -323,7 +323,7 @@ api_idx_000e_HLRI:
     push ax                          ; 0x62c1
     call api_idx_0050_PLNP           ; 0x62c2
     add sp, byte 6                   ; 0x62c5
-    push word [bss_9058]             ; 0x62c8
+    push word [startup_option]       ; 0x62c8
     call api_idx_0004_QUPL           ; 0x62cc
     pop cx                           ; 0x62cf
     jmp short .forward22             ; 0x62d0
@@ -342,7 +342,7 @@ api_idx_000e_HLRI:
     push ax                          ; 0x62ec
     call api_idx_0050_PLNP           ; 0x62ed
     add sp, byte 6                   ; 0x62f0
-    push word [bss_9058]             ; 0x62f3
+    push word [startup_option]       ; 0x62f3
     call api_idx_0004_QUPL           ; 0x62f7
     pop cx                           ; 0x62fa
     mov al, byte [bss_8464]          ; 0x62fb

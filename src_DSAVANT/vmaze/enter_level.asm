@@ -33,7 +33,7 @@ enter_level:
     push ax                          ; 0x0d0a
     mov ax, word [game_state_arg]    ; 0x0d0b
     shl ax, cl                       ; 0x0d0e
-    add ax, bss_5642                 ; 0x0d10
+    add ax, scenario_header_data     ; 0x0d10
     push ax                          ; 0x0d13
     call aztec_movmem                ; 0x0d14
     add sp, byte 6                   ; 0x0d17
@@ -112,7 +112,7 @@ enter_level:
     push ax                          ; 0x0dd0
     call aztec_setmem                ; 0x0dd1
     add sp, byte 6                   ; 0x0dd4
-    mov ax, word [bss_0e0e]          ; 0x0dd7
+    mov ax, word [runtime_near_buffer_1k] ; 0x0dd7
     mov word [bp - 0xc], ax          ; 0x0dda
     mov word [bp - 2], 0             ; 0x0ddd
     jmp short .forward5              ; 0x0de2

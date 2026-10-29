@@ -180,7 +180,7 @@ jumptable_7185_case_0:
     call free_loaded_score           ; 0x71ee
     pop cx                           ; 0x71f1
 api_idx_0002_NVMN.forward7:
-    test word [bss_9056], 0x1000     ; 0x71f2
+    test word [startup_hardware_flags], 0x1000 ; 0x71f2
     je short api_idx_0002_NVMN.forward9 ; 0x71f8
     cmp byte [bss_5989], 1           ; 0x71fa
     jne short api_idx_0002_NVMN.forward9 ; 0x71ff

@@ -2,7 +2,7 @@
 string_loc_KUIU:
     mov ax, 0xfe52                   ; 0x3620
     call aztec_csav                  ; 0x3623
-    mov ax, word [bss_9058]          ; 0x3626
+    mov ax, word [startup_option]    ; 0x3626
     mov cx, 2                        ; 0x3629
     cwd                              ; 0x362c
     idiv cx                          ; 0x362d

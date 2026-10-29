@@ -101,7 +101,7 @@ api_idx_0006_JJVQ:
     call loc_IRGI                    ; 0x9f40
     add sp, byte 4                   ; 0x9f43
 .forward8:
-    push word [bss_9058]             ; 0x9f46
+    push word [startup_option]       ; 0x9f46
     call api_idx_0004_QUPL           ; 0x9f4a
     pop cx                           ; 0x9f4d
     ret                              ; 0x9f4e

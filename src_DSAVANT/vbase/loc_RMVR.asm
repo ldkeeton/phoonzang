@@ -2,7 +2,7 @@
 loc_RMVR:
     mov ax, 0xfc4a                   ; 0x4d0e
     call aztec_csav                  ; 0x4d11
-    mov si, bss_5642                 ; 0x4d14
+    mov si, scenario_header_data     ; 0x4d14
     lea di, word [bp - 0x3b6]        ; 0x4d17
     mov cx, ds                       ; 0x4d1b
     mov es, cx                       ; 0x4d1d
@@ -1348,9 +1348,9 @@ jumptable_5e7f_case_0:
     add sp, byte 6                   ; 0x5904
     jmp near loc_RMVR.forward43      ; 0x5907
 jumptable_5e7f_case_1:
-    cmp byte [bss_5986], 0           ; 0x590a
+    cmp byte [startup_option_byte], 0 ; 0x590a
     jbe short loc_RMVR.forward26     ; 0x590f
-    dec byte [bss_5986]              ; 0x5911
+    dec byte [startup_option_byte]   ; 0x5911
     push word [bp - 0xa]             ; 0x5915
     push word [bp - 8]               ; 0x5918
     mov ax, 1                        ; 0x591b
@@ -1360,9 +1360,9 @@ jumptable_5e7f_case_1:
 loc_RMVR.forward26:
     jmp near loc_RMVR.forward43      ; 0x5925
 jumptable_5e7f_case_2:
-    cmp byte [bss_5986], 0x63        ; 0x5928
+    cmp byte [startup_option_byte], 0x63 ; 0x5928
     jae short loc_RMVR.forward27     ; 0x592d
-    inc byte [bss_5986]              ; 0x592f
+    inc byte [startup_option_byte]   ; 0x592f
     push word [bp - 0xa]             ; 0x5933
     push word [bp - 8]               ; 0x5936
     mov ax, 1                        ; 0x5939
@@ -1453,15 +1453,15 @@ jumptable_5e7f_case_5:
     cmp word [bp + 4], byte 0        ; 0x59fa
     jne short loc_RMVR.forward28     ; 0x59fe
 loc_RMVR.back9:
-    mov al, byte [bss_5984]          ; 0x5a00
+    mov al, byte [sound_device_setting] ; 0x5a00
     sub ah, ah                       ; 0x5a03
     inc ax                           ; 0x5a05
     mov cx, 7                        ; 0x5a06
     cwd                              ; 0x5a09
     idiv cx                          ; 0x5a0a
     mov ax, dx                       ; 0x5a0c
-    mov byte [bss_5984], al          ; 0x5a0e
-    cmp byte [bss_5984], 5           ; 0x5a11
+    mov byte [sound_device_setting], al ; 0x5a0e
+    cmp byte [sound_device_setting], 5 ; 0x5a11
     je short loc_RMVR.back9          ; 0x5a16
     push word [bp - 0xa]             ; 0x5a18
     push word [bp - 8]               ; 0x5a1b
@@ -1470,12 +1470,12 @@ loc_RMVR.back9:
     call api_idx_0052_LJTK           ; 0x5a22
     add sp, byte 6                   ; 0x5a25
 loc_RMVR.forward28:
-    cmp byte [bss_5984], 0           ; 0x5a28
+    cmp byte [sound_device_setting], 0 ; 0x5a28
     jbe short loc_RMVR.forward29     ; 0x5a2d
-    mov word [bss_5980], 0x220       ; 0x5a2f
+    mov word [sound_port_setting], 0x220 ; 0x5a2f
     jmp short loc_RMVR.forward30     ; 0x5a35
 loc_RMVR.forward29:
-    mov word [bss_5980], 0           ; 0x5a37
+    mov word [sound_port_setting], 0 ; 0x5a37
 loc_RMVR.forward30:
     jmp near loc_RMVR.forward43      ; 0x5a3d
 jumptable_5e7f_case_6:
@@ -1785,10 +1785,10 @@ jumptable_5e7f_case_19:
     push ax                          ; 0x5cfc
     call api_idx_0052_LJTK           ; 0x5cfd
     add sp, byte 6                   ; 0x5d00
-    mov al, byte [bss_5979]          ; 0x5d03
+    mov al, byte [palette_scale_setting] ; 0x5d03
     cbw                              ; 0x5d06
     push ax                          ; 0x5d07
-    mov al, byte [bss_5978]          ; 0x5d08
+    mov al, byte [palette_base_setting] ; 0x5d08
     cbw                              ; 0x5d0b
     push ax                          ; 0x5d0c
     call api_idx_000c_NLKU           ; 0x5d0d
@@ -1809,10 +1809,10 @@ jumptable_5e7f_case_20:
     push ax                          ; 0x5d31
     call api_idx_0052_LJTK           ; 0x5d32
     add sp, byte 6                   ; 0x5d35
-    mov al, byte [bss_5979]          ; 0x5d38
+    mov al, byte [palette_scale_setting] ; 0x5d38
     cbw                              ; 0x5d3b
     push ax                          ; 0x5d3c
-    mov al, byte [bss_5978]          ; 0x5d3d
+    mov al, byte [palette_base_setting] ; 0x5d3d
     cbw                              ; 0x5d40
     push ax                          ; 0x5d41
     call api_idx_000c_NLKU           ; 0x5d42
@@ -1833,10 +1833,10 @@ jumptable_5e7f_case_21:
     push ax                          ; 0x5d66
     call api_idx_0052_LJTK           ; 0x5d67
     add sp, byte 6                   ; 0x5d6a
-    mov al, byte [bss_5979]          ; 0x5d6d
+    mov al, byte [palette_scale_setting] ; 0x5d6d
     cbw                              ; 0x5d70
     push ax                          ; 0x5d71
-    mov al, byte [bss_5978]          ; 0x5d72
+    mov al, byte [palette_base_setting] ; 0x5d72
     cbw                              ; 0x5d75
     push ax                          ; 0x5d76
     call api_idx_000c_NLKU           ; 0x5d77
@@ -1856,10 +1856,10 @@ jumptable_5e7f_case_22:
     push ax                          ; 0x5d98
     call api_idx_0052_LJTK           ; 0x5d99
     add sp, byte 6                   ; 0x5d9c
-    mov al, byte [bss_5979]          ; 0x5d9f
+    mov al, byte [palette_scale_setting] ; 0x5d9f
     cbw                              ; 0x5da2
     push ax                          ; 0x5da3
-    mov al, byte [bss_5978]          ; 0x5da4
+    mov al, byte [palette_base_setting] ; 0x5da4
     cbw                              ; 0x5da7
     push ax                          ; 0x5da8
     call api_idx_000c_NLKU           ; 0x5da9
@@ -1893,7 +1893,7 @@ jumptable_5e7f_case_23:
     push ax                          ; 0x5de8
     call flash_button                ; 0x5de9
     add sp, byte 0xa                 ; 0x5dec
-    mov al, byte [bss_5984]          ; 0x5def
+    mov al, byte [sound_device_setting] ; 0x5def
     cmp al, byte [bp - 0x74]         ; 0x5df2
     jne short loc_RMVR.forward39     ; 0x5df5
     mov al, byte [video_mode]        ; 0x5df7
@@ -1940,15 +1940,15 @@ jumptable_5e7f_case_24:
     mov word [spell_dialog_button], 0 ; 0x5e52
     mov word [bp - 0x18], 0          ; 0x5e58
     lea si, word [bp - 0x3b6]        ; 0x5e5d
-    mov di, bss_5642                 ; 0x5e61
+    mov di, scenario_header_data     ; 0x5e61
     mov cx, ds                       ; 0x5e64
     mov es, cx                       ; 0x5e66
     mov cx, 0x1a6                    ; 0x5e68
     rep movsw                        ; 0x5e6b
-    mov al, byte [bss_5979]          ; 0x5e6d
+    mov al, byte [palette_scale_setting] ; 0x5e6d
     cbw                              ; 0x5e70
     push ax                          ; 0x5e71
-    mov al, byte [bss_5978]          ; 0x5e72
+    mov al, byte [palette_base_setting] ; 0x5e72
     cbw                              ; 0x5e75
     push ax                          ; 0x5e76
     call api_idx_000c_NLKU           ; 0x5e77

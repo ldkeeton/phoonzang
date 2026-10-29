@@ -749,7 +749,7 @@ api_idx_000e_SOLJ.forward10:
 jumptable_9808_case_0:
     cmp word [bss_90e4], byte 0      ; 0x982f
     jne short api_idx_000e_SOLJ.forward12 ; 0x9834
-    push word [bss_9058]             ; 0x9836
+    push word [startup_option]       ; 0x9836
     call api_idx_0004_QUPL           ; 0x983a
     pop cx                           ; 0x983d
 api_idx_000e_SOLJ.forward12:

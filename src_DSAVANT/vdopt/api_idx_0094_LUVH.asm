@@ -332,7 +332,7 @@ api_idx_0094_LUVH:
     mov ax, word [bp - 0x2e]         ; 0x448b
     mov cx, 4                        ; 0x448e
     shl ax, cl                       ; 0x4491
-    add ax, bss_5642                 ; 0x4493
+    add ax, scenario_header_data     ; 0x4493
     push ax                          ; 0x4496
     call set_bitmap_bit              ; 0x4497
     add sp, byte 6                   ; 0x449a
@@ -356,7 +356,7 @@ api_idx_0094_LUVH:
     mov ax, word [bp - 0x2e]         ; 0x44c3
     mov cx, 4                        ; 0x44c6
     shl ax, cl                       ; 0x44c9
-    add ax, bss_5642                 ; 0x44cb
+    add ax, scenario_header_data     ; 0x44cb
     push ax                          ; 0x44ce
     call set_bitmap_bit              ; 0x44cf
     add sp, byte 6                   ; 0x44d2

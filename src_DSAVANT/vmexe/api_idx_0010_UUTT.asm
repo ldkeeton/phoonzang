@@ -140,7 +140,7 @@ api_idx_0010_UUTT:
     push ax                          ; 0x9b81
     call api_idx_0004_QSNR           ; 0x9b82
     add sp, byte 0xe                 ; 0x9b85
-    mov ax, word [bss_9058]          ; 0x9b88
+    mov ax, word [startup_option]    ; 0x9b88
     mov cx, 2                        ; 0x9b8b
     cwd                              ; 0x9b8e
     idiv cx                          ; 0x9b8f
@@ -333,7 +333,7 @@ api_idx_0010_UUTT:
     call run_party_screen_animation  ; 0x9d57
     jmp short .forward20             ; 0x9d5a
 .forward19:
-    mov ax, word [bss_9058]          ; 0x9d5c
+    mov ax, word [startup_option]    ; 0x9d5c
     mov cx, 2                        ; 0x9d5f
     cwd                              ; 0x9d62
     idiv cx                          ; 0x9d63
@@ -351,7 +351,7 @@ api_idx_0010_UUTT:
     push ax                          ; 0x9d77
     call api_idx_0050_PLNP           ; 0x9d78
     add sp, byte 6                   ; 0x9d7b
-    mov ax, word [bss_9058]          ; 0x9d7e
+    mov ax, word [startup_option]    ; 0x9d7e
     mov cx, 2                        ; 0x9d81
     cwd                              ; 0x9d84
     idiv cx                          ; 0x9d85

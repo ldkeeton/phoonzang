@@ -280,7 +280,7 @@ api_idx_0010_RUQS:
     call api_idx_0004_MLLS           ; 0x30f2
     add sp, byte 4                   ; 0x30f5
 .forward13:
-    push word [bss_9058]             ; 0x30f8
+    push word [startup_option]       ; 0x30f8
     call api_idx_0004_QUPL           ; 0x30fc
     pop cx                           ; 0x30ff
     jmp short .forward15             ; 0x3100
@@ -293,7 +293,7 @@ api_idx_0010_RUQS:
     push ax                          ; 0x310d
     call api_idx_0050_PLNP           ; 0x310e
     add sp, byte 6                   ; 0x3111
-    push word [bss_9058]             ; 0x3114
+    push word [startup_option]       ; 0x3114
     call api_idx_0004_QUPL           ; 0x3118
     pop cx                           ; 0x311b
 .forward15:

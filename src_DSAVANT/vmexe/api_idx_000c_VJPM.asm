@@ -99,7 +99,7 @@ api_idx_000c_VJPM:
     call api_idx_0004_MLLS           ; 0x702b
     add sp, byte 4                   ; 0x702e
 .forward6:
-    push word [bss_9058]             ; 0x7031
+    push word [startup_option]       ; 0x7031
     call api_idx_0004_QUPL           ; 0x7035
     pop cx                           ; 0x7038
 .forward7:
@@ -151,7 +151,7 @@ api_idx_000c_VJPM:
     call api_idx_0004_MLLS           ; 0x70a8
     add sp, byte 4                   ; 0x70ab
 .forward10:
-    push word [bss_9058]             ; 0x70ae
+    push word [startup_option]       ; 0x70ae
     call api_idx_0004_QUPL           ; 0x70b2
     pop cx                           ; 0x70b5
 .forward11:
@@ -198,7 +198,7 @@ api_idx_000c_VJPM:
     call api_idx_0004_MLLS           ; 0x711c
     add sp, byte 4                   ; 0x711f
 .forward13:
-    push word [bss_9058]             ; 0x7122
+    push word [startup_option]       ; 0x7122
     call api_idx_0004_QUPL           ; 0x7126
     pop cx                           ; 0x7129
 .forward14:

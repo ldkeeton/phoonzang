@@ -133,24 +133,24 @@ Argc equ __zbss_0d04 - __zdseg_start
 Argv equ __zbss_0d06 - __zdseg_start
 aztec_tty_rd_buffer equ __zbss_0d08 - __zdseg_start
 aztec_tty_rd_bp equ __zbss_0e0c - __zdseg_start
-bss_0e0e equ __zbss_0e0e - __zdseg_start
-bss_0e10 equ __zbss_0e10 - __zdseg_start
+runtime_near_buffer_1k equ __zbss_0e0e - __zdseg_start
+runtime_buffer_3k equ __zbss_0e10 - __zdseg_start
 maze_tables equ __zbss_0e12 - __zdseg_start
 maze_data equ __zbss_0e14 - __zdseg_start
-bss_0e16 equ __zbss_0e16 - __zdseg_start
-bss_0e18 equ __zbss_0e18 - __zdseg_start
-bss_0e1a equ __zbss_0e1a - __zdseg_start
-bss_0e1c equ __zbss_0e1c - __zdseg_start
-bss_0e1e equ __zbss_0e1e - __zdseg_start
-bss_0e20 equ __zbss_0e20 - __zdseg_start
+runtime_buffer_4k_b equ __zbss_0e16 - __zdseg_start
+runtime_buffer_4k_b_seg equ __zbss_0e18 - __zdseg_start
+runtime_buffer_4k_a equ __zbss_0e1a - __zdseg_start
+runtime_buffer_4k_a_seg equ __zbss_0e1c - __zdseg_start
+runtime_buffer_1k equ __zbss_0e1e - __zdseg_start
+runtime_buffer_1k_seg equ __zbss_0e20 - __zdseg_start
 data_file_fd equ __zbss_0e22 - __zdseg_start
 msg_dbs_fd equ __zbss_0e24 - __zdseg_start
-bss_0e26 equ __zbss_0e26 - __zdseg_start
-bss_0e28 equ __zbss_0e28 - __zdseg_start
+pointer_image_two equ __zbss_0e26 - __zdseg_start
+pointer_image_two_seg equ __zbss_0e28 - __zdseg_start
 mouse_pointer_shape equ __zbss_0e2a - __zdseg_start
 mouse_pointer_shape_seg equ __zbss_0e2c - __zdseg_start
-bss_0e2e equ __zbss_0e2e - __zdseg_start
-bss_0e30 equ __zbss_0e30 - __zdseg_start
+pointer_image_zero equ __zbss_0e2e - __zdseg_start
+pointer_image_zero_seg equ __zbss_0e30 - __zdseg_start
 mouse_active equ __zbss_0e32 - __zdseg_start
 code_check_value equ __zbss_0e34 - __zdseg_start
 character_record_index equ __zbss_0e36 - __zdseg_start
@@ -159,7 +159,7 @@ bss_0e4c equ __zbss_0e4c - __zdseg_start
 code_char_message_index equ __zbss_0fd5 - __zdseg_start
 code_table equ __zbss_0fd6 - __zdseg_start
 answer_check_word equ __zbss_1008 - __zdseg_start
-bss_100a equ __zbss_100a - __zdseg_start
+startup_sound_check equ __zbss_100a - __zdseg_start
 message_directory equ __zbss_100c - __zdseg_start
 bss_2d40 equ __zbss_2d40 - __zdseg_start
 bss_2d58 equ __zbss_2d58 - __zdseg_start
@@ -176,11 +176,11 @@ record_map_7 equ __zbss_52c4 - __zdseg_start
 record_map_4 equ __zbss_53c4 - __zdseg_start
 record_map_8 equ __zbss_54c4 - __zdseg_start
 record_size equ __zbss_5524 - __zdseg_start
-bss_5528 equ __zbss_5528 - __zdseg_start
-bss_552a equ __zbss_552a - __zdseg_start
+maze_data_size equ __zbss_5528 - __zdseg_start
+maze_tables_size equ __zbss_552a - __zdseg_start
 record_packed equ __zbss_556c - __zdseg_start
 sound_slot_info equ __zbss_5576 - __zdseg_start
-bss_5642 equ __zbss_5642 - __zdseg_start
+scenario_header_data equ __zbss_5642 - __zdseg_start
 action_bitmap equ __zbss_5842 - __zdseg_start
 bss_590e equ __zbss_590e - __zdseg_start
 bss_5910 equ __zbss_5910 - __zdseg_start
@@ -191,22 +191,22 @@ bss_594e equ __zbss_594e - __zdseg_start
 screen_store_1_enabled equ __zbss_5962 - __zdseg_start
 screen_store_disk_enabled equ __zbss_5963 - __zdseg_start
 screen_store_drive equ __zbss_5964 - __zdseg_start
-bss_5978 equ __zbss_5978 - __zdseg_start
-bss_5979 equ __zbss_5979 - __zdseg_start
+palette_base_setting equ __zbss_5978 - __zdseg_start
+palette_scale_setting equ __zbss_5979 - __zdseg_start
 bss_597a equ __zbss_597a - __zdseg_start
 bss_597c equ __zbss_597c - __zdseg_start
 bss_597d equ __zbss_597d - __zdseg_start
 bss_597e equ __zbss_597e - __zdseg_start
 music_volume equ __zbss_597f - __zdseg_start
-bss_5980 equ __zbss_5980 - __zdseg_start
+sound_port_setting equ __zbss_5980 - __zdseg_start
 bss_5982 equ __zbss_5982 - __zdseg_start
-bss_5984 equ __zbss_5984 - __zdseg_start
+sound_device_setting equ __zbss_5984 - __zdseg_start
 video_mode equ __zbss_5985 - __zdseg_start
-bss_5986 equ __zbss_5986 - __zdseg_start
+startup_option_byte equ __zbss_5986 - __zdseg_start
 install_mode equ __zbss_5987 - __zdseg_start
 bss_5988 equ __zbss_5988 - __zdseg_start
 bss_5989 equ __zbss_5989 - __zdseg_start
-bss_598a equ __zbss_598a - __zdseg_start
+hardware_mode_setting equ __zbss_598a - __zdseg_start
 bss_598b equ __zbss_598b - __zdseg_start
 no_dissolve equ __zbss_598c - __zdseg_start
 loaded_sound_id equ __zbss_598e - __zdseg_start
@@ -375,10 +375,10 @@ startup_check_stage equ __zbss_904c - __zdseg_start
 spell_dialog_result equ __zbss_904e - __zdseg_start
 spell_dialog_button equ __zbss_9050 - __zdseg_start
 bss_9052 equ __zbss_9052 - __zdseg_start
-bss_9056 equ __zbss_9056 - __zdseg_start
-bss_9058 equ __zbss_9058 - __zdseg_start
+startup_hardware_flags equ __zbss_9056 - __zdseg_start
+startup_option equ __zbss_9058 - __zdseg_start
 message_delay equ __zbss_905a - __zdseg_start
-bss_905c equ __zbss_905c - __zdseg_start
+startup_zero_word equ __zbss_905c - __zdseg_start
 party_return_state equ __zbss_905e - __zdseg_start
 screen_cache equ __zbss_9060 - __zdseg_start
 screen_cache_0_seg equ __zbss_9062 - __zdseg_start
@@ -391,7 +391,7 @@ pc_file_record_size equ __zbss_906e - __zdseg_start
 bss_9070 equ __zbss_9070 - __zdseg_start
 pc_file_record_base equ __zbss_9072 - __zdseg_start
 pc_file_record_base_hi equ __zbss_9074 - __zdseg_start
-bss_9088 equ __zbss_9088 - __zdseg_start
+scenario_header_fd equ __zbss_9088 - __zdseg_start
 party_redraw_last_tick equ __zbss_908a - __zdseg_start
 party_redraw_last_tick_hi equ __zbss_908c - __zdseg_start
 bss_908e equ __zbss_908e - __zdseg_start
@@ -453,7 +453,7 @@ __zdseg_end equ (__zimage_end - __zdseg_start) + __zbss_size
 
 %include "ds/game/poll_hotspots.asm"       ; 0x0b54
 
-%include "ds/game/ds_app_string_KVNI.asm"  ; 0x0c0b
+%include "ds/game/prepare_code_answer.asm" ; 0x0c0b
 
 %include "ds/game/set_hotspot.asm"         ; 0x0ced
 

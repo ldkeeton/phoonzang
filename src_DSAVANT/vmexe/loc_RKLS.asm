@@ -2,7 +2,7 @@
 loc_RKLS:
     mov ax, 0                        ; 0x3aa3
     call aztec_csav                  ; 0x3aa6
-    mov ax, word [bss_9058]          ; 0x3aa9
+    mov ax, word [startup_option]    ; 0x3aa9
     mov cx, 4                        ; 0x3aac
     cwd                              ; 0x3aaf
     idiv cx                          ; 0x3ab0
@@ -39,7 +39,7 @@ loc_RKLS:
     push ax                          ; 0x3af7
     call api_idx_0004_QSNR           ; 0x3af8
     add sp, byte 0xe                 ; 0x3afb
-    push word [bss_9058]             ; 0x3afe
+    push word [startup_option]       ; 0x3afe
     call api_idx_0004_QUPL           ; 0x3b02
     pop cx                           ; 0x3b05
     ret                              ; 0x3b06

@@ -27,40 +27,40 @@ __zcode_start:
 
 %include "vinit/ovmain.asm"                ; 0x000e
 
-%include "vinit/api_idx_0002_JOSN.asm"     ; 0x0045
+%include "vinit/load_startup_font.asm"     ; 0x0045
 
-%include "vinit/api_idx_0002_OGHR.asm"     ; 0x0084
+%include "vinit/load_startup_maze.asm"     ; 0x0084
 
-%include "vinit/api_idx_0002_GHOH.asm"     ; 0x00ca
+%include "vinit/read_startup_file.asm"     ; 0x00ca
 
-%include "vinit/api_idx_0002_TJHL.asm"     ; 0x010c
+%include "vinit/load_startup_misc.asm"     ; 0x010c
 
 %include "vinit/load_file_data.asm"        ; 0x0146
 
 %include "vinit/build_palette_map.asm"     ; 0x0211
 
-dseg_9098 equ __zdseg_end + (__zdseg_9098 - __zdata_start)
-dseg_90a5 equ __zdseg_end + (__zdseg_90a5 - __zdata_start)
-dseg_90b1 equ __zdseg_end + (__zdseg_90b1 - __zdata_start)
-dseg_90bd equ __zdseg_end + (__zdseg_90bd - __zdata_start)
-dseg_90c9 equ __zdseg_end + (__zdseg_90c9 - __zdata_start)
-dseg_90d5 equ __zdseg_end + (__zdseg_90d5 - __zdata_start)
-dseg_90e1 equ __zdseg_end + (__zdseg_90e1 - __zdata_start)
-dseg_90ed equ __zdseg_end + (__zdseg_90ed - __zdata_start)
-dseg_90f9 equ __zdseg_end + (__zdseg_90f9 - __zdata_start)
-dseg_9105 equ __zdseg_end + (__zdseg_9105 - __zdata_start)
-dseg_9111 equ __zdseg_end + (__zdseg_9111 - __zdata_start)
-dseg_911d equ __zdseg_end + (__zdseg_911d - __zdata_start)
-dseg_9129 equ __zdseg_end + (__zdseg_9129 - __zdata_start)
-dseg_9136 equ __zdseg_end + (__zdseg_9136 - __zdata_start)
-dseg_9141 equ __zdseg_end + (__zdseg_9141 - __zdata_start)
-dseg_914a equ __zdseg_end + (__zdseg_914a - __zdata_start)
-dseg_9152 equ __zdseg_end + (__zdseg_9152 - __zdata_start)
-dseg_915d equ __zdseg_end + (__zdseg_915d - __zdata_start)
-dseg_9166 equ __zdseg_end + (__zdseg_9166 - __zdata_start)
-dseg_916e equ __zdseg_end + (__zdseg_916e - __zdata_start)
-dseg_917b equ __zdseg_end + (__zdseg_917b - __zdata_start)
-%include "vinit/loc_RVQR.asm"              ; 0x03a8
+startup_scenario_header_name    equ __zdseg_end + (__zstartup_scenario_header_name - __zdata_start)
+startup_vbfont0_name            equ __zdseg_end + (__zstartup_vbfont0_name - __zdata_start)
+startup_vbfont1_name            equ __zdseg_end + (__zstartup_vbfont1_name - __zdata_start)
+startup_vbfont2_name            equ __zdseg_end + (__zstartup_vbfont2_name - __zdata_start)
+startup_vbfont3_name            equ __zdseg_end + (__zstartup_vbfont3_name - __zdata_start)
+startup_vcfont1_name            equ __zdseg_end + (__zstartup_vcfont1_name - __zdata_start)
+startup_vcport0_name            equ __zdseg_end + (__zstartup_vcport0_name - __zdata_start)
+startup_vcfont2_name            equ __zdseg_end + (__zstartup_vcfont2_name - __zdata_start)
+startup_vcfont3_name            equ __zdseg_end + (__zstartup_vcfont3_name - __zdata_start)
+startup_vmpntr0_name            equ __zdseg_end + (__zstartup_vmpntr0_name - __zdata_start)
+startup_vmpntr1_name            equ __zdseg_end + (__zstartup_vmpntr1_name - __zdata_start)
+startup_vmpntr2_name            equ __zdseg_end + (__zstartup_vmpntr2_name - __zdata_start)
+startup_base_data_name          equ __zdseg_end + (__zstartup_base_data_name - __zdata_start)
+startup_master_header_name      equ __zdseg_end + (__zstartup_master_header_name - __zdata_start)
+startup_disk_header_name        equ __zdseg_end + (__zstartup_disk_header_name - __zdata_start)
+startup_message_header_name     equ __zdseg_end + (__zstartup_message_header_name - __zdata_start)
+startup_pcfile_name             equ __zdseg_end + (__zstartup_pcfile_name - __zdata_start)
+startup_misc_header_name        equ __zdseg_end + (__zstartup_misc_header_name - __zdata_start)
+startup_message_database_name   equ __zdseg_end + (__zstartup_message_database_name - __zdata_start)
+startup_scenario_database_name  equ __zdseg_end + (__zstartup_scenario_database_name - __zdata_start)
+startup_palette_definition_name equ __zdseg_end + (__zstartup_palette_definition_name - __zdata_start)
+%include "vinit/initialize_runtime_resources.asm" ; 0x03a8
 
 %include "shared/ovr/load_screen_file.asm"      ; 0x08b7
 
@@ -93,7 +93,49 @@ _Uend    equ __zdseg_end + (__zobss_end - __zdata_start)
 %include "shared/ovr/aztec_ovbgn.asm"           ; 0x15d9
 
 __zdata_start:
-%include "vinit/data/dseg_9098.asm"        ; 0x1617
+%include "vinit/data/startup_scenario_header_name.asm" ; 0x1617
+
+%include "vinit/data/startup_vbfont0_name.asm" ; 0x1624
+
+%include "vinit/data/startup_vbfont1_name.asm" ; 0x1630
+
+%include "vinit/data/startup_vbfont2_name.asm" ; 0x163c
+
+%include "vinit/data/startup_vbfont3_name.asm" ; 0x1648
+
+%include "vinit/data/startup_vcfont1_name.asm" ; 0x1654
+
+%include "vinit/data/startup_vcport0_name.asm" ; 0x1660
+
+%include "vinit/data/startup_vcfont2_name.asm" ; 0x166c
+
+%include "vinit/data/startup_vcfont3_name.asm" ; 0x1678
+
+%include "vinit/data/startup_vmpntr0_name.asm" ; 0x1684
+
+%include "vinit/data/startup_vmpntr1_name.asm" ; 0x1690
+
+%include "vinit/data/startup_vmpntr2_name.asm" ; 0x169c
+
+%include "vinit/data/startup_base_data_name.asm" ; 0x16a8
+
+%include "vinit/data/startup_master_header_name.asm" ; 0x16b5
+
+%include "vinit/data/startup_disk_header_name.asm" ; 0x16c0
+
+%include "vinit/data/startup_message_header_name.asm" ; 0x16c9
+
+%include "vinit/data/startup_pcfile_name.asm" ; 0x16d1
+
+%include "vinit/data/startup_misc_header_name.asm" ; 0x16dc
+
+%include "vinit/data/startup_message_database_name.asm" ; 0x16e5
+
+%include "vinit/data/startup_scenario_database_name.asm" ; 0x16ed
+
+%include "vinit/data/startup_palette_definition_name.asm" ; 0x16fa
+
+%include "vinit/data/dseg_9187.asm"        ; 0x1706
 
 %include "shared/data/save_si.asm"          ; 0x172d
 

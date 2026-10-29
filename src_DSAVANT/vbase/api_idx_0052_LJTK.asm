@@ -36,7 +36,7 @@ jumptable_4688_case_1:
     mov ax, word [bp + 6]            ; 0x437f
     add ax, strict word 0x39         ; 0x4382
     push ax                          ; 0x4385
-    mov al, byte [bss_5986]          ; 0x4386
+    mov al, byte [startup_option_byte] ; 0x4386
     sub ah, ah                       ; 0x4389
     push ax                          ; 0x438b
     call loc_HOMM                    ; 0x438c
@@ -73,7 +73,7 @@ jumptable_4688_case_3:
 jumptable_4688_case_4:
     lea ax, word [bp - 0x52]         ; 0x43d3
     push ax                          ; 0x43d6
-    mov al, byte [bss_5984]          ; 0x43d7
+    mov al, byte [sound_device_setting] ; 0x43d7
     sub ah, ah                       ; 0x43da
     add ax, MSG_PC_SPEAKER           ; 0x43dc
     push ax                          ; 0x43df
@@ -297,7 +297,7 @@ jumptable_4688_case_13:
 jumptable_4688_case_14:
     lea ax, word [bp - 0x52]         ; 0x45d6
     push ax                          ; 0x45d9
-    mov al, byte [bss_598a]          ; 0x45da
+    mov al, byte [hardware_mode_setting] ; 0x45da
     sub ah, ah                       ; 0x45dd
     add ax, MSG_RAMDISK              ; 0x45df
     push ax                          ; 0x45e2
@@ -349,7 +349,7 @@ jumptable_4688_case_15:
     push ax                          ; 0x464f
     mov ax, 3                        ; 0x4650
     push ax                          ; 0x4653
-    mov al, byte [bss_5978]          ; 0x4654
+    mov al, byte [palette_base_setting] ; 0x4654
     cbw                              ; 0x4657
     push ax                          ; 0x4658
     call draw_number_field           ; 0x4659
@@ -366,7 +366,7 @@ jumptable_4688_case_15:
     push ax                          ; 0x4676
     mov ax, 3                        ; 0x4677
     push ax                          ; 0x467a
-    mov al, byte [bss_5979]          ; 0x467b
+    mov al, byte [palette_scale_setting] ; 0x467b
     cbw                              ; 0x467e
     push ax                          ; 0x467f
     call draw_number_field           ; 0x4680

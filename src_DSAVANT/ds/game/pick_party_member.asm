@@ -108,8 +108,8 @@ pick_party_member:
     mov ax, word [bp - 4]            ; 0x21ee
     ret                              ; 0x21f1
 .forward5:
-    push word [bss_0e30]             ; 0x21f2
-    push word [bss_0e2e]             ; 0x21f6
+    push word [pointer_image_zero_seg] ; 0x21f2
+    push word [pointer_image_zero]   ; 0x21f6
     call set_mouse_pointer_shape     ; 0x21fa
     add sp, byte 4                   ; 0x21fd
     mov word [bp - 2], 0             ; 0x2200

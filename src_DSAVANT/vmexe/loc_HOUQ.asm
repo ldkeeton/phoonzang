@@ -25,7 +25,7 @@ loc_HOUQ:
     mov word [bss_8320], 0           ; 0x6f1b
     call run_party_screen_animation  ; 0x6f21
 .forward2:
-    mov ax, word [bss_9058]          ; 0x6f24
+    mov ax, word [startup_option]    ; 0x6f24
     mov cx, 2                        ; 0x6f27
     cwd                              ; 0x6f2a
     idiv cx                          ; 0x6f2b

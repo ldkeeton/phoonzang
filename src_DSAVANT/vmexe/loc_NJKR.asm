@@ -84,7 +84,7 @@ loc_NJKR:
     call api_idx_0004_MLLS           ; 0x1ef1
     add sp, byte 4                   ; 0x1ef4
 .forward6:
-    push word [bss_9058]             ; 0x1ef7
+    push word [startup_option]       ; 0x1ef7
     call api_idx_0004_QUPL           ; 0x1efb
     pop cx                           ; 0x1efe
     ret                              ; 0x1eff

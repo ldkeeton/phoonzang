@@ -2,7 +2,7 @@
 api_idx_0006_TMNI:
     mov ax, 0xfffa
     call aztec_csav
-    mov ax, word [bss_0e0e]
+    mov ax, word [runtime_near_buffer_1k]
     mov word [bp - 6], ax
     mov word [bp - 2], 0
     jmp short .forward2

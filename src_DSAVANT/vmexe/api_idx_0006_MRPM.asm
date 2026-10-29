@@ -93,7 +93,7 @@ api_idx_0006_MRPM:
     push ax                          ; 0x916d
     call api_idx_0050_PLNP           ; 0x916e
     add sp, byte 6                   ; 0x9171
-    push word [bss_9058]             ; 0x9174
+    push word [startup_option]       ; 0x9174
     call api_idx_0004_QUPL           ; 0x9178
     pop cx                           ; 0x917b
     mov ax, 1                        ; 0x917c

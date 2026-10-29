@@ -93,7 +93,7 @@ reveal_text_line:
     call draw_text_glyphs            ; 0x935c
     add sp, byte 4                   ; 0x935f
     mov ax, 0                        ; 0x9362
-    cmp byte [bss_598a], 2           ; 0x9365
+    cmp byte [hardware_mode_setting], 2 ; 0x9365
     jne short .forward6              ; 0x936a
     mov ax, 1                        ; 0x936c
 .forward6:

@@ -299,7 +299,7 @@ api_idx_0022_VNNP:
     push ax                          ; 0x2507
     call api_idx_0006_KUNS           ; 0x2508
     pop cx                           ; 0x250b
-    mov bx, word [bss_100a]          ; 0x250c
+    mov bx, word [startup_sound_check] ; 0x250c
     mov word [bx], ax                ; 0x2510
     mov ax, 1                        ; 0x2512
     push ax                          ; 0x2515
@@ -338,7 +338,7 @@ api_idx_0022_VNNP:
     push ax                          ; 0x255f
     call api_idx_0006_KUNS           ; 0x2560
     pop cx                           ; 0x2563
-    mov bx, word [bss_100a]          ; 0x2564
+    mov bx, word [startup_sound_check] ; 0x2564
     mov word [bx], ax                ; 0x2568
     mov ax, 1                        ; 0x256a
     push ax                          ; 0x256d
@@ -396,7 +396,7 @@ api_idx_0022_VNNP:
     cmp ax, word [party_map_piece]   ; 0x25f1
     jne short .forward29             ; 0x25f5
     mov ax, word [bp - 8]            ; 0x25f7
-    mov bx, word [bss_100a]          ; 0x25fa
+    mov bx, word [startup_sound_check] ; 0x25fa
     mov word [bx], ax                ; 0x25fe
     mov ax, 0                        ; 0x2600
     cmp word [bp - 8], byte 0x13     ; 0x2603
@@ -425,7 +425,7 @@ api_idx_0022_VNNP:
     push ax                          ; 0x2637
     call api_idx_0006_KUNS           ; 0x2638
     pop cx                           ; 0x263b
-    mov bx, word [bss_100a]          ; 0x263c
+    mov bx, word [startup_sound_check] ; 0x263c
     mov word [bx], ax                ; 0x2640
     mov ax, 1                        ; 0x2642
     push ax                          ; 0x2645
@@ -1141,7 +1141,7 @@ jumptable_2d1b_case_6:
     push ax                          ; 0x2ccb
     call api_idx_0006_KUNS           ; 0x2ccc
     pop cx                           ; 0x2ccf
-    mov bx, word [bss_100a]          ; 0x2cd0
+    mov bx, word [startup_sound_check] ; 0x2cd0
     mov word [bx], ax                ; 0x2cd4
     mov ax, 1                        ; 0x2cd6
     push ax                          ; 0x2cd9

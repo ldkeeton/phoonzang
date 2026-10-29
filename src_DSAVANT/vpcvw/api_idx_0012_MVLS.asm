@@ -141,8 +141,8 @@ api_idx_0012_MVLS:
     mov word [bp - 0x12], ax         ; 0x0bda
     mov ax, 0x3dc                    ; 0x0bdd
     push ax                          ; 0x0be0
-    push word [bss_0e20]             ; 0x0be1
-    push word [bss_0e1e]             ; 0x0be5
+    push word [runtime_buffer_1k_seg] ; 0x0be1
+    push word [runtime_buffer_1k]    ; 0x0be5
     mov ax, word [bp - 0x12]         ; 0x0be9
     add ax, strict word 0xc          ; 0x0bec
     push dx                          ; 0x0bef
@@ -195,8 +195,8 @@ api_idx_0012_MVLS:
     push ax                          ; 0x0c62
     mov ax, 0x4c                     ; 0x0c63
     push ax                          ; 0x0c66
-    push word [bss_0e20]             ; 0x0c67
-    push word [bss_0e1e]             ; 0x0c6b
+    push word [runtime_buffer_1k_seg] ; 0x0c67
+    push word [runtime_buffer_1k]    ; 0x0c6b
     call call_set_mouse_pointer      ; 0x0c6f
     add sp, byte 0xc                 ; 0x0c72
     call flush_keyboard              ; 0x0c75

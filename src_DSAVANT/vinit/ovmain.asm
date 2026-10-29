@@ -5,7 +5,7 @@ ovmain:
     mov ax, word [game_state]        ; 0x0014
     jmp short .forward1              ; 0x0017
 .back1:
-    call loc_RVQR                    ; 0x0019
+    call initialize_runtime_resources ; 0x0019
     jmp short .forward2              ; 0x001c
 .back2:
     call api_idx_0068_OUHP           ; 0x001e

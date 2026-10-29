@@ -2,7 +2,7 @@
 api_idx_0014_LHRI:
     mov ax, 0xffec                   ; 0x06da
     call aztec_csav                  ; 0x06dd
-    mov ax, word [bss_0e10]          ; 0x06e0
+    mov ax, word [runtime_buffer_3k] ; 0x06e0
     mov word [bp - 4], ax            ; 0x06e3
     mov word [bp - 2], 0             ; 0x06e6
     jmp near .forward9               ; 0x06eb

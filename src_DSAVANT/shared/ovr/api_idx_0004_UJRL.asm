@@ -35,7 +35,7 @@ api_idx_0004_UJRL:
     shl cx, 1
     shl cx, 1
     shl cx, 1
-    mov ax, word [bss_0e0e]
+    mov ax, word [runtime_near_buffer_1k]
     add ax, cx
     mov word [bp - 4], ax
     mov al, byte [game_state_arg]

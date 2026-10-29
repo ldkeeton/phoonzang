@@ -1054,7 +1054,7 @@ api_idx_00ac_OJJU.forward45:
 api_idx_00ac_OJJU.forward46:
     cmp byte [bx + party_records + pc_rec.cell + 0x6], 0 ; 0x83b3
     jne short api_idx_00ac_OJJU.forward47 ; 0x83b8
-    mov ax, word [bss_9058]          ; 0x83ba
+    mov ax, word [startup_option]    ; 0x83ba
     mov cx, 2                        ; 0x83bd
     cwd                              ; 0x83c0
     idiv cx                          ; 0x83c1
@@ -1069,7 +1069,7 @@ api_idx_00ac_OJJU.forward46:
     push ax                          ; 0x83d3
     call api_idx_0050_PLNP           ; 0x83d4
     add sp, byte 6                   ; 0x83d7
-    mov ax, word [bss_9058]          ; 0x83da
+    mov ax, word [startup_option]    ; 0x83da
     mov cx, 2                        ; 0x83dd
     cwd                              ; 0x83e0
     idiv cx                          ; 0x83e1
@@ -1861,7 +1861,7 @@ api_idx_00ac_OJJU.forward104:
     call play_sound_effect           ; 0x8b9a
     pop cx                           ; 0x8b9d
 api_idx_00ac_OJJU.forward105:
-    mov ax, word [bss_9058]          ; 0x8b9e
+    mov ax, word [startup_option]    ; 0x8b9e
     mov cx, 2                        ; 0x8ba1
     cwd                              ; 0x8ba4
     idiv cx                          ; 0x8ba5
@@ -1883,7 +1883,7 @@ api_idx_00ac_OJJU.forward106:
     jmp near api_idx_00ac_OJJU.forward135 ; 0x8bce
 api_idx_00ac_OJJU.back7:
     mov ax, 0                        ; 0x8bd1
-    cmp word [bss_905c], byte 0      ; 0x8bd4
+    cmp word [startup_zero_word], byte 0 ; 0x8bd4
     jne short api_idx_00ac_OJJU.forward107 ; 0x8bd9
     mov ax, 0x64                     ; 0x8bdb
     push ax                          ; 0x8bde
@@ -2214,7 +2214,7 @@ api_idx_00ac_OJJU.forward126:
     mov bx, word [bx + party_char]   ; 0x8ef1
     cmp word [bx + si + member_rec.item_charges], byte 0 ; 0x8ef5
     jg short api_idx_00ac_OJJU.forward128 ; 0x8ef9
-    mov ax, word [bss_9058]          ; 0x8efb
+    mov ax, word [startup_option]    ; 0x8efb
     mov cx, 2                        ; 0x8efe
     cwd                              ; 0x8f01
     idiv cx                          ; 0x8f02
@@ -2269,7 +2269,7 @@ api_idx_00ac_OJJU.forward128:
     call api_idx_0004_MLLS           ; 0x8f6f
     add sp, byte 4                   ; 0x8f72
 api_idx_00ac_OJJU.forward129:
-    mov ax, word [bss_9058]          ; 0x8f75
+    mov ax, word [startup_option]    ; 0x8f75
     mov cx, 2                        ; 0x8f78
     cwd                              ; 0x8f7b
     idiv cx                          ; 0x8f7c
@@ -2352,7 +2352,7 @@ api_idx_00ac_OJJU.forward133:
     call api_idx_0050_PLNP           ; 0x9022
     add sp, byte 6                   ; 0x9025
 api_idx_00ac_OJJU.forward134:
-    mov ax, word [bss_9058]          ; 0x9028
+    mov ax, word [startup_option]    ; 0x9028
     mov cx, 2                        ; 0x902b
     cwd                              ; 0x902e
     idiv cx                          ; 0x902f

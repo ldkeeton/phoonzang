@@ -32,7 +32,7 @@ mark_region_bits:
     mov ax, word [game_state_arg]
     mov cx, 4
     shl ax, cl
-    add ax, bss_5642
+    add ax, scenario_header_data
     push ax
     call set_bitmap_bit
     add sp, byte 6

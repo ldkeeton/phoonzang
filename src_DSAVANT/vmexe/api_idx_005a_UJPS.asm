@@ -540,7 +540,7 @@ api_idx_005a_UJPS:
     push ax                          ; 0xa464
     call api_idx_0050_PLNP           ; 0xa465
     add sp, byte 6                   ; 0xa468
-    push word [bss_9058]             ; 0xa46b
+    push word [startup_option]       ; 0xa46b
     call api_idx_0004_QUPL           ; 0xa46f
     pop cx                           ; 0xa472
     jmp short .forward39             ; 0xa473
@@ -559,7 +559,7 @@ api_idx_005a_UJPS:
     push ax                          ; 0xa48f
     call api_idx_0050_PLNP           ; 0xa490
     add sp, byte 6                   ; 0xa493
-    push word [bss_9058]             ; 0xa496
+    push word [startup_option]       ; 0xa496
     call api_idx_0004_QUPL           ; 0xa49a
     pop cx                           ; 0xa49d
     mov al, byte [bss_8464]          ; 0xa49e
@@ -577,7 +577,7 @@ api_idx_005a_UJPS:
 .forward39:
     jmp short .return1               ; 0xa4bf
 .forward40:
-    push word [bss_9058]             ; 0xa4c1
+    push word [startup_option]       ; 0xa4c1
     call api_idx_0004_QUPL           ; 0xa4c5
     pop cx                           ; 0xa4c8
 .return1:

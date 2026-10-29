@@ -253,8 +253,8 @@ api_idx_004e_HUKL:
     mov cx, 7                        ; 0x3acc
     shl ax, cl                       ; 0x3acf
     mov cx, ax                       ; 0x3ad1
-    mov ax, word [bss_0e1a]          ; 0x3ad3
-    mov dx, word [bss_0e1c]          ; 0x3ad6
+    mov ax, word [runtime_buffer_4k_a] ; 0x3ad3
+    mov dx, word [runtime_buffer_4k_a_seg] ; 0x3ad6
     add ax, cx                       ; 0x3ada
     push dx                          ; 0x3adc
     push ax                          ; 0x3add
@@ -269,8 +269,8 @@ api_idx_004e_HUKL:
     mov cx, 7                        ; 0x3af0
     shl ax, cl                       ; 0x3af3
     mov cx, ax                       ; 0x3af5
-    mov ax, word [bss_0e16]          ; 0x3af7
-    mov dx, word [bss_0e18]          ; 0x3afa
+    mov ax, word [runtime_buffer_4k_b] ; 0x3af7
+    mov dx, word [runtime_buffer_4k_b_seg] ; 0x3afa
     add ax, cx                       ; 0x3afe
     push dx                          ; 0x3b00
     push ax                          ; 0x3b01
@@ -284,7 +284,7 @@ api_idx_004e_HUKL:
     mov ax, word [game_state_arg]    ; 0x3b11
     mov cx, 4                        ; 0x3b14
     shl ax, cl                       ; 0x3b17
-    add ax, bss_5642                 ; 0x3b19
+    add ax, scenario_header_data     ; 0x3b19
     push ax                          ; 0x3b1c
     mov ax, word [game_state_arg]    ; 0x3b1d
     shl ax, cl                       ; 0x3b20
@@ -304,7 +304,7 @@ api_idx_004e_HUKL:
     add sp, byte 8                   ; 0x3b3e
     mov ax, 0x34c                    ; 0x3b41
     push ax                          ; 0x3b44
-    mov ax, bss_5642                 ; 0x3b45
+    mov ax, scenario_header_data     ; 0x3b45
     push ax                          ; 0x3b48
     push word [bp - 0xa]             ; 0x3b49
     call aztec_write                 ; 0x3b4c
@@ -339,7 +339,7 @@ api_idx_004e_HUKL:
     cmp ax, strict word 0            ; 0x3b91
     jle short .forward22             ; 0x3b94
     push ax                          ; 0x3b96
-    push word [bss_0e10]             ; 0x3b97
+    push word [runtime_buffer_3k]    ; 0x3b97
     push word [bp - 0xa]             ; 0x3b9b
     call aztec_write                 ; 0x3b9e
     add sp, byte 6                   ; 0x3ba1
@@ -375,7 +375,7 @@ api_idx_004e_HUKL:
     cmp ax, strict word 0            ; 0x3be5
     jle short .forward24             ; 0x3be8
     push ax                          ; 0x3bea
-    push word [bss_0e0e]             ; 0x3beb
+    push word [runtime_near_buffer_1k] ; 0x3beb
     push word [bp - 0xa]             ; 0x3bef
     call aztec_write                 ; 0x3bf2
     add sp, byte 6                   ; 0x3bf5
@@ -414,8 +414,8 @@ api_idx_004e_HUKL:
     mov cx, 7                        ; 0x3c3e
     shl ax, cl                       ; 0x3c41
     mov cx, ax                       ; 0x3c43
-    mov ax, word [bss_0e1a]          ; 0x3c45
-    mov dx, word [bss_0e1c]          ; 0x3c48
+    mov ax, word [runtime_buffer_4k_a] ; 0x3c45
+    mov dx, word [runtime_buffer_4k_a_seg] ; 0x3c48
     add ax, cx                       ; 0x3c4c
     push dx                          ; 0x3c4e
     push ax                          ; 0x3c4f
@@ -430,8 +430,8 @@ api_idx_004e_HUKL:
     mov cx, 7                        ; 0x3c62
     shl ax, cl                       ; 0x3c65
     mov cx, ax                       ; 0x3c67
-    mov ax, word [bss_0e16]          ; 0x3c69
-    mov dx, word [bss_0e18]          ; 0x3c6c
+    mov ax, word [runtime_buffer_4k_b] ; 0x3c69
+    mov dx, word [runtime_buffer_4k_b_seg] ; 0x3c6c
     add ax, cx                       ; 0x3c70
     push dx                          ; 0x3c72
     push ax                          ; 0x3c73

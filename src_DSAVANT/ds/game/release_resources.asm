@@ -6,15 +6,15 @@ release_resources:
     mov ax, word [bp + 4]            ; 0x024d
     jmp near .forward18              ; 0x0250
 jumptable_0363_case_0:
-    cmp word [bss_0e0e], byte 0      ; 0x0253
+    cmp word [runtime_near_buffer_1k], byte 0 ; 0x0253
     je short release_resources.forward1 ; 0x0258
-    push word [bss_0e0e]             ; 0x025a
+    push word [runtime_near_buffer_1k] ; 0x025a
     call aztec_free                  ; 0x025e
     pop cx                           ; 0x0261
 release_resources.forward1:
-    cmp word [bss_0e10], byte 0      ; 0x0262
+    cmp word [runtime_buffer_3k], byte 0 ; 0x0262
     je short release_resources.forward2 ; 0x0267
-    push word [bss_0e10]             ; 0x0269
+    push word [runtime_buffer_3k]    ; 0x0269
     call aztec_free                  ; 0x026d
     pop cx                           ; 0x0270
 release_resources.forward2:
@@ -30,33 +30,33 @@ release_resources.forward3:
     call aztec_free                  ; 0x028b
     pop cx                           ; 0x028e
 release_resources.forward4:
-    cmp word [bss_0e18], byte 0      ; 0x028f
+    cmp word [runtime_buffer_4k_b_seg], byte 0 ; 0x028f
     jne short release_resources.forward5 ; 0x0294
-    cmp word [bss_0e16], byte 0      ; 0x0296
+    cmp word [runtime_buffer_4k_b], byte 0 ; 0x0296
 release_resources.forward5:
     je short release_resources.forward6 ; 0x029b
-    push word [bss_0e18]             ; 0x029d
-    push word [bss_0e16]             ; 0x02a1
+    push word [runtime_buffer_4k_b_seg] ; 0x029d
+    push word [runtime_buffer_4k_b]  ; 0x02a1
     call app_free                    ; 0x02a5
     add sp, byte 4                   ; 0x02a8
 release_resources.forward6:
-    cmp word [bss_0e1c], byte 0      ; 0x02ab
+    cmp word [runtime_buffer_4k_a_seg], byte 0 ; 0x02ab
     jne short release_resources.forward7 ; 0x02b0
-    cmp word [bss_0e1a], byte 0      ; 0x02b2
+    cmp word [runtime_buffer_4k_a], byte 0 ; 0x02b2
 release_resources.forward7:
     je short release_resources.forward8 ; 0x02b7
-    push word [bss_0e1c]             ; 0x02b9
-    push word [bss_0e1a]             ; 0x02bd
+    push word [runtime_buffer_4k_a_seg] ; 0x02b9
+    push word [runtime_buffer_4k_a]  ; 0x02bd
     call app_free                    ; 0x02c1
     add sp, byte 4                   ; 0x02c4
 release_resources.forward8:
-    cmp word [bss_0e20], byte 0      ; 0x02c7
+    cmp word [runtime_buffer_1k_seg], byte 0 ; 0x02c7
     jne short release_resources.forward9 ; 0x02cc
-    cmp word [bss_0e1e], byte 0      ; 0x02ce
+    cmp word [runtime_buffer_1k], byte 0 ; 0x02ce
 release_resources.forward9:
     je short jumptable_0363_case_11  ; 0x02d3
-    push word [bss_0e20]             ; 0x02d5
-    push word [bss_0e1e]             ; 0x02d9
+    push word [runtime_buffer_1k_seg] ; 0x02d5
+    push word [runtime_buffer_1k]    ; 0x02d9
     call app_free                    ; 0x02dd
     add sp, byte 4                   ; 0x02e0
 jumptable_0363_case_11:
@@ -68,13 +68,13 @@ jumptable_0363_case_10:
     call aztec_close                 ; 0x02ef
     pop cx                           ; 0x02f2
 jumptable_0363_case_7:
-    cmp word [bss_0e28], byte 0      ; 0x02f3
+    cmp word [pointer_image_two_seg], byte 0 ; 0x02f3
     jne short release_resources.forward11 ; 0x02f8
-    cmp word [bss_0e26], byte 0      ; 0x02fa
+    cmp word [pointer_image_two], byte 0 ; 0x02fa
 release_resources.forward11:
     je short release_resources.forward12 ; 0x02ff
-    push word [bss_0e28]             ; 0x0301
-    push word [bss_0e26]             ; 0x0305
+    push word [pointer_image_two_seg] ; 0x0301
+    push word [pointer_image_two]    ; 0x0305
     call app_free                    ; 0x0309
     add sp, byte 4                   ; 0x030c
 release_resources.forward12:
@@ -88,13 +88,13 @@ release_resources.forward13:
     call app_free                    ; 0x0325
     add sp, byte 4                   ; 0x0328
 release_resources.forward14:
-    cmp word [bss_0e30], byte 0      ; 0x032b
+    cmp word [pointer_image_zero_seg], byte 0 ; 0x032b
     jne short release_resources.forward15 ; 0x0330
-    cmp word [bss_0e2e], byte 0      ; 0x0332
+    cmp word [pointer_image_zero], byte 0 ; 0x0332
 release_resources.forward15:
     je short jumptable_0363_case_4   ; 0x0337
-    push word [bss_0e30]             ; 0x0339
-    push word [bss_0e2e]             ; 0x033d
+    push word [pointer_image_zero_seg] ; 0x0339
+    push word [pointer_image_zero]   ; 0x033d
     call app_free                    ; 0x0341
     add sp, byte 4                   ; 0x0344
 jumptable_0363_case_4:

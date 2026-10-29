@@ -1,5 +1,5 @@
 ; auto-generated
-api_idx_0002_GHOH:
+read_startup_file:
     mov ax, 0xfffe                   ; 0x00ca
     call aztec_csav                  ; 0x00cd
     mov ax, 0                        ; 0x00d0

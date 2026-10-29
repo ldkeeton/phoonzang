@@ -13,7 +13,7 @@ api_idx_0002_QRVU:
     push ax                          ; 0x3fc4
     call aztec_open                  ; 0x3fc5
     add sp, byte 4                   ; 0x3fc8
-    mov word [bss_9088], ax          ; 0x3fcb
+    mov word [scenario_header_fd], ax ; 0x3fcb
     cmp ax, strict word 0xffff       ; 0x3fce
     jne short .forward1              ; 0x3fd1
     mov ax, 0x14                     ; 0x3fd3
@@ -27,14 +27,14 @@ api_idx_0002_QRVU:
     mov dx, 0                        ; 0x3fe2
     push dx                          ; 0x3fe5
     push ax                          ; 0x3fe6
-    push word [bss_9088]             ; 0x3fe7
+    push word [scenario_header_fd]   ; 0x3fe7
     call aztec_lseek                 ; 0x3feb
     add sp, byte 8                   ; 0x3fee
     mov ax, 0x34c                    ; 0x3ff1
     push ax                          ; 0x3ff4
-    mov ax, bss_5642                 ; 0x3ff5
+    mov ax, scenario_header_data     ; 0x3ff5
     push ax                          ; 0x3ff8
-    push word [bss_9088]             ; 0x3ff9
+    push word [scenario_header_fd]   ; 0x3ff9
     call aztec_write                 ; 0x3ffd
     add sp, byte 6                   ; 0x4000
     mov word [bp - 2], ax            ; 0x4003
@@ -45,17 +45,17 @@ api_idx_0002_QRVU:
     call release_and_exit            ; 0x400f
     pop cx                           ; 0x4012
 .forward2:
-    push word [bss_9088]             ; 0x4013
+    push word [scenario_header_fd]   ; 0x4013
     call aztec_close                 ; 0x4017
     pop cx                           ; 0x401a
-    mov al, byte [bss_5986]          ; 0x401b
+    mov al, byte [startup_option_byte] ; 0x401b
     sub ah, ah                       ; 0x401e
-    mov word [bss_9058], ax          ; 0x4020
+    mov word [startup_option], ax    ; 0x4020
     mov ax, 1                        ; 0x4023
     push ax                          ; 0x4026
     call call_wait_sound             ; 0x4027
     pop cx                           ; 0x402a
-    test word [bss_9056], 0x1000     ; 0x402b
+    test word [startup_hardware_flags], 0x1000 ; 0x402b
     je short .forward4               ; 0x4031
     cmp byte [bss_5989], 1           ; 0x4033
     jne short .forward4              ; 0x4038

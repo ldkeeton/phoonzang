@@ -116,7 +116,7 @@ api_idx_0006_PSQH:
     push ax                          ; 0x99aa
     call api_idx_0004_QSNR           ; 0x99ab
     add sp, byte 0xe                 ; 0x99ae
-    mov ax, word [bss_9058]          ; 0x99b1
+    mov ax, word [startup_option]    ; 0x99b1
     mov cx, 2                        ; 0x99b4
     cwd                              ; 0x99b7
     idiv cx                          ; 0x99b8
@@ -165,7 +165,7 @@ api_idx_0006_PSQH:
     call api_idx_0050_PLNP           ; 0x9a1a
     add sp, byte 6                   ; 0x9a1d
 .forward9:
-    mov ax, word [bss_9058]          ; 0x9a20
+    mov ax, word [startup_option]    ; 0x9a20
     mov cx, 2                        ; 0x9a23
     cwd                              ; 0x9a26
     idiv cx                          ; 0x9a27

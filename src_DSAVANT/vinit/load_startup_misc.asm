@@ -1,5 +1,5 @@
 ; auto-generated
-api_idx_0002_TJHL:
+load_startup_misc:
     mov ax, 0xfffe                   ; 0x010c
     call aztec_csav                  ; 0x010f
     mov ax, 0                        ; 0x0112

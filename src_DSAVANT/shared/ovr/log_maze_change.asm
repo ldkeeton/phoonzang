@@ -28,7 +28,7 @@ log_maze_change:
     mov ax, 6
     imul word [bp - 2]
     mov cx, ax
-    mov ax, word [bss_0e10]
+    mov ax, word [runtime_buffer_3k]
     add ax, cx
     mov word [bp - 4], ax
     mov al, byte [bp + 4]

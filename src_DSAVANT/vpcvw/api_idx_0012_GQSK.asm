@@ -190,8 +190,8 @@ api_idx_0012_GQSK:
     mov ax, word [bp - 4]            ; 0x06d8
     ret                              ; 0x06db
 .forward6:
-    push word [bss_0e30]             ; 0x06dc
-    push word [bss_0e2e]             ; 0x06e0
+    push word [pointer_image_zero_seg] ; 0x06dc
+    push word [pointer_image_zero]   ; 0x06e0
     call set_mouse_pointer_shape     ; 0x06e4
     add sp, byte 4                   ; 0x06e7
     mov word [bp - 8], 0             ; 0x06ea

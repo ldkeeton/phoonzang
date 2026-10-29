@@ -297,7 +297,7 @@ api_idx_0006_NIMO.forward6:
     push ax                          ; 0x33c1
     call api_idx_0050_PLNP           ; 0x33c2
     add sp, byte 6                   ; 0x33c5
-    push word [bss_9058]             ; 0x33c8
+    push word [startup_option]       ; 0x33c8
     call api_idx_0004_QUPL           ; 0x33cc
     pop cx                           ; 0x33cf
 api_idx_0006_NIMO.forward7:

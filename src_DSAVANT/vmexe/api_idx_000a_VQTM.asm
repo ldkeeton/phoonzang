@@ -409,7 +409,7 @@ api_idx_000a_VQTM.forward13:
     call api_idx_0004_MLLS           ; 0x77de
     add sp, byte 4                   ; 0x77e1
 api_idx_000a_VQTM.forward14:
-    push word [bss_9058]             ; 0x77e4
+    push word [startup_option]       ; 0x77e4
     call api_idx_0004_QUPL           ; 0x77e8
     pop cx                           ; 0x77eb
     mov ax, 0x2c                     ; 0x77ec
@@ -476,7 +476,7 @@ api_idx_000a_VQTM.forward16:
     push ax                          ; 0x7879
     call api_idx_0050_PLNP           ; 0x787a
     add sp, byte 6                   ; 0x787d
-    mov ax, word [bss_9058]          ; 0x7880
+    mov ax, word [startup_option]    ; 0x7880
     mov cx, 2                        ; 0x7883
     cwd                              ; 0x7886
     idiv cx                          ; 0x7887

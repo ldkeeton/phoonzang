@@ -258,7 +258,7 @@ load_game_data:
     call api_idx_0004_VUIP           ; 0x3236
     add sp, byte 0xe                 ; 0x3239
 .forward19:
-    mov si, bss_5642                 ; 0x323c
+    mov si, scenario_header_data     ; 0x323c
     mov di, bss_95b4                 ; 0x323f
     mov cx, ds                       ; 0x3242
     mov es, cx                       ; 0x3244
@@ -275,7 +275,7 @@ load_game_data:
     add sp, byte 8                   ; 0x325d
     mov ax, 0x34c                    ; 0x3260
     push ax                          ; 0x3263
-    mov ax, bss_5642                 ; 0x3264
+    mov ax, scenario_header_data     ; 0x3264
     push ax                          ; 0x3267
     push word [bp - 0xa]             ; 0x3268
     call aztec_read                  ; 0x326b
@@ -331,9 +331,9 @@ load_game_data:
     call aztec_strcpy                ; 0x32e4
     add sp, byte 4                   ; 0x32e7
     mov al, byte [bss_98ea]          ; 0x32ea
-    mov byte [bss_5978], al          ; 0x32ed
+    mov byte [palette_base_setting], al ; 0x32ed
     mov al, byte [bss_98eb]          ; 0x32f0
-    mov byte [bss_5979], al          ; 0x32f3
+    mov byte [palette_scale_setting], al ; 0x32f3
     mov word [bp - 2], 0             ; 0x32f6
 .back2:
     mov bx, word [bp - 2]            ; 0x32fb
@@ -344,15 +344,15 @@ load_game_data:
     cmp ax, strict word 4            ; 0x330c
     jl short .back2                  ; 0x330f
     mov al, byte [bss_98f6]          ; 0x3311
-    mov byte [bss_5984], al          ; 0x3314
+    mov byte [sound_device_setting], al ; 0x3314
     mov al, byte [bss_98f7]          ; 0x3317
     mov byte [video_mode], al        ; 0x331a
     mov ax, word [bss_98f2]          ; 0x331d
-    mov word [bss_5980], ax          ; 0x3320
+    mov word [sound_port_setting], ax ; 0x3320
     mov ax, word [bss_98f4]          ; 0x3323
     mov word [bss_5982], ax          ; 0x3326
     mov al, byte [bss_98f8]          ; 0x3329
-    mov byte [bss_5986], al          ; 0x332c
+    mov byte [startup_option_byte], al ; 0x332c
     mov al, byte [bss_98f9]          ; 0x332f
     mov byte [install_mode], al      ; 0x3332
     mov al, byte [bss_98fa]          ; 0x3335
@@ -360,21 +360,21 @@ load_game_data:
     mov al, byte [bss_98fb]          ; 0x333b
     mov byte [bss_5989], al          ; 0x333e
     mov al, byte [bss_98fc]          ; 0x3341
-    mov byte [bss_598a], al          ; 0x3344
+    mov byte [hardware_mode_setting], al ; 0x3344
     mov al, byte [bss_98fd]          ; 0x3347
     mov byte [bss_598b], al          ; 0x334a
     mov al, byte [bss_98fe]          ; 0x334d
     mov byte [no_dissolve], al       ; 0x3350
-    mov al, byte [bss_5986]          ; 0x3353
+    mov al, byte [startup_option_byte] ; 0x3353
     sub ah, ah                       ; 0x3356
-    mov word [bss_9058], ax          ; 0x3358
+    mov word [startup_option], ax    ; 0x3358
     mov ax, 6                        ; 0x335b
     imul word [bss_590e]             ; 0x335e
     mov word [bp - 6], ax            ; 0x3362
     cmp ax, strict word 0            ; 0x3365
     jle short .forward23             ; 0x3368
     push ax                          ; 0x336a
-    push word [bss_0e10]             ; 0x336b
+    push word [runtime_buffer_3k]    ; 0x336b
     push word [bp - 0xa]             ; 0x336f
     call aztec_read                  ; 0x3372
     add sp, byte 6                   ; 0x3375
@@ -410,7 +410,7 @@ load_game_data:
     cmp ax, strict word 0            ; 0x33b9
     jle short .forward25             ; 0x33bc
     push ax                          ; 0x33be
-    push word [bss_0e0e]             ; 0x33bf
+    push word [runtime_near_buffer_1k] ; 0x33bf
     push word [bp - 0xa]             ; 0x33c3
     call aztec_read                  ; 0x33c6
     add sp, byte 6                   ; 0x33c9
@@ -508,8 +508,8 @@ load_game_data:
     mov cx, 7                        ; 0x3499
     shl ax, cl                       ; 0x349c
     mov cx, ax                       ; 0x349e
-    mov ax, word [bss_0e1a]          ; 0x34a0
-    mov dx, word [bss_0e1c]          ; 0x34a3
+    mov ax, word [runtime_buffer_4k_a] ; 0x34a0
+    mov dx, word [runtime_buffer_4k_a_seg] ; 0x34a3
     add ax, cx                       ; 0x34a7
     push dx                          ; 0x34a9
     push ax                          ; 0x34aa
@@ -524,8 +524,8 @@ load_game_data:
     mov cx, 7                        ; 0x34bd
     shl ax, cl                       ; 0x34c0
     mov cx, ax                       ; 0x34c2
-    mov ax, word [bss_0e16]          ; 0x34c4
-    mov dx, word [bss_0e18]          ; 0x34c7
+    mov ax, word [runtime_buffer_4k_b] ; 0x34c4
+    mov dx, word [runtime_buffer_4k_b_seg] ; 0x34c7
     add ax, cx                       ; 0x34cb
     push dx                          ; 0x34cd
     push ax                          ; 0x34ce

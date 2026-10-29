@@ -27,8 +27,8 @@ loc_LPSI:
     mov cx, 7                        ; 0x0a09
     shl ax, cl                       ; 0x0a0c
     mov cx, ax                       ; 0x0a0e
-    mov ax, word [bss_0e1a]          ; 0x0a10
-    mov dx, word [bss_0e1c]          ; 0x0a13
+    mov ax, word [runtime_buffer_4k_a] ; 0x0a10
+    mov dx, word [runtime_buffer_4k_a_seg] ; 0x0a13
     add ax, cx                       ; 0x0a17
     push dx                          ; 0x0a19
     push ax                          ; 0x0a1a
@@ -43,8 +43,8 @@ loc_LPSI:
     mov cx, 7                        ; 0x0a2d
     shl ax, cl                       ; 0x0a30
     mov cx, ax                       ; 0x0a32
-    mov ax, word [bss_0e16]          ; 0x0a34
-    mov dx, word [bss_0e18]          ; 0x0a37
+    mov ax, word [runtime_buffer_4k_b] ; 0x0a34
+    mov dx, word [runtime_buffer_4k_b_seg] ; 0x0a37
     add ax, cx                       ; 0x0a3b
     push dx                          ; 0x0a3d
     push ax                          ; 0x0a3e
