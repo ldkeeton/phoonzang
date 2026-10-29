@@ -1907,7 +1907,7 @@ loc_RMVR.forward40:
 loc_RMVR.forward41:
     mov word [spell_dialog_button], ax ; 0x5e07
     mov word [bp - 0x18], 0          ; 0x5e0a
-    call api_idx_0002_QRVU           ; 0x5e0f
+    call write_scenario_header_and_apply_devices ; 0x5e0f
     jmp near loc_RMVR.forward43      ; 0x5e12
 jumptable_5e7f_case_24:
     mov ax, 1                        ; 0x5e15

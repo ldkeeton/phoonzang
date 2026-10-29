@@ -31,7 +31,7 @@ loc_MLLK:
     jne short .forward1              ; 0x6f6b
     lea ax, word [bp - 0x105]        ; 0x6f6d
     push ax                          ; 0x6f71
-    call api_idx_0004_JQTM           ; 0x6f72
+    call process_scene_message_words ; 0x6f72
     pop cx                           ; 0x6f75
 .forward1:
     inc word [bp + 4]                ; 0x6f76

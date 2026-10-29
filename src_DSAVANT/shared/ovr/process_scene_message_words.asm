@@ -1,5 +1,5 @@
 ; auto-generated
-api_idx_0004_VRNJ:
+process_scene_message_words:
     mov ax, 0xfffc
     call aztec_csav
 .back1:
@@ -29,7 +29,7 @@ api_idx_0004_VRNJ:
     jmp short .back2
 .forward1:
     push word [bp + 4]
-    call api_idx_0004_VRNJ.loc1
+    call process_scene_message_words.loc1
     pop cx
     mov ax, word [bp - 2]
     add word [bp + 4], ax
@@ -40,7 +40,7 @@ api_idx_0004_VRNJ:
     cmp byte [bx], 0
     je short .return1
     push bx
-    call api_idx_0004_VRNJ.loc1
+    call process_scene_message_words.loc1
     pop cx
 .return1:
     ret

@@ -136,9 +136,8 @@ api_idx_0004_JGSH.bss2 equ bss_9152
 
 %include "vtrea/api_idx_0090_NPLS.asm"     ; 0x0b29
 
-api_idx_0004_QHUH      equ api_idx_0004_VRNJ
-api_idx_0004_VRNJ.loc1 equ api_idx_0090_NPLS
-%include "shared/ovr/api_idx_0004_VRNJ.asm"     ; 0x0d24
+process_scene_message_words.loc1 equ api_idx_0090_NPLS
+%include "shared/ovr/process_scene_message_words.asm" ; 0x0d24
 
 %include "vtrea/loc_KIOQ.asm"              ; 0x0d87
 

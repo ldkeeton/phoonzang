@@ -19,7 +19,7 @@ loc_KIOQ:
     jne short .forward1              ; 0x0db9
     lea ax, word [bp - 0x105]        ; 0x0dbb
     push ax                          ; 0x0dbf
-    call api_idx_0004_QHUH           ; 0x0dc0
+    call process_scene_message_words ; 0x0dc0
     pop cx                           ; 0x0dc3
     inc word [bp + 4]                ; 0x0dc4
 .forward1:

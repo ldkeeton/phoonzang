@@ -1,12 +1,12 @@
 ; auto-generated
-api_idx_0002_QRVU:
+write_scenario_header_and_apply_devices:
     mov ax, 0xfffe                   ; 0x3fac
     call aztec_csav                  ; 0x3faf
     mov ax, 2                        ; 0x3fb2
     push ax                          ; 0x3fb5
     mov ax, 0                        ; 0x3fb6
     push ax                          ; 0x3fb9
-    mov ax, dseg_90e8                ; 0x3fba
+    mov ax, scenario_header_filename ; 0x3fba
     push ax                          ; 0x3fbd
     call data_file_path              ; 0x3fbe
     add sp, byte 4                   ; 0x3fc1

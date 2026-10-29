@@ -19,9 +19,9 @@ loc_VMSS:
     jmp near .forward3               ; 0x6dfc
 jumptable_6e77_case_0:
     inc word [bp + 4]                ; 0x6dff
-    mov ax, bss_a4aa                 ; 0x6e02
+    mov ax, scene_message_line_buffer ; 0x6e02
     push ax                          ; 0x6e05
-    call api_idx_0004_RLUP           ; 0x6e06
+    call draw_scene_message_line     ; 0x6e06
     pop cx                           ; 0x6e09
     jmp near loc_VMSS.forward4       ; 0x6e0a
 jumptable_6e77_case_1:
@@ -39,24 +39,24 @@ jumptable_6e77_case_1:
     jmp short loc_VMSS.forward4      ; 0x6e27
 jumptable_6e77_case_2:
     inc word [bp + 4]                ; 0x6e29
-    mov ax, bss_a4aa                 ; 0x6e2c
+    mov ax, scene_message_line_buffer ; 0x6e2c
     push ax                          ; 0x6e2f
-    call api_idx_0004_RLUP           ; 0x6e30
+    call draw_scene_message_line     ; 0x6e30
     pop cx                           ; 0x6e33
     call loc_QSOL                    ; 0x6e34
     jmp short loc_VMSS.forward4      ; 0x6e37
 jumptable_6e77_case_3:
     inc word [bp + 4]                ; 0x6e39
-    call loc_SVUQ                    ; 0x6e3c
-    mov word [bss_a4a6], 0           ; 0x6e3f
+    call clear_scene_message_area    ; 0x6e3c
+    mov word [scene_message_row], 0  ; 0x6e3f
     jmp short loc_VMSS.forward4      ; 0x6e45
 jumptable_6e77_case_4:
     inc word [bp + 4]                ; 0x6e47
-    mov ax, bss_a4aa                 ; 0x6e4a
+    mov ax, scene_message_line_buffer ; 0x6e4a
     push ax                          ; 0x6e4d
-    call api_idx_0004_RLUP           ; 0x6e4e
+    call draw_scene_message_line     ; 0x6e4e
     pop cx                           ; 0x6e51
-    call api_idx_0004_MIQG           ; 0x6e52
+    call wait_and_clear_scene_messages ; 0x6e52
     jmp short loc_VMSS.forward4      ; 0x6e55
 jumptable_6e77_case_5:
     inc word [bp + 4]                ; 0x6e57
@@ -89,9 +89,9 @@ loc_VMSS.forward3:
 loc_VMSS.forward4:
     jmp near loc_VMSS.back1          ; 0x6e92
 loc_VMSS.forward5:
-    cmp byte [bss_a4aa], 0           ; 0x6e95
+    cmp byte [scene_message_line_buffer], 0 ; 0x6e95
     je short loc_VMSS.forward6       ; 0x6e9a
-    mov ax, bss_a4aa                 ; 0x6e9c
+    mov ax, scene_message_line_buffer ; 0x6e9c
     push ax                          ; 0x6e9f
     lea ax, word [bp - 0x105]        ; 0x6ea0
     push ax                          ; 0x6ea4
@@ -125,12 +125,12 @@ loc_VMSS.forward7:
     mov word [bp - 2], ax            ; 0x6ee7
     cmp ax, 0x127                    ; 0x6eea
     jle short loc_VMSS.forward8      ; 0x6eed
-    mov ax, bss_a4aa                 ; 0x6eef
+    mov ax, scene_message_line_buffer ; 0x6eef
     push ax                          ; 0x6ef2
-    call api_idx_0004_RLUP           ; 0x6ef3
+    call draw_scene_message_line     ; 0x6ef3
     pop cx                           ; 0x6ef6
     push word [bp + 4]               ; 0x6ef7
-    mov ax, bss_a4aa                 ; 0x6efa
+    mov ax, scene_message_line_buffer ; 0x6efa
     push ax                          ; 0x6efd
     call aztec_strcpy                ; 0x6efe
     add sp, byte 4                   ; 0x6f01
@@ -138,7 +138,7 @@ loc_VMSS.forward7:
 loc_VMSS.forward8:
     lea ax, word [bp - 0x105]        ; 0x6f06
     push ax                          ; 0x6f0a
-    mov ax, bss_a4aa                 ; 0x6f0b
+    mov ax, scene_message_line_buffer ; 0x6f0b
     push ax                          ; 0x6f0e
     call aztec_strcpy                ; 0x6f0f
     add sp, byte 4                   ; 0x6f12

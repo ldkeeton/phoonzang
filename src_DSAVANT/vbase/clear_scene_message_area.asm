@@ -1,5 +1,5 @@
 ; auto-generated
-loc_SVUQ:
+clear_scene_message_area:
     mov ax, 0                        ; 0x6c1e
     call aztec_csav                  ; 0x6c21
     mov ax, 0                        ; 0x6c24

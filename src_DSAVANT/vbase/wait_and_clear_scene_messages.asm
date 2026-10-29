@@ -1,5 +1,5 @@
 ; auto-generated
-api_idx_0004_MIQG:
+wait_and_clear_scene_messages:
     mov ax, 0xfffc                   ; 0x6cd0
     call aztec_csav                  ; 0x6cd3
     call loc_QSOL                    ; 0x6cd6
@@ -28,6 +28,6 @@ api_idx_0004_MIQG:
     call loc_TJHG                    ; 0x6d10
     jmp short .back1                 ; 0x6d13
 .forward3:
-    call loc_SVUQ                    ; 0x6d15
-    mov word [bss_a4a6], 0           ; 0x6d18
+    call clear_scene_message_area    ; 0x6d15
+    mov word [scene_message_row], 0  ; 0x6d18
     ret                              ; 0x6d1e

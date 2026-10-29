@@ -33,7 +33,7 @@ dseg_90bc equ __zdseg_end + (__zdseg_90bc - __zdata_start)
 dseg_90c2 equ __zdseg_end + (__zdseg_90c2 - __zdata_start)
 default_game_data_name equ __zdseg_end + (__zdefault_game_data_name - __zdata_start)
 dseg_90db equ __zdseg_end + (__zdseg_90db - __zdata_start)
-dseg_90e8 equ __zdseg_end + (__zdseg_90e8 - __zdata_start)
+scenario_header_filename equ __zdseg_end + (__zscenario_header_filename - __zdata_start)
 dseg_90f5 equ __zdseg_end + (__zdseg_90f5 - __zdata_start)
 dseg_90fb equ __zdseg_end + (__zdseg_90fb - __zdata_start)
 dseg_9107 equ __zdseg_end + (__zdseg_9107 - __zdata_start)
@@ -153,9 +153,9 @@ adjusted_palette_blue equ __zdseg_end + (__zobss_9f96 - __zdata_start)
 quantized_rgb_lookup equ __zdseg_end + (__zobss_a294 - __zdata_start)
 copy_protection_result equ __zdseg_end + (__zobss_a494 - __zdata_start)
 scene_index equ __zdseg_end + (__zobss_a4a4 - __zdata_start)
-bss_a4a6 equ __zdseg_end + (__zobss_a4a6 - __zdata_start)
-bss_a4a8 equ __zdseg_end + (__zobss_a4a8 - __zdata_start)
-bss_a4aa equ __zdseg_end + (__zobss_a4aa - __zdata_start)
+scene_message_row equ __zdseg_end + (__zobss_a4a6 - __zdata_start)
+scene_message_previous_x equ __zdseg_end + (__zobss_a4a8 - __zdata_start)
+scene_message_line_buffer equ __zdseg_end + (__zobss_a4aa - __zdata_start)
 scene_tick equ __zdseg_end + (__zobss_a5aa - __zdata_start)
 scene_running equ __zdseg_end + (__zobss_a5ac - __zdata_start)
 scene_frame_delay_ticks equ __zdseg_end + (__zobss_a5ae - __zdata_start)
@@ -254,7 +254,7 @@ jumptable_1ee4         equ api_idx_0004_MMTP.jumptable1
 
 %include "vbase/api_idx_004e_HUKL.asm"     ; 0x388c
 
-%include "vbase/api_idx_0002_QRVU.asm"     ; 0x3fac
+%include "vbase/write_scenario_header_and_apply_devices.asm" ; 0x3fac
 
 %include "vbase/adjust_palette_and_rgb_lookup.asm" ; 0x4060
 
@@ -302,7 +302,7 @@ jumptable_1ee4         equ api_idx_0004_MMTP.jumptable1
 
 %include "vbase/run_character_menu.asm"    ; 0x6a0f
 
-%include "vbase/loc_SVUQ.asm"              ; 0x6c1e
+%include "vbase/clear_scene_message_area.asm" ; 0x6c1e
 
 %include "vbase/loc_QSOL.asm"              ; 0x6c3f
 
@@ -311,14 +311,14 @@ jumptable_1ee4         equ api_idx_0004_MMTP.jumptable1
 api_idx_0004_TTGQ.loc1 equ loc_TJHG
 %include "shared/ovr/api_idx_0004_TTGQ.asm"     ; 0x6c87
 
-%include "vbase/api_idx_0004_MIQG.asm"     ; 0x6cd0
+%include "vbase/wait_and_clear_scene_messages.asm" ; 0x6cd0
 
-%include "vbase/api_idx_0004_RLUP.asm"     ; 0x6d1f
+%include "vbase/draw_scene_message_line.asm" ; 0x6d1f
 
 %include "vbase/loc_VMSS.asm"              ; 0x6dd9
 
-api_idx_0004_VRNJ.loc1 equ loc_VMSS
-%include "shared/ovr/api_idx_0004_VRNJ.asm"     ; 0x6f16
+process_scene_message_words.loc1 equ loc_VMSS
+%include "shared/ovr/process_scene_message_words.asm" ; 0x6f16
 
 %include "vbase/play_scene_message_sequence.asm" ; 0x6f79
 
@@ -373,6 +373,10 @@ __zdata_start:
 %include "vbase/data/default_game_data_name.asm" ; 0x9424
 
 %include "vbase/data/dseg_90db.asm"        ; 0x9430
+
+%include "vbase/data/scenario_header_filename.asm" ; 0x943d
+
+%include "vbase/data/dseg_90f5.asm"        ; 0x944a
 
 %include "vbase/data/screen_temp_file.asm" ; 0x9462
 

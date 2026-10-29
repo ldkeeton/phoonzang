@@ -22,7 +22,7 @@ api_idx_0056_QRVG:
     jne short .forward1              ; 0x3cb7
     lea ax, word [bp - 0x56]         ; 0x3cb9
     push ax                          ; 0x3cbc
-    call api_idx_0004_VRNJ           ; 0x3cbd
+    call process_scene_message_words ; 0x3cbd
     pop cx                           ; 0x3cc0
     inc word [bp + 4]                ; 0x3cc1
 .forward1:

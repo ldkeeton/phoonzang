@@ -1,15 +1,15 @@
 ; auto-generated
-api_idx_0004_RLUP:
+draw_scene_message_line:
     mov ax, 0xfffc                   ; 0x6d1f
     call aztec_csav                  ; 0x6d22
-    cmp word [bss_a4a6], byte 3      ; 0x6d25
+    cmp word [scene_message_row], byte 3 ; 0x6d25
     jle short .forward1              ; 0x6d2a
-    call api_idx_0004_MIQG           ; 0x6d2c
+    call wait_and_clear_scene_messages ; 0x6d2c
 .forward1:
     mov bx, word [bp + 4]            ; 0x6d2f
     cmp byte [bx], 0                 ; 0x6d32
     jne short .forward2              ; 0x6d35
-    inc word [bss_a4a6]              ; 0x6d37
+    inc word [scene_message_row]     ; 0x6d37
     ret                              ; 0x6d3b
 .forward2:
     mov ax, 2                        ; 0x6d3c
@@ -45,7 +45,7 @@ api_idx_0004_RLUP:
     mov bx, word [bp + 4]            ; 0x6d7e
     mov si, word [bp - 4]            ; 0x6d81
     mov byte [bx + si], 0            ; 0x6d84
-    mov ax, word [bss_a4a8]          ; 0x6d87
+    mov ax, word [scene_message_previous_x] ; 0x6d87
     mov word [bp - 2], ax            ; 0x6d8a
     jmp short .forward4              ; 0x6d8d
 .forward3:
@@ -55,7 +55,7 @@ api_idx_0004_RLUP:
     je short .back2                  ; 0x6d97
 .forward4:
     mov ax, 0xc                      ; 0x6d99
-    imul word [bss_a4a6]             ; 0x6d9c
+    imul word [scene_message_row]    ; 0x6d9c
     add ax, 0x92                     ; 0x6da0
     push ax                          ; 0x6da3
     push word [bp - 2]               ; 0x6da4
@@ -75,6 +75,6 @@ api_idx_0004_RLUP:
     mov bx, word [bp + 4]            ; 0x6dc8
     mov byte [bx], 0                 ; 0x6dcb
     mov ax, word [bp - 2]            ; 0x6dce
-    mov word [bss_a4a8], ax          ; 0x6dd1
-    inc word [bss_a4a6]              ; 0x6dd4
+    mov word [scene_message_previous_x], ax ; 0x6dd1
+    inc word [scene_message_row]     ; 0x6dd4
     ret                              ; 0x6dd8
