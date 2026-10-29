@@ -30,10 +30,10 @@ int page, row, col;
 			set_bitmap_bit((game_state_arg << 4) + (unsigned)36116, bit, 0);
 			if (bit = get_bits(maze_tables->flags[obj], 8, 8))
 				set_bitmap_bit((game_state_arg << 4) + (unsigned)36116, bit, 1);
-			if (maze_tables->sound[obj] > 0) {
+			if (maze_tables->arg[obj] > 0) {
 				call_show_area(54, 142, 265, 198);
 				/* sounds below 5 and 8, 9 play directly; others load first */
-				if ((snd = maze_tables->sound[obj]) < 5 || snd == 8 || snd == 9)
+				if ((snd = maze_tables->arg[obj]) < 5 || snd == 8 || snd == 9)
 					play_sound_effect(snd);
 				else {
 					ensure_sound_loaded(snd);

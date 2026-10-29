@@ -38,13 +38,13 @@ run_state_0f_scene:
     push ax                          ; 0x7faf
     call load_score_files            ; 0x7fb0
     add sp, byte 4                   ; 0x7fb3
-    mov ax, word [dseg_0112]         ; 0x7fb6
+    mov ax, word [story_score_file_number] ; 0x7fb6
     mov word [story_score_number], ax ; 0x7fb9
     mov ax, 0                        ; 0x7fbc
     push ax                          ; 0x7fbf
     push word [story_score_number]   ; 0x7fc0
     push ax                          ; 0x7fc4
-    call ds_app_UKGP                 ; 0x7fc5
+    call play_score_at_volume        ; 0x7fc5
     add sp, byte 6                   ; 0x7fc8
     mov word [story_score_volume], ax ; 0x7fcb
 .forward1:
@@ -85,7 +85,7 @@ run_state_0f_scene:
     push ax                          ; 0x8021
     push word [story_score_number]   ; 0x8022
     push ax                          ; 0x8026
-    call ds_app_UKGP                 ; 0x8027
+    call play_score_at_volume        ; 0x8027
     add sp, byte 6                   ; 0x802a
     mov word [story_score_volume], ax ; 0x802d
 .forward3:

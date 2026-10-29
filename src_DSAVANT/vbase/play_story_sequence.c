@@ -11,7 +11,8 @@ extern unsigned char startup_aux_option_b;
 extern char star_screen_filename[], main_screen_filename[];
 extern int call_fade_out(), call_fill_area(), call_show_area(),
 	call_mouse_off(),
-	score_music_enabled(), load_score_files(), ds_app_UKGP(), load_screen_file(),
+	score_music_enabled(), load_score_files(), play_score_at_volume(),
+		load_screen_file(),
 	call_reset_rgb(), call_fade_in(), play_scene_message_sequence(),
 	fade_out_music(), free_loaded_score(), call_mouse_init(), set_bitmap_bit(),
 	save_game_data();
@@ -31,7 +32,7 @@ int story_number;
 	if (story_music_enabled = score_music_enabled()) {
 		load_score_files(4, 0);
 		story_score_number = loaded_score_number;
-		story_score_volume = ds_app_UKGP(0, story_score_number, 1);
+		story_score_volume = play_score_at_volume(0, story_score_number, 1);
 	}
 	/* Story four starts on a blank screen instead of loading a picture. */
 	if (story_number != 4)

@@ -188,7 +188,7 @@ api_idx_002c_VNHI:
     push word [story_score_number]   ; 0x6bf7
     mov ax, 0                        ; 0x6bfb
     push ax                          ; 0x6bfe
-    call ds_app_UKGP                 ; 0x6bff
+    call play_score_at_volume        ; 0x6bff
     add sp, byte 6                   ; 0x6c02
     mov word [story_score_volume], ax ; 0x6c05
 .forward1:

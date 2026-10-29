@@ -321,37 +321,3 @@ api_idx_0002_UOVS.forward4:
 jumptable_052d_case_0:
     mov word [maze_state], 1         ; 0x0548
     ret                              ; 0x054e
-loc_HVLG:
-    mov ax, 0                        ; 0x054f
-    call aztec_csav                  ; 0x0552
-    les bx, word [tick_counter_ptr]  ; 0x0555
-    mov ax, word [es:bx]             ; 0x0559
-    mov dx, word [es:bx + 2]         ; 0x055c
-    sub ax, word [party_redraw_last_tick] ; 0x0560
-    sbb dx, word [party_redraw_last_tick_hi] ; 0x0564
-    push ax                          ; 0x0568
-    push dx                          ; 0x0569
-    mov ax, word [bss_9180]          ; 0x056a
-    cwd                              ; 0x056d
-    mov cx, ax                       ; 0x056e
-    mov bx, dx                       ; 0x0570
-    pop dx                           ; 0x0572
-    pop ax                           ; 0x0573
-    cmp dx, bx                       ; 0x0574
-    jl short .forward1               ; 0x0576
-    jne short .forward2              ; 0x0578
-    cmp ax, cx                       ; 0x057a
-    jae short .forward2              ; 0x057c
-.forward1:
-    jmp short .forward3              ; 0x057e
-.forward2:
-    les bx, word [tick_counter_ptr]  ; 0x0580
-    mov ax, word [es:bx]             ; 0x0584
-    mov dx, word [es:bx + 2]         ; 0x0587
-    mov word [party_redraw_last_tick_hi], dx ; 0x058b
-    mov word [party_redraw_last_tick], ax ; 0x058f
-    mov ax, 1                        ; 0x0592
-    ret                              ; 0x0595
-.forward3:
-    mov ax, 0                        ; 0x0596
-    ret                              ; 0x0599

@@ -195,10 +195,17 @@ def _rebuild_project(app, binary=None, only=None):
     out_dir = src_dir(app, PROJECT)
     bins = discover_binaries(app_dir)
     targets, routine = _rebuild_targets(app, bins, binary, only)
+    # Every binary is checked, so one run lists every error.
+    failed = []
     for name in targets:
         if _verbose():
             progress.log(f'{app}/{name} | resplicing C routines')
-        resplice_c(app, name, check_only=True, only=routine)
+        try:
+            resplice_c(app, name, check_only=True, only=routine)
+        except SystemExit as exc:
+            if isinstance(exc.code, str):
+                print(exc.code, file=sys.stderr)
+            failed.append(name)
     for name in targets:
         if _verbose():
             progress.log(f'{app}/{name} | nasm')
@@ -207,19 +214,30 @@ def _rebuild_project(app, binary=None, only=None):
             if nasm_binary(out_dir, name, bins[name][0],
                            listing=listing) != 0:
                 print(f'rebuild {app}/{name} -> {bins[name][0]}  [FAILED]')
-                sys.exit(1)
+                failed.append(name)
+                continue
             if not _compare_built(app_dir, out_dir, name, bins[name][0],
                                   listing):
-                sys.exit(1)
-        if _verbose():
+                failed.append(name)
+                continue
+        if _verbose() and name not in failed:
             print(f'rebuild {app}/{name} -> {bins[name][0]}  [OK]')
+    if failed:
+        failed = sorted(set(failed))
+        print(f'rebuild {app}: {len(failed)} of {len(targets)} '
+              f'binar{"y" if len(targets) == 1 else "ies"} FAILED: '
+              + ', '.join(failed))
+        return False
     print(f'rebuild {app}: {len(targets)} binar{"y" if len(targets) == 1 else "ies"} OK')
+    return True
 
 
 def cmd_rebuild(app=None, binary=None, all_projects=(), only=None):
     """``make rebuild [PROJECT [BIN [ROUTINE]]]``."""
-    for project in ([app] if app else all_projects):
-        _rebuild_project(project, binary, only)
+    results = [_rebuild_project(project, binary, only)
+               for project in ([app] if app else all_projects)]
+    if not all(results):
+        sys.exit(1)
 
 
 def _build_projects(targets, all_projects, *, source_moves=None):

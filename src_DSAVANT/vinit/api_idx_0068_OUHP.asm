@@ -75,7 +75,7 @@ api_idx_0068_OUHP:
     push ax                          ; 0x0b76
     push word [story_score_number]   ; 0x0b77
     push ax                          ; 0x0b7b
-    call ds_app_UKGP                 ; 0x0b7c
+    call play_score_at_volume        ; 0x0b7c
     add sp, byte 6                   ; 0x0b7f
     mov word [story_score_volume], ax ; 0x0b82
 .forward2:

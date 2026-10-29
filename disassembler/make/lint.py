@@ -12,6 +12,7 @@ from lib import autogen, cachedirs, progress
 
 from .common import _apps
 
+from lint.c_structs import check_project
 from lint.core import check_text, fix_text
 
 
@@ -90,6 +91,11 @@ def cmd_lint(projects, fix=False):
                 print(f'{_display(path)}:{finding.line}:{finding.col}: '
                       f'{finding.rule}: {finding.message}', file=sys.stderr)
             findings_here += len(findings)
+        # Rules that compare files with each other run once per tree.
+        for finding in check_project(cachedirs.src_dir(project)):
+            print(f'{_display(finding.path)}:{finding.line}:{finding.col}: '
+                  f'{finding.rule}: {finding.message}', file=sys.stderr)
+            findings_here += 1
         progress.log(f'{project}: {len(files)} files, {findings_here} finding(s)')
         total_findings += findings_here
 

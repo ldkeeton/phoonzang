@@ -468,7 +468,7 @@ api_idx_00e6_QHNU:
     call get_bits                    ; 0x7813
     add sp, byte 6                   ; 0x7816
     push ax                          ; 0x7819
-    call api_idx_0004_KGNP           ; 0x781a
+    call update_region_flag_bitmaps  ; 0x781a
     add sp, byte 6                   ; 0x781d
 .forward17:
     mov word [treasure_caption_on], 0 ; 0x7820

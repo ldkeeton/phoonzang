@@ -29,7 +29,7 @@ api_idx_0004_OOHR:
     je short .forward3               ; 0x0626
     ret                              ; 0x0628
 .forward3:
-    call loc_QQOI                    ; 0x0629
+    call advance_party_redraw_frame  ; 0x0629
     test ax, ax                      ; 0x062c
     jne short .forward4              ; 0x062e
     call loc_IJSN                    ; 0x0630

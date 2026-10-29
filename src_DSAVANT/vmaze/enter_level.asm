@@ -2,14 +2,14 @@
 enter_level:
     mov ax, 0xfff4                   ; 0x0cb5
     call aztec_csav                  ; 0x0cb8
-    call loc_OGHL                    ; 0x0cbb
+    call stop_and_clear_maze_sounds  ; 0x0cbb
     les bx, word [tick_counter_ptr]  ; 0x0cbe
     mov ax, word [es:bx]             ; 0x0cc2
     mov dx, word [es:bx + 2]         ; 0x0cc5
     add ax, strict word 0x24         ; 0x0cc9
     adc dx, byte 0                   ; 0x0ccc
-    mov word [bss_919c], dx          ; 0x0ccf
-    mov word [bss_919a], ax          ; 0x0cd3
+    mov word [maze_refresh_deadline_high], dx ; 0x0ccf
+    mov word [maze_refresh_deadline], ax ; 0x0cd3
     call api_idx_0002_LMTG           ; 0x0cd6
     mov ax, word [bp + 4]            ; 0x0cd9
     mov word [game_state_arg], ax    ; 0x0cdc
@@ -23,7 +23,7 @@ enter_level:
     mov word [game_state], 7         ; 0x0cf1
     ret                              ; 0x0cf7
 .forward1:
-    call loc_LPSI                    ; 0x0cf8
+    call load_current_maze_level     ; 0x0cf8
     mov ax, 0x10                     ; 0x0cfb
     push ax                          ; 0x0cfe
     mov ax, word [game_state_arg]    ; 0x0cff

@@ -74,8 +74,8 @@ pending_panel_arg0 equ __zdseg_end + (__zobss_9122 - __zdata_start)
 party_redraw_interval equ __zdseg_end + (__zobss_9124 - __zdata_start)
 treasure_caption_on equ __zdseg_end + (__zobss_9126 - __zdata_start)
 treasure_caption equ __zdseg_end + (__zobss_9128 - __zdata_start)
-bss_9150 equ __zdseg_end + (__zobss_9150 - __zdata_start)
-bss_9152 equ __zdseg_end + (__zobss_9152 - __zdata_start)
+maze_message_row equ __zdseg_end + (__zobss_9150 - __zdata_start)
+maze_message_previous_x equ __zdseg_end + (__zobss_9152 - __zdata_start)
 bss_9154 equ __zdseg_end + (__zobss_9154 - __zdata_start)
 treasure_message_row equ __zdseg_end + (__zobss_91d4 - __zdata_start)
 bss_91d6 equ __zdseg_end + (__zobss_91d6 - __zdata_start)
@@ -129,10 +129,8 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "vtrea/loc_NQGV.asm"              ; 0x0a1a
 
-api_idx_0004_JGSH.bss1 equ bss_9150
-api_idx_0004_JGSH.loc1 equ loc_NQGV
-api_idx_0004_JGSH.bss2 equ bss_9152
-%include "shared/ovr/api_idx_0004_JGSH.asm"     ; 0x0a6a
+flush_glyph_buffer.wait_for_maze_input_or_refresh1 equ loc_NQGV
+%include "shared/ovr/flush_glyph_buffer.asm"    ; 0x0a6a
 
 %include "vtrea/api_idx_0090_LKIM.asm"     ; 0x0b29
 
@@ -241,7 +239,7 @@ jumptable_5fd3        equ log_maze_change.jumptable1
 
 %include "vtrea/api_idx_0072_LQIT.asm"     ; 0x7151
 
-%include "shared/ovr/api_idx_0004_KGNP.asm"     ; 0x7319
+%include "shared/ovr/update_region_flag_bitmaps.asm" ; 0x7319
 
 %include "vtrea/api_idx_00e6_QHNU.asm"     ; 0x73ae
 

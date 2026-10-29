@@ -3,21 +3,21 @@ ovmain:
     mov ax, 0xfffe                   ; 0x000e
     call aztec_csav                  ; 0x0011
     mov word [bss_8f22], 0           ; 0x0014
-    mov word [bss_9192], 5           ; 0x001a
+    mov word [party_redraw_interval], 5 ; 0x001a
     les bx, word [tick_counter_ptr]  ; 0x0020
     mov ax, word [es:bx]             ; 0x0024
     mov dx, word [es:bx + 2]         ; 0x0027
     mov word [party_redraw_last_tick_hi], dx ; 0x002b
     mov word [party_redraw_last_tick], ax ; 0x002f
-    mov word [bss_9194], 0           ; 0x0032
-    mov word [bss_9196], 0           ; 0x0038
-    mov word [bss_9198], 0           ; 0x003e
+    mov word [maze_sound_slot_e], 0  ; 0x0032
+    mov word [maze_sound_slot_f], 0  ; 0x0038
+    mov word [maze_sound_pair_state], 0 ; 0x003e
     mov ax, word [es:bx]             ; 0x0044
     mov dx, word [es:bx + 2]         ; 0x0047
     add ax, strict word 0x24         ; 0x004b
     adc dx, byte 0                   ; 0x004e
-    mov word [bss_919c], dx          ; 0x0051
-    mov word [bss_919a], ax          ; 0x0055
+    mov word [maze_refresh_deadline_high], dx ; 0x0051
+    mov word [maze_refresh_deadline], ax ; 0x0055
     call api_idx_0002_LMTG           ; 0x0058
     cmp word [saved_screen_pending], byte 0 ; 0x005b
     je short .forward1               ; 0x0060
@@ -36,10 +36,10 @@ ovmain:
 .forward2:
     cmp word [game_state], byte 5    ; 0x0085
     jne short .forward3              ; 0x008a
-    call api_idx_0002_UTNP           ; 0x008c
+    call load_maze_resources         ; 0x008c
     call api_idx_0022_LKUK           ; 0x008f
 .forward3:
-    call loc_OGHL                    ; 0x0092
+    call stop_and_clear_maze_sounds  ; 0x0092
     call api_idx_0002_LMTG           ; 0x0095
     mov ax, word [game_state]        ; 0x0098
     cmp ax, strict word 0x1e         ; 0x009b

@@ -815,12 +815,12 @@ jumptable_36f8_case_30:
     mov ax, 0x26                     ; 0x3316
     imul word [bp - 0x26]            ; 0x3319
     mov bx, ax                       ; 0x331c
-    mov al, byte [bx + slot_records + slot_record.f_0019] ; 0x331e
-    mov byte [bx + slot_records + slot_record.flag], al ; 0x3322
-    mov byte [bx + slot_records + slot_record.f_0002], 0 ; 0x3326
+    mov al, byte [bx + slot_records + slot_record.max_health] ; 0x331e
+    mov byte [bx + slot_records + slot_record.health], al ; 0x3322
+    mov byte [bx + slot_records + slot_record.activity], 0 ; 0x3326
     mov al, byte [bp - 0x28]         ; 0x332b
-    mov byte [bx + slot_records + slot_record.kind], al ; 0x332e
-    mov byte [bx + slot_records + slot_record.f_0003], al ; 0x3332
+    mov byte [bx + slot_records + slot_record.location], al ; 0x332e
+    mov byte [bx + slot_records + slot_record.destination], al ; 0x3332
     jmp near api_idx_0040_INKU.forward76 ; 0x3336
 jumptable_36f8_case_31:
     mov ax, word [bp - 0x26]         ; 0x3339
@@ -1221,7 +1221,7 @@ api_idx_0040_INKU.forward73:
     mov ax, word [bp - 0x26]         ; 0x36e3
     cmp ax, strict word 0xc          ; 0x36e6
     jne short api_idx_0040_INKU.forward74 ; 0x36e9
-    cmp byte [slot_records + slot_record_size*12 + slot_record.flag], 0 ; 0x36eb
+    cmp byte [slot_records + slot_record_size*12 + slot_record.health], 0 ; 0x36eb
     jne short api_idx_0040_INKU.forward74 ; 0x36f0
     mov ax, 0                        ; 0x36f2
     ret                              ; 0x36f5

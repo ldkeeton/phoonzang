@@ -27,12 +27,12 @@ api_idx_0010_IOJT:
     mov ax, 6                        ; 0x9ac3
     imul word [bp - 2]               ; 0x9ac6
     mov bx, ax                       ; 0x9ac9
-    mov al, byte [bx + slot_bit_states + slot_bit_state.f_0002] ; 0x9acb
+    mov al, byte [bx + slot_bit_states + slot_bit_state.location] ; 0x9acb
     sub ah, ah                       ; 0x9acf
     mov word [bp - 6], ax            ; 0x9ad1
     push ax                          ; 0x9ad4
     push word [bp + 4]               ; 0x9ad5
-    call loc_PQKO                    ; 0x9ad8
+    call slot_is_at_location         ; 0x9ad8
     add sp, byte 4                   ; 0x9adb
     test ax, ax                      ; 0x9ade
     jne short .forward1              ; 0x9ae0
@@ -234,7 +234,7 @@ api_idx_0010_IOJT:
     mov ax, 0x26                     ; 0x9cb9
     imul word [bp + 4]               ; 0x9cbc
     mov bx, ax                       ; 0x9cbf
-    mov al, byte [bx + slot_records + slot_record.f_0019] ; 0x9cc1
+    mov al, byte [bx + slot_records + slot_record.max_health] ; 0x9cc1
     cbw                              ; 0x9cc5
     mov cx, 0xa                      ; 0x9cc6
     cwd                              ; 0x9cc9
@@ -244,7 +244,7 @@ api_idx_0010_IOJT:
     mov ax, 0x26                     ; 0x9cd0
     imul word [bp + 6]               ; 0x9cd3
     mov bx, ax                       ; 0x9cd6
-    mov al, byte [bx + slot_records + slot_record.f_0019] ; 0x9cd8
+    mov al, byte [bx + slot_records + slot_record.max_health] ; 0x9cd8
     cbw                              ; 0x9cdc
     cwd                              ; 0x9cdd
     idiv cx                          ; 0x9cde
@@ -261,12 +261,12 @@ api_idx_0010_IOJT:
     pop ax                           ; 0x9cf9
     cmp al, byte [bx + slot_records] ; 0x9cfa
     jne short .forward12             ; 0x9cfe
-    cmp byte [bx + slot_records + slot_record.f_0002], 1 ; 0x9d00
+    cmp byte [bx + slot_records + slot_record.activity], 1 ; 0x9d00
     jne short .forward12             ; 0x9d05
     mov ax, 0x26                     ; 0x9d07
     imul word [bp + 4]               ; 0x9d0a
     mov bx, ax                       ; 0x9d0d
-    cmp byte [bx + slot_records + slot_record.f_0019], 0x41 ; 0x9d0f
+    cmp byte [bx + slot_records + slot_record.max_health], 0x41 ; 0x9d0f
     jge short .forward12             ; 0x9d14
     mov ax, 3                        ; 0x9d16
     push ax                          ; 0x9d19
@@ -277,7 +277,7 @@ api_idx_0010_IOJT:
     mov ax, 0x26                     ; 0x9d22
     imul word [bp + 4]               ; 0x9d25
     mov bx, ax                       ; 0x9d28
-    inc byte [bx + slot_records + slot_record.f_0019] ; 0x9d2a
+    inc byte [bx + slot_records + slot_record.max_health] ; 0x9d2a
 .forward12:
     cmp word [bp - 0xc], byte -1     ; 0x9d2e
     jne short .forward13             ; 0x9d32
@@ -306,7 +306,7 @@ api_idx_0010_IOJT:
     mov ax, 0x26                     ; 0x9d5f
     imul word [bp + 6]               ; 0x9d62
     mov bx, ax                       ; 0x9d65
-    mov al, byte [bx + slot_records + slot_record.f_0019] ; 0x9d67
+    mov al, byte [bx + slot_records + slot_record.max_health] ; 0x9d67
     cbw                              ; 0x9d6b
     add ax, word [bp - 0xe]          ; 0x9d6c
     push ax                          ; 0x9d6f
@@ -317,7 +317,7 @@ api_idx_0010_IOJT:
     imul word [bp + 6]               ; 0x9d7a
     mov bx, ax                       ; 0x9d7d
     pop ax                           ; 0x9d7f
-    mov byte [bx + slot_records + slot_record.f_0019], al ; 0x9d80
+    mov byte [bx + slot_records + slot_record.max_health], al ; 0x9d80
     mov ax, 0x64                     ; 0x9d84
     push ax                          ; 0x9d87
     mov ax, 1                        ; 0x9d88
@@ -325,7 +325,7 @@ api_idx_0010_IOJT:
     mov ax, 0x26                     ; 0x9d8c
     imul word [bp + 4]               ; 0x9d8f
     mov bx, ax                       ; 0x9d92
-    mov al, byte [bx + slot_records + slot_record.f_0019] ; 0x9d94
+    mov al, byte [bx + slot_records + slot_record.max_health] ; 0x9d94
     cbw                              ; 0x9d98
     sub ax, word [bp - 0xe]          ; 0x9d99
     push ax                          ; 0x9d9c
@@ -336,7 +336,7 @@ api_idx_0010_IOJT:
     imul word [bp + 4]               ; 0x9da7
     mov bx, ax                       ; 0x9daa
     pop ax                           ; 0x9dac
-    mov byte [bx + slot_records + slot_record.f_0019], al ; 0x9dad
+    mov byte [bx + slot_records + slot_record.max_health], al ; 0x9dad
 .forward15:
     push word [bp + 6]               ; 0x9db1
     mov ax, 3                        ; 0x9db4
@@ -378,7 +378,7 @@ api_idx_0010_IOJT:
     mov ax, 0x26                     ; 0x9e04
     imul word [bp + 4]               ; 0x9e07
     mov bx, ax                       ; 0x9e0a
-    mov al, byte [bx + slot_records + slot_record.f_0019] ; 0x9e0c
+    mov al, byte [bx + slot_records + slot_record.max_health] ; 0x9e0c
     cbw                              ; 0x9e10
     add ax, word [bp - 0x10]         ; 0x9e11
     push ax                          ; 0x9e14
@@ -389,7 +389,7 @@ api_idx_0010_IOJT:
     imul word [bp + 4]               ; 0x9e1f
     mov bx, ax                       ; 0x9e22
     pop ax                           ; 0x9e24
-    mov byte [bx + slot_records + slot_record.f_0019], al ; 0x9e25
+    mov byte [bx + slot_records + slot_record.max_health], al ; 0x9e25
     mov ax, 0x64                     ; 0x9e29
     push ax                          ; 0x9e2c
     mov ax, 1                        ; 0x9e2d
@@ -397,7 +397,7 @@ api_idx_0010_IOJT:
     mov ax, 0x26                     ; 0x9e31
     imul word [bp + 6]               ; 0x9e34
     mov bx, ax                       ; 0x9e37
-    mov al, byte [bx + slot_records + slot_record.f_0019] ; 0x9e39
+    mov al, byte [bx + slot_records + slot_record.max_health] ; 0x9e39
     cbw                              ; 0x9e3d
     sub ax, word [bp - 0x10]         ; 0x9e3e
     push ax                          ; 0x9e41
@@ -408,7 +408,7 @@ api_idx_0010_IOJT:
     imul word [bp + 6]               ; 0x9e4c
     mov bx, ax                       ; 0x9e4f
     pop ax                           ; 0x9e51
-    mov byte [bx + slot_records + slot_record.f_0019], al ; 0x9e52
+    mov byte [bx + slot_records + slot_record.max_health], al ; 0x9e52
 .forward19:
     push word [bp + 4]               ; 0x9e56
     mov ax, 3                        ; 0x9e59

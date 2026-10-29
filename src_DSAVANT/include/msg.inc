@@ -5,7 +5,7 @@
 MSG_CLASS_BASE equ 120            ; "class names, MSG_CLASS_BASE + class"
 MSG_ORDINAL_BASE equ 1059         ; "ordinals, MSG_ORDINAL_BASE + n"
 MSG_SLOT_NAME_BASE equ 1700       ; "NPC slot names, MSG_SLOT_NAME_BASE + slot"
-MSG_SLOT_KIND_BASE equ 1770       ; "NPC slot kinds, MSG_SLOT_KIND_BASE + kind"
+MSG_LOCATION_NAME_BASE equ 1770   ; "Location names, MSG_LOCATION_NAME_BASE + location"
 MSG_CODE_CHAR_BASE equ 2500       ; "code-character words, MSG_CODE_CHAR_BASE + index"
 MSG_SPELL_NAME_BASE equ 4000      ; "spell names, MSG_SPELL_NAME_BASE + spell"
 MSG_HUMAN equ 100                 ; "HUMAN"

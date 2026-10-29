@@ -22,7 +22,7 @@ api_idx_000a_ISJL:
     mov word [party_cell_y], ax      ; 0x0bc5
     mov ax, word [previous_party_map_piece] ; 0x0bc8
     mov word [party_map_piece], ax   ; 0x0bcb
-    call loc_HVLG                    ; 0x0bce
+    call party_redraw_interval_elapsed ; 0x0bce
     test ax, ax                      ; 0x0bd1
     je short .forward1               ; 0x0bd3
     mov ax, word [party_status_frame] ; 0x0bd5

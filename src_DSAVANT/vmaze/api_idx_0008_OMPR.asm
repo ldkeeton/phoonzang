@@ -12,7 +12,7 @@ api_idx_0008_OMPR:
     mov cx, 0x26                     ; 0xa5d0
     imul cx                          ; 0xa5d3
     mov bx, ax                       ; 0xa5d5
-    cmp byte [bx + slot_records + slot_record.flag], 0 ; 0xa5d7
+    cmp byte [bx + slot_records + slot_record.health], 0 ; 0xa5d7
     jg short .forward2               ; 0xa5dc
     jmp near .forward15              ; 0xa5de
 .forward2:
@@ -27,12 +27,12 @@ api_idx_0008_OMPR:
     mov ax, word [bp + 4]            ; 0xa5f6
     imul cx                          ; 0xa5f9
     mov bx, ax                       ; 0xa5fb
-    mov al, byte [bx + slot_records + slot_record.kind] ; 0xa5fd
+    mov al, byte [bx + slot_records + slot_record.location] ; 0xa5fd
     push ax                          ; 0xa601
     mov ax, word [bp - 6]            ; 0xa602
     imul cx                          ; 0xa605
     mov bx, ax                       ; 0xa607
-    mov cl, byte [bx + slot_records + slot_record.kind] ; 0xa609
+    mov cl, byte [bx + slot_records + slot_record.location] ; 0xa609
     pop ax                           ; 0xa60d
     cmp al, cl                       ; 0xa60e
     je short .forward4               ; 0xa610
@@ -44,7 +44,7 @@ api_idx_0008_OMPR:
     mov ax, 0x26                     ; 0xa61d
     imul word [bp + 4]               ; 0xa620
     mov bx, ax                       ; 0xa623
-    mov al, byte [bx + slot_records + slot_record.map_piece] ; 0xa625
+    mov al, byte [bx + slot_records + slot_record.turn_count] ; 0xa625
     sub ah, ah                       ; 0xa629
     push ax                          ; 0xa62b
     call random_below                ; 0xa62c
@@ -53,7 +53,7 @@ api_idx_0008_OMPR:
     mov ax, 0x26                     ; 0xa631
     imul word [bp - 6]               ; 0xa634
     mov bx, ax                       ; 0xa637
-    mov al, byte [bx + slot_records + slot_record.map_piece] ; 0xa639
+    mov al, byte [bx + slot_records + slot_record.turn_count] ; 0xa639
     sub ah, ah                       ; 0xa63d
     push ax                          ; 0xa63f
     call random_below                ; 0xa640
@@ -67,22 +67,22 @@ api_idx_0008_OMPR:
     mov ax, 0x26                     ; 0xa64e
     imul word [bp - 6]               ; 0xa651
     mov bx, ax                       ; 0xa654
-    mov al, byte [bx + slot_records + slot_record.f_0002] ; 0xa656
+    mov al, byte [bx + slot_records + slot_record.activity] ; 0xa656
     cmp al, 3                        ; 0xa65a
     je short .forward7               ; 0xa65c
-    cmp byte [bx + slot_records + slot_record.f_0002], 0 ; 0xa65e
+    cmp byte [bx + slot_records + slot_record.activity], 0 ; 0xa65e
     je short .forward7               ; 0xa663
     mov ax, 0x26                     ; 0xa665
     imul word [bp + 4]               ; 0xa668
     mov bx, ax                       ; 0xa66b
-    cmp byte [bx + slot_records + slot_record.f_0002], 6 ; 0xa66d
+    cmp byte [bx + slot_records + slot_record.activity], 6 ; 0xa66d
     je short .forward6               ; 0xa672
     jmp near .forward15              ; 0xa674
 .forward6:
     mov ax, 0x26                     ; 0xa677
     imul word [bp - 6]               ; 0xa67a
     mov bx, ax                       ; 0xa67d
-    mov al, byte [bx + slot_records + slot_record.f_0002] ; 0xa67f
+    mov al, byte [bx + slot_records + slot_record.activity] ; 0xa67f
     cmp al, 1                        ; 0xa683
     jne short .forward7              ; 0xa685
     jmp near .forward15              ; 0xa687
@@ -139,13 +139,13 @@ api_idx_0008_OMPR:
     mov ax, 0x26                     ; 0xa6fa
     imul word [bp + 4]               ; 0xa6fd
     mov bx, ax                       ; 0xa700
-    mov al, byte [bx + slot_records + slot_record.flag] ; 0xa702
+    mov al, byte [bx + slot_records + slot_record.health] ; 0xa702
     cbw                              ; 0xa706
     push ax                          ; 0xa707
     mov ax, 0x26                     ; 0xa708
     imul word [bp - 6]               ; 0xa70b
     mov bx, ax                       ; 0xa70e
-    mov al, byte [bx + slot_records + slot_record.flag] ; 0xa710
+    mov al, byte [bx + slot_records + slot_record.health] ; 0xa710
     cbw                              ; 0xa714
     mov dx, ax                       ; 0xa715
     pop ax                           ; 0xa717
@@ -168,7 +168,7 @@ api_idx_0008_OMPR:
     mov ax, 0x26                     ; 0xa73b
     imul word [bp + 4]               ; 0xa73e
     mov bx, ax                       ; 0xa741
-    mov al, byte [bx + slot_records + slot_record.flag] ; 0xa743
+    mov al, byte [bx + slot_records + slot_record.health] ; 0xa743
     cbw                              ; 0xa747
     push ax                          ; 0xa748
     mov cx, 2                        ; 0xa749
@@ -198,7 +198,7 @@ api_idx_0008_OMPR:
     mov ax, 0x26                     ; 0xa77f
     imul word [bp + 4]               ; 0xa782
     mov bx, ax                       ; 0xa785
-    mov byte [bx + slot_records + slot_record.f_0002], 0 ; 0xa787
+    mov byte [bx + slot_records + slot_record.activity], 0 ; 0xa787
     jmp short .forward13             ; 0xa78c
 .forward12:
     cmp word [bp - 2], byte -1       ; 0xa78e

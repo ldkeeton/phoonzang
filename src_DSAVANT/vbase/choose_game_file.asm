@@ -8,7 +8,7 @@ choose_game_file:
     mov word [bp - 4], 0x8f          ; 0x0f0d
     mov word [bp - 6], 0x108         ; 0x0f12
     mov word [bp - 8], 0xc5          ; 0x0f17
-    mov ax, dseg_90bc                ; 0x0f1c
+    mov ax, dialog_screen_temp_file  ; 0x0f1c
     push ax                          ; 0x0f1f
     mov ax, word [bp - 8]            ; 0x0f20
     inc ax                           ; 0x0f23
@@ -220,7 +220,7 @@ choose_game_file:
     call draw_text_glyphs            ; 0x10f5
     add sp, byte 4                   ; 0x10f8
     push word [bp + 0xe]             ; 0x10fb
-    mov ax, bss_0e4c                 ; 0x10fe
+    mov ax, filename_edit_buffer     ; 0x10fe
     push ax                          ; 0x1101
     call aztec_strcpy                ; 0x1102
     add sp, byte 4                   ; 0x1105
@@ -506,11 +506,11 @@ jumptable_14d6_case_1:
     mov ax, word [bp - 2]            ; 0x137d
     add ax, strict word 0x5f         ; 0x1380
     push ax                          ; 0x1383
-    mov ax, bss_0e4c                 ; 0x1384
+    mov ax, filename_edit_buffer     ; 0x1384
     push ax                          ; 0x1387
     call input_text_field            ; 0x1388
     add sp, byte 0xe                 ; 0x138b
-    mov ax, bss_0e4c                 ; 0x138e
+    mov ax, filename_edit_buffer     ; 0x138e
     push ax                          ; 0x1391
     push word [bp + 0xe]             ; 0x1392
     call aztec_strcpy                ; 0x1395

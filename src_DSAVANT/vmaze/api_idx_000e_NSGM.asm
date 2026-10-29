@@ -35,7 +35,7 @@ api_idx_000e_NSGM:
     mov ax, 1                        ; 0x1683
     push ax                          ; 0x1686
     push word [bp + 4]               ; 0x1687
-    call loc_KOGT                    ; 0x168a
+    call adjust_party_world_position ; 0x168a
     add sp, byte 4                   ; 0x168d
     push word [party_world_y]        ; 0x1690
     push word [party_world_x]        ; 0x1694

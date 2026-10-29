@@ -29,7 +29,7 @@ run_state_15_scene:
     push ax                          ; 0x80e2
     push word [story_score_number]   ; 0x80e3
     push ax                          ; 0x80e7
-    call ds_app_UKGP                 ; 0x80e8
+    call play_score_at_volume        ; 0x80e8
     add sp, byte 6                   ; 0x80eb
     mov word [story_score_volume], ax ; 0x80ee
 .forward1:

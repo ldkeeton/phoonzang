@@ -77,7 +77,7 @@ api_idx_008a_IMUJ:
     cwd                              ; 0x0cd0
     idiv cx                          ; 0x0cd1
     mov word [party_tag], dx         ; 0x0cd3
-    call loc_HVLG                    ; 0x0cd7
+    call party_redraw_interval_elapsed ; 0x0cd7
     test ax, ax                      ; 0x0cda
     je short .forward4               ; 0x0cdc
     mov ax, word [party_status_frame] ; 0x0cde
@@ -242,7 +242,7 @@ api_idx_008a_IMUJ:
     push ax                          ; 0x0e3f
     call set_bitmap_bit              ; 0x0e40
     add sp, byte 6                   ; 0x0e43
-    call loc_HVLG                    ; 0x0e46
+    call party_redraw_interval_elapsed ; 0x0e46
     test ax, ax                      ; 0x0e49
     je short .forward20              ; 0x0e4b
     mov ax, word [party_status_frame] ; 0x0e4d

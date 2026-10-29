@@ -219,7 +219,7 @@ api_idx_0012_GQSK:
     pop cx                           ; 0x071e
     dec ax                           ; 0x071f
     mov word [bp - 4], ax            ; 0x0720
-    cmp word [bss_59fa], byte 0      ; 0x0723
+    cmp word [escape_key_hit], byte 0 ; 0x0723
     je short .forward8               ; 0x0728
     mov ax, 0                        ; 0x072a
     mov dx, 0                        ; 0x072d

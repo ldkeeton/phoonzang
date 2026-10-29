@@ -205,7 +205,7 @@ api_idx_0012_SHRT:
     pop cx                           ; 0x094c
     dec ax                           ; 0x094d
     mov word [bp - 4], ax            ; 0x094e
-    cmp word [bss_59fa], byte 0      ; 0x0951
+    cmp word [escape_key_hit], byte 0 ; 0x0951
     je short .forward7               ; 0x0956
     mov ax, 0                        ; 0x0958
     mov dx, 0                        ; 0x095b

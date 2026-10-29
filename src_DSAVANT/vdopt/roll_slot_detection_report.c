@@ -5,13 +5,13 @@
 
 #include "structs/slotstat.h"
 
-struct kind_info {
+struct location_info {
 	char state;
 	char pad[3];
 };				/* 4-byte stride */
 
 extern struct slot_record slot_records[];
-extern struct kind_info kind_state_table[];
+extern struct location_info location_state_table[];
 extern int game_state_arg, party_map_piece;
 extern long saved_area_a;
 extern char flag_bitset[], report_line1_none[], report_line2_none[];
@@ -54,14 +54,15 @@ int level;
 	restore_area_a_draw_glyph();
 	found = 0;
 	for (slot = 0; slot < 20; slot++) {
-		if (slot_records[slot].kind >= 25)	/* unused slot */
+		if (slot_records[slot].location >= 25)	/* unused slot */
 			continue;
 		if (random_below(100) < chance_any)
 			goto hit;
-		if (kind_state_table[slot_records[slot].kind].state == game_state_arg
+		if (location_state_table[slot_records[slot].location].state == game_state_arg
 			&& random_below(100) < chance_state)
 			goto hit;
-		if (slot_records[slot].map_piece != party_map_piece)
+		/* The original compares the turn counter with the map piece. */
+		if (slot_records[slot].turn_count != party_map_piece)
 			continue;
 		if (random_below(100) < chance_piece)
 			goto hit;
@@ -71,12 +72,13 @@ hit:
 		load_message_string(slot + MSG_SLOT_NAME_BASE, title);	/* per-slot message */
 		line1[0] = 0;
 		line2[0] = 0;
-		if (slot_records[slot].flag == 0 || (slot == 4 && test_bit(flag_bitset, 64)))
+		if (slot_records[slot].health == 0
+			|| (slot == 4 && test_bit(flag_bitset, 64)))
 			load_message_string(MSG_IS_DEAD, line1);
 		else {
 			load_message_string(MSG_AT, line1);
-			load_message_string(slot_records[slot].kind + MSG_SLOT_KIND_BASE,
-				line2);	/* per-kind message */
+			load_message_string(slot_records[slot].location + MSG_LOCATION_NAME_BASE,
+				line2);	/* location name */
 		}
 		draw_centered_lines(title, line1, line2);
 	}

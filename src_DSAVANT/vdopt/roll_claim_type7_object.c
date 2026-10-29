@@ -16,7 +16,7 @@ int skill;
 	if (obj == -1)		/* no type 7 object here */
 		return -1;
 	key = maze_tables->party_mask[obj];
-	tmp = maze_tables->sound[obj];
+	tmp = maze_tables->arg[obj];
 	level = get_bits(tmp, 0, 5);	/* bits 0-4 */
 	tagged = 0;
 	tmp = maze_tables->flags[obj];

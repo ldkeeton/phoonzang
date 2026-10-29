@@ -2,7 +2,7 @@
 api_idx_0018_USPR:
     mov ax, 0xffe8                   ; 0x1c94
     call aztec_csav                  ; 0x1c97
-    call loc_OGHL                    ; 0x1c9a
+    call stop_and_clear_maze_sounds  ; 0x1c9a
     call score_music_enabled         ; 0x1c9d
     mov word [story_music_enabled], ax ; 0x1ca0
     test ax, ax                      ; 0x1ca3
@@ -19,7 +19,7 @@ api_idx_0018_USPR:
     push ax                          ; 0x1cbe
     push word [story_score_number]   ; 0x1cbf
     push ax                          ; 0x1cc3
-    call ds_app_UKGP                 ; 0x1cc4
+    call play_score_at_volume        ; 0x1cc4
     add sp, byte 6                   ; 0x1cc7
     mov word [story_score_volume], ax ; 0x1cca
 .forward1:
@@ -101,7 +101,7 @@ api_idx_0018_USPR:
     je short .back3                  ; 0x1da7
     jmp near .forward27              ; 0x1da9
 .back3:
-    call loc_QQOI                    ; 0x1dac
+    call advance_party_redraw_frame  ; 0x1dac
     test ax, ax                      ; 0x1daf
     jne short .forward7              ; 0x1db1
     jmp short .back3                 ; 0x1db3
@@ -142,7 +142,7 @@ api_idx_0018_USPR:
     je short .forward10              ; 0x1e10
     mov word [bss_91ae], 1           ; 0x1e12
 .forward10:
-    call loc_QQOI                    ; 0x1e18
+    call advance_party_redraw_frame  ; 0x1e18
     test ax, ax                      ; 0x1e1b
     jne short .forward11             ; 0x1e1d
     mov ax, 0xa                      ; 0x1e1f
@@ -282,7 +282,7 @@ api_idx_0018_USPR:
     mov ax, 0x3de                    ; 0x1f53
 .forward24:
     mov word [bp - 0x10], ax         ; 0x1f56
-    cmp word [bss_91b0], byte 0      ; 0x1f59
+    cmp word [party_region_level_saved], byte 0 ; 0x1f59
     jne short .forward26             ; 0x1f5e
     cmp word [bp - 0x14], byte 0     ; 0x1f60
     jne short .forward26             ; 0x1f64
@@ -358,7 +358,7 @@ api_idx_0018_USPR:
     mov ax, word [bp - 2]            ; 0x2003
     cmp ax, word [party_char_count]  ; 0x2006
     jl short .back6                  ; 0x200a
-    call loc_QQOI                    ; 0x200c
+    call advance_party_redraw_frame  ; 0x200c
     cmp word [story_music_enabled], byte 0 ; 0x200f
     je short .forward31              ; 0x2014
     push word [story_score_volume]   ; 0x2016
@@ -370,6 +370,6 @@ api_idx_0018_USPR:
     call free_loaded_score           ; 0x2028
     pop cx                           ; 0x202b
 .forward31:
-    call loc_QMTV                    ; 0x202c
+    call load_maze_variant_resources ; 0x202c
     mov ax, 0                        ; 0x202f
     ret                              ; 0x2032

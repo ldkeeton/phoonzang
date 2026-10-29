@@ -40,7 +40,7 @@ run_state_1a_scene:
     push ax                          ; 0x8176
     push word [story_score_number]   ; 0x8177
     push ax                          ; 0x817b
-    call ds_app_UKGP                 ; 0x817c
+    call play_score_at_volume        ; 0x817c
     add sp, byte 6                   ; 0x817f
     mov word [story_score_volume], ax ; 0x8182
 .forward2:

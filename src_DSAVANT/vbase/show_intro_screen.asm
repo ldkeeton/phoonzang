@@ -25,7 +25,7 @@ show_intro_screen:
     push word [story_score_number]   ; 0x8faf
     mov ax, 0                        ; 0x8fb3
     push ax                          ; 0x8fb6
-    call ds_app_UKGP                 ; 0x8fb7
+    call play_score_at_volume        ; 0x8fb7
     add sp, byte 6                   ; 0x8fba
     mov word [story_score_volume], ax ; 0x8fbd
 .forward2:

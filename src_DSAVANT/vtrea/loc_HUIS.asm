@@ -61,7 +61,7 @@ loc_HUIS:
     mov ax, 0x26                     ; 0x581f
     imul word [selected_item_slot]   ; 0x5822
     mov bx, ax                       ; 0x5826
-    cmp byte [bx + slot_records + slot_record.flag], 0 ; 0x5828
+    cmp byte [bx + slot_records + slot_record.health], 0 ; 0x5828
     jle short .forward5              ; 0x582d
     jmp near .forward8               ; 0x582f
 .forward5:

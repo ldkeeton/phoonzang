@@ -21,14 +21,14 @@ jumptable_0c85_case_0:
     inc word [bp + 4]                ; 0x0b4f
     mov ax, bss_9154                 ; 0x0b52
     push ax                          ; 0x0b55
-    call api_idx_0004_JGSH           ; 0x0b56
+    call flush_glyph_buffer          ; 0x0b56
     pop cx                           ; 0x0b59
     jmp near api_idx_0090_LKIM.forward7 ; 0x0b5a
 jumptable_0c85_case_1:
     inc word [bp + 4]                ; 0x0b5d
     mov ax, bss_9154                 ; 0x0b60
     push ax                          ; 0x0b63
-    call api_idx_0004_JGSH           ; 0x0b64
+    call flush_glyph_buffer          ; 0x0b64
     pop cx                           ; 0x0b67
     mov ax, 0xc6                     ; 0x0b68
     push ax                          ; 0x0b6b
@@ -48,7 +48,7 @@ jumptable_0c85_case_2:
     inc word [bp + 4]                ; 0x0b89
     mov ax, bss_9154                 ; 0x0b8c
     push ax                          ; 0x0b8f
-    call api_idx_0004_JGSH           ; 0x0b90
+    call flush_glyph_buffer          ; 0x0b90
     pop cx                           ; 0x0b93
     mov ax, 0xc6                     ; 0x0b94
     push ax                          ; 0x0b97
@@ -67,13 +67,13 @@ jumptable_0c85_case_3:
     push ax                          ; 0x0bb3
     call redraw_treasure_caption     ; 0x0bb4
     pop cx                           ; 0x0bb7
-    mov word [bss_9150], 0           ; 0x0bb8
+    mov word [maze_message_row], 0   ; 0x0bb8
     jmp near api_idx_0090_LKIM.forward7 ; 0x0bbe
 jumptable_0c85_case_4:
     inc word [bp + 4]                ; 0x0bc1
     mov ax, bss_9154                 ; 0x0bc4
     push ax                          ; 0x0bc7
-    call api_idx_0004_JGSH           ; 0x0bc8
+    call flush_glyph_buffer          ; 0x0bc8
     pop cx                           ; 0x0bcb
     mov ax, 0                        ; 0x0bcc
     push ax                          ; 0x0bcf
@@ -213,7 +213,7 @@ api_idx_0090_LKIM.forward10:
     jle short api_idx_0090_LKIM.forward11 ; 0x0cfb
     mov ax, bss_9154                 ; 0x0cfd
     push ax                          ; 0x0d00
-    call api_idx_0004_JGSH           ; 0x0d01
+    call flush_glyph_buffer          ; 0x0d01
     pop cx                           ; 0x0d04
     push word [bp + 4]               ; 0x0d05
     mov ax, bss_9154                 ; 0x0d08

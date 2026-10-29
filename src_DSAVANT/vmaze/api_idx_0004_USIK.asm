@@ -92,7 +92,7 @@ api_idx_0004_USIK:
 .forward5:
     push ax                          ; 0x18d4
     push word [bss_91ac]             ; 0x18d5
-    call loc_LPNP                    ; 0x18d9
+    call display_message_with_sound  ; 0x18d9
     add sp, byte 6                   ; 0x18dc
 .forward6:
     jmp near .return1                ; 0x18df
@@ -113,7 +113,7 @@ api_idx_0004_USIK:
     push cx                          ; 0x1901
     mov ax, MSG_LOCKED               ; 0x1902
     push ax                          ; 0x1905
-    call loc_LPNP                    ; 0x1906
+    call display_message_with_sound  ; 0x1906
     add sp, byte 6                   ; 0x1909
     jmp short .forward9              ; 0x190c
 .forward8:
@@ -121,7 +121,7 @@ api_idx_0004_USIK:
     push ax                          ; 0x1911
     push ax                          ; 0x1912
     push word [bss_91ac]             ; 0x1913
-    call loc_LPNP                    ; 0x1917
+    call display_message_with_sound  ; 0x1917
     add sp, byte 6                   ; 0x191a
 .forward9:
     jmp short .return1               ; 0x191d
@@ -141,7 +141,7 @@ api_idx_0004_USIK:
     push ax                          ; 0x1936
     push ax                          ; 0x1937
     push word [bss_91ac]             ; 0x1938
-    call loc_LPNP                    ; 0x193c
+    call display_message_with_sound  ; 0x193c
     add sp, byte 6                   ; 0x193f
 .forward12:
     jmp short .return1               ; 0x1942

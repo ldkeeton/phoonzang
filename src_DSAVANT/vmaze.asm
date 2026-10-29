@@ -51,12 +51,12 @@ save_sp equ __zdseg_end + (__zsave_sp - __zdata_start)
 save_bp equ __zdseg_end + (__zsave_bp - __zdata_start)
 save_ret equ __zdseg_end + (__zsave_ret - __zdata_start)
 _Uorg equ __zdseg_end + (__zobss_9192 - __zdata_start)
-bss_9192 equ __zdseg_end + (__zobss_9192 - __zdata_start)
-bss_9194 equ __zdseg_end + (__zobss_9194 - __zdata_start)
-bss_9196 equ __zdseg_end + (__zobss_9196 - __zdata_start)
-bss_9198 equ __zdseg_end + (__zobss_9198 - __zdata_start)
-bss_919a equ __zdseg_end + (__zobss_919a - __zdata_start)
-bss_919c equ __zdseg_end + (__zobss_919c - __zdata_start)
+party_redraw_interval equ __zdseg_end + (__zobss_9192 - __zdata_start)
+maze_sound_slot_e equ __zdseg_end + (__zobss_9194 - __zdata_start)
+maze_sound_slot_f equ __zdseg_end + (__zobss_9196 - __zdata_start)
+maze_sound_pair_state equ __zdseg_end + (__zobss_9198 - __zdata_start)
+maze_refresh_deadline equ __zdseg_end + (__zobss_919a - __zdata_start)
+maze_refresh_deadline_high equ __zdseg_end + (__zobss_919c - __zdata_start)
 save_location_flag equ __zdseg_end + (__zobss_919e - __zdata_start)
 bss_91a0 equ __zdseg_end + (__zobss_91a0 - __zdata_start)
 boundary_wall_open equ __zdseg_end + (__zobss_91a6 - __zdata_start)
@@ -64,8 +64,8 @@ location_changed equ __zdseg_end + (__zobss_91a8 - __zdata_start)
 bss_91aa equ __zdseg_end + (__zobss_91aa - __zdata_start)
 bss_91ac equ __zdseg_end + (__zobss_91ac - __zdata_start)
 bss_91ae equ __zdseg_end + (__zobss_91ae - __zdata_start)
-bss_91b0 equ __zdseg_end + (__zobss_91b0 - __zdata_start)
-bss_91b2 equ __zdseg_end + (__zobss_91b2 - __zdata_start)
+party_region_level_saved equ __zdseg_end + (__zobss_91b0 - __zdata_start)
+maze_message_refresh_pending equ __zdseg_end + (__zobss_91b2 - __zdata_start)
 bss_91b4 equ __zdseg_end + (__zobss_91b4 - __zdata_start)
 bss_91b6 equ __zdseg_end + (__zobss_91b6 - __zdata_start)
 bss_91bc equ __zdseg_end + (__zobss_91bc - __zdata_start)
@@ -121,11 +121,11 @@ bss_9b40 equ __zdseg_end + (__zobss_9b40 - __zdata_start)
 bss_9b42 equ __zdseg_end + (__zobss_9b42 - __zdata_start)
 bss_9b44 equ __zdseg_end + (__zobss_9b44 - __zdata_start)
 bss_9b46 equ __zdseg_end + (__zobss_9b46 - __zdata_start)
-bss_9b48 equ __zdseg_end + (__zobss_9b48 - __zdata_start)
-bss_9b4a equ __zdseg_end + (__zobss_9b4a - __zdata_start)
-bss_9b4c equ __zdseg_end + (__zobss_9b4c - __zdata_start)
-bss_9b4e equ __zdseg_end + (__zobss_9b4e - __zdata_start)
-bss_9b50 equ __zdseg_end + (__zobss_9b50 - __zdata_start)
+maze_message_state equ __zdseg_end + (__zobss_9b48 - __zdata_start)
+object_search_active equ __zdseg_end + (__zobss_9b4a - __zdata_start)
+maze_message_row equ __zdseg_end + (__zobss_9b4c - __zdata_start)
+maze_message_previous_x equ __zdseg_end + (__zobss_9b4e - __zdata_start)
+maze_message_glyph_buffer equ __zdseg_end + (__zobss_9b50 - __zdata_start)
 region_step_flag equ __zdseg_end + (__zobss_9bd0 - __zdata_start)
 bss_9bd2 equ __zdseg_end + (__zobss_9bd2 - __zdata_start)
 bss_9bdc equ __zdseg_end + (__zobss_9bdc - __zdata_start)
@@ -139,29 +139,31 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "vmaze/ovmain.asm"                ; 0x000e
 
-%include "vmaze/api_idx_0002_QNMM.asm"     ; 0x0106
+%include "vmaze/maybe_play_maze_ambient_sound.asm" ; 0x0106
 
-%include "vmaze/loc_RRRG.asm"              ; 0x017f
+%include "vmaze/stop_and_clear_maze_sounds.asm" ; 0x0140
 
-%include "vmaze/api_idx_0008_URRP.asm"     ; 0x01c9
+%include "vmaze/load_maze_sound_pair.asm"  ; 0x017f
+
+%include "vmaze/update_maze_sound_selection.asm" ; 0x01c9
 
 %include "vmaze/api_idx_0002_LMTG.asm"     ; 0x02da
 
 %include "shared/ovr/load_maze_file.asm"        ; 0x02fe
 
-%include "vmaze/loc_QMTV.asm"              ; 0x0344
+%include "vmaze/load_maze_variant_resources.asm" ; 0x0344
 
-%include "vmaze/api_idx_0002_UTNP.asm"     ; 0x03ea
+%include "vmaze/load_maze_resources.asm"   ; 0x03ea
 
-%include "vmaze/api_idx_0014_NJLK.asm"     ; 0x06da
+%include "vmaze/decode_maze_cell_records.asm" ; 0x06da
 
-%include "vmaze/loc_LPSI.asm"              ; 0x09cb
+%include "vmaze/load_current_maze_level.asm" ; 0x09cb
 
-%include "vmaze/api_idx_0006_KUNS.asm"     ; 0x0a6e
+%include "vmaze/choose_sound_variant.asm"  ; 0x0a6e
 
 %include "vmaze/api_idx_0002_GGTO.asm"     ; 0x0acc
 
-%include "vmaze/loc_VGMJ.asm"              ; 0x0b14
+%include "vmaze/configure_story_music.asm" ; 0x0b14
 
 %include "vmaze/api_idx_0002_SMVN.asm"     ; 0x0b66
 
@@ -169,9 +171,11 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "vmaze/api_idx_0002_GSIL.asm"     ; 0x0e5d
 
-%include "vmaze/loc_LMUG.asm"              ; 0x0ea6
+%include "vmaze/update_maze_refresh_timer.asm" ; 0x0ea6
 
-%include "shared/ovr/loc_QQOI.asm"              ; 0x0f68
+%include "shared/ovr/party_redraw_interval_elapsed.asm" ; 0x0f1d
+
+%include "shared/ovr/advance_party_redraw_frame.asm" ; 0x0f68
 
 %include "vmaze/wait_ticks_or_key.asm"     ; 0x0f8e
 
@@ -187,11 +191,11 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "vmaze/api_idx_0002_RRIU.asm"     ; 0x1206
 
-%include "vmaze/loc_KOGT.asm"              ; 0x1240
+%include "vmaze/adjust_party_world_position.asm" ; 0x1240
 
 %include "shared/ovr/loc_IVLM.asm"              ; 0x12a2
 
-%include "vmaze/loc_LPNP.asm"              ; 0x12d3
+%include "vmaze/display_message_with_sound.asm" ; 0x12d3
 
 %include "vmaze/api_idx_0004_IKPN.asm"     ; 0x1308
 
@@ -219,7 +223,7 @@ jumptable_1556         equ api_idx_0004_SMLK.jumptable1
 
 %include "shared/ovr/api_idx_0006_KPLV.asm"     ; 0x2133
 
-%include "vmaze/loc_MMGL.asm"              ; 0x21e3
+%include "vmaze/display_maze_message.asm"  ; 0x21e3
 
 %include "vmaze/api_idx_0022_LKUK.asm"     ; 0x2215
 
@@ -470,79 +474,77 @@ jumptable_6aab        equ log_maze_change.jumptable1
 
 %include "shared/ovr/restore_area_a_draw_glyph.asm" ; 0x6b0a
 
-%include "vmaze/loc_MVHP.asm"              ; 0x6b5a
+%include "vmaze/wait_for_maze_input_or_refresh.asm" ; 0x6b5a
 
-api_idx_0004_JGSH.bss1 equ bss_9b4c
-api_idx_0004_JGSH.loc1 equ loc_MVHP
-api_idx_0004_JGSH.bss2 equ bss_9b4e
-%include "shared/ovr/api_idx_0004_JGSH.asm"     ; 0x6c0a
+flush_glyph_buffer.wait_for_maze_input_or_refresh1 equ wait_for_maze_input_or_refresh
+%include "shared/ovr/flush_glyph_buffer.asm"    ; 0x6c0a
 
 %include "vmaze/api_idx_0090_QKJQ.asm"     ; 0x6cc9
 
 process_scene_message_words.loc1 equ api_idx_0090_QKJQ
 %include "shared/ovr/process_scene_message_words.asm" ; 0x6eb1
 
-%include "vmaze/loc_MLLK.asm"              ; 0x6f14
+%include "vmaze/show_maze_message_sequence.asm" ; 0x6f14
 
 %include "shared/ovr/loc_SIKN.asm"              ; 0x6fbf
 
 %include "vmaze/api_idx_0002_KUOJ.asm"     ; 0x7001
 
-%include "vmaze/api_idx_001e_SRJO.asm"     ; 0x7034
+%include "vmaze/show_region_message.asm"   ; 0x7034
 
 %include "shared/ovr/mark_region_bits.asm"      ; 0x7242
 
 %include "vmaze/move_party_to_dest.asm"    ; 0x72a6
 
-%include "vmaze/api_idx_0002_OUMQ.asm"     ; 0x73b6
+%include "vmaze/run_region_keyed_action.asm" ; 0x73b6
 
-%include "vmaze/loc_PLOT.asm"              ; 0x7436
+%include "vmaze/store_party_region_level.asm" ; 0x7436
 
-%include "vmaze/api_idx_0004_TLVR.asm"     ; 0x744e
+%include "vmaze/check_region_trigger_bit_14.asm" ; 0x744e
 
 %include "vmaze/api_idx_0050_QVOG.asm"     ; 0x74e2
 
-%include "vmaze/api_idx_0004_THPM.asm"     ; 0x7542
+%include "vmaze/update_party_status_animation.asm" ; 0x7542
 
-%include "vmaze/api_idx_0006_NNSP.asm"     ; 0x75ae
+%include "vmaze/collect_region_flag_bits.asm" ; 0x75ae
 
-%include "vmaze/api_idx_001c_QLSV.asm"     ; 0x764d
+%include "vmaze/handle_region_flag_event.asm" ; 0x764d
 
-%include "vmaze/api_idx_000a_SRNS.asm"     ; 0x784f
+%include "vmaze/play_region_spell_sound.asm" ; 0x784f
 
-%include "vmaze/api_idx_0004_LGSJ.asm"     ; 0x799e
+%include "vmaze/handle_region_object_search.asm" ; 0x799e
 
-%include "vmaze/loc_HLOU.asm"              ; 0x7a34
+%include "vmaze/advance_maze_region.asm"   ; 0x7a34
 
-%include "vmaze/api_idx_0002_RHUQ.asm"     ; 0x7abe
+%include "vmaze/check_region_trigger_bit_2.asm" ; 0x7abe
 
 %include "vmaze/api_idx_0018_KVSP.asm"     ; 0x7b53
 
-%include "vmaze/loc_HMKT.asm"              ; 0x7cb4
+%include "vmaze/animate_party_status_frame.asm" ; 0x7cb4
 
 %include "vmaze/set_cell_wall.asm"         ; 0x7ce5
 
-%include "vmaze/api_idx_001e_QHIQ.asm"     ; 0x7e46
+%include "vmaze/decode_region_map_location.asm" ; 0x7e46
 
-%include "vmaze/api_idx_000e_RTSO.asm"     ; 0x804e
+%include "vmaze/wait_then_handle_region_event.asm" ; 0x804e
 
-%include "vmaze/api_idx_0010_TVMI.asm"     ; 0x820b
+%include "vmaze/handle_region_flag_3_event.asm" ; 0x820b
 
-%include "shared/ovr/api_idx_0004_KGNP.asm"     ; 0x83b3
+%include "shared/ovr/update_region_flag_bitmaps.asm" ; 0x83b3
 
-%include "vmaze/api_idx_000e_IVQS.asm"     ; 0x8448
+%include "vmaze/process_region_flag_actions.asm" ; 0x8448
 
-%include "vmaze/loc_GTVH.asm"              ; 0x8540
+%include "vmaze/update_region_flags.asm"   ; 0x8540
 
-%include "vmaze/api_idx_0012_LSRN.asm"     ; 0x8568
+%include "vmaze/handle_region_level_event.asm" ; 0x8568
 
-%include "vmaze/loc_OKIJ.asm"              ; 0x86a9
+%include "vmaze/update_region_slot_bit_flags.asm" ; 0x86a9
 
-%include "vmaze/api_idx_0002_QMUL.asm"     ; 0x86f9
+%include "vmaze/handle_region_flag_2_event.asm" ; 0x86f9
 
-%include "vmaze/api_idx_000c_NSHU.asm"     ; 0x8794
+%include "vmaze/handle_region_bit_8_event.asm" ; 0x8794
 
-%include "vmaze/loc_TJTU.asm"              ; 0x8867
+%include "vmaze/process_maze_object_events.asm" ; 0x8867
 
 %include "shared/ovr/clear_bit_pair.asm"        ; 0x89d0
 
@@ -566,15 +568,17 @@ process_scene_message_words.loc1 equ api_idx_0090_QKJQ
 
 %include "vmaze/find_or_add_loaded_record.asm" ; 0x93ab
 
-%include "vmaze/loc_PQKO.asm"              ; 0x9448
+%include "vmaze/slot_is_at_location.asm"   ; 0x9448
 
-%include "vmaze/loc_LGQU.asm"              ; 0x94a6
+%include "vmaze/refresh_slot_state.asm"    ; 0x946a
+
+%include "vmaze/retreat_slot_if_wounded.asm" ; 0x94a6
 
 %include "vmaze/api_idx_003a_SOVP.asm"     ; 0x94ef
 
 %include "vmaze/adjust_target_weight.asm"  ; 0x9658
 
-%include "vmaze/api_idx_0004_VRTU.asm"     ; 0x96ce
+%include "vmaze/choose_slot_goal.asm"      ; 0x96ce
 
 %include "vmaze/api_idx_0002_NMTS.asm"     ; 0x98cc
 
@@ -590,17 +594,19 @@ process_scene_message_words.loc1 equ api_idx_0090_QKJQ
 
 %include "vmaze/mark_slot_pair_processed.asm" ; 0xa215
 
-%include "vmaze/api_idx_0002_OOUO.asm"     ; 0xa28c
+%include "vmaze/heal_slot_health.asm"      ; 0xa28c
 
-%include "vmaze/api_idx_0010_TRQK.asm"     ; 0xa2df
+%include "vmaze/update_slot_at_location.asm" ; 0xa2df
 
 %include "vmaze/api_idx_0008_OMPR.asm"     ; 0xa5ba
 
-%include "vmaze/api_idx_0002_TLGN.asm"     ; 0xa7b2
+%include "vmaze/advance_slot_along_path.asm" ; 0xa7b2
 
-%include "vmaze/api_idx_0002_JSGO.asm"     ; 0xa9a4
+%include "vmaze/search_slot_for_item.asm"  ; 0xa9a4
 
-%include "vmaze/loc_VJUG.asm"              ; 0xaad3
+%include "vmaze/rest_slot_or_wander.asm"   ; 0xaa3f
+
+%include "vmaze/dispatch_slot_action.asm"  ; 0xaad3
 
 %include "vmaze/api_idx_0032_TNQM.asm"     ; 0xab9b
 

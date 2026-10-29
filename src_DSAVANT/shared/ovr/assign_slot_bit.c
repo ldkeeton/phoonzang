@@ -1,12 +1,7 @@
 /* Update a bit assignment and the affected slot bitmaps. */
 
+#include "structs/slotbit.h"
 #include "structs/slotstat.h"
-
-struct slot_bit_state {
-	char slot;		/* +0x00 */
-	char status;		/* +0x01 */
-	char pad[4];
-};
 
 extern struct slot_bit_state slot_bit_states[];
 extern struct slot_record slot_records[];

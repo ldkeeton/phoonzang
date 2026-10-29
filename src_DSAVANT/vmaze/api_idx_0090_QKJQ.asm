@@ -19,18 +19,18 @@ api_idx_0090_QKJQ:
     jmp near .forward5               ; 0x6cec
 jumptable_6e12_case_0:
     inc word [bp + 4]                ; 0x6cef
-    mov ax, bss_9b50                 ; 0x6cf2
+    mov ax, maze_message_glyph_buffer ; 0x6cf2
     push ax                          ; 0x6cf5
-    call api_idx_0004_JGSH           ; 0x6cf6
+    call flush_glyph_buffer          ; 0x6cf6
     pop cx                           ; 0x6cf9
     jmp near api_idx_0090_QKJQ.forward6 ; 0x6cfa
 jumptable_6e12_case_1:
     inc word [bp + 4]                ; 0x6cfd
-    mov ax, bss_9b50                 ; 0x6d00
+    mov ax, maze_message_glyph_buffer ; 0x6d00
     push ax                          ; 0x6d03
-    call api_idx_0004_JGSH           ; 0x6d04
+    call flush_glyph_buffer          ; 0x6d04
     pop cx                           ; 0x6d07
-    cmp word [bss_9b48], byte 0      ; 0x6d08
+    cmp word [maze_message_state], byte 0 ; 0x6d08
     jne short api_idx_0090_QKJQ.forward2 ; 0x6d0d
     mov ax, 0xc6                     ; 0x6d0f
     push ax                          ; 0x6d12
@@ -45,20 +45,20 @@ jumptable_6e12_case_1:
     push word [message_delay]        ; 0x6d25
     call wait_ticks_or_key           ; 0x6d29
     pop cx                           ; 0x6d2c
-    cmp word [bss_59fa], byte 0      ; 0x6d2d
+    cmp word [escape_key_hit], byte 0 ; 0x6d2d
     je short api_idx_0090_QKJQ.forward2 ; 0x6d32
-    cmp word [bss_9b4a], byte 0      ; 0x6d34
+    cmp word [object_search_active], byte 0 ; 0x6d34
     jne short api_idx_0090_QKJQ.forward2 ; 0x6d39
-    mov word [bss_9b48], 1           ; 0x6d3b
+    mov word [maze_message_state], 1 ; 0x6d3b
 api_idx_0090_QKJQ.forward2:
     jmp near api_idx_0090_QKJQ.forward6 ; 0x6d41
 jumptable_6e12_case_2:
     inc word [bp + 4]                ; 0x6d44
-    mov ax, bss_9b50                 ; 0x6d47
+    mov ax, maze_message_glyph_buffer ; 0x6d47
     push ax                          ; 0x6d4a
-    call api_idx_0004_JGSH           ; 0x6d4b
+    call flush_glyph_buffer          ; 0x6d4b
     pop cx                           ; 0x6d4e
-    cmp word [bss_9b48], byte 0      ; 0x6d4f
+    cmp word [maze_message_state], byte 0 ; 0x6d4f
     jne short api_idx_0090_QKJQ.forward3 ; 0x6d54
     mov ax, 0xc6                     ; 0x6d56
     push ax                          ; 0x6d59
@@ -75,22 +75,22 @@ api_idx_0090_QKJQ.forward3:
 jumptable_6e12_case_3:
     inc word [bp + 4]                ; 0x6d6f
     call restore_area_a_draw_glyph   ; 0x6d72
-    mov word [bss_9b4c], 0           ; 0x6d75
+    mov word [maze_message_row], 0   ; 0x6d75
     jmp near api_idx_0090_QKJQ.forward6 ; 0x6d7b
 jumptable_6e12_case_4:
     inc word [bp + 4]                ; 0x6d7e
-    mov ax, bss_9b50                 ; 0x6d81
+    mov ax, maze_message_glyph_buffer ; 0x6d81
     push ax                          ; 0x6d84
-    call api_idx_0004_JGSH           ; 0x6d85
+    call flush_glyph_buffer          ; 0x6d85
     pop cx                           ; 0x6d88
     mov ax, 0                        ; 0x6d89
     push ax                          ; 0x6d8c
-    call loc_MVHP                    ; 0x6d8d
+    call wait_for_maze_input_or_refresh ; 0x6d8d
     pop cx                           ; 0x6d90
     jmp near api_idx_0090_QKJQ.forward6 ; 0x6d91
 jumptable_6e12_case_5:
     inc word [bp + 4]                ; 0x6d94
-    call loc_OGHL                    ; 0x6d97
+    call stop_and_clear_maze_sounds  ; 0x6d97
     mov ax, 0x10                     ; 0x6d9a
     push ax                          ; 0x6d9d
     mov ax, 0xa                      ; 0x6d9e
@@ -126,7 +126,7 @@ jumptable_6e12_case_5:
     push ax                          ; 0x6de5
     call free_picture_slot           ; 0x6de6
     pop cx                           ; 0x6de9
-    call loc_QMTV                    ; 0x6dea
+    call load_maze_variant_resources ; 0x6dea
     jmp short api_idx_0090_QKJQ.forward6 ; 0x6ded
 jumptable_6e12_case_6:
     inc word [bp + 4]                ; 0x6def
@@ -160,9 +160,9 @@ api_idx_0090_QKJQ.forward5:
 api_idx_0090_QKJQ.forward6:
     jmp near api_idx_0090_QKJQ.back1 ; 0x6e2d
 api_idx_0090_QKJQ.forward7:
-    cmp byte [bss_9b50], 0           ; 0x6e30
+    cmp byte [maze_message_glyph_buffer], 0 ; 0x6e30
     je short api_idx_0090_QKJQ.forward8 ; 0x6e35
-    mov ax, bss_9b50                 ; 0x6e37
+    mov ax, maze_message_glyph_buffer ; 0x6e37
     push ax                          ; 0x6e3a
     lea ax, word [bp - 0x86]         ; 0x6e3b
     push ax                          ; 0x6e3f
@@ -196,12 +196,12 @@ api_idx_0090_QKJQ.forward9:
     mov word [bp - 2], ax            ; 0x6e82
     cmp ax, 0xb8                     ; 0x6e85
     jle short api_idx_0090_QKJQ.forward10 ; 0x6e88
-    mov ax, bss_9b50                 ; 0x6e8a
+    mov ax, maze_message_glyph_buffer ; 0x6e8a
     push ax                          ; 0x6e8d
-    call api_idx_0004_JGSH           ; 0x6e8e
+    call flush_glyph_buffer          ; 0x6e8e
     pop cx                           ; 0x6e91
     push word [bp + 4]               ; 0x6e92
-    mov ax, bss_9b50                 ; 0x6e95
+    mov ax, maze_message_glyph_buffer ; 0x6e95
     push ax                          ; 0x6e98
     call aztec_strcpy                ; 0x6e99
     add sp, byte 4                   ; 0x6e9c
@@ -209,7 +209,7 @@ api_idx_0090_QKJQ.forward9:
 api_idx_0090_QKJQ.forward10:
     lea ax, word [bp - 0x86]         ; 0x6ea1
     push ax                          ; 0x6ea5
-    mov ax, bss_9b50                 ; 0x6ea6
+    mov ax, maze_message_glyph_buffer ; 0x6ea6
     push ax                          ; 0x6ea9
     call aztec_strcpy                ; 0x6eaa
     add sp, byte 4                   ; 0x6ead

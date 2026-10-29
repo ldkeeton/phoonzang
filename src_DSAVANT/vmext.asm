@@ -48,7 +48,7 @@ save_sp equ __zdseg_end + (__zsave_sp - __zdata_start)
 save_bp equ __zdseg_end + (__zsave_bp - __zdata_start)
 save_ret equ __zdseg_end + (__zsave_ret - __zdata_start)
 _Uorg equ __zdseg_end + (__zobss_9180 - __zdata_start)
-bss_9180 equ __zdseg_end + (__zobss_9180 - __zdata_start)
+party_redraw_interval equ __zdseg_end + (__zobss_9180 - __zdata_start)
 bss_9182 equ __zdseg_end + (__zobss_9182 - __zdata_start)
 boundary_wall_open equ __zdseg_end + (__zobss_9188 - __zdata_start)
 save_location_flag equ __zdseg_end + (__zobss_918a - __zdata_start)
@@ -120,7 +120,9 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "vmext/api_idx_0002_UOVS.asm"     ; 0x0262
 
-%include "shared/ovr/loc_QQOI.asm"              ; 0x059a
+%include "shared/ovr/party_redraw_interval_elapsed.asm" ; 0x054f
+
+%include "shared/ovr/advance_party_redraw_frame.asm" ; 0x059a
 
 %include "vmext/loc_IJSN.asm"              ; 0x05c0
 

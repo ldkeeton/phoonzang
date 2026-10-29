@@ -215,7 +215,7 @@ api_idx_0014_PSHN:
     push word [story_score_number]   ; 0x6361
     mov ax, 0                        ; 0x6365
     push ax                          ; 0x6368
-    call ds_app_UKGP                 ; 0x6369
+    call play_score_at_volume        ; 0x6369
     add sp, byte 6                   ; 0x636c
     mov word [story_score_volume], ax ; 0x636f
 .forward4:

@@ -24,7 +24,7 @@ api_idx_0032_TNQM:
     shl ax, 1                        ; 0xabcd
     shl ax, 1                        ; 0xabcf
     mov bx, ax                       ; 0xabd1
-    mov al, byte [bx + kind_state_table] ; 0xabd3
+    mov al, byte [bx + location_state_table] ; 0xabd3
     cbw                              ; 0xabd7
     cmp ax, word [game_state_arg]    ; 0xabd8
     jne short .forward1              ; 0xabdc
@@ -55,7 +55,7 @@ api_idx_0032_TNQM:
     add bx, bp                       ; 0xac18
     mov word [bx - 0x32], 1          ; 0xac1a
     push word [bp - 2]               ; 0xac1f
-    call loc_VJUG                    ; 0xac22
+    call dispatch_slot_action        ; 0xac22
     pop cx                           ; 0xac25
     inc word [bp - 6]                ; 0xac26
     cmp word [bp - 6], byte 0x16     ; 0xac29

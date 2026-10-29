@@ -16,7 +16,7 @@ api_idx_0038_OUTM:
     mov ax, 0x26                     ; 0x24d0
     imul word [bp - 2]               ; 0x24d3
     mov bx, ax                       ; 0x24d6
-    cmp byte [bx + slot_records + slot_record.flag], 0 ; 0x24d8
+    cmp byte [bx + slot_records + slot_record.health], 0 ; 0x24d8
     jle short .forward2              ; 0x24dd
     mov al, byte [bx + slot_records] ; 0x24df
     sub ah, ah                       ; 0x24e3
@@ -24,12 +24,12 @@ api_idx_0038_OUTM:
     je short .forward1               ; 0x24e8
     cmp word [bp + 4], byte -1       ; 0x24ea
     jne short .forward2              ; 0x24ee
-    mov al, byte [bx + slot_records + slot_record.kind] ; 0x24f0
+    mov al, byte [bx + slot_records + slot_record.location] ; 0x24f0
     sub ah, ah                       ; 0x24f4
     shl ax, 1                        ; 0x24f6
     shl ax, 1                        ; 0x24f8
     mov bx, ax                       ; 0x24fa
-    mov al, byte [bx + kind_state_table] ; 0x24fc
+    mov al, byte [bx + location_state_table] ; 0x24fc
     cbw                              ; 0x2500
     cmp ax, word [game_state_arg]    ; 0x2501
     je short .forward1               ; 0x2505

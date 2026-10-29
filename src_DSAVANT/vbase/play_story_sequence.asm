@@ -51,7 +51,7 @@ play_story_sequence:
     push word [story_score_number]   ; 0x70dc
     mov ax, 0                        ; 0x70e0
     push ax                          ; 0x70e3
-    call ds_app_UKGP                 ; 0x70e4
+    call play_score_at_volume        ; 0x70e4
     add sp, byte 6                   ; 0x70e7
     mov word [story_score_volume], ax ; 0x70ea
 .forward2:

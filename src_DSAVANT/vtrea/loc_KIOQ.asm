@@ -6,8 +6,8 @@ loc_KIOQ:
     push ax                          ; 0x0d90
     call redraw_treasure_caption     ; 0x0d91
     pop cx                           ; 0x0d94
-    mov word [bss_9152], 0x44        ; 0x0d95
-    mov word [bss_9150], 0           ; 0x0d9b
+    mov word [maze_message_previous_x], 0x44 ; 0x0d95
+    mov word [maze_message_row], 0   ; 0x0d9b
     mov byte [bss_9154], 0           ; 0x0da1
 .back1:
     lea ax, word [bp - 0x105]        ; 0x0da6
@@ -29,7 +29,7 @@ loc_KIOQ:
     je short .forward2               ; 0x0dd3
     mov ax, bss_9154                 ; 0x0dd5
     push ax                          ; 0x0dd8
-    call api_idx_0004_JGSH           ; 0x0dd9
+    call flush_glyph_buffer          ; 0x0dd9
     pop cx                           ; 0x0ddc
 .forward2:
     push word [bp + 6]               ; 0x0ddd

@@ -48,7 +48,7 @@ api_idx_0004_OVIO:
     mov cx, 0x26                     ; 0x1cd7
     imul cx                          ; 0x1cda
     mov bx, ax                       ; 0x1cdc
-    mov byte [bx + slot_records + slot_record.flag], 0 ; 0x1cde
+    mov byte [bx + slot_records + slot_record.health], 0 ; 0x1cde
     mov ax, word [bp + 4]            ; 0x1ce3
     shl ax, 1                        ; 0x1ce6
     mov bx, ax                       ; 0x1ce8

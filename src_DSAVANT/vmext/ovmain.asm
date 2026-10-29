@@ -3,7 +3,7 @@ ovmain:
     mov ax, 0xfffe                   ; 0x000e
     call aztec_csav                  ; 0x0011
     mov word [bss_8f22], 0           ; 0x0014
-    mov word [bss_9180], 5           ; 0x001a
+    mov word [party_redraw_interval], 5 ; 0x001a
     les bx, word [tick_counter_ptr]  ; 0x0020
     mov ax, word [es:bx]             ; 0x0024
     mov dx, word [es:bx + 2]         ; 0x0027

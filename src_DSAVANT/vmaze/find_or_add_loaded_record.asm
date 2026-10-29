@@ -39,7 +39,7 @@ find_or_add_loaded_record:
     mov ax, 0x26                     ; 0x9400
     imul word [bp + 4]               ; 0x9403
     mov bx, ax                       ; 0x9406
-    mov al, byte [bx + slot_records + slot_record.f_0016] ; 0x9408
+    mov al, byte [bx + slot_records + slot_record.event_ring_next] ; 0x9408
     sub ah, ah                       ; 0x940c
     mov dx, 3                        ; 0x940e
     imul dx                          ; 0x9411
@@ -55,12 +55,12 @@ find_or_add_loaded_record:
     mov ax, 0x26                     ; 0x942c
     imul word [bp + 4]               ; 0x942f
     mov bx, ax                       ; 0x9432
-    mov al, byte [bx + slot_records + slot_record.f_0016] ; 0x9434
+    mov al, byte [bx + slot_records + slot_record.event_ring_next] ; 0x9434
     sub ah, ah                       ; 0x9438
     inc ax                           ; 0x943a
     mov cx, 5                        ; 0x943b
     cwd                              ; 0x943e
     idiv cx                          ; 0x943f
     mov ax, dx                       ; 0x9441
-    mov byte [bx + slot_records + slot_record.f_0016], al ; 0x9443
+    mov byte [bx + slot_records + slot_record.event_ring_next], al ; 0x9443
     ret                              ; 0x9447

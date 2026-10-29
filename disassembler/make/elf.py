@@ -443,7 +443,8 @@ def resplice_c(app, binary, check_only=False, only=None):
         start, end = spans[label]
         span_len = end - start
         if label in failed:
-            raise failed[label]
+            failures.append(f'error: {label}: {failed[label]}')
+            continue
         compiled_module, func = cache.compile_source_module(
             app, binary, label, entry, text)
         if compiled_module.data:
@@ -465,13 +466,15 @@ def resplice_c(app, binary, check_only=False, only=None):
             owned = routine_source.owned_length(start, len(func.code),
                                                 recorded_end=end)
         except routine_source.FragmentLengthError as exc:
-            raise SystemExit(f'error: {label}: '
-                             f'{os.path.relpath(cpath, out_dir)}: {exc}')
+            failures.append(f'error: {label}: '
+                            f'{os.path.relpath(cpath, out_dir)}: {exc}')
+            continue
         if owned != span_len and not lenient:
-            raise SystemExit(
+            failures.append(
                 f'error: {label}: {os.path.relpath(cpath, out_dir)} compiles '
                 f'to {owned} bytes, its fragment is {span_len}; run '
                 f'"make build {app}"')
+            continue
         # A vendor module's bytes before its first routine are data the build
         # rendered from the disassembly; they stay as the fragment has them.
         first = start
@@ -507,7 +510,8 @@ def resplice_c(app, binary, check_only=False, only=None):
                                     for f in compiled_module.functions.values()},
                     }, labels_at)
                 except CGateError as exc:
-                    raise SystemExit(f'error: {exc}')
+                    failures.append(f'error: {exc}')
+                    continue
             try:
                 linked = relink.link(label, start, func, index, data,
                                      labels_in, labels_at,
@@ -515,7 +519,8 @@ def resplice_c(app, binary, check_only=False, only=None):
                                      resolve_by_address=is_shared(out_dir,
                                                                   label))
             except relink.RelinkError as exc:
-                raise SystemExit(f'error: {exc}')
+                failures.append(f'error: {exc}')
+                continue
             compiled = linked.code
         else:
             compiled = bytearray(func.code)
@@ -639,12 +644,15 @@ def resplice_c(app, binary, check_only=False, only=None):
         try:
             validate_data(segments, data, sources)
         except DataOwnerError as exc:
-            raise SystemExit(f'error: {exc}') from exc
-    os.makedirs(os.path.dirname(stamps_path), exist_ok=True)
-    with open(stamps_path, 'w') as f:
-        json.dump(stamps, f)
+            # No stamps: the data gate only runs on routines not skipped.
+            failures.append(f'error: {exc}')
+            stamps = None
+    if stamps is not None:
+        os.makedirs(os.path.dirname(stamps_path), exist_ok=True)
+        with open(stamps_path, 'w') as f:
+            json.dump(stamps, f)
     if failures:
-        print(f'resplice {app}/{binary}: C does not reproduce the original:',
+        print(f'resplice {app}/{binary}: C check failed:',
               file=sys.stderr)
         print('\n'.join(failures), file=sys.stderr)
         raise SystemExit(1)

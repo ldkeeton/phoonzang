@@ -71,7 +71,7 @@ api_idx_003a_SOVP:
     cmp ax, strict word 0x1a         ; 0x95a6
     jl short .back2                  ; 0x95a9
     push word [bp + 4]               ; 0x95ab
-    call loc_LGQU                    ; 0x95ae
+    call retreat_slot_if_wounded     ; 0x95ae
     pop cx                           ; 0x95b1
     test ax, ax                      ; 0x95b2
     je short .back3                  ; 0x95b4
@@ -140,8 +140,8 @@ api_idx_003a_SOVP:
     imul word [bp + 4]               ; 0x9646
     mov bx, ax                       ; 0x9649
     pop ax                           ; 0x964b
-    mov byte [bx + slot_records + slot_record.f_0003], al ; 0x964c
+    mov byte [bx + slot_records + slot_record.destination], al ; 0x964c
     push word [bp + 4]               ; 0x9650
-    call loc_QJRN                    ; 0x9653
+    call refresh_slot_state          ; 0x9653
     pop cx                           ; 0x9656
     ret                              ; 0x9657

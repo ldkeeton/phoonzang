@@ -5,7 +5,7 @@ api_idx_0006_NNTR:
     mov ax, 0x26                     ; 0x99e3
     imul word [bp + 4]               ; 0x99e6
     mov bx, ax                       ; 0x99e9
-    mov al, byte [bx + slot_records + slot_record.f_0003] ; 0x99eb
+    mov al, byte [bx + slot_records + slot_record.destination] ; 0x99eb
     sub ah, ah                       ; 0x99ef
     mov word [bp - 6], ax            ; 0x99f1
     mov word [bp - 2], 0             ; 0x99f4

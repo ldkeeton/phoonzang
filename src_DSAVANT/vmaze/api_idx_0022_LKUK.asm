@@ -43,9 +43,9 @@ api_idx_0022_LKUK:
     call api_idx_0002_GSIL           ; 0x2294
     mov word [party_return_state], 5 ; 0x2297
     mov word [game_state], 5         ; 0x229d
-    mov word [bss_91b2], 1           ; 0x22a3
+    mov word [maze_message_refresh_pending], 1 ; 0x22a3
     mov word [bss_91b4], 1           ; 0x22a9
-    mov word [bss_91b0], 0           ; 0x22af
+    mov word [party_region_level_saved], 0 ; 0x22af
 .back2:
     cmp word [bss_91aa], byte 1      ; 0x22b5
     jne short .forward4              ; 0x22ba
@@ -95,7 +95,7 @@ api_idx_0022_LKUK:
     add word [game_time], byte 1     ; 0x2326
     adc word [game_time_hi], byte 0  ; 0x232b
     call api_idx_0002_GSIL           ; 0x2330
-    mov ax, word [bss_9198]          ; 0x2333
+    mov ax, word [maze_sound_pair_state] ; 0x2333
     jmp short .forward7              ; 0x2336
 .back3:
     mov ax, 1                        ; 0x2338
@@ -110,7 +110,7 @@ api_idx_0022_LKUK:
     push ax                          ; 0x234b
     mov ax, 0x15                     ; 0x234c
     push ax                          ; 0x234f
-    call api_idx_0008_URRP           ; 0x2350
+    call update_maze_sound_selection ; 0x2350
     add sp, byte 0xc                 ; 0x2353
     jmp short .forward8              ; 0x2356
 .back4:
@@ -125,7 +125,7 @@ api_idx_0022_LKUK:
     push ax                          ; 0x2368
     mov ax, 0xe                      ; 0x2369
     push ax                          ; 0x236c
-    call api_idx_0008_URRP           ; 0x236d
+    call update_maze_sound_selection ; 0x236d
     add sp, byte 0xc                 ; 0x2370
     jmp short .forward8              ; 0x2373
 .back5:
@@ -141,7 +141,7 @@ api_idx_0022_LKUK:
     push ax                          ; 0x2388
     mov ax, 0x1b                     ; 0x2389
     push ax                          ; 0x238c
-    call api_idx_0008_URRP           ; 0x238d
+    call update_maze_sound_selection ; 0x238d
     add sp, byte 0xc                 ; 0x2390
     jmp short .forward8              ; 0x2393
 .forward7:
@@ -297,7 +297,7 @@ api_idx_0022_LKUK:
     call api_idx_0002_GGTO           ; 0x2503
     pop cx                           ; 0x2506
     push ax                          ; 0x2507
-    call api_idx_0006_KUNS           ; 0x2508
+    call choose_sound_variant        ; 0x2508
     pop cx                           ; 0x250b
     mov bx, word [startup_sound_check] ; 0x250c
     mov word [bx], ax                ; 0x2510
@@ -306,7 +306,7 @@ api_idx_0022_LKUK:
     mov ax, 0                        ; 0x2516
     push ax                          ; 0x2519
     push ax                          ; 0x251a
-    call loc_VGMJ                    ; 0x251b
+    call configure_story_music       ; 0x251b
     add sp, byte 6                   ; 0x251e
     ret                              ; 0x2521
 .forward24:
@@ -336,7 +336,7 @@ api_idx_0022_LKUK:
     call api_idx_0002_GGTO           ; 0x255b
     pop cx                           ; 0x255e
     push ax                          ; 0x255f
-    call api_idx_0006_KUNS           ; 0x2560
+    call choose_sound_variant        ; 0x2560
     pop cx                           ; 0x2563
     mov bx, word [startup_sound_check] ; 0x2564
     mov word [bx], ax                ; 0x2568
@@ -346,7 +346,7 @@ api_idx_0022_LKUK:
     push ax                          ; 0x2571
     mov ax, 1                        ; 0x2572
     push ax                          ; 0x2575
-    call loc_VGMJ                    ; 0x2576
+    call configure_story_music       ; 0x2576
     add sp, byte 6                   ; 0x2579
     ret                              ; 0x257c
 .forward26:
@@ -359,7 +359,7 @@ api_idx_0022_LKUK:
     je short .forward27              ; 0x258c
     cmp word [location_changed], byte 1 ; 0x258e
     jne short .forward27             ; 0x2593
-    call loc_TJTU                    ; 0x2595
+    call process_maze_object_events  ; 0x2595
     cmp word [game_state], byte 5    ; 0x2598
     je short .forward27              ; 0x259d
     ret                              ; 0x259f
@@ -375,23 +375,23 @@ api_idx_0022_LKUK:
     mov cx, 0x26                     ; 0x25b8
     imul cx                          ; 0x25bb
     mov bx, ax                       ; 0x25bd
-    cmp byte [bx + slot_records + slot_record.flag], 0 ; 0x25bf
+    cmp byte [bx + slot_records + slot_record.health], 0 ; 0x25bf
     jle short .forward29             ; 0x25c4
-    cmp byte [bx + slot_records + slot_record.f_0002], 1 ; 0x25c6
+    cmp byte [bx + slot_records + slot_record.activity], 1 ; 0x25c6
     je short .forward29              ; 0x25cb
-    mov al, byte [bx + slot_records + slot_record.kind] ; 0x25cd
+    mov al, byte [bx + slot_records + slot_record.location] ; 0x25cd
     sub ah, ah                       ; 0x25d1
     shl ax, 1                        ; 0x25d3
     shl ax, 1                        ; 0x25d5
     mov bx, ax                       ; 0x25d7
-    mov al, byte [bx + kind_state_table] ; 0x25d9
+    mov al, byte [bx + location_state_table] ; 0x25d9
     cbw                              ; 0x25dd
     cmp ax, word [game_state_arg]    ; 0x25de
     jne short .forward29             ; 0x25e2
     mov ax, word [bp - 8]            ; 0x25e4
     imul cx                          ; 0x25e7
     mov bx, ax                       ; 0x25e9
-    mov al, byte [bx + slot_records + slot_record.map_piece] ; 0x25eb
+    mov al, byte [bx + slot_records + slot_record.turn_count] ; 0x25eb
     sub ah, ah                       ; 0x25ef
     cmp ax, word [party_map_piece]   ; 0x25f1
     jne short .forward29             ; 0x25f5
@@ -408,7 +408,7 @@ api_idx_0022_LKUK:
     push ax                          ; 0x2610
     mov ax, 1                        ; 0x2611
     push ax                          ; 0x2614
-    call loc_VGMJ                    ; 0x2615
+    call configure_story_music       ; 0x2615
     add sp, byte 6                   ; 0x2618
     mov word [game_state], 0x12      ; 0x261b
     ret                              ; 0x2621
@@ -423,7 +423,7 @@ api_idx_0022_LKUK:
     call api_idx_0002_GGTO           ; 0x2633
     pop cx                           ; 0x2636
     push ax                          ; 0x2637
-    call api_idx_0006_KUNS           ; 0x2638
+    call choose_sound_variant        ; 0x2638
     pop cx                           ; 0x263b
     mov bx, word [startup_sound_check] ; 0x263c
     mov word [bx], ax                ; 0x2640
@@ -432,7 +432,7 @@ api_idx_0022_LKUK:
     mov ax, 0                        ; 0x2646
     push ax                          ; 0x2649
     push ax                          ; 0x264a
-    call loc_VGMJ                    ; 0x264b
+    call configure_story_music       ; 0x264b
     add sp, byte 6                   ; 0x264e
     ret                              ; 0x2651
 .forward30:
@@ -465,13 +465,13 @@ api_idx_0022_LKUK:
     je short .forward31              ; 0x26a2
     mov ax, MSG_ABOARD_WIKUM_BOAT    ; 0x26a4
     push ax                          ; 0x26a7
-    call loc_MMGL                    ; 0x26a8
+    call display_maze_message        ; 0x26a8
     pop cx                           ; 0x26ab
     jmp short .forward32             ; 0x26ac
 .forward31:
     mov ax, MSG_SWIMMING_2060        ; 0x26ae
     push ax                          ; 0x26b1
-    call loc_MMGL                    ; 0x26b2
+    call display_maze_message        ; 0x26b2
     pop cx                           ; 0x26b5
     mov word [bp - 0x22], 1          ; 0x26b6
 .forward32:
@@ -481,11 +481,11 @@ api_idx_0022_LKUK:
     jne short .forward34             ; 0x26c1
     mov ax, MSG_WILD_ORCHIDS         ; 0x26c3
     push ax                          ; 0x26c6
-    call loc_MMGL                    ; 0x26c7
+    call display_maze_message        ; 0x26c7
     pop cx                           ; 0x26ca
     jmp short .forward35             ; 0x26cb
 .forward34:
-    cmp word [bss_91b2], byte 1      ; 0x26cd
+    cmp word [maze_message_refresh_pending], byte 1 ; 0x26cd
     jne short .forward35             ; 0x26d2
     mov ax, 0x98                     ; 0x26d4
     push ax                          ; 0x26d7
@@ -497,7 +497,7 @@ api_idx_0022_LKUK:
     push ax                          ; 0x26e3
     call call_show_area              ; 0x26e4
     add sp, byte 8                   ; 0x26e7
-    mov word [bss_91b2], 0           ; 0x26ea
+    mov word [maze_message_refresh_pending], 0 ; 0x26ea
 .forward35:
     mov word [bp - 4], 0             ; 0x26f0
 .back9:
@@ -923,8 +923,8 @@ api_idx_0022_LKUK.forward48:
     mov dx, word [es:bx + 2]         ; 0x2a89
     add ax, strict word 0x24         ; 0x2a8d
     adc dx, byte 0                   ; 0x2a90
-    mov word [bss_919c], dx          ; 0x2a93
-    mov word [bss_919a], ax          ; 0x2a97
+    mov word [maze_refresh_deadline_high], dx ; 0x2a93
+    mov word [maze_refresh_deadline], ax ; 0x2a97
 api_idx_0022_LKUK.back11:
     mov ax, hotspot_rects            ; 0x2a9a
     push ax                          ; 0x2a9d
@@ -932,7 +932,7 @@ api_idx_0022_LKUK.back11:
     pop cx                           ; 0x2aa1
     dec ax                           ; 0x2aa2
     mov word [bp - 2], ax            ; 0x2aa3
-    call loc_HVLG                    ; 0x2aa6
+    call party_redraw_interval_elapsed ; 0x2aa6
     test ax, ax                      ; 0x2aa9
     je short api_idx_0022_LKUK.forward49 ; 0x2aab
     mov ax, word [party_status_frame] ; 0x2aad
@@ -950,17 +950,17 @@ api_idx_0022_LKUK.forward49:
     les bx, word [tick_counter_ptr]  ; 0x2acc
     mov ax, word [es:bx]             ; 0x2ad0
     mov dx, word [es:bx + 2]         ; 0x2ad3
-    cmp dx, word [bss_919c]          ; 0x2ad7
+    cmp dx, word [maze_refresh_deadline_high] ; 0x2ad7
     jl short api_idx_0022_LKUK.forward50 ; 0x2adb
     jne short api_idx_0022_LKUK.forward51 ; 0x2add
-    cmp ax, word [bss_919a]          ; 0x2adf
+    cmp ax, word [maze_refresh_deadline] ; 0x2adf
     ja short api_idx_0022_LKUK.forward51 ; 0x2ae3
 api_idx_0022_LKUK.forward50:
     jmp short api_idx_0022_LKUK.forward52 ; 0x2ae5
 api_idx_0022_LKUK.forward51:
     mov ax, 0                        ; 0x2ae7
     push ax                          ; 0x2aea
-    call loc_LMUG                    ; 0x2aeb
+    call update_maze_refresh_timer   ; 0x2aeb
     pop cx                           ; 0x2aee
 api_idx_0022_LKUK.forward52:
     cmp word [hotspot_hit], byte 0   ; 0x2aef
@@ -1019,7 +1019,7 @@ jumptable_2d1b_case_0:
     push ax                          ; 0x2b78
     call api_idx_0002_RRIU           ; 0x2b79
     pop cx                           ; 0x2b7c
-    mov word [bss_91b0], 0           ; 0x2b7d
+    mov word [party_region_level_saved], 0 ; 0x2b7d
     jmp near jumptable_2d1b_case_12  ; 0x2b83
 jumptable_2d1b_case_1:
     call api_idx_0002_LMTG           ; 0x2b86
@@ -1139,7 +1139,7 @@ jumptable_2d1b_case_6:
     call api_idx_0002_GGTO           ; 0x2cc7
     pop cx                           ; 0x2cca
     push ax                          ; 0x2ccb
-    call api_idx_0006_KUNS           ; 0x2ccc
+    call choose_sound_variant        ; 0x2ccc
     pop cx                           ; 0x2ccf
     mov bx, word [startup_sound_check] ; 0x2cd0
     mov word [bx], ax                ; 0x2cd4
@@ -1148,7 +1148,7 @@ jumptable_2d1b_case_6:
     mov ax, 0                        ; 0x2cda
     push ax                          ; 0x2cdd
     push ax                          ; 0x2cde
-    call loc_VGMJ                    ; 0x2cdf
+    call configure_story_music       ; 0x2cdf
     add sp, byte 6                   ; 0x2ce2
 api_idx_0022_LKUK.forward66:
     jmp short api_idx_0022_LKUK.forward68 ; 0x2ce5

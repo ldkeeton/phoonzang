@@ -1,0 +1,215 @@
+; auto-generated
+decode_region_map_location:
+    mov ax, 0xffe2                   ; 0x7e46
+    call aztec_csav                  ; 0x7e49
+    mov ax, word [party_region]      ; 0x7e4c
+    shl ax, 1                        ; 0x7e4f
+    mov si, ax                       ; 0x7e51
+    mov bx, word [maze_tables]       ; 0x7e53
+    mov ax, word [bx + si + 0x1e0]   ; 0x7e57
+    mov cx, 0x100                    ; 0x7e5b
+    cwd                              ; 0x7e5e
+    idiv cx                          ; 0x7e5f
+    mov word [bp - 0x16], ax         ; 0x7e61
+    mov ax, word [bx + si + 0x1e0]   ; 0x7e64
+    cwd                              ; 0x7e68
+    idiv cx                          ; 0x7e69
+    mov word [bp - 0x18], dx         ; 0x7e6b
+    mov ax, word [bx + si]           ; 0x7e6e
+    cwd                              ; 0x7e70
+    idiv cx                          ; 0x7e71
+    mov word [bp - 0x1e], ax         ; 0x7e73
+    mov ax, word [bx + si]           ; 0x7e76
+    cwd                              ; 0x7e78
+    idiv cx                          ; 0x7e79
+    mov word [bp - 0x1c], dx         ; 0x7e7b
+    mov ax, word [party_tag]         ; 0x7e7e
+    sub ax, word [bp - 0x16]         ; 0x7e81
+    add ax, strict word 4            ; 0x7e84
+    mov cx, 4                        ; 0x7e87
+    cwd                              ; 0x7e8a
+    idiv cx                          ; 0x7e8b
+    mov word [bp - 0x1a], dx         ; 0x7e8d
+    mov si, word [party_region]      ; 0x7e90
+    mov al, byte [bx + si + spell_table + spell_table_rec_size*178 + spell_table_rec.f_0004] ; 0x7e94
+    sub ah, ah                       ; 0x7e98
+    mov word [bp - 0x14], ax         ; 0x7e9a
+    cmp word [bp - 0x14], byte 0     ; 0x7e9d
+    je short .forward1               ; 0x7ea1
+    mov ax, 0x12                     ; 0x7ea3
+    push ax                          ; 0x7ea6
+    call play_maze_sound_effect      ; 0x7ea7
+    pop cx                           ; 0x7eaa
+    mov ax, 0x10                     ; 0x7eab
+    push ax                          ; 0x7eae
+    call ensure_sound_loaded         ; 0x7eaf
+    pop cx                           ; 0x7eb2
+.forward1:
+    mov ax, word [party_region]      ; 0x7eb3
+    shl ax, 1                        ; 0x7eb6
+    mov si, ax                       ; 0x7eb8
+    mov bx, word [maze_tables]       ; 0x7eba
+    mov ax, word [bx + si + 0x3c0]   ; 0x7ebe
+    mov word [bp - 4], ax            ; 0x7ec2
+    mov ax, 3                        ; 0x7ec5
+    push ax                          ; 0x7ec8
+    mov ax, 0                        ; 0x7ec9
+    push ax                          ; 0x7ecc
+    push word [bp - 4]               ; 0x7ecd
+    call get_bits                    ; 0x7ed0
+    add sp, byte 6                   ; 0x7ed3
+    mov word [bp - 8], ax            ; 0x7ed6
+    mov ax, 3                        ; 0x7ed9
+    push ax                          ; 0x7edc
+    push ax                          ; 0x7edd
+    push word [bp - 4]               ; 0x7ede
+    call get_bits                    ; 0x7ee1
+    add sp, byte 6                   ; 0x7ee4
+    mov word [bp - 0xa], ax          ; 0x7ee7
+    mov ax, 4                        ; 0x7eea
+    push ax                          ; 0x7eed
+    mov ax, 6                        ; 0x7eee
+    push ax                          ; 0x7ef1
+    push word [bp - 4]               ; 0x7ef2
+    call get_bits                    ; 0x7ef5
+    add sp, byte 6                   ; 0x7ef8
+    mov word [bp - 6], ax            ; 0x7efb
+    mov ax, 1                        ; 0x7efe
+    push ax                          ; 0x7f01
+    mov ax, 0xa                      ; 0x7f02
+    push ax                          ; 0x7f05
+    push word [bp - 4]               ; 0x7f06
+    call get_bits                    ; 0x7f09
+    add sp, byte 6                   ; 0x7f0c
+    mov word [bp - 0x10], ax         ; 0x7f0f
+    mov ax, 1                        ; 0x7f12
+    push ax                          ; 0x7f15
+    mov ax, 0xb                      ; 0x7f16
+    push ax                          ; 0x7f19
+    push word [bp - 4]               ; 0x7f1a
+    call get_bits                    ; 0x7f1d
+    add sp, byte 6                   ; 0x7f20
+    mov word [bp - 0x12], ax         ; 0x7f23
+    mov ax, 1                        ; 0x7f26
+    push ax                          ; 0x7f29
+    mov ax, 0xc                      ; 0x7f2a
+    push ax                          ; 0x7f2d
+    push word [bp - 4]               ; 0x7f2e
+    call get_bits                    ; 0x7f31
+    add sp, byte 6                   ; 0x7f34
+    mov word [bp - 0xe], ax          ; 0x7f37
+    mov ax, 1                        ; 0x7f3a
+    cmp word [bp - 0x12], byte 0     ; 0x7f3d
+    je short .forward2               ; 0x7f41
+    mov ax, 6                        ; 0x7f43
+.forward2:
+    mov word [bp - 0xc], ax          ; 0x7f46
+    cmp word [bp - 0xe], byte 0      ; 0x7f49
+    je short .forward4               ; 0x7f4d
+    cmp word [bp - 0x10], byte 0     ; 0x7f4f
+    je short .forward4               ; 0x7f53
+    cmp word [bp - 0x12], byte 0     ; 0x7f55
+    je short .forward4               ; 0x7f59
+    cmp word [bp - 0x1a], byte 0     ; 0x7f5b
+    jne short .forward4              ; 0x7f5f
+    mov ax, word [party_tag]         ; 0x7f61
+    cmp ax, word [bp - 0x18]         ; 0x7f64
+    jne short .forward3              ; 0x7f67
+    push word [bp - 0x14]            ; 0x7f69
+    push word [bp - 0x1e]            ; 0x7f6c
+    push word [bp - 0x1c]            ; 0x7f6f
+    mov ax, 0                        ; 0x7f72
+    push ax                          ; 0x7f75
+    call api_idx_0018_KVSP           ; 0x7f76
+    add sp, byte 8                   ; 0x7f79
+    jmp short .forward4              ; 0x7f7c
+.forward3:
+    push word [bp - 0x14]            ; 0x7f7e
+    mov ax, 7                        ; 0x7f81
+    push ax                          ; 0x7f84
+    call animate_party_status_frame  ; 0x7f85
+    add sp, byte 4                   ; 0x7f88
+.forward4:
+    push word [bp - 0xa]             ; 0x7f8b
+    push word [bp - 8]               ; 0x7f8e
+    push word [bp - 6]               ; 0x7f91
+    push word [bp - 0xc]             ; 0x7f94
+    push word [bp - 0x16]            ; 0x7f97
+    call set_cell_wall               ; 0x7f9a
+    add sp, byte 0xa                 ; 0x7f9d
+    cmp word [bp - 0xe], byte 0      ; 0x7fa0
+    je short .forward11              ; 0x7fa4
+    cmp word [bp - 0x10], byte 0     ; 0x7fa6
+    je short .forward9               ; 0x7faa
+    cmp word [bp - 0x12], byte 0     ; 0x7fac
+    jne short .forward7              ; 0x7fb0
+    cmp word [bp - 0x1a], byte 0     ; 0x7fb2
+    jne short .forward7              ; 0x7fb6
+    mov ax, word [party_tag]         ; 0x7fb8
+    cmp ax, word [bp - 0x18]         ; 0x7fbb
+    jne short .forward5              ; 0x7fbe
+    push word [bp - 0x14]            ; 0x7fc0
+    push word [bp - 0x1e]            ; 0x7fc3
+    push word [bp - 0x1c]            ; 0x7fc6
+    mov ax, 1                        ; 0x7fc9
+    push ax                          ; 0x7fcc
+    call api_idx_0018_KVSP           ; 0x7fcd
+    add sp, byte 8                   ; 0x7fd0
+    jmp short .forward6              ; 0x7fd3
+.forward5:
+    push word [bp - 0x14]            ; 0x7fd5
+    mov ax, 7                        ; 0x7fd8
+    push ax                          ; 0x7fdb
+    call animate_party_status_frame  ; 0x7fdc
+    add sp, byte 4                   ; 0x7fdf
+.forward6:
+    jmp short .forward8              ; 0x7fe2
+.forward7:
+    cmp word [bp - 0x1a], byte 1     ; 0x7fe4
+    jl short .forward8               ; 0x7fe8
+    cmp word [bp - 0x1a], byte 3     ; 0x7fea
+    jg short .forward8               ; 0x7fee
+    push word [bp - 0x14]            ; 0x7ff0
+    mov ax, 7                        ; 0x7ff3
+    push ax                          ; 0x7ff6
+    call animate_party_status_frame  ; 0x7ff7
+    add sp, byte 4                   ; 0x7ffa
+.forward8:
+    call redraw_maze_view            ; 0x7ffd
+    jmp short .forward10             ; 0x8000
+.forward9:
+    call redraw_maze_view            ; 0x8002
+.forward10:
+    jmp short .forward13             ; 0x8005
+.forward11:
+    cmp word [bp - 0x10], byte 0     ; 0x8007
+    je short .forward12              ; 0x800b
+    push word [bp - 0x14]            ; 0x800d
+    mov ax, 7                        ; 0x8010
+    push ax                          ; 0x8013
+    call animate_party_status_frame  ; 0x8014
+    add sp, byte 4                   ; 0x8017
+.forward12:
+    mov ax, 2                        ; 0x801a
+    push ax                          ; 0x801d
+    call wait_ticks_or_key           ; 0x801e
+    pop cx                           ; 0x8021
+.forward13:
+    cmp word [bp - 0x14], byte 0     ; 0x8022
+    je short .forward14              ; 0x8026
+    mov ax, 0x10                     ; 0x8028
+    push ax                          ; 0x802b
+    call wait_and_free_sound         ; 0x802c
+    pop cx                           ; 0x802f
+    mov word [loaded_sound_id], 0xffff ; 0x8030
+.forward14:
+    mov si, word [party_region]      ; 0x8036
+    mov bx, word [maze_tables]       ; 0x803a
+    cmp byte [bx + si + spell_table + spell_table_rec_size*138 + spell_table_rec.f_0004], 0 ; 0x803e
+    jbe short .return1               ; 0x8043
+    mov ax, 2                        ; 0x8045
+    push ax                          ; 0x8048
+    call mark_region_bits            ; 0x8049
+    pop cx                           ; 0x804c
+.return1:
+    ret                              ; 0x804d

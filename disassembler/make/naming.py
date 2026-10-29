@@ -1256,9 +1256,11 @@ def cmd_name(project, binary, args, all_projects, dry_run=False):
         apply_names(project, binary, specs)
         _build_projects([project], all_projects,
                         source_moves=move_companions)
-        _rebuild_project(project)
+        rebuilt = _rebuild_project(project)
     except SidecarError as exc:
         raise SystemExit(f'error: {exc}')
+    if not rebuilt:
+        raise SystemExit(1)
 
 
 _REF = re.compile(r'\b(?:cseg|bss|dseg)_[0-9a-f]{4,5}\b|\b(?:\w+_)?loc_[0-9A-Za-z_]+\b')

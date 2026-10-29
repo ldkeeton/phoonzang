@@ -1,13 +1,8 @@
 """Record layouts live in ``src_DSAVANT/include/structs``, once each.
 
-A struct that only one ``.c`` uses may stay in it.  Once a second ``.c``
-declares the same tag, the copies drift apart file by file, so a shared record
-belongs in a header under ``include/structs`` (an 8.3 name, as DOS sees it),
-each tag defined in one header only.  The tree test lists every tag that is
-declared in two or more ``.c`` files, or in a ``.c`` and a shared header, to
-work through.  Anonymous bodies have no tag to match and are not counted.
-Vendor modules (an ``aztec/`` folder or an ``aztec_`` name) are Manx's own
-library source and keep theirs.
+The rules that keep them there (one body per tag, one tag per object) run
+in the build, from :mod:`lint.c_structs`; these tests pin those rules on
+small trees, and check the generated ``structs.inc`` against the headers.
 """
 
 import os
@@ -17,30 +12,13 @@ import tempfile
 import unittest
 
 from lib.aztec.compile import project_headers
+from lint.c_structs import check_project, code_only, struct_bodies
 
 _TREE = pathlib.Path(__file__).resolve().parents[2] / 'src_DSAVANT'
 _STRUCTS = _TREE / 'include' / 'structs'
 
-_COMMENT = re.compile(r'/\*.*?\*/', re.S)
-_STRING = re.compile(r'"(?:\\.|[^"\\\n])*"|\'(?:\\.|[^\'\\\n])*\'')
-#: ``struct tag {`` / ``union {``: a body, not a use of the tag.
-_BODY = re.compile(r'\b(struct|union)\b\s*(\w*)\s*\{')
 _DOS_NAME = re.compile(r'^[a-z0-9_]{1,8}\.h$')
-
-
-def _code(text):
-    """*text* with comments and literals blanked, newlines kept."""
-    def blank(match):
-        return re.sub(r'[^\n]', ' ', match.group(0))
-    return _STRING.sub(blank, _COMMENT.sub(blank, text))
-
-
-def struct_bodies(text):
-    """``(line, 'struct tag')`` for each struct or union body in *text*."""
-    code = _code(text)
-    return [(code.count('\n', 0, match.start()) + 1,
-             f'{match.group(1)} {match.group(2) or "<anonymous>"}')
-            for match in _BODY.finditer(code)]
+_code = code_only
 
 
 class StructBodiesTest(unittest.TestCase):
@@ -56,40 +34,63 @@ class StructBodiesTest(unittest.TestCase):
         self.assertEqual(struct_bodies(text), [])
 
 
+class ProjectStructRulesTest(unittest.TestCase):
+    """The build-time rules in :mod:`lint.c_structs`, on small trees."""
+
+    def _findings(self, files):
+        with tempfile.TemporaryDirectory() as root:
+            for name, text in files.items():
+                path = pathlib.Path(root, name)
+                path.parent.mkdir(parents=True, exist_ok=True)
+                path.write_text(text)
+            return sorted((os.path.relpath(f.path, root), f.line, f.rule)
+                          for f in check_project(root))
+
+    def test_tag_in_two_c_files(self):
+        body = 'struct rec {\n\tint a;\n};\n'
+        self.assertEqual(
+            self._findings({'a/x.c': body, 'b/y.c': body}),
+            [('a/x.c', 1, 'c-struct-duplicate'),
+             ('b/y.c', 1, 'c-struct-duplicate')])
+
+    def test_tag_in_header_and_c_file(self):
+        body = 'struct rec {\n\tint a;\n};\n'
+        self.assertEqual(
+            self._findings({'include/structs/rec.h': body, 'a/x.c': body}),
+            [('a/x.c', 1, 'c-struct-duplicate')])
+
+    def test_tag_in_two_headers(self):
+        body = 'struct rec {\n\tint a;\n};\n'
+        self.assertEqual(
+            self._findings({'include/structs/one.h': body,
+                            'include/structs/two.h': body}),
+            [('include/structs/two.h', 1, 'c-struct-header-duplicate')])
+
+    def test_vendor_sources_are_exempt(self):
+        body = 'struct rec {\n\tint a;\n};\n'
+        self.assertEqual(
+            self._findings({'a/aztec/x.c': body, 'a/aztec_y.c': body,
+                            'a/z.c': body}), [])
+
+    def test_one_object_two_struct_tags(self):
+        self.assertEqual(
+            self._findings({
+                'a/x.c': 'extern struct one *tables;\n',
+                'a/y.c': 'extern int n;\nextern struct two *other, *tables;\n',
+                'a/z.c': 'extern char tables[];\n'}),
+            [('a/x.c', 1, 'c-struct-one-object'),
+             ('a/y.c', 2, 'c-struct-one-object')])
+
+    def test_one_struct_tag_is_clean(self):
+        self.assertEqual(
+            self._findings({
+                'a/x.c': 'extern struct one *tables;\n',
+                'a/y.c': 'extern struct one *tables;\n'
+                         'extern struct two *lookup();\n'}),
+            [])
+
+
 class SharedStructsTest(unittest.TestCase):
-    def test_no_struct_is_declared_in_two_files(self):
-        """A tag in 2+ .c files, or in a .c and a shared header."""
-        owners = {}
-        for path in sorted(_STRUCTS.glob('*.h')):
-            for line, tag in struct_bodies(path.read_text(errors='replace')):
-                owners.setdefault(tag, []).append(
-                    f'include/structs/{path.name}:{line}')
-        for path in sorted(_TREE.rglob('*.c')):
-            if ('aztec' in path.relative_to(_TREE).parts[:-1]
-                    or path.name.startswith('aztec_')):
-                continue
-            for line, tag in struct_bodies(path.read_text(errors='replace')):
-                owners.setdefault(tag, []).append(
-                    f'{path.relative_to(_TREE)}:{line}')
-        twice = {tag: places for tag, places in sorted(owners.items())
-                 if len(places) > 1 and not tag.endswith('<anonymous>')
-                 and any('.c:' in place for place in places)}
-        if twice:
-            self.fail(f'{len(twice)} struct tags declared in more than one '
-                      'file; move each to a header in '
-                      'src_DSAVANT/include/structs and #include it:\n'
-                      + '\n'.join(f'{tag}: {", ".join(places)}'
-                                   for tag, places in twice.items()))
-
-    def test_each_tag_is_defined_in_one_header(self):
-        owners = {}
-        for path in sorted(_STRUCTS.glob('*.h')):
-            for _, tag in struct_bodies(path.read_text(errors='replace')):
-                owners.setdefault(tag, []).append(path.name)
-        twice = {tag: names for tag, names in owners.items()
-                 if len(names) > 1 or tag.endswith('<anonymous>')}
-        self.assertEqual(twice, {})
-
     def test_headers_have_dos_names(self):
         bad = [path.name for path in _STRUCTS.iterdir()
                if not _DOS_NAME.match(path.name)]

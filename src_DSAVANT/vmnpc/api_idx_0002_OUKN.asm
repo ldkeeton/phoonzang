@@ -109,7 +109,7 @@ api_idx_0002_OUKN:
     mov bx, ax                       ; 0x285c
     mov al, byte [bx + slot_bit_states] ; 0x285e
     sub ah, ah                       ; 0x2862
-    add ax, MSG_SLOT_KIND_BASE       ; 0x2864
+    add ax, MSG_LOCATION_NAME_BASE   ; 0x2864
     push ax                          ; 0x2867
     call load_message_string         ; 0x2868
     add sp, byte 4                   ; 0x286b

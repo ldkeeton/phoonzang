@@ -5,7 +5,7 @@ api_idx_0002_NMTS:
     mov ax, 0x26                     ; 0x98d2
     imul word [bp + 4]               ; 0x98d5
     mov bx, ax                       ; 0x98d8
-    mov al, byte [bx + slot_records + slot_record.f_0003] ; 0x98da
+    mov al, byte [bx + slot_records + slot_record.destination] ; 0x98da
     sub ah, ah                       ; 0x98de
     mov word [bp - 2], ax            ; 0x98e0
     shl ax, 1                        ; 0x98e3

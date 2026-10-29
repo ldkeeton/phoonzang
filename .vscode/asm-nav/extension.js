@@ -156,12 +156,14 @@ function hitsFor(name, doc) {
     if (fromC) {
         const definitions = all.filter(h => h.definition);
         const cDefinitions = definitions.filter(h => /\.[ch]$/i.test(h.uri.fsPath));
-        const asmDefinitions = definitions.filter(h => /\.(?:s|asm)$/i.test(h.uri.fsPath));
+        const asmDefinitions = definitions.filter(h => /\.s$/i.test(h.uri.fsPath));
+        const listingDefinitions = definitions.filter(h => /\.asm$/i.test(h.uri.fsPath));
         const preferred = hits => {
             const local = hits.filter(h => mine.includes(h));
             return local.length ? local : hits;
         };
-        return preferred(cDefinitions.length ? cDefinitions : asmDefinitions);
+        return preferred(cDefinitions.length ? cDefinitions :
+            asmDefinitions.length ? asmDefinitions : listingDefinitions);
     }
 
     const hits = mine.length ? mine : all;

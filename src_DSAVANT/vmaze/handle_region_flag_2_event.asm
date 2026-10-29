@@ -1,0 +1,64 @@
+; auto-generated
+handle_region_flag_2_event:
+    mov ax, 0xfffe                   ; 0x86f9
+    call aztec_csav                  ; 0x86fc
+    mov ax, 2                        ; 0x86ff
+    push ax                          ; 0x8702
+    mov ax, 0                        ; 0x8703
+    push ax                          ; 0x8706
+    mov ax, word [party_region]      ; 0x8707
+    shl ax, 1                        ; 0x870a
+    mov si, ax                       ; 0x870c
+    mov bx, word [maze_tables]       ; 0x870e
+    push word [bx + si + 0x3c0]      ; 0x8712
+    call get_bits                    ; 0x8716
+    add sp, byte 6                   ; 0x8719
+    mov word [bp - 2], ax            ; 0x871c
+    mov ax, 1                        ; 0x871f
+    push ax                          ; 0x8722
+    mov ax, 2                        ; 0x8723
+    push ax                          ; 0x8726
+    mov ax, word [party_region]      ; 0x8727
+    shl ax, 1                        ; 0x872a
+    mov si, ax                       ; 0x872c
+    mov bx, word [maze_tables]       ; 0x872e
+    push word [bx + si + 0x3c0]      ; 0x8732
+    call get_bits                    ; 0x8736
+    add sp, byte 6                   ; 0x8739
+    test ax, ax                      ; 0x873c
+    jne short .forward1              ; 0x873e
+    push word [bp - 2]               ; 0x8740
+    mov si, word [party_region]      ; 0x8743
+    mov bx, word [maze_tables]       ; 0x8747
+    mov al, byte [bx + si + spell_table + spell_table_rec_size*178 + spell_table_rec.f_0004] ; 0x874b
+    sub ah, ah                       ; 0x874f
+    push ax                          ; 0x8751
+    mov ax, action_bitmap            ; 0x8752
+    push ax                          ; 0x8755
+    call test_bit                    ; 0x8756
+    add sp, byte 4                   ; 0x8759
+    push ax                          ; 0x875c
+    call update_region_flags         ; 0x875d
+    add sp, byte 4                   ; 0x8760
+    jmp short .return1               ; 0x8763
+.forward1:
+    push word [bp - 2]               ; 0x8765
+    mov bx, word [maze_tables]       ; 0x8768
+    mov si, word [party_region]      ; 0x876c
+    mov al, byte [bx + si + spell_table + spell_table_rec_size*178 + spell_table_rec.f_0004] ; 0x8770
+    sub ah, ah                       ; 0x8774
+    mov cx, 0x26                     ; 0x8776
+    imul cx                          ; 0x8779
+    mov bx, ax                       ; 0x877b
+    cmp byte [bx + slot_records + slot_record.health], 0 ; 0x877d
+    jne short .forward2              ; 0x8782
+    mov ax, 1                        ; 0x8784
+    jmp short .forward3              ; 0x8787
+.forward2:
+    mov ax, 0                        ; 0x8789
+.forward3:
+    push ax                          ; 0x878c
+    call update_region_flags         ; 0x878d
+    add sp, byte 4                   ; 0x8790
+.return1:
+    ret                              ; 0x8793

@@ -194,7 +194,7 @@ api_idx_000c_NVIQ:
     push word [story_score_number]   ; 0x5335
     mov ax, 0                        ; 0x5339
     push ax                          ; 0x533c
-    call ds_app_UKGP                 ; 0x533d
+    call play_score_at_volume        ; 0x533d
     add sp, byte 6                   ; 0x5340
     mov word [story_score_volume], ax ; 0x5343
 .forward3:

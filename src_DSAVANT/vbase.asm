@@ -29,7 +29,7 @@ pc_file_name equ __zdseg_end + (__zpc_file_name - __zdata_start)
 dseg_90a3 equ __zdseg_end + (__zdseg_90a3 - __zdata_start)
 dseg_90a9 equ __zdseg_end + (__zdseg_90a9 - __zdata_start)
 dseg_90b6 equ __zdseg_end + (__zdseg_90b6 - __zdata_start)
-dseg_90bc equ __zdseg_end + (__zdseg_90bc - __zdata_start)
+dialog_screen_temp_file equ __zdseg_end + (__zdialog_screen_temp_file - __zdata_start)
 dseg_90c2 equ __zdseg_end + (__zdseg_90c2 - __zdata_start)
 default_game_data_name equ __zdseg_end + (__zdefault_game_data_name - __zdata_start)
 ending_save_filename equ __zdseg_end + (__zending_save_filename - __zdata_start)
@@ -368,6 +368,10 @@ __zdata_start:
 %include "shared/data/pc_file_name.asm"     ; 0x93ed
 
 %include "vbase/data/dseg_90a3.asm"        ; 0x93f8
+
+%include "vbase/data/dialog_screen_temp_file.asm" ; 0x9411
+
+%include "vbase/data/dseg_90c2.asm"        ; 0x9417
 
 %include "vbase/data/default_game_data_name.asm" ; 0x9424
 

@@ -190,7 +190,7 @@ pick_party_member:
     pop cx                           ; 0x22b0
     dec ax                           ; 0x22b1
     mov word [bp - 4], ax            ; 0x22b2
-    cmp word [bss_59fa], byte 0      ; 0x22b5
+    cmp word [escape_key_hit], byte 0 ; 0x22b5
     je short .forward8               ; 0x22ba
     mov ax, 0                        ; 0x22bc
     mov dx, 0                        ; 0x22bf

@@ -33,7 +33,7 @@ api_idx_0012_UGVV:
     mov ax, 0x26                     ; 0x9f3f
     imul word [bp + 6]               ; 0x9f42
     mov bx, ax                       ; 0x9f45
-    cmp byte [bx + slot_records + slot_record.f_0002], 1 ; 0x9f47
+    cmp byte [bx + slot_records + slot_record.activity], 1 ; 0x9f47
     je short .forward1               ; 0x9f4c
     cmp word [bp + 6], byte 0x13     ; 0x9f4e
     jne short .forward2              ; 0x9f52
@@ -53,7 +53,7 @@ api_idx_0012_UGVV:
     mov ax, 0x26                     ; 0x9f78
     imul word [bp + 6]               ; 0x9f7b
     mov bx, ax                       ; 0x9f7e
-    mov al, byte [bx + slot_records + slot_record.flag] ; 0x9f80
+    mov al, byte [bx + slot_records + slot_record.health] ; 0x9f80
     cbw                              ; 0x9f84
     mov cx, 4                        ; 0x9f85
     cwd                              ; 0x9f88
@@ -67,7 +67,7 @@ api_idx_0012_UGVV:
     mov ax, 0x26                     ; 0x9f97
     imul word [bp + 4]               ; 0x9f9a
     mov bx, ax                       ; 0x9f9d
-    mov al, byte [bx + slot_records + slot_record.flag] ; 0x9f9f
+    mov al, byte [bx + slot_records + slot_record.health] ; 0x9f9f
     cbw                              ; 0x9fa3
     mov cx, 4                        ; 0x9fa4
     cwd                              ; 0x9fa7
@@ -81,7 +81,7 @@ api_idx_0012_UGVV:
     mov ax, 0x26                     ; 0x9fb6
     imul word [bp + 4]               ; 0x9fb9
     mov bx, ax                       ; 0x9fbc
-    mov al, byte [bx + slot_records + slot_record.flag] ; 0x9fbe
+    mov al, byte [bx + slot_records + slot_record.health] ; 0x9fbe
     cbw                              ; 0x9fc2
     push ax                          ; 0x9fc3
     call random_below                ; 0x9fc4
@@ -91,7 +91,7 @@ api_idx_0012_UGVV:
     mov ax, 0x26                     ; 0x9fcd
     imul word [bp + 4]               ; 0x9fd0
     mov bx, ax                       ; 0x9fd3
-    mov byte [bx + slot_records + slot_record.f_0002], 7 ; 0x9fd5
+    mov byte [bx + slot_records + slot_record.activity], 7 ; 0x9fd5
     mov word [bp - 0xe], 0xffff      ; 0x9fda
 .forward4:
     cmp word [bp - 0xe], byte 0      ; 0x9fdf
@@ -117,7 +117,7 @@ api_idx_0012_UGVV:
     mov ax, 0x26                     ; 0xa006
     imul word [bp + 6]               ; 0xa009
     mov bx, ax                       ; 0xa00c
-    mov al, byte [bx + slot_records + slot_record.flag] ; 0xa00e
+    mov al, byte [bx + slot_records + slot_record.health] ; 0xa00e
     cbw                              ; 0xa012
     mov cx, ax                       ; 0xa013
     pop ax                           ; 0xa015
@@ -133,12 +133,12 @@ api_idx_0012_UGVV:
     mov ax, 0x26                     ; 0xa02d
     imul word [bp + 6]               ; 0xa030
     mov bx, ax                       ; 0xa033
-    mov al, byte [bx + slot_records + slot_record.flag] ; 0xa035
+    mov al, byte [bx + slot_records + slot_record.health] ; 0xa035
     push ax                          ; 0xa039
     mov ax, 0x26                     ; 0xa03a
     imul word [bp + 4]               ; 0xa03d
     mov bx, ax                       ; 0xa040
-    mov cl, byte [bx + slot_records + slot_record.flag] ; 0xa042
+    mov cl, byte [bx + slot_records + slot_record.health] ; 0xa042
     pop ax                           ; 0xa046
     cmp al, cl                       ; 0xa047
     jge short .forward7              ; 0xa049
@@ -159,29 +159,29 @@ api_idx_0012_UGVV:
     mov ax, 0x26                     ; 0xa06e
     imul word [bp + 4]               ; 0xa071
     mov bx, ax                       ; 0xa074
-    mov al, byte [bx + slot_records + slot_record.flag] ; 0xa076
+    mov al, byte [bx + slot_records + slot_record.health] ; 0xa076
     cbw                              ; 0xa07a
     sub ax, word [bp - 6]            ; 0xa07b
-    mov byte [bx + slot_records + slot_record.flag], al ; 0xa07e
+    mov byte [bx + slot_records + slot_record.health], al ; 0xa07e
     mov ax, 0x26                     ; 0xa082
     imul word [bp + 6]               ; 0xa085
     mov bx, ax                       ; 0xa088
-    mov al, byte [bx + slot_records + slot_record.flag] ; 0xa08a
+    mov al, byte [bx + slot_records + slot_record.health] ; 0xa08a
     cbw                              ; 0xa08e
     sub ax, word [bp - 8]            ; 0xa08f
-    mov byte [bx + slot_records + slot_record.flag], al ; 0xa092
+    mov byte [bx + slot_records + slot_record.health], al ; 0xa092
 .forward8:
     cmp word [bp - 0xe], byte 0      ; 0xa096
     jne short .forward9              ; 0xa09a
     mov ax, 0x26                     ; 0xa09c
     imul word [bp + 4]               ; 0xa09f
     mov bx, ax                       ; 0xa0a2
-    cmp byte [bx + slot_records + slot_record.flag], 0 ; 0xa0a4
+    cmp byte [bx + slot_records + slot_record.health], 0 ; 0xa0a4
     jle short .forward9              ; 0xa0a9
     mov ax, 0x26                     ; 0xa0ab
     imul word [bp + 6]               ; 0xa0ae
     mov bx, ax                       ; 0xa0b1
-    cmp byte [bx + slot_records + slot_record.flag], 0 ; 0xa0b3
+    cmp byte [bx + slot_records + slot_record.health], 0 ; 0xa0b3
     jle short .forward9              ; 0xa0b8
     jmp near .back1                  ; 0xa0ba
 .forward9:
@@ -189,7 +189,7 @@ api_idx_0012_UGVV:
     mov ax, 0x26                     ; 0xa0c2
     imul word [bp + 6]               ; 0xa0c5
     mov bx, ax                       ; 0xa0c8
-    cmp byte [bx + slot_records + slot_record.flag], 0 ; 0xa0ca
+    cmp byte [bx + slot_records + slot_record.health], 0 ; 0xa0ca
     jg short .forward12              ; 0xa0cf
     cmp word [bp - 0x10], byte 0     ; 0xa0d1
     je short .forward10              ; 0xa0d5
@@ -203,14 +203,14 @@ api_idx_0012_UGVV:
     imul word [bp + 6]               ; 0xa0e6
     mov bx, ax                       ; 0xa0e9
     pop ax                           ; 0xa0eb
-    mov byte [bx + slot_records + slot_record.flag], al ; 0xa0ec
+    mov byte [bx + slot_records + slot_record.health], al ; 0xa0ec
     jmp short .forward11             ; 0xa0f0
 .forward10:
     mov word [bp - 0x12], 1          ; 0xa0f2
     mov ax, 0x26                     ; 0xa0f7
     imul word [bp + 6]               ; 0xa0fa
     mov bx, ax                       ; 0xa0fd
-    mov byte [bx + slot_records + slot_record.flag], 0 ; 0xa0ff
+    mov byte [bx + slot_records + slot_record.health], 0 ; 0xa0ff
 .forward11:
     push word [bp + 6]               ; 0xa104
     push word [bp + 4]               ; 0xa107
@@ -222,12 +222,12 @@ api_idx_0012_UGVV:
     mov ax, 0x26                     ; 0xa118
     imul word [bp + 6]               ; 0xa11b
     mov bx, ax                       ; 0xa11e
-    mov al, byte [bx + slot_records + slot_record.flag] ; 0xa120
+    mov al, byte [bx + slot_records + slot_record.health] ; 0xa120
     push ax                          ; 0xa124
     mov ax, 0x26                     ; 0xa125
     imul word [bp + 4]               ; 0xa128
     mov bx, ax                       ; 0xa12b
-    mov cl, byte [bx + slot_records + slot_record.flag] ; 0xa12d
+    mov cl, byte [bx + slot_records + slot_record.health] ; 0xa12d
     pop ax                           ; 0xa131
     cmp al, cl                       ; 0xa132
     jle short .forward13             ; 0xa134
@@ -240,20 +240,20 @@ api_idx_0012_UGVV:
     mov ax, 0x26                     ; 0xa142
     imul word [bp + 4]               ; 0xa145
     mov bx, ax                       ; 0xa148
-    mov byte [bx + slot_records + slot_record.f_0002], 7 ; 0xa14a
+    mov byte [bx + slot_records + slot_record.activity], 7 ; 0xa14a
     mov word [bp - 0xe], 0xffff      ; 0xa14f
     jmp short .forward15             ; 0xa154
 .forward13:
     mov ax, 0x26                     ; 0xa156
     imul word [bp + 6]               ; 0xa159
     mov bx, ax                       ; 0xa15c
-    mov al, byte [bx + slot_records + slot_record.flag] ; 0xa15e
+    mov al, byte [bx + slot_records + slot_record.health] ; 0xa15e
     cbw                              ; 0xa162
     push ax                          ; 0xa163
     mov ax, 0x26                     ; 0xa164
     imul word [bp + 4]               ; 0xa167
     mov bx, ax                       ; 0xa16a
-    mov al, byte [bx + slot_records + slot_record.flag] ; 0xa16c
+    mov al, byte [bx + slot_records + slot_record.health] ; 0xa16c
     cbw                              ; 0xa170
     mov cx, 3                        ; 0xa171
     cwd                              ; 0xa174
@@ -265,9 +265,9 @@ api_idx_0012_UGVV:
     mov ax, 0x26                     ; 0xa17e
     imul word [bp + 6]               ; 0xa181
     mov bx, ax                       ; 0xa184
-    cmp byte [bx + slot_records + slot_record.f_0002], 3 ; 0xa186
+    cmp byte [bx + slot_records + slot_record.activity], 3 ; 0xa186
     je short .forward14              ; 0xa18b
-    cmp byte [bx + slot_records + slot_record.f_0002], 2 ; 0xa18d
+    cmp byte [bx + slot_records + slot_record.activity], 2 ; 0xa18d
     jne short .forward15             ; 0xa192
 .forward14:
     push word [bp + 6]               ; 0xa194
@@ -276,13 +276,13 @@ api_idx_0012_UGVV:
     mov ax, 0x26                     ; 0xa19b
     imul word [bp + 6]               ; 0xa19e
     mov bx, ax                       ; 0xa1a1
-    mov byte [bx + slot_records + slot_record.f_0002], 7 ; 0xa1a3
+    mov byte [bx + slot_records + slot_record.activity], 7 ; 0xa1a3
     mov word [bp - 0xe], 1           ; 0xa1a8
 .forward15:
     mov ax, 0x26                     ; 0xa1ad
     imul word [bp + 4]               ; 0xa1b0
     mov bx, ax                       ; 0xa1b3
-    cmp byte [bx + slot_records + slot_record.flag], 0 ; 0xa1b5
+    cmp byte [bx + slot_records + slot_record.health], 0 ; 0xa1b5
     jg short .forward16              ; 0xa1ba
     mov ax, 3                        ; 0xa1bc
     push ax                          ; 0xa1bf
@@ -294,14 +294,14 @@ api_idx_0012_UGVV:
     imul word [bp + 4]               ; 0xa1c9
     mov bx, ax                       ; 0xa1cc
     pop ax                           ; 0xa1ce
-    mov byte [bx + slot_records + slot_record.flag], al ; 0xa1cf
-    mov byte [bx + slot_records + slot_record.f_0002], 7 ; 0xa1d3
+    mov byte [bx + slot_records + slot_record.health], al ; 0xa1cf
+    mov byte [bx + slot_records + slot_record.activity], 7 ; 0xa1d3
     mov word [bp - 0xe], 0xffff      ; 0xa1d8
 .forward16:
     mov ax, 0x26                     ; 0xa1dd
     imul word [bp + 4]               ; 0xa1e0
     mov bx, ax                       ; 0xa1e3
-    cmp byte [bx + slot_records + slot_record.f_0002], 7 ; 0xa1e5
+    cmp byte [bx + slot_records + slot_record.activity], 7 ; 0xa1e5
     jne short .forward17             ; 0xa1ea
     push word [bp + 4]               ; 0xa1ec
     call api_idx_003a_SOVP           ; 0xa1ef
@@ -310,7 +310,7 @@ api_idx_0012_UGVV:
     mov ax, 0x26                     ; 0xa1f3
     imul word [bp + 4]               ; 0xa1f6
     mov bx, ax                       ; 0xa1f9
-    mov al, byte [bx + slot_records + slot_record.kind] ; 0xa1fb
+    mov al, byte [bx + slot_records + slot_record.location] ; 0xa1fb
     sub ah, ah                       ; 0xa1ff
     push ax                          ; 0xa201
     push word [bp - 0x12]            ; 0xa202

@@ -29,10 +29,10 @@ wait_ticks_or_key:
     je short .forward3               ; 0x0fce
     ret                              ; 0x0fd0
 .forward3:
-    call loc_QQOI                    ; 0x0fd1
+    call advance_party_redraw_frame  ; 0x0fd1
     not ax                           ; 0x0fd4
     push ax                          ; 0x0fd6
-    call loc_LMUG                    ; 0x0fd7
+    call update_maze_refresh_timer   ; 0x0fd7
     pop cx                           ; 0x0fda
     jmp short .back1                 ; 0x0fdb
 .return1:

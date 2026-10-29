@@ -251,25 +251,25 @@ endstruc
 struc slot_bit_state
     .slot: resb 1
     .status: resb 1
-    .f_0002: resb 1
-    .f_0003: resb 1
-    .f_0004: resb 2
+    .location: resb 1
+    .flag_index: resb 1
+    .goal_location: resb 2
 endstruc
 
 ; records at DS 0x84e8
 struc slot_record
-    .f_0000: resb 1
-    .f_0001: resb 1
-    .f_0002: resb 1
-    .f_0003: resb 1
-    .kind: resb 1
-    .map_piece: resb 1
-    .f_0006: resb 1
-    .f_0007: resb 1
-    .f_0008: resb 14
-    .f_0016: resb 2
-    .flag: resb 1
-    .f_0019: resb 1
+    .faction: resb 1
+    .home_location: resb 1
+    .activity: resb 1
+    .destination: resb 1
+    .location: resb 1
+    .turn_count: resb 1
+    .target: resb 1
+    .path_step: resb 1
+    .path: resb 14
+    .event_ring_next: resb 2
+    .health: resb 1
+    .max_health: resb 1
     .assigned_bits: resb 2
     .selected_bits: resb 6
     .marked_bits: resb 2

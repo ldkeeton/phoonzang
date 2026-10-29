@@ -5,7 +5,7 @@
 #define MSG_CLASS_BASE 120            /* "class names, MSG_CLASS_BASE + class" */
 #define MSG_ORDINAL_BASE 1059         /* "ordinals, MSG_ORDINAL_BASE + n" */
 #define MSG_SLOT_NAME_BASE 1700       /* "NPC slot names, MSG_SLOT_NAME_BASE + slot" */
-#define MSG_SLOT_KIND_BASE 1770       /* "NPC slot kinds, MSG_SLOT_KIND_BASE + kind" */
+#define MSG_LOCATION_NAME_BASE 1770   /* "Location names, MSG_LOCATION_NAME_BASE + location" */
 #define MSG_CODE_CHAR_BASE 2500       /* "code-character words, MSG_CODE_CHAR_BASE + index" */
 #define MSG_SPELL_NAME_BASE 4000      /* "spell names, MSG_SPELL_NAME_BASE + spell" */
 #define MSG_HUMAN 100                 /* "HUMAN" */

@@ -42,7 +42,7 @@ int announce;
 		if (maze_tables->type[obj] == 8 && check_type8_object(obj) == 1)
 			return;
 		if (maze_tables->type[obj] == 25 &&
-		    (found_object_owner = maze_tables->sound[obj]) == party_tag) {
+		    (found_object_owner = maze_tables->arg[obj]) == party_tag) {
 			game_state = 27;
 			party_region = obj;
 			return;

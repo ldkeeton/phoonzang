@@ -57,7 +57,7 @@ psp_cmd_tail_len equ 0x0080
 dseg_010c equ __zdseg_010c - __zdseg_start
 dseg_010e equ __zdseg_010e - __zdseg_start
 file_param_word equ __zfile_param_word - __zdseg_start
-dseg_0112 equ __zdseg_0112 - __zdseg_start
+story_score_file_number equ __zstory_score_file_number - __zdseg_start
 loaded_score_number equ __zloaded_score_number - __zdseg_start
 dseg_0116 equ __zdseg_0116 - __zdseg_start
 party_slot_x equ __zparty_slot_x - __zdseg_start
@@ -156,7 +156,7 @@ mouse_active equ __zbss_0e32 - __zdseg_start
 code_check_value equ __zbss_0e34 - __zdseg_start
 character_record_index equ __zbss_0e36 - __zdseg_start
 known_spell_names equ __zbss_0e38 - __zdseg_start
-bss_0e4c equ __zbss_0e4c - __zdseg_start
+filename_edit_buffer equ __zbss_0e4c - __zdseg_start
 code_char_message_index equ __zbss_0fd5 - __zdseg_start
 code_table equ __zbss_0fd6 - __zdseg_start
 answer_check_word equ __zbss_1008 - __zdseg_start
@@ -215,7 +215,7 @@ code_characters equ __zbss_5990 - __zdseg_start
 code_char_index equ __zbss_59f4 - __zdseg_start
 answer_length equ __zbss_59f6 - __zdseg_start
 code_check_word equ __zbss_59f8 - __zdseg_start
-bss_59fa equ __zbss_59fa - __zdseg_start
+escape_key_hit equ __zbss_59fa - __zdseg_start
 space_key_hit equ __zbss_59fc - __zdseg_start
 hotspot_rects equ __zbss_59fe - __zdseg_start
 hotspot_keys equ __zbss_5afe - __zdseg_start
@@ -306,7 +306,7 @@ bss_880a equ __zbss_880a - __zdseg_start
 bss_8822 equ __zbss_8822 - __zdseg_start
 loaded_fifteen_byte_records equ __zbss_882c - __zdseg_start
 loaded_short_records equ __zbss_8976 - __zdseg_start
-kind_state_table equ __zbss_8979 - __zdseg_start
+location_state_table equ __zbss_8979 - __zdseg_start
 target_weight equ __zbss_89de - __zdseg_start
 intro_layout_value_1 equ __zbss_89df - __zdseg_start
 intro_layout_value_2 equ __zbss_89e0 - __zdseg_start
@@ -542,7 +542,7 @@ __zdseg_end equ (__zimage_end - __zdseg_start) + __zbss_size
 
 %include "ds/game/fade_out_music.asm"      ; 0x2b62
 
-%include "ds/game/ds_app_UKGP.asm"         ; 0x2bab
+%include "ds/game/play_score_at_volume.asm" ; 0x2bab
 
 %include "ds/game/score_music_enabled.asm" ; 0x2bed
 
@@ -871,7 +871,7 @@ __zdseg_start:
 
 %include "ds/data/file_param_word.asm"     ; 0x10270
 
-%include "ds/data/dseg_0112.asm"           ; 0x10272
+%include "ds/data/story_score_file_number.asm" ; 0x10272
 
 %include "ds/data/loaded_score_number.asm" ; 0x10274
 

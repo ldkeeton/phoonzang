@@ -34,5 +34,5 @@ loc_NQGV:
     push ax                          ; 0x0a5e
     call redraw_treasure_caption     ; 0x0a5f
     pop cx                           ; 0x0a62
-    mov word [bss_9150], 0           ; 0x0a63
+    mov word [maze_message_row], 0   ; 0x0a63
     ret                              ; 0x0a69
