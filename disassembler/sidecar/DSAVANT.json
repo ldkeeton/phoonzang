@@ -1099,6 +1099,7 @@
         "9096": {"name": "_TTrem"}
       },
       "code_data_names": {
+        "2f58": {"name": "driver_block_table_end", "note": "one-past-end pointer for the driver block allocation entries"},
         "4650": {"name": "aztec_csav_begin"},
         "480d": {"name": "aztec_format_conversions"},
         "4822": {"name": "aztec_format_conv_routines"},

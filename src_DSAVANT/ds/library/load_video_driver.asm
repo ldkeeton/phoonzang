@@ -35,7 +35,7 @@ load_video_driver:
     mov ax, cs                       ; 0x3584
     mov ds, ax                       ; 0x3586
     mov si, driver_block_table - IMAGE_BASE ; 0x3588
-    mov cx, cseg_2f58 - IMAGE_BASE   ; 0x358b
+    mov cx, driver_block_table_end - IMAGE_BASE ; 0x358b
     sub cx, si                       ; 0x358e
     rep movsb                        ; 0x3590
     add si, byte 4                   ; 0x3592

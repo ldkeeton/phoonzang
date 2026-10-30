@@ -3,7 +3,7 @@
 	assume	cs:codeseg
 	extrn	restore_video_and_release_mem_:near
 	extrn	cseg_2f52_:word
-	extrn	cseg_2f58_:word
+	extrn	driver_block_table_end_:word
 	extrn	drv_slot_mouse_init_:word
 	extrn	cseg_3063_:word
 	extrn	driver_block_table_:word
@@ -41,7 +41,7 @@ copy_segments:
 	mov di, word ptr cs:cseg_3063_
 	movseg	ds,cs
 	mov si, offset driver_block_table_
-	mov cx, offset cseg_2f58_
+	mov cx, offset driver_block_table_end_
 	sub cx, si
 	rep movsb
 	add si, 4
