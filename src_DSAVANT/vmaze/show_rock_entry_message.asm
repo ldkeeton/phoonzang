@@ -1,5 +1,5 @@
 ; auto-generated
-api_idx_0002_QLPH:
+show_rock_entry_message:
     mov ax, 0xfffe                   ; 0x110e
     call aztec_csav                  ; 0x1111
     call redraw_maze_view            ; 0x1114

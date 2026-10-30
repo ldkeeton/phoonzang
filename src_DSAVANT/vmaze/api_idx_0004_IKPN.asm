@@ -61,7 +61,7 @@ api_idx_0004_IKPN:
     add sp, byte 0xa                 ; 0x13a6
     mov word [bss_91aa], 1           ; 0x13a9
     mov word [location_changed], 1   ; 0x13af
-    call loc_IVLM                    ; 0x13b5
+    call save_previous_party_position ; 0x13b5
     mov ax, 1                        ; 0x13b8
     ret                              ; 0x13bb
 .forward4:

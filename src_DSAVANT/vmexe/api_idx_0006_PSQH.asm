@@ -136,7 +136,7 @@ api_idx_0006_PSQH:
     mov ax, 0x11                     ; 0x99d7
     push ax                          ; 0x99da
     push word [bss_8462]             ; 0x99db
-    call loc_SIKN                    ; 0x99df
+    call try_raise_member_skill      ; 0x99df
     add sp, byte 6                   ; 0x99e2
     mov ax, 2                        ; 0x99e5
     push ax                          ; 0x99e8

@@ -102,7 +102,7 @@ api_idx_008a_IMUJ:
     mov word [bp - 8], 0xffff        ; 0x0d05
 .back2:
     mov word [bp - 0xa], 0           ; 0x0d0a
-    call loc_IVLM                    ; 0x0d0f
+    call save_previous_party_position ; 0x0d0f
     cmp word [bp - 8], byte -1       ; 0x0d12
     jne short .forward7              ; 0x0d16
     jmp near .forward12              ; 0x0d18

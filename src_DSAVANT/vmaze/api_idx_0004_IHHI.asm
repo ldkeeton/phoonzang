@@ -36,7 +36,7 @@ api_idx_0004_IHHI:
     mov ax, MSG_DROWNED              ; 0x144d
     push ax                          ; 0x1450
     push word [bp - 2]               ; 0x1451
-    call api_idx_0050_QVOG           ; 0x1454
+    call display_member_message      ; 0x1454
     add sp, byte 6                   ; 0x1457
 .forward2:
     jmp near .forward5               ; 0x145a
@@ -91,7 +91,7 @@ api_idx_0004_IHHI:
     mov ax, MSG_DROWNED              ; 0x14c7
     push ax                          ; 0x14ca
     push word [bp - 2]               ; 0x14cb
-    call api_idx_0050_QVOG           ; 0x14ce
+    call display_member_message      ; 0x14ce
     add sp, byte 6                   ; 0x14d1
     jmp short .forward5              ; 0x14d4
 .forward4:
@@ -100,7 +100,7 @@ api_idx_0004_IHHI:
     mov ax, 0xa                      ; 0x14da
     push ax                          ; 0x14dd
     push word [bp - 2]               ; 0x14de
-    call loc_SIKN                    ; 0x14e1
+    call try_raise_member_skill      ; 0x14e1
     add sp, byte 6                   ; 0x14e4
     mov ax, 1                        ; 0x14e7
     push ax                          ; 0x14ea

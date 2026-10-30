@@ -2,13 +2,13 @@
 update_party_status_animation:
     mov ax, 0xfffc                   ; 0x7542
     call aztec_csav                  ; 0x7545
-    cmp word [bss_82fe], byte 0      ; 0x7548
+    cmp word [detection_spell_bonus], byte 0 ; 0x7548
     jle short .forward1              ; 0x754d
     mov ax, 0x64                     ; 0x754f
     push ax                          ; 0x7552
     call random_below                ; 0x7553
     pop cx                           ; 0x7556
-    cmp ax, word [bss_8300]          ; 0x7557
+    cmp ax, word [detection_spell_threshold] ; 0x7557
     jge short .forward1              ; 0x755b
     mov word [party_status_frame_step], 1 ; 0x755d
 .forward1:
@@ -37,7 +37,7 @@ update_party_status_animation:
     mov ax, MSG_DETECTS_SOMETHING    ; 0x7593
     push ax                          ; 0x7596
     push word [bp - 2]               ; 0x7597
-    call api_idx_0050_QVOG           ; 0x759a
+    call display_member_message      ; 0x759a
     add sp, byte 4                   ; 0x759d
     ret                              ; 0x75a0
 .forward2:

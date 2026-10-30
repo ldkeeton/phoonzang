@@ -7,17 +7,17 @@ api_idx_0008_SJVU:
 jumptable_291f_case_33:
     mov ax, 0x32                     ; 0x2209
     imul word [bp + 8]               ; 0x220c
-    add word [bss_82fe], ax          ; 0x220f
+    add word [detection_spell_bonus], ax ; 0x220f
     mov ax, 0                        ; 0x2213
     push ax                          ; 0x2216
-    push word [bss_8300]             ; 0x2217
+    push word [detection_spell_threshold] ; 0x2217
     mov ax, 5                        ; 0x221b
     imul word [bp + 8]               ; 0x221e
     add ax, strict word 0x46         ; 0x2221
     push ax                          ; 0x2224
     call loc_QQUT                    ; 0x2225
     add sp, byte 6                   ; 0x2228
-    mov word [bss_8300], ax          ; 0x222b
+    mov word [detection_spell_threshold], ax ; 0x222b
     jmp near jumptable_291f_case_46  ; 0x222e
 jumptable_291f_case_38:
     mov ax, 0x23                     ; 0x2231

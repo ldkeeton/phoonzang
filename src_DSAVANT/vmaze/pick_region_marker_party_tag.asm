@@ -1,5 +1,5 @@
 ; auto-generated
-api_idx_0002_KUOJ:
+pick_region_marker_party_tag:
     mov ax, 0xfffe                   ; 0x7001
     call aztec_csav                  ; 0x7004
     mov ax, 4                        ; 0x7007

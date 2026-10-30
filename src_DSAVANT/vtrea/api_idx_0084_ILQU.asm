@@ -1632,7 +1632,7 @@ api_idx_0084_ILQU.forward34:
     mov ax, 0x10                     ; 0x34d7
     push ax                          ; 0x34da
     push word [bp + 4]               ; 0x34db
-    call loc_SIKN                    ; 0x34de
+    call try_raise_member_skill      ; 0x34de
     add sp, byte 6                   ; 0x34e1
 api_idx_0084_ILQU.forward35:
     mov word [spell_dialog_button], 0 ; 0x34e4

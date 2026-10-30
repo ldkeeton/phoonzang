@@ -101,7 +101,7 @@ show_region_message:
 .back2:
     lea ax, word [bp - 0xc]          ; 0x712d
     push ax                          ; 0x7130
-    call api_idx_0002_KUOJ           ; 0x7131
+    call pick_region_marker_party_tag ; 0x7131
     pop cx                           ; 0x7134
     mov word [bp - 0x16], ax         ; 0x7135
     cmp word [bp - 0x18], byte 1     ; 0x7138
@@ -157,7 +157,7 @@ show_region_message:
     mov word [party_tag], ax         ; 0x71b0
     cmp word [bp - 0x12], byte 0     ; 0x71b3
     jle short .forward12             ; 0x71b7
-    call loc_IVLM                    ; 0x71b9
+    call save_previous_party_position ; 0x71b9
     cmp word [bp - 0x1c], byte 1     ; 0x71bc
     jne short .forward9              ; 0x71c0
     push word [bp - 0x12]            ; 0x71c2
@@ -191,7 +191,7 @@ show_region_message:
     push ax                          ; 0x7206
     mov ax, MSG_YOU_ARE_IN_ROCK      ; 0x7207
     push ax                          ; 0x720a
-    call api_idx_0002_QLPH           ; 0x720b
+    call show_rock_entry_message     ; 0x720b
     add sp, byte 4                   ; 0x720e
     ret                              ; 0x7211
 .forward11:

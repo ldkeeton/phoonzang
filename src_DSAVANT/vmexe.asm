@@ -111,7 +111,7 @@ loc_UTQS.api_idx1 equ api_idx_0006_GMTP
 
 %include "vmexe/api_idx_0004_OHJS.asm"     ; 0x1b45
 
-%include "shared/ovr/loc_SIKN.asm"              ; 0x1bf4
+%include "shared/ovr/try_raise_member_skill.asm" ; 0x1bf4
 
 %include "vmexe/loc_MUTI.asm"              ; 0x1c36
 

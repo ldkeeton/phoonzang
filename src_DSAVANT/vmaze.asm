@@ -26,23 +26,23 @@ IMAGE_BASE equ 0x000e + VBASE
 
 __zcode_start:
 dseg_9098 equ __zdseg_end + (__zdseg_9098 - __zdata_start)
-dseg_90a0 equ __zdseg_end + (__zdseg_90a0 - __zdata_start)
-dseg_90ad equ __zdseg_end + (__zdseg_90ad - __zdata_start)
-dseg_90ba equ __zdseg_end + (__zdseg_90ba - __zdata_start)
-dseg_90c7 equ __zdseg_end + (__zdseg_90c7 - __zdata_start)
-dseg_90d4 equ __zdseg_end + (__zdseg_90d4 - __zdata_start)
-dseg_90e1 equ __zdseg_end + (__zdseg_90e1 - __zdata_start)
-dseg_90ee equ __zdseg_end + (__zdseg_90ee - __zdata_start)
-dseg_90fb equ __zdseg_end + (__zdseg_90fb - __zdata_start)
-dseg_9108 equ __zdseg_end + (__zdseg_9108 - __zdata_start)
-dseg_9115 equ __zdseg_end + (__zdseg_9115 - __zdata_start)
-dseg_9122 equ __zdseg_end + (__zdseg_9122 - __zdata_start)
-dseg_912f equ __zdseg_end + (__zdseg_912f - __zdata_start)
-dseg_913c equ __zdseg_end + (__zdseg_913c - __zdata_start)
-dseg_9149 equ __zdseg_end + (__zdseg_9149 - __zdata_start)
-dseg_9156 equ __zdseg_end + (__zdseg_9156 - __zdata_start)
-dseg_9163 equ __zdseg_end + (__zdseg_9163 - __zdata_start)
-dseg_9170 equ __zdseg_end + (__zdseg_9170 - __zdata_start)
+variant_1_maze_filename equ __zdseg_end + (__zvariant_1_maze_filename - __zdata_start)
+variant_1_water_filename equ __zdseg_end + (__zvariant_1_water_filename - __zdata_start)
+variant_2_tree_filename equ __zdseg_end + (__zvariant_2_tree_filename - __zdata_start)
+variant_2_other_town_filename equ __zdseg_end + (__zvariant_2_other_town_filename - __zdata_start)
+variant_2_tile_filename equ __zdseg_end + (__zvariant_2_tile_filename - __zdata_start)
+variant_3_town_filename equ __zdseg_end + (__zvariant_3_town_filename - __zdata_start)
+variant_3_other_town_filename equ __zdseg_end + (__zvariant_3_other_town_filename - __zdata_start)
+variant_3_water_filename equ __zdseg_end + (__zvariant_3_water_filename - __zdata_start)
+variant_3_tile_filename equ __zdseg_end + (__zvariant_3_tile_filename - __zdata_start)
+variant_4_tree_filename equ __zdseg_end + (__zvariant_4_tree_filename - __zdata_start)
+variant_4_other_cave_filename equ __zdseg_end + (__zvariant_4_other_cave_filename - __zdata_start)
+variant_5_cave_filename equ __zdseg_end + (__zvariant_5_cave_filename - __zdata_start)
+variant_5_other_cave_filename equ __zdseg_end + (__zvariant_5_other_cave_filename - __zdata_start)
+variant_5_water_filename equ __zdseg_end + (__zvariant_5_water_filename - __zdata_start)
+variant_6_tree_filename equ __zdseg_end + (__zvariant_6_tree_filename - __zdata_start)
+variant_6_other_town_filename equ __zdseg_end + (__zvariant_6_other_town_filename - __zdata_start)
+variant_6_water_filename equ __zdseg_end + (__zvariant_6_water_filename - __zdata_start)
 dseg_917e equ __zdseg_end + (__zdseg_917e - __zdata_start)
 dseg_9186 equ __zdseg_end + (__zdseg_9186 - __zdata_start)
 save_si equ __zdseg_end + (__zsave_si - __zdata_start)
@@ -185,7 +185,7 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "shared/ovr/loc_QTKU.asm"              ; 0x10b0
 
-%include "vmaze/api_idx_0002_QLPH.asm"     ; 0x110e
+%include "vmaze/show_rock_entry_message.asm" ; 0x110e
 
 %include "shared/ovr/get_cell_wall.asm"         ; 0x1165
 
@@ -193,7 +193,7 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "vmaze/adjust_party_world_position.asm" ; 0x1240
 
-%include "shared/ovr/loc_IVLM.asm"              ; 0x12a2
+%include "shared/ovr/save_previous_party_position.asm" ; 0x12a2
 
 %include "vmaze/display_message_with_sound.asm" ; 0x12d3
 
@@ -486,9 +486,9 @@ process_scene_message_words.loc1 equ api_idx_0090_QKJQ
 
 %include "vmaze/show_maze_message_sequence.asm" ; 0x6f14
 
-%include "shared/ovr/loc_SIKN.asm"              ; 0x6fbf
+%include "shared/ovr/try_raise_member_skill.asm" ; 0x6fbf
 
-%include "vmaze/api_idx_0002_KUOJ.asm"     ; 0x7001
+%include "vmaze/pick_region_marker_party_tag.asm" ; 0x7001
 
 %include "vmaze/show_region_message.asm"   ; 0x7034
 
@@ -502,7 +502,7 @@ process_scene_message_words.loc1 equ api_idx_0090_QKJQ
 
 %include "vmaze/check_region_trigger_bit_14.asm" ; 0x744e
 
-%include "vmaze/api_idx_0050_QVOG.asm"     ; 0x74e2
+%include "vmaze/display_member_message.asm" ; 0x74e2
 
 %include "vmaze/update_party_status_animation.asm" ; 0x7542
 
@@ -614,6 +614,42 @@ process_scene_message_words.loc1 equ api_idx_0090_QKJQ
 
 __zdata_start:
 %include "vmaze/data/dseg_9098.asm"        ; 0xac6e
+
+%include "vmaze/data/variant_1_maze_filename.asm" ; 0xac76
+
+%include "vmaze/data/variant_1_water_filename.asm" ; 0xac83
+
+%include "vmaze/data/variant_2_tree_filename.asm" ; 0xac90
+
+%include "vmaze/data/variant_2_other_town_filename.asm" ; 0xac9d
+
+%include "vmaze/data/variant_2_tile_filename.asm" ; 0xacaa
+
+%include "vmaze/data/variant_3_town_filename.asm" ; 0xacb7
+
+%include "vmaze/data/variant_3_other_town_filename.asm" ; 0xacc4
+
+%include "vmaze/data/variant_3_water_filename.asm" ; 0xacd1
+
+%include "vmaze/data/variant_3_tile_filename.asm" ; 0xacde
+
+%include "vmaze/data/variant_4_tree_filename.asm" ; 0xaceb
+
+%include "vmaze/data/variant_4_other_cave_filename.asm" ; 0xacf8
+
+%include "vmaze/data/variant_5_cave_filename.asm" ; 0xad05
+
+%include "vmaze/data/variant_5_other_cave_filename.asm" ; 0xad12
+
+%include "vmaze/data/variant_5_water_filename.asm" ; 0xad1f
+
+%include "vmaze/data/variant_6_tree_filename.asm" ; 0xad2c
+
+%include "vmaze/data/variant_6_other_town_filename.asm" ; 0xad39
+
+%include "vmaze/data/variant_6_water_filename.asm" ; 0xad46
+
+%include "vmaze/data/dseg_917e.asm"        ; 0xad54
 
 %include "shared/data/save_si.asm"          ; 0xad5e
 

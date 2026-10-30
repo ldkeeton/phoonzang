@@ -3,7 +3,7 @@ api_idx_000e_NSGM:
     mov ax, 0xfff2                   ; 0x162b
     call aztec_csav                  ; 0x162e
     call check_at_saved_location     ; 0x1631
-    call loc_IVLM                    ; 0x1634
+    call save_previous_party_position ; 0x1634
     mov ax, word [party_map_piece]   ; 0x1637
     mov cx, 6                        ; 0x163a
     shl ax, cl                       ; 0x163d
@@ -53,7 +53,7 @@ api_idx_000e_NSGM:
     push ax                          ; 0x16b1
     mov ax, MSG_YOU_ARE_IN_ROCK      ; 0x16b2
     push ax                          ; 0x16b5
-    call api_idx_0002_QLPH           ; 0x16b6
+    call show_rock_entry_message     ; 0x16b6
     add sp, byte 4                   ; 0x16b9
     mov ax, 1                        ; 0x16bc
     ret                              ; 0x16bf
@@ -72,7 +72,7 @@ api_idx_000e_NSGM:
     push ax                          ; 0x16d9
     mov ax, MSG_YOU_FELL_TO_YOUR_DEATH ; 0x16da
     push ax                          ; 0x16dd
-    call api_idx_0002_QLPH           ; 0x16de
+    call show_rock_entry_message     ; 0x16de
     add sp, byte 4                   ; 0x16e1
     mov ax, 1                        ; 0x16e4
     ret                              ; 0x16e7
@@ -147,7 +147,7 @@ api_idx_000e_NSGM:
     push ax                          ; 0x1781
     mov ax, MSG_YOU_ARE_IN_ROCK      ; 0x1782
     push ax                          ; 0x1785
-    call api_idx_0002_QLPH           ; 0x1786
+    call show_rock_entry_message     ; 0x1786
     add sp, byte 4                   ; 0x1789
     mov ax, 1                        ; 0x178c
     ret                              ; 0x178f

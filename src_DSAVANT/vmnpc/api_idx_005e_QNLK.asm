@@ -170,7 +170,7 @@ api_idx_005e_QNLK:
     mov ax, 0xf                      ; 0x6152
     push ax                          ; 0x6155
     push word [bp + 4]               ; 0x6156
-    call loc_SIKN                    ; 0x6159
+    call try_raise_member_skill      ; 0x6159
     add sp, byte 6                   ; 0x615c
     cmp word [bp - 8], byte -1       ; 0x615f
     je short .forward12              ; 0x6163

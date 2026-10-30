@@ -1,5 +1,5 @@
 ; auto-generated
-api_idx_0050_QVOG:
+display_member_message:
     mov ax, 0xffb0                   ; 0x74e2
     call aztec_csav                  ; 0x74e5
     lea ax, word [bp - 0x50]         ; 0x74e8

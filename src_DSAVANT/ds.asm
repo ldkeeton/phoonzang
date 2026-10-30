@@ -262,8 +262,8 @@ bss_82f6 equ __zbss_82f6 - __zdseg_start
 bss_82f8 equ __zbss_82f8 - __zdseg_start
 party_buff_turns equ __zbss_82fa - __zdseg_start
 party_buff_charge equ __zbss_82fc - __zdseg_start
-bss_82fe equ __zbss_82fe - __zdseg_start
-bss_8300 equ __zbss_8300 - __zdseg_start
+detection_spell_bonus equ __zbss_82fe - __zdseg_start
+detection_spell_threshold equ __zbss_8300 - __zdseg_start
 bss_8302 equ __zbss_8302 - __zdseg_start
 bss_8304 equ __zbss_8304 - __zdseg_start
 bss_8306 equ __zbss_8306 - __zdseg_start

@@ -130,7 +130,7 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "vmext/loc_VJNU.asm"              ; 0x0636
 
-%include "shared/ovr/loc_IVLM.asm"              ; 0x0692
+%include "shared/ovr/save_previous_party_position.asm" ; 0x0692
 
 %include "shared/ovr/get_cell_wall.asm"         ; 0x06c3
 

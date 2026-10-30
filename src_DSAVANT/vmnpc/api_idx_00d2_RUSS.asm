@@ -366,7 +366,7 @@ api_idx_00d2_RUSS.forward17:
     mov ax, 0x1c                     ; 0x6695
     push ax                          ; 0x6698
     push word [bp + 4]               ; 0x6699
-    call loc_SIKN                    ; 0x669c
+    call try_raise_member_skill      ; 0x669c
     add sp, byte 6                   ; 0x669f
 api_idx_00d2_RUSS.forward18:
     mov ax, 0x55                     ; 0x66a2

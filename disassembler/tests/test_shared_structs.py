@@ -245,12 +245,16 @@ class GeneratedLayoutTest(unittest.TestCase):
             text = path.read_text(errors='replace')
             if '\nextern struct' not in '\n' + text:
                 continue
+            declarations = [decl for decl in _EXTERN.findall(_code(text))
+                            if generated.get(place.get(decl[2])) is not None]
+            if not declarations:
+                continue
             full = text + ''.join(
                 (_TREE / 'include' / inc).read_text(errors='replace')
                 for inc in _INCLUDE.findall(text)
                 if (_TREE / 'include' / inc).is_file())
             views = struct_layouts(full)
-            for tag, star, label, dims in _EXTERN.findall(_code(text)):
+            for tag, star, label, dims in declarations:
                 found = generated.get(place.get(label))
                 if found is None or tag not in views:
                     continue

@@ -1,5 +1,5 @@
 ; auto-generated
-loc_IVLM:
+save_previous_party_position:
     mov ax, 0
     call aztec_csav
     mov ax, word [party_world_x]

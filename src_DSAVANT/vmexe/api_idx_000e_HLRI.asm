@@ -153,7 +153,7 @@ api_idx_000e_HLRI:
     mov ax, 0xe                      ; 0x6115
     push ax                          ; 0x6118
     push word [bss_8462]             ; 0x6119
-    call loc_SIKN                    ; 0x611d
+    call try_raise_member_skill      ; 0x611d
     add sp, byte 6                   ; 0x6120
 .forward6:
     mov ax, 0x64                     ; 0x6123

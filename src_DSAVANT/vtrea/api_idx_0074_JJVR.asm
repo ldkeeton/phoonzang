@@ -417,7 +417,7 @@ api_idx_0074_JJVR:
     mov ax, 0xa                      ; 0x7cc7
     push ax                          ; 0x7cca
     push word [bp - 2]               ; 0x7ccb
-    call loc_SIKN                    ; 0x7cce
+    call try_raise_member_skill      ; 0x7cce
     add sp, byte 6                   ; 0x7cd1
 .forward30:
     cmp word [bp - 0xc], byte 0xd    ; 0x7cd4
@@ -427,7 +427,7 @@ api_idx_0074_JJVR:
     mov ax, 0xb                      ; 0x7cde
     push ax                          ; 0x7ce1
     push word [bp - 2]               ; 0x7ce2
-    call loc_SIKN                    ; 0x7ce5
+    call try_raise_member_skill      ; 0x7ce5
     add sp, byte 6                   ; 0x7ce8
 .forward31:
     cmp word [bp - 4], byte 0        ; 0x7ceb
@@ -477,7 +477,7 @@ api_idx_0074_JJVR:
     mov ax, 0x17                     ; 0x7d57
     push ax                          ; 0x7d5a
     push word [bp - 2]               ; 0x7d5b
-    call loc_SIKN                    ; 0x7d5e
+    call try_raise_member_skill      ; 0x7d5e
     add sp, byte 6                   ; 0x7d61
 .forward35:
     inc word [bp - 2]                ; 0x7d64

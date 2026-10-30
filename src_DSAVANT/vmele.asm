@@ -75,7 +75,7 @@ api_idx_005e_OJVJ.dseg1 equ dseg_9098
 
 %include "vmele/advance_member_item_actions.asm" ; 0x14e6
 
-%include "shared/ovr/loc_SIKN.asm"              ; 0x16d1
+%include "shared/ovr/try_raise_member_skill.asm" ; 0x16d1
 
 %include "vmele/roll_member_actions.asm"   ; 0x1713
 

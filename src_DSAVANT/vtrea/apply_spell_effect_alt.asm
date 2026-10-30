@@ -7,17 +7,17 @@ apply_spell_effect_alt:
 jumptable_4a7d_case_34:
     mov ax, 0x32                     ; 0x4374
     imul word [bp + 8]               ; 0x4377
-    add word [bss_82fe], ax          ; 0x437a
+    add word [detection_spell_bonus], ax ; 0x437a
     mov ax, 0                        ; 0x437e
     push ax                          ; 0x4381
-    push word [bss_8300]             ; 0x4382
+    push word [detection_spell_threshold] ; 0x4382
     mov ax, 5                        ; 0x4386
     imul word [bp + 8]               ; 0x4389
     add ax, strict word 0x46         ; 0x438c
     push ax                          ; 0x438f
     call loc_QQUT                    ; 0x4390
     add sp, byte 6                   ; 0x4393
-    mov word [bss_8300], ax          ; 0x4396
+    mov word [detection_spell_threshold], ax ; 0x4396
     jmp near jumptable_4a7d_case_44  ; 0x4399
 jumptable_4a7d_case_38:
     mov ax, 0x23                     ; 0x439c

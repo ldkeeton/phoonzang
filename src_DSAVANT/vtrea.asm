@@ -143,7 +143,7 @@ process_scene_message_words.loc1 equ api_idx_0090_LKIM
 
 %include "vtrea/show_treasure_message.asm" ; 0x0eb2
 
-%include "shared/ovr/loc_SIKN.asm"              ; 0x0f54
+%include "shared/ovr/try_raise_member_skill.asm" ; 0x0f54
 
 %include "vtrea/api_idx_0002_RJQH.asm"     ; 0x0f96
 

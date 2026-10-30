@@ -1,5 +1,5 @@
 ; auto-generated
-loc_SIKN:
+try_raise_member_skill:
     mov ax, 0
     call aztec_csav
     mov ax, 0x248

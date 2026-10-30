@@ -3816,17 +3816,17 @@ api_idx_000e_KPGJ.forward116:
 jumptable_5eb8_case_63:
     mov ax, 0x32                     ; 0x5dc3
     imul word [bp + 8]               ; 0x5dc6
-    add word [bss_82fe], ax          ; 0x5dc9
+    add word [detection_spell_bonus], ax ; 0x5dc9
     mov ax, 0                        ; 0x5dcd
     push ax                          ; 0x5dd0
-    push word [bss_8300]             ; 0x5dd1
+    push word [detection_spell_threshold] ; 0x5dd1
     mov ax, 5                        ; 0x5dd5
     imul word [bp + 8]               ; 0x5dd8
     add ax, strict word 0x46         ; 0x5ddb
     push ax                          ; 0x5dde
     call loc_QQUT                    ; 0x5ddf
     add sp, byte 6                   ; 0x5de2
-    mov word [bss_8300], ax          ; 0x5de5
+    mov word [detection_spell_threshold], ax ; 0x5de5
     jmp near jumptable_5eb8_case_47  ; 0x5de8
 jumptable_5eb8_case_82:
     mov ax, 0x23                     ; 0x5deb

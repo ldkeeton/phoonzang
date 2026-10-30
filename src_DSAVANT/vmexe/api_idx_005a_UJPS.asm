@@ -179,7 +179,7 @@ api_idx_005a_UJPS:
     mov ax, 0xd                      ; 0xa0f0
     push ax                          ; 0xa0f3
     push word [bss_8462]             ; 0xa0f4
-    call loc_SIKN                    ; 0xa0f8
+    call try_raise_member_skill      ; 0xa0f8
     add sp, byte 6                   ; 0xa0fb
     cmp word [bp - 4], byte 0        ; 0xa0fe
     jge short .forward8              ; 0xa102
@@ -441,7 +441,7 @@ api_idx_005a_UJPS:
     push ax                          ; 0xa361
     push word [bp - 0x12]            ; 0xa362
     push word [bss_8462]             ; 0xa365
-    call loc_SIKN                    ; 0xa369
+    call try_raise_member_skill      ; 0xa369
     add sp, byte 6                   ; 0xa36c
     mov ax, 0x248                    ; 0xa36f
     imul word [bss_8462]             ; 0xa372

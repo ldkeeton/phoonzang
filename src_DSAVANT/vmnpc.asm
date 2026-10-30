@@ -376,7 +376,7 @@ draw_spell_cost.dseg1 equ dseg_90e4
 
 %include "vmnpc/loc_HOSN.asm"              ; 0x85f9
 
-%include "shared/ovr/loc_SIKN.asm"              ; 0x8662
+%include "shared/ovr/try_raise_member_skill.asm" ; 0x8662
 
 %include "vmnpc/api_idx_0002_SRQM.asm"     ; 0x86a4
 

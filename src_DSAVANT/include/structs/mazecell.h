@@ -10,6 +10,8 @@ struct maze_cells {
 	unsigned char cell_kind[768];	/* 0x04b0: packed 6-bit values */
 	unsigned char cell_direction[256]; /* 0x07b0: packed 2-bit values */
 	unsigned char cell_flags[128];	/* 0x08b0: one bit per cell */
+	unsigned char pad_0930[128];	/* 0x0930: unused by this view */
+	unsigned char cell_flags_secondary[128]; /* 0x09b0: second cell bit set */
 };
 
 #endif

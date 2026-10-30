@@ -47,7 +47,7 @@ roll_member_actions:
     mov ax, 0x19                     ; 0x1784
     push ax                          ; 0x1787
     push word [bp - 4]               ; 0x1788
-    call loc_SIKN                    ; 0x178b
+    call try_raise_member_skill      ; 0x178b
     add sp, byte 6                   ; 0x178e
 .forward2:
     inc word [bp - 4]                ; 0x1791

@@ -895,7 +895,7 @@ api_idx_00ac_HRGR.forward41:
     push ax                          ; 0x822f
     push word [bp - 0x7c]            ; 0x8230
     push word [bss_8462]             ; 0x8233
-    call loc_SIKN                    ; 0x8237
+    call try_raise_member_skill      ; 0x8237
     add sp, byte 6                   ; 0x823a
 api_idx_00ac_HRGR.forward42:
     push word [bss_8462]             ; 0x823d
@@ -1586,7 +1586,7 @@ api_idx_00ac_HRGR.back1:
     mov ax, 8                        ; 0x88dc
     push ax                          ; 0x88df
     push word [bp - 0x50]            ; 0x88e0
-    call loc_SIKN                    ; 0x88e3
+    call try_raise_member_skill      ; 0x88e3
     add sp, byte 6                   ; 0x88e6
     jmp short api_idx_00ac_HRGR.forward89 ; 0x88e9
 api_idx_00ac_HRGR.forward88:
@@ -1838,7 +1838,7 @@ api_idx_00ac_HRGR.forward103:
     mov ax, 8                        ; 0x8b57
     push ax                          ; 0x8b5a
     push word [bp - 0x50]            ; 0x8b5b
-    call loc_SIKN                    ; 0x8b5e
+    call try_raise_member_skill      ; 0x8b5e
     add sp, byte 6                   ; 0x8b61
 api_idx_00ac_HRGR.forward104:
     cmp word [bss_8464], byte 0      ; 0x8b64

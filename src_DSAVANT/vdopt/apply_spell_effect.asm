@@ -7,17 +7,17 @@ apply_spell_effect:
 jumptable_2326_case_36:
     mov ax, 0x32                     ; 0x1cdb
     imul word [bp + 8]               ; 0x1cde
-    add word [bss_82fe], ax          ; 0x1ce1
+    add word [detection_spell_bonus], ax ; 0x1ce1
     mov ax, 0                        ; 0x1ce5
     push ax                          ; 0x1ce8
-    push word [bss_8300]             ; 0x1ce9
+    push word [detection_spell_threshold] ; 0x1ce9
     mov ax, 5                        ; 0x1ced
     imul word [bp + 8]               ; 0x1cf0
     add ax, strict word 0x46         ; 0x1cf3
     push ax                          ; 0x1cf6
     call loc_QQUT                    ; 0x1cf7
     add sp, byte 6                   ; 0x1cfa
-    mov word [bss_8300], ax          ; 0x1cfd
+    mov word [detection_spell_threshold], ax ; 0x1cfd
     jmp near jumptable_2326_case_50  ; 0x1d00
 jumptable_2326_case_43:
     mov ax, 0x23                     ; 0x1d03

@@ -68,7 +68,7 @@ wait_then_handle_region_event:
     mov ax, 0x12                     ; 0x80eb
     push ax                          ; 0x80ee
     push word [member_roster_index]  ; 0x80ef
-    call loc_SIKN                    ; 0x80f3
+    call try_raise_member_skill      ; 0x80f3
     add sp, byte 6                   ; 0x80f6
 .forward4:
     mov ax, 0x248                    ; 0x80f9
@@ -113,7 +113,7 @@ wait_then_handle_region_event:
     mov ax, 0xb                      ; 0x8158
     push ax                          ; 0x815b
     push word [bp - 4]               ; 0x815c
-    call loc_SIKN                    ; 0x815f
+    call try_raise_member_skill      ; 0x815f
     add sp, byte 6                   ; 0x8162
 .forward6:
     inc word [bp - 4]                ; 0x8165

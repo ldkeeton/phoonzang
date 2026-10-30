@@ -712,7 +712,7 @@ api_idx_006a_NKMN:
     mov ax, 0x10                     ; 0x6684
     push ax                          ; 0x6687
     push word [bp + 4]               ; 0x6688
-    call loc_SIKN                    ; 0x668b
+    call try_raise_member_skill      ; 0x668b
     add sp, byte 6                   ; 0x668e
 .forward25:
     mov word [spell_dialog_button], 0 ; 0x6691

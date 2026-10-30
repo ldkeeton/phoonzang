@@ -2,6 +2,7 @@
 #include "msg.h"
 #include "structs/loadrec.h"
 #include "structs/pcrec.h"
+#include "structs/rgnstate.h"
 extern struct load_header scenario_header_data;
 extern struct load_state loaded_game_state;
 extern struct status_pair party_status_timer[];
@@ -33,11 +34,6 @@ extern long aztec_lseek();
 
 extern char ending_save_filename[], current_map_block_a[],
 	current_map_block_b[];
-/* Region index followed by the sixteen-byte state for each region. */
-struct saved_region_blocks {
-	int region;			/* +0 */
-	char state[45][16];		/* +2 */
-};
 extern struct saved_region_blocks party_region;
 
 save_game_data(save_mode)
