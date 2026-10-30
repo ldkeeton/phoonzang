@@ -2198,7 +2198,7 @@ jumptable_5eb8_case_74:
     push ax                          ; 0x4ebc
     mov ax, 0xb                      ; 0x4ebd
     push ax                          ; 0x4ec0
-    mov ax, MSG_SLAIN                ; 0x4ec1
+    mov ax, MSG_SLAIN_3482           ; 0x4ec1
     push ax                          ; 0x4ec4
     push word [bp - 0xc]             ; 0x4ec5
     push word [bp - 0xa]             ; 0x4ec8
@@ -3767,7 +3767,7 @@ api_idx_000e_KPGJ.forward112:
     add sp, byte 4                   ; 0x5d46
     mov ax, 0x55                     ; 0x5d49
     push ax                          ; 0x5d4c
-    mov ax, MSG_RECEIVES_THE         ; 0x5d4d
+    mov ax, MSG_RECEIVES_THE_BLESSING ; 0x5d4d
     push ax                          ; 0x5d50
     push word [bp - 6]               ; 0x5d51
     push word [bss_8464]             ; 0x5d54

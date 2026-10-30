@@ -69,7 +69,7 @@ def objs_dir(project):
 
 #: What ``make build`` keeps in ``.cache/<project>``: content-keyed, so a
 #: renamed routine never makes it stale.
-BUILD_KEEP = ('objs',)
+BUILD_KEEP = ('objs','data',)
 
 
 def aztec_lib_obj_dir(project):

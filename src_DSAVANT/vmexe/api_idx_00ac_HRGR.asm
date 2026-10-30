@@ -156,7 +156,7 @@ api_idx_00ac_HRGR:
     mov word [bp - 0x94], ax         ; 0x7b09
     mov ax, bss_9136                 ; 0x7b0d
     push ax                          ; 0x7b10
-    mov ax, MSG_TH                   ; 0x7b11
+    mov ax, MSG_THROWS_3384          ; 0x7b11
     push ax                          ; 0x7b14
     call load_message_string         ; 0x7b15
     add sp, byte 4                   ; 0x7b18

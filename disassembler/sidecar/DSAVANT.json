@@ -8,6 +8,311 @@
     "blocks": "MSG.DBS",
     "tree": "MISC.HDR"
   },
+  "data_files": {
+    "NEWGAME.DBS": {
+      "note": "the game a new party starts in (load_game_data, load_mode 0)",
+      "parts": [
+        {
+          "into": "scenario_header_data",
+          "size": 844,
+          "note": "the scenario header, as SCENARIO.HDR"
+        },
+        {
+          "memory": "game_block_a",
+          "size": 256,
+          "count": 32,
+          "note": "per map, the two 128-byte blocks read into game_block_a/b and moved to runtime_buffer_4k_a/b"
+        },
+        {
+          "into": "loaded_game_state",
+          "size": 76,
+          "note": "party position, time and status timers"
+        },
+        {
+          "into": "path_edges",
+          "size": 128,
+          "note": "the roads roaming NPCs plan over",
+          "field_labels": {
+            "end_a": "MSG_LOCATION_NAME_BASE",
+            "end_b": "MSG_LOCATION_NAME_BASE"
+          }
+        },
+        {
+          "into": "faction_attitudes",
+          "size": 144,
+          "record": 12,
+          "note": "row: faction; column: the faction it feels about",
+          "element_labels": "MSG_FACTION_NAME_BASE"
+        },
+        {
+          "into": "location_records",
+          "size": 104,
+          "element_labels": "MSG_LOCATION_NAME_BASE",
+          "field_labels": {
+            "reveals_location": "MSG_LOCATION_NAME_BASE",
+            "rumored_map": "MSG_MAP_NAME_BASE"
+          }
+        },
+        {
+          "into": "slot_event_logs",
+          "size": 330,
+          "note": "five most recent events per NPC",
+          "element_labels": "MSG_SLOT_NAME_BASE"
+        },
+        {
+          "into": "slot_records",
+          "size": 836,
+          "note": "the roaming NPCs; slot 21 is the party",
+          "element_labels": "MSG_SLOT_NAME_BASE",
+          "field_labels": {
+            "faction": "MSG_FACTION_NAME_BASE",
+            "home_location": "MSG_LOCATION_NAME_BASE",
+            "destination": "MSG_LOCATION_NAME_BASE",
+            "location": "MSG_LOCATION_NAME_BASE"
+          }
+        },
+        {
+          "into": "quest_maps",
+          "size": 66,
+          "element_labels": "MSG_MAP_NAME_BASE",
+          "field_labels": {
+            "holder": "MSG_SLOT_NAME_BASE",
+            "site_location": "MSG_LOCATION_NAME_BASE"
+          }
+        }
+      ]
+    },
+    "SAVEGAME.DBS": {
+      "note": "a saved game (load_game_data, load_mode 1); its record counts are not stored in the file",
+      "parts": [
+        {
+          "into": "scenario_header_data",
+          "size": 844,
+          "note": "the scenario header, as SCENARIO.HDR"
+        },
+        {
+          "into": "runtime_buffer_3k",
+          "size": 66,
+          "record": 6,
+          "note": "runtime_six_byte_count 6-byte records (log_maze_change)"
+        },
+        {
+          "memory": "game_block_a",
+          "size": 256,
+          "count": 32,
+          "note": "per map, the two 128-byte blocks read into game_block_a/b and moved to runtime_buffer_4k_a/b"
+        },
+        {
+          "into": "loaded_game_state",
+          "size": 76,
+          "note": "party position, time and status timers"
+        },
+        {
+          "into": "path_edges",
+          "size": 128,
+          "note": "the roads roaming NPCs plan over",
+          "field_labels": {
+            "end_a": "MSG_LOCATION_NAME_BASE",
+            "end_b": "MSG_LOCATION_NAME_BASE"
+          }
+        },
+        {
+          "into": "faction_attitudes",
+          "size": 144,
+          "record": 12,
+          "note": "row: faction; column: the faction it feels about",
+          "element_labels": "MSG_FACTION_NAME_BASE"
+        },
+        {
+          "into": "location_records",
+          "size": 104,
+          "element_labels": "MSG_LOCATION_NAME_BASE",
+          "field_labels": {
+            "reveals_location": "MSG_LOCATION_NAME_BASE",
+            "rumored_map": "MSG_MAP_NAME_BASE"
+          }
+        },
+        {
+          "into": "slot_event_logs",
+          "size": 330,
+          "note": "five most recent events per NPC",
+          "element_labels": "MSG_SLOT_NAME_BASE"
+        },
+        {
+          "into": "slot_records",
+          "size": 836,
+          "note": "the roaming NPCs; slot 21 is the party",
+          "element_labels": "MSG_SLOT_NAME_BASE",
+          "field_labels": {
+            "faction": "MSG_FACTION_NAME_BASE",
+            "home_location": "MSG_LOCATION_NAME_BASE",
+            "destination": "MSG_LOCATION_NAME_BASE",
+            "location": "MSG_LOCATION_NAME_BASE"
+          }
+        },
+        {
+          "into": "quest_maps",
+          "size": 66,
+          "element_labels": "MSG_MAP_NAME_BASE",
+          "field_labels": {
+            "holder": "MSG_SLOT_NAME_BASE",
+            "site_location": "MSG_LOCATION_NAME_BASE"
+          }
+        },
+        {
+          "into": "code_characters",
+          "size": 100
+        },
+        {
+          "into": "loaded_party_member",
+          "count": 6,
+          "note": "loaded_game_state.member_count records, copied to party_records"
+        }
+      ]
+    },
+    "SCENARIO.HDR": {
+      "note": "read over scenario_header_data (load_game_data)",
+      "parts": [
+        {
+          "into": "scenario_header_data",
+          "size": 844
+        }
+      ]
+    },
+    "DISK.HDR": {
+      "note": "read over disk_header (initialize_runtime_resources)",
+      "parts": [
+        {
+          "memory": "disk_header",
+          "size": 780
+        }
+      ]
+    },
+    "MASTER.HDR": {
+      "note": "read over record_size (initialize_runtime_resources)",
+      "parts": [
+        {
+          "memory": "record_size",
+          "size": 82
+        }
+      ]
+    },
+    "MSG.HDR": {
+      "note": "the message directory, read over message_directory (initialize_runtime_resources); find_message_record searches it",
+      "parts": [
+        {
+          "into": "message_directory",
+          "record": 11774,
+          "count": 1
+        }
+      ]
+    },
+    "MSG.DBS": {
+      "note": "1K message blocks, read into message_block_buffer (load_message_block); each record is a length byte, a character count and Huffman bits (unpack_record)",
+      "parts": [
+        {
+          "into": "message_block_buffer",
+          "record": 1024,
+          "records": "messages"
+        }
+      ]
+    },
+    "MISC.HDR": {
+      "note": "the Huffman tree unpack_record walks, read at misc_table_seg (load_startup_misc): a word per node, a character or the negated next node",
+      "parts": [
+        {
+          "raw": "misc_table",
+          "record": 1024,
+          "type": "unsigned",
+          "count": 1
+        }
+      ]
+    },
+    "PCFILE.DBS": {
+      "note": "the stored characters (transfer_pc_file_record): a header read over pc_file_record_size (initialize_runtime_resources), then records",
+      "parts": [
+        {
+          "memory": "pc_file_record_size",
+          "size": 24
+        },
+        {
+          "into": "party_records",
+          "count": 16,
+          "element_labels": "text"
+        }
+      ]
+    },
+    "SCENARIO.DBS": {
+      "note": "the records data_record_io reads: type t starts at record_base[t] (DISK.HDR), record_size[t] bytes each (MASTER.HDR)",
+      "parts": [
+        {
+          "into": "experience_thresholds",
+          "in": "vbase/read_class_experience_threshold.c",
+          "record": 64,
+          "note": "type 0, per class: experience for levels 2 to 17",
+          "element_labels": "MSG_CLASS_BASE",
+          "count": 14
+        },
+        {
+          "raw": "data_record_1",
+          "record": 72,
+          "note": "type 1 (items: read into stack buffers, not yet named)",
+          "element_labels": "text",
+          "count": 600
+        },
+        {
+          "into": "maze_data",
+          "record": 2768,
+          "note": "type 2, per level (load_current_maze_level)",
+          "count": 32
+        },
+        {
+          "into": "maze_tables",
+          "record": 2896,
+          "note": "type 3, per level (load_current_maze_level)",
+          "count": 32
+        },
+        {
+          "into": "party_char_ext",
+          "record": 232,
+          "note": "type 4 (add_party_member)",
+          "element_labels": "text",
+          "count": 250
+        },
+        {
+          "raw": "data_record_5",
+          "record": 148,
+          "note": "type 5 (read into a stack buffer, not yet named)",
+          "element_labels": "text",
+          "count": 96
+        },
+        {
+          "raw": "data_record_6",
+          "record": 32,
+          "note": "type 6 (read into a stack buffer, not yet named)",
+          "count": 800
+        },
+        {
+          "raw": "data_record_7",
+          "record": 54,
+          "note": "type 7 (read into a stack buffer, not yet named)",
+          "count": 200
+        },
+        {
+          "into": "slot_recs",
+          "record": 350,
+          "note": "type 8 (load_monster_picture)",
+          "count": 96
+        },
+        {
+          "into": "sound_slot_info",
+          "record": 12,
+          "note": "type 9 (load_sound_file)",
+          "count": 64
+        }
+      ]
+    }
+  },
   "compiler_flags": {
     "default": ["-n", "+b", "+m", "+c"],
     "asm": ["-dMODEL=0", "-l"],

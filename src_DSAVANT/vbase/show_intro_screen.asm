@@ -131,7 +131,7 @@ show_intro_screen:
     add sp, byte 8                   ; 0x9092
     mov ax, 0                        ; 0x9095
     push ax                          ; 0x9098
-    mov ax, MSG_31590                ; 0x9099
+    mov ax, MSG_THE_PLANET_GUARDIA_31590 ; 0x9099
     push ax                          ; 0x909c
     call play_intro_scene_four       ; 0x909d
     add sp, byte 4                   ; 0x90a0

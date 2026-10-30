@@ -87,7 +87,7 @@ api_idx_00a4_PTJS:
     jl short .back1                  ; 0x4f76
     cmp word [bp - 4], byte 0        ; 0x4f78
     jle short .forward2              ; 0x4f7c
-    mov ax, MSG_YOU_EARNED_A_S       ; 0x4f7e
+    mov ax, MSG_YOU_EARNED_A_SKILL_BONUS ; 0x4f7e
     push ax                          ; 0x4f81
     push word [bp + 4]               ; 0x4f82
     call api_idx_0088_LVJM           ; 0x4f85

@@ -127,7 +127,7 @@ def decode_messages(app_dir, spec):
 
     *spec* is the sidecar's ``message_data`` table (:func:`message_data`).
     Returns ``({id: text}, skipped)`` where *skipped* lists ids whose record
-    could not be read (a truncated block, or a record with no length byte).
+    could not be read (past the end of the file, or an empty record).
     """
     with open(os.path.join(app_dir, spec['tree']), 'rb') as f:
         tree = f.read()
@@ -151,16 +151,15 @@ def decode_messages(app_dir, spec):
     skipped = []
     steps = {}
     for first, offset, records_here, block in records:
-        data = blocks[block * 1024:(block + 1) * 1024]
-        if not data:
-            continue
-        position = offset
+        # Positions run on through the whole file: as load_message_string
+        # reads it, a record may start or end past its block's 1K.
+        position = block * 1024 + offset
         for number in range(first, first + records_here + 1):
-            if position >= len(data):
+            if position >= len(blocks):
                 skipped.append(number)
                 break
-            length = data[position]
-            record = data[position + 1:position + 1 + length]
+            length = blocks[position]
+            record = blocks[position + 1:position + 1 + length]
             position += length + 1
             if not record:
                 skipped.append(number)

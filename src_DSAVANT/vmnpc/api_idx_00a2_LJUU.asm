@@ -87,7 +87,7 @@ api_idx_00a2_LJUU:
     pop cx                           ; 0x991a
     lea ax, word [bp - 0x52]         ; 0x991b
     push ax                          ; 0x991e
-    mov ax, 0x642                    ; 0x991f
+    mov ax, MSG_WHAT_1602            ; 0x991f
     push ax                          ; 0x9922
     call api_idx_0080_TKTP           ; 0x9923
     add sp, byte 4                   ; 0x9926

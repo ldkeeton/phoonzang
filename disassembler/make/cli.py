@@ -12,6 +12,7 @@ from .purge import cmd_purge
 from .common import _apps
 from .elf import cmd_elf_rebuild
 from .init import cmd_init
+from .data_files import cmd_data_files
 from .inspect import cmd_data, cmd_info, cmd_probe
 from .lint import cmd_lint
 from .naming import cmd_name, cmd_refs, specs_from_makeflags
@@ -22,6 +23,10 @@ from .run import _parse_check_args, cmd_check, cmd_run
 from .stats_diff import cmd_stats_diff
 from .testing import cmd_test, run_tests
 from .verify import cmd_verify
+
+#: The segments ``make data PROJECT SEG OFFSET`` takes; any other second
+#: argument names a data file to decode.
+_SEGMENTS = ('DS', 'SS', 'ES', 'CS')
 
 HELP = '''Usage: make [command] [project...]
 
@@ -66,6 +71,10 @@ Commands (space-separated):
                             lists each dotted alias and the donors' own names
   make data PROJECT SEG OFFSET [BIN]  bytes at DS/SS/ES/CS:OFFSET, its canonical name
                             and whether the image file backs it
+  make data [PROJECT [FILE...]]  decode the sidecar's data_files (NEWGAME.DBS, ...) into
+                            C structs under .cache/PROJECT/data for review; each
+                            file must compile back to the original bytes.  The
+                            build never reads them
   make probe PROJECT BIN ROUTINE [FILE=path] [LINKED=1]
                             compile one candidate source with the routine's exact
                             tool/flags; print code, fixups and length.  LINKED=1
@@ -281,8 +290,17 @@ def main():
         return
 
     if '--data' in flags:
+        if not args:
+            for project in all_projects:
+                cmd_data_files(project, [])
+            return
+        if args and args[0] in all_projects and (
+                len(args) == 1 or args[1].upper() not in _SEGMENTS):
+            cmd_data_files(args[0], args[1:])
+            return
         if len(args) not in (3, 4) or args[0] not in all_projects:
-            print('Usage: make data PROJECT SEG OFFSET [BIN] [LEN=n]')
+            print('Usage: make data PROJECT SEG OFFSET [BIN] [LEN=n]\n'
+                  '       make data [PROJECT [FILE...]]')
             sys.exit(1)
         try:
             length = int(os.environ.get('LEN', make_vars.get('LEN', '16')), 0)

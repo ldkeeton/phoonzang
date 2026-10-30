@@ -56,7 +56,7 @@
 #define MSG_FAILURE_486 486           /* "Failure" */
 #define MSG_IS_DEAD 487               /* " Is Dead" */
 #define MSG_WEAPONRY 600              /* "WEAPONRY" */
-#define MSG_YOU_EARNED_A_S 605        /* "YOU EARNED A S" */
+#define MSG_YOU_EARNED_A_SKILL_BONUS 605/* "YOU EARNED A SKILL BONUS!" */
 #define MSG_YOU_GET_A_SKILL_BONUS 606 /* "YOU GET A SKILL BONUS!" */
 #define MSG_YOU_LEARNED_A_NEW_SPELL 702/* "YOU LEARNED A NEW $ SPELL!" */
 #define MSG_SELECT_A_NEW_SPELL_FOR_703 703/* "SELECT A NEW SPELL FOR YOUR SPELLBOOK" */
@@ -134,6 +134,7 @@
 #define MSG_BECOMES_ANGRY 1594        /* "^ BECOMES ANGRY!!" */
 #define MSG_ARE_YOU_SPEAKING_OF 1600  /* "Are you speaking of ^" */
 #define MSG_OR 1601                   /* "or ^?" */
+#define MSG_WHAT_1602 1602            /* "^ what?" */
 #define MSG_I_DON_T_KNOW_ABOUT_THAT 1603/* "I don't know about that..." */
 #define MSG_I_DON_T_UNDERSTAND 1604   /* "I don't understand..." */
 #define MSG_ARE_YOU_ASKING_ABOUT 1605 /* "Are you asking about ^?" */
@@ -248,7 +249,7 @@
 #define MSG_TURNS_INVISIBLE 3153      /* "TURNS INVISIBLE!" */
 #define MSG_REPLENISHED 3154          /* "REPLENISHED" */
 #define MSG_PROTECTED 3155            /* "PROTECTED" */
-#define MSG_RECEIVES_THE 3156         /* "RECEIVES THE " */
+#define MSG_RECEIVES_THE_BLESSING 3156/* "RECEIVES THE BLESSING!" */
 #define MSG_SILENCED_3200 3200        /* "SILENCED!" */
 #define MSG_FIZZLE_3201 3201          /* "FIZZLE!" */
 #define MSG_BACKFIRE 3202             /* "BACKFIRE!" */
@@ -304,7 +305,7 @@
 #define MSG_SQUIRTS 3348              /* "SQUIRTS" */
 #define MSG_SWINGS 3350               /* "SWINGS" */
 #define MSG_FIRES 3359                /* "FIRES" */
-#define MSG_TH 3384                   /* "TH" */
+#define MSG_THROWS_3384 3384          /* "THROWS" */
 #define MSG_BACKSTAB 3385             /* "BACKSTAB" */
 #define MSG_CASTS_3388 3388           /* "CASTS" */
 #define MSG_REAR 3390                 /* "REAR" */
@@ -318,7 +319,7 @@
 #define MSG_POISONED_3477 3477        /* "POISONED" */
 #define MSG_GOES_INSANE 3479          /* "GOES INSANE!" */
 #define MSG_NAUSEOUS_3480 3480        /* "NAUSEOUS" */
-#define MSG_SLAIN 3482                /* "SLAIN!" */
+#define MSG_SLAIN_3482 3482           /* "SLAIN!" */
 #define MSG_FALLS_UNCONSCIOUS_3484 3484/* "FALLS UNCONSCIOUS!" */
 #define MSG_TURNS_TO_STONE_3485 3485  /* "TURNS TO STONE!" */
 #define MSG_DIES_3486 3486            /* "DIES!" */
@@ -394,7 +395,7 @@
 #define MSG_BLINDED_5254 5254         /* "BLINDED" */
 #define MSG_POISONED_5255 5255        /* "POISONED" */
 #define MSG_VEGGIFIED 5257            /* "VEGGIFIED!" */
-#define MSG_SL 5260                   /* "SL" */
+#define MSG_SLAIN_5260 5260           /* "SLAIN" */
 #define MSG_CRITICAL_5261 5261        /* "CRITICAL" */
 #define MSG_TURNS_TO_STONE_5263 5263  /* "TURNS TO STONE!" */
 #define MSG_DIES_5264 5264            /* "DIES!" */
@@ -441,11 +442,11 @@
 #define MSG_THE_UMPANI_31565 31565    /* "The Umpani... &%?]" */
 #define MSG_THERE_IS_NO_MORE_TIME_31570 31570/* "There is no more time to lose... &%?]" */
 #define MSG_INSIDE_A_TINY_BIRD_OF_31580 31580/* "...Inside a tiny bird of steel, you have traveled far into the" */
-#define MSG_31590 31590
+#define MSG_THE_PLANET_GUARDIA_31590 31590/* "The planet Guardia... &%?]" */
 #define MSG_WE_HAVE_ARRIVED_EXCLA_31600 31600/* "'We have arrived!' exclaims Aletheides, and everyone scrambles as he" */
 #define MSG_INSIDE_THE_RUINS_OF_A_31650 31650/* "Inside the ruins of an abandoned temple, you have come in search" */
 #define MSG_PERCHED_UPON_HIS_THRO_31700 31700/* "Perched upon his throne, a great black dragon sits pondering the" */
-#define MSG_THEY_CALL_THEMSELVES_31715 31715/* "They call themselves the Umpani, and I listened a" */
+#define MSG_THEY_CALL_THEMSELVES_31715 31715/* "They call themselves the Umpani, and I listened as they talked of" */
 #define MSG_SOMEWHERE_AMONG_THE_S_31720 31720/* "Somewhere among the stars is a place they call Lost Guardia... &%?]" */
 #define MSG_THEY_ALSO_SPOKE_OF_TE_31730 31730/* "They also spoke of terrible creatures called" */
 #define MSG_AND_OF_A_BLACK_SHIP_A_31735 31735/* "And of a Black Ship approaching the lost world... &%?]" */

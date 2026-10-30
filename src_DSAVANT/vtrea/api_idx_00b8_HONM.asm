@@ -716,7 +716,7 @@ jumptable_1b19_case_4:
     push ax                          ; 0x1aee
     mov ax, 0                        ; 0x1aef
     push ax                          ; 0x1af2
-    mov ax, MSG_SL                   ; 0x1af3
+    mov ax, MSG_SLAIN_5260           ; 0x1af3
     push ax                          ; 0x1af6
     push word [bp - 2]               ; 0x1af7
     call api_idx_005a_SIOK           ; 0x1afa
@@ -1244,7 +1244,7 @@ api_idx_00b8_HONM.back12:
     push ax                          ; 0x1f81
     mov ax, 0xb                      ; 0x1f82
     push ax                          ; 0x1f85
-    mov ax, MSG_SL                   ; 0x1f86
+    mov ax, MSG_SLAIN_5260           ; 0x1f86
     push ax                          ; 0x1f89
     push word [bp - 2]               ; 0x1f8a
     call api_idx_005a_SIOK           ; 0x1f8d
