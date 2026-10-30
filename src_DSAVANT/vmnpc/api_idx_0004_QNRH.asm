@@ -21,7 +21,7 @@ api_idx_0004_QNRH:
     pop ax                           ; 0x239d
     add ax, cx                       ; 0x239e
     mov bx, ax                       ; 0x23a0
-    mov ax, word [bx + party_records + pc_rec.cell] ; 0x23a2
+    mov ax, word [bx + party_records + pc_rec.item_slots] ; 0x23a2
     cmp ax, word [bp + 6]            ; 0x23a6
     jne short .forward1              ; 0x23a9
     mov ax, word [bp - 4]            ; 0x23ab

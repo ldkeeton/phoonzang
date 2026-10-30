@@ -15,7 +15,7 @@ jumptable_2326_case_36:
     imul word [bp + 8]               ; 0x1cf0
     add ax, strict word 0x46         ; 0x1cf3
     push ax                          ; 0x1cf6
-    call loc_QQUT                    ; 0x1cf7
+    call adjust_spell_value          ; 0x1cf7
     add sp, byte 6                   ; 0x1cfa
     mov word [detection_spell_threshold], ax ; 0x1cfd
     jmp near jumptable_2326_case_50  ; 0x1d00
@@ -33,17 +33,17 @@ jumptable_2326_case_43:
     idiv cx                          ; 0x1d1d
     inc ax                           ; 0x1d1f
     push ax                          ; 0x1d20
-    call loc_QQUT                    ; 0x1d21
+    call adjust_spell_value          ; 0x1d21
     add sp, byte 6                   ; 0x1d24
     mov word [party_status_offset], ax ; 0x1d27
     jmp near jumptable_2326_case_50  ; 0x1d2a
 jumptable_2326_case_33:
     mov ax, 0x32                     ; 0x1d2d
     imul word [bp + 8]               ; 0x1d30
-    add word [bss_82f6], ax          ; 0x1d33
+    add word [spell_49_turns], ax    ; 0x1d33
     mov ax, 0                        ; 0x1d37
     push ax                          ; 0x1d3a
-    push word [bss_82f8]             ; 0x1d3b
+    push word [spell_49_strength]    ; 0x1d3b
     mov ax, word [bp + 8]            ; 0x1d3f
     dec ax                           ; 0x1d42
     mov cx, 2                        ; 0x1d43
@@ -51,19 +51,19 @@ jumptable_2326_case_33:
     idiv cx                          ; 0x1d47
     inc ax                           ; 0x1d49
     push ax                          ; 0x1d4a
-    call loc_QQUT                    ; 0x1d4b
+    call adjust_spell_value          ; 0x1d4b
     add sp, byte 6                   ; 0x1d4e
-    mov word [bss_82f8], ax          ; 0x1d51
+    mov word [spell_49_strength], ax ; 0x1d51
     jmp near jumptable_2326_case_50  ; 0x1d54
 jumptable_2326_case_30:
     mov ax, 5                        ; 0x1d57
     imul word [bp + 8]               ; 0x1d5a
-    add word [bss_8306], ax          ; 0x1d5d
+    add word [levitation_turns], ax  ; 0x1d5d
     jmp near jumptable_2326_case_50  ; 0x1d61
 jumptable_2326_case_31:
     mov ax, 0x64                     ; 0x1d64
     imul word [bp + 8]               ; 0x1d67
-    add word [bss_8302], ax          ; 0x1d6a
+    add word [spell_46_turns], ax    ; 0x1d6a
     jmp near jumptable_2326_case_50  ; 0x1d6e
 jumptable_2326_case_44:
     mov ax, 0x32                     ; 0x1d71
@@ -75,7 +75,7 @@ jumptable_2326_case_44:
     mov ax, 5                        ; 0x1d83
     imul word [bp + 8]               ; 0x1d86
     push ax                          ; 0x1d89
-    call loc_QQUT                    ; 0x1d8a
+    call adjust_spell_value          ; 0x1d8a
     add sp, byte 6                   ; 0x1d8d
     mov word [party_buff_charge], ax ; 0x1d90
     jmp near jumptable_2326_case_50  ; 0x1d93
@@ -516,7 +516,7 @@ jumptable_2326_case_39:
     push ax                          ; 0x21a6
     push ax                          ; 0x21a7
     push word [bp + 8]               ; 0x21a8
-    call animate_spell_target_grid   ; 0x21ab
+    call show_map_view               ; 0x21ab
     add sp, byte 6                   ; 0x21ae
     jmp near jumptable_2326_case_50  ; 0x21b1
 jumptable_2326_case_40:
@@ -525,7 +525,7 @@ jumptable_2326_case_40:
     mov ax, 0                        ; 0x21b8
     push ax                          ; 0x21bb
     push word [bp + 8]               ; 0x21bc
-    call animate_spell_target_grid   ; 0x21bf
+    call show_map_view               ; 0x21bf
     add sp, byte 6                   ; 0x21c2
     jmp near jumptable_2326_case_50  ; 0x21c5
 jumptable_2326_case_47:
@@ -662,7 +662,7 @@ apply_spell_effect.forward29:
     mov ax, 1                        ; 0x2308
     push ax                          ; 0x230b
     push word [bp - 2]               ; 0x230c
-    call animate_spell_target_grid   ; 0x230f
+    call show_map_view               ; 0x230f
     add sp, byte 6                   ; 0x2312
     jmp short jumptable_2326_case_50 ; 0x2315
 jumptable_2326_case_41:

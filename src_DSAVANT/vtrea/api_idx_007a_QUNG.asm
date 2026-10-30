@@ -259,7 +259,7 @@ api_idx_007a_QUNG.forward11:
     cmp word [bp - 8], byte 3        ; 0x5169
     jne short api_idx_007a_QUNG.forward12 ; 0x516d
     push word [bp - 6]               ; 0x516f
-    call api_idx_0092_GSQH           ; 0x5172
+    call treasure_use_item_menu      ; 0x5172
     pop cx                           ; 0x5175
 api_idx_007a_QUNG.forward12:
     cmp word [bss_95e0], byte 1      ; 0x5176

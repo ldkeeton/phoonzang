@@ -29,8 +29,8 @@ report_line1_none equ __zdseg_end + (__zreport_line1_none - __zdata_start)
 report_line2_none equ __zdseg_end + (__zreport_line2_none - __zdata_start)
 dseg_909a equ __zdseg_end + (__zdseg_909a - __zdata_start)
 spell_screen_temp_file equ __zdseg_end + (__zspell_screen_temp_file - __zdata_start)
-dseg_90a4 equ __zdseg_end + (__zdseg_90a4 - __zdata_start)
-dseg_90aa equ __zdseg_end + (__zdseg_90aa - __zdata_start)
+item_dialog_temp_file equ __zdseg_end + (__zitem_dialog_temp_file - __zdata_start)
+item_dialog_first_label equ __zdseg_end + (__zitem_dialog_first_label - __zdata_start)
 save_si equ __zdseg_end + (__zsave_si - __zdata_start)
 save_di equ __zdseg_end + (__zsave_di - __zdata_start)
 save_sp equ __zdseg_end + (__zsave_sp - __zdata_start)
@@ -39,36 +39,36 @@ save_ret equ __zdseg_end + (__zsave_ret - __zdata_start)
 _Uorg equ __zdseg_end + (__zobss_90b6 - __zdata_start)
 pending_event equ __zdseg_end + (__zobss_90b6 - __zdata_start)
 pending_event_hi equ __zdseg_end + (__zobss_90b8 - __zdata_start)
-target_grid_primary equ __zdseg_end + (__zobss_90ba - __zdata_start)
-target_spell_row_count equ __zdseg_end + (__zobss_9342 - __zdata_start)
-target_spell_final_left equ __zdseg_end + (__zobss_9344 - __zdata_start)
-target_grid_secondary equ __zdseg_end + (__zobss_9346 - __zdata_start)
-bss_9348 equ __zdseg_end + (__zobss_9348 - __zdata_start)
-bss_95ac equ __zdseg_end + (__zobss_95ac - __zdata_start)
-target_spell_final_right equ __zdseg_end + (__zobss_95ce - __zdata_start)
-target_grid_tertiary equ __zdseg_end + (__zobss_95d0 - __zdata_start)
-target_grid_mode equ __zdseg_end + (__zobss_9858 - __zdata_start)
-target_grid_overlay_flags equ __zdseg_end + (__zobss_985a - __zdata_start)
-target_spell_index_a equ __zdseg_end + (__zobss_9ae2 - __zdata_start)
-target_spell_index_b equ __zdseg_end + (__zobss_9ae4 - __zdata_start)
-target_spell_index_f equ __zdseg_end + (__zobss_9ae6 - __zdata_start)
-target_spell_index_e equ __zdseg_end + (__zobss_9ae8 - __zdata_start)
-target_spell_fixed_index equ __zdseg_end + (__zobss_9aea - __zdata_start)
-target_spell_index_d equ __zdseg_end + (__zobss_9aec - __zdata_start)
-target_spell_index_c equ __zdseg_end + (__zobss_9aee - __zdata_start)
-target_spell_base_index equ __zdseg_end + (__zobss_9af0 - __zdata_start)
-target_spell_column_offset equ __zdseg_end + (__zobss_9af2 - __zdata_start)
-target_spell_row_offset equ __zdseg_end + (__zobss_9af4 - __zdata_start)
-target_spell_middle_left equ __zdseg_end + (__zobss_9af6 - __zdata_start)
-target_spell_top_left equ __zdseg_end + (__zobss_9af8 - __zdata_start)
-target_spell_lower_left equ __zdseg_end + (__zobss_9afa - __zdata_start)
-target_spell_center_left equ __zdseg_end + (__zobss_9afc - __zdata_start)
-target_spell_middle_right equ __zdseg_end + (__zobss_9afe - __zdata_start)
-target_spell_top_right equ __zdseg_end + (__zobss_9b00 - __zdata_start)
-target_spell_lower_right equ __zdseg_end + (__zobss_9b02 - __zdata_start)
-target_spell_center_right equ __zdseg_end + (__zobss_9b04 - __zdata_start)
-target_spell_column_count equ __zdseg_end + (__zobss_9b06 - __zdata_start)
-target_spell_fixed_pair equ __zdseg_end + (__zobss_9b08 - __zdata_start)
+map_floor_glyphs equ __zdseg_end + (__zobss_90ba - __zdata_start)
+map_outside_glyph equ __zdseg_end + (__zobss_9342 - __zdata_start)
+map_outside_ns_wall_glyph equ __zdseg_end + (__zobss_9344 - __zdata_start)
+map_ns_wall_glyphs equ __zdseg_end + (__zobss_9346 - __zdata_start)
+map_ns_wall_glyphs_south equ __zdseg_end + (__zobss_9348 - __zdata_start)
+map_ew_wall_glyphs_west equ __zdseg_end + (__zobss_95ac - __zdata_start)
+map_outside_ew_wall_glyph equ __zdseg_end + (__zobss_95ce - __zdata_start)
+map_ew_wall_glyphs equ __zdseg_end + (__zobss_95d0 - __zdata_start)
+map_show_objects equ __zdseg_end + (__zobss_9858 - __zdata_start)
+map_object_marks equ __zdseg_end + (__zobss_985a - __zdata_start)
+map_kind1_glyph equ __zdseg_end + (__zobss_9ae2 - __zdata_start)
+map_kind2_glyph equ __zdseg_end + (__zobss_9ae4 - __zdata_start)
+map_kind8_glyph equ __zdseg_end + (__zobss_9ae6 - __zdata_start)
+map_kind9_glyph equ __zdseg_end + (__zobss_9ae8 - __zdata_start)
+map_special_glyph equ __zdseg_end + (__zobss_9aea - __zdata_start)
+map_kind14_glyph equ __zdseg_end + (__zobss_9aec - __zdata_start)
+map_kind15_glyph equ __zdseg_end + (__zobss_9aee - __zdata_start)
+map_floor_glyph equ __zdseg_end + (__zobss_9af0 - __zdata_start)
+map_flag1_glyph equ __zdseg_end + (__zobss_9af2 - __zdata_start)
+map_flag2_glyph equ __zdseg_end + (__zobss_9af4 - __zdata_start)
+map_wall1_ns_glyph equ __zdseg_end + (__zobss_9af6 - __zdata_start)
+map_wall2_ns_glyph equ __zdseg_end + (__zobss_9af8 - __zdata_start)
+map_wall3_ns_glyph equ __zdseg_end + (__zobss_9afa - __zdata_start)
+map_wall4_ns_glyph equ __zdseg_end + (__zobss_9afc - __zdata_start)
+map_wall1_ew_glyph equ __zdseg_end + (__zobss_9afe - __zdata_start)
+map_wall2_ew_glyph equ __zdseg_end + (__zobss_9b00 - __zdata_start)
+map_wall3_ew_glyph equ __zdseg_end + (__zobss_9b02 - __zdata_start)
+map_wall4_ew_glyph equ __zdseg_end + (__zobss_9b04 - __zdata_start)
+map_wall2_enclosed_glyph equ __zdseg_end + (__zobss_9b06 - __zdata_start)
+map_wall4_enclosed_glyph equ __zdseg_end + (__zobss_9b08 - __zdata_start)
 grid_origin_y equ __zdseg_end + (__zobss_9b0a - __zdata_start)
 grid_origin_x equ __zdseg_end + (__zobss_9b0c - __zdata_start)
 known_spell_ids equ __zdseg_end + (__zobss_9b0e - __zdata_start)
@@ -121,17 +121,17 @@ jumptable_0457        equ log_maze_change.jumptable1
 
 %include "shared/ovr/get_cell_wall.asm"         ; 0x08b9
 
-%include "vdopt/loc_MOTJ.asm"              ; 0x095a
+%include "vdopt/set_adjacent_map_cell_glyph.asm" ; 0x095a
 
-%include "vdopt/set_spell_target_grid_cell.asm" ; 0x09c0
+%include "vdopt/build_map_view_cell.asm"   ; 0x09c0
 
-%include "vdopt/match_spell_target_grid_cell.asm" ; 0x0ede
+%include "vdopt/apply_enclosed_cell_glyph.asm" ; 0x0ede
 
-%include "vdopt/draw_spell_target_marker.asm" ; 0x0f52
+%include "vdopt/draw_map_object_marker.asm" ; 0x0f52
 
 %include "vdopt/draw_grid_cell_char.asm"   ; 0x0f7f
 
-%include "vdopt/animate_spell_target_grid.asm" ; 0x0fd3
+%include "vdopt/show_map_view.asm"         ; 0x0fd3
 
 %include "shared/ovr/restore_area_a_draw_glyph.asm" ; 0x190b
 
@@ -139,11 +139,11 @@ jumptable_0457        equ log_maze_change.jumptable1
 
 %include "vdopt/roll_slot_detection_report.asm" ; 0x1a5d
 
-%include "shared/ovr/loc_QQUT.asm"              ; 0x1c7f
+%include "shared/ovr/adjust_spell_value.asm"    ; 0x1c7f
 
 %include "vdopt/apply_spell_effect.asm"    ; 0x1ccf
 
-%include "vdopt/trigger_keyed_cell_object.asm" ; 0x238d
+%include "vdopt/trigger_item_cell_object.asm" ; 0x238d
 
 %include "shared/ovr/draw_party_slot_letters.asm" ; 0x25a8
 
@@ -169,19 +169,19 @@ jumptable_35d1_case_4 equ pick_spell_dialog.jumptable_case4
 jumptable_35d1        equ pick_spell_dialog.jumptable1
 %include "shared/ovr/pick_spell_dialog.asm"     ; 0x2988
 
-%include "shared/ovr/api_idx_0008_RQRL.asm"     ; 0x362f
+%include "shared/ovr/find_floor_item_slot.asm"  ; 0x362f
 
-%include "shared/ovr/api_idx_0004_UJRL.asm"     ; 0x36bb
+%include "shared/ovr/add_floor_item.asm"        ; 0x36bb
 
-%include "shared/ovr/api_idx_0018_RGOS.asm"     ; 0x378c
+%include "shared/ovr/draw_selected_button_label.asm" ; 0x378c
 
 %include "shared/ovr/draw_list_rows.asm"        ; 0x3889
 
-%include "shared/ovr/loc_HTKI.asm"              ; 0x39eb
+%include "shared/ovr/draw_inset_list_rows.asm"  ; 0x39eb
 
-%include "vdopt/api_idx_0038_IJVP.asm"     ; 0x3a2c
+%include "vdopt/item_action_dialog.asm"    ; 0x3a2c
 
-%include "vdopt/api_idx_0094_LUVH.asm"     ; 0x417c
+%include "vdopt/use_item_menu.asm"         ; 0x417c
 
 %include "vdopt/cast_spell_from_menu.asm"  ; 0x45dd
 
@@ -194,7 +194,9 @@ __zdata_start:
 
 %include "shared/data/spell_screen_temp_file.asm" ; 0x4735
 
-%include "vdopt/data/dseg_90a4.asm"        ; 0x473b
+%include "vdopt/data/item_dialog_temp_file.asm" ; 0x473b
+
+%include "vdopt/data/item_dialog_first_label.asm" ; 0x4741
 
 %include "shared/data/overlay_saved_registers.asm" ; 0x4743
 

@@ -219,9 +219,9 @@ jumptable_1556         equ api_idx_0004_SMLK.jumptable1
 
 %include "vmaze/api_idx_0010_HOIJ.asm"     ; 0x2033
 
-%include "shared/ovr/api_idx_0006_TMNI.asm"     ; 0x20dc
+%include "shared/ovr/find_floor_item_at_party.asm" ; 0x20dc
 
-%include "shared/ovr/api_idx_0006_KPLV.asm"     ; 0x2133
+%include "shared/ovr/refresh_floor_item_icon.asm" ; 0x2133
 
 %include "vmaze/display_maze_message.asm"  ; 0x21e3
 

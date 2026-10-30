@@ -115,15 +115,15 @@ draw_spell_cost.dseg1 equ dseg_90bb
 
 %include "vpops/pick_spell_action.asm"     ; 0x2947
 
-%include "shared/ovr/api_idx_0018_RGOS.asm"     ; 0x29f2
+%include "shared/ovr/draw_selected_button_label.asm" ; 0x29f2
 
 %include "shared/ovr/draw_list_rows.asm"        ; 0x2aef
 
-%include "shared/ovr/loc_HTKI.asm"              ; 0x2c51
+%include "shared/ovr/draw_inset_list_rows.asm"  ; 0x2c51
 
-%include "vpops/api_idx_0038_ONOS.asm"     ; 0x2c92
+%include "vpops/use_or_cancel_item_dialog.asm" ; 0x2c92
 
-%include "vpops/api_idx_0094_NVHQ.asm"     ; 0x33db
+%include "vpops/choose_member_item_to_use.asm" ; 0x33db
 
 %include "vpops/api_idx_0006_QUSK.asm"     ; 0x36c0
 

@@ -16,7 +16,7 @@ struct maze_tables {
 	unsigned char f960[240];
 	unsigned char arg[240];		/* +0xa50: per type: level (type 7, region
 					   moves; 99 = none), sound, or owner */
-	unsigned char map_first[1];	/* indexed by map piece */
+	unsigned char map_first[16];	/* first object indexed by map piece */
 };
 
 #endif

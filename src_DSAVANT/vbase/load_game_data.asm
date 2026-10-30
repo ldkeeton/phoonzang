@@ -402,7 +402,7 @@ load_game_data:
     mov ax, 0xffff                   ; 0x33a9
     ret                              ; 0x33ac
 .forward23:
-    mov ax, word [runtime_eight_byte_count] ; 0x33ad
+    mov ax, word [floor_item_count]  ; 0x33ad
     shl ax, 1                        ; 0x33b0
     shl ax, 1                        ; 0x33b2
     shl ax, 1                        ; 0x33b4
@@ -410,7 +410,7 @@ load_game_data:
     cmp ax, strict word 0            ; 0x33b9
     jle short .forward25             ; 0x33bc
     push ax                          ; 0x33be
-    push word [runtime_near_buffer_1k] ; 0x33bf
+    push word [floor_items]          ; 0x33bf
     push word [bp - 0xa]             ; 0x33c3
     call aztec_read                  ; 0x33c6
     add sp, byte 6                   ; 0x33c9

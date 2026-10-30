@@ -22,7 +22,7 @@ api_idx_004e_KMPP:
     pop ax                           ; 0x4b34
     add ax, cx                       ; 0x4b35
     mov bx, ax                       ; 0x4b37
-    cmp word [bx + party_records + pc_rec.cell], byte 0 ; 0x4b39
+    cmp word [bx + party_records + pc_rec.item_slots], byte 0 ; 0x4b39
     jle short .forward1              ; 0x4b3e
     inc word [bp - 2]                ; 0x4b40
     jmp short .back1                 ; 0x4b43
@@ -110,7 +110,7 @@ api_idx_004e_KMPP:
     or byte [bx + 7], 0x40           ; 0x4c15
 .forward6:
     push word [bp + 4]               ; 0x4c19
-    call sum_page_cell_values        ; 0x4c1c
+    call sum_member_item_power       ; 0x4c1c
     pop cx                           ; 0x4c1f
     ret                              ; 0x4c20
 loc_VPRH:

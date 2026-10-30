@@ -121,7 +121,7 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "vtrea/update_treasure_frame.asm" ; 0x07de
 
-%include "vtrea/loc_IKLI.asm"              ; 0x086b
+%include "vtrea/tick_treasure_animation.asm" ; 0x086b
 
 %include "vtrea/api_idx_0004_UQUT.asm"     ; 0x08eb
 
@@ -169,31 +169,31 @@ process_scene_message_words.process_scene_message_controls1 equ api_idx_0090_LKI
 
 %include "vtrea/api_idx_0084_ILQU.asm"     ; 0x25ab
 
-%include "shared/ovr/api_idx_0008_RQRL.asm"     ; 0x3552
+%include "shared/ovr/find_floor_item_slot.asm"  ; 0x3552
 
-%include "shared/ovr/api_idx_0004_UJRL.asm"     ; 0x35de
+%include "shared/ovr/add_floor_item.asm"        ; 0x35de
 
-%include "shared/ovr/api_idx_0006_TMNI.asm"     ; 0x36af
+%include "shared/ovr/find_floor_item_at_party.asm" ; 0x36af
 
-%include "shared/ovr/api_idx_0006_KPLV.asm"     ; 0x3706
+%include "shared/ovr/refresh_floor_item_icon.asm" ; 0x3706
 
-%include "shared/ovr/api_idx_0018_RGOS.asm"     ; 0x37b6
+%include "shared/ovr/draw_selected_button_label.asm" ; 0x37b6
 
 %include "shared/ovr/draw_list_rows.asm"        ; 0x38b3
 
-%include "shared/ovr/loc_HTKI.asm"              ; 0x3a15
+%include "shared/ovr/draw_inset_list_rows.asm"  ; 0x3a15
 
-%include "vtrea/api_idx_0038_NNNK.asm"     ; 0x3a56
+%include "vtrea/item_or_loot_dialog.asm"   ; 0x3a56
 
 %include "vtrea/api_idx_0054_NJIS.asm"     ; 0x4254
 
-%include "shared/ovr/loc_QQUT.asm"              ; 0x4318
+%include "shared/ovr/adjust_spell_value.asm"    ; 0x4318
 
 %include "vtrea/apply_spell_effect_alt.asm" ; 0x4368
 
 %include "vtrea/cast_spell_from_dialog.asm" ; 0x4ad8
 
-%include "vtrea/api_idx_0092_GSQH.asm"     ; 0x4bcc
+%include "vtrea/treasure_use_item_menu.asm" ; 0x4bcc
 
 %include "vtrea/api_idx_007a_QUNG.asm"     ; 0x4f0c
 
@@ -201,7 +201,7 @@ process_scene_message_words.process_scene_message_controls1 equ api_idx_0090_LKI
 
 %include "shared/ovr/api_idx_0004_ONJT.asm"     ; 0x52ec
 
-%include "vtrea/api_idx_0040_LIPH.asm"     ; 0x5348
+%include "vtrea/divvy_loot_menu.asm"       ; 0x5348
 
 %include "vtrea/api_idx_0006_OUPU.asm"     ; 0x550e
 

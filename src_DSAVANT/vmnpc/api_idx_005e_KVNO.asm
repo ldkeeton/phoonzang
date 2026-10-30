@@ -26,7 +26,7 @@ api_idx_005e_KVNO:
     pop ax                           ; 0x5819
     add ax, cx                       ; 0x581a
     mov bx, ax                       ; 0x581c
-    mov ax, word [bx + party_records + pc_rec.cell] ; 0x581e
+    mov ax, word [bx + party_records + pc_rec.item_slots] ; 0x581e
     mov word [bp - 8], ax            ; 0x5822
     mov ax, 0                        ; 0x5825
     push ax                          ; 0x5828
@@ -66,7 +66,7 @@ api_idx_005e_KVNO:
     pop ax                           ; 0x5875
     add ax, cx                       ; 0x5876
     mov bx, ax                       ; 0x5878
-    mov al, byte [bx + party_records + pc_rec.cell + 0x6] ; 0x587a
+    mov al, byte [bx + party_records + pc_rec.item_slots + 0x6] ; 0x587a
     sub ah, ah                       ; 0x587e
     mov word [bp - 6], ax            ; 0x5880
     cmp ax, strict word 1            ; 0x5883
@@ -237,7 +237,7 @@ api_idx_005e_KVNO:
     pop ax                           ; 0x59d8
     add ax, cx                       ; 0x59d9
     mov bx, ax                       ; 0x59db
-    mov al, byte [bx + party_records + pc_rec.cell + 0x7] ; 0x59dd
+    mov al, byte [bx + party_records + pc_rec.item_slots + 0x7] ; 0x59dd
     sub ah, ah                       ; 0x59e1
     test ax, 1                       ; 0x59e3
     je short .forward15              ; 0x59e6
@@ -360,7 +360,7 @@ api_idx_005e_KVNO:
     pop ax                           ; 0x5af2
     add ax, cx                       ; 0x5af3
     mov bx, ax                       ; 0x5af5
-    mov ax, word [bx + party_records + pc_rec.cell] ; 0x5af7
+    mov ax, word [bx + party_records + pc_rec.item_slots] ; 0x5af7
     mov word [bp - 8], ax            ; 0x5afb
     push ax                          ; 0x5afe
     call loc_GMVH                    ; 0x5aff
@@ -381,7 +381,7 @@ api_idx_005e_KVNO:
     push word [bp - 0xc]             ; 0x5b1d
     push word [bp - 0xa]             ; 0x5b20
     push word [bp + 4]               ; 0x5b23
-    call clear_cell_key              ; 0x5b26
+    call clear_item_slot             ; 0x5b26
     add sp, byte 6                   ; 0x5b29
     push word [bp + 6]               ; 0x5b2c
     call api_idx_0002_MIIL           ; 0x5b2f

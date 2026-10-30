@@ -5,10 +5,10 @@ api_idx_000e_PTNT:
     push word [bp + 8]               ; 0x1794
     push word [bp + 6]               ; 0x1797
     push word [bp + 4]               ; 0x179a
-    call ds_app_UTUH                 ; 0x179d
+    call consume_item_charge         ; 0x179d
     add sp, byte 6                   ; 0x17a0
     push word [bp + 4]               ; 0x17a3
-    call sum_page_cell_values        ; 0x17a6
+    call sum_member_item_power       ; 0x17a6
     pop cx                           ; 0x17a9
     push word [bp + 4]               ; 0x17aa
     call api_idx_0012_PGSL           ; 0x17ad

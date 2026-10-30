@@ -17,7 +17,7 @@ api_idx_00c2_OUOT:
     pop ax                           ; 0x551d
     add ax, cx                       ; 0x551e
     mov bx, ax                       ; 0x5520
-    mov al, byte [bx + party_records + pc_rec.cell + 0x7] ; 0x5522
+    mov al, byte [bx + party_records + pc_rec.item_slots + 0x7] ; 0x5522
     sub ah, ah                       ; 0x5526
     test ax, 2                       ; 0x5528
     je short .forward1               ; 0x552b
@@ -68,10 +68,10 @@ api_idx_00c2_OUOT:
     pop ax                           ; 0x5593
     add ax, cx                       ; 0x5594
     mov bx, ax                       ; 0x5596
-    mov al, byte [bx + party_records + pc_rec.cell + 0x7] ; 0x5598
+    mov al, byte [bx + party_records + pc_rec.item_slots + 0x7] ; 0x5598
     sub ah, ah                       ; 0x559c
     and ax, strict word 0xfffe       ; 0x559e
-    mov byte [bx + party_records + pc_rec.cell + 0x7], al ; 0x55a1
+    mov byte [bx + party_records + pc_rec.item_slots + 0x7], al ; 0x55a1
     add bx, strict word 0x5c34       ; 0x55a5
     mov si, bx                       ; 0x55a9
     lea di, word [bp - 0x2c]         ; 0x55ab
@@ -97,7 +97,7 @@ api_idx_00c2_OUOT:
     push word [bp + 6]               ; 0x55e0
     push word [roster_page]          ; 0x55e3
     push word [bp + 4]               ; 0x55e7
-    call clear_cell_key              ; 0x55ea
+    call clear_item_slot             ; 0x55ea
     add sp, byte 6                   ; 0x55ed
     mov word [roster_alt_mode], 1    ; 0x55f0
     push word [bp + 4]               ; 0x55f6
@@ -696,9 +696,9 @@ api_idx_00c2_OUOT:
     pop ax                           ; 0x5b55
     add ax, cx                       ; 0x5b56
     mov bx, ax                       ; 0x5b58
-    cmp word [bx + party_records + pc_rec.cell], byte 0 ; 0x5b5a
+    cmp word [bx + party_records + pc_rec.item_slots], byte 0 ; 0x5b5a
     jle short .forward26             ; 0x5b5f
-    mov al, byte [bx + party_records + pc_rec.cell + 0x7] ; 0x5b61
+    mov al, byte [bx + party_records + pc_rec.item_slots + 0x7] ; 0x5b61
     sub ah, ah                       ; 0x5b65
     test ax, 2                       ; 0x5b67
     je short .forward26              ; 0x5b6a
@@ -723,10 +723,10 @@ api_idx_00c2_OUOT:
     pop ax                           ; 0x5b99
     add ax, cx                       ; 0x5b9a
     mov bx, ax                       ; 0x5b9c
-    mov al, byte [bx + party_records + pc_rec.cell + 0x7] ; 0x5b9e
+    mov al, byte [bx + party_records + pc_rec.item_slots + 0x7] ; 0x5b9e
     sub ah, ah                       ; 0x5ba2
     and ax, strict word 0xfffe       ; 0x5ba4
-    mov byte [bx + party_records + pc_rec.cell + 0x7], al ; 0x5ba7
+    mov byte [bx + party_records + pc_rec.item_slots + 0x7], al ; 0x5ba7
     add bx, strict word 0x5c34       ; 0x5bab
     mov si, bx                       ; 0x5baf
     lea di, word [bp - 0x38]         ; 0x5bb1
@@ -752,7 +752,7 @@ api_idx_00c2_OUOT:
     push word [bp + 6]               ; 0x5be6
     push word [roster_page]          ; 0x5be9
     push word [bp + 4]               ; 0x5bed
-    call clear_cell_key              ; 0x5bf0
+    call clear_item_slot             ; 0x5bf0
     add sp, byte 6                   ; 0x5bf3
     cmp word [bp - 0x1c], byte 0     ; 0x5bf6
     je short .forward29              ; 0x5bfa
@@ -1122,7 +1122,7 @@ api_idx_00c2_OUOT:
 .forward40:
     lea ax, word [bp - 0x2c]         ; 0x5f5c
     push ax                          ; 0x5f5f
-    call api_idx_0004_UJRL           ; 0x5f60
+    call add_floor_item              ; 0x5f60
     pop cx                           ; 0x5f63
     mov word [roster_alt_mode], 0    ; 0x5f64
     mov ax, 6                        ; 0x5f6a

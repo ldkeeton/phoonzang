@@ -227,7 +227,7 @@ loc_TRPK.dseg2 equ dseg_90a1
 
 %include "vpcvw/loc_IIRG.asm"              ; 0x2190
 
-%include "shared/ovr/loc_QQUT.asm"              ; 0x21ad
+%include "shared/ovr/adjust_spell_value.asm"    ; 0x21ad
 
 %include "vpcvw/api_idx_0008_SJVU.asm"     ; 0x21fd
 
@@ -307,9 +307,9 @@ loc_TTSP.bss1 equ bss_9432
 
 %include "vpcvw/api_idx_0010_NNNH.asm"     ; 0x5050
 
-%include "shared/ovr/api_idx_0008_RQRL.asm"     ; 0x539e
+%include "shared/ovr/find_floor_item_slot.asm"  ; 0x539e
 
-%include "shared/ovr/api_idx_0004_UJRL.asm"     ; 0x542a
+%include "shared/ovr/add_floor_item.asm"        ; 0x542a
 
 %include "vpcvw/api_idx_00c2_OUOT.asm"     ; 0x54fb
 

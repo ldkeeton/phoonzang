@@ -647,7 +647,7 @@ api_idx_0074_MHUG:
     push ax                          ; 0x6cbd
     call call_show_area              ; 0x6cbe
     add sp, byte 8                   ; 0x6cc1
-    call loc_IKLI                    ; 0x6cc4
+    call tick_treasure_animation     ; 0x6cc4
     test ax, ax                      ; 0x6cc7
     jne short .forward16             ; 0x6cc9
     mov ax, 0x19                     ; 0x6ccb

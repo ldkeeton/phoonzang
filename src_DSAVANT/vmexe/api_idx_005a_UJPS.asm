@@ -49,7 +49,7 @@ api_idx_005a_UJPS:
     pop ax                           ; 0x9fcb
     add ax, cx                       ; 0x9fcc
     mov bx, ax                       ; 0x9fce
-    push word [bx + party_records + pc_rec.cell] ; 0x9fd0
+    push word [bx + party_records + pc_rec.item_slots] ; 0x9fd0
     lea ax, word [bp - 0x5a]         ; 0x9fd4
     push ax                          ; 0x9fd7
     mov ax, 1                        ; 0x9fd8
@@ -71,7 +71,7 @@ api_idx_005a_UJPS:
     pop ax                           ; 0x9ffe
     add ax, cx                       ; 0x9fff
     mov bx, ax                       ; 0xa001
-    mov al, byte [bx + party_records + pc_rec.cell + 0x7] ; 0xa003
+    mov al, byte [bx + party_records + pc_rec.item_slots + 0x7] ; 0xa003
     sub ah, ah                       ; 0xa007
     test ax, 0x80                    ; 0xa009
     je short .forward2               ; 0xa00c
@@ -248,7 +248,7 @@ api_idx_005a_UJPS:
     pop ax                           ; 0xa18c
     add ax, cx                       ; 0xa18d
     mov bx, ax                       ; 0xa18f
-    cmp word [bx + party_records + pc_rec.cell], strict word 0x1d4 ; 0xa191
+    cmp word [bx + party_records + pc_rec.item_slots], strict word 0x1d4 ; 0xa191
     jne short .forward13             ; 0xa197
     mov ax, bss_9136                 ; 0xa199
     push ax                          ; 0xa19c
@@ -337,7 +337,7 @@ api_idx_005a_UJPS:
     pop ax                           ; 0xa25d
     add ax, cx                       ; 0xa25e
     mov bx, ax                       ; 0xa260
-    mov byte [bx + party_records + pc_rec.cell + 0x6], 1 ; 0xa262
+    mov byte [bx + party_records + pc_rec.item_slots + 0x6], 1 ; 0xa262
     push word [bp - 0xa]             ; 0xa267
     push word [bp - 8]               ; 0xa26a
     push word [bss_8462]             ; 0xa26d
@@ -359,7 +359,7 @@ api_idx_005a_UJPS:
     pop ax                           ; 0xa293
     add ax, cx                       ; 0xa294
     mov bx, ax                       ; 0xa296
-    cmp word [bx + party_records + pc_rec.cell], strict word 0x218 ; 0xa298
+    cmp word [bx + party_records + pc_rec.item_slots], strict word 0x218 ; 0xa298
     jne short .forward27             ; 0xa29e
     mov ax, word [bp - 0xc]          ; 0xa2a0
     shl ax, 1                        ; 0xa2a3

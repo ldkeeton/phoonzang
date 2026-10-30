@@ -3,13 +3,13 @@
 #ifndef PCREC_H
 #define PCREC_H
 
-struct grid_cell {			/* 12 bytes */
-	int key;			/* +0x0: 0 when free, counted when positive */
+struct pc_item_slot {			/* 12 bytes */
+	int item_id;		/* +0x0: 0 when free, counted when positive */
 	int value;			/* +0x2: value of one level */
 	unsigned char overlay;		/* +0x4: index into cell_overlay_code */
 	unsigned char glyph;		/* +0x5: icon drawn on the member panel */
 	unsigned char level;		/* +0x6 */
-	unsigned char flags;		/* +0x7: bit 0 keyed */
+	unsigned char flags;		/* +0x7: bit 0 equipped */
 	unsigned char pos[2];		/* +0x8: high nibble column, low nibble * 10px */
 	unsigned char coord;		/* +0xa: packed nibbles tracked as maxima */
 	unsigned char weight;		/* +0xb */
@@ -33,7 +33,7 @@ struct pc_rec {				/* 0x248 bytes */
 	int power_cap;			/* +0x024: less a spell's level, caps its power */
 	int w26;			/* +0x026 */
 	int realm_points[6][2];		/* +0x028: [cur, max] per realm */
-	struct grid_cell cell[2][10];	/* +0x040 */
+	struct pc_item_slot item_slots[2][10];	/* +0x040 */
 	unsigned char slot_info[2][18];	/* +0x130: reset by reset_page_record */
 	unsigned char order[8];		/* +0x154: cell index per slot, 0xff free */
 	unsigned char spell_school[4];	/* +0x15c: mage, priest, alchemist, psionic */
@@ -57,7 +57,9 @@ struct pc_rec {				/* 0x248 bytes */
 	unsigned char state;		/* +0x23b: 0 when settled */
 	unsigned char attack;		/* +0x23c: also the cells' highest low nibble */
 	unsigned char defense;		/* +0x23d: also the cells' highest high nibble */
-	char pad4[5];			/* +0x23e */
+	unsigned char status5_strength;	/* +0x23e: cleared along with status[5] */
+	unsigned char imported_fields[3]; /* +0x23f: set by import_bane_party */
+	char pad4;			/* +0x242 */
 	unsigned char adjusted_stat4;	/* +0x243 */
 	unsigned char adjusted_stat5;	/* +0x244 */
 	unsigned char stat5_plus_power;	/* +0x245 */

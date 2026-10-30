@@ -20,7 +20,7 @@ api_idx_0008_JSRN:
     idiv cx                          ; 0x1543
     mov word [bp - 4], ax            ; 0x1545
     mov word [bp - 6], dx            ; 0x1548
-    call api_idx_0006_TMNI           ; 0x154b
+    call find_floor_item_at_party    ; 0x154b
     mov word [bp - 8], ax            ; 0x154e
     test ax, ax                      ; 0x1551
     je short .forward4               ; 0x1553

@@ -6,9 +6,9 @@ release_resources:
     mov ax, word [bp + 4]            ; 0x024d
     jmp near .forward18              ; 0x0250
 jumptable_0363_case_0:
-    cmp word [runtime_near_buffer_1k], byte 0 ; 0x0253
+    cmp word [floor_items], byte 0   ; 0x0253
     je short release_resources.forward1 ; 0x0258
-    push word [runtime_near_buffer_1k] ; 0x025a
+    push word [floor_items]          ; 0x025a
     call aztec_free                  ; 0x025e
     pop cx                           ; 0x0261
 release_resources.forward1:

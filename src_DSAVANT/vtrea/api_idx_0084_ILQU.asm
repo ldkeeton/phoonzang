@@ -668,7 +668,7 @@ api_idx_0084_ILQU:
     push ax                          ; 0x2be7
     call call_show_area              ; 0x2be8
     add sp, byte 8                   ; 0x2beb
-    call loc_IKLI                    ; 0x2bee
+    call tick_treasure_animation     ; 0x2bee
     test ax, ax                      ; 0x2bf1
     jne short .forward13             ; 0x2bf3
     mov ax, 0x19                     ; 0x2bf5

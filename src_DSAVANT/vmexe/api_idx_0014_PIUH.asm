@@ -313,7 +313,7 @@ api_idx_0014_PIUH:
     mov cx, 0xc                      ; 0x67c4
     imul cx                          ; 0x67c7
     add bx, ax                       ; 0x67c9
-    cmp byte [bx + party_records + pc_rec.cell + 0x4], 3 ; 0x67cb
+    cmp byte [bx + party_records + pc_rec.item_slots + 0x4], 3 ; 0x67cb
     jne short .forward15             ; 0x67d0
     mov bx, word [bp - 2]            ; 0x67d2
     mov word [bx + 0xa], 8           ; 0x67d5

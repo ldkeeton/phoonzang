@@ -273,7 +273,7 @@ api_idx_00d4_UHLT:
     pop ax                           ; 0x39cd
     add ax, cx                       ; 0x39ce
     mov bx, ax                       ; 0x39d0
-    cmp word [bx + party_records + pc_rec.cell], byte 0 ; 0x39d2
+    cmp word [bx + party_records + pc_rec.item_slots], byte 0 ; 0x39d2
     jle short .forward18             ; 0x39d7
     mov word [bp - 0x20], 1          ; 0x39d9
 .forward18:
@@ -303,11 +303,11 @@ api_idx_00d4_UHLT:
     mov cx, 0xc                      ; 0x3a23
     imul cx                          ; 0x3a26
     add bx, ax                       ; 0x3a28
-    cmp byte [bx + party_records + pc_rec.cell + 0x4], 3 ; 0x3a2a
+    cmp byte [bx + party_records + pc_rec.item_slots + 0x4], 3 ; 0x3a2a
     je short .forward21              ; 0x3a2f
     jmp near .forward30              ; 0x3a31
 .forward21:
-    mov al, byte [bx + party_records + pc_rec.cell + 0x7] ; 0x3a34
+    mov al, byte [bx + party_records + pc_rec.item_slots + 0x7] ; 0x3a34
     sub ah, ah                       ; 0x3a38
     test ax, 0x20                    ; 0x3a3a
     je short .forward22              ; 0x3a3d
@@ -325,7 +325,7 @@ api_idx_00d4_UHLT:
 .forward23:
     imul cx                          ; 0x3a5c
     add bx, ax                       ; 0x3a5e
-    cmp byte [bx + party_records + pc_rec.cell + 0x4], 4 ; 0x3a60
+    cmp byte [bx + party_records + pc_rec.item_slots + 0x4], 4 ; 0x3a60
     je short .forward24              ; 0x3a65
     mov word [bp - 0x28], 0          ; 0x3a67
     jmp near .forward28              ; 0x3a6c
@@ -339,7 +339,7 @@ api_idx_00d4_UHLT:
     pop ax                           ; 0x3a7e
     add ax, cx                       ; 0x3a7f
     mov bx, ax                       ; 0x3a81
-    mov al, byte [bx + party_records + pc_rec.cell + 0x5] ; 0x3a83
+    mov al, byte [bx + party_records + pc_rec.item_slots + 0x5] ; 0x3a83
     cmp al, 0xb                      ; 0x3a87
     jne short .forward25             ; 0x3a89
     mov ax, 0x248                    ; 0x3a8b
@@ -351,7 +351,7 @@ api_idx_00d4_UHLT:
     pop ax                           ; 0x3a9b
     add ax, cx                       ; 0x3a9c
     mov bx, ax                       ; 0x3a9e
-    mov al, byte [bx + party_records + pc_rec.cell + 0x5] ; 0x3aa0
+    mov al, byte [bx + party_records + pc_rec.item_slots + 0x5] ; 0x3aa0
     cmp al, 0x16                     ; 0x3aa4
     je short .forward25              ; 0x3aa6
     jmp near .forward27              ; 0x3aa8
@@ -365,7 +365,7 @@ api_idx_00d4_UHLT:
     pop ax                           ; 0x3abb
     add ax, cx                       ; 0x3abc
     mov bx, ax                       ; 0x3abe
-    mov al, byte [bx + party_records + pc_rec.cell + 0x5] ; 0x3ac0
+    mov al, byte [bx + party_records + pc_rec.item_slots + 0x5] ; 0x3ac0
     cmp al, 0xd                      ; 0x3ac4
     jne short .forward26             ; 0x3ac6
     mov ax, 0x248                    ; 0x3ac8
@@ -377,7 +377,7 @@ api_idx_00d4_UHLT:
     pop ax                           ; 0x3ad8
     add ax, cx                       ; 0x3ad9
     mov bx, ax                       ; 0x3adb
-    mov al, byte [bx + party_records + pc_rec.cell + 0x5] ; 0x3add
+    mov al, byte [bx + party_records + pc_rec.item_slots + 0x5] ; 0x3add
     cmp al, 0x17                     ; 0x3ae1
     jne short .forward27             ; 0x3ae3
 .forward26:
@@ -390,7 +390,7 @@ api_idx_00d4_UHLT:
     pop ax                           ; 0x3af5
     add ax, cx                       ; 0x3af6
     mov bx, ax                       ; 0x3af8
-    mov al, byte [bx + party_records + pc_rec.cell + 0x5] ; 0x3afa
+    mov al, byte [bx + party_records + pc_rec.item_slots + 0x5] ; 0x3afa
     cmp al, 0xc                      ; 0x3afe
     jne short .forward28             ; 0x3b00
     mov ax, 0x248                    ; 0x3b02
@@ -402,7 +402,7 @@ api_idx_00d4_UHLT:
     pop ax                           ; 0x3b12
     add ax, cx                       ; 0x3b13
     mov bx, ax                       ; 0x3b15
-    mov al, byte [bx + party_records + pc_rec.cell + 0x5] ; 0x3b17
+    mov al, byte [bx + party_records + pc_rec.item_slots + 0x5] ; 0x3b17
     cmp al, 0x53                     ; 0x3b1b
     je short .forward28              ; 0x3b1d
 .forward27:
@@ -576,7 +576,7 @@ jumptable_4058_case_0:
     mov cx, 0xc                      ; 0x3cbd
     imul cx                          ; 0x3cc0
     add bx, ax                       ; 0x3cc2
-    cmp byte [bx + party_records + pc_rec.cell + 0x4], 3 ; 0x3cc4
+    cmp byte [bx + party_records + pc_rec.item_slots + 0x4], 3 ; 0x3cc4
     jne short api_idx_00d4_UHLT.forward36 ; 0x3cc9
     mov word [bp - 0xb0], 1          ; 0x3ccb
     mov word [bp - 0x98], 8          ; 0x3cd1
@@ -616,7 +616,7 @@ api_idx_00d4_UHLT.back8:
     pop ax                           ; 0x3d31
     add ax, cx                       ; 0x3d32
     mov bx, ax                       ; 0x3d34
-    cmp byte [bx + party_records + pc_rec.cell + 0x4], 2 ; 0x3d36
+    cmp byte [bx + party_records + pc_rec.item_slots + 0x4], 2 ; 0x3d36
     jne short api_idx_00d4_UHLT.forward38 ; 0x3d3b
     mov ax, word [bp - 2]            ; 0x3d3d
     shl ax, 1                        ; 0x3d40
@@ -777,7 +777,7 @@ api_idx_00d4_UHLT.back9:
     mov cx, 0xc                      ; 0x3ec3
     imul cx                          ; 0x3ec6
     add bx, ax                       ; 0x3ec8
-    cmp byte [bx + party_records + pc_rec.cell + 0x4], 0xb ; 0x3eca
+    cmp byte [bx + party_records + pc_rec.item_slots + 0x4], 0xb ; 0x3eca
     jne short api_idx_00d4_UHLT.forward49 ; 0x3ecf
     mov word [bp - 0x28], 1          ; 0x3ed1
 api_idx_00d4_UHLT.forward49:
@@ -856,7 +856,7 @@ jumptable_4058_case_4:
     call loc_VNIO                    ; 0x3f77
     add sp, byte 8                   ; 0x3f7a
     push word [bp - 6]               ; 0x3f7d
-    call api_idx_0094_NVHQ           ; 0x3f80
+    call choose_member_item_to_use   ; 0x3f80
     pop cx                           ; 0x3f83
     mov word [bp - 0x98], ax         ; 0x3f84
     cmp ax, strict word 0xffff       ; 0x3f88
@@ -1083,9 +1083,9 @@ api_idx_00d4_UHLT.forward64:
     pop ax                           ; 0x41a8
     add ax, cx                       ; 0x41a9
     mov bx, ax                       ; 0x41ab
-    cmp byte [bx + party_records + pc_rec.cell + 0x4], 3 ; 0x41ad
+    cmp byte [bx + party_records + pc_rec.item_slots + 0x4], 3 ; 0x41ad
     jne short api_idx_00d4_UHLT.forward65 ; 0x41b2
-    mov al, byte [bx + party_records + pc_rec.cell + 0x7] ; 0x41b4
+    mov al, byte [bx + party_records + pc_rec.item_slots + 0x7] ; 0x41b4
     sub ah, ah                       ; 0x41b8
     test ax, 0x20                    ; 0x41ba
     je short api_idx_00d4_UHLT.forward65 ; 0x41bd
@@ -1105,7 +1105,7 @@ api_idx_00d4_UHLT.forward65:
     pop ax                           ; 0x41e3
     add ax, cx                       ; 0x41e4
     mov bx, ax                       ; 0x41e6
-    mov al, byte [bx + party_records + pc_rec.cell + 0x4] ; 0x41e8
+    mov al, byte [bx + party_records + pc_rec.item_slots + 0x4] ; 0x41e8
     cmp al, 2                        ; 0x41ec
     je short api_idx_00d4_UHLT.forward66 ; 0x41ee
     cmp al, 0xc                      ; 0x41f0
@@ -1129,7 +1129,7 @@ api_idx_00d4_UHLT.forward67:
     pop ax                           ; 0x421c
     add ax, cx                       ; 0x421d
     mov bx, ax                       ; 0x421f
-    cmp byte [bx + party_records + pc_rec.cell + 0x4], 2 ; 0x4221
+    cmp byte [bx + party_records + pc_rec.item_slots + 0x4], 2 ; 0x4221
     jae short api_idx_00d4_UHLT.forward71 ; 0x4226
     mov ax, 0x248                    ; 0x4228
     imul word [bp - 6]               ; 0x422b

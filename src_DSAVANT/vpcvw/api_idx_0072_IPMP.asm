@@ -23,7 +23,7 @@ api_idx_0072_IPMP:
     pop ax                           ; 0x4a76
     add ax, cx                       ; 0x4a77
     mov bx, ax                       ; 0x4a79
-    cmp word [bx + party_records + pc_rec.cell], byte 0 ; 0x4a7b
+    cmp word [bx + party_records + pc_rec.item_slots], byte 0 ; 0x4a7b
     jle short .forward2              ; 0x4a80
     inc word [bp - 0xe]              ; 0x4a82
     mov ax, word [bp - 0xe]          ; 0x4a85
@@ -125,7 +125,7 @@ api_idx_0072_IPMP:
     mov cx, 0xc                      ; 0x4b67
     imul cx                          ; 0x4b6a
     add bx, ax                       ; 0x4b6c
-    mov al, byte [bx + party_records + pc_rec.cell + 0x7] ; 0x4b6e
+    mov al, byte [bx + party_records + pc_rec.item_slots + 0x7] ; 0x4b6e
     sub ah, ah                       ; 0x4b72
     test ax, 8                       ; 0x4b74
     je short .forward8               ; 0x4b77
@@ -201,7 +201,7 @@ api_idx_0072_IPMP:
     je short .forward10              ; 0x4c1d
     push ax                          ; 0x4c1f
     push word [bp + 4]               ; 0x4c20
-    call compact_grid_page           ; 0x4c23
+    call unequip_item_slot           ; 0x4c23
     add sp, byte 4                   ; 0x4c26
 .forward10:
     jmp short .forward12             ; 0x4c29
@@ -219,13 +219,13 @@ api_idx_0072_IPMP:
     mov cx, 0xc                      ; 0x4c47
     imul cx                          ; 0x4c4a
     add bx, ax                       ; 0x4c4c
-    mov al, byte [bx + party_records + pc_rec.cell + 0x7] ; 0x4c4e
+    mov al, byte [bx + party_records + pc_rec.item_slots + 0x7] ; 0x4c4e
     sub ah, ah                       ; 0x4c52
     test ax, 8                       ; 0x4c54
     je short .forward12              ; 0x4c57
     push word [bp - 0xa]             ; 0x4c59
     push word [bp + 4]               ; 0x4c5c
-    call compact_grid_page           ; 0x4c5f
+    call unequip_item_slot           ; 0x4c5f
     add sp, byte 4                   ; 0x4c62
 .forward12:
     mov ax, 0x248                    ; 0x4c65
@@ -239,7 +239,7 @@ api_idx_0072_IPMP:
     je short .forward13              ; 0x4c7c
     push ax                          ; 0x4c7e
     push word [bp + 4]               ; 0x4c7f
-    call compact_grid_page           ; 0x4c82
+    call unequip_item_slot           ; 0x4c82
     add sp, byte 4                   ; 0x4c85
 .forward13:
     cmp word [bp - 0xc], byte 0      ; 0x4c88
@@ -247,7 +247,7 @@ api_idx_0072_IPMP:
     mov ax, 0x248                    ; 0x4c8e
     imul word [bp + 4]               ; 0x4c91
     mov si, ax                       ; 0x4c94
-    add ax, party_records + pc_rec.cell + 0x6c ; 0x4c96
+    add ax, party_records + pc_rec.item_slots + 0x6c ; 0x4c96
     mov si, ax                       ; 0x4c99
     mov ax, 0x248                    ; 0x4c9b
     imul word [bp + 4]               ; 0x4c9e
@@ -312,7 +312,7 @@ api_idx_0072_IPMP:
     pop ax                           ; 0x4d25
     add ax, cx                       ; 0x4d26
     mov bx, ax                       ; 0x4d28
-    or byte [bx + party_records + pc_rec.cell + 0x7], 1 ; 0x4d2a
+    or byte [bx + party_records + pc_rec.item_slots + 0x7], 1 ; 0x4d2a
     mov al, byte [bp - 0xe]          ; 0x4d2f
     push ax                          ; 0x4d32
     mov ax, 0x248                    ; 0x4d33
@@ -335,7 +335,7 @@ api_idx_0072_IPMP:
     pop ax                           ; 0x4d5e
     add ax, cx                       ; 0x4d5f
     mov bx, ax                       ; 0x4d61
-    or byte [bx + party_records + pc_rec.cell + 0x7], 2 ; 0x4d63
+    or byte [bx + party_records + pc_rec.item_slots + 0x7], 2 ; 0x4d63
     call api_idx_0056_QHUP           ; 0x4d68
 .forward15:
     mov word [bp - 2], 0             ; 0x4d6b
@@ -391,7 +391,7 @@ api_idx_0072_IPMP:
     imul word [bp + 4]               ; 0x4de3
     add ax, cx                       ; 0x4de6
     mov di, ax                       ; 0x4de8
-    add ax, party_records + pc_rec.cell ; 0x4dea
+    add ax, party_records + pc_rec.item_slots ; 0x4dea
     mov di, ax                       ; 0x4ded
     mov cx, ds                       ; 0x4def
     mov es, cx                       ; 0x4df1
@@ -526,7 +526,7 @@ api_idx_0072_IPMP:
     add ax, cx                       ; 0x4f26
     add ax, word [bp - 0x10]         ; 0x4f28
     mov bx, ax                       ; 0x4f2b
-    mov al, byte [bx + party_records + pc_rec.cell + 0x8] ; 0x4f2d
+    mov al, byte [bx + party_records + pc_rec.item_slots + 0x8] ; 0x4f2d
     sub ah, ah                       ; 0x4f31
     mov cx, 0x10                     ; 0x4f33
     cwd                              ; 0x4f36
@@ -574,7 +574,7 @@ api_idx_0072_IPMP:
     pop ax                           ; 0x4f9e
     add ax, cx                       ; 0x4f9f
     mov bx, ax                       ; 0x4fa1
-    mov al, byte [bx + party_records + pc_rec.cell + 0xa] ; 0x4fa3
+    mov al, byte [bx + party_records + pc_rec.item_slots + 0xa] ; 0x4fa3
     sub ah, ah                       ; 0x4fa7
     mov cx, 0x10                     ; 0x4fa9
     cwd                              ; 0x4fac

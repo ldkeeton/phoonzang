@@ -111,7 +111,7 @@ api_idx_0010_RUQS:
     idiv cx                          ; 0x2f58
     inc ax                           ; 0x2f5a
     push ax                          ; 0x2f5b
-    call loc_QQUT                    ; 0x2f5c
+    call adjust_spell_value          ; 0x2f5c
     add sp, byte 6                   ; 0x2f5f
     push ax                          ; 0x2f62
     mov ax, 0x2c                     ; 0x2f63
@@ -142,7 +142,7 @@ api_idx_0010_RUQS:
     idiv cx                          ; 0x2f9e
     inc ax                           ; 0x2fa0
     push ax                          ; 0x2fa1
-    call loc_QQUT                    ; 0x2fa2
+    call adjust_spell_value          ; 0x2fa2
     add sp, byte 6                   ; 0x2fa5
     push ax                          ; 0x2fa8
     mov ax, 0x2c                     ; 0x2fa9
@@ -188,7 +188,7 @@ api_idx_0010_RUQS:
     mov ax, 3                        ; 0x300e
     imul word [bp - 6]               ; 0x3011
     push ax                          ; 0x3014
-    call loc_QQUT                    ; 0x3015
+    call adjust_spell_value          ; 0x3015
     add sp, byte 6                   ; 0x3018
     push ax                          ; 0x301b
     mov ax, 0x2c                     ; 0x301c

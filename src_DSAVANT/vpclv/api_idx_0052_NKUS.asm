@@ -468,7 +468,7 @@ api_idx_0052_NKUS.back3:
     add ax, cx                       ; 0x302a
     add ax, word [bp - 0xa]          ; 0x302c
     mov bx, ax                       ; 0x302f
-    mov al, byte [bx + party_records + pc_rec.cell + 0x8] ; 0x3031
+    mov al, byte [bx + party_records + pc_rec.item_slots + 0x8] ; 0x3031
     sub ah, ah                       ; 0x3035
     mov cx, 0x10                     ; 0x3037
     cwd                              ; 0x303a
@@ -608,7 +608,7 @@ api_idx_0052_NKUS.back4:
     pop ax                           ; 0x3166
     add ax, cx                       ; 0x3167
     mov bx, ax                       ; 0x3169
-    push word [bx + party_records + pc_rec.cell] ; 0x316b
+    push word [bx + party_records + pc_rec.item_slots] ; 0x316b
     lea ax, word [bp - 0x52]         ; 0x316f
     push ax                          ; 0x3172
     mov ax, 1                        ; 0x3173
@@ -704,7 +704,7 @@ api_idx_0052_NKUS.back5:
     pop ax                           ; 0x3260
     add ax, cx                       ; 0x3261
     mov bx, ax                       ; 0x3263
-    mov al, byte [bx + party_records + pc_rec.cell + 0xb] ; 0x3265
+    mov al, byte [bx + party_records + pc_rec.item_slots + 0xb] ; 0x3265
     push ax                          ; 0x3269
     mov ax, 0x248                    ; 0x326a
     imul word [bp + 4]               ; 0x326d

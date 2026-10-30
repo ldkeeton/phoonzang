@@ -133,7 +133,7 @@ api_idx_0030_TGOH:
     pop ax                           ; 0x93fa
     add ax, cx                       ; 0x93fb
     mov bx, ax                       ; 0x93fd
-    mov al, byte [bx + party_records + pc_rec.cell + 0x7] ; 0x93ff
+    mov al, byte [bx + party_records + pc_rec.item_slots + 0x7] ; 0x93ff
     sub ah, ah                       ; 0x9403
     test ax, 1                       ; 0x9405
     je short .forward8               ; 0x9408
@@ -141,7 +141,7 @@ api_idx_0030_TGOH:
     jne short .forward8              ; 0x940d
     push word [bp - 8]               ; 0x940f
     push word [bp + 4]               ; 0x9412
-    call compact_grid_page           ; 0x9415
+    call unequip_item_slot           ; 0x9415
     add sp, byte 4                   ; 0x9418
 .forward8:
     inc word [bp - 8]                ; 0x941b

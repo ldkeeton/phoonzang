@@ -22,13 +22,13 @@ api_idx_004c_OGSK:
     pop ax                           ; 0x501b
     add ax, cx                       ; 0x501c
     mov bx, ax                       ; 0x501e
-    cmp word [bx + party_records + pc_rec.cell], byte 0 ; 0x5020
+    cmp word [bx + party_records + pc_rec.item_slots], byte 0 ; 0x5020
     jg short .forward1               ; 0x5025
     jmp near .forward6               ; 0x5027
 .forward1:
     mov ax, 0                        ; 0x502a
     push ax                          ; 0x502d
-    push word [bx + party_records + pc_rec.cell] ; 0x502e
+    push word [bx + party_records + pc_rec.item_slots] ; 0x502e
     lea ax, word [bp - 0x4c]         ; 0x5032
     push ax                          ; 0x5035
     mov ax, 1                        ; 0x5036
@@ -50,7 +50,7 @@ api_idx_004c_OGSK:
     pop ax                           ; 0x505b
     add ax, cx                       ; 0x505c
     mov bx, ax                       ; 0x505e
-    mov al, byte [bx + party_records + pc_rec.cell + 0x7] ; 0x5060
+    mov al, byte [bx + party_records + pc_rec.item_slots + 0x7] ; 0x5060
     sub ah, ah                       ; 0x5064
     test ax, 0x80                    ; 0x5066
     je short .forward2               ; 0x5069
@@ -98,7 +98,7 @@ api_idx_004c_OGSK:
     pop ax                           ; 0x50cf
     add ax, cx                       ; 0x50d0
     mov bx, ax                       ; 0x50d2
-    mov al, byte [bx + party_records + pc_rec.cell + 0x4] ; 0x50d4
+    mov al, byte [bx + party_records + pc_rec.item_slots + 0x4] ; 0x50d4
     sub ah, ah                       ; 0x50d8
     mov bx, ax                       ; 0x50da
     cmp byte [bx + cell_overlay_code + 0x58], 1 ; 0x50dc
@@ -118,7 +118,7 @@ api_idx_004c_OGSK:
     pop ax                           ; 0x50fe
     add ax, cx                       ; 0x50ff
     mov bx, ax                       ; 0x5101
-    mov al, byte [bx + party_records + pc_rec.cell + 0x6] ; 0x5103
+    mov al, byte [bx + party_records + pc_rec.item_slots + 0x6] ; 0x5103
     sub ah, ah                       ; 0x5107
     mov cx, word [bss_9ca8]          ; 0x5109
     shl cx, 1                        ; 0x510d

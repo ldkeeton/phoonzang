@@ -41,10 +41,10 @@ process_region_flag_actions:
     pop ax                           ; 0x84aa
     add ax, cx                       ; 0x84ab
     mov bx, ax                       ; 0x84ad
-    mov ax, word [bx + party_records + pc_rec.cell] ; 0x84af
+    mov ax, word [bx + party_records + pc_rec.item_slots] ; 0x84af
     cmp ax, word [bp - 0xa]          ; 0x84b3
     jne short .forward2              ; 0x84b6
-    mov al, byte [bx + party_records + pc_rec.cell + 0x7] ; 0x84b8
+    mov al, byte [bx + party_records + pc_rec.item_slots + 0x7] ; 0x84b8
     sub ah, ah                       ; 0x84bc
     test ax, 1                       ; 0x84be
     jne short .forward1              ; 0x84c1

@@ -167,7 +167,7 @@ jumptable_08e9         equ api_idx_0004_SMLK.jumptable1
 
 %include "shared/ovr/api_idx_0004_ONJT.asm"     ; 0x146b
 
-%include "shared/ovr/api_idx_0006_TMNI.asm"     ; 0x14c7
+%include "shared/ovr/find_floor_item_at_party.asm" ; 0x14c7
 
 %include "vmext/api_idx_0008_JSRN.asm"     ; 0x151e
 

@@ -91,7 +91,7 @@ api_idx_004c_HTUT:
     pop ax
     add ax, cx
     mov bx, ax
-    cmp word [bx + party_records + pc_rec.cell], byte 0
+    cmp word [bx + party_records + pc_rec.item_slots], byte 0
     jg short .forward4
     jmp near .forward12
 .forward4:
@@ -101,7 +101,7 @@ api_idx_004c_HTUT:
 .forward5:
     mov ax, 0
     push ax
-    push word [bx + party_records + pc_rec.cell]
+    push word [bx + party_records + pc_rec.item_slots]
     lea ax, word [bp - 0x4c]
     push ax
     mov ax, 1
@@ -123,7 +123,7 @@ api_idx_004c_HTUT:
     pop ax
     add ax, cx
     mov bx, ax
-    mov al, byte [bx + party_records + pc_rec.cell + 0x7]
+    mov al, byte [bx + party_records + pc_rec.item_slots + 0x7]
     sub ah, ah
     test ax, 0x80
     je short .forward6
@@ -200,7 +200,7 @@ api_idx_004c_HTUT:
     pop ax
     add ax, cx
     mov bx, ax
-    mov al, byte [bx + party_records + pc_rec.cell + 0x7]
+    mov al, byte [bx + party_records + pc_rec.item_slots + 0x7]
     sub ah, ah
     test ax, 2
     je short .forward11

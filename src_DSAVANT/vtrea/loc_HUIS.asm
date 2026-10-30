@@ -617,7 +617,7 @@ loc_HUIS:
     jl short .back11                 ; 0x5d62
     cmp word [bss_95e4], byte 0      ; 0x5d64
     jle short .forward44             ; 0x5d69
-    call api_idx_0040_LIPH           ; 0x5d6b
+    call divvy_loot_menu             ; 0x5d6b
 .forward44:
     mov word [glyph_painter], 0      ; 0x5d6e
     call update_treasure_frame       ; 0x5d74

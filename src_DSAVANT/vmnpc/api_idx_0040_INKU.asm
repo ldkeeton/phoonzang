@@ -319,7 +319,7 @@ api_idx_0040_INKU.forward19:
     push word [bp - 0x2c]            ; 0x2e94
     push word [bp - 0x2a]            ; 0x2e97
     push word [bp + 4]               ; 0x2e9a
-    call clear_cell_key              ; 0x2e9d
+    call clear_item_slot             ; 0x2e9d
     add sp, byte 6                   ; 0x2ea0
 api_idx_0040_INKU.forward20:
     inc word [bp + 4]                ; 0x2ea3
@@ -501,9 +501,9 @@ api_idx_0040_INKU.back5:
     pop ax                           ; 0x304c
     add ax, cx                       ; 0x304d
     mov bx, ax                       ; 0x304f
-    cmp word [bx + party_records + pc_rec.cell + 0x78], byte 0 ; 0x3051
+    cmp word [bx + party_records + pc_rec.item_slots + 0x78], byte 0 ; 0x3051
     jle short api_idx_0040_INKU.forward37 ; 0x3056
-    mov al, byte [bx + party_records + pc_rec.cell + 0x7f] ; 0x3058
+    mov al, byte [bx + party_records + pc_rec.item_slots + 0x7f] ; 0x3058
     sub ah, ah                       ; 0x305c
     test ax, 0x40                    ; 0x305e
     jne short api_idx_0040_INKU.forward37 ; 0x3061
@@ -511,7 +511,7 @@ api_idx_0040_INKU.back5:
     mov ax, 1                        ; 0x3066
     push ax                          ; 0x3069
     push word [bp + 4]               ; 0x306a
-    call clear_cell_key              ; 0x306d
+    call clear_item_slot             ; 0x306d
     add sp, byte 6                   ; 0x3070
     mov ax, 3                        ; 0x3073
     push ax                          ; 0x3076
@@ -1099,7 +1099,7 @@ api_idx_0040_INKU.back9:
     push dx                          ; 0x35d2
     push ax                          ; 0x35d3
     push word [bp - 0x30]            ; 0x35d4
-    call clear_cell_key              ; 0x35d7
+    call clear_item_slot             ; 0x35d7
     add sp, byte 6                   ; 0x35da
     mov ax, 1                        ; 0x35dd
     push ax                          ; 0x35e0

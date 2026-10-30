@@ -76,7 +76,7 @@ api_idx_0072_KTMQ:
     mov ax, MSG_1580                 ; 0x5f4e
     push ax                          ; 0x5f51
     push word [bp + 4]               ; 0x5f52
-    call api_idx_0006_GQUO           ; 0x5f55
+    call npc_item_action_menu        ; 0x5f55
     add sp, byte 8                   ; 0x5f58
     test ax, ax                      ; 0x5f5b
     je short .forward4               ; 0x5f5d
@@ -90,7 +90,7 @@ api_idx_0072_KTMQ:
     mov ax, MSG_1583                 ; 0x5f6b
     push ax                          ; 0x5f6e
     push word [bp + 4]               ; 0x5f6f
-    call api_idx_0006_GQUO           ; 0x5f72
+    call npc_item_action_menu        ; 0x5f72
     add sp, byte 8                   ; 0x5f75
     test ax, ax                      ; 0x5f78
     je short .forward5               ; 0x5f7a

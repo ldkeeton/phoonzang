@@ -43,7 +43,7 @@ api_idx_0004_UQUT:
     jne short .forward4              ; 0x0944
     ret                              ; 0x0946
 .forward4:
-    call loc_IKLI                    ; 0x0947
+    call tick_treasure_animation     ; 0x0947
     test ax, ax                      ; 0x094a
     jne short .forward5              ; 0x094c
     call loc_RULJ                    ; 0x094e

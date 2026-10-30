@@ -20,8 +20,8 @@ extern int sound_port_setting, sound_aux_setting;
 extern unsigned char startup_option_byte, startup_aux_option_a,
 	startup_aux_option_b;
 extern unsigned char hardware_mode_setting, startup_aux_option_c, no_dissolve;
-extern int runtime_six_byte_count, runtime_eight_byte_count;
-extern char *runtime_buffer_3k, *runtime_near_buffer_1k;
+extern int runtime_six_byte_count, floor_item_count;
+extern char *runtime_buffer_3k, *floor_items;
 extern char far *runtime_buffer_4k_a, *runtime_buffer_4k_b;
 extern char game_block_a[], game_block_b[];
 extern int party_world_x, party_world_y, party_cell_x, party_cell_y;
@@ -146,9 +146,9 @@ int load_mode;
 			return -1;
 		}
 	}
-	if ((byte_count = runtime_eight_byte_count << 3) > 0) {
+	if ((byte_count = floor_item_count << 3) > 0) {
 		/* eight bytes per record */
-		if ((read_count = aztec_read(fd, runtime_near_buffer_1k, byte_count)) <= 0) {
+		if ((read_count = aztec_read(fd, floor_items, byte_count)) <= 0) {
 			show_load_disk_error(error_text);
 			aztec_close(fd);
 			if (swap_needed)

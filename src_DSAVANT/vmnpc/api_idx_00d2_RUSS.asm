@@ -133,7 +133,7 @@ jumptable_6599_case_3:
     mov ax, MSG_1583                 ; 0x6467
     push ax                          ; 0x646a
     push word [bp + 4]               ; 0x646b
-    call api_idx_0006_GQUO           ; 0x646e
+    call npc_item_action_menu        ; 0x646e
     add sp, byte 8                   ; 0x6471
     test ax, ax                      ; 0x6474
     je short api_idx_00d2_RUSS.forward8 ; 0x6476

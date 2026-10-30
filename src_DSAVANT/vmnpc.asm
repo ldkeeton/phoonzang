@@ -285,13 +285,13 @@ loc_UTQS.api_idx1 equ step_party_animation
 
 %include "vmnpc/api_idx_0004_GGOK.asm"     ; 0x3a96
 
-%include "shared/ovr/api_idx_0018_RGOS.asm"     ; 0x3b9a
+%include "shared/ovr/draw_selected_button_label.asm" ; 0x3b9a
 
 %include "shared/ovr/draw_list_rows.asm"        ; 0x3c97
 
-%include "shared/ovr/loc_HTKI.asm"              ; 0x3df9
+%include "shared/ovr/draw_inset_list_rows.asm"  ; 0x3df9
 
-%include "vmnpc/api_idx_0038_LJHT.asm"     ; 0x3e3a
+%include "vmnpc/single_action_item_dialog.asm" ; 0x3e3a
 
 %include "vmnpc/api_idx_0054_OPNV.asm"     ; 0x4514
 
@@ -305,7 +305,7 @@ loc_UTQS.api_idx1 equ step_party_animation
 
 %include "vmnpc/api_idx_0002_MIIL.asm"     ; 0x515b
 
-%include "vmnpc/api_idx_0068_OUGS.asm"     ; 0x51bb
+%include "vmnpc/npc_use_item_menu.asm"     ; 0x51bb
 
 %include "vmnpc/api_idx_0004_GJHP.asm"     ; 0x5371
 
@@ -323,7 +323,7 @@ loc_UTQS.api_idx1 equ step_party_animation
 
 %include "vmnpc/api_idx_004e_PHKR.asm"     ; 0x5b74
 
-%include "vmnpc/api_idx_0006_GQUO.asm"     ; 0x5d0e
+%include "vmnpc/npc_item_action_menu.asm"  ; 0x5d0e
 
 %include "vmnpc/api_idx_0054_IHKM.asm"     ; 0x5d93
 
@@ -366,7 +366,7 @@ draw_spell_cost.dseg1 equ dseg_90e4
 
 %include "shared/ovr/periodic_party_redraw.asm" ; 0x77a1
 
-%include "vmnpc/loc_UVUO.asm"              ; 0x7832
+%include "vmnpc/step_list_selection.asm"   ; 0x7832
 
 %include "vmnpc/api_idx_0044_QRMH.asm"     ; 0x786c
 

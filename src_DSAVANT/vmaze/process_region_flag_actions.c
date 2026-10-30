@@ -31,11 +31,12 @@ process_region_flag_actions()
 	for (member_index = 0; member_index < party_char_count; member_index++) {
 		for (side_index = 0; side_index < 2; side_index++) {
 			for (cell_index = 0; cell_index < 10; cell_index++) {
-				if (party_records[member_index].cell[side_index][cell_index].key
+				if (party_records[member_index].item_slots[side_index][cell_index].item_id
 					== region_key) {
 					/* A set key bit or zero match mode invalidates the match. */
 					if ((
-						party_records[member_index].cell[side_index][cell_index].flags & 1) != 0
+						party_records[member_index].item_slots[side_index][cell_index].flags & 1)
+							!= 0
 						|| cell_match_mode != 0)
 						all_cells_matched = 0;
 				}

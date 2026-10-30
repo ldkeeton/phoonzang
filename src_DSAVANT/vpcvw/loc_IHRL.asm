@@ -21,7 +21,7 @@ loc_IHRL:
     pop ax                           ; 0x477b
     add ax, cx                       ; 0x477c
     mov bx, ax                       ; 0x477e
-    mov al, byte [bx + party_records + pc_rec.cell + 0x7] ; 0x4780
+    mov al, byte [bx + party_records + pc_rec.item_slots + 0x7] ; 0x4780
     sub ah, ah                       ; 0x4784
     test ax, 2                       ; 0x4786
     je short .forward1               ; 0x4789

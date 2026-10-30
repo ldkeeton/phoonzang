@@ -314,7 +314,7 @@ api_idx_009c_PTNR.back4:
     jmp short api_idx_009c_PTNR.forward20 ; 0x6a8b
 api_idx_009c_PTNR.back5:
     push word [bp - 0xc]             ; 0x6a8d
-    call api_idx_0068_OUGS           ; 0x6a90
+    call npc_use_item_menu           ; 0x6a90
     pop cx                           ; 0x6a93
     jmp short api_idx_009c_PTNR.forward20 ; 0x6a94
 api_idx_009c_PTNR.back6:

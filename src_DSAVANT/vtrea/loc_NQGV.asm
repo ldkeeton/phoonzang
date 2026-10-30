@@ -27,7 +27,7 @@ loc_NQGV:
     call poll_fullscreen_hotspot     ; 0x0a4f
     test ax, ax                      ; 0x0a52
     jne short .forward2              ; 0x0a54
-    call loc_IKLI                    ; 0x0a56
+    call tick_treasure_animation     ; 0x0a56
     jmp short .back1                 ; 0x0a59
 .forward2:
     mov ax, 0                        ; 0x0a5b

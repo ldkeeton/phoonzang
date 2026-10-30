@@ -108,11 +108,11 @@ enter_level:
     push ax                          ; 0x0dc8
     mov ax, 0x80                     ; 0x0dc9
     push ax                          ; 0x0dcc
-    mov ax, bss_8bfe                 ; 0x0dcd
+    mov ax, floor_item_cell_bits     ; 0x0dcd
     push ax                          ; 0x0dd0
     call aztec_setmem                ; 0x0dd1
     add sp, byte 6                   ; 0x0dd4
-    mov ax, word [runtime_near_buffer_1k] ; 0x0dd7
+    mov ax, word [floor_items]       ; 0x0dd7
     mov word [bp - 0xc], ax          ; 0x0dda
     mov word [bp - 2], 0             ; 0x0ddd
     jmp short .forward5              ; 0x0de2
@@ -156,7 +156,7 @@ enter_level:
     add ax, cx                       ; 0x0e36
     add ax, word [bp - 8]            ; 0x0e38
     push ax                          ; 0x0e3b
-    mov ax, bss_8bfe                 ; 0x0e3c
+    mov ax, floor_item_cell_bits     ; 0x0e3c
     push ax                          ; 0x0e3f
     call set_bitmap_bit              ; 0x0e40
     add sp, byte 6                   ; 0x0e43
@@ -165,7 +165,7 @@ enter_level:
     inc word [bp - 2]                ; 0x0e4a
 .forward5:
     mov ax, word [bp - 2]            ; 0x0e4d
-    cmp ax, word [runtime_eight_byte_count] ; 0x0e50
+    cmp ax, word [floor_item_count]  ; 0x0e50
     jl short .back3                  ; 0x0e54
     mov word [game_state], 5         ; 0x0e56
     ret                              ; 0x0e5c

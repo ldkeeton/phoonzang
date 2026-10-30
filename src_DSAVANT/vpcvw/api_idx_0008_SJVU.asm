@@ -15,7 +15,7 @@ jumptable_291f_case_33:
     imul word [bp + 8]               ; 0x221e
     add ax, strict word 0x46         ; 0x2221
     push ax                          ; 0x2224
-    call loc_QQUT                    ; 0x2225
+    call adjust_spell_value          ; 0x2225
     add sp, byte 6                   ; 0x2228
     mov word [detection_spell_threshold], ax ; 0x222b
     jmp near jumptable_291f_case_46  ; 0x222e
@@ -33,17 +33,17 @@ jumptable_291f_case_38:
     idiv cx                          ; 0x224b
     inc ax                           ; 0x224d
     push ax                          ; 0x224e
-    call loc_QQUT                    ; 0x224f
+    call adjust_spell_value          ; 0x224f
     add sp, byte 6                   ; 0x2252
     mov word [party_status_offset], ax ; 0x2255
     jmp near jumptable_291f_case_46  ; 0x2258
 jumptable_291f_case_30:
     mov ax, 0x32                     ; 0x225b
     imul word [bp + 8]               ; 0x225e
-    add word [bss_82f6], ax          ; 0x2261
+    add word [spell_49_turns], ax    ; 0x2261
     mov ax, 0                        ; 0x2265
     push ax                          ; 0x2268
-    push word [bss_82f8]             ; 0x2269
+    push word [spell_49_strength]    ; 0x2269
     mov ax, word [bp + 8]            ; 0x226d
     dec ax                           ; 0x2270
     mov cx, 2                        ; 0x2271
@@ -51,19 +51,19 @@ jumptable_291f_case_30:
     idiv cx                          ; 0x2275
     inc ax                           ; 0x2277
     push ax                          ; 0x2278
-    call loc_QQUT                    ; 0x2279
+    call adjust_spell_value          ; 0x2279
     add sp, byte 6                   ; 0x227c
-    mov word [bss_82f8], ax          ; 0x227f
+    mov word [spell_49_strength], ax ; 0x227f
     jmp near jumptable_291f_case_46  ; 0x2282
 jumptable_291f_case_28:
     mov ax, 5                        ; 0x2285
     imul word [bp + 8]               ; 0x2288
-    add word [bss_8306], ax          ; 0x228b
+    add word [levitation_turns], ax  ; 0x228b
     jmp near jumptable_291f_case_46  ; 0x228f
 jumptable_291f_case_29:
     mov ax, 0x64                     ; 0x2292
     imul word [bp + 8]               ; 0x2295
-    add word [bss_8302], ax          ; 0x2298
+    add word [spell_46_turns], ax    ; 0x2298
     jmp near jumptable_291f_case_46  ; 0x229c
 jumptable_291f_case_39:
     mov ax, 0x32                     ; 0x229f
@@ -75,7 +75,7 @@ jumptable_291f_case_39:
     mov ax, 5                        ; 0x22b1
     imul word [bp + 8]               ; 0x22b4
     push ax                          ; 0x22b7
-    call loc_QQUT                    ; 0x22b8
+    call adjust_spell_value          ; 0x22b8
     add sp, byte 6                   ; 0x22bb
     mov word [party_buff_charge], ax ; 0x22be
     jmp near jumptable_291f_case_46  ; 0x22c1
@@ -669,7 +669,7 @@ jumptable_291f_case_34:
     pop ax                           ; 0x2840
     add ax, cx                       ; 0x2841
     mov bx, ax                       ; 0x2843
-    cmp word [bx + party_records + pc_rec.cell], byte 0 ; 0x2845
+    cmp word [bx + party_records + pc_rec.item_slots], byte 0 ; 0x2845
     jle short api_idx_0008_SJVU.forward32 ; 0x284a
     push word [bp + 8]               ; 0x284c
     mov ax, 0x16                     ; 0x284f
@@ -715,10 +715,10 @@ api_idx_0008_SJVU.back7:
     pop ax                           ; 0x28a8
     add ax, cx                       ; 0x28a9
     mov bx, ax                       ; 0x28ab
-    mov al, byte [bx + party_records + pc_rec.cell + 0x7] ; 0x28ad
+    mov al, byte [bx + party_records + pc_rec.item_slots + 0x7] ; 0x28ad
     sub ah, ah                       ; 0x28b1
     and ax, strict word 0xfffd       ; 0x28b3
-    mov byte [bx + party_records + pc_rec.cell + 0x7], al ; 0x28b6
+    mov byte [bx + party_records + pc_rec.item_slots + 0x7], al ; 0x28b6
 api_idx_0008_SJVU.forward33:
     inc word [bp - 2]                ; 0x28ba
     mov ax, word [bp - 2]            ; 0x28bd
@@ -749,7 +749,7 @@ jumptable_291f_case_42:
     pop ax                           ; 0x28fb
     add ax, cx                       ; 0x28fc
     mov bx, ax                       ; 0x28fe
-    cmp word [bx + party_records + pc_rec.cell], byte 0 ; 0x2900
+    cmp word [bx + party_records + pc_rec.item_slots], byte 0 ; 0x2900
     jle short api_idx_0008_SJVU.forward34 ; 0x2905
     push word [bp + 8]               ; 0x2907
     add ax, 0x5c34                   ; 0x290a

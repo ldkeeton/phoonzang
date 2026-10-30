@@ -241,11 +241,11 @@ draw_party_member_panel:
     pop ax                           ; 0x1fdb
     add ax, cx                       ; 0x1fdc
     mov bx, ax                       ; 0x1fde
-    cmp word [bx + party_records + pc_rec.cell], byte 0 ; 0x1fe0
+    cmp word [bx + party_records + pc_rec.item_slots], byte 0 ; 0x1fe0
     jle short .forward11             ; 0x1fe5
     mov ax, 4                        ; 0x1fe7
     push ax                          ; 0x1fea
-    mov al, byte [bx + party_records + pc_rec.cell + 0x5] ; 0x1feb
+    mov al, byte [bx + party_records + pc_rec.item_slots + 0x5] ; 0x1feb
     sub ah, ah                       ; 0x1fef
     push ax                          ; 0x1ff1
     call draw_font_glyph             ; 0x1ff2

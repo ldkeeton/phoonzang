@@ -21,7 +21,7 @@ api_idx_0004_PULL:
     pop ax                           ; 0x2312
     add ax, cx                       ; 0x2313
     mov bx, ax                       ; 0x2315
-    cmp word [bx + party_records + pc_rec.cell], byte 0 ; 0x2317
+    cmp word [bx + party_records + pc_rec.item_slots], byte 0 ; 0x2317
     jne short .forward1              ; 0x231c
     mov ax, word [bp - 2]            ; 0x231e
     xchg al, ah                      ; 0x2321
@@ -31,13 +31,13 @@ api_idx_0004_PULL:
 .forward1:
     cmp word [bp + 6], byte 0        ; 0x2329
     je short .forward4               ; 0x232d
-    mov al, byte [bx + party_records + pc_rec.cell + 0x7] ; 0x232f
+    mov al, byte [bx + party_records + pc_rec.item_slots + 0x7] ; 0x232f
     sub ah, ah                       ; 0x2333
     test ax, 1                       ; 0x2335
     jne short .forward2              ; 0x2338
     test ax, 0x40                    ; 0x233a
     jne short .forward2              ; 0x233d
-    push word [bx + party_records + pc_rec.cell] ; 0x233f
+    push word [bx + party_records + pc_rec.item_slots] ; 0x233f
     call loc_GMVH                    ; 0x2343
     pop cx                           ; 0x2346
     test ax, ax                      ; 0x2347

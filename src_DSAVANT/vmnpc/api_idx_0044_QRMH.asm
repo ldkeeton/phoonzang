@@ -516,7 +516,7 @@ api_idx_0044_QRMH:
     push word [bp - 0x20]            ; 0x7d41
     push word [bp - 0x18]            ; 0x7d44
     push word [bp - 0x22]            ; 0x7d47
-    call loc_UVUO                    ; 0x7d4a
+    call step_list_selection         ; 0x7d4a
     add sp, byte 6                   ; 0x7d4d
     mov word [bp - 0x22], ax         ; 0x7d50
     mov word [hotspot_hit], 1        ; 0x7d53

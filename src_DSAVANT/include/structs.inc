@@ -72,7 +72,7 @@ struc pc_rec
     .power_cap: resb 2
     .f_0026: resb 2
     .realm_points: resb 24
-    .cell: resb 240
+    .item_slots: resb 240
     .slot_info: resb 36
     .order: resb 8
     .spell_school: resb 4

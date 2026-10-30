@@ -52,7 +52,7 @@ ovmain:
     cmp word [game_state], byte 0x14 ; 0x008c
     jne short .forward3              ; 0x0091
     push word [member_roster_index]  ; 0x0093
-    call api_idx_0094_LUVH           ; 0x0097
+    call use_item_menu               ; 0x0097
     pop cx                           ; 0x009a
 .forward3:
     mov word [game_state], 5         ; 0x009b

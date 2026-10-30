@@ -518,7 +518,7 @@ api_idx_006a_NKMN:
     push ax                          ; 0x64b4
     call call_show_area              ; 0x64b5
     add sp, byte 8                   ; 0x64b8
-    call loc_IKLI                    ; 0x64bb
+    call tick_treasure_animation     ; 0x64bb
     test ax, ax                      ; 0x64be
     jne short .forward17             ; 0x64c0
     mov ax, 0x19                     ; 0x64c2

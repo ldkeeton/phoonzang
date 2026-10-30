@@ -39,7 +39,7 @@ jumptable_3f96_case_1:
     pop ax                           ; 0x3d54
     add ax, cx                       ; 0x3d55
     mov bx, ax                       ; 0x3d57
-    cmp word [bx + party_records + pc_rec.cell], strict word 0x1d7 ; 0x3d59
+    cmp word [bx + party_records + pc_rec.item_slots], strict word 0x1d7 ; 0x3d59
     jne short api_idx_009e_HMOI.forward2 ; 0x3d5f
     mov ax, MSG_PASSING_THE_DEVICE_OV_19480 ; 0x3d61
     push ax                          ; 0x3d64

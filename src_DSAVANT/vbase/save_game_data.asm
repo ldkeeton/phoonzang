@@ -367,7 +367,7 @@ save_game_data:
     mov ax, 0xffff                   ; 0x3bd5
     ret                              ; 0x3bd8
 .forward22:
-    mov ax, word [runtime_eight_byte_count] ; 0x3bd9
+    mov ax, word [floor_item_count]  ; 0x3bd9
     shl ax, 1                        ; 0x3bdc
     shl ax, 1                        ; 0x3bde
     shl ax, 1                        ; 0x3be0
@@ -375,7 +375,7 @@ save_game_data:
     cmp ax, strict word 0            ; 0x3be5
     jle short .forward24             ; 0x3be8
     push ax                          ; 0x3bea
-    push word [runtime_near_buffer_1k] ; 0x3beb
+    push word [floor_items]          ; 0x3beb
     push word [bp - 0xa]             ; 0x3bef
     call aztec_write                 ; 0x3bf2
     add sp, byte 6                   ; 0x3bf5

@@ -151,7 +151,7 @@ loc_UTQS.api_idx1 equ api_idx_0006_GMTP
 
 %include "vmexe/api_idx_0002_HKLS.asm"     ; 0x2d6b
 
-%include "shared/ovr/loc_QQUT.asm"              ; 0x2e09
+%include "shared/ovr/adjust_spell_value.asm"    ; 0x2e09
 
 %include "vmexe/api_idx_0010_RUQS.asm"     ; 0x2e59
 

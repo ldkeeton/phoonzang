@@ -278,7 +278,7 @@ loc_IOMS:
     mov word [bp - 4], ax            ; 0x86c0
     cmp word [hotspot_hit], byte 0   ; 0x86c3
     jne short .forward9              ; 0x86c8
-    call loc_IKLI                    ; 0x86ca
+    call tick_treasure_animation     ; 0x86ca
 .forward9:
     cmp word [hotspot_hit], byte 0   ; 0x86cd
     je short .back2                  ; 0x86d2
@@ -356,7 +356,7 @@ loc_IOMS:
     pop cx                           ; 0x8777
     test ax, ax                      ; 0x8778
     jne short .forward11             ; 0x877a
-    call loc_IKLI                    ; 0x877c
+    call tick_treasure_animation     ; 0x877c
     jmp short .back4                 ; 0x877f
 .forward11:
     mov ax, 1                        ; 0x8781

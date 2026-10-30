@@ -133,7 +133,7 @@ Argc equ __zbss_0d04 - __zdseg_start
 Argv equ __zbss_0d06 - __zdseg_start
 aztec_tty_rd_buffer equ __zbss_0d08 - __zdseg_start
 aztec_tty_rd_bp equ __zbss_0e0c - __zdseg_start
-runtime_near_buffer_1k equ __zbss_0e0e - __zdseg_start
+floor_items equ __zbss_0e0e - __zdseg_start
 runtime_buffer_3k equ __zbss_0e10 - __zdseg_start
 maze_tables equ __zbss_0e12 - __zdseg_start
 maze_data equ __zbss_0e14 - __zdseg_start
@@ -183,7 +183,7 @@ sound_slot_info equ __zbss_5576 - __zdseg_start
 scenario_header_data equ __zbss_5642 - __zdseg_start
 action_bitmap equ __zbss_5842 - __zdseg_start
 runtime_six_byte_count equ __zbss_590e - __zdseg_start
-runtime_eight_byte_count equ __zbss_5910 - __zdseg_start
+floor_item_count equ __zbss_5910 - __zdseg_start
 data_path_prefixes equ __zbss_5912 - __zdseg_start
 disk_drive_name equ __zbss_5926 - __zdseg_start
 selected_game_directory equ __zbss_593a - __zdseg_start
@@ -257,15 +257,15 @@ party_tag equ __zbss_82ee - __zdseg_start
 party_status_heading equ __zbss_82f0 - __zdseg_start
 party_status_timer equ __zbss_82f2 - __zdseg_start
 party_status_offset equ __zbss_82f4 - __zdseg_start
-bss_82f6 equ __zbss_82f6 - __zdseg_start
-bss_82f8 equ __zbss_82f8 - __zdseg_start
+spell_49_turns equ __zbss_82f6 - __zdseg_start
+spell_49_strength equ __zbss_82f8 - __zdseg_start
 party_buff_turns equ __zbss_82fa - __zdseg_start
 party_buff_charge equ __zbss_82fc - __zdseg_start
 detection_spell_bonus equ __zbss_82fe - __zdseg_start
 detection_spell_threshold equ __zbss_8300 - __zdseg_start
-bss_8302 equ __zbss_8302 - __zdseg_start
-bss_8304 equ __zbss_8304 - __zdseg_start
-bss_8306 equ __zbss_8306 - __zdseg_start
+spell_46_turns equ __zbss_8302 - __zdseg_start
+item_kind5_used_flag equ __zbss_8304 - __zdseg_start
+levitation_turns equ __zbss_8306 - __zdseg_start
 game_state equ __zbss_830a - __zdseg_start
 game_state_arg equ __zbss_830c - __zdseg_start
 party_slot_frame equ __zbss_830e - __zdseg_start
@@ -328,7 +328,7 @@ bss_8aee equ __zbss_8aee - __zdseg_start
 member_roster_index equ __zbss_8af0 - __zdseg_start
 current_map_block_b equ __zbss_8afe - __zdseg_start
 current_map_block_a equ __zbss_8b7e - __zdseg_start
-bss_8bfe equ __zbss_8bfe - __zdseg_start
+floor_item_cell_bits equ __zbss_8bfe - __zdseg_start
 bss_8c7e equ __zbss_8c7e - __zdseg_start
 adjacent_object_type equ __zbss_8cfe - __zdseg_start
 base_screen_area equ __zbss_8d06 - __zdseg_start
@@ -488,17 +488,17 @@ __zdseg_end equ (__zimage_end - __zdseg_start) + __zbss_size
 
 %include "ds/game/restore_saved_screen.asm" ; 0x16a0
 
-%include "ds/game/cell_power.asm"          ; 0x1741
+%include "ds/game/item_slot_power.asm"     ; 0x1741
 
-%include "ds/game/sum_page_cell_values.asm" ; 0x17d6
+%include "ds/game/sum_member_item_power.asm" ; 0x17d6
 
 %include "ds/game/reset_page_record.asm"   ; 0x184f
 
-%include "ds/game/compact_grid_page.asm"   ; 0x1a23
+%include "ds/game/unequip_item_slot.asm"   ; 0x1a23
 
-%include "ds/game/clear_cell_key.asm"      ; 0x1c2f
+%include "ds/game/clear_item_slot.asm"     ; 0x1c2f
 
-%include "ds/game/ds_app_UTUH.asm"         ; 0x1c6e
+%include "ds/game/consume_item_charge.asm" ; 0x1c6e
 
 %include "ds/game/pick_code_char.asm"      ; 0x1cb1
 

@@ -57,7 +57,7 @@ api_idx_00ac_HRGR:
     pop ax                           ; 0x7a1e
     add ax, cx                       ; 0x7a1f
     mov bx, ax                       ; 0x7a21
-    mov al, byte [bx + party_records + pc_rec.cell + 0x7] ; 0x7a23
+    mov al, byte [bx + party_records + pc_rec.item_slots + 0x7] ; 0x7a23
     sub ah, ah                       ; 0x7a27
     test ax, 0x20                    ; 0x7a29
     jne short .forward2              ; 0x7a2c
@@ -101,7 +101,7 @@ api_idx_00ac_HRGR:
     pop ax                           ; 0x7a89
     add ax, cx                       ; 0x7a8a
     mov bx, ax                       ; 0x7a8c
-    push word [bx + party_records + pc_rec.cell] ; 0x7a8e
+    push word [bx + party_records + pc_rec.item_slots] ; 0x7a8e
     lea ax, word [bp - 0x4a]         ; 0x7a92
     push ax                          ; 0x7a95
     mov ax, 1                        ; 0x7a96
@@ -117,7 +117,7 @@ api_idx_00ac_HRGR:
     pop ax                           ; 0x7ab0
     add ax, cx                       ; 0x7ab1
     mov bx, ax                       ; 0x7ab3
-    mov al, byte [bx + party_records + pc_rec.cell + 0x7] ; 0x7ab5
+    mov al, byte [bx + party_records + pc_rec.item_slots + 0x7] ; 0x7ab5
     sub ah, ah                       ; 0x7ab9
     test ax, 0x80                    ; 0x7abb
     je short .forward5               ; 0x7abe
@@ -170,7 +170,7 @@ api_idx_00ac_HRGR:
     pop ax                           ; 0x7b2b
     add ax, cx                       ; 0x7b2c
     mov bx, ax                       ; 0x7b2e
-    mov al, byte [bx + party_records + pc_rec.cell + 0x5] ; 0x7b30
+    mov al, byte [bx + party_records + pc_rec.item_slots + 0x5] ; 0x7b30
     sub ah, ah                       ; 0x7b34
     jmp near .forward13              ; 0x7b36
 jumptable_7c0e_case_16:
@@ -213,7 +213,7 @@ jumptable_7c0e_case_28:
     pop ax                           ; 0x7b99
     add ax, cx                       ; 0x7b9a
     mov bx, ax                       ; 0x7b9c
-    cmp byte [bx + party_records + pc_rec.cell + 0x6], 0 ; 0x7b9e
+    cmp byte [bx + party_records + pc_rec.item_slots + 0x6], 0 ; 0x7b9e
     jbe short api_idx_00ac_HRGR.forward9 ; 0x7ba3
     mov word [bp - 0x76], 0xf        ; 0x7ba5
     mov word [bss_90de], 0xc         ; 0x7baa
@@ -238,7 +238,7 @@ jumptable_7c0e_case_31:
     pop ax                           ; 0x7bd9
     add ax, cx                       ; 0x7bda
     mov bx, ax                       ; 0x7bdc
-    cmp byte [bx + party_records + pc_rec.cell + 0x6], 0 ; 0x7bde
+    cmp byte [bx + party_records + pc_rec.item_slots + 0x6], 0 ; 0x7bde
     jbe short api_idx_00ac_HRGR.forward11 ; 0x7be3
     mov word [bp - 0x76], 8          ; 0x7be5
     mov word [bss_90de], 5           ; 0x7bea
@@ -746,7 +746,7 @@ api_idx_00ac_HRGR.forward35:
     pop ax                           ; 0x80e2
     add ax, cx                       ; 0x80e3
     mov bx, ax                       ; 0x80e5
-    mov al, byte [bx + party_records + pc_rec.cell + 0x5] ; 0x80e7
+    mov al, byte [bx + party_records + pc_rec.item_slots + 0x5] ; 0x80e7
     sub ah, ah                       ; 0x80eb
     jmp short api_idx_00ac_HRGR.forward36 ; 0x80ed
 jumptable_8145_case_41:
@@ -1046,13 +1046,13 @@ api_idx_00ac_HRGR.forward45:
     pop ax                           ; 0x83a0
     add ax, cx                       ; 0x83a1
     mov bx, ax                       ; 0x83a3
-    mov al, byte [bx + party_records + pc_rec.cell + 0x7] ; 0x83a5
+    mov al, byte [bx + party_records + pc_rec.item_slots + 0x7] ; 0x83a5
     sub ah, ah                       ; 0x83a9
     test ax, 0x20                    ; 0x83ab
     jne short api_idx_00ac_HRGR.forward46 ; 0x83ae
     jmp near api_idx_00ac_HRGR.forward50 ; 0x83b0
 api_idx_00ac_HRGR.forward46:
-    cmp byte [bx + party_records + pc_rec.cell + 0x6], 0 ; 0x83b3
+    cmp byte [bx + party_records + pc_rec.item_slots + 0x6], 0 ; 0x83b3
     jne short api_idx_00ac_HRGR.forward47 ; 0x83b8
     mov ax, word [startup_option]    ; 0x83ba
     mov cx, 2                        ; 0x83bd
@@ -1087,11 +1087,11 @@ api_idx_00ac_HRGR.forward47:
     pop ax                           ; 0x83f9
     add ax, cx                       ; 0x83fa
     mov bx, ax                       ; 0x83fc
-    mov al, byte [bx + party_records + pc_rec.cell + 0x6] ; 0x83fe
+    mov al, byte [bx + party_records + pc_rec.item_slots + 0x6] ; 0x83fe
     sub ah, ah                       ; 0x8402
     cmp ax, 0xff                     ; 0x8404
     je short api_idx_00ac_HRGR.forward48 ; 0x8407
-    dec byte [bx + party_records + pc_rec.cell + 0x6] ; 0x8409
+    dec byte [bx + party_records + pc_rec.item_slots + 0x6] ; 0x8409
 api_idx_00ac_HRGR.forward48:
     mov bx, word [bp - 0x52]         ; 0x840d
     cmp byte [bx + 0x11], 0x16       ; 0x8410
@@ -1128,7 +1128,7 @@ api_idx_00ac_HRGR.forward50:
     mov cx, 0xc                      ; 0x8460
     imul cx                          ; 0x8463
     add bx, ax                       ; 0x8465
-    cmp byte [bx + party_records + pc_rec.cell + 0x4], 4 ; 0x8467
+    cmp byte [bx + party_records + pc_rec.item_slots + 0x4], 4 ; 0x8467
     jne short api_idx_00ac_HRGR.forward51 ; 0x846c
     mov ax, 0x248                    ; 0x846e
     imul word [bss_8462]             ; 0x8471
@@ -1165,7 +1165,7 @@ api_idx_00ac_HRGR.forward52:
     pop ax                           ; 0x84c6
     add ax, cx                       ; 0x84c7
     mov bx, ax                       ; 0x84c9
-    mov al, byte [bx + party_records + pc_rec.cell + 0x4] ; 0x84cb
+    mov al, byte [bx + party_records + pc_rec.item_slots + 0x4] ; 0x84cb
     cmp al, 0xe                      ; 0x84cf
     je short api_idx_00ac_HRGR.forward53 ; 0x84d1
     cmp al, 0xc                      ; 0x84d3
@@ -1173,7 +1173,7 @@ api_idx_00ac_HRGR.forward52:
     cmp al, 2                        ; 0x84d7
     je short api_idx_00ac_HRGR.forward54 ; 0x84d9
 api_idx_00ac_HRGR.forward53:
-    mov byte [bx + party_records + pc_rec.cell + 0x6], 1 ; 0x84db
+    mov byte [bx + party_records + pc_rec.item_slots + 0x6], 1 ; 0x84db
 api_idx_00ac_HRGR.forward54:
     mov word [bp - 0x7e], 0          ; 0x84e0
     push word [bp - 0x72]            ; 0x84e5
@@ -1325,9 +1325,9 @@ api_idx_00ac_HRGR.forward61:
     mov word [bp - 0x58], ax         ; 0x8651
     cmp word [bp - 0x4e], byte 0     ; 0x8654
     jne short api_idx_00ac_HRGR.forward62 ; 0x8658
-    cmp word [bss_82f6], byte 0      ; 0x865a
+    cmp word [spell_49_turns], byte 0 ; 0x865a
     jle short api_idx_00ac_HRGR.forward62 ; 0x865f
-    mov ax, word [bss_82f8]          ; 0x8661
+    mov ax, word [spell_49_strength] ; 0x8661
     sub word [bp - 0x58], ax         ; 0x8664
 api_idx_00ac_HRGR.forward62:
     mov ax, word [bp - 0x4e]         ; 0x8667
@@ -1831,7 +1831,7 @@ api_idx_00ac_HRGR.forward103:
     mov cx, 0xc                      ; 0x8b45
     imul cx                          ; 0x8b48
     add bx, ax                       ; 0x8b4a
-    cmp byte [bx + party_records + pc_rec.cell + 0x4], 0xb ; 0x8b4c
+    cmp byte [bx + party_records + pc_rec.item_slots + 0x4], 0xb ; 0x8b4c
     jne short api_idx_00ac_HRGR.forward104 ; 0x8b51
     mov ax, 0                        ; 0x8b53
     push ax                          ; 0x8b56

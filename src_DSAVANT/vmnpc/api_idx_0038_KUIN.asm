@@ -451,7 +451,7 @@ api_idx_0038_KUIN:
     push word [bp - 0x1e]            ; 0x4bfd
     push word [bp - 0x16]            ; 0x4c00
     push word [bp - 0x20]            ; 0x4c03
-    call loc_UVUO                    ; 0x4c06
+    call step_list_selection         ; 0x4c06
     add sp, byte 6                   ; 0x4c09
     mov word [bp - 0x20], ax         ; 0x4c0c
     mov word [hotspot_hit], 1        ; 0x4c0f

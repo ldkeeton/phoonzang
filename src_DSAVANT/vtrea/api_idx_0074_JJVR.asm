@@ -91,7 +91,7 @@ api_idx_0074_JJVR:
     jne short .forward4              ; 0x79ca
     jmp near .forward6               ; 0x79cc
 .forward4:
-    cmp word [bss_8306], byte 0      ; 0x79cf
+    cmp word [levitation_turns], byte 0 ; 0x79cf
     jg short .forward5               ; 0x79d4
     jmp near .forward6               ; 0x79d6
 .forward5:

@@ -26,7 +26,7 @@ api_idx_004e_PHKR:
     pop ax                           ; 0x5bac
     add ax, cx                       ; 0x5bad
     mov bx, ax                       ; 0x5baf
-    mov ax, word [bx + party_records + pc_rec.cell] ; 0x5bb1
+    mov ax, word [bx + party_records + pc_rec.item_slots] ; 0x5bb1
     mov word [bp - 2], ax            ; 0x5bb5
     mov ax, 0                        ; 0x5bb8
     push ax                          ; 0x5bbb
@@ -84,7 +84,7 @@ api_idx_004e_PHKR:
     pop ax                           ; 0x5c2e
     add ax, cx                       ; 0x5c2f
     mov bx, ax                       ; 0x5c31
-    mov al, byte [bx + party_records + pc_rec.cell + 0x7] ; 0x5c33
+    mov al, byte [bx + party_records + pc_rec.item_slots + 0x7] ; 0x5c33
     sub ah, ah                       ; 0x5c37
     test ax, 1                       ; 0x5c39
     je short .forward4               ; 0x5c3c
@@ -145,7 +145,7 @@ api_idx_004e_PHKR:
     push word [bp - 6]               ; 0x5cad
     push word [bp - 4]               ; 0x5cb0
     push word [bp + 4]               ; 0x5cb3
-    call clear_cell_key              ; 0x5cb6
+    call clear_item_slot             ; 0x5cb6
     add sp, byte 6                   ; 0x5cb9
     push word [bp + 6]               ; 0x5cbc
     call api_idx_0002_MIIL           ; 0x5cbf

@@ -356,7 +356,7 @@ jumptable_532e_case_9:
     push word [bp + 8]               ; 0x538e
     push word [bp + 6]               ; 0x5391
     push word [bp + 4]               ; 0x5394
-    call ds_app_UTUH                 ; 0x5397
+    call consume_item_charge         ; 0x5397
     add sp, byte 6                   ; 0x539a
 api_idx_0010_NNNH.return1:
     ret                              ; 0x539d

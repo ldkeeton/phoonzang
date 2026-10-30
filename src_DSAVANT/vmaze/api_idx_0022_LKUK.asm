@@ -62,13 +62,13 @@ api_idx_0022_LKUK:
     add ax, word [party_cell_x]      ; 0x22d3
     mov word [bp - 0xa], ax          ; 0x22d7
     push ax                          ; 0x22da
-    mov ax, bss_8bfe                 ; 0x22db
+    mov ax, floor_item_cell_bits     ; 0x22db
     push ax                          ; 0x22de
     call test_bit                    ; 0x22df
     add sp, byte 4                   ; 0x22e2
     test ax, ax                      ; 0x22e5
     je short .forward5               ; 0x22e7
-    call api_idx_0006_KPLV           ; 0x22e9
+    call refresh_floor_item_icon     ; 0x22e9
     mov word [bss_91b4], ax          ; 0x22ec
     jmp short .forward6              ; 0x22ef
 .forward5:

@@ -655,7 +655,7 @@ api_idx_007c_OKMO:
     call draw_text_glyphs
     add sp, byte 4
     push word [bp + 4]
-    call sum_page_cell_values
+    call sum_member_item_power
     pop cx
     push word [bp + 4]
     call api_idx_007c_OKMO.api_idx1

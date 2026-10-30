@@ -302,9 +302,9 @@ read_next_member:
 			record->gender, record->profession);
 		record->pad3 = bane_character_profession_value;
 		record->state = 0;
-		record->pad4[1] = 0;
-		record->pad4[2] = 1;
-		record->pad4[3] = 10;
+		record->imported_fields[0] = 0;
+		record->imported_fields[1] = 1;
+		record->imported_fields[2] = 10;
 		record->adjusted_stat4 = 1;
 		record->adjusted_stat5 = 1;
 		record->stat5_plus_power = record->stat[5] + record->power_cap;
@@ -341,7 +341,7 @@ read_next_member:
 		column_index = 0;
 		if (party_char_count == 0) {
 			api_idx_004c_set_party_cell(party_char_count, 411,
-				&record->cell[row_index][column_index], -2, 1);
+				&record->item_slots[row_index][column_index], -2, 1);
 			column_index++;
 		}
 		record_index = 0;
@@ -368,12 +368,12 @@ read_next_member:
 		}
 		if (record_index > 0) {
 			api_idx_004c_set_party_cell(party_char_count, record_index,
-				&record->cell[row_index][column_index], -2, 1);
+				&record->item_slots[row_index][column_index], -2, 1);
 			column_index++;
 		}
 		if (selector_result > 0) {
 			api_idx_004c_set_party_cell(party_char_count, selector_result,
-				&record->cell[row_index][column_index], -2, 1);
+				&record->item_slots[row_index][column_index], -2, 1);
 			column_index++;
 		}
 
@@ -391,7 +391,7 @@ read_next_member:
 					}
 				} else if (selector_result > 0 && row_index < 2) {
 					api_idx_004c_set_party_cell(party_char_count,
-						selector_result, &record->cell[row_index][column_index],
+						selector_result, &record->item_slots[row_index][column_index],
 						bane_mage_spell_levels[record_index].level, 1);
 					column_index++;
 					if (column_index >= 10) {
@@ -413,7 +413,7 @@ read_next_member:
 					}
 				} else if (selector_result > 0 && row_index < 2) {
 					api_idx_004c_set_party_cell(party_char_count,
-						selector_result, &record->cell[row_index][column_index],
+						selector_result, &record->item_slots[row_index][column_index],
 						bane_priest_spell_levels[record_index].level, 1);
 					column_index++;
 					if (column_index >= 10) {
@@ -431,7 +431,7 @@ read_next_member:
 					? -selector_result : selector_result;
 			if (selector_result > 0)
 				api_idx_004c_set_party_cell(party_char_count,
-					selector_result, &record->cell[row_index][column_index],
+					selector_result, &record->item_slots[row_index][column_index],
 					bane_mage_spell_levels[leftover_slot].level, 1);
 		}
 

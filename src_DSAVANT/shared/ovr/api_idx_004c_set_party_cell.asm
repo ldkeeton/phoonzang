@@ -107,6 +107,6 @@ api_idx_004c_set_party_cell:
     or byte [bx + 7], 0x40
 .forward9:
     push word [bp + 4]
-    call sum_page_cell_values
+    call sum_member_item_power
     pop cx
     ret

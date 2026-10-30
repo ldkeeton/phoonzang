@@ -16,7 +16,7 @@ extern call_restore_area(), call_set_text_pos(), draw_font_glyph(),
 draw_party_member_panel(pc, reveal)
 int pc, reveal;
 {
-	int i, key, icon, best, x, y, sum_cur, sum_max;
+	int i, slot, icon, best, x, y, sum_cur, sum_max;
 	char name[40];
 	int glyph_base;
 
@@ -69,10 +69,10 @@ int pc, reveal;
 		  ->glyph_base[party_records[pc].glyph_set];
 	for (i = 0; i < 2; i++) {	/* two cells, 14 px apart */
 		call_set_text_pos(i * 14 + x + 30, y + 7);
-		key = party_records[pc].order[i];
-		if (key != 255 &&
-		    party_records[pc].cell[0][key].key > 0) {
-			draw_font_glyph(party_records[pc].cell[0][key].glyph, 4);
+		slot = party_records[pc].order[i];
+		if (slot != 255 &&
+		    party_records[pc].item_slots[0][slot].item_id > 0) {
+			draw_font_glyph(party_records[pc].item_slots[0][slot].glyph, 4);
 		} else {
 			draw_font_glyph((unsigned char)(glyph_base + i), 7);
 		}

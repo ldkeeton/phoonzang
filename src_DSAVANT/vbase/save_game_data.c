@@ -13,8 +13,8 @@ extern char game_load_path[], selected_game_filename[],
 	selected_game_directory[];
 extern char game_data_drive[], selected_game_drive[],
 	data_path_prefixes[4][20];
-extern int runtime_six_byte_count, runtime_eight_byte_count;
-extern char *runtime_buffer_3k, *runtime_near_buffer_1k;
+extern int runtime_six_byte_count, floor_item_count;
+extern char *runtime_buffer_3k, *floor_items;
 extern char far (*runtime_buffer_4k_a)[128], (*runtime_buffer_4k_b)[128];
 extern char game_block_a[], game_block_b[];
 extern int party_world_x, party_world_y, party_cell_x, party_cell_y;
@@ -126,10 +126,10 @@ int save_mode;
 			return -1;
 		}
 	}
-	if ((byte_count = runtime_eight_byte_count << 3) > 0) {
+	if ((byte_count = floor_item_count << 3) > 0) {
 		/* variable record block */
 		if ((write_count =
-				 aztec_write(fd, runtime_near_buffer_1k, byte_count)) <= 0) {
+				 aztec_write(fd, floor_items, byte_count)) <= 0) {
 			show_load_disk_error(error_text);
 			aztec_close(fd);
 			if (swap_needed)
