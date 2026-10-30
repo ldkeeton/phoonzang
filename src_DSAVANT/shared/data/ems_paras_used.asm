@@ -1,3 +1,0 @@
-; auto-generated
-ems_paras_used:
-    db 0x00, 0x00

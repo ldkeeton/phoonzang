@@ -1,3 +1,0 @@
-; auto-generated
-__zdseg_0044:
-    db 0x18, 0x00, 0x21, 0x00

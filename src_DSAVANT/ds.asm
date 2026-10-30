@@ -76,7 +76,6 @@ str_msg_dbs equ __zstr_msg_dbs - __zdseg_start
 str_scenario_dbs equ __zstr_scenario_dbs - __zdseg_start
 monster_pic_name equ __zmonster_pic_name - __zdseg_start
 dseg_0bd7 equ __zdseg_0bd7 - __zdseg_start
-maze_blocks equ __zstr_0bd7 - __zdseg_start + 0x0003
 dseg_0be3 equ __zdseg_0be3 - __zdseg_start
 score_ext_csf equ __zscore_ext_csf - __zdseg_start
 score_ext_pbl equ __zscore_ext_pbl - __zdseg_start
@@ -547,33 +546,11 @@ __zdseg_end equ (__zimage_end - __zdseg_start) + __zbss_size
 
 %include "ds/game/main.asm"                ; 0x2dd5
 
-%include "ds/data/cseg_2f35.asm"           ; 0x2f35
+%include "ds/data/video_flags.asm"         ; 0x2f35
 
-%include "ds/data/saved_video_mode.asm"    ; 0x2f36
+%include "ds/data/driver_tables.asm"       ; 0x2f40
 
-%include "ds/data/saved_equip_byte.asm"    ; 0x2f37
-
-%include "ds/data/video_is_ega.asm"        ; 0x2f38
-
-%include "ds/data/video_is_vga.asm"        ; 0x2f39
-
-%include "ds/data/video_is_cga.asm"        ; 0x2f3a
-
-%include "ds/data/video_is_herc.asm"       ; 0x2f3b
-
-%include "ds/data/driver_block_table.asm"  ; 0x2f40
-
-%include "ds/data/font_header_seg.asm"     ; 0x2f4a
-
-%include "ds/data/misc_table_seg.asm"      ; 0x2f4e
-
-%include "ds/data/cseg_2f52.asm"           ; 0x2f52
-
-%include "ds/data/ems_allocated_paragraphs.asm" ; 0x2f60
-
-%include "ds/data/ems_handle.asm"          ; 0x2f62
-
-%include "ds/data/ems_page_frame_segment.asm" ; 0x2f64
+%include "ds/data/ems_state.asm"           ; 0x2f60
 
 %include "ds/data/mouse_button_count.asm"  ; 0x2f66
 
@@ -589,11 +566,7 @@ __zdseg_end equ (__zimage_end - __zdseg_start) + __zbss_size
 
 %include "ds/library/restore_saved_video_state.asm" ; 0x30c3
 
-%include "ds/data/random_seed_a.asm"       ; 0x30dc
-
-%include "ds/data/random_seed_b.asm"       ; 0x30de
-
-%include "ds/data/random_seed_c.asm"       ; 0x30e0
+%include "ds/data/random_seeds.asm"        ; 0x30dc
 
 %include "ds/library/seed_random_from_timer.asm" ; 0x30e2
 
@@ -601,11 +574,7 @@ __zdseg_end equ (__zimage_end - __zdseg_start) + __zbss_size
 
 %include "ds/data/ega_palette.asm"         ; 0x34f6
 
-%include "ds/data/vga_drv_name.asm"        ; 0x3507
-
-%include "ds/data/ega_drv_name.asm"        ; 0x350f
-
-%include "ds/data/drv_file_handle.asm"     ; 0x3532
+%include "ds/data/driver_names.asm"        ; 0x3507
 
 %include "ds/library/load_video_driver.asm" ; 0x3534
 
@@ -854,29 +823,15 @@ __zdseg_start:
 
 %include "ds/data/dseg_0038.asm"           ; 0x10198
 
-%include "ds/data/index_range2_first.asm"  ; 0x101a0
-
-%include "ds/data/index_range2_last.asm"   ; 0x101a2
-
-%include "ds/data/dseg_0044.asm"           ; 0x101a4
+%include "ds/data/index_ranges.asm"        ; 0x101a0
 
 %include "ds/data/value_clamp_ranges.asm"  ; 0x101a8
 
 %include "ds/data/dseg_010c.asm"           ; 0x1026c
 
-%include "ds/data/file_param_word.asm"     ; 0x10270
+%include "ds/data/score_numbers.asm"       ; 0x10270
 
-%include "ds/data/story_score_file_number.asm" ; 0x10272
-
-%include "ds/data/loaded_score_number.asm" ; 0x10274
-
-%include "ds/data/intro_score_number_source.asm" ; 0x10276
-
-%include "ds/data/party_slot_x.asm"        ; 0x10304
-
-%include "ds/data/party_slot_y.asm"        ; 0x1031c
-
-%include "ds/data/party_slot_glyphs.asm"   ; 0x10334
+%include "ds/data/party_slot_layout.asm"   ; 0x10304
 
 %include "ds/data/dseg_03ae.asm"           ; 0x1050e
 
@@ -884,54 +839,16 @@ __zdseg_start:
 
 %include "ds/data/spell_table.asm"         ; 0x10780
 
-%include "ds/data/str_insert_savegame_disk.asm" ; 0x10cd4
+%include "ds/data/disk_prompts_and_files.asm" ; 0x10cd4
 
-%include "ds/data/str_insert_disk_n.asm"   ; 0x10ce9
-
-%include "ds/data/str_into_drive.asm"      ; 0x10cf9
-
-%include "ds/data/str_continue.asm"        ; 0x10d06
-
-%include "ds/data/str_disk_hdr.asm"        ; 0x10d0f
-
-%include "ds/data/str_msg_dbs.asm"         ; 0x10d18
-
-%include "ds/data/str_scenario_dbs.asm"    ; 0x10d20
-
-%include "ds/data/monster_pic_name.asm"    ; 0x10d2d
-
-%include "ds/data/str_0bd7.asm"            ; 0x10d37
-
-%include "ds/data/score_ext_csf.asm"       ; 0x10d4b
-
-%include "ds/data/score_ext_pbl.asm"       ; 0x10d50
-
-%include "ds/data/score_ext_pba.asm"       ; 0x10d55
+%include "ds/data/score_extensions.asm"    ; 0x10d4b
 
 %include "ds/data/dseg_0bfa.asm"           ; 0x10d5a
 
 %include "shared/data/endmarker.asm"           ; 0x10dcc
 
-aztec_MEMRY.bss1 equ bss_b198
-%include "shared/data/aztec_MEMRY.asm"         ; 0x10dd0
-
-%include "shared/data/errno.asm"               ; 0x10dd2
-
-%include "shared/data/dsval.asm"               ; 0x10dd4
-
-%include "shared/data/csval.asm"               ; 0x10dd6
-
-%include "shared/data/mbot.asm"                ; 0x10dd8
-
-%include "shared/data/sbot.asm"                ; 0x10dda
-
-%include "shared/data/mtop.asm"                ; 0x10ddc
-
-%include "shared/data/lowwater.asm"            ; 0x10dde
-
-%include "shared/data/PSP.asm"                 ; 0x10de0
-
-%include "shared/data/bad8087.asm"             ; 0x10de2
+aztec_startup_vars.bss1 equ bss_b198
+%include "shared/data/aztec_startup_vars.asm"  ; 0x10dd0
 
 %include "shared/data/cls_.asm"                ; 0x10dfc
 

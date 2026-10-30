@@ -1,5 +1,0 @@
-; auto-generated
-cseg_0a96:
-    db 0x00, 0x00
-cseg_0a98:
-    db 0x00, 0x00

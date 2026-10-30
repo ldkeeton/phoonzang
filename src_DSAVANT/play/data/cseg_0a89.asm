@@ -1,5 +1,0 @@
-; auto-generated
-cseg_0a89:
-    db 0x20, 0x02
-cseg_0a8b:
-    db 0x21, 0x02

@@ -1,3 +1,0 @@
-; auto-generated
-font_header_seg:
-    db 0x00, 0x00, 0x40, 0x00

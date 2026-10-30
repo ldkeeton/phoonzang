@@ -213,15 +213,7 @@ api_idx_005e_OJVJ.dseg1 equ dseg_90a6
 __zdata_start:
 %include "vmexe/data/dseg_9098.asm"        ; 0xa545
 
-%include "shared/data/save_si.asm"          ; 0xa55f
-
-%include "shared/data/save_di.asm"          ; 0xa561
-
-%include "shared/data/save_sp.asm"          ; 0xa563
-
-%include "shared/data/save_bp.asm"          ; 0xa565
-
-%include "shared/data/save_ret.asm"         ; 0xa567
+%include "shared/data/overlay_saved_registers.asm" ; 0xa55f
 
 
 __zimage_end:

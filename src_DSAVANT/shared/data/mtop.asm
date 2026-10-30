@@ -1,3 +1,0 @@
-; auto-generated
-__z_mtop:
-    db 0x00, 0x00

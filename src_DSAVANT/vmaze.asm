@@ -615,51 +615,11 @@ process_scene_message_words.process_scene_message_controls1 equ api_idx_0090_QKJ
 __zdata_start:
 %include "vmaze/data/dseg_9098.asm"        ; 0xac6e
 
-%include "vmaze/data/variant_1_maze_filename.asm" ; 0xac76
-
-%include "vmaze/data/variant_1_water_filename.asm" ; 0xac83
-
-%include "vmaze/data/variant_2_tree_filename.asm" ; 0xac90
-
-%include "vmaze/data/variant_2_other_town_filename.asm" ; 0xac9d
-
-%include "vmaze/data/variant_2_tile_filename.asm" ; 0xacaa
-
-%include "vmaze/data/variant_3_town_filename.asm" ; 0xacb7
-
-%include "vmaze/data/variant_3_other_town_filename.asm" ; 0xacc4
-
-%include "vmaze/data/variant_3_water_filename.asm" ; 0xacd1
-
-%include "vmaze/data/variant_3_tile_filename.asm" ; 0xacde
-
-%include "vmaze/data/variant_4_tree_filename.asm" ; 0xaceb
-
-%include "vmaze/data/variant_4_other_cave_filename.asm" ; 0xacf8
-
-%include "vmaze/data/variant_5_cave_filename.asm" ; 0xad05
-
-%include "vmaze/data/variant_5_other_cave_filename.asm" ; 0xad12
-
-%include "vmaze/data/variant_5_water_filename.asm" ; 0xad1f
-
-%include "vmaze/data/variant_6_tree_filename.asm" ; 0xad2c
-
-%include "vmaze/data/variant_6_other_town_filename.asm" ; 0xad39
-
-%include "vmaze/data/variant_6_water_filename.asm" ; 0xad46
+%include "vmaze/data/maze_variant_filenames.asm" ; 0xac76
 
 %include "vmaze/data/dseg_917e.asm"        ; 0xad54
 
-%include "shared/data/save_si.asm"          ; 0xad5e
-
-%include "shared/data/save_di.asm"          ; 0xad60
-
-%include "shared/data/save_sp.asm"          ; 0xad62
-
-%include "shared/data/save_bp.asm"          ; 0xad64
-
-%include "shared/data/save_ret.asm"         ; 0xad66
+%include "shared/data/overlay_saved_registers.asm" ; 0xad5e
 
 
 __zimage_end:

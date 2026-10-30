@@ -1,0 +1,7 @@
+; auto-generated
+__zindex_range2_first:
+    db 0x12, 0x00
+__zindex_range2_last:
+    db 0x17, 0x00
+__zdseg_0044:
+    db 0x18, 0x00, 0x21, 0x00

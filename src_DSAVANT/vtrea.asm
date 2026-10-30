@@ -304,15 +304,7 @@ __zdata_start:
 
 %include "shared/data/spell_screen_temp_file.asm" ; 0x9a87
 
-%include "shared/data/save_si.asm"          ; 0x9a8d
-
-%include "shared/data/save_di.asm"          ; 0x9a8f
-
-%include "shared/data/save_sp.asm"          ; 0x9a91
-
-%include "shared/data/save_bp.asm"          ; 0x9a93
-
-%include "shared/data/save_ret.asm"         ; 0x9a95
+%include "shared/data/overlay_saved_registers.asm" ; 0x9a8d
 
 
 __zimage_end:

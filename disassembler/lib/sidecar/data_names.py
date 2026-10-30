@@ -21,7 +21,8 @@ def _validate_data_names(block, where):
 
     An optional positive ``length`` owns that many initialized data bytes as
     one fragment, retaining labels inside it. The span must hold data records
-    only and end on a record boundary; overlapping spans are invalid.
+    only and not end inside a record (a plain data block may be cut);
+    overlapping spans are invalid.
     With ``length``, an optional ``file`` names that fragment instead of
     the object, as a ``function_names`` ``file`` names a group of routines.
 

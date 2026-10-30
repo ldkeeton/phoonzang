@@ -35,8 +35,8 @@ mouse_init:
     mov ax, 3                        ; 0x175f
     int 0x33 ; BIOS mouse
     shr cx, 1                        ; 0x1764
-    mov word [cs:cseg_1aeb - IMAGE_BASE], cx ; 0x1766
-    mov word [cs:cseg_1aed - IMAGE_BASE], dx ; 0x176b
+    mov word [cs:mouse_read_x - IMAGE_BASE], cx ; 0x1766
+    mov word [cs:mouse_read_y - IMAGE_BASE], dx ; 0x176b
     push ds                          ; 0x1770
     push es                          ; 0x1771
     push di                          ; 0x1772

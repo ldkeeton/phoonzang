@@ -1,0 +1,24 @@
+; auto-generated
+__zaztec_MEMRY:
+    dw aztec_startup_vars.bss1
+__zerrno:
+    db 0x00, 0x00
+__z_dsval:
+    db 0x00, 0x00
+__z_csval:
+    db 0x00, 0x00
+__z_mbot:
+    db 0x00, 0x00
+__z_sbot:
+    db 0x00, 0x00
+__z_mtop:
+    db 0x00, 0x00
+__z_lowwater:
+    db 0xff, 0xff
+__z_PSP:
+    db 0x00, 0x00
+__zbad8087:
+
+    db '8087/80287 is required!'
+    db 0x0d, 0x0a, 0x24
+

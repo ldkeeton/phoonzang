@@ -1,3 +1,0 @@
-; auto-generated
-misc_table_seg:
-    db 0x00, 0x00, 0x30, 0x05

@@ -93,59 +93,9 @@ _Uend    equ __zdseg_end + (__zobss_end - __zdata_start)
 %include "shared/ovr/aztec_ovbgn.asm"           ; 0x15d9
 
 __zdata_start:
-%include "vinit/data/startup_scenario_header_name.asm" ; 0x1617
+%include "vinit/data/startup_file_names.asm" ; 0x1617
 
-%include "vinit/data/startup_vbfont0_name.asm" ; 0x1624
-
-%include "vinit/data/startup_vbfont1_name.asm" ; 0x1630
-
-%include "vinit/data/startup_vbfont2_name.asm" ; 0x163c
-
-%include "vinit/data/startup_vbfont3_name.asm" ; 0x1648
-
-%include "vinit/data/startup_vcfont1_name.asm" ; 0x1654
-
-%include "vinit/data/startup_vcport0_name.asm" ; 0x1660
-
-%include "vinit/data/startup_vcfont2_name.asm" ; 0x166c
-
-%include "vinit/data/startup_vcfont3_name.asm" ; 0x1678
-
-%include "vinit/data/startup_vmpntr0_name.asm" ; 0x1684
-
-%include "vinit/data/startup_vmpntr1_name.asm" ; 0x1690
-
-%include "vinit/data/startup_vmpntr2_name.asm" ; 0x169c
-
-%include "vinit/data/startup_base_data_name.asm" ; 0x16a8
-
-%include "vinit/data/startup_master_header_name.asm" ; 0x16b5
-
-%include "vinit/data/startup_disk_header_name.asm" ; 0x16c0
-
-%include "vinit/data/startup_message_header_name.asm" ; 0x16c9
-
-%include "vinit/data/startup_pcfile_name.asm" ; 0x16d1
-
-%include "vinit/data/startup_misc_header_name.asm" ; 0x16dc
-
-%include "vinit/data/startup_message_database_name.asm" ; 0x16e5
-
-%include "vinit/data/startup_scenario_database_name.asm" ; 0x16ed
-
-%include "vinit/data/startup_palette_definition_name.asm" ; 0x16fa
-
-%include "vinit/data/dseg_9187.asm"        ; 0x1706
-
-%include "shared/data/save_si.asm"          ; 0x172d
-
-%include "shared/data/save_di.asm"          ; 0x172f
-
-%include "shared/data/save_sp.asm"          ; 0x1731
-
-%include "shared/data/save_bp.asm"          ; 0x1733
-
-%include "shared/data/save_ret.asm"         ; 0x1735
+%include "shared/data/overlay_saved_registers.asm" ; 0x172d
 
 
 __zimage_end:

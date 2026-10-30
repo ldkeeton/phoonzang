@@ -514,7 +514,8 @@ def _group_module(ranges, roots, binary_data, module, spans):
     own offset, the bytes must be the module's, and the module's end must be
     a record boundary.  Otherwise *ranges* is returned as it is.  A declared
     module may also hold address-named data, which has no root and so no range;
-    it may not hold anything but data.
+    it may not hold anything but data, and it may end inside a ``data_block``,
+    which is only bytes (an address-named object can start there).
     """
     from lib.aztec.datamodules import stem
     from lib.compare.render import _DATA_RECORD_TYPES
@@ -524,12 +525,15 @@ def _group_module(ranges, roots, binary_data, module, spans):
     def ungrouped():
         if module.declared:
             raise ValueError(f'{module.file}: declared data length must cover '
-                             'data records only and end at a record boundary')
+                             'data records only and not end inside a record')
         return ranges
     if base is None or binary_data is None:
         return ungrouped()
     end = base + len(module.data)
     ends = {span_end for _, span_end, _ in spans}
+    if module.declared:
+        ends.update(at for lo, hi, kind in spans if kind == 'data_block'
+                    for at in range(lo + 1, hi))
     if (bytes(binary_data[base:end]) != module.data or end not in ends
             or any(str(roots.get(base + offset)) != label
                    for label, offset in module.publics)):

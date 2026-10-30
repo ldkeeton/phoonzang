@@ -625,26 +625,8 @@ dseg_01c6 equ __zdseg_01c6 - __zdseg_start
 %include "vinstall/data/ctp_.asm"          ; 0x5f32
 
 bss_2afe equ __zbss_2afe - __zdseg_start
-aztec_MEMRY.bss1 equ bss_2afe
-%include "shared/data/aztec_MEMRY.asm"   ; 0x5fb4
-
-%include "shared/data/errno.asm"         ; 0x5fb6
-
-%include "shared/data/dsval.asm"         ; 0x5fb8
-
-%include "shared/data/csval.asm"         ; 0x5fba
-
-%include "shared/data/mbot.asm"          ; 0x5fbc
-
-%include "shared/data/sbot.asm"          ; 0x5fbe
-
-%include "shared/data/mtop.asm"          ; 0x5fc0
-
-%include "shared/data/lowwater.asm"      ; 0x5fc2
-
-%include "shared/data/PSP.asm"           ; 0x5fc4
-
-%include "shared/data/bad8087.asm"       ; 0x5fc6
+aztec_startup_vars.bss1 equ bss_2afe
+%include "shared/data/aztec_startup_vars.asm" ; 0x5fb4
 
 %include "shared/data/cls_.asm"          ; 0x5fe0
 

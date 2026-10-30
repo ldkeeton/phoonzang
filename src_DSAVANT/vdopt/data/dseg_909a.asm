@@ -1,3 +1,0 @@
-; auto-generated
-__zdseg_909a:
-    db 0x2a, 0x2a, 0x2a, 0x00

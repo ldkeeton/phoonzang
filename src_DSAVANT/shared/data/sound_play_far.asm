@@ -1,3 +1,0 @@
-; auto-generated
-sound_play_far:
-    db 0x17, 0x01, 0x00, 0x00

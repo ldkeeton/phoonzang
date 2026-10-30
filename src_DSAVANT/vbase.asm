@@ -388,15 +388,7 @@ __zdata_start:
 
 %include "vbase/data/main_screen_restore_filename.asm" ; 0x9503
 
-%include "shared/data/save_si.asm"          ; 0x9511
-
-%include "shared/data/save_di.asm"          ; 0x9513
-
-%include "shared/data/save_sp.asm"          ; 0x9515
-
-%include "shared/data/save_bp.asm"          ; 0x9517
-
-%include "shared/data/save_ret.asm"         ; 0x9519
+%include "shared/data/overlay_saved_registers.asm" ; 0x9511
 
 
 __zimage_end:

@@ -85,10 +85,19 @@ class DeclaredModuleTest(unittest.TestCase):
             _select_data_ranges(records, self.ROOTS, self.BYTES,
                                 [self.module()])
 
-    def test_a_group_ends_on_a_record_boundary(self):
-        with self.assertRaisesRegex(ValueError, 'record boundary'):
-            _select_data_ranges(self.RECORDS, self.ROOTS, self.BYTES,
-                                [self.module(length=10)])
+    def test_a_group_may_end_inside_a_data_block(self):
+        records = [label('__za', 0x100), block(0x100, 0x108)]
+        module = DataModule('group.c', (('a', 0),), bytes(4), True, 'group')
+        self.assertEqual(
+            _select_data_ranges(records, {0x100: 'a'}, self.BYTES, [module]),
+            [(0x100, 0x104, 'group')])
+
+    def test_a_group_does_not_end_inside_a_pointer(self):
+        records = [label('__za', 0x100), block(0x100, 0x104),
+                   {'type': 'data_ptr', 'offset': 0x104, 'size': 4, 'text': 'x'}]
+        module = DataModule('group.c', (('a', 0),), bytes(6), True, 'group')
+        with self.assertRaisesRegex(ValueError, 'inside a record'):
+            _select_data_ranges(records, {0x100: 'a'}, self.BYTES, [module])
 
 
 class GroupDataRangesTest(unittest.TestCase):

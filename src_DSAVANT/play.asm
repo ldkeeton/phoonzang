@@ -102,61 +102,7 @@ loc_121d equ __zinsn_121c + 0x1
 
 %include "play/mark_timer_handler_installed.asm" ; 0x0a6d
 
-%include "play/data/music_device.asm"      ; 0x0a7c
-
-%include "play/data/play_device.asm"       ; 0x0a7d
-
-%include "play/data/stream_running.asm"    ; 0x0a7e
-
-%include "play/data/restart_delay.asm"     ; 0x0a7f
-
-%include "play/data/tick_divider.asm"      ; 0x0a81
-
-%include "play/data/chain_period.asm"      ; 0x0a83
-
-%include "play/data/chain_countdown.asm"   ; 0x0a85
-
-%include "play/data/cseg_0a89.asm"         ; 0x0a89
-
-%include "play/data/sample_output_port.asm" ; 0x0a8d
-
-%include "play/data/saved_pic_mask.asm"    ; 0x0a8f
-
-%include "play/data/play_sample_mode_flag.asm" ; 0x0a90
-
-%include "play/data/cseg_0a92.asm"         ; 0x0a92
-
-%include "play/data/timer_handler_installed.asm" ; 0x0a94
-
-%include "play/data/sample_step_fraction.asm" ; 0x0a95
-
-%include "play/data/cseg_0a96.asm"         ; 0x0a96
-
-%include "play/data/music_enabled.asm"     ; 0x0a9a
-
-%include "play/data/loop_at_end.asm"       ; 0x0a9d
-
-%include "play/data/stream_start_offset.asm" ; 0x0a9e
-
-%include "play/data/cseg_0aa0.asm"         ; 0x0aa0
-
-%include "play/data/stream_segment.asm"    ; 0x0aa2
-
-%include "play/data/stream_offset.asm"     ; 0x0aa4
-
-%include "play/data/music_tempo.asm"       ; 0x0aa6
-
-%include "play/data/playback_volume.asm"   ; 0x0aa8
-
-%include "play/data/last_playback_volume.asm" ; 0x0aa9
-
-%include "play/data/music_patch_segment.asm" ; 0x0aac
-
-%include "play/data/music_patch_offset.asm" ; 0x0aae
-
-%include "play/data/event_class_flag.asm"  ; 0x0ad7
-
-%include "play/data/note_started.asm"      ; 0x0ad8
+%include "play/data/play_state.asm"        ; 0x0a7c
 
 ; saved_int08_offset  equ __zinsn_0b0f + 0x1
 ; saved_int08_segment equ __zinsn_0b0f + 0x3
@@ -170,17 +116,7 @@ loc_121d equ __zinsn_121c + 0x1
 
 %include "play/device_note_off.asm"        ; 0x11a2
 
-%include "play/data/event_byte_counts.asm" ; 0x11bf
-
-%include "play/data/channel_last_byte.asm" ; 0x11c6
-
-%include "play/data/byte_remap_table.asm"  ; 0x11d6
-
-%include "play/data/current_event.asm"     ; 0x11d7
-
-%include "play/data/event_channel.asm"     ; 0x11d8
-
-%include "play/data/event_command.asm"     ; 0x11d9
+%include "play/data/play_events.asm"       ; 0x11bf
 
 %include "play/mpu_set_volume.asm"         ; 0x11da
 
@@ -201,21 +137,7 @@ mpu401_read_ready_flag equ mpu401_write_ready_flag + 0x1
 
 %include "play/opl_load_patch.asm"         ; 0x137a
 
-%include "play/data/opl_register_shadow.asm" ; 0x1429
-
-%include "play/data/opl_register_shadow_b1_bc.asm" ; 0x14da
-
-%include "play/data/opl_rhythm_register_shadow.asm" ; 0x14e6
-
-%include "play/data/opl_register_shadow_c0_ff.asm" ; 0x14e9
-
-%include "play/data/opl_fnum_table.asm"    ; 0x1529
-
-%include "play/data/opl_semitone_octave.asm" ; 0x16a9
-
-%include "play/data/opl_semitone_step.asm" ; 0x1709
-
-%include "play/data/opl_key_on_bit.asm"    ; 0x1774
+%include "play/data/opl_tables.asm"        ; 0x1429
 
 %include "play/opl_note_on.asm"            ; 0x1775
 

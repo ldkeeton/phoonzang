@@ -398,15 +398,7 @@ redraw_maze_view.api_idx1 equ api_idx_0030_HINM
 __zdata_start:
 %include "vmext/data/dseg_9098.asm"        ; 0x5259
 
-%include "shared/data/save_si.asm"          ; 0x5337
-
-%include "shared/data/save_di.asm"          ; 0x5339
-
-%include "shared/data/save_sp.asm"          ; 0x533b
-
-%include "shared/data/save_bp.asm"          ; 0x533d
-
-%include "shared/data/save_ret.asm"         ; 0x533f
+%include "shared/data/overlay_saved_registers.asm" ; 0x5337
 
 
 __zimage_end:

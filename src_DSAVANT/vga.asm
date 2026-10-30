@@ -123,65 +123,21 @@ loc_JTQK_001f.load_screen1 equ load_screen
 
 %include "shared/drv/thunk_loc_JULP.asm"          ; 0x00db
 
-%include "shared/data/maze_mem_seg.asm"       ; 0x00e1
+%include "shared/data/drv_buffer_segments.asm" ; 0x00e1
 
-%include "shared/data/screen_buf_seg.asm"     ; 0x00e5
-
-%include "shared/data/scratch_buf_seg.asm"    ; 0x00e9
-
-%include "shared/data/palette_ptr.asm"        ; 0x00f7
-
-%include "shared/data/delay_hook.asm"         ; 0x00fb
-
-%include "shared/data/ems_para_limit.asm"     ; 0x00ff
-
-%include "vga/data/cseg_0101.asm"          ; 0x0101
-
-%include "shared/data/ems_frame_seg.asm"      ; 0x0103
+%include "shared/data/drv_ems_frame.asm"      ; 0x00ff
 
 %include "vga/data/cseg_0105.asm"          ; 0x0105
 
-%include "shared/data/music_start_far.asm"    ; 0x0106
+%include "shared/data/drv_far_calls.asm"      ; 0x0106
 
-%include "shared/data/music_load_far.asm"     ; 0x010e
+%include "shared/data/drv_mouse_flags.asm"    ; 0x0126
 
-%include "shared/data/music_stop_far.asm"     ; 0x0112
-
-%include "shared/data/music_config_far.asm"   ; 0x0116
-
-%include "shared/data/sound_play_far.asm"     ; 0x011a
-
-%include "shared/data/music_playing_far.asm"  ; 0x011e
-
-%include "shared/data/sound_wait_far.asm"     ; 0x0122
-
-%include "shared/data/mouse_glide_active.asm" ; 0x0126
-
-%include "shared/data/mouse_redraw_pending.asm" ; 0x0127
-
-%include "shared/data/mouse_present.asm"      ; 0x0128
-
-%include "shared/data/picture_slots.asm"      ; 0x0129
-
-%include "shared/data/screen_maze_slots.asm"  ; 0x0151
-
-%include "shared/data/maze_slots.asm"         ; 0x015b
-
-%include "shared/data/maze_piece_table.asm"   ; 0x017b
+%include "shared/data/drv_picture_maze_slots.asm" ; 0x0129
 
 %include "vga/data/cseg_0191.asm"          ; 0x0191
 
-%include "shared/data/ems_slots.asm"          ; 0x019b
-
-%include "shared/data/cache_maze_slot_table.asm" ; 0x01c3
-
-%include "shared/data/screen_ems_slots.asm"   ; 0x01d7
-
-%include "shared/data/ems_blocks.asm"         ; 0x01eb
-
-%include "shared/data/ems_block_count.asm"    ; 0x028f
-
-%include "shared/data/ems_paras_used.asm"     ; 0x0291
+%include "shared/data/drv_ems_tables.asm"     ; 0x019b
 
 %include "shared/drv/draw_glyph.asm"              ; 0x0293
 
@@ -221,13 +177,7 @@ cseg_0a5f equ save_screen.cseg1
 cseg_0a9d equ save_screen.cseg2
 %include "shared/drv/save_screen.asm"             ; 0x099c
 
-%include "shared/data/maze_map_slots.asm"     ; 0x0ac6
-
-%include "shared/data/maze_blocks.asm"        ; 0x0ada
-
-%include "shared/data/maze_block_count.asm"   ; 0x0baa
-
-%include "shared/data/maze_paras_used.asm"    ; 0x0bac
+%include "shared/data/drv_maze_tables.asm"    ; 0x0ac6
 
 cseg_0d3c equ load_maze.cseg1
 cseg_0d10 equ load_maze.cseg2
@@ -270,37 +220,13 @@ mouse_hit_test.cseg3 equ cseg_1dd1
 data_1e5c equ __zdata_1e5c - IMAGE_BASE
 %include "vga/set_mouse_pointer.asm"       ; 0x13c9
 
-%include "shared/data/mouse_drawn_x.asm"      ; 0x14ac
+%include "shared/data/drv_mouse_position.asm" ; 0x14ac
 
-%include "shared/data/mouse_drawn_y.asm"      ; 0x14ae
-
-%include "vga/data/cseg_14b0.asm"          ; 0x14b0
-
-%include "vga/data/mouse_saved_background_offset.asm" ; 0x14b4
-
-%include "vga/data/mouse_redraw_background_offset.asm" ; 0x14b6
-
-%include "vga/data/mouse_drawn_width.asm"  ; 0x14b8
-
-%include "vga/data/mouse_drawn_height.asm" ; 0x14ba
-
-%include "vga/data/mouse_screen_offset.asm" ; 0x14bc
-
-%include "vga/data/cseg_14be.asm"          ; 0x14be
-
-%include "vga/data/mouse_image_stride.asm" ; 0x1d5c
-
-%include "vga/data/cseg_1d5e.asm"          ; 0x1d5e
-
-%include "vga/data/mouse_image_offset.asm" ; 0x1d64
-
-%include "vga/data/mouse_image_segment.asm" ; 0x1d66
+%include "vga/data/vga_mouse_state.asm"    ; 0x14b0
 
 %include "vga/data/cseg_1d68.asm"          ; 0x1d68
 
 draw_mouse_pointer_at.cseg1 equ cseg_1dd3
-draw_mouse_pointer_at.cseg2 equ cseg_14b0
-draw_mouse_pointer_at.cseg3 equ cseg_14b2
 %include "shared/drv/draw_mouse_pointer_at.asm"   ; 0x1e1a
 
 data_1dc4 equ __zdata_1dc4 - IMAGE_BASE
@@ -343,9 +269,7 @@ cseg_22fe equ load_picture.cseg2
 
 %include "shared/drv/get_palette.asm"             ; 0x2d08
 
-%include "shared/data/text_state_words.asm"   ; 0x2d2b
-
-%include "shared/data/text_state_bytes.asm"   ; 0x2d53
+%include "shared/data/drv_text_state.asm"     ; 0x2d2b
 
 %include "shared/drv/draw_text.asm"               ; 0x2d6c
 
@@ -418,9 +342,7 @@ cseg_448c        equ dos_con_loc_GJMS.cseg1
 
 %include "shared/drv/stop_sound.asm"              ; 0x45b2
 
-%include "shared/data/score_slots.asm"        ; 0x45d9
-
-%include "shared/data/score_info.asm"         ; 0x45f1
+%include "shared/data/drv_score_tables.asm"   ; 0x45d9
 
 cseg_4722 equ load_score.cseg1
 cseg_475e equ load_score.cseg2

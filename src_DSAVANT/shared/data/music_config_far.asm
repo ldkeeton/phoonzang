@@ -1,3 +1,0 @@
-; auto-generated
-music_config_far:
-    db 0x13, 0x01, 0x00, 0x00

@@ -30,7 +30,7 @@ api_idx_0032_HGIM:
     add sp, byte 8
     push word [bp - 0xc]
     push word [bp + 6]
-    call api_idx_0032_HGIM.api_idx1
+    call draw_slot_value_row
     add sp, byte 4
     mov ax, 0
     push ax

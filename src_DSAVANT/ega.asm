@@ -123,65 +123,21 @@ loc_JTQK_001f.load_screen1 equ load_screen
 
 %include "shared/drv/thunk_loc_JULP.asm"          ; 0x00db
 
-%include "shared/data/maze_mem_seg.asm"       ; 0x00e1
+%include "shared/data/drv_buffer_segments.asm" ; 0x00e1
 
-%include "shared/data/screen_buf_seg.asm"     ; 0x00e5
-
-%include "shared/data/scratch_buf_seg.asm"    ; 0x00e9
-
-%include "shared/data/palette_ptr.asm"        ; 0x00f7
-
-%include "shared/data/delay_hook.asm"         ; 0x00fb
-
-%include "shared/data/ems_para_limit.asm"     ; 0x00ff
-
-%include "ega/data/cseg_0101.asm"          ; 0x0101
-
-%include "shared/data/ems_frame_seg.asm"      ; 0x0103
+%include "shared/data/drv_ems_frame.asm"      ; 0x00ff
 
 %include "ega/data/cseg_0105.asm"          ; 0x0105
 
-%include "shared/data/music_start_far.asm"    ; 0x0106
+%include "shared/data/drv_far_calls.asm"      ; 0x0106
 
-%include "shared/data/music_load_far.asm"     ; 0x010e
+%include "shared/data/drv_mouse_flags.asm"    ; 0x0126
 
-%include "shared/data/music_stop_far.asm"     ; 0x0112
-
-%include "shared/data/music_config_far.asm"   ; 0x0116
-
-%include "shared/data/sound_play_far.asm"     ; 0x011a
-
-%include "shared/data/music_playing_far.asm"  ; 0x011e
-
-%include "shared/data/sound_wait_far.asm"     ; 0x0122
-
-%include "shared/data/mouse_glide_active.asm" ; 0x0126
-
-%include "shared/data/mouse_redraw_pending.asm" ; 0x0127
-
-%include "shared/data/mouse_present.asm"      ; 0x0128
-
-%include "shared/data/picture_slots.asm"      ; 0x0129
-
-%include "shared/data/screen_maze_slots.asm"  ; 0x0151
-
-%include "shared/data/maze_slots.asm"         ; 0x015b
-
-%include "shared/data/maze_piece_table.asm"   ; 0x017b
+%include "shared/data/drv_picture_maze_slots.asm" ; 0x0129
 
 %include "ega/data/cseg_0191.asm"          ; 0x0191
 
-%include "shared/data/ems_slots.asm"          ; 0x019b
-
-%include "shared/data/cache_maze_slot_table.asm" ; 0x01c3
-
-%include "shared/data/screen_ems_slots.asm"   ; 0x01d7
-
-%include "shared/data/ems_blocks.asm"         ; 0x01eb
-
-%include "shared/data/ems_block_count.asm"    ; 0x028f
-
-%include "shared/data/ems_paras_used.asm"     ; 0x0291
+%include "shared/data/drv_ems_tables.asm"     ; 0x019b
 
 %include "shared/drv/draw_glyph.asm"              ; 0x0293
 
@@ -221,13 +177,7 @@ cseg_0f80 equ save_screen.cseg1
 cseg_0fbe equ save_screen.cseg2
 %include "shared/drv/save_screen.asm"             ; 0x0ebd
 
-%include "shared/data/maze_map_slots.asm"     ; 0x0fe7
-
-%include "shared/data/maze_blocks.asm"        ; 0x0ffb
-
-%include "shared/data/maze_block_count.asm"   ; 0x10cb
-
-%include "shared/data/maze_paras_used.asm"    ; 0x10cd
+%include "shared/data/drv_maze_tables.asm"    ; 0x0fe7
 
 cseg_125d equ load_maze.cseg1
 cseg_1231 equ load_maze.cseg2
@@ -275,15 +225,15 @@ mouse_hit_test.cseg3 equ cseg_2a06
 
 %include "ega/data/cseg_1ad5.asm"          ; 0x1ad5
 
-%include "shared/data/mouse_drawn_x.asm"      ; 0x1ad9
-
-%include "shared/data/mouse_drawn_y.asm"      ; 0x1adb
+%include "shared/data/drv_mouse_position.asm" ; 0x1ad9
 
 %include "ega/data/cseg_1add.asm"          ; 0x1add
 
+%include "ega/data/ega_mouse_state.asm"    ; 0x1aeb
+
+%include "ega/data/cseg_248d.asm"          ; 0x248d
+
 draw_mouse_pointer_at.cseg1 equ cseg_2a08
-draw_mouse_pointer_at.cseg2 equ cseg_1aeb
-draw_mouse_pointer_at.cseg3 equ cseg_1aed
 %include "shared/drv/draw_mouse_pointer_at.asm"   ; 0x2a4f
 
 %include "ega/io_loc_UQHG.asm"             ; 0x2a6a
@@ -336,9 +286,7 @@ cseg_31b6 equ load_picture.cseg2
 
 %include "shared/drv/get_palette.asm"             ; 0x35ba
 
-%include "shared/data/text_state_words.asm"   ; 0x35dd
-
-%include "shared/data/text_state_bytes.asm"   ; 0x3605
+%include "shared/data/drv_text_state.asm"     ; 0x35dd
 
 %include "shared/drv/draw_text.asm"               ; 0x361e
 
@@ -409,9 +357,7 @@ leaf_loc_SSGH equ leaf_loc_HLKP
 
 %include "shared/drv/stop_sound.asm"              ; 0x4e64
 
-%include "shared/data/score_slots.asm"        ; 0x4e8b
-
-%include "shared/data/score_info.asm"         ; 0x4ea3
+%include "shared/data/drv_score_tables.asm"   ; 0x4e8b
 
 cseg_4fd4 equ load_score.cseg1
 cseg_5010 equ load_score.cseg2

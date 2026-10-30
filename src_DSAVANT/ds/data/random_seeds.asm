@@ -1,0 +1,7 @@
+; auto-generated
+random_seed_a:
+    db 0xb8, 0x0b
+random_seed_b:
+    db 0x01, 0x00
+random_seed_c:
+    db 0x2f, 0x75

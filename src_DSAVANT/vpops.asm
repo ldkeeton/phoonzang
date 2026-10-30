@@ -144,15 +144,7 @@ draw_spell_cost.dseg1 equ dseg_90bb
 __zdata_start:
 %include "vpops/data/dseg_9098.asm"        ; 0x4edb
 
-%include "shared/data/save_si.asm"          ; 0x4f0f
-
-%include "shared/data/save_di.asm"          ; 0x4f11
-
-%include "shared/data/save_sp.asm"          ; 0x4f13
-
-%include "shared/data/save_bp.asm"          ; 0x4f15
-
-%include "shared/data/save_ret.asm"         ; 0x4f17
+%include "shared/data/overlay_saved_registers.asm" ; 0x4f0f
 
 
 __zimage_end:

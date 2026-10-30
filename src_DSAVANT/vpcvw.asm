@@ -482,15 +482,7 @@ __zdata_start:
 
 %include "vpcvw/data/dseg_9366.asm"        ; 0x9b12
 
-%include "shared/data/save_si.asm"          ; 0x9b82
-
-%include "shared/data/save_di.asm"          ; 0x9b84
-
-%include "shared/data/save_sp.asm"          ; 0x9b86
-
-%include "shared/data/save_bp.asm"          ; 0x9b88
-
-%include "shared/data/save_ret.asm"         ; 0x9b8a
+%include "shared/data/overlay_saved_registers.asm" ; 0x9b82
 
 
 __zimage_end:

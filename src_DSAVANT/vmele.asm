@@ -140,15 +140,7 @@ __zdata_start:
 
 %include "vmele/data/screen_temp_name.asm" ; 0x377f
 
-%include "shared/data/save_si.asm"          ; 0x3787
-
-%include "shared/data/save_di.asm"          ; 0x3789
-
-%include "shared/data/save_sp.asm"          ; 0x378b
-
-%include "shared/data/save_bp.asm"          ; 0x378d
-
-%include "shared/data/save_ret.asm"         ; 0x378f
+%include "shared/data/overlay_saved_registers.asm" ; 0x3787
 
 
 __zimage_end:

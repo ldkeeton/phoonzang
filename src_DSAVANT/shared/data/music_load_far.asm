@@ -1,3 +1,0 @@
-; auto-generated
-music_load_far:
-    db 0x0b, 0x01, 0x00, 0x00

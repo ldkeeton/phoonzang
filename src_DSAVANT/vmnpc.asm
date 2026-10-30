@@ -462,15 +462,7 @@ loc_LNNU equ aztec_strcmp.loc1
 __zdata_start:
 %include "vmnpc/data/dseg_9098.asm"        ; 0xaedd
 
-%include "shared/data/save_si.asm"          ; 0xaf6f
-
-%include "shared/data/save_di.asm"          ; 0xaf71
-
-%include "shared/data/save_sp.asm"          ; 0xaf73
-
-%include "shared/data/save_bp.asm"          ; 0xaf75
-
-%include "shared/data/save_ret.asm"         ; 0xaf77
+%include "shared/data/overlay_saved_registers.asm" ; 0xaf6f
 
 
 __zimage_end:

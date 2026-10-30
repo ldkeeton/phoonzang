@@ -311,10 +311,8 @@ api_idx_0004_QJGR.bss2     equ bss_95b0
 
 %include "shared/ovr/draw_known_spell_values.asm" ; 0x24c8
 
-api_idx_002e_JGHT equ api_idx_002e_ILPL
-%include "shared/ovr/api_idx_002e_ILPL.asm"     ; 0x2582
+%include "shared/ovr/draw_slot_value_row.asm"   ; 0x2582
 
-api_idx_0032_HGIM.api_idx1 equ api_idx_002e_JGHT
 %include "shared/ovr/api_idx_0032_HGIM.asm"     ; 0x26f1
 
 %include "vpcmk/api_idx_0088_QLNT.asm"     ; 0x2c15
@@ -482,15 +480,7 @@ __zdata_start:
 
 %include "vpcmk/data/dseg_935a.asm"        ; 0x72f3
 
-%include "shared/data/save_si.asm"          ; 0x74b3
-
-%include "shared/data/save_di.asm"          ; 0x74b5
-
-%include "shared/data/save_sp.asm"          ; 0x74b7
-
-%include "shared/data/save_bp.asm"          ; 0x74b9
-
-%include "shared/data/save_ret.asm"         ; 0x74bb
+%include "shared/data/overlay_saved_registers.asm" ; 0x74b3
 
 
 __zimage_end:

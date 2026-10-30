@@ -3,7 +3,7 @@ graphics_loc_OSKV:
     push bp                          ; 0x1e35
     mov bp, sp                       ; 0x1e36
     sub sp, byte 0x10                ; 0x1e38
-    mov ax, word [cs:cseg_14b2 - IMAGE_BASE] ; 0x1e3b
+    mov ax, word [cs:mouse_read_y - IMAGE_BASE] ; 0x1e3b
     mov bx, 0xc8                     ; 0x1e3f
     sub bx, ax                       ; 0x1e42
     cmp bx, word [cs:cseg_1d5e - IMAGE_BASE] ; 0x1e44
@@ -13,7 +13,7 @@ graphics_loc_OSKV:
     mov word [cs:cseg_14c0 - IMAGE_BASE], bx ; 0x1e50
     mov bx, 0x140                    ; 0x1e55
     mul bx                           ; 0x1e58
-    mov bx, word [cs:cseg_14b0 - IMAGE_BASE] ; 0x1e5a
+    mov bx, word [cs:mouse_read_x - IMAGE_BASE] ; 0x1e5a
     add ax, bx                       ; 0x1e5f
     mov si, ax                       ; 0x1e61
     mov word [cs:cseg_14c2 - IMAGE_BASE], ax ; 0x1e63
@@ -51,8 +51,8 @@ graphics_loc_OSKV:
     add ax, word [cs:mouse_drawn_width - IMAGE_BASE] ; 0x1eba
     dec ax                           ; 0x1ebf
     mov word [bp - 4], ax            ; 0x1ec0
-    mov cx, word [cs:cseg_14b0 - IMAGE_BASE] ; 0x1ec3
-    mov dx, word [cs:cseg_14b2 - IMAGE_BASE] ; 0x1ec8
+    mov cx, word [cs:mouse_read_x - IMAGE_BASE] ; 0x1ec3
+    mov dx, word [cs:mouse_read_y - IMAGE_BASE] ; 0x1ec8
     cmp word [bp - 4], cx            ; 0x1ecd
     jb short .forward4               ; 0x1ed0
     cmp word [bp - 2], dx            ; 0x1ed2
@@ -70,14 +70,14 @@ graphics_loc_OSKV:
     jmp near .forward10              ; 0x1ef7
 .forward5:
     mov byte [cs:cseg_1d68 - IMAGE_BASE], 1 ; 0x1efa
-    mov cx, word [cs:cseg_14b0 - IMAGE_BASE] ; 0x1f00
+    mov cx, word [cs:mouse_read_x - IMAGE_BASE] ; 0x1f00
     mov ax, cx                       ; 0x1f05
     cmp word [cs:mouse_drawn_x - IMAGE_BASE], cx ; 0x1f07
     jb short .forward6               ; 0x1f0c
     mov ax, word [cs:mouse_drawn_x - IMAGE_BASE] ; 0x1f0e
 .forward6:
     mov word [bp - 6], ax            ; 0x1f12
-    mov dx, word [cs:cseg_14b2 - IMAGE_BASE] ; 0x1f15
+    mov dx, word [cs:mouse_read_y - IMAGE_BASE] ; 0x1f15
     mov bx, dx                       ; 0x1f1a
     cmp word [cs:mouse_drawn_y - IMAGE_BASE], dx ; 0x1f1c
     jb short .forward7               ; 0x1f21
@@ -324,9 +324,9 @@ graphics_loc_OSKV:
     mov bx, word [cs:mouse_redraw_background_offset - IMAGE_BASE] ; 0x213d
     mov word [cs:mouse_redraw_background_offset - IMAGE_BASE], ax ; 0x2142
     mov word [cs:mouse_saved_background_offset - IMAGE_BASE], bx ; 0x2146
-    mov ax, word [cs:cseg_14b0 - IMAGE_BASE] ; 0x214b
+    mov ax, word [cs:mouse_read_x - IMAGE_BASE] ; 0x214b
     mov word [cs:mouse_drawn_x - IMAGE_BASE], ax ; 0x214f
-    mov ax, word [cs:cseg_14b2 - IMAGE_BASE] ; 0x2153
+    mov ax, word [cs:mouse_read_y - IMAGE_BASE] ; 0x2153
     mov word [cs:mouse_drawn_y - IMAGE_BASE], ax ; 0x2157
     mov ax, word [cs:cseg_14c0 - IMAGE_BASE] ; 0x215b
     mov word [cs:mouse_drawn_height - IMAGE_BASE], ax ; 0x215f

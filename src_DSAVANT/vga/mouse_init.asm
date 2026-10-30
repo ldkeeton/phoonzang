@@ -28,8 +28,8 @@ mouse_init:
     mov ax, 3                        ; 0x122e
     int 0x33 ; BIOS mouse
     shr cx, 1                        ; 0x1233
-    mov word [cs:cseg_14b0 - IMAGE_BASE], cx ; 0x1235
-    mov word [cs:cseg_14b2 - IMAGE_BASE], dx ; 0x123a
+    mov word [cs:mouse_read_x - IMAGE_BASE], cx ; 0x1235
+    mov word [cs:mouse_read_y - IMAGE_BASE], dx ; 0x123a
     mov ax, cs                       ; 0x123f
     push ax                          ; 0x1241
     mov ax, 0xffff                   ; 0x1242

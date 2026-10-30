@@ -7,5 +7,5 @@ draw_mouse_pointer_at:
     mov al, 0xff
     mov byte [cs:draw_mouse_pointer_at.cseg1 - IMAGE_BASE], al
     shr cx, 1
-    mov word [cs:draw_mouse_pointer_at.cseg2 - IMAGE_BASE], cx
-    mov word [cs:draw_mouse_pointer_at.cseg3 - IMAGE_BASE], dx
+    mov word [cs:mouse_read_x - IMAGE_BASE], cx
+    mov word [cs:mouse_read_y - IMAGE_BASE], dx

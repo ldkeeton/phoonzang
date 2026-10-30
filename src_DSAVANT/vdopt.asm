@@ -190,25 +190,13 @@ jumptable_35d1        equ pick_spell_dialog.jumptable1
 %include "shared/ovr/aztec_cswt.asm"            ; 0x4717
 
 __zdata_start:
-%include "vdopt/data/report_line1_none.asm" ; 0x472f
-
-%include "vdopt/data/report_line2_none.asm" ; 0x4730
-
-%include "vdopt/data/dseg_909a.asm"        ; 0x4731
+%include "vdopt/data/report_placeholders.asm" ; 0x472f
 
 %include "shared/data/spell_screen_temp_file.asm" ; 0x4735
 
 %include "vdopt/data/dseg_90a4.asm"        ; 0x473b
 
-%include "shared/data/save_si.asm"          ; 0x4743
-
-%include "shared/data/save_di.asm"          ; 0x4745
-
-%include "shared/data/save_sp.asm"          ; 0x4747
-
-%include "shared/data/save_bp.asm"          ; 0x4749
-
-%include "shared/data/save_ret.asm"         ; 0x474b
+%include "shared/data/overlay_saved_registers.asm" ; 0x4743
 
 
 __zimage_end:
