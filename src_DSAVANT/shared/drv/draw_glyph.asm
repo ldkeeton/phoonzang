@@ -10,10 +10,10 @@ draw_glyph:
     mov es, ax                       ; 0x029d
     mov ds, ax                       ; 0x029f
     xor bx, bx                       ; 0x02a1
-    mov ax, word [cs:cseg_0197 - IMAGE_BASE] ; 0x02a3
+    mov ax, word [cs:text_pos_y - IMAGE_BASE] ; 0x02a3
     mov cx, 0x140                    ; 0x02a7
     mul cx                           ; 0x02aa
-    add ax, word [cs:cseg_0195 - IMAGE_BASE] ; 0x02ac
+    add ax, word [cs:text_pos_x - IMAGE_BASE] ; 0x02ac
     mov di, ax                       ; 0x02b1
     mov word [bp - 6], ax            ; 0x02b3
     xor ax, ax                       ; 0x02b6
@@ -34,18 +34,18 @@ draw_glyph:
     mov si, ax                       ; 0x02dc
     xor ah, ah                       ; 0x02de
     mov al, byte [bx + 1]            ; 0x02e0
-    add word [cs:cseg_0195 - IMAGE_BASE], ax ; 0x02e3
+    add word [cs:text_pos_x - IMAGE_BASE], ax ; 0x02e3
     mov word [bp - 0xc], ax          ; 0x02e8
     xor bx, bx                       ; 0x02eb
     mov al, byte [bx + 7]            ; 0x02ed
     cbw                              ; 0x02f0
-    add word [cs:cseg_0195 - IMAGE_BASE], ax ; 0x02f1
+    add word [cs:text_pos_x - IMAGE_BASE], ax ; 0x02f1
     mov al, byte [bx + 2]            ; 0x02f6
     test al, 1                       ; 0x02f9
     je short .forward1               ; 0x02fb
     jmp near .forward11              ; 0x02fd
 .forward1:
-    mov ax, word [cs:cseg_0199 - IMAGE_BASE] ; 0x0300
+    mov ax, word [cs:text_opaque - IMAGE_BASE] ; 0x0300
     or ax, ax                        ; 0x0304
     jne short .forward2              ; 0x0306
     mov al, byte [bx + 6]            ; 0x0308
@@ -60,8 +60,8 @@ draw_glyph:
     shr bx, cl                       ; 0x031c
     sub ax, bx                       ; 0x031e
     mov word [bp - 0xa], ax          ; 0x0320
-    mov bx, word [cs:cseg_0191 - IMAGE_BASE] ; 0x0323
-    mov dx, word [cs:cseg_0193 - IMAGE_BASE] ; 0x0328
+    mov bx, word [cs:secondary_text_color - IMAGE_BASE] ; 0x0323
+    mov dx, word [cs:primary_text_color - IMAGE_BASE] ; 0x0328
     mov dh, bl                       ; 0x032d
     mov ax, word [cs:screen_buf_seg - IMAGE_BASE] ; 0x032f
     mov es, ax                       ; 0x0333
@@ -101,8 +101,8 @@ draw_glyph:
     mul cx                           ; 0x0377
     add ax, word [bx + 0xc]          ; 0x0379
     mov bx, ax                       ; 0x037c
-    mov ax, word [cs:cseg_0191 - IMAGE_BASE] ; 0x037e
-    mov dx, word [cs:cseg_0193 - IMAGE_BASE] ; 0x0382
+    mov ax, word [cs:secondary_text_color - IMAGE_BASE] ; 0x037e
+    mov dx, word [cs:primary_text_color - IMAGE_BASE] ; 0x0382
     mov dh, al                       ; 0x0387
     mov ax, word [cs:screen_buf_seg - IMAGE_BASE] ; 0x0389
     mov es, ax                       ; 0x038d

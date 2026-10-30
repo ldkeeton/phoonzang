@@ -23,44 +23,44 @@ set_mouse_pointer:
     jae short .back1                 ; 0x19e6
     call request_mouse_redraw        ; 0x19e8
     mov ax, word [bp + 0xc]          ; 0x19eb
-    mov word [cs:cseg_2499 - IMAGE_BASE], ax ; 0x19ee
+    mov word [cs:mouse_pointer_bitmap_offset - IMAGE_BASE], ax ; 0x19ee
     mov ax, word [bp + 0xe]          ; 0x19f2
-    mov word [cs:cseg_249b - IMAGE_BASE], ax ; 0x19f5
+    mov word [cs:mouse_pointer_bitmap_segment - IMAGE_BASE], ax ; 0x19f5
     mov ax, word [bp + 0x10]         ; 0x19f9
-    mov word [cs:cseg_248d - IMAGE_BASE], ax ; 0x19fc
+    mov word [cs:mouse_pointer_width - IMAGE_BASE], ax ; 0x19fc
     mov ax, word [bp + 0x12]         ; 0x1a00
-    mov word [cs:cseg_2491 - IMAGE_BASE], ax ; 0x1a03
-    mov ax, word [cs:cseg_2499 - IMAGE_BASE] ; 0x1a07
-    or ax, word [cs:cseg_249b - IMAGE_BASE] ; 0x1a0b
+    mov word [cs:mouse_pointer_height - IMAGE_BASE], ax ; 0x1a03
+    mov ax, word [cs:mouse_pointer_bitmap_offset - IMAGE_BASE] ; 0x1a07
+    or ax, word [cs:mouse_pointer_bitmap_segment - IMAGE_BASE] ; 0x1a0b
     jne short .forward2              ; 0x1a10
     mov ax, cs                       ; 0x1a12
     mov ds, ax                       ; 0x1a14
     mov es, ax                       ; 0x1a16
-    mov si, cseg_2493 - IMAGE_BASE   ; 0x1a18
-    mov di, cseg_248d - IMAGE_BASE   ; 0x1a1b
+    mov si, default_pointer_dimensions - IMAGE_BASE ; 0x1a18
+    mov di, mouse_pointer_width - IMAGE_BASE ; 0x1a1b
     mov cx, 6                        ; 0x1a1e
     rep movsb                        ; 0x1a21
     push ds                          ; 0x1a23
     push si                          ; 0x1a24
-    mov si, 0x259e                   ; 0x1a25
+    mov si, default_pointer_bitmap - IMAGE_BASE ; 0x1a25
     mov ax, cs                       ; 0x1a28
     mov ds, ax                       ; 0x1a2a
-    call string_loc_TPVR             ; 0x1a2c
+    call expand_cursor_bitmap_planes ; 0x1a2c
     pop si                           ; 0x1a2f
     pop ds                           ; 0x1a30
     jmp short .forward3              ; 0x1a31
 .forward2:
-    mov ax, word [cs:cseg_248d - IMAGE_BASE] ; 0x1a33
+    mov ax, word [cs:mouse_pointer_width - IMAGE_BASE] ; 0x1a33
     add ax, strict word 3            ; 0x1a37
     mov cl, 2                        ; 0x1a3a
     shr ax, cl                       ; 0x1a3c
-    mov word [cs:cseg_248f - IMAGE_BASE], ax ; 0x1a3e
+    mov word [cs:cursor_bitmap_stride - IMAGE_BASE], ax ; 0x1a3e
     push ds                          ; 0x1a42
     push si                          ; 0x1a43
     mov si, word [bp + 0xc]          ; 0x1a44
     mov ax, word [bp + 0xe]          ; 0x1a47
     mov ds, ax                       ; 0x1a4a
-    call string_loc_TPVR             ; 0x1a4c
+    call expand_cursor_bitmap_planes ; 0x1a4c
     pop si                           ; 0x1a4f
     pop ds                           ; 0x1a50
 .forward3:
@@ -101,14 +101,8 @@ set_mouse_pointer:
 .forward7:
     mov ax, cs                       ; 0x1a9f
     mov ds, ax                       ; 0x1aa1
-    mov dx, cseg_1aaf - IMAGE_BASE   ; 0x1aa3
+    mov dx, mouse_pointer_size_message - IMAGE_BASE ; 0x1aa3
     mov ah, 9                        ; 0x1aa6
     int 0x21 ; DOS string output
     mov ax, 0x4c01                   ; 0x1aaa
     int 0x21 ; DOS function dispatcher
-cseg_1aaf:
-
-    db 0x0d, 0x0a, 0x07
-    db 'Mouse pointer size out of range.', 0
-    db 0x0a, 0x24
-

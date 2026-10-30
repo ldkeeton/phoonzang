@@ -135,7 +135,15 @@ loc_JTQK_001f.load_screen1 equ load_screen
 
 %include "shared/data/drv_picture_maze_slots.asm" ; 0x0129
 
-%include "vga/data/cseg_0191.asm"          ; 0x0191
+%include "shared/data/secondary_text_color.asm" ; 0x0191
+
+%include "shared/data/primary_text_color.asm" ; 0x0193
+
+%include "shared/data/text_pos_x.asm"         ; 0x0195
+
+%include "shared/data/text_pos_y.asm"         ; 0x0197
+
+%include "shared/data/text_opaque.asm"        ; 0x0199
 
 %include "shared/data/drv_ems_tables.asm"     ; 0x019b
 
@@ -186,14 +194,12 @@ cseg_0d6b equ load_maze.cseg3
 
 %include "shared/drv/decrement_cached_slot_ids.asm" ; 0x0e34
 
-%include "vga/data/cseg_0e6d.asm"          ; 0x0e6d
+%include "shared/data/ems_compact_source_page.asm" ; 0x0e6d
 
-release_and_compact_ems_blocks.cseg1 equ cseg_0e6d
-release_and_compact_ems_blocks.cseg2 equ cseg_0e6f
+%include "shared/data/ems_compact_dest_page.asm" ; 0x0e6f
+
 %include "shared/drv/release_and_compact_ems_blocks.asm" ; 0x0e71
 
-leaf_loc_TPOL.cseg1 equ cseg_0e6f
-leaf_loc_TPOL.cseg2 equ cseg_0e6d
 %include "shared/drv/leaf_loc_TPOL.asm"           ; 0x0f3b
 
 %include "shared/drv/free_maze.asm"               ; 0x0f6f
@@ -210,9 +216,6 @@ cseg_0fea equ draw_maze_piece.cseg1
 
 %include "shared/drv/request_mouse_redraw.asm"    ; 0x1308
 
-mouse_hit_test.cseg1 equ cseg_1dcd
-mouse_hit_test.cseg2 equ cseg_1dcf
-mouse_hit_test.cseg3 equ cseg_1dd1
 %include "shared/drv/mouse_hit_test.asm"          ; 0x1317
 
 %include "shared/drv/get_mouse.asm"               ; 0x139a
@@ -226,14 +229,20 @@ data_1e5c equ __zdata_1e5c - IMAGE_BASE
 
 %include "vga/data/cseg_1d68.asm"          ; 0x1d68
 
-draw_mouse_pointer_at.cseg1 equ cseg_1dd3
+%include "shared/data/mouse_click_pending.asm" ; 0x1dcd
+
+%include "shared/data/mouse_click_x.asm"      ; 0x1dcf
+
+%include "shared/data/mouse_click_y.asm"      ; 0x1dd1
+
+%include "vga/data/cursor_draw_busy.asm"   ; 0x1dd3
+
 %include "shared/drv/draw_mouse_pointer_at.asm"   ; 0x1e1a
 
 data_1dc4 equ __zdata_1dc4 - IMAGE_BASE
 data_1e4c equ __zdata_1e4c - IMAGE_BASE
 %include "vga/graphics_loc_OSKV.asm"       ; 0x1e35
 
-clear_mouse_click.cseg1 equ cseg_1dcd
 %include "shared/drv/clear_mouse_click.asm"       ; 0x217d
 
 %include "shared/drv/free_picture.asm"            ; 0x2185

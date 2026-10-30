@@ -26,14 +26,14 @@ release_and_compact_ems_blocks:
     mov ax, si
     mov cl, 0xa
     shr ax, cl
-    mov word [cs:release_and_compact_ems_blocks.cseg1 - IMAGE_BASE], ax
+    mov word [cs:ems_compact_source_page - IMAGE_BASE], ax
     and si, strict word 0x3ff
     mov cl, 4
     shl si, cl
     mov ax, di
     mov cl, 0xa
     shr ax, cl
-    mov word [cs:release_and_compact_ems_blocks.cseg2 - IMAGE_BASE], ax
+    mov word [cs:ems_compact_dest_page - IMAGE_BASE], ax
     and di, strict word 0x3ff
     mov cl, 4
     shl di, cl
@@ -46,7 +46,7 @@ release_and_compact_ems_blocks:
     xor dx, dx
     cmp di, strict word 0x4000
     jne short .forward2
-    inc word [cs:release_and_compact_ems_blocks.cseg2 - IMAGE_BASE]
+    inc word [cs:ems_compact_dest_page - IMAGE_BASE]
     inc dx
 .forward2:
     cmp si, strict word 0x4000
@@ -54,7 +54,7 @@ release_and_compact_ems_blocks:
     cmp si, strict word 0x8000
     jne short .forward4
 .forward3:
-    inc word [cs:release_and_compact_ems_blocks.cseg1 - IMAGE_BASE]
+    inc word [cs:ems_compact_source_page - IMAGE_BASE]
     inc dx
 .forward4:
     or dx, dx

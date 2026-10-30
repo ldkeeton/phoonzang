@@ -6,16 +6,16 @@ mouse_init:
     push es                          ; 0x171f
     mov ax, ds                       ; 0x1720
     mov es, ax                       ; 0x1722
-    cmp byte [cs:cseg_0105 - IMAGE_BASE], 0 ; 0x1724
+    cmp byte [cs:mouse_init_enabled - IMAGE_BASE], 0 ; 0x1724
     jne short .forward1              ; 0x172a
     jmp near .forward2               ; 0x172c
 .forward1:
     push ds                          ; 0x172f
     push si                          ; 0x1730
-    mov si, 0x259e                   ; 0x1731
+    mov si, default_pointer_bitmap - IMAGE_BASE ; 0x1731
     mov ax, cs                       ; 0x1734
     mov ds, ax                       ; 0x1736
-    call string_loc_TPVR             ; 0x1738
+    call expand_cursor_bitmap_planes ; 0x1738
     pop si                           ; 0x173b
     pop ds                           ; 0x173c
     mov ax, 0                        ; 0x173d
@@ -45,7 +45,7 @@ mouse_init:
     push ax                          ; 0x1776
     mov ax, 0xffff                   ; 0x1777
     mov word [cs:mouse_drawn_y - IMAGE_BASE], ax ; 0x177a
-    call io_loc_UQHG                 ; 0x177e
+    call update_mouse_cursor         ; 0x177e
     pop si                           ; 0x1781
     pop di                           ; 0x1782
     pop es                           ; 0x1783

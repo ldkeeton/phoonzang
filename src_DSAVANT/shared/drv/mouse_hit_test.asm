@@ -12,13 +12,13 @@ mouse_hit_test:
     xor ax, ax
     cmp byte [cs:mouse_present - IMAGE_BASE], 0
     je short .forward5
-    mov bx, word [cs:mouse_hit_test.cseg1 - IMAGE_BASE]
+    mov bx, word [cs:mouse_click_pending - IMAGE_BASE]
     or bx, bx
     je short .forward1
-    mov word [cs:mouse_hit_test.cseg1 - IMAGE_BASE], 0
+    mov word [cs:mouse_click_pending - IMAGE_BASE], 0
     mov word [bp - 2], bx
-    mov cx, word [cs:mouse_hit_test.cseg2 - IMAGE_BASE]
-    mov dx, word [cs:mouse_hit_test.cseg3 - IMAGE_BASE]
+    mov cx, word [cs:mouse_click_x - IMAGE_BASE]
+    mov dx, word [cs:mouse_click_y - IMAGE_BASE]
     jmp short .forward2
 .forward1:
     mov ax, 3

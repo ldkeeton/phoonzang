@@ -6,9 +6,10 @@ given) to its sidecar entry, writes every naming surface the routine has
 (``function_names`` and the ``dispatch_table`` slot),
 renames the hand-owned sources and every reference in them, then builds and
 rebuilds the project.  The sources are renamed before the build because a hand
-source whose routine the sidecar renamed is an orphan the build refuses.  A
-failed build rolls the sidecar and sources back and drops label exports the
-failed build wrote.
+source whose routine the sidecar renamed is an orphan the build refuses.  The
+only undo is for a sidecar that fails to load, which is restored before any
+source is touched.  Once applied, the names stay: a failed build or rebuild
+exits nonzero and leaves the sidecar and renamed sources in place.
 
 ``DRY_RUN=1 make name ...`` (or ``--dry-run``) prints the same plan without
 writing; ``make info`` and ``make refs`` show each naming surface and which one

@@ -14,7 +14,7 @@ show_area:
     mov ax, ds                       ; 0x04c6
     mov es, ax                       ; 0x04c8
     call request_mouse_redraw        ; 0x04ca
-    call graphics_loc_IMOU           ; 0x04cd
+    call refresh_mouse_overlay       ; 0x04cd
     mov ax, word [cs:screen_buf_seg - IMAGE_BASE] ; 0x04d0
     mov ds, ax                       ; 0x04d4
     mov ax, 0xa000                   ; 0x04d6
@@ -116,7 +116,7 @@ show_area:
 .back1:
     mov di, word [bp - 2]            ; 0x05ba
     mov si, word [bp - 0x12]         ; 0x05bd
-    mov bx, cseg_32b3 - IMAGE_BASE   ; 0x05c0
+    mov bx, pixel_plane_lookup - IMAGE_BASE ; 0x05c0
     mov cl, 4                        ; 0x05c3
     test byte [bp - 0x14], 0xaa      ; 0x05c5
     jne short .forward7              ; 0x05c9
@@ -153,7 +153,7 @@ show_area:
     inc dx                           ; 0x060c
     mov al, 0                        ; 0x060d
     out dx, al                       ; 0x060f
-    call leaf_loc_KNIM               ; 0x0610
+    call restore_mouse_background    ; 0x0610
     call update_mouse_pointer        ; 0x0613
     pop si                           ; 0x0616
     pop di                           ; 0x0617
@@ -360,7 +360,7 @@ show_area:
     add bx, word [bp - 0x24]         ; 0x07a9
     mov dh, byte [es:bx + di]        ; 0x07ac
 .back12:
-    mov bx, cseg_32b3 - IMAGE_BASE   ; 0x07af
+    mov bx, pixel_plane_lookup - IMAGE_BASE ; 0x07af
     lodsb                            ; 0x07b2
     cs xlatb                         ; 0x07b3
     rcl al, 1                        ; 0x07b5
@@ -399,7 +399,7 @@ show_area:
     xor dx, dx                       ; 0x07fc
     mov byte [bp - 0x30], 4          ; 0x07fe
 .back14:
-    mov bx, cseg_32b3 - IMAGE_BASE   ; 0x0802
+    mov bx, pixel_plane_lookup - IMAGE_BASE ; 0x0802
     lodsb                            ; 0x0805
     cs xlatb                         ; 0x0806
     rcl al, 1                        ; 0x0808
@@ -447,7 +447,7 @@ show_area:
     add bx, word [bp - 0x24]         ; 0x0868
     mov dh, byte [es:bx + di]        ; 0x086b
 .back15:
-    mov bx, cseg_32b3 - IMAGE_BASE   ; 0x086e
+    mov bx, pixel_plane_lookup - IMAGE_BASE ; 0x086e
     mov al, byte [si]                ; 0x0871
     dec si                           ; 0x0873
     cs xlatb                         ; 0x0874
@@ -554,7 +554,7 @@ show_area:
     inc dx                           ; 0x0936
     mov al, 0xf                      ; 0x0937
     out dx, al                       ; 0x0939
-    call leaf_loc_KNIM               ; 0x093a
+    call restore_mouse_background    ; 0x093a
     call update_mouse_pointer        ; 0x093d
     pop si                           ; 0x0940
     pop di                           ; 0x0941

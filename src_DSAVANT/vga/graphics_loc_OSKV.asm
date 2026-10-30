@@ -337,5 +337,5 @@ graphics_loc_OSKV:
     mov sp, bp                       ; 0x2173
     pop bp                           ; 0x2175
     xor al, al                       ; 0x2176
-    mov byte [cs:cseg_1dd3 - IMAGE_BASE], al ; 0x2178
+    mov byte [cs:cursor_draw_busy - IMAGE_BASE], al ; 0x2178
     retf                             ; 0x217c

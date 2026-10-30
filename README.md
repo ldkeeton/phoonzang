@@ -6,9 +6,9 @@ The 16-bit disassembler and decompiler. Currently focused on Wizardry VII: Crusa
 
 Wizardry VII seems to have been originally compiled with Manx Aztec v4.2b
 
-The `.asm` files NASM syntax directly disassembled from EXE. 
+The `.asm` files are NASM syntax, directly disassembled from EXE. These are also verified to rebuild back to the EXE.
 
-From `.asm` we create `.s` and `.c` files which are original DOS sources.
+From `.asm` we create `.s` and `.c` files which are original DOS sources. These are automatically verified by being compiled in DOS, with their .obj brought back to host side, disassembled, and compared against the matching `.asm`.
 
 
 ## The project has two parallel goals:
@@ -56,7 +56,7 @@ From `.asm` we create `.s` and `.c` files which are original DOS sources.
 
 ## Wizardry VII coverage
 
-Progress: **358 / 1103** (32.5%).
+Progress: **394 / 1103** (35.7%).
 
 ![C coverage heatmap](readme/heatmap.svg)
 

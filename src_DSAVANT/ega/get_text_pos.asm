@@ -2,10 +2,10 @@
 get_text_pos:
     push bp                          ; 0x047d
     mov bp, sp                       ; 0x047e
-    mov ax, word [cs:cseg_0195 - IMAGE_BASE] ; 0x0480
+    mov ax, word [cs:text_pos_x - IMAGE_BASE] ; 0x0480
     mov bx, word [bp + 0xc]          ; 0x0484
     mov word [bx], ax                ; 0x0487
-    mov ax, word [cs:cseg_0197 - IMAGE_BASE] ; 0x0489
+    mov ax, word [cs:text_pos_y - IMAGE_BASE] ; 0x0489
     mov bx, word [bp + 0xe]          ; 0x048d
     mov word [bx], ax                ; 0x0490
     mov sp, bp                       ; 0x0492

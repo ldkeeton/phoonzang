@@ -18,15 +18,15 @@ mouse_off:
     mov ds, ax                       ; 0x1831
     mov ax, 0xa000                   ; 0x1833
     mov es, ax                       ; 0x1836
-    mov si, word [cs:cseg_1ad5 - IMAGE_BASE] ; 0x1838
+    mov si, word [cs:cursor_save_buffer - IMAGE_BASE] ; 0x1838
     mov dx, 0x3c4                    ; 0x183d
     mov al, 2                        ; 0x1840
     out dx, al                       ; 0x1842
     inc dx                           ; 0x1843
     mov al, 1                        ; 0x1844
     out dx, al                       ; 0x1846
-    call leaf_loc_PUST               ; 0x1847
-    mov si, word [cs:cseg_1ad5 - IMAGE_BASE] ; 0x184a
+    call restore_cursor_background_plane ; 0x1847
+    mov si, word [cs:cursor_save_buffer - IMAGE_BASE] ; 0x184a
     add si, strict word 0x120        ; 0x184f
     mov dx, 0x3c4                    ; 0x1853
     mov al, 2                        ; 0x1856
@@ -34,8 +34,8 @@ mouse_off:
     inc dx                           ; 0x1859
     mov al, 2                        ; 0x185a
     out dx, al                       ; 0x185c
-    call leaf_loc_PUST               ; 0x185d
-    mov si, word [cs:cseg_1ad5 - IMAGE_BASE] ; 0x1860
+    call restore_cursor_background_plane ; 0x185d
+    mov si, word [cs:cursor_save_buffer - IMAGE_BASE] ; 0x1860
     add si, strict word 0x240        ; 0x1865
     mov dx, 0x3c4                    ; 0x1869
     mov al, 2                        ; 0x186c
@@ -43,8 +43,8 @@ mouse_off:
     inc dx                           ; 0x186f
     mov al, 4                        ; 0x1870
     out dx, al                       ; 0x1872
-    call leaf_loc_PUST               ; 0x1873
-    mov si, word [cs:cseg_1ad5 - IMAGE_BASE] ; 0x1876
+    call restore_cursor_background_plane ; 0x1873
+    mov si, word [cs:cursor_save_buffer - IMAGE_BASE] ; 0x1876
     add si, strict word 0x360        ; 0x187b
     mov dx, 0x3c4                    ; 0x187f
     mov al, 2                        ; 0x1882
@@ -52,7 +52,7 @@ mouse_off:
     inc dx                           ; 0x1885
     mov al, 8                        ; 0x1886
     out dx, al                       ; 0x1888
-    call leaf_loc_PUST               ; 0x1889
+    call restore_cursor_background_plane ; 0x1889
     mov dx, 0x3c4                    ; 0x188c
     mov al, 2                        ; 0x188f
     out dx, al                       ; 0x1891
