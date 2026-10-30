@@ -39,36 +39,36 @@ save_ret equ __zdseg_end + (__zsave_ret - __zdata_start)
 _Uorg equ __zdseg_end + (__zobss_90b6 - __zdata_start)
 pending_event equ __zdseg_end + (__zobss_90b6 - __zdata_start)
 pending_event_hi equ __zdseg_end + (__zobss_90b8 - __zdata_start)
-bss_90ba equ __zdseg_end + (__zobss_90ba - __zdata_start)
-bss_9342 equ __zdseg_end + (__zobss_9342 - __zdata_start)
-bss_9344 equ __zdseg_end + (__zobss_9344 - __zdata_start)
-bss_9346 equ __zdseg_end + (__zobss_9346 - __zdata_start)
+target_grid_primary equ __zdseg_end + (__zobss_90ba - __zdata_start)
+target_spell_row_count equ __zdseg_end + (__zobss_9342 - __zdata_start)
+target_spell_final_left equ __zdseg_end + (__zobss_9344 - __zdata_start)
+target_grid_secondary equ __zdseg_end + (__zobss_9346 - __zdata_start)
 bss_9348 equ __zdseg_end + (__zobss_9348 - __zdata_start)
 bss_95ac equ __zdseg_end + (__zobss_95ac - __zdata_start)
-bss_95ce equ __zdseg_end + (__zobss_95ce - __zdata_start)
-bss_95d0 equ __zdseg_end + (__zobss_95d0 - __zdata_start)
-bss_9858 equ __zdseg_end + (__zobss_9858 - __zdata_start)
-bss_985a equ __zdseg_end + (__zobss_985a - __zdata_start)
-bss_9ae2 equ __zdseg_end + (__zobss_9ae2 - __zdata_start)
-bss_9ae4 equ __zdseg_end + (__zobss_9ae4 - __zdata_start)
-bss_9ae6 equ __zdseg_end + (__zobss_9ae6 - __zdata_start)
-bss_9ae8 equ __zdseg_end + (__zobss_9ae8 - __zdata_start)
-bss_9aea equ __zdseg_end + (__zobss_9aea - __zdata_start)
-bss_9aec equ __zdseg_end + (__zobss_9aec - __zdata_start)
-bss_9aee equ __zdseg_end + (__zobss_9aee - __zdata_start)
-bss_9af0 equ __zdseg_end + (__zobss_9af0 - __zdata_start)
-bss_9af2 equ __zdseg_end + (__zobss_9af2 - __zdata_start)
-bss_9af4 equ __zdseg_end + (__zobss_9af4 - __zdata_start)
-bss_9af6 equ __zdseg_end + (__zobss_9af6 - __zdata_start)
-bss_9af8 equ __zdseg_end + (__zobss_9af8 - __zdata_start)
-bss_9afa equ __zdseg_end + (__zobss_9afa - __zdata_start)
-bss_9afc equ __zdseg_end + (__zobss_9afc - __zdata_start)
-bss_9afe equ __zdseg_end + (__zobss_9afe - __zdata_start)
-bss_9b00 equ __zdseg_end + (__zobss_9b00 - __zdata_start)
-bss_9b02 equ __zdseg_end + (__zobss_9b02 - __zdata_start)
-bss_9b04 equ __zdseg_end + (__zobss_9b04 - __zdata_start)
-bss_9b06 equ __zdseg_end + (__zobss_9b06 - __zdata_start)
-bss_9b08 equ __zdseg_end + (__zobss_9b08 - __zdata_start)
+target_spell_final_right equ __zdseg_end + (__zobss_95ce - __zdata_start)
+target_grid_tertiary equ __zdseg_end + (__zobss_95d0 - __zdata_start)
+target_grid_mode equ __zdseg_end + (__zobss_9858 - __zdata_start)
+target_grid_overlay_flags equ __zdseg_end + (__zobss_985a - __zdata_start)
+target_spell_index_a equ __zdseg_end + (__zobss_9ae2 - __zdata_start)
+target_spell_index_b equ __zdseg_end + (__zobss_9ae4 - __zdata_start)
+target_spell_index_f equ __zdseg_end + (__zobss_9ae6 - __zdata_start)
+target_spell_index_e equ __zdseg_end + (__zobss_9ae8 - __zdata_start)
+target_spell_fixed_index equ __zdseg_end + (__zobss_9aea - __zdata_start)
+target_spell_index_d equ __zdseg_end + (__zobss_9aec - __zdata_start)
+target_spell_index_c equ __zdseg_end + (__zobss_9aee - __zdata_start)
+target_spell_base_index equ __zdseg_end + (__zobss_9af0 - __zdata_start)
+target_spell_column_offset equ __zdseg_end + (__zobss_9af2 - __zdata_start)
+target_spell_row_offset equ __zdseg_end + (__zobss_9af4 - __zdata_start)
+target_spell_middle_left equ __zdseg_end + (__zobss_9af6 - __zdata_start)
+target_spell_top_left equ __zdseg_end + (__zobss_9af8 - __zdata_start)
+target_spell_lower_left equ __zdseg_end + (__zobss_9afa - __zdata_start)
+target_spell_center_left equ __zdseg_end + (__zobss_9afc - __zdata_start)
+target_spell_middle_right equ __zdseg_end + (__zobss_9afe - __zdata_start)
+target_spell_top_right equ __zdseg_end + (__zobss_9b00 - __zdata_start)
+target_spell_lower_right equ __zdseg_end + (__zobss_9b02 - __zdata_start)
+target_spell_center_right equ __zdseg_end + (__zobss_9b04 - __zdata_start)
+target_spell_column_count equ __zdseg_end + (__zobss_9b06 - __zdata_start)
+target_spell_fixed_pair equ __zdseg_end + (__zobss_9b08 - __zdata_start)
 grid_origin_y equ __zdseg_end + (__zobss_9b0a - __zdata_start)
 grid_origin_x equ __zdseg_end + (__zobss_9b0c - __zdata_start)
 known_spell_ids equ __zdseg_end + (__zobss_9b0e - __zdata_start)
@@ -92,8 +92,8 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "shared/ovr/loc_RULJ.asm"              ; 0x02b4
 
-api_idx_0004_TTGQ.loc1 equ loc_RULJ
-%include "shared/ovr/api_idx_0004_TTGQ.asm"     ; 0x02c3
+wait_for_scene_input_or_timeout.refresh_scene_frame_if_active1 equ loc_RULJ
+%include "shared/ovr/wait_for_scene_input_or_timeout.asm" ; 0x02c3
 
 %include "shared/ovr/api_idx_0006_POPS.asm"     ; 0x030c
 
@@ -123,15 +123,15 @@ jumptable_0457        equ log_maze_change.jumptable1
 
 %include "vdopt/loc_MOTJ.asm"              ; 0x095a
 
-%include "vdopt/api_idx_0014_TSLT.asm"     ; 0x09c0
+%include "vdopt/set_spell_target_grid_cell.asm" ; 0x09c0
 
-%include "vdopt/loc_GTJK.asm"              ; 0x0ede
+%include "vdopt/match_spell_target_grid_cell.asm" ; 0x0ede
 
-%include "vdopt/loc_TIPV.asm"              ; 0x0f52
+%include "vdopt/draw_spell_target_marker.asm" ; 0x0f52
 
 %include "vdopt/draw_grid_cell_char.asm"   ; 0x0f7f
 
-%include "vdopt/api_idx_0012_JQVQ.asm"     ; 0x0fd3
+%include "vdopt/animate_spell_target_grid.asm" ; 0x0fd3
 
 %include "shared/ovr/restore_area_a_draw_glyph.asm" ; 0x190b
 

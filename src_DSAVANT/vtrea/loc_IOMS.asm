@@ -559,7 +559,7 @@ loc_IOMS:
     add sp, byte 8                   ; 0x892b
 .forward19:
     mov ax, word [bp - 4]            ; 0x892e
-    mov word [bss_9052], ax          ; 0x8931
+    mov word [menu_selection_index], ax ; 0x8931
     shl ax, 1                        ; 0x8934
     mov bx, ax                       ; 0x8936
     add bx, bp                       ; 0x8938

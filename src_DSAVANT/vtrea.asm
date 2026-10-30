@@ -134,7 +134,7 @@ flush_glyph_buffer.wait_for_maze_input_or_refresh1 equ loc_NQGV
 
 %include "vtrea/api_idx_0090_LKIM.asm"     ; 0x0b29
 
-process_scene_message_words.loc1 equ api_idx_0090_LKIM
+process_scene_message_words.process_scene_message_controls1 equ api_idx_0090_LKIM
 %include "shared/ovr/process_scene_message_words.asm" ; 0x0d24
 
 %include "vtrea/loc_KIOQ.asm"              ; 0x0d87

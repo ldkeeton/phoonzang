@@ -53,7 +53,7 @@ run_character_menu:
     inc word [bp - 2]                ; 0x6aa8
 .forward5:
     mov ax, word [bp - 2]            ; 0x6aab
-    cmp ax, word [bss_9070]          ; 0x6aae
+    cmp ax, word [pc_file_record_count] ; 0x6aae
     jl short .back4                  ; 0x6ab2
     cmp word [party_char_count], byte 5 ; 0x6ab4
     jle short .forward6              ; 0x6ab9
@@ -87,7 +87,7 @@ run_character_menu:
     push ax                          ; 0x6afb
     mov ax, 0x3e8                    ; 0x6afc
     push ax                          ; 0x6aff
-    call loc_LSRQ                    ; 0x6b00
+    call select_message_list_entry   ; 0x6b00
     add sp, byte 0x10                ; 0x6b03
     mov word [bp - 4], ax            ; 0x6b06
     lea ax, word [bp - 0x4a]         ; 0x6b09
@@ -107,7 +107,7 @@ run_character_menu:
     push ax                          ; 0x6b29
     mov ax, 0x61                     ; 0x6b2a
     push ax                          ; 0x6b2d
-    push word [bss_9052]             ; 0x6b2e
+    push word [menu_selection_index] ; 0x6b2e
     lea ax, word [bp - 0x4a]         ; 0x6b32
     push ax                          ; 0x6b35
     call draw_message_box            ; 0x6b36
@@ -115,7 +115,7 @@ run_character_menu:
     mov ax, word [bp - 4]            ; 0x6b3c
     jmp near .forward13              ; 0x6b3f
 jumptable_6bfb_case_1:
-    call loc_LQIO                    ; 0x6b42
+    call add_character_from_pc_file  ; 0x6b42
     jmp near run_character_menu.forward14 ; 0x6b45
 jumptable_6bfb_case_2:
     call pick_party_member           ; 0x6b48
@@ -139,7 +139,7 @@ jumptable_6bfb_case_3:
 run_character_menu.forward10:
     jmp near run_character_menu.forward14 ; 0x6b7b
 jumptable_6bfb_case_0:
-    call loc_ROTV                    ; 0x6b7e
+    call remove_all_party_members    ; 0x6b7e
     mov word [game_state], 0x10      ; 0x6b81
     jmp near run_character_menu.forward14 ; 0x6b87
 jumptable_6bfb_case_4:
@@ -170,7 +170,7 @@ jumptable_6bfb_case_5:
 jumptable_6bfb_case_6:
     mov ax, 0                        ; 0x6bc1
     push ax                          ; 0x6bc4
-    call loc_ITUI                    ; 0x6bc5
+    call run_configuration_menu      ; 0x6bc5
     pop cx                           ; 0x6bc8
     test ax, ax                      ; 0x6bc9
     je short run_character_menu.forward12 ; 0x6bcb
@@ -178,7 +178,7 @@ jumptable_6bfb_case_6:
     push ax                          ; 0x6bd0
     call show_centered_message_dialog ; 0x6bd1
     pop cx                           ; 0x6bd4
-    call loc_ROTV                    ; 0x6bd5
+    call remove_all_party_members    ; 0x6bd5
     call cleanup_game_screen         ; 0x6bd8
     mov word [game_state], 3         ; 0x6bdb
 run_character_menu.forward12:
@@ -190,7 +190,7 @@ jumptable_6bfb_case_7:
     pop cx                           ; 0x6bea
     jmp short run_character_menu.forward14 ; 0x6beb
 jumptable_6bfb_case_8:
-    call loc_ROTV                    ; 0x6bed
+    call remove_all_party_members    ; 0x6bed
     call cleanup_game_screen         ; 0x6bf0
     mov word [game_state], 3         ; 0x6bf3
     jmp short run_character_menu.forward14 ; 0x6bf9

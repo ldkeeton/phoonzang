@@ -554,7 +554,7 @@ loc_TRPK:
     add sp, byte 8
 .forward18:
     mov ax, word [bp - 4]
-    mov word [bss_9052], ax
+    mov word [menu_selection_index], ax
     shl ax, 1
     mov bx, ax
     add bx, bp

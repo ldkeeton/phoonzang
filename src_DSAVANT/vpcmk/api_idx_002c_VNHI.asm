@@ -307,7 +307,7 @@ api_idx_002c_VNHI:
     inc word [bp - 2]                ; 0x6d4d
 .forward4:
     mov ax, word [bp - 2]            ; 0x6d50
-    cmp ax, word [bss_9070]          ; 0x6d53
+    cmp ax, word [pc_file_record_count] ; 0x6d53
     jl short .back5                  ; 0x6d57
     lea ax, word [bp - 0x2c]         ; 0x6d59
     push ax                          ; 0x6d5c
@@ -365,7 +365,7 @@ jumptable_6e5f_case_2:
     add sp, byte 8                   ; 0x6dc6
     mov ax, MSG_DELETE_WHO           ; 0x6dc9
     push ax                          ; 0x6dcc
-    call loc_PVJJ                    ; 0x6dcd
+    call choose_pc_file_character    ; 0x6dcd
     pop cx                           ; 0x6dd0
     mov word [bp - 8], ax            ; 0x6dd1
     cmp ax, strict word 0xffff       ; 0x6dd4
@@ -387,7 +387,7 @@ jumptable_6e5f_case_1:
     add sp, byte 8                   ; 0x6df1
     mov ax, MSG_REVIEW_WHO           ; 0x6df4
     push ax                          ; 0x6df7
-    call loc_PVJJ                    ; 0x6df8
+    call choose_pc_file_character    ; 0x6df8
     pop cx                           ; 0x6dfb
     mov word [bp - 8], ax            ; 0x6dfc
     cmp ax, strict word 0xffff       ; 0x6dff
@@ -409,7 +409,7 @@ jumptable_6e5f_case_3:
     add sp, byte 8                   ; 0x6e1b
     mov ax, MSG_RENAME_WHO           ; 0x6e1e
     push ax                          ; 0x6e21
-    call loc_PVJJ                    ; 0x6e22
+    call choose_pc_file_character    ; 0x6e22
     pop cx                           ; 0x6e25
     mov word [bp - 8], ax            ; 0x6e26
     cmp ax, strict word 0xffff       ; 0x6e29
@@ -431,7 +431,7 @@ jumptable_6e5f_case_4:
     add sp, byte 8                   ; 0x6e45
     mov ax, MSG_CHANGE_WHO           ; 0x6e48
     push ax                          ; 0x6e4b
-    call loc_PVJJ                    ; 0x6e4c
+    call choose_pc_file_character    ; 0x6e4c
     pop cx                           ; 0x6e4f
     mov word [bp - 8], ax            ; 0x6e50
     cmp ax, strict word 0xffff       ; 0x6e53

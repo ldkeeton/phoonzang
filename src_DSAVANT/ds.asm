@@ -59,7 +59,7 @@ dseg_010e equ __zdseg_010e - __zdseg_start
 file_param_word equ __zfile_param_word - __zdseg_start
 story_score_file_number equ __zstory_score_file_number - __zdseg_start
 loaded_score_number equ __zloaded_score_number - __zdseg_start
-dseg_0116 equ __zdseg_0116 - __zdseg_start
+intro_score_number_source equ __zintro_score_number_source - __zdseg_start
 party_slot_x equ __zparty_slot_x - __zdseg_start
 party_slot_y equ __zparty_slot_y - __zdseg_start
 party_slot_glyphs equ __zparty_slot_glyphs - __zdseg_start
@@ -370,7 +370,7 @@ bss_8f48 equ __zbss_8f48 - __zdseg_start
 startup_check_stage equ __zbss_904c - __zdseg_start
 spell_dialog_result equ __zbss_904e - __zdseg_start
 spell_dialog_button equ __zbss_9050 - __zdseg_start
-bss_9052 equ __zbss_9052 - __zdseg_start
+menu_selection_index equ __zbss_9052 - __zdseg_start
 startup_hardware_flags equ __zbss_9056 - __zdseg_start
 startup_option equ __zbss_9058 - __zdseg_start
 message_delay equ __zbss_905a - __zdseg_start
@@ -384,7 +384,7 @@ saved_screen_slot equ __zbss_9068 - __zdseg_start
 saved_screen_pending equ __zbss_906a - __zdseg_start
 screen_cache_index equ __zbss_906c - __zdseg_start
 pc_file_record_size equ __zbss_906e - __zdseg_start
-bss_9070 equ __zbss_9070 - __zdseg_start
+pc_file_record_count equ __zbss_9070 - __zdseg_start
 pc_file_record_base equ __zbss_9072 - __zdseg_start
 pc_file_record_base_hi equ __zbss_9074 - __zdseg_start
 scenario_header_fd equ __zbss_9088 - __zdseg_start
@@ -870,7 +870,7 @@ __zdseg_start:
 
 %include "ds/data/loaded_score_number.asm" ; 0x10274
 
-%include "ds/data/dseg_0116.asm"           ; 0x10276
+%include "ds/data/intro_score_number_source.asm" ; 0x10276
 
 %include "ds/data/party_slot_x.asm"        ; 0x10304
 

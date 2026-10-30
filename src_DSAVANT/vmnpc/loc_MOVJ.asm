@@ -502,7 +502,7 @@ loc_MOVJ:
     add sp, byte 8                   ; 0x21ac
 .forward16:
     mov ax, word [bp - 4]            ; 0x21af
-    mov word [bss_9052], ax          ; 0x21b2
+    mov word [menu_selection_index], ax ; 0x21b2
     shl ax, 1                        ; 0x21b5
     mov bx, ax                       ; 0x21b7
     add bx, bp                       ; 0x21b9

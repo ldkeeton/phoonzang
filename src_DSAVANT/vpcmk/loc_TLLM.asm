@@ -28,7 +28,7 @@ loc_TLLM:
     inc word [bp - 2]                ; 0x6663
 .forward2:
     mov ax, word [bp - 2]            ; 0x6666
-    cmp ax, word [bss_9070]          ; 0x6669
+    cmp ax, word [pc_file_record_count] ; 0x6669
     jl short .back1                  ; 0x666d
     mov ax, 0                        ; 0x666f
     ret                              ; 0x6672

@@ -2,7 +2,7 @@
 loc_HTRU:
     mov ax, 0xfe32                   ; 0x111b
     call aztec_csav                  ; 0x111e
-    mov word [bss_9052], 0xffff      ; 0x1121
+    mov word [menu_selection_index], 0xffff ; 0x1121
     mov ax, word [bp + 0x14]         ; 0x1127
     shl ax, 1                        ; 0x112a
     mov word [bp - 0x10], ax         ; 0x112c
@@ -693,7 +693,7 @@ loc_HTRU:
     call call_show_area              ; 0x1774
     add sp, byte 8                   ; 0x1777
     mov ax, word [bp - 4]            ; 0x177a
-    mov word [bss_9052], ax          ; 0x177d
+    mov word [menu_selection_index], ax ; 0x177d
     shl ax, 1                        ; 0x1780
     mov bx, ax                       ; 0x1782
     add bx, bp                       ; 0x1784

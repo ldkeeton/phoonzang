@@ -129,7 +129,7 @@ api_idx_0072_LQIT:
     push ax                          ; 0x728b
     mov ax, 0x52                     ; 0x728c
     push ax                          ; 0x728f
-    push word [bss_9052]             ; 0x7290
+    push word [menu_selection_index] ; 0x7290
     lea ax, word [bp - 0x72]         ; 0x7294
     push ax                          ; 0x7297
     call api_idx_0008_RORM           ; 0x7298

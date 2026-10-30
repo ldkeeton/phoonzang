@@ -1,10 +1,6 @@
 /* Remove a member, compact the party, and restore the vacated panel. */
 #include "structs/pcrec.h"
-
-struct roster_state_view {
-	int record_base_high;		/* +0: high word of the PCFILE record base */
-	unsigned char availability[18];	/* +2: per-roster-entry state */
-};
+#include "structs/roster.h"
 
 extern struct roster_state_view pc_file_record_base_hi;
 extern int member_roster_index[], member_icon[], party_char_count;

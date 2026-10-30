@@ -56,7 +56,7 @@ run_resume_play_menu:
     push ax                          ; 0x6941
     mov ax, 0x898                    ; 0x6942
     push ax                          ; 0x6945
-    call loc_LSRQ                    ; 0x6946
+    call select_message_list_entry   ; 0x6946
     add sp, byte 0x10                ; 0x6949
     mov word [bp - 2], ax            ; 0x694c
     lea ax, word [bp - 0x4a]         ; 0x694f
@@ -76,7 +76,7 @@ run_resume_play_menu:
     push ax                          ; 0x696f
     mov ax, 0x61                     ; 0x6970
     push ax                          ; 0x6973
-    push word [bss_9052]             ; 0x6974
+    push word [menu_selection_index] ; 0x6974
     lea ax, word [bp - 0x4a]         ; 0x6978
     push ax                          ; 0x697b
     call draw_message_box            ; 0x697c
@@ -89,7 +89,7 @@ jumptable_69ec_case_0:
 jumptable_69ec_case_1:
     mov ax, 1                        ; 0x698f
     push ax                          ; 0x6992
-    call loc_ITUI                    ; 0x6993
+    call run_configuration_menu      ; 0x6993
     pop cx                           ; 0x6996
     jmp short run_resume_play_menu.forward5 ; 0x6997
 jumptable_69ec_case_2:

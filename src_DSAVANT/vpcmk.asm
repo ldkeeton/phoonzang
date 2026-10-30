@@ -463,7 +463,8 @@ load_member_icon.dseg1 equ dseg_94e9
 
 %include "vpcmk/api_idx_0006_MQSI.asm"     ; 0x6887
 
-%include "vpcmk/loc_PVJJ.asm"              ; 0x68fa
+choose_pc_file_character.api_idx1 equ api_idx_0038_IPTM
+%include "shared/ovr/choose_pc_file_character.asm" ; 0x68fa
 
 %include "vpcmk/api_idx_002c_VNHI.asm"     ; 0x6a3f
 

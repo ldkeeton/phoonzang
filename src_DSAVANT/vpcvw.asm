@@ -265,7 +265,7 @@ jumptable_38dd             equ api_idx_0050_GSJV.jumptable1
 
 %include "vpcvw/api_idx_0084_ILTP.asm"     ; 0x3b66
 
-process_scene_message_words.loc1 equ api_idx_0084_ILTP
+process_scene_message_words.process_scene_message_controls1 equ api_idx_0084_ILTP
 %include "shared/ovr/process_scene_message_words.asm" ; 0x3c18
 
 %include "vpcvw/api_idx_0056_NTHV.asm"     ; 0x3c7b

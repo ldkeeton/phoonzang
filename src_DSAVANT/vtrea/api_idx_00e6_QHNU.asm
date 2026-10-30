@@ -212,7 +212,7 @@ api_idx_00e6_QHNU:
     mov ax, 0xa1                     ; 0x75b4
     sub ax, cx                       ; 0x75b7
     push ax                          ; 0x75b9
-    push word [bss_9052]             ; 0x75ba
+    push word [menu_selection_index] ; 0x75ba
     lea ax, word [bp - 0x72]         ; 0x75be
     push ax                          ; 0x75c1
     call api_idx_0008_RORM           ; 0x75c2
@@ -372,7 +372,7 @@ api_idx_00e6_QHNU:
     mov ax, 0x9c                     ; 0x7727
     push ax                          ; 0x772a
     push word [bp - 0xe4]            ; 0x772b
-    push word [bss_9052]             ; 0x772f
+    push word [menu_selection_index] ; 0x772f
     lea ax, word [bp - 0x72]         ; 0x7733
     push ax                          ; 0x7736
     call api_idx_0008_RORM           ; 0x7737

@@ -6,7 +6,7 @@ load_numbered_scene_picture:
     push ax                          ; 0x72d9
     call call_wait_sound             ; 0x72da
     pop cx                           ; 0x72dd
-    mov ax, dseg_9138                ; 0x72de
+    mov ax, numbered_scene_picture_template ; 0x72de
     push ax                          ; 0x72e1
     lea ax, word [bp - 0x16]         ; 0x72e2
     push ax                          ; 0x72e5

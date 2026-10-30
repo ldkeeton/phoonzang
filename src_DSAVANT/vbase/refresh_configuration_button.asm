@@ -13,7 +13,7 @@ refresh_configuration_button:
     push ax                          ; 0x47d5
     push word [bp + 6]               ; 0x47d6
     push word [bp + 4]               ; 0x47d9
-    call loc_MNNG                    ; 0x47dc
+    call fill_rectangle_border       ; 0x47dc
     add sp, byte 0xa                 ; 0x47df
     mov ax, word [bp + 6]            ; 0x47e2
     add ax, strict word 9            ; 0x47e5
@@ -42,6 +42,6 @@ refresh_configuration_button:
     push ax                          ; 0x4818
     push word [bp + 6]               ; 0x4819
     push word [bp + 4]               ; 0x481c
-    call loc_MNNG                    ; 0x481f
+    call fill_rectangle_border       ; 0x481f
     add sp, byte 0xa                 ; 0x4822
     ret                              ; 0x4825

@@ -2,9 +2,16 @@ You are the master agent for this ordered list of selected assembly files.
 Run one fresh child agent per eligible file, strictly one at a time. Never run
 agents in parallel, and do not do the routine implementation yourself.
 
+The JSON entries below contain only the selected file names and any skip
+reasons. For an eligible entry at 1-based position N, read its exact individual
+task instructions from `{{instructions_dir}}/NNNN.txt`, where NNNN is N padded
+to four digits (for example, `0002.txt`). Pass those instructions to that
+entry's child agent. Skipped entries have no instruction file.
+
 For each entry in the order supplied:
 1. If it has a `skip` reason, record that reason for its report without starting
-   an agent. Otherwise start one child agent with that entry's `instructions`.
+   an agent. Otherwise read that entry's numbered instruction file and start
+   one child agent with its exact contents.
 2. Give the child access to this workspace and tell it to work only on this
    task. Earlier agents may have renamed files or references: the child must
    inspect the current tree and sidecar before editing, resolve the current
@@ -37,5 +44,5 @@ in selection order, separated by a blank line. Include a brief file-and-reason
 report in place of each skipped or failed task. Preserve child messages verbatim;
 do not summarize them or add an introduction, conclusion, or extra commentary.
 
-Selected files and their individual task instructions (JSON):
+Selected files (JSON, in selection order):
 {{tasks}}

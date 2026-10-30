@@ -671,24 +671,37 @@ async function makeCBatch(kind, uris) {
     const agent = AGENTS[kind];
     try {
         const tasks = [];
+        const childPrompts = [];
         for (const uri of uris) {
             const job = await prepareMakeC(uri, agent.label, true);
-            tasks.push({
+            const task = {
                 file: path.relative(root(), uri.fsPath),
-                ...(job && !job.skip
-                    ? { instructions: agent.prompt(job) }
-                    : { skip: (job && job.skip) || 'nothing to do' }),
-            });
+            };
+            if (job && !job.skip) {
+                childPrompts.push({ index: tasks.length + 1, text: agent.prompt(job) });
+            } else {
+                task.skip = (job && job.skip) || 'nothing to do';
+            }
+            tasks.push(task);
         }
         const template = fs.readFileSync(path.join(__dirname, 'prompt-multi.txt'), 'utf8');
-        const prompt = template.replace(/\{\{tasks\}\}/g, () => JSON.stringify(tasks, null, 2)).trim();
         // Keep the large task list off the command line: Linux limits each
         // argument to ~128 KiB, even when ARG_MAX is much larger.
         const cache = path.join(root(), '.cache');
         fs.mkdirSync(cache, { recursive: true });
         const sessionDir = fs.mkdtempSync(path.join(cache, 'asm-nav-multi-'));
         const promptFile = path.join(sessionDir, 'prompt.txt');
-        fs.writeFileSync(promptFile, prompt, { mode: 0o600 });
+        const instructionsDir = path.join(sessionDir, 'instructions');
+        fs.mkdirSync(instructionsDir);
+        for (const child of childPrompts) {
+            const name = `${String(child.index).padStart(4, '0')}.txt`;
+            fs.writeFileSync(path.join(instructionsDir, name), child.text, { mode: 0o600 });
+        }
+        const batchPrompt = template
+            .replace(/\{\{tasks\}\}/g, () => JSON.stringify(tasks, null, 2))
+            .replace(/\{\{instructions_dir\}\}/g, instructionsDir)
+            .trim();
+        fs.writeFileSync(promptFile, batchPrompt, { mode: 0o600 });
         const cleanup = () => fs.rmSync(sessionDir, { recursive: true, force: true });
         const bootstrap = `Read the UTF-8 task file at ${JSON.stringify(promptFile)} and follow its instructions. ` +
             'You are the master agent; run the listed child agents strictly one at a time and concatenate their final messages.';

@@ -44,6 +44,6 @@ loc_MOTJ:
     add ax, dx                       ; 0x09b6
     mov bx, ax                       ; 0x09b8
     pop ax                           ; 0x09ba
-    mov word [bx + bss_90ba], ax     ; 0x09bb
+    mov word [bx + target_grid_primary], ax ; 0x09bb
 .return1:
     ret                              ; 0x09bf

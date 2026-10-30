@@ -101,7 +101,7 @@ api_idx_0084_LRRN:
     push ax                          ; 0x41e8
     mov ax, 4                        ; 0x41e9
     push ax                          ; 0x41ec
-    push word [bss_9052]             ; 0x41ed
+    push word [menu_selection_index] ; 0x41ed
     lea ax, word [bp - 0x84]         ; 0x41f1
     push ax                          ; 0x41f5
     call api_idx_0008_RORM           ; 0x41f6
@@ -137,7 +137,7 @@ api_idx_0084_LRRN:
 .forward3:
     mov ax, word [bp - 4]            ; 0x423d
     mov word [bp - 0xa], ax          ; 0x4240
-    mov ax, word [bss_9052]          ; 0x4243
+    mov ax, word [menu_selection_index] ; 0x4243
     mov word [bp - 0xc], ax          ; 0x4246
     cmp word [bp - 4], byte 4        ; 0x4249
     je short .return1                ; 0x424d

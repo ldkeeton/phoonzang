@@ -87,7 +87,7 @@ show_event_message:
     cwd                              ; 0x062c
     idiv cx                          ; 0x062d
     push ax                          ; 0x062f
-    call api_idx_0004_TTGQ           ; 0x0630
+    call wait_for_scene_input_or_timeout ; 0x0630
     pop cx                           ; 0x0633
     mov ax, 1                        ; 0x0634
     push ax                          ; 0x0637

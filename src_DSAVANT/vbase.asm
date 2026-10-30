@@ -26,7 +26,7 @@ IMAGE_BASE equ 0x000e + VBASE
 
 __zcode_start:
 pc_file_name equ __zdseg_end + (__zpc_file_name - __zdata_start)
-dseg_90a3 equ __zdseg_end + (__zdseg_90a3 - __zdata_start)
+list_screen_temp_file equ __zdseg_end + (__zlist_screen_temp_file - __zdata_start)
 dseg_90a9 equ __zdseg_end + (__zdseg_90a9 - __zdata_start)
 dseg_90b6 equ __zdseg_end + (__zdseg_90b6 - __zdata_start)
 dialog_screen_temp_file equ __zdseg_end + (__zdialog_screen_temp_file - __zdata_start)
@@ -38,13 +38,13 @@ message_dialog_temp_file equ __zdseg_end + (__zmessage_dialog_temp_file - __zdat
 dseg_90fb equ __zdseg_end + (__zdseg_90fb - __zdata_start)
 dseg_9107 equ __zdseg_end + (__zdseg_9107 - __zdata_start)
 screen_temp_file equ __zdseg_end + (__zscreen_temp_file - __zdata_start)
-dseg_9114 equ __zdseg_end + (__zdseg_9114 - __zdata_start)
-dseg_911c equ __zdseg_end + (__zdseg_911c - __zdata_start)
+scene_message_control_codes equ __zdseg_end + (__zscene_message_control_codes - __zdata_start)
+scene_message_separator equ __zdseg_end + (__zscene_message_separator - __zdata_start)
 star_screen_filename equ __zdseg_end + (__zstar_screen_filename - __zdata_start)
 main_screen_filename equ __zdseg_end + (__zmain_screen_filename - __zdata_start)
-dseg_9138 equ __zdseg_end + (__zdseg_9138 - __zdata_start)
-dseg_9144 equ __zdseg_end + (__zdseg_9144 - __zdata_start)
-dseg_9151 equ __zdseg_end + (__zdseg_9151 - __zdata_start)
+numbered_scene_picture_template equ __zdseg_end + (__znumbered_scene_picture_template - __zdata_start)
+scene_one_screen_filename equ __zdseg_end + (__zscene_one_screen_filename - __zdata_start)
+scene_one_digit_cycle equ __zdseg_end + (__zscene_one_digit_cycle - __zdata_start)
 scene_four_screen_filename equ __zdseg_end + (__zscene_four_screen_filename - __zdata_start)
 scene_five_screen_filename equ __zdseg_end + (__zscene_five_screen_filename - __zdata_start)
 scene_six_screen_filename equ __zdseg_end + (__zscene_six_screen_filename - __zdata_start)
@@ -53,7 +53,7 @@ scene_seven_screen_filename equ __zdseg_end + (__zscene_seven_screen_filename - 
 scene_seven_digit_cycle equ __zdseg_end + (__zscene_seven_digit_cycle - __zdata_start)
 scene_eight_screen_filename equ __zdseg_end + (__zscene_eight_screen_filename - __zdata_start)
 scene_eight_digit_cycle equ __zdseg_end + (__zscene_eight_digit_cycle - __zdata_start)
-dseg_91ae equ __zdseg_end + (__zdseg_91ae - __zdata_start)
+main_screen_restore_filename equ __zdseg_end + (__zmain_screen_restore_filename - __zdata_start)
 save_si equ __zdseg_end + (__zsave_si - __zdata_start)
 save_di equ __zdseg_end + (__zsave_di - __zdata_start)
 save_sp equ __zdseg_end + (__zsave_sp - __zdata_start)
@@ -194,7 +194,9 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "vbase/draw_message_box.asm"      ; 0x00b5
 
-%include "vbase/loc_LSRQ.asm"              ; 0x023a
+%include "shared/ovr/fill_rectangle_border.asm" ; 0x01bf
+
+%include "vbase/select_message_list_entry.asm" ; 0x023a
 
 load_member_icon.dseg1 equ dseg_90a9
 %include "shared/ovr/load_member_icon.asm"      ; 0x0559
@@ -221,7 +223,7 @@ jumptable_0d04          equ api_idx_0038_IPTM.jumptable1
 
 %include "vbase/map_bane_item_number.asm"  ; 0x1683
 
-%include "vbase/loc_QKIR.asm"              ; 0x1820
+%include "vbase/map_bane_character_kind.asm" ; 0x1820
 
 %include "vbase/map_bane_party_selector.asm" ; 0x1a12
 
@@ -275,19 +277,22 @@ jumptable_1ee4         equ draw_member_panel_glyphs.jumptable1
 
 %include "vbase/refresh_configuration_control.asm" ; 0x4826
 
-%include "vbase/loc_MLQO.asm"              ; 0x4b29
+%include "vbase/step_device_option_byte.asm" ; 0x4b29
 
-%include "vbase/loc_NGTJ.asm"              ; 0x4b5e
+%include "vbase/adjust_palette_base_setting.asm" ; 0x4b5e
 
 %include "vbase/show_centered_message_dialog.asm" ; 0x4b95
 
-%include "vbase/loc_ITUI.asm"              ; 0x4d0e
+%include "vbase/run_configuration_menu.asm" ; 0x4d0e
 
-%include "vbase/loc_LQIO.asm"              ; 0x606d
+choose_pc_file_character.api_idx1 equ api_idx_0038_VIPJ
+%include "shared/ovr/choose_pc_file_character.asm" ; 0x5f28
+
+%include "vbase/add_character_from_pc_file.asm" ; 0x606d
 
 %include "vbase/remove_party_member.asm"   ; 0x61db
 
-%include "vbase/loc_ROTV.asm"              ; 0x62c6
+%include "vbase/remove_all_party_members.asm" ; 0x62c6
 
 %include "vbase/copy_protection_prompt.asm" ; 0x62e5
 
@@ -303,20 +308,20 @@ jumptable_1ee4         equ draw_member_panel_glyphs.jumptable1
 
 %include "vbase/clear_scene_message_area.asm" ; 0x6c1e
 
-%include "vbase/loc_QSOL.asm"              ; 0x6c3f
+%include "vbase/dissolve_scene_message_area.asm" ; 0x6c3f
 
-%include "vbase/loc_TJHG.asm"              ; 0x6c5c
+%include "vbase/refresh_scene_frame_if_active.asm" ; 0x6c5c
 
-api_idx_0004_TTGQ.loc1 equ loc_TJHG
-%include "shared/ovr/api_idx_0004_TTGQ.asm"     ; 0x6c87
+wait_for_scene_input_or_timeout.refresh_scene_frame_if_active1 equ refresh_scene_frame_if_active
+%include "shared/ovr/wait_for_scene_input_or_timeout.asm" ; 0x6c87
 
 %include "vbase/wait_and_clear_scene_messages.asm" ; 0x6cd0
 
 %include "vbase/draw_scene_message_line.asm" ; 0x6d1f
 
-%include "vbase/loc_LIUH.asm"              ; 0x6dd9
+%include "vbase/process_scene_message_controls.asm" ; 0x6dd9
 
-process_scene_message_words.loc1 equ loc_LIUH
+process_scene_message_words.process_scene_message_controls1 equ process_scene_message_controls
 %include "shared/ovr/process_scene_message_words.asm" ; 0x6f16
 
 %include "vbase/play_scene_message_sequence.asm" ; 0x6f79
@@ -339,7 +344,7 @@ process_scene_message_words.loc1 equ loc_LIUH
 
 %include "vbase/blank_scene_screen.asm"    ; 0x85f0
 
-%include "vbase/loc_TQHJ.asm"              ; 0x8634
+%include "vbase/play_intro_scene_one.asm"  ; 0x8634
 
 %include "vbase/play_intro_scene_two.asm"  ; 0x8756
 
@@ -367,7 +372,9 @@ loc_NQQK equ aztec_strcmp.loc1
 __zdata_start:
 %include "shared/data/pc_file_name.asm"     ; 0x93ed
 
-%include "vbase/data/dseg_90a3.asm"        ; 0x93f8
+%include "vbase/data/list_screen_temp_file.asm" ; 0x93f8
+
+%include "vbase/data/dseg_90a9.asm"        ; 0x93fe
 
 %include "vbase/data/dialog_screen_temp_file.asm" ; 0x9411
 
@@ -385,13 +392,19 @@ __zdata_start:
 
 %include "vbase/data/screen_temp_file.asm" ; 0x9462
 
-%include "vbase/data/dseg_9114.asm"        ; 0x9469
+%include "vbase/data/scene_message_control_codes.asm" ; 0x9469
+
+%include "vbase/data/scene_message_separator.asm" ; 0x9471
 
 %include "vbase/data/star_screen_filename.asm" ; 0x9473
 
 %include "vbase/data/main_screen_filename.asm" ; 0x9480
 
-%include "vbase/data/dseg_9138.asm"        ; 0x948d
+%include "vbase/data/numbered_scene_picture_template.asm" ; 0x948d
+
+%include "vbase/data/scene_one_screen_filename.asm" ; 0x9499
+
+%include "vbase/data/scene_one_digit_cycle.asm" ; 0x94a6
 
 %include "vbase/data/scene_four_screen_filename.asm" ; 0x94ad
 
@@ -409,7 +422,7 @@ __zdata_start:
 
 %include "vbase/data/scene_eight_digit_cycle.asm" ; 0x94fc
 
-%include "vbase/data/dseg_91ae.asm"        ; 0x9503
+%include "vbase/data/main_screen_restore_filename.asm" ; 0x9503
 
 %include "shared/data/save_si.asm"          ; 0x9511
 

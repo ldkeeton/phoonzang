@@ -18,7 +18,7 @@ show_intro_screen:
     push ax                          ; 0x8f9e
     call load_score_files            ; 0x8f9f
     add sp, byte 4                   ; 0x8fa2
-    mov ax, word [dseg_0116]         ; 0x8fa5
+    mov ax, word [intro_score_number_source] ; 0x8fa5
     mov word [story_score_number], ax ; 0x8fa8
     mov ax, 1                        ; 0x8fab
     push ax                          ; 0x8fae
@@ -43,7 +43,7 @@ show_intro_screen:
     push ax                          ; 0x8fd8
     mov ax, MSG_INSIDE_THE_RUINS_OF_A_31650 ; 0x8fd9
     push ax                          ; 0x8fdc
-    call loc_TQHJ                    ; 0x8fdd
+    call play_intro_scene_one        ; 0x8fdd
     add sp, byte 0xa                 ; 0x8fe0
     jmp short .forward4              ; 0x8fe3
 .forward3:
@@ -56,7 +56,7 @@ show_intro_screen:
     push ax                          ; 0x8ff1
     mov ax, MSG_BEHOLD_THE_COSMIC_FOR_31500 ; 0x8ff2
     push ax                          ; 0x8ff5
-    call loc_TQHJ                    ; 0x8ff6
+    call play_intro_scene_one        ; 0x8ff6
     add sp, byte 0xa                 ; 0x8ff9
 .forward4:
     mov ax, 0x63                     ; 0x8ffc
@@ -117,7 +117,7 @@ show_intro_screen:
     push ax                          ; 0x9074
     mov ax, MSG_THERE_IS_NO_MORE_TIME_31570 ; 0x9075
     push ax                          ; 0x9078
-    call loc_TQHJ                    ; 0x9079
+    call play_intro_scene_one        ; 0x9079
     add sp, byte 0xa                 ; 0x907c
     mov ax, 0x63                     ; 0x907f
     push ax                          ; 0x9082
@@ -151,7 +151,7 @@ show_intro_screen:
     push ax                          ; 0x90bd
     mov ax, MSG_PERCHED_UPON_HIS_THRO_31700 ; 0x90be
     push ax                          ; 0x90c1
-    call loc_TQHJ                    ; 0x90c2
+    call play_intro_scene_one        ; 0x90c2
     add sp, byte 0xa                 ; 0x90c5
     mov ax, 0                        ; 0x90c8
     push ax                          ; 0x90cb
@@ -207,7 +207,7 @@ show_intro_screen:
     push ax                          ; 0x9137
     mov ax, MSG_AFTER_THE_VOICES_CEAS_31755 ; 0x9138
     push ax                          ; 0x913b
-    call loc_TQHJ                    ; 0x913c
+    call play_intro_scene_one        ; 0x913c
     add sp, byte 0xa                 ; 0x913f
     mov ax, 0x63                     ; 0x9142
     push ax                          ; 0x9145
@@ -218,7 +218,7 @@ show_intro_screen:
     push ax                          ; 0x914e
     mov ax, MSG_CONCEALED_NEAR_THE_CH_31760 ; 0x914f
     push ax                          ; 0x9152
-    call loc_TQHJ                    ; 0x9153
+    call play_intro_scene_one        ; 0x9153
     add sp, byte 0xa                 ; 0x9156
     mov ax, 0                        ; 0x9159
     push ax                          ; 0x915c
@@ -228,7 +228,7 @@ show_intro_screen:
     push ax                          ; 0x9162
     mov ax, MSG_THERE_HE_IS_WHISPERS_31770 ; 0x9163
     push ax                          ; 0x9166
-    call loc_TQHJ                    ; 0x9167
+    call play_intro_scene_one        ; 0x9167
     add sp, byte 0xa                 ; 0x916a
     mov ax, 0x63                     ; 0x916d
     push ax                          ; 0x9170
@@ -262,7 +262,7 @@ show_intro_screen:
     push ax                          ; 0x91ab
     mov ax, MSG_YOU_CONFRONT_A_GIANT_31100 ; 0x91ac
     push ax                          ; 0x91af
-    call loc_TQHJ                    ; 0x91b0
+    call play_intro_scene_one        ; 0x91b0
     add sp, byte 0xa                 ; 0x91b3
     mov ax, 0x63                     ; 0x91b6
     push ax                          ; 0x91b9
@@ -393,7 +393,7 @@ show_intro_screen:
 .forward13:
     mov ax, 0                        ; 0x92da
     push ax                          ; 0x92dd
-    mov ax, dseg_91ae                ; 0x92de
+    mov ax, main_screen_restore_filename ; 0x92de
     push ax                          ; 0x92e1
     call load_screen_file            ; 0x92e2
     add sp, byte 4                   ; 0x92e5

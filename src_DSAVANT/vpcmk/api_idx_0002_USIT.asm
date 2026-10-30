@@ -14,7 +14,7 @@ api_idx_0002_USIT:
     inc word [bp - 2]                ; 0x6616
 .forward2:
     mov ax, word [bp - 2]            ; 0x6619
-    cmp ax, word [bss_9070]          ; 0x661c
+    cmp ax, word [pc_file_record_count] ; 0x661c
     jl short .back1                  ; 0x6620
     mov ax, 0xffff                   ; 0x6622
     ret                              ; 0x6625

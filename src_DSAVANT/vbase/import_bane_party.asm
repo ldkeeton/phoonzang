@@ -899,7 +899,7 @@ import_bane_party.back9:
     mov al, byte [bx + 0x237]        ; 0x283d
     sub ah, ah                       ; 0x2841
     push ax                          ; 0x2843
-    call loc_QKIR                    ; 0x2844
+    call map_bane_character_kind     ; 0x2844
     add sp, byte 6                   ; 0x2847
     mov bx, word [bp - 0x14]         ; 0x284a
     mov byte [bx + 0x236], al        ; 0x284d

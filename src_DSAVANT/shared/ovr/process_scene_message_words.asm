@@ -29,7 +29,7 @@ process_scene_message_words:
     jmp short .back2
 .forward1:
     push word [bp + 4]
-    call process_scene_message_words.loc1
+    call process_scene_message_words.process_scene_message_controls1
     pop cx
     mov ax, word [bp - 2]
     add word [bp + 4], ax
@@ -40,7 +40,7 @@ process_scene_message_words:
     cmp byte [bx], 0
     je short .return1
     push bx
-    call process_scene_message_words.loc1
+    call process_scene_message_words.process_scene_message_controls1
     pop cx
 .return1:
     ret

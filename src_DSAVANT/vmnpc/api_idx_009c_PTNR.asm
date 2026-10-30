@@ -218,7 +218,7 @@ api_idx_009c_PTNR:
     push ax                          ; 0x69b2
     mov ax, 9                        ; 0x69b3
     push ax                          ; 0x69b6
-    push word [bss_9052]             ; 0x69b7
+    push word [menu_selection_index] ; 0x69b7
     lea ax, word [bp - 0x9c]         ; 0x69bb
     push ax                          ; 0x69bf
     call api_idx_000c_KGOL           ; 0x69c0

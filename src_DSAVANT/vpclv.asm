@@ -183,7 +183,8 @@ api_idx_007c_OKMO.bss5     equ bss_943a
 api_idx_007c_OKMO.api_idx1 equ api_idx_0012_RLJJ
 %include "shared/ovr/api_idx_007c_OKMO.asm"     ; 0x0572
 
-%include "vpclv/loc_MNNG.asm"              ; 0x0dc0
+loc_MNNG equ fill_rectangle_border
+%include "shared/ovr/fill_rectangle_border.asm"              ; 0x0dc0
 
 api_idx_0004_TLJT equ collect_known_spells
 %include "shared/ovr/collect_known_spells.asm"     ; 0x0e3b

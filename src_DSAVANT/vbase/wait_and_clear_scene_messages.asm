@@ -2,7 +2,7 @@
 wait_and_clear_scene_messages:
     mov ax, 0xfffc                   ; 0x6cd0
     call aztec_csav                  ; 0x6cd3
-    call loc_QSOL                    ; 0x6cd6
+    call dissolve_scene_message_area ; 0x6cd6
     les bx, word [tick_counter_ptr]  ; 0x6cd9
     mov ax, word [es:bx]             ; 0x6cdd
     mov dx, word [es:bx + 2]         ; 0x6ce0
@@ -25,7 +25,7 @@ wait_and_clear_scene_messages:
 .forward1:
     jmp short .forward3              ; 0x6d0e
 .forward2:
-    call loc_TJHG                    ; 0x6d10
+    call refresh_scene_frame_if_active ; 0x6d10
     jmp short .back1                 ; 0x6d13
 .forward3:
     call clear_scene_message_area    ; 0x6d15

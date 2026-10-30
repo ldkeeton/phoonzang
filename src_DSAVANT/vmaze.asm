@@ -481,7 +481,7 @@ flush_glyph_buffer.wait_for_maze_input_or_refresh1 equ wait_for_maze_input_or_re
 
 %include "vmaze/api_idx_0090_QKJQ.asm"     ; 0x6cc9
 
-process_scene_message_words.loc1 equ api_idx_0090_QKJQ
+process_scene_message_words.process_scene_message_controls1 equ api_idx_0090_QKJQ
 %include "shared/ovr/process_scene_message_words.asm" ; 0x6eb1
 
 %include "vmaze/show_maze_message_sequence.asm" ; 0x6f14

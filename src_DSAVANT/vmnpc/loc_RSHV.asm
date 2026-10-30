@@ -2,7 +2,7 @@
 loc_RSHV:
     mov ax, 0xfe30                   ; 0x1821
     call aztec_csav                  ; 0x1824
-    mov word [bss_9052], 0xffff      ; 0x1827
+    mov word [menu_selection_index], 0xffff ; 0x1827
     mov ax, word [bp + 0x14]         ; 0x182d
     shl ax, 1                        ; 0x1830
     mov word [bp - 0x10], ax         ; 0x1832
@@ -541,7 +541,7 @@ loc_RSHV:
     call call_show_area              ; 0x1d23
     add sp, byte 8                   ; 0x1d26
     mov ax, word [bp - 4]            ; 0x1d29
-    mov word [bss_9052], ax          ; 0x1d2c
+    mov word [menu_selection_index], ax ; 0x1d2c
     shl ax, 1                        ; 0x1d2f
     mov bx, ax                       ; 0x1d31
     add bx, bp                       ; 0x1d33

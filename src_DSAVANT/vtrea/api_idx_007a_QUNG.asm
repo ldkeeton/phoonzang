@@ -105,7 +105,7 @@ api_idx_007a_QUNG:
     push ax                          ; 0x5005
     mov ax, 0x52                     ; 0x5006
     push ax                          ; 0x5009
-    push word [bss_9052]             ; 0x500a
+    push word [menu_selection_index] ; 0x500a
     lea ax, word [bp - 0x78]         ; 0x500e
     push ax                          ; 0x5011
     call api_idx_0008_RORM           ; 0x5012

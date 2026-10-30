@@ -106,7 +106,7 @@ draw_centered_lines:
     shl ax, 1                        ; 0x1a52
 .forward3:
     push ax                          ; 0x1a54
-    call api_idx_0004_TTGQ           ; 0x1a55
+    call wait_for_scene_input_or_timeout ; 0x1a55
     pop cx                           ; 0x1a58
     call restore_area_a_draw_glyph   ; 0x1a59
     ret                              ; 0x1a5c
