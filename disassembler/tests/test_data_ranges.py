@@ -53,6 +53,44 @@ class SelectDataRangesTest(unittest.TestCase):
         self.assertEqual(main[0]['text'], '%include "vinstall/data/ctp_.asm"')
 
 
+class DeclaredModuleTest(unittest.TestCase):
+    """A sidecar ``length`` makes a span of data one file."""
+    RECORDS = [label('__za', 0x100), block(0x100, 0x104),
+               label('__zdseg_0104', 0x104), block(0x104, 0x108),
+               label('__zb', 0x108), block(0x108, 0x10c),
+               label('__zafter', 0x10c), block(0x10c, 0x110)]
+    ROOTS = {0x100: 'a', 0x108: 'b', 0x10c: 'after'}
+    BYTES = bytes(0x110)
+
+    def module(self, length=12, declared=True):
+        return DataModule('group.c', (('a', 0), ('b', 8)), bytes(length),
+                          declared, 'group')
+
+    def test_a_group_keeps_the_address_named_data_inside_it(self):
+        self.assertEqual(
+            _select_data_ranges(self.RECORDS, self.ROOTS, self.BYTES,
+                                [self.module()]),
+            [(0x100, 0x10c, 'group'), (0x10c, 0x110, 'after')])
+
+    def test_a_vendor_module_stays_strict(self):
+        self.assertEqual(
+            _select_data_ranges(self.RECORDS, self.ROOTS, self.BYTES,
+                                [self.module(declared=False)]),
+            [(0x100, 0x104, 'a'), (0x108, 0x10c, 'b'),
+             (0x10c, 0x110, 'after')])
+
+    def test_a_group_holds_data_only(self):
+        records = [*self.RECORDS[:2], mnem(0x104, 4), *self.RECORDS[4:]]
+        with self.assertRaisesRegex(ValueError, 'data records only'):
+            _select_data_ranges(records, self.ROOTS, self.BYTES,
+                                [self.module()])
+
+    def test_a_group_ends_on_a_record_boundary(self):
+        with self.assertRaisesRegex(ValueError, 'record boundary'):
+            _select_data_ranges(self.RECORDS, self.ROOTS, self.BYTES,
+                                [self.module(length=10)])
+
+
 class GroupDataRangesTest(unittest.TestCase):
     """A sidecar group (``driver_slots`` ``file``) is one file."""
     RECORDS = [label('slot_a', 0x100), block(0x100, 0x104),

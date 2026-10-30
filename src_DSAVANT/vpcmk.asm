@@ -478,33 +478,7 @@ __zdata_start:
 
 %include "vpcmk/data/dseg_90a3.asm"        ; 0x703c
 
-%include "shared/data/profession_0_stat_requirements.asm" ; 0x7275
-
-%include "shared/data/profession_1_stat_requirements.asm" ; 0x727e
-
-%include "shared/data/profession_2_stat_requirements.asm" ; 0x7287
-
-%include "shared/data/profession_3_stat_requirements.asm" ; 0x7290
-
-%include "shared/data/profession_4_stat_requirements.asm" ; 0x7299
-
-%include "shared/data/profession_5_stat_requirements.asm" ; 0x72a2
-
-%include "shared/data/profession_6_stat_requirements.asm" ; 0x72ab
-
-%include "shared/data/profession_7_stat_requirements.asm" ; 0x72b4
-
-%include "shared/data/profession_8_stat_requirements.asm" ; 0x72bd
-
-%include "shared/data/profession_9_stat_requirements.asm" ; 0x72c6
-
-%include "shared/data/profession_10_stat_requirements.asm" ; 0x72cf
-
-%include "shared/data/profession_11_stat_requirements.asm" ; 0x72d8
-
-%include "shared/data/profession_12_stat_requirements.asm" ; 0x72e1
-
-%include "shared/data/profession_13_stat_requirements.asm" ; 0x72ea
+%include "shared/data/profession_stat_requirements.asm" ; 0x7275
 
 %include "vpcmk/data/dseg_935a.asm"        ; 0x72f3
 

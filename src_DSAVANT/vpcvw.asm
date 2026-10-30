@@ -426,7 +426,7 @@ api_idx_0026_NRVO.dseg1 equ dseg_92e2
 
 %include "vpcvw/api_idx_0002_VLGM.asm"     ; 0x8f64
 
-%include "vpcvw/evaluate_profession_stat_minimums.asm" ; 0x8fb8
+%include "vpcvw/evaluate_profession_stat_mins.asm" ; 0x8fb8
 
 %include "vpcvw/evaluate_character_profession.asm" ; 0x902e
 
@@ -478,33 +478,7 @@ load_member_icon.dseg1 equ dseg_93c9
 __zdata_start:
 %include "vpcvw/data/dseg_9098.asm"        ; 0x9844
 
-%include "shared/data/profession_0_stat_requirements.asm" ; 0x9a94
-
-%include "shared/data/profession_1_stat_requirements.asm" ; 0x9a9d
-
-%include "shared/data/profession_2_stat_requirements.asm" ; 0x9aa6
-
-%include "shared/data/profession_3_stat_requirements.asm" ; 0x9aaf
-
-%include "shared/data/profession_4_stat_requirements.asm" ; 0x9ab8
-
-%include "shared/data/profession_5_stat_requirements.asm" ; 0x9ac1
-
-%include "shared/data/profession_6_stat_requirements.asm" ; 0x9aca
-
-%include "shared/data/profession_7_stat_requirements.asm" ; 0x9ad3
-
-%include "shared/data/profession_8_stat_requirements.asm" ; 0x9adc
-
-%include "shared/data/profession_9_stat_requirements.asm" ; 0x9ae5
-
-%include "shared/data/profession_10_stat_requirements.asm" ; 0x9aee
-
-%include "shared/data/profession_11_stat_requirements.asm" ; 0x9af7
-
-%include "shared/data/profession_12_stat_requirements.asm" ; 0x9b00
-
-%include "shared/data/profession_13_stat_requirements.asm" ; 0x9b09
+%include "shared/data/profession_stat_requirements.asm" ; 0x9a94
 
 %include "vpcvw/data/dseg_9366.asm"        ; 0x9b12
 

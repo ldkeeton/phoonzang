@@ -1123,7 +1123,7 @@ api_idx_0040_INKU.back9:
     push ax                          ; 0x3606
     push word [bp - 0x26]            ; 0x3607
     push word [bp - 0x30]            ; 0x360a
-    call api_idx_004c_RQSO           ; 0x360d
+    call api_idx_004c_set_party_cell ; 0x360d
     add sp, byte 0xa                 ; 0x3610
     push word [bp - 0x26]            ; 0x3613
     call loc_GMVH                    ; 0x3616

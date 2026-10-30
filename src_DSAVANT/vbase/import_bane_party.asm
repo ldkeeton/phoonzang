@@ -32,7 +32,7 @@ import_bane_party:
     push ax                          ; 0x1ff3
     call load_message_string         ; 0x1ff4
     add sp, byte 4                   ; 0x1ff7
-    mov ax, dseg_90c2                ; 0x1ffa
+    mov ax, bane_source_filename     ; 0x1ffa
     push ax                          ; 0x1ffd
     lea ax, word [bp - 0x36]         ; 0x1ffe
     push ax                          ; 0x2001
@@ -239,7 +239,7 @@ import_bane_party:
     add sp, byte 8                   ; 0x21cb
     mov ax, 0x19e                    ; 0x21ce
     push ax                          ; 0x21d1
-    mov ax, bss_9220                 ; 0x21d2
+    mov ax, bane_header_buffer       ; 0x21d2
     push ax                          ; 0x21d5
     push word [bp - 0xa]             ; 0x21d6
     call aztec_read                  ; 0x21d9
@@ -272,8 +272,8 @@ import_bane_party:
     push ax                          ; 0x2217
     call aztec_malloc                ; 0x2218
     pop cx                           ; 0x221b
-    mov word [bss_93be], ax          ; 0x221c
-    cmp word [bss_93be], byte 0      ; 0x221f
+    mov word [bane_import_buffer], ax ; 0x221c
+    cmp word [bane_import_buffer], byte 0 ; 0x221f
     jne short .forward16             ; 0x2224
     mov ax, 0x1d                     ; 0x2226
     push ax                          ; 0x2229
@@ -284,14 +284,14 @@ import_bane_party:
 .back1:
     mov ax, 0x542                    ; 0x2233
     push ax                          ; 0x2236
-    push word [bss_93be]             ; 0x2237
+    push word [bane_import_buffer]   ; 0x2237
     push word [bp - 0xa]             ; 0x223b
     call aztec_read                  ; 0x223e
     add sp, byte 6                   ; 0x2241
     mov word [bp - 0xc], ax          ; 0x2244
     cmp ax, strict word 0            ; 0x2247
     jg short .forward18              ; 0x224a
-    push word [bss_93be]             ; 0x224c
+    push word [bane_import_buffer]   ; 0x224c
     call aztec_free                  ; 0x2250
     pop cx                           ; 0x2253
     lea ax, word [bp - 0x5e]         ; 0x2254
@@ -317,14 +317,14 @@ import_bane_party:
 .forward18:
     mov ax, 0x6cc                    ; 0x2281
     push ax                          ; 0x2284
-    push word [bss_93be]             ; 0x2285
+    push word [bane_import_buffer]   ; 0x2285
     push word [bp - 0xa]             ; 0x2289
     call aztec_read                  ; 0x228c
     add sp, byte 6                   ; 0x228f
     mov word [bp - 0xc], ax          ; 0x2292
     cmp ax, strict word 0            ; 0x2295
     jg short .forward20              ; 0x2298
-    push word [bss_93be]             ; 0x229a
+    push word [bane_import_buffer]   ; 0x229a
     call aztec_free                  ; 0x229e
     pop cx                           ; 0x22a1
     lea ax, word [bp - 0x5e]         ; 0x22a2
@@ -354,12 +354,12 @@ import_bane_party:
     jge short .forward21             ; 0x22d8
     jmp near .back1                  ; 0x22da
 .forward21:
-    push word [bss_93be]             ; 0x22dd
+    push word [bane_import_buffer]   ; 0x22dd
     call aztec_free                  ; 0x22e1
     pop cx                           ; 0x22e4
     mov ax, 0x42                     ; 0x22e5
     push ax                          ; 0x22e8
-    mov ax, bss_93c0                 ; 0x22e9
+    mov ax, bane_section_header      ; 0x22e9
     push ax                          ; 0x22ec
     push word [bp - 0xa]             ; 0x22ed
     call aztec_read                  ; 0x22f0
@@ -394,7 +394,7 @@ import_bane_party:
 .back2:
     mov ax, 0x1b0                    ; 0x2339
     push ax                          ; 0x233c
-    mov ax, bss_9402                 ; 0x233d
+    mov ax, bane_character_record    ; 0x233d
     push ax                          ; 0x2340
     push word [bp - 0xa]             ; 0x2341
     call aztec_read                  ; 0x2344
@@ -434,7 +434,7 @@ import_bane_party:
     imul word [party_char_count]     ; 0x2396
     add ax, party_records            ; 0x239a
     mov word [bp - 0x14], ax         ; 0x239d
-    mov ax, word [bss_9426]          ; 0x23a0
+    mov ax, word [bane_power_rank]   ; 0x23a0
     push ax                          ; 0x23a3
     cmp ax, strict word 5            ; 0x23a4
     pop ax                           ; 0x23a7
@@ -443,13 +443,13 @@ import_bane_party:
 .forward26:
     mov bx, word [bp - 0x14]         ; 0x23ad
     mov word [bx + 0x24], ax         ; 0x23b0
-    mov ax, bss_9402                 ; 0x23b3
+    mov ax, bane_character_record    ; 0x23b3
     push ax                          ; 0x23b6
     push word [bp - 0x14]            ; 0x23b7
     call aztec_strcpy                ; 0x23ba
     add sp, byte 4                   ; 0x23bd
-    mov ax, word [bss_940a]          ; 0x23c0
-    mov dx, word [bss_940c]          ; 0x23c3
+    mov ax, word [bane_character_value_a] ; 0x23c0
+    mov dx, word [bane_character_value_b] ; 0x23c3
     mov bx, word [bp - 0x14]         ; 0x23c7
     mov word [bx + 0xa], dx          ; 0x23ca
     mov word [bx + 8], ax            ; 0x23cd
@@ -462,11 +462,11 @@ import_bane_party:
     mov word [bp - 4], 0             ; 0x23ea
 .back3:
     mov bx, word [bp - 4]            ; 0x23ef
-    mov al, byte [bx + bss_952e]     ; 0x23f2
+    mov al, byte [bx + bane_character_stats] ; 0x23f2
     mov si, bx                       ; 0x23f6
     mov bx, word [bp - 0x14]         ; 0x23f8
     mov byte [bx + si + 0x170], al   ; 0x23fb
-    cmp word [bss_9426], byte 5      ; 0x23ff
+    cmp word [bane_power_rank], byte 5 ; 0x23ff
     jle short .forward27             ; 0x2404
     mov bx, word [bp - 0x14]         ; 0x2406
     mov si, word [bp - 4]            ; 0x2409
@@ -490,9 +490,9 @@ import_bane_party:
     mov ax, word [bp - 4]            ; 0x2434
     cmp ax, strict word 8            ; 0x2437
     jl short .back3                  ; 0x243a
-    mov ax, word [bss_941c]          ; 0x243c
+    mov ax, word [bane_experience_value] ; 0x243c
     cwd                              ; 0x243f
-    idiv word [bss_9426]             ; 0x2440
+    idiv word [bane_power_rank]      ; 0x2440
     mov bx, word [bp - 0x14]         ; 0x2444
     mov cx, word [bx + 0x24]         ; 0x2447
     imul cx                          ; 0x244a
@@ -586,7 +586,7 @@ import_bane_party:
     idiv cx                          ; 0x2530
     mov word [bx + 0x22], ax         ; 0x2532
 .forward34:
-    mov ax, word [bss_9428]          ; 0x2535
+    mov ax, word [bane_character_value_c] ; 0x2535
     mov bx, word [bp - 0x14]         ; 0x2538
     mov word [bx + 0x26], ax         ; 0x253b
     mov word [bp - 4], 0             ; 0x253e
@@ -595,9 +595,9 @@ import_bane_party:
     shl ax, 1                        ; 0x2546
     shl ax, 1                        ; 0x2548
     mov bx, ax                       ; 0x254a
-    mov ax, word [bx + bss_942c]     ; 0x254c
+    mov ax, word [bx + bane_realm_values] ; 0x254c
     cwd                              ; 0x2550
-    idiv word [bss_9426]             ; 0x2551
+    idiv word [bane_power_rank]      ; 0x2551
     mov bx, word [bp - 0x14]         ; 0x2555
     mov cx, word [bx + 0x24]         ; 0x2558
     imul cx                          ; 0x255b
@@ -741,7 +741,7 @@ import_bane_party.forward37:
 import_bane_party.forward38:
     cmp word [bp - 0x1a], byte 0     ; 0x269e
     jl short import_bane_party.forward40 ; 0x26a2
-    mov ax, word [bss_9426]          ; 0x26a4
+    mov ax, word [bane_power_rank]   ; 0x26a4
     mov word [bp - 0x1c], ax         ; 0x26a7
     cmp ax, strict word 0x12         ; 0x26aa
     jle short import_bane_party.back6 ; 0x26ad
@@ -750,7 +750,7 @@ import_bane_party.back6:
     cmp word [bp - 0x1c], byte 0     ; 0x26b4
     jle short import_bane_party.forward39 ; 0x26b8
     mov bx, word [bp - 4]            ; 0x26ba
-    mov cl, byte [bx + bss_9536]     ; 0x26bd
+    mov cl, byte [bx + bane_character_stat_caps] ; 0x26bd
     mov bx, word [bp - 0x14]         ; 0x26c1
     mov si, word [bp - 0x1a]         ; 0x26c4
     mov al, byte [bx + si + 0x178]   ; 0x26c7
@@ -774,7 +774,7 @@ import_bane_party.back6:
     jmp short import_bane_party.back6 ; 0x26f1
 import_bane_party.forward39:
     mov bx, word [bp - 4]            ; 0x26f3
-    mov cl, byte [bx + bss_9536]     ; 0x26f6
+    mov cl, byte [bx + bane_character_stat_caps] ; 0x26f6
     mov bx, word [bp - 0x14]         ; 0x26fa
     mov si, word [bp - 0x1a]         ; 0x26fd
     mov al, byte [bx + si + 0x178]   ; 0x2700
@@ -791,10 +791,10 @@ import_bane_party.forward41:
     mov word [bp - 4], 0             ; 0x271a
 import_bane_party.back7:
     mov bx, word [bp - 4]            ; 0x271f
-    mov al, byte [bx + bss_9554]     ; 0x2722
+    mov al, byte [bx + bane_character_spacing] ; 0x2722
     sub ah, ah                       ; 0x2726
     cwd                              ; 0x2728
-    idiv word [bss_9426]             ; 0x2729
+    idiv word [bane_power_rank]      ; 0x2729
     mov bx, word [bp - 0x14]         ; 0x272d
     mov cx, word [bx + 0x24]         ; 0x2730
     imul cx                          ; 0x2733
@@ -811,7 +811,7 @@ import_bane_party.back7:
     mov word [bp - 4], 0             ; 0x2755
 import_bane_party.back8:
     push word [bp - 4]               ; 0x275a
-    mov ax, bss_958a                 ; 0x275d
+    mov ax, bane_spell_bits          ; 0x275d
     push ax                          ; 0x2760
     call test_bit                    ; 0x2761
     add sp, byte 4                   ; 0x2764
@@ -857,12 +857,12 @@ import_bane_party.forward42:
     mov word [bp - 4], 0             ; 0x27c2
 import_bane_party.back9:
     mov bx, word [bp - 4]            ; 0x27c7
-    mov al, byte [bx + bss_9596]     ; 0x27ca
+    mov al, byte [bx + bane_story_values_a] ; 0x27ca
     mov si, bx                       ; 0x27ce
     mov bx, word [bp - 0x14]         ; 0x27d0
     mov byte [bx + si + 0x22e], al   ; 0x27d3
     mov bx, word [bp - 4]            ; 0x27d7
-    mov al, byte [bx + bss_959a]     ; 0x27da
+    mov al, byte [bx + bane_story_values_b] ; 0x27da
     mov si, bx                       ; 0x27de
     mov bx, word [bp - 0x14]         ; 0x27e0
     mov byte [bx + si + 0x232], al   ; 0x27e3
@@ -870,13 +870,13 @@ import_bane_party.back9:
     mov ax, word [bp - 4]            ; 0x27ea
     cmp ax, strict word 4            ; 0x27ed
     jl short import_bane_party.back9 ; 0x27f0
-    mov al, byte [bss_959f]          ; 0x27f2
+    mov al, byte [bane_character_kind] ; 0x27f2
     mov bx, word [bp - 0x14]         ; 0x27f5
     mov byte [bx + 0x237], al        ; 0x27f8
-    mov al, byte [bss_95a0]          ; 0x27fc
+    mov al, byte [bane_character_glyph_set] ; 0x27fc
     mov bx, word [bp - 0x14]         ; 0x27ff
     mov byte [bx + 0x238], al        ; 0x2802
-    mov al, byte [bss_95a1]          ; 0x2806
+    mov al, byte [bane_character_gender] ; 0x2806
     mov bx, word [bp - 0x14]         ; 0x2809
     mov byte [bx + 0x239], al        ; 0x280c
     mov bx, word [bp - 0x14]         ; 0x2810
@@ -903,7 +903,7 @@ import_bane_party.back9:
     add sp, byte 6                   ; 0x2847
     mov bx, word [bp - 0x14]         ; 0x284a
     mov byte [bx + 0x236], al        ; 0x284d
-    mov al, byte [bss_95a2]          ; 0x2851
+    mov al, byte [bane_character_profession_value] ; 0x2851
     mov bx, word [bp - 0x14]         ; 0x2854
     mov byte [bx + 0x23a], al        ; 0x2857
     mov bx, word [bp - 0x14]         ; 0x285b
@@ -925,9 +925,9 @@ import_bane_party.back9:
     add ax, cx                       ; 0x2897
     mov byte [bx + 0x245], al        ; 0x2899
     mov ax, 3                        ; 0x289d
-    imul word [bss_9426]             ; 0x28a0
+    imul word [bane_power_rank]      ; 0x28a0
     push ax                          ; 0x28a4
-    mov al, byte [bss_95b0]          ; 0x28a5
+    mov al, byte [bane_power_adjustment] ; 0x28a5
     cbw                              ; 0x28a8
     mov cx, ax                       ; 0x28a9
     pop ax                           ; 0x28ab
@@ -1103,13 +1103,13 @@ import_bane_party.back13:
     mov ax, 0x19b                    ; 0x2a62
     push ax                          ; 0x2a65
     push word [party_char_count]     ; 0x2a66
-    call api_idx_004c_RQSO           ; 0x2a6a
+    call api_idx_004c_set_party_cell ; 0x2a6a
     add sp, byte 0xa                 ; 0x2a6d
     inc word [bp - 0x18]             ; 0x2a70
 import_bane_party.forward53:
     mov word [bp - 4], 0             ; 0x2a73
     mov word [bp - 6], 0             ; 0x2a78
-    mov al, byte [bss_95a1]          ; 0x2a7d
+    mov al, byte [bane_character_gender] ; 0x2a7d
     sub ah, ah                       ; 0x2a80
     jmp near import_bane_party.forward54 ; 0x2a82
 jumptable_2af5_case_0:
@@ -1178,7 +1178,7 @@ import_bane_party.forward54:
     shl bx, 1                        ; 0x2b17
     jmp [cs:bx + jumptable_2af5 - IMAGE_BASE + __zres_end] ; 0x2b19
 import_bane_party.forward55:
-    cmp byte [bss_959f], 5           ; 0x2b1e
+    cmp byte [bane_character_kind], 5 ; 0x2b1e
     jne short import_bane_party.forward56 ; 0x2b23
     mov word [bp - 4], 0x18d         ; 0x2b25
     mov word [bp - 6], 0             ; 0x2b2a
@@ -1201,7 +1201,7 @@ import_bane_party.forward56:
     push ax                          ; 0x2b55
     push word [bp - 4]               ; 0x2b56
     push word [party_char_count]     ; 0x2b59
-    call api_idx_004c_RQSO           ; 0x2b5d
+    call api_idx_004c_set_party_cell ; 0x2b5d
     add sp, byte 0xa                 ; 0x2b60
     inc word [bp - 0x18]             ; 0x2b63
 import_bane_party.forward57:
@@ -1223,7 +1223,7 @@ import_bane_party.forward57:
     push ax                          ; 0x2b8c
     push word [bp - 6]               ; 0x2b8d
     push word [party_char_count]     ; 0x2b90
-    call api_idx_004c_RQSO           ; 0x2b94
+    call api_idx_004c_set_party_cell ; 0x2b94
     add sp, byte 0xa                 ; 0x2b97
     inc word [bp - 0x18]             ; 0x2b9a
 import_bane_party.forward58:
@@ -1236,7 +1236,7 @@ import_bane_party.back14:
     shl ax, 1                        ; 0x2baf
     shl ax, 1                        ; 0x2bb1
     mov bx, ax                       ; 0x2bb3
-    mov ax, word [bx + bss_9442]     ; 0x2bb5
+    mov ax, word [bx + bane_mage_spell_values] ; 0x2bb5
     mov word [bp - 6], ax            ; 0x2bb9
     cmp ax, strict word 0            ; 0x2bbc
     jg short import_bane_party.forward59 ; 0x2bbf
@@ -1262,7 +1262,7 @@ import_bane_party.forward60:
     shl ax, 1                        ; 0x2be8
     shl ax, 1                        ; 0x2bea
     mov bx, ax                       ; 0x2bec
-    mov al, byte [bx + bss_9449]     ; 0x2bee
+    mov al, byte [bx + bane_mage_spell_flags] ; 0x2bee
     sub ah, ah                       ; 0x2bf2
     test ax, 1                       ; 0x2bf4
     je short import_bane_party.forward61 ; 0x2bf7
@@ -1282,7 +1282,7 @@ import_bane_party.forward62:
     shl ax, 1                        ; 0x2c16
     shl ax, 1                        ; 0x2c18
     mov bx, ax                       ; 0x2c1a
-    mov al, byte [bx + bss_9448]     ; 0x2c1c
+    mov al, byte [bx + bane_mage_spell_levels] ; 0x2c1c
     sub ah, ah                       ; 0x2c20
     push ax                          ; 0x2c22
     mov ax, 0x78                     ; 0x2c23
@@ -1297,7 +1297,7 @@ import_bane_party.forward62:
     push ax                          ; 0x2c3b
     push word [bp - 6]               ; 0x2c3c
     push word [party_char_count]     ; 0x2c3f
-    call api_idx_004c_RQSO           ; 0x2c43
+    call api_idx_004c_set_party_cell ; 0x2c43
     add sp, byte 0xa                 ; 0x2c46
     inc word [bp - 0x18]             ; 0x2c49
     mov ax, word [bp - 0x18]         ; 0x2c4c
@@ -1308,7 +1308,7 @@ import_bane_party.forward62:
 import_bane_party.forward63:
     inc word [bp - 4]                ; 0x2c5c
 import_bane_party.forward64:
-    mov al, byte [bss_95ae]          ; 0x2c5f
+    mov al, byte [bane_mage_spell_count] ; 0x2c5f
     sub ah, ah                       ; 0x2c62
     cmp ax, word [bp - 4]            ; 0x2c64
     jle short import_bane_party.forward65 ; 0x2c67
@@ -1322,7 +1322,7 @@ import_bane_party.back15:
     shl ax, 1                        ; 0x2c79
     shl ax, 1                        ; 0x2c7b
     mov bx, ax                       ; 0x2c7d
-    mov ax, word [bx + bss_9492]     ; 0x2c7f
+    mov ax, word [bx + bane_priest_spell_values] ; 0x2c7f
     mov word [bp - 6], ax            ; 0x2c83
     cmp ax, strict word 0            ; 0x2c86
     jg short import_bane_party.forward66 ; 0x2c89
@@ -1348,7 +1348,7 @@ import_bane_party.forward67:
     shl ax, 1                        ; 0x2cb2
     shl ax, 1                        ; 0x2cb4
     mov bx, ax                       ; 0x2cb6
-    mov al, byte [bx + bss_9499]     ; 0x2cb8
+    mov al, byte [bx + bane_priest_spell_flags] ; 0x2cb8
     sub ah, ah                       ; 0x2cbc
     test ax, 1                       ; 0x2cbe
     je short import_bane_party.forward68 ; 0x2cc1
@@ -1369,7 +1369,7 @@ import_bane_party.forward69:
     shl ax, 1                        ; 0x2ce3
     shl ax, 1                        ; 0x2ce5
     mov bx, ax                       ; 0x2ce7
-    mov al, byte [bx + bss_9498]     ; 0x2ce9
+    mov al, byte [bx + bane_priest_spell_levels] ; 0x2ce9
     sub ah, ah                       ; 0x2ced
     push ax                          ; 0x2cef
     mov ax, 0x78                     ; 0x2cf0
@@ -1384,7 +1384,7 @@ import_bane_party.forward69:
     push ax                          ; 0x2d08
     push word [bp - 6]               ; 0x2d09
     push word [party_char_count]     ; 0x2d0c
-    call api_idx_004c_RQSO           ; 0x2d10
+    call api_idx_004c_set_party_cell ; 0x2d10
     add sp, byte 0xa                 ; 0x2d13
     inc word [bp - 0x18]             ; 0x2d16
     mov ax, word [bp - 0x18]         ; 0x2d19
@@ -1395,7 +1395,7 @@ import_bane_party.forward69:
 import_bane_party.forward70:
     inc word [bp - 4]                ; 0x2d29
 import_bane_party.forward71:
-    mov al, byte [bss_95af]          ; 0x2d2c
+    mov al, byte [bane_priest_spell_count] ; 0x2d2c
     sub ah, ah                       ; 0x2d2f
     cmp ax, word [bp - 4]            ; 0x2d31
     jle short import_bane_party.forward72 ; 0x2d34
@@ -1410,7 +1410,7 @@ import_bane_party.forward72:
     shl ax, 1                        ; 0x2d4a
     shl ax, 1                        ; 0x2d4c
     mov bx, ax                       ; 0x2d4e
-    push word [bx + bss_9442]        ; 0x2d50
+    push word [bx + bane_mage_spell_values] ; 0x2d50
     call map_bane_item_number        ; 0x2d54
     pop cx                           ; 0x2d57
     mov word [bp - 6], ax            ; 0x2d58
@@ -1433,7 +1433,7 @@ import_bane_party.forward74:
     shl ax, 1                        ; 0x2d7b
     shl ax, 1                        ; 0x2d7d
     mov bx, ax                       ; 0x2d7f
-    mov al, byte [bx + bss_9448]     ; 0x2d81
+    mov al, byte [bx + bane_mage_spell_levels] ; 0x2d81
     sub ah, ah                       ; 0x2d85
     push ax                          ; 0x2d87
     mov ax, 0x78                     ; 0x2d88
@@ -1448,14 +1448,14 @@ import_bane_party.forward74:
     push ax                          ; 0x2da0
     push word [bp - 6]               ; 0x2da1
     push word [party_char_count]     ; 0x2da4
-    call api_idx_004c_RQSO           ; 0x2da8
+    call api_idx_004c_set_party_cell ; 0x2da8
     add sp, byte 0xa                 ; 0x2dab
 import_bane_party.forward75:
     inc word [party_char_count]      ; 0x2dae
     inc word [bp - 2]                ; 0x2db2
 import_bane_party.forward76:
     mov ax, word [bp - 2]            ; 0x2db5
-    cmp ax, word [bss_9400]          ; 0x2db8
+    cmp ax, word [bane_party_member_count] ; 0x2db8
     jge short import_bane_party.forward77 ; 0x2dbc
     jmp near import_bane_party.back2 ; 0x2dbe
 import_bane_party.forward77:

@@ -163,7 +163,7 @@ jumptable_08e9         equ api_idx_0004_SMLK.jumptable1
 
 %include "vmext/api_idx_0012_QKSO.asm"     ; 0x0ee0
 
-%include "shared/ovr/api_idx_004c_RQSO.asm"     ; 0x1356
+%include "shared/ovr/api_idx_004c_set_party_cell.asm" ; 0x1356
 
 %include "shared/ovr/api_idx_0004_ONJT.asm"     ; 0x146b
 

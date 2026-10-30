@@ -1,7 +1,7 @@
 ; Loads the driver, or restores the system and prints a fatal load error.
 	include	lmacros.h
 	assume	cs:codeseg
-	extrn	restore_video_and_release_memory_:near
+	extrn	restore_video_and_release_mem_:near
 	extrn	cseg_2f52_:word
 	extrn	cseg_2f58_:word
 	extrn	drv_slot_mouse_init_:word
@@ -63,7 +63,7 @@ copy_far_tables:
 	pops	es,ds
 	ret
 open_error:
-	call restore_video_and_release_memory_
+	call restore_video_and_release_mem_
 load_video_driver_ endp
 	public	display_driver_error_exit
 display_driver_error_exit proc near

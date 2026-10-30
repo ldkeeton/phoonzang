@@ -153,10 +153,10 @@ play_set_device_forward2:
 	mov	bl,byte ptr cs:play_device
 	shl	bl,1
 	xor	bh,bh
-	jmp	word ptr cs:[bx+play_device_setup_dispatch_table]
-play_device_setup_dispatch_table label word
+	jmp	word ptr cs:[bx+play_device_setup_dispatch_tbl]
+play_device_setup_dispatch_tbl label word
 	dw	offset play_set_device_return_
-	dw	offset play_device_setup_opl_pulse_case
+	dw	offset play_device_setup_opl_pulse
 	dw	offset play_device_setup_port_case
 	dw	offset play_device_setup_port_case
 	dw	offset play_device_setup_noop_case
@@ -190,7 +190,7 @@ play_set_device_forward3:
 play_device_setup_noop_case:
 	jmp	near ptr play_set_device_return_
 	db	15 dup (0)
-play_device_setup_opl_pulse_case:
+play_device_setup_opl_pulse:
 	call	opl_silent_note_pulse
 	jmp	near ptr play_set_device_return_
 play_set_device_ endp

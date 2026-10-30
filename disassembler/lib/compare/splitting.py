@@ -381,9 +381,8 @@ def _select_data_ranges(records, roots, binary_data=None, modules=()):
             end = span_end if stop is None else min(span_end, stop)
         if end > start:
             ranges.append((start, end, name))
-    ends = {span_end for _, span_end, _ in spans}
     for module in modules or ():
-        ranges = _group_module(ranges, roots, binary_data, module, ends)
+        ranges = _group_module(ranges, roots, binary_data, module, spans)
     return ranges
 
 
@@ -508,30 +507,41 @@ def _select_leftover_data_ranges(records, claimed, name_at):
     return ranges
 
 
-def _group_module(ranges, roots, binary_data, module, ends):
+def _group_module(ranges, roots, binary_data, module, spans):
     """*ranges* with *module*'s objects made one, when the image holds it.
 
     Its first object's root places it; every public must be a root at its
     own offset, the bytes must be the module's, and the module's end must be
-    a record boundary.  Otherwise *ranges* is returned as it is.
+    a record boundary.  Otherwise *ranges* is returned as it is.  A declared
+    module may also hold address-named data, which has no root and so no range;
+    it may not hold anything but data.
     """
     from lib.aztec.datamodules import stem
+    from lib.compare.render import _DATA_RECORD_TYPES
     first = module.publics[0][0]
     base = next((at for at, name in roots.items() if str(name) == first),
                 None)
     def ungrouped():
         if module.declared:
             raise ValueError(f'{module.file}: declared data length must cover '
-                             'contiguous data objects and end at a record boundary')
+                             'data records only and end at a record boundary')
         return ranges
     if base is None or binary_data is None:
         return ungrouped()
     end = base + len(module.data)
+    ends = {span_end for _, span_end, _ in spans}
     if (bytes(binary_data[base:end]) != module.data or end not in ends
             or any(str(roots.get(base + offset)) != label
                    for label, offset in module.publics)):
         return ungrouped()
     inside = sorted(r for r in ranges if base <= r[0] < end)
+    if module.declared:
+        if any(lo < end and hi > base and lo != hi
+               and kind not in _DATA_RECORD_TYPES + ('data_ptr',)
+               for lo, hi, kind in spans):
+            return ungrouped()
+        return sorted([r for r in ranges if r not in inside]
+                      + [(base, end, stem(module))])
     at = base
     for start, stop, _ in inside:
         if start != at:

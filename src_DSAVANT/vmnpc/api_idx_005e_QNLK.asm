@@ -255,7 +255,7 @@ api_idx_005e_QNLK:
     push ax                          ; 0x6215
     push word [bx + bss_9cd4]        ; 0x6216
     push word [bp + 4]               ; 0x621a
-    call api_idx_004c_RQSO           ; 0x621d
+    call api_idx_004c_set_party_cell ; 0x621d
     add sp, byte 0xa                 ; 0x6220
     lea ax, word [bp - 0x5e]         ; 0x6223
     push ax                          ; 0x6226

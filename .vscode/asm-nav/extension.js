@@ -71,7 +71,10 @@ function reindex() {
             for (const symbol of other.labels) if (['type', 'struct', 'union', 'enum', 'macro'].includes(symbol.kind)) known.set(symbol.name, symbol.kind);
         }
         const text = texts.get(scan.uri.toString());
-        const base = cSymbols(text);
+        // cSymbols reports header definitions such as struct tags, typedefs,
+        // and #defines. Keep them as navigable destinations alongside the
+        // function/global declarations emitted by the semantic scanner.
+        const base = cSymbols(text).map(symbol => ({ ...symbol, definition: true }));
         const declarations = cSemanticTokens(text, known).filter(t =>
             t.modifiers.includes('declaration') &&
             (t.kind === 'global' || t.kind === 'function'));
@@ -79,6 +82,7 @@ function reindex() {
             name: text.slice(t.offset, t.offset + t.length), row: t.row, col: t.col,
             kind: t.kind, definition: t.modifiers.includes('definition') || (t.kind === 'global' &&
                 !/\bextern\b/.test(text.split('\n')[t.row].slice(0, t.col))),
+            declaration: true,
             static: t.modifiers.includes('static'),
         })));
     }
@@ -143,19 +147,19 @@ function hitsFor(name, doc) {
     const all = (defs.get(name) || []).filter(h =>
         (visibleFrom(h.uri, doc) || (fromC && listing(h.uri.fsPath) &&
             scans.get(h.uri.toString())?.project === project)) &&
-        (!h.static || h.uri.fsPath === doc?.fileName));
+        (!h.static || h.uri.fsPath === doc?.fileName || (fromC && /\.h$/i.test(h.uri.fsPath))));
     const here = doc && locate(doc.fileName);
     const mine = here ? all.filter(h => {
         const binary = scans.get(h.uri.toString())?.binary;
         return binary === here.binary || binary === SHARED_DIR || binary === 'include';
     }) : [];
 
-    // From C, navigate to an actual C definition whenever one exists. C
-    // externs are declarations, not useful destinations; only use a Manx
-    // assembly (.s or NASM listing) definition when the project has no C definition.
+    // From C, prefer C definitions, then a header declaration. C externs are
+    // not useful destinations; only use assembly when no C/header match exists.
     if (fromC) {
         const definitions = all.filter(h => h.definition);
         const cDefinitions = definitions.filter(h => /\.[ch]$/i.test(h.uri.fsPath));
+        const headerDeclarations = all.filter(h => /\.h$/i.test(h.uri.fsPath) && h.declaration);
         const asmDefinitions = definitions.filter(h => /\.s$/i.test(h.uri.fsPath));
         const listingDefinitions = definitions.filter(h => /\.asm$/i.test(h.uri.fsPath));
         const preferred = hits => {
@@ -163,6 +167,7 @@ function hitsFor(name, doc) {
             return local.length ? local : hits;
         };
         return preferred(cDefinitions.length ? cDefinitions :
+            headerDeclarations.length ? headerDeclarations :
             asmDefinitions.length ? asmDefinitions : listingDefinitions);
     }
 

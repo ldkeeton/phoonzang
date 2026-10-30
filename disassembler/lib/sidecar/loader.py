@@ -5,7 +5,7 @@ import os
 
 from .binary import _validate_binary, _validate_entry_names
 from .compiler import _validate_compiler_flags
-from .constants import SIDECAR_DIR
+from .constants import MAX_NAME_LENGTH, SIDECAR_DIR
 from .errors import SidecarError
 from .messages import (_validate_message_bases, _validate_message_calls,
                        _validate_message_data)
@@ -42,9 +42,37 @@ def load(project):
     return data
 
 
+def check_name_length(name, where):
+    """Reject a symbol name too long for Aztec C to tell apart."""
+    if len(name) > MAX_NAME_LENGTH:
+        raise SidecarError(
+            f'{where}: name {name!r} is {len(name)} characters; Aztec C keeps '
+            f'only the first {MAX_NAME_LENGTH}, so C could not reference it')
+
+
+def _reject_long_names(node, where):
+    """Check every ``name`` and dispatch-table ``names`` entry under *node*."""
+    if isinstance(node, list):
+        for index, item in enumerate(node):
+            _reject_long_names(item, f'{where}[{index}]')
+    elif isinstance(node, dict):
+        for key, value in node.items():
+            at = f'{where}.{key}' if where else key
+            if key == 'name' and isinstance(value, str):
+                check_name_length(value, where)
+            elif key == 'names' and isinstance(value, dict):
+                for slot, name in value.items():
+                    if isinstance(name, str):
+                        check_name_length(name, f'{at}[{slot}]')
+            else:
+                _reject_long_names(value, at)
+
+
 def _validate(data):
     if not isinstance(data, dict):
         raise SidecarError('sidecar must be a JSON object')
+
+    _reject_long_names(data, '')
 
     for key in ('app',):
         if key not in data:

@@ -1,5 +1,5 @@
 ; auto-generated
-restore_video_and_release_memory:
+restore_video_and_release_mem:
     push bp                          ; 0x30a3
     mov bp, sp                       ; 0x30a4
     cld                              ; 0x30a6

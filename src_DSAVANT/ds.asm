@@ -194,7 +194,7 @@ screen_store_disk_enabled equ __zbss_5963 - __zdseg_start
 screen_store_drive equ __zbss_5964 - __zdseg_start
 palette_base_setting equ __zbss_5978 - __zdseg_start
 palette_scale_setting equ __zbss_5979 - __zdseg_start
-bss_597a equ __zbss_597a - __zdseg_start
+configuration_display_value equ __zbss_597a - __zdseg_start
 device_option_bytes equ __zbss_597c - __zdseg_start
 monster_volume equ __zbss_597d - __zdseg_start
 background_volume equ __zbss_597e - __zdseg_start
@@ -585,7 +585,7 @@ __zdseg_end equ (__zimage_end - __zdseg_start) + __zbss_size
 
 %include "ds/library/init_system_hardware.asm" ; 0x3067
 
-%include "ds/library/restore_video_and_release_memory.asm" ; 0x30a3
+%include "ds/library/restore_video_and_release_mem.asm" ; 0x30a3
 
 %include "ds/library/restore_saved_video_state.asm" ; 0x30c3
 

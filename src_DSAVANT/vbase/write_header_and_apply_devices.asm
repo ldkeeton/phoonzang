@@ -1,5 +1,5 @@
 ; auto-generated
-write_scenario_header_and_apply_devices:
+write_header_and_apply_devices:
     mov ax, 0xfffe                   ; 0x3fac
     call aztec_csav                  ; 0x3faf
     mov ax, 2                        ; 0x3fb2

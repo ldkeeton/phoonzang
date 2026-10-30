@@ -322,7 +322,7 @@ cseg_31b6 equ load_picture.cseg2
 
 %include "ega/set_palette.asm"             ; 0x3244
 
-%include "ega/expand_transparent_pixel_to_planes.asm" ; 0x3245
+%include "ega/expand_transparent_px_to_planes.asm" ; 0x3245
 
 %include "ega/data/cseg_32b3.asm"          ; 0x32b3
 

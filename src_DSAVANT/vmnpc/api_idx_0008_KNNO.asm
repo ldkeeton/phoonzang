@@ -107,7 +107,7 @@ api_idx_0008_KNNO:
     push ax                          ; 0x2ab3
     push word [bp + 6]               ; 0x2ab4
     push word [bp - 8]               ; 0x2ab7
-    call api_idx_004c_RQSO           ; 0x2aba
+    call api_idx_004c_set_party_cell ; 0x2aba
     add sp, byte 0xa                 ; 0x2abd
     push word [bp + 6]               ; 0x2ac0
     call loc_GMVH                    ; 0x2ac3

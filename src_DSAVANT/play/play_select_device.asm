@@ -90,11 +90,11 @@ play_set_device:
     mov bl, byte [cs:play_device - IMAGE_BASE] ; 0x0350
     shl bl, 1                        ; 0x0355
     xor bh, bh                       ; 0x0357
-    jmp [cs:bx + play_device_setup_dispatch_table - IMAGE_BASE] ; 0x0359
-play_device_setup_dispatch_table:
-play_device_setup_dispatch_table:
+    jmp [cs:bx + play_device_setup_dispatch_tbl - IMAGE_BASE] ; 0x0359
+play_device_setup_dispatch_tbl:
+play_device_setup_dispatch_tbl:
     dw play_set_device_return - IMAGE_BASE     ; 0x035e
-    dw play_device_setup_opl_pulse_case - IMAGE_BASE ; 0x0360
+    dw play_device_setup_opl_pulse - IMAGE_BASE ; 0x0360
     dw play_device_setup_port_case - IMAGE_BASE ; 0x0362
     dw play_device_setup_port_case - IMAGE_BASE ; 0x0364
     dw play_device_setup_noop_case - IMAGE_BASE ; 0x0366
@@ -140,7 +140,7 @@ play_device_setup_port_case:
 play_device_setup_noop_case:
     jmp near play_set_device_return  ; 0x03ca
     times 15 db 0
-play_device_setup_opl_pulse_case:
+play_device_setup_opl_pulse:
     call opl_silent_note_pulse       ; 0x03dc
     jmp near play_set_device_return  ; 0x03df
 play_configure_timer_handler:

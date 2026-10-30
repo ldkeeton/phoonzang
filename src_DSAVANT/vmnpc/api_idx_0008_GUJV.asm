@@ -163,7 +163,7 @@ api_idx_0008_GUJV:
     push ax                          ; 0x56df
     push word [bp - 4]               ; 0x56e0
     push word [bp + 4]               ; 0x56e3
-    call api_idx_004c_RQSO           ; 0x56e6
+    call api_idx_004c_set_party_cell ; 0x56e6
     add sp, byte 0xa                 ; 0x56e9
     push word [bp + 4]               ; 0x56ec
     call api_idx_004c_OGSK           ; 0x56ef

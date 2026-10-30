@@ -15,9 +15,14 @@ struct grid_cell {			/* 12 bytes */
 	unsigned char weight;		/* +0xb */
 };
 
+union pc_word_pair {
+	int word[2];
+	long dword;
+};
+
 struct pc_rec {				/* 0x248 bytes */
 	char name[8];			/* +0x000 */
-	int w8[2];			/* +0x008 */
+	union pc_word_pair w8;		/* +0x008 */
 	long experience;		/* +0x00c: accumulated survivor reward */
 	int w10[3];			/* +0x010 */
 	int w16;			/* +0x016 */
@@ -39,21 +44,24 @@ struct pc_rec {				/* 0x248 bytes */
 	unsigned char prev[14];		/* +0x19a: slot spacing last frame */
 	unsigned char cur[14];		/* +0x1a8: slot spacing this frame */
 	unsigned char count[8];		/* +0x1b6: per-slot tallies */
-	char pad1[116];			/* +0x1be */
+	char pad1[0x60];			/* +0x1be */
+	unsigned char spell_bitmap[10];	/* +0x21e: imported spell selection bits */
+	char pad2[6];			/* +0x228 */
+	unsigned char imported_flags[4];	/* +0x22e: imported status values */
 	unsigned char story_flags[4];	/* +0x232: completed story message bits */
 	unsigned char kind;		/* +0x236: 0x13 and 0x19 use glyph base 10 */
 	unsigned char glyph_set;	/* +0x237: picks the panel's glyph base */
 	unsigned char gender;		/* +0x238: 0 male, 1 female (MSG_MALE + gender) */
 	unsigned char profession;	/* +0x239: class, MSG_CLASS_BASE + profession */
-	char pad2;			/* +0x23a */
+	char pad3;			/* +0x23a */
 	unsigned char state;		/* +0x23b: 0 when settled */
 	unsigned char attack;		/* +0x23c: also the cells' highest low nibble */
 	unsigned char defense;		/* +0x23d: also the cells' highest high nibble */
-	char pad3[5];			/* +0x23e */
+	char pad4[5];			/* +0x23e */
 	unsigned char adjusted_stat4;	/* +0x243 */
 	unsigned char adjusted_stat5;	/* +0x244 */
 	unsigned char stat5_plus_power;	/* +0x245 */
-	char pad4;			/* +0x246 */
+	char pad5;			/* +0x246 */
 	unsigned char power_floor;		/* +0x247 */
 };
 

@@ -104,7 +104,7 @@ api_idx_0040_LIPH:
     push ax                          ; 0x5435
     push word [bx + bss_960e]        ; 0x5436
     push word [bp - 8]               ; 0x543a
-    call api_idx_004c_RQSO           ; 0x543d
+    call api_idx_004c_set_party_cell ; 0x543d
     add sp, byte 0xa                 ; 0x5440
 .forward4:
     jmp short .forward6              ; 0x5443
@@ -125,7 +125,7 @@ api_idx_0040_LIPH:
     push word [bx + bss_960e]        ; 0x5465
     mov ax, 0                        ; 0x5469
     push ax                          ; 0x546c
-    call api_idx_004c_RQSO           ; 0x546d
+    call api_idx_004c_set_party_cell ; 0x546d
     add sp, byte 0xa                 ; 0x5470
     lea ax, word [bp - 0x40]         ; 0x5473
     push ax                          ; 0x5476

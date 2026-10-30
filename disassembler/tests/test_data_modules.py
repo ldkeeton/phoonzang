@@ -5,8 +5,10 @@ import tempfile
 import unittest
 from unittest import mock
 
-from lib.aztec.datamodules import DataModule, data_modules, stem
+from lib.aztec.datamodules import (DataModule, data_modules,
+                                   declared_data_modules, stem)
 from lib.cachedirs import aztec_lib_obj_dir
+from lib.segments import SegmentModel
 from main import aztec
 
 STKSIZ = DataModule('stksiz.c', (('_STKSIZ', 0), ('_STKRED', 2),
@@ -28,6 +30,32 @@ class DataModulesTest(unittest.TestCase):
         self.assertEqual(found['ctp_'].file, 'ctype.c')
         self.assertEqual(len(found['ctp_'].data), 129)
         self.assertEqual(found['stksiz'], STKSIZ)
+
+
+class DeclaredOverlayDataTest(unittest.TestCase):
+    """An overlay's data follows its code in the file, and loads at o_dorg."""
+    SEGMENTS = SegmentModel('overlay', 0x40, overlay={
+        'o_corg': 0x1000, 'o_csize': 0x10, 'o_dorg': 0x9000, 'o_dsize': 0x10,
+        'o_bss': 0, 'o_entry': 0x1000})
+    IMAGE = bytes(range(0x40))
+
+    def modules(self, offset, length):
+        entry = {'data_names': {offset: {'name': 'a', 'length': length,
+                                         'file': 'group'}}}
+        return declared_data_modules(entry, self.SEGMENTS, self.IMAGE)
+
+    def test_the_bytes_are_the_overlays_own(self):
+        module, = self.modules(0x9004, 4)
+        self.assertEqual(module.data, self.IMAGE[0x22:0x26])
+        self.assertEqual(stem(module), 'group')
+
+    def test_the_hosts_data_cannot_be_declared(self):
+        with self.assertRaises(ValueError):
+            self.modules(0x8ff0, 4)
+
+    def test_the_span_stays_in_the_initialized_data(self):
+        with self.assertRaises(ValueError):
+            self.modules(0x900c, 8)
 
 
 class DataSourcesTest(unittest.TestCase):

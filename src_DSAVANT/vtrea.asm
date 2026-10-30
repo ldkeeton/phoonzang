@@ -197,7 +197,7 @@ process_scene_message_words.process_scene_message_controls1 equ api_idx_0090_LKI
 
 %include "vtrea/api_idx_007a_QUNG.asm"     ; 0x4f0c
 
-%include "shared/ovr/api_idx_004c_RQSO.asm"     ; 0x51d7
+%include "shared/ovr/api_idx_004c_set_party_cell.asm" ; 0x51d7
 
 %include "shared/ovr/api_idx_0004_ONJT.asm"     ; 0x52ec
 

@@ -11,7 +11,7 @@ extern int aztec_open(), aztec_write(), aztec_close(), release_and_exit();
 extern int call_wait_sound(), call_mouse_init(), call_mouse_off();
 extern int flush_keyboard();
 
-write_scenario_header_and_apply_devices()
+write_header_and_apply_devices()
 {
 	int write_count;
 

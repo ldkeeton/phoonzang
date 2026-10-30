@@ -1,5 +1,5 @@
 ; auto-generated
-api_idx_004c_RQSO:
+api_idx_004c_set_party_cell:
     mov ax, 0xffb4
     call aztec_csav
     mov ax, 0

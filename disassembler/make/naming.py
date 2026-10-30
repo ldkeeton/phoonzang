@@ -32,6 +32,7 @@ from lib.autogen import hand_owned, is_auto_header
 from lib.cachedirs import labels_dir, src_dir
 from lib.sidecar.constants import SIDECAR_DIR
 from lib.sidecar.errors import SidecarError
+from lib.sidecar.loader import check_name_length
 
 from .common import PROJECT
 
@@ -927,6 +928,8 @@ def plan_names(project, binary, specs):
         else:
             sym, name, note = spec
             target = binary
+        if name:
+            check_name_length(name, f'{target} {sym}')
         derived = _derived_slot_pointer(project, sidecar, target, sym)
         if derived:
             raise SidecarError(derived)

@@ -1,5 +1,5 @@
 ; auto-generated
-expand_transparent_pixel_to_planes:
+expand_transparent_px_to_planes:
     push bx                          ; 0x3245
     cmp al, 0xff                     ; 0x3246
     jne short expand_pixel_to_planes_body ; 0x3248

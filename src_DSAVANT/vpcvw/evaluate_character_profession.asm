@@ -10,7 +10,7 @@ jumptable_9188_case_0:
     push ax                          ; 0x9040
     push word [bp + 6]               ; 0x9041
     push word [bp + 4]               ; 0x9044
-    call evaluate_profession_stat_minimums ; 0x9047
+    call evaluate_profession_stat_mins ; 0x9047
     add sp, byte 8                   ; 0x904a
     jmp near evaluate_character_profession.return1 ; 0x904d
 jumptable_9188_case_1:
@@ -19,7 +19,7 @@ jumptable_9188_case_1:
     push ax                          ; 0x9056
     push word [bp + 6]               ; 0x9057
     push word [bp + 4]               ; 0x905a
-    call evaluate_profession_stat_minimums ; 0x905d
+    call evaluate_profession_stat_mins ; 0x905d
     add sp, byte 8                   ; 0x9060
     jmp near evaluate_character_profession.return1 ; 0x9063
 jumptable_9188_case_2:
@@ -28,7 +28,7 @@ jumptable_9188_case_2:
     push ax                          ; 0x906c
     push word [bp + 6]               ; 0x906d
     push word [bp + 4]               ; 0x9070
-    call evaluate_profession_stat_minimums ; 0x9073
+    call evaluate_profession_stat_mins ; 0x9073
     add sp, byte 8                   ; 0x9076
     jmp near evaluate_character_profession.return1 ; 0x9079
 jumptable_9188_case_3:
@@ -37,7 +37,7 @@ jumptable_9188_case_3:
     push ax                          ; 0x9082
     push word [bp + 6]               ; 0x9083
     push word [bp + 4]               ; 0x9086
-    call evaluate_profession_stat_minimums ; 0x9089
+    call evaluate_profession_stat_mins ; 0x9089
     add sp, byte 8                   ; 0x908c
     jmp near evaluate_character_profession.return1 ; 0x908f
 jumptable_9188_case_4:
@@ -46,7 +46,7 @@ jumptable_9188_case_4:
     push ax                          ; 0x9098
     push word [bp + 6]               ; 0x9099
     push word [bp + 4]               ; 0x909c
-    call evaluate_profession_stat_minimums ; 0x909f
+    call evaluate_profession_stat_mins ; 0x909f
     add sp, byte 8                   ; 0x90a2
     jmp near evaluate_character_profession.return1 ; 0x90a5
 jumptable_9188_case_5:
@@ -55,7 +55,7 @@ jumptable_9188_case_5:
     push ax                          ; 0x90ae
     push word [bp + 6]               ; 0x90af
     push word [bp + 4]               ; 0x90b2
-    call evaluate_profession_stat_minimums ; 0x90b5
+    call evaluate_profession_stat_mins ; 0x90b5
     add sp, byte 8                   ; 0x90b8
     jmp near evaluate_character_profession.return1 ; 0x90bb
 jumptable_9188_case_6:
@@ -64,7 +64,7 @@ jumptable_9188_case_6:
     push ax                          ; 0x90c4
     push word [bp + 6]               ; 0x90c5
     push word [bp + 4]               ; 0x90c8
-    call evaluate_profession_stat_minimums ; 0x90cb
+    call evaluate_profession_stat_mins ; 0x90cb
     add sp, byte 8                   ; 0x90ce
     jmp near evaluate_character_profession.return1 ; 0x90d1
 jumptable_9188_case_7:
@@ -73,7 +73,7 @@ jumptable_9188_case_7:
     push ax                          ; 0x90da
     push word [bp + 6]               ; 0x90db
     push word [bp + 4]               ; 0x90de
-    call evaluate_profession_stat_minimums ; 0x90e1
+    call evaluate_profession_stat_mins ; 0x90e1
     add sp, byte 8                   ; 0x90e4
     jmp near evaluate_character_profession.return1 ; 0x90e7
 jumptable_9188_case_8:
@@ -87,7 +87,7 @@ jumptable_9188_case_8:
     push ax                          ; 0x90ff
     push word [bp + 6]               ; 0x9100
     push word [bp + 4]               ; 0x9103
-    call evaluate_profession_stat_minimums ; 0x9106
+    call evaluate_profession_stat_mins ; 0x9106
     add sp, byte 8                   ; 0x9109
     jmp short evaluate_character_profession.forward2 ; 0x910c
 evaluate_character_profession.forward1:
@@ -103,7 +103,7 @@ jumptable_9188_case_9:
     push ax                          ; 0x9124
     push word [bp + 6]               ; 0x9125
     push word [bp + 4]               ; 0x9128
-    call evaluate_profession_stat_minimums ; 0x912b
+    call evaluate_profession_stat_mins ; 0x912b
     add sp, byte 8                   ; 0x912e
     jmp near evaluate_character_profession.return1 ; 0x9131
 jumptable_9188_case_10:
@@ -112,7 +112,7 @@ jumptable_9188_case_10:
     push ax                          ; 0x913a
     push word [bp + 6]               ; 0x913b
     push word [bp + 4]               ; 0x913e
-    call evaluate_profession_stat_minimums ; 0x9141
+    call evaluate_profession_stat_mins ; 0x9141
     add sp, byte 8                   ; 0x9144
     jmp short evaluate_character_profession.return1 ; 0x9147
 jumptable_9188_case_11:
@@ -121,7 +121,7 @@ jumptable_9188_case_11:
     push ax                          ; 0x914f
     push word [bp + 6]               ; 0x9150
     push word [bp + 4]               ; 0x9153
-    call evaluate_profession_stat_minimums ; 0x9156
+    call evaluate_profession_stat_mins ; 0x9156
     add sp, byte 8                   ; 0x9159
     jmp short evaluate_character_profession.return1 ; 0x915c
 jumptable_9188_case_12:
@@ -130,7 +130,7 @@ jumptable_9188_case_12:
     push ax                          ; 0x9164
     push word [bp + 6]               ; 0x9165
     push word [bp + 4]               ; 0x9168
-    call evaluate_profession_stat_minimums ; 0x916b
+    call evaluate_profession_stat_mins ; 0x916b
     add sp, byte 8                   ; 0x916e
     jmp short evaluate_character_profession.return1 ; 0x9171
 jumptable_9188_case_13:
@@ -139,7 +139,7 @@ jumptable_9188_case_13:
     push ax                          ; 0x9179
     push word [bp + 6]               ; 0x917a
     push word [bp + 4]               ; 0x917d
-    call evaluate_profession_stat_minimums ; 0x9180
+    call evaluate_profession_stat_mins ; 0x9180
     add sp, byte 8                   ; 0x9183
     jmp short evaluate_character_profession.return1 ; 0x9186
 jumptable_9188:

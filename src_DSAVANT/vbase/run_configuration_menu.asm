@@ -11,7 +11,7 @@ run_configuration_menu:
     mov ax, 0                        ; 0x4d24
     push ax                          ; 0x4d27
     push ax                          ; 0x4d28
-    mov ax, dseg_90fb                ; 0x4d29
+    mov ax, palette_definition_filename ; 0x4d29
     push ax                          ; 0x4d2c
     call data_file_path              ; 0x4d2d
     add sp, byte 4                   ; 0x4d30
@@ -45,7 +45,7 @@ run_configuration_menu:
     add ax, 0x93                     ; 0x4d78
     mov word [bp - 0xe], ax          ; 0x4d7b
     mov word [spell_dialog_button], 0xffff ; 0x4d7e
-    mov ax, dseg_9107                ; 0x4d84
+    mov ax, screen_temporary_filename ; 0x4d84
     push ax                          ; 0x4d87
     mov ax, word [bp - 0xe]          ; 0x4d88
     inc ax                           ; 0x4d8b
@@ -95,7 +95,7 @@ run_configuration_menu:
     push ax                          ; 0x4def
     mov ax, 1                        ; 0x4df0
     push ax                          ; 0x4df3
-    mov ax, word [bss_597a]          ; 0x4df4
+    mov ax, word [configuration_display_value] ; 0x4df4
     mov cx, 0x64                     ; 0x4df7
     cwd                              ; 0x4dfa
     idiv cx                          ; 0x4dfb
@@ -108,7 +108,7 @@ run_configuration_menu:
     push ax                          ; 0x4e0b
     call draw_font_glyph             ; 0x4e0c
     add sp, byte 4                   ; 0x4e0f
-    mov ax, word [bss_597a]          ; 0x4e12
+    mov ax, word [configuration_display_value] ; 0x4e12
     mov cx, 0x64                     ; 0x4e15
     cwd                              ; 0x4e18
     idiv cx                          ; 0x4e19
@@ -1907,7 +1907,7 @@ run_configuration_menu.forward40:
 run_configuration_menu.forward41:
     mov word [spell_dialog_button], ax ; 0x5e07
     mov word [bp - 0x18], 0          ; 0x5e0a
-    call write_scenario_header_and_apply_devices ; 0x5e0f
+    call write_header_and_apply_devices ; 0x5e0f
     jmp near run_configuration_menu.forward43 ; 0x5e12
 jumptable_5e7f_case_24:
     mov ax, 1                        ; 0x5e15

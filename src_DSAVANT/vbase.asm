@@ -30,13 +30,13 @@ list_screen_temp_file equ __zdseg_end + (__zlist_screen_temp_file - __zdata_star
 dseg_90a9 equ __zdseg_end + (__zdseg_90a9 - __zdata_start)
 dseg_90b6 equ __zdseg_end + (__zdseg_90b6 - __zdata_start)
 dialog_screen_temp_file equ __zdseg_end + (__zdialog_screen_temp_file - __zdata_start)
-dseg_90c2 equ __zdseg_end + (__zdseg_90c2 - __zdata_start)
+bane_source_filename equ __zdseg_end + (__zbane_source_filename - __zdata_start)
 default_game_data_name equ __zdseg_end + (__zdefault_game_data_name - __zdata_start)
 ending_save_filename equ __zdseg_end + (__zending_save_filename - __zdata_start)
 scenario_header_filename equ __zdseg_end + (__zscenario_header_filename - __zdata_start)
 message_dialog_temp_file equ __zdseg_end + (__zmessage_dialog_temp_file - __zdata_start)
-dseg_90fb equ __zdseg_end + (__zdseg_90fb - __zdata_start)
-dseg_9107 equ __zdseg_end + (__zdseg_9107 - __zdata_start)
+palette_definition_filename equ __zdseg_end + (__zpalette_definition_filename - __zdata_start)
+screen_temporary_filename equ __zdseg_end + (__zscreen_temporary_filename - __zdata_start)
 screen_temp_file equ __zdseg_end + (__zscreen_temp_file - __zdata_start)
 scene_message_control_codes equ __zdseg_end + (__zscene_message_control_codes - __zdata_start)
 scene_message_separator equ __zdseg_end + (__zscene_message_separator - __zdata_start)
@@ -65,36 +65,36 @@ selected_game_drive equ __zdseg_end + (__zobss_91da - __zdata_start)
 game_load_path equ __zdseg_end + (__zobss_91ee - __zdata_start)
 game_load_path_next equ __zdseg_end + (__zobss_91ef - __zdata_start)
 game_load_path_third equ __zdseg_end + (__zobss_91f0 - __zdata_start)
-bss_9220 equ __zdseg_end + (__zobss_9220 - __zdata_start)
-bss_93be equ __zdseg_end + (__zobss_93be - __zdata_start)
-bss_93c0 equ __zdseg_end + (__zobss_93c0 - __zdata_start)
-bss_9400 equ __zdseg_end + (__zobss_9400 - __zdata_start)
-bss_9402 equ __zdseg_end + (__zobss_9402 - __zdata_start)
-bss_940a equ __zdseg_end + (__zobss_940a - __zdata_start)
-bss_940c equ __zdseg_end + (__zobss_940c - __zdata_start)
-bss_941c equ __zdseg_end + (__zobss_941c - __zdata_start)
-bss_9426 equ __zdseg_end + (__zobss_9426 - __zdata_start)
-bss_9428 equ __zdseg_end + (__zobss_9428 - __zdata_start)
-bss_942c equ __zdseg_end + (__zobss_942c - __zdata_start)
-bss_9442 equ __zdseg_end + (__zobss_9442 - __zdata_start)
-bss_9448 equ __zdseg_end + (__zobss_9448 - __zdata_start)
-bss_9449 equ __zdseg_end + (__zobss_9449 - __zdata_start)
-bss_9492 equ __zdseg_end + (__zobss_9492 - __zdata_start)
-bss_9498 equ __zdseg_end + (__zobss_9498 - __zdata_start)
-bss_9499 equ __zdseg_end + (__zobss_9499 - __zdata_start)
-bss_952e equ __zdseg_end + (__zobss_952e - __zdata_start)
-bss_9536 equ __zdseg_end + (__zobss_9536 - __zdata_start)
-bss_9554 equ __zdseg_end + (__zobss_9554 - __zdata_start)
-bss_958a equ __zdseg_end + (__zobss_958a - __zdata_start)
-bss_9596 equ __zdseg_end + (__zobss_9596 - __zdata_start)
-bss_959a equ __zdseg_end + (__zobss_959a - __zdata_start)
-bss_959f equ __zdseg_end + (__zobss_959f - __zdata_start)
-bss_95a0 equ __zdseg_end + (__zobss_95a0 - __zdata_start)
-bss_95a1 equ __zdseg_end + (__zobss_95a1 - __zdata_start)
-bss_95a2 equ __zdseg_end + (__zobss_95a2 - __zdata_start)
-bss_95ae equ __zdseg_end + (__zobss_95ae - __zdata_start)
-bss_95af equ __zdseg_end + (__zobss_95af - __zdata_start)
-bss_95b0 equ __zdseg_end + (__zobss_95b0 - __zdata_start)
+bane_header_buffer equ __zdseg_end + (__zobss_9220 - __zdata_start)
+bane_import_buffer equ __zdseg_end + (__zobss_93be - __zdata_start)
+bane_section_header equ __zdseg_end + (__zobss_93c0 - __zdata_start)
+bane_party_member_count equ __zdseg_end + (__zobss_9400 - __zdata_start)
+bane_character_record equ __zdseg_end + (__zobss_9402 - __zdata_start)
+bane_character_value_a equ __zdseg_end + (__zobss_940a - __zdata_start)
+bane_character_value_b equ __zdseg_end + (__zobss_940c - __zdata_start)
+bane_experience_value equ __zdseg_end + (__zobss_941c - __zdata_start)
+bane_power_rank equ __zdseg_end + (__zobss_9426 - __zdata_start)
+bane_character_value_c equ __zdseg_end + (__zobss_9428 - __zdata_start)
+bane_realm_values equ __zdseg_end + (__zobss_942c - __zdata_start)
+bane_mage_spell_values equ __zdseg_end + (__zobss_9442 - __zdata_start)
+bane_mage_spell_levels equ __zdseg_end + (__zobss_9448 - __zdata_start)
+bane_mage_spell_flags equ __zdseg_end + (__zobss_9449 - __zdata_start)
+bane_priest_spell_values equ __zdseg_end + (__zobss_9492 - __zdata_start)
+bane_priest_spell_levels equ __zdseg_end + (__zobss_9498 - __zdata_start)
+bane_priest_spell_flags equ __zdseg_end + (__zobss_9499 - __zdata_start)
+bane_character_stats equ __zdseg_end + (__zobss_952e - __zdata_start)
+bane_character_stat_caps equ __zdseg_end + (__zobss_9536 - __zdata_start)
+bane_character_spacing equ __zdseg_end + (__zobss_9554 - __zdata_start)
+bane_spell_bits equ __zdseg_end + (__zobss_958a - __zdata_start)
+bane_story_values_a equ __zdseg_end + (__zobss_9596 - __zdata_start)
+bane_story_values_b equ __zdseg_end + (__zobss_959a - __zdata_start)
+bane_character_kind equ __zdseg_end + (__zobss_959f - __zdata_start)
+bane_character_glyph_set equ __zdseg_end + (__zobss_95a0 - __zdata_start)
+bane_character_gender equ __zdseg_end + (__zobss_95a1 - __zdata_start)
+bane_character_profession_value equ __zdseg_end + (__zobss_95a2 - __zdata_start)
+bane_mage_spell_count equ __zdseg_end + (__zobss_95ae - __zdata_start)
+bane_priest_spell_count equ __zdseg_end + (__zobss_95af - __zdata_start)
+bane_power_adjustment equ __zdseg_end + (__zobss_95b0 - __zdata_start)
 intro_screen_number equ __zdseg_end + (__zobss_95b2 - __zdata_start)
 preserved_load_header equ __zdseg_end + (__zobss_95b4 - __zdata_start)
 preserved_header_paths equ __zdseg_end + (__zobss_9884 - __zdata_start)
@@ -219,7 +219,7 @@ jumptable_0d04          equ api_idx_0038_IPTM.jumptable1
 
 %include "vbase/show_load_disk_error.asm"  ; 0x150d
 
-%include "shared/ovr/api_idx_004c_RQSO.asm"     ; 0x156e
+%include "shared/ovr/api_idx_004c_set_party_cell.asm" ; 0x156e
 
 %include "vbase/map_bane_item_number.asm"  ; 0x1683
 
@@ -255,7 +255,7 @@ jumptable_1ee4         equ draw_member_panel_glyphs.jumptable1
 
 %include "vbase/save_game_data.asm"        ; 0x388c
 
-%include "vbase/write_scenario_header_and_apply_devices.asm" ; 0x3fac
+%include "vbase/write_header_and_apply_devices.asm" ; 0x3fac
 
 %include "vbase/adjust_palette_and_rgb_lookup.asm" ; 0x4060
 
@@ -372,25 +372,7 @@ loc_NQQK equ aztec_strcmp.loc1
 __zdata_start:
 %include "shared/data/pc_file_name.asm"     ; 0x93ed
 
-%include "vbase/data/list_screen_temp_file.asm" ; 0x93f8
-
-%include "vbase/data/dseg_90a9.asm"        ; 0x93fe
-
-%include "vbase/data/dialog_screen_temp_file.asm" ; 0x9411
-
-%include "vbase/data/dseg_90c2.asm"        ; 0x9417
-
-%include "vbase/data/default_game_data_name.asm" ; 0x9424
-
-%include "vbase/data/ending_save_filename.asm" ; 0x9430
-
-%include "vbase/data/scenario_header_filename.asm" ; 0x943d
-
-%include "vbase/data/message_dialog_temp_file.asm" ; 0x944a
-
-%include "vbase/data/dseg_90fb.asm"        ; 0x9450
-
-%include "vbase/data/screen_temp_file.asm" ; 0x9462
+%include "vbase/data/vbase_file_names.asm" ; 0x93f8
 
 %include "vbase/data/scene_message_control_codes.asm" ; 0x9469
 
@@ -402,25 +384,7 @@ __zdata_start:
 
 %include "vbase/data/numbered_scene_picture_template.asm" ; 0x948d
 
-%include "vbase/data/scene_one_screen_filename.asm" ; 0x9499
-
-%include "vbase/data/scene_one_digit_cycle.asm" ; 0x94a6
-
-%include "vbase/data/scene_four_screen_filename.asm" ; 0x94ad
-
-%include "vbase/data/scene_five_screen_filename.asm" ; 0x94ba
-
-%include "vbase/data/scene_six_screen_filename.asm" ; 0x94c7
-
-%include "vbase/data/scene_six_digit_cycle.asm" ; 0x94d4
-
-%include "vbase/data/scene_seven_screen_filename.asm" ; 0x94db
-
-%include "vbase/data/scene_seven_digit_cycle.asm" ; 0x94e8
-
-%include "vbase/data/scene_eight_screen_filename.asm" ; 0x94ef
-
-%include "vbase/data/scene_eight_digit_cycle.asm" ; 0x94fc
+%include "vbase/data/scene_screen_files.asm" ; 0x9499
 
 %include "vbase/data/main_screen_restore_filename.asm" ; 0x9503
 

@@ -6,6 +6,11 @@ The 16-bit disassembler and decompiler. Currently focused on Wizardry VII: Crusa
 
 Wizardry VII seems to have been originally compiled with Manx Aztec v4.2b
 
+The `.asm` files NASM syntax directly disassembled from EXE. 
+
+From `.asm` we create `.s` and `.c` files which are original DOS sources.
+
+
 ## The project has two parallel goals:
 ```
 - Create layout-independent high-quality ASM files
@@ -16,27 +21,26 @@ Wizardry VII seems to have been originally compiled with Manx Aztec v4.2b
 ```
 - Put original game files in ./apps/DSAVANT
 - make init to download dos_compiler
-- make all rebuilds EXE
-- Layout independent ASM coming soon to allow full modding
+- make build creates .ASM files
+- make verify confirms byte-exact (a few NASM quirks are allowed)
 ```
 
-## Rules are applied to `src_DSAVANT` when recompiling back to EXE:
+## Rules are applied to `src_DSAVANT`:
 
 ```
-- If a `file.c` exists, it's used instead of the matching `file.asm`. 
-- This allows individual ASM files to be rewritten as C over time.
-- The root asm files are layout with no code them, so original exe is still built. 
-- When enough code is C, then end goal is to change over to full C compilation.
-- Low-level routines don't have a C equivalent, but we create C #asm wrappers anyway.
-- C files -> compiled in dosbox by Manx Aztec -> Checked against ASM files
-- ASM files -> compiled on host machine by NASM -> Checked against original EXE
+- If a `file.c` or `file.s` exists, it's verified against matching `file.asm`. 
+- S files -> assembled in dosbox by Manx Aztec AS.EXE
+- C files -> compiled in dosbox by Manx Aztec CC.EXE
+- ASM files -> assembled on host machine by NASM -> Checked against original EXE
 ```
 
 ## Decompilation loop
 
 ```
 - Pick any ASM
-- Try to write a C version
+- Try to write a C version. 
+- Hint: If it contains `call aztec_csav`, it will be a C routine
+- Run make name tooling to build sidecar data
 - Run make rebuild to check if it's byte exact
 ```
 
@@ -44,41 +48,33 @@ Wizardry VII seems to have been originally compiled with Manx Aztec v4.2b
 ```
 - Pick any ASM
 - Right click and Choose: Make C file
-- Runs Claude agent and starts reversing the file
-- Encourage it to be complete, rename all symbols, add any sidecar data
+- Runs agent and starts reversing the file semi-automatically
+- Requires encourgement to be complete, rename all symbols, add any sidecar data
+- Claude is significantly better than OpenAI at reversing without giving up
 - Review the git changes, then repeat
 ```
-
-## Debugger provided
-```
-- Beta debugger allows stepping through ASM from vscode while running in dosbox
-- Modify sourceFileMap in launch.json to match your working folder
-```
-
 
 ## Wizardry VII coverage
 
 Progress: **{{c_total}} / {{asm_total}}** ({{c_pct}}%).
 
 ![C coverage heatmap](readme/heatmap.svg)
- 
-## Make targets
 
-Run from the repo root.
+## Make targets
+ <details>
+<summary> 
+Expand
+</summary>
 
 {{make_table}}
+</details>
 
-## Layout
-
-```
-./apps/DSAVANT/   input programs (apps.json lists active ones)
-./disassembler/   decoder, phases, emitter, verifier, disassembler
-./src_DSAVANT/    generated NASM (+ C) for Wizardry 7
-./debugger/       16 bit TSR dbg proxy for inside dosbox
-```
  
 ## VS Code extension
-
+ <details>
+<summary> 
+Expand
+</summary>
 `.vscode/asm-nav/` is a small local extension for the generated C and NASM
 (`src_<PROJECT>/`). Install once, then reload the window:
 
@@ -96,3 +92,5 @@ ln -s "$PWD/.vscode/asm-nav" ~/.vscode/extensions/local.phoonzang-asm-nav-0.0.1
   squiggles on save and open (`PHOONZANGAsmNav.checkOnSave`, `checkOnOpen`), via `.vscode/cccheck.py`; the
   "Manx cc: check current file" task does the same without the extension
 - **Make C file**: agentic decompilation (currently one file at a time)
+
+</details>

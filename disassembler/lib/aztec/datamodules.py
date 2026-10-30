@@ -16,6 +16,7 @@ import os
 from collections import namedtuple
 
 from lib.cachedirs import aztec_lib_obj_dir
+from lib.segments import _OVR_HEADER_SIZE
 
 from . import libobjs, omflib
 from .build_db import LIB_DIRS
@@ -33,22 +34,19 @@ def declared_data_modules(entry, segments, image):
 
     Lengths are bytes, starting at the named DS object. Interior public names
     remain at their addresses; the file takes its first object's stem, or the
-    entry's ``file``.
+    entry's ``file``. An overlay can only declare its own data, not its host's.
     """
-    if segments is None or segments.kind == 'overlay':
+    if segments is None:
         return ()
     names = (entry or {}).get('data_names') or {}
     result, previous_end = [], 0
     for offset, info in sorted(names.items()):
         if 'length' not in info:
             continue
-        origin = segments.data_origin
         end = offset + info['length']
-        if (origin is None or offset < previous_end
-                or segments.data_space(offset) != 'dseg'
-                or end > len(image) - origin
-                or (segments.bss_boundary is not None
-                    and end > segments.bss_boundary)):
+        at = _initialized_data_at(segments, offset, end)
+        if (at is None or offset < previous_end
+                or at + info['length'] > len(image)):
             raise ValueError(f'data_names[{offset:04x}].length overlaps another '
                              'span or exceeds initialized DS data')
         publics = tuple((item['name'], at - offset)
@@ -56,10 +54,25 @@ def declared_data_modules(entry, segments, image):
                         if offset <= at < end)
         filename = info.get('file', info['name'].strip('_')) + '.c'
         result.append(DataModule(filename, publics,
-                                 bytes(image[origin + offset:origin + end]), True,
+                                 bytes(image[at:at + info['length']]), True,
                                  info.get('file')))
         previous_end = end
     return tuple(result)
+
+
+def _initialized_data_at(segments, offset, end):
+    """The file offset of the initialized DS span *offset*..*end*, else None."""
+    if segments.kind == 'overlay':
+        overlay = segments.overlay
+        if (not overlay or offset < overlay['o_dorg']
+                or end > overlay['o_dorg'] + overlay['o_dsize']):
+            return None
+        return _OVR_HEADER_SIZE + overlay['o_csize'] + offset - overlay['o_dorg']
+    if (segments.data_origin is None or segments.data_space(offset) != 'dseg'
+            or (segments.bss_boundary is not None
+                and end > segments.bss_boundary)):
+        return None
+    return segments.data_origin + offset
 
 
 def stem(module):
