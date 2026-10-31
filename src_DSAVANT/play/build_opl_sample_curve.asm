@@ -1,8 +1,8 @@
 ; auto-generated
-play_build_velocity_curves:
+build_opl_sample_curve:
     push di                          ; 0x065a
     push si                          ; 0x065b
-    mov di, sample_count_table - IMAGE_BASE ; 0x065c
+    mov di, sample_output_table - IMAGE_BASE ; 0x065c
     mov si, opl_velocity_scale_table - IMAGE_BASE ; 0x065f
     xor bh, bh                       ; 0x0662
     mov bl, byte [bp + 0x12]         ; 0x0664
@@ -16,7 +16,7 @@ play_build_velocity_curves:
     jb short .forward1               ; 0x0677
     mov ax, 0x80                     ; 0x0679
 .forward1:
-    mov word [cs:cseg_0658 - IMAGE_BASE], ax ; 0x067c
+    mov word [cs:sample_level_center - IMAGE_BASE], ax ; 0x067c
     mov bx, 0                        ; 0x0680
 .back1:
     mov ax, 0x7f                     ; 0x0683
@@ -29,12 +29,12 @@ play_build_velocity_curves:
     mov ax, 0x7f                     ; 0x0693
 .forward2:
     neg ax                           ; 0x0696
-    add ax, word [cs:cseg_0658 - IMAGE_BASE] ; 0x0698
+    add ax, word [cs:sample_level_center - IMAGE_BASE] ; 0x0698
     dec ax                           ; 0x069d
     cmp byte [cs:play_device - IMAGE_BASE], 4 ; 0x069e
     mov si, ax                       ; 0x06a4
     mov al, byte [cs:si + opl_velocity_scale_table - IMAGE_BASE] ; 0x06a6
-    mov byte [cs:bx + sample_count_table - IMAGE_BASE], al ; 0x06ab
+    mov byte [cs:bx + sample_output_table - IMAGE_BASE], al ; 0x06ab
     inc bx                           ; 0x06b0
     cmp bx, strict word 0x80         ; 0x06b1
     jb short .back1                  ; 0x06b5
@@ -48,11 +48,11 @@ play_build_velocity_curves:
     jb short .forward3               ; 0x06c5
     mov ax, 0x7f                     ; 0x06c7
 .forward3:
-    add ax, word [cs:cseg_0658 - IMAGE_BASE] ; 0x06ca
+    add ax, word [cs:sample_level_center - IMAGE_BASE] ; 0x06ca
     cmp byte [cs:play_device - IMAGE_BASE], 4 ; 0x06cf
     mov si, ax                       ; 0x06d5
     mov al, byte [cs:si + opl_velocity_scale_table - IMAGE_BASE] ; 0x06d7
-    mov byte [cs:bx + opl_velocity_curve_prefix - IMAGE_BASE], al ; 0x06dc
+    mov byte [cs:bx + sample_output_table_upper - IMAGE_BASE], al ; 0x06dc
     inc bx                           ; 0x06e1
     cmp bx, strict word 0x80         ; 0x06e2
     jb short .back2                  ; 0x06e6

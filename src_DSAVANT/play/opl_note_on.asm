@@ -35,14 +35,14 @@ opl_note_on:
     mov al, ch                       ; 0x17c5
     add al, 3                        ; 0x17c7
     mov ah, byte [si + 6]            ; 0x17c9
-    call opl_write_note_pair         ; 0x17cc
+    call opl_write_operator_level    ; 0x17cc
     mov al, byte [si + 0xa]          ; 0x17cf
     and al, 1                        ; 0x17d2
     cmp al, 1                        ; 0x17d4
     jne short .forward1              ; 0x17d6
     mov al, ch                       ; 0x17d8
     mov ah, byte [si + 1]            ; 0x17da
-    call opl_write_note_pair         ; 0x17dd
+    call opl_write_operator_level    ; 0x17dd
     jmp near loc_HGKQ                ; 0x17e0
 .forward1:
     mov al, byte [si + 1]            ; 0x17e3

@@ -1,5 +1,5 @@
 ; auto-generated
-opl_write_note_pair:
+opl_write_operator_level:
     push dx                          ; 0x1344
     mov dx, ax                       ; 0x1345
     mov al, byte [cs:playback_volume - IMAGE_BASE] ; 0x1347

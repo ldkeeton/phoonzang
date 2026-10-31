@@ -11,10 +11,10 @@ codeseg	segment	byte public 'code'
 	extrn	palette_ptr:dword		;far pointer to the 256-entry 3-byte palette
 	extrn	delay_hook:dword		;far pointer to the inter-pass delay hook
 	extrn	rgb_to_palette:byte		;512-byte RGB->palette index map, 0ffh = no entry
-	extrn	request_mouse_redraw:near	;note the pending mouse redraw
-	extrn	clip_mouse_pointer_to_area:near	;save the cursor from the rectangle's path
-	extrn	redraw_mouse_pointer:near	;redraw the cursor from the buffer
-	extrn	update_mouse_pointer:near ;reinstall the mouse pointer
+	extrn	request_mouse_redraw_:near	;note the pending mouse redraw
+	extrn	clip_mouse_pointer_to_area_:near	;save the cursor from the rectangle's path
+	extrn	redraw_mouse_pointer_:near	;redraw the cursor from the buffer
+	extrn	update_mouse_pointer_:near ;reinstall the mouse pointer
 
 ; stack arguments (past the stub's far return and call_dissolve_area's frame)
 x1		equ	0ch		;left column
@@ -51,15 +51,14 @@ screen_width	equ	140h		;bytes per row, 320
 	no_entry	equ	0ffh		;empty slot in the RGB->index map
 	map_offset	equ	2427h		;image offset of the RGB->index map
 
-	public	dissolve_area_
-dissolve_area_	proc	near
+	procdef	dissolve_area
 	push	bp
 	mov	bp,sp
 	sub	sp,24h	; eleven words of locals plus two temporaries
 	pushs	ds,es,si,di
 	movseg	es,ds
-	call	request_mouse_redraw		;cursor must be redrawn when we finish
-	call	clip_mouse_pointer_to_area	;hide it if the area crosses it
+	call	request_mouse_redraw_		;cursor must be redrawn when we finish
+	call	clip_mouse_pointer_to_area_	;hide it if the area crosses it
 
 pass_restart:				;start another dissolve pass
 	xor	ax,ax
@@ -331,12 +330,12 @@ restart_pass:
 	jmp	near ptr pass_restart
 
 dissolve_done:
-	call	redraw_mouse_pointer
-	call	update_mouse_pointer
+	call	redraw_mouse_pointer_
+	call	update_mouse_pointer_
 	pops	di,si,es,ds
 	mov	sp,bp
 	pop	bp
 	ret
-dissolve_area_	endp
+	pend	dissolve_area
 codeseg	ends
 	end

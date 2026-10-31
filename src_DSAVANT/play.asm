@@ -6,7 +6,10 @@ IMAGE_BASE equ -0x0100
 %endif
 
 
-%include "play/leaf_loc_LPSH.asm"          ; 0x0000
+%include "play/driver_entry_0_stub.asm"    ; 0x0000
+
+driver_slot_0.mouse_init1 equ music_start
+%include "shared/drv/driver_slot_0.asm"          ; 0x0003
 
 loc_JTQK_0007.mouse_off1 equ configure_music_device
 %include "shared/drv/loc_JTQK_0007.asm"          ; 0x0007
@@ -37,6 +40,8 @@ loc_JTQK_001f.load_screen1 equ wait_for_music
 
 %include "play/configure_music_device.asm" ; 0x00fe
 
+%include "play/data/device_file_extensions.asm" ; 0x0142
+
 %include "play/music_set_data.asm"         ; 0x0154
 
 %include "play/music_is_playing.asm"       ; 0x016e
@@ -51,27 +56,27 @@ loc_JTQK_001f.load_screen1 equ wait_for_music
 
 %include "play/music_set_tempo_volume.asm" ; 0x023f
 
-sample_counter_seed_e    equ __zinsn_0846 + 0x2
+sample_step_imm_e        equ __zinsn_0846 + 0x2
 sample_data_segment_b    equ __zinsn_08be + 0x1
 sample_stream_offset     equ __zinsn_08c3 + 0x1
-sample_counter_seed_b    equ __zinsn_08cf + 0x5
-sample_counter_seed_f    equ __zinsn_097a + 0x2
+sample_step_imm_b        equ __zinsn_08cf + 0x5
+sample_step_imm_f        equ __zinsn_097a + 0x2
 sample_data_segment_c    equ __zinsn_09a3 + 0x1
 sample_stream_offset_alt equ __zinsn_09a8 + 0x1
-sample_counter_seed_c    equ __zinsn_09b6 + 0x5
-sample_counter_seed_d    equ __zinsn_0a52 + 0x2
+sample_step_imm_c        equ __zinsn_09b6 + 0x5
+sample_step_imm_d        equ __zinsn_0a52 + 0x2
 saved_int08_offset       equ __zinsn_0b0f + 0x1
 saved_int08_segment      equ __zinsn_0b0f + 0x3
 sample_data_segment_a    equ __zinsn_18e7 + 0x1
 sample_offset            equ __zinsn_18f1 + 0x1
-sample_counter_seed_a    equ __zinsn_18ff + 0x5
+sample_step_imm_a        equ __zinsn_18ff + 0x5
 %include "play/play_select_device.asm"     ; 0x0294
 
-%include "play/play_build_velocity_curves.asm" ; 0x065a
+%include "play/build_opl_sample_curve.asm" ; 0x065a
 
 %include "play/opl_silent_note_pulse.asm"  ; 0x06ec
 
-%include "play/build_sample_count_table.asm" ; 0x077b
+%include "play/build_sample_output_table.asm" ; 0x077b
 
 %include "play/opl_write.asm"              ; 0x07f6
 
@@ -81,8 +86,7 @@ sample_counter_seed_a    equ __zinsn_18ff + 0x5
 
 %include "play/sample_fraction_interrupt.asm" ; 0x0841
 
-loc_121d equ __zinsn_121c + 0x1
-%include "play/loc_LPSH.asm"               ; 0x086b
+%include "play/data/sample_handler_gap.asm" ; 0x086b
 
 %include "play/data/sample_position.asm"   ; 0x086e
 
@@ -100,7 +104,7 @@ loc_121d equ __zinsn_121c + 0x1
 
 %include "play/speaker_sample_interrupt.asm" ; 0x0a41
 
-%include "play/mark_timer_handler_installed.asm" ; 0x0a6d
+%include "play/mark_sample_idle.asm"       ; 0x0a6d
 
 %include "play/data/play_state.asm"        ; 0x0a7c
 
@@ -125,7 +129,7 @@ loc_121d equ __zinsn_121c + 0x1
 mpu401_read_ready_flag equ mpu401_write_ready_flag + 0x1
 %include "play/mpu401_reset_and_sync.asm"  ; 0x1217
 
-%include "play/loc_OSJN.asm"               ; 0x12af
+%include "play/device_note_off_noop.asm"   ; 0x12af
 
 %include "play/data/opl_operator_map.asm"  ; 0x12df
 
@@ -133,7 +137,7 @@ mpu401_read_ready_flag equ mpu401_write_ready_flag + 0x1
 
 %include "play/opl_apply_volume.asm"       ; 0x1302
 
-%include "play/opl_write_note_pair.asm"    ; 0x1344
+%include "play/opl_write_operator_level.asm" ; 0x1344
 
 %include "play/opl_load_patch.asm"         ; 0x137a
 
@@ -148,9 +152,9 @@ mpu401_read_ready_flag equ mpu401_write_ready_flag + 0x1
 
 %include "play/data/cseg_1939.asm"         ; 0x1939
 
-%include "play/data/sample_count_table.asm" ; 0x193a
+%include "play/data/sample_output_table.asm" ; 0x193a
 
-%include "play/data/opl_velocity_curve_prefix.asm" ; 0x19ba
+%include "play/data/sample_output_table_upper.asm" ; 0x19ba
 
 %include "play/data/opl_velocity_scale_table.asm" ; 0x1a3a
 

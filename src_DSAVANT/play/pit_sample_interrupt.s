@@ -2,13 +2,12 @@
 	include	lmacros.h
 codeseg	segment	byte public 'code'
 	assume	cs:codeseg
-	extrn	music_player_tick:near
-	extrn	sound_stop_and_restore_timer:near
+	extrn	music_player_tick_:near
+	extrn	sound_stop_and_restore_timer_:near
 	extrn	saved_pic_mask:byte
 	extrn	tick_divider:word
-	extrn	sample_count_table:byte
+	extrn	sample_output_table:byte
 	extrn	sample_step_fraction:byte
-	public	pit_sample_interrupt
 pit_control	equ	43h	;8253 mode/command port
 pit_ch2_data	equ	42h	;channel 2 count port
 pit_ch2_mode0	equ	0b0h	;channel 2, lobyte/hibyte access, mode 0
@@ -16,15 +15,15 @@ pic_command	equ	20h	;master 8259 command port (non-specific EOI)
 pic_mask	equ	21h	;master 8259 interrupt mask port
 eoi		equ	20h	;non-specific end-of-interrupt command
 ; INT 08h tick: plays one sample byte through PIT channel 2, counts down the music divider, then acks the PIC, steps the player, or restores the timer
-pit_sample_interrupt	proc	near
+	procdef	pit_sample_interrupt
 	pushs	ax,ds,bx
 mov_sample_segment:
 	movseg	ds,0	; sample segment, patched by the installer
 	mov	ax,20b0h		;ah = EOI, al = PIT command
 	out	pit_control,al
-sample_offset	equ	pit_sample_interrupt+0eh	;operand word of the load below
+sample_offset	equ	pit_sample_interrupt_+0eh	;operand word of the load below
 	mov	al,byte ptr [0]		;sample offset, patched by the installer
-	mov	bx,offset sample_count_table
+	mov	bx,offset sample_output_table
 	xlat	cs:[bx]			;count low byte from the code-segment table
 	out	pit_ch2_data,al
 	xor	al,al
@@ -43,16 +42,16 @@ play_music:
 	out	pic_command,al
 	pops	bx,ds,ax
 	sti
-	call	music_player_tick
+	call	music_player_tick_
 	iret
 sample_done:
-	call	sound_stop_and_restore_timer
+	call	sound_stop_and_restore_timer_
 	mov	al,byte ptr cs:saved_pic_mask
 	out	pic_mask,al
 	mov	al,eoi
 	out	pic_command,al
 	pops	bx,ds,ax
 	iret
-pit_sample_interrupt	endp
+	pend	pit_sample_interrupt
 codeseg	ends
 	end

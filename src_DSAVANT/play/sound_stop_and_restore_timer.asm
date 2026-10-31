@@ -4,7 +4,7 @@ sound_stop_and_restore_timer:
     in al, 0x61                      ; 0x09d5
     and al, 0xfe                     ; 0x09d7
     out 0x61, al                     ; 0x09d9
-    mov byte [cs:timer_handler_installed - IMAGE_BASE], 0xff ; 0x09db
+    mov byte [cs:sample_idle - IMAGE_BASE], 0xff ; 0x09db
     mov ax, word [cs:music_tempo - IMAGE_BASE] ; 0x09e1
     mov bl, 0x48                     ; 0x09e5
     mul bl                           ; 0x09e7

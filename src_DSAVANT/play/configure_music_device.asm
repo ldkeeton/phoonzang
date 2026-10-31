@@ -21,7 +21,7 @@ configure_music_device:
     shl bl, 1                        ; 0x0127
     add bl, bh                       ; 0x0129
     xor bh, bh                       ; 0x012b
-    add bx, cseg_0142 - IMAGE_BASE   ; 0x012d
+    add bx, device_file_extensions - IMAGE_BASE ; 0x012d
     mov ax, word [cs:bx]             ; 0x0131
     stosw                            ; 0x0134
     mov al, byte [cs:bx + 2]         ; 0x0135
@@ -33,9 +33,3 @@ configure_music_device:
     pop es                           ; 0x013f
     pop bp                           ; 0x0140
     ret                              ; 0x0141
-cseg_0142:
-
-    db 0x00, 0x00, 0x00, 0x50, 0x42, 0x41
-    times 6 db 0
-    db 'PBAPBL'
-

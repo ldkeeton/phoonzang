@@ -8,7 +8,7 @@ codeseg	segment	byte public 'code'
 	extrn	tick_divider:word
 	extrn	chain_period:word
 	extrn	chain_countdown:word
-	extrn	timer_handler_installed:byte
+	extrn	sample_idle:byte
 	extrn	music_enabled:byte
 	extrn	loop_at_end:byte
 	extrn	stream_start_offset:word
@@ -27,43 +27,39 @@ codeseg	segment	byte public 'code'
 	extrn	current_event:byte
 	extrn	event_channel:byte
 	extrn	event_command:byte
-	extrn	mpu_set_volume:near
-	extrn	mpu_send_byte:near
+	extrn	mpu_set_volume_:near
+	extrn	mpu_send_byte_:near
 	extrn	saved_pic_mask:byte
 	extrn	int08_hooked:byte
-	extrn	io_delay:near
-	extrn	set_int08_vector:near
+	extrn	io_delay_:near
+	extrn	set_int08_vector_:near
 	extrn	play_device:byte
 	extrn	opl_key_on_bit:byte
-	extrn	opl_pitch_update:near
-	extrn	opl_write:near
+	extrn	opl_pitch_update_:near
+	extrn	opl_write_:near
 	extrn	opl_velocity_scale_table:byte
 	extrn	opl_rhythm_register_shadow:byte
 	extrn	opl_register_shadow:byte
-	extrn	device_load_patch:near
-	extrn	device_note_on:near
-	extrn	device_note_off:near
-	extrn	device_nop:near
-	extrn	opl_apply_volume:near
-	public	restore_timer_handler,music_loop_event,string_loc_PUTK
-	public	store_nibble_event,skip_byte_event,store_word_event,skip_word_event
-	public	note_event_high,note_event_low
+	extrn	device_load_patch_:near
+	extrn	device_note_on_:near
+	extrn	device_note_off_:near
+	extrn	device_nop_:near
+	extrn	opl_apply_volume_:near
 	public	opl_voice_records,opl_voice_count,opl_note_semitone,opl_note_index
 	public	opl_note_velocity,opl_channel_index,opl_pitch_value,opl_pitch_range
-	public	music_tick_exit,loc_RTLK,music_player_tick
 ; music_player_tick's shared exit, stored before its entry: clear the running flag, leave OPL index 40h selected on device 1, and pop the registers the tick pushed.
-music_tick_exit proc near
+	procdef	music_tick_exit
 	mov	byte ptr cs:stream_running,0
 	cmp	byte ptr cs:play_device,1
-	jne	loc_RTLK
+	jne	loc_RTLK_
 	outp	0388h,040h
-loc_RTLK:
+	entrdef	loc_RTLK
 	pops	dx,es,si,cx,di,ds,ax,bx
 	ret
-music_tick_exit endp
+	pend	music_tick_exit
 
 ; one music step: chain the saved INT 08h handler on a countdown, then run the track stream (MPU-401 inline encoding or OPL dispatch)
-music_player_tick proc near
+	procdef	music_player_tick
 	pushs	bx,ax,ds,di,cx,si,es,dx
 	cld				;string ops below run forward
 	dec	word ptr cs:chain_countdown	;countdown to the saved handler
@@ -71,25 +67,25 @@ music_player_tick proc near
 		mov	ax,word ptr cs:chain_period
 		mov	word ptr cs:chain_countdown,ax
 		pushf
-		saved_int08_offset	equ	music_player_tick+1ah	;operand words of the call far below
-		saved_int08_segment	equ	music_player_tick+1ch
+		saved_int08_offset	equ	music_player_tick_+1ah	;operand words of the call far below
+		saved_int08_segment	equ	music_player_tick_+1ch
 		db	9ah,0,0,0,0	;call far 0:0, operand patched with the saved vector
 	.endif
 	mov	ax,word ptr cs:music_tempo
 	mov	word ptr cs:tick_divider,ax	;reload the handler tick divider
 	cmp	byte ptr cs:music_enabled,0
-	je	music_tick_exit		;not loaded: silence and return
+	je	music_tick_exit_		;not loaded: silence and return
 	dec	word ptr cs:restart_delay
-	jne	music_tick_exit		;restart delay still counting
+	jne	music_tick_exit_		;restart delay still counting
 	cmp	byte ptr cs:stream_running,1
-	je	loc_RTLK		;already running
+	je	loc_RTLK_		;already running
 	mov	byte ptr cs:stream_running,1
 	mov	si,word ptr cs:stream_offset	;track offset saved by the loop command
 	movseg	ds,<word ptr cs:stream_segment>
 next_event:
 	lodsb				;next track byte, stream in ds:si
 	.if	al == 0feh
-		jmp	music_loop_event	;loop/restart command
+		jmp	music_loop_event_	;loop/restart command
 	.endif
 	.if	al == 0ffh
 		jmp	end_of_stream	;end of stream
@@ -102,7 +98,7 @@ next_event:
 	mov	al,byte ptr cs:playback_volume
 	.if	al ne <byte ptr cs:last_playback_volume>
 		mov	byte ptr cs:last_playback_volume,al
-		call	mpu_set_volume	;volume changed: resend it to the MPU
+		call	mpu_set_volume_	;volume changed: resend it to the MPU
 	.endif
 	pops	ax
 	mov	byte ptr cs:current_event,al	;event byte
@@ -133,9 +129,9 @@ next_event:
 	mov	al,0c0h
 	or	al,byte ptr cs:event_channel
 	inc	al			;status 0c0h|channel, then +1
-	call	mpu_send_byte
+	call	mpu_send_byte_
 	mov	al,byte ptr es:[bx]
-	call	mpu_send_byte		;send the table byte for this index
+	call	mpu_send_byte_		;send the table byte for this index
 	jmp	next_event
 ss_done:
 	mov	bl,byte ptr cs:event_channel
@@ -172,30 +168,30 @@ dup_found:
 next_byte:
 	lodsb
 send_byte:
-	call	mpu_send_byte
+	call	mpu_send_byte_
 	loop	next_byte		;send cl data bytes
 	jmp	next_event
 dispatch_event:
 	mov	byte ptr cs:event_class_flag,0
 	.if	al le 0fh
-		jmp	note_event_low	;00h-0fh
+		jmp	note_event_low_	;00h-0fh
 	.endif
 	.if	al le 1fh
 		mov	byte ptr cs:event_class_flag,1
 		mov	byte ptr cs:note_started,0
-		jmp	note_event_high	;10h-1fh
+		jmp	note_event_high_	;10h-1fh
 	.endif
 	.if	al le 2fh
-		jmp	skip_word_event	;20h-2fh
+		jmp	skip_word_event_	;20h-2fh
 	.endif
 	.if	al le 4fh
-		jmp	store_nibble_event	;30h-4fh
+		jmp	store_nibble_event_	;30h-4fh
 	.endif
 	.if	al le 5fh
-		jmp	skip_byte_event	;50h-5fh
+		jmp	skip_byte_event_	;50h-5fh
 	.endif
 	.if	al le 6fh
-		jmp	store_word_event	;60h-6fh
+		jmp	store_word_event_	;60h-6fh
 	.endif
 end_of_stream:
 	.if	<byte ptr cs:loop_at_end> ne 0
@@ -203,40 +199,40 @@ end_of_stream:
 		jmp	next_event	;loop: restart at the saved start
 	.endif
 	mov	byte ptr cs:music_enabled,0
-	.if	<byte ptr cs:timer_handler_installed> == 0
-		jmp	music_tick_exit	;no handler installed: just stop
+	.if	<byte ptr cs:sample_idle> == 0
+		jmp	music_tick_exit_	;no handler installed: just stop
 	.endif
-	call	restore_timer_handler	;remove the installed handler
-	jmp	music_tick_exit
-restore_timer_handler proc near
+	call	restore_timer_handler_	;remove the installed handler
+	jmp	music_tick_exit_
+	procdef	restore_timer_handler
 	pushs	ax,ds,dx
 	mov	al,36h
 	out	43h,al
-	call	io_delay
+	call	io_delay_
 	mov	ax,0
 	out	40h,al
-	call	io_delay
+	call	io_delay_
 	mov	al,ah
 	out	40h,al
 	mov	al,byte ptr cs:saved_pic_mask
 	out	21h,al
 	mov	ds,word ptr cs:[saved_int08_segment]
 	mov	dx,word ptr cs:[saved_int08_offset]
-	call	set_int08_vector
+	call	set_int08_vector_
 	mov	byte ptr cs:int08_hooked,0
 	pops	dx,ds,ax
 	ret
-restore_timer_handler endp
+	pend	restore_timer_handler
 
-music_loop_event proc near
+	procdef	music_loop_event
 	lodsw
 	.if	ax == 0
 		jmp	next_event
 	.endif
 	mov	word ptr cs:restart_delay,ax
 	mov	word ptr cs:stream_offset,si
-	jmp	music_tick_exit
-music_loop_event endp
+	jmp	music_tick_exit_
+	pend	music_loop_event
 
 ; OPL channel table and patch lookup records.
 channel_patch_index label byte
@@ -286,7 +282,7 @@ opl_voice_candidate label byte
 opl_voice_record_ptr label byte
 	dw	0
 
-string_loc_PUTK proc near
+	procdef	string_loc_PUTK
 	pushs	ax,bx,cx,es,si
 	and	al,0fh
 	mov	byte ptr cs:event_channel_index,al
@@ -349,9 +345,9 @@ remap_found:
 pitch_done:
 	pops	es,cx,bx,ax
 	ret
-string_loc_PUTK endp
+	pend	string_loc_PUTK
 
-store_nibble_event proc near
+	procdef	store_nibble_event
 	mov	bx,offset channel_patch_index
 	and	al,0fh
 	xor	ah,ah
@@ -359,26 +355,26 @@ store_nibble_event proc near
 	lodsb
 	mov	byte ptr cs:[bx],al
 	jmp	next_event
-store_nibble_event endp
-skip_byte_event proc near
+	pend	store_nibble_event
+	procdef	skip_byte_event
 	lodsb
 	jmp	next_event
-skip_byte_event endp
-store_word_event proc near
+	pend	skip_byte_event
+	procdef	store_word_event
 	lodsw
 	mov	word ptr cs:opl_pitch_value,ax
 	jmp	next_event
-store_word_event endp
-skip_word_event proc near
+	pend	store_word_event
+	procdef	skip_word_event
 	lodsw
 	jmp	next_event
-skip_word_event endp
+	pend	skip_word_event
 ; Three trailing zero bytes in the original event area.
 event_dispatch_padding label byte
 	db	0,0,0
 ; High and low OPL event handlers are dispatched by this player's opcode decoder.
-note_event_high proc near
-	call	string_loc_PUTK
+	procdef	note_event_high
+	call	string_loc_PUTK_
 	cmp	byte ptr cs:channel_patch_value,0ffh
 	jne	note_high_have_patch
 	jmp	near ptr next_event
@@ -424,46 +420,46 @@ note_effect_10:
 	call	loc_MVUI
 	or	al,1
 	mov	ah,0bdh
-	call	opl_write
+	call	opl_write_
 	jmp	near ptr next_event
 note_effect_6:
 	mov	byte ptr cs:opl_key_on_bit,0
 	mov	byte ptr cs:opl_note_semitone,28h
 	mov	byte ptr cs:opl_channel_index,5
 	mov	byte ptr cs:opl_key_on_bit,0
-	call	opl_pitch_update
+	call	opl_pitch_update_
 	mov	ah,10h
 	call	loc_MVUI
 	mov	ah,13h
 	call	loc_MVUI
 	or	al,10h
 	mov	ah,0bdh
-	call	opl_write
+	call	opl_write_
 	jmp	near ptr next_event
 note_effect_7:
 	mov	ah,14h
 	call	loc_MVUI
 	or	al,8
 	mov	ah,0bdh
-	call	opl_write
+	call	opl_write_
 	jmp	near ptr next_event
 note_effect_8:
 	mov	ah,12h
 	mov	byte ptr cs:opl_note_semitone,1
 	mov	byte ptr cs:opl_key_on_bit,0
 	mov	byte ptr cs:opl_channel_index,7
-	call	opl_pitch_update
+	call	opl_pitch_update_
 	call	loc_MVUI
 	or	al,4
 	mov	ah,0bdh
-	call	opl_write
+	call	opl_write_
 	jmp	near ptr next_event
 note_effect_9:
 	mov	ah,15h
 	call	loc_MVUI
 	or	al,2
 	mov	ah,0bdh
-	call	opl_write
+	call	opl_write_
 	jmp	near ptr next_event
 loc_MVUI:
 	pushs	ax,bx
@@ -473,7 +469,7 @@ loc_MVUI:
 	xlat cs:[bx]
 	and	al,0c0h
 	or	al,cl
-	call	opl_write
+	call	opl_write_
 	pops	bx,ax
 	ret
 note_voice_allocate:
@@ -577,7 +573,7 @@ note_use_voice:
 	mov	al,byte ptr cs:[bx+2]
 	cmp	al,byte ptr cs:opl_note_index
 	je	note_write_voice
-	call	device_load_patch
+	call	device_load_patch_
 note_write_voice:
 	mov	al,byte ptr cs:opl_note_velocity
 	mov	byte ptr cs:[bx],al
@@ -586,7 +582,7 @@ note_write_voice:
 	mov	byte ptr cs:[bx+1],al
 	mov	al,byte ptr cs:[si]
 	mov	byte ptr cs:[bx+2],al
-	call	device_note_on
+	call	device_note_on_
 	mov	byte ptr cs:note_started,1
 	inc	si
 	dec	cx
@@ -595,10 +591,10 @@ note_write_voice:
 note_done:
 	pops	dx,si
 	jmp	near ptr next_event
-note_event_high endp
+	pend	note_event_high
 
-note_event_low proc near
-	call	string_loc_PUTK
+	procdef	note_event_low
+	call	string_loc_PUTK_
 	cmp	byte ptr cs:channel_patch_value,0ffh
 	jne	note_low_have_patch
 	jmp	near ptr next_event
@@ -625,27 +621,27 @@ note_low_special:
 	jne	note_low_no_special
 	and	al,0feh
 	mov	ah,0bdh
-	call	opl_write
+	call	opl_write_
 	jmp	near ptr next_event
 note_low_effect_6:
 	and	al,0efh
 	mov	ah,0bdh
-	call	opl_write
+	call	opl_write_
 	jmp	near ptr next_event
 note_low_effect_7:
 	and	al,0f7h
 	mov	ah,0bdh
-	call	opl_write
+	call	opl_write_
 	jmp	near ptr next_event
 note_low_effect_8:
 	and	al,0fbh
 	mov	ah,0bdh
-	call	opl_write
+	call	opl_write_
 	jmp	near ptr next_event
 note_low_effect_9:
 	and	al,0fdh
 	mov	ah,0bdh
-	call	opl_write
+	call	opl_write_
 	jmp	near ptr next_event
 note_low_no_special:
 	push	si
@@ -668,7 +664,7 @@ note_clear_voice:
 	mov	byte ptr cs:[bx],0
 	mov	word ptr cs:[bx+3],0
 	mov	byte ptr cs:opl_channel_index,al
-	call	device_note_off
+	call	device_note_off_
 note_clear_next:
 	inc	al
 	add	bx,5
@@ -686,9 +682,9 @@ note_clear_next:
 	pop	bx
 	ret
 opl_note_device_table label word
-	dw	offset device_nop,offset opl_apply_volume,offset device_nop
-	dw	offset device_nop,offset opl_apply_volume,offset device_nop
-note_event_low endp
-music_player_tick endp
+	dw	offset device_nop_,offset opl_apply_volume_,offset device_nop_
+	dw	offset device_nop_,offset opl_apply_volume_,offset device_nop_
+	pend	note_event_low
+	pend	music_player_tick
 codeseg	ends
 	end

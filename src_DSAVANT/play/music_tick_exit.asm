@@ -176,7 +176,7 @@ loc_STUU:
     jmp near loc_MRJU                ; 0x0c7d
 loc_URKP:
     mov byte [cs:music_enabled - IMAGE_BASE], 0 ; 0x0c80
-    cmp byte [cs:timer_handler_installed - IMAGE_BASE], 0 ; 0x0c86
+    cmp byte [cs:sample_idle - IMAGE_BASE], 0 ; 0x0c86
     jne short loc_VVQG               ; 0x0c8c
     jmp near music_tick_exit         ; 0x0c8e
 loc_VVQG:

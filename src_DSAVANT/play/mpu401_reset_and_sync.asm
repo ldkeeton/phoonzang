@@ -5,7 +5,6 @@ mpu401_reset_and_sync:
     push dx                          ; 0x1219
 mpu401_write_ready_flag:
     add byte [bx + si], al           ; 0x121a
-__zinsn_121c:
     mov dx, 0x331                    ; 0x121c
     in al, dx                        ; 0x121f
     and al, 0x80                     ; 0x1220

@@ -4,8 +4,7 @@
 	extrn	restore_saved_video_state_:near
 	extrn	free_driver_and_font_memory_:near
 	extrn	release_expanded_memory_:near
-	public	restore_video_and_release_mem_
-restore_video_and_release_mem_ proc near
+	procdef	restore_video_and_release_mem
 	push	bp
 	mov	bp,sp
 	cld
@@ -19,6 +18,6 @@ restore_video_and_release_mem_ proc near
 	mov	sp,bp
 	pop	bp
 	ret
-restore_video_and_release_mem_ endp
+	pend	restore_video_and_release_mem
 	finish
 	end

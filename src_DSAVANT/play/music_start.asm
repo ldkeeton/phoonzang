@@ -9,7 +9,7 @@ music_start:
     mov word [cs:stream_start_offset - IMAGE_BASE], ax ; 0x0034
     mov ax, word [bp + 0xa]          ; 0x0038
     mov word [cs:stream_segment - IMAGE_BASE], ax ; 0x003b
-    mov word [cs:cseg_0aa0 - IMAGE_BASE], ax ; 0x003f
+    mov word [cs:stream_start_segment - IMAGE_BASE], ax ; 0x003f
     mov ax, word [bp + 0xc]          ; 0x0043
     mov byte [cs:loop_at_end - IMAGE_BASE], al ; 0x0046
     mov word [cs:tick_divider - IMAGE_BASE], 1 ; 0x004a

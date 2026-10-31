@@ -23,17 +23,17 @@ saved_pic_mask:
     db 0x00
 play_sample_mode_flag:
     db 0x00, 0x00
-cseg_0a92:
+sample_count_limit:
     db 0x00
-cseg_0a93:
+sample_count_bias:
     db 0x00
-timer_handler_installed:
+sample_idle:
     db 0xff
 sample_step_fraction:
     db 0x00
 cseg_0a96:
     db 0x00, 0x00
-cseg_0a98:
+music_pit_divisor:
     db 0x00, 0x00
 music_enabled:
     db 0x00, 0x00, 0x00
@@ -41,7 +41,7 @@ loop_at_end:
     db 0x00
 stream_start_offset:
     db 0x00, 0x00
-cseg_0aa0:
+stream_start_segment:
     db 0x00, 0x00
 stream_segment:
     db 0x00, 0x00

@@ -57,7 +57,7 @@ hook_int08_and_configure_pit:
     mov ax, word [cs:music_tempo - IMAGE_BASE] ; 0x0303
     mov bl, 0x48                     ; 0x0307
     mul bl                           ; 0x0309
-    mov word [cs:cseg_0a98 - IMAGE_BASE], ax ; 0x030b
+    mov word [cs:music_pit_divisor - IMAGE_BASE], ax ; 0x030b
     out 0x40, al                     ; 0x030f
     call io_delay                    ; 0x0311
     mov al, ah                       ; 0x0314
@@ -148,18 +148,18 @@ play_configure_timer_handler:
     jne short .forward1              ; 0x03e6
     call stop_music_playback         ; 0x03e8
 .back1:
-    test byte [cs:timer_handler_installed - IMAGE_BASE], 0xff ; 0x03eb
+    test byte [cs:sample_idle - IMAGE_BASE], 0xff ; 0x03eb
     je short .back1                  ; 0x03f1
     jmp near .forward18              ; 0x03f3
 .forward1:
     test byte [bp + 0x14], 2         ; 0x03f6
     je short .forward2               ; 0x03fa
-    test byte [cs:timer_handler_installed - IMAGE_BASE], 0xff ; 0x03fc
+    test byte [cs:sample_idle - IMAGE_BASE], 0xff ; 0x03fc
     jne short .forward2              ; 0x0402
     jmp near play_set_device_return  ; 0x0404
 .forward2:
     cli                              ; 0x0407
-    test byte [cs:timer_handler_installed - IMAGE_BASE], 0xff ; 0x0408
+    test byte [cs:sample_idle - IMAGE_BASE], 0xff ; 0x0408
     jne short .forward3              ; 0x040e
     jmp near .forward7               ; 0x0410
 .forward3:
@@ -191,7 +191,7 @@ play_configure_timer_handler:
     shl bl, 1                        ; 0x045e
     xor bh, bh                       ; 0x0460
     mov dx, word [cs:bx + jumptable_0495 + 0x10 - IMAGE_BASE] ; 0x0462
-    cmp byte [cs:timer_handler_installed - IMAGE_BASE], 0 ; 0x0467
+    cmp byte [cs:sample_idle - IMAGE_BASE], 0 ; 0x0467
     je short .forward6               ; 0x046d
     mov dx, word [cs:bx + jumptable_0495 + 0x18 - IMAGE_BASE] ; 0x046f
     jmp near .forward6               ; 0x0474
@@ -200,7 +200,7 @@ play_configure_timer_handler:
     shl bl, 1                        ; 0x047c
     xor bh, bh                       ; 0x047e
     mov dx, word [cs:bx + jumptable_0495 - IMAGE_BASE] ; 0x0480
-    cmp byte [cs:timer_handler_installed - IMAGE_BASE], 0 ; 0x0485
+    cmp byte [cs:sample_idle - IMAGE_BASE], 0 ; 0x0485
     je short .forward6               ; 0x048b
     mov dx, word [cs:bx + jumptable_0495 + 0x8 - IMAGE_BASE] ; 0x048d
     jmp near .forward6               ; 0x0492
@@ -235,7 +235,7 @@ play_configure_timer_handler.forward7:
     cmp byte [cs:play_device - IMAGE_BASE], 1 ; 0x04c4
     jne short play_configure_timer_handler.forward9 ; 0x04ca
     mov al, 0                        ; 0x04cc
-    cmp byte [cs:timer_handler_installed - IMAGE_BASE], 0 ; 0x04ce
+    cmp byte [cs:sample_idle - IMAGE_BASE], 0 ; 0x04ce
     je short play_configure_timer_handler.forward8 ; 0x04d4
     mov al, 0xff                     ; 0x04d6
 play_configure_timer_handler.forward8:
@@ -247,7 +247,7 @@ play_configure_timer_handler.forward9:
     or al, 3                         ; 0x04e6
     out 0x61, al                     ; 0x04e8
 play_configure_timer_handler.forward10:
-    call build_sample_count_table    ; 0x04ea
+    call build_sample_output_table   ; 0x04ea
     mov al, 0xfe                     ; 0x04ed
     out 0x21, al                     ; 0x04ef
     mov ax, word [bp + 8]            ; 0x04f1
@@ -276,12 +276,12 @@ play_configure_timer_handler.forward10:
     mov byte [cs:sample_position - IMAGE_BASE], 0 ; 0x0534
     mov al, 0xff                     ; 0x053a
     sub al, byte [bp + 0x10]         ; 0x053c
-    mov byte [cs:sample_counter_seed_a - IMAGE_BASE], al ; 0x053f
-    mov byte [cs:sample_counter_seed_b - IMAGE_BASE], al ; 0x0543
-    mov byte [cs:sample_counter_seed_c - IMAGE_BASE], al ; 0x0547
-    mov byte [cs:sample_counter_seed_d - IMAGE_BASE], al ; 0x054b
-    mov byte [cs:sample_counter_seed_e - IMAGE_BASE], al ; 0x054f
-    mov byte [cs:sample_counter_seed_f - IMAGE_BASE], al ; 0x0553
+    mov byte [cs:sample_step_imm_a - IMAGE_BASE], al ; 0x053f
+    mov byte [cs:sample_step_imm_b - IMAGE_BASE], al ; 0x0543
+    mov byte [cs:sample_step_imm_c - IMAGE_BASE], al ; 0x0547
+    mov byte [cs:sample_step_imm_d - IMAGE_BASE], al ; 0x054b
+    mov byte [cs:sample_step_imm_e - IMAGE_BASE], al ; 0x054f
+    mov byte [cs:sample_step_imm_f - IMAGE_BASE], al ; 0x0553
     cmp byte [cs:play_device - IMAGE_BASE], 1 ; 0x0557
     je short play_configure_timer_handler.forward11 ; 0x055d
     cmp byte [cs:play_device - IMAGE_BASE], 4 ; 0x055f
@@ -291,7 +291,7 @@ play_configure_timer_handler.forward11:
     mov al, 0x40                     ; 0x056a
     out dx, al                       ; 0x056c
 play_configure_timer_handler.forward12:
-    mov byte [cs:timer_handler_installed - IMAGE_BASE], 0 ; 0x056d
+    mov byte [cs:sample_idle - IMAGE_BASE], 0 ; 0x056d
     cmp byte [cs:play_sample_mode_flag - IMAGE_BASE], 0 ; 0x0573
     jne short play_configure_timer_handler.forward13 ; 0x0579
     mov al, byte [cs:saved_pic_mask - IMAGE_BASE] ; 0x057b
@@ -301,7 +301,7 @@ play_configure_timer_handler.forward12:
     test byte [bp + 0x14], 1         ; 0x0584
     je short play_set_device_return  ; 0x0588
 play_configure_timer_handler.back2:
-    test byte [cs:timer_handler_installed - IMAGE_BASE], 0xff ; 0x058a
+    test byte [cs:sample_idle - IMAGE_BASE], 0xff ; 0x058a
     je short play_configure_timer_handler.back2 ; 0x0590
 play_set_device_return:
     pop bx                           ; 0x0592
@@ -326,7 +326,7 @@ play_configure_timer_handler.forward13:
     mov ax, es                       ; 0x05af
     mov ds, ax                       ; 0x05b1
     mov cx, 0x20b0                   ; 0x05b3
-    mov bx, sample_count_table - IMAGE_BASE ; 0x05b6
+    mov bx, sample_output_table - IMAGE_BASE ; 0x05b6
     mov dx, 0x42                     ; 0x05b9
     cmp byte [cs:play_device - IMAGE_BASE], 1 ; 0x05bc
     jne short play_configure_timer_handler.forward14 ; 0x05c2
@@ -343,7 +343,7 @@ play_configure_timer_handler.forward16:
     sti                              ; 0x05e1
 play_configure_timer_handler.back3:
     sti                              ; 0x05e2
-    test byte [cs:timer_handler_installed - IMAGE_BASE], 0xff ; 0x05e3
+    test byte [cs:sample_idle - IMAGE_BASE], 0xff ; 0x05e3
     je short play_configure_timer_handler.back3 ; 0x05e9
     cmp byte [cs:music_enabled - IMAGE_BASE], 0 ; 0x05eb
     je short play_configure_timer_handler.forward17 ; 0x05f1
@@ -379,7 +379,7 @@ play_configure_timer_handler.forward19:
     mov ax, word [cs:saved_int08_segment - IMAGE_BASE] ; 0x062d
     stosw                            ; 0x0631
     mov byte [cs:int08_hooked - IMAGE_BASE], 0 ; 0x0632
-    call mark_timer_handler_installed ; 0x0638
+    call mark_sample_idle            ; 0x0638
     mov al, 0x36                     ; 0x063b
     out 0x43, al                     ; 0x063d
     call io_delay                    ; 0x063f
@@ -392,5 +392,5 @@ play_configure_timer_handler.forward19:
     out 0x21, al                     ; 0x0652
     sti                              ; 0x0654
     jmp near play_set_device_return  ; 0x0655
-cseg_0658:
+sample_level_center:
     db 0x00, 0x00

@@ -4,7 +4,7 @@ stop_music_playback:
     cmp byte [cs:music_enabled - IMAGE_BASE], 0 ; 0x01b1
     je short .forward2               ; 0x01b7
     mov byte [cs:music_enabled - IMAGE_BASE], 0 ; 0x01b9
-    cmp byte [cs:timer_handler_installed - IMAGE_BASE], 0 ; 0x01bf
+    cmp byte [cs:sample_idle - IMAGE_BASE], 0 ; 0x01bf
     je short .forward1               ; 0x01c5
     call restore_timer_handler       ; 0x01c7
 .forward1:

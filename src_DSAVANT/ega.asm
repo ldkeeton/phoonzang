@@ -8,7 +8,10 @@ IMAGE_BASE equ -0x0100
 dseg_24fd equ 0x24fd
 dseg_2a02 equ 0x2a02
 
-%include "shared/drv/loc_LPSH.asm"                ; 0x0000
+%include "ega/driver_entry_0_stub.asm"     ; 0x0000
+
+driver_slot_0.mouse_init1 equ mouse_init
+%include "shared/drv/driver_slot_0.asm"           ; 0x0003
 
 loc_JTQK_0007.mouse_off1 equ mouse_off
 %include "shared/drv/loc_JTQK_0007.asm"           ; 0x0007

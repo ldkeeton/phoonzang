@@ -10,7 +10,7 @@ device_note_off:
 jumptable_11b3:
     dw device_nop - IMAGE_BASE                 ; 0x11b3
     dw opl_note_off - IMAGE_BASE               ; 0x11b5
-    dw loc_OSJN - IMAGE_BASE                   ; 0x11b7
-    dw loc_OSJN - IMAGE_BASE                   ; 0x11b9
+    dw device_note_off_noop - IMAGE_BASE       ; 0x11b7
+    dw device_note_off_noop - IMAGE_BASE       ; 0x11b9
     dw opl_note_off - IMAGE_BASE               ; 0x11bb
     dw device_nop - IMAGE_BASE                 ; 0x11bd

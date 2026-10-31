@@ -1,5 +1,5 @@
 ; auto-generated
-opl_velocity_curve_prefix:
+sample_output_table:
 
     times 128 db 0
 

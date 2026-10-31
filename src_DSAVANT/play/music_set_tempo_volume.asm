@@ -23,7 +23,7 @@ music_set_tempo_volume:
     mov ax, word [cs:music_tempo - IMAGE_BASE] ; 0x0274
     mov bl, 0x48                     ; 0x0278
     mul bl                           ; 0x027a
-    mov word [cs:cseg_0a98 - IMAGE_BASE], ax ; 0x027c
+    mov word [cs:music_pit_divisor - IMAGE_BASE], ax ; 0x027c
     out 0x40, al                     ; 0x0280
     call io_delay                    ; 0x0282
     mov al, ah                       ; 0x0285

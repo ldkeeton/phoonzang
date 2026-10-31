@@ -21,10 +21,10 @@ opl_apply_volume:
     and al, byte [cs:bx + opl_register_shadow_c0_ff - IMAGE_BASE] ; 0x1330
     je short .forward1               ; 0x1335
     mov al, dl                       ; 0x1337
-    call opl_write_note_pair         ; 0x1339
+    call opl_write_operator_level    ; 0x1339
 .forward1:
     mov al, dh                       ; 0x133c
-    call opl_write_note_pair         ; 0x133e
+    call opl_write_operator_level    ; 0x133e
     pop dx                           ; 0x1341
     pop cx                           ; 0x1342
     ret                              ; 0x1343

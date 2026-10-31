@@ -4,15 +4,14 @@
 	include	lmacros.h
 codeseg	segment	byte public 'code'
 	assume	cs:codeseg
-	extrn	request_mouse_redraw:near
-	extrn	refresh_mouse_overlay:near
+	extrn	request_mouse_redraw_:near
+	extrn	refresh_mouse_overlay_:near
 	extrn	screen_buf_seg:word
 	extrn	maze_paras_used:word
 	extrn	maze_mem_seg:word
 	extrn	pixel_plane_lookup:byte
-	extrn	restore_mouse_background:near
-	extrn	update_mouse_pointer:near
-	public	show_area_
+	extrn	restore_mouse_background_:near
+	extrn	update_mouse_pointer_:near
 left_x	equ	0ch		; stack argument
 top_y	equ	0eh		; stack argument
 right_x	equ	10h		; stack argument
@@ -34,7 +33,7 @@ plane_three_offset	equ	-34h		; local stack slot
 needs_temporary_buffer	equ	-36h		; local stack slot
 
 ; Pixel offsets use 80-byte visible rows and 320-byte four-plane rows.
-show_area_	proc	near
+	procdef	show_area
 	push bp
 	mov bp,sp
 	sub sp,36h
@@ -44,8 +43,8 @@ show_area_	proc	near
 	mov word ptr trailing_plane_bits[bp],ax
 	mov word ptr needs_temporary_buffer[bp],ax
 	movseg	es,ds
-	call request_mouse_redraw
-	call refresh_mouse_overlay
+	call request_mouse_redraw_
+	call refresh_mouse_overlay_
 	movseg	ds,<word ptr cs:screen_buf_seg>
 	movseg	es,0a000h	; EGA port, plane size, or buffer limit
 	mov ax,word ptr top_y[bp]
@@ -181,8 +180,8 @@ back2:
 	mov dx,3cfh	; EGA port, plane size, or buffer limit
 	out dx,al
 	outp	3ceh,5,0	; EGA port, plane size, or buffer limit
-	call restore_mouse_background
-	call update_mouse_pointer
+	call restore_mouse_background_
+	call update_mouse_pointer_
 	pops	si,di,es,ds
 	mov sp,bp
 	pop bp
@@ -524,12 +523,12 @@ back16:
 	pop cx
 	loop back16
 	outp	3c4h,2,0fh	; EGA port, plane size, or buffer limit
-	call restore_mouse_background
-	call update_mouse_pointer
+	call restore_mouse_background_
+	call update_mouse_pointer_
 	pops	si,di,es,ds
 	mov sp,bp
 	pop bp
 	ret
-show_area_	endp
+	pend	show_area
 codeseg	ends
 	end

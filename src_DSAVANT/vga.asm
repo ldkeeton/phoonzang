@@ -6,7 +6,10 @@ IMAGE_BASE equ -0x0100
 %endif
 
 
-%include "shared/drv/loc_LPSH.asm"                ; 0x0000
+%include "vga/driver_entry_0_stub.asm"     ; 0x0000
+
+driver_slot_0.mouse_init1 equ mouse_init
+%include "shared/drv/driver_slot_0.asm"           ; 0x0003
 
 loc_JTQK_0007.mouse_off1 equ mouse_off
 %include "shared/drv/loc_JTQK_0007.asm"           ; 0x0007

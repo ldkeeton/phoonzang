@@ -11,7 +11,7 @@ loc_GILG:
     je short loc_MTMG                ; 0x087e
     inc byte [cs:sample_position - IMAGE_BASE] ; 0x0880
     mov dx, 0x389                    ; 0x0885
-    mov bx, sample_count_table - IMAGE_BASE ; 0x0888
+    mov bx, sample_output_table - IMAGE_BASE ; 0x0888
     cs xlatb                         ; 0x088b
     out dx, al                       ; 0x088d
     dec word [cs:tick_divider - IMAGE_BASE] ; 0x088e
@@ -50,7 +50,7 @@ __zinsn_08be:
 __zinsn_08c3:
     mov al, byte [0]                 ; 0x08c3
     mov dx, 0x389                    ; 0x08c6
-    mov bx, sample_count_table - IMAGE_BASE ; 0x08c9
+    mov bx, sample_output_table - IMAGE_BASE ; 0x08c9
     cs xlatb                         ; 0x08cc
     out dx, al                       ; 0x08ce
 __zinsn_08cf:
@@ -98,7 +98,7 @@ io_loc_sample_device_tick.forward2:
     je short io_loc_sample_device_tick.forward3 ; 0x0925
     dec byte [cs:sample_position - IMAGE_BASE] ; 0x0927
     mov dx, 0x389                    ; 0x092c
-    mov bx, sample_count_table - IMAGE_BASE ; 0x092f
+    mov bx, sample_output_table - IMAGE_BASE ; 0x092f
     cs xlatb                         ; 0x0932
     out dx, al                       ; 0x0934
     dec word [cs:tick_divider - IMAGE_BASE] ; 0x0935
@@ -176,7 +176,7 @@ __zinsn_09a3:
 __zinsn_09a8:
     mov al, byte [0]                 ; 0x09a8
     mov dx, word [cs:sample_output_port - IMAGE_BASE] ; 0x09ab
-    mov bx, sample_count_table - IMAGE_BASE ; 0x09b0
+    mov bx, sample_output_table - IMAGE_BASE ; 0x09b0
     cs xlatb                         ; 0x09b3
     out dx, al                       ; 0x09b5
 __zinsn_09b6:

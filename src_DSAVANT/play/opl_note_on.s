@@ -14,11 +14,10 @@ codeseg	segment	byte public 'code'
 	extrn	opl_semitone_step:byte
 	extrn	opl_fnum_table:word
 	extrn	opl_semitone_octave:byte
-	extrn	opl_write_note_pair_:near
+	extrn	opl_write_operator_level_:near
 	extrn	opl_write_:near
-	public	opl_note_on_, opl_pitch_update_
 ; load the note's patch operator levels, then bend its pitch and key it on (A0h/B0h)
-opl_note_on_ proc near
+	procdef	opl_note_on
 	pushs	ax,bx,cx,di,dx,ds,si
 	mov	byte ptr cs:opl_key_on_bit,20h	;B0h key-on bit
 	mov	bx,word ptr cs:music_patch_segment
@@ -48,13 +47,13 @@ opl_note_on_ proc near
 	mov	al,ch
 	add	al,3			;second operator is 3 further
 	mov	ah,byte ptr 6[si]
-	call	opl_write_note_pair_
+	call	opl_write_operator_level_
 	mov	al,byte ptr 0ah[si]
 	and	al,1
 	.if	al == 1			;bit 0: both operators carry the level
 		mov	al,ch
 		mov	ah,byte ptr 1[si]
-		call	opl_write_note_pair_
+		call	opl_write_operator_level_
 		jmp	near ptr apply_pitch
 	.endif
 	mov	al,byte ptr 1[si]
@@ -62,7 +61,7 @@ opl_note_on_ proc near
 	add	ah,ch
 	call	opl_write_
 	jmp	near ptr apply_pitch
-opl_pitch_update_ label near
+	entrdef	opl_pitch_update
 	pushs	ax,bx,cx,di,dx,ds,si
 apply_pitch:
 	mov	ax,word ptr cs:opl_pitch_value
@@ -155,6 +154,6 @@ pitch_scaled:
 	call	opl_write_
 	pops	si,ds,dx,di,cx,bx,ax
 	ret
-opl_note_on_ endp
+	pend	opl_note_on
 codeseg	ends
 	end
