@@ -10,7 +10,7 @@ extern char screen_store_drive[];
 extern unsigned char base_palette_rgb[256][3];
 extern unsigned char startup_option_byte, startup_aux_option_a;
 extern unsigned char startup_aux_option_b, sound_device_setting, video_mode;
-extern unsigned char device_option_bytes[], monster_volume, background_volume;
+extern unsigned char volume_settings[], monster_volume, background_volume;
 extern unsigned char music_volume, no_dissolve;
 extern unsigned char screen_store_1_enabled, screen_store_disk_enabled;
 extern char palette_base_setting, palette_scale_setting;
@@ -26,7 +26,7 @@ extern int refresh_configuration_control(), set_hotspot(), call_show_area();
 extern int poll_hotspots(), flush_keyboard();
 extern unsigned char get_filtered_key();
 extern int draw_configuration_text(), input_text_field();
-extern int step_device_option_byte(), adjust_palette_base_setting();
+extern int step_volume_setting(), adjust_palette_base_setting();
 extern int adjust_palette_and_rgb_lookup(), aztec_strlen();
 extern int flash_button(), write_header_and_apply_devices();
 extern int restore_saved_screen();
@@ -316,27 +316,27 @@ int initial_mode;
 					sound_port_setting = 0;
 				break;
 			case 6:
-				step_device_option_byte(0, -1, 10);
+				step_volume_setting(0, -1, 10);
 				draw_configuration_control(5, dialog_top, dialog_left);
 				break;
 			case 7:
-				step_device_option_byte(0, 1, 10);
+				step_volume_setting(0, 1, 10);
 				draw_configuration_control(5, dialog_top, dialog_left);
 				break;
 			case 8:
-				step_device_option_byte(1, -1, 10);
+				step_volume_setting(1, -1, 10);
 				draw_configuration_control(6, dialog_top, dialog_left);
 				break;
 			case 9:
-				step_device_option_byte(1, 1, 10);
+				step_volume_setting(1, 1, 10);
 				draw_configuration_control(6, dialog_top, dialog_left);
 				break;
 			case 10:
-				step_device_option_byte(2, -1, 10);
+				step_volume_setting(2, -1, 10);
 				draw_configuration_control(7, dialog_top, dialog_left);
 				break;
 			case 11:
-				step_device_option_byte(2, 1, 10);
+				step_volume_setting(2, 1, 10);
 				draw_configuration_control(7, dialog_top, dialog_left);
 				break;
 			case 12:
@@ -352,11 +352,11 @@ int initial_mode;
 					sound_aux_setting = 0;
 				break;
 			case 13:
-				step_device_option_byte(3, -1, 10);
+				step_volume_setting(3, -1, 10);
 				draw_configuration_control(9, dialog_top, dialog_left);
 				break;
 			case 14:
-				step_device_option_byte(3, 1, 10);
+				step_volume_setting(3, 1, 10);
 				draw_configuration_control(9, dialog_top, dialog_left);
 				break;
 			case 15:

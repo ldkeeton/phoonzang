@@ -41,7 +41,7 @@ api_idx_0006_QJOL:
     mov ax, 0x248                    ; 0x20f9
     imul word [bp + 6]               ; 0x20fc
     mov bx, ax                       ; 0x20ff
-    mov al, byte [bx + party_records + pc_rec.flag + 0x17] ; 0x2101
+    mov al, byte [bx + party_records + pc_rec.skills + 0x17] ; 0x2101
     sub ah, ah                       ; 0x2105
     mov cx, 2                        ; 0x2107
     cwd                              ; 0x210a

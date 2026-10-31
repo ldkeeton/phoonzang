@@ -27,7 +27,7 @@ update_party_status_animation()
 	for (member_index = 0; member_index < party_char_count; member_index++) {
 		if (member_is_active(member_index)) {
 			/* The 0..199 roll is compared with flag byte +0x0c. */
-			if (random_below(200) < party_records[member_index].flag[12]) {
+			if (random_below(200) < party_records[member_index].skills[12]) {
 				display_member_message(member_index, MSG_DETECTS_SOMETHING);
 				return;
 			}

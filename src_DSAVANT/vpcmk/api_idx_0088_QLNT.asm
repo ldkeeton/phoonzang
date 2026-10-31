@@ -8,7 +8,7 @@ api_idx_0088_QLNT:
     imul word [bp + 4]               ; 0x2c23
     add ax, word [bp - 2]            ; 0x2c26
     mov bx, ax                       ; 0x2c29
-    mov al, byte [bx + party_records + pc_rec.flag] ; 0x2c2b
+    mov al, byte [bx + party_records + pc_rec.skills] ; 0x2c2b
     sub ah, ah                       ; 0x2c2f
     mov cx, word [bp - 2]            ; 0x2c31
     shl cx, 1                        ; 0x2c34
@@ -84,7 +84,7 @@ api_idx_0088_QLNT:
     imul word [bp + 4]               ; 0x2cec
     add ax, word [bp - 2]            ; 0x2cef
     mov bx, ax                       ; 0x2cf2
-    cmp byte [bx + party_records + pc_rec.flag], 0 ; 0x2cf4
+    cmp byte [bx + party_records + pc_rec.skills], 0 ; 0x2cf4
     jbe short .forward2              ; 0x2cf9
 .forward1:
     mov ax, word [bp - 4]            ; 0x2cfb

@@ -1485,7 +1485,7 @@ jumptable_5e7f_case_6:
     push ax                          ; 0x5a47
     mov ax, 0                        ; 0x5a48
     push ax                          ; 0x5a4b
-    call step_device_option_byte     ; 0x5a4c
+    call step_volume_setting         ; 0x5a4c
     add sp, byte 6                   ; 0x5a4f
     push word [bp - 0xa]             ; 0x5a52
     push word [bp - 8]               ; 0x5a55
@@ -1501,7 +1501,7 @@ jumptable_5e7f_case_7:
     push ax                          ; 0x5a6c
     mov ax, 0                        ; 0x5a6d
     push ax                          ; 0x5a70
-    call step_device_option_byte     ; 0x5a71
+    call step_volume_setting         ; 0x5a71
     add sp, byte 6                   ; 0x5a74
     push word [bp - 0xa]             ; 0x5a77
     push word [bp - 8]               ; 0x5a7a
@@ -1517,7 +1517,7 @@ jumptable_5e7f_case_8:
     push ax                          ; 0x5a91
     mov ax, 1                        ; 0x5a92
     push ax                          ; 0x5a95
-    call step_device_option_byte     ; 0x5a96
+    call step_volume_setting         ; 0x5a96
     add sp, byte 6                   ; 0x5a99
     push word [bp - 0xa]             ; 0x5a9c
     push word [bp - 8]               ; 0x5a9f
@@ -1532,7 +1532,7 @@ jumptable_5e7f_case_9:
     mov ax, 1                        ; 0x5ab3
     push ax                          ; 0x5ab6
     push ax                          ; 0x5ab7
-    call step_device_option_byte     ; 0x5ab8
+    call step_volume_setting         ; 0x5ab8
     add sp, byte 6                   ; 0x5abb
     push word [bp - 0xa]             ; 0x5abe
     push word [bp - 8]               ; 0x5ac1
@@ -1548,7 +1548,7 @@ jumptable_5e7f_case_10:
     push ax                          ; 0x5ad8
     mov ax, 2                        ; 0x5ad9
     push ax                          ; 0x5adc
-    call step_device_option_byte     ; 0x5add
+    call step_volume_setting         ; 0x5add
     add sp, byte 6                   ; 0x5ae0
     push word [bp - 0xa]             ; 0x5ae3
     push word [bp - 8]               ; 0x5ae6
@@ -1564,7 +1564,7 @@ jumptable_5e7f_case_11:
     push ax                          ; 0x5afd
     mov ax, 2                        ; 0x5afe
     push ax                          ; 0x5b01
-    call step_device_option_byte     ; 0x5b02
+    call step_volume_setting         ; 0x5b02
     add sp, byte 6                   ; 0x5b05
     push word [bp - 0xa]             ; 0x5b08
     push word [bp - 8]               ; 0x5b0b
@@ -1611,7 +1611,7 @@ jumptable_5e7f_case_13:
     push ax                          ; 0x5b6f
     mov ax, 3                        ; 0x5b70
     push ax                          ; 0x5b73
-    call step_device_option_byte     ; 0x5b74
+    call step_volume_setting         ; 0x5b74
     add sp, byte 6                   ; 0x5b77
     push word [bp - 0xa]             ; 0x5b7a
     push word [bp - 8]               ; 0x5b7d
@@ -1627,7 +1627,7 @@ jumptable_5e7f_case_14:
     push ax                          ; 0x5b94
     mov ax, 3                        ; 0x5b95
     push ax                          ; 0x5b98
-    call step_device_option_byte     ; 0x5b99
+    call step_volume_setting         ; 0x5b99
     add sp, byte 6                   ; 0x5b9c
     push word [bp - 0xa]             ; 0x5b9f
     push word [bp - 8]               ; 0x5ba2

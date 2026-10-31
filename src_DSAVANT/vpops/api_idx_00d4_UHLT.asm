@@ -248,7 +248,7 @@ api_idx_00d4_UHLT:
     je short .forward17              ; 0x398d
     cmp al, 0xc                      ; 0x398f
     je short .forward17              ; 0x3991
-    cmp byte [bx + party_records + pc_rec.flag + 0x11], 0 ; 0x3993
+    cmp byte [bx + party_records + pc_rec.skills + 0x11], 0 ; 0x3993
     jne short .forward17             ; 0x3998
 .forward16:
     mov word [bp - 0x24], 0          ; 0x399a
@@ -415,7 +415,7 @@ api_idx_00d4_UHLT:
     mov ax, 0x248                    ; 0x3b2b
     imul word [bp - 6]               ; 0x3b2e
     mov bx, ax                       ; 0x3b31
-    mov al, byte [bx + party_records + pc_rec.slot_info + 0xd] ; 0x3b33
+    mov al, byte [bx + party_records + pc_rec.hand_attack + 0xd] ; 0x3b33
     sub ah, ah                       ; 0x3b37
     mov word [bp - 0xb2], ax         ; 0x3b39
     mov ax, 0x2c                     ; 0x3b3d
@@ -591,7 +591,7 @@ api_idx_00d4_UHLT.back8:
     push word [bp - 2]               ; 0x3cec
     mov ax, 0x248                    ; 0x3cef
     imul word [bp - 6]               ; 0x3cf2
-    add ax, party_records + pc_rec.slot_info + 0xf ; 0x3cf5
+    add ax, party_records + pc_rec.hand_attack + 0xf ; 0x3cf5
     push ax                          ; 0x3cf8
     call test_bit                    ; 0x3cf9
     add sp, byte 4                   ; 0x3cfc
@@ -679,7 +679,7 @@ api_idx_00d4_UHLT.forward43:
     mov ax, 0x248                    ; 0x3dc3
     imul word [bp - 6]               ; 0x3dc6
     mov bx, ax                       ; 0x3dc9
-    mov al, byte [bx + party_records + pc_rec.slot_info + 0xd] ; 0x3dcb
+    mov al, byte [bx + party_records + pc_rec.hand_attack + 0xd] ; 0x3dcb
     sub ah, ah                       ; 0x3dcf
     mov word [bp - 0xb2], ax         ; 0x3dd1
     cmp ax, strict word 2            ; 0x3dd5
@@ -1134,7 +1134,7 @@ api_idx_00d4_UHLT.forward67:
     mov ax, 0x248                    ; 0x4228
     imul word [bp - 6]               ; 0x422b
     mov bx, ax                       ; 0x422e
-    cmp byte [bx + party_records + pc_rec.slot_info + 0x1f], 1 ; 0x4230
+    cmp byte [bx + party_records + pc_rec.hand_attack + 0x1f], 1 ; 0x4230
     je short api_idx_00d4_UHLT.forward68 ; 0x4235
     cmp word [bp - 6], byte 3        ; 0x4237
     jge short api_idx_00d4_UHLT.forward71 ; 0x423b
@@ -1145,7 +1145,7 @@ api_idx_00d4_UHLT.forward68:
 api_idx_00d4_UHLT.back11:
     mov ax, 0x248                    ; 0x4249
     imul word [bp - 6]               ; 0x424c
-    add ax, party_records + pc_rec.slot_info + 0x21 ; 0x424f
+    add ax, party_records + pc_rec.hand_attack + 0x21 ; 0x424f
     push ax                          ; 0x4252
     call api_idx_0006_QUSK           ; 0x4253
     pop cx                           ; 0x4256

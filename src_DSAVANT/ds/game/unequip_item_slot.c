@@ -4,7 +4,7 @@
 
 extern struct pc_rec party_records[];
 extern clamp_between();
-extern reset_page_record();
+extern reset_hand_attack();
 
 /* clears an item's equipped flag, drops it from the pc's eight-slot order and
    re-spaces the slots that remain */
@@ -25,7 +25,7 @@ int pc, slot;
 			switch (i) {
 			case 0:
 			case 1:		/* slots 0 and 1 also reset their 0x12-byte record */
-				reset_page_record(pc, i);
+				reset_hand_attack(pc, i);
 				party_records[pc].count[1] +=
 					party_records[pc].item_slots[0][slot].weight;
 				break;

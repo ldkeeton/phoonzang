@@ -290,7 +290,7 @@ api_idx_0014_PIUH:
     push word [bp - 4]               ; 0x6786
     mov ax, 0x248                    ; 0x6789
     imul word [bss_8462]             ; 0x678c
-    add ax, party_records + pc_rec.slot_info + 0xf ; 0x6790
+    add ax, party_records + pc_rec.hand_attack + 0xf ; 0x6790
     push ax                          ; 0x6793
     call test_bit                    ; 0x6794
     add sp, byte 4                   ; 0x6797

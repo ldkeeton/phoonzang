@@ -364,7 +364,7 @@ initialize_runtime_resources:
     add sp, byte 6                   ; 0x071c
     mov word [loaded_sound_id], 0xffff ; 0x071f
     mov word [loaded_score_num], 0xffff ; 0x0725
-    mov word [startup_sound_check], 0x905c ; 0x072b
+    mov word [character_record_target], 0x905c ; 0x072b
     mov word [runtime_buffer_1k_seg], 0 ; 0x0731
     mov word [runtime_buffer_1k], 0  ; 0x0737
     mov word [runtime_buffer_4k_a_seg], 0 ; 0x073d

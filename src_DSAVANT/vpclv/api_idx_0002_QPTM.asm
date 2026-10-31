@@ -22,7 +22,7 @@ api_idx_0002_QPTM:
     sub ax, cx                       ; 0x429c
     mov word [bp - 2], ax            ; 0x429e
     add bx, word [bp + 0xa]          ; 0x42a1
-    mov al, byte [bx + party_records + pc_rec.flag] ; 0x42a4
+    mov al, byte [bx + party_records + pc_rec.skills] ; 0x42a4
     sub ah, ah                       ; 0x42a8
     push ax                          ; 0x42aa
     mov ax, 0x248                    ; 0x42ab
@@ -64,5 +64,5 @@ api_idx_0002_QPTM:
     add ax, word [bp + 0xa]          ; 0x4305
     mov bx, ax                       ; 0x4308
     pop ax                           ; 0x430a
-    add byte [bx + party_records + pc_rec.flag], al ; 0x430b
+    add byte [bx + party_records + pc_rec.skills], al ; 0x430b
     ret                              ; 0x430f

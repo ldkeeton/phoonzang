@@ -76,7 +76,7 @@ jumptable_4af5_case_5:
     mov ax, word [bp + 6]            ; 0x48ca
     add ax, strict word 0x69         ; 0x48cd
     push ax                          ; 0x48d0
-    mov al, byte [device_option_bytes] ; 0x48d1
+    mov al, byte [volume_settings]   ; 0x48d1
     sub ah, ah                       ; 0x48d4
     push ax                          ; 0x48d6
     call draw_configuration_number   ; 0x48d7

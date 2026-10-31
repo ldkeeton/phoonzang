@@ -229,7 +229,7 @@ int target;
 		field_index = 10;
 		effect_value = 0;
 		do {
-			if (party_records[pc].flag[26] >= field_index)
+			if (party_records[pc].skills[26] >= field_index)
 				++i;
 			field_index = field_index * 2 + 10;
 		} while (++effect_value < 3);

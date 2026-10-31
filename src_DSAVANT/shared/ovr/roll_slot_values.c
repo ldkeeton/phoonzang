@@ -41,6 +41,6 @@ int rec, base0, base1, base3;
 	}
 	slot_value2 = 0;
 	for (i = index_range2_first; i <= index_range2_last; i++)
-		if (party_records[rec].flag[i] > 0)
+		if (party_records[rec].skills[i] > 0)
 			slot_value2 = random_below(2) + slot_value2 + 1;	/* 1 or 2 */
 }

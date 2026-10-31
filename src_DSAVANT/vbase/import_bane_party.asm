@@ -975,7 +975,7 @@ import_bane_party.forward44:
 import_bane_party.back10:
     push word [bp - 4]               ; 0x290f
     push word [party_char_count]     ; 0x2912
-    call reset_page_record           ; 0x2916
+    call reset_hand_attack           ; 0x2916
     add sp, byte 4                   ; 0x2919
     inc word [bp - 4]                ; 0x291c
     mov ax, word [bp - 4]            ; 0x291f

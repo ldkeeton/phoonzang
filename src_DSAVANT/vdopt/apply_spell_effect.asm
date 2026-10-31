@@ -643,7 +643,7 @@ apply_spell_effect.back6:
     mov ax, 0x248                    ; 0x22d8
     imul word [bp + 4]               ; 0x22db
     mov bx, ax                       ; 0x22de
-    mov al, byte [bx + party_records + pc_rec.flag + 0x1a] ; 0x22e0
+    mov al, byte [bx + party_records + pc_rec.skills + 0x1a] ; 0x22e0
     sub ah, ah                       ; 0x22e4
     cmp ax, word [bp - 6]            ; 0x22e6
     jl short apply_spell_effect.forward29 ; 0x22e9

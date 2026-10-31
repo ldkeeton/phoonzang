@@ -76,7 +76,7 @@ begin_game:
     mov word [current_maze], 0xffff  ; 0x672a
     cmp word [startup_check_stage], byte 2 ; 0x6730
     je short .forward6               ; 0x6735
-    call ds_app_string_MPHP          ; 0x6737
+    call verify_code_message         ; 0x6737
     mov word [startup_check_stage], 2 ; 0x673a
 .forward6:
     cmp word [intro_screen_number], byte 0 ; 0x6740

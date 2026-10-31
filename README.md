@@ -56,7 +56,7 @@ From `.asm` we create `.s` and `.c` files which are original DOS sources. These 
 
 ## Wizardry VII coverage
 
-Progress: **394 / 1103** (35.7%).
+Progress: **428 / 1103** (38.8%).
 
 ![C coverage heatmap](readme/heatmap.svg)
 

@@ -7,6 +7,7 @@ extern unsigned code_char_index;
 pick_code_char()
 {
 	code_char_index = random_below(75);		/* 0..74 */
-	code_characters[0] = code_char_index;		/* ds_app_RMGT compares this byte */
+	code_characters[0] = code_char_index;
+		/* publish_code_check_word compares this byte */
 	code_char_message_index = code_char_index;	/* selects message 2500+n */
 }

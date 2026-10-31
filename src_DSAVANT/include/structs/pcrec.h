@@ -20,6 +20,18 @@ union pc_word_pair {
 	long dword;
 };
 
+struct pc_hand_attack {
+	int damage_bonus;             /* +0x00: added to the dice roll */
+	unsigned char damage_dice;    /* +0x02: add_random_steps roll count */
+	unsigned char damage_sides;   /* +0x03: add_random_steps die size */
+	char pad04[6];
+	unsigned char critical_chance; /* +0x0a: from skills[33] */
+	char pad0b[3];
+	char hit_penalty;             /* +0x0e: lowered by stat[4] */
+	unsigned char attack_flags;   /* +0x0f */
+	char pad10[2];
+};
+
 struct pc_rec {				/* 0x248 bytes */
 	char name[8];			/* +0x000 */
 	union pc_word_pair w8;		/* +0x008 */
@@ -34,13 +46,13 @@ struct pc_rec {				/* 0x248 bytes */
 	int w26;			/* +0x026 */
 	int realm_points[6][2];		/* +0x028: [cur, max] per realm */
 	struct pc_item_slot item_slots[2][10];	/* +0x040 */
-	unsigned char slot_info[2][18];	/* +0x130: reset by reset_page_record */
+	struct pc_hand_attack hand_attack[2]; /* +0x130: per weapon hand */
 	unsigned char order[8];		/* +0x154: cell index per slot, 0xff free */
 	unsigned char spell_school[4];	/* +0x15c: mage, priest, alchemist, psionic */
 	char pad0[6];			/* +0x160 */
 	unsigned char status[10];	/* +0x166: [2] set 6..11 when pair_b[0] hits 0 */
 	unsigned char stat[8];		/* +0x170 */
-	unsigned char flag[34];		/* +0x178 */
+	unsigned char skills[34];	/* +0x178: groups 0-9, 10-17, 18-23, 24-33 */
 	unsigned char prev[14];		/* +0x19a: slot spacing last frame */
 	unsigned char cur[14];		/* +0x1a8: slot spacing this frame */
 	unsigned char count[8];		/* +0x1b6: per-slot tallies */

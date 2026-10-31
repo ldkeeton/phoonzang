@@ -65,6 +65,6 @@ format_long_decimal:
     mov si, word [bp - 2]            ; 0x04b6
     mov byte [bx + si], 0            ; 0x04b9
     push word [bp + 8]               ; 0x04bc
-    call ds_app_string_TVHI          ; 0x04bf
+    call reverse_string              ; 0x04bf
     pop cx                           ; 0x04c2
     ret                              ; 0x04c3

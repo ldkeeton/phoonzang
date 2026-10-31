@@ -370,7 +370,7 @@ api_idx_0060_VTPV:
     mov ax, 0x248                    ; 0x2379
     imul word [bp - 2]               ; 0x237c
     mov bx, ax                       ; 0x237f
-    mov al, byte [bx + party_records + pc_rec.flag + 0x10] ; 0x2381
+    mov al, byte [bx + party_records + pc_rec.skills + 0x10] ; 0x2381
     sub ah, ah                       ; 0x2385
     mov cx, 2                        ; 0x2387
     cwd                              ; 0x238a

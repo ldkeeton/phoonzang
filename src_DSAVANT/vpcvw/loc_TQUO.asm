@@ -61,7 +61,7 @@ loc_TQUO:
     mov ax, 0x248                    ; 0x7153
     imul word [bp + 4]               ; 0x7156
     mov bx, ax                       ; 0x7159
-    mov al, byte [bx + party_records + pc_rec.flag + 0x18] ; 0x715b
+    mov al, byte [bx + party_records + pc_rec.skills + 0x18] ; 0x715b
     sub ah, ah                       ; 0x715f
     mov cx, 5                        ; 0x7161
     cwd                              ; 0x7164

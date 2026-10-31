@@ -338,7 +338,7 @@ load_game_data:
 .back2:
     mov bx, word [bp - 2]            ; 0x32fb
     mov al, byte [bx + preserved_header_options] ; 0x32fe
-    mov byte [bx + device_option_bytes], al ; 0x3302
+    mov byte [bx + volume_settings], al ; 0x3302
     inc word [bp - 2]                ; 0x3306
     mov ax, word [bp - 2]            ; 0x3309
     cmp ax, strict word 4            ; 0x330c

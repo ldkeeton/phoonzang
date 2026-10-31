@@ -16,7 +16,7 @@ api_idx_0004_IKOQ:
     add ax, word [bp - 4]            ; 0x82fe
     add ax, si                       ; 0x8301
     mov bx, ax                       ; 0x8303
-    cmp byte [bx + party_records + pc_rec.flag], 0 ; 0x8305
+    cmp byte [bx + party_records + pc_rec.skills], 0 ; 0x8305
     jbe short .forward2              ; 0x830a
 .forward1:
     mov ax, 1                        ; 0x830c
@@ -50,7 +50,7 @@ api_idx_0004_IKOQ:
     add ax, word [bp - 4]            ; 0x834e
     add ax, si                       ; 0x8351
     mov bx, ax                       ; 0x8353
-    cmp byte [bx + party_records + pc_rec.flag], 0 ; 0x8355
+    cmp byte [bx + party_records + pc_rec.skills], 0 ; 0x8355
     jbe short .forward6              ; 0x835a
 .forward5:
     mov ax, 1                        ; 0x835c
@@ -84,7 +84,7 @@ api_idx_0004_IKOQ:
     add ax, word [bp - 4]            ; 0x839e
     add ax, si                       ; 0x83a1
     mov bx, ax                       ; 0x83a3
-    cmp byte [bx + party_records + pc_rec.flag], 0 ; 0x83a5
+    cmp byte [bx + party_records + pc_rec.skills], 0 ; 0x83a5
     jbe short .forward10             ; 0x83aa
 .forward9:
     mov ax, 1                        ; 0x83ac
@@ -118,7 +118,7 @@ api_idx_0004_IKOQ:
     add ax, word [bp - 4]            ; 0x83ee
     add ax, si                       ; 0x83f1
     mov bx, ax                       ; 0x83f3
-    cmp byte [bx + party_records + pc_rec.flag], 0 ; 0x83f5
+    cmp byte [bx + party_records + pc_rec.skills], 0 ; 0x83f5
     jbe short .forward14             ; 0x83fa
 .forward13:
     mov ax, 1                        ; 0x83fc

@@ -9,7 +9,7 @@ extern int draw_configuration_box_text(), call_set_text_color(),
 	call_set_text_pos();
 extern int draw_number_field();
 extern unsigned char startup_aux_option_b, startup_option_byte;
-extern unsigned char sound_device_setting, device_option_bytes[];
+extern unsigned char sound_device_setting, volume_settings[];
 extern unsigned char monster_volume, background_volume, video_mode;
 extern unsigned char music_volume, startup_aux_option_a, no_dissolve;
 extern unsigned char screen_store_1_enabled, screen_store_disk_enabled;
@@ -56,7 +56,7 @@ int control_number, dialog_left, dialog_top;
 			dialog_left + 119, dialog_top + 116);
 		call_set_text_color(180, 195);
 		call_set_text_pos(dialog_left + 107, dialog_top + 99);
-		draw_number_field(device_option_bytes[0], 2, 0);
+		draw_number_field(volume_settings[0], 2, 0);
 		call_set_text_pos(dialog_left + 107, dialog_top + 105);
 		draw_number_field(monster_volume, 2, 0);
 		call_set_text_pos(dialog_left + 107, dialog_top + 111);

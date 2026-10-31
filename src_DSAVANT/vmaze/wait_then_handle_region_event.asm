@@ -80,7 +80,7 @@ wait_then_handle_region_event:
     cwd                              ; 0x810b
     idiv cx                          ; 0x810c
     push ax                          ; 0x810e
-    mov al, byte [bx + party_records + pc_rec.flag + 0x12] ; 0x810f
+    mov al, byte [bx + party_records + pc_rec.skills + 0x12] ; 0x810f
     sub ah, ah                       ; 0x8113
     mov cx, 3                        ; 0x8115
     cwd                              ; 0x8118
@@ -105,7 +105,7 @@ wait_then_handle_region_event:
     mov ax, 0x248                    ; 0x8143
     imul word [bp - 4]               ; 0x8146
     mov bx, ax                       ; 0x8149
-    mov al, byte [bx + party_records + pc_rec.flag + 0xb] ; 0x814b
+    mov al, byte [bx + party_records + pc_rec.skills + 0xb] ; 0x814b
     sub ah, ah                       ; 0x814f
     add word [bp - 0xa], ax          ; 0x8151
     mov ax, 2                        ; 0x8154

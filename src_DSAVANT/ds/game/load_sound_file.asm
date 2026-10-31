@@ -21,9 +21,9 @@ load_sound_file:
     mov ax, 0xc                      ; 0x2951
     imul word [bp + 6]               ; 0x2954
     mov bx, ax                       ; 0x2957
-    cmp word [bx + sound_slot_info + sound_slot_info_rec.f_0006], byte 0 ; 0x2959
+    cmp word [bx + sound_slot_info + sound_slot_info_rec.size + 0x2], byte 0 ; 0x2959
     jne short .forward1              ; 0x295e
-    cmp word [bx + sound_slot_info + sound_slot_info_rec.pad_0000 + 0x4], byte 0 ; 0x2960
+    cmp word [bx + sound_slot_info + sound_slot_info_rec.size], byte 0 ; 0x2960
 .forward1:
     jne short .forward3              ; 0x2965
     mov ax, word [bx + sound_slot_info] ; 0x2967

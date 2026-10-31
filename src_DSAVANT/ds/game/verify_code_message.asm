@@ -1,5 +1,5 @@
 ; auto-generated
-ds_app_string_MPHP:
+verify_code_message:
     mov ax, 0xffac                   ; 0x05d0
     call aztec_csav                  ; 0x05d3
     lea ax, word [bp - 0x54]         ; 0x05d6
@@ -59,6 +59,6 @@ ds_app_string_MPHP:
     cmp al, byte [bp - 2]            ; 0x0651
     jne short .return1               ; 0x0654
     mov ax, word [answer_check_word] ; 0x0656
-    mov word [startup_sound_check], ax ; 0x0659
+    mov word [character_record_target], ax ; 0x0659
 .return1:
     ret                              ; 0x065c

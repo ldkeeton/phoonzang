@@ -117,7 +117,7 @@ api_idx_0084_ILQU:
     mov ax, 0x248                    ; 0x26d6
     imul word [bp + 4]               ; 0x26d9
     mov bx, ax                       ; 0x26dc
-    mov al, byte [bx + party_records + pc_rec.flag + 0x10] ; 0x26de
+    mov al, byte [bx + party_records + pc_rec.skills + 0x10] ; 0x26de
     sub ah, ah                       ; 0x26e2
     push ax                          ; 0x26e4
     call format_int_decimal          ; 0x26e5
@@ -541,7 +541,7 @@ api_idx_0084_ILQU:
     mov ax, 0x248                    ; 0x2aba
     imul word [bp + 4]               ; 0x2abd
     mov bx, ax                       ; 0x2ac0
-    mov al, byte [bx + party_records + pc_rec.flag + 0x10] ; 0x2ac2
+    mov al, byte [bx + party_records + pc_rec.skills + 0x10] ; 0x2ac2
     sub ah, ah                       ; 0x2ac6
     push ax                          ; 0x2ac8
     mov ax, 5                        ; 0x2ac9

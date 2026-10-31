@@ -51,7 +51,7 @@ wait_then_handle_region_event()
 		if (event_roll_limit == 21)
 			try_raise_member_skill(member_roster_index, 18, 1);
 		event_threshold = party_records[member_roster_index].stat[4] / 2
-			+ party_records[member_roster_index].flag[18] / 3;
+			+ party_records[member_roster_index].skills[18] / 3;
 	}
 	/* Mode 0xff averages the matching field over active party members. */
 	else if (event_threshold == 255) {
@@ -61,7 +61,7 @@ wait_then_handle_region_event()
 		goto check_party_member;
 	party_member_loop:
 			if (member_is_active(member_index)) {
-				event_threshold += party_records[member_index].flag[11];
+				event_threshold += party_records[member_index].skills[11];
 				try_raise_member_skill(member_index, 11, 2);
 			}
 			member_index++;

@@ -277,7 +277,7 @@ api_idx_0074_JJVR:
     mov ax, word [bp - 0xc]          ; 0x7b7c
     cmp ax, strict word 0xd          ; 0x7b7f
     jne short .forward18             ; 0x7b82
-    mov al, byte [bx + party_records + pc_rec.flag + 0xb] ; 0x7b84
+    mov al, byte [bx + party_records + pc_rec.skills + 0xb] ; 0x7b84
     sub ah, ah                       ; 0x7b88
     sub ax, word [bp - 8]            ; 0x7b8a
     jmp short .forward20             ; 0x7b8d
@@ -285,7 +285,7 @@ api_idx_0074_JJVR:
     mov ax, word [bp - 0xc]          ; 0x7b8f
     cmp ax, strict word 3            ; 0x7b92
     jne short .forward19             ; 0x7b95
-    mov al, byte [bx + party_records + pc_rec.flag + 0xa] ; 0x7b97
+    mov al, byte [bx + party_records + pc_rec.skills + 0xa] ; 0x7b97
     sub ah, ah                       ; 0x7b9b
     sub ax, word [bp - 8]            ; 0x7b9d
     jmp short .forward20             ; 0x7ba0

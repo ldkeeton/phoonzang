@@ -9,7 +9,7 @@ extern int message_cache_next, message_cache_ids[], saved_screen_kind[];
 extern char saved_screen_file[][20];
 extern long saved_screen_ref[];
 extern int data_file_fd, loaded_sound_id, loaded_score_num,
-	startup_sound_check;
+	character_record_target;
 extern long pointer_image_zero, mouse_pointer_shape, pointer_image_two;
 extern long runtime_buffer_1k, runtime_buffer_4k_a, runtime_buffer_4k_b;
 extern char *maze_data, *maze_tables, *runtime_buffer_3k,
@@ -73,13 +73,15 @@ initialize_runtime_resources()
 		/* either flag suffices */
 	} else
 		release_and_exit(3);
-	code_check_value = (unsigned)36956; /* startup check sentinel */
+	code_check_value = (unsigned)36956;
+		/* startup_zero_word until the code check */
 	if ((sound_device = sound_device_setting) == 6)
 		/* normalize device selector */
 		sound_device = 4;
 	sound_port = sound_device == 0 ? 0 : sound_port_setting;
 	call_play_select_device(sound_port, sound_device);
-	code_check_word = (unsigned)36956; /* startup check sentinel */
+	code_check_word = (unsigned)36956;
+		/* startup_zero_word until the code check */
 	mouse_active = 0;
 	hotspot_hit = 0;
 	for (index = 0; index < 100; index++) /* seed the check character pool */
@@ -100,7 +102,8 @@ initialize_runtime_resources()
 	mouse_pointer_shape = load_file_data(startup_vmpntr1_name);
 	pointer_image_two = load_file_data(startup_vmpntr2_name);
 	load_startup_maze(startup_base_data_name, 3);
-	answer_check_word = (unsigned)36956; /* startup check sentinel */
+	answer_check_word = (unsigned)36956;
+		/* startup_zero_word until the code check */
 	read_startup_file(startup_master_header_name, record_size, 82);
 	read_startup_file(startup_disk_header_name, disk_header, 780);
 	read_startup_file(startup_message_header_name, message_directory, 11774);
@@ -132,7 +135,8 @@ initialize_runtime_resources()
 	load_sound_file(9, 9, 1);
 	loaded_sound_id = -1;
 	loaded_score_num = -1;
-	startup_sound_check = (unsigned)36956; /* startup check sentinel */
+	character_record_target = (unsigned)36956;
+		/* startup_zero_word until the code check */
 	runtime_buffer_1k = 0L;
 	runtime_buffer_4k_a = 0L;
 	runtime_buffer_4k_b = 0L;

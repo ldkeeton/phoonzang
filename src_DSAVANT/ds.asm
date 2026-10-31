@@ -159,7 +159,7 @@ filename_edit_buffer equ __zbss_0e4c - __zdseg_start
 code_char_message_index equ __zbss_0fd5 - __zdseg_start
 code_table equ __zbss_0fd6 - __zdseg_start
 answer_check_word equ __zbss_1008 - __zdseg_start
-startup_sound_check equ __zbss_100a - __zdseg_start
+character_record_target equ __zbss_100a - __zdseg_start
 message_directory equ __zbss_100c - __zdseg_start
 bss_2d40 equ __zbss_2d40 - __zdseg_start
 bss_2d58 equ __zbss_2d58 - __zdseg_start
@@ -194,7 +194,7 @@ screen_store_drive equ __zbss_5964 - __zdseg_start
 palette_base_setting equ __zbss_5978 - __zdseg_start
 palette_scale_setting equ __zbss_5979 - __zdseg_start
 configuration_display_value equ __zbss_597a - __zdseg_start
-device_option_bytes equ __zbss_597c - __zdseg_start
+volume_settings equ __zbss_597c - __zdseg_start
 monster_volume equ __zbss_597d - __zdseg_start
 background_volume equ __zbss_597e - __zdseg_start
 music_volume equ __zbss_597f - __zdseg_start
@@ -410,7 +410,7 @@ __zdseg_end equ (__zimage_end - __zdseg_start) + __zbss_size
 
 %include "ds/game/set_code_check_value.asm" ; 0x03cd
 
-%include "ds/game/ds_app_string_TVHI.asm"  ; 0x03da
+%include "ds/game/reverse_string.asm"      ; 0x03da
 
 %include "ds/game/format_long_decimal.asm" ; 0x0422
 
@@ -422,7 +422,7 @@ __zdseg_end equ (__zimage_end - __zdseg_start) + __zbss_size
 
 %include "ds/game/str_subst_char.asm"      ; 0x0547
 
-%include "ds/game/ds_app_string_MPHP.asm"  ; 0x05d0
+%include "ds/game/verify_code_message.asm" ; 0x05d0
 
 %include "ds/game/find_message_record.asm" ; 0x065d
 
@@ -442,7 +442,7 @@ __zdseg_end equ (__zimage_end - __zdseg_start) + __zbss_size
 
 %include "ds/game/play_sound_effect.asm"   ; 0x0a27
 
-%include "ds/game/ds_app_RMGT.asm"         ; 0x0ad7
+%include "ds/game/publish_code_check_word.asm" ; 0x0ad7
 
 %include "ds/game/set_mouse_pointer_shape.asm" ; 0x0af6
 
@@ -492,7 +492,7 @@ __zdseg_end equ (__zimage_end - __zdseg_start) + __zbss_size
 
 %include "ds/game/sum_member_item_power.asm" ; 0x17d6
 
-%include "ds/game/reset_page_record.asm"   ; 0x184f
+%include "ds/game/reset_hand_attack.asm"   ; 0x184f
 
 %include "ds/game/unequip_item_slot.asm"   ; 0x1a23
 

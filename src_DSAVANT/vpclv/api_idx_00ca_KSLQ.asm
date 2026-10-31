@@ -54,14 +54,14 @@ api_idx_00ca_KSLQ:
     imul word [bp + 4]               ; 0x1eb3
     add ax, word [bp - 0xe]          ; 0x1eb6
     mov bx, ax                       ; 0x1eb9
-    mov al, byte [bx + party_records + pc_rec.flag] ; 0x1ebb
+    mov al, byte [bx + party_records + pc_rec.skills] ; 0x1ebb
     sub ah, ah                       ; 0x1ebf
     mov cx, 0x12                     ; 0x1ec1
     cwd                              ; 0x1ec4
     idiv cx                          ; 0x1ec5
     inc ax                           ; 0x1ec7
     mov word [bp - 0xa], ax          ; 0x1ec8
-    cmp byte [bx + party_records + pc_rec.flag], 0x62 ; 0x1ecb
+    cmp byte [bx + party_records + pc_rec.skills], 0x62 ; 0x1ecb
     jb short .forward3               ; 0x1ed0
     mov word [bp - 0xa], 7           ; 0x1ed2
 .forward3:
@@ -194,7 +194,7 @@ api_idx_00ca_KSLQ:
     imul word [bp + 4]               ; 0x2010
     add ax, word [bp - 0xe]          ; 0x2013
     mov bx, ax                       ; 0x2016
-    mov al, byte [bx + party_records + pc_rec.flag] ; 0x2018
+    mov al, byte [bx + party_records + pc_rec.skills] ; 0x2018
     sub ah, ah                       ; 0x201c
     mov cx, 0x14                     ; 0x201e
     cwd                              ; 0x2021

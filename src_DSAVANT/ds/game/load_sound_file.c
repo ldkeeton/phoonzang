@@ -2,12 +2,9 @@
    driver; a zero-size record redirects to another sound number, and flag
    skips the load in that case */
 
-extern struct {
-	int num;
-	int pad;
-	long size;
-	int pad2[2];
-} sound_slot_info[];
+#include "structs/sndslot.h"
+
+extern struct sound_slot_info_rec sound_slot_info[];
 
 load_sound_file(num, n, flag)
 {
@@ -18,8 +15,8 @@ load_sound_file(num, n, flag)
 	call_wait_sound(0);
 	data_record_io(9, &sound_slot_info[n], num, 0);
 	load = 1;
-	if (sound_slot_info[n].size == 0) {
-		num = sound_slot_info[n].num;
+	if (sound_slot_info[n].size.full_size == 0) {
+		num = sound_slot_info[n].alias_num;
 		load = flag ? 0 : 1;
 	}
 	if (load) {

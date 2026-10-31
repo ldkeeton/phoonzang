@@ -69,7 +69,7 @@ extern int aztec_free(), release_and_exit(), show_load_disk_error();
 extern int find_unused_member_icon(), random_below(), test_bit();
 extern int map_bane_party_selector(), set_bitmap_bit();
 extern long read_class_experience_threshold();
-extern int map_bane_character_kind(), reset_page_record(),
+extern int map_bane_character_kind(), reset_hand_attack(),
 	draw_member_panel_glyphs();
 extern int api_idx_004c_set_party_cell(), map_bane_item_number(),
 	initialize_intro_layout();
@@ -261,12 +261,12 @@ read_next_member:
 				max_stat = bane_power_rank;
 				if (max_stat > 18) max_stat = 18;
 				while (max_stat > 0
-					&& record->flag[stat_value] < bane_character_stat_caps[record_index]) {
-					record->flag[stat_value] += random_below(3) + 1;
+					&& record->skills[stat_value] < bane_character_stat_caps[record_index]) {
+					record->skills[stat_value] += random_below(3) + 1;
 					max_stat--;
 				}
-				if (record->flag[stat_value] > bane_character_stat_caps[record_index])
-					record->flag[stat_value] = bane_character_stat_caps[record_index];
+				if (record->skills[stat_value] > bane_character_stat_caps[record_index])
+					record->skills[stat_value] = bane_character_stat_caps[record_index];
 			}
 		}
 
@@ -317,13 +317,13 @@ read_next_member:
 		if (record_index > 100) record_index = 100;
 		record->pad5 = record_index;
 		for (record_index = 0; record_index < 2; record_index++)
-			reset_page_record(party_char_count, record_index);
+			reset_hand_attack(party_char_count, record_index);
 		record->count[0] = 10;
 		(*(char *)record->count) -= record->stat[5] > 15 ? 1 : 0;
 		(*(char *)record->count) -= record->stat[5] > 17;
 		(*(char *)record->count) -= record->glyph_set == 5 ? 2 : 0;
 		if (record->profession == 13 || record->profession == 12)
-			(*(char *)record->count) -= record->flag[17] / 10;
+			(*(char *)record->count) -= record->skills[17] / 10;
 		record->count[1] = 0;
 		record->count[2] = 0;
 		for (record_index = 3; record_index < 8; record_index++)

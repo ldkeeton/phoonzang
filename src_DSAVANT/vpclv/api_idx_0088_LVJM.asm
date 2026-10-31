@@ -8,7 +8,7 @@ api_idx_0088_LVJM:
     imul word [bp + 4]               ; 0x3fac
     add ax, word [bp - 2]            ; 0x3faf
     mov bx, ax                       ; 0x3fb2
-    mov al, byte [bx + party_records + pc_rec.flag] ; 0x3fb4
+    mov al, byte [bx + party_records + pc_rec.skills] ; 0x3fb4
     sub ah, ah                       ; 0x3fb8
     mov cx, word [bp - 2]            ; 0x3fba
     shl cx, 1                        ; 0x3fbd
@@ -66,7 +66,7 @@ api_idx_0088_LVJM:
     mov cx, word [bx - 0x20]         ; 0x4047
     add ax, cx                       ; 0x404a
     mov bx, ax                       ; 0x404c
-    mov al, byte [bx + party_records + pc_rec.flag] ; 0x404e
+    mov al, byte [bx + party_records + pc_rec.skills] ; 0x404e
     sub ah, ah                       ; 0x4052
     mov cx, ax                       ; 0x4054
     mov ax, 0x64                     ; 0x4056
@@ -117,7 +117,7 @@ api_idx_0088_LVJM:
     imul word [bp + 4]               ; 0x40c9
     add ax, word [bp - 2]            ; 0x40cc
     mov bx, ax                       ; 0x40cf
-    cmp byte [bx + party_records + pc_rec.flag], 0 ; 0x40d1
+    cmp byte [bx + party_records + pc_rec.skills], 0 ; 0x40d1
     jbe short .forward4              ; 0x40d6
 .forward3:
     mov ax, word [bp - 4]            ; 0x40d8

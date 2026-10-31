@@ -181,9 +181,9 @@ advance_item_slot_action:
     mov ax, 0x248                    ; 0x146d
     imul word [bp - 2]               ; 0x1470
     mov bx, ax                       ; 0x1473
-    cmp byte [bx + party_records + pc_rec.flag + 0x14], 0 ; 0x1475
+    cmp byte [bx + party_records + pc_rec.skills + 0x14], 0 ; 0x1475
     jbe short .forward13             ; 0x147a
-    mov al, byte [bx + party_records + pc_rec.flag + 0x14] ; 0x147c
+    mov al, byte [bx + party_records + pc_rec.skills + 0x14] ; 0x147c
     sub ah, ah                       ; 0x1480
     mov cx, 0xa                      ; 0x1482
     cwd                              ; 0x1485

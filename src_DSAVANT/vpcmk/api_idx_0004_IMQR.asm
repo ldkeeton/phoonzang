@@ -480,7 +480,7 @@ api_idx_0004_IMQR.forward9:
 api_idx_0004_IMQR.back2:
     push word [bp - 2]               ; 0x54aa
     push word [bp + 4]               ; 0x54ad
-    call reset_page_record           ; 0x54b0
+    call reset_hand_attack           ; 0x54b0
     add sp, byte 4                   ; 0x54b3
     inc word [bp - 2]                ; 0x54b6
     mov ax, word [bp - 2]            ; 0x54b9
@@ -530,7 +530,7 @@ api_idx_0004_IMQR.forward13:
     idiv cx                          ; 0x5532
 api_idx_0004_IMQR.forward14:
     mov word [bp - 2], ax            ; 0x5534
-    mov al, byte [bx + party_records + pc_rec.flag + 0x11] ; 0x5537
+    mov al, byte [bx + party_records + pc_rec.skills + 0x11] ; 0x5537
     sub ah, ah                       ; 0x553b
     mov cx, 0xa                      ; 0x553d
     cwd                              ; 0x5540

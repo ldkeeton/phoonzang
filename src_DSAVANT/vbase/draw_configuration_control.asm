@@ -125,7 +125,7 @@ jumptable_4688_case_5:
     push ax                          ; 0x444c
     mov ax, 2                        ; 0x444d
     push ax                          ; 0x4450
-    mov al, byte [device_option_bytes] ; 0x4451
+    mov al, byte [volume_settings]   ; 0x4451
     sub ah, ah                       ; 0x4454
     push ax                          ; 0x4456
     call draw_number_field           ; 0x4457

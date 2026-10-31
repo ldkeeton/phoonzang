@@ -40,11 +40,12 @@ endstruc
 
 ; records at DS 0x5576
 struc sound_slot_info_rec
-    .pad_0000: resb 6
-    .f_0006: resb 2
-    .f_0008: resb 2
-    .f_000a: resb 1
-    .f_000b: resb 1
+    .alias_num: resb 2
+    .pad_0002: resb 2
+    .size: resb 4
+    .rate: resb 2
+    .volume: resb 1
+    .play_flags: resb 1
 endstruc
 
 ; records at DS 0x5b7c
@@ -73,13 +74,13 @@ struc pc_rec
     .f_0026: resb 2
     .realm_points: resb 24
     .item_slots: resb 240
-    .slot_info: resb 36
+    .hand_attack: resb 36
     .order: resb 8
     .spell_school: resb 4
     .f_0160: resb 6
     .status: resb 10
     .stat: resb 8
-    .flag: resb 34
+    .skills: resb 34
     .prev: resb 14
     .cur: resb 14
     .count: resb 8

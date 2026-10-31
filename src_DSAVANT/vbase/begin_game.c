@@ -46,7 +46,7 @@ int load_mode;
 	maze_variant = 0;
 	current_maze = (unsigned)65535;
 	if (startup_check_stage != 2) {
-		ds_app_string_MPHP();	/* verify the message-file checksum */
+		verify_code_message();	/* check the entered code answer */
 		startup_check_stage = 2;
 	}
 	if (intro_screen_number > 0)

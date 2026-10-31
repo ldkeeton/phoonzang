@@ -154,8 +154,8 @@ function hitsFor(name, doc) {
         return binary === here.binary || binary === SHARED_DIR || binary === 'include';
     }) : [];
 
-    // From C, prefer C definitions, then a header declaration. C externs are
-    // not useful destinations; only use assembly when no C/header match exists.
+    // From C, prefer exact C definitions, then a header declaration. C externs
+    // are not useful destinations; assembly is the fallback.
     if (fromC) {
         const definitions = all.filter(h => h.definition);
         const cDefinitions = definitions.filter(h => /\.[ch]$/i.test(h.uri.fsPath));
@@ -163,7 +163,10 @@ function hitsFor(name, doc) {
         const asmDefinitions = definitions.filter(h => /\.s$/i.test(h.uri.fsPath));
         const listingDefinitions = definitions.filter(h => /\.asm$/i.test(h.uri.fsPath));
         const preferred = hits => {
-            const local = hits.filter(h => mine.includes(h));
+            const local = hits.filter(h => {
+                const binary = scans.get(h.uri.toString())?.binary;
+                return binary === here?.binary || binary === SHARED_DIR || binary === 'include';
+            });
             return local.length ? local : hits;
         };
         return preferred(cDefinitions.length ? cDefinitions :

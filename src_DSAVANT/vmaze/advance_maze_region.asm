@@ -20,9 +20,9 @@ advance_maze_region:
     mov al, byte [bx + si + spell_table + spell_table_rec_size*178 + spell_table_rec.f_0004] ; 0x7a64
     sub ah, ah                       ; 0x7a68
     push ax                          ; 0x7a6a
-    call choose_sound_variant        ; 0x7a6b
+    call choose_character_record     ; 0x7a6b
     pop cx                           ; 0x7a6e
-    mov bx, word [startup_sound_check] ; 0x7a6f
+    mov bx, word [character_record_target] ; 0x7a6f
     mov word [bx], ax                ; 0x7a73
     jmp short .forward2              ; 0x7a75
 .forward1:
@@ -30,7 +30,7 @@ advance_maze_region:
     mov si, word [party_region]      ; 0x7a7b
     mov al, byte [bx + si + spell_table + spell_table_rec_size*178 + spell_table_rec.f_0004] ; 0x7a7f
     sub ah, ah                       ; 0x7a83
-    mov bx, word [startup_sound_check] ; 0x7a85
+    mov bx, word [character_record_target] ; 0x7a85
     mov word [bx], ax                ; 0x7a89
 .forward2:
     mov ax, 1                        ; 0x7a8b

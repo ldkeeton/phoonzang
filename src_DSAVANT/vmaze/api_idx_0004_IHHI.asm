@@ -51,7 +51,7 @@ api_idx_0004_IHHI:
     mov ax, 0x248                    ; 0x146c
     imul word [bp - 2]               ; 0x146f
     mov bx, ax                       ; 0x1472
-    mov al, byte [bx + party_records + pc_rec.flag + 0xa] ; 0x1474
+    mov al, byte [bx + party_records + pc_rec.skills + 0xa] ; 0x1474
     sub ah, ah                       ; 0x1478
     cwd                              ; 0x147a
     idiv cx                          ; 0x147b

@@ -70,7 +70,7 @@ jumptable_6599_case_0:
     mov al, byte [bx + party_records + pc_rec.stat + 0x6] ; 0x63d0
     sub ah, ah                       ; 0x63d4
     push ax                          ; 0x63d6
-    mov al, byte [bx + party_records + pc_rec.flag + 0x1c] ; 0x63d7
+    mov al, byte [bx + party_records + pc_rec.skills + 0x1c] ; 0x63d7
     sub ah, ah                       ; 0x63db
     mov cx, 2                        ; 0x63dd
     cwd                              ; 0x63e0

@@ -9,7 +9,7 @@ api_idx_0006_PSQH:
     mov bx, ax                       ; 0x98af
     mov ax, word [bx + party_records + pc_rec.power_cap] ; 0x98b1
     push ax                          ; 0x98b5
-    mov al, byte [bx + party_records + pc_rec.flag + 0x11] ; 0x98b6
+    mov al, byte [bx + party_records + pc_rec.skills + 0x11] ; 0x98b6
     sub ah, ah                       ; 0x98ba
     mov cx, ax                       ; 0x98bc
     pop ax                           ; 0x98be

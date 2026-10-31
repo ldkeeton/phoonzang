@@ -15,7 +15,7 @@ api_idx_0004_GRGJ:
     add ax, word [bp - 4]
     add ax, si
     mov bx, ax
-    cmp byte [bx + party_records + pc_rec.flag], 0
+    cmp byte [bx + party_records + pc_rec.skills], 0
     jbe short .forward2
 .forward1:
     mov ax, 1
@@ -45,7 +45,7 @@ api_idx_0004_GRGJ:
     add ax, word [bp - 4]
     add ax, si
     mov bx, ax
-    cmp byte [bx + party_records + pc_rec.flag], 0
+    cmp byte [bx + party_records + pc_rec.skills], 0
     jbe short .forward5
 .forward4:
     mov ax, 1
@@ -75,7 +75,7 @@ api_idx_0004_GRGJ:
     add ax, word [bp - 4]
     add ax, si
     mov bx, ax
-    cmp byte [bx + party_records + pc_rec.flag], 0
+    cmp byte [bx + party_records + pc_rec.skills], 0
     jbe short .forward8
 .forward7:
     mov ax, 1
@@ -105,7 +105,7 @@ api_idx_0004_GRGJ:
     add ax, word [bp - 4]
     add ax, si
     mov bx, ax
-    cmp byte [bx + party_records + pc_rec.flag], 0
+    cmp byte [bx + party_records + pc_rec.skills], 0
     jbe short .forward11
 .forward10:
     mov ax, 1

@@ -68,9 +68,9 @@ scan:
 		rec->resist = 0;
 	i = rec->level;			/* level eases toward 0 */
 	rec->level = i < 0 ? i + 1 : i > 0 ? i - 1 : i;
-	/* member 0: top the level up from party record flag[20] */
-	if (member == 0 && party_records[step_max].flag[20] > 0) {
-		i = party_records[step_max].flag[20] / 10 + 2;
+	/* member 0: top the level up from party record skills[20] */
+	if (member == 0 && party_records[step_max].skills[20] > 0) {
+		i = party_records[step_max].skills[20] / 10 + 2;
 		if (rec->level < i)
 			rec->level++;
 	}

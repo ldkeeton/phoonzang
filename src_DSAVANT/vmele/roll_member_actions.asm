@@ -22,7 +22,7 @@ roll_member_actions:
     mov ax, 0x248                    ; 0x1745
     imul word [bp - 4]               ; 0x1748
     mov bx, ax                       ; 0x174b
-    mov al, byte [bx + party_records + pc_rec.flag + 0x19] ; 0x174d
+    mov al, byte [bx + party_records + pc_rec.skills + 0x19] ; 0x174d
     sub ah, ah                       ; 0x1751
     push ax                          ; 0x1753
     mov ax, 3                        ; 0x1754

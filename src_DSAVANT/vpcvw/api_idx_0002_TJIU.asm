@@ -15,7 +15,7 @@ api_idx_0002_TJIU:
     imul word [bp + 4]               ; 0x5024
     add ax, word [bp + 6]            ; 0x5027
     mov bx, ax                       ; 0x502a
-    mov al, byte [bx + party_records + pc_rec.flag] ; 0x502c
+    mov al, byte [bx + party_records + pc_rec.skills] ; 0x502c
     sub ah, ah                       ; 0x5030
     add ax, word [bp - 2]            ; 0x5032
     push ax                          ; 0x5035
@@ -28,5 +28,5 @@ api_idx_0002_TJIU:
     add ax, word [bp + 6]            ; 0x5045
     mov bx, ax                       ; 0x5048
     pop ax                           ; 0x504a
-    mov byte [bx + party_records + pc_rec.flag], al ; 0x504b
+    mov byte [bx + party_records + pc_rec.skills], al ; 0x504b
     ret                              ; 0x504f

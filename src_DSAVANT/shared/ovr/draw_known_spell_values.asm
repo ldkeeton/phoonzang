@@ -63,7 +63,7 @@ draw_known_spell_values:
     mov cx, word [bx + si]
     add ax, cx
     mov bx, ax
-    mov al, byte [bx + party_records + pc_rec.flag]
+    mov al, byte [bx + party_records + pc_rec.skills]
     sub ah, ah
     push ax
     call draw_number_field

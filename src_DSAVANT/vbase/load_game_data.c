@@ -15,7 +15,7 @@ extern char game_data_drive[], selected_game_drive[],
 extern unsigned char screen_store_1_enabled, screen_store_disk_enabled;
 extern char screen_store_drive[];
 extern unsigned char palette_base_setting, palette_scale_setting;
-extern unsigned char device_option_bytes[], sound_device_setting, video_mode;
+extern unsigned char volume_settings[], sound_device_setting, video_mode;
 extern int sound_port_setting, sound_aux_setting;
 extern unsigned char startup_option_byte, startup_aux_option_a,
 	startup_aux_option_b;
@@ -123,7 +123,7 @@ int load_mode;
 	palette_scale_setting = preserved_load_header.palette_scale;
 	for (index = 0; index < 4; index++)
 		/* preserve all four path/option entries */
-		device_option_bytes[index] = preserved_load_header.options[index];
+		volume_settings[index] = preserved_load_header.options[index];
 	sound_device_setting = preserved_load_header.sound_device;
 	video_mode = preserved_load_header.video;
 	sound_port_setting = preserved_load_header.sound_port;

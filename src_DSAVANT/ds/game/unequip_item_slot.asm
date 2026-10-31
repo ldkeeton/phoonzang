@@ -50,7 +50,7 @@ unequip_item_slot:
 jumptable_1aff_case_0:
     push word [bp - 2]               ; 0x1aa7
     push word [bp + 4]               ; 0x1aaa
-    call reset_page_record           ; 0x1aad
+    call reset_hand_attack           ; 0x1aad
     add sp, byte 4                   ; 0x1ab0
     mov ax, 0x248                    ; 0x1ab3
     imul word [bp + 4]               ; 0x1ab6

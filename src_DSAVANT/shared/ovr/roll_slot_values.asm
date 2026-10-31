@@ -103,7 +103,7 @@ roll_slot_values:
     imul word [bp + 4]
     add ax, word [bp - 2]
     mov bx, ax
-    cmp byte [bx + party_records + pc_rec.flag], 0
+    cmp byte [bx + party_records + pc_rec.skills], 0
     jbe short .forward5
     mov ax, 2
     push ax

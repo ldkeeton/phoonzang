@@ -15,7 +15,7 @@ api_idx_005e_QNLK:
     mov cx, 5                        ; 0x5fed
     imul cx                          ; 0x5ff0
     push ax                          ; 0x5ff2
-    mov al, byte [bx + party_records + pc_rec.flag + 0xf] ; 0x5ff3
+    mov al, byte [bx + party_records + pc_rec.skills + 0xf] ; 0x5ff3
     sub ah, ah                       ; 0x5ff7
     mov cx, 2                        ; 0x5ff9
     cwd                              ; 0x5ffc

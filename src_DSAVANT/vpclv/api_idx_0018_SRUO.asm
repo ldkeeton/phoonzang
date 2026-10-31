@@ -287,7 +287,7 @@ api_idx_0018_SRUO.forward12:
     imul word [bp + 4]               ; 0x4c4d
     add ax, word [bp - 0x16]         ; 0x4c50
     mov bx, ax                       ; 0x4c53
-    mov al, byte [bx + party_records + pc_rec.flag] ; 0x4c55
+    mov al, byte [bx + party_records + pc_rec.skills] ; 0x4c55
     sub ah, ah                       ; 0x4c59
     mov cx, 0x14                     ; 0x4c5b
     cwd                              ; 0x4c5e

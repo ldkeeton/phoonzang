@@ -6,9 +6,9 @@ try_raise_member_skill:
     imul word [bp + 4]
     add ax, word [bp + 6]
     mov bx, ax
-    cmp byte [bx + party_records + pc_rec.flag], 0x64
+    cmp byte [bx + party_records + pc_rec.skills], 0x64
     jae short .return1
-    mov al, byte [bx + party_records + pc_rec.flag]
+    mov al, byte [bx + party_records + pc_rec.skills]
     sub ah, ah
     push ax
     call random_below
@@ -24,6 +24,6 @@ try_raise_member_skill:
     sub ax, cx
     jg short .return1
     add bx, word [bp + 6]
-    inc byte [bx + party_records + pc_rec.flag]
+    inc byte [bx + party_records + pc_rec.skills]
 .return1:
     ret

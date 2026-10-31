@@ -396,9 +396,9 @@ api_idx_0052_NKUS.forward7:
     mov ax, 0x248                    ; 0x2f77
     imul word [bp + 4]               ; 0x2f7a
     mov bx, ax                       ; 0x2f7d
-    cmp byte [bx + party_records + pc_rec.flag + 0x17], 0 ; 0x2f7f
+    cmp byte [bx + party_records + pc_rec.skills + 0x17], 0 ; 0x2f7f
     jbe short api_idx_0052_NKUS.forward8 ; 0x2f84
-    mov al, byte [bx + party_records + pc_rec.flag + 0x17] ; 0x2f86
+    mov al, byte [bx + party_records + pc_rec.skills + 0x17] ; 0x2f86
     sub ah, ah                       ; 0x2f8a
     mov cx, 2                        ; 0x2f8c
     cwd                              ; 0x2f8f
@@ -414,7 +414,7 @@ api_idx_0052_NKUS.forward7:
     mov ax, 0x248                    ; 0x2fa4
     imul word [bp + 4]               ; 0x2fa7
     mov bx, ax                       ; 0x2faa
-    mov al, byte [bx + party_records + pc_rec.flag + 0x17] ; 0x2fac
+    mov al, byte [bx + party_records + pc_rec.skills + 0x17] ; 0x2fac
     sub ah, ah                       ; 0x2fb0
     mov cx, 3                        ; 0x2fb2
     cwd                              ; 0x2fb5
@@ -585,7 +585,7 @@ api_idx_0052_NKUS.forward13:
 api_idx_0052_NKUS.back4:
     push word [bp - 2]               ; 0x312c
     push word [bp + 4]               ; 0x312f
-    call reset_page_record           ; 0x3132
+    call reset_hand_attack           ; 0x3132
     add sp, byte 4                   ; 0x3135
     mov ax, 0x248                    ; 0x3138
     imul word [bp + 4]               ; 0x313b
@@ -670,7 +670,7 @@ api_idx_0052_NKUS.forward18:
     idiv cx                          ; 0x3209
 api_idx_0052_NKUS.forward19:
     mov word [bp - 2], ax            ; 0x320b
-    mov al, byte [bx + party_records + pc_rec.flag + 0x11] ; 0x320e
+    mov al, byte [bx + party_records + pc_rec.skills + 0x11] ; 0x320e
     sub ah, ah                       ; 0x3212
     mov cx, 0xa                      ; 0x3214
     cwd                              ; 0x3217

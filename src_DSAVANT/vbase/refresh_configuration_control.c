@@ -3,7 +3,7 @@ extern int refresh_configuration_button(), draw_configuration_number(),
 	draw_configuration_text();
 extern int call_fill_area(), call_set_text_pos(), call_set_text_color();
 extern int draw_number_field(), call_show_area();
-extern unsigned char startup_option_byte, device_option_bytes[];
+extern unsigned char startup_option_byte, volume_settings[];
 extern unsigned char monster_volume, background_volume, music_volume;
 extern char selected_game_directory[], selected_game_filename[];
 extern char screen_store_drive[], palette_base_setting, palette_scale_setting;
@@ -34,7 +34,7 @@ int control_number, dialog_left, dialog_top;
 		refresh_configuration_button(dialog_left + 8, dialog_top + 85, 7);
 		break;
 	case 5:
-		draw_configuration_number(device_option_bytes[0], dialog_left + 105,
+		draw_configuration_number(volume_settings[0], dialog_left + 105,
 			dialog_top + 98);
 		break;
 	case 6:

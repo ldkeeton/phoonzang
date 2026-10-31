@@ -114,7 +114,7 @@ api_idx_006a_NKMN:
     mov ax, 0x248                    ; 0x6104
     imul word [bp + 4]               ; 0x6107
     mov bx, ax                       ; 0x610a
-    mov al, byte [bx + party_records + pc_rec.flag + 0x10] ; 0x610c
+    mov al, byte [bx + party_records + pc_rec.skills + 0x10] ; 0x610c
     sub ah, ah                       ; 0x6110
     push ax                          ; 0x6112
     call format_int_decimal          ; 0x6113
@@ -323,7 +323,7 @@ api_idx_006a_NKMN:
     mov ax, 0x248                    ; 0x62ed
     imul word [bp + 4]               ; 0x62f0
     mov bx, ax                       ; 0x62f3
-    mov al, byte [bx + party_records + pc_rec.flag + 0x10] ; 0x62f5
+    mov al, byte [bx + party_records + pc_rec.skills + 0x10] ; 0x62f5
     sub ah, ah                       ; 0x62f9
     push ax                          ; 0x62fb
     mov ax, 3                        ; 0x62fc

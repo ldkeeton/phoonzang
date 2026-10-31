@@ -155,9 +155,9 @@ api_idx_005a_UJPS:
     mov ax, 0x248                    ; 0xa0b7
     imul word [bss_8462]             ; 0xa0ba
     mov bx, ax                       ; 0xa0be
-    cmp byte [bx + party_records + pc_rec.flag + 0xd], 0 ; 0xa0c0
+    cmp byte [bx + party_records + pc_rec.skills + 0xd], 0 ; 0xa0c0
     jbe short .forward9              ; 0xa0c5
-    mov al, byte [bx + party_records + pc_rec.flag + 0xd] ; 0xa0c7
+    mov al, byte [bx + party_records + pc_rec.skills + 0xd] ; 0xa0c7
     sub ah, ah                       ; 0xa0cb
     mov cx, 0xf                      ; 0xa0cd
     cwd                              ; 0xa0d0
@@ -447,7 +447,7 @@ api_idx_005a_UJPS:
     imul word [bss_8462]             ; 0xa372
     add ax, word [bp - 0x12]         ; 0xa376
     mov bx, ax                       ; 0xa379
-    mov al, byte [bx + party_records + pc_rec.flag] ; 0xa37b
+    mov al, byte [bx + party_records + pc_rec.skills] ; 0xa37b
     sub ah, ah                       ; 0xa37f
     cmp ax, word [bp - 0x10]         ; 0xa381
     jge short .forward31             ; 0xa384

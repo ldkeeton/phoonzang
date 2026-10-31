@@ -277,7 +277,7 @@ jumptable_1ee4         equ draw_member_panel_glyphs.jumptable1
 
 %include "vbase/refresh_configuration_control.asm" ; 0x4826
 
-%include "vbase/step_device_option_byte.asm" ; 0x4b29
+%include "vbase/step_volume_setting.asm"   ; 0x4b29
 
 %include "vbase/adjust_palette_base_setting.asm" ; 0x4b5e
 

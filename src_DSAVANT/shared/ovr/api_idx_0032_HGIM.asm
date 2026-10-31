@@ -468,7 +468,7 @@ api_idx_0032_HGIM:
     mov cx, word [bx + si]
     add ax, cx
     mov bx, ax
-    mov al, byte [bx + party_records + pc_rec.flag]
+    mov al, byte [bx + party_records + pc_rec.skills]
     sub ah, ah
     shl cx, 1
     mov bx, cx
@@ -481,7 +481,7 @@ api_idx_0032_HGIM:
     mov cx, word [bx + si]
     add ax, cx
     mov bx, ax
-    dec byte [bx + party_records + pc_rec.flag]
+    dec byte [bx + party_records + pc_rec.skills]
     inc word [bp - 0xc]
     jmp short .forward21
 .forward20:
@@ -504,11 +504,11 @@ api_idx_0032_HGIM:
     mov cx, word [bx + si]
     add ax, cx
     mov bx, ax
-    cmp byte [bx + party_records + pc_rec.flag], 0x64
+    cmp byte [bx + party_records + pc_rec.skills], 0x64
     jae short .forward23
     cmp word [bp - 0xc], byte 0
     jle short .forward23
-    inc byte [bx + party_records + pc_rec.flag]
+    inc byte [bx + party_records + pc_rec.skills]
     dec word [bp - 0xc]
     jmp short .forward24
 .forward23:

@@ -1,5 +1,5 @@
 ; auto-generated
-ds_app_RMGT:
+publish_code_check_word:
     mov ax, 0                        ; 0x0ad7
     call aztec_csav                  ; 0x0ada
     mov al, byte [code_characters]   ; 0x0add

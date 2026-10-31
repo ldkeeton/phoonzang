@@ -68,7 +68,7 @@ api_idx_0008_QGRM:
     add sp, byte 4                   ; 0x14b6
     cmp word [startup_check_stage], byte 0 ; 0x14b9
     jne short .forward1              ; 0x14be
-    call ds_app_RMGT                 ; 0x14c0
+    call publish_code_check_word     ; 0x14c0
 .forward1:
     mov ax, 2                        ; 0x14c3
     push ax                          ; 0x14c6

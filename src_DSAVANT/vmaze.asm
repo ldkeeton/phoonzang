@@ -159,7 +159,7 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "vmaze/load_current_maze_level.asm" ; 0x09cb
 
-%include "vmaze/choose_sound_variant.asm"  ; 0x0a6e
+%include "vmaze/choose_character_record.asm" ; 0x0a6e
 
 %include "vmaze/api_idx_0002_GGTO.asm"     ; 0x0acc
 

@@ -5,14 +5,14 @@ play_sound_effect:
     mov ax, 0xc                      ; 0x0a2d
     imul word [bp + 4]               ; 0x0a30
     mov bx, ax                       ; 0x0a33
-    mov al, byte [bx + sound_slot_info + sound_slot_info_rec.f_000a] ; 0x0a35
+    mov al, byte [bx + sound_slot_info + sound_slot_info_rec.volume] ; 0x0a35
     sub ah, ah                       ; 0x0a39
     mov word [bp - 4], ax            ; 0x0a3b
     mov ax, word [bp + 4]            ; 0x0a3e
     mov word [bp - 2], ax            ; 0x0a41
-    cmp word [bx + sound_slot_info + sound_slot_info_rec.f_0006], byte 0 ; 0x0a44
+    cmp word [bx + sound_slot_info + sound_slot_info_rec.size + 0x2], byte 0 ; 0x0a44
     jne short .forward1              ; 0x0a49
-    cmp word [bx + sound_slot_info + sound_slot_info_rec.pad_0000 + 0x4], byte 0 ; 0x0a4b
+    cmp word [bx + sound_slot_info + sound_slot_info_rec.size], byte 0 ; 0x0a4b
 .forward1:
     jne short .forward2              ; 0x0a50
     mov ax, word [bx + sound_slot_info] ; 0x0a52
@@ -44,7 +44,7 @@ play_sound_effect:
     mov word [bp - 6], 2             ; 0x0a98
 .forward6:
     mov bx, word [bp - 6]            ; 0x0a9d
-    mov al, byte [bx + device_option_bytes] ; 0x0aa0
+    mov al, byte [bx + volume_settings] ; 0x0aa0
     sub ah, ah                       ; 0x0aa4
     imul word [bp - 4]               ; 0x0aa6
     mov cx, 0xa                      ; 0x0aa9
@@ -56,11 +56,11 @@ play_sound_effect:
     mov ax, 0xc                      ; 0x0ab7
     imul word [bp + 4]               ; 0x0aba
     mov bx, ax                       ; 0x0abd
-    mov al, byte [bx + sound_slot_info + sound_slot_info_rec.f_000b] ; 0x0abf
+    mov al, byte [bx + sound_slot_info + sound_slot_info_rec.play_flags] ; 0x0abf
     sub ah, ah                       ; 0x0ac3
     push ax                          ; 0x0ac5
     push word [bp - 4]               ; 0x0ac6
-    push word [bx + sound_slot_info + sound_slot_info_rec.f_0008] ; 0x0ac9
+    push word [bx + sound_slot_info + sound_slot_info_rec.rate] ; 0x0ac9
     push word [bp - 2]               ; 0x0acd
     call call_play_sound             ; 0x0ad0
     add sp, byte 8                   ; 0x0ad3

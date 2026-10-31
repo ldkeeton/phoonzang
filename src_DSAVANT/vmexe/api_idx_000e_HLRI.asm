@@ -109,7 +109,7 @@ api_idx_000e_HLRI:
     cmp al, 0xd                      ; 0x60b0
     jne short .forward5              ; 0x60b2
 .forward4:
-    mov al, byte [bx + party_records + pc_rec.flag + 0x1d] ; 0x60b4
+    mov al, byte [bx + party_records + pc_rec.skills + 0x1d] ; 0x60b4
     sub ah, ah                       ; 0x60b8
     mov cx, 3                        ; 0x60ba
     cwd                              ; 0x60bd
@@ -131,7 +131,7 @@ api_idx_000e_HLRI:
     mov ax, 0x248                    ; 0x60df
     imul word [bss_8462]             ; 0x60e2
     mov bx, ax                       ; 0x60e6
-    mov al, byte [bx + party_records + pc_rec.flag + 0xe] ; 0x60e8
+    mov al, byte [bx + party_records + pc_rec.skills + 0xe] ; 0x60e8
     sub ah, ah                       ; 0x60ec
     mov cx, 3                        ; 0x60ee
     cwd                              ; 0x60f1

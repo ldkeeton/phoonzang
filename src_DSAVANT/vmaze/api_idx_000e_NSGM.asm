@@ -85,7 +85,7 @@ api_idx_000e_NSGM:
     mov bx, ax                       ; 0x16f6
     cmp byte [bx + party_records + pc_rec.state], 0 ; 0x16f8
     jne short .forward5              ; 0x16fd
-    cmp byte [bx + party_records + pc_rec.flag + 0x17], 0 ; 0x16ff
+    cmp byte [bx + party_records + pc_rec.skills + 0x17], 0 ; 0x16ff
     jne short .forward5              ; 0x1704
     mov ax, 0x64                     ; 0x1706
     push ax                          ; 0x1709

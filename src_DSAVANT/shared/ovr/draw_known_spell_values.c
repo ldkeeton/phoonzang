@@ -23,7 +23,7 @@ int spell_ids[];
 		draw_text_glyphs(known_spell_names[row], 0);
 		call_set_text_pos(133, 6 * row + 114);
 		call_set_text_color(1, 0);
-		draw_number_field(party_records[character].flag[spell_ids[row]], 3,
+		draw_number_field(party_records[character].skills[spell_ids[row]], 3,
 			0);	/* Three-digit field. */
 	}
 }
