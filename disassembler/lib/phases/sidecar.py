@@ -2,6 +2,7 @@ import polars as pl
 import numpy as np
 
 from lib.model import PhaseContext, CONF_CODE, CONF_DATA, SeedInfo, TargetInfo
+from lib.sidecar.binary import function_key_base
 from lib.sidecar.offsets import _parse_offset
 from lib.pipeline.phase import Phase, PhaseContract
 
@@ -42,7 +43,7 @@ class SidecarPhase(Phase):
 
         # Concrete function findings replace discovery's signature seeds.
         # Use the same coordinate adjustment as the naming pass.
-        adjust = ctx.start_offset + sidecar.get('ghidra_base_offset', 0)
+        adjust = function_key_base(sidecar, ctx.start_offset)
         for key in sidecar.get('function_names', {}):
             off = _parse_offset(key, 'function_names') + adjust
             if not 0 <= off < n or ctx.hard_data[off]:

@@ -44,11 +44,11 @@ class ConcreteFunctionNamesTest(unittest.TestCase):
                 self.assertEqual(_load_aztec_signatures('DSAVANT'), db)
 
     def test_concrete_function_seeds_use_naming_coordinates(self):
-        for start, base, key in ((16, 0, '04'), (16, -16, '14')):
-            with self.subTest(start=start, base=base):
+        for start, kind, key in ((16, 'overlay', '04'), (16, 'mz', '14')):
+            with self.subTest(start=start, kind=kind):
                 ctx = PhaseContext(bytes(64), start_offset=start,
                                    sidecar_entry={
-                                       'ghidra_base_offset': base,
+                                       'type': kind,
                                        'function_names': {key: {'name': 'aztec_callee'}}})
                 SidecarPhase().run(None, ctx)
                 self.assertIn(20, ctx.code_targets)

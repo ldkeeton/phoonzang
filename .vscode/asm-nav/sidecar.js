@@ -35,13 +35,12 @@ function functionNames(text, binary) {
     return open === null ? {} : JSON.parse(text.slice(open, close + 1));
 }
 
-// Listing address -> ``function_names`` key.  ``ds`` keys are the listing
-// address itself (its Ghidra base offset cancels the file header); the others
-// are the listing address minus ``start_offset``.
+// Listing address -> ``function_names`` key.  An MZ key is the listing address
+// itself; any other is the listing address minus ``start_offset``.
 function keyFor(sidecar, binary, addr) {
     const b = (sidecar.binaries || {})[binary];
     if (!b) return null;
-    const offset = b.ghidra_base_offset != null ? 0 : (b.start_offset || 0);
+    const offset = b.type === 'mz' ? 0 : (b.start_offset || 0);
     return (addr - offset).toString(16).padStart(4, '0');
 }
 

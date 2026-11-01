@@ -52,12 +52,14 @@ class DataFileTest(unittest.TestCase):
 
 
 class HelpersTest(unittest.TestCase):
-    ENTRY = {'ghidra_base_offset': -16, 'function_names': {
+    ENTRY = {'type': 'mz', 'function_names': {
         '20': {'length': 4, 'file': 'call_group'},
         '30': {'name': 'call_b', 'length': 4}}}
 
     def test_maps(self):
-        self.assertEqual(fragment_files(self.ENTRY, 100), {0x20 + 84: 'call_group'})
+        self.assertEqual(fragment_files(self.ENTRY, 100), {0x20: 'call_group'})
+        self.assertEqual(fragment_files(dict(self.ENTRY, type='overlay'), 100),
+                         {0x20 + 100: 'call_group'})
 
     def test_head_label(self):
         self.assertEqual(head_label('; auto-generated\ncall_a:\n    ret\ncall_b:\n'),

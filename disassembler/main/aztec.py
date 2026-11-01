@@ -244,8 +244,8 @@ def _aztec_c_overrides(project, name, data, label_map, out_dir,
     # Concrete runtime entries bound their hand-owned sources.  An inferred
     # fragment inside one function (malloc's unreachable return jump) is not
     # another function; its complete compiler output is still byte-checked.
-    from lib.sidecar.binary import fragment_lengths
-    adjust = start_offset + entry.get('ghidra_base_offset', 0)
+    from lib.sidecar.binary import fragment_lengths, function_key_base
+    adjust = function_key_base(entry, start_offset)
     runtime_roots = {
         root for root in (int(key, 16) + adjust
                           for key in entry.get('function_names', {}))

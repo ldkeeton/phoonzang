@@ -31,6 +31,7 @@ import sys
 
 from lib.autogen import hand_owned, is_auto_header
 from lib.cachedirs import labels_dir, src_dir
+from lib.sidecar.binary import function_key_base
 from lib.sidecar.constants import SIDECAR_DIR
 from lib.sidecar.errors import SidecarError
 from lib.sidecar.loader import check_name_length
@@ -571,22 +572,18 @@ def resolve(sidecar, project, binary, symbol):
         addr = _routine_addr(asm_path, symbol)
         if addr is None:
             raise SidecarError(f'{symbol}: no listing address in its asm')
-        # ``ds`` keys are the listing address (its Ghidra base offset cancels
-        # the header); the others are the address minus ``start_offset``.
-        offset = 0 if own.get('ghidra_base_offset') is not None else own.get('start_offset', 0)
+        offset = function_key_base(own, own.get('start_offset'))
         fn_key = f'{addr - offset:04x}'
         path, key = ['binaries', binary, 'function_names'], fn_key
     elif binary != SHARED_DIR and _shared_include_address(
             project, binary, symbol) is not None:
         addr = _shared_include_address(project, binary, symbol)
-        offset = (0 if own.get('ghidra_base_offset') is not None else
-                  own.get('start_offset', 0))
+        offset = function_key_base(own, own.get('start_offset'))
         path, key = ['binaries', binary, 'function_names'], f'{addr - offset:04x}'
     elif binary != SHARED_DIR and _shared_member_address(
             project, binary, symbol) is not None:
         addr = _shared_member_address(project, binary, symbol)
-        offset = (0 if own.get('ghidra_base_offset') is not None else
-                  own.get('start_offset', 0))
+        offset = function_key_base(own, own.get('start_offset'))
         path, key = ['binaries', binary, 'function_names'], f'{addr - offset:04x}'
     elif _asm_file(project, SHARED_DIR, symbol):
         raise SidecarError(f'{symbol}: name a shared routine from the binary whose address it uses')
@@ -597,7 +594,7 @@ def resolve(sidecar, project, binary, symbol):
         addr = _routine_addr(asm_path, symbol) if asm_path else None
         if addr is None:
             raise SidecarError(f'{symbol}: no listing address in its asm')
-        offset = 0 if own.get('ghidra_base_offset') is not None else own.get('start_offset', 0)
+        offset = function_key_base(own, own.get('start_offset'))
         path, key = ['binaries', binary, 'function_names'], f'{addr - offset:04x}'
     else:
         raise SidecarError(f'{symbol}: not a cseg_/bss_/dseg_ address, a named global, '
@@ -651,8 +648,7 @@ def _sidecar_key(sidecar, binary, addr):
     if addr is None:
         return None
     own = _binaries(sidecar).get(binary) or {}
-    offset = 0 if own.get('ghidra_base_offset') is not None else own.get(
-        'start_offset', 0) or 0
+    offset = function_key_base(own, own.get('start_offset'))
     return f'{addr - offset:04x}'
 
 

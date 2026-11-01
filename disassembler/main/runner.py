@@ -62,6 +62,7 @@ from lib.names import (
 from lib import symtab
 from lib.symtab import GENERIC, Kind, Source, Space, Symbol
 from lib.sidecar.bands import band_for
+from lib.sidecar.binary import function_key_base
 from lib.sidecar.usage import SidecarUse
 from lib.aztec.libnames import library_public
 from lib.sidecar.patches import PatchError, normalize as normalize_patches
@@ -238,10 +239,10 @@ def _analyze(name, orig_dir, rel_path, start_offset, output_dir=None,
 
     use = (sidecar_entry or {}).get('use') or SidecarUse('binaries.?')
     if sidecar_entry:
-        fn_offset = sidecar_entry.get('ghidra_base_offset', 0)
+        fn_base = function_key_base(sidecar_entry, start_offset)
         for hex_off, info in sidecar_entry.get('function_names', {}).items():
             try:
-                off = int(hex_off, 16) + start_offset + fn_offset
+                off = int(hex_off, 16) + fn_base
             except ValueError:
                 use.skipped('function_names', hex_off, 'not a hex offset')
                 continue

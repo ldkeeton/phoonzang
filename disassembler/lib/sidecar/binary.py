@@ -183,7 +183,6 @@ def per_binary(sidecar, short_name):
         'not_pointers': _pointer_assertions(
             sidecar.get('not_pointers', []), 'not_pointers'),
         'immediate_pointers': [],
-        'ghidra_base_offset': 0,
         'entry_symbol': None,
         'fingerprint-start': None,
         'fingerprint-end': None,
@@ -215,7 +214,6 @@ def per_binary(sidecar, short_name):
             result['char_tables'] = _char_tables(
                 b.get('char_tables'), f'binaries.{short_name}.char_tables')
             result['bands'] = parse_bands(b.get('bands'))
-            result['ghidra_base_offset'] = b.get('ghidra_base_offset', 0)
             result['fingerprint-start'] = b.get('fingerprint-start')
             result['fingerprint-end'] = b.get('fingerprint-end')
             result['force_data'] = b.get('force_data', sidecar.get('force_data', []))
@@ -301,9 +299,15 @@ def _validate_function_names(block, where):
     _validate_file_stems(block, where, 'routine')
 
 
+def function_key_base(entry, start_offset):
+    """What a ``function_names`` key adds to reach its file offset: an MZ key
+    already is one, any other is relative to ``start_offset``."""
+    return 0 if entry.get('type') == 'mz' else start_offset or 0
+
+
 def fragment_lengths(entry, start_offset=0):
     """Declared fragment sizes keyed by file offset, independent of source."""
-    adjust = start_offset + entry.get('ghidra_base_offset', 0)
+    adjust = function_key_base(entry, start_offset)
     return {int(key, 16) + adjust: info['length']
             for key, info in entry.get('function_names', {}).items()
             if 'length' in info}
@@ -312,7 +316,7 @@ def fragment_lengths(entry, start_offset=0):
 def fragment_files(entry, start_offset=0):
     """``{start: stem}`` of the fragments a sidecar ``file`` names,
     keyed like :func:`fragment_lengths`."""
-    adjust = start_offset + entry.get('ghidra_base_offset', 0)
+    adjust = function_key_base(entry, start_offset)
     return {int(key, 16) + adjust: info['file']
             for key, info in entry.get('function_names', {}).items()
             if 'file' in info}

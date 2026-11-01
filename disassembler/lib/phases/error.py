@@ -2,6 +2,7 @@ import polars as pl
 import numpy as np
 from capstone import Cs, CS_ARCH_X86, CS_MODE_16
 
+from lib.sidecar.binary import function_key_base
 from lib.model import PhaseContext, CONF_CODE, SeedInfo
 from lib.pipeline.phase import Phase, PhaseContract
 from lib.x86util import disasm_one
@@ -42,7 +43,7 @@ def _sidecar_routine_starts(ctx):
     """Data offsets the sidecar names as routines (``function_names``), placed
     as the label pass places them."""
     entry = ctx.sidecar_entry or {}
-    base = ctx.start_offset + entry.get('ghidra_base_offset', 0)
+    base = function_key_base(entry, ctx.start_offset)
     starts = set()
     for key in entry.get('function_names', {}):
         try:
