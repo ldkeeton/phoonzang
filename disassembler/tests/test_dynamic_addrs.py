@@ -1236,54 +1236,6 @@ class NamedAddressPlacementTests(unittest.TestCase):
         self.assertIn('cseg_0013 equ __zinsn_0010 + 0x3', src)
         self.assertEqual(src.count('__zinsn_0010:'), 1)
 
-    def _driver_source(self, records, immediate_labels, size=0x40):
-        src, _ = _build_source(records, 0, bytes(size),
-                               immediate_labels=immediate_labels,
-                               load_offset=0x100)
-        return src
-
-    def test_a_driver_immediate_binds_to_the_byte_it_names(self):
-        """D7.6b: a driver's named immediate becomes ``label - IMAGE_BASE``.
-
-        ``data_010a`` encodes the CS offset 0x010a, which a module read to
-        ``segment:0x100`` uses at file 0x00a.  The name is not a virtual address,
-        so it stays an ``equ`` -- but the byte it names carries a label, and the
-        value is written through it, so an edit above the byte moves the operand.
-        """
-        records = [{'type': 'data_block', 'start': 0x0a, 'end': 0x0c,
-                    'bytes': ['0x11', '0x22']}]
-        src = self._driver_source(records, {0x010a: data(0x010a)})
-        self.assertIn('__zdata_010a:', src)
-        self.assertIn('data_010a equ __zdata_010a - IMAGE_BASE', src)
-        self.assertNotIn('data_010a equ 0x010a', src)
-
-    def test_a_driver_immediate_inside_an_instruction_keeps_its_literal(self):
-        """A byte inside a decoded instruction cannot carry a label."""
-        records = [{'type': 'mnem', 'text': 'mov ax, 0', 'offset': 0,
-                    'size': 3}]
-        src = self._driver_source(records, {0x0101: data(0x0101)})
-        self.assertIn('data_0101 equ 0x0101', src)
-        self.assertNotIn('__zdata_0101', src)
-
-    def test_a_driver_immediate_past_the_module_keeps_its_literal(self):
-        """A displacement naming no byte of the module stays numeric."""
-        records = [{'type': 'data_block', 'start': 0x0a, 'end': 0x0c,
-                    'bytes': ['0x11', '0x22']}]
-        src = self._driver_source(records, {0x0180: data(0x0180)}, size=0x40)
-        self.assertIn('data_0180 equ 0x0180', src)
-
-    def test_a_non_driver_immediate_keeps_its_literal(self):
-        """An MZ/overlay immediate is a raw offset, not a load address.
-
-        ``VBASE`` would have to be subtracted -- a formula only the driver's
-        negative ``IMAGE_BASE`` makes free -- so those stay as they were.
-        """
-        records = [{'type': 'data_block', 'start': 0x0a, 'end': 0x0c,
-                    'bytes': ['0x11', '0x22']}]
-        src, _ = _build_source(records, 0, bytes(0x40),
-                               immediate_labels={0x010a: 'data_010a'})
-        self.assertIn('data_010a equ 0x010a', src)
-
 
 class InlineSwitchEditTests(unittest.TestCase):
     """A switch table follows a code edit (plan.md D8).
@@ -1334,7 +1286,7 @@ class DriverEditTests(unittest.TestCase):
 
     The driver runs at ``CS:0x100``.  Above a run of ``nop``s it stores into
     the immediate of its own ``mov ax, 0`` (a self-modified operand,
-    ``cseg_0011``), loads a named absolute immediate (``data_012a``) and
+    ``cseg_0011``), loads a named absolute immediate (``cseg_002a``) and
     indexes a byte table (``cseg_0020``).  One byte inserted below those
     three instructions moves every byte they name, so each operand grows by
     one; under a frozen ``equ`` none would.
@@ -1352,7 +1304,7 @@ class DriverEditTests(unittest.TestCase):
         records = [
             {'type': 'mnem', 'text': 'mov [cs:cseg_0011 - IMAGE_BASE], ax',
              'offset': 0x00, 'size': 4},
-            {'type': 'mnem', 'text': 'mov bx, data_012a',
+            {'type': 'mnem', 'text': 'mov bx, cseg_002a - IMAGE_BASE',
              'offset': 0x04, 'size': 3},
             {'type': 'mnem',
              'text': 'mov al, byte [cs:bx + cseg_0020 - IMAGE_BASE]',
@@ -1368,8 +1320,8 @@ class DriverEditTests(unittest.TestCase):
         ]
         src, _ = _build_source(
             records, 0, binary, label_map={},
-            mem_equ={cseg(0x11): 0x11, cseg(0x20): 0x20},
-            immediate_labels={0x012a: data(0x012a)}, load_offset=0x100)
+            mem_equ={cseg(0x11): 0x11, cseg(0x20): 0x20, cseg(0x2a): 0x2a},
+            load_offset=0x100)
         return src
 
     def test_named_operands_follow_an_inserted_byte(self):

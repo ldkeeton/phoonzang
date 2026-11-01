@@ -414,7 +414,6 @@
 
   "binaries": {
     "ds": {
-      "immediate_labels": {"0xff6": "__zdseg_para"},
       "file": "DS.EXE",
       "type": "mz",
       "start_offset": 512,
@@ -1145,7 +1144,6 @@
       }
     },
     "vinstall": {
-      "immediate_labels": {"0x38e": "__zdseg_para"},
       "file": "VINSTALL.EXE",
       "compiler_flags": {
         "default": ["-n"],
@@ -2989,12 +2987,15 @@
         "14be": {"name": "mouse_cursor_width", "note": "Clipped width of the cursor drawing area"},
         "14c0": {"name": "mouse_cursor_height", "note": "Clipped height of the cursor drawing area"},
         "14c2": {"name": "mouse_cursor_screen_offset", "note": "Video memory offset of the cursor drawing area"},
+        "1cc4": {"name": "mouse_restore_mask", "note": "136-byte, 1-bit-per-pixel mask of the drawn pointer; a set bit restores the saved background pixel, the overlap with the new cursor is cleared"},
+        "1d4c": {"name": "mouse_mask_row", "note": "16 bytes; one row of the mask, copied into each overlapping row of mouse_restore_mask"},
         "1d5c": {"name": "mouse_image_stride", "note": "Bytes per row in the pointer image"},
         "1d5e": {"name": "mouse_image_height", "note": "Maximum mouse image height in scan lines"},
         "1d60": {"name": "mouse_default_cursor_dimensions", "note": "Default cursor stride and height copied when no image pointer is supplied."},
         "1d64": {"name": "mouse_image_offset", "note": "Offset of the optional pointer image"},
         "1d66": {"name": "mouse_image_segment", "note": "Segment of the optional pointer image"},
         "1d68": {"name": "mouse_cursor_overlaps", "note": "Flag indicating whether the old and new cursor rectangles overlap"},
+        "1d69": {"name": "mouse_default_cursor_image", "note": "10x10 built-in pointer image, 0xff transparent; used when mouse_image_offset and mouse_image_segment are both zero"},
         "1dcd": {"name": "mouse_click_pending", "note": "one-shot flag for stored mouse click coordinates"},
         "1dcf": {"name": "mouse_click_x", "note": "horizontal coordinate stored with a mouse click"},
         "1dd1": {"name": "mouse_click_y", "note": "vertical coordinate stored with a mouse click"},
@@ -3050,13 +3051,13 @@
         {"offset": "354f", "space": "cs", "note": "`mov bx, 0x381b`: intensity_limits, indexed by the byte read from the source row"},
         {"offset": "3568", "space": "cs", "note": "`mov bx, 0x381b`: intensity_limits, indexed by the byte read from the source row"},
         {"offset": "3692", "space": "cs", "note": "`mov bx, 0x381b`: intensity_limits, indexed by the byte read from the source row"},
-        {"offset": "36ab", "space": "cs", "note": "`mov bx, 0x381b`: intensity_limits, indexed by the byte read from the source row"}
-      ],
-      "immediate_labels": {
-        "0x1dc4": "data_1dc4",
-        "0x1e4c": "data_1e4c",
-        "0x1e5c": "data_1e5c"
-      }
+        {"offset": "36ab", "space": "cs", "note": "`mov bx, 0x381b`: intensity_limits, indexed by the byte read from the source row"},
+        {"offset": "0654", "space": "cs", "note": "`mov si, 0x1e69`: mouse_default_cursor_image, used when no image pointer is set"},
+        {"offset": "1fe7", "space": "cs", "note": "`mov si, 0x1e69`: mouse_default_cursor_image, used when no image pointer is set"},
+        {"offset": "208e", "space": "cs", "note": "`add di, 0x1dc4`: mouse_restore_mask plus the row offset of the overlap"},
+        {"offset": "209a", "space": "cs", "note": "`mov bx, 0x1e4c`: mouse_mask_row, written one byte at a time"},
+        {"offset": "20d6", "space": "cs", "note": "`sub bx, 0x1e4c`: mouse_mask_row start taken off the pointer, leaving the row length"}
+      ]
     },
     "ega": {
       "data_names": {

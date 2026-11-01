@@ -108,7 +108,7 @@ _NO_FALLTHROUGH = frozenset(('ret', 'retf', 'iret', 'jmp', 'ljmp'))
 
 
 def _c_bytes_to_records(data, base, label_map, local_labels, foreign_label_map,
-                        immediate_labels, exact_bytes=False, data_labels=None,
+                        exact_bytes=False, data_labels=None,
                         mem_symbols=None, mem_equ=None, image_base=None,
                         linked=None, skip=0, data_spans=(), label_offsets=(),
                         jump_tables=(), label_addrs=None, message_symbols=None,
@@ -226,7 +226,7 @@ def _c_bytes_to_records(data, base, label_map, local_labels, foreign_label_map,
                 mem_symbols or {})
         nasm_text = format_instruction(
             insn, label_map, local_labels, foreign_label_map,
-            immediate_labels=immediate_labels, data_labels=data_labels,
+            data_labels=data_labels,
             mem_symbols=sym_map, message_symbols=message_symbols)
         if nasm_text:
             assemble_text = (_numeric_form(nasm_text, sym_ops.values())
@@ -246,14 +246,14 @@ def _c_bytes_to_records(data, base, label_map, local_labels, foreign_label_map,
     requests = [(text, rec['offset']) for rec, text, _, _ in pending]
     built_all = assemble_batch(
         requests, label_map, local_labels, foreign_label_map,
-        immediate_labels=immediate_labels, image_base=image_base,
+        image_base=image_base,
         mem_equ=assemble_equ) if requests else []
     if built_all is None:
         built_all = [
             micro_assemble(
                 text, addr, label_map, local_labels,
                 foreign_label_map=foreign_label_map,
-                immediate_labels=immediate_labels, mem_equ=assemble_equ,
+                mem_equ=assemble_equ,
                 image_base=image_base)
             for text, addr in requests]
     for (rec, _, bts, linked_ops), built in zip(pending, built_all):
@@ -557,7 +557,7 @@ def _drop_replaced_names(mem_equ, mem_symbols, spans, kept):
 
 
 def _apply_c_overrides(records, c_overrides, binary_data, label_map,
-                       local_labels, foreign_label_map, immediate_labels,
+                       local_labels, foreign_label_map,
                        exact_bytes=False, data_labels=None,
                        mem_symbols=None, mem_equ=None, image_base=None,
                        allow_diff=False, geometry=None, segments=None,
@@ -744,7 +744,7 @@ def _apply_c_overrides(records, c_overrides, binary_data, label_map,
                  *((r['start'] - start, r['end'] - start) for r in tables)]
         new_records = head + _c_bytes_to_records(
             bytes(final), start, label_map, record_labels, foreign_label_map,
-            immediate_labels, exact_bytes=exact_bytes, data_labels=data_labels,
+            exact_bytes=exact_bytes, data_labels=data_labels,
             mem_symbols=mem_symbols, mem_equ=mem_equ, image_base=image_base,
             linked=linked, skip=lead, data_spans=spans,
             label_offsets=[r['offset'] for r in labels_in], jump_tables=tables,

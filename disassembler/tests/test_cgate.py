@@ -43,11 +43,11 @@ class VerificationRecordsTest(unittest.TestCase):
         check = {'code': ORIG,
                  'check_only': True}
         self.assertIs(_apply_c_overrides(
-            records, {'f': check}, ORIG, {0: 'f'}, {}, {}, {}), records)
+            records, {'f': check}, ORIG, {0: 'f'}, {}, {}), records)
         check['code'] = bytes.fromhex('558bec8b46065dc3')
         with self.assertRaises(CGateError):
             _apply_c_overrides(
-                records, {'f': check}, ORIG, {0: 'f'}, {}, {}, {})
+                records, {'f': check}, ORIG, {0: 'f'}, {}, {})
 
     def test_reports_both_independent_source_failures(self):
         from lib.compare.coverrides import _apply_c_overrides
@@ -59,7 +59,7 @@ class VerificationRecordsTest(unittest.TestCase):
                   for name in ('first', 'second')}
         with self.assertRaises(CGateError) as error:
             _apply_c_overrides(records, checks, ORIG * 2,
-                               {0: 'first', len(ORIG): 'second'}, {}, {}, {})
+                               {0: 'first', len(ORIG): 'second'}, {}, {})
         self.assertIn('first: C does not match', str(error.exception))
         self.assertIn('second: C does not match', str(error.exception))
 

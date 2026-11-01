@@ -20,8 +20,6 @@ See ``lib.format`` for the F/L/DATA/PSP model.  Within this module:
 * ``data_labels`` is the dedicated data namespace used for absolute memory
   displacements; a displacement is only drawn from here, never from the
   code map.
-* ``immediate_labels`` is the sidecar namespace for proven address
-  immediates.
 * ``external_data`` is the sidecar namespace for fixed external-segment
   fields (e.g. the BIOS Data Area); such an operand is named only when its
   segment matches the sidecar entry.
@@ -93,6 +91,7 @@ from lib.compare.symbols import (
     _resolve_index_offset_symbols,
     _resolve_declared_immediates,
     _resolve_imm_symbols,
+    _resolve_data_segment_selector,
     _resolve_named_data_immediates,
     _build_address_records,
 )
@@ -229,28 +228,18 @@ def _host_space_starts(mem_equ, segments):
                    and (limit is None or value < limit)})
 
 
-def _note_declared_immediates(use, entries, declared, insn_by_addr,
-                              immediate_labels):
-    """Record each ``immediate_pointers`` entry: named, or shadowed.
+def _note_declared_immediates(use, entries, declared):
+    """Record each ``immediate_pointers`` entry that named an operand.
 
     ``_resolve_declared_immediates`` already fails on an entry that names no
-    decoded immediate; an ``immediate_labels`` name for the same value is
-    rendered first, so it would hide the entry.
+    decoded immediate.
     """
     for entry in entries or ():
-        offset = entry['offset']
-        ident = f'{offset:04x}'
-        if (offset, 1) not in declared:
-            use.skipped('immediate_pointers', ident, 'named no operand')
-            continue
-        insn = insn_by_addr.get(offset)
-        value = insn.operands[1].imm & 0xffff if insn is not None else None
-        if value in (immediate_labels or {}):
-            use.skipped('immediate_pointers', ident,
-                        f'immediate_labels names 0x{value:04x} '
-                        f'{immediate_labels[value]!r} first')
-        else:
+        ident = f'{entry["offset"]:04x}'
+        if (entry['offset'], 1) in declared:
             use.applied('immediate_pointers', ident)
+        else:
+            use.skipped('immediate_pointers', ident, 'named no operand')
 
 
 def _note_pointer_corpus(use, data_pointers, not_pointers, promotion_report,
@@ -295,28 +284,13 @@ def _note_pointer_corpus(use, data_pointers, not_pointers, promotion_report,
             use.applied('not_pointers', ident)
 
 
-def _note_immediate_labels(use, immediate_labels, text):
-    """Record each ``immediate_labels`` name an emitted operand spells."""
-    for value, name in (immediate_labels or {}).items():
-        ident = f'0x{value:x}'
-        spelled = re.compile(rf'(?<![\w.@$]){re.escape(name)}(?![\w$])')
-        uses = [line for line in text.splitlines()
-                if spelled.search(line)
-                and not re.match(rf'\s*{re.escape(name)}\s+equ\b', line)
-                and not re.match(rf'\s*{re.escape(name)}:', line)]
-        if uses:
-            use.applied('immediate_labels', ident)
-        else:
-            use.skipped('immediate_labels', ident,
-                        f'no operand renders {name!r}')
-
 
 def verify(binary_data, start_offset, instructions, name='', label_map=None,
            bitmap=None, code_targets=None, exact_bytes=False, show_offsets=True,
            cascade_promoted=None,
            carve_1=None, trace=None,
            foreign_label_map=None,
-           immediate_labels=None, split_functions=None, hard_data=None,
+           split_functions=None, hard_data=None,
            declared_roots=None, fragment_lengths=None, fragment_files=None,
            function_roots=None, branch_targets=None, branch_edges=None,
            extra_flow_edges=None, label_comments=None, c_overrides=None,
@@ -635,6 +609,8 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
         insns, immediate_pointers, segments, label_map, mem_equ,
         start_offset, owner=name)
     mem_symbols.update(declared)
+    mem_symbols.update(_resolve_data_segment_selector(
+        insns, segments, mem_equ))
     mem_symbols.update(_resolve_named_data_immediates(
         insns, segments, label_map, mem_symbols, mem_equ))
     if record_layouts:
@@ -664,8 +640,7 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
             mem_symbols.update(pointer_symbols(insns, segment_flow,
                                                record_layouts, mem_symbols))
     if sidecar_use is not None:
-        _note_declared_immediates(sidecar_use, immediate_pointers, declared,
-                                  insn_by_addr, immediate_labels)
+        _note_declared_immediates(sidecar_use, immediate_pointers, declared)
 
     # ``micro_assemble``/``assemble_batch`` rebuild ``name - IMAGE_BASE`` from
     # *file-offset* labels (``_build_equ_prelude``), so a raw driver's
@@ -856,7 +831,7 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
     for insn in insns:
         text = format_instruction(
             insn, label_map, local_labels, foreign_label_map,
-            immediate_labels=immediate_labels, data_labels=data_labels,
+            data_labels=data_labels,
             mem_symbols=mem_symbols, message_symbols=message_symbols,
         )
         text_by_addr[insn.address] = text
@@ -865,7 +840,7 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
     if batch_reqs:
         built_batch = assemble_batch(
             batch_reqs, label_map, local_labels, foreign_label_map,
-            immediate_labels=immediate_labels, image_base=roundtrip_base,
+            image_base=roundtrip_base,
             mem_equ=asm_equ,
         )
         if built_batch is None:
@@ -875,7 +850,7 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
                 micro_assemble(
                     text, addr, label_map, local_labels,
                     foreign_label_map=foreign_label_map,
-                    immediate_labels=immediate_labels, mem_equ=asm_equ,
+                    mem_equ=asm_equ,
                     image_base=roundtrip_base,
                 )
                 for text, addr in batch_reqs
@@ -1006,7 +981,6 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
     progress.log(f'{name} | verify: postprocessing data blocks')
     records = _postprocess_data_blocks(records, binary_data, known_addrs, label_map, exact_bytes, bitmap, carve_1, trace, local_labels,
                                        foreign_label_map=foreign_label_map,
-                                       immediate_labels=immediate_labels,
                                        hard_data=hard_data,
                                        data_labels=data_labels,
                                        mem_symbols=mem_symbols, mem_equ=mem_equ,
@@ -1064,7 +1038,7 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
                 label_map[target] = loc_name(target)
         formatted = format_instruction(
             insn, label_map, local_labels, foreign_label_map,
-            immediate_labels=immediate_labels, data_labels=data_labels,
+            data_labels=data_labels,
             mem_symbols=mem_symbols, message_symbols=message_symbols,
         )
         if formatted is not None:
@@ -1112,13 +1086,13 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
         if disp_labels and o_corg is None:
             records = _rewrite_jump_dispatchers(
                 records, disp_labels, start_offset, label_map, local_labels,
-                foreign_label_map, immediate_labels, data_labels=data_labels,
+                foreign_label_map, data_labels=data_labels,
                 mem_symbols=mem_symbols, mem_equ=mem_equ,
             )
     # Every ``[cs:reg + disp]`` that indexes a carved table, overlays included.
     records = _bind_cs_table_operands(
         records, binary_data, start_offset, label_map, local_labels,
-        foreign_label_map, immediate_labels, data_labels=data_labels,
+        foreign_label_map, data_labels=data_labels,
         mem_symbols=mem_symbols, mem_equ=mem_equ,
         load_offset=getattr(segments, 'load_offset', 0) or 0, o_corg=o_corg,
         segments=segments,
@@ -1237,7 +1211,7 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
     if c_checks:
         records = _apply_c_overrides(
             records, c_checks, binary_data, label_map, local_labels,
-            foreign_label_map, immediate_labels, exact_bytes=exact_bytes,
+            foreign_label_map, exact_bytes=exact_bytes,
             data_labels=data_labels,
             mem_symbols=mem_symbols, mem_equ=mem_equ,
             image_base=roundtrip_base, allow_diff=allow_diff,
@@ -1261,7 +1235,7 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
     if c_overrides:
         records = _apply_c_overrides(
             records, c_overrides, binary_data, label_map, local_labels,
-            foreign_label_map, immediate_labels, exact_bytes=exact_bytes,
+            foreign_label_map, exact_bytes=exact_bytes,
             data_labels=data_labels,
             mem_symbols=mem_symbols, mem_equ=mem_equ,
             image_base=roundtrip_base, allow_diff=allow_diff,
@@ -1426,7 +1400,7 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
     src_lines, split_sources = _build_source(
         records, start_offset, binary_data, label_map,
         show_offsets=show_offsets,
-        immediate_labels=immediate_labels, split_ranges=split_ranges,
+        split_ranges=split_ranges,
         split_dir=name, mem_equ=mem_equ, image_base=start_offset,
         entry_symbol=source_entry_symbol, label_defined=label_defined,
         ds_size=getattr(segments, 'ds_size', None),
@@ -1457,12 +1431,7 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
         *(label_map or {}).values(), *(local_labels or {}).values(),
         *(data_labels or {}).values(), *(mem_symbols or {}).values(),
         *(mem_equ or {}), *(foreign_label_map or {}).values(),
-        *(immediate_labels or {}).values(),
     ]
-    if sidecar_use is not None:
-        _note_immediate_labels(
-            sidecar_use, immediate_labels,
-            src_lines + '\n' + '\n'.join(split_sources.values()))
     frozen = count_frozen_addrs(
         src_lines + '\n' + '\n'.join(split_sources.values()),
         {str(sym): sym for sym in reversed(symbols) if isinstance(sym, Symbol)},
@@ -1539,8 +1508,7 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
         'message_uses': [vars(use) for use in message_uses],
         'address_records': _build_address_records(
             insns, mem_symbols, mem_equ, segment_flow, label_map, start_offset,
-            data_labels=data_labels, reloc_targets=reloc_targets,
-            immediate_labels=immediate_labels),
+            data_labels=data_labels, reloc_targets=reloc_targets),
         # What readers of the generated tree look a token up in
         # (``symbols/<binary>.json``).
         'symbols': symbols,
@@ -1555,7 +1523,6 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
             'message_equ': message_equ,
             'data_labels': data_labels,
             'foreign_label_map': foreign_label_map,
-            'immediate_labels': immediate_labels,
             'exact_bytes': bool(exact_bytes),
             # ``_Cend``/``_Uend`` as the C sees them (resplice has no records).
             'geometry': image_geometry(

@@ -244,6 +244,35 @@ class ResolveImmSymbolsTest(unittest.TestCase):
         self.assertEqual(result[(0x204, 1)], 'cseg_0300 - IMAGE_BASE')
 
 
+class ResolveDataSegmentSelectorTest(unittest.TestCase):
+    """``mov bp, dataseg``: e_ss (0xe00 / 16 = 0xe0) in a relocated immediate."""
+
+    @staticmethod
+    def _resolve(code, reloc_offset):
+        from lib.compare.symbols import _resolve_data_segment_selector
+        model = SegmentModel(
+            kind='mz', file_size=0x3000, load_size=0x1000, cs_origin=0x200,
+            data_origin=0x1000, cs_base=0, data_base=0xe00, bss_boundary=0x200,
+            psp=True, entry_offset=0x200, header_size=0x200,
+            relocations=[{'segment': 0, 'offset': reloc_offset}],
+        )
+        equ = {}
+        return (_resolve_data_segment_selector(_disasm(code, 0x200), model, equ),
+                equ)
+
+    def test_a_relocated_e_ss_is_the_symbol(self):
+        symbols, equ = self._resolve('bde000', 1)
+        self.assertEqual(symbols, {(0x200, 1): '__zdseg_para'})
+        self.assertEqual({str(k): v for k, v in equ.items()},
+                         {'__zdseg_para': 0xe0})
+
+    def test_a_relocated_other_value_stays_a_number(self):
+        self.assertEqual(self._resolve('bde100', 1), ({}, {}))
+
+    def test_an_equal_constant_that_is_not_relocated_stays_a_number(self):
+        self.assertEqual(self._resolve('bde000', 0x40), ({}, {}))
+
+
 class FormatOverrideTest(unittest.TestCase):
     def test_mem_override_is_rendered(self):
         insn = _disasm('8b1e0200', 0x200)[0]

@@ -19,7 +19,6 @@ class EncodeDecodeTest(unittest.TestCase):
             'message_symbols': {(0x45ee, 1): 'MSG_CAST'},
             'message_equ': {'MSG_CAST': 2026},
             'foreign_label_map': {0x200: 'host_thing'},
-            'immediate_labels': {0x300: 'api_idx_0004'},
             'exact_bytes': True,
             'label_records': [(0x1000, routine('f', 0x1000), 'f:'),
                               (0x1010, local('f', 0x1010, 1), '@..f.l1:')],
@@ -33,7 +32,6 @@ class EncodeDecodeTest(unittest.TestCase):
         self.assertEqual(out['message_symbols'], {(0x45ee, 1): 'MSG_CAST'})
         self.assertEqual(out['message_equ'], {'MSG_CAST': 2026})
         self.assertEqual(out['foreign_label_map'], {0x200: 'host_thing'})
-        self.assertEqual(out['immediate_labels'], {0x300: 'api_idx_0004'})
         self.assertTrue(out['exact_bytes'])
         self.assertEqual(out['label_records'],
                          [(0x1000, 'f', 'f:'), (0x1010, '@..f.l1', '@..f.l1:')])
@@ -46,7 +44,6 @@ class EncodeDecodeTest(unittest.TestCase):
         out = decode(json.loads(json.dumps(
             encode({'local_labels': {}, 'mem_symbols': {}}))))
         self.assertIsNone(out['foreign_label_map'])
-        self.assertIsNone(out['immediate_labels'])
         self.assertFalse(out['exact_bytes'])
 
     def test_context_lives_under_cache(self):

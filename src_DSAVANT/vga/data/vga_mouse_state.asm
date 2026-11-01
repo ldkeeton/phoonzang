@@ -27,17 +27,14 @@ __zcp_18c4:
 
     times 1024 db 0
 
-__zdata_1dc4:
-cseg_1cc4:
+mouse_restore_mask:
 
     times 136 db 0
 
-__zdata_1e4c:
-cseg_1d4c:
+mouse_mask_row:
 
     times 16 db 0
 
-__zdata_1e5c:
 mouse_image_stride:
     db 0x0a, 0x00
 mouse_image_height:

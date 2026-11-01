@@ -10,7 +10,7 @@ from lib.compare.detect import (
 from lib.compare.inline import _generate_inline_code
 
 
-def _postprocess_data_blocks(records, binary_data, known_addrs, label_map, exact_bytes=False, bitmap=None, carve_1=None, trace=None, local_labels=None, foreign_label_map=None, immediate_labels=None, hard_data=None, data_labels=None, mem_symbols=None, mem_equ=None, image_base=0, table_ranges=None):
+def _postprocess_data_blocks(records, binary_data, known_addrs, label_map, exact_bytes=False, bitmap=None, carve_1=None, trace=None, local_labels=None, foreign_label_map=None, hard_data=None, data_labels=None, mem_symbols=None, mem_equ=None, image_base=0, table_ranges=None):
     """Replace code-like data_block records with inline records;
     annotate jump tables and known file formats on the rest."""
     new_records = []
@@ -159,7 +159,6 @@ def _postprocess_data_blocks(records, binary_data, known_addrs, label_map, exact
                             safe_insns, raw[:safe_end_offset], start,
                             binary_data, label_map, local_labels, exact_bytes=exact_bytes,
                             foreign_label_map=foreign_label_map,
-                            immediate_labels=immediate_labels,
                             data_labels=data_labels,
                             mem_symbols=mem_symbols, mem_equ=mem_equ,
                             image_base=image_base)
@@ -188,7 +187,6 @@ def _postprocess_data_blocks(records, binary_data, known_addrs, label_map, exact
             if all_decoded or (0 < gap <= 3):
                 inline = _generate_inline_code(insns, raw, start, binary_data, label_map, local_labels, exact_bytes=exact_bytes,
                                                foreign_label_map=foreign_label_map,
-                                               immediate_labels=immediate_labels,
                                                data_labels=data_labels,
                                                mem_symbols=mem_symbols, mem_equ=mem_equ,
                                                image_base=image_base)

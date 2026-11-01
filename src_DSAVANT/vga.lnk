@@ -48,6 +48,7 @@ vga/set_mouse_pointer
 shared/data/drv_mouse_position
 vga/data/vga_mouse_state
 vga/data/mouse_cursor_overlaps
+vga/data/mouse_default_cursor_image
 shared/data/mouse_click_pending
 shared/data/mouse_click_x
 shared/data/mouse_click_y

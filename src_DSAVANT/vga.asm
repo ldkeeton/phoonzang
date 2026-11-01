@@ -99,7 +99,6 @@ ln_com_jump                                ; 0x0000
 
 %include "shared/drv/get_mouse.asm"               ; 0x139a
 
-data_1e5c equ __zdata_1e5c - IMAGE_BASE
 %include "vga/set_mouse_pointer.asm"       ; 0x13c9
 
 %include "shared/data/drv_mouse_position.asm" ; 0x14ac
@@ -107,6 +106,8 @@ data_1e5c equ __zdata_1e5c - IMAGE_BASE
 %include "vga/data/vga_mouse_state.asm"    ; 0x14b0
 
 %include "vga/data/mouse_cursor_overlaps.asm" ; 0x1d68
+
+%include "vga/data/mouse_default_cursor_image.asm" ; 0x1d69
 
 %include "shared/data/mouse_click_pending.asm" ; 0x1dcd
 
@@ -118,8 +119,6 @@ data_1e5c equ __zdata_1e5c - IMAGE_BASE
 
 %include "shared/drv/draw_mouse_pointer_at.asm"   ; 0x1e1a
 
-data_1dc4 equ __zdata_1dc4 - IMAGE_BASE
-data_1e4c equ __zdata_1e4c - IMAGE_BASE
 %include "vga/draw_mouse_cursor_image.asm" ; 0x1e35
 
 %include "shared/drv/clear_mouse_click.asm"       ; 0x217d

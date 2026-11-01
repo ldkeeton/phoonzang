@@ -36,7 +36,7 @@ set_mouse_pointer:
     mov ds, ax                       ; 0x1419
     mov es, ax                       ; 0x141b
     mov si, mouse_default_cursor_dimensions - IMAGE_BASE ; 0x141d
-    mov di, data_1e5c                ; 0x1420
+    mov di, mouse_image_stride - IMAGE_BASE ; 0x1420
     mov cx, 4                        ; 0x1423
     rep movsb                        ; 0x1426
 .forward2:

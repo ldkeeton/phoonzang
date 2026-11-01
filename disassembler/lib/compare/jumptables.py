@@ -385,7 +385,7 @@ def _inject_jump_tables(records, specs, binary_data, start_offset,
 
 def _rewrite_jump_dispatchers(records, disp_labels, start_offset,
                               label_map, local_labels, foreign_label_map,
-                              immediate_labels, data_labels=None,
+                              data_labels=None,
                               mem_symbols=None, mem_equ=None):
     """Rewrite switch dispatchers to reference the emitted table label.
 
@@ -411,7 +411,7 @@ def _rewrite_jump_dispatchers(records, disp_labels, start_offset,
             continue
         text = format_instruction(
             insn, label_map, local_labels, foreign_label_map,
-            immediate_labels=immediate_labels, disp_labels=disp_labels,
+            disp_labels=disp_labels,
             data_labels=data_labels, mem_symbols=mem_symbols,
         )
         if not text:
@@ -420,7 +420,6 @@ def _rewrite_jump_dispatchers(records, disp_labels, start_offset,
         built = micro_assemble(
             text, insn.address, label_map, local_labels,
             foreign_label_map=foreign_label_map,
-            immediate_labels=immediate_labels,
             disp_labels=disp_labels, image_base=start_offset,
             mem_equ=mem_equ,
         )
@@ -466,7 +465,7 @@ def _cs_table_symbol(records, off, mem_equ, segments=None):
 
 
 def _bind_cs_table_operands(records, binary_data, start_offset, label_map,
-                            local_labels, foreign_label_map, immediate_labels,
+                            local_labels, foreign_label_map,
                             data_labels=None, mem_symbols=None, mem_equ=None,
                             load_offset=0, o_corg=None, segments=None):
     """Name the table in every ``[cs:reg + disp]`` operand (plan.md §5).
@@ -520,8 +519,8 @@ def _bind_cs_table_operands(records, binary_data, start_offset, label_map,
     # One prelude for every check: the names the rewrites spell, at their
     # file offsets, plus the overlay origin (``IMAGE_BASE`` is the file-offset
     # model's ``start_offset - load_offset``).
-    known = {str(n) for m in (label_map, local_labels, foreign_label_map,
-                              immediate_labels) for n in (m or {}).values()}
+    known = {str(n) for m in (label_map, local_labels, foreign_label_map)
+             for n in (m or {}).values()}
     defs = {name: value for name, value in mem_equ.items()
             if str(name) not in known}
     for rec in records:
@@ -538,14 +537,13 @@ def _bind_cs_table_operands(records, binary_data, start_offset, label_map,
         mem_symbols[(insn.address, idx)] = expr
         text = format_instruction(
             insn, label_map, local_labels, foreign_label_map,
-            immediate_labels=immediate_labels, data_labels=data_labels,
+            data_labels=data_labels,
             mem_symbols=mem_symbols,
         )
         original = bytes(insn.bytes)
         built = text and micro_assemble(
             text, insn.address, label_map, local_labels,
             foreign_label_map=foreign_label_map,
-            immediate_labels=immediate_labels,
             image_base=image_base, mem_equ=defs,
         )
         if built and built[:len(original)] == original:

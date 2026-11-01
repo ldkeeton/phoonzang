@@ -41,7 +41,7 @@ class CheckPublicsTest(unittest.TestCase):
 class DosExitDataTest(unittest.TestCase):
     def test_data_after_dos_exit_stays_data(self):
         code = bytes.fromhex('b409cd21b8014ccd21') + b'Frame$'
-        records = _c_bytes_to_records(code, 0x3a0f, {}, {}, {}, {},
+        records = _c_bytes_to_records(code, 0x3a0f, {}, {}, {},
                                       data_spans=[(9, len(code))])
         self.assertEqual(records[-1]['type'], 'data_block')
         self.assertEqual((records[-1]['start'], records[-1]['end']),

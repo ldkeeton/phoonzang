@@ -573,7 +573,6 @@ def resplice_c(app, binary, check_only=False, only=None):
             message_symbols = context.get('message_symbols') or {}
             message_equ = context.get('message_equ') or {}
             foreign_label_map = context['foreign_label_map']
-            immediate_labels = context['immediate_labels']
             exact_bytes = context['exact_bytes']
             label_addrs = {name: offset for offset, name, _
                            in context['label_records']}
@@ -592,7 +591,7 @@ def resplice_c(app, binary, check_only=False, only=None):
                 for addr, name in sorted(local_labels.items()))
             data_labels = mem_symbols = mem_equ = None
             message_symbols = message_equ = None
-            foreign_label_map = immediate_labels = None
+            foreign_label_map = None
             exact_bytes = False
             tables, label_addrs = [], None
         table_starts = {(r['start'], r['label']) for r in tables}
@@ -600,7 +599,7 @@ def resplice_c(app, binary, check_only=False, only=None):
                          if (r['offset'], r['name']) not in table_starts]
         records = _c_bytes_to_records(
             bytes(final), start, label_map, local_labels, foreign_label_map,
-            immediate_labels, exact_bytes=exact_bytes, data_labels=data_labels,
+            exact_bytes=exact_bytes, data_labels=data_labels,
             mem_symbols=mem_symbols, mem_equ=mem_equ, image_base=image_base,
             linked=linked, skip=lead,
             data_spans=[*spans_here, *table_spans],

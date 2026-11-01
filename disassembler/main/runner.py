@@ -661,8 +661,6 @@ def _analyze(name, orig_dir, rel_path, start_offset, output_dir=None,
 
     carve_1 = ctx.layers['carve_1'].to_numpy() if 'carve_1' in ctx.layers.columns else None
 
-    raw_imm = (ctx.sidecar_entry or {}).get('immediate_labels', {})
-    immediate_labels = {int(k, 16): v for k, v in raw_imm.items()}
     label_comments = {
         # do not add comments unless specified
     }
@@ -705,7 +703,7 @@ def _analyze(name, orig_dir, rel_path, start_offset, output_dir=None,
         instructions=instructions, label_map=label_map,
         function_roots=function_roots, extra_flow_edges=extra_flow_edges,
         foreign_label_map=foreign_label_map, entry_symbol=entry_symbol,
-        foreign_prefix=foreign_prefix, carve_1=carve_1, immediate_labels=immediate_labels,
+        foreign_prefix=foreign_prefix, carve_1=carve_1,
         label_comments=label_comments, split_functions=split_functions,
         out_dir=out_dir, c_overrides=c_overrides, c_checks=c_checks,
         source_errors=source_errors,
@@ -930,12 +928,12 @@ def _render(a, exact_bytes, show_offsets, host_data_offsets,
     """
     (name, project, data, start_offset, ctx, instructions, label_map,
      function_roots, extra_flow_edges, foreign_label_map, entry_symbol,
-     carve_1, immediate_labels, label_comments, split_functions,
+     carve_1, label_comments, split_functions,
      out_dir, c_overrides, c_checks, asm_annotations) = (
         a.name, a.project, a.data, a.start_offset, a.ctx, a.instructions,
         a.label_map, a.function_roots, a.extra_flow_edges,
         a.foreign_label_map, a.entry_symbol, a.carve_1,
-        a.immediate_labels, a.label_comments, a.split_functions, a.out_dir,
+        a.label_comments, a.split_functions, a.out_dir,
         a.c_overrides, a.c_checks, a.asm_annotations)
     progress.log(f'{a.name} | verify+format')
     from lib.sidecar.loader import load as load_sidecar
@@ -973,7 +971,6 @@ def _render(a, exact_bytes, show_offsets, host_data_offsets,
         carve_1=carve_1,
         trace=ctx.trace,
         foreign_label_map=foreign_label_map,
-        immediate_labels=immediate_labels,
         split_functions=split_functions,
         declared_roots=ctx.dispatch_handlers,
         fragment_lengths=fragment_lengths(entry, start_offset),
@@ -1091,11 +1088,11 @@ def _emit(a, r, exact_bytes):
     writes each file once (:func:`main.build._sync`).
     """
     (name, project, ctx, instructions, label_map, out_dir, entries,
-     immediate_labels, classify_timing, code_bytes, data_bytes, pct,
+     classify_timing, code_bytes, data_bytes, pct,
      t_total, t_flow_disasm_start, t_disasm, t_aztec, t_aztec_end,
      t_classify, t_classify_end, asm_annotations) = (
         a.name, a.project, a.ctx, a.instructions, a.label_map, a.out_dir,
-        a.entries, a.immediate_labels, a.classify_timing, a.code_bytes,
+        a.entries, a.classify_timing, a.code_bytes,
         a.data_bytes, a.pct, a.t_total, a.t_flow_disasm_start, a.t_disasm,
         a.t_aztec, a.t_aztec_end, a.t_classify, a.t_classify_end,
         a.asm_annotations)
@@ -1141,19 +1138,7 @@ def _emit(a, r, exact_bytes):
             json.dump(stats.get('data_files') or {}, f, indent=1, sort_keys=True)
     t_end = time.perf_counter()
 
-    if immediate_labels:
-        imm_fail = 0
-        for line in asm_text.split('\n'):
-            if line.startswith('    db ') and ';' in line:
-                for lbl in immediate_labels.values():
-                    if lbl in line:
-                        imm_fail += 1
-                        break
-    else:
-        imm_fail = 0
     dbc = stats['with_comment']
-    if imm_fail:
-        dbc = f'{stats["with_comment"]}[immfail={imm_fail}]'
 
     if DETAILED_TIMINGS:
         print(f'{name}: {len(instructions)} insns -> {asm_path}  '

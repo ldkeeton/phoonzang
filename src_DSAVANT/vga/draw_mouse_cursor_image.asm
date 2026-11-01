@@ -155,7 +155,7 @@ draw_mouse_cursor_image:
     mov ax, ds                       ; 0x1fe1
     or ax, si                        ; 0x1fe3
     jne short .forward11             ; 0x1fe5
-    mov si, 0x1e69                   ; 0x1fe7
+    mov si, mouse_default_cursor_image - IMAGE_BASE ; 0x1fe7
     mov ax, cs                       ; 0x1fea
     mov ds, ax                       ; 0x1fec
 .forward11:
@@ -218,7 +218,7 @@ draw_mouse_cursor_image:
     mov ax, cs                       ; 0x2059
     mov es, ax                       ; 0x205b
     mov ds, ax                       ; 0x205d
-    mov di, data_1dc4                ; 0x205f
+    mov di, mouse_restore_mask - IMAGE_BASE ; 0x205f
     mov cx, 0x88                     ; 0x2062
     mov al, 0xff                     ; 0x2065
     rep stosb                        ; 0x2067
@@ -234,10 +234,10 @@ draw_mouse_cursor_image:
     mov bx, word [bp - 2]            ; 0x2087
     mul bx                           ; 0x208a
     mov di, ax                       ; 0x208c
-    add di, data_1dc4                ; 0x208e
+    add di, mouse_restore_mask - IMAGE_BASE ; 0x208e
     mov ax, word [bp - 6]            ; 0x2092
     sub ax, word [cs:mouse_drawn_x - IMAGE_BASE] ; 0x2095
-    mov bx, data_1e4c                ; 0x209a
+    mov bx, mouse_mask_row - IMAGE_BASE ; 0x209a
 .back7:
     cmp ax, strict word 8            ; 0x209d
     jb short .forward15              ; 0x20a0
@@ -270,13 +270,13 @@ draw_mouse_cursor_image:
     mov byte [bx], ah                ; 0x20d3
     inc bx                           ; 0x20d5
 .forward17:
-    sub bx, data_1e4c                ; 0x20d6
+    sub bx, mouse_mask_row - IMAGE_BASE ; 0x20d6
     mov word [bp - 4], bx            ; 0x20da
     mov cx, word [bp - 0x10]         ; 0x20dd
 .back9:
     push cx                          ; 0x20e0
     push di                          ; 0x20e1
-    mov si, data_1e4c                ; 0x20e2
+    mov si, mouse_mask_row - IMAGE_BASE ; 0x20e2
     mov cx, word [bp - 4]            ; 0x20e5
     rep movsb                        ; 0x20e8
     pop di                           ; 0x20ea
@@ -284,7 +284,7 @@ draw_mouse_cursor_image:
     pop cx                           ; 0x20ee
     loop .back9                      ; 0x20ef
 .forward18:
-    mov bx, data_1dc4                ; 0x20f1
+    mov bx, mouse_restore_mask - IMAGE_BASE ; 0x20f1
     mov si, word [cs:mouse_saved_background_offset - IMAGE_BASE] ; 0x20f4
     mov di, word [cs:mouse_screen_offset - IMAGE_BASE] ; 0x20f9
     mov ax, 0xa000                   ; 0x20fe

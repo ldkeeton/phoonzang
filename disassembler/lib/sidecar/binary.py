@@ -170,7 +170,6 @@ def per_binary(sidecar, short_name):
         'vendor_patches': sidecar.get('vendor_patches', {}),
         'dispatch_table': None,
         'driver_slots': [],
-        'immediate_labels': {},
         'external_data': {},
         'data_names': {},
         'code_data_names': {},
@@ -204,7 +203,6 @@ def per_binary(sidecar, short_name):
                 dict(slots, dispatch_table=_binary_dispatch_table(
                     sidecar, sidecar['binaries'][slots['driver']]))
                 for slots in b.get('driver_slots', [])]
-            result['immediate_labels'] = b.get('immediate_labels', {})
             result['external_data'] = _external_data_map(b.get('external_data', {}))
             result['data_names'] = _data_names_map(b.get('data_names', {}))
             result['code_data_names'] = _data_names_map(
@@ -261,8 +259,6 @@ def _expected_use(result, short_name):
         use.expect('function_names', hex_off)
     if result['entry_symbol']:
         use.expect('entry_symbol', result['entry_symbol'])
-    for hex_off in result['immediate_labels']:
-        use.expect('immediate_labels', f'0x{int(hex_off, 16):x}')
     for key in ('immediate_pointers', 'not_pointers'):
         for entry in result[key]:
             use.expect(key, f'{entry["offset"]:04x}')

@@ -121,7 +121,7 @@ def _equ_hex(value):
     return f'0x{value:04x}'
 
 
-def _build_equ_prelude(label_map, local_labels, foreign_label_map=None, immediate_labels=None,
+def _build_equ_prelude(label_map, local_labels, foreign_label_map=None,
                        disp_labels=None, image_base=None, mem_equ=None):
     """Build and cache the EQU preamble string for a label_map+local_labels pair."""
     global _equ_prelude, _equ_hash
@@ -129,7 +129,7 @@ def _build_equ_prelude(label_map, local_labels, foreign_label_map=None, immediat
     # The record layouts' ``struc`` names the operands spell (``slot_rec.f_0026``).
     struct_equ = active_equ()
     h = (id(label_map) ^ id(local_labels) ^ id(foreign_label_map)
-         ^ id(immediate_labels) ^ id(disp_labels) ^ hash(image_base)
+         ^ id(disp_labels) ^ hash(image_base)
          ^ id(mem_equ) ^ hash(struct_equ))
     if h == _equ_hash and _equ_prelude:
         return _equ_prelude
@@ -142,9 +142,6 @@ def _build_equ_prelude(label_map, local_labels, foreign_label_map=None, immediat
             lines.append(f'{lbl_name} equ 0x{lbl_off:04x}')
     if foreign_label_map:
         for lbl_off, lbl_name in foreign_label_map.items():
-            lines.append(f'{lbl_name} equ 0x{lbl_off:04x}')
-    if immediate_labels:
-        for lbl_off, lbl_name in immediate_labels.items():
             lines.append(f'{lbl_name} equ 0x{lbl_off:04x}')
     if (disp_labels or mem_equ) and image_base is not None:
         # Switch-table symbols and code-segment operand symbols are load-image
@@ -165,7 +162,7 @@ def _build_equ_prelude(label_map, local_labels, foreign_label_map=None, immediat
     return _equ_prelude
 
 
-def _get_label_re(label_map, local_labels, foreign_label_map=None, immediate_labels=None,
+def _get_label_re(label_map, local_labels, foreign_label_map=None,
                   disp_labels=None, image_base=None, mem_equ=None):
     """Build and cache a combined regex for all label names."""
     global _label_re, _label_re_key
@@ -176,8 +173,6 @@ def _get_label_re(label_map, local_labels, foreign_label_map=None, immediate_lab
         names.extend(local_labels.values())
     if foreign_label_map:
         names.extend(foreign_label_map.values())
-    if immediate_labels:
-        names.extend(immediate_labels.values())
     if disp_labels and image_base is not None:
         names.extend(disp_labels.values())
     if (disp_labels or mem_equ) and image_base is not None:
@@ -185,7 +180,7 @@ def _get_label_re(label_map, local_labels, foreign_label_map=None, immediate_lab
     if mem_equ:
         names.extend(mem_equ)
     h = (id(label_map) ^ id(local_labels) ^ id(foreign_label_map)
-         ^ id(immediate_labels) ^ id(disp_labels) ^ hash(image_base)
+         ^ id(disp_labels) ^ hash(image_base)
          ^ id(mem_equ))
     if h == _label_re_key and _label_re is not None:
         return _label_re
@@ -200,9 +195,9 @@ def _get_label_re(label_map, local_labels, foreign_label_map=None, immediate_lab
 
 
 def micro_assemble(nasm_text, offset, label_map=None, local_labels=None, foreign_label_map=None,
-                   immediate_labels=None, disp_labels=None, image_base=None, mem_equ=None):
+                   disp_labels=None, image_base=None, mem_equ=None):
     label_re = _get_label_re(label_map, local_labels, foreign_label_map,
-                             immediate_labels, disp_labels, image_base, mem_equ)
+                             disp_labels, image_base, mem_equ)
     uses_label = label_re is not None and bool(label_re.search(nasm_text))
     if uses_label or _needs_origin(nasm_text):
         key = (nasm_text, offset, id(mem_equ))
@@ -213,7 +208,7 @@ def micro_assemble(nasm_text, offset, label_map=None, local_labels=None, foreign
         return _assemble_cache[key]
 
     asm = (f'org {offset}\nbits 16\n'
-           f'{_build_equ_prelude(label_map, local_labels, foreign_label_map, immediate_labels, disp_labels, image_base, mem_equ)}'
+           f'{_build_equ_prelude(label_map, local_labels, foreign_label_map, disp_labels, image_base, mem_equ)}'
            f'{nasm_text}\n')
 
     fd, asm_path = tempfile.mkstemp(suffix='.asm', text=True)
@@ -266,7 +261,7 @@ def _needs_origin(text):
 
 
 def assemble_batch(requests, label_map=None, local_labels=None,
-                   foreign_label_map=None, immediate_labels=None,
+                   foreign_label_map=None,
                    disp_labels=None, image_base=None, mem_equ=None):
     """Assemble many ``(text, offset)`` instructions in one NASM run.
 
@@ -286,7 +281,7 @@ def assemble_batch(requests, label_map=None, local_labels=None,
     if not reqs:
         return []
     prelude = _build_equ_prelude(
-        label_map, local_labels, foreign_label_map, immediate_labels,
+        label_map, local_labels, foreign_label_map,
         disp_labels, image_base, mem_equ)
 
     bad = [False] * len(reqs)

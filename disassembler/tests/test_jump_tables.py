@@ -370,7 +370,7 @@ class BindCsTableOperandTests(unittest.TestCase):
         records = [mnem, data_rec]
         mem_symbols, mem_equ = {}, {}
         _bind_cs_table_operands(
-            records, bytes(size), start_offset, {}, {}, {}, {},
+            records, bytes(size), start_offset, {}, {}, {},
             mem_symbols=mem_symbols, mem_equ=mem_equ,
             load_offset=load_offset, o_corg=o_corg)
         return mnem['text'], mem_equ

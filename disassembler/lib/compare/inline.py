@@ -9,7 +9,7 @@ from lib.diagnostics import enabled as diag_enabled, emit as diag_emit, phase as
 from lib.compare.interrupts import _set_insn_fields
 
 
-def _generate_inline_code(insns, raw_bytes, start_offset, binary_data, label_map, local_labels=None, exact_bytes=False, foreign_label_map=None, immediate_labels=None, data_labels=None, mem_symbols=None, mem_equ=None, image_base=0):
+def _generate_inline_code(insns, raw_bytes, start_offset, binary_data, label_map, local_labels=None, exact_bytes=False, foreign_label_map=None, data_labels=None, mem_symbols=None, mem_equ=None, image_base=0):
     """Build mnem/db_with_comment/db records for a code-like block."""
     from lib.format import format_instruction
 
@@ -33,7 +33,7 @@ def _generate_inline_code(insns, raw_bytes, start_offset, binary_data, label_map
                 })
             continue
 
-        nasm_text = format_instruction(insn, label_map, local_labels, foreign_label_map=foreign_label_map, immediate_labels=immediate_labels, data_labels=data_labels, mem_symbols=mem_symbols)
+        nasm_text = format_instruction(insn, label_map, local_labels, foreign_label_map=foreign_label_map, data_labels=data_labels, mem_symbols=mem_symbols)
 
         if nasm_text is None:
             for i, b in enumerate(bts):
@@ -45,7 +45,7 @@ def _generate_inline_code(insns, raw_bytes, start_offset, binary_data, label_map
                 })
             continue
 
-        built = micro_assemble(nasm_text, insn.address, label_map, local_labels, immediate_labels=immediate_labels, mem_equ=mem_equ, image_base=image_base)
+        built = micro_assemble(nasm_text, insn.address, label_map, local_labels, mem_equ=mem_equ, image_base=image_base)
         ok = built and len(built) >= len(bts) and built[:len(bts)] == bts
         if not ok and not exact_bytes and built:
             ok = is_semantically_equivalent(bts, built[:len(bts)], insn.address)
@@ -68,9 +68,9 @@ def _generate_inline_code(insns, raw_bytes, start_offset, binary_data, label_map
                             label_map[addr] = dname
                         data_added += 1
                         clear_assemble_cache()
-                        new_text = format_instruction(insn, label_map, local_labels, foreign_label_map=foreign_label_map, immediate_labels=immediate_labels, data_labels=names, mem_symbols=mem_symbols)
+                        new_text = format_instruction(insn, label_map, local_labels, foreign_label_map=foreign_label_map, data_labels=names, mem_symbols=mem_symbols)
                         if new_text:
-                            rebuilt = micro_assemble(new_text, insn.address, label_map, local_labels, immediate_labels=immediate_labels, mem_equ=mem_equ, image_base=image_base)
+                            rebuilt = micro_assemble(new_text, insn.address, label_map, local_labels, mem_equ=mem_equ, image_base=image_base)
                             if rebuilt and len(built) >= len(bts) and rebuilt[:len(bts)] == bts:
                                 nasm_text = new_text
             rec = {

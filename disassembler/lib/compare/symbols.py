@@ -314,6 +314,10 @@ def _resolve_index_offset_symbols(insns, segment_flow, segments, named,
     return symbols
 
 
+#: The data segment's paragraph, defined by an MZ master's data-gap prologue.
+DSEG_PARA_SYMBOL = '__zdseg_para'
+
+
 def _resolve_imm_symbols(insns, segment_flow, segments, label_map, mem_equ,
                          start_offset, extra_proven=None):
     """Symbols for immediates proven to point into a known segment.
@@ -359,6 +363,30 @@ def _resolve_imm_symbols(insns, segment_flow, segments, label_map, mem_equ,
             name = data_symbol(segments, value)
             mem_equ.setdefault(name, value)
             result[(addr, idx)] = name
+    return result
+
+
+def _resolve_data_segment_selector(insns, segments, mem_equ):
+    """Name the startup word that holds the data segment's paragraph.
+
+    A ``mov reg, imm16`` whose immediate DOS relocates and whose value is the
+    image's ``e_ss`` is the selector of the data segment (Aztec's ``mov bp,
+    dataseg``).  Its name is what lets the routine be one file across images
+    with different data segments.  Keyed on the operand, so an equal constant
+    elsewhere stays a number.
+    """
+    if segments is None or segments.kind != 'mz' or not segments.data_base:
+        return {}
+    from lib.segdataflow import _relocation_offsets
+    para = segments.data_base // 16
+    relocs = _relocation_offsets(segments)
+    result = {}
+    for insn in insns:
+        if (insn.bytes and 0xB8 <= insn.bytes[0] <= 0xBF
+                and insn.address + 1 in relocs
+                and insn.operands[1].imm & 0xFFFF == para):
+            mem_equ.setdefault(Symbol.anchor(DSEG_PARA_SYMBOL, para), para)
+            result[(insn.address, 1)] = DSEG_PARA_SYMBOL
     return result
 
 
@@ -579,7 +607,7 @@ def _resolve_declared_immediates(insns, declared, segments, label_map, mem_equ,
 
 def _build_address_records(insns, mem_symbols, mem_equ, segment_flow,
                            label_map, start_offset, data_labels=None,
-                           reloc_targets=None, immediate_labels=None):
+                           reloc_targets=None):
     """Summarize the Phase 4 resolution as inventory records (Phase 5/6).
 
     Each record names the symbol, its value, the space/kind/confidence it
@@ -651,16 +679,4 @@ def _build_address_records(insns, mem_symbols, mem_equ, segment_flow,
             'referenced_by': [],
         }
 
-    for addr, name in (immediate_labels or {}).items():
-        if name in records:
-            continue
-        records[name] = {
-            'name': name,
-            'value': addr,
-            'space': 'unknown',
-            'kind': 'candidate',
-            'source': 'sidecar',
-            'confidence': CERTAIN,
-            'referenced_by': [],
-        }
     return sorted(records.values(), key=lambda item: (item['value'], item['name']))

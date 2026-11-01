@@ -62,7 +62,6 @@ def encode(context):
                         for name, value
                         in (context.get('message_equ') or {}).items()],
         'foreign_label_map': _encode_addr_map(context.get('foreign_label_map')),
-        'immediate_labels': _encode_addr_map(context.get('immediate_labels')),
         'exact_bytes': bool(context.get('exact_bytes', False)),
         'geometry': dict(context.get('geometry') or {}),
         'label_records': [[offset, to_record(name), text]
@@ -80,7 +79,6 @@ def encode(context):
 def decode(raw):
     """Inverse of :func:`encode`."""
     foreign = raw.get('foreign_label_map')
-    immediate = raw.get('immediate_labels')
     return {
         'local_labels': _decode_addr_map(raw.get('local_labels', {})),
         'data_labels': _decode_addr_map(raw.get('data_labels', {})),
@@ -94,7 +92,6 @@ def decode(raw):
         'message_equ': {name: value
                         for name, value in raw.get('message_equ', ())},
         'foreign_label_map': _decode_addr_map(foreign) if foreign else None,
-        'immediate_labels': _decode_addr_map(immediate) if immediate else None,
         'exact_bytes': bool(raw.get('exact_bytes', False)),
         'geometry': raw.get('geometry', {}),
         'label_records': [(int(offset), from_record(name), text)

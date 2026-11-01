@@ -300,7 +300,7 @@ class RenderTest(unittest.TestCase):
                              index or _index(), b'')
         records = _c_bytes_to_records(
             bytes(linked.code), start, {start: 'aztec_f', 0x5000: 'ds_loc_4462'},
-            {}, None, None, linked=linked)
+            {}, None, linked=linked)
         return linked, [r['text'] for r in records]
 
     def test_call_names_the_symbol_not_the_displacement(self):
@@ -318,7 +318,7 @@ class RenderTest(unittest.TestCase):
         # per-operand map still has to name the producer instruction.
         code = b'\xb8\xea\x07'  # mov ax, 2026
         records = _c_bytes_to_records(
-            code, 0x45ee, {0x45ee: 'cast_spell_from_menu'}, {}, None, None,
+            code, 0x45ee, {0x45ee: 'cast_spell_from_menu'}, {}, None,
             message_symbols={(0x45ee, 1): 'MSG_CAST'},
             message_equ={'MSG_CAST': 2026})
         self.assertEqual([r['text'] for r in records], ['mov ax, MSG_CAST'])
@@ -375,7 +375,7 @@ class SwitchTableTest(unittest.TestCase):
                  'entry_size': 2, 'entries': entries, 'adjust': 0,
                  'literal': False, 'keys': 0, 'note': ''}
         records = _c_bytes_to_records(
-            bytes(linked.code), self.START, label_map, {}, None, None,
+            bytes(linked.code), self.START, label_map, {}, None,
             linked=linked, image_base=self.BASE, data_spans=[(4, 8)],
             jump_tables=[table], label_addrs=label_addrs)
         return linked, records
@@ -443,7 +443,7 @@ class CswtSwitchTableTest(unittest.TestCase):
                              'jt_case_4'],
                  'adjust': 0, 'literal': False, 'keys': 2, 'note': ''}
         records = _c_bytes_to_records(
-            bytes(linked.code), self.START, self.label_map, {}, None, None,
+            bytes(linked.code), self.START, self.label_map, {}, None,
             linked=linked, image_base=self.BASE, data_spans=[self.TABLE],
             jump_tables=[table])
         self.assertEqual(
@@ -491,7 +491,7 @@ class OverlaySwitchTableTest(unittest.TestCase):
                  'adjust': self.CORG, 'literal': False, 'keys': 0,
                  'note': ''}
         records = _c_bytes_to_records(
-            bytes(linked.code), self.START, label_map, {}, None, None,
+            bytes(linked.code), self.START, label_map, {}, None,
             linked=linked, image_base=self.BASE, data_spans=[(4, 8)],
             jump_tables=[table])
         self.assertEqual(

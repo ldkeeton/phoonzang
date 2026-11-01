@@ -41,11 +41,9 @@ own initialized data at ``o_dorg`` (``dseg_``) and its BSS above
 ``o_dorg + o_dsize`` (``bss_``).  ``SegmentModel.data_space`` implements the
 split; the address inventory records it per binary.
 
-Callers therefore pass three separate namespaces: code labels for flow
-(``label_map``/``local_labels``/``foreign_label_map``), the data namespace
-for absolute memory displacements (``data_labels``), and an explicit
-sidecar (``immediate_labels``) for the few immediates proven to be
-addresses.  An immediate is never symbolized from the code map: the same
+Callers therefore pass separate namespaces: code labels for flow
+(``label_map``/``local_labels``/``foreign_label_map``) and the data namespace
+for absolute memory displacements (``data_labels``).  An immediate is never symbolized from the code map: the same
 numeric value can be a constant (``mov cx, 2``) or a pointer in another
 segment.
 
@@ -236,7 +234,7 @@ class LinkedSymbol(str):
 
 
 def format_instruction(insn, label_map=None, local_labels=None, foreign_label_map=None,
-                       immediate_labels=None, disp_labels=None, data_labels=None,
+                       disp_labels=None, data_labels=None,
                        mem_symbols=None, message_symbols=None):
     """Return valid NASM line text for *insn*, or None if the instruction
     should stay as raw db bytes."""
@@ -321,8 +319,6 @@ def format_instruction(insn, label_map=None, local_labels=None, foreign_label_ma
                 # per-operand map names only the instruction that supplies
                 # the message argument, never every immediate of that value.
                 parts.append(message_symbols[(insn.address, op_idx)])
-            elif not is_flow and immediate_labels and target in immediate_labels:
-                parts.append(immediate_labels[target])
             elif (not is_flow and mem_symbols
                   and (insn.address, op_idx) in mem_symbols):
                 # A `mov reg, imm` proven (by segment dataflow) to be a pointer
@@ -331,10 +327,8 @@ def format_instruction(insn, label_map=None, local_labels=None, foreign_label_ma
             else:
                 # An immediate is not an address label.  The same numeric value
                 # can be a constant (e.g. PSP:0002 -> mov cx, 2) or a pointer in
-                # a segment other than the one the label map is keyed by.  Only
-                # an explicit sidecar entry (immediate_labels) may symbolize it;
-                # everything else stays numeric until segment resolution can
-                # prove which address space it belongs to.
+                # a segment other than the one the label map is keyed by, so it
+                # stays numeric until ``mem_symbols`` names this operand.
                 parts.append(_fmt_imm(op.imm))
         elif op.type == CS_OP_MEM:
             parts.append(_fmt_mem(op, insn, op_idx, data_labels, foreign_label_map,

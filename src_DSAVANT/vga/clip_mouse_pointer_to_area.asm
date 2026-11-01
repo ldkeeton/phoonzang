@@ -119,7 +119,7 @@ clip_mouse_pointer_to_area:
     mov ax, ds                       ; 0x064e
     or ax, si                        ; 0x0650
     jne short .back3                 ; 0x0652
-    mov si, 0x1e69                   ; 0x0654
+    mov si, mouse_default_cursor_image - IMAGE_BASE ; 0x0654
     mov ax, cs                       ; 0x0657
     mov ds, ax                       ; 0x0659
 .back3:

@@ -90,13 +90,10 @@ class Phase6ConfidenceTest(unittest.TestCase):
             [], {}, {}, None, {}, 0x200,
             data_labels={0xe0e: data(0xe0e)},
             reloc_targets=set(),
-            immediate_labels={0x2: 'psp_top_of_memory'},
         )
         by_name = {r['name']: r for r in records}
         self.assertEqual(by_name['data_0e0e']['confidence'], CANDIDATE)
         self.assertEqual(by_name['data_0e0e']['space'], 'unknown')
-        self.assertEqual(by_name['psp_top_of_memory']['confidence'], CERTAIN)
-        self.assertEqual(by_name['psp_top_of_memory']['source'], 'sidecar')
 
     def test_relocation_target_is_certain(self):
         records = _build_address_records(

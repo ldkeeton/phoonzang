@@ -514,41 +514,6 @@ _DATA_RECORD_TYPES = ('data_block', 'db', 'db_with_comment', 'jump_table')
 ANCHOR_PREFIX = '__z'
 
 
-def place_driver_immediates(records, binary_data, immediate_labels, load_offset):
-    """Put a label on the byte every raw-driver immediate names (plan.md D7.6b).
-
-    A driver's immediate ``disp`` encodes ``file + load_offset`` (the host reads
-    the module to ``segment:0x100``), so the byte the sidecar's name refers to is
-    ``disp - load_offset``, and the name can be written ``anchor - IMAGE_BASE``
-    -- the negative load base -- through a label *on* that byte.  Returns
-    ``{disp: anchor}`` for the placements that succeeded; a byte inside a decoded
-    instruction or a jump table, or outside the module, is left out, and the
-    caller keeps the literal.
-
-    Idempotent: placing the same name at the same offset twice is a no-op (see
-    ``_ensure_jump_case_label``), so a caller that asks twice emits no duplicate
-    symbol.
-
-    The alias is placed at render time, like the D1/string anchors, rather than
-    ahead of ``_split_off_foreign_objects``: the splitter truncates a fragment's
-    range at a data label, which takes whatever code follows the table into the
-    master with it (480 lines, one whole routine, in ``vga``).
-    """
-    placed = {}
-    if not load_offset or not immediate_labels:
-        return placed
-    from lib.compare.jumptables import _ensure_global_label
-    for disp in sorted(immediate_labels):
-        file_off = disp - load_offset
-        if not 0 <= file_off < len(binary_data):
-            continue
-        anchor = Symbol.anchor(f'{ANCHOR_PREFIX}{immediate_labels[disp]}',
-                               file_off)
-        if _ensure_global_label(records, binary_data, file_off, anchor):
-            placed[disp] = anchor
-    return placed
-
-
 def _virtual_base(binary_data, start_offset):
     """Virtual address of file offset 0 (``vstart``), or 0 when unknown.
 
@@ -994,7 +959,7 @@ def _data_file_spans(split_records, prefix):
 
 
 def _build_source(records, start_offset, binary_data, label_map=None, show_offsets=True,
-                  immediate_labels=None, split_ranges=None,
+                  split_ranges=None,
                   split_dir='ds', mem_equ=None, image_base=None, entry_symbol=None,
                   label_defined=None, ds_size=None, host_symbols=None,
                   host_data_offsets=None, load_offset=0, overlay_own=None,
@@ -1109,7 +1074,7 @@ def _build_source(records, start_offset, binary_data, label_map=None, show_offse
     # record mentions it.
     bound_entry = _mz_entry_symbol(hdr, label_map, entry_symbol) if is_mz else None
     uses_image_base = (
-        base > 0 or bool(bound_entry) or bool(load_offset and immediate_labels)
+        base > 0 or bool(bound_entry)
         or any('IMAGE_BASE' in rec.get('text', '') for rec in records)
     )
     if uses_image_base:
@@ -1205,38 +1170,6 @@ def _build_source(records, start_offset, binary_data, label_map=None, show_offse
                          _instruction_anchor(records, binary_data, addr, name))
                 out.append(f'{name} equ '
                            f'{inner or _label_equ_value(name, addr, code_value)}')
-    if immediate_labels:
-        # The sidecar's ``immediate_labels`` value is the displacement the
-        # instruction encodes -- a raw offset, e.g. ``data_46d9 equ 0x46d9`` --
-        # not a virtual address, so the name is *not* placed as a plain label: a
-        # label (``VBASE + off``) would change the operand of any image with a
-        # non-zero ``vstart``.
-        #
-        # A raw driver is the exception that pays off (plan.md F3/D7.6b).  Its
-        # immediates encode ``file + load_offset`` (the host reads the module to
-        # ``segment:0x100``), so the byte the name refers to is ``addr -
-        # load_offset``, and the name can be written as ``anchor - IMAGE_BASE`` --
-        # the negative load base -- through a label *on* that byte.  The
-        # encoding is unchanged, and the value now follows an edit above the
-        # byte instead of standing frozen (the D1 ``__z*`` anchor pattern, one
-        # name form over).  The literal is the fallback where the byte cannot
-        # carry a label (inside an instruction or a jump table) or lies outside
-        # the module.
-        anchors = place_driver_immediates(records, binary_data,
-                                          immediate_labels, load_offset)
-        for addr in sorted(immediate_labels):
-            name = immediate_labels[addr]
-            if _defined(name):
-                continue
-            if name == '__zdseg_para':
-                continue  # the dynamic prologue's own symbol, defined below
-            if label_map and addr in label_map and label_map[addr] == name:
-                continue
-            anchor = anchors.get(addr)
-            if anchor:
-                out.append(f'{name} equ {anchor} - IMAGE_BASE')
-            else:
-                out.append(f'{name} equ 0x{addr:04x}')
     data_anchored = is_mz and gap is not None
     # Named data objects bound to their own byte: each becomes a file.
     data_roots = {}
@@ -1262,6 +1195,8 @@ def _build_source(records, start_offset, binary_data, label_map=None, show_offse
         # the whole union.
         data_names = {}
         for name, value in (mem_equ or {}).items():
+            if gap is not None and name == '__zdseg_para':
+                continue  # the dynamic prologue's own symbol, defined below
             if host_symbols and data_space(name) in (Space.DS, Space.BSS):
                 continue  # the one shared host table declares it
             data_names[name] = (value, False)
@@ -1361,7 +1296,7 @@ def _build_source(records, start_offset, binary_data, label_map=None, show_offse
                 expr = f'{_DSSIZE_SYMBOL} + ({label} - __zdata_start)'
             out.append(f'{name} equ '
                        f'{expr or f"{_DSSIZE_SYMBOL} + 0x{delta:04x}"}')
-    if label_map or immediate_labels or mem_equ or ds_end_symbol is not None:
+    if label_map or mem_equ or ds_end_symbol is not None:
         out.append('')
 
     records = _split_ds_start(records, gap)
