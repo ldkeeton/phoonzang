@@ -8,7 +8,6 @@ import unittest
 
 from capstone import Cs, CS_ARCH_X86, CS_MODE_16
 from lib.msgflow import analyze
-from lib.msgids import MessageCall
 
 
 @unittest.skipUnless(shutil.which('nasm'), 'NASM is required')
@@ -27,10 +26,10 @@ class MessageFlowTest(unittest.TestCase):
         md.detail = True
         insns = list(md.disasm(data[:-n], 0))
         symbols, uses, params = analyze(
-            insns, [MessageCall('show', 1, 1, 1)],
+            insns,
             {2026: 'MSG_CAST', 2027: 'MSG_CANCEL', 5500: 'MSG_SKILL_START'}, {},
             lambda i: labels.get(i.operands[0].imm & 0xffff)
-            if i.operands else None, labels, foreign)
+            if i.operands else None, labels, {'show': [0], **(foreign or {})})
         return symbols, uses, params, insns
 
     def test_wrapper_fixed_point_and_non_message_argument(self):
@@ -232,11 +231,11 @@ class MessageCollectionTest(unittest.TestCase):
             return list(md.disasm(bytes.fromhex(data), 0))
 
         project = SimpleNamespace(
-            app_dir='/unused', host_model=None, sidecar={'message_data': {}},
+            app_dir='/unused', host_model=None, sidecar={'huffman_strings': {}},
             bins={'host': ('HOST.EXE', 0), 'overlay': ('O.OVR', 0)})
         host = SimpleNamespace(
             ctx=SimpleNamespace(segments=None), data=b'', start_offset=0,
-            instructions=decoded('5589e5ff7604e80100c3c3'),
+            instructions=decoded('5589e5ff7604e80100c35589e5a10c10ff7604c3'),
             label_map={0: 'wrapper', 10: 'show'})
         overlay = SimpleNamespace(
             ctx=SimpleNamespace(segments=None), data=b'', start_offset=0,
@@ -246,8 +245,10 @@ class MessageCollectionTest(unittest.TestCase):
                 mock.patch('main.worker.Project', return_value=project), \
                 mock.patch('main.messages.detect',
                            return_value={'overlay': [(256, 'host')]}), \
-                mock.patch('main.messages.per_binary', return_value={
-                    'message_calls': [{'routine': 'show', 'arg': 1, 'args': 1}]}), \
+                mock.patch('main.messages.per_binary', return_value={}), \
+                mock.patch('main.messages.directory_address',
+                           side_effect=lambda _sidecar, name:
+                           0x100c if name == 'host' else None), \
                 mock.patch('main.messages.overlay_host_aliases',
                            side_effect=lambda foreign, *args: {256: foreign[0]}), \
                 mock.patch('main.runner.analyze',

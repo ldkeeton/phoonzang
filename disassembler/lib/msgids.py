@@ -7,7 +7,7 @@ one of the resulting ids, so a numeric argument such as ``2026`` means the
 message ``"CAST"``.
 
 The three file names are the game's data, not this module's: the sidecar's
-``message_data`` table names them.  Nothing here hard-codes a project.
+``huffman_strings`` table names them.  Nothing here hard-codes a project.
 
 This module owns the data side of the message-id namespace:
 
@@ -16,9 +16,8 @@ This module owns the data side of the message-id namespace:
 * :func:`constant_names` gives every id its name, from the data alone;
 * :func:`build_constants`, :func:`inc_text` and :func:`header_text` emit the
   checked-in ASM/C headers;
-* :func:`message_calls` and :func:`message_bases` read the sidecar's
-  project-wide knowledge (which routines take an id, where a computed id
-  starts); a binary may override one ``message_calls`` entry;
+* :func:`message_bases` reads the sidecar's named groups (where a computed id
+  starts); :func:`directory_address` finds where the code reads the directory;
 * :func:`find_message_symbols` resolves arguments from decoded instructions.
 
 The ASM header describes the complete database.  The C header is a subset
@@ -36,7 +35,7 @@ import os
 import re
 import struct
 
-from lib.sidecar.messages import MESSAGE_DATA_KEYS
+from lib.sidecar.messages import HUFFMAN_FILE_KEYS
 
 #: Longest identifier the emitted headers use (Aztec C's minimum significant
 #: length is larger, but short names keep the two headers readable).
@@ -111,21 +110,21 @@ def message_data(sidecar):
     Names the directory, block and tree files.  A project that decodes
     messages must declare it; nothing here assumes a file name.
     """
-    spec = (sidecar or {}).get('message_data')
+    spec = (sidecar or {}).get('huffman_strings')
     if not isinstance(spec, dict):
-        raise ValueError('sidecar has no "message_data" table')
-    missing = [key for key in MESSAGE_DATA_KEYS
+        raise ValueError('sidecar has no "huffman_strings" table')
+    missing = [key for key in HUFFMAN_FILE_KEYS
                if not isinstance(spec.get(key), str) or not spec.get(key)]
     if missing:
         raise ValueError(
-            f'message_data is missing {", ".join(missing)}')
+            f'huffman_strings is missing {", ".join(missing)}')
     return spec
 
 
 def decode_messages(app_dir, spec):
     """Read the packed message data named by *spec* under *app_dir*.
 
-    *spec* is the sidecar's ``message_data`` table (:func:`message_data`).
+    *spec* is the sidecar's ``huffman_strings`` table (:func:`message_data`).
     Returns ``({id: text}, skipped)`` where *skipped* lists ids whose record
     could not be read (past the end of the file, or an empty record).
     """
@@ -250,7 +249,7 @@ def build_constants(messages, direct_ids=(), bases=()):
     """Return the constants for the header, sorted by value then name.
 
     *direct_ids* are the message ids the code passes literally; *bases* are
-    the sidecar's ``message_bases`` entries (``value``/``name``/``note``).
+    the sidecar's ``groups`` entries (``value``/``name``).
     A base value is emitted once, under its sidecar name, even if the same
     value is also requested as a literal.
     """
@@ -269,13 +268,13 @@ def build_constants(messages, direct_ids=(), bases=()):
 
 
 def _base_entry(entry):
-    """Normalise a sidecar ``message_bases`` entry."""
+    """Normalise a sidecar ``groups`` entry."""
     if isinstance(entry, MessageConstant):
         return entry
     value = entry['value']
     if isinstance(value, str):
         value = int(value, 0)
-    return MessageConstant(int(value), entry['name'], entry.get('note', ''))
+    return MessageConstant(int(value), entry['name'])
 
 
 # ── Header text ─────────────────────────────────────────────────────────────
@@ -359,29 +358,8 @@ def read_constants(path):
 
 # ── Sidecar knowledge ───────────────────────────────────────────────────────
 
-@dataclass(frozen=True)
-class MessageCall:
-    """A routine that takes a message id, and where that argument is."""
-
-    routine: str
-    arg: int
-    args: int
-    push: int
-
-    @classmethod
-    def from_entry(cls, entry):
-        args = int(entry['args'])
-        arg = int(entry['arg'])
-        return cls(entry['routine'], arg, args, int(entry.get('push', arg)))
-
-
-def message_calls(entries):
-    """The sidecar's ``message_calls`` as :class:`MessageCall` objects."""
-    return [MessageCall.from_entry(entry) for entry in (entries or ())]
-
-
 def message_bases(entries):
-    """``{value: name}`` for the sidecar's ``message_bases``."""
+    """``{value: name}`` for the sidecar's ``groups``."""
     out = {}
     for entry in entries or ():
         entry = _base_entry(entry)
@@ -407,11 +385,11 @@ class MessageUse:
 # ── Decoded message provenance ─────────────────────────────────────────────
 
 
-def find_message_symbols(insns, calls, names, bases, resolve, boundaries=()):
+def find_message_symbols(insns, directory, names, bases, resolve, boundaries=()):
     """Name the message-id operands in a decoded instruction stream.
 
-    *insns* is address-ordered; *calls* the sidecar's :class:`MessageCall`
-    list; *names* ``{id: MSG_*}`` and *bases* ``{id: MSG_*_BASE}``;
+    *insns* is address-ordered; *directory* the address of the string directory
+    in this binary, or None; *names* ``{id: MSG_*}`` and *bases* ``{id: MSG_*_BASE}``;
     *resolve(insn)* returns the routine a ``call`` targets, or None.
     *boundaries* is an optional set of instruction addresses that begin a new
     basic block. Routine prologues and decoded branches define the flow;
@@ -422,8 +400,8 @@ def find_message_symbols(insns, calls, names, bases, resolve, boundaries=()):
     never renamed.
     """
     from lib.msgflow import analyze
-    symbols, uses, _params = analyze(insns, calls, names, bases, resolve,
-                                     labels=boundaries)
+    symbols, uses, _params = analyze(insns, names, bases, resolve,
+                                     labels=boundaries, directory=directory)
     return symbols, uses
 
 
@@ -439,13 +417,24 @@ def header_rel():
     return MSG_H
 
 
-def sidecar_calls(sidecar):
-    """Every ``message_calls`` entry, a binary's own replacing the project's."""
-    from lib.sidecar.messages import merge_message_calls
-    merged = list(sidecar.get('message_calls', []))
-    for info in (sidecar.get('binaries') or {}).values():
-        merged = merge_message_calls(merged, info.get('message_calls'))
-    return message_calls(merged)
+def directory_address(sidecar, binary):
+    """Where *binary* holds the string directory, or None when it does not.
+
+    ``data_files`` says which variable the directory file is read into, and
+    the binary's ``data_names`` give that variable's address.  The routine
+    reading it is where string ids enter the code (:mod:`lib.msgflow`).
+    """
+    sidecar = sidecar or {}
+    spec = sidecar.get('huffman_strings') or {}
+    parts = (sidecar.get('data_files') or {}).get(
+        spec.get('directory'), {}).get('parts') or ()
+    variable = parts[0].get('into') if parts else None
+    info = (sidecar.get('binaries') or {}).get(binary) or {}
+    for address, entry in (info.get('data_names') or {}).items():
+        name = entry.get('name') if isinstance(entry, dict) else entry
+        if variable and name == variable:
+            return int(address, 16)
+    return None
 
 
 def c_message_ids(src_dir, names):
@@ -475,7 +464,7 @@ def c_message_ids(src_dir, names):
 def project_data(project, root):
     """``(messages, skipped, bases)`` for *project* under *root*.
 
-    *messages* is ``None`` when the sidecar declares no ``message_data``.
+    *messages* is ``None`` when the sidecar declares no ``huffman_strings``.
     This is the whole of the naming input: the packed data and the sidecar's
     bases.  Every caller that needs names reads them the same way.  The
     decode is cached: a build asks once per binary it renders, and the
@@ -483,12 +472,12 @@ def project_data(project, root):
     """
     from lib.sidecar.loader import load as load_sidecar
     sidecar = load_sidecar(project) or {}
-    spec = sidecar.get('message_data')
+    spec = sidecar.get('huffman_strings')
     if not spec:
         return None, [], []
     app_dir = os.path.join(root, 'apps', project)
     messages, skipped = decode_messages(app_dir, message_data(sidecar))
-    return messages, skipped, list(sidecar.get('message_bases') or ())
+    return messages, skipped, list(spec.get('groups') or ())
 
 
 def generate_project(project, root, write=True, used_ids=()):

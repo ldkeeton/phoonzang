@@ -14,7 +14,7 @@ local), a ``memory`` run of variables (``size`` bytes, ``count`` times), or
 ``raw`` records of ``record`` bytes for a buffer the code has not named.
 Their types are derived from the code (:mod:`.derive`); no layout is written
 by hand.  The parts must cover the file exactly.  Labels name a
-``message_bases`` entry, a number then shown with the message at base +
+``huffman_strings.groups`` entry, a number then shown with the message at base +
 value as a comment, or are ``text``: each element's leading text.
 
 Each file becomes ``.cache/<project>/data/<FILE>.c``; a file of several parts
@@ -77,7 +77,7 @@ def _message_labels(app_dir, sidecar):
     from lib.msgids import decode_messages, message_data
     spec = message_data(sidecar)
     messages = decode_messages(app_dir, spec)[0] if spec else {}
-    bases = {b['name']: b['value'] for b in sidecar.get('message_bases') or ()}
+    bases = {b['name']: b['value'] for b in (spec or {}).get('groups') or ()}
 
     def labels(base_name, count=256):
         if base_name not in bases:

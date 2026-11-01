@@ -108,6 +108,20 @@ class RenderTest(unittest.TestCase):
         text = self._round_trip('unsigned char t[32];\n', bytes(range(32)))
         self.assertIn('0x1f', text)
 
+    def test_union_spells_first_full_size_member(self):
+        types = ('union pair { int word[2]; long dword; };\n'
+                 'union wide { char c; long l; };\n'
+                 'struct rec { union pair p; union wide w; };\n')
+        obj = parse_text(types + 'struct rec x;\n').objects[-1]
+        data = bytes.fromhex('01000200' '05060708')
+        text = render_object(obj.name, obj.type, data)
+        self.assertIn('.p = { .word = { 1, 2 } }', text)
+        self.assertNotIn('.dword', text)
+        self.assertIn('.w = { .l = ', text)
+        self.assertNotIn('.c = ', text)
+        again = parse_text(types + text).objects[-1]
+        self.assertEqual(Image([again]).data, data)
+
 
 _CODE = {
     'include/structs/rec.h': 'struct rec { int a; unsigned char b; };\n'

@@ -80,6 +80,19 @@ def _items(pad, rendered, prefixes, notes):
     return lines
 
 
+def _initialized_fields(ctype):
+    """``(name, type, offset)`` of the fields an initializer spells.
+
+    Union members share their bytes, so a union spells only its first member
+    covering all of them.
+    """
+    fields = [(name, ftype, at) for (name, ftype), at
+              in zip(ctype.fields, ctype.offsets)]
+    if not ctype.is_union:
+        return fields
+    return [field for field in fields if field[1].size == ctype.size][:1]
+
+
 def _render(ctype, data, indent, field_labels):
     pad = '\t' * indent
     if isinstance(ctype, Scalar):
@@ -104,8 +117,9 @@ def _render(ctype, data, indent, field_labels):
         return _Text(lines=['{'] + _items(pad, rendered, [''] * ctype.count,
                                           [None] * ctype.count) + [pad + '}'])
     if isinstance(ctype, StructType):
+        fields = _initialized_fields(ctype)
         rendered, notes = [], []
-        for (name, ftype), at in zip(ctype.fields, ctype.offsets):
+        for name, ftype, at in fields:
             chunk = data[at:at + ftype.size]
             rendered.append(_render(ftype, chunk, indent + 1, field_labels))
             label = None
@@ -113,13 +127,13 @@ def _render(ctype, data, indent, field_labels):
                 label = field_labels[name].get(ftype.decode(chunk))
             notes.append(f'{name}: {label}' if label else None)
         if all(t.one is not None and not t.note for t in rendered):
-            one = '{ ' + ', '.join(f'.{name} = {t.one}' for (name, _f), t
-                                   in zip(ctype.fields, rendered)) + ' }'
+            one = '{ ' + ', '.join(f'.{name} = {t.one}' for (name, _f, _a), t
+                                   in zip(fields, rendered)) + ' }'
             note = '; '.join(n for n in notes if n) or None
             if _visible(pad + one + ',') <= _WIDTH:
                 return _Text(one, note)
         notes = [n.split(': ', 1)[1] if n else None for n in notes]
-        prefixes = [f'.{name} = ' for name, _f in ctype.fields]
+        prefixes = [f'.{name} = ' for name, _f, _a in fields]
         return _Text(lines=['{'] + _items(pad, rendered, prefixes, notes)
                      + [pad + '}'])
     raise TypeError(f'cannot render {ctype!r}')

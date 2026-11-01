@@ -1,7 +1,7 @@
 """Message argument provenance over decoded code, before source rendering.
 
-Only known message parameters seed the analysis. Forwarded frame arguments
-extend that knowledge to wrappers until it reaches a fixed point. Backward
+The routine reading the string directory seeds the analysis: its frame
+arguments are string ids. Forwarded frame arguments extend that knowledge to wrappers until it reaches a fixed point. Backward
 slices then name literal producers, including register copies, local spills,
 branch alternatives and computed message ranges. Addresses are used only to
 connect the decoded control flow; no original-layout offsets are knowledge.
@@ -177,18 +177,32 @@ class MessageFlow:
         return found
 
 
-def analyze(insns, calls, names, bases, resolve, labels=(), foreign=None):
+def _directory_params(flow, body, directory):
+    """The frame arguments of a routine reading the *directory* variable."""
+    if directory is None:
+        return set()
+    insns = [flow.insns[k] for k in body]
+    if not any(op.type == CS_OP_MEM and not op.mem.base and not op.mem.index
+               and op.mem.disp & 0xffff == directory
+               for i in insns for op in i.operands):
+        return set()
+    slots = {_frame_slot(i, op) for i in insns for op in i.operands}
+    return slots - {None}
+
+
+def analyze(insns, names, bases, resolve, labels=(), foreign=None,
+            directory=None):
     """Return producer symbols, call-site uses and inferred wrapper parameters.
 
     Parameter indices are physical, zero-based word slots (``push - 1``),
-    so declared ABI overrides and inferred forwarding use the same convention.
+    the convention of *foreign*'s host-inferred parameters.  *directory* is the
+    string directory's address in this binary, or None.
     """
     from lib.msgids import MessageUse
     flow = MessageFlow(insns, resolve, labels)
     known = {str(name): set(slots) for name, slots in (foreign or {}).items()}
-    for call in calls:
-        known.setdefault(call.routine, set()).add(call.push - 1)
-    params = {e: set() for e in flow.bodies}
+    params = {e: _directory_params(flow, body, directory)
+              for e, body in flow.bodies.items()}
     # Resolve entry names through the exact same routine resolver as calls.
     entry_names = {}
     for i in flow.insns:

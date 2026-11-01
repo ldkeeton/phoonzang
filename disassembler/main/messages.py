@@ -10,7 +10,8 @@ import os
 from lib import stagelog
 from lib.cross_ref import detect, overlay_host_aliases
 from lib.msgflow import analyze as message_flow
-from lib.msgids import constant_names, message_bases, message_calls, project_data
+from lib.msgids import (constant_names, directory_address, message_bases,
+                        project_data)
 from lib.sidecar.binary import per_binary
 
 
@@ -99,9 +100,9 @@ def _analyze_one(name, foreign, prefix, foreign_params, names,
             return a.label_map.get(target) or foreign.get(target)
 
         symbols, _uses, inferred = message_flow(
-            a.instructions, message_calls(entry.get('message_calls')),
-            names, base_names, resolve, labels=a.label_map,
-            foreign=foreign_params)
+            a.instructions, names, base_names, resolve, labels=a.label_map,
+            foreign=foreign_params,
+            directory=directory_address(p.sidecar, name))
         by_name = {sym: value for value, sym in names.items()}
         ids = {by_name[sym] for sym in symbols.values()}
         return dict(a.label_map), inferred, ids

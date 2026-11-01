@@ -329,7 +329,7 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
            driver_pointer_args=None,
            ds_starts=frozenset(), record_layouts=None,
            foreign_pointer_params=None,
-           message_calls=(), message_names=None, message_bases=None,
+           message_directory=None, message_names=None, message_bases=None,
            foreign_message_params=None,
            sidecar_use=None, bands=(), data_modules=(),
            driver_slot_words=None, drivers_inc=None, data_groups=(),
@@ -804,16 +804,15 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
     ]
 
     # ── Message-id operands ────────────────────────────────────────────────
-    # A message id is a game constant, not an address.  The sidecar says which
-    # routines take one and at which argument; lib.msgids walks the pushes and
-    # names the *producer* instruction, so an unrelated immediate of the same
+    # A message id is a game constant, not an address.  lib.msgflow starts at
+    # the routine reading the string directory, walks the pushes and names the *producer* instruction, so an unrelated immediate of the same
     # value is never rewritten.  The map is per operand, never global.
     message_symbols = {}
     message_equ = {}
     message_inc = None
     message_params = {}
     message_uses = []
-    if message_calls and message_names:
+    if message_names:
         from lib.msgids import inc_rel
         from lib.msgflow import analyze as analyze_messages
 
@@ -830,8 +829,9 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
             return name
 
         message_symbols, message_uses, message_params = analyze_messages(
-            insns, message_calls, message_names, message_bases or {},
-            _routine, labels=label_map or {}, foreign=foreign_message_params)
+            insns, message_names, message_bases or {},
+            _routine, labels=label_map or {}, foreign=foreign_message_params,
+            directory=message_directory)
         # Only the names this binary actually spells need equ lines, plus the
         # bases it computes from; the table itself is the whole database.
         used = set(message_symbols.values())

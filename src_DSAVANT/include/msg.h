@@ -2,14 +2,14 @@
 #ifndef MSG_H
 #define MSG_H
 
-#define MSG_CLASS_BASE 120            /* "class names, MSG_CLASS_BASE + class" */
-#define MSG_ORDINAL_BASE 1059         /* "ordinals, MSG_ORDINAL_BASE + n" */
-#define MSG_SLOT_NAME_BASE 1700       /* "NPC slot names, MSG_SLOT_NAME_BASE + slot" */
-#define MSG_FACTION_NAME_BASE 1750    /* "Faction names, MSG_FACTION_NAME_BASE + slot_record.faction" */
-#define MSG_LOCATION_NAME_BASE 1770   /* "Location names, MSG_LOCATION_NAME_BASE + location" */
-#define MSG_MAP_NAME_BASE 1800        /* "Quest map names, MSG_MAP_NAME_BASE + map" */
-#define MSG_CODE_CHAR_BASE 2500       /* "code-character words, MSG_CODE_CHAR_BASE + index" */
-#define MSG_SPELL_NAME_BASE 4000      /* "spell names, MSG_SPELL_NAME_BASE + spell" */
+#define MSG_CLASS_BASE 120
+#define MSG_ORDINAL_BASE 1059
+#define MSG_SLOT_NAME_BASE 1700
+#define MSG_FACTION_NAME_BASE 1750
+#define MSG_LOCATION_NAME_BASE 1770
+#define MSG_MAP_NAME_BASE 1800
+#define MSG_CODE_CHAR_BASE 2500
+#define MSG_SPELL_NAME_BASE 4000
 #define MSG_HUMAN 100                 /* "HUMAN" */
 #define MSG_MALE 140                  /* "MALE" */
 #define MSG_LVL 200                   /* "LVL" */

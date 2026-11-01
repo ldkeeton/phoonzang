@@ -938,9 +938,9 @@ def _render(a, exact_bytes, show_offsets, host_data_offsets,
         a.immediate_labels, a.label_comments, a.split_functions, a.out_dir,
         a.c_overrides, a.c_checks, a.asm_annotations)
     progress.log(f'{a.name} | verify+format')
-    from lib.msgids import (constant_names,
+    from lib.sidecar.loader import load as load_sidecar
+    from lib.msgids import (constant_names, directory_address,
                             message_bases as _message_bases,
-                            message_calls as _message_calls,
                             project_data)
     # The spelling of an id is a function of the message data, so rendering
     # never reads the generated header: a tree cleaned since the last build
@@ -1005,7 +1005,8 @@ def _render(a, exact_bytes, show_offsets, host_data_offsets,
         ds_starts=ds_starts,
         record_layouts=record_layouts,
         foreign_pointer_params=_foreign_pointer_params(project, a.foreign_prefix),
-        message_calls=_message_calls(entry.get('message_calls') or ()),
+        message_directory=directory_address(
+            load_sidecar(a.project) if a.project else None, a.name),
         message_names=message_names,
         foreign_message_params=_foreign_message_params(project, a.foreign_prefix),
         message_bases=message_bases,

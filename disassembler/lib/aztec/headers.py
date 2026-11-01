@@ -161,7 +161,7 @@ def missing(project, out_dir=None):
     need = []
     if used_headers(out_dir, {})[1]:
         need.append(f'include/{LMACROS}')
-    if (load_sidecar(project) or {}).get('message_data'):
+    if (load_sidecar(project) or {}).get('huffman_strings'):
         need += [msgids.MSG_H, msgids.MSG_INC]
     return [rel for rel in need
             if not os.path.isfile(os.path.join(out_dir, rel))]

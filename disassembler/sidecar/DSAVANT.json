@@ -3,10 +3,20 @@
   "title": "Wizardry 7: Crusaders of the Dark Savant",
   "version": 1,
   "dos_compilers": ["Manx Aztec C86 v42b"],
-  "message_data": {
+  "huffman_strings": {
     "directory": "MSG.HDR",
     "blocks": "MSG.DBS",
-    "tree": "MISC.HDR"
+    "tree": "MISC.HDR",
+    "groups": [
+      {"value": 120, "name": "MSG_CLASS_BASE"},
+      {"value": 1059, "name": "MSG_ORDINAL_BASE"},
+      {"value": 1700, "name": "MSG_SLOT_NAME_BASE"},
+      {"value": 1750, "name": "MSG_FACTION_NAME_BASE"},
+      {"value": 1770, "name": "MSG_LOCATION_NAME_BASE"},
+      {"value": 1800, "name": "MSG_MAP_NAME_BASE"},
+      {"value": 2500, "name": "MSG_CODE_CHAR_BASE"},
+      {"value": 4000, "name": "MSG_SPELL_NAME_BASE"}
+    ]
   },
   "data_files": {
     "NEWGAME.DBS": {
@@ -318,46 +328,6 @@
     "asm": ["-dMODEL=0", "-l"],
     "prefixes": {"aztec_": ["-n"]}
   },
-  "vendor_patches": {
-    "aztec_fexec": {
-      "version": "v42b",
-      "file": "fexec.asm",
-      "note": "`param equ this word` aliases `env` (the EXEC parameter block starts with it); one DS address takes one name in the build, so the block is addressed by its first field's name.",
-      "edits": [
-        { "find": "\tmov\tbx,offset param\n", "replace": "\tmov\tbx,offset env\t;param\n" }
-      ]
-    },
-    "aztec_begin": {
-      "version": "v42b",
-      "file": "sbegin.asm",
-      "note": "cc declares `extrn $begin:near` in every module, so a module defining $begin cannot go through cc (\"Multiply defined symbol\"). The startup routine is renamed `begin` (same lookup key, same bytes) so it compiles as an #asm stub.",
-      "edits": [
-        { "find": "\tpublic\t$begin\n", "replace": "\tpublic\tbegin\n" },
-        { "find": "$begin\tproc\tfar\n", "replace": "begin\tproc\tfar\n" },
-        { "find": "$begin\tendp\n", "replace": "begin\tendp\n" },
-        { "find": "\tend\t$begin\n", "replace": "\tend\tbegin\n" }
-      ]
-    }
-  },
-
-  "message_calls": [
-    {"routine": "load_message_string", "arg": 1, "args": 2},
-    {"routine": "find_message_record", "arg": 1, "args": 1},
-    {"routine": "show_message", "arg": 1, "args": 1},
-    {"routine": "show_event_message", "arg": 1, "args": 1},
-    {"routine": "pick_spell_dialog", "arg": 2, "args": 4},
-    {"routine": "action_spell_dialog", "arg": 2, "args": 4}
-  ],
-  "message_bases": [
-    {"value": 120, "name": "MSG_CLASS_BASE", "note": "class names, MSG_CLASS_BASE + class"},
-    {"value": 1059, "name": "MSG_ORDINAL_BASE", "note": "ordinals, MSG_ORDINAL_BASE + n"},
-    {"value": 1700, "name": "MSG_SLOT_NAME_BASE", "note": "NPC slot names, MSG_SLOT_NAME_BASE + slot"},
-    {"value": 1750, "name": "MSG_FACTION_NAME_BASE", "note": "Faction names, MSG_FACTION_NAME_BASE + slot_record.faction"},
-    {"value": 1770, "name": "MSG_LOCATION_NAME_BASE", "note": "Location names, MSG_LOCATION_NAME_BASE + location"},
-    {"value": 1800, "name": "MSG_MAP_NAME_BASE", "note": "Quest map names, MSG_MAP_NAME_BASE + map"},
-    {"value": 2500, "name": "MSG_CODE_CHAR_BASE", "note": "code-character words, MSG_CODE_CHAR_BASE + index"},
-    {"value": 4000, "name": "MSG_SPELL_NAME_BASE", "note": "spell names, MSG_SPELL_NAME_BASE + spell"}
-  ],
   "apis": {
     "play_drv":{
       "dispatch_table": {
@@ -3508,7 +3478,5 @@
         "193a": {"name": "sample_output_table", "note": "256-byte table: sample byte to device output value (PIT count on device 0, level on others), read with cs xlatb by the INT 08h handlers"}
       }
     }
-  },
-  "force_data": [],
-  "force_code": []
+  } 
 }

@@ -7,8 +7,7 @@ from .binary import _validate_binary, _validate_entry_names
 from .compiler import _validate_compiler_flags
 from .constants import MAX_NAME_LENGTH, SIDECAR_DIR
 from .errors import SidecarError
-from .messages import (_validate_message_bases, _validate_message_calls,
-                       _validate_message_data)
+from .messages import _validate_huffman_strings
 from .pointers import _validate_corpus
 from .ranges import _reject_range_conflicts, _validate_ranges
 from .vendor import _validate_vendor_patches
@@ -96,12 +95,8 @@ def _validate(data):
 
     _validate_compiler_flags(data.get('compiler_flags'))
     _validate_vendor_patches(data.get('vendor_patches'))
-    if 'message_calls' in data:
-        _validate_message_calls(data['message_calls'], 'message_calls')
-    if 'message_bases' in data:
-        _validate_message_bases(data['message_bases'], 'message_bases')
-    if 'message_data' in data:
-        _validate_message_data(data['message_data'], 'message_data')
+    if 'huffman_strings' in data:
+        _validate_huffman_strings(data['huffman_strings'], 'huffman_strings')
 
     if 'binaries' in data:
         if not isinstance(data['binaries'], dict):

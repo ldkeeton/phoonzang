@@ -1,67 +1,35 @@
-"""Sidecar validation for the game's message-id tables."""
+"""Sidecar validation for the game's Huffman string table."""
 
 from .constants import _IDENTIFIER
 from .errors import SidecarError
 
-#: Keys of the sidecar's ``message_data`` table, in read order.
-MESSAGE_DATA_KEYS = ('directory', 'blocks', 'tree')
+#: File keys of the sidecar's ``huffman_strings`` table, in read order.
+HUFFMAN_FILE_KEYS = ('directory', 'blocks', 'tree')
 
 
-def _validate_message_calls(calls, where):
-    """``message_calls``: which routines take a message id, at which argument.
-
-    This is knowledge about the game's routines, so it lives in the sidecar
-    rather than in the renderer or the generator.  ``arg`` is the 1-based C
-    argument and ``args`` the routine's argument count; ``push`` overrides the
-    standard right-to-left position (1 = the last push) for an unusual
-    convention.
-    """
-    if not isinstance(calls, list):
-        raise SidecarError(f'{where} must be a list')
-    seen = set()
-    for index, entry in enumerate(calls):
-        at = f'{where}[{index}]'
-        if not isinstance(entry, dict):
-            raise SidecarError(f'{at} must be an object')
-        routine = entry.get('routine')
-        if not (isinstance(routine, str) and _IDENTIFIER.match(routine)):
-            raise SidecarError(f'{at}.routine must be an identifier')
-        if routine in seen:
-            raise SidecarError(f'{at}.routine duplicates {routine!r}')
-        seen.add(routine)
-        args = entry.get('args')
-        if isinstance(args, bool) or not isinstance(args, int) or args < 1:
-            raise SidecarError(f'{at}.args must be a positive integer')
-        arg = entry.get('arg')
-        if isinstance(arg, bool) or not isinstance(arg, int) or not 1 <= arg <= args:
-            raise SidecarError(f'{at}.arg must be between 1 and {args}')
-        push = entry.get('push')
-        if push is not None and (
-                isinstance(push, bool) or not isinstance(push, int)
-                or not 1 <= push <= args):
-            raise SidecarError(f'{at}.push must be between 1 and {args}')
-
-
-def _validate_message_data(spec, where):
-    """``message_data``: the packed-message files' names.
+def _validate_huffman_strings(spec, where):
+    """``huffman_strings``: the Huffman-packed string files and named groups.
 
     These are the game's data files, so they live in the sidecar rather than
     in the decoder.  ``directory`` points at 1K blocks in ``blocks`` and names
-    the Huffman tree in ``tree``.
+    the Huffman tree in ``tree``.  ``groups`` names where a run of related
+    strings starts.
     """
     if not isinstance(spec, dict):
         raise SidecarError(f'{where} must be an object')
-    for key in MESSAGE_DATA_KEYS:
+    for key in HUFFMAN_FILE_KEYS:
         value = spec.get(key)
         if not (isinstance(value, str) and value):
             raise SidecarError(f'{where}.{key} must be a non-empty file name')
-    extra = sorted(set(spec) - set(MESSAGE_DATA_KEYS))
+    extra = sorted(set(spec) - set(HUFFMAN_FILE_KEYS) - {'groups'})
     if extra:
         raise SidecarError(f'{where}: unknown key(s) {", ".join(extra)}')
+    if 'groups' in spec:
+        _validate_groups(spec['groups'], f'{where}.groups')
 
 
-def _validate_message_bases(bases, where):
-    """``message_bases``: the named bases a computed message id starts from."""
+def _validate_groups(bases, where):
+    """``groups``: the named bases a computed string id starts from."""
     if not isinstance(bases, list):
         raise SidecarError(f'{where} must be a list')
     seen_values = {}
@@ -82,9 +50,6 @@ def _validate_message_bases(bases, where):
                 f'{at}.name {name!r} duplicates {seen_names[name]!r}')
         seen_values[value] = name
         seen_names[name] = value
-        note = entry.get('note')
-        if note is not None and not isinstance(note, str):
-            raise SidecarError(f'{at}.note must be a string')
 
 
 def _message_value(value, where):
@@ -103,17 +68,3 @@ def _message_value(value, where):
         if parsed >= 0:
             return parsed
     raise SidecarError(f'{where} must be a message id')
-
-
-def merge_message_calls(defaults, overrides):
-    """The project's ``message_calls`` with a binary's own entries replacing
-    the same routine's.
-
-    Which routines take a message id is project-wide knowledge; a binary may
-    still override a single entry (an unusual calling convention) without
-    repeating the whole table.
-    """
-    merged = {entry['routine']: entry for entry in defaults or ()}
-    for entry in overrides or ():
-        merged[entry['routine']] = entry
-    return list(merged.values())

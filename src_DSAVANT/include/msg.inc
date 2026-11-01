@@ -2,14 +2,14 @@
 %ifndef MSG_INC
 %define MSG_INC
 
-MSG_CLASS_BASE equ 120            ; "class names, MSG_CLASS_BASE + class"
-MSG_ORDINAL_BASE equ 1059         ; "ordinals, MSG_ORDINAL_BASE + n"
-MSG_SLOT_NAME_BASE equ 1700       ; "NPC slot names, MSG_SLOT_NAME_BASE + slot"
-MSG_FACTION_NAME_BASE equ 1750    ; "Faction names, MSG_FACTION_NAME_BASE + slot_record.faction"
-MSG_LOCATION_NAME_BASE equ 1770   ; "Location names, MSG_LOCATION_NAME_BASE + location"
-MSG_MAP_NAME_BASE equ 1800        ; "Quest map names, MSG_MAP_NAME_BASE + map"
-MSG_CODE_CHAR_BASE equ 2500       ; "code-character words, MSG_CODE_CHAR_BASE + index"
-MSG_SPELL_NAME_BASE equ 4000      ; "spell names, MSG_SPELL_NAME_BASE + spell"
+MSG_CLASS_BASE equ 120 ;
+MSG_ORDINAL_BASE equ 1059 ;
+MSG_SLOT_NAME_BASE equ 1700 ;
+MSG_FACTION_NAME_BASE equ 1750 ;
+MSG_LOCATION_NAME_BASE equ 1770 ;
+MSG_MAP_NAME_BASE equ 1800 ;
+MSG_CODE_CHAR_BASE equ 2500 ;
+MSG_SPELL_NAME_BASE equ 4000 ;
 MSG_HUMAN equ 100                 ; "HUMAN"
 MSG_ELF equ 101                   ; "ELF"
 MSG_DWARF equ 102                 ; "DWARF"
