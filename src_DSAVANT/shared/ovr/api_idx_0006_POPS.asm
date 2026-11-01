@@ -3,7 +3,7 @@ api_idx_0006_POPS:
     mov ax, 0xfffa
     call aztec_csav
     mov ax, word [bp + 8]
-    xchg al, ah
+    xchg ah, al
     sub al, al
     mov dx, word [bp + 0xa]
     mov cx, 4

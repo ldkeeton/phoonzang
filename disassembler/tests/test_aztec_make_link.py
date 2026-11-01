@@ -1,11 +1,14 @@
-"""``make link``: which sources link, and how LN's errors are sorted.  The logs
+"""``make link``: reading the project file, and how LN's errors are sorted.  The logs
 are real ``ln``/``cnm`` output, so these run without DOSBox."""
 
 import os
 import tempfile
 import unittest
 
-from lib.aztec import link
+from lib.autogen import is_generated
+from lib.aztec import link, project
+from lib.compare import render
+from lib.sidecar.errors import SidecarError
 
 
 def _write(root, path, text=''):
@@ -15,70 +18,109 @@ def _write(root, path, text=''):
         f.write(text)
 
 
-class MembersTest(unittest.TestCase):
+MAKEFILE = """# auto-generated
+all: r.exe o.ovr d.drv
+
+r.exe: r.lnk
+\tln -R -o r.exe -f r.lnk
+
+o.ovr: o.lnk r.rsm
+\tln -o o.ovr -f o.lnk r.rsm
+
+d.drv: d.lnk
+\tln -o d.drv -f d.lnk
+"""
+
+
+class GenerateTest(unittest.TestCase):
+    BINARIES = {'o': {'type': 'aztec_overlay'}, 'r': {'type': 'mz'},
+                'd': {'type': 'raw_drv'}}
+    FILES = {'r.asm': '%include "include/s.inc"\n%include "r/b.asm"  ; 0x1\n'
+                      '%include "shared/a.asm"\n',
+             'o.asm': '%include "o/x.asm"\n%include "shared/a.asm"\n',
+             'd.asm': '%include "d/y.asm"\n%include "d/y.asm"\n'}
+
+    def test_project_files(self):
+        out = project.project_files(self.BINARIES, 'r', self.FILES)
+        self.assertEqual(out['r.lnk'], '# auto-generated\nr/b\nshared/a\n')
+        self.assertEqual(out['d.lnk'], '# auto-generated\nd/y\n')
+        self.assertEqual(project.parse_makefile(out['makefile']), [
+            project.Target('r', 'r.exe', ['-R'], 'r.lnk', None),
+            project.Target('o', 'o.ovr', [], 'o.lnk', 'r'),
+            project.Target('d', 'd.com', [], 'd.lnk', None)])
+
+    def test_marked_generated_and_the_marker_is_no_module(self):
+        out = project.project_files(self.BINARIES, 'r', self.FILES)
+        self.assertEqual(project.parse_lnk(out['r.lnk']), ['r/b', 'shared/a'])
+        with tempfile.TemporaryDirectory() as tree:
+            for rel, text in out.items():
+                _write(tree, rel, text)
+                self.assertTrue(is_generated(os.path.join(tree, rel)))
+
+    def test_no_overlays_means_no_rsm(self):
+        out = project.project_files({'r': {'type': 'mz'}}, None,
+                                    {'r.asm': '%include "r/b.asm"\n'})
+        self.assertEqual(project.parse_makefile(out['makefile']),
+                         [project.Target('r', 'r.exe', [], 'r.lnk', None)])
+
+
+class MakefileTest(unittest.TestCase):
+    def test_targets(self):
+        self.assertEqual(project.parse_makefile(MAKEFILE), [
+            project.Target('r', 'r.exe', ['-R'], 'r.lnk', None),
+            project.Target('o', 'o.ovr', [], 'o.lnk', 'r'),
+            project.Target('d', 'd.drv', [], 'd.lnk', None)])
+
+    def test_rejects(self):
+        for text in ('x.exe: x.lnk\n',
+                     'x.exe: x.lnk\n\tcc x.c\n',
+                     'x.exe: x.lnk\n\tln -o y.exe -f x.lnk\n',
+                     'x.ovr: x.lnk r.rsm\n\tln -o x.ovr -f x.lnk r.rsm\n',
+                     '\tln -o x.exe -f x.lnk\n',
+                     'nonsense\n'):
+            with self.assertRaises(ValueError, msg=text):
+                project.parse_makefile(text)
+
+    def test_ln_line(self):
+        target = project.Target('r', 'r.exe', ['-R'], 'r.lnk', None)
+        self.assertEqual(link.ln_line(target, 'LINK.EXE'),
+                         'ln -R -o LINK.EXE -f LINK.RSP > LINK.LOG')
+        target = project.Target('o', 'o.ovr', [], 'o.lnk', 'r')
+        self.assertEqual(link.ln_line(target, 'LINK.OVR', 'ROOT.RSM'),
+                         'ln -o LINK.OVR -f LINK.RSP ROOT.RSM > LINK.LOG')
+
+
+class ModulesTest(unittest.TestCase):
     def setUp(self):
         tmp = tempfile.TemporaryDirectory()
         self.addCleanup(tmp.cleanup)
         self.tree = tmp.name
-        # A listing must not matter: nothing here is included by it.
-        _write(self.tree, 'bin.asm', '%include "bin/gen.asm"\n')
-        _write(self.tree, 'bin/gen.asm', 'gen_:\n')
-        _write(self.tree, 'bin/one.s')
-        _write(self.tree, 'bin/two.c')
-        _write(self.tree, 'bin/aztec_x.c')
-        _write(self.tree, 'shared/aztec/three.c')
-        _write(self.tree, 'shared/aztec/four.s', '\tpublic\tfour_\n')
+        _write(self.tree, 'makefile', MAKEFILE)
+        _write(self.tree, 'r.lnk', '# order matters\nr/two\nshared/one\nr/gen\n')
+        _write(self.tree, 'o.lnk', 'shared/one\n')
+        _write(self.tree, 'd.lnk', '')
+        _write(self.tree, 'r/two.c')
+        _write(self.tree, 'shared/one.s')
+        _write(self.tree, 'shared/one.c')
+        _write(self.tree, 'r/gen.asm')
+        self.targets = project.load_targets(self.tree)
 
-    def _paths(self, c_files=()):
-        return [m.path for m in link.members(self.tree, 'bin', c_files)]
+    def test_keeps_order_prefers_s_and_never_uses_asm(self):
+        found, missing = project.modules(self.tree, self.targets[0])
+        self.assertEqual([(m.path, m.kind) for m in found],
+                         [('r/two.c', 'c'), ('shared/one.s', 'asm')])
+        self.assertEqual(missing, ['r/gen'])
 
-    def test_default_is_every_own_s_and_the_runtime_c(self):
-        self.assertEqual(self._paths(), ['bin/aztec_x.c', 'bin/one.s'])
+    def test_unlisted_sources(self):
+        self.assertEqual(project.unlisted(self.tree, self.targets), [])
+        _write(self.tree, 'r/stray.c')
+        _write(self.tree, 'r/ignored.asm')
+        self.assertEqual(project.unlisted(self.tree, self.targets), ['r/stray.c'])
 
-    def test_c_files_add_named_or_all(self):
-        self.assertEqual(self._paths(['two']),
-                         ['bin/aztec_x.c', 'bin/one.s', 'bin/two.c'])
-        self.assertEqual(self._paths(['all']),
-                         ['bin/aztec_x.c', 'bin/one.s', 'bin/two.c'])
-        self.assertEqual(self._paths(['three']),
-                         ['bin/aztec_x.c', 'bin/one.s', 'shared/aztec/three.c'])
-
-    def test_overlay_starts_from_its_startup(self):
-        _write(self.tree, 'shared/ovr/aztec_ovbgn.s')
-        self.assertEqual(
-            [m.path for m in link.members(self.tree, 'bin', overlay=True)],
-            ['bin/aztec_x.c', 'bin/one.s', 'shared/ovr/aztec_ovbgn.s'])
-
-    def test_unknown_c_file_is_an_error(self):
+    def test_no_makefile(self):
+        os.remove(os.path.join(self.tree, 'makefile'))
         with self.assertRaises(ValueError):
-            self._paths(['nope'])
-
-    def test_library_holds_no_generated_asm(self):
-        self.assertEqual([m.path for m in link.library(self.tree)],
-                         ['shared/aztec/four.s', 'shared/aztec/three.c'])
-
-
-class DefinitionsTest(unittest.TestCase):
-    def test_s(self):
-        text = ('\tpublic\tfoo_\n\tprocdef\tbar\nbaz_\tdw\t0\nqux:\n'
-                '\textrn\tother_:word\n')
-        self.assertEqual(link.defined_names('a.s', text),
-                         {'foo', 'bar', 'baz', 'qux'})
-
-    def test_c_skips_declarations(self):
-        text = ('extern int other;\nint proto();\nstatic int hid;\n'
-                'int count = 0;\nchar buf[4];\nfunc(a, b)\nint a;\n{\n}\n'
-                'int head() {\n}\n')
-        self.assertLessEqual({'count', 'buf', 'func', 'head'},
-                             link.defined_names('a.c', text))
-        self.assertFalse({'other', 'proto', 'hid'}
-                         & link.defined_names('a.c', text))
-
-    def test_needed_pulls_the_first_definer_once(self):
-        have = [link.Member('a', 'a.s', 'asm')]
-        index = {'f': ['x.s', 'y.s'], 'g': ['x.s'], 'h': ['a.s', 'z.s']}
-        self.assertEqual(link.needed(['f_', 'g_', 'h_', 'nope_'], have, index),
-                         ['x.s'])
+            project.load_targets(self.tree)
 
 
 class ParseTest(unittest.TestCase):
@@ -94,12 +136,18 @@ class ParseTest(unittest.TestCase):
                 '  0000 Un music_enabled  0000 Pg music_start_  0038 pg _hw1\n')
         self.assertEqual(link.parse_publics(text), ['music_start_'])
 
-    def test_other_linker_errors(self):
+    def test_externals(self):
+        text = '  0000 Un music_enabled  0000 Pg music_start_  0038 pg _hw1\n'
+        self.assertEqual(link.parse_externals(text), ['music_enabled'])
+
+    def test_other_linker_output(self):
         log = ('Aztec C Linker Version  v4.10d 7-22-88\n'
                'ERROR: Undefined symbol: music_enabled\n'
                'foo_ multiply defined\n'
-               'ERROR: Too many symbols\n')
-        self.assertEqual(link.parse_other(log), ['ERROR: Too many symbols'])
+               "file: X.O Can't open.\n"
+               'Base: 0100  Code: 1b39  Data: 0000  Udata: 0000  Total: 1b3c\n'
+               'Code: 0048  Data: 000a  Udata: 0000  Total: 0052\n')
+        self.assertEqual(link.parse_other(log), ["file: X.O Can't open."])
         self.assertEqual(link.parse_other(''), ['ln wrote no log'])
 
     def test_source_errors(self):
@@ -107,6 +155,62 @@ class ParseTest(unittest.TestCase):
         self.assertEqual(link.source_errors(log), ['ERROR:X.ASM:12: bad operand'])
         self.assertEqual(link.source_errors('Out of memory\n'), ['Out of memory'])
         self.assertEqual(link.source_errors(''), ['no object and no log'])
+
+    def test_asm_labels(self):
+        text = ('\tpublic\tfoo_\nfoo_ proc near\nbaz_\tdw\t0\nqux:\n'
+                'off\tequ\tfoo_+1\n\textrn\tother_:word\n')
+        self.assertEqual(link.asm_labels(text), {'foo', 'baz', 'qux', 'off'})
+
+
+class LnComJumpTest(unittest.TestCase):
+    JUMP = b'\xe9\x00\x00'
+
+    def _records(self):
+        return [{'type': 'label', 'text': 'a:', 'name': 'a', 'offset': 0},
+                {'type': 'mnem', 'text': 'jmp near b', 'offset': 0, 'size': 3},
+                {'type': 'label', 'text': 'b:', 'name': 'b', 'offset': 3},
+                {'type': 'mnem', 'text': 'ret', 'offset': 3, 'size': 1}]
+
+    def test_replaces_the_routine_with_the_macro(self):
+        labels = {0: 'a', 3: 'b'}
+        records, ranges = render.use_ln_com_jump(
+            self._records(), [(0, 3, 'a'), (3, 4, 'b')], labels, self.JUMP + b'\xc3')
+        self.assertEqual(records[0], {'type': 'include', 'text': render.LN_COM_JUMP,
+                                      'offset': 0})
+        self.assertEqual([r.get('name') or r['text'] for r in records[1:]], ['b', 'ret'])
+        self.assertEqual(ranges, [(3, 4, 'b')])
+        self.assertEqual(labels, {3: 'b'})
+
+    def test_master_defines_the_macro(self):
+        text = render.nasm_macros_text()
+        self.assertEqual(text.split('\n', 1)[0], '; auto-generated')
+        self.assertIn(f'%macro {render.LN_COM_JUMP} 0', text)
+
+    def test_macro_is_no_module(self):
+        files = {'d.asm': f'{render.LN_COM_JUMP}   ; 0x0000\n%include "d/y.asm"\n'}
+        out = project.project_files({'d': {'type': 'raw_drv'}}, None, files)
+        self.assertEqual(project.parse_lnk(out['d.lnk']), ['d/y'])
+
+    def test_rejects_an_image_without_the_jump(self):
+        with self.assertRaises(SidecarError):
+            render.use_ln_com_jump([], [], {}, b'\xe9\x01\x00')
+
+    def test_rejects_a_routine_running_past_the_jump(self):
+        with self.assertRaises(SidecarError):
+            render.use_ln_com_jump([], [(0, 4, 'a')], {}, self.JUMP + b'\xc3')
+
+
+class CompareBytesTest(unittest.TestCase):
+    def test_identical(self):
+        self.assertIsNone(link.compare_bytes(b'abc', b'abc'))
+
+    def test_differing_byte(self):
+        self.assertEqual(link.compare_bytes(b'abXd', b'abcZ'),
+                         '4 bytes, original 4; 2 differ in the shared 4; first at 0x2')
+
+    def test_length_alone_is_a_difference(self):
+        self.assertEqual(link.compare_bytes(b'ab', b'abc'),
+                         '2 bytes, original 3; 0 differ in the shared 2; first at 0x2')
 
 
 class ClassifyTest(unittest.TestCase):
@@ -120,35 +224,27 @@ class ClassifyTest(unittest.TestCase):
         self.assertEqual(self._sort('f', {'f_': 'a.s'}),
                          {'spelling': [('f', 'f_ in a.s')]})
 
-    def test_name_nothing_defines_is_unknown(self):
+    def test_name_nothing_defines_is_undefined(self):
         self.assertEqual(self._sort('gone_'), {'undefined': [('gone_', '')]})
 
-    def test_label_sorted_by_its_owner(self):
+    def test_undefined_names_its_users(self):
+        result = link.classify(['gone_'], [], {}, {},
+                               users={'gone_': ['a.s', 'b.c']})
+        self.assertEqual(result['undefined'], [('gone_', 'used by a.s, b.c')])
+
+    def test_label_not_exported(self):
         self.assertEqual(self._sort('x', labels={'x': 'p/x.s'}),
                          {'not_public': [('x', 'p/x.s')]})
-        self.assertEqual(self._sort('x_', labels={'x': 'p/x.c'}),
-                         {'in_c': [('x_', 'p/x.c')]})
+        self.assertEqual(self._sort('$csav', labels={'csav': 'a/c.s'}),
+                         {'not_public': [('$csav', 'a/c.s')]})
 
-    def test_c_in_the_link_that_does_not_export_it_is_a_defect(self):
-        result = link.classify(['x_'], [], {}, {'x': 'p/x.c'}, linked={'p/x.c'})
-        self.assertEqual(result['not_public'], [('x_', 'p/x.c')])
-
-    def test_runtime_helper_is_found_under_its_label(self):
-        self.assertEqual(self._sort('$csav', labels={'csav': 'a/c.c'}),
-                         {'in_c': [('$csav', 'a/c.c')]})
-
-    def test_name_the_host_exports_is_resolved(self):
-        self.assertEqual(self._sort('f_', {'f_': 'ds/f.s'}, {'f': 'ds/f.s'}), {})
-
-    def test_multiple_and_failed(self):
+    def test_the_rest(self):
         result = link.classify([], ['f_'], {'f_': 'a.s'}, {},
-                               {'b.s': ['E1', 'E2']}, other=['E3'])
+                               {'b.s': ['E1', 'E2']}, ['E3'], ['p/gen'])
         self.assertEqual(result['multiple'], [('f_', 'a.s')])
         self.assertEqual(result['failed'], [('b.s', 'E1'), ('b.s', 'E2')])
         self.assertEqual(result['linker'], [('E3', '')])
-
-
-
+        self.assertEqual(result['no_source'], [('p/gen', '')])
 
 
 if __name__ == '__main__':

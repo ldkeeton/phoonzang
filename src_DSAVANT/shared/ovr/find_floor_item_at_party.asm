@@ -13,7 +13,7 @@ find_floor_item_at_party:
     cmp ax, word [game_state_arg]
     jne short .forward1
     mov ax, word [party_map_piece]
-    xchg al, ah
+    xchg ah, al
     sub al, al
     mov dx, word [party_cell_x]
     mov cx, 4

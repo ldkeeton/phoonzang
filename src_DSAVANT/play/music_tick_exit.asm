@@ -31,7 +31,7 @@ music_player_tick:
     mov ax, word [cs:chain_period - IMAGE_BASE] ; 0x0b06
     mov word [cs:chain_countdown - IMAGE_BASE], ax ; 0x0b0a
     pushf                            ; 0x0b0e
-__zinsn_0b0f:
+chain_saved_int08:
     call far 0x0:0x0                 ; 0x0b0f
 music_player_tick.forward1:
     mov ax, word [cs:music_tempo - IMAGE_BASE] ; 0x0b14

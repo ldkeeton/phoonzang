@@ -15,14 +15,14 @@ register_value	equ	al
 	mov	bl,register_index
 	mov	byte ptr cs:opl_register_shadow[bx],register_value
 	mov	dx,388h		; OPL address/data port pair begins at 388h.
-	xchg	register_index,register_value
+	xchg	register_value,register_index
 	pushf
 	cli			; Keep the address/data transaction uninterrupted.
 	call	opl_delay_long_
 	out	dx,al
 	call	opl_delay_short_
 	inc	dx
-	xchg	register_index,register_value
+	xchg	register_value,register_index
 	out	dx,al
 	call	opl_delay_long_
 	dec	dx

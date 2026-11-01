@@ -50,7 +50,7 @@ hook_int08_and_configure_pit:
     mov ah, al                       ; 0x02f2
     call io_delay                    ; 0x02f4
     in al, 0x40                      ; 0x02f7
-    xchg al, ah                      ; 0x02f9
+    xchg ah, al                      ; 0x02f9
     mov word [cs:cseg_0a96 - IMAGE_BASE], ax ; 0x02fb
     mov al, 0x34                     ; 0x02ff
     out 0x43, al                     ; 0x0301

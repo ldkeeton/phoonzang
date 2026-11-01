@@ -703,7 +703,7 @@ def cmd_probe(project, binary, routine, source=None, json_out=False,
             if not bytes_ok:
                 from lib.compare.cgate import check_against_original
                 link_notes = check_against_original(
-                    f'{routine} (linked)', span[0], original, code, exact=True)
+                    f'{routine} (linked)', span[0], original, code)
     info = {
         'routine': routine,
         'source': (_display_path(path)),

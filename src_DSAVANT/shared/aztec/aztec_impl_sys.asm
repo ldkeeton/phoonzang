@@ -5,7 +5,7 @@ aztec_impl_sys:
     mov ax, word [bp + 4]
     test ah, ah
     jne short .forward1
-    xchg al, ah
+    xchg ah, al
 .forward1:
     cmp ah, 0xa
     jb short .forward5

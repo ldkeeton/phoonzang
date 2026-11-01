@@ -5,8 +5,9 @@ codeseg	segment	byte public 'code'
 	extrn	music_tempo:word
 	extrn	music_enabled:byte
 	extrn	saved_pic_mask:byte
-	extrn	saved_int08_segment:word
-	extrn	saved_int08_offset:word
+	extrn	chain_saved_int08:word
+saved_int08_offset	equ	chain_saved_int08+1
+saved_int08_segment	equ	chain_saved_int08+3
 	extrn	int08_hooked:byte
 	extrn	set_int08_vector_:near
 	extrn	io_delay_:near

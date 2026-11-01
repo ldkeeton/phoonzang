@@ -69,7 +69,8 @@ from lib import stagelog
 from lib import progress
 from lib.report import write_report, write_layers, write_summary, print_short_report
 
-from .aztec import _aztec_asm_annotations, _aztec_c_overrides, _data_sources
+from .aztec import (_aztec_asm_annotations, _aztec_c_overrides, _check_data_asm,
+                    _data_sources)
 from lib.autogen import is_generated, stamp
 from .emit import _write_address_inventory, _write_render_context
 from .options import (
@@ -977,6 +978,7 @@ def _render(a, exact_bytes, show_offsets, host_data_offsets,
         declared_roots=ctx.dispatch_handlers,
         fragment_lengths=fragment_lengths(entry, start_offset),
         fragment_files=fragment_files(entry, start_offset),
+        ln_com=entry.get('type') == 'raw_drv',
         hard_data=ctx.hard_data,
         function_roots=function_roots,
         branch_targets=ctx.branch_targets,
@@ -1113,6 +1115,8 @@ def _emit(a, r, exact_bytes):
                                               *((a.c_checks or {}).values()))))
     except SystemExit as exc:
         a.source_errors.append(str(exc))
+    a.source_errors.extend(_check_data_asm(project, name, out_dir,
+                                           stats.get('data_files') or {}, a.data))
     for include_path in list(split_sources):
         if include_path.endswith('.asm'):
             split_sources[include_path] = stamp(split_sources[include_path],
@@ -1127,6 +1131,13 @@ def _emit(a, r, exact_bytes):
         os.makedirs(target_dir, exist_ok=True)
         with open(os.path.join(target_dir, f'{name}_aztec_spans.json'), 'w') as f:
             json.dump(spans, f, indent=1, sort_keys=True)
+    if project:
+        # ``make rebuild`` checks the sources in data/ against these spans.
+        from lib.cachedirs import spans_dir
+        target_dir = spans_dir(project)
+        os.makedirs(target_dir, exist_ok=True)
+        with open(os.path.join(target_dir, f'{name}_data_files.json'), 'w') as f:
+            json.dump(stats.get('data_files') or {}, f, indent=1, sort_keys=True)
     t_end = time.perf_counter()
 
     if immediate_labels:

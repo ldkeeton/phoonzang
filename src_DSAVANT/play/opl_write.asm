@@ -6,14 +6,14 @@ opl_write:
     mov bl, ah                       ; 0x07fa
     mov byte [cs:bx + opl_register_shadow - IMAGE_BASE], al ; 0x07fc
     mov dx, 0x388                    ; 0x0801
-    xchg ah, al                      ; 0x0804
+    xchg al, ah                      ; 0x0804
     pushf                            ; 0x0806
     cli                              ; 0x0807
     call opl_delay_long              ; 0x0808
     out dx, al                       ; 0x080b
     call opl_delay_short             ; 0x080c
     inc dx                           ; 0x080f
-    xchg ah, al                      ; 0x0810
+    xchg al, ah                      ; 0x0810
     out dx, al                       ; 0x0812
     call opl_delay_long              ; 0x0813
     dec dx                           ; 0x0816

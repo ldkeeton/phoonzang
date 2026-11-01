@@ -14,7 +14,8 @@
     "explorer.fileNesting.expand": false,
     "explorer.fileNesting.patterns": {
         "*.c": "$(capture).asm",
-        "*.s": "$(capture).asm"
+        "*.s": "$(capture).asm",
+        "*.lnk": "$(capture).asm"
     },
     "workbench.iconTheme": "material-icon-theme",
     "material-icon-theme.files.associations": { "*.s": "c" }

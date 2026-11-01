@@ -1,8 +1,10 @@
 """NASM source rendering: data blocks, records, headers and master file."""
 
+import os
 import re
 import struct
 
+from lib.autogen import stamp
 from lib.compare.splitting import (_partition_function_records,
                                    _select_data_ranges,
                                    _group_data_ranges,
@@ -848,6 +850,58 @@ def _structs_include_lines(structs_inc):
     return [f'%include "{STRUCTS_INC}"']
 
 
+#: The generated include holding the NASM macros, copied from the master.
+NASM_MACROS_INC = 'include/nasm_macros.inc'
+_NASM_MACROS_MASTER = os.path.join(
+    os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))),
+    'macros', 'nasm_macros_master.inc')
+#: The macro emitting what ``ln`` puts at the start of a ``.COM``.
+LN_COM_JUMP = 'ln_com_jump'
+_LN_COM_BYTES = b'\xe9\x00\x00'
+
+
+def nasm_macros_text():
+    """The text of :data:`NASM_MACROS_INC`."""
+    with open(_NASM_MACROS_MASTER) as f:
+        return stamp(f.read(), NASM_MACROS_INC)
+
+
+def use_ln_com_jump(records, split_ranges, label_map, binary_data):
+    """A ``.COM``'s first three bytes as the macro, not as a routine.
+
+    Returns the records and split ranges without what covers them, and takes
+    any label at 0 out of *label_map*: ``ln`` writes this jump, so no source
+    owns it.  An image that does not start with that jump is an error.
+    """
+    from lib.compare.records import _record_span
+    from lib.sidecar.errors import SidecarError
+    if binary_data[:len(_LN_COM_BYTES)] != _LN_COM_BYTES:
+        raise SidecarError(
+            f'a raw_drv must start with {_LN_COM_BYTES.hex(" ")}, the jump ln '
+            f'writes; this one starts {binary_data[:3].hex(" ")}')
+    size = len(_LN_COM_BYTES)
+    label_map.pop(0, None)
+    kept = []
+    for rec in records:
+        start, end = _record_span(rec)
+        if start >= size or (rec['type'] == 'label' and start > 0):
+            kept.append(rec)
+        elif end > size:
+            raise SidecarError(
+                f'a record at 0x{start:x}-0x{end:x} crosses the end of the '
+                'jump ln writes')
+    ranges = []
+    for item in split_ranges:
+        if item[0] >= size:
+            ranges.append(item)
+        elif item[:2] != (0, size):
+            raise SidecarError(
+                f'{item[2]} at 0x{item[0]:x}-0x{item[1]:x} overlaps the jump '
+                'ln writes')
+    jump = {'type': 'include', 'text': LN_COM_JUMP, 'offset': 0}
+    return [jump, *kept], ranges
+
+
 def _drivers_include_lines(drivers_inc):
     """The line that pulls in the driver entry macros, when the binary calls
     a driver through ``driver_slots``."""
@@ -922,6 +976,23 @@ def _bss_block_lines(labels):
     return lines
 
 
+def _data_file_spans(split_records, prefix):
+    """``{path: (start, end, {label: offset})}`` of the fragments under *prefix*,
+    so a source beside one can be checked against the image's bytes."""
+    from lib.compare.records import _record_span
+    out = {}
+    for path, fragment in split_records.items():
+        if not path.startswith(prefix):
+            continue
+        spans = [_record_span(rec) for rec in fragment if rec['type'] != 'label']
+        if spans:
+            out[path] = (min(span[0] for span in spans),
+                         max(span[1] for span in spans),
+                         {str(rec['name']): rec['offset'] for rec in fragment
+                          if rec['type'] == 'label'})
+    return out
+
+
 def _build_source(records, start_offset, binary_data, label_map=None, show_offsets=True,
                   immediate_labels=None, split_ranges=None,
                   split_dir='ds', mem_equ=None, image_base=None, entry_symbol=None,
@@ -929,7 +1000,8 @@ def _build_source(records, start_offset, binary_data, label_map=None, show_offse
                   host_data_offsets=None, load_offset=0, overlay_own=None,
                   bands=(), data_modules=(), structs_inc=None,
                   message_symbols=None, message_inc=None, file_stems=None,
-                  drivers_inc=None, data_groups=()):
+                  drivers_inc=None, data_groups=(), data_files=None,
+                  ln_com=False):
     """Render the master NASM source and any generated includes.
 
     *structs_inc* is the text of the host family's record layouts
@@ -992,7 +1064,8 @@ def _build_source(records, start_offset, binary_data, label_map=None, show_offse
     else:
         out = ['org 0', 'bits 16', *_structs_include_lines(structs_inc),
                *_drivers_include_lines(drivers_inc),
-               *_message_include_lines(message_inc)]
+               *_message_include_lines(message_inc),
+               *([f'%include "{NASM_MACROS_INC}"'] if ln_com else [])]
     code_value = (lambda addr: f'0x{addr:04x} + VBASE') if vbase else (
         lambda addr: f'0x{addr:04x}')
 
@@ -1310,6 +1383,8 @@ def _build_source(records, start_offset, binary_data, label_map=None, show_offse
                                resident_end_symbol=resident_end_symbol,
                                corg_symbol=corg_symbol))
 
+    if data_files is not None:
+        data_files.update(_data_file_spans(split_records, f'{split_dir}/data/'))
     split_sources = {
         path: '\n'.join(_render_records(fragment, binary_data, show_offsets,
                                         ds_size=ds_size,
@@ -1334,6 +1409,8 @@ def _build_source(records, start_offset, binary_data, label_map=None, show_offse
     if drivers_inc:
         from lib.match.driver_slots import DRIVERS_INC
         split_sources[DRIVERS_INC] = drivers_inc
+    if ln_com:
+        split_sources[NASM_MACROS_INC] = nasm_macros_text()
     if is_mz or (start_offset >= 14 and len(binary_data) >= 14
                  and binary_data[:2] == b'\xf2\x00'):
         # End-of-image anchor for the dynamic header fields (e_cblp/e_cp,

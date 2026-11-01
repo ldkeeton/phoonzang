@@ -13,20 +13,32 @@ codeseg	segment	byte public 'code'
 	extrn	mark_sample_idle_:near
 	extrn	sample_idle:byte
 	extrn	play_device_timer_flag:byte
-	extrn	sample_data_segment_a:word
-	extrn	sample_data_segment_b:word
-	extrn	sample_data_segment_c:word
-	extrn	sample_offset:word
-	extrn	sample_stream_offset:word
-	extrn	sample_stream_offset_alt:word
+	extrn	load_sample_segment_a:word
+sample_data_segment_a	equ	load_sample_segment_a+1
+	extrn	load_sample_segment_b:word
+sample_data_segment_b	equ	load_sample_segment_b+1
+	extrn	load_sample_segment_c:word
+sample_data_segment_c	equ	load_sample_segment_c+1
+	extrn	load_sample:word
+sample_offset	equ	load_sample+1
+	extrn	load_sample_stream:word
+sample_stream_offset	equ	load_sample_stream+1
+	extrn	load_sample_stream_alt:word
+sample_stream_offset_alt	equ	load_sample_stream_alt+1
 	extrn	sample_limit:byte
 	extrn	sample_position:byte
-	extrn	sample_step_imm_a:byte
-	extrn	sample_step_imm_b:byte
-	extrn	sample_step_imm_c:byte
-	extrn	sample_step_imm_d:byte
-	extrn	sample_step_imm_e:byte
-	extrn	sample_step_imm_f:byte
+	extrn	add_sample_step_a:word
+sample_step_imm_a	equ	add_sample_step_a+5
+	extrn	add_sample_step_b:word
+sample_step_imm_b	equ	add_sample_step_b+5
+	extrn	add_sample_step_c:word
+sample_step_imm_c	equ	add_sample_step_c+5
+	extrn	add_sample_step_d:word
+sample_step_imm_d	equ	add_sample_step_d+2
+	extrn	add_sample_step_e:word
+sample_step_imm_e	equ	add_sample_step_e+2
+	extrn	add_sample_step_f:word
+sample_step_imm_f	equ	add_sample_step_f+2
 	extrn	sample_output_table:byte
 	extrn	music_enabled:byte
 volume_arg	equ	12h	;caller volume byte: zero stops, nonzero builds the output table
@@ -59,8 +71,9 @@ current:
 ; Helper and dispatch labels mirror the generated play.asm names.
 	extrn	opl_silent_note_pulse_:near
 	extrn	saved_pic_mask:byte
-	extrn	saved_int08_offset:word
-	extrn	saved_int08_segment:word
+	extrn	chain_saved_int08:word
+saved_int08_offset	equ	chain_saved_int08+1
+saved_int08_segment	equ	chain_saved_int08+3
 	extrn	music_tempo:word
 	extrn	cseg_0a96:word
 	extrn	music_pit_divisor:word

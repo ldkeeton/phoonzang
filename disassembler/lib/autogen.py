@@ -12,6 +12,9 @@ from lib.nasm_locals import output_text
 
 MARKER_ASM = '; auto-generated'
 MARKER_C = '/* auto-generated */'
+#: For the project file (:mod:`lib.aztec.project`), whose comments start with ``#``.
+MARKER_MAKE = '# auto-generated'
+_MARKERS = (MARKER_ASM, MARKER_C, MARKER_MAKE)
 
 #: The first line of what ``make headers`` writes into ``include/``.  It is not
 #: a generated marker: the build, ``make clean`` and sync leave these alone.
@@ -19,11 +22,14 @@ HEADERS_ASM = '; auto headers'
 HEADERS_C = '/* auto headers */'
 
 _C_SUFFIXES = ('.c', '.h')
+_MAKE_SUFFIXES = ('makefile', '.lnk')
 _MAX_LISTED = 10
 
 
 def marker_for(path):
     """The marker line for *path*, chosen by its extension."""
+    if path.endswith(_MAKE_SUFFIXES):
+        return MARKER_MAKE
     return MARKER_C if path.endswith(_C_SUFFIXES) else MARKER_ASM
 
 
@@ -36,7 +42,7 @@ def stamp(text, path, marker=None):
     pass never stacks a second marker on the one chosen first.
     """
     marker = marker or marker_for(path)
-    if text.split('\n', 1)[0].rstrip() in (MARKER_ASM, MARKER_C):
+    if text.split('\n', 1)[0].rstrip() in _MARKERS:
         return text
     return marker + '\n' + text
 
@@ -51,7 +57,7 @@ def is_generated(path):
     except OSError:
         return False
     line = first.decode('utf-8', 'ignore').rstrip()
-    return line in (MARKER_ASM, MARKER_C)
+    return line in _MARKERS
 
 
 def is_auto_header(path):

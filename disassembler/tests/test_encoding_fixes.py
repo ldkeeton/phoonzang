@@ -94,7 +94,6 @@ class ClassCTests(unittest.TestCase):
         'mov dl, al': '8a d0',
         'mov al, dl': '8a c2',
         'mov bl, ah': '8a dc',
-        'xchg ah, al': '86 c4',
         'mov bx, ax': '8b d8',
         'mov ax, bx': '8b c3',
     }
@@ -106,6 +105,23 @@ class ClassCTests(unittest.TestCase):
                 built = micro_assemble(text, 0)
                 self.assertIsNotNone(built)
                 self.assertTrue(is_semantically_equivalent(orig, built, 0))
+
+
+class SwappedOperandTests(unittest.TestCase):
+    """Swapped registers are a different instruction, not an encoding."""
+
+    def test_xchg_text_reproduces_its_bytes(self):
+        for hexs in ('86 c4', '86 e0', '87 d9', '87 cb'):
+            with self.subTest(hexs=hexs):
+                text = format_instruction(_insn(hexs), {}, {})
+                self.assertEqual(micro_assemble(text, 0), bytes.fromhex(hexs))
+
+    def test_swapped_operands_are_not_equivalent(self):
+        for one, other in (('86 c4', '86 e0'), ('01 d8', '01 c3'),
+                           ('09 d8', '09 c3')):
+            with self.subTest(one=one):
+                self.assertFalse(is_semantically_equivalent(
+                    bytes.fromhex(one), bytes.fromhex(other), 0))
 
 
 class ClassD1Tests(unittest.TestCase):

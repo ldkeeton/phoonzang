@@ -341,6 +341,11 @@ def format_instruction(insn, label_map=None, local_labels=None, foreign_label_ma
                                   local_labels, disp_labels, mem_symbols))
             has_mem = True
 
+    # — Register xchg: Capstone prints ``rm, reg``; NASM and ``as`` read ``reg, rm`` --
+    if (_opcode_byte(insn) in (0x86, 0x87) and len(insn.operands) == 2
+            and not has_mem):
+        parts.reverse()
+
     ops = ', '.join(parts)
 
     # — x87 FPU memory operand needs an explicit size for NASM ------------

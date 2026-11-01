@@ -1,15 +1,13 @@
-"""Gate: a hand-written C routine must reproduce the original bytes.
+"""Gate: a ``.c`` or ``.s`` routine must reproduce the original bytes.
 
 The compiled (and linked) code is compared with the original span instruction
-by instruction.  An instruction passes when its bytes are identical or, unless
-*exact*, semantically equivalent (:func:`is_semantically_equivalent`).  Symbol
+by instruction, and each instruction's bytes must be identical: ``cc`` and ``as``
+are the original tools, so no encoder difference applies.  Symbol
 names are never compared -- only the bytes they resolve to -- and the length
 must match exactly (no NOP padding).
 """
 
 from capstone import Cs, CS_ARCH_X86, CS_MODE_16
-
-from lib.verify.assemble import is_semantically_equivalent
 
 MAX_SHOWN = 20
 
@@ -30,7 +28,7 @@ def _fmt(insn, data, off, size):
     return f'{raw:<20} {insn.mnemonic} {insn.op_str}'.rstrip()
 
 
-def check_against_original(label, start, original, compiled, exact=False):
+def check_against_original(label, start, original, compiled):
     """Return a list of report lines; empty when *compiled* matches.
 
     *original* and *compiled* are the routine's bytes (relocations resolved in
@@ -49,10 +47,7 @@ def check_against_original(label, start, original, compiled, exact=False):
         size = min(size, limit - off)
         want = original[off:off + size]
         got = compiled[off:off + size]
-        ok = want == got
-        if not ok and not exact and insn is not None:
-            ok = is_semantically_equivalent(want, got, start + off)
-        if not ok:
+        if want != got:
             differing += sum(1 for a, b in zip(want, got) if a != b)
             bad.append((off, size, _fmt(insn, original, off, size),
                         _fmt(_disasm_at(md, compiled, off, start),
@@ -71,8 +66,7 @@ def check_against_original(label, start, original, compiled, exact=False):
     if len(bad) > MAX_SHOWN:
         lines.append(f'  ... {len(bad) - MAX_SHOWN} more differing instruction(s)')
     if lines:
-        mode = 'exact bytes' if exact else 'semantic'
-        lines.insert(0, f'{label}: C does not match the original ({mode}): '
+        lines.insert(0, f'{label}: C does not match the original: '
                         f'{len(bad)} instruction(s), {differing} of '
                         f'{len(original)} byte(s) differ')
     return lines

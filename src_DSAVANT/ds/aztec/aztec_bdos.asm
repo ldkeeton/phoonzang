@@ -6,7 +6,7 @@ aztec_bdos:
     mov ax, word [bp + 4]            ; 0x449b
     test ah, ah                      ; 0x449e
     jne short .forward1              ; 0x44a0
-    xchg al, ah                      ; 0x44a2
+    xchg ah, al                      ; 0x44a2
 .forward1:
     mov dx, word [bp + 6]            ; 0x44a4
     mov cx, word [bp + 8]            ; 0x44a7

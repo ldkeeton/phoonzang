@@ -390,6 +390,15 @@ def resplice_c(app, binary, check_only=False, only=None):
                   or bool(context and context['exact_bytes']))
     lenient = '--allow-diff' in _extra_flags()
     failures = []
+    if only is None:
+        # data/ holds no routines; its .s files are checked as whole fragments.
+        from main.aztec import _check_data_asm
+        data_files_path = os.path.join(spans_dir(app), f'{binary}_data_files.json')
+        data_files = {}
+        if os.path.isfile(data_files_path):
+            with open(data_files_path) as f:
+                data_files = json.load(f)
+        failures.extend(_check_data_asm(app, binary, out_dir, data_files, data))
     sources = []
     count = 0
     picked = []
@@ -403,7 +412,7 @@ def resplice_c(app, binary, check_only=False, only=None):
         stamps = {}
     # The data-owner gate is part of the resplice result; an old stamp written
     # before it existed must not skip the source that gate needs to check.
-    env = hashlib.sha1(repr((exact_here, lenient, 'data-owner-v1',
+    env = hashlib.sha1(repr((exact_here, lenient, 'data-owner-v1', 'byte-exact-gate',
                              'publics-v1', 'symbol-refs-v1')).encode())
     for path in (labels_path, spans_path, sidecar_json, context_path(app, binary)):
         if os.path.isfile(path):
@@ -533,7 +542,7 @@ def resplice_c(app, binary, check_only=False, only=None):
 
         if not lenient:
             report = check_against_original(
-                label, start, data[start:end], compiled, exact=exact_here)
+                label, start, data[start:end], compiled)
             if report:
                 failures.extend(report)
                 continue

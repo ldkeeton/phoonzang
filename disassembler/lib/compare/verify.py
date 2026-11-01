@@ -79,7 +79,7 @@ from lib.compare.records import (
     _count_bare_addrs,
     count_frozen_addrs,
 )
-from lib.compare.render import _build_source, image_geometry
+from lib.compare.render import _build_source, image_geometry, use_ln_com_jump
 from lib import stagelog
 from lib.compare.splitting import (
     _select_split_ranges,
@@ -332,12 +332,14 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
            message_calls=(), message_names=None, message_bases=None,
            foreign_message_params=None,
            sidecar_use=None, bands=(), data_modules=(),
-           driver_slot_words=None, drivers_inc=None, data_groups=()):
+           driver_slot_words=None, drivers_inc=None, data_groups=(),
+           ln_com=False):
     """Produce NASM source text from *binary_data* and *instructions*.
 
     *driver_slot_words* ``{offset: text}`` are the ``driver_slots`` far
     pointers, spelled with the entry macros *drivers_inc* defines
-    (:mod:`lib.match.driver_slots`).  *data_groups* ``[(start, end, stem)]``
+    (:mod:`lib.match.driver_slots`).  *ln_com* marks a binary ``ln`` links as a
+    ``.COM``: :func:`lib.compare.render.use_ln_com_jump`.  *data_groups* ``[(start, end, stem)]``
     are sidecar-declared spans of data that make one file each.
 
     *sidecar_use* (a :class:`lib.sidecar.usage.SidecarUse`) learns which of
@@ -1416,6 +1418,11 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
             if data_space(sym) in (Space.DS, Space.BSS):
                 (overlay_own if value >= o_dorg else host_data_refs)[sym] = value
 
+    if ln_com:
+        records, split_ranges = use_ln_com_jump(
+            records, split_ranges, label_map, binary_data)
+
+    data_files = {}
     src_lines, split_sources = _build_source(
         records, start_offset, binary_data, label_map,
         show_offsets=show_offsets,
@@ -1433,6 +1440,8 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
         file_stems=fragment_files,
         drivers_inc=drivers_inc if driver_slot_words else None,
         data_groups=data_groups,
+        data_files=data_files,
+        ln_com=ln_com,
     )
     t6 = time.perf_counter()
     progress.log(f'{name} | verify: source built')
@@ -1573,4 +1582,5 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
         'timing_postprocess': t4 - t3,
         'timing_emit_class': t5 - t4,
         'timing_build_source': t6 - t5,
+        'data_files': data_files,
     }, emit_class, label_positions, split_sources

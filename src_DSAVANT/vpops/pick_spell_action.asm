@@ -66,7 +66,7 @@ pick_spell_action:
     mov byte [bx + si + member_rec.f_001f], 0 ; 0x29e3
 .forward5:
     mov ax, word [bp - 6]            ; 0x29e7
-    xchg al, ah                      ; 0x29ea
+    xchg ah, al                      ; 0x29ea
     sub al, al                       ; 0x29ec
     add ax, word [bp - 8]            ; 0x29ee
     ret                              ; 0x29f1

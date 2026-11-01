@@ -488,7 +488,7 @@ api_idx_0024_NKNU:
     jmp short .back10                ; 0x4a93
 .forward28:
     mov ax, word [bp - 0x12]         ; 0x4a95
-    xchg al, ah                      ; 0x4a98
+    xchg ah, al                      ; 0x4a98
     sub al, al                       ; 0x4a9a
     add ax, word [bp - 0x1a]         ; 0x4a9c
     mov bx, word [bp - 8]            ; 0x4a9f

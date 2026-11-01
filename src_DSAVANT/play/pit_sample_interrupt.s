@@ -17,17 +17,22 @@ eoi		equ	20h	;non-specific end-of-interrupt command
 ; INT 08h tick: plays one sample byte through PIT channel 2, counts down the music divider, then acks the PIC, steps the player, or restores the timer
 	procdef	pit_sample_interrupt
 	pushs	ax,ds,bx
-mov_sample_segment:
+	public	load_sample_segment_a
+load_sample_segment_a:
 	movseg	ds,0	; sample segment, patched by the installer
 	mov	ax,20b0h		;ah = EOI, al = PIT command
 	out	pit_control,al
-sample_offset	equ	pit_sample_interrupt_+0eh	;operand word of the load below
+	public	load_sample
+load_sample:
+sample_offset	equ	load_sample+1	;operand word of the load below
 	mov	al,byte ptr [0]		;sample offset, patched by the installer
 	mov	bx,offset sample_output_table
 	xlat	cs:[bx]			;count low byte from the code-segment table
 	out	pit_ch2_data,al
 	xor	al,al
 	out	pit_ch2_data,al		;count high byte
+	public	add_sample_step_a
+add_sample_step_a:
 	add	byte ptr cs:sample_step_fraction,80h ;advance the sample pointer by one every two ticks
 	adc	word ptr cs:[sample_offset],0 ;carry into the high word in the load's operand
 	jb	sample_done		;pointer wrapped

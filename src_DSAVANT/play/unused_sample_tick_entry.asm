@@ -44,16 +44,16 @@ io_loc_sample_device_tick:
     cmp byte [cs:play_device_timer_flag - IMAGE_BASE], 0 ; 0x08b4
     js short unused_sample_tick_entry.back1 ; 0x08ba
     jne short .forward2              ; 0x08bc
-__zinsn_08be:
+load_sample_segment_b:
     mov ax, 0                        ; 0x08be
     mov ds, ax                       ; 0x08c1
-__zinsn_08c3:
+load_sample_stream:
     mov al, byte [0]                 ; 0x08c3
     mov dx, 0x389                    ; 0x08c6
     mov bx, sample_output_table - IMAGE_BASE ; 0x08c9
     cs xlatb                         ; 0x08cc
     out dx, al                       ; 0x08ce
-__zinsn_08cf:
+add_sample_step_b:
     add byte [cs:sample_step_fraction - IMAGE_BASE], 0x80 ; 0x08cf
     adc word [cs:sample_stream_offset - IMAGE_BASE], byte 0 ; 0x08d5
     jb short io_loc_sample_device_tick.forward1 ; 0x08db
@@ -145,7 +145,7 @@ sample_fraction_tick:
     mov al, byte [di]                ; 0x0975
     cs xlatb                         ; 0x0977
     out dx, al                       ; 0x0979
-__zinsn_097a:
+add_sample_step_f:
     add ah, 0x80                     ; 0x097a
     adc di, byte 0                   ; 0x097d
     jb short sample_fraction_tick.forward2 ; 0x0980
@@ -170,16 +170,16 @@ io_loc_port_sample_tick:
     push ds                          ; 0x09a0
     push dx                          ; 0x09a1
     push bx                          ; 0x09a2
-__zinsn_09a3:
+load_sample_segment_c:
     mov ax, 0                        ; 0x09a3
     mov ds, ax                       ; 0x09a6
-__zinsn_09a8:
+load_sample_stream_alt:
     mov al, byte [0]                 ; 0x09a8
     mov dx, word [cs:sample_output_port - IMAGE_BASE] ; 0x09ab
     mov bx, sample_output_table - IMAGE_BASE ; 0x09b0
     cs xlatb                         ; 0x09b3
     out dx, al                       ; 0x09b5
-__zinsn_09b6:
+add_sample_step_c:
     add byte [cs:sample_step_fraction - IMAGE_BASE], 0x80 ; 0x09b6
     adc word [cs:sample_stream_offset_alt - IMAGE_BASE], byte 0 ; 0x09bc
     jb short io_loc_port_sample_tick.back2 ; 0x09c2

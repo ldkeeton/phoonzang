@@ -1339,7 +1339,7 @@ api_idx_0044_QRMH.forward41:
     call call_show_area              ; 0x84d6
     add sp, byte 8                   ; 0x84d9
     mov ax, word [bp - 0x3e]         ; 0x84dc
-    xchg al, ah                      ; 0x84df
+    xchg ah, al                      ; 0x84df
     sub al, al                       ; 0x84e1
     add ax, word [bp - 0x3c]         ; 0x84e3
     add ax, 0x100                    ; 0x84e6

@@ -14,7 +14,7 @@ from .elf import cmd_elf_rebuild
 from .init import cmd_init
 from .data_files import cmd_data_files
 from .inspect import cmd_data, cmd_info, cmd_probe
-from .link import cmd_link
+from .link import cmd_link, projects_with_binary
 from .lint import cmd_lint
 from .naming import cmd_name, cmd_refs, specs_from_makeflags
 from .headers import cmd_headers
@@ -89,10 +89,13 @@ Commands (space-separated):
                             against every binary that contains it
   make elf-rebuild [PROJECT [BIN]]  full rebuild from current sources (C resplice +
                             link + all binaries); ELF/DWARF for BIN (default host)
-  make link [PROJECT [BIN]] [C=a,b|C=all]  assemble BIN's .s and aztec_ .c, add the
-                            named .c files and what they need from shared/, link
-                            with Aztec ln and list every error; only .s and .c take
-                            part; default: everything
+  make link [PROJECT [BIN] | BIN]  assemble and compile the .s and .c that src_PROJECT's
+                            makefile and BIN.lnk files list, link them with Aztec
+                            ln and list every error, with counts of what is missing;
+                            naming BIN lists what it is missing (BIN alone finds
+                            its project);
+                            VERBOSE=1 also lists undefined names, the sources using
+                            them and modules without a source; default: everything
   make set-baseline         pin current stats as the local baseline
   make stats-diff           current-vs-baseline KPI delta (+ delta.json)
   make charts               regenerate all PNGs + CSVs from existing stats
@@ -282,12 +285,18 @@ def main():
                 or make_vars.get('JSON', '').lower() in ('1', 'true', 'yes'))
 
     if '--link' in flags:
+        if len(args) == 1 and args[0] not in all_projects:
+            owners = projects_with_binary(args[0], all_projects)
+            if len(owners) != 1:
+                print(f'{args[0]}: ' + (f'in {", ".join(owners)}; name the project'
+                                        if owners else 'no project or binary by that name'))
+                print('Usage: make link [PROJECT [BIN] | BIN]')
+                sys.exit(1)
+            args = [owners[0], args[0]]
         if len(args) > 2 or (args and args[0] not in all_projects):
-            print('Usage: make link [PROJECT [BIN]] [C=a,b|C=all]')
+            print('Usage: make link [PROJECT [BIN] | BIN]')
             sys.exit(1)
-        c_files = [c for c in make_vars.get('C', '').split(',') if c]
-        cmd_link(args[:1] or all_projects, args[1] if len(args) > 1 else None,
-                 c_files)
+        cmd_link(args[:1] or all_projects, args[1] if len(args) > 1 else None)
         return
 
     if '--info' in flags:

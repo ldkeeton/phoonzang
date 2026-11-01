@@ -657,8 +657,7 @@ def _apply_c_overrides(records, c_overrides, binary_data, label_map,
 
         if not allow_diff:
             report = check_against_original(
-                label, start, binary_data[start:start + length], compiled,
-                exact=exact_bytes)
+                label, start, binary_data[start:start + length], compiled)
             if report:
                 if override.get('check_only'):
                     source_errors.extend(report)

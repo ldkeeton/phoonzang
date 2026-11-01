@@ -248,7 +248,7 @@ def compare_image(name, orig_path, rel_path, built, bitmap,
     return True
 
 
-def verify_project(project_name):
+def verify_project(project_name, exact_bytes=EXACT_BYTES):
     project_dir = os.path.join(APPS_DIR, project_name)
     if not os.path.isdir(project_dir):
         return 0, []
@@ -261,18 +261,18 @@ def verify_project(project_name):
     for name, (rel_path, _start) in sorted(bins.items()):
         sidecar_entry = sidecar_per_binary(sidecar, name) if sidecar else None
         if byte_verify(name, project_dir, rel_path, out_dir,
-                       sidecar_entry=sidecar_entry, exact_bytes=EXACT_BYTES):
+                       sidecar_entry=sidecar_entry, exact_bytes=exact_bytes):
             ok += 1
         else:
             fail.append(name)
     return ok, fail
 
 
-def verify_all():
+def verify_all(exact_bytes=EXACT_BYTES):
     total_ok = 0
     total_fail = []
     for pname in get_projects():
-        ok, fail = verify_project(pname)
+        ok, fail = verify_project(pname, exact_bytes)
         total_ok += ok
         total_fail.extend(f'{pname}/{f}' for f in fail)
     print(f'\n{total_ok}/{total_ok + len(total_fail)} passed')

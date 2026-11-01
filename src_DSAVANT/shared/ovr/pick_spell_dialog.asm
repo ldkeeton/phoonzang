@@ -1358,7 +1358,7 @@ pick_spell_dialog.forward44:
     call call_show_area
     add sp, byte 8
     mov ax, word [bp - 0x3e]
-    xchg al, ah
+    xchg ah, al
     sub al, al
     add ax, word [bp - 0x3c]
     add ax, 0x100

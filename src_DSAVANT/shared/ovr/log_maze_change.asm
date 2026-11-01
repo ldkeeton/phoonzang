@@ -38,7 +38,7 @@ log_maze_change:
     mov bx, word [bp - 4]
     mov byte [bx + 1], al
     mov ax, word [bp + 8]
-    xchg al, ah
+    xchg ah, al
     sub al, al
     mov dx, word [bp + 0xa]
     mov cx, 4
@@ -55,7 +55,7 @@ jumptable_0457_case_0:
     mov cx, 4
     shl ax, cl
     add ax, word [bp + 0x10]
-    xchg al, ah
+    xchg ah, al
     sub al, al
     mov dx, word [bp + 0x12]
     shl dx, cl
@@ -72,7 +72,7 @@ jumptable_0457_case_1:
     jmp short log_maze_change.return1
 jumptable_0457_case_5:
     mov ax, word [bp + 0xe]
-    xchg al, ah
+    xchg ah, al
     sub al, al
     add ax, word [bp + 0x10]
     mov bx, word [bp - 4]

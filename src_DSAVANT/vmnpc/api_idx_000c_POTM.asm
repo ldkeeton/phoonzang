@@ -262,7 +262,7 @@ api_idx_000c_POTM:
     mov bx, ax                       ; 0x044a
     mov al, byte [bx + action_slot_table] ; 0x044c
     sub ah, ah                       ; 0x0450
-    xchg al, ah                      ; 0x0452
+    xchg ah, al                      ; 0x0452
     sub al, al                       ; 0x0454
     push ax                          ; 0x0456
     mov al, byte [bx + action_slot_table + action_slot.target] ; 0x0457

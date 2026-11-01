@@ -24,7 +24,7 @@ api_idx_0004_ONJT:
     cmp word [bx + party_records + pc_rec.item_slots], byte 0
     jne short .forward1
     mov ax, word [bp - 2]
-    xchg al, ah
+    xchg ah, al
     sub al, al
     add ax, word [bp - 4]
     ret

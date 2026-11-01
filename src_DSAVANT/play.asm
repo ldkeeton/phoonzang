@@ -1,12 +1,13 @@
 ; auto-generated
 org 0
 bits 16
+%include "include/nasm_macros.inc"
 %ifndef IMAGE_BASE
 IMAGE_BASE equ -0x0100
 %endif
 
 
-%include "play/driver_entry_0_stub.asm"    ; 0x0000
+ln_com_jump                                ; 0x0000
 
 %include "play/driver_dispatch.asm"        ; 0x0003
 
@@ -34,20 +35,20 @@ IMAGE_BASE equ -0x0100
 
 %include "play/music_set_tempo_volume.asm" ; 0x023f
 
-sample_step_imm_e        equ __zinsn_0846 + 0x2
-sample_data_segment_b    equ __zinsn_08be + 0x1
-sample_stream_offset     equ __zinsn_08c3 + 0x1
-sample_step_imm_b        equ __zinsn_08cf + 0x5
-sample_step_imm_f        equ __zinsn_097a + 0x2
-sample_data_segment_c    equ __zinsn_09a3 + 0x1
-sample_stream_offset_alt equ __zinsn_09a8 + 0x1
-sample_step_imm_c        equ __zinsn_09b6 + 0x5
-sample_step_imm_d        equ __zinsn_0a52 + 0x2
-saved_int08_offset       equ __zinsn_0b0f + 0x1
-saved_int08_segment      equ __zinsn_0b0f + 0x3
-sample_data_segment_a    equ __zinsn_18e7 + 0x1
-sample_offset            equ __zinsn_18f1 + 0x1
-sample_step_imm_a        equ __zinsn_18ff + 0x5
+sample_step_imm_e        equ add_sample_step_e + 0x2
+sample_data_segment_b    equ load_sample_segment_b + 0x1
+sample_stream_offset     equ load_sample_stream + 0x1
+sample_step_imm_b        equ add_sample_step_b + 0x5
+sample_step_imm_f        equ add_sample_step_f + 0x2
+sample_data_segment_c    equ load_sample_segment_c + 0x1
+sample_stream_offset_alt equ load_sample_stream_alt + 0x1
+sample_step_imm_c        equ add_sample_step_c + 0x5
+sample_step_imm_d        equ add_sample_step_d + 0x2
+saved_int08_offset       equ chain_saved_int08 + 0x1
+saved_int08_segment      equ chain_saved_int08 + 0x3
+sample_data_segment_a    equ load_sample_segment_a + 0x1
+sample_offset            equ load_sample + 0x1
+sample_step_imm_a        equ add_sample_step_a + 0x5
 %include "play/play_select_device.asm"     ; 0x0294
 
 %include "play/build_opl_sample_curve.asm" ; 0x065a
@@ -70,12 +71,12 @@ sample_step_imm_a        equ __zinsn_18ff + 0x5
 
 %include "play/data/sample_limit.asm"      ; 0x086f
 
-; sample_stream_offset     equ __zinsn_08c3 + 0x1
-; sample_stream_offset_alt equ __zinsn_09a8 + 0x1
+; sample_stream_offset     equ load_sample_stream + 0x1
+; sample_stream_offset_alt equ load_sample_stream_alt + 0x1
 %include "play/unused_sample_tick_entry.asm" ; 0x0870
 
-; saved_int08_offset  equ __zinsn_0b0f + 0x1
-; saved_int08_segment equ __zinsn_0b0f + 0x3
+; saved_int08_offset  equ chain_saved_int08 + 0x1
+; saved_int08_segment equ chain_saved_int08 + 0x3
 %include "play/sound_stop_and_restore_timer.asm" ; 0x09d4
 
 %include "play/set_int08_vector.asm"       ; 0x0a2a
@@ -86,8 +87,8 @@ sample_step_imm_a        equ __zinsn_18ff + 0x5
 
 %include "play/data/play_state.asm"        ; 0x0a7c
 
-; saved_int08_offset  equ __zinsn_0b0f + 0x1
-; saved_int08_segment equ __zinsn_0b0f + 0x3
+; saved_int08_offset  equ chain_saved_int08 + 0x1
+; saved_int08_segment equ chain_saved_int08 + 0x3
 %include "play/music_tick_exit.asm"        ; 0x0ad9
 
 %include "play/device_load_patch.asm"      ; 0x1167
@@ -125,7 +126,7 @@ mpu401_read_ready_flag equ mpu401_write_ready_flag + 0x1
 
 %include "play/opl_note_off.asm"           ; 0x18cb
 
-; sample_offset equ __zinsn_18f1 + 0x1
+; sample_offset equ load_sample + 0x1
 %include "play/pit_sample_interrupt.asm"   ; 0x18e4
 
 %include "play/data/cseg_1939.asm"         ; 0x1939

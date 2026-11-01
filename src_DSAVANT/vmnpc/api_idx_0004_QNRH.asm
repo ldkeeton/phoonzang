@@ -25,7 +25,7 @@ api_idx_0004_QNRH:
     cmp ax, word [bp + 6]            ; 0x23a6
     jne short .forward1              ; 0x23a9
     mov ax, word [bp - 4]            ; 0x23ab
-    xchg al, ah                      ; 0x23ae
+    xchg ah, al                      ; 0x23ae
     sub al, al                       ; 0x23b0
     add ax, word [bp - 2]            ; 0x23b2
     ret                              ; 0x23b5

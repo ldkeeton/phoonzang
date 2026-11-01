@@ -21,6 +21,8 @@ eoi		equ	20h	;non-specific end-of-interrupt command
 	out	dx,al			;count low byte
 	xor	al,al
 	out	dx,al			;count high byte
+	public	add_sample_step_d
+add_sample_step_d:
 	add	ah,80h			;advance di:ax by 8000h, al preserved
 	adc	di,0			;carry into the high word
 	jb	wrapped			;di overflowed

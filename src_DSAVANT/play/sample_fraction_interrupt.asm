@@ -3,7 +3,7 @@ sample_fraction_interrupt:
     mov al, byte [di]                ; 0x0841
     cs xlatb                         ; 0x0843
     out dx, al                       ; 0x0845
-__zinsn_0846:
+add_sample_step_e:
     add ah, 0x80                     ; 0x0846
     adc di, byte 0                   ; 0x0849
     jb short sample_fraction_interrupt.forward2 ; 0x084c

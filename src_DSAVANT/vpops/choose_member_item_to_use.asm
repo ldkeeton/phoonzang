@@ -147,7 +147,7 @@ choose_member_item_to_use:
     mov word [bx + list_row_count], 0 ; 0x352b
 .forward5:
     mov ax, word [bp - 0x4e]         ; 0x3531
-    xchg al, ah                      ; 0x3534
+    xchg ah, al                      ; 0x3534
     sub al, al                       ; 0x3536
     add ax, word [bp - 0x50]         ; 0x3538
     mov cx, word [bp - 0x6a]         ; 0x353b
@@ -313,7 +313,7 @@ choose_member_item_to_use:
     call call_show_area              ; 0x36af
     add sp, byte 8                   ; 0x36b2
     mov ax, word [bp - 0x4e]         ; 0x36b5
-    xchg al, ah                      ; 0x36b8
+    xchg ah, al                      ; 0x36b8
     sub al, al                       ; 0x36ba
     add ax, word [bp - 0x50]         ; 0x36bc
     ret                              ; 0x36bf

@@ -46,7 +46,7 @@ add_floor_item:
     mov bx, word [bp - 4]
     mov byte [bx + 1], al
     mov ax, word [party_map_piece]
-    xchg al, ah
+    xchg ah, al
     sub al, al
     mov dx, word [party_cell_x]
     mov cx, 4

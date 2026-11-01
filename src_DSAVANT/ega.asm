@@ -1,6 +1,7 @@
 ; auto-generated
 org 0
 bits 16
+%include "include/nasm_macros.inc"
 %ifndef IMAGE_BASE
 IMAGE_BASE equ -0x0100
 %endif
@@ -8,7 +9,7 @@ IMAGE_BASE equ -0x0100
 dseg_24fd equ 0x24fd
 dseg_2a02 equ 0x2a02
 
-%include "ega/driver_entry_0_stub.asm"     ; 0x0000
+ln_com_jump                                ; 0x0000
 
 %include "ega/driver_dispatch.asm"         ; 0x0003
 

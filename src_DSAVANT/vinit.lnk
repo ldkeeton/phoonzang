@@ -1,0 +1,20 @@
+# auto-generated
+vinit/ovmain
+vinit/load_startup_font
+vinit/load_startup_maze
+vinit/read_startup_file
+vinit/load_startup_misc
+vinit/load_file_data
+vinit/build_palette_map
+vinit/initialize_runtime_resources
+shared/ovr/load_screen_file
+vinit/api_idx_0002_PUOP
+vinit/api_idx_0004_OIGN
+vinit/api_idx_000e_GTMH
+vinit/loc_KVVL
+vinit/api_idx_0068_OUHP
+vinit/api_idx_0002_SKSN
+vinit/api_idx_0008_QGRM
+shared/ovr/aztec_ovbgn
+vinit/data/startup_file_names
+shared/data/overlay_saved_registers

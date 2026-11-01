@@ -132,7 +132,7 @@ api_idx_004c_OGSK:
     mov word [bx + list_row_count], 0 ; 0x511e
 .forward5:
     mov ax, word [bp - 2]            ; 0x5124
-    xchg al, ah                      ; 0x5127
+    xchg ah, al                      ; 0x5127
     sub al, al                       ; 0x5129
     add ax, word [bp - 4]            ; 0x512b
     mov cx, word [bss_9ca8]          ; 0x512e

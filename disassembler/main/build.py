@@ -38,6 +38,7 @@ from lib import stagelog
 from lib import progress
 from lib import childproc
 from lib.autogen import hand_owned, sync, write_once
+from lib.aztec.project import project_files
 from lib.cachedirs import labels_dir, src_dir
 from lib.cross_ref import detect as detect_cross_refs, read_label_json
 from lib.link import (
@@ -466,6 +467,9 @@ def _build_project(project, run_batch, nasm_batch, *, report=print,
         # 5. one copy of every routine binaries share, in shared/
         progress.log(f'{project} | sharing identical routines')
         files, shared = share_files(merge_files(emitted), out_dir)
+        files.update(project_files(
+            {name: load_sidecar(project)['binaries'].get(name, {}) for name in bins},
+            host, files))
         if shared:
             report(f'  Shared: {sum(len(v) for v in shared.values())} '
                    f'fragments -> {len(shared)} files in shared/')

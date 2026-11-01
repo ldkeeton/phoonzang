@@ -13,7 +13,8 @@ pic_end_of_interrupt	equ	20h	; non-specific end-of-interrupt command
 	mov	al,byte ptr [di]
 	xlat	cs:[bx]
 	out	dx,al
-__zinsn_0846:
+	public	add_sample_step_e
+add_sample_step_e:
 	; Carry out of DI means the sample ran past the end of its segment.
 	add	ah,80h		; immediate patched through sample_step_imm_e
 	adc	di,0

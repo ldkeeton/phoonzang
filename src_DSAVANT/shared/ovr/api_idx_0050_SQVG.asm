@@ -1384,7 +1384,7 @@ api_idx_0050_SQVG.back8:
     mov word [party_redraw_last_tick_hi], dx
     mov word [party_redraw_last_tick], ax
     mov ax, word [bp - 0x3e]
-    xchg al, ah
+    xchg ah, al
     sub al, al
     add ax, word [bp - 0x3c]
     add ax, 0x100

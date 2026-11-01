@@ -1356,7 +1356,7 @@ action_spell_dialog.forward44:
     call call_show_area              ; 0x292d
     add sp, byte 8                   ; 0x2930
     mov ax, word [bp - 0x3e]         ; 0x2933
-    xchg al, ah                      ; 0x2936
+    xchg ah, al                      ; 0x2936
     sub al, al                       ; 0x2938
     add ax, word [bp - 0x3c]         ; 0x293a
     add ax, 0x100                    ; 0x293d

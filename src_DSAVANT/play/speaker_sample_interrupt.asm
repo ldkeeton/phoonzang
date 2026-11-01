@@ -10,7 +10,7 @@ speaker_sample_interrupt:
     out dx, al                       ; 0x0a4e
     xor al, al                       ; 0x0a4f
     out dx, al                       ; 0x0a51
-__zinsn_0a52:
+add_sample_step_d:
     add ah, 0x80                     ; 0x0a52
     adc di, byte 0                   ; 0x0a55
     jb short speaker_sample_interrupt.forward1 ; 0x0a58

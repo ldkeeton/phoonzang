@@ -660,6 +660,77 @@ def _aztec_asm_annotations(entries, label_map, c_overrides=None):
 
 
 
+def _check_data_asm(project, binary, out_dir, data_files, image):
+    """The errors of each hand-owned ``.s`` beside a ``data/*.asm`` fragment.
+
+    *data_files* gives each fragment's span of *image* and its labels (see
+    :func:`lib.compare.render._data_file_spans`).  The source must assemble to
+    exactly those bytes, and every public must be the build's label at its
+    address.  A relocation is an error: its bytes would need the linker's value,
+    which this check does not resolve.
+    """
+    from lib.aztec import cache
+    from lib.aztec.compile import aztec_name, symbol_key
+
+    def key(name):
+        return symbol_key(aztec_name(name.removeprefix('__z')))
+
+    errors, todo = [], []
+    folder = os.path.join(out_dir, binary, 'data')
+    if os.path.isdir(folder):
+        for filename in sorted(os.listdir(folder)):
+            if (routine_source.is_asm_source(filename)
+                    and f'{binary}/data/{filename[:-2]}.asm' not in data_files
+                    and hand_owned(os.path.join(folder, filename))):
+                errors.append(f'error: {binary}/data/{filename}: '
+                              'no data fragment of that name (run make build, or '
+                              'check the name)')
+    for rel, span in sorted(data_files.items()):
+        name = os.path.basename(rel)[:-4]
+        for path in (os.path.join(out_dir, rel[:-4] + '.s'),
+                     os.path.join(out_dir, FOLDER, 'data', f'{name}.s')):
+            if hand_owned(path):
+                with open(path) as f:
+                    todo.append((name, path, f.read(), span))
+                break
+    entries = {name: cache.default_entry(name, project, '.s')
+               for name, *_ in todo}
+    try:
+        failed = cache.precompile(project, binary, [
+            (name, entries[name], text) for name, _, text, _ in todo])
+    except Exception as exc:
+        return [*errors, f'error: {exc}']
+    for name, path, text, (start, end, labels) in todo:
+        shown = os.path.relpath(path, out_dir)
+        try:
+            if name in failed:
+                raise failed[name]
+            module, whole = cache.compile_source_module(
+                project, binary, name, entries[name], text)
+        except Exception as exc:
+            errors.append(f'error: {shown}: assemble failed ({exc})')
+            continue
+        code, dseg = bytes(whole.code), bytes(module.data or b'')
+        got, want = code or dseg, bytes(image[start:end])
+        if whole.fixups or module.data_relocations:
+            errors.append(f'error: {shown}: has relocations, which a data '
+                          'source cannot be checked with yet')
+        elif code and dseg:
+            errors.append(f'error: {shown}: defines both code and data bytes')
+        elif got != want:
+            where = next((i for i, (a, b) in enumerate(zip(got, want)) if a != b),
+                         min(len(got), len(want)))
+            errors.append(
+                f'error: {shown}: assembles to {len(got)} bytes, the image holds '
+                f'{len(want)} at 0x{start:04x}; first difference at +0x{where:x}')
+        at = {key(label): offset - start for label, offset in labels.items()}
+        for public, offset in sorted(whole.members.items()):
+            if at.get(key(public)) != offset:
+                errors.append(f'error: {shown}: public {public} at +0x{offset:x} '
+                              'is not the build\'s label there')
+    return errors
+
+
 def _data_sources(project, binary, out_dir, split_sources, segments=None,
                   data=None, overrides=(), sidecar_entry=None):
     """``{relative path: text}``: the C source beside each generated data file.

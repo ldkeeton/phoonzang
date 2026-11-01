@@ -164,7 +164,7 @@ aztec_format.forward15:
 aztec_format.forward16:
     div cx
 aztec_format.forward17:
-    xchg bx, dx
+    xchg dx, bx
     mov bl, byte [cs:bx + aztec_format_digits - IMAGE_BASE]
     dec di
     mov byte [es:di], bl

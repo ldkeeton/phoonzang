@@ -24,7 +24,7 @@ api_idx_0004_PULL:
     cmp word [bx + party_records + pc_rec.item_slots], byte 0 ; 0x2317
     jne short .forward1              ; 0x231c
     mov ax, word [bp - 2]            ; 0x231e
-    xchg al, ah                      ; 0x2321
+    xchg ah, al                      ; 0x2321
     sub al, al                       ; 0x2323
     add ax, word [bp - 4]            ; 0x2325
     ret                              ; 0x2328
@@ -46,7 +46,7 @@ api_idx_0004_PULL:
     jmp short .forward4              ; 0x234b
 .forward3:
     mov ax, word [bp - 2]            ; 0x234d
-    xchg al, ah                      ; 0x2350
+    xchg ah, al                      ; 0x2350
     sub al, al                       ; 0x2352
     add ax, word [bp - 4]            ; 0x2354
     ret                              ; 0x2357

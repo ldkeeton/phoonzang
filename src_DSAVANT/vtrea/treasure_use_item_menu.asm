@@ -132,7 +132,7 @@ treasure_use_item_menu:
     mov word [bx + list_row_count], 0 ; 0x4d01
 .forward5:
     mov ax, word [bp - 0x4e]         ; 0x4d07
-    xchg al, ah                      ; 0x4d0a
+    xchg ah, al                      ; 0x4d0a
     sub al, al                       ; 0x4d0c
     add ax, word [bp - 0x50]         ; 0x4d0e
     mov cx, word [bp - 0x92]         ; 0x4d11

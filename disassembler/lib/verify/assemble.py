@@ -68,12 +68,6 @@ def reset_assemble_stats():
     _stats['hits'] = 0
     _stats['time'] = 0.0
 
-_COMMUTATIVE = {
-    'xchg', 'add', 'or', 'and', 'xor', 'adc',
-    'mul', 'imul', 'fadd', 'fmul',
-}
-
-
 def _get_sem_eq_md():
     global _sem_eq_md
     if _sem_eq_md is None:
@@ -82,22 +76,12 @@ def _get_sem_eq_md():
     return _sem_eq_md
 
 
-def _reg_ids(insn):
-    """Return a sorted tuple of register IDs referenced by *insn*."""
-    from capstone import CS_OP_REG
-    regs = []
-    for op in insn.operands:
-        if op.type == CS_OP_REG:
-            regs.append(op.reg)
-    return tuple(sorted(regs))
-
-
 def is_semantically_equivalent(orig_bytes, nasm_bytes, address):
-    """True if both decode to semantically equivalent instructions.
+    """True if both decode to the same instruction, operands in the same order.
 
-    Handles encoding variants: different ModR/M for reg-reg moves,
-    different opcode forms (89 vs 8B for mov), commutative operand
-    order, and Capstone naming quirks (cwde vs cbw).
+    This allows only what NASM encodes differently from ``as``: the opcode form
+    of a register pair (89 vs 8B for mov), ``sal`` vs ``shl``, and Capstone
+    naming quirks.  Swapped operands are a different instruction.
     """
     if len(orig_bytes) != len(nasm_bytes):
         return False
@@ -121,19 +105,6 @@ def is_semantically_equivalent(orig_bytes, nasm_bytes, address):
     if o_mnem == n_mnem and o.op_str == n.op_str:
         _sem_eq_cache[key] = True
         return True
-
-    if o_mnem != n_mnem:
-        _sem_eq_cache[key] = False
-        return False
-
-    if o.mnemonic in _COMMUTATIVE:
-        from capstone import CS_OP_REG
-        o_ops = [op for op in o.operands if op.type == CS_OP_REG]
-        n_ops = [n for n in n.operands if n.type == CS_OP_REG]
-        if len(o_ops) == len(o.operands) == len(n_ops) == len(n.operands):
-            result = (_reg_ids(o) == _reg_ids(n))
-            _sem_eq_cache[key] = result
-            return result
 
     _sem_eq_cache[key] = False
     return False

@@ -133,7 +133,7 @@ use_item_menu:
     mov word [bx + list_row_count], 0 ; 0x42b7
 .forward5:
     mov ax, word [bp - 0x50]         ; 0x42bd
-    xchg al, ah                      ; 0x42c0
+    xchg ah, al                      ; 0x42c0
     sub al, al                       ; 0x42c2
     add ax, word [bp - 0x52]         ; 0x42c4
     mov cx, word [bp - 0x94]         ; 0x42c7

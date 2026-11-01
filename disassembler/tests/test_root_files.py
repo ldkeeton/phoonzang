@@ -3,7 +3,9 @@
 Code in a root file means the disassembler never learned where that code is
 entered (no root, so no routine file).  Data in one means the splitter left a
 run of bytes to no fragment.  The only bytes a root may spell are its layout:
-the MZ or overlay header and the fill that places the data segment.  The
+the MZ or overlay header and the fill that places the data segment.  The one
+instruction allowed is ``ln_com_jump``: a driver's first bytes, which ``ln``
+writes for a ``.COM``, so no routine file can own them.  The
 generated tree is checked, so the cause gets fixed instead of the symptom
 moving.
 """
@@ -17,6 +19,7 @@ _TREE = pathlib.Path(__file__).resolve().parents[2] / 'src_DSAVANT'
 _STRUCTURAL = re.compile(
     r'^\s*(;.*)?$'
     r'|^\s*%'
+    r'|^\s*ln_com_jump\b'
     r'|^\s*(bits|section|absolute|org|db|dw|dd|times|resb|resw|align)\b'
     r'|^\s*[\w.$@]+\s+equ\b'
     r'|^\s*[\w.$@]+:\s*(;.*)?$',

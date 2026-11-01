@@ -67,8 +67,10 @@ restore_and_return:
 		mov	ax,word ptr cs:chain_period
 		mov	word ptr cs:chain_countdown,ax
 		pushf
-		saved_int08_offset	equ	music_player_tick_+1ah	;operand words of the call far below
-		saved_int08_segment	equ	music_player_tick_+1ch
+		public	chain_saved_int08
+chain_saved_int08:
+		saved_int08_offset	equ	chain_saved_int08+1	;operand words of the call far below
+		saved_int08_segment	equ	chain_saved_int08+3
 		db	9ah,0,0,0,0	;call far 0:0, operand patched with the saved vector
 	.endif
 	mov	ax,word ptr cs:music_tempo

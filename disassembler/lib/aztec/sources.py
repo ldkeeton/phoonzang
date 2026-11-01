@@ -18,8 +18,7 @@ from ..cachedirs import src_dir
 _ASM_DIR = os.path.dirname(os.path.dirname(os.path.dirname(
     os.path.abspath(__file__))))
 _DOSCOMP = os.path.join(_ASM_DIR, 'dos_compilers')
-_MASTER = os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                       'lmacros_master.h')
+_MASTER = os.path.join(_ASM_DIR, 'macros', 'lmacros_master.h')
 
 #: The one Aztec release the game was built with (lib.aztec.compile.VERSION).
 VERSION = 'v42b'

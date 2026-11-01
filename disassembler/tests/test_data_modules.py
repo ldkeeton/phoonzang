@@ -80,5 +80,53 @@ class DataSourcesTest(unittest.TestCase):
             self.sources(bytes(8))
 
 
+class CheckDataAsmTest(unittest.TestCase):
+    """A hand-owned ``.s`` beside a data fragment must hold the image's bytes."""
+    IMAGE = b'\xaa\x01\x02\xbb'
+    FILES = {'p/data/t.asm': (1, 3, {'t': 1, 'u': 2})}
+
+    def check(self, code=b'\x01\x02', members=None, fixups=(), data=b'',
+              extra=None):
+        whole = mock.Mock(code=code, members={'t': 0} if members is None else members,
+                          fixups=list(fixups))
+        module = mock.Mock(data=data, data_relocations=())
+        with tempfile.TemporaryDirectory() as out:
+            os.makedirs(os.path.join(out, 'p', 'data'))
+            for name in ('t.s', *(extra or ())):
+                with open(os.path.join(out, 'p', 'data', name), 'w') as f:
+                    f.write('source')
+            with mock.patch('lib.aztec.cache.precompile', return_value={}), \
+                    mock.patch('lib.aztec.cache.compile_source_module',
+                               return_value=(module, whole)):
+                return aztec._check_data_asm('P', 'p', out, self.FILES, self.IMAGE)
+
+    def test_matching_source(self):
+        self.assertEqual(self.check(), [])
+
+    def test_a_changed_byte_fails(self):
+        self.assertRegex(self.check(b'\x01\x03')[0], r't\.s: .*\+0x1')
+
+    def test_a_wrong_length_fails(self):
+        self.assertRegex(self.check(b'\x01')[0], '1 bytes, the image holds 2')
+
+    def test_data_segment_bytes_count(self):
+        self.assertEqual(self.check(b'', data=b'\x01\x02'), [])
+
+    def test_a_public_must_be_the_builds_label(self):
+        self.assertRegex(self.check(members={'t': 0, 'other': 1})[0], 'public other')
+        self.assertRegex(self.check(members={'u': 0})[0], 'public u')
+
+    def test_relocations_fail_rather_than_pass_unchecked(self):
+        self.assertRegex(self.check(fixups=[object()])[0], 'relocations')
+
+    def test_a_source_with_no_fragment_fails(self):
+        self.assertRegex(self.check(extra=['gone.s'])[0], 'gone.s: no data fragment')
+
+    def test_no_source_no_error(self):
+        with tempfile.TemporaryDirectory() as out:
+            self.assertEqual(
+                aztec._check_data_asm('P', 'p', out, self.FILES, self.IMAGE), [])
+
+
 if __name__ == '__main__':
     unittest.main()

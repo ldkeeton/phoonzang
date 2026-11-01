@@ -9,8 +9,6 @@ codeseg	segment	byte public 'code'
 	extrn	sample_step_fraction:byte
 	extrn	sample_position:byte
 	extrn	sample_limit:byte
-	extrn	sample_stream_offset:word
-	extrn	sample_stream_offset_alt:word
 	extrn	sample_output_port:word
 ; INT 08h sample tick: advances the sample index, streams table counts, and acknowledges the PIC.
 	procdef	unused_sample_tick_entry
@@ -49,14 +47,21 @@ sample_limit_reached:
 	cmp	byte ptr cs:play_device_timer_flag,0
 	js	sample_increase_step
 	jne	sample_decrease_step
+	public	load_sample_segment_b
+load_sample_segment_b:
 	movseg	ds,0
+	public	load_sample_stream
+load_sample_stream:
+sample_stream_offset	equ	load_sample_stream+1	;operand word of the load below
 	mov	al,byte ptr [0]
 	mov	dx,389h
 	mov	bx,offset sample_output_table
 	xlat	cs:[bx]
 	out	dx,al
+	public	add_sample_step_b
+add_sample_step_b:
 	add	byte ptr cs:sample_step_fraction,80h ; advance the fractional pointer by half a byte
-	adc	word ptr cs:sample_stream_offset,0
+	adc	word ptr cs:[sample_stream_offset],0
 	jb	sample_stream_wrap
 	dec	word ptr cs:tick_divider
 	je	music_tick_interrupt
@@ -125,6 +130,8 @@ sample_stream_end_exit:
 	mov	al,byte ptr [di]
 	xlat	cs:[bx]
 	out	dx,al
+	public	add_sample_step_f
+add_sample_step_f:
 	add	ah,80h
 	adc	di,0
 	jb	sample_fraction_overflow_exit
@@ -148,14 +155,21 @@ sample_fraction_overflow_exit:
 
 	procdef	io_loc_port_sample_tick
 	pushs	ax,ds,dx,bx
+	public	load_sample_segment_c
+load_sample_segment_c:
 	movseg	ds,0
+	public	load_sample_stream_alt
+load_sample_stream_alt:
+sample_stream_offset_alt	equ	load_sample_stream_alt+1	;operand word of the load below
 	mov	al,byte ptr [0]
 	mov	dx,word ptr cs:sample_output_port
 	mov	bx,offset sample_output_table
 	xlat	cs:[bx]
 	out	dx,al
+	public	add_sample_step_c
+add_sample_step_c:
 	add	byte ptr cs:sample_step_fraction,80h ; fractional step advances the stream pointer every other tick
-	adc	word ptr cs:sample_stream_offset_alt,0
+	adc	word ptr cs:[sample_stream_offset_alt],0
 	jb	sample_stream_end_exit
 	dec	word ptr cs:tick_divider
 	je	music_tick_interrupt_exit

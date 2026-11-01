@@ -22,11 +22,9 @@ class CGateTest(unittest.TestCase):
         self.assertIn('1 instruction(s), 1 of 8', report[0])
         self.assertIn('+0x003', report[1])
 
-    def test_semantic_variant_passes_unless_exact(self):
-        # mov bp,sp as 89 e5 instead of 8b ec
-        variant = bytes.fromhex('5589e5' '8b4604' '5dc3')
-        self.assertEqual(self.check(variant), [])
-        self.assertTrue(self.check(variant, exact=True))
+    def test_encoder_variant_fails(self):
+        # mov bp,sp as 89 e5 instead of 8b ec: cc and as are the original tools
+        self.assertTrue(self.check(bytes.fromhex('5589e5' '8b4604' '5dc3')))
 
     def test_shorter_fails(self):
         report = self.check(ORIG[:-1])
@@ -37,12 +35,12 @@ class CGateTest(unittest.TestCase):
 
 
 class VerificationRecordsTest(unittest.TestCase):
-    def test_equivalent_compile_keeps_records_and_bad_compile_fails(self):
+    def test_exact_compile_keeps_records_and_bad_compile_fails(self):
         from lib.compare.coverrides import _apply_c_overrides
         from lib.compare.cgate import CGateError
 
         records = [{'type': 'label', 'offset': 0, 'name': 'f'}]
-        check = {'code': bytes.fromhex('5589e58b46045dc3'),
+        check = {'code': ORIG,
                  'check_only': True}
         self.assertIs(_apply_c_overrides(
             records, {'f': check}, ORIG, {0: 'f'}, {}, {}, {}), records)

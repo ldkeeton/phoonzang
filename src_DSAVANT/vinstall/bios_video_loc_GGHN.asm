@@ -20,7 +20,7 @@ bios_video_loc_GGHN:
     out dx, al                       ; 0x24a2
     inc dx                           ; 0x24a3
     in al, dx                        ; 0x24a4
-    xchg al, ah                      ; 0x24a5
+    xchg ah, al                      ; 0x24a5
     mov al, 0x64                     ; 0x24a7
     out dx, al                       ; 0x24a9
     nop                              ; 0x24aa
@@ -29,7 +29,7 @@ bios_video_loc_GGHN:
     in al, dx                        ; 0x24ad
     cmp al, 0x64                     ; 0x24ae
     jne short .forward3              ; 0x24b0
-    xchg al, ah                      ; 0x24b2
+    xchg ah, al                      ; 0x24b2
     out dx, al                       ; 0x24b4
 .forward2:
     mov word [bp - 2], 4             ; 0x24b5
@@ -38,7 +38,7 @@ bios_video_loc_GGHN:
     mov dx, 0x3ba                    ; 0x24bb
     in al, dx                        ; 0x24be
     and al, 0x80                     ; 0x24bf
-    xchg al, ah                      ; 0x24c1
+    xchg ah, al                      ; 0x24c1
     mov cx, 0x1388                   ; 0x24c3
 .back1:
     in al, dx                        ; 0x24c6
