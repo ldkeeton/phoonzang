@@ -28,14 +28,14 @@ set_mouse_pointer:
     mov ax, word [bp + 0x10]         ; 0x13fe
     mov word [cs:mouse_image_stride - IMAGE_BASE], ax ; 0x1401
     mov ax, word [bp + 0x12]         ; 0x1405
-    mov word [cs:cseg_1d5e - IMAGE_BASE], ax ; 0x1408
+    mov word [cs:mouse_image_height - IMAGE_BASE], ax ; 0x1408
     mov ax, word [cs:mouse_image_offset - IMAGE_BASE] ; 0x140c
     or ax, word [cs:mouse_image_segment - IMAGE_BASE] ; 0x1410
     jne short .forward2              ; 0x1415
     mov ax, cs                       ; 0x1417
     mov ds, ax                       ; 0x1419
     mov es, ax                       ; 0x141b
-    mov si, cseg_1d60 - IMAGE_BASE   ; 0x141d
+    mov si, mouse_default_cursor_dimensions - IMAGE_BASE ; 0x141d
     mov di, data_1e5c                ; 0x1420
     mov cx, 4                        ; 0x1423
     rep movsb                        ; 0x1426

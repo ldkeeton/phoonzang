@@ -2,7 +2,7 @@
 ega/driver_dispatch
 shared/data/drv_buffer_segments
 shared/data/drv_ems_frame
-ega/data/mouse_init_enabled
+shared/data/mouse_init_enabled
 shared/data/drv_far_calls
 shared/data/drv_mouse_flags
 shared/data/drv_picture_maze_slots

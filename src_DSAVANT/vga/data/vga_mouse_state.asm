@@ -13,11 +13,11 @@ mouse_drawn_height:
     db 0x00, 0x00
 mouse_screen_offset:
     db 0x00, 0x00
-cseg_14be:
+mouse_cursor_width:
     db 0x00, 0x00
-cseg_14c0:
+mouse_cursor_height:
     db 0x00, 0x00
-cseg_14c2:
+mouse_cursor_screen_offset:
     db 0x00, 0x00
 __zcp_14c4:
 
@@ -40,9 +40,9 @@ cseg_1d4c:
 __zdata_1e5c:
 mouse_image_stride:
     db 0x0a, 0x00
-cseg_1d5e:
+mouse_image_height:
     db 0x0a, 0x00
-cseg_1d60:
+mouse_default_cursor_dimensions:
     db 0x0a, 0x00, 0x0a, 0x00
 mouse_image_offset:
     db 0x00, 0x00

@@ -15,7 +15,7 @@ ln_com_jump                                ; 0x0000
 
 %include "shared/data/drv_ems_frame.asm"      ; 0x00ff
 
-%include "vga/data/cseg_0105.asm"          ; 0x0105
+%include "shared/data/mouse_init_enabled.asm" ; 0x0105
 
 %include "shared/data/drv_far_calls.asm"      ; 0x0106
 
@@ -106,7 +106,7 @@ data_1e5c equ __zdata_1e5c - IMAGE_BASE
 
 %include "vga/data/vga_mouse_state.asm"    ; 0x14b0
 
-%include "vga/data/cseg_1d68.asm"          ; 0x1d68
+%include "vga/data/mouse_cursor_overlaps.asm" ; 0x1d68
 
 %include "shared/data/mouse_click_pending.asm" ; 0x1dcd
 
@@ -120,7 +120,7 @@ data_1e5c equ __zdata_1e5c - IMAGE_BASE
 
 data_1dc4 equ __zdata_1dc4 - IMAGE_BASE
 data_1e4c equ __zdata_1e4c - IMAGE_BASE
-%include "vga/graphics_loc_OSKV.asm"       ; 0x1e35
+%include "vga/draw_mouse_cursor_image.asm" ; 0x1e35
 
 %include "shared/drv/clear_mouse_click.asm"       ; 0x217d
 

@@ -5,7 +5,7 @@ mouse_init:
     push es                          ; 0x11fb
     mov ax, ds                       ; 0x11fc
     mov es, ax                       ; 0x11fe
-    cmp byte [cs:cseg_0105 - IMAGE_BASE], 0 ; 0x1200
+    cmp byte [cs:mouse_init_enabled - IMAGE_BASE], 0 ; 0x1200
     je short .forward1               ; 0x1206
     mov ax, 0                        ; 0x1208
     int 0x33 ; BIOS mouse
@@ -34,7 +34,7 @@ mouse_init:
     push ax                          ; 0x1241
     mov ax, 0xffff                   ; 0x1242
     mov word [cs:mouse_drawn_y - IMAGE_BASE], ax ; 0x1245
-    call graphics_loc_OSKV           ; 0x1249
+    call draw_mouse_cursor_image     ; 0x1249
     pop si                           ; 0x124c
     pop di                           ; 0x124d
     pop es                           ; 0x124e

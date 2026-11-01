@@ -144,8 +144,8 @@
                 },
                 "PHOONZANGAsmNav.codex": {
                     "type": "string",
-                    "default": "/usr/lib/chatgpt/resources/codex",
-                    "description": "Path to the OpenAI Codex CLI executable used by 'Make C file (OpenAI Codex)'. On this system it is bundled at /usr/lib/chatgpt/resources/codex."
+                    "default": "/home/lyle/.local/bin/codex",
+                    "description": "Path to the OpenAI Codex CLI executable used by 'Make C file (OpenAI Codex)'. "
                 },
                 "PHOONZANGAsmNav.codexModel": {
                     "type": "string",

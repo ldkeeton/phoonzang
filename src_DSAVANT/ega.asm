@@ -17,7 +17,7 @@ ln_com_jump                                ; 0x0000
 
 %include "shared/data/drv_ems_frame.asm"      ; 0x00ff
 
-%include "ega/data/mouse_init_enabled.asm" ; 0x0105
+%include "shared/data/mouse_init_enabled.asm" ; 0x0105
 
 %include "shared/data/drv_far_calls.asm"      ; 0x0106
 
