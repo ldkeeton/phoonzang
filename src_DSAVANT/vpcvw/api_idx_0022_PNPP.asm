@@ -40,8 +40,8 @@ api_idx_0022_PNPP:
     mov ax, 0                        ; 0x94e8
     push ax                          ; 0x94eb
     push ax                          ; 0x94ec
-    push word [bss_93f0]             ; 0x94ed
-    push word [bss_93ee]             ; 0x94f1
+    push word [api_idx_007c_OKMO_bss19]             ; 0x94ed
+    push word [api_idx_007c_OKMO_bss24]             ; 0x94f1
     call call_restore_screen         ; 0x94f5
     add sp, byte 8                   ; 0x94f8
     mov ax, 0x4a                     ; 0x94fb
@@ -125,7 +125,7 @@ api_idx_0022_PNPP:
     mov al, byte [bx + party_records + pc_rec.kind] ; 0x95ac
     sub ah, ah                       ; 0x95b0
     push ax                          ; 0x95b2
-    call api_idx_0016_TVKP           ; 0x95b3
+    call load_member_icon           ; 0x95b3
     add sp, byte 4                   ; 0x95b6
     mov ax, 0x12                     ; 0x95b9
     push ax                          ; 0x95bc

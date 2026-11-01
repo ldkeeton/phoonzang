@@ -44,7 +44,7 @@ api_idx_0002_MTJS:
     push word [bp + 8]               ; 0x296c
     push word [bp + 6]               ; 0x296f
     push word [bp + 4]               ; 0x2972
-    call fill_action_slot_table_vmnpc ; 0x2975
+    call fill_action_slot_table      ; 0x2975
     add sp, byte 8                   ; 0x2978
     mov ax, 0                        ; 0x297b
     ret                              ; 0x297e

@@ -4,40 +4,40 @@ aztec_impl_read:
     mov bp, sp
     mov ah, 0x3f
     mov bx, word [bp + 4]
-    jmp short aztec_impl_read.loc1
+    jmp short .forward1
 aztec_impl_write:
     push bp
     mov bp, sp
     mov ah, 0x40
     mov bx, word [bp + 4]
-    jmp short aztec_impl_read.loc1
+    jmp short aztec_impl_read.forward1
 aztec_read:
     push bp
     mov bp, sp
     mov ah, 0x3f
-    jmp short aztec_impl_read.loc2
+    jmp short .forward1
 aztec_write:
     push bp
     mov bp, sp
     mov ah, 0x40
-aztec_impl_read.loc2:
+aztec_read.forward1:
     mov bx, word [bp + 4]
     cmp byte [bx + _ioflg], 0
-    je short aztec_impl_read.loc1
+    je short aztec_impl_read.forward1
     pop bp
     cmp ah, 0x3f
-    je short aztec_impl_read.loc3
+    je short aztec_read.forward2
     jmp [_ttwr]
-aztec_impl_read.loc3:
+aztec_read.forward2:
     jmp [_ttrd]
-aztec_impl_read.loc1:
+aztec_impl_read.forward1:
     mov dx, word [bp + 6]
     mov cx, word [bp + 8]
     int 0x21 ; DOS function dispatcher
-    jae short aztec_impl_read.loc4
+    jae short aztec_impl_read.forward2
     mov word [errno], ax
     mov ax, 0xffff
-aztec_impl_read.loc4:
+aztec_impl_read.forward2:
     pop bp
     ret
 aztec_close:

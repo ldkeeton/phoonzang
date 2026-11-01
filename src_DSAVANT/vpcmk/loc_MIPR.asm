@@ -168,7 +168,7 @@ loc_MIPR:
     mov al, byte [bx + party_records + pc_rec.kind] ; 0x6493
     sub ah, ah                       ; 0x6497
     push ax                          ; 0x6499
-    call api_idx_0016_JNJG           ; 0x649a
+    call load_member_icon           ; 0x649a
     add sp, byte 4                   ; 0x649d
     mov ax, 0x12                     ; 0x64a0
     push ax                          ; 0x64a3

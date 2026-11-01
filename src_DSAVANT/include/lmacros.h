@@ -299,6 +299,8 @@ codeseg	segment	byte public 'code'
 ;	drvcall name,slot	public name_ / name_ proc: push bp / mov bp,sp /
 ;			cld / call dword ptr cs:slot / mov sp,bp / pop bp / ret
 ;			(slot is the dword driver entry, declared extrn here)
+;	drvslot handler	call handler_ (near, declared extrn here) / db 0cbh (retf):
+;			one entry of a driver's own dispatch table
 
 dos	macro	fn, alv
 	mov	ah,fn
@@ -415,6 +417,12 @@ pname&_	proc	near
 	pop	bp
 	ret
 pname&_	endp
+	endm
+
+drvslot	macro	handler
+	extrn	handler&_:near
+	call	handler&_
+	db	0cbh ; retf
 	endm
 
 ; Block state.  _hn_ numbers labels.  The .if stack is _hd_ deep; at depth d,

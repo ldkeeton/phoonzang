@@ -8,7 +8,7 @@ extern struct saved_region_blocks party_region;
 extern int adjacent_object_type[4];
 extern int party_tag, game_state_arg;
 extern unsigned char scenario_header_data[][16];
-extern int api_idx_0004_GHVL();
+extern int log_maze_change();
 
 claim_type7_object(obj)
 int obj;
@@ -18,7 +18,7 @@ int obj;
 	clear_bit_pair(&maze_tables->flags[obj], party_tag << 1);
 
 	/* Log the object change with action 6 and its two-bit party flags. */
-	api_idx_0004_GHVL(game_state_arg, 6, obj, 0, 0,
+	log_maze_change(game_state_arg, 6, obj, 0, 0,
 		maze_tables->flags[obj], 0, 0, 0);
 
 	/* Positive keys set both the party region map and scenario bitmap. */

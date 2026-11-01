@@ -8,29 +8,7 @@ IMAGE_BASE equ -0x0100
 
 %include "play/driver_entry_0_stub.asm"    ; 0x0000
 
-driver_slot_0.mouse_init1 equ music_start
-%include "shared/drv/driver_slot_0.asm"          ; 0x0003
-
-loc_JTQK_0007.mouse_off1 equ configure_music_device
-%include "shared/drv/loc_JTQK_0007.asm"          ; 0x0007
-
-loc_JTQK_000b.mouse_hit_test1 equ music_set_data
-%include "shared/drv/loc_JTQK_000b.asm"          ; 0x000b
-
-loc_JTQK_000f.request_mouse_redraw1 equ stop_music_playback
-%include "shared/drv/loc_JTQK_000f.asm"          ; 0x000f
-
-loc_JTQK_0013.update_mouse_pointer1 equ music_set_tempo_volume
-%include "shared/drv/loc_JTQK_0013.asm"          ; 0x0013
-
-loc_JTQK_0017.load_picture1 equ play_select_device
-%include "shared/drv/loc_JTQK_0017.asm"          ; 0x0017
-
-loc_JTQK_001b.draw_text1 equ music_is_playing
-%include "shared/drv/loc_JTQK_001b.asm"          ; 0x001b
-
-loc_JTQK_001f.load_screen1 equ wait_for_music
-%include "shared/drv/loc_JTQK_001f.asm"          ; 0x001f
+%include "play/driver_dispatch.asm"        ; 0x0003
 
 %include "play/music_start.asm"            ; 0x0023
 
@@ -94,7 +72,7 @@ sample_step_imm_a        equ __zinsn_18ff + 0x5
 
 ; sample_stream_offset     equ __zinsn_08c3 + 0x1
 ; sample_stream_offset_alt equ __zinsn_09a8 + 0x1
-%include "play/io_loc_sample_interrupt.asm" ; 0x0870
+%include "play/unused_sample_tick_entry.asm" ; 0x0870
 
 ; saved_int08_offset  equ __zinsn_0b0f + 0x1
 ; saved_int08_segment equ __zinsn_0b0f + 0x3

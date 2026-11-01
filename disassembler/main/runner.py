@@ -463,7 +463,7 @@ def _analyze(name, orig_dir, rel_path, start_offset, output_dir=None,
         why='branch targets local to a routine are not labels; the rest get loc_',
         track={'label_map': label_map})
     # A switch arm is named after its table and first slot
-    # (``jumptable_<table>_case_<n>``), not after the generic category its body
+    # (``<table>_case_<n>``), not after the generic category its body
     # happened to get, and marked as a case so the file split does not start a
     # fragment there: the switch -- prologue, bodies, table, dispatcher -- is one
     # routine's file.
@@ -486,7 +486,10 @@ def _analyze(name, orig_dir, rel_path, start_offset, output_dir=None,
                 # body is (``analysis._compute_func_boundaries`` skips an
                 # address-sourced label, and an arm without a boundary lets the
                 # zero gap before it decode as code).
-                case = _case_symbol(*first_slot[address], address)
+                table, index = first_slot[address]
+                table_name = ((ctx.sidecar_entry or {}).get('code_data_names')
+                              or {}).get(table, {}).get('name')
+                case = _case_symbol(table, index, address, table_name)
                 label_map[address] = label.renamed(str(case), label.source,
                                                    base=case.base, role='case')
             else:
@@ -543,8 +546,8 @@ def _analyze(name, orig_dir, rel_path, start_offset, output_dir=None,
         ctx.report['segment_flow'] = operand_space_counts(
             instructions, ctx.segment_flow)
 
-    # Name each address-derived routine after its code (see lib.names): the
-    # same name then means the same code in every binary.  Done on the final
+    # Name each address-derived routine after its code (see lib.names), so
+    # copies that differ only by layout get one name.  Done on the final
     # instruction stream, before anything keys on a routine's name.
     tag_generics(
         label_map, function_roots, instructions, data, len(data),

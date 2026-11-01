@@ -5,8 +5,8 @@ api_idx_0004_RMVO:
     mov ax, 0
     push ax
     push ax
-    push word [api_idx_0004_RMVO.bss1]
-    push word [api_idx_0004_RMVO.bss2]
+    push word [api_idx_0004_RMVO_bss19]
+    push word [api_idx_0004_RMVO_bss24]
     call call_restore_screen
     add sp, byte 8
     mov word [bp - 2], 0

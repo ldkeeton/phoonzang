@@ -2,7 +2,7 @@
 redraw_maze_view:
     mov ax, 0
     call aztec_csav
-    call redraw_maze_view.api_idx1
+    call api_idx_0030_KNRH
     mov ax, 0x8f
     push ax
     mov ax, 0xf7

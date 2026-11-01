@@ -26,11 +26,8 @@ def _validate_data_names(block, where):
     With ``length``, an optional ``file`` names that fragment instead of
     the object, as a ``function_names`` ``file`` names a group of routines.
 
-    An optional ``"record"`` names the object's record layout
-    (:mod:`lib.record_layout`): ``{"name": "slot_rec", "size": n?, "fields":
-    {"26": "target", "30": {"name": "target_rand", "size": 8}}}``, field keys
-    hex offsets into one record.  ``"count"`` (with ``size``) says the object
-    is that many records, so an address inside them is a field, not a start.
+    A layout belongs in the binary's ``records`` block (:mod:`.records`), not
+    on an entry.
     """
     if not isinstance(block, dict):
         raise SidecarError(f'{where} must be an object')
@@ -51,7 +48,8 @@ def _validate_data_names(block, where):
                                  or info['length'] <= 0):
             raise SidecarError(f'{at}.length must be a positive integer')
         if 'record' in info:
-            _validate_record(info['record'], f'{at}.record')
+            raise SidecarError(f'{at}.record: layouts belong in the binary\'s '
+                               '"records" block')
     _validate_file_stems(block, where, 'object')
 
 
@@ -79,46 +77,6 @@ def _validate_file_stems(block, where, kind):
         if stem in files:
             raise SidecarError(f'{at}: {stem!r} is also [{files[stem]}].file')
         files[stem] = key
-
-
-def _validate_record(record, where):
-    """A ``data_names`` entry's ``record``: struc and field names."""
-    if not isinstance(record, dict):
-        raise SidecarError(f'{where} must be an object')
-    unknown = set(record) - {'name', 'size', 'count', 'fields'}
-    if unknown:
-        raise SidecarError(f'{where}: unknown key(s) {sorted(unknown)}')
-    name = record.get('name')
-    if name is not None and not (isinstance(name, str)
-                                 and _IDENTIFIER.match(name)):
-        raise SidecarError(f'{where}.name must be an identifier')
-    size = record.get('size')
-    if size is not None and not (isinstance(size, int) and size > 0):
-        raise SidecarError(f'{where}.size must be a positive integer')
-    count = record.get('count')
-    if count is not None and not (isinstance(count, int) and count > 0
-                                  and size is not None):
-        raise SidecarError(f'{where}.count must be a positive integer, '
-                           'with a size')
-    fields = record.get('fields') or {}
-    if not isinstance(fields, dict):
-        raise SidecarError(f'{where}.fields must be an object')
-    names = set()
-    for key, field in fields.items():
-        at = f'{where}.fields[{key}]'
-        if not re.fullmatch(r'[0-9a-fA-F]+', key):
-            raise SidecarError(f'{at}: the key is a hex offset')
-        if isinstance(field, dict):
-            fname, fsize = field.get('name'), field.get('size')
-            if fsize is not None and not (isinstance(fsize, int) and fsize > 0):
-                raise SidecarError(f'{at}.size must be a positive integer')
-        else:
-            fname = field
-        if not (isinstance(fname, str) and _IDENTIFIER.match(fname)):
-            raise SidecarError(f'{at} must name an identifier field')
-        if fname in names:
-            raise SidecarError(f'{at}: field {fname!r} is named twice')
-        names.add(fname)
 
 
 def _data_names_map(raw):

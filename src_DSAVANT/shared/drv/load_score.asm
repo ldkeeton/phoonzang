@@ -120,12 +120,12 @@ load_score:
 .forward5:
     mov ax, cs
     mov ds, ax
-    mov dx, load_score.cseg1 - IMAGE_BASE
+    mov dx, cseg_4fd4 - IMAGE_BASE
     mov ah, 9
     int 0x21 ; DOS string output
     mov ax, 0x4c01
     int 0x21 ; DOS function dispatcher
-load_score.cseg1:
+cseg_4fd4:
 
     db 0x0d, 0x0a, 0x07
     db 'In LOAD_SCORE() ... slot already used.', 0
@@ -134,12 +134,12 @@ load_score.cseg1:
 load_score.forward6:
     mov ax, cs
     mov ds, ax
-    mov dx, load_score.cseg2 - IMAGE_BASE
+    mov dx, cseg_5010 - IMAGE_BASE
     mov ah, 9
     int 0x21 ; DOS string output
     mov ax, 0x4c01
     int 0x21 ; DOS function dispatcher
-load_score.cseg2:
+cseg_5010:
 
     db 0x0d, 0x0a, 0x07
     db 'In LOAD_SCORE() ... not enough memory.', 0

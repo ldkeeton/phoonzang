@@ -67,7 +67,7 @@ aztec_begin:
     int 0x21 ; DOS resize memory block
     jae short .forward7
     mov al, 0xfe
-    jmp near aztec_begin.loc1
+    jmp near .forward15
 .forward7:
     mov es, bp
     cld
@@ -136,17 +136,17 @@ aztec_begin:
     call aztec_fltinit
     jb short .forward14
     call aztec_Croot
-    jmp short aztec_begin.loc1
+    jmp short .forward15
 .forward14:
     mov ah, 9
     mov dx, bad8087
     int 0x21 ; DOS string output
     mov al, 0xfd
-    jmp short aztec_begin.loc1
+    jmp short .forward15
 aztec_impl_exit:
     pop ax
     pop ax
-aztec_begin.loc1:
+aztec_begin.forward15:
     mov ah, 0x4c
     int 0x21 ; DOS exit with return code
 aztec_exit_return:

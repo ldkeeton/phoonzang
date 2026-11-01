@@ -103,15 +103,15 @@ load_picture:
     div bx
     or byte [cs:picture_error_tens - IMAGE_BASE], al
     or byte [cs:picture_error_ones - IMAGE_BASE], dl
-load_picture.loc1:
+loc_3176:
     mov ax, cs
     mov ds, ax
-    mov dx, load_picture.cseg1 - IMAGE_BASE
+    mov dx, cseg_3186 - IMAGE_BASE
     mov ah, 9
     int 0x21 ; DOS string output
     mov ax, 0x4c01
     int 0x21 ; DOS function dispatcher
-load_picture.cseg1:
+cseg_3186:
 
     db 0x0d, 0x0a, 0x07
     db 'Picture slot '
@@ -124,12 +124,12 @@ picture_error_ones:
 load_picture.forward7:
     mov ax, cs
     mov ds, ax
-    mov dx, load_picture.cseg2 - IMAGE_BASE
+    mov dx, cseg_31b6 - IMAGE_BASE
     mov ah, 9
     int 0x21 ; DOS string output
     mov ax, 0x4c01
     int 0x21 ; DOS function dispatcher
-load_picture.cseg2:
+cseg_31b6:
 
     db 0x0d, 0x0a, 0x07
     db 'Memory unavailable loading picture.', 0

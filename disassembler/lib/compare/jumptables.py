@@ -94,9 +94,11 @@ def _table_symbol(offset):
     return Symbol.generated('jumptable', offset, Kind.TABLE)
 
 
-def _case_symbol(table, index, target):
-    """The label synthesized at a table entry's *target*."""
-    return Symbol(f'jumptable_{table:04x}_case_{index}', kind=Kind.LABEL,
+def _case_symbol(table, index, target, table_name=None):
+    """The label synthesized at a table entry's *target*: after the table's
+    sidecar name when it has one, so it is the same in every binary."""
+    base = table_name or f'jumptable_{table:04x}'
+    return Symbol(f'{base}_case_{index}', kind=Kind.LABEL,
                   source=Source.ADDRESS, offset=target, base='jumptable_case',
                   role='case')
 
@@ -352,7 +354,7 @@ def _inject_jump_tables(records, specs, binary_data, start_offset,
                 if name is None:
                     name = case_names.get(target)
                 if name is None:
-                    candidate = _case_symbol(start, index, target)
+                    candidate = _case_symbol(start, index, target, spec.get('name'))
                     if _ensure_jump_case_label(records, binary_data, target,
                                                candidate):
                         local = (local_labels or {}).pop(target, None)

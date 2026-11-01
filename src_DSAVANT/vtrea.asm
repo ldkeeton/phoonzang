@@ -55,7 +55,7 @@ dseg_90eb equ __zdseg_end + (__zdseg_90eb - __zdata_start)
 dseg_90ee equ __zdseg_end + (__zdseg_90ee - __zdata_start)
 dseg_90f4 equ __zdseg_end + (__zdseg_90f4 - __zdata_start)
 dseg_90fa equ __zdseg_end + (__zdseg_90fa - __zdata_start)
-dseg_9100 equ __zdseg_end + (__zdseg_9100 - __zdata_start)
+draw_spell_cost_dseg294 equ __zdseg_end + (__zdseg_9100 - __zdata_start)
 spell_screen_temp_file equ __zdseg_end + (__zspell_screen_temp_file - __zdata_start)
 save_si equ __zdseg_end + (__zsave_si - __zdata_start)
 save_di equ __zdseg_end + (__zsave_di - __zdata_start)
@@ -129,13 +129,11 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "vtrea/loc_NQGV.asm"              ; 0x0a1a
 
-flush_glyph_buffer.wait_for_maze_input_or_refresh1 equ loc_NQGV
-%include "shared/ovr/flush_glyph_buffer.asm"    ; 0x0a6a
+%include "vtrea/flush_glyph_buffer.asm"    ; 0x0a6a
 
 %include "vtrea/api_idx_0090_LKIM.asm"     ; 0x0b29
 
-process_scene_message_words.process_scene_message_controls1 equ api_idx_0090_LKIM
-%include "shared/ovr/process_scene_message_words.asm" ; 0x0d24
+%include "vtrea/process_scene_message_words.asm" ; 0x0d24
 
 %include "vtrea/loc_KIOQ.asm"              ; 0x0d87
 
@@ -217,13 +215,7 @@ process_scene_message_words.process_scene_message_controls1 equ api_idx_0090_LKI
 
 %include "shared/ovr/api_idx_0006_POPS.asm"     ; 0x5e88
 
-api_idx_0004_GHVL     equ log_maze_change
-jumptable_5fd3_case_0 equ log_maze_change.jumptable_case1
-jumptable_5fd3_case_1 equ log_maze_change.jumptable_case2
-jumptable_5fd3_case_5 equ log_maze_change.jumptable_case3
-jumptable_5fd3_case_6 equ log_maze_change.jumptable_case4
-jumptable_5fd3        equ log_maze_change.jumptable1
-%include "shared/ovr/log_maze_change.asm"     ; 0x5efe
+%include "shared/ovr/log_maze_change.asm"       ; 0x5efe
 
 %include "vtrea/api_idx_006a_NKMN.asm"     ; 0x5fef
 
@@ -281,18 +273,12 @@ jumptable_5fd3        equ log_maze_change.jumptable1
 
 %include "shared/ovr/draw_power_digit.asm"      ; 0x8ac7
 
-draw_spell_cost.dseg1 equ dseg_9100
 %include "shared/ovr/draw_spell_cost.asm"       ; 0x8b53
 
 %include "shared/ovr/draw_realm_spell_points.asm" ; 0x8bf4
 
 %include "shared/ovr/periodic_party_redraw.asm" ; 0x8c8d
 
-jumptable_9967_case_0 equ pick_spell_dialog.jumptable_case1
-jumptable_9967_case_1 equ pick_spell_dialog.jumptable_case2
-jumptable_9967_case_3 equ pick_spell_dialog.jumptable_case3
-jumptable_9967_case_4 equ pick_spell_dialog.jumptable_case4
-jumptable_9967        equ pick_spell_dialog.jumptable1
 %include "shared/ovr/pick_spell_dialog.asm"     ; 0x8d1e
 
 %include "shared/ovr/aztec_ovbgn.asm"           ; 0x99c5

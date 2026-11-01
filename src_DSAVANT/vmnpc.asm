@@ -38,7 +38,7 @@ dseg_90ca equ __zdseg_end + (__zdseg_90ca - __zdata_start)
 dseg_90d0 equ __zdseg_end + (__zdseg_90d0 - __zdata_start)
 dseg_90d6 equ __zdseg_end + (__zdseg_90d6 - __zdata_start)
 dseg_90dc equ __zdseg_end + (__zdseg_90dc - __zdata_start)
-dseg_90e4 equ __zdseg_end + (__zdseg_90e4 - __zdata_start)
+draw_spell_cost_dseg294 equ __zdseg_end + (__zdseg_90e4 - __zdata_start)
 dseg_90e8 equ __zdseg_end + (__zdseg_90e8 - __zdata_start)
 dseg_90ee equ __zdseg_end + (__zdseg_90ee - __zdata_start)
 dseg_90f0 equ __zdseg_end + (__zdseg_90f0 - __zdata_start)
@@ -227,11 +227,9 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "vmnpc/step_party_animation.asm"  ; 0x0f50
 
-run_party_screen_animation.api_idx1 equ step_party_animation
-%include "shared/ovr/run_party_screen_animation.asm" ; 0x109f
+%include "vmnpc/run_party_screen_animation.asm" ; 0x109f
 
-loc_UTQS.api_idx1 equ step_party_animation
-%include "shared/ovr/loc_UTQS.asm"              ; 0x10b6
+%include "vmnpc/loc_UTQS.asm"              ; 0x10b6
 
 %include "vmnpc/api_idx_0004_MIJS.asm"     ; 0x10c9
 
@@ -351,15 +349,12 @@ loc_UTQS.api_idx1 equ step_party_animation
 
 %include "shared/ovr/advance_party_slot_frames.asm" ; 0x74d1
 
-api_idx_0004_NIJP equ collect_known_spells
-%include "shared/ovr/collect_known_spells.asm"     ; 0x752c
+%include "shared/ovr/collect_known_spells.asm"  ; 0x752c
 
 %include "shared/ovr/draw_marker_glyph.asm"     ; 0x759d
 
 %include "shared/ovr/draw_power_digit.asm"      ; 0x75db
 
-loc_IMPO              equ draw_spell_cost
-draw_spell_cost.dseg1 equ dseg_90e4
 %include "shared/ovr/draw_spell_cost.asm"              ; 0x7667
 
 %include "shared/ovr/draw_realm_spell_points.asm" ; 0x7708
@@ -456,7 +451,6 @@ draw_spell_cost.dseg1 equ dseg_90e4
 
 %include "shared/ovr/aztec_strncpy.asm"         ; 0xae4e
 
-loc_LNNU equ aztec_strcmp.loc1
 %include "shared/ovr/aztec_strcmp.asm"          ; 0xae76
 
 __zdata_start:

@@ -430,6 +430,7 @@ install_restore_vector:
 	out	21h,al
 	sti
 	jmp	near ptr play_set_device_return_
+	public	sample_level_center
 sample_level_center label word
 	db	0,0
 	codeseg	ends

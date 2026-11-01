@@ -74,7 +74,7 @@ api_idx_0030_TGOH:
     push ax                          ; 0x9359
     mov ax, 0x78                     ; 0x935a
     push ax                          ; 0x935d
-    call loc_UGOG                    ; 0x935e
+    call loc_TRPK                    ; 0x935e
     add sp, byte 0x1a                ; 0x9361
     mov word [bp - 4], ax            ; 0x9364
     cmp ax, strict word 0xd          ; 0x9367

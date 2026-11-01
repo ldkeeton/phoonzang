@@ -260,7 +260,7 @@ def _neighbour_target(label, start, fx, func, index, original, labels_at):
 
 
 def link(label, start, func, index, original, labels_in=(), labels_at=None,
-         data_spans=(), resolve_by_address=False):
+         data_spans=()):
     """Resolve *func*'s relocations for placement at file offset *start*.
 
     *original* is the original image: its relocated words say where the
@@ -270,8 +270,6 @@ def link(label, start, func, index, original, labels_in=(), labels_at=None,
     *labels_at* (``{offset: name}``) is every label the build placed, for a
     branch that leaves the routine for a module label beside it.
     *data_spans* (``[(start, end)]`` routine offsets) are the source's data.
-    *resolve_by_address* reads an unknown code name's target from the original
-    instruction (a shared source's caller has no other binary's names to hand).
     """
     code = bytearray(func.code)
     out = Linked(code)
@@ -290,31 +288,14 @@ def link(label, start, func, index, original, labels_in=(), labels_at=None,
         return canonical
 
     def code_target(fx, name):
-        """``(target, name)`` for a code label, or ``(None, name)``.
-
-        A name this image defines is taken as it is.  Otherwise the source is
-        a shared one spelling another binary's name for the target
-        (``loc_UOPP`` here, ``loc_GPIH`` there): the original instruction says
-        where the call really goes, and the build's label at that address is
-        the name to print.  The link therefore does not depend on another
-        binary's asm being on disk.
-        """
+        """``(target, name)`` for a code label, or ``(None, name)``: a name
+        this image defines is taken as it is."""
         target = index.code.get(name)
         if target is not None:
             return target, name
         # A fragment the render rooted itself (``ds_loc_4676``, a tail laid
         # out past another routine) is printed but not in the exported map.
-        target = printed.get(name)
-        if target is not None:
-            return target, name
-        if not resolve_by_address:
-            return None, name
-        target = _original_target(start, fx, original)
-        if target is not None:
-            found = _label_at(target, index, labels_at or {})
-            if found is not None:
-                return target, found
-        return None, name
+        return printed.get(name), name
 
     def put_data(fx, name, value):
         from lib.record_layout import data_text

@@ -1,0 +1,64 @@
+; Driver dispatch table: DS far-calls each entry through its drv_slots table;
+; an entry near-calls its handler, then returns far.
+	include	lmacros.h
+	assume	cs:codeseg
+	public	driver_slot_0_
+driver_slot_0_:
+	drvslot	mouse_init
+	drvslot	mouse_off
+	drvslot	mouse_hit_test
+	drvslot	request_mouse_redraw
+	drvslot	update_mouse_pointer
+	drvslot	load_picture
+	drvslot	draw_text
+	drvslot	load_screen
+	drvslot	load_maze
+	drvslot	draw_maze_piece
+	drvslot	clear_mouse_click
+	drvslot	draw_glyph
+	drvslot	set_text_color
+	drvslot	set_text_pos
+	drvslot	get_text_pos
+	drvslot	fill_screen_buffer
+	drvslot	show_area
+	drvslot	put_pixel
+	drvslot	fill_area
+	drvslot	invert_area
+	drvslot	save_area
+	drvslot	restore_area
+	drvslot	free_picture
+	drvslot	get_mouse
+	drvslot	set_mouse_pointer
+	drvslot	set_text_opaque
+	drvslot	save_screen
+	drvslot	dissolve_area
+	drvslot	set_rgb
+	drvslot	get_rgb
+	drvslot	fade_in
+	drvslot	fade_out
+	drvslot	reset_rgb
+	drvslot	mouse_glide_to
+	drvslot	mouse_glide_back
+	drvslot	free_maze
+	drvslot	free_screen
+	drvslot	get_palette
+	drvslot	set_palette
+	drvslot	cache_area
+	drvslot	get_free_space
+	drvslot	restore_screen
+	drvslot	cache_maze
+	drvslot	cache_screen_to_storage
+	drvslot	load_sound
+	drvslot	free_sound
+	drvslot	play_sound
+	drvslot	wait_sound
+	drvslot	stop_sound
+	drvslot	load_score
+	drvslot	play_score
+	drvslot	free_score
+	drvslot	is_music_playing
+	drvslot	stop_music
+	drvslot	set_music_tempo_volume
+	db	80h,41h
+	finish
+	end

@@ -6,8 +6,8 @@
 
 extern struct maze_cells *maze_data;
 extern int read_packed_field();
-extern int loc_UOPP();
-extern int loc_KHGO();
+extern int get_north_cell_wall();
+extern int get_west_cell_wall();
 
 get_cell_wall(selector, map, x, y, wx, wy)
 int selector, map, x, y, wx, wy;
@@ -20,8 +20,8 @@ int selector, map, x, y, wx, wy;
 		return read_packed_field(maze_data->wall_b,
 			(map << 6) + (y << 3) + x, 4);
 	case 2:
-		return loc_UOPP(wx, wy, x, y, map);
+		return get_north_cell_wall(wx, wy, x, y, map);
 	case 3:
-		return loc_KHGO(wx, wy, x, y, map);
+		return get_west_cell_wall(wx, wy, x, y, map);
 	}
 }

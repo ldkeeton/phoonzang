@@ -37,7 +37,7 @@ api_idx_002c_VNHI:
     add sp, byte 4                   ; 0x6a8d
     mov word [banner_offset], 0x14   ; 0x6a90
     mov word [banner_plain_flag], 0  ; 0x6a96
-    mov word [bss_95ae], 0           ; 0x6a9c
+    mov word [loc_TTSP_bss184], 0           ; 0x6a9c
     mov ax, 0                        ; 0x6aa2
     push ax                          ; 0x6aa5
     mov ax, 2                        ; 0x6aa6
@@ -131,8 +131,8 @@ api_idx_002c_VNHI:
     push ax                          ; 0x6b6f
     call call_cache_area             ; 0x6b70
     add sp, byte 0xc                 ; 0x6b73
-    mov word [bss_953a], dx          ; 0x6b76
-    mov word [bss_9538], ax          ; 0x6b7a
+    mov word [api_idx_0004_RMVO_bss19], dx          ; 0x6b76
+    mov word [api_idx_0004_RMVO_bss24], ax          ; 0x6b7a
     mov ax, 0                        ; 0x6b7d
     push ax                          ; 0x6b80
     mov ax, 2                        ; 0x6b81
@@ -163,7 +163,7 @@ api_idx_002c_VNHI:
     push ax                          ; 0x6bb9
     call call_cache_area             ; 0x6bba
     add sp, byte 0xc                 ; 0x6bbd
-    mov word [bss_9542], dx          ; 0x6bc0
+    mov word [saved_screen_hi], dx   ; 0x6bc0
     mov word [saved_screen], ax      ; 0x6bc4
     mov ax, 0xf                      ; 0x6bc7
     push ax                          ; 0x6bca
@@ -270,8 +270,8 @@ api_idx_002c_VNHI:
     mov ax, 0                        ; 0x6cdd
     push ax                          ; 0x6ce0
     push ax                          ; 0x6ce1
-    push word [bss_953a]             ; 0x6ce2
-    push word [bss_9538]             ; 0x6ce6
+    push word [api_idx_0004_RMVO_bss19]             ; 0x6ce2
+    push word [api_idx_0004_RMVO_bss24]             ; 0x6ce6
     call call_restore_screen         ; 0x6cea
     add sp, byte 8                   ; 0x6ced
     mov word [bp - 2], 0             ; 0x6cf0
@@ -477,7 +477,7 @@ api_idx_002c_VNHI.forward12:
     push ax                          ; 0x6ea7
     mov ax, 1                        ; 0x6ea8
     push ax                          ; 0x6eab
-    push word [bss_9542]             ; 0x6eac
+    push word [saved_screen_hi]      ; 0x6eac
     push word [saved_screen]         ; 0x6eb0
     call call_restore_screen         ; 0x6eb4
     add sp, byte 8                   ; 0x6eb7
@@ -493,8 +493,8 @@ api_idx_002c_VNHI.forward12:
     push ax                          ; 0x6ed3
     mov ax, 1                        ; 0x6ed4
     push ax                          ; 0x6ed7
-    push word [bss_953a]             ; 0x6ed8
-    push word [bss_9538]             ; 0x6edc
+    push word [api_idx_0004_RMVO_bss19]             ; 0x6ed8
+    push word [api_idx_0004_RMVO_bss24]             ; 0x6edc
     call call_restore_screen         ; 0x6ee0
     add sp, byte 8                   ; 0x6ee3
     mov ax, 0                        ; 0x6ee6

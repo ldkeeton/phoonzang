@@ -83,12 +83,12 @@ save_screen:
 .forward6:
     mov ax, cs
     mov ds, ax
-    mov dx, save_screen.cseg1 - IMAGE_BASE
+    mov dx, cseg_0f80 - IMAGE_BASE
     mov ah, 9
     int 0x21 ; DOS string output
     mov ax, 0x4c01
     int 0x21 ; DOS function dispatcher
-save_screen.cseg1:
+cseg_0f80:
 
     db 0x0d, 0x0a, 0x07
     db 'SAVE_SCREEN called with bad slot number.', 0
@@ -97,12 +97,12 @@ save_screen.cseg1:
 save_screen.forward7:
     mov ax, cs
     mov ds, ax
-    mov dx, save_screen.cseg2 - IMAGE_BASE
+    mov dx, cseg_0fbe - IMAGE_BASE
     mov ah, 9
     int 0x21 ; DOS string output
     mov ax, 0x4c01
     int 0x21 ; DOS function dispatcher
-save_screen.cseg2:
+cseg_0fbe:
 
     db 0x0d, 0x0a, 0x07
     db 'SAVE_SCREEN called with table full.', 0

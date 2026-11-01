@@ -27,7 +27,7 @@ api_idx_0004_GRGJ:
     mov cx, si
     shl cx, 1
     mov bx, cx
-    mov word [bx + api_idx_0004_GRGJ.bss1], ax
+    mov word [bx + api_idx_0004_GRGJ_bss159], ax
     inc word [bp - 2]
     mov ax, word [bp - 2]
     cmp ax, strict word 0xa
@@ -57,7 +57,7 @@ api_idx_0004_GRGJ:
     mov cx, si
     shl cx, 1
     mov bx, cx
-    mov word [bx + api_idx_0004_GRGJ.bss1], ax
+    mov word [bx + api_idx_0004_GRGJ_bss159], ax
     inc word [bp - 2]
     mov ax, word [bp - 2]
     cmp ax, strict word 8
@@ -87,7 +87,7 @@ api_idx_0004_GRGJ:
     mov cx, si
     shl cx, 1
     mov bx, cx
-    mov word [bx + api_idx_0004_GRGJ.bss1], ax
+    mov word [bx + api_idx_0004_GRGJ_bss159], ax
     inc word [bp - 2]
     mov ax, word [bp - 2]
     cmp ax, strict word 6
@@ -117,7 +117,7 @@ api_idx_0004_GRGJ:
     mov cx, si
     shl cx, 1
     mov bx, cx
-    mov word [bx + api_idx_0004_GRGJ.bss1], ax
+    mov word [bx + api_idx_0004_GRGJ_bss159], ax
     inc word [bp - 2]
     mov ax, word [bp - 2]
     cmp ax, strict word 0xa

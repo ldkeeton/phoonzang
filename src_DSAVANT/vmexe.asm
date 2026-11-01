@@ -27,7 +27,7 @@ IMAGE_BASE equ 0x000e + VBASE
 __zcode_start:
 dseg_9098 equ __zdseg_end + (__zdseg_9098 - __zdata_start)
 dseg_909f equ __zdseg_end + (__zdseg_909f - __zdata_start)
-dseg_90a6 equ __zdseg_end + (__zdseg_90a6 - __zdata_start)
+api_idx_005e_RKOR_dseg92 equ __zdseg_end + (__zdseg_90a6 - __zdata_start)
 dseg_90b0 equ __zdseg_end + (__zdseg_90b0 - __zdata_start)
 save_si equ __zdseg_end + (__zsave_si - __zdata_start)
 save_di equ __zdseg_end + (__zsave_di - __zdata_start)
@@ -62,7 +62,6 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "shared/ovr/fill_action_slot_table.asm" ; 0x0456
 
-advance_action_slots.fill_action_slot_table_vmnpc1 equ fill_action_slot_table
 %include "shared/ovr/advance_action_slots.asm"  ; 0x0656
 
 %include "shared/ovr/add_overlay_item.asm"      ; 0x0979
@@ -99,11 +98,9 @@ advance_action_slots.fill_action_slot_table_vmnpc1 equ fill_action_slot_table
 
 %include "vmexe/api_idx_0006_GMTP.asm"     ; 0x18a8
 
-run_party_screen_animation.api_idx1 equ api_idx_0006_GMTP
-%include "shared/ovr/run_party_screen_animation.asm" ; 0x1a35
+%include "vmexe/run_party_screen_animation.asm" ; 0x1a35
 
-loc_UTQS.api_idx1 equ api_idx_0006_GMTP
-%include "shared/ovr/loc_UTQS.asm"              ; 0x1a4c
+%include "vmexe/loc_UTQS.asm"              ; 0x1a4c
 
 %include "vmexe/api_idx_0004_QUPL.asm"     ; 0x1a5f
 
@@ -159,8 +156,7 @@ loc_UTQS.api_idx1 equ api_idx_0006_GMTP
 
 %include "vmexe/api_idx_0004_PMSR.asm"     ; 0x33e2
 
-api_idx_005e_OJVJ.dseg1 equ dseg_90a6
-%include "shared/ovr/api_idx_005e_OJVJ.asm"     ; 0x34bc
+%include "shared/ovr/api_idx_005e_RKOR.asm"     ; 0x34bc
 
 %include "vmexe/string_loc_HILJ.asm"       ; 0x3620
 

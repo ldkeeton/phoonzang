@@ -50,7 +50,7 @@ api_idx_0088_QLNT:
     push ax                          ; 0x2c93
     push word [bp - 6]               ; 0x2c94
     push word [bp + 4]               ; 0x2c97
-    call api_idx_0004_ULQJ           ; 0x2c9a
+    call api_idx_0004_QJGR           ; 0x2c9a
     add sp, byte 6                   ; 0x2c9d
     mov word [bp - 8], ax            ; 0x2ca0
     lea ax, word [bp - 0x20]         ; 0x2ca3
@@ -78,7 +78,7 @@ api_idx_0088_QLNT:
     mov ax, word [bp - 2]            ; 0x2cdb
     shl ax, 1                        ; 0x2cde
     mov bx, ax                       ; 0x2ce0
-    cmp word [bx + bss_95b0], byte 0 ; 0x2ce2
+    cmp word [bx + api_idx_0004_GRGJ_bss159], byte 0 ; 0x2ce2
     jne short .forward1              ; 0x2ce7
     mov ax, 0x248                    ; 0x2ce9
     imul word [bp + 4]               ; 0x2cec

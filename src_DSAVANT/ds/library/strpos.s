@@ -4,7 +4,7 @@
 	string_start	equ	4	;first word argument
 	search_char	equ	6	;second word argument
 
-strpos proc near
+	procdef	strpos
 	push	bp
 	mov	bp,sp
 	cld
@@ -35,6 +35,6 @@ strpos proc near
 	mov	sp,bp
 	pop	bp
 	ret
-strpos endp
+	pend	strpos
 	finish
 	end

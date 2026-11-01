@@ -5,19 +5,19 @@ api_idx_0080_MHMQ:
     mov ax, 0
     push ax
     push ax
-    push word [api_idx_0080_MHMQ.bss1]
-    push word [api_idx_0080_MHMQ.bss2]
+    push word [api_idx_0080_MHMQ_bss19]
+    push word [api_idx_0080_MHMQ_bss24]
     call call_restore_screen
     add sp, byte 8
     mov ax, 0
     push ax
     push ax
-    push word [api_idx_0080_MHMQ.bss3]
-    push word [api_idx_0080_MHMQ.bss4]
+    push word [api_idx_0080_MHMQ_bss44]
+    push word [api_idx_0080_MHMQ_bss49]
     call call_restore_screen
     add sp, byte 8
     push word [bp + 4]
-    call api_idx_0080_MHMQ.api_idx1
+    call api_idx_0012_PGSL
     pop cx
     mov si, ax
     lea di, word [bp - 0x18]

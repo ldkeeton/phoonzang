@@ -14,6 +14,7 @@ from .elf import cmd_elf_rebuild
 from .init import cmd_init
 from .data_files import cmd_data_files
 from .inspect import cmd_data, cmd_info, cmd_probe
+from .link import cmd_link
 from .lint import cmd_lint
 from .naming import cmd_name, cmd_refs, specs_from_makeflags
 from .headers import cmd_headers
@@ -31,8 +32,9 @@ _SEGMENTS = ('DS', 'SS', 'ES', 'CS')
 HELP = '''Usage: make [command] [project...]
 
 Commands (space-separated):
-  make init                 sparse-clone only the dos_compilers folders listed in sidecars,
-                            then unpack the Aztec runtime sources into dos_compilers/aztec_src/
+  make init                 download only the dos_compilers folders listed in sidecars
+                            (no .git), then unpack the Aztec runtime sources into
+                            dos_compilers/aztec_src/
   make libcheck             rebuild Aztec v4.2b C.LIB from dos_compilers/aztec_src/ and compare to the shipped one
   make all                  clean, headers, build, verify all,
                             elf-rebuild, make test
@@ -87,6 +89,10 @@ Commands (space-separated):
                             against every binary that contains it
   make elf-rebuild [PROJECT [BIN]]  full rebuild from current sources (C resplice +
                             link + all binaries); ELF/DWARF for BIN (default host)
+  make link [PROJECT [BIN]] [C=a,b|C=all]  assemble BIN's .s and aztec_ .c, add the
+                            named .c files and what they need from shared/, link
+                            with Aztec ln and list every error; only .s and .c take
+                            part; default: everything
   make set-baseline         pin current stats as the local baseline
   make stats-diff           current-vs-baseline KPI delta (+ delta.json)
   make charts               regenerate all PNGs + CSVs from existing stats
@@ -274,6 +280,15 @@ def main():
     json_out = ('--json' in flags
                 or os.environ.get('JSON', '').lower() in ('1', 'true', 'yes')
                 or make_vars.get('JSON', '').lower() in ('1', 'true', 'yes'))
+
+    if '--link' in flags:
+        if len(args) > 2 or (args and args[0] not in all_projects):
+            print('Usage: make link [PROJECT [BIN]] [C=a,b|C=all]')
+            sys.exit(1)
+        c_files = [c for c in make_vars.get('C', '').split(',') if c]
+        cmd_link(args[:1] or all_projects, args[1] if len(args) > 1 else None,
+                 c_files)
+        return
 
     if '--info' in flags:
         if len(args) != 3 or args[0] not in all_projects:

@@ -245,8 +245,8 @@ api_idx_0054_RLST:
     mov ax, 1                        ; 0x1d83
 .forward2:
     mov word [banner_plain_flag], ax ; 0x1d86
-    mov word [bss_95ae], 0           ; 0x1d89
-    push word [bss_95ae]             ; 0x1d8f
+    mov word [loc_TTSP_bss184], 0           ; 0x1d89
+    push word [loc_TTSP_bss184]             ; 0x1d8f
     call draw_title_banner           ; 0x1d93
     pop cx                           ; 0x1d96
     mov ax, 0                        ; 0x1d97

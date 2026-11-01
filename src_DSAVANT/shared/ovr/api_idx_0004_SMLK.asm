@@ -20,43 +20,43 @@ api_idx_0004_SMLK:
     call test_bit
     add sp, byte 4
     test ax, ax
-    je short api_idx_0004_SMLK.jumptable_case1
+    je short jumptable_1556_case_1
     mov ax, word [game_state_arg]
     jmp short .forward2
-api_idx_0004_SMLK.jumptable_case2:
+jumptable_1556_case_14:
     cmp word [party_map_piece], byte 0xc
     jle short api_idx_0004_SMLK.forward1
     mov word [bp - 4], 1
 api_idx_0004_SMLK.forward1:
-    jmp short api_idx_0004_SMLK.jumptable_case1
-api_idx_0004_SMLK.jumptable_case3:
+    jmp short jumptable_1556_case_1
+jumptable_1556_case_0:
     mov word [bp - 4], 1
-    jmp short api_idx_0004_SMLK.jumptable_case1
-api_idx_0004_SMLK.jumptable1:
-    dw api_idx_0004_SMLK.jumptable_case3 - IMAGE_BASE + __zres_end
-    dw api_idx_0004_SMLK.jumptable_case1 - IMAGE_BASE + __zres_end
-    dw api_idx_0004_SMLK.jumptable_case3 - IMAGE_BASE + __zres_end
-    dw api_idx_0004_SMLK.jumptable_case1 - IMAGE_BASE + __zres_end
-    dw api_idx_0004_SMLK.jumptable_case1 - IMAGE_BASE + __zres_end
-    dw api_idx_0004_SMLK.jumptable_case1 - IMAGE_BASE + __zres_end
-    dw api_idx_0004_SMLK.jumptable_case1 - IMAGE_BASE + __zres_end
-    dw api_idx_0004_SMLK.jumptable_case3 - IMAGE_BASE + __zres_end
-    dw api_idx_0004_SMLK.jumptable_case3 - IMAGE_BASE + __zres_end
-    dw api_idx_0004_SMLK.jumptable_case3 - IMAGE_BASE + __zres_end
-    dw api_idx_0004_SMLK.jumptable_case3 - IMAGE_BASE + __zres_end
-    dw api_idx_0004_SMLK.jumptable_case3 - IMAGE_BASE + __zres_end
-    dw api_idx_0004_SMLK.jumptable_case1 - IMAGE_BASE + __zres_end
-    dw api_idx_0004_SMLK.jumptable_case1 - IMAGE_BASE + __zres_end
-    dw api_idx_0004_SMLK.jumptable_case2 - IMAGE_BASE + __zres_end
-    dw api_idx_0004_SMLK.jumptable_case3 - IMAGE_BASE + __zres_end
+    jmp short jumptable_1556_case_1
+jumptable_1556:
+    dw jumptable_1556_case_0 - IMAGE_BASE + __zres_end
+    dw jumptable_1556_case_1 - IMAGE_BASE + __zres_end
+    dw jumptable_1556_case_0 - IMAGE_BASE + __zres_end
+    dw jumptable_1556_case_1 - IMAGE_BASE + __zres_end
+    dw jumptable_1556_case_1 - IMAGE_BASE + __zres_end
+    dw jumptable_1556_case_1 - IMAGE_BASE + __zres_end
+    dw jumptable_1556_case_1 - IMAGE_BASE + __zres_end
+    dw jumptable_1556_case_0 - IMAGE_BASE + __zres_end
+    dw jumptable_1556_case_0 - IMAGE_BASE + __zres_end
+    dw jumptable_1556_case_0 - IMAGE_BASE + __zres_end
+    dw jumptable_1556_case_0 - IMAGE_BASE + __zres_end
+    dw jumptable_1556_case_0 - IMAGE_BASE + __zres_end
+    dw jumptable_1556_case_1 - IMAGE_BASE + __zres_end
+    dw jumptable_1556_case_1 - IMAGE_BASE + __zres_end
+    dw jumptable_1556_case_14 - IMAGE_BASE + __zres_end
+    dw jumptable_1556_case_0 - IMAGE_BASE + __zres_end
 api_idx_0004_SMLK.forward2:
     sub ax, strict word 0xf
     cmp ax, strict word 0x10
-    jae short api_idx_0004_SMLK.jumptable_case1
+    jae short jumptable_1556_case_1
     xchg bx, ax
     shl bx, 1
-    jmp [cs:bx + api_idx_0004_SMLK.jumptable1 - IMAGE_BASE + __zres_end]
-api_idx_0004_SMLK.jumptable_case1:
+    jmp [cs:bx + jumptable_1556 - IMAGE_BASE + __zres_end]
+jumptable_1556_case_1:
     push word [bp - 2]
     mov ax, word [maze_data]
     add ax, 0x8b0

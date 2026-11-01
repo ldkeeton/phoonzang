@@ -5,15 +5,15 @@ api_idx_007c_OKMO:
     mov ax, 0
     push ax
     push ax
-    push word [api_idx_007c_OKMO.bss1]
-    push word [api_idx_007c_OKMO.bss2]
+    push word [api_idx_007c_OKMO_bss19]
+    push word [api_idx_007c_OKMO_bss24]
     call call_restore_screen
     add sp, byte 8
     mov ax, 0
     push ax
     push ax
-    push word [api_idx_007c_OKMO.bss3]
-    push word [api_idx_007c_OKMO.bss4]
+    push word [api_idx_007c_OKMO_bss44]
+    push word [api_idx_007c_OKMO_bss49]
     call call_restore_screen
     add sp, byte 8
     mov ax, 0x12
@@ -246,8 +246,8 @@ api_idx_007c_OKMO:
     mov ax, 1
 .forward2:
     mov word [banner_plain_flag], ax
-    mov word [api_idx_007c_OKMO.bss5], 0
-    push word [api_idx_007c_OKMO.bss5]
+    mov word [loc_TTSP_bss184], 0
+    push word [loc_TTSP_bss184]
     call draw_title_banner
     pop cx
     mov ax, 0
@@ -658,7 +658,7 @@ api_idx_007c_OKMO:
     call sum_member_item_power
     pop cx
     push word [bp + 4]
-    call api_idx_007c_OKMO.api_idx1
+    call api_idx_0012_PGSL
     pop cx
     mov si, ax
     lea di, word [bp - 0x7c]

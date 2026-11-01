@@ -323,6 +323,27 @@ gets the caller's arguments on the stack as they are.
 
 ---
 
+## drvslot
+
+**Syntax**
+
+```
+drvslot handler
+```
+
+One entry of a driver's own dispatch table: declares `handler_` `extrn` near,
+then emits `call handler_` and a far return (`db 0cbh`, since the assembler
+rejected `retf` in this macro).
+
+**Example**
+
+```asm
+	drvslot	mouse_init
+	drvslot	mouse_off
+```
+
+---
+
 ## Examples in the tree
 
 - [load_font_file.s](../src_DSAVANT/ds/library/load_font_file.s)

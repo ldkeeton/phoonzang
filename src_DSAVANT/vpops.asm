@@ -30,7 +30,7 @@ dseg_909f equ __zdseg_end + (__zdseg_909f - __zdata_start)
 dseg_90a6 equ __zdseg_end + (__zdseg_90a6 - __zdata_start)
 dseg_90ad equ __zdseg_end + (__zdseg_90ad - __zdata_start)
 dseg_90b4 equ __zdseg_end + (__zdseg_90b4 - __zdata_start)
-dseg_90bb equ __zdseg_end + (__zdseg_90bb - __zdata_start)
+draw_spell_cost_dseg294 equ __zdseg_end + (__zdseg_90bb - __zdata_start)
 dseg_90bf equ __zdseg_end + (__zdseg_90bf - __zdata_start)
 dseg_90c5 equ __zdseg_end + (__zdseg_90c5 - __zdata_start)
 save_si equ __zdseg_end + (__zsave_si - __zdata_start)
@@ -68,7 +68,6 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "shared/ovr/fill_action_slot_table.asm" ; 0x0504
 
-advance_action_slots.fill_action_slot_table_vmnpc1 equ fill_action_slot_table
 %include "shared/ovr/advance_action_slots.asm"  ; 0x0704
 
 %include "shared/ovr/add_overlay_item.asm"      ; 0x0a27
@@ -83,7 +82,6 @@ advance_action_slots.fill_action_slot_table_vmnpc1 equ fill_action_slot_table
 
 %include "shared/ovr/api_idx_0006_LJUS.asm"     ; 0x0f27
 
-run_party_screen_animation.api_idx1 equ api_idx_0006_LJUS
 %include "shared/ovr/run_party_screen_animation.asm" ; 0x1076
 
 %include "vpops/wait_for_party_redraw.asm" ; 0x108d
@@ -96,15 +94,12 @@ run_party_screen_animation.api_idx1 equ api_idx_0006_LJUS
 
 %include "shared/ovr/advance_party_slot_frames.asm" ; 0x1941
 
-api_idx_0004_OQNP equ collect_known_spells
-%include "shared/ovr/collect_known_spells.asm"     ; 0x199c
+%include "shared/ovr/collect_known_spells.asm"  ; 0x199c
 
 %include "shared/ovr/draw_marker_glyph.asm"     ; 0x1a0d
 
 %include "shared/ovr/draw_power_digit.asm"      ; 0x1a4b
 
-loc_VGIT              equ draw_spell_cost
-draw_spell_cost.dseg1 equ dseg_90bb
 %include "shared/ovr/draw_spell_cost.asm"              ; 0x1ad7
 
 %include "shared/ovr/draw_realm_spell_points.asm" ; 0x1b78

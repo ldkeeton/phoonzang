@@ -181,7 +181,7 @@ api_idx_0072_IPMP:
     push ax                          ; 0x4beb
     mov ax, 0x15f                    ; 0x4bec
     push ax                          ; 0x4bef
-    call loc_UGOG                    ; 0x4bf0
+    call loc_TRPK                    ; 0x4bf0
     add sp, byte 0x1a                ; 0x4bf3
     mov word [bp - 6], ax            ; 0x4bf6
 .forward9:

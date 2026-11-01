@@ -402,8 +402,7 @@ def _link(label, start, override, records, binary_data, index):
             if start <= r['start'] and r['end'] <= start + length:
                 spans.append((r['start'] - start, r['end'] - start))
     return relink.link(label, start, func, index, binary_data, labels_in,
-                       labels_at, spans,
-                       resolve_by_address=bool(override.get('shared')))
+                       labels_at, spans)
 
 
 def _batch_relabels(c_overrides, records, binary_data, starts, index_names,

@@ -1,11 +1,10 @@
 ; Return a field after shifting it down and masking it to the requested width.
 	include	lmacros.h
 	assume	cs:codeseg
-	public	get_bits
 source_value	equ	4	; first word argument
 right_shift	equ	6	; second word argument
 bit_width	equ	8	; third word argument
-get_bits proc near
+	procdef	get_bits
 	push	bp
 	mov	bp,sp
 	cld
@@ -25,6 +24,6 @@ get_bits proc near
 	mov	sp,bp
 	pop	bp
 	ret
-get_bits endp
+	pend	get_bits
 	finish
 	end

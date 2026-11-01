@@ -549,7 +549,7 @@ pick_spell_dialog:
 .forward8:
     mov ax, word [bp - 0x1a]
     jmp near .forward41
-pick_spell_dialog.jumptable_case1:
+jumptable_35d1_case_0:
     lea ax, word [bp - 0x10]
     push ax
     lea ax, word [bp - 0xe]
@@ -675,7 +675,7 @@ pick_spell_dialog.forward9:
     jmp near pick_spell_dialog.back6
 pick_spell_dialog.forward10:
     jmp near pick_spell_dialog.forward43
-pick_spell_dialog.jumptable_case2:
+jumptable_35d1_case_1:
     cmp word [bp - 0x1a], byte 1
     jne short pick_spell_dialog.forward12
     mov ax, 1
@@ -807,7 +807,7 @@ pick_spell_dialog.forward14:
     call call_show_area
     add sp, byte 8
     jmp near pick_spell_dialog.forward43
-pick_spell_dialog.jumptable_case3:
+jumptable_35d1_case_3:
     cmp word [bp + 8], byte 0
     jne short pick_spell_dialog.forward15
     jmp near pick_spell_dialog.forward20
@@ -883,7 +883,7 @@ pick_spell_dialog.forward19:
     pop cx
 pick_spell_dialog.forward20:
     jmp near pick_spell_dialog.forward43
-pick_spell_dialog.jumptable_case4:
+jumptable_35d1_case_4:
     mov ax, 1
     push ax
     push ax
@@ -1319,18 +1319,18 @@ pick_spell_dialog.forward39:
     add sp, byte 8
 pick_spell_dialog.forward40:
     jmp short pick_spell_dialog.forward43
-pick_spell_dialog.jumptable1:
-    dw pick_spell_dialog.jumptable_case1 - IMAGE_BASE + __zres_end
-    dw pick_spell_dialog.jumptable_case2 - IMAGE_BASE + __zres_end
-    dw pick_spell_dialog.jumptable_case2 - IMAGE_BASE + __zres_end
-    dw pick_spell_dialog.jumptable_case3 - IMAGE_BASE + __zres_end
-    dw pick_spell_dialog.jumptable_case4 - IMAGE_BASE + __zres_end
+jumptable_35d1:
+    dw jumptable_35d1_case_0 - IMAGE_BASE + __zres_end
+    dw jumptable_35d1_case_1 - IMAGE_BASE + __zres_end
+    dw jumptable_35d1_case_1 - IMAGE_BASE + __zres_end
+    dw jumptable_35d1_case_3 - IMAGE_BASE + __zres_end
+    dw jumptable_35d1_case_4 - IMAGE_BASE + __zres_end
 pick_spell_dialog.forward41:
     cmp ax, strict word 5
     jae short pick_spell_dialog.forward42
     xchg bx, ax
     shl bx, 1
-    jmp [cs:bx + pick_spell_dialog.jumptable1 - IMAGE_BASE + __zres_end]
+    jmp [cs:bx + jumptable_35d1 - IMAGE_BASE + __zres_end]
 pick_spell_dialog.forward42:
     jmp near pick_spell_dialog.back7
 pick_spell_dialog.forward43:

@@ -1,0 +1,11 @@
+; auto-generated
+loc_UTQS:
+    mov ax, 0                        ; 0x10b6
+    call aztec_csav                  ; 0x10b9
+.back1:
+    cmp word [bss_845e], byte -2     ; 0x10bc
+    je short .return1                ; 0x10c1
+    call step_party_animation        ; 0x10c3
+    jmp short .back1                 ; 0x10c6
+.return1:
+    ret                              ; 0x10c8

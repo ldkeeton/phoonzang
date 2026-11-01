@@ -4,7 +4,7 @@
 extern int cell_slot_ref[][3];		/* cells: member*10 + item slot, 0 free */
 extern int cell_overlay_code[5][3][3];	/* per-cell tables; [3] steps a row */
 extern char *party_char[];
-extern fill_action_slot_table_vmnpc(), run_party_screen_animation(),
+extern fill_action_slot_table(), run_party_screen_animation(),
 	wait_ticks_with_events();
 
 advance_member_cell_actions(member)
@@ -28,7 +28,7 @@ int member;
 			cell_slot_ref[new_row][new_col] = member * 10 + item;
 			party_char[member][item * 44 + 42] = new_row * 10 + new_col;
 			/* -1: plain group 0 refill of the new cell */
-			fill_action_slot_table_vmnpc(member, new_row, new_col, -1);
+			fill_action_slot_table(member, new_row, new_col, -1);
 		}
 	}
 	run_party_screen_animation();

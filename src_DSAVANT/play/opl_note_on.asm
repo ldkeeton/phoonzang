@@ -43,13 +43,13 @@ opl_note_on:
     mov al, ch                       ; 0x17d8
     mov ah, byte [si + 1]            ; 0x17da
     call opl_write_operator_level    ; 0x17dd
-    jmp near loc_HGKQ                ; 0x17e0
+    jmp near .forward2               ; 0x17e0
 .forward1:
     mov al, byte [si + 1]            ; 0x17e3
     mov ah, 0x40                     ; 0x17e6
     add ah, ch                       ; 0x17e8
     call opl_write                   ; 0x17ea
-    jmp near loc_HGKQ                ; 0x17ed
+    jmp near .forward2               ; 0x17ed
 opl_pitch_update:
     push ax                          ; 0x17f0
     push bx                          ; 0x17f1
@@ -58,10 +58,10 @@ opl_pitch_update:
     push dx                          ; 0x17f4
     push ds                          ; 0x17f5
     push si                          ; 0x17f6
-loc_HGKQ:
+opl_note_on.forward2:
     mov ax, word [cs:opl_pitch_value - IMAGE_BASE] ; 0x17f7
     sub ax, 0x2000                   ; 0x17fb
-    je short loc_LHRG                ; 0x17fe
+    je short opl_note_on.forward4    ; 0x17fe
     sar ax, 1                        ; 0x1800
     sar ax, 1                        ; 0x1802
     sar ax, 1                        ; 0x1804
@@ -70,9 +70,9 @@ loc_HGKQ:
     mov cx, ax                       ; 0x180a
     mov bx, word [cs:opl_pitch_range - IMAGE_BASE] ; 0x180c
     cmp bx, byte 0xc                 ; 0x1811
-    jb short loc_SRPH                ; 0x1814
+    jb short opl_note_on.forward3    ; 0x1814
     mov bx, 0xa                      ; 0x1816
-loc_SRPH:
+opl_note_on.forward3:
     shl bx, 1                        ; 0x1819
     neg bx                           ; 0x181b
     add bx, strict word 0x193b       ; 0x181d
@@ -88,21 +88,21 @@ loc_SRPH:
     add ax, cx                       ; 0x1833
     add ax, cx                       ; 0x1835
     add ax, cx                       ; 0x1837
-loc_LHRG:
+opl_note_on.forward4:
     add ah, byte [cs:opl_note_semitone - IMAGE_BASE] ; 0x1839
     add ax, strict word 8            ; 0x183e
     sar ax, 1                        ; 0x1841
     sar ax, 1                        ; 0x1843
     sar ax, 1                        ; 0x1845
     sar ax, 1                        ; 0x1847
-    jge short loc_QISJ               ; 0x1849
+    jge short opl_note_on.forward5   ; 0x1849
     xor ax, ax                       ; 0x184b
-    jmp near loc_UIKP                ; 0x184d
-loc_QISJ:
+    jmp near opl_note_on.forward6    ; 0x184d
+opl_note_on.forward5:
     cmp ax, 0x5ff                    ; 0x1850
-    jl short loc_UIKP                ; 0x1853
+    jl short opl_note_on.forward6    ; 0x1853
     mov ax, 0x5ff                    ; 0x1855
-loc_UIKP:
+opl_note_on.forward6:
     mov di, ax                       ; 0x1858
     shr di, 1                        ; 0x185a
     shr di, 1                        ; 0x185c
@@ -125,14 +125,14 @@ loc_UIKP:
     mov bl, byte [cs:di + opl_semitone_octave - IMAGE_BASE] ; 0x1885
     dec bl                           ; 0x188a
     or ax, ax                        ; 0x188c
-    jge short loc_HGQU               ; 0x188e
+    jge short opl_note_on.forward7   ; 0x188e
     inc bl                           ; 0x1890
-loc_HGQU:
+opl_note_on.forward7:
     or bl, bl                        ; 0x1892
-    jge short loc_RLJS               ; 0x1894
+    jge short opl_note_on.forward8   ; 0x1894
     inc bl                           ; 0x1896
     sar ax, 1                        ; 0x1898
-loc_RLJS:
+opl_note_on.forward8:
     push ax                          ; 0x189a
     mov ah, 0xa0                     ; 0x189b
     add ah, byte [cs:opl_channel_index - IMAGE_BASE] ; 0x189d

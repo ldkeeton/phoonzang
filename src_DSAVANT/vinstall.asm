@@ -364,9 +364,6 @@ dseg_231a equ __zdseg_231a - __zdseg_start
 
 %include "vinstall/aztec_wait.asm"         ; 0x2a9d
 
-loc_KRNT equ aztec_strcat.loc1
-loc_JPNO equ aztec_strcat.loc2
-loc_OSMM equ aztec_strcat.loc3
 %include "shared/aztec/aztec_strcat.asm"       ; 0x2aa6
 
 %include "shared/aztec/aztec_strcpy.asm"       ; 0x2add
@@ -409,29 +406,12 @@ endmarker equ __zendmarker - __zdseg_start
 keep      equ __zbss_2534 - __zdseg_start
 current   equ __zbss_2536 - __zdseg_start
 first     equ __zbss_2538 - __zdseg_start
-loc_LPSH equ aztec_realloc.loc1
 %include "shared/aztec/aztec_realloc.asm"      ; 0x2eac
 
 %include "shared/data/aztec_format_conversions.asm" ; 0x303e
 
-%include "vinstall/data/cseg_303f.asm"     ; 0x303f
+%include "shared/data/aztec_format_conv_index.asm" ; 0x303f
 
-aztec_format_conv_routines.jumptable_case1  equ jumptable_3053_case_0
-aztec_format_conv_routines.jumptable_case2  equ jumptable_3053_case_1
-aztec_format_conv_routines.jumptable_case3  equ jumptable_3053_case_2
-aztec_format_conv_routines.jumptable_case4  equ jumptable_3053_case_3
-aztec_format_conv_routines.jumptable_case5  equ jumptable_3053_case_5
-aztec_format_conv_routines.jumptable_case6  equ jumptable_3053_case_6
-aztec_format_conv_routines.jumptable_case7  equ jumptable_3053_case_7
-aztec_format_conv_routines.jumptable_case8  equ jumptable_3053_case_8
-aztec_format_conv_routines.jumptable_case9  equ jumptable_3053_case_9
-aztec_format_conv_routines.jumptable_case10 equ jumptable_3053_case_11
-aztec_format_conv_routines.jumptable_case11 equ jumptable_3053_case_12
-aztec_format_conv_routines.jumptable_case12 equ jumptable_3053_case_13
-aztec_format_conv_routines.jumptable_case13 equ jumptable_3053_case_14
-aztec_format_conv_routines.jumptable_case14 equ jumptable_3053_case_15
-aztec_format_conv_routines.jumptable_case15 equ jumptable_3053_case_16
-aztec_format_conv_routines.jumptable_case16 equ jumptable_3053_case_20
 %include "shared/data/aztec_format_conv_routines.asm" ; 0x3053
 
 %include "shared/data/aztec_format_digits.asm" ; 0x307d
@@ -439,26 +419,6 @@ aztec_format_conv_routines.jumptable_case16 equ jumptable_3053_case_20
 ; first equ __zbss_2538 - __zdseg_start
 %include "shared/data/aztec_format_nofltmsg.asm" ; 0x308d
 
-jumptable_3053_case_20 equ aztec_format.jumptable_case1
-loc_NJTI               equ aztec_format.loc1
-aztec_format.cseg1     equ cseg_303f
-jumptable_3053_case_0  equ aztec_format.jumptable_case2
-jumptable_3053_case_1  equ aztec_format.jumptable_case3
-jumptable_3053_case_2  equ aztec_format.jumptable_case4
-jumptable_3053_case_3  equ aztec_format.jumptable_case5
-jumptable_3053_case_5  equ aztec_format.jumptable_case6
-jumptable_3053_case_7  equ aztec_format.jumptable_case7
-jumptable_3053_case_6  equ aztec_format.jumptable_case8
-jumptable_3053_case_8  equ aztec_format.jumptable_case9
-jumptable_3053_case_9  equ aztec_format.jumptable_case10
-loc_MRST               equ aztec_format.loc2
-jumptable_3053_case_16 equ aztec_format.jumptable_case11
-jumptable_3053_case_15 equ aztec_format.jumptable_case12
-jumptable_3053_case_11 equ aztec_format.jumptable_case13
-jumptable_3053_case_12 equ aztec_format.jumptable_case14
-jumptable_3053_case_13 equ aztec_format.jumptable_case15
-jumptable_3053_case_14 equ aztec_format.jumptable_case16
-loc_PLIR               equ aztec_format.loc3
 %include "shared/aztec/aztec_format.asm"       ; 0x3098
 
 %include "shared/aztec/aztec_format_get_pointer.asm" ; 0x331e
@@ -469,11 +429,8 @@ loc_PLIR               equ aztec_format.loc3
 _ioflg equ __z_ioflg - __zdseg_start
 %include "shared/aztec/aztec_creat.asm"        ; 0x336a
 
-loc_QRUP equ aztec_ldv.loc1
-loc_OGHL equ aztec_ldv.loc2
 %include "shared/aztec/aztec_ldv.asm"          ; 0x3417
 
-loc_TMNK equ aztec_strcmp.loc1
 %include "shared/ovr/aztec_strcmp.asm"       ; 0x3508
 
 %include "shared/aztec/aztec_strlen.asm"       ; 0x356f
@@ -502,19 +459,16 @@ _HEAPSIZ          equ __z_HEAPSIZ - __zdseg_start
 _STKLOW           equ __z_STKLOW - __zdseg_start
 _Uorg             equ __zbss_2534 - __zdseg_start
 __zdseg_end       equ (__zimage_end - __zdseg_start) + __zbss_size
-loc_GIPI equ aztec_begin.loc1
 %include "shared/aztec/aztec_begin.asm"        ; 0x35d2
 
 ; cls_                      equ __zcls_ - __zdseg_start
 aztec_croot_empty_str     equ __zaztec_croot_empty_str - __zdseg_start
 aztec_croot_too_many_args equ __zaztec_croot_too_many_args - __zdseg_start
 ; _ioflg                    equ __z_ioflg - __zdseg_start
-dseg_251b                 equ __zdseg_251b - __zdseg_start
-dseg_251c                 equ __zdseg_251c - __zdseg_start
+ioflg_stdout              equ __zioflg_stdout - __zdseg_start
+ioflg_stderr              equ __zioflg_stderr - __zdseg_start
 Argc                      equ __zbss_253a - __zdseg_start
 Argv                      equ __zbss_253c - __zdseg_start
-aztec_noper.dseg1 equ dseg_251b
-aztec_noper.dseg2 equ dseg_251c
 %include "shared/aztec/aztec_noper.asm"        ; 0x373b
 
 %include "shared/aztec/aztec_fltinit.asm"      ; 0x381d
@@ -523,10 +477,6 @@ aztec_noper.dseg2 equ dseg_251c
 ; _ioflg equ __z_ioflg - __zdseg_start
 _ttrd  equ __z_ttrd - __zdseg_start
 _ttwr  equ __z_ttwr - __zdseg_start
-loc_IGMS      equ aztec_impl_read.loc1
-loc_ILUN      equ aztec_impl_read.loc2
-loc_SROM      equ aztec_impl_read.loc3
-loc_USUN_3867 equ aztec_impl_read.loc4
 %include "shared/aztec/aztec_impl_read.asm"    ; 0x381f
 
 _Eol                equ __z_Eol - __zdseg_start
@@ -625,8 +575,7 @@ dseg_01c6 equ __zdseg_01c6 - __zdseg_start
 %include "vinstall/data/ctp_.asm"          ; 0x5f32
 
 bss_2afe equ __zbss_2afe - __zdseg_start
-aztec_startup_vars.bss1 equ bss_2afe
-%include "shared/data/aztec_startup_vars.asm" ; 0x5fb4
+%include "vinstall/data/aztec_startup_vars.asm" ; 0x5fb4
 
 %include "shared/data/cls_.asm"          ; 0x5fe0
 
@@ -638,7 +587,9 @@ aztec_startup_vars.bss1 equ bss_2afe
 
 %include "shared/data/ioflg.asm"         ; 0x5ffa
 
-%include "vinstall/data/dseg_251b.asm"     ; 0x5ffb
+%include "shared/data/ioflg_stdout.asm"  ; 0x5ffb
+
+%include "shared/data/ioflg_stderr.asm"  ; 0x5ffc
 
 %include "shared/data/ttrd.asm"          ; 0x600e
 

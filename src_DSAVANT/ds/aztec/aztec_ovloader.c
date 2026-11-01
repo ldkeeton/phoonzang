@@ -15,14 +15,14 @@ struct ovrheader {			/* overlay header header */
 static char *ovname;
 
 #asm
-	public	ovloader_
-ovloader_ proc near
+	public	aztec_ovloader_
+aztec_ovloader_ proc near
 	mov	bx, sp
 	mov	ax, word ptr 2[bx]
 	mov	ovname_, ax
 	call	aztec_impl_ovld_
 	jmp	ax
-ovloader_ endp
+aztec_ovloader_ endp
 #endasm
 
 static

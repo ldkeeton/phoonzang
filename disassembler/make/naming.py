@@ -209,9 +209,23 @@ def _defines_local(project, binary, symbol):
     ``equ``; the same spelling can also name a host ``ds`` object, so the
     master is what tells the two apart.
     """
-    return bool(re.search(
-        rf'^[ \t]*{re.escape(symbol)}(?:[ \t]+equ\b|:)',
-        _master_text(project, binary), re.M))
+    master = _master_text(project, binary)
+    if re.search(rf'^[ \t]*{re.escape(symbol)}(?:[ \t]+equ\b|:)', master, re.M):
+        return True
+    # Its address-named object may go by a common name (lib.common_names).
+    m = _DSEG.match(symbol)
+    return bool(m and re.search(rf'^__zo(?:bss|dseg)_{int(m.group(1), 16):04x}:',
+                                master, re.M))
+
+
+def _common_data_address(project, binary, symbol):
+    """The address of the object *binary*'s master calls *symbol*, when that
+    is a common name (:mod:`lib.common_names`), else None."""
+    if binary == SHARED_DIR:
+        return None
+    m = re.search(rf'^{re.escape(symbol)}[ \t]+equ\b.*\b__zo?(?:bss|dseg)_([0-9a-f]+)\b',
+                  _master_text(project, binary), re.M)
+    return f'{int(m.group(1), 16):04x}' if m else None
 
 
 def _equ_pairs_above(lines, index):
@@ -372,9 +386,9 @@ def _shared_source_conflict(project, target, own, name):
     """Why naming *target*'s routine *own* ``name`` would hand it a shared
     hand source it does not match, or None.
 
-    A hand-written ``shared/.../name.c`` (or ``.s``) is the source of every
-    binary's routine of that name, so another copy may take the name only
-    when its code is the same.
+    A hand-written ``shared/.../name.c`` (or ``.s``) is the source of the
+    binaries' routines of that name.  A copy whose code differs may take the
+    name only with a source of its own beside it: each binary links on its own.
     """
     from lib.routine_source import beside
     if target == SHARED_DIR:
@@ -384,15 +398,15 @@ def _shared_source_conflict(project, target, own, name):
     if not mine or not theirs:
         return None
     source = beside(os.path.splitext(theirs)[0])
-    if not source or not hand_owned(source):
+    if (not source or not hand_owned(source)
+            or beside(os.path.splitext(mine)[0])):
         return None
     with open(mine) as f, open(theirs) as g:
         if _shape_key(f.read()) == _shape_key(g.read()):
             return None
     return (f'{target} {own}: {os.path.relpath(source, PROJECT)} is the '
             f'source of every routine named {name!r}, and this copy\'s code '
-            f'differs; give it its own name (a shared C may still call it by '
-            f'{name!r}: each binary links that spelling to its own copy)')
+            f'differs; give it a source of its own first')
 
 
 def _asm_file(project, folder, label):
@@ -539,6 +553,9 @@ def resolve(sidecar, project, binary, symbol):
                  and (key in (own.get('data_names') or {})
                       or _defines_local(project, binary, symbol)))
         path = ['binaries', binary if local else owner, 'data_names']
+    elif _common_data_address(project, binary, symbol):
+        path = ['binaries', binary, 'data_names']
+        key = _common_data_address(project, binary, symbol)
     elif _named(own.get('code_data_names'), symbol):
         path, key = ['binaries', binary, 'code_data_names'], _named(own['code_data_names'], symbol)
     elif binary != owner and _named(own.get('data_names'), symbol):
@@ -1161,8 +1178,7 @@ def apply_names(project, binary, specs, journal=None):
 def _rename_in_masters(project, renames, journal=None):
     """Apply *renames* to the generated masters too.
 
-    The masters on disk hold the alias ``equ`` lines and ``%include`` paths
-    (:func:`lib.shared.include_aliases`); written before the next build, they
+    The masters on disk hold ``%include`` paths; written before the next build, they
     would still carry the names this transaction replaces.  The build regenerates
     the masters, so this only keeps them consistent until it does.
     """

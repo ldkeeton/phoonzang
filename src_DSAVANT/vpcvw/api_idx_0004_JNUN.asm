@@ -11,7 +11,7 @@ api_idx_0004_JNUN:
 .forward1:
     push ax                          ; 0x398c
     push word [bp + 4]               ; 0x398d
-    call api_idx_0050_HVVP           ; 0x3990
+    call api_idx_0050_SQVG           ; 0x3990
     add sp, byte 8                   ; 0x3993
     test ax, ax                      ; 0x3996
     je short .forward2               ; 0x3998

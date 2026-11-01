@@ -63,7 +63,7 @@ draw_spell_cost:
     add sp, byte 4
     mov ax, 0
     push ax
-    mov ax, draw_spell_cost.dseg1
+    mov ax, draw_spell_cost_dseg294
     push ax
     call draw_text_glyphs
     add sp, byte 4

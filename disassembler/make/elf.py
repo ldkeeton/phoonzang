@@ -14,7 +14,7 @@ from lib.compare.interrupts import _annotate_interrupts
 from lib.cachedirs import src_dir
 from lib.dwarf_line import fix_elf as _fix_elf_debug_line
 from lib.link import include_args
-from lib.shared import FOLDER, is_shared, shared_dirs
+from lib.shared import FOLDER, shared_dirs
 from lib.sidecar.binary import stems_for, per_binary as sidecar_per_binary
 from lib.sidecar.loader import load as load_sidecar
 from lib.sidecar.patches import PatchError, normalize as normalize_patches
@@ -515,9 +515,7 @@ def resplice_c(app, binary, check_only=False, only=None):
             try:
                 linked = relink.link(label, start, func, index, data,
                                      labels_in, labels_at,
-                                     [*spans_here, *table_spans],
-                                     resolve_by_address=is_shared(out_dir,
-                                                                  label))
+                                     [*spans_here, *table_spans])
             except relink.RelinkError as exc:
                 failures.append(f'error: {exc}')
                 continue
@@ -621,13 +619,9 @@ def resplice_c(app, binary, check_only=False, only=None):
         fragment = (head + '\n'.join(_render_records(
             records, data, True, corg_symbol=corg)) + '\n')
         if os.path.dirname(apath) in shared_dirs(out_dir):
-            # Shared by several binaries: no one binary's addresses, and its
-            # own names spelled by the common ones its master aliases.
-            from lib.shared import _common_names, include_aliases, neutral
-            with open(os.path.join(out_dir, f'{binary}.asm')) as f:
-                aliases = include_aliases(
-                    f.read(), os.path.relpath(apath, out_dir))
-            fragment = neutral(_common_names(fragment, aliases))
+            # Shared by several binaries: no one binary's addresses.
+            from lib.shared import neutral
+            fragment = neutral(fragment)
         if not check_only:
             # Regenerated from the C, so it stays an auto-generated file
             # (``make clean`` removes it, a human takeover would not be

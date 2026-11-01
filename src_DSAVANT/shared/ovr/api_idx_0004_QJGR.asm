@@ -8,209 +8,209 @@ api_idx_0004_QJGR:
     mov al, byte [bx + party_records + pc_rec.profession]
     sub ah, ah
     jmp near .forward1
-api_idx_0004_QJGR.jumptable_case1:
-    mov ax, api_idx_0004_QJGR.dseg1
+jumptable_3797_case_0:
+    mov ax, api_idx_0004_QJGR_dseg49
     push ax
-    mov ax, api_idx_0004_QJGR.dseg2
+    mov ax, api_idx_0004_QJGR_dseg55
     push ax
-    mov ax, api_idx_0004_QJGR.dseg3
+    mov ax, api_idx_0004_QJGR_dseg61
     push ax
-    mov ax, api_idx_0004_QJGR.dseg4
+    mov ax, api_idx_0004_QJGR_dseg67
     push ax
     push word [bp + 4]
-    call api_idx_0004_QJGR.api_idx1
+    call api_idx_0004_GRGJ
     add sp, byte 0xa
     jmp near api_idx_0004_QJGR.forward2
-api_idx_0004_QJGR.jumptable_case2:
-    mov ax, api_idx_0004_QJGR.dseg5
+jumptable_3797_case_1:
+    mov ax, api_idx_0004_QJGR_dseg93
     push ax
-    mov ax, api_idx_0004_QJGR.dseg6
+    mov ax, api_idx_0004_QJGR_dseg99
     push ax
-    mov ax, api_idx_0004_QJGR.dseg7
+    mov ax, api_idx_0004_QJGR_dseg105
     push ax
-    mov ax, api_idx_0004_QJGR.dseg8
+    mov ax, api_idx_0004_QJGR_dseg111
     push ax
     push word [bp + 4]
-    call api_idx_0004_QJGR.api_idx1
+    call api_idx_0004_GRGJ
     add sp, byte 0xa
     jmp near api_idx_0004_QJGR.forward2
-api_idx_0004_QJGR.jumptable_case3:
-    mov ax, api_idx_0004_QJGR.dseg9
+jumptable_3797_case_2:
+    mov ax, api_idx_0004_QJGR_dseg137
     push ax
-    mov ax, api_idx_0004_QJGR.dseg10
+    mov ax, api_idx_0004_QJGR_dseg143
     push ax
-    mov ax, api_idx_0004_QJGR.dseg11
+    mov ax, api_idx_0004_QJGR_dseg149
     push ax
-    mov ax, api_idx_0004_QJGR.dseg12
+    mov ax, api_idx_0004_QJGR_dseg155
     push ax
     push word [bp + 4]
-    call api_idx_0004_QJGR.api_idx1
+    call api_idx_0004_GRGJ
     add sp, byte 0xa
     jmp near api_idx_0004_QJGR.forward2
-api_idx_0004_QJGR.jumptable_case4:
-    mov ax, api_idx_0004_QJGR.dseg13
+jumptable_3797_case_3:
+    mov ax, api_idx_0004_QJGR_dseg181
     push ax
-    mov ax, api_idx_0004_QJGR.dseg14
+    mov ax, api_idx_0004_QJGR_dseg187
     push ax
-    mov ax, api_idx_0004_QJGR.dseg15
+    mov ax, api_idx_0004_QJGR_dseg193
     push ax
-    mov ax, api_idx_0004_QJGR.dseg16
+    mov ax, api_idx_0004_QJGR_dseg199
     push ax
     push word [bp + 4]
-    call api_idx_0004_QJGR.api_idx1
+    call api_idx_0004_GRGJ
     add sp, byte 0xa
     jmp near api_idx_0004_QJGR.forward2
-api_idx_0004_QJGR.jumptable_case5:
-    mov ax, api_idx_0004_QJGR.dseg17
+jumptable_3797_case_4:
+    mov ax, api_idx_0004_QJGR_dseg225
     push ax
-    mov ax, api_idx_0004_QJGR.dseg18
+    mov ax, api_idx_0004_QJGR_dseg231
     push ax
-    mov ax, api_idx_0004_QJGR.dseg19
+    mov ax, api_idx_0004_QJGR_dseg237
     push ax
-    mov ax, api_idx_0004_QJGR.dseg20
+    mov ax, api_idx_0004_QJGR_dseg243
     push ax
     push word [bp + 4]
-    call api_idx_0004_QJGR.api_idx1
+    call api_idx_0004_GRGJ
     add sp, byte 0xa
     jmp near api_idx_0004_QJGR.forward2
-api_idx_0004_QJGR.jumptable_case6:
-    mov ax, api_idx_0004_QJGR.dseg21
+jumptable_3797_case_5:
+    mov ax, api_idx_0004_QJGR_dseg269
     push ax
-    mov ax, api_idx_0004_QJGR.dseg22
+    mov ax, api_idx_0004_QJGR_dseg275
     push ax
-    mov ax, api_idx_0004_QJGR.dseg23
+    mov ax, api_idx_0004_QJGR_dseg281
     push ax
-    mov ax, api_idx_0004_QJGR.dseg24
+    mov ax, api_idx_0004_QJGR_dseg287
     push ax
     push word [bp + 4]
-    call api_idx_0004_QJGR.api_idx1
+    call api_idx_0004_GRGJ
     add sp, byte 0xa
     jmp near api_idx_0004_QJGR.forward2
-api_idx_0004_QJGR.jumptable_case7:
-    mov ax, api_idx_0004_QJGR.dseg25
+jumptable_3797_case_6:
+    mov ax, api_idx_0004_QJGR_dseg313
     push ax
-    mov ax, api_idx_0004_QJGR.dseg26
+    mov ax, api_idx_0004_QJGR_dseg319
     push ax
-    mov ax, api_idx_0004_QJGR.dseg27
+    mov ax, api_idx_0004_QJGR_dseg325
     push ax
-    mov ax, api_idx_0004_QJGR.dseg28
+    mov ax, api_idx_0004_QJGR_dseg331
     push ax
     push word [bp + 4]
-    call api_idx_0004_QJGR.api_idx1
+    call api_idx_0004_GRGJ
     add sp, byte 0xa
     jmp near api_idx_0004_QJGR.forward2
-api_idx_0004_QJGR.jumptable_case8:
-    mov ax, api_idx_0004_QJGR.dseg29
+jumptable_3797_case_7:
+    mov ax, api_idx_0004_QJGR_dseg357
     push ax
-    mov ax, api_idx_0004_QJGR.dseg30
+    mov ax, api_idx_0004_QJGR_dseg363
     push ax
-    mov ax, api_idx_0004_QJGR.dseg31
+    mov ax, api_idx_0004_QJGR_dseg369
     push ax
-    mov ax, api_idx_0004_QJGR.dseg32
+    mov ax, api_idx_0004_QJGR_dseg375
     push ax
     push word [bp + 4]
-    call api_idx_0004_QJGR.api_idx1
+    call api_idx_0004_GRGJ
     add sp, byte 0xa
     jmp near api_idx_0004_QJGR.forward2
-api_idx_0004_QJGR.jumptable_case9:
-    mov ax, api_idx_0004_QJGR.dseg33
+jumptable_3797_case_8:
+    mov ax, api_idx_0004_QJGR_dseg401
     push ax
-    mov ax, api_idx_0004_QJGR.dseg34
+    mov ax, api_idx_0004_QJGR_dseg407
     push ax
-    mov ax, api_idx_0004_QJGR.dseg35
+    mov ax, api_idx_0004_QJGR_dseg413
     push ax
-    mov ax, api_idx_0004_QJGR.dseg36
+    mov ax, api_idx_0004_QJGR_dseg419
     push ax
     push word [bp + 4]
-    call api_idx_0004_QJGR.api_idx1
+    call api_idx_0004_GRGJ
     add sp, byte 0xa
     jmp near api_idx_0004_QJGR.forward2
-api_idx_0004_QJGR.jumptable_case10:
-    mov ax, api_idx_0004_QJGR.dseg37
+jumptable_3797_case_9:
+    mov ax, api_idx_0004_QJGR_dseg445
     push ax
-    mov ax, api_idx_0004_QJGR.dseg38
+    mov ax, api_idx_0004_QJGR_dseg451
     push ax
-    mov ax, api_idx_0004_QJGR.dseg39
+    mov ax, api_idx_0004_QJGR_dseg457
     push ax
-    mov ax, api_idx_0004_QJGR.dseg40
+    mov ax, api_idx_0004_QJGR_dseg463
     push ax
     push word [bp + 4]
-    call api_idx_0004_QJGR.api_idx1
+    call api_idx_0004_GRGJ
     add sp, byte 0xa
     jmp near api_idx_0004_QJGR.forward2
-api_idx_0004_QJGR.jumptable_case11:
-    mov ax, api_idx_0004_QJGR.dseg41
+jumptable_3797_case_10:
+    mov ax, api_idx_0004_QJGR_dseg489
     push ax
-    mov ax, api_idx_0004_QJGR.dseg42
+    mov ax, api_idx_0004_QJGR_dseg495
     push ax
-    mov ax, api_idx_0004_QJGR.dseg43
+    mov ax, api_idx_0004_QJGR_dseg501
     push ax
-    mov ax, api_idx_0004_QJGR.dseg44
+    mov ax, api_idx_0004_QJGR_dseg507
     push ax
     push word [bp + 4]
-    call api_idx_0004_QJGR.api_idx1
+    call api_idx_0004_GRGJ
     add sp, byte 0xa
     jmp short api_idx_0004_QJGR.forward2
-api_idx_0004_QJGR.jumptable_case12:
-    mov ax, api_idx_0004_QJGR.dseg45
+jumptable_3797_case_11:
+    mov ax, api_idx_0004_QJGR_dseg533
     push ax
-    mov ax, api_idx_0004_QJGR.dseg46
+    mov ax, api_idx_0004_QJGR_dseg539
     push ax
-    mov ax, api_idx_0004_QJGR.dseg47
+    mov ax, api_idx_0004_QJGR_dseg545
     push ax
-    mov ax, api_idx_0004_QJGR.dseg48
-    push ax
-    push word [bp + 4]
-    call api_idx_0004_QJGR.api_idx1
-    add sp, byte 0xa
-    jmp short api_idx_0004_QJGR.forward2
-api_idx_0004_QJGR.jumptable_case13:
-    mov ax, api_idx_0004_QJGR.dseg49
-    push ax
-    mov ax, api_idx_0004_QJGR.dseg50
-    push ax
-    mov ax, api_idx_0004_QJGR.dseg51
-    push ax
-    mov ax, api_idx_0004_QJGR.dseg52
+    mov ax, api_idx_0004_QJGR_dseg551
     push ax
     push word [bp + 4]
-    call api_idx_0004_QJGR.api_idx1
+    call api_idx_0004_GRGJ
     add sp, byte 0xa
     jmp short api_idx_0004_QJGR.forward2
-api_idx_0004_QJGR.jumptable_case14:
-    mov ax, api_idx_0004_QJGR.dseg53
+jumptable_3797_case_12:
+    mov ax, api_idx_0004_QJGR_dseg577
     push ax
-    mov ax, api_idx_0004_QJGR.dseg54
+    mov ax, api_idx_0004_QJGR_dseg583
     push ax
-    mov ax, api_idx_0004_QJGR.dseg55
+    mov ax, api_idx_0004_QJGR_dseg589
     push ax
-    mov ax, api_idx_0004_QJGR.dseg56
+    mov ax, api_idx_0004_QJGR_dseg595
     push ax
     push word [bp + 4]
-    call api_idx_0004_QJGR.api_idx1
+    call api_idx_0004_GRGJ
     add sp, byte 0xa
     jmp short api_idx_0004_QJGR.forward2
-api_idx_0004_QJGR.jumptable1:
-    dw api_idx_0004_QJGR.jumptable_case1 - IMAGE_BASE + __zres_end
-    dw api_idx_0004_QJGR.jumptable_case2 - IMAGE_BASE + __zres_end
-    dw api_idx_0004_QJGR.jumptable_case3 - IMAGE_BASE + __zres_end
-    dw api_idx_0004_QJGR.jumptable_case4 - IMAGE_BASE + __zres_end
-    dw api_idx_0004_QJGR.jumptable_case5 - IMAGE_BASE + __zres_end
-    dw api_idx_0004_QJGR.jumptable_case6 - IMAGE_BASE + __zres_end
-    dw api_idx_0004_QJGR.jumptable_case7 - IMAGE_BASE + __zres_end
-    dw api_idx_0004_QJGR.jumptable_case8 - IMAGE_BASE + __zres_end
-    dw api_idx_0004_QJGR.jumptable_case9 - IMAGE_BASE + __zres_end
-    dw api_idx_0004_QJGR.jumptable_case10 - IMAGE_BASE + __zres_end
-    dw api_idx_0004_QJGR.jumptable_case11 - IMAGE_BASE + __zres_end
-    dw api_idx_0004_QJGR.jumptable_case12 - IMAGE_BASE + __zres_end
-    dw api_idx_0004_QJGR.jumptable_case13 - IMAGE_BASE + __zres_end
-    dw api_idx_0004_QJGR.jumptable_case14 - IMAGE_BASE + __zres_end
+jumptable_3797_case_13:
+    mov ax, api_idx_0004_QJGR_dseg621
+    push ax
+    mov ax, api_idx_0004_QJGR_dseg627
+    push ax
+    mov ax, api_idx_0004_QJGR_dseg633
+    push ax
+    mov ax, api_idx_0004_QJGR_dseg639
+    push ax
+    push word [bp + 4]
+    call api_idx_0004_GRGJ
+    add sp, byte 0xa
+    jmp short api_idx_0004_QJGR.forward2
+jumptable_3797:
+    dw jumptable_3797_case_0 - IMAGE_BASE + __zres_end
+    dw jumptable_3797_case_1 - IMAGE_BASE + __zres_end
+    dw jumptable_3797_case_2 - IMAGE_BASE + __zres_end
+    dw jumptable_3797_case_3 - IMAGE_BASE + __zres_end
+    dw jumptable_3797_case_4 - IMAGE_BASE + __zres_end
+    dw jumptable_3797_case_5 - IMAGE_BASE + __zres_end
+    dw jumptable_3797_case_6 - IMAGE_BASE + __zres_end
+    dw jumptable_3797_case_7 - IMAGE_BASE + __zres_end
+    dw jumptable_3797_case_8 - IMAGE_BASE + __zres_end
+    dw jumptable_3797_case_9 - IMAGE_BASE + __zres_end
+    dw jumptable_3797_case_10 - IMAGE_BASE + __zres_end
+    dw jumptable_3797_case_11 - IMAGE_BASE + __zres_end
+    dw jumptable_3797_case_12 - IMAGE_BASE + __zres_end
+    dw jumptable_3797_case_13 - IMAGE_BASE + __zres_end
 api_idx_0004_QJGR.forward1:
     cmp ax, strict word 0xe
     jae short api_idx_0004_QJGR.forward2
     xchg bx, ax
     shl bx, 1
-    jmp [cs:bx + api_idx_0004_QJGR.jumptable1 - IMAGE_BASE + __zres_end]
+    jmp [cs:bx + jumptable_3797 - IMAGE_BASE + __zres_end]
 api_idx_0004_QJGR.forward2:
     mov ax, 0x248
     imul word [bp + 4]
@@ -219,7 +219,7 @@ api_idx_0004_QJGR.forward2:
     jbe short api_idx_0004_QJGR.forward3
     cmp byte [bx + party_records + pc_rec.stat + 0x6], 0xd
     jbe short api_idx_0004_QJGR.forward3
-    mov word [api_idx_0004_QJGR.bss1], 1
+    mov word [api_idx_0004_QJGR_bss838], 1
 api_idx_0004_QJGR.forward3:
     mov word [bp - 4], 0
     mov ax, word [bp + 6]
@@ -233,7 +233,7 @@ api_idx_0004_QJGR.back1:
     mov ax, word [bp - 2]
     shl ax, 1
     mov bx, ax
-    cmp word [bx + api_idx_0004_QJGR.bss2], byte 1
+    cmp word [bx + api_idx_0004_GRGJ_bss159], byte 1
     jne short api_idx_0004_QJGR.forward4
     mov ax, 0x14
     imul word [bp - 4]

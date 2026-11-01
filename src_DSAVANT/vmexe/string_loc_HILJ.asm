@@ -153,7 +153,7 @@ string_loc_HILJ.forward9:
     mov al, byte [bx + member_ext.kind] ; 0x3781
     sub ah, ah                       ; 0x3785
     push ax                          ; 0x3787
-    call api_idx_005e_OJVJ           ; 0x3788
+    call api_idx_005e_RKOR           ; 0x3788
     pop cx                           ; 0x378b
     cmp ax, strict word 0xffff       ; 0x378c
     jne short string_loc_HILJ.forward10 ; 0x378f

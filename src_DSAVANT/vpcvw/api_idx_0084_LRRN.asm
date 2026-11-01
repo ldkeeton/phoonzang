@@ -77,7 +77,7 @@ api_idx_0084_LRRN:
     push ax                          ; 0x41b1
     mov ax, 0x258                    ; 0x41b2
     push ax                          ; 0x41b5
-    call loc_UGOG                    ; 0x41b6
+    call loc_TRPK                    ; 0x41b6
     add sp, byte 0x1a                ; 0x41b9
     mov word [bp - 4], ax            ; 0x41bc
     lea ax, word [bp - 0x84]         ; 0x41bf

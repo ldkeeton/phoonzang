@@ -5,12 +5,12 @@ api_idx_0004_OVUO:
     mov al, byte [bp + 4]
     push ax
     mov ax, 0x11
-    imul word [api_idx_0004_OVUO.bss1]
+    imul word [api_idx_0004_OVUO_bss26]
     mov bx, ax
     pop ax
-    mov byte [bx + api_idx_0004_OVUO.bss2], al
+    mov byte [bx + api_idx_0004_OVUO_bss39], al
     mov al, byte [bp + 0x18]
-    mov byte [bx + api_idx_0004_OVUO.bss3], al
+    mov byte [bx + api_idx_0004_OVUO_bss57], al
     cmp word [bp + 4], strict word 0xfa
     jl short .forward1
     jmp near .forward13
@@ -48,10 +48,10 @@ api_idx_0004_OVUO:
     mov ax, dx
     push ax
     mov ax, 0x11
-    imul word [api_idx_0004_OVUO.bss1]
+    imul word [api_idx_0004_OVUO_bss26]
     mov bx, ax
     pop ax
-    mov byte [bx + api_idx_0004_OVUO.bss3], al
+    mov byte [bx + api_idx_0004_OVUO_bss57], al
     cmp word [bp + 0x1e], byte 1
     je short .forward4
     jmp near .forward6
@@ -65,7 +65,7 @@ api_idx_0004_OVUO:
     mov cx, ax
     mov ax, word [bp + 6]
     sub ax, cx
-    mov word [bx + api_idx_0004_OVUO.bss4], ax
+    mov word [bx + api_idx_0004_OVUO_bss367], ax
     cmp word [bp + 0x1a], byte 0
     je short .forward5
     mov ax, 0x15e
@@ -83,9 +83,9 @@ api_idx_0004_OVUO:
     shl ax, 1
     push ax
     mov ax, 0x11
-    imul word [api_idx_0004_OVUO.bss1]
+    imul word [api_idx_0004_OVUO_bss26]
     mov bx, ax
-    mov al, byte [bx + api_idx_0004_OVUO.bss3]
+    mov al, byte [bx + api_idx_0004_OVUO_bss57]
     sub ah, ah
     mov cx, ax
     pop ax
@@ -93,7 +93,7 @@ api_idx_0004_OVUO:
     mov cx, 0x64
     cwd
     idiv cx
-    sub word [bx + api_idx_0004_OVUO.bss4], ax
+    sub word [bx + api_idx_0004_OVUO_bss367], ax
 .forward5:
     mov ax, word [dseg_03dc]
     sub ax, word [bp - 4]
@@ -107,10 +107,10 @@ api_idx_0004_OVUO:
     sub ax, cx
     push ax
     mov ax, 0x11
-    imul word [api_idx_0004_OVUO.bss1]
+    imul word [api_idx_0004_OVUO_bss26]
     mov bx, ax
     pop ax
-    mov word [bx + api_idx_0004_OVUO.bss5], ax
+    mov word [bx + api_idx_0004_OVUO_bss589], ax
     jmp near .forward10
 .forward6:
     cmp word [bp + 0x1e], byte 2
@@ -118,9 +118,9 @@ api_idx_0004_OVUO:
     jmp near .forward9
 .forward7:
     mov ax, 0x11
-    imul word [api_idx_0004_OVUO.bss1]
+    imul word [api_idx_0004_OVUO_bss26]
     mov bx, ax
-    mov al, byte [bx + api_idx_0004_OVUO.bss3]
+    mov al, byte [bx + api_idx_0004_OVUO_bss57]
     sub ah, ah
     mov cx, 0xa0
     sub cx, word [bp - 2]
@@ -130,7 +130,7 @@ api_idx_0004_OVUO:
     idiv cx
     add ax, word [bp - 2]
     add ax, word [bp + 6]
-    mov word [bx + api_idx_0004_OVUO.bss4], ax
+    mov word [bx + api_idx_0004_OVUO_bss367], ax
     cmp word [bp + 0x1a], byte 0
     je short .forward8
     mov ax, 0x15e
@@ -148,9 +148,9 @@ api_idx_0004_OVUO:
     shl ax, 1
     push ax
     mov ax, 0x11
-    imul word [api_idx_0004_OVUO.bss1]
+    imul word [api_idx_0004_OVUO_bss26]
     mov bx, ax
-    mov al, byte [bx + api_idx_0004_OVUO.bss3]
+    mov al, byte [bx + api_idx_0004_OVUO_bss57]
     sub ah, ah
     mov cx, ax
     pop ax
@@ -158,12 +158,12 @@ api_idx_0004_OVUO:
     mov cx, 0x64
     cwd
     idiv cx
-    sub word [bx + api_idx_0004_OVUO.bss4], ax
+    sub word [bx + api_idx_0004_OVUO_bss367], ax
 .forward8:
     mov ax, 0x11
-    imul word [api_idx_0004_OVUO.bss1]
+    imul word [api_idx_0004_OVUO_bss26]
     mov bx, ax
-    mov al, byte [bx + api_idx_0004_OVUO.bss3]
+    mov al, byte [bx + api_idx_0004_OVUO_bss57]
     sub ah, ah
     mov cx, 0x42
     sub cx, word [bp - 4]
@@ -173,7 +173,7 @@ api_idx_0004_OVUO:
     idiv cx
     add ax, word [bp - 4]
     add ax, word [bp + 8]
-    mov word [bx + api_idx_0004_OVUO.bss5], ax
+    mov word [bx + api_idx_0004_OVUO_bss589], ax
     jmp short .forward10
 .forward9:
     cmp word [bp + 0x1e], byte 3
@@ -181,12 +181,12 @@ api_idx_0004_OVUO:
     mov ax, word [bp + 6]
     push ax
     mov ax, 0x11
-    imul word [api_idx_0004_OVUO.bss1]
+    imul word [api_idx_0004_OVUO_bss26]
     mov bx, ax
     pop ax
-    mov word [bx + api_idx_0004_OVUO.bss4], ax
+    mov word [bx + api_idx_0004_OVUO_bss367], ax
     mov ax, word [bp + 8]
-    mov word [bx + api_idx_0004_OVUO.bss5], ax
+    mov word [bx + api_idx_0004_OVUO_bss589], ax
 .forward10:
     jmp short .forward12
 .forward11:
@@ -194,51 +194,51 @@ api_idx_0004_OVUO:
     add ax, word [bp + 6]
     push ax
     mov ax, 0x11
-    imul word [api_idx_0004_OVUO.bss1]
+    imul word [api_idx_0004_OVUO_bss26]
     mov bx, ax
     pop ax
-    mov word [bx + api_idx_0004_OVUO.bss4], ax
+    mov word [bx + api_idx_0004_OVUO_bss367], ax
     mov ax, word [bp - 4]
     add ax, word [bp + 8]
-    mov word [bx + api_idx_0004_OVUO.bss5], ax
+    mov word [bx + api_idx_0004_OVUO_bss589], ax
 .forward12:
     jmp short .forward14
 .forward13:
     mov ax, word [bp + 6]
     push ax
     mov ax, 0x11
-    imul word [api_idx_0004_OVUO.bss1]
+    imul word [api_idx_0004_OVUO_bss26]
     mov bx, ax
     pop ax
-    mov word [bx + api_idx_0004_OVUO.bss4], ax
+    mov word [bx + api_idx_0004_OVUO_bss367], ax
     mov ax, word [bp + 8]
-    mov word [bx + api_idx_0004_OVUO.bss5], ax
+    mov word [bx + api_idx_0004_OVUO_bss589], ax
 .forward14:
     mov al, byte [bp + 0xa]
     push ax
     mov ax, 0x11
-    imul word [api_idx_0004_OVUO.bss1]
+    imul word [api_idx_0004_OVUO_bss26]
     mov bx, ax
     pop ax
-    mov byte [bx + api_idx_0004_OVUO.bss6], al
+    mov byte [bx + api_idx_0004_OVUO_bss1166], al
     mov al, byte [bp + 0xc]
-    mov byte [bx + api_idx_0004_OVUO.bss7], al
+    mov byte [bx + api_idx_0004_OVUO_bss1184], al
     mov al, byte [bp + 0xe]
-    mov byte [bx + api_idx_0004_OVUO.bss8], al
+    mov byte [bx + api_idx_0004_OVUO_bss1202], al
     mov al, byte [bp + 0x10]
-    mov byte [bx + api_idx_0004_OVUO.bss9], al
+    mov byte [bx + api_idx_0004_OVUO_bss1220], al
     mov ax, word [bp + 0x12]
-    mov word [bx + api_idx_0004_OVUO.bss10], ax
+    mov word [bx + api_idx_0004_OVUO_bss1238], ax
     mov ax, word [bp + 0x14]
-    mov word [bx + api_idx_0004_OVUO.bss11], ax
+    mov word [bx + api_idx_0004_OVUO_bss1256], ax
     mov al, byte [bp + 0x16]
-    mov byte [bx + api_idx_0004_OVUO.bss12], al
+    mov byte [bx + api_idx_0004_OVUO_bss1274], al
     mov al, byte [bp + 0x1a]
-    mov byte [bx + api_idx_0004_OVUO.bss13], al
+    mov byte [bx + api_idx_0004_OVUO_bss1292], al
     mov al, byte [bp + 0x1c]
-    mov byte [bx + api_idx_0004_OVUO.bss14], al
-    inc word [api_idx_0004_OVUO.bss1]
-    mov ax, word [api_idx_0004_OVUO.bss1]
+    mov byte [bx + api_idx_0004_OVUO_bss1310], al
+    inc word [api_idx_0004_OVUO_bss26]
+    mov ax, word [api_idx_0004_OVUO_bss26]
     cmp ax, strict word 0x78
     jl short .return1
 .back1:

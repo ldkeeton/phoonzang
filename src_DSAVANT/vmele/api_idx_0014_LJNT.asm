@@ -147,7 +147,7 @@ api_idx_0014_LJNT:
     push word [bp - 0x10]            ; 0x19b5
     push word [bp - 0xe]             ; 0x19b8
     push word [bp - 6]               ; 0x19bb
-    call fill_action_slot_table_vmnpc ; 0x19be
+    call fill_action_slot_table      ; 0x19be
     add sp, byte 8                   ; 0x19c1
 .forward7:
     inc word [bp - 4]                ; 0x19c4

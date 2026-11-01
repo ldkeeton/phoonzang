@@ -1,4 +1,4 @@
-"""Share byte-identical routines between binaries under ``src_<project>/shared/``.
+"""Share identical routines between binaries under ``src_<project>/shared/``.
 
 The same vendor runtime routine (``aztec_strlen``) or overlay API stub is
 emitted once per binary that contains it.  Where the instructions are identical
@@ -13,17 +13,11 @@ Hand-owned ``.c`` and ``.s`` files never do: they are checked against the
 binary, and only move beside a shared file after the placement is decided
 (:func:`companion_moves`).
 
-Copies without C that differ only in the label names they use (each binary's
-own ``bss_0d00``, ``loc_HOIR``: names its symbol table, ``.cache/<project>/
-symbols/``, holds) share too: the shared file spells each by a
-common name (``aztec_free.bss1``), and ``equ`` lines just above each binary's
-``%include`` give its own name that common one.  Naming the targets the same in every
-binary (a sidecar name) makes the copies identical, and the aliases go.
-
-The routine's own label is one of those names: copies whose content tags differ
-(``api_idx_0012_RMOL`` here, ``api_idx_0012_STJU`` there) still share when
-their code agrees.  The shared file takes the name most copies carry, and each
-other copy's label is an ``equ`` of it.  Data shares only under one name.
+A routine is shared only if its text is identical in every binary, so every copy
+links on its own and calls the same names (an overlay sees only itself and
+``ds``).  Copies whose names can truthfully be one get one name first
+(:mod:`lib.common_names`); anything else stays a separate copy in its own binary.
+Nothing is masked, aliased or reported.
 
 A file shared with a banded binary sits in the band folder its copy there
 does (``ds/aztec/x.asm`` -> ``shared/aztec/x.asm``, :mod:`lib.sidecar.bands`);
@@ -36,14 +30,13 @@ in ``shared/ovr/``, and data in ``shared/data/``.  A hand-owned source is found 
 import os
 import re
 from collections import defaultdict
-from dataclasses import dataclass
 
-from .autogen import MARKER_ASM, MARKER_C, hand_owned, is_generated, stamp
+from .autogen import hand_owned, is_generated, stamp
 from .cachedirs import project_of_src_dir
+from .common_names import unify_names
 from .routine_source import SUFFIXES, beside
 from .sidecar.bands import BAND_NAMES
 from .sidecar.loader import load as load_sidecar
-from .symtab import Kind, project_tables
 
 FOLDER = 'shared'
 
@@ -81,7 +74,6 @@ def _code_key(text):
     return _LOCAL_LABEL.sub(number_local, '\n'.join(lines))
 
 
-_TOKEN = re.compile(r'[A-Za-z_][\w.]*|0[xX][0-9a-fA-F]+|\d+|\n|\S')
 _SYMBOL = re.compile(r'[A-Za-z_][\w.]*')
 
 
@@ -98,78 +90,19 @@ def _generic(sym):
     return sym is None or sym.generic
 
 
-def _hosts(tables):
-    """The binaries whose symbols every overlay sees: their generic names
-    carry a prefix (``ds_loc_08f2``, :func:`lib.names.rename_generics`)."""
-    return {b for b, table in tables.items()
-            if any(getattr(sym, 'prefix', '') == f'{b}_'
-                   for sym in table.values())}
-
-
-def _shape(rel, text, tables):
-    """The code with every name its binary has a symbol for numbered in order
-    of use, and its own label as one: copies :func:`_bind` may fold agree."""
-    names = tables.get(_binary(rel), {})
-    own, seen, out = _stem(rel), {}, []
-    for token in _TOKEN.findall(_code_key(text)):
-        if token == own:
-            token = '\0self'
-        elif token in names:
-            token = seen.setdefault(token, f'\0{len(seen)}')
-        out.append(token)
-    return ' '.join(out)
-
-
-def _buckets(fragments, tables):
-    """``[(source, rels)]``: the copies that may share a file.
-
-    A copy is a candidate with every copy of its name (:func:`_shared_base`)
-    and, when it is code without a source, with every such copy of the same
-    :func:`_shape` whatever its name, unless it is the host's or a lone
-    ``ret`` (:func:`_is_bare_return`).  A copy with a hand-written source
-    keeps those source-less copies, so writing the source never splits the
-    file they shared; two hand sources of one shape stay apart.
-    """
-    keys, hosts = {}, _hosts(tables)
-    shapes = {}
-    for rel, (text, ctext) in fragments.items():
+def _buckets(fragments):
+    """``[(source, rels)]``: the copies that may share a file, those of one
+    name (:func:`_shared_base`) and source; a data file named for its address
+    and a lone instruction share with nothing."""
+    out = defaultdict(list)
+    for rel, (text, ctext) in sorted(fragments.items()):
         is_data = os.path.basename(os.path.dirname(rel)) == 'data'
         if binary_local(rel) or (not is_data and _is_single_instruction(text)):
-            keys[rel] = []
-            continue
-        base = _shared_base(rel)
-        keys[rel] = [(base, ctext)]
-        # A host's copy under an overlay's name would define it twice in
-        # that overlay, which sees the host's symbols.
-        if (not base.startswith(f'{FOLDER}/data/')
-                and _binary(rel) not in hosts and not _is_bare_return(text)
-                and (ctext is None or not _generated_source(ctext))):
-            shapes[rel] = _shape(rel, text, tables)
-    hand = defaultdict(set)
-    for rel, shape in shapes.items():
-        if fragments[rel][1] is not None:
-            hand[shape].add(fragments[rel][1])
-    for rel, shape in shapes.items():
-        if fragments[rel][1] is None or len(hand[shape]) == 1:
-            keys[rel].append(('shape', shape))
-    parent = {}
-
-    def find(x):
-        while parent.setdefault(x, x) != x:
-            parent[x] = x = parent[parent[x]]
-        return x
-
-    for rel, ks in keys.items():
-        for key in ks:
-            parent[find(key)] = find(('rel', rel))
-    out = defaultdict(list)
-    for rel in sorted(fragments):
-        out[find(('rel', rel))].append(rel)
-    # A bucket's source is its one member's that has one (_shared_base ties
-    # same-named copies to one source; the shape key admits only one more).
-    return sorted(((next((fragments[r][1] for r in rels
-                          if fragments[r][1] is not None), None), rels)
-                   for rels in out.values()), key=repr)
+            out[('rel', rel)].append(rel)
+        else:
+            out[(_shared_base(rel), ctext)].append(rel)
+    return sorted(((key[1] if key[0] != 'rel' else None, rels)
+                   for key, rels in out.items()), key=repr)
 
 
 def _is_single_instruction(text):
@@ -192,169 +125,61 @@ def _is_single_instruction(text):
     return len(instructions) == 1
 
 
-def _family(sym):
-    """The family a common name is counted in: ``bss``, ``loc``, ``api_idx``.
-
-    A dispatch stub's base carries its index (``api_idx_000a``); the stubs a
-    routine calls are one family whatever their index.
-    """
-    if sym.role == 'api_stub':
-        return 'api_idx'
-    return sym.base or str(sym)
+#: A label named after its address or content tag.
+_GENERATED_LABEL = re.compile(
+    r'(?<![\w.@])(?:jumptable_[0-9a-f]{4,5}(?:_case_\d+)?|(?:cseg|loc)_[0-9a-f]{4,5}'
+    r'|(?:[a-z]+_)*loc_[G-V]{4})(?![\w.])')
 
 
-def _bind(fragments, rels, stem, tables):
-    """``{rel: [(common, own)]}`` when *rels* differ only in the names they use.
-
-    The copies must agree token for token except where each spells a name,
-    and agree on which positions share one name, so each copy's own names,
-    put back for the common ones, give exactly its text.  A common name is
-    ``<stem>.<kind><n>`` (``aztec_free.bss1``).  ``None`` otherwise; ``{}`` --
-    nothing to alias -- when they are identical.  A name is a token the copy's
-    binary has a symbol for (*tables*: ``{binary: {text: Symbol}}``).
-    """
-    names = [tables.get(_binary(rel), {}) for rel in rels]
-    owns = [_stem(rel) for rel in rels]
-    hosts = [tables[b] for b in _hosts(tables)]
-    for own, table in zip(owns, names):
-        if own != stem and (any(stem in t for t in [table] + hosts)
-                            or not _generic(table.get(own))):
-            # The shared name is another symbol of that binary (or of the
-            # host every overlay sees), or this copy's own name is a
-            # person's, not to be made an alias.
-            return None
-    streams = [_TOKEN.findall(_code_key(fragments[rel][0])) for rel in rels]
-    if len({len(s) for s in streams}) != 1:
-        return None
-    diff = [i for i in range(len(streams[0]))
-            if len({s[i] for s in streams}) > 1]
-    if not diff:
-        return {}
-    if not all(s[i] in table for s, table in zip(streams, names)
-               for i in diff):
-        return None
-    # Each position's common name, after the first copy's spelling of it.
-    first, counts, param_at = {}, defaultdict(int), {}
-    for i in diff:
-        token = streams[0][i]
-        if token == owns[0]:
-            first[token] = stem
-        elif token not in first:
-            kind = _family(names[0][token])
-            counts[kind] += 1
-            first[token] = f'{stem}.{kind}{counts[kind]}'
-        param_at[i] = first[token]
-    maps, subs = [], []
-    for s in streams:
-        params = {}
-        for i in diff:
-            params.setdefault(s[i], param_at[i])
-        if len(set(params.values())) != len(params):
-            return None
-        maps.append(params)
-        subs.append([params.get(t, t) for t in s])
-    if any(sub != subs[0] for sub in subs[1:]):
-        return None
-    return {rel: [(p, name) for name, p in params.items() if p != name]
-            for rel, params in zip(rels, maps)}
+def _label_uses(files):
+    """``{binary: {generated label: {files naming it}}}``."""
+    uses = defaultdict(lambda: defaultdict(set))
+    for rel, text in files.items():
+        binary = _binary(rel).removesuffix('.asm')
+        for name in set(_GENERATED_LABEL.findall(text)):
+            uses[binary][name].add(rel)
+    return uses
 
 
-def _clusters(fragments, rels, ctext, tables):
-    """``(shared base, group, bindings)`` for each group of *rels* that can
-    share one file.
+def _private_labels(rel, text, uses):
+    """The generated labels *rel* defines and no other file of its binary names."""
+    binary_uses = uses[_binary(rel)]
+    return {name for name in _GENERATED_LABEL.findall(text)
+            if binary_uses[name] == {rel}
+            and re.search(rf'^\s*{name}:', text, re.M)}
 
-    Copies with generated C must be identical: each binary's resplice
-    rewrites the shared asm from that C.  Without C, copies that differ only
-    in the names they use share one file that spells those names by common
-    ones (:func:`_bind`).  So do copies of a hand-written source: its resplice
-    spells each binary's own names by the common ones
-    (:func:`include_aliases`).
-    A group is named after a person's name if a copy has one, else the name
-    most copies carry (the first, on a tie), and takes those copies first.  A
-    binary includes one copy: two would define the label twice.
-    """
+
+def _private_key(text, private):
+    """:func:`_code_key` with each of the *private* labels named by position:
+    the address in its name is all that tells identical copies apart."""
+    ids = {}
+
+    def number(match):
+        name = match.group()
+        if name not in private:
+            return name
+        return f'@P{ids.setdefault(name, len(ids))}'
+
+    return _GENERATED_LABEL.sub(number, _code_key(text))
+
+
+def _clusters(fragments, rels, uses):
+    """``(shared base, group)`` for each group of *rels* whose code is the
+    same.  A binary includes one copy: two would define the label twice, and the
+    first copy's private labels must not mean something else in another member."""
+    private = {rel: _private_labels(rel, fragments[rel][0], uses) for rel in rels}
+    keys = {rel: _private_key(fragments[rel][0], private[rel]) for rel in rels}
     left = sorted(rels)
     while left:
-        count = defaultdict(int)
-        for rel in left:
-            count[_stem(rel)] += 1
-
-        # The copy that owns the source names the group: the shared file
-        # must sit beside that source under its name.
-        def rank(rel):
-            sym = tables.get(_binary(rel), {}).get(_stem(rel))
-            return (fragments[rel][1] is None, _generic(sym),
-                    -count[_stem(rel)], _stem(rel), rel)
-
-        order = sorted(left, key=rank)
-        stem = _stem(order[0])
-        group, binds = [order[0]], {}
-        for rel in order[1:]:
-            if _binary(rel) in {_binary(g) for g in group}:
-                continue
-            if ctext is not None and _generated_source(ctext):
-                ok = _code_key(fragments[rel][0]) == _code_key(
-                    fragments[group[0]][0])
-                trial = {} if ok else None
-            else:
-                trial = _bind(fragments, group + [rel], stem, tables)
-            if trial is not None:
+        group = [left[0]]
+        for rel in left[1:]:
+            if (_binary(rel) not in {_binary(g) for g in group}
+                    and keys[rel] == keys[left[0]]
+                    and not any(uses[_binary(rel)][name] - {rel}
+                                for name in private[left[0]])):
                 group.append(rel)
-                binds = trial
         left = [rel for rel in left if rel not in group]
-        yield _shared_base(order[0]), group, binds
-
-
-def _generated_source(ctext):
-    """True when the ``(suffix, text)`` source is a generated seed."""
-    first = ctext[1].split('\n', 1)[0].rstrip()
-    return first in (MARKER_ASM, MARKER_C)
-
-
-def include_aliases(master, rel):
-    """``[(common, own)]``: the ``equ`` aliases *master* gives the shared file
-    *rel* just above its ``%include`` (:func:`_rewrite_includes`)."""
-    stem = re.escape(os.path.basename(rel)[:-4])
-    common = re.compile(rf'{stem}(\.\w+)?$')
-    lines = master.split('\n')
-    for i, line in enumerate(lines):
-        include = _INCLUDE.match(line)
-        if not include or include.group(1) != rel:
-            continue
-        pairs = []
-        for above in reversed(lines[:i]):
-            m = _EQU.match(above)
-            if not m:
-                break
-            a, b = m.group(1), m.group(2)
-            if common.match(a):
-                pairs.append((a, b))
-            elif common.match(b):
-                pairs.append((b, a))
-        return pairs
-    return []
-
-
-def is_shared(out_dir, label):
-    """Whether routine *label*'s source lives in ``shared/``.
-
-    A shared source may call a target another binary spells differently, so
-    its link reads the target from the original instruction
-    (:func:`lib.aztec.relink.link`'s *resolve_by_address*).
-    """
-    for folder in shared_dirs(out_dir):
-        path = os.path.join(folder, f'{label}.asm')
-        # The source names the file before a rename's build writes its .asm.
-        if os.path.isfile(path) or beside(path[:-4]):
-            return True
-    return False
-
-
-def _common_names(text, binds):
-    """*text* with each of its own names written as the common one."""
-    for common, own in binds:
-        text = re.sub(rf'(?<![\w.@]){re.escape(own)}(?![\w.])', common, text)
-    return text
+        yield _shared_base(group[0]), group
 
 
 def neutral(text):
@@ -490,58 +315,40 @@ def _fragments(files, out_dir):
     return found
 
 
-def share_files(files, out_dir, tables):
+def share_files(files, out_dir):
     """Collapse identical fragments of different binaries into ``shared/``.
 
     *files* is ``{relative path: text}``, every generated file of the tree at
-    *out_dir* (which holds only the hand-owned ones); *tables* is the binaries'
-    symbol tables (:func:`lib.symtab.project_tables`).  A routine with
+    *out_dir* (which holds only the hand-owned ones).  A routine with
     generated source moves its ``.c`` or ``.s`` along
     (``shared/game/<label>.c``); a hand-owned ``.s`` stays authoritative.
     Returns
     ``(files, shared)``: the tree's files after sharing, and ``{shared relative
     path: [replaced relative paths]}``.
     """
-    files = dict(files)
+    files = unify_names(dict(files), out_dir)
     fragments = _fragments(files, out_dir)
     drivers = _drivers(out_dir)
+    uses = _label_uses(files)
 
     # Names carry a content tag (lib.names), so one stem is mostly one body.
-    # Where a stem still has several (a label that differs only in which
-    # generic routine it calls), the largest group is shared and the rest stay.
-    best, split = {}, []
-    for ctext, rels in _buckets(fragments, tables):
-        clusters = list(_clusters(fragments, rels, ctext, tables))
-        split.extend(_split_by_names(fragments, clusters, tables))
-        for base, members, binds in clusters:
+    # Where a stem still has several, the largest group is shared and the rest
+    # stay: each binary's own routine.
+    best = {}
+    for ctext, rels in _buckets(fragments):
+        for base, members in _clusters(fragments, rels, uses):
             if len({p.split('/')[0] for p in members}) < 2:
                 continue
-            # A group takes only its own members' source: another group of
-            # the same shape may sit in the bucket of a hand source it did
-            # not join (_bind refuses two people's names).
-            own = next((fragments[r][1] for r in members
-                        if fragments[r][1] is not None), None)
             if base not in best or len(members) > len(best[base][0]):
-                best[base] = (members, binds, own)
+                best[base] = (members, ctext)
 
-    shared, bindings = {}, {}
-    for base, (members, binds, ctext) in best.items():
+    shared = {}
+    for base, (members, ctext) in best.items():
         members = sorted(members)
-        # The copy that carries the shared name: the text is spelled after it,
-        # so its local labels (``@..<stem>.l1``) read as the file's own.
-        source = next((rel for rel in members
-                       if _stem(rel) == os.path.basename(base)), members[0])
         home = base if base.startswith(f'{FOLDER}/data/') else (
             f'{FOLDER}/{_band(members, drivers)}/{os.path.basename(base)}')
         shared_rel = f'{home}.asm'
-        text = _text_for(fragments, members)
-        if binds:
-            text = _common_names(neutral(fragments[source][0]),
-                                 binds[source])
-            defined = set(re.findall(r'^([\w.]+):', text, re.M))
-            for rel, pairs in binds.items():
-                bindings[rel] = [(p, n, p in defined) for p, n in pairs]
-        files[shared_rel] = text
+        files[shared_rel] = _text_for(fragments, members)
         if ctext is not None:
             # One source: a hand-owned one wherever it is, else ours in the
             # band folder (an earlier build's elsewhere goes).
@@ -552,47 +359,8 @@ def share_files(files, out_dir, tables):
                 files[shared_rel[:-4] + ctext[0]] = ctext[1]
         shared[shared_rel] = members
 
-    _apply(files, shared, bindings, out_dir, tables)
-    _warn_split_names(split)
+    _apply(files, shared, out_dir)
     return files, shared
-
-
-def _split_by_names(fragments, clusters, tables):
-    """``[{name: [binary, ...]}]``: copies of one code that stay apart only
-    because people named them differently (:func:`_bind` never aliases a
-    person's name), one entry per such code.  A binary that holds two of
-    the names has two routines, not one named twice."""
-    if len(clusters) < 2:
-        return []
-    where = {rel: i for i, (_, members, _) in enumerate(clusters)
-             for rel in members}
-    by_shape = defaultdict(list)
-    for rel in where:
-        by_shape[_shape(rel, fragments[rel][0], tables)].append(rel)
-    out = []
-    for rels in by_shape.values():
-        names = defaultdict(list)
-        for rel in sorted(rels):
-            names[_stem(rel)].append(_binary(rel))
-        named = [n for n, binaries in names.items()
-                 if not _generic(tables.get(binaries[0], {}).get(n))]
-        binaries = [b for bs in names.values() for b in bs]
-        if (len(named) > 1 and len(set(binaries)) == len(binaries)
-                and len({where[rel] for rel in rels}) > 1):
-            out.append(dict(names))
-    return out
-
-
-def _warn_split_names(split):
-    """Report the routines whose copies match but carry different names."""
-    if not split:
-        return
-    print(f'warning: {len(split)} routine(s) with the same code in several '
-          'binaries under different names;\n'
-          '         give them one sidecar name to share one file:')
-    for names in sorted(split, key=sorted):
-        print('    ' + '  |  '.join(f'{name} ({", ".join(binaries)})'
-                                    for name, binaries in sorted(names.items())))
 
 
 def check_companions(out_dir, files, scopes=None, moves=()):
@@ -679,68 +447,11 @@ def move_companions(out_dir, moves, journal=None):
             os.rename(source, dest)
 
 
-#: The kinds of a name that labels code: a call or jump target.
-_CODE = {Kind.ROUTINE, Kind.LABEL, Kind.LOCAL, Kind.TABLE}
-
-
-def _warn_partial_shares(shared, bindings, tables=None):
-    """Report the names a shared file's copies spell differently.
-
-    A copy aliases a common name only where the binaries disagree, so each
-    binding is a mismatch.  One that a person named in some binary (a sidecar
-    or library name, :func:`_generic` false in *tables*) is reported: the
-    names should be made to agree.  A routine called is not: each binary
-    calls its own, which a different name rightly tells apart (the same code
-    under two names is :func:`_warn_split_names`'s).  A label the file
-    defines (a jump table, a case) is the same code in every copy, so it is.  With VERBOSE=1,
-    generated external names (``bss_0d00`` here, ``bss_0e10`` there) are too.
-    """
-    verbose = os.environ.get('VERBOSE') == '1'
-    tables = tables or {}
-    report = []
-    for path, members in sorted(shared.items()):
-        prefix = _stem(path) + '.'
-        # common -> {own spelling: [binary, ...]}
-        aliases, named, internal = defaultdict(dict), set(), set()
-        code = defaultdict(lambda: True)
-        for rel in sorted(members):
-            table = tables.get(_binary(rel), {})
-            for common, own, defined in bindings.get(rel, ()):
-                if not common.startswith(prefix):
-                    continue
-                sym = table.get(own)
-                code[common] &= (not defined and sym is not None
-                                 and sym.kind in _CODE)
-                if not _generic(sym):
-                    named.add(common)
-                if defined:
-                    internal.add(common)
-                aliases[common].setdefault(own, []).append(_binary(rel))
-        rows = [(common[len(prefix):], '  |  '.join(
-                    f'{own} ({", ".join(binaries)})'
-                    for own, binaries in spellings.items()))
-                for common, spellings in sorted(aliases.items())
-                if not code[common] and (
-                    common in named or (verbose and common not in internal))]
-        if rows:
-            report.append((path, rows))
-    if report:
-        width = max(len(name) for _, rows in report for name, _ in rows)
-        print(f'warning: {len(report)} shared file(s) where binaries name the '
-              'same symbol differently;\n'
-              '         give them one sidecar name, or they should not share:')
-        for path, rows in report:
-            print(f'  {path}')
-            for name, spellings in rows:
-                print(f'    {name:<{width}}  {spellings}')
-
-
-def _apply(files, shared, bindings, out_dir, tables=None):
+def _apply(files, shared, out_dir):
     """Point the masters at the *shared* files and drop the copies they
     replace (with their sources) from *files*."""
     _place_equs(files, out_dir)
-    _rewrite_includes(files, shared, bindings)
-    _warn_partial_shares(shared, bindings, tables)
+    _rewrite_includes(files, shared)
     for members in shared.values():
         for rel in members:
             files.pop(rel, None)
@@ -754,15 +465,14 @@ def reshare_partial(files, out_dir):
     *files* holds only what the partial build emitted -- the binary built and
     the sources it references -- so the other binaries' fragments are not
     there to compare against.  The last full build's decisions are: each
-    binary's master on disk includes each routine it shared from ``shared/``
-    (with its aliases just above, :func:`include_aliases`).  For every master
-    in *files*, each such routine whose new copy still matches the shared file
-    goes back there; one that changed keeps its own copy until a full build
-    re-decides.  Returns ``(files, shared, diverged)``, *diverged* the
-    ``(binary, shared file)`` pairs whose copy no longer matches.
+    binary's master on disk includes each routine it shared from ``shared/``.
+    For every master in *files*, each such routine whose new copy still matches
+    the shared file goes back there; one that changed keeps its own copy until
+    a full build re-decides.  Returns ``(files, shared, diverged)``, *diverged*
+    the ``(binary, shared file)`` pairs whose copy no longer matches.
     """
     files = dict(files)
-    shared, bindings, diverged = {}, {}, []
+    shared, diverged = {}, []
     for master in sorted(files):
         binary = master[:-4]
         if '/' in master or not master.endswith('.asm') or binary in _SKIP_DIRS:
@@ -785,31 +495,27 @@ def reshare_partial(files, out_dir):
                 continue
             done.add(shared_rel)
             stem = _stem(shared_rel)
-            # Read upward from the include: put them back in the master's order.
-            pairs = include_aliases(old, shared_rel)[::-1]
-            own = next((o for c, o in pairs if c == stem), stem)
-            rels = [rel for rel in new_includes if _stem(rel) == own]
-            text = _read(path)
+            rels = [rel for rel in new_includes if _stem(rel) == stem]
             if len(rels) != 1 or not _still_shared(files, out_dir, rels[0],
-                                                   shared_rel, text, pairs):
+                                                   shared_rel, _read(path)):
                 diverged.append((binary, shared_rel))
                 continue
-            defined = set(re.findall(r'^([\w.]+):', text, re.M))
             shared.setdefault(shared_rel, []).append(rels[0])
-            bindings[rels[0]] = [(c, o, c in defined) for c, o in pairs]
-    project = project_of_src_dir(out_dir)
-    _apply(files, shared, bindings, out_dir,
-           project_tables(project) if project else {})
+    _apply(files, shared, out_dir)
     return files, shared, diverged
 
 
-def _still_shared(files, out_dir, rel, shared_rel, text, pairs):
-    """True when *rel*, spelled with the common names *pairs* give, is the
-    shared file *text*, and its source (if it has one) is the shared one."""
+def _still_shared(files, out_dir, rel, shared_rel, text):
+    """True when *rel* is the shared file *text*, and its source (if it has
+    one) is the shared one."""
     if rel not in files:
         return False
-    if _code_key(_common_names(files[rel], pairs)) != _code_key(text):
-        return False
+    if _code_key(files[rel]) != _code_key(text):
+        # The shared file spells its private labels as another binary does.
+        ours = _private_labels(rel, files[rel], _label_uses(files))
+        if (_private_key(files[rel], ours)
+                != _private_key(text, set(_GENERATED_LABEL.findall(text)))):
+            return False
     own = beside(rel[:-4], files.__contains__)
     if own is None:
         return True
@@ -832,9 +538,7 @@ def share_identical(out_dir):
             if filename.endswith(('.asm',) + SUFFIXES) \
                     and is_generated(path):
                 before[os.path.relpath(path, out_dir)] = _read(path)
-    project = project_of_src_dir(out_dir)
-    tables = project_tables(project) if project else {}
-    after, shared = share_files(before, out_dir, tables)
+    after, shared = share_files(before, out_dir)
     check_companions(out_dir, after)
     for rel, text in after.items():
         if before.get(rel) != text:
@@ -853,21 +557,14 @@ def share_identical(out_dir):
     return shared
 
 
-def _rewrite_includes(files, shared, bindings):
-    """Point each master's (and fragment's) ``%include`` at the shared copy.
-
-    A copy with *bindings* (``{rel: [(common, own, defined)]}``) gets its
-    aliases just above that include: ``common equ own`` for a name the
-    routine uses, ``own equ common`` for a label it defines (the rest of the
-    binary still calls it by its own name).  An ``equ`` assembles no bytes.
-    """
+def _rewrite_includes(files, shared):
+    """Point each master's (and fragment's) ``%include`` at the shared copy."""
     moved = {rel: dst for dst, members in shared.items() for rel in members}
     pattern = re.compile(r'^([ \t]*)(%include\s+")([^"]+)(")', re.M)
 
     def swap(m):
         indent, rel = m.group(1), m.group(3)
-        return (_aliases(bindings.get(rel, ()), indent) + indent + m.group(2)
-                + moved.get(rel, rel) + m.group(4))
+        return indent + m.group(2) + moved.get(rel, rel) + m.group(4)
 
     for rel, text in list(files.items()):
         if not rel.endswith('.asm') or {'build_out', 'inc'} & set(
@@ -955,68 +652,7 @@ def _place_equs(files, out_dir):
         files[master] = '\n'.join(out)
 
 
-def _aliases(pairs, indent=''):
-    """The aligned ``equ`` lines for one shared copy's bindings."""
-    rows = [(own, common) if defined else (common, own)
-            for common, own, defined in pairs]
-    if not rows:
-        return ''
-    width = max(len(a) for a, _ in rows)
-    return ''.join(f'{indent}{a:<{width}} equ {b}\n' for a, b in rows)
-
-
-# ---------------------------------------------------------------------------
-# Unmerged-fragment audit
-#
-# The merger above only collapses copies it can spell identically (or alias by
-# a name both symbol tables know).  This audit is deliberately more aggressive:
-# it masks every label and every address-like memory displacement, so it names
-# the copies that *could* share once their labels are made to agree.  It is a
-# test-only check (``tests/test_unmerged.py``); the build is untouched.
-# ---------------------------------------------------------------------------
-
-#: A quoted string, a local label, an identifier, a number, or punctuation.
-_MASK_TOKEN = re.compile(
-    r"'(?:[^'\\]|\\.)*'"
-    r'|"(?:[^"\\]|\\.)*"'
-    r'|@[A-Za-z0-9_.@]*|\.[A-Za-z_][\w.]*'
-    r'|[A-Za-z_][\w.]*'
-    r'|0[xX][0-9a-fA-F]+'
-    r'|\d+'
-    r'|\S')
-
 _LABEL_DEF = re.compile(r'^([.@A-Za-z_][\w.@]*):\s*(.*)$')
-
-#: Registers never become symbols; memory addresses are only masked when the
-#: bracketed operand is not stack-relative.
-_REGISTERS = frozenset({
-    'al', 'ah', 'ax', 'bl', 'bh', 'bx', 'cl', 'ch', 'cx', 'dl', 'dh', 'dx',
-    'sil', 'spl', 'bpl', 'dil', 'si', 'di', 'sp', 'bp', 'esi', 'edi', 'esp',
-    'ebp', 'eax', 'ebx', 'ecx', 'edx', 'cs', 'ds', 'es', 'ss', 'fs', 'gs',
-})
-_ADDRESS_REGS = frozenset({
-    'ax', 'bx', 'cx', 'dx', 'si', 'di', 'bp', 'sp',
-    'eax', 'ebx', 'ecx', 'edx', 'esi', 'edi', 'ebp', 'esp',
-})
-_STACK_REGS = frozenset({'bp', 'sp', 'ebp', 'esp'})
-
-_KEYWORDS = frozenset({
-    'byte', 'word', 'dword', 'qword', 'short', 'near', 'far', 'ptr',
-    'offset', 'strict', 'rel', 'abs', 'equ', 'db', 'dw', 'dd', 'resb',
-    'resw', 'times', 'org', 'section', 'segment', 'ends', 'bits',
-})
-_PREFIXES = frozenset({'rep', 'repe', 'repne', 'repz', 'repnz', 'lock'})
-
-#: How many unique differences are shown per finding.
-_MAX_DIFFS = 16
-
-#: A bare immediate at or above this value is treated as an address by the
-#: separate immediate pass.  Code/data offsets in this project are above 0x100;
-#: smaller values are ordinary constants (``cmp ..., 0x16``).
-_ADDRESS_IMMEDIATE_MIN = 0x100
-
-_DIFF_NAMES = {'label': 'label', 'sym': 'symbol', 'addr': 'address',
-               'immediate': 'immediate'}
 
 
 def _strip_comment(line):
@@ -1033,188 +669,6 @@ def _strip_comment(line):
     return line
 
 
-def _mask_stream(text, *, data, mask_immediates=False):
-    """``(stream, key, lines)`` for one fragment.
-
-    *stream* is ``[(kind, key_value, raw, lineno)]``; *key* drops the raw
-    spellings.  A label is a named definition, ``local`` a ``@..x.lN``, ``sym``
-    an operand name, ``addr`` a non-stack memory displacement, ``immediate`` a
-    bare value the separate address-immediate pass may name, and ``lit``
-    everything that must match exactly (mnemonic, register, keyword, number,
-    string).
-    """
-    stream = []
-    maps = {'label': {}, 'local': {}, 'sym': {}, 'addr': {}}
-    lines = 0
-
-    def put(kind, raw, lineno):
-        if kind == 'immediate':
-            # One placeholder: adding a maskable immediate may merge groups,
-            # never split one that the name/memory pass already matched.
-            stream.append((kind, None, raw, lineno))
-        elif kind in maps:
-            index = maps[kind].setdefault(raw, len(maps[kind]))
-            stream.append((kind, index, raw, lineno))
-        else:
-            stream.append((kind, raw, raw, lineno))
-
-    for lineno, line in enumerate(text.split('\n'), 1):
-        code = _strip_comment(line).strip()
-        if not code or code.startswith('%'):
-            continue
-        label = _LABEL_DEF.match(code)
-        if label:
-            name, rest = label.groups()
-            put('local' if name.startswith(('@', '.')) else 'label', name, lineno)
-            code = rest.strip()
-            if not code:
-                continue
-        lines += 1
-        tokens = _MASK_TOKEN.findall(code)
-        first, prefix = True, False
-        depth = 0
-        bases = []
-        for token in tokens:
-            low = token.lower()
-            if token == '[':
-                depth += 1
-                bases.append(set())
-            elif token == ']':
-                if depth:
-                    depth -= 1
-                    bases.pop()
-            elif token[0] in "'\"":
-                put('lit', token, lineno)
-            elif token.startswith(('@', '.')):
-                put('local', token, lineno)
-            elif re.match(r'[A-Za-z_]', token):
-                if low in _REGISTERS:
-                    put('lit', token, lineno)
-                    if depth and low in _ADDRESS_REGS:
-                        bases[-1].add(low)
-                elif low in _KEYWORDS:
-                    put('lit', token, lineno)
-                elif first or prefix:
-                    put('lit', token, lineno)
-                    prefix = low in _PREFIXES
-                else:
-                    put('sym', token, lineno)
-            elif re.match(r'0[xX]', token) or token.isdigit():
-                value = int(token, 16) if token.lower().startswith('0x') \
-                    else int(token)
-                if depth and not data and not (_STACK_REGS & bases[-1]):
-                    put('addr', token, lineno)
-                elif (mask_immediates and not data
-                      and value >= _ADDRESS_IMMEDIATE_MIN):
-                    put('immediate', token, lineno)
-                else:
-                    put('lit', token, lineno)
-            else:
-                put('lit', token, lineno)
-            first = False
-    key = tuple((kind, value) for kind, value, _raw, _line in stream)
-    return stream, key, lines
-
-
-@dataclass(frozen=True)
-class _Fragment:
-    rel: str
-    binary: str
-    stem: str
-    data: bool
-    text: str
-    stream: tuple
-    key: tuple
-    size: int
-
-
-@dataclass(frozen=True)
-class _Diff:
-    kind: str
-    line: int
-    spellings: tuple
-
-
-@dataclass(frozen=True)
-class _Finding:
-    kind: str                     # code | data | collision | twin
-    stem: str
-    members: tuple = ()
-    target: str = ''
-    diffs: tuple = ()
-    more: int = 0
-    bodies: tuple = ()
-
-
-def _audit_files(out_dir):
-    """``[(relative path, text)]`` of every fragment the audit compares.
-
-    Generated binary fragments and every ``shared/`` file are included.  A
-    hand-written source is irrelevant here: generated asm it owns is still
-    compared (``ega/table_entry_ptr.asm`` is the current example).
-    """
-    for root, dirs, names in os.walk(out_dir):
-        dirs[:] = [d for d in dirs
-                   if d not in ('build_out', 'inc', 'include', '.git')]
-        for name in sorted(names):
-            if not name.endswith('.asm'):
-                continue
-            path = os.path.join(root, name)
-            rel = os.path.relpath(path, out_dir)
-            if rel.count(os.sep) < 1:
-                continue
-            top = rel.split(os.sep, 1)[0]
-            if top != FOLDER and not is_generated(path):
-                continue
-            yield rel.replace(os.sep, '/'), _read(path)
-
-
-def _audit_fragments(out_dir):
-    for rel, text in _audit_files(out_dir):
-        data = '/data/' in rel
-        stream, key, lines = _mask_stream(text, data=data)
-        if not stream:
-            continue
-        yield _Fragment(
-            rel=rel,
-            binary=rel.split('/', 1)[0],
-            stem=_stem(rel),
-            data=data,
-            text=text,
-            stream=tuple(stream),
-            key=key,
-            size=lines,
-        )
-
-
-def _spans_binaries(members, served=frozenset(), hosts=None):
-    """True when *members* still have two places a shared file could serve.
-
-    *served* is ``{(binary, shared rel)}`` its master already includes: that
-    binary has its one copy, and its other copies cannot also share.
-
-    *hosts* is :func:`_host_split`'s ``(host, overlays)``.  An overlay sees the
-    host only as a list of addresses, so a host copy and an overlay copy cannot
-    share one file: it would define the same labels twice in the overlay, and
-    the callee names would mean different things in each program.  When the
-    group has an overlay copy (its own, or a shared file an overlay includes)
-    the host's copies are not candidates.
-    """
-    if hosts:
-        host, overlays = hosts
-        if any(m.binary in overlays
-               or (m.binary == FOLDER
-                   and any((o, m.rel) in served for o in overlays))
-               for m in members):
-            members = [m for m in members if m.binary != host
-                       and not (m.binary == FOLDER
-                                and (host, m.rel) in served)]
-    shared = {m.rel for m in members if m.binary == FOLDER}
-    binaries = {m.binary for m in members if m.binary != FOLDER
-                and not any((m.binary, rel) in served for rel in shared)}
-    return len(binaries) >= 2 or bool(binaries and shared)
-
-
 def _masters_including(out_dir, pattern):
     """``{master binary: [included path, ...]}`` for ``%include`` of *pattern*."""
     include = re.compile(rf'^[ \t]*%include\s+"({pattern})"', re.M)
@@ -1224,14 +678,6 @@ def _masters_including(out_dir, pattern):
         if name.endswith('.asm') and os.path.isfile(path):
             found[name[:-4]] = include.findall(_read(path))
     return found
-
-
-def _included(out_dir):
-    """``{(binary, shared rel)}`` for every shared file a master includes."""
-    return {(binary, rel)
-            for binary, rels in _masters_including(
-                out_dir, f'{FOLDER}/[^"]+').items()
-            for rel in rels}
 
 
 def _host_split(out_dir):
@@ -1248,230 +694,3 @@ def _host_split(out_dir):
         binary for binary, rels in _masters_including(
             out_dir, 'include/host_symbols\\.inc').items() if rels)
     return (host.group(1) if host else None), overlays
-
-
-def _target(members, data, drivers=frozenset()):
-    shared = next((m for m in members if m.binary == FOLDER), None)
-    if shared:
-        return shared.rel
-    first = members[0]
-    if data:
-        return f'{FOLDER}/data/{first.stem}.asm'
-    return f'{FOLDER}/{_band((m.rel for m in members), drivers)}/{first.stem}.asm'
-
-
-def _diffs(members):
-    """``(diffs, hidden count)``: the actionable name/address differences."""
-    base = members[0]
-    seen, out = set(), []
-    for frag in members[1:]:
-        for i, (a, b) in enumerate(zip(base.stream, frag.stream)):
-            if a[0] != b[0] or a[2] == b[2] or a[0] not in _DIFF_NAMES:
-                continue
-            spellings = tuple((m.rel, m.stream[i][2]) for m in members)
-            key = (a[0], spellings)
-            if key in seen:
-                continue
-            seen.add(key)
-            out.append(_Diff(_DIFF_NAMES[a[0]], a[3], spellings))
-    out.sort(key=lambda d: (d.line, d.kind, d.spellings))
-    return tuple(out[:_MAX_DIFFS]), max(0, len(out) - _MAX_DIFFS)
-
-
-def _is_bare_return(text):
-    """True for a body that is a lone ``ret``: nothing to tell copies apart.
-
-    Such a stub is only ever the same function as a copy of the same name;
-    matched by code alone, every empty routine would fold into one.
-    """
-    code = [c for c in (_strip_comment(line).strip()
-                        for line in text.split('\n'))
-            if c and not _LABEL_DEF.match(c)]
-    return code == ['ret']
-
-
-def _findings(frags, served=frozenset(), hosts=None, drivers=frozenset()):
-    code, data = defaultdict(list), defaultdict(lambda: defaultdict(list))
-    for frag in frags:
-        if frag.data:
-            stem = (f'{frag.binary}/{frag.stem}' if binary_local(frag.rel)
-                    else frag.stem)
-            data[stem][frag.key].append(frag)
-        elif _is_bare_return(frag.text):
-            code[('ret', frag.stem)].append(frag)
-        else:
-            code[frag.key].append(frag)
-    findings = []
-    for group in code.values():
-        if len(group) < 2 or not _spans_binaries(group, served, hosts):
-            continue
-        group = tuple(sorted(group, key=lambda f: (f.binary != FOLDER, f.rel)))
-        diffs, more = _diffs(group)
-        findings.append(_Finding('code', group[0].stem, group,
-                                 _target(group, False, drivers), diffs, more))
-    for stem, bodies in data.items():
-        involved = {f.binary for body in bodies.values() for f in body}
-        binaries = involved - {FOLDER}
-        if len(bodies) > 1:
-            if len(binaries) >= 2 or (binaries and FOLDER in involved):
-                ordered = tuple(tuple(sorted(body, key=lambda f: f.rel))
-                                for body in sorted(bodies.values(),
-                                                   key=lambda body: min(
-                                                       f.rel for f in body)))
-                members = tuple(f for body in ordered for f in body)
-                findings.append(_Finding('collision', stem, members,
-                                         bodies=ordered))
-            continue
-        group = next(iter(bodies.values()))
-        if not _spans_binaries(group, served, hosts):
-            continue
-        group = tuple(sorted(group, key=lambda f: (f.binary != FOLDER, f.rel)))
-        diffs, more = _diffs(group)
-        findings.append(_Finding('data', stem, group,
-                                 _target(group, True, drivers), diffs, more))
-    return _sort_findings(findings)
-
-
-def _immediate_findings(frags, served=frozenset(), hosts=None,
-                        drivers=frozenset()):
-    """Address-immediate groups: the same code with a bare address named."""
-    groups = defaultdict(list)
-    for frag in frags:
-        groups[frag.key].append(frag)
-    findings = []
-    for group in groups.values():
-        if len(group) < 2 or not _spans_binaries(group, served, hosts):
-            continue
-        group = tuple(sorted(group, key=lambda f: (f.binary != FOLDER, f.rel)))
-        diffs, more = _diffs(group)
-        findings.append(_Finding('immediate', group[0].stem, group,
-                                 _target(group, False, drivers), diffs, more))
-    return findings
-
-
-def _sort_findings(findings):
-    findings.sort(key=lambda f: (
-        {'code': 0, 'immediate': 1, 'data': 2, 'collision': 3,
-         'twin': 4}[f.kind],
-        -len(f.members), f.stem))
-    return findings
-
-
-#: A master's ``equ`` giving one content-tagged name another of its base
-#: (``api_idx_0012_RLJJ equ api_idx_0012_PGSL``).
-_TWIN_ALIAS = re.compile(
-    r'^[ \t]*((\S+?)_([G-V]{4})(?:_[0-9a-f]+)?)[ \t]+equ[ \t]+'
-    r'((\S+?)_([G-V]{4})(?:_[0-9a-f]+)?)[ \t]*$', re.M)
-
-
-def _twin_findings(out_dir):
-    """Shared code its copies hashed differently (:func:`lib.names.content_tag`).
-
-    Diagnostic only: the copies already share one file, each binary's own
-    tag an ``equ`` of it.  The tag hashes bytes the layout moves (a table's
-    address, say), so the names stay apart; sharing goes by the code.
-    """
-    findings = []
-    for name in sorted(os.listdir(out_dir)):
-        path = os.path.join(out_dir, name)
-        if not (name.endswith('.asm') and os.path.isfile(path)):
-            continue
-        for match in _TWIN_ALIAS.finditer(_read(path)):
-            own, base, tag, common, other, other_tag = match.groups()
-            if base == other and tag != other_tag:
-                findings.append(_Finding('twin', own, target=common,
-                                         bodies=(name[:-4],)))
-    return findings
-
-
-def scan(out_dir):
-    """Every unmerged code/data group and data-name collision under *out_dir*,
-    and every shared routine whose copies carry different content tags.
-
-    Address-like immediates are a second pass so they cannot split a group the
-    name/memory pass already matched: a group reported as ``code`` is excluded,
-    and every remaining code fragment is regrouped with immediates at or above
-    :data:`_ADDRESS_IMMEDIATE_MIN` masked.
-    """
-    frags = list(_audit_fragments(out_dir))
-    served = _included(out_dir)
-    hosts = _host_split(out_dir)
-    drivers = _drivers(out_dir)
-    findings = _findings(frags, served, hosts, drivers)
-    covered = {m.rel for f in findings if f.kind == 'code' for m in f.members}
-    immediate = []
-    for frag in frags:
-        if (frag.data or frag.binary == FOLDER or frag.rel in covered
-                or _is_bare_return(frag.text)):
-            continue
-        stream, key, lines = _mask_stream(frag.text, data=False,
-                                          mask_immediates=True)
-        immediate.append(_Fragment(frag.rel, frag.binary, frag.stem, False,
-                                   frag.text, tuple(stream), key, lines))
-    findings.extend(_immediate_findings(immediate, served, hosts, drivers))
-    findings.extend(_twin_findings(out_dir))
-    return _sort_findings(findings)
-
-
-def _sample_line(frag):
-    """The first non-label line of a data body, for a collision report."""
-    for line in frag.text.split('\n'):
-        code = _strip_comment(line).strip()
-        if code and not _LABEL_DEF.match(code):
-            return code[:100]
-    return ''
-
-
-def report(findings):
-    """The human-readable failure text for :func:`scan`."""
-    if not findings:
-        return ''
-    counts = defaultdict(int)
-    for finding in findings:
-        counts[finding.kind] += 1
-    lines = [f'{len(findings)} unmerged finding(s): '
-             f'{counts["code"]} code group(s), '
-             f'{counts["immediate"]} address-immediate group(s), '
-             f'{counts["data"]} data group(s), '
-             f'{counts["collision"]} data name collision(s), '
-             f'{counts["twin"]} twin-tag alias(es)']
-    for finding in findings:
-        lines.append('')
-        if finding.kind == 'collision':
-            lines.append(f'data name collision: {finding.stem} '
-                         f'({len(finding.bodies)} bodies)')
-            for number, body in enumerate(finding.bodies, 1):
-                lines.append(f'  body {number}: '
-                             + ', '.join(m.rel for m in body))
-                sample = _sample_line(body[0])
-                if sample:
-                    lines.append(f'      {sample}')
-            continue
-        if finding.kind == 'twin':
-            lines.append(f'twin-tag alias (already shared): '
-                         f'{finding.bodies[0]}: '
-                         f'{finding.stem} equ {finding.target}')
-            continue
-        if finding.kind == 'immediate':
-            noun, unit = 'address-immediate', 'instructions'
-        elif finding.kind == 'code':
-            noun, unit = 'code', 'instructions'
-        else:
-            noun, unit = 'data', 'lines'
-        lines.append(f'unmerged {noun}: {len(finding.members)} copies, '
-                     f'{finding.members[0].size} {unit} -> {finding.target}')
-        for member in sorted(finding.members,
-                             key=lambda m: (m.binary != FOLDER, m.rel)):
-            tag = ' [shared]' if member.binary == FOLDER else ''
-            lines.append(f'  {member.rel}{tag}')
-        for diff in finding.diffs:
-            spellings = ' | '.join(raw for _rel, raw in diff.spellings)
-            lines.append(f'  {diff.kind:<7} {spellings}')
-        if finding.more:
-            lines.append(f'  ... {finding.more} more difference(s)')
-    return '\n'.join(lines)
-
-
-def unmerged_report(out_dir):
-    """``report(scan(out_dir))``: the audit's failure text, or ``''``."""
-    return report(scan(out_dir))

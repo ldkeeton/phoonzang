@@ -25,7 +25,7 @@ IMAGE_BASE equ 0x000e + VBASE
     dw aztec_ovbgn - IMAGE_BASE + __zres_end ; 0x8757 ; o_entry: overlay entry offset (CS)
 
 __zcode_start:
-dseg_9098 equ __zdseg_end + (__zdseg_9098 - __zdata_start)
+api_idx_005e_RKOR_dseg92 equ __zdseg_end + (__zdseg_9098 - __zdata_start)
 space_text equ __zdseg_end + (__zspace_text - __zdata_start)
 screen_temp_name equ __zdseg_end + (__zscreen_temp_name - __zdata_start)
 save_si equ __zdseg_end + (__zsave_si - __zdata_start)
@@ -59,15 +59,13 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "vmele/pick_target_slot.asm"      ; 0x041d
 
-api_idx_005e_RKOR       equ api_idx_005e_OJVJ
-api_idx_005e_OJVJ.dseg1 equ dseg_9098
-%include "shared/ovr/api_idx_005e_OJVJ.asm"     ; 0x0649
+%include "shared/ovr/api_idx_005e_RKOR.asm"     ; 0x0649
 
 %include "vmele/add_party_member.asm"      ; 0x07ad
 
 %include "vmele/copy_member_stats.asm"     ; 0x0c67
 
-%include "vmele/fill_action_slot_table_vmnpc.asm" ; 0x0f95
+%include "vmele/fill_action_slot_table.asm" ; 0x0f95
 
 %include "vmele/advance_member_cell_actions.asm" ; 0x11b0
 
@@ -89,7 +87,6 @@ api_idx_005e_OJVJ.dseg1 equ dseg_9098
 
 %include "vmele/advance_melee_item_slots.asm" ; 0x1f39
 
-advance_action_slots.fill_action_slot_table_vmnpc1 equ fill_action_slot_table_vmnpc
 %include "shared/ovr/advance_action_slots.asm"  ; 0x2138
 
 %include "shared/ovr/add_overlay_item.asm"      ; 0x245b
@@ -110,7 +107,6 @@ advance_action_slots.fill_action_slot_table_vmnpc1 equ fill_action_slot_table_vm
 
 %include "shared/ovr/api_idx_0006_LJUS.asm"     ; 0x2b78
 
-run_party_screen_animation.api_idx1 equ api_idx_0006_LJUS
 %include "shared/ovr/run_party_screen_animation.asm" ; 0x2cc7
 
 %include "vmele/play_action_overlays.asm"  ; 0x2cde
@@ -134,7 +130,7 @@ run_party_screen_animation.api_idx1 equ api_idx_0006_LJUS
 %include "shared/ovr/aztec_swapmem.asm"         ; 0x374e
 
 __zdata_start:
-%include "vmele/data/dseg_9098.asm"        ; 0x3773
+%include "vmele/data/api_idx_005e_RKOR_dseg92.asm"        ; 0x3773
 
 %include "vmele/data/space_text.asm"       ; 0x377d
 

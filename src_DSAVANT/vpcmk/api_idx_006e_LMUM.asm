@@ -120,7 +120,7 @@ api_idx_006e_LMUM:
     mov ax, MSG_LEARN                ; 0x3e7e
     push ax                          ; 0x3e81
     push word [bp + 4]               ; 0x3e82
-    call api_idx_0050_GSJV           ; 0x3e85
+    call api_idx_0050_SQVG           ; 0x3e85
     add sp, byte 8                   ; 0x3e88
     mov word [bp - 4], ax            ; 0x3e8b
     mov ax, 0x10                     ; 0x3e8e

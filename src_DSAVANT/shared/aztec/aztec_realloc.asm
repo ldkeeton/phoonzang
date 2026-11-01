@@ -160,7 +160,7 @@ aztec_malloc:
     and ax, strict word 0xfffe
     mov si, ax
     jmp near .back1
-aztec_realloc.loc1:
+ds_loc_LPSH:
     jmp near aztec_malloc.back2
 aztec_free:
     push bp

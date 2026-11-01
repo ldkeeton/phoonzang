@@ -6,14 +6,14 @@ api_idx_0012_PNUU:
     mov word [bp - 6], 0xffff
     mov ax, word [bp + 6]
     jmp near .forward34
-api_idx_0012_PNUU.jumptable_case1:
+jumptable_4404_case_8:
     cmp word [bp + 0x26], byte -1
     jne short api_idx_0012_PNUU.forward1
-    jmp near api_idx_0012_PNUU.jumptable_case2
+    jmp near jumptable_4404_case_3
 api_idx_0012_PNUU.forward1:
     cmp word [bp + 4], byte 0
     je short api_idx_0012_PNUU.forward2
-    jmp near api_idx_0012_PNUU.jumptable_case2
+    jmp near jumptable_4404_case_3
 api_idx_0012_PNUU.forward2:
     cmp word [bp + 6], byte 8
     jne short api_idx_0012_PNUU.forward3
@@ -74,9 +74,9 @@ api_idx_0012_PNUU.forward10:
     push word [bp - 2]
     mov ax, 0xfd
     push ax
-    call api_idx_0012_PNUU.api_idx1
+    call api_idx_0004_OVUO
     add sp, byte 0x1c
-api_idx_0012_PNUU.jumptable_case2:
+jumptable_4404_case_3:
     cmp word [bp + 6], byte 3
     je short api_idx_0012_PNUU.forward12
     jmp near api_idx_0012_PNUU.forward15
@@ -100,7 +100,7 @@ api_idx_0012_PNUU.forward13:
     mov ax, word [bp + 0x34]
     add ax, word [bp + 4]
     push ax
-    call api_idx_0012_PNUU.loc1
+    call loc_UMHI_2eac
     pop cx
     push ax
     mov ax, 0
@@ -117,12 +117,12 @@ api_idx_0012_PNUU.forward13:
     mov ax, word [bp + 0x34]
     add ax, word [bp + 4]
     push ax
-    call api_idx_0012_PNUU.loc2
+    call loc_LPLI_2ec0
     add sp, byte 4
     push ax
     mov ax, 0xfd
     push ax
-    call api_idx_0012_PNUU.api_idx1
+    call api_idx_0004_OVUO
     add sp, byte 0x1c
 api_idx_0012_PNUU.forward14:
     mov ax, word [bp + 0x32]
@@ -131,36 +131,36 @@ api_idx_0012_PNUU.forward14:
     mov ax, word [bp + 0x30]
     add ax, word [bp + 4]
     push ax
-    call api_idx_0012_PNUU.loc2
+    call loc_LPLI_2ec0
     add sp, byte 4
     mov word [bp - 4], ax
     mov ax, word [bp + 0x30]
     add ax, word [bp + 4]
     push ax
-    call api_idx_0012_PNUU.loc1
+    call loc_UMHI_2eac
     pop cx
     mov word [bp - 6], ax
 api_idx_0012_PNUU.forward15:
     cmp word [bp + 6], byte 6
-    jne short api_idx_0012_PNUU.jumptable_case3
+    jne short jumptable_4404_case_1
     cmp word [bp + 4], byte 4
-    jge short api_idx_0012_PNUU.jumptable_case3
+    jge short jumptable_4404_case_1
     mov ax, word [bp + 0x24]
     add ax, word [bp + 4]
     push ax
     mov ax, word [bp + 0x22]
     add ax, word [bp + 4]
     push ax
-    call api_idx_0012_PNUU.loc2
+    call loc_LPLI_2ec0
     add sp, byte 4
     mov word [bp - 4], ax
     mov ax, word [bp + 0x22]
     add ax, word [bp + 4]
     push ax
-    call api_idx_0012_PNUU.loc1
+    call loc_UMHI_2eac
     pop cx
     mov word [bp - 6], ax
-api_idx_0012_PNUU.jumptable_case3:
+jumptable_4404_case_1:
     cmp word [boundary_wall_variant], byte 0
     jne short api_idx_0012_PNUU.forward18
     cmp word [bp + 4], byte 4
@@ -177,7 +177,7 @@ api_idx_0012_PNUU.jumptable_case3:
     mov ax, word [bp + 0x1e]
     add ax, word [bp + 4]
     push ax
-    call api_idx_0012_PNUU.loc1
+    call loc_UMHI_2eac
     pop cx
     push ax
     mov ax, 0
@@ -193,12 +193,12 @@ api_idx_0012_PNUU.jumptable_case3:
     mov ax, word [bp + 0x1e]
     add ax, word [bp + 4]
     push ax
-    call api_idx_0012_PNUU.loc2
+    call loc_LPLI_2ec0
     add sp, byte 4
     push ax
     mov ax, 0xfd
     push ax
-    call api_idx_0012_PNUU.api_idx1
+    call api_idx_0004_OVUO
     add sp, byte 0x1c
 api_idx_0012_PNUU.forward17:
     jmp short api_idx_0012_PNUU.forward19
@@ -219,7 +219,7 @@ api_idx_0012_PNUU.forward18:
     mov ax, word [bp + 0x2c]
     add ax, word [bp + 4]
     push ax
-    call api_idx_0012_PNUU.loc1
+    call loc_UMHI_2eac
     pop cx
     push ax
     mov ax, 0
@@ -235,12 +235,12 @@ api_idx_0012_PNUU.forward18:
     mov ax, word [bp + 0x2c]
     add ax, word [bp + 4]
     push ax
-    call api_idx_0012_PNUU.loc2
+    call loc_LPLI_2ec0
     add sp, byte 4
     push ax
     mov ax, 0xfd
     push ax
-    call api_idx_0012_PNUU.api_idx1
+    call api_idx_0004_OVUO
     add sp, byte 0x1c
 api_idx_0012_PNUU.forward19:
     cmp word [bp + 0x26], byte -1
@@ -278,29 +278,29 @@ api_idx_0012_PNUU.forward21:
     push word [bp + 0x26]
     mov ax, 0xfd
     push ax
-    call api_idx_0012_PNUU.api_idx1
+    call api_idx_0004_OVUO
     add sp, byte 0x1c
 api_idx_0012_PNUU.forward22:
-    jmp near api_idx_0012_PNUU.jumptable_case4
-api_idx_0012_PNUU.jumptable_case5:
+    jmp near jumptable_4404_case_0
+jumptable_4404_case_7:
     cmp word [bp + 4], byte 4
-    jge short api_idx_0012_PNUU.jumptable_case6
+    jge short jumptable_4404_case_2
     mov ax, word [bp + 0x3a]
     add ax, word [bp + 4]
     push ax
     mov ax, word [bp + 0x38]
     add ax, word [bp + 4]
     push ax
-    call api_idx_0012_PNUU.loc2
+    call loc_LPLI_2ec0
     add sp, byte 4
     mov word [bp - 4], ax
     mov ax, word [bp + 0x38]
     add ax, word [bp + 4]
     push ax
-    call api_idx_0012_PNUU.loc1
+    call loc_UMHI_2eac
     pop cx
     mov word [bp - 6], ax
-api_idx_0012_PNUU.jumptable_case6:
+jumptable_4404_case_2:
     cmp word [boundary_wall_variant], byte 0
     jne short api_idx_0012_PNUU.forward25
     cmp word [bp + 4], byte 4
@@ -317,7 +317,7 @@ api_idx_0012_PNUU.jumptable_case6:
     mov ax, word [bp + 0x16]
     add ax, word [bp + 4]
     push ax
-    call api_idx_0012_PNUU.loc1
+    call loc_UMHI_2eac
     pop cx
     push ax
     mov ax, 0
@@ -333,12 +333,12 @@ api_idx_0012_PNUU.jumptable_case6:
     mov ax, word [bp + 0x16]
     add ax, word [bp + 4]
     push ax
-    call api_idx_0012_PNUU.loc2
+    call loc_LPLI_2ec0
     add sp, byte 4
     push ax
     mov ax, 0xfd
     push ax
-    call api_idx_0012_PNUU.api_idx1
+    call api_idx_0004_OVUO
     add sp, byte 0x1c
 api_idx_0012_PNUU.forward24:
     jmp near api_idx_0012_PNUU.forward31
@@ -379,7 +379,7 @@ api_idx_0012_PNUU.forward27:
     push word [bp - 4]
     mov ax, 0xfd
     push ax
-    call api_idx_0012_PNUU.api_idx1
+    call api_idx_0004_OVUO
     add sp, byte 0x1c
 api_idx_0012_PNUU.forward28:
     mov ax, 0
@@ -395,7 +395,7 @@ api_idx_0012_PNUU.forward28:
     mov ax, word [bp + 0x28]
     add ax, word [bp + 4]
     push ax
-    call api_idx_0012_PNUU.loc1
+    call loc_UMHI_2eac
     pop cx
     push ax
     mov ax, 0
@@ -412,12 +412,12 @@ api_idx_0012_PNUU.forward28:
     mov ax, word [bp + 0x28]
     add ax, word [bp + 4]
     push ax
-    call api_idx_0012_PNUU.loc2
+    call loc_LPLI_2ec0
     add sp, byte 4
     push ax
     mov ax, 0xfd
     push ax
-    call api_idx_0012_PNUU.api_idx1
+    call api_idx_0004_OVUO
     add sp, byte 0x1c
 api_idx_0012_PNUU.forward29:
     jmp short api_idx_0012_PNUU.forward31
@@ -439,7 +439,7 @@ api_idx_0012_PNUU.forward30:
     mov ax, word [bp + 0x3c]
     add ax, word [bp + 4]
     push ax
-    call api_idx_0012_PNUU.loc1
+    call loc_UMHI_2eac
     pop cx
     push ax
     mov ax, 0
@@ -456,16 +456,16 @@ api_idx_0012_PNUU.forward30:
     mov ax, word [bp + 0x3c]
     add ax, word [bp + 4]
     push ax
-    call api_idx_0012_PNUU.loc2
+    call loc_LPLI_2ec0
     add sp, byte 4
     push ax
     mov ax, 0xfd
     push ax
-    call api_idx_0012_PNUU.api_idx1
+    call api_idx_0004_OVUO
     add sp, byte 0x1c
 api_idx_0012_PNUU.forward31:
-    jmp near api_idx_0012_PNUU.jumptable_case4
-api_idx_0012_PNUU.jumptable_case7:
+    jmp near jumptable_4404_case_0
+jumptable_4404_case_4:
     cmp word [bp + 4], byte 4
     jge short api_idx_0012_PNUU.forward32
     mov ax, 0
@@ -481,7 +481,7 @@ api_idx_0012_PNUU.jumptable_case7:
     mov ax, word [bp + 0x1a]
     add ax, word [bp + 4]
     push ax
-    call api_idx_0012_PNUU.loc3
+    call loc_UMHI_2e84
     pop cx
     push ax
     mov ax, 0
@@ -498,16 +498,16 @@ api_idx_0012_PNUU.jumptable_case7:
     mov ax, word [bp + 0x1a]
     add ax, word [bp + 4]
     push ax
-    call api_idx_0012_PNUU.loc4
+    call loc_LPLI_2e98
     add sp, byte 4
     push ax
     mov ax, 0xfb
     push ax
-    call api_idx_0012_PNUU.api_idx1
+    call api_idx_0004_OVUO
     add sp, byte 0x1c
 api_idx_0012_PNUU.forward32:
-    jmp near api_idx_0012_PNUU.jumptable_case4
-api_idx_0012_PNUU.jumptable_case8:
+    jmp near jumptable_4404_case_0
+jumptable_4404_case_5:
     cmp word [bp + 4], byte 4
     jge short api_idx_0012_PNUU.forward33
     mov ax, 0
@@ -523,7 +523,7 @@ api_idx_0012_PNUU.jumptable_case8:
     mov ax, word [bp + 0x40]
     add ax, word [bp + 4]
     push ax
-    call api_idx_0012_PNUU.loc1
+    call loc_UMHI_2eac
     pop cx
     push ax
     mov ax, 0
@@ -540,39 +540,39 @@ api_idx_0012_PNUU.jumptable_case8:
     mov ax, word [bp + 0x40]
     add ax, word [bp + 4]
     push ax
-    call api_idx_0012_PNUU.loc2
+    call loc_LPLI_2ec0
     add sp, byte 4
     push ax
     mov ax, 0xfd
     push ax
-    call api_idx_0012_PNUU.api_idx1
+    call api_idx_0004_OVUO
     add sp, byte 0x1c
 api_idx_0012_PNUU.forward33:
-    jmp short api_idx_0012_PNUU.jumptable_case4
-api_idx_0012_PNUU.jumptable1:
-    dw api_idx_0012_PNUU.jumptable_case4 - IMAGE_BASE + __zres_end
-    dw api_idx_0012_PNUU.jumptable_case3 - IMAGE_BASE + __zres_end
-    dw api_idx_0012_PNUU.jumptable_case6 - IMAGE_BASE + __zres_end
-    dw api_idx_0012_PNUU.jumptable_case2 - IMAGE_BASE + __zres_end
-    dw api_idx_0012_PNUU.jumptable_case7 - IMAGE_BASE + __zres_end
-    dw api_idx_0012_PNUU.jumptable_case8 - IMAGE_BASE + __zres_end
-    dw api_idx_0012_PNUU.jumptable_case2 - IMAGE_BASE + __zres_end
-    dw api_idx_0012_PNUU.jumptable_case5 - IMAGE_BASE + __zres_end
-    dw api_idx_0012_PNUU.jumptable_case1 - IMAGE_BASE + __zres_end
-    dw api_idx_0012_PNUU.jumptable_case1 - IMAGE_BASE + __zres_end
-    dw api_idx_0012_PNUU.jumptable_case6 - IMAGE_BASE + __zres_end
-    dw api_idx_0012_PNUU.jumptable_case6 - IMAGE_BASE + __zres_end
-    dw api_idx_0012_PNUU.jumptable_case6 - IMAGE_BASE + __zres_end
-    dw api_idx_0012_PNUU.jumptable_case6 - IMAGE_BASE + __zres_end
-    dw api_idx_0012_PNUU.jumptable_case6 - IMAGE_BASE + __zres_end
-    dw api_idx_0012_PNUU.jumptable_case6 - IMAGE_BASE + __zres_end
+    jmp short jumptable_4404_case_0
+jumptable_4404:
+    dw jumptable_4404_case_0 - IMAGE_BASE + __zres_end
+    dw jumptable_4404_case_1 - IMAGE_BASE + __zres_end
+    dw jumptable_4404_case_2 - IMAGE_BASE + __zres_end
+    dw jumptable_4404_case_3 - IMAGE_BASE + __zres_end
+    dw jumptable_4404_case_4 - IMAGE_BASE + __zres_end
+    dw jumptable_4404_case_5 - IMAGE_BASE + __zres_end
+    dw jumptable_4404_case_3 - IMAGE_BASE + __zres_end
+    dw jumptable_4404_case_7 - IMAGE_BASE + __zres_end
+    dw jumptable_4404_case_8 - IMAGE_BASE + __zres_end
+    dw jumptable_4404_case_8 - IMAGE_BASE + __zres_end
+    dw jumptable_4404_case_2 - IMAGE_BASE + __zres_end
+    dw jumptable_4404_case_2 - IMAGE_BASE + __zres_end
+    dw jumptable_4404_case_2 - IMAGE_BASE + __zres_end
+    dw jumptable_4404_case_2 - IMAGE_BASE + __zres_end
+    dw jumptable_4404_case_2 - IMAGE_BASE + __zres_end
+    dw jumptable_4404_case_2 - IMAGE_BASE + __zres_end
 api_idx_0012_PNUU.forward34:
     cmp ax, strict word 0x10
-    jae short api_idx_0012_PNUU.jumptable_case4
+    jae short jumptable_4404_case_0
     xchg bx, ax
     shl bx, 1
-    jmp [cs:bx + api_idx_0012_PNUU.jumptable1 - IMAGE_BASE + __zres_end]
-api_idx_0012_PNUU.jumptable_case4:
+    jmp [cs:bx + jumptable_4404 - IMAGE_BASE + __zres_end]
+jumptable_4404_case_0:
     cmp word [bp + 4], byte 4
     jl short api_idx_0012_PNUU.forward36
     jmp near api_idx_0012_PNUU.return1
@@ -597,7 +597,7 @@ api_idx_0012_PNUU.forward40:
     mov word [bp - 0xc], 0xffff
     mov ax, word [bp + 6]
     jmp near api_idx_0012_PNUU.forward49
-api_idx_0012_PNUU.jumptable_case9:
+jumptable_4607_case_0:
     mov word [bp - 0xc], 9
     mov ax, word [bp + 4]
     mov cx, 4
@@ -621,7 +621,7 @@ api_idx_0012_PNUU.jumptable_case9:
     add ax, strict word 5
     mov word [bp - 0xa], ax
     jmp near api_idx_0012_PNUU.forward50
-api_idx_0012_PNUU.jumptable_case10:
+jumptable_4607_case_1:
     mov word [bp - 0xc], 9
     mov ax, word [bp + 4]
     mov cx, 4
@@ -648,7 +648,7 @@ api_idx_0012_PNUU.jumptable_case10:
 api_idx_0012_PNUU.forward41:
     mov word [bp - 0xa], ax
     jmp near api_idx_0012_PNUU.forward50
-api_idx_0012_PNUU.jumptable_case11:
+jumptable_4607_case_2:
     mov word [bp - 0xc], 0xa
     cmp word [boundary_wall_variant], byte 0
     jne short api_idx_0012_PNUU.forward42
@@ -732,7 +732,7 @@ api_idx_0012_PNUU.forward47:
     mov word [bp - 8], ax
     mov word [bp - 0xa], 0
     jmp short api_idx_0012_PNUU.forward50
-api_idx_0012_PNUU.jumptable_case12:
+jumptable_4607_case_4:
     mov word [bp - 0xc], 0xa
     mov ax, word [bp + 4]
     mov cx, 4
@@ -759,20 +759,20 @@ api_idx_0012_PNUU.jumptable_case12:
 api_idx_0012_PNUU.forward48:
     mov word [bp - 0xa], ax
     jmp short api_idx_0012_PNUU.forward50
-api_idx_0012_PNUU.jumptable2:
-    dw api_idx_0012_PNUU.jumptable_case9 - IMAGE_BASE + __zres_end
-    dw api_idx_0012_PNUU.jumptable_case10 - IMAGE_BASE + __zres_end
-    dw api_idx_0012_PNUU.jumptable_case11 - IMAGE_BASE + __zres_end
-    dw api_idx_0012_PNUU.jumptable_case11 - IMAGE_BASE + __zres_end
-    dw api_idx_0012_PNUU.jumptable_case12 - IMAGE_BASE + __zres_end
-    dw api_idx_0012_PNUU.jumptable_case12 - IMAGE_BASE + __zres_end
+jumptable_4607:
+    dw jumptable_4607_case_0 - IMAGE_BASE + __zres_end
+    dw jumptable_4607_case_1 - IMAGE_BASE + __zres_end
+    dw jumptable_4607_case_2 - IMAGE_BASE + __zres_end
+    dw jumptable_4607_case_2 - IMAGE_BASE + __zres_end
+    dw jumptable_4607_case_4 - IMAGE_BASE + __zres_end
+    dw jumptable_4607_case_4 - IMAGE_BASE + __zres_end
 api_idx_0012_PNUU.forward49:
     sub ax, strict word 0xa
     cmp ax, strict word 6
     jae short api_idx_0012_PNUU.forward50
     xchg bx, ax
     shl bx, 1
-    jmp [cs:bx + api_idx_0012_PNUU.jumptable2 - IMAGE_BASE + __zres_end]
+    jmp [cs:bx + jumptable_4607 - IMAGE_BASE + __zres_end]
 api_idx_0012_PNUU.forward50:
     cmp word [bp - 0xc], byte -1
     je short api_idx_0012_PNUU.return1
@@ -798,7 +798,7 @@ api_idx_0012_PNUU.forward50:
     push word [bp - 0x10]
     push word [bp - 0xe]
     push word [bp - 0xc]
-    call api_idx_0012_PNUU.api_idx1
+    call api_idx_0004_OVUO
     add sp, byte 0x1c
 api_idx_0012_PNUU.return1:
     ret

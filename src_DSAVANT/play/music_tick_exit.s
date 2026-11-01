@@ -51,9 +51,9 @@ codeseg	segment	byte public 'code'
 	procdef	music_tick_exit
 	mov	byte ptr cs:stream_running,0
 	cmp	byte ptr cs:play_device,1
-	jne	loc_RTLK_
+	jne	restore_and_return
 	outp	0388h,040h
-	entrdef	loc_RTLK
+restore_and_return:
 	pops	dx,es,si,cx,di,ds,ax,bx
 	ret
 	pend	music_tick_exit
@@ -78,7 +78,7 @@ codeseg	segment	byte public 'code'
 	dec	word ptr cs:restart_delay
 	jne	music_tick_exit_		;restart delay still counting
 	cmp	byte ptr cs:stream_running,1
-	je	loc_RTLK_		;already running
+	je	restore_and_return	;already running
 	mov	byte ptr cs:stream_running,1
 	mov	si,word ptr cs:stream_offset	;track offset saved by the loop command
 	movseg	ds,<word ptr cs:stream_segment>

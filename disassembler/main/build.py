@@ -52,7 +52,6 @@ from lib.sidecar.loader import load as load_sidecar
 from lib.sidecar.errors import SidecarError
 from lib.sidecar.patches import PatchError, finalize as finalize_patches
 from lib.shared import check_companions, companion_moves, reshare_partial, share_files
-from lib.symtab import project_tables
 
 from .options import APPS_DIR, PROJECT_ROOT
 from .projects import copy_assets, discover_binaries
@@ -212,13 +211,12 @@ def _records_path(project):
 
 def _record_configs(project, host):
     """``(names, configs)``: the host's data names by offset, and the
-    sidecar ``record`` of each host ``data_names`` entry that has one."""
+    layouts of the host's sidecar ``records`` by the offset of their object."""
     names = {off: str(sym) for off, sym in read_label_json(
         os.path.join(labels_dir(project), f'{host}_datanames.json')).items()}
     entry = ((load_sidecar(project) or {}).get('binaries') or {}).get(host) or {}
-    configs = {int(key, 16): info['record']
-               for key, info in (entry.get('data_names') or {}).items()
-               if isinstance(info, dict) and 'record' in info}
+    configs = {int(info['at'], 16): {'name': struct, **info}
+               for struct, info in (entry.get('records') or {}).items()}
     return names, configs
 
 
@@ -237,8 +235,8 @@ def _write_record_layouts(project, host, family, starts_path, report):
     """Unite the family's record accesses into one layout per object.
 
     The objects are the family's ``ds_starts`` union and the host's data
-    names; the sidecar's ``record`` on a host ``data_names`` entry names a
-    layout and its fields.  Returns how many layouts were written.
+    names; the host's sidecar ``records`` name a layout and its fields.
+    Returns how many layouts were written.
     """
     from lib import record_layout
     names, configs = _record_configs(project, host)
@@ -465,15 +463,14 @@ def _build_project(project, run_batch, nasm_batch, *, report=print,
         stagelog.step('project.sidecar_use', 0, 'measure',
             why='a build-wide sidecar entry is applied by some binary or is stale')
 
-        # 5. one copy of every routine binaries share (names aside), in shared/
+        # 5. one copy of every routine binaries share, in shared/
         progress.log(f'{project} | sharing identical routines')
-        files, shared = share_files(merge_files(emitted), out_dir,
-                                    project_tables(project))
+        files, shared = share_files(merge_files(emitted), out_dir)
         if shared:
             report(f'  Shared: {sum(len(v) for v in shared.values())} '
                    f'fragments -> {len(shared)} files in shared/')
         stagelog.step('project.share_identical', 0, 'repair', repairs='project.consumers',
-            why='fragments of different binaries alike but for names collapse into shared/',
+            why='identical fragments of different binaries collapse into shared/',
             metrics={'shared_files': len(shared or {}),
                      'fragments': sum(len(v) for v in (shared or {}).values())})
 
@@ -509,8 +506,7 @@ def _build_project(project, run_batch, nasm_batch, *, report=print,
             # partial one keys on the old masters' names, so a routine
             # renamed in this build would leave shared/ for each binary.
             if set(emitted) >= set(bins):
-                files, _ = share_files(merge_files(emitted), out_dir,
-                                       project_tables(project))
+                files, _ = share_files(merge_files(emitted), out_dir)
             else:
                 files, _, _ = reshare_partial(merge_files(emitted), out_dir)
             files = {rel: text for rel, text in files.items()

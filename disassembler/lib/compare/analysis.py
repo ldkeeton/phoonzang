@@ -2,7 +2,7 @@
 
 from capstone import Cs, CS_ARCH_X86, CS_MODE_16, CS_OP_IMM
 from lib.names import is_address_label, is_data, is_label, loc_name
-from lib.symtab import Symbol
+from lib.symtab import GENERIC, Kind, Symbol
 
 
 def _compute_func_boundaries(label_map, binary_data):
@@ -235,9 +235,44 @@ def _local_branch_targets(branch_targets, owners, edge_sources,
     return local
 
 
+def _fragment_local_targets(branch_targets, owners, edge_sources,
+                            function_roots, split_ranges, label_map):
+    """``{target: first owner}`` for jumps shared by routines of one fragment.
+
+    ``strcat`` and ``strncat`` jump to one label in one file: the label has two
+    owners, but nothing outside the file sees it, so it is as local as any other
+    and belongs to the fragment's first routine.  A case label or a name someone
+    chose stays as it is.
+    """
+    def fragment_of(offset):
+        for start, end, _ in split_ranges:
+            if start <= offset < end:
+                return start
+        return None
+
+    roots = set(function_roots or ())
+    out = {}
+    for target in branch_targets or ():
+        target_owners = owners.get(target, ())
+        sources = edge_sources.get(target)
+        if len(target_owners) < 2 or not sources or target in roots:
+            continue
+        name = (label_map or {}).get(target)
+        if name is not None and (name.kind is not Kind.LABEL
+                                 or name.source not in GENERIC
+                                 or name.role == 'case'):
+            continue
+        fragment = fragment_of(target)
+        if fragment is not None and all(
+                fragment_of(at) == fragment
+                for at in {*target_owners, *sources}):
+            out[target] = min(target_owners)
+    return out
+
+
 def _compute_local_labels(local_targets, owners, function_roots, label_map,
                           fragment_names=None, split_ranges=None,
-                          instructions=(), branch_edges=()):
+                          instructions=(), branch_edges=(), shared_targets=None):
     """Return local assembly names for branch targets with unique owners.
 
     A local label lives in its owner's fragment.  With *split_ranges*, a target
@@ -251,7 +286,11 @@ def _compute_local_labels(local_targets, owners, function_roots, label_map,
     Names describe direct return instructions, backward branch targets within
     the owner, or other targets, with a separate address-ordered counter for
     each role. A backward target is not necessarily a loop header.
+    *shared_targets* is :func:`_fragment_local_targets`.
     """
+    shared_targets = shared_targets or {}
+    if shared_targets:
+        owners = {**owners, **{t: {o} for t, o in shared_targets.items()}}
     def fragment_of(offset):
         for start, end, _ in split_ranges or ():
             if start <= offset < end:
@@ -262,11 +301,12 @@ def _compute_local_labels(local_targets, owners, function_roots, label_map,
     backward_targets = {
         target for source, target in branch_edges
         if target < source and len(owners.get(target, ())) == 1
-        and owners.get(source) == owners.get(target)
+        and (owners.get(source) == owners.get(target)
+             or target in shared_targets)
     }
     local_labels = {}
     named_counts = {}
-    for off in sorted(local_targets or ()):
+    for off in sorted({*(local_targets or ()), *shared_targets}):
         if off in (label_map or {}):
             continue
         owner_set = owners.get(off, set())

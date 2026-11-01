@@ -58,7 +58,7 @@ maze_sound_pair_state equ __zdseg_end + (__zobss_9198 - __zdata_start)
 maze_refresh_deadline equ __zdseg_end + (__zobss_919a - __zdata_start)
 maze_refresh_deadline_high equ __zdseg_end + (__zobss_919c - __zdata_start)
 save_location_flag equ __zdseg_end + (__zobss_919e - __zdata_start)
-bss_91a0 equ __zdseg_end + (__zobss_91a0 - __zdata_start)
+api_idx_0030_KNRH_bss7087 equ __zdseg_end + (__zobss_91a0 - __zdata_start)
 boundary_wall_open equ __zdseg_end + (__zobss_91a6 - __zdata_start)
 location_changed equ __zdseg_end + (__zobss_91a8 - __zdata_start)
 bss_91aa equ __zdseg_end + (__zobss_91aa - __zdata_start)
@@ -67,60 +67,60 @@ bss_91ae equ __zdseg_end + (__zobss_91ae - __zdata_start)
 party_region_level_saved equ __zdseg_end + (__zobss_91b0 - __zdata_start)
 maze_message_refresh_pending equ __zdseg_end + (__zobss_91b2 - __zdata_start)
 bss_91b4 equ __zdseg_end + (__zobss_91b4 - __zdata_start)
-bss_91b6 equ __zdseg_end + (__zobss_91b6 - __zdata_start)
-bss_91bc equ __zdseg_end + (__zobss_91bc - __zdata_start)
-bss_91c2 equ __zdseg_end + (__zobss_91c2 - __zdata_start)
-bss_91c8 equ __zdseg_end + (__zobss_91c8 - __zdata_start)
-bss_91d0 equ __zdseg_end + (__zobss_91d0 - __zdata_start)
-bss_91d2 equ __zdseg_end + (__zobss_91d2 - __zdata_start)
+api_idx_0030_KNRH_bss7228 equ __zdseg_end + (__zobss_91b6 - __zdata_start)
+api_idx_0030_KNRH_bss7284 equ __zdseg_end + (__zobss_91bc - __zdata_start)
+api_idx_0030_KNRH_bss7323 equ __zdseg_end + (__zobss_91c2 - __zdata_start)
+api_idx_0030_KNRH_bss7154 equ __zdseg_end + (__zobss_91c8 - __zdata_start)
+loc_LPLI_2e98_bss20 equ __zdseg_end + (__zobss_91d0 - __zdata_start)
+loc_LPLI_2ec0_bss20 equ __zdseg_end + (__zobss_91d2 - __zdata_start)
 boundary_wall_variant equ __zdseg_end + (__zobss_91d4 - __zdata_start)
 cell_wall_override_disabled equ __zdseg_end + (__zobss_91d6 - __zdata_start)
-bss_91d8 equ __zdseg_end + (__zobss_91d8 - __zdata_start)
-bss_91da equ __zdseg_end + (__zobss_91da - __zdata_start)
-bss_91e4 equ __zdseg_end + (__zobss_91e4 - __zdata_start)
-bss_91f1 equ __zdseg_end + (__zobss_91f1 - __zdata_start)
-bss_91f3 equ __zdseg_end + (__zobss_91f3 - __zdata_start)
-bss_920a equ __zdseg_end + (__zobss_920a - __zdata_start)
-bss_920c equ __zdseg_end + (__zobss_920c - __zdata_start)
-bss_9211 equ __zdseg_end + (__zobss_9211 - __zdata_start)
-bss_9223 equ __zdseg_end + (__zobss_9223 - __zdata_start)
-bss_9225 equ __zdseg_end + (__zobss_9225 - __zdata_start)
-bss_923c equ __zdseg_end + (__zobss_923c - __zdata_start)
-bss_9240 equ __zdseg_end + (__zobss_9240 - __zdata_start)
-bss_926e equ __zdseg_end + (__zobss_926e - __zdata_start)
-bss_9272 equ __zdseg_end + (__zobss_9272 - __zdata_start)
-bss_92a0 equ __zdseg_end + (__zobss_92a0 - __zdata_start)
-bss_92a2 equ __zdseg_end + (__zobss_92a2 - __zdata_start)
-bss_92ba equ __zdseg_end + (__zobss_92ba - __zdata_start)
-bss_92be equ __zdseg_end + (__zobss_92be - __zdata_start)
-bss_92ec equ __zdseg_end + (__zobss_92ec - __zdata_start)
-bss_92f0 equ __zdseg_end + (__zobss_92f0 - __zdata_start)
-bss_931e equ __zdseg_end + (__zobss_931e - __zdata_start)
-bss_9320 equ __zdseg_end + (__zobss_9320 - __zdata_start)
-bss_9322 equ __zdseg_end + (__zobss_9322 - __zdata_start)
-bss_9324 equ __zdseg_end + (__zobss_9324 - __zdata_start)
-bss_9326 equ __zdseg_end + (__zobss_9326 - __zdata_start)
-bss_9328 equ __zdseg_end + (__zobss_9328 - __zdata_start)
-bss_9329 equ __zdseg_end + (__zobss_9329 - __zdata_start)
-bss_932a equ __zdseg_end + (__zobss_932a - __zdata_start)
-bss_932b equ __zdseg_end + (__zobss_932b - __zdata_start)
-bss_932c equ __zdseg_end + (__zobss_932c - __zdata_start)
-bss_932d equ __zdseg_end + (__zobss_932d - __zdata_start)
-bss_932e equ __zdseg_end + (__zobss_932e - __zdata_start)
-bss_932f equ __zdseg_end + (__zobss_932f - __zdata_start)
-bss_9330 equ __zdseg_end + (__zobss_9330 - __zdata_start)
-bss_9b18 equ __zdseg_end + (__zobss_9b18 - __zdata_start)
-bss_9b1a equ __zdseg_end + (__zobss_9b1a - __zdata_start)
-bss_9b34 equ __zdseg_end + (__zobss_9b34 - __zdata_start)
-bss_9b36 equ __zdseg_end + (__zobss_9b36 - __zdata_start)
-bss_9b38 equ __zdseg_end + (__zobss_9b38 - __zdata_start)
-bss_9b3a equ __zdseg_end + (__zobss_9b3a - __zdata_start)
-bss_9b3c equ __zdseg_end + (__zobss_9b3c - __zdata_start)
-bss_9b3e equ __zdseg_end + (__zobss_9b3e - __zdata_start)
-bss_9b40 equ __zdseg_end + (__zobss_9b40 - __zdata_start)
-bss_9b42 equ __zdseg_end + (__zobss_9b42 - __zdata_start)
-bss_9b44 equ __zdseg_end + (__zobss_9b44 - __zdata_start)
-bss_9b46 equ __zdseg_end + (__zobss_9b46 - __zdata_start)
+api_idx_0012_KQTQ_bss2257 equ __zdseg_end + (__zobss_91d8 - __zdata_start)
+api_idx_0008_PGTT_bss177 equ __zdseg_end + (__zobss_91da - __zdata_start)
+api_idx_0030_KNRH_bss6993 equ __zdseg_end + (__zobss_91e4 - __zdata_start)
+api_idx_0012_KQTQ_bss1037 equ __zdseg_end + (__zobss_91f1 - __zdata_start)
+api_idx_0008_PGTT_bss703 equ __zdseg_end + (__zobss_91f3 - __zdata_start)
+api_idx_0030_KNRH_bss714 equ __zdseg_end + (__zobss_920a - __zdata_start)
+api_idx_0008_PGTT_bss777 equ __zdseg_end + (__zobss_920c - __zdata_start)
+api_idx_0008_PGTT_bss798 equ __zdseg_end + (__zobss_9211 - __zdata_start)
+api_idx_0012_KQTQ_bss4209 equ __zdseg_end + (__zobss_9223 - __zdata_start)
+api_idx_0008_PGTT_bss1636 equ __zdseg_end + (__zobss_9225 - __zdata_start)
+api_idx_0012_KQTQ_bss2803 equ __zdseg_end + (__zobss_923c - __zdata_start)
+api_idx_0008_PGTT_bss1699 equ __zdseg_end + (__zobss_9240 - __zdata_start)
+api_idx_0012_KQTQ_bss135 equ __zdseg_end + (__zobss_926e - __zdata_start)
+api_idx_0008_PGTT_bss1762 equ __zdseg_end + (__zobss_9272 - __zdata_start)
+api_idx_0012_KQTQ_bss3553 equ __zdseg_end + (__zobss_92a0 - __zdata_start)
+api_idx_0008_PGTT_bss1826 equ __zdseg_end + (__zobss_92a2 - __zdata_start)
+api_idx_0012_KQTQ_bss2817 equ __zdseg_end + (__zobss_92ba - __zdata_start)
+api_idx_0008_PGTT_bss1906 equ __zdseg_end + (__zobss_92be - __zdata_start)
+api_idx_0012_KQTQ_bss149 equ __zdseg_end + (__zobss_92ec - __zdata_start)
+api_idx_0008_PGTT_bss1961 equ __zdseg_end + (__zobss_92f0 - __zdata_start)
+api_idx_0004_OVUO_bss26 equ __zdseg_end + (__zobss_931e - __zdata_start)
+api_idx_0004_OVUO_bss367 equ __zdseg_end + (__zobss_9320 - __zdata_start)
+api_idx_0004_OVUO_bss589 equ __zdseg_end + (__zobss_9322 - __zdata_start)
+api_idx_0004_OVUO_bss1238 equ __zdseg_end + (__zobss_9324 - __zdata_start)
+api_idx_0004_OVUO_bss1256 equ __zdseg_end + (__zobss_9326 - __zdata_start)
+api_idx_0004_OVUO_bss1166 equ __zdseg_end + (__zobss_9328 - __zdata_start)
+api_idx_0004_OVUO_bss1184 equ __zdseg_end + (__zobss_9329 - __zdata_start)
+api_idx_0004_OVUO_bss1202 equ __zdseg_end + (__zobss_932a - __zdata_start)
+api_idx_0004_OVUO_bss1220 equ __zdseg_end + (__zobss_932b - __zdata_start)
+api_idx_0004_OVUO_bss39 equ __zdseg_end + (__zobss_932c - __zdata_start)
+api_idx_0004_OVUO_bss1274 equ __zdseg_end + (__zobss_932d - __zdata_start)
+api_idx_0004_OVUO_bss57 equ __zdseg_end + (__zobss_932e - __zdata_start)
+api_idx_0004_OVUO_bss1292 equ __zdseg_end + (__zobss_932f - __zdata_start)
+api_idx_0004_OVUO_bss1310 equ __zdseg_end + (__zobss_9330 - __zdata_start)
+api_idx_0010_KRNM_bss1234 equ __zdseg_end + (__zobss_9b18 - __zdata_start)
+api_idx_0030_KNRH_bss789 equ __zdseg_end + (__zobss_9b1a - __zdata_start)
+api_idx_0030_KNRH_bss1076 equ __zdseg_end + (__zobss_9b34 - __zdata_start)
+api_idx_0030_KNRH_bss2708 equ __zdseg_end + (__zobss_9b36 - __zdata_start)
+api_idx_0030_KNRH_bss2817 equ __zdseg_end + (__zobss_9b38 - __zdata_start)
+api_idx_0030_KNRH_bss2824 equ __zdseg_end + (__zobss_9b3a - __zdata_start)
+api_idx_0030_KNRH_bss3062 equ __zdseg_end + (__zobss_9b3c - __zdata_start)
+api_idx_0030_KNRH_bss3117 equ __zdseg_end + (__zobss_9b3e - __zdata_start)
+api_idx_0030_KNRH_bss3184 equ __zdseg_end + (__zobss_9b40 - __zdata_start)
+api_idx_0030_KNRH_bss3239 equ __zdseg_end + (__zobss_9b42 - __zdata_start)
+api_idx_0030_KNRH_bss3300 equ __zdseg_end + (__zobss_9b44 - __zdata_start)
+api_idx_0030_KNRH_bss3361 equ __zdseg_end + (__zobss_9b46 - __zdata_start)
 maze_message_state equ __zdseg_end + (__zobss_9b48 - __zdata_start)
 object_search_active equ __zdseg_end + (__zobss_9b4a - __zdata_start)
 maze_message_row equ __zdseg_end + (__zobss_9b4c - __zdata_start)
@@ -203,10 +203,6 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "vmaze/api_idx_0004_IHHI.asm"     ; 0x13f7
 
-jumptable_1556_case_1  equ api_idx_0004_SMLK.jumptable_case1
-jumptable_1556_case_14 equ api_idx_0004_SMLK.jumptable_case2
-jumptable_1556_case_0  equ api_idx_0004_SMLK.jumptable_case3
-jumptable_1556         equ api_idx_0004_SMLK.jumptable1
 %include "shared/ovr/api_idx_0004_SMLK.asm"     ; 0x1504
 
 %include "vmaze/api_idx_000e_NSGM.asm"     ; 0x162b
@@ -231,171 +227,29 @@ jumptable_1556         equ api_idx_0004_SMLK.jumptable1
 
 %include "shared/ovr/get_west_cell_wall.asm"    ; 0x2e0c
 
-loc_UMHI_2e84      equ loc_UMHI_1913
-loc_UMHI_1913.bss1 equ bss_91d0
-%include "shared/ovr/loc_UMHI_1913.asm"         ; 0x2e84
+%include "shared/ovr/loc_UMHI_2e84.asm"         ; 0x2e84
 
-loc_LPLI_2e98      equ loc_LPLI_1927
-loc_LPLI_1927.bss1 equ bss_91d0
-%include "shared/ovr/loc_LPLI_1927.asm"         ; 0x2e98
+%include "shared/ovr/loc_LPLI_2e98.asm"         ; 0x2e98
 
-loc_UMHI_2eac      equ loc_UMHI_193b
-loc_UMHI_193b.bss1 equ bss_91d2
-%include "shared/ovr/loc_UMHI_193b.asm"         ; 0x2eac
+%include "shared/ovr/loc_UMHI_2eac.asm"         ; 0x2eac
 
-loc_LPLI_2ec0      equ loc_LPLI_194f
-loc_LPLI_194f.bss1 equ bss_91d2
-%include "shared/ovr/loc_LPLI_194f.asm"         ; 0x2ec0
+%include "shared/ovr/loc_LPLI_2ec0.asm"         ; 0x2ec0
 
 %include "shared/ovr/offset_relative_map_position.asm" ; 0x2ed4
 
 %include "shared/ovr/read_cell_kind_direction.asm" ; 0x2f55
 
-api_idx_0008_PGTT       equ api_idx_0008_NJHP
-jumptable_3000_case_0   equ api_idx_0008_NJHP.jumptable_case1
-jumptable_3000_case_3   equ api_idx_0008_NJHP.jumptable_case2
-jumptable_3000_case_1   equ api_idx_0008_NJHP.jumptable_case3
-api_idx_0008_NJHP.bss1  equ bss_91da
-jumptable_3000_case_5   equ api_idx_0008_NJHP.jumptable_case4
-jumptable_3000          equ api_idx_0008_NJHP.jumptable1
-jumptable_3082_case_0   equ api_idx_0008_NJHP.jumptable_case5
-jumptable_3082_case_1   equ api_idx_0008_NJHP.jumptable_case6
-jumptable_3082_case_2   equ api_idx_0008_NJHP.jumptable_case7
-jumptable_3082          equ api_idx_0008_NJHP.jumptable2
-jumptable_3111_case_1   equ api_idx_0008_NJHP.jumptable_case8
-jumptable_3111_case_2   equ api_idx_0008_NJHP.jumptable_case9
-api_idx_0008_NJHP.bss2  equ bss_91f3
-jumptable_3111_case_5   equ api_idx_0008_NJHP.jumptable_case10
-jumptable_3111_case_0   equ api_idx_0008_NJHP.jumptable_case11
-api_idx_0008_NJHP.bss3  equ bss_920c
-api_idx_0008_NJHP.bss4  equ bss_9211
-jumptable_3111          equ api_idx_0008_NJHP.jumptable3
-jumptable_3356_case_0   equ api_idx_0008_NJHP.jumptable_case12
-jumptable_3356_case_1   equ api_idx_0008_NJHP.jumptable_case13
-jumptable_3356_case_2   equ api_idx_0008_NJHP.jumptable_case14
-jumptable_3356_case_3   equ api_idx_0008_NJHP.jumptable_case15
-jumptable_3356_case_4   equ api_idx_0008_NJHP.jumptable_case16
-jumptable_3356_case_5   equ api_idx_0008_NJHP.jumptable_case17
-jumptable_3356_case_6   equ api_idx_0008_NJHP.jumptable_case18
-jumptable_3356_case_7   equ api_idx_0008_NJHP.jumptable_case19
-api_idx_0008_NJHP.bss5  equ bss_9225
-jumptable_3356_case_8   equ api_idx_0008_NJHP.jumptable_case20
-api_idx_0008_NJHP.bss6  equ bss_9240
-jumptable_3356_case_9   equ api_idx_0008_NJHP.jumptable_case21
-api_idx_0008_NJHP.bss7  equ bss_9272
-jumptable_3356_case_10  equ api_idx_0008_NJHP.jumptable_case22
-jumptable_3356_case_11  equ api_idx_0008_NJHP.jumptable_case23
-jumptable_3356_case_12  equ api_idx_0008_NJHP.jumptable_case24
-api_idx_0008_NJHP.bss8  equ bss_92a2
-jumptable_3356_case_13  equ api_idx_0008_NJHP.jumptable_case25
-jumptable_3356_case_14  equ api_idx_0008_NJHP.jumptable_case26
-api_idx_0008_NJHP.bss9  equ bss_92be
-jumptable_3356_case_15  equ api_idx_0008_NJHP.jumptable_case27
-api_idx_0008_NJHP.bss10 equ bss_92f0
-jumptable_3356_case_16  equ api_idx_0008_NJHP.jumptable_case28
-jumptable_3356          equ api_idx_0008_NJHP.jumptable4
-%include "shared/ovr/api_idx_0008_NJHP.asm"     ; 0x2f8e
+%include "shared/ovr/api_idx_0008_PGTT.asm"     ; 0x2f8e
 
-jumptable_340d_case_0  equ get_relative_cell_wall.jumptable_case1
-jumptable_340d_case_3  equ get_relative_cell_wall.jumptable_case2
-jumptable_340d_case_1  equ get_relative_cell_wall.jumptable_case3
-jumptable_340d_case_5  equ get_relative_cell_wall.jumptable_case4
-jumptable_340d         equ get_relative_cell_wall.jumptable1
-jumptable_3563_case_0  equ get_relative_cell_wall.jumptable_case5
-jumptable_3563_case_1  equ get_relative_cell_wall.jumptable_case6
-jumptable_3563_case_2  equ get_relative_cell_wall.jumptable_case7
-jumptable_3563_case_3  equ get_relative_cell_wall.jumptable_case8
-jumptable_3563_case_4  equ get_relative_cell_wall.jumptable_case9
-jumptable_3563_case_5  equ get_relative_cell_wall.jumptable_case10
-jumptable_3563_case_6  equ get_relative_cell_wall.jumptable_case11
-jumptable_3563_case_10 equ get_relative_cell_wall.jumptable_case12
-jumptable_3563_case_11 equ get_relative_cell_wall.jumptable_case13
-jumptable_3563         equ get_relative_cell_wall.jumptable2
 %include "shared/ovr/get_relative_cell_wall.asm" ; 0x33c0
 
-api_idx_0004_OVUO.bss1  equ bss_931e
-api_idx_0004_OVUO.bss2  equ bss_932c
-api_idx_0004_OVUO.bss3  equ bss_932e
-api_idx_0004_OVUO.bss4  equ bss_9320
-api_idx_0004_OVUO.bss5  equ bss_9322
-api_idx_0004_OVUO.bss6  equ bss_9328
-api_idx_0004_OVUO.bss7  equ bss_9329
-api_idx_0004_OVUO.bss8  equ bss_932a
-api_idx_0004_OVUO.bss9  equ bss_932b
-api_idx_0004_OVUO.bss10 equ bss_9324
-api_idx_0004_OVUO.bss11 equ bss_9326
-api_idx_0004_OVUO.bss12 equ bss_932d
-api_idx_0004_OVUO.bss13 equ bss_932f
-api_idx_0004_OVUO.bss14 equ bss_9330
 %include "shared/ovr/api_idx_0004_OVUO.asm"     ; 0x358c
 
-api_idx_0010_KRNM.loc1     equ loc_LPLI_2e98
-api_idx_0010_KRNM.loc2     equ loc_UMHI_2e84
-jumptable_3a86_case_1      equ api_idx_0010_KRNM.jumptable_case1
-api_idx_0010_KRNM.api_idx1 equ api_idx_0004_OVUO
-jumptable_3a86_case_0      equ api_idx_0010_KRNM.jumptable_case2
-jumptable_3a86_case_5      equ api_idx_0010_KRNM.jumptable_case3
-jumptable_3a86_case_2      equ api_idx_0010_KRNM.jumptable_case4
-jumptable_3a86_case_4      equ api_idx_0010_KRNM.jumptable_case5
-api_idx_0010_KRNM.bss1     equ bss_9b18
-jumptable_3a86             equ api_idx_0010_KRNM.jumptable1
-jumptable_3ed8_case_8      equ api_idx_0010_KRNM.jumptable_case6
-jumptable_3ed8_case_7      equ api_idx_0010_KRNM.jumptable_case7
-jumptable_3ed8_case_1      equ api_idx_0010_KRNM.jumptable_case8
-api_idx_0010_KRNM.bss2     equ bss_91d0
-jumptable_3ed8_case_0      equ api_idx_0010_KRNM.jumptable_case9
-jumptable_3ed8_case_5      equ api_idx_0010_KRNM.jumptable_case10
-jumptable_3ed8_case_10     equ api_idx_0010_KRNM.jumptable_case11
-jumptable_3ed8_case_11     equ api_idx_0010_KRNM.jumptable_case12
-jumptable_3ed8_case_12     equ api_idx_0010_KRNM.jumptable_case13
-jumptable_3ed8_case_14     equ api_idx_0010_KRNM.jumptable_case14
-jumptable_3ed8             equ api_idx_0010_KRNM.jumptable2
 %include "shared/ovr/api_idx_0010_KRNM.asm"     ; 0x3802
 
-jumptable_4404_case_8      equ api_idx_0012_PNUU.jumptable_case1
-jumptable_4404_case_3      equ api_idx_0012_PNUU.jumptable_case2
-api_idx_0012_PNUU.api_idx1 equ api_idx_0004_OVUO
-api_idx_0012_PNUU.loc1     equ loc_UMHI_2eac
-api_idx_0012_PNUU.loc2     equ loc_LPLI_2ec0
-jumptable_4404_case_1      equ api_idx_0012_PNUU.jumptable_case3
-jumptable_4404_case_0      equ api_idx_0012_PNUU.jumptable_case4
-jumptable_4404_case_7      equ api_idx_0012_PNUU.jumptable_case5
-jumptable_4404_case_2      equ api_idx_0012_PNUU.jumptable_case6
-jumptable_4404_case_4      equ api_idx_0012_PNUU.jumptable_case7
-api_idx_0012_PNUU.loc3     equ loc_UMHI_2e84
-api_idx_0012_PNUU.loc4     equ loc_LPLI_2e98
-jumptable_4404_case_5      equ api_idx_0012_PNUU.jumptable_case8
-jumptable_4404             equ api_idx_0012_PNUU.jumptable1
-jumptable_4607_case_0      equ api_idx_0012_PNUU.jumptable_case9
-jumptable_4607_case_1      equ api_idx_0012_PNUU.jumptable_case10
-jumptable_4607_case_2      equ api_idx_0012_PNUU.jumptable_case11
-jumptable_4607_case_4      equ api_idx_0012_PNUU.jumptable_case12
-jumptable_4607             equ api_idx_0012_PNUU.jumptable2
 %include "shared/ovr/api_idx_0012_PNUU.asm"     ; 0x3f56
 
-api_idx_0012_KQTQ          equ api_idx_0012_GMMP
-api_idx_0012_GMMP.bss1     equ bss_926e
-api_idx_0012_GMMP.bss2     equ bss_92ec
-api_idx_0012_GMMP.loc1     equ loc_UMHI_2eac
-api_idx_0012_GMMP.loc2     equ loc_LPLI_2ec0
-api_idx_0012_GMMP.api_idx1 equ api_idx_0004_OVUO
-api_idx_0012_GMMP.bss3     equ bss_91d0
-api_idx_0012_GMMP.bss4     equ bss_91f1
-api_idx_0012_GMMP.loc3     equ loc_LPLI_2e98
-api_idx_0012_GMMP.loc4     equ loc_UMHI_2e84
-api_idx_0012_GMMP.bss5     equ bss_91d8
-jumptable_4b6b_case_1      equ api_idx_0012_GMMP.jumptable_case1
-jumptable_4b6b_case_2      equ api_idx_0012_GMMP.jumptable_case2
-jumptable_4b6b_case_3      equ api_idx_0012_GMMP.jumptable_case3
-api_idx_0012_GMMP.bss6     equ bss_91d2
-jumptable_4b6b_case_4      equ api_idx_0012_GMMP.jumptable_case4
-jumptable_4b6b_case_0      equ api_idx_0012_GMMP.jumptable_case5
-jumptable_4b6b             equ api_idx_0012_GMMP.jumptable1
-api_idx_0012_GMMP.bss7     equ bss_923c
-api_idx_0012_GMMP.bss8     equ bss_92ba
-api_idx_0012_GMMP.bss9     equ bss_92a0
-api_idx_0012_GMMP.bss10    equ bss_9223
-%include "shared/ovr/api_idx_0012_GMMP.asm"     ; 0x4665
+%include "shared/ovr/api_idx_0012_KQTQ.asm"     ; 0x4665
 
 %include "shared/ovr/api_idx_0016_LHKK.asm"     ; 0x4f53
 
@@ -403,54 +257,8 @@ api_idx_0012_GMMP.bss10    equ bss_9223
 
 %include "shared/ovr/draw_clock_marker_glyph.asm" ; 0x529a
 
-api_idx_0030_KNRH          equ api_idx_0030_HINM
-api_idx_0030_HINM.bss1     equ bss_920a
-api_idx_0030_HINM.bss2     equ bss_91f1
-api_idx_0030_HINM.bss3     equ bss_91d8
-api_idx_0030_HINM.bss4     equ bss_9b1a
-api_idx_0030_HINM.bss5     equ bss_9223
-api_idx_0030_HINM.bss6     equ bss_92ba
-api_idx_0030_HINM.bss7     equ bss_92a0
-api_idx_0030_HINM.bss8     equ bss_923c
-api_idx_0030_HINM.bss9     equ bss_92ec
-api_idx_0030_HINM.bss10    equ bss_926e
-api_idx_0030_HINM.bss11    equ bss_9320
-api_idx_0030_HINM.bss12    equ bss_931e
-api_idx_0030_HINM.bss13    equ bss_9b34
-api_idx_0030_HINM.bss14    equ bss_91d2
-jumptable_59e2_case_1      equ api_idx_0030_HINM.jumptable_case1
-api_idx_0030_HINM.loc1     equ loc_UMHI_2eac
-api_idx_0030_HINM.loc2     equ loc_LPLI_2ec0
-jumptable_59e2_case_0      equ api_idx_0030_HINM.jumptable_case2
-jumptable_59e2_case_2      equ api_idx_0030_HINM.jumptable_case3
-jumptable_59e2_case_3      equ api_idx_0030_HINM.jumptable_case4
-jumptable_59e2_case_4      equ api_idx_0030_HINM.jumptable_case5
-jumptable_59e2_case_5      equ api_idx_0030_HINM.jumptable_case6
-jumptable_59e2_case_6      equ api_idx_0030_HINM.jumptable_case7
-jumptable_59e2             equ api_idx_0030_HINM.jumptable1
-api_idx_0030_HINM.bss15    equ bss_91d0
-api_idx_0030_HINM.bss16    equ bss_9b36
-api_idx_0030_HINM.bss17    equ bss_91da
-api_idx_0030_HINM.bss18    equ bss_9b38
-api_idx_0030_HINM.bss19    equ bss_9b3a
-api_idx_0030_HINM.api_idx1 equ api_idx_0008_PGTT
-api_idx_0030_HINM.bss20    equ bss_9b3c
-api_idx_0030_HINM.bss21    equ bss_9b3e
-api_idx_0030_HINM.bss22    equ bss_9b40
-api_idx_0030_HINM.bss23    equ bss_9b42
-api_idx_0030_HINM.bss24    equ bss_9b44
-api_idx_0030_HINM.bss25    equ bss_9b46
-api_idx_0030_HINM.bss26    equ bss_9b18
-api_idx_0030_HINM.api_idx2 equ api_idx_0012_KQTQ
-api_idx_0030_HINM.bss27    equ bss_91e4
-api_idx_0030_HINM.bss28    equ bss_91a0
-api_idx_0030_HINM.bss29    equ bss_91c8
-api_idx_0030_HINM.bss30    equ bss_91b6
-api_idx_0030_HINM.bss31    equ bss_91bc
-api_idx_0030_HINM.bss32    equ bss_91c2
-%include "shared/ovr/api_idx_0030_HINM.asm"     ; 0x53fd
+%include "shared/ovr/api_idx_0030_KNRH.asm"     ; 0x53fd
 
-redraw_maze_view.api_idx1 equ api_idx_0030_KNRH
 %include "shared/ovr/redraw_maze_view.asm"      ; 0x676c
 
 %include "shared/ovr/loc_MPHO.asm"              ; 0x678c
@@ -463,11 +271,6 @@ redraw_maze_view.api_idx1 equ api_idx_0030_KNRH
 
 %include "shared/ovr/api_idx_0006_POPS.asm"     ; 0x6960
 
-jumptable_6aab_case_0 equ log_maze_change.jumptable_case1
-jumptable_6aab_case_1 equ log_maze_change.jumptable_case2
-jumptable_6aab_case_5 equ log_maze_change.jumptable_case3
-jumptable_6aab_case_6 equ log_maze_change.jumptable_case4
-jumptable_6aab        equ log_maze_change.jumptable1
 %include "shared/ovr/log_maze_change.asm"       ; 0x69d6
 
 %include "vmaze/play_maze_sound_effect.asm" ; 0x6ac7
@@ -476,13 +279,11 @@ jumptable_6aab        equ log_maze_change.jumptable1
 
 %include "vmaze/wait_for_maze_input_or_refresh.asm" ; 0x6b5a
 
-flush_glyph_buffer.wait_for_maze_input_or_refresh1 equ wait_for_maze_input_or_refresh
-%include "shared/ovr/flush_glyph_buffer.asm"    ; 0x6c0a
+%include "vmaze/flush_glyph_buffer.asm"    ; 0x6c0a
 
 %include "vmaze/api_idx_0090_QKJQ.asm"     ; 0x6cc9
 
-process_scene_message_words.process_scene_message_controls1 equ api_idx_0090_QKJQ
-%include "shared/ovr/process_scene_message_words.asm" ; 0x6eb1
+%include "vmaze/process_scene_message_words.asm" ; 0x6eb1
 
 %include "vmaze/show_maze_message_sequence.asm" ; 0x6f14
 

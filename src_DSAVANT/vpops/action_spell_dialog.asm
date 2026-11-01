@@ -159,11 +159,11 @@ action_spell_dialog:
     mov ax, word [bp - 0xc]          ; 0x1e32
     add ax, strict word 0x5e         ; 0x1e35
     push ax                          ; 0x1e38
-    call loc_VGIT                    ; 0x1e39
+    call draw_spell_cost                    ; 0x1e39
     add sp, byte 0xa                 ; 0x1e3c
     push word [bp - 0x42]            ; 0x1e3f
     push word [bp + 4]               ; 0x1e42
-    call api_idx_0004_OQNP           ; 0x1e45
+    call collect_known_spells        ; 0x1e45
     add sp, byte 4                   ; 0x1e48
     mov word [bp - 0x44], ax         ; 0x1e4b
     mov ax, 7                        ; 0x1e4e
@@ -1016,7 +1016,7 @@ action_spell_dialog.forward26:
     mov ax, word [bp - 0xc]          ; 0x260c
     add ax, strict word 0x5e         ; 0x260f
     push ax                          ; 0x2612
-    call loc_VGIT                    ; 0x2613
+    call draw_spell_cost                    ; 0x2613
     add sp, byte 0xa                 ; 0x2616
     jmp short action_spell_dialog.forward28 ; 0x2619
 action_spell_dialog.forward27:
@@ -1030,7 +1030,7 @@ action_spell_dialog.forward27:
     mov ax, word [bp - 0xc]          ; 0x262a
     add ax, strict word 0x5e         ; 0x262d
     push ax                          ; 0x2630
-    call loc_VGIT                    ; 0x2631
+    call draw_spell_cost                    ; 0x2631
     add sp, byte 0xa                 ; 0x2634
 action_spell_dialog.forward28:
     mov ax, word [bp - 6]            ; 0x2637
@@ -1077,7 +1077,7 @@ action_spell_dialog.forward31:
     mov word [bp - 0x3c], 0xffff     ; 0x2699
     push ax                          ; 0x269e
     push word [bp + 4]               ; 0x269f
-    call api_idx_0004_OQNP           ; 0x26a2
+    call collect_known_spells        ; 0x26a2
     add sp, byte 4                   ; 0x26a5
     mov word [bp - 0x44], ax         ; 0x26a8
     mov ax, 7                        ; 0x26ab
@@ -1154,7 +1154,7 @@ action_spell_dialog.forward33:
     mov ax, word [bp - 0xc]          ; 0x275c
     add ax, strict word 0x5e         ; 0x275f
     push ax                          ; 0x2762
-    call loc_VGIT                    ; 0x2763
+    call draw_spell_cost                    ; 0x2763
     add sp, byte 0xa                 ; 0x2766
     mov ax, word [bp - 6]            ; 0x2769
     add ax, strict word 0x4c         ; 0x276c
@@ -1285,7 +1285,7 @@ action_spell_dialog.forward39:
     mov ax, word [bp - 0xc]          ; 0x2896
     add ax, strict word 0x5e         ; 0x2899
     push ax                          ; 0x289c
-    call loc_VGIT                    ; 0x289d
+    call draw_spell_cost                    ; 0x289d
     add sp, byte 0xa                 ; 0x28a0
     mov ax, word [bp - 6]            ; 0x28a3
     add ax, strict word 0x4c         ; 0x28a6

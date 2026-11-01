@@ -35,6 +35,8 @@ else
 	extrn aztec_Croot_:near, $fltinit:near
 endif
 	public	aztec_begin_
+	public	$begin
+$begin	label	far
 aztec_begin_	proc	far
 	mov	bp,dataseg
 	test	bp,bp

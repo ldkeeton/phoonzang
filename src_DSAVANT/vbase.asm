@@ -27,8 +27,8 @@ IMAGE_BASE equ 0x000e + VBASE
 __zcode_start:
 pc_file_name equ __zdseg_end + (__zpc_file_name - __zdata_start)
 list_screen_temp_file equ __zdseg_end + (__zlist_screen_temp_file - __zdata_start)
-dseg_90a9 equ __zdseg_end + (__zdseg_90a9 - __zdata_start)
-dseg_90b6 equ __zdseg_end + (__zdseg_90b6 - __zdata_start)
+load_member_icon_dseg11 equ __zdseg_end + (__zdseg_90a9 - __zdata_start)
+api_idx_0038_VIPJ_dseg102 equ __zdseg_end + (__zdseg_90b6 - __zdata_start)
 dialog_screen_temp_file equ __zdseg_end + (__zdialog_screen_temp_file - __zdata_start)
 bane_source_filename equ __zdseg_end + (__zbane_source_filename - __zdata_start)
 default_game_data_name equ __zdseg_end + (__zdefault_game_data_name - __zdata_start)
@@ -198,20 +198,11 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "vbase/select_message_list_entry.asm" ; 0x023a
 
-load_member_icon.dseg1 equ dseg_90a9
 %include "shared/ovr/load_member_icon.asm"      ; 0x0559
 
 %include "vbase/find_unused_member_icon.asm" ; 0x05b6
 
-api_idx_0038_VIPJ       equ api_idx_0038_IPTM
-api_idx_0038_IPTM.dseg1 equ dseg_90b6
-jumptable_0d04_case_0   equ api_idx_0038_IPTM.jumptable_case1
-jumptable_0d04_case_1   equ api_idx_0038_IPTM.jumptable_case2
-jumptable_0d04_case_3   equ api_idx_0038_IPTM.jumptable_case3
-jumptable_0d04_case_4   equ api_idx_0038_IPTM.jumptable_case4
-jumptable_0d04_case_5   equ api_idx_0038_IPTM.jumptable_case5
-jumptable_0d04          equ api_idx_0038_IPTM.jumptable1
-%include "shared/ovr/api_idx_0038_IPTM.asm"     ; 0x0606
+%include "shared/ovr/api_idx_0038_VIPJ.asm"     ; 0x0606
 
 %include "shared/ovr/input_text_field.asm"      ; 0x0d3f
 
@@ -229,20 +220,6 @@ jumptable_0d04          equ api_idx_0038_IPTM.jumptable1
 
 %include "shared/ovr/draw_member_glyph_row.asm" ; 0x1c09
 
-jumptable_1ee4_case_0  equ draw_member_panel_glyphs.jumptable_case1
-jumptable_1ee4_case_1  equ draw_member_panel_glyphs.jumptable_case2
-jumptable_1ee4_case_2  equ draw_member_panel_glyphs.jumptable_case3
-jumptable_1ee4_case_4  equ draw_member_panel_glyphs.jumptable_case4
-jumptable_1ee4_case_5  equ draw_member_panel_glyphs.jumptable_case5
-jumptable_1ee4_case_6  equ draw_member_panel_glyphs.jumptable_case6
-jumptable_1ee4_case_7  equ draw_member_panel_glyphs.jumptable_case7
-jumptable_1ee4_case_8  equ draw_member_panel_glyphs.jumptable_case8
-jumptable_1ee4_case_9  equ draw_member_panel_glyphs.jumptable_case9
-jumptable_1ee4_case_10 equ draw_member_panel_glyphs.jumptable_case10
-jumptable_1ee4_case_11 equ draw_member_panel_glyphs.jumptable_case11
-jumptable_1ee4_case_12 equ draw_member_panel_glyphs.jumptable_case12
-jumptable_1ee4_case_13 equ draw_member_panel_glyphs.jumptable_case13
-jumptable_1ee4         equ draw_member_panel_glyphs.jumptable1
 %include "shared/ovr/draw_member_panel_glyphs.asm" ; 0x1c80
 
 %include "vbase/initialize_intro_layout.asm" ; 0x1f0e
@@ -285,7 +262,6 @@ jumptable_1ee4         equ draw_member_panel_glyphs.jumptable1
 
 %include "vbase/run_configuration_menu.asm" ; 0x4d0e
 
-choose_pc_file_character.api_idx1 equ api_idx_0038_VIPJ
 %include "shared/ovr/choose_pc_file_character.asm" ; 0x5f28
 
 %include "vbase/add_character_from_pc_file.asm" ; 0x606d
@@ -312,8 +288,7 @@ choose_pc_file_character.api_idx1 equ api_idx_0038_VIPJ
 
 %include "vbase/refresh_scene_frame_if_active.asm" ; 0x6c5c
 
-wait_for_scene_input_or_timeout.refresh_scene_frame_if_active1 equ refresh_scene_frame_if_active
-%include "shared/ovr/wait_for_scene_input_or_timeout.asm" ; 0x6c87
+%include "vbase/wait_for_scene_input_or_timeout.asm" ; 0x6c87
 
 %include "vbase/wait_and_clear_scene_messages.asm" ; 0x6cd0
 
@@ -321,8 +296,7 @@ wait_for_scene_input_or_timeout.refresh_scene_frame_if_active1 equ refresh_scene
 
 %include "vbase/process_scene_message_controls.asm" ; 0x6dd9
 
-process_scene_message_words.process_scene_message_controls1 equ process_scene_message_controls
-%include "shared/ovr/process_scene_message_words.asm" ; 0x6f16
+%include "vbase/process_scene_message_words.asm" ; 0x6f16
 
 %include "vbase/play_scene_message_sequence.asm" ; 0x6f79
 
@@ -366,7 +340,6 @@ process_scene_message_words.process_scene_message_controls1 equ process_scene_me
 
 %include "shared/ovr/aztec_cswt.asm"            ; 0x936e
 
-loc_NQQK equ aztec_strcmp.loc1
 %include "shared/ovr/aztec_strcmp.asm"          ; 0x9386
 
 __zdata_start:

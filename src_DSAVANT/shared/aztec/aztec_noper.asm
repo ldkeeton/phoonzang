@@ -17,12 +17,12 @@ aztec_Croot:
     push ax
     call aztec_isatty
     pop cx
-    mov byte [aztec_noper.dseg1], al
+    mov byte [ioflg_stdout], al
     mov ax, 2
     push ax
     call aztec_isatty
     pop cx
-    mov byte [aztec_noper.dseg2], al
+    mov byte [ioflg_stderr], al
     mov ax, word [bp + 6]
     shl ax, 1
     inc ax

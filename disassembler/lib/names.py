@@ -194,8 +194,9 @@ def tag_generics(label_map, function_roots, instructions, data, size,
                  stubs=(), relocs=(), code_off=None, tables=()):
     """Append each generic routine's :func:`content_tag` to its name, in place.
 
-    The name then says which code it is: two functions never share one across
-    binaries, and nothing shifts when a routine is added (no counters).  Applies
+    The tag is only a name: what a masked field points at may differ between
+    binaries, so it decides nothing about sharing (:mod:`lib.shared` compares the
+    code).  Nothing shifts when a routine is added (no counters).  Applies
     to the generic function roots in *label_map* and *function_roots*, except a
     plain ``loc_``/``data_`` label.  *stubs* are offsets named
     ``<base>_<offset>`` (trampoline stubs, whose base is a dispatch index).

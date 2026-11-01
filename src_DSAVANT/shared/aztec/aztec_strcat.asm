@@ -3,12 +3,12 @@ aztec_strcat:
     push bp
     mov bp, sp
     mov dx, 0x7fff
-    jmp short aztec_strcat.loc1
+    jmp short .forward1
 aztec_strncat:
     push bp
     mov bp, sp
     mov dx, word [bp + 8]
-aztec_strcat.loc1:
+aztec_strcat.forward1:
     cld
     push si
     push di
@@ -21,15 +21,15 @@ aztec_strcat.loc1:
     dec di
     mov si, word [bp + 6]
     mov cx, dx
-aztec_strcat.loc2:
+aztec_strcat.back1:
     lodsb
     stosb
     test al, al
-    loopne aztec_strcat.loc2
-    je short aztec_strcat.loc3
+    loopne aztec_strcat.back1
+    je short aztec_strcat.forward2
     sub al, al
     stosb
-aztec_strcat.loc3:
+aztec_strcat.forward2:
     pop di
     pop si
     mov ax, word [bp + 4]

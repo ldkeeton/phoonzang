@@ -10,123 +10,7 @@ dseg_2a02 equ 0x2a02
 
 %include "ega/driver_entry_0_stub.asm"     ; 0x0000
 
-driver_slot_0.mouse_init1 equ mouse_init
-%include "shared/drv/driver_slot_0.asm"           ; 0x0003
-
-loc_JTQK_0007.mouse_off1 equ mouse_off
-%include "shared/drv/loc_JTQK_0007.asm"           ; 0x0007
-
-loc_JTQK_000b.mouse_hit_test1 equ mouse_hit_test
-%include "shared/drv/loc_JTQK_000b.asm"           ; 0x000b
-
-loc_JTQK_000f.request_mouse_redraw1 equ request_mouse_redraw
-%include "shared/drv/loc_JTQK_000f.asm"           ; 0x000f
-
-loc_JTQK_0013.update_mouse_pointer1 equ update_mouse_pointer
-%include "shared/drv/loc_JTQK_0013.asm"           ; 0x0013
-
-loc_JTQK_0017.load_picture1 equ load_picture
-%include "shared/drv/loc_JTQK_0017.asm"           ; 0x0017
-
-loc_JTQK_001b.draw_text1 equ draw_text
-%include "shared/drv/loc_JTQK_001b.asm"           ; 0x001b
-
-loc_JTQK_001f.load_screen1 equ load_screen
-%include "shared/drv/loc_JTQK_001f.asm"           ; 0x001f
-
-%include "shared/drv/loc_JTQK_0023.asm"           ; 0x0023
-
-%include "shared/drv/loc_JTQK_0027.asm"           ; 0x0027
-
-%include "shared/drv/loc_JTQK_002b.asm"           ; 0x002b
-
-%include "shared/drv/loc_JTQK_002f.asm"           ; 0x002f
-
-%include "shared/drv/loc_JTQK_0033.asm"           ; 0x0033
-
-%include "shared/drv/loc_JTQK_0037.asm"           ; 0x0037
-
-%include "shared/drv/loc_JTQK_003b.asm"           ; 0x003b
-
-%include "shared/drv/loc_JTQK_003f.asm"           ; 0x003f
-
-%include "shared/drv/loc_JTQK_0043.asm"           ; 0x0043
-
-%include "shared/drv/loc_JTQK_0047.asm"           ; 0x0047
-
-%include "shared/drv/loc_JTQK_004b.asm"           ; 0x004b
-
-%include "shared/drv/loc_JTQK_004f.asm"           ; 0x004f
-
-%include "shared/drv/loc_JTQK_0053.asm"           ; 0x0053
-
-%include "shared/drv/loc_JTQK_0057.asm"           ; 0x0057
-
-%include "shared/drv/loc_JTQK_005b.asm"           ; 0x005b
-
-%include "shared/drv/loc_JTQK_005f.asm"           ; 0x005f
-
-%include "shared/drv/loc_JTQK_0063.asm"           ; 0x0063
-
-%include "shared/drv/loc_JTQK_0067.asm"           ; 0x0067
-
-%include "shared/drv/loc_JTQK_006b.asm"           ; 0x006b
-
-%include "shared/drv/loc_JTQK_006f.asm"           ; 0x006f
-
-%include "shared/drv/loc_JTQK_0073.asm"           ; 0x0073
-
-%include "shared/drv/loc_JTQK_0077.asm"           ; 0x0077
-
-%include "shared/drv/loc_JTQK_007b.asm"           ; 0x007b
-
-%include "shared/drv/loc_JTQK_007f.asm"           ; 0x007f
-
-%include "shared/drv/loc_JTQK_0083.asm"           ; 0x0083
-
-%include "shared/drv/loc_JTQK_0087.asm"           ; 0x0087
-
-%include "shared/drv/loc_JTQK_008b.asm"           ; 0x008b
-
-%include "shared/drv/loc_JTQK_008f.asm"           ; 0x008f
-
-%include "shared/drv/loc_JTQK_0093.asm"           ; 0x0093
-
-%include "shared/drv/loc_JTQK_0097.asm"           ; 0x0097
-
-%include "shared/drv/loc_JTQK_009b.asm"           ; 0x009b
-
-%include "shared/drv/loc_JTQK_009f.asm"           ; 0x009f
-
-%include "shared/drv/loc_JTQK_00a3.asm"           ; 0x00a3
-
-%include "shared/drv/loc_JTQK_00a7.asm"           ; 0x00a7
-
-%include "shared/drv/loc_JTQK_00ab.asm"           ; 0x00ab
-
-%include "shared/drv/loc_JTQK_00af.asm"           ; 0x00af
-
-%include "shared/drv/loc_JTQK_00b3.asm"           ; 0x00b3
-
-%include "shared/drv/loc_JTQK_00b7.asm"           ; 0x00b7
-
-%include "shared/drv/loc_JTQK_00bb.asm"           ; 0x00bb
-
-%include "shared/drv/loc_JTQK_00bf.asm"           ; 0x00bf
-
-%include "shared/drv/loc_JTQK_00c3.asm"           ; 0x00c3
-
-%include "shared/drv/loc_JTQK_00c7.asm"           ; 0x00c7
-
-%include "shared/drv/loc_JTQK_00cb.asm"           ; 0x00cb
-
-%include "shared/drv/loc_JTQK_00cf.asm"           ; 0x00cf
-
-%include "shared/drv/loc_JTQK_00d3.asm"           ; 0x00d3
-
-%include "shared/drv/loc_JTQK_00d7.asm"           ; 0x00d7
-
-%include "shared/drv/thunk_loc_JULP.asm"          ; 0x00db
+%include "ega/driver_dispatch.asm"         ; 0x0003
 
 %include "shared/data/drv_buffer_segments.asm" ; 0x00e1
 
@@ -178,23 +62,16 @@ loc_JTQK_001f.load_screen1 equ load_screen
 
 %include "ega/invert_area.asm"             ; 0x0c45
 
-cseg_0d2e equ save_area.cseg1
 %include "shared/drv/save_area.asm"               ; 0x0c9b
 
-cseg_0dc0 equ restore_area.cseg1
 %include "shared/drv/restore_area.asm"            ; 0x0d57
 
 %include "shared/drv/load_screen.asm"             ; 0x0df3
 
-cseg_0f80 equ save_screen.cseg1
-cseg_0fbe equ save_screen.cseg2
 %include "shared/drv/save_screen.asm"             ; 0x0ebd
 
 %include "shared/data/drv_maze_tables.asm"    ; 0x0fe7
 
-cseg_125d equ load_maze.cseg1
-cseg_1231 equ load_maze.cseg2
-cseg_128c equ load_maze.cseg3
 %include "shared/drv/load_maze.asm"               ; 0x10cf
 
 %include "shared/drv/decrement_cached_slot_ids.asm" ; 0x1355
@@ -209,8 +86,6 @@ cseg_128c equ load_maze.cseg3
 
 %include "shared/drv/free_maze.asm"               ; 0x1490
 
-loc_14fb  equ draw_maze_piece.loc1
-cseg_150b equ draw_maze_piece.cseg1
 %include "shared/drv/draw_maze_piece.asm"         ; 0x14d8
 
 %include "ega/mouse_init.asm"              ; 0x1719
@@ -299,9 +174,6 @@ cseg_150b equ draw_maze_piece.cseg1
 
 %include "shared/drv/free_picture.asm"            ; 0x303d
 
-loc_3176  equ load_picture.loc1
-cseg_3186 equ load_picture.cseg1
-cseg_31b6 equ load_picture.cseg2
 %include "shared/drv/load_picture.asm"            ; 0x3085
 
 %include "ega/dissolve_area.asm"           ; 0x31df
@@ -342,45 +214,30 @@ cseg_31b6 equ load_picture.cseg2
 
 %include "shared/drv/leaf_loc_NOSG.asm"           ; 0x3a51
 
-leaf_loc_KSJN equ render_text_glyph_by_mode.leaf_loc1
 %include "shared/drv/render_text_glyph_by_mode.asm" ; 0x3a8b
 
 %include "shared/data/intensity_limits.asm"   ; 0x3fcd
 
-cseg_40dd equ cache_area_disk_error.cseg1
-cseg_4379 equ cache_area_disk_error.cseg2
-cseg_43b0 equ cache_area_disk_error.cseg3
-cseg_43e1 equ cache_area_disk_error.cseg4
-cseg_441e equ cache_area_disk_error.cseg5
 %include "shared/drv/cache_area_disk_error.asm"   ; 0x40cd
 
 %include "shared/drv/ems_map_pages.asm"           ; 0x4442
 
 %include "shared/drv/restore_screen.asm"          ; 0x4457
 
-cseg_45fb equ copy_file_region.cseg1
 %include "shared/drv/copy_file_region.asm"        ; 0x45bd
 
-cseg_47b8 equ cache_maze.cseg1
-cseg_4800 equ cache_maze.cseg2
 %include "shared/drv/cache_maze.asm"              ; 0x4624
 
 %include "shared/drv/cache_screen_to_storage.asm" ; 0x4825
 
 %include "shared/data/sound_slots.asm"        ; 0x49b4
 
-cseg_4aea equ load_sound.cseg1
-cseg_4b26 equ load_sound.cseg2
 %include "shared/drv/load_sound.asm"              ; 0x4a08
 
 %include "shared/drv/string_loc_RQON.asm"         ; 0x4bb2
 
 %include "shared/drv/dos_file_loc_VPIN.asm"       ; 0x4bcb
 
-free_sound.leaf_loc1    equ leaf_loc_OSUJ
-free_sound.leaf_loc2    equ leaf_loc_JRKU
-free_sound.dos_con_loc1 equ dos_con_loc_GJMS
-free_sound.leaf_loc3    equ leaf_loc_SSGH
 %include "shared/drv/free_sound.asm"              ; 0x4c4c
 
 %include "shared/drv/leaf_loc_OSUJ.asm"           ; 0x4ca9
@@ -393,11 +250,9 @@ free_sound.leaf_loc3    equ leaf_loc_SSGH
 
 %include "shared/drv/leaf_loc_JRKU.asm"           ; 0x4cfd
 
-cseg_4d3e equ dos_con_loc_GJMS.cseg1
 %include "shared/drv/dos_con_loc_GJMS.asm"        ; 0x4d13
 
-leaf_loc_SSGH equ leaf_loc_HLKP
-%include "shared/drv/leaf_loc_HLKP.asm"           ; 0x4d55
+%include "shared/drv/leaf_loc_SSGH.asm"           ; 0x4d55
 
 %include "shared/drv/play_sound.asm"              ; 0x4dd9
 
@@ -407,8 +262,6 @@ leaf_loc_SSGH equ leaf_loc_HLKP
 
 %include "shared/data/drv_score_tables.asm"   ; 0x4e8b
 
-cseg_4fd4 equ load_score.cseg1
-cseg_5010 equ load_score.cseg2
 %include "shared/drv/load_score.asm"              ; 0x4ead
 
 %include "shared/drv/play_score.asm"              ; 0x503c

@@ -4,8 +4,7 @@
 	extrn	saved_equip_byte_:byte
 	extrn	saved_video_mode_:byte
 bios_data_0410	equ	410h	;0040:0010 equipment byte, read with es = 0
-	public	restore_saved_video_state
-restore_saved_video_state proc near
+	procdef	restore_saved_video_state
 	push	es
 	sub	ax,ax
 	mov	es,ax
@@ -16,6 +15,6 @@ restore_saved_video_state proc near
 	xor	ah,ah
 	int	10h	;int 10h/00h: set the saved video mode
 	ret
-restore_saved_video_state endp
+	pend	restore_saved_video_state
 	finish
 	end

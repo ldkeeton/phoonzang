@@ -78,7 +78,7 @@ advance_member_cell_actions:
     push word [bp - 0xc]             ; 0x1275
     push word [bp - 0xa]             ; 0x1278
     push word [bp + 4]               ; 0x127b
-    call fill_action_slot_table_vmnpc ; 0x127e
+    call fill_action_slot_table      ; 0x127e
     add sp, byte 8                   ; 0x1281
 .forward2:
     inc word [bp - 2]                ; 0x1284

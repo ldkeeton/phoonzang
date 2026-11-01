@@ -18,15 +18,15 @@ draw_maze_piece:
     mov bx, word [cs:bx]
     or bx, bx
     jne short .forward1
-draw_maze_piece.loc1:
+loc_14fb:
     mov ax, cs
     mov ds, ax
-    mov dx, draw_maze_piece.cseg1 - IMAGE_BASE
+    mov dx, cseg_150b - IMAGE_BASE
     mov ah, 9
     int 0x21 ; DOS string output
     mov ax, 0x4c01
     int 0x21 ; DOS function dispatcher
-draw_maze_piece.cseg1:
+cseg_150b:
 
     db 0x0d, 0x0a, 0x07
     db 'MAZE SET ERROR.', 0

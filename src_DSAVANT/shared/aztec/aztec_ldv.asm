@@ -17,13 +17,13 @@ aztec_ldv:
     xor di, 1
 .forward2:
     call aztec_lud
-aztec_ldv.loc1:
+.back1:
     test di, di
-    je short aztec_ldv.loc2
+    je short .forward3
     neg dx
     neg ax
     sbb dx, byte 0
-aztec_ldv.loc2:
+.forward3:
     pop di
     ret
 aztec_lrm:
@@ -45,7 +45,7 @@ aztec_lrm:
     call aztec_lud
     mov ax, cx
     mov dx, bx
-    jmp short aztec_ldv.loc1
+    jmp short aztec_ldv.back1
 aztec_lum:
     call aztec_lud
     mov ax, cx

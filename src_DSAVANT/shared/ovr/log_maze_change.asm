@@ -50,7 +50,7 @@ log_maze_change:
     mov word [bx + 2], ax
     mov ax, word [bp + 6]
     jmp short .forward2
-log_maze_change.jumptable_case1:
+jumptable_0457_case_0:
     mov ax, word [bp + 0xe]
     mov cx, 4
     shl ax, cl
@@ -65,12 +65,12 @@ log_maze_change.jumptable_case1:
     mov bx, word [bp - 4]
     mov word [bx + 4], ax
     jmp short log_maze_change.return1
-log_maze_change.jumptable_case2:
+jumptable_0457_case_1:
     mov ax, word [bp + 0xe]
     mov bx, word [bp - 4]
     mov word [bx + 4], ax
     jmp short log_maze_change.return1
-log_maze_change.jumptable_case3:
+jumptable_0457_case_5:
     mov ax, word [bp + 0xe]
     xchg al, ah
     sub al, al
@@ -78,7 +78,7 @@ log_maze_change.jumptable_case3:
     mov bx, word [bp - 4]
     mov word [bx + 4], ax
     jmp short log_maze_change.return1
-log_maze_change.jumptable_case4:
+jumptable_0457_case_6:
     mov ax, word [bp + 8]
     mov bx, word [bp - 4]
     mov word [bx + 2], ax
@@ -86,19 +86,19 @@ log_maze_change.jumptable_case4:
     mov bx, word [bp - 4]
     mov word [bx + 4], ax
     jmp short log_maze_change.return1
-log_maze_change.jumptable1:
-    dw log_maze_change.jumptable_case1 - IMAGE_BASE + __zres_end
-    dw log_maze_change.jumptable_case2 - IMAGE_BASE + __zres_end
-    dw log_maze_change.jumptable_case2 - IMAGE_BASE + __zres_end
-    dw log_maze_change.jumptable_case2 - IMAGE_BASE + __zres_end
-    dw log_maze_change.jumptable_case2 - IMAGE_BASE + __zres_end
-    dw log_maze_change.jumptable_case3 - IMAGE_BASE + __zres_end
-    dw log_maze_change.jumptable_case4 - IMAGE_BASE + __zres_end
+jumptable_0457:
+    dw jumptable_0457_case_0 - IMAGE_BASE + __zres_end
+    dw jumptable_0457_case_1 - IMAGE_BASE + __zres_end
+    dw jumptable_0457_case_1 - IMAGE_BASE + __zres_end
+    dw jumptable_0457_case_1 - IMAGE_BASE + __zres_end
+    dw jumptable_0457_case_1 - IMAGE_BASE + __zres_end
+    dw jumptable_0457_case_5 - IMAGE_BASE + __zres_end
+    dw jumptable_0457_case_6 - IMAGE_BASE + __zres_end
 log_maze_change.forward2:
     cmp ax, strict word 7
     jae short log_maze_change.return1
     xchg bx, ax
     shl bx, 1
-    jmp [cs:bx + log_maze_change.jumptable1 - IMAGE_BASE + __zres_end]
+    jmp [cs:bx + jumptable_0457 - IMAGE_BASE + __zres_end]
 log_maze_change.return1:
     ret

@@ -51,7 +51,7 @@ render_text_glyph_by_mode:
     mov cx, word [bp - 2]
 .back2:
     push cx
-    call render_text_glyph_by_mode.leaf_loc1
+    call leaf_loc_KSJN
     mov bx, word [bp - 0xc]
     mov al, byte [bx]
     and al, byte [bp - 0xa]
@@ -186,20 +186,20 @@ leaf_loc_MTKK:
     ror dl, 1
     loop .back1
     ret
-render_text_glyph_by_mode.leaf_loc1:
+leaf_loc_KSJN:
     xor ax, ax
     mov word [bp - 0x3c], ax
     mov dl, 0x80
     mov bx, word [bp - 0x34]
     mov cx, 8
-leaf_loc_KSJN.back1:
+.back1:
     mov al, byte [cs:bx]
     and al, dl
-    je short leaf_loc_KSJN.forward1
+    je short .forward1
     inc word [bp - 0x3c]
-leaf_loc_KSJN.forward1:
+.forward1:
     ror dl, 1
-    loop leaf_loc_KSJN.back1
+    loop .back1
     ret
 render_text_glyph_by_mode.forward22:
     mov ax, word [bp - 0x2a]
@@ -223,7 +223,7 @@ render_text_glyph_by_mode.forward23:
     mov cx, word [bp - 2]
 render_text_glyph_by_mode.back8:
     push cx
-    call render_text_glyph_by_mode.leaf_loc1
+    call leaf_loc_KSJN
     mov bx, word [bp - 0xc]
     mov al, byte [bx]
     and al, byte [bp - 0xa]
@@ -375,7 +375,7 @@ render_text_glyph_by_mode.forward42:
     mov cx, word [bp - 2]
 render_text_glyph_by_mode.back14:
     push cx
-    call render_text_glyph_by_mode.leaf_loc1
+    call leaf_loc_KSJN
     mov bx, word [bp - 0xc]
     mov al, byte [bx]
     and al, byte [bp - 0xa]
@@ -528,7 +528,7 @@ render_text_glyph_by_mode.forward61:
     mov cx, word [bp - 2]
 render_text_glyph_by_mode.back20:
     push cx
-    call render_text_glyph_by_mode.leaf_loc1
+    call leaf_loc_KSJN
     mov bx, word [bp - 0xc]
     mov al, byte [bx]
     and al, byte [bp - 0xa]

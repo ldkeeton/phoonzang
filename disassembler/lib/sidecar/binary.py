@@ -18,6 +18,7 @@ from .jump_tables import _validate_jump_tables, _validate_code_tables
 from .pointers import (_expand_pointer_arrays, _pointer_assertions,
                        _validate_corpus)
 from .ranges import _validate_ranges, validate_force_ranges
+from .records import _validate_records
 from .usage import SidecarUse
 
 
@@ -75,6 +76,10 @@ def _validate_binary(name, info):
     for block in ('data_names', 'code_data_names'):
         if block in info:
             _validate_data_names(info[block], f'binaries.{name}.{block}')
+
+    if 'records' in info:
+        _validate_records(info['records'], info.get('data_names') or {},
+                          f'binaries.{name}.records')
 
     if 'byte_patches' in info:
         _validate_patches(info['byte_patches'],

@@ -26,8 +26,8 @@ IMAGE_BASE equ 0x000e + VBASE
 
 __zcode_start:
 dseg_9098 equ __zdseg_end + (__zdseg_9098 - __zdata_start)
-dseg_909b equ __zdseg_end + (__zdseg_909b - __zdata_start)
-dseg_909f equ __zdseg_end + (__zdseg_909f - __zdata_start)
+draw_spell_cost_dseg294 equ __zdseg_end + (__zdseg_909b - __zdata_start)
+api_idx_0050_SQVG_dseg175 equ __zdseg_end + (__zdseg_909f - __zdata_start)
 dseg_90a5 equ __zdseg_end + (__zdseg_90a5 - __zdata_start)
 dseg_90b4 equ __zdseg_end + (__zdseg_90b4 - __zdata_start)
 dseg_90c3 equ __zdseg_end + (__zdseg_90c3 - __zdata_start)
@@ -48,62 +48,62 @@ dseg_9195 equ __zdseg_end + (__zdseg_9195 - __zdata_start)
 dseg_91a4 equ __zdseg_end + (__zdseg_91a4 - __zdata_start)
 dseg_91b3 equ __zdseg_end + (__zdseg_91b3 - __zdata_start)
 dseg_91c2 equ __zdseg_end + (__zdseg_91c2 - __zdata_start)
-dseg_91d1 equ __zdseg_end + (__zdseg_91d1 - __zdata_start)
-dseg_91dc equ __zdseg_end + (__zdseg_91dc - __zdata_start)
-dseg_91e5 equ __zdseg_end + (__zdseg_91e5 - __zdata_start)
-dseg_91ec equ __zdseg_end + (__zdseg_91ec - __zdata_start)
-dseg_91f7 equ __zdseg_end + (__zdseg_91f7 - __zdata_start)
-dseg_9202 equ __zdseg_end + (__zdseg_9202 - __zdata_start)
-dseg_920b equ __zdseg_end + (__zdseg_920b - __zdata_start)
-dseg_9212 equ __zdseg_end + (__zdseg_9212 - __zdata_start)
-dseg_921d equ __zdseg_end + (__zdseg_921d - __zdata_start)
-dseg_9228 equ __zdseg_end + (__zdseg_9228 - __zdata_start)
-dseg_9231 equ __zdseg_end + (__zdseg_9231 - __zdata_start)
-dseg_9238 equ __zdseg_end + (__zdseg_9238 - __zdata_start)
-dseg_9243 equ __zdseg_end + (__zdseg_9243 - __zdata_start)
-dseg_924e equ __zdseg_end + (__zdseg_924e - __zdata_start)
-dseg_9257 equ __zdseg_end + (__zdseg_9257 - __zdata_start)
-dseg_925e equ __zdseg_end + (__zdseg_925e - __zdata_start)
-dseg_9269 equ __zdseg_end + (__zdseg_9269 - __zdata_start)
-dseg_9274 equ __zdseg_end + (__zdseg_9274 - __zdata_start)
-dseg_927d equ __zdseg_end + (__zdseg_927d - __zdata_start)
-dseg_9284 equ __zdseg_end + (__zdseg_9284 - __zdata_start)
-dseg_928f equ __zdseg_end + (__zdseg_928f - __zdata_start)
-dseg_929a equ __zdseg_end + (__zdseg_929a - __zdata_start)
-dseg_92a3 equ __zdseg_end + (__zdseg_92a3 - __zdata_start)
-dseg_92aa equ __zdseg_end + (__zdseg_92aa - __zdata_start)
-dseg_92b5 equ __zdseg_end + (__zdseg_92b5 - __zdata_start)
-dseg_92c0 equ __zdseg_end + (__zdseg_92c0 - __zdata_start)
-dseg_92c9 equ __zdseg_end + (__zdseg_92c9 - __zdata_start)
-dseg_92d0 equ __zdseg_end + (__zdseg_92d0 - __zdata_start)
-dseg_92db equ __zdseg_end + (__zdseg_92db - __zdata_start)
-dseg_92e6 equ __zdseg_end + (__zdseg_92e6 - __zdata_start)
-dseg_92ef equ __zdseg_end + (__zdseg_92ef - __zdata_start)
-dseg_92f6 equ __zdseg_end + (__zdseg_92f6 - __zdata_start)
-dseg_9301 equ __zdseg_end + (__zdseg_9301 - __zdata_start)
-dseg_930c equ __zdseg_end + (__zdseg_930c - __zdata_start)
-dseg_9315 equ __zdseg_end + (__zdseg_9315 - __zdata_start)
-dseg_931c equ __zdseg_end + (__zdseg_931c - __zdata_start)
-dseg_9327 equ __zdseg_end + (__zdseg_9327 - __zdata_start)
-dseg_9332 equ __zdseg_end + (__zdseg_9332 - __zdata_start)
-dseg_933b equ __zdseg_end + (__zdseg_933b - __zdata_start)
-dseg_9342 equ __zdseg_end + (__zdseg_9342 - __zdata_start)
-dseg_934d equ __zdseg_end + (__zdseg_934d - __zdata_start)
-dseg_9358 equ __zdseg_end + (__zdseg_9358 - __zdata_start)
-dseg_9361 equ __zdseg_end + (__zdseg_9361 - __zdata_start)
-dseg_9368 equ __zdseg_end + (__zdseg_9368 - __zdata_start)
-dseg_9373 equ __zdseg_end + (__zdseg_9373 - __zdata_start)
-dseg_937e equ __zdseg_end + (__zdseg_937e - __zdata_start)
-dseg_9387 equ __zdseg_end + (__zdseg_9387 - __zdata_start)
-dseg_938e equ __zdseg_end + (__zdseg_938e - __zdata_start)
-dseg_9399 equ __zdseg_end + (__zdseg_9399 - __zdata_start)
-dseg_93a4 equ __zdseg_end + (__zdseg_93a4 - __zdata_start)
-dseg_93ad equ __zdseg_end + (__zdseg_93ad - __zdata_start)
-dseg_93b4 equ __zdseg_end + (__zdseg_93b4 - __zdata_start)
-dseg_93bf equ __zdseg_end + (__zdseg_93bf - __zdata_start)
-dseg_93ca equ __zdseg_end + (__zdseg_93ca - __zdata_start)
-dseg_93d3 equ __zdseg_end + (__zdseg_93d3 - __zdata_start)
-dseg_93da equ __zdseg_end + (__zdseg_93da - __zdata_start)
+api_idx_0004_QJGR_dseg67 equ __zdseg_end + (__zdseg_91d1 - __zdata_start)
+api_idx_0004_QJGR_dseg61 equ __zdseg_end + (__zdseg_91dc - __zdata_start)
+api_idx_0004_QJGR_dseg55 equ __zdseg_end + (__zdseg_91e5 - __zdata_start)
+api_idx_0004_QJGR_dseg49 equ __zdseg_end + (__zdseg_91ec - __zdata_start)
+api_idx_0004_QJGR_dseg111 equ __zdseg_end + (__zdseg_91f7 - __zdata_start)
+api_idx_0004_QJGR_dseg105 equ __zdseg_end + (__zdseg_9202 - __zdata_start)
+api_idx_0004_QJGR_dseg99 equ __zdseg_end + (__zdseg_920b - __zdata_start)
+api_idx_0004_QJGR_dseg93 equ __zdseg_end + (__zdseg_9212 - __zdata_start)
+api_idx_0004_QJGR_dseg155 equ __zdseg_end + (__zdseg_921d - __zdata_start)
+api_idx_0004_QJGR_dseg149 equ __zdseg_end + (__zdseg_9228 - __zdata_start)
+api_idx_0004_QJGR_dseg143 equ __zdseg_end + (__zdseg_9231 - __zdata_start)
+api_idx_0004_QJGR_dseg137 equ __zdseg_end + (__zdseg_9238 - __zdata_start)
+api_idx_0004_QJGR_dseg199 equ __zdseg_end + (__zdseg_9243 - __zdata_start)
+api_idx_0004_QJGR_dseg193 equ __zdseg_end + (__zdseg_924e - __zdata_start)
+api_idx_0004_QJGR_dseg187 equ __zdseg_end + (__zdseg_9257 - __zdata_start)
+api_idx_0004_QJGR_dseg181 equ __zdseg_end + (__zdseg_925e - __zdata_start)
+api_idx_0004_QJGR_dseg243 equ __zdseg_end + (__zdseg_9269 - __zdata_start)
+api_idx_0004_QJGR_dseg237 equ __zdseg_end + (__zdseg_9274 - __zdata_start)
+api_idx_0004_QJGR_dseg231 equ __zdseg_end + (__zdseg_927d - __zdata_start)
+api_idx_0004_QJGR_dseg225 equ __zdseg_end + (__zdseg_9284 - __zdata_start)
+api_idx_0004_QJGR_dseg287 equ __zdseg_end + (__zdseg_928f - __zdata_start)
+api_idx_0004_QJGR_dseg281 equ __zdseg_end + (__zdseg_929a - __zdata_start)
+api_idx_0004_QJGR_dseg275 equ __zdseg_end + (__zdseg_92a3 - __zdata_start)
+api_idx_0004_QJGR_dseg269 equ __zdseg_end + (__zdseg_92aa - __zdata_start)
+api_idx_0004_QJGR_dseg331 equ __zdseg_end + (__zdseg_92b5 - __zdata_start)
+api_idx_0004_QJGR_dseg325 equ __zdseg_end + (__zdseg_92c0 - __zdata_start)
+api_idx_0004_QJGR_dseg319 equ __zdseg_end + (__zdseg_92c9 - __zdata_start)
+api_idx_0004_QJGR_dseg313 equ __zdseg_end + (__zdseg_92d0 - __zdata_start)
+api_idx_0004_QJGR_dseg375 equ __zdseg_end + (__zdseg_92db - __zdata_start)
+api_idx_0004_QJGR_dseg369 equ __zdseg_end + (__zdseg_92e6 - __zdata_start)
+api_idx_0004_QJGR_dseg363 equ __zdseg_end + (__zdseg_92ef - __zdata_start)
+api_idx_0004_QJGR_dseg357 equ __zdseg_end + (__zdseg_92f6 - __zdata_start)
+api_idx_0004_QJGR_dseg419 equ __zdseg_end + (__zdseg_9301 - __zdata_start)
+api_idx_0004_QJGR_dseg413 equ __zdseg_end + (__zdseg_930c - __zdata_start)
+api_idx_0004_QJGR_dseg407 equ __zdseg_end + (__zdseg_9315 - __zdata_start)
+api_idx_0004_QJGR_dseg401 equ __zdseg_end + (__zdseg_931c - __zdata_start)
+api_idx_0004_QJGR_dseg463 equ __zdseg_end + (__zdseg_9327 - __zdata_start)
+api_idx_0004_QJGR_dseg457 equ __zdseg_end + (__zdseg_9332 - __zdata_start)
+api_idx_0004_QJGR_dseg451 equ __zdseg_end + (__zdseg_933b - __zdata_start)
+api_idx_0004_QJGR_dseg445 equ __zdseg_end + (__zdseg_9342 - __zdata_start)
+api_idx_0004_QJGR_dseg507 equ __zdseg_end + (__zdseg_934d - __zdata_start)
+api_idx_0004_QJGR_dseg501 equ __zdseg_end + (__zdseg_9358 - __zdata_start)
+api_idx_0004_QJGR_dseg495 equ __zdseg_end + (__zdseg_9361 - __zdata_start)
+api_idx_0004_QJGR_dseg489 equ __zdseg_end + (__zdseg_9368 - __zdata_start)
+api_idx_0004_QJGR_dseg551 equ __zdseg_end + (__zdseg_9373 - __zdata_start)
+api_idx_0004_QJGR_dseg545 equ __zdseg_end + (__zdseg_937e - __zdata_start)
+api_idx_0004_QJGR_dseg539 equ __zdseg_end + (__zdseg_9387 - __zdata_start)
+api_idx_0004_QJGR_dseg533 equ __zdseg_end + (__zdseg_938e - __zdata_start)
+api_idx_0004_QJGR_dseg595 equ __zdseg_end + (__zdseg_9399 - __zdata_start)
+api_idx_0004_QJGR_dseg589 equ __zdseg_end + (__zdseg_93a4 - __zdata_start)
+api_idx_0004_QJGR_dseg583 equ __zdseg_end + (__zdseg_93ad - __zdata_start)
+api_idx_0004_QJGR_dseg577 equ __zdseg_end + (__zdseg_93b4 - __zdata_start)
+api_idx_0004_QJGR_dseg639 equ __zdseg_end + (__zdseg_93bf - __zdata_start)
+api_idx_0004_QJGR_dseg633 equ __zdseg_end + (__zdseg_93ca - __zdata_start)
+api_idx_0004_QJGR_dseg627 equ __zdseg_end + (__zdseg_93d3 - __zdata_start)
+api_idx_0004_QJGR_dseg621 equ __zdseg_end + (__zdseg_93da - __zdata_start)
 dseg_93e5 equ __zdseg_end + (__zdseg_93e5 - __zdata_start)
 dseg_93e9 equ __zdseg_end + (__zdseg_93e9 - __zdata_start)
 dseg_93eb equ __zdseg_end + (__zdseg_93eb - __zdata_start)
@@ -118,23 +118,23 @@ save_bp equ __zdseg_end + (__zsave_bp - __zdata_start)
 save_ret equ __zdseg_end + (__zsave_ret - __zdata_start)
 _Uorg equ __zdseg_end + (__zobss_9408 - __zdata_start)
 window_record equ __zdseg_end + (__zobss_9408 - __zdata_start)
-bss_9416 equ __zdseg_end + (__zobss_9416 - __zdata_start)
-bss_9418 equ __zdseg_end + (__zobss_9418 - __zdata_start)
-bss_941a equ __zdseg_end + (__zobss_941a - __zdata_start)
-bss_941c equ __zdseg_end + (__zobss_941c - __zdata_start)
+api_idx_007c_OKMO_bss24 equ __zdseg_end + (__zobss_9416 - __zdata_start)
+api_idx_007c_OKMO_bss19 equ __zdseg_end + (__zobss_9418 - __zdata_start)
+api_idx_007c_OKMO_bss49 equ __zdseg_end + (__zobss_941a - __zdata_start)
+api_idx_007c_OKMO_bss44 equ __zdseg_end + (__zobss_941c - __zdata_start)
 roster_screen_b equ __zdseg_end + (__zobss_941e - __zdata_start)
 roster_screen_a equ __zdseg_end + (__zobss_9420 - __zdata_start)
-bss_9422 equ __zdseg_end + (__zobss_9422 - __zdata_start)
-bss_9424 equ __zdseg_end + (__zobss_9424 - __zdata_start)
-bss_9426 equ __zdseg_end + (__zobss_9426 - __zdata_start)
-bss_9428 equ __zdseg_end + (__zobss_9428 - __zdata_start)
-bss_942a equ __zdseg_end + (__zobss_942a - __zdata_start)
-bss_942c equ __zdseg_end + (__zobss_942c - __zdata_start)
+api_idx_0080_MHMQ_bss24 equ __zdseg_end + (__zobss_9422 - __zdata_start)
+api_idx_0080_MHMQ_bss19 equ __zdseg_end + (__zobss_9424 - __zdata_start)
+api_idx_0080_MHMQ_bss49 equ __zdseg_end + (__zobss_9426 - __zdata_start)
+api_idx_0080_MHMQ_bss44 equ __zdseg_end + (__zobss_9428 - __zdata_start)
+api_idx_0004_RMVO_bss24 equ __zdseg_end + (__zobss_942a - __zdata_start)
+api_idx_0004_RMVO_bss19 equ __zdseg_end + (__zobss_942c - __zdata_start)
 saved_screen equ __zdseg_end + (__zobss_9432 - __zdata_start)
-bss_9434 equ __zdseg_end + (__zobss_9434 - __zdata_start)
+saved_screen_hi equ __zdseg_end + (__zobss_9434 - __zdata_start)
 banner_offset equ __zdseg_end + (__zobss_9436 - __zdata_start)
 banner_plain_flag equ __zdseg_end + (__zobss_9438 - __zdata_start)
-bss_943a equ __zdseg_end + (__zobss_943a - __zdata_start)
+loc_TTSP_bss184 equ __zdseg_end + (__zobss_943a - __zdata_start)
 known_spell_ids equ __zdseg_end + (__zobss_943c - __zdata_start)
 party_redraw_interval equ __zdseg_end + (__zobss_948c - __zdata_start)
 roster_page equ __zdseg_end + (__zobss_948e - __zdata_start)
@@ -143,8 +143,8 @@ roster_drawn equ __zdseg_end + (__zobss_9492 - __zdata_start)
 roster_names equ __zdseg_end + (__zobss_9494 - __zdata_start)
 roster_row_attr equ __zdseg_end + (__zobss_9570 - __zdata_start)
 roster_row_color equ __zdseg_end + (__zobss_9584 - __zdata_start)
-bss_9598 equ __zdseg_end + (__zobss_9598 - __zdata_start)
-bss_95d0 equ __zdseg_end + (__zobss_95d0 - __zdata_start)
+api_idx_0004_GRGJ_bss159 equ __zdseg_end + (__zobss_9598 - __zdata_start)
+api_idx_0004_QJGR_bss838 equ __zdseg_end + (__zobss_95d0 - __zdata_start)
 slot_prompt_text equ __zdseg_end + (__zobss_95dc - __zdata_start)
 slot_value equ __zdseg_end + (__zobss_95f0 - __zdata_start)
 slot_value2 equ __zdseg_end + (__zobss_95f4 - __zdata_start)
@@ -157,13 +157,10 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "shared/ovr/load_screen_file_immediate.asm" ; 0x0022
 
-api_idx_0012_RLJJ equ api_idx_0012_PGSL
 %include "shared/ovr/api_idx_0012_PGSL.asm"     ; 0x0086
 
 %include "shared/ovr/draw_party_slot_letters.asm" ; 0x0202
 
-api_idx_0004_RMVO.bss1 equ bss_942c
-api_idx_0004_RMVO.bss2 equ bss_942a
 %include "shared/ovr/api_idx_0004_RMVO.asm"     ; 0x0281
 
 %include "shared/ovr/advance_party_slot_frames.asm" ; 0x0331
@@ -172,49 +169,28 @@ api_idx_0004_RMVO.bss2 equ bss_942a
 
 %include "shared/ovr/api_idx_0010_STNH.asm"     ; 0x03cd
 
-draw_title_banner.bss1 equ bss_9434
 %include "shared/ovr/draw_title_banner.asm"     ; 0x04ca
 
-api_idx_007c_OKMO.bss1     equ bss_9418
-api_idx_007c_OKMO.bss2     equ bss_9416
-api_idx_007c_OKMO.bss3     equ bss_941c
-api_idx_007c_OKMO.bss4     equ bss_941a
-api_idx_007c_OKMO.bss5     equ bss_943a
-api_idx_007c_OKMO.api_idx1 equ api_idx_0012_RLJJ
 %include "shared/ovr/api_idx_007c_OKMO.asm"     ; 0x0572
 
-loc_MNNG equ fill_rectangle_border
-%include "shared/ovr/fill_rectangle_border.asm"              ; 0x0dc0
+%include "shared/ovr/fill_rectangle_border.asm" ; 0x0dc0
 
-api_idx_0004_TLJT equ collect_known_spells
-%include "shared/ovr/collect_known_spells.asm"     ; 0x0e3b
+%include "shared/ovr/collect_known_spells.asm"  ; 0x0e3b
 
 %include "shared/ovr/draw_marker_glyph.asm"     ; 0x0eac
 
 %include "shared/ovr/draw_power_digit.asm"      ; 0x0eea
 
-loc_GPRG              equ draw_spell_cost
-draw_spell_cost.dseg1 equ dseg_909b
 %include "shared/ovr/draw_spell_cost.asm"              ; 0x0f76
 
 %include "shared/ovr/draw_realm_spell_points.asm" ; 0x1017
 
 %include "shared/ovr/periodic_party_redraw.asm" ; 0x10b0
 
-api_idx_0050_SQVG          equ api_idx_0050_GSJV
-api_idx_0050_GSJV.dseg1    equ dseg_909f
-api_idx_0050_GSJV.loc1     equ loc_GPRG
-api_idx_0050_GSJV.api_idx1 equ api_idx_0004_TLJT
-jumptable_1d9a_case_0      equ api_idx_0050_GSJV.jumptable_case1
-jumptable_1d9a_case_1      equ api_idx_0050_GSJV.jumptable_case2
-jumptable_1d9a_case_3      equ api_idx_0050_GSJV.jumptable_case3
-jumptable_1d9a_case_4      equ api_idx_0050_GSJV.jumptable_case4
-jumptable_1d9a             equ api_idx_0050_GSJV.jumptable1
-%include "shared/ovr/api_idx_0050_GSJV.asm"     ; 0x1141
+%include "shared/ovr/api_idx_0050_SQVG.asm"     ; 0x1141
 
 %include "vpclv/api_idx_00ca_KSLQ.asm"     ; 0x1e31
 
-loc_TTSP.bss1 equ bss_943a
 %include "shared/ovr/loc_TTSP.asm"              ; 0x20e3
 
 %include "vpclv/loc_HJRN.asm"              ; 0x2189
@@ -223,11 +199,6 @@ loc_TTSP.bss1 equ bss_943a
 
 %include "shared/ovr/draw_split_two_line_text.asm" ; 0x2447
 
-api_idx_0080_MHMQ.bss1     equ bss_9424
-api_idx_0080_MHMQ.bss2     equ bss_9422
-api_idx_0080_MHMQ.bss3     equ bss_9428
-api_idx_0080_MHMQ.bss4     equ bss_9426
-api_idx_0080_MHMQ.api_idx1 equ api_idx_0012_RLJJ
 %include "shared/ovr/api_idx_0080_MHMQ.asm"     ; 0x24f0
 
 %include "shared/ovr/api_idx_0004_MKGU.asm"     ; 0x2717
@@ -246,91 +217,15 @@ api_idx_0080_MHMQ.api_idx1 equ api_idx_0012_RLJJ
 
 %include "vpclv/api_idx_0020_ORSV.asm"     ; 0x333c
 
-api_idx_0004_GRGJ.bss1 equ bss_9598
 %include "shared/ovr/api_idx_0004_GRGJ.asm"     ; 0x34cd
 
-jumptable_3797_case_0      equ api_idx_0004_QJGR.jumptable_case1
-api_idx_0004_QJGR.dseg1    equ dseg_91ec
-api_idx_0004_QJGR.dseg2    equ dseg_91e5
-api_idx_0004_QJGR.dseg3    equ dseg_91dc
-api_idx_0004_QJGR.dseg4    equ dseg_91d1
-api_idx_0004_QJGR.api_idx1 equ api_idx_0004_GRGJ
-jumptable_3797_case_1      equ api_idx_0004_QJGR.jumptable_case2
-api_idx_0004_QJGR.dseg5    equ dseg_9212
-api_idx_0004_QJGR.dseg6    equ dseg_920b
-api_idx_0004_QJGR.dseg7    equ dseg_9202
-api_idx_0004_QJGR.dseg8    equ dseg_91f7
-jumptable_3797_case_2      equ api_idx_0004_QJGR.jumptable_case3
-api_idx_0004_QJGR.dseg9    equ dseg_9238
-api_idx_0004_QJGR.dseg10   equ dseg_9231
-api_idx_0004_QJGR.dseg11   equ dseg_9228
-api_idx_0004_QJGR.dseg12   equ dseg_921d
-jumptable_3797_case_3      equ api_idx_0004_QJGR.jumptable_case4
-api_idx_0004_QJGR.dseg13   equ dseg_925e
-api_idx_0004_QJGR.dseg14   equ dseg_9257
-api_idx_0004_QJGR.dseg15   equ dseg_924e
-api_idx_0004_QJGR.dseg16   equ dseg_9243
-jumptable_3797_case_4      equ api_idx_0004_QJGR.jumptable_case5
-api_idx_0004_QJGR.dseg17   equ dseg_9284
-api_idx_0004_QJGR.dseg18   equ dseg_927d
-api_idx_0004_QJGR.dseg19   equ dseg_9274
-api_idx_0004_QJGR.dseg20   equ dseg_9269
-jumptable_3797_case_5      equ api_idx_0004_QJGR.jumptable_case6
-api_idx_0004_QJGR.dseg21   equ dseg_92aa
-api_idx_0004_QJGR.dseg22   equ dseg_92a3
-api_idx_0004_QJGR.dseg23   equ dseg_929a
-api_idx_0004_QJGR.dseg24   equ dseg_928f
-jumptable_3797_case_6      equ api_idx_0004_QJGR.jumptable_case7
-api_idx_0004_QJGR.dseg25   equ dseg_92d0
-api_idx_0004_QJGR.dseg26   equ dseg_92c9
-api_idx_0004_QJGR.dseg27   equ dseg_92c0
-api_idx_0004_QJGR.dseg28   equ dseg_92b5
-jumptable_3797_case_7      equ api_idx_0004_QJGR.jumptable_case8
-api_idx_0004_QJGR.dseg29   equ dseg_92f6
-api_idx_0004_QJGR.dseg30   equ dseg_92ef
-api_idx_0004_QJGR.dseg31   equ dseg_92e6
-api_idx_0004_QJGR.dseg32   equ dseg_92db
-jumptable_3797_case_8      equ api_idx_0004_QJGR.jumptable_case9
-api_idx_0004_QJGR.dseg33   equ dseg_931c
-api_idx_0004_QJGR.dseg34   equ dseg_9315
-api_idx_0004_QJGR.dseg35   equ dseg_930c
-api_idx_0004_QJGR.dseg36   equ dseg_9301
-jumptable_3797_case_9      equ api_idx_0004_QJGR.jumptable_case10
-api_idx_0004_QJGR.dseg37   equ dseg_9342
-api_idx_0004_QJGR.dseg38   equ dseg_933b
-api_idx_0004_QJGR.dseg39   equ dseg_9332
-api_idx_0004_QJGR.dseg40   equ dseg_9327
-jumptable_3797_case_10     equ api_idx_0004_QJGR.jumptable_case11
-api_idx_0004_QJGR.dseg41   equ dseg_9368
-api_idx_0004_QJGR.dseg42   equ dseg_9361
-api_idx_0004_QJGR.dseg43   equ dseg_9358
-api_idx_0004_QJGR.dseg44   equ dseg_934d
-jumptable_3797_case_11     equ api_idx_0004_QJGR.jumptable_case12
-api_idx_0004_QJGR.dseg45   equ dseg_938e
-api_idx_0004_QJGR.dseg46   equ dseg_9387
-api_idx_0004_QJGR.dseg47   equ dseg_937e
-api_idx_0004_QJGR.dseg48   equ dseg_9373
-jumptable_3797_case_12     equ api_idx_0004_QJGR.jumptable_case13
-api_idx_0004_QJGR.dseg49   equ dseg_93b4
-api_idx_0004_QJGR.dseg50   equ dseg_93ad
-api_idx_0004_QJGR.dseg51   equ dseg_93a4
-api_idx_0004_QJGR.dseg52   equ dseg_9399
-jumptable_3797_case_13     equ api_idx_0004_QJGR.jumptable_case14
-api_idx_0004_QJGR.dseg53   equ dseg_93da
-api_idx_0004_QJGR.dseg54   equ dseg_93d3
-api_idx_0004_QJGR.dseg55   equ dseg_93ca
-api_idx_0004_QJGR.dseg56   equ dseg_93bf
-jumptable_3797             equ api_idx_0004_QJGR.jumptable1
-api_idx_0004_QJGR.bss1     equ bss_95d0
-api_idx_0004_QJGR.bss2     equ bss_9598
 %include "shared/ovr/api_idx_0004_QJGR.asm"     ; 0x35fc
 
 %include "shared/ovr/draw_known_spell_values.asm" ; 0x3851
 
 %include "shared/ovr/draw_slot_value_row.asm"   ; 0x390b
 
-api_idx_0032_VJTR equ api_idx_0032_HGIM
-%include "shared/ovr/api_idx_0032_HGIM.asm"     ; 0x3a7a
+%include "vpclv/api_idx_0032_VJTR.asm"     ; 0x3a7a
 
 %include "vpclv/api_idx_0088_LVJM.asm"     ; 0x3f9e
 

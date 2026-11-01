@@ -2,12 +2,12 @@
 cache_area_disk_error:
     mov ax, cs
     mov ds, ax
-    mov dx, cache_area_disk_error.cseg1 - IMAGE_BASE
+    mov dx, cache_area_disk_error_cseg1 - IMAGE_BASE
     mov ah, 9
     int 0x21 ; DOS string output
     mov ax, 0x4c01
     int 0x21 ; DOS function dispatcher
-cache_area_disk_error.cseg1:
+cache_area_disk_error_cseg1:
 
     db 0x0d, 0x0a, 0x07
     db 'Error occurred writing to disk in CACHEAREA().', 0
@@ -261,12 +261,12 @@ cache_area:
 cache_area_out_of_ems:
     mov ax, cs
     mov ds, ax
-    mov dx, cache_area_disk_error.cseg2 - IMAGE_BASE
+    mov dx, cache_area_disk_error_cseg2 - IMAGE_BASE
     mov ah, 9
     int 0x21 ; DOS string output
     mov ax, 0x4c01
     int 0x21 ; DOS function dispatcher
-cache_area_disk_error.cseg2:
+cache_area_disk_error_cseg2:
 
     db 0x0d, 0x0a, 0x07
     db 'CACHEAREA out of EMS.', 0
@@ -286,12 +286,12 @@ cache_area_restore_and_return:
 cache_area_ems_slots_full:
     mov ax, cs
     mov ds, ax
-    mov dx, cache_area_disk_error.cseg3 - IMAGE_BASE
+    mov dx, cache_area_disk_error_cseg3 - IMAGE_BASE
     mov ah, 9
     int 0x21 ; DOS string output
     mov ax, 0x4c01
     int 0x21 ; DOS function dispatcher
-cache_area_disk_error.cseg3:
+cache_area_disk_error_cseg3:
 
     db 0x0d, 0x0a, 0x07
     db 'CACHEAREA out of EMS slots.', 0
@@ -300,12 +300,12 @@ cache_area_disk_error.cseg3:
 cache_area_maze_mem_full:
     mov ax, cs
     mov ds, ax
-    mov dx, cache_area_disk_error.cseg4 - IMAGE_BASE
+    mov dx, cache_area_disk_error_cseg4 - IMAGE_BASE
     mov ah, 9
     int 0x21 ; DOS string output
     mov ax, 0x4c01
     int 0x21 ; DOS function dispatcher
-cache_area_disk_error.cseg4:
+cache_area_disk_error_cseg4:
 
     db 0x0d, 0x0a, 0x07
     db 'CACHEAREA out of MAZE/PIC memory.', 0
@@ -318,12 +318,12 @@ cache_area_return_zero:
 cache_area_maze_slots_full:
     mov ax, cs
     mov ds, ax
-    mov dx, cache_area_disk_error.cseg5 - IMAGE_BASE
+    mov dx, cache_area_disk_error_cseg5 - IMAGE_BASE
     mov ah, 9
     int 0x21 ; DOS string output
     mov ax, 0x4c01
     int 0x21 ; DOS function dispatcher
-cache_area_disk_error.cseg5:
+cache_area_disk_error_cseg5:
 
     db 0x0d, 0x0a, 0x07
     db 'CACHEAREA out of MAZE slots.', 0

@@ -39,7 +39,7 @@ draw_member_panel_glyphs:
     mov al, byte [bx + party_records + pc_rec.profession]
     sub ah, ah
     jmp near .forward5
-draw_member_panel_glyphs.jumptable_case1:
+jumptable_1ee4_case_0:
     mov ax, word [bp - 4]
     inc ax
     push ax
@@ -52,7 +52,7 @@ draw_member_panel_glyphs.jumptable_case1:
     call draw_member_glyph_row
     add sp, byte 0xe
     jmp near draw_member_panel_glyphs.return1
-draw_member_panel_glyphs.jumptable_case2:
+jumptable_1ee4_case_1:
     mov ax, 0x248
     imul word [bp + 4]
     mov bx, ax
@@ -78,7 +78,7 @@ draw_member_panel_glyphs.jumptable_case2:
     call draw_member_glyph_row
     add sp, byte 0xe
     jmp near draw_member_panel_glyphs.return1
-draw_member_panel_glyphs.jumptable_case3:
+jumptable_1ee4_case_2:
     mov ax, 0x248
     imul word [bp + 4]
     mov bx, ax
@@ -107,7 +107,7 @@ draw_member_panel_glyphs.jumptable_case3:
     call draw_member_glyph_row
     add sp, byte 0xe
     jmp near draw_member_panel_glyphs.return1
-draw_member_panel_glyphs.jumptable_case4:
+jumptable_1ee4_case_4:
     mov ax, word [bp - 4]
     inc ax
     push ax
@@ -125,7 +125,7 @@ draw_member_panel_glyphs.jumptable_case4:
     call draw_member_glyph_row
     add sp, byte 0xe
     jmp near draw_member_panel_glyphs.return1
-draw_member_panel_glyphs.jumptable_case5:
+jumptable_1ee4_case_5:
     mov ax, 0x248
     imul word [bp + 4]
     mov bx, ax
@@ -154,7 +154,7 @@ draw_member_panel_glyphs.jumptable_case5:
     call draw_member_glyph_row
     add sp, byte 0xe
     jmp near draw_member_panel_glyphs.return1
-draw_member_panel_glyphs.jumptable_case6:
+jumptable_1ee4_case_6:
     mov ax, word [bp - 4]
     inc ax
     push ax
@@ -175,7 +175,7 @@ draw_member_panel_glyphs.jumptable_case6:
     call draw_member_glyph_row
     add sp, byte 0xe
     jmp near draw_member_panel_glyphs.return1
-draw_member_panel_glyphs.jumptable_case7:
+jumptable_1ee4_case_7:
     mov ax, 0x248
     imul word [bp + 4]
     mov bx, ax
@@ -202,7 +202,7 @@ draw_member_panel_glyphs.jumptable_case7:
     call draw_member_glyph_row
     add sp, byte 0xe
     jmp near draw_member_panel_glyphs.return1
-draw_member_panel_glyphs.jumptable_case8:
+jumptable_1ee4_case_8:
     mov ax, word [bp - 4]
     inc ax
     inc ax
@@ -223,7 +223,7 @@ draw_member_panel_glyphs.jumptable_case8:
     call draw_member_glyph_row
     add sp, byte 0xe
     jmp near draw_member_panel_glyphs.return1
-draw_member_panel_glyphs.jumptable_case9:
+jumptable_1ee4_case_9:
     mov ax, 0x248
     imul word [bp + 4]
     mov bx, ax
@@ -246,7 +246,7 @@ draw_member_panel_glyphs.jumptable_case9:
     call draw_member_glyph_row
     add sp, byte 0xe
     jmp near draw_member_panel_glyphs.return1
-draw_member_panel_glyphs.jumptable_case10:
+jumptable_1ee4_case_10:
     mov ax, word [bp - 4]
     inc ax
     inc ax
@@ -267,7 +267,7 @@ draw_member_panel_glyphs.jumptable_case10:
     call draw_member_glyph_row
     add sp, byte 0xe
     jmp near draw_member_panel_glyphs.return1
-draw_member_panel_glyphs.jumptable_case11:
+jumptable_1ee4_case_11:
     mov ax, word [bp - 4]
     inc ax
     inc ax
@@ -286,7 +286,7 @@ draw_member_panel_glyphs.jumptable_case11:
     call draw_member_glyph_row
     add sp, byte 0xe
     jmp short draw_member_panel_glyphs.return1
-draw_member_panel_glyphs.jumptable_case12:
+jumptable_1ee4_case_12:
     mov ax, word [bp - 4]
     inc ax
     push ax
@@ -308,7 +308,7 @@ draw_member_panel_glyphs.jumptable_case12:
     call draw_member_glyph_row
     add sp, byte 0xe
     jmp short draw_member_panel_glyphs.return1
-draw_member_panel_glyphs.jumptable_case13:
+jumptable_1ee4_case_13:
     mov ax, word [bp - 4]
     inc ax
     push ax
@@ -329,26 +329,26 @@ draw_member_panel_glyphs.jumptable_case13:
     call draw_member_glyph_row
     add sp, byte 0xe
     jmp short draw_member_panel_glyphs.return1
-draw_member_panel_glyphs.jumptable1:
-    dw draw_member_panel_glyphs.jumptable_case1 - IMAGE_BASE + __zres_end
-    dw draw_member_panel_glyphs.jumptable_case2 - IMAGE_BASE + __zres_end
-    dw draw_member_panel_glyphs.jumptable_case3 - IMAGE_BASE + __zres_end
-    dw draw_member_panel_glyphs.jumptable_case1 - IMAGE_BASE + __zres_end
-    dw draw_member_panel_glyphs.jumptable_case4 - IMAGE_BASE + __zres_end
-    dw draw_member_panel_glyphs.jumptable_case5 - IMAGE_BASE + __zres_end
-    dw draw_member_panel_glyphs.jumptable_case6 - IMAGE_BASE + __zres_end
-    dw draw_member_panel_glyphs.jumptable_case7 - IMAGE_BASE + __zres_end
-    dw draw_member_panel_glyphs.jumptable_case8 - IMAGE_BASE + __zres_end
-    dw draw_member_panel_glyphs.jumptable_case9 - IMAGE_BASE + __zres_end
-    dw draw_member_panel_glyphs.jumptable_case10 - IMAGE_BASE + __zres_end
-    dw draw_member_panel_glyphs.jumptable_case11 - IMAGE_BASE + __zres_end
-    dw draw_member_panel_glyphs.jumptable_case12 - IMAGE_BASE + __zres_end
-    dw draw_member_panel_glyphs.jumptable_case13 - IMAGE_BASE + __zres_end
+jumptable_1ee4:
+    dw jumptable_1ee4_case_0 - IMAGE_BASE + __zres_end
+    dw jumptable_1ee4_case_1 - IMAGE_BASE + __zres_end
+    dw jumptable_1ee4_case_2 - IMAGE_BASE + __zres_end
+    dw jumptable_1ee4_case_0 - IMAGE_BASE + __zres_end
+    dw jumptable_1ee4_case_4 - IMAGE_BASE + __zres_end
+    dw jumptable_1ee4_case_5 - IMAGE_BASE + __zres_end
+    dw jumptable_1ee4_case_6 - IMAGE_BASE + __zres_end
+    dw jumptable_1ee4_case_7 - IMAGE_BASE + __zres_end
+    dw jumptable_1ee4_case_8 - IMAGE_BASE + __zres_end
+    dw jumptable_1ee4_case_9 - IMAGE_BASE + __zres_end
+    dw jumptable_1ee4_case_10 - IMAGE_BASE + __zres_end
+    dw jumptable_1ee4_case_11 - IMAGE_BASE + __zres_end
+    dw jumptable_1ee4_case_12 - IMAGE_BASE + __zres_end
+    dw jumptable_1ee4_case_13 - IMAGE_BASE + __zres_end
 draw_member_panel_glyphs.forward5:
     cmp ax, strict word 0xe
     jae short draw_member_panel_glyphs.return1
     xchg bx, ax
     shl bx, 1
-    jmp [cs:bx + draw_member_panel_glyphs.jumptable1 - IMAGE_BASE + __zres_end]
+    jmp [cs:bx + jumptable_1ee4 - IMAGE_BASE + __zres_end]
 draw_member_panel_glyphs.return1:
     ret

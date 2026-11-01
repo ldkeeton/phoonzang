@@ -37,11 +37,11 @@ free_sound:
     pop bp
     ret
 loc_PPJL:
-    call free_sound.leaf_loc1
+    call leaf_loc_OSUJ
     call leaf_loc_IHJG
     call leaf_loc_USQQ
     call leaf_loc_MGRH
-    call free_sound.leaf_loc2
-    call free_sound.dos_con_loc1
-    call free_sound.leaf_loc3
+    call leaf_loc_JRKU
+    call dos_con_loc_GJMS
+    call leaf_loc_SSGH
     ret

@@ -27,12 +27,12 @@ copy_file_region:
 .forward1:
     mov ax, cs
     mov ds, ax
-    mov dx, copy_file_region.cseg1 - IMAGE_BASE
+    mov dx, cseg_45fb - IMAGE_BASE
     mov ah, 9
     int 0x21 ; DOS string output
     mov ax, 0x4c01
     int 0x21 ; DOS function dispatcher
-copy_file_region.cseg1:
+cseg_45fb:
 
     db 0x0d, 0x0a, 0x07
     db 'Error occurred writing to disk', 0

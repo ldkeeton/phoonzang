@@ -1,7 +1,7 @@
 ; auto-generated
 ; Record layouts the code addresses (lib/record_layout.py).
 ; Each field is an offset the code reads or writes; names come
-; from the sidecar's data_names "record", else f_<offset>.
+; from the sidecar's "records" block, else f_<offset>.
 %ifndef STRUCTS_INC
 %define STRUCTS_INC
 

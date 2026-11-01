@@ -2,7 +2,7 @@
 #include <ctype.h>
 
 long
-atol(cp)
+aztec_atol(cp)
 register char *cp;
 {
 	long n;

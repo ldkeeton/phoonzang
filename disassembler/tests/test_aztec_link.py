@@ -190,25 +190,9 @@ class LinkTest(unittest.TestCase):
         with self.assertRaisesRegex(relink.RelinkError, 'ds_loc_4462'):
             self.link(relink.SymbolIndex({}, None, None, {'bss_0cfa': 1}))
 
-    def test_a_shared_call_resolves_from_the_original_target(self):
-        # A shared C spells another binary's name for the callee.  The
-        # original instruction says where the call really goes, so the link
-        # needs no alias table -- and no other binary's asm on disk.
-        original = bytearray(self.START + 0x1a)
-        original[self.START + 0x18:self.START + 0x1a] = (
-            0x5100 - (self.START + 0x18 + 2)).to_bytes(2, 'little')
-        index = relink.SymbolIndex({0x5100: 'api_idx_0004_SMTU'}, None, None,
-                                   {'bss_0cfa': 0xcfa, 'tbl': 0xd20})
-        out = relink.link('aztec_foo', self.START, _foo(), index,
-                          bytes(original), (),
-                          resolve_by_address=True)
-        disp = int.from_bytes(out.code[0x18:0x1a], 'little', signed=True)
-        self.assertEqual(self.START + 0x18 + 2 + disp, 0x5100)
-        self.assertEqual(out.refs[0x18].text, 'api_idx_0004_SMTU')
-
-    def test_an_unknown_call_is_still_an_error_without_the_original_rule(self):
-        # Only a shared source links by the original instruction; a hand C
-        # still has to name a label the image defines.
+    def test_an_unknown_call_is_an_error_whatever_the_original_says(self):
+        # A source has to name a label the image defines; the original
+        # instruction never stands in for it.
         original = bytearray(self.START + 0x1a)
         original[self.START + 0x18:self.START + 0x1a] = (
             0x5100 - (self.START + 0x18 + 2)).to_bytes(2, 'little')
@@ -217,29 +201,6 @@ class LinkTest(unittest.TestCase):
         with self.assertRaisesRegex(relink.RelinkError, 'ds_loc_4462'):
             relink.link('aztec_foo', self.START, _foo(), index, bytes(original),
                         ())
-
-    def test_a_shared_call_resolves_to_a_neighbour_label(self):
-        # The original target may carry only a label the build placed (a
-        # neighbour's), not one the symbol index knows.
-        original = bytearray(self.START + 0x1a)
-        original[self.START + 0x18:self.START + 0x1a] = (
-            0x5100 - (self.START + 0x18 + 2)).to_bytes(2, 'little')
-        index = relink.SymbolIndex({}, None, None,
-                                   {'bss_0cfa': 0xcfa, 'tbl': 0xd20})
-        out = relink.link('aztec_foo', self.START, _foo(), index,
-                          bytes(original), (), {0x5100: 'loc_GPIH'},
-                          resolve_by_address=True)
-        disp = int.from_bytes(out.code[0x18:0x1a], 'little', signed=True)
-        self.assertEqual(self.START + 0x18 + 2 + disp, 0x5100)
-        self.assertEqual(out.refs[0x18].text, 'loc_GPIH')
-
-    def test_the_original_never_overrides_a_name_the_image_defines(self):
-        original = bytearray(self.START + 0x1a)
-        original[self.START + 0x18:self.START + 0x1a] = (
-            0x4f00 - (self.START + 0x18 + 2)).to_bytes(2, 'little')
-        out = relink.link('aztec_foo', self.START, _foo(), _index(),
-                          bytes(original), (), resolve_by_address=True)
-        self.assertEqual(out.refs[0x18].text, 'ds_loc_4462')
 
     def _unnamed_index(self, canonical):
         code = {0x5000: 'ds_loc_4462', 0x4f00: 'aztec_close'}

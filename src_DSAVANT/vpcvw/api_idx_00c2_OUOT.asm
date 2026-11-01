@@ -101,7 +101,7 @@ api_idx_00c2_OUOT:
     add sp, byte 6                   ; 0x55ed
     mov word [roster_alt_mode], 1    ; 0x55f0
     push word [bp + 4]               ; 0x55f6
-    call api_idx_004c_LTUL           ; 0x55f9
+    call api_idx_004c_HTUT           ; 0x55f9
     pop cx                           ; 0x55fc
     mov ax, 0                        ; 0x55fd
     push ax                          ; 0x5600
@@ -844,7 +844,7 @@ api_idx_00c2_OUOT:
     jne short .forward30             ; 0x5cc9
     mov word [roster_alt_mode], 0    ; 0x5ccb
     push word [bp + 4]               ; 0x5cd1
-    call api_idx_004c_LTUL           ; 0x5cd4
+    call api_idx_004c_HTUT           ; 0x5cd4
     pop cx                           ; 0x5cd7
     mov ax, 6                        ; 0x5cd8
     push ax                          ; 0x5cdb
@@ -867,7 +867,7 @@ api_idx_00c2_OUOT:
 .forward30:
     mov word [roster_alt_mode], 1    ; 0x5d01
     push word [bp + 4]               ; 0x5d07
-    call api_idx_004c_LTUL           ; 0x5d0a
+    call api_idx_004c_HTUT           ; 0x5d0a
     pop cx                           ; 0x5d0d
     mov ax, 6                        ; 0x5d0e
     push ax                          ; 0x5d11
@@ -989,7 +989,7 @@ api_idx_00c2_OUOT:
     call api_idx_009e_HMOI           ; 0x5e26
     add sp, byte 4                   ; 0x5e29
     push word [bp + 4]               ; 0x5e2c
-    call api_idx_004c_LTUL           ; 0x5e2f
+    call api_idx_004c_HTUT           ; 0x5e2f
     pop cx                           ; 0x5e32
     cmp word [bp - 0x2c], byte 0     ; 0x5e33
     jne short .forward37             ; 0x5e37
@@ -1091,7 +1091,7 @@ api_idx_00c2_OUOT:
     add sp, byte 4                   ; 0x5f14
 .forward39:
     push word [bp + 4]               ; 0x5f17
-    call api_idx_004c_LTUL           ; 0x5f1a
+    call api_idx_004c_HTUT           ; 0x5f1a
     pop cx                           ; 0x5f1d
     mov ax, 6                        ; 0x5f1e
     push ax                          ; 0x5f21
@@ -1213,7 +1213,7 @@ api_idx_00c2_OUOT:
     mov word [roster_page], dx       ; 0x6037
     mov word [roster_drawn], 0       ; 0x603b
     push word [bp + 4]               ; 0x6041
-    call api_idx_004c_LTUL           ; 0x6044
+    call api_idx_004c_HTUT           ; 0x6044
     pop cx                           ; 0x6047
     call api_idx_0004_KVIP           ; 0x6048
     mov ax, 0xb6                     ; 0x604b
@@ -1249,7 +1249,7 @@ api_idx_00c2_OUOT:
     call api_idx_0080_MHMQ           ; 0x609e
     pop cx                           ; 0x60a1
     push word [bp + 4]               ; 0x60a2
-    call api_idx_004c_LTUL           ; 0x60a5
+    call api_idx_004c_HTUT           ; 0x60a5
     pop cx                           ; 0x60a8
     mov ax, 0xc7                     ; 0x60a9
     push ax                          ; 0x60ac

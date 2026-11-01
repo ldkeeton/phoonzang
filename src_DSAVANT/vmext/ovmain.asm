@@ -14,7 +14,7 @@ ovmain:
     mov ax, word [bp - 2]            ; 0x0037
     shl ax, 1                        ; 0x003a
     mov bx, ax                       ; 0x003c
-    mov word [bx + bss_9182], 0      ; 0x003e
+    mov word [bx + api_idx_0030_KNRH_bss7087], 0      ; 0x003e
     inc word [bp - 2]                ; 0x0044
     mov ax, word [bp - 2]            ; 0x0047
     cmp ax, strict word 3            ; 0x004a

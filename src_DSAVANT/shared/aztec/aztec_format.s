@@ -74,7 +74,7 @@ main_loop:
 default:
 	test	al,al
 	jz	finishup
-	call	loc_NJTI_
+	call	emitchar
 	jmp	main_loop
 finishup:
 	mov	ax,charcount
@@ -273,21 +273,21 @@ width_ok:
 
 	cmp	fillc,'0'	;if padding with zeros
 	jne	wpad_loop
-	call	loc_MRST_	;then we must emit sign chars if required
+	call	emitsign	;then we must emit sign chars if required
 wpad_loop:
 	mov	al,fillc	;emit padding needed to get min field width
-	call	loc_NJTI_
+	call	emitchar
 	dec	fldwidth
 	jg	wpad_loop
 
 left_justify:
-	call	loc_MRST_	;emit sign chars if required
+	call	emitsign	;emit sign chars if required
 
 zpad_loop:		;emit any padding needed because of precision
 	dec	precision
 	js	outchars
 	mov	al,'0'
-	call	loc_NJTI_
+	call	emitchar
 	jmp	zpad_loop
 
 outchars:		;emit the characters generated
@@ -295,14 +295,14 @@ outchars:		;emit the characters generated
 	js	trail_pad
 	mov	al,es:byte ptr [di]
 	inc	di
-	call	loc_NJTI_
+	call	emitchar
 	jmp	outchars
 
 trail_pad:		;emit trailing field width padding
 	dec	fldwidth
 	js	outdone
 	mov	al,' '		;trailing pad is always space
-	call	loc_NJTI_
+	call	emitchar
 	jmp	trail_pad
 outdone:
 	jmp	main_loop
@@ -413,19 +413,19 @@ numchar:
 nc_done:
 	jmp	main_loop
 
-loc_MRST_:
+emitsign:
 	mov	al,sign		;check if sign chars required
 	test	al,al
-	jz	loc_PLIR_
+	jz	emit_done
 	cmp	al,'x'		;check for 0x prefix
 	jne	normalsign
 	mov	al,'0'
-	call	loc_NJTI_
+	call	emitchar
 	mov	al,'x'
 normalsign:
 	mov	sign,0		;mark sign as already emitted
 			;fall through into emitchar routine and return
-loc_NJTI_:
+emitchar:
 	inc	charcount
 	test	options,CASEMAP
 	jz	nocasefix
@@ -447,7 +447,7 @@ ifdef LONGPTR
 	mov	ds,word ptr fmtstr+2	;get internal DS back
 endif
 	pop	es		;restore
-loc_PLIR_:
+emit_done:
 	ret
 
 	pend aztec_format

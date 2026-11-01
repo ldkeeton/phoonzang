@@ -11,7 +11,6 @@ codeseg	segment	byte public 'code'
 	extrn	cursor_mask_width_bytes:word
 	extrn	cursor_save_row_bytes:word
 	extrn	cursor_x_shift:word
-	extrn	cursor_final_shift:word
 	extrn	cursor_clipped_right:word
 	public	restore_cursor_surround_plane_
 

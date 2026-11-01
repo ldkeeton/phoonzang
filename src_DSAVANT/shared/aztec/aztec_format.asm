@@ -13,10 +13,10 @@ aztec_format:
     lodsb
     cmp al, 0x25
     je short .forward2
-aztec_format.jumptable_case1:
+aztec_format_conv_routines_case_20:
     test al, al
     je short aztec_format.forward1
-    call aztec_format.loc1
+    call ds_loc_NJTI
     jmp short aztec_format.back1
 aztec_format.forward1:
     mov ax, word [bp - 2]
@@ -78,34 +78,34 @@ aztec_format.back3:
     mov di, aztec_format_conversions - IMAGE_BASE
     mov cx, 0x15
     repne scasb
-    sub di, aztec_format.cseg1 - IMAGE_BASE
+    sub di, aztec_format_conv_index - IMAGE_BASE
     shl di, 1
     jmp [cs:di + aztec_format_conv_routines - IMAGE_BASE]
-aztec_format.jumptable_case2:
+aztec_format_conv_routines_case_0:
     or byte [bp - 0xb], 1
     lodsb
     jmp short aztec_format.back3
-aztec_format.jumptable_case3:
+aztec_format_conv_routines_case_1:
     or byte [bp - 0xb], 2
-aztec_format.jumptable_case4:
+aztec_format_conv_routines_case_2:
     lodsb
     jmp short aztec_format.back3
-aztec_format.jumptable_case5:
+aztec_format_conv_routines_case_3:
     or byte [bp - 0xb], 4
     lodsb
     jmp short aztec_format.back3
-aztec_format.jumptable_case6:
+aztec_format_conv_routines_case_5:
     mov cx, 8
     jmp short aztec_format.forward10
-aztec_format.jumptable_case7:
+aztec_format_conv_routines_case_7:
     or byte [bp - 0xb], 0x20
-aztec_format.jumptable_case8:
+aztec_format_conv_routines_case_6:
     mov cx, 0x10
     jmp short aztec_format.forward10
-aztec_format.jumptable_case9:
+aztec_format_conv_routines_case_8:
     mov cx, 0xa
     jmp short aztec_format.forward10
-aztec_format.jumptable_case10:
+aztec_format_conv_routines_case_9:
     mov cx, 0xff0a
 aztec_format.forward10:
     push ds
@@ -205,46 +205,46 @@ aztec_format.forward22:
     jne short aztec_format.forward23
     cmp byte [bp - 0xc], 0x30
     jne short aztec_format.back6
-    call aztec_format.loc2
+    call ds_loc_MRST
 aztec_format.back6:
     mov al, byte [bp - 0xc]
-    call aztec_format.loc1
+    call ds_loc_NJTI
     dec word [bp - 4]
     jg short aztec_format.back6
 aztec_format.forward23:
-    call aztec_format.loc2
+    call ds_loc_MRST
 aztec_format.back7:
     dec word [bp - 6]
     js short aztec_format.back8
     mov al, 0x30
-    call aztec_format.loc1
+    call ds_loc_NJTI
     jmp short aztec_format.back7
 aztec_format.back8:
     dec word [bp - 8]
     js short aztec_format.back9
     mov al, byte [es:di]
     inc di
-    call aztec_format.loc1
+    call ds_loc_NJTI
     jmp short aztec_format.back8
 aztec_format.back9:
     dec word [bp - 4]
     js short aztec_format.forward24
     mov al, 0x20
-    call aztec_format.loc1
+    call ds_loc_NJTI
     jmp short aztec_format.back9
 aztec_format.forward24:
     jmp near aztec_format.back1
-aztec_format.jumptable_case11:
+aztec_format_conv_routines_case_16:
     or byte [bp - 0xb], 0x20
     add al, 0x20
-aztec_format.jumptable_case12:
+aztec_format_conv_routines_case_15:
     add word [bp + 8], byte 8
     mov ax, cs
     mov es, ax
     mov di, aztec_format_nofltmsg - IMAGE_BASE
     sub word [bp - 4], byte 0xa
     jmp short aztec_format.back8
-aztec_format.jumptable_case13:
+aztec_format_conv_routines_case_11:
     call aztec_format_get_pointer
     push di
     mov al, 0
@@ -259,7 +259,7 @@ aztec_format.forward25:
     pop di
     mov word [bp - 6], 0
     jmp near aztec_format.back5
-aztec_format.jumptable_case14:
+aztec_format_conv_routines_case_12:
     push ds
     pop es
     mov di, word [bp + 8]
@@ -273,9 +273,9 @@ aztec_format.jumptable_case14:
     lea di, word [bp - 0x154]
     mov word [bp - 6], 0
     jmp near aztec_format.back5
-aztec_format.jumptable_case15:
+aztec_format_conv_routines_case_13:
     jmp near aztec_format.back1
-aztec_format.jumptable_case16:
+aztec_format_conv_routines_case_14:
     call aztec_format_get_pointer
     mov ax, word [bp - 2]
     mov word [es:di], ax
@@ -284,32 +284,32 @@ aztec_format.jumptable_case16:
     mov word [es:di + 2], 0
 aztec_format.forward26:
     jmp near aztec_format.back1
-aztec_format.loc2:
+ds_loc_MRST:
     mov al, byte [bp - 0xd]
     test al, al
-    je short aztec_format.loc3
+    je short .return1
     cmp al, 0x78
-    jne short ds_loc_MRST.forward1
+    jne short .forward1
     mov al, 0x30
-    call aztec_format.loc1
+    call ds_loc_NJTI
     mov al, 0x78
-ds_loc_MRST.forward1:
+.forward1:
     mov byte [bp - 0xd], 0
-aztec_format.loc1:
+ds_loc_NJTI:
     inc word [bp - 2]
     test byte [bp - 0xb], 0x20
-    je short ds_loc_NJTI.forward1
+    je short .forward1
     cmp al, 0x61
-    jb short ds_loc_NJTI.forward1
+    jb short .forward1
     cmp al, 0x7a
-    ja short ds_loc_NJTI.forward1
+    ja short .forward1
     sub al, 0x20
-ds_loc_NJTI.forward1:
+.forward1:
     push es
     sub ah, ah
     push ax
     call [bp + 4]
     pop ax
     pop es
-aztec_format.loc3:
+ds_loc_MRST.return1:
     ret

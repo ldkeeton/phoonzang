@@ -290,10 +290,6 @@ def _aztec_c_overrides(project, name, data, label_map, out_dir,
             'func': func, 'text': text, 'path': path,
             'start': start,
             'own_keys': {cache.own_key(routine, entry): label},
-            # A shared source may call a target this binary spells
-            # differently; there is no other binary's asm to read, so the
-            # link reads the target from the original instruction.
-            'shared': os.path.dirname(path) in shared_dirs(out_dir),
             'pristine': False,
             'compile': (lambda t, _l=routine, _e=entry:
                         cache.compile_source(project, name, _l, _e, t)),

@@ -55,6 +55,7 @@ from lib.compare.analysis import (
     _compute_branch_ownership,
     _local_branch_targets,
     _compute_local_labels,
+    _fragment_local_targets,
     _direct_flow_targets,
 )
 from lib.compare.coverrides import _apply_c_overrides
@@ -554,10 +555,19 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
     stagelog.step('verify.split_select', 2,
                   track={'split_ranges': stagelog.ranges_by_start(split_ranges)})
     fragment_names = {range_name for _, _, range_name in split_ranges}
+    shared_targets = {
+        target: owner for target, owner in _fragment_local_targets(
+            branch_targets, owners, edge_sources, roots, split_ranges,
+            label_map).items()
+        if not (0 <= target < total and hard_data[target])
+    }
+    for target in shared_targets:
+        label_map.pop(target, None)
     local_labels = _compute_local_labels(
         local_targets, owners, roots, label_map, fragment_names,
         split_ranges=split_ranges,
         instructions=insns, branch_edges=direct_edges,
+        shared_targets=shared_targets,
     )
     local_labels = {
         off: label for off, label in local_labels.items()

@@ -16,8 +16,8 @@ api_idx_009e_KPST:
     mov ax, 0                        ; 0x18b7
     push ax                          ; 0x18ba
     push ax                          ; 0x18bb
-    push word [bss_93f0]             ; 0x18bc
-    push word [bss_93ee]             ; 0x18c0
+    push word [api_idx_007c_OKMO_bss19]             ; 0x18bc
+    push word [api_idx_007c_OKMO_bss24]             ; 0x18c0
     call call_restore_screen         ; 0x18c4
     add sp, byte 8                   ; 0x18c7
     mov ax, 0                        ; 0x18ca

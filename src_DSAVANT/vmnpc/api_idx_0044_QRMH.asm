@@ -159,11 +159,11 @@ api_idx_0044_QRMH:
     mov ax, word [bp - 0xc]          ; 0x79fc
     add ax, strict word 0x5e         ; 0x79ff
     push ax                          ; 0x7a02
-    call loc_IMPO                    ; 0x7a03
+    call draw_spell_cost                    ; 0x7a03
     add sp, byte 0xa                 ; 0x7a06
     push word [bp - 0x42]            ; 0x7a09
     push word [bp + 4]               ; 0x7a0c
-    call api_idx_0004_NIJP           ; 0x7a0f
+    call collect_known_spells        ; 0x7a0f
     add sp, byte 4                   ; 0x7a12
     mov word [bp - 0x44], ax         ; 0x7a15
     mov ax, 7                        ; 0x7a18
@@ -999,7 +999,7 @@ api_idx_0044_QRMH.forward23:
     mov ax, word [bp - 0xc]          ; 0x81b5
     add ax, strict word 0x5e         ; 0x81b8
     push ax                          ; 0x81bb
-    call loc_IMPO                    ; 0x81bc
+    call draw_spell_cost                    ; 0x81bc
     add sp, byte 0xa                 ; 0x81bf
     jmp short api_idx_0044_QRMH.forward25 ; 0x81c2
 api_idx_0044_QRMH.forward24:
@@ -1013,7 +1013,7 @@ api_idx_0044_QRMH.forward24:
     mov ax, word [bp - 0xc]          ; 0x81d3
     add ax, strict word 0x5e         ; 0x81d6
     push ax                          ; 0x81d9
-    call loc_IMPO                    ; 0x81da
+    call draw_spell_cost                    ; 0x81da
     add sp, byte 0xa                 ; 0x81dd
 api_idx_0044_QRMH.forward25:
     mov ax, word [bp - 6]            ; 0x81e0
@@ -1060,7 +1060,7 @@ api_idx_0044_QRMH.forward28:
     mov word [bp - 0x3c], 0xffff     ; 0x8242
     push ax                          ; 0x8247
     push word [bp + 4]               ; 0x8248
-    call api_idx_0004_NIJP           ; 0x824b
+    call collect_known_spells        ; 0x824b
     add sp, byte 4                   ; 0x824e
     mov word [bp - 0x44], ax         ; 0x8251
     mov ax, 7                        ; 0x8254
@@ -1137,7 +1137,7 @@ api_idx_0044_QRMH.forward30:
     mov ax, word [bp - 0xc]          ; 0x8305
     add ax, strict word 0x5e         ; 0x8308
     push ax                          ; 0x830b
-    call loc_IMPO                    ; 0x830c
+    call draw_spell_cost                    ; 0x830c
     add sp, byte 0xa                 ; 0x830f
     mov ax, word [bp - 6]            ; 0x8312
     add ax, strict word 0x4c         ; 0x8315
@@ -1268,7 +1268,7 @@ api_idx_0044_QRMH.forward36:
     mov ax, word [bp - 0xc]          ; 0x843f
     add ax, strict word 0x5e         ; 0x8442
     push ax                          ; 0x8445
-    call loc_IMPO                    ; 0x8446
+    call draw_spell_cost                    ; 0x8446
     add sp, byte 0xa                 ; 0x8449
     mov ax, word [bp - 6]            ; 0x844c
     add ax, strict word 0x4c         ; 0x844f

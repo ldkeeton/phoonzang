@@ -15,8 +15,8 @@ holds it:
 unites every binary of a host family (:func:`merge`, one layout per object
 so ``shared/`` fragments render alike) and the renderer spells the operands
 with the fields (:func:`field_text`) that ``include/structs.inc`` defines
-(:func:`inc_text`).  Names come from the sidecar (a ``record`` on a
-``data_names`` entry), else ``<label>_rec`` with ``.f_<offset>`` fields.
+(:func:`inc_text`).  Names come from the sidecar (the binary's ``records``
+block), else ``<label>_rec`` with ``.f_<offset>`` fields.
 
 Nothing here reads hand-written sources: the layouts follow from the
 original bytes and the sidecar alone.
@@ -301,7 +301,7 @@ def _parse_hex(key):
 
 
 def _config_fields(config):
-    """``{offset: (name, size or None)}`` of a sidecar ``record``."""
+    """``{offset: (name, size or None)}`` of a sidecar ``records`` layout."""
     fields = {}
     for key, entry in (config.get('fields') or {}).items():
         if isinstance(entry, str):
@@ -567,7 +567,7 @@ def inc_text(layouts):
     lines = ['; auto-generated',
              '; Record layouts the code addresses (lib/record_layout.py).',
              '; Each field is an offset the code reads or writes; names come',
-             '; from the sidecar\'s data_names "record", else f_<offset>.',
+             '; from the sidecar\'s "records" block, else f_<offset>.',
              '%ifndef STRUCTS_INC',
              '%define STRUCTS_INC']
     for key in sorted(layouts):

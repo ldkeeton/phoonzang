@@ -11,8 +11,11 @@ from lib.compare.render import (
 from lib.compare.analysis import (
     _compute_branch_ownership,
     _compute_local_labels,
+    _fragment_local_targets,
     _local_branch_targets,
 )
+from lib.compare.jumptables import _case_symbol
+from lib.symtab import Kind, Source, Symbol
 from tests.syms import generated, label, loc, local, routine
 from lib.compare.splitting import (
     _extend_split_ranges_with_local_tails,
@@ -21,6 +24,46 @@ from lib.compare.splitting import (
 
 
 class DirectFlowLabelTests(unittest.TestCase):
+    def _shared(self, split_ranges, sources=frozenset({0x100, 0x110}), name=None):
+        owners = {0x120: {0x100, 0x110}, 0x100: {0x100}, 0x110: {0x110}}
+        roots = {0x100: routine('first', 0x100), 0x110: routine('second', 0x110)}
+        return _fragment_local_targets(
+            {0x120}, owners, {0x120: set(sources)}, roots, split_ranges,
+            {0x120: name} if name else {})
+
+    def test_jump_shared_by_routines_of_one_fragment_is_local(self):
+        ranges = [(0x100, 0x130, 'first')]
+        shared = self._shared(ranges)
+        self.assertEqual(shared, {0x120: 0x100})
+        labels = _compute_local_labels(
+            set(), {0x120: {0x100, 0x110}, 0x100: {0x100}, 0x110: {0x110}},
+            {0x100: routine('first', 0x100), 0x110: routine('second', 0x110)},
+            {}, split_ranges=ranges, branch_edges={(0x100, 0x120), (0x110, 0x120)},
+            shared_targets=shared)
+        self.assertEqual(str(labels[0x120]), '@..first.forward1')
+
+    def test_jump_back_from_the_fragment_is_a_back_label(self):
+        ranges = [(0x100, 0x130, 'first')]
+        labels = _compute_local_labels(
+            set(), {0x120: {0x100, 0x110}, 0x125: {0x110}},
+            {0x100: routine('first', 0x100)}, {}, split_ranges=ranges,
+            branch_edges={(0x125, 0x120)}, shared_targets={0x120: 0x100})
+        self.assertEqual(str(labels[0x120]), '@..first.back1')
+
+    def test_jump_from_another_fragment_stays_global(self):
+        self.assertEqual(self._shared([(0x100, 0x110, 'first'),
+                                       (0x110, 0x130, 'second')]), {})
+        self.assertEqual(self._shared([(0x100, 0x130, 'first')],
+                                      sources={0x100, 0x200}), {})
+
+    def test_case_label_follows_a_named_table(self):
+        self.assertEqual(str(_case_symbol(0x4822, 3, 0x100)), 'jumptable_4822_case_3')
+        self.assertEqual(str(_case_symbol(0x4822, 3, 0x100, 'conv')), 'conv_case_3')
+
+    def test_a_chosen_name_stays(self):
+        name = Symbol('chosen', kind=Kind.LABEL, source=Source.SIDECAR, offset=0x120)
+        self.assertEqual(self._shared([(0x100, 0x130, 'first')], name=name), {})
+
     def test_local_roles_use_separate_counters_and_return_precedence(self):
         md = Cs(CS_ARCH_X86, CS_MODE_16)
         md.detail = True

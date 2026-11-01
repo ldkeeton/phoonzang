@@ -161,12 +161,12 @@ cache_maze_restore_and_return:
 cache_maze_slot_in_use:
     mov ax, cs
     mov ds, ax
-    mov dx, cache_maze.cseg1 - IMAGE_BASE
+    mov dx, cache_maze_cseg1 - IMAGE_BASE
     mov ah, 9
     int 0x21 ; DOS string output
     mov ax, 0x4c01
     int 0x21 ; DOS function dispatcher
-cache_maze.cseg1:
+cache_maze_cseg1:
 
     db 0x0d, 0x0a, 0x07
     db 'CACHEMAZE().  Requested slot already in use.', 0
@@ -179,12 +179,12 @@ cache_maze_return_zero:
 cache_maze_insufficient_ems:
     mov ax, cs
     mov ds, ax
-    mov dx, cache_maze.cseg2 - IMAGE_BASE
+    mov dx, cache_maze_cseg2 - IMAGE_BASE
     mov ah, 9
     int 0x21 ; DOS string output
     mov ax, 0x4c01
     int 0x21 ; DOS function dispatcher
-cache_maze.cseg2:
+cache_maze_cseg2:
 
     db 0x0d, 0x0a, 0x07
     db 'CACHEMAZE().  Insufficient EMS.', 0

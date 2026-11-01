@@ -29,7 +29,7 @@ loc_TRPK:
     jne short .forward1
     jmp near .forward2
 .forward1:
-    mov ax, loc_TRPK.dseg1
+    mov ax, loc_TRPK_dseg167
     push ax
     mov ax, word [bp - 8]
     add ax, strict word 6
@@ -97,7 +97,7 @@ loc_TRPK:
     add sp, byte 4
     jmp short .forward3
 .forward2:
-    mov ax, loc_TRPK.dseg2
+    mov ax, loc_TRPK_dseg473
     push ax
     mov ax, word [bp - 8]
     inc ax
