@@ -5,7 +5,7 @@
 
 struct spell_info {
 	unsigned char realm;		/* +0: 0..5 */
-	unsigned char level;		/* +1: taken off the power cap */
+	unsigned char level;		/* +1: taken off the caster's level */
 	unsigned char cost;		/* +2: points per power level */
 	unsigned char f3;
 	unsigned char targeted;		/* +4: 1 when a party member is picked */

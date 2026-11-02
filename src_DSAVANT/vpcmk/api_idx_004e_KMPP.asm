@@ -110,7 +110,7 @@ api_idx_004e_KMPP:
     or byte [bx + 7], 0x40           ; 0x4c15
 .forward6:
     push word [bp + 4]               ; 0x4c19
-    call sum_member_item_power       ; 0x4c1c
+    call sum_member_item_weight      ; 0x4c1c
     pop cx                           ; 0x4c1f
     ret                              ; 0x4c20
 loc_VPRH:

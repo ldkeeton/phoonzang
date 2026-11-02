@@ -940,7 +940,7 @@ api_idx_0044_QRMH.forward20:
     mov ax, 0x248                    ; 0x812a
     imul word [bp + 4]               ; 0x812d
     mov bx, ax                       ; 0x8130
-    mov ax, word [bx + party_records + pc_rec.power_cap] ; 0x8132
+    mov ax, word [bx + party_records + pc_rec.level] ; 0x8132
     push ax                          ; 0x8136
     mov ax, 6                        ; 0x8137
     imul word [bp - 0x3c]            ; 0x813a
@@ -1209,7 +1209,7 @@ api_idx_0044_QRMH.forward33:
     mov ax, 0x248                    ; 0x83b4
     imul word [bp + 4]               ; 0x83b7
     mov bx, ax                       ; 0x83ba
-    mov ax, word [bx + party_records + pc_rec.power_cap] ; 0x83bc
+    mov ax, word [bx + party_records + pc_rec.level] ; 0x83bc
     push ax                          ; 0x83c0
     mov ax, 6                        ; 0x83c1
     imul word [bp - 0x3c]            ; 0x83c4

@@ -16,7 +16,7 @@ roll_member_actions:
     mov ax, word [bp - 2]            ; 0x1733
     shl ax, 1                        ; 0x1736
     mov bx, ax                       ; 0x1738
-    mov bx, word [bx + party_char]   ; 0x173a
+    mov bx, word [bx + battle_groups] ; 0x173a
     cmp byte [bx + member_rec.name_row], 1 ; 0x173e
     jne short .forward2              ; 0x1743
     mov ax, 0x248                    ; 0x1745
@@ -40,7 +40,7 @@ roll_member_actions:
     mov ax, word [bp - 2]            ; 0x1770
     shl ax, 1                        ; 0x1773
     mov bx, ax                       ; 0x1775
-    mov bx, word [bx + party_char]   ; 0x1777
+    mov bx, word [bx + battle_groups] ; 0x1777
     mov byte [bx + member_rec.name_row], 0 ; 0x177b
     mov ax, 0                        ; 0x1780
     push ax                          ; 0x1783
@@ -58,7 +58,7 @@ roll_member_actions:
     inc word [bp - 2]                ; 0x179d
 .forward4:
     mov ax, word [bp - 2]            ; 0x17a0
-    cmp ax, word [party_member_count] ; 0x17a3
+    cmp ax, word [monster_group_count] ; 0x17a3
     jg short .return1                ; 0x17a7
     jmp near .back1                  ; 0x17a9
 .return1:

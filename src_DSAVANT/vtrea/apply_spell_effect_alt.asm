@@ -183,7 +183,7 @@ apply_spell_effect_alt.back3:
     mov ax, 0x248                    ; 0x4518
     imul word [bp - 2]               ; 0x451b
     mov bx, ax                       ; 0x451e
-    push word [bx + party_records + pc_rec.pair_b + 0x2] ; 0x4520
+    push word [bx + party_records + pc_rec.stamina + 0x2] ; 0x4520
     mov ax, 0                        ; 0x4524
     push ax                          ; 0x4527
     push word [bp - 8]               ; 0x4528
@@ -208,7 +208,7 @@ apply_spell_effect_alt.back3:
     imul word [bp - 2]               ; 0x4553
     mov bx, ax                       ; 0x4556
     pop ax                           ; 0x4558
-    add ax, word [bx + party_records + pc_rec.pair_b] ; 0x4559
+    add ax, word [bx + party_records + pc_rec.stamina] ; 0x4559
     push ax                          ; 0x455d
     call clamp_between               ; 0x455e
     add sp, byte 6                   ; 0x4561
@@ -217,7 +217,7 @@ apply_spell_effect_alt.back3:
     imul word [bp - 2]               ; 0x4568
     mov bx, ax                       ; 0x456b
     pop ax                           ; 0x456d
-    mov word [bx + party_records + pc_rec.pair_b], ax ; 0x456e
+    mov word [bx + party_records + pc_rec.stamina], ax ; 0x456e
     mov ax, 1                        ; 0x4572
     push ax                          ; 0x4575
     push word [bp - 2]               ; 0x4576
@@ -258,7 +258,7 @@ jumptable_4a7d_case_26:
     mov ax, 0x248                    ; 0x45cb
     imul word [bp + 0xa]             ; 0x45ce
     mov bx, ax                       ; 0x45d1
-    mov al, byte [bx + party_records + pc_rec.f_023e] ; 0x45d3
+    mov al, byte [bx + party_records + pc_rec.poison_strength] ; 0x45d3
     sub ah, ah                       ; 0x45d7
     sub ax, word [bp + 8]            ; 0x45d9
     mov word [bp - 2], ax            ; 0x45dc
@@ -268,7 +268,7 @@ jumptable_4a7d_case_26:
     mov byte [bx + party_records + pc_rec.status + 0x5], 0 ; 0x45e9
 apply_spell_effect_alt.forward14:
     mov al, byte [bp - 2]            ; 0x45ee
-    mov byte [bx + party_records + pc_rec.f_023e], al ; 0x45f1
+    mov byte [bx + party_records + pc_rec.poison_strength], al ; 0x45f1
     mov al, byte [bx + party_records + pc_rec.status + 0x5] ; 0x45f5
     sub ah, ah                       ; 0x45f9
     push ax                          ; 0x45fb
@@ -281,7 +281,7 @@ apply_spell_effect_alt.forward14:
     cmp ax, strict word 0            ; 0x460a
     jg short apply_spell_effect_alt.forward15 ; 0x460d
     mov word [bp - 2], 0             ; 0x460f
-    mov byte [bx + party_records + pc_rec.f_023e], 0 ; 0x4614
+    mov byte [bx + party_records + pc_rec.poison_strength], 0 ; 0x4614
 apply_spell_effect_alt.forward15:
     mov al, byte [bp - 2]            ; 0x4619
     mov byte [bx + party_records + pc_rec.status + 0x5], al ; 0x461c
@@ -324,8 +324,8 @@ apply_spell_effect_alt.forward16:
     mov bx, ax                       ; 0x4673
     pop dx                           ; 0x4675
     pop ax                           ; 0x4676
-    add word [bx + party_records + pc_rec.f_0008], ax ; 0x4677
-    adc word [bx + party_records + pc_rec.f_000a], dx ; 0x467b
+    add word [bx + party_records + pc_rec.age_days], ax ; 0x4677
+    adc word [bx + party_records + pc_rec.age_days + 0x2], dx ; 0x467b
     mov ax, 0x12                     ; 0x467f
     push ax                          ; 0x4682
     call random_below                ; 0x4683
@@ -341,8 +341,8 @@ apply_spell_effect_alt.forward16:
     cmp ax, cx                       ; 0x4699
     jle short apply_spell_effect_alt.forward17 ; 0x469b
     mov byte [bx + party_records + pc_rec.state], 3 ; 0x469d
-    mov word [bx + party_records + pc_rec.pair_a], 0 ; 0x46a2
-    mov word [bx + party_records + pc_rec.pair_b], 0 ; 0x46a8
+    mov word [bx + party_records + pc_rec.hp], 0 ; 0x46a2
+    mov word [bx + party_records + pc_rec.stamina], 0 ; 0x46a8
     jmp short apply_spell_effect_alt.forward18 ; 0x46ae
 apply_spell_effect_alt.forward17:
     mov byte [bx + party_records + pc_rec.state], 0 ; 0x46b0
@@ -517,7 +517,7 @@ apply_spell_effect_alt.back6:
     mov ax, 0x248                    ; 0x4842
     imul word [bp - 2]               ; 0x4845
     mov bx, ax                       ; 0x4848
-    push word [bx + party_records + pc_rec.pair_a + 0x2] ; 0x484a
+    push word [bx + party_records + pc_rec.hp + 0x2] ; 0x484a
     mov ax, 0                        ; 0x484e
     push ax                          ; 0x4851
     push word [bp - 8]               ; 0x4852
@@ -541,7 +541,7 @@ apply_spell_effect_alt.back6:
     imul word [bp - 2]               ; 0x487c
     mov bx, ax                       ; 0x487f
     pop ax                           ; 0x4881
-    add ax, word [bx + party_records + pc_rec.pair_a] ; 0x4882
+    add ax, word [bx + party_records + pc_rec.hp] ; 0x4882
     push ax                          ; 0x4886
     call clamp_between               ; 0x4887
     add sp, byte 6                   ; 0x488a
@@ -550,9 +550,9 @@ apply_spell_effect_alt.back6:
     imul word [bp - 2]               ; 0x4891
     mov bx, ax                       ; 0x4894
     pop ax                           ; 0x4896
-    mov word [bx + party_records + pc_rec.pair_a], ax ; 0x4897
-    add word [bx + party_records + pc_rec.f_0008], byte 1 ; 0x489b
-    adc word [bx + party_records + pc_rec.f_000a], byte 0 ; 0x48a0
+    mov word [bx + party_records + pc_rec.hp], ax ; 0x4897
+    add word [bx + party_records + pc_rec.age_days], byte 1 ; 0x489b
+    adc word [bx + party_records + pc_rec.age_days + 0x2], byte 0 ; 0x48a0
     mov ax, 1                        ; 0x48a5
     push ax                          ; 0x48a8
     push word [bp - 2]               ; 0x48a9
@@ -585,10 +585,10 @@ apply_spell_effect_alt.forward32:
     jle short apply_spell_effect_alt.forward33 ; 0x48e9
     dec byte [bx + party_records + pc_rec.stat + 0x3] ; 0x48eb
     mov byte [bx + party_records + pc_rec.state], 0 ; 0x48ef
-    push word [bx + party_records + pc_rec.pair_a + 0x2] ; 0x48f4
+    push word [bx + party_records + pc_rec.hp + 0x2] ; 0x48f4
     mov ax, 1                        ; 0x48f8
     push ax                          ; 0x48fb
-    mov ax, word [bx + party_records + pc_rec.pair_a + 0x2] ; 0x48fc
+    mov ax, word [bx + party_records + pc_rec.hp + 0x2] ; 0x48fc
     mov cx, 3                        ; 0x4900
     cwd                              ; 0x4903
     idiv cx                          ; 0x4904
@@ -600,13 +600,13 @@ apply_spell_effect_alt.forward32:
     imul word [bp + 0xa]             ; 0x4911
     mov bx, ax                       ; 0x4914
     pop ax                           ; 0x4916
-    mov word [bx + party_records + pc_rec.pair_a], ax ; 0x4917
-    mov ax, word [bx + party_records + pc_rec.pair_b + 0x2] ; 0x491b
+    mov word [bx + party_records + pc_rec.hp], ax ; 0x4917
+    mov ax, word [bx + party_records + pc_rec.stamina + 0x2] ; 0x491b
     mov cx, 0xa                      ; 0x491f
     cwd                              ; 0x4922
     idiv cx                          ; 0x4923
-    mov word [bx + party_records + pc_rec.pair_b], ax ; 0x4925
-    inc word [bx + party_records + pc_rec.f_0026] ; 0x4929
+    mov word [bx + party_records + pc_rec.stamina], ax ; 0x4925
+    inc word [bx + party_records + pc_rec.deaths] ; 0x4929
     mov ax, 0xb7                     ; 0x492d
     push ax                          ; 0x4930
     call random_below                ; 0x4931
@@ -620,8 +620,8 @@ apply_spell_effect_alt.forward32:
     mov bx, ax                       ; 0x4941
     pop dx                           ; 0x4943
     pop ax                           ; 0x4944
-    add word [bx + party_records + pc_rec.f_0008], ax ; 0x4945
-    adc word [bx + party_records + pc_rec.f_000a], dx ; 0x4949
+    add word [bx + party_records + pc_rec.age_days], ax ; 0x4945
+    adc word [bx + party_records + pc_rec.age_days + 0x2], dx ; 0x4949
     mov ax, 1                        ; 0x494d
     push ax                          ; 0x4950
     push word [bp + 0xa]             ; 0x4951
@@ -653,12 +653,12 @@ jumptable_4a7d_case_42:
     imul word [bp + 4]               ; 0x498b
     mov bx, ax                       ; 0x498e
     pop ax                           ; 0x4990
-    add word [bx + party_records + pc_rec.pair_b], ax ; 0x4991
-    mov ax, word [bx + party_records + pc_rec.pair_b] ; 0x4995
-    cmp ax, word [bx + party_records + pc_rec.pair_b + 0x2] ; 0x4999
+    add word [bx + party_records + pc_rec.stamina], ax ; 0x4991
+    mov ax, word [bx + party_records + pc_rec.stamina] ; 0x4995
+    cmp ax, word [bx + party_records + pc_rec.stamina + 0x2] ; 0x4999
     jle short apply_spell_effect_alt.forward34 ; 0x499d
-    mov ax, word [bx + party_records + pc_rec.pair_b + 0x2] ; 0x499f
-    mov word [bx + party_records + pc_rec.pair_b], ax ; 0x49a3
+    mov ax, word [bx + party_records + pc_rec.stamina + 0x2] ; 0x499f
+    mov word [bx + party_records + pc_rec.stamina], ax ; 0x49a3
 apply_spell_effect_alt.forward34:
     mov ax, 0                        ; 0x49a7
     push ax                          ; 0x49aa
@@ -684,12 +684,12 @@ apply_spell_effect_alt.forward34:
     imul word [bp + 4]               ; 0x49d6
     mov bx, ax                       ; 0x49d9
     pop ax                           ; 0x49db
-    add word [bx + party_records + pc_rec.pair_a], ax ; 0x49dc
-    mov ax, word [bx + party_records + pc_rec.pair_a] ; 0x49e0
-    cmp ax, word [bx + party_records + pc_rec.pair_a + 0x2] ; 0x49e4
+    add word [bx + party_records + pc_rec.hp], ax ; 0x49dc
+    mov ax, word [bx + party_records + pc_rec.hp] ; 0x49e0
+    cmp ax, word [bx + party_records + pc_rec.hp + 0x2] ; 0x49e4
     jle short apply_spell_effect_alt.forward35 ; 0x49e8
-    mov ax, word [bx + party_records + pc_rec.pair_a + 0x2] ; 0x49ea
-    mov word [bx + party_records + pc_rec.pair_a], ax ; 0x49ee
+    mov ax, word [bx + party_records + pc_rec.hp + 0x2] ; 0x49ea
+    mov word [bx + party_records + pc_rec.hp], ax ; 0x49ee
 apply_spell_effect_alt.forward35:
     mov ax, 1                        ; 0x49f2
     push ax                          ; 0x49f5

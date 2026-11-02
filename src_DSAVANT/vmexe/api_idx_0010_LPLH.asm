@@ -57,12 +57,12 @@ api_idx_0010_LPLH:
     jne short .forward7              ; 0x26e4
     mov ax, 0xe                      ; 0x26e6
     push ax                          ; 0x26e9
-    mov ax, word [party_char_ext]    ; 0x26ea
+    mov ax, word [battle_group_ext]  ; 0x26ea
     add ax, 0x9a                     ; 0x26ed
     push ax                          ; 0x26f0
     mov ax, 0x248                    ; 0x26f1
     imul word [bp - 2]               ; 0x26f4
-    add ax, party_records + pc_rec.cur ; 0x26f7
+    add ax, party_records + pc_rec.resist ; 0x26f7
     push ax                          ; 0x26fa
     call aztec_movmem                ; 0x26fb
     add sp, byte 6                   ; 0x26fe
@@ -73,8 +73,8 @@ api_idx_0010_LPLH:
     mov ax, word [bp + 4]            ; 0x2709
     shl ax, 1                        ; 0x270c
     mov bx, ax                       ; 0x270e
-    mov bx, word [bx + party_char]   ; 0x2710
-    cmp byte [bx + si + member_rec.item_state], 3 ; 0x2714
+    mov bx, word [bx + battle_groups] ; 0x2710
+    cmp byte [bx + si + member_rec.unit_state], 3 ; 0x2714
     jb short .forward8               ; 0x2718
     jmp near .forward19              ; 0x271a
 .forward8:
@@ -117,7 +117,7 @@ api_idx_0010_LPLH:
     mov ax, word [bp + 4]            ; 0x276e
     shl ax, 1                        ; 0x2771
     mov bx, ax                       ; 0x2773
-    mov bx, word [bx + party_char_ext] ; 0x2775
+    mov bx, word [bx + battle_group_ext] ; 0x2775
     mov si, word [bp + 0xe]          ; 0x2779
     mov al, byte [bx + si + member_ext.f_009a] ; 0x277c
     sub ah, ah                       ; 0x2780
@@ -220,7 +220,7 @@ api_idx_0010_LPLH:
     mov ax, word [bp + 4]            ; 0x2862
     shl ax, 1                        ; 0x2865
     mov bx, ax                       ; 0x2867
-    mov ax, word [bx + party_char]   ; 0x2869
+    mov ax, word [bx + battle_groups] ; 0x2869
     add ax, cx                       ; 0x286d
     push ax                          ; 0x286f
     call loc_TGJH                    ; 0x2870

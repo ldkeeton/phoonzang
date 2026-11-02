@@ -86,7 +86,7 @@ api_idx_0018_KVSP:
     shl cx, 1                        ; 0x7c21
     add ax, cx                       ; 0x7c23
     mov bx, ax                       ; 0x7c25
-    mov ax, word [bx + 0x36e]        ; 0x7c27
+    mov ax, word [bx + maze_cell_x_offset] ; 0x7c27
     push ax                          ; 0x7c2b
     mov ax, word [bp - 0xc]          ; 0x7c2c
     shl ax, 1                        ; 0x7c2f

@@ -78,10 +78,10 @@ cast_spell_from_dialog:
     imul word [bp + 4]               ; 0x4b8e
     mov bx, ax                       ; 0x4b91
     pop ax                           ; 0x4b93
-    sub word [bx + party_records + pc_rec.pair_b], ax ; 0x4b94
-    cmp word [bx + party_records + pc_rec.pair_b], byte 0 ; 0x4b98
+    sub word [bx + party_records + pc_rec.stamina], ax ; 0x4b94
+    cmp word [bx + party_records + pc_rec.stamina], byte 0 ; 0x4b98
     jge short .forward4              ; 0x4b9d
-    mov word [bx + party_records + pc_rec.pair_b], 0 ; 0x4b9f
+    mov word [bx + party_records + pc_rec.stamina], 0 ; 0x4b9f
     mov ax, 6                        ; 0x4ba5
     push ax                          ; 0x4ba8
     call random_below                ; 0x4ba9

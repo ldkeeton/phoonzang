@@ -5,7 +5,7 @@ api_idx_005e_QNLK:
     mov ax, 0x248                    ; 0x5fd6
     imul word [bp + 4]               ; 0x5fd9
     mov bx, ax                       ; 0x5fdc
-    mov ax, word [bx + party_records + pc_rec.power_cap] ; 0x5fde
+    mov ax, word [bx + party_records + pc_rec.level] ; 0x5fde
     push ax                          ; 0x5fe2
     mov al, byte [bss_91c5]          ; 0x5fe3
     sub ah, ah                       ; 0x5fe6
@@ -214,8 +214,8 @@ api_idx_005e_QNLK:
     mov bx, ax                       ; 0x61ba
     pop dx                           ; 0x61bc
     pop ax                           ; 0x61bd
-    add word [bx + party_records + pc_rec.f_0014], ax ; 0x61be
-    adc word [bx + party_records + pc_rec.f_0016], dx ; 0x61c2
+    add word [bx + party_records + pc_rec.gold], ax ; 0x61be
+    adc word [bx + party_records + pc_rec.gold + 0x2], dx ; 0x61c2
     lea ax, word [bp - 0x5e]         ; 0x61c6
     push ax                          ; 0x61c9
     mov ax, MSG_STOLE_SOME_GOLD      ; 0x61ca

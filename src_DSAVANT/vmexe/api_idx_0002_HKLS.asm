@@ -24,7 +24,7 @@ api_idx_0002_HKLS:
     inc word [bp - 2]                ; 0x2dab
 .forward1:
     mov ax, word [bp - 2]            ; 0x2dae
-    cmp ax, word [party_member_count] ; 0x2db1
+    cmp ax, word [monster_group_count] ; 0x2db1
     jle short .back1                 ; 0x2db5
     jmp short .return1               ; 0x2db7
 .forward2:

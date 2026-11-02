@@ -8,15 +8,15 @@ extern int battle_setup_done, row_limit, loaded_score_num;
 extern int requested_row_limit, e1_event_flag;
 extern int show_melee_result;		/* nonzero unless the melee goes to VMNPC */
 extern int saved_screen_pending, saved_screen_slot;
-extern int party_return_state, party_member_count, npc_melee;
+extern int party_return_state, monster_group_count, npc_melee;
 extern int game_state;
 extern long screen_cache[];		/* cached full-screen far pointers */
 extern long saved_area_a, saved_area_b;
 extern long party_redraw_last_tick;
 extern long far *tick_counter_ptr;
-extern char *party_char[];		/* 0x1a4-byte member records */
-extern char *party_char_ext[];		/* 0xe8-byte extended member records */
-extern unsigned char *party_member_ext_1;
+extern char *battle_groups[];			/* 0x1a4-byte member records */
+extern char *battle_group_ext[];		/* 0xe8-byte extended member records */
+extern unsigned char *battle_group_ext_1;
 extern unsigned char picture_slot_number[], picture_slot_used[];
 extern struct {
 	int count;
@@ -29,7 +29,7 @@ extern clamp_between(), call_is_music_playing(), free_loaded_score(),
 	release_and_exit(), redraw_glyph_strip(), setup_melee_party(),
 	wait_for_hotspot_timeout(), aztec_strcpy(), titlecase_string(),
 	aztec_strlen(), load_message_string(), show_centered_message(),
-	advance_melee_item_slots();
+	tick_party_combatants();
 extern char *aztec_malloc();
 extern long call_cache_area(), call_save_area();
 
@@ -68,9 +68,9 @@ start_melee_battle()
 	}
 	screen_cache[1] = call_cache_area(72, 33, 247, 143, 2, 0);
 	for (i = 0; i < 7; i++) {	/* 7 party slots */
-		party_char_ext[i] = aztec_malloc(232);		/* extended record */
-		party_char[i] = aztec_malloc(420);		/* member record */
-		if (party_char_ext[i] == 0 || party_char[i] == 0)
+		battle_group_ext[i] = aztec_malloc(232);		/* extended record */
+		battle_groups[i] = aztec_malloc(420);			/* member record */
+		if (battle_group_ext[i] == 0 || battle_groups[i] == 0)
 			release_and_exit(29);
 	}
 	for (i = 0; i < 12; i++) {	/* 12 overlay slots, skip the count */
@@ -92,17 +92,17 @@ start_melee_battle()
 	show_melee_result = party_return_state == 18 ? 0 : 1;
 	npc_melee = party_return_state == 18 ? 1 : 0;
 	if (party_return_state == 18		/* 0x12: to the NPC state */
-	    && party_member_count > 1) {
+	    && monster_group_count > 1) {
 		redraw_glyph_strip(1);
 		wait_for_hotspot_timeout(1);
-		aztec_strcpy(buf, party_member_ext_1);
+		aztec_strcpy(buf, battle_group_ext_1);
 		titlecase_string(buf);
 		len = aztec_strlen(buf);
 		/* 0xdb8: message id appended to the member's name */
 		load_message_string(MSG_CALLS_FOR_HELP, buf + len);
 		show_centered_message(buf, 17);	/* 17: message sound */
 	}
-	advance_melee_item_slots();
+	tick_party_combatants();
 	party_redraw_last_tick = *tick_counter_ptr;
 	game_state = 11;		/* next state: redraw the party */
 }

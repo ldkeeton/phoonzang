@@ -17,7 +17,7 @@ api_idx_0080_MHMQ:
     call call_restore_screen
     add sp, byte 8
     push word [bp + 4]
-    call api_idx_0012_PGSL
+    call select_encumbrance_style
     pop cx
     mov si, ax
     lea di, word [bp - 0x18]
@@ -28,17 +28,17 @@ api_idx_0080_MHMQ:
     mov ax, 0x248
     imul word [bp + 4]
     mov bx, ax
-    mov al, byte [bx + party_records + pc_rec.count + 0x1]
+    mov al, byte [bx + party_records + pc_rec.armor_class + 0x1]
     cbw
     add ax, word [bp - 0x18]
     mov word [bp - 0xa], ax
-    mov al, byte [bx + party_records + pc_rec.count + 0x2]
+    mov al, byte [bx + party_records + pc_rec.armor_class + 0x2]
     cbw
     mov cx, ax
     mov ax, word [bp - 0xa]
     add cx, ax
     mov word [bp - 8], cx
-    mov al, byte [bx + party_records + pc_rec.count]
+    mov al, byte [bx + party_records + pc_rec.armor_class]
     cbw
     add ax, cx
     mov word [bp - 6], ax
@@ -167,7 +167,7 @@ api_idx_0080_MHMQ:
     imul word [bp + 4]
     add ax, word [bp - 2]
     mov bx, ax
-    mov al, byte [bx + party_records + pc_rec.order + 0x3]
+    mov al, byte [bx + party_records + pc_rec.equipped + 0x3]
     sub ah, ah
     cmp ax, 0xff
     je short .forward3
@@ -183,7 +183,7 @@ api_idx_0080_MHMQ:
     imul word [bp + 4]
     add ax, word [bp - 2]
     mov bx, ax
-    mov al, byte [bx + party_records + pc_rec.count + 0x3]
+    mov al, byte [bx + party_records + pc_rec.armor_class + 0x3]
     cbw
     add ax, word [bp - 8]
     mov word [bp - 6], ax

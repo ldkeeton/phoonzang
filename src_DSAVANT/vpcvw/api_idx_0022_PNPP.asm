@@ -40,8 +40,8 @@ api_idx_0022_PNPP:
     mov ax, 0                        ; 0x94e8
     push ax                          ; 0x94eb
     push ax                          ; 0x94ec
-    push word [api_idx_007c_OKMO_bss19]             ; 0x94ed
-    push word [api_idx_007c_OKMO_bss24]             ; 0x94f1
+    push word [member_screen_cache_high] ; 0x94ed
+    push word [member_screen_cache_low] ; 0x94f1
     call call_restore_screen         ; 0x94f5
     add sp, byte 8                   ; 0x94f8
     mov ax, 0x4a                     ; 0x94fb
@@ -57,7 +57,7 @@ api_idx_0022_PNPP:
     mov word [bp - 8], dx            ; 0x9511
     mov word [bp - 0xa], ax          ; 0x9514
     push word [bp + 4]               ; 0x9517
-    call api_idx_007c_OKMO           ; 0x951a
+    call draw_member_summary_panel   ; 0x951a
     pop cx                           ; 0x951d
     mov ax, 8                        ; 0x951e
     push ax                          ; 0x9521
@@ -132,7 +132,7 @@ api_idx_0022_PNPP:
     mov ax, 0xe                      ; 0x95bd
     push ax                          ; 0x95c0
     push word [bp + 4]               ; 0x95c1
-    call api_idx_0010_STNH           ; 0x95c4
+    call draw_doubled_member_portrait ; 0x95c4
     add sp, byte 6                   ; 0x95c7
     mov ax, 0x4a                     ; 0x95ca
     push ax                          ; 0x95cd
@@ -231,7 +231,7 @@ api_idx_0022_PNPP:
     mov ax, 0xe                      ; 0x969c
     push ax                          ; 0x969f
     push word [bp + 4]               ; 0x96a0
-    call api_idx_0010_STNH           ; 0x96a3
+    call draw_doubled_member_portrait ; 0x96a3
     add sp, byte 6                   ; 0x96a6
     mov ax, 0xc7                     ; 0x96a9
     push ax                          ; 0x96ac

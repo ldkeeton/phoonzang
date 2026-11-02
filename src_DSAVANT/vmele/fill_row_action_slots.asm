@@ -66,17 +66,17 @@ fill_row_action_slots:
     push word [bp - 2]               ; 0x2a6a
     mov ax, 1                        ; 0x2a6d
     push ax                          ; 0x2a70
-    call claim_cell_for_member       ; 0x2a71
+    call claim_cell_for_group        ; 0x2a71
     add sp, byte 6                   ; 0x2a74
     jmp near .forward11              ; 0x2a77
 .back5:
-    cmp word [party_member_count], byte 1 ; 0x2a7a
+    cmp word [monster_group_count], byte 1 ; 0x2a7a
     jne short .forward4              ; 0x2a7f
     push word [bp - 4]               ; 0x2a81
     push word [bp - 2]               ; 0x2a84
     mov ax, 1                        ; 0x2a87
     push ax                          ; 0x2a8a
-    call claim_cell_for_member       ; 0x2a8b
+    call claim_cell_for_group        ; 0x2a8b
     add sp, byte 6                   ; 0x2a8e
     jmp short .forward5              ; 0x2a91
 .forward4:
@@ -84,28 +84,28 @@ fill_row_action_slots:
     push word [bp - 2]               ; 0x2a96
     mov ax, 2                        ; 0x2a99
     push ax                          ; 0x2a9c
-    call claim_cell_for_member       ; 0x2a9d
+    call claim_cell_for_group        ; 0x2a9d
     add sp, byte 6                   ; 0x2aa0
 .forward5:
     jmp short .forward11             ; 0x2aa3
 .back6:
-    cmp word [party_member_count], byte 1 ; 0x2aa5
+    cmp word [monster_group_count], byte 1 ; 0x2aa5
     jne short .forward6              ; 0x2aaa
     push word [bp - 4]               ; 0x2aac
     push word [bp - 2]               ; 0x2aaf
     mov ax, 1                        ; 0x2ab2
     push ax                          ; 0x2ab5
-    call claim_cell_for_member       ; 0x2ab6
+    call claim_cell_for_group        ; 0x2ab6
     add sp, byte 6                   ; 0x2ab9
     jmp short .forward8              ; 0x2abc
 .forward6:
-    cmp word [party_member_count], byte 2 ; 0x2abe
+    cmp word [monster_group_count], byte 2 ; 0x2abe
     jne short .forward7              ; 0x2ac3
     push word [bp - 4]               ; 0x2ac5
     push word [bp - 2]               ; 0x2ac8
     mov ax, 2                        ; 0x2acb
     push ax                          ; 0x2ace
-    call claim_cell_for_member       ; 0x2acf
+    call claim_cell_for_group        ; 0x2acf
     add sp, byte 6                   ; 0x2ad2
     jmp short .forward8              ; 0x2ad5
 .forward7:
@@ -113,7 +113,7 @@ fill_row_action_slots:
     push word [bp - 2]               ; 0x2ada
     mov ax, 3                        ; 0x2add
     push ax                          ; 0x2ae0
-    call claim_cell_for_member       ; 0x2ae1
+    call claim_cell_for_group        ; 0x2ae1
     add sp, byte 6                   ; 0x2ae4
 .forward8:
     jmp short .forward11             ; 0x2ae7

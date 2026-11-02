@@ -9,7 +9,7 @@ api_idx_000a_KOQU:
     mov ax, word [bp + 8]            ; 0x7448
     shl ax, 1                        ; 0x744b
     mov bx, ax                       ; 0x744d
-    mov bx, word [bx + party_char]   ; 0x744f
+    mov bx, word [bx + battle_groups] ; 0x744f
     mov cx, word [bx + si]           ; 0x7453
     mov bx, word [bp + 4]            ; 0x7455
     mov ax, word [bx]                ; 0x7458
@@ -157,14 +157,14 @@ jumptable_78e5_case_5:
     mov ax, word [bss_8464]          ; 0x7591
     shl ax, 1                        ; 0x7594
     mov bx, ax                       ; 0x7596
-    mov bx, word [bx + party_char_ext] ; 0x7598
+    mov bx, word [bx + battle_group_ext] ; 0x7598
     mov byte [bx + 0xdf], 3          ; 0x759c
 api_idx_000a_KOQU.forward2:
     mov word [bp - 8], 0             ; 0x75a1
     mov ax, word [bss_8464]          ; 0x75a6
     shl ax, 1                        ; 0x75a9
     mov bx, ax                       ; 0x75ab
-    mov bx, word [bx + party_char_ext] ; 0x75ad
+    mov bx, word [bx + battle_group_ext] ; 0x75ad
     mov al, byte [bx + 0xdf]         ; 0x75b1
     sub ah, ah                       ; 0x75b5
     jmp near api_idx_000a_KOQU.forward8 ; 0x75b7
@@ -177,7 +177,7 @@ api_idx_000a_KOQU.back2:
     mov ax, word [bp + 8]            ; 0x75c3
     shl ax, 1                        ; 0x75c6
     mov bx, ax                       ; 0x75c8
-    mov bx, word [bx + party_char_ext] ; 0x75ca
+    mov bx, word [bx + battle_group_ext] ; 0x75ca
     mov al, byte [bx + member_ext.f_00a5] ; 0x75ce
     sub ah, ah                       ; 0x75d2
     mov cx, ax                       ; 0x75d4
@@ -213,7 +213,7 @@ api_idx_000a_KOQU.back2:
     mov ax, word [bp + 8]            ; 0x7615
     shl ax, 1                        ; 0x7618
     mov bx, ax                       ; 0x761a
-    mov ax, word [bx + party_char]   ; 0x761c
+    mov ax, word [bx + battle_groups] ; 0x761c
     add ax, cx                       ; 0x7620
     push ax                          ; 0x7622
     call loc_TGJH                    ; 0x7623
@@ -230,7 +230,7 @@ api_idx_000a_KOQU.back3:
     mov ax, word [bp + 8]            ; 0x763a
     shl ax, 1                        ; 0x763d
     mov bx, ax                       ; 0x763f
-    mov bx, word [bx + party_char_ext] ; 0x7641
+    mov bx, word [bx + battle_group_ext] ; 0x7641
     mov al, byte [bx + member_ext.f_00a5] ; 0x7645
     sub ah, ah                       ; 0x7649
     mov cx, ax                       ; 0x764b
@@ -267,9 +267,9 @@ api_idx_000a_KOQU.forward4:
     mov ax, word [bp + 8]            ; 0x768d
     shl ax, 1                        ; 0x7690
     mov bx, ax                       ; 0x7692
-    mov bx, word [bx + party_char]   ; 0x7694
+    mov bx, word [bx + battle_groups] ; 0x7694
     pop ax                           ; 0x7698
-    sub word [bx + si + member_rec.item_charge_cap], ax ; 0x7699
+    sub word [bx + si + member_rec.unit_hp_max], ax ; 0x7699
     mov ax, word [bp - 8]            ; 0x769c
     push ax                          ; 0x769f
     mov ax, 0x2c                     ; 0x76a0
@@ -278,17 +278,17 @@ api_idx_000a_KOQU.forward4:
     mov ax, word [bp + 8]            ; 0x76a8
     shl ax, 1                        ; 0x76ab
     mov bx, ax                       ; 0x76ad
-    mov bx, word [bx + party_char]   ; 0x76af
+    mov bx, word [bx + battle_groups] ; 0x76af
     pop ax                           ; 0x76b3
-    sub word [bx + si + member_rec.item_charges], ax ; 0x76b4
+    sub word [bx + si + member_rec.unit_hp], ax ; 0x76b4
     mov ax, 0x2c                     ; 0x76b7
     imul word [bp + 0xa]             ; 0x76ba
     mov si, ax                       ; 0x76bd
     mov ax, word [bp + 8]            ; 0x76bf
     shl ax, 1                        ; 0x76c2
     mov bx, ax                       ; 0x76c4
-    mov bx, word [bx + party_char]   ; 0x76c6
-    cmp word [bx + si + member_rec.item_charge_cap], byte 1 ; 0x76ca
+    mov bx, word [bx + battle_groups] ; 0x76c6
+    cmp word [bx + si + member_rec.unit_hp_max], byte 1 ; 0x76ca
     jge short api_idx_000a_KOQU.forward5 ; 0x76ce
     mov word [bx + si + 4], 1        ; 0x76d0
 api_idx_000a_KOQU.forward5:
@@ -300,25 +300,25 @@ api_idx_000a_KOQU.forward5:
     mov ax, word [bp + 8]            ; 0x76e3
     shl ax, 1                        ; 0x76e6
     mov bx, ax                       ; 0x76e8
-    mov bx, word [bx + party_char]   ; 0x76ea
-    mov ax, word [bx + si + member_rec.item_charges] ; 0x76ee
+    mov bx, word [bx + battle_groups] ; 0x76ea
+    mov ax, word [bx + si + member_rec.unit_hp] ; 0x76ee
     push ax                          ; 0x76f1
     mov ax, 0x248                    ; 0x76f2
     imul word [bp + 0xa]             ; 0x76f5
     mov bx, ax                       ; 0x76f8
     pop ax                           ; 0x76fa
-    mov word [bx + party_records + pc_rec.pair_a], ax ; 0x76fb
+    mov word [bx + party_records + pc_rec.hp], ax ; 0x76fb
     mov ax, word [bp + 8]            ; 0x76ff
     shl ax, 1                        ; 0x7702
     mov bx, ax                       ; 0x7704
-    mov bx, word [bx + party_char]   ; 0x7706
-    mov ax, word [bx + si + member_rec.item_charge_cap] ; 0x770a
+    mov bx, word [bx + battle_groups] ; 0x7706
+    mov ax, word [bx + si + member_rec.unit_hp_max] ; 0x770a
     push ax                          ; 0x770d
     mov ax, 0x248                    ; 0x770e
     imul word [bp + 0xa]             ; 0x7711
     mov bx, ax                       ; 0x7714
     pop ax                           ; 0x7716
-    mov word [bx + party_records + pc_rec.pair_a + 0x2], ax ; 0x7717
+    mov word [bx + party_records + pc_rec.hp + 0x2], ax ; 0x7717
 api_idx_000a_KOQU.forward6:
     mov word [bp - 0xa], MSG_HIT_POINTS_3752 ; 0x771b
 api_idx_000a_KOQU.forward7:
@@ -418,8 +418,8 @@ api_idx_000a_KOQU.forward14:
     mov ax, word [bp + 8]            ; 0x77f4
     shl ax, 1                        ; 0x77f7
     mov bx, ax                       ; 0x77f9
-    mov bx, word [bx + party_char]   ; 0x77fb
-    cmp word [bx + si + member_rec.item_charges], byte 0 ; 0x77ff
+    mov bx, word [bx + battle_groups] ; 0x77fb
+    cmp word [bx + si + member_rec.unit_hp], byte 0 ; 0x77ff
     jg short api_idx_000a_KOQU.forward15 ; 0x7803
     mov ax, 0                        ; 0x7805
     push ax                          ; 0x7808
@@ -453,7 +453,7 @@ api_idx_000a_KOQU.forward16:
     mov ax, word [bp + 8]            ; 0x7843
     shl ax, 1                        ; 0x7846
     mov bx, ax                       ; 0x7848
-    mov bx, word [bx + party_char_ext] ; 0x784a
+    mov bx, word [bx + battle_group_ext] ; 0x784a
     mov si, word [bp - 0xa]          ; 0x784e
     mov al, byte [bx + si + member_ext.f_009a] ; 0x7851
     sub ah, ah                       ; 0x7855

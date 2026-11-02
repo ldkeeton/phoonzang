@@ -13,7 +13,7 @@ api_idx_005a_SIOK:
     imul word [bp + 4]               ; 0x1113
     add ax, word [bp + 8]            ; 0x1116
     mov bx, ax                       ; 0x1119
-    mov al, byte [bx + party_records + pc_rec.cur] ; 0x111b
+    mov al, byte [bx + party_records + pc_rec.resist] ; 0x111b
     sub ah, ah                       ; 0x111f
     mov cx, ax                       ; 0x1121
     pop ax                           ; 0x1123
@@ -34,8 +34,8 @@ api_idx_005a_SIOK:
     mov byte [bx + party_records + pc_rec.state], al ; 0x1144
     cmp word [bp + 0xa], byte 3      ; 0x1148
     jl short .forward3               ; 0x114c
-    mov word [bx + party_records + pc_rec.pair_a], 0 ; 0x114e
-    mov word [bx + party_records + pc_rec.pair_b], 0 ; 0x1154
+    mov word [bx + party_records + pc_rec.hp], 0 ; 0x114e
+    mov word [bx + party_records + pc_rec.stamina], 0 ; 0x1154
 .forward3:
     lea ax, word [bp - 0x50]         ; 0x115a
     push ax                          ; 0x115d

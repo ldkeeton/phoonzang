@@ -22,8 +22,8 @@ api_idx_000c_LNRS:
     mov ax, word [bp - 2]            ; 0x6f6c
     cmp ax, strict word 3            ; 0x6f6f
     jl short .back1                  ; 0x6f72
-    mov bx, word [party_member_ext_1] ; 0x6f74
-    cmp byte [bx + party_member_ext_1_rec.f_00d8], 0 ; 0x6f78
+    mov bx, word [battle_group_ext_1] ; 0x6f74
+    cmp byte [bx + battle_group_ext_1_rec.f_00d8], 0 ; 0x6f78
     jbe short .forward1              ; 0x6f7d
     mov ax, 0x10                     ; 0x6f7f
     push ax                          ; 0x6f82
@@ -43,7 +43,7 @@ api_idx_000c_LNRS:
     mov ax, word [bss_8464]          ; 0x6fa5
     shl ax, 1                        ; 0x6fa8
     mov bx, ax                       ; 0x6faa
-    mov ax, word [bx + party_char]   ; 0x6fac
+    mov ax, word [bx + battle_groups] ; 0x6fac
     add ax, cx                       ; 0x6fb0
     mov word [bp - 6], ax            ; 0x6fb2
     mov bx, ax                       ; 0x6fb5
@@ -229,7 +229,7 @@ api_idx_000c_LNRS:
     mov ax, word [bss_8464]          ; 0x7161
     shl ax, 1                        ; 0x7164
     mov bx, ax                       ; 0x7166
-    mov bx, word [bx + party_char]   ; 0x7168
+    mov bx, word [bx + battle_groups] ; 0x7168
     mov al, byte [bx + 0x1a1]        ; 0x716c
     sub ah, ah                       ; 0x7170
     cmp ax, word [bss_8462]          ; 0x7172
@@ -239,7 +239,7 @@ api_idx_000c_LNRS:
     mov ax, word [bss_8464]          ; 0x717b
     shl ax, 1                        ; 0x717e
     mov bx, ax                       ; 0x7180
-    mov bx, word [bx + party_char]   ; 0x7182
+    mov bx, word [bx + battle_groups] ; 0x7182
     cmp byte [bx + 0x1a1], 0         ; 0x7186
     ja short .forward21              ; 0x718b
     jmp near .forward26              ; 0x718d
@@ -249,7 +249,7 @@ api_idx_000c_LNRS:
     mov ax, word [bss_8464]          ; 0x7195
     shl ax, 1                        ; 0x7198
     mov bx, ax                       ; 0x719a
-    mov bx, word [bx + party_char]   ; 0x719c
+    mov bx, word [bx + battle_groups] ; 0x719c
     mov si, word [bp - 8]            ; 0x71a0
     mov al, byte [bx + si + 0x192]   ; 0x71a3
     sub ah, ah                       ; 0x71a7

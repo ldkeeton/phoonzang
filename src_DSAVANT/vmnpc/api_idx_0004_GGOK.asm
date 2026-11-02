@@ -84,10 +84,10 @@ api_idx_0004_GGOK:
     imul word [bp + 4]               ; 0x3b5c
     mov bx, ax                       ; 0x3b5f
     pop ax                           ; 0x3b61
-    sub word [bx + party_records + pc_rec.pair_b], ax ; 0x3b62
-    cmp word [bx + party_records + pc_rec.pair_b], byte 0 ; 0x3b66
+    sub word [bx + party_records + pc_rec.stamina], ax ; 0x3b62
+    cmp word [bx + party_records + pc_rec.stamina], byte 0 ; 0x3b66
     jge short .forward4              ; 0x3b6b
-    mov word [bx + party_records + pc_rec.pair_b], 0 ; 0x3b6d
+    mov word [bx + party_records + pc_rec.stamina], 0 ; 0x3b6d
     mov ax, 6                        ; 0x3b73
     push ax                          ; 0x3b76
     call random_below                ; 0x3b77

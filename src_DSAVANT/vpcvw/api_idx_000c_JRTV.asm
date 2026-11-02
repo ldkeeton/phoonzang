@@ -88,8 +88,8 @@ api_idx_000c_JRTV:
     mov ax, 0x248                    ; 0x0445
     imul word [bp + 4]               ; 0x0448
     mov bx, ax                       ; 0x044b
-    push word [bx + party_records + pc_rec.pair_a + 0x2] ; 0x044d
-    push word [bx + party_records + pc_rec.pair_a] ; 0x0451
+    push word [bx + party_records + pc_rec.hp + 0x2] ; 0x044d
+    push word [bx + party_records + pc_rec.hp] ; 0x0451
     mov ax, 0x16                     ; 0x0455
     push ax                          ; 0x0458
     mov ax, 3                        ; 0x0459
@@ -107,8 +107,8 @@ api_idx_000c_JRTV:
     mov ax, 0x248                    ; 0x0475
     imul word [bp + 4]               ; 0x0478
     mov bx, ax                       ; 0x047b
-    push word [bx + party_records + pc_rec.pair_b + 0x2] ; 0x047d
-    push word [bx + party_records + pc_rec.pair_b] ; 0x0481
+    push word [bx + party_records + pc_rec.stamina + 0x2] ; 0x047d
+    push word [bx + party_records + pc_rec.stamina] ; 0x0481
     mov ax, 0x16                     ; 0x0485
     push ax                          ; 0x0488
     mov ax, 3                        ; 0x0489

@@ -2,7 +2,7 @@
    and the screen animation, then hands over to the battle state */
 
 extern int party_redraw_interval;			/* tick interval between panel redraws */
-extern int party_char_count;				/* number of party_char records */
+extern int party_char_count;				/* number of battle_groups records */
 extern int battle_setup_done;				/* set by the battle setup of state 0x0a */
 extern int game_state;
 extern copy_member_party_record();

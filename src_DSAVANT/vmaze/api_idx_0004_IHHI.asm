@@ -58,11 +58,11 @@ api_idx_0004_IHHI:
     mov cx, ax                       ; 0x147d
     inc ax                           ; 0x147f
     mov cx, ax                       ; 0x1480
-    mov ax, word [bx + party_records + pc_rec.pair_b + 0x2] ; 0x1482
+    mov ax, word [bx + party_records + pc_rec.stamina + 0x2] ; 0x1482
     cwd                              ; 0x1486
     idiv cx                          ; 0x1487
     push ax                          ; 0x1489
-    mov ax, word [bx + party_records + pc_rec.pair_b + 0x2] ; 0x148a
+    mov ax, word [bx + party_records + pc_rec.stamina + 0x2] ; 0x148a
     mov cx, 0xa                      ; 0x148e
     cwd                              ; 0x1491
     idiv cx                          ; 0x1492
@@ -78,8 +78,8 @@ api_idx_0004_IHHI:
     imul word [bp - 2]               ; 0x14a5
     mov bx, ax                       ; 0x14a8
     pop ax                           ; 0x14aa
-    sub word [bx + party_records + pc_rec.pair_b], ax ; 0x14ab
-    cmp word [bx + party_records + pc_rec.pair_b], byte 0 ; 0x14af
+    sub word [bx + party_records + pc_rec.stamina], ax ; 0x14ab
+    cmp word [bx + party_records + pc_rec.stamina], byte 0 ; 0x14af
     jg short .forward4               ; 0x14b4
     mov ax, 1                        ; 0x14b6
     push ax                          ; 0x14b9

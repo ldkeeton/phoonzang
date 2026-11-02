@@ -90,7 +90,7 @@ api_idx_00b8_HONM.back2:
     mov ax, 0x248                    ; 0x15ad
     imul word [bp - 2]               ; 0x15b0
     mov bx, ax                       ; 0x15b3
-    mov al, byte [bx + party_records + pc_rec.cur + 0x1] ; 0x15b5
+    mov al, byte [bx + party_records + pc_rec.resist + 0x1] ; 0x15b5
     sub ah, ah                       ; 0x15b9
     mov cx, ax                       ; 0x15bb
     pop ax                           ; 0x15bd
@@ -155,7 +155,7 @@ api_idx_00b8_HONM.back3:
     mov ax, 0x248                    ; 0x1639
     imul word [bp - 2]               ; 0x163c
     mov bx, ax                       ; 0x163f
-    mov al, byte [bx + party_records + pc_rec.cur + 0x7] ; 0x1641
+    mov al, byte [bx + party_records + pc_rec.resist + 0x7] ; 0x1641
     sub ah, ah                       ; 0x1645
     mov cx, ax                       ; 0x1647
     pop ax                           ; 0x1649
@@ -405,7 +405,7 @@ api_idx_00b8_HONM.back4:
     mov ax, 0x248                    ; 0x1858
     imul word [bp - 2]               ; 0x185b
     mov bx, ax                       ; 0x185e
-    mov al, byte [bx + party_records + pc_rec.cur + 0x7] ; 0x1860
+    mov al, byte [bx + party_records + pc_rec.resist + 0x7] ; 0x1860
     sub ah, ah                       ; 0x1864
     mov cx, ax                       ; 0x1866
     pop ax                           ; 0x1868
@@ -471,7 +471,7 @@ api_idx_00b8_HONM.back5:
     mov ax, 0x248                    ; 0x18e6
     imul word [bp - 2]               ; 0x18e9
     mov bx, ax                       ; 0x18ec
-    mov al, byte [bx + party_records + pc_rec.cur + 0x5] ; 0x18ee
+    mov al, byte [bx + party_records + pc_rec.resist + 0x5] ; 0x18ee
     sub ah, ah                       ; 0x18f2
     mov cx, ax                       ; 0x18f4
     pop ax                           ; 0x18f6
@@ -553,7 +553,7 @@ api_idx_00b8_HONM.back6:
     mov ax, 0x248                    ; 0x1996
     imul word [bp - 2]               ; 0x1999
     mov bx, ax                       ; 0x199c
-    mov al, byte [bx + party_records + pc_rec.cur + 0xa] ; 0x199e
+    mov al, byte [bx + party_records + pc_rec.resist + 0xa] ; 0x199e
     sub ah, ah                       ; 0x19a2
     mov cx, ax                       ; 0x19a4
     pop ax                           ; 0x19a6
@@ -637,7 +637,7 @@ api_idx_00b8_HONM.forward24:
     mov ax, 0x248                    ; 0x1a4a
     imul word [bp - 2]               ; 0x1a4d
     mov bx, ax                       ; 0x1a50
-    mov al, byte [bx + party_records + pc_rec.cur + 0x2] ; 0x1a52
+    mov al, byte [bx + party_records + pc_rec.resist + 0x2] ; 0x1a52
     sub ah, ah                       ; 0x1a56
     mov cx, ax                       ; 0x1a58
     pop ax                           ; 0x1a5a
@@ -793,7 +793,7 @@ api_idx_00b8_HONM.back8:
     mov ax, 0x248                    ; 0x1b8e
     imul word [bp - 2]               ; 0x1b91
     mov bx, ax                       ; 0x1b94
-    mov al, byte [bx + party_records + pc_rec.cur + 0x1] ; 0x1b96
+    mov al, byte [bx + party_records + pc_rec.resist + 0x1] ; 0x1b96
     sub ah, ah                       ; 0x1b9a
     mov cx, ax                       ; 0x1b9c
     pop ax                           ; 0x1b9e
@@ -941,7 +941,7 @@ api_idx_00b8_HONM.forward37:
     mov ax, 0x248                    ; 0x1ccc
     imul word [bp - 2]               ; 0x1ccf
     mov bx, ax                       ; 0x1cd2
-    mov al, byte [bx + party_records + pc_rec.cur + 0xc] ; 0x1cd4
+    mov al, byte [bx + party_records + pc_rec.resist + 0xc] ; 0x1cd4
     sub ah, ah                       ; 0x1cd8
     mov cx, ax                       ; 0x1cda
     pop ax                           ; 0x1cdc
@@ -1093,7 +1093,7 @@ api_idx_00b8_HONM.forward43:
     mov ax, 0x248                    ; 0x1e25
     imul word [bp - 2]               ; 0x1e28
     mov bx, ax                       ; 0x1e2b
-    push word [bx + party_records + pc_rec.pair_a + 0x2] ; 0x1e2d
+    push word [bx + party_records + pc_rec.hp + 0x2] ; 0x1e2d
     mov ax, 1                        ; 0x1e31
     push ax                          ; 0x1e34
     mov ax, 4                        ; 0x1e35
@@ -1104,7 +1104,7 @@ api_idx_00b8_HONM.forward43:
     mov ax, 0x248                    ; 0x1e3f
     imul word [bp - 2]               ; 0x1e42
     mov bx, ax                       ; 0x1e45
-    mov ax, word [bx + party_records + pc_rec.pair_a + 0x2] ; 0x1e47
+    mov ax, word [bx + party_records + pc_rec.hp + 0x2] ; 0x1e47
     sub ax, cx                       ; 0x1e4b
     inc ax                           ; 0x1e4d
     push ax                          ; 0x1e4e
@@ -1115,10 +1115,10 @@ api_idx_00b8_HONM.forward43:
     imul word [bp - 2]               ; 0x1e59
     mov bx, ax                       ; 0x1e5c
     pop ax                           ; 0x1e5e
-    mov word [bx + party_records + pc_rec.pair_a + 0x2], ax ; 0x1e5f
-    cmp ax, word [bx + party_records + pc_rec.pair_a] ; 0x1e63
+    mov word [bx + party_records + pc_rec.hp + 0x2], ax ; 0x1e5f
+    cmp ax, word [bx + party_records + pc_rec.hp] ; 0x1e63
     jge short api_idx_00b8_HONM.forward44 ; 0x1e67
-    mov word [bx + party_records + pc_rec.pair_a], ax ; 0x1e69
+    mov word [bx + party_records + pc_rec.hp], ax ; 0x1e69
 api_idx_00b8_HONM.forward44:
     lea ax, word [bp - 0x68]         ; 0x1e6d
     push ax                          ; 0x1e70
@@ -1159,7 +1159,7 @@ api_idx_00b8_HONM.forward44:
     mov ax, 0x248                    ; 0x1ebe
     imul word [bp - 2]               ; 0x1ec1
     mov bx, ax                       ; 0x1ec4
-    mov al, byte [bx + party_records + pc_rec.cur + 0xb] ; 0x1ec6
+    mov al, byte [bx + party_records + pc_rec.resist + 0xb] ; 0x1ec6
     sub ah, ah                       ; 0x1eca
     mov cx, ax                       ; 0x1ecc
     add ax, strict word 0x19         ; 0x1ece

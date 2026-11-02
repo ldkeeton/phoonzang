@@ -41,5 +41,6 @@ vpops/api_idx_0024_NKNU
 vpops/api_idx_0002_GMMK
 vpops/api_idx_0004_NRTK
 shared/ovr/aztec_ovbgn
-vpops/data/dseg_9098
+shared/data/percent_suffix_text
+vpops/data/dseg_909f
 shared/data/overlay_saved_registers

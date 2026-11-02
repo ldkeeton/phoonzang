@@ -5,10 +5,10 @@ api_idx_00a4_PTJS:
     mov ax, 0x248                    ; 0x4ea4
     imul word [bp + 4]               ; 0x4ea7
     mov bx, ax                       ; 0x4eaa
-    inc word [bx + party_records + pc_rec.power_cap] ; 0x4eac
+    inc word [bx + party_records + pc_rec.level] ; 0x4eac
     mov al, byte [bx + party_records + pc_rec.power_floor] ; 0x4eb0
     sub ah, ah                       ; 0x4eb4
-    cmp ax, word [bx + party_records + pc_rec.power_cap] ; 0x4eb6
+    cmp ax, word [bx + party_records + pc_rec.level] ; 0x4eb6
     jg short .forward1               ; 0x4eba
     mov byte [bx + party_records + pc_rec.power_floor], 0 ; 0x4ebc
 .forward1:

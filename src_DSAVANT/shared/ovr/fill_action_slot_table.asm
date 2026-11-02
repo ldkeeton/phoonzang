@@ -5,7 +5,7 @@ fill_action_slot_table:
     mov ax, word [bp + 4]
     shl ax, 1
     mov bx, ax
-    mov bx, word [bx + party_char]
+    mov bx, word [bx + battle_groups]
     cmp byte [bx + member_rec.slot], 0xff
     jne short .forward1
     ret
@@ -63,7 +63,7 @@ fill_action_slot_table:
     mov ax, word [bp + 4]
     shl ax, 1
     mov bx, ax
-    mov bx, word [bx + party_char_ext]
+    mov bx, word [bx + battle_group_ext]
     cmp byte [bx + member_ext.kind], 0x47
     jne short .forward4
     cmp word [bp - 0xa], byte 0

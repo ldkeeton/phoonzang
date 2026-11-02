@@ -395,8 +395,8 @@ api_idx_005e_KVNO:
     mov bx, ax                       ; 0x5b41
     pop dx                           ; 0x5b43
     pop ax                           ; 0x5b44
-    add word [bx + party_records + pc_rec.f_0014], ax ; 0x5b45
-    adc word [bx + party_records + pc_rec.f_0016], dx ; 0x5b49
+    add word [bx + party_records + pc_rec.gold], ax ; 0x5b45
+    adc word [bx + party_records + pc_rec.gold + 0x2], dx ; 0x5b49
     mov ax, 1                        ; 0x5b4d
     push ax                          ; 0x5b50
     push word [bp + 4]               ; 0x5b51

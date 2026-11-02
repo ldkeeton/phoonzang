@@ -39,15 +39,15 @@ extern char bane_source_filename[];
 extern unsigned char bane_header_buffer[], bane_section_header[],
 	bane_character_record[];
 
-extern int bane_import_buffer, bane_power_rank, bane_experience_value,
+extern int bane_import_buffer, bane_level, bane_experience_value,
 	bane_character_value_c, bane_character_value_b,
 	bane_party_member_count;
 extern long bane_character_value_a;
 extern struct bane_realm_entry bane_realm_values[];
 extern unsigned char bane_character_stats[], bane_character_stat_caps[],
-	bane_character_spacing[], bane_spell_bits[];
+	bane_resistances[], bane_spell_bits[];
 extern unsigned char bane_story_values_a[], bane_story_values_b[],
-	bane_character_glyph_set, bane_character_gender, bane_character_profession,
+	bane_character_race, bane_character_gender, bane_character_profession,
 	bane_character_value_d;
 extern unsigned char bane_power_adjustment, bane_item_count_a,
 	bane_item_count_b;
@@ -197,23 +197,23 @@ read_next_member:
 		member_icon[party_char_count] =
 			find_unused_member_icon(party_char_count);
 		record = &party_records[party_char_count];
-		record->power_cap = bane_power_rank > 5 ? 5 : bane_power_rank;
+		record->level = bane_level > 5 ? 5 : bane_level;
 		aztec_strcpy(record->name, bane_character_record);
-		record->w8.dword = bane_character_value_a;
-		*(long *)record->w10 = 0L;
-		*(long *)&record->w10[2] = 0L;
+		record->age_days = bane_character_value_a;
+		record->marks = 0L;
+		record->gold = 0L;
 		for (record_index = 0; record_index < 8; record_index++) {
 			record->stat[record_index] = bane_character_stats[record_index];
-			if (bane_power_rank > 5 && record->stat[record_index] > 14)
+			if (bane_level > 5 && record->stat[record_index] > 14)
 				record->stat[record_index] -= random_below(4);
 		}
 		/* Derive power bounds from the imported rank and two character stats. */
-		record->pair_a[1] =
-			(bane_experience_value / bane_power_rank) * record->power_cap;
-		if (record->pair_a[1] < 7) record->pair_a[1] = 7;
-		if (record->power_cap * 8 + 8 < record->pair_a[1])
-			record->pair_a[1] = random_below(8) + record->power_cap * 8;
-		record->pair_a[0] = record->pair_a[1];
+		record->hp[1] =
+			(bane_experience_value / bane_level) * record->level;
+		if (record->hp[1] < 7) record->hp[1] = 7;
+		if (record->level * 8 + 8 < record->hp[1])
+			record->hp[1] = random_below(8) + record->level * 8;
+		record->hp[0] = record->hp[1];
 		stat_value = record->stat[0];
 		max_stat = record->stat[3];
 		stat_sum = (max_stat * 2 + stat_value) * 3;
@@ -222,22 +222,22 @@ read_next_member:
 		if (max_stat > 17) stat_sum += max_stat;
 		if (stat_value > 15) calc_a += stat_value;
 		if (stat_value > 17) calc_a += stat_value;
-		stat_sum += 5 * record->power_cap;
-		record->pair_b[0] = stat_sum;
-		record->pair_b[1] = stat_sum;
-		record->power_total = 0;
-		record->w22 = 15 * calc_a;
-		if (record->glyph_set == 5) record->w22 =
-			(record->w22 * 2) / 3;
-		record->w26 = bane_character_value_c;
+		stat_sum += 5 * record->level;
+		record->stamina[0] = stat_sum;
+		record->stamina[1] = stat_sum;
+		record->carried_weight = 0;
+		record->carry_capacity = 15 * calc_a;
+		if (record->race == 5) record->carry_capacity =
+			(record->carry_capacity * 2) / 3;
+		record->deaths = bane_character_value_c;
 		for (record_index = 0; record_index < 6; record_index++) {
 			record->realm_points[record_index][1] =
-				(bane_realm_values[record_index].value / bane_power_rank) *
-				record->power_cap;
-			if (record->power_cap * 7 + 7 <
+				(bane_realm_values[record_index].value / bane_level) *
+				record->level;
+			if (record->level * 7 + 7 <
 				record->realm_points[record_index][1])
 				record->realm_points[record_index][1] =
-					random_below(7) + record->power_cap * 7;
+					random_below(7) + record->level * 7;
 			record->realm_points[record_index][0] =
 				record->realm_points[record_index][1];
 		}
@@ -258,7 +258,7 @@ read_next_member:
 			case 28: stat_value = 32; break; case 29: stat_value = 33; break;
 			}
 			if (stat_value >= 0) {
-				max_stat = bane_power_rank;
+				max_stat = bane_level;
 				if (max_stat > 18) max_stat = 18;
 				while (max_stat > 0
 					&& record->skills[stat_value] < bane_character_stat_caps[record_index]) {
@@ -270,12 +270,13 @@ read_next_member:
 			}
 		}
 
-		/* Import spacing data and initialize the party's bit-marked spells. */
+		/* Scale the imported resistances by level and initialize the party's
+		   bit-marked spells. */
 		for (record_index = 0; record_index < 14; record_index++) {
-			record->cur[record_index] =
-				(bane_character_spacing[record_index] / bane_power_rank) *
-				record->power_cap;
-			record->prev[record_index] = record->cur[record_index];
+			record->resist[record_index] =
+				(bane_resistances[record_index] / bane_level) *
+				record->level;
+			record->base_resist[record_index] = record->resist[record_index];
 		}
 		for (record_index = 0; record_index < 79; record_index++) {
 			if (test_bit(bane_spell_bits, record_index)) {
@@ -293,47 +294,47 @@ read_next_member:
 			record->story_flags[record_index] =
 				bane_story_values_b[record_index];
 		}
-		record->glyph_set = bane_character_glyph_set;
+		record->race = bane_character_race;
 		record->gender = bane_character_gender;
 		record->profession = bane_character_profession;
 		record->experience = read_class_experience_threshold(
-			record->profession, record->power_cap);
-		record->kind = map_bane_character_kind(record->glyph_set,
+			record->profession, record->level);
+		record->kind = map_bane_character_kind(record->race,
 			record->gender, record->profession);
-		record->pad3 = bane_character_value_d;
+		record->rank = bane_character_value_d;
 		record->state = 0;
-		record->imported_fields[0] = 0;
-		record->imported_fields[1] = 1;
-		record->imported_fields[2] = 10;
+		record->stamina_drain = 0;
+		record->imported_fields[0] = 1;
+		record->imported_fields[1] = 10;
 		record->adjusted_stat4 = 1;
 		record->adjusted_stat5 = 1;
-		record->stat5_plus_power = record->stat[5] + record->power_cap;
+		record->stat5_plus_power = record->stat[5] + record->level;
 
 		/* Initialize derived percentage and per page values. */
-		record_index = 3 * bane_power_rank + (signed char)bane_power_adjustment
-			- 3 * record->power_cap;
-		if (100 - record->power_cap * 8 > record_index)
-			record_index = random_below(5) + (100 - record->power_cap * 8);
+		record_index = 3 * bane_level + (signed char)bane_power_adjustment
+			- 3 * record->level;
+		if (100 - record->level * 8 > record_index)
+			record_index = random_below(5) + (100 - record->level * 8);
 		if (record_index > 100) record_index = 100;
 		record->pad5 = record_index;
 		for (record_index = 0; record_index < 2; record_index++)
 			reset_hand_attack(party_char_count, record_index);
-		record->count[0] = 10;
-		(*(char *)record->count) -= record->stat[5] > 15 ? 1 : 0;
-		(*(char *)record->count) -= record->stat[5] > 17;
-		(*(char *)record->count) -= record->glyph_set == 5 ? 2 : 0;
+		record->armor_class[0] = 10;
+		record->armor_class[0] -= record->stat[5] > 15 ? 1 : 0;
+		record->armor_class[0] -= record->stat[5] > 17;
+		record->armor_class[0] -= record->race == 5 ? 2 : 0;
 		if (record->profession == 13 || record->profession == 12)
-			(*(char *)record->count) -= record->skills[17] / 10;
-		record->count[1] = 0;
-		record->count[2] = 0;
+			record->armor_class[0] -= record->skills[17] / 10;
+		record->armor_class[1] = 0;
+		record->armor_class[2] = 0;
 		for (record_index = 3; record_index < 8; record_index++)
-			record->count[record_index] = record->count[0];
+			record->armor_class[record_index] = record->armor_class[0];
 		for (record_index = 0; record_index < 96; record_index++)
 			record->pad1[record_index] = 40 - 4 *
 				(record->stat[7] - 9 < 0 ? -(record->stat[7] - 9)
 					: record->stat[7] - 9);
 		for (record_index = 0; record_index < 8; record_index++)
-			record->order[record_index] = 255;
+			record->equipped[record_index] = 255;
 		draw_member_panel_glyphs(party_char_count);
 
 		/* Give starting items: 411 to the first member, then one or two by
@@ -363,7 +364,7 @@ read_next_member:
 		case 12: record_index = 25; break;
 		case 13: record_index = 47; break;
 		}
-		if (bane_character_glyph_set == 5) {
+		if (bane_character_race == 5) {
 			record_index = 397;
 			selector_result = 0;
 		}
@@ -460,7 +461,7 @@ read_next_member:
 		party_world_x = 92; party_world_y = 79;
 		party_cell_x = 4; party_cell_y = 7; party_map_piece = 3;
 		party_tag = 2; game_state_arg = 0;
-		*(long *)&party_records[0].w10[2] = 5000L;
+		party_records[0].gold = 5000L;
 		initialize_intro_layout(-90, -20, 10, 10, 0, 0, -20, 20, 90, 0);
 		intro_screen_number = 1;
 		break;
@@ -468,7 +469,7 @@ read_next_member:
 		party_world_x = 140; party_world_y = 125;
 		party_cell_x = 4; party_cell_y = 5; party_map_piece = 11;
 		party_tag = 3; game_state_arg = 6;
-		*(long *)&party_records[0].w10[2] = 10000L;
+		party_records[0].gold = 10000L;
 		initialize_intro_layout(-50, -90, 40, -40, 10, 0, 10, 10, 0, 90);
 		intro_screen_number = 2;
 		break;

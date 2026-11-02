@@ -37,7 +37,7 @@ api_idx_0056_VTNO:
     imul word [bp + 4]               ; 0x131d
     add ax, word [bp + 8]            ; 0x1320
     mov bx, ax                       ; 0x1323
-    mov al, byte [bx + party_records + pc_rec.cur] ; 0x1325
+    mov al, byte [bx + party_records + pc_rec.resist] ; 0x1325
     sub ah, ah                       ; 0x1329
     mov cx, ax                       ; 0x132b
     pop ax                           ; 0x132d
@@ -83,7 +83,7 @@ api_idx_0056_VTNO:
     imul word [bp + 4]               ; 0x1391
     mov bx, ax                       ; 0x1394
     pop ax                           ; 0x1396
-    mov byte [bx + party_records + pc_rec.f_023e], al ; 0x1397
+    mov byte [bx + party_records + pc_rec.poison_strength], al ; 0x1397
 .forward6:
     lea ax, word [bp - 0x56]         ; 0x139b
     push ax                          ; 0x139e

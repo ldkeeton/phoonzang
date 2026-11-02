@@ -22,7 +22,7 @@ api_idx_0002_PGQI:
     inc word [bp - 2]                ; 0x2c27
 .forward1:
     mov ax, word [bp - 2]            ; 0x2c2a
-    cmp ax, word [party_member_count] ; 0x2c2d
+    cmp ax, word [monster_group_count] ; 0x2c2d
     jle short .back1                 ; 0x2c31
     jmp short .return1               ; 0x2c33
 .forward2:

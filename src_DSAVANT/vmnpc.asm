@@ -25,7 +25,7 @@ IMAGE_BASE equ 0x000e + VBASE
     dw aztec_ovbgn - IMAGE_BASE + __zres_end ; 0xfe57 ; o_entry: overlay entry offset (CS)
 
 __zcode_start:
-dseg_9098 equ __zdseg_end + (__zdseg_9098 - __zdata_start)
+percent_suffix_text equ __zdseg_end + (__zpercent_suffix_text - __zdata_start)
 dseg_909f equ __zdseg_end + (__zdseg_909f - __zdata_start)
 dseg_90a6 equ __zdseg_end + (__zdseg_90a6 - __zdata_start)
 dseg_90ad equ __zdseg_end + (__zdseg_90ad - __zdata_start)
@@ -454,7 +454,9 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 %include "shared/ovr/aztec_strcmp.asm"          ; 0xae76
 
 __zdata_start:
-%include "vmnpc/data/dseg_9098.asm"        ; 0xaedd
+%include "shared/data/percent_suffix_text.asm" ; 0xaedd
+
+%include "vmnpc/data/dseg_909f.asm"        ; 0xaee4
 
 %include "shared/data/overlay_saved_registers.asm" ; 0xaf6f
 

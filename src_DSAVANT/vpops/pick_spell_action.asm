@@ -40,14 +40,14 @@ pick_spell_action:
     mov ax, 0x2c                     ; 0x29a1
     imul word [bp + 4]               ; 0x29a4
     mov si, ax                       ; 0x29a7
-    mov bx, word [party_char]        ; 0x29a9
+    mov bx, word [battle_groups]     ; 0x29a9
     mov byte [bx + si + member_rec.f_001f], 0 ; 0x29ad
     mov al, byte [bp - 0xa]          ; 0x29b1
     push ax                          ; 0x29b4
     mov ax, 0x2c                     ; 0x29b5
     imul word [bp + 4]               ; 0x29b8
     mov si, ax                       ; 0x29bb
-    mov bx, word [party_char]        ; 0x29bd
+    mov bx, word [battle_groups]     ; 0x29bd
     pop ax                           ; 0x29c1
     mov byte [bx + si + member_rec.f_0020], al ; 0x29c2
 .forward3:
@@ -62,7 +62,7 @@ pick_spell_action:
     mov ax, 0x2c                     ; 0x29d7
     imul word [bp + 4]               ; 0x29da
     mov si, ax                       ; 0x29dd
-    mov bx, word [party_char]        ; 0x29df
+    mov bx, word [battle_groups]     ; 0x29df
     mov byte [bx + si + member_rec.f_001f], 0 ; 0x29e3
 .forward5:
     mov ax, word [bp - 6]            ; 0x29e7

@@ -9,6 +9,6 @@ show_message:
     add sp, byte 4
     lea ax, word [bp - 0x50]
     push ax
-    call api_idx_0008_OMTP
+    call show_centered_text_band
     pop cx
     ret

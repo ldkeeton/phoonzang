@@ -107,7 +107,7 @@ jumptable_4b3c_case_9:
     mov ax, 0x248                    ; 0x4a86
     imul word [bp + 4]               ; 0x4a89
     mov bx, ax                       ; 0x4a8c
-    mov ax, word [bx + party_records + pc_rec.power_cap] ; 0x4a8e
+    mov ax, word [bx + party_records + pc_rec.level] ; 0x4a8e
     cwd                              ; 0x4a92
     idiv cx                          ; 0x4a93
     mov word [bp - 0x14], dx         ; 0x4a95
@@ -198,7 +198,7 @@ api_idx_0018_SRUO.forward5:
     mov ax, 0x248                    ; 0x4b6e
     imul word [bp + 4]               ; 0x4b71
     mov bx, ax                       ; 0x4b74
-    mov ax, word [bx + party_records + pc_rec.power_cap] ; 0x4b76
+    mov ax, word [bx + party_records + pc_rec.level] ; 0x4b76
     cmp ax, word [bp - 0x18]         ; 0x4b7a
     jge short api_idx_0018_SRUO.forward6 ; 0x4b7d
     jmp near api_idx_0018_SRUO.return1 ; 0x4b7f
@@ -258,7 +258,7 @@ api_idx_0018_SRUO.forward11:
     mov ax, 0x248                    ; 0x4c09
     imul word [bp + 4]               ; 0x4c0c
     mov bx, ax                       ; 0x4c0f
-    mov ax, word [bx + party_records + pc_rec.power_cap] ; 0x4c11
+    mov ax, word [bx + party_records + pc_rec.level] ; 0x4c11
     push ax                          ; 0x4c15
     mov al, byte [bx + party_records + pc_rec.power_floor] ; 0x4c16
     sub ah, ah                       ; 0x4c1a

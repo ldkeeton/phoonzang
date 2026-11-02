@@ -88,24 +88,24 @@ api_idx_0030_TGOH:
     mov bx, ax                       ; 0x9379
     pop ax                           ; 0x937b
     mov byte [bx + party_records + pc_rec.profession], al ; 0x937c
-    cmp word [bx + party_records + pc_rec.power_cap], strict word 0xfa ; 0x9380
+    cmp word [bx + party_records + pc_rec.level], strict word 0xfa ; 0x9380
     jge short .forward6              ; 0x9386
     mov al, byte [bx + party_records + pc_rec.power_floor] ; 0x9388
     sub ah, ah                       ; 0x938c
-    cmp ax, word [bx + party_records + pc_rec.power_cap] ; 0x938e
+    cmp ax, word [bx + party_records + pc_rec.level] ; 0x938e
     jge short .forward5              ; 0x9392
-    mov al, byte [bx + party_records + pc_rec.power_cap] ; 0x9394
+    mov al, byte [bx + party_records + pc_rec.level] ; 0x9394
     mov byte [bx + party_records + pc_rec.power_floor], al ; 0x9398
 .forward5:
     jmp short .forward7              ; 0x939c
 .forward6:
     mov byte [bx + party_records + pc_rec.power_floor], 0 ; 0x939e
 .forward7:
-    mov word [bx + party_records + pc_rec.power_cap], 1 ; 0x93a3
-    mov byte [bx + party_records + pc_rec.f_023a], 0 ; 0x93a9
+    mov word [bx + party_records + pc_rec.level], 1 ; 0x93a3
+    mov byte [bx + party_records + pc_rec.rank], 0 ; 0x93a9
     mov word [bx + party_records + pc_rec.experience + 0x2], 0 ; 0x93ae
     mov word [bx + party_records + pc_rec.experience], 0 ; 0x93b4
-    mov al, byte [bx + party_records + pc_rec.glyph_set] ; 0x93ba
+    mov al, byte [bx + party_records + pc_rec.race] ; 0x93ba
     sub ah, ah                       ; 0x93be
     push ax                          ; 0x93c0
     push word [bp + 4]               ; 0x93c1

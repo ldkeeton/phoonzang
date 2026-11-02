@@ -1,12 +1,12 @@
-/* picks three distinct free cells in each drawn cell row and lets the first
-   member with a free item slot claim them for an action */
+/* visits each drawn battle row's cells in random order and places a monster
+   in every free one, from the group the row starts with */
 
-extern int cell_slot_ref[3][3];		/* cells: member*10 + item slot, 0 free */
+extern int cell_slot_ref[3][3];		/* cells: group*10 + unit, 0 free */
 extern int cell_action_marks[3][3];
 	/* 1 when the cell has an action assigned */
 extern int npc_melee;			/* melee's next state is 0x12 (VMNPC) */
 extern int row_limit;			/* last cell row that is drawn (0..2) */
-extern int party_member_count;		/* member loops run 1..this */
+extern int monster_group_count;		/* group loops run 1..this */
 extern int random_below();
 
 fill_row_action_slots()
@@ -30,24 +30,24 @@ fill_row_action_slots()
 			}
 			used[pick] = 1;
 			if (cell_slot_ref[row][pick] == 0) {
-				/* row picks the first member tried */
+				/* row picks the first group tried */
 				switch (row) {
 				case 0:
-					claim_cell_for_member(1, row, pick);
+					claim_cell_for_group(1, row, pick);
 					break;
 				case 1:
-					if (party_member_count == 1)
-						claim_cell_for_member(1, row, pick);
+					if (monster_group_count == 1)
+						claim_cell_for_group(1, row, pick);
 					else
-						claim_cell_for_member(2, row, pick);
+						claim_cell_for_group(2, row, pick);
 					break;
 				case 2:
-					if (party_member_count == 1)
-						claim_cell_for_member(1, row, pick);
-					else if (party_member_count == 2)
-						claim_cell_for_member(2, row, pick);
+					if (monster_group_count == 1)
+						claim_cell_for_group(1, row, pick);
+					else if (monster_group_count == 2)
+						claim_cell_for_group(2, row, pick);
 					else
-						claim_cell_for_member(3, row, pick);
+						claim_cell_for_group(3, row, pick);
 					break;
 				}
 			}

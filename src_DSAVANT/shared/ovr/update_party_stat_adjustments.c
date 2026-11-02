@@ -10,8 +10,8 @@ int member, limit, scale4, used4, scale5, used5;
 {
 	int power;
 
-	power = party_records[member].power_cap < party_records[member].power_floor ?
-		party_records[member].power_floor : party_records[member].power_cap;
+	power = party_records[member].level < party_records[member].power_floor ?
+		party_records[member].power_floor : party_records[member].level;
 	power = power > 20 ? 20 : power;		/* Cap the power contribution. */
 	limit = clamp_between(limit, 1, power / 3 + 1);	/* Power bounds the limit. */
 	party_records[member].adjusted_stat4 = party_records[member].stat[4] / 6 +

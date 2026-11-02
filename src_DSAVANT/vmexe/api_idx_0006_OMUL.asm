@@ -14,8 +14,8 @@ api_idx_0006_OMUL:
     mov ax, word [bp + 4]            ; 0x25ee
     shl ax, 1                        ; 0x25f1
     mov bx, ax                       ; 0x25f3
-    mov bx, word [bx + party_char]   ; 0x25f5
-    mov al, byte [bx + member_rec.item_count] ; 0x25f9
+    mov bx, word [bx + battle_groups] ; 0x25f5
+    mov al, byte [bx + member_rec.unit_count] ; 0x25f9
     sub ah, ah                       ; 0x25fd
     mov word [bp - 2], ax            ; 0x25ff
     mov ax, word [bp + 6]            ; 0x2602
@@ -46,8 +46,8 @@ api_idx_0006_OMUL:
     mov ax, word [bp + 4]            ; 0x2638
     shl ax, 1                        ; 0x263b
     mov bx, ax                       ; 0x263d
-    mov bx, word [bx + party_char]   ; 0x263f
-    cmp byte [bx + si + member_rec.item_state], 3 ; 0x2643
+    mov bx, word [bx + battle_groups] ; 0x263f
+    cmp byte [bx + si + member_rec.unit_state], 3 ; 0x2643
     jne short .forward4              ; 0x2647
     dec word [bp - 6]                ; 0x2649
     jmp short .back1                 ; 0x264c

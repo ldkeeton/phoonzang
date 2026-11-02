@@ -25,20 +25,20 @@ extern struct word_slot_value queued_slot_parameter_4[];
 extern struct word_slot_value queued_slot_parameter_5[];
 extern struct byte_slot_value queued_slot_depth[];
 extern struct byte_slot_value queued_slot_glyph_column[];
-extern struct byte_slot_value queued_slot_parameter_13[];
+extern struct byte_slot_value queued_slot_render_pass[];
 extern int view_column_x[][5];
-extern int view_depth_y[];
+extern int view_geometry[];
 extern void play_sound_effect();
 
 /* The slot number selects a 17-byte render row; coordinates may be scaled. */
 queue_slot_glyph_render(slot_index, x, y, glyph_entry,
 		parameter_1, parameter_2, parameter_3, parameter_4,
 		parameter_5, depth, scale, glyph_column,
-		parameter_13, position_mode)
+		render_pass, position_mode)
 int slot_index, x, y, glyph_entry;
 int parameter_1, parameter_2, parameter_3, parameter_4;
 int parameter_5, depth, scale, glyph_column;
-int parameter_13, position_mode;
+int render_pass, position_mode;
 {
 	int glyph_x;
 	int glyph_y;
@@ -65,7 +65,7 @@ int parameter_13, position_mode;
 						/ 100;
 				}
 				queued_slot_y[render_queue_count].value =
-					y - ((view_depth_y[0] - glyph_y) * scale - 50) / 100;
+					y - ((view_geometry[0] - glyph_y) * scale - 50) / 100;
 			} else if (position_mode == 2) {
 				queued_slot_x[render_queue_count].value =
 					queued_slot_scale[render_queue_count].value
@@ -111,8 +111,8 @@ int parameter_13, position_mode;
 		parameter_5;
 	queued_slot_depth[render_queue_count].value = depth;
 	queued_slot_glyph_column[render_queue_count].value = glyph_column;
-	queued_slot_parameter_13[render_queue_count].value =
-		parameter_13;
+	queued_slot_render_pass[render_queue_count].value =
+		render_pass;
 	++render_queue_count;
 	if (render_queue_count >= 120) {
 		/* A full render queue repeatedly requests sound effect zero. */

@@ -18,9 +18,9 @@ int member_index;
 		glyph_row++;
 	if (stat_thirds > 16)
 		glyph_row++;
-	if (party_records[member_index].glyph_set == 5)
+	if (party_records[member_index].race == 5)
 		glyph_row++;
-	if (party_records[member_index].glyph_set == 6)
+	if (party_records[member_index].race == 6)
 		glyph_row--;
 
 	switch (party_records[member_index].profession) {

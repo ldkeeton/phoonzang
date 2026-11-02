@@ -201,7 +201,7 @@ loc_HTRU:
     inc word [bp - 0xe]              ; 0x12fa
 .forward7:
     mov ax, word [bp - 0xe]          ; 0x12fd
-    cmp ax, word [party_member_count] ; 0x1300
+    cmp ax, word [monster_group_count] ; 0x1300
     jl short .back2                  ; 0x1304
     mov ax, 0                        ; 0x1306
     push ax                          ; 0x1309
@@ -212,7 +212,7 @@ loc_HTRU:
     mov ax, 0xffff                   ; 0x130e
     push ax                          ; 0x1311
     mov ax, word [bp - 2]            ; 0x1312
-    add ax, word [party_member_count] ; 0x1315
+    add ax, word [monster_group_count] ; 0x1315
     push ax                          ; 0x1319
     call set_hotspot                 ; 0x131a
     add sp, byte 0xe                 ; 0x131d
@@ -341,7 +341,7 @@ loc_HTRU:
     jne short .forward13             ; 0x143c
     cmp word [bp - 0x1ae], byte 0x31 ; 0x143e
     jl short .forward13              ; 0x1443
-    mov ax, word [party_member_count] ; 0x1445
+    mov ax, word [monster_group_count] ; 0x1445
     add ax, strict word 0x30         ; 0x1448
     cmp ax, word [bp - 0x1ae]        ; 0x144b
     jl short .forward13              ; 0x144f

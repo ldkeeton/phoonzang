@@ -31,12 +31,12 @@ loc_TTSP:
     mov dx, word [bss_9090]          ; 0x405d
     mov word [party_redraw_last_tick_hi], dx ; 0x4061
     mov word [party_redraw_last_tick], ax ; 0x4065
-    mov ax, word [loc_TTSP_bss184]          ; 0x4068
+    mov ax, word [banner_animation_frame] ; 0x4068
     inc ax                           ; 0x406b
     mov cx, 3                        ; 0x406c
     cwd                              ; 0x406f
     idiv cx                          ; 0x4070
-    mov word [loc_TTSP_bss184], dx          ; 0x4072
+    mov word [banner_animation_frame], dx ; 0x4072
     push dx                          ; 0x4076
     call draw_title_banner           ; 0x4077
     pop cx                           ; 0x407a

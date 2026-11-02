@@ -107,6 +107,6 @@ init_item_slot:
     or byte [bx + 7], 0x40
 .forward9:
     push word [bp + 4]
-    call sum_member_item_power
+    call sum_member_item_weight
     pop cx
     ret

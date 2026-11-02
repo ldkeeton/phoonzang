@@ -5,24 +5,24 @@ api_idx_0004_MLLS:
     mov ax, 0x2c                     ; 0x0311
     imul word [bp + 4]               ; 0x0314
     mov si, ax                       ; 0x0317
-    mov bx, word [party_char]        ; 0x0319
-    mov ax, word [bx + si + member_rec.item_charges] ; 0x031d
+    mov bx, word [battle_groups]     ; 0x0319
+    mov ax, word [bx + si + member_rec.unit_hp] ; 0x031d
     push ax                          ; 0x0320
     mov ax, 0x248                    ; 0x0321
     imul word [bp + 4]               ; 0x0324
     mov bx, ax                       ; 0x0327
     pop ax                           ; 0x0329
-    mov word [bx + party_records + pc_rec.pair_a], ax ; 0x032a
-    mov bx, word [party_char]        ; 0x032e
-    mov ax, word [bx + si + member_rec.item_timer] ; 0x0332
+    mov word [bx + party_records + pc_rec.hp], ax ; 0x032a
+    mov bx, word [battle_groups]     ; 0x032e
+    mov ax, word [bx + si + member_rec.unit_stamina] ; 0x0332
     push ax                          ; 0x0335
     mov ax, 0x248                    ; 0x0336
     imul word [bp + 4]               ; 0x0339
     mov bx, ax                       ; 0x033c
     pop ax                           ; 0x033e
-    mov word [bx + party_records + pc_rec.pair_b], ax ; 0x033f
-    mov bx, word [party_char]        ; 0x0343
-    mov al, byte [bx + si + member_rec.item_state] ; 0x0347
+    mov word [bx + party_records + pc_rec.stamina], ax ; 0x033f
+    mov bx, word [battle_groups]     ; 0x0343
+    mov al, byte [bx + si + member_rec.unit_state] ; 0x0347
     push ax                          ; 0x034a
     mov ax, 0x248                    ; 0x034b
     imul word [bp + 4]               ; 0x034e
@@ -34,7 +34,7 @@ api_idx_0004_MLLS:
     add bx, party_records + pc_rec.status ; 0x035c
     mov ax, bx                       ; 0x0360
     push ax                          ; 0x0362
-    mov ax, word [party_char]        ; 0x0363
+    mov ax, word [battle_groups]     ; 0x0363
     add ax, si                       ; 0x0366
     add ax, strict word 0xe          ; 0x0368
     push ax                          ; 0x036b
@@ -43,14 +43,14 @@ api_idx_0004_MLLS:
     mov ax, 0x2c                     ; 0x0372
     imul word [bp + 4]               ; 0x0375
     mov si, ax                       ; 0x0378
-    mov bx, word [party_char]        ; 0x037a
-    mov al, byte [bx + si + member_rec.item_resist] ; 0x037e
+    mov bx, word [battle_groups]     ; 0x037a
+    mov al, byte [bx + si + member_rec.unit_poison_strength] ; 0x037e
     push ax                          ; 0x0381
     mov ax, 0x248                    ; 0x0382
     imul word [bp + 4]               ; 0x0385
     mov bx, ax                       ; 0x0388
     pop ax                           ; 0x038a
-    mov byte [bx + party_records + pc_rec.f_023e], al ; 0x038b
+    mov byte [bx + party_records + pc_rec.poison_strength], al ; 0x038b
     mov ax, 0                        ; 0x038f
     push ax                          ; 0x0392
     push word [bp + 4]               ; 0x0393

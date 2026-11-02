@@ -167,7 +167,7 @@ draw_member_item_page:
     imul word [bp + 4]
     add ax, word [bp - 4]
     mov bx, ax
-    mov al, byte [bx + party_records + pc_rec.order]
+    mov al, byte [bx + party_records + pc_rec.equipped]
     sub ah, ah
     cmp ax, word [bp - 2]
     jne short .forward9

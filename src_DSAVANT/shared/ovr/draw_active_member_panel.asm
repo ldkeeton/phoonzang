@@ -12,8 +12,8 @@ draw_active_member_panel:
     mov ax, 0x2c
     imul word [bp + 4]
     mov si, ax
-    mov bx, word [party_char]
-    cmp byte [bx + si + member_rec.item_phase], 1
+    mov bx, word [battle_groups]
+    cmp byte [bx + si + member_rec.unit_phase], 1
     je short .forward2
     cmp byte [bx + si + 0x2b], 3
     je short .forward2

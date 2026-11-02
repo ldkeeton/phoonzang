@@ -2,7 +2,7 @@
 vpcvw/ovmain
 shared/ovr/load_screen_file_immediate
 shared/ovr/draw_party_glyph_row
-shared/ovr/api_idx_0012_PGSL
+shared/ovr/select_encumbrance_style
 shared/ovr/display_centered_message
 vpcvw/api_idx_000c_JRTV
 vpcvw/api_idx_0012_GQSK
@@ -13,9 +13,9 @@ shared/ovr/draw_party_slot_letters
 shared/ovr/draw_member_realm_points
 shared/ovr/advance_party_slot_frames
 shared/ovr/clamp_value_to_range
-shared/ovr/api_idx_0010_STNH
+shared/ovr/draw_doubled_member_portrait
 shared/ovr/draw_title_banner
-shared/ovr/api_idx_007c_OKMO
+shared/ovr/draw_member_summary_panel
 vpcvw/api_idx_009e_KPST
 shared/ovr/api_idx_0008_RORM
 shared/ovr/loc_TRPK
@@ -82,7 +82,8 @@ vpcvw/api_idx_000e_ORVT
 vpcvw/api_idx_0018_VTUP
 shared/ovr/aztec_ovbgn
 shared/ovr/aztec_cswt
-vpcvw/data/dseg_9098
+vpcvw/data/percent_suffix_text
+vpcvw/data/loc_TRPK_dseg167
 shared/data/profession_stat_requirements
 vpcvw/data/dseg_9366
 shared/data/portrait_data_filename

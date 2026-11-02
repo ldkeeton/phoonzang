@@ -12,7 +12,7 @@ api_idx_0054_NQHV:
     mov ax, word [bp - 2]            ; 0x0375
     shl ax, 1                        ; 0x0378
     mov bx, ax                       ; 0x037a
-    mov bx, word [bx + party_char]   ; 0x037c
+    mov bx, word [bx + battle_groups] ; 0x037c
     mov byte [bx + member_rec.f_01a2], 0 ; 0x0380
     mov word [bp - 4], 0             ; 0x0385
     jmp short .forward2              ; 0x038a
@@ -23,8 +23,8 @@ api_idx_0054_NQHV:
     mov ax, word [bp - 2]            ; 0x0394
     shl ax, 1                        ; 0x0397
     mov bx, ax                       ; 0x0399
-    mov bx, word [bx + party_char]   ; 0x039b
-    cmp byte [bx + si + member_rec.item_state], 2 ; 0x039f
+    mov bx, word [bx + battle_groups] ; 0x039b
+    cmp byte [bx + si + member_rec.unit_state], 2 ; 0x039f
     jae short .forward1              ; 0x03a3
     cmp byte [bx + si + 0x11], 0     ; 0x03a5
     jne short .forward1              ; 0x03a9
@@ -37,8 +37,8 @@ api_idx_0054_NQHV:
     mov ax, word [bp - 2]            ; 0x03b8
     shl ax, 1                        ; 0x03bb
     mov bx, ax                       ; 0x03bd
-    mov bx, word [bx + party_char]   ; 0x03bf
-    mov al, byte [bx + member_rec.item_count] ; 0x03c3
+    mov bx, word [bx + battle_groups] ; 0x03bf
+    mov al, byte [bx + member_rec.unit_count] ; 0x03c3
     sub ah, ah                       ; 0x03c7
     cmp ax, word [bp - 4]            ; 0x03c9
     jg short .back2                  ; 0x03cc
@@ -91,8 +91,8 @@ api_idx_0054_NQHV:
     mov ax, word [bp - 2]            ; 0x0436
     shl ax, 1                        ; 0x0439
     mov bx, ax                       ; 0x043b
-    mov bx, word [bx + party_char]   ; 0x043d
-    mov al, byte [bx + member_rec.item_count] ; 0x0441
+    mov bx, word [bx + battle_groups] ; 0x043d
+    mov al, byte [bx + member_rec.unit_count] ; 0x0441
     sub ah, ah                       ; 0x0445
     push ax                          ; 0x0447
     call draw_number_field           ; 0x0448
@@ -108,8 +108,8 @@ api_idx_0054_NQHV:
     mov ax, word [bp - 2]            ; 0x0460
     shl ax, 1                        ; 0x0463
     mov bx, ax                       ; 0x0465
-    mov bx, word [bx + party_char]   ; 0x0467
-    cmp byte [bx + member_rec.item_count], 1 ; 0x046b
+    mov bx, word [bx + battle_groups] ; 0x0467
+    cmp byte [bx + member_rec.unit_count], 1 ; 0x046b
     jne short .forward5              ; 0x0470
     mov ax, 0                        ; 0x0472
     jmp short .forward6              ; 0x0475
@@ -129,7 +129,7 @@ api_idx_0054_NQHV:
     mov ax, word [bp - 2]            ; 0x0490
     shl ax, 1                        ; 0x0493
     mov bx, ax                       ; 0x0495
-    mov ax, word [bx + party_char_ext] ; 0x0497
+    mov ax, word [bx + battle_group_ext] ; 0x0497
     add ax, cx                       ; 0x049b
     push ax                          ; 0x049d
     call draw_text_glyphs            ; 0x049e
@@ -155,7 +155,7 @@ api_idx_0054_NQHV:
     mov ax, word [bp - 2]            ; 0x04ce
     shl ax, 1                        ; 0x04d1
     mov bx, ax                       ; 0x04d3
-    mov bx, word [bx + party_char]   ; 0x04d5
+    mov bx, word [bx + battle_groups] ; 0x04d5
     mov al, byte [bx + member_rec.f_01a2] ; 0x04d9
     sub ah, ah                       ; 0x04dd
     push ax                          ; 0x04df
@@ -170,7 +170,7 @@ api_idx_0054_NQHV:
     inc word [bp - 2]                ; 0x04f4
 .forward7:
     mov ax, word [bp - 2]            ; 0x04f7
-    cmp ax, word [party_member_count] ; 0x04fa
+    cmp ax, word [monster_group_count] ; 0x04fa
     jg short .return1                ; 0x04fe
     jmp near .back1                  ; 0x0500
 .return1:

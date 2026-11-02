@@ -169,7 +169,7 @@ int pc, button_msg, ok_enabled, limit_by_points;
 					draw_power_digit(panel_x + 12, box_y0 + 20, power, 1);
 					if (spell >= 0) {
 						max_power = clamp_between(
-							party_records[pc].power_cap - spell_table[spell].level, 0, 6);
+							party_records[pc].level - spell_table[spell].level, 0, 6);
 						i = spell_table[spell].cost * (max_power + 1);
 						draw_spell_cost(panel_x + 94, box_y0 + 21, realm,
 							spell_table[spell].cost * (power + 1),
@@ -202,7 +202,7 @@ int pc, button_msg, ok_enabled, limit_by_points;
 					draw_text_list(panel_x + 6, box_y0 + 34, 15, 7, list_top, sel_row,
 						rows_drawn);
 					max_power = clamp_between(
-						party_records[pc].power_cap - spell_table[spell].level, 0, 6);
+						party_records[pc].level - spell_table[spell].level, 0, 6);
 					i = spell_table[spell].cost * (max_power + 1);
 					draw_spell_cost(panel_x + 94, box_y0 + 21, realm,
 						spell_table[spell].cost * (power + 1),

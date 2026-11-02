@@ -87,10 +87,10 @@ jumptable_12fa_case_0:
     mov ax, 0x248                    ; 0x0fb3
     imul word [bp - 6]               ; 0x0fb6
     mov bx, ax                       ; 0x0fb9
-    push word [bx + party_records + pc_rec.pair_b + 0x2] ; 0x0fbb
+    push word [bx + party_records + pc_rec.stamina + 0x2] ; 0x0fbb
     mov ax, 0                        ; 0x0fbf
     push ax                          ; 0x0fc2
-    mov ax, word [bx + party_records + pc_rec.pair_b] ; 0x0fc3
+    mov ax, word [bx + party_records + pc_rec.stamina] ; 0x0fc3
     add ax, word [bp - 0xe]          ; 0x0fc7
     push ax                          ; 0x0fca
     call clamp_between               ; 0x0fcb
@@ -100,7 +100,7 @@ jumptable_12fa_case_0:
     imul word [bp - 6]               ; 0x0fd5
     mov bx, ax                       ; 0x0fd8
     pop ax                           ; 0x0fda
-    mov word [bx + party_records + pc_rec.pair_b], ax ; 0x0fdb
+    mov word [bx + party_records + pc_rec.stamina], ax ; 0x0fdb
     jmp near api_idx_0012_QKSO.forward19 ; 0x0fdf
 jumptable_12fa_case_1:
     mov word [bp - 4], 0             ; 0x0fe2
@@ -167,10 +167,10 @@ jumptable_12fa_case_2:
     mov ax, 0x248                    ; 0x1070
     imul word [bp - 6]               ; 0x1073
     mov bx, ax                       ; 0x1076
-    push word [bx + party_records + pc_rec.pair_a + 0x2] ; 0x1078
+    push word [bx + party_records + pc_rec.hp + 0x2] ; 0x1078
     mov ax, 0                        ; 0x107c
     push ax                          ; 0x107f
-    mov ax, word [bx + party_records + pc_rec.pair_a] ; 0x1080
+    mov ax, word [bx + party_records + pc_rec.hp] ; 0x1080
     add ax, word [bp - 0xe]          ; 0x1084
     push ax                          ; 0x1087
     call clamp_between               ; 0x1088
@@ -180,13 +180,13 @@ jumptable_12fa_case_2:
     imul word [bp - 6]               ; 0x1092
     mov bx, ax                       ; 0x1095
     pop ax                           ; 0x1097
-    mov word [bx + party_records + pc_rec.pair_a], ax ; 0x1098
+    mov word [bx + party_records + pc_rec.hp], ax ; 0x1098
     jmp near api_idx_0012_QKSO.forward19 ; 0x109c
 jumptable_12fa_case_3:
     mov ax, 0x248                    ; 0x109f
     imul word [bp - 6]               ; 0x10a2
     mov bx, ax                       ; 0x10a5
-    mov byte [bx + party_records + pc_rec.f_023e], 0 ; 0x10a7
+    mov byte [bx + party_records + pc_rec.poison_strength], 0 ; 0x10a7
     mov byte [bx + party_records + pc_rec.status + 0x5], 0 ; 0x10ac
     jmp near api_idx_0012_QKSO.forward19 ; 0x10b1
 jumptable_12fa_case_4:
@@ -238,19 +238,19 @@ jumptable_12fa_case_7:
     imul word [bp - 6]               ; 0x1126
     mov bx, ax                       ; 0x1129
     mov byte [bx + party_records + pc_rec.state], 0 ; 0x112b
-    mov ax, word [bx + party_records + pc_rec.pair_a + 0x2] ; 0x1130
-    mov word [bx + party_records + pc_rec.pair_a], ax ; 0x1134
-    mov ax, word [bx + party_records + pc_rec.pair_b + 0x2] ; 0x1138
-    mov word [bx + party_records + pc_rec.pair_b], ax ; 0x113c
+    mov ax, word [bx + party_records + pc_rec.hp + 0x2] ; 0x1130
+    mov word [bx + party_records + pc_rec.hp], ax ; 0x1134
+    mov ax, word [bx + party_records + pc_rec.stamina + 0x2] ; 0x1138
+    mov word [bx + party_records + pc_rec.stamina], ax ; 0x113c
     jmp near api_idx_0012_QKSO.forward19 ; 0x1140
 jumptable_12fa_case_8:
     mov ax, 0x248                    ; 0x1143
     imul word [bp - 6]               ; 0x1146
     mov bx, ax                       ; 0x1149
-    push word [bx + party_records + pc_rec.pair_b + 0x2] ; 0x114b
+    push word [bx + party_records + pc_rec.stamina + 0x2] ; 0x114b
     mov ax, 0                        ; 0x114f
     push ax                          ; 0x1152
-    mov ax, word [bx + party_records + pc_rec.pair_b] ; 0x1153
+    mov ax, word [bx + party_records + pc_rec.stamina] ; 0x1153
     sub ax, word [bp - 0xe]          ; 0x1157
     push ax                          ; 0x115a
     call clamp_between               ; 0x115b
@@ -260,7 +260,7 @@ jumptable_12fa_case_8:
     imul word [bp - 6]               ; 0x1165
     mov bx, ax                       ; 0x1168
     pop ax                           ; 0x116a
-    mov word [bx + party_records + pc_rec.pair_b], ax ; 0x116b
+    mov word [bx + party_records + pc_rec.stamina], ax ; 0x116b
     cmp ax, strict word 0            ; 0x116f
     jg short api_idx_0012_QKSO.forward10 ; 0x1172
     mov al, byte [bx + party_records + pc_rec.status + 0x2] ; 0x1174
@@ -346,10 +346,10 @@ jumptable_12fa_case_10:
     mov ax, 0x248                    ; 0x122a
     imul word [bp - 6]               ; 0x122d
     mov bx, ax                       ; 0x1230
-    push word [bx + party_records + pc_rec.pair_a + 0x2] ; 0x1232
+    push word [bx + party_records + pc_rec.hp + 0x2] ; 0x1232
     mov ax, 0                        ; 0x1236
     push ax                          ; 0x1239
-    mov ax, word [bx + party_records + pc_rec.pair_a] ; 0x123a
+    mov ax, word [bx + party_records + pc_rec.hp] ; 0x123a
     sub ax, word [bp - 0xe]          ; 0x123e
     push ax                          ; 0x1241
     call clamp_between               ; 0x1242
@@ -359,12 +359,12 @@ jumptable_12fa_case_10:
     imul word [bp - 6]               ; 0x124c
     mov bx, ax                       ; 0x124f
     pop ax                           ; 0x1251
-    mov word [bx + party_records + pc_rec.pair_a], ax ; 0x1252
+    mov word [bx + party_records + pc_rec.hp], ax ; 0x1252
     cmp ax, strict word 0            ; 0x1256
     jg short api_idx_0012_QKSO.forward12 ; 0x1259
     mov byte [bx + party_records + pc_rec.state], 3 ; 0x125b
-    mov word [bx + party_records + pc_rec.pair_a], 0 ; 0x1260
-    mov word [bx + party_records + pc_rec.pair_b], 0 ; 0x1266
+    mov word [bx + party_records + pc_rec.hp], 0 ; 0x1260
+    mov word [bx + party_records + pc_rec.stamina], 0 ; 0x1266
     mov al, byte [bx + party_records + pc_rec.gender] ; 0x126c
     sub ah, ah                       ; 0x1270
     add ax, strict word 8            ; 0x1272
@@ -377,12 +377,12 @@ jumptable_12fa_case_11:
     mov ax, 0x248                    ; 0x127d
     imul word [bp - 6]               ; 0x1280
     mov bx, ax                       ; 0x1283
-    mov al, byte [bx + party_records + pc_rec.f_023e] ; 0x1285
+    mov al, byte [bx + party_records + pc_rec.poison_strength] ; 0x1285
     sub ah, ah                       ; 0x1289
     cmp ax, word [bp - 0xa]          ; 0x128b
     jge short api_idx_0012_QKSO.forward13 ; 0x128e
     mov al, byte [bp - 0xa]          ; 0x1290
-    mov byte [bx + party_records + pc_rec.f_023e], al ; 0x1293
+    mov byte [bx + party_records + pc_rec.poison_strength], al ; 0x1293
 api_idx_0012_QKSO.forward13:
     mov al, byte [bx + party_records + pc_rec.status + 0x5] ; 0x1297
     sub ah, ah                       ; 0x129b

@@ -8,8 +8,8 @@ api_idx_0002_UTVG:
     mov ax, word [bp + 4]            ; 0x1fa6
     shl ax, 1                        ; 0x1fa9
     mov bx, ax                       ; 0x1fab
-    mov bx, word [bx + party_char]   ; 0x1fad
-    mov al, byte [bx + si + member_rec.item_state] ; 0x1fb1
+    mov bx, word [bx + battle_groups] ; 0x1fad
+    mov al, byte [bx + si + member_rec.unit_state] ; 0x1fb1
     sub ah, ah                       ; 0x1fb4
     cmp ax, word [bp + 0xc]          ; 0x1fb6
     jge short .return1               ; 0x1fb9
@@ -26,12 +26,12 @@ api_idx_0002_UTVG:
     jne short .forward2              ; 0x1fd0
     mov ax, 0xe                      ; 0x1fd2
     push ax                          ; 0x1fd5
-    mov ax, word [party_char_ext]    ; 0x1fd6
+    mov ax, word [battle_group_ext]  ; 0x1fd6
     add ax, 0x9a                     ; 0x1fd9
     push ax                          ; 0x1fdc
     mov ax, 0x248                    ; 0x1fdd
     imul word [bp + 6]               ; 0x1fe0
-    add ax, party_records + pc_rec.cur ; 0x1fe3
+    add ax, party_records + pc_rec.resist ; 0x1fe3
     push ax                          ; 0x1fe6
     call aztec_movmem                ; 0x1fe7
     add sp, byte 6                   ; 0x1fea
@@ -47,7 +47,7 @@ api_idx_0002_UTVG:
     mov ax, word [bp + 4]            ; 0x2001
     shl ax, 1                        ; 0x2004
     mov bx, ax                       ; 0x2006
-    mov bx, word [bx + party_char_ext] ; 0x2008
+    mov bx, word [bx + battle_group_ext] ; 0x2008
     mov si, word [bp + 0xa]          ; 0x200c
     mov al, byte [bx + si + member_ext.f_009a] ; 0x200f
     sub ah, ah                       ; 0x2013
@@ -66,9 +66,9 @@ api_idx_0002_UTVG:
     mov ax, word [bp + 4]            ; 0x202d
     shl ax, 1                        ; 0x2030
     mov bx, ax                       ; 0x2032
-    mov bx, word [bx + party_char]   ; 0x2034
+    mov bx, word [bx + battle_groups] ; 0x2034
     pop ax                           ; 0x2038
-    mov byte [bx + si + member_rec.item_state], al ; 0x2039
+    mov byte [bx + si + member_rec.unit_state], al ; 0x2039
     cmp word [bp + 0xc], byte 3      ; 0x203c
     jl short .forward4               ; 0x2040
     push word [bp + 6]               ; 0x2042

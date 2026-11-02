@@ -8,8 +8,8 @@ api_idx_0006_QJOL:
     mov ax, word [bp + 4]            ; 0x20aa
     shl ax, 1                        ; 0x20ad
     mov bx, ax                       ; 0x20af
-    mov bx, word [bx + party_char]   ; 0x20b1
-    cmp byte [bx + si + member_rec.item_state], 2 ; 0x20b5
+    mov bx, word [bx + battle_groups] ; 0x20b1
+    cmp byte [bx + si + member_rec.unit_state], 2 ; 0x20b5
     jae short .return1               ; 0x20b9
     push word [bp + 6]               ; 0x20bb
     push word [bp + 4]               ; 0x20be
@@ -24,12 +24,12 @@ api_idx_0006_QJOL:
     jne short .forward3              ; 0x20d0
     mov ax, 0xe                      ; 0x20d2
     push ax                          ; 0x20d5
-    mov ax, word [party_char_ext]    ; 0x20d6
+    mov ax, word [battle_group_ext]  ; 0x20d6
     add ax, 0x9a                     ; 0x20d9
     push ax                          ; 0x20dc
     mov ax, 0x248                    ; 0x20dd
     imul word [bp + 6]               ; 0x20e0
-    add ax, party_records + pc_rec.cur ; 0x20e3
+    add ax, party_records + pc_rec.resist ; 0x20e3
     push ax                          ; 0x20e6
     call aztec_movmem                ; 0x20e7
     add sp, byte 6                   ; 0x20ea
@@ -84,7 +84,7 @@ api_idx_0006_QJOL:
     mov ax, word [bp + 4]            ; 0x215d
     shl ax, 1                        ; 0x2160
     mov bx, ax                       ; 0x2162
-    mov bx, word [bx + party_char_ext] ; 0x2164
+    mov bx, word [bx + battle_group_ext] ; 0x2164
     mov si, word [bp + 0xa]          ; 0x2168
     mov al, byte [bx + si + member_ext.f_009a] ; 0x216b
     sub ah, ah                       ; 0x216f
@@ -105,8 +105,8 @@ api_idx_0006_QJOL:
     mov ax, word [bp + 4]            ; 0x2192
     shl ax, 1                        ; 0x2195
     mov bx, ax                       ; 0x2197
-    mov bx, word [bx + party_char]   ; 0x2199
-    mov byte [bx + si + member_rec.item_counter], 0xff ; 0x219d
+    mov bx, word [bx + battle_groups] ; 0x2199
+    mov byte [bx + si + member_rec.unit_status], 0xff ; 0x219d
     jmp short .forward8              ; 0x21a1
 .forward6:
     mov ax, 0x2c                     ; 0x21a3
@@ -116,8 +116,8 @@ api_idx_0006_QJOL:
     mov ax, word [bp + 4]            ; 0x21ae
     shl ax, 1                        ; 0x21b1
     mov bx, ax                       ; 0x21b3
-    mov bx, word [bx + party_char]   ; 0x21b5
-    mov al, byte [bx + si + member_rec.item_counter] ; 0x21b9
+    mov bx, word [bx + battle_groups] ; 0x21b5
+    mov al, byte [bx + si + member_rec.unit_status] ; 0x21b9
     sub ah, ah                       ; 0x21bc
     add ax, word [bp - 6]            ; 0x21be
     cmp ax, 0xfa                     ; 0x21c1
@@ -135,9 +135,9 @@ api_idx_0006_QJOL:
     mov ax, word [bp + 4]            ; 0x21dd
     shl ax, 1                        ; 0x21e0
     mov bx, ax                       ; 0x21e2
-    mov bx, word [bx + party_char]   ; 0x21e4
+    mov bx, word [bx + battle_groups] ; 0x21e4
     pop ax                           ; 0x21e8
-    add byte [bx + si + member_rec.item_counter], al ; 0x21e9
+    add byte [bx + si + member_rec.unit_status], al ; 0x21e9
 .forward8:
     cmp word [bp + 0xc], byte 5      ; 0x21ec
     jne short .forward9              ; 0x21f0
@@ -149,9 +149,9 @@ api_idx_0006_QJOL:
     mov ax, word [bp + 4]            ; 0x21fe
     shl ax, 1                        ; 0x2201
     mov bx, ax                       ; 0x2203
-    mov bx, word [bx + party_char]   ; 0x2205
+    mov bx, word [bx + battle_groups] ; 0x2205
     pop ax                           ; 0x2209
-    mov byte [bx + si + member_rec.item_resist], al ; 0x220a
+    mov byte [bx + si + member_rec.unit_poison_strength], al ; 0x220a
 .forward9:
     mov ax, 0                        ; 0x220d
     push ax                          ; 0x2210

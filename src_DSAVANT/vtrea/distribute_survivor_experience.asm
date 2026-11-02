@@ -18,8 +18,8 @@ distribute_survivor_experience:
     mov ax, word [bp - 2]            ; 0x5da7
     cmp ax, word [party_char_count]  ; 0x5daa
     jl short .back1                  ; 0x5dae
-    mov ax, word [item_action_reward] ; 0x5db0
-    mov dx, word [item_action_reward_hi] ; 0x5db3
+    mov ax, word [battle_experience] ; 0x5db0
+    mov dx, word [battle_experience_hi] ; 0x5db3
     mov cx, 0x14                     ; 0x5db7
     mov bx, 0                        ; 0x5dba
     call aztec_ldv                   ; 0x5dbd
@@ -46,10 +46,10 @@ distribute_survivor_experience:
     mov word [bp - 8], ax            ; 0x5de2
     mov ax, word [bp - 8]            ; 0x5de5
     mov dx, word [bp - 6]            ; 0x5de8
-    add word [item_action_reward], ax ; 0x5deb
-    adc word [item_action_reward_hi], dx ; 0x5def
-    mov ax, word [item_action_reward] ; 0x5df3
-    mov dx, word [item_action_reward_hi] ; 0x5df6
+    add word [battle_experience], ax ; 0x5deb
+    adc word [battle_experience_hi], dx ; 0x5def
+    mov ax, word [battle_experience] ; 0x5df3
+    mov dx, word [battle_experience_hi] ; 0x5df6
     push ax                          ; 0x5dfa
     push dx                          ; 0x5dfb
     mov ax, word [bp - 4]            ; 0x5dfc

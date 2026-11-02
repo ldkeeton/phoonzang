@@ -349,8 +349,8 @@ jumptable_36f8_case_11:
     mov bx, ax                       ; 0x2edc
     pop dx                           ; 0x2ede
     pop ax                           ; 0x2edf
-    add word [bx + party_records + pc_rec.f_0014], ax ; 0x2ee0
-    adc word [bx + party_records + pc_rec.f_0016], dx ; 0x2ee4
+    add word [bx + party_records + pc_rec.gold], ax ; 0x2ee0
+    adc word [bx + party_records + pc_rec.gold + 0x2], dx ; 0x2ee4
     mov ax, word [bp - 0x36]         ; 0x2ee8
     mov dx, word [bp - 0x34]         ; 0x2eeb
     sub word [bss_91b6], ax          ; 0x2eee
@@ -386,8 +386,8 @@ api_idx_0040_INKU.back4:
     mov ax, 0x248                    ; 0x2f3e
     imul word [bp - 0x2c]            ; 0x2f41
     mov bx, ax                       ; 0x2f44
-    mov ax, word [bx + party_records + pc_rec.f_0014] ; 0x2f46
-    mov dx, word [bx + party_records + pc_rec.f_0016] ; 0x2f4a
+    mov ax, word [bx + party_records + pc_rec.gold] ; 0x2f46
+    mov dx, word [bx + party_records + pc_rec.gold + 0x2] ; 0x2f4a
     push ax                          ; 0x2f4e
     push dx                          ; 0x2f4f
     mov ax, word [bp - 0x28]         ; 0x2f50
@@ -408,15 +408,15 @@ api_idx_0040_INKU.back4:
     mov bx, ax                       ; 0x2f71
     pop dx                           ; 0x2f73
     pop ax                           ; 0x2f74
-    sub word [bx + party_records + pc_rec.f_0014], ax ; 0x2f75
-    sbb word [bx + party_records + pc_rec.f_0016], dx ; 0x2f79
+    sub word [bx + party_records + pc_rec.gold], ax ; 0x2f75
+    sbb word [bx + party_records + pc_rec.gold + 0x2], dx ; 0x2f79
     jmp short api_idx_0040_INKU.forward28 ; 0x2f7d
 api_idx_0040_INKU.forward27:
     mov ax, 0x248                    ; 0x2f7f
     imul word [bp - 0x2c]            ; 0x2f82
     mov bx, ax                       ; 0x2f85
-    mov word [bx + party_records + pc_rec.f_0016], 0 ; 0x2f87
-    mov word [bx + party_records + pc_rec.f_0014], 0 ; 0x2f8d
+    mov word [bx + party_records + pc_rec.gold + 0x2], 0 ; 0x2f87
+    mov word [bx + party_records + pc_rec.gold], 0 ; 0x2f8d
 api_idx_0040_INKU.forward28:
     inc word [bp - 0x2c]             ; 0x2f93
 api_idx_0040_INKU.forward29:
@@ -427,8 +427,8 @@ api_idx_0040_INKU.forward30:
     mov ax, 0x248                    ; 0x2f9f
     imul word [bp + 4]               ; 0x2fa2
     mov bx, ax                       ; 0x2fa5
-    mov ax, word [bx + party_records + pc_rec.f_0014] ; 0x2fa7
-    mov dx, word [bx + party_records + pc_rec.f_0016] ; 0x2fab
+    mov ax, word [bx + party_records + pc_rec.gold] ; 0x2fa7
+    mov dx, word [bx + party_records + pc_rec.gold + 0x2] ; 0x2fab
     cmp dx, word [bp - 0x34]         ; 0x2faf
     jg short api_idx_0040_INKU.forward31 ; 0x2fb2
     jne short api_idx_0040_INKU.forward32 ; 0x2fb4
@@ -443,8 +443,8 @@ api_idx_0040_INKU.forward32:
     mov ax, 0x248                    ; 0x2fc4
     imul word [bp + 4]               ; 0x2fc7
     mov bx, ax                       ; 0x2fca
-    mov ax, word [bx + party_records + pc_rec.f_0014] ; 0x2fcc
-    mov dx, word [bx + party_records + pc_rec.f_0016] ; 0x2fd0
+    mov ax, word [bx + party_records + pc_rec.gold] ; 0x2fcc
+    mov dx, word [bx + party_records + pc_rec.gold + 0x2] ; 0x2fd0
     cmp dx, word [bp - 0x34]         ; 0x2fd4
     jg short api_idx_0040_INKU.forward33 ; 0x2fd7
     jne short api_idx_0040_INKU.forward34 ; 0x2fd9
@@ -476,8 +476,8 @@ api_idx_0040_INKU.forward36:
     mov bx, ax                       ; 0x300f
     pop dx                           ; 0x3011
     pop ax                           ; 0x3012
-    sub word [bx + party_records + pc_rec.f_0014], ax ; 0x3013
-    sbb word [bx + party_records + pc_rec.f_0016], dx ; 0x3017
+    sub word [bx + party_records + pc_rec.gold], ax ; 0x3013
+    sbb word [bx + party_records + pc_rec.gold + 0x2], dx ; 0x3017
     mov ax, word [bp - 0x36]         ; 0x301b
     mov dx, word [bp - 0x34]         ; 0x301e
     add word [bss_91b6], ax          ; 0x3021

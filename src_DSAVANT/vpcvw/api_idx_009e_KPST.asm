@@ -16,8 +16,8 @@ api_idx_009e_KPST:
     mov ax, 0                        ; 0x18b7
     push ax                          ; 0x18ba
     push ax                          ; 0x18bb
-    push word [api_idx_007c_OKMO_bss19]             ; 0x18bc
-    push word [api_idx_007c_OKMO_bss24]             ; 0x18c0
+    push word [member_screen_cache_high] ; 0x18bc
+    push word [member_screen_cache_low] ; 0x18c0
     call call_restore_screen         ; 0x18c4
     add sp, byte 8                   ; 0x18c7
     mov ax, 0                        ; 0x18ca
@@ -69,8 +69,8 @@ api_idx_009e_KPST:
     mov ax, 0x248                    ; 0x1938
     imul word [bp + 4]               ; 0x193b
     mov bx, ax                       ; 0x193e
-    mov ax, word [bx + party_records + pc_rec.f_0008] ; 0x1940
-    mov dx, word [bx + party_records + pc_rec.f_000a] ; 0x1944
+    mov ax, word [bx + party_records + pc_rec.age_days] ; 0x1940
+    mov dx, word [bx + party_records + pc_rec.age_days + 0x2] ; 0x1944
     mov cx, 0x16d                    ; 0x1948
     mov bx, 0                        ; 0x194b
     call aztec_ldv                   ; 0x194e
@@ -118,7 +118,7 @@ api_idx_009e_KPST:
     mov ax, 0x248                    ; 0x19b4
     imul word [bp + 4]               ; 0x19b7
     mov bx, ax                       ; 0x19ba
-    push word [bx + party_records + pc_rec.f_0026] ; 0x19bc
+    push word [bx + party_records + pc_rec.deaths] ; 0x19bc
     call format_int_decimal          ; 0x19c0
     add sp, byte 4                   ; 0x19c3
     mov ax, 0                        ; 0x19c6
@@ -130,9 +130,9 @@ api_idx_009e_KPST:
     mov ax, 0x248                    ; 0x19d5
     imul word [bp + 4]               ; 0x19d8
     mov bx, ax                       ; 0x19db
-    cmp word [bx + party_records + pc_rec.power_cap], byte 0x10 ; 0x19dd
+    cmp word [bx + party_records + pc_rec.level], byte 0x10 ; 0x19dd
     jge short .forward2              ; 0x19e2
-    mov ax, word [bx + party_records + pc_rec.power_cap] ; 0x19e4
+    mov ax, word [bx + party_records + pc_rec.level] ; 0x19e4
     shl ax, 1                        ; 0x19e8
     shl ax, 1                        ; 0x19ea
     mov bx, ax                       ; 0x19ec
@@ -146,7 +146,7 @@ api_idx_009e_KPST:
     mov ax, 0x248                    ; 0x19fe
     imul word [bp + 4]               ; 0x1a01
     mov bx, ax                       ; 0x1a04
-    mov ax, word [bx + party_records + pc_rec.power_cap] ; 0x1a06
+    mov ax, word [bx + party_records + pc_rec.level] ; 0x1a06
     add ax, strict word 0xfff0       ; 0x1a0a
     mov word [bp - 0x4e], ax         ; 0x1a0d
     mov ax, word [bp - 0x10]         ; 0x1a10

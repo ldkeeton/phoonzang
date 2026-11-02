@@ -95,7 +95,7 @@ queue_slot_glyph_render:
     idiv cx
     sub word [bx + queued_slot_x], ax
 .forward5:
-    mov ax, word [view_depth_y]
+    mov ax, word [view_geometry]
     sub ax, word [bp - 4]
     imul word [bp + 0x18]
     add ax, strict word 0xffce
@@ -236,7 +236,7 @@ queue_slot_glyph_render:
     mov al, byte [bp + 0x1a]
     mov byte [bx + queued_slot_glyph_column], al
     mov al, byte [bp + 0x1c]
-    mov byte [bx + queued_slot_parameter_13], al
+    mov byte [bx + queued_slot_render_pass], al
     inc word [render_queue_count]
     mov ax, word [render_queue_count]
     cmp ax, strict word 0x78

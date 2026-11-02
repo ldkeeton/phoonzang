@@ -53,7 +53,7 @@ wait_then_handle_region_event()
 		event_threshold = party_records[member_roster_index].stat[4] / 2
 			+ party_records[member_roster_index].skills[18] / 3;
 	}
-	/* Mode 0xff averages the matching field over active party members. */
+	/* Mode 0xff averages the party's Climbing (skills[11]), exercising it. */
 	else if (event_threshold == 255) {
 		event_threshold = 0;
 		member_index = 0;

@@ -694,7 +694,7 @@ loc_TQUO.forward24:
     mov ax, 0x248                    ; 0x7790
     imul word [bp + 4]               ; 0x7793
     mov bx, ax                       ; 0x7796
-    mov al, byte [bx + party_records + pc_rec.glyph_set] ; 0x7798
+    mov al, byte [bx + party_records + pc_rec.race] ; 0x7798
     sub ah, ah                       ; 0x779c
     push ax                          ; 0x779e
     lea ax, word [bp - 0x46]         ; 0x779f

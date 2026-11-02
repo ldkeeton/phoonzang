@@ -73,13 +73,13 @@ api_idx_000a_URTS.forward5:
     mov ax, 0x248                    ; 0x19f9
     imul word [bp + 4]               ; 0x19fc
     mov bx, ax                       ; 0x19ff
-    mov al, byte [bx + party_records + pc_rec.f_023e] ; 0x1a01
+    mov al, byte [bx + party_records + pc_rec.poison_strength] ; 0x1a01
     sub ah, ah                       ; 0x1a05
     mov cx, ax                       ; 0x1a07
     pop ax                           ; 0x1a09
     add ax, cx                       ; 0x1a0a
     inc ax                           ; 0x1a0c
-    mov byte [bx + party_records + pc_rec.f_023e], al ; 0x1a0d
+    mov byte [bx + party_records + pc_rec.poison_strength], al ; 0x1a0d
 api_idx_000a_URTS.forward6:
     mov ax, 7                        ; 0x1a11
     push ax                          ; 0x1a14
@@ -109,7 +109,7 @@ api_idx_000a_URTS.forward7:
     mov ax, 0x248                    ; 0x1a4a
     imul word [bp + 4]               ; 0x1a4d
     mov bx, ax                       ; 0x1a50
-    cmp word [bx + party_records + pc_rec.pair_a + 0x2], byte 2 ; 0x1a52
+    cmp word [bx + party_records + pc_rec.hp + 0x2], byte 2 ; 0x1a52
     jle short api_idx_000a_URTS.forward8 ; 0x1a57
     mov ax, 3                        ; 0x1a59
     push ax                          ; 0x1a5c
@@ -120,36 +120,36 @@ api_idx_000a_URTS.forward7:
     imul word [bp + 4]               ; 0x1a65
     mov bx, ax                       ; 0x1a68
     pop ax                           ; 0x1a6a
-    sub word [bx + party_records + pc_rec.pair_a + 0x2], ax ; 0x1a6b
+    sub word [bx + party_records + pc_rec.hp + 0x2], ax ; 0x1a6b
 api_idx_000a_URTS.forward8:
     mov ax, 0x248                    ; 0x1a6f
     imul word [bp + 4]               ; 0x1a72
     mov bx, ax                       ; 0x1a75
-    mov al, byte [bx + party_records + pc_rec.attack] ; 0x1a77
+    mov al, byte [bx + party_records + pc_rec.hp_regen] ; 0x1a77
     sub ah, ah                       ; 0x1a7b
     imul word [bp + 0xa]             ; 0x1a7d
     push ax                          ; 0x1a80
-    mov al, byte [bx + party_records + pc_rec.defense] ; 0x1a81
+    mov al, byte [bx + party_records + pc_rec.hp_drain] ; 0x1a81
     sub ah, ah                       ; 0x1a85
     imul word [bp + 0xa]             ; 0x1a87
     mov cx, ax                       ; 0x1a8a
     pop ax                           ; 0x1a8c
     sub ax, cx                       ; 0x1a8d
     push ax                          ; 0x1a8f
-    mov al, byte [bx + party_records + pc_rec.f_023e] ; 0x1a90
+    mov al, byte [bx + party_records + pc_rec.poison_strength] ; 0x1a90
     sub ah, ah                       ; 0x1a94
     imul word [bp + 0xa]             ; 0x1a96
     mov cx, ax                       ; 0x1a99
     pop ax                           ; 0x1a9b
     sub ax, cx                       ; 0x1a9c
-    add word [bx + party_records + pc_rec.pair_a], ax ; 0x1a9e
-    mov ax, word [bx + party_records + pc_rec.pair_a] ; 0x1aa2
-    cmp ax, word [bx + party_records + pc_rec.pair_a + 0x2] ; 0x1aa6
+    add word [bx + party_records + pc_rec.hp], ax ; 0x1a9e
+    mov ax, word [bx + party_records + pc_rec.hp] ; 0x1aa2
+    cmp ax, word [bx + party_records + pc_rec.hp + 0x2] ; 0x1aa6
     jle short api_idx_000a_URTS.forward9 ; 0x1aaa
-    mov ax, word [bx + party_records + pc_rec.pair_a + 0x2] ; 0x1aac
-    mov word [bx + party_records + pc_rec.pair_a], ax ; 0x1ab0
+    mov ax, word [bx + party_records + pc_rec.hp + 0x2] ; 0x1aac
+    mov word [bx + party_records + pc_rec.hp], ax ; 0x1ab0
 api_idx_000a_URTS.forward9:
-    cmp word [bx + party_records + pc_rec.pair_a], byte 0 ; 0x1ab4
+    cmp word [bx + party_records + pc_rec.hp], byte 0 ; 0x1ab4
     jg short api_idx_000a_URTS.forward10 ; 0x1ab9
     mov ax, 0                        ; 0x1abb
     push ax                          ; 0x1abe
@@ -166,34 +166,34 @@ api_idx_000a_URTS.forward11:
     mov ax, 0x248                    ; 0x1ad3
     imul word [bp + 4]               ; 0x1ad6
     mov bx, ax                       ; 0x1ad9
-    mov al, byte [bx + party_records + pc_rec.attack] ; 0x1adb
+    mov al, byte [bx + party_records + pc_rec.hp_regen] ; 0x1adb
     sub ah, ah                       ; 0x1adf
     imul word [bp + 0xa]             ; 0x1ae1
     mov cx, ax                       ; 0x1ae4
     pop ax                           ; 0x1ae6
     add ax, cx                       ; 0x1ae7
     push ax                          ; 0x1ae9
-    mov al, byte [bx + party_records + pc_rec.defense] ; 0x1aea
+    mov al, byte [bx + party_records + pc_rec.hp_drain] ; 0x1aea
     sub ah, ah                       ; 0x1aee
     imul word [bp + 0xa]             ; 0x1af0
     mov cx, ax                       ; 0x1af3
     pop ax                           ; 0x1af5
     sub ax, cx                       ; 0x1af6
     push ax                          ; 0x1af8
-    mov al, byte [bx + party_records + pc_rec.f_023e] ; 0x1af9
+    mov al, byte [bx + party_records + pc_rec.poison_strength] ; 0x1af9
     sub ah, ah                       ; 0x1afd
     imul word [bp + 0xa]             ; 0x1aff
     mov cx, ax                       ; 0x1b02
     pop ax                           ; 0x1b04
     sub ax, cx                       ; 0x1b05
-    add word [bx + party_records + pc_rec.pair_a], ax ; 0x1b07
-    mov ax, word [bx + party_records + pc_rec.pair_a] ; 0x1b0b
-    cmp ax, word [bx + party_records + pc_rec.pair_a + 0x2] ; 0x1b0f
+    add word [bx + party_records + pc_rec.hp], ax ; 0x1b07
+    mov ax, word [bx + party_records + pc_rec.hp] ; 0x1b0b
+    cmp ax, word [bx + party_records + pc_rec.hp + 0x2] ; 0x1b0f
     jle short api_idx_000a_URTS.forward12 ; 0x1b13
-    mov ax, word [bx + party_records + pc_rec.pair_a + 0x2] ; 0x1b15
-    mov word [bx + party_records + pc_rec.pair_a], ax ; 0x1b19
+    mov ax, word [bx + party_records + pc_rec.hp + 0x2] ; 0x1b15
+    mov word [bx + party_records + pc_rec.hp], ax ; 0x1b19
 api_idx_000a_URTS.forward12:
-    cmp word [bx + party_records + pc_rec.pair_a], byte 0 ; 0x1b1d
+    cmp word [bx + party_records + pc_rec.hp], byte 0 ; 0x1b1d
     jg short api_idx_000a_URTS.forward13 ; 0x1b22
     mov ax, 0                        ; 0x1b24
     push ax                          ; 0x1b27
@@ -205,9 +205,9 @@ api_idx_000a_URTS.forward13:
     mov ax, 0x248                    ; 0x1b34
     imul word [bp + 4]               ; 0x1b37
     mov bx, ax                       ; 0x1b3a
-    cmp word [bx + party_records + pc_rec.pair_b], byte 0 ; 0x1b3c
+    cmp word [bx + party_records + pc_rec.stamina], byte 0 ; 0x1b3c
     jg short api_idx_000a_URTS.forward14 ; 0x1b41
-    mov word [bx + party_records + pc_rec.pair_b], 0 ; 0x1b43
+    mov word [bx + party_records + pc_rec.stamina], 0 ; 0x1b43
     mov ax, 6                        ; 0x1b49
     push ax                          ; 0x1b4c
     call random_below                ; 0x1b4d
@@ -225,7 +225,7 @@ api_idx_000a_URTS.forward14:
     mov ax, 0x248                    ; 0x1b68
     imul word [bp + 4]               ; 0x1b6b
     mov bx, ax                       ; 0x1b6e
-    mov ax, word [bx + party_records + pc_rec.pair_b + 0x2] ; 0x1b70
+    mov ax, word [bx + party_records + pc_rec.stamina + 0x2] ; 0x1b70
     mov cx, word [bp + 8]            ; 0x1b74
     mov bx, cx                       ; 0x1b77
     imul bx                          ; 0x1b79
@@ -243,7 +243,7 @@ api_idx_000a_URTS.forward14:
     mov ax, 0x248                    ; 0x1b93
     imul word [bp + 4]               ; 0x1b96
     mov bx, ax                       ; 0x1b99
-    mov cx, word [bx + party_records + pc_rec.pair_b] ; 0x1b9b
+    mov cx, word [bx + party_records + pc_rec.stamina] ; 0x1b9b
     pop ax                           ; 0x1b9f
     add ax, cx                       ; 0x1ba0
     push ax                          ; 0x1ba2
@@ -255,12 +255,12 @@ api_idx_000a_URTS.forward14:
     pop ax                           ; 0x1bae
     add ax, cx                       ; 0x1baf
     inc ax                           ; 0x1bb1
-    mov word [bx + party_records + pc_rec.pair_b], ax ; 0x1bb2
-    mov ax, word [bx + party_records + pc_rec.pair_b] ; 0x1bb6
-    cmp ax, word [bx + party_records + pc_rec.pair_b + 0x2] ; 0x1bba
+    mov word [bx + party_records + pc_rec.stamina], ax ; 0x1bb2
+    mov ax, word [bx + party_records + pc_rec.stamina] ; 0x1bb6
+    cmp ax, word [bx + party_records + pc_rec.stamina + 0x2] ; 0x1bba
     jle short api_idx_000a_URTS.forward15 ; 0x1bbe
-    mov ax, word [bx + party_records + pc_rec.pair_b + 0x2] ; 0x1bc0
-    mov word [bx + party_records + pc_rec.pair_b], ax ; 0x1bc4
+    mov ax, word [bx + party_records + pc_rec.stamina + 0x2] ; 0x1bc0
+    mov word [bx + party_records + pc_rec.stamina], ax ; 0x1bc4
 api_idx_000a_URTS.forward15:
     mov word [bp - 4], 0             ; 0x1bc8
 api_idx_000a_URTS.back1:
@@ -293,11 +293,11 @@ api_idx_000a_URTS.forward17:
     mov bx, ax                       ; 0x1c14
     cmp byte [bx + party_records + pc_rec.status + 0x5], 0 ; 0x1c16
     je short api_idx_000a_URTS.forward18 ; 0x1c1b
-    cmp byte [bx + party_records + pc_rec.f_023e], 0 ; 0x1c1d
+    cmp byte [bx + party_records + pc_rec.poison_strength], 0 ; 0x1c1d
     jne short api_idx_000a_URTS.forward19 ; 0x1c22
 api_idx_000a_URTS.forward18:
     mov byte [bx + party_records + pc_rec.status + 0x5], 0 ; 0x1c24
-    mov byte [bx + party_records + pc_rec.f_023e], 0 ; 0x1c29
+    mov byte [bx + party_records + pc_rec.poison_strength], 0 ; 0x1c29
 api_idx_000a_URTS.forward19:
     cmp word [bp + 0xc], byte 0      ; 0x1c2e
     jle short api_idx_000a_URTS.forward21 ; 0x1c32

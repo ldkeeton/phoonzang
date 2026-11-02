@@ -249,9 +249,9 @@ api_idx_0018_USPR:
     mov ax, dx                       ; 0x1f00
     test ax, ax                      ; 0x1f02
     jne short .forward21             ; 0x1f04
-    cmp byte [bx + party_records + pc_rec.f_023e], 0 ; 0x1f06
+    cmp byte [bx + party_records + pc_rec.poison_strength], 0 ; 0x1f06
     jbe short .forward21             ; 0x1f0b
-    dec byte [bx + party_records + pc_rec.f_023e] ; 0x1f0d
+    dec byte [bx + party_records + pc_rec.poison_strength] ; 0x1f0d
 .forward21:
     inc word [bp - 2]                ; 0x1f11
 .forward22:
@@ -330,15 +330,15 @@ api_idx_0018_USPR:
     mov ax, 0x248                    ; 0x1fbe
     imul word [bp - 2]               ; 0x1fc1
     mov bx, ax                       ; 0x1fc4
-    add word [bx + party_records + pc_rec.f_0008], byte 1 ; 0x1fc6
-    adc word [bx + party_records + pc_rec.f_000a], byte 0 ; 0x1fcb
+    add word [bx + party_records + pc_rec.age_days], byte 1 ; 0x1fc6
+    adc word [bx + party_records + pc_rec.age_days + 0x2], byte 0 ; 0x1fcb
 .forward28:
     mov ax, 0x248                    ; 0x1fd0
     imul word [bp - 2]               ; 0x1fd3
     mov bx, ax                       ; 0x1fd6
-    mov ax, word [bx + party_records + pc_rec.pair_b] ; 0x1fd8
+    mov ax, word [bx + party_records + pc_rec.stamina] ; 0x1fd8
     push ax                          ; 0x1fdc
-    mov ax, word [bx + party_records + pc_rec.pair_b + 0x2] ; 0x1fdd
+    mov ax, word [bx + party_records + pc_rec.stamina + 0x2] ; 0x1fdd
     mov cx, 2                        ; 0x1fe1
     cwd                              ; 0x1fe4
     idiv cx                          ; 0x1fe5

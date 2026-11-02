@@ -89,10 +89,10 @@ run_state_0f_scene:
     add sp, byte 6                   ; 0x802a
     mov word [story_score_volume], ax ; 0x802d
 .forward3:
-    cmp word [item_action_reward_hi], byte 0 ; 0x8030
+    cmp word [battle_experience_hi], byte 0 ; 0x8030
     jl short .forward4               ; 0x8035
     jne short .forward5              ; 0x8037
-    cmp word [item_action_reward], byte 0 ; 0x8039
+    cmp word [battle_experience], byte 0 ; 0x8039
     ja short .forward5               ; 0x803e
 .forward4:
     jmp short .forward6              ; 0x8040

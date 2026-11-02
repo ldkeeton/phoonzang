@@ -5,7 +5,7 @@ update_party_stat_adjustments:
     mov ax, 0x248
     imul word [bp + 4]
     mov bx, ax
-    mov ax, word [bx + party_records + pc_rec.power_cap]
+    mov ax, word [bx + party_records + pc_rec.level]
     push ax
     mov al, byte [bx + party_records + pc_rec.power_floor]
     sub ah, ah
@@ -16,7 +16,7 @@ update_party_stat_adjustments:
     mov ax, cx
     jmp short .forward2
 .forward1:
-    mov ax, word [bx + party_records + pc_rec.power_cap]
+    mov ax, word [bx + party_records + pc_rec.level]
 .forward2:
     mov word [bp - 2], ax
     push ax

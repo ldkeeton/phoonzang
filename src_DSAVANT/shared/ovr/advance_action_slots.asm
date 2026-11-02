@@ -7,7 +7,7 @@ advance_action_slots:
     mov ax, word [bp + 4]
     shl ax, 1
     mov bx, ax
-    mov bx, word [bx + party_char]
+    mov bx, word [bx + battle_groups]
     cmp byte [bx + member_rec.slot], 0xff
     jne short .forward1
     ret
@@ -40,8 +40,8 @@ advance_action_slots:
     mov ax, word [bp + 4]
     shl ax, 1
     mov bx, ax
-    mov bx, word [bx + party_char]
-    cmp byte [bx + si + member_rec.item_state], 2
+    mov bx, word [bx + battle_groups]
+    cmp byte [bx + si + member_rec.unit_state], 2
     je short .forward2
     cmp byte [bx + si + 0x11], 0
     ja short .forward2
@@ -272,7 +272,7 @@ advance_action_slots:
     mov ax, word [bp + 4]
     shl ax, 1
     mov bx, ax
-    mov bx, word [bx + party_char]
+    mov bx, word [bx + battle_groups]
     cmp byte [bx + member_rec.kind], 0x79
     je short .forward11
     mov al, byte [bx + 0x19e]

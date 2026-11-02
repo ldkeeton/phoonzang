@@ -291,14 +291,14 @@ choose_member_item_to_use:
     mov ax, 0x2c                     ; 0x367a
     imul word [bp + 4]               ; 0x367d
     mov si, ax                       ; 0x3680
-    mov bx, word [party_char]        ; 0x3682
+    mov bx, word [battle_groups]     ; 0x3682
     mov byte [bx + si + member_rec.f_001f], 0 ; 0x3686
     mov al, byte [bp - 0x94]         ; 0x368a
     push ax                          ; 0x368e
     mov ax, 0x2c                     ; 0x368f
     imul word [bp + 4]               ; 0x3692
     mov si, ax                       ; 0x3695
-    mov bx, word [party_char]        ; 0x3697
+    mov bx, word [battle_groups]     ; 0x3697
     pop ax                           ; 0x369b
     mov byte [bx + si + member_rec.f_0020], al ; 0x369c
 .forward13:

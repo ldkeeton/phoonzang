@@ -2,7 +2,7 @@
 
 #include "structs/member.h"
 
-extern struct member_rec *party_char[];
+extern struct member_rec *battle_groups[];
 extern int party_buff_turns;		/* passes left for the party buff */
 extern int party_buff_charge;		/* buff charge given to each member */
 
@@ -12,7 +12,7 @@ spend_action_slot_charge()
 
 	for (member = 0; member < 7; member++) {
 		for (slot = 0; slot < 6; slot++) {
-			value = party_char[member]->charge[slot];
+			value = battle_groups[member]->charge[slot];
 			if (value > 0) {
 				/* each action slot burns its charge at its own rate */
 				switch (slot) {
@@ -40,16 +40,16 @@ spend_action_slot_charge()
 				value -= cost;
 				if (value < 0)
 					value = 0;
-				party_char[member]->charge[slot] = value;
+				battle_groups[member]->charge[slot] = value;
 			}
 		}
 		for (slot = 0; slot < 6; slot++)
-			if (party_char[member]->delay[slot] > 0)
-				party_char[member]->delay[slot]--;
+			if (battle_groups[member]->delay[slot] > 0)
+				battle_groups[member]->delay[slot]--;
 	}
 	/* 0x190 shares slot 4's charge byte: it carries the buff charge */
 	if (party_buff_turns > 0)
-		party_buff_charge = party_char[0]->charge[4];
+		party_buff_charge = battle_groups[0]->charge[4];
 	if (party_buff_charge <= 0) {
 		party_buff_turns = 0;
 		party_buff_charge = 0;

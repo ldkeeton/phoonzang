@@ -54,7 +54,7 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "vmexe/api_idx_0004_QUVO.asm"     ; 0x0034
 
-%include "shared/ovr/api_idx_0012_PGSL.asm"     ; 0x00db
+%include "shared/ovr/select_encumbrance_style.asm" ; 0x00db
 
 %include "shared/ovr/draw_active_member_panel.asm" ; 0x0257
 

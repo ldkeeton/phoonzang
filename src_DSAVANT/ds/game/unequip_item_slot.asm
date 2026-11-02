@@ -18,16 +18,16 @@ unequip_item_slot:
     mov ax, 0x248                    ; 0x1a4a
     imul word [bp + 4]               ; 0x1a4d
     mov bx, ax                       ; 0x1a50
-    mov byte [bx + party_records + pc_rec.attack], 0 ; 0x1a52
-    mov byte [bx + party_records + pc_rec.defense], 0 ; 0x1a57
+    mov byte [bx + party_records + pc_rec.hp_regen], 0 ; 0x1a52
+    mov byte [bx + party_records + pc_rec.hp_drain], 0 ; 0x1a57
     mov word [bp - 2], 0             ; 0x1a5c
 .back1:
     mov ax, 0x248                    ; 0x1a61
     imul word [bp + 4]               ; 0x1a64
     add ax, word [bp - 2]            ; 0x1a67
     mov bx, ax                       ; 0x1a6a
-    mov al, byte [bx + party_records + pc_rec.prev] ; 0x1a6c
-    mov byte [bx + party_records + pc_rec.cur], al ; 0x1a70
+    mov al, byte [bx + party_records + pc_rec.base_resist] ; 0x1a6c
+    mov byte [bx + party_records + pc_rec.resist], al ; 0x1a70
     inc word [bp - 2]                ; 0x1a74
     mov ax, word [bp - 2]            ; 0x1a77
     cmp ax, strict word 0xe          ; 0x1a7a
@@ -38,13 +38,13 @@ unequip_item_slot:
     imul word [bp + 4]               ; 0x1a87
     add ax, word [bp - 2]            ; 0x1a8a
     mov bx, ax                       ; 0x1a8d
-    mov al, byte [bx + party_records + pc_rec.order] ; 0x1a8f
+    mov al, byte [bx + party_records + pc_rec.equipped] ; 0x1a8f
     sub ah, ah                       ; 0x1a93
     cmp ax, word [bp + 6]            ; 0x1a95
     je short .forward1               ; 0x1a98
     jmp near .forward3               ; 0x1a9a
 .forward1:
-    mov byte [bx + party_records + pc_rec.order], 0xff ; 0x1a9d
+    mov byte [bx + party_records + pc_rec.equipped], 0xff ; 0x1a9d
     mov ax, word [bp - 2]            ; 0x1aa2
     jmp short .forward2              ; 0x1aa5
 jumptable_1aff_case_0:
@@ -67,21 +67,21 @@ jumptable_1aff_case_0:
     imul word [bp + 4]               ; 0x1acf
     mov bx, ax                       ; 0x1ad2
     pop ax                           ; 0x1ad4
-    add byte [bx + party_records + pc_rec.count + 0x1], al ; 0x1ad5
+    add byte [bx + party_records + pc_rec.armor_class + 0x1], al ; 0x1ad5
     jmp short unequip_item_slot.forward3 ; 0x1ad9
 jumptable_1aff_case_2:
     mov ax, 0x248                    ; 0x1adb
     imul word [bp + 4]               ; 0x1ade
     mov bx, ax                       ; 0x1ae1
-    mov byte [bx + party_records + pc_rec.count + 0x2], 0 ; 0x1ae3
+    mov byte [bx + party_records + pc_rec.armor_class + 0x2], 0 ; 0x1ae3
     jmp short unequip_item_slot.forward3 ; 0x1ae8
 jumptable_1aff_case_3:
     mov ax, 0x248                    ; 0x1aea
     imul word [bp + 4]               ; 0x1aed
     mov bx, ax                       ; 0x1af0
-    mov al, byte [bx + party_records + pc_rec.count] ; 0x1af2
+    mov al, byte [bx + party_records + pc_rec.armor_class] ; 0x1af2
     add bx, word [bp - 2]            ; 0x1af6
-    mov byte [bx + party_records + pc_rec.count], al ; 0x1af9
+    mov byte [bx + party_records + pc_rec.armor_class], al ; 0x1af9
     jmp short unequip_item_slot.forward3 ; 0x1afd
 jumptable_1aff:
     dw jumptable_1aff_case_0 - IMAGE_BASE      ; 0x1aff
@@ -103,7 +103,7 @@ unequip_item_slot.forward3:
     imul word [bp + 4]               ; 0x1b1f
     add ax, word [bp - 2]            ; 0x1b22
     mov bx, ax                       ; 0x1b25
-    mov al, byte [bx + party_records + pc_rec.order] ; 0x1b27
+    mov al, byte [bx + party_records + pc_rec.equipped] ; 0x1b27
     sub ah, ah                       ; 0x1b2b
     cmp ax, 0xff                     ; 0x1b2d
     jne short unequip_item_slot.forward4 ; 0x1b30
@@ -116,7 +116,7 @@ unequip_item_slot.back3:
     push ax                          ; 0x1b40
     add ax, word [bp - 2]            ; 0x1b41
     mov bx, ax                       ; 0x1b44
-    mov al, byte [bx + party_records + pc_rec.order] ; 0x1b46
+    mov al, byte [bx + party_records + pc_rec.equipped] ; 0x1b46
     sub ah, ah                       ; 0x1b4a
     mov cx, 0xc                      ; 0x1b4c
     imul cx                          ; 0x1b4f
@@ -142,7 +142,7 @@ unequip_item_slot.back3:
     imul word [bp + 4]               ; 0x1b7d
     add ax, word [bp - 6]            ; 0x1b80
     mov bx, ax                       ; 0x1b83
-    mov al, byte [bx + party_records + pc_rec.cur] ; 0x1b85
+    mov al, byte [bx + party_records + pc_rec.resist] ; 0x1b85
     sub ah, ah                       ; 0x1b89
     add ax, word [bp - 8]            ; 0x1b8b
     push ax                          ; 0x1b8e
@@ -155,7 +155,7 @@ unequip_item_slot.back3:
     add ax, word [bp - 6]            ; 0x1b9e
     mov bx, ax                       ; 0x1ba1
     pop ax                           ; 0x1ba3
-    mov byte [bx + party_records + pc_rec.cur], al ; 0x1ba4
+    mov byte [bx + party_records + pc_rec.resist], al ; 0x1ba4
     inc word [bp - 4]                ; 0x1ba8
     mov ax, word [bp - 4]            ; 0x1bab
     cmp ax, strict word 2            ; 0x1bae
@@ -165,7 +165,7 @@ unequip_item_slot.back3:
     push ax                          ; 0x1bb9
     add ax, word [bp - 2]            ; 0x1bba
     mov bx, ax                       ; 0x1bbd
-    mov al, byte [bx + party_records + pc_rec.order] ; 0x1bbf
+    mov al, byte [bx + party_records + pc_rec.equipped] ; 0x1bbf
     sub ah, ah                       ; 0x1bc3
     mov cx, 0xc                      ; 0x1bc5
     imul cx                          ; 0x1bc8
@@ -183,7 +183,7 @@ unequip_item_slot.back3:
     mov ax, 0x248                    ; 0x1be3
     imul word [bp + 4]               ; 0x1be6
     mov bx, ax                       ; 0x1be9
-    mov al, byte [bx + party_records + pc_rec.attack] ; 0x1beb
+    mov al, byte [bx + party_records + pc_rec.hp_regen] ; 0x1beb
     sub ah, ah                       ; 0x1bef
     mov dx, word [bp - 8]            ; 0x1bf1
     cmp ax, dx                       ; 0x1bf4
@@ -191,21 +191,21 @@ unequip_item_slot.back3:
     mov ax, dx                       ; 0x1bf8
     jmp short unequip_item_slot.forward6 ; 0x1bfa
 unequip_item_slot.forward5:
-    mov al, byte [bx + party_records + pc_rec.attack] ; 0x1bfc
+    mov al, byte [bx + party_records + pc_rec.hp_regen] ; 0x1bfc
     sub ah, ah                       ; 0x1c00
 unequip_item_slot.forward6:
-    mov byte [bx + party_records + pc_rec.attack], al ; 0x1c02
-    mov al, byte [bx + party_records + pc_rec.defense] ; 0x1c06
+    mov byte [bx + party_records + pc_rec.hp_regen], al ; 0x1c02
+    mov al, byte [bx + party_records + pc_rec.hp_drain] ; 0x1c06
     sub ah, ah                       ; 0x1c0a
     cmp ax, word [bp - 6]            ; 0x1c0c
     jge short unequip_item_slot.forward7 ; 0x1c0f
     mov ax, word [bp - 6]            ; 0x1c11
     jmp short unequip_item_slot.forward8 ; 0x1c14
 unequip_item_slot.forward7:
-    mov al, byte [bx + party_records + pc_rec.defense] ; 0x1c16
+    mov al, byte [bx + party_records + pc_rec.hp_drain] ; 0x1c16
     sub ah, ah                       ; 0x1c1a
 unequip_item_slot.forward8:
-    mov byte [bx + party_records + pc_rec.defense], al ; 0x1c1c
+    mov byte [bx + party_records + pc_rec.hp_drain], al ; 0x1c1c
 unequip_item_slot.forward9:
     inc word [bp - 2]                ; 0x1c20
     mov ax, word [bp - 2]            ; 0x1c23

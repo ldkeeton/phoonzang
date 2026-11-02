@@ -1,14 +1,14 @@
 # auto-generated
 vpclv/ovmain
 shared/ovr/load_screen_file_immediate
-shared/ovr/api_idx_0012_PGSL
+shared/ovr/select_encumbrance_style
 shared/ovr/draw_party_slot_letters
 shared/ovr/draw_member_realm_points
 shared/ovr/advance_party_slot_frames
 shared/ovr/clamp_value_to_range
-shared/ovr/api_idx_0010_STNH
+shared/ovr/draw_doubled_member_portrait
 shared/ovr/draw_title_banner
-shared/ovr/api_idx_007c_OKMO
+shared/ovr/draw_member_summary_panel
 shared/ovr/fill_rectangle_border
 shared/ovr/collect_known_spells
 shared/ovr/draw_marker_glyph
@@ -25,8 +25,8 @@ shared/ovr/draw_split_two_line_text
 shared/ovr/api_idx_0080_MHMQ
 shared/ovr/draw_item_slot_label
 shared/ovr/draw_member_item_page
-shared/ovr/loc_NJOH
-shared/ovr/init_skill_cell_positions
+shared/ovr/adjust_member_resistance
+shared/ovr/set_profession_resistances
 shared/ovr/update_party_stat_adjustments
 vpclv/api_idx_0052_NKUS
 shared/ovr/display_centered_message
@@ -50,7 +50,8 @@ vpclv/api_idx_0046_NOMK
 shared/ovr/draw_party_glyph_row
 vpclv/api_idx_000c_NVIQ
 shared/ovr/aztec_ovbgn
-vpclv/data/dseg_9098
+vpclv/data/percent_suffix_text
+vpclv/data/draw_spell_cost_dseg294
 shared/data/profession_skill_groups
 vpclv/data/dseg_93e5
 shared/data/overlay_saved_registers

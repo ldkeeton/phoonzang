@@ -1,4 +1,4 @@
-/* let pc pick and cast a spell: pay its points, apply it, drain pair_b by a
+/* let pc pick and cast a spell: pay its points, apply it, drain stamina by a
    roll;
    then show any pending event */
 
@@ -29,10 +29,10 @@ int pc;
 			party_records[pc].realm_points[spell_table[spell].realm][0] -=
 				spell_table[spell].cost * power;
 			apply_spell_effect(pc, spell, power, spell_target);
-			party_records[pc].pair_b[0] -=
+			party_records[pc].stamina[0] -=
 				random_below(power) + spell_table[spell].level + power;
-			if (party_records[pc].pair_b[0] < 0) {
-				party_records[pc].pair_b[0] = 0;
+			if (party_records[pc].stamina[0] < 0) {
+				party_records[pc].stamina[0] = 0;
 				party_records[pc].status[2] = random_below(6) + 6;	/* 6..11 */
 			}
 		}

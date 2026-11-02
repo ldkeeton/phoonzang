@@ -110,7 +110,7 @@ apply_spell_effect.back1:
     mov ax, 0x248                    ; 0x1dd4
     imul word [bp - 2]               ; 0x1dd7
     mov bx, ax                       ; 0x1dda
-    push word [bx + party_records + pc_rec.pair_b + 0x2] ; 0x1ddc
+    push word [bx + party_records + pc_rec.stamina + 0x2] ; 0x1ddc
     mov ax, 0                        ; 0x1de0
     push ax                          ; 0x1de3
     push word [bp - 8]               ; 0x1de4
@@ -135,7 +135,7 @@ apply_spell_effect.back1:
     imul word [bp - 2]               ; 0x1e0f
     mov bx, ax                       ; 0x1e12
     pop ax                           ; 0x1e14
-    add ax, word [bx + party_records + pc_rec.pair_b] ; 0x1e15
+    add ax, word [bx + party_records + pc_rec.stamina] ; 0x1e15
     push ax                          ; 0x1e19
     call clamp_between               ; 0x1e1a
     add sp, byte 6                   ; 0x1e1d
@@ -144,7 +144,7 @@ apply_spell_effect.back1:
     imul word [bp - 2]               ; 0x1e24
     mov bx, ax                       ; 0x1e27
     pop ax                           ; 0x1e29
-    mov word [bx + party_records + pc_rec.pair_b], ax ; 0x1e2a
+    mov word [bx + party_records + pc_rec.stamina], ax ; 0x1e2a
     inc word [bp - 2]                ; 0x1e2e
 apply_spell_effect.forward5:
     mov ax, word [bp - 2]            ; 0x1e31
@@ -175,7 +175,7 @@ jumptable_2326_case_29:
     mov ax, 0x248                    ; 0x1e6d
     imul word [bp + 0xa]             ; 0x1e70
     mov bx, ax                       ; 0x1e73
-    mov al, byte [bx + party_records + pc_rec.f_023e] ; 0x1e75
+    mov al, byte [bx + party_records + pc_rec.poison_strength] ; 0x1e75
     sub ah, ah                       ; 0x1e79
     sub ax, word [bp + 8]            ; 0x1e7b
     mov word [bp - 2], ax            ; 0x1e7e
@@ -185,7 +185,7 @@ jumptable_2326_case_29:
     mov byte [bx + party_records + pc_rec.status + 0x5], 0 ; 0x1e8b
 apply_spell_effect.forward7:
     mov al, byte [bp - 2]            ; 0x1e90
-    mov byte [bx + party_records + pc_rec.f_023e], al ; 0x1e93
+    mov byte [bx + party_records + pc_rec.poison_strength], al ; 0x1e93
     mov al, byte [bx + party_records + pc_rec.status + 0x5] ; 0x1e97
     sub ah, ah                       ; 0x1e9b
     push ax                          ; 0x1e9d
@@ -198,7 +198,7 @@ apply_spell_effect.forward7:
     cmp ax, strict word 0            ; 0x1eac
     jg short apply_spell_effect.forward8 ; 0x1eaf
     mov word [bp - 2], 0             ; 0x1eb1
-    mov byte [bx + party_records + pc_rec.f_023e], 0 ; 0x1eb6
+    mov byte [bx + party_records + pc_rec.poison_strength], 0 ; 0x1eb6
 apply_spell_effect.forward8:
     mov al, byte [bp - 2]            ; 0x1ebb
     mov byte [bx + party_records + pc_rec.status + 0x5], al ; 0x1ebe
@@ -234,8 +234,8 @@ jumptable_2326_case_34:
     mov bx, ax                       ; 0x1f05
     pop dx                           ; 0x1f07
     pop ax                           ; 0x1f08
-    add word [bx + party_records + pc_rec.f_0008], ax ; 0x1f09
-    adc word [bx + party_records + pc_rec.f_000a], dx ; 0x1f0d
+    add word [bx + party_records + pc_rec.age_days], ax ; 0x1f09
+    adc word [bx + party_records + pc_rec.age_days + 0x2], dx ; 0x1f0d
     mov ax, 0x12                     ; 0x1f11
     push ax                          ; 0x1f14
     call random_below                ; 0x1f15
@@ -251,8 +251,8 @@ jumptable_2326_case_34:
     cmp ax, cx                       ; 0x1f2b
     jle short apply_spell_effect.forward9 ; 0x1f2d
     mov byte [bx + party_records + pc_rec.state], 3 ; 0x1f2f
-    mov word [bx + party_records + pc_rec.pair_a], 0 ; 0x1f34
-    mov word [bx + party_records + pc_rec.pair_b], 0 ; 0x1f3a
+    mov word [bx + party_records + pc_rec.hp], 0 ; 0x1f34
+    mov word [bx + party_records + pc_rec.stamina], 0 ; 0x1f3a
     jmp short apply_spell_effect.forward10 ; 0x1f40
 apply_spell_effect.forward9:
     mov byte [bx + party_records + pc_rec.state], 0 ; 0x1f42
@@ -401,7 +401,7 @@ apply_spell_effect.back4:
     mov ax, 0x248                    ; 0x2093
     imul word [bp - 2]               ; 0x2096
     mov bx, ax                       ; 0x2099
-    push word [bx + party_records + pc_rec.pair_a + 0x2] ; 0x209b
+    push word [bx + party_records + pc_rec.hp + 0x2] ; 0x209b
     mov ax, 0                        ; 0x209f
     push ax                          ; 0x20a2
     push word [bp - 8]               ; 0x20a3
@@ -425,7 +425,7 @@ apply_spell_effect.back4:
     imul word [bp - 2]               ; 0x20cd
     mov bx, ax                       ; 0x20d0
     pop ax                           ; 0x20d2
-    add ax, word [bx + party_records + pc_rec.pair_a] ; 0x20d3
+    add ax, word [bx + party_records + pc_rec.hp] ; 0x20d3
     push ax                          ; 0x20d7
     call clamp_between               ; 0x20d8
     add sp, byte 6                   ; 0x20db
@@ -434,9 +434,9 @@ apply_spell_effect.back4:
     imul word [bp - 2]               ; 0x20e2
     mov bx, ax                       ; 0x20e5
     pop ax                           ; 0x20e7
-    mov word [bx + party_records + pc_rec.pair_a], ax ; 0x20e8
-    add word [bx + party_records + pc_rec.f_0008], byte 1 ; 0x20ec
-    adc word [bx + party_records + pc_rec.f_000a], byte 0 ; 0x20f1
+    mov word [bx + party_records + pc_rec.hp], ax ; 0x20e8
+    add word [bx + party_records + pc_rec.age_days], byte 1 ; 0x20ec
+    adc word [bx + party_records + pc_rec.age_days + 0x2], byte 0 ; 0x20f1
     inc word [bp - 2]                ; 0x20f6
 apply_spell_effect.forward22:
     mov ax, word [bp - 2]            ; 0x20f9
@@ -464,10 +464,10 @@ apply_spell_effect.forward23:
     jle short apply_spell_effect.forward24 ; 0x212d
     dec byte [bx + party_records + pc_rec.stat + 0x3] ; 0x212f
     mov byte [bx + party_records + pc_rec.state], 0 ; 0x2133
-    push word [bx + party_records + pc_rec.pair_a + 0x2] ; 0x2138
+    push word [bx + party_records + pc_rec.hp + 0x2] ; 0x2138
     mov ax, 1                        ; 0x213c
     push ax                          ; 0x213f
-    mov ax, word [bx + party_records + pc_rec.pair_a + 0x2] ; 0x2140
+    mov ax, word [bx + party_records + pc_rec.hp + 0x2] ; 0x2140
     mov cx, 3                        ; 0x2144
     cwd                              ; 0x2147
     idiv cx                          ; 0x2148
@@ -479,13 +479,13 @@ apply_spell_effect.forward23:
     imul word [bp + 0xa]             ; 0x2155
     mov bx, ax                       ; 0x2158
     pop ax                           ; 0x215a
-    mov word [bx + party_records + pc_rec.pair_a], ax ; 0x215b
-    mov ax, word [bx + party_records + pc_rec.pair_b + 0x2] ; 0x215f
+    mov word [bx + party_records + pc_rec.hp], ax ; 0x215b
+    mov ax, word [bx + party_records + pc_rec.stamina + 0x2] ; 0x215f
     mov cx, 0xa                      ; 0x2163
     cwd                              ; 0x2166
     idiv cx                          ; 0x2167
-    mov word [bx + party_records + pc_rec.pair_b], ax ; 0x2169
-    inc word [bx + party_records + pc_rec.f_0026] ; 0x216d
+    mov word [bx + party_records + pc_rec.stamina], ax ; 0x2169
+    inc word [bx + party_records + pc_rec.deaths] ; 0x216d
     mov ax, 0xb7                     ; 0x2171
     push ax                          ; 0x2174
     call random_below                ; 0x2175
@@ -499,8 +499,8 @@ apply_spell_effect.forward23:
     mov bx, ax                       ; 0x2185
     pop dx                           ; 0x2187
     pop ax                           ; 0x2188
-    add word [bx + party_records + pc_rec.f_0008], ax ; 0x2189
-    adc word [bx + party_records + pc_rec.f_000a], dx ; 0x218d
+    add word [bx + party_records + pc_rec.age_days], ax ; 0x2189
+    adc word [bx + party_records + pc_rec.age_days + 0x2], dx ; 0x218d
 apply_spell_effect.forward24:
     jmp near jumptable_2326_case_50  ; 0x2191
 jumptable_2326_case_32:
@@ -552,12 +552,12 @@ jumptable_2326_case_47:
     imul word [bp + 4]               ; 0x21f6
     mov bx, ax                       ; 0x21f9
     pop ax                           ; 0x21fb
-    add word [bx + party_records + pc_rec.pair_b], ax ; 0x21fc
-    mov ax, word [bx + party_records + pc_rec.pair_b] ; 0x2200
-    cmp ax, word [bx + party_records + pc_rec.pair_b + 0x2] ; 0x2204
+    add word [bx + party_records + pc_rec.stamina], ax ; 0x21fc
+    mov ax, word [bx + party_records + pc_rec.stamina] ; 0x2200
+    cmp ax, word [bx + party_records + pc_rec.stamina + 0x2] ; 0x2204
     jle short apply_spell_effect.forward26 ; 0x2208
-    mov ax, word [bx + party_records + pc_rec.pair_b + 0x2] ; 0x220a
-    mov word [bx + party_records + pc_rec.pair_b], ax ; 0x220e
+    mov ax, word [bx + party_records + pc_rec.stamina + 0x2] ; 0x220a
+    mov word [bx + party_records + pc_rec.stamina], ax ; 0x220e
 apply_spell_effect.forward26:
     mov ax, 0                        ; 0x2212
     push ax                          ; 0x2215
@@ -583,12 +583,12 @@ apply_spell_effect.forward26:
     imul word [bp + 4]               ; 0x2241
     mov bx, ax                       ; 0x2244
     pop ax                           ; 0x2246
-    add word [bx + party_records + pc_rec.pair_a], ax ; 0x2247
-    mov ax, word [bx + party_records + pc_rec.pair_a] ; 0x224b
-    cmp ax, word [bx + party_records + pc_rec.pair_a + 0x2] ; 0x224f
+    add word [bx + party_records + pc_rec.hp], ax ; 0x2247
+    mov ax, word [bx + party_records + pc_rec.hp] ; 0x224b
+    cmp ax, word [bx + party_records + pc_rec.hp + 0x2] ; 0x224f
     jle short apply_spell_effect.forward27 ; 0x2253
-    mov ax, word [bx + party_records + pc_rec.pair_a + 0x2] ; 0x2255
-    mov word [bx + party_records + pc_rec.pair_a], ax ; 0x2259
+    mov ax, word [bx + party_records + pc_rec.hp + 0x2] ; 0x2255
+    mov word [bx + party_records + pc_rec.hp], ax ; 0x2259
 apply_spell_effect.forward27:
     jmp near jumptable_2326_case_50  ; 0x225d
 jumptable_2326_case_48:

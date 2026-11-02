@@ -12,9 +12,9 @@ api_idx_0004_PKLV:
     mov ax, word [bp + 6]            ; 0x4542
     shl ax, 1                        ; 0x4545
     mov bx, ax                       ; 0x4547
-    mov bx, word [bx + party_char]   ; 0x4549
-    mov ax, word [bx + si + member_rec.item_charge_cap] ; 0x454d
-    mov cx, word [bx + si + member_rec.item_charges] ; 0x4550
+    mov bx, word [bx + battle_groups] ; 0x4549
+    mov ax, word [bx + si + member_rec.unit_hp_max] ; 0x454d
+    mov cx, word [bx + si + member_rec.unit_hp] ; 0x4550
     sub ax, cx                       ; 0x4553
     cmp ax, word [bp - 4]            ; 0x4555
     jle short .forward1              ; 0x4558
@@ -36,9 +36,9 @@ api_idx_0004_PKLV:
     mov ax, word [bp + 6]            ; 0x4580
     shl ax, 1                        ; 0x4583
     mov bx, ax                       ; 0x4585
-    mov bx, word [bx + party_char]   ; 0x4587
-    mov ax, word [bx + si + member_rec.item_charge_cap] ; 0x458b
-    mov cx, word [bx + si + member_rec.item_charges] ; 0x458e
+    mov bx, word [bx + battle_groups] ; 0x4587
+    mov ax, word [bx + si + member_rec.unit_hp_max] ; 0x458b
+    mov cx, word [bx + si + member_rec.unit_hp] ; 0x458e
     sub ax, cx                       ; 0x4591
     mov word [bp - 4], ax            ; 0x4593
 .forward1:
@@ -47,8 +47,8 @@ api_idx_0004_PKLV:
     mov ax, word [bp + 6]            ; 0x4599
     shl ax, 1                        ; 0x459c
     mov bx, ax                       ; 0x459e
-    mov bx, word [bx + party_char]   ; 0x45a0
-    mov al, byte [bx + member_rec.item_count] ; 0x45a4
+    mov bx, word [bx + battle_groups] ; 0x45a0
+    mov al, byte [bx + member_rec.unit_count] ; 0x45a4
     sub ah, ah                       ; 0x45a8
     cmp ax, word [bp - 2]            ; 0x45aa
     jg short .back1                  ; 0x45ad

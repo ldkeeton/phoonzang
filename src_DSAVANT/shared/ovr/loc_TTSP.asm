@@ -31,12 +31,12 @@ loc_TTSP:
     mov dx, word [bss_9090]
     mov word [party_redraw_last_tick_hi], dx
     mov word [party_redraw_last_tick], ax
-    mov ax, word [loc_TTSP_bss184]
+    mov ax, word [banner_animation_frame]
     inc ax
     mov cx, 3
     cwd
     idiv cx
-    mov word [loc_TTSP_bss184], dx
+    mov word [banner_animation_frame], dx
     push dx
     call draw_title_banner
     pop cx

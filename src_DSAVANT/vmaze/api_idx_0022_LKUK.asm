@@ -39,7 +39,7 @@ api_idx_0022_LKUK:
     mov word [location_changed], 1   ; 0x227c
     mov word [party_status_frame], 0 ; 0x2282
     mov word [party_status_frame_seen], 0 ; 0x2288
-    mov word [bss_831a], 0           ; 0x228e
+    mov word [maze_gate_frame], 0    ; 0x228e
     call api_idx_0002_GSIL           ; 0x2294
     mov word [party_return_state], 5 ; 0x2297
     mov word [game_state], 5         ; 0x229d
@@ -234,13 +234,13 @@ api_idx_0022_LKUK:
     mov ax, 0x248                    ; 0x245e
     imul word [bp - 4]               ; 0x2461
     mov bx, ax                       ; 0x2464
-    mov al, byte [bx + party_records + pc_rec.f_023f] ; 0x2466
+    mov al, byte [bx + party_records + pc_rec.stamina_drain] ; 0x2466
     sub ah, ah                       ; 0x246a
     inc ax                           ; 0x246c
-    sub word [bx + party_records + pc_rec.pair_b], ax ; 0x246d
-    cmp word [bx + party_records + pc_rec.pair_b], byte 0 ; 0x2471
+    sub word [bx + party_records + pc_rec.stamina], ax ; 0x246d
+    cmp word [bx + party_records + pc_rec.stamina], byte 0 ; 0x2471
     jge short .forward17             ; 0x2476
-    mov word [bx + party_records + pc_rec.pair_b], 0 ; 0x2478
+    mov word [bx + party_records + pc_rec.stamina], 0 ; 0x2478
 .forward17:
     push word [bp - 0x12]            ; 0x247e
     mov ax, 1                        ; 0x2481

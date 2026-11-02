@@ -21,9 +21,9 @@ api_idx_0046_NOMK:
     mov ax, 0x248                    ; 0x4ff7
     imul word [bp + 4]               ; 0x4ffa
     mov bx, ax                       ; 0x4ffd
-    cmp word [bx + party_records + pc_rec.power_cap], byte 0x10 ; 0x4fff
+    cmp word [bx + party_records + pc_rec.level], byte 0x10 ; 0x4fff
     jge short .forward1              ; 0x5004
-    mov ax, word [bx + party_records + pc_rec.power_cap] ; 0x5006
+    mov ax, word [bx + party_records + pc_rec.level] ; 0x5006
     shl ax, 1                        ; 0x500a
     shl ax, 1                        ; 0x500c
     mov bx, ax                       ; 0x500e
@@ -37,7 +37,7 @@ api_idx_0046_NOMK:
     mov ax, 0x248                    ; 0x5020
     imul word [bp + 4]               ; 0x5023
     mov bx, ax                       ; 0x5026
-    mov ax, word [bx + party_records + pc_rec.power_cap] ; 0x5028
+    mov ax, word [bx + party_records + pc_rec.level] ; 0x5028
     add ax, strict word 0xfff0       ; 0x502c
     mov word [bp - 0x46], ax         ; 0x502f
     mov ax, word [bp - 8]            ; 0x5032

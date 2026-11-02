@@ -5,6 +5,7 @@ in the build, from :mod:`lint.c_structs`; these tests pin those rules on
 small trees, and check the generated ``structs.inc`` against the headers.
 """
 
+import functools
 import os
 import pathlib
 import re
@@ -108,7 +109,6 @@ _TYPE_WORDS = {'unsigned', 'signed', 'char', 'short', 'int', 'long',
                'register'}
 _EXTERN = re.compile(r'^extern\s+struct\s+(\w+)\s+(\*?)\s*(\w+)'
                      r'((?:\s*\[[^\]]*\])*)\s*;', re.M)
-_INCLUDE = re.compile(r'^#include\s+"(structs/\w+\.h)"', re.M)
 
 
 def _scalar_size(words, pointer):
@@ -121,6 +121,7 @@ def _scalar_size(words, pointer):
         4 if words == ['long', 'int'] else None)
 
 
+@functools.lru_cache(maxsize=None)
 def _dim(text):
     """An array bound: a constant expression (``584 - 28``), else None."""
     if not re.fullmatch(r'[0-9a-fA-FxX\s+\-*()]+', text):
@@ -131,20 +132,29 @@ def _dim(text):
         return None
 
 
-def struct_layouts(text):
+_BODY = re.compile(r'\bstruct\s+(\w+)\s*\{([^{}]*)\}')
+
+
+def struct_layouts(text, base=None, code=None, strides=None):
     """``{tag: (size, leaf starts)}`` of the struct bodies in *text*, members
     packed as Aztec lays them out; a tag with a member this cannot size
-    (a union, a bit field) is left out."""
-    code = _code(text)
-    bodies = {}
-    for match in re.finditer(r'\bstruct\s+(\w+)\s*\{([^{}]*)\}', code):
-        bodies[match.group(1)] = match.group(2)
+    (a union, a bit field) is left out.  *base*, an earlier result, supplies
+    tags *text* only uses; *code* is ``code_only(text)`` when known.  When
+    given, the dict *strides* gets each tag's inner array strides (the step
+    of every array dimension, nested structs' included)."""
+    if strides is None:
+        strides = {}
+    if code is None:
+        code = _code(text)
+    bodies = {m.group(1): m.group(2) for m in _BODY.finditer(code)}
     layouts = {}
+    if base:
+        layouts.update((tag, base[tag]) for tag in base if tag not in bodies)
 
     def layout(tag, depth=0):
         if tag in layouts or tag not in bodies or depth > 8:
             return layouts.get(tag)
-        at, starts = 0, set()
+        at, starts, steps = 0, set(), set()
         for member in bodies[tag].split(';'):
             member = member.strip()
             if not member:
@@ -172,18 +182,25 @@ def struct_layouts(text):
                     if inner is None:
                         return None
                     size, inner_starts = inner
+                    steps |= strides.get(kind[1], set())
                 else:
                     size = _scalar_size(kind, d.group(1))
                     if size is None:
                         return None
                     inner_starts = {0}
                 count = 1
-                for dim in dims:
+                for dim in reversed(dims):
+                    if dim > 1:
+                        steps.add(size * count)
                     count *= dim
-                for k in range(count):
-                    starts |= {at + k * size + s for s in inner_starts}
+                if inner_starts == {0}:
+                    starts.update(range(at, at + size * count, size))
+                else:
+                    starts.update(at + k * size + s for k in range(count)
+                                  for s in inner_starts)
                 at += size * count
         layouts[tag] = (at, frozenset(starts))
+        strides[tag] = steps
         return layouts[tag]
 
     for tag in list(bodies):
@@ -226,6 +243,11 @@ class GeneratedLayoutTest(unittest.TestCase):
         layouts = struct_layouts(text)
         self.assertEqual(layouts['cell'], (8, frozenset({0, 2, 3, 4, 5, 6})))
         self.assertEqual(layouts['row'][0], 17)
+        steps = {}
+        struct_layouts('struct pt { int x, y; };\n'
+                       'struct grid { int h[5]; struct pt w[3][2][2]; };\n',
+                       strides=steps)
+        self.assertEqual(steps['grid'], {2, 4, 8, 16})
         inc = ('; records at DS 0x6a1a\nstruc slot_rec\n'
                '    .pad_0000: resb 4\n    .f_0004: resb 4\nendstruc\n')
         self.assertEqual(generated_layouts(inc), {0x6a1a: (False, 8, [4])})
@@ -240,20 +262,23 @@ class GeneratedLayoutTest(unittest.TestCase):
         for info in (sidecar.get('binaries') or {}).values():
             for key, entry in (info.get('data_names') or {}).items():
                 place.setdefault(entry['name'], int(key, 16))
+        # Every shared header laid out once; each file adds its own bodies.
+        header_strides = {}
+        headers = struct_layouts(''.join(
+            path.read_text(errors='replace')
+            for path in sorted(_STRUCTS.glob('*.h'))), strides=header_strides)
         problems = []
         for path in sorted(_TREE.rglob('*.c')):
             text = path.read_text(errors='replace')
             if '\nextern struct' not in '\n' + text:
                 continue
-            declarations = [decl for decl in _EXTERN.findall(_code(text))
+            code = _code(text)
+            declarations = [decl for decl in _EXTERN.findall(code)
                             if generated.get(place.get(decl[2])) is not None]
             if not declarations:
                 continue
-            full = text + ''.join(
-                (_TREE / 'include' / inc).read_text(errors='replace')
-                for inc in _INCLUDE.findall(text)
-                if (_TREE / 'include' / inc).is_file())
-            views = struct_layouts(full)
+            steps = dict(header_strides)
+            views = struct_layouts(text, headers, code, steps)
             for tag, star, label, dims in declarations:
                 found = generated.get(place.get(label))
                 if found is None or tag not in views:
@@ -268,7 +293,10 @@ class GeneratedLayoutTest(unittest.TestCase):
                 stride = c_size
                 for dim in inner:
                     stride *= dim
-                if size is not None and size not in (c_size, stride):
+                # The code may step through an inner array (view_geometry's
+                # walls[kind][depth] rows of 16 bytes) rather than the whole.
+                if (size is not None and size not in (c_size, stride)
+                        and size not in steps.get(tag, ())):
                     problems.append(f'{where}: the code steps {size} bytes, '
                                     f'the C element is {stride}')
                     continue

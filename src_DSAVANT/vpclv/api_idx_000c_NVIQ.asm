@@ -6,7 +6,7 @@ api_idx_000c_NVIQ:
     mov word [game_state], 5         ; 0x516d
     mov word [banner_offset], 0x14   ; 0x5173
     mov word [banner_plain_flag], 0  ; 0x5179
-    mov word [loc_TTSP_bss184], 0           ; 0x517f
+    mov word [banner_animation_frame], 0 ; 0x517f
     mov word [bss_9704], 0xffff      ; 0x5185
     mov word [bp - 4], 0             ; 0x518b
     mov word [bp - 2], 0             ; 0x5190
@@ -74,8 +74,8 @@ api_idx_000c_NVIQ:
     push ax                          ; 0x521c
     call call_cache_area             ; 0x521d
     add sp, byte 0xc                 ; 0x5220
-    mov word [api_idx_007c_OKMO_bss19], dx          ; 0x5223
-    mov word [api_idx_007c_OKMO_bss24], ax          ; 0x5227
+    mov word [member_screen_cache_high], dx ; 0x5223
+    mov word [member_screen_cache_low], ax ; 0x5227
     mov ax, 0                        ; 0x522a
     push ax                          ; 0x522d
     mov ax, 2                        ; 0x522e
@@ -90,8 +90,8 @@ api_idx_000c_NVIQ:
     push ax                          ; 0x5241
     call call_cache_area             ; 0x5242
     add sp, byte 0xc                 ; 0x5245
-    mov word [api_idx_007c_OKMO_bss44], dx          ; 0x5248
-    mov word [api_idx_007c_OKMO_bss49], ax          ; 0x524c
+    mov word [member_detail_cache_high], dx ; 0x5248
+    mov word [member_detail_cache_low], ax ; 0x524c
     mov ax, 0                        ; 0x524f
     push ax                          ; 0x5252
     mov ax, 2                        ; 0x5253
@@ -273,16 +273,16 @@ api_idx_000c_NVIQ:
     push ax                          ; 0x540e
     mov ax, 1                        ; 0x540f
     push ax                          ; 0x5412
-    push word [api_idx_007c_OKMO_bss44]             ; 0x5413
-    push word [api_idx_007c_OKMO_bss49]             ; 0x5417
+    push word [member_detail_cache_high] ; 0x5413
+    push word [member_detail_cache_low] ; 0x5417
     call call_restore_screen         ; 0x541b
     add sp, byte 8                   ; 0x541e
     mov ax, 0                        ; 0x5421
     push ax                          ; 0x5424
     mov ax, 1                        ; 0x5425
     push ax                          ; 0x5428
-    push word [api_idx_007c_OKMO_bss19]             ; 0x5429
-    push word [api_idx_007c_OKMO_bss24]             ; 0x542d
+    push word [member_screen_cache_high] ; 0x5429
+    push word [member_screen_cache_low] ; 0x542d
     call call_restore_screen         ; 0x5431
     add sp, byte 8                   ; 0x5434
     mov ax, 0                        ; 0x5437

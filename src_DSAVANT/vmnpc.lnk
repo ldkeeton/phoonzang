@@ -127,5 +127,6 @@ vmnpc/api_idx_006a_QKPT
 shared/ovr/aztec_ovbgn
 shared/ovr/aztec_strncpy
 shared/ovr/aztec_strcmp
-vmnpc/data/dseg_9098
+shared/data/percent_suffix_text
+vmnpc/data/dseg_909f
 shared/data/overlay_saved_registers

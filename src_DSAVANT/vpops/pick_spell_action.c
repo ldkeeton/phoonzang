@@ -4,7 +4,7 @@
 #include "msg.h"
 
 extern struct spell_info spell_table[];
-extern char *party_char[];
+extern char *battle_groups[];
 extern int spell_dialog_result;
 
 void wait_for_party_redraw();
@@ -27,10 +27,10 @@ int pc;
 		target = pick_party_member();
 		if (target == -1)	/* -1: Esc */
 			return -1;
-		party_char[0][pc * 44 + 31] = 0;	/* 0x2c-byte slot records */
-		party_char[0][pc * 44 + 32] = target;
+		battle_groups[0][pc * 44 + 31] = 0;	/* 0x2c-byte slot records */
+		battle_groups[0][pc * 44 + 32] = target;
 	}
 	if (spell == 19 || spell == 88 || spell == 66)	/* ids that also clear +0x1f */
-		party_char[0][pc * 44 + 31] = 0;
+		battle_groups[0][pc * 44 + 31] = 0;
 	return (power << 8) + spell;	/* drop the dialog's 0x100 bias */
 }

@@ -434,7 +434,7 @@ import_bane_party:
     imul word [party_char_count]     ; 0x2396
     add ax, party_records            ; 0x239a
     mov word [bp - 0x14], ax         ; 0x239d
-    mov ax, word [bane_power_rank]   ; 0x23a0
+    mov ax, word [bane_level]        ; 0x23a0
     push ax                          ; 0x23a3
     cmp ax, strict word 5            ; 0x23a4
     pop ax                           ; 0x23a7
@@ -466,7 +466,7 @@ import_bane_party:
     mov si, bx                       ; 0x23f6
     mov bx, word [bp - 0x14]         ; 0x23f8
     mov byte [bx + si + 0x170], al   ; 0x23fb
-    cmp word [bane_power_rank], byte 5 ; 0x23ff
+    cmp word [bane_level], byte 5    ; 0x23ff
     jle short .forward27             ; 0x2404
     mov bx, word [bp - 0x14]         ; 0x2406
     mov si, word [bp - 4]            ; 0x2409
@@ -492,7 +492,7 @@ import_bane_party:
     jl short .back3                  ; 0x243a
     mov ax, word [bane_experience_value] ; 0x243c
     cwd                              ; 0x243f
-    idiv word [bane_power_rank]      ; 0x2440
+    idiv word [bane_level]           ; 0x2440
     mov bx, word [bp - 0x14]         ; 0x2444
     mov cx, word [bx + 0x24]         ; 0x2447
     imul cx                          ; 0x244a
@@ -597,7 +597,7 @@ import_bane_party:
     mov bx, ax                       ; 0x254a
     mov ax, word [bx + bane_realm_values] ; 0x254c
     cwd                              ; 0x2550
-    idiv word [bane_power_rank]      ; 0x2551
+    idiv word [bane_level]           ; 0x2551
     mov bx, word [bp - 0x14]         ; 0x2555
     mov cx, word [bx + 0x24]         ; 0x2558
     imul cx                          ; 0x255b
@@ -741,7 +741,7 @@ import_bane_party.forward37:
 import_bane_party.forward38:
     cmp word [bp - 0x1a], byte 0     ; 0x269e
     jl short import_bane_party.forward40 ; 0x26a2
-    mov ax, word [bane_power_rank]   ; 0x26a4
+    mov ax, word [bane_level]        ; 0x26a4
     mov word [bp - 0x1c], ax         ; 0x26a7
     cmp ax, strict word 0x12         ; 0x26aa
     jle short import_bane_party.back6 ; 0x26ad
@@ -791,10 +791,10 @@ import_bane_party.forward41:
     mov word [bp - 4], 0             ; 0x271a
 import_bane_party.back7:
     mov bx, word [bp - 4]            ; 0x271f
-    mov al, byte [bx + bane_character_spacing] ; 0x2722
+    mov al, byte [bx + bane_resistances] ; 0x2722
     sub ah, ah                       ; 0x2726
     cwd                              ; 0x2728
-    idiv word [bane_power_rank]      ; 0x2729
+    idiv word [bane_level]           ; 0x2729
     mov bx, word [bp - 0x14]         ; 0x272d
     mov cx, word [bx + 0x24]         ; 0x2730
     imul cx                          ; 0x2733
@@ -870,7 +870,7 @@ import_bane_party.back9:
     mov ax, word [bp - 4]            ; 0x27ea
     cmp ax, strict word 4            ; 0x27ed
     jl short import_bane_party.back9 ; 0x27f0
-    mov al, byte [bane_character_glyph_set] ; 0x27f2
+    mov al, byte [bane_character_race] ; 0x27f2
     mov bx, word [bp - 0x14]         ; 0x27f5
     mov byte [bx + 0x237], al        ; 0x27f8
     mov al, byte [bane_character_gender] ; 0x27fc
@@ -925,7 +925,7 @@ import_bane_party.back9:
     add ax, cx                       ; 0x2897
     mov byte [bx + 0x245], al        ; 0x2899
     mov ax, 3                        ; 0x289d
-    imul word [bane_power_rank]      ; 0x28a0
+    imul word [bane_level]           ; 0x28a0
     push ax                          ; 0x28a4
     mov al, byte [bane_power_adjustment] ; 0x28a5
     cbw                              ; 0x28a8
@@ -1178,7 +1178,7 @@ import_bane_party.forward54:
     shl bx, 1                        ; 0x2b17
     jmp [cs:bx + jumptable_2af5 - IMAGE_BASE + __zres_end] ; 0x2b19
 import_bane_party.forward55:
-    cmp byte [bane_character_glyph_set], 5 ; 0x2b1e
+    cmp byte [bane_character_race], 5 ; 0x2b1e
     jne short import_bane_party.forward56 ; 0x2b23
     mov word [bp - 4], 0x18d         ; 0x2b25
     mov word [bp - 6], 0             ; 0x2b2a
@@ -1499,8 +1499,8 @@ import_bane_party.back18:
     mov word [party_map_piece], 3    ; 0x2e2b
     mov word [party_tag], 2          ; 0x2e31
     mov word [game_state_arg], 0     ; 0x2e37
-    mov word [party_records + pc_rec.f_0016], 0 ; 0x2e3d
-    mov word [party_records + pc_rec.f_0014], 0x1388 ; 0x2e43
+    mov word [party_records + pc_rec.gold + 0x2], 0 ; 0x2e3d
+    mov word [party_records + pc_rec.gold], 0x1388 ; 0x2e43
     mov ax, 0                        ; 0x2e49
     push ax                          ; 0x2e4c
     mov ax, 0x5a                     ; 0x2e4d
@@ -1531,8 +1531,8 @@ import_bane_party.back19:
     mov word [party_map_piece], 0xb  ; 0x2e92
     mov word [party_tag], 3          ; 0x2e98
     mov word [game_state_arg], 6     ; 0x2e9e
-    mov word [party_records + pc_rec.f_0016], 0 ; 0x2ea4
-    mov word [party_records + pc_rec.f_0014], 0x2710 ; 0x2eaa
+    mov word [party_records + pc_rec.gold + 0x2], 0 ; 0x2ea4
+    mov word [party_records + pc_rec.gold], 0x2710 ; 0x2eaa
     mov ax, 0x5a                     ; 0x2eb0
     push ax                          ; 0x2eb3
     mov ax, 0                        ; 0x2eb4

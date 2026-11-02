@@ -959,7 +959,7 @@ pick_spell_dialog.forward23:
     mov ax, 0x248
     imul word [bp + 4]
     mov bx, ax
-    mov ax, word [bx + party_records + pc_rec.power_cap]
+    mov ax, word [bx + party_records + pc_rec.level]
     push ax
     mov ax, 6
     imul word [bp - 0x3c]
@@ -1228,7 +1228,7 @@ pick_spell_dialog.forward36:
     mov ax, 0x248
     imul word [bp + 4]
     mov bx, ax
-    mov ax, word [bx + party_records + pc_rec.power_cap]
+    mov ax, word [bx + party_records + pc_rec.level]
     push ax
     mov ax, 6
     imul word [bp - 0x3c]

@@ -37,9 +37,9 @@ api_idx_00d2_RUSS:
     mov ax, 0x248                    ; 0x637c
     imul word [bp + 4]               ; 0x637f
     mov bx, ax                       ; 0x6382
-    cmp word [bx + party_records + pc_rec.f_0016], byte 0 ; 0x6384
+    cmp word [bx + party_records + pc_rec.gold + 0x2], byte 0 ; 0x6384
     jne short .forward1              ; 0x6389
-    cmp word [bx + party_records + pc_rec.f_0014], byte 0 ; 0x638b
+    cmp word [bx + party_records + pc_rec.gold], byte 0 ; 0x638b
 .forward1:
     jne short .forward2              ; 0x6390
     mov word [bp - 0x72], 0          ; 0x6392
@@ -79,7 +79,7 @@ jumptable_6599_case_0:
     pop ax                           ; 0x63e5
     add ax, cx                       ; 0x63e6
     push ax                          ; 0x63e8
-    mov ax, word [bx + party_records + pc_rec.power_cap] ; 0x63e9
+    mov ax, word [bx + party_records + pc_rec.level] ; 0x63e9
     mov cx, 2                        ; 0x63ed
     cwd                              ; 0x63f0
     idiv cx                          ; 0x63f1
@@ -111,7 +111,7 @@ api_idx_00d2_RUSS.back3:
     mov ax, 0x248                    ; 0x6432
     imul word [bp - 0x5e]            ; 0x6435
     mov bx, ax                       ; 0x6438
-    mov ax, word [bx + party_records + pc_rec.power_cap] ; 0x643a
+    mov ax, word [bx + party_records + pc_rec.level] ; 0x643a
     add word [bp - 2], ax            ; 0x643e
 api_idx_00d2_RUSS.forward6:
     inc word [bp - 0x5e]             ; 0x6441
@@ -169,8 +169,8 @@ api_idx_00d2_RUSS.forward9:
     mov ax, 0x248                    ; 0x64bf
     imul word [bp + 4]               ; 0x64c2
     mov bx, ax                       ; 0x64c5
-    mov cx, word [bx + party_records + pc_rec.f_0014] ; 0x64c7
-    mov bx, word [bx + party_records + pc_rec.f_0016] ; 0x64cb
+    mov cx, word [bx + party_records + pc_rec.gold] ; 0x64c7
+    mov bx, word [bx + party_records + pc_rec.gold + 0x2] ; 0x64cb
     mov ax, word [bp - 0xd2]         ; 0x64cf
     mov dx, word [bp - 0xd0]         ; 0x64d3
     cmp bx, dx                       ; 0x64d7
@@ -193,8 +193,8 @@ api_idx_00d2_RUSS.forward12:
     mov bx, ax                       ; 0x64fb
     pop dx                           ; 0x64fd
     pop ax                           ; 0x64fe
-    sub word [bx + party_records + pc_rec.f_0014], ax ; 0x64ff
-    sbb word [bx + party_records + pc_rec.f_0016], dx ; 0x6503
+    sub word [bx + party_records + pc_rec.gold], ax ; 0x64ff
+    sbb word [bx + party_records + pc_rec.gold + 0x2], dx ; 0x6503
     mov cx, 0xa                      ; 0x6507
     mov bx, 0                        ; 0x650a
     call aztec_ldv                   ; 0x650d

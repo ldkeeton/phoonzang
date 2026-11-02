@@ -62,14 +62,14 @@ int pc, reveal;
 		call_set_text_pos(x + 38, y + 21);
 		draw_font_glyph((unsigned char)icon, 6);
 	}
-	/* kinds 0x13/0x19 use base 10, else the word glyph_set picks */
+	/* kinds 0x13/0x19 use base 10, else the race picks */
 	glyph_base = (party_records[pc].kind == 19 ||
 		  party_records[pc].kind == 25)
 		? 10 : ((struct spell_table_view *)spell_table)
-		  ->glyph_base[party_records[pc].glyph_set];
+		  ->glyph_base[party_records[pc].race];
 	for (i = 0; i < 2; i++) {	/* two cells, 14 px apart */
 		call_set_text_pos(i * 14 + x + 30, y + 7);
-		slot = party_records[pc].order[i];
+		slot = party_records[pc].equipped[i];
 		if (slot != 255 &&
 		    party_records[pc].item_slots[0][slot].item_id > 0) {
 			draw_font_glyph(party_records[pc].item_slots[0][slot].glyph, 4);
@@ -79,10 +79,10 @@ int pc, reveal;
 	}
 	/* three 3x22 bars at x+0x30, +0x34, +0x38 in colours 0x1b/0x56/0x98 */
 	draw_power_bar(x + 48, y + 21, 3, 22,
-		party_records[pc].pair_a[0],
-		party_records[pc].pair_a[1], 27);
+		party_records[pc].hp[0],
+		party_records[pc].hp[1], 27);
 	draw_power_bar(x + 52, y + 21, 3, 22,
-		party_records[pc].pair_b[0], party_records[pc].pair_b[1], 86);
+		party_records[pc].stamina[0], party_records[pc].stamina[1], 86);
 	sum_cur = 0;
 	sum_max = 0;
 	for (i = 0; i < 6; i++) {	/* six realms */

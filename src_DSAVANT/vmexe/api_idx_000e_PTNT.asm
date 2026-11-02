@@ -8,10 +8,10 @@ api_idx_000e_PTNT:
     call consume_item_charge         ; 0x179d
     add sp, byte 6                   ; 0x17a0
     push word [bp + 4]               ; 0x17a3
-    call sum_member_item_power       ; 0x17a6
+    call sum_member_item_weight      ; 0x17a6
     pop cx                           ; 0x17a9
     push word [bp + 4]               ; 0x17aa
-    call api_idx_0012_PGSL           ; 0x17ad
+    call select_encumbrance_style    ; 0x17ad
     pop cx                           ; 0x17b0
     mov si, ax                       ; 0x17b1
     lea di, word [bp - 0xe]          ; 0x17b3
@@ -25,5 +25,5 @@ api_idx_000e_PTNT:
     imul word [bp + 4]               ; 0x17c6
     mov bx, ax                       ; 0x17c9
     pop ax                           ; 0x17cb
-    mov byte [bx + party_records + pc_rec.f_023f], al ; 0x17cc
+    mov byte [bx + party_records + pc_rec.stamina_drain], al ; 0x17cc
     ret                              ; 0x17d0

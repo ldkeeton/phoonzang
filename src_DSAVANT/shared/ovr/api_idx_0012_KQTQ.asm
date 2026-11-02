@@ -44,7 +44,7 @@ api_idx_0012_KQTQ:
     mov ax, word [bp + 0x20]
     add ax, word [bp + 4]
     push ax
-    call loc_UMHI_2eac
+    call wall_overlay_when_enabled
     pop cx
     push ax
     mov ax, 0
@@ -61,7 +61,7 @@ api_idx_0012_KQTQ:
     mov ax, word [bp + 0x20]
     add ax, word [bp + 4]
     push ax
-    call loc_LPLI_2ec0
+    call select_wall_face_index
     add sp, byte 4
     push ax
     mov ax, 0xff
@@ -159,9 +159,9 @@ api_idx_0012_KQTQ:
     inc ax
     inc ax
     mov word [bp - 4], ax
-    mov ax, word [loc_LPLI_2e98_bss20]
+    mov ax, word [maze_floor_layer_enabled]
     mov word [bp - 6], ax
-    mov ax, word [bx + 0x260]
+    mov ax, word [bx + shape_column_x]
     mov word [bp - 8], ax
     jmp short .forward17
 .forward15:
@@ -240,7 +240,7 @@ api_idx_0012_KQTQ:
     mov ax, word [bp + 0x18]
     add ax, word [bp + 4]
     push ax
-    call loc_UMHI_2eac
+    call wall_overlay_when_enabled
     pop cx
     push ax
     mov ax, 0
@@ -257,7 +257,7 @@ api_idx_0012_KQTQ:
     mov ax, word [bp + 0x18]
     add ax, word [bp + 4]
     push ax
-    call loc_LPLI_2ec0
+    call select_wall_face_index
     add sp, byte 4
     push ax
     mov ax, 0xff
@@ -276,13 +276,13 @@ api_idx_0012_KQTQ:
     mov ax, word [bp + 0x40]
     add ax, word [bp + 4]
     push ax
-    call loc_LPLI_2ec0
+    call select_wall_face_index
     add sp, byte 4
     mov word [bp - 0xe], ax
     mov ax, word [bp + 0x40]
     add ax, word [bp + 4]
     push ax
-    call loc_UMHI_2eac
+    call wall_overlay_when_enabled
     pop cx
     mov word [bp - 0x10], ax
 .forward23:
@@ -296,14 +296,14 @@ api_idx_0012_KQTQ:
     add ax, word [bp + 4]
     dec ax
     push ax
-    call loc_LPLI_2e98
+    call select_floor_face_index
     add sp, byte 4
     mov word [bp - 0xa], ax
     mov ax, word [bp + 0x3c]
     add ax, word [bp + 4]
     dec ax
     push ax
-    call loc_UMHI_2e84
+    call floor_overlay_when_enabled
     pop cx
     mov word [bp - 0xc], ax
 .forward24:
@@ -357,7 +357,7 @@ api_idx_0012_KQTQ:
     push ax
     mov ax, 0xc2
     push ax
-    call loc_UMHI_2e84
+    call floor_overlay_when_enabled
     pop cx
     push ax
     mov ax, 0
@@ -372,7 +372,7 @@ api_idx_0012_KQTQ:
     push ax
     mov ax, 0xc2
     push ax
-    call loc_LPLI_2e98
+    call select_floor_face_index
     add sp, byte 4
     push ax
     mov ax, 0xff
@@ -393,7 +393,7 @@ api_idx_0012_KQTQ:
     push ax
     mov ax, 0xc3
     push ax
-    call loc_UMHI_2e84
+    call floor_overlay_when_enabled
     pop cx
     push ax
     mov ax, 0
@@ -408,7 +408,7 @@ api_idx_0012_KQTQ:
     push ax
     mov ax, 0xc3
     push ax
-    call loc_LPLI_2e98
+    call select_floor_face_index
     add sp, byte 4
     push ax
     mov ax, 0xff
@@ -429,7 +429,7 @@ api_idx_0012_KQTQ:
     mov ax, word [bp + 0x38]
     add ax, word [bp + 4]
     push ax
-    call loc_UMHI_2eac
+    call wall_overlay_when_enabled
     pop cx
     push ax
     mov ax, 2
@@ -440,7 +440,7 @@ api_idx_0012_KQTQ:
     mov ax, word [bp + 0x38]
     add ax, word [bp + 4]
     push ax
-    call loc_LPLI_2ec0
+    call select_wall_face_index
     add sp, byte 4
     push ax
     push word [bp + 0x10]
@@ -464,7 +464,7 @@ api_idx_0012_KQTQ:
     mov ax, word [bp + 4]
     add ax, strict word 0x19
     push ax
-    call loc_UMHI_2eac
+    call wall_overlay_when_enabled
     pop cx
     push ax
     mov ax, 0
@@ -479,7 +479,7 @@ api_idx_0012_KQTQ:
     add ax, strict word 0x19
     push ax
     push ax
-    call loc_LPLI_2ec0
+    call select_wall_face_index
     add sp, byte 4
     push ax
     mov ax, 0xfe
@@ -506,7 +506,7 @@ jumptable_4b6b_case_1:
     mov ax, word [bp + 0x1c]
     add ax, word [bp + 4]
     push ax
-    call loc_UMHI_2eac
+    call wall_overlay_when_enabled
     pop cx
     push ax
     mov ax, 2
@@ -517,7 +517,7 @@ jumptable_4b6b_case_1:
     mov ax, word [bp + 0x1c]
     add ax, word [bp + 4]
     push ax
-    call loc_LPLI_2ec0
+    call select_wall_face_index
     add sp, byte 4
     push ax
     push word [bp + 0xa]
@@ -531,7 +531,7 @@ jumptable_4b6b_case_2:
     mov ax, word [bp + 0x30]
     add ax, word [bp + 4]
     push ax
-    call loc_UMHI_2eac
+    call wall_overlay_when_enabled
     pop cx
     push ax
     mov ax, 2
@@ -542,7 +542,7 @@ jumptable_4b6b_case_2:
     mov ax, word [bp + 0x30]
     add ax, word [bp + 4]
     push ax
-    call loc_LPLI_2ec0
+    call select_wall_face_index
     add sp, byte 4
     push ax
     push word [bp + 0x16]
@@ -553,7 +553,7 @@ api_idx_0012_KQTQ.forward38:
 jumptable_4b6b_case_3:
     cmp word [bp + 4], byte 5
     jge short api_idx_0012_KQTQ.forward43
-    mov ax, word [loc_LPLI_2ec0_bss20]
+    mov ax, word [api_idx_0012_KQTQ_bss2524]
     add ax, word [party_status_frame]
     mov cx, 2
     cwd
@@ -622,7 +622,7 @@ api_idx_0012_KQTQ.forward47:
     mov ax, word [bp + 0x24]
     add ax, word [bp + 4]
     push ax
-    call loc_UMHI_2eac
+    call wall_overlay_when_enabled
     pop cx
     push ax
     mov ax, 2
@@ -633,7 +633,7 @@ api_idx_0012_KQTQ.forward47:
     mov ax, word [bp + 0x24]
     add ax, word [bp + 4]
     push ax
-    call loc_LPLI_2ec0
+    call select_wall_face_index
     add sp, byte 4
     push ax
     mov ax, 3
@@ -708,9 +708,9 @@ api_idx_0012_KQTQ.forward55:
     add ax, cx
     inc ax
     mov word [bp - 4], ax
-    mov ax, word [loc_LPLI_2e98_bss20]
+    mov ax, word [maze_floor_layer_enabled]
     mov word [bp - 6], ax
-    mov ax, word [bx + 0x260]
+    mov ax, word [bx + shape_column_x]
     mov word [bp - 8], ax
     jmp short api_idx_0012_KQTQ.forward58
 api_idx_0012_KQTQ.forward56:
@@ -816,7 +816,7 @@ api_idx_0012_KQTQ.forward66:
     push ax
     push ax
     push word [bp - 4]
-    push word [bx + view_depth_y]
+    push word [bx + view_geometry]
     mov ax, 0xa
     imul word [bp + 4]
     mov cx, word [bp + 6]
@@ -873,7 +873,7 @@ api_idx_0012_KQTQ.forward69:
     mov ax, word [bp + 4]
     shl ax, 1
     mov bx, ax
-    push word [bx + view_depth_y]
+    push word [bx + view_geometry]
     mov ax, 0xa
     imul word [bp + 4]
     mov cx, word [bp + 6]
@@ -955,7 +955,7 @@ api_idx_0012_KQTQ.forward74:
     push ax
     mov ax, 1
     push ax
-    push word [bx + view_depth_y]
+    push word [bx + view_geometry]
     mov ax, 0xa
     imul word [bp + 4]
     mov cx, word [bp + 6]
@@ -993,7 +993,7 @@ api_idx_0012_KQTQ.forward75:
     push ax
     mov ax, 3
     push ax
-    push word [bx + view_depth_y]
+    push word [bx + view_geometry]
     mov ax, 0xa
     imul word [bp + 4]
     mov cx, word [bp + 6]

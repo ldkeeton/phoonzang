@@ -10,10 +10,10 @@ extern int saved_screen_pending;
 	/* set while a saved area waits to be restored */
 extern char screen_temp_name[];
 	/* "VM1.$$$" spool name for save_screen_area */
-extern char *party_char[];			/* 0x2c-byte party member records */
-extern char *party_char_ext[];			/* 0x2c-byte extended member records */
-extern unsigned char picture_slot_number[];	/* picture number in each slot */
-extern int loaded_sound_id;			/* sound currently loaded, -1 if none */
+extern char *battle_groups[];				/* 0x2c-byte party member records */
+extern char *battle_group_ext[];			/* 0x2c-byte extended member records */
+extern unsigned char picture_slot_number[];		/* picture number in each slot */
+extern int loaded_sound_id;				/* sound currently loaded, -1 if none */
 extern long saved_area_a, saved_area_b;
 extern struct {
 	int count;
@@ -55,8 +55,8 @@ close_party_screen()
 	if (party_return_state == 23)		/* back to the combat screen */
 		dissolve_or_show_area(55, 146, 265, 198);
 	for (i = 0; i < 7; i++) {		/* 7 party slots */
-		aztec_free(party_char_ext[i]);
-		aztec_free(party_char[i]);
+		aztec_free(battle_group_ext[i]);
+		aztec_free(battle_groups[i]);
 	}
 	for (i = 0; i < 12; i++)		/* 12 overlay slots, skip the count */
 		aztec_free(overlay_list.items[i]);

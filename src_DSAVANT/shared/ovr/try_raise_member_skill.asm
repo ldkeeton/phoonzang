@@ -17,7 +17,7 @@ try_raise_member_skill:
     mov ax, 0x248
     imul word [bp + 4]
     mov bx, ax
-    mov ax, word [bx + party_records + pc_rec.power_cap]
+    mov ax, word [bx + party_records + pc_rec.level]
     imul word [bp + 8]
     mov cx, ax
     pop ax

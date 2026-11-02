@@ -28,7 +28,7 @@ queue_cell_action_overlay:
     mov ax, word [bp - 2]
     shl ax, 1
     mov bx, ax
-    mov bx, word [bx + party_char]
+    mov bx, word [bx + battle_groups]
     cmp byte [bx + member_rec.slot], 0xff
     jne short .forward2
     ret
@@ -161,7 +161,7 @@ queue_cell_action_overlay:
     pop ax
     add ax, cx
     mov word [bp - 0x10], ax
-    cmp word [party_member_count], byte 1
+    cmp word [monster_group_count], byte 1
     jne short .forward8
     mov bx, word [party_char_hi]
     cmp byte [bx + party_char_hi_rec.f_01a1], 1

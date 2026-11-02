@@ -14,7 +14,7 @@ jumptable_5161_case_0:
     mov ax, dseg_93bd                ; 0x50a2
     push ax                          ; 0x50a5
     push word [bp + 4]               ; 0x50a6
-    call init_skill_cell_positions   ; 0x50a9
+    call set_profession_resistances  ; 0x50a9
     add sp, byte 6                   ; 0x50ac
     jmp near api_idx_0004_IMQR.forward2 ; 0x50af
 jumptable_5161_case_4:
@@ -23,7 +23,7 @@ jumptable_5161_case_4:
     mov ax, dseg_93db                ; 0x50b6
     push ax                          ; 0x50b9
     push word [bp + 4]               ; 0x50ba
-    call init_skill_cell_positions   ; 0x50bd
+    call set_profession_resistances  ; 0x50bd
     add sp, byte 6                   ; 0x50c0
     jmp near api_idx_0004_IMQR.forward2 ; 0x50c3
 jumptable_5161_case_10:
@@ -32,7 +32,7 @@ jumptable_5161_case_10:
     mov ax, dseg_93f9                ; 0x50ca
     push ax                          ; 0x50cd
     push word [bp + 4]               ; 0x50ce
-    call init_skill_cell_positions   ; 0x50d1
+    call set_profession_resistances  ; 0x50d1
     add sp, byte 6                   ; 0x50d4
     jmp near api_idx_0004_IMQR.forward2 ; 0x50d7
 jumptable_5161_case_11:
@@ -41,7 +41,7 @@ jumptable_5161_case_11:
     mov ax, dseg_9417                ; 0x50de
     push ax                          ; 0x50e1
     push word [bp + 4]               ; 0x50e2
-    call init_skill_cell_positions   ; 0x50e5
+    call set_profession_resistances  ; 0x50e5
     add sp, byte 6                   ; 0x50e8
     jmp near api_idx_0004_IMQR.forward2 ; 0x50eb
 jumptable_5161_case_13:
@@ -50,7 +50,7 @@ jumptable_5161_case_13:
     mov ax, dseg_9435                ; 0x50f2
     push ax                          ; 0x50f5
     push word [bp + 4]               ; 0x50f6
-    call init_skill_cell_positions   ; 0x50f9
+    call set_profession_resistances  ; 0x50f9
     add sp, byte 6                   ; 0x50fc
     jmp near api_idx_0004_IMQR.forward2 ; 0x50ff
 jumptable_5161_case_1:
@@ -59,7 +59,7 @@ jumptable_5161_case_1:
     mov ax, dseg_9453                ; 0x5106
     push ax                          ; 0x5109
     push word [bp + 4]               ; 0x510a
-    call init_skill_cell_positions   ; 0x510d
+    call set_profession_resistances  ; 0x510d
     add sp, byte 6                   ; 0x5110
     jmp short api_idx_0004_IMQR.forward2 ; 0x5113
 jumptable_5161_case_7:
@@ -68,7 +68,7 @@ jumptable_5161_case_7:
     mov ax, dseg_9471                ; 0x5119
     push ax                          ; 0x511c
     push word [bp + 4]               ; 0x511d
-    call init_skill_cell_positions   ; 0x5120
+    call set_profession_resistances  ; 0x5120
     add sp, byte 6                   ; 0x5123
     jmp short api_idx_0004_IMQR.forward2 ; 0x5126
 jumptable_5161_case_2:
@@ -77,7 +77,7 @@ jumptable_5161_case_2:
     mov ax, dseg_948f                ; 0x512c
     push ax                          ; 0x512f
     push word [bp + 4]               ; 0x5130
-    call init_skill_cell_positions   ; 0x5133
+    call set_profession_resistances  ; 0x5133
     add sp, byte 6                   ; 0x5136
     jmp short api_idx_0004_IMQR.forward2 ; 0x5139
 jumptable_5161_case_12:
@@ -86,7 +86,7 @@ jumptable_5161_case_12:
     mov ax, dseg_94ad                ; 0x513f
     push ax                          ; 0x5142
     push word [bp + 4]               ; 0x5143
-    call init_skill_cell_positions   ; 0x5146
+    call set_profession_resistances  ; 0x5146
     add sp, byte 6                   ; 0x5149
     jmp short api_idx_0004_IMQR.forward2 ; 0x514c
 jumptable_5161_case_3:
@@ -95,7 +95,7 @@ jumptable_5161_case_3:
     mov ax, dseg_94cb                ; 0x5152
     push ax                          ; 0x5155
     push word [bp + 4]               ; 0x5156
-    call init_skill_cell_positions   ; 0x5159
+    call set_profession_resistances  ; 0x5159
     add sp, byte 6                   ; 0x515c
     jmp short api_idx_0004_IMQR.forward2 ; 0x515f
 jumptable_5161:
@@ -123,7 +123,7 @@ api_idx_0004_IMQR.forward2:
     mov ax, 0x248                    ; 0x518a
     imul word [bp + 4]               ; 0x518d
     mov bx, ax                       ; 0x5190
-    mov al, byte [bx + party_records + pc_rec.glyph_set] ; 0x5192
+    mov al, byte [bx + party_records + pc_rec.race] ; 0x5192
     sub ah, ah                       ; 0x5196
     jmp near api_idx_0004_IMQR.forward3 ; 0x5198
 jumptable_5339_case_0:
@@ -134,7 +134,7 @@ jumptable_5339_case_0:
     mov ax, 0                        ; 0x51a3
     push ax                          ; 0x51a6
     push word [bp + 4]               ; 0x51a7
-    call loc_NJOH                    ; 0x51aa
+    call adjust_member_resistance    ; 0x51aa
     add sp, byte 8                   ; 0x51ad
     jmp near api_idx_0004_IMQR.forward4 ; 0x51b0
 jumptable_5339_case_2:
@@ -153,7 +153,7 @@ jumptable_5339_case_2:
     mov ax, 0                        ; 0x51ce
     push ax                          ; 0x51d1
     push word [bp + 4]               ; 0x51d2
-    call loc_NJOH                    ; 0x51d5
+    call adjust_member_resistance    ; 0x51d5
     add sp, byte 8                   ; 0x51d8
 jumptable_5339_case_3:
     mov ax, 0x248                    ; 0x51db
@@ -171,7 +171,7 @@ jumptable_5339_case_3:
     mov ax, 0                        ; 0x51f6
     push ax                          ; 0x51f9
     push word [bp + 4]               ; 0x51fa
-    call loc_NJOH                    ; 0x51fd
+    call adjust_member_resistance    ; 0x51fd
     add sp, byte 8                   ; 0x5200
     jmp near api_idx_0004_IMQR.forward4 ; 0x5203
 jumptable_5339_case_1:
@@ -182,7 +182,7 @@ jumptable_5339_case_1:
     mov ax, 0                        ; 0x520e
     push ax                          ; 0x5211
     push word [bp + 4]               ; 0x5212
-    call loc_NJOH                    ; 0x5215
+    call adjust_member_resistance    ; 0x5215
     add sp, byte 8                   ; 0x5218
     jmp near api_idx_0004_IMQR.forward4 ; 0x521b
 jumptable_5339_case_5:
@@ -193,7 +193,7 @@ jumptable_5339_case_5:
     mov ax, 0                        ; 0x5226
     push ax                          ; 0x5229
     push word [bp + 4]               ; 0x522a
-    call loc_NJOH                    ; 0x522d
+    call adjust_member_resistance    ; 0x522d
     add sp, byte 8                   ; 0x5230
     mov ax, 0x19                     ; 0x5233
     push ax                          ; 0x5236
@@ -202,7 +202,7 @@ jumptable_5339_case_5:
     mov ax, 0                        ; 0x523b
     push ax                          ; 0x523e
     push word [bp + 4]               ; 0x523f
-    call loc_NJOH                    ; 0x5242
+    call adjust_member_resistance    ; 0x5242
     add sp, byte 8                   ; 0x5245
     mov ax, 0x19                     ; 0x5248
     push ax                          ; 0x524b
@@ -211,7 +211,7 @@ jumptable_5339_case_5:
     mov ax, 0                        ; 0x5250
     push ax                          ; 0x5253
     push word [bp + 4]               ; 0x5254
-    call loc_NJOH                    ; 0x5257
+    call adjust_member_resistance    ; 0x5257
     add sp, byte 8                   ; 0x525a
     mov ax, 0x19                     ; 0x525d
     push ax                          ; 0x5260
@@ -220,7 +220,7 @@ jumptable_5339_case_5:
     mov ax, 0                        ; 0x5265
     push ax                          ; 0x5268
     push word [bp + 4]               ; 0x5269
-    call loc_NJOH                    ; 0x526c
+    call adjust_member_resistance    ; 0x526c
     add sp, byte 8                   ; 0x526f
     mov ax, 0x19                     ; 0x5272
     push ax                          ; 0x5275
@@ -229,7 +229,7 @@ jumptable_5339_case_5:
     mov ax, 0                        ; 0x527a
     push ax                          ; 0x527d
     push word [bp + 4]               ; 0x527e
-    call loc_NJOH                    ; 0x5281
+    call adjust_member_resistance    ; 0x5281
     add sp, byte 8                   ; 0x5284
     jmp near api_idx_0004_IMQR.forward4 ; 0x5287
 jumptable_5339_case_6:
@@ -240,7 +240,7 @@ jumptable_5339_case_6:
     mov ax, 0                        ; 0x5292
     push ax                          ; 0x5295
     push word [bp + 4]               ; 0x5296
-    call loc_NJOH                    ; 0x5299
+    call adjust_member_resistance    ; 0x5299
     add sp, byte 8                   ; 0x529c
     mov ax, 0xa                      ; 0x529f
     push ax                          ; 0x52a2
@@ -249,7 +249,7 @@ jumptable_5339_case_6:
     mov ax, 0                        ; 0x52a7
     push ax                          ; 0x52aa
     push word [bp + 4]               ; 0x52ab
-    call loc_NJOH                    ; 0x52ae
+    call adjust_member_resistance    ; 0x52ae
     add sp, byte 8                   ; 0x52b1
     mov ax, 0xffec                   ; 0x52b4
     push ax                          ; 0x52b7
@@ -258,7 +258,7 @@ jumptable_5339_case_6:
     mov ax, 0                        ; 0x52bc
     push ax                          ; 0x52bf
     push word [bp + 4]               ; 0x52c0
-    call loc_NJOH                    ; 0x52c3
+    call adjust_member_resistance    ; 0x52c3
     add sp, byte 8                   ; 0x52c6
     jmp near api_idx_0004_IMQR.forward4 ; 0x52c9
 jumptable_5339_case_8:
@@ -269,7 +269,7 @@ jumptable_5339_case_8:
     mov ax, 0                        ; 0x52d4
     push ax                          ; 0x52d7
     push word [bp + 4]               ; 0x52d8
-    call loc_NJOH                    ; 0x52db
+    call adjust_member_resistance    ; 0x52db
     add sp, byte 8                   ; 0x52de
     mov ax, 0x14                     ; 0x52e1
     push ax                          ; 0x52e4
@@ -278,7 +278,7 @@ jumptable_5339_case_8:
     mov ax, 0                        ; 0x52e9
     push ax                          ; 0x52ec
     push word [bp + 4]               ; 0x52ed
-    call loc_NJOH                    ; 0x52f0
+    call adjust_member_resistance    ; 0x52f0
     add sp, byte 8                   ; 0x52f3
 jumptable_5339_case_9:
     mov ax, 0x14                     ; 0x52f6
@@ -288,7 +288,7 @@ jumptable_5339_case_9:
     mov ax, 0                        ; 0x52fe
     push ax                          ; 0x5301
     push word [bp + 4]               ; 0x5302
-    call loc_NJOH                    ; 0x5305
+    call adjust_member_resistance    ; 0x5305
     add sp, byte 8                   ; 0x5308
     jmp short api_idx_0004_IMQR.forward4 ; 0x530b
 jumptable_5339_case_10:
@@ -299,7 +299,7 @@ jumptable_5339_case_10:
     mov ax, 0                        ; 0x5315
     push ax                          ; 0x5318
     push word [bp + 4]               ; 0x5319
-    call loc_NJOH                    ; 0x531c
+    call adjust_member_resistance    ; 0x531c
     add sp, byte 8                   ; 0x531f
     mov ax, 0xf                      ; 0x5322
     push ax                          ; 0x5325
@@ -308,7 +308,7 @@ jumptable_5339_case_10:
     mov ax, 0                        ; 0x532a
     push ax                          ; 0x532d
     push word [bp + 4]               ; 0x532e
-    call loc_NJOH                    ; 0x5331
+    call adjust_member_resistance    ; 0x5331
     add sp, byte 8                   ; 0x5334
     jmp short api_idx_0004_IMQR.forward4 ; 0x5337
 jumptable_5339:
@@ -342,7 +342,7 @@ api_idx_0004_IMQR.forward4:
     mov ax, 0                        ; 0x5373
     push ax                          ; 0x5376
     push word [bp + 4]               ; 0x5377
-    call loc_NJOH                    ; 0x537a
+    call adjust_member_resistance    ; 0x537a
     add sp, byte 8                   ; 0x537d
     mov ax, 5                        ; 0x5380
     push ax                          ; 0x5383
@@ -351,7 +351,7 @@ api_idx_0004_IMQR.forward4:
     mov ax, 0                        ; 0x5388
     push ax                          ; 0x538b
     push word [bp + 4]               ; 0x538c
-    call loc_NJOH                    ; 0x538f
+    call adjust_member_resistance    ; 0x538f
     add sp, byte 8                   ; 0x5392
 api_idx_0004_IMQR.forward5:
     mov ax, 0x248                    ; 0x5395
@@ -366,7 +366,7 @@ api_idx_0004_IMQR.forward5:
     mov ax, 0                        ; 0x53ac
     push ax                          ; 0x53af
     push word [bp + 4]               ; 0x53b0
-    call loc_NJOH                    ; 0x53b3
+    call adjust_member_resistance    ; 0x53b3
     add sp, byte 8                   ; 0x53b6
 api_idx_0004_IMQR.forward6:
     mov ax, 0x248                    ; 0x53b9
@@ -381,7 +381,7 @@ api_idx_0004_IMQR.forward6:
     mov ax, 0                        ; 0x53d0
     push ax                          ; 0x53d3
     push word [bp + 4]               ; 0x53d4
-    call loc_NJOH                    ; 0x53d7
+    call adjust_member_resistance    ; 0x53d7
     add sp, byte 8                   ; 0x53da
     mov ax, 5                        ; 0x53dd
     push ax                          ; 0x53e0
@@ -390,7 +390,7 @@ api_idx_0004_IMQR.forward6:
     mov ax, 0                        ; 0x53e5
     push ax                          ; 0x53e8
     push word [bp + 4]               ; 0x53e9
-    call loc_NJOH                    ; 0x53ec
+    call adjust_member_resistance    ; 0x53ec
     add sp, byte 8                   ; 0x53ef
 api_idx_0004_IMQR.forward7:
     mov word [bp - 4], 0             ; 0x53f2
@@ -399,8 +399,8 @@ api_idx_0004_IMQR.back1:
     imul word [bp + 4]               ; 0x53fa
     add ax, word [bp - 4]            ; 0x53fd
     mov bx, ax                       ; 0x5400
-    mov al, byte [bx + party_records + pc_rec.prev] ; 0x5402
-    mov byte [bx + party_records + pc_rec.cur], al ; 0x5406
+    mov al, byte [bx + party_records + pc_rec.base_resist] ; 0x5402
+    mov byte [bx + party_records + pc_rec.resist], al ; 0x5406
     inc word [bp - 4]                ; 0x540a
     mov ax, word [bp - 4]            ; 0x540d
     cmp ax, strict word 0xe          ; 0x5410
@@ -489,8 +489,8 @@ api_idx_0004_IMQR.back2:
     mov ax, 0x248                    ; 0x54c1
     imul word [bp + 4]               ; 0x54c4
     mov bx, ax                       ; 0x54c7
-    mov byte [bx + party_records + pc_rec.count], 0xa ; 0x54c9
-    mov al, byte [bx + party_records + pc_rec.count] ; 0x54ce
+    mov byte [bx + party_records + pc_rec.armor_class], 0xa ; 0x54c9
+    mov al, byte [bx + party_records + pc_rec.armor_class] ; 0x54ce
     cbw                              ; 0x54d2
     mov cx, 0                        ; 0x54d3
     cmp byte [bx + party_records + pc_rec.stat + 0x5], 0xf ; 0x54d6
@@ -498,7 +498,7 @@ api_idx_0004_IMQR.back2:
     mov cx, 1                        ; 0x54dd
 api_idx_0004_IMQR.forward10:
     sub ax, cx                       ; 0x54e0
-    mov byte [bx + party_records + pc_rec.count], al ; 0x54e2
+    mov byte [bx + party_records + pc_rec.armor_class], al ; 0x54e2
     cbw                              ; 0x54e6
     mov cx, 0                        ; 0x54e7
     cmp byte [bx + party_records + pc_rec.stat + 0x5], 0x11 ; 0x54ea
@@ -506,25 +506,25 @@ api_idx_0004_IMQR.forward10:
     mov cx, 1                        ; 0x54f1
 api_idx_0004_IMQR.forward11:
     sub ax, cx                       ; 0x54f4
-    mov byte [bx + party_records + pc_rec.count], al ; 0x54f6
-    mov al, byte [bx + party_records + pc_rec.count] ; 0x54fa
+    mov byte [bx + party_records + pc_rec.armor_class], al ; 0x54f6
+    mov al, byte [bx + party_records + pc_rec.armor_class] ; 0x54fa
     cbw                              ; 0x54fe
     mov cx, 0                        ; 0x54ff
-    cmp byte [bx + party_records + pc_rec.glyph_set], 5 ; 0x5502
+    cmp byte [bx + party_records + pc_rec.race], 5 ; 0x5502
     jne short api_idx_0004_IMQR.forward12 ; 0x5507
     mov cx, 2                        ; 0x5509
 api_idx_0004_IMQR.forward12:
     sub ax, cx                       ; 0x550c
-    mov byte [bx + party_records + pc_rec.count], al ; 0x550e
+    mov byte [bx + party_records + pc_rec.armor_class], al ; 0x550e
     cmp byte [bx + party_records + pc_rec.profession], 0xd ; 0x5512
     je short api_idx_0004_IMQR.forward13 ; 0x5517
     cmp byte [bx + party_records + pc_rec.profession], 0xc ; 0x5519
     jne short api_idx_0004_IMQR.forward15 ; 0x551e
 api_idx_0004_IMQR.forward13:
     mov ax, 0xa                      ; 0x5520
-    cmp word [bx + party_records + pc_rec.power_cap], byte 0x14 ; 0x5523
+    cmp word [bx + party_records + pc_rec.level], byte 0x14 ; 0x5523
     jg short api_idx_0004_IMQR.forward14 ; 0x5528
-    mov ax, word [bx + party_records + pc_rec.power_cap] ; 0x552a
+    mov ax, word [bx + party_records + pc_rec.level] ; 0x552a
     mov cx, 2                        ; 0x552e
     cwd                              ; 0x5531
     idiv cx                          ; 0x5532
@@ -536,21 +536,21 @@ api_idx_0004_IMQR.forward14:
     cwd                              ; 0x5540
     idiv cx                          ; 0x5541
     add word [bp - 2], ax            ; 0x5543
-    mov al, byte [bx + party_records + pc_rec.count] ; 0x5546
+    mov al, byte [bx + party_records + pc_rec.armor_class] ; 0x5546
     cbw                              ; 0x554a
     sub ax, word [bp - 2]            ; 0x554b
-    mov byte [bx + party_records + pc_rec.count], al ; 0x554e
+    mov byte [bx + party_records + pc_rec.armor_class], al ; 0x554e
 api_idx_0004_IMQR.forward15:
-    mov byte [bx + party_records + pc_rec.count + 0x1], 0 ; 0x5552
-    mov byte [bx + party_records + pc_rec.count + 0x2], 0 ; 0x5557
+    mov byte [bx + party_records + pc_rec.armor_class + 0x1], 0 ; 0x5552
+    mov byte [bx + party_records + pc_rec.armor_class + 0x2], 0 ; 0x5557
     mov word [bp - 2], 3             ; 0x555c
 api_idx_0004_IMQR.back3:
     mov ax, 0x248                    ; 0x5561
     imul word [bp + 4]               ; 0x5564
     mov bx, ax                       ; 0x5567
-    mov al, byte [bx + party_records + pc_rec.count] ; 0x5569
+    mov al, byte [bx + party_records + pc_rec.armor_class] ; 0x5569
     add bx, word [bp - 2]            ; 0x556d
-    mov byte [bx + party_records + pc_rec.count], al ; 0x5570
+    mov byte [bx + party_records + pc_rec.armor_class], al ; 0x5570
     inc word [bp - 2]                ; 0x5574
     mov ax, word [bp - 2]            ; 0x5577
     cmp ax, strict word 8            ; 0x557a

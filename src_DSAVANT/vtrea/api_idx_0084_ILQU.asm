@@ -559,7 +559,7 @@ api_idx_0084_ILQU:
     pop ax                           ; 0x2ae3
     add ax, cx                       ; 0x2ae4
     push ax                          ; 0x2ae6
-    mov ax, word [bx + party_records + pc_rec.power_cap] ; 0x2ae7
+    mov ax, word [bx + party_records + pc_rec.level] ; 0x2ae7
     mov cx, 2                        ; 0x2aeb
     cwd                              ; 0x2aee
     idiv cx                          ; 0x2aef

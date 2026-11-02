@@ -15,7 +15,7 @@ api_idx_0006_MRPM:
     mov ax, word [bss_8464]          ; 0x90b1
     shl ax, 1                        ; 0x90b4
     mov bx, ax                       ; 0x90b6
-    mov bx, word [bx + party_char]   ; 0x90b8
+    mov bx, word [bx + battle_groups] ; 0x90b8
     cmp byte [bx + si + 0x2a], 0xff  ; 0x90bc
     je short .forward1               ; 0x90c0
     mov al, byte [bx + si + 0x2a]    ; 0x90c2
@@ -101,16 +101,16 @@ api_idx_0006_MRPM:
 .forward4:
     cmp word [bss_8464], byte 0      ; 0x9180
     je short .forward5               ; 0x9185
-    mov bx, word [party_member_ext_1] ; 0x9187
-    cmp byte [bx + party_member_ext_1_rec.f_00d8], 0 ; 0x918b
+    mov bx, word [battle_group_ext_1] ; 0x9187
+    cmp byte [bx + battle_group_ext_1_rec.f_00d8], 0 ; 0x918b
     jbe short .forward5              ; 0x9190
     mov ax, word [bss_8464]          ; 0x9192
     shl ax, 1                        ; 0x9195
     mov bx, ax                       ; 0x9197
-    mov bx, word [bx + party_char_ext] ; 0x9199
+    mov bx, word [bx + battle_group_ext] ; 0x9199
     mov al, byte [bx + 0xd8]         ; 0x919d
-    mov bx, word [party_member_ext_1] ; 0x91a1
-    cmp al, byte [bx + party_member_ext_1_rec.f_00d8] ; 0x91a5
+    mov bx, word [battle_group_ext_1] ; 0x91a1
+    cmp al, byte [bx + battle_group_ext_1_rec.f_00d8] ; 0x91a5
     jne short .forward5              ; 0x91a9
     mov word [bss_90de], 0x10        ; 0x91ab
 .forward5:

@@ -25,7 +25,7 @@ IMAGE_BASE equ 0x000e + VBASE
     dw aztec_ovbgn - IMAGE_BASE + __zres_end ; 0xe835 ; o_entry: overlay entry offset (CS)
 
 __zcode_start:
-dseg_9098 equ __zdseg_end + (__zdseg_9098 - __zdata_start)
+percent_suffix_text equ __zdseg_end + (__zpercent_suffix_text - __zdata_start)
 loc_TRPK_dseg167 equ __zdseg_end + (__zdseg_909b - __zdata_start)
 loc_TRPK_dseg473 equ __zdseg_end + (__zdseg_90a1 - __zdata_start)
 draw_spell_cost_dseg294 equ __zdseg_end + (__zdseg_90a7 - __zdata_start)
@@ -129,10 +129,10 @@ save_bp equ __zdseg_end + (__zsave_bp - __zdata_start)
 save_ret equ __zdseg_end + (__zsave_ret - __zdata_start)
 _Uorg equ __zdseg_end + (__zobss_93e0 - __zdata_start)
 window_record equ __zdseg_end + (__zobss_93e0 - __zdata_start)
-api_idx_007c_OKMO_bss24 equ __zdseg_end + (__zobss_93ee - __zdata_start)
-api_idx_007c_OKMO_bss19 equ __zdseg_end + (__zobss_93f0 - __zdata_start)
-api_idx_007c_OKMO_bss49 equ __zdseg_end + (__zobss_93f2 - __zdata_start)
-api_idx_007c_OKMO_bss44 equ __zdseg_end + (__zobss_93f4 - __zdata_start)
+member_screen_cache_low equ __zdseg_end + (__zobss_93ee - __zdata_start)
+member_screen_cache_high equ __zdseg_end + (__zobss_93f0 - __zdata_start)
+member_detail_cache_low equ __zdseg_end + (__zobss_93f2 - __zdata_start)
+member_detail_cache_high equ __zdseg_end + (__zobss_93f4 - __zdata_start)
 roster_screen_b equ __zdseg_end + (__zobss_93f6 - __zdata_start)
 roster_screen_a equ __zdseg_end + (__zobss_93f8 - __zdata_start)
 api_idx_0080_MHMQ_bss24 equ __zdseg_end + (__zobss_93fa - __zdata_start)
@@ -151,7 +151,7 @@ bss_942a equ __zdseg_end + (__zobss_942a - __zdata_start)
 bss_942c equ __zdseg_end + (__zobss_942c - __zdata_start)
 banner_offset equ __zdseg_end + (__zobss_942e - __zdata_start)
 banner_plain_flag equ __zdseg_end + (__zobss_9430 - __zdata_start)
-loc_TTSP_bss184 equ __zdseg_end + (__zobss_9432 - __zdata_start)
+banner_animation_frame equ __zdseg_end + (__zobss_9432 - __zdata_start)
 item_page equ __zdseg_end + (__zobss_9434 - __zdata_start)
 item_slot_names equ __zdseg_end + (__zobss_9436 - __zdata_start)
 known_spell_ids equ __zdseg_end + (__zobss_9512 - __zdata_start)
@@ -178,7 +178,7 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "shared/ovr/draw_party_glyph_row.asm"  ; 0x008b
 
-%include "shared/ovr/api_idx_0012_PGSL.asm"     ; 0x014b
+%include "shared/ovr/select_encumbrance_style.asm" ; 0x014b
 
 %include "shared/ovr/display_centered_message.asm" ; 0x02c7
 
@@ -200,11 +200,11 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "shared/ovr/clamp_value_to_range.asm"  ; 0x0e60
 
-%include "shared/ovr/api_idx_0010_STNH.asm"     ; 0x0ea1
+%include "shared/ovr/draw_doubled_member_portrait.asm" ; 0x0ea1
 
 %include "shared/ovr/draw_title_banner.asm"     ; 0x0f9e
 
-%include "shared/ovr/api_idx_007c_OKMO.asm"     ; 0x1046
+%include "shared/ovr/draw_member_summary_panel.asm" ; 0x1046
 
 %include "vpcvw/api_idx_009e_KPST.asm"     ; 0x1894
 
@@ -339,7 +339,9 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 %include "shared/ovr/aztec_cswt.asm"            ; 0x982c
 
 __zdata_start:
-%include "vpcvw/data/dseg_9098.asm"        ; 0x9844
+%include "vpcvw/data/percent_suffix_text.asm" ; 0x9844
+
+%include "vpcvw/data/loc_TRPK_dseg167.asm"        ; 0x9847
 
 %include "shared/data/profession_stat_requirements.asm" ; 0x9a94
 

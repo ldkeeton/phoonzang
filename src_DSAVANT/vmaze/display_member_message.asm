@@ -19,7 +19,7 @@ display_member_message:
     add sp, byte 6                   ; 0x750a
     lea ax, word [bp - 0x50]         ; 0x750d
     push ax                          ; 0x7510
-    call api_idx_0008_OMTP           ; 0x7511
+    call show_centered_text_band     ; 0x7511
     pop cx                           ; 0x7514
     cmp word [bp + 8], byte 0        ; 0x7515
     je short .forward1               ; 0x7519

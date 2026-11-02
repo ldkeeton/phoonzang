@@ -5,7 +5,7 @@ api_idx_0004_PUIS:
     mov ax, word [bp + 4]            ; 0x24f6
     shl ax, 1                        ; 0x24f9
     mov bx, ax                       ; 0x24fb
-    mov bx, word [bx + party_char]   ; 0x24fd
+    mov bx, word [bx + battle_groups] ; 0x24fd
     mov si, word [bp + 6]            ; 0x2501
     mov al, byte [bx + si + member_rec.charge] ; 0x2504
     sub ah, ah                       ; 0x2508

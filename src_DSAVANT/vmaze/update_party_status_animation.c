@@ -23,10 +23,10 @@ update_party_status_animation()
 			party_status_frame_step = 1;
 	}
 
-	/* Check each active member against the detection value in its record. */
+	/* Each active member may spot the hidden feature by Scouting. */
 	for (member_index = 0; member_index < party_char_count; member_index++) {
 		if (member_is_active(member_index)) {
-			/* The 0..199 roll is compared with flag byte +0x0c. */
+			/* Scouting (skills[12]) against a 0..199 roll. */
 			if (random_below(200) < party_records[member_index].skills[12]) {
 				display_member_message(member_index, MSG_DETECTS_SOMETHING);
 				return;

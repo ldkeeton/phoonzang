@@ -91,7 +91,7 @@ api_idx_0002_UINV.forward4:
     mov ax, 0x248                    ; 0x4640
     imul word [bp + 4]               ; 0x4643
     mov bx, ax                       ; 0x4646
-    mov al, byte [bx + party_records + pc_rec.glyph_set] ; 0x4648
+    mov al, byte [bx + party_records + pc_rec.race] ; 0x4648
     sub ah, ah                       ; 0x464c
     push ax                          ; 0x464e
     mov ax, word [bp + 6]            ; 0x464f

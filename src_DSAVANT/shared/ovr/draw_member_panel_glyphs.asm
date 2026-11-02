@@ -28,11 +28,11 @@ draw_member_panel_glyphs:
     jle short .forward2
     inc word [bp - 4]
 .forward2:
-    cmp byte [bx + party_records + pc_rec.glyph_set], 5
+    cmp byte [bx + party_records + pc_rec.race], 5
     jne short .forward3
     inc word [bp - 4]
 .forward3:
-    cmp byte [bx + party_records + pc_rec.glyph_set], 6
+    cmp byte [bx + party_records + pc_rec.race], 6
     jne short .forward4
     dec word [bp - 4]
 .forward4:

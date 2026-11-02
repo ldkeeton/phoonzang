@@ -62,7 +62,7 @@ int member_index;
 			item_slot_color[row_index] = 105;
 			if (item_page == 0) {
 				for (order_index = 0; order_index < 8; ++order_index) {
-					if (party_records[member_index].order[order_index]
+					if (party_records[member_index].equipped[order_index]
 						== row_index)
 						item_slot_color[row_index] = equip_slot_colors[order_index];
 				}

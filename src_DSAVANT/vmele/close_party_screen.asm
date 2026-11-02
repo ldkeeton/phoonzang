@@ -118,13 +118,13 @@ close_party_screen:
     mov ax, word [bp - 2]            ; 0x2fd4
     shl ax, 1                        ; 0x2fd7
     mov bx, ax                       ; 0x2fd9
-    push word [bx + party_char_ext]  ; 0x2fdb
+    push word [bx + battle_group_ext] ; 0x2fdb
     call aztec_free                  ; 0x2fdf
     pop cx                           ; 0x2fe2
     mov ax, word [bp - 2]            ; 0x2fe3
     shl ax, 1                        ; 0x2fe6
     mov bx, ax                       ; 0x2fe8
-    push word [bx + party_char]      ; 0x2fea
+    push word [bx + battle_groups]   ; 0x2fea
     call aztec_free                  ; 0x2fee
     pop cx                           ; 0x2ff1
     inc word [bp - 2]                ; 0x2ff2

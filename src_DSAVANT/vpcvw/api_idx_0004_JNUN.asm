@@ -76,10 +76,10 @@ api_idx_0004_JNUN:
     imul word [bp + 4]               ; 0x3a26
     mov bx, ax                       ; 0x3a29
     pop ax                           ; 0x3a2b
-    sub word [bx + party_records + pc_rec.pair_b], ax ; 0x3a2c
-    cmp word [bx + party_records + pc_rec.pair_b], byte 0 ; 0x3a30
+    sub word [bx + party_records + pc_rec.stamina], ax ; 0x3a2c
+    cmp word [bx + party_records + pc_rec.stamina], byte 0 ; 0x3a30
     jge short .forward5              ; 0x3a35
-    mov word [bx + party_records + pc_rec.pair_b], 0 ; 0x3a37
+    mov word [bx + party_records + pc_rec.stamina], 0 ; 0x3a37
     mov ax, 6                        ; 0x3a3d
     push ax                          ; 0x3a40
     call random_below                ; 0x3a41

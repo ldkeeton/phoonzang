@@ -3,7 +3,7 @@ loc_HJRN:
     mov ax, 0                        ; 0x2189
     call aztec_csav                  ; 0x218c
     push word [bp + 4]               ; 0x218f
-    call api_idx_007c_OKMO           ; 0x2192
+    call draw_member_summary_panel   ; 0x2192
     pop cx                           ; 0x2195
     push word [bp + 4]               ; 0x2196
     call api_idx_0080_MHMQ           ; 0x2199

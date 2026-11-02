@@ -3,7 +3,7 @@ api_idx_0002_MTJS:
     mov ax, 0xfffe                   ; 0x28fc
     call aztec_csav                  ; 0x28ff
     mov ax, word [bp + 4]            ; 0x2902
-    cmp ax, word [party_member_count] ; 0x2905
+    cmp ax, word [monster_group_count] ; 0x2905
     jle short .forward1              ; 0x2909
     mov ax, 0xffff                   ; 0x290b
     ret                              ; 0x290e
@@ -17,8 +17,8 @@ api_idx_0002_MTJS:
     mov ax, word [bp + 4]            ; 0x291e
     shl ax, 1                        ; 0x2921
     mov bx, ax                       ; 0x2923
-    mov bx, word [bx + party_char]   ; 0x2925
-    cmp byte [bx + si + member_rec.item_cell], 0xff ; 0x2929
+    mov bx, word [bx + battle_groups] ; 0x2925
+    cmp byte [bx + si + member_rec.unit_cell], 0xff ; 0x2929
     jne short .forward2              ; 0x292d
     mov ax, 6                        ; 0x292f
     imul word [bp + 6]               ; 0x2932
@@ -37,7 +37,7 @@ api_idx_0002_MTJS:
     mov cx, word [bp + 4]            ; 0x295a
     shl cx, 1                        ; 0x295d
     mov bx, cx                       ; 0x295f
-    mov bx, word [bx + party_char]   ; 0x2961
+    mov bx, word [bx + battle_groups] ; 0x2961
     mov byte [bx + si + 0x2a], al    ; 0x2965
     mov ax, 0xffff                   ; 0x2968
     push ax                          ; 0x296b
@@ -54,8 +54,8 @@ api_idx_0002_MTJS:
     mov ax, word [bp + 4]            ; 0x2982
     shl ax, 1                        ; 0x2985
     mov bx, ax                       ; 0x2987
-    mov bx, word [bx + party_char]   ; 0x2989
-    mov al, byte [bx + member_rec.item_count] ; 0x298d
+    mov bx, word [bx + battle_groups] ; 0x2989
+    mov al, byte [bx + member_rec.unit_count] ; 0x298d
     sub ah, ah                       ; 0x2991
     cmp ax, word [bp - 2]            ; 0x2993
     jle short .forward4              ; 0x2996

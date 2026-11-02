@@ -51,13 +51,13 @@ api_idx_003e_JGVR:
     mov ax, 0x248                    ; 0x122e
     imul word [bp + 4]               ; 0x1231
     mov bx, ax                       ; 0x1234
-    mov ax, word [bx + party_records + pc_rec.pair_a] ; 0x1236
+    mov ax, word [bx + party_records + pc_rec.hp] ; 0x1236
     cmp ax, word [bp - 2]            ; 0x123a
     jge short .forward3              ; 0x123d
     mov word [bp - 2], ax            ; 0x123f
 .forward3:
     mov ax, word [bp - 2]            ; 0x1242
-    sub word [bx + party_records + pc_rec.pair_a], ax ; 0x1245
+    sub word [bx + party_records + pc_rec.hp], ax ; 0x1245
     mov ax, 0x43                     ; 0x1249
     push ax                          ; 0x124c
     mov ax, 0x41                     ; 0x124d
@@ -83,7 +83,7 @@ api_idx_003e_JGVR:
     mov ax, 0x248                    ; 0x127b
     imul word [bp + 4]               ; 0x127e
     mov bx, ax                       ; 0x1281
-    cmp word [bx + party_records + pc_rec.pair_a], byte 0 ; 0x1283
+    cmp word [bx + party_records + pc_rec.hp], byte 0 ; 0x1283
     jg short .forward4               ; 0x1288
     mov ax, 4                        ; 0x128a
     push ax                          ; 0x128d

@@ -7,7 +7,7 @@ api_idx_0006_PSQH:
     mov ax, 0x248                    ; 0x98a8
     imul word [bss_8462]             ; 0x98ab
     mov bx, ax                       ; 0x98af
-    mov ax, word [bx + party_records + pc_rec.power_cap] ; 0x98b1
+    mov ax, word [bx + party_records + pc_rec.level] ; 0x98b1
     push ax                          ; 0x98b5
     mov al, byte [bx + party_records + pc_rec.skills + 0x11] ; 0x98b6
     sub ah, ah                       ; 0x98ba
@@ -22,14 +22,14 @@ api_idx_0006_PSQH:
     mov ax, word [bp - 2]            ; 0x98ce
     shl ax, 1                        ; 0x98d1
     mov bx, ax                       ; 0x98d3
-    mov bx, word [bx + party_char]   ; 0x98d5
-    mov al, byte [bx + member_rec.item_count] ; 0x98d9
+    mov bx, word [bx + battle_groups] ; 0x98d5
+    mov al, byte [bx + member_rec.unit_count] ; 0x98d9
     sub ah, ah                       ; 0x98dd
     push ax                          ; 0x98df
     mov ax, word [bp - 2]            ; 0x98e0
     shl ax, 1                        ; 0x98e3
     mov bx, ax                       ; 0x98e5
-    mov bx, word [bx + party_char_ext] ; 0x98e7
+    mov bx, word [bx + battle_group_ext] ; 0x98e7
     mov al, byte [bx + member_ext.f_0080] ; 0x98eb
     sub ah, ah                       ; 0x98ef
     mov cx, ax                       ; 0x98f1
@@ -46,7 +46,7 @@ api_idx_0006_PSQH:
     inc word [bp - 2]                ; 0x9908
 .forward1:
     mov ax, word [bp - 2]            ; 0x990b
-    cmp ax, word [party_member_count] ; 0x990e
+    cmp ax, word [monster_group_count] ; 0x990e
     jle short .back1                 ; 0x9912
     jmp short .forward5              ; 0x9914
 .forward2:
@@ -70,7 +70,7 @@ api_idx_0006_PSQH:
     mov ax, 0x248                    ; 0x993d
     imul word [bp - 2]               ; 0x9940
     mov bx, ax                       ; 0x9943
-    mov ax, word [bx + party_records + pc_rec.power_cap] ; 0x9945
+    mov ax, word [bx + party_records + pc_rec.level] ; 0x9945
     push ax                          ; 0x9949
     mov al, byte [bx + party_records + pc_rec.stat + 0x1] ; 0x994a
     sub ah, ah                       ; 0x994e

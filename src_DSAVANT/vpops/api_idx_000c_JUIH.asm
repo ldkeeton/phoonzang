@@ -12,8 +12,8 @@ api_idx_000c_JUIH:
     mov ax, word [bp + 6]            ; 0x17a4
     shl ax, 1                        ; 0x17a7
     mov bx, ax                       ; 0x17a9
-    mov bx, word [bx + party_char]   ; 0x17ab
-    cmp byte [bx + si + member_rec.item_cell], 0xff ; 0x17af
+    mov bx, word [bx + battle_groups] ; 0x17ab
+    cmp byte [bx + si + member_rec.unit_cell], 0xff ; 0x17af
     je short .forward1               ; 0x17b3
     mov word [bp - 0xc], 0           ; 0x17b5
 .forward1:
@@ -22,8 +22,8 @@ api_idx_000c_JUIH:
     mov ax, word [bp + 6]            ; 0x17bd
     shl ax, 1                        ; 0x17c0
     mov bx, ax                       ; 0x17c2
-    mov bx, word [bx + party_char]   ; 0x17c4
-    mov al, byte [bx + member_rec.item_count] ; 0x17c8
+    mov bx, word [bx + battle_groups] ; 0x17c4
+    mov al, byte [bx + member_rec.unit_count] ; 0x17c8
     sub ah, ah                       ; 0x17cc
     cmp ax, word [bp - 6]            ; 0x17ce
     jg short .back1                  ; 0x17d1
@@ -54,8 +54,8 @@ api_idx_000c_JUIH:
     mov ax, word [bp + 6]            ; 0x180e
     shl ax, 1                        ; 0x1811
     mov bx, ax                       ; 0x1813
-    mov bx, word [bx + party_char]   ; 0x1815
-    mov al, byte [bx + member_rec.item_count] ; 0x1819
+    mov bx, word [bx + battle_groups] ; 0x1815
+    mov al, byte [bx + member_rec.unit_count] ; 0x1819
     sub ah, ah                       ; 0x181d
     cmp ax, word [bp - 6]            ; 0x181f
     jg short .back3                  ; 0x1822

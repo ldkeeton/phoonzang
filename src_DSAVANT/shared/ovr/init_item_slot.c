@@ -5,7 +5,7 @@
 
 extern int data_record_io();
 extern int add_random_steps();
-extern int sum_member_item_power();
+extern int sum_member_item_weight();
 
 init_item_slot(member_index, item_number, cell, requested_level,
 							identified)
@@ -33,11 +33,11 @@ int identified;
 	cell->item_id = item_number;
 	cell->overlay = item.overlay;
 	cell->glyph = item.glyph;
-	cell->value = item.cell_value;
-	cell->pos[0] = item.slot_pos_x;
-	cell->pos[1] = item.slot_pos_y;
-	cell->coord = item.coord;
 	cell->weight = item.weight;
+	cell->resist_bonus[0] = item.resist_bonus[0];
+	cell->resist_bonus[1] = item.resist_bonus[1];
+	cell->regen_drain = item.regen_drain;
+	cell->armor_class = item.armor_class;
 
 	/* Bit 7 marks the item identified (its own name is shown); then the
 	 * record's flags are translated. */
@@ -53,5 +53,5 @@ int identified;
 	if (item.slot_flags & 2)
 		cell->flags |= 64;
 
-	return sum_member_item_power(member_index);
+	return sum_member_item_weight(member_index);
 }

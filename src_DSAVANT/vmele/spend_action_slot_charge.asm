@@ -9,7 +9,7 @@ spend_action_slot_charge:
     mov ax, word [bp - 2]            ; 0x307a
     shl ax, 1                        ; 0x307d
     mov bx, ax                       ; 0x307f
-    mov bx, word [bx + party_char]   ; 0x3081
+    mov bx, word [bx + battle_groups] ; 0x3081
     mov si, word [bp - 4]            ; 0x3085
     mov al, byte [bx + si + member_rec.charge] ; 0x3088
     sub ah, ah                       ; 0x308c
@@ -86,7 +86,7 @@ spend_action_slot_charge.forward5:
     mov cx, word [bp - 2]            ; 0x3122
     shl cx, 1                        ; 0x3125
     mov bx, cx                       ; 0x3127
-    mov bx, word [bx + party_char]   ; 0x3129
+    mov bx, word [bx + battle_groups] ; 0x3129
     mov si, word [bp - 4]            ; 0x312d
     mov byte [bx + si + member_rec.charge], al ; 0x3130
 spend_action_slot_charge.forward6:
@@ -101,7 +101,7 @@ spend_action_slot_charge.back3:
     mov ax, word [bp - 2]            ; 0x3147
     shl ax, 1                        ; 0x314a
     mov bx, ax                       ; 0x314c
-    mov bx, word [bx + party_char]   ; 0x314e
+    mov bx, word [bx + battle_groups] ; 0x314e
     mov si, word [bp - 4]            ; 0x3152
     cmp byte [bx + si + member_rec.delay], 0 ; 0x3155
     jbe short spend_action_slot_charge.forward8 ; 0x315a
@@ -119,7 +119,7 @@ spend_action_slot_charge.forward8:
 spend_action_slot_charge.forward9:
     cmp word [party_buff_turns], byte 0 ; 0x3179
     jle short spend_action_slot_charge.forward10 ; 0x317e
-    mov bx, word [party_char]        ; 0x3180
+    mov bx, word [battle_groups]     ; 0x3180
     mov al, byte [bx + member_rec.charge + 0x4] ; 0x3184
     sub ah, ah                       ; 0x3188
     mov word [party_buff_charge], ax ; 0x318a

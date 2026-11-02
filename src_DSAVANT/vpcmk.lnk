@@ -47,8 +47,8 @@ vpcmk/loc_RPNT
 vpcmk/api_idx_0002_SLKJ
 vpcmk/api_idx_004e_KMPP
 vpcmk/loc_JUPL
-shared/ovr/loc_NJOH
-shared/ovr/init_skill_cell_positions
+shared/ovr/adjust_member_resistance
+shared/ovr/set_profession_resistances
 shared/ovr/update_party_stat_adjustments
 vpcmk/api_idx_0004_IMQR
 shared/ovr/roll_slot_values

@@ -20,8 +20,8 @@ api_idx_000a_TPJV:
     mov bx, ax                       ; 0x5ab6
     pop dx                           ; 0x5ab8
     pop ax                           ; 0x5ab9
-    mov word [bx + party_records + pc_rec.f_000a], dx ; 0x5aba
-    mov word [bx + party_records + pc_rec.f_0008], ax ; 0x5abe
+    mov word [bx + party_records + pc_rec.age_days + 0x2], dx ; 0x5aba
+    mov word [bx + party_records + pc_rec.age_days], ax ; 0x5abe
     mov al, byte [bx + party_records + pc_rec.stat] ; 0x5ac2
     sub ah, ah                       ; 0x5ac6
     mov word [bp - 8], ax            ; 0x5ac8
@@ -312,20 +312,20 @@ api_idx_000a_TPJV.forward7:
     imul word [bp + 4]               ; 0x5d44
     mov bx, ax                       ; 0x5d47
     pop ax                           ; 0x5d49
-    mov word [bx + party_records + pc_rec.pair_a], ax ; 0x5d4a
-    mov word [bx + party_records + pc_rec.pair_a + 0x2], ax ; 0x5d4e
+    mov word [bx + party_records + pc_rec.hp], ax ; 0x5d4a
+    mov word [bx + party_records + pc_rec.hp + 0x2], ax ; 0x5d4e
     mov ax, word [bp - 4]            ; 0x5d52
-    mov word [bx + party_records + pc_rec.pair_b], ax ; 0x5d55
-    mov word [bx + party_records + pc_rec.pair_b + 0x2], ax ; 0x5d59
-    mov word [bx + party_records + pc_rec.power_total], 0 ; 0x5d5d
+    mov word [bx + party_records + pc_rec.stamina], ax ; 0x5d55
+    mov word [bx + party_records + pc_rec.stamina + 0x2], ax ; 0x5d59
+    mov word [bx + party_records + pc_rec.carried_weight], 0 ; 0x5d5d
     mov ax, 0xf                      ; 0x5d63
     imul word [bp - 6]               ; 0x5d66
-    mov word [bx + party_records + pc_rec.f_0022], ax ; 0x5d69
-    cmp byte [bx + party_records + pc_rec.glyph_set], 5 ; 0x5d6d
+    mov word [bx + party_records + pc_rec.carry_capacity], ax ; 0x5d69
+    cmp byte [bx + party_records + pc_rec.race], 5 ; 0x5d6d
     jne short api_idx_000a_TPJV.return1 ; 0x5d72
     shl ax, 1                        ; 0x5d74
     cwd                              ; 0x5d76
     idiv cx                          ; 0x5d77
-    mov word [bx + party_records + pc_rec.f_0022], ax ; 0x5d79
+    mov word [bx + party_records + pc_rec.carry_capacity], ax ; 0x5d79
 api_idx_000a_TPJV.return1:
     ret                              ; 0x5d7d

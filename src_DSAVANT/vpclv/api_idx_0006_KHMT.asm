@@ -46,7 +46,7 @@ api_idx_0006_KHMT.forward2:
     mov ax, 0x248                    ; 0x4e64
     imul word [bp + 4]               ; 0x4e67
     mov bx, ax                       ; 0x4e6a
-    mov ax, word [bx + party_records + pc_rec.power_cap] ; 0x4e6c
+    mov ax, word [bx + party_records + pc_rec.level] ; 0x4e6c
     cmp ax, word [bp - 6]            ; 0x4e70
     jl short api_idx_0006_KHMT.forward3 ; 0x4e73
     inc word [bp - 4]                ; 0x4e75
@@ -58,11 +58,11 @@ api_idx_0006_KHMT.forward3:
     mov ax, 0x248                    ; 0x4e83
     imul word [bp + 4]               ; 0x4e86
     mov bx, ax                       ; 0x4e89
-    mov al, byte [bx + party_records + pc_rec.f_023a] ; 0x4e8b
+    mov al, byte [bx + party_records + pc_rec.rank] ; 0x4e8b
     sub ah, ah                       ; 0x4e8f
     cmp ax, word [bp - 4]            ; 0x4e91
     jge short api_idx_0006_KHMT.return1 ; 0x4e94
     mov al, byte [bp - 4]            ; 0x4e96
-    mov byte [bx + party_records + pc_rec.f_023a], al ; 0x4e99
+    mov byte [bx + party_records + pc_rec.rank], al ; 0x4e99
 api_idx_0006_KHMT.return1:
     ret                              ; 0x4e9d

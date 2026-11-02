@@ -19,7 +19,7 @@ reset_party_actions:
     mov ax, word [bp - 2]            ; 0x3341
     shl ax, 1                        ; 0x3344
     mov bx, ax                       ; 0x3346
-    push word [bx + party_char]      ; 0x3348
+    push word [bx + battle_groups]   ; 0x3348
     call aztec_setmem                ; 0x334c
     add sp, byte 6                   ; 0x334f
     inc word [bp - 2]                ; 0x3352
@@ -31,13 +31,13 @@ reset_party_actions:
     mov ax, word [bp - 2]            ; 0x3362
     shl ax, 1                        ; 0x3365
     mov bx, ax                       ; 0x3367
-    mov bx, word [bx + party_char]   ; 0x3369
-    mov byte [bx + member_rec.item_count], 0 ; 0x336d
+    mov bx, word [bx + battle_groups] ; 0x3369
+    mov byte [bx + member_rec.unit_count], 0 ; 0x336d
     inc word [bp - 2]                ; 0x3372
     mov ax, word [bp - 2]            ; 0x3375
     cmp ax, strict word 7            ; 0x3378
     jl short .back2                  ; 0x337b
-    mov word [party_member_count], 0 ; 0x337d
+    mov word [monster_group_count], 0 ; 0x337d
     mov word [party_screen_done], 0  ; 0x3383
     mov word [bss_845e], 0xfffe      ; 0x3389
     ret                              ; 0x338f

@@ -147,7 +147,7 @@ api_idx_00ac_RQRT.forward8:
     mov ax, 0x248                    ; 0x470d
     imul word [bp + 4]               ; 0x4710
     mov bx, ax                       ; 0x4713
-    mov ax, word [bx + party_records + pc_rec.power_cap] ; 0x4715
+    mov ax, word [bx + party_records + pc_rec.level] ; 0x4715
     push ax                          ; 0x4719
     mov al, byte [bx + party_records + pc_rec.power_floor] ; 0x471a
     sub ah, ah                       ; 0x471e
@@ -159,30 +159,30 @@ api_idx_00ac_RQRT.forward8:
     mov word [bp - 4], 1             ; 0x472c
 api_idx_00ac_RQRT.forward9:
     mov ax, word [bp - 2]            ; 0x4731
-    add word [bx + party_records + pc_rec.pair_a], ax ; 0x4734
-    add word [bx + party_records + pc_rec.pair_a + 0x2], ax ; 0x4738
+    add word [bx + party_records + pc_rec.hp], ax ; 0x4734
+    add word [bx + party_records + pc_rec.hp + 0x2], ax ; 0x4738
     mov ax, word [bp - 4]            ; 0x473c
-    add word [bx + party_records + pc_rec.pair_b], ax ; 0x473f
-    add word [bx + party_records + pc_rec.pair_b + 0x2], ax ; 0x4743
+    add word [bx + party_records + pc_rec.stamina], ax ; 0x473f
+    add word [bx + party_records + pc_rec.stamina + 0x2], ax ; 0x4743
     mov ax, 0xf                      ; 0x4747
     imul word [bp - 0xc]             ; 0x474a
-    mov word [bx + party_records + pc_rec.f_0022], ax ; 0x474d
-    cmp byte [bx + party_records + pc_rec.glyph_set], 5 ; 0x4751
+    mov word [bx + party_records + pc_rec.carry_capacity], ax ; 0x474d
+    cmp byte [bx + party_records + pc_rec.race], 5 ; 0x4751
     jne short api_idx_00ac_RQRT.forward10 ; 0x4756
     shl ax, 1                        ; 0x4758
     mov cx, 3                        ; 0x475a
     cwd                              ; 0x475d
     idiv cx                          ; 0x475e
-    mov word [bx + party_records + pc_rec.f_0022], ax ; 0x4760
+    mov word [bx + party_records + pc_rec.carry_capacity], ax ; 0x4760
 api_idx_00ac_RQRT.forward10:
     mov ax, 0x64                     ; 0x4764
-    imul word [bx + party_records + pc_rec.pair_b] ; 0x4767
+    imul word [bx + party_records + pc_rec.stamina] ; 0x4767
     cwd                              ; 0x476b
-    idiv word [bx + party_records + pc_rec.pair_b + 0x2] ; 0x476c
+    idiv word [bx + party_records + pc_rec.stamina + 0x2] ; 0x476c
     mov word [bp - 0xa], ax          ; 0x4770
     cmp ax, strict word 1            ; 0x4773
     jge short api_idx_00ac_RQRT.forward11 ; 0x4776
-    cmp word [bx + party_records + pc_rec.pair_b], byte 0 ; 0x4778
+    cmp word [bx + party_records + pc_rec.stamina], byte 0 ; 0x4778
     jle short api_idx_00ac_RQRT.forward11 ; 0x477d
     mov ax, 1                        ; 0x477f
     jmp short api_idx_00ac_RQRT.forward12 ; 0x4782
@@ -200,7 +200,7 @@ api_idx_00ac_RQRT.forward12:
     push ax                          ; 0x4799
     mov ax, MSG_ST                   ; 0x479a
     push ax                          ; 0x479d
-    push word [bx + party_records + pc_rec.pair_b + 0x2] ; 0x479e
+    push word [bx + party_records + pc_rec.stamina + 0x2] ; 0x479e
     push word [bp - 0xa]             ; 0x47a2
     mov ax, 0x63                     ; 0x47a5
     push ax                          ; 0x47a8
@@ -223,7 +223,7 @@ api_idx_00ac_RQRT.forward12:
     call display_centered_message    ; 0x47cd
     add sp, byte 4                   ; 0x47d0
     push word [bp + 4]               ; 0x47d3
-    call api_idx_007c_OKMO           ; 0x47d6
+    call draw_member_summary_panel   ; 0x47d6
     pop cx                           ; 0x47d9
     mov ax, 0x67                     ; 0x47da
     push ax                          ; 0x47dd
@@ -247,8 +247,8 @@ api_idx_00ac_RQRT.forward12:
     mov ax, 0x248                    ; 0x4801
     imul word [bp + 4]               ; 0x4804
     mov bx, ax                       ; 0x4807
-    push word [bx + party_records + pc_rec.pair_a + 0x2] ; 0x4809
-    push word [bx + party_records + pc_rec.pair_a] ; 0x480d
+    push word [bx + party_records + pc_rec.hp + 0x2] ; 0x4809
+    push word [bx + party_records + pc_rec.hp] ; 0x480d
     mov ax, 0x5d                     ; 0x4811
     push ax                          ; 0x4814
     mov ax, 6                        ; 0x4815
@@ -287,7 +287,7 @@ api_idx_00ac_RQRT.forward13:
     call display_centered_message    ; 0x4863
     add sp, byte 4                   ; 0x4866
     push word [bp + 4]               ; 0x4869
-    call api_idx_007c_OKMO           ; 0x486c
+    call draw_member_summary_panel   ; 0x486c
     pop cx                           ; 0x486f
     mov ax, 0x67                     ; 0x4870
     push ax                          ; 0x4873

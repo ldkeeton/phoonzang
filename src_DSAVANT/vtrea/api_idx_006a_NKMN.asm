@@ -331,7 +331,7 @@ api_idx_006a_NKMN:
     mov cx, ax                       ; 0x6302
     pop ax                           ; 0x6304
     sub ax, cx                       ; 0x6305
-    mov cx, word [bx + party_records + pc_rec.power_cap] ; 0x6307
+    mov cx, word [bx + party_records + pc_rec.level] ; 0x6307
     add ax, cx                       ; 0x630b
     mov word [bp - 0x1a], ax         ; 0x630d
     cmp byte [bx + party_records + pc_rec.profession], 3 ; 0x6310

@@ -7,13 +7,13 @@ api_idx_0014_LJNT:
     jmp near .forward10              ; 0x1854
 .back1:
     push word [bp - 2]               ; 0x1857
-    call advance_member_item_actions ; 0x185a
+    call tick_monster_group          ; 0x185a
     pop cx                           ; 0x185d
     mov ax, word [bp - 2]            ; 0x185e
     shl ax, 1                        ; 0x1861
     mov bx, ax                       ; 0x1863
-    mov bx, word [bx + party_char]   ; 0x1865
-    cmp byte [bx + member_rec.item_count], 0 ; 0x1869
+    mov bx, word [bx + battle_groups] ; 0x1865
+    cmp byte [bx + member_rec.unit_count], 0 ; 0x1869
     ja short .forward1               ; 0x186e
     jmp near .forward9               ; 0x1870
 .forward1:
@@ -26,7 +26,7 @@ api_idx_0014_LJNT:
     mov si, bx                       ; 0x1881
     shl ax, 1                        ; 0x1883
     mov bx, ax                       ; 0x1885
-    mov di, word [bx + party_char]   ; 0x1887
+    mov di, word [bx + battle_groups] ; 0x1887
     mov cx, ds                       ; 0x188b
     mov es, cx                       ; 0x188d
     mov cx, 0xd2                     ; 0x188f
@@ -34,11 +34,11 @@ api_idx_0014_LJNT:
     mov ax, word [bp - 2]            ; 0x1894
     shl ax, 1                        ; 0x1897
     mov bx, ax                       ; 0x1899
-    mov si, word [bx + party_char_ext] ; 0x189b
+    mov si, word [bx + battle_group_ext] ; 0x189b
     mov ax, word [bp - 6]            ; 0x189f
     shl ax, 1                        ; 0x18a2
     mov bx, ax                       ; 0x18a4
-    mov di, word [bx + party_char_ext] ; 0x18a6
+    mov di, word [bx + battle_group_ext] ; 0x18a6
     mov cx, ds                       ; 0x18aa
     mov es, cx                       ; 0x18ac
     mov cx, 0x74                     ; 0x18ae
@@ -49,7 +49,7 @@ api_idx_0014_LJNT:
     mov ax, 0x2c                     ; 0x18ba
     imul word [bp - 0x12]            ; 0x18bd
     mov si, ax                       ; 0x18c0
-    mov bx, word [party_char]        ; 0x18c2
+    mov bx, word [battle_groups]     ; 0x18c2
     mov al, byte [bx + si + member_rec.f_001f] ; 0x18c6
     sub ah, ah                       ; 0x18c9
     cmp ax, word [bp - 2]            ; 0x18cb
@@ -63,13 +63,13 @@ api_idx_0014_LJNT:
     cmp ax, word [party_char_count]  ; 0x18dc
     jl short .back2                  ; 0x18e0
     push word [bp - 6]               ; 0x18e2
-    call advance_member_cell_actions ; 0x18e5
+    call advance_group_toward_party  ; 0x18e5
     pop cx                           ; 0x18e8
     mov ax, word [bp - 2]            ; 0x18e9
     shl ax, 1                        ; 0x18ec
     mov bx, ax                       ; 0x18ee
-    mov bx, word [bx + party_char]   ; 0x18f0
-    mov byte [bx + member_rec.item_count], 0 ; 0x18f4
+    mov bx, word [bx + battle_groups] ; 0x18f0
+    mov byte [bx + member_rec.unit_count], 0 ; 0x18f4
     jmp near .forward9               ; 0x18f9
 .forward5:
     mov word [bp - 4], 0             ; 0x18fc
@@ -81,8 +81,8 @@ api_idx_0014_LJNT:
     mov ax, word [bp - 6]            ; 0x190c
     shl ax, 1                        ; 0x190f
     mov bx, ax                       ; 0x1911
-    mov bx, word [bx + party_char]   ; 0x1913
-    mov al, byte [bx + si + member_rec.item_cell] ; 0x1917
+    mov bx, word [bx + battle_groups] ; 0x1913
+    mov al, byte [bx + si + member_rec.unit_cell] ; 0x1917
     cbw                              ; 0x191a
     mov word [bp - 8], ax            ; 0x191b
     cmp ax, strict word 0xffff       ; 0x191e
@@ -140,7 +140,7 @@ api_idx_0014_LJNT:
     mov cx, word [bp - 6]            ; 0x19a3
     shl cx, 1                        ; 0x19a6
     mov bx, cx                       ; 0x19a8
-    mov bx, word [bx + party_char]   ; 0x19aa
+    mov bx, word [bx + battle_groups] ; 0x19aa
     mov byte [bx + si + 0x2a], al    ; 0x19ae
     mov ax, 0xffff                   ; 0x19b1
     push ax                          ; 0x19b4
@@ -155,8 +155,8 @@ api_idx_0014_LJNT:
     mov ax, word [bp - 6]            ; 0x19c7
     shl ax, 1                        ; 0x19ca
     mov bx, ax                       ; 0x19cc
-    mov bx, word [bx + party_char]   ; 0x19ce
-    mov al, byte [bx + member_rec.item_count] ; 0x19d2
+    mov bx, word [bx + battle_groups] ; 0x19ce
+    mov al, byte [bx + member_rec.unit_count] ; 0x19d2
     sub ah, ah                       ; 0x19d6
     cmp ax, word [bp - 4]            ; 0x19d8
     jle short .forward9              ; 0x19db
@@ -165,13 +165,13 @@ api_idx_0014_LJNT:
     inc word [bp - 2]                ; 0x19e0
 .forward10:
     mov ax, word [bp - 2]            ; 0x19e3
-    cmp ax, word [party_member_count] ; 0x19e6
+    cmp ax, word [monster_group_count] ; 0x19e6
     jg short .forward11              ; 0x19ea
     jmp near .back1                  ; 0x19ec
 .forward11:
     mov ax, word [bp - 6]            ; 0x19ef
-    mov word [party_member_count], ax ; 0x19f2
-    cmp word [party_member_count], byte 0 ; 0x19f5
+    mov word [monster_group_count], ax ; 0x19f2
+    cmp word [monster_group_count], byte 0 ; 0x19f5
     jne short .forward13             ; 0x19fa
     cmp word [party_return_state], byte 8 ; 0x19fc
     je short .forward12              ; 0x1a01
@@ -179,6 +179,6 @@ api_idx_0014_LJNT:
 .forward12:
     mov word [party_screen_done], 1  ; 0x1a09
 .forward13:
-    call setup_party_pictures        ; 0x1a0f
+    call setup_monster_pictures      ; 0x1a0f
     call roll_member_actions         ; 0x1a12
     ret                              ; 0x1a15

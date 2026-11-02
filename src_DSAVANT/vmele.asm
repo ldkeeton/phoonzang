@@ -67,17 +67,17 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "vmele/fill_action_slot_table.asm" ; 0x0f95
 
-%include "vmele/advance_member_cell_actions.asm" ; 0x11b0
+%include "vmele/advance_group_toward_party.asm" ; 0x11b0
 
-%include "vmele/advance_item_slot_action.asm" ; 0x12ac
+%include "vmele/tick_combatant.asm"        ; 0x12ac
 
-%include "vmele/advance_member_item_actions.asm" ; 0x14e6
+%include "vmele/tick_monster_group.asm"    ; 0x14e6
 
 %include "shared/ovr/try_raise_member_skill.asm" ; 0x16d1
 
 %include "vmele/roll_member_actions.asm"   ; 0x1713
 
-%include "vmele/setup_party_pictures.asm"  ; 0x17ad
+%include "vmele/setup_monster_pictures.asm" ; 0x17ad
 
 %include "vmele/api_idx_0014_LJNT.asm"     ; 0x1844
 
@@ -85,7 +85,7 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "vmele/copy_member_party_record.asm" ; 0x1eb4
 
-%include "vmele/advance_melee_item_slots.asm" ; 0x1f39
+%include "vmele/tick_party_combatants.asm" ; 0x1f39
 
 %include "shared/ovr/advance_action_slots.asm"  ; 0x2138
 
@@ -99,7 +99,7 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "vmele/api_idx_0002_MTJS.asm"     ; 0x28fc
 
-%include "vmele/claim_cell_for_member.asm" ; 0x299f
+%include "vmele/claim_cell_for_group.asm"  ; 0x299f
 
 %include "vmele/fill_row_action_slots.asm" ; 0x29c5
 

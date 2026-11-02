@@ -40,7 +40,7 @@ api_idx_0054_OPNV:
     mov ax, 0x248                    ; 0x456c
     imul word [bp + 4]               ; 0x456f
     mov bx, ax                       ; 0x4572
-    mov al, byte [bx + party_records + pc_rec.glyph_set] ; 0x4574
+    mov al, byte [bx + party_records + pc_rec.race] ; 0x4574
     sub ah, ah                       ; 0x4578
     push ax                          ; 0x457a
     mov ax, word [bp + 0xe]          ; 0x457b

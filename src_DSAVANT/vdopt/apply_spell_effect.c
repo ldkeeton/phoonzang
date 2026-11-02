@@ -68,13 +68,13 @@ int target;
 		n = spell != 19 ? target + 1 : party_char_count;
 		field_index = spell != 19 ? power * 2 : power;
 		effect_value = spell != 19 ? power : 0;
-		/* Add random steps to pair_b for one member or the whole party. */
+		/* Add random steps to stamina for one member or the whole party. */
 		for (; i < n; ++i) {
-			party_records[i].pair_b[0] = clamp_between(
-				party_records[i].pair_b[0] +
+			party_records[i].stamina[0] = clamp_between(
+				party_records[i].stamina[0] +
 				add_random_steps(*(struct apply_step_spec *)store_word_and_pair(
 					field_index, 8, effect_value)),
-				0, party_records[i].pair_b[1]);
+				0, party_records[i].stamina[1]);
 		}
 		break;
 	case 17:
@@ -85,18 +85,18 @@ int target;
 		party_records[target].status[3] = i;
 		break;
 	case 33:
-		/* Reduce status byte 5 and its strength, clearing both when either
+		/* Cure poison: weaken it and status[5]; clearing both when either
 		   expires. */
-		i = party_records[target].status5_strength - power;
+		i = party_records[target].poison_strength - power;
 		if (i <= 0) {
 			i = 0;
 			party_records[target].status[5] = 0;
 		}
-		party_records[target].status5_strength = i;
+		party_records[target].poison_strength = i;
 		i = party_records[target].status[5] - 5 * power;
 		if (i <= 0) {
 			i = 0;
-			party_records[target].status5_strength = 0;
+			party_records[target].poison_strength = 0;
 		}
 		party_records[target].status[5] = i;
 		break;
@@ -106,12 +106,12 @@ int target;
 			/* Require the power-scaled stat threshold before applying the roll. */
 			if (3 * power > 21 - party_records[target].stat[3]) {
 				--party_records[target].stat[3];
-				party_records[target].w8.dword +=
+				party_records[target].age_days +=
 					random_below(183) + 183;
 				if (random_below(18) > party_records[target].stat[3]) {
 					party_records[target].state = 3;
-					party_records[target].pair_a[0] = 0;
-					party_records[target].pair_b[0] = 0;
+					party_records[target].hp[0] = 0;
+					party_records[target].stamina[0] = 0;
 				} else
 					party_records[target].state = 0;
 			}
@@ -159,29 +159,30 @@ int target;
 		n = spell != 88 ? target + 1 : party_char_count;
 		field_index = spell != 88 ? 7 : 4;
 		effect_value = spell != 88 ? power : 0;
-		/* Add random steps to pair_a for the selected member range. */
+		/* Add random steps to hp for the selected member range. */
 		for (; i < n; ++i) {
-			party_records[i].pair_a[0] = clamp_between(
-				party_records[i].pair_a[0] +
+			party_records[i].hp[0] = clamp_between(
+				party_records[i].hp[0] +
 				add_random_steps(*(struct apply_step_spec *)store_word_and_pair(
 					power, field_index, effect_value)),
-				0, party_records[i].pair_a[1]);
-			++party_records[i].w8.dword;
+				0, party_records[i].hp[1]);
+			++party_records[i].age_days;
 		}
 		break;
 	case 94:
-		/* A state-3 target can recover, reset its pairs, and bump w26 and w8. */
+		/* Resurrect a dead (state 3) target: cost a VIT point, restore some HP
+		   and stamina, count the death and age it a year to a year and a half. */
 		if (party_records[target].state == 3 &&
 		    3 * power > 21 - party_records[target].stat[3]) {
 			--party_records[target].stat[3];
 			party_records[target].state = 0;
-			party_records[target].pair_a[0] = clamp_between(
-				party_records[target].pair_a[1] / 3, 1,
-				party_records[target].pair_a[1]);
-			party_records[target].pair_b[0] =
-				party_records[target].pair_b[1] / 10;
-			++party_records[target].w26;
-			party_records[target].w8.dword +=
+			party_records[target].hp[0] = clamp_between(
+				party_records[target].hp[1] / 3, 1,
+				party_records[target].hp[1]);
+			party_records[target].stamina[0] =
+				party_records[target].stamina[1] / 10;
+			++party_records[target].deaths;
+			party_records[target].age_days +=
 				random_below(183) + 365;
 		}
 		break;
@@ -199,17 +200,17 @@ int target;
 		show_map_view(power, 0, 1);
 		break;
 	case 97:
-		/* Replenish pair_b and pair_a from power-scaled random steps. */
+		/* Replenish stamina and hp from power-scaled random steps. */
 		i = add_random_steps(*(struct apply_step_spec *)
 			store_word_and_pair(power, 8, power));
-		party_records[pc].pair_b[0] += i;
-		if (party_records[pc].pair_b[0] > party_records[pc].pair_b[1])
-			party_records[pc].pair_b[0] = party_records[pc].pair_b[1];
+		party_records[pc].stamina[0] += i;
+		if (party_records[pc].stamina[0] > party_records[pc].stamina[1])
+			party_records[pc].stamina[0] = party_records[pc].stamina[1];
 		i = add_random_steps(*(struct apply_step_spec *)
 			store_word_and_pair(power, 2, 0));
-		party_records[pc].pair_a[0] += i;
-		if (party_records[pc].pair_a[0] > party_records[pc].pair_a[1])
-			party_records[pc].pair_a[0] = party_records[pc].pair_a[1];
+		party_records[pc].hp[0] += i;
+		if (party_records[pc].hp[0] > party_records[pc].hp[1])
+			party_records[pc].hp[0] = party_records[pc].hp[1];
 		break;
 	case 98:
 		/* Add random steps to each of the six realm-point pairs, capped above. */
@@ -224,7 +225,8 @@ int target;
 		}
 		break;
 	case 99:
-		/* Count how many of the three increasing flag thresholds are met. */
+		/* Map detail: one plus each Mapping skill (skills[26]) threshold
+		   met, of 10, 30 and 70. */
 		i = 1;
 		field_index = 10;
 		effect_value = 0;

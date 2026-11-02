@@ -20,8 +20,8 @@ api_idx_0006_HURS:
     mov ax, word [bp + 4]            ; 0x3159
     shl ax, 1                        ; 0x315c
     mov bx, ax                       ; 0x315e
-    mov bx, word [bx + party_char]   ; 0x3160
-    cmp byte [bx + si + member_rec.item_state], 3 ; 0x3164
+    mov bx, word [bx + battle_groups] ; 0x3160
+    cmp byte [bx + si + member_rec.unit_state], 3 ; 0x3164
     jb short .forward1               ; 0x3168
     jmp near .forward7               ; 0x316a
 .forward1:
@@ -33,7 +33,7 @@ api_idx_0006_HURS:
     mov ax, word [bp + 4]            ; 0x3176
     shl ax, 1                        ; 0x3179
     mov bx, ax                       ; 0x317b
-    mov bx, word [bx + party_char_ext] ; 0x317d
+    mov bx, word [bx + battle_group_ext] ; 0x317d
     mov al, byte [bx + member_ext.f_009c] ; 0x3181
     sub ah, ah                       ; 0x3185
     mov cx, ax                       ; 0x3187
@@ -262,8 +262,8 @@ api_idx_0006_HURS.forward5:
     mov ax, word [bp + 4]            ; 0x336c
     shl ax, 1                        ; 0x336f
     mov bx, ax                       ; 0x3371
-    mov bx, word [bx + party_char]   ; 0x3373
-    cmp byte [bx + si + member_rec.item_phase], 0 ; 0x3377
+    mov bx, word [bx + battle_groups] ; 0x3373
+    cmp byte [bx + si + member_rec.unit_phase], 0 ; 0x3377
     jne short api_idx_0006_HURS.forward7 ; 0x337b
     mov ax, 4                        ; 0x337d
     push ax                          ; 0x3380

@@ -82,7 +82,7 @@ api_idx_009e_HMOI.forward3:
     mov ax, 0x248                    ; 0x3db2
     imul word [bp + 4]               ; 0x3db5
     mov bx, ax                       ; 0x3db8
-    mov cx, word [bx + party_records + pc_rec.power_cap] ; 0x3dba
+    mov cx, word [bx + party_records + pc_rec.level] ; 0x3dba
     pop ax                           ; 0x3dbe
     cmp ax, cx                       ; 0x3dbf
     jle short api_idx_009e_HMOI.forward4 ; 0x3dc1
@@ -201,9 +201,9 @@ jumptable_3f96_case_6:
     mov ax, 0x248                    ; 0x3ec4
     imul word [bp + 4]               ; 0x3ec7
     mov bx, ax                       ; 0x3eca
-    cmp byte [bx + party_records + pc_rec.f_023e], 3 ; 0x3ecc
+    cmp byte [bx + party_records + pc_rec.poison_strength], 3 ; 0x3ecc
     jae short api_idx_009e_HMOI.forward9 ; 0x3ed1
-    mov byte [bx + party_records + pc_rec.f_023e], 3 ; 0x3ed3
+    mov byte [bx + party_records + pc_rec.poison_strength], 3 ; 0x3ed3
 api_idx_009e_HMOI.forward9:
     mov ax, 0xfa                     ; 0x3ed8
     push ax                          ; 0x3edb

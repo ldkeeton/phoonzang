@@ -7,14 +7,14 @@ copy_member_stats:
     mov cx, word [bp - 4]            ; 0x0c75
     shl cx, 1                        ; 0x0c78
     mov bx, cx                       ; 0x0c7a
-    mov bx, word [bx + party_char]   ; 0x0c7c
-    mov byte [bx + member_rec.item_count], al ; 0x0c80
+    mov bx, word [bx + battle_groups] ; 0x0c7c
+    mov byte [bx + member_rec.unit_count], al ; 0x0c80
     mov word [bp - 2], 0             ; 0x0c84
 .back1:
     mov ax, word [bp - 4]            ; 0x0c89
     shl ax, 1                        ; 0x0c8c
     mov bx, ax                       ; 0x0c8e
-    mov bx, word [bx + party_char]   ; 0x0c90
+    mov bx, word [bx + battle_groups] ; 0x0c90
     mov si, word [bp - 2]            ; 0x0c94
     mov byte [bx + si + member_rec.charge], 0 ; 0x0c97
     inc word [bp - 2]                ; 0x0c9c
@@ -27,7 +27,7 @@ copy_member_stats:
     mov cx, word [bp - 4]            ; 0x0cb1
     shl cx, 1                        ; 0x0cb4
     mov bx, cx                       ; 0x0cb6
-    mov bx, word [bx + party_char]   ; 0x0cb8
+    mov bx, word [bx + battle_groups] ; 0x0cb8
     mov byte [bx + member_rec.charge + 0x4], al ; 0x0cbc
 .forward1:
     mov word [bp - 2], 0             ; 0x0cc0
@@ -35,7 +35,7 @@ copy_member_stats:
     mov ax, word [bp - 4]            ; 0x0cc5
     shl ax, 1                        ; 0x0cc8
     mov bx, ax                       ; 0x0cca
-    mov bx, word [bx + party_char]   ; 0x0ccc
+    mov bx, word [bx + battle_groups] ; 0x0ccc
     mov si, word [bp - 2]            ; 0x0cd0
     mov byte [bx + si + member_rec.delay], 0 ; 0x0cd3
     inc word [bp - 2]                ; 0x0cd8
@@ -48,7 +48,7 @@ copy_member_stats:
     mov ax, 0x248                    ; 0x0ceb
     imul word [bp - 2]               ; 0x0cee
     mov bx, ax                       ; 0x0cf1
-    mov ax, word [bx + party_records + pc_rec.power_cap] ; 0x0cf3
+    mov ax, word [bx + party_records + pc_rec.level] ; 0x0cf3
     push ax                          ; 0x0cf7
     mov ax, 0x2c                     ; 0x0cf8
     imul word [bp - 2]               ; 0x0cfb
@@ -56,13 +56,13 @@ copy_member_stats:
     mov ax, word [bp - 4]            ; 0x0d00
     shl ax, 1                        ; 0x0d03
     mov bx, ax                       ; 0x0d05
-    mov bx, word [bx + party_char]   ; 0x0d07
+    mov bx, word [bx + battle_groups] ; 0x0d07
     pop ax                           ; 0x0d0b
     mov word [bx + si], ax           ; 0x0d0c
     mov ax, 0x248                    ; 0x0d0e
     imul word [bp - 2]               ; 0x0d11
     mov bx, ax                       ; 0x0d14
-    mov ax, word [bx + party_records + pc_rec.pair_a + 0x2] ; 0x0d16
+    mov ax, word [bx + party_records + pc_rec.hp + 0x2] ; 0x0d16
     push ax                          ; 0x0d1a
     mov ax, 0x2c                     ; 0x0d1b
     imul word [bp - 2]               ; 0x0d1e
@@ -70,13 +70,13 @@ copy_member_stats:
     mov ax, word [bp - 4]            ; 0x0d23
     shl ax, 1                        ; 0x0d26
     mov bx, ax                       ; 0x0d28
-    mov bx, word [bx + party_char]   ; 0x0d2a
+    mov bx, word [bx + battle_groups] ; 0x0d2a
     pop ax                           ; 0x0d2e
-    mov word [bx + si + member_rec.item_charge_cap], ax ; 0x0d2f
+    mov word [bx + si + member_rec.unit_hp_max], ax ; 0x0d2f
     mov ax, 0x248                    ; 0x0d32
     imul word [bp - 2]               ; 0x0d35
     mov bx, ax                       ; 0x0d38
-    mov ax, word [bx + party_records + pc_rec.pair_a] ; 0x0d3a
+    mov ax, word [bx + party_records + pc_rec.hp] ; 0x0d3a
     push ax                          ; 0x0d3e
     mov ax, 0x2c                     ; 0x0d3f
     imul word [bp - 2]               ; 0x0d42
@@ -84,13 +84,13 @@ copy_member_stats:
     mov ax, word [bp - 4]            ; 0x0d47
     shl ax, 1                        ; 0x0d4a
     mov bx, ax                       ; 0x0d4c
-    mov bx, word [bx + party_char]   ; 0x0d4e
+    mov bx, word [bx + battle_groups] ; 0x0d4e
     pop ax                           ; 0x0d52
-    mov word [bx + si + member_rec.item_charges], ax ; 0x0d53
+    mov word [bx + si + member_rec.unit_hp], ax ; 0x0d53
     mov ax, 0x248                    ; 0x0d56
     imul word [bp - 2]               ; 0x0d59
     mov bx, ax                       ; 0x0d5c
-    mov ax, word [bx + party_records + pc_rec.pair_b + 0x2] ; 0x0d5e
+    mov ax, word [bx + party_records + pc_rec.stamina + 0x2] ; 0x0d5e
     push ax                          ; 0x0d62
     mov ax, 0x2c                     ; 0x0d63
     imul word [bp - 2]               ; 0x0d66
@@ -98,13 +98,13 @@ copy_member_stats:
     mov ax, word [bp - 4]            ; 0x0d6b
     shl ax, 1                        ; 0x0d6e
     mov bx, ax                       ; 0x0d70
-    mov bx, word [bx + party_char]   ; 0x0d72
+    mov bx, word [bx + battle_groups] ; 0x0d72
     pop ax                           ; 0x0d76
-    mov word [bx + si + member_rec.item_timer_max], ax ; 0x0d77
+    mov word [bx + si + member_rec.unit_stamina_max], ax ; 0x0d77
     mov ax, 0x248                    ; 0x0d7a
     imul word [bp - 2]               ; 0x0d7d
     mov bx, ax                       ; 0x0d80
-    mov ax, word [bx + party_records + pc_rec.pair_b] ; 0x0d82
+    mov ax, word [bx + party_records + pc_rec.stamina] ; 0x0d82
     push ax                          ; 0x0d86
     mov ax, 0x2c                     ; 0x0d87
     imul word [bp - 2]               ; 0x0d8a
@@ -112,9 +112,9 @@ copy_member_stats:
     mov ax, word [bp - 4]            ; 0x0d8f
     shl ax, 1                        ; 0x0d92
     mov bx, ax                       ; 0x0d94
-    mov bx, word [bx + party_char]   ; 0x0d96
+    mov bx, word [bx + battle_groups] ; 0x0d96
     pop ax                           ; 0x0d9a
-    mov word [bx + si + member_rec.item_timer], ax ; 0x0d9b
+    mov word [bx + si + member_rec.unit_stamina], ax ; 0x0d9b
     mov ax, 0x248                    ; 0x0d9e
     imul word [bp - 2]               ; 0x0da1
     mov bx, ax                       ; 0x0da4
@@ -126,9 +126,9 @@ copy_member_stats:
     mov ax, word [bp - 4]            ; 0x0db3
     shl ax, 1                        ; 0x0db6
     mov bx, ax                       ; 0x0db8
-    mov bx, word [bx + party_char]   ; 0x0dba
+    mov bx, word [bx + battle_groups] ; 0x0dba
     pop ax                           ; 0x0dbe
-    mov byte [bx + si + member_rec.item_state], al ; 0x0dbf
+    mov byte [bx + si + member_rec.unit_state], al ; 0x0dbf
     mov ax, 0xa                      ; 0x0dc2
     push ax                          ; 0x0dc5
     mov ax, 0x2c                     ; 0x0dc6
@@ -137,7 +137,7 @@ copy_member_stats:
     mov ax, word [bp - 4]            ; 0x0dce
     shl ax, 1                        ; 0x0dd1
     mov bx, ax                       ; 0x0dd3
-    mov ax, word [bx + party_char]   ; 0x0dd5
+    mov ax, word [bx + battle_groups] ; 0x0dd5
     add ax, cx                       ; 0x0dd9
     add ax, strict word 0xe          ; 0x0ddb
     push ax                          ; 0x0dde
@@ -150,7 +150,7 @@ copy_member_stats:
     mov ax, 0x248                    ; 0x0def
     imul word [bp - 2]               ; 0x0df2
     mov bx, ax                       ; 0x0df5
-    mov al, byte [bx + party_records + pc_rec.f_023e] ; 0x0df7
+    mov al, byte [bx + party_records + pc_rec.poison_strength] ; 0x0df7
     push ax                          ; 0x0dfb
     mov ax, 0x2c                     ; 0x0dfc
     imul word [bp - 2]               ; 0x0dff
@@ -158,24 +158,24 @@ copy_member_stats:
     mov ax, word [bp - 4]            ; 0x0e04
     shl ax, 1                        ; 0x0e07
     mov bx, ax                       ; 0x0e09
-    mov bx, word [bx + party_char]   ; 0x0e0b
+    mov bx, word [bx + battle_groups] ; 0x0e0b
     pop ax                           ; 0x0e0f
-    mov byte [bx + si + member_rec.item_resist], al ; 0x0e10
+    mov byte [bx + si + member_rec.unit_poison_strength], al ; 0x0e10
     mov ax, 0x2c                     ; 0x0e13
     imul word [bp - 2]               ; 0x0e16
     mov si, ax                       ; 0x0e19
     mov ax, word [bp - 4]            ; 0x0e1b
     shl ax, 1                        ; 0x0e1e
     mov bx, ax                       ; 0x0e20
-    mov bx, word [bx + party_char]   ; 0x0e22
-    mov byte [bx + si + member_rec.item_cell], 0xff ; 0x0e26
+    mov bx, word [bx + battle_groups] ; 0x0e22
+    mov byte [bx + si + member_rec.unit_cell], 0xff ; 0x0e26
     mov ax, 0x2c                     ; 0x0e2a
     imul word [bp - 2]               ; 0x0e2d
     mov si, ax                       ; 0x0e30
     mov ax, word [bp - 4]            ; 0x0e32
     shl ax, 1                        ; 0x0e35
     mov bx, ax                       ; 0x0e37
-    mov bx, word [bx + party_char]   ; 0x0e39
+    mov bx, word [bx + battle_groups] ; 0x0e39
     mov byte [bx + si + member_rec.f_001f], 1 ; 0x0e3d
     mov ax, 0x248                    ; 0x0e41
     imul word [bp - 2]               ; 0x0e44
@@ -188,8 +188,8 @@ copy_member_stats:
     mov ax, word [bp - 4]            ; 0x0e58
     shl ax, 1                        ; 0x0e5b
     mov bx, ax                       ; 0x0e5d
-    mov bx, word [bx + party_char]   ; 0x0e5f
-    mov al, byte [bx + si + member_rec.f_0028] ; 0x0e63
+    mov bx, word [bx + battle_groups] ; 0x0e5f
+    mov al, byte [bx + si + member_rec.unit_strike_mod] ; 0x0e63
     cbw                              ; 0x0e66
     push ax                          ; 0x0e67
     mov ax, 0x248                    ; 0x0e68
@@ -208,8 +208,8 @@ copy_member_stats:
     mov cx, word [bp - 4]            ; 0x0e83
     shl cx, 1                        ; 0x0e86
     mov bx, cx                       ; 0x0e88
-    mov bx, word [bx + party_char]   ; 0x0e8a
-    mov byte [bx + si + member_rec.f_0028], al ; 0x0e8e
+    mov bx, word [bx + battle_groups] ; 0x0e8a
+    mov byte [bx + si + member_rec.unit_strike_mod], al ; 0x0e8e
 .forward2:
     mov ax, 0x248                    ; 0x0e91
     imul word [bp - 2]               ; 0x0e94
@@ -222,8 +222,8 @@ copy_member_stats:
     mov ax, word [bp - 4]            ; 0x0ea8
     shl ax, 1                        ; 0x0eab
     mov bx, ax                       ; 0x0ead
-    mov bx, word [bx + party_char]   ; 0x0eaf
-    mov al, byte [bx + si + member_rec.f_0026] ; 0x0eb3
+    mov bx, word [bx + battle_groups] ; 0x0eaf
+    mov al, byte [bx + si + member_rec.unit_reflex_mod] ; 0x0eb3
     cbw                              ; 0x0eb6
     push ax                          ; 0x0eb7
     mov ax, 0x248                    ; 0x0eb8
@@ -243,8 +243,8 @@ copy_member_stats:
     mov cx, word [bp - 4]            ; 0x0ed5
     shl cx, 1                        ; 0x0ed8
     mov bx, cx                       ; 0x0eda
-    mov bx, word [bx + party_char]   ; 0x0edc
-    mov byte [bx + si + member_rec.f_0026], al ; 0x0ee0
+    mov bx, word [bx + battle_groups] ; 0x0edc
+    mov byte [bx + si + member_rec.unit_reflex_mod], al ; 0x0ee0
 .forward3:
     mov ax, 0x248                    ; 0x0ee3
     imul word [bp - 2]               ; 0x0ee6
@@ -257,8 +257,8 @@ copy_member_stats:
     mov ax, word [bp - 4]            ; 0x0efa
     shl ax, 1                        ; 0x0efd
     mov bx, ax                       ; 0x0eff
-    mov bx, word [bx + party_char]   ; 0x0f01
-    mov al, byte [bx + si + member_rec.f_0027] ; 0x0f05
+    mov bx, word [bx + battle_groups] ; 0x0f01
+    mov al, byte [bx + si + member_rec.unit_aim_mod] ; 0x0f05
     cbw                              ; 0x0f08
     push ax                          ; 0x0f09
     mov ax, 0x248                    ; 0x0f0a
@@ -278,8 +278,8 @@ copy_member_stats:
     mov cx, word [bp - 4]            ; 0x0f27
     shl cx, 1                        ; 0x0f2a
     mov bx, cx                       ; 0x0f2c
-    mov bx, word [bx + party_char]   ; 0x0f2e
-    mov byte [bx + si + member_rec.f_0027], al ; 0x0f32
+    mov bx, word [bx + battle_groups] ; 0x0f2e
+    mov byte [bx + si + member_rec.unit_aim_mod], al ; 0x0f32
 .forward4:
     mov ax, 0x248                    ; 0x0f35
     imul word [bp - 2]               ; 0x0f38
@@ -292,8 +292,8 @@ copy_member_stats:
     mov ax, word [bp - 4]            ; 0x0f4c
     shl ax, 1                        ; 0x0f4f
     mov bx, ax                       ; 0x0f51
-    mov bx, word [bx + party_char]   ; 0x0f53
-    mov al, byte [bx + si + member_rec.item_level] ; 0x0f57
+    mov bx, word [bx + battle_groups] ; 0x0f53
+    mov al, byte [bx + si + member_rec.unit_speed_mod] ; 0x0f57
     cbw                              ; 0x0f5a
     push ax                          ; 0x0f5b
     mov ax, 0x248                    ; 0x0f5c
@@ -312,8 +312,8 @@ copy_member_stats:
     mov cx, word [bp - 4]            ; 0x0f77
     shl cx, 1                        ; 0x0f7a
     mov bx, cx                       ; 0x0f7c
-    mov bx, word [bx + party_char]   ; 0x0f7e
-    mov byte [bx + si + member_rec.item_level], al ; 0x0f82
+    mov bx, word [bx + battle_groups] ; 0x0f7e
+    mov byte [bx + si + member_rec.unit_speed_mod], al ; 0x0f82
 .forward5:
     inc word [bp - 2]                ; 0x0f85
 .forward6:

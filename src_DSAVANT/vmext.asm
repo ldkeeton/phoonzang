@@ -56,8 +56,8 @@ api_idx_0030_KNRH_bss7228 equ __zdseg_end + (__zobss_918c - __zdata_start)
 api_idx_0030_KNRH_bss7284 equ __zdseg_end + (__zobss_9192 - __zdata_start)
 api_idx_0030_KNRH_bss7323 equ __zdseg_end + (__zobss_9198 - __zdata_start)
 api_idx_0030_KNRH_bss7154 equ __zdseg_end + (__zobss_919e - __zdata_start)
-loc_LPLI_2e98_bss20 equ __zdseg_end + (__zobss_91a4 - __zdata_start)
-loc_LPLI_2ec0_bss20 equ __zdseg_end + (__zobss_91a6 - __zdata_start)
+maze_floor_layer_enabled equ __zdseg_end + (__zobss_91a4 - __zdata_start)
+api_idx_0012_KQTQ_bss2524 equ __zdseg_end + (__zobss_91a6 - __zdata_start)
 boundary_wall_variant equ __zdseg_end + (__zobss_91a8 - __zdata_start)
 cell_wall_override_disabled equ __zdseg_end + (__zobss_91aa - __zdata_start)
 api_idx_0012_KQTQ_bss2257 equ __zdseg_end + (__zobss_91ac - __zdata_start)
@@ -93,8 +93,8 @@ queued_slot_index equ __zdseg_end + (__zobss_9300 - __zdata_start)
 queued_slot_depth equ __zdseg_end + (__zobss_9301 - __zdata_start)
 queued_slot_scale equ __zdseg_end + (__zobss_9302 - __zdata_start)
 queued_slot_glyph_column equ __zdseg_end + (__zobss_9303 - __zdata_start)
-queued_slot_parameter_13 equ __zdseg_end + (__zobss_9304 - __zdata_start)
-api_idx_0010_KRNM_bss1234 equ __zdseg_end + (__zobss_9aec - __zdata_start)
+queued_slot_render_pass equ __zdseg_end + (__zobss_9304 - __zdata_start)
+maze_gate_glyph_variant equ __zdseg_end + (__zobss_9aec - __zdata_start)
 api_idx_0030_KNRH_bss789 equ __zdseg_end + (__zobss_9aee - __zdata_start)
 api_idx_0030_KNRH_bss1076 equ __zdseg_end + (__zobss_9b08 - __zdata_start)
 api_idx_0030_KNRH_bss2708 equ __zdseg_end + (__zobss_9b0a - __zdata_start)
@@ -134,7 +134,7 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "shared/ovr/get_cell_wall.asm"         ; 0x06c3
 
-%include "shared/ovr/api_idx_0008_OMTP.asm"     ; 0x0764
+%include "shared/ovr/show_centered_text_band.asm" ; 0x0764
 
 %include "shared/ovr/show_message.asm"     ; 0x081a
 
@@ -172,13 +172,13 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "shared/ovr/get_west_cell_wall.asm"    ; 0x189b
 
-%include "shared/ovr/loc_UMHI_2e84.asm"         ; 0x1913
+%include "shared/ovr/floor_overlay_when_enabled.asm" ; 0x1913
 
-%include "shared/ovr/loc_LPLI_2e98.asm"         ; 0x1927
+%include "shared/ovr/select_floor_face_index.asm" ; 0x1927
 
-%include "shared/ovr/loc_UMHI_2eac.asm"         ; 0x193b
+%include "shared/ovr/wall_overlay_when_enabled.asm" ; 0x193b
 
-%include "shared/ovr/loc_LPLI_2ec0.asm"         ; 0x194f
+%include "shared/ovr/select_wall_face_index.asm" ; 0x194f
 
 %include "shared/ovr/offset_relative_map_position.asm" ; 0x1963
 
@@ -190,13 +190,13 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "shared/ovr/queue_slot_glyph_render.asm" ; 0x201b
 
-%include "shared/ovr/api_idx_0010_KRNM.asm"     ; 0x2291
+%include "shared/ovr/queue_maze_cell_layers.asm" ; 0x2291
 
-%include "shared/ovr/api_idx_0012_PNUU.asm"     ; 0x29e5
+%include "shared/ovr/queue_boundary_view_layers.asm" ; 0x29e5
 
 %include "shared/ovr/api_idx_0012_KQTQ.asm"     ; 0x30f4
 
-%include "shared/ovr/api_idx_0016_LHKK.asm"     ; 0x39e2
+%include "shared/ovr/draw_queued_glyph_shape.asm" ; 0x39e2
 
 %include "shared/ovr/api_idx_0024_NUGL.asm"     ; 0x3b83
 

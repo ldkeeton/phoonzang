@@ -2,11 +2,11 @@
 advance_melee_turn:
     mov ax, 0xffaa                   ; 0x31a1
     call aztec_csav                  ; 0x31a4
-    call advance_melee_item_slots    ; 0x31a7
+    call tick_party_combatants       ; 0x31a7
     call api_idx_0014_LJNT           ; 0x31aa
     mov ax, 6                        ; 0x31ad
     push ax                          ; 0x31b0
-    call advance_member_item_actions ; 0x31b1
+    call tick_monster_group          ; 0x31b1
     pop cx                           ; 0x31b4
     call spend_action_slot_charge    ; 0x31b5
     mov word [bp - 2], 0             ; 0x31b8
@@ -15,12 +15,12 @@ advance_melee_turn:
     mov ax, 0x2c                     ; 0x31bf
     imul word [bp - 2]               ; 0x31c2
     mov si, ax                       ; 0x31c5
-    mov bx, word [party_char]        ; 0x31c7
+    mov bx, word [battle_groups]     ; 0x31c7
     cmp byte [bx + si + member_rec.f_001f], 1 ; 0x31cb
     jb short .forward1               ; 0x31cf
     mov al, byte [bx + si + 0x1f]    ; 0x31d1
     sub ah, ah                       ; 0x31d4
-    cmp ax, word [party_member_count] ; 0x31d6
+    cmp ax, word [monster_group_count] ; 0x31d6
     jle short .forward2              ; 0x31da
 .forward1:
     mov byte [bx + si + 0x1f], 1     ; 0x31dc
@@ -56,28 +56,28 @@ advance_melee_turn:
     mov ax, 0x2c                     ; 0x3225
     imul word [bp - 2]               ; 0x3228
     mov si, ax                       ; 0x322b
-    mov bx, word [party_char]        ; 0x322d
-    mov byte [bx + si + member_rec.item_state], 0 ; 0x3231
+    mov bx, word [battle_groups]     ; 0x322d
+    mov byte [bx + si + member_rec.unit_state], 0 ; 0x3231
     mov ax, 0x2c                     ; 0x3235
     imul word [bp - 2]               ; 0x3238
     mov si, ax                       ; 0x323b
-    mov bx, word [party_char]        ; 0x323d
-    mov ax, word [bx + si + member_rec.item_timer_max] ; 0x3241
-    mov word [bx + si + member_rec.item_timer], ax ; 0x3244
+    mov bx, word [battle_groups]     ; 0x323d
+    mov ax, word [bx + si + member_rec.unit_stamina_max] ; 0x3241
+    mov word [bx + si + member_rec.unit_stamina], ax ; 0x3244
     mov ax, 0x2c                     ; 0x3247
     imul word [bp - 2]               ; 0x324a
     mov si, ax                       ; 0x324d
-    mov bx, word [party_char]        ; 0x324f
-    mov ax, word [bx + si + member_rec.item_charge_cap] ; 0x3253
-    mov word [bx + si + member_rec.item_charges], ax ; 0x3256
+    mov bx, word [battle_groups]     ; 0x324f
+    mov ax, word [bx + si + member_rec.unit_hp_max] ; 0x3253
+    mov word [bx + si + member_rec.unit_hp], ax ; 0x3256
     mov word [bp - 4], 0             ; 0x3259
 .back3:
     mov ax, 0x2c                     ; 0x325e
     imul word [bp - 2]               ; 0x3261
     add ax, word [bp - 4]            ; 0x3264
     mov si, ax                       ; 0x3267
-    mov bx, word [party_char]        ; 0x3269
-    mov byte [bx + si + member_rec.item_counter], 0 ; 0x326d
+    mov bx, word [battle_groups]     ; 0x3269
+    mov byte [bx + si + member_rec.unit_status], 0 ; 0x326d
     inc word [bp - 4]                ; 0x3271
     mov ax, word [bp - 4]            ; 0x3274
     cmp ax, strict word 0xa          ; 0x3277

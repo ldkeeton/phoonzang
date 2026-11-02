@@ -204,7 +204,7 @@ draw_party_member_panel:
     mov ax, 0xa                      ; 0x1f7e
     jmp short .forward10             ; 0x1f81
 .forward9:
-    mov al, byte [bx + party_records + pc_rec.glyph_set] ; 0x1f83
+    mov al, byte [bx + party_records + pc_rec.race] ; 0x1f83
     sub ah, ah                       ; 0x1f87
     shl ax, 1                        ; 0x1f89
     mov bx, ax                       ; 0x1f8b
@@ -227,7 +227,7 @@ draw_party_member_panel:
     imul word [bp + 4]               ; 0x1fb6
     add ax, word [bp - 2]            ; 0x1fb9
     mov bx, ax                       ; 0x1fbc
-    mov al, byte [bx + party_records + pc_rec.order] ; 0x1fbe
+    mov al, byte [bx + party_records + pc_rec.equipped] ; 0x1fbe
     sub ah, ah                       ; 0x1fc2
     mov word [bp - 4], ax            ; 0x1fc4
     cmp ax, 0xff                     ; 0x1fc7
@@ -270,8 +270,8 @@ draw_party_member_panel:
     mov ax, 0x248                    ; 0x201c
     imul word [bp + 4]               ; 0x201f
     mov bx, ax                       ; 0x2022
-    push word [bx + party_records + pc_rec.pair_a + 0x2] ; 0x2024
-    push word [bx + party_records + pc_rec.pair_a] ; 0x2028
+    push word [bx + party_records + pc_rec.hp + 0x2] ; 0x2024
+    push word [bx + party_records + pc_rec.hp] ; 0x2028
     mov ax, 0x16                     ; 0x202c
     push ax                          ; 0x202f
     mov ax, 3                        ; 0x2030
@@ -289,8 +289,8 @@ draw_party_member_panel:
     mov ax, 0x248                    ; 0x204c
     imul word [bp + 4]               ; 0x204f
     mov bx, ax                       ; 0x2052
-    push word [bx + party_records + pc_rec.pair_b + 0x2] ; 0x2054
-    push word [bx + party_records + pc_rec.pair_b] ; 0x2058
+    push word [bx + party_records + pc_rec.stamina + 0x2] ; 0x2054
+    push word [bx + party_records + pc_rec.stamina] ; 0x2058
     mov ax, 0x16                     ; 0x205c
     push ax                          ; 0x205f
     mov ax, 3                        ; 0x2060

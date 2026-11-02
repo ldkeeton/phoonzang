@@ -375,7 +375,7 @@ api_idx_0060_VTPV:
     mov cx, 2                        ; 0x2387
     cwd                              ; 0x238a
     idiv cx                          ; 0x238b
-    mov cx, word [bx + party_records + pc_rec.power_cap] ; 0x238d
+    mov cx, word [bx + party_records + pc_rec.level] ; 0x238d
     add ax, cx                       ; 0x2391
     push ax                          ; 0x2393
     mov bx, word [bp + 4]            ; 0x2394

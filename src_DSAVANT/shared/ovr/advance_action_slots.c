@@ -6,7 +6,7 @@
 #include "structs/slotrec.h"
 #include "structs/actslot.h"
 
-extern struct member_rec *party_char[];
+extern struct member_rec *battle_groups[];
 extern struct slot_rec slot_recs[];
 extern unsigned char action_slot_mode[][3];
 extern struct action_slot action_slot_table[][3][10];
@@ -18,18 +18,18 @@ char *out;
 	int rec, entry, action, target, roll, unused, len;
 
 	*out = 0;
-	if (party_char[member]->slot == -1)	/* no slot record */
+	if (battle_groups[member]->slot == -1)	/* no slot record */
 		return;
-	rec = party_char[member]->slot;
+	rec = battle_groups[member]->slot;
 	len = 0;
 	/* the entries of the group the cell was filled for */
 	for (entry = slot_recs[rec].first[action_slot_mode[b][c]];
 			entry < slot_recs[rec].first[action_slot_mode[b][c]]
 			+ slot_recs[rec].count[action_slot_mode[b][c]]; ++entry) {
 		/* any of these keeps the entry as is */
-		if (party_char[member]->item[item].state == 2
-				|| party_char[member]->item[item].counter[3] > 0
-				|| party_char[member]->item[item].counter[2] > 0) {
+		if (battle_groups[member]->unit[item].state == 2
+				|| battle_groups[member]->unit[item].status[3] > 0
+				|| battle_groups[member]->unit[item].status[2] > 0) {
 			action = action_slot_table[b][c][entry].action;
 			target = slot_recs[rec].target[action];
 		} else {
@@ -63,8 +63,8 @@ char *out;
 		}
 		out[len] = slot_recs[rec].range[target].glyph;
 		/* kind 0x79 or 0x8d: forced[1] goes before this byte */
-		if (party_char[member]->kind == 121
-				|| party_char[member]->kind == 141) {
+		if (battle_groups[member]->kind == 121
+				|| battle_groups[member]->kind == 141) {
 			++len;
 			out[len] = out[len - 1];
 			out[len - 1] = slot_recs[rec].forced[1];

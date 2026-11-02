@@ -67,8 +67,12 @@ realm_point_text_positions equ __zrealm_point_text_positions - __zdseg_start
 party_slot_x equ __zparty_slot_x - __zdseg_start
 party_slot_y equ __zparty_slot_y - __zdseg_start
 party_slot_glyphs equ __zparty_slot_glyphs - __zdseg_start
+shape_column_x equ __zshape_column_x - __zdseg_start
+shape_base_y equ __zshape_base_y - __zdseg_start
+shape_repeat_y_step equ __zshape_repeat_y_step - __zdseg_start
+maze_cell_x_offset equ __zmaze_cell_x_offset - __zdseg_start
 view_column_x equ __zview_column_x - __zdseg_start
-view_depth_y equ __zview_depth_y - __zdseg_start
+view_geometry equ __zview_geometry - __zdseg_start
 view_depth_scale equ __zview_depth_scale - __zdseg_start
 cell_overlay_y_offset equ __zcell_overlay_y_offset - __zdseg_start
 cell_overlay_code equ __zcell_overlay_code - __zdseg_start
@@ -275,7 +279,7 @@ levitation_turns equ __zbss_8306 - __zdseg_start
 game_state equ __zbss_830a - __zdseg_start
 game_state_arg equ __zbss_830c - __zdseg_start
 party_slot_frame equ __zbss_830e - __zdseg_start
-bss_831a equ __zbss_831a - __zdseg_start
+maze_gate_frame equ __zbss_831a - __zdseg_start
 bss_8320 equ __zbss_8320 - __zdseg_start
 action_slot_table equ __zbss_8322 - __zdseg_start
 action_slot_mode equ __zbss_8430 - __zdseg_start
@@ -293,17 +297,17 @@ bss_845e equ __zbss_845e - __zdseg_start
 dest_alt_arg equ __zbss_8460 - __zdseg_start
 bss_8462 equ __zbss_8462 - __zdseg_start
 bss_8464 equ __zbss_8464 - __zdseg_start
-party_member_count equ __zbss_8466 - __zdseg_start
+monster_group_count equ __zbss_8466 - __zdseg_start
 overlay_list equ __zbss_8468 - __zdseg_start
-party_char equ __zbss_8482 - __zdseg_start
+battle_groups equ __zbss_8482 - __zdseg_start
 party_char_hi equ __zbss_8484 - __zdseg_start
 bss_848e equ __zbss_848e - __zdseg_start
-party_char_ext equ __zbss_8490 - __zdseg_start
-party_member_ext_1 equ __zbss_8492 - __zdseg_start
+battle_group_ext equ __zbss_8490 - __zdseg_start
+battle_group_ext_1 equ __zbss_8492 - __zdseg_start
 selected_item_slot equ __zbss_849e - __zdseg_start
 selected_item_record equ __zbss_84a0 - __zdseg_start
-item_action_reward equ __zbss_84a2 - __zdseg_start
-item_action_reward_hi equ __zbss_84a4 - __zdseg_start
+battle_experience equ __zbss_84a2 - __zdseg_start
+battle_experience_hi equ __zbss_84a4 - __zdseg_start
 quest_maps equ __zbss_84a6 - __zdseg_start
 slot_records equ __zbss_84e8 - __zdseg_start
 slot_event_logs equ __zbss_882c - __zdseg_start
@@ -494,9 +498,9 @@ __zdseg_end equ (__zimage_end - __zdseg_start) + __zbss_size
 
 %include "ds/game/restore_saved_screen.asm" ; 0x16a0
 
-%include "ds/game/item_slot_power.asm"     ; 0x1741
+%include "ds/game/item_slot_weight.asm"    ; 0x1741
 
-%include "ds/game/sum_member_item_power.asm" ; 0x17d6
+%include "ds/game/sum_member_item_weight.asm" ; 0x17d6
 
 %include "ds/game/reset_hand_attack.asm"   ; 0x184f
 

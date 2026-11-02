@@ -53,8 +53,8 @@ api_idx_0008_NUPQ:
     mov ax, word [bp + 4]            ; 0x6444
     shl ax, 1                        ; 0x6447
     mov bx, ax                       ; 0x6449
-    mov bx, word [bx + party_char]   ; 0x644b
-    cmp byte [bx + si + member_rec.item_state], 3 ; 0x644f
+    mov bx, word [bx + battle_groups] ; 0x644b
+    cmp byte [bx + si + member_rec.unit_state], 3 ; 0x644f
     jae short .forward2              ; 0x6453
     mov ax, word [bp - 6]            ; 0x6455
     ret                              ; 0x6458
@@ -64,8 +64,8 @@ api_idx_0008_NUPQ:
     mov ax, word [bp + 4]            ; 0x645c
     shl ax, 1                        ; 0x645f
     mov bx, ax                       ; 0x6461
-    mov bx, word [bx + party_char]   ; 0x6463
-    mov al, byte [bx + member_rec.item_count] ; 0x6467
+    mov bx, word [bx + battle_groups] ; 0x6463
+    mov al, byte [bx + member_rec.unit_count] ; 0x6467
     sub ah, ah                       ; 0x646b
     cmp ax, word [bp - 6]            ; 0x646d
     jg short .back3                  ; 0x6470

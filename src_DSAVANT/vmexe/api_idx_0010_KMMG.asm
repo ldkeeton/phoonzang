@@ -27,15 +27,15 @@ api_idx_0010_KMMG:
     mov ax, word [bp - 2]            ; 0x9a73
     shl ax, 1                        ; 0x9a76
     mov bx, ax                       ; 0x9a78
-    mov bx, word [bx + party_char_ext] ; 0x9a7a
+    mov bx, word [bx + battle_group_ext] ; 0x9a7a
     mov al, byte [bx + member_ext.f_0080] ; 0x9a7e
     sub ah, ah                       ; 0x9a82
     push ax                          ; 0x9a84
     mov ax, word [bp - 2]            ; 0x9a85
     shl ax, 1                        ; 0x9a88
     mov bx, ax                       ; 0x9a8a
-    mov bx, word [bx + party_char]   ; 0x9a8c
-    mov al, byte [bx + member_rec.item_count] ; 0x9a90
+    mov bx, word [bx + battle_groups] ; 0x9a8c
+    mov al, byte [bx + member_rec.unit_count] ; 0x9a90
     sub ah, ah                       ; 0x9a94
     mov cx, ax                       ; 0x9a96
     pop ax                           ; 0x9a98
@@ -47,14 +47,14 @@ api_idx_0010_KMMG:
     mov ax, word [bp - 2]            ; 0x9aa3
     shl ax, 1                        ; 0x9aa6
     mov bx, ax                       ; 0x9aa8
-    mov bx, word [bx + party_char_ext] ; 0x9aaa
+    mov bx, word [bx + battle_group_ext] ; 0x9aaa
     mov al, byte [bx + member_ext.f_008f] ; 0x9aae
     sub ah, ah                       ; 0x9ab2
     mov cx, ax                       ; 0x9ab4
     mov ax, word [bss_8464]          ; 0x9ab6
     shl ax, 1                        ; 0x9ab9
     mov bx, ax                       ; 0x9abb
-    mov bx, word [bx + party_char_ext] ; 0x9abd
+    mov bx, word [bx + battle_group_ext] ; 0x9abd
     mov al, byte [bx + 0x8f]         ; 0x9ac1
     sub ah, ah                       ; 0x9ac5
     mov dx, ax                       ; 0x9ac7
@@ -66,7 +66,7 @@ api_idx_0010_KMMG:
     inc word [bp - 2]                ; 0x9ad3
 .forward1:
     mov ax, word [bp - 2]            ; 0x9ad6
-    cmp ax, word [party_member_count] ; 0x9ad9
+    cmp ax, word [monster_group_count] ; 0x9ad9
     jle short .back1                 ; 0x9add
     jmp short .forward3              ; 0x9adf
 .forward2:
@@ -80,7 +80,7 @@ api_idx_0010_KMMG:
     sub ah, ah                       ; 0x9af3
     shl ax, 1                        ; 0x9af5
     mov bx, ax                       ; 0x9af7
-    mov bx, word [bx + party_char]   ; 0x9af9
+    mov bx, word [bx + battle_groups] ; 0x9af9
     mov cx, word [bx + si]           ; 0x9afd
     mov ax, word [bp - 0xe]          ; 0x9aff
     sub ax, cx                       ; 0x9b02
@@ -90,14 +90,14 @@ api_idx_0010_KMMG:
     sub ah, ah                       ; 0x9b0b
     shl ax, 1                        ; 0x9b0d
     mov bx, ax                       ; 0x9b0f
-    mov bx, word [bx + party_char_ext] ; 0x9b11
+    mov bx, word [bx + battle_group_ext] ; 0x9b11
     mov al, byte [bx + member_ext.f_008f] ; 0x9b15
     sub ah, ah                       ; 0x9b19
     mov cx, ax                       ; 0x9b1b
     mov ax, word [bss_8464]          ; 0x9b1d
     shl ax, 1                        ; 0x9b20
     mov bx, ax                       ; 0x9b22
-    mov bx, word [bx + party_char_ext] ; 0x9b24
+    mov bx, word [bx + battle_group_ext] ; 0x9b24
     mov al, byte [bx + 0x8f]         ; 0x9b28
     sub ah, ah                       ; 0x9b2c
     mov dx, ax                       ; 0x9b2e
@@ -162,7 +162,7 @@ api_idx_0010_KMMG:
     je short .forward7               ; 0x9bb3
     shl ax, 1                        ; 0x9bb5
     mov bx, ax                       ; 0x9bb7
-    mov bx, word [bx + party_char_ext] ; 0x9bb9
+    mov bx, word [bx + battle_group_ext] ; 0x9bb9
     mov al, byte [bx + 0xe2]         ; 0x9bbd
     sub ah, ah                       ; 0x9bc1
     test ax, 1                       ; 0x9bc3

@@ -6,8 +6,8 @@
 #include "structs/slotrec.h"
 #include "structs/actslot.h"
 
-extern struct member_rec *party_char[];
-extern struct member_ext *party_char_ext[];
+extern struct member_rec *battle_groups[];
+extern struct member_ext *battle_group_ext[];
 extern struct slot_rec slot_recs[];
 extern unsigned char action_slot_mode[][3];
 extern struct action_slot action_slot_table[][3][10];
@@ -20,9 +20,9 @@ int member, row, col, group;
 {
 	int rec, entry, action, target, randomized;
 
-	if (party_char[member]->slot == -1)	/* no slot record */
+	if (battle_groups[member]->slot == -1)	/* no slot record */
 		return;
-	rec = party_char[member]->slot;
+	rec = battle_groups[member]->slot;
 	randomized = 0;
 	if (group == -1) {
 		group = 0;
@@ -42,7 +42,7 @@ int member, row, col, group;
 				target = 0;
 			} else {
 				target = slot_recs[rec].forced[0];
-				if (party_char_ext[member]->kind == 71) {
+				if (battle_group_ext[member]->kind == 71) {
 					/* melee into VMNPC: split the destination argument */
 					if (npc_melee == 1) {
 						action = dest_alt_arg / 256;

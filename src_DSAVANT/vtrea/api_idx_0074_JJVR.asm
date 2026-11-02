@@ -291,7 +291,7 @@ api_idx_0074_JJVR:
     jmp short .forward20             ; 0x7ba0
 .forward19:
     add bx, word [bp - 0xc]          ; 0x7ba2
-    mov al, byte [bx + party_records + pc_rec.cur] ; 0x7ba5
+    mov al, byte [bx + party_records + pc_rec.resist] ; 0x7ba5
     sub ah, ah                       ; 0x7ba9
     push ax                          ; 0x7bab
     mov ax, 3                        ; 0x7bac
@@ -368,9 +368,9 @@ api_idx_0074_JJVR:
     mov ax, 0x248                    ; 0x7c4c
     imul word [bp - 2]               ; 0x7c4f
     mov bx, ax                       ; 0x7c52
-    cmp word [bx + party_records + pc_rec.pair_b], byte 0 ; 0x7c54
+    cmp word [bx + party_records + pc_rec.stamina], byte 0 ; 0x7c54
     jle short .forward29             ; 0x7c59
-    push word [bx + party_records + pc_rec.pair_b] ; 0x7c5b
+    push word [bx + party_records + pc_rec.stamina] ; 0x7c5b
     mov ax, 1                        ; 0x7c5f
     push ax                          ; 0x7c62
     push word [bp - 0x1a]            ; 0x7c63
@@ -393,7 +393,7 @@ api_idx_0074_JJVR:
     mov ax, 0x248                    ; 0x7c8b
     imul word [bp - 2]               ; 0x7c8e
     mov bx, ax                       ; 0x7c91
-    mov ax, word [bx + party_records + pc_rec.pair_b] ; 0x7c93
+    mov ax, word [bx + party_records + pc_rec.stamina] ; 0x7c93
     sub ax, cx                       ; 0x7c97
     push ax                          ; 0x7c99
     call clamp_between               ; 0x7c9a
@@ -403,7 +403,7 @@ api_idx_0074_JJVR:
     imul word [bp - 2]               ; 0x7ca4
     mov bx, ax                       ; 0x7ca7
     pop ax                           ; 0x7ca9
-    mov word [bx + party_records + pc_rec.pair_b], ax ; 0x7caa
+    mov word [bx + party_records + pc_rec.stamina], ax ; 0x7caa
 .forward29:
     push word [bp - 0x1c]            ; 0x7cae
     push word [bp - 0x1a]            ; 0x7cb1

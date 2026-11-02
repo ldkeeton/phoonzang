@@ -165,7 +165,7 @@ bss_9594 equ __zdseg_end + (__zobss_9594 - __zdata_start)
 bss_9596 equ __zdseg_end + (__zobss_9596 - __zdata_start)
 banner_offset equ __zdseg_end + (__zobss_95aa - __zdata_start)
 banner_plain_flag equ __zdseg_end + (__zobss_95ac - __zdata_start)
-loc_TTSP_bss184 equ __zdseg_end + (__zobss_95ae - __zdata_start)
+banner_animation_frame equ __zdseg_end + (__zobss_95ae - __zdata_start)
 skill_availability_flags equ __zdseg_end + (__zobss_95b0 - __zdata_start)
 both_high_stats_flag equ __zdseg_end + (__zobss_95e8 - __zdata_start)
 slot_prompt_text equ __zdseg_end + (__zobss_95f4 - __zdata_start)
@@ -275,9 +275,9 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "vpcmk/loc_JUPL.asm"              ; 0x4c82
 
-%include "shared/ovr/loc_NJOH.asm"              ; 0x4ead
+%include "shared/ovr/adjust_member_resistance.asm" ; 0x4ead
 
-%include "shared/ovr/init_skill_cell_positions.asm" ; 0x4f00
+%include "shared/ovr/set_profession_resistances.asm" ; 0x4f00
 
 %include "shared/ovr/update_party_stat_adjustments.asm" ; 0x4f95
 

@@ -45,8 +45,8 @@ ds/game/free_picture_slot
 ds/game/free_current_maze
 ds/game/save_screen_area
 ds/game/restore_saved_screen
-ds/game/item_slot_power
-ds/game/sum_member_item_power
+ds/game/item_slot_weight
+ds/game/sum_member_item_weight
 ds/game/reset_hand_attack
 ds/game/unequip_item_slot
 ds/game/clear_item_slot

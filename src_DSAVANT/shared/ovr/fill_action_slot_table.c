@@ -6,8 +6,8 @@
 #include "structs/slotrec.h"
 #include "structs/actslot.h"
 
-extern struct member_rec *party_char[];
-extern struct member_ext *party_char_ext[];
+extern struct member_rec *battle_groups[];
+extern struct member_ext *battle_group_ext[];
 extern struct slot_rec slot_recs[];
 extern unsigned char action_slot_mode[][3];
 extern struct action_slot action_slot_table[][3][10];
@@ -17,9 +17,9 @@ int a, b, c, d;
 {
 	int v1, i, j, k, flag;
 
-	if (party_char[a]->slot == -1)	/* no slot record */
+	if (battle_groups[a]->slot == -1)	/* no slot record */
 		return;
-	v1 = party_char[a]->slot;
+	v1 = battle_groups[a]->slot;
 	flag = 0;
 	if (d == -1) {
 		d = 0;
@@ -38,7 +38,7 @@ int a, b, c, d;
 			} else {
 				k = slot_recs[v1].forced[0];
 				/* special case: ext byte 0xd7 == 0x47 forces action 1, target 0xb */
-				if (party_char_ext[a]->kind == 71 && flag == 0) {
+				if (battle_group_ext[a]->kind == 71 && flag == 0) {
 					j = 1;
 					k = 11;
 				}

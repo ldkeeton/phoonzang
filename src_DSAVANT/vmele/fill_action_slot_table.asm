@@ -5,7 +5,7 @@ fill_action_slot_table:
     mov ax, word [bp + 4]            ; 0x0f9b
     shl ax, 1                        ; 0x0f9e
     mov bx, ax                       ; 0x0fa0
-    mov bx, word [bx + party_char]   ; 0x0fa2
+    mov bx, word [bx + battle_groups] ; 0x0fa2
     cmp byte [bx + member_rec.slot], 0xff ; 0x0fa6
     jne short .forward1              ; 0x0fab
     ret                              ; 0x0fad
@@ -65,7 +65,7 @@ fill_action_slot_table:
     mov ax, word [bp + 4]            ; 0x103f
     shl ax, 1                        ; 0x1042
     mov bx, ax                       ; 0x1044
-    mov bx, word [bx + party_char_ext] ; 0x1046
+    mov bx, word [bx + battle_group_ext] ; 0x1046
     cmp byte [bx + member_ext.kind], 0x47 ; 0x104a
     jne short .forward6              ; 0x104f
     cmp word [npc_melee], byte 1     ; 0x1051

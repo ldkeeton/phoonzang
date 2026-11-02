@@ -48,7 +48,7 @@ api_idx_0006_OUPU:
     mov ax, 0x248                    ; 0x5584
     imul word [bp - 2]               ; 0x5587
     mov bx, ax                       ; 0x558a
-    mov al, byte [bx + party_records + pc_rec.cur + 0x5] ; 0x558c
+    mov al, byte [bx + party_records + pc_rec.resist + 0x5] ; 0x558c
     sub ah, ah                       ; 0x5590
     mov cx, ax                       ; 0x5592
     pop ax                           ; 0x5594

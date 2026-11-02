@@ -14,7 +14,7 @@ jumptable_2ce6_case_0:
     mov ax, dseg_90a5                ; 0x2c27
     push ax                          ; 0x2c2a
     push word [bp + 4]               ; 0x2c2b
-    call init_skill_cell_positions   ; 0x2c2e
+    call set_profession_resistances  ; 0x2c2e
     add sp, byte 6                   ; 0x2c31
     jmp near api_idx_0052_NKUS.forward2 ; 0x2c34
 jumptable_2ce6_case_4:
@@ -23,7 +23,7 @@ jumptable_2ce6_case_4:
     mov ax, dseg_90c3                ; 0x2c3b
     push ax                          ; 0x2c3e
     push word [bp + 4]               ; 0x2c3f
-    call init_skill_cell_positions   ; 0x2c42
+    call set_profession_resistances  ; 0x2c42
     add sp, byte 6                   ; 0x2c45
     jmp near api_idx_0052_NKUS.forward2 ; 0x2c48
 jumptable_2ce6_case_10:
@@ -32,7 +32,7 @@ jumptable_2ce6_case_10:
     mov ax, dseg_90e1                ; 0x2c4f
     push ax                          ; 0x2c52
     push word [bp + 4]               ; 0x2c53
-    call init_skill_cell_positions   ; 0x2c56
+    call set_profession_resistances  ; 0x2c56
     add sp, byte 6                   ; 0x2c59
     jmp near api_idx_0052_NKUS.forward2 ; 0x2c5c
 jumptable_2ce6_case_11:
@@ -41,7 +41,7 @@ jumptable_2ce6_case_11:
     mov ax, dseg_90ff                ; 0x2c63
     push ax                          ; 0x2c66
     push word [bp + 4]               ; 0x2c67
-    call init_skill_cell_positions   ; 0x2c6a
+    call set_profession_resistances  ; 0x2c6a
     add sp, byte 6                   ; 0x2c6d
     jmp near api_idx_0052_NKUS.forward2 ; 0x2c70
 jumptable_2ce6_case_13:
@@ -50,7 +50,7 @@ jumptable_2ce6_case_13:
     mov ax, dseg_911d                ; 0x2c77
     push ax                          ; 0x2c7a
     push word [bp + 4]               ; 0x2c7b
-    call init_skill_cell_positions   ; 0x2c7e
+    call set_profession_resistances  ; 0x2c7e
     add sp, byte 6                   ; 0x2c81
     jmp near api_idx_0052_NKUS.forward2 ; 0x2c84
 jumptable_2ce6_case_1:
@@ -59,7 +59,7 @@ jumptable_2ce6_case_1:
     mov ax, dseg_913b                ; 0x2c8b
     push ax                          ; 0x2c8e
     push word [bp + 4]               ; 0x2c8f
-    call init_skill_cell_positions   ; 0x2c92
+    call set_profession_resistances  ; 0x2c92
     add sp, byte 6                   ; 0x2c95
     jmp short api_idx_0052_NKUS.forward2 ; 0x2c98
 jumptable_2ce6_case_7:
@@ -68,7 +68,7 @@ jumptable_2ce6_case_7:
     mov ax, dseg_9159                ; 0x2c9e
     push ax                          ; 0x2ca1
     push word [bp + 4]               ; 0x2ca2
-    call init_skill_cell_positions   ; 0x2ca5
+    call set_profession_resistances  ; 0x2ca5
     add sp, byte 6                   ; 0x2ca8
     jmp short api_idx_0052_NKUS.forward2 ; 0x2cab
 jumptable_2ce6_case_2:
@@ -77,7 +77,7 @@ jumptable_2ce6_case_2:
     mov ax, dseg_9177                ; 0x2cb1
     push ax                          ; 0x2cb4
     push word [bp + 4]               ; 0x2cb5
-    call init_skill_cell_positions   ; 0x2cb8
+    call set_profession_resistances  ; 0x2cb8
     add sp, byte 6                   ; 0x2cbb
     jmp short api_idx_0052_NKUS.forward2 ; 0x2cbe
 jumptable_2ce6_case_12:
@@ -86,7 +86,7 @@ jumptable_2ce6_case_12:
     mov ax, dseg_9195                ; 0x2cc4
     push ax                          ; 0x2cc7
     push word [bp + 4]               ; 0x2cc8
-    call init_skill_cell_positions   ; 0x2ccb
+    call set_profession_resistances  ; 0x2ccb
     add sp, byte 6                   ; 0x2cce
     jmp short api_idx_0052_NKUS.forward2 ; 0x2cd1
 jumptable_2ce6_case_3:
@@ -95,7 +95,7 @@ jumptable_2ce6_case_3:
     mov ax, dseg_91b3                ; 0x2cd7
     push ax                          ; 0x2cda
     push word [bp + 4]               ; 0x2cdb
-    call init_skill_cell_positions   ; 0x2cde
+    call set_profession_resistances  ; 0x2cde
     add sp, byte 6                   ; 0x2ce1
     jmp short api_idx_0052_NKUS.forward2 ; 0x2ce4
 jumptable_2ce6:
@@ -123,7 +123,7 @@ api_idx_0052_NKUS.forward2:
     mov ax, 0x248                    ; 0x2d0f
     imul word [bp + 4]               ; 0x2d12
     mov bx, ax                       ; 0x2d15
-    mov al, byte [bx + party_records + pc_rec.glyph_set] ; 0x2d17
+    mov al, byte [bx + party_records + pc_rec.race] ; 0x2d17
     sub ah, ah                       ; 0x2d1b
     jmp near api_idx_0052_NKUS.forward3 ; 0x2d1d
 jumptable_2ebe_case_0:
@@ -134,7 +134,7 @@ jumptable_2ebe_case_0:
     mov ax, 0                        ; 0x2d28
     push ax                          ; 0x2d2b
     push word [bp + 4]               ; 0x2d2c
-    call loc_NJOH                    ; 0x2d2f
+    call adjust_member_resistance    ; 0x2d2f
     add sp, byte 8                   ; 0x2d32
     jmp near api_idx_0052_NKUS.forward4 ; 0x2d35
 jumptable_2ebe_case_2:
@@ -153,7 +153,7 @@ jumptable_2ebe_case_2:
     mov ax, 0                        ; 0x2d53
     push ax                          ; 0x2d56
     push word [bp + 4]               ; 0x2d57
-    call loc_NJOH                    ; 0x2d5a
+    call adjust_member_resistance    ; 0x2d5a
     add sp, byte 8                   ; 0x2d5d
 jumptable_2ebe_case_3:
     mov ax, 0x248                    ; 0x2d60
@@ -171,7 +171,7 @@ jumptable_2ebe_case_3:
     mov ax, 0                        ; 0x2d7b
     push ax                          ; 0x2d7e
     push word [bp + 4]               ; 0x2d7f
-    call loc_NJOH                    ; 0x2d82
+    call adjust_member_resistance    ; 0x2d82
     add sp, byte 8                   ; 0x2d85
     jmp near api_idx_0052_NKUS.forward4 ; 0x2d88
 jumptable_2ebe_case_1:
@@ -182,7 +182,7 @@ jumptable_2ebe_case_1:
     mov ax, 0                        ; 0x2d93
     push ax                          ; 0x2d96
     push word [bp + 4]               ; 0x2d97
-    call loc_NJOH                    ; 0x2d9a
+    call adjust_member_resistance    ; 0x2d9a
     add sp, byte 8                   ; 0x2d9d
     jmp near api_idx_0052_NKUS.forward4 ; 0x2da0
 jumptable_2ebe_case_5:
@@ -193,7 +193,7 @@ jumptable_2ebe_case_5:
     mov ax, 0                        ; 0x2dab
     push ax                          ; 0x2dae
     push word [bp + 4]               ; 0x2daf
-    call loc_NJOH                    ; 0x2db2
+    call adjust_member_resistance    ; 0x2db2
     add sp, byte 8                   ; 0x2db5
     mov ax, 0x19                     ; 0x2db8
     push ax                          ; 0x2dbb
@@ -202,7 +202,7 @@ jumptable_2ebe_case_5:
     mov ax, 0                        ; 0x2dc0
     push ax                          ; 0x2dc3
     push word [bp + 4]               ; 0x2dc4
-    call loc_NJOH                    ; 0x2dc7
+    call adjust_member_resistance    ; 0x2dc7
     add sp, byte 8                   ; 0x2dca
     mov ax, 0x19                     ; 0x2dcd
     push ax                          ; 0x2dd0
@@ -211,7 +211,7 @@ jumptable_2ebe_case_5:
     mov ax, 0                        ; 0x2dd5
     push ax                          ; 0x2dd8
     push word [bp + 4]               ; 0x2dd9
-    call loc_NJOH                    ; 0x2ddc
+    call adjust_member_resistance    ; 0x2ddc
     add sp, byte 8                   ; 0x2ddf
     mov ax, 0x19                     ; 0x2de2
     push ax                          ; 0x2de5
@@ -220,7 +220,7 @@ jumptable_2ebe_case_5:
     mov ax, 0                        ; 0x2dea
     push ax                          ; 0x2ded
     push word [bp + 4]               ; 0x2dee
-    call loc_NJOH                    ; 0x2df1
+    call adjust_member_resistance    ; 0x2df1
     add sp, byte 8                   ; 0x2df4
     mov ax, 0x19                     ; 0x2df7
     push ax                          ; 0x2dfa
@@ -229,7 +229,7 @@ jumptable_2ebe_case_5:
     mov ax, 0                        ; 0x2dff
     push ax                          ; 0x2e02
     push word [bp + 4]               ; 0x2e03
-    call loc_NJOH                    ; 0x2e06
+    call adjust_member_resistance    ; 0x2e06
     add sp, byte 8                   ; 0x2e09
     jmp near api_idx_0052_NKUS.forward4 ; 0x2e0c
 jumptable_2ebe_case_6:
@@ -240,7 +240,7 @@ jumptable_2ebe_case_6:
     mov ax, 0                        ; 0x2e17
     push ax                          ; 0x2e1a
     push word [bp + 4]               ; 0x2e1b
-    call loc_NJOH                    ; 0x2e1e
+    call adjust_member_resistance    ; 0x2e1e
     add sp, byte 8                   ; 0x2e21
     mov ax, 0xa                      ; 0x2e24
     push ax                          ; 0x2e27
@@ -249,7 +249,7 @@ jumptable_2ebe_case_6:
     mov ax, 0                        ; 0x2e2c
     push ax                          ; 0x2e2f
     push word [bp + 4]               ; 0x2e30
-    call loc_NJOH                    ; 0x2e33
+    call adjust_member_resistance    ; 0x2e33
     add sp, byte 8                   ; 0x2e36
     mov ax, 0xffec                   ; 0x2e39
     push ax                          ; 0x2e3c
@@ -258,7 +258,7 @@ jumptable_2ebe_case_6:
     mov ax, 0                        ; 0x2e41
     push ax                          ; 0x2e44
     push word [bp + 4]               ; 0x2e45
-    call loc_NJOH                    ; 0x2e48
+    call adjust_member_resistance    ; 0x2e48
     add sp, byte 8                   ; 0x2e4b
     jmp near api_idx_0052_NKUS.forward4 ; 0x2e4e
 jumptable_2ebe_case_8:
@@ -269,7 +269,7 @@ jumptable_2ebe_case_8:
     mov ax, 0                        ; 0x2e59
     push ax                          ; 0x2e5c
     push word [bp + 4]               ; 0x2e5d
-    call loc_NJOH                    ; 0x2e60
+    call adjust_member_resistance    ; 0x2e60
     add sp, byte 8                   ; 0x2e63
     mov ax, 0x14                     ; 0x2e66
     push ax                          ; 0x2e69
@@ -278,7 +278,7 @@ jumptable_2ebe_case_8:
     mov ax, 0                        ; 0x2e6e
     push ax                          ; 0x2e71
     push word [bp + 4]               ; 0x2e72
-    call loc_NJOH                    ; 0x2e75
+    call adjust_member_resistance    ; 0x2e75
     add sp, byte 8                   ; 0x2e78
 jumptable_2ebe_case_9:
     mov ax, 0x14                     ; 0x2e7b
@@ -288,7 +288,7 @@ jumptable_2ebe_case_9:
     mov ax, 0                        ; 0x2e83
     push ax                          ; 0x2e86
     push word [bp + 4]               ; 0x2e87
-    call loc_NJOH                    ; 0x2e8a
+    call adjust_member_resistance    ; 0x2e8a
     add sp, byte 8                   ; 0x2e8d
     jmp short api_idx_0052_NKUS.forward4 ; 0x2e90
 jumptable_2ebe_case_10:
@@ -299,7 +299,7 @@ jumptable_2ebe_case_10:
     mov ax, 0                        ; 0x2e9a
     push ax                          ; 0x2e9d
     push word [bp + 4]               ; 0x2e9e
-    call loc_NJOH                    ; 0x2ea1
+    call adjust_member_resistance    ; 0x2ea1
     add sp, byte 8                   ; 0x2ea4
     mov ax, 0xf                      ; 0x2ea7
     push ax                          ; 0x2eaa
@@ -308,7 +308,7 @@ jumptable_2ebe_case_10:
     mov ax, 0                        ; 0x2eaf
     push ax                          ; 0x2eb2
     push word [bp + 4]               ; 0x2eb3
-    call loc_NJOH                    ; 0x2eb6
+    call adjust_member_resistance    ; 0x2eb6
     add sp, byte 8                   ; 0x2eb9
     jmp short api_idx_0052_NKUS.forward4 ; 0x2ebc
 jumptable_2ebe:
@@ -342,7 +342,7 @@ api_idx_0052_NKUS.forward4:
     mov ax, 0                        ; 0x2ef8
     push ax                          ; 0x2efb
     push word [bp + 4]               ; 0x2efc
-    call loc_NJOH                    ; 0x2eff
+    call adjust_member_resistance    ; 0x2eff
     add sp, byte 8                   ; 0x2f02
     mov ax, 5                        ; 0x2f05
     push ax                          ; 0x2f08
@@ -351,7 +351,7 @@ api_idx_0052_NKUS.forward4:
     mov ax, 0                        ; 0x2f0d
     push ax                          ; 0x2f10
     push word [bp + 4]               ; 0x2f11
-    call loc_NJOH                    ; 0x2f14
+    call adjust_member_resistance    ; 0x2f14
     add sp, byte 8                   ; 0x2f17
 api_idx_0052_NKUS.forward5:
     mov ax, 0x248                    ; 0x2f1a
@@ -366,7 +366,7 @@ api_idx_0052_NKUS.forward5:
     mov ax, 0                        ; 0x2f31
     push ax                          ; 0x2f34
     push word [bp + 4]               ; 0x2f35
-    call loc_NJOH                    ; 0x2f38
+    call adjust_member_resistance    ; 0x2f38
     add sp, byte 8                   ; 0x2f3b
 api_idx_0052_NKUS.forward6:
     mov ax, 0x248                    ; 0x2f3e
@@ -381,7 +381,7 @@ api_idx_0052_NKUS.forward6:
     mov ax, 0                        ; 0x2f55
     push ax                          ; 0x2f58
     push word [bp + 4]               ; 0x2f59
-    call loc_NJOH                    ; 0x2f5c
+    call adjust_member_resistance    ; 0x2f5c
     add sp, byte 8                   ; 0x2f5f
     mov ax, 5                        ; 0x2f62
     push ax                          ; 0x2f65
@@ -390,7 +390,7 @@ api_idx_0052_NKUS.forward6:
     mov ax, 0                        ; 0x2f6a
     push ax                          ; 0x2f6d
     push word [bp + 4]               ; 0x2f6e
-    call loc_NJOH                    ; 0x2f71
+    call adjust_member_resistance    ; 0x2f71
     add sp, byte 8                   ; 0x2f74
 api_idx_0052_NKUS.forward7:
     mov ax, 0x248                    ; 0x2f77
@@ -409,7 +409,7 @@ api_idx_0052_NKUS.forward7:
     mov ax, 0                        ; 0x2f97
     push ax                          ; 0x2f9a
     push word [bp + 4]               ; 0x2f9b
-    call loc_NJOH                    ; 0x2f9e
+    call adjust_member_resistance    ; 0x2f9e
     add sp, byte 8                   ; 0x2fa1
     mov ax, 0x248                    ; 0x2fa4
     imul word [bp + 4]               ; 0x2fa7
@@ -425,7 +425,7 @@ api_idx_0052_NKUS.forward7:
     mov ax, 0                        ; 0x2fbd
     push ax                          ; 0x2fc0
     push word [bp + 4]               ; 0x2fc1
-    call loc_NJOH                    ; 0x2fc4
+    call adjust_member_resistance    ; 0x2fc4
     add sp, byte 8                   ; 0x2fc7
 api_idx_0052_NKUS.forward8:
     mov word [bp - 4], 0             ; 0x2fca
@@ -434,8 +434,8 @@ api_idx_0052_NKUS.back1:
     imul word [bp + 4]               ; 0x2fd2
     add ax, word [bp - 4]            ; 0x2fd5
     mov bx, ax                       ; 0x2fd8
-    mov al, byte [bx + party_records + pc_rec.prev] ; 0x2fda
-    mov byte [bx + party_records + pc_rec.cur], al ; 0x2fde
+    mov al, byte [bx + party_records + pc_rec.base_resist] ; 0x2fda
+    mov byte [bx + party_records + pc_rec.resist], al ; 0x2fde
     inc word [bp - 4]                ; 0x2fe2
     mov ax, word [bp - 4]            ; 0x2fe5
     cmp ax, strict word 0xe          ; 0x2fe8
@@ -446,7 +446,7 @@ api_idx_0052_NKUS.back2:
     imul word [bp + 4]               ; 0x2ff5
     add ax, word [bp - 4]            ; 0x2ff8
     mov bx, ax                       ; 0x2ffb
-    mov al, byte [bx + party_records + pc_rec.order] ; 0x2ffd
+    mov al, byte [bx + party_records + pc_rec.equipped] ; 0x2ffd
     sub ah, ah                       ; 0x3001
     cmp ax, 0xff                     ; 0x3003
     jne short api_idx_0052_NKUS.forward9 ; 0x3006
@@ -459,7 +459,7 @@ api_idx_0052_NKUS.back3:
     push ax                          ; 0x3016
     add ax, word [bp - 4]            ; 0x3017
     mov bx, ax                       ; 0x301a
-    mov al, byte [bx + party_records + pc_rec.order] ; 0x301c
+    mov al, byte [bx + party_records + pc_rec.equipped] ; 0x301c
     sub ah, ah                       ; 0x3020
     mov cx, 0xc                      ; 0x3022
     imul cx                          ; 0x3025
@@ -485,7 +485,7 @@ api_idx_0052_NKUS.back3:
     imul word [bp + 4]               ; 0x3053
     add ax, word [bp - 6]            ; 0x3056
     mov bx, ax                       ; 0x3059
-    mov al, byte [bx + party_records + pc_rec.cur] ; 0x305b
+    mov al, byte [bx + party_records + pc_rec.resist] ; 0x305b
     sub ah, ah                       ; 0x305f
     add ax, word [bp - 8]            ; 0x3061
     push ax                          ; 0x3064
@@ -498,7 +498,7 @@ api_idx_0052_NKUS.back3:
     add ax, word [bp - 6]            ; 0x3074
     mov bx, ax                       ; 0x3077
     pop ax                           ; 0x3079
-    mov byte [bx + party_records + pc_rec.cur], al ; 0x307a
+    mov byte [bx + party_records + pc_rec.resist], al ; 0x307a
     inc word [bp - 0xa]              ; 0x307e
     mov ax, word [bp - 0xa]          ; 0x3081
     cmp ax, strict word 2            ; 0x3084
@@ -591,7 +591,7 @@ api_idx_0052_NKUS.back4:
     imul word [bp + 4]               ; 0x313b
     add ax, word [bp - 2]            ; 0x313e
     mov bx, ax                       ; 0x3141
-    mov al, byte [bx + party_records + pc_rec.order] ; 0x3143
+    mov al, byte [bx + party_records + pc_rec.equipped] ; 0x3143
     sub ah, ah                       ; 0x3147
     cmp ax, 0xff                     ; 0x3149
     je short api_idx_0052_NKUS.forward14 ; 0x314c
@@ -600,7 +600,7 @@ api_idx_0052_NKUS.back4:
     mov ax, 0x248                    ; 0x3152
     imul word [bp + 4]               ; 0x3155
     push ax                          ; 0x3158
-    mov al, byte [bx + party_records + pc_rec.order] ; 0x3159
+    mov al, byte [bx + party_records + pc_rec.equipped] ; 0x3159
     sub ah, ah                       ; 0x315d
     mov cx, 0xc                      ; 0x315f
     imul cx                          ; 0x3162
@@ -629,8 +629,8 @@ api_idx_0052_NKUS.forward14:
     mov ax, 0x248                    ; 0x3198
     imul word [bp + 4]               ; 0x319b
     mov bx, ax                       ; 0x319e
-    mov byte [bx + party_records + pc_rec.count], 0xa ; 0x31a0
-    mov al, byte [bx + party_records + pc_rec.count] ; 0x31a5
+    mov byte [bx + party_records + pc_rec.armor_class], 0xa ; 0x31a0
+    mov al, byte [bx + party_records + pc_rec.armor_class] ; 0x31a5
     cbw                              ; 0x31a9
     mov cx, 0                        ; 0x31aa
     cmp byte [bx + party_records + pc_rec.stat + 0x5], 0xf ; 0x31ad
@@ -638,7 +638,7 @@ api_idx_0052_NKUS.forward14:
     mov cx, 1                        ; 0x31b4
 api_idx_0052_NKUS.forward15:
     sub ax, cx                       ; 0x31b7
-    mov byte [bx + party_records + pc_rec.count], al ; 0x31b9
+    mov byte [bx + party_records + pc_rec.armor_class], al ; 0x31b9
     cbw                              ; 0x31bd
     mov cx, 0                        ; 0x31be
     cmp byte [bx + party_records + pc_rec.stat + 0x5], 0x11 ; 0x31c1
@@ -646,25 +646,25 @@ api_idx_0052_NKUS.forward15:
     mov cx, 1                        ; 0x31c8
 api_idx_0052_NKUS.forward16:
     sub ax, cx                       ; 0x31cb
-    mov byte [bx + party_records + pc_rec.count], al ; 0x31cd
-    mov al, byte [bx + party_records + pc_rec.count] ; 0x31d1
+    mov byte [bx + party_records + pc_rec.armor_class], al ; 0x31cd
+    mov al, byte [bx + party_records + pc_rec.armor_class] ; 0x31d1
     cbw                              ; 0x31d5
     mov cx, 0                        ; 0x31d6
-    cmp byte [bx + party_records + pc_rec.glyph_set], 5 ; 0x31d9
+    cmp byte [bx + party_records + pc_rec.race], 5 ; 0x31d9
     jne short api_idx_0052_NKUS.forward17 ; 0x31de
     mov cx, 2                        ; 0x31e0
 api_idx_0052_NKUS.forward17:
     sub ax, cx                       ; 0x31e3
-    mov byte [bx + party_records + pc_rec.count], al ; 0x31e5
+    mov byte [bx + party_records + pc_rec.armor_class], al ; 0x31e5
     cmp byte [bx + party_records + pc_rec.profession], 0xd ; 0x31e9
     je short api_idx_0052_NKUS.forward18 ; 0x31ee
     cmp byte [bx + party_records + pc_rec.profession], 0xc ; 0x31f0
     jne short api_idx_0052_NKUS.forward20 ; 0x31f5
 api_idx_0052_NKUS.forward18:
     mov ax, 0xa                      ; 0x31f7
-    cmp word [bx + party_records + pc_rec.power_cap], byte 0x14 ; 0x31fa
+    cmp word [bx + party_records + pc_rec.level], byte 0x14 ; 0x31fa
     jg short api_idx_0052_NKUS.forward19 ; 0x31ff
-    mov ax, word [bx + party_records + pc_rec.power_cap] ; 0x3201
+    mov ax, word [bx + party_records + pc_rec.level] ; 0x3201
     mov cx, 2                        ; 0x3205
     cwd                              ; 0x3208
     idiv cx                          ; 0x3209
@@ -676,27 +676,27 @@ api_idx_0052_NKUS.forward19:
     cwd                              ; 0x3217
     idiv cx                          ; 0x3218
     add word [bp - 2], ax            ; 0x321a
-    mov al, byte [bx + party_records + pc_rec.count] ; 0x321d
+    mov al, byte [bx + party_records + pc_rec.armor_class] ; 0x321d
     cbw                              ; 0x3221
     sub ax, word [bp - 2]            ; 0x3222
-    mov byte [bx + party_records + pc_rec.count], al ; 0x3225
+    mov byte [bx + party_records + pc_rec.armor_class], al ; 0x3225
 api_idx_0052_NKUS.forward20:
     mov word [bp - 2], 3             ; 0x3229
 api_idx_0052_NKUS.back5:
     mov ax, 0x248                    ; 0x322e
     imul word [bp + 4]               ; 0x3231
     mov bx, ax                       ; 0x3234
-    mov al, byte [bx + party_records + pc_rec.count] ; 0x3236
+    mov al, byte [bx + party_records + pc_rec.armor_class] ; 0x3236
     add bx, word [bp - 2]            ; 0x323a
-    mov byte [bx + party_records + pc_rec.count], al ; 0x323d
-    mov al, byte [bx + party_records + pc_rec.order] ; 0x3241
+    mov byte [bx + party_records + pc_rec.armor_class], al ; 0x323d
+    mov al, byte [bx + party_records + pc_rec.equipped] ; 0x3241
     sub ah, ah                       ; 0x3245
     cmp ax, 0xff                     ; 0x3247
     je short api_idx_0052_NKUS.forward21 ; 0x324a
     mov ax, 0x248                    ; 0x324c
     imul word [bp + 4]               ; 0x324f
     push ax                          ; 0x3252
-    mov al, byte [bx + party_records + pc_rec.order] ; 0x3253
+    mov al, byte [bx + party_records + pc_rec.equipped] ; 0x3253
     sub ah, ah                       ; 0x3257
     mov cx, 0xc                      ; 0x3259
     imul cx                          ; 0x325c
@@ -712,7 +712,7 @@ api_idx_0052_NKUS.back5:
     add ax, word [bp - 2]            ; 0x3272
     mov bx, ax                       ; 0x3275
     pop ax                           ; 0x3277
-    sub byte [bx + party_records + pc_rec.count], al ; 0x3278
+    sub byte [bx + party_records + pc_rec.armor_class], al ; 0x3278
 api_idx_0052_NKUS.forward21:
     inc word [bp - 2]                ; 0x327c
     mov ax, word [bp - 2]            ; 0x327f

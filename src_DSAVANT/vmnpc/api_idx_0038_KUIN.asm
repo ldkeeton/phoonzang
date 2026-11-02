@@ -90,8 +90,8 @@ api_idx_0038_KUIN:
     mov ax, 0x248                    ; 0x48b9
     imul word [bp + 4]               ; 0x48bc
     mov bx, ax                       ; 0x48bf
-    push word [bx + party_records + pc_rec.f_0016] ; 0x48c1
-    push word [bx + party_records + pc_rec.f_0014] ; 0x48c5
+    push word [bx + party_records + pc_rec.gold + 0x2] ; 0x48c1
+    push word [bx + party_records + pc_rec.gold] ; 0x48c5
     call format_long_decimal         ; 0x48c9
     add sp, byte 6                   ; 0x48cc
     mov ax, word [bp - 6]            ; 0x48cf

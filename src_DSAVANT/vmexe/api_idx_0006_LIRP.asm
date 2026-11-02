@@ -13,7 +13,7 @@ api_idx_0006_LIRP:
     mov ax, word [bp + 4]            ; 0x2c9e
     shl ax, 1                        ; 0x2ca1
     mov bx, ax                       ; 0x2ca3
-    mov bx, word [bx + party_char]   ; 0x2ca5
+    mov bx, word [bx + battle_groups] ; 0x2ca5
     mov al, byte [bx + member_rec.charge + 0x3] ; 0x2ca9
     sub ah, ah                       ; 0x2cad
     mov cx, 5                        ; 0x2caf
@@ -60,7 +60,7 @@ api_idx_0006_LIRP:
     mov ax, word [bp + 4]            ; 0x2d11
     shl ax, 1                        ; 0x2d14
     mov bx, ax                       ; 0x2d16
-    mov bx, word [bx + party_char]   ; 0x2d18
+    mov bx, word [bx + battle_groups] ; 0x2d18
     mov ax, word [bx + si]           ; 0x2d1c
     mov cx, word [bp + 0x10]         ; 0x2d1e
     add cx, word [bp - 4]            ; 0x2d21
@@ -85,8 +85,8 @@ api_idx_0006_LIRP:
     mov ax, word [bp + 4]            ; 0x2d54
     shl ax, 1                        ; 0x2d57
     mov bx, ax                       ; 0x2d59
-    mov bx, word [bx + party_char]   ; 0x2d5b
-    mov al, byte [bx + member_rec.item_count] ; 0x2d5f
+    mov bx, word [bx + battle_groups] ; 0x2d5b
+    mov al, byte [bx + member_rec.unit_count] ; 0x2d5f
     sub ah, ah                       ; 0x2d63
     cmp ax, word [bp - 2]            ; 0x2d65
     jg short .back1                  ; 0x2d68

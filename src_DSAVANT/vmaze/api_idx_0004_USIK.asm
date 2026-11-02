@@ -52,7 +52,7 @@ api_idx_0004_USIK:
     push ax                          ; 0x186c
     call play_sound_effect           ; 0x186d
     pop cx                           ; 0x1870
-    mov word [bss_831a], 1           ; 0x1871
+    mov word [maze_gate_frame], 1    ; 0x1871
     call redraw_maze_view            ; 0x1877
     mov ax, 0x10                     ; 0x187a
     push ax                          ; 0x187d
@@ -67,13 +67,13 @@ api_idx_0004_USIK:
     push ax                          ; 0x1893
     call wait_for_hotspot_timeout    ; 0x1894
     pop cx                           ; 0x1897
-    mov word [bss_831a], 2           ; 0x1898
+    mov word [maze_gate_frame], 2    ; 0x1898
     call redraw_maze_view            ; 0x189e
     mov ax, 2                        ; 0x18a1
     push ax                          ; 0x18a4
     call wait_for_hotspot_timeout    ; 0x18a5
     pop cx                           ; 0x18a8
-    mov word [bss_831a], 0           ; 0x18a9
+    mov word [maze_gate_frame], 0    ; 0x18a9
     push word [bp - 4]               ; 0x18af
     call api_idx_000e_NSGM           ; 0x18b2
     pop cx                           ; 0x18b5

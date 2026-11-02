@@ -18,8 +18,8 @@ loc_QTKU:
     imul word [bp + 4]
     mov bx, ax
     mov byte [bx + party_records + pc_rec.state], 3
-    mov word [bx + party_records + pc_rec.pair_a], 0
-    mov word [bx + party_records + pc_rec.pair_b], 0
+    mov word [bx + party_records + pc_rec.hp], 0
+    mov word [bx + party_records + pc_rec.stamina], 0
     cmp word [bp + 6], byte 0
     jle short .return1
     mov ax, 1

@@ -63,10 +63,10 @@ api_idx_0054_SSQP.forward6:
     mov ax, 0x248                    ; 0x9dc0
     imul word [bss_b04e]             ; 0x9dc3
     mov bx, ax                       ; 0x9dc7
-    cmp word [bx + party_records + pc_rec.f_0016], byte 0 ; 0x9dc9
+    cmp word [bx + party_records + pc_rec.gold + 0x2], byte 0 ; 0x9dc9
     jg short api_idx_0054_SSQP.forward7 ; 0x9dce
     jne short api_idx_0054_SSQP.forward8 ; 0x9dd0
-    cmp word [bx + party_records + pc_rec.f_0014], byte 0x32 ; 0x9dd2
+    cmp word [bx + party_records + pc_rec.gold], byte 0x32 ; 0x9dd2
     jb short api_idx_0054_SSQP.forward8 ; 0x9dd7
 api_idx_0054_SSQP.forward7:
     jmp short api_idx_0054_SSQP.forward11 ; 0x9dd9
@@ -77,10 +77,10 @@ api_idx_0054_SSQP.forward8:
     mov ax, 0x248                    ; 0x9de3
     imul word [bss_b04e]             ; 0x9de6
     mov bx, ax                       ; 0x9dea
-    cmp word [bx + party_records + pc_rec.f_0016], byte 0 ; 0x9dec
+    cmp word [bx + party_records + pc_rec.gold + 0x2], byte 0 ; 0x9dec
     jg short api_idx_0054_SSQP.forward9 ; 0x9df1
     jne short api_idx_0054_SSQP.forward10 ; 0x9df3
-    cmp word [bx + party_records + pc_rec.f_0014], byte 0x32 ; 0x9df5
+    cmp word [bx + party_records + pc_rec.gold], byte 0x32 ; 0x9df5
     jb short api_idx_0054_SSQP.forward10 ; 0x9dfa
 api_idx_0054_SSQP.forward9:
     jmp short api_idx_0054_SSQP.forward11 ; 0x9dfc
@@ -96,8 +96,8 @@ api_idx_0054_SSQP.forward11:
     mov ax, 0x248                    ; 0x9e0d
     imul word [bss_b04e]             ; 0x9e10
     mov bx, ax                       ; 0x9e14
-    add word [bx + party_records + pc_rec.f_0014], byte -50 ; 0x9e16
-    adc word [bx + party_records + pc_rec.f_0016], byte -1 ; 0x9e1b
+    add word [bx + party_records + pc_rec.gold], byte -50 ; 0x9e16
+    adc word [bx + party_records + pc_rec.gold + 0x2], byte -1 ; 0x9e1b
     add word [bss_91b6], byte 0x32   ; 0x9e20
     adc word [bss_91b8], byte 0      ; 0x9e25
     cmp word [bss_9d68], byte 0      ; 0x9e2a

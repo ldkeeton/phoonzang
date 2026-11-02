@@ -5,7 +5,7 @@ loc_JUPL:
     mov ax, 0x248                    ; 0x4c88
     imul word [bp + 4]               ; 0x4c8b
     mov bx, ax                       ; 0x4c8e
-    cmp byte [bx + party_records + pc_rec.glyph_set], 5 ; 0x4c90
+    cmp byte [bx + party_records + pc_rec.race], 5 ; 0x4c90
     jne short .forward1              ; 0x4c95
     mov ax, 0x180                    ; 0x4c97
     push ax                          ; 0x4c9a

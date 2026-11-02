@@ -5,7 +5,7 @@ api_idx_0004_GJKI:
     mov ax, 0x248                    ; 0x488a
     imul word [bp + 4]               ; 0x488d
     mov bx, ax                       ; 0x4890
-    cmp word [bx + party_records + pc_rec.power_cap], byte 0x14 ; 0x4892
+    cmp word [bx + party_records + pc_rec.level], byte 0x14 ; 0x4892
     jle short .forward1              ; 0x4897
     ret                              ; 0x4899
 .forward1:
@@ -80,7 +80,7 @@ api_idx_0004_GJKI.forward4:
     mov ax, 0x248                    ; 0x491d
     imul word [bp + 4]               ; 0x4920
     mov bx, ax                       ; 0x4923
-    mov ax, word [bx + party_records + pc_rec.power_cap] ; 0x4925
+    mov ax, word [bx + party_records + pc_rec.level] ; 0x4925
     push ax                          ; 0x4929
     mov al, byte [bx + party_records + pc_rec.power_floor] ; 0x492a
     sub ah, ah                       ; 0x492e

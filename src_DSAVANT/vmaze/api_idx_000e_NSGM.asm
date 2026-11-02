@@ -95,7 +95,7 @@ api_idx_000e_NSGM:
     mov ax, 0x248                    ; 0x170f
     imul word [bp - 0xe]             ; 0x1712
     mov bx, ax                       ; 0x1715
-    mov al, byte [bx + party_records + pc_rec.cur + 0x9] ; 0x1717
+    mov al, byte [bx + party_records + pc_rec.resist + 0x9] ; 0x1717
     sub ah, ah                       ; 0x171b
     mov cx, ax                       ; 0x171d
     pop ax                           ; 0x171f

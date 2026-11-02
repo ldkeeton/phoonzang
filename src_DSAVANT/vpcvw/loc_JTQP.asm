@@ -3,7 +3,7 @@ loc_JTQP:
     mov ax, 0                        ; 0x40b7
     call aztec_csav                  ; 0x40ba
     push word [bp + 4]               ; 0x40bd
-    call api_idx_007c_OKMO           ; 0x40c0
+    call draw_member_summary_panel   ; 0x40c0
     pop cx                           ; 0x40c3
     push word [bp + 4]               ; 0x40c4
     call api_idx_0080_MHMQ           ; 0x40c7

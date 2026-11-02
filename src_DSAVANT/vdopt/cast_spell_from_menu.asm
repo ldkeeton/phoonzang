@@ -79,10 +79,10 @@ cast_spell_from_menu:
     imul word [bp + 4]               ; 0x4699
     mov bx, ax                       ; 0x469c
     pop ax                           ; 0x469e
-    sub word [bx + party_records + pc_rec.pair_b], ax ; 0x469f
-    cmp word [bx + party_records + pc_rec.pair_b], byte 0 ; 0x46a3
+    sub word [bx + party_records + pc_rec.stamina], ax ; 0x469f
+    cmp word [bx + party_records + pc_rec.stamina], byte 0 ; 0x46a3
     jge short .forward4              ; 0x46a8
-    mov word [bx + party_records + pc_rec.pair_b], 0 ; 0x46aa
+    mov word [bx + party_records + pc_rec.stamina], 0 ; 0x46aa
     mov ax, 6                        ; 0x46b0
     push ax                          ; 0x46b3
     call random_below                ; 0x46b4

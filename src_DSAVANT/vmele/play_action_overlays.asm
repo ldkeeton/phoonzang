@@ -29,8 +29,8 @@ play_action_overlays:
     jne short .back2                 ; 0x2d27
     cmp word [bp - 2], byte 1        ; 0x2d29
     jne short .back2                 ; 0x2d2d
-    mov bx, word [party_member_ext_1] ; 0x2d2f
-    cmp byte [bx + party_member_ext_1_rec.f_00d8], 0 ; 0x2d33
+    mov bx, word [battle_group_ext_1] ; 0x2d2f
+    cmp byte [bx + battle_group_ext_1_rec.f_00d8], 0 ; 0x2d33
     jbe short .back2                 ; 0x2d38
     mov ax, 0x10                     ; 0x2d3a
     push ax                          ; 0x2d3d

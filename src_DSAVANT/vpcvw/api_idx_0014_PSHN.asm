@@ -6,7 +6,7 @@ api_idx_0014_PSHN:
     mov word [game_state], ax        ; 0x6175
     mov word [banner_offset], 0x14   ; 0x6178
     mov word [banner_plain_flag], 0  ; 0x617e
-    mov word [loc_TTSP_bss184], 0           ; 0x6184
+    mov word [banner_animation_frame], 0 ; 0x6184
     mov word [bss_940e], 0xffff      ; 0x618a
     cmp ax, strict word 0xd          ; 0x6190
     je short .forward1               ; 0x6193
@@ -94,8 +94,8 @@ api_idx_0014_PSHN:
     push ax                          ; 0x6245
     call call_cache_area             ; 0x6246
     add sp, byte 0xc                 ; 0x6249
-    mov word [api_idx_007c_OKMO_bss19], dx          ; 0x624c
-    mov word [api_idx_007c_OKMO_bss24], ax          ; 0x6250
+    mov word [member_screen_cache_high], dx ; 0x624c
+    mov word [member_screen_cache_low], ax ; 0x6250
     mov ax, 0                        ; 0x6253
     push ax                          ; 0x6256
     mov ax, 2                        ; 0x6257
@@ -110,8 +110,8 @@ api_idx_0014_PSHN:
     push ax                          ; 0x626a
     call call_cache_area             ; 0x626b
     add sp, byte 0xc                 ; 0x626e
-    mov word [api_idx_007c_OKMO_bss44], dx          ; 0x6271
-    mov word [api_idx_007c_OKMO_bss49], ax          ; 0x6275
+    mov word [member_detail_cache_high], dx ; 0x6271
+    mov word [member_detail_cache_low], ax ; 0x6275
     mov ax, 0                        ; 0x6278
     push ax                          ; 0x627b
     mov ax, 2                        ; 0x627c
@@ -812,16 +812,16 @@ api_idx_0014_PSHN.forward16:
     push ax                          ; 0x68a3
     mov ax, 1                        ; 0x68a4
     push ax                          ; 0x68a7
-    push word [api_idx_007c_OKMO_bss44]             ; 0x68a8
-    push word [api_idx_007c_OKMO_bss49]             ; 0x68ac
+    push word [member_detail_cache_high] ; 0x68a8
+    push word [member_detail_cache_low] ; 0x68ac
     call call_restore_screen         ; 0x68b0
     add sp, byte 8                   ; 0x68b3
     mov ax, 0                        ; 0x68b6
     push ax                          ; 0x68b9
     mov ax, 1                        ; 0x68ba
     push ax                          ; 0x68bd
-    push word [api_idx_007c_OKMO_bss19]             ; 0x68be
-    push word [api_idx_007c_OKMO_bss24]             ; 0x68c2
+    push word [member_screen_cache_high] ; 0x68be
+    push word [member_screen_cache_low] ; 0x68c2
     call call_restore_screen         ; 0x68c6
     add sp, byte 8                   ; 0x68c9
     mov ax, 0                        ; 0x68cc

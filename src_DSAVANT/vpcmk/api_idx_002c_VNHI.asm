@@ -37,7 +37,7 @@ api_idx_002c_VNHI:
     add sp, byte 4                   ; 0x6a8d
     mov word [banner_offset], 0x14   ; 0x6a90
     mov word [banner_plain_flag], 0  ; 0x6a96
-    mov word [loc_TTSP_bss184], 0           ; 0x6a9c
+    mov word [banner_animation_frame], 0 ; 0x6a9c
     mov ax, 0                        ; 0x6aa2
     push ax                          ; 0x6aa5
     mov ax, 2                        ; 0x6aa6

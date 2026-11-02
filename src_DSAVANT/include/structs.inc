@@ -12,7 +12,7 @@ struc realm_point_text_positions_rec
 endstruc
 
 ; records at DS 0x03dc
-struc view_depth_y_rec
+struc view_geometry_rec
     .f_0000: resb 10
     .f_000a: resb 2
     .f_000c: resb 4
@@ -65,42 +65,39 @@ endstruc
 ; records at DS 0x5bf4
 struc pc_rec
     .name: resb 8
-    .f_0008: resb 2
-    .f_000a: resb 2
+    .age_days: resb 4
     .experience: resb 4
-    .f_0010: resb 2
-    .f_0012: resb 2
-    .f_0014: resb 2
-    .f_0016: resb 2
-    .pair_a: resb 4
-    .pair_b: resb 4
-    .power_total: resb 2
-    .f_0022: resb 2
-    .power_cap: resb 2
-    .f_0026: resb 2
+    .marks: resb 4
+    .gold: resb 4
+    .hp: resb 4
+    .stamina: resb 4
+    .carried_weight: resb 2
+    .carry_capacity: resb 2
+    .level: resb 2
+    .deaths: resb 2
     .realm_points: resb 24
     .item_slots: resb 240
     .hand_attack: resb 36
-    .order: resb 8
+    .equipped: resb 8
     .spell_school: resb 4
     .f_0160: resb 6
     .status: resb 10
     .stat: resb 8
     .skills: resb 34
-    .prev: resb 14
-    .cur: resb 14
-    .count: resb 8
+    .base_resist: resb 14
+    .resist: resb 14
+    .armor_class: resb 8
     .pad_01be: resb 120
     .kind: resb 1
-    .glyph_set: resb 1
+    .race: resb 1
     .gender: resb 1
     .profession: resb 1
-    .f_023a: resb 1
+    .rank: resb 1
     .state: resb 1
-    .attack: resb 1
-    .defense: resb 1
-    .f_023e: resb 1
-    .f_023f: resb 1
+    .hp_regen: resb 1
+    .hp_drain: resb 1
+    .poison_strength: resb 1
+    .stamina_drain: resb 1
     .f_0240: resb 1
     .f_0241: resb 2
     .adjusted_stat4: resb 1
@@ -152,14 +149,14 @@ endstruc
 
 ; records pointed at by DS 0x8482
 struc member_rec
-    .f_0000: resb 2
-    .item_charges: resb 2
-    .item_charge_cap: resb 2
-    .item_timer: resb 2
-    .item_timer_max: resb 2
+    .unit_level: resb 2
+    .unit_hp: resb 2
+    .unit_hp_max: resb 2
+    .unit_stamina: resb 2
+    .unit_stamina_max: resb 2
     .f_000a: resb 2
     .f_000c: resb 2
-    .item_counter: resb 10
+    .unit_status: resb 10
     .f_0018: resb 3
     .f_001b: resb 1
     .f_001c: resb 2
@@ -167,16 +164,16 @@ struc member_rec
     .f_001f: resb 1
     .f_0020: resb 1
     .f_0021: resb 1
-    .item_state: resb 1
-    .item_resist: resb 1
-    .item_countdown: resb 1
+    .unit_state: resb 1
+    .unit_poison_strength: resb 1
+    .unit_countdown: resb 1
     .f_0025: resb 1
-    .f_0026: resb 1
-    .f_0027: resb 1
-    .f_0028: resb 1
-    .item_level: resb 1
-    .item_cell: resb 1
-    .item_phase: resb 353
+    .unit_reflex_mod: resb 1
+    .unit_aim_mod: resb 1
+    .unit_strike_mod: resb 1
+    .unit_speed_mod: resb 1
+    .unit_cell: resb 1
+    .unit_phase: resb 353
     .charge: resb 6
     .delay: resb 6
     .f_0198: resb 1
@@ -188,7 +185,7 @@ struc member_rec
     .kind: resb 1
     .slot: resb 1
     .name_row: resb 1
-    .item_count: resb 1
+    .unit_count: resb 1
     .f_01a2: resb 1
 endstruc
 
@@ -208,7 +205,7 @@ endstruc
 ; records pointed at by DS 0x8490
 struc member_ext
     .f_0000: resb 64
-    .reward: resb 4
+    .experience: resb 4
     .pad_0044: resb 13
     .f_0051: resb 41
     .f_007a: resb 3
@@ -240,7 +237,7 @@ struc member_ext
     .f_00da: resb 1
     .f_00db: resb 1
     .f_00dc: resb 1
-    .attack: resb 1
+    .hp_regen: resb 1
     .f_00de: resb 2
     .bitmap_bit: resb 2
     .flags: resb 2
@@ -249,7 +246,7 @@ struc member_ext
 endstruc
 
 ; records pointed at by DS 0x8492
-struc party_member_ext_1_rec
+struc battle_group_ext_1_rec
     .pad_0000: resb 216
     .f_00d8: resb 1
 endstruc

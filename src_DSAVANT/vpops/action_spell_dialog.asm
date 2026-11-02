@@ -957,7 +957,7 @@ action_spell_dialog.forward23:
     mov ax, 0x248                    ; 0x2581
     imul word [bp + 4]               ; 0x2584
     mov bx, ax                       ; 0x2587
-    mov ax, word [bx + party_records + pc_rec.power_cap] ; 0x2589
+    mov ax, word [bx + party_records + pc_rec.level] ; 0x2589
     push ax                          ; 0x258d
     mov ax, 6                        ; 0x258e
     imul word [bp - 0x3c]            ; 0x2591
@@ -1226,7 +1226,7 @@ action_spell_dialog.forward36:
     mov ax, 0x248                    ; 0x280b
     imul word [bp + 4]               ; 0x280e
     mov bx, ax                       ; 0x2811
-    mov ax, word [bx + party_records + pc_rec.power_cap] ; 0x2813
+    mov ax, word [bx + party_records + pc_rec.level] ; 0x2813
     push ax                          ; 0x2817
     mov ax, 6                        ; 0x2818
     imul word [bp - 0x3c]            ; 0x281b

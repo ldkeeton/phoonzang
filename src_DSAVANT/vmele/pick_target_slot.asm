@@ -5,7 +5,7 @@ pick_target_slot:
     mov ax, word [bp + 4]            ; 0x0423
     shl ax, 1                        ; 0x0426
     mov bx, ax                       ; 0x0428
-    mov bx, word [bx + party_char_ext] ; 0x042a
+    mov bx, word [bx + battle_group_ext] ; 0x042a
     cmp byte [bx + member_ext.class_id], 2 ; 0x042e
     jge short .forward1              ; 0x0433
     mov ax, 0xffff                   ; 0x0435

@@ -142,7 +142,7 @@ start_melee_battle:
     mov cx, word [bp - 2]            ; 0x3521
     shl cx, 1                        ; 0x3524
     mov bx, cx                       ; 0x3526
-    mov word [bx + party_char_ext], ax ; 0x3528
+    mov word [bx + battle_group_ext], ax ; 0x3528
     mov ax, 0x1a4                    ; 0x352c
     push ax                          ; 0x352f
     call aztec_malloc                ; 0x3530
@@ -150,10 +150,10 @@ start_melee_battle:
     mov cx, word [bp - 2]            ; 0x3534
     shl cx, 1                        ; 0x3537
     mov bx, cx                       ; 0x3539
-    mov word [bx + party_char], ax   ; 0x353b
-    cmp word [bx + party_char_ext], byte 0 ; 0x353f
+    mov word [bx + battle_groups], ax ; 0x353b
+    cmp word [bx + battle_group_ext], byte 0 ; 0x353f
     je short .forward4               ; 0x3544
-    cmp word [bx + party_char], byte 0 ; 0x3546
+    cmp word [bx + battle_groups], byte 0 ; 0x3546
     jne short .forward5              ; 0x354b
 .forward4:
     mov ax, 0x1d                     ; 0x354d
@@ -255,7 +255,7 @@ start_melee_battle:
     mov word [npc_melee], ax         ; 0x363c
     cmp word [party_return_state], byte 0x12 ; 0x363f
     jne short .forward9              ; 0x3644
-    cmp word [party_member_count], byte 1 ; 0x3646
+    cmp word [monster_group_count], byte 1 ; 0x3646
     jle short .forward9              ; 0x364b
     mov ax, 1                        ; 0x364d
     push ax                          ; 0x3650
@@ -265,7 +265,7 @@ start_melee_battle:
     push ax                          ; 0x3658
     call wait_for_hotspot_timeout    ; 0x3659
     pop cx                           ; 0x365c
-    push word [party_member_ext_1]   ; 0x365d
+    push word [battle_group_ext_1]   ; 0x365d
     lea ax, word [bp - 0x56]         ; 0x3661
     push ax                          ; 0x3664
     call aztec_strcpy                ; 0x3665
@@ -293,7 +293,7 @@ start_melee_battle:
     call show_centered_message       ; 0x3696
     add sp, byte 4                   ; 0x3699
 .forward9:
-    call advance_melee_item_slots    ; 0x369c
+    call tick_party_combatants       ; 0x369c
     les bx, word [tick_counter_ptr]  ; 0x369f
     mov ax, word [es:bx]             ; 0x36a3
     mov dx, word [es:bx + 2]         ; 0x36a6

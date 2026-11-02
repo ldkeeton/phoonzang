@@ -607,8 +607,8 @@ loc_HUIS:
     adc word [bx + party_records + pc_rec.experience + 0x2], dx ; 0x5d44
     mov ax, word [bp - 0x88]         ; 0x5d48
     mov dx, word [bp - 0x86]         ; 0x5d4c
-    add word [bx + party_records + pc_rec.f_0014], ax ; 0x5d50
-    adc word [bx + party_records + pc_rec.f_0016], dx ; 0x5d54
+    add word [bx + party_records + pc_rec.gold], ax ; 0x5d50
+    adc word [bx + party_records + pc_rec.gold + 0x2], dx ; 0x5d54
 .forward42:
     inc word [bp - 2]                ; 0x5d58
 .forward43:

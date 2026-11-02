@@ -1,10 +1,10 @@
 /* Map imported Bane character codes to the DSAVANT character kind. */
 int
-map_bane_character_kind(glyph_set, gender, profession)
-int glyph_set, gender, profession;
+map_bane_character_kind(race, gender, profession)
+int race, gender, profession;
 {
 	/* These six glyph sets have a direct kind mapping with gender variants. */
-	switch (glyph_set) {
+	switch (race) {
 	case 5: return gender == 0 ? 13 : 12;
 	case 6: return 26;
 	case 7: return 24;
@@ -17,7 +17,7 @@ int glyph_set, gender, profession;
 	if (profession == 13)
 		return 18;
 
-	if (glyph_set == 1) {
+	if (race == 1) {
 		/* Glyph set 1 uses its own profession-to-kind table. */
 		switch (profession) {
 		case 0:
@@ -36,7 +36,7 @@ int glyph_set, gender, profession;
 		}
 	}
 
-	if (glyph_set == 2 || glyph_set == 4 || glyph_set == 3) {
+	if (race == 2 || race == 4 || race == 3) {
 		/* Glyph sets 2, 3, and 4 share another profession table. */
 		switch (profession) {
 		case 0:

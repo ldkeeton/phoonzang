@@ -30,10 +30,9 @@ struct item_record {
 	struct item_dice level_spec;		/* +0x1a: rolled into the slot's level */
 	union item_effect u;			/* +0x1e: key (kind 4) or damage */
 	int spell_code;			/* +0x22: power * 256 + spell */
-	int cell_value;			/* +0x24: copied to the slot's value */
+	int weight;			/* +0x24: copied to the slot's weight */
 	char pad26[2];				/* +0x26 through +0x27 */
-	unsigned char slot_pos_x;		/* +0x28: copied to the slot's pos[0] */
-	unsigned char slot_pos_y;		/* +0x29: copied to the slot's pos[1] */
+	unsigned char resist_bonus[2];		/* +0x28: copied to the slot's resist_bonus */
 	unsigned char hand_values[8];		/* +0x2a: copied to hand_attack +0x04;
 					   [6] is the base critical chance */
 	char pad32[5];				/* +0x32 through +0x36 */
@@ -44,10 +43,10 @@ struct item_record {
 					   item names at MSG_DAGGER_6000 */
 	unsigned char page_attr;		/* +0x3a: kept in item_slot_attr */
 	char pad3b;				/* +0x3b */
-	unsigned char coord;			/* +0x3c */
+	unsigned char regen_drain;		/* +0x3c: copied to the slot's regen_drain */
 	char pad3d[2];			/* +0x3d through +0x3e */
 	unsigned char kind;			/* +0x3f */
-	unsigned char weight;			/* +0x40 */
+	char armor_class;			/* +0x40: copied to the slot's armor_class */
 	signed char hit_adjustment;		/* +0x41: times 5 into hit_penalty */
 	unsigned char hand_field10;		/* +0x42: copied to hand_attack pad10 */
 	unsigned char slay_family;		/* +0x43: hand_attack slay_family */

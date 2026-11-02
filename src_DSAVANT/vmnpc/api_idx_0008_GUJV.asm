@@ -24,7 +24,7 @@ api_idx_0008_GUJV:
     mov ax, 0x248                    ; 0x55a7
     imul word [bp + 4]               ; 0x55aa
     mov bx, ax                       ; 0x55ad
-    mov al, byte [bx + party_records + pc_rec.glyph_set] ; 0x55af
+    mov al, byte [bx + party_records + pc_rec.race] ; 0x55af
     sub ah, ah                       ; 0x55b3
     push ax                          ; 0x55b5
     mov ax, word [bp + 6]            ; 0x55b6
@@ -82,8 +82,8 @@ api_idx_0008_GUJV:
     mov ax, 0x248                    ; 0x562a
     imul word [bp + 4]               ; 0x562d
     mov bx, ax                       ; 0x5630
-    mov ax, word [bx + party_records + pc_rec.f_0014] ; 0x5632
-    mov dx, word [bx + party_records + pc_rec.f_0016] ; 0x5636
+    mov ax, word [bx + party_records + pc_rec.gold] ; 0x5632
+    mov dx, word [bx + party_records + pc_rec.gold + 0x2] ; 0x5636
     mov cx, word [bp + 6]            ; 0x563a
     shl cx, 1                        ; 0x563d
     shl cx, 1                        ; 0x563f
@@ -181,8 +181,8 @@ api_idx_0008_GUJV:
     mov bx, ax                       ; 0x570c
     pop dx                           ; 0x570e
     pop ax                           ; 0x570f
-    sub word [bx + party_records + pc_rec.f_0014], ax ; 0x5710
-    sbb word [bx + party_records + pc_rec.f_0016], dx ; 0x5714
+    sub word [bx + party_records + pc_rec.gold], ax ; 0x5710
+    sbb word [bx + party_records + pc_rec.gold + 0x2], dx ; 0x5714
     mov ax, word [bp + 6]            ; 0x5718
     shl ax, 1                        ; 0x571b
     mov bx, ax                       ; 0x571d
