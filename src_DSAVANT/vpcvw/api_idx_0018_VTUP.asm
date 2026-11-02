@@ -42,7 +42,7 @@ api_idx_0018_VTUP:
     push ax                          ; 0x979d
     mov ax, 0x474                    ; 0x979e
     push ax                          ; 0x97a1
-    call loc_TRPK                    ; 0x97a2
+    call select_grid_text_option     ; 0x97a2
     add sp, byte 0x1a                ; 0x97a5
     mov word [bp - 4], ax            ; 0x97a8
     jmp short .forward1              ; 0x97ab

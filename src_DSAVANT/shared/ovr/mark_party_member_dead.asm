@@ -1,5 +1,5 @@
 ; auto-generated
-loc_QTKU:
+mark_party_member_dead:
     mov ax, 0
     call aztec_csav
     mov ax, 0x248

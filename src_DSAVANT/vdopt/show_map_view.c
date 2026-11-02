@@ -14,7 +14,7 @@ extern int map_kind1_glyph, map_kind2_glyph, map_kind15_glyph,
 extern int map_floor_glyphs[][18], map_ns_wall_glyphs[][18],
 	map_ew_wall_glyphs[][18], map_object_marks[][18];
 extern int grid_origin_x, grid_origin_y, maze_variant;
-extern int party_world_x, party_world_y, party_tag;
+extern int party_world_x, party_world_y, party_facing;
 extern void load_monster_picture();
 extern void free_picture_slot();
 extern void call_fill_area();
@@ -208,7 +208,7 @@ int mode_flag;
 	/* Flash the party marker over the saved square until input arrives. */
 	while (!poll_fullscreen_hotspot()) {
 		draw_grid_cell_char(grid_width / 2, grid_height / 2,
-			party_tag + 32, 0, 0);
+			party_facing + 32, 0, 0);
 		call_show_area(grid_origin_x + 7 * (grid_width / 2),
 			grid_origin_y + 7 * (grid_height / 2),
 			grid_origin_x + 7 * (grid_width / 2) + 7,

@@ -12,7 +12,8 @@ from lib.msgflow import analyze
 
 @unittest.skipUnless(shutil.which('nasm'), 'NASM is required')
 class MessageFlowTest(unittest.TestCase):
-    def analyze(self, source, routines=('main', 'show'), foreign=None):
+    def analyze(self, source, routines=('main', 'show'), foreign=None,
+                bases=None):
         with tempfile.TemporaryDirectory() as tmp:
             src, out = Path(tmp) / 'test.asm', Path(tmp) / 'test.bin'
             src.write_text('bits 16\n' + source + '\ndw ' + ','.join(routines))
@@ -27,7 +28,8 @@ class MessageFlowTest(unittest.TestCase):
         insns = list(md.disasm(data[:-n], 0))
         symbols, uses, params = analyze(
             insns,
-            {2026: 'MSG_CAST', 2027: 'MSG_CANCEL', 5500: 'MSG_SKILL_START'}, {},
+            {2026: 'MSG_CAST', 2027: 'MSG_CANCEL', 5500: 'MSG_SKILL_START'},
+            bases or {},
             lambda i: labels.get(i.operands[0].imm & 0xffff)
             if i.operands else None, labels, {'show': [0], **(foreign or {})})
         return symbols, uses, params, insns
@@ -104,6 +106,26 @@ ret
 show: ret
 ''')
         self.assertEqual(symbols, {(0, 1): 'MSG_CAST'})
+
+    def test_sidecar_base_wins_over_literal_flag_sum(self):
+        # drink_from_fountain: two 0/1 and 0/2 flags, then the result base.
+        symbols, _, _, _ = self.analyze('''
+main: push bp
+mov bp,sp
+mov word [bp-2],0
+mov word [bp-4],0
+mov word [bp-2],1
+mov word [bp-4],2
+mov ax,[bp-2]
+add ax,[bp-4]
+add ax,2048
+push ax
+call show
+pop bp
+ret
+show: ret
+''', bases={2048: 'MSG_RESULT_BASE'})
+        self.assertEqual(list(symbols.values()), ['MSG_RESULT_BASE'])
 
     def test_direct_store_to_frame_local(self):
         symbols, _, _, _ = self.analyze('''

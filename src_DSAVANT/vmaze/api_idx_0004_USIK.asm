@@ -3,7 +3,7 @@ api_idx_0004_USIK:
     mov ax, 0xfffc                   ; 0x17ee
     call aztec_csav                  ; 0x17f1
     mov word [bss_91ac], 0x7e4       ; 0x17f4
-    mov ax, word [party_tag]         ; 0x17fa
+    mov ax, word [party_facing]      ; 0x17fa
     add ax, word [bp + 4]            ; 0x17fd
     add ax, strict word 4            ; 0x1800
     mov cx, 4                        ; 0x1803
@@ -42,7 +42,7 @@ api_idx_0004_USIK:
     cmp word [bp - 2], byte 3        ; 0x1852
     jne short .forward4              ; 0x1856
     mov ax, word [bp - 4]            ; 0x1858
-    cmp ax, word [party_tag]         ; 0x185b
+    cmp ax, word [party_facing]      ; 0x185b
     jne short .forward4              ; 0x185f
     mov ax, 0xf                      ; 0x1861
     push ax                          ; 0x1864
@@ -103,7 +103,7 @@ api_idx_0004_USIK:
     jne short .forward8              ; 0x18ec
 .forward7:
     mov ax, word [bp - 4]            ; 0x18ee
-    cmp ax, word [party_tag]         ; 0x18f1
+    cmp ax, word [party_facing]      ; 0x18f1
     jne short .forward8              ; 0x18f5
     mov ax, word [message_delay]     ; 0x18f7
     mov cx, 2                        ; 0x18fa

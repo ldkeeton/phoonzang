@@ -1,5 +1,5 @@
 ; auto-generated
-loc_HTTH:
+swap_party_members:
     mov ax, 0xfdae                   ; 0x15af
     call aztec_csav                  ; 0x15b2
     mov ax, word [bp + 4]            ; 0x15b5

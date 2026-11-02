@@ -180,7 +180,7 @@ api_idx_005e_QNLK:
     shl ax, 1                        ; 0x616f
     mov bx, ax                       ; 0x6171
     push word [bx + bss_9cd4]        ; 0x6173
-    call loc_GMVH                    ; 0x6177
+    call is_quest_map_item           ; 0x6177
     pop cx                           ; 0x617a
     test ax, ax                      ; 0x617b
     jne short .forward12             ; 0x617d

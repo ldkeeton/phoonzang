@@ -10,7 +10,7 @@ find_floor_item_at_party:
     mov bx, word [bp - 6]
     mov al, byte [bx]
     sub ah, ah
-    cmp ax, word [game_state_arg]
+    cmp ax, word [current_level]
     jne short .forward1
     mov ax, word [party_map_piece]
     xchg ah, al

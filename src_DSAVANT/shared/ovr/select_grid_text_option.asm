@@ -1,5 +1,5 @@
 ; auto-generated
-loc_TRPK:
+select_grid_text_option:
     mov ax, 0xfe56
     call aztec_csav
     mov ax, word [bp + 0x14]
@@ -29,7 +29,7 @@ loc_TRPK:
     jne short .forward1
     jmp near .forward2
 .forward1:
-    mov ax, loc_TRPK_dseg167
+    mov ax, title_panel_screen_file
     push ax
     mov ax, word [bp - 8]
     add ax, strict word 6
@@ -97,7 +97,7 @@ loc_TRPK:
     add sp, byte 4
     jmp short .forward3
 .forward2:
-    mov ax, loc_TRPK_dseg473
+    mov ax, choice_grid_screen_file
     push ax
     mov ax, word [bp - 8]
     inc ax
@@ -310,7 +310,7 @@ loc_TRPK:
     mov ax, word [bp + 8]
     add ax, word [bp - 0xa]
     push ax
-    call loc_MNNG
+    call draw_frame_outline
     add sp, byte 0xa
     mov ax, word [bp - 8]
     inc ax
@@ -343,7 +343,7 @@ loc_TRPK:
     mov ax, word [bp + 8]
     add ax, word [bp - 0xa]
     push ax
-    call loc_MNNG
+    call draw_frame_outline
     add sp, byte 0xa
 .back4:
     mov ax, 1

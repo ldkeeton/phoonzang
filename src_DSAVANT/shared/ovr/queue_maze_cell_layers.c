@@ -1,7 +1,9 @@
 /* Queue the wall layers and animated decorations for one maze-view cell. */
+#include "structs/viewx.h"
 extern int boundary_wall_variant, maze_gate_glyph_variant;
-extern int maze_gate_frame, maze_floor_layer_enabled, party_status_frame;
-extern int view_depth_scale[], maze_cell_x_offset[][5];
+extern int maze_gate_frame, floor_checker_parity, party_status_frame;
+extern int view_depth_scale[];
+extern struct view_x_grid maze_cell_x_offset;
 extern int select_floor_face_index(), floor_overlay_when_enabled();
 extern int queue_slot_glyph_render();
 
@@ -114,19 +116,19 @@ int grille_a, grille_b, inset_a, inset_b, special_a, special_b;
 					depth, variant_scale, 0, 0, 0);
 			if (kind == 3) {
 				if (maze_gate_frame && depth == 0 && column == 2)
-					queue_slot_glyph_render(5, maze_cell_x_offset[depth][column], 0,
+					queue_slot_glyph_render(5, maze_cell_x_offset.cell_x[depth][column], 0,
 						maze_gate_frame + 12, 0, 0, 0, 72, 248, depth, 0, 0, 0, 0);
 				else {
-					queue_slot_glyph_render(5, maze_cell_x_offset[depth][column], 0,
-						depth * 2 + maze_floor_layer_enabled + 5,
-						0, 0, 0, 72, 248, depth, 0, maze_floor_layer_enabled, 0, 0);
-					queue_slot_glyph_render(5, maze_cell_x_offset[depth][column], 0,
+					queue_slot_glyph_render(5, maze_cell_x_offset.cell_x[depth][column], 0,
+						depth * 2 + floor_checker_parity + 5,
+						0, 0, 0, 72, 248, depth, 0, floor_checker_parity, 0, 0);
+					queue_slot_glyph_render(5, maze_cell_x_offset.cell_x[depth][column], 0,
 						depth + 1, 0, 0, 0, 72, 248, depth, 0,
-							maze_floor_layer_enabled, 0, 0);
+							floor_checker_parity, 0, 0);
 				}
 			} else if (kind == 6)
-				queue_slot_glyph_render(5, maze_cell_x_offset[depth][column], 0,
-					depth + 1, 0, 0, 0, 72, 248, depth, 0, maze_floor_layer_enabled,
+				queue_slot_glyph_render(5, maze_cell_x_offset.cell_x[depth][column], 0,
+					depth + 1, 0, 0, 0, 72, 248, depth, 0, floor_checker_parity,
 						0, 0);
 			if (boundary_wall_variant == 0)
 				queue_slot_glyph_render(255,
@@ -176,8 +178,8 @@ int grille_a, grille_b, inset_a, inset_b, special_a, special_b;
 		}
 		/* Animated decor uses the cell's horizontal offset and depth scale. */
 		if (decor != -1)
-			queue_slot_glyph_render(decor, maze_cell_x_offset[depth][column], 0,
+			queue_slot_glyph_render(decor, maze_cell_x_offset.cell_x[depth][column], 0,
 				frame1, frame2, 0, 0, 72, 248, depth,
-				view_depth_scale[depth], maze_floor_layer_enabled, 0, 2);
+				view_depth_scale[depth], floor_checker_parity, 0, 2);
 	}
 }

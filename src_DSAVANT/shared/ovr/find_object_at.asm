@@ -28,7 +28,7 @@ find_object_at:
     mov al, byte [bx + si + 0x960]
     sub ah, ah
     push ax
-    mov ax, word [game_state_arg]
+    mov ax, word [current_level]
     mov cx, 4
     shl ax, cl
     add ax, party_region + 0x2

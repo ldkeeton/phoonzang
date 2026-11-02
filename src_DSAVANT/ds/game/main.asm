@@ -56,7 +56,7 @@ jumptable_2edc_case_16:
     mov word [bp - 2], ax            ; 0x2e43
     jmp near jumptable_2edc_case_9   ; 0x2e46
 jumptable_2edc_case_25:
-    push word [game_state_arg]       ; 0x2e49
+    push word [current_level]        ; 0x2e49
     mov ax, 2                        ; 0x2e4d
     push ax                          ; 0x2e50
     call ensure_game_disk            ; 0x2e51

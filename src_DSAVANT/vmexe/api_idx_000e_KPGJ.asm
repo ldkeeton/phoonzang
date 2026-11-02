@@ -1962,7 +1962,7 @@ api_idx_000e_KPGJ.back5:
     add ax, strict word 0x50         ; 0x4cbb
     mov cx, ax                       ; 0x4cbe
     mov ax, 5                        ; 0x4cc0
-    imul word [game_state_arg]       ; 0x4cc3
+    imul word [current_level]        ; 0x4cc3
     mov dx, ax                       ; 0x4cc7
     sub cx, ax                       ; 0x4cc9
     pop ax                           ; 0x4ccb

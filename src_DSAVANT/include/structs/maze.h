@@ -5,7 +5,7 @@
 
 struct maze_tables {
 	int key[240];			/* +0x000: also the region flag value */
-	int party_mask[240];		/* +0x1e0: 0: any party, else bit per party_tag;
+	int party_mask[240];		/* +0x1e0: 0: any party, else bit per party_facing;
 					   destination argument when arg is 99 */
 	int flags[240];			/* +0x3c0: packed bitfields, read via get_bits;
 					   destinations: x:3 y:3 piece:4 bits:2 */

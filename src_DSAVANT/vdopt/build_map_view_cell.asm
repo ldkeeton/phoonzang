@@ -228,7 +228,7 @@ build_map_view_cell:
     add sp, byte 4                   ; 0x0bf7
     test ax, ax                      ; 0x0bfa
     je short jumptable_0c0b_case_1   ; 0x0bfc
-    mov ax, word [game_state_arg]    ; 0x0bfe
+    mov ax, word [current_level]     ; 0x0bfe
     jmp short .forward20             ; 0x0c01
 jumptable_0c0b_case_0:
     db 0xa1, 0xea, 0x9a, 0x89, 0x46, 0xf2, 0xeb, 0x30
@@ -265,7 +265,7 @@ jumptable_0c0b_case_1:
     add sp, byte 4                   ; 0x0c48
     test ax, ax                      ; 0x0c4b
     je short build_map_view_cell.forward23 ; 0x0c4d
-    mov ax, word [game_state_arg]    ; 0x0c4f
+    mov ax, word [current_level]     ; 0x0c4f
     jmp short build_map_view_cell.forward22 ; 0x0c52
 build_map_view_cell.back2:
     jmp short build_map_view_cell.forward23 ; 0x0c54

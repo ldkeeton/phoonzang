@@ -51,7 +51,7 @@ trigger_item_cell_object:
     cmp word [bx + si + 0x1e0], byte 0 ; 0x2407
     je short .forward4               ; 0x240c
     mov ax, 1                        ; 0x240e
-    mov cx, word [party_tag]         ; 0x2411
+    mov cx, word [party_facing]      ; 0x2411
     shl ax, cl                       ; 0x2415
     test word [bx + si + 0x1e0], ax  ; 0x2417
     jne short .forward4              ; 0x241b
@@ -68,7 +68,7 @@ trigger_item_cell_object:
     mov ax, 0                        ; 0x2435
     push ax                          ; 0x2438
     push word [bp - 0xa]             ; 0x2439
-    mov ax, word [game_state_arg]    ; 0x243c
+    mov ax, word [current_level]     ; 0x243c
     mov cx, 4                        ; 0x243f
     shl ax, cl                       ; 0x2442
     add ax, party_region + 0x2       ; 0x2444
@@ -91,7 +91,7 @@ trigger_item_cell_object:
     mov ax, 1                        ; 0x246f
     push ax                          ; 0x2472
     push word [bp - 0xa]             ; 0x2473
-    mov ax, word [game_state_arg]    ; 0x2476
+    mov ax, word [current_level]     ; 0x2476
     mov cx, 4                        ; 0x2479
     shl ax, cl                       ; 0x247c
     add ax, party_region + 0x2       ; 0x247e
@@ -157,7 +157,7 @@ trigger_item_cell_object:
 .forward10:
     mov ax, 2                        ; 0x250b
     push ax                          ; 0x250e
-    mov ax, word [party_tag]         ; 0x250f
+    mov ax, word [party_facing]      ; 0x250f
     shl ax, 1                        ; 0x2512
     push ax                          ; 0x2514
     shl si, 1                        ; 0x2515
@@ -168,7 +168,7 @@ trigger_item_cell_object:
     je short .forward11              ; 0x2524
     mov ax, 2                        ; 0x2526
     push ax                          ; 0x2529
-    mov ax, word [party_tag]         ; 0x252a
+    mov ax, word [party_facing]      ; 0x252a
     shl ax, 1                        ; 0x252d
     push ax                          ; 0x252f
     mov ax, word [bp - 8]            ; 0x2530

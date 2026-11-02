@@ -1,5 +1,5 @@
 ; auto-generated
-api_idx_0012_KQTQ:
+queue_view_cell_side_layers:
     mov ax, 0xffee
     call aztec_csav
     cmp word [bp + 4], byte 4
@@ -24,9 +24,9 @@ api_idx_0012_KQTQ:
     shl cx, 1
     add ax, cx
     mov bx, ax
-    cmp word [bx + api_idx_0012_KQTQ_bss135], byte 0
+    cmp word [bx + near_wall_object_ids], byte 0
     jne short .forward4
-    cmp word [bx + api_idx_0012_KQTQ_bss149], byte 0
+    cmp word [bx + near_wall_overlay_ids], byte 0
     jne short .forward4
     jmp near .forward20
 .forward4:
@@ -116,13 +116,13 @@ api_idx_0012_KQTQ:
     shl cx, 1
     add ax, cx
     mov bx, ax
-    cmp word [bx + api_idx_0012_KQTQ_bss135], byte 0
+    cmp word [bx + near_wall_object_ids], byte 0
     jne short .forward10
     jmp near .forward20
 .forward10:
-    mov cx, word [bx + api_idx_0012_KQTQ_bss135]
+    mov cx, word [bx + near_wall_object_ids]
     dec cx
-    mov ax, word [party_tag]
+    mov ax, word [party_facing]
     sub ax, cx
     add ax, strict word 6
     mov cx, 4
@@ -159,7 +159,7 @@ api_idx_0012_KQTQ:
     inc ax
     inc ax
     mov word [bp - 4], ax
-    mov ax, word [maze_floor_layer_enabled]
+    mov ax, word [floor_checker_parity]
     mov word [bp - 6], ax
     mov ax, word [bx + shape_column_x]
     mov word [bp - 8], ax
@@ -217,7 +217,7 @@ api_idx_0012_KQTQ:
     imul word [bp + 4]
     add ax, word [bp + 6]
     mov bx, ax
-    mov al, byte [bx + api_idx_0012_KQTQ_bss1037]
+    mov al, byte [bx + near_wall_layer_flags]
     sub ah, ah
     jmp near .forward35
 .back1:
@@ -497,12 +497,12 @@ api_idx_0012_KQTQ:
     imul word [bp + 4]
     add ax, word [bp + 6]
     mov bx, ax
-    mov al, byte [bx + api_idx_0012_KQTQ_bss2257]
+    mov al, byte [bx + side_wall_layer_flags]
     sub ah, ah
     jmp near .forward44
 jumptable_4b6b_case_1:
     cmp word [bp + 4], byte 5
-    jge short api_idx_0012_KQTQ.forward37
+    jge short queue_view_cell_side_layers.forward37
     mov ax, word [bp + 0x1c]
     add ax, word [bp + 4]
     push ax
@@ -523,11 +523,11 @@ jumptable_4b6b_case_1:
     push word [bp + 0xa]
     call call_draw_maze_piece
     add sp, byte 8
-api_idx_0012_KQTQ.forward37:
-    jmp near api_idx_0012_KQTQ.forward45
+queue_view_cell_side_layers.forward37:
+    jmp near queue_view_cell_side_layers.forward45
 jumptable_4b6b_case_2:
     cmp word [bp + 4], byte 5
-    jge short api_idx_0012_KQTQ.forward38
+    jge short queue_view_cell_side_layers.forward38
     mov ax, word [bp + 0x30]
     add ax, word [bp + 4]
     push ax
@@ -548,77 +548,77 @@ jumptable_4b6b_case_2:
     push word [bp + 0x16]
     call call_draw_maze_piece
     add sp, byte 8
-api_idx_0012_KQTQ.forward38:
-    jmp short api_idx_0012_KQTQ.forward45
+queue_view_cell_side_layers.forward38:
+    jmp short queue_view_cell_side_layers.forward45
 jumptable_4b6b_case_3:
     cmp word [bp + 4], byte 5
-    jge short api_idx_0012_KQTQ.forward43
-    mov ax, word [api_idx_0012_KQTQ_bss2524]
+    jge short queue_view_cell_side_layers.forward43
+    mov ax, word [side_wall_animation_phase]
     add ax, word [party_status_frame]
     mov cx, 2
     cwd
     idiv cx
     mov ax, dx
     test ax, ax
-    je short api_idx_0012_KQTQ.forward39
+    je short queue_view_cell_side_layers.forward39
     mov ax, word [bp + 0x34]
     add ax, word [bp + 4]
-    jmp short api_idx_0012_KQTQ.forward40
-api_idx_0012_KQTQ.forward39:
+    jmp short queue_view_cell_side_layers.forward40
+queue_view_cell_side_layers.forward39:
     mov ax, 0xffff
-api_idx_0012_KQTQ.forward40:
+queue_view_cell_side_layers.forward40:
     push ax
     push cx
     test dx, dx
-    je short api_idx_0012_KQTQ.forward41
+    je short queue_view_cell_side_layers.forward41
     mov ax, word [bp + 0x36]
     add ax, word [bp + 4]
-    jmp short api_idx_0012_KQTQ.forward42
-api_idx_0012_KQTQ.forward41:
+    jmp short queue_view_cell_side_layers.forward42
+queue_view_cell_side_layers.forward41:
     mov ax, word [bp + 0x34]
     add ax, word [bp + 4]
-api_idx_0012_KQTQ.forward42:
+queue_view_cell_side_layers.forward42:
     push ax
     push word [bp + 0x14]
     call call_draw_maze_piece
     add sp, byte 8
-api_idx_0012_KQTQ.forward43:
-    jmp short api_idx_0012_KQTQ.forward45
+queue_view_cell_side_layers.forward43:
+    jmp short queue_view_cell_side_layers.forward45
 jumptable_4b6b_case_4:
-    jmp short api_idx_0012_KQTQ.forward45
+    jmp short queue_view_cell_side_layers.forward45
 jumptable_4b6b_case_0:
-    jmp short api_idx_0012_KQTQ.forward45
+    jmp short queue_view_cell_side_layers.forward45
 jumptable_4b6b:
     dw jumptable_4b6b_case_0 - IMAGE_BASE + __zres_end
     dw jumptable_4b6b_case_1 - IMAGE_BASE + __zres_end
     dw jumptable_4b6b_case_2 - IMAGE_BASE + __zres_end
     dw jumptable_4b6b_case_3 - IMAGE_BASE + __zres_end
     dw jumptable_4b6b_case_4 - IMAGE_BASE + __zres_end
-api_idx_0012_KQTQ.forward44:
+queue_view_cell_side_layers.forward44:
     cmp ax, strict word 5
-    jae short api_idx_0012_KQTQ.forward45
+    jae short queue_view_cell_side_layers.forward45
     xchg bx, ax
     shl bx, 1
     jmp [cs:bx + jumptable_4b6b - IMAGE_BASE + __zres_end]
-api_idx_0012_KQTQ.forward45:
+queue_view_cell_side_layers.forward45:
     cmp word [bp - 0x12], byte 0
-    jne short api_idx_0012_KQTQ.forward46
-    jmp near api_idx_0012_KQTQ.forward59
-api_idx_0012_KQTQ.forward46:
+    jne short queue_view_cell_side_layers.forward46
+    jmp near queue_view_cell_side_layers.forward59
+queue_view_cell_side_layers.forward46:
     mov ax, 0xa
     imul word [bp + 4]
     mov cx, word [bp + 6]
     shl cx, 1
     add ax, cx
     mov bx, ax
-    cmp word [bx + api_idx_0012_KQTQ_bss2803], byte 0
-    jne short api_idx_0012_KQTQ.forward47
-    cmp word [bx + api_idx_0012_KQTQ_bss2817], byte 0
-    jne short api_idx_0012_KQTQ.forward47
-    jmp near api_idx_0012_KQTQ.forward59
-api_idx_0012_KQTQ.forward47:
+    cmp word [bx + far_wall_object_ids], byte 0
+    jne short queue_view_cell_side_layers.forward47
+    cmp word [bx + far_wall_overlay_ids], byte 0
+    jne short queue_view_cell_side_layers.forward47
+    jmp near queue_view_cell_side_layers.forward59
+queue_view_cell_side_layers.forward47:
     cmp word [bp + 6], byte 2
-    jne short api_idx_0012_KQTQ.forward48
+    jne short queue_view_cell_side_layers.forward48
     mov ax, word [bp + 0x24]
     add ax, word [bp + 4]
     push ax
@@ -640,47 +640,47 @@ api_idx_0012_KQTQ.forward47:
     push ax
     call call_draw_maze_piece
     add sp, byte 8
-    jmp short api_idx_0012_KQTQ.forward52
-api_idx_0012_KQTQ.forward48:
+    jmp short queue_view_cell_side_layers.forward52
+queue_view_cell_side_layers.forward48:
     cmp word [bp + 4], byte 0
-    jle short api_idx_0012_KQTQ.forward52
+    jle short queue_view_cell_side_layers.forward52
     mov ax, 0xffff
     cmp word [bp + 6], byte 3
-    jne short api_idx_0012_KQTQ.forward49
+    jne short queue_view_cell_side_layers.forward49
     mov ax, word [bp + 0x2e]
     add ax, word [bp + 4]
-api_idx_0012_KQTQ.forward49:
+queue_view_cell_side_layers.forward49:
     push ax
     mov ax, 2
     push ax
     cmp word [bp + 6], byte 3
-    jne short api_idx_0012_KQTQ.forward50
+    jne short queue_view_cell_side_layers.forward50
     mov ax, word [bp + 0x2e]
     add ax, word [bp + 4]
-    jmp short api_idx_0012_KQTQ.forward51
-api_idx_0012_KQTQ.forward50:
+    jmp short queue_view_cell_side_layers.forward51
+queue_view_cell_side_layers.forward50:
     mov ax, word [bp + 0x2c]
     add ax, word [bp + 4]
-api_idx_0012_KQTQ.forward51:
+queue_view_cell_side_layers.forward51:
     push ax
     mov ax, 3
     push ax
     call call_draw_maze_piece
     add sp, byte 8
-api_idx_0012_KQTQ.forward52:
+queue_view_cell_side_layers.forward52:
     mov ax, 0xa
     imul word [bp + 4]
     mov cx, word [bp + 6]
     shl cx, 1
     add ax, cx
     mov bx, ax
-    cmp word [bx + api_idx_0012_KQTQ_bss2803], byte 0
-    jne short api_idx_0012_KQTQ.forward53
-    jmp near api_idx_0012_KQTQ.forward59
-api_idx_0012_KQTQ.forward53:
-    mov cx, word [bx + api_idx_0012_KQTQ_bss2803]
+    cmp word [bx + far_wall_object_ids], byte 0
+    jne short queue_view_cell_side_layers.forward53
+    jmp near queue_view_cell_side_layers.forward59
+queue_view_cell_side_layers.forward53:
+    mov cx, word [bx + far_wall_object_ids]
     dec cx
-    mov ax, word [party_tag]
+    mov ax, word [party_facing]
     sub ax, cx
     add ax, strict word 6
     mov cx, 4
@@ -694,13 +694,13 @@ api_idx_0012_KQTQ.forward53:
     idiv cx
     mov ax, dx
     test ax, ax
-    jne short api_idx_0012_KQTQ.forward54
+    jne short queue_view_cell_side_layers.forward54
     cmp word [bp + 4], byte 0
-    jg short api_idx_0012_KQTQ.forward55
-api_idx_0012_KQTQ.forward54:
+    jg short queue_view_cell_side_layers.forward55
+queue_view_cell_side_layers.forward54:
     cmp word [bp + 6], byte 2
-    jne short api_idx_0012_KQTQ.forward56
-api_idx_0012_KQTQ.forward55:
+    jne short queue_view_cell_side_layers.forward56
+queue_view_cell_side_layers.forward55:
     mov cx, word [bp + 4]
     shl cx, 1
     shl cx, 1
@@ -708,27 +708,27 @@ api_idx_0012_KQTQ.forward55:
     add ax, cx
     inc ax
     mov word [bp - 4], ax
-    mov ax, word [maze_floor_layer_enabled]
+    mov ax, word [floor_checker_parity]
     mov word [bp - 6], ax
     mov ax, word [bx + shape_column_x]
     mov word [bp - 8], ax
-    jmp short api_idx_0012_KQTQ.forward58
-api_idx_0012_KQTQ.forward56:
+    jmp short queue_view_cell_side_layers.forward58
+queue_view_cell_side_layers.forward56:
     cmp word [bp + 4], byte 0
-    jle short api_idx_0012_KQTQ.forward58
+    jle short queue_view_cell_side_layers.forward58
     mov ax, word [bp + 4]
     add ax, strict word 0x20
     mov word [bp - 4], ax
     mov ax, 0
     cmp word [bp + 6], byte 3
-    jne short api_idx_0012_KQTQ.forward57
+    jne short queue_view_cell_side_layers.forward57
     mov ax, 1
-api_idx_0012_KQTQ.forward57:
+queue_view_cell_side_layers.forward57:
     mov word [bp - 6], ax
     mov word [bp - 8], 0
-api_idx_0012_KQTQ.forward58:
+queue_view_cell_side_layers.forward58:
     cmp word [bp - 4], byte 0
-    je short api_idx_0012_KQTQ.forward59
+    je short queue_view_cell_side_layers.forward59
     mov ax, 0
     push ax
     push ax
@@ -750,52 +750,52 @@ api_idx_0012_KQTQ.forward58:
     push ax
     call queue_slot_glyph_render
     add sp, byte 0x1c
-api_idx_0012_KQTQ.forward59:
+queue_view_cell_side_layers.forward59:
     cmp word [bp + 4], byte 4
-    jl short api_idx_0012_KQTQ.forward60
-    jmp near api_idx_0012_KQTQ.return1
-api_idx_0012_KQTQ.forward60:
+    jl short queue_view_cell_side_layers.forward60
+    jmp near queue_view_cell_side_layers.return1
+queue_view_cell_side_layers.forward60:
     mov ax, 5
     imul word [bp + 4]
     add ax, word [bp + 6]
     mov bx, ax
-    cmp byte [bx + api_idx_0012_KQTQ_bss3553], 3
-    je short api_idx_0012_KQTQ.forward61
-    jmp near api_idx_0012_KQTQ.forward67
-api_idx_0012_KQTQ.forward61:
+    cmp byte [bx + view_marker_kinds], 3
+    je short queue_view_cell_side_layers.forward61
+    jmp near queue_view_cell_side_layers.forward67
+queue_view_cell_side_layers.forward61:
     mov ax, word [bp + 4]
     cmp ax, strict word 0
-    jg short api_idx_0012_KQTQ.forward62
+    jg short queue_view_cell_side_layers.forward62
     mov ax, word [bp + 6]
     cmp ax, strict word 2
-    je short api_idx_0012_KQTQ.forward62
-    jmp near api_idx_0012_KQTQ.forward67
-api_idx_0012_KQTQ.forward62:
+    je short queue_view_cell_side_layers.forward62
+    jmp near queue_view_cell_side_layers.forward67
+queue_view_cell_side_layers.forward62:
     cmp word [bp + 4], byte 0
-    jne short api_idx_0012_KQTQ.forward63
+    jne short queue_view_cell_side_layers.forward63
     mov ax, word [bp + 6]
     cmp ax, strict word 2
-    jne short api_idx_0012_KQTQ.forward63
-    cmp word [bss_8f22], byte 0
-    je short api_idx_0012_KQTQ.forward63
+    jne short queue_view_cell_side_layers.forward63
+    cmp word [capture_center_marker_mode], byte 0
+    je short queue_view_cell_side_layers.forward63
     mov word [marker_mode], 0xffff
-api_idx_0012_KQTQ.forward63:
+queue_view_cell_side_layers.forward63:
     cmp word [bp + 4], byte 0
-    jne short api_idx_0012_KQTQ.forward64
+    jne short queue_view_cell_side_layers.forward64
     mov ax, word [bp + 6]
     cmp ax, strict word 2
-    jne short api_idx_0012_KQTQ.forward64
+    jne short queue_view_cell_side_layers.forward64
     mov ax, 2
-    jmp short api_idx_0012_KQTQ.forward65
-api_idx_0012_KQTQ.forward64:
+    jmp short queue_view_cell_side_layers.forward65
+queue_view_cell_side_layers.forward64:
     mov ax, 1
-api_idx_0012_KQTQ.forward65:
+queue_view_cell_side_layers.forward65:
     mov word [bp - 4], ax
     mov ax, word [bp + 4]
     cmp word [bp - 4], byte 2
-    je short api_idx_0012_KQTQ.forward66
+    je short queue_view_cell_side_layers.forward66
     dec ax
-api_idx_0012_KQTQ.forward66:
+queue_view_cell_side_layers.forward66:
     mov word [bp - 8], ax
     mov ax, 1
     push ax
@@ -828,23 +828,23 @@ api_idx_0012_KQTQ.forward66:
     push ax
     call queue_slot_glyph_render
     add sp, byte 0x1c
-api_idx_0012_KQTQ.forward67:
+queue_view_cell_side_layers.forward67:
     mov ax, 5
     imul word [bp + 4]
     add ax, word [bp + 6]
     mov bx, ax
-    cmp byte [bx + api_idx_0012_KQTQ_bss3553], 1
-    je short api_idx_0012_KQTQ.forward68
-    cmp byte [bx + api_idx_0012_KQTQ_bss3553], 2
-    jne short api_idx_0012_KQTQ.forward70
-api_idx_0012_KQTQ.forward68:
+    cmp byte [bx + view_marker_kinds], 1
+    je short queue_view_cell_side_layers.forward68
+    cmp byte [bx + view_marker_kinds], 2
+    jne short queue_view_cell_side_layers.forward70
+queue_view_cell_side_layers.forward68:
     mov ax, word [bp + 4]
     cmp ax, strict word 0
-    jg short api_idx_0012_KQTQ.forward69
+    jg short queue_view_cell_side_layers.forward69
     mov ax, word [bp + 6]
     cmp ax, strict word 2
-    jne short api_idx_0012_KQTQ.forward70
-api_idx_0012_KQTQ.forward69:
+    jne short queue_view_cell_side_layers.forward70
+queue_view_cell_side_layers.forward69:
     mov ax, 1
     push ax
     push ax
@@ -867,7 +867,7 @@ api_idx_0012_KQTQ.forward69:
     imul word [bp + 4]
     add ax, word [bp + 6]
     mov bx, ax
-    mov al, byte [bx + api_idx_0012_KQTQ_bss3553]
+    mov al, byte [bx + view_marker_kinds]
     sub ah, ah
     push ax
     mov ax, word [bp + 4]
@@ -885,41 +885,41 @@ api_idx_0012_KQTQ.forward69:
     push ax
     call queue_slot_glyph_render
     add sp, byte 0x1c
-api_idx_0012_KQTQ.forward70:
+queue_view_cell_side_layers.forward70:
     mov ax, 5
     imul word [bp + 4]
     add ax, word [bp + 6]
     mov bx, ax
-    cmp byte [bx + api_idx_0012_KQTQ_bss4209], 0
-    jne short api_idx_0012_KQTQ.forward71
-    jmp near api_idx_0012_KQTQ.return1
-api_idx_0012_KQTQ.forward71:
+    cmp byte [bx + view_marker_ids], 0
+    jne short queue_view_cell_side_layers.forward71
+    jmp near queue_view_cell_side_layers.return1
+queue_view_cell_side_layers.forward71:
     cmp word [bp + 4], byte 0
-    jne short api_idx_0012_KQTQ.forward72
+    jne short queue_view_cell_side_layers.forward72
     mov ax, word [bp + 6]
     cmp ax, strict word 2
-    jne short api_idx_0012_KQTQ.forward72
-    cmp word [bss_8f22], byte 0
-    je short api_idx_0012_KQTQ.forward72
-    mov al, byte [bx + api_idx_0012_KQTQ_bss4209]
+    jne short queue_view_cell_side_layers.forward72
+    cmp word [capture_center_marker_mode], byte 0
+    je short queue_view_cell_side_layers.forward72
+    mov al, byte [bx + view_marker_ids]
     sub ah, ah
     mov word [marker_mode], ax
-    jmp near api_idx_0012_KQTQ.return1
-api_idx_0012_KQTQ.forward72:
+    jmp near queue_view_cell_side_layers.return1
+queue_view_cell_side_layers.forward72:
     mov ax, word [bp + 4]
     cmp ax, strict word 0
-    jg short api_idx_0012_KQTQ.forward73
+    jg short queue_view_cell_side_layers.forward73
     mov ax, word [bp + 6]
     cmp ax, strict word 2
-    je short api_idx_0012_KQTQ.forward73
-    jmp near api_idx_0012_KQTQ.return1
-api_idx_0012_KQTQ.forward73:
-    mov al, byte [bx + api_idx_0012_KQTQ_bss4209]
+    je short queue_view_cell_side_layers.forward73
+    jmp near queue_view_cell_side_layers.return1
+queue_view_cell_side_layers.forward73:
+    mov al, byte [bx + view_marker_ids]
     sub ah, ah
     mov cx, ax
     dec ax
     mov cx, ax
-    mov ax, word [party_tag]
+    mov ax, word [party_facing]
     sub ax, cx
     add ax, strict word 6
     mov cx, 4
@@ -927,8 +927,8 @@ api_idx_0012_KQTQ.forward73:
     idiv cx
     mov word [bp - 2], dx
     mov ax, dx
-    jmp near api_idx_0012_KQTQ.forward76
-api_idx_0012_KQTQ.back2:
+    jmp near queue_view_cell_side_layers.forward76
+queue_view_cell_side_layers.back2:
     mov ax, 1
     push ax
     push ax
@@ -947,9 +947,9 @@ api_idx_0012_KQTQ.back2:
     push ax
     mov ax, 5
     cmp word [bp - 2], byte 0
-    jne short api_idx_0012_KQTQ.forward74
+    jne short queue_view_cell_side_layers.forward74
     mov ax, 4
-api_idx_0012_KQTQ.forward74:
+queue_view_cell_side_layers.forward74:
     push ax
     mov ax, 2
     push ax
@@ -967,16 +967,16 @@ api_idx_0012_KQTQ.forward74:
     push ax
     call queue_slot_glyph_render
     add sp, byte 0x1c
-    jmp short api_idx_0012_KQTQ.return1
-api_idx_0012_KQTQ.back3:
+    jmp short queue_view_cell_side_layers.return1
+queue_view_cell_side_layers.back3:
     mov ax, 1
     push ax
     push ax
     mov ax, 0
     cmp word [bp - 2], byte 3
-    jne short api_idx_0012_KQTQ.forward75
+    jne short queue_view_cell_side_layers.forward75
     mov ax, 1
-api_idx_0012_KQTQ.forward75:
+queue_view_cell_side_layers.forward75:
     push ax
     mov ax, word [bp + 4]
     shl ax, 1
@@ -1005,19 +1005,19 @@ api_idx_0012_KQTQ.forward75:
     push ax
     call queue_slot_glyph_render
     add sp, byte 0x1c
-    jmp short api_idx_0012_KQTQ.return1
-api_idx_0012_KQTQ.forward76:
+    jmp short queue_view_cell_side_layers.return1
+queue_view_cell_side_layers.forward76:
     cmp ax, strict word 0
-    jne short api_idx_0012_KQTQ.forward77
-    jmp near api_idx_0012_KQTQ.back2
-api_idx_0012_KQTQ.forward77:
+    jne short queue_view_cell_side_layers.forward77
+    jmp near queue_view_cell_side_layers.back2
+queue_view_cell_side_layers.forward77:
     cmp ax, strict word 1
-    je short api_idx_0012_KQTQ.back3
+    je short queue_view_cell_side_layers.back3
     cmp ax, strict word 2
-    jne short api_idx_0012_KQTQ.forward78
-    jmp near api_idx_0012_KQTQ.back2
-api_idx_0012_KQTQ.forward78:
+    jne short queue_view_cell_side_layers.forward78
+    jmp near queue_view_cell_side_layers.back2
+queue_view_cell_side_layers.forward78:
     cmp ax, strict word 3
-    je short api_idx_0012_KQTQ.back3
-api_idx_0012_KQTQ.return1:
+    je short queue_view_cell_side_layers.back3
+queue_view_cell_side_layers.return1:
     ret

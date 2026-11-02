@@ -65,7 +65,7 @@ api_idx_0018_USPR:
     mov word [bp - 8], 0             ; 0x1d44
     mov word [bp - 0x14], 0          ; 0x1d49
     mov word [bp - 0x16], 0          ; 0x1d4e
-    cmp word [game_state_arg], byte 0 ; 0x1d53
+    cmp word [current_level], byte 0 ; 0x1d53
     jne short .back2                 ; 0x1d58
     mov ax, word [party_map_piece]   ; 0x1d5a
     mov cx, 6                        ; 0x1d5d

@@ -17,8 +17,9 @@ shared/ovr/draw_doubled_member_portrait
 shared/ovr/draw_title_banner
 shared/ovr/draw_member_summary_panel
 vpcvw/api_idx_009e_KPST
-shared/ovr/api_idx_0008_RORM
-shared/ovr/loc_TRPK
+shared/ovr/show_indexed_beveled_label
+shared/ovr/draw_frame_outline
+shared/ovr/select_grid_text_option
 vpcvw/loc_IIRG
 shared/ovr/adjust_spell_value
 vpcvw/api_idx_0008_SJVU
@@ -37,7 +38,7 @@ vpcvw/process_scene_message_words
 vpcvw/api_idx_0056_NTHV
 vpcvw/loc_NKUR
 vpcvw/api_idx_009e_HMOI
-vpcvw/loc_TTSP
+shared/ovr/refresh_title_and_member_panel
 vpcvw/loc_JTQP
 vpcvw/api_idx_0084_LRRN
 vpcvw/api_idx_0048_RGQH
@@ -83,7 +84,9 @@ vpcvw/api_idx_0018_VTUP
 shared/ovr/aztec_ovbgn
 shared/ovr/aztec_cswt
 vpcvw/data/percent_suffix_text
-vpcvw/data/loc_TRPK_dseg167
+shared/data/title_panel_screen_file
+shared/data/choice_grid_screen_file
+vpcvw/data/draw_spell_cost_dseg294
 shared/data/profession_stat_requirements
 vpcvw/data/dseg_9366
 shared/data/portrait_data_filename

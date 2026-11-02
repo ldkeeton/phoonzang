@@ -9,7 +9,7 @@ shared/ovr/advance_action_slots
 shared/ovr/add_overlay_item
 shared/ovr/queue_cell_action_overlay
 shared/ovr/queue_marker_overlay
-shared/ovr/loc_SSIO
+shared/ovr/draw_overlay_list_item_text
 vmexe/api_idx_0016_SLUJ
 vmexe/loc_OTGM
 vmexe/loc_HJSG
@@ -21,7 +21,7 @@ vmexe/api_idx_0004_QSNR
 vmexe/api_idx_000e_PTNT
 vmexe/ovmain
 vmexe/loc_TGJH
-shared/ovr/loc_KRMP
+shared/ovr/check_party_redraw_interval
 vmexe/api_idx_0006_GMTP
 vmexe/run_party_screen_animation
 vmexe/loc_UTQS

@@ -1497,8 +1497,8 @@ import_bane_party.back18:
     mov word [party_cell_x], 4       ; 0x2e1f
     mov word [party_cell_y], 7       ; 0x2e25
     mov word [party_map_piece], 3    ; 0x2e2b
-    mov word [party_tag], 2          ; 0x2e31
-    mov word [game_state_arg], 0     ; 0x2e37
+    mov word [party_facing], 2       ; 0x2e31
+    mov word [current_level], 0      ; 0x2e37
     mov word [party_records + pc_rec.gold + 0x2], 0 ; 0x2e3d
     mov word [party_records + pc_rec.gold], 0x1388 ; 0x2e43
     mov ax, 0                        ; 0x2e49
@@ -1529,8 +1529,8 @@ import_bane_party.back19:
     mov word [party_cell_x], 4       ; 0x2e86
     mov word [party_cell_y], 5       ; 0x2e8c
     mov word [party_map_piece], 0xb  ; 0x2e92
-    mov word [party_tag], 3          ; 0x2e98
-    mov word [game_state_arg], 6     ; 0x2e9e
+    mov word [party_facing], 3       ; 0x2e98
+    mov word [current_level], 6      ; 0x2e9e
     mov word [party_records + pc_rec.gold + 0x2], 0 ; 0x2ea4
     mov word [party_records + pc_rec.gold], 0x2710 ; 0x2eaa
     mov ax, 0x5a                     ; 0x2eb0
@@ -1562,8 +1562,8 @@ import_bane_party.back20:
     mov word [party_cell_x], 6       ; 0x2ef0
     mov word [party_cell_y], 6       ; 0x2ef6
     mov word [party_map_piece], 1    ; 0x2efc
-    mov word [party_tag], 2          ; 0x2f02
-    mov word [game_state_arg], 2     ; 0x2f08
+    mov word [party_facing], 2       ; 0x2f02
+    mov word [current_level], 2      ; 0x2f08
     mov ax, 0xffa6                   ; 0x2f0e
     push ax                          ; 0x2f11
     push ax                          ; 0x2f12
@@ -1627,7 +1627,7 @@ import_bane_party.forward84:
     push ax                          ; 0x2f90
     mov ax, 0x14                     ; 0x2f91
     push ax                          ; 0x2f94
-    mov ax, word [game_state_arg]    ; 0x2f95
+    mov ax, word [current_level]     ; 0x2f95
     mov cx, 4                        ; 0x2f98
     shl ax, cl                       ; 0x2f9b
     add ax, scenario_header_data     ; 0x2f9d
@@ -1638,7 +1638,7 @@ import_bane_party.forward84:
     push ax                          ; 0x2faa
     mov ax, 0x15                     ; 0x2fab
     push ax                          ; 0x2fae
-    mov ax, word [game_state_arg]    ; 0x2faf
+    mov ax, word [current_level]     ; 0x2faf
     mov cx, 4                        ; 0x2fb2
     shl ax, cl                       ; 0x2fb5
     add ax, scenario_header_data     ; 0x2fb7
@@ -1655,10 +1655,10 @@ import_bane_party.forward84:
     mov word [previous_party_cell_y], ax ; 0x2fd6
     mov ax, word [party_map_piece]   ; 0x2fd9
     mov word [previous_party_map_piece], ax ; 0x2fdc
-    mov ax, word [party_tag]         ; 0x2fdf
-    mov word [previous_party_tag], ax ; 0x2fe2
-    mov ax, word [game_state_arg]    ; 0x2fe5
-    mov word [previous_game_state_arg], ax ; 0x2fe8
+    mov ax, word [party_facing]      ; 0x2fdf
+    mov word [previous_party_facing], ax ; 0x2fe2
+    mov ax, word [current_level]     ; 0x2fe5
+    mov word [previous_level], ax    ; 0x2fe8
 import_bane_party.forward85:
     mov ax, 0                        ; 0x2feb
     ret                              ; 0x2fee

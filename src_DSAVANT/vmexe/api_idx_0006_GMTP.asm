@@ -90,7 +90,7 @@ api_idx_0006_GMTP:
     mov word [overlay_list], 0       ; 0x1973
     jmp near .forward10              ; 0x1979
 .back4:
-    call loc_KRMP                    ; 0x197c
+    call check_party_redraw_interval ; 0x197c
     mov word [bp - 6], ax            ; 0x197f
     mov word [bp - 2], 0             ; 0x1982
 .back5:
@@ -143,7 +143,7 @@ api_idx_0006_GMTP:
     jmp short .forward10             ; 0x19fc
 .back7:
     push word [bss_845e]             ; 0x19fe
-    call loc_SSIO                    ; 0x1a02
+    call draw_overlay_list_item_text ; 0x1a02
     pop cx                           ; 0x1a05
     jmp short .forward10             ; 0x1a06
 .forward6:

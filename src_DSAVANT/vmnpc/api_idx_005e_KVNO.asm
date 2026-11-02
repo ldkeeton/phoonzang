@@ -138,7 +138,7 @@ api_idx_005e_KVNO:
     mov word [bp - 0x3e], ax         ; 0x5905
 .forward4:
     push word [bp - 8]               ; 0x5908
-    call loc_GMVH                    ; 0x590b
+    call is_quest_map_item           ; 0x590b
     pop cx                           ; 0x590e
     test ax, ax                      ; 0x590f
     je short .forward5               ; 0x5911
@@ -165,7 +165,7 @@ api_idx_005e_KVNO:
     mov word [bp - 0x3c], dx         ; 0x593b
     mov word [bp - 0x3e], ax         ; 0x593e
     push word [bp - 8]               ; 0x5941
-    call loc_GMVH                    ; 0x5944
+    call is_quest_map_item           ; 0x5944
     pop cx                           ; 0x5947
     test ax, ax                      ; 0x5948
     je short .forward7               ; 0x594a
@@ -173,7 +173,7 @@ api_idx_005e_KVNO:
     je short .forward8               ; 0x5951
 .forward7:
     push word [bp - 8]               ; 0x5953
-    call loc_GMVH                    ; 0x5956
+    call is_quest_map_item           ; 0x5956
     pop cx                           ; 0x5959
     test ax, ax                      ; 0x595a
     jne short .forward9              ; 0x595c
@@ -363,7 +363,7 @@ api_idx_005e_KVNO:
     mov ax, word [bx + party_records + pc_rec.item_slots] ; 0x5af7
     mov word [bp - 8], ax            ; 0x5afb
     push ax                          ; 0x5afe
-    call loc_GMVH                    ; 0x5aff
+    call is_quest_map_item           ; 0x5aff
     pop cx                           ; 0x5b02
     test ax, ax                      ; 0x5b03
     je short .forward17              ; 0x5b05

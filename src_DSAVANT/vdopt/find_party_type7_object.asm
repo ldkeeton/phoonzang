@@ -23,7 +23,7 @@ find_party_type7_object:
     jne short .forward2              ; 0x069a
     mov ax, 2                        ; 0x069c
     push ax                          ; 0x069f
-    mov ax, word [party_tag]         ; 0x06a0
+    mov ax, word [party_facing]      ; 0x06a0
     shl ax, 1                        ; 0x06a3
     push ax                          ; 0x06a5
     shl si, 1                        ; 0x06a6
@@ -34,7 +34,7 @@ find_party_type7_object:
     je short .forward1               ; 0x06b5
     mov ax, 2                        ; 0x06b7
     push ax                          ; 0x06ba
-    mov ax, word [party_tag]         ; 0x06bb
+    mov ax, word [party_facing]      ; 0x06bb
     shl ax, 1                        ; 0x06be
     push ax                          ; 0x06c0
     mov ax, word [bp - 2]            ; 0x06c1

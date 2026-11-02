@@ -5,7 +5,7 @@
 
 extern int random_below();
 extern int dispatch_slot_action();
-extern int game_state_arg;
+extern int current_level;
 extern char slot_pair_processed[];
 extern struct location_record location_records[];
 extern struct slot_record slot_records[];
@@ -18,7 +18,7 @@ run_roaming_npc_turns()
 	aztec_setmem(done, sizeof(done), 0);
 	/* Slot 21 is the party: put it at the current map's location. */
 	for (location = 0; location < 26; location++) {
-		if (location_records[location].game_state == game_state_arg)
+		if (location_records[location].game_state == current_level)
 			slot_records[21].location = slot_records[21].destination =
 			    location;
 	}

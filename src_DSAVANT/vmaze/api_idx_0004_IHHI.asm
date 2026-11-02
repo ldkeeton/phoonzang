@@ -29,7 +29,7 @@ api_idx_0004_IHHI:
     mov ax, 1                        ; 0x143c
     push ax                          ; 0x143f
     push word [bp - 2]               ; 0x1440
-    call loc_QTKU                    ; 0x1443
+    call mark_party_member_dead      ; 0x1443
     add sp, byte 4                   ; 0x1446
     mov ax, 0                        ; 0x1449
     push ax                          ; 0x144c
@@ -84,7 +84,7 @@ api_idx_0004_IHHI:
     mov ax, 1                        ; 0x14b6
     push ax                          ; 0x14b9
     push word [bp - 2]               ; 0x14ba
-    call loc_QTKU                    ; 0x14bd
+    call mark_party_member_dead      ; 0x14bd
     add sp, byte 4                   ; 0x14c0
     mov ax, 0                        ; 0x14c3
     push ax                          ; 0x14c6

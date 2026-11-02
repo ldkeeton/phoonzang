@@ -4,7 +4,7 @@
 #include "msg.h"
 
 extern struct maze_tables *maze_tables;
-extern int party_region, party_tag, party_map_piece;
+extern int party_region, party_facing, party_map_piece;
 extern int party_cell_x, party_cell_y, party_world_x, party_world_y;
 extern int region_step_flag, message_delay;
 extern int show_message(), wait_ticks_or_key(), call_show_area();
@@ -55,32 +55,32 @@ show_region_message()
 	/* Process each marked region step and update the party position. */
 	for (region_index = 0; region_index < message_count; region_index++) {
 		selected_tag = pick_region_marker_party_tag(region_bits);
-		if (rotate_to_tag == 1 && selected_tag != party_tag) {
+		if (rotate_to_tag == 1 && selected_tag != party_facing) {
 			/* Tags wrap across the four party positions. */
 			if (tag_direction == 1)
-				step_count = (selected_tag - party_tag + 4) % 4;
+				step_count = (selected_tag - party_facing + 4) % 4;
 			else
-				step_count = (party_tag - selected_tag + 4) % 4;
+				step_count = (party_facing - selected_tag + 4) % 4;
 			/* The region marker adjusts the number of intermediate turns. */
 			if (region_marker == 0)
 				step_count--;
 			for (step_index = 0; step_index < step_count; step_index++) {
 				wait_ticks_or_key(delay_ticks);
-				party_tag = (party_tag + tag_direction + 4) % 4;
+				party_facing = (party_facing + tag_direction + 4) % 4;
 				redraw_maze_view();
 			}
 		}
 
 		wait_ticks_or_key(delay_ticks);
-		party_tag = selected_tag;
+		party_facing = selected_tag;
 		if (region_marker > 0) {
 			save_previous_party_position();
 			if (random_distance == 1) {
 				/* Choose a distance from one through the region marker value. */
-				adjust_party_world_position(party_tag,
+				adjust_party_world_position(party_facing,
 					random_below(region_marker) + 1);
 			} else {
-				adjust_party_world_position(party_tag, region_marker);
+				adjust_party_world_position(party_facing, region_marker);
 			}
 			if (find_map_piece(&party_cell_x, &party_cell_y,
 				&party_map_piece, party_world_x, party_world_y) == 1) {

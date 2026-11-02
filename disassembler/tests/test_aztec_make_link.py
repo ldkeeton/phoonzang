@@ -57,6 +57,23 @@ class GenerateTest(unittest.TestCase):
                 _write(tree, rel, text)
                 self.assertTrue(is_generated(os.path.join(tree, rel)))
 
+    def test_desc_is_a_comment_above_the_rule(self):
+        out = project.project_files({'r': {'type': 'mz', 'desc': 'the root'}},
+                                    None, {'r.asm': '%include "r/b.asm"\n'})
+        self.assertIn('# the root\nr.exe: r.lnk\n', out['makefile'])
+        self.assertEqual(project.parse_makefile(out['makefile']),
+                         [project.Target('r', 'r.exe', [], 'r.lnk', None)])
+
+    def test_long_desc_wraps_at_80(self):
+        desc = ' '.join(['word'] * 40)
+        out = project.project_files({'r': {'type': 'mz', 'desc': desc}},
+                                    None, {'r.asm': '%include "r/b.asm"\n'})
+        comments = [l for l in out['makefile'].splitlines()
+                    if l.startswith('# ') and 'word' in l]
+        self.assertGreater(len(comments), 1)
+        self.assertTrue(all(len(l) <= 80 for l in comments))
+        self.assertEqual(' '.join(l[2:] for l in comments), desc)
+
     def test_no_overlays_means_no_rsm(self):
         out = project.project_files({'r': {'type': 'mz'}}, None,
                                     {'r.asm': '%include "r/b.asm"\n'})

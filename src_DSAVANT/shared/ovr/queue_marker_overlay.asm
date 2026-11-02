@@ -6,7 +6,7 @@ queue_marker_overlay:
     jg short .forward1
     jmp near .forward6
 .forward1:
-    mov ax, word [party_tag]
+    mov ax, word [party_facing]
     mov cx, word [marker_mode]
     dec cx
     sub ax, cx

@@ -21,7 +21,7 @@ get_cell_terrain:
     add sp, byte 4
     test ax, ax
     je short jumptable_1556_case_1
-    mov ax, word [game_state_arg]
+    mov ax, word [current_level]
     jmp short .forward2
 jumptable_1556_case_14:
     cmp word [party_map_piece], byte 0xc
@@ -65,7 +65,7 @@ jumptable_1556_case_1:
     add sp, byte 4
     test ax, ax
     je short get_cell_terrain.forward5
-    mov ax, word [game_state_arg]
+    mov ax, word [current_level]
     jmp short get_cell_terrain.forward4
 get_cell_terrain.back1:
     mov word [bp - 4], 1
@@ -95,7 +95,7 @@ get_cell_terrain.forward5:
     add sp, byte 4
     test ax, ax
     je short get_cell_terrain.forward7
-    mov ax, word [game_state_arg]
+    mov ax, word [current_level]
     jmp short get_cell_terrain.forward6
 get_cell_terrain.back3:
     mov word [bp - 4], 3

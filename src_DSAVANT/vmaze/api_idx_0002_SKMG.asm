@@ -25,7 +25,7 @@ api_idx_0002_SKMG:
     mov si, ax                       ; 0x8f5d
     cmp word [bx + si + 0x1e0], byte 2 ; 0x8f5f
     je short .forward1               ; 0x8f64
-    mov ax, word [party_tag]         ; 0x8f66
+    mov ax, word [party_facing]      ; 0x8f66
     mov cx, 2                        ; 0x8f69
     cwd                              ; 0x8f6c
     idiv cx                          ; 0x8f6d

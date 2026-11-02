@@ -8,7 +8,7 @@
 
 extern struct slot_record slot_records[];
 extern struct location_record location_records[];
-extern int game_state_arg, party_map_piece;
+extern int current_level, party_map_piece;
 extern long saved_area_a;
 extern char flag_bitset[], report_line1_none[], report_line2_none[];
 long call_save_area();
@@ -55,7 +55,7 @@ int level;
 		if (random_below(100) < chance_any)
 			goto hit;
 		if (location_records[slot_records[slot].location].game_state
-			== game_state_arg
+			== current_level
 			&& random_below(100) < chance_state)
 			goto hit;
 		/* The closest check: the NPC is on the party's map piece number. */

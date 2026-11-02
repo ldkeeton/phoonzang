@@ -1,5 +1,5 @@
 ; auto-generated
-loc_TLQV:
+show_fountain_result:
     mov ax, 0                        ; 0x0eac
     call aztec_csav                  ; 0x0eaf
     push word [bp + 4]               ; 0x0eb2

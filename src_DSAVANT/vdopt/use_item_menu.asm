@@ -307,7 +307,7 @@ use_item_menu:
     je short .forward19              ; 0x4455
     jmp near .forward21              ; 0x4457
 .forward19:
-    mov ax, word [game_state_arg]    ; 0x445a
+    mov ax, word [current_level]     ; 0x445a
     cmp ax, word [bp - 0x2e]         ; 0x445d
     je short .forward20              ; 0x4460
     jmp near .forward21              ; 0x4462
@@ -369,7 +369,7 @@ use_item_menu:
 .forward21:
     cmp byte [bp - 0xd], 5           ; 0x44e6
     jne short .forward24             ; 0x44ea
-    cmp word [game_state_arg], byte 8 ; 0x44ec
+    cmp word [current_level], byte 8 ; 0x44ec
     jne short .forward22             ; 0x44f1
     mov word [item_kind5_used_flag], 1 ; 0x44f3
     jmp short .forward23             ; 0x44f9

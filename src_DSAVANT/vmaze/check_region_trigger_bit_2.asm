@@ -25,7 +25,7 @@ check_region_trigger_bit_2:
     call get_bits                    ; 0x7af7
     add sp, byte 6                   ; 0x7afa
     mov word [found_object_owner], ax ; 0x7afd
-    cmp ax, word [party_tag]         ; 0x7b00
+    cmp ax, word [party_facing]      ; 0x7b00
     je short .forward1               ; 0x7b04
     ret                              ; 0x7b06
 .forward1:

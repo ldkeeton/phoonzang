@@ -26,11 +26,11 @@ shared/ovr/advance_action_slots
 shared/ovr/add_overlay_item
 shared/ovr/queue_cell_action_overlay
 shared/ovr/queue_marker_overlay
-shared/ovr/loc_SSIO
+shared/ovr/draw_overlay_list_item_text
 vmele/api_idx_0002_MTJS
 vmele/claim_cell_for_group
 vmele/fill_row_action_slots
-shared/ovr/loc_KRMP
+shared/ovr/check_party_redraw_interval
 shared/ovr/step_party_screen_animation
 shared/ovr/run_party_screen_animation
 vmele/play_action_overlays

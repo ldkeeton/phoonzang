@@ -29,7 +29,7 @@ wait_for_scene_input_or_timeout:
     je short .forward3               ; 0x0303
     ret                              ; 0x0305
 .forward3:
-    call loc_RULJ                    ; 0x0306
+    call wait_10_ms                  ; 0x0306
     jmp short .back1                 ; 0x0309
 .return1:
     ret                              ; 0x030b

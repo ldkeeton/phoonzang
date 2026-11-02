@@ -2,7 +2,7 @@
 vpops/ovmain
 shared/ovr/draw_split_two_line_text
 shared/ovr/redraw_glyph_strip
-shared/ovr/loc_VNIO
+shared/ovr/draw_centered_text_at_x
 shared/ovr/redraw_area_set
 shared/ovr/show_area_set
 vpops/api_idx_0054_NQHV
@@ -11,8 +11,8 @@ shared/ovr/advance_action_slots
 shared/ovr/add_overlay_item
 shared/ovr/queue_cell_action_overlay
 shared/ovr/queue_marker_overlay
-shared/ovr/loc_SSIO
-shared/ovr/loc_KRMP
+shared/ovr/draw_overlay_list_item_text
+shared/ovr/check_party_redraw_interval
 shared/ovr/step_party_screen_animation
 shared/ovr/run_party_screen_animation
 vpops/wait_for_party_redraw

@@ -24,7 +24,7 @@ api_idx_0002_NGNS:
     push word [bp - 2]               ; 0x8e1f
     call get_bits                    ; 0x8e22
     add sp, byte 6                   ; 0x8e25
-    cmp ax, word [party_tag]         ; 0x8e28
+    cmp ax, word [party_facing]      ; 0x8e28
     je short .forward1               ; 0x8e2c
     mov ax, 0                        ; 0x8e2e
     ret                              ; 0x8e31

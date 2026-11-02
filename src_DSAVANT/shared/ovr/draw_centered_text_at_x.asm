@@ -1,5 +1,5 @@
 ; auto-generated
-loc_VNIO:
+draw_centered_text_at_x:
     mov ax, 0
     call aztec_csav
     mov ax, 0

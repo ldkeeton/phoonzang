@@ -66,7 +66,7 @@ api_idx_0008_KNNO:
     add ax, cx                       ; 0x2a56
     mov bx, ax                       ; 0x2a58
     push word [bx + party_records + pc_rec.item_slots] ; 0x2a5a
-    call loc_GMVH                    ; 0x2a5e
+    call is_quest_map_item           ; 0x2a5e
     pop cx                           ; 0x2a61
     test ax, ax                      ; 0x2a62
     je short .forward6               ; 0x2a64
@@ -110,7 +110,7 @@ api_idx_0008_KNNO:
     call init_item_slot              ; 0x2aba
     add sp, byte 0xa                 ; 0x2abd
     push word [bp + 6]               ; 0x2ac0
-    call loc_GMVH                    ; 0x2ac3
+    call is_quest_map_item           ; 0x2ac3
     pop cx                           ; 0x2ac6
     test ax, ax                      ; 0x2ac7
     je short .forward7               ; 0x2ac9

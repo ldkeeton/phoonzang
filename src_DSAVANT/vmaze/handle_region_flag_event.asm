@@ -102,7 +102,7 @@ handle_region_flag_event:
     push word [bp - 0xc]             ; 0x7752
     mov ax, 0                        ; 0x7755
     push ax                          ; 0x7758
-    push word [game_state_arg]       ; 0x7759
+    push word [current_level]        ; 0x7759
     call log_maze_change             ; 0x775d
     add sp, byte 0x12                ; 0x7760
     push word [bp - 0x1c]            ; 0x7763

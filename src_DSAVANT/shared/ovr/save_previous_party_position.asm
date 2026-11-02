@@ -12,8 +12,8 @@ save_previous_party_position:
     mov word [previous_party_cell_y], ax
     mov ax, word [party_map_piece]
     mov word [previous_party_map_piece], ax
-    mov ax, word [game_state_arg]
-    mov word [previous_game_state_arg], ax
-    mov ax, word [party_tag]
-    mov word [previous_party_tag], ax
+    mov ax, word [current_level]
+    mov word [previous_level], ax
+    mov ax, word [party_facing]
+    mov word [previous_party_facing], ax
     ret

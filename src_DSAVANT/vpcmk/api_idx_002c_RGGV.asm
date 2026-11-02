@@ -36,7 +36,7 @@ api_idx_002c_RGGV:
     push ax                          ; 0x6789
     mov ax, 0x465                    ; 0x678a
     push ax                          ; 0x678d
-    call loc_TRPK                    ; 0x678e
+    call select_grid_text_option     ; 0x678e
     add sp, byte 0x1a                ; 0x6791
     mov word [bp - 2], ax            ; 0x6794
     cmp word [bp - 2], byte 0        ; 0x6797

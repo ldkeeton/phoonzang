@@ -70,7 +70,7 @@ step_party_screen_animation:
     mov word [overlay_list], 0
     jmp near .forward9
 .back4:
-    call loc_KRMP
+    call check_party_redraw_interval
     mov word [bp - 6], ax
     mov word [bp - 2], 0
 .back5:
@@ -119,7 +119,7 @@ step_party_screen_animation:
     jmp short .forward9
 .back7:
     push word [bss_845e]
-    call loc_SSIO
+    call draw_overlay_list_item_text
     pop cx
     jmp short .forward9
 .forward5:

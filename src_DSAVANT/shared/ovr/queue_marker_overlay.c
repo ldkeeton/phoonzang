@@ -2,7 +2,7 @@
    items */
 
 extern int marker_mode;
-extern int party_tag;
+extern int party_facing;
 extern unsigned char glyph_y_table[];
 extern unsigned char glyph_x_table[][2];
 extern unsigned char marker_y, marker_x;
@@ -14,7 +14,8 @@ queue_marker_overlay()
 	unsigned char glyph[10];
 
 	if (marker_mode > 0) {
-		facing = (party_tag - (marker_mode - 1) + 6) % 4;	/* from tag */
+		facing = (party_facing - (marker_mode - 1) + 6) % 4;
+			/* relative to the party facing */
 		switch (facing) {
 		case 0:
 		case 2:

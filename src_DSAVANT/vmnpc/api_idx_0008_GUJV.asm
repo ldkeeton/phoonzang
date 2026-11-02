@@ -118,7 +118,7 @@ api_idx_0008_GUJV:
     call api_idx_0054_IJQR           ; 0x5679
     add sp, byte 6                   ; 0x567c
     push word [bp - 4]               ; 0x567f
-    call loc_GMVH                    ; 0x5682
+    call is_quest_map_item           ; 0x5682
     pop cx                           ; 0x5685
     test ax, ax                      ; 0x5686
     je short .forward7               ; 0x5688

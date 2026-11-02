@@ -2,7 +2,7 @@
 maybe_play_maze_ambient_sound:
     mov ax, 0xfffe                   ; 0x0106
     call aztec_csav                  ; 0x0109
-    cmp word [game_state_arg], byte 0x17 ; 0x010c
+    cmp word [current_level], byte 0x17 ; 0x010c
     jne short .forward1              ; 0x0111
     cmp word [party_map_piece], byte 0xf ; 0x0113
     jne short .forward1              ; 0x0118

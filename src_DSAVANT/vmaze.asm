@@ -71,30 +71,30 @@ api_idx_0030_KNRH_bss7228 equ __zdseg_end + (__zobss_91b6 - __zdata_start)
 api_idx_0030_KNRH_bss7284 equ __zdseg_end + (__zobss_91bc - __zdata_start)
 api_idx_0030_KNRH_bss7323 equ __zdseg_end + (__zobss_91c2 - __zdata_start)
 api_idx_0030_KNRH_bss7154 equ __zdseg_end + (__zobss_91c8 - __zdata_start)
-maze_floor_layer_enabled equ __zdseg_end + (__zobss_91d0 - __zdata_start)
-api_idx_0012_KQTQ_bss2524 equ __zdseg_end + (__zobss_91d2 - __zdata_start)
+floor_checker_parity equ __zdseg_end + (__zobss_91d0 - __zdata_start)
+side_wall_animation_phase equ __zdseg_end + (__zobss_91d2 - __zdata_start)
 boundary_wall_variant equ __zdseg_end + (__zobss_91d4 - __zdata_start)
-cell_wall_override_disabled equ __zdseg_end + (__zobss_91d6 - __zdata_start)
-api_idx_0012_KQTQ_bss2257 equ __zdseg_end + (__zobss_91d8 - __zdata_start)
-api_idx_0008_PGTT_bss177 equ __zdseg_end + (__zobss_91da - __zdata_start)
+view_scan_depth equ __zdseg_end + (__zobss_91d6 - __zdata_start)
+side_wall_layer_flags equ __zdseg_end + (__zobss_91d8 - __zdata_start)
+maze_boundary_wall_markers equ __zdseg_end + (__zobss_91da - __zdata_start)
 api_idx_0030_KNRH_bss6993 equ __zdseg_end + (__zobss_91e4 - __zdata_start)
-api_idx_0012_KQTQ_bss1037 equ __zdseg_end + (__zobss_91f1 - __zdata_start)
-api_idx_0008_PGTT_bss703 equ __zdseg_end + (__zobss_91f3 - __zdata_start)
+near_wall_layer_flags equ __zdseg_end + (__zobss_91f1 - __zdata_start)
+maze_cell_flag_markers equ __zdseg_end + (__zobss_91f3 - __zdata_start)
 api_idx_0030_KNRH_bss714 equ __zdseg_end + (__zobss_920a - __zdata_start)
-api_idx_0008_PGTT_bss777 equ __zdseg_end + (__zobss_920c - __zdata_start)
-api_idx_0008_PGTT_bss798 equ __zdseg_end + (__zobss_9211 - __zdata_start)
-api_idx_0012_KQTQ_bss4209 equ __zdseg_end + (__zobss_9223 - __zdata_start)
-api_idx_0008_PGTT_bss1636 equ __zdseg_end + (__zobss_9225 - __zdata_start)
-api_idx_0012_KQTQ_bss2803 equ __zdseg_end + (__zobss_923c - __zdata_start)
-api_idx_0008_PGTT_bss1699 equ __zdseg_end + (__zobss_9240 - __zdata_start)
-api_idx_0012_KQTQ_bss135 equ __zdseg_end + (__zobss_926e - __zdata_start)
-api_idx_0008_PGTT_bss1762 equ __zdseg_end + (__zobss_9272 - __zdata_start)
-api_idx_0012_KQTQ_bss3553 equ __zdseg_end + (__zobss_92a0 - __zdata_start)
-api_idx_0008_PGTT_bss1826 equ __zdseg_end + (__zobss_92a2 - __zdata_start)
-api_idx_0012_KQTQ_bss2817 equ __zdseg_end + (__zobss_92ba - __zdata_start)
-api_idx_0008_PGTT_bss1906 equ __zdseg_end + (__zobss_92be - __zdata_start)
-api_idx_0012_KQTQ_bss149 equ __zdseg_end + (__zobss_92ec - __zdata_start)
-api_idx_0008_PGTT_bss1961 equ __zdseg_end + (__zobss_92f0 - __zdata_start)
+maze_blocking_cell_markers equ __zdseg_end + (__zobss_920c - __zdata_start)
+maze_near_blocking_markers equ __zdseg_end + (__zobss_9211 - __zdata_start)
+view_marker_ids equ __zdseg_end + (__zobss_9223 - __zdata_start)
+maze_cell_facing_bytes equ __zdseg_end + (__zobss_9225 - __zdata_start)
+far_wall_object_ids equ __zdseg_end + (__zobss_923c - __zdata_start)
+maze_cell_facing_words_a equ __zdseg_end + (__zobss_9240 - __zdata_start)
+near_wall_object_ids equ __zdseg_end + (__zobss_926e - __zdata_start)
+maze_cell_facing_words_b equ __zdseg_end + (__zobss_9272 - __zdata_start)
+view_marker_kinds equ __zdseg_end + (__zobss_92a0 - __zdata_start)
+maze_special_wall_markers equ __zdseg_end + (__zobss_92a2 - __zdata_start)
+far_wall_overlay_ids equ __zdseg_end + (__zobss_92ba - __zdata_start)
+maze_cell_effect_flags_a equ __zdseg_end + (__zobss_92be - __zdata_start)
+near_wall_overlay_ids equ __zdseg_end + (__zobss_92ec - __zdata_start)
+maze_cell_effect_flags_b equ __zdseg_end + (__zobss_92f0 - __zdata_start)
 render_queue_count equ __zdseg_end + (__zobss_931e - __zdata_start)
 queued_slot_x equ __zdseg_end + (__zobss_9320 - __zdata_start)
 queued_slot_y equ __zdseg_end + (__zobss_9322 - __zdata_start)
@@ -183,7 +183,7 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "shared/ovr/show_message.asm"          ; 0x1094
 
-%include "shared/ovr/loc_QTKU.asm"              ; 0x10b0
+%include "shared/ovr/mark_party_member_dead.asm" ; 0x10b0
 
 %include "vmaze/show_rock_entry_message.asm" ; 0x110e
 
@@ -239,7 +239,7 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "shared/ovr/read_cell_kind_direction.asm" ; 0x2f55
 
-%include "shared/ovr/api_idx_0008_PGTT.asm"     ; 0x2f8e
+%include "shared/ovr/resolve_cell_wall_effects.asm" ; 0x2f8e
 
 %include "shared/ovr/get_relative_cell_wall.asm" ; 0x33c0
 
@@ -249,11 +249,11 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "shared/ovr/queue_boundary_view_layers.asm" ; 0x3f56
 
-%include "shared/ovr/api_idx_0012_KQTQ.asm"     ; 0x4665
+%include "shared/ovr/queue_view_cell_side_layers.asm" ; 0x4665
 
 %include "shared/ovr/draw_queued_glyph_shape.asm" ; 0x4f53
 
-%include "shared/ovr/api_idx_0024_NUGL.asm"     ; 0x50f4
+%include "shared/ovr/draw_moon_glyph.asm"       ; 0x50f4
 
 %include "shared/ovr/draw_clock_marker_glyph.asm" ; 0x529a
 
@@ -261,7 +261,7 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "shared/ovr/redraw_maze_view.asm"      ; 0x676c
 
-%include "shared/ovr/loc_MPHO.asm"              ; 0x678c
+%include "shared/ovr/map_piece_index_for_position.asm" ; 0x678c
 
 %include "shared/ovr/find_map_piece.asm"        ; 0x67c6
 

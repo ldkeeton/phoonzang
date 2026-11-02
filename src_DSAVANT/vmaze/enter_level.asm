@@ -12,13 +12,13 @@ enter_level:
     mov word [maze_refresh_deadline], ax ; 0x0cd3
     call api_idx_0002_LMTG           ; 0x0cd6
     mov ax, word [bp + 4]            ; 0x0cd9
-    mov word [game_state_arg], ax    ; 0x0cdc
+    mov word [current_level], ax     ; 0x0cdc
     push ax                          ; 0x0cdf
     mov ax, 2                        ; 0x0ce0
     push ax                          ; 0x0ce3
     call ensure_game_disk            ; 0x0ce4
     add sp, byte 4                   ; 0x0ce7
-    cmp word [game_state_arg], byte 0 ; 0x0cea
+    cmp word [current_level], byte 0 ; 0x0cea
     jge short .forward1              ; 0x0cef
     mov word [game_state], 7         ; 0x0cf1
     ret                              ; 0x0cf7
@@ -26,12 +26,12 @@ enter_level:
     call load_current_maze_level     ; 0x0cf8
     mov ax, 0x10                     ; 0x0cfb
     push ax                          ; 0x0cfe
-    mov ax, word [game_state_arg]    ; 0x0cff
+    mov ax, word [current_level]     ; 0x0cff
     mov cx, 4                        ; 0x0d02
     shl ax, cl                       ; 0x0d05
     add ax, party_region + 0x2       ; 0x0d07
     push ax                          ; 0x0d0a
-    mov ax, word [game_state_arg]    ; 0x0d0b
+    mov ax, word [current_level]     ; 0x0d0b
     shl ax, cl                       ; 0x0d0e
     add ax, scenario_header_data     ; 0x0d10
     push ax                          ; 0x0d13
@@ -120,7 +120,7 @@ enter_level:
     mov bx, word [bp - 0xc]          ; 0x0de4
     mov al, byte [bx]                ; 0x0de7
     sub ah, ah                       ; 0x0de9
-    cmp ax, word [game_state_arg]    ; 0x0deb
+    cmp ax, word [current_level]     ; 0x0deb
     jne short .forward4              ; 0x0def
     mov ax, word [bx + 2]            ; 0x0df1
     mov cx, 0x100                    ; 0x0df4

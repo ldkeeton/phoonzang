@@ -1,5 +1,5 @@
 ; auto-generated
-loc_MPHO:
+map_piece_index_for_position:
     mov ax, 0
     call aztec_csav
     mov bx, word [maze_data]

@@ -67,7 +67,7 @@ draw_clock_marker_glyph:
     sub ax, cx
     mov word [bp - 0xe], ax
 .forward4:
-    mov ax, word [party_tag]
+    mov ax, word [party_facing]
     shl ax, 1
     mov bx, ax
     add bx, bp

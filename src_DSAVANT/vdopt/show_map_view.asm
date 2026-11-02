@@ -815,7 +815,7 @@ show_map_view.forward82:
     mov ax, 0                        ; 0x17fc
     push ax                          ; 0x17ff
     push ax                          ; 0x1800
-    mov ax, word [party_tag]         ; 0x1801
+    mov ax, word [party_facing]      ; 0x1801
     add ax, strict word 0x20         ; 0x1804
     push ax                          ; 0x1807
     mov ax, word [bp - 8]            ; 0x1808

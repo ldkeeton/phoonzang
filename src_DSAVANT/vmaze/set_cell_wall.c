@@ -4,7 +4,7 @@
 #include "structs/mazecell.h"
 
 extern struct maze_cells *maze_data;
-extern int game_state_arg;
+extern int current_level;
 
 set_cell_wall(side, value, map, x, y)
 int side, value, map, x, y;
@@ -41,7 +41,7 @@ int side, value, map, x, y;
 		break;
 	}
 	if (plane != -1) {
-		log_maze_change(game_state_arg, kind, map, x, y, value, 0, 0, 0);
+		log_maze_change(current_level, kind, map, x, y, value, 0, 0, 0);
 		/* 4-bit fields: plane 0 at +0x90, plane 1 at +0x290 */
 		if (plane == 0)
 			set_bitfield(maze_data->wall_a, cell, 4, value);

@@ -248,8 +248,8 @@ jumptable_36f8_case_7:
 api_idx_0040_INKU.forward17:
     jmp near api_idx_0040_INKU.forward76 ; 0x2ddb
 jumptable_36f8_case_8:
-    mov ax, word [game_state_arg]    ; 0x2dde
-    cmp ax, word [previous_game_state_arg] ; 0x2de1
+    mov ax, word [current_level]     ; 0x2dde
+    cmp ax, word [previous_level]    ; 0x2de1
     jne short api_idx_0040_INKU.forward18 ; 0x2de5
     mov ax, word [previous_party_cell_x] ; 0x2de7
     mov word [party_cell_x], ax      ; 0x2dea
@@ -261,8 +261,8 @@ jumptable_36f8_case_8:
     mov word [party_world_x], ax     ; 0x2dfc
     mov ax, word [previous_party_world_y] ; 0x2dff
     mov word [party_world_y], ax     ; 0x2e02
-    mov ax, word [previous_party_tag] ; 0x2e05
-    mov word [party_tag], ax         ; 0x2e08
+    mov ax, word [previous_party_facing] ; 0x2e05
+    mov word [party_facing], ax      ; 0x2e08
     mov bx, word [maze_tables]       ; 0x2e0b
     mov si, word [party_map_piece]   ; 0x2e0f
     mov al, byte [bx + si + 0xb40]   ; 0x2e13
@@ -301,7 +301,7 @@ api_idx_0040_INKU.back3:
     mov word [bp - 0x2a], ax         ; 0x2e6d
     mov word [bp - 0x2c], dx         ; 0x2e70
     push word [bp - 0x26]            ; 0x2e73
-    call loc_GMVH                    ; 0x2e76
+    call is_quest_map_item           ; 0x2e76
     pop cx                           ; 0x2e79
     test ax, ax                      ; 0x2e7a
     je short api_idx_0040_INKU.forward19 ; 0x2e7c
@@ -534,7 +534,7 @@ jumptable_36f8_case_14:
     jge short api_idx_0040_INKU.forward38 ; 0x309d
     push word [bp - 0x28]            ; 0x309f
     push ax                          ; 0x30a2
-    mov ax, word [game_state_arg]    ; 0x30a3
+    mov ax, word [current_level]     ; 0x30a3
     mov cx, 4                        ; 0x30a6
     shl ax, cl                       ; 0x30a9
     add ax, party_region + 0x2       ; 0x30ab
@@ -551,7 +551,7 @@ jumptable_36f8_case_15:
     jge short api_idx_0040_INKU.forward39 ; 0x30c3
     push word [bp - 0x28]            ; 0x30c5
     push ax                          ; 0x30c8
-    mov ax, word [game_state_arg]    ; 0x30c9
+    mov ax, word [current_level]     ; 0x30c9
     mov cx, 4                        ; 0x30cc
     shl ax, cl                       ; 0x30cf
     add ax, party_region + 0x2       ; 0x30d1
@@ -560,7 +560,7 @@ jumptable_36f8_case_15:
     add sp, byte 6                   ; 0x30d8
     push word [bp - 0x28]            ; 0x30db
     push word [bp - 0x26]            ; 0x30de
-    mov ax, word [game_state_arg]    ; 0x30e1
+    mov ax, word [current_level]     ; 0x30e1
     mov cx, 4                        ; 0x30e4
     shl ax, cl                       ; 0x30e7
     add ax, scenario_header_data     ; 0x30e9
@@ -607,7 +607,7 @@ api_idx_0040_INKU.forward41:
     jmp near api_idx_0040_INKU.forward76 ; 0x3144
 jumptable_36f8_case_18:
     push word [bp - 0x26]            ; 0x3147
-    mov ax, word [game_state_arg]    ; 0x314a
+    mov ax, word [current_level]     ; 0x314a
     mov cx, 4                        ; 0x314d
     shl ax, cl                       ; 0x3150
     add ax, party_region + 0x2       ; 0x3152
@@ -622,7 +622,7 @@ api_idx_0040_INKU.forward42:
     jmp near api_idx_0040_INKU.forward76 ; 0x3165
 jumptable_36f8_case_19:
     push word [bp - 0x26]            ; 0x3168
-    mov ax, word [game_state_arg]    ; 0x316b
+    mov ax, word [current_level]     ; 0x316b
     mov cx, 4                        ; 0x316e
     shl ax, cl                       ; 0x3171
     add ax, party_region + 0x2       ; 0x3173
@@ -718,7 +718,7 @@ api_idx_0040_INKU.forward52:
     jmp near api_idx_0040_INKU.forward76 ; 0x3238
 jumptable_36f8_case_25:
     push word [bp - 0x26]            ; 0x323b
-    mov ax, word [game_state_arg]    ; 0x323e
+    mov ax, word [current_level]     ; 0x323e
     mov cx, 4                        ; 0x3241
     shl ax, cl                       ; 0x3244
     add ax, party_region + 0x2       ; 0x3246
@@ -739,7 +739,7 @@ api_idx_0040_INKU.forward53:
     jmp near api_idx_0040_INKU.forward76 ; 0x3269
 jumptable_36f8_case_26:
     push word [bp - 0x26]            ; 0x326c
-    mov ax, word [game_state_arg]    ; 0x326f
+    mov ax, word [current_level]     ; 0x326f
     mov cx, 4                        ; 0x3272
     shl ax, cl                       ; 0x3275
     add ax, party_region + 0x2       ; 0x3277
@@ -1055,8 +1055,8 @@ jumptable_36f8_case_40:
     mov word [party_cell_x], 3       ; 0x354e
     mov word [party_cell_y], 0       ; 0x3554
     mov word [party_map_piece], 2    ; 0x355a
-    mov word [party_tag], 0          ; 0x3560
-    mov word [game_state_arg], 0x13  ; 0x3566
+    mov word [party_facing], 0       ; 0x3560
+    mov word [current_level], 0x13   ; 0x3566
     mov word [game_state], 6         ; 0x356c
     mov word [party_return_state], 0x12 ; 0x3572
     mov ax, 1                        ; 0x3578
@@ -1126,7 +1126,7 @@ api_idx_0040_INKU.back9:
     call init_item_slot              ; 0x360d
     add sp, byte 0xa                 ; 0x3610
     push word [bp - 0x26]            ; 0x3613
-    call loc_GMVH                    ; 0x3616
+    call is_quest_map_item           ; 0x3616
     pop cx                           ; 0x3619
     test ax, ax                      ; 0x361a
     je short api_idx_0040_INKU.forward70 ; 0x361c

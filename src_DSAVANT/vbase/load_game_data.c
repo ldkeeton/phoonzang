@@ -25,11 +25,11 @@ extern char *runtime_buffer_3k, *floor_items;
 extern char far *runtime_buffer_4k_a, *runtime_buffer_4k_b;
 extern char game_block_a[], game_block_b[];
 extern int party_world_x, party_world_y, party_cell_x, party_cell_y;
-extern int party_map_piece, party_tag, game_state_arg;
+extern int party_map_piece, party_facing, current_level;
 extern int previous_party_world_x, previous_party_world_y,
 	previous_party_cell_x, previous_party_cell_y, previous_party_map_piece,
-	previous_party_tag,
-	previous_game_state_arg;
+	previous_party_facing,
+	previous_level;
 extern int saved_cell_x, saved_cell_y, saved_map_piece, saved_level,
 	saved_position_extra;
 extern long game_time, game_time_aux_a, game_time_aux_b;
@@ -195,15 +195,15 @@ int load_mode;
 	party_cell_x = loaded_game_state.cell_x;
 	party_cell_y = loaded_game_state.cell_y;
 	party_map_piece = loaded_game_state.map_piece;
-	party_tag = loaded_game_state.tag;
-	game_state_arg = loaded_game_state.level;
+	party_facing = loaded_game_state.facing;
+	current_level = loaded_game_state.level;
 	previous_party_world_x = loaded_game_state.previous_world_x;
 	previous_party_world_y = loaded_game_state.previous_world_y;
 	previous_party_cell_x = loaded_game_state.previous_cell_x;
 	previous_party_cell_y = loaded_game_state.previous_cell_y;
 	previous_party_map_piece = loaded_game_state.previous_map_piece;
-	previous_party_tag = loaded_game_state.previous_tag;
-	previous_game_state_arg = loaded_game_state.previous_level;
+	previous_party_facing = loaded_game_state.previous_facing;
+	previous_level = loaded_game_state.previous_level;
 	saved_cell_x = loaded_game_state.saved_x;
 	saved_cell_y = loaded_game_state.saved_y;
 	saved_map_piece = loaded_game_state.saved_piece;

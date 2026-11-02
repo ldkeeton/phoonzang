@@ -2,7 +2,7 @@
 #include "structs/maze.h"
 
 extern struct maze_tables *maze_tables;
-extern int party_map_piece, party_cell_y, party_cell_x, party_tag;
+extern int party_map_piece, party_cell_y, party_cell_x, party_facing;
 
 find_party_type7_object()
 {
@@ -17,10 +17,11 @@ find_party_type7_object()
 			break;
 
 		if (maze_tables->type[object_index] == 7) {
-			/* Accept either matching two-bit party tag value. */
-			if (get_bits(maze_tables->flags[object_index], party_tag << 1, 2) == 1 ||
+			/* Accept state 1 or 2 in the object's two-bit field for the party's
+			   facing. */
+			if (get_bits(maze_tables->flags[object_index], party_facing << 1, 2) == 1 ||
 			    get_bits(maze_tables->flags[object_index],
-				party_tag << 1, 2) == 2)
+				party_facing << 1, 2) == 2)
 				return object_index;
 		}
 		++object_index;

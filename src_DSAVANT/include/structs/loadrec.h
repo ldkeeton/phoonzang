@@ -31,14 +31,14 @@ struct load_state {
 	int cell_x; /* +0x06 */
 	int cell_y; /* +0x08 */
 	int map_piece; /* +0x0a */
-	int tag; /* +0x0c */
+	int facing; /* +0x0c */
 	int previous_level; /* +0x0e */
 	int previous_world_x; /* +0x10 */
 	int previous_world_y; /* +0x12 */
 	int previous_cell_x; /* +0x14 */
 	int previous_cell_y; /* +0x16 */
 	int previous_map_piece; /* +0x18 */
-	int previous_tag; /* +0x1a */
+	int previous_facing; /* +0x1a */
 	int saved_x; /* +0x1c */
 	int saved_y; /* +0x1e */
 	int saved_piece; /* +0x20 */

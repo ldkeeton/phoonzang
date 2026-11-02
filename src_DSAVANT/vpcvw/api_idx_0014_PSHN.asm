@@ -604,7 +604,7 @@ api_idx_0014_PSHN:
     add sp, byte 0xe                 ; 0x66bd
 .back6:
     push word [bp + 4]               ; 0x66c0
-    call loc_TTSP                    ; 0x66c3
+    call refresh_title_and_member_panel                    ; 0x66c3
     pop cx                           ; 0x66c6
     mov ax, hotspot_rects            ; 0x66c7
     push ax                          ; 0x66ca

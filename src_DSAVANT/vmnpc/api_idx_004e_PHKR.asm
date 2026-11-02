@@ -38,7 +38,7 @@ api_idx_004e_PHKR:
     call data_record_io              ; 0x5bc7
     add sp, byte 8                   ; 0x5bca
     push word [bp - 2]               ; 0x5bcd
-    call loc_GMVH                    ; 0x5bd0
+    call is_quest_map_item           ; 0x5bd0
     pop cx                           ; 0x5bd3
     test ax, ax                      ; 0x5bd4
     je short .forward1               ; 0x5bd6
@@ -46,7 +46,7 @@ api_idx_004e_PHKR:
     je short .forward2               ; 0x5bdd
 .forward1:
     push word [bp - 2]               ; 0x5bdf
-    call loc_GMVH                    ; 0x5be2
+    call is_quest_map_item           ; 0x5be2
     pop cx                           ; 0x5be5
     test ax, ax                      ; 0x5be6
     jne short .forward3              ; 0x5be8
@@ -127,7 +127,7 @@ api_idx_004e_PHKR:
     call loc_HOSN                    ; 0x5c86
     add sp, byte 8                   ; 0x5c89
     push word [bp - 2]               ; 0x5c8c
-    call loc_GMVH                    ; 0x5c8f
+    call is_quest_map_item           ; 0x5c8f
     pop cx                           ; 0x5c92
     test ax, ax                      ; 0x5c93
     je short .forward5               ; 0x5c95

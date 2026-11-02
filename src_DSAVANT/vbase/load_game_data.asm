@@ -604,10 +604,10 @@ load_game_data:
     mov word [party_cell_y], ax      ; 0x3577
     mov ax, word [loaded_state_map_piece] ; 0x357a
     mov word [party_map_piece], ax   ; 0x357d
-    mov ax, word [loaded_state_tag]  ; 0x3580
-    mov word [party_tag], ax         ; 0x3583
+    mov ax, word [loaded_state_facing] ; 0x3580
+    mov word [party_facing], ax      ; 0x3583
     mov ax, word [loaded_game_state] ; 0x3586
-    mov word [game_state_arg], ax    ; 0x3589
+    mov word [current_level], ax     ; 0x3589
     mov ax, word [loaded_state_previous_world_x] ; 0x358c
     mov word [previous_party_world_x], ax ; 0x358f
     mov ax, word [loaded_state_previous_world_y] ; 0x3592
@@ -618,10 +618,10 @@ load_game_data:
     mov word [previous_party_cell_y], ax ; 0x35a1
     mov ax, word [loaded_state_previous_map_piece] ; 0x35a4
     mov word [previous_party_map_piece], ax ; 0x35a7
-    mov ax, word [loaded_state_previous_tag] ; 0x35aa
-    mov word [previous_party_tag], ax ; 0x35ad
+    mov ax, word [loaded_state_previous_facing] ; 0x35aa
+    mov word [previous_party_facing], ax ; 0x35ad
     mov ax, word [loaded_state_previous_level] ; 0x35b0
-    mov word [previous_game_state_arg], ax ; 0x35b3
+    mov word [previous_level], ax    ; 0x35b3
     mov ax, word [loaded_state_saved_x] ; 0x35b6
     mov word [saved_cell_x], ax      ; 0x35b9
     mov ax, word [loaded_state_saved_y] ; 0x35bc

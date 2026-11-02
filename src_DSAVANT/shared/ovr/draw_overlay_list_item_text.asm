@@ -1,5 +1,5 @@
 ; auto-generated
-loc_SSIO:
+draw_overlay_list_item_text:
     mov ax, 0
     call aztec_csav
     mov ax, word [bp + 4]

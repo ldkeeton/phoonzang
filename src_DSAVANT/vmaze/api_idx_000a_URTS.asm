@@ -154,7 +154,7 @@ api_idx_000a_URTS.forward9:
     mov ax, 0                        ; 0x1abb
     push ax                          ; 0x1abe
     push word [bp + 4]               ; 0x1abf
-    call loc_QTKU                    ; 0x1ac2
+    call mark_party_member_dead      ; 0x1ac2
     add sp, byte 4                   ; 0x1ac5
 api_idx_000a_URTS.forward10:
     jmp near api_idx_000a_URTS.forward21 ; 0x1ac8
@@ -198,7 +198,7 @@ api_idx_000a_URTS.forward12:
     mov ax, 0                        ; 0x1b24
     push ax                          ; 0x1b27
     push word [bp + 4]               ; 0x1b28
-    call loc_QTKU                    ; 0x1b2b
+    call mark_party_member_dead      ; 0x1b2b
     add sp, byte 4                   ; 0x1b2e
     jmp near api_idx_000a_URTS.forward21 ; 0x1b31
 api_idx_000a_URTS.forward13:

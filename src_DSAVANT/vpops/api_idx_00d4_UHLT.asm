@@ -474,7 +474,7 @@ api_idx_00d4_UHLT:
     imul word [bp - 6]               ; 0x3bcf
     add ax, party_records            ; 0x3bd2
     push ax                          ; 0x3bd5
-    call loc_VNIO                    ; 0x3bd6
+    call draw_centered_text_at_x     ; 0x3bd6
     add sp, byte 8                   ; 0x3bd9
     mov ax, 0x16                     ; 0x3bdc
     push ax                          ; 0x3bdf
@@ -484,7 +484,7 @@ api_idx_00d4_UHLT:
     push ax                          ; 0x3be7
     lea ax, word [bp - 0xd4]         ; 0x3be8
     push ax                          ; 0x3bec
-    call loc_VNIO                    ; 0x3bed
+    call draw_centered_text_at_x     ; 0x3bed
     add sp, byte 8                   ; 0x3bf0
     mov word [bp - 0x9e], 0          ; 0x3bf3
     mov word [bp - 0xa0], 0          ; 0x3bf9
@@ -553,7 +553,7 @@ jumptable_4058_case_0:
     imul word [bp - 6]               ; 0x3c82
     add ax, party_records            ; 0x3c85
     push ax                          ; 0x3c88
-    call loc_VNIO                    ; 0x3c89
+    call draw_centered_text_at_x     ; 0x3c89
     add sp, byte 8                   ; 0x3c8c
     mov ax, 0x16                     ; 0x3c8f
     push ax                          ; 0x3c92
@@ -563,7 +563,7 @@ jumptable_4058_case_0:
     push ax                          ; 0x3c9a
     lea ax, word [bp - 0xd4]         ; 0x3c9b
     push ax                          ; 0x3c9f
-    call loc_VNIO                    ; 0x3ca0
+    call draw_centered_text_at_x     ; 0x3ca0
     add sp, byte 8                   ; 0x3ca3
     mov ax, 0x248                    ; 0x3ca6
     imul word [bp - 6]               ; 0x3ca9
@@ -742,7 +742,7 @@ jumptable_4058_case_1:
     imul word [bp - 6]               ; 0x3e65
     add ax, party_records            ; 0x3e68
     push ax                          ; 0x3e6b
-    call loc_VNIO                    ; 0x3e6c
+    call draw_centered_text_at_x     ; 0x3e6c
     add sp, byte 8                   ; 0x3e6f
     mov ax, 0x16                     ; 0x3e72
     push ax                          ; 0x3e75
@@ -752,7 +752,7 @@ jumptable_4058_case_1:
     push ax                          ; 0x3e7d
     lea ax, word [bp - 0xd4]         ; 0x3e7e
     push ax                          ; 0x3e82
-    call loc_VNIO                    ; 0x3e83
+    call draw_centered_text_at_x     ; 0x3e83
     add sp, byte 8                   ; 0x3e86
     mov word [bp - 2], 0             ; 0x3e89
 api_idx_00d4_UHLT.back9:
@@ -829,7 +829,7 @@ jumptable_4058_case_3:
     push ax                          ; 0x3f39
     lea ax, word [bp - 0xd4]         ; 0x3f3a
     push ax                          ; 0x3f3e
-    call loc_VNIO                    ; 0x3f3f
+    call draw_centered_text_at_x     ; 0x3f3f
     add sp, byte 8                   ; 0x3f42
     push word [bp - 6]               ; 0x3f45
     call pick_spell_action           ; 0x3f48
@@ -853,7 +853,7 @@ jumptable_4058_case_4:
     push ax                          ; 0x3f71
     lea ax, word [bp - 0xd4]         ; 0x3f72
     push ax                          ; 0x3f76
-    call loc_VNIO                    ; 0x3f77
+    call draw_centered_text_at_x     ; 0x3f77
     add sp, byte 8                   ; 0x3f7a
     push word [bp - 6]               ; 0x3f7d
     call choose_member_item_to_use   ; 0x3f80
@@ -975,7 +975,7 @@ api_idx_00d4_UHLT.forward58:
     push ax                          ; 0x4098
     lea ax, word [bp - 0xd4]         ; 0x4099
     push ax                          ; 0x409d
-    call loc_VNIO                    ; 0x409e
+    call draw_centered_text_at_x     ; 0x409e
     add sp, byte 8                   ; 0x40a1
     mov ax, 0                        ; 0x40a4
     push ax                          ; 0x40a7
@@ -1195,7 +1195,7 @@ api_idx_00d4_UHLT.forward72:
     push ax                          ; 0x42bf
     lea ax, word [bp - 0x96]         ; 0x42c0
     push ax                          ; 0x42c4
-    call loc_VNIO                    ; 0x42c5
+    call draw_centered_text_at_x     ; 0x42c5
     add sp, byte 8                   ; 0x42c8
     mov ax, 3                        ; 0x42cb
     push ax                          ; 0x42ce

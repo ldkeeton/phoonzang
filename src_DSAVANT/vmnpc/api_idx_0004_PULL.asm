@@ -38,7 +38,7 @@ api_idx_0004_PULL:
     test ax, 0x40                    ; 0x233a
     jne short .forward2              ; 0x233d
     push word [bx + party_records + pc_rec.item_slots] ; 0x233f
-    call loc_GMVH                    ; 0x2343
+    call is_quest_map_item           ; 0x2343
     pop cx                           ; 0x2346
     test ax, ax                      ; 0x2347
     je short .forward3               ; 0x2349

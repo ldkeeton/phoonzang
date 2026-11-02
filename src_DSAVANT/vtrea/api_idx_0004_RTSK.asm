@@ -8,7 +8,7 @@ api_idx_0004_RTSK:
     add ax, cx                       ; 0x6ebb
     add ax, 0x3c0                    ; 0x6ebd
     mov word [bp - 4], ax            ; 0x6ec0
-    mov ax, word [party_tag]         ; 0x6ec3
+    mov ax, word [party_facing]      ; 0x6ec3
     shl ax, 1                        ; 0x6ec6
     mov word [bp - 2], ax            ; 0x6ec8
     mov cx, 8                        ; 0x6ecb
@@ -65,7 +65,7 @@ api_idx_0004_RTSK:
     push word [bp + 4]               ; 0x6f2f
     mov ax, 6                        ; 0x6f32
     push ax                          ; 0x6f35
-    push word [game_state_arg]       ; 0x6f36
+    push word [current_level]        ; 0x6f36
     call log_maze_change             ; 0x6f3a
     add sp, byte 0x12                ; 0x6f3d
     ret                              ; 0x6f40

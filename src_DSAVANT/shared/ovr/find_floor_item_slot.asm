@@ -33,7 +33,7 @@ find_floor_item_slot:
     mov bx, word [bp - 4]
     mov al, byte [bx]
     sub ah, ah
-    cmp ax, word [game_state_arg]
+    cmp ax, word [current_level]
     jne short .forward3
     mov ax, word [bp - 2]
     mov word [bp - 8], ax

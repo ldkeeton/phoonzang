@@ -1,5 +1,5 @@
 ; auto-generated
-api_idx_0008_RORM:
+show_indexed_beveled_label:
     mov ax, 0xfff8
     call aztec_csav
     mov ax, word [bp + 6]
@@ -112,68 +112,4 @@ api_idx_0008_RORM:
     push word [bp - 8]
     call call_restore_area
     add sp, byte 6
-    ret
-loc_MNNG:
-    mov ax, 0
-    call aztec_csav
-    push word [bp + 0xc]
-    mov ax, word [bp + 6]
-    dec ax
-    push ax
-    mov ax, word [bp + 8]
-    inc ax
-    push ax
-    mov ax, word [bp + 6]
-    dec ax
-    push ax
-    mov ax, word [bp + 4]
-    dec ax
-    push ax
-    call call_fill_area
-    add sp, byte 0xa
-    push word [bp + 0xc]
-    mov ax, word [bp + 0xa]
-    inc ax
-    push ax
-    mov ax, word [bp + 8]
-    inc ax
-    push ax
-    mov ax, word [bp + 6]
-    dec ax
-    push ax
-    mov ax, word [bp + 8]
-    inc ax
-    push ax
-    call call_fill_area
-    add sp, byte 0xa
-    push word [bp + 0xc]
-    mov ax, word [bp + 0xa]
-    inc ax
-    push ax
-    mov ax, word [bp + 8]
-    inc ax
-    push ax
-    mov ax, word [bp + 0xa]
-    inc ax
-    push ax
-    mov ax, word [bp + 4]
-    dec ax
-    push ax
-    call call_fill_area
-    add sp, byte 0xa
-    push word [bp + 0xc]
-    mov ax, word [bp + 0xa]
-    inc ax
-    push ax
-    mov ax, word [bp + 4]
-    dec ax
-    push ax
-    mov ax, word [bp + 6]
-    dec ax
-    push ax
-    mov ax, word [bp + 4]
-    dec ax
-    push ax
-    call call_fill_area
-    add sp, byte 0xa
     ret

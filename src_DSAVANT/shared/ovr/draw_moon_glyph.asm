@@ -1,5 +1,5 @@
 ; auto-generated
-api_idx_0024_NUGL:
+draw_moon_glyph:
     mov ax, 0xffdc
     call aztec_csav
     mov ax, word [game_time]
@@ -98,7 +98,7 @@ api_idx_0024_NUGL:
     add ax, 0xff4e
     mov word [bp - 0x10], ax
 .forward7:
-    mov ax, word [party_tag]
+    mov ax, word [party_facing]
     shl ax, 1
     mov bx, ax
     add bx, bp

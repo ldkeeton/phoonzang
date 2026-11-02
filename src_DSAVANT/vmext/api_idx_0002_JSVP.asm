@@ -7,7 +7,7 @@ api_idx_0002_JSVP:
     push word [party_cell_y]         ; 0x0b57
     push word [party_cell_x]         ; 0x0b5b
     push word [party_map_piece]      ; 0x0b5f
-    push word [party_tag]            ; 0x0b63
+    push word [party_facing]         ; 0x0b63
     call get_cell_wall               ; 0x0b67
     add sp, byte 0xc                 ; 0x0b6a
     mov word [bp - 2], ax            ; 0x0b6d
@@ -17,7 +17,7 @@ api_idx_0002_JSVP:
     jne short .forward2              ; 0x0b78
 .forward1:
     push word [bp + 4]               ; 0x0b7a
-    push word [party_tag]            ; 0x0b7d
+    push word [party_facing]         ; 0x0b7d
     call api_idx_000c_RMGQ           ; 0x0b81
     add sp, byte 4                   ; 0x0b84
     ret                              ; 0x0b87

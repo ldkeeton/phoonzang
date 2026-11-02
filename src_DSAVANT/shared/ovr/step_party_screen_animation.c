@@ -17,8 +17,8 @@ extern struct {
 
 extern call_show_area();
 extern call_restore_screen();
-extern loc_KRMP();
-extern loc_SSIO();
+extern check_party_redraw_interval();
+extern draw_overlay_list_item_text();
 extern queue_cell_action_overlay();
 extern queue_marker_overlay();
 extern draw_party_status_glyphs();
@@ -48,7 +48,7 @@ step_party_screen_animation()
 		overlay_list.count = 0;
 		break;
 	case -1:
-		redraw_result = loc_KRMP();
+		redraw_result = check_party_redraw_interval();
 		/* Queue action overlays for each cell in the three by three grid. */
 		for (row = 0; row < 3; row++)
 			for (column = 0; column < 3; column++)
@@ -63,7 +63,7 @@ step_party_screen_animation()
 		break;
 	default:
 		/* Process the overlay belonging to this ordinary animation state. */
-		loc_SSIO(bss_845e);
+		draw_overlay_list_item_text(bss_845e);
 	}
 
 	++bss_845e;

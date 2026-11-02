@@ -26,8 +26,8 @@ IMAGE_BASE equ 0x000e + VBASE
 
 __zcode_start:
 percent_suffix_text equ __zdseg_end + (__zpercent_suffix_text - __zdata_start)
-loc_TRPK_dseg167 equ __zdseg_end + (__zdseg_909b - __zdata_start)
-loc_TRPK_dseg473 equ __zdseg_end + (__zdseg_90a1 - __zdata_start)
+title_panel_screen_file equ __zdseg_end + (__ztitle_panel_screen_file - __zdata_start)
+choice_grid_screen_file equ __zdseg_end + (__zchoice_grid_screen_file - __zdata_start)
 draw_spell_cost_dseg294 equ __zdseg_end + (__zdseg_90a7 - __zdata_start)
 api_idx_0050_SQVG_dseg175 equ __zdseg_end + (__zdseg_90ab - __zdata_start)
 dseg_90b1 equ __zdseg_end + (__zdseg_90b1 - __zdata_start)
@@ -208,9 +208,11 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "vpcvw/api_idx_009e_KPST.asm"     ; 0x1894
 
-%include "shared/ovr/api_idx_0008_RORM.asm"     ; 0x1b17
+%include "shared/ovr/show_indexed_beveled_label.asm" ; 0x1b17
 
-%include "shared/ovr/loc_TRPK.asm"              ; 0x1ca0
+%include "shared/ovr/draw_frame_outline.asm"    ; 0x1c25
+
+%include "shared/ovr/select_grid_text_option.asm" ; 0x1ca0
 
 %include "vpcvw/loc_IIRG.asm"              ; 0x2190
 
@@ -248,7 +250,7 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "vpcvw/api_idx_009e_HMOI.asm"     ; 0x3cfe
 
-%include "vpcvw/loc_TTSP.asm"              ; 0x4011
+%include "shared/ovr/refresh_title_and_member_panel.asm"              ; 0x4011
 
 %include "vpcvw/loc_JTQP.asm"              ; 0x40b7
 
@@ -341,7 +343,11 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 __zdata_start:
 %include "vpcvw/data/percent_suffix_text.asm" ; 0x9844
 
-%include "vpcvw/data/loc_TRPK_dseg167.asm"        ; 0x9847
+%include "shared/data/title_panel_screen_file.asm" ; 0x9847
+
+%include "shared/data/choice_grid_screen_file.asm" ; 0x984d
+
+%include "vpcvw/data/draw_spell_cost_dseg294.asm"        ; 0x9853
 
 %include "shared/data/profession_stat_requirements.asm" ; 0x9a94
 

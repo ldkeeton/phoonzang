@@ -213,7 +213,7 @@ api_idx_0086_JRHU:
     shl ax, 1                        ; 0x7016
     mov bx, ax                       ; 0x7018
     push word [bx + bss_9cd4]        ; 0x701a
-    call loc_GMVH                    ; 0x701e
+    call is_quest_map_item           ; 0x701e
     pop cx                           ; 0x7021
     test ax, ax                      ; 0x7022
     je short .forward12              ; 0x7024

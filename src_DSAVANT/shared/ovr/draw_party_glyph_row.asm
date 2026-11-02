@@ -6,7 +6,7 @@ draw_party_glyph_row:
     jg short .forward1
     jmp near .return1
 .forward1:
-    mov ax, word [party_tag]
+    mov ax, word [party_facing]
     mov cx, word [marker_mode]
     dec cx
     sub ax, cx

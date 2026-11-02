@@ -196,7 +196,7 @@ loc_HUIS:
     mov bx, cx                       ; 0x595d
     mov word [bx + bss_960e], ax     ; 0x595f
     push ax                          ; 0x5963
-    call loc_GMVH                    ; 0x5964
+    call is_quest_map_item           ; 0x5964
     pop cx                           ; 0x5967
     test ax, ax                      ; 0x5968
     je short .forward10              ; 0x596a

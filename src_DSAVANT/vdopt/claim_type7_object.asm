@@ -2,7 +2,7 @@
 claim_type7_object:
     mov ax, 0                        ; 0x04b7
     call aztec_csav                  ; 0x04ba
-    mov ax, word [party_tag]         ; 0x04bd
+    mov ax, word [party_facing]      ; 0x04bd
     shl ax, 1                        ; 0x04c0
     mov bx, ax                       ; 0x04c2
     mov word [bx + adjacent_object_type], 0 ; 0x04c4
@@ -30,7 +30,7 @@ claim_type7_object:
     push word [bp + 4]               ; 0x04f9
     mov ax, 6                        ; 0x04fc
     push ax                          ; 0x04ff
-    push word [game_state_arg]       ; 0x0500
+    push word [current_level]        ; 0x0500
     call log_maze_change             ; 0x0504
     add sp, byte 0x12                ; 0x0507
     mov ax, word [bp + 4]            ; 0x050a
@@ -42,7 +42,7 @@ claim_type7_object:
     mov ax, 0                        ; 0x051a
     push ax                          ; 0x051d
     push word [bx + si]              ; 0x051e
-    mov ax, word [game_state_arg]    ; 0x0520
+    mov ax, word [current_level]     ; 0x0520
     mov cx, 4                        ; 0x0523
     shl ax, cl                       ; 0x0526
     add ax, party_region + 0x2       ; 0x0528
@@ -56,7 +56,7 @@ claim_type7_object:
     mov si, ax                       ; 0x053b
     mov bx, word [maze_tables]       ; 0x053d
     push word [bx + si]              ; 0x0541
-    mov ax, word [game_state_arg]    ; 0x0543
+    mov ax, word [current_level]     ; 0x0543
     mov cx, 4                        ; 0x0546
     shl ax, cl                       ; 0x0549
     add ax, scenario_header_data     ; 0x054b

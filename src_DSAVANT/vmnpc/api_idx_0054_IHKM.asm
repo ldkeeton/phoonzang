@@ -14,7 +14,7 @@ api_idx_0054_IHKM:
     mov ax, 0xa0                     ; 0x5dac
     push ax                          ; 0x5daf
     push word [bp + 8]               ; 0x5db0
-    call loc_VNIO                    ; 0x5db3
+    call draw_centered_text_at_x     ; 0x5db3
     add sp, byte 8                   ; 0x5db6
     lea ax, word [bp - 0x54]         ; 0x5db9
     push ax                          ; 0x5dbc
@@ -38,7 +38,7 @@ api_idx_0054_IHKM:
     push ax                          ; 0x5deb
     lea ax, word [bp - 0x54]         ; 0x5dec
     push ax                          ; 0x5def
-    call loc_VNIO                    ; 0x5df0
+    call draw_centered_text_at_x     ; 0x5df0
     add sp, byte 8                   ; 0x5df3
     mov word [bp - 2], 0             ; 0x5df6
     mov word [bp - 4], 0             ; 0x5dfb
@@ -97,7 +97,7 @@ api_idx_0054_IHKM:
     mov ax, 0xa0                     ; 0x5e6f
     push ax                          ; 0x5e72
     push word [bp + 8]               ; 0x5e73
-    call loc_VNIO                    ; 0x5e76
+    call draw_centered_text_at_x     ; 0x5e76
     add sp, byte 8                   ; 0x5e79
     mov ax, 0xb3                     ; 0x5e7c
     push ax                          ; 0x5e7f
@@ -107,7 +107,7 @@ api_idx_0054_IHKM:
     push ax                          ; 0x5e87
     lea ax, word [bp - 0x54]         ; 0x5e88
     push ax                          ; 0x5e8b
-    call loc_VNIO                    ; 0x5e8c
+    call draw_centered_text_at_x     ; 0x5e8c
     add sp, byte 8                   ; 0x5e8f
     mov ax, word [bp - 4]            ; 0x5e92
     ret                              ; 0x5e95

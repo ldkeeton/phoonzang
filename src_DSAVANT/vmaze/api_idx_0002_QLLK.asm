@@ -36,7 +36,7 @@ api_idx_0002_QLLK:
     jne short .forward4              ; 0x8ec5
     mov ax, 2                        ; 0x8ec7
     push ax                          ; 0x8eca
-    mov ax, word [party_tag]         ; 0x8ecb
+    mov ax, word [party_facing]      ; 0x8ecb
     shl ax, 1                        ; 0x8ece
     push ax                          ; 0x8ed0
     shl si, 1                        ; 0x8ed1
@@ -47,7 +47,7 @@ api_idx_0002_QLLK:
     je short .forward3               ; 0x8ee0
     mov ax, 2                        ; 0x8ee2
     push ax                          ; 0x8ee5
-    mov ax, word [party_tag]         ; 0x8ee6
+    mov ax, word [party_facing]      ; 0x8ee6
     shl ax, 1                        ; 0x8ee9
     push ax                          ; 0x8eeb
     mov ax, word [bp - 2]            ; 0x8eec

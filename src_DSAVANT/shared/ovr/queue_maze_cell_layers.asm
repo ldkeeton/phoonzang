@@ -487,7 +487,7 @@ queue_maze_cell_layers.forward34:
     mov ax, 0
     push ax
     push ax
-    push word [maze_floor_layer_enabled]
+    push word [floor_checker_parity]
     push ax
     push word [bp + 4]
     mov ax, 0xf8
@@ -500,7 +500,7 @@ queue_maze_cell_layers.forward34:
     push ax
     mov ax, word [bp + 4]
     shl ax, 1
-    add ax, word [maze_floor_layer_enabled]
+    add ax, word [floor_checker_parity]
     add ax, strict word 5
     push ax
     mov ax, 0
@@ -519,7 +519,7 @@ queue_maze_cell_layers.forward34:
     mov ax, 0
     push ax
     push ax
-    push word [maze_floor_layer_enabled]
+    push word [floor_checker_parity]
     push ax
     push word [bp + 4]
     mov ax, 0xf8
@@ -554,7 +554,7 @@ queue_maze_cell_layers.forward36:
     mov ax, 0
     push ax
     push ax
-    push word [maze_floor_layer_enabled]
+    push word [floor_checker_parity]
     push ax
     push word [bp + 4]
     mov ax, 0xf8
@@ -826,7 +826,7 @@ jumptable_3ed8_case_0:
     push ax
     mov ax, 0
     push ax
-    push word [maze_floor_layer_enabled]
+    push word [floor_checker_parity]
     mov ax, word [bp + 4]
     shl ax, 1
     mov bx, ax

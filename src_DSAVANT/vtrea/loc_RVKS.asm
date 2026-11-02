@@ -2,7 +2,7 @@
 loc_RVKS:
     mov ax, 0                        ; 0x6f41
     call aztec_csav                  ; 0x6f44
-    mov ax, word [party_tag]         ; 0x6f47
+    mov ax, word [party_facing]      ; 0x6f47
     shl ax, 1                        ; 0x6f4a
     mov bx, ax                       ; 0x6f4c
     mov word [bx + adjacent_object_type], 0 ; 0x6f4e
@@ -30,7 +30,7 @@ loc_RVKS:
     push word [bp + 4]               ; 0x6f83
     mov ax, 6                        ; 0x6f86
     push ax                          ; 0x6f89
-    push word [game_state_arg]       ; 0x6f8a
+    push word [current_level]        ; 0x6f8a
     call log_maze_change             ; 0x6f8e
     add sp, byte 0x12                ; 0x6f91
     mov ax, word [bp + 4]            ; 0x6f94
@@ -42,7 +42,7 @@ loc_RVKS:
     mov ax, 0                        ; 0x6fa4
     push ax                          ; 0x6fa7
     push word [bx + si]              ; 0x6fa8
-    mov ax, word [game_state_arg]    ; 0x6faa
+    mov ax, word [current_level]     ; 0x6faa
     mov cx, 4                        ; 0x6fad
     shl ax, cl                       ; 0x6fb0
     add ax, party_region + 0x2       ; 0x6fb2
@@ -56,7 +56,7 @@ loc_RVKS:
     mov si, ax                       ; 0x6fc5
     mov bx, word [maze_tables]       ; 0x6fc7
     push word [bx + si]              ; 0x6fcb
-    mov ax, word [game_state_arg]    ; 0x6fcd
+    mov ax, word [current_level]     ; 0x6fcd
     mov cx, 4                        ; 0x6fd0
     shl ax, cl                       ; 0x6fd3
     add ax, scenario_header_data     ; 0x6fd5

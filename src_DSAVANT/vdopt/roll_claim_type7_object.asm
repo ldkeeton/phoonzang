@@ -36,7 +36,7 @@ roll_claim_type7_object:
     mov word [bp - 2], ax            ; 0x0743
     mov ax, 2                        ; 0x0746
     push ax                          ; 0x0749
-    mov ax, word [party_tag]         ; 0x074a
+    mov ax, word [party_facing]      ; 0x074a
     shl ax, 1                        ; 0x074d
     push ax                          ; 0x074f
     push word [bp - 2]               ; 0x0750

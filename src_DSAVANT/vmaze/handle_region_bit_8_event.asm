@@ -39,7 +39,7 @@ handle_region_bit_8_event:
     mov ax, word [bp - 8]            ; 0x87f4
     add ax, word [bp - 4]            ; 0x87f7
     push ax                          ; 0x87fa
-    mov ax, word [game_state_arg]    ; 0x87fb
+    mov ax, word [current_level]     ; 0x87fb
     mov cx, 4                        ; 0x87fe
     shl ax, cl                       ; 0x8801
     add ax, party_region + 0x2       ; 0x8803

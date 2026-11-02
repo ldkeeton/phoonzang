@@ -4,12 +4,12 @@ save_level_state:
     call aztec_csav                  ; 0x68f5
     mov ax, 0x10                     ; 0x68f8
     push ax                          ; 0x68fb
-    mov ax, word [game_state_arg]    ; 0x68fc
+    mov ax, word [current_level]     ; 0x68fc
     mov cx, 4                        ; 0x68ff
     shl ax, cl                       ; 0x6902
     add ax, scenario_header_data     ; 0x6904
     push ax                          ; 0x6907
-    mov ax, word [game_state_arg]    ; 0x6908
+    mov ax, word [current_level]     ; 0x6908
     shl ax, cl                       ; 0x690b
     add ax, party_region + 0x2       ; 0x690d
     push ax                          ; 0x6910
@@ -17,7 +17,7 @@ save_level_state:
     add sp, byte 6                   ; 0x6914
     mov ax, 0x80                     ; 0x6917
     push ax                          ; 0x691a
-    mov ax, word [game_state_arg]    ; 0x691b
+    mov ax, word [current_level]     ; 0x691b
     mov cx, 7                        ; 0x691e
     shl ax, cl                       ; 0x6921
     mov cx, ax                       ; 0x6923
@@ -33,7 +33,7 @@ save_level_state:
     add sp, byte 0xa                 ; 0x6938
     mov ax, 0x80                     ; 0x693b
     push ax                          ; 0x693e
-    mov ax, word [game_state_arg]    ; 0x693f
+    mov ax, word [current_level]     ; 0x693f
     mov cx, 7                        ; 0x6942
     shl ax, cl                       ; 0x6945
     mov cx, ax                       ; 0x6947

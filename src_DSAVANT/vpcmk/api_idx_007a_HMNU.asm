@@ -40,7 +40,7 @@ api_idx_007a_HMNU:
     push ax                          ; 0x44f0
     mov ax, 0x8c                     ; 0x44f1
     push ax                          ; 0x44f4
-    call loc_TRPK                    ; 0x44f5
+    call select_grid_text_option     ; 0x44f5
     add sp, byte 0x1a                ; 0x44f8
     push ax                          ; 0x44fb
     mov ax, 0x248                    ; 0x44fc

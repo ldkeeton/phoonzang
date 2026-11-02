@@ -39,7 +39,7 @@ api_idx_0034_NSGM:
     mov word [bp - 2], ax            ; 0x7058
     mov ax, 2                        ; 0x705b
     push ax                          ; 0x705e
-    mov ax, word [party_tag]         ; 0x705f
+    mov ax, word [party_facing]      ; 0x705f
     shl ax, 1                        ; 0x7062
     push ax                          ; 0x7064
     push word [bp - 2]               ; 0x7065

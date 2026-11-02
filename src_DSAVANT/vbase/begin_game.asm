@@ -44,7 +44,7 @@ begin_game:
     add sp, byte 8                   ; 0x66c9
     ret                              ; 0x66cc
 .forward5:
-    push word [game_state_arg]       ; 0x66cd
+    push word [current_level]        ; 0x66cd
     mov ax, 0                        ; 0x66d1
     push ax                          ; 0x66d4
     call ensure_game_disk            ; 0x66d5
@@ -58,7 +58,7 @@ begin_game:
     call aztec_setmem                ; 0x66e7
     add sp, byte 6                   ; 0x66ea
     mov word [party_status_frame_step], 0 ; 0x66ed
-    mov ax, word [party_tag]         ; 0x66f3
+    mov ax, word [party_facing]      ; 0x66f3
     shl ax, 1                        ; 0x66f6
     mov word [party_status_heading], ax ; 0x66f8
     mov word [party_status_frame_seen], 0 ; 0x66fb

@@ -1,6 +1,6 @@
 /* Select and load the maze files and monster pictures for this game state. */
 
-extern int game_state_arg;
+extern int current_level;
 extern int maze_variant;
 extern int maze_state;
 extern int current_maze;
@@ -27,7 +27,7 @@ load_maze_resources()
 	boundary_wall_open = 0;
 
 	/* Map game-state values onto the maze data set used by that region. */
-	switch (game_state_arg) {
+	switch (current_level) {
 	case 15:
 	case 23:
 	case 24:

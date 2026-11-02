@@ -19,7 +19,7 @@ update_region_flag_bitmaps:
     mov ax, 0
     push ax
     push word [bp - 2]
-    mov ax, word [game_state_arg]
+    mov ax, word [current_level]
     mov cx, 4
     shl ax, cl
     add ax, party_region + 0x2
@@ -29,7 +29,7 @@ update_region_flag_bitmaps:
     mov ax, 0
     push ax
     push word [bp - 2]
-    mov ax, word [game_state_arg]
+    mov ax, word [current_level]
     mov cx, 4
     shl ax, cl
     add ax, scenario_header_data
@@ -42,7 +42,7 @@ update_region_flag_bitmaps:
     mov ax, 1
     push ax
     push word [bp - 4]
-    mov ax, word [game_state_arg]
+    mov ax, word [current_level]
     mov cx, 4
     shl ax, cl
     add ax, party_region + 0x2
@@ -52,7 +52,7 @@ update_region_flag_bitmaps:
     mov ax, 1
     push ax
     push word [bp - 4]
-    mov ax, word [game_state_arg]
+    mov ax, word [current_level]
     mov cx, 4
     shl ax, cl
     add ax, scenario_header_data

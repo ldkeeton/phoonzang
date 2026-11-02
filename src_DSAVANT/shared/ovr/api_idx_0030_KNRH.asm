@@ -42,9 +42,9 @@ api_idx_0030_KNRH:
     add ax, cx
     add ax, word [bp - 0xe]
     mov word [bp - 8], ax
-    cmp word [game_state_arg], byte 0xa
+    cmp word [current_level], byte 0xa
     je short .forward1
-    cmp word [game_state_arg], byte 0x19
+    cmp word [current_level], byte 0x19
     je short .forward1
     jmp near .forward5
 .forward1:
@@ -70,7 +70,7 @@ api_idx_0030_KNRH:
     push ax
     call call_fill_area
     add sp, byte 0xa
-    mov ax, word [game_state_arg]
+    mov ax, word [current_level]
     cmp ax, word [saved_level]
     jne short .forward4
     mov ax, word [bp - 0x12]
@@ -82,7 +82,7 @@ api_idx_0030_KNRH:
     mov ax, word [bp - 0x10]
     cmp ax, word [saved_cell_y]
     jne short .forward4
-    cmp word [bss_8f22], byte 0
+    cmp word [capture_center_marker_mode], byte 0
     je short .forward3
     mov word [marker_mode], 0xffff
 .forward3:
@@ -147,7 +147,7 @@ api_idx_0030_KNRH:
     call call_fill_area
     add sp, byte 0xa
     call draw_clock_marker_glyph
-    call api_idx_0024_NUGL
+    call draw_moon_glyph
 .forward7:
     call draw_party_status_glyphs
     ret
@@ -164,7 +164,7 @@ api_idx_0030_KNRH:
     push ax
     mov ax, 0x19
     push ax
-    mov ax, api_idx_0012_KQTQ_bss1037
+    mov ax, near_wall_layer_flags
     push ax
     call aztec_setmem
     add sp, byte 6
@@ -172,7 +172,7 @@ api_idx_0030_KNRH:
     push ax
     mov ax, 0x19
     push ax
-    mov ax, api_idx_0012_KQTQ_bss2257
+    mov ax, side_wall_layer_flags
     push ax
     call aztec_setmem
     add sp, byte 6
@@ -188,7 +188,7 @@ api_idx_0030_KNRH:
     push ax
     mov ax, 0x19
     push ax
-    mov ax, api_idx_0012_KQTQ_bss4209
+    mov ax, view_marker_ids
     push ax
     call aztec_setmem
     add sp, byte 6
@@ -196,7 +196,7 @@ api_idx_0030_KNRH:
     push ax
     mov ax, 0x32
     push ax
-    mov ax, api_idx_0012_KQTQ_bss2817
+    mov ax, far_wall_overlay_ids
     push ax
     call aztec_setmem
     add sp, byte 6
@@ -204,7 +204,7 @@ api_idx_0030_KNRH:
     push ax
     mov ax, 0x19
     push ax
-    mov ax, api_idx_0012_KQTQ_bss3553
+    mov ax, view_marker_kinds
     push ax
     call aztec_setmem
     add sp, byte 6
@@ -212,7 +212,7 @@ api_idx_0030_KNRH:
     push ax
     mov ax, 0x32
     push ax
-    mov ax, api_idx_0012_KQTQ_bss2803
+    mov ax, far_wall_object_ids
     push ax
     call aztec_setmem
     add sp, byte 6
@@ -220,7 +220,7 @@ api_idx_0030_KNRH:
     push ax
     mov ax, 0x32
     push ax
-    mov ax, api_idx_0012_KQTQ_bss149
+    mov ax, near_wall_overlay_ids
     push ax
     call aztec_setmem
     add sp, byte 6
@@ -228,7 +228,7 @@ api_idx_0030_KNRH:
     push ax
     mov ax, 0x32
     push ax
-    mov ax, api_idx_0012_KQTQ_bss135
+    mov ax, near_wall_object_ids
     push ax
     call aztec_setmem
     add sp, byte 6
@@ -262,17 +262,17 @@ api_idx_0030_KNRH:
     mov word [api_idx_0030_KNRH_bss1076], 5
     mov ax, word [party_world_x]
     add ax, word [party_world_y]
-    add ax, word [party_tag]
+    add ax, word [party_facing]
     mov cx, 2
     cwd
     idiv cx
-    mov word [api_idx_0012_KQTQ_bss2524], dx
+    mov word [side_wall_animation_phase], dx
     mov word [boundary_wall_variant], 0
     mov ax, word [maze_variant]
     jmp near .forward24
 jumptable_59e2_case_1:
     mov word [boundary_wall_variant], 0
-    cmp word [game_state_arg], byte 0x1e
+    cmp word [current_level], byte 0x1e
     jne short api_idx_0030_KNRH.forward9
     cmp word [party_map_piece], byte 8
     jne short api_idx_0030_KNRH.forward9
@@ -329,7 +329,7 @@ jumptable_59e2_case_2:
     call call_fill_area
     add sp, byte 0xa
     call draw_clock_marker_glyph
-    call api_idx_0024_NUGL
+    call draw_moon_glyph
     mov ax, 4
     push ax
     call wall_overlay_when_enabled
@@ -380,17 +380,17 @@ jumptable_59e2_case_3:
     call call_fill_area
     add sp, byte 0xa
     call draw_clock_marker_glyph
-    call api_idx_0024_NUGL
-    cmp word [game_state_arg], byte 0xe
+    call draw_moon_glyph
+    cmp word [current_level], byte 0xe
     jne short api_idx_0030_KNRH.forward12
     cmp word [party_map_piece], byte 9
     jle short api_idx_0030_KNRH.forward12
     cmp word [party_map_piece], byte 0xa
     jg short api_idx_0030_KNRH.forward11
-    mov ax, word [party_tag]
+    mov ax, word [party_facing]
     cmp ax, strict word 2
     je short api_idx_0030_KNRH.forward11
-    cmp word [party_tag], byte 0
+    cmp word [party_facing], byte 0
     je short api_idx_0030_KNRH.forward12
     cmp word [party_cell_y], byte 5
     jge short api_idx_0030_KNRH.forward12
@@ -463,7 +463,7 @@ api_idx_0030_KNRH.forward14:
     call call_fill_area
     add sp, byte 0xa
     call draw_clock_marker_glyph
-    call api_idx_0024_NUGL
+    call draw_moon_glyph
     mov ax, 4
     push ax
     call wall_overlay_when_enabled
@@ -517,7 +517,7 @@ jumptable_59e2_case_5:
     call call_fill_area
     add sp, byte 0xa
     call draw_clock_marker_glyph
-    call api_idx_0024_NUGL
+    call draw_moon_glyph
     mov ax, 0
     push ax
     mov ax, 0x50
@@ -563,7 +563,7 @@ jumptable_59e2_case_6:
     call call_fill_area
     add sp, byte 0xa
     call draw_clock_marker_glyph
-    call api_idx_0024_NUGL
+    call draw_moon_glyph
     mov ax, 0x3e
     push ax
     call wall_overlay_when_enabled
@@ -581,7 +581,7 @@ jumptable_59e2_case_6:
     push ax
     call call_draw_maze_piece
     add sp, byte 8
-    cmp word [game_state_arg], byte 8
+    cmp word [current_level], byte 8
     jne short api_idx_0030_KNRH.forward20
     cmp word [party_map_piece], byte 6
     jne short api_idx_0030_KNRH.forward20
@@ -593,7 +593,7 @@ jumptable_59e2_case_6:
     cmp ax, strict word 1
     jne short api_idx_0030_KNRH.forward17
 api_idx_0030_KNRH.forward16:
-    mov ax, word [party_tag]
+    mov ax, word [party_facing]
     cmp ax, strict word 1
     je short api_idx_0030_KNRH.forward19
 api_idx_0030_KNRH.forward17:
@@ -603,7 +603,7 @@ api_idx_0030_KNRH.forward17:
     cmp ax, strict word 6
     jne short api_idx_0030_KNRH.forward20
 api_idx_0030_KNRH.forward18:
-    mov ax, word [party_tag]
+    mov ax, word [party_facing]
     cmp ax, strict word 3
     jne short api_idx_0030_KNRH.forward20
 api_idx_0030_KNRH.forward19:
@@ -621,9 +621,9 @@ api_idx_0030_KNRH.forward20:
     call call_fill_area
     add sp, byte 0xa
 api_idx_0030_KNRH.forward21:
-    cmp word [game_state_arg], byte 8
+    cmp word [current_level], byte 8
     je short api_idx_0030_KNRH.forward22
-    cmp word [game_state_arg], byte 0xb
+    cmp word [current_level], byte 0xb
     jne short api_idx_0030_KNRH.forward23
     cmp word [party_map_piece], byte 6
     jne short api_idx_0030_KNRH.forward23
@@ -664,24 +664,24 @@ api_idx_0030_KNRH.forward24:
     shl bx, 1
     jmp [cs:bx + jumptable_59e2 - IMAGE_BASE + __zres_end]
 jumptable_59e2_case_0:
-    mov word [cell_wall_override_disabled], 0
+    mov word [view_scan_depth], 0
 api_idx_0030_KNRH.back1:
-    mov ax, word [cell_wall_override_disabled]
+    mov ax, word [view_scan_depth]
     cmp ax, word [api_idx_0030_KNRH_bss1076]
     jl short api_idx_0030_KNRH.forward26
     jmp near api_idx_0030_KNRH.forward38
 api_idx_0030_KNRH.forward26:
     mov ax, word [party_world_x]
     add ax, word [party_world_y]
-    add ax, word [party_tag]
+    add ax, word [party_facing]
     mov cx, ax
-    mov ax, word [cell_wall_override_disabled]
+    mov ax, word [view_scan_depth]
     add cx, ax
     mov ax, cx
     mov cx, 2
     cwd
     idiv cx
-    mov word [maze_floor_layer_enabled], dx
+    mov word [floor_checker_parity], dx
     mov ax, 1
     push ax
     mov ax, 0
@@ -716,17 +716,17 @@ api_idx_0030_KNRH.forward26:
     jmp short api_idx_0030_KNRH.forward28
 api_idx_0030_KNRH.forward27:
     mov ax, 5
-    imul word [cell_wall_override_disabled]
+    imul word [view_scan_depth]
     mov bx, ax
-    mov byte [bx + api_idx_0008_PGTT_bss177], 1
+    mov byte [bx + maze_boundary_wall_markers], 1
     mov word [api_idx_0030_KNRH_bss2708], 4
 api_idx_0030_KNRH.forward28:
     jmp short api_idx_0030_KNRH.forward30
 api_idx_0030_KNRH.forward29:
     mov ax, 5
-    imul word [cell_wall_override_disabled]
+    imul word [view_scan_depth]
     mov bx, ax
-    mov byte [bx + api_idx_0008_PGTT_bss177], 3
+    mov byte [bx + maze_boundary_wall_markers], 3
     mov word [api_idx_0030_KNRH_bss2708], 0
 api_idx_0030_KNRH.forward30:
     jmp short api_idx_0030_KNRH.forward32
@@ -745,7 +745,7 @@ api_idx_0030_KNRH.forward33:
     push word [bp - 0xe]
     push word [bp - 0xc]
     push word [bp - 0xa]
-    call api_idx_0008_PGTT
+    call resolve_cell_wall_effects
     add sp, byte 0xc
     mov word [api_idx_0030_KNRH_bss2708], ax
     mov ax, 0
@@ -779,7 +779,7 @@ api_idx_0030_KNRH.forward34:
     push word [bp - 0xe]
     push word [bp - 0xc]
     push word [bp - 0xa]
-    call api_idx_0008_PGTT
+    call resolve_cell_wall_effects
     add sp, byte 0xc
     mov word [api_idx_0030_KNRH_bss3062], ax
     mov ax, 1
@@ -789,10 +789,10 @@ api_idx_0030_KNRH.forward34:
     push word [bp - 0xe]
     push word [bp - 0xc]
     push word [bp - 0xa]
-    call api_idx_0008_PGTT
+    call resolve_cell_wall_effects
     add sp, byte 0xc
     mov word [api_idx_0030_KNRH_bss3117], ax
-    cmp word [cell_wall_override_disabled], byte 1
+    cmp word [view_scan_depth], byte 1
     jle short api_idx_0030_KNRH.forward35
     mov ax, 0xfffe
     push ax
@@ -801,7 +801,7 @@ api_idx_0030_KNRH.forward34:
     push word [bp - 0xe]
     push word [bp - 0xc]
     push word [bp - 0xa]
-    call api_idx_0008_PGTT
+    call resolve_cell_wall_effects
     add sp, byte 0xc
     mov word [api_idx_0030_KNRH_bss3184], ax
     mov ax, 2
@@ -811,7 +811,7 @@ api_idx_0030_KNRH.forward34:
     push word [bp - 0xe]
     push word [bp - 0xc]
     push word [bp - 0xa]
-    call api_idx_0008_PGTT
+    call resolve_cell_wall_effects
     add sp, byte 0xc
     mov word [api_idx_0030_KNRH_bss3239], ax
     mov ax, 0xffff
@@ -848,11 +848,11 @@ api_idx_0030_KNRH.forward36:
     cmp word [api_idx_0030_KNRH_bss2708], byte 0
     jne short api_idx_0030_KNRH.forward37
     mov ax, word [requested_row_limit]
-    cmp ax, word [cell_wall_override_disabled]
+    cmp ax, word [view_scan_depth]
     jne short api_idx_0030_KNRH.forward37
     inc word [requested_row_limit]
 api_idx_0030_KNRH.forward37:
-    mov ax, word [maze_floor_layer_enabled]
+    mov ax, word [floor_checker_parity]
     mov word [maze_gate_glyph_variant], ax
     mov ax, 0x1e
     push ax
@@ -913,7 +913,7 @@ api_idx_0030_KNRH.forward37:
     mov ax, 2
     push ax
     push word [api_idx_0030_KNRH_bss2708]
-    push word [cell_wall_override_disabled]
+    push word [view_scan_depth]
     call queue_maze_cell_layers
     add sp, byte 0x4a
     mov ax, 0xffff
@@ -967,8 +967,8 @@ api_idx_0030_KNRH.forward37:
     push ax
     mov ax, 2
     push ax
-    push word [cell_wall_override_disabled]
-    call api_idx_0012_KQTQ
+    push word [view_scan_depth]
+    call queue_view_cell_side_layers
     add sp, byte 0x40
     mov ax, 0x39
     push ax
@@ -1031,7 +1031,7 @@ api_idx_0030_KNRH.forward37:
     mov ax, 1
     push ax
     push word [api_idx_0030_KNRH_bss2817]
-    push word [cell_wall_override_disabled]
+    push word [view_scan_depth]
     call queue_boundary_view_layers
     add sp, byte 0x40
     mov ax, 0x34
@@ -1094,7 +1094,7 @@ api_idx_0030_KNRH.forward37:
     mov ax, 3
     push ax
     push word [api_idx_0030_KNRH_bss2824]
-    push word [cell_wall_override_disabled]
+    push word [view_scan_depth]
     call queue_boundary_view_layers
     add sp, byte 0x40
     mov ax, 0x43
@@ -1156,7 +1156,7 @@ api_idx_0030_KNRH.forward37:
     push ax
     push ax
     push word [api_idx_0030_KNRH_bss3300]
-    push word [cell_wall_override_disabled]
+    push word [view_scan_depth]
     call queue_boundary_view_layers
     add sp, byte 0x40
     mov ax, 0x3e
@@ -1219,10 +1219,10 @@ api_idx_0030_KNRH.forward37:
     mov ax, 4
     push ax
     push word [api_idx_0030_KNRH_bss3361]
-    push word [cell_wall_override_disabled]
+    push word [view_scan_depth]
     call queue_boundary_view_layers
     add sp, byte 0x40
-    mov ax, word [maze_floor_layer_enabled]
+    mov ax, word [floor_checker_parity]
     inc ax
     mov cx, 2
     cwd
@@ -1286,7 +1286,7 @@ api_idx_0030_KNRH.forward37:
     mov ax, 1
     push ax
     push word [api_idx_0030_KNRH_bss3062]
-    push word [cell_wall_override_disabled]
+    push word [view_scan_depth]
     call queue_maze_cell_layers
     add sp, byte 0x4a
     mov ax, 0xc9
@@ -1348,10 +1348,10 @@ api_idx_0030_KNRH.forward37:
     push ax
     mov ax, 1
     push ax
-    push word [cell_wall_override_disabled]
-    call api_idx_0012_KQTQ
+    push word [view_scan_depth]
+    call queue_view_cell_side_layers
     add sp, byte 0x40
-    mov ax, word [maze_floor_layer_enabled]
+    mov ax, word [floor_checker_parity]
     mov word [maze_gate_glyph_variant], ax
     mov ax, 0x26
     push ax
@@ -1413,7 +1413,7 @@ api_idx_0030_KNRH.forward37:
     push ax
     push ax
     push word [api_idx_0030_KNRH_bss3184]
-    push word [cell_wall_override_disabled]
+    push word [view_scan_depth]
     call queue_maze_cell_layers
     add sp, byte 0x4a
     mov ax, 0xd3
@@ -1474,10 +1474,10 @@ api_idx_0030_KNRH.forward37:
     mov ax, 0
     push ax
     push ax
-    push word [cell_wall_override_disabled]
-    call api_idx_0012_KQTQ
+    push word [view_scan_depth]
+    call queue_view_cell_side_layers
     add sp, byte 0x40
-    mov ax, word [maze_floor_layer_enabled]
+    mov ax, word [floor_checker_parity]
     inc ax
     mov cx, 2
     cwd
@@ -1541,7 +1541,7 @@ api_idx_0030_KNRH.forward37:
     mov ax, 3
     push ax
     push word [api_idx_0030_KNRH_bss3117]
-    push word [cell_wall_override_disabled]
+    push word [view_scan_depth]
     call queue_maze_cell_layers
     add sp, byte 0x4a
     mov ax, 0xc4
@@ -1603,10 +1603,10 @@ api_idx_0030_KNRH.forward37:
     push ax
     mov ax, 3
     push ax
-    push word [cell_wall_override_disabled]
-    call api_idx_0012_KQTQ
+    push word [view_scan_depth]
+    call queue_view_cell_side_layers
     add sp, byte 0x40
-    mov ax, word [maze_floor_layer_enabled]
+    mov ax, word [floor_checker_parity]
     mov word [maze_gate_glyph_variant], ax
     mov ax, 0x2e
     push ax
@@ -1669,7 +1669,7 @@ api_idx_0030_KNRH.forward37:
     mov ax, 4
     push ax
     push word [api_idx_0030_KNRH_bss3239]
-    push word [cell_wall_override_disabled]
+    push word [view_scan_depth]
     call queue_maze_cell_layers
     add sp, byte 0x4a
     mov ax, 0xce
@@ -1731,15 +1731,15 @@ api_idx_0030_KNRH.forward37:
     push ax
     mov ax, 4
     push ax
-    push word [cell_wall_override_disabled]
-    call api_idx_0012_KQTQ
+    push word [view_scan_depth]
+    call queue_view_cell_side_layers
     add sp, byte 0x40
-    inc word [cell_wall_override_disabled]
+    inc word [view_scan_depth]
     jmp near api_idx_0030_KNRH.back1
 api_idx_0030_KNRH.forward38:
     mov ax, word [api_idx_0030_KNRH_bss1076]
     dec ax
-    mov word [cell_wall_override_disabled], ax
+    mov word [view_scan_depth], ax
     jmp near api_idx_0030_KNRH.forward84
 api_idx_0030_KNRH.back2:
     mov word [bp - 4], 0xff
@@ -1756,7 +1756,7 @@ api_idx_0030_KNRH.back4:
     mov bx, ax
     mov al, byte [bx + 0xd]
     sub ah, ah
-    cmp ax, word [cell_wall_override_disabled]
+    cmp ax, word [view_scan_depth]
     jne short api_idx_0030_KNRH.forward40
     mov al, byte [bx + 0xc]
     sub ah, ah
@@ -1818,7 +1818,7 @@ api_idx_0030_KNRH.back5:
     mov bx, ax
     mov al, byte [bx + 0xd]
     sub ah, ah
-    cmp ax, word [cell_wall_override_disabled]
+    cmp ax, word [view_scan_depth]
     je short api_idx_0030_KNRH.forward44
     jmp near api_idx_0030_KNRH.forward47
 api_idx_0030_KNRH.forward44:
@@ -1897,7 +1897,7 @@ api_idx_0030_KNRH.forward50:
     jne short api_idx_0030_KNRH.forward51
     jmp near api_idx_0030_KNRH.forward70
 api_idx_0030_KNRH.forward51:
-    cmp word [cell_wall_override_disabled], byte 0
+    cmp word [view_scan_depth], byte 0
     je short api_idx_0030_KNRH.forward52
     jmp near api_idx_0030_KNRH.forward70
 api_idx_0030_KNRH.forward52:
@@ -1983,7 +1983,7 @@ api_idx_0030_KNRH.forward57:
 api_idx_0030_KNRH.forward58:
     jmp near api_idx_0030_KNRH.forward69
 api_idx_0030_KNRH.forward59:
-    cmp word [bss_8f22], byte 0
+    cmp word [capture_center_marker_mode], byte 0
     je short api_idx_0030_KNRH.forward60
     jmp near api_idx_0030_KNRH.forward69
 api_idx_0030_KNRH.forward60:
@@ -2090,7 +2090,7 @@ api_idx_0030_KNRH.back8:
     mov ax, word [bx - 0x24]
     mov word [bp - 2], ax
     mov ax, 5
-    imul word [cell_wall_override_disabled]
+    imul word [view_scan_depth]
     mov cx, ax
     mov ax, word [bp - 2]
     add cx, ax
@@ -2103,7 +2103,7 @@ api_idx_0030_KNRH.back8:
     jmp near api_idx_0030_KNRH.forward82
 api_idx_0030_KNRH.forward72:
     mov ax, 0x28
-    imul word [cell_wall_override_disabled]
+    imul word [view_scan_depth]
     mov cx, word [bp - 2]
     shl cx, 1
     shl cx, 1
@@ -2133,14 +2133,14 @@ api_idx_0030_KNRH.forward75:
     add sp, byte 0xa
     jmp near api_idx_0030_KNRH.forward81
 api_idx_0030_KNRH.forward76:
-    cmp word [cell_wall_override_disabled], byte 0
+    cmp word [view_scan_depth], byte 0
     jg short api_idx_0030_KNRH.forward77
     jmp near api_idx_0030_KNRH.forward81
 api_idx_0030_KNRH.forward77:
     mov ax, word [bp - 2]
     shl ax, 1
     shl ax, 1
-    add ax, word [cell_wall_override_disabled]
+    add ax, word [view_scan_depth]
     shl ax, 1
     mov bx, ax
     cmp byte [bx + glyph_y_table + 0x7eb], 0
@@ -2153,19 +2153,19 @@ api_idx_0030_KNRH.forward78:
     pop cx
     add ax, word [party_world_x]
     add ax, word [party_world_y]
-    add ax, word [party_tag]
-    add ax, word [cell_wall_override_disabled]
+    add ax, word [party_facing]
+    add ax, word [view_scan_depth]
     mov cx, 2
     cwd
     idiv cx
-    mov word [maze_floor_layer_enabled], dx
-    mov al, byte [cell_wall_override_disabled]
+    mov word [floor_checker_parity], dx
+    mov al, byte [view_scan_depth]
     mov byte [bp - 0x30], al
     mov byte [bp - 0x2f], 0
     mov ax, word [bp - 2]
     shl ax, 1
     shl ax, 1
-    add ax, word [cell_wall_override_disabled]
+    add ax, word [view_scan_depth]
     shl ax, 1
     add ax, dx
     mov bx, ax
@@ -2175,7 +2175,7 @@ api_idx_0030_KNRH.forward78:
     cmp ax, 0xff
     jne short api_idx_0030_KNRH.forward80
     mov ax, 0xffee
-    cmp word [maze_floor_layer_enabled], byte 0
+    cmp word [floor_checker_parity], byte 0
     je short api_idx_0030_KNRH.forward79
     mov ax, 0xffea
 api_idx_0030_KNRH.forward79:
@@ -2198,7 +2198,7 @@ api_idx_0030_KNRH.forward80:
     mov ax, word [bp - 2]
     shl ax, 1
     shl ax, 1
-    add ax, word [cell_wall_override_disabled]
+    add ax, word [view_scan_depth]
     mov bx, ax
     mov al, byte [bx + glyph_y_table + 0x834]
     sub ah, ah
@@ -2212,7 +2212,7 @@ api_idx_0030_KNRH.forward81:
     cmp word [boundary_wall_open], byte 0
     je short api_idx_0030_KNRH.forward82
     call draw_clock_marker_glyph
-    call api_idx_0024_NUGL
+    call draw_moon_glyph
 api_idx_0030_KNRH.forward82:
     inc word [bp - 0x14]
     mov ax, word [bp - 0x14]
@@ -2220,9 +2220,9 @@ api_idx_0030_KNRH.forward82:
     jge short api_idx_0030_KNRH.forward83
     jmp near api_idx_0030_KNRH.back8
 api_idx_0030_KNRH.forward83:
-    dec word [cell_wall_override_disabled]
+    dec word [view_scan_depth]
 api_idx_0030_KNRH.forward84:
-    cmp word [cell_wall_override_disabled], byte 0
+    cmp word [view_scan_depth], byte 0
     jl short api_idx_0030_KNRH.forward85
     jmp near api_idx_0030_KNRH.back2
 api_idx_0030_KNRH.forward85:

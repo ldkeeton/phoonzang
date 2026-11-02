@@ -227,7 +227,7 @@ save_game_data:
     mov ax, 0xffff                   ; 0x3a95
     ret                              ; 0x3a98
 .forward16:
-    cmp word [game_state_arg], byte 0 ; 0x3a99
+    cmp word [current_level], byte 0 ; 0x3a99
     jge short .forward17             ; 0x3a9e
     jmp near .forward18              ; 0x3aa0
 .forward17:
@@ -249,7 +249,7 @@ save_game_data:
     add sp, byte 0xe                 ; 0x3ac2
     mov ax, 0x80                     ; 0x3ac5
     push ax                          ; 0x3ac8
-    mov ax, word [game_state_arg]    ; 0x3ac9
+    mov ax, word [current_level]     ; 0x3ac9
     mov cx, 7                        ; 0x3acc
     shl ax, cl                       ; 0x3acf
     mov cx, ax                       ; 0x3ad1
@@ -265,7 +265,7 @@ save_game_data:
     add sp, byte 0xa                 ; 0x3ae6
     mov ax, 0x80                     ; 0x3ae9
     push ax                          ; 0x3aec
-    mov ax, word [game_state_arg]    ; 0x3aed
+    mov ax, word [current_level]     ; 0x3aed
     mov cx, 7                        ; 0x3af0
     shl ax, cl                       ; 0x3af3
     mov cx, ax                       ; 0x3af5
@@ -281,12 +281,12 @@ save_game_data:
     add sp, byte 0xa                 ; 0x3b0a
     mov ax, 0x10                     ; 0x3b0d
     push ax                          ; 0x3b10
-    mov ax, word [game_state_arg]    ; 0x3b11
+    mov ax, word [current_level]     ; 0x3b11
     mov cx, 4                        ; 0x3b14
     shl ax, cl                       ; 0x3b17
     add ax, scenario_header_data     ; 0x3b19
     push ax                          ; 0x3b1c
-    mov ax, word [game_state_arg]    ; 0x3b1d
+    mov ax, word [current_level]     ; 0x3b1d
     shl ax, cl                       ; 0x3b20
     add ax, party_region + 0x2       ; 0x3b22
     push ax                          ; 0x3b25
@@ -515,9 +515,9 @@ save_game_data:
     mov word [loaded_state_cell_y], ax ; 0x3d29
     mov ax, word [party_map_piece]   ; 0x3d2c
     mov word [loaded_state_map_piece], ax ; 0x3d2f
-    mov ax, word [party_tag]         ; 0x3d32
-    mov word [loaded_state_tag], ax  ; 0x3d35
-    mov ax, word [game_state_arg]    ; 0x3d38
+    mov ax, word [party_facing]      ; 0x3d32
+    mov word [loaded_state_facing], ax ; 0x3d35
+    mov ax, word [current_level]     ; 0x3d38
     mov word [loaded_game_state], ax ; 0x3d3b
     mov ax, word [previous_party_world_x] ; 0x3d3e
     mov word [loaded_state_previous_world_x], ax ; 0x3d41
@@ -529,9 +529,9 @@ save_game_data:
     mov word [loaded_state_previous_cell_y], ax ; 0x3d53
     mov ax, word [previous_party_map_piece] ; 0x3d56
     mov word [loaded_state_previous_map_piece], ax ; 0x3d59
-    mov ax, word [previous_party_tag] ; 0x3d5c
-    mov word [loaded_state_previous_tag], ax ; 0x3d5f
-    mov ax, word [previous_game_state_arg] ; 0x3d62
+    mov ax, word [previous_party_facing] ; 0x3d5c
+    mov word [loaded_state_previous_facing], ax ; 0x3d5f
+    mov ax, word [previous_level]    ; 0x3d62
     mov word [loaded_state_previous_level], ax ; 0x3d65
     mov ax, word [saved_cell_x]      ; 0x3d68
     mov word [loaded_state_saved_x], ax ; 0x3d6b

@@ -246,7 +246,7 @@ api_idx_00d2_RUSS.forward13:
     push ax                          ; 0x657c
     lea ax, word [bp - 0xc4]         ; 0x657d
     push ax                          ; 0x6581
-    call loc_VNIO                    ; 0x6582
+    call draw_centered_text_at_x     ; 0x6582
     add sp, byte 8                   ; 0x6585
     mov ax, 2                        ; 0x6588
     push ax                          ; 0x658b

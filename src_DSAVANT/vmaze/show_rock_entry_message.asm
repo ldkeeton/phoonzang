@@ -12,7 +12,7 @@ show_rock_entry_message:
     mov ax, 2                        ; 0x1125
     push ax                          ; 0x1128
     push word [bp - 2]               ; 0x1129
-    call loc_QTKU                    ; 0x112c
+    call mark_party_member_dead      ; 0x112c
     add sp, byte 4                   ; 0x112f
     inc word [bp - 2]                ; 0x1132
 .forward1:

@@ -1,7 +1,7 @@
 /* main loop: load and run the overlay game_state selects, forever */
 
 extern int game_state;
-extern int game_state_arg;
+extern int current_level;
 
 main()
 {
@@ -33,16 +33,17 @@ main()
 			entry = aztec_ovloader("VPCMK");
 			break;
 		case 25:	/* continues as state 5 */
-			ensure_game_disk(2, game_state_arg);
+			ensure_game_disk(2, current_level);
 			game_state = 5;
 		case 5:
 		case 6:
 			entry = aztec_ovloader("VMAZE");
 			break;
-		case 23:
-		case 27:
-		case 30:
-		case 31:
+		/* maze side actions; VMEXT always returns to state 5 */
+		case 23:	/* run from an NPC encounter */
+		case 27:	/* drink from a fountain */
+		case 30:	/* pick up the floor item */
+		case 31:	/* swap two party members */
 			entry = aztec_ovloader("VMEXT");
 			break;
 		case 10:

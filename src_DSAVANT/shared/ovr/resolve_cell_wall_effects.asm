@@ -1,5 +1,5 @@
 ; auto-generated
-api_idx_0008_PGTT:
+resolve_cell_wall_effects:
     mov ax, 0xfff8
     call aztec_csav
     cmp word [bp + 0xe], byte 0
@@ -35,18 +35,18 @@ jumptable_3000_case_3:
     ret
 jumptable_3000_case_1:
     mov ax, 5
-    imul word [cell_wall_override_disabled]
+    imul word [view_scan_depth]
     add ax, word [bp + 0xe]
     mov bx, ax
-    mov byte [bx + api_idx_0008_PGTT_bss177], 1
+    mov byte [bx + maze_boundary_wall_markers], 1
     mov ax, 4
     ret
 jumptable_3000_case_5:
     mov ax, 5
-    imul word [cell_wall_override_disabled]
+    imul word [view_scan_depth]
     add ax, word [bp + 0xe]
     mov bx, ax
-    mov byte [bx + api_idx_0008_PGTT_bss177], 3
+    mov byte [bx + maze_boundary_wall_markers], 3
     mov ax, 0
     ret
 jumptable_3000:
@@ -56,13 +56,13 @@ jumptable_3000:
     dw jumptable_3000_case_3 - IMAGE_BASE + __zres_end
     dw jumptable_3000_case_0 - IMAGE_BASE + __zres_end
     dw jumptable_3000_case_5 - IMAGE_BASE + __zres_end
-api_idx_0008_PGTT.forward3:
+resolve_cell_wall_effects.forward3:
     cmp ax, strict word 6
-    jae short api_idx_0008_PGTT.forward4
+    jae short resolve_cell_wall_effects.forward4
     xchg bx, ax
     shl bx, 1
     jmp [cs:bx + jumptable_3000 - IMAGE_BASE + __zres_end]
-api_idx_0008_PGTT.forward4:
+resolve_cell_wall_effects.forward4:
     mov ax, word [bp + 0xc]
     mov cx, 6
     shl ax, cl
@@ -80,30 +80,30 @@ api_idx_0008_PGTT.forward4:
     call test_bit
     add sp, byte 4
     test ax, ax
-    je short api_idx_0008_PGTT.forward6
+    je short resolve_cell_wall_effects.forward6
     mov ax, word [boundary_wall_variant]
-    jmp short api_idx_0008_PGTT.forward5
+    jmp short resolve_cell_wall_effects.forward5
 jumptable_3082_case_0:
     mov ax, 5
-    imul word [cell_wall_override_disabled]
+    imul word [view_scan_depth]
     add ax, word [bp + 0xe]
     mov bx, ax
-    mov byte [bx + api_idx_0008_PGTT_bss177], 3
-    jmp short api_idx_0008_PGTT.forward6
+    mov byte [bx + maze_boundary_wall_markers], 3
+    jmp short resolve_cell_wall_effects.forward6
 jumptable_3082_case_1:
     mov ax, 5
-    imul word [cell_wall_override_disabled]
+    imul word [view_scan_depth]
     add ax, word [bp + 0xe]
     mov bx, ax
-    mov byte [bx + api_idx_0008_PGTT_bss177], 1
-    jmp short api_idx_0008_PGTT.forward6
+    mov byte [bx + maze_boundary_wall_markers], 1
+    jmp short resolve_cell_wall_effects.forward6
 jumptable_3082_case_2:
     mov ax, 5
-    imul word [cell_wall_override_disabled]
+    imul word [view_scan_depth]
     add ax, word [bp + 0xe]
     mov bx, ax
-    mov byte [bx + api_idx_0008_PGTT_bss177], 2
-    jmp short api_idx_0008_PGTT.forward6
+    mov byte [bx + maze_boundary_wall_markers], 2
+    jmp short resolve_cell_wall_effects.forward6
 jumptable_3082:
     dw jumptable_3082_case_0 - IMAGE_BASE + __zres_end
     dw jumptable_3082_case_1 - IMAGE_BASE + __zres_end
@@ -111,13 +111,13 @@ jumptable_3082:
     dw jumptable_3082_case_1 - IMAGE_BASE + __zres_end
     dw jumptable_3082_case_0 - IMAGE_BASE + __zres_end
     dw jumptable_3082_case_1 - IMAGE_BASE + __zres_end
-api_idx_0008_PGTT.forward5:
+resolve_cell_wall_effects.forward5:
     cmp ax, strict word 6
-    jae short api_idx_0008_PGTT.forward6
+    jae short resolve_cell_wall_effects.forward6
     xchg bx, ax
     shl bx, 1
     jmp [cs:bx + jumptable_3082 - IMAGE_BASE + __zres_end]
-api_idx_0008_PGTT.forward6:
+resolve_cell_wall_effects.forward6:
     push word [bp - 2]
     mov ax, word [maze_data]
     add ax, 0x8b0
@@ -125,42 +125,42 @@ api_idx_0008_PGTT.forward6:
     call test_bit
     add sp, byte 4
     test ax, ax
-    jne short api_idx_0008_PGTT.forward7
-    jmp near api_idx_0008_PGTT.forward10
-api_idx_0008_PGTT.forward7:
+    jne short resolve_cell_wall_effects.forward7
+    jmp near resolve_cell_wall_effects.forward10
+resolve_cell_wall_effects.forward7:
     mov ax, word [boundary_wall_variant]
-    jmp short api_idx_0008_PGTT.forward9
+    jmp short resolve_cell_wall_effects.forward9
 jumptable_3111_case_1:
     mov ax, 5
-    imul word [cell_wall_override_disabled]
+    imul word [view_scan_depth]
     add ax, word [bp + 0xe]
     mov bx, ax
-    mov byte [bx + api_idx_0008_PGTT_bss177], 2
-    jmp short api_idx_0008_PGTT.forward10
+    mov byte [bx + maze_boundary_wall_markers], 2
+    jmp short resolve_cell_wall_effects.forward10
 jumptable_3111_case_2:
     mov ax, 5
-    imul word [cell_wall_override_disabled]
+    imul word [view_scan_depth]
     add ax, word [bp + 0xe]
     mov bx, ax
-    mov byte [bx + api_idx_0008_PGTT_bss703], 1
-    jmp short api_idx_0008_PGTT.forward10
+    mov byte [bx + maze_cell_flag_markers], 1
+    jmp short resolve_cell_wall_effects.forward10
 jumptable_3111_case_5:
     mov ax, 5
-    imul word [cell_wall_override_disabled]
+    imul word [view_scan_depth]
     add ax, word [bp + 0xe]
     mov bx, ax
-    mov byte [bx + api_idx_0008_PGTT_bss177], 3
-    jmp short api_idx_0008_PGTT.forward10
+    mov byte [bx + maze_boundary_wall_markers], 3
+    jmp short resolve_cell_wall_effects.forward10
 jumptable_3111_case_0:
     mov ax, 5
-    imul word [cell_wall_override_disabled]
+    imul word [view_scan_depth]
     add ax, word [bp + 0xe]
     mov bx, ax
-    mov byte [bx + api_idx_0008_PGTT_bss777], 1
-    cmp word [cell_wall_override_disabled], byte 4
-    jge short api_idx_0008_PGTT.forward8
-    mov byte [bx + api_idx_0008_PGTT_bss798], 1
-api_idx_0008_PGTT.forward8:
+    mov byte [bx + maze_blocking_cell_markers], 1
+    cmp word [view_scan_depth], byte 4
+    jge short resolve_cell_wall_effects.forward8
+    mov byte [bx + maze_near_blocking_markers], 1
+resolve_cell_wall_effects.forward8:
     mov ax, 0
     ret
 jumptable_3111:
@@ -170,13 +170,13 @@ jumptable_3111:
     dw jumptable_3111_case_0 - IMAGE_BASE + __zres_end
     dw jumptable_3111_case_2 - IMAGE_BASE + __zres_end
     dw jumptable_3111_case_5 - IMAGE_BASE + __zres_end
-api_idx_0008_PGTT.forward9:
+resolve_cell_wall_effects.forward9:
     cmp ax, strict word 6
-    jae short api_idx_0008_PGTT.forward10
+    jae short resolve_cell_wall_effects.forward10
     xchg bx, ax
     shl bx, 1
     jmp [cs:bx + jumptable_3111 - IMAGE_BASE + __zres_end]
-api_idx_0008_PGTT.forward10:
+resolve_cell_wall_effects.forward10:
     push word [bp - 2]
     mov ax, word [maze_data]
     add ax, 0x930
@@ -184,42 +184,42 @@ api_idx_0008_PGTT.forward10:
     call test_bit
     add sp, byte 4
     test ax, ax
-    je short api_idx_0008_PGTT.forward13
-    mov ax, word [game_state_arg]
-    jmp short api_idx_0008_PGTT.forward12
-api_idx_0008_PGTT.back1:
+    je short resolve_cell_wall_effects.forward13
+    mov ax, word [current_level]
+    jmp short resolve_cell_wall_effects.forward12
+resolve_cell_wall_effects.back1:
     mov ax, 5
-    imul word [cell_wall_override_disabled]
+    imul word [view_scan_depth]
     add ax, word [bp + 0xe]
     mov bx, ax
-    mov byte [bx + api_idx_0008_PGTT_bss177], 3
-    jmp short api_idx_0008_PGTT.forward13
-api_idx_0008_PGTT.back2:
+    mov byte [bx + maze_boundary_wall_markers], 3
+    jmp short resolve_cell_wall_effects.forward13
+resolve_cell_wall_effects.back2:
     mov ax, 5
-    imul word [cell_wall_override_disabled]
+    imul word [view_scan_depth]
     add ax, word [bp + 0xe]
     mov bx, ax
-    mov byte [bx + api_idx_0008_PGTT_bss777], 2
-    cmp word [cell_wall_override_disabled], byte 4
-    jge short api_idx_0008_PGTT.forward11
-    mov byte [bx + api_idx_0008_PGTT_bss798], 2
-api_idx_0008_PGTT.forward11:
-    jmp short api_idx_0008_PGTT.forward13
-api_idx_0008_PGTT.forward12:
+    mov byte [bx + maze_blocking_cell_markers], 2
+    cmp word [view_scan_depth], byte 4
+    jge short resolve_cell_wall_effects.forward11
+    mov byte [bx + maze_near_blocking_markers], 2
+resolve_cell_wall_effects.forward11:
+    jmp short resolve_cell_wall_effects.forward13
+resolve_cell_wall_effects.forward12:
     cmp ax, strict word 0xa
-    je short api_idx_0008_PGTT.back2
+    je short resolve_cell_wall_effects.back2
     cmp ax, strict word 0xe
-    je short api_idx_0008_PGTT.back1
+    je short resolve_cell_wall_effects.back1
     cmp ax, strict word 0x13
-    je short api_idx_0008_PGTT.back1
+    je short resolve_cell_wall_effects.back1
     cmp ax, strict word 0x19
-    je short api_idx_0008_PGTT.back2
+    je short resolve_cell_wall_effects.back2
     cmp ax, strict word 0x1f
-    je short api_idx_0008_PGTT.back1
-api_idx_0008_PGTT.forward13:
-    mov ax, word [party_tag]
-    jmp short api_idx_0008_PGTT.forward14
-api_idx_0008_PGTT.back3:
+    je short resolve_cell_wall_effects.back1
+resolve_cell_wall_effects.forward13:
+    mov ax, word [party_facing]
+    jmp short resolve_cell_wall_effects.forward14
+resolve_cell_wall_effects.back3:
     mov ax, 4
     push ax
     push word [bp - 2]
@@ -229,8 +229,8 @@ api_idx_0008_PGTT.back3:
     call read_packed_field
     add sp, byte 6
     mov word [bp - 4], ax
-    jmp short api_idx_0008_PGTT.forward15
-api_idx_0008_PGTT.back4:
+    jmp short resolve_cell_wall_effects.forward15
+resolve_cell_wall_effects.back4:
     mov ax, 4
     push ax
     push word [bp - 2]
@@ -240,8 +240,8 @@ api_idx_0008_PGTT.back4:
     call read_packed_field
     add sp, byte 6
     mov word [bp - 4], ax
-    jmp short api_idx_0008_PGTT.forward15
-api_idx_0008_PGTT.back5:
+    jmp short resolve_cell_wall_effects.forward15
+resolve_cell_wall_effects.back5:
     push word [bp + 0xc]
     push word [bp + 0xa]
     push word [bp + 8]
@@ -250,8 +250,8 @@ api_idx_0008_PGTT.back5:
     call get_north_cell_wall
     add sp, byte 0xa
     mov word [bp - 4], ax
-    jmp short api_idx_0008_PGTT.forward15
-api_idx_0008_PGTT.back6:
+    jmp short resolve_cell_wall_effects.forward15
+resolve_cell_wall_effects.back6:
     push word [bp + 0xc]
     push word [bp + 0xa]
     push word [bp + 8]
@@ -260,17 +260,17 @@ api_idx_0008_PGTT.back6:
     call get_west_cell_wall
     add sp, byte 0xa
     mov word [bp - 4], ax
-    jmp short api_idx_0008_PGTT.forward15
-api_idx_0008_PGTT.forward14:
+    jmp short resolve_cell_wall_effects.forward15
+resolve_cell_wall_effects.forward14:
     cmp ax, strict word 0
-    je short api_idx_0008_PGTT.back3
+    je short resolve_cell_wall_effects.back3
     cmp ax, strict word 1
-    je short api_idx_0008_PGTT.back4
+    je short resolve_cell_wall_effects.back4
     cmp ax, strict word 2
-    je short api_idx_0008_PGTT.back5
+    je short resolve_cell_wall_effects.back5
     cmp ax, strict word 3
-    je short api_idx_0008_PGTT.back6
-api_idx_0008_PGTT.forward15:
+    je short resolve_cell_wall_effects.back6
+resolve_cell_wall_effects.forward15:
     lea ax, word [bp - 8]
     push ax
     lea ax, word [bp - 6]
@@ -278,21 +278,21 @@ api_idx_0008_PGTT.forward15:
     push word [bp - 2]
     call read_cell_kind_direction
     add sp, byte 6
-    mov ax, word [party_tag]
+    mov ax, word [party_facing]
     cmp ax, word [bp - 8]
-    je short api_idx_0008_PGTT.forward17
+    je short resolve_cell_wall_effects.forward17
     mov ax, word [bp - 6]
     cmp ax, strict word 7
-    jl short api_idx_0008_PGTT.forward16
+    jl short resolve_cell_wall_effects.forward16
     cmp ax, strict word 9
-    jle short api_idx_0008_PGTT.forward17
-api_idx_0008_PGTT.forward16:
+    jle short resolve_cell_wall_effects.forward17
+resolve_cell_wall_effects.forward16:
     cmp ax, strict word 0xb
-    jg short api_idx_0008_PGTT.forward17
+    jg short resolve_cell_wall_effects.forward17
     jmp near jumptable_3356_case_0
-api_idx_0008_PGTT.forward17:
+resolve_cell_wall_effects.forward17:
     mov ax, word [bp - 6]
-    jmp near api_idx_0008_PGTT.forward21
+    jmp near resolve_cell_wall_effects.forward21
 jumptable_3356_case_1:
     mov word [bp - 4], 8
     jmp near jumptable_3356_case_0
@@ -306,56 +306,56 @@ jumptable_3356_case_4:
     mov word [bp - 4], 0xb
     jmp near jumptable_3356_case_0
 jumptable_3356_case_5:
-    cmp word [cell_wall_override_disabled], byte 0
-    jne short api_idx_0008_PGTT.forward18
+    cmp word [view_scan_depth], byte 0
+    jne short resolve_cell_wall_effects.forward18
     mov word [bp - 4], 0xc
-api_idx_0008_PGTT.forward18:
+resolve_cell_wall_effects.forward18:
     jmp near jumptable_3356_case_0
 jumptable_3356_case_6:
-    cmp word [cell_wall_override_disabled], byte 0
-    jne short api_idx_0008_PGTT.forward19
+    cmp word [view_scan_depth], byte 0
+    jne short resolve_cell_wall_effects.forward19
     mov word [bp - 4], 0xd
-api_idx_0008_PGTT.forward19:
+resolve_cell_wall_effects.forward19:
     jmp near jumptable_3356_case_0
 jumptable_3356_case_7:
     mov ax, word [bp - 8]
     inc ax
     push ax
     mov ax, 5
-    imul word [cell_wall_override_disabled]
+    imul word [view_scan_depth]
     mov cx, ax
     add ax, word [bp + 0xe]
     mov bx, ax
     pop ax
-    mov byte [bx + api_idx_0008_PGTT_bss1636], al
+    mov byte [bx + maze_cell_facing_bytes], al
     jmp near jumptable_3356_case_0
 jumptable_3356_case_8:
     mov ax, word [bp - 8]
     inc ax
     push ax
     mov ax, 0xa
-    imul word [cell_wall_override_disabled]
+    imul word [view_scan_depth]
     mov cx, ax
     mov dx, word [bp + 0xe]
     shl dx, 1
     add ax, dx
     mov bx, ax
     pop ax
-    mov word [bx + api_idx_0008_PGTT_bss1699], ax
+    mov word [bx + maze_cell_facing_words_a], ax
     jmp near jumptable_3356_case_0
 jumptable_3356_case_9:
     mov ax, word [bp - 8]
     inc ax
     push ax
     mov ax, 0xa
-    imul word [cell_wall_override_disabled]
+    imul word [view_scan_depth]
     mov cx, ax
     mov dx, word [bp + 0xe]
     shl dx, 1
     add ax, dx
     mov bx, ax
     pop ax
-    mov word [bx + api_idx_0008_PGTT_bss1762], ax
+    mov word [bx + maze_cell_facing_words_b], ax
     jmp near jumptable_3356_case_0
 jumptable_3356_case_10:
     mov word [bp - 4], 0xe
@@ -365,44 +365,44 @@ jumptable_3356_case_11:
     jmp near jumptable_3356_case_0
 jumptable_3356_case_12:
     mov ax, 5
-    imul word [cell_wall_override_disabled]
+    imul word [view_scan_depth]
     add ax, word [bp + 0xe]
     mov bx, ax
-    mov byte [bx + api_idx_0008_PGTT_bss1826], 1
+    mov byte [bx + maze_special_wall_markers], 1
     jmp near jumptable_3356_case_0
 jumptable_3356_case_13:
     mov ax, 5
-    imul word [cell_wall_override_disabled]
+    imul word [view_scan_depth]
     add ax, word [bp + 0xe]
     mov bx, ax
-    mov byte [bx + api_idx_0008_PGTT_bss177], 3
+    mov byte [bx + maze_boundary_wall_markers], 3
     jmp short jumptable_3356_case_0
 jumptable_3356_case_14:
     mov ax, 0xa
-    imul word [cell_wall_override_disabled]
+    imul word [view_scan_depth]
     mov cx, word [bp + 0xe]
     shl cx, 1
     add ax, cx
     mov bx, ax
-    mov word [bx + api_idx_0008_PGTT_bss1906], 1
+    mov word [bx + maze_cell_effect_flags_a], 1
 jumptable_3356_case_15:
     cmp word [bp - 6], byte 0xe
-    je short api_idx_0008_PGTT.forward20
+    je short resolve_cell_wall_effects.forward20
     mov ax, 0xa
-    imul word [cell_wall_override_disabled]
+    imul word [view_scan_depth]
     mov cx, word [bp + 0xe]
     shl cx, 1
     add ax, cx
     mov bx, ax
-    mov word [bx + api_idx_0008_PGTT_bss1961], 1
-api_idx_0008_PGTT.forward20:
+    mov word [bx + maze_cell_effect_flags_b], 1
+resolve_cell_wall_effects.forward20:
     jmp short jumptable_3356_case_0
 jumptable_3356_case_16:
     mov ax, 5
-    imul word [cell_wall_override_disabled]
+    imul word [view_scan_depth]
     add ax, word [bp + 0xe]
     mov bx, ax
-    mov byte [bx + api_idx_0008_PGTT_bss1826], 2
+    mov byte [bx + maze_special_wall_markers], 2
     jmp short jumptable_3356_case_0
 jumptable_3356:
     dw jumptable_3356_case_0 - IMAGE_BASE + __zres_end
@@ -423,30 +423,30 @@ jumptable_3356:
     dw jumptable_3356_case_15 - IMAGE_BASE + __zres_end
     dw jumptable_3356_case_16 - IMAGE_BASE + __zres_end
     dw jumptable_3356_case_14 - IMAGE_BASE + __zres_end
-api_idx_0008_PGTT.forward21:
+resolve_cell_wall_effects.forward21:
     cmp ax, strict word 0x12
     jae short jumptable_3356_case_0
     xchg bx, ax
     shl bx, 1
     jmp [cs:bx + jumptable_3356 - IMAGE_BASE + __zres_end]
 jumptable_3356_case_0:
-    mov ax, word [game_state_arg]
+    mov ax, word [current_level]
     cmp ax, word [saved_level]
-    jne short api_idx_0008_PGTT.forward23
+    jne short resolve_cell_wall_effects.forward23
     mov ax, word [bp + 0xc]
     cmp ax, word [saved_map_piece]
-    jne short api_idx_0008_PGTT.forward23
+    jne short resolve_cell_wall_effects.forward23
     mov ax, word [bp + 8]
     cmp ax, word [saved_cell_x]
-    jne short api_idx_0008_PGTT.forward23
+    jne short resolve_cell_wall_effects.forward23
     mov ax, word [bp + 0xa]
     cmp ax, word [saved_cell_y]
-    jne short api_idx_0008_PGTT.forward23
+    jne short resolve_cell_wall_effects.forward23
     mov ax, 5
-    imul word [cell_wall_override_disabled]
+    imul word [view_scan_depth]
     add ax, word [bp + 0xe]
     mov bx, ax
-    mov byte [bx + api_idx_0008_PGTT_bss1826], 3
-api_idx_0008_PGTT.forward23:
+    mov byte [bx + maze_special_wall_markers], 3
+resolve_cell_wall_effects.forward23:
     mov ax, word [bp - 4]
     ret

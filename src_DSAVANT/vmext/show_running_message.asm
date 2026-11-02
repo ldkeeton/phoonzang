@@ -1,5 +1,5 @@
 ; auto-generated
-loc_VUVO:
+show_running_message:
     mov ax, 0                        ; 0x0c0d
     call aztec_csav                  ; 0x0c10
     mov ax, MSG_RUNNING              ; 0x0c13

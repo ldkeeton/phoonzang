@@ -1,10 +1,10 @@
 /* The terrain of the party's cell: 0 open, 1 water, 2 a fall, 3 wild
-   orchids, 4 rock.  game_state_arg is the current level. */
+   orchids, 4 rock.  current_level is the current level. */
 extern int party_map_piece;
 extern int party_cell_x;
 extern int party_cell_y;
 extern char *maze_data;
-extern int game_state_arg;
+extern int current_level;
 extern int test_bit();
 
 /* Each later bitmap with this cell's bit set overrides the earlier ones;
@@ -22,7 +22,7 @@ get_cell_terrain()
 	/* The first bitmap starts at maze-data offset 0x9b0. */
 	if (test_bit(maze_data + 2480, cell_bit_index)) {
 		/* Levels 15 through 30 (a jump table): water. */
-		switch (game_state_arg) {
+		switch (current_level) {
 		case 29:
 			if (party_map_piece > 12)
 				terrain = 1;
@@ -41,7 +41,7 @@ get_cell_terrain()
 	}
 	/* The bitmap at offset 0x8b0: water, or a fall on level 27. */
 	if (test_bit(maze_data + 2224, cell_bit_index)) {
-		switch (game_state_arg) {
+		switch (current_level) {
 		case 8:
 		case 9:
 		case 10:
@@ -56,7 +56,7 @@ get_cell_terrain()
 	}
 	/* The bitmap at offset 0x930: orchids on level 0, rock by default. */
 	if (test_bit(maze_data + 2352, cell_bit_index)) {
-		switch (game_state_arg) {
+		switch (current_level) {
 		case 0:
 			terrain = 3;
 			break;

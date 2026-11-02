@@ -108,7 +108,7 @@ api_idx_007a_QUNG:
     push word [menu_selection_index] ; 0x500a
     lea ax, word [bp - 0x78]         ; 0x500e
     push ax                          ; 0x5011
-    call api_idx_0008_RORM           ; 0x5012
+    call show_indexed_beveled_label  ; 0x5012
     add sp, byte 0x12                ; 0x5015
     mov ax, word [bp - 8]            ; 0x5018
     jmp near .forward15              ; 0x501b

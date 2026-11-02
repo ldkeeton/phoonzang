@@ -110,7 +110,7 @@ handle_region_level_event:
     mov ax, 0                        ; 0x866f
     push ax                          ; 0x8672
     push word [bp - 0xc]             ; 0x8673
-    mov ax, word [game_state_arg]    ; 0x8676
+    mov ax, word [current_level]     ; 0x8676
     mov cx, 4                        ; 0x8679
     shl ax, cl                       ; 0x867c
     add ax, party_region + 0x2       ; 0x867e
@@ -120,7 +120,7 @@ handle_region_level_event:
     mov ax, 0                        ; 0x8688
     push ax                          ; 0x868b
     push word [bp - 0xc]             ; 0x868c
-    mov ax, word [game_state_arg]    ; 0x868f
+    mov ax, word [current_level]     ; 0x868f
     mov cx, 4                        ; 0x8692
     shl ax, cl                       ; 0x8695
     add ax, scenario_header_data     ; 0x8697

@@ -18,10 +18,10 @@ extern char *runtime_buffer_3k, *floor_items;
 extern char far (*runtime_buffer_4k_a)[128], (*runtime_buffer_4k_b)[128];
 extern char game_block_a[], game_block_b[];
 extern int party_world_x, party_world_y, party_cell_x, party_cell_y;
-extern int party_map_piece, party_tag, game_state_arg;
+extern int party_map_piece, party_facing, current_level;
 extern int previous_party_world_x, previous_party_world_y,
 	previous_party_cell_x, previous_party_cell_y, previous_party_map_piece,
-	previous_party_tag, previous_game_state_arg;
+	previous_party_facing, previous_level;
 extern int saved_cell_x, saved_cell_y, saved_map_piece, saved_level,
 	saved_position_extra;
 extern long game_time, game_time_aux_a, game_time_aux_b;
@@ -97,15 +97,15 @@ int save_mode;
 			prompt_disk_swap(game_data_drive, disk_number, keep_disk, 1);
 		return -1;
 	}
-	if (game_state_arg < 0) {
+	if (current_level < 0) {
 	} else {
 		draw_message_box(saving_text, 3, 97, 36, 18, 13, 1);
 		app_memmove((char far *)current_map_block_a,
-					runtime_buffer_4k_a[game_state_arg], 128);
+					runtime_buffer_4k_a[current_level], 128);
 		app_memmove((char far *)current_map_block_b,
-					runtime_buffer_4k_b[game_state_arg], 128);
-		aztec_movmem(party_region.state[game_state_arg],
-					 scenario_header_data.region_state[game_state_arg], 16);
+					runtime_buffer_4k_b[current_level], 128);
+		aztec_movmem(party_region.state[current_level],
+					 scenario_header_data.region_state[current_level], 16);
 	}
 	aztec_lseek(fd, 0L, 0);
 	if ((write_count = aztec_write(fd, &scenario_header_data, 844)) <= 0) {
@@ -161,15 +161,15 @@ int save_mode;
 	loaded_game_state.cell_x = party_cell_x;
 	loaded_game_state.cell_y = party_cell_y;
 	loaded_game_state.map_piece = party_map_piece;
-	loaded_game_state.tag = party_tag;
-	loaded_game_state.level = game_state_arg;
+	loaded_game_state.facing = party_facing;
+	loaded_game_state.level = current_level;
 	loaded_game_state.previous_world_x = previous_party_world_x;
 	loaded_game_state.previous_world_y = previous_party_world_y;
 	loaded_game_state.previous_cell_x = previous_party_cell_x;
 	loaded_game_state.previous_cell_y = previous_party_cell_y;
 	loaded_game_state.previous_map_piece = previous_party_map_piece;
-	loaded_game_state.previous_tag = previous_party_tag;
-	loaded_game_state.previous_level = previous_game_state_arg;
+	loaded_game_state.previous_facing = previous_party_facing;
+	loaded_game_state.previous_level = previous_level;
 	loaded_game_state.saved_x = saved_cell_x;
 	loaded_game_state.saved_y = saved_cell_y;
 	loaded_game_state.saved_piece = saved_map_piece;

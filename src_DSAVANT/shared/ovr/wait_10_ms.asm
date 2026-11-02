@@ -1,5 +1,5 @@
 ; auto-generated
-loc_RULJ:
+wait_10_ms:
     mov ax, 0
     call aztec_csav
     mov ax, 0xa

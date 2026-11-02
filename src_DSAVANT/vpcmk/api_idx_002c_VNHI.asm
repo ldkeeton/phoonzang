@@ -335,7 +335,7 @@ api_idx_002c_VNHI:
     push ax                          ; 0x6d88
     mov ax, 0x46a                    ; 0x6d89
     push ax                          ; 0x6d8c
-    call loc_TRPK                    ; 0x6d8d
+    call select_grid_text_option     ; 0x6d8d
     add sp, byte 0x1a                ; 0x6d90
     mov word [bp - 6], ax            ; 0x6d93
     jmp near .forward9               ; 0x6d96

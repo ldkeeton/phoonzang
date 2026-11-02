@@ -80,7 +80,7 @@ get_relative_cell_wall.forward4:
     cmp ax, strict word 3
     je short get_relative_cell_wall.back1
 get_relative_cell_wall.forward5:
-    mov ax, word [party_tag]
+    mov ax, word [party_facing]
     add ax, word [bp + 4]
     mov cx, 4
     cwd
@@ -153,7 +153,7 @@ get_relative_cell_wall.forward7:
     cwd
     idiv cx
     mov word [bp - 8], dx
-    cmp dx, word [party_tag]
+    cmp dx, word [party_facing]
     je short get_relative_cell_wall.forward8
     jmp near jumptable_3563_case_0
 get_relative_cell_wall.forward8:
@@ -172,13 +172,13 @@ jumptable_3563_case_4:
     mov word [bp - 4], 0xb
     jmp short jumptable_3563_case_0
 jumptable_3563_case_5:
-    cmp word [cell_wall_override_disabled], byte 0
+    cmp word [view_scan_depth], byte 0
     jne short get_relative_cell_wall.forward9
     mov word [bp - 4], 0xc
 get_relative_cell_wall.forward9:
     jmp short jumptable_3563_case_0
 jumptable_3563_case_6:
-    cmp word [cell_wall_override_disabled], byte 0
+    cmp word [view_scan_depth], byte 0
     jne short get_relative_cell_wall.forward10
     mov word [bp - 4], 0xd
 get_relative_cell_wall.forward10:

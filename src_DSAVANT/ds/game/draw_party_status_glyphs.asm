@@ -64,7 +64,7 @@ jumptable_2d50_case_4:
     cmp ax, word [party_status_frame_seen] ; 0x2cfb
     je short draw_party_status_glyphs.forward3 ; 0x2cff
     mov word [party_status_frame_seen], ax ; 0x2d01
-    mov ax, word [party_tag]         ; 0x2d04
+    mov ax, word [party_facing]      ; 0x2d04
     shl ax, 1                        ; 0x2d07
     sub ax, word [party_status_heading] ; 0x2d09
     mov word [bp - 6], ax            ; 0x2d0d

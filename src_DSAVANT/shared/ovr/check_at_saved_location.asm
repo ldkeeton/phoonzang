@@ -3,7 +3,7 @@ check_at_saved_location:
     mov ax, 0
     call aztec_csav
     mov word [save_location_flag], 0
-    mov ax, word [game_state_arg]
+    mov ax, word [current_level]
     cmp ax, word [saved_level]
     jne short .return1
     mov ax, word [party_map_piece]

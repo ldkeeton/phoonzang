@@ -1,5 +1,5 @@
 ; auto-generated
-loc_GMVH:
+is_quest_map_item:
     mov ax, 0
     call aztec_csav
     cmp word [bp + 4], strict word 0x190

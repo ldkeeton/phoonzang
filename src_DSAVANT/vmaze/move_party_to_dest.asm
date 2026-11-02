@@ -82,7 +82,7 @@ move_party_to_dest:
     mov word [party_region], ax      ; 0x7384
     mov word [region_step_flag], 0   ; 0x7387
     mov ax, word [bp - 4]            ; 0x738d
-    cmp ax, word [game_state_arg]    ; 0x7390
+    cmp ax, word [current_level]     ; 0x7390
     jne short .forward3              ; 0x7394
     call redraw_maze_view            ; 0x7396
     jmp short .forward4              ; 0x7399
@@ -91,7 +91,7 @@ move_party_to_dest:
     push word [bp - 4]               ; 0x739e
     call enter_level                 ; 0x73a1
     pop cx                           ; 0x73a4
-    cmp word [game_state_arg], byte 0 ; 0x73a5
+    cmp word [current_level], byte 0 ; 0x73a5
     jl short .forward4               ; 0x73aa
     call redraw_maze_view            ; 0x73ac
 .forward4:

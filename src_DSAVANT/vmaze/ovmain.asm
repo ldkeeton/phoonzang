@@ -2,7 +2,7 @@
 ovmain:
     mov ax, 0xfffe                   ; 0x000e
     call aztec_csav                  ; 0x0011
-    mov word [bss_8f22], 0           ; 0x0014
+    mov word [capture_center_marker_mode], 0 ; 0x0014
     mov word [party_redraw_interval], 5 ; 0x001a
     les bx, word [tick_counter_ptr]  ; 0x0020
     mov ax, word [es:bx]             ; 0x0024
@@ -30,7 +30,7 @@ ovmain:
 .forward1:
     cmp word [game_state], byte 6    ; 0x0076
     jne short .forward2              ; 0x007b
-    push word [game_state_arg]       ; 0x007d
+    push word [current_level]        ; 0x007d
     call enter_level                 ; 0x0081
     pop cx                           ; 0x0084
 .forward2:
@@ -54,7 +54,7 @@ ovmain:
     je short .forward4               ; 0x00b2
     cmp ax, strict word 0x14         ; 0x00b4
     je short .forward4               ; 0x00b7
-    mov word [bss_8f22], 1           ; 0x00b9
+    mov word [capture_center_marker_mode], 1 ; 0x00b9
     call api_idx_0030_KNRH           ; 0x00bf
     mov ax, dseg_9098                ; 0x00c2
     push ax                          ; 0x00c5
@@ -78,7 +78,7 @@ ovmain:
     mov word [party_status_frame], dx ; 0x00ef
     call api_idx_0030_KNRH           ; 0x00f3
     mov word [screen_cache_index], 1 ; 0x00f6
-    mov word [bss_8f22], 0           ; 0x00fc
+    mov word [capture_center_marker_mode], 0 ; 0x00fc
 .forward4:
     mov ax, 0                        ; 0x0102
     ret                              ; 0x0105

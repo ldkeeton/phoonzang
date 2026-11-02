@@ -494,7 +494,7 @@ api_idx_00c2_OUOT:
     imul word [bp - 2]               ; 0x5992
     add ax, word [bp - 0xa]          ; 0x5995
     push ax                          ; 0x5998
-    call loc_MNNG                    ; 0x5999
+    call draw_frame_outline          ; 0x5999
     add sp, byte 0xa                 ; 0x599c
     mov ax, word [bp - 0xc]          ; 0x599f
     add ax, strict word 0xa          ; 0x59a2
@@ -532,7 +532,7 @@ api_idx_00c2_OUOT:
     imul word [bp - 2]               ; 0x59e8
     add ax, word [bp - 0xa]          ; 0x59eb
     push ax                          ; 0x59ee
-    call loc_MNNG                    ; 0x59ef
+    call draw_frame_outline          ; 0x59ef
     add sp, byte 0xa                 ; 0x59f2
 .back8:
     mov ax, 1                        ; 0x59f5
@@ -948,7 +948,7 @@ api_idx_00c2_OUOT:
     imul word [bp - 0x18]            ; 0x5dc8
     add ax, bss_9616                 ; 0x5dcb
     push ax                          ; 0x5dce
-    call api_idx_0008_RORM           ; 0x5dcf
+    call show_indexed_beveled_label  ; 0x5dcf
     add sp, byte 0x12                ; 0x5dd2
     mov ax, word [bp - 4]            ; 0x5dd5
     shl ax, 1                        ; 0x5dd8

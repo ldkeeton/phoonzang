@@ -10,7 +10,7 @@ decode_maze_cell_records:
     mov bx, word [bp - 4]            ; 0x06ee
     mov al, byte [bx]                ; 0x06f1
     sub ah, ah                       ; 0x06f3
-    cmp ax, word [game_state_arg]    ; 0x06f5
+    cmp ax, word [current_level]     ; 0x06f5
     je short .forward1               ; 0x06f9
     jmp near .forward8               ; 0x06fb
 .forward1:

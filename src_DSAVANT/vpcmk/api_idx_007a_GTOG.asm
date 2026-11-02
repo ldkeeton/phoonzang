@@ -40,7 +40,7 @@ api_idx_007a_GTOG:
     push ax                          ; 0x4413
     mov ax, 0x64                     ; 0x4414
     push ax                          ; 0x4417
-    call loc_TRPK                    ; 0x4418
+    call select_grid_text_option     ; 0x4418
     add sp, byte 0x1a                ; 0x441b
     push ax                          ; 0x441e
     mov ax, 0x248                    ; 0x441f

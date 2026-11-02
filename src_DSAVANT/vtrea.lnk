@@ -47,7 +47,7 @@ shared/ovr/find_empty_party_item_slot
 vtrea/divvy_loot_menu
 vtrea/api_idx_0006_OUPU
 shared/ovr/replace_slashes_with_spaces
-shared/ovr/loc_GMVH
+shared/ovr/is_quest_map_item
 shared/ovr/give_quest_map
 vtrea/loc_HUIS
 vtrea/distribute_survivor_experience
@@ -63,7 +63,7 @@ vtrea/api_idx_0072_LQIT
 shared/ovr/update_region_flag_bitmaps
 vtrea/api_idx_00e6_QHNU
 shared/ovr/mark_region_bits
-shared/ovr/loc_QTKU
+shared/ovr/mark_party_member_dead
 vtrea/api_idx_0074_JJVR
 vtrea/loc_SNOI
 vtrea/loc_VSIT
@@ -73,8 +73,8 @@ vtrea/run_state_1a_scene
 vtrea/run_state_1c_scene
 vtrea/run_state_1d_scene
 shared/ovr/draw_split_two_line_text
-shared/ovr/loc_RULJ
-shared/ovr/api_idx_0008_RORM
+shared/ovr/wait_10_ms
+vtrea/show_indexed_beveled_label
 vtrea/loc_IOMS
 shared/ovr/draw_party_slot_letters
 shared/ovr/advance_party_slot_frames

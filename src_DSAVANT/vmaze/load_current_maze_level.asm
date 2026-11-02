@@ -4,7 +4,7 @@ load_current_maze_level:
     call aztec_csav                  ; 0x09ce
     mov ax, 0                        ; 0x09d1
     push ax                          ; 0x09d4
-    push word [game_state_arg]       ; 0x09d5
+    push word [current_level]        ; 0x09d5
     push word [maze_data]            ; 0x09d9
     mov ax, 2                        ; 0x09dd
     push ax                          ; 0x09e0
@@ -12,7 +12,7 @@ load_current_maze_level:
     add sp, byte 8                   ; 0x09e4
     mov ax, 0                        ; 0x09e7
     push ax                          ; 0x09ea
-    push word [game_state_arg]       ; 0x09eb
+    push word [current_level]        ; 0x09eb
     push word [maze_tables]          ; 0x09ef
     mov ax, 3                        ; 0x09f3
     push ax                          ; 0x09f6
@@ -23,7 +23,7 @@ load_current_maze_level:
     push ds                          ; 0x0a01
     mov ax, current_map_block_a      ; 0x0a02
     push ax                          ; 0x0a05
-    mov ax, word [game_state_arg]    ; 0x0a06
+    mov ax, word [current_level]     ; 0x0a06
     mov cx, 7                        ; 0x0a09
     shl ax, cl                       ; 0x0a0c
     mov cx, ax                       ; 0x0a0e
@@ -39,7 +39,7 @@ load_current_maze_level:
     push ds                          ; 0x0a25
     mov ax, current_map_block_b      ; 0x0a26
     push ax                          ; 0x0a29
-    mov ax, word [game_state_arg]    ; 0x0a2a
+    mov ax, word [current_level]     ; 0x0a2a
     mov cx, 7                        ; 0x0a2d
     shl ax, cl                       ; 0x0a30
     mov cx, ax                       ; 0x0a32

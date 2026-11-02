@@ -2,7 +2,7 @@
 offset_relative_map_position:
     mov ax, 0
     call aztec_csav
-    mov ax, word [party_tag]
+    mov ax, word [party_facing]
     jmp short .forward1
 .back1:
     mov ax, word [bp + 0xe]

@@ -113,7 +113,7 @@ api_idx_0072_KTMQ:
     push ax                          ; 0x5f9d
     lea ax, word [bp - 0x68]         ; 0x5f9e
     push ax                          ; 0x5fa1
-    call loc_VNIO                    ; 0x5fa2
+    call draw_centered_text_at_x     ; 0x5fa2
     add sp, byte 8                   ; 0x5fa5
     mov ax, 2                        ; 0x5fa8
     push ax                          ; 0x5fab

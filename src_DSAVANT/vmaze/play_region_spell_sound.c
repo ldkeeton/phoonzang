@@ -6,7 +6,7 @@
 
 extern struct maze_tables *maze_tables;
 extern struct saved_region_blocks party_region;
-extern int game_state_arg;
+extern int current_level;
 extern unsigned char scenario_header_data[][16];
 
 extern int get_bits();
@@ -29,10 +29,10 @@ play_region_spell_sound()
 	/* Both saved maps must agree with the event's required trigger state. */
 	/* Bit 15 supplies the state compared against both saved map bits. */
 	required_state = get_bits(region_flags, 15, 1);
-	if (test_bit(party_region.state[game_state_arg],
+	if (test_bit(party_region.state[current_level],
 			maze_tables->key[party_region.region]) != required_state)
 		goto trigger_mismatch;
-	if (test_bit(party_region.state[game_state_arg],
+	if (test_bit(party_region.state[current_level],
 			maze_tables->party_mask[party_region.region])
 	    == required_state)
 		goto update_region_bitmap;

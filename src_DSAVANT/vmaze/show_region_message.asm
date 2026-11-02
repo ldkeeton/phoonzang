@@ -106,11 +106,11 @@ show_region_message:
     mov word [bp - 0x16], ax         ; 0x7135
     cmp word [bp - 0x18], byte 1     ; 0x7138
     jne short .forward8              ; 0x713c
-    cmp ax, word [party_tag]         ; 0x713e
+    cmp ax, word [party_facing]      ; 0x713e
     je short .forward8               ; 0x7142
     cmp word [bp - 0x1a], byte 1     ; 0x7144
     jne short .forward4              ; 0x7148
-    sub ax, word [party_tag]         ; 0x714a
+    sub ax, word [party_facing]      ; 0x714a
     add ax, strict word 4            ; 0x714e
     mov cx, 4                        ; 0x7151
     cwd                              ; 0x7154
@@ -118,7 +118,7 @@ show_region_message:
     mov word [bp - 0x14], dx         ; 0x7157
     jmp short .forward5              ; 0x715a
 .forward4:
-    mov ax, word [party_tag]         ; 0x715c
+    mov ax, word [party_facing]      ; 0x715c
     sub ax, word [bp - 0x16]         ; 0x715f
     add ax, strict word 4            ; 0x7162
     mov cx, 4                        ; 0x7165
@@ -136,13 +136,13 @@ show_region_message:
     push word [bp - 0x1e]            ; 0x717e
     call wait_ticks_or_key           ; 0x7181
     pop cx                           ; 0x7184
-    mov ax, word [party_tag]         ; 0x7185
+    mov ax, word [party_facing]      ; 0x7185
     add ax, word [bp - 0x1a]         ; 0x7188
     add ax, strict word 4            ; 0x718b
     mov cx, 4                        ; 0x718e
     cwd                              ; 0x7191
     idiv cx                          ; 0x7192
-    mov word [party_tag], dx         ; 0x7194
+    mov word [party_facing], dx      ; 0x7194
     call redraw_maze_view            ; 0x7198
     inc word [bp - 4]                ; 0x719b
 .forward7:
@@ -154,7 +154,7 @@ show_region_message:
     call wait_ticks_or_key           ; 0x71a9
     pop cx                           ; 0x71ac
     mov ax, word [bp - 0x16]         ; 0x71ad
-    mov word [party_tag], ax         ; 0x71b0
+    mov word [party_facing], ax      ; 0x71b0
     cmp word [bp - 0x12], byte 0     ; 0x71b3
     jle short .forward12             ; 0x71b7
     call save_previous_party_position ; 0x71b9
@@ -165,13 +165,13 @@ show_region_message:
     pop cx                           ; 0x71c8
     inc ax                           ; 0x71c9
     push ax                          ; 0x71ca
-    push word [party_tag]            ; 0x71cb
+    push word [party_facing]         ; 0x71cb
     call adjust_party_world_position ; 0x71cf
     add sp, byte 4                   ; 0x71d2
     jmp short .forward10             ; 0x71d5
 .forward9:
     push word [bp - 0x12]            ; 0x71d7
-    push word [party_tag]            ; 0x71da
+    push word [party_facing]         ; 0x71da
     call adjust_party_world_position ; 0x71de
     add sp, byte 4                   ; 0x71e1
 .forward10:

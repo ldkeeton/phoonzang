@@ -38,7 +38,7 @@ add_floor_item:
     mov ax, word [floor_items]
     add ax, cx
     mov word [bp - 4], ax
-    mov al, byte [game_state_arg]
+    mov al, byte [current_level]
     mov bx, word [bp - 4]
     mov byte [bx], al
     mov bx, word [bp + 4]

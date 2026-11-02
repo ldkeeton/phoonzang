@@ -6,7 +6,7 @@ find_map_piece:
     push word [bp + 0xa]
     mov bx, word [bp + 8]
     push word [bx]
-    call loc_MPHO
+    call map_piece_index_for_position
     add sp, byte 6
     mov word [bp - 4], ax
     cmp ax, strict word 0xffff
@@ -14,7 +14,7 @@ find_map_piece:
     push word [bp + 0xc]
     push word [bp + 0xa]
     push word [bss_8f48]
-    call loc_MPHO
+    call map_piece_index_for_position
     add sp, byte 6
     mov word [bp - 4], ax
     cmp ax, strict word 0xffff
@@ -30,7 +30,7 @@ find_map_piece:
     push word [bp + 0xc]
     push word [bp + 0xa]
     push word [bp - 2]
-    call loc_MPHO
+    call map_piece_index_for_position
     add sp, byte 6
     mov word [bp - 4], ax
     cmp ax, strict word 0xffff

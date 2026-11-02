@@ -195,7 +195,7 @@ api_idx_0010_KMMG:
     cwd                              ; 0x9c04
     idiv cx                          ; 0x9c05
     mov word [bp - 0xa], dx          ; 0x9c07
-    call loc_KRMP                    ; 0x9c0a
+    call check_party_redraw_interval ; 0x9c0a
     mov word [bp - 0x10], ax         ; 0x9c0d
     mov word [bp - 2], 0             ; 0x9c10
 .back2:
@@ -283,7 +283,7 @@ api_idx_0010_KMMG:
     call api_idx_0006_GMTP           ; 0x9cdb
     cmp word [bss_845e], byte -2     ; 0x9cde
     jne short .back5                 ; 0x9ce3
-    call loc_KRMP                    ; 0x9ce5
+    call check_party_redraw_interval ; 0x9ce5
     mov word [bp - 0x10], ax         ; 0x9ce8
     cmp word [bp - 0x10], byte 0     ; 0x9ceb
     je short .forward16              ; 0x9cef

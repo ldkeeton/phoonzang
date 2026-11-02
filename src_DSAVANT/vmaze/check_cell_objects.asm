@@ -29,7 +29,7 @@ check_cell_objects:
     jne short .forward3              ; 0x8c8e
 .forward1:
     mov ax, word [bp - 8]            ; 0x8c90
-    cmp ax, word [party_tag]         ; 0x8c93
+    cmp ax, word [party_facing]      ; 0x8c93
     jne short .forward3              ; 0x8c97
     cmp word [bp + 4], byte 0        ; 0x8c99
     je short .forward2               ; 0x8c9d
@@ -81,7 +81,7 @@ check_cell_objects:
     jne short .forward6              ; 0x8d13
     mov ax, 2                        ; 0x8d15
     push ax                          ; 0x8d18
-    mov ax, word [party_tag]         ; 0x8d19
+    mov ax, word [party_facing]      ; 0x8d19
     shl ax, 1                        ; 0x8d1c
     add ax, strict word 8            ; 0x8d1e
     push ax                          ; 0x8d21
@@ -114,7 +114,7 @@ check_cell_objects:
     mov al, byte [bx + si + 0xa50]   ; 0x8d62
     sub ah, ah                       ; 0x8d66
     mov word [found_object_owner], ax ; 0x8d68
-    cmp ax, word [party_tag]         ; 0x8d6b
+    cmp ax, word [party_facing]      ; 0x8d6b
     jne short .forward8              ; 0x8d6f
     mov word [game_state], 0x1b      ; 0x8d71
     mov word [party_region], si      ; 0x8d77

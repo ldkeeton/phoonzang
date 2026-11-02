@@ -95,7 +95,7 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "shared/ovr/queue_marker_overlay.asm"  ; 0x27ab
 
-%include "shared/ovr/loc_SSIO.asm"              ; 0x28a0
+%include "shared/ovr/draw_overlay_list_item_text.asm" ; 0x28a0
 
 %include "vmele/api_idx_0002_MTJS.asm"     ; 0x28fc
 
@@ -103,7 +103,7 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "vmele/fill_row_action_slots.asm" ; 0x29c5
 
-%include "shared/ovr/loc_KRMP.asm"              ; 0x2b19
+%include "shared/ovr/check_party_redraw_interval.asm" ; 0x2b19
 
 %include "shared/ovr/step_party_screen_animation.asm" ; 0x2b78
 

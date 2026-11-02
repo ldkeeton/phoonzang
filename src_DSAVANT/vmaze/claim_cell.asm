@@ -21,7 +21,7 @@ claim_cell:
     push ax                          ; 0x8a43
     call set_bitfield                ; 0x8a44
     add sp, byte 8                   ; 0x8a47
-    push word [party_tag]            ; 0x8a4a
+    push word [party_facing]         ; 0x8a4a
     mov ax, 2                        ; 0x8a4e
     push ax                          ; 0x8a51
     push word [bp - 2]               ; 0x8a52
@@ -58,7 +58,7 @@ claim_cell:
     push word [party_map_piece]      ; 0x8a9b
     mov ax, 1                        ; 0x8a9f
     push ax                          ; 0x8aa2
-    push word [party_tag]            ; 0x8aa3
+    push word [party_facing]         ; 0x8aa3
     call set_cell_wall               ; 0x8aa7
     add sp, byte 0xa                 ; 0x8aaa
     mov ax, 0                        ; 0x8aad
@@ -71,7 +71,7 @@ claim_cell:
     push word [party_map_piece]      ; 0x8abc
     mov ax, 5                        ; 0x8ac0
     push ax                          ; 0x8ac3
-    push word [game_state_arg]       ; 0x8ac4
+    push word [current_level]        ; 0x8ac4
     call log_maze_change             ; 0x8ac8
     add sp, byte 0x12                ; 0x8acb
     mov ax, 0                        ; 0x8ace
@@ -99,7 +99,7 @@ claim_cell:
     call play_maze_sound_effect      ; 0x8b02
     pop cx                           ; 0x8b05
     call redraw_maze_view            ; 0x8b06
-    mov ax, word [party_tag]         ; 0x8b09
+    mov ax, word [party_facing]      ; 0x8b09
     shl ax, 1                        ; 0x8b0c
     add ax, strict word 8            ; 0x8b0e
     push ax                          ; 0x8b11
@@ -126,7 +126,7 @@ claim_cell:
     push word [bp + 4]               ; 0x8b40
     mov ax, 6                        ; 0x8b43
     push ax                          ; 0x8b46
-    push word [game_state_arg]       ; 0x8b47
+    push word [current_level]        ; 0x8b47
     call log_maze_change             ; 0x8b4b
     add sp, byte 0x12                ; 0x8b4e
     ret                              ; 0x8b51

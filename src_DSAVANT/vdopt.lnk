@@ -1,10 +1,10 @@
 # auto-generated
 vdopt/ovmain
-shared/ovr/loc_MPHO
+shared/ovr/map_piece_index_for_position
 shared/ovr/find_map_piece
 shared/ovr/find_object_at
 shared/ovr/draw_split_two_line_text
-shared/ovr/loc_RULJ
+shared/ovr/wait_10_ms
 vdopt/wait_for_scene_input_or_timeout
 shared/ovr/find_maze_change
 shared/ovr/log_maze_change

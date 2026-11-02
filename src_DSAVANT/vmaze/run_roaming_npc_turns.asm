@@ -26,7 +26,7 @@ run_roaming_npc_turns:
     mov bx, ax                       ; 0xabd1
     mov al, byte [bx + location_records + location_record.game_state] ; 0xabd3
     cbw                              ; 0xabd7
-    cmp ax, word [game_state_arg]    ; 0xabd8
+    cmp ax, word [current_level]     ; 0xabd8
     jne short .forward1              ; 0xabdc
     mov al, byte [bp - 4]            ; 0xabde
     mov byte [slot_records + slot_record_size*21 + slot_record.destination], al ; 0xabe1

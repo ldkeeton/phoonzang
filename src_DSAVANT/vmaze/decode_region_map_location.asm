@@ -23,7 +23,7 @@ decode_region_map_location:
     cwd                              ; 0x7e78
     idiv cx                          ; 0x7e79
     mov word [bp - 0x1c], dx         ; 0x7e7b
-    mov ax, word [party_tag]         ; 0x7e7e
+    mov ax, word [party_facing]      ; 0x7e7e
     sub ax, word [bp - 0x16]         ; 0x7e81
     add ax, strict word 4            ; 0x7e84
     mov cx, 4                        ; 0x7e87
@@ -112,7 +112,7 @@ decode_region_map_location:
     je short .forward4               ; 0x7f59
     cmp word [bp - 0x1a], byte 0     ; 0x7f5b
     jne short .forward4              ; 0x7f5f
-    mov ax, word [party_tag]         ; 0x7f61
+    mov ax, word [party_facing]      ; 0x7f61
     cmp ax, word [bp - 0x18]         ; 0x7f64
     jne short .forward3              ; 0x7f67
     push word [bp - 0x14]            ; 0x7f69
@@ -145,7 +145,7 @@ decode_region_map_location:
     jne short .forward7              ; 0x7fb0
     cmp word [bp - 0x1a], byte 0     ; 0x7fb2
     jne short .forward7              ; 0x7fb6
-    mov ax, word [party_tag]         ; 0x7fb8
+    mov ax, word [party_facing]      ; 0x7fb8
     cmp ax, word [bp - 0x18]         ; 0x7fbb
     jne short .forward5              ; 0x7fbe
     push word [bp - 0x14]            ; 0x7fc0

@@ -118,7 +118,7 @@ set_cell_wall:
     push word [bp + 0xa]             ; 0x7dfc
     push word [bp + 8]               ; 0x7dff
     push word [bp - 4]               ; 0x7e02
-    push word [game_state_arg]       ; 0x7e05
+    push word [current_level]        ; 0x7e05
     call log_maze_change             ; 0x7e09
     add sp, byte 0x12                ; 0x7e0c
     cmp word [bp - 2], byte 0        ; 0x7e0f

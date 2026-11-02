@@ -26,8 +26,8 @@ IMAGE_BASE equ 0x000e + VBASE
 
 __zcode_start:
 pc_file_name equ __zdseg_end + (__zpc_file_name - __zdata_start)
-loc_TRPK_dseg167 equ __zdseg_end + (__zdseg_90a3 - __zdata_start)
-loc_TRPK_dseg473 equ __zdseg_end + (__zdseg_90a9 - __zdata_start)
+title_panel_screen_file equ __zdseg_end + (__ztitle_panel_screen_file - __zdata_start)
+choice_grid_screen_file equ __zdseg_end + (__zchoice_grid_screen_file - __zdata_start)
 list_dialog_temp_file equ __zdseg_end + (__zlist_dialog_temp_file - __zdata_start)
 api_idx_0026_NRVO_dseg54 equ __zdseg_end + (__zdseg_90b5 - __zdata_start)
 dseg_90bb equ __zdseg_end + (__zdseg_90bb - __zdata_start)
@@ -187,9 +187,11 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "shared/ovr/input_text_field.asm"      ; 0x0104
 
-%include "shared/ovr/api_idx_0008_RORM.asm"     ; 0x02bc
+%include "shared/ovr/show_indexed_beveled_label.asm" ; 0x02bc
 
-%include "shared/ovr/loc_TRPK.asm"              ; 0x0445
+%include "shared/ovr/draw_frame_outline.asm"    ; 0x03ca
+
+%include "shared/ovr/select_grid_text_option.asm" ; 0x0445
 
 %include "shared/ovr/api_idx_0058_GKGM.asm"     ; 0x0935
 
@@ -243,7 +245,7 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "vpcmk/api_idx_006e_LMUM.asm"     ; 0x3d59
 
-%include "shared/ovr/loc_TTSP.asm"              ; 0x3f87
+%include "shared/ovr/refresh_title_and_member_panel.asm" ; 0x3f87
 
 %include "vpcmk/api_idx_0002_IRKS.asm"     ; 0x402d
 
@@ -330,7 +332,9 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 __zdata_start:
 %include "shared/data/pc_file_name.asm"     ; 0x7031
 
-%include "vpcmk/data/loc_TRPK_dseg167.asm"        ; 0x703c
+%include "shared/data/title_panel_screen_file.asm" ; 0x703c
+
+%include "shared/data/choice_grid_screen_file.asm" ; 0x7042
 
 %include "vpcmk/data/list_dialog_temp_file.asm" ; 0x7048
 

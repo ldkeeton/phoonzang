@@ -58,7 +58,7 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "shared/ovr/redraw_glyph_strip.asm"    ; 0x00cb
 
-%include "shared/ovr/loc_VNIO.asm"              ; 0x0149
+%include "shared/ovr/draw_centered_text_at_x.asm" ; 0x0149
 
 %include "shared/ovr/redraw_area_set.asm"       ; 0x018d
 
@@ -76,9 +76,9 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "shared/ovr/queue_marker_overlay.asm"  ; 0x0d77
 
-%include "shared/ovr/loc_SSIO.asm"              ; 0x0e6c
+%include "shared/ovr/draw_overlay_list_item_text.asm" ; 0x0e6c
 
-%include "shared/ovr/loc_KRMP.asm"              ; 0x0ec8
+%include "shared/ovr/check_party_redraw_interval.asm" ; 0x0ec8
 
 %include "shared/ovr/step_party_screen_animation.asm" ; 0x0f27
 

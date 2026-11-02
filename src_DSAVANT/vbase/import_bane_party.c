@@ -29,11 +29,11 @@ extern char data_path_prefixes[], game_data_drive[], game_load_path[];
 extern int member_icon[], intro_screen_number;
 extern struct pc_rec party_records[];
 extern int party_world_x, party_world_y, party_cell_x, party_cell_y;
-extern int party_map_piece, party_tag, game_state_arg;
+extern int party_map_piece, party_facing, current_level;
 extern int previous_party_world_x, previous_party_world_y;
 extern int previous_party_cell_x, previous_party_cell_y;
-extern int previous_party_map_piece, previous_party_tag;
-extern int previous_game_state_arg;
+extern int previous_party_map_piece, previous_party_facing;
+extern int previous_level;
 extern unsigned char scenario_header_data[];
 extern char bane_source_filename[];
 extern unsigned char bane_header_buffer[], bane_section_header[],
@@ -460,7 +460,7 @@ read_next_member:
 	case 0:
 		party_world_x = 92; party_world_y = 79;
 		party_cell_x = 4; party_cell_y = 7; party_map_piece = 3;
-		party_tag = 2; game_state_arg = 0;
+		party_facing = 2; current_level = 0;
 		party_records[0].gold = 5000L;
 		initialize_intro_layout(-90, -20, 10, 10, 0, 0, -20, 20, 90, 0);
 		intro_screen_number = 1;
@@ -468,7 +468,7 @@ read_next_member:
 	case 1:
 		party_world_x = 140; party_world_y = 125;
 		party_cell_x = 4; party_cell_y = 5; party_map_piece = 11;
-		party_tag = 3; game_state_arg = 6;
+		party_facing = 3; current_level = 6;
 		party_records[0].gold = 10000L;
 		initialize_intro_layout(-50, -90, 40, -40, 10, 0, 10, 10, 0, 90);
 		intro_screen_number = 2;
@@ -476,7 +476,7 @@ read_next_member:
 	case 2:
 		party_world_x = 110; party_world_y = 142;
 		party_cell_x = 6; party_cell_y = 6; party_map_piece = 1;
-		party_tag = 2; game_state_arg = 2;
+		party_facing = 2; current_level = 2;
 		initialize_intro_layout(0, 35, -95, 25, -50, -20, 20, 0, -90, -90);
 		intro_screen_number = 3;
 		break;
@@ -487,15 +487,15 @@ read_next_member:
 	if (stat_value != -1) {
 		set_bitmap_bit(scenario_header_data, 1, 1);
 		set_bitmap_bit(scenario_header_data, 2, 1);
-		set_bitmap_bit(scenario_header_data + (game_state_arg << 4), 20, 0);
-		set_bitmap_bit(scenario_header_data + (game_state_arg << 4), 21, 0);
+		set_bitmap_bit(scenario_header_data + (current_level << 4), 20, 0);
+		set_bitmap_bit(scenario_header_data + (current_level << 4), 21, 0);
 		previous_party_world_x = party_world_x;
 		previous_party_world_y = party_world_y;
 		previous_party_cell_x = party_cell_x;
 		previous_party_cell_y = party_cell_y;
 		previous_party_map_piece = party_map_piece;
-		previous_party_tag = party_tag;
-		previous_game_state_arg = game_state_arg;
+		previous_party_facing = party_facing;
+		previous_level = current_level;
 	}
 	return 0;
 }

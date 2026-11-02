@@ -286,7 +286,7 @@ api_idx_0032_HGIM:
     mov ax, 0xbc                     ; 0x2995
     push ax                          ; 0x2998
     push word [bp - 6]               ; 0x2999
-    call loc_MNNG                    ; 0x299c
+    call draw_frame_outline          ; 0x299c
     add sp, byte 0xa                 ; 0x299f
 .forward11:
     inc word [bp - 0xe]              ; 0x29a2
@@ -352,7 +352,7 @@ api_idx_0032_HGIM:
     mov ax, 0xbc                     ; 0x2a26
     push ax                          ; 0x2a29
     push word [bp - 6]               ; 0x2a2a
-    call loc_MNNG                    ; 0x2a2d
+    call draw_frame_outline          ; 0x2a2d
     add sp, byte 0xa                 ; 0x2a30
     mov ax, 0xc7                     ; 0x2a33
     push ax                          ; 0x2a36
@@ -374,7 +374,7 @@ api_idx_0032_HGIM:
     mov ax, 0xbc                     ; 0x2a58
     push ax                          ; 0x2a5b
     push word [bp - 6]               ; 0x2a5c
-    call loc_MNNG                    ; 0x2a5f
+    call draw_frame_outline          ; 0x2a5f
     add sp, byte 0xa                 ; 0x2a62
 .back7:
     mov ax, 1                        ; 0x2a65

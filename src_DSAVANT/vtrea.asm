@@ -205,7 +205,7 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "shared/ovr/replace_slashes_with_spaces.asm" ; 0x5689
 
-%include "shared/ovr/loc_GMVH.asm"              ; 0x56af
+%include "shared/ovr/is_quest_map_item.asm"     ; 0x56af
 
 %include "shared/ovr/give_quest_map.asm"        ; 0x56cc
 
@@ -237,7 +237,7 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "shared/ovr/mark_region_bits.asm"      ; 0x782b
 
-%include "shared/ovr/loc_QTKU.asm"              ; 0x788f
+%include "shared/ovr/mark_party_member_dead.asm" ; 0x788f
 
 %include "vtrea/api_idx_0074_JJVR.asm"     ; 0x78ed
 
@@ -257,9 +257,9 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "shared/ovr/draw_split_two_line_text.asm" ; 0x8200
 
-%include "shared/ovr/loc_RULJ.asm"              ; 0x82a9
+%include "shared/ovr/wait_10_ms.asm"            ; 0x82a9
 
-%include "shared/ovr/api_idx_0008_RORM.asm"     ; 0x82b8
+%include "vtrea/show_indexed_beveled_label.asm" ; 0x82b8
 
 %include "vtrea/loc_IOMS.asm"              ; 0x8441
 

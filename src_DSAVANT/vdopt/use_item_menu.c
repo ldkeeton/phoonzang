@@ -12,7 +12,7 @@ extern struct saved_region_blocks party_region;
 extern unsigned char scenario_header_data[][16];
 extern unsigned char cell_overlay_code[];
 extern int party_redraw_interval, spell_target, spell_dialog_result;
-extern int pending_event, pending_event_hi, game_state_arg;
+extern int pending_event, pending_event_hi, current_level;
 extern int list_row_marked[], list_row_glyph[], list_row_count[];
 extern char list_row_name[][22];
 extern char item_dialog_first_label[];
@@ -101,7 +101,7 @@ int pc;
 						spell_power, spell_target);
 				}
 			} else if (item.kind == 4 &&
-				game_state_arg == item.u.key.map) {
+				current_level == item.u.key.map) {
 				/* Clear one flag bit and set the other in both region bitmaps. */
 				set_bitmap_bit(party_region.state[item.u.key.map],
 					item.u.key.clear_bit, 0);
@@ -113,7 +113,7 @@ int pc;
 					item.u.key.set_bit, 1);
 				consume_item_charge(pc, page, slot);
 			} else if (item.kind == 5) {
-				if (game_state_arg == 8)
+				if (current_level == 8)
 					item_kind5_used_flag = 1;
 				else {
 					pending_event = 2055;

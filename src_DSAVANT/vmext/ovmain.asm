@@ -2,7 +2,7 @@
 ovmain:
     mov ax, 0xfffe                   ; 0x000e
     call aztec_csav                  ; 0x0011
-    mov word [bss_8f22], 0           ; 0x0014
+    mov word [capture_center_marker_mode], 0 ; 0x0014
     mov word [party_redraw_interval], 5 ; 0x001a
     les bx, word [tick_counter_ptr]  ; 0x0020
     mov ax, word [es:bx]             ; 0x0024
@@ -30,30 +30,30 @@ ovmain:
 .forward1:
     cmp word [game_state], byte 0x17 ; 0x006a
     jne short .forward2              ; 0x006f
-    call api_idx_0002_UOVS           ; 0x0071
+    call reload_maze_after_encounter ; 0x0071
     mov ax, 0xa                      ; 0x0074
     push ax                          ; 0x0077
     call random_below                ; 0x0078
     pop cx                           ; 0x007b
     add ax, strict word 4            ; 0x007c
     push ax                          ; 0x007f
-    call api_idx_008a_IMUJ           ; 0x0080
+    call run_from_encounter          ; 0x0080
     pop cx                           ; 0x0083
 .forward2:
     cmp word [game_state], byte 0x1b ; 0x0084
     jne short .forward3              ; 0x0089
-    call api_idx_0012_QKSO           ; 0x008b
+    call drink_from_fountain         ; 0x008b
 .forward3:
     cmp word [game_state], byte 0x1e ; 0x008e
     jne short .forward4              ; 0x0093
     push word [member_roster_index]  ; 0x0095
-    call api_idx_0008_JSRN           ; 0x0099
+    call pick_up_floor_item          ; 0x0099
     pop cx                           ; 0x009c
 .forward4:
     cmp word [game_state], byte 0x1f ; 0x009d
     jne short .forward5              ; 0x00a2
     push word [member_roster_index]  ; 0x00a4
-    call loc_HTTH                    ; 0x00a8
+    call swap_party_members          ; 0x00a8
     pop cx                           ; 0x00ab
 .forward5:
     mov word [game_state], 5         ; 0x00ac

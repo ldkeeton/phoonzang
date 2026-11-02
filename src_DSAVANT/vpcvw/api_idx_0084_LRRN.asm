@@ -77,7 +77,7 @@ api_idx_0084_LRRN:
     push ax                          ; 0x41b1
     mov ax, 0x258                    ; 0x41b2
     push ax                          ; 0x41b5
-    call loc_TRPK                    ; 0x41b6
+    call select_grid_text_option     ; 0x41b6
     add sp, byte 0x1a                ; 0x41b9
     mov word [bp - 4], ax            ; 0x41bc
     lea ax, word [bp - 0x84]         ; 0x41bf
@@ -104,7 +104,7 @@ api_idx_0084_LRRN:
     push word [menu_selection_index] ; 0x41ed
     lea ax, word [bp - 0x84]         ; 0x41f1
     push ax                          ; 0x41f5
-    call api_idx_0008_RORM           ; 0x41f6
+    call show_indexed_beveled_label  ; 0x41f6
     add sp, byte 0x12                ; 0x41f9
     mov ax, word [bp - 0xa]          ; 0x41fc
     cmp ax, word [bp - 4]            ; 0x41ff
@@ -132,7 +132,7 @@ api_idx_0084_LRRN:
     push word [bp - 0xc]             ; 0x422f
     lea ax, word [bp - 0x84]         ; 0x4232
     push ax                          ; 0x4236
-    call api_idx_0008_RORM           ; 0x4237
+    call show_indexed_beveled_label  ; 0x4237
     add sp, byte 0x12                ; 0x423a
 .forward3:
     mov ax, word [bp - 4]            ; 0x423d

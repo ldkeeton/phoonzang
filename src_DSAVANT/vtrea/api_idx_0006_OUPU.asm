@@ -16,7 +16,7 @@ api_idx_0006_OUPU:
     call loc_KIOQ                    ; 0x5535
     add sp, byte 4                   ; 0x5538
 .forward1:
-    cmp word [game_state_arg], byte 0xe ; 0x553b
+    cmp word [current_level], byte 0xe ; 0x553b
     je short .forward2               ; 0x5540
     jmp near .forward6               ; 0x5542
 .forward2:
@@ -86,7 +86,7 @@ api_idx_0006_OUPU:
     mov ax, 0                        ; 0x55d7
     push ax                          ; 0x55da
     push word [bp - 6]               ; 0x55db
-    mov ax, word [game_state_arg]    ; 0x55de
+    mov ax, word [current_level]     ; 0x55de
     mov cx, 4                        ; 0x55e1
     shl ax, cl                       ; 0x55e4
     add ax, party_region + 0x2       ; 0x55e6
@@ -105,7 +105,7 @@ api_idx_0006_OUPU:
     mov ax, 0                        ; 0x5606
     push ax                          ; 0x5609
     push word [bp - 6]               ; 0x560a
-    mov ax, word [game_state_arg]    ; 0x560d
+    mov ax, word [current_level]     ; 0x560d
     mov cx, 4                        ; 0x5610
     shl ax, cl                       ; 0x5613
     add ax, scenario_header_data     ; 0x5615
@@ -130,7 +130,7 @@ api_idx_0006_OUPU:
     mov al, byte [bx + si + 0x960]   ; 0x5644
     sub ah, ah                       ; 0x5648
     push ax                          ; 0x564a
-    mov ax, word [game_state_arg]    ; 0x564b
+    mov ax, word [current_level]     ; 0x564b
     mov cx, 4                        ; 0x564e
     shl ax, cl                       ; 0x5651
     add ax, party_region + 0x2       ; 0x5653
@@ -146,7 +146,7 @@ api_idx_0006_OUPU:
     mov al, byte [bx + si + 0x960]   ; 0x566f
     sub ah, ah                       ; 0x5673
     push ax                          ; 0x5675
-    mov ax, word [game_state_arg]    ; 0x5676
+    mov ax, word [current_level]     ; 0x5676
     mov cx, 4                        ; 0x5679
     shl ax, cl                       ; 0x567c
     add ax, scenario_header_data     ; 0x567e

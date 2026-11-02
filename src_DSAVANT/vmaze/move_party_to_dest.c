@@ -7,7 +7,7 @@ extern struct maze_tables *maze_tables;
 #include "structs/mazecell.h"
 
 extern struct maze_cells *maze_data;
-extern int game_state_arg;
+extern int current_level;
 extern int party_cell_x, party_cell_y, party_map_piece, dest_alt_arg,
 	save_location_flag;
 extern int saved_level, saved_map_piece, saved_cell_x, saved_cell_y;
@@ -42,12 +42,12 @@ int dest;
 	party_world_y = maze_data->origin_y[party_map_piece] + party_cell_y;
 	party_region = maze_tables->map_first[party_map_piece];
 	region_step_flag = 0;
-	if (level == game_state_arg)
+	if (level == current_level)
 		redraw_maze_view();
 	else {
 		save_level_state();
 		enter_level(level);
-		if (game_state_arg >= 0)	/* negative: no level loaded */
+		if (current_level >= 0)	/* negative: no level loaded */
 			redraw_maze_view();
 	}
 	location_changed = 1;

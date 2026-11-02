@@ -23,7 +23,8 @@ class Origin:
 
 
 class MessageFlow:
-    def __init__(self, insns, resolve, labels):
+    def __init__(self, insns, resolve, labels, bases=()):
+        self.bases = set(bases)
         self.image = _Image(insns, labels)
         self.insns = self.image.insns
         self.call_names = {i.address: resolve(i) for i in self.insns
@@ -144,9 +145,13 @@ class MessageFlow:
             literal_left = {o for o in left if o.kind != 'arg'}
             literal_right = {o for o in right if o.kind != 'arg'}
             # A literal plus an index is a message range start. If both
-            # sides are literals, retain the first rather than naming an
-            # arbitrary increment as a message.
-            selected = literal_left or literal_right
+            # sides are literals, a side that is wholly a sidecar base wins;
+            # otherwise retain the first rather than naming an arbitrary
+            # increment as a message.
+            based = [side for side in (literal_left, literal_right) if side
+                     and all(o.value in self.bases for o in side)]
+            selected = (based[0] if len(based) == 1
+                        else literal_left or literal_right)
             if selected:
                 return frozenset(Origin('base', o.value, o.address, o.operand)
                                  for o in selected)
@@ -199,7 +204,7 @@ def analyze(insns, names, bases, resolve, labels=(), foreign=None,
     string directory's address in this binary, or None.
     """
     from lib.msgids import MessageUse
-    flow = MessageFlow(insns, resolve, labels)
+    flow = MessageFlow(insns, resolve, labels, bases)
     known = {str(name): set(slots) for name, slots in (foreign or {}).items()}
     params = {e: _directory_params(flow, body, directory)
               for e, body in flow.bodies.items()}

@@ -72,7 +72,7 @@ api_idx_0074_JJVR:
     mov ax, 2                        ; 0x799c
     push ax                          ; 0x799f
     push word [bp - 2]               ; 0x79a0
-    call loc_QTKU                    ; 0x79a3
+    call mark_party_member_dead      ; 0x79a3
     add sp, byte 4                   ; 0x79a6
     inc word [bp - 2]                ; 0x79a9
 .forward2:

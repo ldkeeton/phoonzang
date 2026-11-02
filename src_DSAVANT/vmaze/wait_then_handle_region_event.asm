@@ -149,7 +149,7 @@ wait_then_handle_region_event:
     mov ax, 0                        ; 0x81ac
     push ax                          ; 0x81af
     push word [bp - 0xe]             ; 0x81b0
-    mov ax, word [game_state_arg]    ; 0x81b3
+    mov ax, word [current_level]     ; 0x81b3
     mov cx, 4                        ; 0x81b6
     shl ax, cl                       ; 0x81b9
     add ax, party_region + 0x2       ; 0x81bb
@@ -168,7 +168,7 @@ wait_then_handle_region_event:
     mov ax, 0                        ; 0x81db
     push ax                          ; 0x81de
     push word [bp - 0xe]             ; 0x81df
-    mov ax, word [game_state_arg]    ; 0x81e2
+    mov ax, word [current_level]     ; 0x81e2
     mov cx, 4                        ; 0x81e5
     shl ax, cl                       ; 0x81e8
     add ax, scenario_header_data     ; 0x81ea

@@ -65,7 +65,7 @@ api_idx_007c_MIHQ:
     push ax                          ; 0x460e
     mov ax, 0x78                     ; 0x460f
     push ax                          ; 0x4612
-    call loc_TRPK                    ; 0x4613
+    call select_grid_text_option     ; 0x4613
     add sp, byte 0x1a                ; 0x4616
     push ax                          ; 0x4619
     mov ax, 0x248                    ; 0x461a

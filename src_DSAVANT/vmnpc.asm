@@ -207,11 +207,11 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "shared/ovr/queue_marker_overlay.asm"  ; 0x0961
 
-%include "shared/ovr/loc_SSIO.asm"              ; 0x0a56
+%include "shared/ovr/draw_overlay_list_item_text.asm" ; 0x0a56
 
 %include "shared/ovr/redraw_glyph_strip.asm"    ; 0x0ab2
 
-%include "shared/ovr/loc_VNIO.asm"              ; 0x0b30
+%include "shared/ovr/draw_centered_text_at_x.asm" ; 0x0b30
 
 %include "shared/ovr/redraw_area_set.asm"       ; 0x0b74
 
@@ -223,7 +223,7 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "vmnpc/next_text_line.asm"        ; 0x0e15
 
-%include "shared/ovr/loc_KRMP.asm"              ; 0x0ef1
+%include "shared/ovr/check_party_redraw_interval.asm" ; 0x0ef1
 
 %include "vmnpc/step_party_animation.asm"  ; 0x0f50
 
@@ -307,7 +307,7 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "vmnpc/api_idx_0004_GJHP.asm"     ; 0x5371
 
-%include "shared/ovr/loc_GMVH.asm"              ; 0x5497
+%include "shared/ovr/is_quest_map_item.asm"     ; 0x5497
 
 %include "shared/ovr/give_quest_map.asm"        ; 0x54b4
 

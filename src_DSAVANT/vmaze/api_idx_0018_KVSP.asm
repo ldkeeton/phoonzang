@@ -35,7 +35,7 @@ api_idx_0018_KVSP:
 .forward2:
     mov ax, word [party_world_x]     ; 0x7ba7
     add ax, word [party_world_y]     ; 0x7baa
-    add ax, word [party_tag]         ; 0x7bae
+    add ax, word [party_facing]      ; 0x7bae
     add ax, word [bp + 6]            ; 0x7bb2
     mov cx, 2                        ; 0x7bb5
     cwd                              ; 0x7bb8

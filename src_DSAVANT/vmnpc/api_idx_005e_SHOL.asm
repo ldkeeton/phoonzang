@@ -203,7 +203,7 @@ api_idx_005e_SHOL:
     call step_party_animation        ; 0x15de
     cmp word [bss_845e], byte -2     ; 0x15e1
     jne short .back7                 ; 0x15e6
-    call loc_KRMP                    ; 0x15e8
+    call check_party_redraw_interval ; 0x15e8
     mov word [bp - 0xc], ax          ; 0x15eb
     cmp word [bp - 0xc], byte 0      ; 0x15ee
     je short .forward15              ; 0x15f2

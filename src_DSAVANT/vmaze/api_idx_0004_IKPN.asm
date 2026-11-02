@@ -21,7 +21,7 @@ api_idx_0004_IKPN:
 .forward2:
     mov ax, 3                        ; 0x1339
     push ax                          ; 0x133c
-    mov ax, word [game_state_arg]    ; 0x133d
+    mov ax, word [current_level]     ; 0x133d
     mov cx, 4                        ; 0x1340
     shl ax, cl                       ; 0x1343
     add ax, party_region + 0x2       ; 0x1345
@@ -38,7 +38,7 @@ api_idx_0004_IKPN:
     push ax                          ; 0x1368
     call random_below                ; 0x1369
     pop cx                           ; 0x136c
-    mov word [party_tag], ax         ; 0x136d
+    mov word [party_facing], ax      ; 0x136d
     mov bx, word [maze_data]         ; 0x1370
     mov si, word [party_map_piece]   ; 0x1374
     mov al, byte [bx + si + 0x490]   ; 0x1378

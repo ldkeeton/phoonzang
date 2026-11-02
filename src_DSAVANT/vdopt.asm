@@ -82,7 +82,7 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "vdopt/ovmain.asm"                ; 0x000e
 
-%include "shared/ovr/loc_MPHO.asm"              ; 0x00a5
+%include "shared/ovr/map_piece_index_for_position.asm" ; 0x00a5
 
 %include "shared/ovr/find_map_piece.asm"        ; 0x00df
 
@@ -90,7 +90,7 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "shared/ovr/draw_split_two_line_text.asm" ; 0x020b
 
-%include "shared/ovr/loc_RULJ.asm"              ; 0x02b4
+%include "shared/ovr/wait_10_ms.asm"            ; 0x02b4
 
 %include "vdopt/wait_for_scene_input_or_timeout.asm" ; 0x02c3
 

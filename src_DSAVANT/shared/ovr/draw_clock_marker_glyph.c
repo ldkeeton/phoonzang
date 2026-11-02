@@ -1,7 +1,7 @@
 /* draws the clock dial's party marker glyph for the current time of day */
 
 extern long game_time;			/* 0x8f1c: 32-bit clock, minutes */
-extern int party_tag;
+extern int party_facing;
 extern call_draw_text();
 
 /* places the marker by three-minute notch, one x per party slot, and draws
@@ -25,7 +25,7 @@ draw_clock_marker_glyph()
 		marker_x[0] = 176 - (notch - 58);
 	if (notch >= 204 && notch <= 292)
 		marker_x[3] = 176 - (notch - 204);
-	if (marker_x[party_tag] == (unsigned)65281)
+	if (marker_x[party_facing] == (unsigned)65281)
 		return;			/* no marker for the active slot */
 	if (minute < 270)
 		glyph_y_off = minute / 10 + 5;
@@ -37,6 +37,6 @@ draw_clock_marker_glyph()
 	}
 	glyph[0] = 6;			/* 6: marker glyph */
 	glyph[1] = 0;			/* NUL-terminate */
-	call_draw_text(6, marker_x[party_tag] + 72, 70 - glyph_y_off, 72, 248,
+	call_draw_text(6, marker_x[party_facing] + 72, 70 - glyph_y_off, 72, 248,
 		32, 144, 0, glyph, 0, 0);	/* clip 72..248 x 32..144 */
 }

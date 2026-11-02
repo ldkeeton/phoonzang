@@ -191,7 +191,7 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "vpclv/api_idx_00ca_KSLQ.asm"     ; 0x1e31
 
-%include "shared/ovr/loc_TTSP.asm"              ; 0x20e3
+%include "shared/ovr/refresh_title_and_member_panel.asm" ; 0x20e3
 
 %include "vpclv/loc_HJRN.asm"              ; 0x2189
 

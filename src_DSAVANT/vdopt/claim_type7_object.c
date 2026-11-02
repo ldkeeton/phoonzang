@@ -6,26 +6,27 @@
 extern struct maze_tables *maze_tables;
 extern struct saved_region_blocks party_region;
 extern int adjacent_object_type[4];
-extern int party_tag, game_state_arg;
+extern int party_facing, current_level;
 extern unsigned char scenario_header_data[][16];
 extern int log_maze_change();
 
 claim_type7_object(obj)
 int obj;
 {
-	/* Clear this party's adjacent object marker and the object's tag. */
-	adjacent_object_type[party_tag] = 0;
-	clear_bit_pair(&maze_tables->flags[obj], party_tag << 1);
+	/* Clear this party's adjacent object marker and the object's two bits for
+	   this facing. */
+	adjacent_object_type[party_facing] = 0;
+	clear_bit_pair(&maze_tables->flags[obj], party_facing << 1);
 
 	/* Log the object change with action 6 and its two-bit party flags. */
-	log_maze_change(game_state_arg, 6, obj, 0, 0,
+	log_maze_change(current_level, 6, obj, 0, 0,
 		maze_tables->flags[obj], 0, 0, 0);
 
 	/* Positive keys set both the party region map and scenario bitmap. */
 	if (maze_tables->key[obj] > 0) {
-		set_bitmap_bit(party_region.state[game_state_arg],
+		set_bitmap_bit(party_region.state[current_level],
 			maze_tables->key[obj], 0);
-		set_bitmap_bit(scenario_header_data[game_state_arg],
+		set_bitmap_bit(scenario_header_data[current_level],
 			maze_tables->key[obj], 0);
 		party_region.region = obj + 1;
 	}

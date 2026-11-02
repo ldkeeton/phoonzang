@@ -1,8 +1,4 @@
 ; auto-generated
-__zdseg_909b:
-    db 'V.$$$', 0
-__zdseg_90a1:
-    db 'V.$$$', 0
 __zdseg_90a7:
     db 0x2a, 0x2a, 0x2a, 0x00
 __zdseg_90ab:

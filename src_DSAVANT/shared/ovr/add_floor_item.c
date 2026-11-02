@@ -11,7 +11,7 @@ struct floor_item {
 };
 
 extern struct floor_item *floor_items;
-extern int floor_item_count, game_state_arg;
+extern int floor_item_count, current_level;
 extern int party_map_piece, party_cell_x, party_cell_y;
 extern char floor_item_cell_bits[];
 extern int find_floor_item_slot(), play_sound_effect(), set_bitmap_bit();
@@ -33,7 +33,7 @@ struct pc_item_slot *item;
 			floor_slot = floor_item_count++;
 	}
 	floor_item = floor_items + floor_slot;
-	floor_item->map = game_state_arg;
+	floor_item->map = current_level;
 	floor_item->flags = item->flags;
 	/* The high byte is the map piece; x and y occupy the low nibbles. */
 	floor_item->position = (party_map_piece << 8) +

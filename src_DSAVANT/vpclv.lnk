@@ -18,7 +18,7 @@ shared/ovr/draw_realm_spell_points
 shared/ovr/periodic_party_redraw
 shared/ovr/api_idx_0050_SQVG
 vpclv/api_idx_00ca_KSLQ
-shared/ovr/loc_TTSP
+shared/ovr/refresh_title_and_member_panel
 vpclv/loc_HJRN
 shared/ovr/set_party_hand_attack
 shared/ovr/draw_split_two_line_text

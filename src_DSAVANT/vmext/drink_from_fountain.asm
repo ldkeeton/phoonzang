@@ -1,5 +1,5 @@
 ; auto-generated
-api_idx_0012_QKSO:
+drink_from_fountain:
     mov ax, 0xffee                   ; 0x0ee0
     call aztec_csav                  ; 0x0ee3
     mov ax, word [party_region]      ; 0x0ee6
@@ -101,10 +101,10 @@ jumptable_12fa_case_0:
     mov bx, ax                       ; 0x0fd8
     pop ax                           ; 0x0fda
     mov word [bx + party_records + pc_rec.stamina], ax ; 0x0fdb
-    jmp near api_idx_0012_QKSO.forward19 ; 0x0fdf
+    jmp near drink_from_fountain.forward19 ; 0x0fdf
 jumptable_12fa_case_1:
     mov word [bp - 4], 0             ; 0x0fe2
-api_idx_0012_QKSO.back3:
+drink_from_fountain.back3:
     mov ax, 0x248                    ; 0x0fe7
     imul word [bp - 6]               ; 0x0fea
     mov cx, word [bp - 4]            ; 0x0fed
@@ -159,10 +159,10 @@ api_idx_0012_QKSO.back3:
     inc word [bp - 4]                ; 0x105f
     mov ax, word [bp - 4]            ; 0x1062
     cmp ax, strict word 6            ; 0x1065
-    jge short api_idx_0012_QKSO.forward6 ; 0x1068
-    jmp near api_idx_0012_QKSO.back3 ; 0x106a
-api_idx_0012_QKSO.forward6:
-    jmp near api_idx_0012_QKSO.forward19 ; 0x106d
+    jge short drink_from_fountain.forward6 ; 0x1068
+    jmp near drink_from_fountain.back3 ; 0x106a
+drink_from_fountain.forward6:
+    jmp near drink_from_fountain.forward19 ; 0x106d
 jumptable_12fa_case_2:
     mov ax, 0x248                    ; 0x1070
     imul word [bp - 6]               ; 0x1073
@@ -181,45 +181,45 @@ jumptable_12fa_case_2:
     mov bx, ax                       ; 0x1095
     pop ax                           ; 0x1097
     mov word [bx + party_records + pc_rec.hp], ax ; 0x1098
-    jmp near api_idx_0012_QKSO.forward19 ; 0x109c
+    jmp near drink_from_fountain.forward19 ; 0x109c
 jumptable_12fa_case_3:
     mov ax, 0x248                    ; 0x109f
     imul word [bp - 6]               ; 0x10a2
     mov bx, ax                       ; 0x10a5
     mov byte [bx + party_records + pc_rec.poison_strength], 0 ; 0x10a7
     mov byte [bx + party_records + pc_rec.status + 0x5], 0 ; 0x10ac
-    jmp near api_idx_0012_QKSO.forward19 ; 0x10b1
+    jmp near drink_from_fountain.forward19 ; 0x10b1
 jumptable_12fa_case_4:
     mov ax, 0x248                    ; 0x10b4
     imul word [bp - 6]               ; 0x10b7
     mov bx, ax                       ; 0x10ba
     mov byte [bx + party_records + pc_rec.status + 0x3], 0 ; 0x10bc
-    jmp near api_idx_0012_QKSO.forward19 ; 0x10c1
+    jmp near drink_from_fountain.forward19 ; 0x10c1
 jumptable_12fa_case_5:
     mov ax, 0x248                    ; 0x10c4
     imul word [bp - 6]               ; 0x10c7
     mov bx, ax                       ; 0x10ca
     cmp byte [bx + party_records + pc_rec.state], 2 ; 0x10cc
-    jne short api_idx_0012_QKSO.forward7 ; 0x10d1
+    jne short drink_from_fountain.forward7 ; 0x10d1
     mov byte [bx + party_records + pc_rec.state], 0 ; 0x10d3
-api_idx_0012_QKSO.forward7:
+drink_from_fountain.forward7:
     mov byte [bx + party_records + pc_rec.status + 0x6], 0 ; 0x10d8
-    jmp near api_idx_0012_QKSO.forward19 ; 0x10dd
+    jmp near drink_from_fountain.forward19 ; 0x10dd
 jumptable_12fa_case_6:
     mov word [bp - 4], 1             ; 0x10e0
-api_idx_0012_QKSO.back4:
+drink_from_fountain.back4:
     mov ax, word [bp - 4]            ; 0x10e5
     cmp ax, strict word 1            ; 0x10e8
-    je short api_idx_0012_QKSO.forward8 ; 0x10eb
+    je short drink_from_fountain.forward8 ; 0x10eb
     cmp ax, strict word 2            ; 0x10ed
-    je short api_idx_0012_QKSO.forward8 ; 0x10f0
+    je short drink_from_fountain.forward8 ; 0x10f0
     cmp ax, strict word 4            ; 0x10f2
-    je short api_idx_0012_QKSO.forward8 ; 0x10f5
+    je short drink_from_fountain.forward8 ; 0x10f5
     cmp ax, strict word 8            ; 0x10f7
-    je short api_idx_0012_QKSO.forward8 ; 0x10fa
+    je short drink_from_fountain.forward8 ; 0x10fa
     cmp ax, strict word 9            ; 0x10fc
-    jne short api_idx_0012_QKSO.forward9 ; 0x10ff
-api_idx_0012_QKSO.forward8:
+    jne short drink_from_fountain.forward9 ; 0x10ff
+drink_from_fountain.forward8:
     mov ax, 0x248                    ; 0x1101
     imul word [bp - 6]               ; 0x1104
     mov cx, ax                       ; 0x1107
@@ -227,12 +227,12 @@ api_idx_0012_QKSO.forward8:
     add cx, ax                       ; 0x110c
     mov bx, cx                       ; 0x110e
     mov byte [bx + party_records + pc_rec.status], 0 ; 0x1110
-api_idx_0012_QKSO.forward9:
+drink_from_fountain.forward9:
     inc word [bp - 4]                ; 0x1115
     mov ax, word [bp - 4]            ; 0x1118
     cmp ax, strict word 9            ; 0x111b
-    jle short api_idx_0012_QKSO.back4 ; 0x111e
-    jmp near api_idx_0012_QKSO.forward19 ; 0x1120
+    jle short drink_from_fountain.back4 ; 0x111e
+    jmp near drink_from_fountain.forward19 ; 0x1120
 jumptable_12fa_case_7:
     mov ax, 0x248                    ; 0x1123
     imul word [bp - 6]               ; 0x1126
@@ -242,7 +242,7 @@ jumptable_12fa_case_7:
     mov word [bx + party_records + pc_rec.hp], ax ; 0x1134
     mov ax, word [bx + party_records + pc_rec.stamina + 0x2] ; 0x1138
     mov word [bx + party_records + pc_rec.stamina], ax ; 0x113c
-    jmp near api_idx_0012_QKSO.forward19 ; 0x1140
+    jmp near drink_from_fountain.forward19 ; 0x1140
 jumptable_12fa_case_8:
     mov ax, 0x248                    ; 0x1143
     imul word [bp - 6]               ; 0x1146
@@ -262,7 +262,7 @@ jumptable_12fa_case_8:
     pop ax                           ; 0x116a
     mov word [bx + party_records + pc_rec.stamina], ax ; 0x116b
     cmp ax, strict word 0            ; 0x116f
-    jg short api_idx_0012_QKSO.forward10 ; 0x1172
+    jg short drink_from_fountain.forward10 ; 0x1172
     mov al, byte [bx + party_records + pc_rec.status + 0x2] ; 0x1174
     sub ah, ah                       ; 0x1178
     mov cx, ax                       ; 0x117a
@@ -280,11 +280,11 @@ jumptable_12fa_case_8:
     mov bx, ax                       ; 0x1192
     pop ax                           ; 0x1194
     mov byte [bx + party_records + pc_rec.status + 0x2], al ; 0x1195
-api_idx_0012_QKSO.forward10:
-    jmp near api_idx_0012_QKSO.forward19 ; 0x1199
+drink_from_fountain.forward10:
+    jmp near drink_from_fountain.forward19 ; 0x1199
 jumptable_12fa_case_9:
     mov word [bp - 4], 0             ; 0x119c
-api_idx_0012_QKSO.back5:
+drink_from_fountain.back5:
     mov ax, 0x248                    ; 0x11a1
     imul word [bp - 6]               ; 0x11a4
     mov cx, word [bp - 4]            ; 0x11a7
@@ -338,10 +338,10 @@ api_idx_0012_QKSO.back5:
     inc word [bp - 4]                ; 0x1219
     mov ax, word [bp - 4]            ; 0x121c
     cmp ax, strict word 6            ; 0x121f
-    jge short api_idx_0012_QKSO.forward11 ; 0x1222
-    jmp near api_idx_0012_QKSO.back5 ; 0x1224
-api_idx_0012_QKSO.forward11:
-    jmp near api_idx_0012_QKSO.forward19 ; 0x1227
+    jge short drink_from_fountain.forward11 ; 0x1222
+    jmp near drink_from_fountain.back5 ; 0x1224
+drink_from_fountain.forward11:
+    jmp near drink_from_fountain.forward19 ; 0x1227
 jumptable_12fa_case_10:
     mov ax, 0x248                    ; 0x122a
     imul word [bp - 6]               ; 0x122d
@@ -361,7 +361,7 @@ jumptable_12fa_case_10:
     pop ax                           ; 0x1251
     mov word [bx + party_records + pc_rec.hp], ax ; 0x1252
     cmp ax, strict word 0            ; 0x1256
-    jg short api_idx_0012_QKSO.forward12 ; 0x1259
+    jg short drink_from_fountain.forward12 ; 0x1259
     mov byte [bx + party_records + pc_rec.state], 3 ; 0x125b
     mov word [bx + party_records + pc_rec.hp], 0 ; 0x1260
     mov word [bx + party_records + pc_rec.stamina], 0 ; 0x1266
@@ -371,8 +371,8 @@ jumptable_12fa_case_10:
     push ax                          ; 0x1275
     call play_sound_effect           ; 0x1276
     pop cx                           ; 0x1279
-api_idx_0012_QKSO.forward12:
-    jmp near api_idx_0012_QKSO.forward19 ; 0x127a
+drink_from_fountain.forward12:
+    jmp near drink_from_fountain.forward19 ; 0x127a
 jumptable_12fa_case_11:
     mov ax, 0x248                    ; 0x127d
     imul word [bp - 6]               ; 0x1280
@@ -380,18 +380,18 @@ jumptable_12fa_case_11:
     mov al, byte [bx + party_records + pc_rec.poison_strength] ; 0x1285
     sub ah, ah                       ; 0x1289
     cmp ax, word [bp - 0xa]          ; 0x128b
-    jge short api_idx_0012_QKSO.forward13 ; 0x128e
+    jge short drink_from_fountain.forward13 ; 0x128e
     mov al, byte [bp - 0xa]          ; 0x1290
     mov byte [bx + party_records + pc_rec.poison_strength], al ; 0x1293
-api_idx_0012_QKSO.forward13:
+drink_from_fountain.forward13:
     mov al, byte [bx + party_records + pc_rec.status + 0x5] ; 0x1297
     sub ah, ah                       ; 0x129b
     cmp ax, word [bp - 0xe]          ; 0x129d
-    jge short api_idx_0012_QKSO.forward14 ; 0x12a0
+    jge short drink_from_fountain.forward14 ; 0x12a0
     mov al, byte [bp - 0xe]          ; 0x12a2
     mov byte [bx + party_records + pc_rec.status + 0x5], al ; 0x12a5
-api_idx_0012_QKSO.forward14:
-    jmp near api_idx_0012_QKSO.forward19 ; 0x12a9
+drink_from_fountain.forward14:
+    jmp near drink_from_fountain.forward19 ; 0x12a9
 jumptable_12fa_case_12:
     mov ax, 0x248                    ; 0x12ac
     imul word [bp - 6]               ; 0x12af
@@ -399,20 +399,20 @@ jumptable_12fa_case_12:
     mov al, byte [bx + party_records + pc_rec.status + 0x3] ; 0x12b4
     sub ah, ah                       ; 0x12b8
     cmp ax, word [bp - 0xe]          ; 0x12ba
-    jge short api_idx_0012_QKSO.forward15 ; 0x12bd
+    jge short drink_from_fountain.forward15 ; 0x12bd
     mov al, byte [bp - 0xe]          ; 0x12bf
     mov byte [bx + party_records + pc_rec.status + 0x3], al ; 0x12c2
-api_idx_0012_QKSO.forward15:
-    jmp short api_idx_0012_QKSO.forward19 ; 0x12c6
+drink_from_fountain.forward15:
+    jmp short drink_from_fountain.forward19 ; 0x12c6
 jumptable_12fa_case_13:
     mov ax, 0x248                    ; 0x12c8
     imul word [bp - 6]               ; 0x12cb
     mov bx, ax                       ; 0x12ce
     cmp byte [bx + party_records + pc_rec.state], 2 ; 0x12d0
-    jae short api_idx_0012_QKSO.forward16 ; 0x12d5
+    jae short drink_from_fountain.forward16 ; 0x12d5
     mov byte [bx + party_records + pc_rec.state], 2 ; 0x12d7
-api_idx_0012_QKSO.forward16:
-    jmp short api_idx_0012_QKSO.forward19 ; 0x12dc
+drink_from_fountain.forward16:
+    jmp short drink_from_fountain.forward19 ; 0x12dc
 jumptable_12fa_case_14:
     mov ax, 0x248                    ; 0x12de
     imul word [bp - 6]               ; 0x12e1
@@ -420,11 +420,11 @@ jumptable_12fa_case_14:
     mov al, byte [bx + party_records + pc_rec.status + 0x2] ; 0x12e6
     sub ah, ah                       ; 0x12ea
     cmp ax, word [bp - 0xe]          ; 0x12ec
-    jge short api_idx_0012_QKSO.forward17 ; 0x12ef
+    jge short drink_from_fountain.forward17 ; 0x12ef
     mov al, byte [bp - 0xe]          ; 0x12f1
     mov byte [bx + party_records + pc_rec.status + 0x2], al ; 0x12f4
-api_idx_0012_QKSO.forward17:
-    jmp short api_idx_0012_QKSO.forward19 ; 0x12f8
+drink_from_fountain.forward17:
+    jmp short drink_from_fountain.forward19 ; 0x12f8
 jumptable_12fa:
     dw jumptable_12fa_case_0 - IMAGE_BASE + __zres_end ; 0x12fa
     dw jumptable_12fa_case_1 - IMAGE_BASE + __zres_end ; 0x12fc
@@ -441,19 +441,19 @@ jumptable_12fa:
     dw jumptable_12fa_case_12 - IMAGE_BASE + __zres_end ; 0x1312
     dw jumptable_12fa_case_13 - IMAGE_BASE + __zres_end ; 0x1314
     dw jumptable_12fa_case_14 - IMAGE_BASE + __zres_end ; 0x1316
-api_idx_0012_QKSO.forward18:
+drink_from_fountain.forward18:
     cmp ax, strict word 0xf          ; 0x1318
-    jae short api_idx_0012_QKSO.forward19 ; 0x131b
+    jae short drink_from_fountain.forward19 ; 0x131b
     xchg bx, ax                      ; 0x131d
     shl bx, 1                        ; 0x131e
     jmp [cs:bx + jumptable_12fa - IMAGE_BASE + __zres_end] ; 0x1320
-api_idx_0012_QKSO.forward19:
+drink_from_fountain.forward19:
     inc word [bp - 2]                ; 0x1325
     mov ax, word [bp - 2]            ; 0x1328
     cmp ax, strict word 0x10         ; 0x132b
-    jge short api_idx_0012_QKSO.forward20 ; 0x132e
-    jmp near api_idx_0012_QKSO.back2 ; 0x1330
-api_idx_0012_QKSO.forward20:
+    jge short drink_from_fountain.forward20 ; 0x132e
+    jmp near drink_from_fountain.back2 ; 0x1330
+drink_from_fountain.forward20:
     mov ax, 1                        ; 0x1333
     push ax                          ; 0x1336
     push word [bp - 6]               ; 0x1337
@@ -461,11 +461,11 @@ api_idx_0012_QKSO.forward20:
     add sp, byte 4                   ; 0x133d
     mov ax, word [bp - 0x10]         ; 0x1340
     add ax, word [bp - 0x12]         ; 0x1343
-    add ax, 0x800                    ; 0x1346
+    add ax, MSG_FOUNTAIN_RESULT_BASE ; 0x1346
     push ax                          ; 0x1349
-    call loc_TLQV                    ; 0x134a
+    call show_fountain_result        ; 0x134a
     pop cx                           ; 0x134d
-    jmp near api_idx_0012_QKSO.back1 ; 0x134e
-api_idx_0012_QKSO.forward21:
+    jmp near drink_from_fountain.back1 ; 0x134e
+drink_from_fountain.forward21:
     inc word [party_region]          ; 0x1351
     ret                              ; 0x1355

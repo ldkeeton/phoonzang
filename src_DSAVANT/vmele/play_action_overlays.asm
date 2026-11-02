@@ -129,7 +129,7 @@ play_action_overlays:
     call step_party_screen_animation ; 0x2e1f
     cmp word [bss_845e], byte -2     ; 0x2e22
     jne short .back5                 ; 0x2e27
-    call loc_KRMP                    ; 0x2e29
+    call check_party_redraw_interval ; 0x2e29
     mov word [bp - 0xa], ax          ; 0x2e2c
     cmp word [bp - 0xa], byte 0      ; 0x2e2f
     je short .forward9               ; 0x2e33

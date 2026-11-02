@@ -4,7 +4,7 @@ extern long party_status_areas[];		/* one saved area per slot */
 extern int party_status_frame, party_status_frame_step,
 	party_status_frame_seen, party_status_heading;
 extern int party_status_timer[];			/* six 4-byte records, +0 word first */
-extern int party_tag;
+extern int party_facing;
 extern call_restore_area();
 extern call_draw_text();
 extern call_show_area();
@@ -38,7 +38,7 @@ draw_party_status_glyphs()
 		case 4:		/* heading icon: only moves on a new frame */
 			if (party_status_frame != party_status_frame_seen) {
 				party_status_frame_seen = party_status_frame;
-				turn = party_tag * 2 - party_status_heading;
+				turn = party_facing * 2 - party_status_heading;
 				if (turn) {
 					/* one step for 1..4 and below -4, else seven */
 					if (turn < -4 || (turn > 0 && turn < 5))

@@ -24,7 +24,7 @@ check_type8_object:
     push word [bp - 2]               ; 0x8b88
     call get_bits                    ; 0x8b8b
     add sp, byte 6                   ; 0x8b8e
-    cmp ax, word [party_tag]         ; 0x8b91
+    cmp ax, word [party_facing]      ; 0x8b91
     je short .forward1               ; 0x8b95
     mov ax, 0                        ; 0x8b97
     ret                              ; 0x8b9a
@@ -54,7 +54,7 @@ check_type8_object:
     mov word [bp - 6], ax            ; 0x8bd2
     push ax                          ; 0x8bd5
     push word [bp - 4]               ; 0x8bd6
-    mov ax, word [game_state_arg]    ; 0x8bd9
+    mov ax, word [current_level]     ; 0x8bd9
     mov cx, 4                        ; 0x8bdc
     shl ax, cl                       ; 0x8bdf
     add ax, party_region + 0x2       ; 0x8be1
@@ -70,7 +70,7 @@ check_type8_object:
     mov ax, 0                        ; 0x8bfd
     push ax                          ; 0x8c00
     push word [bx + si + 0x1e0]      ; 0x8c01
-    mov ax, word [game_state_arg]    ; 0x8c05
+    mov ax, word [current_level]     ; 0x8c05
     mov cx, 4                        ; 0x8c08
     shl ax, cl                       ; 0x8c0b
     add ax, party_region + 0x2       ; 0x8c0d

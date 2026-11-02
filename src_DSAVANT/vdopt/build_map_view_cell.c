@@ -19,7 +19,7 @@ extern int map_ew_wall_glyphs[][18], map_object_marks[][18];
 extern struct maze_tables *maze_tables;
 extern struct maze_cells *maze_data;
 extern char current_map_block_b[];
-extern int game_state_arg, maze_variant;
+extern int current_level, maze_variant;
 
 build_map_view_cell(world_x, world_y, grid_x, grid_y, spell_mode)
 int world_x;
@@ -98,7 +98,7 @@ int spell_mode;
 			glyph = map_flag2_glyph;
 	}
 	if (test_bit(maze_data->cell_flags_secondary, cell_index)) {
-		switch (game_state_arg) {
+		switch (current_level) {
 		case 15: case 17: case 22: case 23: case 24: case 25: case 26:
 		case 29: case 30:
 			glyph = map_special_glyph;
@@ -107,7 +107,7 @@ int spell_mode;
 	}
 	/* The third flag bit has its own per-map overrides. */
 	if (test_bit(maze_data->cell_flags_third, cell_index)) {
-		switch (game_state_arg) {
+		switch (current_level) {
 		case 0: break;
 		case 14: case 19: case 31:
 			glyph = map_special_glyph;

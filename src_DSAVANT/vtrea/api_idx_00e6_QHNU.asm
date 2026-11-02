@@ -215,7 +215,7 @@ api_idx_00e6_QHNU:
     push word [menu_selection_index] ; 0x75ba
     lea ax, word [bp - 0x72]         ; 0x75be
     push ax                          ; 0x75c1
-    call api_idx_0008_RORM           ; 0x75c2
+    call show_indexed_beveled_label  ; 0x75c2
     add sp, byte 0x12                ; 0x75c5
     mov ax, word [message_delay]     ; 0x75c8
     mov cx, 2                        ; 0x75cb
@@ -251,7 +251,7 @@ api_idx_00e6_QHNU:
     mov ax, 0                        ; 0x760e
     push ax                          ; 0x7611
     push word [bp - 0x12]            ; 0x7612
-    mov ax, word [game_state_arg]    ; 0x7615
+    mov ax, word [current_level]     ; 0x7615
     mov cx, 4                        ; 0x7618
     shl ax, cl                       ; 0x761b
     add ax, party_region + 0x2       ; 0x761d
@@ -375,7 +375,7 @@ api_idx_00e6_QHNU:
     push word [menu_selection_index] ; 0x772f
     lea ax, word [bp - 0x72]         ; 0x7733
     push ax                          ; 0x7736
-    call api_idx_0008_RORM           ; 0x7737
+    call show_indexed_beveled_label  ; 0x7737
     add sp, byte 0x12                ; 0x773a
     mov ax, 0                        ; 0x773d
     push ax                          ; 0x7740

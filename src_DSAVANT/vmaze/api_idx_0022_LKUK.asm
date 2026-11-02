@@ -386,7 +386,7 @@ api_idx_0022_LKUK:
     mov bx, ax                       ; 0x25d7
     mov al, byte [bx + location_records + location_record.game_state] ; 0x25d9
     cbw                              ; 0x25dd
-    cmp ax, word [game_state_arg]    ; 0x25de
+    cmp ax, word [current_level]     ; 0x25de
     jne short .forward29             ; 0x25e2
     mov ax, word [bp - 8]            ; 0x25e4
     imul cx                          ; 0x25e7
@@ -750,7 +750,7 @@ api_idx_0022_LKUK:
     cmp word [bp - 0x1e], byte 9     ; 0x2924
     jne short .forward42             ; 0x2928
 .forward39:
-    mov ax, word [party_tag]         ; 0x292a
+    mov ax, word [party_facing]      ; 0x292a
     mov cx, 2                        ; 0x292d
     cwd                              ; 0x2930
     idiv cx                          ; 0x2931
@@ -804,7 +804,7 @@ api_idx_0022_LKUK:
 .forward41:
     jmp near jumptable_2a3c_case_3   ; 0x2999
 .forward42:
-    mov ax, word [party_tag]         ; 0x299c
+    mov ax, word [party_facing]      ; 0x299c
     cmp ax, word [bp - 0x20]         ; 0x299f
     je short .forward43              ; 0x29a2
     jmp near jumptable_2a3c_case_3   ; 0x29a4
@@ -1028,11 +1028,11 @@ jumptable_2d1b_case_1:
     jne short api_idx_0022_LKUK.forward58 ; 0x2b90
     mov ax, 3                        ; 0x2b92
 api_idx_0022_LKUK.forward58:
-    add ax, word [party_tag]         ; 0x2b95
+    add ax, word [party_facing]      ; 0x2b95
     mov cx, 4                        ; 0x2b99
     cwd                              ; 0x2b9c
     idiv cx                          ; 0x2b9d
-    mov word [party_tag], dx         ; 0x2b9f
+    mov word [party_facing], dx      ; 0x2b9f
     mov word [bss_91aa], 1           ; 0x2ba3
     cmp dx, word [found_object_owner] ; 0x2ba9
     jne short api_idx_0022_LKUK.forward59 ; 0x2bad

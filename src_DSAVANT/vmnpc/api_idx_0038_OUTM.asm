@@ -31,7 +31,7 @@ api_idx_0038_OUTM:
     mov bx, ax                       ; 0x24fa
     mov al, byte [bx + location_records + location_record.game_state] ; 0x24fc
     cbw                              ; 0x2500
-    cmp ax, word [game_state_arg]    ; 0x2501
+    cmp ax, word [current_level]     ; 0x2501
     je short .forward1               ; 0x2505
     mov ax, 0x26                     ; 0x2507
     imul word [bp - 2]               ; 0x250a

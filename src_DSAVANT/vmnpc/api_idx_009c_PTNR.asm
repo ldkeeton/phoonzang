@@ -156,7 +156,7 @@ api_idx_009c_PTNR:
     push ax                          ; 0x692b
     lea ax, word [bp - 0x42]         ; 0x692c
     push ax                          ; 0x692f
-    call loc_VNIO                    ; 0x6930
+    call draw_centered_text_at_x     ; 0x6930
     add sp, byte 8                   ; 0x6933
     mov ax, 0x16                     ; 0x6936
     push ax                          ; 0x6939
@@ -166,7 +166,7 @@ api_idx_009c_PTNR:
     push ax                          ; 0x6941
     lea ax, word [bp - 0x4c]         ; 0x6942
     push ax                          ; 0x6945
-    call loc_VNIO                    ; 0x6946
+    call draw_centered_text_at_x     ; 0x6946
     add sp, byte 8                   ; 0x6949
     lea ax, word [bp - 0x2e]         ; 0x694c
     push ax                          ; 0x694f

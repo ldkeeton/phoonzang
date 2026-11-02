@@ -19,6 +19,7 @@ A ``.lnk`` holds one extensionless module per line, in link order, naming
 
 import os
 import re
+import textwrap
 from collections import namedtuple
 
 from lib.autogen import stamp
@@ -45,7 +46,8 @@ def project_files(binaries, host, files, arrange=None):
     call into.  Each ``.lnk`` keeps the order of its binary's listing, except as
     *arrange* ``(name, modules)`` changes it (:mod:`lib.aztec.linkorder`), since
     a listing has no module for what a C source emits itself.  A binary's
-    ``link.flags`` go on its ``ln`` line.  The host links first, since overlays
+    ``link.flags`` go on its ``ln`` line, and its ``desc`` in a ``#`` comment
+    above its rule.  The host links first, since overlays
     need its ``.rsm``.
     """
     order = sorted(binaries, key=lambda name: name != host)
@@ -63,6 +65,9 @@ def project_files(binaries, host, files, arrange=None):
         out[lnk] = ''.join(f'{module}\n' for module in listed)
         flags = ''.join(f'{flag} ' for flag in
                         (binaries[name].get('link') or {}).get('flags', ()))
+        desc = binaries[name].get('desc')
+        if desc:
+            make += ['# ' + line for line in textwrap.wrap(desc, 78)]
         if binaries[name].get('type') == 'aztec_overlay' and host:
             make += [f'{output}: {lnk} {host}.rsm',
                      f'\tln {flags}-o {output} -f {lnk} {host}.rsm', '']

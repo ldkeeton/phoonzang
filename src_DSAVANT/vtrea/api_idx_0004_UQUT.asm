@@ -46,7 +46,7 @@ api_idx_0004_UQUT:
     call tick_treasure_animation     ; 0x0947
     test ax, ax                      ; 0x094a
     jne short .forward5              ; 0x094c
-    call loc_RULJ                    ; 0x094e
+    call wait_10_ms                  ; 0x094e
 .forward5:
     jmp short .back1                 ; 0x0951
 .return1:

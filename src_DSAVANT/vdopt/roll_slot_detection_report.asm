@@ -91,7 +91,7 @@ roll_slot_detection_report.forward3:
     mov bx, ax                       ; 0x1b33
     mov al, byte [bx + location_records + location_record.game_state] ; 0x1b35
     cbw                              ; 0x1b39
-    cmp ax, word [game_state_arg]    ; 0x1b3a
+    cmp ax, word [current_level]     ; 0x1b3a
     jne short roll_slot_detection_report.forward4 ; 0x1b3e
     mov ax, 0x64                     ; 0x1b40
     push ax                          ; 0x1b43

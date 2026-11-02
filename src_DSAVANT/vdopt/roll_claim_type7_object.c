@@ -5,7 +5,7 @@
 #include "structs/maze.h"
 
 extern struct maze_tables *maze_tables;
-extern int party_tag, pending_event, pending_event_hi;
+extern int party_facing, pending_event, pending_event_hi;
 
 roll_claim_type7_object(skill)
 int skill;
@@ -20,8 +20,8 @@ int skill;
 	level = get_bits(tmp, 0, 5);	/* bits 0-4 */
 	tagged = 0;
 	tmp = maze_tables->flags[obj];
-	if (get_bits(tmp, party_tag << 1, 2) == 2
-		&& level == 0)	/* 2-bit field at bit 2 * party_tag */
+	if (get_bits(tmp, party_facing << 1, 2) == 2
+		&& level == 0)	/* 2-bit field at bit 2 * party_facing */
 		tagged = 1;
 	result = 0;		/* 0 claimed, 1 roll below level, 2 already tagged */
 	roll = (random_below(skill << 1) + random_below(skill << 1)

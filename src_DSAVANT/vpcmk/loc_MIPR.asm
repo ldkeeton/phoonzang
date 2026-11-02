@@ -267,7 +267,7 @@ loc_MIPR:
     push ax                          ; 0x658c
     mov ax, 0x468                    ; 0x658d
     push ax                          ; 0x6590
-    call loc_TRPK                    ; 0x6591
+    call select_grid_text_option     ; 0x6591
     add sp, byte 0x1a                ; 0x6594
     mov word [bp - 4], ax            ; 0x6597
     cmp word [bp - 4], byte 0        ; 0x659a
