@@ -10,9 +10,7 @@
 hit_rectangles	equ	word ptr 0ch[bp]
 hit_rect_index	equ	word ptr -4[bp]
 click_buttons	equ	word ptr -2[bp]
-
-	public	mouse_hit_test
-mouse_hit_test proc near
+	procdef	mouse_hit_test
 	; Preserve the caller frame and reserve two local words.
 	push	bp
 	mov	bp,sp
@@ -80,7 +78,7 @@ mouse_hit_test_done:
 	mov	sp,bp
 	pop	bp
 	ret
-mouse_hit_test endp
+	pend	mouse_hit_test
 
 	codeseg	ends
 	end

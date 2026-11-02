@@ -13,8 +13,8 @@ codeseg	segment	byte public 'code'
 	extrn	ems_map_pages_:near
 	extrn	ems_frame_seg:word
 	extrn	maze_block_count:word
-	extrn	decrement_cached_slot_ids:near
-	extrn	release_and_compact_ems_blocks:near
+	extrn	decrement_cached_slot_ids_:near
+	extrn	release_and_compact_ems_blocks_:near
 	extrn	renumber_and_release_block_:near
 
 screen_slot_index	equ	word ptr 0ch[bp]
@@ -171,8 +171,8 @@ restore_screen_ems_same_page:
 	add	bx,ax
 	mov	ax,word ptr cs:[bx]
 	mov	word ptr cs:[bx],0
-	call	decrement_cached_slot_ids
-	call	release_and_compact_ems_blocks
+	call	decrement_cached_slot_ids_
+	call	release_and_compact_ems_blocks_
 restore_screen_done:
 	pops	si,di,ds,es
 	mov	sp,bp

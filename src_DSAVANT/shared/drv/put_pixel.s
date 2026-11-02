@@ -6,10 +6,8 @@ codeseg	segment	byte public 'code'
 pixel_column	equ	0ch	; stack argument: pixel column
 pixel_row	equ	0eh	; stack argument: pixel row
 pixel_color	equ	10h	; stack argument: byte stored at the pixel
-
-	public	put_pixel
 ; Store one color byte at the requested position in the screen buffer.
-put_pixel proc near
+	procdef	put_pixel
 	push	bp
 	mov	bp,sp
 	pushs	ds,es
@@ -26,6 +24,6 @@ put_pixel proc near
 	mov	sp,bp
 	pop	bp
 	ret
-put_pixel endp
+	pend	put_pixel
 codeseg	ends
 	end

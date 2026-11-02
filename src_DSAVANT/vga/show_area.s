@@ -15,7 +15,7 @@ screen_byte_offset	equ	-2h	; local source offset in the screen buffer
 horizontal_span	equ	-4h	; local number of bytes copied per row
 
 ; Copy a rectangle from the screen buffer to VGA memory, then restore the mouse pointer.
-show_area	proc	near
+	procdef	show_area
 	push	bp
 	mov	bp,sp
 	sub	sp,10h
@@ -53,6 +53,6 @@ back1:
 	mov	sp,bp
 	pop	bp
 	ret
-show_area	endp
+	pend	show_area
 codeseg	ends
 	end

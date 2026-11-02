@@ -14,9 +14,7 @@ codeseg	segment	byte public 'code'
 
 screen_slot_index	equ	word ptr 0ch[bp]
 screen_source_mode	equ	word ptr 0eh[bp]
-
-	public	load_screen
-load_screen proc near
+	procdef	load_screen
 	push	bp
 	mov	bp,sp
 	pushs	ds,es,si,di
@@ -111,6 +109,6 @@ load_screen_done:
 	mov	sp,bp
 	pop	bp
 	ret
-load_screen endp
+	pend	load_screen
 	codeseg	ends
 	end

@@ -42,10 +42,8 @@ saved_bx	equ	-3ah	; glyph descriptor pointer
 scratch_word	equ	-3ch	; temporary word used in mask setup
 scratch_width	equ	-3eh	; full glyph row width in pixels
 scratch_total	equ	-40h	; accumulated clipped bitmap count
-
-	public	draw_text
 ; Draw clipped text glyphs into the selected screen region.
-draw_text proc near
+	procdef	draw_text
 	push bp
 	mov bp, sp
 	sub sp, 40h
@@ -516,6 +514,6 @@ draw_text_forward46:
 	mov sp, bp
 	pop bp
 	ret
-draw_text endp
+	pend	draw_text
 codeseg ends
 	end

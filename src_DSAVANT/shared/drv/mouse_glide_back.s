@@ -6,7 +6,7 @@
 	extrn	mouse_drawn_x:word
 	extrn	mouse_drawn_y:word
 	extrn	mouse_glide_active:byte
-	extrn	draw_mouse_pointer_at:near
+	extrn	draw_mouse_pointer_at_:near
 	extrn	delay_hook:dword
 
 target_x		equ	word ptr 0ch[bp]
@@ -16,9 +16,7 @@ target_x_scaled	equ	word ptr -2[bp]	; target X in INT 33h half-column units
 target_y_value	equ	word ptr -4[bp]	; requested Y coordinate
 current_x_scaled	equ	word ptr -6[bp]	; current X in half-column units
 current_y_value	equ	word ptr -8[bp]	; current Y coordinate
-
-	public	mouse_glide_back
-mouse_glide_back proc near
+	procdef	mouse_glide_back
 	; Preserve the caller frame and the registers used by the pointer routines.
 	push	bp
 	mov	bp,sp
@@ -79,7 +77,7 @@ mouse_glide_back_y_done:
 	mov	ax,cs
 	push	ax
 	mov	ax,0
-	call	draw_mouse_pointer_at
+	call	draw_mouse_pointer_at_
 	mov	cx,current_x_scaled
 	mov	dx,current_y_value
 	; INT 33h function 4 positions the hardware pointer.
@@ -105,7 +103,7 @@ mouse_glide_back_done:
 	mov	sp,bp
 	pop	bp
 	ret
-mouse_glide_back endp
+	pend	mouse_glide_back
 
 	codeseg	ends
 	end

@@ -1,8 +1,8 @@
 	include	lmacros.h
 codeseg	segment	byte public 'code'
 	assume	cs:codeseg
-	extrn	request_mouse_redraw:near
-	extrn	draw_mouse_pointer_at:near
+	extrn	request_mouse_redraw_:near
+	extrn	draw_mouse_pointer_at_:near
 	extrn	mouse_present:byte
 	extrn	mouse_glide_active:byte
 	extrn	mouse_drawn_x:word
@@ -42,7 +42,7 @@ _mouse_pointer_dimensions_valid:
 	; The product must fit in the 0x400-byte image buffer.
 	cmp	ax,401h
 	jae	short _mouse_pointer_bad_size_jump
-	call	request_mouse_redraw
+	call	request_mouse_redraw_
 	mov	ax,image_offset
 	mov	word ptr cs:mouse_image_offset,ax
 	mov	ax,image_segment
@@ -86,7 +86,7 @@ _mouse_pointer_use_drawn:
 _mouse_pointer_draw:
 	mov	ax,cs
 	push	ax
-	call	draw_mouse_pointer_at
+	call	draw_mouse_pointer_at_
 	mov	byte ptr cs:mouse_redraw_pending,0
 _mouse_pointer_done:
 	pops	di,si,es,ds

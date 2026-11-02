@@ -14,10 +14,8 @@ destination_row_offset	equ	-6	; stack slot: current screen row offset
 row_pixels_remaining	equ	-8	; stack slot: pixels left in this row
 source_row_skip	equ	-0ah	; stack slot: source bytes skipped after a row
 glyph_byte_width	equ	-0ch	; stack slot: source bytes in each row
-
-	public	draw_glyph
 ; Draw the selected glyph into the active screen buffer and advance text_pos_x.
-draw_glyph proc near
+	procdef	draw_glyph
 	push	bp
 	mov	bp,sp
 	sub	sp,0ch
@@ -209,7 +207,7 @@ draw_glyph proc near
 	mov	sp,bp
 	pop	bp
 	ret
-draw_glyph endp
+	pend	draw_glyph
 
 codeseg	ends
 	end

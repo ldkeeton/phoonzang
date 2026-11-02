@@ -7,9 +7,7 @@
 mouse_x_output	equ	word ptr 0ch[bp]
 mouse_y_output	equ	word ptr 0eh[bp]
 button_state	equ	word ptr -2[bp]
-
-	public	get_mouse
-get_mouse proc near
+	procdef	get_mouse
 	; Preserve the caller frame and reserve the original local frame.
 	push	bp
 	mov	bp,sp
@@ -34,7 +32,7 @@ no_mouse:
 	mov	sp,bp
 	pop	bp
 	ret
-get_mouse endp
+	pend	get_mouse
 
 	codeseg	ends
 	end

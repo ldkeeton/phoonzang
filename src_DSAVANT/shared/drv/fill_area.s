@@ -11,10 +11,8 @@ fill_color	equ	14h	; stack argument: byte written to the area
 screen_offset	equ	-2	; stack slot: current destination row offset
 rows_remaining	equ	-4	; stack slot: rows left to fill
 columns_to_fill	equ	-6	; stack slot: bytes written per row
-
-	public	fill_area
 ; Fill an inclusive rectangle in the active screen buffer with one byte.
-fill_area proc near
+	procdef	fill_area
 	push	bp
 	mov	bp,sp
 	sub	sp,8
@@ -47,6 +45,6 @@ fill_area proc near
 	mov	sp,bp
 	pop	bp
 	ret
-fill_area endp
+	pend	fill_area
 codeseg	ends
 	end
