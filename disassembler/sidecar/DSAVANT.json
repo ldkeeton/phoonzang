@@ -418,6 +418,7 @@
       "type": "mz",
       "start_offset": 512,
       "entry_symbol": "aztec_begin",
+      "link": {"flags": ["+C", "af00", "+D", "2100"]},
       "byte_patches": [
         {
           "offset": "2c45",
@@ -579,7 +580,7 @@
           "name": "data_file_path",
           "note": "(name, alt): copies one of two 20-byte path prefixes at DS 0x5912 (the second only when alt == 1 and DS 0x5987 == 5) into DS 0x69ca via copy_through_char, appends name and returns 0x69ca"
         },
-        "23ef": {"name": "prompt_disk_swap", "note": "boxed insert-disk prompt that loops until DISK.HDR matches, optionally closing and reopening MSG.DBS/SCENARIO.DBS"},
+        "23ef": {"name": "prompt_disk_swap", "length": 1887, "file": "disk_and_file_loaders", "note": "boxed insert-disk prompt that loops until DISK.HDR matches, optionally closing and reopening MSG.DBS/SCENARIO.DBS"},
         "27e9": {
           "name": "ensure_game_disk",
           "note": "picks a disk number from install_mode and, when it differs from DS 0x5218, prompts via prompt_disk_swap and redraws the full screen (call_show_area 0,0,319,199); main calls it before loading some overlays"
@@ -696,6 +697,7 @@
         "467b": {"name": "aztec_realloc", "length": 402, "note": "Owns the original aztec_misc_lmalloc.c module restored from before prebuild removal."},
         "46ea": {"name": "aztec_malloc"},
         "47e8": {"name": "aztec_free"},
+        "480d": {"length": 736, "file": "aztec_format", "note": "Original format.c tables and routine: the conversion tables lead the code."},
         "4867": {"name": "aztec_format"},
         "4b39": {"name": "aztec_creat", "length": 173, "note": "Owns the original aztec_open.c module restored from before prebuild removal."},
         "4b50": {"name": "aztec_open"},
@@ -728,6 +730,7 @@
       },
       "force_data": [
         {"start": "08d4", "end": "08e1", "note": "Seven-entry switch table for the 0x08ed indirect jump"},
+        {"start": "480d", "end": "4866", "note": "format.c's conversion tables, ahead of its code in one fragment"},
         {"start": "3140", "end": "343d", "note": "Video palette/data table before code resumes at 0x343e"},
         {"start": "3940", "end": "395a", "note": "I/O error loading font message"},
         {"start": "396c", "end": "3988", "note": "Memory error loading file message"},
@@ -1150,6 +1153,7 @@
       },
       "force_data": [
         {"start": "2a23", "end": "2a26", "note": "fexec.asm's code-segment save_ss/save_sp words just before aztec_fexec (0x2a27), not code"},
+        {"start": "303e", "end": "3097", "note": "format.c's conversion tables, ahead of its code in one fragment"},
         {"start": "3721", "end": "3724", "note": "sbegin.asm's retip/retcs words before the debugger entry"}
       ],
       "force_code": [
@@ -1249,7 +1253,8 @@
         "2eac": {"name": "aztec_realloc", "length": 402, "note": "Owns the original aztec_misc_lmalloc.c module restored from before prebuild removal."},
         "2f1b": {"name": "aztec_malloc"},
         "3019": {"name": "aztec_free"},
-        "3098": {"name": "aztec_format", "length": 646, "note": "Runs to aztec_format_get_pointer; the inferred root at 0x32eb is inside it."},
+        "303e": {"length": 736, "file": "aztec_format", "note": "Original format.c tables and routine: the conversion tables lead the code; the inferred root at 0x32eb is inside it."},
+        "3098": {"name": "aztec_format"},
         "336a": {"name": "aztec_creat", "length": 173, "note": "Owns the original aztec_open.c module restored from before prebuild removal."},
         "3381": {"name": "aztec_open"},
         "3417": {"name": "aztec_ldv", "length": 241, "note": "Original mch86/lsubs.asm: ldv, lrm, lum and lud share chksign and comdivide."},

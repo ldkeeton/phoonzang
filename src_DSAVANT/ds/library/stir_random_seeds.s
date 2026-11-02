@@ -2,7 +2,7 @@
 	include	lmacros.h
 	assume	cs:codeseg
 	extrn	random_seed_a:word, random_seed_b:word, random_seed_c:word
-	extrn	glyph_y_table:byte
+	extrn	glyph_y_table_:byte
 	public	stir_random_seeds_
 stir_random_seeds_ proc near
 	pushs	ax,bx,cx,dx

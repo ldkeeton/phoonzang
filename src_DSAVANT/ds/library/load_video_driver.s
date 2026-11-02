@@ -4,7 +4,7 @@
 	extrn	restore_video_and_release_mem_:near
 	extrn	cseg_2f52_:word
 	extrn	driver_block_table_end_:word
-	extrn	drv_slot_mouse_init_:word
+	extrn	drv_slot_mouse_init:word
 	extrn	cseg_3063_:word
 	extrn	driver_block_table_:word
 	extrn	drv_file_handle_:word
@@ -30,7 +30,7 @@ load_video_driver_ proc near
 	mov bx, word ptr cs:drv_file_handle_
 	int 021h
 	movseg	es,cs
-	mov di, offset drv_slot_mouse_init_
+	mov di, offset drv_slot_mouse_init
 	mov ax, word ptr cs:cseg_2f52_
 	mov cx, 037h
 copy_segments:

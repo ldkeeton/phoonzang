@@ -6,7 +6,7 @@ import tempfile
 import unittest
 
 from lib.autogen import is_generated
-from lib.aztec import link, project
+from lib.aztec import link, linkorder, project
 from lib.compare import render
 from lib.sidecar.errors import SidecarError
 
@@ -62,6 +62,45 @@ class GenerateTest(unittest.TestCase):
                                     {'r.asm': '%include "r/b.asm"\n'})
         self.assertEqual(project.parse_makefile(out['makefile']),
                          [project.Target('r', 'r.exe', [], 'r.lnk', None)])
+
+
+class LinkOrderTest(unittest.TestCase):
+    #: DS: table 'TT', then 'abc' from c/one, 'de' from c/two, then a late table.
+    DSEG = b'\0\0TTabcdeZZ'
+    INFO = {'dseg': DSEG.hex(), 'guards': ['guard'],
+            'starts': {'table': 2, 'strings': 4, 'late': 9},
+            'sources': {'c/one': {'data': b'abc'.hex(), 'relocations': []},
+                        'c/two': {'data': b'de'.hex(), 'relocations': []}}}
+    LISTED = ['c/zero', 'c/one', 'c/two', 'b/data/guard', 'b/data/table',
+              'b/data/strings', 'b/data/late']
+
+    def test_no_owned_data_keeps_the_listing(self):
+        self.assertEqual(linkorder.arrange(['a', 'b/data/t', 'c'], None),
+                         ['a', 'b/data/t', 'c'])
+
+    def test_owned_dropped_tables_placed_extras_ahead_of_code(self):
+        self.assertEqual(
+            linkorder.arrange(self.LISTED, self.INFO,
+                              ['b/data/globals']),
+            ['b/data/globals', 'c/zero', 'b/data/table', 'c/one', 'c/two',
+             'b/data/late'])
+
+    def test_a_data_source_is_stepped_over(self):
+        dseg = b'ab\0\0' + bytes(4)
+        sources = {'c/one': {'data': b'ab'.hex(), 'relocations': []},
+                   'b/data/low': {'data': b'\0\0'.hex(), 'relocations': []},
+                   'c/zeros': {'data': bytes(4).hex(), 'relocations': []}}
+        self.assertEqual(
+            linkorder.source_spans(['c/one', 'c/zeros', 'b/data/low'], sources,
+                                   dseg, {'b/data/low': 2}),
+            {'c/one': (0, 2), 'c/zeros': (4, 8)})
+
+    def test_flags_go_on_the_ln_line(self):
+        binaries = {'r': {'type': 'mz', 'link': {'flags': ['+C', 'af00']}}}
+        out = project.project_files(binaries, None,
+                                    {'r.asm': '%include "r/b.asm"\n'})
+        self.assertEqual(project.parse_makefile(out['makefile']),
+                         [project.Target('r', 'r.exe', ['+C', 'af00'], 'r.lnk', None)])
 
 
 class MakefileTest(unittest.TestCase):

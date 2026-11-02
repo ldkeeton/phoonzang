@@ -822,4 +822,9 @@ def _data_sources(project, binary, out_dir, split_sources, segments=None,
         validate(segments, data, sources)
     except DataOwnerError as exc:
         raise SystemExit(f'error: {exc}') from exc
+    from lib.aztec.linkorder import record
+    from lib.cachedirs import labels_dir
+    from lib.link import write_export
+    write_export(os.path.join(labels_dir(project), f'{binary}_linkdata.json'),
+                 record(segments, data, sources, split_sources), once=True)
     return seeds

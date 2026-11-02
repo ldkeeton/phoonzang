@@ -58,9 +58,10 @@ def _validate_file_stems(block, where, kind):
 
     ``file`` names a grouped fragment's .asm (and its .c/.s) instead of its
     first *kind*'s name: it needs ``length`` on the same entry, is an
-    identifier, is no *kind* name of the block, and names one group only.
+    identifier, is no *kind* name of the block outside its own group, and names
+    one group only.
     """
-    names = {info['name'] for info in block.values()
+    names = {info['name']: key for key, info in block.items()
              if isinstance(info, dict) and 'name' in info}
     files = {}
     for key, info in block.items():
@@ -72,7 +73,8 @@ def _validate_file_stems(block, where, kind):
             raise SidecarError(f'{at}: expected an identifier')
         if 'length' not in info:
             raise SidecarError(f'{at}: needs "length" on the same entry')
-        if stem in names:
+        if stem in names and not (
+                0 <= int(names[stem], 16) - int(key, 16) < info['length']):
             raise SidecarError(f'{at}: {stem!r} is a {kind} name')
         if stem in files:
             raise SidecarError(f'{at}: {stem!r} is also [{files[stem]}].file')

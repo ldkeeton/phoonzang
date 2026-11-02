@@ -38,12 +38,15 @@ Module = namedtuple('Module', 'stem path kind')
 _RULE = re.compile(r'^([^\s:]+)\s*:\s*(.*)$')
 
 
-def project_files(binaries, host, files):
+def project_files(binaries, host, files, arrange=None):
     """``{relative path: text}`` of the project file for this build's *files*.
 
     *binaries* is the sidecar's ``{name: entry}`` and *host* the binary overlays
-    call into.  Each ``.lnk`` keeps the order of its binary's listing, which is
-    the original link's; the host links first, since overlays need its ``.rsm``.
+    call into.  Each ``.lnk`` keeps the order of its binary's listing, except as
+    *arrange* ``(name, modules)`` changes it (:mod:`lib.aztec.linkorder`), since
+    a listing has no module for what a C source emits itself.  A binary's
+    ``link.flags`` go on its ``ln`` line.  The host links first, since overlays
+    need its ``.rsm``.
     """
     order = sorted(binaries, key=lambda name: name != host)
     has_overlays = any(binaries[name].get('type') == 'aztec_overlay'
@@ -55,14 +58,18 @@ def project_files(binaries, host, files):
     for name in order:
         output, lnk = outputs[name], f'{name}.lnk'
         listed = dict.fromkeys(_INCLUDE.findall(files[f'{name}.asm']))
+        if arrange is not None:
+            listed = arrange(name, list(listed))
         out[lnk] = ''.join(f'{module}\n' for module in listed)
+        flags = ''.join(f'{flag} ' for flag in
+                        (binaries[name].get('link') or {}).get('flags', ()))
         if binaries[name].get('type') == 'aztec_overlay' and host:
             make += [f'{output}: {lnk} {host}.rsm',
-                     f'\tln -o {output} -f {lnk} {host}.rsm', '']
+                     f'\tln {flags}-o {output} -f {lnk} {host}.rsm', '']
         elif name == host and has_overlays:
-            make += [f'{output}: {lnk}', f'\tln -R -o {output} -f {lnk}', '']
+            make += [f'{output}: {lnk}', f'\tln -R {flags}-o {output} -f {lnk}', '']
         else:
-            make += [f'{output}: {lnk}', f'\tln -o {output} -f {lnk}', '']
+            make += [f'{output}: {lnk}', f'\tln {flags}-o {output} -f {lnk}', '']
     out[MAKEFILE] = '\n'.join(make).rstrip() + '\n'
     return {path: stamp(text, path) for path, text in out.items()}
 

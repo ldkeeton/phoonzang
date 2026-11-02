@@ -62,7 +62,7 @@ from lib.names import (
 from lib import symtab
 from lib.symtab import GENERIC, Kind, Source, Space, Symbol
 from lib.sidecar.bands import band_for
-from lib.sidecar.binary import function_key_base
+from lib.sidecar.binary import fragment_lengths, function_key_base
 from lib.sidecar.usage import SidecarUse
 from lib.aztec.libnames import library_public
 from lib.sidecar.patches import PatchError, normalize as normalize_patches
@@ -264,6 +264,10 @@ def _analyze(name, orig_dir, rel_path, start_offset, output_dir=None,
                 else:
                     # Only a start (``length``/``file``): any surface names it.
                     use.applied('function_names', hex_off)
+            elif ('length' in info and 'name' not in info
+                  and off in sidecar_entry.get('code_data_names', {})):
+                # Labelled below: categorizing keeps only code targets.
+                use.applied('function_names', hex_off)
             else:
                 use.skipped('function_names', hex_off,
                             f'file offset 0x{off:04x} is not a code target')
@@ -518,6 +522,12 @@ def _analyze(name, orig_dir, rel_path, start_offset, output_dir=None,
     stagelog.step('label.entry_symbol', 1, 'repair', repairs='label.entry_point',
         why='sidecar entry_symbol is authoritative', track={'label_map': label_map})
 
+    # A routine's fragment led by its own tables starts at their label, as
+    # ``.s`` source lays them out ahead of the code.
+    tables = (sidecar_entry or {}).get('code_data_names', {})
+    for off in fragment_lengths(sidecar_entry or {}, start_offset):
+        if off in tables and off not in label_map:
+            label_map[off] = _sidecar_routine(tables[off]['name'], off)
     ctx.label_map = label_map
 
     if _ITERATIVE:
@@ -952,7 +962,7 @@ def _render(a, exact_bytes, show_offsets, host_data_offsets,
             message_names = constant_names(messages, bases)
             message_bases = _message_bases(bases)
     entry = a.ctx.sidecar_entry or {}
-    from lib.sidecar.binary import fragment_files, fragment_lengths
+    from lib.sidecar.binary import fragment_files
     def checked_verify(*args, **kwargs):
         from lib.compare.cgate import CGateError
         try:

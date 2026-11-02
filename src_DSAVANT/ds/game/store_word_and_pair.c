@@ -7,8 +7,9 @@ struct char_pair {
 	char lo, hi;
 };
 
-extern struct word_rec saved_word;
-extern struct char_pair saved_pair;
+/* uninitialized data lays out in reverse: saved_word comes first */
+static struct char_pair saved_pair;
+static struct word_rec saved_word;
 
 int *
 store_word_and_pair(lo, hi, value)

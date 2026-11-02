@@ -21,6 +21,10 @@ class ValidateTest(unittest.TestCase):
         # The head's name may come from another surface (a dispatch table).
         _validate_function_names({'10': {'length': 4, 'file': 'call_group'}}, 'x')
 
+    def test_accepts_the_name_of_a_routine_inside_the_group(self):
+        _validate_function_names({'10': {'length': 16, 'file': 'call_b'},
+                                  '18': {'name': 'call_b'}}, 'x')
+
     def test_rejects(self):
         for block in (
                 {'10': {'name': 'call_a', 'file': 'call_group'}},

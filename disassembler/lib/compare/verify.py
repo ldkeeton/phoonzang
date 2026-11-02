@@ -426,6 +426,7 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
         label_map = {
             off: label for off, label in label_map.items()
             if not (0 <= off < total and hard_data[off])
+            or off in (fragment_lengths or ())
         }
     if code_targets:
         code_targets = {

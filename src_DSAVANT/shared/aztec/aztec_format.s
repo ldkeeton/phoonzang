@@ -37,8 +37,18 @@ ALTFORM	equ	10H
 CASEMAP	equ	20H
 
 CONVCOUNT equ 21
-	extrn aztec_format_conversions_:byte, aztec_format_conv_routines_:word
-	extrn aztec_format_digits_:byte, aztec_format_nofltmsg_:byte
+	public	aztec_format_conversions_, aztec_format_conv_routines_
+	public	aztec_format_digits_, aztec_format_nofltmsg_
+aztec_format_conversions_ db	"L"
+aztec_format_conv_index db	"lhFNoxXudiscpneEfgG%"
+aztec_format_conv_routines_ label word
+	dw	ldblopt,longopt,shortopt,FARopt,NEARopt
+	dw	octal,hex,upperhex,unsigned,decimal,decimal
+	dw	string,char,pointer,numchar
+	dw	fltformat,cap_fltformat,fltformat,fltformat,cap_fltformat
+	dw	default
+aztec_format_digits_ db	"0123456789abcdef"
+aztec_format_nofltmsg_ db	" -lm first",0
 conversions equ aztec_format_conversions_
 conv_routines equ aztec_format_conv_routines_
 digits equ aztec_format_digits_

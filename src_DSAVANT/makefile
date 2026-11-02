@@ -2,7 +2,7 @@
 all: ds.exe ega.com play.com vbase.ovr vdopt.ovr vga.com vinit.ovr vinstall.exe vmaze.ovr vmele.ovr vmexe.ovr vmext.ovr vmnpc.ovr vpclv.ovr vpcmk.ovr vpcvw.ovr vpops.ovr vtrea.ovr
 
 ds.exe: ds.lnk
-	ln -R -o ds.exe -f ds.lnk
+	ln -R +C af00 +D 2100 -o ds.exe -f ds.lnk
 
 ega.com: ega.lnk
 	ln -o ega.com -f ega.lnk

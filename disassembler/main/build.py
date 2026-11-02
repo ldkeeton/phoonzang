@@ -251,6 +251,28 @@ def _write_record_layouts(project, host, family, starts_path, report):
     return len(layouts)
 
 
+def _link_order(project, out_dir, files):
+    """The ``project_files`` hook that arranges one binary's modules."""
+    from lib.aztec.linkorder import arrange
+    from lib.link import read_export
+
+    def order(name, listed):
+        path = os.path.join(labels_dir(project), f'{name}_linkdata.json')
+        info = read_export(path) if os.path.exists(path) else None
+        folder = os.path.join(out_dir, name, 'data')
+        extras = []
+        if os.path.isdir(folder):
+            for fn in sorted(os.listdir(folder)):
+                stem, ext = os.path.splitext(fn)
+                module = f'{name}/data/{stem}'
+                if (ext in ('.s', '.c') and module not in listed
+                        and f'{module}.asm' not in files
+                        and hand_owned(os.path.join(folder, fn))):
+                    extras.append(module)
+        return arrange(listed, info, extras)
+    return order
+
+
 def _sync(out_dir, files, report, shared=None, source_moves=None):
     """Bring *out_dir* to this build's *files*: the tree is left alone until
     the layout is final, then only what changed is written or removed."""
@@ -469,7 +491,7 @@ def _build_project(project, run_batch, nasm_batch, *, report=print,
         files, shared = share_files(merge_files(emitted), out_dir)
         files.update(project_files(
             {name: load_sidecar(project)['binaries'].get(name, {}) for name in bins},
-            host, files))
+            host, files, _link_order(project, out_dir, files)))
         if shared:
             report(f'  Shared: {sum(len(v) for v in shared.values())} '
                    f'fragments -> {len(shared)} files in shared/')

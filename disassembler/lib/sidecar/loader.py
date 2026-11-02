@@ -112,6 +112,13 @@ def _validate(data):
                                       f'apis.{api_name}.dispatch_table')
         for b_name, b_info in data['binaries'].items():
             _validate_binary(b_name, b_info)
+            link = b_info.get('link', {})
+            if (not isinstance(link, dict) or set(link) - {'flags'}
+                    or not isinstance(link.get('flags', []), list)
+                    or not all(isinstance(f, str) and f
+                               for f in link.get('flags', []))):
+                raise SidecarError(f'binaries.{b_name}.link: expected an object '
+                                   'with a list of strings "flags"')
         for b_name, b_info in data['binaries'].items():
             api_ref = b_info.get('api')
             if api_ref is not None:

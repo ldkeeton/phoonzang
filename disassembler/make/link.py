@@ -63,6 +63,9 @@ def _check_image(project, tree, target, image, originals):
         if os.path.exists(path):
             os.remove(path)
         return f'  {name}: ln wrote no binary', False
+    # The sources keep the compiler's bytes; the shipped binary has the edits.
+    from main.build import _patches_for, finalize_patches
+    image = finalize_patches(image, _patches_for(tree, target.binary))
     os.makedirs(os.path.dirname(path), exist_ok=True)
     with open(path, 'wb') as f:
         f.write(image)

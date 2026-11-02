@@ -40,6 +40,7 @@ IMAGE_BASE equ 0x0200 + VBASE
 %endif
 
 bios_data_0410 equ 0x0410
+aztec_format_conversions equ 0x480d + VBASE
 psp_top_of_memory equ 0x0002
 tick_counter_ptr equ __ztick_counter_ptr - __zdseg_start
 dseg_001e equ __zdseg_001e - __zdseg_start
@@ -518,19 +519,7 @@ __zdseg_end equ (__zimage_end - __zdseg_start) + __zbss_size
 
 %include "ds/game/data_file_path.asm"      ; 0x23a8
 
-%include "ds/game/prompt_disk_swap.asm"    ; 0x23ef
-
-%include "ds/game/ensure_game_disk.asm"    ; 0x27e9
-
-%include "ds/game/load_monster_picture.asm" ; 0x2863
-
-%include "ds/game/wait_and_free_sound.asm" ; 0x290d
-
-%include "ds/game/load_sound_file.asm"     ; 0x2923
-
-%include "ds/game/ensure_sound_loaded.asm" ; 0x29f1
-
-%include "ds/game/load_score_files.asm"    ; 0x2a2e
+%include "ds/game/disk_and_file_loaders.asm" ; 0x23ef
 
 %include "ds/game/free_loaded_score.asm"   ; 0x2b4e
 
@@ -702,17 +691,7 @@ __zdseg_end equ (__zimage_end - __zdseg_start) + __zbss_size
 
 %include "shared/aztec/aztec_realloc.asm"      ; 0x467b
 
-%include "shared/data/aztec_format_conversions.asm" ; 0x480d
-
-%include "shared/data/aztec_format_conv_index.asm" ; 0x480e
-
-%include "shared/data/aztec_format_conv_routines.asm" ; 0x4822
-
-%include "shared/data/aztec_format_digits.asm" ; 0x484c
-
-%include "shared/data/aztec_format_nofltmsg.asm" ; 0x485c
-
-%include "shared/aztec/aztec_format.asm"       ; 0x4867
+%include "shared/aztec/aztec_format.asm"       ; 0x480d
 
 %include "shared/aztec/aztec_format_get_pointer.asm" ; 0x4aed
 

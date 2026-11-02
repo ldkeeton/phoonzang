@@ -3,7 +3,7 @@
 	include	lmacros.h
 	assume	cs:codeseg
 	extrn	key_queue_:word
-	extrn	drv_slot_wait_for_music_:dword
+	extrn	drv_slot_wait_for_music:dword
 	procdef	get_filtered_key,<<mode,word>>
 	cld
 	pushs	si,ds,es
@@ -74,7 +74,7 @@ drop_key:	;discard oldest: count--, shift the queue left one byte
 read_key:
 	xor	ax,ax
 	push	ax
-	call	dword ptr cs:drv_slot_wait_for_music_	;play driver wait hook, arg 0
+	call	dword ptr cs:drv_slot_wait_for_music	;play driver wait hook, arg 0
 	pop	ax
 	dos	7	; DOS 07h: unechoed key input, waits
 	mov	ah,0

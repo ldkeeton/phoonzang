@@ -408,18 +408,9 @@ current   equ __zbss_2536 - __zdseg_start
 first     equ __zbss_2538 - __zdseg_start
 %include "shared/aztec/aztec_realloc.asm"      ; 0x2eac
 
-%include "shared/data/aztec_format_conversions.asm" ; 0x303e
-
-%include "shared/data/aztec_format_conv_index.asm" ; 0x303f
-
-%include "shared/data/aztec_format_conv_routines.asm" ; 0x3053
-
-%include "shared/data/aztec_format_digits.asm" ; 0x307d
-
-; first equ __zbss_2538 - __zdseg_start
-%include "shared/data/aztec_format_nofltmsg.asm" ; 0x308d
-
-%include "shared/aztec/aztec_format.asm"       ; 0x3098
+aztec_format_conversions equ 0x303e + VBASE
+; first                    equ __zbss_2538 - __zdseg_start
+%include "shared/aztec/aztec_format.asm"       ; 0x303e
 
 %include "shared/aztec/aztec_format_get_pointer.asm" ; 0x331e
 
