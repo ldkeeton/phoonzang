@@ -345,19 +345,31 @@ def stems_for(project, binary):
 
     The ``file`` entry is keyed by address; its routine's name can come from
     any naming surface (a dispatch table), so it is read from the generated
-    ``<stem>.asm`` -- a fragment not built yet is left out."""
+    ``<stem>.asm`` -- a fragment not built yet is left out.  A fragment that
+    starts with a table is the exception: the table's label is an ``equ`` in
+    the root, so it comes from ``code_data_names``."""
     from lib.cachedirs import src_dir
+    from .loader import load
     stems = file_names(project, binary)
     out = {}
     if not stems:
         return out
-    for dirpath, _, files in os.walk(os.path.join(src_dir(project), binary)):
-        for f in files:
-            if f.endswith('.asm') and f[:-4] in stems:
-                with open(os.path.join(dirpath, f)) as fh:
-                    label = head_label(fh.read())
-                if label:
-                    out[label] = f[:-4]
+    entry = per_binary(load(project), binary) or {}
+    tables = entry.get('code_data_names') or {}
+    tabled = set()
+    for key, info in entry.get('function_names', {}).items():
+        if 'file' in info and 'name' not in info and int(key, 16) in tables:
+            out[tables[int(key, 16)]['name']] = info['file']
+            tabled.add(info['file'])
+    stems -= tabled
+    for home in (binary, 'shared'):
+        for dirpath, _, files in os.walk(os.path.join(src_dir(project), home)):
+            for f in files:
+                if f.endswith('.asm') and f[:-4] in stems:
+                    with open(os.path.join(dirpath, f)) as fh:
+                        label = head_label(fh.read())
+                    if label:
+                        out[label] = f[:-4]
     return out
 
 

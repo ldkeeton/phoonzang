@@ -5,7 +5,6 @@ aztec_format_conv_index:
     db 'lhFNoxXudiscpneEfgG%'
 
 aztec_format_conv_routines:
-aztec_format_conv_routines:
     dw aztec_format_conv_routines_case_0 - IMAGE_BASE
     dw aztec_format_conv_routines_case_1 - IMAGE_BASE
     dw aztec_format_conv_routines_case_2 - IMAGE_BASE

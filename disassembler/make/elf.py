@@ -348,7 +348,8 @@ def resplice_c(app, binary, check_only=False, only=None):
     shared_dir = os.path.join(out_dir, FOLDER)
     shared_home, shared_src = {}, {}
     for folder in shared_dirs(out_dir):
-        for label, name in routine_source.sources_in(folder).items():
+        for stem, name in routine_source.sources_in(folder).items():
+            label = label_of.get(stem, stem)
             shared_home.setdefault(label, folder)
             shared_src.setdefault(label, name)
     def has_own_asm(label):
@@ -368,7 +369,7 @@ def resplice_c(app, binary, check_only=False, only=None):
 
     def where(label, suffix):
         shared = os.path.join(shared_home.get(label, shared_dir),
-                              label + suffix)
+                              stem_of.get(label, label) + suffix)
         own = os.path.join(own_dir.get(label, dest),
                            stem_of.get(label, label) + suffix)
         if has_own_asm(label):

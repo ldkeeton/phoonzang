@@ -73,7 +73,7 @@ sample_step_imm_a        equ add_sample_step_a + 0x5
 
 ; sample_stream_offset     equ load_sample_stream + 0x1
 ; sample_stream_offset_alt equ load_sample_stream_alt + 0x1
-%include "play/unused_sample_tick_entry.asm" ; 0x0870
+%include "play/sample_fraction_tick.asm"   ; 0x0870
 
 ; saved_int08_offset  equ chain_saved_int08 + 0x1
 ; saved_int08_segment equ chain_saved_int08 + 0x3
@@ -89,7 +89,7 @@ sample_step_imm_a        equ add_sample_step_a + 0x5
 
 ; saved_int08_offset  equ chain_saved_int08 + 0x1
 ; saved_int08_segment equ chain_saved_int08 + 0x3
-%include "play/music_tick_exit.asm"        ; 0x0ad9
+%include "play/music_player_tick.asm"      ; 0x0ad9
 
 %include "play/device_load_patch.asm"      ; 0x1167
 

@@ -44,6 +44,13 @@ class HandOwnedCTest(unittest.TestCase):
         self.assertEqual(aztec._hand_shared_source_tree(self._dir.name), {
             'app_free': c_path})
 
+    def test_shared_source_named_by_sidecar_file_takes_its_head_label(self):
+        c_path = self._write(self.shared, 'aztec_ttyio', generated=False)
+        self.assertEqual(
+            aztec._hand_shared_source_tree(
+                self._dir.name, {'aztec_ttyio': 'aztec_impl_tty_rd'}),
+            {'aztec_impl_tty_rd': c_path})
+
     def test_hand_c_and_s_are_verification_only(self):
         from lib.aztec import cache
 

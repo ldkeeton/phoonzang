@@ -193,7 +193,7 @@ ln_com_jump                                ; 0x0000
 
 %include "ega/set_palette.asm"             ; 0x3244
 
-%include "ega/expand_transparent_px_to_planes.asm" ; 0x3245
+%include "ega/expand_pixel_to_planes.asm"  ; 0x3245
 
 %include "ega/data/pixel_plane_lookup.asm" ; 0x32b3
 
@@ -219,7 +219,7 @@ ln_com_jump                                ; 0x0000
 
 %include "shared/data/intensity_limits.asm"   ; 0x3fcd
 
-%include "shared/drv/cache_area_disk_error.asm"   ; 0x40cd
+%include "shared/drv/cache_area.asm"              ; 0x40cd
 
 %include "shared/drv/ems_map_pages.asm"           ; 0x4442
 

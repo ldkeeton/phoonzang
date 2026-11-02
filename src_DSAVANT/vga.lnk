@@ -77,7 +77,7 @@ shared/drv/check_frame_index
 shared/drv/set_text_bitmap_bits
 shared/drv/render_text_glyph_by_mode
 shared/data/intensity_limits
-shared/drv/cache_area_disk_error
+shared/drv/cache_area
 shared/drv/ems_map_pages
 shared/drv/restore_screen
 shared/drv/copy_file_region

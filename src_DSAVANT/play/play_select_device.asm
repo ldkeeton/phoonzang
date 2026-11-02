@@ -92,7 +92,6 @@ play_set_device:
     xor bh, bh                       ; 0x0357
     jmp [cs:bx + play_device_setup_dispatch_tbl - IMAGE_BASE] ; 0x0359
 play_device_setup_dispatch_tbl:
-play_device_setup_dispatch_tbl:
     dw play_set_device_return - IMAGE_BASE     ; 0x035e
     dw play_device_setup_opl_pulse - IMAGE_BASE ; 0x0360
     dw play_device_setup_port_case - IMAGE_BASE ; 0x0362

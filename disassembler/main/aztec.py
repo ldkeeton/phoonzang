@@ -47,11 +47,12 @@ def _aztec_c_overrides(project, name, data, label_map, out_dir,
     from lib.sidecar.loader import load as load_sidecar
     from lib.sidecar.binary import per_binary, fragment_files
     entry = per_binary(load_sidecar(project) or {}, name)
-    found_local = _hand_source_tree(dest, bands, {
+    file_labels = {
         stem: str(label_map[start])
         for start, stem in fragment_files(entry, start_offset).items()
-        if start in label_map})
-    found_shared = _hand_shared_source_tree(out_dir)
+        if start in label_map}
+    found_local = _hand_source_tree(dest, bands, file_labels)
+    found_shared = _hand_shared_source_tree(out_dir, file_labels)
     found_c = {label: path for label, path in found_local.items()
                if path.endswith('.c')}
     found_shared_c = {label: path for label, path in found_shared.items()
@@ -502,13 +503,16 @@ def _name_c_callees(project, binary, data, entries, label_map,
         taken.add(new)
 
 
-def _hand_shared_source_tree(out_dir):
-    """Hand-owned shared C/assembly sources, keyed by routine label."""
+def _hand_shared_source_tree(out_dir, labels=None):
+    """Hand-owned shared C/assembly sources, keyed by routine label; *labels*
+    as for :func:`_hand_source_tree`."""
+    labels = labels or {}
     found = {}
     for folder in shared_dirs(out_dir):
-        for label, filename in routine_source.sources_in(
+        for stem, filename in routine_source.sources_in(
                 folder, hand_owned).items():
-            found.setdefault(label, os.path.join(folder, filename))
+            found.setdefault(labels.get(stem, stem),
+                             os.path.join(folder, filename))
     return found
 
 

@@ -239,7 +239,9 @@ def _render_records(records, binary_data, show_offsets=True, gap=None,
                 out.append(f'    {text}')
 
         elif rec['type'] == 'jump_table':
-            out.append(f'{rec["label"]}:')
+            # A sidecar name on the table is also a label record at its start.
+            if not out or out[-1] != f'{rec["label"]}:':
+                out.append(f'{rec["label"]}:')
             adjust = rec.get('adjust', 0)
             keys = rec.get('keys', 0)
             addr = rec['start']

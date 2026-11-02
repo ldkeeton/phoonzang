@@ -90,7 +90,7 @@ ega/fade_in
 ega/fade_out
 ega/reset_rgb
 ega/set_palette
-ega/expand_transparent_px_to_planes
+ega/expand_pixel_to_planes
 ega/data/pixel_plane_lookup
 shared/drv/get_free_space
 shared/drv/mouse_glide_to
@@ -103,7 +103,7 @@ shared/drv/check_frame_index
 shared/drv/set_text_bitmap_bits
 shared/drv/render_text_glyph_by_mode
 shared/data/intensity_limits
-shared/drv/cache_area_disk_error
+shared/drv/cache_area
 shared/drv/ems_map_pages
 shared/drv/restore_screen
 shared/drv/copy_file_region

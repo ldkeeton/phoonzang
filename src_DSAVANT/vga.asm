@@ -165,7 +165,7 @@ ln_com_jump                                ; 0x0000
 
 %include "shared/data/intensity_limits.asm"   ; 0x371b
 
-%include "shared/drv/cache_area_disk_error.asm"   ; 0x381b
+%include "shared/drv/cache_area.asm"              ; 0x381b
 
 %include "shared/drv/ems_map_pages.asm"           ; 0x3b90
 

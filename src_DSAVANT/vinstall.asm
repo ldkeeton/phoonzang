@@ -406,7 +406,7 @@ endmarker equ __zendmarker - __zdseg_start
 keep      equ __zbss_2534 - __zdseg_start
 current   equ __zbss_2536 - __zdseg_start
 first     equ __zbss_2538 - __zdseg_start
-%include "shared/aztec/aztec_realloc.asm"      ; 0x2eac
+%include "shared/aztec/aztec_malloc.asm"       ; 0x2eac
 
 aztec_format_conversions equ 0x303e + VBASE
 ; first                    equ __zbss_2538 - __zdseg_start
@@ -418,9 +418,9 @@ aztec_format_conversions equ 0x303e + VBASE
 
 ; errno  equ __zerrno - __zdseg_start
 _ioflg equ __z_ioflg - __zdseg_start
-%include "shared/aztec/aztec_creat.asm"        ; 0x336a
+%include "shared/aztec/aztec_open.asm"         ; 0x336a
 
-%include "shared/aztec/aztec_ldv.asm"          ; 0x3417
+%include "shared/aztec/aztec_lsubs.asm"        ; 0x3417
 
 %include "shared/ovr/aztec_strcmp.asm"       ; 0x3508
 
@@ -460,7 +460,7 @@ ioflg_stdout              equ __zioflg_stdout - __zdseg_start
 ioflg_stderr              equ __zioflg_stderr - __zdseg_start
 Argc                      equ __zbss_253a - __zdseg_start
 Argv                      equ __zbss_253c - __zdseg_start
-%include "shared/aztec/aztec_noper.asm"        ; 0x373b
+%include "shared/aztec/aztec_Croot.asm"        ; 0x373b
 
 %include "shared/aztec/aztec_fltinit.asm"      ; 0x381d
 
@@ -468,7 +468,7 @@ Argv                      equ __zbss_253c - __zdseg_start
 ; _ioflg equ __z_ioflg - __zdseg_start
 _ttrd  equ __z_ttrd - __zdseg_start
 _ttwr  equ __z_ttwr - __zdseg_start
-%include "shared/aztec/aztec_impl_read.asm"    ; 0x381f
+%include "shared/aztec/aztec_io.asm"           ; 0x381f
 
 _Eol                equ __z_Eol - __zdseg_start
 aztec_tty_wr_crbuf  equ __zaztec_tty_wr_crbuf - __zdseg_start
@@ -476,7 +476,7 @@ aztec_tty_wr_crbuf  equ __zaztec_tty_wr_crbuf - __zdseg_start
 aztec_tty_rd_buffer equ __zbss_253e - __zdseg_start
 aztec_tty_rd_bp     equ __zbss_2642 - __zdseg_start
 _TTrem              equ __zbss_2afc - __zdseg_start
-%include "shared/aztec/aztec_impl_tty_rd.asm"  ; 0x38d9
+%include "shared/aztec/aztec_ttyio.asm"        ; 0x38d9
 
 %include "shared/aztec/aztec_movmem.asm"       ; 0x39a0
 

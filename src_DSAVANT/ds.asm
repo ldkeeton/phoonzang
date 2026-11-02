@@ -689,7 +689,7 @@ __zdseg_end equ (__zimage_end - __zdseg_start) + __zbss_size
 
 %include "ds/aztec/aztec_csav.asm"         ; 0x4652
 
-%include "shared/aztec/aztec_realloc.asm"      ; 0x467b
+%include "shared/aztec/aztec_malloc.asm"       ; 0x467b
 
 %include "shared/aztec/aztec_format.asm"       ; 0x480d
 
@@ -697,9 +697,9 @@ __zdseg_end equ (__zimage_end - __zdseg_start) + __zbss_size
 
 %include "shared/aztec/aztec_format_do_width.asm" ; 0x4b07
 
-%include "shared/aztec/aztec_creat.asm"        ; 0x4b39
+%include "shared/aztec/aztec_open.asm"         ; 0x4b39
 
-%include "shared/aztec/aztec_ldv.asm"          ; 0x4be6
+%include "shared/aztec/aztec_lsubs.asm"        ; 0x4be6
 
 %include "shared/aztec/aztec_strlen.asm"       ; 0x4cd7
 
@@ -711,15 +711,15 @@ __zdseg_end equ (__zimage_end - __zdseg_start) + __zbss_size
 
 %include "shared/aztec/aztec_begin.asm"        ; 0x4d3a
 
-%include "shared/aztec/aztec_noper.asm"        ; 0x4ea3
+%include "shared/aztec/aztec_Croot.asm"        ; 0x4ea3
 
 %include "shared/aztec/aztec_fltinit.asm"      ; 0x4f85
 
 %include "ds/aztec/aztec_impl_stkover.asm" ; 0x4f87
 
-%include "shared/aztec/aztec_impl_read.asm"    ; 0x4fa2
+%include "shared/aztec/aztec_io.asm"           ; 0x4fa2
 
-%include "shared/aztec/aztec_impl_tty_rd.asm"  ; 0x505c
+%include "shared/aztec/aztec_ttyio.asm"        ; 0x505c
 
 %include "shared/aztec/aztec_movmem.asm"       ; 0x5123
 

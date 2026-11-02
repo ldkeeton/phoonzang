@@ -23,13 +23,13 @@ play/sample_fraction_interrupt
 play/data/sample_handler_gap
 play/data/sample_position
 play/data/sample_limit
-play/unused_sample_tick_entry
+play/sample_fraction_tick
 play/sound_stop_and_restore_timer
 play/set_int08_vector
 play/speaker_sample_interrupt
 play/mark_sample_idle
 play/data/play_state
-play/music_tick_exit
+play/music_player_tick
 play/device_load_patch
 play/device_nop
 play/device_note_on
