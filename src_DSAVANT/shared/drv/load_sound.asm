@@ -151,6 +151,6 @@ load_sound.forward5:
     mov ax, word [cs:bx]
     add ax, word [cs:maze_mem_seg - IMAGE_BASE]
     mov es, ax
-    call string_loc_RQON
+    call expand_compressed_string
     xor ax, ax
     jmp near load_sound.back1

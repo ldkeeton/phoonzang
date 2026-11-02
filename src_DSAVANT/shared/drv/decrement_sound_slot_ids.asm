@@ -1,5 +1,5 @@
 ; auto-generated
-leaf_loc_JRKU:
+decrement_sound_slot_ids:
     push ax
     mov bx, sound_slots - IMAGE_BASE
     mov cx, 0x14

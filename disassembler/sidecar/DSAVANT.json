@@ -2883,10 +2883,14 @@
       "fingerprint-end": "7f2b38f34f19a1344d7654e39b636dc35eca7916d4861533a83a4d3ba105e524"
     },
     "vga": {
+      "data_names": {
+      },
       "function_names": {
         "0003": {"name": "driver_slot_0", "length": 222, "file": "driver_dispatch", "note": "owns the 55-entry dispatch table DS far-calls: each slot is a near call of its handler, then retf"},
+        "08d2": {"note": "Copies screen data into the screen buffer from maze storage, EMS pages, or a file"},
         "0e34": {"name": "decrement_cached_slot_ids", "note": "decrements larger slot indices in the EMS, maze and screen tables"},
         "0e71": {"name": "release_and_compact_ems_blocks", "note": "releases one EMS block entry and compacts the remaining blocks"},
+        "0f3b": {"name": "map_compaction_pages", "note": "maps EMS source and destination pages during block compaction"},
         "1e35": {"name": "draw_mouse_cursor_image", "note": "Draw and restore the mouse pointer image and its background"},
         "28f0": {"length": 262, "note": "fade palette toward requested RGB values"},
         "29bf": {"name": "fade_out_no_memory_exit", "note": "prints the FADE_OUT allocation failure and exits to DOS with status 1; public tail in fade_out.s"},
@@ -2894,7 +2898,9 @@
         "12c9": {"name": "update_mouse_pointer", "note": "polls INT 33h/3 and redraws the pointer if it moved since last drawn, unless mouse_glide_active or no mouse; clears mouse_redraw_pending"},
         "1e1a": {"name": "draw_mouse_pointer_at", "note": "far-returning entry: unless already busy, sets its busy flag, stores the pointer position (cx/2, dx) and falls into the adapter pointer drawer"},
         "2a97": {"name": "reset_rgb_no_memory", "note": "Print the RESET_RGB allocation failure and exit with status 1"},
+        "2cbe": {"note": "Clears an occupied screen-maze slot and decrements the allocated block count"},
         "3131": {"name": "check_frame_index", "length": 110, "note": "checks frame index and reports overflow"},
+        "319f": {"name": "set_text_bitmap_bits", "note": "Set bits in a packed text bitmap row"},
         "31d9": {"name": "render_text_glyph_by_mode", "length": 1346, "note": "renders the selected text glyph through the dispatcher, mask helpers, and one of three mode paths"},
         "3156": {"name": "frame_too_big_exit", "note": "prints the frame and slot error and exits to DOS"},
         "3188": {"name": "table_entry_ptr", "note": "points ds:bx at entry al of the 4-byte offset/paragraph table at ds:2"},
@@ -2924,7 +2930,17 @@
         "077a": {"length": 188, "note": "owns the SAVEAREA implementation, allocation-failure exit and message, unused clear-result tail, and stack epilogue; retains named internal entries"},
         "07fd": {"name": "save_area_out_of_memory", "note": "prints SAVEAREA out of memory and exits"},
         "082a": {"name": "save_area_clear_result", "note": "zeroes dx:ax and falls into the save_area epilogue"},
-        "082e": {"name": "area_restore_and_return", "note": "internal save_area epilogue: pops saved si/di/ds/es, restores frame, returns; restore_area has its own epilogue"}
+        "082e": {"name": "area_restore_and_return", "note": "internal save_area epilogue: pops saved si/di/ds/es, restores frame, returns; restore_area has its own epilogue"},
+        "4300": {"name": "expand_compressed_string", "note": "'Expand compressed string bytes into the output buffer.'"},
+        "4319": {"name": "decode_compressed_string_byte", "note": "Decode a byte from the buffered bit-tree string stream."},
+        "43e1": {"name": "renumber_and_release_block", "note": "decrements every slot table's IDs above the removed block, then releases the MAZE block; shared by the free_* routines"},
+        "43f7": {"name": "decrement_maze_map_slot_ids", "note": "decrements maze-map slot IDs above a removed resource ID"},
+        "440c": {"name": "decrement_picture_slot_ids", "note": "decrements picture slot IDs greater than a removed slot ID"},
+        "4421": {"name": "decrement_maze_slot_ids", "note": "Decrement maze-slot IDs above a released ID"},
+        "4436": {"name": "decrement_screen_slot_ids", "note": "decrements screen MAZE slot IDs above a released slot"},
+        "444b": {"name": "decrement_sound_slot_ids", "note": "decrements sound-slot IDs above a removed slot"},
+        "4461": {"name": "decrement_score_slot_values", "note": "Decrements higher score-slot entries and reports each changed slot."},
+        "44a3": {"name": "release_maze_block", "note": "Removes a MAZE block and compacts following blocks"}
       },
       "force_code": [
         {"start": "3ae2", "end": "3ae5", "note": "xor dx,dx / mov ax,dx tail that falls into the cache_area epilogue; no caller"},
@@ -2934,6 +2950,7 @@
         {"start": "082a", "end": "082d", "note": "xor dx,dx / mov ax,dx tail that falls into the save_area epilogue; no caller"}
       ],
       "code_data_names": {
+        "0101": {"name": "ems_mapping_handle", "note": "EMS handle used to map logical pages into frame pages"},
         "0105": {"name": "mouse_init_enabled", "note": "Nonzero enables mouse initialization"},
         "0191": {"name": "secondary_text_color", "note": "second text color word stored by set_text_color"},
         "0193": {"name": "primary_text_color", "note": "first text color word stored by set_text_color"},
@@ -2972,6 +2989,9 @@
         "0ada": {"name": "maze_blocks", "note": "MAZE block table, 4 bytes per id: start paragraph, paragraph count"},
         "0baa": {"name": "maze_block_count", "note": "last MAZE block id handed out"},
         "0bac": {"name": "maze_paras_used", "note": "MAZE memory paragraphs allocated so far"},
+        "0d10": {"name": "maze_bad_slot_message", "note": "DOS message for an invalid maze slot"},
+        "0d3c": {"name": "maze_full_slot_message", "note": "DOS message for an already filled maze slot"},
+        "0d6b": {"name": "maze_memory_limit_message", "note": "DOS message for the maze memory limit"},
         "0e6d": {"name": "ems_compact_source_page", "note": "EMS logical page holding the source of the current compaction copy"},
         "0e6f": {"name": "ems_compact_dest_page", "note": "EMS logical page holding the destination of the current compaction copy"},
         "14ac": {"name": "mouse_drawn_x", "length": 4, "file": "drv_mouse_position", "note": "pointer X (INT 33h column / 2) last drawn; compared to skip redundant redraws"},
@@ -3064,6 +3084,7 @@
       "code_data_names": {
         "00fb": {"name": "delay_hook", "note": "far pointer to the inter-pass delay hook"},
         "00f7": {"name": "palette_ptr", "note": "far pointer to the palette"},
+        "0101": {"name": "ems_mapping_handle", "note": "EMS handle used to map logical pages into frame pages"},
         "0105": {"name": "mouse_init_enabled", "note": "Nonzero enables mouse initialization"},
         "0191": {"name": "secondary_text_color", "note": "second text color word stored by set_text_color"},
         "0193": {"name": "primary_text_color", "note": "first text color word stored by set_text_color"},
@@ -3100,6 +3121,9 @@
         "0ffb": {"name": "maze_blocks", "note": "MAZE block table, 4 bytes per id: start paragraph, paragraph count"},
         "10cb": {"name": "maze_block_count", "note": "last MAZE block id handed out"},
         "10cd": {"name": "maze_paras_used", "note": "MAZE memory paragraphs allocated so far"},
+        "1231": {"name": "maze_bad_slot_message", "note": "DOS message for an invalid maze slot"},
+        "125d": {"name": "maze_full_slot_message", "note": "DOS message for an already filled maze slot"},
+        "128c": {"name": "maze_memory_limit_message", "note": "DOS message for the maze memory limit"},
         "138e": {"name": "ems_compact_source_page", "note": "EMS logical page holding the source of the current compaction copy"},
         "1390": {"name": "ems_compact_dest_page", "note": "EMS logical page holding the destination of the current compaction copy"},
         "1aaf": {"name": "mouse_pointer_size_message", "note": "DOS message printed before exiting when set_mouse_pointer is given an oversized pointer"},
@@ -3170,6 +3194,8 @@
         "0003": {"name": "driver_slot_0", "length": 222, "file": "driver_dispatch", "note": "owns the 55-entry dispatch table DS far-calls: each slot is a near call of its handler, then retf"},
         "0949": {"name": "refresh_mouse_overlay", "note": "updates the covered background and redraws the mouse cursor"},
         "0b91": {"name": "restore_mouse_background", "note": "copies saved background rows into the screen buffer"},
+        "0df3": {"note": "Copies screen data into the screen buffer from maze storage, EMS pages, or a file"},
+        "145c": {"name": "map_compaction_pages", "note": "maps EMS source and destination pages during block compaction"},
         "17a1": {"name": "expand_cursor_bitmap_planes", "note": "expands cursor bitmap pixels into planar cursor buffers"},
         "189f": {"name": "restore_cursor_background_plane", "note": "copies saved background rows from si to the drawn cursor position in video memory on the selected plane"},
         "2a6a": {"name": "update_mouse_cursor", "note": "restores the old cursor, saves the new background, and redraws it"},
@@ -3180,6 +3206,7 @@
         "3245": {"name": "expand_transparent_px_to_planes", "length": 110, "note": "owns 0x3245-0x32b2, including the opaque call entry and shared expansion body; AL=0xff returns zero planes and mask, otherwise branches to 0x3253 with BX already saved"},
         "3252": {"name": "expand_pixel_to_planes", "note": "call entry used by refresh_mouse_overlay; saves BX and falls into the shared expansion body, translating AL through CS:BX and shifting the four plane pairs by AH"},
         "3253": {"name": "expand_pixel_to_planes_body", "note": "shared instruction entry with BX already saved by either 0x3245 or 0x3252; restores BX and returns at 0x32b2"},
+        "3570": {"note": "Clears an occupied screen-maze slot and decrements the allocated block count"},
         "3a08": {"name": "frame_too_big_exit", "note": "prints the frame and slot error and exits to DOS"},
         "1900": {"name": "request_mouse_redraw", "note": "sets mouse_redraw_pending when a mouse is present"},
         "0496": {"note": "fills the 64000-byte screen buffer at screen_buf_seg with one byte"},
@@ -3189,6 +3216,7 @@
         "2a4f": {"name": "draw_mouse_pointer_at", "note": "far-returning entry: unless already busy, sets its busy flag, stores the pointer position (cx/2, dx) and falls into the adapter pointer drawer"},
         "39e3": {"name": "check_frame_index", "length": 110, "note": "checks frame index and reports overflow"},
         "3a3a": {"name": "table_entry_ptr", "note": "internal entry in check_frame_index: resolves an entry in the 4-byte offset/paragraph table at ds:2 and returns ds:bx"},
+        "3a51": {"name": "set_text_bitmap_bits", "note": "Set bits in a packed text bitmap row"},
         "3a8b": {"name": "render_text_glyph_by_mode", "length": 1346, "note": "renders the selected text glyph through the dispatcher, mask helpers, and one of three mode paths"},
         "40cd": {"name": "cache_area_disk_error", "length": 885, "note": "owns the contiguous CACHEAREA code block: disk error, cache_area, return paths, and allocation errors"},
         "4624": {"length": 513, "note": "owns the contiguous CACHEMAZE code block, including shared return paths and slot/EMS errors"},
@@ -3214,7 +3242,17 @@
         "0c9b": {"length": 188, "note": "owns the SAVEAREA implementation, allocation-failure exit and message, unused clear-result tail, and stack epilogue; retains named internal entries"},
         "0d1e": {"name": "save_area_out_of_memory", "note": "prints SAVEAREA out of memory and exits"},
         "0d4b": {"name": "save_area_clear_result", "note": "zeroes dx:ax and falls into the save_area epilogue"},
-        "0d4f": {"name": "area_restore_and_return", "note": "internal save_area epilogue: pops saved si/di/ds/es, restores frame, returns; restore_area has its own epilogue"}
+        "0d4f": {"name": "area_restore_and_return", "note": "internal save_area epilogue: pops saved si/di/ds/es, restores frame, returns; restore_area has its own epilogue"},
+        "4bb2": {"name": "expand_compressed_string", "note": "'Expand compressed string bytes into the output buffer.'"},
+        "4bcb": {"name": "decode_compressed_string_byte", "note": "Decode a byte from the buffered bit-tree string stream."},
+        "4c93": {"name": "renumber_and_release_block", "note": "decrements every slot table's IDs above the removed block, then releases the MAZE block; shared by the free_* routines"},
+        "4ca9": {"name": "decrement_maze_map_slot_ids", "note": "decrements maze-map slot IDs above a removed resource ID"},
+        "4cbe": {"name": "decrement_picture_slot_ids", "note": "decrements picture slot IDs greater than a removed slot ID"},
+        "4cd3": {"name": "decrement_maze_slot_ids", "note": "Decrement maze-slot IDs above a released ID"},
+        "4ce8": {"name": "decrement_screen_slot_ids", "note": "decrements screen MAZE slot IDs above a released slot"},
+        "4cfd": {"name": "decrement_sound_slot_ids", "note": "decrements sound-slot IDs above a removed slot"},
+        "4d13": {"name": "decrement_score_slot_values", "note": "Decrements higher score-slot entries and reports each changed slot."},
+        "4d55": {"name": "release_maze_block", "note": "Removes a MAZE block and compacts following blocks"}
       },
       "force_code": [
         {"start": "4394", "end": "4397", "note": "xor dx,dx / mov ax,dx tail that falls into the cache_area epilogue; no caller"},

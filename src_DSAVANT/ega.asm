@@ -83,7 +83,7 @@ ln_com_jump                                ; 0x0000
 
 %include "shared/drv/release_and_compact_ems_blocks.asm" ; 0x1392
 
-%include "shared/drv/leaf_loc_TPOL.asm"           ; 0x145c
+%include "shared/drv/map_compaction_pages.asm"    ; 0x145c
 
 %include "shared/drv/free_maze.asm"               ; 0x1490
 
@@ -213,7 +213,7 @@ ln_com_jump                                ; 0x0000
 
 %include "shared/drv/check_frame_index.asm"       ; 0x39e3
 
-%include "shared/drv/leaf_loc_NOSG.asm"           ; 0x3a51
+%include "shared/drv/set_text_bitmap_bits.asm"    ; 0x3a51
 
 %include "shared/drv/render_text_glyph_by_mode.asm" ; 0x3a8b
 
@@ -235,25 +235,28 @@ ln_com_jump                                ; 0x0000
 
 %include "shared/drv/load_sound.asm"              ; 0x4a08
 
-%include "shared/drv/string_loc_RQON.asm"         ; 0x4bb2
+%include "shared/drv/expand_compressed_string.asm" ; 0x4bb2
 
-%include "shared/drv/dos_file_loc_VPIN.asm"       ; 0x4bcb
+dseg_0400 equ 0x0400
+%include "shared/drv/decode_compressed_string_byte.asm" ; 0x4bcb
 
 %include "shared/drv/free_sound.asm"              ; 0x4c4c
 
-%include "shared/drv/leaf_loc_OSUJ.asm"           ; 0x4ca9
+%include "shared/drv/renumber_and_release_block.asm" ; 0x4c93
 
-%include "shared/drv/leaf_loc_IHJG.asm"           ; 0x4cbe
+%include "shared/drv/decrement_maze_map_slot_ids.asm" ; 0x4ca9
 
-%include "shared/drv/leaf_loc_MGRH.asm"           ; 0x4cd3
+%include "shared/drv/decrement_picture_slot_ids.asm" ; 0x4cbe
 
-%include "shared/drv/leaf_loc_USQQ.asm"           ; 0x4ce8
+%include "shared/drv/decrement_maze_slot_ids.asm" ; 0x4cd3
 
-%include "shared/drv/leaf_loc_JRKU.asm"           ; 0x4cfd
+%include "shared/drv/decrement_screen_slot_ids.asm" ; 0x4ce8
 
-%include "shared/drv/dos_con_loc_GJMS.asm"        ; 0x4d13
+%include "shared/drv/decrement_sound_slot_ids.asm" ; 0x4cfd
 
-%include "shared/drv/leaf_loc_SSGH.asm"           ; 0x4d55
+%include "shared/drv/decrement_score_slot_values.asm" ; 0x4d13
+
+%include "shared/drv/release_maze_block.asm"      ; 0x4d55
 
 %include "shared/drv/play_sound.asm"              ; 0x4dd9
 

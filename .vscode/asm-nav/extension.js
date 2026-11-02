@@ -534,11 +534,15 @@ const AGENTS = {
 };
 
 // Everything both agents share: resolve the routine, confirm a redo, work out the
-// sidecar key and compiler flags, and build the prompt.  Null when there is
-// nothing to do (bad selection, or the user backed out).  In a batch nothing pops
-// up: the reason comes back as { skip } and a routine with source is just skipped.
+// compiler flags, and build the prompt.  Null when the user backed out or the file
+// cannot be processed.  A batch never prompts: selecting a file with source is the
+// request to redo it, and an unprocessable file throws, stopping the whole batch.
+// A routine with no sidecar entry is not a failure; the agent adds the entry.
 async function prepareMakeC(uri, label, batch) {
-    const fail = (msg) => batch ? { skip: msg } : vscode.window.showErrorMessage(msg);
+    const fail = (msg) => {
+        if (batch) throw new Error(msg);
+        return vscode.window.showErrorMessage(msg);
+    };
     uri = uri || (vscode.window.activeTextEditor && vscode.window.activeTextEditor.document.uri);
     const where = uri && locate(uri.fsPath);
     if (!where) return fail('open a routine .asm under src_<PROJECT>/<binary>/');
@@ -548,28 +552,24 @@ async function prepareMakeC(uri, label, batch) {
     const sFile = path.join(dir, `${where.label}.s`);
     if (!fs.existsSync(asmFile)) return fail(`no ${path.basename(asmFile)} (renamed by an earlier routine?)`);
     const existing = [cFile, sFile].find((f) => fs.existsSync(f));
-    if (existing && batch) return { skip: `${path.basename(existing)} exists` };
-    if (existing) {
+    if (existing && !batch) {
         const pick = await vscode.window.showWarningMessage(
             `${path.basename(existing)} exists. Have ${label} redo it?`, { modal: true }, 'Redo');
         if (pick !== 'Redo') return;
     }
     const rel = (f) => path.relative(root(), f);
 
-    // Renaming goes through the sidecar, as nameRoutine does; the key is resolved here
-    // so the agent never has to work it out.
-    const shared = where.binary === SHARED_DIR;
-    let key, sharedHit;
-    if (shared) {
-        sharedHit = sharedEntry(where);
-        key = sharedHit && sharedHit.key;
+    // The routine's sidecar entry, if it has one yet; only its note is read here.
+    let entry;
+    if (where.binary === SHARED_DIR) {
+        const sharedHit = sharedEntry(where);
+        entry = sharedHit && sharedHit.entry;
     } else {
         const asmText = fs.readFileSync(asmFile, 'utf8');
         const row = asmText.split('\n').findIndex((l) => l.startsWith(`${where.label}:`));
         const addr = row < 0 ? null : routineStart(asmText, row);
-        key = addr === null ? null : sidecarName(where, addr).key;
+        entry = addr === null ? null : sidecarName(where, addr).entry;
     }
-    if (!key) return fail(`no sidecar key for ${where.label}`);
 
     const sidecar = readJson(sidecarPath(where.project)) || {};
     // A binary's own ``compiler_flags`` (``default``/``prefixes``) override the project's.
@@ -579,9 +579,7 @@ async function prepareMakeC(uri, label, batch) {
         default: ownFlags.default || projectFlags.default,
         prefixes: { ...(projectFlags.prefixes || {}), ...(ownFlags.prefixes || {}) },
     };
-    const own = (sidecar.binaries || {})[where.binary];
     // A sidecar note saying "hand-written" settles the form; a sibling .s shows the style.
-    const entry = shared ? sharedHit.entry : ((own || {}).function_names || {})[key];
     const handWritten = /^hand-written/.test((entry || {}).note || '');
     // The newest sibling .s/.c shows the current house style the new file should follow.
     const newest = (ext) => fs.readdirSync(dir).filter((f) => f.endsWith(ext))
@@ -682,15 +680,8 @@ async function makeCBatch(kind, uris) {
         const childPrompts = [];
         for (const uri of uris) {
             const job = await prepareMakeC(uri, agent.label, true);
-            const task = {
-                file: path.relative(root(), uri.fsPath),
-            };
-            if (job && !job.skip) {
-                childPrompts.push({ index: tasks.length + 1, text: agent.prompt(job) });
-            } else {
-                task.skip = (job && job.skip) || 'nothing to do';
-            }
-            tasks.push(task);
+            tasks.push({ file: path.relative(root(), uri.fsPath) });
+            childPrompts.push({ index: tasks.length, text: agent.prompt(job) });
         }
         const template = fs.readFileSync(path.join(__dirname, 'prompt-multi.txt'), 'utf8');
         // Keep the large task list off the command line: Linux limits each

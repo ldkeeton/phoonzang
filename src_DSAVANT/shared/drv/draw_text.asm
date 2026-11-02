@@ -102,7 +102,7 @@ draw_text:
     dec si
     mov word [bp - 0x30], ax
     mov word [bp - 0x32], cx
-    call leaf_loc_NOSG
+    call set_text_bitmap_bits
 .forward4:
     mov ax, word [bp - 4]
     mov cl, 3
@@ -131,7 +131,7 @@ draw_text:
     dec si
     mov word [bp - 0x30], ax
     mov word [bp - 0x32], cx
-    call leaf_loc_NOSG
+    call set_text_bitmap_bits
 .forward6:
     mov bx, word [bp - 0x3a]
     mov ax, word [bp - 0x38]

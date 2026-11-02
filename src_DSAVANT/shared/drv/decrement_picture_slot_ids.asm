@@ -1,5 +1,5 @@
 ; auto-generated
-leaf_loc_IHJG:
+decrement_picture_slot_ids:
     push ax
     mov bx, picture_slots - IMAGE_BASE
     mov cx, 0x14

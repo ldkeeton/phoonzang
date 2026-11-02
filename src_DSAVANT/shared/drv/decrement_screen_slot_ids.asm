@@ -1,5 +1,5 @@
 ; auto-generated
-leaf_loc_USQQ:
+decrement_screen_slot_ids:
     push ax
     mov bx, screen_maze_slots - IMAGE_BASE
     mov cx, 5

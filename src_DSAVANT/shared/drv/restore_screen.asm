@@ -79,7 +79,7 @@ restore_screen:
     mov ax, word [cs:bx]
     mov word [cs:bx], 0
     dec word [cs:maze_block_count - IMAGE_BASE]
-    call loc_PPJL
+    call renumber_and_release_block
 .forward3:
     jmp near .forward6
 .forward4:

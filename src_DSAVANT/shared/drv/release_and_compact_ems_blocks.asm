@@ -37,7 +37,7 @@ release_and_compact_ems_blocks:
     and di, strict word 0x3ff
     mov cl, 4
     shl di, cl
-    call leaf_loc_TPOL
+    call map_compaction_pages
     pop cx
 .back2:
     push cx
@@ -59,7 +59,7 @@ release_and_compact_ems_blocks:
 .forward4:
     or dx, dx
     je short .forward5
-    call leaf_loc_TPOL
+    call map_compaction_pages
 .forward5:
     pop cx
     loop .back2

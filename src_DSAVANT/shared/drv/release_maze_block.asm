@@ -1,5 +1,5 @@
 ; auto-generated
-leaf_loc_SSGH:
+release_maze_block:
     dec ax
     mov cl, 2
     shl ax, cl

@@ -28,7 +28,7 @@ free_screen:
     mov cx, word [cs:maze_block_count - IMAGE_BASE]
     dec cx
     mov word [cs:maze_block_count - IMAGE_BASE], cx
-    call loc_PPJL
+    call renumber_and_release_block
 .forward3:
     pop si
     pop di

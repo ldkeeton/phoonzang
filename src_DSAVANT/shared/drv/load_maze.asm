@@ -26,7 +26,7 @@ load_maze:
 .forward2:
     mov ax, cs
     mov ds, ax
-    mov dx, cseg_125d - IMAGE_BASE
+    mov dx, maze_full_slot_message - IMAGE_BASE
     mov ah, 9
     int 0x21 ; DOS string output
     mov ax, 0x4c01
@@ -144,7 +144,7 @@ load_maze:
 .forward6:
     mov ax, cs
     mov ds, ax
-    mov dx, cseg_1231 - IMAGE_BASE
+    mov dx, maze_bad_slot_message - IMAGE_BASE
     mov ah, 9
     int 0x21 ; DOS string output
     mov ax, 0x4c01
@@ -152,24 +152,24 @@ load_maze:
 .forward7:
     mov ax, cs
     mov ds, ax
-    mov dx, cseg_128c - IMAGE_BASE
+    mov dx, maze_memory_limit_message - IMAGE_BASE
     mov ah, 9
     int 0x21 ; DOS string output
     mov ax, 0x4c01
     int 0x21 ; DOS function dispatcher
-cseg_1231:
+maze_bad_slot_message:
 
     db 0x0d, 0x0a, 0x07
     db 'LOAD_MAZE called with bad slot number.', 0
     db 0x0a, 0x24
 
-cseg_125d:
+maze_full_slot_message:
 
     db 0x0d, 0x0a, 0x07
     db 'LOAD_MAZE called with filled slot number.', 0
     db 0x0a, 0x24
 
-cseg_128c:
+maze_memory_limit_message:
 
     db 0x0d, 0x0a, 0x07
     db 'oops... LOAD_MAZE filled its memory area.', 0

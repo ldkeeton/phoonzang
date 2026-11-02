@@ -1,8 +1,8 @@
 ; auto-generated
-leaf_loc_OSUJ:
+decrement_maze_slot_ids:
     push ax
-    mov bx, maze_map_slots - IMAGE_BASE
-    mov cx, 0xa
+    mov bx, maze_slots - IMAGE_BASE
+    mov cx, 0x10
 .back1:
     cmp ax, word [cs:bx]
     jae short .forward1

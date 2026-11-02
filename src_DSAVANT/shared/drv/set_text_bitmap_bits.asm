@@ -1,5 +1,5 @@
 ; auto-generated
-leaf_loc_NOSG:
+set_text_bitmap_bits:
     jmp short .forward1
 .back1:
     add si, word [bp - 0x30]

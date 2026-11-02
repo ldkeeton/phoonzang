@@ -81,7 +81,7 @@ ln_com_jump                                ; 0x0000
 
 %include "shared/drv/release_and_compact_ems_blocks.asm" ; 0x0e71
 
-%include "shared/drv/leaf_loc_TPOL.asm"           ; 0x0f3b
+%include "shared/drv/map_compaction_pages.asm"    ; 0x0f3b
 
 %include "shared/drv/free_maze.asm"               ; 0x0f6f
 
@@ -159,7 +159,7 @@ ln_com_jump                                ; 0x0000
 
 %include "shared/drv/check_frame_index.asm"       ; 0x3131
 
-%include "shared/drv/leaf_loc_NOSG.asm"           ; 0x319f
+%include "shared/drv/set_text_bitmap_bits.asm"    ; 0x319f
 
 %include "shared/drv/render_text_glyph_by_mode.asm" ; 0x31d9
 
@@ -181,25 +181,28 @@ ln_com_jump                                ; 0x0000
 
 %include "shared/drv/load_sound.asm"              ; 0x4156
 
-%include "shared/drv/string_loc_RQON.asm"         ; 0x4300
+%include "shared/drv/expand_compressed_string.asm" ; 0x4300
 
-%include "shared/drv/dos_file_loc_VPIN.asm"       ; 0x4319
+dseg_0400 equ 0x0400
+%include "shared/drv/decode_compressed_string_byte.asm" ; 0x4319
 
 %include "shared/drv/free_sound.asm"              ; 0x439a
 
-%include "shared/drv/leaf_loc_OSUJ.asm"           ; 0x43f7
+%include "shared/drv/renumber_and_release_block.asm" ; 0x43e1
 
-%include "shared/drv/leaf_loc_IHJG.asm"           ; 0x440c
+%include "shared/drv/decrement_maze_map_slot_ids.asm" ; 0x43f7
 
-%include "shared/drv/leaf_loc_MGRH.asm"           ; 0x4421
+%include "shared/drv/decrement_picture_slot_ids.asm" ; 0x440c
 
-%include "shared/drv/leaf_loc_USQQ.asm"           ; 0x4436
+%include "shared/drv/decrement_maze_slot_ids.asm" ; 0x4421
 
-%include "shared/drv/leaf_loc_JRKU.asm"           ; 0x444b
+%include "shared/drv/decrement_screen_slot_ids.asm" ; 0x4436
 
-%include "shared/drv/dos_con_loc_GJMS.asm"        ; 0x4461
+%include "shared/drv/decrement_sound_slot_ids.asm" ; 0x444b
 
-%include "shared/drv/leaf_loc_SSGH.asm"           ; 0x44a3
+%include "shared/drv/decrement_score_slot_values.asm" ; 0x4461
+
+%include "shared/drv/release_maze_block.asm"      ; 0x44a3
 
 %include "shared/drv/play_sound.asm"              ; 0x4527
 

@@ -1,5 +1,5 @@
 ; auto-generated
-dos_con_loc_GJMS:
+decrement_score_slot_values:
     push ax
     mov bx, score_slots - IMAGE_BASE
     mov cx, 5

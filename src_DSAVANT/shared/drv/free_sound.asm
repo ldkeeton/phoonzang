@@ -27,7 +27,7 @@ free_sound:
     mov cx, word [cs:maze_block_count - IMAGE_BASE]
     dec cx
     mov word [cs:maze_block_count - IMAGE_BASE], cx
-    call loc_PPJL
+    call renumber_and_release_block
 .forward3:
     pop di
     pop si
@@ -35,13 +35,4 @@ free_sound:
     pop ds
     mov sp, bp
     pop bp
-    ret
-loc_PPJL:
-    call leaf_loc_OSUJ
-    call leaf_loc_IHJG
-    call leaf_loc_USQQ
-    call leaf_loc_MGRH
-    call leaf_loc_JRKU
-    call dos_con_loc_GJMS
-    call leaf_loc_SSGH
     ret

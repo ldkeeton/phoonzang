@@ -1,5 +1,5 @@
 ; auto-generated
-dos_file_loc_VPIN:
+decode_compressed_string_byte:
     mov cx, word [bp - 2]
     xor bx, bx
 .back1:
@@ -24,7 +24,7 @@ dos_file_loc_VPIN:
     push di
     push bx
     push cx
-    mov dx, 0x400
+    mov dx, dseg_0400
     mov bx, word [bp + 0xc]
     mov cx, 0x1000
     mov ah, 0x3f
@@ -57,7 +57,7 @@ dos_file_loc_VPIN:
     push di
     push bx
     push cx
-    mov dx, 0x400
+    mov dx, dseg_0400
     mov bx, word [bp + 0xc]
     mov cx, 0x1000
     mov ah, 0x3f

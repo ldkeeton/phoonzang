@@ -4,7 +4,7 @@ ems_map_pages:
     mov ah, 0x44
     mov al, 0
     pop bx
-    mov dx, word [cs:cseg_0101 - IMAGE_BASE]
+    mov dx, word [cs:ems_mapping_handle - IMAGE_BASE]
     int 0x67 ; EMS (Expanded Memory)
     inc bx
     mov ah, 0x44

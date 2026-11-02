@@ -1,8 +1,8 @@
 ; auto-generated
-leaf_loc_MGRH:
+decrement_maze_map_slot_ids:
     push ax
-    mov bx, maze_slots - IMAGE_BASE
-    mov cx, 0x10
+    mov bx, maze_map_slots - IMAGE_BASE
+    mov cx, 0xa
 .back1:
     cmp ax, word [cs:bx]
     jae short .forward1
