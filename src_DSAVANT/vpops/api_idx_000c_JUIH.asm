@@ -83,7 +83,7 @@ api_idx_000c_JUIH:
     shl dx, 1                        ; 0x1858
     add ax, dx                       ; 0x185a
     mov bx, ax                       ; 0x185c
-    mov cx, word [bx + 0x592]        ; 0x185e
+    mov cx, word [bx + cell_overlay_y_offset + 0x12] ; 0x185e
     shl cx, 1                        ; 0x1862
     pop ax                           ; 0x1864
     add ax, cx                       ; 0x1865

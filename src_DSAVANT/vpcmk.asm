@@ -28,65 +28,65 @@ __zcode_start:
 pc_file_name equ __zdseg_end + (__zpc_file_name - __zdata_start)
 loc_TRPK_dseg167 equ __zdseg_end + (__zdseg_90a3 - __zdata_start)
 loc_TRPK_dseg473 equ __zdseg_end + (__zdseg_90a9 - __zdata_start)
-api_idx_0038_VIPJ_dseg102 equ __zdseg_end + (__zdseg_90af - __zdata_start)
+list_dialog_temp_file equ __zdseg_end + (__zlist_dialog_temp_file - __zdata_start)
 api_idx_0026_NRVO_dseg54 equ __zdseg_end + (__zdseg_90b5 - __zdata_start)
 dseg_90bb equ __zdseg_end + (__zdseg_90bb - __zdata_start)
-api_idx_0004_QJGR_dseg67 equ __zdseg_end + (__zdseg_90be - __zdata_start)
-api_idx_0004_QJGR_dseg61 equ __zdseg_end + (__zdseg_90c9 - __zdata_start)
-api_idx_0004_QJGR_dseg55 equ __zdseg_end + (__zdseg_90d2 - __zdata_start)
-api_idx_0004_QJGR_dseg49 equ __zdseg_end + (__zdseg_90d9 - __zdata_start)
-api_idx_0004_QJGR_dseg111 equ __zdseg_end + (__zdseg_90e4 - __zdata_start)
-api_idx_0004_QJGR_dseg105 equ __zdseg_end + (__zdseg_90ef - __zdata_start)
-api_idx_0004_QJGR_dseg99 equ __zdseg_end + (__zdseg_90f8 - __zdata_start)
-api_idx_0004_QJGR_dseg93 equ __zdseg_end + (__zdseg_90ff - __zdata_start)
-api_idx_0004_QJGR_dseg155 equ __zdseg_end + (__zdseg_910a - __zdata_start)
-api_idx_0004_QJGR_dseg149 equ __zdseg_end + (__zdseg_9115 - __zdata_start)
-api_idx_0004_QJGR_dseg143 equ __zdseg_end + (__zdseg_911e - __zdata_start)
-api_idx_0004_QJGR_dseg137 equ __zdseg_end + (__zdseg_9125 - __zdata_start)
-api_idx_0004_QJGR_dseg199 equ __zdseg_end + (__zdseg_9130 - __zdata_start)
-api_idx_0004_QJGR_dseg193 equ __zdseg_end + (__zdseg_913b - __zdata_start)
-api_idx_0004_QJGR_dseg187 equ __zdseg_end + (__zdseg_9144 - __zdata_start)
-api_idx_0004_QJGR_dseg181 equ __zdseg_end + (__zdseg_914b - __zdata_start)
-api_idx_0004_QJGR_dseg243 equ __zdseg_end + (__zdseg_9156 - __zdata_start)
-api_idx_0004_QJGR_dseg237 equ __zdseg_end + (__zdseg_9161 - __zdata_start)
-api_idx_0004_QJGR_dseg231 equ __zdseg_end + (__zdseg_916a - __zdata_start)
-api_idx_0004_QJGR_dseg225 equ __zdseg_end + (__zdseg_9171 - __zdata_start)
-api_idx_0004_QJGR_dseg287 equ __zdseg_end + (__zdseg_917c - __zdata_start)
-api_idx_0004_QJGR_dseg281 equ __zdseg_end + (__zdseg_9187 - __zdata_start)
-api_idx_0004_QJGR_dseg275 equ __zdseg_end + (__zdseg_9190 - __zdata_start)
-api_idx_0004_QJGR_dseg269 equ __zdseg_end + (__zdseg_9197 - __zdata_start)
-api_idx_0004_QJGR_dseg331 equ __zdseg_end + (__zdseg_91a2 - __zdata_start)
-api_idx_0004_QJGR_dseg325 equ __zdseg_end + (__zdseg_91ad - __zdata_start)
-api_idx_0004_QJGR_dseg319 equ __zdseg_end + (__zdseg_91b6 - __zdata_start)
-api_idx_0004_QJGR_dseg313 equ __zdseg_end + (__zdseg_91bd - __zdata_start)
-api_idx_0004_QJGR_dseg375 equ __zdseg_end + (__zdseg_91c8 - __zdata_start)
-api_idx_0004_QJGR_dseg369 equ __zdseg_end + (__zdseg_91d3 - __zdata_start)
-api_idx_0004_QJGR_dseg363 equ __zdseg_end + (__zdseg_91dc - __zdata_start)
-api_idx_0004_QJGR_dseg357 equ __zdseg_end + (__zdseg_91e3 - __zdata_start)
-api_idx_0004_QJGR_dseg419 equ __zdseg_end + (__zdseg_91ee - __zdata_start)
-api_idx_0004_QJGR_dseg413 equ __zdseg_end + (__zdseg_91f9 - __zdata_start)
-api_idx_0004_QJGR_dseg407 equ __zdseg_end + (__zdseg_9202 - __zdata_start)
-api_idx_0004_QJGR_dseg401 equ __zdseg_end + (__zdseg_9209 - __zdata_start)
-api_idx_0004_QJGR_dseg463 equ __zdseg_end + (__zdseg_9214 - __zdata_start)
-api_idx_0004_QJGR_dseg457 equ __zdseg_end + (__zdseg_921f - __zdata_start)
-api_idx_0004_QJGR_dseg451 equ __zdseg_end + (__zdseg_9228 - __zdata_start)
-api_idx_0004_QJGR_dseg445 equ __zdseg_end + (__zdseg_922f - __zdata_start)
-api_idx_0004_QJGR_dseg507 equ __zdseg_end + (__zdseg_923a - __zdata_start)
-api_idx_0004_QJGR_dseg501 equ __zdseg_end + (__zdseg_9245 - __zdata_start)
-api_idx_0004_QJGR_dseg495 equ __zdseg_end + (__zdseg_924e - __zdata_start)
-api_idx_0004_QJGR_dseg489 equ __zdseg_end + (__zdseg_9255 - __zdata_start)
-api_idx_0004_QJGR_dseg551 equ __zdseg_end + (__zdseg_9260 - __zdata_start)
-api_idx_0004_QJGR_dseg545 equ __zdseg_end + (__zdseg_926b - __zdata_start)
-api_idx_0004_QJGR_dseg539 equ __zdseg_end + (__zdseg_9274 - __zdata_start)
-api_idx_0004_QJGR_dseg533 equ __zdseg_end + (__zdseg_927b - __zdata_start)
-api_idx_0004_QJGR_dseg595 equ __zdseg_end + (__zdseg_9286 - __zdata_start)
-api_idx_0004_QJGR_dseg589 equ __zdseg_end + (__zdseg_9291 - __zdata_start)
-api_idx_0004_QJGR_dseg583 equ __zdseg_end + (__zdseg_929a - __zdata_start)
-api_idx_0004_QJGR_dseg577 equ __zdseg_end + (__zdseg_92a1 - __zdata_start)
-api_idx_0004_QJGR_dseg639 equ __zdseg_end + (__zdseg_92ac - __zdata_start)
-api_idx_0004_QJGR_dseg633 equ __zdseg_end + (__zdseg_92b7 - __zdata_start)
-api_idx_0004_QJGR_dseg627 equ __zdseg_end + (__zdseg_92c0 - __zdata_start)
-api_idx_0004_QJGR_dseg621 equ __zdseg_end + (__zdseg_92c7 - __zdata_start)
+profession_0_skill_group_0 equ __zdseg_end + (__zprofession_0_skill_group_0 - __zdata_start)
+profession_0_skill_group_1 equ __zdseg_end + (__zprofession_0_skill_group_1 - __zdata_start)
+profession_0_skill_group_2 equ __zdseg_end + (__zprofession_0_skill_group_2 - __zdata_start)
+profession_0_skill_group_3 equ __zdseg_end + (__zprofession_0_skill_group_3 - __zdata_start)
+profession_1_skill_group_0 equ __zdseg_end + (__zprofession_1_skill_group_0 - __zdata_start)
+profession_1_skill_group_1 equ __zdseg_end + (__zprofession_1_skill_group_1 - __zdata_start)
+profession_1_skill_group_2 equ __zdseg_end + (__zprofession_1_skill_group_2 - __zdata_start)
+profession_1_skill_group_3 equ __zdseg_end + (__zprofession_1_skill_group_3 - __zdata_start)
+profession_2_skill_group_0 equ __zdseg_end + (__zprofession_2_skill_group_0 - __zdata_start)
+profession_2_skill_group_1 equ __zdseg_end + (__zprofession_2_skill_group_1 - __zdata_start)
+profession_2_skill_group_2 equ __zdseg_end + (__zprofession_2_skill_group_2 - __zdata_start)
+profession_2_skill_group_3 equ __zdseg_end + (__zprofession_2_skill_group_3 - __zdata_start)
+profession_3_skill_group_0 equ __zdseg_end + (__zprofession_3_skill_group_0 - __zdata_start)
+profession_3_skill_group_1 equ __zdseg_end + (__zprofession_3_skill_group_1 - __zdata_start)
+profession_3_skill_group_2 equ __zdseg_end + (__zprofession_3_skill_group_2 - __zdata_start)
+profession_3_skill_group_3 equ __zdseg_end + (__zprofession_3_skill_group_3 - __zdata_start)
+profession_4_skill_group_0 equ __zdseg_end + (__zprofession_4_skill_group_0 - __zdata_start)
+profession_4_skill_group_1 equ __zdseg_end + (__zprofession_4_skill_group_1 - __zdata_start)
+profession_4_skill_group_2 equ __zdseg_end + (__zprofession_4_skill_group_2 - __zdata_start)
+profession_4_skill_group_3 equ __zdseg_end + (__zprofession_4_skill_group_3 - __zdata_start)
+profession_5_skill_group_0 equ __zdseg_end + (__zprofession_5_skill_group_0 - __zdata_start)
+profession_5_skill_group_1 equ __zdseg_end + (__zprofession_5_skill_group_1 - __zdata_start)
+profession_5_skill_group_2 equ __zdseg_end + (__zprofession_5_skill_group_2 - __zdata_start)
+profession_5_skill_group_3 equ __zdseg_end + (__zprofession_5_skill_group_3 - __zdata_start)
+profession_6_skill_group_0 equ __zdseg_end + (__zprofession_6_skill_group_0 - __zdata_start)
+profession_6_skill_group_1 equ __zdseg_end + (__zprofession_6_skill_group_1 - __zdata_start)
+profession_6_skill_group_2 equ __zdseg_end + (__zprofession_6_skill_group_2 - __zdata_start)
+profession_6_skill_group_3 equ __zdseg_end + (__zprofession_6_skill_group_3 - __zdata_start)
+profession_7_skill_group_0 equ __zdseg_end + (__zprofession_7_skill_group_0 - __zdata_start)
+profession_7_skill_group_1 equ __zdseg_end + (__zprofession_7_skill_group_1 - __zdata_start)
+profession_7_skill_group_2 equ __zdseg_end + (__zprofession_7_skill_group_2 - __zdata_start)
+profession_7_skill_group_3 equ __zdseg_end + (__zprofession_7_skill_group_3 - __zdata_start)
+profession_8_skill_group_0 equ __zdseg_end + (__zprofession_8_skill_group_0 - __zdata_start)
+profession_8_skill_group_1 equ __zdseg_end + (__zprofession_8_skill_group_1 - __zdata_start)
+profession_8_skill_group_2 equ __zdseg_end + (__zprofession_8_skill_group_2 - __zdata_start)
+profession_8_skill_group_3 equ __zdseg_end + (__zprofession_8_skill_group_3 - __zdata_start)
+profession_9_skill_group_0 equ __zdseg_end + (__zprofession_9_skill_group_0 - __zdata_start)
+profession_9_skill_group_1 equ __zdseg_end + (__zprofession_9_skill_group_1 - __zdata_start)
+profession_9_skill_group_2 equ __zdseg_end + (__zprofession_9_skill_group_2 - __zdata_start)
+profession_9_skill_group_3 equ __zdseg_end + (__zprofession_9_skill_group_3 - __zdata_start)
+profession_10_skill_group_0 equ __zdseg_end + (__zprofession_10_skill_group_0 - __zdata_start)
+profession_10_skill_group_1 equ __zdseg_end + (__zprofession_10_skill_group_1 - __zdata_start)
+profession_10_skill_group_2 equ __zdseg_end + (__zprofession_10_skill_group_2 - __zdata_start)
+profession_10_skill_group_3 equ __zdseg_end + (__zprofession_10_skill_group_3 - __zdata_start)
+profession_11_skill_group_0 equ __zdseg_end + (__zprofession_11_skill_group_0 - __zdata_start)
+profession_11_skill_group_1 equ __zdseg_end + (__zprofession_11_skill_group_1 - __zdata_start)
+profession_11_skill_group_2 equ __zdseg_end + (__zprofession_11_skill_group_2 - __zdata_start)
+profession_11_skill_group_3 equ __zdseg_end + (__zprofession_11_skill_group_3 - __zdata_start)
+profession_12_skill_group_0 equ __zdseg_end + (__zprofession_12_skill_group_0 - __zdata_start)
+profession_12_skill_group_1 equ __zdseg_end + (__zprofession_12_skill_group_1 - __zdata_start)
+profession_12_skill_group_2 equ __zdseg_end + (__zprofession_12_skill_group_2 - __zdata_start)
+profession_12_skill_group_3 equ __zdseg_end + (__zprofession_12_skill_group_3 - __zdata_start)
+profession_13_skill_group_0 equ __zdseg_end + (__zprofession_13_skill_group_0 - __zdata_start)
+profession_13_skill_group_1 equ __zdseg_end + (__zprofession_13_skill_group_1 - __zdata_start)
+profession_13_skill_group_2 equ __zdseg_end + (__zprofession_13_skill_group_2 - __zdata_start)
+profession_13_skill_group_3 equ __zdseg_end + (__zprofession_13_skill_group_3 - __zdata_start)
 draw_spell_cost_dseg294 equ __zdseg_end + (__zdseg_92d2 - __zdata_start)
 api_idx_0050_SQVG_dseg175 equ __zdseg_end + (__zdseg_92d6 - __zdata_start)
 profession_0_stat_requirements equ __zdseg_end + (__zprofession_0_stat_requirements - __zdata_start)
@@ -134,7 +134,7 @@ dseg_94ad equ __zdseg_end + (__zdseg_94ad - __zdata_start)
 dseg_94bc equ __zdseg_end + (__zdseg_94bc - __zdata_start)
 dseg_94cb equ __zdseg_end + (__zdseg_94cb - __zdata_start)
 dseg_94da equ __zdseg_end + (__zdseg_94da - __zdata_start)
-load_member_icon_dseg11 equ __zdseg_end + (__zdseg_94e9 - __zdata_start)
+portrait_data_filename equ __zdseg_end + (__zportrait_data_filename - __zdata_start)
 dseg_94f6 equ __zdseg_end + (__zdseg_94f6 - __zdata_start)
 dseg_9501 equ __zdseg_end + (__zdseg_9501 - __zdata_start)
 dseg_950c equ __zdseg_end + (__zdseg_950c - __zdata_start)
@@ -154,8 +154,8 @@ bss_9530 equ __zdseg_end + (__zobss_9530 - __zdata_start)
 bss_9532 equ __zdseg_end + (__zobss_9532 - __zdata_start)
 bss_9534 equ __zdseg_end + (__zobss_9534 - __zdata_start)
 bss_9536 equ __zdseg_end + (__zobss_9536 - __zdata_start)
-api_idx_0004_RMVO_bss24 equ __zdseg_end + (__zobss_9538 - __zdata_start)
-api_idx_0004_RMVO_bss19 equ __zdseg_end + (__zobss_953a - __zdata_start)
+realm_panel_cache_high equ __zdseg_end + (__zobss_9538 - __zdata_start)
+realm_panel_cache_low equ __zdseg_end + (__zobss_953a - __zdata_start)
 bss_953c equ __zdseg_end + (__zobss_953c - __zdata_start)
 bss_953e equ __zdseg_end + (__zobss_953e - __zdata_start)
 saved_screen equ __zdseg_end + (__zobss_9540 - __zdata_start)
@@ -166,8 +166,8 @@ bss_9596 equ __zdseg_end + (__zobss_9596 - __zdata_start)
 banner_offset equ __zdseg_end + (__zobss_95aa - __zdata_start)
 banner_plain_flag equ __zdseg_end + (__zobss_95ac - __zdata_start)
 loc_TTSP_bss184 equ __zdseg_end + (__zobss_95ae - __zdata_start)
-api_idx_0004_GRGJ_bss159 equ __zdseg_end + (__zobss_95b0 - __zdata_start)
-api_idx_0004_QJGR_bss838 equ __zdseg_end + (__zobss_95e8 - __zdata_start)
+skill_availability_flags equ __zdseg_end + (__zobss_95b0 - __zdata_start)
+both_high_stats_flag equ __zdseg_end + (__zobss_95e8 - __zdata_start)
 slot_prompt_text equ __zdseg_end + (__zobss_95f4 - __zdata_start)
 slot_value equ __zdseg_end + (__zobss_9608 - __zdata_start)
 slot_value2 equ __zdseg_end + (__zobss_960c - __zdata_start)
@@ -199,7 +199,7 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "shared/ovr/draw_party_slot_letters.asm" ; 0x16ea
 
-%include "shared/ovr/api_idx_0004_RMVO.asm"     ; 0x1769
+%include "shared/ovr/draw_member_realm_points.asm" ; 0x1769
 
 %include "shared/ovr/advance_party_slot_frames.asm" ; 0x1819
 
@@ -213,11 +213,11 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "vpcmk/api_idx_0054_RLST.asm"     ; 0x1b40
 
-%include "shared/ovr/api_idx_0004_PMIU.asm"     ; 0x2090
+%include "shared/ovr/display_centered_message.asm" ; 0x2090
 
-%include "shared/ovr/api_idx_0004_GRGJ.asm"     ; 0x2144
+%include "shared/ovr/set_party_skill_flags.asm" ; 0x2144
 
-%include "shared/ovr/api_idx_0004_QJGR.asm"     ; 0x2273
+%include "shared/ovr/prepare_skill_list.asm"    ; 0x2273
 
 %include "shared/ovr/draw_known_spell_values.asm" ; 0x24c8
 
@@ -277,7 +277,7 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "shared/ovr/loc_NJOH.asm"              ; 0x4ead
 
-%include "shared/ovr/api_idx_0006_VJKJ.asm"     ; 0x4f00
+%include "shared/ovr/init_skill_cell_positions.asm" ; 0x4f00
 
 %include "shared/ovr/update_party_stat_adjustments.asm" ; 0x4f95
 
@@ -332,9 +332,21 @@ __zdata_start:
 
 %include "vpcmk/data/loc_TRPK_dseg167.asm"        ; 0x703c
 
+%include "vpcmk/data/list_dialog_temp_file.asm" ; 0x7048
+
+%include "vpcmk/data/api_idx_0026_NRVO_dseg54.asm"        ; 0x704e
+
+%include "shared/data/profession_skill_groups.asm" ; 0x7057
+
+%include "vpcmk/data/draw_spell_cost_dseg294.asm"        ; 0x726b
+
 %include "shared/data/profession_stat_requirements.asm" ; 0x7275
 
 %include "vpcmk/data/dseg_935a.asm"        ; 0x72f3
+
+%include "shared/data/portrait_data_filename.asm" ; 0x7482
+
+%include "vpcmk/data/dseg_94f6.asm"        ; 0x748f
 
 %include "shared/data/overlay_saved_registers.asm" ; 0x74b3
 

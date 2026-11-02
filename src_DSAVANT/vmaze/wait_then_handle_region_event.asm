@@ -22,7 +22,7 @@ wait_then_handle_region_event:
     mov word [bp - 6], ax            ; 0x807f
     mov bx, word [maze_tables]       ; 0x8082
     mov si, word [party_region]      ; 0x8086
-    mov al, byte [bx + si + spell_table + spell_table_rec_size*178 + spell_table_rec.f_0004] ; 0x808a
+    mov al, byte [bx + si + 0xa50]   ; 0x808a
     sub ah, ah                       ; 0x808e
     mov word [bp - 0xa], ax          ; 0x8090
     cmp word [bp - 0xa], byte 0      ; 0x8093

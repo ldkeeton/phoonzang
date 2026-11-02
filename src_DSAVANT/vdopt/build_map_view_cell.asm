@@ -54,7 +54,7 @@ build_map_view_cell:
     je short .forward6               ; 0x0a44
     mov bx, word [maze_tables]       ; 0x0a46
     mov si, word [bp - 0xc]          ; 0x0a4a
-    mov al, byte [bx + si + spell_table + spell_table_rec_size*218 + spell_table_rec.f_0004] ; 0x0a4d
+    mov al, byte [bx + si + 0xb40]   ; 0x0a4d
     sub ah, ah                       ; 0x0a51
     mov word [bp - 0x14], ax         ; 0x0a53
 .back1:

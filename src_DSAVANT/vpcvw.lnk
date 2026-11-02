@@ -3,14 +3,14 @@ vpcvw/ovmain
 shared/ovr/load_screen_file_immediate
 shared/ovr/draw_party_glyph_row
 shared/ovr/api_idx_0012_PGSL
-shared/ovr/api_idx_0004_PMIU
+shared/ovr/display_centered_message
 vpcvw/api_idx_000c_JRTV
 vpcvw/api_idx_0012_GQSK
 vpcvw/api_idx_0012_SHRT
 vpcvw/api_idx_0004_KVIP
 vpcvw/api_idx_0012_MVLS
 shared/ovr/draw_party_slot_letters
-shared/ovr/api_idx_0004_RMVO
+shared/ovr/draw_member_realm_points
 shared/ovr/advance_party_slot_frames
 shared/ovr/clamp_value_to_range
 shared/ovr/api_idx_0010_STNH
@@ -48,7 +48,7 @@ vpcvw/api_idx_000e_OJVI
 vpcvw/api_idx_0002_UINV
 vpcvw/api_idx_0056_QHUP
 vpcvw/loc_IHRL
-shared/ovr/api_idx_0004_GUSS
+shared/ovr/set_party_hand_attack
 vpcvw/api_idx_0048_RUIH
 vpcvw/api_idx_0072_IPMP
 vpcvw/api_idx_0002_TJIU
@@ -59,8 +59,8 @@ vpcvw/api_idx_00c2_OUOT
 vpcvw/api_idx_0014_PSHN
 shared/ovr/draw_split_two_line_text
 shared/ovr/api_idx_0080_MHMQ
-shared/ovr/api_idx_0004_MKGU
-shared/ovr/api_idx_004c_HTUT
+shared/ovr/draw_item_slot_label
+shared/ovr/draw_member_item_page
 vpcvw/api_idx_009a_KOSH
 vpcvw/api_idx_001a_VHJM
 vpcvw/loc_TQUO
@@ -85,4 +85,5 @@ shared/ovr/aztec_cswt
 vpcvw/data/dseg_9098
 shared/data/profession_stat_requirements
 vpcvw/data/dseg_9366
+shared/data/portrait_data_filename
 shared/data/overlay_saved_registers

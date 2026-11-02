@@ -16,7 +16,7 @@ update_region_quest_map_flags:
     push ax                          ; 0x86cc
     mov si, word [party_region]      ; 0x86cd
     mov bx, word [maze_tables]       ; 0x86d1
-    mov al, byte [bx + si + spell_table + spell_table_rec_size*178 + spell_table_rec.f_0004] ; 0x86d5
+    mov al, byte [bx + si + 0xa50]   ; 0x86d5
     sub ah, ah                       ; 0x86d9
     mov cx, 6                        ; 0x86db
     imul cx                          ; 0x86de

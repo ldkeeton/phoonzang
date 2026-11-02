@@ -69,7 +69,7 @@ process_region_flag_actions:
     push word [bp - 0xe]             ; 0x84f0
     mov si, word [party_region]      ; 0x84f3
     mov bx, word [maze_tables]       ; 0x84f7
-    mov al, byte [bx + si + spell_table + spell_table_rec_size*178 + spell_table_rec.f_0004] ; 0x84fb
+    mov al, byte [bx + si + 0xa50]   ; 0x84fb
     sub ah, ah                       ; 0x84ff
     push ax                          ; 0x8501
     shl si, 1                        ; 0x8502

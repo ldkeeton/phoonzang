@@ -6,7 +6,7 @@ api_idx_0022_LKUK:
     jl short .forward1               ; 0x2220
     mov bx, word [maze_tables]       ; 0x2222
     mov si, word [party_map_piece]   ; 0x2226
-    mov al, byte [bx + si + spell_table + spell_table_rec_size*218 + spell_table_rec.f_0004] ; 0x222a
+    mov al, byte [bx + si + 0xb40]   ; 0x222a
     sub ah, ah                       ; 0x222e
     cmp ax, word [party_region]      ; 0x2230
     jle short .forward1              ; 0x2234
@@ -457,7 +457,7 @@ api_idx_0022_LKUK:
     push ax                          ; 0x268b
     call set_bitmap_bit              ; 0x268c
     add sp, byte 6                   ; 0x268f
-    call api_idx_0004_SMLK           ; 0x2692
+    call get_cell_terrain            ; 0x2692
     mov word [bp - 0x10], ax         ; 0x2695
     cmp ax, strict word 1            ; 0x2698
     jne short .forward33             ; 0x269b
@@ -1039,7 +1039,7 @@ api_idx_0022_LKUK.forward58:
     mov word [location_changed], 1   ; 0x2baf
     mov bx, word [maze_tables]       ; 0x2bb5
     mov si, word [party_map_piece]   ; 0x2bb9
-    mov al, byte [bx + si + spell_table + spell_table_rec_size*218 + spell_table_rec.f_0004] ; 0x2bbd
+    mov al, byte [bx + si + 0xb40]   ; 0x2bbd
     sub ah, ah                       ; 0x2bc1
     mov word [party_region], ax      ; 0x2bc3
 api_idx_0022_LKUK.forward59:

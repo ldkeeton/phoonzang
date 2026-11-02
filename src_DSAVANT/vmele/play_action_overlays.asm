@@ -38,7 +38,7 @@ play_action_overlays:
     pop cx                           ; 0x2d41
 .back2:
     mov word [bss_845e], 0xfffe      ; 0x2d42
-    call api_idx_0006_LJUS           ; 0x2d48
+    call step_party_screen_animation ; 0x2d48
     mov word [bp - 4], 0             ; 0x2d4b
 .back3:
     mov word [bp - 6], 0             ; 0x2d50
@@ -96,7 +96,7 @@ play_action_overlays:
     shl cx, 1                        ; 0x2dcd
     add ax, cx                       ; 0x2dcf
     mov bx, ax                       ; 0x2dd1
-    mov cx, word [bx + 0x580]        ; 0x2dd3
+    mov cx, word [bx + cell_overlay_y_offset] ; 0x2dd3
     mov ax, 0x64                     ; 0x2dd7
     sub ax, cx                       ; 0x2dda
     push ax                          ; 0x2ddc
@@ -126,7 +126,7 @@ play_action_overlays:
     call draw_party_status_glyphs    ; 0x2e16
     mov word [bss_845e], 0           ; 0x2e19
 .back5:
-    call api_idx_0006_LJUS           ; 0x2e1f
+    call step_party_screen_animation ; 0x2e1f
     cmp word [bss_845e], byte -2     ; 0x2e22
     jne short .back5                 ; 0x2e27
     call loc_KRMP                    ; 0x2e29

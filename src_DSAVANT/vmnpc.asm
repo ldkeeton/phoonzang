@@ -255,7 +255,7 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "vmnpc/ovmain.asm"                ; 0x21bf
 
-%include "shared/ovr/api_idx_004c_set_party_cell.asm" ; 0x21d2
+%include "shared/ovr/init_item_slot.asm"        ; 0x21d2
 
 %include "vmnpc/api_idx_0004_PULL.asm"     ; 0x22e7
 

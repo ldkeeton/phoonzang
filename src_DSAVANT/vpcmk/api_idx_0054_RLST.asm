@@ -563,6 +563,6 @@ api_idx_0054_RLST:
     call draw_font_glyph             ; 0x2082
     add sp, byte 4                   ; 0x2085
     push word [bp + 4]               ; 0x2088
-    call api_idx_0004_RMVO           ; 0x208b
+    call draw_member_realm_points    ; 0x208b
     pop cx                           ; 0x208e
     ret                              ; 0x208f

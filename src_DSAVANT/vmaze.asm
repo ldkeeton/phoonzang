@@ -95,20 +95,20 @@ api_idx_0012_KQTQ_bss2817 equ __zdseg_end + (__zobss_92ba - __zdata_start)
 api_idx_0008_PGTT_bss1906 equ __zdseg_end + (__zobss_92be - __zdata_start)
 api_idx_0012_KQTQ_bss149 equ __zdseg_end + (__zobss_92ec - __zdata_start)
 api_idx_0008_PGTT_bss1961 equ __zdseg_end + (__zobss_92f0 - __zdata_start)
-api_idx_0004_OVUO_bss26 equ __zdseg_end + (__zobss_931e - __zdata_start)
-api_idx_0004_OVUO_bss367 equ __zdseg_end + (__zobss_9320 - __zdata_start)
-api_idx_0004_OVUO_bss589 equ __zdseg_end + (__zobss_9322 - __zdata_start)
-api_idx_0004_OVUO_bss1238 equ __zdseg_end + (__zobss_9324 - __zdata_start)
-api_idx_0004_OVUO_bss1256 equ __zdseg_end + (__zobss_9326 - __zdata_start)
-api_idx_0004_OVUO_bss1166 equ __zdseg_end + (__zobss_9328 - __zdata_start)
-api_idx_0004_OVUO_bss1184 equ __zdseg_end + (__zobss_9329 - __zdata_start)
-api_idx_0004_OVUO_bss1202 equ __zdseg_end + (__zobss_932a - __zdata_start)
-api_idx_0004_OVUO_bss1220 equ __zdseg_end + (__zobss_932b - __zdata_start)
-api_idx_0004_OVUO_bss39 equ __zdseg_end + (__zobss_932c - __zdata_start)
-api_idx_0004_OVUO_bss1274 equ __zdseg_end + (__zobss_932d - __zdata_start)
-api_idx_0004_OVUO_bss57 equ __zdseg_end + (__zobss_932e - __zdata_start)
-api_idx_0004_OVUO_bss1292 equ __zdseg_end + (__zobss_932f - __zdata_start)
-api_idx_0004_OVUO_bss1310 equ __zdseg_end + (__zobss_9330 - __zdata_start)
+render_queue_count equ __zdseg_end + (__zobss_931e - __zdata_start)
+queued_slot_x equ __zdseg_end + (__zobss_9320 - __zdata_start)
+queued_slot_y equ __zdseg_end + (__zobss_9322 - __zdata_start)
+queued_slot_parameter_4 equ __zdseg_end + (__zobss_9324 - __zdata_start)
+queued_slot_parameter_5 equ __zdseg_end + (__zobss_9326 - __zdata_start)
+queued_slot_glyph_entry equ __zdseg_end + (__zobss_9328 - __zdata_start)
+queued_slot_parameter_1 equ __zdseg_end + (__zobss_9329 - __zdata_start)
+queued_slot_parameter_2 equ __zdseg_end + (__zobss_932a - __zdata_start)
+queued_slot_parameter_3 equ __zdseg_end + (__zobss_932b - __zdata_start)
+queued_slot_index equ __zdseg_end + (__zobss_932c - __zdata_start)
+queued_slot_depth equ __zdseg_end + (__zobss_932d - __zdata_start)
+queued_slot_scale equ __zdseg_end + (__zobss_932e - __zdata_start)
+queued_slot_glyph_column equ __zdseg_end + (__zobss_932f - __zdata_start)
+queued_slot_parameter_13 equ __zdseg_end + (__zobss_9330 - __zdata_start)
 api_idx_0010_KRNM_bss1234 equ __zdseg_end + (__zobss_9b18 - __zdata_start)
 api_idx_0030_KNRH_bss789 equ __zdseg_end + (__zobss_9b1a - __zdata_start)
 api_idx_0030_KNRH_bss1076 equ __zdseg_end + (__zobss_9b34 - __zdata_start)
@@ -203,7 +203,7 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "vmaze/api_idx_0004_IHHI.asm"     ; 0x13f7
 
-%include "shared/ovr/api_idx_0004_SMLK.asm"     ; 0x1504
+%include "shared/ovr/get_cell_terrain.asm"      ; 0x1504
 
 %include "vmaze/api_idx_000e_NSGM.asm"     ; 0x162b
 
@@ -243,7 +243,7 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "shared/ovr/get_relative_cell_wall.asm" ; 0x33c0
 
-%include "shared/ovr/api_idx_0004_OVUO.asm"     ; 0x358c
+%include "shared/ovr/queue_slot_glyph_render.asm" ; 0x358c
 
 %include "shared/ovr/api_idx_0010_KRNM.asm"     ; 0x3802
 
@@ -269,7 +269,7 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "vmaze/save_level_state.asm"      ; 0x68f2
 
-%include "shared/ovr/api_idx_0006_POPS.asm"     ; 0x6960
+%include "shared/ovr/find_maze_change.asm"      ; 0x6960
 
 %include "shared/ovr/log_maze_change.asm"       ; 0x69d6
 

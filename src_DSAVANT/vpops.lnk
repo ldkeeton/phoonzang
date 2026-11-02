@@ -13,7 +13,7 @@ shared/ovr/queue_cell_action_overlay
 shared/ovr/queue_marker_overlay
 shared/ovr/loc_SSIO
 shared/ovr/loc_KRMP
-shared/ovr/api_idx_0006_LJUS
+shared/ovr/step_party_screen_animation
 shared/ovr/run_party_screen_animation
 vpops/wait_for_party_redraw
 vpops/loc_HTRU

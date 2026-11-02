@@ -14,7 +14,7 @@ jumptable_2ce6_case_0:
     mov ax, dseg_90a5                ; 0x2c27
     push ax                          ; 0x2c2a
     push word [bp + 4]               ; 0x2c2b
-    call api_idx_0006_VJKJ           ; 0x2c2e
+    call init_skill_cell_positions   ; 0x2c2e
     add sp, byte 6                   ; 0x2c31
     jmp near api_idx_0052_NKUS.forward2 ; 0x2c34
 jumptable_2ce6_case_4:
@@ -23,7 +23,7 @@ jumptable_2ce6_case_4:
     mov ax, dseg_90c3                ; 0x2c3b
     push ax                          ; 0x2c3e
     push word [bp + 4]               ; 0x2c3f
-    call api_idx_0006_VJKJ           ; 0x2c42
+    call init_skill_cell_positions   ; 0x2c42
     add sp, byte 6                   ; 0x2c45
     jmp near api_idx_0052_NKUS.forward2 ; 0x2c48
 jumptable_2ce6_case_10:
@@ -32,7 +32,7 @@ jumptable_2ce6_case_10:
     mov ax, dseg_90e1                ; 0x2c4f
     push ax                          ; 0x2c52
     push word [bp + 4]               ; 0x2c53
-    call api_idx_0006_VJKJ           ; 0x2c56
+    call init_skill_cell_positions   ; 0x2c56
     add sp, byte 6                   ; 0x2c59
     jmp near api_idx_0052_NKUS.forward2 ; 0x2c5c
 jumptable_2ce6_case_11:
@@ -41,7 +41,7 @@ jumptable_2ce6_case_11:
     mov ax, dseg_90ff                ; 0x2c63
     push ax                          ; 0x2c66
     push word [bp + 4]               ; 0x2c67
-    call api_idx_0006_VJKJ           ; 0x2c6a
+    call init_skill_cell_positions   ; 0x2c6a
     add sp, byte 6                   ; 0x2c6d
     jmp near api_idx_0052_NKUS.forward2 ; 0x2c70
 jumptable_2ce6_case_13:
@@ -50,7 +50,7 @@ jumptable_2ce6_case_13:
     mov ax, dseg_911d                ; 0x2c77
     push ax                          ; 0x2c7a
     push word [bp + 4]               ; 0x2c7b
-    call api_idx_0006_VJKJ           ; 0x2c7e
+    call init_skill_cell_positions   ; 0x2c7e
     add sp, byte 6                   ; 0x2c81
     jmp near api_idx_0052_NKUS.forward2 ; 0x2c84
 jumptable_2ce6_case_1:
@@ -59,7 +59,7 @@ jumptable_2ce6_case_1:
     mov ax, dseg_913b                ; 0x2c8b
     push ax                          ; 0x2c8e
     push word [bp + 4]               ; 0x2c8f
-    call api_idx_0006_VJKJ           ; 0x2c92
+    call init_skill_cell_positions   ; 0x2c92
     add sp, byte 6                   ; 0x2c95
     jmp short api_idx_0052_NKUS.forward2 ; 0x2c98
 jumptable_2ce6_case_7:
@@ -68,7 +68,7 @@ jumptable_2ce6_case_7:
     mov ax, dseg_9159                ; 0x2c9e
     push ax                          ; 0x2ca1
     push word [bp + 4]               ; 0x2ca2
-    call api_idx_0006_VJKJ           ; 0x2ca5
+    call init_skill_cell_positions   ; 0x2ca5
     add sp, byte 6                   ; 0x2ca8
     jmp short api_idx_0052_NKUS.forward2 ; 0x2cab
 jumptable_2ce6_case_2:
@@ -77,7 +77,7 @@ jumptable_2ce6_case_2:
     mov ax, dseg_9177                ; 0x2cb1
     push ax                          ; 0x2cb4
     push word [bp + 4]               ; 0x2cb5
-    call api_idx_0006_VJKJ           ; 0x2cb8
+    call init_skill_cell_positions   ; 0x2cb8
     add sp, byte 6                   ; 0x2cbb
     jmp short api_idx_0052_NKUS.forward2 ; 0x2cbe
 jumptable_2ce6_case_12:
@@ -86,7 +86,7 @@ jumptable_2ce6_case_12:
     mov ax, dseg_9195                ; 0x2cc4
     push ax                          ; 0x2cc7
     push word [bp + 4]               ; 0x2cc8
-    call api_idx_0006_VJKJ           ; 0x2ccb
+    call init_skill_cell_positions   ; 0x2ccb
     add sp, byte 6                   ; 0x2cce
     jmp short api_idx_0052_NKUS.forward2 ; 0x2cd1
 jumptable_2ce6_case_3:
@@ -95,7 +95,7 @@ jumptable_2ce6_case_3:
     mov ax, dseg_91b3                ; 0x2cd7
     push ax                          ; 0x2cda
     push word [bp + 4]               ; 0x2cdb
-    call api_idx_0006_VJKJ           ; 0x2cde
+    call init_skill_cell_positions   ; 0x2cde
     add sp, byte 6                   ; 0x2ce1
     jmp short api_idx_0052_NKUS.forward2 ; 0x2ce4
 jumptable_2ce6:
@@ -619,7 +619,7 @@ api_idx_0052_NKUS.back4:
     push ax                          ; 0x3180
     push word [bp - 2]               ; 0x3181
     push word [bp + 4]               ; 0x3184
-    call api_idx_0004_GUSS           ; 0x3187
+    call set_party_hand_attack       ; 0x3187
     add sp, byte 6                   ; 0x318a
 api_idx_0052_NKUS.forward14:
     inc word [bp - 2]                ; 0x318d

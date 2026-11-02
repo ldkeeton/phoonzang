@@ -109,7 +109,7 @@ api_idx_0012_MVLS:
     push word [bp + 8]               ; 0x0b86
     push word [bp - 2]               ; 0x0b89
     push word [bp + 4]               ; 0x0b8c
-    call api_idx_0004_MKGU           ; 0x0b8f
+    call draw_item_slot_label        ; 0x0b8f
     add sp, byte 0xa                 ; 0x0b92
     mov ax, 0xff                     ; 0x0b95
     push ax                          ; 0x0b98

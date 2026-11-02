@@ -28,7 +28,7 @@ jumptable_3f96_case_1:
     imul word [bp + 4]               ; 0x3d3a
     push ax                          ; 0x3d3d
     mov ax, 0x78                     ; 0x3d3e
-    imul word [roster_page]          ; 0x3d41
+    imul word [item_page]            ; 0x3d41
     mov cx, ax                       ; 0x3d45
     pop ax                           ; 0x3d47
     add ax, cx                       ; 0x3d48
@@ -96,7 +96,7 @@ api_idx_009e_HMOI.forward3:
     push ax                          ; 0x3dd5
     lea ax, word [bp - 0x9e]         ; 0x3dd6
     push ax                          ; 0x3dda
-    call api_idx_0004_PMIU           ; 0x3ddb
+    call display_centered_message    ; 0x3ddb
     add sp, byte 4                   ; 0x3dde
     jmp short api_idx_009e_HMOI.forward5 ; 0x3de1
 api_idx_009e_HMOI.forward4:
@@ -119,7 +119,7 @@ api_idx_009e_HMOI.forward4:
     push ax                          ; 0x3e0c
     lea ax, word [bp - 0x9e]         ; 0x3e0d
     push ax                          ; 0x3e11
-    call api_idx_0004_PMIU           ; 0x3e12
+    call display_centered_message    ; 0x3e12
     add sp, byte 4                   ; 0x3e15
     mov bx, word [bp + 6]            ; 0x3e18
     mov word [bx], 0                 ; 0x3e1b
@@ -136,7 +136,7 @@ api_idx_009e_HMOI.forward6:
     push ax                          ; 0x3e33
     lea ax, word [bp - 0x9e]         ; 0x3e34
     push ax                          ; 0x3e38
-    call api_idx_0004_PMIU           ; 0x3e39
+    call display_centered_message    ; 0x3e39
     add sp, byte 4                   ; 0x3e3c
 api_idx_009e_HMOI.forward7:
     jmp near jumptable_3f96_case_0   ; 0x3e3f

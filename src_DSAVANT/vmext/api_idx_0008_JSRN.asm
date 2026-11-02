@@ -3,7 +3,7 @@ api_idx_0008_JSRN:
     mov ax, 0xfff8                   ; 0x151e
     call aztec_csav                  ; 0x1521
     push word [bp + 4]               ; 0x1524
-    call api_idx_0004_ONJT           ; 0x1527
+    call find_empty_party_item_slot  ; 0x1527
     pop cx                           ; 0x152a
     mov word [bp - 2], ax            ; 0x152b
     cmp ax, strict word 0xffff       ; 0x152e
@@ -56,7 +56,7 @@ api_idx_0008_JSRN:
     push ax                          ; 0x1591
     push word [bx + 4]               ; 0x1592
     push word [bp + 4]               ; 0x1595
-    call api_idx_004c_set_party_cell ; 0x1598
+    call init_item_slot              ; 0x1598
     add sp, byte 0xa                 ; 0x159b
     mov bx, word [bp - 8]            ; 0x159e
     mov byte [bx], 0xff              ; 0x15a1

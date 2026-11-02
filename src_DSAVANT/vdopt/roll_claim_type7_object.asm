@@ -16,7 +16,7 @@ roll_claim_type7_object:
     mov ax, word [bx + si + maze_tables_rec.f_01e0] ; 0x0708
     mov word [bp - 6], ax            ; 0x070c
     mov si, word [bp - 0xe]          ; 0x070f
-    mov al, byte [bx + si + spell_table + spell_table_rec_size*178 + spell_table_rec.f_0004] ; 0x0712
+    mov al, byte [bx + si + 0xa50]   ; 0x0712
     sub ah, ah                       ; 0x0716
     mov word [bp - 2], ax            ; 0x0718
     mov ax, 5                        ; 0x071b

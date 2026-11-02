@@ -28,7 +28,7 @@ api_idx_0016_SLUJ:
     mov cx, word [bp + 4]            ; 0x0e65
     shl cx, 1                        ; 0x0e68
     mov bx, cx                       ; 0x0e6a
-    mov cx, word [bx + 0x576]        ; 0x0e6c
+    mov cx, word [bx + view_depth_scale] ; 0x0e6c
     sub ax, cx                       ; 0x0e70
     mov word [bp - 6], ax            ; 0x0e72
     mov ax, 6                        ; 0x0e75

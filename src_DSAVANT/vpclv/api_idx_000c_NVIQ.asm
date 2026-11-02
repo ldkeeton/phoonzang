@@ -154,8 +154,8 @@ api_idx_000c_NVIQ:
     push ax                          ; 0x52d5
     call call_cache_area             ; 0x52d6
     add sp, byte 0xc                 ; 0x52d9
-    mov word [api_idx_0004_RMVO_bss19], dx          ; 0x52dc
-    mov word [api_idx_0004_RMVO_bss24], ax          ; 0x52e0
+    mov word [realm_panel_cache_low], dx ; 0x52dc
+    mov word [realm_panel_cache_high], ax ; 0x52e0
     mov ax, 0                        ; 0x52e3
     push ax                          ; 0x52e6
     mov ax, 2                        ; 0x52e7
@@ -198,9 +198,9 @@ api_idx_000c_NVIQ:
     add sp, byte 6                   ; 0x5340
     mov word [story_score_volume], ax ; 0x5343
 .forward3:
-    mov word [roster_drawn], 0       ; 0x5346
-    mov word [roster_alt_mode], 0    ; 0x534c
-    mov word [roster_page], 0        ; 0x5352
+    mov word [item_page_drawn], 0    ; 0x5346
+    mov word [item_page_alt_mode], 0 ; 0x534c
+    mov word [item_page], 0          ; 0x5352
     mov word [bp - 2], 0             ; 0x5358
     jmp short .forward4              ; 0x535d
 .back2:
@@ -241,8 +241,8 @@ api_idx_000c_NVIQ:
     push ax                          ; 0x53b6
     mov ax, 1                        ; 0x53b7
     push ax                          ; 0x53ba
-    push word [api_idx_0004_RMVO_bss19]             ; 0x53bb
-    push word [api_idx_0004_RMVO_bss24]             ; 0x53bf
+    push word [realm_panel_cache_low] ; 0x53bb
+    push word [realm_panel_cache_high] ; 0x53bf
     call call_restore_screen         ; 0x53c3
     add sp, byte 8                   ; 0x53c6
     mov ax, 0                        ; 0x53c9

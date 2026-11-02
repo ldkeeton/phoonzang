@@ -1,9 +1,9 @@
 ; auto-generated
 __zlist_screen_temp_file:
     db 'V.$$$', 0
-__zdseg_90a9:
+__zportrait_data_filename:
     db 'PORTDATA.VGA', 0
-__zdseg_90b6:
+__zlist_dialog_temp_file:
     db 'V.$$$', 0
 __zdialog_screen_temp_file:
     db 'V.$$$', 0

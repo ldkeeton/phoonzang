@@ -27,7 +27,7 @@ IMAGE_BASE equ 0x000e + VBASE
 __zcode_start:
 dseg_9098 equ __zdseg_end + (__zdseg_9098 - __zdata_start)
 dseg_909f equ __zdseg_end + (__zdseg_909f - __zdata_start)
-api_idx_005e_RKOR_dseg92 equ __zdseg_end + (__zdseg_90a6 - __zdata_start)
+monster_picture_template equ __zdseg_end + (__zmonster_picture_template - __zdata_start)
 dseg_90b0 equ __zdseg_end + (__zdseg_90b0 - __zdata_start)
 save_si equ __zdseg_end + (__zsave_si - __zdata_start)
 save_di equ __zdseg_end + (__zsave_di - __zdata_start)
@@ -156,7 +156,7 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "vmexe/api_idx_0004_PMSR.asm"     ; 0x33e2
 
-%include "shared/ovr/api_idx_005e_RKOR.asm"     ; 0x34bc
+%include "shared/ovr/check_monster_picture_space.asm" ; 0x34bc
 
 %include "vmexe/string_loc_HILJ.asm"       ; 0x3620
 
@@ -208,6 +208,10 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 __zdata_start:
 %include "vmexe/data/dseg_9098.asm"        ; 0xa545
+
+%include "shared/data/monster_picture_template.asm" ; 0xa553
+
+%include "vmexe/data/dseg_90b0.asm"        ; 0xa55d
 
 %include "shared/data/overlay_saved_registers.asm" ; 0xa55f
 

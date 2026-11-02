@@ -43,15 +43,17 @@ bios_data_0410 equ 0x0410
 aztec_format_conversions equ 0x480d + VBASE
 psp_top_of_memory equ 0x0002
 tick_counter_ptr equ __ztick_counter_ptr - __zdseg_start
-dseg_001e equ __zdseg_001e - __zdseg_start
+realm_point_text_colors equ __zrealm_point_text_colors - __zdseg_start
+equip_slot_colors equ __zequip_slot_colors - __zdseg_start
 dseg_0022 equ __zdseg_0022 - __zdseg_start
 dseg_0024 equ __zdseg_0024 - __zdseg_start
 psp_env_segment equ 0x002c
+unused_int equ __zunused_int - __zdseg_start
 realm_text_colors equ __zrealm_text_colors - __zdseg_start
-dseg_0038 equ __zdseg_0038 - __zdseg_start
+skill_group_ranges equ __zskill_group_ranges - __zdseg_start
 dseg_003c equ __zdseg_003c - __zdseg_start
-index_range2_first equ __zindex_range2_first - __zdseg_start
-index_range2_last equ __zindex_range2_last - __zdseg_start
+dseg_0040 equ __zdseg_0040 - __zdseg_start
+dseg_0042 equ __zdseg_0042 - __zdseg_start
 dseg_0044 equ __zdseg_0044 - __zdseg_start
 value_clamp_ranges equ __zvalue_clamp_ranges - __zdseg_start
 psp_cmd_tail_len equ 0x0080
@@ -61,11 +63,14 @@ file_param_word equ __zfile_param_word - __zdseg_start
 story_score_file_number equ __zstory_score_file_number - __zdseg_start
 loaded_score_number equ __zloaded_score_number - __zdseg_start
 intro_score_number_source equ __zintro_score_number_source - __zdseg_start
+realm_point_text_positions equ __zrealm_point_text_positions - __zdseg_start
 party_slot_x equ __zparty_slot_x - __zdseg_start
 party_slot_y equ __zparty_slot_y - __zdseg_start
 party_slot_glyphs equ __zparty_slot_glyphs - __zdseg_start
-dseg_03ae equ __zdseg_03ae - __zdseg_start
-dseg_03dc equ __zdseg_03dc - __zdseg_start
+view_column_x equ __zview_column_x - __zdseg_start
+view_depth_y equ __zview_depth_y - __zdseg_start
+view_depth_scale equ __zview_depth_scale - __zdseg_start
+cell_overlay_y_offset equ __zcell_overlay_y_offset - __zdseg_start
 cell_overlay_code equ __zcell_overlay_code - __zdseg_start
 spell_table equ __zspell_table - __zdseg_start
 str_insert_savegame_disk equ __zstr_insert_savegame_disk - __zdseg_start
@@ -747,13 +752,15 @@ __zdseg_start:
 
 %include "ds/data/tick_counter_ptr.asm"    ; 0x10162
 
-%include "ds/data/dseg_001e.asm"           ; 0x1017e
+%include "ds/data/realm_point_text_colors.asm" ; 0x10166
+
+%include "ds/data/equip_slot_colors.asm"   ; 0x1017e
+
+%include "ds/data/unused_int.asm"          ; 0x1018e
 
 %include "ds/data/realm_text_colors.asm"   ; 0x10190
 
-%include "ds/data/dseg_0038.asm"           ; 0x10198
-
-%include "ds/data/index_ranges.asm"        ; 0x101a0
+%include "ds/data/skill_group_ranges.asm"  ; 0x10198
 
 %include "ds/data/value_clamp_ranges.asm"  ; 0x101a8
 
@@ -763,7 +770,7 @@ __zdseg_start:
 
 %include "ds/data/party_slot_layout.asm"   ; 0x10304
 
-%include "ds/data/dseg_03ae.asm"           ; 0x1050e
+%include "ds/data/view_tables.asm"         ; 0x1050e
 
 %include "ds/data/cell_overlay_code.asm"   ; 0x10716
 

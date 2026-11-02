@@ -5,8 +5,14 @@
 %ifndef STRUCTS_INC
 %define STRUCTS_INC
 
+; records at DS 0x015c
+struc realm_point_text_positions_rec
+    .f_0000: resb 2
+    .f_0002: resb 6
+endstruc
+
 ; records at DS 0x03dc
-struc rec_03dc
+struc view_depth_y_rec
     .f_0000: resb 10
     .f_000a: resb 2
     .f_000c: resb 4

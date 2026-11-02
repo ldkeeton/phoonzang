@@ -52,7 +52,7 @@ shared/ovr/adjust_spell_value
 vmexe/api_idx_0010_RUQS
 vmexe/api_idx_0006_HURS
 vmexe/api_idx_0004_PMSR
-shared/ovr/api_idx_005e_RKOR
+shared/ovr/check_monster_picture_space
 vmexe/string_loc_HILJ
 vmexe/loc_RKLS
 vmexe/api_idx_000e_KPGJ
@@ -78,4 +78,6 @@ shared/ovr/aztec_ovbgn
 shared/ovr/aztec_cswt
 shared/ovr/aztec_swapmem
 vmexe/data/dseg_9098
+shared/data/monster_picture_template
+vmexe/data/dseg_90b0
 shared/data/overlay_saved_registers

@@ -74,7 +74,7 @@ api_idx_0012_PNUU.forward10:
     push word [bp - 2]
     mov ax, 0xfd
     push ax
-    call api_idx_0004_OVUO
+    call queue_slot_glyph_render
     add sp, byte 0x1c
 jumptable_4404_case_3:
     cmp word [bp + 6], byte 3
@@ -122,7 +122,7 @@ api_idx_0012_PNUU.forward13:
     push ax
     mov ax, 0xfd
     push ax
-    call api_idx_0004_OVUO
+    call queue_slot_glyph_render
     add sp, byte 0x1c
 api_idx_0012_PNUU.forward14:
     mov ax, word [bp + 0x32]
@@ -198,7 +198,7 @@ jumptable_4404_case_1:
     push ax
     mov ax, 0xfd
     push ax
-    call api_idx_0004_OVUO
+    call queue_slot_glyph_render
     add sp, byte 0x1c
 api_idx_0012_PNUU.forward17:
     jmp short api_idx_0012_PNUU.forward19
@@ -240,7 +240,7 @@ api_idx_0012_PNUU.forward18:
     push ax
     mov ax, 0xfd
     push ax
-    call api_idx_0004_OVUO
+    call queue_slot_glyph_render
     add sp, byte 0x1c
 api_idx_0012_PNUU.forward19:
     cmp word [bp + 0x26], byte -1
@@ -278,7 +278,7 @@ api_idx_0012_PNUU.forward21:
     push word [bp + 0x26]
     mov ax, 0xfd
     push ax
-    call api_idx_0004_OVUO
+    call queue_slot_glyph_render
     add sp, byte 0x1c
 api_idx_0012_PNUU.forward22:
     jmp near jumptable_4404_case_0
@@ -338,7 +338,7 @@ jumptable_4404_case_2:
     push ax
     mov ax, 0xfd
     push ax
-    call api_idx_0004_OVUO
+    call queue_slot_glyph_render
     add sp, byte 0x1c
 api_idx_0012_PNUU.forward24:
     jmp near api_idx_0012_PNUU.forward31
@@ -379,7 +379,7 @@ api_idx_0012_PNUU.forward27:
     push word [bp - 4]
     mov ax, 0xfd
     push ax
-    call api_idx_0004_OVUO
+    call queue_slot_glyph_render
     add sp, byte 0x1c
 api_idx_0012_PNUU.forward28:
     mov ax, 0
@@ -417,7 +417,7 @@ api_idx_0012_PNUU.forward28:
     push ax
     mov ax, 0xfd
     push ax
-    call api_idx_0004_OVUO
+    call queue_slot_glyph_render
     add sp, byte 0x1c
 api_idx_0012_PNUU.forward29:
     jmp short api_idx_0012_PNUU.forward31
@@ -461,7 +461,7 @@ api_idx_0012_PNUU.forward30:
     push ax
     mov ax, 0xfd
     push ax
-    call api_idx_0004_OVUO
+    call queue_slot_glyph_render
     add sp, byte 0x1c
 api_idx_0012_PNUU.forward31:
     jmp near jumptable_4404_case_0
@@ -503,7 +503,7 @@ jumptable_4404_case_4:
     push ax
     mov ax, 0xfb
     push ax
-    call api_idx_0004_OVUO
+    call queue_slot_glyph_render
     add sp, byte 0x1c
 api_idx_0012_PNUU.forward32:
     jmp near jumptable_4404_case_0
@@ -545,7 +545,7 @@ jumptable_4404_case_5:
     push ax
     mov ax, 0xfd
     push ax
-    call api_idx_0004_OVUO
+    call queue_slot_glyph_render
     add sp, byte 0x1c
 api_idx_0012_PNUU.forward33:
     jmp short jumptable_4404_case_0
@@ -636,9 +636,9 @@ jumptable_4607_case_1:
     shl cx, 1
     add ax, cx
     mov bx, ax
-    mov ax, word [bx + 0x436]
+    mov ax, word [bx + view_depth_y + view_depth_y_rec_size*5 + view_depth_y_rec.f_000a]
     mov word [bp - 0xe], ax
-    mov ax, word [bx + 0x438]
+    mov ax, word [bx + view_depth_y + view_depth_y_rec_size*5 + view_depth_y_rec.f_000c]
     mov word [bp - 0x10], ax
     mov word [bp - 8], 9
     mov ax, 0
@@ -665,7 +665,7 @@ jumptable_4607_case_2:
     shl cx, 1
     add ax, cx
     mov bx, ax
-    mov ax, word [bx + 0x486]
+    mov ax, word [bx + view_depth_y + view_depth_y_rec_size*10 + view_depth_y_rec.f_000a]
     jmp short api_idx_0012_PNUU.forward43
 api_idx_0012_PNUU.forward42:
     mov ax, word [bp + 4]
@@ -681,7 +681,7 @@ api_idx_0012_PNUU.forward42:
     shl cx, 1
     add ax, cx
     mov bx, ax
-    mov ax, word [bx + 0x4d6]
+    mov ax, word [bx + view_depth_y + view_depth_y_rec_size*15 + view_depth_y_rec.f_000a]
 api_idx_0012_PNUU.forward43:
     mov word [bp - 0xe], ax
     cmp word [boundary_wall_variant], byte 0
@@ -699,7 +699,7 @@ api_idx_0012_PNUU.forward43:
     shl cx, 1
     add ax, cx
     mov bx, ax
-    mov ax, word [bx + 0x488]
+    mov ax, word [bx + view_depth_y + view_depth_y_rec_size*10 + view_depth_y_rec.f_000c]
     jmp short api_idx_0012_PNUU.forward45
 api_idx_0012_PNUU.forward44:
     mov ax, word [bp + 4]
@@ -715,7 +715,7 @@ api_idx_0012_PNUU.forward44:
     shl cx, 1
     add ax, cx
     mov bx, ax
-    mov ax, word [bx + 0x4d8]
+    mov ax, word [bx + view_depth_y + view_depth_y_rec_size*15 + view_depth_y_rec.f_000c]
 api_idx_0012_PNUU.forward45:
     mov word [bp - 0x10], ax
     mov ax, 7
@@ -747,9 +747,9 @@ jumptable_4607_case_4:
     shl cx, 1
     add ax, cx
     mov bx, ax
-    mov ax, word [bx + 0x526]
+    mov ax, word [bx + view_depth_y + view_depth_y_rec_size*20 + view_depth_y_rec.f_000a]
     mov word [bp - 0xe], ax
-    mov ax, word [bx + 0x528]
+    mov ax, word [bx + view_depth_y + view_depth_y_rec_size*20 + view_depth_y_rec.f_000c]
     mov word [bp - 0x10], ax
     mov word [bp - 8], 0xc
     mov ax, 0xe
@@ -784,7 +784,7 @@ api_idx_0012_PNUU.forward50:
     mov ax, word [bp + 4]
     shl ax, 1
     mov bx, ax
-    push word [bx + 0x576]
+    push word [bx + view_depth_scale]
     push word [bp + 4]
     mov ax, 0xf8
     push ax
@@ -798,7 +798,7 @@ api_idx_0012_PNUU.forward50:
     push word [bp - 0x10]
     push word [bp - 0xe]
     push word [bp - 0xc]
-    call api_idx_0004_OVUO
+    call queue_slot_glyph_render
     add sp, byte 0x1c
 api_idx_0012_PNUU.return1:
     ret

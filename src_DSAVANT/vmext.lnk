@@ -16,7 +16,7 @@ shared/ovr/api_idx_0008_OMTP
 shared/ovr/show_message
 vmext/loc_NHMQ
 shared/ovr/check_at_saved_location
-shared/ovr/api_idx_0004_SMLK
+shared/ovr/get_cell_terrain
 vmext/api_idx_000c_RMGQ
 vmext/api_idx_0002_JSVP
 vmext/api_idx_000a_ISJL
@@ -24,8 +24,8 @@ vmext/loc_VUVO
 vmext/api_idx_008a_IMUJ
 vmext/loc_TLQV
 vmext/api_idx_0012_QKSO
-shared/ovr/api_idx_004c_set_party_cell
-shared/ovr/api_idx_0004_ONJT
+shared/ovr/init_item_slot
+shared/ovr/find_empty_party_item_slot
 shared/ovr/find_floor_item_at_party
 vmext/api_idx_0008_JSRN
 vmext/loc_HTTH
@@ -39,7 +39,7 @@ shared/ovr/offset_relative_map_position
 shared/ovr/read_cell_kind_direction
 shared/ovr/api_idx_0008_PGTT
 shared/ovr/get_relative_cell_wall
-shared/ovr/api_idx_0004_OVUO
+shared/ovr/queue_slot_glyph_render
 shared/ovr/api_idx_0010_KRNM
 shared/ovr/api_idx_0012_PNUU
 shared/ovr/api_idx_0012_KQTQ

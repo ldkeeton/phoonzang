@@ -265,7 +265,7 @@ jumptable_36f8_case_8:
     mov word [party_tag], ax         ; 0x2e08
     mov bx, word [maze_tables]       ; 0x2e0b
     mov si, word [party_map_piece]   ; 0x2e0f
-    mov al, byte [bx + si + spell_table + spell_table_rec_size*218 + spell_table_rec.f_0004] ; 0x2e13
+    mov al, byte [bx + si + 0xb40]   ; 0x2e13
     sub ah, ah                       ; 0x2e17
     mov word [party_region], ax      ; 0x2e19
     mov word [game_state], 5         ; 0x2e1c
@@ -1123,7 +1123,7 @@ api_idx_0040_INKU.back9:
     push ax                          ; 0x3606
     push word [bp - 0x26]            ; 0x3607
     push word [bp - 0x30]            ; 0x360a
-    call api_idx_004c_set_party_cell ; 0x360d
+    call init_item_slot              ; 0x360d
     add sp, byte 0xa                 ; 0x3610
     push word [bp - 0x26]            ; 0x3613
     call loc_GMVH                    ; 0x3616

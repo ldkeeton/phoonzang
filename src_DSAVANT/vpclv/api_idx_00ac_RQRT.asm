@@ -220,7 +220,7 @@ api_idx_00ac_RQRT.forward12:
     push ax                          ; 0x47c8
     lea ax, word [bp - 0x5c]         ; 0x47c9
     push ax                          ; 0x47cc
-    call api_idx_0004_PMIU           ; 0x47cd
+    call display_centered_message    ; 0x47cd
     add sp, byte 4                   ; 0x47d0
     push word [bp + 4]               ; 0x47d3
     call api_idx_007c_OKMO           ; 0x47d6
@@ -284,7 +284,7 @@ api_idx_00ac_RQRT.forward13:
     push ax                          ; 0x485e
     lea ax, word [bp - 0x5c]         ; 0x485f
     push ax                          ; 0x4862
-    call api_idx_0004_PMIU           ; 0x4863
+    call display_centered_message    ; 0x4863
     add sp, byte 4                   ; 0x4866
     push word [bp + 4]               ; 0x4869
     call api_idx_007c_OKMO           ; 0x486c

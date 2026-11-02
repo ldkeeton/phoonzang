@@ -30,7 +30,7 @@ handle_region_flag_2_event:
     push word [bp - 2]               ; 0x8740
     mov si, word [party_region]      ; 0x8743
     mov bx, word [maze_tables]       ; 0x8747
-    mov al, byte [bx + si + spell_table + spell_table_rec_size*178 + spell_table_rec.f_0004] ; 0x874b
+    mov al, byte [bx + si + 0xa50]   ; 0x874b
     sub ah, ah                       ; 0x874f
     push ax                          ; 0x8751
     mov ax, action_bitmap            ; 0x8752
@@ -45,7 +45,7 @@ handle_region_flag_2_event:
     push word [bp - 2]               ; 0x8765
     mov bx, word [maze_tables]       ; 0x8768
     mov si, word [party_region]      ; 0x876c
-    mov al, byte [bx + si + spell_table + spell_table_rec_size*178 + spell_table_rec.f_0004] ; 0x8770
+    mov al, byte [bx + si + 0xa50]   ; 0x8770
     sub ah, ah                       ; 0x8774
     mov cx, 0x26                     ; 0x8776
     imul cx                          ; 0x8779

@@ -59,7 +59,7 @@ api_idx_00a4_PTJS:
     push ax                          ; 0x4f2e
     lea ax, word [bp - 0x54]         ; 0x4f2f
     push ax                          ; 0x4f32
-    call api_idx_0004_PMIU           ; 0x4f33
+    call display_centered_message    ; 0x4f33
     add sp, byte 4                   ; 0x4f36
     push word [bp + 4]               ; 0x4f39
     call api_idx_00b4_QLQS           ; 0x4f3c

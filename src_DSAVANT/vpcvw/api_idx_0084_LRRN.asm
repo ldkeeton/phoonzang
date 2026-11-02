@@ -4,7 +4,7 @@ api_idx_0084_LRRN:
     call aztec_csav                  ; 0x40f2
     mov word [bp - 4], 0             ; 0x40f5
     mov word [bp - 8], 0             ; 0x40fa
-    mov ax, word [index_range2_first] ; 0x40ff
+    mov ax, word [dseg_0040]         ; 0x40ff
     mov word [bp - 2], ax            ; 0x4102
     jmp short .forward2              ; 0x4105
 .back1:
@@ -19,7 +19,7 @@ api_idx_0084_LRRN:
     inc word [bp - 2]                ; 0x411e
 .forward2:
     mov ax, word [bp - 2]            ; 0x4121
-    cmp ax, word [index_range2_last] ; 0x4124
+    cmp ax, word [dseg_0042]         ; 0x4124
     jle short .back1                 ; 0x4128
     mov word [bp - 0xa], 0           ; 0x412a
     mov word [bp - 0xc], 0           ; 0x412f

@@ -121,7 +121,7 @@ dseg_93a5 equ __zdseg_end + (__zdseg_93a5 - __zdata_start)
 dseg_93ae equ __zdseg_end + (__zdseg_93ae - __zdata_start)
 dseg_93b7 equ __zdseg_end + (__zdseg_93b7 - __zdata_start)
 dseg_93c0 equ __zdseg_end + (__zdseg_93c0 - __zdata_start)
-load_member_icon_dseg11 equ __zdseg_end + (__zdseg_93c9 - __zdata_start)
+portrait_data_filename equ __zdseg_end + (__zportrait_data_filename - __zdata_start)
 save_si equ __zdseg_end + (__zsave_si - __zdata_start)
 save_di equ __zdseg_end + (__zsave_di - __zdata_start)
 save_sp equ __zdseg_end + (__zsave_sp - __zdata_start)
@@ -139,8 +139,8 @@ api_idx_0080_MHMQ_bss24 equ __zdseg_end + (__zobss_93fa - __zdata_start)
 api_idx_0080_MHMQ_bss19 equ __zdseg_end + (__zobss_93fc - __zdata_start)
 api_idx_0080_MHMQ_bss49 equ __zdseg_end + (__zobss_93fe - __zdata_start)
 api_idx_0080_MHMQ_bss44 equ __zdseg_end + (__zobss_9400 - __zdata_start)
-api_idx_0004_RMVO_bss24 equ __zdseg_end + (__zobss_9402 - __zdata_start)
-api_idx_0004_RMVO_bss19 equ __zdseg_end + (__zobss_9404 - __zdata_start)
+realm_panel_cache_high equ __zdseg_end + (__zobss_9402 - __zdata_start)
+realm_panel_cache_low equ __zdseg_end + (__zobss_9404 - __zdata_start)
 saved_screen equ __zdseg_end + (__zobss_940a - __zdata_start)
 saved_screen_hi equ __zdseg_end + (__zobss_940c - __zdata_start)
 bss_940e equ __zdseg_end + (__zobss_940e - __zdata_start)
@@ -152,8 +152,8 @@ bss_942c equ __zdseg_end + (__zobss_942c - __zdata_start)
 banner_offset equ __zdseg_end + (__zobss_942e - __zdata_start)
 banner_plain_flag equ __zdseg_end + (__zobss_9430 - __zdata_start)
 loc_TTSP_bss184 equ __zdseg_end + (__zobss_9432 - __zdata_start)
-roster_page equ __zdseg_end + (__zobss_9434 - __zdata_start)
-roster_names equ __zdseg_end + (__zobss_9436 - __zdata_start)
+item_page equ __zdseg_end + (__zobss_9434 - __zdata_start)
+item_slot_names equ __zdseg_end + (__zobss_9436 - __zdata_start)
 known_spell_ids equ __zdseg_end + (__zobss_9512 - __zdata_start)
 party_redraw_interval equ __zdseg_end + (__zobss_9562 - __zdata_start)
 bss_9564 equ __zdseg_end + (__zobss_9564 - __zdata_start)
@@ -161,11 +161,11 @@ bss_9566 equ __zdseg_end + (__zobss_9566 - __zdata_start)
 bss_9568 equ __zdseg_end + (__zobss_9568 - __zdata_start)
 bss_956a equ __zdseg_end + (__zobss_956a - __zdata_start)
 bss_95ea equ __zdseg_end + (__zobss_95ea - __zdata_start)
-roster_row_color equ __zdseg_end + (__zobss_95ec - __zdata_start)
-roster_row_attr equ __zdseg_end + (__zobss_9600 - __zdata_start)
-roster_alt_mode equ __zdseg_end + (__zobss_9614 - __zdata_start)
+item_slot_color equ __zdseg_end + (__zobss_95ec - __zdata_start)
+item_slot_attr equ __zdseg_end + (__zobss_9600 - __zdata_start)
+item_page_alt_mode equ __zdseg_end + (__zobss_9614 - __zdata_start)
 bss_9616 equ __zdseg_end + (__zobss_9616 - __zdata_start)
-roster_drawn equ __zdseg_end + (__zobss_967a - __zdata_start)
+item_page_drawn equ __zdseg_end + (__zobss_967a - __zdata_start)
 profession_eligible equ __zdseg_end + (__zobss_967c - __zdata_start)
 bss_9698 equ __zdseg_end + (__zobss_9698 - __zdata_start)
 bss_96d0 equ __zdseg_end + (__zobss_96d0 - __zdata_start)
@@ -180,7 +180,7 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "shared/ovr/api_idx_0012_PGSL.asm"     ; 0x014b
 
-%include "shared/ovr/api_idx_0004_PMIU.asm"     ; 0x02c7
+%include "shared/ovr/display_centered_message.asm" ; 0x02c7
 
 %include "vpcvw/api_idx_000c_JRTV.asm"     ; 0x037b
 
@@ -194,7 +194,7 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "shared/ovr/draw_party_slot_letters.asm" ; 0x0cd6
 
-%include "shared/ovr/api_idx_0004_RMVO.asm"     ; 0x0d55
+%include "shared/ovr/draw_member_realm_points.asm" ; 0x0d55
 
 %include "shared/ovr/advance_party_slot_frames.asm" ; 0x0e05
 
@@ -270,7 +270,7 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "vpcvw/loc_IHRL.asm"              ; 0x474b
 
-%include "shared/ovr/api_idx_0004_GUSS.asm"     ; 0x4793
+%include "shared/ovr/set_party_hand_attack.asm" ; 0x4793
 
 %include "vpcvw/api_idx_0048_RUIH.asm"     ; 0x4a1c
 
@@ -292,9 +292,9 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "shared/ovr/api_idx_0080_MHMQ.asm"     ; 0x6a20
 
-%include "shared/ovr/api_idx_0004_MKGU.asm"     ; 0x6c47
+%include "shared/ovr/draw_item_slot_label.asm"  ; 0x6c47
 
-%include "shared/ovr/api_idx_004c_HTUT.asm"     ; 0x6d13
+%include "shared/ovr/draw_member_item_page.asm" ; 0x6d13
 
 %include "vpcvw/api_idx_009a_KOSH.asm"     ; 0x6f62
 
@@ -344,6 +344,8 @@ __zdata_start:
 %include "shared/data/profession_stat_requirements.asm" ; 0x9a94
 
 %include "vpcvw/data/dseg_9366.asm"        ; 0x9b12
+
+%include "shared/data/portrait_data_filename.asm" ; 0x9b75
 
 %include "shared/data/overlay_saved_registers.asm" ; 0x9b82
 

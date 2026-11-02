@@ -4,7 +4,7 @@ trigger_item_cell_object:
     call aztec_csav                  ; 0x2390
     mov bx, word [maze_tables]       ; 0x2393
     mov si, word [party_map_piece]   ; 0x2397
-    mov al, byte [bx + si + spell_table + spell_table_rec_size*218 + spell_table_rec.f_0004] ; 0x239b
+    mov al, byte [bx + si + 0xb40]   ; 0x239b
     sub ah, ah                       ; 0x239f
     mov word [bp - 8], ax            ; 0x23a1
 .back1:
@@ -101,7 +101,7 @@ trigger_item_cell_object:
 .forward5:
     mov bx, word [maze_tables]       ; 0x2488
     mov si, word [bp - 8]            ; 0x248c
-    cmp byte [bx + si + spell_table + spell_table_rec_size*178 + spell_table_rec.f_0004], 0 ; 0x248f
+    cmp byte [bx + si + 0xa50], 0    ; 0x248f
     jbe short .forward8              ; 0x2494
     mov ax, 0xc6                     ; 0x2496
     push ax                          ; 0x2499
@@ -115,7 +115,7 @@ trigger_item_cell_object:
     add sp, byte 8                   ; 0x24a9
     mov bx, word [maze_tables]       ; 0x24ac
     mov si, word [bp - 8]            ; 0x24b0
-    mov al, byte [bx + si + spell_table + spell_table_rec_size*178 + spell_table_rec.f_0004] ; 0x24b3
+    mov al, byte [bx + si + 0xa50]   ; 0x24b3
     sub ah, ah                       ; 0x24b7
     mov word [bp - 0xc], ax          ; 0x24b9
     cmp ax, strict word 5            ; 0x24bc

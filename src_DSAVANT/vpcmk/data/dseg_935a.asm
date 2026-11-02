@@ -61,12 +61,3 @@ __zdseg_94cb:
     db 'ACHCHHGCCCECHA', 0
 __zdseg_94da:
     db '02322322112230', 0
-__zdseg_94e9:
-    db 'PORTDATA.VGA', 0
-__zdseg_94f6:
-    db 'PCFILE.DBS', 0
-__zdseg_9501:
-    db 'PCFILE.DBS', 0
-__zdseg_950c:
-    db 'PCVWSCRN.VGA', 0
-    db 0x00

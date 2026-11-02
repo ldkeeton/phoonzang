@@ -11,7 +11,7 @@ loc_JTQP:
     cmp word [bp + 6], byte 0        ; 0x40cb
     jne short .return1               ; 0x40cf
     push word [bp + 4]               ; 0x40d1
-    call api_idx_004c_HTUT           ; 0x40d4
+    call draw_member_item_page       ; 0x40d4
     pop cx                           ; 0x40d7
     call api_idx_0004_KVIP           ; 0x40d8
     mov ax, 0xc7                     ; 0x40db

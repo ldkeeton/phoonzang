@@ -32,7 +32,7 @@ vmaze/display_message_with_sound
 vmaze/api_idx_0004_IKPN
 shared/ovr/check_at_saved_location
 vmaze/api_idx_0004_IHHI
-shared/ovr/api_idx_0004_SMLK
+shared/ovr/get_cell_terrain
 vmaze/api_idx_000e_NSGM
 vmaze/api_idx_0004_USIK
 vmaze/api_idx_000a_URTS
@@ -52,7 +52,7 @@ shared/ovr/offset_relative_map_position
 shared/ovr/read_cell_kind_direction
 shared/ovr/api_idx_0008_PGTT
 shared/ovr/get_relative_cell_wall
-shared/ovr/api_idx_0004_OVUO
+shared/ovr/queue_slot_glyph_render
 shared/ovr/api_idx_0010_KRNM
 shared/ovr/api_idx_0012_PNUU
 shared/ovr/api_idx_0012_KQTQ
@@ -65,7 +65,7 @@ shared/ovr/loc_MPHO
 shared/ovr/find_map_piece
 shared/ovr/find_object_at
 vmaze/save_level_state
-shared/ovr/api_idx_0006_POPS
+shared/ovr/find_maze_change
 shared/ovr/log_maze_change
 vmaze/play_maze_sound_effect
 shared/ovr/restore_area_a_draw_glyph

@@ -5,7 +5,8 @@ import unittest
 from capstone import Cs, CS_ARCH_X86, CS_MODE_16
 
 from lib.record_layout import (absorb_symbols, absorbed_starts, field_text,
-                               inc_text, merge, observe, pointer_symbols)
+                               inc_text, merge, observe, pointer_based,
+                               pointer_symbols)
 
 _MD = Cs(CS_ARCH_X86, CS_MODE_16)
 _MD.detail = True
@@ -53,6 +54,35 @@ class ObserveTest(unittest.TestCase):
 
     def test_a_call_clobbers_the_index(self):
         self.assertEqual(observe(_insns(_CALL), None), [])
+
+
+# mov bx, [0x0e14]; mov si, [0x1234]; mov al, [bx+si+0x490]
+_POINTER_BASE = '8b1e140e8b3634128a809004'
+# mov bx, [0x1234]; mov al, [bx+0x5db2]: a saved index, no subscript
+_SAVED_INDEX = '8b1e34128a87b25d'
+# mov bx, [0x0e14]; mov si, [bp-4]; cmp byte [bx+si+0x5a0], 0x19;
+# jne out; mov al, [bx+si+0xa50]; out: ret
+_FALL_THROUGH = '8b1e140e8b76fc80b8a0051975048a80500ac3'
+# mov bx, [0x0e14]; mov si, [bp-2]; cmp al, 1; je hit; ret;
+# hit: mov al, [bx+si+0x960]; ret
+_ONE_BRANCH = '8b1e140e8b76fe3c017401c38a806009c3'
+
+
+class PointerBasedTest(unittest.TestCase):
+    def test_a_loaded_base_with_a_subscript(self):
+        self.assertEqual(pointer_based(_insns(_POINTER_BASE), None),
+                         {(0x208, 1)})
+
+    def test_a_lone_base_is_left_alone(self):
+        self.assertEqual(pointer_based(_insns(_SAVED_INDEX), None), set())
+
+    def test_a_conditional_fall_through_keeps_the_base(self):
+        self.assertEqual(pointer_based(_insns(_FALL_THROUGH), None),
+                         {(0x207, 0), (0x20e, 1)})
+
+    def test_a_label_one_branch_reaches_keeps_the_base(self):
+        self.assertEqual(pointer_based(_insns(_ONE_BRANCH), None),
+                         {(0x20c, 1)})
 
 
 class MergeTest(unittest.TestCase):

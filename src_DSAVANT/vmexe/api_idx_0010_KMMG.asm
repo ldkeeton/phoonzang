@@ -240,7 +240,7 @@ api_idx_0010_KMMG:
     shl cx, 1                        ; 0x9c72
     add ax, cx                       ; 0x9c74
     mov bx, ax                       ; 0x9c76
-    mov cx, word [bx + 0x580]        ; 0x9c78
+    mov cx, word [bx + cell_overlay_y_offset] ; 0x9c78
     mov ax, 0x64                     ; 0x9c7c
     sub ax, cx                       ; 0x9c7f
     push ax                          ; 0x9c81

@@ -9,7 +9,7 @@ api_idx_0072_LQIT:
     mov ax, word [bx + si + maze_tables_rec.f_01e0] ; 0x7162
     mov word [bp - 0x22], ax         ; 0x7166
     mov si, word [bp + 4]            ; 0x7169
-    mov al, byte [bx + si + spell_table + spell_table_rec_size*178 + spell_table_rec.f_0004] ; 0x716c
+    mov al, byte [bx + si + 0xa50]   ; 0x716c
     sub ah, ah                       ; 0x7170
     mov word [bp - 0x1e], ax         ; 0x7172
     mov ax, 5                        ; 0x7175

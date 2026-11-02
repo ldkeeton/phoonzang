@@ -236,11 +236,11 @@ api_idx_0030_KNRH:
     push ax
     mov ax, 0x7f8
     push ax
-    mov ax, api_idx_0004_OVUO_bss367
+    mov ax, queued_slot_x
     push ax
     call aztec_setmem
     add sp, byte 6
-    mov word [api_idx_0004_OVUO_bss26], 0
+    mov word [render_queue_count], 0
     mov ax, word [bp - 0x12]
     mov word [bp - 0x14], ax
     mov ax, 0xffff
@@ -1744,14 +1744,14 @@ api_idx_0030_KNRH.forward38:
 api_idx_0030_KNRH.back2:
     mov word [bp - 4], 0xff
 api_idx_0030_KNRH.back3:
-    mov ax, word [api_idx_0004_OVUO_bss26]
+    mov ax, word [render_queue_count]
     dec ax
     mov word [bp - 2], ax
     jmp short api_idx_0030_KNRH.forward41
 api_idx_0030_KNRH.back4:
     mov ax, 0x11
     imul word [bp - 2]
-    add ax, api_idx_0004_OVUO_bss367
+    add ax, queued_slot_x
     mov word [bp - 0x26], ax
     mov bx, ax
     mov al, byte [bx + 0xd]
@@ -1806,14 +1806,14 @@ api_idx_0030_KNRH.forward42:
     jne short api_idx_0030_KNRH.forward43
     jmp near api_idx_0030_KNRH.forward49
 api_idx_0030_KNRH.forward43:
-    mov ax, word [api_idx_0004_OVUO_bss26]
+    mov ax, word [render_queue_count]
     dec ax
     mov word [bp - 2], ax
     jmp near api_idx_0030_KNRH.forward48
 api_idx_0030_KNRH.back5:
     mov ax, 0x11
     imul word [bp - 2]
-    add ax, api_idx_0004_OVUO_bss367
+    add ax, queued_slot_x
     mov word [bp - 0x26], ax
     mov bx, ax
     mov al, byte [bx + 0xd]

@@ -94,7 +94,7 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "vdopt/wait_for_scene_input_or_timeout.asm" ; 0x02c3
 
-%include "shared/ovr/api_idx_0006_POPS.asm"     ; 0x030c
+%include "shared/ovr/find_maze_change.asm"      ; 0x030c
 
 %include "shared/ovr/log_maze_change.asm"       ; 0x0382
 

@@ -149,7 +149,7 @@ api_idx_00ca_KSLQ:
     push ax                          ; 0x1fa5
     lea ax, word [bp - 0x7a]         ; 0x1fa6
     push ax                          ; 0x1fa9
-    call api_idx_0004_PMIU           ; 0x1faa
+    call display_centered_message    ; 0x1faa
     add sp, byte 4                   ; 0x1fad
     mov ax, 0                        ; 0x1fb0
     push ax                          ; 0x1fb3
@@ -277,7 +277,7 @@ api_idx_00ca_KSLQ:
     mov bx, cx                       ; 0x20d5
     dec byte [bx + party_records + pc_rec.spell_school] ; 0x20d7
     push word [bp + 4]               ; 0x20db
-    call api_idx_0004_RMVO           ; 0x20de
+    call draw_member_realm_points    ; 0x20de
     pop cx                           ; 0x20e1
 .return1:
     ret                              ; 0x20e2

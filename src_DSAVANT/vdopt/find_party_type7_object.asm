@@ -4,7 +4,7 @@ find_party_type7_object:
     call aztec_csav                  ; 0x065e
     mov bx, word [maze_tables]       ; 0x0661
     mov si, word [party_map_piece]   ; 0x0665
-    mov al, byte [bx + si + spell_table + spell_table_rec_size*218 + spell_table_rec.f_0004] ; 0x0669
+    mov al, byte [bx + si + 0xb40]   ; 0x0669
     sub ah, ah                       ; 0x066d
     mov word [bp - 2], ax            ; 0x066f
 .back1:

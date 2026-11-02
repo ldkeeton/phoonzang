@@ -94,7 +94,7 @@ api_idx_0010_KRNM.forward12:
     push word [bp - 2]
     mov ax, 0xff
     push ax
-    call api_idx_0004_OVUO
+    call queue_slot_glyph_render
     add sp, byte 0x1c
 api_idx_0010_KRNM.forward13:
     jmp near jumptable_3a86_case_0
@@ -121,7 +121,7 @@ jumptable_3a86_case_5:
     push word [bp - 2]
     mov ax, 0xff
     push ax
-    call api_idx_0004_OVUO
+    call queue_slot_glyph_render
     add sp, byte 0x1c
 api_idx_0010_KRNM.forward14:
     jmp near jumptable_3a86_case_0
@@ -167,7 +167,7 @@ api_idx_0010_KRNM.forward15:
     push ax
     mov ax, 0xff
     push ax
-    call api_idx_0004_OVUO
+    call queue_slot_glyph_render
     add sp, byte 0x1c
 api_idx_0010_KRNM.forward16:
     jmp near api_idx_0010_KRNM.forward21
@@ -210,7 +210,7 @@ api_idx_0010_KRNM.forward18:
     push ax
     mov ax, 0xff
     push ax
-    call api_idx_0004_OVUO
+    call queue_slot_glyph_render
     add sp, byte 0x1c
 api_idx_0010_KRNM.forward19:
     jmp short api_idx_0010_KRNM.forward21
@@ -250,7 +250,7 @@ api_idx_0010_KRNM.forward20:
     push ax
     mov ax, 0xff
     push ax
-    call api_idx_0004_OVUO
+    call queue_slot_glyph_render
     add sp, byte 0x1c
 api_idx_0010_KRNM.forward21:
     jmp near jumptable_3a86_case_0
@@ -292,7 +292,7 @@ api_idx_0010_KRNM.forward23:
     push ax
     mov ax, 0xfc
     push ax
-    call api_idx_0004_OVUO
+    call queue_slot_glyph_render
     add sp, byte 0x1c
 api_idx_0010_KRNM.forward24:
     jmp short jumptable_3a86_case_0
@@ -402,7 +402,7 @@ jumptable_3ed8_case_1:
     push ax
     mov ax, 0xff
     push ax
-    call api_idx_0004_OVUO
+    call queue_slot_glyph_render
     add sp, byte 0x1c
     jmp short api_idx_0010_KRNM.forward32
 api_idx_0010_KRNM.forward31:
@@ -439,7 +439,7 @@ api_idx_0010_KRNM.forward31:
     push ax
     mov ax, 0xff
     push ax
-    call api_idx_0004_OVUO
+    call queue_slot_glyph_render
     add sp, byte 0x1c
 api_idx_0010_KRNM.forward32:
     cmp word [bp + 6], byte 3
@@ -480,7 +480,7 @@ api_idx_0010_KRNM.forward33:
     push word [bx + 0x36e]
     mov ax, 5
     push ax
-    call api_idx_0004_OVUO
+    call queue_slot_glyph_render
     add sp, byte 0x1c
     jmp near api_idx_0010_KRNM.forward35
 api_idx_0010_KRNM.forward34:
@@ -514,7 +514,7 @@ api_idx_0010_KRNM.forward34:
     push word [bx + 0x36e]
     mov ax, 5
     push ax
-    call api_idx_0004_OVUO
+    call queue_slot_glyph_render
     add sp, byte 0x1c
     mov ax, 0
     push ax
@@ -544,7 +544,7 @@ api_idx_0010_KRNM.forward34:
     push word [bx + 0x36e]
     mov ax, 5
     push ax
-    call api_idx_0004_OVUO
+    call queue_slot_glyph_render
     add sp, byte 0x1c
 api_idx_0010_KRNM.forward35:
     jmp short api_idx_0010_KRNM.forward37
@@ -579,7 +579,7 @@ api_idx_0010_KRNM.forward36:
     push word [bx + 0x36e]
     mov ax, 5
     push ax
-    call api_idx_0004_OVUO
+    call queue_slot_glyph_render
     add sp, byte 0x1c
 api_idx_0010_KRNM.forward37:
     cmp word [boundary_wall_variant], byte 0
@@ -628,7 +628,7 @@ api_idx_0010_KRNM.forward37:
     push ax
     mov ax, 0xff
     push ax
-    call api_idx_0004_OVUO
+    call queue_slot_glyph_render
     add sp, byte 0x1c
     jmp short api_idx_0010_KRNM.forward39
 api_idx_0010_KRNM.forward38:
@@ -678,7 +678,7 @@ api_idx_0010_KRNM.forward38:
     push ax
     mov ax, 0xff
     push ax
-    call api_idx_0004_OVUO
+    call queue_slot_glyph_render
     add sp, byte 0x1c
 api_idx_0010_KRNM.forward39:
     cmp word [bp + 6], byte 8
@@ -708,7 +708,7 @@ api_idx_0010_KRNM.forward40:
     push ax
     mov ax, 0xff
     push ax
-    call api_idx_0004_OVUO
+    call queue_slot_glyph_render
     add sp, byte 0x1c
 api_idx_0010_KRNM.forward41:
     jmp near jumptable_3ed8_case_0
@@ -748,7 +748,7 @@ jumptable_3ed8_case_5:
     push ax
     mov ax, 0xff
     push ax
-    call api_idx_0004_OVUO
+    call queue_slot_glyph_render
     add sp, byte 0x1c
 api_idx_0010_KRNM.forward42:
     jmp near jumptable_3ed8_case_0
@@ -830,7 +830,7 @@ jumptable_3ed8_case_0:
     mov ax, word [bp + 4]
     shl ax, 1
     mov bx, ax
-    push word [bx + 0x576]
+    push word [bx + view_depth_scale]
     push word [bp + 4]
     mov ax, 0xf8
     push ax
@@ -850,7 +850,7 @@ jumptable_3ed8_case_0:
     mov bx, ax
     push word [bx + 0x36e]
     push word [bp - 0x10]
-    call api_idx_0004_OVUO
+    call queue_slot_glyph_render
     add sp, byte 0x1c
 api_idx_0010_KRNM.return1:
     ret

@@ -182,14 +182,12 @@ class OverlayLayeredDataTest(unittest.TestCase):
 
     def test_overlay_data_is_layered(self):
         report = self._load('vbase')
-        dseg = [e['address'] for e in report['symbols']
-                if e['name'].startswith('dseg_')]
-        bss = [e['address'] for e in report['symbols']
-               if e['name'].startswith('bss_')]
-        self.assertTrue(dseg)
-        self.assertTrue(bss)
-        overlay_init = [a for a in dseg if 0x9098 <= a < 0x9098 + 0x12e]
-        overlay_bss = [a for a in bss if a >= 0x9098 + 0x12e]
+        # By address, not by name: a sidecar name replaces ``dseg_``/``bss_``.
+        data = [e['address'] for e in report['symbols']
+                if e['space'] in ('ds', 'bss')]
+        self.assertTrue(data)
+        overlay_init = [a for a in data if 0x9098 <= a < 0x9098 + 0x12e]
+        overlay_bss = [a for a in data if a >= 0x9098 + 0x12e]
         self.assertTrue(overlay_init, 'no overlay file-backed data symbols')
         self.assertTrue(overlay_bss, 'no overlay BSS symbols')
 

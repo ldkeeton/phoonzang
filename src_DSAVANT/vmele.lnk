@@ -8,7 +8,7 @@ shared/ovr/titlecase_string
 vmele/show_centered_message
 vmele/find_picture_slot
 vmele/pick_target_slot
-shared/ovr/api_idx_005e_RKOR
+shared/ovr/check_monster_picture_space
 vmele/add_party_member
 vmele/copy_member_stats
 vmele/fill_action_slot_table
@@ -31,7 +31,7 @@ vmele/api_idx_0002_MTJS
 vmele/claim_cell_for_member
 vmele/fill_row_action_slots
 shared/ovr/loc_KRMP
-shared/ovr/api_idx_0006_LJUS
+shared/ovr/step_party_screen_animation
 shared/ovr/run_party_screen_animation
 vmele/play_action_overlays
 vmele/close_party_screen
@@ -43,7 +43,7 @@ vmele/start_melee_battle
 vmele/redraw_party_before_battle
 shared/ovr/aztec_ovbgn
 shared/ovr/aztec_swapmem
-vmele/data/api_idx_005e_RKOR_dseg92
+shared/data/monster_picture_template
 vmele/data/space_text
 vmele/data/screen_temp_name
 shared/data/overlay_saved_registers

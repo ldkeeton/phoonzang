@@ -47,16 +47,16 @@ extern struct bane_realm_entry bane_realm_values[];
 extern unsigned char bane_character_stats[], bane_character_stat_caps[],
 	bane_character_spacing[], bane_spell_bits[];
 extern unsigned char bane_story_values_a[], bane_story_values_b[],
-	bane_character_kind, bane_character_glyph_set, bane_character_gender,
-	bane_character_profession_value;
-extern unsigned char bane_power_adjustment, bane_mage_spell_count,
-	bane_priest_spell_count;
-extern struct bane_item_entry bane_mage_spell_values[];
-extern struct bane_item_level bane_mage_spell_levels[];
-extern struct bane_item_flag bane_mage_spell_flags[];
-extern struct bane_item_entry bane_priest_spell_values[];
-extern struct bane_item_level bane_priest_spell_levels[];
-extern struct bane_item_flag bane_priest_spell_flags[];
+	bane_character_glyph_set, bane_character_gender, bane_character_profession,
+	bane_character_value_d;
+extern unsigned char bane_power_adjustment, bane_item_count_a,
+	bane_item_count_b;
+extern struct bane_item_entry bane_items_a[];
+extern struct bane_item_level bane_item_levels_a[];
+extern struct bane_item_flag bane_item_flags_a[];
+extern struct bane_item_entry bane_items_b[];
+extern struct bane_item_level bane_item_levels_b[];
+extern struct bane_item_flag bane_item_flags_b[];
 extern struct spell_info spell_table[];
 
 extern int call_wait_sound(), load_message_string(), choose_game_file();
@@ -71,7 +71,7 @@ extern int map_bane_party_selector(), set_bitmap_bit();
 extern long read_class_experience_threshold();
 extern int map_bane_character_kind(), reset_hand_attack(),
 	draw_member_panel_glyphs();
-extern int api_idx_004c_set_party_cell(), map_bane_item_number(),
+extern int init_item_slot(), map_bane_item_number(),
 	initialize_intro_layout();
 
 import_bane_party()
@@ -293,14 +293,14 @@ read_next_member:
 			record->story_flags[record_index] =
 				bane_story_values_b[record_index];
 		}
-		record->glyph_set = bane_character_kind;
-		record->gender = bane_character_glyph_set;
-		record->profession = bane_character_gender;
+		record->glyph_set = bane_character_glyph_set;
+		record->gender = bane_character_gender;
+		record->profession = bane_character_profession;
 		record->experience = read_class_experience_threshold(
 			record->profession, record->power_cap);
 		record->kind = map_bane_character_kind(record->glyph_set,
 			record->gender, record->profession);
-		record->pad3 = bane_character_profession_value;
+		record->pad3 = bane_character_value_d;
 		record->state = 0;
 		record->imported_fields[0] = 0;
 		record->imported_fields[1] = 1;
@@ -336,17 +336,18 @@ read_next_member:
 			record->order[record_index] = 255;
 		draw_member_panel_glyphs(party_char_count);
 
-		/* Add the imported portrait labels to the party cell grid. */
+		/* Give starting items: 411 to the first member, then one or two by
+		   profession (glyph set 5 gets 397 instead). */
 		row_index = 0;
 		column_index = 0;
 		if (party_char_count == 0) {
-			api_idx_004c_set_party_cell(party_char_count, 411,
+			init_item_slot(party_char_count, 411,
 				&record->item_slots[row_index][column_index], -2, 1);
 			column_index++;
 		}
 		record_index = 0;
 		selector_result = 0;
-		switch (bane_character_gender) {
+		switch (bane_character_profession) {
 		case 0: record_index = 8; break;
 		case 1: record_index = 18; break;
 		case 2: record_index = 24; break;
@@ -362,37 +363,39 @@ read_next_member:
 		case 12: record_index = 25; break;
 		case 13: record_index = 47; break;
 		}
-		if (bane_character_kind == 5) {
+		if (bane_character_glyph_set == 5) {
 			record_index = 397;
 			selector_result = 0;
 		}
 		if (record_index > 0) {
-			api_idx_004c_set_party_cell(party_char_count, record_index,
+			init_item_slot(party_char_count, record_index,
 				&record->item_slots[row_index][column_index], -2, 1);
 			column_index++;
 		}
 		if (selector_result > 0) {
-			api_idx_004c_set_party_cell(party_char_count, selector_result,
+			init_item_slot(party_char_count, selector_result,
 				&record->item_slots[row_index][column_index], -2, 1);
 			column_index++;
 		}
 
-		/* Translate imported spell/item slots, keeping at most two displayed. */
+		/* Map both imported item lists into the item slots.  One item the
+		   game has no match for (flag bit 0 set) may be kept; an index from
+		   the second list is past the first's ten entries. */
 		leftover_slot = -1;
-		for (record_index = 0; record_index < bane_mage_spell_count;
+		for (record_index = 0; record_index < bane_item_count_a;
 			record_index++) {
-			selector_result = bane_mage_spell_values[record_index].item;
+			selector_result = bane_items_a[record_index].item;
 			if (selector_result > 0) {
 				selector_result = map_bane_item_number(selector_result);
 				if (selector_result < 0) {
 					if (leftover_slot == -1 || random_below(3) == 0) {
-						if (bane_mage_spell_flags[record_index].flags & 1)
+						if (bane_item_flags_a[record_index].flags & 1)
 							leftover_slot = record_index;
 					}
 				} else if (selector_result > 0 && row_index < 2) {
-					api_idx_004c_set_party_cell(party_char_count,
+					init_item_slot(party_char_count,
 						selector_result, &record->item_slots[row_index][column_index],
-						bane_mage_spell_levels[record_index].level, 1);
+						bane_item_levels_a[record_index].level, 1);
 					column_index++;
 					if (column_index >= 10) {
 						column_index = 0;
@@ -401,20 +404,20 @@ read_next_member:
 				}
 			}
 		}
-		for (record_index = 0; record_index < bane_priest_spell_count;
+		for (record_index = 0; record_index < bane_item_count_b;
 			record_index++) {
-			selector_result = bane_priest_spell_values[record_index].item;
+			selector_result = bane_items_b[record_index].item;
 			if (selector_result > 0) {
 				selector_result = map_bane_item_number(selector_result);
 				if (selector_result < 0) {
 					if (leftover_slot == -1 || random_below(3) == 0) {
-						if (bane_priest_spell_flags[record_index].flags & 1)
+						if (bane_item_flags_b[record_index].flags & 1)
 							leftover_slot = record_index + 10;
 					}
 				} else if (selector_result > 0 && row_index < 2) {
-					api_idx_004c_set_party_cell(party_char_count,
+					init_item_slot(party_char_count,
 						selector_result, &record->item_slots[row_index][column_index],
-						bane_priest_spell_levels[record_index].level, 1);
+						bane_item_levels_b[record_index].level, 1);
 					column_index++;
 					if (column_index >= 10) {
 						column_index = 0;
@@ -425,14 +428,14 @@ read_next_member:
 		}
 		if (leftover_slot != -1 && row_index < 2) {
 			selector_result = map_bane_item_number(
-				bane_mage_spell_values[leftover_slot].item);
+				bane_items_a[leftover_slot].item);
 			if (selector_result < 0)
 				selector_result = selector_result < 0
 					? -selector_result : selector_result;
 			if (selector_result > 0)
-				api_idx_004c_set_party_cell(party_char_count,
+				init_item_slot(party_char_count,
 					selector_result, &record->item_slots[row_index][column_index],
-					bane_mage_spell_levels[leftover_slot].level, 1);
+					bane_item_levels_a[leftover_slot].level, 1);
 		}
 
 		/* The imported traits determine the starting scene after all records

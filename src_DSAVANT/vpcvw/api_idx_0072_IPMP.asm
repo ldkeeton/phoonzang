@@ -472,7 +472,7 @@ api_idx_0072_IPMP:
     push ax                          ; 0x4ea1
     push word [bp - 6]               ; 0x4ea2
     push word [bp + 4]               ; 0x4ea5
-    call api_idx_0004_GUSS           ; 0x4ea8
+    call set_party_hand_attack       ; 0x4ea8
     add sp, byte 6                   ; 0x4eab
     jmp short .forward25             ; 0x4eae
 .forward24:

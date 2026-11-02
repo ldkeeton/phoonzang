@@ -42,8 +42,8 @@ vtrea/apply_spell_effect_alt
 vtrea/cast_spell_from_dialog
 vtrea/treasure_use_item_menu
 vtrea/api_idx_007a_QUNG
-shared/ovr/api_idx_004c_set_party_cell
-shared/ovr/api_idx_0004_ONJT
+shared/ovr/init_item_slot
+shared/ovr/find_empty_party_item_slot
 vtrea/divvy_loot_menu
 vtrea/api_idx_0006_OUPU
 shared/ovr/replace_slashes_with_spaces
@@ -51,7 +51,7 @@ shared/ovr/loc_GMVH
 shared/ovr/give_quest_map
 vtrea/loc_HUIS
 vtrea/distribute_survivor_experience
-shared/ovr/api_idx_0006_POPS
+shared/ovr/find_maze_change
 shared/ovr/log_maze_change
 vtrea/api_idx_006a_NKMN
 vtrea/api_idx_0074_MHUG

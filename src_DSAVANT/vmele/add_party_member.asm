@@ -22,7 +22,7 @@ add_party_member:
     mov al, byte [bx + member_ext.kind] ; 0x07e0
     sub ah, ah                       ; 0x07e4
     push ax                          ; 0x07e6
-    call api_idx_005e_RKOR           ; 0x07e7
+    call check_monster_picture_space ; 0x07e7
     pop cx                           ; 0x07ea
     cmp ax, strict word 0xffff       ; 0x07eb
     jne short .forward1              ; 0x07ee

@@ -31,7 +31,7 @@ check_type8_object:
 .forward1:
     mov bx, word [maze_tables]       ; 0x8b9b
     mov si, word [bp + 4]            ; 0x8b9f
-    mov al, byte [bx + si + spell_table + spell_table_rec_size*178 + spell_table_rec.f_0004] ; 0x8ba2
+    mov al, byte [bx + si + 0xa50]   ; 0x8ba2
     sub ah, ah                       ; 0x8ba6
     push ax                          ; 0x8ba8
     call play_maze_sound_effect      ; 0x8ba9

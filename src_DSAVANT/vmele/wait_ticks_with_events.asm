@@ -43,7 +43,7 @@ wait_ticks_with_events:
     jne short .forward4              ; 0x015b
     ret                              ; 0x015d
 .forward4:
-    call api_idx_0006_LJUS           ; 0x015e
+    call step_party_screen_animation ; 0x015e
     jmp short .back1                 ; 0x0161
 .return1:
     ret                              ; 0x0163

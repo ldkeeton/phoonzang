@@ -259,6 +259,59 @@ def _accesses(insns, flow):
         prev = insn
 
 
+def pointer_based(insns, flow):
+    """``{(insn.address, op_index)}`` of each ``[base + index + disp]`` data
+    operand whose base register holds a word loaded from a data variable:
+    a pointer (``mov bx, word [maze_data]``) subscripted by the index, so the
+    displacement is an offset into the pointed-to block."""
+    from capstone import CS_OP_MEM
+
+    from capstone import CS_OP_IMM
+
+    insns = sorted(insns, key=lambda i: i.address)
+    joins = _join_points(insns)
+    # How many branches reach each address, and the registers at each
+    # conditional branch: a label only one branch reaches, and that nothing
+    # falls into, starts with that branch's registers.
+    incoming, taken = {}, {}
+    for insn in insns:
+        if insn.mnemonic.startswith('j') and insn.operands \
+                and insn.operands[0].type == CS_OP_IMM:
+            target = insn.operands[0].imm
+            incoming[target] = incoming.get(target, 0) + 1
+    regs, stack = {}, []
+    prev = None
+    found = set()
+    for insn in insns:
+        falls_in = (prev is not None
+                    and prev.address + prev.size == insn.address
+                    and prev.mnemonic not in _NO_FALL_THROUGH)
+        if insn.address in joins or not falls_in:
+            if (not falls_in and incoming.get(insn.address) == 1
+                    and insn.address in taken):
+                regs, stack = dict(taken[insn.address]), []
+            else:
+                regs, stack = {}, []
+        for idx, op in enumerate(insn.operands):
+            if (op.type == CS_OP_MEM and op.mem.base and op.mem.index
+                    and _is_data(insn, op, flow)):
+                base = regs.get(_parent(insn, op.mem.base))
+                if base is not None and base.table is not None:
+                    found.add((insn.address, idx))
+        if (insn.mnemonic.startswith('j') and insn.mnemonic != 'jmp'
+                and insn.operands and insn.operands[0].type == CS_OP_IMM):
+            taken[insn.operands[0].imm] = dict(regs)
+        _step(insn, regs, stack, flow)
+        # A conditional branch's fall-through keeps the registers.
+        if insn.mnemonic in _NO_FALL_THROUGH:
+            regs, stack = {}, []
+        prev = insn
+    return found
+
+
+_NO_FALL_THROUGH = ('jmp', 'ljmp', 'ret', 'retf', 'iret')
+
+
 def _classify(op, value):
     """``('pointer', table, field)``, ``('index', disp, scales)`` or None."""
     disp = op.mem.disp & 0xFFFF

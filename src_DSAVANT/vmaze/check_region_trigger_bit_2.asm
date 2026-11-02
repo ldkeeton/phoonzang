@@ -31,7 +31,7 @@ check_region_trigger_bit_2:
 .forward1:
     mov bx, word [maze_tables]       ; 0x7b07
     mov si, word [party_region]      ; 0x7b0b
-    mov al, byte [bx + si + spell_table + spell_table_rec_size*178 + spell_table_rec.f_0004] ; 0x7b0f
+    mov al, byte [bx + si + 0xa50]   ; 0x7b0f
     sub ah, ah                       ; 0x7b13
     mov bx, word [character_record_target] ; 0x7b15
     mov word [bx], ax                ; 0x7b19

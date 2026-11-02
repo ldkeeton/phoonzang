@@ -11,7 +11,7 @@ loc_HJRN:
     cmp word [bp + 6], byte 0        ; 0x219d
     jne short .return1               ; 0x21a1
     push word [bp + 4]               ; 0x21a3
-    call api_idx_004c_HTUT           ; 0x21a6
+    call draw_member_item_page       ; 0x21a6
     pop cx                           ; 0x21a9
     mov ax, 0xc7                     ; 0x21aa
     push ax                          ; 0x21ad

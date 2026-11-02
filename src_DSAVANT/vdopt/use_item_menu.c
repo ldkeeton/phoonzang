@@ -3,20 +3,8 @@
 #include "structs/pcrec.h"
 #include "structs/spell.h"
 #include "structs/rgnstate.h"
+#include "structs/itemrec.h"
 #include "msg.h"
-
-struct item_record {
-	char pad0[30];				/* +0x00..+0x1d */
-	int map;				/* +0x1e */
-	unsigned char clear_bit;		/* +0x20 */
-	unsigned char set_bit;			/* +0x21 */
-	int spell_code;				/* +0x22 */
-	char pad1[21];				/* +0x24..+0x38 */
-	unsigned char glyph;			/* +0x39 */
-	char pad2[5];				/* +0x3a..+0x3e */
-	unsigned char kind;			/* +0x3f */
-	char pad3[8];				/* +0x40..+0x47 */
-};
 
 extern struct pc_rec party_records[];
 extern struct spell_info spell_table[];
@@ -113,16 +101,16 @@ int pc;
 						spell_power, spell_target);
 				}
 			} else if (item.kind == 4 &&
-				game_state_arg == item.map) {
+				game_state_arg == item.u.key.map) {
 				/* Clear one flag bit and set the other in both region bitmaps. */
-				set_bitmap_bit(party_region.state[item.map],
-					item.clear_bit, 0);
-				set_bitmap_bit(scenario_header_data[item.map],
-					item.clear_bit, 0);
-				set_bitmap_bit(party_region.state[item.map],
-					item.set_bit, 1);
-				set_bitmap_bit(scenario_header_data[item.map],
-					item.set_bit, 1);
+				set_bitmap_bit(party_region.state[item.u.key.map],
+					item.u.key.clear_bit, 0);
+				set_bitmap_bit(scenario_header_data[item.u.key.map],
+					item.u.key.clear_bit, 0);
+				set_bitmap_bit(party_region.state[item.u.key.map],
+					item.u.key.set_bit, 1);
+				set_bitmap_bit(scenario_header_data[item.u.key.map],
+					item.u.key.set_bit, 1);
 				consume_item_charge(pc, page, slot);
 			} else if (item.kind == 5) {
 				if (game_state_arg == 8)

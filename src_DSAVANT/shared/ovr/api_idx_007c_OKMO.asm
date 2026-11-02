@@ -745,7 +745,7 @@ api_idx_007c_OKMO:
     call draw_text_glyphs
     add sp, byte 4
     push word [bp + 4]
-    call api_idx_0004_RMVO
+    call draw_member_realm_points
     pop cx
     mov word [bp - 4], 0
     mov ax, 0x248

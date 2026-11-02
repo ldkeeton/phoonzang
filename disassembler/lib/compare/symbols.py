@@ -253,6 +253,14 @@ def _resolve_indexed_symbols(insns, segment_flow, segments, named, ds_starts,
     order = sorted(insns, key=lambda insn: insn.address)
     positions = {insn.address: k for k, insn in enumerate(order)}
     joins = _join_points(order)
+    # ``mov bx, word [maze_data]; mov si, ...; [bx + si + 0x490]``: a base
+    # loaded from a data word plus an index register is a pointer and a
+    # subscript, so the displacement is an offset into the pointed-to block,
+    # not an address inside a DS object.  A lone ``[bx + disp]`` keeps its
+    # binding: there the word is as often a saved index
+    # (``member_roster_index``).
+    from lib.record_layout import pointer_based
+    through_pointer = pointer_based(insns, segment_flow)
     symbols = {}
     for insn in insns:
         for idx, op in enumerate(insn.operands):
@@ -261,6 +269,9 @@ def _resolve_indexed_symbols(insns, segment_flow, segments, named, ds_starts,
                     or op.mem.segment == X86_REG_CS):
                 continue
             addr = op.mem.disp & 0xFFFF
+            if ((insn.address, idx) in through_pointer
+                    and addr not in starts):
+                continue
             if addr < DS_INDEX_MIN:
                 # Small displacements usually name fields inside a pointed-to
                 # record.  A low address is a table base only when it is an

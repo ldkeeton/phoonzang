@@ -133,7 +133,7 @@ api_idx_0018_USPR:
     je short .forward9               ; 0x1df8
     mov bx, word [maze_tables]       ; 0x1dfa
     mov si, word [party_map_piece]   ; 0x1dfe
-    mov al, byte [bx + si + spell_table + spell_table_rec_size*218 + spell_table_rec.f_0004] ; 0x1e02
+    mov al, byte [bx + si + 0xb40]   ; 0x1e02
     sub ah, ah                       ; 0x1e06
     mov word [party_region], ax      ; 0x1e08
 .forward9:

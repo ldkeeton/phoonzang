@@ -42,7 +42,7 @@ api_idx_0088_QLNT:
     push ax                          ; 0x2c7f
     lea ax, word [bp - 0x88]         ; 0x2c80
     push ax                          ; 0x2c84
-    call api_idx_0004_PMIU           ; 0x2c85
+    call display_centered_message    ; 0x2c85
     add sp, byte 4                   ; 0x2c88
     mov word [bp - 6], 0             ; 0x2c8b
 .back3:
@@ -50,7 +50,7 @@ api_idx_0088_QLNT:
     push ax                          ; 0x2c93
     push word [bp - 6]               ; 0x2c94
     push word [bp + 4]               ; 0x2c97
-    call api_idx_0004_QJGR           ; 0x2c9a
+    call prepare_skill_list          ; 0x2c9a
     add sp, byte 6                   ; 0x2c9d
     mov word [bp - 8], ax            ; 0x2ca0
     lea ax, word [bp - 0x20]         ; 0x2ca3
@@ -78,7 +78,7 @@ api_idx_0088_QLNT:
     mov ax, word [bp - 2]            ; 0x2cdb
     shl ax, 1                        ; 0x2cde
     mov bx, ax                       ; 0x2ce0
-    cmp word [bx + api_idx_0004_GRGJ_bss159], byte 0 ; 0x2ce2
+    cmp word [bx + skill_availability_flags], byte 0 ; 0x2ce2
     jne short .forward1              ; 0x2ce7
     mov ax, 0x248                    ; 0x2ce9
     imul word [bp + 4]               ; 0x2cec

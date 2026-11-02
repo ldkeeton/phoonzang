@@ -95,7 +95,7 @@ roll_slot_values:
     jmp near .back1
 .forward4:
     mov word [slot_value2], 0
-    mov ax, word [index_range2_first]
+    mov ax, word [dseg_0040]
     mov word [bp - 2], ax
     jmp short .forward6
 .back2:
@@ -116,6 +116,6 @@ roll_slot_values:
     inc word [bp - 2]
 .forward6:
     mov ax, word [bp - 2]
-    cmp ax, word [index_range2_last]
+    cmp ax, word [dseg_0042]
     jle short .back2
     ret

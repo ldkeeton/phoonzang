@@ -10,7 +10,7 @@ shared/ovr/api_idx_0038_VIPJ
 shared/ovr/input_text_field
 vbase/choose_game_file
 vbase/show_load_disk_error
-shared/ovr/api_idx_004c_set_party_cell
+shared/ovr/init_item_slot
 vbase/map_bane_item_number
 vbase/map_bane_character_kind
 vbase/map_bane_party_selector

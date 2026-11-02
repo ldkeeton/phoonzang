@@ -394,6 +394,43 @@ class SwitchTableTest(unittest.TestCase):
         self.assertEqual(len(linked.failed), 1)
         self.assertEqual(linked.failed[0][0], self.START + 6)
 
+    def test_table_inside_a_larger_data_run_is_claimed(self):
+        # ``aztec_format``: one source data run holds the letters, then the
+        # ``dw`` routines.  jmp short .0 ; .1: nop ; ret ; db 'A' ;
+        # dw .1 ; dw .1 ; .0: ret
+        code = b'\xeb\x00\x90\xc3A\x00\x00\x00\x00\xc3'
+        fixups = [Fixup(1, 'BREL', 'LCLSYM', None, '.0'),
+                  Fixup(5, 'WABS', 'LCLSYM', None, '.1'),
+                  Fixup(7, 'WABS', 'LCLSYM', None, '.1')]
+        func = Func('_f', 'f', 0, code, fixups, {'.0': 9, '.1': 2})
+        case = self.START + 2
+        original = bytearray(self.START + len(code))
+        for site in (5, 7):
+            original[self.START + site:self.START + site + 2] = (
+                (case - self.BASE).to_bytes(2, 'little'))
+        label_map = {self.START: 'aztec_f', case: 'jt_case_0'}
+        index = relink.SymbolIndex(label_map, None, None, {},
+                                   image_base=self.BASE)
+        linked = relink.link('aztec_f', self.START, func, index,
+                             bytes(original))
+        table = {'type': 'jump_table', 'start': self.START + 5,
+                 'end': self.START + 9, 'label': 'jt', 'jmp_addr': -1,
+                 'entry_size': 2, 'entries': ['jt_case_0', 'jt_case_0'],
+                 'adjust': 0, 'literal': False, 'keys': 0, 'note': ''}
+        # The source's run and the table's own span, as resplice passes them.
+        records = _c_bytes_to_records(
+            bytes(linked.code), self.START, label_map, {}, None,
+            linked=linked, image_base=self.BASE,
+            data_spans=[(4, 9), (5, 9)], jump_tables=[table])
+        self.assertEqual(
+            [r['entries'] for r in records if r['type'] == 'jump_table'],
+            [table['entries']])
+        blocks = [r for r in records if r['type'] == 'data_block']
+        self.assertEqual([(b['start'], b['end']) for b in blocks],
+                         [(self.START + 4, self.START + 5)])
+        self.assertFalse(linked.failed)
+        self.assertFalse(linked.unmatched)
+
 
 class CswtSwitchTableTest(unittest.TestCase):
     """A sparse ``switch`` (``mov cx, N; call $cswt``): keys, then targets.

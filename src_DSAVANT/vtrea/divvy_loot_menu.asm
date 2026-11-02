@@ -63,7 +63,7 @@ divvy_loot_menu:
     cmp ax, strict word 0xffff       ; 0x53d5
     je short .forward5               ; 0x53d8
     push ax                          ; 0x53da
-    call api_idx_0004_ONJT           ; 0x53db
+    call find_empty_party_item_slot  ; 0x53db
     pop cx                           ; 0x53de
     mov word [bp - 4], ax            ; 0x53df
     cmp ax, strict word 0xffff       ; 0x53e2
@@ -104,7 +104,7 @@ divvy_loot_menu:
     push ax                          ; 0x5435
     push word [bx + bss_960e]        ; 0x5436
     push word [bp - 8]               ; 0x543a
-    call api_idx_004c_set_party_cell ; 0x543d
+    call init_item_slot              ; 0x543d
     add sp, byte 0xa                 ; 0x5440
 .forward4:
     jmp short .forward6              ; 0x5443
@@ -125,7 +125,7 @@ divvy_loot_menu:
     push word [bx + bss_960e]        ; 0x5465
     mov ax, 0                        ; 0x5469
     push ax                          ; 0x546c
-    call api_idx_004c_set_party_cell ; 0x546d
+    call init_item_slot              ; 0x546d
     add sp, byte 0xa                 ; 0x5470
     lea ax, word [bp - 0x40]         ; 0x5473
     push ax                          ; 0x5476

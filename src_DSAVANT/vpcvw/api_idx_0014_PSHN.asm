@@ -174,8 +174,8 @@ api_idx_0014_PSHN:
     push ax                          ; 0x62fe
     call call_cache_area             ; 0x62ff
     add sp, byte 0xc                 ; 0x6302
-    mov word [api_idx_0004_RMVO_bss19], dx          ; 0x6305
-    mov word [api_idx_0004_RMVO_bss24], ax          ; 0x6309
+    mov word [realm_panel_cache_low], dx ; 0x6305
+    mov word [realm_panel_cache_high], ax ; 0x6309
     mov ax, 0                        ; 0x630c
     push ax                          ; 0x630f
     mov ax, 2                        ; 0x6310
@@ -219,9 +219,9 @@ api_idx_0014_PSHN:
     add sp, byte 6                   ; 0x636c
     mov word [story_score_volume], ax ; 0x636f
 .forward4:
-    mov word [roster_drawn], 0       ; 0x6372
-    mov word [roster_alt_mode], 0    ; 0x6378
-    mov word [roster_page], 0        ; 0x637e
+    mov word [item_page_drawn], 0    ; 0x6372
+    mov word [item_page_alt_mode], 0 ; 0x6378
+    mov word [item_page], 0          ; 0x637e
     mov word [bp - 2], 0             ; 0x6384
 .back2:
     mov ax, 0xa                      ; 0x6389
@@ -622,7 +622,7 @@ api_idx_0014_PSHN:
     imul word [bp + 4]               ; 0x66e9
     push ax                          ; 0x66ec
     mov ax, 0x78                     ; 0x66ed
-    imul word [roster_page]          ; 0x66f0
+    imul word [item_page]            ; 0x66f0
     mov cx, ax                       ; 0x66f4
     pop ax                           ; 0x66f6
     add ax, cx                       ; 0x66f7
@@ -663,7 +663,7 @@ jumptable_67c3_case_1:
     idiv word [party_char_count]     ; 0x6746
     mov word [member_roster_index], dx ; 0x674a
     mov word [bp + 4], dx            ; 0x674e
-    mov word [roster_drawn], 0       ; 0x6751
+    mov word [item_page_drawn], 0    ; 0x6751
 api_idx_0014_PSHN.forward10:
     jmp near jumptable_67c3_case_15  ; 0x6757
 jumptable_67c3_case_2:
@@ -675,7 +675,7 @@ jumptable_67c3_case_2:
     idiv word [party_char_count]     ; 0x6765
     mov word [member_roster_index], dx ; 0x6769
     mov word [bp + 4], dx            ; 0x676d
-    mov word [roster_drawn], 0       ; 0x6770
+    mov word [item_page_drawn], 0    ; 0x6770
 api_idx_0014_PSHN.forward11:
     jmp near jumptable_67c3_case_15  ; 0x6776
 jumptable_67c3_case_3:
@@ -688,13 +688,13 @@ jumptable_67c3_case_4:
 jumptable_67c3_case_5:
     jmp near jumptable_67c3_case_15  ; 0x6786
 jumptable_67c3_case_6:
-    mov ax, word [roster_page]       ; 0x6789
+    mov ax, word [item_page]         ; 0x6789
     inc ax                           ; 0x678c
     mov cx, 2                        ; 0x678d
     cwd                              ; 0x6790
     idiv cx                          ; 0x6791
-    mov word [roster_page], dx       ; 0x6793
-    mov word [roster_drawn], 0       ; 0x6797
+    mov word [item_page], dx         ; 0x6793
+    mov word [item_page_drawn], 0    ; 0x6797
     jmp short jumptable_67c3_case_15 ; 0x679d
 jumptable_67c3_case_7:
     push word [bp + 4]               ; 0x679f
@@ -780,8 +780,8 @@ api_idx_0014_PSHN.forward16:
     push ax                          ; 0x684b
     mov ax, 1                        ; 0x684c
     push ax                          ; 0x684f
-    push word [api_idx_0004_RMVO_bss19]             ; 0x6850
-    push word [api_idx_0004_RMVO_bss24]             ; 0x6854
+    push word [realm_panel_cache_low] ; 0x6850
+    push word [realm_panel_cache_high] ; 0x6854
     call call_restore_screen         ; 0x6858
     add sp, byte 8                   ; 0x685b
     mov ax, 0                        ; 0x685e

@@ -127,7 +127,7 @@ api_idx_0006_OUPU:
     push ax                          ; 0x563b
     mov bx, word [maze_tables]       ; 0x563c
     mov si, word [party_region]      ; 0x5640
-    mov al, byte [bx + si + spell_table + spell_table_rec_size*138 + spell_table_rec.f_0004] ; 0x5644
+    mov al, byte [bx + si + 0x960]   ; 0x5644
     sub ah, ah                       ; 0x5648
     push ax                          ; 0x564a
     mov ax, word [game_state_arg]    ; 0x564b
@@ -143,7 +143,7 @@ api_idx_0006_OUPU:
     push ax                          ; 0x5666
     mov bx, word [maze_tables]       ; 0x5667
     mov si, word [party_region]      ; 0x566b
-    mov al, byte [bx + si + spell_table + spell_table_rec_size*138 + spell_table_rec.f_0004] ; 0x566f
+    mov al, byte [bx + si + 0x960]   ; 0x566f
     sub ah, ah                       ; 0x5673
     push ax                          ; 0x5675
     mov ax, word [game_state_arg]    ; 0x5676

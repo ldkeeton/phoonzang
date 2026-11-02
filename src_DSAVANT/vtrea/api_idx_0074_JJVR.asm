@@ -166,7 +166,7 @@ api_idx_0074_JJVR:
 .forward6:
     mov bx, word [maze_tables]       ; 0x7a7a
     mov si, word [party_region]      ; 0x7a7e
-    mov al, byte [bx + si + spell_table + spell_table_rec_size*178 + spell_table_rec.f_0004] ; 0x7a82
+    mov al, byte [bx + si + 0xa50]   ; 0x7a82
     sub ah, ah                       ; 0x7a86
     mov word [bp - 0x22], ax         ; 0x7a88
     cmp ax, strict word 0            ; 0x7a8b

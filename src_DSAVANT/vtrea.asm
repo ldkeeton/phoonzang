@@ -195,9 +195,9 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "vtrea/api_idx_007a_QUNG.asm"     ; 0x4f0c
 
-%include "shared/ovr/api_idx_004c_set_party_cell.asm" ; 0x51d7
+%include "shared/ovr/init_item_slot.asm"        ; 0x51d7
 
-%include "shared/ovr/api_idx_0004_ONJT.asm"     ; 0x52ec
+%include "shared/ovr/find_empty_party_item_slot.asm" ; 0x52ec
 
 %include "vtrea/divvy_loot_menu.asm"       ; 0x5348
 
@@ -213,7 +213,7 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "vtrea/distribute_survivor_experience.asm" ; 0x5d80
 
-%include "shared/ovr/api_idx_0006_POPS.asm"     ; 0x5e88
+%include "shared/ovr/find_maze_change.asm"      ; 0x5e88
 
 %include "shared/ovr/log_maze_change.asm"       ; 0x5efe
 

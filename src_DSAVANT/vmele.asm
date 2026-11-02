@@ -25,7 +25,7 @@ IMAGE_BASE equ 0x000e + VBASE
     dw aztec_ovbgn - IMAGE_BASE + __zres_end ; 0x8757 ; o_entry: overlay entry offset (CS)
 
 __zcode_start:
-api_idx_005e_RKOR_dseg92 equ __zdseg_end + (__zdseg_9098 - __zdata_start)
+monster_picture_template equ __zdseg_end + (__zmonster_picture_template - __zdata_start)
 space_text equ __zdseg_end + (__zspace_text - __zdata_start)
 screen_temp_name equ __zdseg_end + (__zscreen_temp_name - __zdata_start)
 save_si equ __zdseg_end + (__zsave_si - __zdata_start)
@@ -59,7 +59,7 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "vmele/pick_target_slot.asm"      ; 0x041d
 
-%include "shared/ovr/api_idx_005e_RKOR.asm"     ; 0x0649
+%include "shared/ovr/check_monster_picture_space.asm" ; 0x0649
 
 %include "vmele/add_party_member.asm"      ; 0x07ad
 
@@ -105,7 +105,7 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "shared/ovr/loc_KRMP.asm"              ; 0x2b19
 
-%include "shared/ovr/api_idx_0006_LJUS.asm"     ; 0x2b78
+%include "shared/ovr/step_party_screen_animation.asm" ; 0x2b78
 
 %include "shared/ovr/run_party_screen_animation.asm" ; 0x2cc7
 
@@ -130,7 +130,7 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 %include "shared/ovr/aztec_swapmem.asm"         ; 0x374e
 
 __zdata_start:
-%include "vmele/data/api_idx_005e_RKOR_dseg92.asm"        ; 0x3773
+%include "shared/data/monster_picture_template.asm" ; 0x3773
 
 %include "vmele/data/space_text.asm"       ; 0x377d
 

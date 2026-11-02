@@ -119,7 +119,7 @@ api_idx_000c_RMGQ:
 .forward6:
     cmp word [save_location_flag], byte 0 ; 0x0ae3
     jne short .forward7              ; 0x0ae8
-    call api_idx_0004_SMLK           ; 0x0aea
+    call get_cell_terrain            ; 0x0aea
     test ax, ax                      ; 0x0aed
     je short .forward8               ; 0x0aef
 .forward7:
@@ -132,7 +132,7 @@ api_idx_000c_RMGQ:
 .forward8:
     mov si, word [party_map_piece]   ; 0x0b01
     mov bx, word [maze_tables]       ; 0x0b05
-    mov al, byte [bx + si + spell_table + spell_table_rec_size*218 + spell_table_rec.f_0004] ; 0x0b09
+    mov al, byte [bx + si + 0xb40]   ; 0x0b09
     sub ah, ah                       ; 0x0b0d
     push ax                          ; 0x0b0f
     push si                          ; 0x0b10
@@ -151,7 +151,7 @@ api_idx_000c_RMGQ:
 .forward9:
     mov bx, word [maze_tables]       ; 0x0b34
     mov si, word [party_map_piece]   ; 0x0b38
-    mov al, byte [bx + si + spell_table + spell_table_rec_size*218 + spell_table_rec.f_0004] ; 0x0b3c
+    mov al, byte [bx + si + 0xb40]   ; 0x0b3c
     sub ah, ah                       ; 0x0b40
     mov word [party_region], ax      ; 0x0b42
     mov ax, 0                        ; 0x0b45

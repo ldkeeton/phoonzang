@@ -55,7 +55,7 @@ api_idx_009a_KOSH:
     push ax                          ; 0x6fe3
     lea ax, word [bp - 0x9a]         ; 0x6fe4
     push ax                          ; 0x6fe8
-    call api_idx_0004_PMIU           ; 0x6fe9
+    call display_centered_message    ; 0x6fe9
     add sp, byte 4                   ; 0x6fec
     ret                              ; 0x6fef
 .forward2:
@@ -112,7 +112,7 @@ api_idx_009a_KOSH:
     push ax                          ; 0x705e
     lea ax, word [bp - 0x9a]         ; 0x705f
     push ax                          ; 0x7063
-    call api_idx_0004_PMIU           ; 0x7064
+    call display_centered_message    ; 0x7064
     add sp, byte 4                   ; 0x7067
     ret                              ; 0x706a
 .return1:

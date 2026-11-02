@@ -131,8 +131,8 @@ api_idx_002c_VNHI:
     push ax                          ; 0x6b6f
     call call_cache_area             ; 0x6b70
     add sp, byte 0xc                 ; 0x6b73
-    mov word [api_idx_0004_RMVO_bss19], dx          ; 0x6b76
-    mov word [api_idx_0004_RMVO_bss24], ax          ; 0x6b7a
+    mov word [realm_panel_cache_low], dx ; 0x6b76
+    mov word [realm_panel_cache_high], ax ; 0x6b7a
     mov ax, 0                        ; 0x6b7d
     push ax                          ; 0x6b80
     mov ax, 2                        ; 0x6b81
@@ -270,8 +270,8 @@ api_idx_002c_VNHI:
     mov ax, 0                        ; 0x6cdd
     push ax                          ; 0x6ce0
     push ax                          ; 0x6ce1
-    push word [api_idx_0004_RMVO_bss19]             ; 0x6ce2
-    push word [api_idx_0004_RMVO_bss24]             ; 0x6ce6
+    push word [realm_panel_cache_low] ; 0x6ce2
+    push word [realm_panel_cache_high] ; 0x6ce6
     call call_restore_screen         ; 0x6cea
     add sp, byte 8                   ; 0x6ced
     mov word [bp - 2], 0             ; 0x6cf0
@@ -493,8 +493,8 @@ api_idx_002c_VNHI.forward12:
     push ax                          ; 0x6ed3
     mov ax, 1                        ; 0x6ed4
     push ax                          ; 0x6ed7
-    push word [api_idx_0004_RMVO_bss19]             ; 0x6ed8
-    push word [api_idx_0004_RMVO_bss24]             ; 0x6edc
+    push word [realm_panel_cache_low] ; 0x6ed8
+    push word [realm_panel_cache_high] ; 0x6edc
     call call_restore_screen         ; 0x6ee0
     add sp, byte 8                   ; 0x6ee3
     mov ax, 0                        ; 0x6ee6

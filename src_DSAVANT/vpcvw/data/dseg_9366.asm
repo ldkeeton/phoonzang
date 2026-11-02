@@ -21,5 +21,3 @@ __zdseg_93b7:
     db 'IGMKIIKA', 0
 __zdseg_93c0:
     db 'KKGKHHJA', 0
-__zdseg_93c9:
-    db 'PORTDATA.VGA', 0

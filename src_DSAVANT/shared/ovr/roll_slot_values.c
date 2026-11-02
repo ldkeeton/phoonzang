@@ -1,13 +1,13 @@
 /* rerolls slot_value[0], [1], [3] from base0/base1/base3 plus pairs of record
    rec's stat bytes; slot_value[2] gains 1-2 per nonzero flag byte
-   indexed index_range2_first..index_range2_last */
+   indexed by skill group 2 (skill_group_ranges[2]) */
 
 #include "structs/pcrec.h"
 
 extern struct pc_rec party_records[];
 extern int slot_value[];
 extern int slot_value2;		/* slot_value[2]; slot_value2 in vpcmk */
-extern int index_range2_first, index_range2_last;
+extern int skill_group_ranges[4][2];
 extern int random_below();
 
 roll_slot_values(rec, base0, base1, base3)
@@ -40,7 +40,7 @@ int rec, base0, base1, base3;
 		slot_value[i] = random_below(value[i] - half + 1) + half;
 	}
 	slot_value2 = 0;
-	for (i = index_range2_first; i <= index_range2_last; i++)
+	for (i = skill_group_ranges[2][0]; i <= skill_group_ranges[2][1]; i++)
 		if (party_records[rec].skills[i] > 0)
 			slot_value2 = random_below(2) + slot_value2 + 1;	/* 1 or 2 */
 }

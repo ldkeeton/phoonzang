@@ -7,7 +7,7 @@ log_maze_change:
     push word [bp + 8]
     push word [bp + 6]
     push word [bp + 4]
-    call api_idx_0006_POPS
+    call find_maze_change
     add sp, byte 0xa
     mov word [bp - 2], ax
     cmp ax, strict word 0xffff

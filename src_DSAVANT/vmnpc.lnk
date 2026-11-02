@@ -28,7 +28,7 @@ vmnpc/api_idx_000c_KGOL
 vmnpc/loc_RSHV
 vmnpc/loc_MOVJ
 vmnpc/ovmain
-shared/ovr/api_idx_004c_set_party_cell
+shared/ovr/init_item_slot
 vmnpc/api_idx_0004_PULL
 vmnpc/api_idx_0004_QNRH
 vmnpc/loc_LRGG

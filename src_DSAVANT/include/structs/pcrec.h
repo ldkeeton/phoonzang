@@ -20,16 +20,28 @@ union pc_word_pair {
 	long dword;
 };
 
+struct pc_hand_base {
+	int damage_bonus;		/* +0x00: added to the dice roll */
+	unsigned char damage_dice;	/* +0x02: add_random_steps roll count */
+	unsigned char damage_sides;	/* +0x03: add_random_steps die size */
+};
+
+/* set_party_hand_attack copies the item's eight hand_values over +0x04
+ * through +0x0b, so critical_chance starts as hand_values[6].  No routine
+ * found reads +0x04..+0x09, +0x0b, +0x0c or +0x10. */
 struct pc_hand_attack {
-	int damage_bonus;             /* +0x00: added to the dice roll */
-	unsigned char damage_dice;    /* +0x02: add_random_steps roll count */
-	unsigned char damage_sides;   /* +0x03: add_random_steps die size */
+	struct pc_hand_base base;	/* +0x00: four-byte base damage tuple */
 	char pad04[6];
-	unsigned char critical_chance; /* +0x0a: from skills[33] */
-	char pad0b[3];
+	unsigned char critical_chance; /* +0x0a: plus skills[33] / 5 */
+	char pad0b;
+	char pad0c;			/* +0x0c: from the item's +0x45 */
+	unsigned char range;		/* +0x0d: indexes the rank limits at
+					   bss_9386; ranks 3+ need non-zero */
 	char hit_penalty;             /* +0x0e: lowered by stat[4] */
-	unsigned char attack_flags;   /* +0x0f */
-	char pad10[2];
+	unsigned char attack_flags;   /* +0x0f: attack mode bits 0..7 */
+	char pad10;			/* +0x10: from the item's +0x42 */
+	unsigned char slay_family;	/* +0x11: damage multiplier 2 when it
+					   matches the target's family */
 };
 
 struct pc_rec {				/* 0x248 bytes */
@@ -49,7 +61,7 @@ struct pc_rec {				/* 0x248 bytes */
 	struct pc_hand_attack hand_attack[2]; /* +0x130: per weapon hand */
 	unsigned char order[8];		/* +0x154: cell index per slot, 0xff free */
 	unsigned char spell_school[4];	/* +0x15c: mage, priest, alchemist, psionic */
-	char pad0[6];			/* +0x160 */
+	unsigned char glyph_row[6];	/* +0x160: panel glyph rows, each at least 1 */
 	unsigned char status[10];	/* +0x166: [2] set 6..11 when pair_b[0] hits 0 */
 	unsigned char stat[8];		/* +0x170 */
 	unsigned char skills[34];	/* +0x178: groups 0-9, 10-17, 18-23, 24-33 */

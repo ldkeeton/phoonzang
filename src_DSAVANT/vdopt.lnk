@@ -6,7 +6,7 @@ shared/ovr/find_object_at
 shared/ovr/draw_split_two_line_text
 shared/ovr/loc_RULJ
 vdopt/wait_for_scene_input_or_timeout
-shared/ovr/api_idx_0006_POPS
+shared/ovr/find_maze_change
 shared/ovr/log_maze_change
 shared/ovr/clear_bit_pair
 vdopt/claim_type7_object

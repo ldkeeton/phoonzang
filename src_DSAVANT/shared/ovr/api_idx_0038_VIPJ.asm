@@ -14,7 +14,7 @@ api_idx_0038_VIPJ:
     mov ax, word [bp + 0xc]
 .forward1:
     mov word [bp - 0x22], ax
-    mov ax, api_idx_0038_VIPJ_dseg102
+    mov ax, list_dialog_temp_file
     push ax
     mov ax, word [bp - 0xa]
     inc ax

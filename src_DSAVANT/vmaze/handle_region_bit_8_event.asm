@@ -65,7 +65,7 @@ handle_region_bit_8_event:
     push ax                          ; 0x8831
     mov bx, word [maze_tables]       ; 0x8832
     mov si, word [party_region]      ; 0x8836
-    mov al, byte [bx + si + spell_table + spell_table_rec_size*178 + spell_table_rec.f_0004] ; 0x883a
+    mov al, byte [bx + si + 0xa50]   ; 0x883a
     sub ah, ah                       ; 0x883e
     imul word [bp - 6]               ; 0x8840
     shl si, 1                        ; 0x8843

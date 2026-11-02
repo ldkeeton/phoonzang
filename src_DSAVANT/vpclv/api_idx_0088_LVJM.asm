@@ -42,7 +42,7 @@ api_idx_0088_LVJM:
     push ax                          ; 0x4008
     lea ax, word [bp - 0x88]         ; 0x4009
     push ax                          ; 0x400d
-    call api_idx_0004_PMIU           ; 0x400e
+    call display_centered_message    ; 0x400e
     add sp, byte 4                   ; 0x4011
     mov word [bp - 6], 0             ; 0x4014
 .back3:
@@ -50,7 +50,7 @@ api_idx_0088_LVJM:
     push ax                          ; 0x401c
     push word [bp - 6]               ; 0x401d
     push word [bp + 4]               ; 0x4020
-    call api_idx_0004_QJGR           ; 0x4023
+    call prepare_skill_list          ; 0x4023
     add sp, byte 6                   ; 0x4026
     mov word [bp - 8], ax            ; 0x4029
     mov word [bp - 2], 0             ; 0x402c
@@ -111,7 +111,7 @@ api_idx_0088_LVJM:
     mov ax, word [bp - 2]            ; 0x40b8
     shl ax, 1                        ; 0x40bb
     mov bx, ax                       ; 0x40bd
-    cmp word [bx + api_idx_0004_GRGJ_bss159], byte 0 ; 0x40bf
+    cmp word [bx + skill_availability_flags], byte 0 ; 0x40bf
     jne short .forward3              ; 0x40c4
     mov ax, 0x248                    ; 0x40c6
     imul word [bp + 4]               ; 0x40c9

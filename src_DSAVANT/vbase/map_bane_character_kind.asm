@@ -79,7 +79,7 @@ jumptable_18c7_case_11:
     mov ax, 0x1b                     ; 0x18ad
     cmp word [bp + 6], byte 0        ; 0x18b0
     jne short map_bane_character_kind.return6 ; 0x18b4
-    mov ax, 6                        ; 0x18b6
+    mov ax, realm_point_text_colors  ; 0x18b6
 map_bane_character_kind.return6:
     ret                              ; 0x18b9
 jumptable_18c7_case_9:
@@ -153,7 +153,7 @@ jumptable_1949_case_11:
     mov ax, 0x1b                     ; 0x193c
     cmp word [bp + 6], byte 0        ; 0x193f
     jne short map_bane_character_kind.return12 ; 0x1943
-    mov ax, 6                        ; 0x1945
+    mov ax, realm_point_text_colors  ; 0x1945
 map_bane_character_kind.return12:
     ret                              ; 0x1948
 jumptable_1949:
@@ -225,7 +225,7 @@ jumptable_19de_case_11:
     mov ax, 0x1b                     ; 0x19c4
     cmp word [bp + 6], byte 0        ; 0x19c7
     jne short map_bane_character_kind.return19 ; 0x19cb
-    mov ax, 6                        ; 0x19cd
+    mov ax, realm_point_text_colors  ; 0x19cd
 map_bane_character_kind.return19:
     ret                              ; 0x19d0
 jumptable_19de_case_12:

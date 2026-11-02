@@ -10,7 +10,7 @@ api_idx_0034_NSGM:
     mov ax, word [bx + si + maze_tables_rec.f_01e0] ; 0x7009
     mov word [bp - 6], ax            ; 0x700d
     mov si, word [bp + 6]            ; 0x7010
-    mov al, byte [bx + si + spell_table + spell_table_rec_size*178 + spell_table_rec.f_0004] ; 0x7013
+    mov al, byte [bx + si + 0xa50]   ; 0x7013
     sub ah, ah                       ; 0x7017
     mov word [bp - 2], ax            ; 0x7019
     mov ax, 5                        ; 0x701c

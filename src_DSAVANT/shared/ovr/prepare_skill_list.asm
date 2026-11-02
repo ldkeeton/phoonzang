@@ -1,0 +1,271 @@
+; auto-generated
+prepare_skill_list:
+    mov ax, 0xfffc
+    call aztec_csav
+    mov ax, 0x248
+    imul word [bp + 4]
+    mov bx, ax
+    mov al, byte [bx + party_records + pc_rec.profession]
+    sub ah, ah
+    jmp near .forward1
+jumptable_3797_case_0:
+    mov ax, profession_0_skill_group_3
+    push ax
+    mov ax, profession_0_skill_group_2
+    push ax
+    mov ax, profession_0_skill_group_1
+    push ax
+    mov ax, profession_0_skill_group_0
+    push ax
+    push word [bp + 4]
+    call set_party_skill_flags
+    add sp, byte 0xa
+    jmp near prepare_skill_list.forward2
+jumptable_3797_case_1:
+    mov ax, profession_1_skill_group_3
+    push ax
+    mov ax, profession_1_skill_group_2
+    push ax
+    mov ax, profession_1_skill_group_1
+    push ax
+    mov ax, profession_1_skill_group_0
+    push ax
+    push word [bp + 4]
+    call set_party_skill_flags
+    add sp, byte 0xa
+    jmp near prepare_skill_list.forward2
+jumptable_3797_case_2:
+    mov ax, profession_2_skill_group_3
+    push ax
+    mov ax, profession_2_skill_group_2
+    push ax
+    mov ax, profession_2_skill_group_1
+    push ax
+    mov ax, profession_2_skill_group_0
+    push ax
+    push word [bp + 4]
+    call set_party_skill_flags
+    add sp, byte 0xa
+    jmp near prepare_skill_list.forward2
+jumptable_3797_case_3:
+    mov ax, profession_3_skill_group_3
+    push ax
+    mov ax, profession_3_skill_group_2
+    push ax
+    mov ax, profession_3_skill_group_1
+    push ax
+    mov ax, profession_3_skill_group_0
+    push ax
+    push word [bp + 4]
+    call set_party_skill_flags
+    add sp, byte 0xa
+    jmp near prepare_skill_list.forward2
+jumptable_3797_case_4:
+    mov ax, profession_4_skill_group_3
+    push ax
+    mov ax, profession_4_skill_group_2
+    push ax
+    mov ax, profession_4_skill_group_1
+    push ax
+    mov ax, profession_4_skill_group_0
+    push ax
+    push word [bp + 4]
+    call set_party_skill_flags
+    add sp, byte 0xa
+    jmp near prepare_skill_list.forward2
+jumptable_3797_case_5:
+    mov ax, profession_5_skill_group_3
+    push ax
+    mov ax, profession_5_skill_group_2
+    push ax
+    mov ax, profession_5_skill_group_1
+    push ax
+    mov ax, profession_5_skill_group_0
+    push ax
+    push word [bp + 4]
+    call set_party_skill_flags
+    add sp, byte 0xa
+    jmp near prepare_skill_list.forward2
+jumptable_3797_case_6:
+    mov ax, profession_6_skill_group_3
+    push ax
+    mov ax, profession_6_skill_group_2
+    push ax
+    mov ax, profession_6_skill_group_1
+    push ax
+    mov ax, profession_6_skill_group_0
+    push ax
+    push word [bp + 4]
+    call set_party_skill_flags
+    add sp, byte 0xa
+    jmp near prepare_skill_list.forward2
+jumptable_3797_case_7:
+    mov ax, profession_7_skill_group_3
+    push ax
+    mov ax, profession_7_skill_group_2
+    push ax
+    mov ax, profession_7_skill_group_1
+    push ax
+    mov ax, profession_7_skill_group_0
+    push ax
+    push word [bp + 4]
+    call set_party_skill_flags
+    add sp, byte 0xa
+    jmp near prepare_skill_list.forward2
+jumptable_3797_case_8:
+    mov ax, profession_8_skill_group_3
+    push ax
+    mov ax, profession_8_skill_group_2
+    push ax
+    mov ax, profession_8_skill_group_1
+    push ax
+    mov ax, profession_8_skill_group_0
+    push ax
+    push word [bp + 4]
+    call set_party_skill_flags
+    add sp, byte 0xa
+    jmp near prepare_skill_list.forward2
+jumptable_3797_case_9:
+    mov ax, profession_9_skill_group_3
+    push ax
+    mov ax, profession_9_skill_group_2
+    push ax
+    mov ax, profession_9_skill_group_1
+    push ax
+    mov ax, profession_9_skill_group_0
+    push ax
+    push word [bp + 4]
+    call set_party_skill_flags
+    add sp, byte 0xa
+    jmp near prepare_skill_list.forward2
+jumptable_3797_case_10:
+    mov ax, profession_10_skill_group_3
+    push ax
+    mov ax, profession_10_skill_group_2
+    push ax
+    mov ax, profession_10_skill_group_1
+    push ax
+    mov ax, profession_10_skill_group_0
+    push ax
+    push word [bp + 4]
+    call set_party_skill_flags
+    add sp, byte 0xa
+    jmp short prepare_skill_list.forward2
+jumptable_3797_case_11:
+    mov ax, profession_11_skill_group_3
+    push ax
+    mov ax, profession_11_skill_group_2
+    push ax
+    mov ax, profession_11_skill_group_1
+    push ax
+    mov ax, profession_11_skill_group_0
+    push ax
+    push word [bp + 4]
+    call set_party_skill_flags
+    add sp, byte 0xa
+    jmp short prepare_skill_list.forward2
+jumptable_3797_case_12:
+    mov ax, profession_12_skill_group_3
+    push ax
+    mov ax, profession_12_skill_group_2
+    push ax
+    mov ax, profession_12_skill_group_1
+    push ax
+    mov ax, profession_12_skill_group_0
+    push ax
+    push word [bp + 4]
+    call set_party_skill_flags
+    add sp, byte 0xa
+    jmp short prepare_skill_list.forward2
+jumptable_3797_case_13:
+    mov ax, profession_13_skill_group_3
+    push ax
+    mov ax, profession_13_skill_group_2
+    push ax
+    mov ax, profession_13_skill_group_1
+    push ax
+    mov ax, profession_13_skill_group_0
+    push ax
+    push word [bp + 4]
+    call set_party_skill_flags
+    add sp, byte 0xa
+    jmp short prepare_skill_list.forward2
+jumptable_3797:
+    dw jumptable_3797_case_0 - IMAGE_BASE + __zres_end
+    dw jumptable_3797_case_1 - IMAGE_BASE + __zres_end
+    dw jumptable_3797_case_2 - IMAGE_BASE + __zres_end
+    dw jumptable_3797_case_3 - IMAGE_BASE + __zres_end
+    dw jumptable_3797_case_4 - IMAGE_BASE + __zres_end
+    dw jumptable_3797_case_5 - IMAGE_BASE + __zres_end
+    dw jumptable_3797_case_6 - IMAGE_BASE + __zres_end
+    dw jumptable_3797_case_7 - IMAGE_BASE + __zres_end
+    dw jumptable_3797_case_8 - IMAGE_BASE + __zres_end
+    dw jumptable_3797_case_9 - IMAGE_BASE + __zres_end
+    dw jumptable_3797_case_10 - IMAGE_BASE + __zres_end
+    dw jumptable_3797_case_11 - IMAGE_BASE + __zres_end
+    dw jumptable_3797_case_12 - IMAGE_BASE + __zres_end
+    dw jumptable_3797_case_13 - IMAGE_BASE + __zres_end
+prepare_skill_list.forward1:
+    cmp ax, strict word 0xe
+    jae short prepare_skill_list.forward2
+    xchg bx, ax
+    shl bx, 1
+    jmp [cs:bx + jumptable_3797 - IMAGE_BASE + __zres_end]
+prepare_skill_list.forward2:
+    mov ax, 0x248
+    imul word [bp + 4]
+    mov bx, ax
+    cmp byte [bx + party_records + pc_rec.stat + 0x1], 0xd
+    jbe short prepare_skill_list.forward3
+    cmp byte [bx + party_records + pc_rec.stat + 0x6], 0xd
+    jbe short prepare_skill_list.forward3
+    mov word [both_high_stats_flag], 1
+prepare_skill_list.forward3:
+    mov word [bp - 4], 0
+    mov ax, word [bp + 6]
+    shl ax, 1
+    shl ax, 1
+    mov bx, ax
+    mov ax, word [word bx + 0x38]
+    mov word [bp - 2], ax
+    jmp short prepare_skill_list.forward5
+prepare_skill_list.back1:
+    mov ax, word [bp - 2]
+    shl ax, 1
+    mov bx, ax
+    cmp word [bx + skill_availability_flags], byte 1
+    jne short prepare_skill_list.forward4
+    mov ax, 0x14
+    imul word [bp - 4]
+    add ax, known_spell_names
+    push ax
+    mov ax, word [bp - 2]
+    add ax, MSG_WAND_DAGGER
+    push ax
+    call load_message_string
+    add sp, byte 4
+    mov ax, word [bp - 2]
+    mov cx, word [bp - 4]
+    shl cx, 1
+    mov si, cx
+    mov bx, word [bp + 8]
+    mov word [bx + si], ax
+    inc word [bp - 4]
+prepare_skill_list.forward4:
+    inc word [bp - 2]
+prepare_skill_list.forward5:
+    mov ax, word [bp + 6]
+    shl ax, 1
+    shl ax, 1
+    mov bx, ax
+    mov ax, word [word bx + 0x3a]
+    cmp ax, word [bp - 2]
+    jge short prepare_skill_list.back1
+    mov ax, slot_prompt_text
+    push ax
+    mov ax, MSG_SKILL_POINTS
+    push ax
+    call load_message_string
+    add sp, byte 4
+    mov ax, word [bp - 4]
+    ret

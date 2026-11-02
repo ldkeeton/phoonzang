@@ -870,13 +870,13 @@ import_bane_party.back9:
     mov ax, word [bp - 4]            ; 0x27ea
     cmp ax, strict word 4            ; 0x27ed
     jl short import_bane_party.back9 ; 0x27f0
-    mov al, byte [bane_character_kind] ; 0x27f2
+    mov al, byte [bane_character_glyph_set] ; 0x27f2
     mov bx, word [bp - 0x14]         ; 0x27f5
     mov byte [bx + 0x237], al        ; 0x27f8
-    mov al, byte [bane_character_glyph_set] ; 0x27fc
+    mov al, byte [bane_character_gender] ; 0x27fc
     mov bx, word [bp - 0x14]         ; 0x27ff
     mov byte [bx + 0x238], al        ; 0x2802
-    mov al, byte [bane_character_gender] ; 0x2806
+    mov al, byte [bane_character_profession] ; 0x2806
     mov bx, word [bp - 0x14]         ; 0x2809
     mov byte [bx + 0x239], al        ; 0x280c
     mov bx, word [bp - 0x14]         ; 0x2810
@@ -903,7 +903,7 @@ import_bane_party.back9:
     add sp, byte 6                   ; 0x2847
     mov bx, word [bp - 0x14]         ; 0x284a
     mov byte [bx + 0x236], al        ; 0x284d
-    mov al, byte [bane_character_profession_value] ; 0x2851
+    mov al, byte [bane_character_value_d] ; 0x2851
     mov bx, word [bp - 0x14]         ; 0x2854
     mov byte [bx + 0x23a], al        ; 0x2857
     mov bx, word [bp - 0x14]         ; 0x285b
@@ -1103,13 +1103,13 @@ import_bane_party.back13:
     mov ax, 0x19b                    ; 0x2a62
     push ax                          ; 0x2a65
     push word [party_char_count]     ; 0x2a66
-    call api_idx_004c_set_party_cell ; 0x2a6a
+    call init_item_slot              ; 0x2a6a
     add sp, byte 0xa                 ; 0x2a6d
     inc word [bp - 0x18]             ; 0x2a70
 import_bane_party.forward53:
     mov word [bp - 4], 0             ; 0x2a73
     mov word [bp - 6], 0             ; 0x2a78
-    mov al, byte [bane_character_gender] ; 0x2a7d
+    mov al, byte [bane_character_profession] ; 0x2a7d
     sub ah, ah                       ; 0x2a80
     jmp near import_bane_party.forward54 ; 0x2a82
 jumptable_2af5_case_0:
@@ -1178,7 +1178,7 @@ import_bane_party.forward54:
     shl bx, 1                        ; 0x2b17
     jmp [cs:bx + jumptable_2af5 - IMAGE_BASE + __zres_end] ; 0x2b19
 import_bane_party.forward55:
-    cmp byte [bane_character_kind], 5 ; 0x2b1e
+    cmp byte [bane_character_glyph_set], 5 ; 0x2b1e
     jne short import_bane_party.forward56 ; 0x2b23
     mov word [bp - 4], 0x18d         ; 0x2b25
     mov word [bp - 6], 0             ; 0x2b2a
@@ -1201,7 +1201,7 @@ import_bane_party.forward56:
     push ax                          ; 0x2b55
     push word [bp - 4]               ; 0x2b56
     push word [party_char_count]     ; 0x2b59
-    call api_idx_004c_set_party_cell ; 0x2b5d
+    call init_item_slot              ; 0x2b5d
     add sp, byte 0xa                 ; 0x2b60
     inc word [bp - 0x18]             ; 0x2b63
 import_bane_party.forward57:
@@ -1223,7 +1223,7 @@ import_bane_party.forward57:
     push ax                          ; 0x2b8c
     push word [bp - 6]               ; 0x2b8d
     push word [party_char_count]     ; 0x2b90
-    call api_idx_004c_set_party_cell ; 0x2b94
+    call init_item_slot              ; 0x2b94
     add sp, byte 0xa                 ; 0x2b97
     inc word [bp - 0x18]             ; 0x2b9a
 import_bane_party.forward58:
@@ -1236,7 +1236,7 @@ import_bane_party.back14:
     shl ax, 1                        ; 0x2baf
     shl ax, 1                        ; 0x2bb1
     mov bx, ax                       ; 0x2bb3
-    mov ax, word [bx + bane_mage_spell_values] ; 0x2bb5
+    mov ax, word [bx + bane_items_a] ; 0x2bb5
     mov word [bp - 6], ax            ; 0x2bb9
     cmp ax, strict word 0            ; 0x2bbc
     jg short import_bane_party.forward59 ; 0x2bbf
@@ -1262,7 +1262,7 @@ import_bane_party.forward60:
     shl ax, 1                        ; 0x2be8
     shl ax, 1                        ; 0x2bea
     mov bx, ax                       ; 0x2bec
-    mov al, byte [bx + bane_mage_spell_flags] ; 0x2bee
+    mov al, byte [bx + bane_item_flags_a] ; 0x2bee
     sub ah, ah                       ; 0x2bf2
     test ax, 1                       ; 0x2bf4
     je short import_bane_party.forward61 ; 0x2bf7
@@ -1282,7 +1282,7 @@ import_bane_party.forward62:
     shl ax, 1                        ; 0x2c16
     shl ax, 1                        ; 0x2c18
     mov bx, ax                       ; 0x2c1a
-    mov al, byte [bx + bane_mage_spell_levels] ; 0x2c1c
+    mov al, byte [bx + bane_item_levels_a] ; 0x2c1c
     sub ah, ah                       ; 0x2c20
     push ax                          ; 0x2c22
     mov ax, 0x78                     ; 0x2c23
@@ -1297,7 +1297,7 @@ import_bane_party.forward62:
     push ax                          ; 0x2c3b
     push word [bp - 6]               ; 0x2c3c
     push word [party_char_count]     ; 0x2c3f
-    call api_idx_004c_set_party_cell ; 0x2c43
+    call init_item_slot              ; 0x2c43
     add sp, byte 0xa                 ; 0x2c46
     inc word [bp - 0x18]             ; 0x2c49
     mov ax, word [bp - 0x18]         ; 0x2c4c
@@ -1308,7 +1308,7 @@ import_bane_party.forward62:
 import_bane_party.forward63:
     inc word [bp - 4]                ; 0x2c5c
 import_bane_party.forward64:
-    mov al, byte [bane_mage_spell_count] ; 0x2c5f
+    mov al, byte [bane_item_count_a] ; 0x2c5f
     sub ah, ah                       ; 0x2c62
     cmp ax, word [bp - 4]            ; 0x2c64
     jle short import_bane_party.forward65 ; 0x2c67
@@ -1322,7 +1322,7 @@ import_bane_party.back15:
     shl ax, 1                        ; 0x2c79
     shl ax, 1                        ; 0x2c7b
     mov bx, ax                       ; 0x2c7d
-    mov ax, word [bx + bane_priest_spell_values] ; 0x2c7f
+    mov ax, word [bx + bane_items_b] ; 0x2c7f
     mov word [bp - 6], ax            ; 0x2c83
     cmp ax, strict word 0            ; 0x2c86
     jg short import_bane_party.forward66 ; 0x2c89
@@ -1348,7 +1348,7 @@ import_bane_party.forward67:
     shl ax, 1                        ; 0x2cb2
     shl ax, 1                        ; 0x2cb4
     mov bx, ax                       ; 0x2cb6
-    mov al, byte [bx + bane_priest_spell_flags] ; 0x2cb8
+    mov al, byte [bx + bane_item_flags_b] ; 0x2cb8
     sub ah, ah                       ; 0x2cbc
     test ax, 1                       ; 0x2cbe
     je short import_bane_party.forward68 ; 0x2cc1
@@ -1369,7 +1369,7 @@ import_bane_party.forward69:
     shl ax, 1                        ; 0x2ce3
     shl ax, 1                        ; 0x2ce5
     mov bx, ax                       ; 0x2ce7
-    mov al, byte [bx + bane_priest_spell_levels] ; 0x2ce9
+    mov al, byte [bx + bane_item_levels_b] ; 0x2ce9
     sub ah, ah                       ; 0x2ced
     push ax                          ; 0x2cef
     mov ax, 0x78                     ; 0x2cf0
@@ -1384,7 +1384,7 @@ import_bane_party.forward69:
     push ax                          ; 0x2d08
     push word [bp - 6]               ; 0x2d09
     push word [party_char_count]     ; 0x2d0c
-    call api_idx_004c_set_party_cell ; 0x2d10
+    call init_item_slot              ; 0x2d10
     add sp, byte 0xa                 ; 0x2d13
     inc word [bp - 0x18]             ; 0x2d16
     mov ax, word [bp - 0x18]         ; 0x2d19
@@ -1395,7 +1395,7 @@ import_bane_party.forward69:
 import_bane_party.forward70:
     inc word [bp - 4]                ; 0x2d29
 import_bane_party.forward71:
-    mov al, byte [bane_priest_spell_count] ; 0x2d2c
+    mov al, byte [bane_item_count_b] ; 0x2d2c
     sub ah, ah                       ; 0x2d2f
     cmp ax, word [bp - 4]            ; 0x2d31
     jle short import_bane_party.forward72 ; 0x2d34
@@ -1410,7 +1410,7 @@ import_bane_party.forward72:
     shl ax, 1                        ; 0x2d4a
     shl ax, 1                        ; 0x2d4c
     mov bx, ax                       ; 0x2d4e
-    push word [bx + bane_mage_spell_values] ; 0x2d50
+    push word [bx + bane_items_a]    ; 0x2d50
     call map_bane_item_number        ; 0x2d54
     pop cx                           ; 0x2d57
     mov word [bp - 6], ax            ; 0x2d58
@@ -1433,7 +1433,7 @@ import_bane_party.forward74:
     shl ax, 1                        ; 0x2d7b
     shl ax, 1                        ; 0x2d7d
     mov bx, ax                       ; 0x2d7f
-    mov al, byte [bx + bane_mage_spell_levels] ; 0x2d81
+    mov al, byte [bx + bane_item_levels_a] ; 0x2d81
     sub ah, ah                       ; 0x2d85
     push ax                          ; 0x2d87
     mov ax, 0x78                     ; 0x2d88
@@ -1448,7 +1448,7 @@ import_bane_party.forward74:
     push ax                          ; 0x2da0
     push word [bp - 6]               ; 0x2da1
     push word [party_char_count]     ; 0x2da4
-    call api_idx_004c_set_party_cell ; 0x2da8
+    call init_item_slot              ; 0x2da8
     add sp, byte 0xa                 ; 0x2dab
 import_bane_party.forward75:
     inc word [party_char_count]      ; 0x2dae

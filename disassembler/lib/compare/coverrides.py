@@ -180,10 +180,14 @@ def _c_bytes_to_records(data, base, label_map, local_labels, foreign_label_map,
                 continue
             hi = min(hi, len(data))
             # A label inside the span (``cseg_3532``, a word after the strings)
-            # starts its own block, so it is placed on its byte.
+            # starts its own block, so it is placed on its byte.  So does a
+            # jump table the source declares in a larger data run
+            # (``aztec_format``'s letters then its ``dw`` routines): its
+            # label is the table record's own, so only its bounds cut it out.
+            bounds = [edge for t_lo, t_hi in tables for edge in (t_lo, t_hi)]
             cuts = sorted({addr - base for addr in (*(label_map or ()),
                                                     *(local_labels or ()),
-                                                    *label_offsets)
+                                                    *label_offsets, *bounds)
                            if base + lo < addr < base + hi})
             for a, b in zip([lo, *cuts], [*cuts, hi]):
                 yield a, b

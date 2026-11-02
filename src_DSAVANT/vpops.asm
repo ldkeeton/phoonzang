@@ -80,7 +80,7 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "shared/ovr/loc_KRMP.asm"              ; 0x0ec8
 
-%include "shared/ovr/api_idx_0006_LJUS.asm"     ; 0x0f27
+%include "shared/ovr/step_party_screen_animation.asm" ; 0x0f27
 
 %include "shared/ovr/run_party_screen_animation.asm" ; 0x1076
 

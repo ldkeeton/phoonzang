@@ -55,7 +55,7 @@ loc_TTSP:
     call advance_party_slot_frames   ; 0x4095
     pop cx                           ; 0x4098
     push word [bp + 4]               ; 0x4099
-    call api_idx_0004_RMVO           ; 0x409c
+    call draw_member_realm_points    ; 0x409c
     pop cx                           ; 0x409f
     mov ax, 0xbf                     ; 0x40a0
     push ax                          ; 0x40a3

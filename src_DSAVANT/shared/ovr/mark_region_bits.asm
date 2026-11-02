@@ -6,11 +6,11 @@ mark_region_bits:
     jle short .return1
     mov bx, word [maze_tables]
     mov si, word [party_region]
-    cmp byte [bx + si + spell_table + spell_table_rec_size*138 + spell_table_rec.f_0004], 0
+    cmp byte [bx + si + 0x960], 0
     jbe short .return1
     mov ax, 1
     push ax
-    mov al, byte [bx + si + spell_table + spell_table_rec_size*138 + spell_table_rec.f_0004]
+    mov al, byte [bx + si + 0x960]
     sub ah, ah
     push ax
     mov ax, word [game_state_arg]
@@ -26,7 +26,7 @@ mark_region_bits:
     push ax
     mov bx, word [maze_tables]
     mov si, word [party_region]
-    mov al, byte [bx + si + spell_table + spell_table_rec_size*138 + spell_table_rec.f_0004]
+    mov al, byte [bx + si + 0x960]
     sub ah, ah
     push ax
     mov ax, word [game_state_arg]

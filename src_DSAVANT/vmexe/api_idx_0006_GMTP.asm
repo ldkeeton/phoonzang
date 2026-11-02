@@ -107,7 +107,7 @@ api_idx_0006_GMTP:
     shl cx, 1                        ; 0x19a0
     add ax, cx                       ; 0x19a2
     mov bx, ax                       ; 0x19a4
-    mov cx, word [bx + 0x580]        ; 0x19a6
+    mov cx, word [bx + cell_overlay_y_offset] ; 0x19a6
     mov ax, 0x64                     ; 0x19aa
     sub ax, cx                       ; 0x19ad
     push ax                          ; 0x19af

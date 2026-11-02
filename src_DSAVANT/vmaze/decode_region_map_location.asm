@@ -31,7 +31,7 @@ decode_region_map_location:
     idiv cx                          ; 0x7e8b
     mov word [bp - 0x1a], dx         ; 0x7e8d
     mov si, word [party_region]      ; 0x7e90
-    mov al, byte [bx + si + spell_table + spell_table_rec_size*178 + spell_table_rec.f_0004] ; 0x7e94
+    mov al, byte [bx + si + 0xa50]   ; 0x7e94
     sub ah, ah                       ; 0x7e98
     mov word [bp - 0x14], ax         ; 0x7e9a
     cmp word [bp - 0x14], byte 0     ; 0x7e9d
@@ -205,7 +205,7 @@ decode_region_map_location:
 .forward14:
     mov si, word [party_region]      ; 0x8036
     mov bx, word [maze_tables]       ; 0x803a
-    cmp byte [bx + si + spell_table + spell_table_rec_size*138 + spell_table_rec.f_0004], 0 ; 0x803e
+    cmp byte [bx + si + 0x960], 0    ; 0x803e
     jbe short .return1               ; 0x8043
     mov ax, 2                        ; 0x8045
     push ax                          ; 0x8048

@@ -2,7 +2,7 @@
 api_idx_0004_IKOQ:
     mov ax, 0xfffc                   ; 0x82da
     call aztec_csav                  ; 0x82dd
-    mov ax, word [dseg_0038]         ; 0x82e0
+    mov ax, word [skill_group_ranges] ; 0x82e0
     mov word [bp - 4], ax            ; 0x82e3
     mov word [bp - 2], 0             ; 0x82e6
     jmp short .forward4              ; 0x82eb
@@ -70,7 +70,7 @@ api_idx_0004_IKOQ:
     pop cx                           ; 0x837a
     cmp ax, word [bp - 2]            ; 0x837b
     jg short .back2                  ; 0x837e
-    mov ax, word [index_range2_first] ; 0x8380
+    mov ax, word [dseg_0040]         ; 0x8380
     mov word [bp - 4], ax            ; 0x8383
     mov word [bp - 2], 0             ; 0x8386
     jmp short .forward12             ; 0x838b

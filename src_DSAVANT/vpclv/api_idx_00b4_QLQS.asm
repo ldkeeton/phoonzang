@@ -111,7 +111,7 @@ api_idx_00b4_QLQS:
     push ax                          ; 0x4dce
     lea ax, word [bp - 0x64]         ; 0x4dcf
     push ax                          ; 0x4dd2
-    call api_idx_0004_PMIU           ; 0x4dd3
+    call display_centered_message    ; 0x4dd3
     add sp, byte 4                   ; 0x4dd6
     push word [bp + 4]               ; 0x4dd9
     call api_idx_007c_OKMO           ; 0x4ddc

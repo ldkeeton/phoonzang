@@ -14,7 +14,7 @@ jumptable_5161_case_0:
     mov ax, dseg_93bd                ; 0x50a2
     push ax                          ; 0x50a5
     push word [bp + 4]               ; 0x50a6
-    call api_idx_0006_VJKJ           ; 0x50a9
+    call init_skill_cell_positions   ; 0x50a9
     add sp, byte 6                   ; 0x50ac
     jmp near api_idx_0004_IMQR.forward2 ; 0x50af
 jumptable_5161_case_4:
@@ -23,7 +23,7 @@ jumptable_5161_case_4:
     mov ax, dseg_93db                ; 0x50b6
     push ax                          ; 0x50b9
     push word [bp + 4]               ; 0x50ba
-    call api_idx_0006_VJKJ           ; 0x50bd
+    call init_skill_cell_positions   ; 0x50bd
     add sp, byte 6                   ; 0x50c0
     jmp near api_idx_0004_IMQR.forward2 ; 0x50c3
 jumptable_5161_case_10:
@@ -32,7 +32,7 @@ jumptable_5161_case_10:
     mov ax, dseg_93f9                ; 0x50ca
     push ax                          ; 0x50cd
     push word [bp + 4]               ; 0x50ce
-    call api_idx_0006_VJKJ           ; 0x50d1
+    call init_skill_cell_positions   ; 0x50d1
     add sp, byte 6                   ; 0x50d4
     jmp near api_idx_0004_IMQR.forward2 ; 0x50d7
 jumptable_5161_case_11:
@@ -41,7 +41,7 @@ jumptable_5161_case_11:
     mov ax, dseg_9417                ; 0x50de
     push ax                          ; 0x50e1
     push word [bp + 4]               ; 0x50e2
-    call api_idx_0006_VJKJ           ; 0x50e5
+    call init_skill_cell_positions   ; 0x50e5
     add sp, byte 6                   ; 0x50e8
     jmp near api_idx_0004_IMQR.forward2 ; 0x50eb
 jumptable_5161_case_13:
@@ -50,7 +50,7 @@ jumptable_5161_case_13:
     mov ax, dseg_9435                ; 0x50f2
     push ax                          ; 0x50f5
     push word [bp + 4]               ; 0x50f6
-    call api_idx_0006_VJKJ           ; 0x50f9
+    call init_skill_cell_positions   ; 0x50f9
     add sp, byte 6                   ; 0x50fc
     jmp near api_idx_0004_IMQR.forward2 ; 0x50ff
 jumptable_5161_case_1:
@@ -59,7 +59,7 @@ jumptable_5161_case_1:
     mov ax, dseg_9453                ; 0x5106
     push ax                          ; 0x5109
     push word [bp + 4]               ; 0x510a
-    call api_idx_0006_VJKJ           ; 0x510d
+    call init_skill_cell_positions   ; 0x510d
     add sp, byte 6                   ; 0x5110
     jmp short api_idx_0004_IMQR.forward2 ; 0x5113
 jumptable_5161_case_7:
@@ -68,7 +68,7 @@ jumptable_5161_case_7:
     mov ax, dseg_9471                ; 0x5119
     push ax                          ; 0x511c
     push word [bp + 4]               ; 0x511d
-    call api_idx_0006_VJKJ           ; 0x5120
+    call init_skill_cell_positions   ; 0x5120
     add sp, byte 6                   ; 0x5123
     jmp short api_idx_0004_IMQR.forward2 ; 0x5126
 jumptable_5161_case_2:
@@ -77,7 +77,7 @@ jumptable_5161_case_2:
     mov ax, dseg_948f                ; 0x512c
     push ax                          ; 0x512f
     push word [bp + 4]               ; 0x5130
-    call api_idx_0006_VJKJ           ; 0x5133
+    call init_skill_cell_positions   ; 0x5133
     add sp, byte 6                   ; 0x5136
     jmp short api_idx_0004_IMQR.forward2 ; 0x5139
 jumptable_5161_case_12:
@@ -86,7 +86,7 @@ jumptable_5161_case_12:
     mov ax, dseg_94ad                ; 0x513f
     push ax                          ; 0x5142
     push word [bp + 4]               ; 0x5143
-    call api_idx_0006_VJKJ           ; 0x5146
+    call init_skill_cell_positions   ; 0x5146
     add sp, byte 6                   ; 0x5149
     jmp short api_idx_0004_IMQR.forward2 ; 0x514c
 jumptable_5161_case_3:
@@ -95,7 +95,7 @@ jumptable_5161_case_3:
     mov ax, dseg_94cb                ; 0x5152
     push ax                          ; 0x5155
     push word [bp + 4]               ; 0x5156
-    call api_idx_0006_VJKJ           ; 0x5159
+    call init_skill_cell_positions   ; 0x5159
     add sp, byte 6                   ; 0x515c
     jmp short api_idx_0004_IMQR.forward2 ; 0x515f
 jumptable_5161:

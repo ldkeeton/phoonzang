@@ -111,7 +111,7 @@ api_idx_006e_LMUM:
     push ax                          ; 0x3e6b
     lea ax, word [bp - 0x6e]         ; 0x3e6c
     push ax                          ; 0x3e6f
-    call api_idx_0004_PMIU           ; 0x3e70
+    call display_centered_message    ; 0x3e70
     add sp, byte 4                   ; 0x3e73
     mov ax, 0                        ; 0x3e76
     push ax                          ; 0x3e79
@@ -223,7 +223,7 @@ api_idx_006e_LMUM:
     mov bx, cx                       ; 0x3f79
     dec byte [bx + party_records + pc_rec.spell_school] ; 0x3f7b
     push word [bp + 4]               ; 0x3f7f
-    call api_idx_0004_RMVO           ; 0x3f82
+    call draw_member_realm_points    ; 0x3f82
     pop cx                           ; 0x3f85
 .return1:
     ret                              ; 0x3f86

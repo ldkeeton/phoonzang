@@ -62,7 +62,7 @@ api_idx_000e_NSGM:
     jne short .forward4              ; 0x16c5
     call check_at_saved_location     ; 0x16c7
 .forward4:
-    call api_idx_0004_SMLK           ; 0x16ca
+    call get_cell_terrain            ; 0x16ca
     jmp near .forward8               ; 0x16cd
 .back1:
     call api_idx_0004_IHHI           ; 0x16d0
@@ -186,7 +186,7 @@ api_idx_000e_NSGM:
     add sp, byte 6                   ; 0x17d6
     mov bx, word [maze_tables]       ; 0x17d9
     mov si, word [party_map_piece]   ; 0x17dd
-    mov al, byte [bx + si + spell_table + spell_table_rec_size*218 + spell_table_rec.f_0004] ; 0x17e1
+    mov al, byte [bx + si + 0xb40]   ; 0x17e1
     sub ah, ah                       ; 0x17e5
     mov word [party_region], ax      ; 0x17e7
     mov ax, 0                        ; 0x17ea

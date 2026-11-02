@@ -6,7 +6,7 @@ api_idx_00c2_OUOT:
     imul word [bp + 4]               ; 0x5504
     push ax                          ; 0x5507
     mov ax, 0x78                     ; 0x5508
-    imul word [roster_page]          ; 0x550b
+    imul word [item_page]            ; 0x550b
     mov cx, ax                       ; 0x550f
     pop ax                           ; 0x5511
     add ax, cx                       ; 0x5512
@@ -26,7 +26,7 @@ api_idx_00c2_OUOT:
     imul word [bp + 4]               ; 0x5533
     push ax                          ; 0x5536
     mov ax, 0x78                     ; 0x5537
-    imul word [roster_page]          ; 0x553a
+    imul word [item_page]            ; 0x553a
     mov cx, ax                       ; 0x553e
     pop ax                           ; 0x5540
     add ax, cx                       ; 0x5541
@@ -46,7 +46,7 @@ api_idx_00c2_OUOT:
     je short .return1                ; 0x5563
     push ax                          ; 0x5565
     push word [bp + 6]               ; 0x5566
-    push word [roster_page]          ; 0x5569
+    push word [item_page]            ; 0x5569
     push word [bp + 4]               ; 0x556d
     call api_idx_0010_NNNH           ; 0x5570
     add sp, byte 8                   ; 0x5573
@@ -57,7 +57,7 @@ api_idx_00c2_OUOT:
     imul word [bp + 4]               ; 0x557a
     push ax                          ; 0x557d
     mov ax, 0x78                     ; 0x557e
-    imul word [roster_page]          ; 0x5581
+    imul word [item_page]            ; 0x5581
     mov cx, ax                       ; 0x5585
     pop ax                           ; 0x5587
     add ax, cx                       ; 0x5588
@@ -81,7 +81,7 @@ api_idx_00c2_OUOT:
     rep movsw                        ; 0x55b5
     mov ax, 0x16                     ; 0x55b7
     imul word [bp + 6]               ; 0x55ba
-    add ax, roster_names             ; 0x55bd
+    add ax, item_slot_names          ; 0x55bd
     push ax                          ; 0x55c0
     lea ax, word [bp - 0x4e]         ; 0x55c1
     push ax                          ; 0x55c4
@@ -90,18 +90,18 @@ api_idx_00c2_OUOT:
     mov ax, word [bp + 6]            ; 0x55cb
     shl ax, 1                        ; 0x55ce
     mov bx, ax                       ; 0x55d0
-    mov ax, word [bx + roster_row_color] ; 0x55d2
+    mov ax, word [bx + item_slot_color] ; 0x55d2
     mov word [bp - 0x66], ax         ; 0x55d6
-    mov ax, word [bx + roster_row_attr] ; 0x55d9
+    mov ax, word [bx + item_slot_attr] ; 0x55d9
     mov word [bp - 0x6a], ax         ; 0x55dd
     push word [bp + 6]               ; 0x55e0
-    push word [roster_page]          ; 0x55e3
+    push word [item_page]            ; 0x55e3
     push word [bp + 4]               ; 0x55e7
     call clear_item_slot             ; 0x55ea
     add sp, byte 6                   ; 0x55ed
-    mov word [roster_alt_mode], 1    ; 0x55f0
+    mov word [item_page_alt_mode], 1 ; 0x55f0
     push word [bp + 4]               ; 0x55f6
-    call api_idx_004c_HTUT           ; 0x55f9
+    call draw_member_item_page       ; 0x55f9
     pop cx                           ; 0x55fc
     mov ax, 0                        ; 0x55fd
     push ax                          ; 0x5600
@@ -685,7 +685,7 @@ api_idx_00c2_OUOT:
     imul word [bp + 4]               ; 0x5b3c
     push ax                          ; 0x5b3f
     mov ax, 0x78                     ; 0x5b40
-    imul word [roster_page]          ; 0x5b43
+    imul word [item_page]            ; 0x5b43
     mov cx, ax                       ; 0x5b47
     pop ax                           ; 0x5b49
     add ax, cx                       ; 0x5b4a
@@ -712,7 +712,7 @@ api_idx_00c2_OUOT:
     imul word [bp + 4]               ; 0x5b80
     push ax                          ; 0x5b83
     mov ax, 0x78                     ; 0x5b84
-    imul word [roster_page]          ; 0x5b87
+    imul word [item_page]            ; 0x5b87
     mov cx, ax                       ; 0x5b8b
     pop ax                           ; 0x5b8d
     add ax, cx                       ; 0x5b8e
@@ -736,7 +736,7 @@ api_idx_00c2_OUOT:
     rep movsw                        ; 0x5bbb
     mov ax, 0x16                     ; 0x5bbd
     imul word [bp + 6]               ; 0x5bc0
-    add ax, roster_names             ; 0x5bc3
+    add ax, item_slot_names          ; 0x5bc3
     push ax                          ; 0x5bc6
     lea ax, word [bp - 0x64]         ; 0x5bc7
     push ax                          ; 0x5bca
@@ -745,12 +745,12 @@ api_idx_00c2_OUOT:
     mov ax, word [bp + 6]            ; 0x5bd1
     shl ax, 1                        ; 0x5bd4
     mov bx, ax                       ; 0x5bd6
-    mov ax, word [bx + roster_row_color] ; 0x5bd8
+    mov ax, word [bx + item_slot_color] ; 0x5bd8
     mov word [bp - 0x68], ax         ; 0x5bdc
-    mov ax, word [bx + roster_row_attr] ; 0x5bdf
+    mov ax, word [bx + item_slot_attr] ; 0x5bdf
     mov word [bp - 0x6c], ax         ; 0x5be3
     push word [bp + 6]               ; 0x5be6
-    push word [roster_page]          ; 0x5be9
+    push word [item_page]            ; 0x5be9
     push word [bp + 4]               ; 0x5bed
     call clear_item_slot             ; 0x5bf0
     add sp, byte 6                   ; 0x5bf3
@@ -792,7 +792,7 @@ api_idx_00c2_OUOT:
     imul word [bp + 4]               ; 0x5c47
     push ax                          ; 0x5c4a
     mov ax, 0x78                     ; 0x5c4b
-    imul word [roster_page]          ; 0x5c4e
+    imul word [item_page]            ; 0x5c4e
     mov cx, ax                       ; 0x5c52
     pop ax                           ; 0x5c54
     add ax, cx                       ; 0x5c55
@@ -813,7 +813,7 @@ api_idx_00c2_OUOT:
     push ax                          ; 0x5c76
     mov ax, 0x16                     ; 0x5c77
     imul word [bp + 6]               ; 0x5c7a
-    add ax, roster_names             ; 0x5c7d
+    add ax, item_slot_names          ; 0x5c7d
     push ax                          ; 0x5c80
     call aztec_strcpy                ; 0x5c81
     add sp, byte 4                   ; 0x5c84
@@ -821,9 +821,9 @@ api_idx_00c2_OUOT:
     mov cx, word [bp + 6]            ; 0x5c8a
     shl cx, 1                        ; 0x5c8d
     mov bx, cx                       ; 0x5c8f
-    mov word [bx + roster_row_color], ax ; 0x5c91
+    mov word [bx + item_slot_color], ax ; 0x5c91
     mov ax, word [bp - 0x6a]         ; 0x5c95
-    mov word [bx + roster_row_attr], ax ; 0x5c98
+    mov word [bx + item_slot_attr], ax ; 0x5c98
     lea si, word [bp - 0x38]         ; 0x5c9c
     lea di, word [bp - 0x2c]         ; 0x5c9f
     mov cx, ds                       ; 0x5ca2
@@ -842,9 +842,9 @@ api_idx_00c2_OUOT:
     mov word [bp - 0x6a], ax         ; 0x5cc2
     cmp word [bp - 0x38], byte 0     ; 0x5cc5
     jne short .forward30             ; 0x5cc9
-    mov word [roster_alt_mode], 0    ; 0x5ccb
+    mov word [item_page_alt_mode], 0 ; 0x5ccb
     push word [bp + 4]               ; 0x5cd1
-    call api_idx_004c_HTUT           ; 0x5cd4
+    call draw_member_item_page       ; 0x5cd4
     pop cx                           ; 0x5cd7
     mov ax, 6                        ; 0x5cd8
     push ax                          ; 0x5cdb
@@ -865,9 +865,9 @@ api_idx_00c2_OUOT:
     mov word [bp - 0x1a], 0          ; 0x5cfa
     jmp short .forward31             ; 0x5cff
 .forward30:
-    mov word [roster_alt_mode], 1    ; 0x5d01
+    mov word [item_page_alt_mode], 1 ; 0x5d01
     push word [bp + 4]               ; 0x5d07
-    call api_idx_004c_HTUT           ; 0x5d0a
+    call draw_member_item_page       ; 0x5d0a
     pop cx                           ; 0x5d0d
     mov ax, 6                        ; 0x5d0e
     push ax                          ; 0x5d11
@@ -989,11 +989,11 @@ api_idx_00c2_OUOT:
     call api_idx_009e_HMOI           ; 0x5e26
     add sp, byte 4                   ; 0x5e29
     push word [bp + 4]               ; 0x5e2c
-    call api_idx_004c_HTUT           ; 0x5e2f
+    call draw_member_item_page       ; 0x5e2f
     pop cx                           ; 0x5e32
     cmp word [bp - 0x2c], byte 0     ; 0x5e33
     jne short .forward37             ; 0x5e37
-    mov word [roster_alt_mode], 0    ; 0x5e39
+    mov word [item_page_alt_mode], 0 ; 0x5e39
     mov ax, 6                        ; 0x5e3f
     push ax                          ; 0x5e42
     mov ax, 0x24                     ; 0x5e43
@@ -1087,11 +1087,11 @@ api_idx_00c2_OUOT:
     push ax                          ; 0x5f0b
     lea ax, word [bp - 0xc2]         ; 0x5f0c
     push ax                          ; 0x5f10
-    call api_idx_0004_PMIU           ; 0x5f11
+    call display_centered_message    ; 0x5f11
     add sp, byte 4                   ; 0x5f14
 .forward39:
     push word [bp + 4]               ; 0x5f17
-    call api_idx_004c_HTUT           ; 0x5f1a
+    call draw_member_item_page       ; 0x5f1a
     pop cx                           ; 0x5f1d
     mov ax, 6                        ; 0x5f1e
     push ax                          ; 0x5f21
@@ -1124,7 +1124,7 @@ api_idx_00c2_OUOT:
     push ax                          ; 0x5f5f
     call add_floor_item              ; 0x5f60
     pop cx                           ; 0x5f63
-    mov word [roster_alt_mode], 0    ; 0x5f64
+    mov word [item_page_alt_mode], 0 ; 0x5f64
     mov ax, 6                        ; 0x5f6a
     push ax                          ; 0x5f6d
     mov ax, 0x24                     ; 0x5f6e
@@ -1175,7 +1175,7 @@ api_idx_00c2_OUOT:
     idiv word [party_char_count]     ; 0x5fd2
     mov word [member_roster_index], dx ; 0x5fd6
     mov word [bp + 4], dx            ; 0x5fda
-    mov word [roster_drawn], 0       ; 0x5fdd
+    mov word [item_page_drawn], 0    ; 0x5fdd
     mov ax, 0                        ; 0x5fe3
     push ax                          ; 0x5fe6
     push dx                          ; 0x5fe7
@@ -1195,7 +1195,7 @@ api_idx_00c2_OUOT:
     idiv word [party_char_count]     ; 0x6009
     mov word [member_roster_index], dx ; 0x600d
     mov word [bp + 4], dx            ; 0x6011
-    mov word [roster_drawn], 0       ; 0x6014
+    mov word [item_page_drawn], 0    ; 0x6014
     mov ax, 0                        ; 0x601a
     push ax                          ; 0x601d
     push dx                          ; 0x601e
@@ -1205,15 +1205,15 @@ api_idx_00c2_OUOT:
 .forward48:
     jmp near .forward56              ; 0x602a
 .back23:
-    mov ax, word [roster_page]       ; 0x602d
+    mov ax, word [item_page]         ; 0x602d
     inc ax                           ; 0x6030
     mov cx, 2                        ; 0x6031
     cwd                              ; 0x6034
     idiv cx                          ; 0x6035
-    mov word [roster_page], dx       ; 0x6037
-    mov word [roster_drawn], 0       ; 0x603b
+    mov word [item_page], dx         ; 0x6037
+    mov word [item_page_drawn], 0    ; 0x603b
     push word [bp + 4]               ; 0x6041
-    call api_idx_004c_HTUT           ; 0x6044
+    call draw_member_item_page       ; 0x6044
     pop cx                           ; 0x6047
     call api_idx_0004_KVIP           ; 0x6048
     mov ax, 0xb6                     ; 0x604b
@@ -1242,14 +1242,14 @@ api_idx_00c2_OUOT:
     mov word [bp - 0x14], ax         ; 0x6081
     cmp ax, strict word 0xffff       ; 0x6084
     je short .forward50              ; 0x6087
-    mov word [roster_page], 0        ; 0x6089
-    mov word [roster_drawn], 0       ; 0x608f
-    mov word [roster_alt_mode], 0    ; 0x6095
+    mov word [item_page], 0          ; 0x6089
+    mov word [item_page_drawn], 0    ; 0x608f
+    mov word [item_page_alt_mode], 0 ; 0x6095
     push word [bp + 4]               ; 0x609b
     call api_idx_0080_MHMQ           ; 0x609e
     pop cx                           ; 0x60a1
     push word [bp + 4]               ; 0x60a2
-    call api_idx_004c_HTUT           ; 0x60a5
+    call draw_member_item_page       ; 0x60a5
     pop cx                           ; 0x60a8
     mov ax, 0xc7                     ; 0x60a9
     push ax                          ; 0x60ac

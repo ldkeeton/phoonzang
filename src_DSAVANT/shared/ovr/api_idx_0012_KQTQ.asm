@@ -66,7 +66,7 @@ api_idx_0012_KQTQ:
     push ax
     mov ax, 0xff
     push ax
-    call api_idx_0004_OVUO
+    call queue_slot_glyph_render
     add sp, byte 0x1c
     jmp short .forward9
 .forward5:
@@ -107,7 +107,7 @@ api_idx_0012_KQTQ:
     push ax
     mov ax, 0xff
     push ax
-    call api_idx_0004_OVUO
+    call queue_slot_glyph_render
     add sp, byte 0x1c
 .forward9:
     mov ax, 0xa
@@ -210,7 +210,7 @@ api_idx_0012_KQTQ:
     push word [bp - 8]
     mov ax, 4
     push ax
-    call api_idx_0004_OVUO
+    call queue_slot_glyph_render
     add sp, byte 0x1c
 .forward20:
     mov ax, 5
@@ -262,7 +262,7 @@ api_idx_0012_KQTQ:
     push ax
     mov ax, 0xff
     push ax
-    call api_idx_0004_OVUO
+    call queue_slot_glyph_render
     add sp, byte 0x1c
     mov word [bp - 0xe], 0xffff
     mov word [bp - 0xa], 0xffff
@@ -330,7 +330,7 @@ api_idx_0012_KQTQ:
     push word [bp - 0xe]
     mov ax, 0xff
     push ax
-    call api_idx_0004_OVUO
+    call queue_slot_glyph_render
     add sp, byte 0x1c
     cmp word [bp - 0xa], byte -1
     jne short .forward26
@@ -377,7 +377,7 @@ api_idx_0012_KQTQ:
     push ax
     mov ax, 0xff
     push ax
-    call api_idx_0004_OVUO
+    call queue_slot_glyph_render
     add sp, byte 0x1c
     jmp short .forward30
 .forward29:
@@ -413,7 +413,7 @@ api_idx_0012_KQTQ:
     push ax
     mov ax, 0xff
     push ax
-    call api_idx_0004_OVUO
+    call queue_slot_glyph_render
     add sp, byte 0x1c
 .forward30:
     jmp near .forward34
@@ -484,7 +484,7 @@ api_idx_0012_KQTQ:
     push ax
     mov ax, 0xfe
     push ax
-    call api_idx_0004_OVUO
+    call queue_slot_glyph_render
     add sp, byte 0x1c
 .forward34:
     jmp short .forward36
@@ -748,7 +748,7 @@ api_idx_0012_KQTQ.forward58:
     push word [bp - 8]
     mov ax, 4
     push ax
-    call api_idx_0004_OVUO
+    call queue_slot_glyph_render
     add sp, byte 0x1c
 api_idx_0012_KQTQ.forward59:
     cmp word [bp + 4], byte 4
@@ -805,7 +805,7 @@ api_idx_0012_KQTQ.forward66:
     mov ax, word [bp - 8]
     shl ax, 1
     mov bx, ax
-    push word [bx + 0x576]
+    push word [bx + view_depth_scale]
     push word [bp + 4]
     mov ax, 0xf8
     push ax
@@ -816,7 +816,7 @@ api_idx_0012_KQTQ.forward66:
     push ax
     push ax
     push word [bp - 4]
-    push word [bx + dseg_03dc]
+    push word [bx + view_depth_y]
     mov ax, 0xa
     imul word [bp + 4]
     mov cx, word [bp + 6]
@@ -826,7 +826,7 @@ api_idx_0012_KQTQ.forward66:
     push word [bx + 0x3aa]
     mov ax, 0xc
     push ax
-    call api_idx_0004_OVUO
+    call queue_slot_glyph_render
     add sp, byte 0x1c
 api_idx_0012_KQTQ.forward67:
     mov ax, 5
@@ -853,7 +853,7 @@ api_idx_0012_KQTQ.forward69:
     mov ax, word [bp + 4]
     shl ax, 1
     mov bx, ax
-    push word [bx + 0x576]
+    push word [bx + view_depth_scale]
     push word [bp + 4]
     mov ax, 0xf8
     push ax
@@ -873,7 +873,7 @@ api_idx_0012_KQTQ.forward69:
     mov ax, word [bp + 4]
     shl ax, 1
     mov bx, ax
-    push word [bx + dseg_03dc]
+    push word [bx + view_depth_y]
     mov ax, 0xa
     imul word [bp + 4]
     mov cx, word [bp + 6]
@@ -883,7 +883,7 @@ api_idx_0012_KQTQ.forward69:
     push word [bx + 0x3aa]
     mov ax, 0xb
     push ax
-    call api_idx_0004_OVUO
+    call queue_slot_glyph_render
     add sp, byte 0x1c
 api_idx_0012_KQTQ.forward70:
     mov ax, 5
@@ -937,7 +937,7 @@ api_idx_0012_KQTQ.back2:
     mov ax, word [bp + 4]
     shl ax, 1
     mov bx, ax
-    push word [bx + 0x576]
+    push word [bx + view_depth_scale]
     push word [bp + 4]
     mov ax, 0xf8
     push ax
@@ -955,7 +955,7 @@ api_idx_0012_KQTQ.forward74:
     push ax
     mov ax, 1
     push ax
-    push word [bx + dseg_03dc]
+    push word [bx + view_depth_y]
     mov ax, 0xa
     imul word [bp + 4]
     mov cx, word [bp + 6]
@@ -965,7 +965,7 @@ api_idx_0012_KQTQ.forward74:
     push word [bx + 0x3aa]
     mov ax, 3
     push ax
-    call api_idx_0004_OVUO
+    call queue_slot_glyph_render
     add sp, byte 0x1c
     jmp short api_idx_0012_KQTQ.return1
 api_idx_0012_KQTQ.back3:
@@ -981,7 +981,7 @@ api_idx_0012_KQTQ.forward75:
     mov ax, word [bp + 4]
     shl ax, 1
     mov bx, ax
-    push word [bx + 0x576]
+    push word [bx + view_depth_scale]
     push word [bp + 4]
     mov ax, 0xf8
     push ax
@@ -993,7 +993,7 @@ api_idx_0012_KQTQ.forward75:
     push ax
     mov ax, 3
     push ax
-    push word [bx + dseg_03dc]
+    push word [bx + view_depth_y]
     mov ax, 0xa
     imul word [bp + 4]
     mov cx, word [bp + 6]
@@ -1003,7 +1003,7 @@ api_idx_0012_KQTQ.forward75:
     push word [bx + 0x3aa]
     mov ax, 3
     push ax
-    call api_idx_0004_OVUO
+    call queue_slot_glyph_render
     add sp, byte 0x1c
     jmp short api_idx_0012_KQTQ.return1
 api_idx_0012_KQTQ.forward76:

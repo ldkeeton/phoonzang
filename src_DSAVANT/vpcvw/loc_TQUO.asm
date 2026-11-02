@@ -51,7 +51,7 @@ loc_TQUO:
     push ax                          ; 0x7141
     lea ax, word [bp - 0xf2]         ; 0x7142
     push ax                          ; 0x7146
-    call api_idx_0004_PMIU           ; 0x7147
+    call display_centered_message    ; 0x7147
     add sp, byte 4                   ; 0x714a
     mov ax, 0                        ; 0x714d
     ret                              ; 0x7150
@@ -254,14 +254,14 @@ jumptable_742b_case_0:
     mov word [bp - 0x26], 1          ; 0x735d
     mov word [bp - 0x2a], 1          ; 0x7362
     mov word [bp - 0x28], 1          ; 0x7367
-    mov ax, word [dseg_001e]         ; 0x736c
+    mov ax, word [equip_slot_colors] ; 0x736c
     mov word [bp - 0x32], ax         ; 0x736f
     jmp near loc_TQUO.forward11      ; 0x7372
 jumptable_742b_case_4:
     mov word [bp - 0x12], 1          ; 0x7375
     mov word [bp - 0x26], 1          ; 0x737a
     mov word [bp - 0x2a], 1          ; 0x737f
-    mov ax, word [dseg_001e]         ; 0x7384
+    mov ax, word [equip_slot_colors] ; 0x7384
     mov word [bp - 0x32], ax         ; 0x7387
     jmp near loc_TQUO.forward11      ; 0x738a
 jumptable_742b_case_5:

@@ -47,7 +47,7 @@ collect_region_flag_bits:
 .forward2:
     mov bx, word [maze_tables]       ; 0x7625
     mov si, word [party_region]      ; 0x7629
-    mov al, byte [bx + si + spell_table + spell_table_rec_size*178 + spell_table_rec.f_0004] ; 0x762d
+    mov al, byte [bx + si + 0xa50]   ; 0x762d
     sub ah, ah                       ; 0x7631
     mov word [bp - 6], ax            ; 0x7633
     mov ax, 2                        ; 0x7636
