@@ -1818,8 +1818,8 @@
     "vdopt": {
       "data_names": {
         "909a": {"name": "spell_cost_panel_text", "note": "\"***\" empty spell cost text followed by the \"V.$$$\" screen-save filename"},
-        "90a4": {"name": "item_dialog_temp_file", "note": "temporary file used to save the screen under the item dialog"},
-        "90aa": {"name": "item_dialog_first_label", "note": "fallback first button label passed to item_action_dialog"},
+        "90a4": {"name": "item_dialog_temp_file", "length": 6, "note": "temporary file used to save the screen under the item dialog"},
+        "90aa": {"name": "item_dialog_first_label", "length": 2, "note": "fallback first button label passed to item_action_dialog"},
         "90ba": {"name": "map_floor_glyphs", "note": "int [18][18] indexed [x][y]: floor glyph per map view cell"},
         "9342": {"name": "map_outside_glyph", "note": "floor glyph for cells outside the maze in the forced view"},
         "9344": {"name": "map_outside_ns_wall_glyph", "note": "north wall glyph for cells outside the maze"},
@@ -1855,7 +1855,7 @@
         "9b0c": {"name": "grid_origin_x", "note": "x pixel origin of the 7-pixel character grid"},
         "9b0a": {"name": "grid_origin_y", "note": "y pixel origin of the 7-pixel character grid"},
         "9b0e": {"name": "known_spell_ids", "note": "int[]: spell ids collect_known_spells found, parallel to known_spell_names"},
-        "909e": {"name": "screen_save_temp_file", "note": "screen save name suffix \"V.$$$\""},
+        "909e": {"name": "screen_save_temp_file", "length": 6, "note": "screen save name suffix \"V.$$$\""},
         "9b60": {"name": "list_row_marked", "note": "per-row int flag; nonzero draws a c mark glyph"},
         "9b88": {"name": "list_row_glyph", "note": "per-row glyph byte, 2-byte stride"},
         "9bb0": {"name": "list_row_name", "note": "per-row 22-byte name strings"},
@@ -1940,7 +1940,7 @@
         "416e": {"name": "use_item_menu", "note": "lists a member item pages, runs the Use/Drop/Esc dialog and applies the chosen action"},
         "45cf": {"name": "cast_spell_from_menu", "note": "spell dialog for a pc, then pays the spell points, applies the spell and drains record word +0 by random(power)+level+power; shows any pending event"},
         "0000": {"name": "ovmain"},
-        "46cb": {"name": "aztec_ovbgn"},
+        "46cb": {"name": "aztec_ovbgn", "emits": [{"start": "90ac", "end": "90b6"}], "note": "dos20/ovbgn.asm: its dataseg holds save_si/di/sp/bp/ret, after every C module's data"},
         "4709": {"name": "aztec_cswt"}
       },
       "immediate_pointers": [

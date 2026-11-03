@@ -1,0 +1,42 @@
+/* The do-options overlay's uninitialized globals; ln lays the commons out
+   last declared first. */
+
+char spell_target[4];
+char list_row_count[40];
+char list_row_name[440];
+char list_row_glyph[40];
+char list_row_marked[40];
+int party_redraw_interval;
+char known_spell_ids[80];
+int grid_origin_x;
+int grid_origin_y;
+int map_wall4_enclosed_glyph;
+int map_wall2_enclosed_glyph;
+int map_wall4_ew_glyph;
+int map_wall3_ew_glyph;
+int map_wall2_ew_glyph;
+int map_wall1_ew_glyph;
+int map_wall4_ns_glyph;
+int map_wall3_ns_glyph;
+int map_wall2_ns_glyph;
+int map_wall1_ns_glyph;
+int map_flag2_glyph;
+int map_flag1_glyph;
+int map_floor_glyph;
+int map_kind15_glyph;
+int map_kind14_glyph;
+int map_special_glyph;
+int map_kind9_glyph;
+int map_kind8_glyph;
+int map_kind2_glyph;
+int map_kind1_glyph;
+int map_object_marks[18][18];
+int map_show_objects;
+int map_ew_wall_glyphs[18][18];
+int map_outside_ew_wall_glyph;
+int map_ns_wall_glyphs[18][18];
+int map_outside_ns_wall_glyph;
+int map_outside_glyph;
+int map_floor_glyphs[18][18];
+int pending_event_hi;
+int pending_event;

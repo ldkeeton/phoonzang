@@ -41,8 +41,6 @@ int level;
 		chance_state += 25;
 	case 1:
 		chance_piece += 50;
-	case 0:
-		;
 	}
 	free_picture_slot(2);
 	load_monster_picture(0, 14);

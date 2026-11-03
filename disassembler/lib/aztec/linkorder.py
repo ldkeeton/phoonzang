@@ -56,7 +56,7 @@ def record(segments, image, sources, split_sources):
         data_at = _OVR_HEADER_SIZE + overlay['o_csize']
         origin = data_at - overlay['o_dorg']
         end = data_at + overlay['o_dsize']
-        if origin < 0 or end > len(image):
+        if end > len(image):
             return None
     else:
         origin = getattr(segments, 'data_origin', None)
@@ -77,7 +77,9 @@ def record(segments, image, sources, split_sources):
             starts[fragment.group(1)] = start
     return {
         'origin': origin,
-        'dseg': bytes(image[origin:end]).hex(),
+        # A small overlay has less file than DS ahead of its data: zeros
+        # stand in for what the file does not have.
+        'dseg': (bytes(max(0, -origin)) + bytes(image[max(0, origin):end])).hex(),
         'starts': starts,
         'sources': {
             os.path.splitext(source['path'])[0]: {
