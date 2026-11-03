@@ -343,17 +343,13 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 %include "shared/ovr/aztec_strcmp.asm"          ; 0x9386
 
 __zdata_start:
-%include "shared/data/pc_file_name.asm"     ; 0x93ed
-
-%include "vbase/data/vbase_file_names.asm" ; 0x93f8
+%include "vbase/data/vbase_file_names.asm" ; 0x93ed
 
 %include "vbase/data/scene_message_control_codes.asm" ; 0x9469
 
 %include "vbase/data/scene_message_separator.asm" ; 0x9471
 
-%include "vbase/data/star_screen_filename.asm" ; 0x9473
-
-%include "vbase/data/main_screen_filename.asm" ; 0x9480
+%include "vbase/data/story_screen_filenames.asm" ; 0x9473
 
 %include "vbase/data/numbered_scene_picture_template.asm" ; 0x948d
 

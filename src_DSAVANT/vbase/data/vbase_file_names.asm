@@ -1,4 +1,6 @@
 ; auto-generated
+__zpc_file_name:
+    db 'PCFILE.DBS', 0
 __zlist_screen_temp_file:
     db 'V.$$$', 0
 __zportrait_data_filename:

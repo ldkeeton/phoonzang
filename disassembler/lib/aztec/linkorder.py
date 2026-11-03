@@ -16,6 +16,7 @@ sources are recorded too, but only :func:`check` reads them, to catch a wrong
 import os
 import re
 
+from lib.segments import _OVR_HEADER_SIZE
 from .dataowners import _has_checked_bytes, _matches
 
 #: A DS fragment's labels carry the ``__z`` prefix; a code fragment's do not.
@@ -43,13 +44,26 @@ def _fragment_start(text, names):
 def record(segments, image, sources, split_sources):
     """What :func:`arrange` needs from one binary, as JSON; ``None`` for a
     binary without its own initialized data segment."""
-    if segments is None or segments.kind == 'overlay':
+    if segments is None:
         return None
-    origin = getattr(segments, 'data_origin', None)
-    if origin is None:
-        return None
-    boundary = getattr(segments, 'bss_boundary', None)
-    end = len(image) if boundary is None else origin + boundary
+    if segments.kind == 'overlay':
+        # An overlay's data follows its code in the file and loads at DS
+        # ``o_dorg``; the origin is where DS 0 would be, so a DS offset
+        # indexes the slice as it does in a program's.
+        overlay = segments.overlay
+        if not overlay or not overlay.get('o_dsize'):
+            return None
+        data_at = _OVR_HEADER_SIZE + overlay['o_csize']
+        origin = data_at - overlay['o_dorg']
+        end = data_at + overlay['o_dsize']
+        if origin < 0 or end > len(image):
+            return None
+    else:
+        origin = getattr(segments, 'data_origin', None)
+        if origin is None:
+            return None
+        boundary = getattr(segments, 'bss_boundary', None)
+        end = len(image) if boundary is None else origin + boundary
     names = {str(name): offset for offset, name
              in (getattr(segments, 'data_names', None) or {}).items()
              if segments.data_space(offset) != 'bss'}
@@ -80,14 +94,20 @@ def source_spans(listed, sources, dseg, starts=None):
     after the one before it.  That also places data with nothing to compare, such as a table
     of relocations or all zeros, which could otherwise be anywhere.  A data
     source's place is known (*starts*), wherever it is listed, so no other
-    module can be there.
+    module can be there, and a module linked after it emits after it.
     """
+    starts = starts or {}
     taken = [(at, at + len(bytes.fromhex(sources[module]['data'])))
-             for module, at in (starts or {}).items() if module in sources]
+             for module, at in starts.items() if module in sources]
     spans, cursor = {}, None
     for module in listed:
         source = sources.get(module)
-        if source is None or is_data_module(module):
+        if source is None:
+            continue
+        if is_data_module(module):
+            if module in starts:
+                end = starts[module] + len(bytes.fromhex(source['data']))
+                cursor = max(cursor or 0, end)
             continue
         data = bytes.fromhex(source['data'])
         if not data:
@@ -185,8 +205,8 @@ def check(listed, info, emitted):
     order never reads a source."""
     if not info or not info.get('sources'):
         return []
-    spans = source_spans(listed, info['sources'], bytes.fromhex(info['dseg']),
-                         _starts(listed, info))
+    spans = source_spans(arrange(listed, info, emitted), info['sources'],
+                         bytes.fromhex(info['dseg']), _starts(listed, info))
     lines = []
     for module in sorted(set(spans) | {m for m in emitted if m in listed}):
         got, want = spans.get(module), emitted.get(module)

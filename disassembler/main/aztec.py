@@ -923,7 +923,10 @@ def _data_sources(project, binary, out_dir, split_sources, segments=None,
             got = cache.compile_data(project, binary, label, entry, source)
         except Exception as exc:
             raise SystemExit(f'error: {shown}: {exc}') from exc
-        if got != module.data:
+        want = module.data
+        if len(got) % 2 and len(want) == len(got) + 1 and not want[-1]:
+            want = want[:-1]  # ln pads a module's odd-length data with a zero.
+        if got != want:
             raise SystemExit(
                 f'error: {shown}: compiles to {got.hex() or "no data"}, '
                 f'but {rel} holds {module.data.hex()}')

@@ -75,7 +75,7 @@ shared/ovr/choose_pc_file_character
 vpcmk/api_idx_002c_VNHI
 shared/ovr/aztec_ovbgn
 shared/ovr/aztec_strcmp
-shared/data/pc_file_name
+vpcmk/data/pc_file_name
 shared/data/title_panel_screen_file
 shared/data/choice_grid_screen_file
 vpcmk/data/list_dialog_temp_file

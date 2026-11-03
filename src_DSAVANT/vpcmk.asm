@@ -330,7 +330,7 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 %include "shared/ovr/aztec_strcmp.asm"          ; 0x6fca
 
 __zdata_start:
-%include "shared/data/pc_file_name.asm"     ; 0x7031
+%include "vpcmk/data/pc_file_name.asm"     ; 0x7031
 
 %include "shared/data/title_panel_screen_file.asm" ; 0x703c
 
