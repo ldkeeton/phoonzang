@@ -2,7 +2,7 @@
 step_party_screen_animation:
     mov ax, 0xfffa
     call aztec_csav
-    mov ax, word [bss_845e]
+    mov ax, word [party_screen_animation_state]
     jmp near .forward5
 .back1:
     mov ax, 0x8f
@@ -118,7 +118,7 @@ step_party_screen_animation:
     call draw_party_status_glyphs
     jmp short .forward9
 .back7:
-    push word [bss_845e]
+    push word [party_screen_animation_state]
     call draw_overlay_list_item_text
     pop cx
     jmp short .forward9
@@ -137,10 +137,10 @@ step_party_screen_animation:
 .forward8:
     jmp short .back7
 .forward9:
-    inc word [bss_845e]
-    mov ax, word [bss_845e]
+    inc word [party_screen_animation_state]
+    mov ax, word [party_screen_animation_state]
     cmp ax, strict word 0xc
     jne short .return1
-    mov word [bss_845e], 0xfffd
+    mov word [party_screen_animation_state], 0xfffd
 .return1:
     ret

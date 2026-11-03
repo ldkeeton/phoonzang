@@ -75,7 +75,7 @@ api_idx_0100_KHVV:
     call poll_fullscreen_hotspot     ; 0x97f3
     test ax, ax                      ; 0x97f6
     jne short .forward3              ; 0x97f8
-    call step_party_animation        ; 0x97fa
+    call step_npc_screen_animation   ; 0x97fa
     jmp short .back4                 ; 0x97fd
 .forward3:
     push word [mouse_pointer_shape_seg] ; 0x97ff

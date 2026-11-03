@@ -40,7 +40,7 @@ api_idx_005e_SHOL:
     call call_show_area              ; 0x144f
     add sp, byte 8                   ; 0x1452
 .forward2:
-    call run_party_screen_animation  ; 0x1455
+    call run_npc_screen_animation    ; 0x1455
     ret                              ; 0x1458
 .forward3:
     cmp word [bp + 6], byte 0        ; 0x1459
@@ -88,8 +88,8 @@ api_idx_005e_SHOL:
     call play_sound_effect           ; 0x14cd
     pop cx                           ; 0x14d0
 .back4:
-    mov word [bss_845e], 0xfffe      ; 0x14d1
-    call step_party_animation        ; 0x14d7
+    mov word [party_screen_animation_state], 0xfffe ; 0x14d1
+    call step_npc_screen_animation   ; 0x14d7
     mov word [bp - 4], 0             ; 0x14da
 .back5:
     mov word [bp - 6], 0             ; 0x14df
@@ -182,7 +182,7 @@ api_idx_005e_SHOL:
     push ax                          ; 0x15a9
     push word [bp - 6]               ; 0x15aa
     push word [bp - 4]               ; 0x15ad
-    call api_idx_0018_TROH           ; 0x15b0
+    call queue_npc_cell_overlay      ; 0x15b0
     add sp, byte 0xe                 ; 0x15b3
     inc word [bp - 6]                ; 0x15b6
     mov ax, word [bp - 6]            ; 0x15b9
@@ -198,10 +198,10 @@ api_idx_005e_SHOL:
 .forward14:
     call queue_marker_overlay        ; 0x15d2
     call draw_party_status_glyphs    ; 0x15d5
-    mov word [bss_845e], 0           ; 0x15d8
+    mov word [party_screen_animation_state], 0 ; 0x15d8
 .back7:
-    call step_party_animation        ; 0x15de
-    cmp word [bss_845e], byte -2     ; 0x15e1
+    call step_npc_screen_animation   ; 0x15de
+    cmp word [party_screen_animation_state], byte -2 ; 0x15e1
     jne short .back7                 ; 0x15e6
     call check_party_redraw_interval ; 0x15e8
     mov word [bp - 0xc], ax          ; 0x15eb

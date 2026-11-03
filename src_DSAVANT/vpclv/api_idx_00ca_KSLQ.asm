@@ -158,7 +158,7 @@ api_idx_00ca_KSLQ:
     mov ax, MSG_LEARN                ; 0x1fb8
     push ax                          ; 0x1fbb
     push word [bp + 4]               ; 0x1fbc
-    call api_idx_0050_SQVG           ; 0x1fbf
+    call pick_spell_dialog_keep_frames ; 0x1fbf
     add sp, byte 8                   ; 0x1fc2
     mov word [bp - 4], ax            ; 0x1fc5
     mov ax, 0x10                     ; 0x1fc8

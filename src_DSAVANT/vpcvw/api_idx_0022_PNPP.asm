@@ -103,7 +103,7 @@ api_idx_0022_PNPP:
     push ax                          ; 0x9575
     mov ax, MSG_SELECT_PORTRAIT      ; 0x9576
     push ax                          ; 0x9579
-    call api_idx_0058_GKGM           ; 0x957a
+    call draw_dialog_button_prompt   ; 0x957a
     add sp, byte 0xc                 ; 0x957d
     mov word [bp - 4], dx            ; 0x9580
     mov word [bp - 6], ax            ; 0x9583

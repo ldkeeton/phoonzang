@@ -13,7 +13,7 @@ find_map_piece:
     jne short .forward2
     push word [bp + 0xc]
     push word [bp + 0xa]
-    push word [bss_8f48]
+    push word [last_map_piece_index]
     call map_piece_index_for_position
     add sp, byte 6
     mov word [bp - 4], ax
@@ -74,6 +74,6 @@ find_map_piece:
     mov ax, word [bp - 4]
     mov bx, word [bp + 8]
     mov word [bx], ax
-    mov word [bss_8f48], ax
+    mov word [last_map_piece_index], ax
     mov ax, 0
     ret

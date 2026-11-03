@@ -6,7 +6,7 @@ loc_HJRN:
     call draw_member_summary_panel   ; 0x2192
     pop cx                           ; 0x2195
     push word [bp + 4]               ; 0x2196
-    call api_idx_0080_MHMQ           ; 0x2199
+    call draw_member_armor_class     ; 0x2199
     pop cx                           ; 0x219c
     cmp word [bp + 6], byte 0        ; 0x219d
     jne short .return1               ; 0x21a1

@@ -29,7 +29,7 @@ redraw_area_set:
     add sp, byte 4
     jmp near .return1
 .back2:
-    mov ax, dseg_909f
+    mov ax, area_set_1_left_save_file
     push ax
     mov ax, 0xc2
     push ax
@@ -42,7 +42,7 @@ redraw_area_set:
     call save_screen_area
     add sp, byte 0xa
     mov word [bp - 2], ax
-    mov ax, dseg_90a6
+    mov ax, area_set_1_right_save_file
     push ax
     mov ax, 0xc2
     push ax
@@ -55,7 +55,7 @@ redraw_area_set:
     call save_screen_area
     add sp, byte 0xa
     mov word [bp - 4], ax
-    mov ax, dseg_90ad
+    mov ax, area_set_1_center_save_file
     push ax
     mov ax, 0x9f
     push ax
@@ -89,7 +89,7 @@ redraw_area_set:
     add sp, byte 4
     jmp short .return1
 .back3:
-    mov ax, dseg_90b4
+    mov ax, area_set_2_save_file
     push ax
     mov ax, 0xc2
     push ax

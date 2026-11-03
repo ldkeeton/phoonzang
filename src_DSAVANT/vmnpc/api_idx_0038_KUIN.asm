@@ -9,7 +9,7 @@ api_idx_0038_KUIN:
     call load_message_string         ; 0x47e7
     add sp, byte 4                   ; 0x47ea
     mov word [spell_dialog_result], 0xffff ; 0x47ed
-    mov word [bss_93d8], 0x8d        ; 0x47f3
+    mov word [npc_area_bottom], 0x8d ; 0x47f3
     mov word [bp - 4], 0x23          ; 0x47f9
     mov word [bp - 6], 0x8f          ; 0x47fe
     mov word [bp - 8], 0x11c         ; 0x4803
@@ -445,7 +445,7 @@ api_idx_0038_KUIN:
     pop cx                           ; 0x4bee
     dec ax                           ; 0x4bef
     mov word [bp - 0x18], ax         ; 0x4bf0
-    call step_party_animation        ; 0x4bf3
+    call step_npc_screen_animation   ; 0x4bf3
     cmp word [space_key_hit], byte 0 ; 0x4bf6
     je short .forward7               ; 0x4bfb
     push word [bp - 0x1e]            ; 0x4bfd
@@ -873,7 +873,7 @@ api_idx_0038_KUIN.forward20:
     push word [bp - 0x38]            ; 0x4fd1
     call restore_saved_screen        ; 0x4fd4
     add sp, byte 4                   ; 0x4fd7
-    mov word [bss_93d8], 0x8f        ; 0x4fda
+    mov word [npc_area_bottom], 0x8f ; 0x4fda
     mov ax, word [bp - 0x20]         ; 0x4fe0
     mov word [spell_dialog_result], ax ; 0x4fe3
     mov ax, word [spell_dialog_button] ; 0x4fe6

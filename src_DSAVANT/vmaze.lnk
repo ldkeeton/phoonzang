@@ -59,7 +59,7 @@ shared/ovr/queue_view_cell_side_layers
 shared/ovr/draw_queued_glyph_shape
 shared/ovr/draw_moon_glyph
 shared/ovr/draw_clock_marker_glyph
-shared/ovr/api_idx_0030_KNRH
+shared/ovr/draw_first_person_maze_view
 shared/ovr/redraw_maze_view
 shared/ovr/map_piece_index_for_position
 shared/ovr/find_map_piece

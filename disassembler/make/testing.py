@@ -6,7 +6,7 @@ import sys
 import time
 import unittest
 
-from .common import ASM
+from .common import ASM, _verbose
 from tests import budget
 
 
@@ -126,8 +126,12 @@ def run_tests(patterns):
     else:
         suite = _TimedSuite(loader.discover(
             os.path.join(ASM, 'tests'), top_level_dir=ASM))
+    # Passing tests print nothing unless VERBOSE=1: no per-test line, and
+    # their stdout/stderr is buffered and shown only if the test fails.
+    verbose = _verbose()
     result = unittest.TextTestRunner(
-        verbosity=2, resultclass=_TimedResult).run(suite)
+        verbosity=2 if verbose else 0, buffer=not verbose,
+        resultclass=_TimedResult).run(suite)
     if result._teardown_ms >= 1:
         print(f'fixture teardown (not in per-test times): '
               f'{result._teardown_ms:.0f} ms')

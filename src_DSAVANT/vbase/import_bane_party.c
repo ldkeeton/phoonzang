@@ -273,10 +273,11 @@ read_next_member:
 		/* Scale the imported resistances by level and initialize the party's
 		   bit-marked spells. */
 		for (record_index = 0; record_index < 14; record_index++) {
-			record->resist[record_index] =
+			record->resistance_rows.named.resist[record_index] =
 				(bane_resistances[record_index] / bane_level) *
 				record->level;
-			record->base_resist[record_index] = record->resist[record_index];
+			record->resistance_rows.named.base_resist[record_index] =
+				record->resistance_rows.named.resist[record_index];
 		}
 		for (record_index = 0; record_index < 79; record_index++) {
 			if (test_bit(bane_spell_bits, record_index)) {

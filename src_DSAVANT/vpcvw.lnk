@@ -29,7 +29,7 @@ shared/ovr/draw_power_digit
 shared/ovr/draw_spell_cost
 shared/ovr/draw_realm_spell_points
 shared/ovr/periodic_party_redraw
-shared/ovr/api_idx_0050_SQVG
+shared/ovr/pick_spell_dialog_keep_frames
 vpcvw/api_idx_0004_JNUN
 vpcvw/loc_NRTK
 vpcvw/api_idx_0004_UQRV
@@ -59,7 +59,7 @@ shared/ovr/add_floor_item
 vpcvw/api_idx_00c2_OUOT
 vpcvw/api_idx_0014_PSHN
 shared/ovr/draw_split_two_line_text
-shared/ovr/api_idx_0080_MHMQ
+shared/ovr/draw_member_armor_class
 shared/ovr/draw_item_slot_label
 shared/ovr/draw_member_item_page
 vpcvw/api_idx_009a_KOSH
@@ -68,9 +68,9 @@ vpcvw/loc_TQUO
 vpcvw/api_idx_0004_IKOQ
 vpcvw/api_idx_0004_QULR
 shared/ovr/draw_known_spell_values
-shared/ovr/api_idx_0058_GKGM
+shared/ovr/draw_dialog_button_prompt
 shared/ovr/input_text_field
-shared/ovr/api_idx_0026_NRVO
+shared/ovr/prompt_character_name
 vpcvw/api_idx_0002_VLGM
 vpcvw/evaluate_profession_stat_mins
 vpcvw/evaluate_character_profession
@@ -86,7 +86,9 @@ shared/ovr/aztec_cswt
 vpcvw/data/percent_suffix_text
 shared/data/title_panel_screen_file
 shared/data/choice_grid_screen_file
-vpcvw/data/draw_spell_cost_dseg294
+shared/data/spell_cost_panel_text
+vpcvw/data/pick_spell_dialog_keep_frames_dseg175
+shared/data/screen_save_temp_file
 shared/data/profession_stat_requirements
 vpcvw/data/dseg_9366
 shared/data/portrait_data_filename

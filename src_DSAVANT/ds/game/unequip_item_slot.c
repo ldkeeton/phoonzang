@@ -17,8 +17,8 @@ int pc, slot;
 	party_records[pc].hp_regen = 0;
 	party_records[pc].hp_drain = 0;
 	for (i = 0; i < 14; i++)		/* start again from the base resistances */
-		party_records[pc].resist[i] =
-			party_records[pc].base_resist[i];
+		party_records[pc].resistance_rows.named.resist[i] =
+			party_records[pc].resistance_rows.named.base_resist[i];
 	for (i = 0; i < 8; i++) {
 		if (party_records[pc].equipped[i] == slot) {
 			party_records[pc].equipped[i] = 255;
@@ -50,8 +50,8 @@ int pc, slot;
 			r = party_records[pc].item_slots[0]
 				[party_records[pc].equipped[i]].resist_bonus[j] %
 				16 * 10;	/* low nibble in steps of 10% */
-			party_records[pc].resist[q] =
-				clamp_between(party_records[pc].resist[q] +
+			party_records[pc].resistance_rows.named.resist[q] =
+				clamp_between(party_records[pc].resistance_rows.named.resist[q] +
 				r, 0, 125);	/* resistances cap at 125 */
 		}
 		q = party_records[pc].item_slots[0]

@@ -199,8 +199,8 @@ api_idx_0010_KMMG:
     mov word [bp - 0x10], ax         ; 0x9c0d
     mov word [bp - 2], 0             ; 0x9c10
 .back2:
-    mov word [bss_845e], 0xfffe      ; 0x9c15
-    call api_idx_0006_GMTP           ; 0x9c1b
+    mov word [party_screen_animation_state], 0xfffe ; 0x9c15
+    call step_combat_screen_animation ; 0x9c1b
     mov word [bp - 4], 0             ; 0x9c1e
 .back3:
     mov word [bp - 6], 0             ; 0x9c23
@@ -262,7 +262,7 @@ api_idx_0010_KMMG:
     add sp, byte 0xe                 ; 0x9ca4
     push word [bp - 6]               ; 0x9ca7
     push word [bp - 4]               ; 0x9caa
-    call api_idx_0016_SLUJ           ; 0x9cad
+    call queue_cell_effect_overlay   ; 0x9cad
     add sp, byte 4                   ; 0x9cb0
     inc word [bp - 6]                ; 0x9cb3
     mov ax, word [bp - 6]            ; 0x9cb6
@@ -278,10 +278,10 @@ api_idx_0010_KMMG:
 .forward15:
     call queue_marker_overlay        ; 0x9ccf
     call draw_party_status_glyphs    ; 0x9cd2
-    mov word [bss_845e], 0           ; 0x9cd5
+    mov word [party_screen_animation_state], 0 ; 0x9cd5
 .back5:
-    call api_idx_0006_GMTP           ; 0x9cdb
-    cmp word [bss_845e], byte -2     ; 0x9cde
+    call step_combat_screen_animation ; 0x9cdb
+    cmp word [party_screen_animation_state], byte -2 ; 0x9cde
     jne short .back5                 ; 0x9ce3
     call check_party_redraw_interval ; 0x9ce5
     mov word [bp - 0x10], ax         ; 0x9ce8
@@ -330,7 +330,7 @@ api_idx_0010_KMMG:
     mov word [bx + cell_slot_ref], 0 ; 0x9d4a
     mov bx, word [bp + 4]            ; 0x9d50
     mov byte [bx + 0x2a], 0xff       ; 0x9d53
-    call run_party_screen_animation  ; 0x9d57
+    call run_combat_screen_animation ; 0x9d57
     jmp short .forward20             ; 0x9d5a
 .forward19:
     mov ax, word [startup_option]    ; 0x9d5c

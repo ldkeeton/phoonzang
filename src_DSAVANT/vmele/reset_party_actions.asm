@@ -39,5 +39,5 @@ reset_party_actions:
     jl short .back2                  ; 0x337b
     mov word [monster_group_count], 0 ; 0x337d
     mov word [party_screen_done], 0  ; 0x3383
-    mov word [bss_845e], 0xfffe      ; 0x3389
+    mov word [party_screen_animation_state], 0xfffe ; 0x3389
     ret                              ; 0x338f

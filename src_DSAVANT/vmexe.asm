@@ -36,8 +36,8 @@ save_bp equ __zdseg_end + (__zsave_bp - __zdata_start)
 save_ret equ __zdseg_end + (__zsave_ret - __zdata_start)
 _Uorg equ __zdseg_end + (__zobss_90bc - __zdata_start)
 window_record equ __zdseg_end + (__zobss_90bc - __zdata_start)
-bss_90ca equ __zdseg_end + (__zobss_90ca - __zdata_start)
-bss_90dc equ __zdseg_end + (__zobss_90dc - __zdata_start)
+cell_effect_frame equ __zdseg_end + (__zobss_90ca - __zdata_start)
+pending_effect_sound equ __zdseg_end + (__zobss_90dc - __zdata_start)
 bss_90de equ __zdseg_end + (__zobss_90de - __zdata_start)
 bss_90e0 equ __zdseg_end + (__zobss_90e0 - __zdata_start)
 party_redraw_interval equ __zdseg_end + (__zobss_90e2 - __zdata_start)
@@ -72,7 +72,7 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "shared/ovr/draw_overlay_list_item_text.asm" ; 0x0dbe
 
-%include "vmexe/api_idx_0016_SLUJ.asm"     ; 0x0e1a
+%include "vmexe/queue_cell_effect_overlay.asm" ; 0x0e1a
 
 %include "vmexe/loc_OTGM.asm"              ; 0x0f67
 
@@ -96,9 +96,9 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "shared/ovr/check_party_redraw_interval.asm" ; 0x1849
 
-%include "vmexe/api_idx_0006_GMTP.asm"     ; 0x18a8
+%include "vmexe/step_combat_screen_animation.asm" ; 0x18a8
 
-%include "vmexe/run_party_screen_animation.asm" ; 0x1a35
+%include "vmexe/run_combat_screen_animation.asm" ; 0x1a35
 
 %include "vmexe/loc_UTQS.asm"              ; 0x1a4c
 

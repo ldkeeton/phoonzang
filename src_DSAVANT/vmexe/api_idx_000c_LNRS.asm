@@ -13,7 +13,7 @@ api_idx_000c_LNRS:
     shl cx, 1                        ; 0x6f52
     add ax, cx                       ; 0x6f54
     mov bx, ax                       ; 0x6f56
-    mov word [bx + bss_90ca], 0xffff ; 0x6f58
+    mov word [bx + cell_effect_frame], 0xffff ; 0x6f58
     inc word [bp - 4]                ; 0x6f5e
     mov ax, word [bp - 4]            ; 0x6f61
     cmp ax, strict word 3            ; 0x6f64
@@ -468,7 +468,7 @@ api_idx_000c_LNRS.forward26:
     jge short api_idx_000c_LNRS.forward27 ; 0x738f
     jmp near api_idx_000c_LNRS.back4 ; 0x7391
 api_idx_000c_LNRS.forward27:
-    call api_idx_0006_GMTP           ; 0x7394
+    call step_combat_screen_animation ; 0x7394
     dec word [dest_alt_arg]          ; 0x7397
     jle short api_idx_000c_LNRS.back7 ; 0x739b
     jmp near api_idx_000c_LNRS.back3 ; 0x739d
@@ -484,7 +484,7 @@ api_idx_000c_LNRS.back9:
     shl cx, 1                        ; 0x73b8
     add ax, cx                       ; 0x73ba
     mov bx, ax                       ; 0x73bc
-    cmp word [bx + bss_90ca], byte -1 ; 0x73be
+    cmp word [bx + cell_effect_frame], byte -1 ; 0x73be
     je short api_idx_000c_LNRS.forward28 ; 0x73c3
     mov ax, 1                        ; 0x73c5
     jmp short api_idx_000c_LNRS.forward29 ; 0x73c8
@@ -500,7 +500,7 @@ api_idx_000c_LNRS.forward29:
     mov ax, word [bp - 2]            ; 0x73de
     cmp ax, strict word 3            ; 0x73e1
     jl short api_idx_000c_LNRS.back8 ; 0x73e4
-    call run_party_screen_animation  ; 0x73e6
+    call run_combat_screen_animation ; 0x73e6
     cmp word [bp - 0xc], byte 0      ; 0x73e9
     jne short api_idx_000c_LNRS.back7 ; 0x73ed
     mov word [game_state], 0xe       ; 0x73ef

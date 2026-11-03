@@ -26,11 +26,11 @@ IMAGE_BASE equ 0x000e + VBASE
 
 __zcode_start:
 percent_suffix_text equ __zdseg_end + (__zpercent_suffix_text - __zdata_start)
-dseg_909f equ __zdseg_end + (__zdseg_909f - __zdata_start)
-dseg_90a6 equ __zdseg_end + (__zdseg_90a6 - __zdata_start)
-dseg_90ad equ __zdseg_end + (__zdseg_90ad - __zdata_start)
-dseg_90b4 equ __zdseg_end + (__zdseg_90b4 - __zdata_start)
-draw_spell_cost_dseg294 equ __zdseg_end + (__zdseg_90bb - __zdata_start)
+area_set_1_left_save_file equ __zdseg_end + (__zarea_set_1_left_save_file - __zdata_start)
+area_set_1_right_save_file equ __zdseg_end + (__zarea_set_1_right_save_file - __zdata_start)
+area_set_1_center_save_file equ __zdseg_end + (__zarea_set_1_center_save_file - __zdata_start)
+area_set_2_save_file equ __zdseg_end + (__zarea_set_2_save_file - __zdata_start)
+spell_cost_panel_text equ __zdseg_end + (__zspell_cost_panel_text - __zdata_start)
 dseg_90bf equ __zdseg_end + (__zdseg_90bf - __zdata_start)
 dseg_90c5 equ __zdseg_end + (__zdseg_90c5 - __zdata_start)
 save_si equ __zdseg_end + (__zsave_si - __zdata_start)
@@ -100,7 +100,7 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "shared/ovr/draw_power_digit.asm"      ; 0x1a4b
 
-%include "shared/ovr/draw_spell_cost.asm"              ; 0x1ad7
+%include "shared/ovr/draw_spell_cost.asm"       ; 0x1ad7
 
 %include "shared/ovr/draw_realm_spell_points.asm" ; 0x1b78
 
@@ -139,7 +139,17 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 __zdata_start:
 %include "shared/data/percent_suffix_text.asm" ; 0x4edb
 
-%include "vpops/data/dseg_909f.asm"        ; 0x4ee2
+%include "shared/data/area_set_1_left_save_file.asm" ; 0x4ee2
+
+%include "shared/data/area_set_1_right_save_file.asm" ; 0x4ee9
+
+%include "shared/data/area_set_1_center_save_file.asm" ; 0x4ef0
+
+%include "shared/data/area_set_2_save_file.asm" ; 0x4ef7
+
+%include "shared/data/spell_cost_panel_text.asm" ; 0x4efe
+
+%include "vpops/data/dseg_90bf.asm"        ; 0x4f02
 
 %include "shared/data/overlay_saved_registers.asm" ; 0x4f0f
 

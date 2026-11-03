@@ -15,7 +15,7 @@ loc_OTGM:
     jne short .forward1              ; 0x0f8a
     ret                              ; 0x0f8c
 .forward1:
-    call run_party_screen_animation  ; 0x0f8d
+    call run_combat_screen_animation ; 0x0f8d
     mov word [bp - 0xf8], 7          ; 0x0f90
     mov ax, 6                        ; 0x0f96
     imul word [bp + 8]               ; 0x0f99
@@ -456,7 +456,7 @@ loc_OTGM:
     je short .forward27              ; 0x154d
     cmp word [bp - 0xe], byte -1     ; 0x154f
     jne short .forward25             ; 0x1553
-    mov word [bss_90dc], 2           ; 0x1555
+    mov word [pending_effect_sound], 2 ; 0x1555
     mov ax, 0x8f                     ; 0x155b
     push ax                          ; 0x155e
     mov ax, 0xf7                     ; 0x155f
@@ -475,8 +475,8 @@ loc_OTGM:
     imul word [bp + 0xa]             ; 0x157a
     mov bx, ax                       ; 0x157d
     pop ax                           ; 0x157f
-    mov word [bx + bss_90ca], ax     ; 0x1580
-    mov word [bss_8320], 0           ; 0x1584
+    mov word [bx + cell_effect_frame], ax ; 0x1580
+    mov word [effect_frame_phase], 0 ; 0x1584
     mov ax, 4                        ; 0x158a
     push ax                          ; 0x158d
     call api_idx_0004_QUPL           ; 0x158e

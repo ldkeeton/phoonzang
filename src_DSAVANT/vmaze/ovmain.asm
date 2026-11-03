@@ -55,7 +55,7 @@ ovmain:
     cmp ax, strict word 0x14         ; 0x00b4
     je short .forward4               ; 0x00b7
     mov word [capture_center_marker_mode], 1 ; 0x00b9
-    call api_idx_0030_KNRH           ; 0x00bf
+    call draw_first_person_maze_view ; 0x00bf
     mov ax, dseg_9098                ; 0x00c2
     push ax                          ; 0x00c5
     mov ax, 0x8f                     ; 0x00c6
@@ -76,7 +76,7 @@ ovmain:
     cwd                              ; 0x00ec
     idiv cx                          ; 0x00ed
     mov word [party_status_frame], dx ; 0x00ef
-    call api_idx_0030_KNRH           ; 0x00f3
+    call draw_first_person_maze_view ; 0x00f3
     mov word [screen_cache_index], 1 ; 0x00f6
     mov word [capture_center_marker_mode], 0 ; 0x00fc
 .forward4:

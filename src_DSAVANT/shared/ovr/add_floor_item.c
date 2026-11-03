@@ -1,14 +1,6 @@
 /* Record a dropped item at the party's cell and mark the cell bitmap. */
 #include "structs/pcrec.h"
-
-struct floor_item {
-	unsigned char map;	/* +0x00: game state, 0xff when free */
-	unsigned char flags;	/* +0x01: copied from the item slot */
-	int position;		/* +0x02: map piece, x and y packed together */
-	int item_id;		/* +0x04 */
-	unsigned char level;	/* +0x06 */
-	unsigned char glyph;	/* +0x07 */
-};
+#include "structs/flooritm.h"
 
 extern struct floor_item *floor_items;
 extern int floor_item_count, current_level;

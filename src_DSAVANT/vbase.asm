@@ -202,7 +202,7 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "vbase/find_unused_member_icon.asm" ; 0x05b6
 
-%include "shared/ovr/api_idx_0038_VIPJ.asm"     ; 0x0606
+%include "shared/ovr/pick_list_entry_dialog.asm" ; 0x0606
 
 %include "shared/ovr/input_text_field.asm"      ; 0x0d3f
 

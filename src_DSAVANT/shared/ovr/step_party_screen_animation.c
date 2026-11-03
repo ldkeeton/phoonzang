@@ -2,7 +2,7 @@
 
 #include "structs/ovlitem.h"
 
-extern int bss_845e;
+extern int party_screen_animation_state;
 extern long far *tick_counter_ptr;
 extern long party_redraw_last_tick;
 extern int party_redraw_interval;
@@ -30,7 +30,7 @@ step_party_screen_animation()
 	int column;
 	int redraw_result;
 
-	switch (bss_845e) {
+	switch (party_screen_animation_state) {
 	case -3:
 		/* Show the cleared area at the start of a cycle. */
 		call_show_area(72, 32, 247, 143);
@@ -63,11 +63,11 @@ step_party_screen_animation()
 		break;
 	default:
 		/* Process the overlay belonging to this ordinary animation state. */
-		draw_overlay_list_item_text(bss_845e);
+		draw_overlay_list_item_text(party_screen_animation_state);
 	}
 
-	++bss_845e;
+	++party_screen_animation_state;
 	/* State twelve begins a new cycle at state minus three. */
-	if (bss_845e == 12)
-		bss_845e = -3;
+	if (party_screen_animation_state == 12)
+		party_screen_animation_state = -3;
 }

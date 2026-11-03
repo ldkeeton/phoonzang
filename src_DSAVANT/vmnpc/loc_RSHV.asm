@@ -181,7 +181,7 @@ loc_RSHV:
     call poll_hotspots               ; 0x19d0
     pop cx                           ; 0x19d3
     mov word [bp - 4], ax            ; 0x19d4
-    call step_party_animation        ; 0x19d7
+    call step_npc_screen_animation   ; 0x19d7
     cmp word [hotspot_hit], byte 0   ; 0x19da
     je short .back2                  ; 0x19df
     jmp near .forward25              ; 0x19e1
@@ -271,7 +271,7 @@ loc_RSHV:
     pop cx                           ; 0x1aa6
     test ax, ax                      ; 0x1aa7
     jne short .forward9              ; 0x1aa9
-    call step_party_animation        ; 0x1aab
+    call step_npc_screen_animation   ; 0x1aab
     jmp short .back5                 ; 0x1aae
 .forward9:
     mov ax, 1                        ; 0x1ab0

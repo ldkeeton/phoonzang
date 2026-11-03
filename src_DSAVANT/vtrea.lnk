@@ -88,5 +88,6 @@ shared/ovr/pick_spell_dialog
 shared/ovr/aztec_ovbgn
 shared/ovr/aztec_cswt
 vtrea/data/dseg_9098
-shared/data/spell_screen_temp_file
+shared/data/spell_cost_panel_text
+shared/data/screen_save_temp_file
 shared/data/overlay_saved_registers

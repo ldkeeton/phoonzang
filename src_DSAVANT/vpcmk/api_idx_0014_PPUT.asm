@@ -12,7 +12,7 @@ api_idx_0014_PPUT:
     push ax                          ; 0x6689
     mov ax, MSG_CREATE_NEW_CHARACTER ; 0x668a
     push ax                          ; 0x668d
-    call api_idx_0026_NRVO           ; 0x668e
+    call prompt_character_name       ; 0x668e
     add sp, byte 0xa                 ; 0x6691
     cmp ax, strict word 2            ; 0x6694
     jne short .forward1              ; 0x6697

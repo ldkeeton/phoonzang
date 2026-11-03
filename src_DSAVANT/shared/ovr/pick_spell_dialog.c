@@ -12,7 +12,7 @@ extern int spell_dialog_result, party_redraw_interval, spell_dialog_button,
 	space_key_hit, hotspot_hit;
 extern long party_redraw_last_tick;
 extern long far *tick_counter_ptr;
-extern char spell_screen_temp_file[];
+extern char screen_save_temp_file[];
 extern struct spell_info spell_table[];
 extern struct pc_rec party_records[];
 extern int known_spell_ids[];
@@ -35,7 +35,7 @@ int pc, button_msg, ok_enabled, limit_by_points;
 	panel_x = 149;
 	thumb_travel = 22;
 	saved_area = save_screen_area(box_x0 - 1, box_y0 - 1, box_x1 + 1, box_y1 + 1,
-		spell_screen_temp_file);
+		screen_save_temp_file);
 	draw_dialog_box(box_x0, box_y0, box_x1, box_y1);
 	draw_dialog_box(149, box_y0, box_x1, box_y1);
 	draw_marker_glyph();

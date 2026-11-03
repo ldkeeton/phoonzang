@@ -29,7 +29,7 @@ pc_file_name equ __zdseg_end + (__zpc_file_name - __zdata_start)
 title_panel_screen_file equ __zdseg_end + (__ztitle_panel_screen_file - __zdata_start)
 choice_grid_screen_file equ __zdseg_end + (__zchoice_grid_screen_file - __zdata_start)
 list_dialog_temp_file equ __zdseg_end + (__zlist_dialog_temp_file - __zdata_start)
-api_idx_0026_NRVO_dseg54 equ __zdseg_end + (__zdseg_90b5 - __zdata_start)
+screen_save_temp_file equ __zdseg_end + (__zscreen_save_temp_file - __zdata_start)
 dseg_90bb equ __zdseg_end + (__zdseg_90bb - __zdata_start)
 profession_0_skill_group_0 equ __zdseg_end + (__zprofession_0_skill_group_0 - __zdata_start)
 profession_0_skill_group_1 equ __zdseg_end + (__zprofession_0_skill_group_1 - __zdata_start)
@@ -87,8 +87,8 @@ profession_13_skill_group_0 equ __zdseg_end + (__zprofession_13_skill_group_0 - 
 profession_13_skill_group_1 equ __zdseg_end + (__zprofession_13_skill_group_1 - __zdata_start)
 profession_13_skill_group_2 equ __zdseg_end + (__zprofession_13_skill_group_2 - __zdata_start)
 profession_13_skill_group_3 equ __zdseg_end + (__zprofession_13_skill_group_3 - __zdata_start)
-draw_spell_cost_dseg294 equ __zdseg_end + (__zdseg_92d2 - __zdata_start)
-api_idx_0050_SQVG_dseg175 equ __zdseg_end + (__zdseg_92d6 - __zdata_start)
+spell_cost_panel_text equ __zdseg_end + (__zspell_cost_panel_text - __zdata_start)
+pick_spell_dialog_keep_frames_dseg175 equ __zdseg_end + (__zdseg_92d6 - __zdata_start)
 profession_0_stat_requirements equ __zdseg_end + (__zprofession_0_stat_requirements - __zdata_start)
 profession_1_stat_requirements equ __zdseg_end + (__zprofession_1_stat_requirements - __zdata_start)
 profession_2_stat_requirements equ __zdseg_end + (__zprofession_2_stat_requirements - __zdata_start)
@@ -193,11 +193,11 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "shared/ovr/select_grid_text_option.asm" ; 0x0445
 
-%include "shared/ovr/api_idx_0058_GKGM.asm"     ; 0x0935
+%include "shared/ovr/draw_dialog_button_prompt.asm" ; 0x0935
 
-%include "shared/ovr/api_idx_0038_VIPJ.asm"     ; 0x0abb
+%include "shared/ovr/pick_list_entry_dialog.asm" ; 0x0abb
 
-%include "shared/ovr/api_idx_0026_NRVO.asm"     ; 0x11f4
+%include "shared/ovr/prompt_character_name.asm" ; 0x11f4
 
 %include "shared/ovr/draw_party_slot_letters.asm" ; 0x16ea
 
@@ -235,13 +235,13 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "shared/ovr/draw_power_digit.asm"      ; 0x2e12
 
-%include "shared/ovr/draw_spell_cost.asm"              ; 0x2e9e
+%include "shared/ovr/draw_spell_cost.asm"       ; 0x2e9e
 
 %include "shared/ovr/draw_realm_spell_points.asm" ; 0x2f3f
 
 %include "shared/ovr/periodic_party_redraw.asm" ; 0x2fd8
 
-%include "shared/ovr/api_idx_0050_SQVG.asm"     ; 0x3069
+%include "shared/ovr/pick_spell_dialog_keep_frames.asm" ; 0x3069
 
 %include "vpcmk/api_idx_006e_LMUM.asm"     ; 0x3d59
 
@@ -338,11 +338,15 @@ __zdata_start:
 
 %include "vpcmk/data/list_dialog_temp_file.asm" ; 0x7048
 
-%include "vpcmk/data/api_idx_0026_NRVO_dseg54.asm"        ; 0x704e
+%include "shared/data/screen_save_temp_file.asm" ; 0x704e
+
+%include "vpcmk/data/dseg_90bb.asm"        ; 0x7054
 
 %include "shared/data/profession_skill_groups.asm" ; 0x7057
 
-%include "vpcmk/data/draw_spell_cost_dseg294.asm"        ; 0x726b
+%include "shared/data/spell_cost_panel_text.asm" ; 0x726b
+
+%include "vpcmk/data/pick_spell_dialog_keep_frames_dseg175.asm"        ; 0x726f
 
 %include "shared/data/profession_stat_requirements.asm" ; 0x7275
 

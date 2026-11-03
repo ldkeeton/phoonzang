@@ -36,7 +36,7 @@ wait_ticks_abortable:
     call api_idx_0004_RPUO           ; 0x11ee
     ret                              ; 0x11f1
 .forward4:
-    call step_party_animation        ; 0x11f2
+    call step_npc_screen_animation   ; 0x11f2
     jmp short .back1                 ; 0x11f5
 .return1:
     ret                              ; 0x11f7

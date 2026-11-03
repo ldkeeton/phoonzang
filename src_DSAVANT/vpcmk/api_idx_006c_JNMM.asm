@@ -23,7 +23,7 @@ api_idx_006c_JNMM:
     push ax                          ; 0x46c7
     mov ax, MSG_ABILITY_BONUS_POINTS ; 0x46c8
     push ax                          ; 0x46cb
-    call api_idx_0058_GKGM           ; 0x46cc
+    call draw_dialog_button_prompt   ; 0x46cc
     add sp, byte 0xc                 ; 0x46cf
     mov word [bp - 0x6a], dx         ; 0x46d2
     mov word [bp - 0x6c], ax         ; 0x46d5

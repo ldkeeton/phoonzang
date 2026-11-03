@@ -64,6 +64,7 @@ story_score_file_number equ __zstory_score_file_number - __zdseg_start
 loaded_score_number equ __zloaded_score_number - __zdseg_start
 intro_score_number_source equ __zintro_score_number_source - __zdseg_start
 realm_point_text_positions equ __zrealm_point_text_positions - __zdseg_start
+realm_spell_point_positions equ __zrealm_spell_point_positions - __zdseg_start
 party_slot_x equ __zparty_slot_x - __zdseg_start
 party_slot_y equ __zparty_slot_y - __zdseg_start
 party_slot_glyphs equ __zparty_slot_glyphs - __zdseg_start
@@ -280,7 +281,7 @@ game_state equ __zbss_830a - __zdseg_start
 current_level equ __zbss_830c - __zdseg_start
 party_slot_frame equ __zbss_830e - __zdseg_start
 maze_gate_frame equ __zbss_831a - __zdseg_start
-bss_8320 equ __zbss_8320 - __zdseg_start
+effect_frame_phase equ __zbss_8320 - __zdseg_start
 action_slot_table equ __zbss_8322 - __zdseg_start
 action_slot_mode equ __zbss_8430 - __zdseg_start
 cell_slot_ref equ __zbss_843a - __zdseg_start
@@ -293,7 +294,7 @@ requested_row_limit equ __zbss_8456 - __zdseg_start
 e1_event_flag equ __zbss_8458 - __zdseg_start
 party_entry_flag equ __zbss_845a - __zdseg_start
 party_screen_done equ __zbss_845c - __zdseg_start
-bss_845e equ __zbss_845e - __zdseg_start
+party_screen_animation_state equ __zbss_845e - __zdseg_start
 dest_alt_arg equ __zbss_8460 - __zdseg_start
 bss_8462 equ __zbss_8462 - __zdseg_start
 bss_8464 equ __zbss_8464 - __zdseg_start
@@ -375,7 +376,7 @@ party_cell_y equ __zbss_8f40 - __zdseg_start
 party_cell_x equ __zbss_8f42 - __zdseg_start
 party_world_y equ __zbss_8f44 - __zdseg_start
 party_world_x equ __zbss_8f46 - __zdseg_start
-bss_8f48 equ __zbss_8f48 - __zdseg_start
+last_map_piece_index equ __zbss_8f48 - __zdseg_start
 startup_check_stage equ __zbss_904c - __zdseg_start
 spell_dialog_result equ __zbss_904e - __zdseg_start
 spell_dialog_button equ __zbss_9050 - __zdseg_start

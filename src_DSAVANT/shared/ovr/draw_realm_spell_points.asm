@@ -44,7 +44,7 @@ draw_realm_spell_points:
     shl ax, 1
     shl ax, 1
     mov bx, ax
-    mov ax, word [bx + 0x18c]
+    mov ax, word [bx + realm_spell_point_positions]
     add ax, strict word 9
     sub ax, cx
     push ax

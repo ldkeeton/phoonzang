@@ -116,7 +116,7 @@ reveal_text_line:
     push word [bp - 6]               ; 0x9397
     call call_show_area              ; 0x939a
     add sp, byte 8                   ; 0x939d
-    call step_party_animation        ; 0x93a0
+    call step_npc_screen_animation   ; 0x93a0
     mov ax, 1                        ; 0x93a3
     push ax                          ; 0x93a6
     call poll_filtered_key           ; 0x93a7

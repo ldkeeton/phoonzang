@@ -85,7 +85,7 @@ api_idx_001e_GOQP:
     cmp ax, strict word 0xc          ; 0x717f
     jl short .back2                  ; 0x7182
     mov word [overlay_list], 0       ; 0x7184
-    mov word [bss_845e], 0xfffe      ; 0x718a
+    mov word [party_screen_animation_state], 0xfffe ; 0x718a
     mov ax, 0                        ; 0x7190
     push ax                          ; 0x7193
     mov ax, 0x12                     ; 0x7194

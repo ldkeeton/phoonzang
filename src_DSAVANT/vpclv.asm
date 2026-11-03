@@ -26,8 +26,8 @@ IMAGE_BASE equ 0x000e + VBASE
 
 __zcode_start:
 percent_suffix_text equ __zdseg_end + (__zpercent_suffix_text - __zdata_start)
-draw_spell_cost_dseg294 equ __zdseg_end + (__zdseg_909b - __zdata_start)
-api_idx_0050_SQVG_dseg175 equ __zdseg_end + (__zdseg_909f - __zdata_start)
+spell_cost_panel_text equ __zdseg_end + (__zspell_cost_panel_text - __zdata_start)
+pick_spell_dialog_keep_frames_dseg175 equ __zdseg_end + (__zdseg_909f - __zdata_start)
 dseg_90a5 equ __zdseg_end + (__zdseg_90a5 - __zdata_start)
 dseg_90b4 equ __zdseg_end + (__zdseg_90b4 - __zdata_start)
 dseg_90c3 equ __zdseg_end + (__zdseg_90c3 - __zdata_start)
@@ -124,10 +124,10 @@ member_detail_cache_low equ __zdseg_end + (__zobss_941a - __zdata_start)
 member_detail_cache_high equ __zdseg_end + (__zobss_941c - __zdata_start)
 roster_screen_b equ __zdseg_end + (__zobss_941e - __zdata_start)
 roster_screen_a equ __zdseg_end + (__zobss_9420 - __zdata_start)
-api_idx_0080_MHMQ_bss24 equ __zdseg_end + (__zobss_9422 - __zdata_start)
-api_idx_0080_MHMQ_bss19 equ __zdseg_end + (__zobss_9424 - __zdata_start)
-api_idx_0080_MHMQ_bss49 equ __zdseg_end + (__zobss_9426 - __zdata_start)
-api_idx_0080_MHMQ_bss44 equ __zdseg_end + (__zobss_9428 - __zdata_start)
+ac_screen_a_handle_low equ __zdseg_end + (__zobss_9422 - __zdata_start)
+ac_screen_a_handle_high equ __zdseg_end + (__zobss_9424 - __zdata_start)
+ac_screen_b_handle_low equ __zdseg_end + (__zobss_9426 - __zdata_start)
+ac_screen_b_handle_high equ __zdseg_end + (__zobss_9428 - __zdata_start)
 realm_panel_cache_high equ __zdseg_end + (__zobss_942a - __zdata_start)
 realm_panel_cache_low equ __zdseg_end + (__zobss_942c - __zdata_start)
 saved_screen equ __zdseg_end + (__zobss_9432 - __zdata_start)
@@ -181,13 +181,13 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "shared/ovr/draw_power_digit.asm"      ; 0x0eea
 
-%include "shared/ovr/draw_spell_cost.asm"              ; 0x0f76
+%include "shared/ovr/draw_spell_cost.asm"       ; 0x0f76
 
 %include "shared/ovr/draw_realm_spell_points.asm" ; 0x1017
 
 %include "shared/ovr/periodic_party_redraw.asm" ; 0x10b0
 
-%include "shared/ovr/api_idx_0050_SQVG.asm"     ; 0x1141
+%include "shared/ovr/pick_spell_dialog_keep_frames.asm" ; 0x1141
 
 %include "vpclv/api_idx_00ca_KSLQ.asm"     ; 0x1e31
 
@@ -199,7 +199,7 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "shared/ovr/draw_split_two_line_text.asm" ; 0x2447
 
-%include "shared/ovr/api_idx_0080_MHMQ.asm"     ; 0x24f0
+%include "shared/ovr/draw_member_armor_class.asm" ; 0x24f0
 
 %include "shared/ovr/draw_item_slot_label.asm"  ; 0x2717
 
@@ -258,7 +258,9 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 __zdata_start:
 %include "vpclv/data/percent_suffix_text.asm" ; 0x54b0
 
-%include "vpclv/data/draw_spell_cost_dseg294.asm"        ; 0x54b3
+%include "shared/data/spell_cost_panel_text.asm" ; 0x54b3
+
+%include "vpclv/data/pick_spell_dialog_keep_frames_dseg175.asm"        ; 0x54b7
 
 %include "shared/data/profession_skill_groups.asm" ; 0x55e9
 

@@ -1,5 +1,6 @@
 /* Queue one picture slot's glyph position and rendering parameters. */
 #include "structs/slotrec.h"
+#include "structs/qshape.h"
 
 struct byte_slot_value {
 	unsigned char value;
@@ -15,7 +16,7 @@ extern struct slot_rec slot_recs[];
 extern int render_queue_count;
 extern struct byte_slot_value queued_slot_index[];
 extern struct byte_slot_value queued_slot_scale[];
-extern struct word_slot_value queued_slot_x[];
+extern struct queued_shape queued_slot_x[];
 extern struct word_slot_value queued_slot_y[];
 extern struct byte_slot_value queued_slot_glyph_entry[];
 extern struct byte_slot_value queued_slot_parameter_1[];
@@ -56,10 +57,10 @@ int render_pass, position_mode;
 			queued_slot_scale[render_queue_count].value =
 				(100 - scale) % 100;
 			if (position_mode == 1) {
-				queued_slot_x[render_queue_count].value =
+				queued_slot_x[render_queue_count].x =
 					x - ((view_column_x[0][0] - glyph_x) * scale - 50) / 100;
 				if (glyph_column != 0) {
-					queued_slot_x[render_queue_count].value -=
+					queued_slot_x[render_queue_count].x -=
 						(160 - slot_recs[slot_index].glyph_x[glyph_entry][glyph_column]) * 2
 						* queued_slot_scale[render_queue_count].value
 						/ 100;
@@ -67,11 +68,11 @@ int render_pass, position_mode;
 				queued_slot_y[render_queue_count].value =
 					y - ((view_geometry[0] - glyph_y) * scale - 50) / 100;
 			} else if (position_mode == 2) {
-				queued_slot_x[render_queue_count].value =
+				queued_slot_x[render_queue_count].x =
 					queued_slot_scale[render_queue_count].value
 					* (160 - glyph_x) / 100 + glyph_x + x;
 				if (glyph_column != 0) {
-					queued_slot_x[render_queue_count].value -=
+					queued_slot_x[render_queue_count].x -=
 						(160 - slot_recs[slot_index].glyph_x[glyph_entry][glyph_column]) * 2
 						* queued_slot_scale[render_queue_count].value
 						/ 100;
@@ -80,19 +81,19 @@ int render_pass, position_mode;
 					queued_slot_scale[render_queue_count].value
 					* (66 - glyph_y) / 100 + glyph_y + y;
 			} else if (position_mode == 3) {
-				queued_slot_x[render_queue_count].value = x;
+				queued_slot_x[render_queue_count].x = x;
 				queued_slot_y[render_queue_count].value = y;
 			}
 		} else {
 			/* With scaling inactive, add the stored glyph offsets directly. */
-			queued_slot_x[render_queue_count].value =
+			queued_slot_x[render_queue_count].x =
 				glyph_x + x;
 			queued_slot_y[render_queue_count].value =
 				glyph_y + y;
 		}
 	} else {
 		/* Out-of-range slot indexes keep the supplied coordinates unchanged. */
-		queued_slot_x[render_queue_count].value = x;
+		queued_slot_x[render_queue_count].x = x;
 		queued_slot_y[render_queue_count].value = y;
 	}
 

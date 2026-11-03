@@ -22,7 +22,7 @@ char *token, *pending_line;
 			call_mouse_glide_back(302, 164, 0);
 			set_mouse_pointer_shape(0L);
 			while (!poll_fullscreen_hotspot())
-				step_party_animation();
+				step_npc_screen_animation();
 			set_mouse_pointer_shape(mouse_pointer_shape);
 			call_mouse_glide_to(302, 164, 0);
 			if (*cursor == '@') {	/* second page code */

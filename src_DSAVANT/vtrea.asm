@@ -55,8 +55,8 @@ dseg_90eb equ __zdseg_end + (__zdseg_90eb - __zdata_start)
 dseg_90ee equ __zdseg_end + (__zdseg_90ee - __zdata_start)
 dseg_90f4 equ __zdseg_end + (__zdseg_90f4 - __zdata_start)
 dseg_90fa equ __zdseg_end + (__zdseg_90fa - __zdata_start)
-draw_spell_cost_dseg294 equ __zdseg_end + (__zdseg_9100 - __zdata_start)
-spell_screen_temp_file equ __zdseg_end + (__zspell_screen_temp_file - __zdata_start)
+spell_cost_panel_text equ __zdseg_end + (__zspell_cost_panel_text - __zdata_start)
+screen_save_temp_file equ __zdseg_end + (__zscreen_save_temp_file - __zdata_start)
 save_si equ __zdseg_end + (__zsave_si - __zdata_start)
 save_di equ __zdseg_end + (__zsave_di - __zdata_start)
 save_sp equ __zdseg_end + (__zsave_sp - __zdata_start)
@@ -288,7 +288,9 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 __zdata_start:
 %include "vtrea/data/dseg_9098.asm"        ; 0x9a1b
 
-%include "shared/data/spell_screen_temp_file.asm" ; 0x9a87
+%include "shared/data/spell_cost_panel_text.asm" ; 0x9a83
+
+%include "shared/data/screen_save_temp_file.asm" ; 0x9a87
 
 %include "shared/data/overlay_saved_registers.asm" ; 0x9a8d
 

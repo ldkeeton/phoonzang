@@ -48,7 +48,7 @@ vdopt/cast_spell_from_menu
 shared/ovr/aztec_ovbgn
 shared/ovr/aztec_cswt
 vdopt/data/report_placeholders
-shared/data/spell_screen_temp_file
+shared/data/screen_save_temp_file
 vdopt/data/item_dialog_temp_file
 vdopt/data/item_dialog_first_label
 shared/data/overlay_saved_registers

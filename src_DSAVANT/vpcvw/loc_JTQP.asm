@@ -6,7 +6,7 @@ loc_JTQP:
     call draw_member_summary_panel   ; 0x40c0
     pop cx                           ; 0x40c3
     push word [bp + 4]               ; 0x40c4
-    call api_idx_0080_MHMQ           ; 0x40c7
+    call draw_member_armor_class     ; 0x40c7
     pop cx                           ; 0x40ca
     cmp word [bp + 6], byte 0        ; 0x40cb
     jne short .return1               ; 0x40cf

@@ -157,7 +157,7 @@ jumptable_5eb8_case_4:
     shl ax, 1                        ; 0x3c6c
     mov bx, ax                       ; 0x3c6e
     mov bx, word [bx + battle_groups] ; 0x3c70
-    mov al, byte [bx + 0x18c]        ; 0x3c74
+    mov al, byte [bx + realm_spell_point_positions] ; 0x3c74
     sub ah, ah                       ; 0x3c78
     push ax                          ; 0x3c7a
     mov ax, 0xf                      ; 0x3c7b
@@ -169,7 +169,7 @@ jumptable_5eb8_case_4:
     shl cx, 1                        ; 0x3c8c
     mov bx, cx                       ; 0x3c8e
     mov bx, word [bx + battle_groups] ; 0x3c90
-    mov byte [bx + 0x18c], al        ; 0x3c94
+    mov byte [bx + realm_spell_point_positions], al ; 0x3c94
     jmp near jumptable_5eb8_case_47  ; 0x3c98
 jumptable_5eb8_case_5:
     mov ax, 0xc                      ; 0x3c9b

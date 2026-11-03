@@ -7,7 +7,7 @@ api_idx_0004_PUIS:
     mov bx, ax                       ; 0x24fb
     mov bx, word [bx + battle_groups] ; 0x24fd
     mov si, word [bp + 6]            ; 0x2501
-    mov al, byte [bx + si + member_rec.charge] ; 0x2504
+    mov al, byte [bx + si + realm_spell_point_positions] ; 0x2504
     sub ah, ah                       ; 0x2508
     mov word [bp - 2], ax            ; 0x250a
     push word [bp + 0xa]             ; 0x250d

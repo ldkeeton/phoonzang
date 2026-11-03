@@ -16,13 +16,13 @@ shared/ovr/draw_power_digit
 shared/ovr/draw_spell_cost
 shared/ovr/draw_realm_spell_points
 shared/ovr/periodic_party_redraw
-shared/ovr/api_idx_0050_SQVG
+shared/ovr/pick_spell_dialog_keep_frames
 vpclv/api_idx_00ca_KSLQ
 shared/ovr/refresh_title_and_member_panel
 vpclv/loc_HJRN
 shared/ovr/set_party_hand_attack
 shared/ovr/draw_split_two_line_text
-shared/ovr/api_idx_0080_MHMQ
+shared/ovr/draw_member_armor_class
 shared/ovr/draw_item_slot_label
 shared/ovr/draw_member_item_page
 shared/ovr/adjust_member_resistance
@@ -51,7 +51,8 @@ shared/ovr/draw_party_glyph_row
 vpclv/api_idx_000c_NVIQ
 shared/ovr/aztec_ovbgn
 vpclv/data/percent_suffix_text
-vpclv/data/draw_spell_cost_dseg294
+shared/data/spell_cost_panel_text
+vpclv/data/pick_spell_dialog_keep_frames_dseg175
 shared/data/profession_skill_groups
 vpclv/data/dseg_93e5
 shared/data/overlay_saved_registers

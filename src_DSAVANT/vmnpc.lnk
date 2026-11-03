@@ -2,7 +2,7 @@
 vmnpc/api_idx_0008_JGKT
 vmnpc/api_idx_000c_POTM
 vmnpc/add_overlay_item
-vmnpc/api_idx_0018_TROH
+vmnpc/queue_npc_cell_overlay
 shared/ovr/queue_marker_overlay
 shared/ovr/draw_overlay_list_item_text
 shared/ovr/redraw_glyph_strip
@@ -13,8 +13,8 @@ vmnpc/api_idx_0054_UKJH
 vmnpc/api_idx_0002_IUMT
 vmnpc/next_text_line
 shared/ovr/check_party_redraw_interval
-vmnpc/step_party_animation
-vmnpc/run_party_screen_animation
+vmnpc/step_npc_screen_animation
+vmnpc/run_npc_screen_animation
 vmnpc/loc_UTQS
 vmnpc/api_idx_0004_MIJS
 vmnpc/api_idx_0004_RPUO
@@ -128,5 +128,11 @@ shared/ovr/aztec_ovbgn
 shared/ovr/aztec_strncpy
 shared/ovr/aztec_strcmp
 shared/data/percent_suffix_text
-vmnpc/data/dseg_909f
+shared/data/area_set_1_left_save_file
+shared/data/area_set_1_right_save_file
+shared/data/area_set_1_center_save_file
+shared/data/area_set_2_save_file
+vmnpc/data/dseg_90bb
+shared/data/spell_cost_panel_text
+vmnpc/data/dseg_90e8
 shared/data/overlay_saved_registers

@@ -200,9 +200,9 @@ api_idx_0014_PIUH:
     shl cx, 1                        ; 0x667c
     add ax, cx                       ; 0x667e
     mov bx, ax                       ; 0x6680
-    mov word [bx + bss_90ca], 0      ; 0x6682
-    mov word [bss_8320], 0           ; 0x6688
-    call run_party_screen_animation  ; 0x668e
+    mov word [bx + cell_effect_frame], 0 ; 0x6682
+    mov word [effect_frame_phase], 0 ; 0x6688
+    call run_combat_screen_animation ; 0x668e
     mov ax, 6                        ; 0x6691
     imul word [bp - 0xe]             ; 0x6694
     mov cx, word [bp - 0x10]         ; 0x6697
@@ -924,7 +924,7 @@ jumptable_6ea7_case_8:
     push word [bp - 2]               ; 0x6de2
     call loc_TGJH                    ; 0x6de5
     add sp, byte 4                   ; 0x6de8
-    call run_party_screen_animation  ; 0x6deb
+    call run_combat_screen_animation ; 0x6deb
     mov ax, 0                        ; 0x6dee
     push ax                          ; 0x6df1
     call redraw_glyph_strip          ; 0x6df2

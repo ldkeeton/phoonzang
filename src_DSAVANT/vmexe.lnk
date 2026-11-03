@@ -10,7 +10,7 @@ shared/ovr/add_overlay_item
 shared/ovr/queue_cell_action_overlay
 shared/ovr/queue_marker_overlay
 shared/ovr/draw_overlay_list_item_text
-vmexe/api_idx_0016_SLUJ
+vmexe/queue_cell_effect_overlay
 vmexe/loc_OTGM
 vmexe/loc_HJSG
 vmexe/loc_SKIP
@@ -22,8 +22,8 @@ vmexe/api_idx_000e_PTNT
 vmexe/ovmain
 vmexe/loc_TGJH
 shared/ovr/check_party_redraw_interval
-vmexe/api_idx_0006_GMTP
-vmexe/run_party_screen_animation
+vmexe/step_combat_screen_animation
+vmexe/run_combat_screen_animation
 vmexe/loc_UTQS
 vmexe/api_idx_0004_QUPL
 shared/ovr/redraw_glyph_strip

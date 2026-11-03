@@ -36,9 +36,9 @@ api_idx_0006_RKSL:
     sub ax, word [bss_9ca6]          ; 0x5791
     mov word [bp - 6], ax            ; 0x5795
 .forward2:
-    mov word [bss_93d8], 0x8d        ; 0x5798
+    mov word [npc_area_bottom], 0x8d ; 0x5798
     call loc_UTQS                    ; 0x579e
-    mov word [bss_93d8], 0x8f        ; 0x57a1
+    mov word [npc_area_bottom], 0x8f ; 0x57a1
     cmp word [bp - 2], byte 2        ; 0x57a7
     je short .forward3               ; 0x57ab
     cmp word [bss_9cd2], byte 0      ; 0x57ad

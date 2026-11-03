@@ -83,9 +83,9 @@ api_idx_0004_OVIO:
     shl cx, 1                        ; 0x1d2f
     add ax, cx                       ; 0x1d31
     mov bx, ax                       ; 0x1d33
-    mov word [bx + bss_90ca], 0      ; 0x1d35
-    mov word [bss_8320], 0           ; 0x1d3b
-    call run_party_screen_animation  ; 0x1d41
+    mov word [bx + cell_effect_frame], 0 ; 0x1d35
+    mov word [effect_frame_phase], 0 ; 0x1d3b
+    call run_combat_screen_animation ; 0x1d41
     mov ax, 6                        ; 0x1d44
     imul word [bp - 2]               ; 0x1d47
     mov cx, word [bp - 4]            ; 0x1d4a

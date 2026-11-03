@@ -113,7 +113,7 @@ choose_pc_file_character:
     mov ax, 0
     push ax
     push word [bp + 4]
-    call api_idx_0038_VIPJ
+    call pick_list_entry_dialog
     add sp, byte 0xa
     cmp ax, strict word 1
     jne short .forward6

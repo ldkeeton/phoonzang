@@ -11,7 +11,7 @@ spend_action_slot_charge:
     mov bx, ax                       ; 0x307f
     mov bx, word [bx + battle_groups] ; 0x3081
     mov si, word [bp - 4]            ; 0x3085
-    mov al, byte [bx + si + member_rec.charge] ; 0x3088
+    mov al, byte [bx + si + realm_spell_point_positions] ; 0x3088
     sub ah, ah                       ; 0x308c
     mov word [bp - 8], ax            ; 0x308e
     cmp ax, strict word 0            ; 0x3091
@@ -88,7 +88,7 @@ spend_action_slot_charge.forward5:
     mov bx, cx                       ; 0x3127
     mov bx, word [bx + battle_groups] ; 0x3129
     mov si, word [bp - 4]            ; 0x312d
-    mov byte [bx + si + member_rec.charge], al ; 0x3130
+    mov byte [bx + si + realm_spell_point_positions], al ; 0x3130
 spend_action_slot_charge.forward6:
     inc word [bp - 4]                ; 0x3134
     mov ax, word [bp - 4]            ; 0x3137

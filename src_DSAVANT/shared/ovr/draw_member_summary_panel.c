@@ -1,19 +1,8 @@
 /* Draw the selected party member's summary, values and status glyphs. */
 #include "msg.h"
+#include "structs/encstyle.h"
 #include "structs/pcrec.h"
 #include "structs/spell.h"
-
-/* select_encumbrance_style's result: thresholds come from the carried
- * weight as a percentage of carry_capacity (over 50, 66, 75 and 90). */
-struct encumbrance_style {
-	int tier;		/* +0x00: 0, 1, 2 or 4 */
-	int penalty_a;		/* +0x02: 0, 5, 10, 20 or 40 */
-	int penalty_b;		/* +0x04: 0, 10, 20, 40 or 80 */
-	int stat4_cap;		/* +0x06: adjusted_stat4 clamped to 3, 2 or 1 */
-	int stat5_cap;		/* +0x08: adjusted_stat5 clamped to 3, 2 or 1 */
-	int stamina_drain;	/* +0x0a: stamina max / 100, / 50 or / 25 */
-	int text_color;		/* +0x0c: color for the CC label */
-};
 
 extern struct pc_rec party_records[];
 extern struct spell_info spell_table[];

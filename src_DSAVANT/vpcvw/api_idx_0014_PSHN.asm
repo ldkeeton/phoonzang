@@ -142,8 +142,8 @@ api_idx_0014_PSHN:
     push ax                          ; 0x62b4
     call call_cache_area             ; 0x62b5
     add sp, byte 0xc                 ; 0x62b8
-    mov word [api_idx_0080_MHMQ_bss19], dx          ; 0x62bb
-    mov word [api_idx_0080_MHMQ_bss24], ax          ; 0x62bf
+    mov word [ac_screen_a_handle_high], dx ; 0x62bb
+    mov word [ac_screen_a_handle_low], ax ; 0x62bf
     mov ax, 0                        ; 0x62c2
     push ax                          ; 0x62c5
     mov ax, 2                        ; 0x62c6
@@ -158,8 +158,8 @@ api_idx_0014_PSHN:
     push ax                          ; 0x62d9
     call call_cache_area             ; 0x62da
     add sp, byte 0xc                 ; 0x62dd
-    mov word [api_idx_0080_MHMQ_bss44], dx          ; 0x62e0
-    mov word [api_idx_0080_MHMQ_bss49], ax          ; 0x62e4
+    mov word [ac_screen_b_handle_high], dx ; 0x62e0
+    mov word [ac_screen_b_handle_low], ax ; 0x62e4
     mov ax, 0                        ; 0x62e7
     push ax                          ; 0x62ea
     mov ax, 2                        ; 0x62eb
@@ -788,16 +788,16 @@ api_idx_0014_PSHN.forward16:
     push ax                          ; 0x6861
     mov ax, 1                        ; 0x6862
     push ax                          ; 0x6865
-    push word [api_idx_0080_MHMQ_bss44]             ; 0x6866
-    push word [api_idx_0080_MHMQ_bss49]             ; 0x686a
+    push word [ac_screen_b_handle_high] ; 0x6866
+    push word [ac_screen_b_handle_low] ; 0x686a
     call call_restore_screen         ; 0x686e
     add sp, byte 8                   ; 0x6871
     mov ax, 0                        ; 0x6874
     push ax                          ; 0x6877
     mov ax, 1                        ; 0x6878
     push ax                          ; 0x687b
-    push word [api_idx_0080_MHMQ_bss19]             ; 0x687c
-    push word [api_idx_0080_MHMQ_bss24]             ; 0x6880
+    push word [ac_screen_a_handle_high] ; 0x687c
+    push word [ac_screen_a_handle_low] ; 0x6880
     call call_restore_screen         ; 0x6884
     add sp, byte 8                   ; 0x6887
     mov ax, 0                        ; 0x688a

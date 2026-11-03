@@ -46,7 +46,7 @@ api_idx_0006_HMNQ:
     push ax                          ; 0x613d
     mov ax, MSG_SELECT_PORTRAIT      ; 0x613e
     push ax                          ; 0x6141
-    call api_idx_0058_GKGM           ; 0x6142
+    call draw_dialog_button_prompt   ; 0x6142
     add sp, byte 0xc                 ; 0x6145
     mov word [bp - 4], dx            ; 0x6148
     mov word [bp - 6], ax            ; 0x614b

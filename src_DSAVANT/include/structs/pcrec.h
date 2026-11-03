@@ -39,6 +39,17 @@ struct pc_hand_attack {
 					   matches the target's family */
 };
 
+/* The two adjacent resistance rows are selected by row, then by index. */
+struct pc_named_resistance_rows {
+	unsigned char base_resist[14];	/* +0x00 within the pair */
+	unsigned char resist[14];	/* +0x0e within the pair */
+};
+
+union pc_resistance_rows {
+	unsigned char values[2][14];	/* [0] base_resist, [1] resist */
+	struct pc_named_resistance_rows named;
+};
+
 struct pc_rec {				/* 0x248 bytes */
 	char name[8];			/* +0x000 */
 	long age_days;			/* +0x008: age in days, years = /365 */
@@ -67,8 +78,7 @@ struct pc_rec {				/* 0x248 bytes */
 	   control.  Academia 24-33: artifacts, mythology, mapping, scribe,
 	   diplomacy, alchemy, theology, theosophy, thaumaturgy, kirijutsu. */
 	unsigned char skills[34];	/* +0x178 */
-	unsigned char base_resist[14];	/* +0x19a: percent, 0..125; profession and level, plus bonuses */
-	unsigned char resist[14];	/* +0x1a8: base_resist plus equipment; beat random_below(100) to resist */
+	union pc_resistance_rows resistance_rows; /* +0x19a: base and current resistance percentages */
 	char armor_class[8];		/* +0x1b6: per equip slot; [0] base 10, lower is better */
 	char pad1[0x60];			/* +0x1be */
 	unsigned char spell_bitmap[10];	/* +0x21e: imported spell selection bits */

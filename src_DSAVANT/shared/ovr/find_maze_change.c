@@ -1,10 +1,5 @@
 /* Find the matching entry in the runtime six-byte record table. */
-struct six_byte_record {
-	unsigned char first_value;   /* +0: first lookup key */
-	unsigned char second_value;  /* +1: second lookup key */
-	int stored_value;	     /* +2: value tested against the key */
-	int unused_value;	     /* +4: remaining word in the record */
-};
+#include "structs/sixbyte.h"
 
 extern struct six_byte_record *runtime_buffer_3k;
 extern int runtime_six_byte_count;

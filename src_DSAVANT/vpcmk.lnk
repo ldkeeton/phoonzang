@@ -6,9 +6,9 @@ shared/ovr/input_text_field
 shared/ovr/show_indexed_beveled_label
 shared/ovr/draw_frame_outline
 shared/ovr/select_grid_text_option
-shared/ovr/api_idx_0058_GKGM
-shared/ovr/api_idx_0038_VIPJ
-shared/ovr/api_idx_0026_NRVO
+shared/ovr/draw_dialog_button_prompt
+shared/ovr/pick_list_entry_dialog
+shared/ovr/prompt_character_name
 shared/ovr/draw_party_slot_letters
 shared/ovr/draw_member_realm_points
 shared/ovr/advance_party_slot_frames
@@ -30,7 +30,7 @@ shared/ovr/draw_power_digit
 shared/ovr/draw_spell_cost
 shared/ovr/draw_realm_spell_points
 shared/ovr/periodic_party_redraw
-shared/ovr/api_idx_0050_SQVG
+shared/ovr/pick_spell_dialog_keep_frames
 vpcmk/api_idx_006e_LMUM
 shared/ovr/refresh_title_and_member_panel
 vpcmk/api_idx_0002_IRKS
@@ -78,9 +78,11 @@ shared/data/pc_file_name
 shared/data/title_panel_screen_file
 shared/data/choice_grid_screen_file
 vpcmk/data/list_dialog_temp_file
-vpcmk/data/api_idx_0026_NRVO_dseg54
+shared/data/screen_save_temp_file
+vpcmk/data/dseg_90bb
 shared/data/profession_skill_groups
-vpcmk/data/draw_spell_cost_dseg294
+shared/data/spell_cost_panel_text
+vpcmk/data/pick_spell_dialog_keep_frames_dseg175
 shared/data/profession_stat_requirements
 vpcmk/data/dseg_935a
 shared/data/portrait_data_filename

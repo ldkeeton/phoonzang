@@ -28,8 +28,8 @@ __zcode_start:
 percent_suffix_text equ __zdseg_end + (__zpercent_suffix_text - __zdata_start)
 title_panel_screen_file equ __zdseg_end + (__ztitle_panel_screen_file - __zdata_start)
 choice_grid_screen_file equ __zdseg_end + (__zchoice_grid_screen_file - __zdata_start)
-draw_spell_cost_dseg294 equ __zdseg_end + (__zdseg_90a7 - __zdata_start)
-api_idx_0050_SQVG_dseg175 equ __zdseg_end + (__zdseg_90ab - __zdata_start)
+spell_cost_panel_text equ __zdseg_end + (__zspell_cost_panel_text - __zdata_start)
+pick_spell_dialog_keep_frames_dseg175 equ __zdseg_end + (__zdseg_90ab - __zdata_start)
 dseg_90b1 equ __zdseg_end + (__zdseg_90b1 - __zdata_start)
 dseg_90b3 equ __zdseg_end + (__zdseg_90b3 - __zdata_start)
 dseg_90c0 equ __zdseg_end + (__zdseg_90c0 - __zdata_start)
@@ -95,7 +95,7 @@ dseg_92bc equ __zdseg_end + (__zdseg_92bc - __zdata_start)
 dseg_92c7 equ __zdseg_end + (__zdseg_92c7 - __zdata_start)
 dseg_92d0 equ __zdseg_end + (__zdseg_92d0 - __zdata_start)
 dseg_92d7 equ __zdseg_end + (__zdseg_92d7 - __zdata_start)
-api_idx_0026_NRVO_dseg54 equ __zdseg_end + (__zdseg_92e2 - __zdata_start)
+screen_save_temp_file equ __zdseg_end + (__zscreen_save_temp_file - __zdata_start)
 profession_0_stat_requirements equ __zdseg_end + (__zprofession_0_stat_requirements - __zdata_start)
 profession_1_stat_requirements equ __zdseg_end + (__zprofession_1_stat_requirements - __zdata_start)
 profession_2_stat_requirements equ __zdseg_end + (__zprofession_2_stat_requirements - __zdata_start)
@@ -135,10 +135,10 @@ member_detail_cache_low equ __zdseg_end + (__zobss_93f2 - __zdata_start)
 member_detail_cache_high equ __zdseg_end + (__zobss_93f4 - __zdata_start)
 roster_screen_b equ __zdseg_end + (__zobss_93f6 - __zdata_start)
 roster_screen_a equ __zdseg_end + (__zobss_93f8 - __zdata_start)
-api_idx_0080_MHMQ_bss24 equ __zdseg_end + (__zobss_93fa - __zdata_start)
-api_idx_0080_MHMQ_bss19 equ __zdseg_end + (__zobss_93fc - __zdata_start)
-api_idx_0080_MHMQ_bss49 equ __zdseg_end + (__zobss_93fe - __zdata_start)
-api_idx_0080_MHMQ_bss44 equ __zdseg_end + (__zobss_9400 - __zdata_start)
+ac_screen_a_handle_low equ __zdseg_end + (__zobss_93fa - __zdata_start)
+ac_screen_a_handle_high equ __zdseg_end + (__zobss_93fc - __zdata_start)
+ac_screen_b_handle_low equ __zdseg_end + (__zobss_93fe - __zdata_start)
+ac_screen_b_handle_high equ __zdseg_end + (__zobss_9400 - __zdata_start)
 realm_panel_cache_high equ __zdseg_end + (__zobss_9402 - __zdata_start)
 realm_panel_cache_low equ __zdseg_end + (__zobss_9404 - __zdata_start)
 saved_screen equ __zdseg_end + (__zobss_940a - __zdata_start)
@@ -226,13 +226,13 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "shared/ovr/draw_power_digit.asm"      ; 0x2a2d
 
-%include "shared/ovr/draw_spell_cost.asm"              ; 0x2ab9
+%include "shared/ovr/draw_spell_cost.asm"       ; 0x2ab9
 
 %include "shared/ovr/draw_realm_spell_points.asm" ; 0x2b5a
 
 %include "shared/ovr/periodic_party_redraw.asm" ; 0x2bf3
 
-%include "shared/ovr/api_idx_0050_SQVG.asm"     ; 0x2c84
+%include "shared/ovr/pick_spell_dialog_keep_frames.asm" ; 0x2c84
 
 %include "vpcvw/api_idx_0004_JNUN.asm"     ; 0x3974
 
@@ -292,7 +292,7 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "shared/ovr/draw_split_two_line_text.asm" ; 0x6977
 
-%include "shared/ovr/api_idx_0080_MHMQ.asm"     ; 0x6a20
+%include "shared/ovr/draw_member_armor_class.asm" ; 0x6a20
 
 %include "shared/ovr/draw_item_slot_label.asm"  ; 0x6c47
 
@@ -310,11 +310,11 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "shared/ovr/draw_known_spell_values.asm" ; 0x8676
 
-%include "shared/ovr/api_idx_0058_GKGM.asm"     ; 0x8730
+%include "shared/ovr/draw_dialog_button_prompt.asm" ; 0x8730
 
 %include "shared/ovr/input_text_field.asm"      ; 0x88b6
 
-%include "shared/ovr/api_idx_0026_NRVO.asm"     ; 0x8a6e
+%include "shared/ovr/prompt_character_name.asm" ; 0x8a6e
 
 %include "vpcvw/api_idx_0002_VLGM.asm"     ; 0x8f64
 
@@ -347,7 +347,11 @@ __zdata_start:
 
 %include "shared/data/choice_grid_screen_file.asm" ; 0x984d
 
-%include "vpcvw/data/draw_spell_cost_dseg294.asm"        ; 0x9853
+%include "shared/data/spell_cost_panel_text.asm" ; 0x9853
+
+%include "vpcvw/data/pick_spell_dialog_keep_frames_dseg175.asm"        ; 0x9857
+
+%include "shared/data/screen_save_temp_file.asm" ; 0x9a8e
 
 %include "shared/data/profession_stat_requirements.asm" ; 0x9a94
 

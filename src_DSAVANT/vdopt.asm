@@ -27,8 +27,8 @@ IMAGE_BASE equ 0x000e + VBASE
 __zcode_start:
 report_line1_none equ __zdseg_end + (__zreport_line1_none - __zdata_start)
 report_line2_none equ __zdseg_end + (__zreport_line2_none - __zdata_start)
-draw_spell_cost_dseg294 equ __zdseg_end + (__zdseg_909a - __zdata_start)
-spell_screen_temp_file equ __zdseg_end + (__zspell_screen_temp_file - __zdata_start)
+spell_cost_panel_text equ __zdseg_end + (__zspell_cost_panel_text - __zdata_start)
+screen_save_temp_file equ __zdseg_end + (__zscreen_save_temp_file - __zdata_start)
 item_dialog_temp_file equ __zdseg_end + (__zitem_dialog_temp_file - __zdata_start)
 item_dialog_first_label equ __zdseg_end + (__zitem_dialog_first_label - __zdata_start)
 save_si equ __zdseg_end + (__zsave_si - __zdata_start)
@@ -179,7 +179,7 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 __zdata_start:
 %include "vdopt/data/report_placeholders.asm" ; 0x472f
 
-%include "shared/data/spell_screen_temp_file.asm" ; 0x4735
+%include "shared/data/screen_save_temp_file.asm" ; 0x4735
 
 %include "vdopt/data/item_dialog_temp_file.asm" ; 0x473b
 

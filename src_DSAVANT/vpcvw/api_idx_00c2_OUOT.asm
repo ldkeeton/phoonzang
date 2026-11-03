@@ -1246,7 +1246,7 @@ api_idx_00c2_OUOT:
     mov word [item_page_drawn], 0    ; 0x608f
     mov word [item_page_alt_mode], 0 ; 0x6095
     push word [bp + 4]               ; 0x609b
-    call api_idx_0080_MHMQ           ; 0x609e
+    call draw_member_armor_class     ; 0x609e
     pop cx                           ; 0x60a1
     push word [bp + 4]               ; 0x60a2
     call draw_member_item_page       ; 0x60a5

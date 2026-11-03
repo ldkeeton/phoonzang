@@ -72,7 +72,7 @@ api_idx_0016_TOUQ:
     jne short .forward4              ; 0xa5fd
     cmp word [bp - 0xa], byte 0      ; 0xa5ff
     jne short .forward2              ; 0xa603
-    call run_party_screen_animation  ; 0xa605
+    call run_npc_screen_animation    ; 0xa605
     mov ax, 0                        ; 0xa608
     push ax                          ; 0xa60b
     push word [bp - 0x14]            ; 0xa60c

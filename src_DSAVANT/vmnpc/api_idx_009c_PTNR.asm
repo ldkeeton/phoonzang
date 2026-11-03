@@ -66,7 +66,7 @@ api_idx_009c_PTNR:
     call api_idx_005e_SHOL           ; 0x6829
     add sp, byte 4                   ; 0x682c
     mov word [cell_slot_ref], 0      ; 0x682f
-    call run_party_screen_animation  ; 0x6835
+    call run_npc_screen_animation    ; 0x6835
 .return1:
     ret                              ; 0x6838
 .forward3:
@@ -646,6 +646,6 @@ api_idx_009c_PTNR.forward43:
     call api_idx_005e_SHOL           ; 0x6d8d
     add sp, byte 4                   ; 0x6d90
     mov word [cell_slot_ref], 0      ; 0x6d93
-    call run_party_screen_animation  ; 0x6d99
+    call run_npc_screen_animation    ; 0x6d99
 api_idx_009c_PTNR.return2:
     ret                              ; 0x6d9c

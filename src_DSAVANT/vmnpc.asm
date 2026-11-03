@@ -26,10 +26,10 @@ IMAGE_BASE equ 0x000e + VBASE
 
 __zcode_start:
 percent_suffix_text equ __zdseg_end + (__zpercent_suffix_text - __zdata_start)
-dseg_909f equ __zdseg_end + (__zdseg_909f - __zdata_start)
-dseg_90a6 equ __zdseg_end + (__zdseg_90a6 - __zdata_start)
-dseg_90ad equ __zdseg_end + (__zdseg_90ad - __zdata_start)
-dseg_90b4 equ __zdseg_end + (__zdseg_90b4 - __zdata_start)
+area_set_1_left_save_file equ __zdseg_end + (__zarea_set_1_left_save_file - __zdata_start)
+area_set_1_right_save_file equ __zdseg_end + (__zarea_set_1_right_save_file - __zdata_start)
+area_set_1_center_save_file equ __zdseg_end + (__zarea_set_1_center_save_file - __zdata_start)
+area_set_2_save_file equ __zdseg_end + (__zarea_set_2_save_file - __zdata_start)
 dseg_90bb equ __zdseg_end + (__zdseg_90bb - __zdata_start)
 dseg_90be equ __zdseg_end + (__zdseg_90be - __zdata_start)
 dseg_90c2 equ __zdseg_end + (__zdseg_90c2 - __zdata_start)
@@ -38,7 +38,7 @@ dseg_90ca equ __zdseg_end + (__zdseg_90ca - __zdata_start)
 dseg_90d0 equ __zdseg_end + (__zdseg_90d0 - __zdata_start)
 dseg_90d6 equ __zdseg_end + (__zdseg_90d6 - __zdata_start)
 dseg_90dc equ __zdseg_end + (__zdseg_90dc - __zdata_start)
-draw_spell_cost_dseg294 equ __zdseg_end + (__zdseg_90e4 - __zdata_start)
+spell_cost_panel_text equ __zdseg_end + (__zspell_cost_panel_text - __zdata_start)
 dseg_90e8 equ __zdseg_end + (__zdseg_90e8 - __zdata_start)
 dseg_90ee equ __zdseg_end + (__zdseg_90ee - __zdata_start)
 dseg_90f0 equ __zdseg_end + (__zdseg_90f0 - __zdata_start)
@@ -86,7 +86,7 @@ bss_93ce equ __zdseg_end + (__zobss_93ce - __zdata_start)
 bss_93d2 equ __zdseg_end + (__zobss_93d2 - __zdata_start)
 text_line_index equ __zdseg_end + (__zobss_93d4 - __zdata_start)
 party_redraw_interval equ __zdseg_end + (__zobss_93d6 - __zdata_start)
-bss_93d8 equ __zdseg_end + (__zobss_93d8 - __zdata_start)
+npc_area_bottom equ __zdseg_end + (__zobss_93d8 - __zdata_start)
 bss_93da equ __zdseg_end + (__zobss_93da - __zdata_start)
 bss_93dc equ __zdseg_end + (__zobss_93dc - __zdata_start)
 bss_93ee equ __zdseg_end + (__zobss_93ee - __zdata_start)
@@ -203,7 +203,7 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "vmnpc/add_overlay_item.asm"      ; 0x062d
 
-%include "vmnpc/api_idx_0018_TROH.asm"     ; 0x0727
+%include "vmnpc/queue_npc_cell_overlay.asm" ; 0x0727
 
 %include "shared/ovr/queue_marker_overlay.asm"  ; 0x0961
 
@@ -225,9 +225,9 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "shared/ovr/check_party_redraw_interval.asm" ; 0x0ef1
 
-%include "vmnpc/step_party_animation.asm"  ; 0x0f50
+%include "vmnpc/step_npc_screen_animation.asm" ; 0x0f50
 
-%include "vmnpc/run_party_screen_animation.asm" ; 0x109f
+%include "vmnpc/run_npc_screen_animation.asm" ; 0x109f
 
 %include "vmnpc/loc_UTQS.asm"              ; 0x10b6
 
@@ -355,7 +355,7 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "shared/ovr/draw_power_digit.asm"      ; 0x75db
 
-%include "shared/ovr/draw_spell_cost.asm"              ; 0x7667
+%include "shared/ovr/draw_spell_cost.asm"       ; 0x7667
 
 %include "shared/ovr/draw_realm_spell_points.asm" ; 0x7708
 
@@ -456,7 +456,19 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 __zdata_start:
 %include "shared/data/percent_suffix_text.asm" ; 0xaedd
 
-%include "vmnpc/data/dseg_909f.asm"        ; 0xaee4
+%include "shared/data/area_set_1_left_save_file.asm" ; 0xaee4
+
+%include "shared/data/area_set_1_right_save_file.asm" ; 0xaeeb
+
+%include "shared/data/area_set_1_center_save_file.asm" ; 0xaef2
+
+%include "shared/data/area_set_2_save_file.asm" ; 0xaef9
+
+%include "vmnpc/data/dseg_90bb.asm"        ; 0xaf00
+
+%include "shared/data/spell_cost_panel_text.asm" ; 0xaf29
+
+%include "vmnpc/data/dseg_90e8.asm"        ; 0xaf2d
 
 %include "shared/data/overlay_saved_registers.asm" ; 0xaf6f
 

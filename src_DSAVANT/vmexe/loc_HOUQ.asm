@@ -21,9 +21,9 @@ loc_HOUQ:
     mov cx, 6                        ; 0x6f0e
     imul cx                          ; 0x6f11
     mov bx, ax                       ; 0x6f13
-    mov word [bx + bss_90ca], 0      ; 0x6f15
-    mov word [bss_8320], 0           ; 0x6f1b
-    call run_party_screen_animation  ; 0x6f21
+    mov word [bx + cell_effect_frame], 0 ; 0x6f15
+    mov word [effect_frame_phase], 0 ; 0x6f1b
+    call run_combat_screen_animation ; 0x6f21
 .forward2:
     mov ax, word [startup_option]    ; 0x6f24
     mov cx, 2                        ; 0x6f27

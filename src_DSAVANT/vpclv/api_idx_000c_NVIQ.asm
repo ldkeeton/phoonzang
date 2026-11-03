@@ -122,8 +122,8 @@ api_idx_000c_NVIQ:
     push ax                          ; 0x528b
     call call_cache_area             ; 0x528c
     add sp, byte 0xc                 ; 0x528f
-    mov word [api_idx_0080_MHMQ_bss19], dx          ; 0x5292
-    mov word [api_idx_0080_MHMQ_bss24], ax          ; 0x5296
+    mov word [ac_screen_a_handle_high], dx ; 0x5292
+    mov word [ac_screen_a_handle_low], ax ; 0x5296
     mov ax, 0                        ; 0x5299
     push ax                          ; 0x529c
     mov ax, 2                        ; 0x529d
@@ -138,8 +138,8 @@ api_idx_000c_NVIQ:
     push ax                          ; 0x52b0
     call call_cache_area             ; 0x52b1
     add sp, byte 0xc                 ; 0x52b4
-    mov word [api_idx_0080_MHMQ_bss44], dx          ; 0x52b7
-    mov word [api_idx_0080_MHMQ_bss49], ax          ; 0x52bb
+    mov word [ac_screen_b_handle_high], dx ; 0x52b7
+    mov word [ac_screen_b_handle_low], ax ; 0x52bb
     mov ax, 0                        ; 0x52be
     push ax                          ; 0x52c1
     mov ax, 2                        ; 0x52c2
@@ -249,16 +249,16 @@ api_idx_000c_NVIQ:
     push ax                          ; 0x53cc
     mov ax, 1                        ; 0x53cd
     push ax                          ; 0x53d0
-    push word [api_idx_0080_MHMQ_bss44]             ; 0x53d1
-    push word [api_idx_0080_MHMQ_bss49]             ; 0x53d5
+    push word [ac_screen_b_handle_high] ; 0x53d1
+    push word [ac_screen_b_handle_low] ; 0x53d5
     call call_restore_screen         ; 0x53d9
     add sp, byte 8                   ; 0x53dc
     mov ax, 0                        ; 0x53df
     push ax                          ; 0x53e2
     mov ax, 1                        ; 0x53e3
     push ax                          ; 0x53e6
-    push word [api_idx_0080_MHMQ_bss19]             ; 0x53e7
-    push word [api_idx_0080_MHMQ_bss24]             ; 0x53eb
+    push word [ac_screen_a_handle_high] ; 0x53e7
+    push word [ac_screen_a_handle_low] ; 0x53eb
     call call_restore_screen         ; 0x53ef
     add sp, byte 8                   ; 0x53f2
     mov ax, 0                        ; 0x53f5

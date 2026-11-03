@@ -56,7 +56,7 @@ From `.asm` we create `.s` and `.c` files which are original DOS sources. These 
 
 ## Wizardry VII coverage
 
-Progress: **428 / 1103** (38.8%).
+Progress: **606 / 1057** (57.3%).
 
 ![C coverage heatmap](readme/heatmap.svg)
 
@@ -68,7 +68,7 @@ Expand
 
 | command | what |
 |---|---|
-| `make init` | sparse-clone only the dos_compilers folders listed in sidecars, |
+| `make init` | download only the dos_compilers folders listed in sidecars |
 | `make libcheck` | rebuild Aztec v4.2b C.LIB from dos_compilers/aztec_src/ and compare to the shipped one |
 | `make all` | clean, headers, build, verify all, |
 | `make all notest` | the same, without the tests at the end |

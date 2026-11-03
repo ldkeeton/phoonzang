@@ -34,7 +34,7 @@ apply_text_control_codes:
     call poll_fullscreen_hotspot     ; 0x9430
     test ax, ax                      ; 0x9433
     jne short .forward2              ; 0x9435
-    call step_party_animation        ; 0x9437
+    call step_npc_screen_animation   ; 0x9437
     jmp short .back3                 ; 0x943a
 .forward2:
     push word [mouse_pointer_shape_seg] ; 0x943c

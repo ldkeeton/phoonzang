@@ -38,7 +38,7 @@ api_idx_0008_SNVI:
     push ax                          ; 0x4989
     mov ax, MSG_CASTING_KARMA        ; 0x498a
     push ax                          ; 0x498d
-    call api_idx_0058_GKGM           ; 0x498e
+    call draw_dialog_button_prompt   ; 0x498e
     add sp, byte 0xc                 ; 0x4991
     mov word [bp - 6], dx            ; 0x4994
     mov word [bp - 8], ax            ; 0x4997

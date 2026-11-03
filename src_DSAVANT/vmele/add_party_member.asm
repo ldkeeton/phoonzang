@@ -145,7 +145,7 @@ add_party_member:
     mov bx, ax                       ; 0x0916
     mov bx, word [bx + battle_groups] ; 0x0918
     mov si, word [bp - 2]            ; 0x091c
-    mov byte [bx + si + member_rec.charge], 0 ; 0x091f
+    mov byte [bx + si + realm_spell_point_positions], 0 ; 0x091f
     inc word [bp - 2]                ; 0x0924
     mov ax, word [bp - 2]            ; 0x0927
     cmp ax, strict word 6            ; 0x092a

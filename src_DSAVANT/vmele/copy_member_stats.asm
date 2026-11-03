@@ -16,7 +16,7 @@ copy_member_stats:
     mov bx, ax                       ; 0x0c8e
     mov bx, word [bx + battle_groups] ; 0x0c90
     mov si, word [bp - 2]            ; 0x0c94
-    mov byte [bx + si + member_rec.charge], 0 ; 0x0c97
+    mov byte [bx + si + realm_spell_point_positions], 0 ; 0x0c97
     inc word [bp - 2]                ; 0x0c9c
     mov ax, word [bp - 2]            ; 0x0c9f
     cmp ax, strict word 6            ; 0x0ca2

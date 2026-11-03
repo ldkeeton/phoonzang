@@ -19,7 +19,7 @@ pick_spell_dialog:
     mov word [bp - 0xa], 0xc5
     mov word [bp - 0xc], 0x95
     mov word [bp - 0x14], 0x16
-    mov ax, spell_screen_temp_file
+    mov ax, screen_save_temp_file
     push ax
     mov ax, word [bp - 0xa]
     inc ax

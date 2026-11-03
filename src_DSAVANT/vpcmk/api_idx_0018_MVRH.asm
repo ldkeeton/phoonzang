@@ -26,7 +26,7 @@ api_idx_0018_MVRH:
     push ax                          ; 0x6834
     mov ax, MSG_RENAME_CHARACTER_1166 ; 0x6835
     push ax                          ; 0x6838
-    call api_idx_0026_NRVO           ; 0x6839
+    call prompt_character_name       ; 0x6839
     add sp, byte 0xa                 ; 0x683c
     cmp ax, strict word 2            ; 0x683f
     jne short .forward1              ; 0x6842

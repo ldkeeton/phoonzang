@@ -154,7 +154,7 @@ api_idx_0040_INKU.forward7:
     call api_idx_005e_SHOL           ; 0x2d00
     add sp, byte 4                   ; 0x2d03
 api_idx_0040_INKU.forward8:
-    call run_party_screen_animation  ; 0x2d06
+    call run_npc_screen_animation    ; 0x2d06
     jmp short api_idx_0040_INKU.forward11 ; 0x2d09
 api_idx_0040_INKU.forward9:
     cmp word [bp - 0x40], byte 0     ; 0x2d0b
@@ -180,7 +180,7 @@ api_idx_0040_INKU.forward10:
     add ax, cx                       ; 0x2d3f
     mov bx, ax                       ; 0x2d41
     mov word [bx + cell_slot_ref], 0 ; 0x2d43
-    call run_party_screen_animation  ; 0x2d49
+    call run_npc_screen_animation    ; 0x2d49
 api_idx_0040_INKU.forward11:
     jmp near api_idx_0040_INKU.forward76 ; 0x2d4c
 jumptable_36f8_case_5:
@@ -243,7 +243,7 @@ jumptable_36f8_case_7:
     call poll_fullscreen_hotspot     ; 0x2dcf
     test ax, ax                      ; 0x2dd2
     jne short api_idx_0040_INKU.forward17 ; 0x2dd4
-    call step_party_animation        ; 0x2dd6
+    call step_npc_screen_animation   ; 0x2dd6
     jmp short jumptable_36f8_case_7  ; 0x2dd9
 api_idx_0040_INKU.forward17:
     jmp near api_idx_0040_INKU.forward76 ; 0x2ddb

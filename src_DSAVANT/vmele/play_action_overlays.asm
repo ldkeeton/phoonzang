@@ -37,7 +37,7 @@ play_action_overlays:
     call play_sound_effect           ; 0x2d3e
     pop cx                           ; 0x2d41
 .back2:
-    mov word [bss_845e], 0xfffe      ; 0x2d42
+    mov word [party_screen_animation_state], 0xfffe ; 0x2d42
     call step_party_screen_animation ; 0x2d48
     mov word [bp - 4], 0             ; 0x2d4b
 .back3:
@@ -124,10 +124,10 @@ play_action_overlays:
 .forward8:
     call queue_marker_overlay        ; 0x2e13
     call draw_party_status_glyphs    ; 0x2e16
-    mov word [bss_845e], 0           ; 0x2e19
+    mov word [party_screen_animation_state], 0 ; 0x2e19
 .back5:
     call step_party_screen_animation ; 0x2e1f
-    cmp word [bss_845e], byte -2     ; 0x2e22
+    cmp word [party_screen_animation_state], byte -2 ; 0x2e22
     jne short .back5                 ; 0x2e27
     call check_party_redraw_interval ; 0x2e29
     mov word [bp - 0xa], ax          ; 0x2e2c

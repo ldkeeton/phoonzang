@@ -59,5 +59,3 @@ __zdseg_90f4:
     db 'V.$$$', 0
 __zdseg_90fa:
     db 'V.$$$', 0
-__zdseg_9100:
-    db 0x2a, 0x2a, 0x2a, 0x00
