@@ -1,5 +1,5 @@
 # auto-generated
-ega/driver_dispatch
+shared/drv/driver_dispatch
 shared/data/drv_buffer_segments
 shared/data/drv_ems_frame
 shared/data/mouse_init_enabled

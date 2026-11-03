@@ -15,4 +15,10 @@
     jmp near $+3
 %endmacro
 
+; ln starts a program's data segment with a zero word.  A .c or .s that ln
+; links never emits it, so the master listing writes it with this macro.
+%macro ln_ds_zero 0
+    dw 0
+%endmacro
+
 %endif

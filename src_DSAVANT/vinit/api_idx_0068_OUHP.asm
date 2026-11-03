@@ -11,7 +11,7 @@ api_idx_0068_OUHP:
     push ax                          ; 0x0adb
     call load_score_files            ; 0x0adc
     add sp, byte 4                   ; 0x0adf
-    mov ax, word [dseg_010c]         ; 0x0ae2
+    mov ax, word [level_up_score_number] ; 0x0ae2
     mov word [story_score_number], ax ; 0x0ae5
 .forward1:
     mov word [bp - 8], 0             ; 0x0ae8

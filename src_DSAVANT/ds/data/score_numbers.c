@@ -1,5 +1,7 @@
 /* Score numbers for the game's story and intro scenes. */
 
+int level_up_score_number = 33;
+int camp_score_number = 39;
 int file_param_word = 38;
 int story_score_file_number = 32;
 int loaded_score_number = 38;

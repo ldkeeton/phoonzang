@@ -3,6 +3,7 @@ bits 16
 %include "include/structs.inc"
 %include "include/drivers.inc"
 %include "include/msg.inc"
+%include "include/nasm_macros.inc"
 %ifndef VBASE
 %ifdef ELF_BUILD
 VBASE equ 0
@@ -57,8 +58,8 @@ dseg_0042 equ __zdseg_0042 - __zdseg_start
 dseg_0044 equ __zdseg_0044 - __zdseg_start
 value_clamp_ranges equ __zvalue_clamp_ranges - __zdseg_start
 psp_cmd_tail_len equ 0x0080
-dseg_010c equ __zdseg_010c - __zdseg_start
-dseg_010e equ __zdseg_010e - __zdseg_start
+level_up_score_number equ __zlevel_up_score_number - __zdseg_start
+camp_score_number equ __zcamp_score_number - __zdseg_start
 file_param_word equ __zfile_param_word - __zdseg_start
 story_score_file_number equ __zstory_score_file_number - __zdseg_start
 loaded_score_number equ __zloaded_score_number - __zdseg_start
@@ -132,18 +133,18 @@ _ttrd equ __z_ttrd - __zdseg_start
 _ttwr equ __z_ttwr - __zdseg_start
 _Eol equ __z_Eol - __zdseg_start
 aztec_tty_wr_crbuf equ __zaztec_tty_wr_crbuf - __zdseg_start
-_Uorg equ __zbss_0cf6 - __zdseg_start
-saved_word equ __zbss_0cf6 - __zdseg_start
-saved_pair equ __zbss_0cf8 - __zdseg_start
-ovname equ __zbss_0cfa - __zdseg_start
-buff equ __zbss_0cfc - __zdseg_start
-keep equ __zbss_0cfe - __zdseg_start
-current equ __zbss_0d00 - __zdseg_start
-first equ __zbss_0d02 - __zdseg_start
-Argc equ __zbss_0d04 - __zdseg_start
-Argv equ __zbss_0d06 - __zdseg_start
-aztec_tty_rd_buffer equ __zbss_0d08 - __zdseg_start
-aztec_tty_rd_bp equ __zbss_0e0c - __zdseg_start
+_Uorg equ __zsaved_word - __zdseg_start
+saved_word equ __zsaved_word - __zdseg_start
+saved_pair equ __zsaved_pair - __zdseg_start
+ovname equ __zovname - __zdseg_start
+buff equ __zbuff - __zdseg_start
+keep equ __zkeep - __zdseg_start
+current equ __zcurrent - __zdseg_start
+first equ __zfirst - __zdseg_start
+Argc equ __zArgc - __zdseg_start
+Argv equ __zArgv - __zdseg_start
+aztec_tty_rd_buffer equ __zaztec_tty_rd_buffer - __zdseg_start
+aztec_tty_rd_bp equ __zaztec_tty_rd_bp - __zdseg_start
 floor_items equ __zbss_0e0e - __zdseg_start
 runtime_buffer_3k equ __zbss_0e10 - __zdseg_start
 maze_tables equ __zbss_0e12 - __zdseg_start
@@ -405,7 +406,7 @@ party_redraw_current_tick_hi equ __zbss_9090 - __zdseg_start
 party_redraw_elapsed_ticks equ __zbss_9092 - __zdseg_start
 party_redraw_elapsed_ticks_hi equ __zbss_9094 - __zdseg_start
 _TTrem equ __zbss_9096 - __zdseg_start
-bss_b198 equ __zbss_b198 - __zdseg_start
+aztec_Uend equ __zbss_b198 - __zdseg_start
 __zbss_size equ __zbss_end - __zimage_end
 __zdseg_end equ (__zimage_end - __zdseg_start) + __zbss_size
 
@@ -557,7 +558,7 @@ __zdseg_end equ (__zimage_end - __zdseg_start) + __zbss_size
 
 %include "ds/data/drv_slots_video.asm"     ; 0x2f87
 
-%include "ds/data/cseg_3063.asm"           ; 0x3063
+%include "ds/data/drv_block_table_dest.asm" ; 0x3063
 
 %include "ds/library/init_system_hardware.asm" ; 0x3067
 
@@ -577,7 +578,7 @@ __zdseg_end equ (__zimage_end - __zdseg_start) + __zbss_size
 
 %include "ds/library/load_video_driver.asm" ; 0x3534
 
-%include "ds/data/cseg_35ec.asm"           ; 0x35ec
+%include "ds/data/play_drv_name.asm"       ; 0x35ec
 
 %include "ds/library/load_play_driver.asm" ; 0x35f5
 
@@ -753,7 +754,7 @@ __zres_end equ ($ - $$) + VBASE
     __zdseg_para equ (0x10160 - 0x200) / 16
 %endif
 __zdseg_start:
-%include "ds/data/dseg_0000.asm"           ; 0x10160
+ln_ds_zero                                 ; 0x10160
 
 %include "ds/data/tick_counter_ptr.asm"    ; 0x10162
 
@@ -769,9 +770,7 @@ __zdseg_start:
 
 %include "ds/data/value_clamp_ranges.asm"  ; 0x101a8
 
-%include "ds/data/dseg_010c.asm"           ; 0x1026c
-
-%include "ds/data/score_numbers.asm"       ; 0x10270
+%include "ds/data/score_numbers.asm"       ; 0x1026c
 
 %include "ds/data/party_slot_layout.asm"   ; 0x10304
 
@@ -781,586 +780,36 @@ __zdseg_start:
 
 %include "ds/data/spell_table.asm"         ; 0x10780
 
-%include "ds/data/disk_prompts_and_files.asm" ; 0x10cd4
+%include "ds/game/disk_and_file_loaders.data.asm" ; 0x10cd4
 
-%include "ds/data/score_extensions.asm"    ; 0x10d4b
+%include "ds/game/main.data.asm"           ; 0x10d5a
 
-%include "ds/data/dseg_0bfa.asm"           ; 0x10d5a
+%include "ds/aztec/aztec_ovloader.data.asm" ; 0x10da8
 
-%include "shared/data/endmarker.asm"           ; 0x10dcc
+%include "shared/aztec/aztec_malloc.data.asm"  ; 0x10dcc
 
-%include "ds/data/aztec_startup_vars.asm"  ; 0x10dd0
+%include "shared/aztec/aztec_begin.data.asm"   ; 0x10dd0
 
-%include "shared/data/cls_.asm"                ; 0x10dfc
+%include "shared/aztec/aztec_Croot.data.asm"   ; 0x10dfc
 
-%include "shared/data/aztec_croot_empty_str.asm" ; 0x10dfe
-
-%include "shared/data/aztec_croot_too_many_args.asm" ; 0x10dff
-
-%include "ds/data/dseg_0cae.asm"           ; 0x10e0e
+%include "ds/aztec/aztec_impl_stkover.data.asm" ; 0x10e0e
 
 %include "shared/data/STKSIZ.asm"              ; 0x10e34
 
-%include "shared/data/ioflg.asm"               ; 0x10e3c
+%include "shared/aztec/aztec_io.data.asm"      ; 0x10e3c
 
-%include "shared/data/ioflg_stdout.asm"        ; 0x10e3d
-
-%include "shared/data/ioflg_stderr.asm"        ; 0x10e3e
-
-%include "shared/data/ttrd.asm"                ; 0x10e50
-
-%include "shared/data/ttwr.asm"                ; 0x10e52
-
-%include "shared/data/Eol.asm"                 ; 0x10e54
-
-%include "shared/data/aztec_tty_wr_crbuf.asm"  ; 0x10e55
+%include "shared/aztec/aztec_ttyio.data.asm"   ; 0x10e54
 
 
 __zimage_end:
 absolute __zimage_end
-__zbss_0cf6:
-__zbss_0cf6:
-    resb 0x0002
-__zbss_0cf8:
-    resb 0x0002
-__zbss_0cfa:
-    resb 0x0002
-__zbss_0cfc:
-    resb 0x0002
-__zbss_0cfe:
-    resb 0x0002
-__zbss_0d00:
-    resb 0x0002
-__zbss_0d02:
-    resb 0x0002
-__zbss_0d04:
-    resb 0x0002
-__zbss_0d06:
-    resb 0x0002
-__zbss_0d08:
-    resb 0x0104
-__zbss_0e0c:
-    resb 0x0002
-__zbss_0e0e:
-    resb 0x0002
-__zbss_0e10:
-    resb 0x0002
-__zbss_0e12:
-    resb 0x0002
-__zbss_0e14:
-    resb 0x0002
-__zbss_0e16:
-    resb 0x0002
-__zbss_0e18:
-    resb 0x0002
-__zbss_0e1a:
-    resb 0x0002
-__zbss_0e1c:
-    resb 0x0002
-__zbss_0e1e:
-    resb 0x0002
-__zbss_0e20:
-    resb 0x0002
-__zbss_0e22:
-    resb 0x0002
-__zbss_0e24:
-    resb 0x0002
-__zbss_0e26:
-    resb 0x0002
-__zbss_0e28:
-    resb 0x0002
-__zbss_0e2a:
-    resb 0x0002
-__zbss_0e2c:
-    resb 0x0002
-__zbss_0e2e:
-    resb 0x0002
-__zbss_0e30:
-    resb 0x0002
-__zbss_0e32:
-    resb 0x0002
-__zbss_0e34:
-    resb 0x0002
-__zbss_0e36:
-    resb 0x0002
-__zbss_0e38:
-    resb 0x0014
-__zbss_0e4c:
-    resb 0x0189
-__zbss_0fd5:
-    resb 0x0001
-__zbss_0fd6:
-    resb 0x0032
-__zbss_1008:
-    resb 0x0002
-__zbss_100a:
-    resb 0x0002
-__zbss_100c:
-    resb 0x1d34
-__zbss_2d40:
-    resb 0x0018
-__zbss_2d58:
-    resb 0x10b2
-__zbss_3e0a:
-    resb 0x0008
-__zbss_3e12:
-    resb 0x1400
-__zbss_5212:
-    resb 0x0002
-__zbss_5214:
-    resb 0x0002
-__zbss_5216:
-    resb 0x0002
-__zbss_5218:
-    resb 0x0004
-__zbss_521c:
-    resb 0x0028
-__zbss_5244:
-    resb 0x0020
-__zbss_5264:
-    resb 0x0060
-__zbss_52c4:
-    resb 0x0100
-__zbss_53c4:
-    resb 0x0100
-__zbss_54c4:
-    resb 0x0060
-__zbss_5524:
-    resb 0x0004
-__zbss_5528:
-    resb 0x0002
-__zbss_552a:
-    resb 0x0042
-__zbss_556c:
-    resb 0x000a
-__zbss_5576:
-    resb 0x00cc
-__zbss_5642:
-    resb 0x0200
-__zbss_5842:
-    resb 0x00cc
-__zbss_590e:
-    resb 0x0002
-__zbss_5910:
-    resb 0x0002
-__zbss_5912:
-    resb 0x0014
-__zbss_5926:
-    resb 0x0014
-__zbss_593a:
-    resb 0x0014
-__zbss_594e:
-    resb 0x0014
-__zbss_5962:
-    resb 0x0001
-__zbss_5963:
-    resb 0x0001
-__zbss_5964:
-    resb 0x0014
-__zbss_5978:
-    resb 0x0001
-__zbss_5979:
-    resb 0x0001
-__zbss_597a:
-    resb 0x0002
-__zbss_597c:
-    resb 0x0001
-__zbss_597d:
-    resb 0x0001
-__zbss_597e:
-    resb 0x0001
-__zbss_597f:
-    resb 0x0001
-__zbss_5980:
-    resb 0x0002
-__zbss_5982:
-    resb 0x0002
-__zbss_5984:
-    resb 0x0001
-__zbss_5985:
-    resb 0x0001
-__zbss_5986:
-    resb 0x0001
-__zbss_5987:
-    resb 0x0001
-__zbss_5988:
-    resb 0x0001
-__zbss_5989:
-    resb 0x0001
-__zbss_598a:
-    resb 0x0001
-__zbss_598b:
-    resb 0x0001
-__zbss_598c:
-    resb 0x0002
-__zbss_598e:
-    resb 0x0002
-__zbss_5990:
-    resb 0x0064
-__zbss_59f4:
-    resb 0x0002
-__zbss_59f6:
-    resb 0x0002
-__zbss_59f8:
-    resb 0x0002
-__zbss_59fa:
-    resb 0x0002
-__zbss_59fc:
-    resb 0x0002
-__zbss_59fe:
-    resb 0x0100
-__zbss_5afe:
-    resb 0x0040
-__zbss_5b3e:
-    resb 0x0002
-__zbss_5b40:
-    resb 0x0002
-__zbss_5b42:
-    resb 0x0002
-__zbss_5b44:
-    resb 0x0002
-__zbss_5b46:
-    resb 0x0002
-__zbss_5b48:
-    resb 0x000d
-__zbss_5b55:
-    resb 0x0005
-__zbss_5b5a:
-    resb 0x0012
-__zbss_5b6c:
-    resb 0x0002
-__zbss_5b6e:
-    resb 0x0002
-__zbss_5b70:
-    resb 0x0002
-__zbss_5b72:
-    resb 0x000a
-__zbss_5b7c:
-    resb 0x0064
-__zbss_5be0:
-    resb 0x0014
-__zbss_5bf4:
-    resb 0x0db0
-__zbss_69a4:
-    resb 0x0018
-__zbss_69bc:
-    resb 0x000c
-__zbss_69c8:
-    resb 0x0002
-__zbss_69ca:
-    resb 0x0050
-__zbss_6a1a:
-    resb 0x0452
-__zbss_6e6c:
-    resb 0x0049
-__zbss_6eb5:
-    resb 0x0c07
-__zbss_7abc:
-    resb 0x0002
-__zbss_7abe:
-    resb 0x0046
-__zbss_7b04:
-    resb 0x0001
-__zbss_7b05:
-    resb 0x0237
-__zbss_7d3c:
-    resb 0x0198
-__zbss_7ed4:
-    resb 0x0049
-__zbss_7f1d:
-    resb 0x0399
-__zbss_82b6:
-    resb 0x0002
-__zbss_82b8:
-    resb 0x0018
-__zbss_82d0:
-    resb 0x0018
-__zbss_82e8:
-    resb 0x0002
-__zbss_82ea:
-    resb 0x0002
-__zbss_82ec:
-    resb 0x0002
-__zbss_82ee:
-    resb 0x0002
-__zbss_82f0:
-    resb 0x0002
-__zbss_82f2:
-    resb 0x0002
-__zbss_82f4:
-    resb 0x0002
-__zbss_82f6:
-    resb 0x0002
-__zbss_82f8:
-    resb 0x0002
-__zbss_82fa:
-    resb 0x0002
-__zbss_82fc:
-    resb 0x0002
-__zbss_82fe:
-    resb 0x0002
-__zbss_8300:
-    resb 0x0002
-__zbss_8302:
-    resb 0x0002
-__zbss_8304:
-    resb 0x0002
-__zbss_8306:
-    resb 0x0004
-__zbss_830a:
-    resb 0x0002
-__zbss_830c:
-    resb 0x0002
-__zbss_830e:
-    resb 0x000c
-__zbss_831a:
-    resb 0x0006
-__zbss_8320:
-    resb 0x0002
-__zbss_8322:
-    resb 0x010e
-__zbss_8430:
-    resb 0x000a
-__zbss_843a:
-    resb 0x0012
-__zbss_844c:
-    resb 0x0002
-__zbss_844e:
-    resb 0x0002
-__zbss_8450:
-    resb 0x0002
-__zbss_8452:
-    resb 0x0002
-__zbss_8454:
-    resb 0x0002
-__zbss_8456:
-    resb 0x0002
-__zbss_8458:
-    resb 0x0002
-__zbss_845a:
-    resb 0x0002
-__zbss_845c:
-    resb 0x0002
-__zbss_845e:
-    resb 0x0002
-__zbss_8460:
-    resb 0x0002
-__zbss_8462:
-    resb 0x0002
-__zbss_8464:
-    resb 0x0002
-__zbss_8466:
-    resb 0x0002
-__zbss_8468:
-    resb 0x001a
-__zbss_8482:
-    resb 0x0002
-__zbss_8484:
-    resb 0x000a
-__zbss_848e:
-    resb 0x0002
-__zbss_8490:
-    resb 0x0002
-__zbss_8492:
-    resb 0x000c
-__zbss_849e:
-    resb 0x0002
-__zbss_84a0:
-    resb 0x0002
-__zbss_84a2:
-    resb 0x0002
-__zbss_84a4:
-    resb 0x0002
-__zbss_84a6:
-    resb 0x0042
-__zbss_84e8:
-    resb 0x0344
-__zbss_882c:
-    resb 0x014a
-__zbss_8976:
-    resb 0x0068
-__zbss_89de:
-    resb 0x0001
-__zbss_89df:
-    resb 0x0001
-__zbss_89e0:
-    resb 0x0001
-__zbss_89e1:
-    resb 0x0001
-__zbss_89e2:
-    resb 0x0001
-__zbss_89e3:
-    resb 0x0001
-__zbss_89e4:
-    resb 0x0001
-__zbss_89e5:
-    resb 0x0001
-__zbss_89e6:
-    resb 0x0001
-__zbss_89e7:
-    resb 0x0001
-__zbss_89e8:
-    resb 0x0002
-__zbss_89ea:
-    resb 0x000c
-__zbss_89f6:
-    resb 0x000c
-__zbss_8a02:
-    resb 0x000c
-__zbss_8a0e:
-    resb 0x000c
-__zbss_8a1a:
-    resb 0x000c
-__zbss_8a26:
-    resb 0x000c
-__zbss_8a32:
-    resb 0x000c
-__zbss_8a3e:
-    resb 0x000c
-__zbss_8a4a:
-    resb 0x000c
-__zbss_8a56:
-    resb 0x0018
-__zbss_8a6e:
-    resb 0x0080
-__zbss_8aee:
-    resb 0x0002
-__zbss_8af0:
-    resb 0x000e
-__zbss_8afe:
-    resb 0x0080
-__zbss_8b7e:
-    resb 0x0080
-__zbss_8bfe:
-    resb 0x0080
-__zbss_8c7e:
-    resb 0x0080
-__zbss_8cfe:
-    resb 0x0008
-__zbss_8d06:
-    resb 0x0002
-__zbss_8d08:
-    resb 0x0002
-__zbss_8d0a:
-    resb 0x0002
-__zbss_8d0c:
-    resb 0x0002
-__zbss_8d0e:
-    resb 0x0002
-__zbss_8d10:
-    resb 0x0002
-__zbss_8d12:
-    resb 0x0152
-__zbss_8e64:
-    resb 0x00b0
-__zbss_8f14:
-    resb 0x0002
-__zbss_8f16:
-    resb 0x0002
-__zbss_8f18:
-    resb 0x0002
-__zbss_8f1a:
-    resb 0x0002
-__zbss_8f1c:
-    resb 0x0002
-__zbss_8f1e:
-    resb 0x0002
-__zbss_8f20:
-    resb 0x0002
-__zbss_8f22:
-    resb 0x0002
-__zbss_8f24:
-    resb 0x0002
-__zbss_8f26:
-    resb 0x0002
-__zbss_8f28:
-    resb 0x0002
-__zbss_8f2a:
-    resb 0x0002
-__zbss_8f2c:
-    resb 0x0002
-__zbss_8f2e:
-    resb 0x0002
-__zbss_8f30:
-    resb 0x0002
-__zbss_8f32:
-    resb 0x0002
-__zbss_8f34:
-    resb 0x0002
-__zbss_8f36:
-    resb 0x0002
-__zbss_8f38:
-    resb 0x0002
-__zbss_8f3a:
-    resb 0x0002
-__zbss_8f3c:
-    resb 0x0002
-__zbss_8f3e:
-    resb 0x0002
-__zbss_8f40:
-    resb 0x0002
-__zbss_8f42:
-    resb 0x0002
-__zbss_8f44:
-    resb 0x0002
-__zbss_8f46:
-    resb 0x0002
-__zbss_8f48:
-    resb 0x0104
-__zbss_904c:
-    resb 0x0002
-__zbss_904e:
-    resb 0x0002
-__zbss_9050:
-    resb 0x0002
-__zbss_9052:
-    resb 0x0004
-__zbss_9056:
-    resb 0x0002
-__zbss_9058:
-    resb 0x0002
-__zbss_905a:
-    resb 0x0002
-__zbss_905c:
-    resb 0x0002
-__zbss_905e:
-    resb 0x0002
-__zbss_9060:
-    resb 0x0002
-__zbss_9062:
-    resb 0x0002
-__zbss_9064:
-    resb 0x0002
-__zbss_9066:
-    resb 0x0002
-__zbss_9068:
-    resb 0x0002
-__zbss_906a:
-    resb 0x0002
-__zbss_906c:
-    resb 0x0002
-__zbss_906e:
-    resb 0x0002
-__zbss_9070:
-    resb 0x0002
-__zbss_9072:
-    resb 0x0002
-__zbss_9074:
-    resb 0x0014
-__zbss_9088:
-    resb 0x0002
-__zbss_908a:
-    resb 0x0002
-__zbss_908c:
-    resb 0x0002
-__zbss_908e:
-    resb 0x0002
-__zbss_9090:
-    resb 0x0002
-__zbss_9092:
-    resb 0x0002
-__zbss_9094:
-    resb 0x0002
+%include "ds/game/store_word_and_pair.bss.asm"
+%include "ds/aztec/aztec_ovloader.bss.asm"
+%include "ds/aztec/aztec_sprintf.bss.asm"
+%include "shared/aztec/aztec_malloc.bss.asm"
+%include "shared/aztec/aztec_Croot.bss.asm"
+%include "shared/aztec/aztec_ttyio.bss.asm"
+%include "ds/data/globals.asm"
 __zbss_9096:
     resb 0x0002
 __zbss_end:

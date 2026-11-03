@@ -39,11 +39,13 @@ play/mpu_set_volume
 play/mpu_send_byte
 play/mpu401_reset_and_sync
 play/device_note_off_noop
+play/opl_load_operator_muted
 play/data/opl_operator_map
 play/opl_channel_operators
 play/opl_apply_volume
 play/opl_write_operator_level
 play/opl_load_patch
+play/data/opl_patch_register_pairs
 play/data/opl_tables
 play/opl_note_on
 play/opl_note_off

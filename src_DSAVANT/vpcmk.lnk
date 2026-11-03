@@ -1,4 +1,5 @@
 # auto-generated
+vpcmk/data/globals
 vpcmk/ovmain
 shared/ovr/load_screen_file_immediate
 shared/ovr/transfer_pc_file_record

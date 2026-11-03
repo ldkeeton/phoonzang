@@ -141,14 +141,5 @@ __zdata_start:
 
 __zimage_end:
 absolute __zimage_end
-__zobss_90b6:
-    resb 0x0002
-__zobss_90b8:
-    resb 0x0002
-__zobss_90ba:
-    resb 0x0002
-__zobss_90bc:
-    resb 0x0002
-__zobss_90be:
-    resb 0x0012
+%include "vmele/data/globals.asm"
 __zobss_end:

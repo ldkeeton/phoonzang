@@ -1,4 +1,5 @@
 # auto-generated
+vmele/data/globals
 vmele/ovmain
 shared/ovr/draw_active_member_panel
 vmele/wait_ticks_with_events

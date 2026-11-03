@@ -1,4 +1,5 @@
 # auto-generated
+vdopt/data/globals
 vdopt/ovmain
 shared/ovr/map_piece_index_for_position
 shared/ovr/find_map_piece

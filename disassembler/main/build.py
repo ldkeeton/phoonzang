@@ -62,9 +62,9 @@ def check_build_sidecar_use(project, bins):
     """Fail on a build-wide sidecar entry no binary applied.
 
     One ``api_dispatch`` entry names code in every binary that carries it,
-    a ``vendor_patches`` entry a library routine, a
-    ``compiler_flags`` prefix the C routines it covers; each must have done
-    so somewhere.  Every ``binaries`` entry must name a binary of the app.
+    a ``vendor_patches`` entry a library routine, a ``compiler_flags``
+    prefix (but the library's) the C routines it covers; each must have
+    done so somewhere.  Every ``binaries`` entry must name a binary of the app.
     """
     sidecar = load_sidecar(project) or {}
     used = collect_sidecar_use(labels_dir(project), bins)
@@ -73,8 +73,14 @@ def check_build_sidecar_use(project, bins):
         for entry in sidecar.get(key) or {}:
             if entry not in used.get(key, ()):
                 problems.append(f'{key}[{entry}]: no binary has it')
+    # The library prefix is how the vendored runtime library is compiled
+    # (:data:`lib.aztec.compile.LIBRARY_PREFIX`), with or without a hand
+    # ``.c`` of that name, so only the other prefixes need a C routine.
+    from lib.aztec.compile import LIBRARY_PREFIX
     prefixes = (sidecar.get('compiler_flags') or {}).get('prefixes', {})
     for prefix in prefixes:
+        if prefix == LIBRARY_PREFIX:
+            continue
         if prefix not in used.get('compiler_flags', ()):
             problems.append(f'compiler_flags.prefixes[{prefix}]: no C routine '
                             f'takes it')
@@ -251,25 +257,43 @@ def _write_record_layouts(project, host, family, starts_path, report):
     return len(layouts)
 
 
-def _link_order(project, out_dir, files):
-    """The ``project_files`` hook that arranges one binary's modules."""
-    from lib.aztec.linkorder import arrange
+def _link_order(project, files, report=print):
+    """The ``project_files`` hook that arranges one binary's modules.
+
+    It reads the listing and the sidecar only (``function_names`` ``emits``);
+    the recorded sources only feed :func:`lib.aztec.linkorder.check`, whose
+    disagreements are warnings."""
+    from lib.aztec import bss
+    from lib.aztec.linkorder import arrange, check, listed_starts, owners
     from lib.link import read_export
+    from lib.sidecar.binary import emitted_ranges
+
+    binaries = (load_sidecar(project) or {}).get('binaries') or {}
 
     def order(name, listed):
         path = os.path.join(labels_dir(project), f'{name}_linkdata.json')
         info = read_export(path) if os.path.exists(path) else None
-        folder = os.path.join(out_dir, name, 'data')
-        extras = []
-        if os.path.isdir(folder):
-            for fn in sorted(os.listdir(folder)):
-                stem, ext = os.path.splitext(fn)
-                module = f'{name}/data/{stem}'
-                if (ext in ('.s', '.c') and module not in listed
-                        and f'{module}.asm' not in files
-                        and hand_owned(os.path.join(folder, fn))):
-                    extras.append(module)
-        return arrange(listed, info, extras)
+        info = listed_starts(files[f'{name}.asm'], info)
+        entry = binaries.get(name) or {}
+        # Where the image's DS ends, BSS starts: an ``emits`` span past it is
+        # BSS, which no link order reads.
+        boundary = len(info['dseg']) // 2 if info and 'dseg' in info else None
+        try:
+            emitted = owners(files[f'{name}.asm'],
+                             emitted_ranges(entry, entry.get('start_offset'),
+                                            boundary))
+        except ValueError as exc:
+            raise SidecarError(f'binaries.{name}.{exc}') from exc
+        # The globals module declares the commons, which ln lays out in the
+        # order it first meets them: it links first.
+        first = [m for m in listed if m == bss.module(name)]
+        # A module's own data and BSS (``<stem>.data``, ``<stem>.bss``) are
+        # its owner's object's.
+        rest = [m for m in listed if m not in first
+                and not m.endswith(('.data', '.bss'))]
+        for line in check(rest, info, emitted):
+            report(f'{name}: warning: {line}')
+        return [*first, *arrange(rest, info, emitted)]
     return order
 
 
@@ -491,7 +515,7 @@ def _build_project(project, run_batch, nasm_batch, *, report=print,
         files, shared = share_files(merge_files(emitted), out_dir)
         files.update(project_files(
             {name: load_sidecar(project)['binaries'].get(name, {}) for name in bins},
-            host, files, _link_order(project, out_dir, files)))
+            host, files, _link_order(project, files, report)))
         if shared:
             report(f'  Shared: {sum(len(v) for v in shared.values())} '
                    f'fragments -> {len(shared)} files in shared/')

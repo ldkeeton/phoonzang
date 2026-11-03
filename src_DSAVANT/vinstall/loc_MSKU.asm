@@ -20,7 +20,7 @@ loc_NJKV:
     call aztec_printf                ; 0x0466
     add sp, byte 4                   ; 0x0469
     push word [bp - 2]               ; 0x046c
-    call bios_video_loc_IVQL         ; 0x046f
+    call bios_video_loc_MUHO         ; 0x046f
     pop cx                           ; 0x0472
     mov sp, bp                       ; 0x0473
     pop bp                           ; 0x0475
@@ -62,7 +62,7 @@ loc_GUOQ:
     call bios_put_text               ; 0x05a7
     pop cx                           ; 0x05aa
     push word [bp - 4]               ; 0x05ab
-    call bios_video_loc_IVQL         ; 0x05ae
+    call bios_video_loc_MUHO         ; 0x05ae
     pop cx                           ; 0x05b1
     mov sp, bp                       ; 0x05b2
     pop bp                           ; 0x05b4

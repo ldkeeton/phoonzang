@@ -4,7 +4,7 @@
 	extrn	restore_video_and_release_mem_:near
 	extrn	cseg_2f56_:word
 	extrn	drv_slot_music_start:word
-	extrn	cseg_35ec_:word
+	extrn	play_drv_name_:byte
 	extrn	drv_file_handle_:word
 	public	load_play_driver_
 load_play_driver_ proc near
@@ -13,7 +13,7 @@ load_play_driver_ proc near
 	mov al, 0
 	mov bx, cs
 	mov ds, bx
-	mov dx, offset cseg_35ec_
+	mov dx, offset play_drv_name_
 	int 021h
 	jb short open_error
 	mov word ptr cs:drv_file_handle_, ax

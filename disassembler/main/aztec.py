@@ -4,7 +4,7 @@ import json
 import os
 
 from lib import routine_source
-from lib.autogen import hand_owned
+from lib.autogen import hand_owned, stamp
 from lib.shared import FOLDER, shared_dirs
 from lib.sidecar.bands import band_for
 
@@ -664,14 +664,116 @@ def _aztec_asm_annotations(entries, label_map, c_overrides=None):
 
 
 
+def globals_fragment(project, binary, out_dir, listing, sidecar_entry=None):
+    """``(listing, {path: text}, errors)``: *listing* with the commons of its
+    BSS block, the sidecar's ``globals`` range, cut into the ``globals``
+    fragment (:func:`lib.aztec.bss.split`) and each module's own BSS (its
+    ``emits`` span before the commons) into ``<module>.bss``, the fragments, and
+    the errors of the hand-owned sources: the ``globals`` companion's commons
+    (:func:`lib.aztec.bss.check`), and each owner's object against its spans
+    (:func:`_check_owned_bss`).  Only the sidecar shapes the fragments; a
+    source is checked, never read into one.
+    """
+    from lib.aztec import bss, cache
+    from lib.aztec.linkorder import owners
+    from lib.sidecar.binary import bss_ranges
+    from lib.sidecar.errors import SidecarError
+
+    entry = sidecar_entry or {}
+    span = entry.get('globals') or {}
+    try:
+        modules = owners(listing, bss_ranges(entry, entry.get('start_offset'),
+                                             bss.block_start(listing)))
+        got = bss.split(listing, binary, span.get('start'), span.get('end'),
+                        modules)
+    except ValueError as exc:
+        raise SidecarError(f'binaries.{binary}.{exc}') from exc
+    if got is None:
+        return listing, {}, []
+    listing, fragments, slots = got
+    files = {rel: stamp(text, rel) for rel, text in fragments.items()}
+    errors = []
+    rel = f'{bss.module(binary)}.asm'
+    for ext in ('.c', '.s'):
+        path = os.path.join(out_dir, bss.module(binary) + ext)
+        if not hand_owned(path):
+            continue
+        shown = os.path.relpath(path, out_dir)
+        with open(path) as f:
+            text = f.read()
+        entry_ = cache.default_entry(bss.STEM, project, ext)
+        try:
+            commons = cache.compile_commons(project, binary, bss.STEM, entry_,
+                                            text)
+        except Exception as exc:
+            errors.append(f'error: {shown}: compile failed ({exc})')
+            break
+        errors += [f'error: {shown}: {line}'
+                   for line in bss.check(commons, slots[rel])]
+        break
+    globals_at = [int(at, 16) for _, _, at in slots[rel]]
+    for module, spans in sorted(modules.items()):
+        owned = [slots[module, n] for n in range(len(spans))]
+        errors += _check_owned_bss(project, binary, out_dir, module, owned,
+                                   min(globals_at, default=None))
+    return listing, files, errors
+
+
+def _check_owned_bss(project, binary, out_dir, module, owned, commons_start):
+    """The errors of *module*'s hand-owned source against its BSS fragments'
+    *owned* slots: the spans before the commons (*commons_start*) must be
+    exactly the object's own BSS; a span after them is commons it is the
+    first to name (``_TTrem``), checked like ``globals.c``'s."""
+    from lib.aztec import bss, cache
+
+    stem = os.path.basename(module)
+    shared = 'shared/' + module.split('/', 1)[-1]
+    for path in (os.path.join(out_dir, base + ext)
+                 for base in (module, shared) for ext in ('.c', '.s')):
+        if hand_owned(path):
+            break
+    else:
+        return []
+    shown = os.path.relpath(path, out_dir)
+    with open(path) as f:
+        text = f.read()
+    entry = cache.default_entry(stem, project, path[-2:])
+    try:
+        size, commons = cache.compile_bss(project, binary, stem, entry, text)
+    except Exception as exc:
+        return [f'error: {shown}: compile failed ({exc})']
+
+    def after(slots):
+        return (commons_start is not None and slots
+                and int(slots[0][2], 16) >= commons_start)
+
+    own = [slot for slots in owned if not after(slots) for slot in slots]
+    late = [slot for slots in owned if after(slots) for slot in slots]
+    errors = []
+    want = sum(size_ for _, size_, _ in own)
+    if size is not None and size != want:
+        at = f' at 0x{own[0][2]}' if own else ''
+        errors.append(f'error: {shown}: reserves {size} bytes of its own BSS, '
+                      f'its emits give it {want}{at}')
+    if late:
+        names = {f'{name}_' for name, _, _ in late}
+        errors += [f'error: {shown}: {line}' for line in bss.check(
+            [c for c in commons if c[0] in names], late)]
+    return errors
+
+
 def _check_data_asm(project, binary, out_dir, data_files, image):
-    """The errors of each hand-owned ``.s`` beside a ``data/*.asm`` fragment.
+    """The errors of each hand-owned ``.s`` or ``.c`` beside a ``data/*.asm``
+    fragment.
 
     *data_files* gives each fragment's span of *image* and its labels (see
-    :func:`lib.compare.render._data_file_spans`).  The source must assemble to
-    exactly those bytes, and every public must be the build's label at its
-    address.  A relocation is an error: its bytes would need the linker's value,
-    which this check does not resolve.
+    :func:`lib.compare.render._data_file_spans`).  The source must build to
+    exactly those bytes -- not fewer, and not on into the next fragment, which
+    would define its bytes twice -- and every public must be the build's label
+    at its address.  In a ``.s`` a relocation is an error: its bytes would need
+    the linker's value, which this check does not resolve.  A ``.c``'s
+    relocated bytes (a string's address) are skipped instead, and a ``.c``
+    with no initialized data (``globals.c``) is checked as BSS elsewhere.
     """
     from lib.aztec import cache
     from lib.aztec.compile import aztec_name, symbol_key
@@ -691,14 +793,15 @@ def _check_data_asm(project, binary, out_dir, data_files, image):
                               'check the name)')
     for rel, span in sorted(data_files.items()):
         name = os.path.basename(rel)[:-4]
-        for path in (os.path.join(out_dir, rel[:-4] + '.s'),
-                     os.path.join(out_dir, FOLDER, 'data', f'{name}.s')):
+        stems = (os.path.join(out_dir, rel[:-4]),
+                 os.path.join(out_dir, FOLDER, 'data', name))
+        for path in (stem + suffix for stem in stems for suffix in ('.s', '.c')):
             if hand_owned(path):
                 with open(path) as f:
                     todo.append((name, path, f.read(), span))
                 break
-    entries = {name: cache.default_entry(name, project, '.s')
-               for name, *_ in todo}
+    entries = {name: cache.default_entry(name, project, path[-2:])
+               for name, path, *_ in todo}
     try:
         failed = cache.precompile(project, binary, [
             (name, entries[name], text) for name, _, text, _ in todo])
@@ -709,24 +812,45 @@ def _check_data_asm(project, binary, out_dir, data_files, image):
         try:
             if name in failed:
                 raise failed[name]
-            module, whole = cache.compile_source_module(
-                project, binary, name, entries[name], text)
+            if path.endswith('.c'):
+                module = cache.compiled(project, binary, name, entries[name],
+                                        text)
+                whole = None
+            else:
+                module, whole = cache.compile_source_module(
+                    project, binary, name, entries[name], text)
         except Exception as exc:
-            errors.append(f'error: {shown}: assemble failed ({exc})')
+            errors.append(f'error: {shown}: '
+                          f'{"compile" if path.endswith(".c") else "assemble"} failed ({exc})')
             continue
-        code, dseg = bytes(whole.code), bytes(module.data or b'')
+        code = bytes(whole.code) if whole else b''
+        dseg = bytes(module.data or b'')
         got, want = code or dseg, bytes(image[start:end])
-        if whole.fixups or module.data_relocations:
+        if len(got) % 2 and len(want) == len(got) + 1 and not want[-1]:
+            want = want[:-1]  # ln pads a module's odd-length data with a zero.
+        is_c = path.endswith('.c')
+        skip = set()
+        if is_c:
+            for offset, width in module.data_relocations or ():
+                skip.update(range(offset, offset + width))
+        if is_c and not got:
+            continue
+        if (whole and whole.fixups) or (module.data_relocations and not is_c):
             errors.append(f'error: {shown}: has relocations, which a data '
                           'source cannot be checked with yet')
         elif code and dseg:
             errors.append(f'error: {shown}: defines both code and data bytes')
-        elif got != want:
-            where = next((i for i, (a, b) in enumerate(zip(got, want)) if a != b),
+        elif len(got) != len(want) or any(
+                a != b for i, (a, b) in enumerate(zip(got, want)) if i not in skip):
+            where = next((i for i, (a, b) in enumerate(zip(got, want))
+                          if a != b and i not in skip),
                          min(len(got), len(want)))
+            verb = 'compiles' if is_c else 'assembles'
             errors.append(
-                f'error: {shown}: assembles to {len(got)} bytes, the image holds '
+                f'error: {shown}: {verb} to {len(got)} bytes, the image holds '
                 f'{len(want)} at 0x{start:04x}; first difference at +0x{where:x}')
+        if whole is None:
+            continue  # A C module's publics are its data names, checked above.
         at = {key(label): offset - start for label, offset in labels.items()}
         for public, offset in sorted(whole.members.items()):
             if at.get(key(public)) != offset:

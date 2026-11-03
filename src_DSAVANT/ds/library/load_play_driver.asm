@@ -6,7 +6,7 @@ load_play_driver:
     mov al, 0                        ; 0x35f9
     mov bx, cs                       ; 0x35fb
     mov ds, bx                       ; 0x35fd
-    mov dx, cseg_35ec - IMAGE_BASE   ; 0x35ff
+    mov dx, play_drv_name - IMAGE_BASE ; 0x35ff
     int 0x21 ; DOS open file handle
     jb short .forward1               ; 0x3604
     mov word [cs:drv_file_handle - IMAGE_BASE], ax ; 0x3606

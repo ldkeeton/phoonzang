@@ -5,7 +5,7 @@
 	extrn	cseg_2f52_:word
 	extrn	driver_block_table_end_:word
 	extrn	drv_slot_mouse_init:word
-	extrn	cseg_3063_:word
+	extrn	drv_block_table_dest_:word
 	extrn	driver_block_table_:word
 	extrn	drv_file_handle_:word
 	public	load_video_driver_
@@ -38,7 +38,7 @@ copy_segments:
 	stosw
 	loop copy_segments
 	movseg	es,<word ptr cs:cseg_2f52_>
-	mov di, word ptr cs:cseg_3063_
+	mov di, word ptr cs:drv_block_table_dest_
 	movseg	ds,cs
 	mov si, offset driver_block_table_
 	mov cx, offset driver_block_table_end_

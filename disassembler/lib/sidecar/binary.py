@@ -84,7 +84,109 @@ def _validate_binary(name, info):
         _validate_patches(info['byte_patches'],
                           f'binaries.{name}.byte_patches')
 
+    if 'globals' in info:
+        _validate_globals(info['globals'], f'binaries.{name}.globals')
+
     _validate_corpus(info, f'binaries.{name}')
+
+
+def _validate_globals(span, where):
+    """``{"start": "0e0e", "end": "9096"}``: the BSS objects that are the
+    binary's commons (the ``globals`` fragment), each end optional."""
+    if not isinstance(span, dict) or set(span) - {'start', 'end', 'note'}:
+        raise SidecarError(f'{where}: must be an object of "start" and "end"')
+    for key in ('start', 'end'):
+        value = span.get(key)
+        if value is not None and not (isinstance(value, str)
+                                      and re.fullmatch(r'[0-9a-fA-F]{4}', value)):
+            raise SidecarError(f'{where}.{key}: must be a 4-digit hex address')
+
+
+def _hex_span(span, at):
+    """``(start, end)`` of a ``{"start", "end"}`` span (end exclusive)."""
+    if not isinstance(span, dict) or set(span) != {'start', 'end'}:
+        raise SidecarError(f'{at}: must be an object of "start" and "end"')
+    for field in ('start', 'end'):
+        if not (isinstance(span[field], str)
+                and re.fullmatch(r'[0-9a-f]{4}', span[field])):
+            raise SidecarError(f'{at}.{field}: must be a 4-digit hex address')
+    start, end = int(span['start'], 16), int(span['end'], 16)
+    if start >= end:
+        raise SidecarError(f'{at}: end must be past start')
+    return start, end
+
+
+def _validate_emits(block, where):
+    """``emits``: a list of ``{"start": "0b74", "end": "0bfa"}`` spans on the
+    ``function_names`` entry that starts a module -- the DS bytes (end
+    exclusive) its source produces itself.  ``ln`` lays them out in module
+    order, which the listing cannot show, so the build reads them here.
+
+    A span's address says what it is: below the image end, the module's
+    initialized data (string literals, initialized globals), the file
+    ``<stem>.data`` beside its code, which shapes the link order
+    (:func:`emitted_ranges`); past it, BSS the module reserves -- its
+    ``static``s, or a common it is the first to name (``_TTrem``) -- which
+    its object is checked against (:func:`bss_ranges`).  No two
+    modules' spans overlap."""
+    ranges = []
+    for key, info in block.items():
+        if not isinstance(info, dict) or 'emits' not in info:
+            continue
+        at = f'{where}[{key}].emits'
+        spans = info['emits']
+        if not isinstance(spans, list) or not spans:
+            raise SidecarError(f'{at}: must be a list of spans')
+        ranges.extend((*_hex_span(span, f'{at}[{n}]'), key)
+                      for n, span in enumerate(spans))
+    ranges.sort()
+    for (_, end, first), (start, _, second) in zip(ranges, ranges[1:]):
+        if start < end:
+            raise SidecarError(f'{where}[{second}].emits: overlaps [{first}]')
+
+
+def _emits(entry, start_offset):
+    """``{file offset of a module's start: [(DS start, DS end), ...]}``."""
+    adjust = function_key_base(entry, start_offset)
+    return {int(key, 16) + adjust: [(int(span['start'], 16),
+                                     int(span['end'], 16))
+                                    for span in info['emits']]
+            for key, info in (entry.get('function_names') or {}).items()
+            if isinstance(info, dict) and 'emits' in info}
+
+
+def emitted_ranges(entry, start_offset=0, boundary=None):
+    """``{file offset of a module's start: (DS start, DS end)}``: the
+    initialized data of each ``emits``, its span below *boundary* (the DS
+    offset where BSS starts; ``None`` takes every span, for a caller with no
+    image).  ``ln`` writes a module's data as one block, so a module with two
+    spans there is an error (:class:`ValueError`)."""
+    out = {}
+    for at, spans in _emits(entry, start_offset).items():
+        data = [span for span in spans
+                if boundary is None or span[0] < boundary]
+        for start, end in data:
+            if boundary is not None and end > boundary:
+                raise ValueError(f'emits {start:04x}..{end:04x}: runs past '
+                                 f'the image end (0x{boundary:04x})')
+        if len(data) > 1 and boundary is not None:
+            raise ValueError(f'function_names {at:04x}.emits: two spans of '
+                             'initialized data; ln lays out a module\'s data '
+                             'as one block')
+        if data:
+            out[at] = data[0]
+    return out
+
+
+def bss_ranges(entry, start_offset=0, boundary=0):
+    """``{file offset of a module's start: [(DS start, DS end), ...]}``: the
+    ``emits`` spans at or past *boundary*, the BSS the module reserves."""
+    out = {}
+    for at, spans in _emits(entry, start_offset).items():
+        bss = [span for span in spans if span[0] >= boundary]
+        if bss:
+            out[at] = bss
+    return out
 
 
 def _validate_entry_names(table, where):
@@ -174,6 +276,7 @@ def per_binary(sidecar, short_name):
         'data_names': {},
         'code_data_names': {},
         'byte_patches': [],
+        'globals': {},
         'jump_tables': [],
         'code_tables': [],
         'char_tables': [],
@@ -209,6 +312,7 @@ def per_binary(sidecar, short_name):
             result['byte_patches'] = parse_patches(
                 b.get('byte_patches'),
                 f'binaries.{short_name}.byte_patches')
+            result['globals'] = b.get('globals', {})
             result['jump_tables'] = b.get('jump_tables', [])
             result['code_tables'] = b.get('code_tables', [])
             result['char_tables'] = _char_tables(
@@ -294,6 +398,7 @@ def _validate_function_names(block, where):
     for (_, end, first), (start, _, second) in zip(spans, spans[1:]):
         if start < end:
             raise SidecarError(f'{where}[{second}].length: overlaps [{first}]')
+    _validate_emits(block, where)
     # ``file`` names a grouped fragment's .asm and its .c/.s instead of the
     # head label; the label stays the routine's name everywhere else.
     _validate_file_stems(block, where, 'routine')

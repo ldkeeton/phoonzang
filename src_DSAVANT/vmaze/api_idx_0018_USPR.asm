@@ -13,7 +13,7 @@ api_idx_0018_USPR:
     push ax                          ; 0x1cae
     call load_score_files            ; 0x1caf
     add sp, byte 4                   ; 0x1cb2
-    mov ax, word [dseg_010e]         ; 0x1cb5
+    mov ax, word [camp_score_number] ; 0x1cb5
     mov word [story_score_number], ax ; 0x1cb8
     mov ax, 0                        ; 0x1cbb
     push ax                          ; 0x1cbe

@@ -11,9 +11,9 @@ dseg_2a02 equ 0x2a02
 
 ln_com_jump                                ; 0x0000
 
-%include "ega/driver_dispatch.asm"         ; 0x0003
+%include "shared/drv/driver_dispatch.asm"         ; 0x0003
 
-%include "shared/data/drv_buffer_segments.asm" ; 0x00e1
+%include "shared/data/drv_buffer_segments.asm" ; 0x00df
 
 %include "shared/data/drv_ems_frame.asm"      ; 0x00ff
 

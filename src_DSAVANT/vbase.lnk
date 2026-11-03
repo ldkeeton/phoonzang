@@ -1,4 +1,5 @@
 # auto-generated
+vbase/data/globals
 vbase/ovmain
 shared/ovr/transfer_pc_file_record
 vbase/draw_message_box

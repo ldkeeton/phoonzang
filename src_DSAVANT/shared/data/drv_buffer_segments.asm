@@ -1,4 +1,6 @@
 ; auto-generated
+drv_block_table:
+    db 0x80, 0x41
 maze_mem_seg:
     db 0x00, 0x00, 0x00, 0x10
 screen_buf_seg:

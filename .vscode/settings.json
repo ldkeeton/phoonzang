@@ -13,8 +13,8 @@
     "explorer.fileNesting.enabled": true,
     "explorer.fileNesting.expand": false,
     "explorer.fileNesting.patterns": {
-        "*.c": "$(capture).asm",
-        "*.s": "$(capture).asm",
+        "*.c": "$(capture).asm, $(capture).data.asm, $(capture).bss.asm",
+        "*.s": "$(capture).asm, $(capture).data.asm, $(capture).bss.asm",
         "*.lnk": "$(capture).asm"
     },
     "workbench.iconTheme": "material-icon-theme",

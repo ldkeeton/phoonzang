@@ -181,7 +181,7 @@ api_idx_002c_VNHI:
     push ax                          ; 0x6be6
     call load_score_files            ; 0x6be7
     add sp, byte 4                   ; 0x6bea
-    mov ax, word [dseg_010e]         ; 0x6bed
+    mov ax, word [camp_score_number] ; 0x6bed
     mov word [story_score_number], ax ; 0x6bf0
     mov ax, 1                        ; 0x6bf3
     push ax                          ; 0x6bf6

@@ -1,4 +1,5 @@
 # auto-generated
+vpops/data/globals
 vpops/ovmain
 shared/ovr/draw_split_two_line_text
 shared/ovr/redraw_glyph_strip

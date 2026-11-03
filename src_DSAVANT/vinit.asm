@@ -100,6 +100,5 @@ __zdata_start:
 
 __zimage_end:
 absolute __zimage_end
-__zobss_91b8:
-    resb 0x0002
+%include "vinit/data/globals.asm"
 __zobss_end:

@@ -36,6 +36,24 @@ class ValidateTest(unittest.TestCase):
             with self.subTest(block=block), self.assertRaises(SidecarError):
                 _validate_function_names(block, 'x')
 
+    def test_emits(self):
+        _validate_function_names(
+            {'10': {'name': 'a', 'emits': [{'start': '0b74', 'end': '0bfa'}]},
+             '20': {'name': 'b', 'emits': [{'start': '0bfa', 'end': '0c00'},
+                                           {'start': '0d08', 'end': '0e0e'}]}},
+            'x')
+        for span in ({'start': '0b74'}, {'start': 'b74', 'end': '0bfa'},
+                     {'start': '0bfa', 'end': '0bfa'}, ['0b74', '0bfa'],
+                     {'start': '0b74', 'end': '0bfa', 'size': 2}):
+            with self.subTest(span=span), self.assertRaises(SidecarError):
+                _validate_function_names({'10': {'name': 'a', 'emits': [span]}},
+                                         'x')
+        with self.assertRaises(SidecarError):
+            _validate_function_names(
+                {'10': {'name': 'a', 'emits': [{'start': '0b74', 'end': '0bfa'}]},
+                 '20': {'name': 'b', 'emits': [{'start': '0bf0', 'end': '0c00'}]}},
+                'x')
+
 
 class DataFileTest(unittest.TestCase):
     """``data_names``/``code_data_names`` take ``file`` by the same rules."""
@@ -85,6 +103,50 @@ class SplitTest(unittest.TestCase):
         inc = next(r for r in main if r['type'] == 'include')
         self.assertEqual(inc['text'], '%include "ds/library/call_group.asm"')
         self.assertEqual(list(sources), ['ds/library/call_group.asm'])
+
+
+class EmittedDataTest(unittest.TestCase):
+    """``emits``: a module's data is one file, named like its code."""
+    RECORDS = [
+        {'type': 'label', 'name': 'main', 'offset': 0x210},
+        {'type': 'mnem', 'text': 'ret', 'offset': 0x210, 'size': 1},
+        {'type': 'data_block', 'start': 0x300, 'end': 0x308, 'bytes': [0] * 8},
+    ]
+
+    def test_cut_blocks_at_module_bounds(self):
+        from lib.compare.render import _cut_data_blocks
+        out = _cut_data_blocks(self.RECORDS, {0x300, 0x305, 0x308})
+        self.assertEqual([(r['start'], r['end']) for r in out
+                          if r['type'] == 'data_block'],
+                         [(0x300, 0x305), (0x305, 0x308)])
+
+    def test_group_named_like_the_code(self):
+        from lib.compare.render import _owned_data_groups
+        split = [(0x210, 0x211, 'main'), (0x220, 0x230, 'aztec_noper')]
+        self.assertEqual(
+            _owned_data_groups({0x210: (0x300, 0x305), 0x220: (0x305, 0x308)},
+                               split, {0x220: 'aztec_Croot'}),
+            ([(0x300, 0x305, 'main.data'), (0x305, 0x308, 'aztec_Croot.data')],
+             {0x300: (0x210, 'main'), 0x305: (0x220, 'aztec_noper')}))
+        with self.assertRaises(ValueError):
+            _owned_data_groups({0x215: (0x300, 0x305)}, split, {})
+
+    def test_data_file_may_share_its_owners_name(self):
+        main, sources = _partition_function_records(
+            self.RECORDS, [(0x210, 0x211, 'main'), (0x300, 0x308, 'main')],
+            'ds', data_starts={0x300})
+        self.assertEqual(sorted(sources), ['ds/data/main.asm', 'ds/main.asm'])
+
+    def test_owned_data_sits_beside_its_code(self):
+        bands = parse_bands(BANDS)
+        main, sources = _partition_function_records(
+            self.RECORDS, [(0x210, 0x211, 'main'), (0x300, 0x308, 'main.data')],
+            'ds', bands, data_starts={0x300},
+            data_homes={0x300: (0x210, 'main')})
+        code = next(rel for rel in sources if not rel.endswith('.data.asm'))
+        self.assertEqual(sorted(sources), sorted([code, code[:-4] + '.data.asm']))
+        self.assertIn(f'%include "{code[:-4]}.data.asm"',
+                      [rec['text'] for rec in main if rec['type'] == 'include'])
 
 
 class HandSourceTest(unittest.TestCase):

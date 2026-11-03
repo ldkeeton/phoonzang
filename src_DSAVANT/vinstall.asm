@@ -1,5 +1,6 @@
 ; auto-generated
 bits 16
+%include "include/nasm_macros.inc"
 %ifndef VBASE
 %ifdef ELF_BUILD
 VBASE equ 0
@@ -43,6 +44,8 @@ __zbss_size equ __zbss_end - __zimage_end
 
 %include "vinstall/int_to_str.asm"         ; 0x02b2
 
+%include "vinstall/long_to_str.asm"        ; 0x0315
+
 %include "vinstall/put_int_at.asm"         ; 0x03b3
 
 %include "vinstall/loc_JTRN.asm"           ; 0x03e1
@@ -56,14 +59,22 @@ dseg_1444 equ __zdseg_1444 - __zdseg_start
 
 %include "vinstall/loc_GPOQ.asm"           ; 0x05b6
 
-%include "vinstall/loc_NPPN.asm"           ; 0x06f1
+%include "vinstall/loc_OQIJ.asm"           ; 0x06f1
+
+dseg_1447 equ __zdseg_1447 - __zdseg_start
+%include "vinstall/put_int_right_aligned.asm" ; 0x0710
+
+dseg_1449 equ __zdseg_1449 - __zdseg_start
+%include "vinstall/put_long_right_aligned.asm" ; 0x078a
 
 %include "vinstall/loc_JJNP.asm"           ; 0x0807
 
 %include "vinstall/parse_long.asm"         ; 0x0815
 
 dseg_144b equ __zdseg_144b - __zdseg_start
-%include "vinstall/loc_NOVO.asm"           ; 0x0823
+%include "vinstall/loc_MNTP.asm"           ; 0x0823
+
+%include "vinstall/prompt_long_at.asm"     ; 0x088f
 
 bss_2644 equ __zbss_2644 - __zdseg_start
 bss_2645 equ __zbss_2645 - __zdseg_start
@@ -142,7 +153,12 @@ dseg_163c equ __zdseg_163c - __zdseg_start
 dseg_1657 equ __zdseg_1657 - __zdseg_start
 dseg_2357 equ __zdseg_2357 - __zdseg_start
 bss_29ee  equ __zbss_29ee - __zdseg_start
-%include "vinstall/loc_TSLJ.asm"           ; 0x0ed8
+%include "vinstall/loc_LKQT.asm"           ; 0x0ed8
+
+dseg_1669 equ __zdseg_1669 - __zdseg_start
+dseg_166a equ __zdseg_166a - __zdseg_start
+bss_29f0  equ __zbss_29f0 - __zdseg_start
+%include "vinstall/append_to_message_line.asm" ; 0x102d
 
 dseg_166c equ __zdseg_166c - __zdseg_start
 dseg_166f equ __zdseg_166f - __zdseg_start
@@ -299,7 +315,7 @@ dseg_22e3          equ __zdseg_22e3 - __zdseg_start
 ; bss_29e8           equ __zbss_29e8 - __zdseg_start
 ; bss_29ea           equ __zbss_29ea - __zdseg_start
 ; bss_29ec           equ __zbss_29ec - __zdseg_start
-bss_29f0           equ __zbss_29f0 - __zdseg_start
+; bss_29f0           equ __zbss_29f0 - __zdseg_start
 bss_2af0           equ __zbss_2af0 - __zdseg_start
 bss_2af2           equ __zbss_2af2 - __zdseg_start
 bss_2af4           equ __zbss_2af4 - __zdseg_start
@@ -321,15 +337,34 @@ bss_2afa           equ __zbss_2afa - __zdseg_start
 
 %include "vinstall/bios_set_cursor.asm"    ; 0x2551
 
+; bss_2647 equ __zbss_2647 - __zdseg_start
+%include "vinstall/bios_clear_to_screen_end.asm" ; 0x256a
+
+; bss_2647 equ __zbss_2647 - __zdseg_start
+%include "vinstall/bios_clear_to_line_end.asm" ; 0x25a6
+
 ; bss_2645 equ __zbss_2645 - __zdseg_start
 %include "vinstall/bios_video_loc_HMPN.asm" ; 0x25d3
 
 ; bss_2644 equ __zbss_2644 - __zdseg_start
 %include "vinstall/bios_put_text.asm"      ; 0x2621
 
+; bss_2646 equ __zbss_2646 - __zdseg_start
+%include "vinstall/bios_put_text_alt_attr.asm" ; 0x266f
+
+%include "vinstall/bios_fill_pixel_rect.asm" ; 0x26bd
+
+%include "vinstall/bios_printer_lpt2.asm"  ; 0x26f6
+
+%include "vinstall/bios_key_available.asm" ; 0x2709
+
 %include "vinstall/bios_video_loc_VJJP.asm" ; 0x2720
 
-%include "vinstall/bios_video_loc_IVQL.asm" ; 0x2733
+%include "vinstall/bios_video_loc_MUHO.asm" ; 0x2733
+
+%include "vinstall/bios_save_text_rect.asm" ; 0x2747
+
+%include "vinstall/bios_restore_text_rect.asm" ; 0x27a9
 
 ctp_ equ __zctp_ - __zdseg_start
 %include "vinstall/aztec_atoi.asm"         ; 0x2806
@@ -403,13 +438,13 @@ Cbuffs equ __zCbuffs - __zdseg_start
 %include "vinstall/aztec_getbuff.asm"      ; 0x2e63
 
 endmarker equ __zendmarker - __zdseg_start
-keep      equ __zbss_2534 - __zdseg_start
-current   equ __zbss_2536 - __zdseg_start
-first     equ __zbss_2538 - __zdseg_start
+keep      equ __zkeep - __zdseg_start
+current   equ __zcurrent - __zdseg_start
+first     equ __zfirst - __zdseg_start
 %include "shared/aztec/aztec_malloc.asm"       ; 0x2eac
 
 aztec_format_conversions equ 0x303e + VBASE
-; first                    equ __zbss_2538 - __zdseg_start
+; first                    equ __zfirst - __zdseg_start
 %include "shared/aztec/aztec_format.asm"       ; 0x303e
 
 %include "shared/aztec/aztec_format_get_pointer.asm" ; 0x331e
@@ -448,7 +483,7 @@ _STKSIZ           equ __z_STKSIZ - __zdseg_start
 _STKRED           equ __z_STKRED - __zdseg_start
 _HEAPSIZ          equ __z_HEAPSIZ - __zdseg_start
 _STKLOW           equ __z_STKLOW - __zdseg_start
-_Uorg             equ __zbss_2534 - __zdseg_start
+_Uorg             equ __zkeep - __zdseg_start
 __zdseg_end       equ (__zimage_end - __zdseg_start) + __zbss_size
 %include "shared/aztec/aztec_begin.asm"        ; 0x35d2
 
@@ -458,8 +493,8 @@ aztec_croot_too_many_args equ __zaztec_croot_too_many_args - __zdseg_start
 ; _ioflg                    equ __z_ioflg - __zdseg_start
 ioflg_stdout              equ __zioflg_stdout - __zdseg_start
 ioflg_stderr              equ __zioflg_stderr - __zdseg_start
-Argc                      equ __zbss_253a - __zdseg_start
-Argv                      equ __zbss_253c - __zdseg_start
+Argc                      equ __zArgc - __zdseg_start
+Argv                      equ __zArgv - __zdseg_start
 %include "shared/aztec/aztec_Croot.asm"        ; 0x373b
 
 %include "shared/aztec/aztec_fltinit.asm"      ; 0x381d
@@ -472,9 +507,9 @@ _ttwr  equ __z_ttwr - __zdseg_start
 
 _Eol                equ __z_Eol - __zdseg_start
 aztec_tty_wr_crbuf  equ __zaztec_tty_wr_crbuf - __zdseg_start
-; Argv                equ __zbss_253c - __zdseg_start
-aztec_tty_rd_buffer equ __zbss_253e - __zdseg_start
-aztec_tty_rd_bp     equ __zbss_2642 - __zdseg_start
+; Argv                equ __zArgv - __zdseg_start
+aztec_tty_rd_buffer equ __zaztec_tty_rd_buffer - __zdseg_start
+aztec_tty_rd_bp     equ __zaztec_tty_rd_bp - __zdseg_start
 _TTrem              equ __zbss_2afc - __zdseg_start
 %include "shared/aztec/aztec_ttyio.asm"        ; 0x38d9
 
@@ -511,6 +546,8 @@ __zres_end equ ($ - $$) + VBASE
     __zdseg_para equ (0x3ae0 - 0x200) / 16
 %endif
 __zdseg_start:
+ln_ds_zero                                 ; 0x3ae0
+
 dseg_000e equ __zdseg_000e - __zdseg_start
 dseg_0025 equ __zdseg_0025 - __zdseg_start
 dseg_003c equ __zdseg_003c - __zdseg_start
@@ -519,7 +556,7 @@ dseg_006a equ __zdseg_006a - __zdseg_start
 dseg_0081 equ __zdseg_0081 - __zdseg_start
 dseg_009c equ __zdseg_009c - __zdseg_start
 dseg_00a0 equ __zdseg_00a0 - __zdseg_start
-%include "vinstall/data/dseg_0000.asm"     ; 0x3ae0
+%include "vinstall/data/dseg_0002.asm"     ; 0x3ae2
 
 dseg_00b4 equ __zdseg_00b4 - __zdseg_start
 dseg_00c8 equ __zdseg_00c8 - __zdseg_start
@@ -540,156 +577,37 @@ dseg_01af equ __zdseg_01af - __zdseg_start
 dseg_01c6 equ __zdseg_01c6 - __zdseg_start
 %include "vinstall/data/dseg_00b4.asm"     ; 0x3b94
 
-%include "vinstall/data/env.asm"           ; 0x5dee
+%include "vinstall/aztec_fexecv.data.asm"  ; 0x5dea
 
-%include "vinstall/data/cline.asm"         ; 0x5df0
+%include "vinstall/aztec_fexec.data.asm"   ; 0x5dee
 
-%include "vinstall/data/dseg_2312.asm"     ; 0x5df2
+%include "vinstall/aztec_freopen.data.asm" ; 0x5dfc
 
-%include "vinstall/data/fcb1.asm"          ; 0x5df4
+%include "vinstall/aztec_newstream.data.asm" ; 0x5e2a
 
-%include "vinstall/data/dseg_2316.asm"     ; 0x5df6
-
-%include "vinstall/data/fcb2.asm"          ; 0x5df8
-
-%include "vinstall/data/dseg_231a.asm"     ; 0x5dfa
-
-%include "vinstall/data/modes.asm"         ; 0x5dfc
-
-%include "vinstall/data/Cbuffs.asm"        ; 0x5e2a
-
-%include "vinstall/data/dseg_2357.asm"     ; 0x5e37
-
-; first equ __zbss_2538 - __zdseg_start
-%include "shared/data/endmarker.asm"     ; 0x5f2e
+; first equ __zfirst - __zdseg_start
+%include "shared/aztec/aztec_malloc.data.asm"  ; 0x5f2e
 
 %include "vinstall/data/ctp_.asm"          ; 0x5f32
 
-bss_2afe equ __zbss_2afe - __zdseg_start
-%include "vinstall/data/aztec_startup_vars.asm" ; 0x5fb4
+aztec_Uend equ __zbss_2afe - __zdseg_start
+%include "shared/aztec/aztec_begin.data.asm"   ; 0x5fb4
 
-%include "shared/data/cls_.asm"          ; 0x5fe0
-
-%include "shared/data/aztec_croot_empty_str.asm" ; 0x5fe2
-
-%include "shared/data/aztec_croot_too_many_args.asm" ; 0x5fe3
+%include "shared/aztec/aztec_Croot.data.asm"   ; 0x5fe0
 
 %include "shared/data/STKSIZ.asm"        ; 0x5ff2
 
-%include "shared/data/ioflg.asm"         ; 0x5ffa
+%include "shared/aztec/aztec_io.data.asm"      ; 0x5ffa
 
-%include "shared/data/ioflg_stdout.asm"  ; 0x5ffb
-
-%include "shared/data/ioflg_stderr.asm"  ; 0x5ffc
-
-%include "shared/data/ttrd.asm"          ; 0x600e
-
-%include "shared/data/ttwr.asm"          ; 0x6010
-
-%include "shared/data/Eol.asm"           ; 0x6012
-
-%include "shared/data/aztec_tty_wr_crbuf.asm" ; 0x6013
+%include "shared/aztec/aztec_ttyio.data.asm"   ; 0x6012
 
 
 __zimage_end:
 absolute __zimage_end
-__zbss_2534:
-__zbss_2534:
-    resb 0x0002
-__zbss_2536:
-    resb 0x0002
-__zbss_2538:
-    resb 0x0002
-__zbss_253a:
-    resb 0x0002
-__zbss_253c:
-    resb 0x0002
-__zbss_253e:
-    resb 0x0104
-__zbss_2642:
-    resb 0x0002
-__zbss_2644:
-    resb 0x0001
-__zbss_2645:
-    resb 0x0001
-__zbss_2646:
-    resb 0x0001
-__zbss_2647:
-    resb 0x0001
-__zbss_2648:
-    resb 0x0050
-__zbss_2698:
-    resb 0x0002
-__zbss_269a:
-    resb 0x02d0
-__zbss_296a:
-    resb 0x0014
-__zbss_297e:
-    resb 0x0014
-__zbss_2992:
-    resb 0x0014
-__zbss_29a6:
-    resb 0x0014
-__zbss_29ba:
-    resb 0x0001
-__zbss_29bb:
-    resb 0x0001
-__zbss_29bc:
-    resb 0x0014
-__zbss_29d0:
-    resb 0x0001
-__zbss_29d1:
-    resb 0x0001
-__zbss_29d2:
-    resb 0x0002
-__zbss_29d4:
-    resb 0x0001
-__zbss_29d5:
-    resb 0x0001
-__zbss_29d6:
-    resb 0x0001
-__zbss_29d7:
-    resb 0x0001
-__zbss_29d8:
-    resb 0x0002
-__zbss_29da:
-    resb 0x0002
-__zbss_29dc:
-    resb 0x0001
-__zbss_29dd:
-    resb 0x0002
-__zbss_29df:
-    resb 0x0002
-__zbss_29e1:
-    resb 0x0001
-__zbss_29e2:
-    resb 0x0001
-__zbss_29e3:
-    resb 0x0003
-__zbss_29e6:
-    resb 0x0002
-__zbss_29e8:
-    resb 0x0002
-__zbss_29ea:
-    resb 0x0002
-__zbss_29ec:
-    resb 0x0002
-__zbss_29ee:
-    resb 0x0002
-__zbss_29f0:
-    resb 0x0100
-__zbss_2af0:
-    resb 0x0002
-__zbss_2af2:
-    resb 0x0002
-__zbss_2af4:
-    resb 0x0002
-__zbss_2af6:
-    resb 0x0002
-__zbss_2af8:
-    resb 0x0002
-__zbss_2afa:
-    resb 0x0002
+%include "shared/aztec/aztec_malloc.bss.asm"
+%include "shared/aztec/aztec_Croot.bss.asm"
+%include "shared/aztec/aztec_ttyio.bss.asm"
+%include "vinstall/data/globals.asm"
 __zbss_2afc:
     resb 0x0002
 __zbss_2afe:

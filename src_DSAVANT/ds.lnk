@@ -67,7 +67,6 @@ ds/data/unused_int
 ds/data/realm_text_colors
 ds/data/skill_group_ranges
 ds/data/value_clamp_ranges
-ds/data/dseg_010c
 ds/data/score_numbers
 ds/data/party_slot_layout
 ds/data/view_tables
@@ -87,7 +86,7 @@ ds/data/ems_state
 ds/data/mouse_button_count
 ds/data/drv_slots_play
 ds/data/drv_slots_video
-ds/data/cseg_3063
+ds/data/drv_block_table_dest
 ds/library/init_system_hardware
 ds/library/restore_video_and_release_mem
 ds/library/restore_saved_video_state
@@ -97,7 +96,7 @@ ds/library/detect_video_adapter
 ds/data/ega_palette
 ds/data/driver_names
 ds/library/load_video_driver
-ds/data/cseg_35ec
+ds/data/play_drv_name
 ds/library/load_play_driver
 ds/data/loops_per_ms
 ds/library/calibrate_loops_per_ms

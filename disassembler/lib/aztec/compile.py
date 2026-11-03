@@ -294,8 +294,9 @@ class Func:
                 f'len={len(self.code)}, fixups={len(self.fixups)})')
 
 
-#: Bump when the cached data segment representation changes.
-DATA_VERSION = 1
+#: Bump when the cached data segment representation changes.  3: the module's
+#: commons (``commons``).
+DATA_VERSION = 3
 
 
 class CompiledModule:
@@ -319,6 +320,11 @@ class CompiledModule:
         # Names the module imports.  A data name here is not a definition;
         # it must not make this module the owner of the object.
         self.externals = frozenset()
+        # ``((name, size), ...)`` of its commons, in ``ln``'s order.
+        self.commons = ()
+        # Bytes of its own BSS (``static``s), or None for a module cached
+        # before it was kept.
+        self.bss_size = None
         # Caches written before the full data segment was kept have 0.
         self.data_version = 0
 
@@ -355,6 +361,8 @@ class CompiledModule:
                 'data_relocations': [list(row)
                                      for row in self.data_relocations],
                 'externals': sorted(self.externals),
+                'commons': [list(row) for row in self.commons],
+                'bss_size': self.bss_size,
                 'data_version': self.data_version}
 
     @classmethod
@@ -371,6 +379,8 @@ class CompiledModule:
         result.data_relocations = tuple(
             tuple(row) for row in blob.get('data_relocations', ()))
         result.externals = frozenset(blob.get('externals', ()))
+        result.commons = tuple(tuple(row) for row in blob.get('commons', ()))
+        result.bss_size = blob.get('bss_size')
         result.data_version = blob.get('data_version', 0)
         return result
 
@@ -774,6 +784,8 @@ def _build_module(module, omf_path, dump, compiler, kind='c'):
                 fx.symbol_kind = 'LCLSYM'
                 dump.locals[fx.symbol] = dump.code_labels[fx.symbol]
     result.data = _initialized(dump)
+    result.commons = tuple(dump.commons)
+    result.bss_size = dump.bss_size
     result.data_version = DATA_VERSION
     if not os.path.exists(omf_path):
         return result

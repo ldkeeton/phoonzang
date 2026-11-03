@@ -1,4 +1,8 @@
 ; auto-generated
+__zlevel_up_score_number:
+    db 0x21, 0x00
+__zcamp_score_number:
+    db 0x27, 0x00
 __zfile_param_word:
     db 0x26, 0x00
 __zstory_score_file_number:

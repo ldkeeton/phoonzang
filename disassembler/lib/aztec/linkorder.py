@@ -1,12 +1,16 @@
-"""A binary's link order, derived from what its sources emit.
+"""A binary's link order, from the listing and the sidecar's ``emits``.
 
 A listing has one fragment per run of image bytes, but ``ln`` lays out data in
 module order, and a linked module emits its own string literals and initialized
 globals.  So a fragment for bytes a source already emits must not be linked, and
 a data table only has to come ahead of the first module whose data follows it.
 
-The worker that holds the image records what this needs (:func:`record`);
-:func:`arrange` applies it to the listing once the build knows its final paths.
+Which module emits which bytes is a fact no listing shows, so the sidecar holds
+it (``function_names`` ``emits``, :func:`owners`).  The worker that holds the
+image records the fragments' places (:func:`record`); :func:`arrange` applies
+both to the listing once the build knows its final paths.  The compiled
+sources are recorded too, but only :func:`check` reads them, to catch a wrong
+``emits``.
 """
 
 import os
@@ -17,9 +21,6 @@ from .dataowners import _has_checked_bytes, _matches
 #: A DS fragment's labels carry the ``__z`` prefix; a code fragment's do not.
 _DS_LABEL = re.compile(r'^__z(\w+):', re.M)
 _DSEG_NAME = re.compile(r'^dseg_([0-9a-f]+)$')
-#: ``ln`` itself writes this word at DS:0; a listing shows it as an unlabelled
-#: fragment.
-_GUARD_WORD = re.compile(r'\A(?:;[^\n]*\n|\s)*db 0x00, 0x00\s*\Z')
 _DATA_FRAGMENT = re.compile(r'(?:^|/)data/(\w+)\.asm$')
 
 
@@ -52,21 +53,18 @@ def record(segments, image, sources, split_sources):
     names = {str(name): offset for offset, name
              in (getattr(segments, 'data_names', None) or {}).items()
              if segments.data_space(offset) != 'bss'}
-    starts, guards = {}, []
+    starts = {}
     for rel, text in split_sources.items():
         fragment = _DATA_FRAGMENT.search(rel)
         if not fragment:
-            continue
-        if _GUARD_WORD.match(text):
-            guards.append(fragment.group(1))
             continue
         start = _fragment_start(text, names)
         if start is not None:
             starts[fragment.group(1)] = start
     return {
+        'origin': origin,
         'dseg': bytes(image[origin:end]).hex(),
         'starts': starts,
-        'guards': sorted(guards),
         'sources': {
             os.path.splitext(source['path'])[0]: {
                 'data': bytes(source['data']).hex(),
@@ -78,8 +76,8 @@ def record(segments, image, sources, split_sources):
 def source_spans(listed, sources, dseg, starts=None):
     """``{module: (start, end)}`` of the DS bytes each listed module emits.
 
-    Modules emit in link order, so each is at the first match after the one
-    before it.  That also places data with nothing to compare, such as a table
+    Modules emit in link order, so each is at the first word-aligned match
+    after the one before it.  That also places data with nothing to compare, such as a table
     of relocations or all zeros, which could otherwise be anywhere.  A data
     source's place is known (*starts*), wherever it is listed, so no other
     module can be there.
@@ -97,7 +95,9 @@ def source_spans(listed, sources, dseg, starts=None):
         one = {'data': data, 'relocations': source['relocations']}
         if cursor is None and not _has_checked_bytes(one):
             continue
-        for base in range(cursor or 0, len(dseg) - len(data) + 1):
+        # ln starts each module's data on a word.
+        for base in range(-(-(cursor or 0) // 2) * 2,
+                          len(dseg) - len(data) + 1, 2):
             if (_matches(one, dseg, base) and not any(
                     lo < base + len(data) and base < hi for lo, hi in taken)):
                 spans[module] = (base, base + len(data))
@@ -106,25 +106,61 @@ def source_spans(listed, sources, dseg, starts=None):
     return spans
 
 
-def arrange(listed, info, extras=()):
-    """The link order of *listed* for *info* from :func:`record`.
+def _starts(listed, info):
+    """``{listed data fragment: its DS start}``."""
+    return {m: info['starts'][_stem(m)] for m in listed
+            if is_data_module(m) and _stem(m) in info['starts']}
 
-    *extras* are data sources with no fragment: they have no bytes in the image,
-    so they go ahead of the code.
+
+def _stem(module):
+    return module.rsplit('/', 1)[-1]
+
+
+#: A listing line that includes a module, and the file offset it starts at.
+_INCLUDE_AT = re.compile(r'^\s*%include\s+"([^"]+)\.asm"\s*;\s*0x([0-9a-f]+)', re.M)
+
+
+def listed_starts(listing, info):
+    """*info* with the DS start of every data fragment the *listing*
+    includes, from its ``%include`` comment, for a fragment that opens with
+    no label to place it (``aztec_fexecv``'s data).  Data in the code
+    segment, before the DS, has no DS start."""
+    if not info or 'origin' not in info:
+        return info
+    found = {_stem(module): int(offset, 16) - info['origin']
+             for module, offset in _INCLUDE_AT.findall(listing)
+             if is_data_module(module) and int(offset, 16) >= info['origin']}
+    return {**info, 'starts': {**found, **info['starts']}}
+
+
+def owners(listing, emitted):
+    """``{module: (DS start, DS end)}`` of what each module's source emits.
+
+    *emitted* is the sidecar's ``emits`` ranges by the file offset of the
+    module's start (:func:`lib.sidecar.binary.emitted_ranges`); the *listing*
+    gives the module that starts there.  An offset no module starts at is an
+    error: the entry would apply to nothing."""
+    at = {int(offset, 16): module for module, offset in _INCLUDE_AT.findall(listing)}
+    missing = sorted(offset for offset in emitted if offset not in at)
+    if missing:
+        raise ValueError('function_names ' + ', '.join(f'{o:04x}' for o in missing)
+                         + ': emits, but no module starts there')
+    return {at[offset]: span for offset, span in emitted.items()}
+
+
+def arrange(listed, info, emitted=None):
+    """The link order of *listed* for *info* from :func:`record`, given
+    *emitted* from :func:`owners`.
+
+    A data fragment that starts inside a module's ``emits`` range is that
+    module's own data, so it is not linked.  Every other data fragment goes
+    ahead of the first module whose data follows it.
     """
-    def stem(module):
-        return module.rsplit('/', 1)[-1]
-
-    fragments = [m for m in listed if is_data_module(m)]
     if not info:
-        return [*extras, *listed]
-
-    dseg = bytes.fromhex(info['dseg'])
-    starts = {m: info['starts'][stem(m)] for m in fragments
-              if stem(m) in info['starts']}
-    spans = source_spans(listed, info['sources'], dseg, starts)
-    dropped = {m for m in fragments if stem(m) in info['guards']}
-    dropped |= {m for m, at in starts.items()
+        return list(listed)
+    spans = {m: span for m, span in (emitted or {}).items() if m in listed}
+    starts = _starts(listed, info)
+    dropped = {m for m, at in starts.items()
                 if any(lo <= at < hi for lo, hi in spans.values())}
     pending = sorted((m for m in starts if m not in dropped), key=starts.get)
     placed = set(pending)
@@ -136,11 +172,28 @@ def arrange(listed, info, extras=()):
             while pending and starts[pending[0]] < spans[module][0]:
                 out.append(pending.pop(0))
         out.append(module)
-    # Tables that lead the data segment come first, then the extras.
-    lead = sum(1 for m in out if m in placed and not any(
-        n not in placed for n in out[:out.index(m)]))
     if spans and pending:
         out.extend(pending)
     elif pending:
-        return [*extras, *(m for m in listed if m not in dropped)]
-    return [*out[:lead], *extras, *out[lead:]]
+        return [m for m in listed if m not in dropped]
+    return out
+
+
+def check(listed, info, emitted):
+    """The disagreements between the sidecar's ``emits`` (*emitted*) and what
+    the compiled sources emit, one line each.  Verification only: the link
+    order never reads a source."""
+    if not info or not info.get('sources'):
+        return []
+    spans = source_spans(listed, info['sources'], bytes.fromhex(info['dseg']),
+                         _starts(listed, info))
+    lines = []
+    for module in sorted(set(spans) | {m for m in emitted if m in listed}):
+        got, want = spans.get(module), emitted.get(module)
+        if module not in spans and module not in info['sources']:
+            continue
+        if got != want:
+            show = lambda s: 'nothing' if s is None else f'0x{s[0]:04x}-0x{s[1]:04x}'
+            lines.append(f'{module}: its source emits DS {show(got)}, the '
+                         f'sidecar\'s emits says {show(want)}')
+    return lines

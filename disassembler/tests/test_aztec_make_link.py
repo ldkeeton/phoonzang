@@ -82,25 +82,74 @@ class GenerateTest(unittest.TestCase):
 
 
 class LinkOrderTest(unittest.TestCase):
-    #: DS: table 'TT', then 'abc' from c/one, 'de' from c/two, then a late table.
-    DSEG = b'\0\0TTabcdeZZ'
-    INFO = {'dseg': DSEG.hex(), 'guards': ['guard'],
-            'starts': {'table': 2, 'strings': 4, 'late': 9},
+    #: DS: table 'TT', then 'abc' from c/one and its word pad, 'de' from
+    #: c/two, then a late table.
+    DSEG = b'\0\0TTabc\0deZZ'
+    INFO = {'dseg': DSEG.hex(),
+            'starts': {'table': 2, 'strings': 4, 'late': 10},
             'sources': {'c/one': {'data': b'abc'.hex(), 'relocations': []},
                         'c/two': {'data': b'de'.hex(), 'relocations': []}}}
-    LISTED = ['c/zero', 'c/one', 'c/two', 'b/data/guard', 'b/data/table',
-              'b/data/strings', 'b/data/late']
+    LISTED = ['c/zero', 'c/one', 'c/two', 'b/data/table', 'b/data/strings',
+              'b/data/late']
+    #: The sidecar's ``emits``: what INFO's sources emit.
+    EMITTED = {'c/one': (4, 7), 'c/two': (8, 10)}
+    ORDER = ['c/zero', 'b/data/table', 'c/one', 'c/two', 'b/data/late']
 
     def test_no_owned_data_keeps_the_listing(self):
         self.assertEqual(linkorder.arrange(['a', 'b/data/t', 'c'], None),
                          ['a', 'b/data/t', 'c'])
 
-    def test_owned_dropped_tables_placed_extras_ahead_of_code(self):
+    def test_emitted_dropped_and_tables_placed(self):
         self.assertEqual(
-            linkorder.arrange(self.LISTED, self.INFO,
-                              ['b/data/globals']),
-            ['b/data/globals', 'c/zero', 'b/data/table', 'c/one', 'c/two',
-             'b/data/late'])
+            linkorder.arrange(self.LISTED, self.INFO, self.EMITTED), self.ORDER)
+
+    def test_order_needs_no_source(self):
+        info = {k: v for k, v in self.INFO.items() if k not in ('dseg', 'sources')}
+        self.assertEqual(
+            linkorder.arrange(self.LISTED, info, self.EMITTED), self.ORDER)
+
+    def test_without_emits_nothing_drops(self):
+        self.assertEqual(linkorder.arrange(self.LISTED, self.INFO, {}),
+                         self.LISTED)
+
+    def test_check_agrees(self):
+        self.assertEqual(
+            linkorder.check(self.LISTED, self.INFO, self.EMITTED), [])
+
+    def test_check_reports_a_wrong_emits(self):
+        lines = linkorder.check(self.LISTED, self.INFO,
+                                {'c/one': (4, 6), 'c/two': (8, 10)})
+        self.assertEqual(len(lines), 1)
+        self.assertIn('c/one: its source emits DS 0x0004-0x0007', lines[0])
+
+    def test_module_data_starts_on_a_word(self):
+        # All-relocation data fits anywhere; ln still puts it on a word.
+        sources = {'c/one': {'data': b'abc'.hex(), 'relocations': []},
+                   'c/two': {'data': '0000', 'relocations': [[0, 2]]}}
+        self.assertEqual(linkorder.source_spans(['c/one', 'c/two'], sources,
+                                                b'abc\0\0\0'),
+                         {'c/one': (0, 3), 'c/two': (4, 6)})
+
+    def test_listed_starts_places_an_unlabelled_fragment(self):
+        listing = ('%include "b/data/table.asm"  ; 0x0020\n'
+                   '%include "b/data/bare.asm"   ; 0x0128\n'
+                   '%include "b/data/strings.asm" ; 0x0104\n')
+        info = linkorder.listed_starts(
+            listing, {'origin': 0x100, 'starts': {'strings': 4}})
+        # Code-segment data (before the DS) has no DS start; a label wins.
+        self.assertEqual(info['starts'], {'bare': 0x28, 'strings': 4})
+
+    def test_check_skips_a_module_without_source(self):
+        info = dict(self.INFO, sources={})
+        self.assertEqual(linkorder.check(self.LISTED, info, self.EMITTED), [])
+
+    def test_owners_by_listing_offset(self):
+        listing = ('%include "c/one.asm"   ; 0x0100\n'
+                   '%include "c/two.asm"   ; 0x0180\n')
+        self.assertEqual(linkorder.owners(listing, {0x180: (7, 9)}),
+                         {'c/two': (7, 9)})
+        with self.assertRaises(ValueError):
+            linkorder.owners(listing, {0x150: (7, 9)})
 
     def test_a_data_source_is_stepped_over(self):
         dseg = b'ab\0\0' + bytes(4)
@@ -254,6 +303,22 @@ class LnComJumpTest(unittest.TestCase):
     def test_rejects_a_routine_running_past_the_jump(self):
         with self.assertRaises(SidecarError):
             render.use_ln_com_jump([], [(0, 4, 'a')], {}, self.JUMP + b'\xc3')
+
+
+class LnDsZeroTest(unittest.TestCase):
+    def test_cuts_the_word_off_the_data(self):
+        block = {'type': 'data_block', 'start': 4, 'end': 8}
+        records = render._use_ln_ds_zero([block], b'\xc3\0\0\0\0\0TT', 4)
+        self.assertEqual(records, [
+            {'type': 'include', 'text': render.LN_DS_ZERO, 'offset': 4},
+            {**block, 'start': 6}])
+
+    def test_master_defines_the_macro(self):
+        self.assertIn(f'%macro {render.LN_DS_ZERO} 0', render.nasm_macros_text())
+
+    def test_rejects_a_data_segment_without_the_word(self):
+        with self.assertRaises(SidecarError):
+            render._use_ln_ds_zero([], b'\x01\0', 0)
 
 
 class CompareBytesTest(unittest.TestCase):

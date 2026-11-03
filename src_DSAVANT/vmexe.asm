@@ -218,30 +218,5 @@ __zdata_start:
 
 __zimage_end:
 absolute __zimage_end
-__zobss_90bc:
-    resb 0x000e
-__zobss_90ca:
-    resb 0x0012
-__zobss_90dc:
-    resb 0x0002
-__zobss_90de:
-    resb 0x0002
-__zobss_90e0:
-    resb 0x0002
-__zobss_90e2:
-    resb 0x0002
-__zobss_90e4:
-    resb 0x0002
-__zobss_90e6:
-    resb 0x0050
-__zobss_9136:
-    resb 0x0050
-__zobss_9186:
-    resb 0x0050
-__zobss_91d6:
-    resb 0x0002
-__zobss_91d8:
-    resb 0x0002
-__zobss_91da:
-    resb 0x0002
+%include "vmexe/data/globals.asm"
 __zobss_end:

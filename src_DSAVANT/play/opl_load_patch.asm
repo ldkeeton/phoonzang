@@ -38,7 +38,7 @@ opl_load_patch:
     shl bl, 1                        ; 0x13d3
     xor bh, bh                       ; 0x13d5
     mov ch, byte [cs:bx + opl_operator_map - IMAGE_BASE] ; 0x13d7
-    mov bx, cseg_1418 - IMAGE_BASE   ; 0x13dc
+    mov bx, opl_patch_register_map - IMAGE_BASE ; 0x13dc
 .back1:
     mov al, byte [cs:bx]             ; 0x13df
     xor ah, ah                       ; 0x13e2
@@ -64,9 +64,3 @@ opl_load_patch:
     pop cx                           ; 0x1411
     pop bx                           ; 0x1412
     ret                              ; 0x1413
-    db 0x01, 0x40, 0x06, 0x43
-cseg_1418:
-
-    db 0x00, 0x20, 0x02, 0x60, 0x03, 0x80, 0x04, 0xe0, 0x05, 0x23, 0x07, 0x63, 0x08, 0x83, 0x09, 0xe3
-    db 0xff
-

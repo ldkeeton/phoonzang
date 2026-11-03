@@ -732,6 +732,35 @@ def _split_ds_start(records, gap):
     return out
 
 
+def _use_ln_ds_zero(records, binary_data, origin):
+    """DS:0 as the macro, not as data: ``ln`` writes that word, so no source
+    owns it.  A data segment that does not start with it is an error."""
+    from lib.compare.records import _record_span
+    from lib.sidecar.errors import SidecarError
+    size = len(_LN_DS_ZERO_BYTES)
+    if binary_data[origin:origin + size] != _LN_DS_ZERO_BYTES:
+        raise SidecarError(
+            f'a data segment must start with {_LN_DS_ZERO_BYTES.hex(" ")}, the '
+            f'word ln writes; this one starts '
+            f'{binary_data[origin:origin + size].hex(" ")}')
+    out = []
+    for rec in records:
+        start, end = _record_span(rec)
+        if (end <= origin or start >= origin + size
+                or rec['type'] in ('label', 'ds_start')):
+            out.append(rec)
+        elif rec['type'] == 'data_block' and start == origin:
+            out.append({'type': 'include', 'text': LN_DS_ZERO,
+                        'offset': origin})
+            if end > origin + size:
+                out.append({**rec, 'start': origin + size})
+        else:
+            raise SidecarError(
+                f'a record at 0x{start:x}-0x{end:x} overlaps the word ln '
+                'writes at DS:0')
+    return out
+
+
 def image_geometry(records, binary_data, start_offset, ds_size):
     """``{symbol: value}`` for the image-size symbols the renderer defines.
 
@@ -825,6 +854,9 @@ _NASM_MACROS_MASTER = os.path.join(
 #: The macro emitting what ``ln`` puts at the start of a ``.COM``.
 LN_COM_JUMP = 'ln_com_jump'
 _LN_COM_BYTES = b'\xe9\x00\x00'
+#: The macro emitting the word ``ln`` puts at DS:0 of a program.
+LN_DS_ZERO = 'ln_ds_zero'
+_LN_DS_ZERO_BYTES = b'\x00\x00'
 
 
 def nasm_macros_text():
@@ -943,13 +975,15 @@ def _bss_block_lines(labels):
     return lines
 
 
-def _data_file_spans(split_records, prefix):
-    """``{path: (start, end, {label: offset})}`` of the fragments under *prefix*,
-    so a source beside one can be checked against the image's bytes."""
+def _data_file_spans(split_records, prefix, data_homes=None):
+    """``{path: (start, end, {label: offset})}`` of the fragments under
+    *prefix*, and of a module's own data beside its code (*data_homes*), so a
+    source beside one can be checked against the image's bytes."""
     from lib.compare.records import _record_span
     out = {}
     for path, fragment in split_records.items():
-        if not path.startswith(prefix):
+        if not (path.startswith(prefix) or (
+                data_homes and path.endswith('.data.asm'))):
             continue
         spans = [_record_span(rec) for rec in fragment if rec['type'] != 'label']
         if spans:
@@ -960,6 +994,41 @@ def _data_file_spans(split_records, prefix):
     return out
 
 
+def _cut_data_blocks(records, cuts):
+    """*records* with each ``data_block`` cut at the offsets *cuts* inside it.
+
+    A block is only bytes, so cutting it moves no byte; it lets a module's
+    data (sidecar ``emits``) end where the next module's starts.
+    """
+    out = []
+    for rec in records:
+        if rec['type'] != 'data_block':
+            out.append(rec)
+            continue
+        start, end = rec['start'], rec['end']
+        points = sorted(at for at in cuts if start < at < end)
+        for lo, hi in zip([start, *points], [*points, end]):
+            out.append({**rec, 'start': lo, 'end': hi})
+    return out
+
+
+def _owned_data_groups(data_owners, split_ranges, file_stems):
+    """``([(start, end, stem)], {start: (code start, name)})``: each module's
+    emitted data as one file ``<code stem>.data``, and the routine whose
+    entry declares it, whose folder the file shares."""
+    from lib.compare.splitting import _file_stem
+    names = {start: name for start, _, name in split_ranges or ()}
+    groups, homes = [], {}
+    for at, (start, end) in sorted((data_owners or {}).items()):
+        if at not in names:
+            raise ValueError(f'emits at 0x{at:04x}: no code fragment starts '
+                             'there')
+        stem = (file_stems or {}).get(at) or _file_stem(str(names[at]))
+        groups.append((start, end, f'{stem}.data'))
+        homes[start] = (at, names[at])
+    return groups, homes
+
+
 def _build_source(records, start_offset, binary_data, label_map=None, show_offsets=True,
                   split_ranges=None,
                   split_dir='ds', mem_equ=None, image_base=None, entry_symbol=None,
@@ -968,7 +1037,7 @@ def _build_source(records, start_offset, binary_data, label_map=None, show_offse
                   bands=(), data_modules=(), structs_inc=None,
                   message_symbols=None, message_inc=None, file_stems=None,
                   drivers_inc=None, data_groups=(), data_files=None,
-                  ln_com=False):
+                  data_owners=None, ln_com=False, ln_mz=False):
     """Render the master NASM source and any generated includes.
 
     *structs_inc* is the text of the host family's record layouts
@@ -978,7 +1047,9 @@ def _build_source(records, start_offset, binary_data, label_map=None, show_offse
     ``DRIVERS_INC`` the same way.
 
     *data_groups* ``[(start, end, stem)]`` are sidecar-declared spans of data
-    that make one file each, labels inside kept.
+    that make one file each, labels inside kept.  *data_owners*
+    ``{code start: (start, end)}`` (sidecar ``emits``) are the data each code
+    module emits: one file each, named like that module's code file.
 
     *host_symbols* is ``(master_file, host_vbase)`` for an overlay with a host:
     the master pulls the host source in through ``HOST_SYMBOLS_INC`` -- which is
@@ -1001,6 +1072,8 @@ def _build_source(records, start_offset, binary_data, label_map=None, show_offse
     # assembler's ``vstart``) is ``o_corg - start_offset``.  NASM resolves the
     # forward reference, which lives in the host source included at the end.
     corg_symbol = _RESIDENT_END_SYMBOL if host_symbols else None
+    macros_include = ([f'%include "{NASM_MACROS_INC}"'] if ln_com or ln_mz
+                      else [])
     if vbase:
         # The image is assembled at the address it runs at (``vstart``), so a
         # label's value is its real CS offset and a host/overlay call needs no
@@ -1012,7 +1085,7 @@ def _build_source(records, start_offset, binary_data, label_map=None, show_offse
                       else _signed_hex(vbase))
         out = ['bits 16', *_structs_include_lines(structs_inc),
                *_drivers_include_lines(drivers_inc),
-               *_message_include_lines(message_inc)]
+               *_message_include_lines(message_inc), *macros_include]
         if host_symbols:
             # The host source comes *first*: it defines the absolute anchor the
             # overlay's load origin derives from, and ``section ... vstart=``
@@ -1032,7 +1105,7 @@ def _build_source(records, start_offset, binary_data, label_map=None, show_offse
         out = ['org 0', 'bits 16', *_structs_include_lines(structs_inc),
                *_drivers_include_lines(drivers_inc),
                *_message_include_lines(message_inc),
-               *([f'%include "{NASM_MACROS_INC}"'] if ln_com else [])]
+               *macros_include]
     code_value = (lambda addr: f'0x{addr:04x} + VBASE') if vbase else (
         lambda addr: f'0x{addr:04x}')
 
@@ -1236,7 +1309,9 @@ def _build_source(records, start_offset, binary_data, label_map=None, show_offse
                 if value >= bss_boundary:
                     # A BSS object is a label in the BSS block after the image.
                     label = f'__zbss_{value:04x}'
-                    mz_bss.setdefault(value - bss_boundary, []).append(label)
+                    at = mz_bss.setdefault(value - bss_boundary, [])
+                    if label not in at:  # two names, one object: one label
+                        at.append(label)
                     expr = f'{label} - __zdseg_start'
             if expr is None and data_space(name) is Space.CSEG:
                 # A CS-reached byte: a label on it (data or an instruction
@@ -1302,9 +1377,17 @@ def _build_source(records, start_offset, binary_data, label_map=None, show_offse
         out.append('')
 
     records = _split_ds_start(records, gap)
+    if ln_mz and gap is not None:
+        records = _use_ln_ds_zero(records, binary_data, gap[1])
     data_ranges = _select_data_ranges(records, data_roots, binary_data,
                                       data_modules)
-    data_ranges = _group_data_ranges(data_ranges, records, data_groups)
+    if data_owners:
+        records = _cut_data_blocks(
+            records, {at for span in data_owners.values() for at in span})
+    owned_groups, data_homes = _owned_data_groups(data_owners, split_ranges,
+                                                  file_stems)
+    data_ranges = _group_data_ranges(data_ranges, records,
+                                     [*data_groups, *owned_groups])
     # Every other data byte too: the master file is layout only.
     data_ranges = sorted([*data_ranges, *_select_leftover_data_ranges(
         records, [*(split_ranges or ()), *data_ranges],
@@ -1312,7 +1395,7 @@ def _build_source(records, start_offset, binary_data, label_map=None, show_offse
     main_records, split_records = _partition_function_records(
         records, [*(split_ranges or ()), *data_ranges], split_dir, bands,
         data_starts={start for start, _, _ in data_ranges},
-        file_stems=file_stems,
+        file_stems=file_stems, data_homes=data_homes,
     )
     out.extend(_render_records(main_records, binary_data, show_offsets, gap=gap,
                                ds_size=ds_size, ds_end_symbol=ds_end_symbol,
@@ -1321,7 +1404,8 @@ def _build_source(records, start_offset, binary_data, label_map=None, show_offse
                                corg_symbol=corg_symbol))
 
     if data_files is not None:
-        data_files.update(_data_file_spans(split_records, f'{split_dir}/data/'))
+        data_files.update(_data_file_spans(split_records, f'{split_dir}/data/',
+                                           data_homes))
     split_sources = {
         path: '\n'.join(_render_records(fragment, binary_data, show_offsets,
                                         ds_size=ds_size,
@@ -1346,7 +1430,7 @@ def _build_source(records, start_offset, binary_data, label_map=None, show_offse
     if drivers_inc:
         from lib.match.driver_slots import DRIVERS_INC
         split_sources[DRIVERS_INC] = drivers_inc
-    if ln_com:
+    if macros_include:
         split_sources[NASM_MACROS_INC] = nasm_macros_text()
     if is_mz or (start_offset >= 14 and len(binary_data) >= 14
                  and binary_data[:2] == b'\xf2\x00'):

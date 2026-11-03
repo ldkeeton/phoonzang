@@ -592,19 +592,26 @@ def _layout_labels_first(records):
 
 
 def _partition_function_records(records, split_ranges, split_dir, bands=(),
-                                data_starts=(), file_stems=None):
+                                data_starts=(), file_stems=None,
+                                data_homes=None):
     """Replace selected contiguous function spans with include records.
 
     *bands* (:mod:`lib.sidecar.bands`) puts each fragment in its band's
     folder (``ds/game/x.asm``).  A range starting in *data_starts* is a data
     object (:func:`_select_data_ranges`): its file goes in the binary's
-    ``data`` folder (``vinstall/data/ctp_.asm``), banded or not.
+    ``data`` folder (``vinstall/data/ctp_.asm``), banded or not -- but for
+    one in *data_homes* (``{start: (code start, name)}``), a module's own
+    data, whose file goes in its code's folder (``ds/game/main.data.asm``).
     *file_stems* (``{start: stem}``, sidecar ``file``) names a fragment's
     file other than after its head label.
     """
     file_stems = file_stems or {}
 
+    data_homes = data_homes or {}
+
     def folder(start, name):
+        if start in data_homes:
+            return _band_dir(split_dir, bands, *data_homes[start])
         if start in data_starts:
             return f'{split_dir}/data'
         return _band_dir(split_dir, bands, start, name)
@@ -674,8 +681,9 @@ def _partition_function_records(records, split_ranges, split_dir, bands=(),
     records = _layout_labels_first(partitioned_records)
 
     main_records = []
-    split_records = {name: [] for _, _, name in ranges}
-    split_bytes = {name: 0 for _, _, name in ranges}
+    # By start: a data file may share its owner's name (``main``).
+    split_records = {start: [] for start, _, _ in ranges}
+    split_bytes = {start: 0 for start, _, _ in ranges}
     include_inserted = set()
     # The ranges are sorted and disjoint, so their starts and ends both are.
     range_starts = [start for start, _, _ in ranges]
@@ -706,7 +714,7 @@ def _partition_function_records(records, split_ranges, split_dir, bands=(),
             continue
 
         start, end, name = owner
-        if name not in include_inserted:
+        if start not in include_inserted:
             filename = file_stems.get(start) or _file_stem(name)
             if not filename:
                 raise ValueError(f'cannot make include filename for function {name!r}')
@@ -716,17 +724,17 @@ def _partition_function_records(records, split_ranges, split_dir, bands=(),
                         f'/{filename}.asm"',
                 'offset': start,
             })
-            include_inserted.add(name)
-        split_records[name].append(rec)
+            include_inserted.add(start)
+        split_records[start].append(rec)
         if rec['type'] != 'label':
-            split_bytes[name] += rec_end - rec_start
+            split_bytes[start] += rec_end - rec_start
 
     for start, end, name in ranges:
-        if name not in include_inserted:
+        if start not in include_inserted:
             raise ValueError(f'{name}: no emitted records in split range 0x{start:x}-0x{end:x}')
-        if split_bytes[name] != end - start:
+        if split_bytes[start] != end - start:
             raise ValueError(
-                f'{name}: split records cover {split_bytes[name]} bytes, '
+                f'{name}: split records cover {split_bytes[start]} bytes, '
                 f'expected {end - start} for 0x{start:x}-0x{end:x}'
             )
 
@@ -734,5 +742,5 @@ def _partition_function_records(records, split_ranges, split_dir, bands=(),
     for start, _, name in ranges:
         filename = file_stems.get(start) or _file_stem(name)
         split_sources[f'{folder(start, name)}/{filename}.asm'] = \
-            split_records[name]
+            split_records[start]
     return main_records, split_sources

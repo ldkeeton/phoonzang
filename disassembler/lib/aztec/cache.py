@@ -389,10 +389,11 @@ def data_spans(project, binary, label, entry, source_text):
 def _stale(module):
     """True for a cache miss, or a module cached before its segment and its
     data were kept (the build needs both).  A module that is only data
-    (``stksiz.c``) has no segment, only its data."""
+    (``stksiz.c``) has no segment, only its data; one that only declares
+    globals (``globals.c``) has only its commons."""
     return module is None or (isinstance(module, CompiledModule) and (
         module.data_version < DATA_VERSION
-        or (module.segment is None and not module.data)
+        or (module.segment is None and not module.data and not module.commons)
         or any(f.data_locals is None for f in module.functions.values())))
 
 
@@ -406,6 +407,13 @@ def data_entry(filename):
 def compile_data(project, binary, label, entry, source_text):
     """The initialized data *source_text* compiles to (``b''`` for none),
     through the ``objs`` cache like :func:`compile_source_module`."""
+    return compiled(project, binary, label, entry, source_text).data or b''
+
+
+def compiled(project, binary, label, entry, source_text):
+    """The :class:`lib.aztec.compile.CompiledModule` *source_text* compiles
+    to, through the ``objs`` cache; unlike :func:`compile_source_module` it
+    needs no code segment, so a data-only module is fine."""
     from . import compile as azc
 
     headers_dir = sources.project_include_dir(project)
@@ -420,7 +428,49 @@ def compile_data(project, binary, label, entry, source_text):
         objcache.save(objs_dir(project), key, module)
     if isinstance(module, Exception):
         raise module
-    return module.data or b''
+    return module
+
+
+def compile_bss(project, binary, label, entry, source_text):
+    """``(own BSS size, commons)`` of *source_text*'s object, through the
+    ``objs`` cache like :func:`compiled`; a module cached before its BSS size
+    was kept compiles again."""
+    from . import compile as azc
+
+    headers_dir = sources.project_include_dir(project)
+    key = _module_key(project, binary, label, entry, source_text)
+    module = objcache.load(objs_dir(project), key)
+    if _stale(module) or (isinstance(module, CompiledModule)
+                          and module.bss_size is None):
+        kind, flags = _tool(project, binary, label, entry)
+        module = azc.compile_module(
+            source_text, label, compiler=entry['compiler'],
+            includes=entry['includes'], flags=flags, kind=kind,
+            headers_dir=headers_dir)
+        objcache.save(objs_dir(project), key, module)
+    if isinstance(module, Exception):
+        raise module
+    return module.bss_size, module.commons
+
+
+def compile_commons(project, binary, label, entry, source_text):
+    """The ``((name, size), ...)`` commons *source_text* declares, in ``ln``'s
+    order, through the ``objs`` cache like :func:`compile_data`."""
+    from . import compile as azc
+
+    headers_dir = sources.project_include_dir(project)
+    key = _module_key(project, binary, label, entry, source_text)
+    module = objcache.load(objs_dir(project), key)
+    if _stale(module):
+        kind, flags = _tool(project, binary, label, entry)
+        module = azc.compile_module(
+            source_text, label, compiler=entry['compiler'],
+            includes=entry['includes'], flags=flags, kind=kind,
+            headers_dir=headers_dir)
+        objcache.save(objs_dir(project), key, module)
+    if isinstance(module, Exception):
+        raise module
+    return module.commons
 
 
 def compile_source_module(project, binary, label, entry, source_text):

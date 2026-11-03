@@ -307,14 +307,17 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
            foreign_message_params=None,
            sidecar_use=None, bands=(), data_modules=(),
            driver_slot_words=None, drivers_inc=None, data_groups=(),
-           ln_com=False):
+           data_owners=None, ln_com=False, ln_mz=False):
     """Produce NASM source text from *binary_data* and *instructions*.
 
     *driver_slot_words* ``{offset: text}`` are the ``driver_slots`` far
     pointers, spelled with the entry macros *drivers_inc* defines
     (:mod:`lib.match.driver_slots`).  *ln_com* marks a binary ``ln`` links as a
-    ``.COM``: :func:`lib.compare.render.use_ln_com_jump`.  *data_groups* ``[(start, end, stem)]``
-    are sidecar-declared spans of data that make one file each.
+    ``.COM``: :func:`lib.compare.render.use_ln_com_jump`; *ln_mz* as a
+    program, whose DS:0 word is ``ln_ds_zero``.  *data_groups* ``[(start, end, stem)]``
+    are sidecar-declared spans of data that make one file each;
+    *data_owners* ``{code start: (start, end)}`` the data each code module
+    emits (sidecar ``emits``), one file named like its code.
 
     *sidecar_use* (a :class:`lib.sidecar.usage.SidecarUse`) learns which of
     the sidecar entries handed in here were applied.  *bands* (the sidecar's,
@@ -1415,8 +1418,9 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
         file_stems=fragment_files,
         drivers_inc=drivers_inc if driver_slot_words else None,
         data_groups=data_groups,
+        data_owners=data_owners,
         data_files=data_files,
-        ln_com=ln_com,
+        ln_com=ln_com, ln_mz=ln_mz,
     )
     t6 = time.perf_counter()
     progress.log(f'{name} | verify: source built')

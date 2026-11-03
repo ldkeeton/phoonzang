@@ -140,6 +140,10 @@ class ObjDump:
         self.locals = {}
         self.data_locals = {}
         self.bss_locals = set()
+        # ``(name, size)`` of each common, in the order ``ln`` meets them.
+        self.commons = ()
+        # Bytes of the module's own BSS (its ``static``s; not its commons).
+        self.bss_size = None
         self.statics = {}           # static routine C name -> code offset
         # Every non-public code symbol, as the object spells it -> offset: in
         # an assembled module these are its labels (``cpyloop``).
@@ -388,6 +392,8 @@ def attach_locals(dump, blob):
     dump.bss_locals = {f'.{n}' for n, (kind, seg, _) in enumerate(typed)
                        if seg == _SEG_DATA and kind == _TYPE_BSS}
     dump.statics = o_static_routines(blob)
+    dump.commons = o_commons(blob)
+    dump.bss_size = o_bss_size(blob)
     dump.code_labels = {name: value
                         for kind, flags, value, name in o_symbols(blob)
                         if kind == _SYM_DEFINED_CODE
@@ -399,6 +405,10 @@ def attach_locals(dump, blob):
 # table's offset (bytes 16-17) and its length (18-19).
 _SYM_DEFINED_CODE = 0x02
 _SYM_GLOBAL = 0x08
+#: An external: with :data:`_SYM_COMMON` set a common (``int x;``, its value
+#: the size), otherwise only a reference (value 0).
+_SYM_EXTERNAL = 0x07
+_SYM_COMMON = 0x02
 
 
 def o_symbols(blob):
@@ -416,6 +426,25 @@ def o_symbols(blob):
                     blob[pos + 4:end].decode('latin1')))
         pos = end + 1
     return out
+
+
+def o_bss_size(blob):
+    """Bytes of BSS the ``.O`` reserves itself: its header's word at 14, after
+    the code (10) and data (12) sizes.  A common is not in it -- ``ln``
+    places those after every module's own BSS."""
+    if len(blob) < 16:
+        return None
+    return int.from_bytes(blob[14:16], 'little')
+
+
+def o_commons(blob):
+    """``((name, size), ...)`` of the ``.O``'s commons in symbol-table order:
+    the order each is first mentioned, which is the order ``ln`` lays them
+    out when this object is the first to name them.  ``cc`` writes a file's
+    ``global``s in reverse, so ``int a; int b;`` gives ``b_`` then ``a_``."""
+    return tuple((name, value) for kind, flags, value, name in o_symbols(blob)
+                 if kind == _SYM_EXTERNAL and flags & _SYM_GLOBAL
+                 and flags & _SYM_COMMON)
 
 
 def o_static_routines(blob):

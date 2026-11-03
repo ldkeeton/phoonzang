@@ -187,7 +187,7 @@ api_idx_000c_NVIQ:
     push ax                          ; 0x5324
     call load_score_files            ; 0x5325
     add sp, byte 4                   ; 0x5328
-    mov ax, word [dseg_010c]         ; 0x532b
+    mov ax, word [level_up_score_number] ; 0x532b
     mov word [story_score_number], ax ; 0x532e
     mov ax, 1                        ; 0x5331
     push ax                          ; 0x5334

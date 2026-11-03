@@ -1,4 +1,5 @@
 # auto-generated
+vmaze/data/globals
 vmaze/ovmain
 vmaze/maybe_play_maze_ambient_sound
 vmaze/stop_and_clear_maze_sounds

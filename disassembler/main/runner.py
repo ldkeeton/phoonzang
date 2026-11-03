@@ -850,6 +850,27 @@ def _declared_cs_data_groups(sidecar_entry):
     return groups
 
 
+def _emitted_data(sidecar_entry, segments, image):
+    """``{code start: (start, end)}``: the sidecar ``emits`` data spans as file
+    offsets, each keyed by the code fragment that emits it, with the word
+    alignment pad after an odd one."""
+    from lib.aztec.datamodules import _initialized_data_at
+    from lib.sidecar.binary import emitted_ranges
+    entry = sidecar_entry or {}
+    owners = {}
+    for at, (start, end) in emitted_ranges(
+            entry, entry.get('start_offset') or 0,
+            getattr(segments, 'bss_boundary', None)).items():
+        base = _initialized_data_at(segments, start, end)
+        if base is None or base + end - start > len(image):
+            raise ValueError(f'emits {start:04x}..{end:04x}: not initialized '
+                             'DS data')
+        # ln starts each module's data on a word: an odd end's pad byte is
+        # the module's too.
+        owners[at] = (base, base + end - start + (end - start) % 2)
+    return owners
+
+
 def _apply_sidecar_code_data_names(segments, sidecar_entry, derived=None):
     """Name the CS-reached data the sidecar's ``code_data_names`` names.
 
@@ -987,6 +1008,7 @@ def _render(a, exact_bytes, show_offsets, host_data_offsets,
         fragment_lengths=fragment_lengths(entry, start_offset),
         fragment_files=fragment_files(entry, start_offset),
         ln_com=entry.get('type') == 'raw_drv',
+        ln_mz=entry.get('type') == 'mz',
         hard_data=ctx.hard_data,
         function_roots=function_roots,
         branch_targets=ctx.branch_targets,
@@ -1024,6 +1046,7 @@ def _render(a, exact_bytes, show_offsets, host_data_offsets,
                       *declared_data_modules(ctx.sidecar_entry, ctx.segments, data)),
         **_driver_slot_render(ctx.sidecar_entry, data),
         data_groups=_declared_cs_data_groups(ctx.sidecar_entry),
+        data_owners=_emitted_data(ctx.sidecar_entry, ctx.segments, data),
     )
     stagelog.step('verify', 1, metrics={'lines': asm_text.count('\\n')})
     progress.log(f'{name} | verify done')
@@ -1132,6 +1155,15 @@ def _emit(a, r, exact_bytes):
                                                 include_path)
     files = {**seeds, **split_sources}
     asm_path = os.path.join(out_dir, f'{name}.asm')
+    if project:
+        # The listing's BSS block becomes fragments (sidecar only): the
+        # commons in globals, each module's own BSS in <module>.bss; their
+        # sources are checked against them.
+        from main.aztec import globals_fragment
+        asm_text, fragment, errors = globals_fragment(
+            project, name, out_dir, asm_text, ctx.sidecar_entry)
+        files.update(fragment)
+        a.source_errors.extend(errors)
     files[f'{name}.asm'] = asm_text
     spans = stats.get('aztec_spans') or {}
     if spans and project:

@@ -110,6 +110,8 @@ mpu401_read_ready_flag equ mpu401_write_ready_flag + 0x1
 
 %include "play/device_note_off_noop.asm"   ; 0x12af
 
+%include "play/opl_load_operator_muted.asm" ; 0x12b0
+
 %include "play/data/opl_operator_map.asm"  ; 0x12df
 
 %include "play/opl_channel_operators.asm"  ; 0x12f1
@@ -119,6 +121,8 @@ mpu401_read_ready_flag equ mpu401_write_ready_flag + 0x1
 %include "play/opl_write_operator_level.asm" ; 0x1344
 
 %include "play/opl_load_patch.asm"         ; 0x137a
+
+%include "play/data/opl_patch_register_pairs.asm" ; 0x1414
 
 %include "play/data/opl_tables.asm"        ; 0x1429
 

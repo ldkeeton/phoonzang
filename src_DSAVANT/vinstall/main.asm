@@ -495,7 +495,7 @@ main:
     pop cx                           ; 0x1797
     mov ax, 3                        ; 0x1798
     push ax                          ; 0x179b
-    call loc_NPPN                    ; 0x179c
+    call loc_OQIJ                    ; 0x179c
     pop cx                           ; 0x179f
     mov ax, 0                        ; 0x17a0
     push ax                          ; 0x17a3
@@ -1233,7 +1233,7 @@ jumptable_1f81_case_10:
     mov ax, 0xf                      ; 0x1e18
     push ax                          ; 0x1e1b
     push word [bp - 0x1ba]           ; 0x1e1c
-    call loc_NOVO                    ; 0x1e20
+    call loc_MNTP                    ; 0x1e20
     add sp, byte 0xc                 ; 0x1e23
     mov word [bp - 0x1ba], ax        ; 0x1e26
     jmp near main.forward38          ; 0x1e2a
@@ -1249,7 +1249,7 @@ jumptable_1f81_case_11:
     mov ax, 0x10                     ; 0x1e3d
     push ax                          ; 0x1e40
     push word [bp - 0x1bc]           ; 0x1e41
-    call loc_NOVO                    ; 0x1e45
+    call loc_MNTP                    ; 0x1e45
     add sp, byte 0xc                 ; 0x1e48
     mov word [bp - 0x1bc], ax        ; 0x1e4b
     jmp near main.forward38          ; 0x1e4f
@@ -1538,7 +1538,7 @@ main.forward46:
     push ax                          ; 0x20e6
     lea ax, word [bp - 0xa4]         ; 0x20e7
     push ax                          ; 0x20eb
-    call loc_TSLJ                    ; 0x20ec
+    call loc_LKQT                    ; 0x20ec
     add sp, byte 8                   ; 0x20ef
     cmp word [bp - 0xe], byte 3      ; 0x20f2
     je short main.forward47          ; 0x20f6
@@ -1552,7 +1552,7 @@ main.forward47:
     push ax                          ; 0x2107
     lea ax, word [bp - 0xa4]         ; 0x2108
     push ax                          ; 0x210c
-    call loc_TSLJ                    ; 0x210d
+    call loc_LKQT                    ; 0x210d
     add sp, byte 8                   ; 0x2110
     mov ax, dseg_214a                ; 0x2113
     push ax                          ; 0x2116
@@ -1562,7 +1562,7 @@ main.forward47:
     push ax                          ; 0x211f
     lea ax, word [bp - 0xa4]         ; 0x2120
     push ax                          ; 0x2124
-    call loc_TSLJ                    ; 0x2125
+    call loc_LKQT                    ; 0x2125
     add sp, byte 8                   ; 0x2128
     mov ax, dseg_2156                ; 0x212b
     push ax                          ; 0x212e
@@ -1572,7 +1572,7 @@ main.forward47:
     push ax                          ; 0x2137
     lea ax, word [bp - 0xa4]         ; 0x2138
     push ax                          ; 0x213c
-    call loc_TSLJ                    ; 0x213d
+    call loc_LKQT                    ; 0x213d
     add sp, byte 8                   ; 0x2140
     mov ax, dseg_2157                ; 0x2143
     push ax                          ; 0x2146
@@ -1592,7 +1592,7 @@ main.forward47:
     push ax                          ; 0x2166
     lea ax, word [bp - 0xa4]         ; 0x2167
     push ax                          ; 0x216b
-    call loc_TSLJ                    ; 0x216c
+    call loc_LKQT                    ; 0x216c
     add sp, byte 8                   ; 0x216f
     mov ax, dseg_2179                ; 0x2172
     push ax                          ; 0x2175
@@ -1602,7 +1602,7 @@ main.forward47:
     push ax                          ; 0x217e
     lea ax, word [bp - 0xa4]         ; 0x217f
     push ax                          ; 0x2183
-    call loc_TSLJ                    ; 0x2184
+    call loc_LKQT                    ; 0x2184
     add sp, byte 8                   ; 0x2187
     mov ax, dseg_2185                ; 0x218a
     push ax                          ; 0x218d
@@ -1612,7 +1612,7 @@ main.forward47:
     push ax                          ; 0x2196
     lea ax, word [bp - 0xa4]         ; 0x2197
     push ax                          ; 0x219b
-    call loc_TSLJ                    ; 0x219c
+    call loc_LKQT                    ; 0x219c
     add sp, byte 8                   ; 0x219f
     mov ax, dseg_2191                ; 0x21a2
     push ax                          ; 0x21a5
@@ -1622,7 +1622,7 @@ main.forward47:
     push ax                          ; 0x21ae
     lea ax, word [bp - 0xa4]         ; 0x21af
     push ax                          ; 0x21b3
-    call loc_TSLJ                    ; 0x21b4
+    call loc_LKQT                    ; 0x21b4
     add sp, byte 8                   ; 0x21b7
 main.forward48:
     cmp word [bp - 0xe], byte 2      ; 0x21ba
@@ -1637,7 +1637,7 @@ main.forward49:
     push ax                          ; 0x21cf
     lea ax, word [bp - 0xa4]         ; 0x21d0
     push ax                          ; 0x21d4
-    call loc_TSLJ                    ; 0x21d5
+    call loc_LKQT                    ; 0x21d5
     add sp, byte 8                   ; 0x21d8
     mov ax, dseg_219e                ; 0x21db
     push ax                          ; 0x21de
@@ -1657,7 +1657,7 @@ main.forward49:
     push ax                          ; 0x21fe
     lea ax, word [bp - 0xa4]         ; 0x21ff
     push ax                          ; 0x2203
-    call loc_TSLJ                    ; 0x2204
+    call loc_LKQT                    ; 0x2204
     add sp, byte 8                   ; 0x2207
     mov ax, dseg_21c0                ; 0x220a
     push ax                          ; 0x220d
@@ -1667,7 +1667,7 @@ main.forward49:
     push ax                          ; 0x2216
     lea ax, word [bp - 0xa4]         ; 0x2217
     push ax                          ; 0x221b
-    call loc_TSLJ                    ; 0x221c
+    call loc_LKQT                    ; 0x221c
     add sp, byte 8                   ; 0x221f
     mov ax, dseg_21cc                ; 0x2222
     push ax                          ; 0x2225
@@ -1677,7 +1677,7 @@ main.forward49:
     push ax                          ; 0x222e
     lea ax, word [bp - 0xa4]         ; 0x222f
     push ax                          ; 0x2233
-    call loc_TSLJ                    ; 0x2234
+    call loc_LKQT                    ; 0x2234
     add sp, byte 8                   ; 0x2237
     mov ax, dseg_21cd                ; 0x223a
     push ax                          ; 0x223d
@@ -1697,7 +1697,7 @@ main.forward49:
     push ax                          ; 0x225d
     lea ax, word [bp - 0xa4]         ; 0x225e
     push ax                          ; 0x2262
-    call loc_TSLJ                    ; 0x2263
+    call loc_LKQT                    ; 0x2263
     add sp, byte 8                   ; 0x2266
     mov ax, dseg_21ef                ; 0x2269
     push ax                          ; 0x226c
@@ -1707,7 +1707,7 @@ main.forward49:
     push ax                          ; 0x2275
     lea ax, word [bp - 0xa4]         ; 0x2276
     push ax                          ; 0x227a
-    call loc_TSLJ                    ; 0x227b
+    call loc_LKQT                    ; 0x227b
     add sp, byte 8                   ; 0x227e
     mov ax, dseg_21f0                ; 0x2281
     push ax                          ; 0x2284
@@ -1727,7 +1727,7 @@ main.forward49:
     push ax                          ; 0x22a4
     lea ax, word [bp - 0xa4]         ; 0x22a5
     push ax                          ; 0x22a9
-    call loc_TSLJ                    ; 0x22aa
+    call loc_LKQT                    ; 0x22aa
     add sp, byte 8                   ; 0x22ad
 main.forward50:
     cmp word [bp - 0xe], byte 1      ; 0x22b0
@@ -1742,7 +1742,7 @@ main.forward51:
     push ax                          ; 0x22c5
     lea ax, word [bp - 0xa4]         ; 0x22c6
     push ax                          ; 0x22ca
-    call loc_TSLJ                    ; 0x22cb
+    call loc_LKQT                    ; 0x22cb
     add sp, byte 8                   ; 0x22ce
     mov ax, dseg_221e                ; 0x22d1
     push ax                          ; 0x22d4
@@ -1752,7 +1752,7 @@ main.forward51:
     push ax                          ; 0x22dd
     lea ax, word [bp - 0xa4]         ; 0x22de
     push ax                          ; 0x22e2
-    call loc_TSLJ                    ; 0x22e3
+    call loc_LKQT                    ; 0x22e3
     add sp, byte 8                   ; 0x22e6
     mov ax, dseg_221f                ; 0x22e9
     push ax                          ; 0x22ec
@@ -1772,7 +1772,7 @@ main.forward51:
     push ax                          ; 0x230c
     lea ax, word [bp - 0xa4]         ; 0x230d
     push ax                          ; 0x2311
-    call loc_TSLJ                    ; 0x2312
+    call loc_LKQT                    ; 0x2312
     add sp, byte 8                   ; 0x2315
     mov ax, dseg_2241                ; 0x2318
     push ax                          ; 0x231b
@@ -1782,7 +1782,7 @@ main.forward51:
     push ax                          ; 0x2324
     lea ax, word [bp - 0xa4]         ; 0x2325
     push ax                          ; 0x2329
-    call loc_TSLJ                    ; 0x232a
+    call loc_LKQT                    ; 0x232a
     add sp, byte 8                   ; 0x232d
     mov ax, dseg_224d                ; 0x2330
     push ax                          ; 0x2333
@@ -1792,7 +1792,7 @@ main.forward51:
     push ax                          ; 0x233c
     lea ax, word [bp - 0xa4]         ; 0x233d
     push ax                          ; 0x2341
-    call loc_TSLJ                    ; 0x2342
+    call loc_LKQT                    ; 0x2342
     add sp, byte 8                   ; 0x2345
     mov ax, dseg_2259                ; 0x2348
     push ax                          ; 0x234b
@@ -1802,7 +1802,7 @@ main.forward51:
     push ax                          ; 0x2354
     lea ax, word [bp - 0xa4]         ; 0x2355
     push ax                          ; 0x2359
-    call loc_TSLJ                    ; 0x235a
+    call loc_LKQT                    ; 0x235a
     add sp, byte 8                   ; 0x235d
     mov ax, dseg_225a                ; 0x2360
     push ax                          ; 0x2363
@@ -1822,7 +1822,7 @@ main.forward51:
     push ax                          ; 0x2383
     lea ax, word [bp - 0xa4]         ; 0x2384
     push ax                          ; 0x2388
-    call loc_TSLJ                    ; 0x2389
+    call loc_LKQT                    ; 0x2389
     add sp, byte 8                   ; 0x238c
 main.forward52:
     mov ax, word [bp - 0x10]         ; 0x238f
@@ -1906,7 +1906,7 @@ main.forward56:
 main.forward57:
     mov ax, 3                        ; 0x244a
     push ax                          ; 0x244d
-    call loc_NPPN                    ; 0x244e
+    call loc_OQIJ                    ; 0x244e
     pop cx                           ; 0x2451
     mov ax, 0                        ; 0x2452
     push ax                          ; 0x2455

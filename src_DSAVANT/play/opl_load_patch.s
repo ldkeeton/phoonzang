@@ -9,6 +9,7 @@ codeseg	segment	byte public 'code'
 	extrn	opl_register_shadow_b1_bc:byte
 	extrn	opl_operator_map:word
 	extrn	opl_write_:near
+	extrn	opl_patch_register_map:byte
 
 ; Load the selected patch's operator registers for the current OPL channel.
 	procdef	opl_load_patch
@@ -69,11 +70,6 @@ opl_load_patch_register_loop:
 	call	opl_write_
 	pops	ds,si,dx,cx,bx
 	ret
-; Data embedded after the return is part of the original fragment.
-	db	1,40h,6,43h
-opl_patch_register_map label byte
-	db	0,20h,2,60h,3,80h,4,0e0h
-	db	5,23h,7,63h,8,83h,9,0e3h,0ffh
 	pend	opl_load_patch
 
 codeseg	ends

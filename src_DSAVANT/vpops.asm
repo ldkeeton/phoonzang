@@ -156,26 +156,5 @@ __zdata_start:
 
 __zimage_end:
 absolute __zimage_end
-__zobss_90d6:
-    resb 0x0002
-__zobss_90d8:
-    resb 0x002e
-__zobss_9106:
-    resb 0x0050
-__zobss_9156:
-    resb 0x0028
-__zobss_917e:
-    resb 0x0028
-__zobss_91a6:
-    resb 0x01b8
-__zobss_935e:
-    resb 0x0028
-__zobss_9386:
-    resb 0x0002
-__zobss_9388:
-    resb 0x0002
-__zobss_938a:
-    resb 0x0002
-__zobss_938c:
-    resb 0x0002
+%include "vpops/data/globals.asm"
 __zobss_end:

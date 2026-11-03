@@ -423,6 +423,7 @@
       "start_offset": 512,
       "entry_symbol": "aztec_begin",
       "link": {"flags": ["+C", "af00", "+D", "2100"]},
+      "globals": {"start": "0e0e", "end": "9096", "note": "the commons; before them the modules' own BSS and after them ttyio's _TTrem, each in its owner's function_names emits"},
       "byte_patches": [
         {
           "offset": "2c45",
@@ -575,7 +576,7 @@
         "1d81": {"name": "draw_party_member_panel", "note": "draws one party member panel: slot icon, name, two cell icons and three bars"},
         "20f8": {"name": "pick_party_member", "note": "three-glyph prompt box; waits for keys 1..party count and returns slot 0.., or -1 on Esc"},
         "2305": {"name": "add_random_steps", "note": "returns base plus count random steps in 1..span"},
-        "2331": {"name": "store_word_and_pair", "note": "stores an int word and a two-char pair in the globals at 0xcf6/0xcf8 and returns the address of the word"},
+        "2331": {"name": "store_word_and_pair", "emits": [{"start": "0cf6", "end": "0cfa"}], "note": "stores an int word and a two-char pair in the globals at 0xcf6/0xcf8 and returns the address of the word"},
         "2359": {
           "name": "copy_through_char",
           "note": "(dst, src, stop): copies src into dst up to and including the first stop char (or to the end of src), then NUL-terminates"
@@ -584,7 +585,7 @@
           "name": "data_file_path",
           "note": "(name, alt): copies one of two 20-byte path prefixes at DS 0x5912 (the second only when alt == 1 and DS 0x5987 == 5) into DS 0x69ca via copy_through_char, appends name and returns 0x69ca"
         },
-        "23ef": {"name": "prompt_disk_swap", "length": 1887, "file": "disk_and_file_loaders", "note": "boxed insert-disk prompt that loops until DISK.HDR matches, optionally closing and reopening MSG.DBS/SCENARIO.DBS"},
+        "23ef": {"name": "prompt_disk_swap", "length": 1887, "file": "disk_and_file_loaders", "emits": [{"start": "0b74", "end": "0bfa"}], "note": "boxed insert-disk prompt that loops until DISK.HDR matches, optionally closing and reopening MSG.DBS/SCENARIO.DBS"},
         "27e9": {
           "name": "ensure_game_disk",
           "note": "picks a disk number from install_mode and, when it differs from DS 0x5218, prompts via prompt_disk_swap and redraws the full screen (call_show_area 0,0,319,199); main calls it before loading some overlays"
@@ -607,9 +608,7 @@
         "2bed": {"name": "score_music_enabled", "note": "returns 1 when a scene should load and play its score music: video mode is 1 or above 3 and the music volume is nonzero"},
         "2c11": {"name": "verify_answer_word", "note": "checks the entered answer word against the code table; publishes the code check word on the last match"},
         "2c69": {"name": "draw_party_status_glyphs", "note": "restores each party slot saved area and redraws its one-glyph status icon"},
-        "2dd5": {
-          "name": "main"
-        },
+        "2dd5": {"name": "main", "emits": [{"start": "0bfa", "end": "0c48"}]},
         "3067": {"name": "init_system_hardware", "note": "initializes timer, video, mouse and drivers; returns status bits"},
         "30c3": {"name": "restore_saved_video_state", "note": "restores the startup equipment byte at 0040:0010 and sets the saved video mode via int 10h/00h"},
         "30e2": {"name": "seed_random_from_timer", "note": "seeds the random generator from the BIOS tick count"},
@@ -680,13 +679,13 @@
           "note": "hand-written asm (src, dst): first byte of src is the output length; decodes that many bytes into dst via ds_string_loc_SSGO's bit reader, then stores a zero word; data_record_io uses it for packed record types"
         },
         "4462": {"name": "aztec_loadabort", "note": "Manx OVLOADER.C loadabort(code): prints 'Error %d loading overlay: %s$' and exits 100"},
-        "4ea3": {"name": "aztec_noper", "length": 226, "file": "aztec_Croot", "note": "Owns original dos20/croot.c, including noper, Croot and exit. noper(), `return 0;`: the default `cls_` exit hook (dseg_0c9c, file 0x4ea3) until putc.c installs closall"},
+        "4ea3": {"name": "aztec_noper", "length": 226, "file": "aztec_Croot", "emits": [{"start": "0c9c", "end": "0cae"}, {"start": "0d04", "end": "0d08"}], "note": "Owns original dos20/croot.c, including noper, Croot and exit. noper(), `return 0;`: the default `cls_` exit hook (dseg_0c9c, file 0x4ea3) until putc.c installs closall"},
         "4f85": {"name": "aztec_fltinit", "note": "c.lib's non-float $fltinit (`clc; ret`, too short for a signature), called by $begin; named so the #asm aztec_begin links against it"},
-        "4379": {"name": "aztec_ovloader", "length": 286, "note": "Owns the original aztec_ovloader.c module restored from before prebuild removal."},
+        "4379": {"name": "aztec_ovloader", "length": 286, "emits": [{"start": "0c48", "end": "0c6b"}, {"start": "0cfa", "end": "0cfc"}], "note": "Owns the original aztec_ovloader.c module restored from before prebuild removal."},
         "4386": {"name": "aztec_impl_ovld"},
         "4497": {"name": "aztec_bdos"},
         "44b4": {"name": "aztec_impl_csread"},
-        "44d4": {"name": "aztec_sprintf", "length": 67, "note": "Owns the original aztec_sprintf.c module restored from before prebuild removal."},
+        "44d4": {"name": "aztec_sprintf", "length": 67, "emits": [{"start": "0cfc", "end": "0cfe"}], "note": "Owns the original aztec_sprintf.c module restored from before prebuild removal."},
         "44ff": {"name": "aztec_spsub"},
         "4517": {"name": "aztec_movblock"},
         "454d": {"name": "aztec_setmem"},
@@ -698,7 +697,7 @@
         "4625": {"name": "aztec_lrealloc"},
         "4652": {"name": "aztec_csav", "length": 41, "note": "Original mch86/csav.asm code: csav, cret and stackfault; the preceding startup pointer remains data."},
         "4670": {"name": "aztec_cret"},
-        "467b": {"name": "aztec_realloc", "length": 402, "file": "aztec_malloc", "note": "Owns the original aztec_misc_lmalloc.c module restored from before prebuild removal."},
+        "467b": {"name": "aztec_realloc", "length": 402, "file": "aztec_malloc", "emits": [{"start": "0c6c", "end": "0c70"}, {"start": "0cfe", "end": "0d04"}], "note": "Owns the original aztec_misc_lmalloc.c module restored from before prebuild removal."},
         "46ea": {"name": "aztec_malloc"},
         "47e8": {"name": "aztec_free"},
         "480d": {"length": 736, "file": "aztec_format", "note": "Original format.c tables and routine: the conversion tables lead the code."},
@@ -711,12 +710,12 @@
         "4c40": {"name": "aztec_lud"},
         "4cd7": {"name": "aztec_strlen"},
         "4cf4": {"name": "aztec_impl_sys"},
-        "4d3a": {"length": 361, "note": "Original dos20/sbegin.asm code and debugger return words; includes _exit and debugger entries. The preceding exitad/exitcs words remain separate data."},
+        "4d3a": {"length": 361, "emits": [{"start": "0c70", "end": "0c9c"}], "note": "Original dos20/sbegin.asm code and debugger return words; includes _exit and debugger entries. The preceding exitad/exitcs words remain separate data."},
         "4e7e": {"name": "aztec_impl_exit"},
         "4ea7": {"name": "aztec_Croot"},
         "4f73": {"name": "aztec_exit"},
-        "4f87": {"name": "aztec_impl_stkover", "length": 27, "note": "Owns the original aztec_stkover.c module restored from before prebuild removal."},
-        "4fa2": {"name": "aztec_impl_read", "length": 186, "file": "aztec_io", "note": "Original dos20/io.asm: _read, _write, read, write, close, lseek, unlink and rename; read/write share iocommon and use_dos."},
+        "4f87": {"name": "aztec_impl_stkover", "length": 27, "emits": [{"start": "0cae", "end": "0cd3"}], "note": "Owns the original aztec_stkover.c module restored from before prebuild removal."},
+        "4fa2": {"name": "aztec_impl_read", "length": 186, "file": "aztec_io", "emits": [{"start": "0cdc", "end": "0cf4"}], "note": "Original dos20/io.asm: _read, _write, read, write, close, lseek, unlink and rename; read/write share iocommon and use_dos."},
         "4fac": {"name": "aztec_impl_write"},
         "4fb6": {"name": "aztec_read"},
         "4fbd": {"name": "aztec_write"},
@@ -724,7 +723,7 @@
         "5004": {"name": "aztec_lseek"},
         "5023": {"name": "aztec_unlink"},
         "503b": {"name": "aztec_rename"},
-        "505c": {"name": "aztec_impl_tty_rd", "length": 199, "file": "aztec_ttyio", "note": "Owns the original aztec_ttyio.c module restored from before prebuild removal."},
+        "505c": {"name": "aztec_impl_tty_rd", "length": 199, "file": "aztec_ttyio", "emits": [{"start": "0cf4", "end": "0cf6"}, {"start": "0d08", "end": "0e0e"}, {"start": "9096", "end": "9098"}], "note": "Owns the original aztec_ttyio.c module restored from before prebuild removal."},
         "50c1": {"name": "aztec_impl_tty_wr"},
         "5123": {"name": "aztec_movmem"},
         "5168": {"name": "aztec_isatty"},
@@ -803,7 +802,9 @@
         "0030": {"name": "realm_text_colors", "note": "Word array of text colors indexed by realm"},
         "0038": {"name": "skill_group_ranges", "length": 16, "file": "skill_group_ranges", "note": "int [4][2]: (first, last) skill index of each skill group: (0,9) (10,17) (18,23) (24,33)"},
         "0048": {"name": "value_clamp_ranges", "note": "ordered lower and upper value clamp bounds"},
-        "0110": {"name": "file_param_word", "length": 148, "file": "score_numbers", "note": "word in a small table (DS 0x10c.. = 0x21, 0x27, 0x26, 0x20, 0x26); vpcvw/vtrea read it after ds_app_file_KRUQ(2, ...) into bss_844e for play_score_at_volume. The DS font loaders' `add ax, 0x110` (16-byte header + 256-byte table) only coincides with its address"},
+        "010c": {"name": "level_up_score_number", "length": 152, "file": "score_numbers", "note": "33: SCORE00 song played by the vpclv level-up screen and the vinit scene after load_score_files(0, 0)"},
+        "010e": {"name": "camp_score_number", "note": "39: SCORE01 song played by vpcmk character creation and by vmaze when the party rests, after load_score_files(1, 0)"},
+        "0110": {"name": "file_param_word", "note": "word in a small table (DS 0x10c.. = 0x21, 0x27, 0x26, 0x20, 0x26); vpcvw/vtrea read it after ds_app_file_KRUQ(2, ...) into bss_844e for play_score_at_volume. The DS font loaders' `add ax, 0x110` (16-byte header + 256-byte table) only coincides with its address"},
         "0112": {"name": "story_score_file_number", "note": "Score file number selected for story music"},
         "0114": {"name": "loaded_score_number", "note": "Score number selected after loading score files"},
         "0116": {"name": "intro_score_number_source", "note": "Word copied to story_score_number after loading the intro score files"},
@@ -1117,7 +1118,8 @@
         "9090": {"name": "party_redraw_current_tick_hi", "note": "high word of the current tick count during a party redraw interval check"},
         "9092": {"name": "party_redraw_elapsed_ticks", "note": "low word of ticks elapsed since the previous party redraw"},
         "9094": {"name": "party_redraw_elapsed_ticks_hi", "note": "high word of ticks elapsed since the previous party redraw"},
-        "9096": {"name": "_TTrem"}
+        "9096": {"name": "_TTrem"},
+        "b198": {"name": "aztec_Uend", "note": "ln's `_Uend_`: the end of uninitialized data; begin.asm's `$MEMRY` starts there"}
       },
       "code_data_names": {
         "2f58": {"name": "driver_block_table_end", "note": "one-past-end pointer for the driver block allocation entries"},
@@ -1148,11 +1150,13 @@
         "30dc": {"name": "random_seed_a", "length": 6, "file": "random_seeds", "note": "Wichmann-Hill seed 1 (mod 30269), stepped by stir_random_seeds"},
         "30de": {"name": "random_seed_b", "note": "Wichmann-Hill seed 2 (mod 30307), stepped by stir_random_seeds"},
         "30e0": {"name": "random_seed_c", "note": "Wichmann-Hill seed 3 (mod 30323), stepped by stir_random_seeds"},
+        "3063": {"name": "drv_block_table_dest", "length": 4, "file": "drv_block_table_dest", "note": "0x01df: offset in the loaded video driver where load_video_driver copies driver_block_table (the driver's drv_block_table); the following zero word is unreferenced"},
         "313e": {"name": "vga_palette", "note": "256 RGB triples loaded by INT 10h AX=1012h"},
         "34f6": {"name": "ega_palette", "note": "16 palette registers and the overscan colour, INT 10h AX=1002h"},
         "3507": {"name": "vga_drv_name", "length": 45, "file": "driver_names", "note": "'vga.drv': select_vga_driver leaves it at [bp-4]"},
         "350f": {"name": "ega_drv_name", "note": "'ega.drv': select_ega_driver leaves it at [bp-4]; 'cga.drv', 'herc.drv', 'tandy.drv' follow"},
         "3532": {"name": "drv_file_handle", "note": "DOS handle of the driver file while ds_dos_file_loc_SJIH/NKUS read it"},
+        "35ec": {"name": "play_drv_name", "length": 9, "file": "play_drv_name", "note": "'play.drv': the sound driver file load_play_driver opens"},
         "3672": {"name": "loops_per_ms", "note": "busy-loop iterations per millisecond: ds_leaf_loc_QNNO counts loops over one BIOS tick, divides by 55 and scales by 15/16; delay_ms spins this many per ms"},
         "36ce": {"name": "delay_loop_target", "note": "constant 0 word: delay_ms compares its countdown against it"},
         "37d1": {"name": "ems_driver_signature", "note": "EMMXXXX0 driver name the probe compares against"},
@@ -1172,6 +1176,7 @@
     "vinstall": {
       "file": "VINSTALL.EXE",
       "desc": "Installer and setup utility: configures hardware drivers and copies game files",
+      "globals": {"start": "2644", "end": "2afc", "note": "the commons; before them the library modules' own BSS (malloc, Croot, ttyio) and after them ttyio's _TTrem, each in its owner's function_names emits"},
       "compiler_flags": {
         "default": ["-n"],
         "note": "Built without +b: its own routines open with push bp/mov bp,sp, not DS's mov ax,N/call csav (loc_TUNS, loc_JTRN_03b3, loc_JJNP_0815 compile byte-exact with -n)"
@@ -1185,7 +1190,20 @@
         {"start": "3526", "note": "Uncalled strncmp entry at strcmp + 0x1e, sharing its comparison and return tail"},
         {"start": "1155", "end": "11b9", "note": "BP-frame routine after the ret at 0x1154, no caller; the only reader of the install file list (push word [bx+0x2ad], record*10 + disk*2)"},
         {"start": "371c", "end": "3720", "note": "sbegin.asm's `jmp dword ptr cs:exitad` after aztec_impl_exit's DOS exit (unreached); decoding it labels exitad (file 0x35ce) for the #asm aztec_impl_exit"},
-        {"start": "373b", "end": "373e", "note": "croot.c's noper() (`mov ax, 0; ret`), reached only through the `cls_` pointer at DS 0x5fe0"}
+        {"start": "373b", "end": "373e", "note": "croot.c's noper() (`mov ax, 0; ret`), reached only through the `cls_` pointer at DS 0x5fe0"},
+        {"start": "0315", "end": "03b2", "note": "long_to_str: no caller; follows the previous routine's ret and was left as db bytes"},
+        {"start": "0710", "end": "0789", "note": "put_int_right_aligned: no caller; follows the previous routine's ret and was left as db bytes"},
+        {"start": "078a", "end": "0806", "note": "put_long_right_aligned: no caller; follows the previous routine's ret and was left as db bytes"},
+        {"start": "088f", "end": "0926", "note": "prompt_long_at: no caller; follows the previous routine's ret and was left as db bytes"},
+        {"start": "102d", "end": "10a3", "note": "append_to_message_line: no caller; follows the previous routine's ret and was left as db bytes"},
+        {"start": "256a", "end": "25a5", "note": "bios_clear_to_screen_end: no caller; follows the previous routine's ret and was left as db bytes"},
+        {"start": "25a6", "end": "25d2", "note": "bios_clear_to_line_end: no caller; follows the previous routine's ret and was left as db bytes"},
+        {"start": "266f", "end": "26bc", "note": "bios_put_text_alt_attr: no caller; follows the previous routine's ret and was left as db bytes"},
+        {"start": "26bd", "end": "26f5", "note": "bios_fill_pixel_rect: no caller; follows the previous routine's ret and was left as db bytes"},
+        {"start": "26f6", "end": "2708", "note": "bios_printer_lpt2: no caller; follows the previous routine's ret and was left as db bytes"},
+        {"start": "2709", "end": "271f", "note": "bios_key_available: no caller; follows the previous routine's ret and was left as db bytes"},
+        {"start": "2747", "end": "27a8", "note": "bios_save_text_rect: no caller; follows the previous routine's ret and was left as db bytes"},
+        {"start": "27a9", "end": "2805", "note": "bios_restore_text_rect: no caller; follows the previous routine's ret and was left as db bytes"}
       ],
       "pointer_arrays": [
         {"table": "3d89", "stride": 10, "count": 156, "fields": [2, 4, 6, 8], "space": "ds", "note": "install file list at DS 0x02a9: {disk number, file name, disk letter for each of three floppy formats}; 155 files ('PLAYBANE.BAT' ... 'MON58.PIC') and a 0xffff record of four empty strings"}
@@ -1210,6 +1228,19 @@
         "3723": {"name": "aztec_dbgentry_retcs"}
       },
       "function_names": {
+        "0315": {"name": "long_to_str", "note": "(n, buf): long n in decimal into buf through aztec_lrm/aztec_ldv, with a leading - when negative, reversed by loc_MPOT; the long form of int_to_str"},
+        "0710": {"name": "put_int_right_aligned", "note": "(n, width): int_to_str, then bios_put_text a space for each column width exceeds the digits, then the digits one at a time"},
+        "078a": {"name": "put_long_right_aligned", "note": "(n, width): as put_int_right_aligned through long_to_str"},
+        "088f": {"name": "prompt_long_at", "note": "(n, row, col, width, max): shows n right-aligned at row/col, reads up to width chars through loc_GPOQ (empty keeps n, else parse_long) until the value is <= max, redisplays and returns it"},
+        "102d": {"name": "append_to_message_line", "note": "(a, b, c, s): when the line buffer at DS 0x29f0 is over 80 chars, or non-empty with s empty, hands it to loc_TSLJ(a, b, c, buf) and resets it; otherwise adds the separator at DS 0x166a when non-empty; then appends s"},
+        "256a": {"name": "bios_clear_to_screen_end", "note": "(row, col): bios cursor to row/col, then INT 10h AH=9 spaces to the end of row 24 in the attribute at DS 0x2647"},
+        "25a6": {"name": "bios_clear_to_line_end", "note": "(row, col): bios cursor to row/col, then INT 10h AH=9 spaces to column 80 in the attribute at DS 0x2647"},
+        "266f": {"name": "bios_put_text_alt_attr", "note": "(s): bios_put_text with the attribute at DS 0x2646"},
+        "26bd": {"name": "bios_fill_pixel_rect", "note": "(row0, col0, row1, col1, color): INT 10h AH=0Ch over the inclusive rectangle"},
+        "26f6": {"name": "bios_printer_lpt2", "note": "(ax): INT 17h with ax as given on printer 1 (LPT2)"},
+        "2709": {"name": "bios_key_available", "note": "(): 1 when INT 16h AH=1 reports a waiting key, else 0"},
+        "2747": {"name": "bios_save_text_rect", "note": "(row, col, width, height, buf): 1-based row/col; stores the 0-based origin, height and width, then each cell's char/attribute via INT 10h AH=8"},
+        "27a9": {"name": "bios_restore_text_rect", "note": "(buf): writes back a bios_save_text_rect buffer through INT 10h AH=9"},
         "2521": {"name": "dos_con_in_noecho", "note": "vinstall: INT 21h AH=7, returns the key"},
         "331e": {"name": "aztec_format_get_pointer"},
         "3338": {"name": "aztec_format_do_width"},
@@ -1245,18 +1276,18 @@
           "note": "(s): writes s at the cursor through INT 10h AH=9 in the text attribute (bss_2644, 0x1f from loc_VRLL); a newline moves to column 0 of the next row"
         },
         "2d86": {"name": "aztec_flsh_", "note": "v3.40 putc.c output flush; the v5.2a _filbuf signature matched it on a shared 10-byte epilogue only"},
-        "373b": {"name": "aztec_noper", "length": 226, "file": "aztec_Croot", "note": "Owns original dos20/croot.c, including noper, Croot and exit. noper(), `return 0;`: the default `cls_` exit hook until putc.c installs closall"},
+        "373b": {"name": "aztec_noper", "length": 226, "file": "aztec_Croot", "emits": [{"start": "2500", "end": "2512"}, {"start": "253a", "end": "253e"}], "note": "Owns original dos20/croot.c, including noper, Croot and exit. noper(), `return 0;`: the default `cls_` exit hook until putc.c installs closall"},
         "381d": {"name": "aztec_fltinit", "note": "c.lib's non-float $fltinit (`clc; ret`, too short for a signature), called by $begin; named so the #asm aztec_begin links against it"},
         "10a4": {"name": "leaf_loc_UVRI"},
         "12b5": {"name": "main"},
         "2806": {"name": "aztec_atoi"},
         "2877": {"name": "aztec_atol"},
-        "291c": {"name": "aztec_fexecv"},
+        "291c": {"name": "aztec_fexecv", "emits": [{"start": "230a", "end": "230e"}]},
         "29d9": {"name": "aztec_fcbinit"},
         "29fe": {"name": "aztec_mkdir", "length": 37, "note": "Three directory operations share this fragment: mkdir, rmdir and chdir."},
         "2a15": {"name": "aztec_rmdir"},
         "2a1c": {"name": "aztec_chdir"},
-        "2a27": {"name": "aztec_fexec"},
+        "2a27": {"name": "aztec_fexec", "emits": [{"start": "230e", "end": "231c"}]},
         "2a9d": {"name": "aztec_wait"},
         "2aa6": {"name": "aztec_strcat", "length": 55, "note": "Original mch86/strcat.asm: strcat and strncat share catcommon."},
         "2aae": {"name": "aztec_strncat"},
@@ -1266,16 +1297,16 @@
         "2bb2": {"name": "aztec_toupper"},
         "2bc6": {"name": "aztec_tolower"},
         "2bda": {"name": "aztec_fopen"},
-        "2bfe": {"name": "aztec_freopen"},
+        "2bfe": {"name": "aztec_freopen", "emits": [{"start": "231c", "end": "2349"}]},
         "2c62": {"name": "aztec_printf"},
         "2c7a": {"name": "aztec_putchar"},
         "2c8e": {"name": "aztec_aputc"},
         "2cc1": {"name": "aztec_putc"},
         "2cf5": {"name": "aztec_closall"},
         "2d0b": {"name": "aztec_fclose"},
-        "2e45": {"name": "aztec_newstream"},
+        "2e45": {"name": "aztec_newstream", "emits": [{"start": "234a", "end": "244e"}]},
         "2e63": {"name": "aztec_getbuff"},
-        "2eac": {"name": "aztec_realloc", "length": 402, "file": "aztec_malloc", "note": "Owns the original aztec_misc_lmalloc.c module restored from before prebuild removal."},
+        "2eac": {"name": "aztec_realloc", "length": 402, "file": "aztec_malloc", "emits": [{"start": "244e", "end": "2452"}, {"start": "2534", "end": "253a"}], "note": "Owns the original aztec_misc_lmalloc.c module restored from before prebuild removal."},
         "2f1b": {"name": "aztec_malloc"},
         "3019": {"name": "aztec_free"},
         "303e": {"length": 736, "file": "aztec_format", "note": "Original format.c tables and routine: the conversion tables lead the code; the inferred root at 0x32eb is inside it."},
@@ -1290,11 +1321,11 @@
         "3526": {"name": "aztec_strncmp", "note": "Compares at most the supplied number of unsigned string bytes."},
         "356f": {"name": "aztec_strlen"},
         "358c": {"name": "aztec_impl_sys"},
-        "35d2": {"length": 361, "note": "Original dos20/sbegin.asm code and debugger return words; includes _exit and debugger entries. The preceding exitad/exitcs words remain separate data."},
+        "35d2": {"length": 361, "emits": [{"start": "24d4", "end": "2500"}], "note": "Original dos20/sbegin.asm code and debugger return words; includes _exit and debugger entries. The preceding exitad/exitcs words remain separate data."},
         "3716": {"name": "aztec_impl_exit"},
         "373f": {"name": "aztec_Croot"},
         "380b": {"name": "aztec_exit"},
-        "381f": {"name": "aztec_impl_read", "length": 186, "file": "aztec_io", "note": "Original dos20/io.asm: _read, _write, read, write, close, lseek, unlink and rename; read/write share iocommon and use_dos."},
+        "381f": {"name": "aztec_impl_read", "length": 186, "file": "aztec_io", "emits": [{"start": "251a", "end": "2532"}], "note": "Original dos20/io.asm: _read, _write, read, write, close, lseek, unlink and rename; read/write share iocommon and use_dos."},
         "3829": {"name": "aztec_impl_write"},
         "3833": {"name": "aztec_read"},
         "383a": {"name": "aztec_write"},
@@ -1302,7 +1333,7 @@
         "3881": {"name": "aztec_lseek"},
         "38a0": {"name": "aztec_unlink"},
         "38b8": {"name": "aztec_rename"},
-        "38d9": {"name": "aztec_impl_tty_rd", "length": 199, "file": "aztec_ttyio", "note": "Owns the original aztec_ttyio.c module restored from before prebuild removal."},
+        "38d9": {"name": "aztec_impl_tty_rd", "length": 199, "file": "aztec_ttyio", "emits": [{"start": "2532", "end": "2534"}, {"start": "253e", "end": "2644"}, {"start": "2afc", "end": "2afe"}], "note": "Owns the original aztec_ttyio.c module restored from before prebuild removal."},
         "393e": {"name": "aztec_impl_tty_wr"},
         "39a0": {"name": "aztec_movmem"},
         "39e5": {"name": "aztec_isatty"},
@@ -1365,7 +1396,8 @@
         "2536": {"name": "current"},
         "2538": {"name": "first"},
         "253a": {"name": "Argc"},
-        "253c": {"name": "Argv"}
+        "253c": {"name": "Argv"},
+        "2afe": {"name": "aztec_Uend", "note": "ln's `_Uend_`: the end of uninitialized data; begin.asm's `$MEMRY` starts there"}
       },
       "data_pointers": [
         {"offset": "5f30", "space": "ds", "note": "second word of the Aztec endmarker pair (dseg_2450): also the data offset of `first`"},
@@ -3330,7 +3362,7 @@
       "data_names": {
       },
       "function_names": {
-        "0003": {"name": "driver_slot_0", "length": 222, "file": "driver_dispatch", "note": "owns the 55-entry dispatch table DS far-calls: each slot is a near call of its handler, then retf"},
+        "0003": {"name": "driver_slot_0", "length": 220, "file": "driver_dispatch", "note": "owns the 55-entry dispatch table DS far-calls: each slot is a near call of its handler, then retf"},
         "08d2": {"note": "Copies screen data into the screen buffer from maze storage, EMS pages, or a file"},
         "0e34": {"name": "decrement_cached_slot_ids", "note": "decrements larger slot indices in the EMS, maze and screen tables"},
         "0e71": {"name": "release_and_compact_ems_blocks", "note": "releases one EMS block entry and compacts the remaining blocks"},
@@ -3402,7 +3434,8 @@
         "0197": {"name": "text_pos_y", "note": "text cursor vertical position"},
         "0199": {"name": "text_opaque", "note": "value stored by set_text_opaque; nonzero makes draw_glyph ignore the glyph's flag bit 2"},
         "01c3": {"name": "cache_maze_slot_table", "note": "20-byte cache-maze slot table, indexed by slot number in words; each entry is a block id or zero when free"},
-        "00e1": {"name": "maze_mem_seg", "length": 30, "file": "drv_buffer_segments", "note": "segment base of MAZE memory, added to a block paragraph"},
+        "00df": {"name": "drv_block_table", "length": 32, "file": "drv_buffer_segments", "note": "block table DS fills in at load: 4-byte {paragraphs, segment} entries, zero size ends it; DS allocates each block and copies its own driver_block_table over this one"},
+        "00e1": {"name": "maze_mem_seg", "note": "segment base of MAZE memory, added to a block paragraph"},
         "00e5": {"name": "screen_buf_seg", "note": "segment of the 320-byte-stride screen buffer"},
         "00e9": {"name": "scratch_buf_seg", "note": "segment of the scratch buffer that pictures, sounds and cached screens are staged through"},
         "00f7": {"name": "palette_ptr", "note": "far pointer to the 256-entry 3-byte VGA palette"},
@@ -3537,7 +3570,8 @@
         "0197": {"name": "text_pos_y", "note": "text cursor vertical position"},
         "0199": {"name": "text_opaque", "note": "value stored by set_text_opaque; nonzero makes draw_glyph ignore the glyph's flag bit 2"},
         "01c3": {"name": "cache_maze_slot_table", "note": "20-byte cache-maze slot table, indexed by slot number in words; each entry is a block id or zero when free"},
-        "00e1": {"name": "maze_mem_seg", "length": 30, "file": "drv_buffer_segments", "note": "segment base of MAZE memory, added to a block paragraph"},
+        "00df": {"name": "drv_block_table", "length": 32, "file": "drv_buffer_segments", "note": "block table DS fills in at load: 4-byte {paragraphs, segment} entries, zero size ends it; DS allocates each block and copies its own driver_block_table over this one"},
+        "00e1": {"name": "maze_mem_seg", "note": "segment base of MAZE memory, added to a block paragraph"},
         "00e5": {"name": "screen_buf_seg", "note": "segment of the 320-byte-stride screen buffer"},
         "00e9": {"name": "scratch_buf_seg", "note": "segment of the scratch buffer that pictures, sounds and cached screens are staged through"},
         "00ff": {"name": "ems_para_limit", "length": 6, "file": "drv_ems_frame", "note": "EMS paragraphs available"},
@@ -3636,7 +3670,7 @@
         "5169": {"name": "driver_end_padding", "note": "unreferenced zero byte after the final routine, ending the image"}
       },
       "function_names": {
-        "0003": {"name": "driver_slot_0", "length": 222, "file": "driver_dispatch", "note": "owns the 55-entry dispatch table DS far-calls: each slot is a near call of its handler, then retf"},
+        "0003": {"name": "driver_slot_0", "length": 220, "file": "driver_dispatch", "note": "owns the 55-entry dispatch table DS far-calls: each slot is a near call of its handler, then retf"},
         "0949": {"name": "refresh_mouse_overlay", "note": "updates the covered background and redraws the mouse cursor"},
         "0b91": {"name": "restore_mouse_background", "note": "copies saved background rows into the screen buffer"},
         "0df3": {"note": "Copies screen data into the screen buffer from maze storage, EMS pages, or a file"},
@@ -3766,7 +3800,8 @@
       ],
       "force_code": [
         {"start": "0e51", "end": "0f27", "note": "Unreachable code after `jmp near loc_LPMH` at 0x0e4e: a switch on cs:[0x0e46] (6-10) that sets OPL rhythm bits through register 0xBD, plus its helper at 0x0f12 (`cs xlatb` through 0x1529) ending in the ret at 0x0f27."},
-        {"start": "0870", "end": "0874", "note": "Unreachable INT 08h handler entry: `cli` and the push ax/ds/dx/bx of io_loc_TGPU's prologue (0x08af), falling into the body at 0x0875 that io_loc_TGPU's `js` shares. Not in the 0495 handler table and never loaded as an immediate; the bytes before it (0x086e/0x086f) are the counter and limit that body compares."}
+        {"start": "0870", "end": "0874", "note": "Unreachable INT 08h handler entry: `cli` and the push ax/ds/dx/bx of io_loc_TGPU's prologue (0x08af), falling into the body at 0x0875 that io_loc_TGPU's `js` shares. Not in the 0495 handler table and never loaded as an immediate; the bytes before it (0x086e/0x086f) are the counter and limit that body compares."},
+        {"start": "12b0", "end": "12de", "note": "opl_load_operator_muted: no caller; follows the previous routine's ret and was left as db bytes"}
       ],
       "code_tables": [
         {"table": "035e", "jmp": "0359", "entry_size": 2, "count": 5, "note": "play_device_setup_dispatch_table: device index selects the shared return, OPL pulse, port setup for devices 2/3, or no-op return. The table overlaps code at 0x368, so declare it before decoding the arms."},
@@ -3795,6 +3830,7 @@
         {"offset": "0e57", "space": "cs", "note": "`mov bx, 0x1b3a` in the force_code routine at 0x0e51: the volume-curve table the sibling at 0x130d loads for `cs xlatb` after the same `cs:[0x0e3f] * cs:[0x0ba8]` product. Here the xlat was replaced by `mov cl, 0x3f; sub cl, al` and bx is overwritten (helper at 0x0f12) before any read"}
       ],
       "function_names": {
+        "12b0": {"name": "opl_load_operator_muted", "note": "writes 5 patch bytes at ds:si to operator bh's 20h/40h/60h/80h/E0h registers with the level forced to 3Fh (silent)"},
         "0003": {"name": "driver_slot_0", "length": 32, "file": "driver_dispatch", "note": "owns the 8-entry dispatch table DS far-calls: each slot is a near call of its handler, then retf"},
         "0023": {"length": 147, "note": "music_start and its private device-dispatch helper loc_HPIL with the helper's jump table, one source"},
         "00b6": {"name": "mpu401_reset_with_retries", "note": "retries mpu401_reset_and_sync up to ten times while it keeps failing; returns its last status (0 = ready, 0fffh = timed out)"},
@@ -3854,6 +3890,8 @@
         "18e4": {"name": "pit_sample_interrupt", "note": "INT 08h handler: plays one sample byte through PIT channel 2, counts down the music divider, and restores the timer when the sample ends"}
       },
       "code_data_names": {
+        "1414": {"name": "opl_patch_register_pairs", "length": 21, "file": "opl_patch_register_pairs", "note": "{patch byte index, OPL register} pairs for the 11-byte patch record, 0FFh-terminated: indexes 1 and 6 (levels, 40h/43h) first, then the rest that opl_load_patch walks from opl_patch_register_map"},
+        "1418": {"name": "opl_patch_register_map", "note": "where opl_load_patch starts in opl_patch_register_pairs, skipping the two level pairs"},
         "0142": {"name": "device_file_extensions", "note": "3-byte filename extension per music device, appended by configure_music_device"},
         "035e": {"name": "play_device_setup_dispatch_tbl", "note": "five-entry output-device setup dispatch table"},
         "0321": {"name": "int08_hooked", "note": "byte: 0 when INT 08h still holds the saved vector; play_install_handler sets 1, the music timer installer 0ffh; cleared on restore"},

@@ -31,7 +31,7 @@ load_video_driver:
     loop .back1                      ; 0x3577
     mov ax, word [cs:cseg_2f52 - IMAGE_BASE] ; 0x3579
     mov es, ax                       ; 0x357d
-    mov di, word [cs:cseg_3063 - IMAGE_BASE] ; 0x357f
+    mov di, word [cs:drv_block_table_dest - IMAGE_BASE] ; 0x357f
     mov ax, cs                       ; 0x3584
     mov ds, ax                       ; 0x3586
     mov si, driver_block_table - IMAGE_BASE ; 0x3588
