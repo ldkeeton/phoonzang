@@ -29,6 +29,7 @@ load_maze_resources()
 	/* Map game-state values onto the maze data set used by that region. */
 	switch (current_level) {
 	case 15:
+	case 17:
 	case 23:
 	case 24:
 	case 26:
@@ -48,7 +49,6 @@ load_maze_resources()
 		break;
 	case 14:
 	case 16:
-	case 17:
 	case 18:
 	case 19:
 	case 20:

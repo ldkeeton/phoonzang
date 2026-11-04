@@ -77,6 +77,7 @@ region_view_x_offsets equ __zregion_view_x_offsets - __zdseg_start
 shape_column_x equ __zshape_column_x - __zdseg_start
 shape_base_y equ __zshape_base_y - __zdseg_start
 shape_repeat_y_step equ __zshape_repeat_y_step - __zdseg_start
+boundary_box_bounds equ __zboundary_box_bounds - __zdseg_start
 maze_cell_x_offset equ __zmaze_cell_x_offset - __zdseg_start
 view_column_x equ __zview_column_x - __zdseg_start
 view_geometry equ __zview_geometry - __zdseg_start

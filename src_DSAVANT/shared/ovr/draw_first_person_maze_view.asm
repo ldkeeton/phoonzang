@@ -718,7 +718,7 @@ draw_first_person_maze_view.forward27:
     mov ax, 5
     imul word [view_scan_depth]
     mov bx, ax
-    mov byte [bx + maze_boundary_wall_markers], 1
+    mov byte [bx + draw_first_person_maze_view_bss2757], 1
     mov word [center_cell_wall], 4
 draw_first_person_maze_view.forward28:
     jmp short draw_first_person_maze_view.forward30
@@ -726,7 +726,7 @@ draw_first_person_maze_view.forward29:
     mov ax, 5
     imul word [view_scan_depth]
     mov bx, ax
-    mov byte [bx + maze_boundary_wall_markers], 3
+    mov byte [bx + draw_first_person_maze_view_bss2757], 3
     mov word [center_cell_wall], 0
 draw_first_person_maze_view.forward30:
     jmp short draw_first_person_maze_view.forward32
@@ -1903,7 +1903,7 @@ draw_first_person_maze_view.forward51:
 draw_first_person_maze_view.forward52:
     cmp word [boundary_wall_variant], byte 0
     jne short draw_first_person_maze_view.forward53
-    cmp byte [marker_string_block_mode], 3
+    cmp byte [draw_first_person_maze_view_bss7013], 3
     jne short draw_first_person_maze_view.forward53
     jmp near draw_first_person_maze_view.forward70
 draw_first_person_maze_view.forward53:
@@ -2110,7 +2110,7 @@ draw_first_person_maze_view.forward72:
     shl cx, 1
     add ax, cx
     mov bx, ax
-    cmp word [bx + 0x2a6], byte 0
+    cmp word [bx + boundary_box_bounds], byte 0
     jne short draw_first_person_maze_view.forward73
     jmp near draw_first_person_maze_view.forward82
 draw_first_person_maze_view.forward73:
@@ -2128,7 +2128,7 @@ draw_first_person_maze_view.forward75:
     push word [bx + 0x2ac]
     push word [bx + 0x2aa]
     push word [bx + 0x2a8]
-    push word [bx + 0x2a6]
+    push word [bx + boundary_box_bounds]
     call call_fill_area
     add sp, byte 0xa
     jmp near draw_first_person_maze_view.forward81

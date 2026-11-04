@@ -27,7 +27,7 @@ IMAGE_BASE equ 0x000e + VBASE
 __zcode_start:
 percent_suffix_text equ __zdseg_end + (__zpercent_suffix_text - __zdata_start)
 spell_cost_panel_text equ __zdseg_end + (__zspell_cost_panel_text - __zdata_start)
-dseg_909f equ __zdseg_end + (__zdseg_909f - __zdata_start)
+pick_spell_dialog_keep_frames_dseg175 equ __zdseg_end + (__zdseg_909f - __zdata_start)
 dseg_90a5 equ __zdseg_end + (__zdseg_90a5 - __zdata_start)
 dseg_90b4 equ __zdseg_end + (__zdseg_90b4 - __zdata_start)
 dseg_90c3 equ __zdseg_end + (__zdseg_90c3 - __zdata_start)
@@ -187,7 +187,7 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "shared/ovr/periodic_party_redraw.asm" ; 0x10b0
 
-%include "vpclv/pick_spell_dialog_keep_frames.asm" ; 0x1141
+%include "shared/ovr/pick_spell_dialog_keep_frames.asm" ; 0x1141
 
 %include "vpclv/api_idx_00ca_KSLQ.asm"     ; 0x1e31
 
@@ -260,7 +260,7 @@ __zdata_start:
 
 %include "shared/data/spell_cost_panel_text.asm" ; 0x54b3
 
-%include "vpclv/data/dseg_909f.asm"        ; 0x54b7
+%include "vpclv/data/pick_spell_dialog_keep_frames_dseg175.asm"        ; 0x54b7
 
 %include "shared/data/profession_skill_groups.asm" ; 0x55e9
 

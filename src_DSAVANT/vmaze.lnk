@@ -137,9 +137,8 @@ vmaze/search_quest_map_site
 vmaze/wait_at_location
 vmaze/dispatch_slot_action
 vmaze/run_roaming_npc_turns
-shared/ovr/aztec_ovbgn
 vmaze/data/maze_temp_filename
 vmaze/data/maze_variant_filenames
 vmaze/data/maze_message_control_code_table
 vmaze/data/maze_message_word_separator
-shared/data/overlay_saved_registers
+shared/ovr/aztec_ovbgn

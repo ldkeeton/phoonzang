@@ -42,9 +42,8 @@ vmele/reset_battle_groups
 vmele/setup_melee_party
 vmele/start_melee_battle
 vmele/redraw_party_before_battle
-shared/ovr/aztec_ovbgn
-shared/ovr/aztec_swapmem
 shared/data/monster_picture_template
 vmele/data/space_text
 vmele/data/screen_temp_name
-shared/data/overlay_saved_registers
+shared/ovr/aztec_ovbgn
+shared/ovr/aztec_swapmem

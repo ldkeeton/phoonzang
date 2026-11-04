@@ -26,6 +26,7 @@
       "note": "the game a new party starts in (load_game_data, load_mode 0)",
       "parts": [
         {
+          "into": "scenario_header_data",
           "size": 844,
           "note": "the scenario header, as SCENARIO.HDR"
         },
@@ -36,10 +37,12 @@
           "note": "per map, the two 128-byte blocks read into game_block_a/b and moved to runtime_buffer_4k_a/b"
         },
         {
+          "into": "loaded_game_state",
           "size": 76,
           "note": "party position, time and status timers"
         },
         {
+          "into": "path_edges",
           "size": 128,
           "note": "the roads roaming NPCs plan over",
           "field_labels": {
@@ -48,12 +51,14 @@
           }
         },
         {
+          "into": "faction_attitudes",
           "size": 144,
           "record": 12,
           "note": "row: faction; column: the faction it feels about",
           "element_labels": "MSG_FACTION_NAME_BASE"
         },
         {
+          "into": "location_records",
           "size": 104,
           "element_labels": "MSG_LOCATION_NAME_BASE",
           "field_labels": {
@@ -62,11 +67,13 @@
           }
         },
         {
+          "into": "slot_event_logs",
           "size": 330,
           "note": "five most recent events per NPC",
           "element_labels": "MSG_SLOT_NAME_BASE"
         },
         {
+          "into": "slot_records",
           "size": 836,
           "note": "the roaming NPCs; slot 21 is the party",
           "element_labels": "MSG_SLOT_NAME_BASE",
@@ -78,6 +85,7 @@
           }
         },
         {
+          "into": "quest_maps",
           "size": 66,
           "element_labels": "MSG_MAP_NAME_BASE",
           "field_labels": {
@@ -91,10 +99,12 @@
       "note": "a saved game (load_game_data, load_mode 1); its record counts are not stored in the file",
       "parts": [
         {
+          "into": "scenario_header_data",
           "size": 844,
           "note": "the scenario header, as SCENARIO.HDR"
         },
         {
+          "into": "maze_change_log",
           "size": 66,
           "record": 6,
           "note": "maze_change_count struct maze_change records (log_maze_change)"
@@ -106,10 +116,12 @@
           "note": "per map, the two 128-byte blocks read into game_block_a/b and moved to runtime_buffer_4k_a/b"
         },
         {
+          "into": "loaded_game_state",
           "size": 76,
           "note": "party position, time and status timers"
         },
         {
+          "into": "path_edges",
           "size": 128,
           "note": "the roads roaming NPCs plan over",
           "field_labels": {
@@ -118,12 +130,14 @@
           }
         },
         {
+          "into": "faction_attitudes",
           "size": 144,
           "record": 12,
           "note": "row: faction; column: the faction it feels about",
           "element_labels": "MSG_FACTION_NAME_BASE"
         },
         {
+          "into": "location_records",
           "size": 104,
           "element_labels": "MSG_LOCATION_NAME_BASE",
           "field_labels": {
@@ -132,11 +146,13 @@
           }
         },
         {
+          "into": "slot_event_logs",
           "size": 330,
           "note": "five most recent events per NPC",
           "element_labels": "MSG_SLOT_NAME_BASE"
         },
         {
+          "into": "slot_records",
           "size": 836,
           "note": "the roaming NPCs; slot 21 is the party",
           "element_labels": "MSG_SLOT_NAME_BASE",
@@ -148,6 +164,7 @@
           }
         },
         {
+          "into": "quest_maps",
           "size": 66,
           "element_labels": "MSG_MAP_NAME_BASE",
           "field_labels": {
@@ -156,9 +173,11 @@
           }
         },
         {
+          "into": "code_characters",
           "size": 100
         },
         {
+          "into": "loaded_party_member",
           "count": 6,
           "note": "loaded_game_state.member_count records, copied to party_records"
         }
@@ -168,6 +187,7 @@
       "note": "read over scenario_header_data (load_game_data)",
       "parts": [
         {
+          "into": "scenario_header_data",
           "size": 844
         }
       ]
@@ -194,6 +214,7 @@
       "note": "the message directory, read over message_directory (initialize_runtime_resources); find_message_record searches it",
       "parts": [
         {
+          "into": "message_directory",
           "record": 11774,
           "count": 1
         }
@@ -203,6 +224,7 @@
       "note": "1K message blocks, read into message_block_buffer (load_message_block); each record is a length byte, a character count and Huffman bits (unpack_record)",
       "parts": [
         {
+          "into": "message_block_buffer",
           "record": 1024,
           "records": "messages"
         }
@@ -227,6 +249,7 @@
           "size": 24
         },
         {
+          "into": "party_records",
           "count": 16,
           "element_labels": "text"
         }
@@ -236,6 +259,8 @@
       "note": "the records data_record_io reads: type t starts at record_base[t] (DISK.HDR), record_size[t] bytes each (MASTER.HDR)",
       "parts": [
         {
+          "into": "experience_thresholds",
+          "in": "vbase/read_class_experience_threshold.c",
           "record": 64,
           "note": "type 0, per class: experience for levels 2 to 17",
           "element_labels": "MSG_CLASS_BASE",
@@ -249,16 +274,19 @@
           "count": 600
         },
         {
+          "into": "maze_data",
           "record": 2768,
           "note": "type 2, per level (load_current_maze_level)",
           "count": 32
         },
         {
+          "into": "maze_tables",
           "record": 2896,
           "note": "type 3, per level (load_current_maze_level)",
           "count": 32
         },
         {
+          "into": "battle_group_ext",
           "record": 232,
           "note": "type 4: monster records, struct member_ext (add_monster_group)",
           "element_labels": "text",
@@ -284,11 +312,13 @@
           "count": 200
         },
         {
+          "into": "slot_recs",
           "record": 350,
           "note": "type 8 (load_monster_picture)",
           "count": 96
         },
         {
+          "into": "sound_slot_info",
           "record": 12,
           "note": "type 9 (load_sound_file)",
           "count": 64
@@ -776,6 +806,7 @@
         "0112": {"name": "story_score_file_number", "note": "Score file number selected for story music"},
         "0114": {"name": "loaded_score_number", "note": "Score number selected after loading score files"},
         "0116": {"name": "intro_score_number_source", "note": "Word copied to story_score_number after loading the intro score files"},
+        "0120": {"name": "screen_area_rectangles", "note": "int [6][4]: left, top, right, bottom of each movement area hotspot (run_maze_loop)"},
         "0150": {"name": "movement_area_keys", "note": "Six key codes after screen_area_rectangles; the keyboard key for each movement area hotspot (set_hotspot key argument)"},
         "0156": {"name": "member_swap_keys", "note": "Six key codes after movement_area_keys: '!@#$%^' (shift+1..6), the key of each party member's swap hotspot (a strip across the panel's name line); run_maze_loop sets game_state 31 (swap two party members) for it"},
         "015c": {"name": "realm_point_text_positions", "note": "X and Y positions for the two point columns of each realm row"},
@@ -787,6 +818,7 @@
         "0260": {"name": "shape_column_x", "note": "Glyph shape horizontal origins indexed by depth and column"},
         "0292": {"name": "shape_base_y", "note": "Repeated glyph shape vertical origin indexed by depth"},
         "029c": {"name": "shape_repeat_y_step", "note": "Vertical spacing between repeated shape glyphs indexed by depth"},
+        "02a6": {"name": "boundary_box_bounds", "note": "int [5][5][4]: left, top, right, bottom of the boundary view box per depth and column; draw_first_person_maze_view fills it where boundary_box_faces is set"},
         "036e": {"name": "maze_cell_x_offset", "note": "Horizontal glyph offsets indexed by maze view depth and column"},
         "03ae": {"name": "view_column_x", "length": 520, "file": "view_tables", "note": "int [][5]: maze view column x positions per depth, centre 160; queue_slot_glyph_render scales toward [0][0]"},
         "03dc": {"name": "view_geometry", "note": "5 depth y values then walls[5][5][2][2] of x,y (205 ints)"},
@@ -2284,7 +2316,7 @@
         "33d1": {"name": "start_melee_battle", "note": "enters the melee overlay state 0x0a"},
         "36aa": {"name": "redraw_party_before_battle", "note": "redraws each member panel and the action table, runs one animation, then switches to the battle state"},
         "0000": {"name": "ovmain"},
-        "3702": {"name": "aztec_ovbgn"},
+        "3702": {"name": "aztec_ovbgn", "emits": [{"start": "90ac", "end": "90b6"}], "note": "dos20/ovbgn.asm: its dataseg holds save_si/di/sp/bp/ret, after every C module's data"},
         "3740": {"name": "aztec_swapmem"}
       },
       "immediate_pointers": [
@@ -2374,7 +2406,6 @@
     },
     "vmaze": {
       "data_names": {
-        "0120": {"name": "screen_area_rectangles", "note": "rectangle bounds used by indexed screen areas"},
         "9098": {"name": "maze_temp_filename", "note": "Temporary filename passed to save_screen_area (VM1.$$$)."},
         "90a0": {"name": "variant_1_maze_filename", "length": 222, "file": "maze_variant_filenames", "note": "MAZEDATA.VGA filename used for variant 1 maze data"},
         "90ad": {"name": "variant_1_water_filename", "note": "WATRDATA.VGA filename used for variant 1 water data"},
@@ -2410,23 +2441,13 @@
         "91d0": {"name": "floor_checker_parity", "note": "(world_x + world_y + facing + depth) % 2 for the current view depth; alternates floor and side glyph variants in a checkerboard"},
         "91d2": {"name": "side_wall_animation_phase", "note": "Animation phase used with party status frame"},
         "91d8": {"name": "side_wall_layer_flags", "note": "Side wall layer selector by depth and column"},
-        "91da": {"name": "maze_boundary_wall_markers", "note": "Boundary wall marker per view depth and lateral offset"},
         "91f1": {"name": "near_wall_layer_flags", "note": "Near side wall layer selector by depth and column"},
-        "91f3": {"name": "maze_cell_flag_markers", "note": "Cell flag marker per view depth and lateral offset"},
-        "920c": {"name": "maze_blocking_cell_markers", "note": "Blocking cell marker per view depth and lateral offset"},
-        "9211": {"name": "maze_near_blocking_markers", "note": "Near blocking cell marker per view depth and lateral offset"},
         "9223": {"name": "view_marker_ids", "note": "View marker identifier by depth and column"},
-        "9225": {"name": "maze_cell_facing_bytes", "note": "Cell facing byte per view depth and lateral offset"},
         "923c": {"name": "far_wall_object_ids", "note": "Far side wall object identifiers by depth and column"},
-        "9240": {"name": "maze_cell_facing_words_a", "note": "First cell facing word per view depth and lateral offset"},
         "926e": {"name": "near_wall_object_ids", "note": "Near side wall object identifiers by depth and column"},
-        "9272": {"name": "maze_cell_facing_words_b", "note": "Second cell facing word per view depth and lateral offset"},
         "92a0": {"name": "view_marker_kinds", "note": "View marker type by depth and column"},
-        "92a2": {"name": "maze_special_wall_markers", "note": "Special wall marker per view depth and lateral offset"},
         "92ba": {"name": "far_wall_overlay_ids", "note": "Far side companion wall identifiers by depth and column"},
-        "92be": {"name": "maze_cell_effect_flags_a", "note": "First cell effect flag per view depth and lateral offset"},
         "92ec": {"name": "near_wall_overlay_ids", "note": "Near side companion wall identifiers by depth and column"},
-        "92f0": {"name": "maze_cell_effect_flags_b", "note": "Second cell effect flag per view depth and lateral offset"},
         "931e": {"name": "render_queue_count", "note": "number of queued slot render rows"},
         "9320": {"name": "queued_slot_x", "note": "computed x coordinate for a render row"},
         "9322": {"name": "queued_slot_y", "note": "computed y coordinate for a render row"},
@@ -2492,7 +2513,6 @@
         "91bc": {"name": "marker_string_x_offsets", "note": "per marker string: signed random x offset"},
         "91c2": {"name": "marker_string_descending", "note": "per marker string: nonzero counts the frame down instead of up"},
         "91c8": {"name": "marker_string_variants", "note": "per marker string: draw variant and side column of its x table"},
-        "91e4": {"name": "marker_string_block_mode", "note": "3 suppresses the marker strings when boundary_wall_variant is 0"},
         "920a": {"name": "boundary_box_faces", "note": "[depth][column] box kind for the closed boundary view boxes (1 = filled)"},
         "9b1a": {"name": "view_layer_scratch", "note": "[depth][column] per-view grid cleared before each maze view rebuild"},
         "9b34": {"name": "view_depth_count", "note": "number of depths the maze view scans (5)"},
@@ -2644,7 +2664,7 @@
         "aa31": {"name": "wait_at_location", "note": "Activity 6: picks a random map piece, heals (fully at home, sometimes then lingering) and meets other NPCs here"},
         "aac5": {"name": "dispatch_slot_action", "note": "Dispatches a slot record action based on its stored action byte."},
         "ab8d": {"name": "run_roaming_npc_turns", "note": "Places slot 21 (the party) at the current map's location, clears the met-pairs table, then runs one turn for each of the 22 slots in random order"},
-        "ac22": {"name": "aztec_ovbgn"}
+        "ac22": {"name": "aztec_ovbgn", "emits": [{"start": "9188", "end": "9192"}], "note": "dos20/ovbgn.asm: its dataseg holds save_si/di/sp/bp/ret, after every C module's data"}
       },
       "immediate_pointers": [
         {"offset": "ac46", "space": "ds", "name": "_Uorg", "note": "$ovbgn's `mov di,offset _Uorg_`: the start of the BSS it clears"},
@@ -3531,23 +3551,13 @@
         "917c": {"name": "save_bp"},
         "917e": {"name": "save_ret"},
         "91ac": {"name": "side_wall_layer_flags", "note": "Side wall layer selector by depth and column"},
-        "91ae": {"name": "maze_boundary_wall_markers", "note": "Boundary wall marker per view depth and lateral offset"},
         "91c5": {"name": "near_wall_layer_flags", "note": "Near side wall layer selector by depth and column"},
-        "91c7": {"name": "maze_cell_flag_markers", "note": "Cell flag marker per view depth and lateral offset"},
-        "91e0": {"name": "maze_blocking_cell_markers", "note": "Blocking cell marker per view depth and lateral offset"},
-        "91e5": {"name": "maze_near_blocking_markers", "note": "Near blocking cell marker per view depth and lateral offset"},
         "91f7": {"name": "view_marker_ids", "note": "View marker identifier by depth and column"},
-        "91f9": {"name": "maze_cell_facing_bytes", "note": "Cell facing byte per view depth and lateral offset"},
         "9210": {"name": "far_wall_object_ids", "note": "Far side wall object identifiers by depth and column"},
-        "9214": {"name": "maze_cell_facing_words_a", "note": "First cell facing word per view depth and lateral offset"},
         "9242": {"name": "near_wall_object_ids", "note": "Near side wall object identifiers by depth and column"},
-        "9246": {"name": "maze_cell_facing_words_b", "note": "Second cell facing word per view depth and lateral offset"},
         "9274": {"name": "view_marker_kinds", "note": "View marker type by depth and column"},
-        "9276": {"name": "maze_special_wall_markers", "note": "Special wall marker per view depth and lateral offset"},
         "928e": {"name": "far_wall_overlay_ids", "note": "Far side companion wall identifiers by depth and column"},
-        "9292": {"name": "maze_cell_effect_flags_a", "note": "First cell effect flag per view depth and lateral offset"},
         "92c0": {"name": "near_wall_overlay_ids", "note": "Near side companion wall identifiers by depth and column"},
-        "92c4": {"name": "maze_cell_effect_flags_b", "note": "Second cell effect flag per view depth and lateral offset"},
         "92f2": {"name": "render_queue_count", "note": "number of queued slot render rows"},
         "92f4": {"name": "queued_slot_x", "note": "computed x coordinate for a render row"},
         "92f6": {"name": "queued_slot_y", "note": "computed y coordinate for a render row"},
@@ -3568,7 +3578,6 @@
         "9192": {"name": "marker_string_x_offsets", "note": "per marker string: signed random x offset"},
         "9198": {"name": "marker_string_descending", "note": "per marker string: nonzero counts the frame down instead of up"},
         "919e": {"name": "marker_string_variants", "note": "per marker string: draw variant and side column of its x table"},
-        "91b8": {"name": "marker_string_block_mode", "note": "3 suppresses the marker strings when boundary_wall_variant is 0"},
         "91de": {"name": "boundary_box_faces", "note": "[depth][column] box kind for the closed boundary view boxes (1 = filled)"},
         "9aee": {"name": "view_layer_scratch", "note": "[depth][column] per-view grid cleared before each maze view rebuild"},
         "9b08": {"name": "view_depth_count", "note": "number of depths the maze view scans (5)"},

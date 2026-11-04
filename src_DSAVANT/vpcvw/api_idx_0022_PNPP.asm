@@ -125,7 +125,7 @@ api_idx_0022_PNPP:
     mov al, byte [bx + party_records + pc_rec.kind] ; 0x95ac
     sub ah, ah                       ; 0x95b0
     push ax                          ; 0x95b2
-    call api_idx_0016_TVKP           ; 0x95b3
+    call load_member_icon           ; 0x95b3
     add sp, byte 4                   ; 0x95b6
     mov ax, 0x12                     ; 0x95b9
     push ax                          ; 0x95bc

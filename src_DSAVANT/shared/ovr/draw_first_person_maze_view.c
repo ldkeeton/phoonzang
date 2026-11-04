@@ -11,7 +11,7 @@ struct view_panel_bounds {
 };
 
 extern struct maze_cells *maze_data;
-extern struct view_panel_bounds dseg_02a6[][5];
+extern struct view_panel_bounds boundary_box_bounds[][5];
 extern struct slot_rec slot_recs[];
 extern unsigned char bss_5b55;
 extern int current_level, maze_variant, boundary_wall_open;
@@ -27,7 +27,6 @@ extern unsigned char near_wall_layer_flags[][5];
 extern unsigned char side_wall_layer_flags[][5];
 extern unsigned char view_marker_ids[][5];
 extern unsigned char view_marker_kinds[][5];
-extern unsigned char maze_boundary_wall_markers[][5];
 extern int near_wall_overlay_ids[][5], near_wall_object_ids[][5];
 extern int far_wall_overlay_ids[][5], far_wall_object_ids[][5];
 extern unsigned char boundary_box_faces[][5];
@@ -38,7 +37,6 @@ extern int center_right_wall, left_cell_wall;
 extern int right_cell_wall, far_left_cell_wall;
 extern int far_right_cell_wall, left_cell_side_wall;
 extern int right_cell_side_wall;
-extern unsigned char marker_string_block_mode;
 extern int marker_string_frames[];
 extern int marker_string_variants[];
 extern int marker_string_y_offsets[];
@@ -250,11 +248,11 @@ draw_first_person_maze_view()
 					if (boundary_wall_open != 0)
 						center_cell_wall = 0;
 					else {
-						maze_boundary_wall_markers[view_scan_depth][0] = 1;
+						side_wall_layer_flags[view_scan_depth][2] = 1;
 						center_cell_wall = 4;
 					}
 				} else {
-					maze_boundary_wall_markers[view_scan_depth][0] = 3;
+					side_wall_layer_flags[view_scan_depth][2] = 3;
 					center_cell_wall = 0;
 				}
 			} else
@@ -407,7 +405,7 @@ draw_first_person_maze_view()
 
 		/* Only the party cell can add the three tracked marker strings. */
 		if (bss_5b55 != 255 && view_scan_depth == 0 &&
-		    !(boundary_wall_variant == 0 && marker_string_block_mode == 3) &&
+		    !(boundary_wall_variant == 0 && side_wall_layer_flags[2][2] == 3) &&
 		    ((boundary_wall_variant % 2) != 0 || requested_row_limit > 1)) {
 			marker_index = 0;
 			do {
@@ -455,13 +453,13 @@ draw_first_person_maze_view()
 				row = column_order[relative_piece];
 				if ((inner_face =
 				    boundary_box_faces[view_scan_depth][row]) != 0 &&
-				    dseg_02a6[view_scan_depth][row].left != 0) {
+				    boundary_box_bounds[view_scan_depth][row].left != 0) {
 					if (inner_face == 1 || boundary_wall_open != 0)
 						call_fill_area(
-							dseg_02a6[view_scan_depth][row].left,
-							dseg_02a6[view_scan_depth][row].top,
-							dseg_02a6[view_scan_depth][row].right,
-							dseg_02a6[view_scan_depth][row].bottom,
+							boundary_box_bounds[view_scan_depth][row].left,
+							boundary_box_bounds[view_scan_depth][row].top,
+							boundary_box_bounds[view_scan_depth][row].right,
+							boundary_box_bounds[view_scan_depth][row].bottom,
 							boundary_wall_open ? 255 : 0);
 					else if (view_scan_depth > 0 &&
 					    slot_recs[9].glyph_x[(row << 2) +

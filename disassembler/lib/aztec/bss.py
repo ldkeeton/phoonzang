@@ -178,7 +178,8 @@ def check(commons, slots):
     Each slot must be a common of its name (``floor_items`` ->
     ``floor_items_``) at its place.  A companion may split a slot with a
     filler named after its address (``bss_831c``), since nothing names
-    those bytes.
+    those bytes.  ``ln`` starts a common of even size on a word, so one
+    after an odd-sized common (``char x[25]``) may follow a pad byte.
     """
     errors, at = [], 0
     starts, base = {}, int(slots[0][2], 16) if slots else 0
@@ -188,6 +189,8 @@ def check(commons, slots):
         offset += size
     total = offset
     for name, size in commons:
+        if size % 2 == 0 and (base + at) % 2:
+            at += 1
         want = starts.get(at)
         if want is not None and name != f'{want[0]}_':
             errors.append(f'{name} at 0x{want[1]}: the listing has {want[0]} '

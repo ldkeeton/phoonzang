@@ -88,7 +88,7 @@ profession_13_skill_group_1 equ __zdseg_end + (__zprofession_13_skill_group_1 - 
 profession_13_skill_group_2 equ __zdseg_end + (__zprofession_13_skill_group_2 - __zdata_start)
 profession_13_skill_group_3 equ __zdseg_end + (__zprofession_13_skill_group_3 - __zdata_start)
 spell_cost_panel_text equ __zdseg_end + (__zspell_cost_panel_text - __zdata_start)
-dseg_92d6 equ __zdseg_end + (__zdseg_92d6 - __zdata_start)
+pick_spell_dialog_keep_frames_dseg175 equ __zdseg_end + (__zdseg_92d6 - __zdata_start)
 profession_0_stat_requirements equ __zdseg_end + (__zprofession_0_stat_requirements - __zdata_start)
 profession_1_stat_requirements equ __zdseg_end + (__zprofession_1_stat_requirements - __zdata_start)
 profession_2_stat_requirements equ __zdseg_end + (__zprofession_2_stat_requirements - __zdata_start)
@@ -241,7 +241,7 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "shared/ovr/periodic_party_redraw.asm" ; 0x2fd8
 
-%include "vpcmk/pick_spell_dialog_keep_frames.asm" ; 0x3069
+%include "shared/ovr/pick_spell_dialog_keep_frames.asm" ; 0x3069
 
 %include "vpcmk/api_idx_006e_LMUM.asm"     ; 0x3d59
 
@@ -297,7 +297,7 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "shared/ovr/draw_member_panel_glyphs.asm" ; 0x5df5
 
-%include "vpcmk/api_idx_0016_JNJG.asm"     ; 0x6083
+%include "shared/ovr/load_member_icon.asm"     ; 0x6083
 
 %include "vpcmk/api_idx_0006_HMNQ.asm"     ; 0x60e0
 
@@ -346,7 +346,7 @@ __zdata_start:
 
 %include "shared/data/spell_cost_panel_text.asm" ; 0x726b
 
-%include "vpcmk/data/dseg_92d6.asm"        ; 0x726f
+%include "vpcmk/data/pick_spell_dialog_keep_frames_dseg175.asm"        ; 0x726f
 
 %include "shared/data/profession_stat_requirements.asm" ; 0x7275
 

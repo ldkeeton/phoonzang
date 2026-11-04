@@ -49,43 +49,43 @@ __zobss_91d6:  ; view_scan_depth
     resb 0x0002
 __zobss_91d8:  ; side_wall_layer_flags
     resb 0x0002
-__zobss_91da:  ; maze_boundary_wall_markers
+__zobss_91da:  ; draw_first_person_maze_view_bss2757
     resb 0x000a
-__zobss_91e4:  ; marker_string_block_mode
+__zobss_91e4:  ; draw_first_person_maze_view_bss7013
     resb 0x000d
 __zobss_91f1:  ; near_wall_layer_flags
     resb 0x0002
-__zobss_91f3:  ; maze_cell_flag_markers
+__zobss_91f3:  ; resolve_cell_wall_effects_bss703
     resb 0x0017
 __zobss_920a:  ; boundary_box_faces
     resb 0x0002
-__zobss_920c:  ; maze_blocking_cell_markers
+__zobss_920c:  ; resolve_cell_wall_effects_bss777
     resb 0x0005
-__zobss_9211:  ; maze_near_blocking_markers
+__zobss_9211:  ; resolve_cell_wall_effects_bss798
     resb 0x0012
 __zobss_9223:  ; view_marker_ids
     resb 0x0002
-__zobss_9225:  ; maze_cell_facing_bytes
+__zobss_9225:  ; resolve_cell_wall_effects_bss1636
     resb 0x0017
 __zobss_923c:  ; far_wall_object_ids
     resb 0x0004
-__zobss_9240:  ; maze_cell_facing_words_a
+__zobss_9240:  ; resolve_cell_wall_effects_bss1699
     resb 0x002e
 __zobss_926e:  ; near_wall_object_ids
     resb 0x0004
-__zobss_9272:  ; maze_cell_facing_words_b
+__zobss_9272:  ; resolve_cell_wall_effects_bss1762
     resb 0x002e
 __zobss_92a0:  ; view_marker_kinds
     resb 0x0002
-__zobss_92a2:  ; maze_special_wall_markers
+__zobss_92a2:  ; resolve_cell_wall_effects_bss1826
     resb 0x0018
 __zobss_92ba:  ; far_wall_overlay_ids
     resb 0x0004
-__zobss_92be:  ; maze_cell_effect_flags_a
+__zobss_92be:  ; resolve_cell_wall_effects_bss1906
     resb 0x002e
 __zobss_92ec:  ; near_wall_overlay_ids
     resb 0x0004
-__zobss_92f0:  ; maze_cell_effect_flags_b
+__zobss_92f0:  ; resolve_cell_wall_effects_bss1961
     resb 0x002e
 __zobss_931e:  ; render_queue_count
     resb 0x0002

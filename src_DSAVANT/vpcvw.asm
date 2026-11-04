@@ -29,7 +29,7 @@ percent_suffix_text equ __zdseg_end + (__zpercent_suffix_text - __zdata_start)
 title_panel_screen_file equ __zdseg_end + (__ztitle_panel_screen_file - __zdata_start)
 choice_grid_screen_file equ __zdseg_end + (__zchoice_grid_screen_file - __zdata_start)
 spell_cost_panel_text equ __zdseg_end + (__zspell_cost_panel_text - __zdata_start)
-dseg_90ab equ __zdseg_end + (__zdseg_90ab - __zdata_start)
+pick_spell_dialog_keep_frames_dseg175 equ __zdseg_end + (__zdseg_90ab - __zdata_start)
 dseg_90b1 equ __zdseg_end + (__zdseg_90b1 - __zdata_start)
 dseg_90b3 equ __zdseg_end + (__zdseg_90b3 - __zdata_start)
 dseg_90c0 equ __zdseg_end + (__zdseg_90c0 - __zdata_start)
@@ -232,7 +232,7 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "shared/ovr/periodic_party_redraw.asm" ; 0x2bf3
 
-%include "vpcvw/pick_spell_dialog_keep_frames.asm" ; 0x2c84
+%include "shared/ovr/pick_spell_dialog_keep_frames.asm" ; 0x2c84
 
 %include "vpcvw/api_idx_0004_JNUN.asm"     ; 0x3974
 
@@ -250,7 +250,7 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "vpcvw/api_idx_009e_HMOI.asm"     ; 0x3cfe
 
-%include "vpcvw/loc_TTSP.asm"              ; 0x4011
+%include "shared/ovr/refresh_title_and_member_panel.asm"              ; 0x4011
 
 %include "vpcvw/loc_JTQP.asm"              ; 0x40b7
 
@@ -328,7 +328,7 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "vpcvw/api_idx_0030_TGOH.asm"     ; 0x92b3
 
-%include "vpcvw/api_idx_0016_TVKP.asm"     ; 0x9434
+%include "shared/ovr/load_member_icon.asm"     ; 0x9434
 
 %include "vpcvw/api_idx_0022_PNPP.asm"     ; 0x9491
 
@@ -349,7 +349,7 @@ __zdata_start:
 
 %include "shared/data/spell_cost_panel_text.asm" ; 0x9853
 
-%include "vpcvw/data/dseg_90ab.asm"        ; 0x9857
+%include "vpcvw/data/pick_spell_dialog_keep_frames_dseg175.asm"        ; 0x9857
 
 %include "shared/data/screen_save_temp_file.asm" ; 0x9a8e
 

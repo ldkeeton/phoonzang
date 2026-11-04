@@ -104,12 +104,14 @@ def source_spans(listed, sources, dseg, starts=None):
     spans, cursor = {}, None
     for module in listed:
         source = sources.get(module)
-        if source is None:
-            continue
         if is_data_module(module):
+            # Placed even without a recorded source: what links after it
+            # emits after its start, at least.
             if module in starts:
-                end = starts[module] + len(bytes.fromhex(source['data']))
-                cursor = max(cursor or 0, end)
+                size = len(bytes.fromhex(source['data'])) if source else 0
+                cursor = max(cursor or 0, starts[module] + size)
+            continue
+        if source is None:
             continue
         data = bytes.fromhex(source['data'])
         if not data:

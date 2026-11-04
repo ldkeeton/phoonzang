@@ -6,7 +6,7 @@
 %define STRUCTS_INC
 
 ; records at DS 0x0120
-struc rec_0120
+struc screen_area_rectangles_rec
     .f_0000: resb 2
     .f_0002: resb 2
     .f_0004: resb 2

@@ -161,6 +161,16 @@ class LinkOrderTest(unittest.TestCase):
                                    dseg, {'b/data/low': 2}),
             {'c/one': (0, 2), 'c/zeros': (4, 8)})
 
+    def test_zeros_after_a_data_module_without_a_source(self):
+        # vmele: every C module's data is in a data module, and ovbgn's own
+        # data is all zeros after the last of them.
+        dseg = b'VM1.$$$\0' + bytes(4)
+        sources = {'c/zeros': {'data': bytes(4).hex(), 'relocations': []}}
+        self.assertEqual(
+            linkorder.source_spans(['b/data/name', 'c/zeros'], sources,
+                                   dseg, {'b/data/name': 0}),
+            {'c/zeros': (8, 12)})
+
     def test_flags_go_on_the_ln_line(self):
         binaries = {'r': {'type': 'mz', 'link': {'flags': ['+C', 'af00']}}}
         out = project.project_files(binaries, None,

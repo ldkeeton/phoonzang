@@ -6,16 +6,12 @@ extern struct maze_cells *maze_data;
 extern int boundary_wall_variant, boundary_wall_open;
 extern int view_scan_depth, current_level, party_facing;
 extern int saved_level, saved_map_piece, saved_cell_x, saved_cell_y;
-extern unsigned char maze_boundary_wall_markers[][5];
-extern unsigned char maze_cell_flag_markers[][5];
-extern unsigned char maze_blocking_cell_markers[][5];
-extern unsigned char maze_near_blocking_markers[][5];
-extern unsigned char maze_cell_facing_bytes[][5];
-extern int maze_cell_facing_words_a[][5];
-extern int maze_cell_facing_words_b[][5];
-extern unsigned char maze_special_wall_markers[][5];
-extern int maze_cell_effect_flags_a[][5];
-extern int maze_cell_effect_flags_b[][5];
+/* Each table is [depth][column], column 0-4 for lateral -2..2. */
+extern unsigned char side_wall_layer_flags[][5], near_wall_layer_flags[][5];
+extern unsigned char boundary_box_faces[][5], view_marker_ids[][5];
+extern unsigned char view_marker_kinds[][5];
+extern int far_wall_object_ids[][5], near_wall_object_ids[][5];
+extern int far_wall_overlay_ids[][5], near_wall_overlay_ids[][5];
 extern int offset_relative_map_position(), test_bit(), read_packed_field();
 extern int get_north_cell_wall(), get_west_cell_wall();
 extern int read_cell_kind_direction();
@@ -37,10 +33,10 @@ int world_x, world_y, x, y, map, lateral;
 			if (boundary_wall_open)
 				return 0;
 		case 1:
-			maze_boundary_wall_markers[view_scan_depth][lateral] = 1;
+			side_wall_layer_flags[view_scan_depth][lateral + 2] = 1;
 			return 4;
 		case 5:
-			maze_boundary_wall_markers[view_scan_depth][lateral] = 3;
+			side_wall_layer_flags[view_scan_depth][lateral + 2] = 3;
 			return 0;
 		}
 	}
@@ -50,35 +46,35 @@ int world_x, world_y, x, y, map, lateral;
 		switch (boundary_wall_variant) {
 		case 0:
 		case 4:
-			maze_boundary_wall_markers[view_scan_depth][lateral] = 3;
+			side_wall_layer_flags[view_scan_depth][lateral + 2] = 3;
 			break;
 		case 1:
 		case 3:
 		case 5:
-			maze_boundary_wall_markers[view_scan_depth][lateral] = 1;
+			side_wall_layer_flags[view_scan_depth][lateral + 2] = 1;
 			break;
 		case 2:
-			maze_boundary_wall_markers[view_scan_depth][lateral] = 2;
+			side_wall_layer_flags[view_scan_depth][lateral + 2] = 2;
 			break;
 		}
 	}
 	if (test_bit(maze_data->cell_flags, cell_index)) {
 		switch (boundary_wall_variant) {
 		case 1:
-			maze_boundary_wall_markers[view_scan_depth][lateral] = 2;
+			side_wall_layer_flags[view_scan_depth][lateral + 2] = 2;
 			break;
 		case 2:
 		case 4:
-			maze_cell_flag_markers[view_scan_depth][lateral] = 1;
+			near_wall_layer_flags[view_scan_depth][lateral + 2] = 1;
 			break;
 		case 5:
-			maze_boundary_wall_markers[view_scan_depth][lateral] = 3;
+			side_wall_layer_flags[view_scan_depth][lateral + 2] = 3;
 			break;
 		case 0:
 		case 3:
-			maze_blocking_cell_markers[view_scan_depth][lateral] = 1;
+			boundary_box_faces[view_scan_depth][lateral + 2] = 1;
 			if (view_scan_depth < 4)
-				maze_near_blocking_markers[view_scan_depth][lateral] = 1;
+				boundary_box_faces[view_scan_depth + 1][lateral + 2] = 1;
 			return 0;
 		}
 	}
@@ -87,13 +83,13 @@ int world_x, world_y, x, y, map, lateral;
 		case 14:
 		case 19:
 		case 31:
-			maze_boundary_wall_markers[view_scan_depth][lateral] = 3;
+			side_wall_layer_flags[view_scan_depth][lateral + 2] = 3;
 			break;
 		case 10:
 		case 25:
-			maze_blocking_cell_markers[view_scan_depth][lateral] = 2;
+			boundary_box_faces[view_scan_depth][lateral + 2] = 2;
 			if (view_scan_depth < 4)
-				maze_near_blocking_markers[view_scan_depth][lateral] = 2;
+				boundary_box_faces[view_scan_depth + 1][lateral + 2] = 2;
 			break;
 		}
 	}
@@ -122,40 +118,40 @@ int world_x, world_y, x, y, map, lateral;
 		case 5: if (!view_scan_depth) wall = 12; break;
 		case 6: if (!view_scan_depth) wall = 13; break;
 		case 7:
-			maze_cell_facing_bytes[view_scan_depth][lateral] =
+			view_marker_ids[view_scan_depth][lateral + 2] =
 				direction + 1;
 			break;
 		case 8:
-			maze_cell_facing_words_a[view_scan_depth][lateral] =
+			far_wall_object_ids[view_scan_depth][lateral + 2] =
 				direction + 1;
 			break;
 		case 9:
-			maze_cell_facing_words_b[view_scan_depth][lateral] =
+			near_wall_object_ids[view_scan_depth][lateral + 2] =
 				direction + 1;
 			break;
 		case 10: wall = 14; break;
 		case 11: wall = 15; break;
 		case 12:
-			maze_special_wall_markers[view_scan_depth][lateral] = 1;
+			view_marker_kinds[view_scan_depth][lateral + 2] = 1;
 			break;
 		case 13:
-			maze_boundary_wall_markers[view_scan_depth][lateral] = 3;
+			side_wall_layer_flags[view_scan_depth][lateral + 2] = 3;
 			break;
 		case 14:
 		case 17:
-			maze_cell_effect_flags_a[view_scan_depth][lateral] = 1;
+			far_wall_overlay_ids[view_scan_depth][lateral + 2] = 1;
 		case 15:
 			if (kind != 14)
-				maze_cell_effect_flags_b[view_scan_depth][lateral] = 1;
+				near_wall_overlay_ids[view_scan_depth][lateral + 2] = 1;
 			break;
 		case 16:
-			maze_special_wall_markers[view_scan_depth][lateral] = 2;
+			view_marker_kinds[view_scan_depth][lateral + 2] = 2;
 			break;
 		}
 	}
 	/* Mark the saved location's edge after all cell overrides. */
 	if (current_level == saved_level && map == saved_map_piece &&
 		x == saved_cell_x && y == saved_cell_y)
-		maze_special_wall_markers[view_scan_depth][lateral] = 3;
+		view_marker_kinds[view_scan_depth][lateral + 2] = 3;
 	return wall;
 }

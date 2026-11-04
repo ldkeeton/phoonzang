@@ -122,6 +122,11 @@ class CheckTest(unittest.TestCase):
                          ['declares 2 bytes, the listing has 8'])
 
 
+    def test_even_common_after_an_odd_one_starts_on_a_word(self):
+        slots = [('faces', 26, '0104'), ('ids', 4, '011e')]
+        self.assertEqual(bss.check((('faces_', 25), ('ids_', 4)), slots), [])
+
+
 class ValidateTest(unittest.TestCase):
 
     def test_accepts_range_and_note(self):

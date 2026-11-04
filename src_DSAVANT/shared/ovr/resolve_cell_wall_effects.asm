@@ -38,7 +38,7 @@ jumptable_3000_case_1:
     imul word [view_scan_depth]
     add ax, word [bp + 0xe]
     mov bx, ax
-    mov byte [bx + maze_boundary_wall_markers], 1
+    mov byte [bx + draw_first_person_maze_view_bss2757], 1
     mov ax, 4
     ret
 jumptable_3000_case_5:
@@ -46,7 +46,7 @@ jumptable_3000_case_5:
     imul word [view_scan_depth]
     add ax, word [bp + 0xe]
     mov bx, ax
-    mov byte [bx + maze_boundary_wall_markers], 3
+    mov byte [bx + draw_first_person_maze_view_bss2757], 3
     mov ax, 0
     ret
 jumptable_3000:
@@ -88,21 +88,21 @@ jumptable_3082_case_0:
     imul word [view_scan_depth]
     add ax, word [bp + 0xe]
     mov bx, ax
-    mov byte [bx + maze_boundary_wall_markers], 3
+    mov byte [bx + draw_first_person_maze_view_bss2757], 3
     jmp short resolve_cell_wall_effects.forward6
 jumptable_3082_case_1:
     mov ax, 5
     imul word [view_scan_depth]
     add ax, word [bp + 0xe]
     mov bx, ax
-    mov byte [bx + maze_boundary_wall_markers], 1
+    mov byte [bx + draw_first_person_maze_view_bss2757], 1
     jmp short resolve_cell_wall_effects.forward6
 jumptable_3082_case_2:
     mov ax, 5
     imul word [view_scan_depth]
     add ax, word [bp + 0xe]
     mov bx, ax
-    mov byte [bx + maze_boundary_wall_markers], 2
+    mov byte [bx + draw_first_person_maze_view_bss2757], 2
     jmp short resolve_cell_wall_effects.forward6
 jumptable_3082:
     dw jumptable_3082_case_0 - IMAGE_BASE + __zres_end
@@ -135,31 +135,31 @@ jumptable_3111_case_1:
     imul word [view_scan_depth]
     add ax, word [bp + 0xe]
     mov bx, ax
-    mov byte [bx + maze_boundary_wall_markers], 2
+    mov byte [bx + draw_first_person_maze_view_bss2757], 2
     jmp short resolve_cell_wall_effects.forward10
 jumptable_3111_case_2:
     mov ax, 5
     imul word [view_scan_depth]
     add ax, word [bp + 0xe]
     mov bx, ax
-    mov byte [bx + maze_cell_flag_markers], 1
+    mov byte [bx + resolve_cell_wall_effects_bss703], 1
     jmp short resolve_cell_wall_effects.forward10
 jumptable_3111_case_5:
     mov ax, 5
     imul word [view_scan_depth]
     add ax, word [bp + 0xe]
     mov bx, ax
-    mov byte [bx + maze_boundary_wall_markers], 3
+    mov byte [bx + draw_first_person_maze_view_bss2757], 3
     jmp short resolve_cell_wall_effects.forward10
 jumptable_3111_case_0:
     mov ax, 5
     imul word [view_scan_depth]
     add ax, word [bp + 0xe]
     mov bx, ax
-    mov byte [bx + maze_blocking_cell_markers], 1
+    mov byte [bx + resolve_cell_wall_effects_bss777], 1
     cmp word [view_scan_depth], byte 4
     jge short resolve_cell_wall_effects.forward8
-    mov byte [bx + maze_near_blocking_markers], 1
+    mov byte [bx + resolve_cell_wall_effects_bss798], 1
 resolve_cell_wall_effects.forward8:
     mov ax, 0
     ret
@@ -192,17 +192,17 @@ resolve_cell_wall_effects.back1:
     imul word [view_scan_depth]
     add ax, word [bp + 0xe]
     mov bx, ax
-    mov byte [bx + maze_boundary_wall_markers], 3
+    mov byte [bx + draw_first_person_maze_view_bss2757], 3
     jmp short resolve_cell_wall_effects.forward13
 resolve_cell_wall_effects.back2:
     mov ax, 5
     imul word [view_scan_depth]
     add ax, word [bp + 0xe]
     mov bx, ax
-    mov byte [bx + maze_blocking_cell_markers], 2
+    mov byte [bx + resolve_cell_wall_effects_bss777], 2
     cmp word [view_scan_depth], byte 4
     jge short resolve_cell_wall_effects.forward11
-    mov byte [bx + maze_near_blocking_markers], 2
+    mov byte [bx + resolve_cell_wall_effects_bss798], 2
 resolve_cell_wall_effects.forward11:
     jmp short resolve_cell_wall_effects.forward13
 resolve_cell_wall_effects.forward12:
@@ -327,7 +327,7 @@ jumptable_3356_case_7:
     add ax, word [bp + 0xe]
     mov bx, ax
     pop ax
-    mov byte [bx + maze_cell_facing_bytes], al
+    mov byte [bx + resolve_cell_wall_effects_bss1636], al
     jmp near jumptable_3356_case_0
 jumptable_3356_case_8:
     mov ax, word [bp - 8]
@@ -341,7 +341,7 @@ jumptable_3356_case_8:
     add ax, dx
     mov bx, ax
     pop ax
-    mov word [bx + maze_cell_facing_words_a], ax
+    mov word [bx + resolve_cell_wall_effects_bss1699], ax
     jmp near jumptable_3356_case_0
 jumptable_3356_case_9:
     mov ax, word [bp - 8]
@@ -355,7 +355,7 @@ jumptable_3356_case_9:
     add ax, dx
     mov bx, ax
     pop ax
-    mov word [bx + maze_cell_facing_words_b], ax
+    mov word [bx + resolve_cell_wall_effects_bss1762], ax
     jmp near jumptable_3356_case_0
 jumptable_3356_case_10:
     mov word [bp - 4], 0xe
@@ -368,14 +368,14 @@ jumptable_3356_case_12:
     imul word [view_scan_depth]
     add ax, word [bp + 0xe]
     mov bx, ax
-    mov byte [bx + maze_special_wall_markers], 1
+    mov byte [bx + resolve_cell_wall_effects_bss1826], 1
     jmp near jumptable_3356_case_0
 jumptable_3356_case_13:
     mov ax, 5
     imul word [view_scan_depth]
     add ax, word [bp + 0xe]
     mov bx, ax
-    mov byte [bx + maze_boundary_wall_markers], 3
+    mov byte [bx + draw_first_person_maze_view_bss2757], 3
     jmp short jumptable_3356_case_0
 jumptable_3356_case_14:
     mov ax, 0xa
@@ -384,7 +384,7 @@ jumptable_3356_case_14:
     shl cx, 1
     add ax, cx
     mov bx, ax
-    mov word [bx + maze_cell_effect_flags_a], 1
+    mov word [bx + resolve_cell_wall_effects_bss1906], 1
 jumptable_3356_case_15:
     cmp word [bp - 6], byte 0xe
     je short resolve_cell_wall_effects.forward20
@@ -394,7 +394,7 @@ jumptable_3356_case_15:
     shl cx, 1
     add ax, cx
     mov bx, ax
-    mov word [bx + maze_cell_effect_flags_b], 1
+    mov word [bx + resolve_cell_wall_effects_bss1961], 1
 resolve_cell_wall_effects.forward20:
     jmp short jumptable_3356_case_0
 jumptable_3356_case_16:
@@ -402,7 +402,7 @@ jumptable_3356_case_16:
     imul word [view_scan_depth]
     add ax, word [bp + 0xe]
     mov bx, ax
-    mov byte [bx + maze_special_wall_markers], 2
+    mov byte [bx + resolve_cell_wall_effects_bss1826], 2
     jmp short jumptable_3356_case_0
 jumptable_3356:
     dw jumptable_3356_case_0 - IMAGE_BASE + __zres_end
@@ -446,7 +446,7 @@ jumptable_3356_case_0:
     imul word [view_scan_depth]
     add ax, word [bp + 0xe]
     mov bx, ax
-    mov byte [bx + maze_special_wall_markers], 3
+    mov byte [bx + resolve_cell_wall_effects_bss1826], 3
 resolve_cell_wall_effects.forward23:
     mov ax, word [bp - 4]
     ret
