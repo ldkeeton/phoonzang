@@ -2,7 +2,7 @@
 	include lmacros.h
 
 	dataseg segment para public 'data'
-	extrn alt_text_attribute:byte
+	extrn alt_text_attribute_:byte
 	dataseg ends
 	assume ds:dataseg
 
@@ -28,7 +28,7 @@
 		.else short
 		; Write one character, then advance the BIOS cursor column.
 			mov ah,9
-			mov bl,byte ptr alt_text_attribute
+			mov bl,byte ptr alt_text_attribute_
 			mov bh,0
 			mov cx,1
 			int 10h

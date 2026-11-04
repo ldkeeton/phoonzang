@@ -1,7 +1,7 @@
 /* Copyright (C) 1981,1982 by Manx Software Systems */
 #include <ctype.h>
 
-atoi(cp)
+aztec_atoi(cp)
 register char *cp;
 {
 	register unsigned i;

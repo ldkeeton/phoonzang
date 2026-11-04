@@ -24,9 +24,10 @@ from .objread import external_label
 
 #: *file* is the vendor source (``stksiz.c``); *publics* ``((label, offset),
 #: ...)`` in offset order; *data* the module's initialized bytes; *name* a
-#: sidecar ``file`` that names the fragment instead of its objects.
-DataModule = namedtuple('DataModule', 'file publics data declared name',
-                       defaults=(False, None))
+#: sidecar ``file`` that names the fragment instead of its objects; *ds* the
+#: DS offset a declared module starts at (its pointers hold DS offsets).
+DataModule = namedtuple('DataModule', 'file publics data declared name ds',
+                       defaults=(False, None, None))
 
 
 def declared_data_modules(entry, segments, image):
@@ -55,7 +56,7 @@ def declared_data_modules(entry, segments, image):
         filename = info.get('file', info['name'].strip('_')) + '.c'
         result.append(DataModule(filename, publics,
                                  bytes(image[at:at + info['length']]), True,
-                                 info.get('file')))
+                                 info.get('file'), offset))
         previous_end = end
     return tuple(result)
 

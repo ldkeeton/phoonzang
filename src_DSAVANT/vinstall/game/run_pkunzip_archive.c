@@ -1,4 +1,6 @@
 /* Run the configured PKUNZIP command and report a failed extraction. */
+#include <stdio.h>
+
 extern char pkunzip_exe_suffix[];
 extern char pkunzip_argv0[];
 extern char pkunzip_command_prefix[];
@@ -9,7 +11,6 @@ extern char console_device_name[];
 extern char console_stream_append_mode[];
 extern char unzip_failure_prefix[];
 extern char unzip_failure_suffix[];
-extern char archive_process_stream[];
 extern int archive_process_stream_handle;
 extern int aztec_strcpy();
 extern int aztec_strcat();
@@ -56,9 +57,9 @@ char *file_list;
 	aztec_strcat(messages.command_line, file_list);
 	display_centered_command_line(messages.command_line);
 
-	/* Redirect the archive process stream away from the console. */
+	/* Send stdout to NUL while PKUNZIP runs. */
 	archive_process_stream_handle =
-		aztec_freopen(null_device_name, stream_append_mode, archive_process_stream);
+		aztec_freopen(null_device_name, stream_append_mode, stdout);
 	execute_result = aztec_fexecl(executable_path, executable_name,
 				      archive_path, file_list, 0, 0);
 	wait_result = aztec_wait();

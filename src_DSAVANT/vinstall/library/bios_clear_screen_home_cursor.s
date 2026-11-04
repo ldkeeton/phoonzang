@@ -1,7 +1,7 @@
 ; Clear the BIOS text display and reset its cursor to the upper-left corner.
 	include lmacros.h
 	dataseg segment para public 'data'
-	extrn clear_attribute:byte
+	extrn clear_attribute_:byte
 	dataseg ends
 	assume ds:dataseg
 
@@ -11,7 +11,7 @@ bios_clear_screen_home_cursor_ proc near
 	mov bp,sp
 	pushs di,si
 	mov ax,0600h	; Scroll the selected full-screen region upward by zero lines.
-	mov bh,clear_attribute
+	mov bh,clear_attribute_
 	xor cx,cx	; Clear from row 0, column 0.
 	mov dx,184fh	; The bottom-right cell is row 24, column 79.
 	push bp		; Preserve the caller frame across the BIOS call.

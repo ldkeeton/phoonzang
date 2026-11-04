@@ -893,7 +893,9 @@ def _data_sources(project, binary, out_dir, split_sources, segments=None,
                                for label, _ in module.publics):
             continue
         entry = cache.data_entry(module.file)
-        label = LIBRARY_PREFIX + name
+        # A library module is compiled under its aztec_ name, for the library's
+        # flags; a declared one under its stem, as make link compiles it.
+        label = name if module.declared else LIBRARY_PREFIX + name
         c_rel = shown = rel[:-4] + '.c'
         source = None
         for path in (os.path.join(out_dir, c_rel),
@@ -909,7 +911,7 @@ def _data_sources(project, binary, out_dir, split_sources, segments=None,
             source = cache.seed_source_text(project, binary, label, entry)
             seeds[c_rel] = source
         todo.append((module, rel, label, entry, shown, source))
-    # One DOSBox batch compiles them all; compile_data then hits the cache.
+    # One DOSBox batch compiles them all; compiled then hits the cache.
     try:
         failed = cache.precompile(project, binary,
                                   [(label, entry, source) for _, _, label,
@@ -920,9 +922,20 @@ def _data_sources(project, binary, out_dir, split_sources, segments=None,
         try:
             if label in failed:
                 raise failed[label]
-            got = cache.compile_data(project, binary, label, entry, source)
+            compiled = cache.compiled(project, binary, label, entry, source)
         except Exception as exc:
             raise SystemExit(f'error: {shown}: {exc}') from exc
+        got = compiled.data or b''
+        relocations = tuple(compiled.data_relocations or ())
+        if module.ds:
+            # A pointer compiles relative to its module; ln adds where the
+            # module's data starts in DS, which the image holds.
+            got = bytearray(got)
+            for at, width in relocations:
+                if width == 2 and at + 2 <= len(got):
+                    word = (got[at] | got[at + 1] << 8) + module.ds
+                    got[at:at + 2] = (word & 0xffff).to_bytes(2, 'little')
+            got = bytes(got)
         want = module.data
         if len(got) % 2 and len(want) == len(got) + 1 and not want[-1]:
             want = want[:-1]  # ln pads a module's odd-length data with a zero.
@@ -931,7 +944,7 @@ def _data_sources(project, binary, out_dir, split_sources, segments=None,
                 f'error: {shown}: compiles to {got.hex() or "no data"}, '
                 f'but {rel} holds {module.data.hex()}')
         sources.append({
-            'path': shown, 'data': got, 'relocations': (),
+            'path': shown, 'data': got, 'relocations': relocations,
             'symbols': {label for label, _ in module.publics},
             'externals': (),
         })

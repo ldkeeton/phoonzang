@@ -125,7 +125,6 @@ extern char *graphics_mode_label_table[], *no_yes_label_table[],
 	*disk_drive_type_table[], *sound_device_names[];
 extern int navigation_up_table[], navigation_down_table[],
 	navigation_right_table[], navigation_left_table[];
-extern int graphics_mode_label_vga, graphics_mode_label_ega;
 extern char installer_message_buffer[], pkunzip_filespec_list[];
 extern int vga_available, ega_available,
 	cga_available, hercules_available;
@@ -214,13 +213,13 @@ main()
 	local.graphics_list_row = 15;
 	if (vga_available != 0) {
 		local.graphics_mode = 1;
-		put_text_at(local.graphics_list_row, 10, graphics_mode_label_vga);
+		put_text_at(local.graphics_list_row, 10, graphics_mode_label_table[1]);
 		local.graphics_list_row++;
 	}
 	if (ega_available != 0) {
 		if (local.graphics_mode == 0)
 			local.graphics_mode = 2;
-		put_text_at(local.graphics_list_row, 10, graphics_mode_label_ega);
+		put_text_at(local.graphics_list_row, 10, graphics_mode_label_table[2]);
 		local.graphics_list_row++;
 	}
 	put_text_at(13, 16, graphics_mode_label_table[local.graphics_mode]);

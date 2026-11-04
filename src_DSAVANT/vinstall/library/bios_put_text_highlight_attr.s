@@ -2,7 +2,7 @@
 include lmacros.h
 
 dataseg segment para public 'data'
-	extrn highlight_text_attribute:byte
+	extrn highlight_text_attribute_:byte
 dataseg ends
 	assume ds:dataseg
 
@@ -27,7 +27,7 @@ procdef bios_put_text_highlight_attr,<<text_ptr,word>>
 	jmp short .next_char
 .write_char:
 	mov ah,9
-	mov bl,byte ptr highlight_text_attribute
+	mov bl,byte ptr highlight_text_attribute_
 	mov bh,0
 	mov cx,1
 	int 10h	; Write one character with the selected attribute.

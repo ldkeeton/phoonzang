@@ -1,7 +1,7 @@
 ; Clear the text cells from the supplied cursor position to the end of the screen.
 	include lmacros.h
 	dataseg segment para public 'data'
-	extrn clear_attribute:byte
+	extrn clear_attribute_:byte
 	dataseg ends
 	assume ds:dataseg
 	procdef bios_clear_to_screen_end,<<row,word>,<column,word>>
@@ -24,7 +24,7 @@
 	add ax,si
 	mov cx,ax
 	mov ax,920h		; BIOS AH=09h writes a space with an attribute.
-	mov bl,clear_attribute
+	mov bl,clear_attribute_
 	mov bh,0
 	int 10h			; Fill CX cells with the selected attribute.
 	pops	si,di

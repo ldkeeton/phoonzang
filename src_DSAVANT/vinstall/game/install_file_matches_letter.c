@@ -2,14 +2,9 @@
 extern int aztec_strcpy();
 extern int aztec_strlen();
 
-struct install_file_record {
-	char *disk_file_names[3];
-		/* offsets 0x00, 0x02, 0x04 from DS 0x02ad */
-	char unused_record_tail[4];
-		/* offsets 0x06..0x09, preserving 10-byte stride */
-};
+#include "structs/instfile.h"
 
-extern struct install_file_record dseg_02ad[];
+extern struct install_file install_files[];
 
 install_file_matches_letter(file_number, disk_format, letter_index)
 int file_number;
@@ -22,8 +17,7 @@ int letter_index;
 	char unused_path_buffer[80];
 
 	/* Select this file's name for the requested disk format. */
-	aztec_strcpy(file_name,
-		dseg_02ad[file_number].disk_file_names[disk_format]);
+	aztec_strcpy(file_name, install_files[file_number].letters[disk_format]);
 	character_index = 0;
 	goto check_length;
 

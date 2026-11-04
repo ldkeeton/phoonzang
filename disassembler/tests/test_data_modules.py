@@ -59,17 +59,35 @@ class DeclaredOverlayDataTest(unittest.TestCase):
 
 
 class DataSourcesTest(unittest.TestCase):
-    def sources(self, compiled):
+    #: A module at DS 0x10 holding a pointer to its own second word.
+    POINTERS = DataModule('ptrs.c', (('ptrs', 0),), bytes.fromhex('12000000'),
+                          ds=0x10)
+
+    #: A module a sidecar length declares, with its hand-owned C.
+    DECLARED = DataModule('tables.c', (('tables', 0),), bytes(2), True)
+
+    def sources(self, compiled, relocations=(), module=STKSIZ, asm=ASM,
+                hand=None, calls=None):
+        name = stem(module)
+        compiled_mock = mock.Mock(return_value=mock.Mock(
+            data=compiled, data_relocations=relocations))
         with tempfile.TemporaryDirectory() as out, \
                 mock.patch('lib.aztec.datamodules.data_modules',
-                           return_value=(STKSIZ,)), \
+                           return_value=(module,)), \
                 mock.patch('lib.aztec.cache.seed_source_text',
                            return_value='/* auto-generated */\nint x;\n'), \
                 mock.patch('lib.aztec.cache.precompile', return_value={}), \
-                mock.patch('lib.aztec.cache.compile_data',
-                           return_value=compiled):
-            return aztec._data_sources('P', 'vinstall', out,
-                                       {'vinstall/data/stksiz.asm': ASM})
+                mock.patch('lib.aztec.cache.compiled', compiled_mock):
+            if hand is not None:
+                os.makedirs(os.path.join(out, 'vinstall', 'data'))
+                with open(os.path.join(out, 'vinstall', 'data',
+                                       f'{name}.c'), 'w') as f:
+                    f.write(hand)
+            result = aztec._data_sources('P', 'vinstall', out,
+                                         {f'vinstall/data/{name}.asm': asm})
+        if calls is not None:
+            calls.extend(c.args[2] for c in compiled_mock.call_args_list)
+        return result
 
     def test_the_seed_goes_beside_the_asm(self):
         self.assertEqual(list(self.sources(STKSIZ.data)),
@@ -78,6 +96,29 @@ class DataSourcesTest(unittest.TestCase):
     def test_other_data_fails_the_build(self):
         with self.assertRaisesRegex(SystemExit, 'stksiz.c: compiles to'):
             self.sources(bytes(8))
+
+    def test_a_pointer_is_relocated_to_the_modules_ds_offset(self):
+        self.assertEqual(
+            list(self.sources(bytes.fromhex('02000000'), ((0, 2),),
+                              self.POINTERS, '__zptrs:\n')),
+            ['vinstall/data/ptrs.c'])
+
+    def test_an_unrelocated_word_is_compared_as_it_is(self):
+        with self.assertRaisesRegex(SystemExit, 'ptrs.c: compiles to'):
+            self.sources(bytes.fromhex('02000000'), (), self.POINTERS,
+                         '__zptrs:\n')
+
+
+    def test_a_library_module_compiles_under_its_aztec_name(self):
+        labels = []
+        self.sources(STKSIZ.data, calls=labels)
+        self.assertEqual(labels, ['aztec_stksiz'])
+
+    def test_a_declared_module_compiles_under_its_stem_as_make_link_does(self):
+        labels = []
+        self.sources(bytes(2), module=self.DECLARED, asm='__ztables:\n',
+                     hand='int tables;\n', calls=labels)
+        self.assertEqual(labels, ['tables'])
 
 
 class CheckDataAsmTest(unittest.TestCase):

@@ -36,6 +36,7 @@ IMAGE_BASE equ 0x0200 + VBASE
 %endif
 
 graphics_mode_label_table equ __zgraphics_mode_label_table - __zdseg_start
+install_files equ __zinstall_files - __zdseg_start
 source_drive_types_allowed equ __zsource_drive_types_allowed - __zdseg_start
 destination_drive_types_allowed equ __zdestination_drive_types_allowed - __zdseg_start
 _lowwater equ __z_lowwater - __zdseg_start
@@ -346,7 +347,7 @@ unused_flag_2af8                equ __zbss_2af8 - __zdseg_start
 mouse_detected                  equ __zbss_2afa - __zdseg_start
 %include "vinstall/game/main.asm"          ; 0x12b5
 
-%include "vinstall/game/detect_video_and_mouse.asm" ; 0x245e
+%include "vinstall/library/detect_video_and_mouse.asm" ; 0x245e
 
 %include "vinstall/data/saved_video_mode.asm" ; 0x2479
 
@@ -580,6 +581,8 @@ dseg_006a equ __zdseg_006a - __zdseg_start
 dseg_0081 equ __zdseg_0081 - __zdseg_start
 dseg_009c equ __zdseg_009c - __zdseg_start
 dseg_00a0 equ __zdseg_00a0 - __zdseg_start
+%include "vinstall/data/graphics_mode_labels.asm" ; 0x3ae2
+
 dseg_00b4 equ __zdseg_00b4 - __zdseg_start
 dseg_00c8 equ __zdseg_00c8 - __zdseg_start
 dseg_00dc equ __zdseg_00dc - __zdseg_start
@@ -588,14 +591,28 @@ dseg_0104 equ __zdseg_0104 - __zdseg_start
 dseg_0118 equ __zdseg_0118 - __zdseg_start
 dseg_012c equ __zdseg_012c - __zdseg_start
 dseg_0140 equ __zdseg_0140 - __zdseg_start
+%include "vinstall/data/sound_device_names.asm" ; 0x3b84
+
 dseg_0158 equ __zdseg_0158 - __zdseg_start
 dseg_015c equ __zdseg_015c - __zdseg_start
+%include "vinstall/data/no_yes_labels.asm" ; 0x3c34
+
 dseg_016a equ __zdseg_016a - __zdseg_start
 dseg_0181 equ __zdseg_0181 - __zdseg_start
 dseg_0198 equ __zdseg_0198 - __zdseg_start
 dseg_01af equ __zdseg_01af - __zdseg_start
 dseg_01c6 equ __zdseg_01c6 - __zdseg_start
-%include "vinstall/data/vinstall_data.asm" ; 0x3ae2
+%include "vinstall/data/install_tables.asm" ; 0x3c40
+
+%include "vinstall/data/routine_messages.asm" ; 0x4f24
+
+%include "vinstall/data/title_screen_text.asm" ; 0x5212
+
+%include "vinstall/data/setup_screen_text.asm" ; 0x5572
+
+%include "vinstall/data/drive_check_text.asm" ; 0x597e
+
+%include "vinstall/data/install_run_text.asm" ; 0x5bf2
 
 %include "vinstall/aztec/aztec_fexecv.data.asm" ; 0x5dea
 

@@ -2,7 +2,7 @@
 	include lmacros.h
 
 	dataseg segment para public 'data'
-	extrn put_text_attribute:byte
+	extrn put_text_attribute_:byte
 	dataseg ends
 	assume ds:dataseg
 
@@ -28,7 +28,7 @@
 		.else short
 		; Write one character with the current attribute, then advance the column.
 			mov ah,9
-			mov bl,byte ptr put_text_attribute
+			mov bl,byte ptr put_text_attribute_
 			mov bh,0
 			mov cx,1
 			int 10h

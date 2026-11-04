@@ -36,7 +36,7 @@ vinstall/game/set_install_drive_defaults
 vinstall/game/install_file_matches_letter
 vinstall/game/enter_destination_directory
 vinstall/game/main
-vinstall/game/detect_video_and_mouse
+vinstall/library/detect_video_and_mouse
 vinstall/data/saved_video_mode
 vinstall/library/detect_video_adapter_type
 vinstall/library/detect_mouse
@@ -58,7 +58,15 @@ vinstall/library/bios_restore_text_rect
 vinstall/aztec/aztec_atoi
 vinstall/aztec/aztec_atol
 vinstall/aztec/aztec_fexecl
-vinstall/data/vinstall_data
+vinstall/data/graphics_mode_labels
+vinstall/data/sound_device_names
+vinstall/data/no_yes_labels
+vinstall/data/install_tables
+vinstall/data/routine_messages
+vinstall/data/title_screen_text
+vinstall/data/setup_screen_text
+vinstall/data/drive_check_text
+vinstall/data/install_run_text
 vinstall/aztec/aztec_fexecv
 vinstall/aztec/aztec_fcbinit
 vinstall/aztec/aztec_mkdir

@@ -1,7 +1,7 @@
 ; Move the BIOS cursor to the supplied row and column, then fill to column 80.
 	include lmacros.h
 	dataseg segment para public 'data'
-	extrn clear_attribute:byte
+	extrn clear_attribute_:byte
 	dataseg ends
 	assume ds:dataseg
 
@@ -18,7 +18,7 @@
 	sub ax,bx		; Number of cells remaining through column 79.
 	mov cx,ax
 	mov ax,920h		; BIOS AH=09h writes a space with an attribute.
-	mov bl,clear_attribute
+	mov bl,clear_attribute_
 	mov bh,0
 	int 10h		; Fill CX cells using the selected text attribute.
 	pops	si,di
