@@ -2525,6 +2525,7 @@
         "0132": {"name": "stop_and_clear_maze_sounds", "note": "Stops and clears the two tracked maze sound slots"},
         "0171": {"name": "load_maze_sound_pair", "note": "loads up to two maze sound files into designated slots"},
         "01bb": {"name": "update_maze_sound_selection", "note": "chooses and loads the sound pair selected by saved-location and maze state"},
+        "02cc": {"name": "clear_marker_string_frames", "note": "Clears the three marker string animation frames"},
         "02f0": {"name": "load_maze_file", "note": "Open a maze file, load it into the requested slot, and close it"},
         "0336": {"name": "load_maze_variant_resources", "note": "loads sound-resource slots selected by maze_variant"},
         "03dc": {"name": "load_maze_resources", "note": "loads the maze assets selected by the current game state"},

@@ -1,5 +1,5 @@
 ; auto-generated
-api_idx_0002_LMTG:
+clear_marker_string_frames:
     mov ax, 0xfffe                   ; 0x02da
     call aztec_csav                  ; 0x02dd
     mov word [bp - 2], 0             ; 0x02e0

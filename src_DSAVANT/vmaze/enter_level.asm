@@ -10,7 +10,7 @@ enter_level:
     adc dx, byte 0                   ; 0x0ccc
     mov word [maze_refresh_deadline_high], dx ; 0x0ccf
     mov word [maze_refresh_deadline], ax ; 0x0cd3
-    call api_idx_0002_LMTG           ; 0x0cd6
+    call clear_marker_string_frames  ; 0x0cd6
     mov ax, word [bp + 4]            ; 0x0cd9
     mov word [current_level], ax     ; 0x0cdc
     push ax                          ; 0x0cdf

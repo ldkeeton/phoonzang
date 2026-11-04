@@ -1022,7 +1022,7 @@ jumptable_2d1b_case_0:
     mov word [party_region_level_saved], 0 ; 0x2b7d
     jmp near jumptable_2d1b_case_12  ; 0x2b83
 jumptable_2d1b_case_1:
-    call api_idx_0002_LMTG           ; 0x2b86
+    call clear_marker_string_frames  ; 0x2b86
     mov ax, 1                        ; 0x2b89
     cmp word [bp - 2], byte 1        ; 0x2b8c
     jne short api_idx_0022_LKUK.forward58 ; 0x2b90

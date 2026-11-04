@@ -5,7 +5,7 @@ vmaze/maybe_play_maze_ambient_sound
 vmaze/stop_and_clear_maze_sounds
 vmaze/load_maze_sound_pair
 vmaze/update_maze_sound_selection
-vmaze/api_idx_0002_LMTG
+vmaze/clear_marker_string_frames
 shared/ovr/load_maze_file
 vmaze/load_maze_variant_resources
 vmaze/load_maze_resources

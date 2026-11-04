@@ -147,7 +147,7 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "vmaze/update_maze_sound_selection.asm" ; 0x01c9
 
-%include "vmaze/api_idx_0002_LMTG.asm"     ; 0x02da
+%include "vmaze/clear_marker_string_frames.asm" ; 0x02da
 
 %include "shared/ovr/load_maze_file.asm"        ; 0x02fe
 

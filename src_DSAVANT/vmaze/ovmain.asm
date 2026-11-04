@@ -18,7 +18,7 @@ ovmain:
     adc dx, byte 0                   ; 0x004e
     mov word [maze_refresh_deadline_high], dx ; 0x0051
     mov word [maze_refresh_deadline], ax ; 0x0055
-    call api_idx_0002_LMTG           ; 0x0058
+    call clear_marker_string_frames  ; 0x0058
     cmp word [saved_screen_pending], byte 0 ; 0x005b
     je short .forward1               ; 0x0060
     mov ax, 1                        ; 0x0062
@@ -40,7 +40,7 @@ ovmain:
     call api_idx_0022_LKUK           ; 0x008f
 .forward3:
     call stop_and_clear_maze_sounds  ; 0x0092
-    call api_idx_0002_LMTG           ; 0x0095
+    call clear_marker_string_frames  ; 0x0095
     mov ax, word [game_state]        ; 0x0098
     cmp ax, strict word 0x1e         ; 0x009b
     je short .forward4               ; 0x009e
