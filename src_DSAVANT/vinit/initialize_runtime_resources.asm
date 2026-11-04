@@ -2,7 +2,7 @@
 initialize_runtime_resources:
     mov ax, 0xfce6                   ; 0x03a8
     call aztec_csav                  ; 0x03ab
-    mov word [startup_zero_word], 0  ; 0x03ae
+    mov word [npc_id_decoy], 0       ; 0x03ae
     mov word [pointer_image_zero_seg], 0 ; 0x03b4
     mov word [pointer_image_zero], 0 ; 0x03ba
     mov word [mouse_pointer_shape_seg], 0 ; 0x03c0
@@ -83,7 +83,7 @@ initialize_runtime_resources:
     call release_and_exit            ; 0x0472
     pop cx                           ; 0x0475
 .forward6:
-    mov word [code_check_value], 0x905c ; 0x0476
+    mov word [npc_id_address], 0x905c ; 0x0476
     mov al, byte [sound_device_setting] ; 0x047c
     sub ah, ah                       ; 0x047f
     mov word [bp - 0xa], ax          ; 0x0481
@@ -101,7 +101,7 @@ initialize_runtime_resources:
     push ax                          ; 0x04a0
     call call_play_select_device     ; 0x04a1
     add sp, byte 4                   ; 0x04a4
-    mov word [code_check_word], 0x905c ; 0x04a7
+    mov word [npc_id_clue_relay], 0x905c ; 0x04a7
     mov word [mouse_active], 0       ; 0x04ad
     mov word [hotspot_hit], 0        ; 0x04b3
     mov word [bp - 6], 0             ; 0x04b9
@@ -116,7 +116,7 @@ initialize_runtime_resources:
     mov ax, word [bp - 6]            ; 0x04d0
     cmp ax, strict word 0x64         ; 0x04d3
     jl short .back5                  ; 0x04d6
-    call set_code_check_value        ; 0x04d8
+    call set_npc_id_address          ; 0x04d8
     mov ax, 0                        ; 0x04db
     push ax                          ; 0x04de
     push ax                          ; 0x04df
@@ -208,7 +208,7 @@ initialize_runtime_resources:
     push ax                          ; 0x05a3
     call load_startup_maze           ; 0x05a4
     add sp, byte 4                   ; 0x05a7
-    mov word [answer_check_word], 0x905c ; 0x05aa
+    mov word [npc_id_answer_relay], 0x905c ; 0x05aa
     mov ax, 0x52                     ; 0x05b0
     push ax                          ; 0x05b3
     mov ax, record_size              ; 0x05b4
@@ -364,7 +364,7 @@ initialize_runtime_resources:
     add sp, byte 6                   ; 0x071c
     mov word [loaded_sound_id], 0xffff ; 0x071f
     mov word [loaded_score_num], 0xffff ; 0x0725
-    mov word [character_record_target], 0x905c ; 0x072b
+    mov word [npc_id_target], 0x905c ; 0x072b
     mov word [runtime_buffer_1k_seg], 0 ; 0x0731
     mov word [runtime_buffer_1k], 0  ; 0x0737
     mov word [runtime_buffer_4k_a_seg], 0 ; 0x073d

@@ -11,12 +11,12 @@ vmaze/load_maze_variant_resources
 vmaze/load_maze_resources
 vmaze/decode_maze_cell_records
 vmaze/load_current_maze_level
-vmaze/choose_character_record
-vmaze/api_idx_0002_GGTO
+vmaze/choose_region_npc
+vmaze/roll_region_outcome
 vmaze/configure_story_music
-vmaze/api_idx_0002_SMVN
+vmaze/mark_connected_maze_cells
 vmaze/enter_level
-vmaze/api_idx_0002_GSIL
+vmaze/set_maze_time_tint
 vmaze/update_maze_refresh_timer
 shared/ovr/party_redraw_interval_elapsed
 shared/ovr/advance_party_redraw_frame
@@ -30,7 +30,7 @@ vmaze/decrement_party_status_timers
 vmaze/adjust_party_world_position
 shared/ovr/save_previous_party_position
 vmaze/display_message_with_sound
-vmaze/api_idx_0004_IKPN
+vmaze/relocate_party_if_none_active
 shared/ovr/check_at_saved_location
 vmaze/api_idx_0004_IHHI
 shared/ovr/get_cell_terrain
@@ -38,7 +38,7 @@ vmaze/api_idx_000e_NSGM
 vmaze/api_idx_0004_USIK
 vmaze/api_idx_000a_URTS
 vmaze/api_idx_0018_USPR
-vmaze/api_idx_0010_HOIJ
+vmaze/draw_area_number_glyph
 shared/ovr/find_floor_item_at_party
 shared/ovr/refresh_floor_item_icon
 vmaze/display_maze_message
@@ -82,7 +82,7 @@ shared/ovr/mark_region_bits
 vmaze/move_party_to_dest
 vmaze/run_region_keyed_action
 vmaze/store_party_region_level
-vmaze/check_region_trigger_bit_14
+vmaze/find_region_item
 vmaze/display_member_message
 vmaze/update_party_status_animation
 vmaze/collect_region_flag_bits
@@ -90,7 +90,7 @@ vmaze/handle_region_flag_event
 vmaze/play_region_spell_sound
 vmaze/handle_region_object_search
 vmaze/advance_maze_region
-vmaze/check_region_trigger_bit_2
+vmaze/meet_region_npc
 vmaze/api_idx_0018_KVSP
 vmaze/animate_party_status_frame
 vmaze/set_cell_wall
@@ -109,9 +109,9 @@ shared/ovr/clear_bit_pair
 vmaze/claim_cell
 vmaze/check_type8_object
 vmaze/check_cell_objects
-vmaze/api_idx_0002_NGNS
+vmaze/select_region_item_if_facing
 vmaze/api_idx_0002_QLLK
-vmaze/api_idx_0002_SKMG
+vmaze/take_cell_exit_object
 vmaze/append_edge_between
 vmaze/search_path_from
 vmaze/plan_slot_path

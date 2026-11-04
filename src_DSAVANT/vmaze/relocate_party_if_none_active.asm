@@ -1,5 +1,5 @@
 ; auto-generated
-api_idx_0004_IKPN:
+relocate_party_if_none_active:
     mov ax, 0xfffc                   ; 0x1308
     call aztec_csav                  ; 0x130b
     mov word [bp - 4], 0             ; 0x130e
@@ -59,7 +59,7 @@ api_idx_0004_IKPN:
     push ax                          ; 0x13a2
     call find_map_piece              ; 0x13a3
     add sp, byte 0xa                 ; 0x13a6
-    mov word [bss_91aa], 1           ; 0x13a9
+    mov word [maze_redraw_pending], 1 ; 0x13a9
     mov word [location_changed], 1   ; 0x13af
     call save_previous_party_position ; 0x13b5
     mov ax, 1                        ; 0x13b8

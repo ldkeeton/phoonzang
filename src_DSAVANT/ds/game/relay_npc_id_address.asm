@@ -1,5 +1,5 @@
 ; auto-generated
-publish_code_check_word:
+relay_npc_id_address:
     mov ax, 0                        ; 0x0ad7
     call aztec_csav                  ; 0x0ada
     mov al, byte [code_characters]   ; 0x0add
@@ -8,7 +8,7 @@ publish_code_check_word:
     jne short .return1               ; 0x0ae6
     cmp word [answer_length], byte 0 ; 0x0ae8
     jle short .return1               ; 0x0aed
-    mov ax, word [code_check_value]  ; 0x0aef
-    mov word [code_check_word], ax   ; 0x0af2
+    mov ax, word [npc_id_address]    ; 0x0aef
+    mov word [npc_id_clue_relay], ax ; 0x0af2
 .return1:
     ret                              ; 0x0af5

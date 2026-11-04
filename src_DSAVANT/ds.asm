@@ -58,12 +58,14 @@ dseg_0042 equ __zdseg_0042 - __zdseg_start
 dseg_0044 equ __zdseg_0044 - __zdseg_start
 value_clamp_ranges equ __zvalue_clamp_ranges - __zdseg_start
 psp_cmd_tail_len equ 0x0080
+hourly_maze_tints equ __zhourly_maze_tints - __zdseg_start
 level_up_score_number equ __zlevel_up_score_number - __zdseg_start
 camp_score_number equ __zcamp_score_number - __zdseg_start
 file_param_word equ __zfile_param_word - __zdseg_start
 story_score_file_number equ __zstory_score_file_number - __zdseg_start
 loaded_score_number equ __zloaded_score_number - __zdseg_start
 intro_score_number_source equ __zintro_score_number_source - __zdseg_start
+screen_area_rectangles equ __zscreen_area_rectangles - __zdseg_start
 realm_point_text_positions equ __zrealm_point_text_positions - __zdseg_start
 realm_spell_point_positions equ __zrealm_spell_point_positions - __zdseg_start
 party_slot_x equ __zparty_slot_x - __zdseg_start
@@ -164,14 +166,14 @@ mouse_pointer_shape_seg equ __zbss_0e2c - __zdseg_start
 pointer_image_zero equ __zbss_0e2e - __zdseg_start
 pointer_image_zero_seg equ __zbss_0e30 - __zdseg_start
 mouse_active equ __zbss_0e32 - __zdseg_start
-code_check_value equ __zbss_0e34 - __zdseg_start
-character_record_index equ __zbss_0e36 - __zdseg_start
+npc_id_address equ __zbss_0e34 - __zdseg_start
+npc_id equ __zbss_0e36 - __zdseg_start
 known_spell_names equ __zbss_0e38 - __zdseg_start
 filename_edit_buffer equ __zbss_0e4c - __zdseg_start
 code_char_message_index equ __zbss_0fd5 - __zdseg_start
 code_table equ __zbss_0fd6 - __zdseg_start
-answer_check_word equ __zbss_1008 - __zdseg_start
-character_record_target equ __zbss_100a - __zdseg_start
+npc_id_answer_relay equ __zbss_1008 - __zdseg_start
+npc_id_target equ __zbss_100a - __zdseg_start
 message_directory equ __zbss_100c - __zdseg_start
 bss_2d40 equ __zbss_2d40 - __zdseg_start
 bss_2d58 equ __zbss_2d58 - __zdseg_start
@@ -225,7 +227,7 @@ loaded_sound_id equ __zbss_598e - __zdseg_start
 code_characters equ __zbss_5990 - __zdseg_start
 code_char_index equ __zbss_59f4 - __zdseg_start
 answer_length equ __zbss_59f6 - __zdseg_start
-code_check_word equ __zbss_59f8 - __zdseg_start
+npc_id_clue_relay equ __zbss_59f8 - __zdseg_start
 escape_key_hit equ __zbss_59fa - __zdseg_start
 space_key_hit equ __zbss_59fc - __zdseg_start
 hotspot_rects equ __zbss_59fe - __zdseg_start
@@ -359,7 +361,7 @@ game_time equ __zbss_8f1c - __zdseg_start
 game_time_hi equ __zbss_8f1e - __zdseg_start
 marker_mode equ __zbss_8f20 - __zdseg_start
 capture_center_marker_mode equ __zbss_8f22 - __zdseg_start
-found_object_owner equ __zbss_8f24 - __zdseg_start
+trigger_facing equ __zbss_8f24 - __zdseg_start
 saved_position_extra equ __zbss_8f26 - __zdseg_start
 saved_level equ __zbss_8f28 - __zdseg_start
 saved_map_piece equ __zbss_8f2a - __zdseg_start
@@ -385,7 +387,7 @@ menu_selection_index equ __zbss_9052 - __zdseg_start
 startup_hardware_flags equ __zbss_9056 - __zdseg_start
 startup_option equ __zbss_9058 - __zdseg_start
 message_delay equ __zbss_905a - __zdseg_start
-startup_zero_word equ __zbss_905c - __zdseg_start
+npc_id_decoy equ __zbss_905c - __zdseg_start
 party_return_state equ __zbss_905e - __zdseg_start
 screen_cache equ __zbss_9060 - __zdseg_start
 screen_cache_0_seg equ __zbss_9062 - __zdseg_start
@@ -420,7 +422,7 @@ __zdseg_end equ (__zimage_end - __zdseg_start) + __zbss_size
 
 %include "ds/game/release_and_exit.asm"    ; 0x03b8
 
-%include "ds/game/set_code_check_value.asm" ; 0x03cd
+%include "ds/game/set_npc_id_address.asm"  ; 0x03cd
 
 %include "ds/game/reverse_string.asm"      ; 0x03da
 
@@ -454,7 +456,7 @@ __zdseg_end equ (__zimage_end - __zdseg_start) + __zbss_size
 
 %include "ds/game/play_sound_effect.asm"   ; 0x0a27
 
-%include "ds/game/publish_code_check_word.asm" ; 0x0ad7
+%include "ds/game/relay_npc_id_address.asm" ; 0x0ad7
 
 %include "ds/game/set_mouse_pointer_shape.asm" ; 0x0af6
 
@@ -769,6 +771,8 @@ ln_ds_zero                                 ; 0x10160
 %include "ds/data/skill_group_ranges.asm"  ; 0x10198
 
 %include "ds/data/value_clamp_ranges.asm"  ; 0x101a8
+
+%include "ds/data/hourly_maze_tints.asm"   ; 0x10224
 
 %include "ds/data/score_numbers.asm"       ; 0x1026c
 

@@ -557,7 +557,7 @@ api_idx_0014_PIUH:
     mov ax, 8                        ; 0x6a45
     push ax                          ; 0x6a48
     mov ax, word [battle_group_ext]  ; 0x6a49
-    add ax, 0xc4                     ; 0x6a4c
+    add ax, hourly_maze_tints        ; 0x6a4c
     push ax                          ; 0x6a4f
     mov ax, 0x248                    ; 0x6a50
     imul word [bss_8462]             ; 0x6a53

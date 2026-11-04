@@ -30,8 +30,8 @@ verify_answer_word:
     dec ax                           ; 0x2c4e
     cmp ax, bx                       ; 0x2c4f
     jne short .forward2              ; 0x2c51
-    mov ax, word [code_check_word]   ; 0x2c53
-    mov word [answer_check_word], ax ; 0x2c56
+    mov ax, word [npc_id_clue_relay] ; 0x2c53
+    mov word [npc_id_answer_relay], ax ; 0x2c56
 .forward2:
     inc word [bp - 2]                ; 0x2c59
 .forward3:

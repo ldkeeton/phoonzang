@@ -49,7 +49,7 @@ advance_melee_turn:
     je short .forward6               ; 0x3215
     jmp near .forward8               ; 0x3217
 .forward6:
-    cmp word [character_record_index], strict word 0xe1 ; 0x321a
+    cmp word [npc_id], strict word 0xe1 ; 0x321a
     je short .forward7               ; 0x3220
     jmp near .forward8               ; 0x3222
 .forward7:

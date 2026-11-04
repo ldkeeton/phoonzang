@@ -1,8 +1,8 @@
-/* checks the entered answer word against the code table; publishing the code
-   check word on the last matched slot */
+/* checks the entered answer word against the code table; on the last matched
+   slot passes the npc_id address on to npc_id_answer_relay */
 
 extern unsigned char answer_word[];
-extern int answer_length, code_check_word, answer_check_word;
+extern int answer_length, npc_id_clue_relay, npc_id_answer_relay;
 extern char code_table[];
 
 verify_answer_word()
@@ -14,7 +14,7 @@ verify_answer_word()
 		    != code_table[26 + i])
 			return 0;
 		if (i == answer_length - 1)
-			answer_check_word = code_check_word;
+			npc_id_answer_relay = npc_id_clue_relay;
 	}
 	return 1;
 }

@@ -19,7 +19,7 @@ api_idx_0022_LKUK:
     push word [party_cell_y]         ; 0x2244
     push word [party_cell_x]         ; 0x2248
     push word [party_map_piece]      ; 0x224c
-    call api_idx_0002_SMVN           ; 0x2250
+    call mark_connected_maze_cells   ; 0x2250
     add sp, byte 8                   ; 0x2253
 .forward2:
     mov word [bp - 4], 0             ; 0x2256
@@ -35,19 +35,19 @@ api_idx_0022_LKUK:
     mov ax, word [bp - 4]            ; 0x226d
     cmp ax, word [party_char_count]  ; 0x2270
     jl short .back1                  ; 0x2274
-    mov word [bss_91aa], 1           ; 0x2276
+    mov word [maze_redraw_pending], 1 ; 0x2276
     mov word [location_changed], 1   ; 0x227c
     mov word [party_status_frame], 0 ; 0x2282
     mov word [party_status_frame_seen], 0 ; 0x2288
     mov word [maze_gate_frame], 0    ; 0x228e
-    call api_idx_0002_GSIL           ; 0x2294
+    call set_maze_time_tint          ; 0x2294
     mov word [party_return_state], 5 ; 0x2297
     mov word [game_state], 5         ; 0x229d
     mov word [maze_message_refresh_pending], 1 ; 0x22a3
     mov word [bss_91b4], 1           ; 0x22a9
     mov word [party_region_level_saved], 0 ; 0x22af
 .back2:
-    cmp word [bss_91aa], byte 1      ; 0x22b5
+    cmp word [maze_redraw_pending], byte 1 ; 0x22b5
     jne short .forward4              ; 0x22ba
     call redraw_maze_view            ; 0x22bc
 .forward4:
@@ -94,7 +94,7 @@ api_idx_0022_LKUK:
 .forward6:
     add word [game_time], byte 1     ; 0x2326
     adc word [game_time_hi], byte 0  ; 0x232b
-    call api_idx_0002_GSIL           ; 0x2330
+    call set_maze_time_tint          ; 0x2330
     mov ax, word [maze_sound_pair_state] ; 0x2333
     jmp short .forward7              ; 0x2336
 .back3:
@@ -294,12 +294,12 @@ api_idx_0022_LKUK:
     cmp ax, strict word 1            ; 0x24fa
     jne short .forward24             ; 0x24fd
     push word [party_map_piece]      ; 0x24ff
-    call api_idx_0002_GGTO           ; 0x2503
+    call roll_region_outcome         ; 0x2503
     pop cx                           ; 0x2506
     push ax                          ; 0x2507
-    call choose_character_record     ; 0x2508
+    call choose_region_npc           ; 0x2508
     pop cx                           ; 0x250b
-    mov bx, word [character_record_target] ; 0x250c
+    mov bx, word [npc_id_target]     ; 0x250c
     mov word [bx], ax                ; 0x2510
     mov ax, 1                        ; 0x2512
     push ax                          ; 0x2515
@@ -333,12 +333,12 @@ api_idx_0022_LKUK:
     test ax, ax                      ; 0x2553
     je short .forward26              ; 0x2555
     push word [party_map_piece]      ; 0x2557
-    call api_idx_0002_GGTO           ; 0x255b
+    call roll_region_outcome         ; 0x255b
     pop cx                           ; 0x255e
     push ax                          ; 0x255f
-    call choose_character_record     ; 0x2560
+    call choose_region_npc           ; 0x2560
     pop cx                           ; 0x2563
-    mov bx, word [character_record_target] ; 0x2564
+    mov bx, word [npc_id_target]     ; 0x2564
     mov word [bx], ax                ; 0x2568
     mov ax, 1                        ; 0x256a
     push ax                          ; 0x256d
@@ -396,7 +396,7 @@ api_idx_0022_LKUK:
     cmp ax, word [party_map_piece]   ; 0x25f1
     jne short .forward29             ; 0x25f5
     mov ax, word [bp - 8]            ; 0x25f7
-    mov bx, word [character_record_target] ; 0x25fa
+    mov bx, word [npc_id_target]     ; 0x25fa
     mov word [bx], ax                ; 0x25fe
     mov ax, 0                        ; 0x2600
     cmp word [bp - 8], byte 0x13     ; 0x2603
@@ -420,12 +420,12 @@ api_idx_0022_LKUK:
     cmp ax, 0x3e3                    ; 0x262a
     jl short .forward30              ; 0x262d
     push word [party_map_piece]      ; 0x262f
-    call api_idx_0002_GGTO           ; 0x2633
+    call roll_region_outcome         ; 0x2633
     pop cx                           ; 0x2636
     push ax                          ; 0x2637
-    call choose_character_record     ; 0x2638
+    call choose_region_npc           ; 0x2638
     pop cx                           ; 0x263b
-    mov bx, word [character_record_target] ; 0x263c
+    mov bx, word [npc_id_target]     ; 0x263c
     mov word [bx], ax                ; 0x2640
     mov ax, 1                        ; 0x2642
     push ax                          ; 0x2645
@@ -436,7 +436,7 @@ api_idx_0022_LKUK:
     add sp, byte 6                   ; 0x264e
     ret                              ; 0x2651
 .forward30:
-    mov word [bss_91aa], 0           ; 0x2652
+    mov word [maze_redraw_pending], 0 ; 0x2652
     mov word [location_changed], 0   ; 0x2658
     mov word [bp - 0x22], 0          ; 0x265e
     call check_at_saved_location     ; 0x2663
@@ -513,7 +513,7 @@ api_idx_0022_LKUK:
     push word [bx + 0x126]           ; 0x2708
     push word [bx + 0x124]           ; 0x270c
     push word [bx + 0x122]           ; 0x2710
-    push word [bx + 0x120]           ; 0x2714
+    push word [bx + screen_area_rectangles] ; 0x2714
     push word [bp - 4]               ; 0x2718
     call set_hotspot                 ; 0x271b
     add sp, byte 0xe                 ; 0x271e
@@ -1001,7 +1001,7 @@ api_idx_0022_LKUK.forward56:
     cmp word [bp - 2], byte 5        ; 0x2b52
     jg short api_idx_0022_LKUK.forward57 ; 0x2b56
     push word [bp - 2]               ; 0x2b58
-    call api_idx_0010_HOIJ           ; 0x2b5b
+    call draw_area_number_glyph      ; 0x2b5b
     pop cx                           ; 0x2b5e
     mov ax, 0x32                     ; 0x2b5f
     push ax                          ; 0x2b62
@@ -1033,8 +1033,8 @@ api_idx_0022_LKUK.forward58:
     cwd                              ; 0x2b9c
     idiv cx                          ; 0x2b9d
     mov word [party_facing], dx      ; 0x2b9f
-    mov word [bss_91aa], 1           ; 0x2ba3
-    cmp dx, word [found_object_owner] ; 0x2ba9
+    mov word [maze_redraw_pending], 1 ; 0x2ba3
+    cmp dx, word [trigger_facing]    ; 0x2ba9
     jne short api_idx_0022_LKUK.forward59 ; 0x2bad
     mov word [location_changed], 1   ; 0x2baf
     mov bx, word [maze_tables]       ; 0x2bb5
@@ -1079,7 +1079,7 @@ jumptable_2d1b_case_25:
     mov ax, word [bp - 0x1c]         ; 0x2c4a
     dec ax                           ; 0x2c4d
     push ax                          ; 0x2c4e
-    call api_idx_0002_SKMG           ; 0x2c4f
+    call take_cell_exit_object       ; 0x2c4f
     pop cx                           ; 0x2c52
     cmp word [game_state], byte 5    ; 0x2c53
     je short api_idx_0022_LKUK.forward61 ; 0x2c58
@@ -1136,12 +1136,12 @@ jumptable_2d1b_case_6:
     cmp ax, strict word 1            ; 0x2cbe
     jne short api_idx_0022_LKUK.forward66 ; 0x2cc1
     push word [party_map_piece]      ; 0x2cc3
-    call api_idx_0002_GGTO           ; 0x2cc7
+    call roll_region_outcome         ; 0x2cc7
     pop cx                           ; 0x2cca
     push ax                          ; 0x2ccb
-    call choose_character_record     ; 0x2ccc
+    call choose_region_npc           ; 0x2ccc
     pop cx                           ; 0x2ccf
-    mov bx, word [character_record_target] ; 0x2cd0
+    mov bx, word [npc_id_target]     ; 0x2cd0
     mov word [bx], ax                ; 0x2cd4
     mov ax, 1                        ; 0x2cd6
     push ax                          ; 0x2cd9
@@ -1223,7 +1223,7 @@ jumptable_2d1b_case_12:
     push word [bx + 0x126]           ; 0x2d73
     push word [bx + 0x124]           ; 0x2d77
     push word [bx + 0x122]           ; 0x2d7b
-    push word [bx + 0x120]           ; 0x2d7f
+    push word [bx + screen_area_rectangles] ; 0x2d7f
     call call_show_area              ; 0x2d83
     add sp, byte 8                   ; 0x2d86
 api_idx_0022_LKUK.forward72:

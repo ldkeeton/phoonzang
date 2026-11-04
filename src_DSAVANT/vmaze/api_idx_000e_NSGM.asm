@@ -14,7 +14,7 @@ api_idx_000e_NSGM:
     add ax, cx                       ; 0x1649
     add ax, word [party_cell_x]      ; 0x164b
     mov word [bp - 2], ax            ; 0x164f
-    mov word [bss_91aa], 1           ; 0x1652
+    mov word [maze_redraw_pending], 1 ; 0x1652
     lea ax, word [bp - 0xc]          ; 0x1658
     push ax                          ; 0x165b
     lea ax, word [bp - 0xa]          ; 0x165c
@@ -30,7 +30,7 @@ api_idx_000e_NSGM:
     mov ax, word [bp - 0xc]          ; 0x1675
     cmp ax, word [bp + 4]            ; 0x1678
     jne short .forward2              ; 0x167b
-    mov word [bss_91aa], 0           ; 0x167d
+    mov word [maze_redraw_pending], 0 ; 0x167d
 .forward2:
     mov ax, 1                        ; 0x1683
     push ax                          ; 0x1686

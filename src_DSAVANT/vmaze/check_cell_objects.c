@@ -7,7 +7,7 @@
 extern struct maze_tables *maze_tables;
 extern int party_map_piece, party_cell_y, party_cell_x, party_facing,
 	message_delay;
-extern int found_object_owner, party_region, game_state;
+extern int trigger_facing, party_region, game_state;
 
 check_cell_objects(announce)
 int announce;
@@ -42,7 +42,7 @@ int announce;
 		if (maze_tables->type[obj] == 8 && check_type8_object(obj) == 1)
 			return;
 		if (maze_tables->type[obj] == 25 &&
-		    (found_object_owner = maze_tables->arg[obj]) == party_facing) {
+		    (trigger_facing = maze_tables->arg[obj]) == party_facing) {
 			game_state = 27;
 			party_region = obj;
 			return;

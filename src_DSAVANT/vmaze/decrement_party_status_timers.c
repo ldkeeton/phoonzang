@@ -11,7 +11,7 @@ int elapsed_ticks;
 	/* Process all six party status slots. */
 	for (slot = 0; slot < 6; slot++) {
 		party_status_timer[slot].timer -= elapsed_ticks;
-		/* Expired timers also clear the slot's saved offset. */
+		/* An expired timer also clears the slot's y offset. */
 		if (party_status_timer[slot].timer <= 0) {
 			party_status_timer[slot].timer = 0;
 			party_status_timer[slot].offset = 0;

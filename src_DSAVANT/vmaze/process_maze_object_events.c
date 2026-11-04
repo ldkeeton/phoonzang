@@ -3,7 +3,7 @@
 #include "structs/maze.h"
 
 extern struct maze_tables *maze_tables;
-extern int object_search_active, found_object_owner;
+extern int object_search_active, trigger_facing;
 extern int party_region, party_map_piece, party_cell_y, party_cell_x;
 extern int region_step_flag, location_changed, game_state;
 
@@ -15,8 +15,8 @@ extern int update_region_quest_map_flags();
 extern int store_party_region_level();
 extern int run_region_keyed_action();
 extern int show_region_message();
-extern int check_region_trigger_bit_14();
-extern int check_region_trigger_bit_2();
+extern int find_region_item();
+extern int meet_region_npc();
 extern int process_region_flag_actions();
 extern int collect_region_flag_bits();
 extern int update_party_status_animation();
@@ -33,7 +33,7 @@ extern int handle_region_flag_2_event();
 process_maze_object_events()
 {
 	object_search_active = 1;
-	found_object_owner = -1;
+	trigger_facing = -1;
 	for (;;) {
 		/* Search from the current region and stop when no object is found. */
 		party_region = find_object_at(party_cell_x, party_cell_y,
@@ -52,13 +52,13 @@ process_maze_object_events()
 				show_region_message();
 			break;
 		case 3:
-			check_region_trigger_bit_14();
+			find_region_item();
 			break;
 		case 4:
 			advance_maze_region();
 			break;
 		case 5:
-			check_region_trigger_bit_2();
+			meet_region_npc();
 			break;
 		case 6:
 			process_region_flag_actions();

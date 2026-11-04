@@ -20,7 +20,7 @@ loc_GPUL:
 .forward1:
     mov al, byte [bss_91c2]          ; 0x298a
     sub ah, ah                       ; 0x298d
-    mov word [character_record_index], ax ; 0x298f
+    mov word [npc_id], ax            ; 0x298f
     mov word [party_entry_mode], 1   ; 0x2992
     mov word [party_entry_flag], 0   ; 0x2998
     mov word [bss_95a6], 0           ; 0x299e

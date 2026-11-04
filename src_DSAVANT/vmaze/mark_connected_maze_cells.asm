@@ -1,5 +1,5 @@
 ; auto-generated
-api_idx_0002_SMVN:
+mark_connected_maze_cells:
     mov ax, 0xfffe                   ; 0x0b66
     call aztec_csav                  ; 0x0b69
     mov ax, word [bp + 6]            ; 0x0b6c
@@ -56,7 +56,7 @@ api_idx_0002_SMVN:
     push ax                          ; 0x0be5
     push word [bp + 6]               ; 0x0be6
     push word [bp + 4]               ; 0x0be9
-    call api_idx_0002_SMVN           ; 0x0bec
+    call mark_connected_maze_cells   ; 0x0bec
     add sp, byte 8                   ; 0x0bef
 .forward2:
     mov ax, 4                        ; 0x0bf2
@@ -77,7 +77,7 @@ api_idx_0002_SMVN:
     inc ax                           ; 0x0c19
     push ax                          ; 0x0c1a
     push word [bp + 4]               ; 0x0c1b
-    call api_idx_0002_SMVN           ; 0x0c1e
+    call mark_connected_maze_cells   ; 0x0c1e
     add sp, byte 8                   ; 0x0c21
 .forward3:
     cmp word [bp + 8], byte 0        ; 0x0c24
@@ -108,7 +108,7 @@ api_idx_0002_SMVN:
     push ax                          ; 0x0c60
     push word [bp + 6]               ; 0x0c61
     push word [bp + 4]               ; 0x0c64
-    call api_idx_0002_SMVN           ; 0x0c67
+    call mark_connected_maze_cells   ; 0x0c67
     add sp, byte 8                   ; 0x0c6a
 .forward4:
     cmp word [bp + 6], byte 0        ; 0x0c6d
@@ -139,7 +139,7 @@ api_idx_0002_SMVN:
     dec ax                           ; 0x0ca9
     push ax                          ; 0x0caa
     push word [bp + 4]               ; 0x0cab
-    call api_idx_0002_SMVN           ; 0x0cae
+    call mark_connected_maze_cells   ; 0x0cae
     add sp, byte 8                   ; 0x0cb1
 .return1:
     ret                              ; 0x0cb4

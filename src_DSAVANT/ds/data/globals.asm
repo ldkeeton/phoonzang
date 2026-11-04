@@ -37,9 +37,9 @@ __zbss_0e30:  ; pointer_image_zero_seg
     resb 0x0002
 __zbss_0e32:  ; mouse_active
     resb 0x0002
-__zbss_0e34:  ; code_check_value
+__zbss_0e34:  ; npc_id_address
     resb 0x0002
-__zbss_0e36:  ; character_record_index
+__zbss_0e36:  ; npc_id
     resb 0x0002
 __zbss_0e38:  ; known_spell_names
     resb 0x0014
@@ -49,9 +49,9 @@ __zbss_0fd5:  ; code_char_message_index
     resb 0x0001
 __zbss_0fd6:  ; code_table
     resb 0x0032
-__zbss_1008:  ; answer_check_word
+__zbss_1008:  ; npc_id_answer_relay
     resb 0x0002
-__zbss_100a:  ; character_record_target
+__zbss_100a:  ; npc_id_target
     resb 0x0002
 __zbss_100c:  ; message_directory
     resb 0x1d34
@@ -159,7 +159,7 @@ __zbss_59f4:  ; code_char_index
     resb 0x0002
 __zbss_59f6:  ; answer_length
     resb 0x0002
-__zbss_59f8:  ; code_check_word
+__zbss_59f8:  ; npc_id_clue_relay
     resb 0x0002
 __zbss_59fa:  ; escape_key_hit
     resb 0x0002
@@ -427,7 +427,7 @@ __zbss_8f20:  ; marker_mode
     resb 0x0002
 __zbss_8f22:  ; capture_center_marker_mode
     resb 0x0002
-__zbss_8f24:  ; found_object_owner
+__zbss_8f24:  ; trigger_facing
     resb 0x0002
 __zbss_8f26:  ; saved_position_extra
     resb 0x0002
@@ -479,7 +479,7 @@ __zbss_9058:  ; startup_option
     resb 0x0002
 __zbss_905a:  ; message_delay
     resb 0x0002
-__zbss_905c:  ; startup_zero_word
+__zbss_905c:  ; npc_id_decoy
     resb 0x0002
 __zbss_905e:  ; party_return_state
     resb 0x0002

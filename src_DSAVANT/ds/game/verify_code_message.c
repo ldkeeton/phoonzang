@@ -1,10 +1,10 @@
-/* check a code-character message and save its final check word */
+/* check a code-character message and complete the npc_id address chain */
 #include "msg.h"
 
 extern unsigned char code_char_message_index;
 extern unsigned char code_table[];
-extern unsigned short answer_check_word;
-extern unsigned short character_record_target;
+extern unsigned short npc_id_answer_relay;
+extern unsigned short npc_id_target;
 extern load_message_string(), aztec_strlen();
 
 verify_code_message()
@@ -26,7 +26,7 @@ verify_code_message()
 		/* Accumulate the character-position product modulo 255. */
 		checksum = (message[index + 4] * index + checksum) % 255;
 	}
-	/* Store the check word only when the final checksum matches. */
+	/* Aim npc_id_target at npc_id only when the final checksum matches. */
 	if (code_table[0] == (unsigned char)checksum)
-		character_record_target = answer_check_word;
+		npc_id_target = npc_id_answer_relay;
 }

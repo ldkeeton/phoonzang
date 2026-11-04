@@ -3,7 +3,7 @@ process_maze_object_events:
     mov ax, 0                        ; 0x8867
     call aztec_csav                  ; 0x886a
     mov word [object_search_active], 1 ; 0x886d
-    mov word [found_object_owner], 0xffff ; 0x8873
+    mov word [trigger_facing], 0xffff ; 0x8873
 .back1:
     push word [party_region]         ; 0x8879
     push word [party_map_piece]      ; 0x887d
@@ -32,13 +32,13 @@ jumptable_8978_case_2:
 process_maze_object_events.forward2:
     jmp near jumptable_8978_case_0   ; 0x88bf
 jumptable_8978_case_3:
-    call check_region_trigger_bit_14 ; 0x88c2
+    call find_region_item            ; 0x88c2
     jmp near jumptable_8978_case_0   ; 0x88c5
 jumptable_8978_case_4:
     call advance_maze_region         ; 0x88c8
     jmp near jumptable_8978_case_0   ; 0x88cb
 jumptable_8978_case_5:
-    call check_region_trigger_bit_2  ; 0x88ce
+    call meet_region_npc             ; 0x88ce
     jmp near jumptable_8978_case_0   ; 0x88d1
 jumptable_8978_case_6:
     call process_region_flag_actions ; 0x88d4

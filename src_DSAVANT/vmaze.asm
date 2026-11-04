@@ -61,7 +61,7 @@ save_location_flag equ __zdseg_end + (__zobss_919e - __zdata_start)
 marker_string_frames equ __zdseg_end + (__zobss_91a0 - __zdata_start)
 boundary_wall_open equ __zdseg_end + (__zobss_91a6 - __zdata_start)
 location_changed equ __zdseg_end + (__zobss_91a8 - __zdata_start)
-bss_91aa equ __zdseg_end + (__zobss_91aa - __zdata_start)
+maze_redraw_pending equ __zdseg_end + (__zobss_91aa - __zdata_start)
 bss_91ac equ __zdseg_end + (__zobss_91ac - __zdata_start)
 bss_91ae equ __zdseg_end + (__zobss_91ae - __zdata_start)
 party_region_level_saved equ __zdseg_end + (__zobss_91b0 - __zdata_start)
@@ -159,17 +159,17 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "vmaze/load_current_maze_level.asm" ; 0x09cb
 
-%include "vmaze/choose_character_record.asm" ; 0x0a6e
+%include "vmaze/choose_region_npc.asm"     ; 0x0a6e
 
-%include "vmaze/api_idx_0002_GGTO.asm"     ; 0x0acc
+%include "vmaze/roll_region_outcome.asm"   ; 0x0acc
 
 %include "vmaze/configure_story_music.asm" ; 0x0b14
 
-%include "vmaze/api_idx_0002_SMVN.asm"     ; 0x0b66
+%include "vmaze/mark_connected_maze_cells.asm" ; 0x0b66
 
 %include "vmaze/enter_level.asm"           ; 0x0cb5
 
-%include "vmaze/api_idx_0002_GSIL.asm"     ; 0x0e5d
+%include "vmaze/set_maze_time_tint.asm"    ; 0x0e5d
 
 %include "vmaze/update_maze_refresh_timer.asm" ; 0x0ea6
 
@@ -197,7 +197,7 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "vmaze/display_message_with_sound.asm" ; 0x12d3
 
-%include "vmaze/api_idx_0004_IKPN.asm"     ; 0x1308
+%include "vmaze/relocate_party_if_none_active.asm" ; 0x1308
 
 %include "shared/ovr/check_at_saved_location.asm" ; 0x13c0
 
@@ -213,7 +213,7 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "vmaze/api_idx_0018_USPR.asm"     ; 0x1c94
 
-%include "vmaze/api_idx_0010_HOIJ.asm"     ; 0x2033
+%include "vmaze/draw_area_number_glyph.asm" ; 0x2033
 
 %include "shared/ovr/find_floor_item_at_party.asm" ; 0x20dc
 
@@ -301,7 +301,7 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "vmaze/store_party_region_level.asm" ; 0x7436
 
-%include "vmaze/check_region_trigger_bit_14.asm" ; 0x744e
+%include "vmaze/find_region_item.asm"      ; 0x744e
 
 %include "vmaze/display_member_message.asm" ; 0x74e2
 
@@ -317,7 +317,7 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "vmaze/advance_maze_region.asm"   ; 0x7a34
 
-%include "vmaze/check_region_trigger_bit_2.asm" ; 0x7abe
+%include "vmaze/meet_region_npc.asm"       ; 0x7abe
 
 %include "vmaze/api_idx_0018_KVSP.asm"     ; 0x7b53
 
@@ -355,11 +355,11 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "vmaze/check_cell_objects.asm"    ; 0x8c47
 
-%include "vmaze/api_idx_0002_NGNS.asm"     ; 0x8de9
+%include "vmaze/select_region_item_if_facing.asm" ; 0x8de9
 
 %include "vmaze/api_idx_0002_QLLK.asm"     ; 0x8e6a
 
-%include "vmaze/api_idx_0002_SKMG.asm"     ; 0x8f1a
+%include "vmaze/take_cell_exit_object.asm" ; 0x8f1a
 
 %include "vmaze/append_edge_between.asm"   ; 0x8f94
 

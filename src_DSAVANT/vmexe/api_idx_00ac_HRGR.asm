@@ -1883,7 +1883,7 @@ api_idx_00ac_HRGR.forward106:
     jmp near api_idx_00ac_HRGR.forward135 ; 0x8bce
 api_idx_00ac_HRGR.back7:
     mov ax, 0                        ; 0x8bd1
-    cmp word [startup_zero_word], byte 0 ; 0x8bd4
+    cmp word [npc_id_decoy], byte 0  ; 0x8bd4
     jne short api_idx_00ac_HRGR.forward107 ; 0x8bd9
     mov ax, 0x64                     ; 0x8bdb
     push ax                          ; 0x8bde

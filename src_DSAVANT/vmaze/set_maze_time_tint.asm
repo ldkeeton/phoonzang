@@ -1,5 +1,5 @@
 ; auto-generated
-api_idx_0002_GSIL:
+set_maze_time_tint:
     mov ax, 0xfffe                   ; 0x0e5d
     call aztec_csav                  ; 0x0e60
     mov ax, word [game_time]         ; 0x0e63
@@ -20,7 +20,7 @@ api_idx_0002_GSIL:
     mov al, byte [bx + 0xc5]         ; 0x0e8d
     sub ah, ah                       ; 0x0e91
     push ax                          ; 0x0e93
-    mov al, byte [bx + 0xc4]         ; 0x0e94
+    mov al, byte [bx + hourly_maze_tints] ; 0x0e94
     sub ah, ah                       ; 0x0e98
     push ax                          ; 0x0e9a
     mov ax, 0xff                     ; 0x0e9b

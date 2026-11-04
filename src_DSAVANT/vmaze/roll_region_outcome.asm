@@ -1,5 +1,5 @@
 ; auto-generated
-api_idx_0002_GGTO:
+roll_region_outcome:
     mov ax, 0xfffe                   ; 0x0acc
     call aztec_csav                  ; 0x0acf
     mov ax, 0x64                     ; 0x0ad2

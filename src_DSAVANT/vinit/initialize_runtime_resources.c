@@ -1,15 +1,15 @@
 /* Load startup resources and prepare runtime buffers. */
 extern long load_file_data(), app_malloc(), call_get_free_space();
 extern char *aztec_malloc(), *data_file_path();
-extern int startup_zero_word, scenario_header_fd, message_delay,
+extern int npc_id_decoy, scenario_header_fd, message_delay,
 	startup_option, startup_hardware_flags;
-extern int code_check_value, code_check_word, mouse_active, hotspot_hit;
-extern int answer_check_word, msg_dbs_fd, message_block_current;
+extern int npc_id_address, npc_id_clue_relay, mouse_active, hotspot_hit;
+extern int npc_id_answer_relay, msg_dbs_fd, message_block_current;
 extern int message_cache_next, message_cache_ids[], saved_screen_kind[];
 extern char saved_screen_file[][20];
 extern long saved_screen_ref[];
 extern int data_file_fd, loaded_sound_id, loaded_score_num,
-	character_record_target;
+	npc_id_target;
 extern long pointer_image_zero, mouse_pointer_shape, pointer_image_two;
 extern long runtime_buffer_1k, runtime_buffer_4k_a, runtime_buffer_4k_b;
 extern char *maze_data, *maze_tables, *runtime_buffer_3k,
@@ -52,7 +52,7 @@ initialize_runtime_resources()
 	char reserved_space[14]; /* preserve the compiler frame before RGB data */
 	char palette[768];
 
-	startup_zero_word = 0;
+	npc_id_decoy = 0;
 	pointer_image_zero = 0L;
 	mouse_pointer_shape = 0L;
 	pointer_image_two = 0L;
@@ -73,20 +73,20 @@ initialize_runtime_resources()
 		/* either flag suffices */
 	} else
 		release_and_exit(3);
-	code_check_value = (unsigned)36956;
-		/* startup_zero_word until the code check */
+	npc_id_address = (unsigned)36956;
+		/* npc_id_decoy until the protection chain passes */
 	if ((sound_device = sound_device_setting) == 6)
 		/* normalize device selector */
 		sound_device = 4;
 	sound_port = sound_device == 0 ? 0 : sound_port_setting;
 	call_play_select_device(sound_port, sound_device);
-	code_check_word = (unsigned)36956;
-		/* startup_zero_word until the code check */
+	npc_id_clue_relay = (unsigned)36956;
+		/* npc_id_decoy until the protection chain passes */
 	mouse_active = 0;
 	hotspot_hit = 0;
 	for (index = 0; index < 100; index++) /* seed the check character pool */
 		code_characters[index] = random_below(100);
-	set_code_check_value();
+	set_npc_id_address();
 	if (call_get_free_space(0, 0) < 90624L) /* minimum driver free space */
 		release_and_exit(4);
 	load_startup_font(startup_vbfont0_name, 0);
@@ -102,8 +102,8 @@ initialize_runtime_resources()
 	mouse_pointer_shape = load_file_data(startup_vmpntr1_name);
 	pointer_image_two = load_file_data(startup_vmpntr2_name);
 	load_startup_maze(startup_base_data_name, 3);
-	answer_check_word = (unsigned)36956;
-		/* startup_zero_word until the code check */
+	npc_id_answer_relay = (unsigned)36956;
+		/* npc_id_decoy until the protection chain passes */
 	read_startup_file(startup_master_header_name, record_size, 82);
 	read_startup_file(startup_disk_header_name, disk_header, 780);
 	read_startup_file(startup_message_header_name, message_directory, 11774);
@@ -135,8 +135,8 @@ initialize_runtime_resources()
 	load_sound_file(9, 9, 1);
 	loaded_sound_id = -1;
 	loaded_score_num = -1;
-	character_record_target = (unsigned)36956;
-		/* startup_zero_word until the code check */
+	npc_id_target = (unsigned)36956;
+		/* npc_id_decoy until the protection chain passes */
 	runtime_buffer_1k = 0L;
 	runtime_buffer_4k_a = 0L;
 	runtime_buffer_4k_b = 0L;

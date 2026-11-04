@@ -128,7 +128,7 @@ api_idx_0018_USPR:
     cmp word [bp - 0x16], byte 0     ; 0x1de8
     jne short .forward9              ; 0x1dec
     mov word [bp - 0x16], 1          ; 0x1dee
-    call api_idx_0004_IKPN           ; 0x1df3
+    call relocate_party_if_none_active ; 0x1df3
     test ax, ax                      ; 0x1df6
     je short .forward9               ; 0x1df8
     mov bx, word [maze_tables]       ; 0x1dfa
@@ -161,7 +161,7 @@ api_idx_0018_USPR:
     inc word [bp - 8]                ; 0x1e3d
     add word [game_time], byte 0xa   ; 0x1e40
     adc word [game_time_hi], byte 0  ; 0x1e45
-    call api_idx_0002_GSIL           ; 0x1e4a
+    call set_maze_time_tint          ; 0x1e4a
     mov ax, 0xa                      ; 0x1e4d
     push ax                          ; 0x1e50
     call decrement_party_status_timers ; 0x1e51

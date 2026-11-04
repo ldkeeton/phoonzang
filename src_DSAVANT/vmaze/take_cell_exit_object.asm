@@ -1,5 +1,5 @@
 ; auto-generated
-api_idx_0002_SKMG:
+take_cell_exit_object:
     mov ax, 0xfffe                   ; 0x8f1a
     call aztec_csav                  ; 0x8f1d
     mov bx, word [maze_tables]       ; 0x8f20

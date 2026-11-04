@@ -113,7 +113,7 @@ check_cell_objects:
     jne short .forward8              ; 0x8d60
     mov al, byte [bx + si + 0xa50]   ; 0x8d62
     sub ah, ah                       ; 0x8d66
-    mov word [found_object_owner], ax ; 0x8d68
+    mov word [trigger_facing], ax    ; 0x8d68
     cmp ax, word [party_facing]      ; 0x8d6b
     jne short .forward8              ; 0x8d6f
     mov word [game_state], 0x1b      ; 0x8d71

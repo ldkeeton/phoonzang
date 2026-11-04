@@ -1,5 +1,5 @@
 ; auto-generated
-check_region_trigger_bit_14:
+find_region_item:
     mov ax, 0xfffc                   ; 0x744e
     call aztec_csav                  ; 0x7451
     mov ax, word [party_region]      ; 0x7454
@@ -24,7 +24,7 @@ check_region_trigger_bit_14:
     push word [bp - 2]               ; 0x7484
     call get_bits                    ; 0x7487
     add sp, byte 6                   ; 0x748a
-    mov word [found_object_owner], ax ; 0x748d
+    mov word [trigger_facing], ax    ; 0x748d
     cmp ax, word [party_facing]      ; 0x7490
     je short .forward1               ; 0x7494
     ret                              ; 0x7496

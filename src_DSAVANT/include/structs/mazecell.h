@@ -2,7 +2,7 @@
 #define MAZECELL_H
 
 struct maze_cells {
-	unsigned char pad_0000[144];
+	unsigned char region_npc_choices[12][4][3]; /* 0x0000: NPC ids: 4 columns of 3 weighted rows */
 	unsigned char wall_a[512];	/* 0x0090: packed 4-bit walls */
 	unsigned char wall_b[512];	/* 0x0290: packed 4-bit walls */
 	unsigned char origin_x[16];	/* 0x0490: piece world origins */
@@ -12,6 +12,9 @@ struct maze_cells {
 	unsigned char cell_flags[128];	/* 0x08b0: one bit per cell */
 	unsigned char cell_flags_third[128]; /* 0x0930: third cell bit set */
 	unsigned char cell_flags_secondary[128]; /* 0x09b0: second cell bit set */
+	unsigned char pad_0a30[128];
+	unsigned char region_packed_values[16]; /* 0x0ab0: two packed outcomes per region */
+	unsigned char region_thresholds[16]; /* 0x0ac0: threshold per region */
 };
 
 #endif

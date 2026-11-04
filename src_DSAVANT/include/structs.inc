@@ -5,6 +5,14 @@
 %ifndef STRUCTS_INC
 %define STRUCTS_INC
 
+; records at DS 0x0120
+struc rec_0120
+    .f_0000: resb 2
+    .f_0002: resb 2
+    .f_0004: resb 2
+    .f_0006: resb 2
+endstruc
+
 ; records at DS 0x015c
 struc realm_point_text_positions_rec
     .f_0000: resb 2

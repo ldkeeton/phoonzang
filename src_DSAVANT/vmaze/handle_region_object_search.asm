@@ -36,7 +36,7 @@ handle_region_object_search:
     push word [bp - 2]               ; 0x79f4
     call get_bits                    ; 0x79f7
     add sp, byte 6                   ; 0x79fa
-    mov word [found_object_owner], ax ; 0x79fd
+    mov word [trigger_facing], ax    ; 0x79fd
     cmp ax, word [party_facing]      ; 0x7a00
     je short .forward2               ; 0x7a04
     ret                              ; 0x7a06

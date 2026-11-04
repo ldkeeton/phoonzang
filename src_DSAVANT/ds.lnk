@@ -5,7 +5,7 @@ ds/game/app_memmove
 ds/game/app_free
 ds/game/release_resources
 ds/game/release_and_exit
-ds/game/set_code_check_value
+ds/game/set_npc_id_address
 ds/game/reverse_string
 ds/game/format_long_decimal
 ds/game/format_int_decimal
@@ -22,7 +22,7 @@ ds/game/wait_for_hotspot_timeout
 ds/game/random_below
 ds/game/clamp_between
 ds/game/play_sound_effect
-ds/game/publish_code_check_word
+ds/game/relay_npc_id_address
 ds/game/set_mouse_pointer_shape
 ds/game/poll_hotspots
 ds/game/prepare_code_answer
@@ -67,6 +67,7 @@ ds/data/unused_int
 ds/data/realm_text_colors
 ds/data/skill_group_ranges
 ds/data/value_clamp_ranges
+ds/data/hourly_maze_tints
 ds/data/score_numbers
 ds/data/party_slot_layout
 ds/data/view_tables

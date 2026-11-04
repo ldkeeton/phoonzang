@@ -1,11 +1,11 @@
 /* Initialize the main game screen, picture slots, and saved display areas. */
 extern int call_set_text_opaque(), call_set_text_color(), call_set_text_pos();
-extern int load_monster_picture(), publish_code_check_word();
+extern int load_monster_picture(), relay_npc_id_address();
 extern int load_screen_file();
 extern long call_save_area();
 extern int startup_check_stage, saved_screen_pending, maze_state;
 extern int maze_variant, current_maze, message_block_current;
-extern int party_char_count, character_record_index, game_state;
+extern int party_char_count, npc_id, game_state;
 extern unsigned char picture_slot_number[], picture_slot_used[];
 extern long party_status_areas[], panel_area[];
 extern long base_screen_area;
@@ -36,7 +36,7 @@ initialize_main_screen()
 	load_monster_picture(12, 8);
 	load_monster_picture(0, 14);
 	if (startup_check_stage == 0)
-		publish_code_check_word();
+		relay_npc_id_address();
 	load_screen_file(startup_main_screen_filename, 2);
 	/* Save the six party status rectangles using their screen positions. */
 	for (area_index = 0; area_index < 6; area_index++) {
@@ -56,6 +56,6 @@ initialize_main_screen()
 			area_x + 59, area_y + 43);
 	}
 	base_screen_area = call_save_area(305, 185, 316, 196);
-	character_record_index = 0;
+	npc_id = 0;
 	game_state = 4;
 }

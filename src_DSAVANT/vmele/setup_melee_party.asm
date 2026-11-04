@@ -4,14 +4,14 @@ setup_melee_party:
     call aztec_csav                  ; 0x3393
     mov word [battle_experience_hi], 0 ; 0x3396
     mov word [battle_experience], 0  ; 0x339c
-    cmp word [character_record_index], strict word 0xe1 ; 0x33a2
+    cmp word [npc_id], strict word 0xe1 ; 0x33a2
     jne short .forward1              ; 0x33a8
     mov word [party_entry_flag], 1   ; 0x33aa
 .forward1:
     call reset_party_actions         ; 0x33b0
     mov ax, 1                        ; 0x33b3
     push ax                          ; 0x33b6
-    push word [character_record_index] ; 0x33b7
+    push word [npc_id]               ; 0x33b7
     call add_party_member            ; 0x33bb
     add sp, byte 4                   ; 0x33be
     mov bx, word [battle_group_ext_1] ; 0x33c1

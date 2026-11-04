@@ -1,5 +1,5 @@
 ; auto-generated
-api_idx_0010_HOIJ:
+draw_area_number_glyph:
     mov ax, 0xfff0                   ; 0x2033
     call aztec_csav                  ; 0x2036
     mov ax, word [bp + 4]            ; 0x2039
@@ -10,7 +10,7 @@ api_idx_0010_HOIJ:
     push word [bx + 0x126]           ; 0x2044
     push word [bx + 0x124]           ; 0x2048
     push word [bx + 0x122]           ; 0x204c
-    push word [bx + 0x120]           ; 0x2050
+    push word [bx + screen_area_rectangles] ; 0x2050
     call call_save_area              ; 0x2054
     add sp, byte 8                   ; 0x2057
     mov word [bp - 0xe], dx          ; 0x205a
@@ -41,7 +41,7 @@ api_idx_0010_HOIJ:
     shl ax, 1                        ; 0x2095
     mov bx, ax                       ; 0x2097
     push word [bx + 0x122]           ; 0x2099
-    push word [bx + 0x120]           ; 0x209d
+    push word [bx + screen_area_rectangles] ; 0x209d
     push word [bp - 2]               ; 0x20a1
     call call_draw_text              ; 0x20a4
     add sp, byte 0x16                ; 0x20a7
@@ -53,7 +53,7 @@ api_idx_0010_HOIJ:
     push word [bx + 0x126]           ; 0x20b5
     push word [bx + 0x124]           ; 0x20b9
     push word [bx + 0x122]           ; 0x20bd
-    push word [bx + 0x120]           ; 0x20c1
+    push word [bx + screen_area_rectangles] ; 0x20c1
     call call_show_area              ; 0x20c5
     add sp, byte 8                   ; 0x20c8
     mov ax, 1                        ; 0x20cb

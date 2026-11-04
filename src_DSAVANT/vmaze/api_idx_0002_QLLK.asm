@@ -24,7 +24,7 @@ api_idx_0002_QLLK:
     cmp byte [bx + si + 0x5a0], 3    ; 0x8ea7
     jne short .forward2              ; 0x8eac
     push ax                          ; 0x8eae
-    call api_idx_0002_NGNS           ; 0x8eaf
+    call select_region_item_if_facing ; 0x8eaf
     pop cx                           ; 0x8eb2
     cmp ax, strict word 1            ; 0x8eb3
     jne short .forward2              ; 0x8eb6

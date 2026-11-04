@@ -68,7 +68,7 @@ initialize_main_screen:
     add sp, byte 4                   ; 0x14b6
     cmp word [startup_check_stage], byte 0 ; 0x14b9
     jne short .forward1              ; 0x14be
-    call publish_code_check_word     ; 0x14c0
+    call relay_npc_id_address        ; 0x14c0
 .forward1:
     mov ax, 2                        ; 0x14c3
     push ax                          ; 0x14c6
@@ -170,6 +170,6 @@ initialize_main_screen:
     add sp, byte 8                   ; 0x15c2
     mov word [base_screen_area_segment], dx ; 0x15c5
     mov word [base_screen_area], ax  ; 0x15c9
-    mov word [character_record_index], 0 ; 0x15cc
+    mov word [npc_id], 0             ; 0x15cc
     mov word [game_state], 4         ; 0x15d2
     ret                              ; 0x15d8

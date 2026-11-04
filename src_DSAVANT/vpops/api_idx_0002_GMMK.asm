@@ -23,7 +23,7 @@ api_idx_0002_GMMK:
     mov bx, word [bx + battle_group_ext] ; 0x4dc8
     cmp byte [bx + member_ext.f_00d6], 0x16 ; 0x4dcc
     je short .forward1               ; 0x4dd1
-    cmp word [character_record_index], strict word 0xe1 ; 0x4dd3
+    cmp word [npc_id], strict word 0xe1 ; 0x4dd3
     jne short .forward2              ; 0x4dd9
 .forward1:
     mov ax, 0                        ; 0x4ddb

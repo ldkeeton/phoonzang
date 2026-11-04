@@ -1,5 +1,5 @@
 ; auto-generated
-api_idx_0002_NGNS:
+select_region_item_if_facing:
     mov ax, 0xfffe                   ; 0x8de9
     call aztec_csav                  ; 0x8dec
     mov ax, word [bp + 4]            ; 0x8def

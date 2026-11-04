@@ -309,7 +309,7 @@ api_idx_005a_UJPS:
     call load_message_string         ; 0xa20f
     add sp, byte 4                   ; 0xa212
 .forward23:
-    cmp word [character_record_index], strict word 0xe1 ; 0xa215
+    cmp word [npc_id], strict word 0xe1 ; 0xa215
     jne short .forward24             ; 0xa21b
     cmp byte [bp - 0x1b], 0x58       ; 0xa21d
     jne short .forward24             ; 0xa221

@@ -1,5 +1,5 @@
 ; auto-generated
-check_region_trigger_bit_2:
+meet_region_npc:
     mov ax, 0xfffe                   ; 0x7abe
     call aztec_csav                  ; 0x7ac1
     mov ax, word [party_region]      ; 0x7ac4
@@ -24,7 +24,7 @@ check_region_trigger_bit_2:
     push word [bp - 2]               ; 0x7af4
     call get_bits                    ; 0x7af7
     add sp, byte 6                   ; 0x7afa
-    mov word [found_object_owner], ax ; 0x7afd
+    mov word [trigger_facing], ax    ; 0x7afd
     cmp ax, word [party_facing]      ; 0x7b00
     je short .forward1               ; 0x7b04
     ret                              ; 0x7b06
@@ -33,7 +33,7 @@ check_region_trigger_bit_2:
     mov si, word [party_region]      ; 0x7b0b
     mov al, byte [bx + si + 0xa50]   ; 0x7b0f
     sub ah, ah                       ; 0x7b13
-    mov bx, word [character_record_target] ; 0x7b15
+    mov bx, word [npc_id_target]     ; 0x7b15
     mov word [bx], ax                ; 0x7b19
     mov ax, 1                        ; 0x7b1b
     push ax                          ; 0x7b1e

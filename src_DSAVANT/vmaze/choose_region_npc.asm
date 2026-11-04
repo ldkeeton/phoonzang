@@ -1,5 +1,5 @@
 ; auto-generated
-choose_character_record:
+choose_region_npc:
     mov ax, 0xfffa                   ; 0x0a6e
     call aztec_csav                  ; 0x0a71
     mov ax, 0x64                     ; 0x0a74

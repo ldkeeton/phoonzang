@@ -19,7 +19,7 @@ __zobss_91a6:  ; boundary_wall_open
     resb 0x0002
 __zobss_91a8:  ; location_changed
     resb 0x0002
-__zobss_91aa:  ; bss_91aa
+__zobss_91aa:  ; maze_redraw_pending
     resb 0x0002
 __zobss_91ac:  ; bss_91ac
     resb 0x0002
