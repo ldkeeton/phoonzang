@@ -42,7 +42,7 @@ int_to_str:
     mov bx, word [bp + 6]            ; 0x0302
     mov byte [bx + si], 0            ; 0x0305
     push word [bp + 6]               ; 0x0308
-    call loc_MPOT                    ; 0x030b
+    call reverse_text                ; 0x030b
     pop cx                           ; 0x030e
     pop si                           ; 0x030f
     pop di                           ; 0x0310

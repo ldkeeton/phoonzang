@@ -17,7 +17,7 @@ put_int_right_aligned:
     pop cx                           ; 0x0737
     sub ax, word [bp + 6]            ; 0x0738
     jge short .forward1              ; 0x073b
-    mov ax, dseg_1447                ; 0x073d
+    mov ax, single_space_text        ; 0x073d
     push ax                          ; 0x0740
     call bios_put_text               ; 0x0741
     pop cx                           ; 0x0744

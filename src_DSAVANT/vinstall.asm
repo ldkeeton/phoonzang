@@ -35,12 +35,15 @@ IMAGE_BASE equ 0x0200 + VBASE
     times 476 db 0
 %endif
 
+graphics_mode_label_table equ __zgraphics_mode_label_table - __zdseg_start
+source_drive_types_allowed equ __zsource_drive_types_allowed - __zdseg_start
+destination_drive_types_allowed equ __zdestination_drive_types_allowed - __zdseg_start
 _lowwater equ __z_lowwater - __zdseg_start
 __zbss_size equ __zbss_end - __zimage_end
 
-%include "vinstall/game/loc_ILSL.asm"      ; 0x0200
+%include "vinstall/game/drive_is_valid.asm" ; 0x0200
 
-%include "vinstall/game/loc_MPOT.asm"      ; 0x026d
+%include "vinstall/game/reverse_text.asm"  ; 0x026d
 
 %include "vinstall/game/int_to_str.asm"    ; 0x02b2
 
@@ -48,31 +51,37 @@ __zbss_size equ __zbss_end - __zimage_end
 
 %include "vinstall/game/put_int_at.asm"    ; 0x03b3
 
-%include "vinstall/game/loc_JTRN.asm"      ; 0x03e1
+%include "vinstall/game/put_int_at_highlight_attr.asm" ; 0x03e1
 
 %include "vinstall/game/put_text_at.asm"   ; 0x040f
 
-%include "vinstall/game/loc_STSN.asm"      ; 0x0429
+%include "vinstall/game/put_text_at_highlight_attr.asm" ; 0x0429
 
-dseg_1444 equ __zdseg_1444 - __zdseg_start
-%include "vinstall/game/loc_MSKU.asm"      ; 0x0443
+%include "vinstall/game/clear_screen_home_cursor.asm" ; 0x0443
 
-%include "vinstall/game/loc_GPOQ.asm"      ; 0x05b6
+bell_character_format equ __zbell_character_format - __zdseg_start
+%include "vinstall/game/console_bell.asm"  ; 0x0452
 
-%include "vinstall/game/loc_OQIJ.asm"      ; 0x06f1
+%include "vinstall/game/draw_input_cursor_marker.asm" ; 0x0584
 
-dseg_1447 equ __zdseg_1447 - __zdseg_start
+%include "vinstall/game/read_text_at.asm"  ; 0x05b6
+
+%include "vinstall/game/normalize_input_key.asm" ; 0x06a6
+
+%include "vinstall/game/set_video_mode.asm" ; 0x06f1
+
+single_space_text equ __zsingle_space_text - __zdseg_start
 %include "vinstall/game/put_int_right_aligned.asm" ; 0x0710
 
-dseg_1449 equ __zdseg_1449 - __zdseg_start
+long_alignment_space equ __zlong_alignment_space - __zdseg_start
 %include "vinstall/game/put_long_right_aligned.asm" ; 0x078a
 
-%include "vinstall/game/loc_JJNP.asm"      ; 0x0807
+%include "vinstall/game/parse_int.asm"     ; 0x0807
 
 %include "vinstall/game/parse_long.asm"    ; 0x0815
 
-dseg_144b equ __zdseg_144b - __zdseg_start
-%include "vinstall/game/loc_MNTP.asm"      ; 0x0823
+int_prompt_clear_spaces equ __zint_prompt_clear_spaces - __zdseg_start
+%include "vinstall/game/prompt_int_at.asm" ; 0x0823
 
 %include "vinstall/game/prompt_long_at.asm" ; 0x088f
 
@@ -80,249 +89,264 @@ put_text_attribute       equ __zbss_2644 - __zdseg_start
 highlight_text_attribute equ __zbss_2645 - __zdseg_start
 alt_text_attribute       equ __zbss_2646 - __zdseg_start
 clear_attribute          equ __zbss_2647 - __zdseg_start
-%include "vinstall/game/loc_VRLL.asm"      ; 0x0927
+%include "vinstall/game/set_text_attributes.asm" ; 0x0927
 
-dseg_144f equ __zdseg_144f - __zdseg_start
-dseg_149f equ __zdseg_149f - __zdseg_start
-bss_2648  equ __zbss_2648 - __zdseg_start
-%include "vinstall/game/loc_PUJU.asm"      ; 0x0944
+disk_drive_type_table equ __zdisk_drive_type_table - __zdseg_start
+%include "vinstall/game/draw_drive_setup_row.asm" ; 0x0944
 
-dseg_14ef equ __zdseg_14ef - __zdseg_start
-dseg_14fc equ __zdseg_14fc - __zdseg_start
-dseg_151a equ __zdseg_151a - __zdseg_start
-dseg_152c equ __zdseg_152c - __zdseg_start
-dseg_155e equ __zdseg_155e - __zdseg_start
-dseg_1560 equ __zdseg_1560 - __zdseg_start
-bss_2698  equ __zbss_2698 - __zdseg_start
-bss_269a  equ __zbss_269a - __zdseg_start
-bss_296a  equ __zbss_296a - __zdseg_start
-bss_297e  equ __zbss_297e - __zdseg_start
-bss_2992  equ __zbss_2992 - __zdseg_start
-bss_29a6  equ __zbss_29a6 - __zdseg_start
-bss_29ba  equ __zbss_29ba - __zdseg_start
-bss_29bb  equ __zbss_29bb - __zdseg_start
-bss_29bc  equ __zbss_29bc - __zdseg_start
-bss_29d0  equ __zbss_29d0 - __zdseg_start
-bss_29d1  equ __zbss_29d1 - __zdseg_start
-bss_29d2  equ __zbss_29d2 - __zdseg_start
-bss_29d4  equ __zbss_29d4 - __zdseg_start
-bss_29d5  equ __zbss_29d5 - __zdseg_start
-bss_29d6  equ __zbss_29d6 - __zdseg_start
-bss_29d7  equ __zbss_29d7 - __zdseg_start
-bss_29d8  equ __zbss_29d8 - __zdseg_start
-bss_29da  equ __zbss_29da - __zdseg_start
-bss_29dc  equ __zbss_29dc - __zdseg_start
-bss_29dd  equ __zbss_29dd - __zdseg_start
-bss_29df  equ __zbss_29df - __zdseg_start
-bss_29e1  equ __zbss_29e1 - __zdseg_start
-bss_29e2  equ __zbss_29e2 - __zdseg_start
-bss_29e3  equ __zbss_29e3 - __zdseg_start
-%include "vinstall/game/loc_QKVM.asm"      ; 0x0a0f
+message_line_blank_before equ __zmessage_line_blank_before - __zdseg_start
+message_line_blank_after  equ __zmessage_line_blank_after - __zdseg_start
+installer_message_buffer  equ __zbss_2648 - __zdseg_start
+%include "vinstall/game/show_message_wait_for_enter.asm" ; 0x0992
 
-bss_29e6 equ __zbss_29e6 - __zdseg_start
-bss_29e8 equ __zbss_29e8 - __zdseg_start
-bss_29ea equ __zbss_29ea - __zdseg_start
-bss_29ec equ __zbss_29ec - __zdseg_start
-%include "vinstall/game/loc_UTOL.asm"      ; 0x0c21
+scenario_header_name           equ __zscenario_header_name - __zdseg_start
+header_open_error_prefix       equ __zheader_open_error_prefix - __zdseg_start
+header_open_error_suffix       equ __zheader_open_error_suffix - __zdseg_start
+install_version_mismatch_error equ __zinstall_version_mismatch_error - __zdseg_start
+disk_layout_5_path_separator   equ __zdisk_layout_5_path_separator - __zdseg_start
+savegame_filename              equ __zsavegame_filename - __zdseg_start
+scenario_header_handle         equ __zbss_2698 - __zdseg_start
+scenario_header_record         equ __zbss_269a - __zdseg_start
+game_directory_0               equ __zbss_296a - __zdseg_start
+disk_layout_5_path             equ __zbss_297e - __zdseg_start
+game_directory_1               equ __zbss_2992 - __zdseg_start
+savegame_filename_field        equ __zbss_29a6 - __zdseg_start
+ems_enabled                    equ __zbss_29ba - __zdseg_start
+ramdisk_enabled                equ __zbss_29bb - __zdseg_start
+ramdisk_name                   equ __zbss_29bc - __zdseg_start
+screen_brightness_level        equ __zbss_29d0 - __zdseg_start
+screen_contrast_level          equ __zbss_29d1 - __zdseg_start
+install_version                equ __zbss_29d2 - __zdseg_start
+sound_volume_0                 equ __zbss_29d4 - __zdseg_start
+sound_volume_1                 equ __zbss_29d5 - __zdseg_start
+sound_volume_2                 equ __zbss_29d6 - __zdseg_start
+sound_volume_3                 equ __zbss_29d7 - __zdseg_start
+sound_base_port_0              equ __zbss_29d8 - __zdseg_start
+sound_base_port_1              equ __zbss_29da - __zdseg_start
+digital_sound_device           equ __zbss_29dc - __zdseg_start
+install_music_device           equ __zbss_29dd - __zdseg_start
+disk_layout                    equ __zbss_29df - __zdseg_start
+mouse_choice_enabled           equ __zbss_29e1 - __zdseg_start
+graphics_mode_choice           equ __zbss_29e2 - __zdseg_start
+disk_layout_5_flag             equ __zbss_29e3 - __zdseg_start
+%include "vinstall/game/update_scenario_header.asm" ; 0x0a0f
 
-%include "vinstall/game/loc_HUKT.asm"      ; 0x0cd6
+vga_available      equ __zbss_29e6 - __zdseg_start
+ega_available      equ __zbss_29e8 - __zdseg_start
+cga_available      equ __zbss_29ea - __zdseg_start
+hercules_available equ __zbss_29ec - __zdseg_start
+%include "vinstall/game/advance_graphics_mode_choice.asm" ; 0x0c21
+
+; disk_drive_type_table equ __zdisk_drive_type_table - __zdseg_start
+%include "vinstall/game/cycle_drive_type_choice.asm" ; 0x0cd6
 
 sound_device_names equ __zsound_device_names - __zdseg_start
 %include "vinstall/game/next_sound_device.asm" ; 0x0d12
 
-dseg_156d equ __zdseg_156d - __zdseg_start
-%include "vinstall/game/loc_PQHH.asm"      ; 0x0d3f
+no_yes_label_table equ __zno_yes_label_table - __zdseg_start
+%include "vinstall/game/toggle_yes_no_choice.asm" ; 0x0d3f
 
-dseg_15bd equ __zdseg_15bd - __zdseg_start
-dseg_15cc equ __zdseg_15cc - __zdseg_start
-dseg_15d8 equ __zdseg_15d8 - __zdseg_start
-dseg_15e1 equ __zdseg_15e1 - __zdseg_start
-dseg_15e9 equ __zdseg_15e9 - __zdseg_start
-dseg_15f7 equ __zdseg_15f7 - __zdseg_start
-%include "vinstall/game/loc_ONOP.asm"      ; 0x0dda
+command_line_blank_text equ __zcommand_line_blank_text - __zdseg_start
+%include "vinstall/game/display_centered_command_line.asm" ; 0x0d6a
 
-dseg_1609 equ __zdseg_1609 - __zdseg_start
-dseg_1615 equ __zdseg_1615 - __zdseg_start
-dseg_1621 equ __zdseg_1621 - __zdseg_start
-dseg_162e equ __zdseg_162e - __zdseg_start
-dseg_1630 equ __zdseg_1630 - __zdseg_start
-dseg_1634 equ __zdseg_1634 - __zdseg_start
-dseg_1636 equ __zdseg_1636 - __zdseg_start
-dseg_163a equ __zdseg_163a - __zdseg_start
-dseg_163c equ __zdseg_163c - __zdseg_start
-dseg_1657 equ __zdseg_1657 - __zdseg_start
-dseg_2357 equ __zdseg_2357 - __zdseg_start
-bss_29ee  equ __zbss_29ee - __zdseg_start
-%include "vinstall/game/loc_LKQT.asm"      ; 0x0ed8
+insert_disk_message_prefix equ __zinsert_disk_message_prefix - __zdseg_start
+destination_disk_label     equ __zdestination_disk_label - __zdseg_start
+source_disk_label          equ __zsource_disk_label - __zdseg_start
+disk_number_label_prefix   equ __zdisk_number_label_prefix - __zdseg_start
+disk_drive_label_prefix    equ __zdisk_drive_label_prefix - __zdseg_start
+press_return_prompt_suffix equ __zpress_return_prompt_suffix - __zdseg_start
+%include "vinstall/game/prompt_for_archive_disk.asm" ; 0x0dda
 
-dseg_1669 equ __zdseg_1669 - __zdseg_start
-dseg_166a equ __zdseg_166a - __zdseg_start
-bss_29f0  equ __zbss_29f0 - __zdseg_start
-%include "vinstall/game/append_to_message_line.asm" ; 0x102d
+pkunzip_exe_suffix            equ __zpkunzip_exe_suffix - __zdseg_start
+pkunzip_argv0                 equ __zpkunzip_argv0 - __zdseg_start
+pkunzip_command_prefix        equ __zpkunzip_command_prefix - __zdseg_start
+command_argument_separator    equ __zcommand_argument_separator - __zdseg_start
+null_device_name              equ __znull_device_name - __zdseg_start
+stream_append_mode            equ __zstream_append_mode - __zdseg_start
+console_device_name           equ __zconsole_device_name - __zdseg_start
+console_stream_append_mode    equ __zconsole_stream_append_mode - __zdseg_start
+unzip_failure_prefix          equ __zunzip_failure_prefix - __zdseg_start
+unzip_failure_suffix          equ __zunzip_failure_suffix - __zdseg_start
+archive_process_stream        equ __zarchive_process_stream - __zdseg_start
+archive_process_stream_handle equ __zbss_29ee - __zdseg_start
+%include "vinstall/game/run_pkunzip_archive.asm" ; 0x0ed8
 
-dseg_166c equ __zdseg_166c - __zdseg_start
-dseg_166f equ __zdseg_166f - __zdseg_start
-dseg_1672 equ __zdseg_1672 - __zdseg_start
-dseg_1675 equ __zdseg_1675 - __zdseg_start
-dseg_1676 equ __zdseg_1676 - __zdseg_start
-dseg_1679 equ __zdseg_1679 - __zdseg_start
-dseg_167a equ __zdseg_167a - __zdseg_start
-dseg_167d equ __zdseg_167d - __zdseg_start
-dseg_167e equ __zdseg_167e - __zdseg_start
-dseg_1681 equ __zdseg_1681 - __zdseg_start
-%include "vinstall/game/leaf_loc_UVRI.asm" ; 0x10a4
+empty_filespec_list   equ __zempty_filespec_list - __zdseg_start
+filespec_separator    equ __zfilespec_separator - __zdseg_start
+pkunzip_filespec_list equ __zbss_29f0 - __zdseg_start
+%include "vinstall/game/queue_pkunzip_filespec.asm" ; 0x102d
 
-%include "vinstall/game/loc_RJRG.asm"      ; 0x1155
+default_source_drive_mode_0 equ __zdefault_source_drive_mode_0 - __zdseg_start
+default_dest_drive_mode_0   equ __zdefault_dest_drive_mode_0 - __zdseg_start
+default_source_drive_mode_1 equ __zdefault_source_drive_mode_1 - __zdseg_start
+default_dest_path_mode_1    equ __zdefault_dest_path_mode_1 - __zdseg_start
+default_source_drive_mode_2 equ __zdefault_source_drive_mode_2 - __zdseg_start
+default_dest_path_mode_2    equ __zdefault_dest_path_mode_2 - __zdseg_start
+default_source_drive_mode_3 equ __zdefault_source_drive_mode_3 - __zdseg_start
+default_dest_path_mode_3    equ __zdefault_dest_path_mode_3 - __zdseg_start
+default_source_drive_mode_4 equ __zdefault_source_drive_mode_4 - __zdseg_start
+default_dest_path_mode_4    equ __zdefault_dest_path_mode_4 - __zdseg_start
+%include "vinstall/game/set_install_drive_defaults.asm" ; 0x10a4
 
-dseg_1689 equ __zdseg_1689 - __zdseg_start
-dseg_16af equ __zdseg_16af - __zdseg_start
-dseg_16c2 equ __zdseg_16c2 - __zdseg_start
-dseg_16e8 equ __zdseg_16e8 - __zdseg_start
-dseg_16fa equ __zdseg_16fa - __zdseg_start
-dseg_1720 equ __zdseg_1720 - __zdseg_start
-%include "vinstall/game/loc_HSPL.asm"      ; 0x11ba
+%include "vinstall/game/install_file_matches_letter.asm" ; 0x1155
 
-dseg_0004          equ __zdseg_0004 - __zdseg_start
-dseg_0006          equ __zdseg_0006 - __zdseg_start
-; sound_device_names equ __zsound_device_names - __zdseg_start
-dseg_1732          equ __zdseg_1732 - __zdseg_start
-dseg_1767          equ __zdseg_1767 - __zdseg_start
-dseg_179c          equ __zdseg_179c - __zdseg_start
-dseg_17d1          equ __zdseg_17d1 - __zdseg_start
-dseg_1806          equ __zdseg_1806 - __zdseg_start
-dseg_183b          equ __zdseg_183b - __zdseg_start
-dseg_183d          equ __zdseg_183d - __zdseg_start
-dseg_1882          equ __zdseg_1882 - __zdseg_start
-dseg_18b2          equ __zdseg_18b2 - __zdseg_start
-dseg_18f6          equ __zdseg_18f6 - __zdseg_start
-dseg_1911          equ __zdseg_1911 - __zdseg_start
-dseg_1957          equ __zdseg_1957 - __zdseg_start
-dseg_199e          equ __zdseg_199e - __zdseg_start
-dseg_19e4          equ __zdseg_19e4 - __zdseg_start
-dseg_1a2b          equ __zdseg_1a2b - __zdseg_start
-dseg_1a72          equ __zdseg_1a72 - __zdseg_start
-dseg_1a91          equ __zdseg_1a91 - __zdseg_start
-dseg_1a92          equ __zdseg_1a92 - __zdseg_start
-dseg_1ac1          equ __zdseg_1ac1 - __zdseg_start
-dseg_1af6          equ __zdseg_1af6 - __zdseg_start
-dseg_1b2b          equ __zdseg_1b2b - __zdseg_start
-dseg_1b60          equ __zdseg_1b60 - __zdseg_start
-dseg_1b95          equ __zdseg_1b95 - __zdseg_start
-dseg_1bca          equ __zdseg_1bca - __zdseg_start
-dseg_1bcd          equ __zdseg_1bcd - __zdseg_start
-dseg_1bce          equ __zdseg_1bce - __zdseg_start
-dseg_1c1b          equ __zdseg_1c1b - __zdseg_start
-dseg_1c68          equ __zdseg_1c68 - __zdseg_start
-dseg_1c7b          equ __zdseg_1c7b - __zdseg_start
-dseg_1c8e          equ __zdseg_1c8e - __zdseg_start
-dseg_1cc7          equ __zdseg_1cc7 - __zdseg_start
-dseg_1d0a          equ __zdseg_1d0a - __zdseg_start
-dseg_1d4d          equ __zdseg_1d4d - __zdseg_start
-dseg_1d58          equ __zdseg_1d58 - __zdseg_start
-dseg_1d63          equ __zdseg_1d63 - __zdseg_start
-dseg_1d6b          equ __zdseg_1d6b - __zdseg_start
-dseg_1d73          equ __zdseg_1d73 - __zdseg_start
-dseg_1d9f          equ __zdseg_1d9f - __zdseg_start
-dseg_1dc7          equ __zdseg_1dc7 - __zdseg_start
-dseg_1df7          equ __zdseg_1df7 - __zdseg_start
-dseg_1e28          equ __zdseg_1e28 - __zdseg_start
-dseg_1e50          equ __zdseg_1e50 - __zdseg_start
-dseg_1e5d          equ __zdseg_1e5d - __zdseg_start
-dseg_1e69          equ __zdseg_1e69 - __zdseg_start
-dseg_1e77          equ __zdseg_1e77 - __zdseg_start
-dseg_1e84          equ __zdseg_1e84 - __zdseg_start
-dseg_1e90          equ __zdseg_1e90 - __zdseg_start
-dseg_1ea4          equ __zdseg_1ea4 - __zdseg_start
-dseg_1ecd          equ __zdseg_1ecd - __zdseg_start
-dseg_1efc          equ __zdseg_1efc - __zdseg_start
-dseg_1f1e          equ __zdseg_1f1e - __zdseg_start
-dseg_1f47          equ __zdseg_1f47 - __zdseg_start
-dseg_1f7c          equ __zdseg_1f7c - __zdseg_start
-dseg_1fa5          equ __zdseg_1fa5 - __zdseg_start
-dseg_1fce          equ __zdseg_1fce - __zdseg_start
-dseg_200a          equ __zdseg_200a - __zdseg_start
-dseg_204c          equ __zdseg_204c - __zdseg_start
-dseg_2062          equ __zdseg_2062 - __zdseg_start
-dseg_207b          equ __zdseg_207b - __zdseg_start
-dseg_208f          equ __zdseg_208f - __zdseg_start
-dseg_20a8          equ __zdseg_20a8 - __zdseg_start
-dseg_20a9          equ __zdseg_20a9 - __zdseg_start
-dseg_20c0          equ __zdseg_20c0 - __zdseg_start
-dseg_20d2          equ __zdseg_20d2 - __zdseg_start
-dseg_2112          equ __zdseg_2112 - __zdseg_start
-dseg_2113          equ __zdseg_2113 - __zdseg_start
-dseg_2114          equ __zdseg_2114 - __zdseg_start
-dseg_2116          equ __zdseg_2116 - __zdseg_start
-dseg_2118          equ __zdseg_2118 - __zdseg_start
-dseg_211a          equ __zdseg_211a - __zdseg_start
-dseg_211c          equ __zdseg_211c - __zdseg_start
-dseg_2127          equ __zdseg_2127 - __zdseg_start
-dseg_2132          equ __zdseg_2132 - __zdseg_start
-dseg_2133          equ __zdseg_2133 - __zdseg_start
-dseg_213e          equ __zdseg_213e - __zdseg_start
-dseg_213f          equ __zdseg_213f - __zdseg_start
-dseg_214a          equ __zdseg_214a - __zdseg_start
-dseg_214b          equ __zdseg_214b - __zdseg_start
-dseg_2156          equ __zdseg_2156 - __zdseg_start
-dseg_2157          equ __zdseg_2157 - __zdseg_start
-dseg_2162          equ __zdseg_2162 - __zdseg_start
-dseg_216d          equ __zdseg_216d - __zdseg_start
-dseg_216e          equ __zdseg_216e - __zdseg_start
-dseg_2179          equ __zdseg_2179 - __zdseg_start
-dseg_217a          equ __zdseg_217a - __zdseg_start
-dseg_2185          equ __zdseg_2185 - __zdseg_start
-dseg_2186          equ __zdseg_2186 - __zdseg_start
-dseg_2191          equ __zdseg_2191 - __zdseg_start
-dseg_2192          equ __zdseg_2192 - __zdseg_start
-dseg_219d          equ __zdseg_219d - __zdseg_start
-dseg_219e          equ __zdseg_219e - __zdseg_start
-dseg_21a9          equ __zdseg_21a9 - __zdseg_start
-dseg_21b4          equ __zdseg_21b4 - __zdseg_start
-dseg_21b5          equ __zdseg_21b5 - __zdseg_start
-dseg_21c0          equ __zdseg_21c0 - __zdseg_start
-dseg_21c1          equ __zdseg_21c1 - __zdseg_start
-dseg_21cc          equ __zdseg_21cc - __zdseg_start
-dseg_21cd          equ __zdseg_21cd - __zdseg_start
-dseg_21d8          equ __zdseg_21d8 - __zdseg_start
-dseg_21e3          equ __zdseg_21e3 - __zdseg_start
-dseg_21e4          equ __zdseg_21e4 - __zdseg_start
-dseg_21ef          equ __zdseg_21ef - __zdseg_start
-dseg_21f0          equ __zdseg_21f0 - __zdseg_start
-dseg_21fb          equ __zdseg_21fb - __zdseg_start
-dseg_2206          equ __zdseg_2206 - __zdseg_start
-dseg_2207          equ __zdseg_2207 - __zdseg_start
-dseg_2212          equ __zdseg_2212 - __zdseg_start
-dseg_2213          equ __zdseg_2213 - __zdseg_start
-dseg_221e          equ __zdseg_221e - __zdseg_start
-dseg_221f          equ __zdseg_221f - __zdseg_start
-dseg_222a          equ __zdseg_222a - __zdseg_start
-dseg_2235          equ __zdseg_2235 - __zdseg_start
-dseg_2236          equ __zdseg_2236 - __zdseg_start
-dseg_2241          equ __zdseg_2241 - __zdseg_start
-dseg_2242          equ __zdseg_2242 - __zdseg_start
-dseg_224d          equ __zdseg_224d - __zdseg_start
-dseg_224e          equ __zdseg_224e - __zdseg_start
-dseg_2259          equ __zdseg_2259 - __zdseg_start
-dseg_225a          equ __zdseg_225a - __zdseg_start
-dseg_2265          equ __zdseg_2265 - __zdseg_start
-dseg_2270          equ __zdseg_2270 - __zdseg_start
-dseg_2271          equ __zdseg_2271 - __zdseg_start
-dseg_227e          equ __zdseg_227e - __zdseg_start
-dseg_22af          equ __zdseg_22af - __zdseg_start
-dseg_22e3          equ __zdseg_22e3 - __zdseg_start
-; bss_2648           equ __zbss_2648 - __zdseg_start
-; bss_29e6           equ __zbss_29e6 - __zdseg_start
-; bss_29e8           equ __zbss_29e8 - __zdseg_start
-; bss_29ea           equ __zbss_29ea - __zdseg_start
-; bss_29ec           equ __zbss_29ec - __zdseg_start
-; bss_29f0           equ __zbss_29f0 - __zdseg_start
-bss_2af0           equ __zbss_2af0 - __zdseg_start
-bss_2af2           equ __zbss_2af2 - __zdseg_start
-bss_2af4           equ __zbss_2af4 - __zdseg_start
-bss_2af6           equ __zbss_2af6 - __zdseg_start
-bss_2af8           equ __zbss_2af8 - __zdseg_start
-bss_2afa           equ __zbss_2afa - __zdseg_start
+invalid_destination_drive      equ __zinvalid_destination_drive - __zdseg_start
+invalid_drive_prompt_suffix    equ __zinvalid_drive_prompt_suffix - __zdseg_start
+directory_create_error_prefix  equ __zdirectory_create_error_prefix - __zdseg_start
+directory_create_prompt_suffix equ __zdirectory_create_prompt_suffix - __zdseg_start
+directory_lookup_error_prefix  equ __zdirectory_lookup_error_prefix - __zdseg_start
+directory_lookup_prompt_suffix equ __zdirectory_lookup_prompt_suffix - __zdseg_start
+%include "vinstall/game/enter_destination_directory.asm" ; 0x11ba
+
+graphics_mode_label_vga         equ __zgraphics_mode_label_vga - __zdseg_start
+graphics_mode_label_ega         equ __zgraphics_mode_label_ega - __zdseg_start
+; sound_device_names              equ __zsound_device_names - __zdseg_start
+; no_yes_label_table              equ __zno_yes_label_table - __zdseg_start
+; disk_drive_type_table           equ __zdisk_drive_type_table - __zdseg_start
+navigation_up_table             equ __znavigation_up_table - __zdseg_start
+navigation_down_table           equ __znavigation_down_table - __zdseg_start
+navigation_right_table          equ __znavigation_right_table - __zdseg_start
+navigation_left_table           equ __znavigation_left_table - __zdseg_start
+installer_title_border_top      equ __zinstaller_title_border_top - __zdseg_start
+wizardry_title_line             equ __zwizardry_title_line - __zdseg_start
+dark_savant_title_line          equ __zdark_savant_title_line - __zdseg_start
+installer_version_line          equ __zinstaller_version_line - __zdseg_start
+installer_title_border_bottom   equ __zinstaller_title_border_bottom - __zdseg_start
+version_separator               equ __zversion_separator - __zdseg_start
+copyright_line_0                equ __zcopyright_line_0 - __zdseg_start
+copyright_line_1                equ __zcopyright_line_1 - __zdseg_start
+copyright_line_2                equ __zcopyright_line_2 - __zdseg_start
+copyright_line_3                equ __zcopyright_line_3 - __zdseg_start
+copyright_line_4                equ __zcopyright_line_4 - __zdseg_start
+copyright_line_5                equ __zcopyright_line_5 - __zdseg_start
+copyright_line_6                equ __zcopyright_line_6 - __zdseg_start
+copyright_line_7                equ __zcopyright_line_7 - __zdseg_start
+copyright_line_8                equ __zcopyright_line_8 - __zdseg_start
+copyright_line_9                equ __zcopyright_line_9 - __zdseg_start
+empty_message_text              equ __zempty_message_text - __zdseg_start
+press_return_to_begin           equ __zpress_return_to_begin - __zdseg_start
+setup_screen_border_top         equ __zsetup_screen_border_top - __zdseg_start
+setup_screen_title_wizardry     equ __zsetup_screen_title_wizardry - __zdseg_start
+setup_screen_title_dark_savant  equ __zsetup_screen_title_dark_savant - __zdseg_start
+setup_screen_title_installation equ __zsetup_screen_title_installation - __zdseg_start
+setup_screen_border_bottom      equ __zsetup_screen_border_bottom - __zdseg_start
+default_source_drive            equ __zdefault_source_drive - __zdseg_start
+empty_drive_name                equ __zempty_drive_name - __zdseg_start
+drive_table_header              equ __zdrive_table_header - __zdseg_start
+drive_table_header_rule         equ __zdrive_table_header_rule - __zdseg_start
+source_drive_row_label          equ __zsource_drive_row_label - __zdseg_start
+destination_drive_row_label     equ __zdestination_drive_row_label - __zdseg_start
+memory_expansion_row            equ __zmemory_expansion_row - __zdseg_start
+graphic_mode_row                equ __zgraphic_mode_row - __zdseg_start
+video_adjustment_rule           equ __zvideo_adjustment_rule - __zdseg_start
+brightness_label                equ __zbrightness_label - __zdseg_start
+contrast_label                  equ __zcontrast_label - __zdseg_start
+mouse_label                     equ __zmouse_label - __zdseg_start
+sound_label                     equ __zsound_label - __zdseg_start
+action_row                      equ __zaction_row - __zdseg_start
+navigation_help_row             equ __znavigation_help_row - __zdseg_start
+no_video_card_error             equ __zno_video_card_error - __zdseg_start
+unable_to_complete_error        equ __zunable_to_complete_error - __zdseg_start
+navigation_help_message         equ __znavigation_help_message - __zdseg_start
+full_install_label              equ __zfull_install_label - __zdseg_start
+config_only_label               equ __zconfig_only_label - __zdseg_start
+abort_install_label             equ __zabort_install_label - __zdseg_start
+full_install_label_highlighted  equ __zfull_install_label_highlighted - __zdseg_start
+config_only_label_highlighted   equ __zconfig_only_label_highlighted - __zdseg_start
+abort_install_label_highlighted equ __zabort_install_label_highlighted - __zdseg_start
+bad_source_drive_error          equ __zbad_source_drive_error - __zdseg_start
+source_path_not_allowed_error   equ __zsource_path_not_allowed_error - __zdseg_start
+destination_drive_blank         equ __zdestination_drive_blank - __zdseg_start
+bad_destination_drive_error     equ __zbad_destination_drive_error - __zdseg_start
+drive_conflict_warning          equ __zdrive_conflict_warning - __zdseg_start
+bad_destination_path_error      equ __zbad_destination_path_error - __zdseg_start
+bad_ram_name_error              equ __zbad_ram_name_error - __zdseg_start
+drives_must_differ_error        equ __zdrives_must_differ_error - __zdseg_start
+specify_new_drive_prompt        equ __zspecify_new_drive_prompt - __zdseg_start
+disk_count_360k                 equ __zdisk_count_360k - __zdseg_start
+disk_count_1200k                equ __zdisk_count_1200k - __zdseg_start
+disk_count_720k                 equ __zdisk_count_720k - __zdseg_start
+disk_count_1440k                equ __zdisk_count_1440k - __zdseg_start
+empty_install_message_prefix    equ __zempty_install_message_prefix - __zdseg_start
+install_requires_prefix         equ __zinstall_requires_prefix - __zdseg_start
+install_requires_suffix         equ __zinstall_requires_suffix - __zdseg_start
+formatted_disk_reminder         equ __zformatted_disk_reminder - __zdseg_start
+filespec_list_init              equ __zfilespec_list_init - __zdseg_start
+message_buffer_init             equ __zmessage_buffer_init - __zdseg_start
+source_dir_separator            equ __zsource_dir_separator - __zdseg_start
+dest_dir_separator              equ __zdest_dir_separator - __zdseg_start
+dest_path_separator             equ __zdest_path_separator - __zdseg_start
+full_install_path_separator     equ __zfull_install_path_separator - __zdseg_start
+archive_crus01_211c             equ __zarchive_crus01_211c - __zdseg_start
+archive_crus01_2127             equ __zarchive_crus01_2127 - __zdseg_start
+unzip_all_files_2132            equ __zunzip_all_files_2132 - __zdseg_start
+archive_crus02_2133             equ __zarchive_crus02_2133 - __zdseg_start
+unzip_all_files_213e            equ __zunzip_all_files_213e - __zdseg_start
+archive_crus04_213f             equ __zarchive_crus04_213f - __zdseg_start
+unzip_all_files_214a            equ __zunzip_all_files_214a - __zdseg_start
+archive_crus06_214b             equ __zarchive_crus06_214b - __zdseg_start
+unzip_all_files_2156            equ __zunzip_all_files_2156 - __zdseg_start
+archive_crus03_2157             equ __zarchive_crus03_2157 - __zdseg_start
+archive_crus03_2162             equ __zarchive_crus03_2162 - __zdseg_start
+unzip_all_files_216d            equ __zunzip_all_files_216d - __zdseg_start
+archive_crus05_216e             equ __zarchive_crus05_216e - __zdseg_start
+unzip_all_files_2179            equ __zunzip_all_files_2179 - __zdseg_start
+archive_crus07_217a             equ __zarchive_crus07_217a - __zdseg_start
+unzip_all_files_2185            equ __zunzip_all_files_2185 - __zdseg_start
+archive_crus08_2186             equ __zarchive_crus08_2186 - __zdseg_start
+unzip_all_files_2191            equ __zunzip_all_files_2191 - __zdseg_start
+archive_crus07_2192             equ __zarchive_crus07_2192 - __zdseg_start
+unzip_all_files_219d            equ __zunzip_all_files_219d - __zdseg_start
+archive_crus02_219e             equ __zarchive_crus02_219e - __zdseg_start
+archive_crus02_21a9             equ __zarchive_crus02_21a9 - __zdseg_start
+unzip_all_files_21b4            equ __zunzip_all_files_21b4 - __zdseg_start
+archive_crus04_21b5             equ __zarchive_crus04_21b5 - __zdseg_start
+unzip_all_files_21c0            equ __zunzip_all_files_21c0 - __zdseg_start
+archive_crus06_21c1             equ __zarchive_crus06_21c1 - __zdseg_start
+unzip_all_files_21cc            equ __zunzip_all_files_21cc - __zdseg_start
+archive_crus03_21cd             equ __zarchive_crus03_21cd - __zdseg_start
+archive_crus03_21d8             equ __zarchive_crus03_21d8 - __zdseg_start
+unzip_all_files_21e3            equ __zunzip_all_files_21e3 - __zdseg_start
+archive_crus08_21e4             equ __zarchive_crus08_21e4 - __zdseg_start
+unzip_all_files_21ef            equ __zunzip_all_files_21ef - __zdseg_start
+archive_crus05_21f0             equ __zarchive_crus05_21f0 - __zdseg_start
+archive_crus05_21fb             equ __zarchive_crus05_21fb - __zdseg_start
+unzip_all_files_2206            equ __zunzip_all_files_2206 - __zdseg_start
+archive_crus02_2207             equ __zarchive_crus02_2207 - __zdseg_start
+unzip_all_files_2212            equ __zunzip_all_files_2212 - __zdseg_start
+archive_crus06_2213             equ __zarchive_crus06_2213 - __zdseg_start
+unzip_all_files_221e            equ __zunzip_all_files_221e - __zdseg_start
+archive_crus03_221f             equ __zarchive_crus03_221f - __zdseg_start
+archive_crus03_222a             equ __zarchive_crus03_222a - __zdseg_start
+unzip_all_files_2235            equ __zunzip_all_files_2235 - __zdseg_start
+archive_crus04_2236             equ __zarchive_crus04_2236 - __zdseg_start
+unzip_all_files_2241            equ __zunzip_all_files_2241 - __zdseg_start
+archive_crus07_2242             equ __zarchive_crus07_2242 - __zdseg_start
+unzip_all_files_224d            equ __zunzip_all_files_224d - __zdseg_start
+archive_crus08_224e             equ __zarchive_crus08_224e - __zdseg_start
+unzip_all_files_2259            equ __zunzip_all_files_2259 - __zdseg_start
+archive_crus05_225a             equ __zarchive_crus05_225a - __zdseg_start
+archive_crus05_2265             equ __zarchive_crus05_2265 - __zdseg_start
+unzip_all_files_2270            equ __zunzip_all_files_2270 - __zdseg_start
+scenario_header_filename        equ __zscenario_header_filename - __zdseg_start
+installation_failure_message    equ __zinstallation_failure_message - __zdseg_start
+installation_success_message    equ __zinstallation_success_message - __zdseg_start
+game_start_instruction          equ __zgame_start_instruction - __zdseg_start
+; installer_message_buffer        equ __zbss_2648 - __zdseg_start
+; vga_available                   equ __zbss_29e6 - __zdseg_start
+; ega_available                   equ __zbss_29e8 - __zdseg_start
+; cga_available                   equ __zbss_29ea - __zdseg_start
+; hercules_available              equ __zbss_29ec - __zdseg_start
+; pkunzip_filespec_list           equ __zbss_29f0 - __zdseg_start
+unused_flag_2af0                equ __zbss_2af0 - __zdseg_start
+unused_flag_2af2                equ __zbss_2af2 - __zdseg_start
+unused_flag_2af4                equ __zbss_2af4 - __zdseg_start
+unused_flag_2af6                equ __zbss_2af6 - __zdseg_start
+unused_flag_2af8                equ __zbss_2af8 - __zdseg_start
+mouse_detected                  equ __zbss_2afa - __zdseg_start
 %include "vinstall/game/main.asm"          ; 0x12b5
+
+%include "vinstall/game/detect_video_and_mouse.asm" ; 0x245e
 
 %include "vinstall/data/saved_video_mode.asm" ; 0x2479
 
@@ -556,8 +580,6 @@ dseg_006a equ __zdseg_006a - __zdseg_start
 dseg_0081 equ __zdseg_0081 - __zdseg_start
 dseg_009c equ __zdseg_009c - __zdseg_start
 dseg_00a0 equ __zdseg_00a0 - __zdseg_start
-%include "vinstall/data/dseg_0002.asm"     ; 0x3ae2
-
 dseg_00b4 equ __zdseg_00b4 - __zdseg_start
 dseg_00c8 equ __zdseg_00c8 - __zdseg_start
 dseg_00dc equ __zdseg_00dc - __zdseg_start
@@ -566,8 +588,6 @@ dseg_0104 equ __zdseg_0104 - __zdseg_start
 dseg_0118 equ __zdseg_0118 - __zdseg_start
 dseg_012c equ __zdseg_012c - __zdseg_start
 dseg_0140 equ __zdseg_0140 - __zdseg_start
-%include "vinstall/data/sound_device_names.asm" ; 0x3b84
-
 dseg_0158 equ __zdseg_0158 - __zdseg_start
 dseg_015c equ __zdseg_015c - __zdseg_start
 dseg_016a equ __zdseg_016a - __zdseg_start
@@ -575,7 +595,7 @@ dseg_0181 equ __zdseg_0181 - __zdseg_start
 dseg_0198 equ __zdseg_0198 - __zdseg_start
 dseg_01af equ __zdseg_01af - __zdseg_start
 dseg_01c6 equ __zdseg_01c6 - __zdseg_start
-%include "vinstall/data/dseg_00b4.asm"     ; 0x3b94
+%include "vinstall/data/vinstall_data.asm" ; 0x3ae2
 
 %include "vinstall/aztec/aztec_fexecv.data.asm" ; 0x5dea
 

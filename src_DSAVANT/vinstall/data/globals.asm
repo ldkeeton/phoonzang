@@ -7,77 +7,77 @@ __zbss_2646:  ; alt_text_attribute
     resb 0x0001
 __zbss_2647:  ; clear_attribute
     resb 0x0001
-__zbss_2648:  ; bss_2648
+__zbss_2648:  ; installer_message_buffer
     resb 0x0050
-__zbss_2698:  ; bss_2698
+__zbss_2698:  ; scenario_header_handle
     resb 0x0002
-__zbss_269a:  ; bss_269a
+__zbss_269a:  ; scenario_header_record
     resb 0x02d0
-__zbss_296a:  ; bss_296a
+__zbss_296a:  ; game_directory_0
     resb 0x0014
-__zbss_297e:  ; bss_297e
+__zbss_297e:  ; disk_layout_5_path
     resb 0x0014
-__zbss_2992:  ; bss_2992
+__zbss_2992:  ; game_directory_1
     resb 0x0014
-__zbss_29a6:  ; bss_29a6
+__zbss_29a6:  ; savegame_filename_field
     resb 0x0014
-__zbss_29ba:  ; bss_29ba
+__zbss_29ba:  ; ems_enabled
     resb 0x0001
-__zbss_29bb:  ; bss_29bb
+__zbss_29bb:  ; ramdisk_enabled
     resb 0x0001
-__zbss_29bc:  ; bss_29bc
+__zbss_29bc:  ; ramdisk_name
     resb 0x0014
-__zbss_29d0:  ; bss_29d0
+__zbss_29d0:  ; screen_brightness_level
     resb 0x0001
-__zbss_29d1:  ; bss_29d1
+__zbss_29d1:  ; screen_contrast_level
     resb 0x0001
-__zbss_29d2:  ; bss_29d2
+__zbss_29d2:  ; install_version
     resb 0x0002
-__zbss_29d4:  ; bss_29d4
+__zbss_29d4:  ; sound_volume_0
     resb 0x0001
-__zbss_29d5:  ; bss_29d5
+__zbss_29d5:  ; sound_volume_1
     resb 0x0001
-__zbss_29d6:  ; bss_29d6
+__zbss_29d6:  ; sound_volume_2
     resb 0x0001
-__zbss_29d7:  ; bss_29d7
+__zbss_29d7:  ; sound_volume_3
     resb 0x0001
-__zbss_29d8:  ; bss_29d8
+__zbss_29d8:  ; sound_base_port_0
     resb 0x0002
-__zbss_29da:  ; bss_29da
+__zbss_29da:  ; sound_base_port_1
     resb 0x0002
-__zbss_29dc:  ; bss_29dc
+__zbss_29dc:  ; digital_sound_device
     resb 0x0001
-__zbss_29dd:  ; bss_29dd
+__zbss_29dd:  ; install_music_device
     resb 0x0002
-__zbss_29df:  ; bss_29df
+__zbss_29df:  ; disk_layout
     resb 0x0002
-__zbss_29e1:  ; bss_29e1
+__zbss_29e1:  ; mouse_choice_enabled
     resb 0x0001
-__zbss_29e2:  ; bss_29e2
+__zbss_29e2:  ; graphics_mode_choice
     resb 0x0001
-__zbss_29e3:  ; bss_29e3
+__zbss_29e3:  ; disk_layout_5_flag
     resb 0x0003
-__zbss_29e6:  ; bss_29e6
+__zbss_29e6:  ; vga_available
     resb 0x0002
-__zbss_29e8:  ; bss_29e8
+__zbss_29e8:  ; ega_available
     resb 0x0002
-__zbss_29ea:  ; bss_29ea
+__zbss_29ea:  ; cga_available
     resb 0x0002
-__zbss_29ec:  ; bss_29ec
+__zbss_29ec:  ; hercules_available
     resb 0x0002
-__zbss_29ee:  ; bss_29ee
+__zbss_29ee:  ; archive_process_stream_handle
     resb 0x0002
-__zbss_29f0:  ; bss_29f0
+__zbss_29f0:  ; pkunzip_filespec_list
     resb 0x0100
-__zbss_2af0:  ; bss_2af0
+__zbss_2af0:  ; unused_flag_2af0
     resb 0x0002
-__zbss_2af2:  ; bss_2af2
+__zbss_2af2:  ; unused_flag_2af2
     resb 0x0002
-__zbss_2af4:  ; bss_2af4
+__zbss_2af4:  ; unused_flag_2af4
     resb 0x0002
-__zbss_2af6:  ; bss_2af6
+__zbss_2af6:  ; unused_flag_2af6
     resb 0x0002
-__zbss_2af8:  ; bss_2af8
+__zbss_2af8:  ; unused_flag_2af8
     resb 0x0002
-__zbss_2afa:  ; bss_2afa
+__zbss_2afa:  ; mouse_detected
     resb 0x0002

@@ -3,10 +3,10 @@ main:
     push bp                          ; 0x12b5
     mov bp, sp                       ; 0x12b6
     add sp, strict word 0xfd28       ; 0x12b8
-    call loc_VRLL                    ; 0x12bc
+    call set_text_attributes         ; 0x12bc
     mov word [bp - 0x1c8], 0x78      ; 0x12bf
-    call loc_MSKU                    ; 0x12c5
-    mov ax, dseg_1732                ; 0x12c8
+    call clear_screen_home_cursor    ; 0x12c5
+    mov ax, installer_title_border_top ; 0x12c8
     push ax                          ; 0x12cb
     mov ax, 0xe                      ; 0x12cc
     push ax                          ; 0x12cf
@@ -14,7 +14,7 @@ main:
     push ax                          ; 0x12d3
     call put_text_at                 ; 0x12d4
     add sp, byte 6                   ; 0x12d7
-    mov ax, dseg_1767                ; 0x12da
+    mov ax, wizardry_title_line      ; 0x12da
     push ax                          ; 0x12dd
     mov ax, 0xe                      ; 0x12de
     push ax                          ; 0x12e1
@@ -22,7 +22,7 @@ main:
     push ax                          ; 0x12e5
     call put_text_at                 ; 0x12e6
     add sp, byte 6                   ; 0x12e9
-    mov ax, dseg_179c                ; 0x12ec
+    mov ax, dark_savant_title_line   ; 0x12ec
     push ax                          ; 0x12ef
     mov ax, 0xe                      ; 0x12f0
     push ax                          ; 0x12f3
@@ -30,7 +30,7 @@ main:
     push ax                          ; 0x12f7
     call put_text_at                 ; 0x12f8
     add sp, byte 6                   ; 0x12fb
-    mov ax, dseg_17d1                ; 0x12fe
+    mov ax, installer_version_line   ; 0x12fe
     push ax                          ; 0x1301
     mov ax, 0xe                      ; 0x1302
     push ax                          ; 0x1305
@@ -38,7 +38,7 @@ main:
     push ax                          ; 0x1309
     call put_text_at                 ; 0x130a
     add sp, byte 6                   ; 0x130d
-    mov ax, dseg_1806                ; 0x1310
+    mov ax, installer_title_border_bottom ; 0x1310
     push ax                          ; 0x1313
     mov ax, 0xe                      ; 0x1314
     push ax                          ; 0x1317
@@ -57,7 +57,7 @@ main:
     push ax                          ; 0x1334
     call put_int_at                  ; 0x1335
     add sp, byte 6                   ; 0x1338
-    mov ax, dseg_183b                ; 0x133b
+    mov ax, version_separator        ; 0x133b
     push ax                          ; 0x133e
     call bios_put_text               ; 0x133f
     pop cx                           ; 0x1342
@@ -86,7 +86,7 @@ main:
     push ax                          ; 0x137f
     call bios_put_text               ; 0x1380
     pop cx                           ; 0x1383
-    mov ax, dseg_183d                ; 0x1384
+    mov ax, copyright_line_0         ; 0x1384
     push ax                          ; 0x1387
     mov ax, 5                        ; 0x1388
     push ax                          ; 0x138b
@@ -94,7 +94,7 @@ main:
     push ax                          ; 0x138f
     call put_text_at                 ; 0x1390
     add sp, byte 6                   ; 0x1393
-    mov ax, dseg_1882                ; 0x1396
+    mov ax, copyright_line_1         ; 0x1396
     push ax                          ; 0x1399
     mov ax, 5                        ; 0x139a
     push ax                          ; 0x139d
@@ -102,7 +102,7 @@ main:
     push ax                          ; 0x13a1
     call put_text_at                 ; 0x13a2
     add sp, byte 6                   ; 0x13a5
-    mov ax, dseg_18b2                ; 0x13a8
+    mov ax, copyright_line_2         ; 0x13a8
     push ax                          ; 0x13ab
     mov ax, 5                        ; 0x13ac
     push ax                          ; 0x13af
@@ -110,7 +110,7 @@ main:
     push ax                          ; 0x13b3
     call put_text_at                 ; 0x13b4
     add sp, byte 6                   ; 0x13b7
-    mov ax, dseg_18f6                ; 0x13ba
+    mov ax, copyright_line_3         ; 0x13ba
     push ax                          ; 0x13bd
     mov ax, 5                        ; 0x13be
     push ax                          ; 0x13c1
@@ -118,7 +118,7 @@ main:
     push ax                          ; 0x13c5
     call put_text_at                 ; 0x13c6
     add sp, byte 6                   ; 0x13c9
-    mov ax, dseg_1911                ; 0x13cc
+    mov ax, copyright_line_4         ; 0x13cc
     push ax                          ; 0x13cf
     mov ax, 5                        ; 0x13d0
     push ax                          ; 0x13d3
@@ -126,7 +126,7 @@ main:
     push ax                          ; 0x13d7
     call put_text_at                 ; 0x13d8
     add sp, byte 6                   ; 0x13db
-    mov ax, dseg_1957                ; 0x13de
+    mov ax, copyright_line_5         ; 0x13de
     push ax                          ; 0x13e1
     mov ax, 5                        ; 0x13e2
     push ax                          ; 0x13e5
@@ -134,7 +134,7 @@ main:
     push ax                          ; 0x13e9
     call put_text_at                 ; 0x13ea
     add sp, byte 6                   ; 0x13ed
-    mov ax, dseg_199e                ; 0x13f0
+    mov ax, copyright_line_6         ; 0x13f0
     push ax                          ; 0x13f3
     mov ax, 5                        ; 0x13f4
     push ax                          ; 0x13f7
@@ -142,7 +142,7 @@ main:
     push ax                          ; 0x13fb
     call put_text_at                 ; 0x13fc
     add sp, byte 6                   ; 0x13ff
-    mov ax, dseg_19e4                ; 0x1402
+    mov ax, copyright_line_7         ; 0x1402
     push ax                          ; 0x1405
     mov ax, 5                        ; 0x1406
     push ax                          ; 0x1409
@@ -150,7 +150,7 @@ main:
     push ax                          ; 0x140d
     call put_text_at                 ; 0x140e
     add sp, byte 6                   ; 0x1411
-    mov ax, dseg_1a2b                ; 0x1414
+    mov ax, copyright_line_8         ; 0x1414
     push ax                          ; 0x1417
     mov ax, 5                        ; 0x1418
     push ax                          ; 0x141b
@@ -158,7 +158,7 @@ main:
     push ax                          ; 0x141f
     call put_text_at                 ; 0x1420
     add sp, byte 6                   ; 0x1423
-    mov ax, dseg_1a72                ; 0x1426
+    mov ax, copyright_line_9         ; 0x1426
     push ax                          ; 0x1429
     mov ax, 5                        ; 0x142a
     push ax                          ; 0x142d
@@ -166,18 +166,18 @@ main:
     push ax                          ; 0x1431
     call put_text_at                 ; 0x1432
     add sp, byte 6                   ; 0x1435
-    mov ax, dseg_1a91                ; 0x1438
+    mov ax, empty_message_text       ; 0x1438
     push ax                          ; 0x143b
-    mov ax, bss_2648                 ; 0x143c
+    mov ax, installer_message_buffer ; 0x143c
     push ax                          ; 0x143f
     call aztec_strcpy                ; 0x1440
     add sp, byte 4                   ; 0x1443
-    mov ax, dseg_1a92                ; 0x1446
+    mov ax, press_return_to_begin    ; 0x1446
     push ax                          ; 0x1449
-    call loc_NNGU                    ; 0x144a
+    call show_message_wait_for_enter ; 0x144a
     pop cx                           ; 0x144d
-    call loc_MSKU                    ; 0x144e
-    mov ax, dseg_1ac1                ; 0x1451
+    call clear_screen_home_cursor    ; 0x144e
+    mov ax, setup_screen_border_top  ; 0x1451
     push ax                          ; 0x1454
     mov ax, 0xe                      ; 0x1455
     push ax                          ; 0x1458
@@ -185,7 +185,7 @@ main:
     push ax                          ; 0x145c
     call put_text_at                 ; 0x145d
     add sp, byte 6                   ; 0x1460
-    mov ax, dseg_1af6                ; 0x1463
+    mov ax, setup_screen_title_wizardry ; 0x1463
     push ax                          ; 0x1466
     mov ax, 0xe                      ; 0x1467
     push ax                          ; 0x146a
@@ -193,7 +193,7 @@ main:
     push ax                          ; 0x146e
     call put_text_at                 ; 0x146f
     add sp, byte 6                   ; 0x1472
-    mov ax, dseg_1b2b                ; 0x1475
+    mov ax, setup_screen_title_dark_savant ; 0x1475
     push ax                          ; 0x1478
     mov ax, 0xe                      ; 0x1479
     push ax                          ; 0x147c
@@ -201,7 +201,7 @@ main:
     push ax                          ; 0x1480
     call put_text_at                 ; 0x1481
     add sp, byte 6                   ; 0x1484
-    mov ax, dseg_1b60                ; 0x1487
+    mov ax, setup_screen_title_installation ; 0x1487
     push ax                          ; 0x148a
     mov ax, 0xe                      ; 0x148b
     push ax                          ; 0x148e
@@ -209,7 +209,7 @@ main:
     push ax                          ; 0x1492
     call put_text_at                 ; 0x1493
     add sp, byte 6                   ; 0x1496
-    mov ax, dseg_1b95                ; 0x1499
+    mov ax, setup_screen_border_bottom ; 0x1499
     push ax                          ; 0x149c
     mov ax, 0xe                      ; 0x149d
     push ax                          ; 0x14a0
@@ -217,38 +217,38 @@ main:
     push ax                          ; 0x14a4
     call put_text_at                 ; 0x14a5
     add sp, byte 6                   ; 0x14a8
-    call loc_UMUK                    ; 0x14ab
+    call detect_video_and_mouse      ; 0x14ab
     mov word [bp - 6], ax            ; 0x14ae
-    mov word [bss_29e6], 0           ; 0x14b1
-    mov word [bss_29e8], 0           ; 0x14b7
-    mov word [bss_29ea], 0           ; 0x14bd
-    mov word [bss_2af0], 0           ; 0x14c3
-    mov word [bss_29ec], 0           ; 0x14c9
-    mov word [bss_2af2], 0           ; 0x14cf
-    mov word [bss_2af4], 0           ; 0x14d5
-    mov word [bss_2af6], 0           ; 0x14db
-    mov word [bss_2af8], 0           ; 0x14e1
-    mov word [bss_2afa], 0           ; 0x14e7
+    mov word [vga_available], 0      ; 0x14b1
+    mov word [ega_available], 0      ; 0x14b7
+    mov word [cga_available], 0      ; 0x14bd
+    mov word [unused_flag_2af0], 0   ; 0x14c3
+    mov word [hercules_available], 0 ; 0x14c9
+    mov word [unused_flag_2af2], 0   ; 0x14cf
+    mov word [unused_flag_2af4], 0   ; 0x14d5
+    mov word [unused_flag_2af6], 0   ; 0x14db
+    mov word [unused_flag_2af8], 0   ; 0x14e1
+    mov word [mouse_detected], 0     ; 0x14e7
     test ax, 1                       ; 0x14ed
     je short .forward2               ; 0x14f0
-    mov word [bss_29e6], 1           ; 0x14f2
+    mov word [vga_available], 1      ; 0x14f2
 .forward2:
     test ax, 2                       ; 0x14f8
     je short .forward3               ; 0x14fb
-    mov word [bss_29e8], 1           ; 0x14fd
+    mov word [ega_available], 1      ; 0x14fd
 .forward3:
     test ax, 0x1000                  ; 0x1503
     je short .forward4               ; 0x1506
-    mov word [bss_2afa], 1           ; 0x1508
+    mov word [mouse_detected], 1     ; 0x1508
 .forward4:
     mov word [bp - 0xe], 3           ; 0x150e
-    mov ax, dseg_1bca                ; 0x1513
+    mov ax, default_source_drive     ; 0x1513
     push ax                          ; 0x1516
     lea ax, word [bp - 0x1c]         ; 0x1517
     push ax                          ; 0x151a
     call aztec_strcpy                ; 0x151b
     add sp, byte 4                   ; 0x151e
-    mov ax, dseg_1bcd                ; 0x1521
+    mov ax, empty_drive_name         ; 0x1521
     push ax                          ; 0x1524
     lea ax, word [bp - 0x32]         ; 0x1525
     push ax                          ; 0x1528
@@ -260,9 +260,9 @@ main:
     lea ax, word [bp - 0x3e]         ; 0x1538
     push ax                          ; 0x153b
     push word [bp - 0x10]            ; 0x153c
-    call leaf_loc_UVRI               ; 0x153f
+    call set_install_drive_defaults  ; 0x153f
     add sp, byte 6                   ; 0x1542
-    mov ax, dseg_1bce                ; 0x1545
+    mov ax, drive_table_header       ; 0x1545
     push ax                          ; 0x1548
     mov ax, 2                        ; 0x1549
     push ax                          ; 0x154c
@@ -270,7 +270,7 @@ main:
     push ax                          ; 0x1550
     call put_text_at                 ; 0x1551
     add sp, byte 6                   ; 0x1554
-    mov ax, dseg_1c1b                ; 0x1557
+    mov ax, drive_table_header_rule  ; 0x1557
     push ax                          ; 0x155a
     mov ax, 2                        ; 0x155b
     push ax                          ; 0x155e
@@ -283,31 +283,31 @@ main:
     lea ax, word [bp - 0x1c]         ; 0x156d
     push ax                          ; 0x1570
     push word [bp - 0xe]             ; 0x1571
-    mov ax, dseg_1c68                ; 0x1574
+    mov ax, source_drive_row_label   ; 0x1574
     push ax                          ; 0x1577
     mov ax, 2                        ; 0x1578
     push ax                          ; 0x157b
     mov ax, 8                        ; 0x157c
     push ax                          ; 0x157f
-    call loc_PUJU                    ; 0x1580
+    call draw_drive_setup_row        ; 0x1580
     add sp, byte 0xc                 ; 0x1583
     lea ax, word [bp - 0x54]         ; 0x1586
     push ax                          ; 0x1589
     lea ax, word [bp - 0x3e]         ; 0x158a
     push ax                          ; 0x158d
     push word [bp - 0x10]            ; 0x158e
-    mov ax, dseg_1c7b                ; 0x1591
+    mov ax, destination_drive_row_label ; 0x1591
     push ax                          ; 0x1594
     mov ax, 2                        ; 0x1595
     push ax                          ; 0x1598
     mov ax, 9                        ; 0x1599
     push ax                          ; 0x159c
-    call loc_PUJU                    ; 0x159d
+    call draw_drive_setup_row        ; 0x159d
     add sp, byte 0xc                 ; 0x15a0
     mov word [bp - 0x1a0], 0         ; 0x15a3
     mov word [bp - 0x1a2], 0         ; 0x15a9
     mov byte [bp - 0x1b8], 0         ; 0x15af
-    mov ax, dseg_1c8e                ; 0x15b4
+    mov ax, memory_expansion_row     ; 0x15b4
     push ax                          ; 0x15b7
     mov ax, 2                        ; 0x15b8
     push ax                          ; 0x15bb
@@ -318,7 +318,7 @@ main:
     mov ax, word [bp - 0x1a0]        ; 0x15c6
     shl ax, 1                        ; 0x15ca
     mov bx, ax                       ; 0x15cc
-    push word [bx + 0x154]           ; 0x15ce
+    push word [bx + no_yes_label_table] ; 0x15ce
     mov ax, 0x1b                     ; 0x15d2
     push ax                          ; 0x15d5
     mov ax, 0xb                      ; 0x15d6
@@ -328,7 +328,7 @@ main:
     mov ax, word [bp - 0x1a2]        ; 0x15e0
     shl ax, 1                        ; 0x15e4
     mov bx, ax                       ; 0x15e6
-    push word [bx + 0x154]           ; 0x15e8
+    push word [bx + no_yes_label_table] ; 0x15e8
     mov ax, 0x29                     ; 0x15ec
     push ax                          ; 0x15ef
     mov ax, 0xb                      ; 0x15f0
@@ -343,7 +343,7 @@ main:
     push ax                          ; 0x1606
     call put_text_at                 ; 0x1607
     add sp, byte 6                   ; 0x160a
-    mov ax, dseg_1cc7                ; 0x160d
+    mov ax, graphic_mode_row         ; 0x160d
     push ax                          ; 0x1610
     mov ax, 2                        ; 0x1611
     push ax                          ; 0x1614
@@ -351,7 +351,7 @@ main:
     push ax                          ; 0x1618
     call put_text_at                 ; 0x1619
     add sp, byte 6                   ; 0x161c
-    mov ax, dseg_1d0a                ; 0x161f
+    mov ax, video_adjustment_rule    ; 0x161f
     push ax                          ; 0x1622
     mov ax, 2                        ; 0x1623
     push ax                          ; 0x1626
@@ -361,10 +361,10 @@ main:
     add sp, byte 6                   ; 0x162e
     mov word [bp - 0x196], 0         ; 0x1631
     mov word [bp - 0x1be], 0xf       ; 0x1637
-    cmp word [bss_29e6], byte 0      ; 0x163d
+    cmp word [vga_available], byte 0 ; 0x163d
     je short .forward5               ; 0x1642
     mov word [bp - 0x196], 1         ; 0x1644
-    push word [dseg_0004]            ; 0x164a
+    push word [graphics_mode_label_vga] ; 0x164a
     mov ax, 0xa                      ; 0x164e
     push ax                          ; 0x1651
     push word [bp - 0x1be]           ; 0x1652
@@ -372,13 +372,13 @@ main:
     add sp, byte 6                   ; 0x1659
     inc word [bp - 0x1be]            ; 0x165c
 .forward5:
-    cmp word [bss_29e8], byte 0      ; 0x1660
+    cmp word [ega_available], byte 0 ; 0x1660
     je short .forward7               ; 0x1665
     cmp word [bp - 0x196], byte 0    ; 0x1667
     jne short .forward6              ; 0x166c
     mov word [bp - 0x196], 2         ; 0x166e
 .forward6:
-    push word [dseg_0006]            ; 0x1674
+    push word [graphics_mode_label_ega] ; 0x1674
     mov ax, 0xa                      ; 0x1678
     push ax                          ; 0x167b
     push word [bp - 0x1be]           ; 0x167c
@@ -398,7 +398,7 @@ main:
     add sp, byte 6                   ; 0x16a1
     mov word [bp - 0x1ba], 0         ; 0x16a4
     mov word [bp - 0x1bc], 0         ; 0x16aa
-    mov ax, dseg_1d4d                ; 0x16b0
+    mov ax, brightness_label         ; 0x16b0
     push ax                          ; 0x16b3
     mov ax, 0x34                     ; 0x16b4
     push ax                          ; 0x16b7
@@ -413,7 +413,7 @@ main:
     push ax                          ; 0x16cd
     call put_int_at                  ; 0x16ce
     add sp, byte 6                   ; 0x16d1
-    mov ax, dseg_1d58                ; 0x16d4
+    mov ax, contrast_label           ; 0x16d4
     push ax                          ; 0x16d7
     mov ax, 0x34                     ; 0x16d8
     push ax                          ; 0x16db
@@ -428,9 +428,9 @@ main:
     push ax                          ; 0x16f1
     call put_int_at                  ; 0x16f2
     add sp, byte 6                   ; 0x16f5
-    mov ax, word [bss_2afa]          ; 0x16f8
+    mov ax, word [mouse_detected]    ; 0x16f8
     mov word [bp - 0x19a], ax        ; 0x16fb
-    mov ax, dseg_1d63                ; 0x16ff
+    mov ax, mouse_label              ; 0x16ff
     push ax                          ; 0x1702
     mov ax, 0x14                     ; 0x1703
     push ax                          ; 0x1706
@@ -441,7 +441,7 @@ main:
     mov ax, word [bp - 0x19a]        ; 0x1711
     shl ax, 1                        ; 0x1715
     mov bx, ax                       ; 0x1717
-    push word [bx + 0x154]           ; 0x1719
+    push word [bx + no_yes_label_table] ; 0x1719
     mov ax, 0x1b                     ; 0x171d
     push ax                          ; 0x1720
     mov ax, 0x12                     ; 0x1721
@@ -449,7 +449,7 @@ main:
     call put_text_at                 ; 0x1725
     add sp, byte 6                   ; 0x1728
     mov word [bp - 0x198], 0         ; 0x172b
-    mov ax, dseg_1d6b                ; 0x1731
+    mov ax, sound_label              ; 0x1731
     push ax                          ; 0x1734
     mov ax, 0x22                     ; 0x1735
     push ax                          ; 0x1738
@@ -467,7 +467,7 @@ main:
     push ax                          ; 0x1756
     call put_text_at                 ; 0x1757
     add sp, byte 6                   ; 0x175a
-    mov ax, dseg_1d73                ; 0x175d
+    mov ax, action_row               ; 0x175d
     push ax                          ; 0x1760
     mov ax, 0x12                     ; 0x1761
     push ax                          ; 0x1764
@@ -475,7 +475,7 @@ main:
     push ax                          ; 0x1768
     call put_text_at                 ; 0x1769
     add sp, byte 6                   ; 0x176c
-    mov ax, dseg_1d9f                ; 0x176f
+    mov ax, navigation_help_row      ; 0x176f
     push ax                          ; 0x1772
     mov ax, 0x14                     ; 0x1773
     push ax                          ; 0x1776
@@ -485,17 +485,17 @@ main:
     add sp, byte 6                   ; 0x177e
     cmp word [bp - 0x196], byte 0    ; 0x1781
     jne short .forward8              ; 0x1786
-    mov ax, dseg_1dc7                ; 0x1788
+    mov ax, no_video_card_error      ; 0x1788
     push ax                          ; 0x178b
-    call loc_NNGU                    ; 0x178c
+    call show_message_wait_for_enter ; 0x178c
     pop cx                           ; 0x178f
-    mov ax, dseg_1df7                ; 0x1790
+    mov ax, unable_to_complete_error ; 0x1790
     push ax                          ; 0x1793
-    call loc_NNGU                    ; 0x1794
+    call show_message_wait_for_enter ; 0x1794
     pop cx                           ; 0x1797
     mov ax, 3                        ; 0x1798
     push ax                          ; 0x179b
-    call loc_OQIJ                    ; 0x179c
+    call set_video_mode              ; 0x179c
     pop cx                           ; 0x179f
     mov ax, 0                        ; 0x17a0
     push ax                          ; 0x17a3
@@ -506,9 +506,9 @@ main:
     mov word [bp - 0x19e], 0xffff    ; 0x17ae
     mov word [bp - 0x1c0], 0         ; 0x17b4
 .back1:
-    mov ax, dseg_1e28                ; 0x17ba
+    mov ax, navigation_help_message  ; 0x17ba
     push ax                          ; 0x17bd
-    mov ax, bss_2648                 ; 0x17be
+    mov ax, installer_message_buffer ; 0x17be
     push ax                          ; 0x17c1
     call aztec_strcpy                ; 0x17c2
     add sp, byte 4                   ; 0x17c5
@@ -518,7 +518,7 @@ jumptable_1969_case_1:
     mov ax, word [bp - 0xe]          ; 0x17cf
     shl ax, 1                        ; 0x17d2
     mov bx, ax                       ; 0x17d4
-    push word [bx + 0x160]           ; 0x17d6
+    push word [bx + disk_drive_type_table] ; 0x17d6
     mov ax, 0x16                     ; 0x17da
     push ax                          ; 0x17dd
     mov ax, 8                        ; 0x17de
@@ -550,7 +550,7 @@ jumptable_1969_case_4:
     mov ax, word [bp - 0x10]         ; 0x1815
     shl ax, 1                        ; 0x1818
     mov bx, ax                       ; 0x181a
-    push word [bx + 0x160]           ; 0x181c
+    push word [bx + disk_drive_type_table] ; 0x181c
     mov ax, 0x16                     ; 0x1820
     push ax                          ; 0x1823
     mov ax, 9                        ; 0x1824
@@ -582,7 +582,7 @@ jumptable_1969_case_7:
     mov ax, word [bp - 0x1a0]        ; 0x185b
     shl ax, 1                        ; 0x185f
     mov bx, ax                       ; 0x1861
-    push word [bx + 0x154]           ; 0x1863
+    push word [bx + no_yes_label_table] ; 0x1863
     mov ax, 0x1b                     ; 0x1867
     push ax                          ; 0x186a
     mov ax, 0xb                      ; 0x186b
@@ -594,7 +594,7 @@ jumptable_1969_case_8:
     mov ax, word [bp - 0x1a2]        ; 0x1878
     shl ax, 1                        ; 0x187c
     mov bx, ax                       ; 0x187e
-    push word [bx + 0x154]           ; 0x1880
+    push word [bx + no_yes_label_table] ; 0x1880
     mov ax, 0x29                     ; 0x1884
     push ax                          ; 0x1887
     mov ax, 0xb                      ; 0x1888
@@ -646,7 +646,7 @@ jumptable_1969_case_13:
     mov ax, word [bp - 0x19a]        ; 0x18f2
     shl ax, 1                        ; 0x18f6
     mov bx, ax                       ; 0x18f8
-    push word [bx + 0x154]           ; 0x18fa
+    push word [bx + no_yes_label_table] ; 0x18fa
     mov ax, 0x1b                     ; 0x18fe
     push ax                          ; 0x1901
     mov ax, 0x12                     ; 0x1902
@@ -667,7 +667,7 @@ jumptable_1969_case_14:
     add sp, byte 6                   ; 0x1926
     jmp short main.forward10         ; 0x1929
 jumptable_1969_case_15:
-    mov ax, dseg_1e50                ; 0x192b
+    mov ax, full_install_label       ; 0x192b
     push ax                          ; 0x192e
     mov ax, 0x12                     ; 0x192f
     push ax                          ; 0x1932
@@ -677,7 +677,7 @@ jumptable_1969_case_15:
     add sp, byte 6                   ; 0x193a
     jmp short main.forward10         ; 0x193d
 jumptable_1969_case_16:
-    mov ax, dseg_1e5d                ; 0x193f
+    mov ax, config_only_label        ; 0x193f
     push ax                          ; 0x1942
     mov ax, 0x21                     ; 0x1943
     push ax                          ; 0x1946
@@ -687,7 +687,7 @@ jumptable_1969_case_16:
     add sp, byte 6                   ; 0x194e
     jmp short main.forward10         ; 0x1951
 jumptable_1969_case_17:
-    mov ax, dseg_1e69                ; 0x1953
+    mov ax, abort_install_label      ; 0x1953
     push ax                          ; 0x1956
     mov ax, 0x30                     ; 0x1957
     push ax                          ; 0x195a
@@ -731,12 +731,12 @@ jumptable_1b3c_case_0:
     mov ax, word [bp - 0xe]          ; 0x19a4
     shl ax, 1                        ; 0x19a7
     mov bx, ax                       ; 0x19a9
-    push word [bx + 0x160]           ; 0x19ab
+    push word [bx + disk_drive_type_table] ; 0x19ab
     mov ax, 0x16                     ; 0x19af
     push ax                          ; 0x19b2
     mov ax, 8                        ; 0x19b3
     push ax                          ; 0x19b6
-    call loc_STSN                    ; 0x19b7
+    call put_text_at_highlight_attr  ; 0x19b7
     add sp, byte 6                   ; 0x19ba
     jmp near main.forward12          ; 0x19bd
 jumptable_1b3c_case_1:
@@ -746,7 +746,7 @@ jumptable_1b3c_case_1:
     push ax                          ; 0x19c7
     mov ax, 8                        ; 0x19c8
     push ax                          ; 0x19cb
-    call loc_STSN                    ; 0x19cc
+    call put_text_at_highlight_attr  ; 0x19cc
     add sp, byte 6                   ; 0x19cf
     jmp near main.forward12          ; 0x19d2
 jumptable_1b3c_case_2:
@@ -756,19 +756,19 @@ jumptable_1b3c_case_2:
     push ax                          ; 0x19dc
     mov ax, 8                        ; 0x19dd
     push ax                          ; 0x19e0
-    call loc_STSN                    ; 0x19e1
+    call put_text_at_highlight_attr  ; 0x19e1
     add sp, byte 6                   ; 0x19e4
     jmp near main.forward12          ; 0x19e7
 jumptable_1b3c_case_3:
     mov ax, word [bp - 0x10]         ; 0x19ea
     shl ax, 1                        ; 0x19ed
     mov bx, ax                       ; 0x19ef
-    push word [bx + 0x160]           ; 0x19f1
+    push word [bx + disk_drive_type_table] ; 0x19f1
     mov ax, 0x16                     ; 0x19f5
     push ax                          ; 0x19f8
     mov ax, 9                        ; 0x19f9
     push ax                          ; 0x19fc
-    call loc_STSN                    ; 0x19fd
+    call put_text_at_highlight_attr  ; 0x19fd
     add sp, byte 6                   ; 0x1a00
     jmp near main.forward12          ; 0x1a03
 jumptable_1b3c_case_4:
@@ -778,7 +778,7 @@ jumptable_1b3c_case_4:
     push ax                          ; 0x1a0d
     mov ax, 9                        ; 0x1a0e
     push ax                          ; 0x1a11
-    call loc_STSN                    ; 0x1a12
+    call put_text_at_highlight_attr  ; 0x1a12
     add sp, byte 6                   ; 0x1a15
     jmp near main.forward12          ; 0x1a18
 jumptable_1b3c_case_5:
@@ -788,31 +788,31 @@ jumptable_1b3c_case_5:
     push ax                          ; 0x1a22
     mov ax, 9                        ; 0x1a23
     push ax                          ; 0x1a26
-    call loc_STSN                    ; 0x1a27
+    call put_text_at_highlight_attr  ; 0x1a27
     add sp, byte 6                   ; 0x1a2a
     jmp near main.forward12          ; 0x1a2d
 jumptable_1b3c_case_6:
     mov ax, word [bp - 0x1a0]        ; 0x1a30
     shl ax, 1                        ; 0x1a34
     mov bx, ax                       ; 0x1a36
-    push word [bx + 0x154]           ; 0x1a38
+    push word [bx + no_yes_label_table] ; 0x1a38
     mov ax, 0x1b                     ; 0x1a3c
     push ax                          ; 0x1a3f
     mov ax, 0xb                      ; 0x1a40
     push ax                          ; 0x1a43
-    call loc_STSN                    ; 0x1a44
+    call put_text_at_highlight_attr  ; 0x1a44
     add sp, byte 6                   ; 0x1a47
     jmp near main.forward12          ; 0x1a4a
 jumptable_1b3c_case_7:
     mov ax, word [bp - 0x1a2]        ; 0x1a4d
     shl ax, 1                        ; 0x1a51
     mov bx, ax                       ; 0x1a53
-    push word [bx + 0x154]           ; 0x1a55
+    push word [bx + no_yes_label_table] ; 0x1a55
     mov ax, 0x29                     ; 0x1a59
     push ax                          ; 0x1a5c
     mov ax, 0xb                      ; 0x1a5d
     push ax                          ; 0x1a60
-    call loc_STSN                    ; 0x1a61
+    call put_text_at_highlight_attr  ; 0x1a61
     add sp, byte 6                   ; 0x1a64
     jmp near main.forward12          ; 0x1a67
 jumptable_1b3c_case_8:
@@ -822,7 +822,7 @@ jumptable_1b3c_case_8:
     push ax                          ; 0x1a72
     mov ax, 0xb                      ; 0x1a73
     push ax                          ; 0x1a76
-    call loc_STSN                    ; 0x1a77
+    call put_text_at_highlight_attr  ; 0x1a77
     add sp, byte 6                   ; 0x1a7a
     jmp near main.forward12          ; 0x1a7d
 jumptable_1b3c_case_9:
@@ -834,7 +834,7 @@ jumptable_1b3c_case_9:
     push ax                          ; 0x1a8f
     mov ax, 0xd                      ; 0x1a90
     push ax                          ; 0x1a93
-    call loc_STSN                    ; 0x1a94
+    call put_text_at_highlight_attr  ; 0x1a94
     add sp, byte 6                   ; 0x1a97
     jmp near main.forward12          ; 0x1a9a
 jumptable_1b3c_case_10:
@@ -843,7 +843,7 @@ jumptable_1b3c_case_10:
     push ax                          ; 0x1aa4
     mov ax, 0xf                      ; 0x1aa5
     push ax                          ; 0x1aa8
-    call loc_JTRN                    ; 0x1aa9
+    call put_int_at_highlight_attr   ; 0x1aa9
     add sp, byte 6                   ; 0x1aac
     jmp near main.forward12          ; 0x1aaf
 jumptable_1b3c_case_11:
@@ -852,19 +852,19 @@ jumptable_1b3c_case_11:
     push ax                          ; 0x1ab9
     mov ax, 0x10                     ; 0x1aba
     push ax                          ; 0x1abd
-    call loc_JTRN                    ; 0x1abe
+    call put_int_at_highlight_attr   ; 0x1abe
     add sp, byte 6                   ; 0x1ac1
     jmp near main.forward12          ; 0x1ac4
 jumptable_1b3c_case_12:
     mov ax, word [bp - 0x19a]        ; 0x1ac7
     shl ax, 1                        ; 0x1acb
     mov bx, ax                       ; 0x1acd
-    push word [bx + 0x154]           ; 0x1acf
+    push word [bx + no_yes_label_table] ; 0x1acf
     mov ax, 0x1b                     ; 0x1ad3
     push ax                          ; 0x1ad6
     mov ax, 0x12                     ; 0x1ad7
     push ax                          ; 0x1ada
-    call loc_STSN                    ; 0x1adb
+    call put_text_at_highlight_attr  ; 0x1adb
     add sp, byte 6                   ; 0x1ade
     jmp near main.forward12          ; 0x1ae1
 jumptable_1b3c_case_13:
@@ -876,37 +876,37 @@ jumptable_1b3c_case_13:
     push ax                          ; 0x1af3
     mov ax, 0x12                     ; 0x1af4
     push ax                          ; 0x1af7
-    call loc_STSN                    ; 0x1af8
+    call put_text_at_highlight_attr  ; 0x1af8
     add sp, byte 6                   ; 0x1afb
     jmp short main.forward12         ; 0x1afe
 jumptable_1b3c_case_14:
-    mov ax, dseg_1e77                ; 0x1b00
+    mov ax, full_install_label_highlighted ; 0x1b00
     push ax                          ; 0x1b03
     mov ax, 0x12                     ; 0x1b04
     push ax                          ; 0x1b07
     mov ax, 0x14                     ; 0x1b08
     push ax                          ; 0x1b0b
-    call loc_STSN                    ; 0x1b0c
+    call put_text_at_highlight_attr  ; 0x1b0c
     add sp, byte 6                   ; 0x1b0f
     jmp short main.forward12         ; 0x1b12
 jumptable_1b3c_case_15:
-    mov ax, dseg_1e84                ; 0x1b14
+    mov ax, config_only_label_highlighted ; 0x1b14
     push ax                          ; 0x1b17
     mov ax, 0x21                     ; 0x1b18
     push ax                          ; 0x1b1b
     mov ax, 0x14                     ; 0x1b1c
     push ax                          ; 0x1b1f
-    call loc_STSN                    ; 0x1b20
+    call put_text_at_highlight_attr  ; 0x1b20
     add sp, byte 6                   ; 0x1b23
     jmp short main.forward12         ; 0x1b26
 jumptable_1b3c_case_16:
-    mov ax, dseg_1e90                ; 0x1b28
+    mov ax, abort_install_label_highlighted ; 0x1b28
     push ax                          ; 0x1b2b
     mov ax, 0x30                     ; 0x1b2c
     push ax                          ; 0x1b2f
     mov ax, 0x14                     ; 0x1b30
     push ax                          ; 0x1b33
-    call loc_STSN                    ; 0x1b34
+    call put_text_at_highlight_attr  ; 0x1b34
     add sp, byte 6                   ; 0x1b37
     jmp short main.forward12         ; 0x1b3a
 jumptable_1b3c:
@@ -936,7 +936,7 @@ main.forward11:
 main.forward12:
     call dos_con_in_noecho           ; 0x1b6b
     push ax                          ; 0x1b6e
-    call loc_MPRS                    ; 0x1b6f
+    call normalize_input_key         ; 0x1b6f
     pop cx                           ; 0x1b72
     mov word [bp - 8], ax            ; 0x1b73
     jmp near main.forward39          ; 0x1b76
@@ -945,7 +945,7 @@ jumptable_1fb2_case_0:
     mov word [bp - 0x19e], ax        ; 0x1b7d
     shl ax, 1                        ; 0x1b81
     mov bx, ax                       ; 0x1b83
-    mov ax, word [bx + 0x1dd]        ; 0x1b85
+    mov ax, word [bx + navigation_up_table] ; 0x1b85
     mov word [bp - 0x19c], ax        ; 0x1b89
     jmp near jumptable_1fb2_case_4   ; 0x1b8d
 jumptable_1fb2_case_1:
@@ -953,7 +953,7 @@ jumptable_1fb2_case_1:
     mov word [bp - 0x19e], ax        ; 0x1b94
     shl ax, 1                        ; 0x1b98
     mov bx, ax                       ; 0x1b9a
-    mov ax, word [bx + 0x221]        ; 0x1b9c
+    mov ax, word [bx + navigation_right_table] ; 0x1b9c
     mov word [bp - 0x19c], ax        ; 0x1ba0
     jmp near jumptable_1fb2_case_4   ; 0x1ba4
 jumptable_1fb2_case_2:
@@ -961,7 +961,7 @@ jumptable_1fb2_case_2:
     mov word [bp - 0x19e], ax        ; 0x1bab
     shl ax, 1                        ; 0x1baf
     mov bx, ax                       ; 0x1bb1
-    mov ax, word [bx + 0x1ff]        ; 0x1bb3
+    mov ax, word [bx + navigation_down_table] ; 0x1bb3
     mov word [bp - 0x19c], ax        ; 0x1bb7
     jmp near jumptable_1fb2_case_4   ; 0x1bbb
 jumptable_1fb2_case_3:
@@ -969,7 +969,7 @@ jumptable_1fb2_case_3:
     mov word [bp - 0x19e], ax        ; 0x1bc2
     shl ax, 1                        ; 0x1bc6
     mov bx, ax                       ; 0x1bc8
-    mov ax, word [bx + 0x243]        ; 0x1bca
+    mov ax, word [bx + navigation_left_table] ; 0x1bca
     mov word [bp - 0x19c], ax        ; 0x1bce
     jmp near jumptable_1fb2_case_4   ; 0x1bd2
 jumptable_1fb2_case_5:
@@ -982,7 +982,7 @@ jumptable_1f81_case_0:
     push word [bp - 0xe]             ; 0x1be6
     mov ax, 8                        ; 0x1be9
     push ax                          ; 0x1bec
-    call loc_HUKT                    ; 0x1bed
+    call cycle_drive_type_choice     ; 0x1bed
     add sp, byte 6                   ; 0x1bf0
     mov word [bp - 0xe], ax          ; 0x1bf3
     jmp near main.forward38          ; 0x1bf6
@@ -995,7 +995,7 @@ jumptable_1f81_case_1:
     push ax                          ; 0x1c04
     mov ax, 8                        ; 0x1c05
     push ax                          ; 0x1c08
-    call loc_GPOQ                    ; 0x1c09
+    call read_text_at                ; 0x1c09
     add sp, byte 8                   ; 0x1c0c
     cmp byte [bp - 0x1c], 0x41       ; 0x1c0f
     jl short main.forward13          ; 0x1c13
@@ -1012,18 +1012,18 @@ main.forward15:
     mov word [bp - 0x1c2], ax        ; 0x1c29
     cmp ax, strict word 1            ; 0x1c2d
     jne short main.forward16         ; 0x1c30
-    mov ax, dseg_1ea4                ; 0x1c32
+    mov ax, bad_source_drive_error   ; 0x1c32
     push ax                          ; 0x1c35
-    call loc_NNGU                    ; 0x1c36
+    call show_message_wait_for_enter ; 0x1c36
     pop cx                           ; 0x1c39
 main.forward16:
     cmp word [bp - 0x1c2], byte 1    ; 0x1c3a
     je short jumptable_1f81_case_1   ; 0x1c3f
     jmp near main.forward38          ; 0x1c41
 jumptable_1f81_case_2:
-    mov ax, dseg_1ecd                ; 0x1c44
+    mov ax, source_path_not_allowed_error ; 0x1c44
     push ax                          ; 0x1c47
-    call loc_NNGU                    ; 0x1c48
+    call show_message_wait_for_enter ; 0x1c48
     pop cx                           ; 0x1c4b
     jmp near main.forward38          ; 0x1c4c
 jumptable_1f81_case_3:
@@ -1032,7 +1032,7 @@ jumptable_1f81_case_3:
     push word [bp - 0x10]            ; 0x1c53
     mov ax, 9                        ; 0x1c56
     push ax                          ; 0x1c59
-    call loc_HUKT                    ; 0x1c5a
+    call cycle_drive_type_choice     ; 0x1c5a
     add sp, byte 6                   ; 0x1c5d
     mov word [bp - 0x10], ax         ; 0x1c60
     lea ax, word [bp - 0x54]         ; 0x1c63
@@ -1040,9 +1040,9 @@ jumptable_1f81_case_3:
     lea ax, word [bp - 0x3e]         ; 0x1c67
     push ax                          ; 0x1c6a
     push word [bp - 0x10]            ; 0x1c6b
-    call leaf_loc_UVRI               ; 0x1c6e
+    call set_install_drive_defaults  ; 0x1c6e
     add sp, byte 6                   ; 0x1c71
-    mov ax, dseg_1efc                ; 0x1c74
+    mov ax, destination_drive_blank  ; 0x1c74
     push ax                          ; 0x1c77
     mov ax, 0x2e                     ; 0x1c78
     push ax                          ; 0x1c7b
@@ -1076,7 +1076,7 @@ jumptable_1f81_case_4:
     push ax                          ; 0x1cb8
     mov ax, 9                        ; 0x1cb9
     push ax                          ; 0x1cbc
-    call loc_GPOQ                    ; 0x1cbd
+    call read_text_at                ; 0x1cbd
     add sp, byte 8                   ; 0x1cc0
     cmp byte [bp - 0x3e], 0x41       ; 0x1cc3
     jl short main.forward17          ; 0x1cc7
@@ -1093,18 +1093,18 @@ main.forward19:
     mov word [bp - 0x1c2], ax        ; 0x1cdd
     cmp ax, strict word 1            ; 0x1ce1
     jne short main.forward20         ; 0x1ce4
-    mov ax, dseg_1f1e                ; 0x1ce6
+    mov ax, bad_destination_drive_error ; 0x1ce6
     push ax                          ; 0x1ce9
-    call loc_NNGU                    ; 0x1cea
+    call show_message_wait_for_enter ; 0x1cea
     pop cx                           ; 0x1ced
     jmp short main.forward21         ; 0x1cee
 main.forward20:
     mov al, byte [bp - 0x3e]         ; 0x1cf0
     cmp al, byte [bp - 0x1c]         ; 0x1cf3
     jne short main.forward21         ; 0x1cf6
-    mov ax, dseg_1f47                ; 0x1cf8
+    mov ax, drive_conflict_warning   ; 0x1cf8
     push ax                          ; 0x1cfb
-    call loc_NNGU                    ; 0x1cfc
+    call show_message_wait_for_enter ; 0x1cfc
     pop cx                           ; 0x1cff
 main.forward21:
     cmp word [bp - 0x1c2], byte 1    ; 0x1d00
@@ -1119,7 +1119,7 @@ jumptable_1f81_case_5:
     push ax                          ; 0x1d15
     mov ax, 9                        ; 0x1d16
     push ax                          ; 0x1d19
-    call loc_GPOQ                    ; 0x1d1a
+    call read_text_at                ; 0x1d1a
     add sp, byte 8                   ; 0x1d1d
     cmp word [bp - 0x10], byte 0     ; 0x1d20
     jne short main.forward26         ; 0x1d24
@@ -1144,9 +1144,9 @@ main.forward24:
     mov word [bp - 0x1c2], ax        ; 0x1d4d
     cmp ax, strict word 1            ; 0x1d51
     jne short main.forward25         ; 0x1d54
-    mov ax, dseg_1f7c                ; 0x1d56
+    mov ax, bad_destination_path_error ; 0x1d56
     push ax                          ; 0x1d59
-    call loc_NNGU                    ; 0x1d5a
+    call show_message_wait_for_enter ; 0x1d5a
     pop cx                           ; 0x1d5d
 main.forward25:
     jmp short main.forward27         ; 0x1d5e
@@ -1162,7 +1162,7 @@ jumptable_1f81_case_6:
     push ax                          ; 0x1d77
     mov ax, 0xb                      ; 0x1d78
     push ax                          ; 0x1d7b
-    call loc_PQHH                    ; 0x1d7c
+    call toggle_yes_no_choice        ; 0x1d7c
     add sp, byte 6                   ; 0x1d7f
     mov word [bp - 0x1a0], ax        ; 0x1d82
     jmp near main.forward38          ; 0x1d86
@@ -1172,7 +1172,7 @@ jumptable_1f81_case_7:
     push ax                          ; 0x1d90
     mov ax, 0xb                      ; 0x1d91
     push ax                          ; 0x1d94
-    call loc_PQHH                    ; 0x1d95
+    call toggle_yes_no_choice        ; 0x1d95
     add sp, byte 6                   ; 0x1d98
     mov word [bp - 0x1a2], ax        ; 0x1d9b
     jmp near main.forward38          ; 0x1d9f
@@ -1185,7 +1185,7 @@ jumptable_1f81_case_8:
     push ax                          ; 0x1dae
     mov ax, 0xb                      ; 0x1daf
     push ax                          ; 0x1db2
-    call loc_GPOQ                    ; 0x1db3
+    call read_text_at                ; 0x1db3
     add sp, byte 8                   ; 0x1db6
     lea ax, word [bp - 0x1b8]        ; 0x1db9
     push ax                          ; 0x1dbd
@@ -1207,9 +1207,9 @@ main.forward30:
     mov word [bp - 0x1c2], ax        ; 0x1dde
     cmp ax, strict word 1            ; 0x1de2
     jne short main.forward31         ; 0x1de5
-    mov ax, dseg_1fa5                ; 0x1de7
+    mov ax, bad_ram_name_error       ; 0x1de7
     push ax                          ; 0x1dea
-    call loc_NNGU                    ; 0x1deb
+    call show_message_wait_for_enter ; 0x1deb
     pop cx                           ; 0x1dee
 main.forward31:
     cmp word [bp - 0x1c2], byte 1    ; 0x1def
@@ -1217,7 +1217,7 @@ main.forward31:
     jmp near main.forward38          ; 0x1df6
 jumptable_1f81_case_9:
     push word [bp - 0x196]           ; 0x1df9
-    call loc_UTOL                    ; 0x1dfd
+    call advance_graphics_mode_choice ; 0x1dfd
     pop cx                           ; 0x1e00
     mov word [bp - 0x196], ax        ; 0x1e01
     jmp near main.forward38          ; 0x1e05
@@ -1233,7 +1233,7 @@ jumptable_1f81_case_10:
     mov ax, 0xf                      ; 0x1e18
     push ax                          ; 0x1e1b
     push word [bp - 0x1ba]           ; 0x1e1c
-    call loc_MNTP                    ; 0x1e20
+    call prompt_int_at               ; 0x1e20
     add sp, byte 0xc                 ; 0x1e23
     mov word [bp - 0x1ba], ax        ; 0x1e26
     jmp near main.forward38          ; 0x1e2a
@@ -1249,7 +1249,7 @@ jumptable_1f81_case_11:
     mov ax, 0x10                     ; 0x1e3d
     push ax                          ; 0x1e40
     push word [bp - 0x1bc]           ; 0x1e41
-    call loc_MNTP                    ; 0x1e45
+    call prompt_int_at               ; 0x1e45
     add sp, byte 0xc                 ; 0x1e48
     mov word [bp - 0x1bc], ax        ; 0x1e4b
     jmp near main.forward38          ; 0x1e4f
@@ -1259,7 +1259,7 @@ jumptable_1f81_case_12:
     push ax                          ; 0x1e59
     mov ax, 0x12                     ; 0x1e5a
     push ax                          ; 0x1e5d
-    call loc_PQHH                    ; 0x1e5e
+    call toggle_yes_no_choice        ; 0x1e5e
     add sp, byte 6                   ; 0x1e61
     mov word [bp - 0x19a], ax        ; 0x1e64
     jmp near main.forward38          ; 0x1e68
@@ -1273,20 +1273,20 @@ jumptable_1f81_case_14:
     mov al, byte [bp - 0x1c]         ; 0x1e7a
     cmp al, byte [bp - 0x3e]         ; 0x1e7d
     jne short main.forward32         ; 0x1e80
-    mov ax, dseg_1fce                ; 0x1e82
+    mov ax, drives_must_differ_error ; 0x1e82
     push ax                          ; 0x1e85
-    call loc_NNGU                    ; 0x1e86
+    call show_message_wait_for_enter ; 0x1e86
     pop cx                           ; 0x1e89
-    mov ax, dseg_200a                ; 0x1e8a
+    mov ax, specify_new_drive_prompt ; 0x1e8a
     push ax                          ; 0x1e8d
-    call loc_NNGU                    ; 0x1e8e
+    call show_message_wait_for_enter ; 0x1e8e
     pop cx                           ; 0x1e91
     jmp near main.forward36          ; 0x1e92
 main.forward32:
     mov ax, word [bp - 0x10]         ; 0x1e95
     jmp short main.forward33         ; 0x1e98
 main.back6:
-    mov ax, dseg_204c                ; 0x1e9a
+    mov ax, disk_count_360k          ; 0x1e9a
     push ax                          ; 0x1e9d
     lea ax, word [bp - 0x194]        ; 0x1e9e
     push ax                          ; 0x1ea2
@@ -1294,7 +1294,7 @@ main.back6:
     add sp, byte 4                   ; 0x1ea6
     jmp short main.forward34         ; 0x1ea9
 main.back7:
-    mov ax, dseg_2062                ; 0x1eab
+    mov ax, disk_count_1200k         ; 0x1eab
     push ax                          ; 0x1eae
     lea ax, word [bp - 0x194]        ; 0x1eaf
     push ax                          ; 0x1eb3
@@ -1302,7 +1302,7 @@ main.back7:
     add sp, byte 4                   ; 0x1eb7
     jmp short main.forward34         ; 0x1eba
 main.back8:
-    mov ax, dseg_207b                ; 0x1ebc
+    mov ax, disk_count_720k          ; 0x1ebc
     push ax                          ; 0x1ebf
     lea ax, word [bp - 0x194]        ; 0x1ec0
     push ax                          ; 0x1ec4
@@ -1310,7 +1310,7 @@ main.back8:
     add sp, byte 4                   ; 0x1ec8
     jmp short main.forward34         ; 0x1ecb
 main.back9:
-    mov ax, dseg_208f                ; 0x1ecd
+    mov ax, disk_count_1440k         ; 0x1ecd
     push ax                          ; 0x1ed0
     lea ax, word [bp - 0x194]        ; 0x1ed1
     push ax                          ; 0x1ed5
@@ -1327,15 +1327,15 @@ main.forward33:
     cmp ax, strict word 3            ; 0x1eed
     je short main.back9              ; 0x1ef0
 main.forward34:
-    mov ax, dseg_20a8                ; 0x1ef2
+    mov ax, empty_install_message_prefix ; 0x1ef2
     push ax                          ; 0x1ef5
-    mov ax, bss_2648                 ; 0x1ef6
+    mov ax, installer_message_buffer ; 0x1ef6
     push ax                          ; 0x1ef9
     call aztec_strcpy                ; 0x1efa
     add sp, byte 4                   ; 0x1efd
     cmp word [bp - 0x10], byte 4     ; 0x1f00
     je short main.forward35          ; 0x1f04
-    mov ax, dseg_20a9                ; 0x1f06
+    mov ax, install_requires_prefix  ; 0x1f06
     push ax                          ; 0x1f09
     lea ax, word [bp - 0x144]        ; 0x1f0a
     push ax                          ; 0x1f0e
@@ -1347,7 +1347,7 @@ main.forward34:
     push ax                          ; 0x1f1e
     call aztec_strcat                ; 0x1f1f
     add sp, byte 4                   ; 0x1f22
-    mov ax, dseg_20c0                ; 0x1f25
+    mov ax, install_requires_suffix  ; 0x1f25
     push ax                          ; 0x1f28
     lea ax, word [bp - 0x144]        ; 0x1f29
     push ax                          ; 0x1f2d
@@ -1355,11 +1355,11 @@ main.forward34:
     add sp, byte 4                   ; 0x1f31
     lea ax, word [bp - 0x144]        ; 0x1f34
     push ax                          ; 0x1f38
-    call loc_NNGU                    ; 0x1f39
+    call show_message_wait_for_enter ; 0x1f39
     pop cx                           ; 0x1f3c
-    mov ax, dseg_20d2                ; 0x1f3d
+    mov ax, formatted_disk_reminder  ; 0x1f3d
     push ax                          ; 0x1f40
-    call loc_NNGU                    ; 0x1f41
+    call show_message_wait_for_enter ; 0x1f41
     pop cx                           ; 0x1f44
 main.forward35:
     mov word [bp - 0x1c6], 1         ; 0x1f45
@@ -1426,15 +1426,15 @@ main.forward41:
     jne short main.forward42         ; 0x1fdd
     jmp near main.forward57          ; 0x1fdf
 main.forward42:
-    mov ax, dseg_2112                ; 0x1fe2
+    mov ax, filespec_list_init       ; 0x1fe2
     push ax                          ; 0x1fe5
-    mov ax, bss_29f0                 ; 0x1fe6
+    mov ax, pkunzip_filespec_list    ; 0x1fe6
     push ax                          ; 0x1fe9
     call aztec_strcpy                ; 0x1fea
     add sp, byte 4                   ; 0x1fed
-    mov ax, dseg_2113                ; 0x1ff0
+    mov ax, message_buffer_init      ; 0x1ff0
     push ax                          ; 0x1ff3
-    mov ax, bss_2648                 ; 0x1ff4
+    mov ax, installer_message_buffer ; 0x1ff4
     push ax                          ; 0x1ff7
     call aztec_strcpy                ; 0x1ff8
     add sp, byte 4                   ; 0x1ffb
@@ -1444,7 +1444,7 @@ main.forward42:
     push ax                          ; 0x2006
     call aztec_strcpy                ; 0x2007
     add sp, byte 4                   ; 0x200a
-    mov ax, dseg_2114                ; 0x200d
+    mov ax, source_dir_separator     ; 0x200d
     push ax                          ; 0x2010
     lea ax, word [bp - 0xa4]         ; 0x2011
     push ax                          ; 0x2015
@@ -1456,7 +1456,7 @@ main.forward42:
     push ax                          ; 0x2024
     call aztec_strcpy                ; 0x2025
     add sp, byte 4                   ; 0x2028
-    mov ax, dseg_2116                ; 0x202b
+    mov ax, dest_dir_separator       ; 0x202b
     push ax                          ; 0x202e
     lea ax, word [bp - 0xf4]         ; 0x202f
     push ax                          ; 0x2033
@@ -1478,7 +1478,7 @@ main.forward42:
     pop cx                           ; 0x205d
     cmp ax, strict word 0            ; 0x205e
     jle short main.forward43         ; 0x2061
-    mov ax, dseg_2118                ; 0x2063
+    mov ax, dest_path_separator      ; 0x2063
     push ax                          ; 0x2066
     lea ax, word [bp - 0xf4]         ; 0x2067
     push ax                          ; 0x206b
@@ -1505,7 +1505,7 @@ main.forward45:
     push ax                          ; 0x209c
     lea ax, word [bp - 0x3e]         ; 0x209d
     push ax                          ; 0x20a0
-    call loc_HSPL                    ; 0x20a1
+    call enter_destination_directory ; 0x20a1
     add sp, byte 6                   ; 0x20a4
     lea ax, word [bp - 0x54]         ; 0x20a7
     push ax                          ; 0x20aa
@@ -1513,14 +1513,14 @@ main.forward45:
     pop cx                           ; 0x20ae
     cmp ax, strict word 0            ; 0x20af
     jle short main.forward46         ; 0x20b2
-    mov ax, dseg_211a                ; 0x20b4
+    mov ax, full_install_path_separator ; 0x20b4
     push ax                          ; 0x20b7
     lea ax, word [bp - 0xf4]         ; 0x20b8
     push ax                          ; 0x20bc
     call aztec_strcat                ; 0x20bd
     add sp, byte 4                   ; 0x20c0
 main.forward46:
-    mov ax, dseg_211c                ; 0x20c3
+    mov ax, archive_crus01_211c      ; 0x20c3
     push ax                          ; 0x20c6
     mov ax, 1                        ; 0x20c7
     push ax                          ; 0x20ca
@@ -1528,53 +1528,53 @@ main.forward46:
     push ax                          ; 0x20cf
     lea ax, word [bp - 0x1c]         ; 0x20d0
     push ax                          ; 0x20d3
-    call loc_ONOP                    ; 0x20d4
+    call prompt_for_archive_disk     ; 0x20d4
     add sp, byte 8                   ; 0x20d7
-    mov ax, dseg_2132                ; 0x20da
+    mov ax, unzip_all_files_2132     ; 0x20da
     push ax                          ; 0x20dd
-    mov ax, dseg_2127                ; 0x20de
+    mov ax, archive_crus01_2127      ; 0x20de
     push ax                          ; 0x20e1
     lea ax, word [bp - 0xf4]         ; 0x20e2
     push ax                          ; 0x20e6
     lea ax, word [bp - 0xa4]         ; 0x20e7
     push ax                          ; 0x20eb
-    call loc_LKQT                    ; 0x20ec
+    call run_pkunzip_archive         ; 0x20ec
     add sp, byte 8                   ; 0x20ef
     cmp word [bp - 0xe], byte 3      ; 0x20f2
     je short main.forward47          ; 0x20f6
     jmp near main.forward48          ; 0x20f8
 main.forward47:
-    mov ax, dseg_213e                ; 0x20fb
+    mov ax, unzip_all_files_213e     ; 0x20fb
     push ax                          ; 0x20fe
-    mov ax, dseg_2133                ; 0x20ff
+    mov ax, archive_crus02_2133      ; 0x20ff
     push ax                          ; 0x2102
     lea ax, word [bp - 0xf4]         ; 0x2103
     push ax                          ; 0x2107
     lea ax, word [bp - 0xa4]         ; 0x2108
     push ax                          ; 0x210c
-    call loc_LKQT                    ; 0x210d
+    call run_pkunzip_archive         ; 0x210d
     add sp, byte 8                   ; 0x2110
-    mov ax, dseg_214a                ; 0x2113
+    mov ax, unzip_all_files_214a     ; 0x2113
     push ax                          ; 0x2116
-    mov ax, dseg_213f                ; 0x2117
+    mov ax, archive_crus04_213f      ; 0x2117
     push ax                          ; 0x211a
     lea ax, word [bp - 0xf4]         ; 0x211b
     push ax                          ; 0x211f
     lea ax, word [bp - 0xa4]         ; 0x2120
     push ax                          ; 0x2124
-    call loc_LKQT                    ; 0x2125
+    call run_pkunzip_archive         ; 0x2125
     add sp, byte 8                   ; 0x2128
-    mov ax, dseg_2156                ; 0x212b
+    mov ax, unzip_all_files_2156     ; 0x212b
     push ax                          ; 0x212e
-    mov ax, dseg_214b                ; 0x212f
+    mov ax, archive_crus06_214b      ; 0x212f
     push ax                          ; 0x2132
     lea ax, word [bp - 0xf4]         ; 0x2133
     push ax                          ; 0x2137
     lea ax, word [bp - 0xa4]         ; 0x2138
     push ax                          ; 0x213c
-    call loc_LKQT                    ; 0x213d
+    call run_pkunzip_archive         ; 0x213d
     add sp, byte 8                   ; 0x2140
-    mov ax, dseg_2157                ; 0x2143
+    mov ax, archive_crus03_2157      ; 0x2143
     push ax                          ; 0x2146
     mov ax, 2                        ; 0x2147
     push ax                          ; 0x214a
@@ -1582,64 +1582,64 @@ main.forward47:
     push ax                          ; 0x214f
     lea ax, word [bp - 0x1c]         ; 0x2150
     push ax                          ; 0x2153
-    call loc_ONOP                    ; 0x2154
+    call prompt_for_archive_disk     ; 0x2154
     add sp, byte 8                   ; 0x2157
-    mov ax, dseg_216d                ; 0x215a
+    mov ax, unzip_all_files_216d     ; 0x215a
     push ax                          ; 0x215d
-    mov ax, dseg_2162                ; 0x215e
+    mov ax, archive_crus03_2162      ; 0x215e
     push ax                          ; 0x2161
     lea ax, word [bp - 0xf4]         ; 0x2162
     push ax                          ; 0x2166
     lea ax, word [bp - 0xa4]         ; 0x2167
     push ax                          ; 0x216b
-    call loc_LKQT                    ; 0x216c
+    call run_pkunzip_archive         ; 0x216c
     add sp, byte 8                   ; 0x216f
-    mov ax, dseg_2179                ; 0x2172
+    mov ax, unzip_all_files_2179     ; 0x2172
     push ax                          ; 0x2175
-    mov ax, dseg_216e                ; 0x2176
+    mov ax, archive_crus05_216e      ; 0x2176
     push ax                          ; 0x2179
     lea ax, word [bp - 0xf4]         ; 0x217a
     push ax                          ; 0x217e
     lea ax, word [bp - 0xa4]         ; 0x217f
     push ax                          ; 0x2183
-    call loc_LKQT                    ; 0x2184
+    call run_pkunzip_archive         ; 0x2184
     add sp, byte 8                   ; 0x2187
-    mov ax, dseg_2185                ; 0x218a
+    mov ax, unzip_all_files_2185     ; 0x218a
     push ax                          ; 0x218d
-    mov ax, dseg_217a                ; 0x218e
+    mov ax, archive_crus07_217a      ; 0x218e
     push ax                          ; 0x2191
     lea ax, word [bp - 0xf4]         ; 0x2192
     push ax                          ; 0x2196
     lea ax, word [bp - 0xa4]         ; 0x2197
     push ax                          ; 0x219b
-    call loc_LKQT                    ; 0x219c
+    call run_pkunzip_archive         ; 0x219c
     add sp, byte 8                   ; 0x219f
-    mov ax, dseg_2191                ; 0x21a2
+    mov ax, unzip_all_files_2191     ; 0x21a2
     push ax                          ; 0x21a5
-    mov ax, dseg_2186                ; 0x21a6
+    mov ax, archive_crus08_2186      ; 0x21a6
     push ax                          ; 0x21a9
     lea ax, word [bp - 0xf4]         ; 0x21aa
     push ax                          ; 0x21ae
     lea ax, word [bp - 0xa4]         ; 0x21af
     push ax                          ; 0x21b3
-    call loc_LKQT                    ; 0x21b4
+    call run_pkunzip_archive         ; 0x21b4
     add sp, byte 8                   ; 0x21b7
 main.forward48:
     cmp word [bp - 0xe], byte 2      ; 0x21ba
     je short main.forward49          ; 0x21be
     jmp near main.forward50          ; 0x21c0
 main.forward49:
-    mov ax, dseg_219d                ; 0x21c3
+    mov ax, unzip_all_files_219d     ; 0x21c3
     push ax                          ; 0x21c6
-    mov ax, dseg_2192                ; 0x21c7
+    mov ax, archive_crus07_2192      ; 0x21c7
     push ax                          ; 0x21ca
     lea ax, word [bp - 0xf4]         ; 0x21cb
     push ax                          ; 0x21cf
     lea ax, word [bp - 0xa4]         ; 0x21d0
     push ax                          ; 0x21d4
-    call loc_LKQT                    ; 0x21d5
+    call run_pkunzip_archive         ; 0x21d5
     add sp, byte 8                   ; 0x21d8
-    mov ax, dseg_219e                ; 0x21db
+    mov ax, archive_crus02_219e      ; 0x21db
     push ax                          ; 0x21de
     mov ax, 2                        ; 0x21df
     push ax                          ; 0x21e2
@@ -1647,39 +1647,39 @@ main.forward49:
     push ax                          ; 0x21e7
     lea ax, word [bp - 0x1c]         ; 0x21e8
     push ax                          ; 0x21eb
-    call loc_ONOP                    ; 0x21ec
+    call prompt_for_archive_disk     ; 0x21ec
     add sp, byte 8                   ; 0x21ef
-    mov ax, dseg_21b4                ; 0x21f2
+    mov ax, unzip_all_files_21b4     ; 0x21f2
     push ax                          ; 0x21f5
-    mov ax, dseg_21a9                ; 0x21f6
+    mov ax, archive_crus02_21a9      ; 0x21f6
     push ax                          ; 0x21f9
     lea ax, word [bp - 0xf4]         ; 0x21fa
     push ax                          ; 0x21fe
     lea ax, word [bp - 0xa4]         ; 0x21ff
     push ax                          ; 0x2203
-    call loc_LKQT                    ; 0x2204
+    call run_pkunzip_archive         ; 0x2204
     add sp, byte 8                   ; 0x2207
-    mov ax, dseg_21c0                ; 0x220a
+    mov ax, unzip_all_files_21c0     ; 0x220a
     push ax                          ; 0x220d
-    mov ax, dseg_21b5                ; 0x220e
+    mov ax, archive_crus04_21b5      ; 0x220e
     push ax                          ; 0x2211
     lea ax, word [bp - 0xf4]         ; 0x2212
     push ax                          ; 0x2216
     lea ax, word [bp - 0xa4]         ; 0x2217
     push ax                          ; 0x221b
-    call loc_LKQT                    ; 0x221c
+    call run_pkunzip_archive         ; 0x221c
     add sp, byte 8                   ; 0x221f
-    mov ax, dseg_21cc                ; 0x2222
+    mov ax, unzip_all_files_21cc     ; 0x2222
     push ax                          ; 0x2225
-    mov ax, dseg_21c1                ; 0x2226
+    mov ax, archive_crus06_21c1      ; 0x2226
     push ax                          ; 0x2229
     lea ax, word [bp - 0xf4]         ; 0x222a
     push ax                          ; 0x222e
     lea ax, word [bp - 0xa4]         ; 0x222f
     push ax                          ; 0x2233
-    call loc_LKQT                    ; 0x2234
+    call run_pkunzip_archive         ; 0x2234
     add sp, byte 8                   ; 0x2237
-    mov ax, dseg_21cd                ; 0x223a
+    mov ax, archive_crus03_21cd      ; 0x223a
     push ax                          ; 0x223d
     mov ax, 3                        ; 0x223e
     push ax                          ; 0x2241
@@ -1687,29 +1687,29 @@ main.forward49:
     push ax                          ; 0x2246
     lea ax, word [bp - 0x1c]         ; 0x2247
     push ax                          ; 0x224a
-    call loc_ONOP                    ; 0x224b
+    call prompt_for_archive_disk     ; 0x224b
     add sp, byte 8                   ; 0x224e
-    mov ax, dseg_21e3                ; 0x2251
+    mov ax, unzip_all_files_21e3     ; 0x2251
     push ax                          ; 0x2254
-    mov ax, dseg_21d8                ; 0x2255
+    mov ax, archive_crus03_21d8      ; 0x2255
     push ax                          ; 0x2258
     lea ax, word [bp - 0xf4]         ; 0x2259
     push ax                          ; 0x225d
     lea ax, word [bp - 0xa4]         ; 0x225e
     push ax                          ; 0x2262
-    call loc_LKQT                    ; 0x2263
+    call run_pkunzip_archive         ; 0x2263
     add sp, byte 8                   ; 0x2266
-    mov ax, dseg_21ef                ; 0x2269
+    mov ax, unzip_all_files_21ef     ; 0x2269
     push ax                          ; 0x226c
-    mov ax, dseg_21e4                ; 0x226d
+    mov ax, archive_crus08_21e4      ; 0x226d
     push ax                          ; 0x2270
     lea ax, word [bp - 0xf4]         ; 0x2271
     push ax                          ; 0x2275
     lea ax, word [bp - 0xa4]         ; 0x2276
     push ax                          ; 0x227a
-    call loc_LKQT                    ; 0x227b
+    call run_pkunzip_archive         ; 0x227b
     add sp, byte 8                   ; 0x227e
-    mov ax, dseg_21f0                ; 0x2281
+    mov ax, archive_crus05_21f0      ; 0x2281
     push ax                          ; 0x2284
     mov ax, 4                        ; 0x2285
     push ax                          ; 0x2288
@@ -1717,44 +1717,44 @@ main.forward49:
     push ax                          ; 0x228d
     lea ax, word [bp - 0x1c]         ; 0x228e
     push ax                          ; 0x2291
-    call loc_ONOP                    ; 0x2292
+    call prompt_for_archive_disk     ; 0x2292
     add sp, byte 8                   ; 0x2295
-    mov ax, dseg_2206                ; 0x2298
+    mov ax, unzip_all_files_2206     ; 0x2298
     push ax                          ; 0x229b
-    mov ax, dseg_21fb                ; 0x229c
+    mov ax, archive_crus05_21fb      ; 0x229c
     push ax                          ; 0x229f
     lea ax, word [bp - 0xf4]         ; 0x22a0
     push ax                          ; 0x22a4
     lea ax, word [bp - 0xa4]         ; 0x22a5
     push ax                          ; 0x22a9
-    call loc_LKQT                    ; 0x22aa
+    call run_pkunzip_archive         ; 0x22aa
     add sp, byte 8                   ; 0x22ad
 main.forward50:
     cmp word [bp - 0xe], byte 1      ; 0x22b0
     je short main.forward51          ; 0x22b4
     jmp near main.forward52          ; 0x22b6
 main.forward51:
-    mov ax, dseg_2212                ; 0x22b9
+    mov ax, unzip_all_files_2212     ; 0x22b9
     push ax                          ; 0x22bc
-    mov ax, dseg_2207                ; 0x22bd
+    mov ax, archive_crus02_2207      ; 0x22bd
     push ax                          ; 0x22c0
     lea ax, word [bp - 0xf4]         ; 0x22c1
     push ax                          ; 0x22c5
     lea ax, word [bp - 0xa4]         ; 0x22c6
     push ax                          ; 0x22ca
-    call loc_LKQT                    ; 0x22cb
+    call run_pkunzip_archive         ; 0x22cb
     add sp, byte 8                   ; 0x22ce
-    mov ax, dseg_221e                ; 0x22d1
+    mov ax, unzip_all_files_221e     ; 0x22d1
     push ax                          ; 0x22d4
-    mov ax, dseg_2213                ; 0x22d5
+    mov ax, archive_crus06_2213      ; 0x22d5
     push ax                          ; 0x22d8
     lea ax, word [bp - 0xf4]         ; 0x22d9
     push ax                          ; 0x22dd
     lea ax, word [bp - 0xa4]         ; 0x22de
     push ax                          ; 0x22e2
-    call loc_LKQT                    ; 0x22e3
+    call run_pkunzip_archive         ; 0x22e3
     add sp, byte 8                   ; 0x22e6
-    mov ax, dseg_221f                ; 0x22e9
+    mov ax, archive_crus03_221f      ; 0x22e9
     push ax                          ; 0x22ec
     mov ax, 2                        ; 0x22ed
     push ax                          ; 0x22f0
@@ -1762,49 +1762,49 @@ main.forward51:
     push ax                          ; 0x22f5
     lea ax, word [bp - 0x1c]         ; 0x22f6
     push ax                          ; 0x22f9
-    call loc_ONOP                    ; 0x22fa
+    call prompt_for_archive_disk     ; 0x22fa
     add sp, byte 8                   ; 0x22fd
-    mov ax, dseg_2235                ; 0x2300
+    mov ax, unzip_all_files_2235     ; 0x2300
     push ax                          ; 0x2303
-    mov ax, dseg_222a                ; 0x2304
+    mov ax, archive_crus03_222a      ; 0x2304
     push ax                          ; 0x2307
     lea ax, word [bp - 0xf4]         ; 0x2308
     push ax                          ; 0x230c
     lea ax, word [bp - 0xa4]         ; 0x230d
     push ax                          ; 0x2311
-    call loc_LKQT                    ; 0x2312
+    call run_pkunzip_archive         ; 0x2312
     add sp, byte 8                   ; 0x2315
-    mov ax, dseg_2241                ; 0x2318
+    mov ax, unzip_all_files_2241     ; 0x2318
     push ax                          ; 0x231b
-    mov ax, dseg_2236                ; 0x231c
+    mov ax, archive_crus04_2236      ; 0x231c
     push ax                          ; 0x231f
     lea ax, word [bp - 0xf4]         ; 0x2320
     push ax                          ; 0x2324
     lea ax, word [bp - 0xa4]         ; 0x2325
     push ax                          ; 0x2329
-    call loc_LKQT                    ; 0x232a
+    call run_pkunzip_archive         ; 0x232a
     add sp, byte 8                   ; 0x232d
-    mov ax, dseg_224d                ; 0x2330
+    mov ax, unzip_all_files_224d     ; 0x2330
     push ax                          ; 0x2333
-    mov ax, dseg_2242                ; 0x2334
+    mov ax, archive_crus07_2242      ; 0x2334
     push ax                          ; 0x2337
     lea ax, word [bp - 0xf4]         ; 0x2338
     push ax                          ; 0x233c
     lea ax, word [bp - 0xa4]         ; 0x233d
     push ax                          ; 0x2341
-    call loc_LKQT                    ; 0x2342
+    call run_pkunzip_archive         ; 0x2342
     add sp, byte 8                   ; 0x2345
-    mov ax, dseg_2259                ; 0x2348
+    mov ax, unzip_all_files_2259     ; 0x2348
     push ax                          ; 0x234b
-    mov ax, dseg_224e                ; 0x234c
+    mov ax, archive_crus08_224e      ; 0x234c
     push ax                          ; 0x234f
     lea ax, word [bp - 0xf4]         ; 0x2350
     push ax                          ; 0x2354
     lea ax, word [bp - 0xa4]         ; 0x2355
     push ax                          ; 0x2359
-    call loc_LKQT                    ; 0x235a
+    call run_pkunzip_archive         ; 0x235a
     add sp, byte 8                   ; 0x235d
-    mov ax, dseg_225a                ; 0x2360
+    mov ax, archive_crus05_225a      ; 0x2360
     push ax                          ; 0x2363
     mov ax, 3                        ; 0x2364
     push ax                          ; 0x2367
@@ -1812,17 +1812,17 @@ main.forward51:
     push ax                          ; 0x236c
     lea ax, word [bp - 0x1c]         ; 0x236d
     push ax                          ; 0x2370
-    call loc_ONOP                    ; 0x2371
+    call prompt_for_archive_disk     ; 0x2371
     add sp, byte 8                   ; 0x2374
-    mov ax, dseg_2270                ; 0x2377
+    mov ax, unzip_all_files_2270     ; 0x2377
     push ax                          ; 0x237a
-    mov ax, dseg_2265                ; 0x237b
+    mov ax, archive_crus05_2265      ; 0x237b
     push ax                          ; 0x237e
     lea ax, word [bp - 0xf4]         ; 0x237f
     push ax                          ; 0x2383
     lea ax, word [bp - 0xa4]         ; 0x2384
     push ax                          ; 0x2388
-    call loc_LKQT                    ; 0x2389
+    call run_pkunzip_archive         ; 0x2389
     add sp, byte 8                   ; 0x238c
 main.forward52:
     mov ax, word [bp - 0x10]         ; 0x238f
@@ -1857,7 +1857,7 @@ main.forward53:
 main.forward54:
     cmp word [bp - 0x10], byte 4     ; 0x23d3
     je short main.forward55          ; 0x23d7
-    mov ax, dseg_2271                ; 0x23d9
+    mov ax, scenario_header_filename ; 0x23d9
     push ax                          ; 0x23dc
     mov ax, 0xffff                   ; 0x23dd
     push ax                          ; 0x23e0
@@ -1865,7 +1865,7 @@ main.forward54:
     push ax                          ; 0x23e5
     lea ax, word [bp - 0x3e]         ; 0x23e6
     push ax                          ; 0x23e9
-    call loc_ONOP                    ; 0x23ea
+    call prompt_for_archive_disk     ; 0x23ea
     add sp, byte 8                   ; 0x23ed
 main.forward55:
     push word [bp - 0x1c8]           ; 0x23f0
@@ -1885,28 +1885,28 @@ main.forward55:
     push ax                          ; 0x2421
     lea ax, word [bp - 0x3e]         ; 0x2422
     push ax                          ; 0x2425
-    call loc_QKVM                    ; 0x2426
+    call update_scenario_header      ; 0x2426
     add sp, byte 0x1a                ; 0x2429
     test ax, ax                      ; 0x242c
     je short main.forward56          ; 0x242e
-    mov ax, dseg_227e                ; 0x2430
+    mov ax, installation_failure_message ; 0x2430
     push ax                          ; 0x2433
-    call loc_NNGU                    ; 0x2434
+    call show_message_wait_for_enter ; 0x2434
     pop cx                           ; 0x2437
     jmp short main.forward57         ; 0x2438
 main.forward56:
-    mov ax, dseg_22af                ; 0x243a
+    mov ax, installation_success_message ; 0x243a
     push ax                          ; 0x243d
-    call loc_NNGU                    ; 0x243e
+    call show_message_wait_for_enter ; 0x243e
     pop cx                           ; 0x2441
-    mov ax, dseg_22e3                ; 0x2442
+    mov ax, game_start_instruction   ; 0x2442
     push ax                          ; 0x2445
-    call loc_NNGU                    ; 0x2446
+    call show_message_wait_for_enter ; 0x2446
     pop cx                           ; 0x2449
 main.forward57:
     mov ax, 3                        ; 0x244a
     push ax                          ; 0x244d
-    call loc_OQIJ                    ; 0x244e
+    call set_video_mode              ; 0x244e
     pop cx                           ; 0x2451
     mov ax, 0                        ; 0x2452
     push ax                          ; 0x2455
@@ -1915,21 +1915,3 @@ main.forward57:
     mov sp, bp                       ; 0x245a
     pop bp                           ; 0x245c
     ret                              ; 0x245d
-loc_UMUK:
-    push bp                          ; 0x245e
-    mov bp, sp                       ; 0x245f
-    sub sp, byte 4                   ; 0x2461
-    push ds                          ; 0x2464
-    push es                          ; 0x2465
-    push si                          ; 0x2466
-    push di                          ; 0x2467
-    call detect_video_adapter_type   ; 0x2468
-    call detect_mouse                ; 0x246b
-    mov ax, word [bp - 2]            ; 0x246e
-    pop di                           ; 0x2471
-    pop si                           ; 0x2472
-    pop es                           ; 0x2473
-    pop ds                           ; 0x2474
-    mov sp, bp                       ; 0x2475
-    pop bp                           ; 0x2477
-    ret                              ; 0x2478

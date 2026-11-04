@@ -19,7 +19,7 @@ prompt_long_at:
     push ax                          ; 0x08bd
     push word [bp + 0xa]             ; 0x08be
     push word [bp + 8]               ; 0x08c1
-    call loc_GPOQ                    ; 0x08c4
+    call read_text_at                ; 0x08c4
     add sp, byte 8                   ; 0x08c7
     cmp byte [bp - 0x103], 0         ; 0x08ca
     jne short .forward1              ; 0x08cf

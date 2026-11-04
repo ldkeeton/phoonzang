@@ -67,7 +67,7 @@ long_to_str:
     mov bx, word [bp + 8]            ; 0x03a0
     mov byte [bx + si], 0            ; 0x03a3
     push word [bp + 8]               ; 0x03a6
-    call loc_MPOT                    ; 0x03a9
+    call reverse_text                ; 0x03a9
     pop cx                           ; 0x03ac
     pop si                           ; 0x03ad
     pop di                           ; 0x03ae
