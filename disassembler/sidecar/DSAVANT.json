@@ -1795,7 +1795,7 @@
         "0ab9": {"name": "play_startup_sequence", "note": "Runs the startup story and prepares the interface."},
         "132f": {"name": "release_main_screen", "note": "Restore the saved main-screen areas, free its picture slots and maze, and return to game_state 2"},
         "13fb": {"name": "initialize_main_screen", "note": "Load MAINSCRN.VGA, preload picture slots, and save the party status and panel areas"},
-        "15cb": {"name": "aztec_ovbgn"}
+        "15cb": {"name": "aztec_ovbgn", "emits": [{"start": "91ae", "end": "91b8"}], "note": "dos20/ovbgn.asm: its dataseg holds save_si/di/sp/bp/ret, after every C module's data"}
       },
       "immediate_pointers": [
         {"offset": "15ef", "space": "ds", "name": "_Uorg", "note": "$ovbgn's `mov di,offset _Uorg_`: the start of the BSS it clears"},
