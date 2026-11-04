@@ -1,7 +1,7 @@
 /* Release the resources held when exiting with the given status: each case
    falls through to the cleanup of the cases below it. */
 
-extern int floor_items, runtime_buffer_3k, maze_tables, maze_data;
+extern int floor_items, maze_change_log, maze_tables, maze_data;
 extern char far *runtime_buffer_4k_b;
 extern char far *runtime_buffer_4k_a;
 extern char far *runtime_buffer_1k;
@@ -43,8 +43,8 @@ int exit_status;
 	case 30:
 		if (floor_items)
 			aztec_free(floor_items);
-		if (runtime_buffer_3k)
-			aztec_free(runtime_buffer_3k);
+		if (maze_change_log)
+			aztec_free(maze_change_log);
 		if (maze_tables)
 			aztec_free(maze_tables);
 		if (maze_data)

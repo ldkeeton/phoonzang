@@ -29,7 +29,7 @@ process_scene_message_words:
     jmp short .back2                 ; 0x6ef1
 .forward1:
     push word [bp + 4]               ; 0x6ef3
-    call api_idx_0090_QKJQ           ; 0x6ef6
+    call process_maze_message_controls ; 0x6ef6
     pop cx                           ; 0x6ef9
     mov ax, word [bp - 2]            ; 0x6efa
     add word [bp + 4], ax            ; 0x6efd
@@ -40,7 +40,7 @@ process_scene_message_words:
     cmp byte [bx], 0                 ; 0x6f09
     je short .return1                ; 0x6f0c
     push bx                          ; 0x6f0e
-    call api_idx_0090_QKJQ           ; 0x6f0f
+    call process_maze_message_controls ; 0x6f0f
     pop cx                           ; 0x6f12
 .return1:
     ret                              ; 0x6f13

@@ -37,7 +37,7 @@ load_current_maze_level:
     mov ax, 0x80                     ; 0x0a21
     push ax                          ; 0x0a24
     push ds                          ; 0x0a25
-    mov ax, current_map_block_b      ; 0x0a26
+    mov ax, explored_cell_bitmap     ; 0x0a26
     push ax                          ; 0x0a29
     mov ax, word [current_level]     ; 0x0a2a
     mov cx, 7                        ; 0x0a2d
@@ -50,7 +50,7 @@ load_current_maze_level:
     push ax                          ; 0x0a3e
     call app_memmove                 ; 0x0a3f
     add sp, byte 0xa                 ; 0x0a42
-    call decode_maze_cell_records    ; 0x0a45
+    call replay_maze_changes         ; 0x0a45
     mov bx, word [maze_data]         ; 0x0a48
     mov si, word [party_map_piece]   ; 0x0a4c
     mov al, byte [bx + si + 0x490]   ; 0x0a50

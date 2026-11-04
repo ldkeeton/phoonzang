@@ -11,7 +11,7 @@ extern int draw_number_field();
 extern unsigned char startup_aux_option_b, startup_option_byte;
 extern unsigned char sound_device_setting, volume_settings[];
 extern unsigned char monster_volume, background_volume, video_mode;
-extern unsigned char music_volume, startup_aux_option_a, no_dissolve;
+extern unsigned char music_volume, difficulty_option, no_dissolve;
 extern unsigned char screen_store_1_enabled, screen_store_disk_enabled;
 extern unsigned char hardware_mode_setting;
 extern char palette_base_setting, palette_scale_setting;
@@ -72,7 +72,7 @@ int control_number, dialog_left, dialog_top;
 			dialog_left + 105, dialog_top + 134);
 		break;
 	case 10:
-		load_message_string(MSG_NORMAL + startup_aux_option_a,
+		load_message_string(MSG_NORMAL + difficulty_option,
 			message_buffer);
 		draw_button(dialog_left + 230, dialog_top + 25, 6, 1, 1,
 			message_buffer);

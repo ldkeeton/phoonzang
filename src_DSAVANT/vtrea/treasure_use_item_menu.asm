@@ -101,7 +101,7 @@ treasure_use_item_menu:
     mov al, byte [bx + party_records + pc_rec.item_slots + 0x4] ; 0x4cb6
     sub ah, ah                       ; 0x4cba
     mov bx, ax                       ; 0x4cbc
-    cmp byte [bx + cell_overlay_code + 0x58], 1 ; 0x4cbe
+    cmp byte [bx + item_type_counted], 1 ; 0x4cbe
     jne short .forward4              ; 0x4cc3
     mov ax, 0x248                    ; 0x4cc5
     imul word [bp + 4]               ; 0x4cc8

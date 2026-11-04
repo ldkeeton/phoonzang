@@ -10,7 +10,7 @@ extern struct pc_rec party_records[];
 extern struct spell_info spell_table[];
 extern struct saved_region_blocks party_region;
 extern unsigned char scenario_header_data[][16];
-extern unsigned char cell_overlay_code[];
+extern char item_type_counted[];
 extern int party_redraw_interval, spell_target, spell_dialog_result;
 extern int pending_event, pending_event_hi, current_level;
 extern int list_row_marked[], list_row_glyph[], list_row_count[];
@@ -52,8 +52,8 @@ int pc;
 						item.glyph, list_row_name[row_count]);
 				list_row_glyph[row_count] = item.glyph;
 				list_row_marked[row_count] = page;
-				if (cell_overlay_code[
-					party_records[pc].item_slots[page][slot].overlay + 88] == 1)
+				if (item_type_counted[
+					party_records[pc].item_slots[page][slot].item_type] == 1)
 					list_row_count[row_count] =
 						party_records[pc].item_slots[page][slot].level;
 				else

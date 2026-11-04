@@ -203,7 +203,7 @@ jumptable_4688_case_9:
 jumptable_4688_case_10:
     lea ax, word [bp - 0x52]         ; 0x44ff
     push ax                          ; 0x4502
-    mov al, byte [startup_aux_option_a] ; 0x4503
+    mov al, byte [difficulty_option] ; 0x4503
     sub ah, ah                       ; 0x4506
     add ax, MSG_NORMAL               ; 0x4508
     push ax                          ; 0x450b

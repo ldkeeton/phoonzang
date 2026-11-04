@@ -101,7 +101,7 @@ api_idx_004c_OGSK:
     mov al, byte [bx + party_records + pc_rec.item_slots + 0x4] ; 0x50d4
     sub ah, ah                       ; 0x50d8
     mov bx, ax                       ; 0x50da
-    cmp byte [bx + cell_overlay_code + 0x58], 1 ; 0x50dc
+    cmp byte [bx + item_type_counted], 1 ; 0x50dc
     jne short .forward4              ; 0x50e1
     mov ax, 0x248                    ; 0x50e3
     imul word [bp + 4]               ; 0x50e6

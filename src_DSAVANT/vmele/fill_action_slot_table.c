@@ -26,7 +26,7 @@ int member, row, col, group;
 	randomized = 0;
 	if (group == -1) {
 		group = 0;
-		if (slot_recs[rec].forced[0] != 254)
+		if (slot_recs[rec].forced != 254)
 			randomized = 1;
 	}
 	/* one entry per record in group's range */
@@ -35,13 +35,13 @@ int member, row, col, group;
 		++entry) {
 		action = slot_recs[rec].action[entry];
 		/* group 0 with a forced value (1..0xfd) overrides the record */
-		if (group == 0 && slot_recs[rec].forced[0] > 0
-				&& slot_recs[rec].forced[0] < 254) {
-			if (slot_recs[rec].forced[0] == 253) {	/* action 0, target 0 */
+		if (group == 0 && slot_recs[rec].forced > 0
+				&& slot_recs[rec].forced < 254) {
+			if (slot_recs[rec].forced == 253) {	/* action 0, target 0 */
 				action = 0;
 				target = 0;
 			} else {
-				target = slot_recs[rec].forced[0];
+				target = slot_recs[rec].forced;
 				if (battle_group_ext[member]->kind == 71) {
 					/* melee into VMNPC: split the destination argument */
 					if (npc_melee == 1) {

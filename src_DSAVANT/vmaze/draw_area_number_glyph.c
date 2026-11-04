@@ -1,16 +1,10 @@
 /* Draw glyph code area_number + 1 inside the selected screen area
    rectangle. */
+#include "structs/arearect.h"
 extern long call_save_area();
 extern int call_draw_text();
 extern int call_show_area();
 extern int call_restore_area();
-
-struct area_rectangle {
-	int left;
-	int top;
-	int right;
-	int bottom;
-};
 
 extern struct area_rectangle screen_area_rectangles[];
 

@@ -25,7 +25,7 @@ IMAGE_BASE equ 0x000e + VBASE
     dw aztec_ovbgn - IMAGE_BASE + __zres_end ; 0xfc77 ; o_entry: overlay entry offset (CS)
 
 __zcode_start:
-dseg_9098 equ __zdseg_end + (__zdseg_9098 - __zdata_start)
+maze_temp_filename equ __zdseg_end + (__zmaze_temp_filename - __zdata_start)
 variant_1_maze_filename equ __zdseg_end + (__zvariant_1_maze_filename - __zdata_start)
 variant_1_water_filename equ __zdseg_end + (__zvariant_1_water_filename - __zdata_start)
 variant_2_tree_filename equ __zdseg_end + (__zvariant_2_tree_filename - __zdata_start)
@@ -43,8 +43,8 @@ variant_5_water_filename equ __zdseg_end + (__zvariant_5_water_filename - __zdat
 variant_6_tree_filename equ __zdseg_end + (__zvariant_6_tree_filename - __zdata_start)
 variant_6_other_town_filename equ __zdseg_end + (__zvariant_6_other_town_filename - __zdata_start)
 variant_6_water_filename equ __zdseg_end + (__zvariant_6_water_filename - __zdata_start)
-dseg_917e equ __zdseg_end + (__zdseg_917e - __zdata_start)
-dseg_9186 equ __zdseg_end + (__zdseg_9186 - __zdata_start)
+maze_message_control_code_table equ __zdseg_end + (__zmaze_message_control_code_table - __zdata_start)
+maze_message_word_separator equ __zdseg_end + (__zmaze_message_word_separator - __zdata_start)
 save_si equ __zdseg_end + (__zsave_si - __zdata_start)
 save_di equ __zdseg_end + (__zsave_di - __zdata_start)
 save_sp equ __zdseg_end + (__zsave_sp - __zdata_start)
@@ -62,11 +62,11 @@ marker_string_frames equ __zdseg_end + (__zobss_91a0 - __zdata_start)
 boundary_wall_open equ __zdseg_end + (__zobss_91a6 - __zdata_start)
 location_changed equ __zdseg_end + (__zobss_91a8 - __zdata_start)
 maze_redraw_pending equ __zdseg_end + (__zobss_91aa - __zdata_start)
-bss_91ac equ __zdseg_end + (__zobss_91ac - __zdata_start)
-bss_91ae equ __zdseg_end + (__zobss_91ae - __zdata_start)
+blocked_move_message equ __zdseg_end + (__zobss_91ac - __zdata_start)
+rest_interrupt_flag equ __zdseg_end + (__zobss_91ae - __zdata_start)
 party_region_level_saved equ __zdseg_end + (__zobss_91b0 - __zdata_start)
 maze_message_refresh_pending equ __zdseg_end + (__zobss_91b2 - __zdata_start)
-bss_91b4 equ __zdseg_end + (__zobss_91b4 - __zdata_start)
+floor_item_icon_shown equ __zdseg_end + (__zobss_91b4 - __zdata_start)
 marker_string_y_offsets equ __zdseg_end + (__zobss_91b6 - __zdata_start)
 marker_string_x_offsets equ __zdseg_end + (__zobss_91bc - __zdata_start)
 marker_string_descending equ __zdseg_end + (__zobss_91c2 - __zdata_start)
@@ -155,7 +155,7 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "vmaze/load_maze_resources.asm"   ; 0x03ea
 
-%include "vmaze/decode_maze_cell_records.asm" ; 0x06da
+%include "vmaze/replay_maze_changes.asm"   ; 0x06da
 
 %include "vmaze/load_current_maze_level.asm" ; 0x09cb
 
@@ -185,7 +185,7 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "shared/ovr/mark_party_member_dead.asm" ; 0x10b0
 
-%include "vmaze/show_rock_entry_message.asm" ; 0x110e
+%include "vmaze/kill_party_with_message.asm" ; 0x110e
 
 %include "shared/ovr/get_cell_wall.asm"         ; 0x1165
 
@@ -201,17 +201,17 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "shared/ovr/check_at_saved_location.asm" ; 0x13c0
 
-%include "vmaze/api_idx_0004_IHHI.asm"     ; 0x13f7
+%include "vmaze/process_party_swimming.asm" ; 0x13f7
 
 %include "shared/ovr/get_cell_terrain.asm"      ; 0x1504
 
-%include "vmaze/api_idx_000e_NSGM.asm"     ; 0x162b
+%include "vmaze/move_party_maze_step.asm"  ; 0x162b
 
-%include "vmaze/api_idx_0004_USIK.asm"     ; 0x17ee
+%include "vmaze/try_move_party.asm"        ; 0x17ee
 
-%include "vmaze/api_idx_000a_URTS.asm"     ; 0x195c
+%include "vmaze/update_party_member_tick.asm" ; 0x195c
 
-%include "vmaze/api_idx_0018_USPR.asm"     ; 0x1c94
+%include "vmaze/rest_party.asm"            ; 0x1c94
 
 %include "vmaze/draw_area_number_glyph.asm" ; 0x2033
 
@@ -221,7 +221,7 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "vmaze/display_maze_message.asm"  ; 0x21e3
 
-%include "vmaze/api_idx_0022_LKUK.asm"     ; 0x2215
+%include "vmaze/run_maze_loop.asm"         ; 0x2215
 
 %include "shared/ovr/get_north_cell_wall.asm"   ; 0x2d94
 
@@ -281,7 +281,7 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "vmaze/flush_glyph_buffer.asm"    ; 0x6c0a
 
-%include "vmaze/api_idx_0090_QKJQ.asm"     ; 0x6cc9
+%include "vmaze/process_maze_message_controls.asm" ; 0x6cc9
 
 %include "vmaze/process_scene_message_words.asm" ; 0x6eb1
 
@@ -289,9 +289,9 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "shared/ovr/try_raise_member_skill.asm" ; 0x6fbf
 
-%include "vmaze/pick_region_marker_party_tag.asm" ; 0x7001
+%include "vmaze/pick_random_allowed_facing.asm" ; 0x7001
 
-%include "vmaze/show_region_message.asm"   ; 0x7034
+%include "vmaze/spin_and_push_party.asm"   ; 0x7034
 
 %include "shared/ovr/mark_region_bits.asm"      ; 0x7242
 
@@ -309,7 +309,7 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "vmaze/collect_region_flag_bits.asm" ; 0x75ae
 
-%include "vmaze/handle_region_flag_event.asm" ; 0x764d
+%include "vmaze/change_cell_walls.asm"     ; 0x764d
 
 %include "vmaze/play_region_spell_sound.asm" ; 0x784f
 
@@ -319,17 +319,17 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "vmaze/meet_region_npc.asm"       ; 0x7abe
 
-%include "vmaze/api_idx_0018_KVSP.asm"     ; 0x7b53
+%include "vmaze/animate_region_view_transition.asm" ; 0x7b53
 
 %include "vmaze/animate_party_status_frame.asm" ; 0x7cb4
 
 %include "vmaze/set_cell_wall.asm"         ; 0x7ce5
 
-%include "vmaze/decode_region_map_location.asm" ; 0x7e46
+%include "vmaze/change_door_wall.asm"      ; 0x7e46
 
 %include "vmaze/wait_then_handle_region_event.asm" ; 0x804e
 
-%include "vmaze/handle_region_flag_3_event.asm" ; 0x820b
+%include "vmaze/change_cell_kind.asm"      ; 0x820b
 
 %include "shared/ovr/update_region_flag_bitmaps.asm" ; 0x83b3
 
@@ -337,19 +337,19 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "vmaze/update_region_flags.asm"   ; 0x8540
 
-%include "vmaze/handle_region_level_event.asm" ; 0x8568
+%include "vmaze/apply_region_hour_window.asm" ; 0x8568
 
 %include "vmaze/update_region_quest_map_flags.asm" ; 0x86a9
 
-%include "vmaze/handle_region_flag_2_event.asm" ; 0x86f9
+%include "vmaze/set_region_flag_from_condition.asm" ; 0x86f9
 
-%include "vmaze/handle_region_bit_8_event.asm" ; 0x8794
+%include "vmaze/show_message_by_flag_tally.asm" ; 0x8794
 
 %include "vmaze/process_maze_object_events.asm" ; 0x8867
 
 %include "shared/ovr/clear_bit_pair.asm"        ; 0x89d0
 
-%include "vmaze/claim_cell.asm"            ; 0x8a14
+%include "vmaze/press_wall_button.asm"     ; 0x8a14
 
 %include "vmaze/check_type8_object.asm"    ; 0x8b52
 
@@ -357,7 +357,7 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "vmaze/select_region_item_if_facing.asm" ; 0x8de9
 
-%include "vmaze/api_idx_0002_QLLK.asm"     ; 0x8e6a
+%include "vmaze/select_cell_region_object.asm" ; 0x8e6a
 
 %include "vmaze/take_cell_exit_object.asm" ; 0x8f1a
 
@@ -414,11 +414,13 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 %include "shared/ovr/aztec_ovbgn.asm"           ; 0xac30
 
 __zdata_start:
-%include "vmaze/data/dseg_9098.asm"        ; 0xac6e
+%include "vmaze/data/maze_temp_filename.asm" ; 0xac6e
 
 %include "vmaze/data/maze_variant_filenames.asm" ; 0xac76
 
-%include "vmaze/data/dseg_917e.asm"        ; 0xad54
+%include "vmaze/data/maze_message_control_code_table.asm" ; 0xad54
+
+%include "vmaze/data/maze_message_word_separator.asm" ; 0xad5c
 
 %include "shared/data/overlay_saved_registers.asm" ; 0xad5e
 

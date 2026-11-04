@@ -12,7 +12,7 @@ extern int data_file_fd, loaded_sound_id, loaded_score_num,
 	npc_id_target;
 extern long pointer_image_zero, mouse_pointer_shape, pointer_image_two;
 extern long runtime_buffer_1k, runtime_buffer_4k_a, runtime_buffer_4k_b;
-extern char *maze_data, *maze_tables, *runtime_buffer_3k,
+extern char *maze_data, *maze_tables, *maze_change_log,
 	*floor_items;
 extern int maze_data_size, maze_tables_size, startup_check_stage, game_state;
 extern unsigned char startup_option_byte, hardware_mode_setting,
@@ -142,7 +142,7 @@ initialize_runtime_resources()
 	runtime_buffer_4k_b = 0L;
 	maze_data = 0;
 	maze_tables = 0;
-	runtime_buffer_3k = 0;
+	maze_change_log = 0;
 	floor_items = 0;
 	runtime_buffer_1k = app_malloc(1024L);
 	if (runtime_buffer_1k == 0L)
@@ -159,8 +159,8 @@ initialize_runtime_resources()
 	maze_tables = aztec_malloc(maze_tables_size);
 	if (maze_tables == 0)
 		release_and_exit(13);
-	runtime_buffer_3k = aztec_malloc(3072);
-	if (runtime_buffer_3k == 0)
+	maze_change_log = aztec_malloc(3072);
+	if (maze_change_log == 0)
 		release_and_exit(13);
 	floor_items = aztec_malloc(1024);
 	if (floor_items == 0)

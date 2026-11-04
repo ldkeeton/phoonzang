@@ -92,7 +92,7 @@ check_cell_objects:
     cmp ax, strict word 2            ; 0x8d2e
     jne short .forward6              ; 0x8d31
     push word [bp - 4]               ; 0x8d33
-    call claim_cell                  ; 0x8d36
+    call press_wall_button           ; 0x8d36
     pop cx                           ; 0x8d39
     ret                              ; 0x8d3a
 .forward6:

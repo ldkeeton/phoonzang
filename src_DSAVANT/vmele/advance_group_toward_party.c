@@ -2,7 +2,7 @@
    cell ahead is free, refilling the action table for its new cell */
 
 extern int cell_slot_ref[][3];		/* cells: group*10 + unit, 0 free */
-extern int cell_overlay_code[5][3][3];	/* per-cell tables; [3] steps a row */
+extern int next_cell_toward_party[3][3];
 extern char *battle_groups[];
 extern fill_action_slot_table(), run_party_screen_animation(),
 	wait_ticks_with_events();
@@ -22,8 +22,8 @@ int group;
 		cell_slot_ref[row][col] = 0;	/* release the cell it held */
 		battle_groups[group][idx * 44 + 42] = -1;
 		/* [3][row][col]: same column, one row nearer (row 0 stays) */
-		new_row = cell_overlay_code[3][row][col] / 10;
-		new_col = cell_overlay_code[3][row][col] % 10;
+		new_row = next_cell_toward_party[row][col] / 10;
+		new_col = next_cell_toward_party[row][col] % 10;
 		if (cell_slot_ref[new_row][new_col] == 0) {
 			cell_slot_ref[new_row][new_col] = group * 10 + idx;
 			battle_groups[group][idx * 44 + 42] = new_row * 10 + new_col;

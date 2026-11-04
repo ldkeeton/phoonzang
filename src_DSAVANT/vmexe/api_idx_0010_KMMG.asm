@@ -218,7 +218,7 @@ api_idx_0010_KMMG:
     mov ax, word [bp - 2]            ; 0x9c3e
     shl ax, 1                        ; 0x9c41
     mov bx, ax                       ; 0x9c43
-    mov cx, word [bx + cell_overlay_code + 0x50] ; 0x9c45
+    mov cx, word [bx + action_overlay_steps + 0x8] ; 0x9c45
     mov ax, 0                        ; 0x9c49
     sub ax, cx                       ; 0x9c4c
     jmp short .forward11             ; 0x9c4e
@@ -226,7 +226,7 @@ api_idx_0010_KMMG:
     mov ax, word [bp - 2]            ; 0x9c50
     shl ax, 1                        ; 0x9c53
     mov bx, ax                       ; 0x9c55
-    mov ax, word [bx + cell_overlay_code + 0x50] ; 0x9c57
+    mov ax, word [bx + action_overlay_steps + 0x8] ; 0x9c57
 .forward11:
     mov word [bp - 0xc], ax          ; 0x9c5b
     push word [bp - 0x10]            ; 0x9c5e

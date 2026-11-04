@@ -53,7 +53,7 @@ int group;
 		}
 		/* 32-byte name row: +0 singular, +16 plural */
 		aztec_strcat(buf, battle_group_ext[group]->name
-			[battle_groups[group]->name_row][fired == 1 ? 0 : 1]);
+			[battle_groups[group]->unidentified][fired == 1 ? 0 : 1]);
 		titlecase_string(buf);
 		len = aztec_strlen(buf);
 		buf[len] = ' ';

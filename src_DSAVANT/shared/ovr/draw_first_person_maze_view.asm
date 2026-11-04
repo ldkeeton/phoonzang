@@ -103,11 +103,11 @@ draw_first_person_maze_view:
     push ax
     mov ax, 0x48
     push ax
-    mov al, byte [bss_7b05]
+    mov al, byte [slot_recs + slot_rec_size*12 + slot_rec.glyph_y + 0x2]
     sub ah, ah
     inc ax
     push ax
-    mov al, byte [bss_7abe]
+    mov al, byte [slot_recs + slot_rec_size*12 + slot_rec.glyph_x + 0x4]
     sub ah, ah
     inc ax
     push ax
@@ -1945,7 +1945,7 @@ draw_first_person_maze_view.forward55:
     mov ax, 0x48
     push ax
     mov bx, word [bx + marker_string_frames]
-    mov al, byte [bx + bss_7b05 + 0x15c]
+    mov al, byte [bx + slot_recs + slot_rec_size*13 + slot_rec.glyph_y]
     sub ah, ah
     mov cx, word [bp - 6]
     shl cx, 1
@@ -1956,7 +1956,7 @@ draw_first_person_maze_view.forward55:
     shl ax, 1
     add ax, word [bx + marker_string_variants]
     mov bx, ax
-    mov al, byte [bx + bss_7b05 + 0x113]
+    mov al, byte [bx + slot_recs + slot_rec_size*13 + slot_rec.glyph_x]
     sub ah, ah
     mov bx, cx
     add ax, word [bx + marker_string_x_offsets]
@@ -1975,7 +1975,7 @@ draw_first_person_maze_view.forward55:
 draw_first_person_maze_view.forward56:
     inc word [bx + marker_string_frames]
 draw_first_person_maze_view.forward57:
-    mov al, byte [bss_7d3c]
+    mov al, byte [slot_recs + slot_rec_size*13 + slot_rec.last_glyph]
     sub ah, ah
     cmp ax, word [bx + marker_string_frames]
     jge short draw_first_person_maze_view.forward58
@@ -2024,7 +2024,7 @@ draw_first_person_maze_view.forward63:
     mov ax, 1
     cmp word [bx + marker_string_descending], byte 0
     je short draw_first_person_maze_view.forward64
-    mov al, byte [bss_7d3c]
+    mov al, byte [slot_recs + slot_rec_size*13 + slot_rec.last_glyph]
     sub ah, ah
 draw_first_person_maze_view.forward64:
     mov word [bx + marker_string_frames], ax
@@ -2143,7 +2143,7 @@ draw_first_person_maze_view.forward77:
     add ax, word [view_scan_depth]
     shl ax, 1
     mov bx, ax
-    cmp byte [bx + glyph_y_table + 0x7eb], 0
+    cmp byte [bx + slot_recs + slot_rec_size*9 + slot_rec.glyph_x], 0
     jne short draw_first_person_maze_view.forward78
     jmp near draw_first_person_maze_view.forward81
 draw_first_person_maze_view.forward78:
@@ -2169,7 +2169,7 @@ draw_first_person_maze_view.forward78:
     shl ax, 1
     add ax, dx
     mov bx, ax
-    mov al, byte [bx + glyph_y_table + 0x7eb]
+    mov al, byte [bx + slot_recs + slot_rec_size*9 + slot_rec.glyph_x]
     sub ah, ah
     mov word [bp - 6], ax
     cmp ax, 0xff
@@ -2200,7 +2200,7 @@ draw_first_person_maze_view.forward80:
     shl ax, 1
     add ax, word [view_scan_depth]
     mov bx, ax
-    mov al, byte [bx + glyph_y_table + 0x834]
+    mov al, byte [bx + slot_recs + slot_rec_size*9 + slot_rec.glyph_y]
     sub ah, ah
     push ax
     push word [bp - 6]

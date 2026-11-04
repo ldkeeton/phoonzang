@@ -5,7 +5,7 @@
 extern int call_set_text_pos(), draw_font_glyph();
 extern int draw_split_two_line_text();
 extern int call_set_text_color(), draw_number_field();
-extern unsigned char cell_overlay_code[];
+extern char item_type_counted[];
 
 draw_item_slot_label(member_index, cell_index, slot, label, color)
 int member_index, cell_index, color;
@@ -23,8 +23,8 @@ char *label;
 	draw_font_glyph(slot->glyph, 4);
 	draw_split_two_line_text(label, x + 14, y, color);
 
-	/* +0x58: overlay kind 1 also shows the slot's level. */
-	if (cell_overlay_code[slot->overlay + 88] == 1) {
+	/* A counted item type also shows the slot's level, its count. */
+	if (item_type_counted[slot->item_type] == 1) {
 		call_set_text_pos(x + 56, y + 6);
 		call_set_text_color(2, 0);
 		draw_number_field(slot->level, 3, 0);

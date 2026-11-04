@@ -116,7 +116,7 @@ choose_member_item_to_use:
     mov al, byte [bx + party_records + pc_rec.item_slots + 0x4] ; 0x34e2
     sub ah, ah                       ; 0x34e6
     mov bx, ax                       ; 0x34e8
-    cmp byte [bx + cell_overlay_code + 0x58], 1 ; 0x34ea
+    cmp byte [bx + item_type_counted], 1 ; 0x34ea
     jne short .forward4              ; 0x34ef
     mov ax, 0x248                    ; 0x34f1
     imul word [bp + 4]               ; 0x34f4
@@ -292,7 +292,7 @@ choose_member_item_to_use:
     imul word [bp + 4]               ; 0x367d
     mov si, ax                       ; 0x3680
     mov bx, word [battle_groups]     ; 0x3682
-    mov byte [bx + si + member_rec.f_001f], 0 ; 0x3686
+    mov byte [bx + si + member_rec.unit_target_group], 0 ; 0x3686
     mov al, byte [bp - 0x94]         ; 0x368a
     push ax                          ; 0x368e
     mov ax, 0x2c                     ; 0x368f

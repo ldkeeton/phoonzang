@@ -36,7 +36,7 @@ int announce;
 		/* type 7: 2-bit field at bit 8 + 2 * party_facing */
 		if (maze_tables->type[obj] == 7 &&
 		    get_bits(maze_tables->flags[obj], party_facing * 2 + 8, 2) == 2) {
-			claim_cell(obj);
+			press_wall_button(obj);
 			return;
 		}
 		if (maze_tables->type[obj] == 8 && check_type8_object(obj) == 1)

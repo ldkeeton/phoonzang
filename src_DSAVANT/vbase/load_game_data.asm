@@ -356,7 +356,7 @@ load_game_data:
     mov al, byte [preserved_header_install] ; 0x332f
     mov byte [install_mode], al      ; 0x3332
     mov al, byte [preserved_header_option_a] ; 0x3335
-    mov byte [startup_aux_option_a], al ; 0x3338
+    mov byte [difficulty_option], al ; 0x3338
     mov al, byte [preserved_header_option_b] ; 0x333b
     mov byte [startup_aux_option_b], al ; 0x333e
     mov al, byte [preserved_header_hardware] ; 0x3341
@@ -369,12 +369,12 @@ load_game_data:
     sub ah, ah                       ; 0x3356
     mov word [startup_option], ax    ; 0x3358
     mov ax, 6                        ; 0x335b
-    imul word [runtime_six_byte_count] ; 0x335e
+    imul word [maze_change_count]    ; 0x335e
     mov word [bp - 6], ax            ; 0x3362
     cmp ax, strict word 0            ; 0x3365
     jle short .forward23             ; 0x3368
     push ax                          ; 0x336a
-    push word [runtime_buffer_3k]    ; 0x336b
+    push word [maze_change_log]      ; 0x336b
     push word [bp - 0xa]             ; 0x336f
     call aztec_read                  ; 0x3372
     add sp, byte 6                   ; 0x3375

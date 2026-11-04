@@ -41,7 +41,7 @@ pick_spell_action:
     imul word [bp + 4]               ; 0x29a4
     mov si, ax                       ; 0x29a7
     mov bx, word [battle_groups]     ; 0x29a9
-    mov byte [bx + si + member_rec.f_001f], 0 ; 0x29ad
+    mov byte [bx + si + member_rec.unit_target_group], 0 ; 0x29ad
     mov al, byte [bp - 0xa]          ; 0x29b1
     push ax                          ; 0x29b4
     mov ax, 0x2c                     ; 0x29b5
@@ -63,7 +63,7 @@ pick_spell_action:
     imul word [bp + 4]               ; 0x29da
     mov si, ax                       ; 0x29dd
     mov bx, word [battle_groups]     ; 0x29df
-    mov byte [bx + si + member_rec.f_001f], 0 ; 0x29e3
+    mov byte [bx + si + member_rec.unit_target_group], 0 ; 0x29e3
 .forward5:
     mov ax, word [bp - 6]            ; 0x29e7
     xchg ah, al                      ; 0x29ea

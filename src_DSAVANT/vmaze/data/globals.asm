@@ -21,15 +21,15 @@ __zobss_91a8:  ; location_changed
     resb 0x0002
 __zobss_91aa:  ; maze_redraw_pending
     resb 0x0002
-__zobss_91ac:  ; bss_91ac
+__zobss_91ac:  ; blocked_move_message
     resb 0x0002
-__zobss_91ae:  ; bss_91ae
+__zobss_91ae:  ; rest_interrupt_flag
     resb 0x0002
 __zobss_91b0:  ; party_region_level_saved
     resb 0x0002
 __zobss_91b2:  ; maze_message_refresh_pending
     resb 0x0002
-__zobss_91b4:  ; bss_91b4
+__zobss_91b4:  ; floor_item_icon_shown
     resb 0x0002
 __zobss_91b6:  ; marker_string_y_offsets
     resb 0x0006

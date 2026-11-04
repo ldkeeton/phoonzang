@@ -245,7 +245,7 @@ string_loc_HILJ.back4:
     shl ax, 1                        ; 0x3875
     mov bx, ax                       ; 0x3877
     mov bx, word [bx + battle_groups] ; 0x3879
-    mov byte [bx + member_rec.name_row], 0 ; 0x387d
+    mov byte [bx + member_rec.unidentified], 0 ; 0x387d
     mov word [bp - 2], 0             ; 0x3882
     jmp near string_loc_HILJ.forward13 ; 0x3887
 string_loc_HILJ.back5:

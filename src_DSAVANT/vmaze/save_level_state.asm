@@ -43,7 +43,7 @@ save_level_state:
     push dx                          ; 0x6952
     push ax                          ; 0x6953
     push ds                          ; 0x6954
-    mov ax, current_map_block_b      ; 0x6955
+    mov ax, explored_cell_bitmap     ; 0x6955
     push ax                          ; 0x6958
     call app_memmove                 ; 0x6959
     add sp, byte 0xa                 ; 0x695c

@@ -36,15 +36,15 @@ api_idx_0024_NKNU:
     mov ax, 0x2c                     ; 0x464e
     imul word [bp - 4]               ; 0x4651
     mov si, ax                       ; 0x4654
-    mov bx, word [bss_848e]          ; 0x4656
-    mov ax, word [bx + si + rec_848e.f_0002] ; 0x465a
+    mov bx, word [battle_groups_6]   ; 0x4656
+    mov ax, word [bx + si + battle_groups_6_rec.f_0002] ; 0x465a
     cwd                              ; 0x465d
     add word [bp - 0x20], ax         ; 0x465e
     adc word [bp - 0x1e], dx         ; 0x4661
     inc word [bp - 4]                ; 0x4664
 .forward3:
-    mov bx, word [bss_848e]          ; 0x4667
-    mov al, byte [bx + rec_848e.f_01a1] ; 0x466b
+    mov bx, word [battle_groups_6]   ; 0x4667
+    mov al, byte [bx + battle_groups_6_rec.f_01a1] ; 0x466b
     sub ah, ah                       ; 0x466f
     cmp ax, word [bp - 4]            ; 0x4671
     jg short .back2                  ; 0x4674

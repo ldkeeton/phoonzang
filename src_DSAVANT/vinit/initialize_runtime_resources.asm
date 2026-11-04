@@ -373,7 +373,7 @@ initialize_runtime_resources:
     mov word [runtime_buffer_4k_b], 0 ; 0x074f
     mov word [maze_data], 0          ; 0x0755
     mov word [maze_tables], 0        ; 0x075b
-    mov word [runtime_buffer_3k], 0  ; 0x0761
+    mov word [maze_change_log], 0    ; 0x0761
     mov word [floor_items], 0        ; 0x0767
     mov ax, 0x400                    ; 0x076d
     mov dx, 0                        ; 0x0770
@@ -455,8 +455,8 @@ initialize_runtime_resources:
     push ax                          ; 0x0825
     call aztec_malloc                ; 0x0826
     pop cx                           ; 0x0829
-    mov word [runtime_buffer_3k], ax ; 0x082a
-    cmp word [runtime_buffer_3k], byte 0 ; 0x082d
+    mov word [maze_change_log], ax   ; 0x082a
+    cmp word [maze_change_log], byte 0 ; 0x082d
     jne short .forward22             ; 0x0832
     mov ax, 0xd                      ; 0x0834
     push ax                          ; 0x0837

@@ -28,7 +28,7 @@ jumptable_8978_case_1:
 jumptable_8978_case_2:
     cmp word [location_changed], byte 0 ; 0x88b5
     je short process_maze_object_events.forward2 ; 0x88ba
-    call show_region_message         ; 0x88bc
+    call spin_and_push_party         ; 0x88bc
 process_maze_object_events.forward2:
     jmp near jumptable_8978_case_0   ; 0x88bf
 jumptable_8978_case_3:
@@ -80,7 +80,7 @@ jumptable_8978_case_9:
     mov word [game_state], 0x1d      ; 0x8925
     jmp near jumptable_8978_case_0   ; 0x892b
 jumptable_8978_case_10:
-    call handle_region_flag_event    ; 0x892e
+    call change_cell_walls           ; 0x892e
     jmp near jumptable_8978_case_0   ; 0x8931
 jumptable_8978_case_11:
     call play_region_spell_sound     ; 0x8934
@@ -89,7 +89,7 @@ jumptable_8978_case_12:
     mov word [game_state], 0x1c      ; 0x893a
     jmp near jumptable_8978_case_0   ; 0x8940
 jumptable_8978_case_13:
-    call handle_region_level_event   ; 0x8943
+    call apply_region_hour_window    ; 0x8943
     jmp short jumptable_8978_case_0  ; 0x8946
 jumptable_8978_case_14:
     call update_region_quest_map_flags ; 0x8948
@@ -100,7 +100,7 @@ jumptable_8978_case_16:
     call handle_region_object_search ; 0x894f
     jmp short jumptable_8978_case_0  ; 0x8952
 jumptable_8978_case_17:
-    call handle_region_bit_8_event   ; 0x8954
+    call show_message_by_flag_tally  ; 0x8954
     jmp short jumptable_8978_case_0  ; 0x8957
 jumptable_8978_case_18:
     call store_party_region_level    ; 0x8959
@@ -110,16 +110,16 @@ jumptable_8978_case_19:
 jumptable_8978_case_20:
     jmp short jumptable_8978_case_0  ; 0x8960
 jumptable_8978_case_21:
-    call decode_region_map_location  ; 0x8962
+    call change_door_wall            ; 0x8962
     jmp short jumptable_8978_case_0  ; 0x8965
 jumptable_8978_case_22:
     call wait_then_handle_region_event ; 0x8967
     jmp short jumptable_8978_case_0  ; 0x896a
 jumptable_8978_case_23:
-    call handle_region_flag_3_event  ; 0x896c
+    call change_cell_kind            ; 0x896c
     jmp short jumptable_8978_case_0  ; 0x896f
 jumptable_8978_case_24:
-    call handle_region_flag_2_event  ; 0x8971
+    call set_region_flag_from_condition ; 0x8971
     jmp short jumptable_8978_case_0  ; 0x8974
 jumptable_8978_case_25:
     jmp short jumptable_8978_case_0  ; 0x8976

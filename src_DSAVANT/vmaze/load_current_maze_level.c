@@ -5,14 +5,14 @@
 
 extern int data_record_io();
 extern long app_memmove();
-extern int decode_maze_cell_records();
+extern int replay_maze_changes();
 extern int load_maze_resources();
 
 extern struct maze_cells *maze_data;
 extern struct maze_tables *maze_tables;
 extern int current_level;
 extern char far *runtime_buffer_4k_a, *runtime_buffer_4k_b;
-extern char current_map_block_a[], current_map_block_b[];
+extern char current_map_block_a[], explored_cell_bitmap[];
 extern int party_map_piece, party_cell_x, party_cell_y;
 extern int party_world_x, party_world_y;
 
@@ -26,9 +26,9 @@ load_current_maze_level()
 	app_memmove(runtime_buffer_4k_a + (current_level << 7),
 		(char far *)current_map_block_a, 128);
 	app_memmove(runtime_buffer_4k_b + (current_level << 7),
-		(char far *)current_map_block_b, 128);
+		(char far *)explored_cell_bitmap, 128);
 
-	decode_maze_cell_records();
+	replay_maze_changes();
 	party_world_x = maze_data->origin_x[party_map_piece] + party_cell_x;
 	party_world_y = maze_data->origin_y[party_map_piece] + party_cell_y;
 	load_maze_resources();

@@ -191,5 +191,49 @@ class DeriveTest(unittest.TestCase):
         self.assertEqual(parse_text(text).structs[ctype.key].size, 0x14)
 
 
+class ReadDestinationTest(unittest.TestCase):
+    def test_nested_call_arguments(self):
+        from lib.cdata.readers import _calls
+        text = 'aztec_read(fd, table[index(a, b)], sizeof(struct rec));'
+        self.assertEqual(list(_calls(text, ['aztec_read']))[0][1],
+                         ['fd', 'table[index(a, b)]', 'sizeof(struct rec)'])
+
+    def test_ordered_reads_skip_the_consumed_memory_run(self):
+        with tempfile.TemporaryDirectory() as root:
+            pathlib.Path(root, 'reader.c').write_text(
+                'extern char header[4], block_a[2], block_b[2], roads[2];\n'
+                'load() { aztec_read(fd, header, 4);\n'
+                'aztec_read(fd, block_a, 2); aztec_read(fd, block_b, 2);\n'
+                'aztec_read(fd, roads, 2); }')
+            parts = [{'size': 4}, {'memory': 'block_a', 'size': 4},
+                     {'size': 2}]
+            project = Project(root, {'data_files': {'GAME': {'parts': parts}}}, [])
+            self.assertEqual(project.destination('GAME', 2, parts[2], 2),
+                             ('roads', 'reader.c'))
+
+    def test_extern_uses_project_declarations_and_local_keeps_scope(self):
+        with tempfile.TemporaryDirectory() as root:
+            pathlib.Path(root, 'reader.c').write_text(
+                'extern char shared[];\n'
+                'load() { long local[16]; }')
+            project = Project(root, {}, [])
+            self.assertIsNone(project.declaration_scope('shared', 'reader.c'))
+            self.assertEqual(project.declaration_scope('local', 'reader.c'),
+                             'reader.c')
+
+    def test_resource_handle_connects_separate_sources(self):
+        with tempfile.TemporaryDirectory() as root:
+            pathlib.Path(root, 'open.c').write_text(
+                'open_file() { resource_fd = aztec_open(path("FILE.DBS", 0), 0); }')
+            pathlib.Path(root, 'read.c').write_text(
+                'extern int records[4];\n'
+                'load() { aztec_read(resource_fd, records, 8); }')
+            project = Project(root, {}, [])
+            self.assertEqual(project.destination('FILE.DBS', 0, {'size': 8}, 8),
+                             ('records', 'read.c'))
+            with self.assertRaisesRegex(ValueError, 'cannot determine'):
+                project.destination('OTHER.DBS', 0, {'size': 8}, 8)
+
+
 if __name__ == '__main__':
     unittest.main()

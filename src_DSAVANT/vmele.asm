@@ -61,9 +61,9 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "shared/ovr/check_monster_picture_space.asm" ; 0x0649
 
-%include "vmele/add_party_member.asm"      ; 0x07ad
+%include "vmele/add_monster_group.asm"     ; 0x07ad
 
-%include "vmele/copy_member_stats.asm"     ; 0x0c67
+%include "vmele/load_party_battle_group.asm" ; 0x0c67
 
 %include "vmele/fill_action_slot_table.asm" ; 0x0f95
 
@@ -75,11 +75,11 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "shared/ovr/try_raise_member_skill.asm" ; 0x16d1
 
-%include "vmele/roll_member_actions.asm"   ; 0x1713
+%include "vmele/identify_monster_groups.asm" ; 0x1713
 
 %include "vmele/setup_monster_pictures.asm" ; 0x17ad
 
-%include "vmele/api_idx_0014_LJNT.asm"     ; 0x1844
+%include "vmele/process_monster_groups.asm" ; 0x1844
 
 %include "vmele/party_screen.asm"          ; 0x1a16
 
@@ -97,7 +97,7 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "shared/ovr/draw_overlay_list_item_text.asm" ; 0x28a0
 
-%include "vmele/api_idx_0002_MTJS.asm"     ; 0x28fc
+%include "vmele/assign_monster_group_cell.asm" ; 0x28fc
 
 %include "vmele/claim_cell_for_group.asm"  ; 0x299f
 
@@ -117,7 +117,7 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "vmele/advance_melee_turn.asm"    ; 0x31a1
 
-%include "vmele/reset_party_actions.asm"   ; 0x331c
+%include "vmele/reset_battle_groups.asm"   ; 0x331c
 
 %include "vmele/setup_melee_party.asm"     ; 0x3390
 

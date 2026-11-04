@@ -136,7 +136,7 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "shared/ovr/show_centered_text_band.asm" ; 0x0764
 
-%include "shared/ovr/show_message.asm"     ; 0x081a
+%include "vmext/api_idx_0050_JOKU.asm"     ; 0x081a
 
 %include "vmext/loc_NHMQ.asm"              ; 0x0836
 

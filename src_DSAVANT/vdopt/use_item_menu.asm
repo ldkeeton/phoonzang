@@ -102,7 +102,7 @@ use_item_menu:
     mov al, byte [bx + party_records + pc_rec.item_slots + 0x4] ; 0x426c
     sub ah, ah                       ; 0x4270
     mov bx, ax                       ; 0x4272
-    cmp byte [bx + cell_overlay_code + 0x58], 1 ; 0x4274
+    cmp byte [bx + item_type_counted], 1 ; 0x4274
     jne short .forward4              ; 0x4279
     mov ax, 0x248                    ; 0x427b
     imul word [bp + 4]               ; 0x427e

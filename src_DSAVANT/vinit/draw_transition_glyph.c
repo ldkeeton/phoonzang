@@ -1,6 +1,6 @@
 /* Draw one glyph along its transition path. */
-extern unsigned char glyph_x_table_b[];
-extern unsigned char glyph_y_table_b[];
+#include "structs/slotrec.h"
+extern struct slot_rec slot_recs[];
 extern int call_draw_text();
 
 /* Draw one glyph at a position interpolated toward a fixed screen point. */
@@ -14,10 +14,10 @@ int progress;
 
 	text[0] = glyph;
 	text[1] = 0;
-	x = glyph_x_table_b[glyph * 2];
-	y = glyph_y_table_b[glyph];
+	x = slot_recs[15].glyph_x[glyph][0];
+	y = slot_recs[15].glyph_y[glyph];
 	if (progress != 0) {
-		/* Move each table coordinate toward the fixed endpoint by progress
+		/* Move each slot 15 coordinate toward the fixed endpoint by progress
 		   percent. */
 		x += (160 - x) * progress / 100;
 		y += (49 - y) * progress / 100;

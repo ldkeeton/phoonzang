@@ -35,8 +35,8 @@ struct item_record *weapon;
 
 	party_records[member_index].hand_attack[hand_index].pad0c =
 		weapon->hand_field0c;
-	/* Overlay code 4 has its own hit penalty and class adjustment. */
-	if (weapon->overlay == 4) {
+	/* Item type 4 has its own hit penalty and class adjustment. */
+	if (weapon->item_type == 4) {
 		/* This weapon stores a scaled negative hit adjustment. */
 		party_records[member_index].hand_attack[hand_index].hit_penalty =
 			0 - (weapon->hit_adjustment * 5);

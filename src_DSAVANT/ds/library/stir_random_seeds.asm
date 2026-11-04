@@ -16,7 +16,7 @@ stir_random_seeds:
     imul cx                          ; 0x3c27
     sub ax, bx                       ; 0x3c29
     jns short .forward1              ; 0x3c2b
-    add ax, glyph_y_table + 0x788    ; 0x3c2d
+    add ax, slot_recs + slot_rec_size*8 + slot_rec.range + 0x8e ; 0x3c2d
 .forward1:
     mov word [cs:random_seed_a - IMAGE_BASE], ax ; 0x3c30
     mov ax, word [cs:random_seed_b - IMAGE_BASE] ; 0x3c34
@@ -31,7 +31,7 @@ stir_random_seeds:
     imul cx                          ; 0x3c4a
     sub ax, bx                       ; 0x3c4c
     jns short .forward2              ; 0x3c4e
-    add ax, glyph_y_table + 0x7ae    ; 0x3c50
+    add ax, slot_recs + slot_rec_size*8 + slot_rec.pad_014c + 0xd ; 0x3c50
 .forward2:
     mov word [cs:random_seed_b - IMAGE_BASE], ax ; 0x3c53
     mov ax, word [cs:random_seed_c - IMAGE_BASE] ; 0x3c57
@@ -46,7 +46,7 @@ stir_random_seeds:
     imul cx                          ; 0x3c6d
     sub ax, bx                       ; 0x3c6f
     jns short .forward3              ; 0x3c71
-    add ax, glyph_y_table + 0x7be    ; 0x3c73
+    add ax, slot_recs + slot_rec_size*9 + slot_rec.action + 0x3 ; 0x3c73
 .forward3:
     mov word [cs:random_seed_c - IMAGE_BASE], ax ; 0x3c76
     pop dx                           ; 0x3c7a

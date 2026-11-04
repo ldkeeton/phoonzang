@@ -1,11 +1,10 @@
 /* queues the marker glyph string(s) selected by marker_mode as overlay
    items */
+#include "structs/slotrec.h"
 
 extern int marker_mode;
 extern int party_facing;
-extern unsigned char glyph_y_table[];
-extern unsigned char glyph_x_table[][2];
-extern unsigned char marker_y, marker_x;
+extern struct slot_rec slot_recs[];
 
 queue_marker_overlay()
 {
@@ -32,12 +31,13 @@ queue_marker_overlay()
 			variant = facing == 3;	/* second x-table column */
 			break;
 		}
-		add_overlay_item(27, 3, glyph_x_table[glyph[0]][variant] + 1,
-			glyph_y_table[glyph[0]] + 1, 72, 248, variant, 0, glyph);
+		add_overlay_item(27, 3, slot_recs[3].glyph_x[glyph[0]][variant] + 1,
+			slot_recs[3].glyph_y[glyph[0]] + 1, 72, 248, variant, 0, glyph);
 	}
-	if (marker_mode == -1) {	/* fixed position from marker_x/marker_y */
+	if (marker_mode == -1) {	/* slot 12 glyph 1's position, unadjusted */
 		glyph[0] = 1;
 		glyph[1] = 0;	/* NUL-terminate */
-		add_overlay_item(28, 12, marker_x, marker_y, 72, 248, 0, 0, glyph);
+		add_overlay_item(28, 12, slot_recs[12].glyph_x[1][0],
+			slot_recs[12].glyph_y[1], 72, 248, 0, 0, glyph);
 	}
 }

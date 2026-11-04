@@ -440,7 +440,7 @@ party_screen:
     mov ax, word [bp - 2]            ; 0x1e2a
     shl ax, 1                        ; 0x1e2d
     mov bx, ax                       ; 0x1e2f
-    push word [bx + bss_848e]        ; 0x1e31
+    push word [bx + battle_groups_6] ; 0x1e31
     push word [bx + battle_group_ext] ; 0x1e35
     call aztec_swapmem               ; 0x1e39
     add sp, byte 6                   ; 0x1e3c
@@ -451,7 +451,7 @@ party_screen:
     imul word [bp - 0xe]             ; 0x1e49
     mov si, ax                       ; 0x1e4c
     mov bx, word [battle_groups]     ; 0x1e4e
-    mov al, byte [bx + si + member_rec.f_001f] ; 0x1e52
+    mov al, byte [bx + si + member_rec.unit_target_group] ; 0x1e52
     sub ah, ah                       ; 0x1e55
     cmp ax, word [bp - 2]            ; 0x1e57
     jne short .forward22             ; 0x1e5a
@@ -464,7 +464,7 @@ party_screen:
     imul word [bp - 0xe]             ; 0x1e68
     mov si, ax                       ; 0x1e6b
     mov bx, word [battle_groups]     ; 0x1e6d
-    mov al, byte [bx + si + member_rec.f_001f] ; 0x1e71
+    mov al, byte [bx + si + member_rec.unit_target_group] ; 0x1e71
     sub ah, ah                       ; 0x1e74
     mov cx, word [bp - 2]            ; 0x1e76
     dec cx                           ; 0x1e79

@@ -12,7 +12,7 @@ find_maze_change:
     add ax, cx
     add ax, word [bp + 0xc]
     mov word [bp - 4], ax
-    mov ax, word [runtime_buffer_3k]
+    mov ax, word [maze_change_log]
     mov word [bp - 6], ax
     mov word [bp - 2], 0
     jmp short .forward4
@@ -46,7 +46,7 @@ find_maze_change:
     inc word [bp - 2]
 .forward4:
     mov ax, word [bp - 2]
-    cmp ax, word [runtime_six_byte_count]
+    cmp ax, word [maze_change_count]
     jl short .back1
     mov ax, 0xffff
     ret

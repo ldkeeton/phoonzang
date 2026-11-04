@@ -62,12 +62,12 @@ char *out;
 			action_slot_table[b][c][entry].roll = roll;
 		}
 		out[len] = slot_recs[rec].range[target].glyph;
-		/* kind 0x79 or 0x8d: forced[1] goes before this byte */
+		/* kind 0x79 or 0x8d: the slot's last glyph goes before this byte */
 		if (battle_groups[member]->kind == 121
 				|| battle_groups[member]->kind == 141) {
 			++len;
 			out[len] = out[len - 1];
-			out[len - 1] = slot_recs[rec].forced[1];
+			out[len - 1] = slot_recs[rec].last_glyph;
 		}
 		if (out[len] != 0)	/* skip zero bytes */
 			++len;

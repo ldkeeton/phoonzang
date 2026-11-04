@@ -14,21 +14,21 @@ extern int advance_maze_region();
 extern int update_region_quest_map_flags();
 extern int store_party_region_level();
 extern int run_region_keyed_action();
-extern int show_region_message();
+extern int spin_and_push_party();
 extern int find_region_item();
 extern int meet_region_npc();
 extern int process_region_flag_actions();
 extern int collect_region_flag_bits();
 extern int update_party_status_animation();
-extern int handle_region_flag_event();
+extern int change_cell_walls();
 extern int play_region_spell_sound();
-extern int handle_region_level_event();
+extern int apply_region_hour_window();
 extern int handle_region_object_search();
-extern int handle_region_bit_8_event();
-extern int decode_region_map_location();
+extern int show_message_by_flag_tally();
+extern int change_door_wall();
 extern int wait_then_handle_region_event();
-extern int handle_region_flag_3_event();
-extern int handle_region_flag_2_event();
+extern int change_cell_kind();
+extern int set_region_flag_from_condition();
 
 process_maze_object_events()
 {
@@ -49,7 +49,7 @@ process_maze_object_events()
 			break;
 		case 2:
 			if (location_changed != 0)
-				show_region_message();
+				spin_and_push_party();
 			break;
 		case 3:
 			find_region_item();
@@ -78,7 +78,7 @@ process_maze_object_events()
 			game_state = 29;
 			break;
 		case 10:
-			handle_region_flag_event();
+			change_cell_walls();
 			break;
 		case 11:
 			play_region_spell_sound();
@@ -87,7 +87,7 @@ process_maze_object_events()
 			game_state = 28;
 			break;
 		case 13:
-			handle_region_level_event();
+			apply_region_hour_window();
 			break;
 		case 14:
 			update_region_quest_map_flags();
@@ -98,7 +98,7 @@ process_maze_object_events()
 			handle_region_object_search();
 			break;
 		case 17:
-			handle_region_bit_8_event();
+			show_message_by_flag_tally();
 			break;
 		case 18:
 			store_party_region_level();
@@ -108,16 +108,16 @@ process_maze_object_events()
 		case 20:
 			break;
 		case 21:
-			decode_region_map_location();
+			change_door_wall();
 			break;
 		case 22:
 			wait_then_handle_region_event();
 			break;
 		case 23:
-			handle_region_flag_3_event();
+			change_cell_kind();
 			break;
 		case 24:
-			handle_region_flag_2_event();
+			set_region_flag_from_condition();
 			break;
 		case 25:
 			break;

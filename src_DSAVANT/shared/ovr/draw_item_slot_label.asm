@@ -59,7 +59,7 @@ draw_item_slot_label:
     mov al, byte [bx + 4]
     sub ah, ah
     mov bx, ax
-    cmp byte [bx + cell_overlay_code + 0x58], 1
+    cmp byte [bx + item_type_counted], 1
     jne short .return1
     mov ax, word [bp - 4]
     add ax, strict word 6

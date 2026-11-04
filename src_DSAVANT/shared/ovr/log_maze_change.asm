@@ -12,10 +12,10 @@ log_maze_change:
     mov word [bp - 2], ax
     cmp ax, strict word 0xffff
     jne short .forward1
-    mov ax, word [runtime_six_byte_count]
+    mov ax, word [maze_change_count]
     mov word [bp - 2], ax
-    inc word [runtime_six_byte_count]
-    mov ax, word [runtime_six_byte_count]
+    inc word [maze_change_count]
+    mov ax, word [maze_change_count]
     cmp ax, 0x200
     jl short .forward1
 .back1:
@@ -28,7 +28,7 @@ log_maze_change:
     mov ax, 6
     imul word [bp - 2]
     mov cx, ax
-    mov ax, word [runtime_buffer_3k]
+    mov ax, word [maze_change_log]
     add ax, cx
     mov word [bp - 4], ax
     mov al, byte [bp + 4]

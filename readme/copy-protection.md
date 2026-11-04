@@ -27,7 +27,7 @@ The game keeps the id of the current NPC in `npc_id` (DS:0x0e36).
 | Reader | Use |
 |---|---|
 | `vmnpc/ovmain` | reads it |
-| melee | passes it to `add_party_member` when an NPC joins |
+| melee | `setup_melee_party` loads it as the first monster group (`add_monster_group`) |
 | several overlays | test it against 0xe1 |
 
 ### How region events write the id
@@ -38,7 +38,9 @@ Region events never write `npc_id` directly. Instead they write through a pointe
 *npc_id_target = maze_tables->arg[party_region];   /* meet_region_npc */
 ```
 
-The other writers are `advance_maze_region` and `vmaze/api_idx_0022_LKUK`. Both sometimes use an id picked by `choose_region_npc`.
+The other writers are `advance_maze_region` and `run_maze_loop` (vmaze). Both sometimes use an id picked by `choose_region_npc`.
+
+`run_maze_loop` also keeps a dead debug key: unreachable code after case 3-5's `break` reads two digit keys and stores the number through `npc_id_target`. Its case label was removed, so no key reaches it (sidecar `force_code` 0x2bf7-0x2c43).
 
 ### Startup: everything points at the decoy
 

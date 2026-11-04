@@ -42,7 +42,7 @@ advance_group_toward_party:
     shl cx, 1                        ; 0x1218
     add ax, cx                       ; 0x121a
     mov bx, ax                       ; 0x121c
-    mov ax, word [bx + cell_overlay_code + 0x36] ; 0x121e
+    mov ax, word [bx + next_cell_toward_party] ; 0x121e
     mov cx, 0xa                      ; 0x1222
     cwd                              ; 0x1225
     idiv cx                          ; 0x1226

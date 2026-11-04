@@ -40,8 +40,8 @@ api_idx_0002_HKLS:
     push ax                          ; 0x2dd4
     call api_idx_0006_LIRP           ; 0x2dd5
     add sp, byte 0x12                ; 0x2dd8
-    mov bx, word [bss_848e]          ; 0x2ddb
-    cmp byte [bx + rec_848e.f_01a1], 0 ; 0x2ddf
+    mov bx, word [battle_groups_6]   ; 0x2ddb
+    cmp byte [bx + battle_groups_6_rec.f_01a1], 0 ; 0x2ddf
     jbe short .return1               ; 0x2de4
     push word [bp + 0x14]            ; 0x2de6
     push word [bp + 0x12]            ; 0x2de9

@@ -285,7 +285,7 @@ api_idx_000c_POTM:
     mov ax, 0x15e                    ; 0x0481
     imul word [bp + 4]               ; 0x0484
     mov bx, ax                       ; 0x0487
-    mov al, byte [bx + slot_recs + slot_rec.forced + 0x1] ; 0x0489
+    mov al, byte [bx + slot_recs + slot_rec.last_glyph] ; 0x0489
     mov bx, word [bp + 0xc]          ; 0x048d
     mov si, word [bp - 0xc]          ; 0x0490
     mov byte [bx + si - 1], al       ; 0x0493

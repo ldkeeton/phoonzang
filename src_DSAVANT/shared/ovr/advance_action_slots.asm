@@ -288,7 +288,7 @@ advance_action_slots:
     mov ax, 0x15e
     imul word [bp - 2]
     mov bx, ax
-    mov al, byte [bx + slot_recs + slot_rec.forced + 0x1]
+    mov al, byte [bx + slot_recs + slot_rec.last_glyph]
     mov bx, word [bp + 0xe]
     mov si, word [bp - 0xe]
     mov byte [bx + si - 1], al

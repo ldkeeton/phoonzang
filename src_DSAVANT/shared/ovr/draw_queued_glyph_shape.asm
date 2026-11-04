@@ -52,7 +52,7 @@ draw_queued_glyph_shape:
     push word [bx + 6]
     push word [bx + 4]
     mov bx, word [bp - 2]
-    mov al, byte [bx + glyph_y_table + 0x15e]
+    mov al, byte [bx + slot_recs + slot_rec_size*4 + slot_rec.glyph_y]
     sub ah, ah
     add ax, word [bp - 0xa]
     push ax
@@ -77,7 +77,7 @@ draw_queued_glyph_shape:
     pop ax
     add ax, cx
     mov bx, ax
-    mov al, byte [bx + glyph_y_table + 0x115]
+    mov al, byte [bx + slot_recs + slot_rec_size*4 + slot_rec.glyph_x]
     sub ah, ah
     mov cx, ax
     pop ax
@@ -157,7 +157,7 @@ draw_queued_glyph_shape:
     pop ax
     add ax, cx
     mov bx, ax
-    mov al, byte [bx + glyph_y_table + 0x115]
+    mov al, byte [bx + slot_recs + slot_rec_size*4 + slot_rec.glyph_x]
     sub ah, ah
     push ax
     mov bx, word [bp + 4]

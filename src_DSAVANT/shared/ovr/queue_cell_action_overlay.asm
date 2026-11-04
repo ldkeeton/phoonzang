@@ -163,8 +163,8 @@ queue_cell_action_overlay:
     mov word [bp - 0x10], ax
     cmp word [monster_group_count], byte 1
     jne short .forward8
-    mov bx, word [party_char_hi]
-    cmp byte [bx + party_char_hi_rec.f_01a1], 1
+    mov bx, word [battle_groups_1]
+    cmp byte [bx + battle_groups_1_rec.f_01a1], 1
     jne short .forward8
     cmp word [bp + 4], byte 0
     jne short .forward8

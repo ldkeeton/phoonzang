@@ -13,8 +13,8 @@ extern char game_load_path[], selected_game_filename[],
 	selected_game_directory[];
 extern char game_data_drive[], selected_game_drive[],
 	data_path_prefixes[4][20];
-extern int runtime_six_byte_count, floor_item_count;
-extern char *runtime_buffer_3k, *floor_items;
+extern int maze_change_count, floor_item_count;
+extern char *maze_change_log, *floor_items;
 extern char far (*runtime_buffer_4k_a)[128], (*runtime_buffer_4k_b)[128];
 extern char game_block_a[], game_block_b[];
 extern int party_world_x, party_world_y, party_cell_x, party_cell_y;
@@ -33,7 +33,7 @@ extern int party_char_count;
 extern long aztec_lseek();
 
 extern char ending_save_filename[], current_map_block_a[],
-	current_map_block_b[];
+	explored_cell_bitmap[];
 extern struct saved_region_blocks party_region;
 
 save_game_data(save_mode)
@@ -102,7 +102,7 @@ int save_mode;
 		draw_message_box(saving_text, 3, 97, 36, 18, 13, 1);
 		app_memmove((char far *)current_map_block_a,
 					runtime_buffer_4k_a[current_level], 128);
-		app_memmove((char far *)current_map_block_b,
+		app_memmove((char far *)explored_cell_bitmap,
 					runtime_buffer_4k_b[current_level], 128);
 		aztec_movmem(party_region.state[current_level],
 					 scenario_header_data.region_state[current_level], 16);
@@ -115,9 +115,9 @@ int save_mode;
 			prompt_disk_swap(game_data_drive, disk_number, keep_disk, 1);
 		return -1;
 	}
-	if ((byte_count = 6 * runtime_six_byte_count) > 0) {
+	if ((byte_count = 6 * maze_change_count) > 0) {
 		/* variable record block */
-		if ((write_count = aztec_write(fd, runtime_buffer_3k, byte_count)) <=
+		if ((write_count = aztec_write(fd, maze_change_log, byte_count)) <=
 			0) {
 			show_load_disk_error(error_text);
 			aztec_close(fd);

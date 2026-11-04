@@ -37,8 +37,9 @@ struct item_record {
 					   [6] is the base critical chance */
 	char pad32[5];				/* +0x32 through +0x36 */
 	unsigned char slot_flags;		/* +0x37: translated to the slot's flags */
-	unsigned char overlay;		/* +0x38: copied to the slot; 4 is special
-					   to set_party_hand_attack */
+	unsigned char item_type;		/* +0x38: copied to the slot; indexes
+					   item_type_counted; 4 is special to
+					   set_party_hand_attack */
 	unsigned char glyph;			/* +0x39: icon; also indexes the generic
 					   item names at MSG_DAGGER_6000 */
 	unsigned char page_attr;		/* +0x3a: kept in item_slot_attr */

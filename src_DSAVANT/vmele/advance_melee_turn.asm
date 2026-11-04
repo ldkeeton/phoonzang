@@ -3,7 +3,7 @@ advance_melee_turn:
     mov ax, 0xffaa                   ; 0x31a1
     call aztec_csav                  ; 0x31a4
     call tick_party_combatants       ; 0x31a7
-    call api_idx_0014_LJNT           ; 0x31aa
+    call process_monster_groups      ; 0x31aa
     mov ax, 6                        ; 0x31ad
     push ax                          ; 0x31b0
     call tick_monster_group          ; 0x31b1
@@ -16,7 +16,7 @@ advance_melee_turn:
     imul word [bp - 2]               ; 0x31c2
     mov si, ax                       ; 0x31c5
     mov bx, word [battle_groups]     ; 0x31c7
-    cmp byte [bx + si + member_rec.f_001f], 1 ; 0x31cb
+    cmp byte [bx + si + member_rec.unit_target_group], 1 ; 0x31cb
     jb short .forward1               ; 0x31cf
     mov al, byte [bx + si + 0x1f]    ; 0x31d1
     sub ah, ah                       ; 0x31d4

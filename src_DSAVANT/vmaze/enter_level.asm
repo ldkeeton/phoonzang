@@ -43,7 +43,7 @@ enter_level:
     push ax                          ; 0x0d29
     mov ax, 0x80                     ; 0x0d2a
     push ax                          ; 0x0d2d
-    mov ax, bss_8c7e                 ; 0x0d2e
+    mov ax, maze_object_cell_bitmap  ; 0x0d2e
     push ax                          ; 0x0d31
     call aztec_setmem                ; 0x0d32
     add sp, byte 6                   ; 0x0d35
@@ -92,7 +92,7 @@ enter_level:
     pop ax                           ; 0x0da7
     add ax, cx                       ; 0x0da8
     push ax                          ; 0x0daa
-    mov ax, bss_8c7e                 ; 0x0dab
+    mov ax, maze_object_cell_bitmap  ; 0x0dab
     push ax                          ; 0x0dae
     call set_bitmap_bit              ; 0x0daf
     add sp, byte 6                   ; 0x0db2

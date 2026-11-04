@@ -18,7 +18,7 @@ extern int map_floor_glyphs[][18], map_ns_wall_glyphs[][18];
 extern int map_ew_wall_glyphs[][18], map_object_marks[][18];
 extern struct maze_tables *maze_tables;
 extern struct maze_cells *maze_data;
-extern char current_map_block_b[];
+extern char explored_cell_bitmap[];
 extern int current_level, maze_variant;
 
 build_map_view_cell(world_x, world_y, grid_x, grid_y, spell_mode)
@@ -63,7 +63,7 @@ int spell_mode;
 
 	/* Flatten the map cell index; each piece has 64 cells. */
 	cell_index = map_piece * 64 + map_y * 8 + map_x;
-	if (spell_mode == 0 && !test_bit(current_map_block_b, cell_index)) {
+	if (spell_mode == 0 && !test_bit(explored_cell_bitmap, cell_index)) {
 		map_floor_glyphs[grid_x][grid_y] = -1;
 		return;
 	}

@@ -1,7 +1,7 @@
 """Data-file layouts derived from the code that reads the files.
 
-A part of a data file names what the code reads it into (``"into"``), and
-its type follows from the project, never from a hand-written layout:
+A part's destination is recovered from the code's resource-reader calls.
+Its type follows from the project:
 
 1. the variable's C declarations in ``src_<project>/`` (``extern struct
    path_edge path_edges[];``, a function's local array, an anonymous
@@ -38,7 +38,8 @@ _LONG = scalar_type(['long'])
 
 
 def _strip_comments(text):
-    return re.sub(r'/\*.*?\*/', ' ', text, flags=re.S)
+    return re.sub(r'/\*.*?\*/|//[^\n]*',
+                  lambda m: ' ' + '\n' * m[0].count('\n'), text, flags=re.S)
 
 
 def _statement_at(text, at):
@@ -131,6 +132,7 @@ class Project:
     """The code a data layout is derived from."""
 
     def __init__(self, src_root, sidecar, include_dirs, layouts=None):
+        self.data_files = sidecar.get("data_files", {})
         self.src_root = src_root
         self.include_dirs = include_dirs
         self.layouts = layouts or {}
@@ -143,6 +145,22 @@ class Project:
                     entry = {'name': entry}
                 table[int(key, 16)] = (entry['name'], entry.get('note'))
             self.names[binary] = table
+
+    def destination(self, filename, index, part, remaining):
+        """Recover a destination from the project's resource-reader calls."""
+        from .readers import destination
+        return destination(self, filename, index, part, remaining)
+
+    def declaration_scope(self, name, source):
+        """Keep locals scoped, while externs use the best project declaration."""
+        for path, _raw, text in self._files():
+            if os.path.relpath(path, self.src_root) != source:
+                continue
+            for match in re.finditer(rf'\b{re.escape(name)}\b', text):
+                statement = _statement_at(text, match.start())
+                if statement and re.match(r'extern\b', statement):
+                    return None
+        return source
 
     # ── C declarations ──────────────────────────────────────────────────────
     def _files(self):

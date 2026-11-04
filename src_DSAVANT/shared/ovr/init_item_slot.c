@@ -31,7 +31,7 @@ int identified;
 		cell->level = requested_level;
 
 	cell->item_id = item_number;
-	cell->overlay = item.overlay;
+	cell->item_type = item.item_type;
 	cell->glyph = item.glyph;
 	cell->weight = item.weight;
 	cell->resist_bonus[0] = item.resist_bonus[0];

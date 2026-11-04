@@ -10,8 +10,8 @@ extern int selected_item_slot;			/* selected item slot, -1 for none */
 extern int selected_item_record;		/* selected item record */
 extern long battle_experience;			/* experience earned from kills this battle */
 
-extern reset_party_actions(), add_party_member(), roll_member_actions(),
-	copy_member_stats();
+extern reset_battle_groups(), add_monster_group(), identify_monster_groups(),
+	load_party_battle_group();
 
 setup_melee_party()
 {
@@ -20,10 +20,10 @@ setup_melee_party()
 	battle_experience = 0;
 	if (npc_id == 225)		/* 0xe1: special character record */
 		party_entry_flag = 1;
-	reset_party_actions();
-	add_party_member(npc_id, 1);	/* record into party slot 1 */
+	reset_battle_groups();
+	add_monster_group(npc_id, 1);	/* the met creature is battle group 1 */
 	selected_item_record = battle_group_ext_1[party_entry_mode + 168];
 	selected_item_slot = -1;			/* no item slot selected */
-	roll_member_actions();
-	copy_member_stats();
+	identify_monster_groups();
+	load_party_battle_group();
 }

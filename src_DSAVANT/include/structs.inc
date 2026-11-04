@@ -131,7 +131,8 @@ struc slot_rec
     .pad_0145: resb 1
     .cell_ofs: resb 6
     .pad_014c: resb 15
-    .forced: resb 3
+    .forced: resb 1
+    .last_glyph: resb 2
 endstruc
 
 ; records at DS 0x8322
@@ -169,7 +170,7 @@ struc member_rec
     .f_001b: resb 1
     .f_001c: resb 2
     .f_001e: resb 1
-    .f_001f: resb 1
+    .unit_target_group: resb 1
     .f_0020: resb 1
     .f_0021: resb 1
     .unit_state: resb 1
@@ -192,19 +193,19 @@ struc member_rec
     .f_019d: resb 1
     .kind: resb 1
     .slot: resb 1
-    .name_row: resb 1
+    .unidentified: resb 1
     .unit_count: resb 1
     .f_01a2: resb 1
 endstruc
 
 ; records pointed at by DS 0x8484
-struc party_char_hi_rec
+struc battle_groups_1_rec
     .pad_0000: resb 417
     .f_01a1: resb 1
 endstruc
 
 ; records pointed at by DS 0x848e
-struc rec_848e
+struc battle_groups_6_rec
     .pad_0000: resb 2
     .f_0002: resb 415
     .f_01a1: resb 1
@@ -228,8 +229,9 @@ struc member_ext
     .f_009a: resb 2
     .f_009c: resb 1
     .f_009d: resb 8
-    .f_00a5: resb 7
-    .f_00ac: resb 2
+    .f_00a5: resb 5
+    .companion_id: resb 2
+    .companion_chance: resb 2
     .f_00ae: resb 2
     .f_00b0: resb 1
     .f_00b1: resb 1
@@ -240,7 +242,7 @@ struc member_ext
     .f_00cc: resb 10
     .f_00d6: resb 1
     .kind: resb 1
-    .f_00d8: resb 1
+    .sound_id: resb 1
     .f_00d9: resb 1
     .f_00da: resb 1
     .f_00db: resb 1

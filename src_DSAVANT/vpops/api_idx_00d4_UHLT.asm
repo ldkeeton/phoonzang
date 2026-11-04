@@ -201,7 +201,7 @@ api_idx_00d4_UHLT:
     imul word [bp - 6]               ; 0x3911
     mov si, ax                       ; 0x3914
     mov bx, word [battle_groups]     ; 0x3916
-    cmp byte [bx + si + member_rec.f_001f], 1 ; 0x391a
+    cmp byte [bx + si + member_rec.unit_target_group], 1 ; 0x391a
     jb short .forward13              ; 0x391e
     mov al, byte [bx + si + 0x1f]    ; 0x3920
     sub ah, ah                       ; 0x3923
@@ -422,7 +422,7 @@ api_idx_00d4_UHLT:
     imul word [bp - 6]               ; 0x3b40
     mov si, ax                       ; 0x3b43
     mov bx, word [battle_groups]     ; 0x3b45
-    mov al, byte [bx + si + member_rec.f_001f] ; 0x3b49
+    mov al, byte [bx + si + member_rec.unit_target_group] ; 0x3b49
     sub ah, ah                       ; 0x3b4c
     mov cx, word [bp - 0xb2]         ; 0x3b4e
     shl cx, 1                        ; 0x3b52
@@ -459,7 +459,7 @@ api_idx_00d4_UHLT:
     imul word [bp - 6]               ; 0x3bad
     mov si, ax                       ; 0x3bb0
     mov bx, word [battle_groups]     ; 0x3bb2
-    mov al, byte [bx + si + member_rec.f_001f] ; 0x3bb6
+    mov al, byte [bx + si + member_rec.unit_target_group] ; 0x3bb6
     sub ah, ah                       ; 0x3bb9
     push ax                          ; 0x3bbb
     call api_idx_0054_NQHV           ; 0x3bbc
@@ -529,7 +529,7 @@ api_idx_00d4_UHLT:
     mov si, ax                       ; 0x3c50
     mov bx, word [battle_groups]     ; 0x3c52
     pop ax                           ; 0x3c56
-    mov byte [bx + si + member_rec.f_001f], al ; 0x3c57
+    mov byte [bx + si + member_rec.unit_target_group], al ; 0x3c57
     mov ax, 0                        ; 0x3c5a
     push ax                          ; 0x3c5d
     call api_idx_0054_NQHV           ; 0x3c5e
@@ -692,7 +692,7 @@ api_idx_00d4_UHLT.forward44:
     imul word [bp - 6]               ; 0x3dea
     mov si, ax                       ; 0x3ded
     mov bx, word [battle_groups]     ; 0x3def
-    mov al, byte [bx + si + member_rec.f_001f] ; 0x3df3
+    mov al, byte [bx + si + member_rec.unit_target_group] ; 0x3df3
     sub ah, ah                       ; 0x3df6
     mov cx, word [bp - 0xb2]         ; 0x3df8
     shl cx, 1                        ; 0x3dfc
@@ -895,7 +895,7 @@ api_idx_00d4_UHLT.back10:
     imul word [bp - 0x9a]            ; 0x3fd7
     mov si, ax                       ; 0x3fdb
     mov bx, word [battle_groups]     ; 0x3fdd
-    cmp byte [bx + si + member_rec.f_001f], 0 ; 0x3fe1
+    cmp byte [bx + si + member_rec.unit_target_group], 0 ; 0x3fe1
     jbe short api_idx_00d4_UHLT.forward54 ; 0x3fe5
     mov al, byte [bx + si + 0x1f]    ; 0x3fe7
     sub ah, ah                       ; 0x3fea
@@ -1014,7 +1014,7 @@ api_idx_00d4_UHLT.forward59:
     imul word [bp - 6]               ; 0x40fb
     mov si, ax                       ; 0x40fe
     mov bx, word [battle_groups]     ; 0x4100
-    mov al, byte [bx + si + member_rec.f_001f] ; 0x4104
+    mov al, byte [bx + si + member_rec.unit_target_group] ; 0x4104
     sub ah, ah                       ; 0x4107
     mov word [bp - 0x9a], ax         ; 0x4109
     cmp ax, strict word 1            ; 0x410d
@@ -1325,7 +1325,7 @@ api_idx_00d4_UHLT.back14:
     imul word [bp - 0x9a]            ; 0x4409
     mov si, ax                       ; 0x440d
     mov bx, word [battle_groups]     ; 0x440f
-    cmp byte [bx + si + member_rec.f_001f], 0 ; 0x4413
+    cmp byte [bx + si + member_rec.unit_target_group], 0 ; 0x4413
     jbe short api_idx_00d4_UHLT.forward79 ; 0x4417
     mov al, byte [bx + si + 0x1f]    ; 0x4419
     sub ah, ah                       ; 0x441c

@@ -26,7 +26,6 @@
       "note": "the game a new party starts in (load_game_data, load_mode 0)",
       "parts": [
         {
-          "into": "scenario_header_data",
           "size": 844,
           "note": "the scenario header, as SCENARIO.HDR"
         },
@@ -37,12 +36,10 @@
           "note": "per map, the two 128-byte blocks read into game_block_a/b and moved to runtime_buffer_4k_a/b"
         },
         {
-          "into": "loaded_game_state",
           "size": 76,
           "note": "party position, time and status timers"
         },
         {
-          "into": "path_edges",
           "size": 128,
           "note": "the roads roaming NPCs plan over",
           "field_labels": {
@@ -51,14 +48,12 @@
           }
         },
         {
-          "into": "faction_attitudes",
           "size": 144,
           "record": 12,
           "note": "row: faction; column: the faction it feels about",
           "element_labels": "MSG_FACTION_NAME_BASE"
         },
         {
-          "into": "location_records",
           "size": 104,
           "element_labels": "MSG_LOCATION_NAME_BASE",
           "field_labels": {
@@ -67,13 +62,11 @@
           }
         },
         {
-          "into": "slot_event_logs",
           "size": 330,
           "note": "five most recent events per NPC",
           "element_labels": "MSG_SLOT_NAME_BASE"
         },
         {
-          "into": "slot_records",
           "size": 836,
           "note": "the roaming NPCs; slot 21 is the party",
           "element_labels": "MSG_SLOT_NAME_BASE",
@@ -85,7 +78,6 @@
           }
         },
         {
-          "into": "quest_maps",
           "size": 66,
           "element_labels": "MSG_MAP_NAME_BASE",
           "field_labels": {
@@ -99,15 +91,13 @@
       "note": "a saved game (load_game_data, load_mode 1); its record counts are not stored in the file",
       "parts": [
         {
-          "into": "scenario_header_data",
           "size": 844,
           "note": "the scenario header, as SCENARIO.HDR"
         },
         {
-          "into": "runtime_buffer_3k",
           "size": 66,
           "record": 6,
-          "note": "runtime_six_byte_count 6-byte records (log_maze_change)"
+          "note": "maze_change_count struct maze_change records (log_maze_change)"
         },
         {
           "memory": "game_block_a",
@@ -116,12 +106,10 @@
           "note": "per map, the two 128-byte blocks read into game_block_a/b and moved to runtime_buffer_4k_a/b"
         },
         {
-          "into": "loaded_game_state",
           "size": 76,
           "note": "party position, time and status timers"
         },
         {
-          "into": "path_edges",
           "size": 128,
           "note": "the roads roaming NPCs plan over",
           "field_labels": {
@@ -130,14 +118,12 @@
           }
         },
         {
-          "into": "faction_attitudes",
           "size": 144,
           "record": 12,
           "note": "row: faction; column: the faction it feels about",
           "element_labels": "MSG_FACTION_NAME_BASE"
         },
         {
-          "into": "location_records",
           "size": 104,
           "element_labels": "MSG_LOCATION_NAME_BASE",
           "field_labels": {
@@ -146,13 +132,11 @@
           }
         },
         {
-          "into": "slot_event_logs",
           "size": 330,
           "note": "five most recent events per NPC",
           "element_labels": "MSG_SLOT_NAME_BASE"
         },
         {
-          "into": "slot_records",
           "size": 836,
           "note": "the roaming NPCs; slot 21 is the party",
           "element_labels": "MSG_SLOT_NAME_BASE",
@@ -164,7 +148,6 @@
           }
         },
         {
-          "into": "quest_maps",
           "size": 66,
           "element_labels": "MSG_MAP_NAME_BASE",
           "field_labels": {
@@ -173,11 +156,9 @@
           }
         },
         {
-          "into": "code_characters",
           "size": 100
         },
         {
-          "into": "loaded_party_member",
           "count": 6,
           "note": "loaded_game_state.member_count records, copied to party_records"
         }
@@ -187,7 +168,6 @@
       "note": "read over scenario_header_data (load_game_data)",
       "parts": [
         {
-          "into": "scenario_header_data",
           "size": 844
         }
       ]
@@ -214,7 +194,6 @@
       "note": "the message directory, read over message_directory (initialize_runtime_resources); find_message_record searches it",
       "parts": [
         {
-          "into": "message_directory",
           "record": 11774,
           "count": 1
         }
@@ -224,7 +203,6 @@
       "note": "1K message blocks, read into message_block_buffer (load_message_block); each record is a length byte, a character count and Huffman bits (unpack_record)",
       "parts": [
         {
-          "into": "message_block_buffer",
           "record": 1024,
           "records": "messages"
         }
@@ -249,7 +227,6 @@
           "size": 24
         },
         {
-          "into": "party_records",
           "count": 16,
           "element_labels": "text"
         }
@@ -259,8 +236,6 @@
       "note": "the records data_record_io reads: type t starts at record_base[t] (DISK.HDR), record_size[t] bytes each (MASTER.HDR)",
       "parts": [
         {
-          "into": "experience_thresholds",
-          "in": "vbase/read_class_experience_threshold.c",
           "record": 64,
           "note": "type 0, per class: experience for levels 2 to 17",
           "element_labels": "MSG_CLASS_BASE",
@@ -274,21 +249,18 @@
           "count": 600
         },
         {
-          "into": "maze_data",
           "record": 2768,
           "note": "type 2, per level (load_current_maze_level)",
           "count": 32
         },
         {
-          "into": "maze_tables",
           "record": 2896,
           "note": "type 3, per level (load_current_maze_level)",
           "count": 32
         },
         {
-          "into": "party_char_ext",
           "record": 232,
-          "note": "type 4 (add_party_member)",
+          "note": "type 4: monster records, struct member_ext (add_monster_group)",
           "element_labels": "text",
           "count": 250
         },
@@ -312,13 +284,11 @@
           "count": 200
         },
         {
-          "into": "slot_recs",
           "record": 350,
           "note": "type 8 (load_monster_picture)",
           "count": 96
         },
         {
-          "into": "sound_slot_info",
           "record": 12,
           "note": "type 9 (load_sound_file)",
           "count": 64
@@ -781,10 +751,10 @@
         "maze_cells": {"at": "0e14", "size": 2352, "fields": {"90": {"name": "wall_a", "size": 512}, "290": {"name": "wall_b", "size": 512}, "490": {"name": "origin_x", "size": 16}, "4a0": {"name": "origin_y", "size": 16}, "4b0": {"name": "cell_kind", "size": 768}, "7b0": {"name": "cell_direction", "size": 256}, "8b0": {"name": "cell_flags", "size": 128}}},
         "sound_slot_info_rec": {"at": "5576", "size": 12, "count": 17, "fields": {"0": {"name": "alias_num", "size": 2}, "2": {"name": "pad_0002", "size": 2}, "4": {"name": "size", "size": 4}, "8": {"name": "rate", "size": 2}, "a": {"name": "volume", "size": 1}, "b": {"name": "play_flags", "size": 1}}},
         "pc_rec": {"at": "5bf4", "size": 584, "count": 6, "fields": {"0": {"name": "name", "size": 8}, "8": {"name": "age_days", "size": 4}, "c": {"name": "experience", "size": 4}, "10": {"name": "marks", "size": 4}, "14": {"name": "gold", "size": 4}, "18": {"name": "hp", "size": 4}, "1c": {"name": "stamina", "size": 4}, "20": "carried_weight", "22": "carry_capacity", "24": "level", "26": "deaths", "28": {"name": "realm_points", "size": 24}, "40": {"name": "item_slots", "size": 240}, "130": {"name": "hand_attack", "size": 36}, "154": {"name": "equipped", "size": 8}, "15c": {"name": "spell_school", "size": 4}, "166": {"name": "status", "size": 10}, "170": {"name": "stat", "size": 8}, "178": {"name": "skills", "size": 34}, "19a": {"name": "base_resist", "size": 14}, "1a8": {"name": "resist", "size": 14}, "1b6": {"name": "armor_class", "size": 8}, "236": "kind", "237": "race", "238": "gender", "239": "profession", "23a": "rank", "23b": "state", "23c": "hp_regen", "23d": "hp_drain", "23e": "poison_strength", "23f": "stamina_drain", "243": "adjusted_stat4", "244": "adjusted_stat5", "245": "stat5_plus_power", "247": "power_floor"}},
-        "slot_rec": {"at": "6a1a", "fields": {"0": {"name": "first", "size": 4}, "4": {"name": "count", "size": 4}, "8": {"name": "action", "size": 10}, "12": {"name": "action_rand", "size": 10}, "26": {"name": "target", "size": 10}, "30": {"name": "target_rand", "size": 8}, "38": {"name": "glyph_x", "size": 72}, "81": {"name": "glyph_y", "size": 36}, "a5": {"name": "range", "size": 160}, "146": {"name": "cell_ofs", "size": 6}, "15b": {"name": "forced", "size": 3}}},
+        "slot_rec": {"at": "6a1a", "size": 350, "count": 18, "fields": {"0": {"name": "first", "size": 4}, "4": {"name": "count", "size": 4}, "8": {"name": "action", "size": 10}, "12": {"name": "action_rand", "size": 10}, "26": {"name": "target", "size": 10}, "30": {"name": "target_rand", "size": 8}, "38": {"name": "glyph_x", "size": 72}, "81": {"name": "glyph_y", "size": 36}, "a5": {"name": "range", "size": 160}, "146": {"name": "cell_ofs", "size": 6}, "15b": "forced", "15c": "last_glyph"}},
         "action_slot": {"at": "8322", "size": 3, "fields": {"0": "action", "1": "target", "2": "roll"}},
-        "member_rec": {"at": "8482", "fields": {"0": {"name": "unit_level", "size": 2}, "2": {"name": "unit_hp", "size": 2}, "4": {"name": "unit_hp_max", "size": 2}, "6": {"name": "unit_stamina", "size": 2}, "8": {"name": "unit_stamina_max", "size": 2}, "e": {"name": "unit_status", "size": 10}, "22": "unit_state", "23": "unit_poison_strength", "24": "unit_countdown", "26": "unit_reflex_mod", "27": "unit_aim_mod", "28": "unit_strike_mod", "29": "unit_speed_mod", "2a": "unit_cell", "2b": "unit_phase", "18c": {"name": "charge", "size": 6}, "192": {"name": "delay", "size": 6}, "19e": "kind", "19f": "slot", "1a0": "name_row", "1a1": "unit_count"}},
-        "member_ext": {"at": "8490", "size": 232, "fields": {"40": {"name": "experience", "size": 4}, "d7": "kind", "dd": "hp_regen", "e0": "bitmap_bit", "e2": "flags", "e5": "class_id"}},
+        "member_rec": {"at": "8482", "fields": {"0": {"name": "unit_level", "size": 2}, "2": {"name": "unit_hp", "size": 2}, "4": {"name": "unit_hp_max", "size": 2}, "6": {"name": "unit_stamina", "size": 2}, "8": {"name": "unit_stamina_max", "size": 2}, "e": {"name": "unit_status", "size": 10}, "1f": "unit_target_group", "22": "unit_state", "23": "unit_poison_strength", "24": "unit_countdown", "26": "unit_reflex_mod", "27": "unit_aim_mod", "28": "unit_strike_mod", "29": "unit_speed_mod", "2a": "unit_cell", "2b": "unit_phase", "18c": {"name": "charge", "size": 6}, "192": {"name": "delay", "size": 6}, "19e": "kind", "19f": "slot", "1a0": "unidentified", "1a1": "unit_count"}},
+        "member_ext": {"at": "8490", "size": 232, "fields": {"40": {"name": "experience", "size": 4}, "aa": {"name": "companion_id", "size": 2}, "ac": {"name": "companion_chance", "size": 2}, "d7": "kind", "d8": "sound_id", "dd": "hp_regen", "e0": "bitmap_bit", "e2": "flags", "e5": "class_id"}},
         "quest_map": {"at": "84a6", "size": 6, "count": 11, "fields": {"0": "holder", "1": "status", "2": "site_location", "3": "gate_key", "4": "next_destination"}},
         "slot_record": {"at": "84e8", "size": 38, "count": 22, "fields": {"0": "faction", "1": "home_location", "2": "activity", "3": "destination", "4": "location", "5": "map_piece", "6": "target", "7": "path_step", "8": {"name": "path", "size": 14}, "16": "event_ring_next", "18": "health", "19": "max_health", "1a": {"name": "held_maps", "size": 2}, "1c": {"name": "known_maps", "size": 2}, "1e": {"name": "visited_locations", "size": 4}, "22": {"name": "map_history", "size": 4}}},
         "slot_event": {"at": "882c", "size": 3, "count": 110, "fields": {"0": "subject", "1": "kind", "2": "detail"}},
@@ -806,11 +776,14 @@
         "0112": {"name": "story_score_file_number", "note": "Score file number selected for story music"},
         "0114": {"name": "loaded_score_number", "note": "Score number selected after loading score files"},
         "0116": {"name": "intro_score_number_source", "note": "Word copied to story_score_number after loading the intro score files"},
+        "0150": {"name": "movement_area_keys", "note": "Six key codes after screen_area_rectangles; the keyboard key for each movement area hotspot (set_hotspot key argument)"},
+        "0156": {"name": "member_swap_keys", "note": "Six key codes after movement_area_keys: '!@#$%^' (shift+1..6), the key of each party member's swap hotspot (a strip across the panel's name line); run_maze_loop sets game_state 31 (swap two party members) for it"},
         "015c": {"name": "realm_point_text_positions", "note": "X and Y positions for the two point columns of each realm row"},
         "018c": {"name": "realm_spell_point_positions", "note": "X and Y positions for each realm spell point total"},
         "01a4": {"name": "party_slot_x", "length": 522, "file": "party_slot_layout", "note": "int [2][6]: x of each party slot's letter for row 0/1; draw_party_slot_letters adds its x"},
         "01bc": {"name": "party_slot_y", "note": "int [2][6]: y of each party slot's letter for row 0/1; draw_party_slot_letters adds its y"},
         "01d4": {"name": "party_slot_glyphs", "note": "int [6][10]: per party slot, the glyph codes of its letter animation, 0xffff ends; draw_party_slot_letters reads the low byte of [slot][party_slot_frame[slot]]"},
+        "024c": {"name": "region_view_x_offsets", "note": "Uncertain: offsets used to place region view cells and maze pieces"},
         "0260": {"name": "shape_column_x", "note": "Glyph shape horizontal origins indexed by depth and column"},
         "0292": {"name": "shape_base_y", "note": "Repeated glyph shape vertical origin indexed by depth"},
         "029c": {"name": "shape_repeat_y_step", "note": "Vertical spacing between repeated shape glyphs indexed by depth"},
@@ -819,7 +792,13 @@
         "03dc": {"name": "view_geometry", "note": "5 depth y values then walls[5][5][2][2] of x,y (205 ints)"},
         "0576": {"name": "view_depth_scale", "note": "int [5]: percent scale of a maze view picture at each depth (100 62 40 24 15), queue_slot_glyph_render's scale argument"},
         "0580": {"name": "cell_overlay_y_offset", "note": "int [3][3]: per grid cell, subtracted from 100 for the action overlay's y (step_party_screen_animation)"},
-        "05b6": {"name": "cell_overlay_code", "note": "int [3][3] base overlay sort code per cell"},
+        "0592": {"name": "column_orders", "note": "int [6][3]: six orders to visit columns 0-2 in (two repeat); battle routines in vmexe and vpops pick one with a counter % 6"},
+        "05b6": {"name": "cell_overlay_code", "length": 106, "file": "cell_overlay_code", "note": "int [3][3]: base overlay sort code per cell on the melee screen (queue_cell_action_overlay subtracts the member)"},
+        "05c8": {"name": "npc_cell_overlay_y_offset", "note": "int [3][3]: per grid cell, subtracted from 100 for an overlay's y on the NPC screen (step_npc_screen_animation)"},
+        "05da": {"name": "npc_cell_overlay_code", "note": "int [3][3]: base overlay sort code per cell on the NPC screen (queue_npc_cell_overlay)"},
+        "05ec": {"name": "next_cell_toward_party", "note": "int [3][3]: row * 10 + column of the cell a monster unit moves to when its group advances (row 2 to 1, row 1 to 0)"},
+        "05fe": {"name": "action_overlay_steps", "note": "int [2][4]: overlay code of each round of the action overlay animation: [0] 88 44 22 11, [1] 11 22 44 88 (play_action_overlays wait_for_result)"},
+        "060e": {"name": "item_type_counted", "note": "char [18] by item type: 1 when an item of that type is a stack whose level is its count (types 2 4 12 15 16; item_slot_weight multiplies by it)"},
         "0620": {"name": "spell_table", "note": "6-byte entries per spell: +0 realm, +1 level (taken off the caster's power cap), +2 point cost per power level; word tables follow at +0x300: per-state icon [6], per-status icon [10], per-status weight [10], per-glyph-set base"},
         "0b74": {"name": "str_insert_savegame_disk", "length": 119, "file": "disk_prompts_and_files", "note": "\"INSERT SAVEGAME DISK\" literal"},
         "0b89": {"name": "str_insert_disk_n", "note": "\"INSERT DISK (^)\" literal, ^ replaced by drive letter"},
@@ -847,7 +826,7 @@
         "0e0c": {"name": "aztec_tty_rd_bp", "note": "ttyio.c's `static char *bp` in impl_tty_rd: the read cursor into buffer"},
         "0cf5": {"name": "aztec_tty_wr_crbuf", "note": "ttyio.c's `static char crbuf = '\r'` in impl_tty_wr"},
         "0e0e": {"name": "floor_items", "note": "near pointer to the 1024-byte floor item list of 8-byte records: map, flags, packed position, key, level, glyph; map 0xff is free, flag 0x40 protects from recycling"},
-        "0e10": {"name": "runtime_buffer_3k", "note": "Near pointer to a 3072 byte runtime buffer"},
+        "0e10": {"name": "maze_change_log", "note": "near pointer to the 3072-byte maze change log: up to 512 six-byte records written by log_maze_change"},
         "0e12": {"name": "maze_tables", "note": "pointer to loaded maze tables (destinations, per-piece data)"},
         "0e14": {"name": "maze_data", "note": "pointer to loaded maze data: wall planes at +0x90/+0x290, piece origins at +0x490/+0x4a0"},
         "0e16": {"name": "runtime_buffer_4k_b", "note": "Far reference to the second 4096 byte runtime buffer"},
@@ -866,7 +845,7 @@
         "0e30": {"name": "pointer_image_zero_seg", "note": "Segment of pointer image zero"},
         "0e32": {"name": "mouse_active", "note": "word: nonzero while the mouse driver is initialised and the pointer is on"},
         "0e34": {"name": "npc_id_address", "note": "copy-protection chain stage 1: set_npc_id_address stores 0xe36 (&npc_id); relay_npc_id_address copies it to npc_id_clue_relay when the clue character matches"},
-        "0e36": {"name": "npc_id", "note": "NPC id for the VMNPC meeting and for add_party_member when an NPC joins; 0xe1 is special to melee and vpops"},
+        "0e36": {"name": "npc_id", "note": "NPC id for the VMNPC meeting; setup_melee_party adds it as monster group 1 (add_monster_group) when the meeting turns to melee; 0xe1 is special to melee and vpops"},
         "0e38": {"name": "known_spell_names", "note": "20-byte spell name strings filled by collect_known_realm_spells"},
         "0e4c": {"name": "filename_edit_buffer", "note": "scratch buffer for editing the filename field"},
         "0fd5": {"name": "code_char_message_index", "note": "byte: clue index added to message 2500 to load the clue text"},
@@ -893,7 +872,7 @@
         "5576": {"name": "sound_slot_info", "note": "12-byte records per sound slot, read by data_record_io type 9: +0 alias sound number, +4 long size (0 means use the alias)"},
         "5642": {"name": "scenario_header_data", "note": "844 bytes loaded from SCENARIO.HDR"},
         "5842": {"name": "action_bitmap", "note": "0xcc-byte bitmap; a fired action sets bit party_char_ext[member][0xe0]"},
-        "590e": {"name": "runtime_six_byte_count", "note": "Number of six byte records loaded into the runtime buffer"},
+        "590e": {"name": "maze_change_count", "note": "number of records in maze_change_log; saved with the game"},
         "5910": {"name": "floor_item_count", "note": "number of 8-byte records in use in floor_items, at most 0x7f before recycling"},
         "5912": {"name": "data_path_prefixes", "note": "char [][20]: drive/directory prefixes for data files; data_file_path copies one through its ':' (index 1 only when install_mode == 5)"},
         "5926": {"name": "disk_drive_name", "note": "drive name string shown in the INTO DRIVE prompt after the first disk"},
@@ -915,7 +894,7 @@
         "5985": {"name": "video_mode", "note": "byte: graphics adapter/mode selector; load_score_files picks .PBL for 5, .PBA otherwise (6 treated as 4)"},
         "5986": {"name": "startup_option_byte", "note": "Unsigned scenario header option copied at startup"},
         "5987": {"name": "install_mode", "note": "byte: install/disk configuration; 5 selects the alternate data path prefix in data_file_path and shifts indices in ensure_game_disk/prompt_disk_swap"},
-        "5988": {"name": "startup_aux_option_a", "note": "Option byte preserved across game loads"},
+        "5988": {"name": "difficulty_option", "note": "configuration option 0-2 (label MSG_NORMAL + n; other labels unconfirmed): 1 makes monster groups smaller/weaker and rarer, 2 bigger/stronger and more frequent; saved with the game"},
         "5989": {"name": "startup_aux_option_b", "note": "Option byte preserved across game loads"},
         "598a": {"name": "hardware_mode_setting", "note": "Scenario setting selecting hardware mode 1 or 2"},
         "598b": {"name": "startup_aux_option_c", "note": "Option byte preserved across game loads"},
@@ -947,13 +926,7 @@
         "69bc": {"name": "member_icon", "note": "int [] per party member: slot icon glyph; moves with the party record when the party is reordered"},
         "69c8": {"name": "party_char_count", "note": "number of party_char records in use"},
         "69ca": {"name": "data_path_buf", "note": "char []: static buffer in which data_file_path builds and returns prefix + file name"},
-        "6a1a": {"name": "slot_recs", "note": "struct [][350]: per-picture-slot monster records read from file 8 (ds_app_file_TSNH, 0x288e); +0x00 first entry per group, +0x04 count, +0x08 action, +0x12 action spread, +0x26 target, +0x30 target spread, +0x38 glyph x pairs, +0x81 glyph y, +0xa5 4-byte {sort, glyph, base, rand} per target, +0x146 x/y per column, +0x15b forced"},
-        "6e6c": {"name": "glyph_x_table", "note": "one byte per glyph at twice the glyph code; second call_draw_text argument plus one"},
-        "6eb5": {"name": "glyph_y_table", "note": "one byte per glyph; third call_draw_text argument plus one"},
-        "7abc": {"name": "marker_x", "note": "byte: x passed to add_overlay_item when marker_mode is -1"},
-        "7b04": {"name": "marker_y", "note": "byte: y passed to add_overlay_item when marker_mode is -1"},
-        "7ed4": {"name": "glyph_x_table_b", "note": "second set; one byte per glyph at twice the glyph code"},
-        "7f1d": {"name": "glyph_y_table_b", "note": "second set; one byte per glyph"},
+        "6a1a": {"name": "slot_recs", "note": "struct slot_rec [18]: per-picture-slot records read from file 8 (ds_app_file_TSNH, 0x288e); +0x00 first entry per group, +0x04 count, +0x08 action, +0x12 action spread, +0x26 target, +0x30 target spread, +0x38 glyph x pairs, +0x81 glyph y, +0xa5 4-byte {sort, glyph, base, rand} per target, +0x146 x/y per column, +0x15b forced, +0x15c last glyph. call_draw_text's first argument is a slot number; slots 3, 5, 9, 12, 13 and 15 hold the maze view's marker and transition glyph positions"},
         "82b6": {"name": "loaded_score_num", "note": "int: score number last loaded by load_score_files; free_loaded_score resets it to -1"},
         "82b8": {"name": "answer_word", "note": "answer word typed in the prompt, checked by the caller"},
         "82d0": {"name": "party_status_areas", "note": "six saved screen areas, one per party slot, restored before its glyph is redrawn"},
@@ -994,7 +967,8 @@
         "8466": {"name": "monster_group_count", "note": "number of monster groups; group loops run 1..this"},
         "8468": {"name": "overlay_list", "note": "count word then 12 pointers to 24-byte overlay items"},
         "8482": {"name": "battle_groups", "note": "struct member_rec *[7] battle groups; 0 is the party, 1.. are monster groups; [0x19f] is the group's slot_recs index, -1 when none"},
-        "8484": {"name": "party_char_hi", "note": "party char high byte"},
+        "8484": {"name": "battle_groups_1", "note": "battle_groups[1], the first monster group, read directly (e.g. its unit_count == 1 when one monster is left); an address inside battle_groups, not its own object"},
+        "848e": {"name": "battle_groups_6", "note": "battle_groups[6], the last group slot (ticked separately by tick_monster_group(6)), read directly; vmele party_screen also reaches battle_group_ext[i - 1] through it as [bx + this]. An address inside battle_groups, not its own object"},
         "8490": {"name": "battle_group_ext", "note": "struct member_ext *[7] each group's monster record; fill_action_slot_table tests [0xd7] == 0x47"},
         "8492": {"name": "battle_group_ext_1", "note": "battle_group_ext[1], the first monster group's monster record"},
         "849e": {"name": "selected_item_slot", "note": "selected item slot index, -1 when none"},
@@ -1028,9 +1002,10 @@
         "8a56": {"name": "intro_layout_copy_10", "note": "Spaced copy of the tenth intro layout value"},
         "8a6e": {"name": "path_edges", "note": "Roads between two locations; length is the number of map pieces (turns) to cross; gate_key (0xff = none) needs a searched quest map with that key"},
         "8af0": {"name": "member_roster_index", "note": "per-member roster indices, word 0 used as scratch"},
-        "8afe": {"name": "current_map_block_b", "note": "128-byte current map block copied to the second far runtime buffer before saving"},
+        "8afe": {"name": "explored_cell_bitmap", "note": "one bit per cell of the current level (16 pieces x 64 cells): set when the party steps in; the map view hides unexplored cells unless a map spell is active; saved per level"},
         "8b7e": {"name": "current_map_block_a", "note": "128-byte current map block copied to the first far runtime buffer before saving"},
         "8bfe": {"name": "floor_item_cell_bits", "note": "one bit per maze cell (piece*64 + y*8 + x), set while floor items lie there"},
+        "8c7e": {"name": "maze_object_cell_bitmap", "note": "bitmap of maze object cells"},
         "8cfe": {"name": "adjacent_object_type", "note": "per-direction 0-3 object code in the maze cell around the party"},
         "8d06": {"name": "base_screen_area", "note": "Saved base-screen area far pointer"},
         "8d08": {"name": "base_screen_area_segment", "note": "Segment word of saved base-screen area pointer"},
@@ -2276,15 +2251,16 @@
         "03ab": {"name": "find_picture_slot", "note": "finds or takes a free monster picture slot for a picture number, loading the picture if needed"},
         "040f": {"name": "pick_target_slot", "note": "picks an unused target from a character class target table"},
         "063b": {"name": "check_monster_picture_space", "note": "0 when the MONnn.PIC picture is slotted or storage has room for it, -1 otherwise"},
-        "079f": {"name": "add_party_member", "note": "loads a character record into a party slot and initialises its stats and actions"},
-        "0c59": {"name": "copy_member_stats", "note": "copies cell and member stat data into the party member records"},
+        "079f": {"name": "add_monster_group", "note": "loads monster record member_id into battle group group_index, rolls its unit count and stats (adjusted by difficulty_option), then may recursively add a companion group"},
+        "0c59": {"name": "load_party_battle_group", "note": "copies every party member into battle group 0 (level, HP, stamina, state, status, poison) and seeds combat modifiers from skills 19-22; copy_member_party_record copies back"},
         "0f87": {"name": "fill_action_slot_table", "note": "fill_action_slot_table with one more case: when ext byte 0xd7 is 0x47 and npc_melee is 1, action/target come from dest_alt_arg / 256 and % 256"},
         "11a2": {"name": "advance_group_toward_party", "note": "moves a group's monsters one battle row closer to the party"},
         "129e": {"name": "tick_combatant", "note": "one battle turn for one fighter: stamina recovery, HP regen/drain/poison, death and experience, status countdowns"},
         "14d8": {"name": "tick_monster_group", "note": "ticks each monster in a group, packs out the dead and announces the deaths"},
         "16c3": {"name": "try_raise_member_skill", "note": "'Attempt a random increase to a member skill flag.'"},
-        "1705": {"name": "roll_member_actions", "note": "randomly clears member action flags and assigns cell actions for the coming round"},
+        "1705": {"name": "identify_monster_groups", "note": "each party member rolls to identify each unidentified monster group (member_rec.unidentified 1) with skill 25 less 3 per level, or stat 1; success clears it and trains skill 25"},
         "179f": {"name": "setup_monster_pictures", "note": "gives each monster group's picture one of the three monster picture slots"},
+        "1836": {"name": "process_monster_groups", "note": "ticks groups, compacts survivors, advances groups and assigns cells to incoming units"},
         "1a08": {"name": "party_screen", "note": "party member screen: shows names and levels, reorders members by random swaps and refreshes the action slots"},
         "1ea6": {"name": "copy_member_party_record", "note": "copies a party_char record into the party tables"},
         "1f2b": {"name": "tick_party_combatants", "note": "ticks each party member's combat copy, then sorts the party by state"},
@@ -2293,6 +2269,7 @@
         "2557": {"name": "queue_cell_action_overlay", "note": "queues one cell's action glyphs as overlay items, projected by nearness"},
         "279d": {"name": "queue_marker_overlay", "note": "queues glyph strings for the marker as overlay items: a facing-dependent glyph when marker_mode > 0, glyph 1 at marker_x/marker_y when -1"},
         "2892": {"name": "draw_overlay_list_item_text", "note": "Renders an active overlay list entry."},
+        "28ee": {"name": "assign_monster_group_cell", "note": "assigns a free battle cell to an unassigned unit in a monster group"},
         "2991": {"name": "claim_cell_for_group", "note": "places a monster of the group in a free battle cell"},
         "29b7": {"name": "fill_row_action_slots", "note": "picks three free cells per drawn row and has the first member with a free item slot claim each"},
         "2b0b": {"name": "check_party_redraw_interval", "note": "returns one and records the current tick once the party redraw interval has elapsed"},
@@ -2302,7 +2279,7 @@
         "2eb6": {"name": "close_party_screen", "note": "restores the cached screens and frees the resources of the party screen"},
         "305c": {"name": "spend_action_slot_charge", "note": "decays every member action slot charge and ticks its delay down"},
         "3193": {"name": "advance_melee_turn", "note": "state 0x0e: advances the action slots and charges, redraws the party member panels, then closes the party screen or returns to state 0x0b"},
-        "330e": {"name": "reset_party_actions", "note": "clears the cell action slots, each member action count and the party size"},
+        "330e": {"name": "reset_battle_groups", "note": "clears the battle cell map and all seven battle group records before setting up a melee"},
         "3382": {"name": "setup_melee_party", "note": "resets the item action reward and action slots, loads the NPC record into the party and rolls its actions for a melee"},
         "33d1": {"name": "start_melee_battle", "note": "enters the melee overlay state 0x0a"},
         "36aa": {"name": "redraw_party_before_battle", "note": "redraws each member panel and the action table, runs one animation, then switches to the battle state"},
@@ -2398,6 +2375,7 @@
     "vmaze": {
       "data_names": {
         "0120": {"name": "screen_area_rectangles", "note": "rectangle bounds used by indexed screen areas"},
+        "9098": {"name": "maze_temp_filename", "note": "Temporary filename passed to save_screen_area (VM1.$$$)."},
         "90a0": {"name": "variant_1_maze_filename", "length": 222, "file": "maze_variant_filenames", "note": "MAZEDATA.VGA filename used for variant 1 maze data"},
         "90ad": {"name": "variant_1_water_filename", "note": "WATRDATA.VGA filename used for variant 1 water data"},
         "90ba": {"name": "variant_2_tree_filename", "note": "TREEDATA.VGA filename used for variant 2 tree data"},
@@ -2415,6 +2393,8 @@
         "9156": {"name": "variant_6_tree_filename", "note": "TREEDATA.VGA filename used for variant 6 tree data"},
         "9163": {"name": "variant_6_other_town_filename", "note": "OTWNDATA.VGA filename used for variant 6 other town data"},
         "9170": {"name": "variant_6_water_filename", "note": "WATRDATA.VGA filename used for variant 6 water data"},
+        "917e": {"name": "maze_message_control_code_table", "note": "Control characters recognized by the maze message parser."},
+        "9186": {"name": "maze_message_word_separator", "note": "Space string appended between buffered maze message words."},
         "9192": {"name": "party_redraw_interval", "note": "Tick interval used to decide when to redraw the party status."},
         "9194": {"name": "maze_sound_slot_e", "note": "sound identifier currently assigned to maze slot 14"},
         "9196": {"name": "maze_sound_slot_f", "note": "sound identifier currently assigned to maze slot 15"},
@@ -2422,8 +2402,11 @@
         "919a": {"name": "maze_refresh_deadline", "note": "Low word of the next maze refresh tick."},
         "919c": {"name": "maze_refresh_deadline_high", "note": "High word of the next maze refresh tick."},
         "91aa": {"name": "maze_redraw_pending", "note": "Set after the party moves or turns; when 1 the maze loop calls redraw_maze_view, then clears it"},
+        "91ac": {"name": "blocked_move_message", "note": "message id shown when a move is blocked; try_move_party sets it to 2020"},
+        "91ae": {"name": "rest_interrupt_flag", "note": "Vmaze flag set when input interrupts the party rest loop."},
         "91b0": {"name": "party_region_level_saved", "note": "Word receiving the level byte for the active maze region"},
         "91b2": {"name": "maze_message_refresh_pending", "note": "flag set after maze messages and cleared when the message strip is redrawn"},
+        "91b4": {"name": "floor_item_icon_shown", "note": "Nonzero while the floor item glyph (305,185) is drawn: refresh_floor_item_icon result; set to 1 on maze entry so the first cell without an item clears the spot; gates the Get hotspot"},
         "91d0": {"name": "floor_checker_parity", "note": "(world_x + world_y + facing + depth) % 2 for the current view depth; alternates floor and side glyph variants in a checkerboard"},
         "91d2": {"name": "side_wall_animation_phase", "note": "Animation phase used with party status frame"},
         "91d8": {"name": "side_wall_layer_flags", "note": "Side wall layer selector by depth and column"},
@@ -2532,7 +2515,7 @@
         "02f0": {"name": "load_maze_file", "note": "Open a maze file, load it into the requested slot, and close it"},
         "0336": {"name": "load_maze_variant_resources", "note": "loads sound-resource slots selected by maze_variant"},
         "03dc": {"name": "load_maze_resources", "note": "loads the maze assets selected by the current game state"},
-        "06cc": {"name": "decode_maze_cell_records", "note": "decodes packed six-byte maze cell records into maze data"},
+        "06cc": {"name": "replay_maze_changes", "note": "reapplies the logged maze changes (walls, cell kind/direction, region flags) for the current level after it loads"},
         "09bd": {"name": "load_current_maze_level", "note": "loads maze records and copies the selected level maps"},
         "0a60": {"name": "choose_region_npc", "note": "picks an NPC id from the 12-byte maze_data group for this id: a random one of 4 columns, then row 0/1/2 at 74/18/8 percent"},
         "0abe": {"name": "roll_region_outcome", "note": "Roll against a region threshold and read its packed outcome."},
@@ -2547,7 +2530,7 @@
         "0fd0": {"name": "show_centered_text_band", "note": "Centers text in the 146-152 screen band, displays it, restores the saved area, and flushes keyboard input"},
         "1086": {"name": "show_message", "note": "loads message string by number and prints it"},
         "10a2": {"name": "mark_party_member_dead", "note": "sets the selected party record to state 3 and clears current HP and stamina, with optional redraw and timeout"},
-        "1100": {"name": "show_rock_entry_message", "note": "Displays the rock-entry message and returns after redrawing the maze."},
+        "1100": {"name": "kill_party_with_message", "note": "shows a message, marks every party member dead (cause 2) and sets game_state 8; used when the party ends up in rock"},
         "1157": {"name": "get_cell_wall", "note": "reads the 4-bit wall field on one side of a maze cell"},
         "11f8": {"name": "decrement_party_status_timers", "note": "Decrease six party status timers and clear expired offsets"},
         "1232": {"name": "adjust_party_world_position", "note": "'Updates party world coordinates using a direction and distance.'"},
@@ -2555,11 +2538,17 @@
         "12c5": {"name": "display_message_with_sound", "note": "Displays a message, plays its sound, waits, and refreshes the message strip."},
         "12fa": {"name": "relocate_party_if_none_active", "note": "When no party member is active, place the party (fallback piece 10 at 7,2 unless region-state bit 3 is set) with a random facing; returns 1 if it moved them"},
         "13b2": {"name": "check_at_saved_location", "note": "flags whether current level/piece/cell equals the saved location"},
+        "13e9": {"name": "process_party_swimming", "note": "Apply drowning and stamina loss while swimming."},
         "14f6": {"name": "get_cell_terrain", "note": "Terrain of the party's cell from three maze-data bitmaps and the level: 0 open, 1 water, 2 fall, 3 wild orchids, 4 rock"},
+        "161d": {"name": "move_party_maze_step", "note": "moves the party one maze cell and resolves terrain effects"},
+        "17e0": {"name": "try_move_party", "note": "tries to move the party in a direction relative to its facing: steps, opens a gate it faces, or shows the blocked/locked message"},
+        "194e": {"name": "update_party_member_tick", "note": "Apply one member recovery and status tick"},
+        "1c86": {"name": "rest_party", "note": "Runs party rest ticks and handles interruption or roaming encounters."},
         "2025": {"name": "draw_area_number_glyph", "note": "Draws glyph code area_number+1 inside the selected screen area rectangle"},
         "20ce": {"name": "find_floor_item_at_party", "note": "returns the first floor item record at the party cell on this map, or 0"},
         "2125": {"name": "refresh_floor_item_icon", "note": "draws the first floor item glyph at the party cell, or clears the cell bit and the icon when none is left"},
         "21d5": {"name": "display_maze_message", "note": "clears the maze message strip, displays the supplied message, and marks the strip for refresh"},
+        "2207": {"name": "run_maze_loop", "length": 2943, "note": "Maze exploration loop called from ovmain in game_state 5: advances game_time, runs roaming NPC turns, stamina ticks and encounter rolls, builds the movement/member/exit hotspots, and dispatches one player action per pass until game_state changes; owns the unreachable debug-key block at 0x2bf7 (force_code), which would otherwise end it there"},
         "2d86": {"name": "get_north_cell_wall", "note": "Resolve the y-minus-one map piece and read its first wall plane"},
         "2dfe": {"name": "get_west_cell_wall", "note": "Resolve the x-minus-one map piece and read its second wall plane"},
         "2e76": {"name": "floor_overlay_when_enabled", "note": "Return the floor overlay index when the alternate floor selection flag is set else minus one"},
@@ -2589,11 +2578,12 @@
         "6afc": {"name": "restore_area_a_draw_glyph", "note": "restores saved screen area a and redraws glyph 1 in color 14 at (0x37,0x9a)"},
         "6b4c": {"name": "wait_for_maze_input_or_refresh", "note": "Waits for maze input while refreshing the maze view"},
         "6bfc": {"name": "flush_glyph_buffer", "note": "Draws and clears the shared buffered glyph text"},
+        "6cbb": {"name": "process_maze_message_controls", "note": "consumes maze message control codes, then appends the word to the line buffer, flushing first if the line would exceed 184 px (vbase twin: process_scene_message_controls)"},
         "6ea3": {"name": "process_scene_message_words", "note": "Split scene text at spaces and process words with underscore substitution"},
         "6f06": {"name": "show_maze_message_sequence", "note": "Displays consecutive maze messages in the message panel"},
         "6fb1": {"name": "try_raise_member_skill", "note": "'Attempt a random increase to a member skill flag.'"},
-        "6ff3": {"name": "pick_region_marker_party_tag", "note": "Selects a random party tag with a set region marker."},
-        "7026": {"name": "show_region_message", "note": "shows the region message and waits for acknowledgement"},
+        "6ff3": {"name": "pick_random_allowed_facing", "note": "returns a random facing 0-3 whose entry in the four allowed-direction flags is nonzero (spinner regions)"},
+        "7026": {"name": "spin_and_push_party", "note": "spinner/push region: optional message, then N times turn to a random allowed facing (animated if flag bit 12) and optionally move arg cells (random 1..arg if bit 14)"},
         "7234": {"name": "mark_region_bits", "note": "sets the current region bit in per-level bitmaps when arg > 0 (both when > 1)"},
         "7298": {"name": "move_party_to_dest", "note": "moves the party to a destination table entry, loading its level if different"},
         "73a8": {"name": "run_region_keyed_action", "note": "runs the action selected by the region key"},
@@ -2602,30 +2592,32 @@
         "74d4": {"name": "display_member_message", "note": "display a message with a member name substituted"},
         "7534": {"name": "update_party_status_animation", "note": "updates the party status animation"},
         "75a0": {"name": "collect_region_flag_bits", "note": "collects selected bit fields from region flags"},
-        "763f": {"name": "handle_region_flag_event", "note": "handles an event encoded in the region flags"},
+        "763f": {"name": "change_cell_walls", "note": "region event: sets the four 4-bit wall values of a target cell (piece/x/y in flags) and the shared walls of its north/west neighbours, logs the change, plays key sound"},
         "7841": {"name": "play_region_spell_sound", "note": "plays the region spell sound effect"},
         "7990": {"name": "handle_region_object_search", "note": "handles the region object search state"},
         "7a26": {"name": "advance_maze_region", "note": "Reads region flags and advances the party region index"},
         "7ab0": {"name": "meet_region_npc", "note": "Type-5 region event: when bit 2 is set the party must face the direction in bits 0-1; stores arg as the NPC id via npc_id_target and sets game_state 18 (VMNPC); bit 3 clear loads the story score"},
+        "7b45": {"name": "animate_region_view_transition", "note": "Animate the ten-frame movement of the first-person maze view"},
         "7ca6": {"name": "animate_party_status_frame", "note": "repeats the party status frame update and redraw"},
         "7cd7": {"name": "set_cell_wall", "note": "sets a 4-bit wall field on one edge of a maze cell and logs the change"},
-        "7e38": {"name": "decode_region_map_location", "note": "decodes the region map location data"},
+        "7e38": {"name": "change_door_wall", "note": "region event: sets one wall of a target cell (piece/x/y in flags, direction in party_mask high byte) to kind 1 or, with bit 11, kind 6 (locked), animating the change when the party sees it"},
         "8040": {"name": "wait_then_handle_region_event", "note": "waits briefly before handling the region event"},
-        "81fd": {"name": "handle_region_flag_3_event", "note": "handles the event encoded in region flag bits 3"},
+        "81fd": {"name": "change_cell_kind", "note": "region event: sets a target cell (piece/x/y in flags) to kind key and direction arg, logs it, and with bit 10 shows the press-button/pull-lever response"},
         "83a5": {"name": "update_region_flag_bitmaps", "note": "Update the region and scenario flag bitmaps for the current game state"},
         "843a": {"name": "process_region_flag_actions", "note": "processes actions encoded in the region flags"},
         "8532": {"name": "update_region_flags", "note": "Update the active region flags and apply its region bit mask"},
-        "855a": {"name": "handle_region_level_event", "note": "handles a region event using its level data"},
+        "855a": {"name": "apply_region_hour_window", "note": "region event: tests the game hour against a start/end hour window (may wrap midnight); sets the region flag to \"outside\", or with bit 12 clears key (inside) or party_mask (outside) in the level state bits"},
         "869b": {"name": "update_region_quest_map_flags", "note": "Passes whether the region's quest map is carried to update_region_flags"},
-        "86eb": {"name": "handle_region_flag_2_event", "note": "handles the event encoded in region flag bits 2"},
-        "8786": {"name": "handle_region_bit_8_event", "note": "handles the region event encoded in bit 8"},
+        "86eb": {"name": "set_region_flag_from_condition", "note": "region event (dispatch flag 2): sets the region flag to whether action arg has fired, or with flag bit 2 whether slot arg is dead, then marks bits 0-1"},
+        "8786": {"name": "show_message_by_flag_tally", "note": "region event (dispatch bit 8): counts flags in a level-state bit range that differ from bit 15, shows message key + arg * count, then marks bits 12-13"},
         "8859": {"name": "process_maze_object_events", "note": "dispatches each located maze object by event type"},
         "89c2": {"name": "clear_bit_pair", "note": "Clears two consecutive bits in a byte buffer starting at the supplied bit index"},
-        "8a06": {"name": "claim_cell", "note": "sets party cell kind 6 and tag party_facing, plays message 0x7fc and sound 4"},
+        "8a06": {"name": "press_wall_button", "note": "the party presses a wall button: shows the button cell and MSG_PRESS_BUTTON, sets the faced wall to 1, logs it, and clears that facing's button bits in the object flags"},
         "8b44": {"name": "check_type8_object", "note": "checks a type-8 object flags against party_facing; check_cell_objects stops when it returns 1"},
         "8c39": {"name": "check_cell_objects", "note": "on entering a cell, optionally shows message 0x7fb and acts on the first object of type 7, 8 or 0x19 there"},
         "0000": {"name": "ovmain"},
         "8ddb": {"name": "select_region_item_if_facing", "note": "If the region facing gate passes and flag bit 8 is set, selects the region and its item record (game_state 21); returns 1"},
+        "8e5c": {"name": "select_cell_region_object", "note": "Scan current cell objects and select the first facing-compatible region object."},
         "8f0c": {"name": "take_cell_exit_object", "note": "Finds a type-15 object at the party cell whose mask is 2 or matches the facing parity and moves the party to its destination"},
         "8f86": {"name": "append_edge_between", "note": "If an open edge joins the two locations, appends it to found_path; returns 0 when none or the path is full (12)"},
         "901b": {"name": "search_path_from", "note": "Depth-limited recursive search for a path of open, unused edges to the goal"},
@@ -2664,6 +2656,9 @@
       "start_offset": 14,
       "fingerprint-start": "7036496b95041e558f2300d8edfb7bafbf28bf3b49287b08c83be6777ade2076",
       "fingerprint-end": "9a549cc9b826f26418d2a2526edb43513f6ad2bd5c199b45e0474c601469b619",
+      "force_code": [
+        {"start": "2bf7", "end": "2c43", "note": "Unreachable statements after case 3-5's `break` in run_maze_loop's action switch (no table entry or branch): a debug key that plays sound 0, reads two digit keys into an NPC id, stores it through npc_id_target and calls configure_story_music(0, 0, 1). Its case label was removed from the source; the code stays because Aztec keeps dead code."}
+      ],
       "code_tables": [
         {"table": "ab7d", "jmp": "ab95", "entry_size": 2, "count": 8, "note": "Switch table read by `cmp ax, 8; jae; xchg bx, ax; shl bx, 1; jmp [cs:bx-0x043c]` (0xab95). Eight CS words, all arms of loc_MVIL. Undetected because its fifth word's 0xfb decoded as `sti` (the fake loc_LNJU / loc_ITNU). Declared so the words are carved as data and the arms decode as part of the dispatching function; see jump_tables"}
       ],

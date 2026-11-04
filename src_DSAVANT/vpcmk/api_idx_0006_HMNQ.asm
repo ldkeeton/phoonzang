@@ -66,7 +66,7 @@ api_idx_0006_HMNQ:
     mov al, byte [bx + party_records + pc_rec.kind] ; 0x616d
     sub ah, ah                       ; 0x6171
     push ax                          ; 0x6173
-    call load_member_icon           ; 0x6174
+    call api_idx_0016_JNJG           ; 0x6174
     add sp, byte 4                   ; 0x6177
     mov ax, 0x12                     ; 0x617a
     push ax                          ; 0x617d

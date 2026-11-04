@@ -37,8 +37,8 @@ api_idx_0002_PGQI:
     push ax                          ; 0x2c4b
     call api_idx_000a_PJIK           ; 0x2c4c
     add sp, byte 0xe                 ; 0x2c4f
-    mov bx, word [bss_848e]          ; 0x2c52
-    cmp byte [bx + rec_848e.f_01a1], 0 ; 0x2c56
+    mov bx, word [battle_groups_6]   ; 0x2c52
+    cmp byte [bx + battle_groups_6_rec.f_01a1], 0 ; 0x2c56
     jbe short .return1               ; 0x2c5b
     push word [bp + 0xe]             ; 0x2c5d
     push word [bp + 0xc]             ; 0x2c60

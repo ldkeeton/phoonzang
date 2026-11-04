@@ -38,11 +38,18 @@ int view_geometry[205] = {
 int view_depth_scale[5] = {
 	100, 62, 40, 24, 15,
 };
-/* [3][3] per grid cell (step_party_screen_animation uses the first nine), then
-   18 more words up to cell_overlay_code. */
-int cell_overlay_y_offset[27] = {
-	81, 100, 100, 51, 61, 61, 36, 41,
-	41, 1, 0, 2, 2, 0, 1, 0,
-	2, 1, 0, 1, 2, 0, 2, 1,
-	0, 1, 2,
+/* Per grid cell, subtracted from 100 for the action overlay's y. */
+int cell_overlay_y_offset[3][3] = {
+	{ 81, 100, 100 },
+	{ 51, 61, 61 },
+	{ 36, 41, 41 },
+};
+/* Six orders to visit columns 0-2 in (two repeat). */
+int column_orders[6][3] = {
+	{ 1, 0, 2 },
+	{ 2, 0, 1 },
+	{ 0, 2, 1 },
+	{ 0, 1, 2 },
+	{ 0, 2, 1 },
+	{ 0, 1, 2 },
 };

@@ -1,60 +1,59 @@
-/* Append a six-byte record describing a maze change. */
-#include "structs/sixbyte.h"
+/* Record a maze change in maze_change_log, replacing an earlier entry for
+   the same level, kind and location. */
+#include "structs/mazechng.h"
 
-extern struct six_byte_record *runtime_buffer_3k;
-extern int runtime_six_byte_count;
+extern struct maze_change *maze_change_log;
+extern int maze_change_count;
 extern int find_maze_change();
 extern int play_sound_effect();
 
-log_maze_change(first_value, change_kind, third_value, fourth_value,
-	last_value, extra_first, extra_second, extra_third, extra_fourth)
-int first_value, change_kind, third_value, fourth_value, last_value;
-int extra_first, extra_second, extra_third, extra_fourth;
+log_maze_change(level, kind, map_piece, cell_x, cell_y, value_a, value_b,
+	value_c, value_d)
+int level, kind, map_piece, cell_x, cell_y;
+int value_a, value_b, value_c, value_d;
 {
 	int record_index;
-	struct six_byte_record *record;
+	struct maze_change *record;
 
-	/* Reuse an existing record with the same five lookup values. */
-	record_index = find_maze_change(first_value, change_kind, third_value,
-		fourth_value, last_value);
+	/* Reuse an existing record for the same change. */
+	record_index = find_maze_change(level, kind, map_piece, cell_x, cell_y);
 	if (record_index == -1) {
 		/* New records are appended to the runtime table. */
-		record_index = runtime_six_byte_count;
-		++runtime_six_byte_count;
+		record_index = maze_change_count;
+		++maze_change_count;
 
 		/* The original code waits indefinitely once the 512-entry limit is
 		   reached. */
-		if (runtime_six_byte_count >= 512) {
+		if (maze_change_count >= 512) {
 			for (;;) {
 				play_sound_effect(0);
 			}
 		}
 	}
 
-	record = runtime_buffer_3k + record_index;
-	record->first_value = first_value;
-	record->second_value = change_kind;
-	record->stored_value = (third_value << 8) + (fourth_value << 4)
-		+ last_value;
+	record = maze_change_log + record_index;
+	record->level = level;
+	record->kind = kind;
+	record->location = (map_piece << 8) + (cell_x << 4) + cell_y;
 
-	/* The change kind selects how the last word is packed. */
-	switch (change_kind) {
+	/* The kind selects how the value is packed. */
+	switch (kind) {
 	case 0:
-		record->unused_value = (((extra_first << 4) + extra_second) << 8)
-			+ (extra_third << 4) + extra_fourth;
+		record->value = (((value_a << 4) + value_b) << 8)
+			+ (value_c << 4) + value_d;
 		break;
 	case 1:
 	case 2:
 	case 3:
 	case 4:
-		record->unused_value = extra_first;
+		record->value = value_a;
 		break;
 	case 5:
-		record->unused_value = (extra_first << 8) + extra_second;
+		record->value = (value_a << 8) + value_b;
 		break;
 	case 6:
-		record->stored_value = third_value;
-		record->unused_value = extra_first;
+		record->location = map_piece;
+		record->value = value_a;
 		break;
 	}
 }

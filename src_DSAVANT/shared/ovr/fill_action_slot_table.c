@@ -23,7 +23,7 @@ int a, b, c, d;
 	flag = 0;
 	if (d == -1) {
 		d = 0;
-		if (slot_recs[v1].forced[0] != 254)
+		if (slot_recs[v1].forced != 254)
 			flag = 1;
 	}
 	/* one entry per record in group d's range */
@@ -31,12 +31,12 @@ int a, b, c, d;
 		i < slot_recs[v1].first[d] + slot_recs[v1].count[d]; ++i) {
 		j = slot_recs[v1].action[i];
 		/* group 0 with a forced value (1..0xfd) overrides the record */
-		if (d == 0 && slot_recs[v1].forced[0] > 0 && slot_recs[v1].forced[0] < 254) {
-			if (slot_recs[v1].forced[0] == 253) {	/* forced to action 0, target 0 */
+		if (d == 0 && slot_recs[v1].forced > 0 && slot_recs[v1].forced < 254) {
+			if (slot_recs[v1].forced == 253) {	/* forced to action 0, target 0 */
 				j = 0;
 				k = 0;
 			} else {
-				k = slot_recs[v1].forced[0];
+				k = slot_recs[v1].forced;
 				/* special case: ext byte 0xd7 == 0x47 forces action 1, target 0xb */
 				if (battle_group_ext[a]->kind == 71 && flag == 0) {
 					j = 1;

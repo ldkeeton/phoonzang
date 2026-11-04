@@ -23,7 +23,7 @@ loc_TUUJ:
     mov al, byte [bx + party_records + pc_rec.kind] ; 0x66f9
     sub ah, ah                       ; 0x66fd
     push ax                          ; 0x66ff
-    call load_member_icon           ; 0x6700
+    call api_idx_0016_JNJG           ; 0x6700
     add sp, byte 4                   ; 0x6703
     mov ax, 0x12                     ; 0x6706
     push ax                          ; 0x6709

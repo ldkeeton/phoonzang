@@ -1,6 +1,7 @@
 /* Rebuild the first-person maze view and draw its queued wall layers. */
 #include "structs/mazecell.h"
 #include "structs/qshape.h"
+#include "structs/slotrec.h"
 
 struct view_panel_bounds {
 	int left;			/* +0x00 */
@@ -9,28 +10,10 @@ struct view_panel_bounds {
 	int bottom;			/* +0x06 */
 };
 
-struct marker_text_tables {
-	unsigned char first_value;       /* +0x000 */
-	unsigned char pad_001[274];
-	unsigned char second_value[36][2]; /* +0x113: [marker][side] */
-	unsigned char pad_15b;
-	unsigned char first_row_value[219]; /* +0x15c */
-};
-
-/* Only the two marker tables inside glyph_y_table are read here. */
-struct glyph_y_layout {
-	unsigned char pad_000[2027];
-	unsigned char marker_rows_a[20][2];
-		/* +0x7eb: [column * 4 + depth][parity] */
-	unsigned char pad_813[33];
-	unsigned char marker_rows_b[5][4];    /* +0x834: [column][depth] */
-};
 extern struct maze_cells *maze_data;
 extern struct view_panel_bounds dseg_02a6[][5];
-extern struct marker_text_tables bss_7b05;
-extern unsigned char bss_7abe[];
+extern struct slot_rec slot_recs[];
 extern unsigned char bss_5b55;
-extern unsigned char bss_7d3c;
 extern int current_level, maze_variant, boundary_wall_open;
 extern int party_world_x, party_world_y, party_cell_x, party_cell_y;
 extern int party_map_piece, party_facing;
@@ -62,7 +45,6 @@ extern int marker_string_y_offsets[];
 extern int marker_string_x_offsets[];
 extern int marker_string_descending[];
 extern struct queued_shape queued_slot_x[];
-extern struct glyph_y_layout glyph_y_table;
 extern int call_fill_area(), call_draw_text(), call_draw_maze_piece();
 extern int call_show_area(), test_bit(), offset_relative_map_position();
 extern int wall_overlay_when_enabled(), select_wall_face_index();
@@ -121,7 +103,8 @@ draw_first_person_maze_view()
 					marker_mode = -1;
 				glyph[0] = 2;
 				glyph[1] = 0;
-				call_draw_text(12, bss_7abe[0] + 1, bss_7b05.first_value + 1,
+				call_draw_text(12, slot_recs[12].glyph_x[2][0] + 1,
+					slot_recs[12].glyph_y[2] + 1,
 					72, 248, 32, 144, 0, glyph, 0, 0);
 			}
 			draw_party_status_glyphs();
@@ -432,11 +415,11 @@ draw_first_person_maze_view()
 					glyph[0] = marker_string_frames[marker_index];
 					glyph[1] = 0;
 					call_draw_text(13,
-						bss_7b05.second_value[
+						slot_recs[13].glyph_x[
 							marker_string_frames[marker_index]][
 							marker_string_variants[marker_index]] +
 							marker_string_x_offsets[marker_index],
-						bss_7b05.first_row_value[
+						slot_recs[13].glyph_y[
 							marker_string_frames[marker_index]] +
 							marker_string_y_offsets[marker_index],
 						72, 248, 32, 144,
@@ -445,7 +428,7 @@ draw_first_person_maze_view()
 						--marker_string_frames[marker_index];
 					else
 						++marker_string_frames[marker_index];
-					if (bss_7d3c <
+					if (slot_recs[13].last_glyph <
 					    marker_string_frames[marker_index])
 						marker_string_frames[marker_index] = 0;
 				} else if (capture_center_marker_mode == 0 &&
@@ -454,7 +437,7 @@ draw_first_person_maze_view()
 					marker_string_descending[marker_index] =
 						boundary_wall_variant % 2 ? random_below(2) : 0;
 					marker_string_frames[marker_index] =
-						marker_string_descending[marker_index] ? bss_7d3c : 1;
+						marker_string_descending[marker_index] ? slot_recs[13].last_glyph : 1;
 					row = boundary_wall_variant % 1 ? 30 : 10;
 					marker_string_x_offsets[marker_index] =
 						marker_string_variants[marker_index] ?
@@ -481,19 +464,20 @@ draw_first_person_maze_view()
 							dseg_02a6[view_scan_depth][row].bottom,
 							boundary_wall_open ? 255 : 0);
 					else if (view_scan_depth > 0 &&
-					    glyph_y_table.marker_rows_a[(row << 2) +
+					    slot_recs[9].glyph_x[(row << 2) +
 						view_scan_depth][0] != 0) {
 						floor_checker_parity =
 							(random_below(2) + party_world_x + party_world_y +
 							 party_facing + view_scan_depth) % 2;
 						glyph[0] = view_scan_depth;
 						glyph[1] = 0;
-						marker_index = glyph_y_table.marker_rows_a[(row << 2) +
+						marker_index = slot_recs[9].glyph_x[(row << 2) +
 							view_scan_depth][floor_checker_parity];
 						if (marker_index == 255)
 							marker_index = floor_checker_parity ? -22 : -18;
 						call_draw_text(9, marker_index,
-							glyph_y_table.marker_rows_b[row][view_scan_depth],
+							slot_recs[9].glyph_y[(row << 2) +
+								view_scan_depth],
 							72, 248, 32, 144,
 							floor_checker_parity, glyph, 0, 0);
 					}

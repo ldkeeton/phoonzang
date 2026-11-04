@@ -1,32 +1,29 @@
-/* Find the matching entry in the runtime six-byte record table. */
-#include "structs/sixbyte.h"
+/* Find the maze_change_log entry for a level, kind and location; -1 when
+   there is none. */
+#include "structs/mazechng.h"
 
-extern struct six_byte_record *runtime_buffer_3k;
-extern int runtime_six_byte_count;
+extern struct maze_change *maze_change_log;
+extern int maze_change_count;
 
-find_maze_change(first_value, second_value, third_value, fourth_value,
-		last_value)
-int first_value, second_value, third_value, fourth_value, last_value;
+find_maze_change(level, kind, map_piece, cell_x, cell_y)
+int level, kind, map_piece, cell_x, cell_y;
 {
 	int record_index;
-	int combined_value;
-	struct six_byte_record *record;
+	int location;
+	struct maze_change *record;
 
-	/* The table stores each record in a fixed six-byte stride. */
-	combined_value = (third_value << 8) + (fourth_value << 4)
-		+ last_value;
-	record = runtime_buffer_3k;
-	for (record_index = 0; record_index < runtime_six_byte_count;
+	location = (map_piece << 8) + (cell_x << 4) + cell_y;
+	record = maze_change_log;
+	for (record_index = 0; record_index < maze_change_count;
 		record_index++, record++) {
-		if (record->first_value != first_value
-			|| record->second_value != second_value)
+		if (record->level != level || record->kind != kind)
 			continue;
 
-		/* The second key value selects which third-field form is used. */
-		if (second_value == 6) {
-			if (record->stored_value == third_value)
+		/* Kind 6 is keyed by the region index alone. */
+		if (kind == 6) {
+			if (record->location == map_piece)
 				return record_index;
-		} else if (record->stored_value == combined_value) {
+		} else if (record->location == location) {
 			return record_index;
 		}
 	}

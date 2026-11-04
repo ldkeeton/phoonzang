@@ -11,7 +11,7 @@ loc_OTGM:
     shl ax, 1                        ; 0x0f7e
     mov bx, ax                       ; 0x0f80
     mov bx, word [bx + battle_groups] ; 0x0f82
-    cmp byte [bx + si + member_rec.f_001f], 0 ; 0x0f86
+    cmp byte [bx + si + member_rec.unit_target_group], 0 ; 0x0f86
     jne short .forward1              ; 0x0f8a
     ret                              ; 0x0f8c
 .forward1:

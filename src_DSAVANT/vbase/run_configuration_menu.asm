@@ -1637,14 +1637,14 @@ jumptable_5e7f_case_14:
     add sp, byte 6                   ; 0x5bac
     jmp near run_configuration_menu.forward43 ; 0x5baf
 jumptable_5e7f_case_15:
-    mov al, byte [startup_aux_option_a] ; 0x5bb2
+    mov al, byte [difficulty_option] ; 0x5bb2
     sub ah, ah                       ; 0x5bb5
     inc ax                           ; 0x5bb7
     mov cx, 3                        ; 0x5bb8
     cwd                              ; 0x5bbb
     idiv cx                          ; 0x5bbc
     mov ax, dx                       ; 0x5bbe
-    mov byte [startup_aux_option_a], al ; 0x5bc0
+    mov byte [difficulty_option], al ; 0x5bc0
     push word [bp - 0xa]             ; 0x5bc3
     push word [bp - 8]               ; 0x5bc6
     mov ax, 0xa                      ; 0x5bc9

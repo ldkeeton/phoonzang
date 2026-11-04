@@ -61,7 +61,7 @@ queue_marker_overlay:
     mov al, byte [bp - 0xe]
     sub ah, ah
     mov bx, ax
-    mov al, byte [bx + glyph_y_table]
+    mov al, byte [bx + slot_recs + slot_rec_size*3 + slot_rec.glyph_y]
     sub ah, ah
     inc ax
     push ax
@@ -69,7 +69,7 @@ queue_marker_overlay:
     mov ax, bx
     add ax, word [bp - 4]
     mov bx, ax
-    mov al, byte [bx + glyph_x_table]
+    mov al, byte [bx + slot_recs + slot_rec_size*3 + slot_rec.glyph_x]
     sub ah, ah
     inc ax
     push ax
@@ -93,10 +93,10 @@ queue_marker_overlay:
     push ax
     mov ax, 0x48
     push ax
-    mov al, byte [marker_y]
+    mov al, byte [slot_recs + slot_rec_size*12 + slot_rec.glyph_y + 0x1]
     sub ah, ah
     push ax
-    mov al, byte [marker_x]
+    mov al, byte [slot_recs + slot_rec_size*12 + slot_rec.glyph_x + 0x2]
     sub ah, ah
     push ax
     mov ax, 0xc

@@ -23,12 +23,12 @@ draw_animated_glyph_pair:
     mov al, byte [bp - 0xa]          ; 0x076a
     sub ah, ah                       ; 0x076d
     mov bx, ax                       ; 0x076f
-    mov al, byte [bx + glyph_y_table] ; 0x0771
+    mov al, byte [bx + slot_recs + slot_rec_size*3 + slot_rec.glyph_y] ; 0x0771
     sub ah, ah                       ; 0x0775
     inc ax                           ; 0x0777
     push ax                          ; 0x0778
     shl bx, 1                        ; 0x0779
-    mov al, byte [bx + glyph_x_table] ; 0x077b
+    mov al, byte [bx + slot_recs + slot_rec_size*3 + slot_rec.glyph_x] ; 0x077b
     sub ah, ah                       ; 0x077f
     inc ax                           ; 0x0781
     push ax                          ; 0x0782
@@ -60,12 +60,12 @@ draw_animated_glyph_pair:
     mov al, byte [bp - 0xa]          ; 0x07ba
     sub ah, ah                       ; 0x07bd
     mov bx, ax                       ; 0x07bf
-    mov al, byte [bx + glyph_y_table_b] ; 0x07c1
+    mov al, byte [bx + slot_recs + slot_rec_size*15 + slot_rec.glyph_y] ; 0x07c1
     sub ah, ah                       ; 0x07c5
     inc ax                           ; 0x07c7
     push ax                          ; 0x07c8
     shl bx, 1                        ; 0x07c9
-    mov al, byte [bx + glyph_x_table_b] ; 0x07cb
+    mov al, byte [bx + slot_recs + slot_rec_size*15 + slot_rec.glyph_x] ; 0x07cb
     sub ah, ah                       ; 0x07cf
     inc ax                           ; 0x07d1
     push ax                          ; 0x07d2

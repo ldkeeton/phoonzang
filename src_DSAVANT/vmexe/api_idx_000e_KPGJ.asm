@@ -1972,7 +1972,7 @@ api_idx_000e_KPGJ.back5:
     shl ax, 1                        ; 0x4cd3
     mov bx, ax                       ; 0x4cd5
     mov bx, word [bx + battle_groups] ; 0x4cd7
-    mov byte [bx + member_rec.name_row], 0 ; 0x4cdb
+    mov byte [bx + member_rec.unidentified], 0 ; 0x4cdb
 api_idx_000e_KPGJ.forward33:
     inc word [bp - 2]                ; 0x4ce0
 api_idx_000e_KPGJ.forward34:

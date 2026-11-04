@@ -8,7 +8,7 @@ extern char palette_definition_filename[], screen_temporary_filename[];
 extern char selected_game_directory[], selected_game_filename[];
 extern char screen_store_drive[];
 extern unsigned char base_palette_rgb[256][3];
-extern unsigned char startup_option_byte, startup_aux_option_a;
+extern unsigned char startup_option_byte, difficulty_option;
 extern unsigned char startup_aux_option_b, sound_device_setting, video_mode;
 extern unsigned char volume_settings[], monster_volume, background_volume;
 extern unsigned char music_volume, no_dissolve;
@@ -360,7 +360,7 @@ int initial_mode;
 				draw_configuration_control(9, dialog_top, dialog_left);
 				break;
 			case 15:
-				startup_aux_option_a = (startup_aux_option_a + 1) % 3;
+				difficulty_option = (difficulty_option + 1) % 3;
 				draw_configuration_control(10, dialog_top, dialog_left);
 				break;
 			case 16:

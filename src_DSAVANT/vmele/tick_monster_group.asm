@@ -151,7 +151,7 @@ tick_monster_group:
     shl ax, 1                        ; 0x164f
     mov bx, ax                       ; 0x1651
     mov bx, word [bx + battle_groups] ; 0x1653
-    mov al, byte [bx + member_rec.name_row] ; 0x1657
+    mov al, byte [bx + member_rec.unidentified] ; 0x1657
     sub ah, ah                       ; 0x165b
     mov cx, 5                        ; 0x165d
     shl ax, cl                       ; 0x1660

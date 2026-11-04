@@ -8,8 +8,8 @@ api_idx_0002_GMMK:
     mov word [bp - 2], 1             ; 0x4da2
     jmp short .forward4              ; 0x4da7
 .back1:
-    mov bx, word [bss_848e]          ; 0x4da9
-    cmp byte [bx + rec_848e.f_01a1], 0 ; 0x4dad
+    mov bx, word [battle_groups_6]   ; 0x4da9
+    cmp byte [bx + battle_groups_6_rec.f_01a1], 0 ; 0x4dad
     jbe short .forward1              ; 0x4db2
     mov ax, 4                        ; 0x4db4
     push ax                          ; 0x4db7
@@ -44,8 +44,8 @@ api_idx_0002_GMMK:
     mov ax, word [bp - 2]            ; 0x4dfa
     cmp ax, word [monster_group_count] ; 0x4dfd
     jle short .back1                 ; 0x4e01
-    mov bx, word [bss_848e]          ; 0x4e03
-    cmp byte [bx + rec_848e.f_01a1], 0 ; 0x4e07
+    mov bx, word [battle_groups_6]   ; 0x4e03
+    cmp byte [bx + battle_groups_6_rec.f_01a1], 0 ; 0x4e07
     jbe short .return1               ; 0x4e0c
     mov word [bp - 2], 1             ; 0x4e0e
 .back2:

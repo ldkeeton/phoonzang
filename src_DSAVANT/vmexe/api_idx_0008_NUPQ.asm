@@ -20,7 +20,7 @@ api_idx_0008_NUPQ:
     shl dx, 1                        ; 0x63f6
     add ax, dx                       ; 0x63f8
     mov bx, ax                       ; 0x63fa
-    mov cx, word [bx + cell_overlay_y_offset + 0x12] ; 0x63fc
+    mov cx, word [bx + column_orders] ; 0x63fc
     shl cx, 1                        ; 0x6400
     pop ax                           ; 0x6402
     add ax, cx                       ; 0x6403

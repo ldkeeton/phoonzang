@@ -17,11 +17,11 @@ extern char screen_store_drive[];
 extern unsigned char palette_base_setting, palette_scale_setting;
 extern unsigned char volume_settings[], sound_device_setting, video_mode;
 extern int sound_port_setting, sound_aux_setting;
-extern unsigned char startup_option_byte, startup_aux_option_a,
+extern unsigned char startup_option_byte, difficulty_option,
 	startup_aux_option_b;
 extern unsigned char hardware_mode_setting, startup_aux_option_c, no_dissolve;
-extern int runtime_six_byte_count, floor_item_count;
-extern char *runtime_buffer_3k, *floor_items;
+extern int maze_change_count, floor_item_count;
+extern char *maze_change_log, *floor_items;
 extern char far *runtime_buffer_4k_a, *runtime_buffer_4k_b;
 extern char game_block_a[], game_block_b[];
 extern int party_world_x, party_world_y, party_cell_x, party_cell_y;
@@ -130,15 +130,15 @@ int load_mode;
 	sound_aux_setting = preserved_load_header.sound_extra;
 	startup_option_byte = preserved_load_header.startup;
 	install_mode = preserved_load_header.install;
-	startup_aux_option_a = preserved_load_header.option_a;
+	difficulty_option = preserved_load_header.option_a;
 	startup_aux_option_b = preserved_load_header.option_b;
 	hardware_mode_setting = preserved_load_header.hardware;
 	startup_aux_option_c = preserved_load_header.option_c;
 	no_dissolve = preserved_load_header.dissolve;
 	startup_option = startup_option_byte;
-	if ((byte_count = 6 * runtime_six_byte_count) > 0) {
+	if ((byte_count = 6 * maze_change_count) > 0) {
 		/* six bytes per record */
-		if ((read_count = aztec_read(fd, runtime_buffer_3k, byte_count)) <= 0) {
+		if ((read_count = aztec_read(fd, maze_change_log, byte_count)) <= 0) {
 			show_load_disk_error(error_text);
 			aztec_close(fd);
 			if (swap_needed)

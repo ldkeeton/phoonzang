@@ -12,9 +12,9 @@ jumptable_0363_case_0:
     call aztec_free                  ; 0x025e
     pop cx                           ; 0x0261
 release_resources.forward1:
-    cmp word [runtime_buffer_3k], byte 0 ; 0x0262
+    cmp word [maze_change_log], byte 0 ; 0x0262
     je short release_resources.forward2 ; 0x0267
-    push word [runtime_buffer_3k]    ; 0x0269
+    push word [maze_change_log]      ; 0x0269
     call aztec_free                  ; 0x026d
     pop cx                           ; 0x0270
 release_resources.forward2:

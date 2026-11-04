@@ -29,7 +29,7 @@ int row, col, shift, nearx, left, right, consume;
 		return;
 	variant = col % 2;
 	glyph = out[0];
-	if (slot_recs[rec].forced[0] != 0)
+	if (slot_recs[rec].forced != 0)
 		shift = 0;
 	code = slot_recs[rec].range[glyph].sort;
 	if (code == 0)

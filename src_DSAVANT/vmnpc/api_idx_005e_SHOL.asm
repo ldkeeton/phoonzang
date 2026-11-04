@@ -112,7 +112,7 @@ api_idx_005e_SHOL:
     shl cx, 1                        ; 0x1506
     add ax, cx                       ; 0x1508
     mov bx, ax                       ; 0x150a
-    mov cx, word [bx + cell_overlay_code + 0x48] ; 0x150c
+    mov cx, word [bx + action_overlay_steps] ; 0x150c
     mov ax, 0                        ; 0x1510
     sub ax, cx                       ; 0x1513
     jmp short .forward8              ; 0x1515
@@ -125,7 +125,7 @@ api_idx_005e_SHOL:
     shl cx, 1                        ; 0x1523
     add ax, cx                       ; 0x1525
     mov bx, ax                       ; 0x1527
-    mov ax, word [bx + cell_overlay_code + 0x48] ; 0x1529
+    mov ax, word [bx + action_overlay_steps] ; 0x1529
 .forward8:
     mov word [bp - 8], ax            ; 0x152d
     cmp word [bp - 4], byte 0        ; 0x1530
@@ -142,7 +142,7 @@ api_idx_005e_SHOL:
     shl cx, 1                        ; 0x154e
     add ax, cx                       ; 0x1550
     mov bx, ax                       ; 0x1552
-    mov cx, word [bx + cell_overlay_code + 0x48] ; 0x1554
+    mov cx, word [bx + action_overlay_steps] ; 0x1554
     mov ax, 0                        ; 0x1558
     sub ax, cx                       ; 0x155b
     jmp short .forward10             ; 0x155d
@@ -155,7 +155,7 @@ api_idx_005e_SHOL:
     shl cx, 1                        ; 0x156b
     add ax, cx                       ; 0x156d
     mov bx, ax                       ; 0x156f
-    mov ax, word [bx + cell_overlay_code + 0x48] ; 0x1571
+    mov ax, word [bx + action_overlay_steps] ; 0x1571
 .forward10:
     mov word [bp - 8], ax            ; 0x1575
 .forward11:
@@ -170,7 +170,7 @@ api_idx_005e_SHOL:
     shl cx, 1                        ; 0x158c
     add ax, cx                       ; 0x158e
     mov bx, ax                       ; 0x1590
-    mov cx, word [bx + cell_overlay_code + 0x12] ; 0x1592
+    mov cx, word [bx + npc_cell_overlay_y_offset] ; 0x1592
     mov ax, 0x64                     ; 0x1596
     sub ax, cx                       ; 0x1599
     push ax                          ; 0x159b

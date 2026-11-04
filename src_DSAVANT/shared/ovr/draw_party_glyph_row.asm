@@ -66,7 +66,7 @@ draw_party_glyph_row:
     mov al, byte [bp - 0xe]
     sub ah, ah
     mov bx, ax
-    mov al, byte [bx + glyph_y_table]
+    mov al, byte [bx + slot_recs + slot_rec_size*3 + slot_rec.glyph_y]
     sub ah, ah
     inc ax
     push ax
@@ -74,7 +74,7 @@ draw_party_glyph_row:
     mov ax, bx
     add ax, word [bp - 4]
     mov bx, ax
-    mov al, byte [bx + glyph_x_table]
+    mov al, byte [bx + slot_recs + slot_rec_size*3 + slot_rec.glyph_x]
     sub ah, ah
     inc ax
     push ax

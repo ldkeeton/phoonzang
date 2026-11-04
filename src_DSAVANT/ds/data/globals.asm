@@ -1,7 +1,7 @@
 ; auto-generated
 __zbss_0e0e:  ; floor_items
     resb 0x0002
-__zbss_0e10:  ; runtime_buffer_3k
+__zbss_0e10:  ; maze_change_log
     resb 0x0002
 __zbss_0e12:  ; maze_tables
     resb 0x0002
@@ -97,7 +97,7 @@ __zbss_5642:  ; scenario_header_data
     resb 0x0200
 __zbss_5842:  ; action_bitmap
     resb 0x00cc
-__zbss_590e:  ; runtime_six_byte_count
+__zbss_590e:  ; maze_change_count
     resb 0x0002
 __zbss_5910:  ; floor_item_count
     resb 0x0002
@@ -141,7 +141,7 @@ __zbss_5986:  ; startup_option_byte
     resb 0x0001
 __zbss_5987:  ; install_mode
     resb 0x0001
-__zbss_5988:  ; startup_aux_option_a
+__zbss_5988:  ; difficulty_option
     resb 0x0001
 __zbss_5989:  ; startup_aux_option_b
     resb 0x0001
@@ -208,25 +208,7 @@ __zbss_69c8:  ; party_char_count
 __zbss_69ca:  ; data_path_buf
     resb 0x0050
 __zbss_6a1a:  ; slot_recs
-    resb 0x0452
-__zbss_6e6c:  ; glyph_x_table
-    resb 0x0049
-__zbss_6eb5:  ; glyph_y_table
-    resb 0x0c07
-__zbss_7abc:  ; marker_x
-    resb 0x0002
-__zbss_7abe:  ; bss_7abe
-    resb 0x0046
-__zbss_7b04:  ; marker_y
-    resb 0x0001
-__zbss_7b05:  ; bss_7b05
-    resb 0x0237
-__zbss_7d3c:  ; bss_7d3c
-    resb 0x0198
-__zbss_7ed4:  ; glyph_x_table_b
-    resb 0x0049
-__zbss_7f1d:  ; glyph_y_table_b
-    resb 0x0399
+    resb 0x189c
 __zbss_82b6:  ; loaded_score_num
     resb 0x0002
 __zbss_82b8:  ; answer_word
@@ -313,9 +295,9 @@ __zbss_8468:  ; overlay_list
     resb 0x001a
 __zbss_8482:  ; battle_groups
     resb 0x0002
-__zbss_8484:  ; party_char_hi
+__zbss_8484:  ; battle_groups_1
     resb 0x000a
-__zbss_848e:  ; bss_848e
+__zbss_848e:  ; battle_groups_6
     resb 0x0002
 __zbss_8490:  ; battle_group_ext
     resb 0x0002
@@ -385,13 +367,13 @@ __zbss_8aee:  ; bss_8aee
     resb 0x0002
 __zbss_8af0:  ; member_roster_index
     resb 0x000e
-__zbss_8afe:  ; current_map_block_b
+__zbss_8afe:  ; explored_cell_bitmap
     resb 0x0080
 __zbss_8b7e:  ; current_map_block_a
     resb 0x0080
 __zbss_8bfe:  ; floor_item_cell_bits
     resb 0x0080
-__zbss_8c7e:  ; bss_8c7e
+__zbss_8c7e:  ; maze_object_cell_bitmap
     resb 0x0080
 __zbss_8cfe:  ; adjacent_object_type
     resb 0x0008

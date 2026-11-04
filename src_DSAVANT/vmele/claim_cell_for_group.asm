@@ -7,7 +7,7 @@ claim_cell_for_group:
     push word [bp + 8]               ; 0x29a7
     push word [bp + 6]               ; 0x29aa
     push word [bp + 4]               ; 0x29ad
-    call api_idx_0002_MTJS           ; 0x29b0
+    call assign_monster_group_cell   ; 0x29b0
     add sp, byte 6                   ; 0x29b3
     test ax, ax                      ; 0x29b6
     jne short .forward1              ; 0x29b8

@@ -149,29 +149,20 @@ Used by `make data` (`lib/cdata/project.py`). For each game data file, it
 lists the parts in the order the code reads them. The parts must cover the
 whole file exactly.
 
-```json
-"data_files": {
-  "NEWGAME.DBS": {
-    "note": "the game a new party starts in",
-    "parts": [
-      { "into": "scenario_header_data", "size": 844 },
-      { "memory": "game_block_a", "size": 256, "count": 32 },
-      { "into": "path_edges", "size": 128,
-        "field_labels": { "end_a": "MSG_LOCATION_NAME_BASE" } },
-      { "into": "faction_attitudes", "size": 144, "record": 12,
-        "element_labels": "MSG_FACTION_NAME_BASE" }
-    ]
-  }
-}
-```
+Typed parts derive their destination and declaration scope from the code's
+resource reads. Filename strings and file handles connect startup opens to
+reads; indexed record calls supply their destinations; multipart files match
+ordered reads, including consecutive memory runs and runtime record counts.
+No source locations or destination hints are stored for typed parts.
 
-Each part has exactly one of these keys:
+`size` gives bytes; without `size` or `count` a typed part takes the rest of
+the file. `count` gives elements and `record` gives bytes per element.
 
 | Kind | Description |
 |---|---|
-| `into: <variable>` | Read into a named variable. `size` gives the bytes; without `size` or `count` the part takes the rest of the file. `count` gives elements, `record` gives bytes per element. `in` names the source file that declares the variable when it is a local (`"vbase/read_class_experience_threshold.c"`). |
+| Typed part | A part with size/count/record and annotations; its destination is discovered from the reader code. |
 | `memory: <variable>` | A run of consecutive variables starting at this one, `size` bytes, repeated `count` times. |
-| `raw: <name>` | Records of `record` bytes for a buffer the code has not named. `type` is an optional C scalar element type (default byte). `count` gives the records. |
+| `raw: <name>` | Records of `record` bytes for an unnamed buffer. `type` is an optional C scalar element type (default byte); `count` gives the records. |
 
 Optional on any part:
 

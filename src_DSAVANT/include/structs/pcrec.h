@@ -6,7 +6,7 @@
 struct pc_item_slot {			/* 12 bytes */
 	int item_id;		/* +0x0: 0 when free, counted when positive */
 	int weight;			/* +0x2: weight of one unit (see item_slot_weight) */
-	unsigned char overlay;		/* +0x4: index into cell_overlay_code */
+	unsigned char item_type;	/* +0x4: itemrec item_type; see item_type_counted */
 	unsigned char glyph;		/* +0x5: icon drawn on the member panel */
 	unsigned char level;		/* +0x6 */
 	unsigned char flags;		/* +0x7: bit 0 equipped */

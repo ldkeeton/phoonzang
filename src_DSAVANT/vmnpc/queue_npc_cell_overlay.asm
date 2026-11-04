@@ -67,7 +67,7 @@ queue_npc_cell_overlay:
     shl cx, 1                        ; 0x07cb
     add ax, cx                       ; 0x07cd
     mov bx, ax                       ; 0x07cf
-    mov ax, word [bx + cell_overlay_code + 0x24] ; 0x07d1
+    mov ax, word [bx + npc_cell_overlay_code] ; 0x07d1
     mov word [bp - 8], ax            ; 0x07d5
     jmp short .forward8              ; 0x07d8
 .forward6:

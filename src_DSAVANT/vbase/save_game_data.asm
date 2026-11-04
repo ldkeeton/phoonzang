@@ -275,7 +275,7 @@ save_game_data:
     push dx                          ; 0x3b00
     push ax                          ; 0x3b01
     push ds                          ; 0x3b02
-    mov ax, current_map_block_b      ; 0x3b03
+    mov ax, explored_cell_bitmap     ; 0x3b03
     push ax                          ; 0x3b06
     call app_memmove                 ; 0x3b07
     add sp, byte 0xa                 ; 0x3b0a
@@ -334,12 +334,12 @@ save_game_data:
     ret                              ; 0x3b86
 .forward20:
     mov ax, 6                        ; 0x3b87
-    imul word [runtime_six_byte_count] ; 0x3b8a
+    imul word [maze_change_count]    ; 0x3b8a
     mov word [bp - 6], ax            ; 0x3b8e
     cmp ax, strict word 0            ; 0x3b91
     jle short .forward22             ; 0x3b94
     push ax                          ; 0x3b96
-    push word [runtime_buffer_3k]    ; 0x3b97
+    push word [maze_change_log]      ; 0x3b97
     push word [bp - 0xa]             ; 0x3b9b
     call aztec_write                 ; 0x3b9e
     add sp, byte 6                   ; 0x3ba1

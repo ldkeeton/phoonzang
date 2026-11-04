@@ -61,7 +61,7 @@ play_action_overlays:
     shl cx, 1                        ; 0x2d77
     add ax, cx                       ; 0x2d79
     mov bx, ax                       ; 0x2d7b
-    mov cx, word [bx + cell_overlay_code + 0x48] ; 0x2d7d
+    mov cx, word [bx + action_overlay_steps] ; 0x2d7d
     mov ax, 0                        ; 0x2d81
     sub ax, cx                       ; 0x2d84
     jmp short .forward4              ; 0x2d86
@@ -74,7 +74,7 @@ play_action_overlays:
     shl cx, 1                        ; 0x2d94
     add ax, cx                       ; 0x2d96
     mov bx, ax                       ; 0x2d98
-    mov ax, word [bx + cell_overlay_code + 0x48] ; 0x2d9a
+    mov ax, word [bx + action_overlay_steps] ; 0x2d9a
 .forward4:
     mov word [bp - 8], ax            ; 0x2d9e
     cmp word [bp - 4], byte 0        ; 0x2da1

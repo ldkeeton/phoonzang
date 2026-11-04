@@ -37,7 +37,7 @@ ovmain:
     cmp word [game_state], byte 5    ; 0x0085
     jne short .forward3              ; 0x008a
     call load_maze_resources         ; 0x008c
-    call api_idx_0022_LKUK           ; 0x008f
+    call run_maze_loop               ; 0x008f
 .forward3:
     call stop_and_clear_maze_sounds  ; 0x0092
     call clear_marker_string_frames  ; 0x0095
@@ -56,7 +56,7 @@ ovmain:
     je short .forward4               ; 0x00b7
     mov word [capture_center_marker_mode], 1 ; 0x00b9
     call draw_first_person_maze_view ; 0x00bf
-    mov ax, dseg_9098                ; 0x00c2
+    mov ax, maze_temp_filename       ; 0x00c2
     push ax                          ; 0x00c5
     mov ax, 0x8f                     ; 0x00c6
     push ax                          ; 0x00c9

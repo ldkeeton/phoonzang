@@ -8,11 +8,11 @@ draw_transition_glyph:
     mov ax, word [bp + 4]            ; 0x09e3
     shl ax, 1                        ; 0x09e6
     mov bx, ax                       ; 0x09e8
-    mov al, byte [bx + glyph_x_table_b] ; 0x09ea
+    mov al, byte [bx + slot_recs + slot_rec_size*15 + slot_rec.glyph_x] ; 0x09ea
     sub ah, ah                       ; 0x09ee
     mov word [bp - 2], ax            ; 0x09f0
     mov bx, word [bp + 4]            ; 0x09f3
-    mov al, byte [bx + glyph_y_table_b] ; 0x09f6
+    mov al, byte [bx + slot_recs + slot_rec_size*15 + slot_rec.glyph_y] ; 0x09f6
     sub ah, ah                       ; 0x09fa
     mov word [bp - 4], ax            ; 0x09fc
     cmp word [bp + 6], byte 0        ; 0x09ff

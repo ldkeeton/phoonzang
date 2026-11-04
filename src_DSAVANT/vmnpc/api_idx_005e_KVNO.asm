@@ -76,7 +76,7 @@ api_idx_005e_KVNO:
     mov al, byte [bp - 0x1c]         ; 0x588d
     sub ah, ah                       ; 0x5890
     mov bx, ax                       ; 0x5892
-    cmp byte [bx + cell_overlay_code + 0x58], 1 ; 0x5894
+    cmp byte [bx + item_type_counted], 1 ; 0x5894
     jne short .forward3              ; 0x5899
     mov ax, word [bp - 6]            ; 0x589b
     cwd                              ; 0x589e
