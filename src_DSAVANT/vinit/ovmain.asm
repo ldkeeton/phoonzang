@@ -8,13 +8,13 @@ ovmain:
     call initialize_runtime_resources ; 0x0019
     jmp short .forward2              ; 0x001c
 .back2:
-    call api_idx_0068_OUHP           ; 0x001e
+    call play_startup_sequence       ; 0x001e
     jmp short .forward2              ; 0x0021
 .back3:
-    call api_idx_0002_SKSN           ; 0x0023
+    call release_main_screen         ; 0x0023
     jmp short .forward2              ; 0x0026
 .back4:
-    call api_idx_0008_QGRM           ; 0x0028
+    call initialize_main_screen      ; 0x0028
     jmp short .forward2              ; 0x002b
 .forward1:
     cmp ax, strict word 0            ; 0x002d

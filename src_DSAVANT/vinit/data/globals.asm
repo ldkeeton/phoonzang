@@ -1,3 +1,3 @@
 ; auto-generated
-__zobss_91b8:  ; bss_91b8
+__zobss_91b8:  ; story_escape_state
     resb 0x0002

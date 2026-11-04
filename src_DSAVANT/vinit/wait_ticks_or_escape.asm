@@ -1,5 +1,5 @@
 ; auto-generated
-api_idx_0004_OIGN:
+wait_ticks_or_escape:
     mov ax, 0xfffc                   ; 0x0988
     call aztec_csav                  ; 0x098b
     mov ax, word [bp + 4]            ; 0x098e
@@ -23,7 +23,7 @@ api_idx_0004_OIGN:
 .forward1:
     jmp short .return1               ; 0x09be
 .forward2:
-    call api_idx_0002_PUOP           ; 0x09c0
+    call poll_escape_key             ; 0x09c0
     test ax, ax                      ; 0x09c3
     je short .forward3               ; 0x09c5
     ret                              ; 0x09c7

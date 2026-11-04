@@ -1,5 +1,5 @@
 ; auto-generated
-api_idx_0068_OUHP:
+play_startup_sequence:
     mov ax, 0xff98                   ; 0x0ac7
     call aztec_csav                  ; 0x0aca
     call score_music_enabled         ; 0x0acd
@@ -44,7 +44,7 @@ api_idx_0068_OUHP:
     push ax                          ; 0x0b2d
     mov ax, 1                        ; 0x0b2e
     push ax                          ; 0x0b31
-    call api_idx_000e_GTMH           ; 0x0b32
+    call draw_transition_glyph       ; 0x0b32
     add sp, byte 4                   ; 0x0b35
     mov ax, 0                        ; 0x0b38
     push ax                          ; 0x0b3b
@@ -65,8 +65,8 @@ api_idx_0068_OUHP:
     push ax                          ; 0x0b5a
     call call_fade_in                ; 0x0b5b
     pop cx                           ; 0x0b5e
-    mov word [bss_91b8], 0           ; 0x0b5f
-    call api_idx_0002_PUOP           ; 0x0b65
+    mov word [story_escape_state], 0 ; 0x0b5f
+    call poll_escape_key             ; 0x0b65
     test ax, ax                      ; 0x0b68
     jne short .forward3              ; 0x0b6a
     cmp word [story_music_enabled], byte 0 ; 0x0b6c
@@ -81,10 +81,10 @@ api_idx_0068_OUHP:
 .forward2:
     mov ax, 0xb4                     ; 0x0b85
     push ax                          ; 0x0b88
-    call api_idx_0004_OIGN           ; 0x0b89
+    call wait_ticks_or_escape        ; 0x0b89
     pop cx                           ; 0x0b8c
 .forward3:
-    call api_idx_0002_PUOP           ; 0x0b8d
+    call poll_escape_key             ; 0x0b8d
     test ax, ax                      ; 0x0b90
     jne short .forward4              ; 0x0b92
     mov ax, 0xa                      ; 0x0b94
@@ -95,10 +95,10 @@ api_idx_0068_OUHP:
     push ax                          ; 0x0b9f
     mov ax, 2                        ; 0x0ba0
     push ax                          ; 0x0ba3
-    call loc_KVVL                    ; 0x0ba4
+    call show_glyph_frame            ; 0x0ba4
     add sp, byte 8                   ; 0x0ba7
 .forward4:
-    call api_idx_0002_PUOP           ; 0x0baa
+    call poll_escape_key             ; 0x0baa
     test ax, ax                      ; 0x0bad
     jne short .forward5              ; 0x0baf
     mov ax, 0xa                      ; 0x0bb1
@@ -109,10 +109,10 @@ api_idx_0068_OUHP:
     push ax                          ; 0x0bbc
     mov ax, 4                        ; 0x0bbd
     push ax                          ; 0x0bc0
-    call loc_KVVL                    ; 0x0bc1
+    call show_glyph_frame            ; 0x0bc1
     add sp, byte 8                   ; 0x0bc4
 .forward5:
-    call api_idx_0002_PUOP           ; 0x0bc7
+    call poll_escape_key             ; 0x0bc7
     test ax, ax                      ; 0x0bca
     jne short .forward6              ; 0x0bcc
     mov ax, 0xa                      ; 0x0bce
@@ -123,10 +123,10 @@ api_idx_0068_OUHP:
     push ax                          ; 0x0bd9
     mov ax, 6                        ; 0x0bda
     push ax                          ; 0x0bdd
-    call loc_KVVL                    ; 0x0bde
+    call show_glyph_frame            ; 0x0bde
     add sp, byte 8                   ; 0x0be1
 .forward6:
-    call api_idx_0002_PUOP           ; 0x0be4
+    call poll_escape_key             ; 0x0be4
     test ax, ax                      ; 0x0be7
     jne short .forward7              ; 0x0be9
     mov ax, 0xa                      ; 0x0beb
@@ -136,10 +136,10 @@ api_idx_0068_OUHP:
     push ax                          ; 0x0bf3
     mov ax, 8                        ; 0x0bf4
     push ax                          ; 0x0bf7
-    call loc_KVVL                    ; 0x0bf8
+    call show_glyph_frame            ; 0x0bf8
     add sp, byte 8                   ; 0x0bfb
 .forward7:
-    call api_idx_0002_PUOP           ; 0x0bfe
+    call poll_escape_key             ; 0x0bfe
     test ax, ax                      ; 0x0c01
     jne short .forward8              ; 0x0c03
     mov ax, 0xa                      ; 0x0c05
@@ -150,10 +150,10 @@ api_idx_0068_OUHP:
     push ax                          ; 0x0c10
     mov ax, 0xb                      ; 0x0c11
     push ax                          ; 0x0c14
-    call loc_KVVL                    ; 0x0c15
+    call show_glyph_frame            ; 0x0c15
     add sp, byte 8                   ; 0x0c18
 .forward8:
-    call api_idx_0002_PUOP           ; 0x0c1b
+    call poll_escape_key             ; 0x0c1b
     test ax, ax                      ; 0x0c1e
     jne short .forward9              ; 0x0c20
     mov ax, 0xa                      ; 0x0c22
@@ -164,10 +164,10 @@ api_idx_0068_OUHP:
     push ax                          ; 0x0c2d
     mov ax, 0xe                      ; 0x0c2e
     push ax                          ; 0x0c31
-    call loc_KVVL                    ; 0x0c32
+    call show_glyph_frame            ; 0x0c32
     add sp, byte 8                   ; 0x0c35
 .forward9:
-    call api_idx_0002_PUOP           ; 0x0c38
+    call poll_escape_key             ; 0x0c38
     test ax, ax                      ; 0x0c3b
     jne short .forward10             ; 0x0c3d
     mov ax, 0                        ; 0x0c3f
@@ -177,14 +177,14 @@ api_idx_0068_OUHP:
     push ax                          ; 0x0c47
     mov ax, 0x10                     ; 0x0c48
     push ax                          ; 0x0c4b
-    call loc_KVVL                    ; 0x0c4c
+    call show_glyph_frame            ; 0x0c4c
     add sp, byte 8                   ; 0x0c4f
 .forward10:
     mov ax, 0xf                      ; 0x0c52
     push ax                          ; 0x0c55
     call free_picture_slot           ; 0x0c56
     pop cx                           ; 0x0c59
-    call api_idx_0002_PUOP           ; 0x0c5a
+    call poll_escape_key             ; 0x0c5a
     test ax, ax                      ; 0x0c5d
     je short .forward11              ; 0x0c5f
     jmp near .forward18              ; 0x0c61
@@ -197,9 +197,9 @@ api_idx_0068_OUHP:
     add sp, byte 4                   ; 0x0c6f
     mov ax, 0x98                     ; 0x0c72
     push ax                          ; 0x0c75
-    call api_idx_0004_OIGN           ; 0x0c76
+    call wait_ticks_or_escape        ; 0x0c76
     pop cx                           ; 0x0c79
-    call api_idx_0002_PUOP           ; 0x0c7a
+    call poll_escape_key             ; 0x0c7a
     test ax, ax                      ; 0x0c7d
     jne short .forward12             ; 0x0c7f
     mov ax, 0xa                      ; 0x0c81
@@ -210,10 +210,10 @@ api_idx_0068_OUHP:
     push ax                          ; 0x0c8c
     mov ax, 1                        ; 0x0c8d
     push ax                          ; 0x0c90
-    call loc_KVVL                    ; 0x0c91
+    call show_glyph_frame            ; 0x0c91
     add sp, byte 8                   ; 0x0c94
 .forward12:
-    call api_idx_0002_PUOP           ; 0x0c97
+    call poll_escape_key             ; 0x0c97
     test ax, ax                      ; 0x0c9a
     jne short .forward13             ; 0x0c9c
     mov ax, 0xa                      ; 0x0c9e
@@ -224,10 +224,10 @@ api_idx_0068_OUHP:
     push ax                          ; 0x0ca9
     mov ax, 4                        ; 0x0caa
     push ax                          ; 0x0cad
-    call loc_KVVL                    ; 0x0cae
+    call show_glyph_frame            ; 0x0cae
     add sp, byte 8                   ; 0x0cb1
 .forward13:
-    call api_idx_0002_PUOP           ; 0x0cb4
+    call poll_escape_key             ; 0x0cb4
     test ax, ax                      ; 0x0cb7
     jne short .forward14             ; 0x0cb9
     mov ax, 0                        ; 0x0cbb
@@ -237,14 +237,14 @@ api_idx_0068_OUHP:
     push ax                          ; 0x0cc3
     mov ax, 7                        ; 0x0cc4
     push ax                          ; 0x0cc7
-    call loc_KVVL                    ; 0x0cc8
+    call show_glyph_frame            ; 0x0cc8
     add sp, byte 8                   ; 0x0ccb
 .forward14:
     mov ax, 0x90                     ; 0x0cce
     push ax                          ; 0x0cd1
-    call api_idx_0004_OIGN           ; 0x0cd2
+    call wait_ticks_or_escape        ; 0x0cd2
     pop cx                           ; 0x0cd5
-    call api_idx_0002_PUOP           ; 0x0cd6
+    call poll_escape_key             ; 0x0cd6
     test ax, ax                      ; 0x0cd9
     jne short .forward15             ; 0x0cdb
     mov ax, 0xa                      ; 0x0cdd
@@ -255,10 +255,10 @@ api_idx_0068_OUHP:
     push ax                          ; 0x0ce8
     mov ax, 9                        ; 0x0ce9
     push ax                          ; 0x0cec
-    call loc_KVVL                    ; 0x0ced
+    call show_glyph_frame            ; 0x0ced
     add sp, byte 8                   ; 0x0cf0
 .forward15:
-    call api_idx_0002_PUOP           ; 0x0cf3
+    call poll_escape_key             ; 0x0cf3
     test ax, ax                      ; 0x0cf6
     jne short .forward16             ; 0x0cf8
     mov ax, 0xa                      ; 0x0cfa
@@ -269,10 +269,10 @@ api_idx_0068_OUHP:
     push ax                          ; 0x0d05
     mov ax, 0xc                      ; 0x0d06
     push ax                          ; 0x0d09
-    call loc_KVVL                    ; 0x0d0a
+    call show_glyph_frame            ; 0x0d0a
     add sp, byte 8                   ; 0x0d0d
 .forward16:
-    call api_idx_0002_PUOP           ; 0x0d10
+    call poll_escape_key             ; 0x0d10
     test ax, ax                      ; 0x0d13
     jne short .forward17             ; 0x0d15
     mov ax, 0                        ; 0x0d17
@@ -283,19 +283,19 @@ api_idx_0068_OUHP:
     push ax                          ; 0x0d22
     mov ax, 0xf                      ; 0x0d23
     push ax                          ; 0x0d26
-    call loc_KVVL                    ; 0x0d27
+    call show_glyph_frame            ; 0x0d27
     add sp, byte 8                   ; 0x0d2a
 .forward17:
     mov ax, 5                        ; 0x0d2d
     push ax                          ; 0x0d30
-    call api_idx_0004_OIGN           ; 0x0d31
+    call wait_ticks_or_escape        ; 0x0d31
     pop cx                           ; 0x0d34
     mov ax, 0xf                      ; 0x0d35
     push ax                          ; 0x0d38
     call free_picture_slot           ; 0x0d39
     pop cx                           ; 0x0d3c
 .forward18:
-    call api_idx_0002_PUOP           ; 0x0d3d
+    call poll_escape_key             ; 0x0d3d
     test ax, ax                      ; 0x0d40
     je short .forward19              ; 0x0d42
     jmp near .forward26              ; 0x0d44
@@ -306,7 +306,7 @@ api_idx_0068_OUHP:
     push ax                          ; 0x0d4e
     call load_monster_picture        ; 0x0d4f
     add sp, byte 4                   ; 0x0d52
-    call api_idx_0002_PUOP           ; 0x0d55
+    call poll_escape_key             ; 0x0d55
     test ax, ax                      ; 0x0d58
     jne short .forward20             ; 0x0d5a
     mov ax, 0                        ; 0x0d5c
@@ -321,47 +321,47 @@ api_idx_0068_OUHP:
     call call_fill_area              ; 0x0d6d
     add sp, byte 0xa                 ; 0x0d70
 .forward20:
-    call api_idx_0002_PUOP           ; 0x0d73
+    call poll_escape_key             ; 0x0d73
     test ax, ax                      ; 0x0d76
     jne short .forward21             ; 0x0d78
     mov ax, 0                        ; 0x0d7a
     push ax                          ; 0x0d7d
     mov ax, 1                        ; 0x0d7e
     push ax                          ; 0x0d81
-    call api_idx_000e_GTMH           ; 0x0d82
+    call draw_transition_glyph       ; 0x0d82
     add sp, byte 4                   ; 0x0d85
 .forward21:
-    call api_idx_0002_PUOP           ; 0x0d88
+    call poll_escape_key             ; 0x0d88
     test ax, ax                      ; 0x0d8b
     jne short .forward22             ; 0x0d8d
     mov ax, 0                        ; 0x0d8f
     push ax                          ; 0x0d92
     mov ax, 2                        ; 0x0d93
     push ax                          ; 0x0d96
-    call api_idx_000e_GTMH           ; 0x0d97
+    call draw_transition_glyph       ; 0x0d97
     add sp, byte 4                   ; 0x0d9a
 .forward22:
-    call api_idx_0002_PUOP           ; 0x0d9d
+    call poll_escape_key             ; 0x0d9d
     test ax, ax                      ; 0x0da0
     jne short .forward23             ; 0x0da2
     mov ax, 0                        ; 0x0da4
     push ax                          ; 0x0da7
     mov ax, 3                        ; 0x0da8
     push ax                          ; 0x0dab
-    call api_idx_000e_GTMH           ; 0x0dac
+    call draw_transition_glyph       ; 0x0dac
     add sp, byte 4                   ; 0x0daf
 .forward23:
-    call api_idx_0002_PUOP           ; 0x0db2
+    call poll_escape_key             ; 0x0db2
     test ax, ax                      ; 0x0db5
     jne short .forward24             ; 0x0db7
     mov ax, 0                        ; 0x0db9
     push ax                          ; 0x0dbc
     mov ax, 4                        ; 0x0dbd
     push ax                          ; 0x0dc0
-    call api_idx_000e_GTMH           ; 0x0dc1
+    call draw_transition_glyph       ; 0x0dc1
     add sp, byte 4                   ; 0x0dc4
 .forward24:
-    call api_idx_0002_PUOP           ; 0x0dc7
+    call poll_escape_key             ; 0x0dc7
     test ax, ax                      ; 0x0dca
     jne short .forward25             ; 0x0dcc
     mov ax, 0xc7                     ; 0x0dce
@@ -376,30 +376,30 @@ api_idx_0068_OUHP:
 .forward25:
     mov ax, 5                        ; 0x0de1
     push ax                          ; 0x0de4
-    call api_idx_0004_OIGN           ; 0x0de5
+    call wait_ticks_or_escape        ; 0x0de5
     pop cx                           ; 0x0de8
     mov ax, 0xf                      ; 0x0de9
     push ax                          ; 0x0dec
     call free_picture_slot           ; 0x0ded
     pop cx                           ; 0x0df0
 .forward26:
-    call api_idx_0002_PUOP           ; 0x0df1
+    call poll_escape_key             ; 0x0df1
     test ax, ax                      ; 0x0df4
     jne short .forward27             ; 0x0df6
     mov ax, 1                        ; 0x0df8
     push ax                          ; 0x0dfb
-    mov ax, dseg_9187                ; 0x0dfc
+    mov ax, startup_title_one_filename ; 0x0dfc
     push ax                          ; 0x0dff
     call load_screen_file            ; 0x0e00
     add sp, byte 4                   ; 0x0e03
     mov ax, 5                        ; 0x0e06
     push ax                          ; 0x0e09
-    call api_idx_0004_OIGN           ; 0x0e0a
+    call wait_ticks_or_escape        ; 0x0e0a
     pop cx                           ; 0x0e0d
 .forward27:
     mov ax, 0                        ; 0x0e0e
     push ax                          ; 0x0e11
-    mov ax, dseg_9194                ; 0x0e12
+    mov ax, startup_title_two_filename ; 0x0e12
     push ax                          ; 0x0e15
     call load_screen_file            ; 0x0e16
     add sp, byte 4                   ; 0x0e19
@@ -409,7 +409,7 @@ api_idx_0068_OUHP:
     push ax                          ; 0x0e23
     call load_monster_picture        ; 0x0e24
     add sp, byte 4                   ; 0x0e27
-    call api_idx_0002_PUOP           ; 0x0e2a
+    call poll_escape_key             ; 0x0e2a
     test ax, ax                      ; 0x0e2d
     je short .forward28              ; 0x0e2f
     jmp near .forward29              ; 0x0e31
@@ -425,7 +425,7 @@ api_idx_0068_OUHP:
     add sp, byte 8                   ; 0x0e44
     mov ax, 0xc                      ; 0x0e47
     push ax                          ; 0x0e4a
-    call api_idx_0004_OIGN           ; 0x0e4b
+    call wait_ticks_or_escape        ; 0x0e4b
     pop cx                           ; 0x0e4e
     mov ax, 0                        ; 0x0e4f
     push ax                          ; 0x0e52
@@ -455,7 +455,7 @@ api_idx_0068_OUHP:
     push word [bp - 2]               ; 0x0e89
     mov ax, 1                        ; 0x0e8c
     push ax                          ; 0x0e8f
-    call api_idx_000e_GTMH           ; 0x0e90
+    call draw_transition_glyph       ; 0x0e90
     add sp, byte 4                   ; 0x0e93
     mov ax, 0x62                     ; 0x0e96
     push ax                          ; 0x0e99
@@ -484,7 +484,7 @@ api_idx_0068_OUHP:
     push ax                          ; 0x0ecf
     mov ax, 1                        ; 0x0ed0
     push ax                          ; 0x0ed3
-    call api_idx_000e_GTMH           ; 0x0ed4
+    call draw_transition_glyph       ; 0x0ed4
     add sp, byte 4                   ; 0x0ed7
     mov ax, 0xc7                     ; 0x0eda
     push ax                          ; 0x0edd
@@ -516,9 +516,9 @@ api_idx_0068_OUHP:
     add sp, byte 0xc                 ; 0x0f10
     mov word [bp - 0xa], dx          ; 0x0f13
     mov word [bp - 0xc], ax          ; 0x0f16
-    call api_idx_0002_PUOP           ; 0x0f19
+    call poll_escape_key             ; 0x0f19
     mov ax, 0xb54                    ; 0x0f1c
-    cmp word [bss_91b8], byte 0      ; 0x0f1f
+    cmp word [story_escape_state], byte 0 ; 0x0f1f
     je short .forward31              ; 0x0f24
     mov ax, 0xb69                    ; 0x0f26
 .forward31:
@@ -837,7 +837,7 @@ api_idx_0068_OUHP:
     add sp, byte 0xa                 ; 0x1221
     mov ax, 0x10                     ; 0x1224
     push ax                          ; 0x1227
-    call api_idx_0004_OIGN           ; 0x1228
+    call wait_ticks_or_escape        ; 0x1228
     pop cx                           ; 0x122b
     mov ax, 0                        ; 0x122c
     push ax                          ; 0x122f
@@ -846,7 +846,7 @@ api_idx_0068_OUHP:
     push word [bp - 0xc]             ; 0x1234
     call call_restore_screen         ; 0x1237
     add sp, byte 8                   ; 0x123a
-    call api_idx_0002_PUOP           ; 0x123d
+    call poll_escape_key             ; 0x123d
     test ax, ax                      ; 0x1240
     je short .forward46              ; 0x1242
     cmp word [bp - 0x60], strict word 0xb69 ; 0x1244
@@ -864,14 +864,14 @@ api_idx_0068_OUHP:
     jne short .forward47             ; 0x1268
     jmp near .back3                  ; 0x126a
 .forward47:
-    call api_idx_0002_PUOP           ; 0x126d
+    call poll_escape_key             ; 0x126d
     test ax, ax                      ; 0x1270
     je short .forward48              ; 0x1272
-    mov word [bss_91b8], 0xffff      ; 0x1274
+    mov word [story_escape_state], 0xffff ; 0x1274
 .forward48:
     mov ax, 0x32                     ; 0x127a
     push ax                          ; 0x127d
-    call api_idx_0004_OIGN           ; 0x127e
+    call wait_ticks_or_escape        ; 0x127e
     pop cx                           ; 0x1281
     mov ax, 0                        ; 0x1282
     push ax                          ; 0x1285
@@ -883,7 +883,7 @@ api_idx_0068_OUHP:
     add sp, byte 8                   ; 0x1293
     cmp word [story_music_enabled], byte 0 ; 0x1296
     je short .back6                  ; 0x129b
-    cmp word [bss_91b8], byte 0      ; 0x129d
+    cmp word [story_escape_state], byte 0 ; 0x129d
     jne short .forward49             ; 0x12a2
 .back5:
     call call_is_music_playing       ; 0x12a4

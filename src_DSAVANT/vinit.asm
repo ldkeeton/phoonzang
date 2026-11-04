@@ -64,24 +64,24 @@ startup_palette_definition_name equ __zdseg_end + (__zstartup_palette_definition
 
 %include "shared/ovr/load_screen_file.asm"      ; 0x08b7
 
-bss_91b8 equ __zdseg_end + (__zobss_91b8 - __zdata_start)
-%include "vinit/api_idx_0002_PUOP.asm"     ; 0x094a
+story_escape_state equ __zdseg_end + (__zobss_91b8 - __zdata_start)
+%include "vinit/poll_escape_key.asm"       ; 0x094a
 
-%include "vinit/api_idx_0004_OIGN.asm"     ; 0x0988
+%include "vinit/wait_ticks_or_escape.asm"  ; 0x0988
 
-%include "vinit/api_idx_000e_GTMH.asm"     ; 0x09d3
+%include "vinit/draw_transition_glyph.asm" ; 0x09d3
 
-%include "vinit/loc_KVVL.asm"              ; 0x0a56
+%include "vinit/show_glyph_frame.asm"      ; 0x0a56
 
-dseg_9187 equ __zdseg_end + (__zdseg_9187 - __zdata_start)
-dseg_9194 equ __zdseg_end + (__zdseg_9194 - __zdata_start)
-; bss_91b8  equ __zdseg_end + (__zobss_91b8 - __zdata_start)
-%include "vinit/api_idx_0068_OUHP.asm"     ; 0x0ac7
+startup_title_one_filename equ __zdseg_end + (__zstartup_title_one_filename - __zdata_start)
+startup_title_two_filename equ __zdseg_end + (__zstartup_title_two_filename - __zdata_start)
+; story_escape_state         equ __zdseg_end + (__zobss_91b8 - __zdata_start)
+%include "vinit/play_startup_sequence.asm" ; 0x0ac7
 
-%include "vinit/api_idx_0002_SKSN.asm"     ; 0x133d
+%include "vinit/release_main_screen.asm"   ; 0x133d
 
-dseg_91a1 equ __zdseg_end + (__zdseg_91a1 - __zdata_start)
-%include "vinit/api_idx_0008_QGRM.asm"     ; 0x1409
+startup_main_screen_filename equ __zdseg_end + (__zstartup_main_screen_filename - __zdata_start)
+%include "vinit/initialize_main_screen.asm" ; 0x1409
 
 save_si  equ __zdseg_end + (__zsave_si - __zdata_start)
 save_di  equ __zdseg_end + (__zsave_di - __zdata_start)

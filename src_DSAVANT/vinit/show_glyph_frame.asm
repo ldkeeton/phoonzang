@@ -1,5 +1,5 @@
 ; auto-generated
-loc_KVVL:
+show_glyph_frame:
     mov ax, 0                        ; 0x0a56
     call aztec_csav                  ; 0x0a59
     mov ax, 0                        ; 0x0a5c
@@ -16,14 +16,14 @@ loc_KVVL:
     mov ax, 0                        ; 0x0a73
     push ax                          ; 0x0a76
     push word [bp + 4]               ; 0x0a77
-    call api_idx_000e_GTMH           ; 0x0a7a
+    call draw_transition_glyph       ; 0x0a7a
     add sp, byte 4                   ; 0x0a7d
     cmp word [bp + 6], byte 0        ; 0x0a80
     je short .forward1               ; 0x0a84
     mov ax, 0                        ; 0x0a86
     push ax                          ; 0x0a89
     push word [bp + 6]               ; 0x0a8a
-    call api_idx_000e_GTMH           ; 0x0a8d
+    call draw_transition_glyph       ; 0x0a8d
     add sp, byte 4                   ; 0x0a90
 .forward1:
     cmp word [bp + 8], byte 0        ; 0x0a93
@@ -31,7 +31,7 @@ loc_KVVL:
     mov ax, 0                        ; 0x0a99
     push ax                          ; 0x0a9c
     push word [bp + 8]               ; 0x0a9d
-    call api_idx_000e_GTMH           ; 0x0aa0
+    call draw_transition_glyph       ; 0x0aa0
     add sp, byte 4                   ; 0x0aa3
 .forward2:
     mov ax, 0xc7                     ; 0x0aa6
@@ -46,7 +46,7 @@ loc_KVVL:
     cmp word [bp + 0xa], byte 0      ; 0x0ab9
     je short .return1                ; 0x0abd
     push word [bp + 0xa]             ; 0x0abf
-    call api_idx_0004_OIGN           ; 0x0ac2
+    call wait_ticks_or_escape        ; 0x0ac2
     pop cx                           ; 0x0ac5
 .return1:
     ret                              ; 0x0ac6

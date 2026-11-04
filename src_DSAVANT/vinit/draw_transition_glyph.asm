@@ -1,5 +1,5 @@
 ; auto-generated
-api_idx_000e_GTMH:
+draw_transition_glyph:
     mov ax, 0xfff2                   ; 0x09d3
     call aztec_csav                  ; 0x09d6
     mov al, byte [bp + 4]            ; 0x09d9

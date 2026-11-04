@@ -1,5 +1,5 @@
 ; auto-generated
-api_idx_0008_QGRM:
+initialize_main_screen:
     mov ax, 0xfff8                   ; 0x1409
     call aztec_csav                  ; 0x140c
     mov ax, 0                        ; 0x140f
@@ -72,7 +72,7 @@ api_idx_0008_QGRM:
 .forward1:
     mov ax, 2                        ; 0x14c3
     push ax                          ; 0x14c6
-    mov ax, dseg_91a1                ; 0x14c7
+    mov ax, startup_main_screen_filename ; 0x14c7
     push ax                          ; 0x14ca
     call load_screen_file            ; 0x14cb
     add sp, byte 4                   ; 0x14ce

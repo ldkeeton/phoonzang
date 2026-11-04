@@ -1,8 +1,8 @@
 ; auto-generated
-api_idx_0002_PUOP:
+poll_escape_key:
     mov ax, 0xfffe                   ; 0x094a
     call aztec_csav                  ; 0x094d
-    cmp word [bss_91b8], byte -1     ; 0x0950
+    cmp word [story_escape_state], byte -1 ; 0x0950
     jne short .forward1              ; 0x0955
     mov ax, 0                        ; 0x0957
     ret                              ; 0x095a
@@ -24,7 +24,7 @@ api_idx_0002_PUOP:
     jne short .forward2              ; 0x097b
     mov ax, 1                        ; 0x097d
 .forward2:
-    or word [bss_91b8], ax           ; 0x0980
+    or word [story_escape_state], ax ; 0x0980
 .forward3:
-    mov ax, word [bss_91b8]          ; 0x0984
+    mov ax, word [story_escape_state] ; 0x0984
     ret                              ; 0x0987

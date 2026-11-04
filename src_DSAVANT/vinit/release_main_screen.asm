@@ -1,5 +1,5 @@
 ; auto-generated
-api_idx_0002_SKSN:
+release_main_screen:
     mov ax, 0xfffe                   ; 0x133d
     call aztec_csav                  ; 0x1340
     cmp word [saved_screen_pending], byte 0 ; 0x1343

@@ -41,9 +41,9 @@ __zstartup_scenario_database_name:
     db 'SCENARIO.DBS', 0
 __zstartup_palette_definition_name:
     db 'PALETTE.DEF', 0
-__zdseg_9187:
+__zstartup_title_one_filename:
     db 'TIT1SCRN.VGA', 0
-__zdseg_9194:
+__zstartup_title_two_filename:
     db 'TIT2SCRN.VGA', 0
-__zdseg_91a1:
+__zstartup_main_screen_filename:
     db 'MAINSCRN.VGA', 0

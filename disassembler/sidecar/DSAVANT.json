@@ -1768,11 +1768,15 @@
         "9166": {"name": "startup_message_database_name", "note": "Startup resource filename for message_database"},
         "916e": {"name": "startup_scenario_database_name", "note": "Startup resource filename for scenario_database"},
         "917b": {"name": "startup_palette_definition_name", "note": "Startup resource filename for palette_definition"},
+        "9187": {"name": "startup_title_one_filename", "note": "Filename of the first title screen image (TIT1SCRN.VGA)"},
+        "9194": {"name": "startup_title_two_filename", "note": "Filename of the second title screen image (TIT2SCRN.VGA)"},
+        "91a1": {"name": "startup_main_screen_filename", "note": "Filename of the main startup screen image"},
         "91ae": {"name": "save_si", "length": 10, "file": "overlay_saved_registers"},
         "91b0": {"name": "save_di"},
         "91b2": {"name": "save_sp"},
         "91b4": {"name": "save_bp"},
-        "91b6": {"name": "save_ret"}
+        "91b6": {"name": "save_ret"},
+        "91b8": {"name": "story_escape_state", "note": "Startup story skip flag: 0 at start, OR 1 when Escape is pressed, -1 stops further key polling"}
       },
       "function_names": {
         "0037": {"name": "load_startup_font", "note": "Open a font file and load it into the requested slot"},
@@ -1784,6 +1788,13 @@
         "0000": {"name": "ovmain"},
         "039a": {"name": "initialize_runtime_resources", "note": "Load startup resources and allocate runtime buffers"},
         "08a9": {"name": "load_screen_file", "note": "Load a screen file and optionally show it immediately or fade it in"},
+        "093c": {"name": "poll_escape_key", "note": "Poll the filtered keyboard and record Escape"},
+        "097a": {"name": "wait_ticks_or_escape", "note": "waits until the tick counter reaches a deadline or Escape is pressed"},
+        "09c5": {"name": "draw_transition_glyph", "note": "draws one character at an interpolated position using the background glyph tables"},
+        "0a48": {"name": "show_glyph_frame", "note": "Clears the screen, draws up to three glyphs at rest, shows it, and optionally waits"},
+        "0ab9": {"name": "play_startup_sequence", "note": "Runs the startup story and prepares the interface."},
+        "132f": {"name": "release_main_screen", "note": "Restore the saved main-screen areas, free its picture slots and maze, and return to game_state 2"},
+        "13fb": {"name": "initialize_main_screen", "note": "Load MAINSCRN.VGA, preload picture slots, and save the party status and panel areas"},
         "15cb": {"name": "aztec_ovbgn"}
       },
       "immediate_pointers": [
