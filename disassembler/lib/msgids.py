@@ -417,22 +417,34 @@ def header_rel():
     return MSG_H
 
 
-def directory_address(sidecar, binary):
-    """Where *binary* holds the string directory, or None when it does not.
+def directory_address(sidecar, binary, src_root):
+    """Where *binary* holds the directory discovered from resource reads.
 
-    ``data_files`` says which variable the directory file is read into, and
-    the binary's ``data_names`` give that variable's address.  The routine
-    reading it is where string ids enter the code (:mod:`lib.msgflow`).
+    Re-derive the destination from source inputs, independently of the
+    viewing dump produced by ``make data``.
     """
     sidecar = sidecar or {}
     spec = sidecar.get('huffman_strings') or {}
-    parts = (sidecar.get('data_files') or {}).get(
-        spec.get('directory'), {}).get('parts') or ()
-    variable = parts[0].get('into') if parts else None
+    filename = spec.get('directory')
+    parts = (sidecar.get('data_files') or {}).get(filename, {}).get('parts') or ()
+    if not filename or not parts:
+        return None
     info = (sidecar.get('binaries') or {}).get(binary) or {}
-    for address, entry in (info.get('data_names') or {}).items():
+    names = info.get('data_names') or {}
+    if not names:
+        return None
+    from lib.cdata.derive import Project
+    derived = Project(src_root, sidecar, [os.path.join(src_root, 'include')])
+    part = parts[0]
+    if 'memory' in part:
+        variable = part['memory']
+    elif 'raw' in part:
+        return None
+    else:
+        variable, _source = derived.destination(filename, 0, part, 0)
+    for address, entry in names.items():
         name = entry.get('name') if isinstance(entry, dict) else entry
-        if variable and name == variable:
+        if name == variable:
             return int(address, 16)
     return None
 

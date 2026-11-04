@@ -969,6 +969,7 @@ def _render(a, exact_bytes, show_offsets, host_data_offsets,
         a.c_overrides, a.c_checks, a.asm_annotations)
     progress.log(f'{a.name} | verify+format')
     from lib.sidecar.loader import load as load_sidecar
+    from lib.cachedirs import src_dir
     from lib.msgids import (constant_names, directory_address,
                             message_bases as _message_bases,
                             project_data)
@@ -1036,7 +1037,8 @@ def _render(a, exact_bytes, show_offsets, host_data_offsets,
         record_layouts=record_layouts,
         foreign_pointer_params=_foreign_pointer_params(project, a.foreign_prefix),
         message_directory=directory_address(
-            load_sidecar(a.project) if a.project else None, a.name),
+            load_sidecar(a.project) if a.project else None, a.name,
+            src_dir(a.project, PROJECT_ROOT) if a.project else None),
         message_names=message_names,
         foreign_message_params=_foreign_message_params(project, a.foreign_prefix),
         message_bases=message_bases,

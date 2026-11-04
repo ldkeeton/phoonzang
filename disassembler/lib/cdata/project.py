@@ -1,17 +1,11 @@
 """``make data PROJECT``: the game's data files decoded into C, for review.
 
-The sidecar's ``data_files`` table says what the code reads each file into,
-part by part, in the order it reads them::
-
-    "data_files": {"NEWGAME.DBS": {"note": "...",
-        "parts": [{"into": "path_edges", "size": 128,
-                   "element_labels": "MSG_LOCATION_NAME_BASE",
-                   "field_labels": {"end_a": "MSG_LOCATION_NAME_BASE"}}, ...]}}
-
-A part is ``into`` a variable (``size`` bytes, ``count`` elements, or the
-rest of the file; ``record`` bytes per element; ``in`` the file declaring a
-local), a ``memory`` run of variables (``size`` bytes, ``count`` times), or
-``raw`` records of ``record`` bytes for a buffer the code has not named.
+The sidecar's ``data_files`` table lists parts in file order. A typed part
+has its destination and declaration recovered on demand from the code's
+resource-reader calls. ``size`` gives bytes,
+``count`` gives elements and ``record`` gives bytes per element. A ``memory``
+part describes a consecutive run of variables; ``raw`` describes records for
+an unnamed buffer.
 Their types are derived from the code (:mod:`.derive`); no layout is written
 by hand.  The parts must cover the file exactly.  Labels name a
 ``huffman_strings.groups`` entry, a number then shown with the message at base +
@@ -93,7 +87,7 @@ def _message_labels(app_dir, sidecar):
     return labels
 
 
-def _part_type(part, derived, remaining):
+def _part_type(part, derived, remaining, destination=None):
     """``(object name, type, includes, field notes)`` of one part."""
     from .derive import _BYTE
     from .layout import Array
@@ -101,10 +95,10 @@ def _part_type(part, derived, remaining):
     if 'memory' in part:
         name = part['memory']
         ctype, includes, notes = derived.memory(name, part['size'])
-    elif 'into' in part:
-        name = part['into']
-        ctype, includes = derived.element(name, part.get('record'),
-                                          part.get('in'))
+    elif destination is not None:
+        name, source = destination
+        scope = derived.declaration_scope(name, source)
+        ctype, includes = derived.element(name, part.get('record'), scope)
         notes = {}
         if count is None:
             size = part.get('size', remaining)
@@ -123,7 +117,7 @@ def _part_type(part, derived, remaining):
                              f'number of {part["type"]}')
         ctype = Array(elem, part['record'] // elem.size)
     else:
-        raise ValueError(f'{part}: needs into, memory or raw')
+        raise ValueError(f'{part}: has no discoverable reader')
     if count is not None and count != 1:
         ctype = Array(ctype, count)
     return name, ctype, includes, notes
@@ -199,9 +193,12 @@ def write_sources(name, spec, app_dir, out_root, src_root, labels, derived,
                   else _comment(name), '']
     structs = 'structs/' if len(spec['parts']) == 1 else '../structs/'
     digits = max(4, len(f'{len(data):x}'))
-    for part in spec['parts']:
+    for index, part in enumerate(spec['parts']):
+        destination = None
+        if 'memory' not in part and 'raw' not in part:
+            destination = derived.destination(name, index, part, len(data) - at)
         obj_name, ctype, _includes, notes = _part_type(part, derived,
-                                                      len(data) - at)
+                                                      len(data) - at, destination)
         chunk = data[at:at + ctype.size]
         if len(chunk) != ctype.size:
             raise ValueError(f'{name}: {obj_name} needs {ctype.size} bytes '

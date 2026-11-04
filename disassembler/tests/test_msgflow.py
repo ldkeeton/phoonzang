@@ -253,7 +253,7 @@ class MessageCollectionTest(unittest.TestCase):
             return list(md.disasm(bytes.fromhex(data), 0))
 
         project = SimpleNamespace(
-            app_dir='/unused', host_model=None, sidecar={'huffman_strings': {}},
+            app_dir='/unused', out_dir='/unused', host_model=None, sidecar={'huffman_strings': {}},
             bins={'host': ('HOST.EXE', 0), 'overlay': ('O.OVR', 0)})
         host = SimpleNamespace(
             ctx=SimpleNamespace(segments=None), data=b'', start_offset=0,
@@ -269,7 +269,7 @@ class MessageCollectionTest(unittest.TestCase):
                            return_value={'overlay': [(256, 'host')]}), \
                 mock.patch('main.messages.per_binary', return_value={}), \
                 mock.patch('main.messages.directory_address',
-                           side_effect=lambda _sidecar, name:
+                           side_effect=lambda _sidecar, name, _src_root:
                            0x100c if name == 'host' else None), \
                 mock.patch('main.messages.overlay_host_aliases',
                            side_effect=lambda foreign, *args: {256: foreign[0]}), \
@@ -285,6 +285,35 @@ class MessageCollectionTest(unittest.TestCase):
         self.assertEqual(finish.call_count, 2)
         self.assertTrue(all(call.kwargs['messages_only']
                             for call in analyze_code.call_args_list))
+
+
+
+
+class DirectoryDiscoveryTest(unittest.TestCase):
+    def test_directory_address_rederives_from_original_source(self):
+        from lib.msgids import directory_address
+        with tempfile.TemporaryDirectory() as root:
+            Path(root, 'names.c').write_text(
+                'char resource_name[] = "STRINGS.IDX";\n')
+            Path(root, 'load.c').write_text(
+                'extern char directory_buffer[];\n'
+                'init() { read_startup_file(resource_name, directory_buffer, 16); }')
+            sidecar = {
+                'huffman_strings': {'directory': 'STRINGS.IDX'},
+                'data_files': {'STRINGS.IDX': {'parts': [{'size': 16}]}},
+                'binaries': {
+                    'host': {'data_names': {'1234': {'name': 'directory_buffer'}}},
+                    'overlay': {'data_names': {'5678': 'other_buffer'}},
+                },
+            }
+            self.assertEqual(directory_address(sidecar, 'host', root), 0x1234)
+            self.assertIsNone(directory_address(sidecar, 'overlay', root))
+            # No persisted derivation: changed source inputs change the result.
+            Path(root, 'load.c').write_text(
+                'extern char other_buffer[];\n'
+                'init() { read_startup_file(resource_name, other_buffer, 16); }')
+            self.assertEqual(directory_address(sidecar, 'overlay', root), 0x5678)
+            self.assertIsNone(directory_address(sidecar, 'host', root))
 
 
 if __name__ == '__main__':

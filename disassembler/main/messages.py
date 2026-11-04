@@ -102,7 +102,7 @@ def _analyze_one(name, foreign, prefix, foreign_params, names,
         symbols, _uses, inferred = message_flow(
             a.instructions, names, base_names, resolve, labels=a.label_map,
             foreign=foreign_params,
-            directory=directory_address(p.sidecar, name))
+            directory=directory_address(p.sidecar, name, p.out_dir))
         by_name = {sym: value for value, sym in names.items()}
         ids = {by_name[sym] for sym in symbols.values()}
         return dict(a.label_map), inferred, ids

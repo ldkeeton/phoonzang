@@ -1,6 +1,5 @@
-"""Purge/revert against an isolated Git repository, never real sources."""
+"""Purge/revert with real temporary files and an in-memory Git HEAD."""
 import shutil
-import subprocess
 import tempfile
 import unittest
 from pathlib import Path
@@ -13,10 +12,6 @@ class PurgeTests(unittest.TestCase):
     def test_purge_and_restore_after_regeneration(self):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
-            def git(*args):
-                subprocess.run(['git', *args], cwd=root, check=True,
-                               stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-            git('init')
             src = root / 'src_TEST'
             src.mkdir()
             originals = {'hand.c': 'void hand(void) {}\n', 'hand.asm': '; human\n',
@@ -25,13 +20,24 @@ class PurgeTests(unittest.TestCase):
                 (src / name).write_text(text)
             (src / 'auto.c').write_text('/* auto-generated */\n')
             (src / 'keep.h').write_text('/* human header */\n')
-            git('add', '.')
-            git('-c', 'user.name=Test', '-c', 'user.email=test@example.com',
-                'commit', '-m', 'fixture')
+            head = {f'src_TEST/{path.name}': path.read_bytes()
+                    for path in src.iterdir()}
+
+            def git_output(args, *, cwd):
+                self.assertEqual(Path(cwd), root)
+                if args == ['git', 'ls-tree', '-r', '--name-only', '-z',
+                            'HEAD', '--', 'src_TEST']:
+                    return b'\0'.join(name.encode() for name in head) + b'\0'
+                self.assertEqual(args[:2], ['git', 'show'])
+                self.assertEqual(len(args), 3)
+                self.assertTrue(args[2].startswith('HEAD:'))
+                return head[args[2][5:]]
+
             (src / 'untracked.c').write_text('untracked\n')
             (src / 'build_out').mkdir()
             (src / 'build_out' / 'game.exe').write_bytes(b'binary')
-            with patch('make.purge.PROJECT', tmp), patch(
+            with patch('make.purge.subprocess.check_output',
+                       side_effect=git_output), patch('make.purge.PROJECT', tmp), patch(
                     'make.purge.clear_build_out',
                     side_effect=lambda project: shutil.rmtree(src / 'build_out')), \
                     patch('builtins.input', return_value='purge'):
