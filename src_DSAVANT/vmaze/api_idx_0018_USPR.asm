@@ -164,7 +164,7 @@ api_idx_0018_USPR:
     call api_idx_0002_GSIL           ; 0x1e4a
     mov ax, 0xa                      ; 0x1e4d
     push ax                          ; 0x1e50
-    call api_idx_0002_RRIU           ; 0x1e51
+    call decrement_party_status_timers ; 0x1e51
     pop cx                           ; 0x1e54
     cmp word [bp - 8], byte 0x18     ; 0x1e55
     jne short .forward14             ; 0x1e59

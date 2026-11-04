@@ -989,7 +989,7 @@ api_idx_0022_LKUK.forward54:
     jge short api_idx_0022_LKUK.forward55 ; 0x2b33
     mov ax, 1                        ; 0x2b35
     push ax                          ; 0x2b38
-    call api_idx_0002_RRIU           ; 0x2b39
+    call decrement_party_status_timers ; 0x2b39
     pop cx                           ; 0x2b3c
     mov word [game_state], 0x11      ; 0x2b3d
     mov word [party_return_state], 5 ; 0x2b43
@@ -1017,7 +1017,7 @@ jumptable_2d1b_case_0:
     pop cx                           ; 0x2b74
     mov ax, 1                        ; 0x2b75
     push ax                          ; 0x2b78
-    call api_idx_0002_RRIU           ; 0x2b79
+    call decrement_party_status_timers ; 0x2b79
     pop cx                           ; 0x2b7c
     mov word [party_region_level_saved], 0 ; 0x2b7d
     jmp near jumptable_2d1b_case_12  ; 0x2b83
@@ -1045,7 +1045,7 @@ api_idx_0022_LKUK.forward58:
 api_idx_0022_LKUK.forward59:
     mov ax, 1                        ; 0x2bc6
     push ax                          ; 0x2bc9
-    call api_idx_0002_RRIU           ; 0x2bca
+    call decrement_party_status_timers ; 0x2bca
     pop cx                           ; 0x2bcd
     jmp near jumptable_2d1b_case_12  ; 0x2bce
 jumptable_2d1b_case_3:
@@ -1063,7 +1063,7 @@ api_idx_0022_LKUK.forward60:
     pop cx                           ; 0x2beb
     mov ax, 1                        ; 0x2bec
     push ax                          ; 0x2bef
-    call api_idx_0002_RRIU           ; 0x2bf0
+    call decrement_party_status_timers ; 0x2bf0
     pop cx                           ; 0x2bf3
     jmp near jumptable_2d1b_case_12  ; 0x2bf4
 
@@ -1100,7 +1100,7 @@ jumptable_2d1b_case_7:
     pop cx                           ; 0x2c6f
     mov ax, 1                        ; 0x2c70
     push ax                          ; 0x2c73
-    call api_idx_0002_RRIU           ; 0x2c74
+    call decrement_party_status_timers ; 0x2c74
     pop cx                           ; 0x2c77
     jmp near jumptable_2d1b_case_12  ; 0x2c78
 jumptable_2d1b_case_8:
@@ -1115,7 +1115,7 @@ jumptable_2d1b_case_8:
     je short api_idx_0022_LKUK.forward65 ; 0x2c8d
     mov ax, 1                        ; 0x2c8f
     push ax                          ; 0x2c92
-    call api_idx_0002_RRIU           ; 0x2c93
+    call decrement_party_status_timers ; 0x2c93
     pop cx                           ; 0x2c96
     mov ax, 0x14                     ; 0x2c97
     cmp word [bp - 2], byte 8        ; 0x2c9a

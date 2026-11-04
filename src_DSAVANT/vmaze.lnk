@@ -26,7 +26,7 @@ shared/ovr/show_message
 shared/ovr/mark_party_member_dead
 vmaze/show_rock_entry_message
 shared/ovr/get_cell_wall
-vmaze/api_idx_0002_RRIU
+vmaze/decrement_party_status_timers
 vmaze/adjust_party_world_position
 shared/ovr/save_previous_party_position
 vmaze/display_message_with_sound

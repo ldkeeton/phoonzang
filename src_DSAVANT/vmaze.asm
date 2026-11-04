@@ -189,7 +189,7 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "shared/ovr/get_cell_wall.asm"         ; 0x1165
 
-%include "vmaze/api_idx_0002_RRIU.asm"     ; 0x1206
+%include "vmaze/decrement_party_status_timers.asm" ; 0x1206
 
 %include "vmaze/adjust_party_world_position.asm" ; 0x1240
 

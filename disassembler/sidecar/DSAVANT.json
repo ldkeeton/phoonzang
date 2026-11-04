@@ -2543,6 +2543,7 @@
         "10a2": {"name": "mark_party_member_dead", "note": "sets the selected party record to state 3 and clears current HP and stamina, with optional redraw and timeout"},
         "1100": {"name": "show_rock_entry_message", "note": "Displays the rock-entry message and returns after redrawing the maze."},
         "1157": {"name": "get_cell_wall", "note": "reads the 4-bit wall field on one side of a maze cell"},
+        "11f8": {"name": "decrement_party_status_timers", "note": "Decrease six party status timers and clear expired offsets"},
         "1232": {"name": "adjust_party_world_position", "note": "'Updates party world coordinates using a direction and distance.'"},
         "1294": {"name": "save_previous_party_position", "note": "Copies the current party coordinates, map piece, game state, and tag into previous-location fields."},
         "12c5": {"name": "display_message_with_sound", "note": "Displays a message, plays its sound, waits, and refreshes the message strip."},

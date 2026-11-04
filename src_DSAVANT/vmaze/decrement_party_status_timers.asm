@@ -1,5 +1,5 @@
 ; auto-generated
-api_idx_0002_RRIU:
+decrement_party_status_timers:
     mov ax, 0xfffe                   ; 0x1206
     call aztec_csav                  ; 0x1209
     mov word [bp - 2], 0             ; 0x120c
