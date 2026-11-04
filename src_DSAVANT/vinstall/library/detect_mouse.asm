@@ -1,5 +1,5 @@
 ; auto-generated
-bios_mouse_loc_JHVQ:
+detect_mouse:
     mov ax, 0x3533                   ; 0x2501
     int 0x21 ; DOS function dispatcher
     mov ax, es                       ; 0x2506

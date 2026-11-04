@@ -24,7 +24,7 @@ bios_put_text:
     jmp short .forward2              ; 0x2646
 .forward1:
     mov ah, 9                        ; 0x2648
-    mov bl, byte [bss_2644]          ; 0x264a
+    mov bl, byte [put_text_attribute] ; 0x264a
     mov bh, 0                        ; 0x264e
     mov cx, 1                        ; 0x2650
     int 0x10 ; BIOS video: write char/attribute

@@ -17,7 +17,7 @@ loc_MNTP:
     add sp, byte 4                   ; 0x0847
     lea ax, word [bp - 0x101]        ; 0x084a
     push ax                          ; 0x084e
-    call bios_video_loc_HMPN         ; 0x084f
+    call bios_put_text_highlight_attr ; 0x084f
     pop cx                           ; 0x0852
     mov ax, dseg_144b                ; 0x0853
     push ax                          ; 0x0856

@@ -1,5 +1,5 @@
 ; auto-generated
-bios_video_loc_MUHO:
+bios_set_cursor_packed:
     push bp                          ; 0x2733
     mov bp, sp                       ; 0x2734
     push di                          ; 0x2736

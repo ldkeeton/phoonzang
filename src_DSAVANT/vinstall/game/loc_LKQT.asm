@@ -85,7 +85,7 @@ loc_LKQT:
     push ax                          ; 0x0fa5
     lea ax, word [bp - 0x28]         ; 0x0fa6
     push ax                          ; 0x0fa9
-    call loc_NJNG                    ; 0x0faa
+    call aztec_fexecl                ; 0x0faa
     add sp, byte 0xc                 ; 0x0fad
     mov word [bp - 0x1c9], ax        ; 0x0fb0
     call aztec_wait                  ; 0x0fb4

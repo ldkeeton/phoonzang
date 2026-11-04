@@ -1,5 +1,5 @@
 ; auto-generated
-loc_NJNG:
+aztec_fexecl:
     push bp                          ; 0x2908
     mov bp, sp                       ; 0x2909
     lea ax, word [bp + 6]            ; 0x290b

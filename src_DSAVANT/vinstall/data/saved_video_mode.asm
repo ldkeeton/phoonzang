@@ -1,3 +1,3 @@
 ; auto-generated
-cseg_2479:
+saved_video_mode:
     db 0x00

@@ -24,7 +24,7 @@ bios_clear_to_screen_end:
     add ax, si                       ; 0x2591
     mov cx, ax                       ; 0x2593
     mov ax, 0x920                    ; 0x2595
-    mov bl, byte [bss_2647]          ; 0x2598
+    mov bl, byte [clear_attribute]   ; 0x2598
     mov bh, 0                        ; 0x259c
     int 0x10 ; BIOS video
     pop si                           ; 0x25a0

@@ -1923,8 +1923,8 @@ loc_UMUK:
     push es                          ; 0x2465
     push si                          ; 0x2466
     push di                          ; 0x2467
-    call bios_video_loc_GGHN         ; 0x2468
-    call bios_mouse_loc_JHVQ         ; 0x246b
+    call detect_video_adapter_type   ; 0x2468
+    call detect_mouse                ; 0x246b
     mov ax, word [bp - 2]            ; 0x246e
     pop di                           ; 0x2471
     pop si                           ; 0x2472

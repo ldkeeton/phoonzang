@@ -1,5 +1,5 @@
 ; auto-generated
-bios_video_loc_HMPN:
+bios_put_text_highlight_attr:
     push bp                          ; 0x25d3
     mov bp, sp                       ; 0x25d4
     push di                          ; 0x25d6
@@ -24,7 +24,7 @@ bios_video_loc_HMPN:
     jmp short .forward2              ; 0x25f8
 .forward1:
     mov ah, 9                        ; 0x25fa
-    mov bl, byte [bss_2645]          ; 0x25fc
+    mov bl, byte [highlight_text_attribute] ; 0x25fc
     mov bh, 0                        ; 0x2600
     mov cx, 1                        ; 0x2602
     int 0x10 ; BIOS video: write char/attribute

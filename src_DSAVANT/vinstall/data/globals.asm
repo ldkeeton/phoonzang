@@ -1,11 +1,11 @@
 ; auto-generated
-__zbss_2644:  ; bss_2644
+__zbss_2644:  ; put_text_attribute
     resb 0x0001
-__zbss_2645:  ; bss_2645
+__zbss_2645:  ; highlight_text_attribute
     resb 0x0001
-__zbss_2646:  ; bss_2646
+__zbss_2646:  ; alt_text_attribute
     resb 0x0001
-__zbss_2647:  ; bss_2647
+__zbss_2647:  ; clear_attribute
     resb 0x0001
 __zbss_2648:  ; bss_2648
     resb 0x0050

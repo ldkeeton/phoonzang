@@ -449,9 +449,9 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "shared/ovr/aztec_ovbgn.asm"           ; 0xae10
 
-%include "shared/ovr/aztec_strncpy.asm"         ; 0xae4e
+%include "shared/aztec/aztec_strncpy.asm"         ; 0xae4e
 
-%include "shared/ovr/aztec_strcmp.asm"          ; 0xae76
+%include "shared/aztec/aztec_strcmp.asm"          ; 0xae76
 
 __zdata_start:
 %include "shared/data/percent_suffix_text.asm" ; 0xaedd

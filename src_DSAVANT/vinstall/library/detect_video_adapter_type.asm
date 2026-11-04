@@ -1,8 +1,8 @@
 ; auto-generated
-bios_video_loc_GGHN:
+detect_video_adapter_type:
     mov ah, 0xf                      ; 0x247a
     int 0x10 ; BIOS video: get video mode
-    mov byte [cs:cseg_2479 - IMAGE_BASE], al ; 0x247e
+    mov byte [cs:saved_video_mode - IMAGE_BASE], al ; 0x247e
     mov ax, 0                        ; 0x2482
     push ds                          ; 0x2485
     mov ds, ax                       ; 0x2486
@@ -13,7 +13,7 @@ bios_video_loc_GGHN:
     je short .forward1               ; 0x2490
     jmp near .forward5               ; 0x2492
 .forward1:
-    cmp byte [cs:cseg_2479 - IMAGE_BASE], 7 ; 0x2495
+    cmp byte [cs:saved_video_mode - IMAGE_BASE], 7 ; 0x2495
     jne short .forward2              ; 0x249b
     mov dx, 0x3d4                    ; 0x249d
     mov al, 0xf                      ; 0x24a0

@@ -612,10 +612,7 @@
         "3067": {"name": "init_system_hardware", "note": "initializes timer, video, mouse and drivers; returns status bits"},
         "30c3": {"name": "restore_saved_video_state", "note": "restores the startup equipment byte at 0040:0010 and sets the saved video mode via int 10h/00h"},
         "30e2": {"name": "seed_random_from_timer", "note": "seeds the random generator from the BIOS tick count"},
-        "30f7": {
-          "name": "detect_video_adapter", "length": 1023,
-          "note": "saves the video mode (INT 10h AH=0Fh), then picks VGA (AX=1A00h display code 7/8) or EGA (0040:0087) and jumps to select_vga_driver / select_ega_driver; [bp+4] bit 0 clear skips the VGA probe"
-        },
+        "30f7": {"name": "detect_video_adapter", "length": 1023, "note": "saves the video mode (INT 10h AH=0Fh), then picks VGA (AX=1A00h display code 7/8) or EGA (0040:0087) and jumps to select_vga_driver / select_ega_driver; [bp+4] bit 0 clear skips the VGA probe"},
         "343e": {
           "name": "select_vga_driver",
           "note": "hand-written asm, shares its caller's frame: mode 13h, the 256-colour palette at cs 0x2f3e, [bp-2] = 1, [bp-4] = 'vga.drv'"
@@ -1177,6 +1174,11 @@
       "file": "VINSTALL.EXE",
       "desc": "Installer and setup utility: configures hardware drivers and copies game files",
       "globals": {"start": "2644", "end": "2afc", "note": "the commons; before them the library modules' own BSS (malloc, Croot, ttyio) and after them ttyio's _TTrem, each in its owner's function_names emits"},
+      "bands": [
+        {"name": "game", "start": "0200", "end": "2478", "note": "cc-compiled game objects (all csav), ending with main"},
+        {"name": "library", "start": "2479", "end": "2805", "note": "in-house assembly library: CS-resident video-mode byte (cseg_2479), then frameless BIOS/DOS text-mode routines"},
+        {"name": "aztec", "start": "2806", "end": "3ad1", "note": "Aztec C.LIB modules, linked last; 0x3ad2-0x3adf is the zero pad before DS, outside every band"}
+      ],
       "compiler_flags": {
         "default": ["-n"],
         "note": "Built without +b: its own routines open with push bp/mov bp,sp, not DS's mov ax,N/call csav (loc_TUNS, loc_JTRN_03b3, loc_JJNP_0815 compile byte-exact with -n)"
@@ -1215,6 +1217,7 @@
       "start_offset": 512,
       "entry_symbol": "aztec_begin",
       "code_data_names": {
+        "2479": {"name": "saved_video_mode", "note": "CS-resident BIOS video mode saved by detect_video_adapter_type"},
         "303e": {"name": "aztec_format_conversions"},
         "303f": {"name": "aztec_format_conv_index"},
         "3053": {"name": "aztec_format_conv_routines"},
@@ -1233,15 +1236,22 @@
         "078a": {"name": "put_long_right_aligned", "note": "(n, width): as put_int_right_aligned through long_to_str"},
         "088f": {"name": "prompt_long_at", "note": "(n, row, col, width, max): shows n right-aligned at row/col, reads up to width chars through loc_GPOQ (empty keeps n, else parse_long) until the value is <= max, redisplays and returns it"},
         "102d": {"name": "append_to_message_line", "note": "(a, b, c, s): when the line buffer at DS 0x29f0 is over 80 chars, or non-empty with s empty, hands it to loc_TSLJ(a, b, c, buf) and resets it; otherwise adds the separator at DS 0x166a when non-empty; then appends s"},
+        "247a": {"name": "detect_video_adapter_type", "note": "(): returns the adapter type in the caller frame [bp-2]: 0 MDA, 4 CGA, 6 EGA, 7 VGA (display code 7/8), 8 Hercules"},
+        "2501": {"name": "detect_mouse", "note": "(): sets 1000h in the caller frame [bp-2] when the INT 33h vector is non-null, not an IRET, and the driver answers function 0"},
+        "252e": {"name": "bios_clear_screen_home_cursor", "note": "Clear the text screen and move the cursor to the upper-left corner"},
         "256a": {"name": "bios_clear_to_screen_end", "note": "(row, col): bios cursor to row/col, then INT 10h AH=9 spaces to the end of row 24 in the attribute at DS 0x2647"},
         "25a6": {"name": "bios_clear_to_line_end", "note": "(row, col): bios cursor to row/col, then INT 10h AH=9 spaces to column 80 in the attribute at DS 0x2647"},
+        "25d3": {"name": "bios_put_text_highlight_attr", "note": "(s): bios_put_text with the highlight attribute at DS 0x2645"},
         "266f": {"name": "bios_put_text_alt_attr", "note": "(s): bios_put_text with the attribute at DS 0x2646"},
         "26bd": {"name": "bios_fill_pixel_rect", "note": "(row0, col0, row1, col1, color): INT 10h AH=0Ch over the inclusive rectangle"},
         "26f6": {"name": "bios_printer_lpt2", "note": "(ax): INT 17h with ax as given on printer 1 (LPT2)"},
         "2709": {"name": "bios_key_available", "note": "(): 1 when INT 16h AH=1 reports a waiting key, else 0"},
+        "2720": {"name": "bios_get_cursor_packed", "note": "(): INT 10h AH=3 on page 0; returns DX (row high, column low)"},
+        "2733": {"name": "bios_set_cursor_packed", "note": "(pos): INT 10h AH=2 on page 0 with DX = pos (row high, column low)"},
         "2747": {"name": "bios_save_text_rect", "note": "(row, col, width, height, buf): 1-based row/col; stores the 0-based origin, height and width, then each cell's char/attribute via INT 10h AH=8"},
         "27a9": {"name": "bios_restore_text_rect", "note": "(buf): writes back a bios_save_text_rect buffer through INT 10h AH=9"},
         "2521": {"name": "dos_con_in_noecho", "note": "vinstall: INT 21h AH=7, returns the key"},
+        "2908": {"name": "aztec_fexecl", "note": "Manx fexecl: exec program with variadic NULL-terminated args via fexecv"},
         "331e": {"name": "aztec_format_get_pointer"},
         "3338": {"name": "aztec_format_do_width"},
         "371c": {"name": "aztec_exit_return"},
@@ -1374,6 +1384,10 @@
         "2310": {"name": "cline", "note": "fexec.asm's parameter block: command-tail far pointer"},
         "2314": {"name": "fcb1", "note": "fexec.asm's parameter block: first FCB far pointer"},
         "2318": {"name": "fcb2", "note": "fexec.asm's parameter block: second FCB far pointer"},
+        "2644": {"name": "put_text_attribute", "note": "attribute for bios_put_text (1Fh)"},
+        "2645": {"name": "highlight_text_attribute", "note": "attribute for bios_put_text_highlight_attr (70h)"},
+        "2646": {"name": "alt_text_attribute", "note": "attribute for bios_put_text_alt_attr (4Eh)"},
+        "2647": {"name": "clear_attribute", "note": "attribute for the space fills of bios_clear_to_line_end, bios_clear_to_screen_end and bios_clear_screen_home_cursor (1Fh)"},
         "2afc": {"name": "_TTrem"},
         "231c": {"name": "modes"},
         "234a": {"name": "Cbuffs"},

@@ -38,54 +38,54 @@ IMAGE_BASE equ 0x0200 + VBASE
 _lowwater equ __z_lowwater - __zdseg_start
 __zbss_size equ __zbss_end - __zimage_end
 
-%include "vinstall/loc_ILSL.asm"           ; 0x0200
+%include "vinstall/game/loc_ILSL.asm"      ; 0x0200
 
-%include "vinstall/loc_MPOT.asm"           ; 0x026d
+%include "vinstall/game/loc_MPOT.asm"      ; 0x026d
 
-%include "vinstall/int_to_str.asm"         ; 0x02b2
+%include "vinstall/game/int_to_str.asm"    ; 0x02b2
 
-%include "vinstall/long_to_str.asm"        ; 0x0315
+%include "vinstall/game/long_to_str.asm"   ; 0x0315
 
-%include "vinstall/put_int_at.asm"         ; 0x03b3
+%include "vinstall/game/put_int_at.asm"    ; 0x03b3
 
-%include "vinstall/loc_JTRN.asm"           ; 0x03e1
+%include "vinstall/game/loc_JTRN.asm"      ; 0x03e1
 
-%include "vinstall/put_text_at.asm"        ; 0x040f
+%include "vinstall/game/put_text_at.asm"   ; 0x040f
 
-%include "vinstall/loc_STSN.asm"           ; 0x0429
+%include "vinstall/game/loc_STSN.asm"      ; 0x0429
 
 dseg_1444 equ __zdseg_1444 - __zdseg_start
-%include "vinstall/loc_MSKU.asm"           ; 0x0443
+%include "vinstall/game/loc_MSKU.asm"      ; 0x0443
 
-%include "vinstall/loc_GPOQ.asm"           ; 0x05b6
+%include "vinstall/game/loc_GPOQ.asm"      ; 0x05b6
 
-%include "vinstall/loc_OQIJ.asm"           ; 0x06f1
+%include "vinstall/game/loc_OQIJ.asm"      ; 0x06f1
 
 dseg_1447 equ __zdseg_1447 - __zdseg_start
-%include "vinstall/put_int_right_aligned.asm" ; 0x0710
+%include "vinstall/game/put_int_right_aligned.asm" ; 0x0710
 
 dseg_1449 equ __zdseg_1449 - __zdseg_start
-%include "vinstall/put_long_right_aligned.asm" ; 0x078a
+%include "vinstall/game/put_long_right_aligned.asm" ; 0x078a
 
-%include "vinstall/loc_JJNP.asm"           ; 0x0807
+%include "vinstall/game/loc_JJNP.asm"      ; 0x0807
 
-%include "vinstall/parse_long.asm"         ; 0x0815
+%include "vinstall/game/parse_long.asm"    ; 0x0815
 
 dseg_144b equ __zdseg_144b - __zdseg_start
-%include "vinstall/loc_MNTP.asm"           ; 0x0823
+%include "vinstall/game/loc_MNTP.asm"      ; 0x0823
 
-%include "vinstall/prompt_long_at.asm"     ; 0x088f
+%include "vinstall/game/prompt_long_at.asm" ; 0x088f
 
-bss_2644 equ __zbss_2644 - __zdseg_start
-bss_2645 equ __zbss_2645 - __zdseg_start
-bss_2646 equ __zbss_2646 - __zdseg_start
-bss_2647 equ __zbss_2647 - __zdseg_start
-%include "vinstall/loc_VRLL.asm"           ; 0x0927
+put_text_attribute       equ __zbss_2644 - __zdseg_start
+highlight_text_attribute equ __zbss_2645 - __zdseg_start
+alt_text_attribute       equ __zbss_2646 - __zdseg_start
+clear_attribute          equ __zbss_2647 - __zdseg_start
+%include "vinstall/game/loc_VRLL.asm"      ; 0x0927
 
 dseg_144f equ __zdseg_144f - __zdseg_start
 dseg_149f equ __zdseg_149f - __zdseg_start
 bss_2648  equ __zbss_2648 - __zdseg_start
-%include "vinstall/loc_PUJU.asm"           ; 0x0944
+%include "vinstall/game/loc_PUJU.asm"      ; 0x0944
 
 dseg_14ef equ __zdseg_14ef - __zdseg_start
 dseg_14fc equ __zdseg_14fc - __zdseg_start
@@ -117,21 +117,21 @@ bss_29df  equ __zbss_29df - __zdseg_start
 bss_29e1  equ __zbss_29e1 - __zdseg_start
 bss_29e2  equ __zbss_29e2 - __zdseg_start
 bss_29e3  equ __zbss_29e3 - __zdseg_start
-%include "vinstall/loc_QKVM.asm"           ; 0x0a0f
+%include "vinstall/game/loc_QKVM.asm"      ; 0x0a0f
 
 bss_29e6 equ __zbss_29e6 - __zdseg_start
 bss_29e8 equ __zbss_29e8 - __zdseg_start
 bss_29ea equ __zbss_29ea - __zdseg_start
 bss_29ec equ __zbss_29ec - __zdseg_start
-%include "vinstall/loc_UTOL.asm"           ; 0x0c21
+%include "vinstall/game/loc_UTOL.asm"      ; 0x0c21
 
-%include "vinstall/loc_HUKT.asm"           ; 0x0cd6
+%include "vinstall/game/loc_HUKT.asm"      ; 0x0cd6
 
 sound_device_names equ __zsound_device_names - __zdseg_start
-%include "vinstall/next_sound_device.asm"  ; 0x0d12
+%include "vinstall/game/next_sound_device.asm" ; 0x0d12
 
 dseg_156d equ __zdseg_156d - __zdseg_start
-%include "vinstall/loc_PQHH.asm"           ; 0x0d3f
+%include "vinstall/game/loc_PQHH.asm"      ; 0x0d3f
 
 dseg_15bd equ __zdseg_15bd - __zdseg_start
 dseg_15cc equ __zdseg_15cc - __zdseg_start
@@ -139,7 +139,7 @@ dseg_15d8 equ __zdseg_15d8 - __zdseg_start
 dseg_15e1 equ __zdseg_15e1 - __zdseg_start
 dseg_15e9 equ __zdseg_15e9 - __zdseg_start
 dseg_15f7 equ __zdseg_15f7 - __zdseg_start
-%include "vinstall/loc_ONOP.asm"           ; 0x0dda
+%include "vinstall/game/loc_ONOP.asm"      ; 0x0dda
 
 dseg_1609 equ __zdseg_1609 - __zdseg_start
 dseg_1615 equ __zdseg_1615 - __zdseg_start
@@ -153,12 +153,12 @@ dseg_163c equ __zdseg_163c - __zdseg_start
 dseg_1657 equ __zdseg_1657 - __zdseg_start
 dseg_2357 equ __zdseg_2357 - __zdseg_start
 bss_29ee  equ __zbss_29ee - __zdseg_start
-%include "vinstall/loc_LKQT.asm"           ; 0x0ed8
+%include "vinstall/game/loc_LKQT.asm"      ; 0x0ed8
 
 dseg_1669 equ __zdseg_1669 - __zdseg_start
 dseg_166a equ __zdseg_166a - __zdseg_start
 bss_29f0  equ __zbss_29f0 - __zdseg_start
-%include "vinstall/append_to_message_line.asm" ; 0x102d
+%include "vinstall/game/append_to_message_line.asm" ; 0x102d
 
 dseg_166c equ __zdseg_166c - __zdseg_start
 dseg_166f equ __zdseg_166f - __zdseg_start
@@ -170,9 +170,9 @@ dseg_167a equ __zdseg_167a - __zdseg_start
 dseg_167d equ __zdseg_167d - __zdseg_start
 dseg_167e equ __zdseg_167e - __zdseg_start
 dseg_1681 equ __zdseg_1681 - __zdseg_start
-%include "vinstall/leaf_loc_UVRI.asm"      ; 0x10a4
+%include "vinstall/game/leaf_loc_UVRI.asm" ; 0x10a4
 
-%include "vinstall/loc_RJRG.asm"           ; 0x1155
+%include "vinstall/game/loc_RJRG.asm"      ; 0x1155
 
 dseg_1689 equ __zdseg_1689 - __zdseg_start
 dseg_16af equ __zdseg_16af - __zdseg_start
@@ -180,7 +180,7 @@ dseg_16c2 equ __zdseg_16c2 - __zdseg_start
 dseg_16e8 equ __zdseg_16e8 - __zdseg_start
 dseg_16fa equ __zdseg_16fa - __zdseg_start
 dseg_1720 equ __zdseg_1720 - __zdseg_start
-%include "vinstall/loc_HSPL.asm"           ; 0x11ba
+%include "vinstall/game/loc_HSPL.asm"      ; 0x11ba
 
 dseg_0004          equ __zdseg_0004 - __zdseg_start
 dseg_0006          equ __zdseg_0006 - __zdseg_start
@@ -322,64 +322,64 @@ bss_2af4           equ __zbss_2af4 - __zdseg_start
 bss_2af6           equ __zbss_2af6 - __zdseg_start
 bss_2af8           equ __zbss_2af8 - __zdseg_start
 bss_2afa           equ __zbss_2afa - __zdseg_start
-%include "vinstall/main.asm"               ; 0x12b5
+%include "vinstall/game/main.asm"          ; 0x12b5
 
-%include "vinstall/data/cseg_2479.asm"     ; 0x2479
+%include "vinstall/data/saved_video_mode.asm" ; 0x2479
 
-%include "vinstall/bios_video_loc_GGHN.asm" ; 0x247a
+%include "vinstall/library/detect_video_adapter_type.asm" ; 0x247a
 
-%include "vinstall/bios_mouse_loc_JHVQ.asm" ; 0x2501
+%include "vinstall/library/detect_mouse.asm" ; 0x2501
 
-%include "vinstall/dos_con_in_noecho.asm"  ; 0x2521
+%include "vinstall/library/dos_con_in_noecho.asm" ; 0x2521
 
-; bss_2647 equ __zbss_2647 - __zdseg_start
-%include "vinstall/bios_video_loc_RSQH.asm" ; 0x252e
+; clear_attribute equ __zbss_2647 - __zdseg_start
+%include "vinstall/library/bios_clear_screen_home_cursor.asm" ; 0x252e
 
-%include "vinstall/bios_set_cursor.asm"    ; 0x2551
+%include "vinstall/library/bios_set_cursor.asm" ; 0x2551
 
-; bss_2647 equ __zbss_2647 - __zdseg_start
-%include "vinstall/bios_clear_to_screen_end.asm" ; 0x256a
+; clear_attribute equ __zbss_2647 - __zdseg_start
+%include "vinstall/library/bios_clear_to_screen_end.asm" ; 0x256a
 
-; bss_2647 equ __zbss_2647 - __zdseg_start
-%include "vinstall/bios_clear_to_line_end.asm" ; 0x25a6
+; clear_attribute equ __zbss_2647 - __zdseg_start
+%include "vinstall/library/bios_clear_to_line_end.asm" ; 0x25a6
 
-; bss_2645 equ __zbss_2645 - __zdseg_start
-%include "vinstall/bios_video_loc_HMPN.asm" ; 0x25d3
+; highlight_text_attribute equ __zbss_2645 - __zdseg_start
+%include "vinstall/library/bios_put_text_highlight_attr.asm" ; 0x25d3
 
-; bss_2644 equ __zbss_2644 - __zdseg_start
-%include "vinstall/bios_put_text.asm"      ; 0x2621
+; put_text_attribute equ __zbss_2644 - __zdseg_start
+%include "vinstall/library/bios_put_text.asm" ; 0x2621
 
-; bss_2646 equ __zbss_2646 - __zdseg_start
-%include "vinstall/bios_put_text_alt_attr.asm" ; 0x266f
+; alt_text_attribute equ __zbss_2646 - __zdseg_start
+%include "vinstall/library/bios_put_text_alt_attr.asm" ; 0x266f
 
-%include "vinstall/bios_fill_pixel_rect.asm" ; 0x26bd
+%include "vinstall/library/bios_fill_pixel_rect.asm" ; 0x26bd
 
-%include "vinstall/bios_printer_lpt2.asm"  ; 0x26f6
+%include "vinstall/library/bios_printer_lpt2.asm" ; 0x26f6
 
-%include "vinstall/bios_key_available.asm" ; 0x2709
+%include "vinstall/library/bios_key_available.asm" ; 0x2709
 
-%include "vinstall/bios_video_loc_VJJP.asm" ; 0x2720
+%include "vinstall/library/bios_get_cursor_packed.asm" ; 0x2720
 
-%include "vinstall/bios_video_loc_MUHO.asm" ; 0x2733
+%include "vinstall/library/bios_set_cursor_packed.asm" ; 0x2733
 
-%include "vinstall/bios_save_text_rect.asm" ; 0x2747
+%include "vinstall/library/bios_save_text_rect.asm" ; 0x2747
 
-%include "vinstall/bios_restore_text_rect.asm" ; 0x27a9
+%include "vinstall/library/bios_restore_text_rect.asm" ; 0x27a9
 
 ctp_ equ __zctp_ - __zdseg_start
-%include "vinstall/aztec_atoi.asm"         ; 0x2806
+%include "vinstall/aztec/aztec_atoi.asm"   ; 0x2806
 
 ; ctp_ equ __zctp_ - __zdseg_start
-%include "vinstall/aztec_atol.asm"         ; 0x2877
+%include "vinstall/aztec/aztec_atol.asm"   ; 0x2877
 
-%include "vinstall/loc_NJNG.asm"           ; 0x2908
+%include "vinstall/aztec/aztec_fexecl.asm" ; 0x2908
 
-%include "vinstall/aztec_fexecv.asm"       ; 0x291c
+%include "vinstall/aztec/aztec_fexecv.asm" ; 0x291c
 
-%include "vinstall/aztec_fcbinit.asm"      ; 0x29d9
+%include "vinstall/aztec/aztec_fcbinit.asm" ; 0x29d9
 
 errno equ __zerrno - __zdseg_start
-%include "vinstall/aztec_mkdir.asm"        ; 0x29fe
+%include "vinstall/aztec/aztec_mkdir.asm"  ; 0x29fe
 
 %include "vinstall/data/aztec_fexec_save_ss.asm" ; 0x2a23
 
@@ -395,57 +395,57 @@ dseg_2316 equ __zdseg_2316 - __zdseg_start
 fcb2      equ __zfcb2 - __zdseg_start
 dseg_231a equ __zdseg_231a - __zdseg_start
 ; errno     equ __zerrno - __zdseg_start
-%include "vinstall/aztec_fexec.asm"        ; 0x2a27
+%include "vinstall/aztec/aztec_fexec.asm"  ; 0x2a27
 
-%include "vinstall/aztec_wait.asm"         ; 0x2a9d
+%include "vinstall/aztec/aztec_wait.asm"   ; 0x2a9d
 
-%include "shared/aztec/aztec_strcat.asm"       ; 0x2aa6
+%include "shared/aztec/aztec_strcat.asm" ; 0x2aa6
 
-%include "shared/aztec/aztec_strcpy.asm"       ; 0x2add
+%include "shared/aztec/aztec_strcpy.asm" ; 0x2add
 
-%include "shared/ovr/aztec_strncpy.asm"      ; 0x2b09
+%include "shared/aztec/aztec_strncpy.asm" ; 0x2b09
 
-%include "vinstall/aztec_sysint.asm"       ; 0x2b31
+%include "vinstall/aztec/aztec_sysint.asm" ; 0x2b31
 
-%include "vinstall/aztec_toupper.asm"      ; 0x2bb2
+%include "vinstall/aztec/aztec_toupper.asm" ; 0x2bb2
 
-%include "vinstall/aztec_tolower.asm"      ; 0x2bc6
+%include "vinstall/aztec/aztec_tolower.asm" ; 0x2bc6
 
-%include "vinstall/aztec_fopen.asm"        ; 0x2bda
+%include "vinstall/aztec/aztec_fopen.asm"  ; 0x2bda
 
 modes equ __zmodes - __zdseg_start
 ; errno equ __zerrno - __zdseg_start
-%include "vinstall/aztec_freopen.asm"      ; 0x2bfe
+%include "vinstall/aztec/aztec_freopen.asm" ; 0x2bfe
 
-%include "vinstall/aztec_printf.asm"       ; 0x2c62
+%include "vinstall/aztec/aztec_printf.asm" ; 0x2c62
 
-%include "vinstall/aztec_putchar.asm"      ; 0x2c7a
+%include "vinstall/aztec/aztec_putchar.asm" ; 0x2c7a
 
-%include "vinstall/aztec_aputc.asm"        ; 0x2c8e
+%include "vinstall/aztec/aztec_aputc.asm"  ; 0x2c8e
 
-%include "vinstall/aztec_putc.asm"         ; 0x2cc1
+%include "vinstall/aztec/aztec_putc.asm"   ; 0x2cc1
 
-%include "vinstall/aztec_closall.asm"      ; 0x2cf5
+%include "vinstall/aztec/aztec_closall.asm" ; 0x2cf5
 
-%include "vinstall/aztec_fclose.asm"       ; 0x2d0b
+%include "vinstall/aztec/aztec_fclose.asm" ; 0x2d0b
 
 cls_ equ __zcls_ - __zdseg_start
-%include "vinstall/aztec_flsh_.asm"        ; 0x2d86
+%include "vinstall/aztec/aztec_flsh_.asm"  ; 0x2d86
 
 Cbuffs equ __zCbuffs - __zdseg_start
-%include "vinstall/aztec_newstream.asm"    ; 0x2e45
+%include "vinstall/aztec/aztec_newstream.asm" ; 0x2e45
 
-%include "vinstall/aztec_getbuff.asm"      ; 0x2e63
+%include "vinstall/aztec/aztec_getbuff.asm" ; 0x2e63
 
 endmarker equ __zendmarker - __zdseg_start
 keep      equ __zkeep - __zdseg_start
 current   equ __zcurrent - __zdseg_start
 first     equ __zfirst - __zdseg_start
-%include "shared/aztec/aztec_malloc.asm"       ; 0x2eac
+%include "shared/aztec/aztec_malloc.asm" ; 0x2eac
 
 aztec_format_conversions equ 0x303e + VBASE
 ; first                    equ __zfirst - __zdseg_start
-%include "shared/aztec/aztec_format.asm"       ; 0x303e
+%include "shared/aztec/aztec_format.asm" ; 0x303e
 
 %include "shared/aztec/aztec_format_get_pointer.asm" ; 0x331e
 
@@ -453,16 +453,16 @@ aztec_format_conversions equ 0x303e + VBASE
 
 ; errno  equ __zerrno - __zdseg_start
 _ioflg equ __z_ioflg - __zdseg_start
-%include "shared/aztec/aztec_open.asm"         ; 0x336a
+%include "shared/aztec/aztec_open.asm"   ; 0x336a
 
-%include "shared/aztec/aztec_lsubs.asm"        ; 0x3417
+%include "shared/aztec/aztec_lsubs.asm"  ; 0x3417
 
-%include "shared/ovr/aztec_strcmp.asm"       ; 0x3508
+%include "shared/aztec/aztec_strcmp.asm" ; 0x3508
 
-%include "shared/aztec/aztec_strlen.asm"       ; 0x356f
+%include "shared/aztec/aztec_strlen.asm" ; 0x356f
 
 ; errno equ __zerrno - __zdseg_start
-%include "shared/aztec/aztec_impl_sys.asm"     ; 0x358c
+%include "shared/aztec/aztec_impl_sys.asm" ; 0x358c
 
 %include "shared/data/aztec_begin_exitad.asm" ; 0x35ce
 
@@ -485,7 +485,7 @@ _HEAPSIZ          equ __z_HEAPSIZ - __zdseg_start
 _STKLOW           equ __z_STKLOW - __zdseg_start
 _Uorg             equ __zkeep - __zdseg_start
 __zdseg_end       equ (__zimage_end - __zdseg_start) + __zbss_size
-%include "shared/aztec/aztec_begin.asm"        ; 0x35d2
+%include "shared/aztec/aztec_begin.asm"  ; 0x35d2
 
 ; cls_                      equ __zcls_ - __zdseg_start
 aztec_croot_empty_str     equ __zaztec_croot_empty_str - __zdseg_start
@@ -495,15 +495,15 @@ ioflg_stdout              equ __zioflg_stdout - __zdseg_start
 ioflg_stderr              equ __zioflg_stderr - __zdseg_start
 Argc                      equ __zArgc - __zdseg_start
 Argv                      equ __zArgv - __zdseg_start
-%include "shared/aztec/aztec_Croot.asm"        ; 0x373b
+%include "shared/aztec/aztec_Croot.asm"  ; 0x373b
 
-%include "shared/aztec/aztec_fltinit.asm"      ; 0x381d
+%include "shared/aztec/aztec_fltinit.asm" ; 0x381d
 
 ; errno  equ __zerrno - __zdseg_start
 ; _ioflg equ __z_ioflg - __zdseg_start
 _ttrd  equ __z_ttrd - __zdseg_start
 _ttwr  equ __z_ttwr - __zdseg_start
-%include "shared/aztec/aztec_io.asm"           ; 0x381f
+%include "shared/aztec/aztec_io.asm"     ; 0x381f
 
 _Eol                equ __z_Eol - __zdseg_start
 aztec_tty_wr_crbuf  equ __zaztec_tty_wr_crbuf - __zdseg_start
@@ -511,15 +511,15 @@ aztec_tty_wr_crbuf  equ __zaztec_tty_wr_crbuf - __zdseg_start
 aztec_tty_rd_buffer equ __zaztec_tty_rd_buffer - __zdseg_start
 aztec_tty_rd_bp     equ __zaztec_tty_rd_bp - __zdseg_start
 _TTrem              equ __zbss_2afc - __zdseg_start
-%include "shared/aztec/aztec_ttyio.asm"        ; 0x38d9
+%include "shared/aztec/aztec_ttyio.asm"  ; 0x38d9
 
-%include "shared/aztec/aztec_movmem.asm"       ; 0x39a0
+%include "shared/aztec/aztec_movmem.asm" ; 0x39a0
 
-%include "shared/aztec/aztec_isatty.asm"       ; 0x39e5
+%include "shared/aztec/aztec_isatty.asm" ; 0x39e5
 
 ; aztec_MEMRY equ __zaztec_MEMRY - __zdseg_start
 ; errno       equ __zerrno - __zdseg_start
-%include "shared/aztec/aztec_sbrk.asm"         ; 0x3a05
+%include "shared/aztec/aztec_sbrk.asm"   ; 0x3a05
 
 ; aztec_MEMRY equ __zaztec_MEMRY - __zdseg_start
 ; errno       equ __zerrno - __zdseg_start
@@ -529,10 +529,10 @@ _TTrem              equ __zbss_2afc - __zdseg_start
 ; _PSP        equ __z_PSP - __zdseg_start
 ; _STKRED     equ __z_STKRED - __zdseg_start
 ; _STKLOW     equ __z_STKLOW - __zdseg_start
-%include "shared/aztec/aztec_brk.asm"          ; 0x3a39
+%include "shared/aztec/aztec_brk.asm"    ; 0x3a39
 
 ; _STKRED equ __z_STKRED - __zdseg_start
-%include "shared/aztec/aztec_rsvstk.asm"       ; 0x3ac5
+%include "shared/aztec/aztec_rsvstk.asm" ; 0x3ac5
 
 
 ; End of host resident code
@@ -577,29 +577,29 @@ dseg_01af equ __zdseg_01af - __zdseg_start
 dseg_01c6 equ __zdseg_01c6 - __zdseg_start
 %include "vinstall/data/dseg_00b4.asm"     ; 0x3b94
 
-%include "vinstall/aztec_fexecv.data.asm"  ; 0x5dea
+%include "vinstall/aztec/aztec_fexecv.data.asm" ; 0x5dea
 
-%include "vinstall/aztec_fexec.data.asm"   ; 0x5dee
+%include "vinstall/aztec/aztec_fexec.data.asm" ; 0x5dee
 
-%include "vinstall/aztec_freopen.data.asm" ; 0x5dfc
+%include "vinstall/aztec/aztec_freopen.data.asm" ; 0x5dfc
 
-%include "vinstall/aztec_newstream.data.asm" ; 0x5e2a
+%include "vinstall/aztec/aztec_newstream.data.asm" ; 0x5e2a
 
 ; first equ __zfirst - __zdseg_start
-%include "shared/aztec/aztec_malloc.data.asm"  ; 0x5f2e
+%include "shared/aztec/aztec_malloc.data.asm" ; 0x5f2e
 
 %include "vinstall/data/ctp_.asm"          ; 0x5f32
 
 aztec_Uend equ __zbss_2afe - __zdseg_start
-%include "shared/aztec/aztec_begin.data.asm"   ; 0x5fb4
+%include "shared/aztec/aztec_begin.data.asm" ; 0x5fb4
 
-%include "shared/aztec/aztec_Croot.data.asm"   ; 0x5fe0
+%include "shared/aztec/aztec_Croot.data.asm" ; 0x5fe0
 
 %include "shared/data/STKSIZ.asm"        ; 0x5ff2
 
-%include "shared/aztec/aztec_io.data.asm"      ; 0x5ffa
+%include "shared/aztec/aztec_io.data.asm" ; 0x5ffa
 
-%include "shared/aztec/aztec_ttyio.data.asm"   ; 0x6012
+%include "shared/aztec/aztec_ttyio.data.asm" ; 0x6012
 
 
 __zimage_end:

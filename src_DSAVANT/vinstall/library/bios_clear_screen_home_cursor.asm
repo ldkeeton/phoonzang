@@ -1,11 +1,11 @@
 ; auto-generated
-bios_video_loc_RSQH:
+bios_clear_screen_home_cursor:
     push bp                          ; 0x252e
     mov bp, sp                       ; 0x252f
     push di                          ; 0x2531
     push si                          ; 0x2532
     mov ax, 0x600                    ; 0x2533
-    mov bh, byte [bss_2647]          ; 0x2536
+    mov bh, byte [clear_attribute]   ; 0x2536
     xor cx, cx                       ; 0x253a
     mov dx, 0x184f                   ; 0x253c
     push bp                          ; 0x253f

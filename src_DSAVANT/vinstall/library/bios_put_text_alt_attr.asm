@@ -24,7 +24,7 @@ bios_put_text_alt_attr:
     jmp short .forward2              ; 0x2694
 .forward1:
     mov ah, 9                        ; 0x2696
-    mov bl, byte [bss_2646]          ; 0x2698
+    mov bl, byte [alt_text_attribute] ; 0x2698
     mov bh, 0                        ; 0x269c
     mov cx, 1                        ; 0x269e
     int 0x10 ; BIOS video: write char/attribute

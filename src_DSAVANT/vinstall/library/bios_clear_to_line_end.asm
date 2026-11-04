@@ -16,7 +16,7 @@ bios_clear_to_line_end:
     sub ax, bx                       ; 0x25be
     mov cx, ax                       ; 0x25c0
     mov ax, 0x920                    ; 0x25c2
-    mov bl, byte [bss_2647]          ; 0x25c5
+    mov bl, byte [clear_attribute]   ; 0x25c5
     mov bh, 0                        ; 0x25c9
     int 0x10 ; BIOS video
     pop si                           ; 0x25cd

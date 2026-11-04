@@ -126,8 +126,8 @@ vmnpc/api_idx_00b0_KPHQ
 vmnpc/api_idx_00ba_TUGQ
 vmnpc/api_idx_006a_QKPT
 shared/ovr/aztec_ovbgn
-shared/ovr/aztec_strncpy
-shared/ovr/aztec_strcmp
+shared/aztec/aztec_strncpy
+shared/aztec/aztec_strcmp
 shared/data/percent_suffix_text
 shared/data/area_set_1_left_save_file
 shared/data/area_set_1_right_save_file

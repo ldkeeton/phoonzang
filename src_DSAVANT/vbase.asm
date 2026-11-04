@@ -340,7 +340,7 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "shared/ovr/aztec_cswt.asm"            ; 0x936e
 
-%include "shared/ovr/aztec_strcmp.asm"          ; 0x9386
+%include "shared/aztec/aztec_strcmp.asm"          ; 0x9386
 
 __zdata_start:
 %include "vbase/data/vbase_file_names.asm" ; 0x93ed

@@ -83,4 +83,4 @@ vbase/data/scene_screen_files
 vbase/data/main_screen_restore_filename
 shared/ovr/aztec_ovbgn
 shared/ovr/aztec_cswt
-shared/ovr/aztec_strcmp
+shared/aztec/aztec_strcmp

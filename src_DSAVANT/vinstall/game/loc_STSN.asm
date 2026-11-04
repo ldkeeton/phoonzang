@@ -7,7 +7,7 @@ loc_STSN:
     call bios_set_cursor             ; 0x0432
     add sp, byte 4                   ; 0x0435
     push word [bp + 8]               ; 0x0438
-    call bios_video_loc_HMPN         ; 0x043b
+    call bios_put_text_highlight_attr ; 0x043b
     pop cx                           ; 0x043e
     mov sp, bp                       ; 0x043f
     pop bp                           ; 0x0441

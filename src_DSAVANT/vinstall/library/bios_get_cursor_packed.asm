@@ -1,5 +1,5 @@
 ; auto-generated
-bios_video_loc_VJJP:
+bios_get_cursor_packed:
     push bp                          ; 0x2720
     mov bp, sp                       ; 0x2721
     push di                          ; 0x2723

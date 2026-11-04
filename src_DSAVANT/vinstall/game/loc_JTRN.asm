@@ -14,7 +14,7 @@ loc_JTRN:
     add sp, byte 4                   ; 0x03ff
     lea ax, word [bp - 0xff]         ; 0x0402
     push ax                          ; 0x0406
-    call bios_video_loc_HMPN         ; 0x0407
+    call bios_put_text_highlight_attr ; 0x0407
     pop cx                           ; 0x040a
     mov sp, bp                       ; 0x040b
     pop bp                           ; 0x040d
