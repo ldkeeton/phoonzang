@@ -49,7 +49,7 @@ pick_spell_action:
     mov si, ax                       ; 0x29bb
     mov bx, word [battle_groups]     ; 0x29bd
     pop ax                           ; 0x29c1
-    mov byte [bx + si + member_rec.f_0020], al ; 0x29c2
+    mov byte [bx + si + member_rec.unit_target_unit], al ; 0x29c2
 .forward3:
     mov ax, word [bp - 8]            ; 0x29c5
     cmp ax, strict word 0x13         ; 0x29c8

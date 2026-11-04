@@ -1,5 +1,5 @@
 ; auto-generated
-api_idx_0002_ROVK:
+pick_monster_attack_slot:
     mov ax, 0xfffe                   ; 0x45b3
     call aztec_csav                  ; 0x45b6
     mov word [bp - 2], 0             ; 0x45b9
@@ -9,7 +9,7 @@ api_idx_0002_ROVK:
     mov bx, ax                       ; 0x45c3
     mov bx, word [bx + battle_group_ext] ; 0x45c5
     mov si, word [bp - 2]            ; 0x45c9
-    cmp byte [bx + si + member_ext.f_0086], 0 ; 0x45cc
+    cmp byte [bx + si + member_ext.attack_mode], 0 ; 0x45cc
     je short .forward1               ; 0x45d1
     mov ax, 2                        ; 0x45d3
     push ax                          ; 0x45d6

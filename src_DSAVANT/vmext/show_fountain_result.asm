@@ -10,7 +10,7 @@ show_fountain_result:
     call play_sound_effect           ; 0x0ebd
     pop cx                           ; 0x0ec0
     push word [message_delay]        ; 0x0ec1
-    call api_idx_0004_OOHR           ; 0x0ec5
+    call wait_for_scene_input_or_timeout ; 0x0ec5
     pop cx                           ; 0x0ec8
     mov ax, 0x98                     ; 0x0ec9
     push ax                          ; 0x0ecc

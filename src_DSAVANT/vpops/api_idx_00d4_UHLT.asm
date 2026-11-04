@@ -462,7 +462,7 @@ api_idx_00d4_UHLT:
     mov al, byte [bx + si + member_rec.unit_target_group] ; 0x3bb6
     sub ah, ah                       ; 0x3bb9
     push ax                          ; 0x3bbb
-    call api_idx_0054_NQHV           ; 0x3bbc
+    call draw_monster_group_rows     ; 0x3bbc
     pop cx                           ; 0x3bbf
     mov ax, 1                        ; 0x3bc0
     push ax                          ; 0x3bc3
@@ -532,7 +532,7 @@ api_idx_00d4_UHLT:
     mov byte [bx + si + member_rec.unit_target_group], al ; 0x3c57
     mov ax, 0                        ; 0x3c5a
     push ax                          ; 0x3c5d
-    call api_idx_0054_NQHV           ; 0x3c5e
+    call draw_monster_group_rows     ; 0x3c5e
     pop cx                           ; 0x3c61
     jmp near .forward57              ; 0x3c62
 .forward35:
@@ -1033,7 +1033,7 @@ api_idx_00d4_UHLT.forward59:
     mov si, ax                       ; 0x412e
     mov bx, word [battle_groups]     ; 0x4130
     pop ax                           ; 0x4134
-    mov byte [bx + si + member_rec.f_0020], al ; 0x4135
+    mov byte [bx + si + member_rec.unit_target_unit], al ; 0x4135
 api_idx_00d4_UHLT.forward60:
     mov ax, 0x248                    ; 0x4138
     imul word [bp - 6]               ; 0x413b
@@ -1054,7 +1054,7 @@ api_idx_00d4_UHLT.forward61:
     add bx, strict word 0x5d33       ; 0x4163
     mov ax, bx                       ; 0x4167
     push ax                          ; 0x4169
-    call api_idx_0006_QUSK           ; 0x416a
+    call pick_random_set_bit         ; 0x416a
     pop cx                           ; 0x416d
     mov word [bp - 2], ax            ; 0x416e
     cmp ax, strict word 0xffff       ; 0x4171
@@ -1147,7 +1147,7 @@ api_idx_00d4_UHLT.back11:
     imul word [bp - 6]               ; 0x424c
     add ax, party_records + pc_rec.hand_attack + 0x21 ; 0x424f
     push ax                          ; 0x4252
-    call api_idx_0006_QUSK           ; 0x4253
+    call pick_random_set_bit         ; 0x4253
     pop cx                           ; 0x4256
     mov word [bp - 2], ax            ; 0x4257
     inc word [bp - 0xa]              ; 0x425a

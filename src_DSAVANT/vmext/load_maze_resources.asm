@@ -1,5 +1,5 @@
 ; auto-generated
-reload_maze_after_encounter:
+load_maze_resources:
     mov ax, 0xfffe                   ; 0x0262
     call aztec_csav                  ; 0x0265
     mov word [boundary_wall_open], 0 ; 0x0268
@@ -7,24 +7,24 @@ reload_maze_after_encounter:
     jmp short .forward1              ; 0x0271
 jumptable_02a3_case_15:
     mov word [bp - 2], 1             ; 0x0273
-    jmp short reload_maze_after_encounter.forward2 ; 0x0278
+    jmp short load_maze_resources.forward2 ; 0x0278
 jumptable_02a3_case_0:
     mov word [bp - 2], 2             ; 0x027a
-    jmp short reload_maze_after_encounter.forward2 ; 0x027f
+    jmp short load_maze_resources.forward2 ; 0x027f
 jumptable_02a3_case_14:
     mov word [bp - 2], 3             ; 0x0281
-    jmp short reload_maze_after_encounter.forward2 ; 0x0286
+    jmp short load_maze_resources.forward2 ; 0x0286
 jumptable_02a3_case_27:
     mov word [boundary_wall_open], 1 ; 0x0288
 jumptable_02a3_case_7:
     mov word [bp - 2], 4             ; 0x028e
-    jmp short reload_maze_after_encounter.forward2 ; 0x0293
+    jmp short load_maze_resources.forward2 ; 0x0293
 jumptable_02a3_case_22:
     mov word [bp - 2], 5             ; 0x0295
-    jmp short reload_maze_after_encounter.forward2 ; 0x029a
+    jmp short load_maze_resources.forward2 ; 0x029a
 jumptable_02a3_case_8:
     mov word [bp - 2], 6             ; 0x029c
-    jmp short reload_maze_after_encounter.forward2 ; 0x02a1
+    jmp short load_maze_resources.forward2 ; 0x02a1
 jumptable_02a3:
     dw jumptable_02a3_case_0 - IMAGE_BASE + __zres_end ; 0x02a3
     dw jumptable_02a3_case_0 - IMAGE_BASE + __zres_end ; 0x02a5
@@ -58,34 +58,34 @@ jumptable_02a3:
     dw jumptable_02a3_case_15 - IMAGE_BASE + __zres_end ; 0x02dd
     dw jumptable_02a3_case_15 - IMAGE_BASE + __zres_end ; 0x02df
     dw jumptable_02a3_case_14 - IMAGE_BASE + __zres_end ; 0x02e1
-reload_maze_after_encounter.forward1:
+load_maze_resources.forward1:
     cmp ax, strict word 0x20         ; 0x02e3
-    jae short reload_maze_after_encounter.forward2 ; 0x02e6
+    jae short load_maze_resources.forward2 ; 0x02e6
     xchg bx, ax                      ; 0x02e8
     shl bx, 1                        ; 0x02e9
     jmp [cs:bx + jumptable_02a3 - IMAGE_BASE + __zres_end] ; 0x02eb
-reload_maze_after_encounter.forward2:
+load_maze_resources.forward2:
     cmp word [maze_state], byte 0    ; 0x02f0
-    je short reload_maze_after_encounter.forward3 ; 0x02f5
+    je short load_maze_resources.forward3 ; 0x02f5
     mov ax, word [bp - 2]            ; 0x02f7
     cmp ax, word [maze_variant]      ; 0x02fa
-    jne short reload_maze_after_encounter.forward3 ; 0x02fe
+    jne short load_maze_resources.forward3 ; 0x02fe
     jmp near jumptable_052d_case_0   ; 0x0300
-reload_maze_after_encounter.forward3:
+load_maze_resources.forward3:
     call free_current_maze           ; 0x0303
     mov ax, word [bp - 2]            ; 0x0306
     mov word [maze_variant], ax      ; 0x0309
-    jmp near reload_maze_after_encounter.forward4 ; 0x030c
+    jmp near load_maze_resources.forward4 ; 0x030c
 jumptable_052d_case_1:
     mov ax, 0                        ; 0x030f
     push ax                          ; 0x0312
-    mov ax, dseg_9098                ; 0x0313
+    mov ax, variant_1_maze_filename  ; 0x0313
     push ax                          ; 0x0316
     call load_maze_file              ; 0x0317
     add sp, byte 4                   ; 0x031a
     mov ax, 5                        ; 0x031d
     push ax                          ; 0x0320
-    mov ax, dseg_90a5                ; 0x0321
+    mov ax, variant_1_water_filename ; 0x0321
     push ax                          ; 0x0324
     call load_maze_file              ; 0x0325
     add sp, byte 4                   ; 0x0328
@@ -118,19 +118,19 @@ jumptable_052d_case_1:
 jumptable_052d_case_2:
     mov ax, 1                        ; 0x036c
     push ax                          ; 0x036f
-    mov ax, dseg_90b2                ; 0x0370
+    mov ax, variant_2_tree_filename  ; 0x0370
     push ax                          ; 0x0373
     call load_maze_file              ; 0x0374
     add sp, byte 4                   ; 0x0377
     mov ax, 4                        ; 0x037a
     push ax                          ; 0x037d
-    mov ax, dseg_90bf                ; 0x037e
+    mov ax, variant_2_other_town_filename ; 0x037e
     push ax                          ; 0x0381
     call load_maze_file              ; 0x0382
     add sp, byte 4                   ; 0x0385
     mov ax, 6                        ; 0x0388
     push ax                          ; 0x038b
-    mov ax, dseg_90cc                ; 0x038c
+    mov ax, variant_2_tile_filename  ; 0x038c
     push ax                          ; 0x038f
     call load_maze_file              ; 0x0390
     add sp, byte 4                   ; 0x0393
@@ -145,25 +145,25 @@ jumptable_052d_case_2:
 jumptable_052d_case_3:
     mov ax, 2                        ; 0x03ad
     push ax                          ; 0x03b0
-    mov ax, dseg_90d9                ; 0x03b1
+    mov ax, variant_3_town_filename  ; 0x03b1
     push ax                          ; 0x03b4
     call load_maze_file              ; 0x03b5
     add sp, byte 4                   ; 0x03b8
     mov ax, 4                        ; 0x03bb
     push ax                          ; 0x03be
-    mov ax, dseg_90e6                ; 0x03bf
+    mov ax, variant_3_other_town_filename ; 0x03bf
     push ax                          ; 0x03c2
     call load_maze_file              ; 0x03c3
     add sp, byte 4                   ; 0x03c6
     mov ax, 5                        ; 0x03c9
     push ax                          ; 0x03cc
-    mov ax, dseg_90f3                ; 0x03cd
+    mov ax, variant_3_water_filename ; 0x03cd
     push ax                          ; 0x03d0
     call load_maze_file              ; 0x03d1
     add sp, byte 4                   ; 0x03d4
     mov ax, 6                        ; 0x03d7
     push ax                          ; 0x03da
-    mov ax, dseg_9100                ; 0x03db
+    mov ax, variant_3_tile_filename  ; 0x03db
     push ax                          ; 0x03de
     call load_maze_file              ; 0x03df
     add sp, byte 4                   ; 0x03e2
@@ -196,13 +196,13 @@ jumptable_052d_case_3:
 jumptable_052d_case_4:
     mov ax, 1                        ; 0x0426
     push ax                          ; 0x0429
-    mov ax, dseg_910d                ; 0x042a
+    mov ax, variant_4_tree_filename  ; 0x042a
     push ax                          ; 0x042d
     call load_maze_file              ; 0x042e
     add sp, byte 4                   ; 0x0431
     mov ax, 4                        ; 0x0434
     push ax                          ; 0x0437
-    mov ax, dseg_911a                ; 0x0438
+    mov ax, variant_4_other_cave_filename ; 0x0438
     push ax                          ; 0x043b
     call load_maze_file              ; 0x043c
     add sp, byte 4                   ; 0x043f
@@ -217,19 +217,19 @@ jumptable_052d_case_4:
 jumptable_052d_case_5:
     mov ax, 2                        ; 0x0459
     push ax                          ; 0x045c
-    mov ax, dseg_9127                ; 0x045d
+    mov ax, variant_5_cave_filename  ; 0x045d
     push ax                          ; 0x0460
     call load_maze_file              ; 0x0461
     add sp, byte 4                   ; 0x0464
     mov ax, 4                        ; 0x0467
     push ax                          ; 0x046a
-    mov ax, dseg_9134                ; 0x046b
+    mov ax, variant_5_other_cave_filename ; 0x046b
     push ax                          ; 0x046e
     call load_maze_file              ; 0x046f
     add sp, byte 4                   ; 0x0472
     mov ax, 5                        ; 0x0475
     push ax                          ; 0x0478
-    mov ax, dseg_9141                ; 0x0479
+    mov ax, variant_5_water_filename ; 0x0479
     push ax                          ; 0x047c
     call load_maze_file              ; 0x047d
     add sp, byte 4                   ; 0x0480
@@ -268,19 +268,19 @@ jumptable_052d_case_5:
 jumptable_052d_case_6:
     mov ax, 1                        ; 0x04d1
     push ax                          ; 0x04d4
-    mov ax, dseg_914e                ; 0x04d5
+    mov ax, variant_6_tree_filename  ; 0x04d5
     push ax                          ; 0x04d8
     call load_maze_file              ; 0x04d9
     add sp, byte 4                   ; 0x04dc
     mov ax, 4                        ; 0x04df
     push ax                          ; 0x04e2
-    mov ax, dseg_915b                ; 0x04e3
+    mov ax, variant_6_other_town_filename ; 0x04e3
     push ax                          ; 0x04e6
     call load_maze_file              ; 0x04e7
     add sp, byte 4                   ; 0x04ea
     mov ax, 5                        ; 0x04ed
     push ax                          ; 0x04f0
-    mov ax, dseg_9168                ; 0x04f1
+    mov ax, variant_6_water_filename ; 0x04f1
     push ax                          ; 0x04f4
     call load_maze_file              ; 0x04f5
     add sp, byte 4                   ; 0x04f8
@@ -312,7 +312,7 @@ jumptable_052d:
     dw jumptable_052d_case_4 - IMAGE_BASE + __zres_end ; 0x0535
     dw jumptable_052d_case_5 - IMAGE_BASE + __zres_end ; 0x0537
     dw jumptable_052d_case_6 - IMAGE_BASE + __zres_end ; 0x0539
-reload_maze_after_encounter.forward4:
+load_maze_resources.forward4:
     cmp ax, strict word 7            ; 0x053b
     jae short jumptable_052d_case_0  ; 0x053e
     xchg bx, ax                      ; 0x0540

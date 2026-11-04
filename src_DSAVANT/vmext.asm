@@ -25,23 +25,23 @@ IMAGE_BASE equ 0x000e + VBASE
     dw aztec_ovbgn - IMAGE_BASE + __zres_end ; 0xa262 ; o_entry: overlay entry offset (CS)
 
 __zcode_start:
-dseg_9098 equ __zdseg_end + (__zdseg_9098 - __zdata_start)
-dseg_90a5 equ __zdseg_end + (__zdseg_90a5 - __zdata_start)
-dseg_90b2 equ __zdseg_end + (__zdseg_90b2 - __zdata_start)
-dseg_90bf equ __zdseg_end + (__zdseg_90bf - __zdata_start)
-dseg_90cc equ __zdseg_end + (__zdseg_90cc - __zdata_start)
-dseg_90d9 equ __zdseg_end + (__zdseg_90d9 - __zdata_start)
-dseg_90e6 equ __zdseg_end + (__zdseg_90e6 - __zdata_start)
-dseg_90f3 equ __zdseg_end + (__zdseg_90f3 - __zdata_start)
-dseg_9100 equ __zdseg_end + (__zdseg_9100 - __zdata_start)
-dseg_910d equ __zdseg_end + (__zdseg_910d - __zdata_start)
-dseg_911a equ __zdseg_end + (__zdseg_911a - __zdata_start)
-dseg_9127 equ __zdseg_end + (__zdseg_9127 - __zdata_start)
-dseg_9134 equ __zdseg_end + (__zdseg_9134 - __zdata_start)
-dseg_9141 equ __zdseg_end + (__zdseg_9141 - __zdata_start)
-dseg_914e equ __zdseg_end + (__zdseg_914e - __zdata_start)
-dseg_915b equ __zdseg_end + (__zdseg_915b - __zdata_start)
-dseg_9168 equ __zdseg_end + (__zdseg_9168 - __zdata_start)
+variant_1_maze_filename equ __zdseg_end + (__zvariant_1_maze_filename - __zdata_start)
+variant_1_water_filename equ __zdseg_end + (__zvariant_1_water_filename - __zdata_start)
+variant_2_tree_filename equ __zdseg_end + (__zvariant_2_tree_filename - __zdata_start)
+variant_2_other_town_filename equ __zdseg_end + (__zvariant_2_other_town_filename - __zdata_start)
+variant_2_tile_filename equ __zdseg_end + (__zvariant_2_tile_filename - __zdata_start)
+variant_3_town_filename equ __zdseg_end + (__zvariant_3_town_filename - __zdata_start)
+variant_3_other_town_filename equ __zdseg_end + (__zvariant_3_other_town_filename - __zdata_start)
+variant_3_water_filename equ __zdseg_end + (__zvariant_3_water_filename - __zdata_start)
+variant_3_tile_filename equ __zdseg_end + (__zvariant_3_tile_filename - __zdata_start)
+variant_4_tree_filename equ __zdseg_end + (__zvariant_4_tree_filename - __zdata_start)
+variant_4_other_cave_filename equ __zdseg_end + (__zvariant_4_other_cave_filename - __zdata_start)
+variant_5_cave_filename equ __zdseg_end + (__zvariant_5_cave_filename - __zdata_start)
+variant_5_other_cave_filename equ __zdseg_end + (__zvariant_5_other_cave_filename - __zdata_start)
+variant_5_water_filename equ __zdseg_end + (__zvariant_5_water_filename - __zdata_start)
+variant_6_tree_filename equ __zdseg_end + (__zvariant_6_tree_filename - __zdata_start)
+variant_6_other_town_filename equ __zdseg_end + (__zvariant_6_other_town_filename - __zdata_start)
+variant_6_water_filename equ __zdseg_end + (__zvariant_6_water_filename - __zdata_start)
 save_si equ __zdseg_end + (__zsave_si - __zdata_start)
 save_di equ __zdseg_end + (__zsave_di - __zdata_start)
 save_sp equ __zdseg_end + (__zsave_sp - __zdata_start)
@@ -118,15 +118,15 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "shared/ovr/load_maze_file.asm"        ; 0x021c
 
-%include "vmext/reload_maze_after_encounter.asm" ; 0x0262
+%include "vmext/load_maze_resources.asm"   ; 0x0262
 
 %include "shared/ovr/party_redraw_interval_elapsed.asm" ; 0x054f
 
 %include "shared/ovr/advance_party_redraw_frame.asm" ; 0x059a
 
-%include "vmext/loc_IJSN.asm"              ; 0x05c0
+%include "vmext/roll_random_then_wait_10_ms.asm" ; 0x05c0
 
-%include "vmext/api_idx_0004_OOHR.asm"     ; 0x05e6
+%include "vmext/wait_for_scene_input_or_timeout.asm" ; 0x05e6
 
 %include "vmext/loc_VJNU.asm"              ; 0x0636
 
@@ -209,7 +209,7 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 %include "shared/ovr/aztec_ovbgn.asm"           ; 0x521b
 
 __zdata_start:
-%include "vmext/data/dseg_9098.asm"        ; 0x5259
+%include "shared/data/maze_variant_filenames.asm" ; 0x5259
 
 %include "shared/data/overlay_saved_registers.asm" ; 0x5337
 

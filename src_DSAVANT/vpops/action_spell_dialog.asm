@@ -19,7 +19,7 @@ action_spell_dialog:
     mov word [bp - 0xa], 0xc5        ; 0x1cda
     mov word [bp - 0xc], 0x95        ; 0x1cdf
     mov word [bp - 0x14], 0x16       ; 0x1ce4
-    mov ax, dseg_90bf                ; 0x1ce9
+    mov ax, screen_save_temp_file    ; 0x1ce9
     push ax                          ; 0x1cec
     mov ax, word [bp - 0xa]          ; 0x1ced
     inc ax                           ; 0x1cf0

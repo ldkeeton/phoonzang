@@ -1,5 +1,5 @@
 ; auto-generated
-api_idx_0004_PKLV:
+target_most_wounded_unit:
     mov ax, 0xfffc                   ; 0x4528
     call aztec_csav                  ; 0x452b
     mov word [bp - 4], 0             ; 0x452e

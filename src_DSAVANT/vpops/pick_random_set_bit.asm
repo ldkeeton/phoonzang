@@ -1,5 +1,5 @@
 ; auto-generated
-api_idx_0006_QUSK:
+pick_random_set_bit:
     mov ax, 0xfffa                   ; 0x36c0
     call aztec_csav                  ; 0x36c3
     mov word [bp - 2], 0xffff        ; 0x36c6

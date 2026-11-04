@@ -1,5 +1,5 @@
 ; auto-generated
-api_idx_0054_NQHV:
+draw_monster_group_rows:
     mov ax, 0xffac                   ; 0x035f
     call aztec_csav                  ; 0x0362
     mov ax, 1                        ; 0x0365
@@ -13,7 +13,7 @@ api_idx_0054_NQHV:
     shl ax, 1                        ; 0x0378
     mov bx, ax                       ; 0x037a
     mov bx, word [bx + battle_groups] ; 0x037c
-    mov byte [bx + member_rec.f_01a2], 0 ; 0x0380
+    mov byte [bx + member_rec.active_unit_count], 0 ; 0x0380
     mov word [bp - 4], 0             ; 0x0385
     jmp short .forward2              ; 0x038a
 .back2:
@@ -156,7 +156,7 @@ api_idx_0054_NQHV:
     shl ax, 1                        ; 0x04d1
     mov bx, ax                       ; 0x04d3
     mov bx, word [bx + battle_groups] ; 0x04d5
-    mov al, byte [bx + member_rec.f_01a2] ; 0x04d9
+    mov al, byte [bx + member_rec.active_unit_count] ; 0x04d9
     sub ah, ah                       ; 0x04dd
     push ax                          ; 0x04df
     call draw_number_field           ; 0x04e0

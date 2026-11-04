@@ -31,7 +31,7 @@ area_set_1_right_save_file equ __zdseg_end + (__zarea_set_1_right_save_file - __
 area_set_1_center_save_file equ __zdseg_end + (__zarea_set_1_center_save_file - __zdata_start)
 area_set_2_save_file equ __zdseg_end + (__zarea_set_2_save_file - __zdata_start)
 spell_cost_panel_text equ __zdseg_end + (__zspell_cost_panel_text - __zdata_start)
-dseg_90bf equ __zdseg_end + (__zdseg_90bf - __zdata_start)
+screen_save_temp_file equ __zdseg_end + (__zscreen_save_temp_file - __zdata_start)
 dseg_90c5 equ __zdseg_end + (__zdseg_90c5 - __zdata_start)
 save_si equ __zdseg_end + (__zsave_si - __zdata_start)
 save_di equ __zdseg_end + (__zsave_di - __zdata_start)
@@ -64,7 +64,7 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "shared/ovr/show_area_set.asm"         ; 0x02af
 
-%include "vpops/api_idx_0054_NQHV.asm"     ; 0x035f
+%include "vpops/draw_monster_group_rows.asm" ; 0x035f
 
 %include "shared/ovr/fill_action_slot_table.asm" ; 0x0504
 
@@ -120,13 +120,13 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "vpops/choose_member_item_to_use.asm" ; 0x33db
 
-%include "vpops/api_idx_0006_QUSK.asm"     ; 0x36c0
+%include "vpops/pick_random_set_bit.asm"   ; 0x36c0
 
 %include "vpops/api_idx_00d4_UHLT.asm"     ; 0x3710
 
-%include "vpops/api_idx_0004_PKLV.asm"     ; 0x4528
+%include "vpops/target_most_wounded_unit.asm" ; 0x4528
 
-%include "vpops/api_idx_0002_ROVK.asm"     ; 0x45b3
+%include "vpops/pick_monster_attack_slot.asm" ; 0x45b3
 
 %include "vpops/api_idx_0024_NKNU.asm"     ; 0x45f3
 
@@ -149,7 +149,9 @@ __zdata_start:
 
 %include "shared/data/spell_cost_panel_text.asm" ; 0x4efe
 
-%include "vpops/data/dseg_90bf.asm"        ; 0x4f02
+%include "shared/data/screen_save_temp_file.asm" ; 0x4f02
+
+%include "vpops/data/dseg_90c5.asm"        ; 0x4f08
 
 %include "shared/data/overlay_saved_registers.asm" ; 0x4f0f
 

@@ -416,7 +416,7 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 __zdata_start:
 %include "vmaze/data/maze_temp_filename.asm" ; 0xac6e
 
-%include "vmaze/data/maze_variant_filenames.asm" ; 0xac76
+%include "shared/data/maze_variant_filenames.asm" ; 0xac76
 
 %include "vmaze/data/maze_message_control_code_table.asm" ; 0xad54
 

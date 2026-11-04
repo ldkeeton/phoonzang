@@ -1,4 +1,5 @@
-/* Select and load the maze files and monster pictures for this game state. */
+/* Select and load the maze files and monster pictures for the current level's
+   map variant. */
 
 extern int current_level;
 extern int maze_variant;
@@ -26,7 +27,7 @@ load_maze_resources()
 	/* Clear the boundary-wall override before choosing a region variant. */
 	boundary_wall_open = 0;
 
-	/* Map game-state values onto the maze data set used by that region. */
+	/* Map the current level onto its maze variant (picture file set). */
 	switch (current_level) {
 	case 15:
 	case 17:
@@ -57,7 +58,7 @@ load_maze_resources()
 		selected_maze_variant = 3;
 		break;
 	case 27:
-		/* This state enables the boundary wall before using variant 4. */
+		/* Level 27 also opens the boundary wall, then uses variant 4. */
 		boundary_wall_open = 1;
 	case 7:
 		selected_maze_variant = 4;

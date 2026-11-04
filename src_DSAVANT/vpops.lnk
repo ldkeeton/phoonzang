@@ -6,7 +6,7 @@ shared/ovr/redraw_glyph_strip
 shared/ovr/draw_centered_text_at_x
 shared/ovr/redraw_area_set
 shared/ovr/show_area_set
-vpops/api_idx_0054_NQHV
+vpops/draw_monster_group_rows
 shared/ovr/fill_action_slot_table
 shared/ovr/advance_action_slots
 shared/ovr/add_overlay_item
@@ -34,10 +34,10 @@ shared/ovr/draw_list_rows
 shared/ovr/draw_inset_list_rows
 vpops/use_or_cancel_item_dialog
 vpops/choose_member_item_to_use
-vpops/api_idx_0006_QUSK
+vpops/pick_random_set_bit
 vpops/api_idx_00d4_UHLT
-vpops/api_idx_0004_PKLV
-vpops/api_idx_0002_ROVK
+vpops/target_most_wounded_unit
+vpops/pick_monster_attack_slot
 vpops/api_idx_0024_NKNU
 vpops/api_idx_0002_GMMK
 vpops/api_idx_0004_NRTK
@@ -48,5 +48,6 @@ shared/data/area_set_1_right_save_file
 shared/data/area_set_1_center_save_file
 shared/data/area_set_2_save_file
 shared/data/spell_cost_panel_text
-vpops/data/dseg_90bf
+shared/data/screen_save_temp_file
+vpops/data/dseg_90c5
 shared/data/overlay_saved_registers

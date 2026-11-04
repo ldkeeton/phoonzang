@@ -30,7 +30,7 @@ ovmain:
 .forward1:
     cmp word [game_state], byte 0x17 ; 0x006a
     jne short .forward2              ; 0x006f
-    call reload_maze_after_encounter ; 0x0071
+    call load_maze_resources         ; 0x0071
     mov ax, 0xa                      ; 0x0074
     push ax                          ; 0x0077
     call random_below                ; 0x0078

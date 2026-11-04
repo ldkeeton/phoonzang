@@ -300,7 +300,7 @@ choose_member_item_to_use:
     mov si, ax                       ; 0x3695
     mov bx, word [battle_groups]     ; 0x3697
     pop ax                           ; 0x369b
-    mov byte [bx + si + member_rec.f_0020], al ; 0x369c
+    mov byte [bx + si + member_rec.unit_target_unit], al ; 0x369c
 .forward13:
     mov ax, 0xc6                     ; 0x369f
     push ax                          ; 0x36a2

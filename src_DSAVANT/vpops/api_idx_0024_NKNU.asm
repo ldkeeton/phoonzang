@@ -263,14 +263,14 @@ api_idx_0024_NKNU:
     mov bx, word [bp - 8]            ; 0x4861
     mov byte [bx + 0x21], 0          ; 0x4864
     push word [bp + 4]               ; 0x4868
-    call api_idx_0002_ROVK           ; 0x486b
+    call pick_monster_attack_slot    ; 0x486b
     pop cx                           ; 0x486e
     mov bx, word [bp - 8]            ; 0x486f
     mov byte [bx + 0x1c], al         ; 0x4872
     mov word [bp - 0x16], 0          ; 0x4875
 .back6:
     push word [bp + 4]               ; 0x487a
-    call api_idx_0002_ROVK           ; 0x487d
+    call pick_monster_attack_slot    ; 0x487d
     pop cx                           ; 0x4880
     mov bx, word [bp - 8]            ; 0x4881
     mov byte [bx + 0x1d], al         ; 0x4884
@@ -420,14 +420,14 @@ api_idx_0024_NKNU:
     mov ax, 0                        ; 0x49f7
     push ax                          ; 0x49fa
     push word [bp - 8]               ; 0x49fb
-    call api_idx_0004_PKLV           ; 0x49fe
+    call target_most_wounded_unit    ; 0x49fe
     add sp, byte 4                   ; 0x4a01
     test ax, ax                      ; 0x4a04
     jne short .forward24             ; 0x4a06
     mov ax, 6                        ; 0x4a08
     push ax                          ; 0x4a0b
     push word [bp - 8]               ; 0x4a0c
-    call api_idx_0004_PKLV           ; 0x4a0f
+    call target_most_wounded_unit    ; 0x4a0f
     add sp, byte 4                   ; 0x4a12
     test ax, ax                      ; 0x4a15
     jne short .forward24             ; 0x4a17
@@ -437,7 +437,7 @@ api_idx_0024_NKNU:
 .forward25:
     push word [bp + 4]               ; 0x4a20
     push word [bp - 8]               ; 0x4a23
-    call api_idx_0004_PKLV           ; 0x4a26
+    call target_most_wounded_unit    ; 0x4a26
     add sp, byte 4                   ; 0x4a29
     test ax, ax                      ; 0x4a2c
     jne short .forward26             ; 0x4a2e
@@ -447,7 +447,7 @@ api_idx_0024_NKNU:
     inc ax                           ; 0x4a38
     push ax                          ; 0x4a39
     push word [bp - 8]               ; 0x4a3a
-    call api_idx_0004_PKLV           ; 0x4a3d
+    call target_most_wounded_unit    ; 0x4a3d
     add sp, byte 4                   ; 0x4a40
     test ax, ax                      ; 0x4a43
     jne short .forward26             ; 0x4a45
@@ -631,7 +631,7 @@ api_idx_0024_NKNU:
     mov bx, ax                       ; 0x4bff
     mov bx, word [bx + battle_group_ext] ; 0x4c01
     mov si, word [bp - 0x14]         ; 0x4c05
-    cmp byte [bx + si + member_ext.f_0086], 2 ; 0x4c08
+    cmp byte [bx + si + member_ext.attack_mode], 2 ; 0x4c08
     jne short .forward42             ; 0x4c0d
     mov bx, word [bp - 8]            ; 0x4c0f
     mov word [bx + 0xa], 4           ; 0x4c12
@@ -642,7 +642,7 @@ api_idx_0024_NKNU:
     mov bx, ax                       ; 0x4c1e
     mov bx, word [bx + battle_group_ext] ; 0x4c20
     mov si, word [bp - 0x14]         ; 0x4c24
-    cmp byte [bx + si + member_ext.f_0086], 3 ; 0x4c27
+    cmp byte [bx + si + member_ext.attack_mode], 3 ; 0x4c27
     jne short .forward43             ; 0x4c2c
     mov bx, word [bp - 8]            ; 0x4c2e
     mov word [bx + 0xa], 8           ; 0x4c31
@@ -658,7 +658,7 @@ api_idx_0024_NKNU:
     add ax, cx                       ; 0x4c4b
     add ax, strict word 0x53         ; 0x4c4d
     push ax                          ; 0x4c50
-    call api_idx_0006_QUSK           ; 0x4c51
+    call pick_random_set_bit         ; 0x4c51
     pop cx                           ; 0x4c54
     mov bx, word [bp - 8]            ; 0x4c55
     mov word [bx + 0xa], ax          ; 0x4c58
@@ -725,7 +725,7 @@ api_idx_0024_NKNU:
     mov bx, ax                       ; 0x4cec
     mov bx, word [bx + battle_group_ext] ; 0x4cee
     mov si, word [bp - 0x14]         ; 0x4cf2
-    cmp byte [bx + si + member_ext.f_0086], 2 ; 0x4cf5
+    cmp byte [bx + si + member_ext.attack_mode], 2 ; 0x4cf5
     jne short .forward52             ; 0x4cfa
     mov bx, word [bp - 8]            ; 0x4cfc
     mov word [bx + 0xc], 4           ; 0x4cff
@@ -736,7 +736,7 @@ api_idx_0024_NKNU:
     mov bx, ax                       ; 0x4d0b
     mov bx, word [bx + battle_group_ext] ; 0x4d0d
     mov si, word [bp - 0x14]         ; 0x4d11
-    cmp byte [bx + si + member_ext.f_0086], 3 ; 0x4d14
+    cmp byte [bx + si + member_ext.attack_mode], 3 ; 0x4d14
     jne short .forward53             ; 0x4d19
     mov bx, word [bp - 8]            ; 0x4d1b
     mov word [bx + 0xc], 8           ; 0x4d1e
@@ -752,7 +752,7 @@ api_idx_0024_NKNU:
     add ax, cx                       ; 0x4d38
     add ax, strict word 0x53         ; 0x4d3a
     push ax                          ; 0x4d3d
-    call api_idx_0006_QUSK           ; 0x4d3e
+    call pick_random_set_bit         ; 0x4d3e
     pop cx                           ; 0x4d41
     mov bx, word [bp - 8]            ; 0x4d42
     mov word [bx + 0xc], ax          ; 0x4d45

@@ -1,5 +1,5 @@
 ; auto-generated
-api_idx_0004_OOHR:
+wait_for_scene_input_or_timeout:
     mov ax, 0xfffc                   ; 0x05e6
     call aztec_csav                  ; 0x05e9
     call flush_keyboard              ; 0x05ec
@@ -32,7 +32,7 @@ api_idx_0004_OOHR:
     call advance_party_redraw_frame  ; 0x0629
     test ax, ax                      ; 0x062c
     jne short .forward4              ; 0x062e
-    call loc_IJSN                    ; 0x0630
+    call roll_random_then_wait_10_ms ; 0x0630
 .forward4:
     jmp short .back1                 ; 0x0633
 .return1:

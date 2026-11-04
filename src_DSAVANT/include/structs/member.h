@@ -15,7 +15,8 @@ struct combatant {			/* 0x2c bytes: one fighter's battle copy */
 	char pad2[7];
 	unsigned char target_group;	/* +0x1f: group a party member attacks;
 					   kept in 1..monster_group_count */
-	char pad2b[2];
+	unsigned char target_unit;	/* +0x20: unit attacked in target_group */
+	char pad2b;
 	unsigned char state;		/* +0x22: same as pc_rec.state, 3 dead */
 	unsigned char poison_strength;	/* +0x23 */
 	unsigned char countdown;	/* +0x24 */
@@ -42,7 +43,9 @@ struct member_rec {
 	unsigned char unidentified;	/* +0x1a0: 1 until identified; selects
 					   member_ext.name[1] */
 	unsigned char unit_count;	/* +0x1a1: fighters still alive */
-	char pad1[2];			/* +0x1a2: record tail */
+	unsigned char active_unit_count; /* +0x1a2: units with state < 2 and
+					   status[2], status[3] clear */
+	char pad1;
 };
 
 /* Four-byte base/count/span value consumed by add_random_steps. */
@@ -59,7 +62,11 @@ struct member_ext {			/* 0xe8 bytes: the group's monster */
 	struct member_step_spec member_count_spec; /* +0x7a */
 	struct member_step_spec hp_spec;	/* +0x7e */
 	struct member_step_spec stamina_spec;	/* +0x82 */
-	char pad1[0xaa - 0x86];
+	unsigned char attack_mode[3];	/* +0x86: per attack slot (0x12-byte
+					   records at +0x44); 0 unused, 2 and 3
+					   fixed effects, else a random bit of
+					   the slot's mask */
+	char pad1[0xaa - 0x89];
 	unsigned char companion_id[2];	/* +0xaa: monster that may join */
 	unsigned char companion_chance[2]; /* +0xac: its join roll limit */
 	unsigned char f_00ae;	/* +0xae */

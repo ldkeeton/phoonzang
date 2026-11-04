@@ -1,4 +1,5 @@
-/* The maze picture files load_maze_resources loads, by map variant. */
+/* The maze picture files load_maze_resources (vmaze and vmext) loads, by map
+   variant. */
 
 char variant_1_maze_filename[] = "MAZEDATA.VGA";
 char variant_1_water_filename[] = "WATRDATA.VGA";

@@ -24,6 +24,7 @@ binary selected the routine.
 """
 
 import functools
+import glob
 import json
 import os
 import re
@@ -919,6 +920,98 @@ def _routine_companions(sidecar, project, binary, old, addr, primary):
     return found
 
 
+_NAME_BLOCKS = ('function_names', 'data_names', 'code_data_names')
+
+
+def _label_defined(text, name):
+    return re.search(rf'^[ \t]*{re.escape(name)}_?(?:[ \t]+equ\b|:)',
+                     text, re.M) is not None
+
+
+def _name_in_use(project, sidecar, target, own, name, old):
+    """Why *name* is already taken in *target* (a message), or None.
+
+    Taken means another sidecar entry of *target* or its data owner already
+    spells *name*, or *target*'s assembly (its master, the files it includes,
+    the host symbols) already defines it as a label.  *own* is the
+    ``(path, key)`` being renamed; entries and files spelling *old* are this
+    same object under its current name.
+    """
+    blocks = [target]
+    owner = data_owner(sidecar, target) if target in _binaries(sidecar) else None
+    if owner and owner != target:
+        blocks.append(owner)
+    for b in blocks:
+        info = _binaries(sidecar).get(b) or {}
+        for kind in _NAME_BLOCKS:
+            for key, entry in (info.get(kind) or {}).items():
+                if (isinstance(entry, dict) and entry.get('name') == name
+                        and (('binaries', b, kind), key) != own
+                        and not (b != target and key == own[1])):  # ds mirror
+                    return (f'{name!r} already names {b} {kind}["{key}"]'
+                            f'{" (" + entry["note"] + ")" if entry.get("note") else ""}; '
+                            f'pick another name')
+    if target == SHARED_DIR:
+        return None
+    root = src_dir(project, PROJECT)
+    master = _master_text(project, target)
+    texts = [('the master', master)]
+    host = os.path.join(root, 'include', 'host_symbols.inc')
+    for inc in [host] + [os.path.join(root, m) for m in _INCLUDE_LINE_M.findall(master)
+                         if m.endswith('.asm')]:
+        stem = os.path.splitext(os.path.basename(inc))[0]
+        if stem == old:
+            continue    # the renamed routine's own file
+        try:
+            with open(inc) as f:
+                texts.append((os.path.relpath(inc, root), f.read()))
+        except OSError:
+            continue
+    for where, text in texts:
+        if _label_defined(text, name):
+            return f'{name!r} is already a label {target} defines ({where}); pick another name'
+    return None
+
+
+def _same_name_elsewhere(project, sidecar, renames, touched):
+    """A message when renaming a routine would also rewrite another binary's
+    routine of the same name, or None.
+
+    :func:`rename_sources` rewrites ``old`` in every hand source of the
+    project; a binary this plan did not touch that still has a routine named
+    ``old`` with its own ``old.c``/``old.s`` would be renamed by accident.
+    """
+    root = src_dir(project, PROJECT)
+    for old, new in renames.items():
+        if _generated_name(old):
+            continue
+        word = re.compile(rf'\b{re.escape(old)}\b')
+        for b, info in sorted(_binaries(sidecar).items()):
+            if b in touched:
+                continue
+            named = any(isinstance(e, dict) and e.get('name') == old
+                        for blk in _NAME_BLOCKS
+                        for e in (info.get(blk) or {}).values())
+            if not named:
+                continue
+            for ext in ('.c', '.s'):
+                if os.path.exists(os.path.join(root, b, old + ext)):
+                    return (f'{b} has its own routine named {old!r} ({b}/{old}{ext}); '
+                            f'renaming {old} -> {new} would rewrite it too. '
+                            f'Rename both together, or rename that one first')
+            # its own data (or a routine's extern of it) spelled in its sources
+            for path in sorted(glob.glob(os.path.join(root, b, '**', '*.[cs]'),
+                                         recursive=True)):
+                with open(path) as f:
+                    if word.search(f.read()):
+                        return (f'{b} has its own {old!r} (used in '
+                                f'{os.path.relpath(path, root)}); renaming '
+                                f'{old} -> {new} would rewrite that binary\'s '
+                                f'source but not its sidecar. Keep the shared '
+                                f'name, or rename both binaries together')
+    return None
+
+
 def plan_names(project, binary, specs):
     """Resolve *specs* and every naming surface they must update.
 
@@ -935,6 +1028,7 @@ def plan_names(project, binary, specs):
     renames = {}
     changes = []
     done = set()
+    claimed = {}
     queue = list(_expand_shared_specs(project, binary, specs))
     for spec in queue:
         if len(spec) == 4:
@@ -956,6 +1050,14 @@ def plan_names(project, binary, specs):
         if entry.get('name') == name and not note:
             continue    # a donor already so named; nothing to write
         old = entry.get('name') or sym
+        if name and name != old:
+            mine = (tuple(path), key)
+            prior = claimed.setdefault((target, name), mine)
+            if prior != mine:
+                raise SidecarError(f'{sym}: {name!r} is given twice in {target}')
+            taken = _name_in_use(project, sidecar, target, mine, name, old)
+            if taken:
+                raise SidecarError(f'{sym}: {taken}')
         is_routine = path == ['binaries', target, 'function_names']
         # A routine a dispatch slot already names takes the new name there
         # (a shared copy's slot may be renamed already); a pin of its own
@@ -1072,6 +1174,11 @@ def plan_names(project, binary, specs):
             # shared file.
             for donor, alias in _tag_aliases(project, {old, sym}):
                 queue.append((alias, name, note, donor))
+    touched = {c['surface'].split('.')[1] for c in changes
+               if c['surface'].startswith('binaries.')}
+    clash = _same_name_elsewhere(project, sidecar, renames, touched | {binary})
+    if clash:
+        raise SidecarError(clash)
     return text, sidecar, renames, changes
 
 

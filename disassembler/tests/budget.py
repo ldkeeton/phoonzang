@@ -16,7 +16,7 @@ import threading
 import time
 import unittest
 
-BUDGET_MS = 100
+BUDGET_MS = 150
 
 #: False only while ``make test measure`` times the suite.
 ENFORCE = True

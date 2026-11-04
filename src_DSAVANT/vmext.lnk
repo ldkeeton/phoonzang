@@ -5,11 +5,11 @@ shared/ovr/map_piece_index_for_position
 shared/ovr/find_map_piece
 shared/ovr/find_object_at
 shared/ovr/load_maze_file
-vmext/reload_maze_after_encounter
+vmext/load_maze_resources
 shared/ovr/party_redraw_interval_elapsed
 shared/ovr/advance_party_redraw_frame
-vmext/loc_IJSN
-vmext/api_idx_0004_OOHR
+vmext/roll_random_then_wait_10_ms
+vmext/wait_for_scene_input_or_timeout
 vmext/loc_VJNU
 shared/ovr/save_previous_party_position
 shared/ovr/get_cell_wall
@@ -50,5 +50,5 @@ shared/ovr/draw_clock_marker_glyph
 shared/ovr/draw_first_person_maze_view
 shared/ovr/redraw_maze_view
 shared/ovr/aztec_ovbgn
-vmext/data/dseg_9098
+shared/data/maze_variant_filenames
 shared/data/overlay_saved_registers

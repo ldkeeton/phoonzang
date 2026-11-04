@@ -171,7 +171,7 @@ struc member_rec
     .f_001c: resb 2
     .f_001e: resb 1
     .unit_target_group: resb 1
-    .f_0020: resb 1
+    .unit_target_unit: resb 1
     .f_0021: resb 1
     .unit_state: resb 1
     .unit_poison_strength: resb 1
@@ -195,7 +195,7 @@ struc member_rec
     .slot: resb 1
     .unidentified: resb 1
     .unit_count: resb 1
-    .f_01a2: resb 1
+    .active_unit_count: resb 1
 endstruc
 
 ; records pointed at by DS 0x8484
@@ -220,7 +220,8 @@ struc member_ext
     .f_007a: resb 3
     .f_007d: resb 3
     .f_0080: resb 6
-    .f_0086: resb 6
+    .attack_mode: resb 3
+    .pad_0089: resb 3
     .f_008c: resb 1
     .f_008d: resb 1
     .f_008e: resb 1

@@ -1669,7 +1669,7 @@ api_idx_00ac_HRGR.forward91:
     mov bx, ax                       ; 0x89aa
     mov bx, word [bx + battle_groups] ; 0x89ac
     pop ax                           ; 0x89b0
-    mov byte [bx + si + member_rec.f_0020], al ; 0x89b1
+    mov byte [bx + si + member_rec.unit_target_unit], al ; 0x89b1
     mov ax, 0x2c                     ; 0x89b4
     imul word [bp - 0x50]            ; 0x89b7
     mov si, ax                       ; 0x89ba
