@@ -5,7 +5,7 @@ redraw_area_set:
     mov ax, word [bp + 4]
     jmp near .forward1
 .back1:
-    mov ax, percent_suffix_text
+    mov ax, area_set_0_save_file
     push ax
     mov ax, 0xc2
     push ax

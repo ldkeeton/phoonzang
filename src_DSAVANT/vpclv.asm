@@ -256,7 +256,7 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 %include "shared/ovr/aztec_ovbgn.asm"           ; 0x5472
 
 __zdata_start:
-%include "vpclv/data/percent_suffix_text.asm" ; 0x54b0
+%include "shared/data/percent_suffix_text.asm" ; 0x54b0
 
 %include "shared/data/spell_cost_panel_text.asm" ; 0x54b3
 

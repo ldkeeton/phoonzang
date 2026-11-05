@@ -25,7 +25,7 @@ IMAGE_BASE equ 0x000e + VBASE
     dw aztec_ovbgn - IMAGE_BASE + __zres_end ; 0xfe57 ; o_entry: overlay entry offset (CS)
 
 __zcode_start:
-percent_suffix_text equ __zdseg_end + (__zpercent_suffix_text - __zdata_start)
+area_set_0_save_file equ __zdseg_end + (__zarea_set_0_save_file - __zdata_start)
 area_set_1_left_save_file equ __zdseg_end + (__zarea_set_1_left_save_file - __zdata_start)
 area_set_1_right_save_file equ __zdseg_end + (__zarea_set_1_right_save_file - __zdata_start)
 area_set_1_center_save_file equ __zdseg_end + (__zarea_set_1_center_save_file - __zdata_start)
@@ -454,15 +454,15 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 %include "shared/aztec/aztec_strcmp.asm"          ; 0xae76
 
 __zdata_start:
-%include "shared/data/percent_suffix_text.asm" ; 0xaedd
+%include "vmnpc/data/area_set_0_save_file.asm" ; 0xaedd
 
-%include "shared/data/area_set_1_left_save_file.asm" ; 0xaee4
+%include "vmnpc/data/area_set_1_left_save_file.asm" ; 0xaee4
 
-%include "shared/data/area_set_1_right_save_file.asm" ; 0xaeeb
+%include "vmnpc/data/area_set_1_right_save_file.asm" ; 0xaeeb
 
-%include "shared/data/area_set_1_center_save_file.asm" ; 0xaef2
+%include "vmnpc/data/area_set_1_center_save_file.asm" ; 0xaef2
 
-%include "shared/data/area_set_2_save_file.asm" ; 0xaef9
+%include "vmnpc/data/area_set_2_save_file.asm" ; 0xaef9
 
 %include "vmnpc/data/dseg_90bb.asm"        ; 0xaf00
 

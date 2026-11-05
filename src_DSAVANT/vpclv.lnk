@@ -51,7 +51,7 @@ vpclv/api_idx_0046_NOMK
 shared/ovr/draw_party_glyph_row
 vpclv/api_idx_000c_NVIQ
 shared/ovr/aztec_ovbgn
-vpclv/data/percent_suffix_text
+shared/data/percent_suffix_text
 shared/data/spell_cost_panel_text
 vpclv/data/pick_spell_dialog_keep_frames_dseg175
 shared/data/profession_skill_groups

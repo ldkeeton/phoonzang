@@ -25,7 +25,7 @@ IMAGE_BASE equ 0x000e + VBASE
     dw aztec_ovbgn - IMAGE_BASE + __zres_end ; 0x9ee4 ; o_entry: overlay entry offset (CS)
 
 __zcode_start:
-percent_suffix_text equ __zdseg_end + (__zpercent_suffix_text - __zdata_start)
+area_set_0_save_file equ __zdseg_end + (__zarea_set_0_save_file - __zdata_start)
 area_set_1_left_save_file equ __zdseg_end + (__zarea_set_1_left_save_file - __zdata_start)
 area_set_1_right_save_file equ __zdseg_end + (__zarea_set_1_right_save_file - __zdata_start)
 area_set_1_center_save_file equ __zdseg_end + (__zarea_set_1_center_save_file - __zdata_start)
@@ -139,21 +139,7 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 %include "shared/ovr/aztec_ovbgn.asm"           ; 0x4e9d
 
 __zdata_start:
-%include "shared/data/percent_suffix_text.asm" ; 0x4edb
-
-%include "shared/data/area_set_1_left_save_file.asm" ; 0x4ee2
-
-%include "shared/data/area_set_1_right_save_file.asm" ; 0x4ee9
-
-%include "shared/data/area_set_1_center_save_file.asm" ; 0x4ef0
-
-%include "shared/data/area_set_2_save_file.asm" ; 0x4ef7
-
-%include "shared/data/spell_cost_panel_text.asm" ; 0x4efe
-
-%include "shared/data/screen_save_temp_file.asm" ; 0x4f02
-
-%include "vpops/data/item_dialog_temp_file.asm" ; 0x4f08
+%include "vpops/data/pops_strings.asm"     ; 0x4edb
 
 %include "shared/data/overlay_saved_registers.asm" ; 0x4f0f
 

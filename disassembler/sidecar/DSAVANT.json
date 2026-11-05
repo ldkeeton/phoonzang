@@ -2710,7 +2710,7 @@
       ],
       "data_names": {
         "93d8": {"name": "npc_area_bottom", "note": "bottom y of the area step_npc_screen_animation shows: 0x8d or 0x8f"},
-        "9098": {"name": "percent_suffix_text", "note": "Percent sign and following space for the member status display"},
+        "9098": {"name": "area_set_0_save_file", "note": "save file for area set 0 (redraw_area_set); vpcvw/vpclv hold a '% ' suffix at this offset instead"},
         "909f": {"name": "area_set_1_left_save_file", "note": "Filename used for the first rectangle in area set 1"},
         "90a6": {"name": "area_set_1_right_save_file", "note": "Filename used for the second rectangle in area set 1"},
         "90ad": {"name": "area_set_1_center_save_file", "note": "Save filename for the upper-middle rectangle in area set 1"},
@@ -3272,7 +3272,7 @@
         {"offset": "4eb6", "space": "ds", "name": "_Uend", "note": "$ovbgn's `mov cx,offset _Uend_`: the end of the overlay's BSS"}
       ],
       "data_names": {
-        "9098": {"name": "percent_suffix_text", "note": "Percent sign and following space for the member status display"},
+        "9098": {"name": "area_set_0_save_file", "length": 52, "file": "pops_strings", "note": "save file for area set 0 (redraw_area_set); vpcvw/vpclv hold a '% ' suffix at this offset instead"},
         "909f": {"name": "area_set_1_left_save_file", "note": "Filename used for the first rectangle in area set 1"},
         "90a6": {"name": "area_set_1_right_save_file", "note": "Filename used for the second rectangle in area set 1"},
         "90ad": {"name": "area_set_1_center_save_file", "note": "Save filename for the upper-middle rectangle in area set 1"},
@@ -3360,7 +3360,7 @@
         "45e5": {"name": "prepare_combatant_actions", "note": "builds combatant actions and target choices"},
         "4d83": {"name": "prepare_combat_groups", "note": "prepares monster groups and the special group for combat"},
         "4e2d": {"name": "enter_party_battle_orders", "note": "sets the party battle-order screen state and starts combat when orders are accepted"},
-        "4e8f": {"name": "aztec_ovbgn"}
+        "4e8f": {"name": "aztec_ovbgn", "emits": [{"start": "90cc", "end": "90d6"}], "note": "dos20/ovbgn.asm: its dataseg holds save_si/di/sp/bp/ret, after every C module's data"}
       },
       "file": "VPOPS.OVR",
       "desc": "Party options overlay: spell and item action dialogs outside combat",

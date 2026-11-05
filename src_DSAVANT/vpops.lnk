@@ -42,13 +42,5 @@ vpops/pick_monster_attack_slot
 vpops/prepare_combatant_actions
 vpops/prepare_combat_groups
 vpops/enter_party_battle_orders
+vpops/data/pops_strings
 shared/ovr/aztec_ovbgn
-shared/data/percent_suffix_text
-shared/data/area_set_1_left_save_file
-shared/data/area_set_1_right_save_file
-shared/data/area_set_1_center_save_file
-shared/data/area_set_2_save_file
-shared/data/spell_cost_panel_text
-shared/data/screen_save_temp_file
-vpops/data/item_dialog_temp_file
-shared/data/overlay_saved_registers

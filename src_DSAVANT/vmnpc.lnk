@@ -128,11 +128,11 @@ vmnpc/api_idx_006a_QKPT
 shared/ovr/aztec_ovbgn
 shared/aztec/aztec_strncpy
 shared/aztec/aztec_strcmp
-shared/data/percent_suffix_text
-shared/data/area_set_1_left_save_file
-shared/data/area_set_1_right_save_file
-shared/data/area_set_1_center_save_file
-shared/data/area_set_2_save_file
+vmnpc/data/area_set_0_save_file
+vmnpc/data/area_set_1_left_save_file
+vmnpc/data/area_set_1_right_save_file
+vmnpc/data/area_set_1_center_save_file
+vmnpc/data/area_set_2_save_file
 vmnpc/data/dseg_90bb
 shared/data/spell_cost_panel_text
 vmnpc/data/dseg_90e8

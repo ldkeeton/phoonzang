@@ -1,7 +1,7 @@
 /* redraw the glyph strip after saving and restoring one selected area set */
 
 extern int save_screen_area(), redraw_glyph_strip(), restore_saved_screen();
-extern char percent_suffix_text[];
+extern char area_set_0_save_file[];
 extern char area_set_1_left_save_file[], area_set_1_right_save_file[],
 	area_set_1_center_save_file[], area_set_2_save_file[];
 
@@ -14,9 +14,9 @@ int area_set;
 
 	switch (area_set) {
 	case 0:
-		/* This set uses the percent suffix text as its save filename. */
+		/* Set zero saves the middle of the lower band. */
 		saved_area_1 = save_screen_area(98, 164, 224, 194,
-			percent_suffix_text);
+			area_set_0_save_file);
 		redraw_glyph_strip(0);
 		restore_saved_screen(saved_area_1, 1);
 		break;

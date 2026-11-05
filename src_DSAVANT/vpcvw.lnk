@@ -84,7 +84,7 @@ vpcvw/api_idx_000e_ORVT
 vpcvw/api_idx_0018_VTUP
 shared/ovr/aztec_ovbgn
 shared/ovr/aztec_cswt
-vpcvw/data/percent_suffix_text
+shared/data/percent_suffix_text
 shared/data/title_panel_screen_file
 shared/data/choice_grid_screen_file
 shared/data/spell_cost_panel_text
