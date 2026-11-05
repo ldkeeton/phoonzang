@@ -11,11 +11,9 @@ inode.
 
 import fcntl
 import os
-import time
 
 from .cachedirs import CACHE_ROOT
 
-RETRY_SECONDS = 5
 LOCK_NAME = 'build.lock'
 LOCK_PATH = os.path.join(CACHE_ROOT, LOCK_NAME)
 _held = None
@@ -28,10 +26,7 @@ def acquire():
         return
     os.makedirs(os.path.dirname(LOCK_PATH), exist_ok=True)
     f = open(LOCK_PATH, 'a')
-    while True:
-        try:
-            fcntl.flock(f, fcntl.LOCK_EX | fcntl.LOCK_NB)
-            break
-        except BlockingIOError:
-            time.sleep(RETRY_SECONDS)
+    # A blocking flock wakes the moment the holder exits (no polling delay);
+    # Ctrl-C still interrupts the wait.
+    fcntl.flock(f, fcntl.LOCK_EX)
     _held = f

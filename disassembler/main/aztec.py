@@ -238,8 +238,9 @@ def _aztec_c_overrides(project, name, data, label_map, out_dir,
         }
     # A hand-written <label>.c or .s outside every placed module (an
     # application routine, or a vendor routine whose module stays assembly)
-    # is checked without replacing its disassembly.  It must fit inside the
-    # recorded span, the next routine, and its sidecar band.
+    # is checked without replacing its disassembly.  It owns its whole
+    # fragment and must compile to exactly that (main.runner checks it
+    # against the laid-out span), inside the next routine and its band.
     recorded = _recorded_spans(project, name)
     roots = sorted(function_roots or ())
     # Concrete runtime entries bound their hand-owned sources.  An inferred

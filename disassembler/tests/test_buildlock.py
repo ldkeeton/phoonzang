@@ -13,7 +13,6 @@ import sys
 sys.path.insert(0, {asm!r})
 from lib import buildlock
 buildlock.LOCK_PATH = {path!r}
-buildlock.RETRY_SECONDS = 0.01
 buildlock.acquire()
 print("held", flush=True)
 sys.stdin.readline()

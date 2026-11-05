@@ -171,12 +171,16 @@ class _Worker:
         return (answer['status'], answer['out'], answer['err'],
                 answer.get('files'))
 
-    def close(self):
+    def request_exit(self):
+        """Tell the worker to exit, without waiting for it (:meth:`close`)."""
         try:
             self.proc.stdin.write(json.dumps({'exit': True}) + '\n')
             self.proc.stdin.close()
         except (BrokenPipeError, ValueError):
             pass
+
+    def close(self):
+        self.request_exit()
         self.proc.wait()
         childproc.unregister(self.proc)
         self._reader.join(timeout=2)
@@ -241,6 +245,10 @@ class Workers:
         self.errors.clear()
 
     def close(self):
+        # Every worker winds down at once; waiting on each in turn would add
+        # up their exits.
+        for worker in self._live.values():
+            worker.request_exit()
         for worker in self._live.values():
             worker.close()
         self._live.clear()

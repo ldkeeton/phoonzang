@@ -342,7 +342,7 @@ __zdata_start:
 
 %include "vpcmk/data/dseg_90bb.asm"        ; 0x7054
 
-%include "shared/data/profession_skill_groups.asm" ; 0x7057
+%include "vpcmk/data/profession_skill_groups.asm" ; 0x7057
 
 %include "shared/data/spell_cost_panel_text.asm" ; 0x726b
 

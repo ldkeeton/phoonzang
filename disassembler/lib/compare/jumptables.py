@@ -8,7 +8,7 @@ from capstone import CS_OP_MEM
 from lib.verify.assemble import micro_assemble
 from lib.compare.records import _record_span, _label_record
 from lib.names import is_data
-from lib.symtab import Kind, Source, Space, Symbol
+from lib.symtab import LOCAL_PREFIX, Kind, Source, Space, Symbol
 
 
 def _parse_hex_offset(value):
@@ -124,9 +124,15 @@ def _records_overlapping(records, start, end):
     """Indices of non-label records whose span intersects [start, end)."""
     indices = []
     for i, rec in enumerate(records):
-        if rec['type'] == 'label':
+        rtype = rec['type']
+        if rtype == 'label':
             continue
-        rec_start, rec_end = _record_span(rec)
+        # :func:`_record_span`, inlined: this scan is a build hot spot.
+        if rtype == 'data_block' or rtype == 'jump_table':
+            rec_start, rec_end = rec['start'], rec['end']
+        else:
+            rec_start = rec.get('offset', 0)
+            rec_end = rec_start + rec.get('size', 1)
         if rec_start < end and rec_end > start:
             indices.append(i)
     return indices
@@ -149,7 +155,13 @@ def _ensure_jump_case_label(records, binary_data, off, name):
                 records.insert(i, _label_record(name, off))
                 return True
             continue
-        rec_start, rec_end = _record_span(rec)
+        # :func:`_record_span`, inlined: this scan runs once per case label
+        # over every record, the hottest loop of a build.
+        if rtype == 'data_block' or rtype == 'jump_table':
+            rec_start, rec_end = rec['start'], rec['end']
+        else:
+            rec_start = rec.get('offset', 0)
+            rec_end = rec_start + rec.get('size', 1)
         if rec_start == off:
             records.insert(i, _label_record(name, off))
             return True
@@ -274,6 +286,7 @@ def _inject_jump_tables(records, specs, binary_data, start_offset,
     total = len(binary_data)
     injected = {}
     synthesized = {}
+    retired, renames = {}, {}
     # A synthesized case label must not land inside any detected table: for an
     # overlay a neighbouring table's span can cover it and drop the label when
     # that table is later replaced.  Fall back to the raw word in that case.
@@ -361,16 +374,10 @@ def _inject_jump_tables(records, specs, binary_data, start_offset,
                         if local is not None:
                             # Direct branches were formatted before table
                             # injection.  The case is now the public name
-                            # for this address, so retire its local alias.
-                            records = [rec for rec in records if not (
-                                rec['type'] == 'label'
-                                and rec['offset'] == target
-                                and rec['name'] == local)]
-                            for rec in records:
-                                if rec['type'] == 'mnem':
-                                    rec['text'] = re.sub(
-                                        re.escape(str(local)) + r'(?![\w.])',
-                                        str(candidate), rec['text'])
+                            # for this address, so retire its local alias
+                            # (all at once, after the last table).
+                            retired.setdefault(target, []).append(local)
+                            renames[str(local)] = str(candidate)
                         case_names[target] = candidate
                         synthesized[candidate] = target
                         name = candidate
@@ -380,7 +387,31 @@ def _inject_jump_tables(records, specs, binary_data, start_offset,
         if not literal:
             injected[spec['table_addr']] = spec['label']
         synthesized[spec['label']] = spec['table_addr']
+    if renames:
+        records = _retire_local_aliases(records, retired, renames)
     return records, injected, synthesized
+
+
+def _retire_local_aliases(records, retired, renames):
+    """Drop each retired local label record and rename its uses in the
+    formatted instructions to the case label that replaced it.
+
+    *retired* maps an address to its retired locals, *renames* each local's
+    text to the case label's.  One pass over the records for every local
+    (a local is ``@..owner.name``, never part of a case label's text)."""
+    records = [rec for rec in records if not (
+        rec['type'] == 'label'
+        and any(rec['name'] == local
+                for local in retired.get(rec['offset'], ())))]
+    pattern = re.compile(
+        '(?:' + '|'.join(re.escape(name) for name in
+                         sorted(renames, key=len, reverse=True))
+        + r')(?![\w.])')
+    for rec in records:
+        if rec['type'] == 'mnem' and LOCAL_PREFIX in rec['text']:
+            rec['text'] = pattern.sub(lambda m: renames[m.group(0)],
+                                      rec['text'])
+    return records
 
 
 def _rewrite_jump_dispatchers(records, disp_labels, start_offset,

@@ -648,8 +648,9 @@ def _apply_c_overrides(records, c_overrides, binary_data, label_map,
         else:
             compiled = bytearray(override['code'])
         # The routine owns exactly *length* bytes (its original, exact-match
-        # size).  A shorter compile is NOP-filled up to that size; a longer one
-        # would shift every following address, so it is a hard error.
+        # size).  A shorter compile fails the gate (``--allow-diff`` NOP-fills
+        # it); a longer one would shift every following address, so it is a
+        # hard error.
         length = override.get('length') or len(compiled)
         if len(compiled) > length:
             error = (f'C override: {label!r} compiled to {len(compiled)} bytes, '

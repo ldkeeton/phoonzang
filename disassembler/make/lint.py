@@ -65,6 +65,34 @@ def _write(path, text):
         source.write(text)
 
 
+def _lint_file(path, fix):
+    """``(findings, fixed)`` for one file, applying fixable rules when *fix*.
+
+    Runs in a pool process: the rules are pure, each file is independent."""
+    text = _read(path)
+    findings = check_text(text, path)
+    fixed = 0
+    if fix and findings and any(finding.fixable for finding in findings):
+        rewritten = fix_text(text, path)
+        if rewritten != text:
+            _write(path, rewritten)
+            fixed = sum(1 for finding in findings if finding.fixable)
+            findings = check_text(rewritten, path)
+    return findings, fixed
+
+
+def _lint_files(files, fix):
+    """:func:`_lint_file` for every file, in order, across processes."""
+    from concurrent.futures import ProcessPoolExecutor
+    jobs = min(len(files), os.cpu_count() or 4)
+    if jobs <= 1:
+        return [_lint_file(path, fix) for path in files]
+    chunk = max(1, len(files) // (jobs * 4))
+    with ProcessPoolExecutor(max_workers=jobs) as pool:
+        return list(pool.map(_lint_file, files, [fix] * len(files),
+                             chunksize=chunk))
+
+
 def cmd_lint(projects, fix=False):
     projects = _projects(projects)
     total_files = 0
@@ -77,16 +105,8 @@ def cmd_lint(projects, fix=False):
             continue
         total_files += len(files)
         findings_here = 0
-        for path in files:
-            text = _read(path)
-            findings = check_text(text, path)
-            if fix and findings and any(finding.fixable for finding in findings):
-                rewritten = fix_text(text, path)
-                if rewritten != text:
-                    _write(path, rewritten)
-                    fixed += sum(1 for finding in findings if finding.fixable)
-                    text = rewritten
-                    findings = check_text(text, path)
+        for path, (findings, fixed_here) in zip(files, _lint_files(files, fix)):
+            fixed += fixed_here
             for finding in findings:
                 print(f'{_display(path)}:{finding.line}:{finding.col}: '
                       f'{finding.rule}: {finding.message}', file=sys.stderr)

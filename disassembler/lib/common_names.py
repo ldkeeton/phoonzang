@@ -25,6 +25,7 @@ names the overlays read.
 import os
 import re
 from collections import defaultdict
+from functools import lru_cache
 
 from .autogen import hand_owned
 
@@ -46,20 +47,24 @@ def _top(rel):
     return top if sep else top.removesuffix('.asm')
 
 
+@lru_cache(maxsize=None)
 def _maskable(token):
     return bool(_DATA.match(token) or _CSEG.match(token) or _LABEL.match(token)
                 or _TAG.match(token))
 
 
+# Each round re-reads every file, and most are unchanged since the last one.
+@lru_cache(maxsize=8192)
 def _code_tokens(text):
     lines = []
     for line in text.split('\n'):
         code = line.split(';', 1)[0].strip()
         if code:
             lines.append(code)
-    return _WORD.findall(_LOCAL.sub('@L', '\n'.join(lines)))
+    return tuple(_WORD.findall(_LOCAL.sub('@L', '\n'.join(lines))))
 
 
+@lru_cache(maxsize=8192)
 def _instruction_count(text):
     count = 0
     for line in text.split('\n'):

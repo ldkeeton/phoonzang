@@ -81,7 +81,7 @@ shared/data/choice_grid_screen_file
 vpcmk/data/list_dialog_temp_file
 shared/data/screen_save_temp_file
 vpcmk/data/dseg_90bb
-shared/data/profession_skill_groups
+vpcmk/data/profession_skill_groups
 shared/data/spell_cost_panel_text
 vpcmk/data/pick_spell_dialog_keep_frames_dseg175
 shared/data/profession_stat_requirements

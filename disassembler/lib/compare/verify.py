@@ -307,7 +307,7 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
            foreign_message_params=None,
            sidecar_use=None, bands=(), data_modules=(),
            driver_slot_words=None, drivers_inc=None, data_groups=(),
-           data_owners=None, ln_com=False, ln_mz=False):
+           data_owners=None, ln_com=False, ln_mz=False, exports_only=False):
     """Produce NASM source text from *binary_data* and *instructions*.
 
     *driver_slot_words* ``{offset: text}`` are the ``driver_slots`` far
@@ -342,6 +342,12 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
         naming fixed external-segment fields (e.g. the BIOS Data Area).  A
         field is named only when the operand's segment matches the entry's.
     cascade_promoted : set | None
+
+    exports_only : bool
+        A labels-only step: stop once the cross-binary exports are final
+        (``ds_starts``, ``record_observations``, ``pointer_params``,
+        ``message_params``, ``message_uses``) and return only those, with no
+        source.  Nothing after that point feeds them.
 
     Returns (asm_text, stats, emit_bytes, label_positions, split_sources).
     """
@@ -823,6 +829,15 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
     # micro_assemble sees one instruction at a time, so it needs the constants
     # as equ lines.  The emitted source gets them from the project include.
     asm_equ = {**(mem_equ or {}), **message_equ} if message_equ else mem_equ
+    if exports_only:
+        return '', {
+            'ds_starts': _host_space_starts(mem_equ, segments),
+            'record_observations': (observe_records(insns, segment_flow)
+                                    if segment_flow is not None else []),
+            'pointer_params': pointer_params,
+            'message_params': message_params,
+            'message_uses': [vars(use) for use in message_uses],
+        }, None, None, {}
 
     # ── Pre-collect data labels from insn operands, MZ relocs, and data gaps ──
     # Assemble every candidate instruction in a single NASM round-trip rather

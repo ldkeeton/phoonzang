@@ -141,12 +141,16 @@ def _label_uses(files):
     return uses
 
 
+#: A word defined as a label at the start of a line (``name:``).
+_LINE_LABEL = re.compile(r'^\s*(\w+):', re.M)
+
+
 def _private_labels(rel, text, uses):
     """The generated labels *rel* defines and no other file of its binary names."""
     binary_uses = uses[_binary(rel)]
+    defined = set(_LINE_LABEL.findall(text))
     return {name for name in _GENERATED_LABEL.findall(text)
-            if binary_uses[name] == {rel}
-            and re.search(rf'^\s*{name}:', text, re.M)}
+            if binary_uses[name] == {rel} and name in defined}
 
 
 def _private_key(text, private):

@@ -30,6 +30,10 @@ def load(project):
 
     with open(path) as f:
         text = f.read()
+    return _parse(path, text)
+
+
+def _parse(path, text):
     try:
         data = json.loads(text)
     except json.JSONDecodeError as e:
@@ -38,6 +42,30 @@ def load(project):
     if _validated.get(path) != text:
         _validate(data)
         _validated[path] = text
+    return data
+
+
+#: ``path -> (text, data)``: the last parse :func:`load_readonly` handed out.
+_parsed = {}
+
+
+def load_readonly(project):
+    """:func:`load`, sharing one parse while the file's text is unchanged.
+
+    For hot read-only callers (``compiler_flags`` lookups run thousands of
+    times a build): the returned dict is shared, so it must not be mutated.
+    The file is still read on every call, so an edit mid-run is seen.
+    """
+    path = os.path.join(SIDECAR_DIR, f'{project}.json')
+    if not os.path.isfile(path):
+        return None
+    with open(path) as f:
+        text = f.read()
+    cached = _parsed.get(path)
+    if cached is not None and cached[0] == text:
+        return cached[1]
+    data = _parse(path, text)
+    _parsed[path] = (text, data)
     return data
 
 

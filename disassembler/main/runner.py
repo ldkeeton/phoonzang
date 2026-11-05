@@ -12,6 +12,7 @@ from lib.trace import TraceWriter
 from lib.diagnostics import begin as diag_begin, flush as diag_flush
 from lib.diagnostics import phase as diag_phase, emit as diag_emit, enabled as diag_enabled
 
+from lib import routine_source
 from lib.decode import disassemble
 from lib.compare.verify import verify
 from lib.aztec.datamodules import (data_modules as vendor_data_modules,
@@ -1049,6 +1050,9 @@ def _render(a, exact_bytes, show_offsets, host_data_offsets,
         **_driver_slot_render(ctx.sidecar_entry, data),
         data_groups=_declared_cs_data_groups(ctx.sidecar_entry),
         data_owners=_emitted_data(ctx.sidecar_entry, ctx.segments, data),
+        # A labels-only render is read only for its exports, which are final
+        # before verify formats anything; the stage ledgers want every stage.
+        exports_only=not final and not stagelog.ENABLED,
     )
     stagelog.step('verify', 1, metrics={'lines': asm_text.count('\\n')})
     progress.log(f'{name} | verify done')
@@ -1083,6 +1087,10 @@ def _render(a, exact_bytes, show_offsets, host_data_offsets,
         # into one layout per object (``lib.record_layout``).
         from lib.record_layout import write_observations
         write_observations(project, name, stats.get('record_observations', []))
+    if emit_bytes is None:
+        # An exports-only render (labels-only step): no source to check.
+        return SimpleNamespace(asm_text=asm_text, stats=stats,
+                               split_sources=split_sources)
     # Hard gate: a decoded instruction that could not be re-encoded is emitted
     # as ``db 0x.. ; <disassembly>``.  In the default semantic mode every
     # instruction must encode (exactly or semantically); these fallbacks are
@@ -1168,6 +1176,10 @@ def _emit(a, r, exact_bytes):
         a.source_errors.extend(errors)
     files[f'{name}.asm'] = asm_text
     spans = stats.get('aztec_spans') or {}
+    # A hand source owns its whole fragment: the gate above compared only the
+    # bytes it compiled to.
+    a.source_errors.extend(routine_source.short_of_fragment(
+        a.c_checks or {}, spans, lambda p: os.path.relpath(p, out_dir)))
     if spans and project:
         from lib.cachedirs import spans_dir
         target_dir = spans_dir(project)

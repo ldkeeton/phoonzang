@@ -2956,10 +2956,10 @@
         "4fbc": {"name": "check_or_apply_level_ups", "note": "Report whether a member can level, or apply every earned level"},
         "5093": {"name": "draw_party_glyph_row", "note": "draws one row of party glyphs from the party tag and count"},
         "5153": {"name": "show_level_up_sequence", "note": "show level-up screens and award eligible levels"},
-        "5464": {"name": "aztec_ovbgn"}
+        "5464": {"name": "aztec_ovbgn", "emits": [{"start": "93fe", "end": "9408"}], "note": "dos20/ovbgn.asm: its dataseg holds save_si/di/sp/bp/ret, after every C module's data"}
       },
       "data_names": {
-        "9098": {"name": "percent_suffix_text", "note": "Percent sign and following space for the member status display"},
+        "9098": {"name": "percent_suffix_text", "length": 870, "file": "clv_strings", "note": "Percent sign and following space for the member status display"},
         "909b": {"name": "spell_cost_panel_text", "note": "\"***\" empty spell cost text followed by the \"V.$$$\" screen-save filename"},
         "90a5": {"name": "fighter_resist_base", "note": "Fighter base resistance codes"},
         "90b4": {"name": "fighter_resist_growth", "note": "Fighter resistance growth digits"},
@@ -2998,7 +2998,7 @@
         "9428": {"name": "ac_screen_b_handle_high", "note": "high word of second cached armor class screen handle"},
         "943a": {"name": "banner_animation_frame", "note": "Current three-step frame of the member banner animation"},
         "95d0": {"name": "both_high_stats_flag", "note": "prepare_skill_list's own bss: set when stat[1] and stat[6] both exceed 13"},
-        "91d1": {"name": "profession_0_skill_group_0", "length": 532, "file": "profession_skill_groups", "note": "\"1111111110\": which skills 0-9 profession 0 may learn (prepare_skill_list literal)"},
+        "91d1": {"name": "profession_0_skill_group_0", "note": "\"1111111110\": which skills 0-9 profession 0 may learn (prepare_skill_list literal)"},
         "91dc": {"name": "profession_0_skill_group_1", "note": "\"11100000\": which skills 10-17 profession 0 may learn (prepare_skill_list literal)"},
         "91e5": {"name": "profession_0_skill_group_2", "note": "\"000000\": which skills 18-23 profession 0 may learn (prepare_skill_list literal)"},
         "91ec": {"name": "profession_0_skill_group_3", "note": "\"1111000000\": which skills 24-33 profession 0 may learn (prepare_skill_list literal)"},

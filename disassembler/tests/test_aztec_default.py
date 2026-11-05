@@ -18,7 +18,7 @@ BLOCK = {'compiler_flags': {
 
 
 def _tool(label, data=BLOCK, suffix='.c', binary='bin'):
-    with mock.patch('lib.sidecar.loader.load', return_value=data):
+    with mock.patch('lib.sidecar.loader.load_readonly', return_value=data):
         return cache._tool('P', binary, label,
                            cache.default_entry(label, 'P', suffix))
 
@@ -48,7 +48,7 @@ class FlagsByNameTests(unittest.TestCase):
 
     def test_vendor_asm_module_uses_asm_flags(self):
         entry = dict(cache.default_entry('aztec_csav', 'P'), file='csav.asm')
-        with mock.patch('lib.sidecar.loader.load', return_value=BLOCK):
+        with mock.patch('lib.sidecar.loader.load_readonly', return_value=BLOCK):
             self.assertEqual(cache._tool('P', 'bin', 'aztec_csav', entry),
                              ('asm', ('-dMODEL=0',)))
         self.assertEqual(cache.seed_suffix(entry), '.s')

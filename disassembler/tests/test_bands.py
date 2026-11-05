@@ -132,11 +132,28 @@ class BandHomeTest(unittest.TestCase):
 
 
 class OwnedLengthTest(unittest.TestCase):
-    def test_owns_exactly_the_compiled_bytes(self):
-        # shorter than the recorded fragment: the tail is split off
-        self.assertEqual(owned_length(0x200, 3, recorded_end=0x208), 3)
-        # the same length: no split
+    def test_owns_its_whole_fragment(self):
+        # shorter than the recorded fragment: still owns all of it (the byte
+        # gate then reports the short compile), never a split
+        self.assertEqual(owned_length(0x200, 3, recorded_end=0x208), 8)
         self.assertEqual(owned_length(0x200, 8, recorded_end=0x208), 8)
+        self.assertEqual(owned_length(0x200, 3, recorded_end=0x204,
+                                      next_root=0x206), 4)
+        # the next routine bounds it but is not its end: the build checks
+        # the compile against the fragment it lays out
+        self.assertEqual(owned_length(0x200, 3, next_root=0x206), 3)
+        self.assertEqual(owned_length(0x200, 3), 3)
+
+    def test_short_of_fragment(self):
+        from lib.routine_source import short_of_fragment
+        spans = {'f': [0x200, 0x208], 'g': [0x208, 0x20a]}
+        checks = {'f': {'start': 0x200, 'code': b'\x90' * 6, 'path': 'f.c'},
+                  'g': {'start': 0x208, 'code': b'\x90' * 2, 'path': 'g.c'},
+                  # owns its fragment and the inferred one after it
+                  'h': {'start': 0x208, 'code': b'\x90' * 4, 'path': 'h.c'}}
+        errors = short_of_fragment(checks, spans, lambda p: p)
+        self.assertEqual(len(errors), 1)
+        self.assertIn('f.c compiles to 6 bytes, 2 short of its 8-byte', errors[0])
 
     def test_may_not_grow_past_its_fragment(self):
         with self.assertRaises(FragmentLengthError):

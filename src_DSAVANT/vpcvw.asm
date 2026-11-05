@@ -341,7 +341,7 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 %include "shared/ovr/aztec_cswt.asm"            ; 0x982c
 
 __zdata_start:
-%include "shared/data/percent_suffix_text.asm" ; 0x9844
+%include "vpcvw/data/percent_suffix_text.asm" ; 0x9844
 
 %include "shared/data/title_panel_screen_file.asm" ; 0x9847
 

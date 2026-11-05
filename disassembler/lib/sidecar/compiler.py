@@ -27,7 +27,7 @@ def _validate_compiler_flags(block, where='"compiler_flags"', asm=True):
 
 def _blocks(project, binary):
     """``(project block, binary block)`` of ``compiler_flags``, each a dict."""
-    from .loader import load
+    from .loader import load_readonly as load
 
     data = load(project) or {}
     own = ((data.get('binaries') or {}).get(binary) or {}) if binary else {}
@@ -73,7 +73,7 @@ def asm_flags(project):
     They build every assembly module: a vendor ``.asm`` and a routine's ``.s``
     (:mod:`lib.routine_source`) alike.
     """
-    from .loader import load
+    from .loader import load_readonly as load
 
     block = (load(project) or {}).get('compiler_flags') or {}
     if block.get('asm') is None:

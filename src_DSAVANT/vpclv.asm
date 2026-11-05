@@ -256,67 +256,7 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 %include "shared/ovr/aztec_ovbgn.asm"           ; 0x5472
 
 __zdata_start:
-%include "shared/data/percent_suffix_text.asm" ; 0x54b0
-
-%include "shared/data/spell_cost_panel_text.asm" ; 0x54b3
-
-%include "vpclv/data/pick_spell_dialog_keep_frames_dseg175.asm"        ; 0x54b7
-
-%include "vpclv/data/fighter_resist_base.asm" ; 0x54bd
-
-%include "vpclv/data/fighter_resist_growth.asm" ; 0x54cc
-
-%include "vpclv/data/ranger_valkyrie_resist_base.asm" ; 0x54db
-
-%include "vpclv/data/ranger_valkyrie_resist_growth.asm" ; 0x54ea
-
-%include "vpclv/data/lord_resist_base.asm" ; 0x54f9
-
-%include "vpclv/data/lord_resist_growth.asm" ; 0x5508
-
-%include "vpclv/data/samurai_resist_base.asm" ; 0x5517
-
-%include "vpclv/data/samurai_resist_growth.asm" ; 0x5526
-
-%include "vpclv/data/ninja_resist_base.asm" ; 0x5535
-
-%include "vpclv/data/ninja_resist_growth.asm" ; 0x5544
-
-%include "vpclv/data/mage_alchemist_resist_base.asm" ; 0x5553
-
-%include "vpclv/data/mage_alchemist_resist_growth.asm" ; 0x5562
-
-%include "vpclv/data/psionic_resist_base.asm" ; 0x5571
-
-%include "vpclv/data/psionic_resist_growth.asm" ; 0x5580
-
-%include "vpclv/data/priest_bishop_resist_base.asm" ; 0x558f
-
-%include "vpclv/data/priest_bishop_resist_growth.asm" ; 0x559e
-
-%include "vpclv/data/monk_resist_base.asm" ; 0x55ad
-
-%include "vpclv/data/monk_resist_growth.asm" ; 0x55bc
-
-%include "vpclv/data/thief_bard_resist_base.asm" ; 0x55cb
-
-%include "vpclv/data/thief_bard_resist_growth.asm" ; 0x55da
-
-%include "shared/data/profession_skill_groups.asm" ; 0x55e9
-
-%include "vpclv/data/stamina_percent_open_text.asm" ; 0x57fd
-
-%include "vpclv/data/stamina_percent_close_text.asm" ; 0x5801
-
-%include "vpclv/data/hit_points_separator_text.asm" ; 0x5803
-
-%include "vpclv/data/empty_vitals_suffix_text.asm" ; 0x5805
-
-%include "vpclv/data/empty_stat_number_separator.asm" ; 0x5806
-
-%include "vpclv/data/empty_stat_number_suffix.asm" ; 0x5807
-
-%include "vpclv/data/level_up_screen_file.asm" ; 0x5808
+%include "vpclv/data/clv_strings.asm"      ; 0x54b0
 
 %include "shared/data/overlay_saved_registers.asm" ; 0x5816
 

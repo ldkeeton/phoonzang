@@ -1,7 +1,7 @@
 """Flag hand-written C that matches the original bytes only through workarounds.
 
-``make build`` and ``make rebuild`` run :func:`cmd_badc` last and fail if any
-file is flagged.  See badc.md for what each column means and how to fix each
+``make badc [PROJECT...]`` runs :func:`cmd_badc` and fails if any file is
+flagged.  See badc.md for what each column means and how to fix each
 pattern.
 """
 
@@ -9,7 +9,7 @@ import os
 import re
 import sys
 
-from lib import cachedirs, progress
+from lib import cachedirs
 
 _COMMENT = re.compile(r'/\*.*?\*/', re.S)
 _LABEL = re.compile(r'^\s*(\w+):(?!:)')
@@ -93,7 +93,7 @@ def cmd_badc(projects):
                 print(f'{r[0]:5} {r[2]:4} {r[3]:4} {r[4]:3} {r[5]:3} '
                       f'{r[6]:3} {r[7]:3} {r[8]:4} {r[9]:3}  {r[1]}',
                       file=sys.stderr)
-        progress.log(f'badc {project}: {len(rows)} file(s) flagged')
+        print(f'badc {project}: {len(rows)} file(s) flagged')
         flagged += len(rows)
     if flagged:
         print(f'badc: {flagged} file(s) flagged', file=sys.stderr)

@@ -178,6 +178,29 @@ def _compare_built(app_dir, out_dir, name, rel_path, listing):
         where=locator(out_dir, name, labels))
 
 
+def _assemble_and_compare(app, name, rel_path):
+    """NASM-assemble one binary and compare it with the shipped image.
+
+    Runs in a pool process: returns ``(ok, stdout, stderr)`` so the caller
+    prints each binary's report whole and in order."""
+    import io
+    from contextlib import redirect_stderr, redirect_stdout
+    app_dir = os.path.join(APPS, app)
+    out_dir = src_dir(app, PROJECT)
+    out, err = io.StringIO(), io.StringIO()
+    with redirect_stdout(out), redirect_stderr(err):
+        if _verbose():
+            progress.log(f'{app}/{name} | nasm')
+        with tempfile.TemporaryDirectory() as tmp:
+            listing = os.path.join(tmp, f'{name}.lst')
+            if nasm_binary(out_dir, name, rel_path, listing=listing) != 0:
+                print(f'rebuild {app}/{name} -> {rel_path}  [FAILED]')
+                ok = False
+            else:
+                ok = _compare_built(app_dir, out_dir, name, rel_path, listing)
+    return bool(ok), out.getvalue(), err.getvalue()
+
+
 def _rebuild_project(app, binary=None, only=None):
     """Recompile every ``.c`` (gated against the original), NASM-assemble,
     then compare each whole binary with the shipped one (as ``make verify``).
@@ -206,21 +229,24 @@ def _rebuild_project(app, binary=None, only=None):
             if isinstance(exc.code, str):
                 print(exc.code, file=sys.stderr)
             failed.append(name)
-    for name in targets:
-        if _verbose():
-            progress.log(f'{app}/{name} | nasm')
-        with tempfile.TemporaryDirectory() as tmp:
-            listing = os.path.join(tmp, f'{name}.lst')
-            if nasm_binary(out_dir, name, bins[name][0],
-                           listing=listing) != 0:
-                print(f'rebuild {app}/{name} -> {bins[name][0]}  [FAILED]')
-                failed.append(name)
-                continue
-            if not _compare_built(app_dir, out_dir, name, bins[name][0],
-                                  listing):
-                failed.append(name)
-                continue
-        if _verbose() and name not in failed:
+    # Assembling and comparing are independent per binary and CPU-bound, so
+    # they run in parallel processes; each one's output prints in target order.
+    jobs = min(len(targets), JOBS)
+    if jobs > 1:
+        from concurrent.futures import ProcessPoolExecutor
+        with ProcessPoolExecutor(max_workers=jobs) as pool:
+            results = list(pool.map(
+                _assemble_and_compare, [app] * len(targets), targets,
+                [bins[name][0] for name in targets]))
+    else:
+        results = [_assemble_and_compare(app, name, bins[name][0])
+                   for name in targets]
+    for name, (ok, out, err) in zip(targets, results):
+        sys.stdout.write(out)
+        sys.stderr.write(err)
+        if not ok:
+            failed.append(name)
+        elif _verbose() and name not in failed:
             print(f'rebuild {app}/{name} -> {bins[name][0]}  [OK]')
     if failed:
         failed = sorted(set(failed))

@@ -254,9 +254,9 @@ def resplice_c(app, binary, check_only=False, only=None):
     exact text or symbol spelling.
 
     The sole constraint is image layout: the routine's byte span is fixed (the
-    master listing addresses code absolutely), so a compile that no longer fits
-    its fragment is a hard error, and the bytes beyond the compiled code are
-    preserved from the original image.  All other fragments -- including
+    master listing addresses code absolutely), so a compile must fill its
+    fragment exactly: longer is a hard error and shorter fails the byte gate
+    (only ``--allow-diff`` NOP-pads it).  All other fragments -- including
     hand-edited non-C ones -- are left untouched, as is the master listing.  It
     needs the span/label sidecars a prior ``make build`` wrote, and is a no-op
     without them.
@@ -469,21 +469,15 @@ def resplice_c(app, binary, check_only=False, only=None):
                 'externals': compiled_module.externals,
             })
         spans_here = cache.data_spans(app, binary, label, entry, text)
-        # The same ownership rule as the full build: a hand source owns what
-        # it compiled to, and may not grow past its recorded fragment.  A
-        # shorter compile is a split only a full build can relayout.
+        # The same ownership rule as the full build: a hand source owns its
+        # whole fragment.  Longer is an error here; shorter fails the byte
+        # gate below, which shows where the compile diverges.
         try:
-            owned = routine_source.owned_length(start, len(func.code),
-                                                recorded_end=end)
+            routine_source.owned_length(start, len(func.code),
+                                        recorded_end=end)
         except routine_source.FragmentLengthError as exc:
             failures.append(f'error: {label}: '
                             f'{os.path.relpath(cpath, out_dir)}: {exc}')
-            continue
-        if owned != span_len and not lenient:
-            failures.append(
-                f'error: {label}: {os.path.relpath(cpath, out_dir)} compiles '
-                f'to {owned} bytes, its fragment is {span_len}; run '
-                f'"make build {app}"')
             continue
         # A vendor module's bytes before its first routine are data the build
         # rendered from the disassembly; they stay as the fragment has them.

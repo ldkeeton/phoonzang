@@ -10,8 +10,9 @@ extern char slot_prompt_text[];
 extern int load_message_string();
 extern int set_party_skill_flags();
 
-/* This module's own bss: set when both tested stats exceed 13. */
-static int both_high_stats_flag;
+/* Set when both tested stats exceed 13: a common in each overlay's
+   globals, not a static (ln puts a module's statics before the commons). */
+extern int both_high_stats_flag;
 
 /* Each profession's four skill-group strings ("1" = may learn), string
    literals in the original; named because an overlay C cannot carry its

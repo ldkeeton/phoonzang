@@ -102,12 +102,15 @@ def cmd_link(projects, binary=None):
             gone = sum(len(link.result[key]) for key in MISSING)
             errors += bad
             missing += gone
-            print(f'{project}/{name}: {link.count} sources, {bad} errors, '
-                  f'{gone} missing, '
-                  f'{sum(len(link.result[key]) for key in ABSENT)} without a source')
+            absent = sum(len(link.result[key]) for key in ABSENT)
             line, same = _check_image(project, tree, by_name[name], link.image,
                                       originals)
             different += not same
+            if same and not (bad or gone or absent):
+                print(f'{project}/{name}: OK')
+                continue
+            print(f'{project}/{name}: {link.count} sources, {bad} errors, '
+                  f'{gone} missing, {absent} without a source')
             if link.image is not None or not (bad or gone):
                 print(line)
             for key in ERRORS:
@@ -122,6 +125,8 @@ def cmd_link(projects, binary=None):
             print(f'{project}: in no .lnk: {len(orphans)}')
             for path in orphans:
                 print(f'    {path}')
+    if not (errors or missing or different):
+        return
     print(f'\n{errors} errors, {missing} missing, {different} not byte-identical')
     if missing and not binary and not _verbose():
         print('make link BIN lists what one binary is missing')

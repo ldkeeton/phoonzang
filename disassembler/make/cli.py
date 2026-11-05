@@ -50,6 +50,9 @@ Commands (space-separated):
   make check PROJECT [SECONDS] smoke-test game (default 5s, requires build first)
   make run PROJECT          run game in dosbox-x
   make verify [PROJECT...]  verify one or all projects
+  make badc [PROJECT...]    flag hand-written .c that matches only through
+                            workarounds (goto, frame structs, volatile, ...; see
+                            badc.md); exits 1 if any file is flagged
   make clean [PROJECT...]   clean one or all projects (no args: delete .cache,
                             except the build lock and pinned baselines)
   make purge [PROJECT...]   delete hand-owned .c/.s/.asm sources and build_out
@@ -180,6 +183,15 @@ def main():
 
     if '--verify' in flags:
         cmd_verify(args)
+        return
+
+    if '--badc' in flags:
+        for project in args:
+            if project not in all_projects:
+                print(f'Unknown project: {project}')
+                print(f'Known: {", ".join(all_projects)}')
+                sys.exit(1)
+        cmd_badc(args or all_projects)
         return
 
     if '--purge' in flags:
@@ -373,7 +385,6 @@ def main():
             sys.exit(1)
         cmd_lint(all_projects, True)
         cmd_rebuild(project, binary, all_projects, only=routine)
-        cmd_badc([project] if project else all_projects)
         return
 
     if '--elf-rebuild' in flags:
@@ -395,7 +406,6 @@ def main():
             sys.exit(1)
         cmd_lint(all_projects, True)
         _build_projects(args or all_projects, all_projects)
-        cmd_badc(args or all_projects)
         return
 
     # No known flag — error
