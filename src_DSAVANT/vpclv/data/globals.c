@@ -6,9 +6,9 @@
 int level_up_transition_state[84];
 int slot_limit[34];
 char slot_label[10][20];
-int slot_value2[2];
-int slot_value[2];
-char slot_prompt_text[20];
+int personal_skill_points[2];
+int skill_group_points[2];
+char skill_points_label[20];
 char unused_95d2[10];
 int both_high_stats_flag;
 int skill_availability_flags[28];

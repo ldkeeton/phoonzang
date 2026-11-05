@@ -264,7 +264,7 @@ int load_mode;
 	}
 	for (index = 0; index < party_char_count; index++) {
 		/* rebuild member icons */
-		load_member_icon(party_records[index].kind, member_icon[index]);
+		load_member_icon(party_records[index].portrait, member_icon[index]);
 		if (load_mode != 2)
 			draw_party_member_panel(index, 0);
 	}

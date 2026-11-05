@@ -28,7 +28,7 @@ int member_index, area_x, area_y;
 
 	for (;;) {
 		call_restore_area(area_x, area_y, 0);
-		load_member_icon(party_records[member_index].kind, 0);
+		load_member_icon(party_records[member_index].portrait, 0);
 		draw_loaded_member_icon(member_index, 14, 18);
 		call_show_area(14, 18, 66, 74);
 		do {
@@ -37,12 +37,12 @@ int member_index, area_x, area_y;
 
 		switch (button) {
 		case 0:
-			party_records[member_index].kind =
-				(party_records[member_index].kind + 32) % 33;
+			party_records[member_index].portrait =
+				(party_records[member_index].portrait + 32) % 33;
 			break;
 		case 1:
-			party_records[member_index].kind =
-				(party_records[member_index].kind + 1) % 33;
+			party_records[member_index].portrait =
+				(party_records[member_index].portrait + 1) % 33;
 			break;
 		}
 		if (button == 2)

@@ -228,7 +228,7 @@ int npc_id_answer_relay;
 char code_table[50];
 char code_char_message_index;
 char filename_edit_buffer[393];
-char known_spell_names[20];
+char list_entry_text[20];
 int npc_id;
 int npc_id_address;
 int mouse_active;

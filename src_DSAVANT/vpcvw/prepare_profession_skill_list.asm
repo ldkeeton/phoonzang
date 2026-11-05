@@ -1,0 +1,271 @@
+; auto-generated
+prepare_profession_skill_list:
+    mov ax, 0xfffc                   ; 0x8421
+    call aztec_csav                  ; 0x8424
+    mov ax, 0x248                    ; 0x8427
+    imul word [bp + 4]               ; 0x842a
+    mov bx, ax                       ; 0x842d
+    mov al, byte [bx + party_records + pc_rec.profession] ; 0x842f
+    sub ah, ah                       ; 0x8433
+    jmp near .forward1               ; 0x8435
+jumptable_85bc_case_0:
+    mov ax, fighter_academia_skills  ; 0x8438
+    push ax                          ; 0x843b
+    mov ax, fighter_personal_skills  ; 0x843c
+    push ax                          ; 0x843f
+    mov ax, fighter_physical_skills  ; 0x8440
+    push ax                          ; 0x8443
+    mov ax, fighter_weaponry_skills  ; 0x8444
+    push ax                          ; 0x8447
+    push word [bp + 4]               ; 0x8448
+    call set_character_skill_flags   ; 0x844b
+    add sp, byte 0xa                 ; 0x844e
+    jmp near prepare_profession_skill_list.forward2 ; 0x8451
+jumptable_85bc_case_1:
+    mov ax, mage_academia_skills     ; 0x8454
+    push ax                          ; 0x8457
+    mov ax, mage_personal_skills     ; 0x8458
+    push ax                          ; 0x845b
+    mov ax, mage_physical_skills     ; 0x845c
+    push ax                          ; 0x845f
+    mov ax, mage_weaponry_skills     ; 0x8460
+    push ax                          ; 0x8463
+    push word [bp + 4]               ; 0x8464
+    call set_character_skill_flags   ; 0x8467
+    add sp, byte 0xa                 ; 0x846a
+    jmp near prepare_profession_skill_list.forward2 ; 0x846d
+jumptable_85bc_case_2:
+    mov ax, priest_academia_skills   ; 0x8470
+    push ax                          ; 0x8473
+    mov ax, priest_personal_skills   ; 0x8474
+    push ax                          ; 0x8477
+    mov ax, priest_physical_skills   ; 0x8478
+    push ax                          ; 0x847b
+    mov ax, priest_weaponry_skills   ; 0x847c
+    push ax                          ; 0x847f
+    push word [bp + 4]               ; 0x8480
+    call set_character_skill_flags   ; 0x8483
+    add sp, byte 0xa                 ; 0x8486
+    jmp near prepare_profession_skill_list.forward2 ; 0x8489
+jumptable_85bc_case_3:
+    mov ax, thief_academia_skills    ; 0x848c
+    push ax                          ; 0x848f
+    mov ax, thief_personal_skills    ; 0x8490
+    push ax                          ; 0x8493
+    mov ax, thief_physical_skills    ; 0x8494
+    push ax                          ; 0x8497
+    mov ax, thief_weaponry_skills    ; 0x8498
+    push ax                          ; 0x849b
+    push word [bp + 4]               ; 0x849c
+    call set_character_skill_flags   ; 0x849f
+    add sp, byte 0xa                 ; 0x84a2
+    jmp near prepare_profession_skill_list.forward2 ; 0x84a5
+jumptable_85bc_case_4:
+    mov ax, ranger_academia_skills   ; 0x84a8
+    push ax                          ; 0x84ab
+    mov ax, ranger_personal_skills   ; 0x84ac
+    push ax                          ; 0x84af
+    mov ax, ranger_physical_skills   ; 0x84b0
+    push ax                          ; 0x84b3
+    mov ax, ranger_weaponry_skills   ; 0x84b4
+    push ax                          ; 0x84b7
+    push word [bp + 4]               ; 0x84b8
+    call set_character_skill_flags   ; 0x84bb
+    add sp, byte 0xa                 ; 0x84be
+    jmp near prepare_profession_skill_list.forward2 ; 0x84c1
+jumptable_85bc_case_5:
+    mov ax, alchemist_academia_skills ; 0x84c4
+    push ax                          ; 0x84c7
+    mov ax, alchemist_personal_skills ; 0x84c8
+    push ax                          ; 0x84cb
+    mov ax, alchemist_physical_skills ; 0x84cc
+    push ax                          ; 0x84cf
+    mov ax, alchemist_weaponry_skills ; 0x84d0
+    push ax                          ; 0x84d3
+    push word [bp + 4]               ; 0x84d4
+    call set_character_skill_flags   ; 0x84d7
+    add sp, byte 0xa                 ; 0x84da
+    jmp near prepare_profession_skill_list.forward2 ; 0x84dd
+jumptable_85bc_case_6:
+    mov ax, bard_academia_skills     ; 0x84e0
+    push ax                          ; 0x84e3
+    mov ax, bard_personal_skills     ; 0x84e4
+    push ax                          ; 0x84e7
+    mov ax, bard_physical_skills     ; 0x84e8
+    push ax                          ; 0x84eb
+    mov ax, bard_weaponry_skills     ; 0x84ec
+    push ax                          ; 0x84ef
+    push word [bp + 4]               ; 0x84f0
+    call set_character_skill_flags   ; 0x84f3
+    add sp, byte 0xa                 ; 0x84f6
+    jmp near prepare_profession_skill_list.forward2 ; 0x84f9
+jumptable_85bc_case_7:
+    mov ax, psionic_academia_skills  ; 0x84fc
+    push ax                          ; 0x84ff
+    mov ax, psionic_personal_skills  ; 0x8500
+    push ax                          ; 0x8503
+    mov ax, psionic_physical_skills  ; 0x8504
+    push ax                          ; 0x8507
+    mov ax, psionic_weaponry_skills  ; 0x8508
+    push ax                          ; 0x850b
+    push word [bp + 4]               ; 0x850c
+    call set_character_skill_flags   ; 0x850f
+    add sp, byte 0xa                 ; 0x8512
+    jmp near prepare_profession_skill_list.forward2 ; 0x8515
+jumptable_85bc_case_8:
+    mov ax, valkyrie_academia_skills ; 0x8518
+    push ax                          ; 0x851b
+    mov ax, valkyrie_personal_skills ; 0x851c
+    push ax                          ; 0x851f
+    mov ax, valkyrie_physical_skills ; 0x8520
+    push ax                          ; 0x8523
+    mov ax, valkyrie_weaponry_skills ; 0x8524
+    push ax                          ; 0x8527
+    push word [bp + 4]               ; 0x8528
+    call set_character_skill_flags   ; 0x852b
+    add sp, byte 0xa                 ; 0x852e
+    jmp near prepare_profession_skill_list.forward2 ; 0x8531
+jumptable_85bc_case_9:
+    mov ax, bishop_academia_skills   ; 0x8534
+    push ax                          ; 0x8537
+    mov ax, bishop_personal_skills   ; 0x8538
+    push ax                          ; 0x853b
+    mov ax, bishop_physical_skills   ; 0x853c
+    push ax                          ; 0x853f
+    mov ax, bishop_weaponry_skills   ; 0x8540
+    push ax                          ; 0x8543
+    push word [bp + 4]               ; 0x8544
+    call set_character_skill_flags   ; 0x8547
+    add sp, byte 0xa                 ; 0x854a
+    jmp near prepare_profession_skill_list.forward2 ; 0x854d
+jumptable_85bc_case_10:
+    mov ax, lord_academia_skills     ; 0x8550
+    push ax                          ; 0x8553
+    mov ax, lord_personal_skills     ; 0x8554
+    push ax                          ; 0x8557
+    mov ax, lord_physical_skills     ; 0x8558
+    push ax                          ; 0x855b
+    mov ax, lord_weaponry_skills     ; 0x855c
+    push ax                          ; 0x855f
+    push word [bp + 4]               ; 0x8560
+    call set_character_skill_flags   ; 0x8563
+    add sp, byte 0xa                 ; 0x8566
+    jmp short prepare_profession_skill_list.forward2 ; 0x8569
+jumptable_85bc_case_11:
+    mov ax, samurai_academia_skills  ; 0x856b
+    push ax                          ; 0x856e
+    mov ax, samurai_personal_skills  ; 0x856f
+    push ax                          ; 0x8572
+    mov ax, samurai_physical_skills  ; 0x8573
+    push ax                          ; 0x8576
+    mov ax, samurai_weaponry_skills  ; 0x8577
+    push ax                          ; 0x857a
+    push word [bp + 4]               ; 0x857b
+    call set_character_skill_flags   ; 0x857e
+    add sp, byte 0xa                 ; 0x8581
+    jmp short prepare_profession_skill_list.forward2 ; 0x8584
+jumptable_85bc_case_12:
+    mov ax, monk_academia_skills     ; 0x8586
+    push ax                          ; 0x8589
+    mov ax, monk_personal_skills     ; 0x858a
+    push ax                          ; 0x858d
+    mov ax, monk_physical_skills     ; 0x858e
+    push ax                          ; 0x8591
+    mov ax, monk_weaponry_skills     ; 0x8592
+    push ax                          ; 0x8595
+    push word [bp + 4]               ; 0x8596
+    call set_character_skill_flags   ; 0x8599
+    add sp, byte 0xa                 ; 0x859c
+    jmp short prepare_profession_skill_list.forward2 ; 0x859f
+jumptable_85bc_case_13:
+    mov ax, ninja_academia_skills    ; 0x85a1
+    push ax                          ; 0x85a4
+    mov ax, ninja_personal_skills    ; 0x85a5
+    push ax                          ; 0x85a8
+    mov ax, ninja_physical_skills    ; 0x85a9
+    push ax                          ; 0x85ac
+    mov ax, ninja_weaponry_skills    ; 0x85ad
+    push ax                          ; 0x85b0
+    push word [bp + 4]               ; 0x85b1
+    call set_character_skill_flags   ; 0x85b4
+    add sp, byte 0xa                 ; 0x85b7
+    jmp short prepare_profession_skill_list.forward2 ; 0x85ba
+jumptable_85bc:
+    dw jumptable_85bc_case_0 - IMAGE_BASE + __zres_end ; 0x85bc
+    dw jumptable_85bc_case_1 - IMAGE_BASE + __zres_end ; 0x85be
+    dw jumptable_85bc_case_2 - IMAGE_BASE + __zres_end ; 0x85c0
+    dw jumptable_85bc_case_3 - IMAGE_BASE + __zres_end ; 0x85c2
+    dw jumptable_85bc_case_4 - IMAGE_BASE + __zres_end ; 0x85c4
+    dw jumptable_85bc_case_5 - IMAGE_BASE + __zres_end ; 0x85c6
+    dw jumptable_85bc_case_6 - IMAGE_BASE + __zres_end ; 0x85c8
+    dw jumptable_85bc_case_7 - IMAGE_BASE + __zres_end ; 0x85ca
+    dw jumptable_85bc_case_8 - IMAGE_BASE + __zres_end ; 0x85cc
+    dw jumptable_85bc_case_9 - IMAGE_BASE + __zres_end ; 0x85ce
+    dw jumptable_85bc_case_10 - IMAGE_BASE + __zres_end ; 0x85d0
+    dw jumptable_85bc_case_11 - IMAGE_BASE + __zres_end ; 0x85d2
+    dw jumptable_85bc_case_12 - IMAGE_BASE + __zres_end ; 0x85d4
+    dw jumptable_85bc_case_13 - IMAGE_BASE + __zres_end ; 0x85d6
+prepare_profession_skill_list.forward1:
+    cmp ax, strict word 0xe          ; 0x85d8
+    jae short prepare_profession_skill_list.forward2 ; 0x85db
+    xchg bx, ax                      ; 0x85dd
+    shl bx, 1                        ; 0x85de
+    jmp [cs:bx + jumptable_85bc - IMAGE_BASE + __zres_end] ; 0x85e0
+prepare_profession_skill_list.forward2:
+    mov ax, 0x248                    ; 0x85e5
+    imul word [bp + 4]               ; 0x85e8
+    mov bx, ax                       ; 0x85eb
+    cmp byte [bx + party_records + pc_rec.stat + 0x1], 0xd ; 0x85ed
+    jbe short prepare_profession_skill_list.forward3 ; 0x85f2
+    cmp byte [bx + party_records + pc_rec.stat + 0x6], 0xd ; 0x85f4
+    jbe short prepare_profession_skill_list.forward3 ; 0x85f9
+    mov word [both_high_stats_flag], 1 ; 0x85fb
+prepare_profession_skill_list.forward3:
+    mov word [bp - 4], 0             ; 0x8601
+    mov ax, word [bp + 6]            ; 0x8606
+    shl ax, 1                        ; 0x8609
+    shl ax, 1                        ; 0x860b
+    mov bx, ax                       ; 0x860d
+    mov ax, word [word bx + 0x38]    ; 0x860f
+    mov word [bp - 2], ax            ; 0x8613
+    jmp short prepare_profession_skill_list.forward5 ; 0x8616
+prepare_profession_skill_list.back1:
+    mov ax, word [bp - 2]            ; 0x8618
+    shl ax, 1                        ; 0x861b
+    mov bx, ax                       ; 0x861d
+    cmp word [bx + skill_availability_flags], byte 1 ; 0x861f
+    jne short prepare_profession_skill_list.forward4 ; 0x8624
+    mov ax, 0x14                     ; 0x8626
+    imul word [bp - 4]               ; 0x8629
+    add ax, list_entry_text          ; 0x862c
+    push ax                          ; 0x862f
+    mov ax, word [bp - 2]            ; 0x8630
+    add ax, MSG_WAND_DAGGER          ; 0x8633
+    push ax                          ; 0x8636
+    call load_message_string         ; 0x8637
+    add sp, byte 4                   ; 0x863a
+    mov ax, word [bp - 2]            ; 0x863d
+    mov cx, word [bp - 4]            ; 0x8640
+    shl cx, 1                        ; 0x8643
+    mov si, cx                       ; 0x8645
+    mov bx, word [bp + 8]            ; 0x8647
+    mov word [bx + si], ax           ; 0x864a
+    inc word [bp - 4]                ; 0x864c
+prepare_profession_skill_list.forward4:
+    inc word [bp - 2]                ; 0x864f
+prepare_profession_skill_list.forward5:
+    mov ax, word [bp + 6]            ; 0x8652
+    shl ax, 1                        ; 0x8655
+    shl ax, 1                        ; 0x8657
+    mov bx, ax                       ; 0x8659
+    mov ax, word [word bx + 0x3a]    ; 0x865b
+    cmp ax, word [bp - 2]            ; 0x865f
+    jge short prepare_profession_skill_list.back1 ; 0x8662
+    mov ax, skill_points_label       ; 0x8664
+    push ax                          ; 0x8667
+    mov ax, MSG_SKILL_POINTS         ; 0x8668
+    push ax                          ; 0x866b
+    call load_message_string         ; 0x866c
+    add sp, byte 4                   ; 0x866f
+    mov ax, word [bp - 4]            ; 0x8672
+    ret                              ; 0x8675

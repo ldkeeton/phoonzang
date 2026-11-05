@@ -41,7 +41,7 @@ __zbss_0e34:  ; npc_id_address
     resb 0x0002
 __zbss_0e36:  ; npc_id
     resb 0x0002
-__zbss_0e38:  ; known_spell_names
+__zbss_0e38:  ; list_entry_text
     resb 0x0014
 __zbss_0e4c:  ; filename_edit_buffer
     resb 0x0189

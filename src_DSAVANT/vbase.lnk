@@ -13,7 +13,7 @@ vbase/choose_game_file
 vbase/show_load_disk_error
 shared/ovr/init_item_slot
 vbase/map_bane_item_number
-vbase/map_bane_character_kind
+vbase/map_bane_character_portrait
 vbase/map_bane_party_selector
 shared/ovr/draw_member_glyph_row
 shared/ovr/draw_member_panel_glyphs
@@ -76,7 +76,7 @@ vbase/play_intro_scene_eight
 vbase/show_intro_screen
 vbase/data/vbase_file_names
 vbase/data/scene_message_control_codes
-vbase/data/scene_message_separator
+shared/data/scene_message_separator
 vbase/data/story_screen_filenames
 vbase/data/numbered_scene_picture_template
 vbase/data/scene_screen_files

@@ -34,11 +34,11 @@ shared/ovr/display_centered_message
 vpclv/draw_message_number_line
 shared/ovr/set_party_skill_flags
 shared/ovr/prepare_skill_list
-shared/ovr/draw_known_spell_values
-shared/ovr/draw_slot_value_row
+shared/ovr/draw_skill_list_values
+shared/ovr/draw_skill_points_row
 vpclv/edit_skill_group_points
 vpclv/allocate_member_skill_bonus
-shared/ovr/roll_slot_values
+shared/ovr/roll_skill_points
 vpclv/raise_member_skill_from_pool
 vpclv/award_level_skill_points
 vpclv/raise_member_vitals

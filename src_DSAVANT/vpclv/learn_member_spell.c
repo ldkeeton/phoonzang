@@ -33,7 +33,7 @@ int member, school;
 	count = 0;
 	spell = 0;
 	do {
-	if (spell_table->spell[spell].pad & mask &&
+	if (spell_table->spell[spell].targeting.bytes.aux & mask &&
 		spell_table->spell[spell].realm_level.bytes.level <= max_level
 		&& !test_bit(known_spells, spell)) {
 	set_bitmap_bit(party_records[member].spell_bitmap, spell, 1);

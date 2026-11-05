@@ -214,7 +214,7 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "vbase/map_bane_item_number.asm"  ; 0x1683
 
-%include "vbase/map_bane_character_kind.asm" ; 0x1820
+%include "vbase/map_bane_character_portrait.asm" ; 0x1820
 
 %include "vbase/map_bane_party_selector.asm" ; 0x1a12
 
@@ -347,7 +347,7 @@ __zdata_start:
 
 %include "vbase/data/scene_message_control_codes.asm" ; 0x9469
 
-%include "vbase/data/scene_message_separator.asm" ; 0x9471
+%include "shared/data/scene_message_separator.asm" ; 0x9471
 
 %include "vbase/data/story_screen_filenames.asm" ; 0x9473
 

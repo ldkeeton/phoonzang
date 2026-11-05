@@ -107,10 +107,10 @@ struct member_ext {			/* 0xe8 bytes: the group's monster */
 					   the ally group */
 	unsigned char kind;		/* +0xd7: 0x47 when the member has a picture */
 	unsigned char sound_id;		/* +0xd8: encounter sound, 0 none */
-	unsigned char speed_bonus;	/* +0xd9: pc_rec.stat5_plus_power; added to speed */
+	unsigned char speed_bonus;	/* +0xd9: pc_rec.speed_plus_level; added to speed */
 	unsigned char max_hits;		/* +0xda: pc_rec.adjusted_stat4 (from stat[4]);
 					   caps the 1..4 hits one attack lands */
-	unsigned char attack_count;	/* +0xdb: pc_rec.adjusted_stat5 (from stat[5]);
+	unsigned char attack_count;	/* +0xdb: pc_rec.attacks_per_round (from stat[5]);
 					   attacks per round */
 	unsigned char gender;		/* +0xdc: pc_rec.gender for party members;
 					   no monster-side reader found yet */

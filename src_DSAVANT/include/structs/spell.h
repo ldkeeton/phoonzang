@@ -22,11 +22,20 @@ union spell_cost_effect {
 	} bytes;
 };
 
+/* Bytes +4 and +5 are also compared together by the item-recipe table. */
+union spell_targeting {
+	int word;
+	struct spell_targeting_bytes {
+		unsigned char targeted;	/* +4: 1 when a party member is picked */
+		unsigned char aux;	/* +5: school mask for learn_member_spell;
+					   a type code in vtrea's draw_treasure_panel */
+	} bytes;
+};
+
 struct spell_info {
 	union spell_realm_level realm_level;
 	union spell_cost_effect cost_effect;
-	unsigned char targeted;		/* +4: 1 when a party member is picked */
-	unsigned char pad;		/* +5: school mask for learn_member_spell */
+	union spell_targeting targeting;
 };
 
 /* spell_table as a whole: 128 six-byte entries, then the word tables that

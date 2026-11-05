@@ -15,7 +15,7 @@ extern int data_record_io(), aztec_strcpy(), load_message_string();
 extern int item_or_loot_dialog(), call_show_area(),
 	draw_selected_button_label();
 extern int pick_party_member(), consume_item_charge(),
-	apply_spell_effect_alt();
+	apply_treasure_spell_effect();
 extern int play_sound_effect(), add_floor_item(), clear_item_slot();
 extern int draw_party_member_panel(), refresh_floor_item_icon();
 
@@ -72,14 +72,15 @@ int member;
 	if (item_data.spell_code != 0) {
 	encoded_position[30] = item_data.spell_code / 256;
 	encoded_position[31] = item_data.spell_code % 256;
-	if (spell_table->spell[encoded_position[31]].targeted == 1) {
+	if (spell_table->spell[encoded_position[31]].targeting.bytes.targeted == 1) {
 	cast_spell_target = pick_party_member();
 	if (cast_spell_target == -1) encoded_position[31] = -1;
 	}
 	call_show_area(54, 142, 265, 198);
 	if (encoded_position[31] != -1) {
 	consume_item_charge(member, group, slot);
-	apply_spell_effect_alt(member, encoded_position[31], encoded_position[30],
+	apply_treasure_spell_effect(member, encoded_position[31],
+		encoded_position[30],
 		cast_spell_target);
 	}
 	}

@@ -1,12 +1,12 @@
-/* Initialize a party member's spell skill editor. */
+/* Initialize a party member's skill point editor. */
 #include "structs/pcrec.h"
 #include "msg.h"
 extern struct pc_rec party_records[];
-extern int slot_limit[], slot_value[], skill_availability_flags[];
+extern int slot_limit[], skill_group_points[], skill_availability_flags[];
 extern int skill_group_ranges[][2];
 extern char slot_label[][20];
 
-/* Initialize skill limits, then cycle through spell groups for editing. */
+/* Initialize skill limits, then cycle through skill groups for editing. */
 allocate_member_skill_bonus(member, title)
 int member, title;
 {
@@ -30,8 +30,8 @@ int member, title;
 		j = 0;
 		for (; j < count; j++)
 			i += 100 - party_records[member].skills[skills[j]];
-		if (slot_value[slot] > i) slot_value[slot] = i;
-		draw_known_spell_values(member, slot, count, skills);
+		if (skill_group_points[slot] > i) skill_group_points[slot] = i;
+		draw_skill_list_values(member, slot, count, skills);
 		j = 0;
 		do {
 			enabled[j] = 0;

@@ -32,7 +32,8 @@ int panel_mode, spell_index;
 	long cache_pointer;
 
 	glyph_slot = 7;
-	switch ((unsigned char)spell_table->spell[102 + spell_index].pad) {
+	switch ((unsigned char)spell_table->spell[102
+		+ spell_index].targeting.bytes.aux) {
 	case 0:
 		reverse_motion = 1;
 		progress_divisor = 1;
@@ -48,12 +49,13 @@ int panel_mode, spell_index;
 	}
 	frame_total = 6;
 	cycle_length = 12 / progress_divisor;
-	spell_glyph = spell_table->spell[102 + spell_index].targeted;
+	spell_glyph = spell_table->spell[102 + spell_index].targeting.bytes.targeted;
 	animate = 1;
 	last_position = frame_total - 1;
 	cache_offset = 0;
 	progress_step = -1;
-	switch ((unsigned char)spell_table->spell[102 + spell_index].pad) {
+	switch ((unsigned char)spell_table->spell[102
+		+ spell_index].targeting.bytes.aux) {
 	case 1:
 		spell_index++;
 		spell_glyph++;
@@ -110,7 +112,8 @@ int panel_mode, spell_index;
 	x_percent[4]=76; x_percent[5]=70; x_percent[6]=64; x_percent[7]=58;
 	x_percent[8]=52; x_percent[9]=46; x_percent[10]=40; x_percent[11]=34;
 	progress_start = animate ?
-		(spell_table->spell[102 + spell_index].pad == 2 ? 3 : 5) : 0;
+		(spell_table->spell[102 + spell_index].targeting.bytes.aux == 2 ? 3 : 5)
+			: 0;
 	progress_percent = progress_start;
 	cache_pointer = call_cache_area(72, 33, 247, 143, 2, 0);
 	animation_index = draw_animation_frame(0);

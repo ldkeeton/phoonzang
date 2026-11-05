@@ -46,16 +46,16 @@ psp_top_of_memory equ 0x0002
 tick_counter_ptr equ __ztick_counter_ptr - __zdseg_start
 realm_point_text_colors equ __zrealm_point_text_colors - __zdseg_start
 equip_slot_colors equ __zequip_slot_colors - __zdseg_start
-dseg_0022 equ __zdseg_0022 - __zdseg_start
-dseg_0024 equ __zdseg_0024 - __zdseg_start
+unidentified_item_color equ __zunidentified_item_color - __zdseg_start
+identified_item_color equ __zidentified_item_color - __zdseg_start
 psp_env_segment equ 0x002c
 unused_int equ __zunused_int - __zdseg_start
 realm_text_colors equ __zrealm_text_colors - __zdseg_start
 skill_group_ranges equ __zskill_group_ranges - __zdseg_start
-dseg_003c equ __zdseg_003c - __zdseg_start
-dseg_0040 equ __zdseg_0040 - __zdseg_start
-dseg_0042 equ __zdseg_0042 - __zdseg_start
-dseg_0044 equ __zdseg_0044 - __zdseg_start
+physical_skill_group_start equ __zphysical_skill_group_start - __zdseg_start
+personal_skill_group_start equ __zpersonal_skill_group_start - __zdseg_start
+personal_skill_group_end equ __zpersonal_skill_group_end - __zdseg_start
+academic_skill_group_start equ __zacademic_skill_group_start - __zdseg_start
 value_clamp_ranges equ __zvalue_clamp_ranges - __zdseg_start
 psp_cmd_tail_len equ 0x0080
 hourly_maze_tints equ __zhourly_maze_tints - __zdseg_start
@@ -178,7 +178,7 @@ pointer_image_zero_seg equ __zbss_0e30 - __zdseg_start
 mouse_active equ __zbss_0e32 - __zdseg_start
 npc_id_address equ __zbss_0e34 - __zdseg_start
 npc_id equ __zbss_0e36 - __zdseg_start
-known_spell_names equ __zbss_0e38 - __zdseg_start
+list_entry_text equ __zbss_0e38 - __zdseg_start
 filename_edit_buffer equ __zbss_0e4c - __zdseg_start
 code_char_message_index equ __zbss_0fd5 - __zdseg_start
 code_table equ __zbss_0fd6 - __zdseg_start

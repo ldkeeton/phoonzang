@@ -79,7 +79,7 @@ award_member_level:
     mov ax, word [bp - 2]            ; 0x4f5f
     shl ax, 1                        ; 0x4f62
     mov bx, ax                       ; 0x4f64
-    mov ax, word [bx + slot_value]   ; 0x4f66
+    mov ax, word [bx + skill_group_points] ; 0x4f66
     add word [bp - 4], ax            ; 0x4f6a
     inc word [bp - 2]                ; 0x4f6d
     mov ax, word [bp - 2]            ; 0x4f70

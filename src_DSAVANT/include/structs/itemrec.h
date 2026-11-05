@@ -50,11 +50,14 @@ struct item_record {
 	union item_effect u;			/* +0x1e: key (kind 4) or damage */
 	int spell_code;			/* +0x22: power * 256 + spell */
 	int weight;			/* +0x24: copied to the slot's weight */
-	char pad26[2];				/* +0x26 through +0x27 */
+	int message_or_stack_limit;		/* +0x26: message shown by a kind-2 device;
+					   stack limit for counted items */
 	unsigned char resist_bonus[2];		/* +0x28: copied to the slot's resist_bonus */
 	unsigned char hand_values[8];		/* +0x2a: copied to hand_attack +0x04;
 					   [6] is the base critical chance */
-	char pad32[5];				/* +0x32 through +0x36 */
+	unsigned char profession_mask[2];	/* +0x32: eligible professions */
+	unsigned char race_mask[2];		/* +0x34: eligible races */
+	unsigned char gender_mask[1];		/* +0x36: eligible genders */
 	unsigned char slot_flags;		/* +0x37: translated to the slot's flags */
 	unsigned char item_type;		/* +0x38: copied to the slot; indexes
 					   item_type_counted; 4 is special to
@@ -62,9 +65,11 @@ struct item_record {
 	unsigned char glyph;			/* +0x39: icon; also indexes the generic
 					   item names at MSG_DAGGER_6000 */
 	unsigned char page_attr;		/* +0x3a: kept in item_slot_attr */
-	char pad3b;				/* +0x3b */
+	char difficulty;			/* +0x3b: identify and recharge difficulty;
+					   also the recharge destroy chance in percent */
 	unsigned char regen_drain;		/* +0x3c: copied to the slot's regen_drain */
-	char pad3d[2];			/* +0x3d through +0x3e */
+	char pad3d;				/* +0x3d */
+	unsigned char special_power_code;	/* +0x3e: passed to the item's special power handler */
 	unsigned char kind;			/* +0x3f */
 	char armor_class;			/* +0x40: copied to the slot's armor_class */
 	signed char hit_adjustment;		/* +0x41: times 5 into hit_penalty */

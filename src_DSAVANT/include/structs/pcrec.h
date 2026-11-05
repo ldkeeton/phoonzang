@@ -86,7 +86,7 @@ struct pc_rec {				/* 0x248 bytes */
 	char pad2[6];			/* +0x228 */
 	unsigned char imported_flags[4];	/* +0x22e: imported status values */
 	unsigned char story_flags[4];	/* +0x232: completed story message bits */
-	unsigned char kind;		/* +0x236: 0x13 and 0x19 use glyph base 10 */
+	unsigned char portrait;	/* +0x236: portrait 0..32; 0x13 and 0x19 use glyph base 10 */
 	unsigned char race;		/* +0x237: MSG_RACE_BASE + race; 5 faerie; picks the panel's glyph base */
 	unsigned char gender;		/* +0x238: 0 male, 1 female (MSG_MALE + gender) */
 	unsigned char profession;	/* +0x239: class, MSG_CLASS_BASE + profession */
@@ -99,8 +99,8 @@ struct pc_rec {				/* 0x248 bytes */
 	unsigned char imported_fields[2]; /* +0x240: set by import_bane_party */
 	char pad4;			/* +0x242 */
 	unsigned char adjusted_stat4;	/* +0x243 */
-	unsigned char adjusted_stat5;	/* +0x244 */
-	unsigned char stat5_plus_power;	/* +0x245 */
+	unsigned char attacks_per_round; /* +0x244: from speed (stat[5]) and level; battle-order attack count */
+	unsigned char speed_plus_level;	/* +0x245: stat[5] + effective level; base attack speed */
 	char level_scaled_percent;	/* +0x246: imported near 100 - 8 * level; each level to 20 lowers it 1-6 by class */
 	unsigned char pre_drain_level;	/* +0x247: level before a drain; regained levels below it give minimal gains */
 };

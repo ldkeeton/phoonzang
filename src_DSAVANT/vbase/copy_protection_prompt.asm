@@ -242,7 +242,7 @@ copy_protection_prompt:
     push ax                          ; 0x651f
     call draw_text_glyphs            ; 0x6520
     add sp, byte 4                   ; 0x6523
-    mov byte [known_spell_names], 0  ; 0x6526
+    mov byte [list_entry_text], 0    ; 0x6526
     mov ax, 1                        ; 0x652b
     push ax                          ; 0x652e
     mov ax, 0                        ; 0x652f
@@ -324,7 +324,7 @@ copy_protection_prompt:
     mov ax, word [bp - 2]            ; 0x65d3
     add ax, strict word 0x2b         ; 0x65d6
     push ax                          ; 0x65d9
-    mov ax, known_spell_names        ; 0x65da
+    mov ax, list_entry_text          ; 0x65da
     push ax                          ; 0x65dd
     call input_text_field            ; 0x65de
     add sp, byte 0xe                 ; 0x65e1
@@ -379,7 +379,7 @@ copy_protection_prompt:
     push ax                          ; 0x664f
     call call_show_area              ; 0x6650
     add sp, byte 8                   ; 0x6653
-    mov ax, known_spell_names        ; 0x6656
+    mov ax, list_entry_text          ; 0x6656
     push ax                          ; 0x6659
     mov ax, answer_word              ; 0x665a
     push ax                          ; 0x665d

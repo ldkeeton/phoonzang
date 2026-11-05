@@ -29,7 +29,7 @@ process_scene_message_words:
     jmp short .back2                 ; 0x3c58
 .forward1:
     push word [bp + 4]               ; 0x3c5a
-    call api_idx_0084_ILTP           ; 0x3c5d
+    call append_scene_message_fragment ; 0x3c5d
     pop cx                           ; 0x3c60
     mov ax, word [bp - 2]            ; 0x3c61
     add word [bp + 4], ax            ; 0x3c64
@@ -40,7 +40,7 @@ process_scene_message_words:
     cmp byte [bx], 0                 ; 0x3c70
     je short .return1                ; 0x3c73
     push bx                          ; 0x3c75
-    call api_idx_0084_ILTP           ; 0x3c76
+    call append_scene_message_fragment ; 0x3c76
     pop cx                           ; 0x3c79
 .return1:
     ret                              ; 0x3c7a

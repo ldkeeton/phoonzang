@@ -53,21 +53,21 @@ choose_party_battle_orders()
 	for (party_index = 0; party_index < party_char_count; party_index++) {
 		active_member = &battle_groups[0]->unit[party_index];
 		attack_speed = random_below(10) +
-			party_records[party_index].stat5_plus_power +
+			party_records[party_index].speed_plus_level +
 			battle_groups[0]->unit[party_index].speed_mod;
 		if (attack_speed < 1)
 			attack_speed = 1;
 		if (attack_speed > 100)
 			attack_speed = 100;
 		speed_step = attack_speed /
-			party_records[party_index].adjusted_stat5;
+			party_records[party_index].attacks_per_round;
 		if (active_member->countdown > 0)
 			active_member->countdown_roll = random_below(attack_speed / 2) +
 				random_below(20) + attack_speed / 2;
 		active_member->attack_cycle = 0;
 		active_member->primary_attack = 0;
 		active_member->secondary_attack = 1;
-		attack_count = party_records[party_index].adjusted_stat5 +
+		attack_count = party_records[party_index].attacks_per_round +
 			battle_groups[0]->unit[party_index].speed_mod / 10;
 		if (attack_count < 1)
 			attack_count = 1;

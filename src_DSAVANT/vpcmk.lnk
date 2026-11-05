@@ -21,9 +21,9 @@ vpcmk/draw_roster_member_summary
 shared/ovr/display_centered_message
 shared/ovr/set_party_skill_flags
 shared/ovr/prepare_skill_list
-shared/ovr/draw_known_spell_values
-shared/ovr/draw_slot_value_row
-vpcmk/edit_spell_slot_values
+shared/ovr/draw_skill_list_values
+shared/ovr/draw_skill_points_row
+vpcmk/edit_skill_group_points
 vpcmk/edit_character_skill_slots
 shared/ovr/collect_known_spells
 shared/ovr/draw_marker_glyph
@@ -54,8 +54,8 @@ shared/ovr/adjust_member_resistance
 shared/ovr/set_profession_resistances
 shared/ovr/update_party_stat_adjustments
 vpcmk/initialize_member_profession
-shared/ovr/roll_slot_values
-vpcmk/spend_level_scaled_slot_value
+shared/ovr/roll_skill_points
+vpcmk/spend_level_scaled_skill_points
 vpcmk/initialize_profession_skills
 vpcmk/initialize_new_member_basics
 shared/ovr/draw_member_glyph_row

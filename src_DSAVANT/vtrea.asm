@@ -187,7 +187,7 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "shared/ovr/adjust_spell_value.asm"    ; 0x4318
 
-%include "vtrea/apply_spell_effect_alt.asm" ; 0x4368
+%include "vtrea/apply_treasure_spell_effect.asm" ; 0x4368
 
 %include "vtrea/cast_spell_from_dialog.asm" ; 0x4ad8
 

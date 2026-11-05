@@ -1,11 +1,11 @@
 ; auto-generated
 __zskill_group_ranges:
     db 0x00, 0x00, 0x09, 0x00
-__zdseg_003c:
+__zphysical_skill_group_start:
     db 0x0a, 0x00, 0x11, 0x00
-__zdseg_0040:
+__zpersonal_skill_group_start:
     db 0x12, 0x00
-__zdseg_0042:
+__zpersonal_skill_group_end:
     db 0x17, 0x00
-__zdseg_0044:
+__zacademic_skill_group_start:
     db 0x18, 0x00, 0x21, 0x00

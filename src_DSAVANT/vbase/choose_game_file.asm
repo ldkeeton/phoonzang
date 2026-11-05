@@ -137,7 +137,7 @@ choose_game_file:
     call draw_text_glyphs            ; 0x1038
     add sp, byte 4                   ; 0x103b
     push word [bp + 0xc]             ; 0x103e
-    mov ax, known_spell_names        ; 0x1041
+    mov ax, list_entry_text          ; 0x1041
     push ax                          ; 0x1044
     call aztec_strcpy                ; 0x1045
     add sp, byte 4                   ; 0x1048
@@ -419,11 +419,11 @@ jumptable_14d6_case_0:
     mov ax, word [bp - 2]            ; 0x12b7
     add ax, strict word 0x5f         ; 0x12ba
     push ax                          ; 0x12bd
-    mov ax, known_spell_names        ; 0x12be
+    mov ax, list_entry_text          ; 0x12be
     push ax                          ; 0x12c1
     call input_text_field            ; 0x12c2
     add sp, byte 0xe                 ; 0x12c5
-    mov ax, known_spell_names        ; 0x12c8
+    mov ax, list_entry_text          ; 0x12c8
     push ax                          ; 0x12cb
     push word [bp + 0xc]             ; 0x12cc
     call aztec_strcpy                ; 0x12cf

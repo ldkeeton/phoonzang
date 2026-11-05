@@ -23,7 +23,7 @@ collect_known_spells:
     je short .forward1
     mov ax, 0x14
     imul word [bp - 4]
-    add ax, known_spell_names
+    add ax, list_entry_text
     push ax
     mov ax, word [bp - 2]
     add ax, MSG_SPELL_NAME_BASE

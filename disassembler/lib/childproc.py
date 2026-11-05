@@ -43,6 +43,33 @@ _TMP_ROOT = use_cache_tmp()
 #: Seconds between SIGTERM and SIGKILL when shutting a child down.
 GRACE = 2.0
 
+#: Below-normal CPU priority for the whole build tree.  Nice is inherited
+#: across fork+exec, so setting it once covers the ``make`` driver, the Python
+#: workers, nasm, objcopy and every DOSBox-X session.  ``ASM_NICE=0`` disables.
+_NICE = 10
+
+
+def _apply_nice():
+    """Lower this process's CPU priority, unless already at least as low.
+
+    Uses an absolute value (not ``os.nice``, which is relative) so nested
+    processes do not accumulate a level per generation, and never raises the
+    priority of a process that was started niced.
+    """
+    try:
+        target = int(os.environ.get('ASM_NICE', _NICE))
+    except ValueError:
+        target = _NICE
+    target = max(0, min(19, target))
+    if not target:
+        return
+    try:
+        if os.getpriority(os.PRIO_PROCESS, 0) < target:
+            os.setpriority(os.PRIO_PROCESS, 0, target)
+    except (AttributeError, OSError):
+        # Non-POSIX platform, or no permission to change the priority.
+        pass
+
 
 def cancelled():
     """True once an interrupt has begun; no new child should be started."""
@@ -157,6 +184,7 @@ def install():
     if _installed:
         return
     _installed = True
+    _apply_nice()
     for signum in (signal.SIGINT, signal.SIGTERM, signal.SIGHUP,
                    signal.SIGQUIT):
         try:

@@ -3,7 +3,7 @@
 #include "msg.h"
 
 extern struct pc_rec party_records[];
-extern int slot_value[];
+extern int skill_group_points[];
 extern int remaining_stat_points;
 extern int roster_screen_a, roster_screen_b;
 extern int saved_character_file_name[];
@@ -91,15 +91,15 @@ int file_record_index;
 	display_character_statistics(member_index, 0);
 	call_show_area(0, 0, 319, 199);
 	saved_area.handle = call_save_area(14, 18, 66, 74);
-	party_records[member_index].kind = 0;
+	party_records[member_index].portrait = 0;
 	select_character_portrait(member_index, saved_area.handle);
 	call_restore_area(saved_area.handle, 1);
-	load_member_icon(party_records[member_index].kind, 0);
+	load_member_icon(party_records[member_index].portrait, 0);
 	draw_loaded_member_icon(member_index, 14, 18);
 	choice = 0;
 	loop_index = 0;
 	do {
-		choice += slot_value[loop_index];
+		choice += skill_group_points[loop_index];
 	} while (++loop_index < 4);
 	if (choice > 0) {
 		edit_character_skill_slots(member_index, MSG_YOU_GET_A_SKILL_BONUS);

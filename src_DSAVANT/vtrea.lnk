@@ -39,7 +39,7 @@ shared/ovr/draw_inset_list_rows
 vtrea/item_or_loot_dialog
 vtrea/try_open_treasure_chest
 shared/ovr/adjust_spell_value
-vtrea/apply_spell_effect_alt
+vtrea/apply_treasure_spell_effect
 vtrea/cast_spell_from_dialog
 vtrea/treasure_use_item_menu
 vtrea/handle_treasure_trap

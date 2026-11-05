@@ -26,7 +26,7 @@ add_character_from_pc_file()
 		member_roster_index[party_char_count + 1] = selected_record_index;
 		member_icon[party_char_count] =
 			find_unused_member_icon(party_char_count);
-		load_member_icon(selected_record.kind,
+		load_member_icon(selected_record.portrait,
 			member_icon[party_char_count]);
 		party_records[party_char_count] = selected_record;
 		draw_party_member_panel(party_char_count, 0);

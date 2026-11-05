@@ -11,14 +11,14 @@ extern int transfer_pc_file_record();
 preview_and_select_saved_member(member_index)
 int member_index;
 {
-	int original_kind;
+	int original_portrait;
 	long saved_area;
 
 	saved_area = call_save_area(14, 18, 66, 74);
 	display_pc_file_record_preview(0, member_index);
-	original_kind = party_records[0].kind;
+	original_portrait = party_records[0].portrait;
 	select_character_portrait(0, saved_area);
 	call_restore_area(saved_area, 1);
-	if (party_records[0].kind != original_kind)
+	if (party_records[0].portrait != original_portrait)
 		transfer_pc_file_record(party_records, member_index, 1);
 }

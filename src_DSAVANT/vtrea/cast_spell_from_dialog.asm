@@ -58,7 +58,7 @@ cast_spell_from_dialog:
     push word [bp - 4]               ; 0x4b5d
     push word [bp - 2]               ; 0x4b60
     push word [bp + 4]               ; 0x4b63
-    call apply_spell_effect_alt      ; 0x4b66
+    call apply_treasure_spell_effect ; 0x4b66
     add sp, byte 8                   ; 0x4b69
     push word [bp - 4]               ; 0x4b6c
     call random_below                ; 0x4b6f

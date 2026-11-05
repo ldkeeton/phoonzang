@@ -88,7 +88,7 @@ int pc;
 				/* The high byte is the power and the low byte the spell. */
 				spell_power = item.spell_code / 256;
 				spell = item.spell_code % 256;
-				if (spell_table->spell[spell].targeted == 1) {
+				if (spell_table->spell[spell].targeting.bytes.targeted == 1) {
 					spell_target = pick_party_member();
 					if (spell_target == -1)
 						spell = -1;

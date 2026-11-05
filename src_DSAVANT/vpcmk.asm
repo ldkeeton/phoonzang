@@ -168,9 +168,9 @@ banner_plain_flag equ __zdseg_end + (__zobss_95ac - __zdata_start)
 banner_animation_frame equ __zdseg_end + (__zobss_95ae - __zdata_start)
 skill_availability_flags equ __zdseg_end + (__zobss_95b0 - __zdata_start)
 both_high_stats_flag equ __zdseg_end + (__zobss_95e8 - __zdata_start)
-slot_prompt_text equ __zdseg_end + (__zobss_95f4 - __zdata_start)
-slot_value equ __zdseg_end + (__zobss_9608 - __zdata_start)
-slot_value2 equ __zdseg_end + (__zobss_960c - __zdata_start)
+skill_points_label equ __zdseg_end + (__zobss_95f4 - __zdata_start)
+skill_group_points equ __zdseg_end + (__zobss_9608 - __zdata_start)
+personal_skill_points equ __zdseg_end + (__zobss_960c - __zdata_start)
 slot_label equ __zdseg_end + (__zobss_9610 - __zdata_start)
 slot_limit equ __zdseg_end + (__zobss_96d8 - __zdata_start)
 known_spell_ids equ __zdseg_end + (__zobss_971c - __zdata_start)
@@ -221,11 +221,11 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "shared/ovr/prepare_skill_list.asm"    ; 0x2273
 
-%include "shared/ovr/draw_known_spell_values.asm" ; 0x24c8
+%include "shared/ovr/draw_skill_list_values.asm" ; 0x24c8
 
-%include "shared/ovr/draw_slot_value_row.asm"   ; 0x2582
+%include "shared/ovr/draw_skill_points_row.asm" ; 0x2582
 
-%include "vpcmk/edit_spell_slot_values.asm" ; 0x26f1
+%include "vpcmk/edit_skill_group_points.asm" ; 0x26f1
 
 %include "vpcmk/edit_character_skill_slots.asm" ; 0x2c15
 
@@ -287,9 +287,9 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "vpcmk/initialize_member_profession.asm" ; 0x5087
 
-%include "shared/ovr/roll_slot_values.asm"      ; 0x5580
+%include "shared/ovr/roll_skill_points.asm"     ; 0x5580
 
-%include "vpcmk/spend_level_scaled_slot_value.asm" ; 0x56b0
+%include "vpcmk/spend_level_scaled_skill_points.asm" ; 0x56b0
 
 %include "vpcmk/initialize_profession_skills.asm" ; 0x5706
 

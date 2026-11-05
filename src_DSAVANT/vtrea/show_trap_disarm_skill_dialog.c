@@ -8,7 +8,7 @@ extern int mouse_active, hotspot_rects[], hotspot_hit;
 extern int trap_glyph_pressed[], trap_row_index;
 extern unsigned char trap_glyph_ids[], trap_row_codes[];
 extern int trap_row_types[];
-extern char known_spell_names[];
+extern char list_entry_text[];
 extern int save_screen_area(), restore_saved_screen(), draw_dialog_box();
 extern int load_message_string(), call_set_text_color(), call_set_text_pos();
 extern int draw_text_glyphs(), draw_button(), draw_inset_panel();
@@ -42,7 +42,7 @@ int pc, button_message, show_inspect, show_cancel, trap_row_count,
 
 	for (i = 0; i < trap_row_count; i++)
 		load_message_string(MSG_NO_TRAP + trap_row_types[i],
-			known_spell_names + i * 20);
+			list_entry_text + i * 20);
 	show_area_bottom = 141;
 	code_length = 0;
 	if (trap_row_index != -1) {

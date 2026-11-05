@@ -60,8 +60,8 @@ int pc, reveal;
 		draw_font_glyph((unsigned char)icon, 6);
 	}
 	/* kinds 0x13/0x19 use base 10, else the race picks */
-	glyph_base = (party_records[pc].kind == 19 ||
-		  party_records[pc].kind == 25)
+	glyph_base = (party_records[pc].portrait == 19 ||
+		  party_records[pc].portrait == 25)
 		? 10 : spell_table->glyph_base[party_records[pc].race];
 	for (i = 0; i < 2; i++) {	/* two cells, 14 px apart */
 		call_set_text_pos(i * 14 + x + 30, y + 7);

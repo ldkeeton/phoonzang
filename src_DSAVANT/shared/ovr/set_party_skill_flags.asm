@@ -32,7 +32,7 @@ set_party_skill_flags:
     mov ax, word [bp - 2]
     cmp ax, strict word 0xa
     jl short .back1
-    mov ax, word [dseg_003c]
+    mov ax, word [physical_skill_group_start]
     mov word [bp - 4], ax
     mov word [bp - 2], 0
 .back2:
@@ -62,7 +62,7 @@ set_party_skill_flags:
     mov ax, word [bp - 2]
     cmp ax, strict word 8
     jl short .back2
-    mov ax, word [dseg_0040]
+    mov ax, word [personal_skill_group_start]
     mov word [bp - 4], ax
     mov word [bp - 2], 0
 .back3:
@@ -92,7 +92,7 @@ set_party_skill_flags:
     mov ax, word [bp - 2]
     cmp ax, strict word 6
     jl short .back3
-    mov ax, word [dseg_0044]
+    mov ax, word [academic_skill_group_start]
     mov word [bp - 4], ax
     mov word [bp - 2], 0
 .back4:

@@ -80,18 +80,18 @@ allocate_member_skill_bonus:
     mov ax, word [bp - 6]            ; 0x4069
     shl ax, 1                        ; 0x406c
     mov bx, ax                       ; 0x406e
-    mov ax, word [bx + slot_value]   ; 0x4070
+    mov ax, word [bx + skill_group_points] ; 0x4070
     cmp ax, word [bp - 2]            ; 0x4074
     jle short .forward2              ; 0x4077
     mov ax, word [bp - 2]            ; 0x4079
-    mov word [bx + slot_value], ax   ; 0x407c
+    mov word [bx + skill_group_points], ax ; 0x407c
 .forward2:
     lea ax, word [bp - 0x20]         ; 0x4080
     push ax                          ; 0x4083
     push word [bp - 8]               ; 0x4084
     push word [bp - 6]               ; 0x4087
     push word [bp + 4]               ; 0x408a
-    call draw_known_spell_values     ; 0x408d
+    call draw_skill_list_values      ; 0x408d
     add sp, byte 8                   ; 0x4090
     mov word [bp - 4], 0             ; 0x4093
 .back5:

@@ -7,7 +7,7 @@ struct encumbrance_style {
 	int penalty_a;        /* +0x02 */
 	int penalty_b;        /* +0x04 */
 	int stat4_cap;        /* +0x06 */
-	int stat5_cap;        /* +0x08 */
+	int attacks_cap;        /* +0x08 */
 	int stamina_drain;    /* +0x0a */
 	int text_color;       /* +0x0c */
 };

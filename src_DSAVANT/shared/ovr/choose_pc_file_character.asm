@@ -22,13 +22,13 @@ choose_pc_file_character:
     push ax
     mov ax, 0x14
     imul word [bp - 8]
-    add ax, known_spell_names
+    add ax, list_entry_text
     push ax
     call aztec_strcpy
     add sp, byte 4
     mov ax, 0x14
     imul word [bp - 8]
-    add ax, known_spell_names
+    add ax, list_entry_text
     push ax
     call aztec_strlen
     pop cx
@@ -40,7 +40,7 @@ choose_pc_file_character:
     imul word [bp - 8]
     add ax, word [bp - 4]
     mov bx, ax
-    mov byte [bx + known_spell_names], 0x20
+    mov byte [bx + list_entry_text], 0x20
     inc word [bp - 4]
     jmp short .back2
 .forward2:
@@ -58,8 +58,8 @@ choose_pc_file_character:
     imul word [bp - 8]
     mov bx, ax
     pop ax
-    mov byte [bx + known_spell_names + known_spell_names_rec.f_000a], al
-    mov byte [bx + known_spell_names + known_spell_names_rec.f_000b], 0x2d
+    mov byte [bx + list_entry_text + list_entry_text_rec.f_000a], al
+    mov byte [bx + list_entry_text + list_entry_text_rec.f_000b], 0x2d
     lea ax, word [bp - 0x2a0]
     push ax
     mov al, byte [bp - 0x17]
@@ -80,7 +80,7 @@ choose_pc_file_character:
     add ax, word [bp - 4]
     mov bx, ax
     pop ax
-    mov byte [bx + known_spell_names + known_spell_names_rec.f_000c], al
+    mov byte [bx + list_entry_text + list_entry_text_rec.f_000c], al
     inc word [bp - 4]
     mov ax, word [bp - 4]
     cmp ax, strict word 3
@@ -88,7 +88,7 @@ choose_pc_file_character:
     mov ax, 0x14
     imul word [bp - 8]
     mov bx, ax
-    mov byte [bx + known_spell_names + known_spell_names_rec.f_000f], 0
+    mov byte [bx + list_entry_text + list_entry_text_rec.f_000f], 0
     mov ax, word [bp - 2]
     mov cx, word [bp - 8]
     shl cx, 1

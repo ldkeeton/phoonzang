@@ -5,7 +5,7 @@ edit_skill_group_points:
     mov ax, word [bp + 6]            ; 0x3a80
     shl ax, 1                        ; 0x3a83
     mov bx, ax                       ; 0x3a85
-    mov ax, word [bx + slot_value]   ; 0x3a87
+    mov ax, word [bx + skill_group_points] ; 0x3a87
     mov word [bp - 0xc], ax          ; 0x3a8b
     mov word [bp - 0xa], 0           ; 0x3a8e
     mov word [bp - 0x28], 0xffff     ; 0x3a93
@@ -26,11 +26,11 @@ edit_skill_group_points:
     push word [bp + 8]               ; 0x3ab7
     push word [bp + 6]               ; 0x3aba
     push word [bp + 4]               ; 0x3abd
-    call draw_known_spell_values     ; 0x3ac0
+    call draw_skill_list_values      ; 0x3ac0
     add sp, byte 8                   ; 0x3ac3
     push word [bp - 0xc]             ; 0x3ac6
     push word [bp + 6]               ; 0x3ac9
-    call draw_slot_value_row         ; 0x3acc
+    call draw_skill_points_row       ; 0x3acc
     add sp, byte 4                   ; 0x3acf
     mov ax, 0                        ; 0x3ad2
     push ax                          ; 0x3ad5
@@ -166,7 +166,7 @@ edit_skill_group_points:
     je short .forward7               ; 0x3bff
     shl ax, 1                        ; 0x3c01
     mov bx, ax                       ; 0x3c03
-    mov ax, word [bx + slot_value]   ; 0x3c05
+    mov ax, word [bx + skill_group_points] ; 0x3c05
     add word [bp - 4], ax            ; 0x3c09
 .forward7:
     inc word [bp - 2]                ; 0x3c0c
@@ -537,7 +537,7 @@ edit_skill_group_points:
     mov cx, word [bp + 6]            ; 0x3f42
     shl cx, 1                        ; 0x3f45
     mov bx, cx                       ; 0x3f47
-    mov word [bx + slot_value], ax   ; 0x3f49
+    mov word [bx + skill_group_points], ax ; 0x3f49
     mov ax, 1                        ; 0x3f4d
     push ax                          ; 0x3f50
     push ax                          ; 0x3f51

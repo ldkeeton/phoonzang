@@ -88,9 +88,14 @@ def _lint_files(files, fix):
     if jobs <= 1:
         return [_lint_file(path, fix) for path in files]
     chunk = max(1, len(files) // (jobs * 4))
-    with ProcessPoolExecutor(max_workers=jobs) as pool:
-        return list(pool.map(_lint_file, files, [fix] * len(files),
-                             chunksize=chunk))
+    try:
+        with ProcessPoolExecutor(max_workers=jobs) as pool:
+            return list(pool.map(_lint_file, files, [fix] * len(files),
+                                 chunksize=chunk))
+    except PermissionError:
+        # Restricted runners may forbid the forkserver's local socket. The
+        # lint operations are independent, so retry serially in that case.
+        return [_lint_file(path, fix) for path in files]
 
 
 def cmd_lint(projects, fix=False):

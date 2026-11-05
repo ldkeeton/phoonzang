@@ -183,7 +183,7 @@ create_new_party_member:
     mov ax, word [bp - 2]            ; 0x64bb
     shl ax, 1                        ; 0x64be
     mov bx, ax                       ; 0x64c0
-    mov ax, word [bx + slot_value]   ; 0x64c2
+    mov ax, word [bx + skill_group_points] ; 0x64c2
     add word [bp - 4], ax            ; 0x64c6
     inc word [bp - 2]                ; 0x64c9
     mov ax, word [bp - 2]            ; 0x64cc

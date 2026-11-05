@@ -5,7 +5,7 @@ raise_member_skill_from_pool:
     mov ax, word [bp + 6]            ; 0x4276
     shl ax, 1                        ; 0x4279
     mov bx, ax                       ; 0x427b
-    mov ax, word [bx + slot_value]   ; 0x427d
+    mov ax, word [bx + skill_group_points] ; 0x427d
     cwd                              ; 0x4281
     idiv word [bp + 8]               ; 0x4282
     push ax                          ; 0x4285
@@ -49,13 +49,13 @@ raise_member_skill_from_pool:
     mov ax, word [bp + 6]            ; 0x42df
     shl ax, 1                        ; 0x42e2
     mov bx, ax                       ; 0x42e4
-    mov ax, word [bx + slot_value]   ; 0x42e6
+    mov ax, word [bx + skill_group_points] ; 0x42e6
     cmp ax, word [bp - 2]            ; 0x42ea
     jge short .forward4              ; 0x42ed
     mov word [bp - 2], ax            ; 0x42ef
 .forward4:
     mov ax, word [bp - 2]            ; 0x42f2
-    sub word [bx + slot_value], ax   ; 0x42f5
+    sub word [bx + skill_group_points], ax ; 0x42f5
     mov al, byte [bp - 2]            ; 0x42f9
     push ax                          ; 0x42fc
     mov ax, 0x248                    ; 0x42fd

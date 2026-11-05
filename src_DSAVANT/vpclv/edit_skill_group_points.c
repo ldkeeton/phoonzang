@@ -1,13 +1,13 @@
-/* Edit a character's spell skill allocations and select a spell group. */
+/* Edit a character's skill point allocation within one skill group. */
 #include "structs/pcrec.h"
 extern struct pc_rec party_records[];
-extern int slot_value[], slot_limit[];
+extern int skill_group_points[], slot_limit[];
 extern char slot_label[][20];
 extern int mouse_active, hotspot_hit;
 extern int hotspot_rects[];
 extern long call_save_area();
 
-/* Draw spell controls, apply value changes, and return the chosen group. */
+/* Draw skill controls, apply value changes, and return the chosen group. */
 edit_skill_group_points(member, slot, slots, skills, enabled)
 int member, slot, slots;
 int *skills, *enabled;
@@ -16,13 +16,13 @@ int *skills, *enabled;
 	int visible[12], button, result;
 	long saved;
 	int key, current;
-	value = slot_value[slot];
+	value = skill_group_points[slot];
 	selected = 0;
 	button = -1;
 	saved = call_save_area(3, 187, 316, 198);
 	for (;;) {
-	draw_known_spell_values(member, slot, slots, skills);
-	draw_slot_value_row(slot, value);
+	draw_skill_list_values(member, slot, slots, skills);
+	draw_skill_points_row(slot, value);
 	call_set_text_color(1, 0);
 	call_set_text_pos(127, 6 * selected + 114);
 	draw_font_glyph(5, 0);
@@ -41,7 +41,7 @@ int *skills, *enabled;
 	call_restore_area(saved, 0);
 	total = value;
 	i = 0;
-	do { if (i != slot) total += slot_value[i]; } while (++i < 4);
+	do { if (i != slot) total += skill_group_points[i]; } while (++i < 4);
 	enabled[4] = total > 0 ? 0 : 1;
 	count = 0;
 	i = 0;
@@ -103,7 +103,7 @@ int *skills, *enabled;
 	}
 	if (button != -1) break;
 	}
-	slot_value[slot] = value;
+	skill_group_points[slot] = value;
 	flash_button(58 * button + 4, 188, 9, 1, 1);
 	flash_button(58 * button + 4, 188, 9, 1, 0);
 	call_restore_area(saved, 1);

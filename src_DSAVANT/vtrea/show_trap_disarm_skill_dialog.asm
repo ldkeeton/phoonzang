@@ -7,7 +7,7 @@ show_trap_disarm_skill_dialog:
 .back1:
     mov ax, 0x14                     ; 0x25b8
     imul word [bp - 2]               ; 0x25bb
-    add ax, known_spell_names        ; 0x25be
+    add ax, list_entry_text          ; 0x25be
     push ax                          ; 0x25c1
     mov ax, word [bp - 2]            ; 0x25c2
     shl ax, 1                        ; 0x25c5

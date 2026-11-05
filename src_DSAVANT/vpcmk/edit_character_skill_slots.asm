@@ -58,7 +58,7 @@ edit_character_skill_slots:
     push word [bp - 8]               ; 0x2ca7
     push word [bp - 6]               ; 0x2caa
     push word [bp + 4]               ; 0x2cad
-    call draw_known_spell_values     ; 0x2cb0
+    call draw_skill_list_values      ; 0x2cb0
     add sp, byte 8                   ; 0x2cb3
     mov word [bp - 4], 0             ; 0x2cb6
 .back4:
@@ -113,7 +113,7 @@ edit_character_skill_slots:
     push word [bp - 8]               ; 0x2d31
     push word [bp - 6]               ; 0x2d34
     push word [bp + 4]               ; 0x2d37
-    call edit_spell_slot_values      ; 0x2d3a
+    call edit_skill_group_points     ; 0x2d3a
     add sp, byte 0xa                 ; 0x2d3d
     mov word [bp - 6], ax            ; 0x2d40
     cmp word [bp - 6], byte 4        ; 0x2d43

@@ -55,11 +55,11 @@ __zobss_9598:  ; skill_availability_flags
     resb 0x0038
 __zobss_95d0:  ; both_high_stats_flag
     resb 0x000c
-__zobss_95dc:  ; slot_prompt_text
+__zobss_95dc:  ; skill_points_label
     resb 0x0014
-__zobss_95f0:  ; slot_value
+__zobss_95f0:  ; skill_group_points
     resb 0x0004
-__zobss_95f4:  ; slot_value2
+__zobss_95f4:  ; personal_skill_points
     resb 0x0004
 __zobss_95f8:  ; slot_label
     resb 0x00c8

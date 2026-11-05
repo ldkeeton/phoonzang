@@ -69,7 +69,7 @@ extern int aztec_free(), release_and_exit(), show_load_disk_error();
 extern int find_unused_member_icon(), random_below(), test_bit();
 extern int map_bane_party_selector(), set_bitmap_bit();
 extern long read_class_experience_threshold();
-extern int map_bane_character_kind(), reset_hand_attack(),
+extern int map_bane_character_portrait(), reset_hand_attack(),
 	draw_member_panel_glyphs();
 extern int init_item_slot(), map_bane_item_number(),
 	initialize_intro_layout();
@@ -293,7 +293,7 @@ import_bane_party()
 		record->profession = bane_character_profession;
 		record->experience = read_class_experience_threshold(
 			record->profession, record->level);
-		record->kind = map_bane_character_kind(record->race,
+		record->portrait = map_bane_character_portrait(record->race,
 			record->gender, record->profession);
 		record->rank = bane_character_value_d;
 		record->state = 0;
@@ -301,8 +301,8 @@ import_bane_party()
 		record->imported_fields[0] = 1;
 		record->imported_fields[1] = 10;
 		record->adjusted_stat4 = 1;
-		record->adjusted_stat5 = 1;
-		record->stat5_plus_power = record->stat[5] + record->level;
+		record->attacks_per_round = 1;
+		record->speed_plus_level = record->stat[5] + record->level;
 
 		/* Initialize derived percentage and per page values. */
 		record_index = 3 * bane_level + (signed char)bane_power_adjustment

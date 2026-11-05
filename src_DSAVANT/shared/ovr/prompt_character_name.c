@@ -2,7 +2,7 @@
 
 extern int dialog_selection, dialog_button, hotspot_rects[];
 extern int hotspot_hit;
-extern char known_spell_names[];
+extern char list_entry_text[];
 extern char screen_save_temp_file[];
 
 extern int save_screen_area(), draw_dialog_box(), load_message_string();
@@ -53,7 +53,7 @@ char *name_buffer;
 	draw_text_glyphs(button_label, 0);
 
 	/* Draw the caller's current name, then register the field and buttons. */
-	aztec_strcpy(known_spell_names, name_buffer);
+	aztec_strcpy(list_entry_text, name_buffer);
 	draw_text_list(box_x + 93, box_y + 31, 17, 1, 0, 0, 1);
 	set_hotspot(0, box_x + 93, box_y + 31,
 		box_x + 197, box_y + 37, 32, 0);
@@ -67,9 +67,9 @@ char *name_buffer;
 
 	/* The text field edits the shared scratch name before copying it back. */
 	flush_keyboard();
-	input_text_field(known_spell_names, box_x + 95, box_y + 32,
+	input_text_field(list_entry_text, box_x + 95, box_y + 32,
 		7, 0, 1, 0);
-	aztec_strcpy(name_buffer, known_spell_names);
+	aztec_strcpy(name_buffer, list_entry_text);
 	draw_text_list(box_x + 93, box_y + 31, 17, 1, 0, -1, 1);
 	call_show_area(box_x + 93, box_y + 31,
 		box_x + 197, box_y + 38);
@@ -86,9 +86,9 @@ char *name_buffer;
 					17, 1, 0, 0, 1);
 				call_show_area(box_x + 93, box_y + 31,
 					box_x + 197, box_y + 38);
-				input_text_field(known_spell_names, box_x + 95,
+				input_text_field(list_entry_text, box_x + 95,
 					box_y + 32, 7, 0, 1, 0);
-				aztec_strcpy(name_buffer, known_spell_names);
+				aztec_strcpy(name_buffer, list_entry_text);
 				draw_text_list(box_x + 93, box_y + 31,
 					17, 1, 0, -1, 1);
 				call_show_area(box_x + 93, box_y + 31,

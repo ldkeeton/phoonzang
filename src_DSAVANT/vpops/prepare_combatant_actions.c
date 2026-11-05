@@ -115,7 +115,8 @@ int group_index, target_group;
 				else
 					retry += 15;
 			} while (spell_id == -1);
-			if (spell_table->spell[spell_id].targeted == 1 || spell_id == 88 ||
+			if (spell_table->spell[spell_id].targeting.bytes.targeted == 1
+				|| spell_id == 88 ||
 			    spell_id == 19 || spell_id == 66) {
 				if (group_index == 6) {
 					if (target_most_wounded_unit(unit, 0) == 0 &&

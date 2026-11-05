@@ -80,7 +80,7 @@ int pc;
 	if (item.spell_code != 0) {
 		spell_power = item.spell_code / 256;
 		spell = item.spell_code % 256;
-		if (spell_table->spell[spell].targeted == 1) {
+		if (spell_table->spell[spell].targeting.bytes.targeted == 1) {
 			selected_target = pick_party_member();
 			if (selected_target == -1) {
 				call_show_area(54, 142, 265, 198);

@@ -1,7 +1,7 @@
 /* Spend a slot value to raise one party member skill. */
 #include "structs/pcrec.h"
 
-extern int slot_value[];
+extern int skill_group_points[];
 extern struct pc_rec party_records[];
 
 /* Limit the gain by level, the skill cap, and remaining slot value. */
@@ -10,7 +10,7 @@ int member_index, slot_index, divisor, skill_index;
 {
 	int gain;
 
-	gain = slot_value[slot_index] / divisor -
+	gain = skill_group_points[slot_index] / divisor -
 		(party_records[member_index].level - 1) / 2;
 	if (party_records[member_index].skills[skill_index] >
 		party_records[member_index].level * 8)
@@ -19,8 +19,8 @@ int member_index, slot_index, divisor, skill_index;
 		gain = 0;
 	if (gain < 0)
 		gain = 0;
-	if (slot_value[slot_index] < gain)
-		gain = slot_value[slot_index];
-	slot_value[slot_index] -= gain;
+	if (skill_group_points[slot_index] < gain)
+		gain = skill_group_points[slot_index];
+	skill_group_points[slot_index] -= gain;
 	party_records[member_index].skills[skill_index] += (unsigned char)gain;
 }

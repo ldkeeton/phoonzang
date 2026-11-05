@@ -24,7 +24,7 @@ int member_index;
 		party_records[member_index].equipped[slot] = 255;
 	initialize_member_profession(member_index);
 	party_records[member_index].adjusted_stat4 = 1;
-	party_records[member_index].adjusted_stat5 = 1;
-	party_records[member_index].stat5_plus_power =
+	party_records[member_index].attacks_per_round = 1;
+	party_records[member_index].speed_plus_level =
 		party_records[member_index].stat[5] + 1;
 }

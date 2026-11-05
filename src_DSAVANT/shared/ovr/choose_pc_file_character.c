@@ -4,7 +4,7 @@
 #include "structs/pcrec.h"
 #include "structs/roster.h"
 
-/* One pick-list row ("NAME      M-FIG"); the rows reuse known_spell_names. */
+/* One pick-list row ("NAME      M-FIG"); the rows reuse list_entry_text. */
 struct pc_file_list_row {
 	char name[10];
 	char gender_letter;
@@ -15,7 +15,7 @@ struct pc_file_list_row {
 
 extern struct roster_state_view pc_file_record_base_hi;
 extern int pc_file_record_count, dialog_selection;
-extern struct pc_file_list_row known_spell_names[];
+extern struct pc_file_list_row list_entry_text[];
 extern int transfer_pc_file_record(), aztec_strcpy(), aztec_strlen();
 extern int load_message_string(), pick_list_entry_dialog();
 
@@ -36,26 +36,26 @@ int prompt_message;
 		/* Only roster entries marked available are included. */
 		if (pc_file_record_base_hi.availability[record_index] == 1) {
 			transfer_pc_file_record(&pc_file_record, record_index, 0);
-			aztec_strcpy(known_spell_names[option_count].name,
+			aztec_strcpy(list_entry_text[option_count].name,
 				pc_file_record.name);
 			name_length = aztec_strlen(
-				known_spell_names[option_count].name);
+				list_entry_text[option_count].name);
 			/* Pad the ten-character display name before the metadata fields. */
 			while (name_length < 10) {
-				known_spell_names[option_count].name[name_length] = ' ';
+				list_entry_text[option_count].name[name_length] = ' ';
 				name_length++;
 			}
 			load_message_string(MSG_MALE + pc_file_record.gender,
 				message_text);
-			known_spell_names[option_count].gender_letter = message_text[0];
-			known_spell_names[option_count].separator = '-';
+			list_entry_text[option_count].gender_letter = message_text[0];
+			list_entry_text[option_count].separator = '-';
 			load_message_string(MSG_CLASS_BASE + pc_file_record.profession,
 				message_text);
 			/* The list row displays the first three profession-name characters. */
 			for (name_length = 0; name_length < 3; name_length++)
-				known_spell_names[option_count].profession[name_length] =
+				list_entry_text[option_count].profession[name_length] =
 					message_text[name_length];
-			known_spell_names[option_count].terminator[0] = 0;
+			list_entry_text[option_count].terminator[0] = 0;
 			selected_record_indices[option_count] = record_index;
 			option_count++;
 		}

@@ -139,7 +139,7 @@ prompt_character_name:
     call draw_text_glyphs
     add sp, byte 4
     push word [bp + 0xc]
-    mov ax, known_spell_names
+    mov ax, list_entry_text
     push ax
     call aztec_strcpy
     add sp, byte 4
@@ -280,11 +280,11 @@ prompt_character_name:
     mov ax, word [bp - 2]
     add ax, strict word 0x5f
     push ax
-    mov ax, known_spell_names
+    mov ax, list_entry_text
     push ax
     call input_text_field
     add sp, byte 0xe
-    mov ax, known_spell_names
+    mov ax, list_entry_text
     push ax
     push word [bp + 0xc]
     call aztec_strcpy
@@ -381,11 +381,11 @@ prompt_character_name:
     mov ax, word [bp - 2]
     add ax, strict word 0x5f
     push ax
-    mov ax, known_spell_names
+    mov ax, list_entry_text
     push ax
     call input_text_field
     add sp, byte 0xe
-    mov ax, known_spell_names
+    mov ax, list_entry_text
     push ax
     push word [bp + 0xc]
     call aztec_strcpy

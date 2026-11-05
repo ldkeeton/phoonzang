@@ -1,0 +1,108 @@
+; auto-generated
+draw_selected_item_list_entry:
+    mov ax, 0xfffc                   ; 0x09a1
+    call aztec_csav                  ; 0x09a4
+    cmp word [selected_item_list_index], byte -1 ; 0x09a7
+    jne short .forward1              ; 0x09ac
+    ret                              ; 0x09ae
+.forward1:
+    mov ax, word [selected_item_list_index] ; 0x09af
+    mov cx, 5                        ; 0x09b2
+    cwd                              ; 0x09b5
+    idiv cx                          ; 0x09b6
+    mov cx, 0xd                      ; 0x09b8
+    imul cx                          ; 0x09bb
+    mov cx, 6                        ; 0x09bd
+    imul cx                          ; 0x09c0
+    push ax                          ; 0x09c2
+    mov ax, word [selected_item_list_index] ; 0x09c3
+    mov cx, 5                        ; 0x09c6
+    cwd                              ; 0x09c9
+    idiv cx                          ; 0x09ca
+    mov cx, ax                       ; 0x09cc
+    pop ax                           ; 0x09ce
+    add ax, cx                       ; 0x09cf
+    add ax, strict word 6            ; 0x09d1
+    mov word [bp - 2], ax            ; 0x09d4
+    shl dx, 1                        ; 0x09d7
+    mov ax, dx                       ; 0x09d9
+    mov cx, 6                        ; 0x09db
+    imul cx                          ; 0x09de
+    push ax                          ; 0x09e0
+    mov ax, word [selected_item_list_index] ; 0x09e1
+    mov cx, 5                        ; 0x09e4
+    cwd                              ; 0x09e7
+    idiv cx                          ; 0x09e8
+    mov cx, dx                       ; 0x09ea
+    shl cx, 1                        ; 0x09ec
+    pop ax                           ; 0x09ee
+    add ax, cx                       ; 0x09ef
+    add ax, strict word 0x74         ; 0x09f1
+    mov word [bp - 4], ax            ; 0x09f4
+    push ax                          ; 0x09f7
+    push word [bp - 2]               ; 0x09f8
+    call call_set_text_pos           ; 0x09fb
+    add sp, byte 4                   ; 0x09fe
+    mov ax, 4                        ; 0x0a01
+    push ax                          ; 0x0a04
+    mov al, byte [selected_item_list_glyph] ; 0x0a05
+    sub ah, ah                       ; 0x0a08
+    push ax                          ; 0x0a0a
+    call draw_font_glyph             ; 0x0a0b
+    add sp, byte 4                   ; 0x0a0e
+    push word [selected_item_list_color] ; 0x0a11
+    push word [bp - 4]               ; 0x0a15
+    mov ax, word [bp - 2]            ; 0x0a18
+    add ax, strict word 0xe          ; 0x0a1b
+    push ax                          ; 0x0a1e
+    mov ax, selected_item_list_text  ; 0x0a1f
+    push ax                          ; 0x0a22
+    call draw_split_two_line_text    ; 0x0a23
+    add sp, byte 8                   ; 0x0a26
+    mov bx, word [selected_item_type] ; 0x0a29
+    cmp byte [bx + item_type_counted], 1 ; 0x0a2d
+    jne short .forward2              ; 0x0a32
+    mov ax, word [bp - 4]            ; 0x0a34
+    add ax, strict word 6            ; 0x0a37
+    push ax                          ; 0x0a3a
+    mov ax, word [bp - 2]            ; 0x0a3b
+    add ax, strict word 0x38         ; 0x0a3e
+    push ax                          ; 0x0a41
+    call call_set_text_pos           ; 0x0a42
+    add sp, byte 4                   ; 0x0a45
+    mov ax, 0                        ; 0x0a48
+    push ax                          ; 0x0a4b
+    mov ax, 2                        ; 0x0a4c
+    push ax                          ; 0x0a4f
+    call call_set_text_color         ; 0x0a50
+    add sp, byte 4                   ; 0x0a53
+    mov ax, 0                        ; 0x0a56
+    push ax                          ; 0x0a59
+    mov ax, 3                        ; 0x0a5a
+    push ax                          ; 0x0a5d
+    push word [selected_item_count]  ; 0x0a5e
+    call draw_number_field           ; 0x0a62
+    add sp, byte 6                   ; 0x0a65
+.forward2:
+    mov ax, 0xff                     ; 0x0a68
+    push ax                          ; 0x0a6b
+    mov ax, 0x15                     ; 0x0a6c
+    push ax                          ; 0x0a6f
+    call call_set_text_color         ; 0x0a70
+    add sp, byte 4                   ; 0x0a73
+    mov ax, word [bp - 4]            ; 0x0a76
+    dec ax                           ; 0x0a79
+    push ax                          ; 0x0a7a
+    mov ax, word [bp - 2]            ; 0x0a7b
+    dec ax                           ; 0x0a7e
+    dec ax                           ; 0x0a7f
+    push ax                          ; 0x0a80
+    call call_set_text_pos           ; 0x0a81
+    add sp, byte 4                   ; 0x0a84
+    mov ax, 0                        ; 0x0a87
+    push ax                          ; 0x0a8a
+    mov ax, 4                        ; 0x0a8b
+    push ax                          ; 0x0a8e
+    call draw_font_glyph             ; 0x0a8f
+    add sp, byte 4                   ; 0x0a92
+    ret                              ; 0x0a95

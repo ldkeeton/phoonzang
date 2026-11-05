@@ -17,7 +17,7 @@ int member_index;
 	style.penalty_a = 0;
 	style.penalty_b = 0;
 	style.stat4_cap = party_records[member_index].adjusted_stat4;
-	style.stat5_cap = party_records[member_index].adjusted_stat5;
+	style.attacks_cap = party_records[member_index].attacks_per_round;
 	style.stamina_drain = 0;
 	style.text_color = 9;
 
@@ -34,8 +34,8 @@ int member_index;
 		style.penalty_b = 10;
 		if (style.stat4_cap > 3)
 			style.stat4_cap = 3;
-		if (style.stat5_cap > 3)
-			style.stat5_cap = 3;
+		if (style.attacks_cap > 3)
+			style.attacks_cap = 3;
 	} else if (carry_percentage <= 75L) {
 		/* The 67-75 percent band limits stats and drains stamina. */
 		style.tier = 1;
@@ -43,8 +43,8 @@ int member_index;
 		style.penalty_b = 20;
 		if (style.stat4_cap > 2)
 			style.stat4_cap = 2;
-		if (style.stat5_cap > 2)
-			style.stat5_cap = 2;
+		if (style.attacks_cap > 2)
+			style.attacks_cap = 2;
 		/* This band divides maximum stamina by 100. */
 		style.stamina_drain =
 			party_records[member_index].stamina[1] / 100;
@@ -55,7 +55,7 @@ int member_index;
 		style.penalty_a = 20;
 		style.penalty_b = 40;
 		style.stat4_cap = 1;
-		style.stat5_cap = 1;
+		style.attacks_cap = 1;
 		/* This band divides maximum stamina by 50. */
 		style.stamina_drain =
 			party_records[member_index].stamina[1] / 50;
@@ -66,7 +66,7 @@ int member_index;
 		style.penalty_a = 40;
 		style.penalty_b = 80;
 		style.stat4_cap = 1;
-		style.stat5_cap = 1;
+		style.attacks_cap = 1;
 		/* The heaviest band divides maximum stamina by 25. */
 		style.stamina_drain =
 			party_records[member_index].stamina[1] / 25;

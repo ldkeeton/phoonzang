@@ -1,7 +1,7 @@
 /* draws count spell-name rows from first at x,y, cols cells wide, with the
    row matching selected highlighted */
 
-extern char known_spell_names[];
+extern char list_entry_text[];
 
 draw_spell_list(x, y, cols, count, first, selected)
 int x, y, cols, count, first, selected;
@@ -16,7 +16,7 @@ int x, y, cols, count, first, selected;
 		} else
 			call_set_text_color(180, 195);
 		call_set_text_pos(x + 2, 6 * row + y + 1);
-		draw_text_glyphs(known_spell_names + (first + row) * 20,
+		draw_text_glyphs(list_entry_text + (first + row) * 20,
 			0);	/* 20-byte names */
 	}
 }

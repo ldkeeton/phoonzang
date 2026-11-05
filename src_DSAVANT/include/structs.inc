@@ -44,7 +44,7 @@ struc maze_tables_rec
 endstruc
 
 ; records at DS 0x0e38
-struc known_spell_names_rec
+struc list_entry_text_rec
     .f_0000: resb 10
     .f_000a: resb 1
     .f_000b: resb 1

@@ -3,7 +3,7 @@
 #include "msg.h"
 
 extern struct pc_rec party_records[];
-extern int slot_value[];
+extern int skill_group_points[];
 
 /* Complete a party member's level increase and refresh related displays. */
 award_member_level(member_index)
@@ -30,7 +30,7 @@ int member_index;
 	award_level_skill_points(member_index);
 	skill_total = 0;
 	for (slot_index = 0; slot_index < 4; slot_index++)
-		skill_total += slot_value[slot_index];
+		skill_total += skill_group_points[slot_index];
 	if (skill_total > 0)
 		allocate_member_skill_bonus(member_index, MSG_YOU_EARNED_A_SKILL_BONUS);
 	initialize_member_defenses(member_index);

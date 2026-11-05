@@ -117,6 +117,8 @@ Env:
                             it is written
   ASM_DOSBOX_SHOW=1         show the DOSBox window while compiling (headless otherwise)
   ASM_DOSBOX_TIMEOUT=SECS   bound one DOSBox session (0 disables)
+  ASM_NICE=N                run the build tree at below-normal CPU priority
+                            (default 10; 0 keeps the inherited priority)
   ASM_PROFILE=DIR           write each build worker's cProfile to DIR/<binary>.prof
   JSON=1                    machine-readable output from ``info``/``refs``/``data``/``probe``
   LEN=N                     bytes ``make data`` prints (default 16)

@@ -145,9 +145,9 @@ item_slot_attr equ __zdseg_end + (__zobss_9570 - __zdata_start)
 item_slot_color equ __zdseg_end + (__zobss_9584 - __zdata_start)
 skill_availability_flags equ __zdseg_end + (__zobss_9598 - __zdata_start)
 both_high_stats_flag equ __zdseg_end + (__zobss_95d0 - __zdata_start)
-slot_prompt_text equ __zdseg_end + (__zobss_95dc - __zdata_start)
-slot_value equ __zdseg_end + (__zobss_95f0 - __zdata_start)
-slot_value2 equ __zdseg_end + (__zobss_95f4 - __zdata_start)
+skill_points_label equ __zdseg_end + (__zobss_95dc - __zdata_start)
+skill_group_points equ __zdseg_end + (__zobss_95f0 - __zdata_start)
+personal_skill_points equ __zdseg_end + (__zobss_95f4 - __zdata_start)
 slot_label equ __zdseg_end + (__zobss_95f8 - __zdata_start)
 slot_limit equ __zdseg_end + (__zobss_96c0 - __zdata_start)
 level_up_transition_state equ __zdseg_end + (__zobss_9704 - __zdata_start)
@@ -221,15 +221,15 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "shared/ovr/prepare_skill_list.asm"    ; 0x35fc
 
-%include "shared/ovr/draw_known_spell_values.asm" ; 0x3851
+%include "shared/ovr/draw_skill_list_values.asm" ; 0x3851
 
-%include "shared/ovr/draw_slot_value_row.asm"   ; 0x390b
+%include "shared/ovr/draw_skill_points_row.asm" ; 0x390b
 
 %include "vpclv/edit_skill_group_points.asm" ; 0x3a7a
 
 %include "vpclv/allocate_member_skill_bonus.asm" ; 0x3f9e
 
-%include "shared/ovr/roll_slot_values.asm"      ; 0x4140
+%include "shared/ovr/roll_skill_points.asm"     ; 0x4140
 
 %include "vpclv/raise_member_skill_from_pool.asm" ; 0x4270
 

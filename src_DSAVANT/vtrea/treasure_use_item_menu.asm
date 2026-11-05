@@ -281,7 +281,7 @@ treasure_use_item_menu:
     push word [bp - 0x54]            ; 0x4e64
     push word [bp - 0x52]            ; 0x4e67
     push word [bp + 4]               ; 0x4e6a
-    call apply_spell_effect_alt      ; 0x4e6d
+    call apply_treasure_spell_effect ; 0x4e6d
     add sp, byte 8                   ; 0x4e70
 .forward14:
     jmp short .forward17             ; 0x4e73

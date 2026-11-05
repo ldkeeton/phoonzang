@@ -24,7 +24,8 @@ int pc;
 		return -1;
 	power = result / 256;				/* high byte: power */
 	spell = result % 256;				/* low byte: spell id */
-	if (spell_table->spell[spell].targeted == 1) {	/* 1: needs a party member */
+	if (spell_table->spell[spell].targeting.bytes.targeted == 1) {
+		/* 1: needs a party member */
 		target = pick_party_member();
 		if (target == -1)	/* -1: Esc */
 			return -1;

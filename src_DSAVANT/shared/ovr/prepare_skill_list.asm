@@ -237,7 +237,7 @@ prepare_skill_list.back1:
     jne short prepare_skill_list.forward4
     mov ax, 0x14
     imul word [bp - 4]
-    add ax, known_spell_names
+    add ax, list_entry_text
     push ax
     mov ax, word [bp - 2]
     add ax, MSG_WAND_DAGGER
@@ -261,7 +261,7 @@ prepare_skill_list.forward5:
     mov ax, word [word bx + 0x3a]
     cmp ax, word [bp - 2]
     jge short prepare_skill_list.back1
-    mov ax, slot_prompt_text
+    mov ax, skill_points_label
     push ax
     mov ax, MSG_SKILL_POINTS
     push ax

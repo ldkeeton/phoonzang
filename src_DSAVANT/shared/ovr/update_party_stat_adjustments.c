@@ -23,11 +23,11 @@ int member, limit, scale4, used4, scale5, used5;
 		(effective_level + scale4 - used4) / scale4 - 1;
 	party_records[member].adjusted_stat4 = clamp_between(
 		party_records[member].adjusted_stat4, 1, limit);
-	party_records[member].adjusted_stat5 = party_records[member].stat[5] / 6 +
+	party_records[member].attacks_per_round = party_records[member].stat[5] / 6 +
 		/* Same divisor for stat 5. */
 		(effective_level + scale5 - used5) / scale5 - 1;
-	party_records[member].adjusted_stat5 = clamp_between(
-		party_records[member].adjusted_stat5, 1, limit);
-	party_records[member].stat5_plus_power =
+	party_records[member].attacks_per_round = clamp_between(
+		party_records[member].attacks_per_round, 1, limit);
+	party_records[member].speed_plus_level =
 		party_records[member].stat[5] + effective_level;
 }

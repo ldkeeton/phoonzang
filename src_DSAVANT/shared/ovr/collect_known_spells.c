@@ -1,11 +1,11 @@
-/* collect the spells of realm that pc knows: names into known_spell_names, ids
+/* collect the spells of realm that pc knows: names into list_entry_text, ids
    into known_spell_ids; returns the count */
 
 #include "structs/spell.h"
 #include "msg.h"
 
 extern struct spell_table_view spell_table[];
-extern char known_spell_names[][20];
+extern char list_entry_text[][20];
 extern int known_spell_ids[];
 
 collect_known_spells(pc, realm)
@@ -18,7 +18,7 @@ int pc, realm;
 		if (spell_table->spell[spell].realm_level.bytes.realm == realm
 			&& test_bit(pc * 584 + 24082, spell)) {	/* 0x248-byte pc records */
 			load_message_string(spell + MSG_SPELL_NAME_BASE,
-				known_spell_names[n]);	/* spell names are a message base */
+				list_entry_text[n]);	/* spell names are a message base */
 			known_spell_ids[n] = spell;
 			n++;
 		}
