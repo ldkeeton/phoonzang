@@ -939,7 +939,7 @@ api_idx_00ac_HRGR.forward43:
     mov ax, 0x248                    ; 0x829a
     imul word [acting_unit]          ; 0x829d
     mov bx, ax                       ; 0x82a1
-    mov al, byte [bx + party_records + pc_rec.f_0246] ; 0x82a3
+    mov al, byte [bx + party_records + pc_rec.level_scaled_percent] ; 0x82a3
     cbw                              ; 0x82a7
     mov cx, ax                       ; 0x82a8
     pop ax                           ; 0x82aa

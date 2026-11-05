@@ -308,7 +308,7 @@ import_bane_party()
 		if (100 - record->level * 8 > record_index)
 			record_index = random_below(5) + (100 - record->level * 8);
 		if (record_index > 100) record_index = 100;
-		record->pad5 = record_index;
+		record->level_scaled_percent = record_index;
 		for (record_index = 0; record_index < 2; record_index++)
 			reset_hand_attack(party_char_count, record_index);
 		record->armor_class[0] = 10;

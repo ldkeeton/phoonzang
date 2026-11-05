@@ -314,7 +314,7 @@ loc_IOMS:
     mov ax, word [bp + 8]            ; 0x871a
     add ax, word [bp - 0xa]          ; 0x871d
     push ax                          ; 0x8720
-    call loc_MNNG                    ; 0x8721
+    call draw_colored_rect_outline   ; 0x8721
     add sp, byte 0xa                 ; 0x8724
     mov ax, word [bp - 8]            ; 0x8727
     inc ax                           ; 0x872a
@@ -347,7 +347,7 @@ loc_IOMS:
     mov ax, word [bp + 8]            ; 0x8763
     add ax, word [bp - 0xa]          ; 0x8766
     push ax                          ; 0x8769
-    call loc_MNNG                    ; 0x876a
+    call draw_colored_rect_outline   ; 0x876a
     add sp, byte 0xa                 ; 0x876d
 .back4:
     mov ax, 1                        ; 0x8770

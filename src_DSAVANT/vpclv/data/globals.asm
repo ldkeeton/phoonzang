@@ -65,5 +65,5 @@ __zobss_95f8:  ; slot_label
     resb 0x00c8
 __zobss_96c0:  ; slot_limit
     resb 0x0044
-__zobss_9704:  ; bss_9704
+__zobss_9704:  ; level_up_transition_state
     resb 0x00a8

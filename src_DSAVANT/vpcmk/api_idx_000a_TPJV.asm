@@ -44,7 +44,7 @@ jumptable_5cb4_case_0:
     mov ax, 0x248                    ; 0x5af2
     imul word [bp + 4]               ; 0x5af5
     mov bx, ax                       ; 0x5af8
-    add byte [bx + party_records + pc_rec.f_0246], 0xfd ; 0x5afa
+    add byte [bx + party_records + pc_rec.level_scaled_percent], 0xfd ; 0x5afa
     jmp near api_idx_000a_TPJV.forward2 ; 0x5aff
 jumptable_5cb4_case_1:
     mov ax, 3                        ; 0x5b02
@@ -84,7 +84,7 @@ jumptable_5cb4_case_3:
     mov ax, 0x248                    ; 0x5b46
     imul word [bp + 4]               ; 0x5b49
     mov bx, ax                       ; 0x5b4c
-    dec byte [bx + party_records + pc_rec.f_0246] ; 0x5b4e
+    dec byte [bx + party_records + pc_rec.level_scaled_percent] ; 0x5b4e
     jmp near api_idx_000a_TPJV.forward2 ; 0x5b52
 jumptable_5cb4_case_4:
     mov ax, 4                        ; 0x5b55
@@ -107,8 +107,8 @@ jumptable_5cb4_case_4:
     mov ax, 0x248                    ; 0x5b78
     imul word [bp + 4]               ; 0x5b7b
     mov bx, ax                       ; 0x5b7e
-    dec byte [bx + party_records + pc_rec.f_0246] ; 0x5b80
-    dec byte [bx + party_records + pc_rec.f_0246] ; 0x5b84
+    dec byte [bx + party_records + pc_rec.level_scaled_percent] ; 0x5b80
+    dec byte [bx + party_records + pc_rec.level_scaled_percent] ; 0x5b84
     jmp near api_idx_000a_TPJV.forward2 ; 0x5b88
 jumptable_5cb4_case_5:
     mov ax, 4                        ; 0x5b8b
@@ -161,7 +161,7 @@ jumptable_5cb4_case_8:
     mov ax, 0x248                    ; 0x5be7
     imul word [bp + 4]               ; 0x5bea
     mov bx, ax                       ; 0x5bed
-    add byte [bx + party_records + pc_rec.f_0246], 0xfc ; 0x5bef
+    add byte [bx + party_records + pc_rec.level_scaled_percent], 0xfc ; 0x5bef
     jmp near api_idx_000a_TPJV.forward2 ; 0x5bf4
 jumptable_5cb4_case_9:
     mov ax, 4                        ; 0x5bf7
@@ -189,7 +189,7 @@ jumptable_5cb4_case_10:
     mov ax, 0x248                    ; 0x5c24
     imul word [bp + 4]               ; 0x5c27
     mov bx, ax                       ; 0x5c2a
-    add byte [bx + party_records + pc_rec.f_0246], 0xfc ; 0x5c2c
+    add byte [bx + party_records + pc_rec.level_scaled_percent], 0xfc ; 0x5c2c
     jmp near api_idx_000a_TPJV.forward2 ; 0x5c31
 jumptable_5cb4_case_11:
     mov ax, 4                        ; 0x5c34
@@ -212,7 +212,7 @@ jumptable_5cb4_case_11:
     mov ax, 0x248                    ; 0x5c57
     imul word [bp + 4]               ; 0x5c5a
     mov bx, ax                       ; 0x5c5d
-    add byte [bx + party_records + pc_rec.f_0246], 0xfb ; 0x5c5f
+    add byte [bx + party_records + pc_rec.level_scaled_percent], 0xfb ; 0x5c5f
     jmp short api_idx_000a_TPJV.forward2 ; 0x5c64
 jumptable_5cb4_case_12:
     mov ax, 4                        ; 0x5c66
@@ -227,8 +227,8 @@ jumptable_5cb4_case_12:
     mov ax, 0x248                    ; 0x5c7b
     imul word [bp + 4]               ; 0x5c7e
     mov bx, ax                       ; 0x5c81
-    dec byte [bx + party_records + pc_rec.f_0246] ; 0x5c83
-    dec byte [bx + party_records + pc_rec.f_0246] ; 0x5c87
+    dec byte [bx + party_records + pc_rec.level_scaled_percent] ; 0x5c83
+    dec byte [bx + party_records + pc_rec.level_scaled_percent] ; 0x5c87
     jmp short api_idx_000a_TPJV.forward2 ; 0x5c8b
 jumptable_5cb4_case_13:
     mov ax, 5                        ; 0x5c8d
@@ -243,8 +243,8 @@ jumptable_5cb4_case_13:
     mov ax, 0x248                    ; 0x5ca2
     imul word [bp + 4]               ; 0x5ca5
     mov bx, ax                       ; 0x5ca8
-    dec byte [bx + party_records + pc_rec.f_0246] ; 0x5caa
-    dec byte [bx + party_records + pc_rec.f_0246] ; 0x5cae
+    dec byte [bx + party_records + pc_rec.level_scaled_percent] ; 0x5caa
+    dec byte [bx + party_records + pc_rec.level_scaled_percent] ; 0x5cae
     jmp short api_idx_000a_TPJV.forward2 ; 0x5cb2
 jumptable_5cb4:
     dw jumptable_5cb4_case_0 - IMAGE_BASE + __zres_end ; 0x5cb4

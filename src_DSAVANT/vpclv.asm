@@ -28,26 +28,26 @@ __zcode_start:
 percent_suffix_text equ __zdseg_end + (__zpercent_suffix_text - __zdata_start)
 spell_cost_panel_text equ __zdseg_end + (__zspell_cost_panel_text - __zdata_start)
 pick_spell_dialog_keep_frames_dseg175 equ __zdseg_end + (__zdseg_909f - __zdata_start)
-dseg_90a5 equ __zdseg_end + (__zdseg_90a5 - __zdata_start)
-dseg_90b4 equ __zdseg_end + (__zdseg_90b4 - __zdata_start)
-dseg_90c3 equ __zdseg_end + (__zdseg_90c3 - __zdata_start)
-dseg_90d2 equ __zdseg_end + (__zdseg_90d2 - __zdata_start)
-dseg_90e1 equ __zdseg_end + (__zdseg_90e1 - __zdata_start)
-dseg_90f0 equ __zdseg_end + (__zdseg_90f0 - __zdata_start)
-dseg_90ff equ __zdseg_end + (__zdseg_90ff - __zdata_start)
-dseg_910e equ __zdseg_end + (__zdseg_910e - __zdata_start)
-dseg_911d equ __zdseg_end + (__zdseg_911d - __zdata_start)
-dseg_912c equ __zdseg_end + (__zdseg_912c - __zdata_start)
-dseg_913b equ __zdseg_end + (__zdseg_913b - __zdata_start)
-dseg_914a equ __zdseg_end + (__zdseg_914a - __zdata_start)
-dseg_9159 equ __zdseg_end + (__zdseg_9159 - __zdata_start)
-dseg_9168 equ __zdseg_end + (__zdseg_9168 - __zdata_start)
-dseg_9177 equ __zdseg_end + (__zdseg_9177 - __zdata_start)
-dseg_9186 equ __zdseg_end + (__zdseg_9186 - __zdata_start)
-dseg_9195 equ __zdseg_end + (__zdseg_9195 - __zdata_start)
-dseg_91a4 equ __zdseg_end + (__zdseg_91a4 - __zdata_start)
-dseg_91b3 equ __zdseg_end + (__zdseg_91b3 - __zdata_start)
-dseg_91c2 equ __zdseg_end + (__zdseg_91c2 - __zdata_start)
+fighter_resist_base equ __zdseg_end + (__zfighter_resist_base - __zdata_start)
+fighter_resist_growth equ __zdseg_end + (__zfighter_resist_growth - __zdata_start)
+ranger_valkyrie_resist_base equ __zdseg_end + (__zranger_valkyrie_resist_base - __zdata_start)
+ranger_valkyrie_resist_growth equ __zdseg_end + (__zranger_valkyrie_resist_growth - __zdata_start)
+lord_resist_base equ __zdseg_end + (__zlord_resist_base - __zdata_start)
+lord_resist_growth equ __zdseg_end + (__zlord_resist_growth - __zdata_start)
+samurai_resist_base equ __zdseg_end + (__zsamurai_resist_base - __zdata_start)
+samurai_resist_growth equ __zdseg_end + (__zsamurai_resist_growth - __zdata_start)
+ninja_resist_base equ __zdseg_end + (__zninja_resist_base - __zdata_start)
+ninja_resist_growth equ __zdseg_end + (__zninja_resist_growth - __zdata_start)
+mage_alchemist_resist_base equ __zdseg_end + (__zmage_alchemist_resist_base - __zdata_start)
+mage_alchemist_resist_growth equ __zdseg_end + (__zmage_alchemist_resist_growth - __zdata_start)
+psionic_resist_base equ __zdseg_end + (__zpsionic_resist_base - __zdata_start)
+psionic_resist_growth equ __zdseg_end + (__zpsionic_resist_growth - __zdata_start)
+priest_bishop_resist_base equ __zdseg_end + (__zpriest_bishop_resist_base - __zdata_start)
+priest_bishop_resist_growth equ __zdseg_end + (__zpriest_bishop_resist_growth - __zdata_start)
+monk_resist_base equ __zdseg_end + (__zmonk_resist_base - __zdata_start)
+monk_resist_growth equ __zdseg_end + (__zmonk_resist_growth - __zdata_start)
+thief_bard_resist_base equ __zdseg_end + (__zthief_bard_resist_base - __zdata_start)
+thief_bard_resist_growth equ __zdseg_end + (__zthief_bard_resist_growth - __zdata_start)
 profession_0_skill_group_0 equ __zdseg_end + (__zprofession_0_skill_group_0 - __zdata_start)
 profession_0_skill_group_1 equ __zdseg_end + (__zprofession_0_skill_group_1 - __zdata_start)
 profession_0_skill_group_2 equ __zdseg_end + (__zprofession_0_skill_group_2 - __zdata_start)
@@ -104,13 +104,13 @@ profession_13_skill_group_0 equ __zdseg_end + (__zprofession_13_skill_group_0 - 
 profession_13_skill_group_1 equ __zdseg_end + (__zprofession_13_skill_group_1 - __zdata_start)
 profession_13_skill_group_2 equ __zdseg_end + (__zprofession_13_skill_group_2 - __zdata_start)
 profession_13_skill_group_3 equ __zdseg_end + (__zprofession_13_skill_group_3 - __zdata_start)
-dseg_93e5 equ __zdseg_end + (__zdseg_93e5 - __zdata_start)
-dseg_93e9 equ __zdseg_end + (__zdseg_93e9 - __zdata_start)
-dseg_93eb equ __zdseg_end + (__zdseg_93eb - __zdata_start)
-dseg_93ed equ __zdseg_end + (__zdseg_93ed - __zdata_start)
-dseg_93ee equ __zdseg_end + (__zdseg_93ee - __zdata_start)
-dseg_93ef equ __zdseg_end + (__zdseg_93ef - __zdata_start)
-dseg_93f0 equ __zdseg_end + (__zdseg_93f0 - __zdata_start)
+stamina_percent_open_text equ __zdseg_end + (__zstamina_percent_open_text - __zdata_start)
+stamina_percent_close_text equ __zdseg_end + (__zstamina_percent_close_text - __zdata_start)
+hit_points_separator_text equ __zdseg_end + (__zhit_points_separator_text - __zdata_start)
+empty_vitals_suffix_text equ __zdseg_end + (__zempty_vitals_suffix_text - __zdata_start)
+empty_stat_number_separator equ __zdseg_end + (__zempty_stat_number_separator - __zdata_start)
+empty_stat_number_suffix equ __zdseg_end + (__zempty_stat_number_suffix - __zdata_start)
+level_up_screen_file equ __zdseg_end + (__zlevel_up_screen_file - __zdata_start)
 save_si equ __zdseg_end + (__zsave_si - __zdata_start)
 save_di equ __zdseg_end + (__zsave_di - __zdata_start)
 save_sp equ __zdseg_end + (__zsave_sp - __zdata_start)
@@ -150,7 +150,7 @@ slot_value equ __zdseg_end + (__zobss_95f0 - __zdata_start)
 slot_value2 equ __zdseg_end + (__zobss_95f4 - __zdata_start)
 slot_label equ __zdseg_end + (__zobss_95f8 - __zdata_start)
 slot_limit equ __zdseg_end + (__zobss_96c0 - __zdata_start)
-bss_9704 equ __zdseg_end + (__zobss_9704 - __zdata_start)
+level_up_transition_state equ __zdseg_end + (__zobss_9704 - __zdata_start)
 _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "vpclv/ovmain.asm"                ; 0x000e
@@ -189,11 +189,11 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "shared/ovr/pick_spell_dialog_keep_frames.asm" ; 0x1141
 
-%include "vpclv/api_idx_00ca_KSLQ.asm"     ; 0x1e31
+%include "vpclv/learn_member_spell.asm"    ; 0x1e31
 
 %include "shared/ovr/refresh_title_and_member_panel.asm" ; 0x20e3
 
-%include "vpclv/loc_HJRN.asm"              ; 0x2189
+%include "vpclv/draw_member_status_panel.asm" ; 0x2189
 
 %include "shared/ovr/set_party_hand_attack.asm" ; 0x21be
 
@@ -211,11 +211,11 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "shared/ovr/update_party_stat_adjustments.asm" ; 0x2b1a
 
-%include "vpclv/api_idx_0052_NKUS.asm"     ; 0x2c0c
+%include "vpclv/initialize_member_defenses.asm" ; 0x2c0c
 
 %include "shared/ovr/display_centered_message.asm" ; 0x3288
 
-%include "vpclv/api_idx_0020_ORSV.asm"     ; 0x333c
+%include "vpclv/draw_message_number_line.asm" ; 0x333c
 
 %include "shared/ovr/set_party_skill_flags.asm" ; 0x34cd
 
@@ -225,33 +225,33 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "shared/ovr/draw_slot_value_row.asm"   ; 0x390b
 
-%include "vpclv/api_idx_0032_VJTR.asm"     ; 0x3a7a
+%include "vpclv/edit_skill_group_points.asm" ; 0x3a7a
 
-%include "vpclv/api_idx_0088_LVJM.asm"     ; 0x3f9e
+%include "vpclv/allocate_member_skill_bonus.asm" ; 0x3f9e
 
 %include "shared/ovr/roll_slot_values.asm"      ; 0x4140
 
-%include "vpclv/api_idx_0002_QPTM.asm"     ; 0x4270
+%include "vpclv/raise_member_skill_from_pool.asm" ; 0x4270
 
-%include "vpclv/loc_LSTQ.asm"              ; 0x4310
+%include "vpclv/award_level_skill_points.asm" ; 0x4310
 
-%include "vpclv/api_idx_00ac_RQRT.asm"     ; 0x45e0
+%include "vpclv/raise_member_vitals.asm"   ; 0x45e0
 
-%include "vpclv/api_idx_0004_GJKI.asm"     ; 0x4884
+%include "vpclv/lower_level_scaled_percent.asm" ; 0x4884
 
-%include "vpclv/api_idx_0018_SRUO.asm"     ; 0x4955
+%include "vpclv/award_member_spell_progress.asm" ; 0x4955
 
-%include "vpclv/api_idx_00b4_QLQS.asm"     ; 0x4cc5
+%include "vpclv/raise_random_member_stats.asm" ; 0x4cc5
 
-%include "vpclv/api_idx_0006_KHMT.asm"     ; 0x4e03
+%include "vpclv/update_member_rank.asm"    ; 0x4e03
 
-%include "vpclv/api_idx_00a4_PTJS.asm"     ; 0x4e9e
+%include "vpclv/award_member_level.asm"    ; 0x4e9e
 
-%include "vpclv/api_idx_0046_NOMK.asm"     ; 0x4fca
+%include "vpclv/check_or_apply_level_ups.asm" ; 0x4fca
 
 %include "shared/ovr/draw_party_glyph_row.asm"  ; 0x50a1
 
-%include "vpclv/api_idx_000c_NVIQ.asm"     ; 0x5161
+%include "vpclv/show_level_up_sequence.asm" ; 0x5161
 
 %include "shared/ovr/aztec_ovbgn.asm"           ; 0x5472
 
@@ -262,9 +262,61 @@ __zdata_start:
 
 %include "vpclv/data/pick_spell_dialog_keep_frames_dseg175.asm"        ; 0x54b7
 
+%include "vpclv/data/fighter_resist_base.asm" ; 0x54bd
+
+%include "vpclv/data/fighter_resist_growth.asm" ; 0x54cc
+
+%include "vpclv/data/ranger_valkyrie_resist_base.asm" ; 0x54db
+
+%include "vpclv/data/ranger_valkyrie_resist_growth.asm" ; 0x54ea
+
+%include "vpclv/data/lord_resist_base.asm" ; 0x54f9
+
+%include "vpclv/data/lord_resist_growth.asm" ; 0x5508
+
+%include "vpclv/data/samurai_resist_base.asm" ; 0x5517
+
+%include "vpclv/data/samurai_resist_growth.asm" ; 0x5526
+
+%include "vpclv/data/ninja_resist_base.asm" ; 0x5535
+
+%include "vpclv/data/ninja_resist_growth.asm" ; 0x5544
+
+%include "vpclv/data/mage_alchemist_resist_base.asm" ; 0x5553
+
+%include "vpclv/data/mage_alchemist_resist_growth.asm" ; 0x5562
+
+%include "vpclv/data/psionic_resist_base.asm" ; 0x5571
+
+%include "vpclv/data/psionic_resist_growth.asm" ; 0x5580
+
+%include "vpclv/data/priest_bishop_resist_base.asm" ; 0x558f
+
+%include "vpclv/data/priest_bishop_resist_growth.asm" ; 0x559e
+
+%include "vpclv/data/monk_resist_base.asm" ; 0x55ad
+
+%include "vpclv/data/monk_resist_growth.asm" ; 0x55bc
+
+%include "vpclv/data/thief_bard_resist_base.asm" ; 0x55cb
+
+%include "vpclv/data/thief_bard_resist_growth.asm" ; 0x55da
+
 %include "shared/data/profession_skill_groups.asm" ; 0x55e9
 
-%include "vpclv/data/dseg_93e5.asm"        ; 0x57fd
+%include "vpclv/data/stamina_percent_open_text.asm" ; 0x57fd
+
+%include "vpclv/data/stamina_percent_close_text.asm" ; 0x5801
+
+%include "vpclv/data/hit_points_separator_text.asm" ; 0x5803
+
+%include "vpclv/data/empty_vitals_suffix_text.asm" ; 0x5805
+
+%include "vpclv/data/empty_stat_number_separator.asm" ; 0x5806
+
+%include "vpclv/data/empty_stat_number_suffix.asm" ; 0x5807
+
+%include "vpclv/data/level_up_screen_file.asm" ; 0x5808
 
 %include "shared/data/overlay_saved_registers.asm" ; 0x5816
 

@@ -75,7 +75,8 @@ vtrea/run_state_1c_scene
 vtrea/run_state_1d_scene
 shared/ovr/draw_split_two_line_text
 shared/ovr/wait_10_ms
-vtrea/show_indexed_beveled_label
+shared/ovr/show_indexed_beveled_label
+vtrea/draw_colored_rect_outline
 vtrea/loc_IOMS
 shared/ovr/draw_party_slot_letters
 shared/ovr/advance_party_slot_frames

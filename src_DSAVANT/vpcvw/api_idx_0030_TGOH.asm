@@ -90,16 +90,16 @@ api_idx_0030_TGOH:
     mov byte [bx + party_records + pc_rec.profession], al ; 0x937c
     cmp word [bx + party_records + pc_rec.level], strict word 0xfa ; 0x9380
     jge short .forward6              ; 0x9386
-    mov al, byte [bx + party_records + pc_rec.power_floor] ; 0x9388
+    mov al, byte [bx + party_records + pc_rec.pre_drain_level] ; 0x9388
     sub ah, ah                       ; 0x938c
     cmp ax, word [bx + party_records + pc_rec.level] ; 0x938e
     jge short .forward5              ; 0x9392
     mov al, byte [bx + party_records + pc_rec.level] ; 0x9394
-    mov byte [bx + party_records + pc_rec.power_floor], al ; 0x9398
+    mov byte [bx + party_records + pc_rec.pre_drain_level], al ; 0x9398
 .forward5:
     jmp short .forward7              ; 0x939c
 .forward6:
-    mov byte [bx + party_records + pc_rec.power_floor], 0 ; 0x939e
+    mov byte [bx + party_records + pc_rec.pre_drain_level], 0 ; 0x939e
 .forward7:
     mov word [bx + party_records + pc_rec.level], 1 ; 0x93a3
     mov byte [bx + party_records + pc_rec.rank], 0 ; 0x93a9

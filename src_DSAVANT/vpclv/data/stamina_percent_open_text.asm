@@ -1,0 +1,3 @@
+; auto-generated
+__zstamina_percent_open_text:
+    db 0x25, 0x20, 0x28, 0x00

@@ -67,7 +67,7 @@ struct pc_rec {				/* 0x248 bytes */
 	struct pc_item_slot item_slots[2][10];	/* +0x040 */
 	struct pc_hand_attack hand_attack[2]; /* +0x130: per weapon hand */
 	unsigned char equipped[8];	/* +0x154: item_slots index per equip position, 0xff empty; 0-1 hands */
-	unsigned char spell_school[4];	/* +0x15c: mage, priest, alchemist, psionic */
+	unsigned char spells_to_learn[4];	/* +0x15c: pending spell picks per school: mage, priest, alchemist, psionic */
 	unsigned char glyph_row[6];	/* +0x160: panel glyph rows, each at least 1 */
 	unsigned char status[10];	/* +0x166: [2] set 6..11 when stamina[0] hits 0 */
 	unsigned char stat[8];		/* +0x170 */
@@ -101,8 +101,8 @@ struct pc_rec {				/* 0x248 bytes */
 	unsigned char adjusted_stat4;	/* +0x243 */
 	unsigned char adjusted_stat5;	/* +0x244 */
 	unsigned char stat5_plus_power;	/* +0x245 */
-	char pad5;			/* +0x246 */
-	unsigned char power_floor;		/* +0x247 */
+	char level_scaled_percent;	/* +0x246: imported near 100 - 8 * level; each level to 20 lowers it 1-6 by class */
+	unsigned char pre_drain_level;	/* +0x247: level before a drain; regained levels below it give minimal gains */
 };
 
 #endif

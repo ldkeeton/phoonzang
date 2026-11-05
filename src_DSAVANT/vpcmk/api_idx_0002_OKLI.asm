@@ -5,7 +5,7 @@ api_idx_0002_OKLI:
     mov ax, 0x248                    ; 0x6274
     imul word [bp + 4]               ; 0x6277
     mov bx, ax                       ; 0x627a
-    mov byte [bx + party_records + pc_rec.f_0246], 0x64 ; 0x627c
+    mov byte [bx + party_records + pc_rec.level_scaled_percent], 0x64 ; 0x627c
     push word [bp + 4]               ; 0x6281
     call api_idx_000a_TPJV           ; 0x6284
     pop cx                           ; 0x6287

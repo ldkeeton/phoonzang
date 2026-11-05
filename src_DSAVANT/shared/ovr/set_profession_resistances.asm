@@ -14,7 +14,7 @@ set_profession_resistances:
     mov bx, ax
     mov ax, word [bx + party_records + pc_rec.level]
     push ax
-    mov al, byte [bx + party_records + pc_rec.power_floor]
+    mov al, byte [bx + party_records + pc_rec.pre_drain_level]
     sub ah, ah
     mov cx, ax
     pop ax

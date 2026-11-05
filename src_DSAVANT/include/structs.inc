@@ -87,7 +87,7 @@ struc pc_rec
     .item_slots: resb 240
     .hand_attack: resb 36
     .equipped: resb 8
-    .spell_school: resb 4
+    .spells_to_learn: resb 4
     .f_0160: resb 6
     .status: resb 10
     .stat: resb 8
@@ -111,8 +111,8 @@ struc pc_rec
     .adjusted_stat4: resb 1
     .adjusted_stat5: resb 1
     .stat5_plus_power: resb 1
-    .f_0246: resb 1
-    .power_floor: resb 1
+    .level_scaled_percent: resb 1
+    .pre_drain_level: resb 1
 endstruc
 
 ; records at DS 0x6a1a

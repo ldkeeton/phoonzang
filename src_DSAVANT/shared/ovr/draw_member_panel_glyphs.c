@@ -30,12 +30,12 @@ int member_index;
 			glyph_row + 1, glyph_row + 1, glyph_row + 1, glyph_row + 1);
 		break;
 	case 1:
-		party_records[member_index].spell_school[0] = 2;
+		party_records[member_index].spells_to_learn[0] = 2;
 		draw_member_glyph_row(member_index, glyph_row + 3, glyph_row + 3,
 			glyph_row + 2, glyph_row + 2, glyph_row + 2, glyph_row + 3);
 		break;
 	case 2:
-		party_records[member_index].spell_school[1] = 2;
+		party_records[member_index].spells_to_learn[1] = 2;
 		draw_member_glyph_row(member_index, glyph_row + 2, glyph_row + 3,
 			glyph_row + 2, glyph_row + 2, glyph_row + 3, glyph_row + 3);
 		break;
@@ -44,7 +44,7 @@ int member_index;
 			glyph_row + 2, glyph_row + 2, glyph_row + 2, glyph_row + 1);
 		break;
 	case 5:
-		party_records[member_index].spell_school[2] = 2;
+		party_records[member_index].spells_to_learn[2] = 2;
 		draw_member_glyph_row(member_index, glyph_row + 3, glyph_row + 2,
 			glyph_row + 3, glyph_row + 3, glyph_row + 2, glyph_row + 2);
 		break;
@@ -53,7 +53,7 @@ int member_index;
 			glyph_row + 1, glyph_row + 1, glyph_row + 2, glyph_row + 1);
 		break;
 	case 7:
-		party_records[member_index].spell_school[3] = 2;
+		party_records[member_index].spells_to_learn[3] = 2;
 		draw_member_glyph_row(member_index, glyph_row + 3, glyph_row + 2,
 			glyph_row + 2, glyph_row + 2, glyph_row + 4, glyph_row + 2);
 		break;
@@ -62,8 +62,8 @@ int member_index;
 			glyph_row + 2, glyph_row + 1, glyph_row + 1, glyph_row + 2);
 		break;
 	case 9:
-		party_records[member_index].spell_school[0] = 1;
-		party_records[member_index].spell_school[1] = 1;
+		party_records[member_index].spells_to_learn[0] = 1;
+		party_records[member_index].spells_to_learn[1] = 1;
 		draw_member_glyph_row(member_index, glyph_row + 2, glyph_row + 2,
 			glyph_row + 2, glyph_row + 2, glyph_row + 2, glyph_row + 3);
 		break;

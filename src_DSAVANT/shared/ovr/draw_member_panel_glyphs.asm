@@ -56,7 +56,7 @@ jumptable_1ee4_case_1:
     mov ax, 0x248
     imul word [bp + 4]
     mov bx, ax
-    mov byte [bx + party_records + pc_rec.spell_school], 2
+    mov byte [bx + party_records + pc_rec.spells_to_learn], 2
     mov ax, word [bp - 4]
     inc ax
     inc ax
@@ -82,7 +82,7 @@ jumptable_1ee4_case_2:
     mov ax, 0x248
     imul word [bp + 4]
     mov bx, ax
-    mov byte [bx + party_records + pc_rec.spell_school + 0x1], 2
+    mov byte [bx + party_records + pc_rec.spells_to_learn + 0x1], 2
     mov ax, word [bp - 4]
     inc ax
     inc ax
@@ -129,7 +129,7 @@ jumptable_1ee4_case_5:
     mov ax, 0x248
     imul word [bp + 4]
     mov bx, ax
-    mov byte [bx + party_records + pc_rec.spell_school + 0x2], 2
+    mov byte [bx + party_records + pc_rec.spells_to_learn + 0x2], 2
     mov ax, word [bp - 4]
     inc ax
     inc ax
@@ -179,7 +179,7 @@ jumptable_1ee4_case_7:
     mov ax, 0x248
     imul word [bp + 4]
     mov bx, ax
-    mov byte [bx + party_records + pc_rec.spell_school + 0x3], 2
+    mov byte [bx + party_records + pc_rec.spells_to_learn + 0x3], 2
     mov ax, word [bp - 4]
     inc ax
     inc ax
@@ -227,8 +227,8 @@ jumptable_1ee4_case_9:
     mov ax, 0x248
     imul word [bp + 4]
     mov bx, ax
-    mov byte [bx + party_records + pc_rec.spell_school], 1
-    mov byte [bx + party_records + pc_rec.spell_school + 0x1], 1
+    mov byte [bx + party_records + pc_rec.spells_to_learn], 1
+    mov byte [bx + party_records + pc_rec.spells_to_learn + 0x1], 1
     mov ax, word [bp - 4]
     inc ax
     inc ax

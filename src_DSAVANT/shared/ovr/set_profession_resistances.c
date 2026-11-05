@@ -13,13 +13,13 @@ char *per_level;		/* ASCII digits: percent gained per level */
 	int amount;
 	int levels;
 
-	/* Levels past the first count, up to 16; power_floor can stand in for a
+	/* Levels past the first count, up to 16; pre_drain_level can stand in for a
 	   lower level.  adjust_member_resistance clamps to 0..125. */
 	for (resist = 0; resist < 14; resist++) {
 		party_records[member_index].resistance_rows.named.base_resist[resist] = 0;
 		levels = party_records[member_index].level
-			< party_records[member_index].power_floor
-			? party_records[member_index].power_floor
+			< party_records[member_index].pre_drain_level
+			? party_records[member_index].pre_drain_level
 			: party_records[member_index].level;
 		levels = levels > 16 ? 16 : levels - 1;
 		amount = base_values[resist] * 4

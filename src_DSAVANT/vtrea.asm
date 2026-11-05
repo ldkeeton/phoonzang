@@ -259,7 +259,9 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "shared/ovr/wait_10_ms.asm"            ; 0x82a9
 
-%include "vtrea/show_indexed_beveled_label.asm" ; 0x82b8
+%include "shared/ovr/show_indexed_beveled_label.asm" ; 0x82b8
+
+%include "vtrea/draw_colored_rect_outline.asm" ; 0x83c6
 
 %include "vtrea/loc_IOMS.asm"              ; 0x8441
 
