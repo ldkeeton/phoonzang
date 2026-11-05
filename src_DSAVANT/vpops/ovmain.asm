@@ -4,7 +4,7 @@ ovmain:
     call aztec_csav                  ; 0x0011
     cmp word [game_state], byte 0xc  ; 0x0014
     jne short .forward1              ; 0x0019
-    call api_idx_0004_NRTK           ; 0x001b
+    call enter_party_battle_orders   ; 0x001b
 .forward1:
     mov ax, 0                        ; 0x001e
     ret                              ; 0x0021

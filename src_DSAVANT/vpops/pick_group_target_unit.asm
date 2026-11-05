@@ -1,5 +1,5 @@
 ; auto-generated
-api_idx_000c_JUIH:
+pick_group_target_unit:
     mov ax, 0xfff4                   ; 0x178a
     call aztec_csav                  ; 0x178d
     mov word [bp - 0xc], 1           ; 0x1790

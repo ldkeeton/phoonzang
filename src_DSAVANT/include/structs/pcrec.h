@@ -31,7 +31,7 @@ struct pc_hand_attack {
 	char pad0b;
 	char pad0c;			/* +0x0c: from the item's +0x45 */
 	unsigned char range;		/* +0x0d: indexes the rank limits at
-					   bss_9386; ranks 3+ need non-zero */
+					   range_max_target_group; ranks 3+ need non-zero */
 	char hit_penalty;             /* +0x0e: lowered by stat[4] */
 	unsigned char attack_flags;   /* +0x0f: attack mode bits 0..7 */
 	char pad10;			/* +0x10: from the item's +0x42 */

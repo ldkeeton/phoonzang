@@ -15,7 +15,7 @@ cast_spell_from_menu:
     je short .forward1               ; 0x45fd
     jmp near .forward4               ; 0x45ff
 .forward1:
-    mov ax, word [spell_dialog_result] ; 0x4602
+    mov ax, word [dialog_selection]  ; 0x4602
     mov cx, 0x100                    ; 0x4605
     cwd                              ; 0x4608
     idiv cx                          ; 0x4609

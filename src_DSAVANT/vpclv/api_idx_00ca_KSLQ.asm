@@ -175,7 +175,7 @@ api_idx_00ca_KSLQ:
     je short .forward6               ; 0x1fe4
     jmp near .return1                ; 0x1fe6
 .forward6:
-    mov ax, word [spell_dialog_result] ; 0x1fe9
+    mov ax, word [dialog_selection]  ; 0x1fe9
     mov cx, 0x100                    ; 0x1fec
     cwd                              ; 0x1fef
     idiv cx                          ; 0x1ff0

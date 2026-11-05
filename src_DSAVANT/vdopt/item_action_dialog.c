@@ -1,5 +1,5 @@
 /* Presents the item list and Use, Drop and Esc buttons; returns the button. */
-extern int spell_dialog_result, spell_dialog_button;
+extern int dialog_selection, dialog_button;
 extern int space_key_hit, hotspot_hit, hotspot_rects[];
 extern char item_dialog_temp_file[];
 
@@ -24,7 +24,7 @@ char *first_label;
 	char label[18];
 	int saved_area;
 
-	spell_dialog_result = -1;
+	dialog_selection = -1;
 	box_x = 55;
 	box_y = 143;
 	box_right = 264;
@@ -131,7 +131,7 @@ char *first_label;
 				if (first_enabled) {
 					flash_button(box_x + 8, box_y + 7, 12, 1, 1);
 					flash_button(box_x + 8, box_y + 7, 12, 1, 0);
-					spell_dialog_button = 0;
+					dialog_button = 0;
 					running = 0;
 				}
 				break;
@@ -139,7 +139,7 @@ char *first_label;
 				if (second_enabled) {
 					flash_button(box_x + 8, box_y + 23, 12, 1, 1);
 					flash_button(box_x + 8, box_y + 23, 12, 1, 0);
-					spell_dialog_button = 1;
+					dialog_button = 1;
 					running = 0;
 				}
 				break;
@@ -147,7 +147,7 @@ char *first_label;
 				if (third_enabled) {
 					flash_button(box_x + 8, box_y + 39, 12, 1, 1);
 					flash_button(box_x + 8, box_y + 39, 12, 1, 0);
-					spell_dialog_button = 2;
+					dialog_button = 2;
 					running = 0;
 				}
 				break;
@@ -162,6 +162,6 @@ char *first_label;
 		}
 	} while (running);
 	restore_saved_screen(saved_area, 1);
-	spell_dialog_result = selected_row;
-	return spell_dialog_button;
+	dialog_selection = selected_row;
+	return dialog_button;
 }

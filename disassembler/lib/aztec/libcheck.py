@@ -84,7 +84,7 @@ def check(verbose=False):
                 shutil.copy(os.path.join(sources.src_root(VERSION), directory, src),
                             os.path.join(work, tag, src.upper()))
                 jobs.append(((directory, stem), src, tag))
-                tool = (f'cc + -n {src} -o {stem}.o' if src.endswith('.c')
+                tool = (f'cc -B + -n {src} -o {stem}.o' if src.endswith('.c')
                         else f'as -dMODEL=0 {src} -o {stem}.o')
                 bat += [f'cd \\{tag}', f'{tool} > BUILD.LOG',
                         f'obd {stem}.o > RAW.TXT', f'sqz {stem}.o > SQZ.LOG',

@@ -2,7 +2,7 @@
 item_or_loot_dialog:
     mov ax, 0xffc8                   ; 0x3a56
     call aztec_csav                  ; 0x3a59
-    mov word [spell_dialog_result], 0xffff ; 0x3a5c
+    mov word [dialog_selection], 0xffff ; 0x3a5c
     mov word [bp - 4], 0x37          ; 0x3a62
     mov word [bp - 6], 0x8f          ; 0x3a67
     mov word [bp - 8], 0x108         ; 0x3a6c
@@ -738,7 +738,7 @@ jumptable_4213_case_3:
     push ax                          ; 0x410a
     call flash_button                ; 0x410b
     add sp, byte 0xa                 ; 0x410e
-    mov word [spell_dialog_button], 0 ; 0x4111
+    mov word [dialog_button], 0      ; 0x4111
     mov word [bp - 0x1a], 0          ; 0x4117
 item_or_loot_dialog.forward21:
     jmp near item_or_loot_dialog.forward26 ; 0x411c
@@ -772,7 +772,7 @@ jumptable_4213_case_4:
     push ax                          ; 0x415b
     call flash_button                ; 0x415c
     add sp, byte 0xa                 ; 0x415f
-    mov word [spell_dialog_button], 1 ; 0x4162
+    mov word [dialog_button], 1      ; 0x4162
     mov word [bp - 0x1a], 0          ; 0x4168
 item_or_loot_dialog.forward22:
     jmp near item_or_loot_dialog.forward26 ; 0x416d
@@ -806,7 +806,7 @@ jumptable_4213_case_5:
     push ax                          ; 0x41ac
     call flash_button                ; 0x41ad
     add sp, byte 0xa                 ; 0x41b0
-    mov word [spell_dialog_button], 2 ; 0x41b3
+    mov word [dialog_button], 2      ; 0x41b3
     mov word [bp - 0x1a], 0          ; 0x41b9
 item_or_loot_dialog.forward23:
     jmp short item_or_loot_dialog.forward26 ; 0x41be
@@ -872,6 +872,6 @@ item_or_loot_dialog.forward27:
     add sp, byte 4                   ; 0x4241
     mov word [show_area_bottom], 0x8f ; 0x4244
     mov ax, word [bp - 0x20]         ; 0x424a
-    mov word [spell_dialog_result], ax ; 0x424d
-    mov ax, word [spell_dialog_button] ; 0x4250
+    mov word [dialog_selection], ax  ; 0x424d
+    mov ax, word [dialog_button]     ; 0x4250
     ret                              ; 0x4253

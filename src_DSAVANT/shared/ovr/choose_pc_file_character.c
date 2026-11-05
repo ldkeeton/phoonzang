@@ -13,7 +13,7 @@ struct known_spell_names_rec {
 };
 
 extern struct roster_state_view pc_file_record_base_hi;
-extern int pc_file_record_count, spell_dialog_result;
+extern int pc_file_record_count, dialog_selection;
 extern struct known_spell_names_rec known_spell_names[];
 extern int transfer_pc_file_record(), aztec_strcpy(), aztec_strlen();
 extern int load_message_string(), pick_list_entry_dialog();
@@ -64,7 +64,7 @@ int prompt_message;
 	if (option_count > 0) {
 		if (pick_list_entry_dialog(prompt_message, 0, 1, 1,
 				option_count) == 1) {
-			dialog_result = spell_dialog_result;
+			dialog_result = dialog_selection;
 			if (dialog_result != -1)
 				return selected_record_indices[dialog_result];
 		}

@@ -2,7 +2,7 @@
 pick_list_entry_dialog:
     mov ax, 0xffc8
     call aztec_csav
-    mov word [spell_dialog_result], 0xffff
+    mov word [dialog_selection], 0xffff
     mov word [bp - 4], 0x37
     mov word [bp - 6], 0x8f
     mov word [bp - 8], 0x108
@@ -650,7 +650,7 @@ jumptable_0d04_case_3:
     push ax
     call flash_button
     add sp, byte 0xa
-    mov word [spell_dialog_button], 0
+    mov word [dialog_button], 0
     mov word [bp - 0x1a], 0
 pick_list_entry_dialog.forward15:
     jmp near pick_list_entry_dialog.forward20
@@ -684,7 +684,7 @@ jumptable_0d04_case_4:
     push ax
     call flash_button
     add sp, byte 0xa
-    mov word [spell_dialog_button], 1
+    mov word [dialog_button], 1
     mov word [bp - 0x1a], 0
 pick_list_entry_dialog.forward16:
     jmp near pick_list_entry_dialog.forward20
@@ -718,7 +718,7 @@ jumptable_0d04_case_5:
     push ax
     call flash_button
     add sp, byte 0xa
-    mov word [spell_dialog_button], 2
+    mov word [dialog_button], 2
     mov word [bp - 0x1a], 0
 pick_list_entry_dialog.forward17:
     jmp short pick_list_entry_dialog.forward20
@@ -783,6 +783,6 @@ pick_list_entry_dialog.forward21:
     call restore_saved_screen
     add sp, byte 4
     mov ax, word [bp - 0x20]
-    mov word [spell_dialog_result], ax
-    mov ax, word [spell_dialog_button]
+    mov word [dialog_selection], ax
+    mov ax, word [dialog_button]
     ret

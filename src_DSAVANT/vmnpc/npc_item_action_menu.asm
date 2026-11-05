@@ -17,7 +17,7 @@ npc_item_action_menu:
     call single_action_item_dialog   ; 0x5d31
     add sp, byte 0xc                 ; 0x5d34
     mov word [bp - 6], ax            ; 0x5d37
-    mov ax, word [spell_dialog_result] ; 0x5d3a
+    mov ax, word [dialog_selection]  ; 0x5d3a
     mov word [bp - 2], ax            ; 0x5d3d
     mov word [bp - 4], 0             ; 0x5d40
     mov ax, word [bp - 6]            ; 0x5d45

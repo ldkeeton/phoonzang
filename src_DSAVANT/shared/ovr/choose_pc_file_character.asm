@@ -117,7 +117,7 @@ choose_pc_file_character:
     add sp, byte 0xa
     cmp ax, strict word 1
     jne short .forward6
-    mov ax, word [spell_dialog_result]
+    mov ax, word [dialog_selection]
     mov word [bp - 6], ax
     cmp ax, strict word 0xffff
     je short .forward6

@@ -2,7 +2,7 @@
 item_action_dialog:
     mov ax, 0xffc8                   ; 0x3a2c
     call aztec_csav                  ; 0x3a2f
-    mov word [spell_dialog_result], 0xffff ; 0x3a32
+    mov word [dialog_selection], 0xffff ; 0x3a32
     mov word [bp - 4], 0x37          ; 0x3a38
     mov word [bp - 6], 0x8f          ; 0x3a3d
     mov word [bp - 8], 0x108         ; 0x3a42
@@ -666,7 +666,7 @@ jumptable_4141_case_3:
     push ax                          ; 0x4038
     call flash_button                ; 0x4039
     add sp, byte 0xa                 ; 0x403c
-    mov word [spell_dialog_button], 0 ; 0x403f
+    mov word [dialog_button], 0      ; 0x403f
     mov word [bp - 0x1a], 0          ; 0x4045
 item_action_dialog.forward17:
     jmp near item_action_dialog.forward22 ; 0x404a
@@ -700,7 +700,7 @@ jumptable_4141_case_4:
     push ax                          ; 0x4089
     call flash_button                ; 0x408a
     add sp, byte 0xa                 ; 0x408d
-    mov word [spell_dialog_button], 1 ; 0x4090
+    mov word [dialog_button], 1      ; 0x4090
     mov word [bp - 0x1a], 0          ; 0x4096
 item_action_dialog.forward18:
     jmp near item_action_dialog.forward22 ; 0x409b
@@ -734,7 +734,7 @@ jumptable_4141_case_5:
     push ax                          ; 0x40da
     call flash_button                ; 0x40db
     add sp, byte 0xa                 ; 0x40de
-    mov word [spell_dialog_button], 2 ; 0x40e1
+    mov word [dialog_button], 2      ; 0x40e1
     mov word [bp - 0x1a], 0          ; 0x40e7
 item_action_dialog.forward19:
     jmp short item_action_dialog.forward22 ; 0x40ec
@@ -799,6 +799,6 @@ item_action_dialog.forward23:
     call restore_saved_screen        ; 0x416c
     add sp, byte 4                   ; 0x416f
     mov ax, word [bp - 0x20]         ; 0x4172
-    mov word [spell_dialog_result], ax ; 0x4175
-    mov ax, word [spell_dialog_button] ; 0x4178
+    mov word [dialog_selection], ax  ; 0x4175
+    mov ax, word [dialog_button]     ; 0x4178
     ret                              ; 0x417b

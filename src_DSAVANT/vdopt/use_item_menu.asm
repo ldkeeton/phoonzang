@@ -171,7 +171,7 @@ use_item_menu:
     call item_action_dialog          ; 0x430f
     add sp, byte 0xc                 ; 0x4312
     mov word [bp - 0x4e], ax         ; 0x4315
-    mov ax, word [spell_dialog_result] ; 0x4318
+    mov ax, word [dialog_selection]  ; 0x4318
     mov word [bp - 2], ax            ; 0x431b
     cmp word [bp - 0x4e], byte 2     ; 0x431e
     je short .forward10              ; 0x4322

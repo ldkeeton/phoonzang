@@ -1,6 +1,6 @@
 /* Three-button character-name dialog with an editable text field. */
 
-extern int spell_dialog_result, spell_dialog_button, hotspot_rects[];
+extern int dialog_selection, dialog_button, hotspot_rects[];
 extern int hotspot_hit;
 extern char known_spell_names[];
 extern char screen_save_temp_file[];
@@ -25,7 +25,7 @@ char *name_buffer;
 
 	/* The caller's buffer is the editable name; clear the shared dialog
 	   result. */
-	spell_dialog_result = -1;
+	dialog_selection = -1;
 	box_x = 55;
 	box_y = 143;
 	box_right = 264;
@@ -99,7 +99,7 @@ char *name_buffer;
 				if (first_enabled) {
 					flash_button(box_x + 8, box_y + 7, 12, 1, 1);
 					flash_button(box_x + 8, box_y + 7, 12, 1, 0);
-					spell_dialog_button = 0;
+					dialog_button = 0;
 					running = 0;
 				}
 				break;
@@ -108,7 +108,7 @@ char *name_buffer;
 				if (second_enabled) {
 					flash_button(box_x + 8, box_y + 23, 12, 1, 1);
 					flash_button(box_x + 8, box_y + 23, 12, 1, 0);
-					spell_dialog_button = 1;
+					dialog_button = 1;
 					running = 0;
 				}
 				break;
@@ -117,7 +117,7 @@ char *name_buffer;
 				if (third_enabled) {
 					flash_button(box_x + 8, box_y + 39, 12, 1, 1);
 					flash_button(box_x + 8, box_y + 39, 12, 1, 0);
-					spell_dialog_button = 2;
+					dialog_button = 2;
 					running = 0;
 				}
 				break;
@@ -127,6 +127,6 @@ char *name_buffer;
 
 	/* Restore the saved screen and mark the dialog result as inactive. */
 	restore_saved_screen(saved_area, 1);
-	spell_dialog_result = -1;
-	return spell_dialog_button;
+	dialog_selection = -1;
+	return dialog_button;
 }

@@ -1,5 +1,5 @@
 ; auto-generated
-api_idx_00d4_UHLT:
+choose_party_battle_orders:
     mov ax, 0xff2c                   ; 0x3710
     call aztec_csav                  ; 0x3713
     lea ax, word [bp - 0xd4]         ; 0x3716
@@ -163,7 +163,7 @@ api_idx_00d4_UHLT:
     push ax                          ; 0x38b4
     mov ax, 0x2d                     ; 0x38b5
     push ax                          ; 0x38b8
-    mov ax, bss_90d8                 ; 0x38b9
+    mov ax, unit_targeted            ; 0x38b9
     push ax                          ; 0x38bc
     call aztec_setmem                ; 0x38bd
     add sp, byte 6                   ; 0x38c0
@@ -427,7 +427,7 @@ api_idx_00d4_UHLT:
     mov cx, word [bp - 0xb2]         ; 0x3b4e
     shl cx, 1                        ; 0x3b52
     mov bx, cx                       ; 0x3b54
-    mov cx, word [bx + bss_9386]     ; 0x3b56
+    mov cx, word [bx + range_max_target_group] ; 0x3b56
     cmp ax, cx                       ; 0x3b5a
     jle short .forward31             ; 0x3b5c
     mov word [bp - 0x28], 0          ; 0x3b5e
@@ -511,7 +511,7 @@ api_idx_00d4_UHLT:
     push ax                          ; 0x3c27
     mov ax, 0xbb8                    ; 0x3c28
     push ax                          ; 0x3c2b
-    call loc_HTRU                    ; 0x3c2c
+    call select_party_menu_target    ; 0x3c2c
     add sp, byte 0x18                ; 0x3c2f
     mov word [bp - 8], ax            ; 0x3c32
     cmp ax, strict word 0            ; 0x3c35
@@ -572,22 +572,22 @@ jumptable_4058_case_0:
     sub ah, ah                       ; 0x3cb2
     mov word [bp - 0xac], ax         ; 0x3cb4
     cmp ax, 0xff                     ; 0x3cb8
-    je short api_idx_00d4_UHLT.forward36 ; 0x3cbb
+    je short choose_party_battle_orders.forward36 ; 0x3cbb
     mov cx, 0xc                      ; 0x3cbd
     imul cx                          ; 0x3cc0
     add bx, ax                       ; 0x3cc2
     cmp byte [bx + party_records + pc_rec.item_slots + 0x4], 3 ; 0x3cc4
-    jne short api_idx_00d4_UHLT.forward36 ; 0x3cc9
+    jne short choose_party_battle_orders.forward36 ; 0x3cc9
     mov word [bp - 0xb0], 1          ; 0x3ccb
     mov word [bp - 0x98], 8          ; 0x3cd1
-api_idx_00d4_UHLT.forward36:
+choose_party_battle_orders.forward36:
     cmp word [bp - 0x98], byte -1    ; 0x3cd7
-    je short api_idx_00d4_UHLT.forward37 ; 0x3cdc
-    jmp near api_idx_00d4_UHLT.forward41 ; 0x3cde
-api_idx_00d4_UHLT.forward37:
+    je short choose_party_battle_orders.forward37 ; 0x3cdc
+    jmp near choose_party_battle_orders.forward41 ; 0x3cde
+choose_party_battle_orders.forward37:
     mov word [bp - 0xb0], 0          ; 0x3ce1
     mov word [bp - 2], 0             ; 0x3ce7
-api_idx_00d4_UHLT.back8:
+choose_party_battle_orders.back8:
     push word [bp - 2]               ; 0x3cec
     mov ax, 0x248                    ; 0x3cef
     imul word [bp - 6]               ; 0x3cf2
@@ -602,11 +602,11 @@ api_idx_00d4_UHLT.back8:
     mov word [bx - 0x46], ax         ; 0x3d08
     mov ax, word [bp - 2]            ; 0x3d0b
     cmp ax, strict word 4            ; 0x3d0e
-    je short api_idx_00d4_UHLT.forward38 ; 0x3d11
+    je short choose_party_battle_orders.forward38 ; 0x3d11
     cmp word [bp - 6], byte 3        ; 0x3d13
-    jl short api_idx_00d4_UHLT.forward38 ; 0x3d17
+    jl short choose_party_battle_orders.forward38 ; 0x3d17
     cmp word [bp - 0xac], strict word 0xff ; 0x3d19
-    je short api_idx_00d4_UHLT.forward38 ; 0x3d1f
+    je short choose_party_battle_orders.forward38 ; 0x3d1f
     mov ax, 0x248                    ; 0x3d21
     imul word [bp - 6]               ; 0x3d24
     push ax                          ; 0x3d27
@@ -617,33 +617,33 @@ api_idx_00d4_UHLT.back8:
     add ax, cx                       ; 0x3d32
     mov bx, ax                       ; 0x3d34
     cmp byte [bx + party_records + pc_rec.item_slots + 0x4], 2 ; 0x3d36
-    jne short api_idx_00d4_UHLT.forward38 ; 0x3d3b
+    jne short choose_party_battle_orders.forward38 ; 0x3d3b
     mov ax, word [bp - 2]            ; 0x3d3d
     shl ax, 1                        ; 0x3d40
     mov bx, ax                       ; 0x3d42
     add bx, bp                       ; 0x3d44
     mov word [bx - 0x46], 0          ; 0x3d46
-api_idx_00d4_UHLT.forward38:
+choose_party_battle_orders.forward38:
     mov ax, word [bp - 2]            ; 0x3d4b
     shl ax, 1                        ; 0x3d4e
     mov bx, ax                       ; 0x3d50
     add bx, bp                       ; 0x3d52
     cmp word [bx - 0x46], byte 1     ; 0x3d54
-    jne short api_idx_00d4_UHLT.forward39 ; 0x3d58
+    jne short choose_party_battle_orders.forward39 ; 0x3d58
     inc word [bp - 0xb0]             ; 0x3d5a
     mov ax, word [bp - 2]            ; 0x3d5e
     mov word [bp - 0x98], ax         ; 0x3d61
-api_idx_00d4_UHLT.forward39:
+choose_party_battle_orders.forward39:
     inc word [bp - 2]                ; 0x3d65
     mov ax, word [bp - 2]            ; 0x3d68
     cmp ax, strict word 8            ; 0x3d6b
-    jge short api_idx_00d4_UHLT.forward40 ; 0x3d6e
-    jmp near api_idx_00d4_UHLT.back8 ; 0x3d70
-api_idx_00d4_UHLT.forward40:
+    jge short choose_party_battle_orders.forward40 ; 0x3d6e
+    jmp near choose_party_battle_orders.back8 ; 0x3d70
+choose_party_battle_orders.forward40:
     mov word [bp - 0x36], 0xffff     ; 0x3d73
-api_idx_00d4_UHLT.forward41:
+choose_party_battle_orders.forward41:
     cmp word [bp - 0xb0], byte 1     ; 0x3d78
-    jle short api_idx_00d4_UHLT.forward42 ; 0x3d7d
+    jle short choose_party_battle_orders.forward42 ; 0x3d7d
     lea ax, word [bp - 0x46]         ; 0x3d7f
     push ax                          ; 0x3d82
     mov ax, 0x1b                     ; 0x3d83
@@ -668,14 +668,14 @@ api_idx_00d4_UHLT.forward41:
     push ax                          ; 0x3daa
     mov ax, 0xbea                    ; 0x3dab
     push ax                          ; 0x3dae
-    call loc_HTRU                    ; 0x3daf
+    call select_party_menu_target    ; 0x3daf
     add sp, byte 0x18                ; 0x3db2
     mov word [bp - 0x98], ax         ; 0x3db5
-api_idx_00d4_UHLT.forward42:
+choose_party_battle_orders.forward42:
     cmp word [bp - 0x98], byte -1    ; 0x3db9
-    jne short api_idx_00d4_UHLT.forward43 ; 0x3dbe
-    jmp near api_idx_00d4_UHLT.forward47 ; 0x3dc0
-api_idx_00d4_UHLT.forward43:
+    jne short choose_party_battle_orders.forward43 ; 0x3dbe
+    jmp near choose_party_battle_orders.forward47 ; 0x3dc0
+choose_party_battle_orders.forward43:
     mov ax, 0x248                    ; 0x3dc3
     imul word [bp - 6]               ; 0x3dc6
     mov bx, ax                       ; 0x3dc9
@@ -683,11 +683,11 @@ api_idx_00d4_UHLT.forward43:
     sub ah, ah                       ; 0x3dcf
     mov word [bp - 0xb2], ax         ; 0x3dd1
     cmp ax, strict word 2            ; 0x3dd5
-    jne short api_idx_00d4_UHLT.forward44 ; 0x3dd8
+    jne short choose_party_battle_orders.forward44 ; 0x3dd8
     cmp word [bp - 0x98], byte 4     ; 0x3dda
-    je short api_idx_00d4_UHLT.forward44 ; 0x3ddf
+    je short choose_party_battle_orders.forward44 ; 0x3ddf
     mov word [bp - 0xb2], 0          ; 0x3de1
-api_idx_00d4_UHLT.forward44:
+choose_party_battle_orders.forward44:
     mov ax, 0x2c                     ; 0x3de7
     imul word [bp - 6]               ; 0x3dea
     mov si, ax                       ; 0x3ded
@@ -697,36 +697,36 @@ api_idx_00d4_UHLT.forward44:
     mov cx, word [bp - 0xb2]         ; 0x3df8
     shl cx, 1                        ; 0x3dfc
     mov bx, cx                       ; 0x3dfe
-    mov cx, word [bx + bss_9386]     ; 0x3e00
+    mov cx, word [bx + range_max_target_group] ; 0x3e00
     cmp ax, cx                       ; 0x3e04
-    jle short api_idx_00d4_UHLT.forward45 ; 0x3e06
+    jle short choose_party_battle_orders.forward45 ; 0x3e06
     mov ax, 0                        ; 0x3e08
     push ax                          ; 0x3e0b
     call play_sound_effect           ; 0x3e0c
     pop cx                           ; 0x3e0f
     mov word [bp - 0x9e], 1          ; 0x3e10
-api_idx_00d4_UHLT.forward45:
+choose_party_battle_orders.forward45:
     cmp word [bp - 0xb2], byte 0     ; 0x3e16
-    jne short api_idx_00d4_UHLT.forward46 ; 0x3e1b
+    jne short choose_party_battle_orders.forward46 ; 0x3e1b
     cmp word [bp - 6], byte 3        ; 0x3e1d
-    jl short api_idx_00d4_UHLT.forward46 ; 0x3e21
+    jl short choose_party_battle_orders.forward46 ; 0x3e21
     mov ax, 0x2c                     ; 0x3e23
     imul word [bp - 6]               ; 0x3e26
     mov si, ax                       ; 0x3e29
     mov bx, word [battle_groups]     ; 0x3e2b
     cmp byte [bx + si + member_rec.unit_phase], 1 ; 0x3e2f
-    je short api_idx_00d4_UHLT.forward46 ; 0x3e33
+    je short choose_party_battle_orders.forward46 ; 0x3e33
     mov ax, 0                        ; 0x3e35
     push ax                          ; 0x3e38
     call play_sound_effect           ; 0x3e39
     pop cx                           ; 0x3e3c
     mov word [bp - 0x9e], 1          ; 0x3e3d
-api_idx_00d4_UHLT.forward46:
-    jmp short api_idx_00d4_UHLT.forward48 ; 0x3e43
-api_idx_00d4_UHLT.forward47:
+choose_party_battle_orders.forward46:
+    jmp short choose_party_battle_orders.forward48 ; 0x3e43
+choose_party_battle_orders.forward47:
     mov word [bp - 0x9e], 1          ; 0x3e45
-api_idx_00d4_UHLT.forward48:
-    jmp near api_idx_00d4_UHLT.forward57 ; 0x3e4b
+choose_party_battle_orders.forward48:
+    jmp near choose_party_battle_orders.forward57 ; 0x3e4b
 jumptable_4058_case_1:
     mov ax, 0                        ; 0x3e4e
     push ax                          ; 0x3e51
@@ -755,7 +755,7 @@ jumptable_4058_case_1:
     call draw_centered_text_at_x     ; 0x3e83
     add sp, byte 8                   ; 0x3e86
     mov word [bp - 2], 0             ; 0x3e89
-api_idx_00d4_UHLT.back9:
+choose_party_battle_orders.back9:
     mov ax, word [bp - 2]            ; 0x3e8e
     shl ax, 1                        ; 0x3e91
     mov bx, ax                       ; 0x3e93
@@ -764,7 +764,7 @@ api_idx_00d4_UHLT.back9:
     inc word [bp - 2]                ; 0x3e9c
     mov ax, word [bp - 2]            ; 0x3e9f
     cmp ax, strict word 4            ; 0x3ea2
-    jl short api_idx_00d4_UHLT.back9 ; 0x3ea5
+    jl short choose_party_battle_orders.back9 ; 0x3ea5
     mov word [bp - 0x28], 0          ; 0x3ea7
     mov ax, 0x248                    ; 0x3eac
     imul word [bp - 6]               ; 0x3eaf
@@ -773,14 +773,14 @@ api_idx_00d4_UHLT.back9:
     sub ah, ah                       ; 0x3eb8
     mov word [bp - 0xac], ax         ; 0x3eba
     cmp ax, 0xff                     ; 0x3ebe
-    je short api_idx_00d4_UHLT.forward49 ; 0x3ec1
+    je short choose_party_battle_orders.forward49 ; 0x3ec1
     mov cx, 0xc                      ; 0x3ec3
     imul cx                          ; 0x3ec6
     add bx, ax                       ; 0x3ec8
     cmp byte [bx + party_records + pc_rec.item_slots + 0x4], 0xb ; 0x3eca
-    jne short api_idx_00d4_UHLT.forward49 ; 0x3ecf
+    jne short choose_party_battle_orders.forward49 ; 0x3ecf
     mov word [bp - 0x28], 1          ; 0x3ed1
-api_idx_00d4_UHLT.forward49:
+choose_party_battle_orders.forward49:
     mov word [bp - 0x20], 0xffff     ; 0x3ed6
     lea ax, word [bp - 0x28]         ; 0x3edb
     push ax                          ; 0x3ede
@@ -806,16 +806,16 @@ api_idx_00d4_UHLT.forward49:
     push ax                          ; 0x3f06
     mov ax, 0xc1c                    ; 0x3f07
     push ax                          ; 0x3f0a
-    call loc_HTRU                    ; 0x3f0b
+    call select_party_menu_target    ; 0x3f0b
     add sp, byte 0x18                ; 0x3f0e
     mov word [bp - 0x98], ax         ; 0x3f11
     cmp ax, strict word 0xffff       ; 0x3f15
-    jne short api_idx_00d4_UHLT.forward50 ; 0x3f18
+    jne short choose_party_battle_orders.forward50 ; 0x3f18
     mov word [bp - 0x9e], 1          ; 0x3f1a
-api_idx_00d4_UHLT.forward50:
-    jmp near api_idx_00d4_UHLT.forward57 ; 0x3f20
+choose_party_battle_orders.forward50:
+    jmp near choose_party_battle_orders.forward57 ; 0x3f20
 jumptable_4058_case_8:
-    jmp near api_idx_00d4_UHLT.forward57 ; 0x3f23
+    jmp near choose_party_battle_orders.forward57 ; 0x3f23
 jumptable_4058_case_3:
     mov ax, 0                        ; 0x3f26
     push ax                          ; 0x3f29
@@ -836,10 +836,10 @@ jumptable_4058_case_3:
     pop cx                           ; 0x3f4b
     mov word [bp - 0x98], ax         ; 0x3f4c
     cmp ax, strict word 0xffff       ; 0x3f50
-    jne short api_idx_00d4_UHLT.forward51 ; 0x3f53
+    jne short choose_party_battle_orders.forward51 ; 0x3f53
     mov word [bp - 0x9e], 1          ; 0x3f55
-api_idx_00d4_UHLT.forward51:
-    jmp near api_idx_00d4_UHLT.forward57 ; 0x3f5b
+choose_party_battle_orders.forward51:
+    jmp near choose_party_battle_orders.forward57 ; 0x3f5b
 jumptable_4058_case_4:
     mov ax, 0                        ; 0x3f5e
     push ax                          ; 0x3f61
@@ -860,43 +860,43 @@ jumptable_4058_case_4:
     pop cx                           ; 0x3f83
     mov word [bp - 0x98], ax         ; 0x3f84
     cmp ax, strict word 0xffff       ; 0x3f88
-    jne short api_idx_00d4_UHLT.forward52 ; 0x3f8b
+    jne short choose_party_battle_orders.forward52 ; 0x3f8b
     mov word [bp - 0x9e], 1          ; 0x3f8d
-api_idx_00d4_UHLT.forward52:
-    jmp near api_idx_00d4_UHLT.forward57 ; 0x3f93
+choose_party_battle_orders.forward52:
+    jmp near choose_party_battle_orders.forward57 ; 0x3f93
 jumptable_4058_case_7:
     call pick_party_member           ; 0x3f96
     mov word [bp - 0x98], ax         ; 0x3f99
     cmp ax, strict word 0xffff       ; 0x3f9d
-    jne short api_idx_00d4_UHLT.forward53 ; 0x3fa0
+    jne short choose_party_battle_orders.forward53 ; 0x3fa0
     mov word [bp - 0x9e], 1          ; 0x3fa2
-api_idx_00d4_UHLT.forward53:
-    jmp near api_idx_00d4_UHLT.forward57 ; 0x3fa8
+choose_party_battle_orders.forward53:
+    jmp near choose_party_battle_orders.forward57 ; 0x3fa8
 jumptable_4058_case_2:
-    jmp near api_idx_00d4_UHLT.forward57 ; 0x3fab
+    jmp near choose_party_battle_orders.forward57 ; 0x3fab
 jumptable_4058_case_5:
     mov word [bp - 0x98], 8          ; 0x3fae
-    jmp near api_idx_00d4_UHLT.forward57 ; 0x3fb4
+    jmp near choose_party_battle_orders.forward57 ; 0x3fb4
 jumptable_4058_case_6:
-    jmp near api_idx_00d4_UHLT.forward57 ; 0x3fb7
+    jmp near choose_party_battle_orders.forward57 ; 0x3fb7
 jumptable_4058_case_9:
     mov ax, 0                        ; 0x3fba
     push ax                          ; 0x3fbd
     mov ax, 0x2d                     ; 0x3fbe
     push ax                          ; 0x3fc1
-    mov ax, bss_90d8                 ; 0x3fc2
+    mov ax, unit_targeted            ; 0x3fc2
     push ax                          ; 0x3fc5
     call aztec_setmem                ; 0x3fc6
     add sp, byte 6                   ; 0x3fc9
     mov word [bp - 0x9a], 0          ; 0x3fcc
-    jmp short api_idx_00d4_UHLT.forward55 ; 0x3fd2
-api_idx_00d4_UHLT.back10:
+    jmp short choose_party_battle_orders.forward55 ; 0x3fd2
+choose_party_battle_orders.back10:
     mov ax, 0x2c                     ; 0x3fd4
     imul word [bp - 0x9a]            ; 0x3fd7
     mov si, ax                       ; 0x3fdb
     mov bx, word [battle_groups]     ; 0x3fdd
     cmp byte [bx + si + member_rec.unit_target_group], 0 ; 0x3fe1
-    jbe short api_idx_00d4_UHLT.forward54 ; 0x3fe5
+    jbe short choose_party_battle_orders.forward54 ; 0x3fe5
     mov al, byte [bx + si + 0x1f]    ; 0x3fe7
     sub ah, ah                       ; 0x3fea
     mov cx, 9                        ; 0x3fec
@@ -908,14 +908,14 @@ api_idx_00d4_UHLT.back10:
     pop ax                           ; 0x3ff9
     add ax, cx                       ; 0x3ffa
     mov bx, ax                       ; 0x3ffc
-    mov byte [bx + bss_90d8], 1      ; 0x3ffe
-api_idx_00d4_UHLT.forward54:
+    mov byte [bx + unit_targeted], 1 ; 0x3ffe
+choose_party_battle_orders.forward54:
     inc word [bp - 0x9a]             ; 0x4003
-api_idx_00d4_UHLT.forward55:
+choose_party_battle_orders.forward55:
     mov ax, word [bp - 6]            ; 0x4007
     dec ax                           ; 0x400a
     cmp ax, word [bp - 0x9a]         ; 0x400b
-    jg short api_idx_00d4_UHLT.back10 ; 0x400f
+    jg short choose_party_battle_orders.back10 ; 0x400f
     mov ax, word [bp - 0xb4]         ; 0x4011
     shl ax, 1                        ; 0x4015
     mov bx, ax                       ; 0x4017
@@ -926,20 +926,20 @@ api_idx_00d4_UHLT.forward55:
     dec word [bp - 0xb4]             ; 0x4023
     dec word [bp - 0xb4]             ; 0x4027
     mov word [bp - 0xa0], 1          ; 0x402b
-    jmp short api_idx_00d4_UHLT.forward57 ; 0x4031
+    jmp short choose_party_battle_orders.forward57 ; 0x4031
 jumptable_4058_case_10:
     mov ax, 0                        ; 0x4033
     push ax                          ; 0x4036
     mov ax, 0x2d                     ; 0x4037
     push ax                          ; 0x403a
-    mov ax, bss_90d8                 ; 0x403b
+    mov ax, unit_targeted            ; 0x403b
     push ax                          ; 0x403e
     call aztec_setmem                ; 0x403f
     add sp, byte 6                   ; 0x4042
     mov word [bp - 6], 0xffff        ; 0x4045
     mov word [bp - 0xa0], 1          ; 0x404a
     mov word [bp - 0xb4], 0          ; 0x4050
-    jmp short api_idx_00d4_UHLT.forward57 ; 0x4056
+    jmp short choose_party_battle_orders.forward57 ; 0x4056
 jumptable_4058:
     dw jumptable_4058_case_0 - IMAGE_BASE + __zres_end ; 0x4058
     dw jumptable_4058_case_1 - IMAGE_BASE + __zres_end ; 0x405a
@@ -952,17 +952,17 @@ jumptable_4058:
     dw jumptable_4058_case_8 - IMAGE_BASE + __zres_end ; 0x4068
     dw jumptable_4058_case_9 - IMAGE_BASE + __zres_end ; 0x406a
     dw jumptable_4058_case_10 - IMAGE_BASE + __zres_end ; 0x406c
-api_idx_00d4_UHLT.forward56:
+choose_party_battle_orders.forward56:
     cmp ax, strict word 0xb          ; 0x406e
-    jae short api_idx_00d4_UHLT.forward57 ; 0x4071
+    jae short choose_party_battle_orders.forward57 ; 0x4071
     xchg bx, ax                      ; 0x4073
     shl bx, 1                        ; 0x4074
     jmp [cs:bx + jumptable_4058 - IMAGE_BASE + __zres_end] ; 0x4076
-api_idx_00d4_UHLT.forward57:
+choose_party_battle_orders.forward57:
     cmp word [bp - 0x9e], byte 1     ; 0x407b
-    jne short api_idx_00d4_UHLT.forward58 ; 0x4080
-    jmp near api_idx_00d4_UHLT.back4 ; 0x4082
-api_idx_00d4_UHLT.forward58:
+    jne short choose_party_battle_orders.forward58 ; 0x4080
+    jmp near choose_party_battle_orders.back4 ; 0x4082
+choose_party_battle_orders.forward58:
     mov ax, 0                        ; 0x4085
     push ax                          ; 0x4088
     call redraw_area_set             ; 0x4089
@@ -986,9 +986,9 @@ api_idx_00d4_UHLT.forward58:
     call delay_ms                    ; 0x40b0
     pop cx                           ; 0x40b3
     cmp word [bp - 0xa0], byte 0     ; 0x40b4
-    je short api_idx_00d4_UHLT.forward59 ; 0x40b9
-    jmp near api_idx_00d4_UHLT.forward71 ; 0x40bb
-api_idx_00d4_UHLT.forward59:
+    je short choose_party_battle_orders.forward59 ; 0x40b9
+    jmp near choose_party_battle_orders.forward71 ; 0x40bb
+choose_party_battle_orders.forward59:
     mov ax, word [bp - 0x98]         ; 0x40be
     push ax                          ; 0x40c2
     mov ax, 0x2c                     ; 0x40c3
@@ -996,12 +996,12 @@ api_idx_00d4_UHLT.forward59:
     mov si, ax                       ; 0x40c9
     mov bx, word [battle_groups]     ; 0x40cb
     pop ax                           ; 0x40cf
-    mov word [bx + si + member_rec.f_000a], ax ; 0x40d0
+    mov word [bx + si + member_rec.unit_primary_action], ax ; 0x40d0
     mov ax, 0x2c                     ; 0x40d3
     imul word [bp - 6]               ; 0x40d6
     mov si, ax                       ; 0x40d9
     mov bx, word [battle_groups]     ; 0x40db
-    mov word [bx + si + member_rec.f_000c], 0xffff ; 0x40df
+    mov word [bx + si + member_rec.unit_secondary_action], 0xffff ; 0x40df
     mov al, byte [bp - 8]            ; 0x40e4
     push ax                          ; 0x40e7
     mov ax, 0x2c                     ; 0x40e8
@@ -1009,7 +1009,7 @@ api_idx_00d4_UHLT.forward59:
     mov si, ax                       ; 0x40ee
     mov bx, word [battle_groups]     ; 0x40f0
     pop ax                           ; 0x40f4
-    mov byte [bx + si + member_rec.f_001e], al ; 0x40f5
+    mov byte [bx + si + member_rec.unit_action_kind], al ; 0x40f5
     mov ax, 0x2c                     ; 0x40f8
     imul word [bp - 6]               ; 0x40fb
     mov si, ax                       ; 0x40fe
@@ -1018,14 +1018,14 @@ api_idx_00d4_UHLT.forward59:
     sub ah, ah                       ; 0x4107
     mov word [bp - 0x9a], ax         ; 0x4109
     cmp ax, strict word 1            ; 0x410d
-    jl short api_idx_00d4_UHLT.forward60 ; 0x4110
+    jl short choose_party_battle_orders.forward60 ; 0x4110
     cmp ax, strict word 5            ; 0x4112
-    jg short api_idx_00d4_UHLT.forward60 ; 0x4115
+    jg short choose_party_battle_orders.forward60 ; 0x4115
     mov al, byte [bp - 0x9a]         ; 0x4117
     sub ah, ah                       ; 0x411b
     push ax                          ; 0x411d
     push word [bp - 6]               ; 0x411e
-    call api_idx_000c_JUIH           ; 0x4121
+    call pick_group_target_unit      ; 0x4121
     add sp, byte 4                   ; 0x4124
     push ax                          ; 0x4127
     mov ax, 0x2c                     ; 0x4128
@@ -1034,7 +1034,7 @@ api_idx_00d4_UHLT.forward59:
     mov bx, word [battle_groups]     ; 0x4130
     pop ax                           ; 0x4134
     mov byte [bx + si + member_rec.unit_target_unit], al ; 0x4135
-api_idx_00d4_UHLT.forward60:
+choose_party_battle_orders.forward60:
     mov ax, 0x248                    ; 0x4138
     imul word [bp - 6]               ; 0x413b
     mov bx, ax                       ; 0x413e
@@ -1042,15 +1042,15 @@ api_idx_00d4_UHLT.forward60:
     sub ah, ah                       ; 0x4144
     mov word [bp - 0xac], ax         ; 0x4146
     cmp word [bp - 8], byte 0        ; 0x414a
-    je short api_idx_00d4_UHLT.forward61 ; 0x414e
-    jmp near api_idx_00d4_UHLT.forward71 ; 0x4150
-api_idx_00d4_UHLT.forward61:
+    je short choose_party_battle_orders.forward61 ; 0x414e
+    jmp near choose_party_battle_orders.forward71 ; 0x4150
+choose_party_battle_orders.forward61:
     cmp ax, 0xff                     ; 0x4153
-    jne short api_idx_00d4_UHLT.forward63 ; 0x4156
+    jne short choose_party_battle_orders.forward63 ; 0x4156
     mov al, byte [bx + party_records + pc_rec.equipped] ; 0x4158
     sub ah, ah                       ; 0x415c
     cmp ax, 0xff                     ; 0x415e
-    jne short api_idx_00d4_UHLT.forward63 ; 0x4161
+    jne short choose_party_battle_orders.forward63 ; 0x4161
     add bx, strict word 0x5d33       ; 0x4163
     mov ax, bx                       ; 0x4167
     push ax                          ; 0x4169
@@ -1058,7 +1058,7 @@ api_idx_00d4_UHLT.forward61:
     pop cx                           ; 0x416d
     mov word [bp - 2], ax            ; 0x416e
     cmp ax, strict word 0xffff       ; 0x4171
-    je short api_idx_00d4_UHLT.forward62 ; 0x4174
+    je short choose_party_battle_orders.forward62 ; 0x4174
     mov ax, word [bp - 2]            ; 0x4176
     push ax                          ; 0x4179
     mov ax, 0x2c                     ; 0x417a
@@ -1066,14 +1066,14 @@ api_idx_00d4_UHLT.forward61:
     mov si, ax                       ; 0x4180
     mov bx, word [battle_groups]     ; 0x4182
     pop ax                           ; 0x4186
-    mov word [bx + si + member_rec.f_000c], ax ; 0x4187
-api_idx_00d4_UHLT.forward62:
-    jmp near api_idx_00d4_UHLT.forward71 ; 0x418a
-api_idx_00d4_UHLT.forward63:
+    mov word [bx + si + member_rec.unit_secondary_action], ax ; 0x4187
+choose_party_battle_orders.forward62:
+    jmp near choose_party_battle_orders.forward71 ; 0x418a
+choose_party_battle_orders.forward63:
     cmp word [bp - 0xac], strict word 0xff ; 0x418d
-    jne short api_idx_00d4_UHLT.forward64 ; 0x4193
-    jmp near api_idx_00d4_UHLT.forward71 ; 0x4195
-api_idx_00d4_UHLT.forward64:
+    jne short choose_party_battle_orders.forward64 ; 0x4193
+    jmp near choose_party_battle_orders.forward71 ; 0x4195
+choose_party_battle_orders.forward64:
     mov ax, 0x248                    ; 0x4198
     imul word [bp - 6]               ; 0x419b
     push ax                          ; 0x419e
@@ -1084,18 +1084,18 @@ api_idx_00d4_UHLT.forward64:
     add ax, cx                       ; 0x41a9
     mov bx, ax                       ; 0x41ab
     cmp byte [bx + party_records + pc_rec.item_slots + 0x4], 3 ; 0x41ad
-    jne short api_idx_00d4_UHLT.forward65 ; 0x41b2
+    jne short choose_party_battle_orders.forward65 ; 0x41b2
     mov al, byte [bx + party_records + pc_rec.item_slots + 0x7] ; 0x41b4
     sub ah, ah                       ; 0x41b8
     test ax, 0x20                    ; 0x41ba
-    je short api_idx_00d4_UHLT.forward65 ; 0x41bd
+    je short choose_party_battle_orders.forward65 ; 0x41bd
     mov ax, 0x2c                     ; 0x41bf
     imul word [bp - 6]               ; 0x41c2
     mov si, ax                       ; 0x41c5
     mov bx, word [battle_groups]     ; 0x41c7
-    mov word [bx + si + member_rec.f_000c], 8 ; 0x41cb
-    jmp near api_idx_00d4_UHLT.forward71 ; 0x41d0
-api_idx_00d4_UHLT.forward65:
+    mov word [bx + si + member_rec.unit_secondary_action], 8 ; 0x41cb
+    jmp near choose_party_battle_orders.forward71 ; 0x41d0
+choose_party_battle_orders.forward65:
     mov ax, 0x248                    ; 0x41d3
     imul word [bp - 6]               ; 0x41d6
     push ax                          ; 0x41d9
@@ -1107,19 +1107,19 @@ api_idx_00d4_UHLT.forward65:
     mov bx, ax                       ; 0x41e6
     mov al, byte [bx + party_records + pc_rec.item_slots + 0x4] ; 0x41e8
     cmp al, 2                        ; 0x41ec
-    je short api_idx_00d4_UHLT.forward66 ; 0x41ee
+    je short choose_party_battle_orders.forward66 ; 0x41ee
     cmp al, 0xc                      ; 0x41f0
-    je short api_idx_00d4_UHLT.forward66 ; 0x41f2
+    je short choose_party_battle_orders.forward66 ; 0x41f2
     cmp al, 0x10                     ; 0x41f4
-    jne short api_idx_00d4_UHLT.forward67 ; 0x41f6
-api_idx_00d4_UHLT.forward66:
+    jne short choose_party_battle_orders.forward67 ; 0x41f6
+choose_party_battle_orders.forward66:
     mov ax, 0x2c                     ; 0x41f8
     imul word [bp - 6]               ; 0x41fb
     mov si, ax                       ; 0x41fe
     mov bx, word [battle_groups]     ; 0x4200
-    mov word [bx + si + member_rec.f_000c], 4 ; 0x4204
-    jmp near api_idx_00d4_UHLT.forward71 ; 0x4209
-api_idx_00d4_UHLT.forward67:
+    mov word [bx + si + member_rec.unit_secondary_action], 4 ; 0x4204
+    jmp near choose_party_battle_orders.forward71 ; 0x4209
+choose_party_battle_orders.forward67:
     mov ax, 0x248                    ; 0x420c
     imul word [bp - 6]               ; 0x420f
     push ax                          ; 0x4212
@@ -1130,19 +1130,19 @@ api_idx_00d4_UHLT.forward67:
     add ax, cx                       ; 0x421d
     mov bx, ax                       ; 0x421f
     cmp byte [bx + party_records + pc_rec.item_slots + 0x4], 2 ; 0x4221
-    jae short api_idx_00d4_UHLT.forward71 ; 0x4226
+    jae short choose_party_battle_orders.forward71 ; 0x4226
     mov ax, 0x248                    ; 0x4228
     imul word [bp - 6]               ; 0x422b
     mov bx, ax                       ; 0x422e
     cmp byte [bx + party_records + pc_rec.hand_attack + 0x1f], 1 ; 0x4230
-    je short api_idx_00d4_UHLT.forward68 ; 0x4235
+    je short choose_party_battle_orders.forward68 ; 0x4235
     cmp word [bp - 6], byte 3        ; 0x4237
-    jge short api_idx_00d4_UHLT.forward71 ; 0x423b
+    jge short choose_party_battle_orders.forward71 ; 0x423b
     cmp word [bp - 0x9a], byte 3     ; 0x423d
-    jge short api_idx_00d4_UHLT.forward71 ; 0x4242
-api_idx_00d4_UHLT.forward68:
+    jge short choose_party_battle_orders.forward71 ; 0x4242
+choose_party_battle_orders.forward68:
     mov word [bp - 0xa], 0           ; 0x4244
-api_idx_00d4_UHLT.back11:
+choose_party_battle_orders.back11:
     mov ax, 0x248                    ; 0x4249
     imul word [bp - 6]               ; 0x424c
     add ax, party_records + pc_rec.hand_attack + 0x21 ; 0x424f
@@ -1152,16 +1152,16 @@ api_idx_00d4_UHLT.back11:
     mov word [bp - 2], ax            ; 0x4257
     inc word [bp - 0xa]              ; 0x425a
     cmp word [bp - 2], byte 4        ; 0x425d
-    jne short api_idx_00d4_UHLT.forward69 ; 0x4261
+    jne short choose_party_battle_orders.forward69 ; 0x4261
     cmp word [bp - 0xa], byte 0xa    ; 0x4263
-    jl short api_idx_00d4_UHLT.back11 ; 0x4267
-api_idx_00d4_UHLT.forward69:
+    jl short choose_party_battle_orders.back11 ; 0x4267
+choose_party_battle_orders.forward69:
     cmp word [bp - 2], byte 4        ; 0x4269
-    jne short api_idx_00d4_UHLT.forward70 ; 0x426d
+    jne short choose_party_battle_orders.forward70 ; 0x426d
     mov word [bp - 2], 0xffff        ; 0x426f
-api_idx_00d4_UHLT.forward70:
+choose_party_battle_orders.forward70:
     cmp word [bp - 2], byte -1       ; 0x4274
-    je short api_idx_00d4_UHLT.forward71 ; 0x4278
+    je short choose_party_battle_orders.forward71 ; 0x4278
     mov ax, word [bp - 2]            ; 0x427a
     push ax                          ; 0x427d
     mov ax, 0x2c                     ; 0x427e
@@ -1169,14 +1169,14 @@ api_idx_00d4_UHLT.forward70:
     mov si, ax                       ; 0x4284
     mov bx, word [battle_groups]     ; 0x4286
     pop ax                           ; 0x428a
-    mov word [bx + si + member_rec.f_000c], ax ; 0x428b
-api_idx_00d4_UHLT.forward71:
+    mov word [bx + si + member_rec.unit_secondary_action], ax ; 0x428b
+choose_party_battle_orders.forward71:
     inc word [bp - 6]                ; 0x428e
     mov ax, word [bp - 6]            ; 0x4291
     cmp ax, word [party_char_count]  ; 0x4294
-    je short api_idx_00d4_UHLT.forward72 ; 0x4298
-    jmp near api_idx_00d4_UHLT.forward81 ; 0x429a
-api_idx_00d4_UHLT.forward72:
+    je short choose_party_battle_orders.forward72 ; 0x4298
+    jmp near choose_party_battle_orders.forward81 ; 0x429a
+choose_party_battle_orders.forward72:
     mov ax, 3                        ; 0x429d
     push ax                          ; 0x42a0
     call redraw_area_set             ; 0x42a1
@@ -1202,7 +1202,7 @@ api_idx_00d4_UHLT.forward72:
     call show_area_set               ; 0x42cf
     pop cx                           ; 0x42d2
     mov word [bp - 2], 0             ; 0x42d3
-api_idx_00d4_UHLT.back12:
+choose_party_battle_orders.back12:
     mov ax, word [bp - 2]            ; 0x42d8
     shl ax, 1                        ; 0x42db
     mov bx, ax                       ; 0x42dd
@@ -1211,11 +1211,11 @@ api_idx_00d4_UHLT.back12:
     inc word [bp - 2]                ; 0x42e6
     mov ax, word [bp - 2]            ; 0x42e9
     cmp ax, strict word 3            ; 0x42ec
-    jl short api_idx_00d4_UHLT.back12 ; 0x42ef
+    jl short choose_party_battle_orders.back12 ; 0x42ef
     cmp word [bp - 0xb4], byte 0     ; 0x42f1
-    jne short api_idx_00d4_UHLT.forward73 ; 0x42f6
+    jne short choose_party_battle_orders.forward73 ; 0x42f6
     mov word [bp - 0x26], 0          ; 0x42f8
-api_idx_00d4_UHLT.forward73:
+choose_party_battle_orders.forward73:
     mov word [bp - 0x22], 0xffff     ; 0x42fd
     call flush_keyboard              ; 0x4302
     lea ax, word [bp - 0x28]         ; 0x4305
@@ -1241,26 +1241,26 @@ api_idx_00d4_UHLT.forward73:
     push ax                          ; 0x432d
     mov ax, 0xdb3                    ; 0x432e
     push ax                          ; 0x4331
-    call loc_HTRU                    ; 0x4332
+    call select_party_menu_target    ; 0x4332
     add sp, byte 0x18                ; 0x4335
     mov word [bp - 2], ax            ; 0x4338
     cmp ax, strict word 2            ; 0x433b
-    je short api_idx_00d4_UHLT.forward74 ; 0x433e
-    jmp near api_idx_00d4_UHLT.forward78 ; 0x4340
-api_idx_00d4_UHLT.forward74:
+    je short choose_party_battle_orders.forward74 ; 0x433e
+    jmp near choose_party_battle_orders.forward78 ; 0x4340
+choose_party_battle_orders.forward74:
     mov ax, 5                        ; 0x4343
     push ax                          ; 0x4346
     call wait_for_hotspot_timeout    ; 0x4347
     pop cx                           ; 0x434a
     mov word [bp - 6], 0             ; 0x434b
-    jmp near api_idx_00d4_UHLT.forward76 ; 0x4350
-api_idx_00d4_UHLT.back13:
+    jmp near choose_party_battle_orders.forward76 ; 0x4350
+choose_party_battle_orders.back13:
     mov ax, 0x2c                     ; 0x4353
     imul word [bp - 6]               ; 0x4356
     mov si, ax                       ; 0x4359
     mov bx, word [battle_groups]     ; 0x435b
     cmp byte [bx + si + member_rec.unit_state], 3 ; 0x435f
-    je short api_idx_00d4_UHLT.forward75 ; 0x4363
+    je short choose_party_battle_orders.forward75 ; 0x4363
     mov ax, 0x248                    ; 0x4365
     imul word [bp - 6]               ; 0x4368
     mov bx, ax                       ; 0x436b
@@ -1297,36 +1297,36 @@ api_idx_00d4_UHLT.back13:
     push ax                          ; 0x43ce
     call wait_for_hotspot_timeout    ; 0x43cf
     pop cx                           ; 0x43d2
-api_idx_00d4_UHLT.forward75:
+choose_party_battle_orders.forward75:
     inc word [bp - 6]                ; 0x43d3
-api_idx_00d4_UHLT.forward76:
+choose_party_battle_orders.forward76:
     mov ax, word [bp - 6]            ; 0x43d6
     cmp ax, word [party_char_count]  ; 0x43d9
-    jge short api_idx_00d4_UHLT.forward77 ; 0x43dd
-    jmp near api_idx_00d4_UHLT.back13 ; 0x43df
-api_idx_00d4_UHLT.forward77:
+    jge short choose_party_battle_orders.forward77 ; 0x43dd
+    jmp near choose_party_battle_orders.back13 ; 0x43df
+choose_party_battle_orders.forward77:
     mov ax, 1                        ; 0x43e2
     ret                              ; 0x43e5
-api_idx_00d4_UHLT.forward78:
+choose_party_battle_orders.forward78:
     cmp word [bp - 2], byte 1        ; 0x43e6
-    jne short api_idx_00d4_UHLT.forward81 ; 0x43ea
+    jne short choose_party_battle_orders.forward81 ; 0x43ea
     mov ax, 0                        ; 0x43ec
     push ax                          ; 0x43ef
     mov ax, 0x2d                     ; 0x43f0
     push ax                          ; 0x43f3
-    mov ax, bss_90d8                 ; 0x43f4
+    mov ax, unit_targeted            ; 0x43f4
     push ax                          ; 0x43f7
     call aztec_setmem                ; 0x43f8
     add sp, byte 6                   ; 0x43fb
     mov word [bp - 0x9a], 0          ; 0x43fe
-    jmp short api_idx_00d4_UHLT.forward80 ; 0x4404
-api_idx_00d4_UHLT.back14:
+    jmp short choose_party_battle_orders.forward80 ; 0x4404
+choose_party_battle_orders.back14:
     mov ax, 0x2c                     ; 0x4406
     imul word [bp - 0x9a]            ; 0x4409
     mov si, ax                       ; 0x440d
     mov bx, word [battle_groups]     ; 0x440f
     cmp byte [bx + si + member_rec.unit_target_group], 0 ; 0x4413
-    jbe short api_idx_00d4_UHLT.forward79 ; 0x4417
+    jbe short choose_party_battle_orders.forward79 ; 0x4417
     mov al, byte [bx + si + 0x1f]    ; 0x4419
     sub ah, ah                       ; 0x441c
     mov cx, 9                        ; 0x441e
@@ -1338,14 +1338,14 @@ api_idx_00d4_UHLT.back14:
     pop ax                           ; 0x442b
     add ax, cx                       ; 0x442c
     mov bx, ax                       ; 0x442e
-    mov byte [bx + bss_90d8], 1      ; 0x4430
-api_idx_00d4_UHLT.forward79:
+    mov byte [bx + unit_targeted], 1 ; 0x4430
+choose_party_battle_orders.forward79:
     inc word [bp - 0x9a]             ; 0x4435
-api_idx_00d4_UHLT.forward80:
+choose_party_battle_orders.forward80:
     mov ax, word [party_char_count]  ; 0x4439
     dec ax                           ; 0x443c
     cmp ax, word [bp - 0x9a]         ; 0x443d
-    jg short api_idx_00d4_UHLT.back14 ; 0x4441
+    jg short choose_party_battle_orders.back14 ; 0x4441
     mov ax, word [bp - 0xb4]         ; 0x4443
     shl ax, 1                        ; 0x4447
     mov bx, ax                       ; 0x4449
@@ -1353,18 +1353,18 @@ api_idx_00d4_UHLT.forward80:
     mov ax, word [bx - 0xc2]         ; 0x444d
     mov word [bp - 6], ax            ; 0x4451
     dec word [bp - 0xb4]             ; 0x4454
-api_idx_00d4_UHLT.forward81:
-    jmp near api_idx_00d4_UHLT.back3 ; 0x4458
-api_idx_00d4_UHLT.forward82:
+choose_party_battle_orders.forward81:
+    jmp near choose_party_battle_orders.back3 ; 0x4458
+choose_party_battle_orders.forward82:
     mov word [bp - 6], 0             ; 0x445b
-    jmp near api_idx_00d4_UHLT.forward89 ; 0x4460
-api_idx_00d4_UHLT.back15:
+    jmp near choose_party_battle_orders.forward89 ; 0x4460
+choose_party_battle_orders.back15:
     mov ax, 0x2c                     ; 0x4463
     imul word [bp - 6]               ; 0x4466
     mov si, ax                       ; 0x4469
     mov bx, word [battle_groups]     ; 0x446b
     cmp byte [bx + si + member_rec.unit_status + 0x1], 0 ; 0x446f
-    jbe short api_idx_00d4_UHLT.forward83 ; 0x4473
+    jbe short choose_party_battle_orders.forward83 ; 0x4473
     mov ax, 0x64                     ; 0x4475
     push ax                          ; 0x4478
     call random_below                ; 0x4479
@@ -1380,60 +1380,60 @@ api_idx_00d4_UHLT.back15:
     mov cx, ax                       ; 0x4491
     pop ax                           ; 0x4493
     cmp ax, cx                       ; 0x4494
-    jle short api_idx_00d4_UHLT.forward83 ; 0x4496
+    jle short choose_party_battle_orders.forward83 ; 0x4496
     mov ax, 0x2c                     ; 0x4498
     imul word [bp - 6]               ; 0x449b
     mov si, ax                       ; 0x449e
     mov bx, word [battle_groups]     ; 0x44a0
-    mov byte [bx + si + member_rec.f_001e], 6 ; 0x44a4
-api_idx_00d4_UHLT.forward83:
+    mov byte [bx + si + member_rec.unit_action_kind], 6 ; 0x44a4
+choose_party_battle_orders.forward83:
     mov ax, 0x2c                     ; 0x44a8
     imul word [bp - 6]               ; 0x44ab
     mov si, ax                       ; 0x44ae
     mov bx, word [battle_groups]     ; 0x44b0
-    cmp byte [bx + si + member_rec.f_001e], 1 ; 0x44b4
-    je short api_idx_00d4_UHLT.forward84 ; 0x44b8
+    cmp byte [bx + si + member_rec.unit_action_kind], 1 ; 0x44b4
+    je short choose_party_battle_orders.forward84 ; 0x44b8
     cmp byte [bx + si + 0x1e], 7     ; 0x44ba
-    jne short api_idx_00d4_UHLT.forward85 ; 0x44be
-api_idx_00d4_UHLT.forward84:
+    jne short choose_party_battle_orders.forward85 ; 0x44be
+choose_party_battle_orders.forward84:
     mov byte [bx + si + 0x18], 1     ; 0x44c0
-api_idx_00d4_UHLT.forward85:
+choose_party_battle_orders.forward85:
     mov ax, 0x2c                     ; 0x44c4
     imul word [bp - 6]               ; 0x44c7
     mov si, ax                       ; 0x44ca
     mov bx, word [battle_groups]     ; 0x44cc
-    cmp byte [bx + si + member_rec.f_001e], 0 ; 0x44d0
-    jne short api_idx_00d4_UHLT.forward87 ; 0x44d4
+    cmp byte [bx + si + member_rec.unit_action_kind], 0 ; 0x44d0
+    jne short choose_party_battle_orders.forward87 ; 0x44d4
     cmp word [bx + si + 0xc], byte -1 ; 0x44d6
-    jne short api_idx_00d4_UHLT.forward86 ; 0x44da
+    jne short choose_party_battle_orders.forward86 ; 0x44da
     mov byte [bx + si + 0x19], 0     ; 0x44dc
     mov ax, 0x2c                     ; 0x44e0
     imul word [bp - 6]               ; 0x44e3
     mov si, ax                       ; 0x44e6
     mov bx, word [battle_groups]     ; 0x44e8
-    mov byte [bx + si + member_rec.f_001b], 0 ; 0x44ec
-api_idx_00d4_UHLT.forward86:
-    jmp short api_idx_00d4_UHLT.forward88 ; 0x44f0
-api_idx_00d4_UHLT.forward87:
+    mov byte [bx + si + member_rec.unit_action_speed + 0x3], 0 ; 0x44ec
+choose_party_battle_orders.forward86:
+    jmp short choose_party_battle_orders.forward88 ; 0x44f0
+choose_party_battle_orders.forward87:
     mov word [bp - 2], 1             ; 0x44f2
-api_idx_00d4_UHLT.back16:
+choose_party_battle_orders.back16:
     mov ax, 0x2c                     ; 0x44f7
     imul word [bp - 6]               ; 0x44fa
     add ax, word [bp - 2]            ; 0x44fd
     mov si, ax                       ; 0x4500
     mov bx, word [battle_groups]     ; 0x4502
-    mov byte [bx + si + member_rec.f_0018], 0 ; 0x4506
+    mov byte [bx + si + member_rec.unit_action_speed], 0 ; 0x4506
     inc word [bp - 2]                ; 0x450a
     mov ax, word [bp - 2]            ; 0x450d
     cmp ax, strict word 4            ; 0x4510
-    jl short api_idx_00d4_UHLT.back16 ; 0x4513
-api_idx_00d4_UHLT.forward88:
+    jl short choose_party_battle_orders.back16 ; 0x4513
+choose_party_battle_orders.forward88:
     inc word [bp - 6]                ; 0x4515
-api_idx_00d4_UHLT.forward89:
+choose_party_battle_orders.forward89:
     mov ax, word [bp - 6]            ; 0x4518
     cmp ax, word [party_char_count]  ; 0x451b
-    jge short api_idx_00d4_UHLT.forward90 ; 0x451f
-    jmp near api_idx_00d4_UHLT.back15 ; 0x4521
-api_idx_00d4_UHLT.forward90:
+    jge short choose_party_battle_orders.forward90 ; 0x451f
+    jmp near choose_party_battle_orders.back15 ; 0x4521
+choose_party_battle_orders.forward90:
     mov ax, 0                        ; 0x4524
     ret                              ; 0x4527

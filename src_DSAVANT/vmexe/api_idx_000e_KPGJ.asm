@@ -2309,7 +2309,7 @@ jumptable_5eb8_case_81:
     shl ax, 1                        ; 0x4fb4
     mov bx, ax                       ; 0x4fb6
     mov bx, word [bx + battle_group_ext] ; 0x4fb8
-    cmp byte [bx + member_ext.f_00d6], 0x14 ; 0x4fbc
+    cmp byte [bx + member_ext.creature_class], 0x14 ; 0x4fbc
     je short api_idx_000e_KPGJ.forward44 ; 0x4fc1
     mov word [bp - 0xe], 0xff9c      ; 0x4fc3
     jmp short api_idx_000e_KPGJ.forward45 ; 0x4fc8
@@ -2538,7 +2538,7 @@ jumptable_5eb8_case_90:
     shl ax, 1                        ; 0x51b2
     mov bx, ax                       ; 0x51b4
     mov bx, word [bx + battle_group_ext] ; 0x51b6
-    cmp byte [bx + member_ext.f_00d6], 0x15 ; 0x51ba
+    cmp byte [bx + member_ext.creature_class], 0x15 ; 0x51ba
     je short api_idx_000e_KPGJ.forward53 ; 0x51bf
     mov word [bp - 0xe], 0xff9c      ; 0x51c1
     jmp short api_idx_000e_KPGJ.forward54 ; 0x51c6
@@ -2593,7 +2593,7 @@ jumptable_5eb8_case_91:
     shl ax, 1                        ; 0x5233
     mov bx, ax                       ; 0x5235
     mov bx, word [bx + battle_group_ext] ; 0x5237
-    cmp byte [bx + member_ext.f_00d6], 0x14 ; 0x523b
+    cmp byte [bx + member_ext.creature_class], 0x14 ; 0x523b
     je short api_idx_000e_KPGJ.forward55 ; 0x5240
     mov word [bp - 0xe], 0xff9c      ; 0x5242
     jmp short api_idx_000e_KPGJ.forward56 ; 0x5247
@@ -2713,7 +2713,7 @@ jumptable_5eb8_case_96:
     shl ax, 1                        ; 0x5345
     mov bx, ax                       ; 0x5347
     mov bx, word [bx + battle_group_ext] ; 0x5349
-    cmp byte [bx + member_ext.f_00d6], 0x14 ; 0x534d
+    cmp byte [bx + member_ext.creature_class], 0x14 ; 0x534d
     je short api_idx_000e_KPGJ.forward63 ; 0x5352
     cmp byte [bx + 0xd6], 0x15       ; 0x5354
     je short api_idx_000e_KPGJ.forward63 ; 0x5359

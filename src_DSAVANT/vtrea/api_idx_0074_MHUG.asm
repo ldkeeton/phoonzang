@@ -3,7 +3,7 @@ api_idx_0074_MHUG:
     mov ax, 0xff8c                   ; 0x66eb
     call aztec_csav                  ; 0x66ee
     mov word [show_area_bottom], 0x8d ; 0x66f1
-    mov word [spell_dialog_result], 0xffff ; 0x66f7
+    mov word [dialog_selection], 0xffff ; 0x66f7
     mov word [bp - 6], 0x37          ; 0x66fd
     mov word [bp - 8], 0x8f          ; 0x6702
     mov word [bp - 0xa], 0x108       ; 0x6707
@@ -454,7 +454,7 @@ api_idx_0074_MHUG:
     jg short .forward8               ; 0x6afc
     mov ax, word [bp + 0xc]          ; 0x6afe
     inc ax                           ; 0x6b01
-    mov word [spell_dialog_button], ax ; 0x6b02
+    mov word [dialog_button], ax     ; 0x6b02
     mov word [bp - 0x18], 0          ; 0x6b05
 .forward8:
     mov ax, word [bp - 0x1c]         ; 0x6b0a
@@ -752,13 +752,13 @@ api_idx_0074_MHUG:
     pop ax                           ; 0x6daa
     cmp ax, cx                       ; 0x6dab
     jg short .forward19              ; 0x6dad
-    mov word [spell_dialog_button], 0 ; 0x6daf
+    mov word [dialog_button], 0      ; 0x6daf
     mov word [bp - 0x18], 0          ; 0x6db5
     jmp short .forward20             ; 0x6dba
 .forward19:
     mov ax, word [bp + 0xc]          ; 0x6dbc
     inc ax                           ; 0x6dbf
-    mov word [spell_dialog_button], ax ; 0x6dc0
+    mov word [dialog_button], ax     ; 0x6dc0
     mov word [bp - 0x18], 0          ; 0x6dc3
 .forward20:
     jmp short .forward24             ; 0x6dc8
@@ -792,7 +792,7 @@ api_idx_0074_MHUG:
     push ax                          ; 0x6e06
     call flash_button                ; 0x6e07
     add sp, byte 0xa                 ; 0x6e0a
-    mov word [spell_dialog_button], 0xffff ; 0x6e0d
+    mov word [dialog_button], 0xffff ; 0x6e0d
     mov word [bp - 0x18], 0          ; 0x6e13
 .forward21:
     jmp short .forward24             ; 0x6e18
@@ -831,5 +831,5 @@ api_idx_0074_MHUG:
     push ax                          ; 0x6e5e
     call call_show_area              ; 0x6e5f
     add sp, byte 8                   ; 0x6e62
-    mov ax, word [spell_dialog_button] ; 0x6e65
+    mov ax, word [dialog_button]     ; 0x6e65
     ret                              ; 0x6e68

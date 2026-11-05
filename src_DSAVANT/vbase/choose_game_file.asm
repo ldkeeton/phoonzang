@@ -2,7 +2,7 @@
 choose_game_file:
     mov ax, 0xffd8                   ; 0x0ef7
     call aztec_csav                  ; 0x0efa
-    mov word [spell_dialog_result], 0xffff ; 0x0efd
+    mov word [dialog_selection], 0xffff ; 0x0efd
     mov word [bp - 0x28], 0xffff     ; 0x0f03
     mov word [bp - 2], 0x37          ; 0x0f08
     mov word [bp - 4], 0x8f          ; 0x0f0d
@@ -577,7 +577,7 @@ jumptable_14d6_case_2:
     push ax                          ; 0x1421
     call flash_button                ; 0x1422
     add sp, byte 0xa                 ; 0x1425
-    mov word [spell_dialog_button], 0 ; 0x1428
+    mov word [dialog_button], 0      ; 0x1428
     mov word [bp - 0x10], 0          ; 0x142e
 choose_game_file.forward4:
     jmp near choose_game_file.forward8 ; 0x1433
@@ -611,7 +611,7 @@ jumptable_14d6_case_3:
     push ax                          ; 0x1472
     call flash_button                ; 0x1473
     add sp, byte 0xa                 ; 0x1476
-    mov word [spell_dialog_button], 1 ; 0x1479
+    mov word [dialog_button], 1      ; 0x1479
     mov word [bp - 0x10], 0          ; 0x147f
 choose_game_file.forward5:
     jmp short choose_game_file.forward8 ; 0x1484
@@ -645,7 +645,7 @@ jumptable_14d6_case_4:
     push ax                          ; 0x14c2
     call flash_button                ; 0x14c3
     add sp, byte 0xa                 ; 0x14c6
-    mov word [spell_dialog_button], 2 ; 0x14c9
+    mov word [dialog_button], 2      ; 0x14c9
     mov word [bp - 0x10], 0          ; 0x14cf
 choose_game_file.forward6:
     jmp short choose_game_file.forward8 ; 0x14d4
@@ -671,6 +671,6 @@ choose_game_file.forward9:
     push word [bp - 0x26]            ; 0x14fa
     call restore_saved_screen        ; 0x14fd
     add sp, byte 4                   ; 0x1500
-    mov word [spell_dialog_result], 0xffff ; 0x1503
-    mov ax, word [spell_dialog_button] ; 0x1509
+    mov word [dialog_selection], 0xffff ; 0x1503
+    mov ax, word [dialog_button]     ; 0x1509
     ret                              ; 0x150c

@@ -348,7 +348,7 @@ string_loc_HILJ.back5:
     shl ax, 1                        ; 0x397d
     mov bx, ax                       ; 0x397f
     mov bx, word [bx + battle_groups] ; 0x3981
-    mov byte [bx + si + member_rec.f_001e], 0xa ; 0x3985
+    mov byte [bx + si + member_rec.unit_action_kind], 0xa ; 0x3985
     mov ax, 0x2c                     ; 0x3989
     imul word [bp - 2]               ; 0x398c
     mov si, ax                       ; 0x398f
@@ -356,7 +356,7 @@ string_loc_HILJ.back5:
     shl ax, 1                        ; 0x3994
     mov bx, ax                       ; 0x3996
     mov bx, word [bx + battle_groups] ; 0x3998
-    mov byte [bx + si + member_rec.f_0021], 0 ; 0x399c
+    mov byte [bx + si + member_rec.unit_attack_cycle], 0 ; 0x399c
     mov ax, 0x2c                     ; 0x39a0
     imul word [bp - 2]               ; 0x39a3
     mov si, ax                       ; 0x39a6
@@ -364,7 +364,7 @@ string_loc_HILJ.back5:
     shl ax, 1                        ; 0x39ab
     mov bx, ax                       ; 0x39ad
     mov bx, word [bx + battle_groups] ; 0x39af
-    mov byte [bx + si + member_rec.f_0018], 0 ; 0x39b3
+    mov byte [bx + si + member_rec.unit_action_speed], 0 ; 0x39b3
     inc word [bp - 2]                ; 0x39b7
 string_loc_HILJ.forward13:
     mov ax, word [bp - 4]            ; 0x39ba

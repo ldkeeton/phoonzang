@@ -17,7 +17,7 @@ api_idx_0004_JNUN:
     je short .forward2               ; 0x3998
     jmp near .return1                ; 0x399a
 .forward2:
-    mov ax, word [spell_dialog_result] ; 0x399d
+    mov ax, word [dialog_selection]  ; 0x399d
     mov cx, 0x100                    ; 0x39a0
     cwd                              ; 0x39a3
     idiv cx                          ; 0x39a4

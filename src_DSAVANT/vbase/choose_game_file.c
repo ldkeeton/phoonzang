@@ -2,7 +2,7 @@
 
 #include "msg.h"
 
-extern int spell_dialog_result, spell_dialog_button;
+extern int dialog_selection, dialog_button;
 extern int space_key_hit, hotspot_hit, hotspot_rects[];
 extern char known_spell_names[];
 extern char dialog_screen_temp_file[];
@@ -19,7 +19,7 @@ char *directory_buffer, *filename_buffer;
 	char message[20];
 	int saved_area, active_text_row;
 
-	spell_dialog_result = -1;
+	dialog_selection = -1;
 	active_text_row = -1;
 	/* Fixed coordinates for the chooser box. */
 	box_x0 = 55;
@@ -115,7 +115,7 @@ char *directory_buffer, *filename_buffer;
 				if (first_action_enabled) {
 					flash_button(box_x0 + 8, box_y0 + 7, 12, 1, 1);
 					flash_button(box_x0 + 8, box_y0 + 7, 12, 1, 0);
-					spell_dialog_button = 0;
+					dialog_button = 0;
 					dialog_active = 0;
 				}
 				break;
@@ -124,7 +124,7 @@ char *directory_buffer, *filename_buffer;
 				if (second_action_enabled) {
 					flash_button(box_x0 + 8, box_y0 + 23, 12, 1, 1);
 					flash_button(box_x0 + 8, box_y0 + 23, 12, 1, 0);
-					spell_dialog_button = 1;
+					dialog_button = 1;
 					dialog_active = 0;
 				}
 				break;
@@ -133,7 +133,7 @@ char *directory_buffer, *filename_buffer;
 				if (cancel_enabled) {
 					flash_button(box_x0 + 8, box_y0 + 39, 12, 1, 1);
 					flash_button(box_x0 + 8, box_y0 + 39, 12, 1, 0);
-					spell_dialog_button = 2;
+					dialog_button = 2;
 					dialog_active = 0;
 				}
 				break;
@@ -141,6 +141,6 @@ char *directory_buffer, *filename_buffer;
 		}
 	} while (dialog_active);
 	restore_saved_screen(saved_area, 1);
-	spell_dialog_result = -1;
-	return spell_dialog_button;
+	dialog_selection = -1;
+	return dialog_button;
 }

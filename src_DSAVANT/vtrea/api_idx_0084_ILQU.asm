@@ -41,7 +41,7 @@ api_idx_0084_ILQU:
     cmp ax, strict word 8            ; 0x2615
     jl short .back2                  ; 0x2618
 .forward3:
-    mov word [spell_dialog_result], 0xffff ; 0x261a
+    mov word [dialog_selection], 0xffff ; 0x261a
     mov word [bp - 6], 0x37          ; 0x2620
     mov word [bp - 8], 0x8f          ; 0x2625
     mov word [bp - 0xa], 0x108       ; 0x262a
@@ -1033,7 +1033,7 @@ api_idx_0084_ILQU.forward21:
     push ax                          ; 0x2f3d
     call play_sound_effect           ; 0x2f3e
     pop cx                           ; 0x2f41
-    mov word [spell_dialog_button], 1 ; 0x2f42
+    mov word [dialog_button], 1      ; 0x2f42
     mov word [bp - 0x1c], 0          ; 0x2f48
     jmp near api_idx_0084_ILQU.forward26 ; 0x2f4d
 api_idx_0084_ILQU.forward22:
@@ -1309,7 +1309,7 @@ jumptable_34f1_case_4:
     push ax                          ; 0x31c0
     call flash_button                ; 0x31c1
     add sp, byte 0xa                 ; 0x31c4
-    mov word [spell_dialog_button], 2 ; 0x31c7
+    mov word [dialog_button], 2      ; 0x31c7
     mov word [bp - 0x1c], 0          ; 0x31cd
 api_idx_0084_ILQU.forward27:
     jmp near api_idx_0084_ILQU.forward38 ; 0x31d2
@@ -1465,7 +1465,7 @@ api_idx_0084_ILQU.forward29:
     pop cx                           ; 0x333e
     cmp word [bss_9250], byte -1     ; 0x333f
     jne short api_idx_0084_ILQU.forward30 ; 0x3344
-    mov word [spell_dialog_button], 1 ; 0x3346
+    mov word [dialog_button], 1      ; 0x3346
     mov word [bp - 0x1c], 0          ; 0x334c
     jmp near api_idx_0084_ILQU.forward36 ; 0x3351
 api_idx_0084_ILQU.forward30:
@@ -1482,7 +1482,7 @@ api_idx_0084_ILQU.forward30:
     cmp ax, cx                       ; 0x3372
     je short api_idx_0084_ILQU.forward32 ; 0x3374
 api_idx_0084_ILQU.forward31:
-    mov word [spell_dialog_button], 1 ; 0x3376
+    mov word [dialog_button], 1      ; 0x3376
     mov word [bp - 0x1c], 0          ; 0x337c
     jmp near api_idx_0084_ILQU.forward36 ; 0x3381
 api_idx_0084_ILQU.forward32:
@@ -1635,7 +1635,7 @@ api_idx_0084_ILQU.forward34:
     call try_raise_member_skill      ; 0x34de
     add sp, byte 6                   ; 0x34e1
 api_idx_0084_ILQU.forward35:
-    mov word [spell_dialog_button], 0 ; 0x34e4
+    mov word [dialog_button], 0      ; 0x34e4
     mov word [bp - 0x1c], 0          ; 0x34ea
 api_idx_0084_ILQU.forward36:
     jmp short api_idx_0084_ILQU.forward38 ; 0x34ef
@@ -1684,5 +1684,5 @@ api_idx_0084_ILQU.forward39:
     push ax                          ; 0x3547
     call call_show_area              ; 0x3548
     add sp, byte 8                   ; 0x354b
-    mov ax, word [spell_dialog_button] ; 0x354e
+    mov ax, word [dialog_button]     ; 0x354e
     ret                              ; 0x3551

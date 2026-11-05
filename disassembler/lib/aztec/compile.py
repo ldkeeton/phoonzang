@@ -429,7 +429,9 @@ def _tool_line(kind, flags, module, log):
     """The DOS command that turns ``MODULE.C``/``MODULE.ASM`` into ``.O``."""
     if kind == 'asm':
         return ' '.join(['as', *flags, f'{module}.ASM', f'> {log}'])
-    return ' '.join(['cc', *flags, f'{module}.C', f'> {log}'])
+    # -B: don't pause after every fifth error to ask "Do you wish to
+    # continue?" -- with no keyboard that pause hung DOSBox until the timeout.
+    return ' '.join(['cc', '-B', *flags, f'{module}.C', f'> {log}'])
 
 
 def compile_module(source_text, name, *, compiler=VERSION, includes=None,

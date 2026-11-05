@@ -1,13 +1,13 @@
 /* Spell selection dialog: save and clear party slot frames while showing
    the realm list, power row, and selection buttons; return the button and
-   encode the selected spell and power in spell_dialog_result. */
+   encode the selected spell and power in dialog_selection. */
 
 #include "structs/pcrec.h"
 #include "structs/spell.h"
 
 extern int party_slot_frame[];
 extern int hotspot_rects[];
-extern int spell_dialog_result, party_redraw_interval, spell_dialog_button,
+extern int dialog_selection, party_redraw_interval, dialog_button,
 	space_key_hit, hotspot_hit;
 extern long party_redraw_last_tick;
 extern long far *tick_counter_ptr;
@@ -41,7 +41,7 @@ int pc, button_msg, ok_enabled, limit_by_points;
 		saved_slot_frames[i] = party_slot_frame[i];
 		party_slot_frame[i] = 0;
 	}
-	spell_dialog_result = -1;
+	dialog_selection = -1;
 	box_x0 = 50;
 	box_y0 = 115;
 	box_x1 = 269;
@@ -163,7 +163,7 @@ int pc, button_msg, ok_enabled, limit_by_points;
 					    	<= party_records[pc].realm_points[realm][0])) {
 						flash_button(panel_x + 6, box_y0 + 6, 8, 1, 1);
 						flash_button(panel_x + 6, box_y0 + 6, 8, 1, 0);
-						spell_dialog_button = 0;
+						dialog_button = 0;
 						running = 0;
 					}
 					if (running)
@@ -173,7 +173,7 @@ int pc, button_msg, ok_enabled, limit_by_points;
 			case 4:	/* second button */
 				flash_button(panel_x + 66, box_y0 + 6, 8, 1, 1);
 				flash_button(panel_x + 66, box_y0 + 6, 8, 1, 0);
-				spell_dialog_button = 1;
+				dialog_button = 1;
 				running = 0;
 				break;
 			default:
@@ -234,6 +234,6 @@ int pc, button_msg, ok_enabled, limit_by_points;
 	for (i = 0; i < 6; i++)
 		party_slot_frame[i] = saved_slot_frames[i];
 	party_redraw_last_tick = *tick_counter_ptr;
-	spell_dialog_result = (power << 8) + spell + 256;
-	return spell_dialog_button;
+	dialog_selection = (power << 8) + spell + 256;
+	return dialog_button;
 }

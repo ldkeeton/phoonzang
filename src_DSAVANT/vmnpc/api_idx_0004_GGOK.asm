@@ -19,7 +19,7 @@ api_idx_0004_GGOK:
     je short .forward1               ; 0x3abb
     jmp near .return1                ; 0x3abd
 .forward1:
-    mov ax, word [spell_dialog_result] ; 0x3ac0
+    mov ax, word [dialog_selection]  ; 0x3ac0
     mov cx, 0x100                    ; 0x3ac3
     cwd                              ; 0x3ac6
     idiv cx                          ; 0x3ac7

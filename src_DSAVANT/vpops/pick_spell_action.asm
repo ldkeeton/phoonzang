@@ -2,7 +2,7 @@
 pick_spell_action:
     mov ax, 0xfff6                   ; 0x2947
     call aztec_csav                  ; 0x294a
-    call wait_for_party_redraw       ; 0x294d
+    call wait_for_party_screen_animation ; 0x294d
     mov ax, 1                        ; 0x2950
     push ax                          ; 0x2953
     push ax                          ; 0x2954
@@ -12,7 +12,7 @@ pick_spell_action:
     call action_spell_dialog         ; 0x295c
     add sp, byte 8                   ; 0x295f
     mov word [bp - 4], ax            ; 0x2962
-    mov ax, word [spell_dialog_result] ; 0x2965
+    mov ax, word [dialog_selection]  ; 0x2965
     mov word [bp - 2], ax            ; 0x2968
     cmp word [bp - 4], byte 1        ; 0x296b
     jne short .forward1              ; 0x296f

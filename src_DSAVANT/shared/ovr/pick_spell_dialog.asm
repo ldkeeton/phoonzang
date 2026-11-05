@@ -12,7 +12,7 @@ pick_spell_dialog:
     mov ax, word [bp - 2]
     cmp ax, strict word 6
     jl short .back1
-    mov word [spell_dialog_result], 0xffff
+    mov word [dialog_selection], 0xffff
     mov word [bp - 4], 0x32
     mov word [bp - 6], 0x73
     mov word [bp - 8], 0x10d
@@ -872,7 +872,7 @@ pick_spell_dialog.forward18:
     push ax
     call flash_button
     add sp, byte 0xa
-    mov word [spell_dialog_button], 0
+    mov word [dialog_button], 0
     mov word [bp - 0x1c], 0
 pick_spell_dialog.forward19:
     cmp word [bp - 0x1c], byte 0
@@ -911,7 +911,7 @@ jumptable_35d1_case_4:
     push ax
     call flash_button
     add sp, byte 0xa
-    mov word [spell_dialog_button], 1
+    mov word [dialog_button], 1
     mov word [bp - 0x1c], 0
     jmp near pick_spell_dialog.forward43
 pick_spell_dialog.back7:
@@ -1362,6 +1362,6 @@ pick_spell_dialog.forward44:
     sub al, al
     add ax, word [bp - 0x3c]
     add ax, 0x100
-    mov word [spell_dialog_result], ax
-    mov ax, word [spell_dialog_button]
+    mov word [dialog_selection], ax
+    mov ax, word [dialog_button]
     ret

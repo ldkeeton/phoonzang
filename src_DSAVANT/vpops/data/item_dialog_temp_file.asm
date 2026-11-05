@@ -1,4 +1,4 @@
 ; auto-generated
-__zdseg_90c5:
+__zitem_dialog_temp_file:
     db 'V.$$$', 0
     db 0x00

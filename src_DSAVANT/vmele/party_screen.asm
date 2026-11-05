@@ -90,7 +90,7 @@ party_screen:
     shl ax, 1                        ; 0x1af6
     mov bx, ax                       ; 0x1af8
     mov bx, word [bx + battle_group_ext] ; 0x1afa
-    cmp byte [bx + member_ext.f_00ae], 0 ; 0x1afe
+    cmp byte [bx + member_ext.special_spell_chance], 0 ; 0x1afe
     jbe short .forward7              ; 0x1b03
     mov bx, ax                       ; 0x1b05
     add bx, bp                       ; 0x1b07
@@ -100,7 +100,7 @@ party_screen:
     shl ax, 1                        ; 0x1b10
     mov si, ax                       ; 0x1b12
     mov si, word [si + battle_group_ext] ; 0x1b14
-    mov al, byte [si + member_ext.f_00ae] ; 0x1b18
+    mov al, byte [si + member_ext.special_spell_chance] ; 0x1b18
     sub ah, ah                       ; 0x1b1c
     mov cx, 0xa                      ; 0x1b1e
     cwd                              ; 0x1b21
@@ -117,7 +117,7 @@ party_screen:
     shl ax, 1                        ; 0x1b33
     mov bx, ax                       ; 0x1b35
     mov bx, word [bx + battle_group_ext] ; 0x1b37
-    cmp byte [bx + member_ext.f_00b0], 0 ; 0x1b3b
+    cmp byte [bx + member_ext.special_action_chance], 0 ; 0x1b3b
     jbe short .forward8              ; 0x1b40
     mov bx, ax                       ; 0x1b42
     add bx, bp                       ; 0x1b44
@@ -127,7 +127,7 @@ party_screen:
     shl ax, 1                        ; 0x1b4d
     mov bx, ax                       ; 0x1b4f
     mov bx, word [bx + battle_group_ext] ; 0x1b51
-    mov al, byte [bx + member_ext.f_00b0] ; 0x1b55
+    mov al, byte [bx + member_ext.special_action_chance] ; 0x1b55
     sub ah, ah                       ; 0x1b59
     mov cx, ax                       ; 0x1b5b
     pop ax                           ; 0x1b5d
@@ -440,7 +440,7 @@ party_screen:
     mov ax, word [bp - 2]            ; 0x1e2a
     shl ax, 1                        ; 0x1e2d
     mov bx, ax                       ; 0x1e2f
-    push word [bx + battle_groups_6] ; 0x1e31
+    push word [bx + ally_battle_group] ; 0x1e31
     push word [bx + battle_group_ext] ; 0x1e35
     call aztec_swapmem               ; 0x1e39
     add sp, byte 6                   ; 0x1e3c

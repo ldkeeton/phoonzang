@@ -44,7 +44,7 @@ run_configuration_menu:
     mov ax, word [bp - 0xa]          ; 0x4d75
     add ax, 0x93                     ; 0x4d78
     mov word [bp - 0xe], ax          ; 0x4d7b
-    mov word [spell_dialog_button], 0xffff ; 0x4d7e
+    mov word [dialog_button], 0xffff ; 0x4d7e
     mov ax, screen_temporary_filename ; 0x4d84
     push ax                          ; 0x4d87
     mov ax, word [bp - 0xe]          ; 0x4d88
@@ -1905,7 +1905,7 @@ run_configuration_menu.forward39:
 run_configuration_menu.forward40:
     mov ax, 0                        ; 0x5e04
 run_configuration_menu.forward41:
-    mov word [spell_dialog_button], ax ; 0x5e07
+    mov word [dialog_button], ax     ; 0x5e07
     mov word [bp - 0x18], 0          ; 0x5e0a
     call write_header_and_apply_devices ; 0x5e0f
     jmp near run_configuration_menu.forward43 ; 0x5e12
@@ -1937,7 +1937,7 @@ jumptable_5e7f_case_24:
     push ax                          ; 0x5e4b
     call flash_button                ; 0x5e4c
     add sp, byte 0xa                 ; 0x5e4f
-    mov word [spell_dialog_button], 0 ; 0x5e52
+    mov word [dialog_button], 0      ; 0x5e52
     mov word [bp - 0x18], 0          ; 0x5e58
     lea si, word [bp - 0x3b6]        ; 0x5e5d
     mov di, scenario_header_data     ; 0x5e61
@@ -2035,5 +2035,5 @@ run_configuration_menu.forward46:
     push ax                          ; 0x5f1d
     call call_show_area              ; 0x5f1e
     add sp, byte 8                   ; 0x5f21
-    mov ax, word [spell_dialog_button] ; 0x5f24
+    mov ax, word [dialog_button]     ; 0x5f24
     ret                              ; 0x5f27

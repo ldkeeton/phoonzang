@@ -8,7 +8,7 @@
 
 extern struct spell_info spell_table[];
 extern struct pc_rec party_records[];
-extern int cast_spell_target, spell_dialog_result;
+extern int cast_spell_target, dialog_selection;
 
 cast_spell_from_dialog(pc)
 int pc;
@@ -17,8 +17,8 @@ int pc;
 
 	/* zero: a spell was chosen */
 	if (pick_spell_dialog(pc, MSG_CAST, 1, 1) == 0) {
-		power = spell_dialog_result / 256;	/* (power << 8) + spell + 0x100 */
-		spell = spell_dialog_result % 256;
+		power = dialog_selection / 256;	/* (power << 8) + spell + 0x100 */
+		spell = dialog_selection % 256;
 		if (spell_table[spell].targeted == 1) {
 			if ((cast_spell_target = pick_party_member()) == -1)	/* -1: Esc */
 				;

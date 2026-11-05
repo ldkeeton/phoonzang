@@ -15,7 +15,7 @@ extern unsigned char music_volume, no_dissolve;
 extern unsigned char screen_store_1_enabled, screen_store_disk_enabled;
 extern char palette_base_setting, palette_scale_setting;
 extern int sound_port_setting, sound_aux_setting, mouse_active;
-extern int hotspot_hit, spell_dialog_button, configuration_display_value;
+extern int hotspot_hit, dialog_button, configuration_display_value;
 extern int hotspot_rects[];
 extern int aztec_open(), aztec_read(), aztec_close(), release_and_exit();
 extern int save_screen_area(), draw_dialog_box(), draw_message_at_position();
@@ -55,7 +55,7 @@ int initial_mode;
 	dialog_left = 43;
 	dialog_right = dialog_top + 283;
 	dialog_bottom = dialog_left + 147;
-	spell_dialog_button = -1;
+	dialog_button = -1;
 	saved_screen = save_screen_area(dialog_top - 1, dialog_left - 1,
 		dialog_right + 1, dialog_bottom + 1, screen_temporary_filename);
 	draw_dialog_box(dialog_top, dialog_left, dialog_right, dialog_bottom);
@@ -425,7 +425,7 @@ int initial_mode;
 			case 23:
 				flash_button(dialog_top + 178, dialog_left + 127, 6, 1, 1);
 				flash_button(dialog_top + 178, dialog_left + 127, 6, 1, 0);
-				spell_dialog_button =
+				dialog_button =
 					sound_device_setting != original_header.sound_device ||
 					video_mode != original_header.video ? 1 : 0;
 				menu_active = 0;
@@ -434,7 +434,7 @@ int initial_mode;
 			case 24:
 				flash_button(dialog_top + 230, dialog_left + 127, 6, 1, 1);
 				flash_button(dialog_top + 230, dialog_left + 127, 6, 1, 0);
-				spell_dialog_button = 0;
+				dialog_button = 0;
 				menu_active = 0;
 				scenario_header_data = original_header;
 				adjust_palette_and_rgb_lookup(palette_base_setting,
@@ -453,5 +453,5 @@ int initial_mode;
 	restore_saved_screen(saved_screen, 1);
 	call_show_area(dialog_top - 1, dialog_left - 1,
 		dialog_right + 1, dialog_bottom + 1);
-	return spell_dialog_button;
+	return dialog_button;
 }

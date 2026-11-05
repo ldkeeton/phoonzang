@@ -163,20 +163,20 @@ struc member_rec
     .unit_hp_max: resb 2
     .unit_stamina: resb 2
     .unit_stamina_max: resb 2
-    .f_000a: resb 2
-    .f_000c: resb 2
+    .unit_primary_action: resb 2
+    .unit_secondary_action: resb 2
     .unit_status: resb 10
-    .f_0018: resb 3
-    .f_001b: resb 1
-    .f_001c: resb 2
-    .f_001e: resb 1
+    .unit_action_speed: resb 4
+    .unit_primary_attack: resb 1
+    .unit_secondary_attack: resb 1
+    .unit_action_kind: resb 1
     .unit_target_group: resb 1
     .unit_target_unit: resb 1
-    .f_0021: resb 1
+    .unit_attack_cycle: resb 1
     .unit_state: resb 1
     .unit_poison_strength: resb 1
     .unit_countdown: resb 1
-    .f_0025: resb 1
+    .unit_countdown_roll: resb 1
     .unit_reflex_mod: resb 1
     .unit_aim_mod: resb 1
     .unit_strike_mod: resb 1
@@ -205,7 +205,7 @@ struc battle_groups_1_rec
 endstruc
 
 ; records pointed at by DS 0x848e
-struc battle_groups_6_rec
+struc ally_battle_group_rec
     .pad_0000: resb 2
     .f_0002: resb 415
     .f_01a1: resb 1
@@ -216,7 +216,10 @@ struc member_ext
     .f_0000: resb 64
     .experience: resb 4
     .pad_0044: resb 13
-    .f_0051: resb 41
+    .attack0_target_count: resb 1
+    .pad_0052: resb 1
+    .attack0_action_mask: resb 1
+    .pad_0054: resb 38
     .f_007a: resb 3
     .f_007d: resb 3
     .f_0080: resb 6
@@ -226,30 +229,31 @@ struc member_ext
     .f_008d: resb 1
     .f_008e: resb 1
     .f_008f: resb 1
-    .f_0090: resb 10
+    .special_spell_ids: resb 10
     .f_009a: resb 2
     .f_009c: resb 1
     .f_009d: resb 8
     .f_00a5: resb 5
     .companion_id: resb 2
     .companion_chance: resb 2
-    .f_00ae: resb 2
-    .f_00b0: resb 1
+    .special_spell_chance: resb 2
+    .special_action_chance: resb 1
     .f_00b1: resb 1
-    .f_00b2: resb 18
+    .flee_chance: resb 1
+    .pad_00b3: resb 17
     .f_00c4: resb 1
     .f_00c5: resb 1
     .f_00c6: resb 6
     .f_00cc: resb 10
-    .f_00d6: resb 1
+    .creature_class: resb 1
     .kind: resb 1
     .sound_id: resb 1
-    .f_00d9: resb 1
-    .f_00da: resb 1
-    .f_00db: resb 1
-    .f_00dc: resb 1
+    .speed_bonus: resb 1
+    .max_hits: resb 1
+    .attack_count: resb 1
+    .gender: resb 1
     .hp_regen: resb 1
-    .f_00de: resb 2
+    .special_action_code: resb 2
     .bitmap_bit: resb 2
     .flags: resb 2
     .f_00e4: resb 1

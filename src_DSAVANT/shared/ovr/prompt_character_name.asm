@@ -2,7 +2,7 @@
 prompt_character_name:
     mov ax, 0xffda
     call aztec_csav
-    mov word [spell_dialog_result], 0xffff
+    mov word [dialog_selection], 0xffff
     mov word [bp - 2], 0x37
     mov word [bp - 4], 0x8f
     mov word [bp - 6], 0x108
@@ -453,7 +453,7 @@ prompt_character_name:
     push ax
     call flash_button
     add sp, byte 0xa
-    mov word [spell_dialog_button], 0
+    mov word [dialog_button], 0
     mov word [bp - 0x10], 0
 .forward2:
     jmp near .forward9
@@ -487,7 +487,7 @@ prompt_character_name:
     push ax
     call flash_button
     add sp, byte 0xa
-    mov word [spell_dialog_button], 1
+    mov word [dialog_button], 1
     mov word [bp - 0x10], 0
 .forward3:
     jmp short .forward9
@@ -521,7 +521,7 @@ prompt_character_name:
     push ax
     call flash_button
     add sp, byte 0xa
-    mov word [spell_dialog_button], 2
+    mov word [dialog_button], 2
     mov word [bp - 0x10], 0
 .forward4:
     jmp short .forward9
@@ -550,6 +550,6 @@ prompt_character_name:
     push word [bp - 0x26]
     call restore_saved_screen
     add sp, byte 4
-    mov word [spell_dialog_result], 0xffff
-    mov ax, word [spell_dialog_button]
+    mov word [dialog_selection], 0xffff
+    mov ax, word [dialog_button]
     ret

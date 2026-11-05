@@ -1,5 +1,5 @@
 ; auto-generated
-api_idx_0002_GMMK:
+prepare_combat_groups:
     mov ax, 0xfffe                   ; 0x4d91
     call aztec_csav                  ; 0x4d94
     mov al, byte [party_char_count]  ; 0x4d97
@@ -8,8 +8,8 @@ api_idx_0002_GMMK:
     mov word [bp - 2], 1             ; 0x4da2
     jmp short .forward4              ; 0x4da7
 .back1:
-    mov bx, word [battle_groups_6]   ; 0x4da9
-    cmp byte [bx + battle_groups_6_rec.f_01a1], 0 ; 0x4dad
+    mov bx, word [ally_battle_group] ; 0x4da9
+    cmp byte [bx + ally_battle_group_rec.f_01a1], 0 ; 0x4dad
     jbe short .forward1              ; 0x4db2
     mov ax, 4                        ; 0x4db4
     push ax                          ; 0x4db7
@@ -21,7 +21,7 @@ api_idx_0002_GMMK:
     shl ax, 1                        ; 0x4dc4
     mov bx, ax                       ; 0x4dc6
     mov bx, word [bx + battle_group_ext] ; 0x4dc8
-    cmp byte [bx + member_ext.f_00d6], 0x16 ; 0x4dcc
+    cmp byte [bx + member_ext.creature_class], 0x16 ; 0x4dcc
     je short .forward1               ; 0x4dd1
     cmp word [npc_id], strict word 0xe1 ; 0x4dd3
     jne short .forward2              ; 0x4dd9
@@ -29,14 +29,14 @@ api_idx_0002_GMMK:
     mov ax, 0                        ; 0x4ddb
     push ax                          ; 0x4dde
     push word [bp - 2]               ; 0x4ddf
-    call api_idx_0024_NKNU           ; 0x4de2
+    call prepare_combatant_actions   ; 0x4de2
     add sp, byte 4                   ; 0x4de5
     jmp short .forward3              ; 0x4de8
 .forward2:
     mov ax, 6                        ; 0x4dea
     push ax                          ; 0x4ded
     push word [bp - 2]               ; 0x4dee
-    call api_idx_0024_NKNU           ; 0x4df1
+    call prepare_combatant_actions   ; 0x4df1
     add sp, byte 4                   ; 0x4df4
 .forward3:
     inc word [bp - 2]                ; 0x4df7
@@ -44,8 +44,8 @@ api_idx_0002_GMMK:
     mov ax, word [bp - 2]            ; 0x4dfa
     cmp ax, word [monster_group_count] ; 0x4dfd
     jle short .back1                 ; 0x4e01
-    mov bx, word [battle_groups_6]   ; 0x4e03
-    cmp byte [bx + battle_groups_6_rec.f_01a1], 0 ; 0x4e07
+    mov bx, word [ally_battle_group] ; 0x4e03
+    cmp byte [bx + ally_battle_group_rec.f_01a1], 0 ; 0x4e07
     jbe short .return1               ; 0x4e0c
     mov word [bp - 2], 1             ; 0x4e0e
 .back2:
@@ -64,7 +64,7 @@ api_idx_0002_GMMK:
     push word [bp - 2]               ; 0x4e2d
     mov ax, 6                        ; 0x4e30
     push ax                          ; 0x4e33
-    call api_idx_0024_NKNU           ; 0x4e34
+    call prepare_combatant_actions   ; 0x4e34
     add sp, byte 4                   ; 0x4e37
 .return1:
     ret                              ; 0x4e3a

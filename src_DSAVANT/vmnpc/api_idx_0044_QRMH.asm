@@ -12,7 +12,7 @@ api_idx_0044_QRMH:
     mov ax, word [bp - 2]            ; 0x7887
     cmp ax, strict word 6            ; 0x788a
     jl short .back1                  ; 0x788d
-    mov word [spell_dialog_result], 0xffff ; 0x788f
+    mov word [dialog_selection], 0xffff ; 0x788f
     mov word [bp - 4], 0x32          ; 0x7895
     mov word [bp - 6], 0x73          ; 0x789a
     mov word [bp - 8], 0x10d         ; 0x789f
@@ -853,7 +853,7 @@ api_idx_0044_QRMH.forward15:
     push ax                          ; 0x805a
     call flash_button                ; 0x805b
     add sp, byte 0xa                 ; 0x805e
-    mov word [spell_dialog_button], 0 ; 0x8061
+    mov word [dialog_button], 0      ; 0x8061
     mov word [bp - 0x1c], 0          ; 0x8067
 api_idx_0044_QRMH.forward16:
     cmp word [bp - 0x1c], byte 0     ; 0x806c
@@ -892,7 +892,7 @@ jumptable_8492_case_4:
     push ax                          ; 0x80b3
     call flash_button                ; 0x80b4
     add sp, byte 0xa                 ; 0x80b7
-    mov word [spell_dialog_button], 1 ; 0x80ba
+    mov word [dialog_button], 1      ; 0x80ba
     mov word [bp - 0x1c], 0          ; 0x80c0
     jmp near api_idx_0044_QRMH.forward40 ; 0x80c5
 api_idx_0044_QRMH.back7:
@@ -1343,6 +1343,6 @@ api_idx_0044_QRMH.forward41:
     sub al, al                       ; 0x84e1
     add ax, word [bp - 0x3c]         ; 0x84e3
     add ax, 0x100                    ; 0x84e6
-    mov word [spell_dialog_result], ax ; 0x84e9
-    mov ax, word [spell_dialog_button] ; 0x84ec
+    mov word [dialog_selection], ax  ; 0x84e9
+    mov ax, word [dialog_button]     ; 0x84ec
     ret                              ; 0x84ef

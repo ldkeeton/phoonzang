@@ -5,9 +5,9 @@
 
 extern struct spell_info spell_table[];
 extern char *battle_groups[];
-extern int spell_dialog_result;
+extern int dialog_selection;
 
-void wait_for_party_redraw();
+void wait_for_party_screen_animation();
 int action_spell_dialog();
 int pick_party_member();
 
@@ -16,9 +16,9 @@ int pc;
 {
 	int result, button, power, spell, target;
 
-	wait_for_party_redraw();
+	wait_for_party_screen_animation();
 	button = action_spell_dialog(pc, MSG_CAST, 1, 1);	/* button labels */
-	result = spell_dialog_result;
+	result = dialog_selection;
 	if (button == 1)	/* second button: cancelled */
 		return -1;
 	power = result / 256;			/* high byte: power */

@@ -12,7 +12,7 @@ action_spell_dialog:
     mov ax, word [bp - 2]            ; 0x1cbd
     cmp ax, strict word 6            ; 0x1cc0
     jl short .back1                  ; 0x1cc3
-    mov word [spell_dialog_result], 0xffff ; 0x1cc5
+    mov word [dialog_selection], 0xffff ; 0x1cc5
     mov word [bp - 4], 0x32          ; 0x1ccb
     mov word [bp - 6], 0x73          ; 0x1cd0
     mov word [bp - 8], 0x10d         ; 0x1cd5
@@ -870,7 +870,7 @@ action_spell_dialog.forward18:
     push ax                          ; 0x24b1
     call flash_button                ; 0x24b2
     add sp, byte 0xa                 ; 0x24b5
-    mov word [spell_dialog_button], 0 ; 0x24b8
+    mov word [dialog_button], 0      ; 0x24b8
     mov word [bp - 0x1c], 0          ; 0x24be
 action_spell_dialog.forward19:
     cmp word [bp - 0x1c], byte 0     ; 0x24c3
@@ -909,7 +909,7 @@ jumptable_28e9_case_4:
     push ax                          ; 0x250a
     call flash_button                ; 0x250b
     add sp, byte 0xa                 ; 0x250e
-    mov word [spell_dialog_button], 1 ; 0x2511
+    mov word [dialog_button], 1      ; 0x2511
     mov word [bp - 0x1c], 0          ; 0x2517
     jmp near action_spell_dialog.forward43 ; 0x251c
 action_spell_dialog.back7:
@@ -1360,6 +1360,6 @@ action_spell_dialog.forward44:
     sub al, al                       ; 0x2938
     add ax, word [bp - 0x3c]         ; 0x293a
     add ax, 0x100                    ; 0x293d
-    mov word [spell_dialog_result], ax ; 0x2940
-    mov ax, word [spell_dialog_button] ; 0x2943
+    mov word [dialog_selection], ax  ; 0x2940
+    mov ax, word [dialog_button]     ; 0x2943
     ret                              ; 0x2946

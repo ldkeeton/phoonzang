@@ -210,12 +210,12 @@ api_idx_0010_RUQS:
     shl ax, 1                        ; 0x3046
     mov bx, ax                       ; 0x3048
     mov bx, word [bx + battle_groups] ; 0x304a
-    mov al, byte [bx + si + member_rec.f_0018] ; 0x304e
+    mov al, byte [bx + si + member_rec.unit_action_speed] ; 0x304e
     sub ah, ah                       ; 0x3051
     mov cx, 2                        ; 0x3053
     cwd                              ; 0x3056
     idiv cx                          ; 0x3057
-    mov byte [bx + si + member_rec.f_0018], al ; 0x3059
+    mov byte [bx + si + member_rec.unit_action_speed], al ; 0x3059
     inc word [bp - 0xe]              ; 0x305c
     mov ax, word [bp - 0xe]          ; 0x305f
     cmp ax, strict word 4            ; 0x3062

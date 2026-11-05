@@ -1,14 +1,14 @@
 /* modal spell dialog for pc: six realm hotspots, a scrolling list of known
-   spells, a 1..7 power row and two buttons; returns spell_dialog_button (0
+   spells, a 1..7 power row and two buttons; returns dialog_button (0
    first button, 1 second) and leaves (power << 8) + spell + 0x100 in
-   spell_dialog_result */
+   dialog_selection */
 
 #include "structs/pcrec.h"
 #include "structs/spell.h"
 
 extern int party_slot_frame[];
 extern int hotspot_rects[];
-extern int spell_dialog_result, party_redraw_interval, spell_dialog_button,
+extern int dialog_selection, party_redraw_interval, dialog_button,
 	space_key_hit, hotspot_hit;
 extern long party_redraw_last_tick;
 extern long far *tick_counter_ptr;
@@ -27,7 +27,7 @@ int pc, button_msg, ok_enabled, limit_by_points;
 	int saved_area, spell, power, max_power, realm, spell_count;
 	for (i = 0; i < 6; i++)
 		party_slot_frame[i] = 0;
-	spell_dialog_result = -1;
+	dialog_selection = -1;
 	box_x0 = 50;
 	box_y0 = 115;
 	box_x1 = 269;
@@ -149,7 +149,7 @@ int pc, button_msg, ok_enabled, limit_by_points;
 					    	<= party_records[pc].realm_points[realm][0])) {
 						flash_button(panel_x + 6, box_y0 + 6, 8, 1, 1);
 						flash_button(panel_x + 6, box_y0 + 6, 8, 1, 0);
-						spell_dialog_button = 0;
+						dialog_button = 0;
 						running = 0;
 					}
 					if (running)
@@ -159,7 +159,7 @@ int pc, button_msg, ok_enabled, limit_by_points;
 			case 4:	/* second button */
 				flash_button(panel_x + 66, box_y0 + 6, 8, 1, 1);
 				flash_button(panel_x + 66, box_y0 + 6, 8, 1, 0);
-				spell_dialog_button = 1;
+				dialog_button = 1;
 				running = 0;
 				break;
 			default:
@@ -217,6 +217,6 @@ int pc, button_msg, ok_enabled, limit_by_points;
 	} while (running);
 	restore_saved_screen(saved_area, 1);
 	call_show_area(box_x0 - 1, box_y0 - 1, box_x1 + 1, box_y1 + 1);
-	spell_dialog_result = (power << 8) + spell + 256;
-	return spell_dialog_button;
+	dialog_selection = (power << 8) + spell + 256;
+	return dialog_button;
 }

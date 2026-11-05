@@ -1,5 +1,5 @@
 ; auto-generated
-loc_HTRU:
+select_party_menu_target:
     mov ax, 0xfe32                   ; 0x111b
     call aztec_csav                  ; 0x111e
     mov word [menu_selection_index], 0xffff ; 0x1121
@@ -287,7 +287,7 @@ loc_HTRU:
     mov ax, word [bp - 6]            ; 0x13be
     add ax, word [bp - 0xa]          ; 0x13c1
     push ax                          ; 0x13c4
-    call loc_MNNG                    ; 0x13c5
+    call fill_rectangle_border       ; 0x13c5
     add sp, byte 0xa                 ; 0x13c8
     push word [bp + 6]               ; 0x13cb
     call show_area_set               ; 0x13ce
@@ -309,7 +309,7 @@ loc_HTRU:
     mov ax, word [bp - 6]            ; 0x13f4
     add ax, word [bp - 0xa]          ; 0x13f7
     push ax                          ; 0x13fa
-    call loc_MNNG                    ; 0x13fb
+    call fill_rectangle_border       ; 0x13fb
     add sp, byte 0xa                 ; 0x13fe
 .back6:
     mov ax, 1                        ; 0x1401

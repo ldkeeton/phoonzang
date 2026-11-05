@@ -11,7 +11,7 @@ extern struct spell_info spell_table[];
 extern struct saved_region_blocks party_region;
 extern unsigned char scenario_header_data[][16];
 extern char item_type_counted[];
-extern int party_redraw_interval, spell_target, spell_dialog_result;
+extern int party_redraw_interval, spell_target, dialog_selection;
 extern int pending_event, pending_event_hi, current_level;
 extern int list_row_marked[], list_row_glyph[], list_row_count[];
 extern char list_row_name[][22];
@@ -70,7 +70,7 @@ int pc;
 	/* 0x100 separates the displayed page from its slot index. */
 	action_result = item_action_dialog(MSG_USE_2030, 1, 1, 1,
 		row_count, item_dialog_first_label);
-	selection = spell_dialog_result;
+	selection = dialog_selection;
 	if (action_result == 2 || selection == -1) {
 		call_show_area(54, 142, 265, 198);
 		return;

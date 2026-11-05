@@ -141,7 +141,7 @@ api_idx_0004_OVIO:
     shl ax, 1                        ; 0x1dd9
     mov bx, ax                       ; 0x1ddb
     mov bx, word [bx + battle_groups] ; 0x1ddd
-    mov byte [bx + si + member_rec.f_0025], 0 ; 0x1de1
+    mov byte [bx + si + member_rec.unit_countdown_roll], 0 ; 0x1de1
     mov word [bp - 2], 0             ; 0x1de5
 .back1:
     mov ax, 0x2c                     ; 0x1dea
@@ -152,7 +152,7 @@ api_idx_0004_OVIO:
     shl ax, 1                        ; 0x1df8
     mov bx, ax                       ; 0x1dfa
     mov bx, word [bx + battle_groups] ; 0x1dfc
-    mov byte [bx + si + member_rec.f_0018], 0 ; 0x1e00
+    mov byte [bx + si + member_rec.unit_action_speed], 0 ; 0x1e00
     inc word [bp - 2]                ; 0x1e04
     mov ax, word [bp - 2]            ; 0x1e07
     cmp ax, strict word 4            ; 0x1e0a

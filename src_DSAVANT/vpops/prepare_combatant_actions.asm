@@ -1,5 +1,5 @@
 ; auto-generated
-api_idx_0024_NKNU:
+prepare_combatant_actions:
     mov ax, 0xffdc                   ; 0x45f3
     call aztec_csav                  ; 0x45f6
     mov word [bp - 0x1e], 0          ; 0x45f9
@@ -36,15 +36,15 @@ api_idx_0024_NKNU:
     mov ax, 0x2c                     ; 0x464e
     imul word [bp - 4]               ; 0x4651
     mov si, ax                       ; 0x4654
-    mov bx, word [battle_groups_6]   ; 0x4656
-    mov ax, word [bx + si + battle_groups_6_rec.f_0002] ; 0x465a
+    mov bx, word [ally_battle_group] ; 0x4656
+    mov ax, word [bx + si + ally_battle_group_rec.f_0002] ; 0x465a
     cwd                              ; 0x465d
     add word [bp - 0x20], ax         ; 0x465e
     adc word [bp - 0x1e], dx         ; 0x4661
     inc word [bp - 4]                ; 0x4664
 .forward3:
-    mov bx, word [battle_groups_6]   ; 0x4667
-    mov al, byte [bx + battle_groups_6_rec.f_01a1] ; 0x466b
+    mov bx, word [ally_battle_group] ; 0x4667
+    mov al, byte [bx + ally_battle_group_rec.f_01a1] ; 0x466b
     sub ah, ah                       ; 0x466f
     cmp ax, word [bp - 4]            ; 0x4671
     jg short .back2                  ; 0x4674
@@ -201,7 +201,7 @@ api_idx_0024_NKNU:
     shl ax, 1                        ; 0x47d7
     mov bx, ax                       ; 0x47d9
     mov bx, word [bx + battle_group_ext] ; 0x47db
-    mov al, byte [bx + member_ext.f_00d9] ; 0x47df
+    mov al, byte [bx + member_ext.speed_bonus] ; 0x47df
     sub ah, ah                       ; 0x47e3
     mov cx, ax                       ; 0x47e5
     pop ax                           ; 0x47e7
@@ -289,7 +289,7 @@ api_idx_0024_NKNU:
     shl ax, 1                        ; 0x48a5
     mov bx, ax                       ; 0x48a7
     mov bx, word [bx + battle_group_ext] ; 0x48a9
-    mov al, byte [bx + member_ext.f_00db] ; 0x48ad
+    mov al, byte [bx + member_ext.attack_count] ; 0x48ad
     sub ah, ah                       ; 0x48b1
     cmp ax, word [bp - 0xe]          ; 0x48b3
     jle short .forward15             ; 0x48b6
@@ -355,7 +355,7 @@ api_idx_0024_NKNU:
     shl ax, 1                        ; 0x494e
     mov bx, ax                       ; 0x4950
     mov bx, word [bx + battle_group_ext] ; 0x4952
-    mov al, byte [bx + member_ext.f_00ae] ; 0x4956
+    mov al, byte [bx + member_ext.special_spell_chance] ; 0x4956
     sub ah, ah                       ; 0x495a
     mov cx, ax                       ; 0x495c
     pop ax                           ; 0x495e
@@ -383,7 +383,7 @@ api_idx_0024_NKNU:
     mov bx, ax                       ; 0x4999
     mov bx, word [bx + battle_group_ext] ; 0x499b
     mov si, word [bp - 0x10]         ; 0x499f
-    mov al, byte [bx + si + member_ext.f_0090] ; 0x49a2
+    mov al, byte [bx + si + member_ext.special_spell_ids] ; 0x49a2
     sub ah, ah                       ; 0x49a6
     mov word [bp - 0x1a], ax         ; 0x49a8
 .forward19:
@@ -505,7 +505,7 @@ api_idx_0024_NKNU:
     shl ax, 1                        ; 0x4ab7
     mov bx, ax                       ; 0x4ab9
     mov bx, word [bx + battle_group_ext] ; 0x4abb
-    mov al, byte [bx + member_ext.f_00b0] ; 0x4abf
+    mov al, byte [bx + member_ext.special_action_chance] ; 0x4abf
     sub ah, ah                       ; 0x4ac3
     mov cx, ax                       ; 0x4ac5
     pop ax                           ; 0x4ac7
@@ -518,7 +518,7 @@ api_idx_0024_NKNU:
     shl ax, 1                        ; 0x4adb
     mov bx, ax                       ; 0x4add
     mov bx, word [bx + battle_group_ext] ; 0x4adf
-    mov al, byte [bx + member_ext.f_00de] ; 0x4ae3
+    mov al, byte [bx + member_ext.special_action_code] ; 0x4ae3
     sub ah, ah                       ; 0x4ae7
     mov bx, word [bp - 8]            ; 0x4ae9
     mov word [bx + 0xa], ax          ; 0x4aec
@@ -567,7 +567,7 @@ api_idx_0024_NKNU:
     shl ax, 1                        ; 0x4b5b
     mov bx, ax                       ; 0x4b5d
     mov bx, word [bx + battle_group_ext] ; 0x4b5f
-    mov al, byte [bx + si + member_ext.f_0051] ; 0x4b63
+    mov al, byte [bx + si + member_ext.attack0_target_count] ; 0x4b63
     sub ah, ah                       ; 0x4b66
     mov cx, 2                        ; 0x4b68
     cmp word [bp + 4], byte 3        ; 0x4b6b
@@ -688,7 +688,7 @@ api_idx_0024_NKNU:
     shl ax, 1                        ; 0x4c8a
     mov bx, ax                       ; 0x4c8c
     mov bx, word [bx + battle_group_ext] ; 0x4c8e
-    mov al, byte [bx + member_ext.f_00b2] ; 0x4c92
+    mov al, byte [bx + member_ext.flee_chance] ; 0x4c92
     sub ah, ah                       ; 0x4c96
     mov cx, ax                       ; 0x4c98
     mov ax, word [bp - 6]            ; 0x4c9a

@@ -16,7 +16,7 @@ api_idx_0006_RKSL:
     call api_idx_0038_KUIN           ; 0x575f
     add sp, byte 0xc                 ; 0x5762
     mov word [bp - 2], ax            ; 0x5765
-    mov ax, word [spell_dialog_result] ; 0x5768
+    mov ax, word [dialog_selection]  ; 0x5768
     mov word [bp - 4], ax            ; 0x576b
     cmp word [bp - 2], byte 1        ; 0x576e
     jne short .forward2              ; 0x5772

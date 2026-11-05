@@ -586,31 +586,31 @@ api_idx_0014_PIUH:
     mov bx, ax                       ; 0x6a8b
     mov al, byte [bx + party_records + pc_rec.stat5_plus_power] ; 0x6a8d
     mov bx, word [battle_group_ext]  ; 0x6a91
-    mov byte [bx + member_ext.f_00d9], al ; 0x6a95
+    mov byte [bx + member_ext.speed_bonus], al ; 0x6a95
     mov ax, 0x248                    ; 0x6a99
     imul word [bss_8462]             ; 0x6a9c
     mov bx, ax                       ; 0x6aa0
     mov al, byte [bx + party_records + pc_rec.adjusted_stat5] ; 0x6aa2
     mov bx, word [battle_group_ext]  ; 0x6aa6
-    mov byte [bx + member_ext.f_00db], al ; 0x6aaa
+    mov byte [bx + member_ext.attack_count], al ; 0x6aaa
     mov ax, 0x248                    ; 0x6aae
     imul word [bss_8462]             ; 0x6ab1
     mov bx, ax                       ; 0x6ab5
     mov al, byte [bx + party_records + pc_rec.adjusted_stat4] ; 0x6ab7
     mov bx, word [battle_group_ext]  ; 0x6abb
-    mov byte [bx + member_ext.f_00da], al ; 0x6abf
+    mov byte [bx + member_ext.max_hits], al ; 0x6abf
     mov ax, 0x248                    ; 0x6ac3
     imul word [bss_8462]             ; 0x6ac6
     mov bx, ax                       ; 0x6aca
     mov al, byte [bx + party_records + pc_rec.gender] ; 0x6acc
     mov bx, word [battle_group_ext]  ; 0x6ad0
-    mov byte [bx + member_ext.f_00dc], al ; 0x6ad4
+    mov byte [bx + member_ext.gender], al ; 0x6ad4
     mov ax, 0x248                    ; 0x6ad8
     imul word [bss_8462]             ; 0x6adb
     mov bx, ax                       ; 0x6adf
     mov al, byte [bx + party_records + pc_rec.profession] ; 0x6ae1
     mov bx, word [battle_group_ext]  ; 0x6ae5
-    mov byte [bx + member_ext.f_00d6], al ; 0x6ae9
+    mov byte [bx + member_ext.creature_class], al ; 0x6ae9
     jmp near .forward32              ; 0x6aed
 .forward29:
     mov bx, word [bp - 2]            ; 0x6af0
@@ -713,7 +713,7 @@ api_idx_0014_PIUH:
     mov bx, ax                       ; 0x6bec
     mov al, byte [bx + party_records + pc_rec.stat5_plus_power] ; 0x6bee
     mov bx, word [battle_group_ext]  ; 0x6bf2
-    mov byte [bx + member_ext.f_00d9], al ; 0x6bf6
+    mov byte [bx + member_ext.speed_bonus], al ; 0x6bf6
     mov bx, word [bp - 2]            ; 0x6bfa
     mov al, byte [bx + 0x20]         ; 0x6bfd
     sub ah, ah                       ; 0x6c00
@@ -721,7 +721,7 @@ api_idx_0014_PIUH:
     mov bx, ax                       ; 0x6c04
     mov al, byte [bx + party_records + pc_rec.adjusted_stat5] ; 0x6c06
     mov bx, word [battle_group_ext]  ; 0x6c0a
-    mov byte [bx + member_ext.f_00db], al ; 0x6c0e
+    mov byte [bx + member_ext.attack_count], al ; 0x6c0e
     mov bx, word [bp - 2]            ; 0x6c12
     mov al, byte [bx + 0x20]         ; 0x6c15
     sub ah, ah                       ; 0x6c18
@@ -729,7 +729,7 @@ api_idx_0014_PIUH:
     mov bx, ax                       ; 0x6c1c
     mov al, byte [bx + party_records + pc_rec.adjusted_stat4] ; 0x6c1e
     mov bx, word [battle_group_ext]  ; 0x6c22
-    mov byte [bx + member_ext.f_00da], al ; 0x6c26
+    mov byte [bx + member_ext.max_hits], al ; 0x6c26
     mov bx, word [bp - 2]            ; 0x6c2a
     mov al, byte [bx + 0x20]         ; 0x6c2d
     sub ah, ah                       ; 0x6c30
@@ -737,7 +737,7 @@ api_idx_0014_PIUH:
     mov bx, ax                       ; 0x6c34
     mov al, byte [bx + party_records + pc_rec.gender] ; 0x6c36
     mov bx, word [battle_group_ext]  ; 0x6c3a
-    mov byte [bx + member_ext.f_00dc], al ; 0x6c3e
+    mov byte [bx + member_ext.gender], al ; 0x6c3e
     mov bx, word [bp - 2]            ; 0x6c42
     mov al, byte [bx + 0x20]         ; 0x6c45
     sub ah, ah                       ; 0x6c48
@@ -745,7 +745,7 @@ api_idx_0014_PIUH:
     mov bx, ax                       ; 0x6c4c
     mov al, byte [bx + party_records + pc_rec.profession] ; 0x6c4e
     mov bx, word [battle_group_ext]  ; 0x6c52
-    mov byte [bx + member_ext.f_00d6], al ; 0x6c56
+    mov byte [bx + member_ext.creature_class], al ; 0x6c56
 .forward32:
     mov bx, word [bp - 2]            ; 0x6c5a
     mov al, byte [bx + 0x1e]         ; 0x6c5d

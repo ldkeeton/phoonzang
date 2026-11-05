@@ -22,7 +22,7 @@ divvy_loot_menu:
     call item_or_loot_dialog         ; 0x5371
     add sp, byte 0xc                 ; 0x5374
     mov word [bp - 6], ax            ; 0x5377
-    mov ax, word [spell_dialog_result] ; 0x537a
+    mov ax, word [dialog_selection]  ; 0x537a
     mov word [bp - 2], ax            ; 0x537d
     cmp word [bp - 2], byte -1       ; 0x5380
     je short .back1                  ; 0x5384

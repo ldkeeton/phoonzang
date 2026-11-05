@@ -306,7 +306,7 @@ monster_group_count equ __zbss_8466 - __zdseg_start
 overlay_list equ __zbss_8468 - __zdseg_start
 battle_groups equ __zbss_8482 - __zdseg_start
 battle_groups_1 equ __zbss_8484 - __zdseg_start
-battle_groups_6 equ __zbss_848e - __zdseg_start
+ally_battle_group equ __zbss_848e - __zdseg_start
 battle_group_ext equ __zbss_8490 - __zdseg_start
 battle_group_ext_1 equ __zbss_8492 - __zdseg_start
 selected_item_slot equ __zbss_849e - __zdseg_start
@@ -382,8 +382,8 @@ party_world_y equ __zbss_8f44 - __zdseg_start
 party_world_x equ __zbss_8f46 - __zdseg_start
 last_map_piece_index equ __zbss_8f48 - __zdseg_start
 startup_check_stage equ __zbss_904c - __zdseg_start
-spell_dialog_result equ __zbss_904e - __zdseg_start
-spell_dialog_button equ __zbss_9050 - __zdseg_start
+dialog_selection equ __zbss_904e - __zdseg_start
+dialog_button equ __zbss_9050 - __zdseg_start
 menu_selection_index equ __zbss_9052 - __zdseg_start
 startup_hardware_flags equ __zbss_9056 - __zdseg_start
 startup_option equ __zbss_9058 - __zdseg_start

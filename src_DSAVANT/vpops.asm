@@ -32,7 +32,7 @@ area_set_1_center_save_file equ __zdseg_end + (__zarea_set_1_center_save_file - 
 area_set_2_save_file equ __zdseg_end + (__zarea_set_2_save_file - __zdata_start)
 spell_cost_panel_text equ __zdseg_end + (__zspell_cost_panel_text - __zdata_start)
 screen_save_temp_file equ __zdseg_end + (__zscreen_save_temp_file - __zdata_start)
-dseg_90c5 equ __zdseg_end + (__zdseg_90c5 - __zdata_start)
+item_dialog_temp_file equ __zdseg_end + (__zitem_dialog_temp_file - __zdata_start)
 save_si equ __zdseg_end + (__zsave_si - __zdata_start)
 save_di equ __zdseg_end + (__zsave_di - __zdata_start)
 save_sp equ __zdseg_end + (__zsave_sp - __zdata_start)
@@ -40,13 +40,13 @@ save_bp equ __zdseg_end + (__zsave_bp - __zdata_start)
 save_ret equ __zdseg_end + (__zsave_ret - __zdata_start)
 _Uorg equ __zdseg_end + (__zobss_90d6 - __zdata_start)
 party_redraw_interval equ __zdseg_end + (__zobss_90d6 - __zdata_start)
-bss_90d8 equ __zdseg_end + (__zobss_90d8 - __zdata_start)
+unit_targeted equ __zdseg_end + (__zobss_90d8 - __zdata_start)
 known_spell_ids equ __zdseg_end + (__zobss_9106 - __zdata_start)
 list_row_marked equ __zdseg_end + (__zobss_9156 - __zdata_start)
 list_row_glyph equ __zdseg_end + (__zobss_917e - __zdata_start)
 list_row_name equ __zdseg_end + (__zobss_91a6 - __zdata_start)
 list_row_count equ __zdseg_end + (__zobss_935e - __zdata_start)
-bss_9386 equ __zdseg_end + (__zobss_9386 - __zdata_start)
+range_max_target_group equ __zdseg_end + (__zobss_9386 - __zdata_start)
 bss_9388 equ __zdseg_end + (__zobss_9388 - __zdata_start)
 bss_938a equ __zdseg_end + (__zobss_938a - __zdata_start)
 bss_938c equ __zdseg_end + (__zobss_938c - __zdata_start)
@@ -84,11 +84,13 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "shared/ovr/run_party_screen_animation.asm" ; 0x1076
 
-%include "vpops/wait_for_party_redraw.asm" ; 0x108d
+%include "vpops/wait_for_party_screen_animation.asm" ; 0x108d
 
-%include "vpops/loc_HTRU.asm"              ; 0x111b
+%include "shared/ovr/fill_rectangle_border.asm" ; 0x10a0
 
-%include "vpops/api_idx_000c_JUIH.asm"     ; 0x178a
+%include "vpops/select_party_menu_target.asm" ; 0x111b
+
+%include "vpops/pick_group_target_unit.asm" ; 0x178a
 
 %include "shared/ovr/draw_party_slot_letters.asm" ; 0x18c2
 
@@ -116,23 +118,23 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "shared/ovr/draw_inset_list_rows.asm"  ; 0x2c51
 
-%include "vpops/use_or_cancel_item_dialog.asm" ; 0x2c92
+%include "vpops/item_action_dialog.asm"    ; 0x2c92
 
 %include "vpops/choose_member_item_to_use.asm" ; 0x33db
 
 %include "vpops/pick_random_set_bit.asm"   ; 0x36c0
 
-%include "vpops/api_idx_00d4_UHLT.asm"     ; 0x3710
+%include "vpops/choose_party_battle_orders.asm" ; 0x3710
 
 %include "vpops/target_most_wounded_unit.asm" ; 0x4528
 
 %include "vpops/pick_monster_attack_slot.asm" ; 0x45b3
 
-%include "vpops/api_idx_0024_NKNU.asm"     ; 0x45f3
+%include "vpops/prepare_combatant_actions.asm" ; 0x45f3
 
-%include "vpops/api_idx_0002_GMMK.asm"     ; 0x4d91
+%include "vpops/prepare_combat_groups.asm" ; 0x4d91
 
-%include "vpops/api_idx_0004_NRTK.asm"     ; 0x4e3b
+%include "vpops/enter_party_battle_orders.asm" ; 0x4e3b
 
 %include "shared/ovr/aztec_ovbgn.asm"           ; 0x4e9d
 
@@ -151,7 +153,7 @@ __zdata_start:
 
 %include "shared/data/screen_save_temp_file.asm" ; 0x4f02
 
-%include "vpops/data/dseg_90c5.asm"        ; 0x4f08
+%include "vpops/data/item_dialog_temp_file.asm" ; 0x4f08
 
 %include "shared/data/overlay_saved_registers.asm" ; 0x4f0f
 

@@ -29,7 +29,7 @@ npc_use_item_menu:
     call single_action_item_dialog   ; 0x51f6
     add sp, byte 0xc                 ; 0x51f9
     mov word [bp - 0x4c], ax         ; 0x51fc
-    mov ax, word [spell_dialog_result] ; 0x51ff
+    mov ax, word [dialog_selection]  ; 0x51ff
     mov word [bp - 2], ax            ; 0x5202
     cmp word [bp - 0x4c], byte 2     ; 0x5205
     je short .forward2               ; 0x5209

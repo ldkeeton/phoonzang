@@ -41,13 +41,13 @@ party_screen()
 						battle_groups[group_index]->unit[unit_index].hp - target_total;
 			}
 		}
-		if (battle_group_ext[group_index]->f_00ae > 0)
+		if (battle_group_ext[group_index]->special_spell_chance > 0)
 			group_score[group_index] /=
-				battle_group_ext[group_index]->f_00ae / 10 + 1;
-		if (battle_group_ext[group_index]->f_00b0 > 0)
+				battle_group_ext[group_index]->special_spell_chance / 10 + 1;
+		if (battle_group_ext[group_index]->special_action_chance > 0)
 			group_score[group_index] +=
 				(long)group_score[group_index] *
-				battle_group_ext[group_index]->f_00b0 / 100;
+				battle_group_ext[group_index]->special_action_chance / 100;
 		if (battle_group_ext[group_index]->f_00b1 > 0)
 			group_score[group_index] +=
 				(long)group_score[group_index] *

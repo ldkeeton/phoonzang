@@ -297,7 +297,7 @@ __zbss_8482:  ; battle_groups
     resb 0x0002
 __zbss_8484:  ; battle_groups_1
     resb 0x000a
-__zbss_848e:  ; battle_groups_6
+__zbss_848e:  ; ally_battle_group
     resb 0x0002
 __zbss_8490:  ; battle_group_ext
     resb 0x0002
@@ -449,9 +449,9 @@ __zbss_8f48:  ; last_map_piece_index
     resb 0x0104
 __zbss_904c:  ; startup_check_stage
     resb 0x0002
-__zbss_904e:  ; spell_dialog_result
+__zbss_904e:  ; dialog_selection
     resb 0x0002
-__zbss_9050:  ; spell_dialog_button
+__zbss_9050:  ; dialog_button
     resb 0x0002
 __zbss_9052:  ; menu_selection_index
     resb 0x0004

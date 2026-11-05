@@ -3,7 +3,7 @@ api_idx_006a_NKMN:
     mov ax, 0xff96                   ; 0x5fef
     call aztec_csav                  ; 0x5ff2
     mov word [show_area_bottom], 0x8d ; 0x5ff5
-    mov word [spell_dialog_result], 0xffff ; 0x5ffb
+    mov word [dialog_selection], 0xffff ; 0x5ffb
     mov word [bp - 6], 0x37          ; 0x6001
     mov word [bp - 8], 0x8f          ; 0x6006
     mov word [bp - 0xa], 0x108       ; 0x600b
@@ -567,7 +567,7 @@ api_idx_006a_NKMN:
     push ax                          ; 0x651f
     call flash_button                ; 0x6520
     add sp, byte 0xa                 ; 0x6523
-    mov word [spell_dialog_button], 0xffff ; 0x6526
+    mov word [dialog_button], 0xffff ; 0x6526
     mov word [bp - 0x16], 0          ; 0x652c
 .forward19:
     jmp near .forward29              ; 0x6531
@@ -640,7 +640,7 @@ api_idx_006a_NKMN:
 .forward21:
     mov ax, word [bp + 0xc]          ; 0x65d6
     inc ax                           ; 0x65d9
-    mov word [spell_dialog_button], ax ; 0x65da
+    mov word [dialog_button], ax     ; 0x65da
     mov word [bp - 0x16], 0          ; 0x65dd
     jmp near .forward26              ; 0x65e2
 .forward22:
@@ -715,7 +715,7 @@ api_idx_006a_NKMN:
     call try_raise_member_skill      ; 0x668b
     add sp, byte 6                   ; 0x668e
 .forward25:
-    mov word [spell_dialog_button], 0 ; 0x6691
+    mov word [dialog_button], 0      ; 0x6691
     mov word [bp - 0x16], 0          ; 0x6697
 .forward26:
     jmp short .forward29             ; 0x669c
@@ -753,5 +753,5 @@ api_idx_006a_NKMN:
     push ax                          ; 0x66e0
     call call_show_area              ; 0x66e1
     add sp, byte 8                   ; 0x66e4
-    mov ax, word [spell_dialog_button] ; 0x66e7
+    mov ax, word [dialog_button]     ; 0x66e7
     ret                              ; 0x66ea

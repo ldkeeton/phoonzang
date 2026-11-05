@@ -174,7 +174,7 @@ choose_member_item_to_use:
     mov ax, 0xffff                   ; 0x356d
     ret                              ; 0x3570
 .forward9:
-    call wait_for_party_redraw       ; 0x3571
+    call wait_for_party_screen_animation ; 0x3571
     mov ax, 0x248                    ; 0x3574
     imul word [bp + 4]               ; 0x3577
     add ax, party_records            ; 0x357a
@@ -187,10 +187,10 @@ choose_member_item_to_use:
     push ax                          ; 0x3589
     mov ax, MSG_3030                 ; 0x358a
     push ax                          ; 0x358d
-    call use_or_cancel_item_dialog   ; 0x358e
+    call item_action_dialog          ; 0x358e
     add sp, byte 0xc                 ; 0x3591
     mov word [bp - 0x4c], ax         ; 0x3594
-    mov ax, word [spell_dialog_result] ; 0x3597
+    mov ax, word [dialog_selection]  ; 0x3597
     mov word [bp - 2], ax            ; 0x359a
     cmp word [bp - 0x4c], byte 1     ; 0x359d
     jne short .forward10             ; 0x35a1

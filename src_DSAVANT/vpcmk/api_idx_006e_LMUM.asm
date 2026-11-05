@@ -137,7 +137,7 @@ api_idx_006e_LMUM:
     je short .forward5               ; 0x3eaa
     jmp near .return1                ; 0x3eac
 .forward5:
-    mov ax, word [spell_dialog_result] ; 0x3eaf
+    mov ax, word [dialog_selection]  ; 0x3eaf
     mov cx, 0x100                    ; 0x3eb2
     cwd                              ; 0x3eb5
     idiv cx                          ; 0x3eb6

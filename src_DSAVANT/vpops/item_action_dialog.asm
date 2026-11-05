@@ -1,8 +1,8 @@
 ; auto-generated
-use_or_cancel_item_dialog:
+item_action_dialog:
     mov ax, 0xffc8                   ; 0x2c92
     call aztec_csav                  ; 0x2c95
-    mov word [spell_dialog_result], 0xffff ; 0x2c98
+    mov word [dialog_selection], 0xffff ; 0x2c98
     mov word [bp - 4], 0x37          ; 0x2c9e
     mov word [bp - 6], 0x8f          ; 0x2ca3
     mov word [bp - 8], 0x108         ; 0x2ca8
@@ -14,7 +14,7 @@ use_or_cancel_item_dialog:
     mov ax, word [bp + 0xc]          ; 0x2cc0
 .forward1:
     mov word [bp - 0x22], ax         ; 0x2cc3
-    mov ax, dseg_90c5                ; 0x2cc6
+    mov ax, item_dialog_temp_file    ; 0x2cc6
     push ax                          ; 0x2cc9
     mov ax, word [bp - 0xa]          ; 0x2cca
     inc ax                           ; 0x2ccd
@@ -388,7 +388,7 @@ jumptable_33a0_case_0:
     call clamp_between               ; 0x3023
     add sp, byte 6                   ; 0x3026
     mov word [bp - 0x14], ax         ; 0x3029
-use_or_cancel_item_dialog.back3:
+item_action_dialog.back3:
     lea ax, word [bp - 0xe]          ; 0x302c
     push ax                          ; 0x302f
     lea ax, word [bp - 0xc]          ; 0x3030
@@ -409,7 +409,7 @@ use_or_cancel_item_dialog.back3:
     add sp, byte 6                   ; 0x3056
     mov word [bp - 0x10], ax         ; 0x3059
     cmp word [bp + 0xc], byte 3      ; 0x305c
-    jle short use_or_cancel_item_dialog.forward11 ; 0x3060
+    jle short item_action_dialog.forward11 ; 0x3060
     mov cx, 0x64                     ; 0x3062
     imul cx                          ; 0x3065
     push ax                          ; 0x3067
@@ -426,7 +426,7 @@ use_or_cancel_item_dialog.back3:
     cwd                              ; 0x307b
     idiv cx                          ; 0x307c
     mov word [bp - 0x16], ax         ; 0x307e
-use_or_cancel_item_dialog.forward11:
+item_action_dialog.forward11:
     push word [bp - 0x22]            ; 0x3081
     push word [bp - 0x20]            ; 0x3084
     push word [bp - 0x16]            ; 0x3087
@@ -491,13 +491,13 @@ use_or_cancel_item_dialog.forward11:
     call call_show_area              ; 0x3112
     add sp, byte 8                   ; 0x3115
     cmp word [bp - 0x1c], byte 0     ; 0x3118
-    je short use_or_cancel_item_dialog.forward12 ; 0x311c
-    jmp near use_or_cancel_item_dialog.back3 ; 0x311e
-use_or_cancel_item_dialog.forward12:
-    jmp near use_or_cancel_item_dialog.forward22 ; 0x3121
+    je short item_action_dialog.forward12 ; 0x311c
+    jmp near item_action_dialog.back3 ; 0x311e
+item_action_dialog.forward12:
+    jmp near item_action_dialog.forward22 ; 0x3121
 jumptable_33a0_case_1:
     cmp word [bp - 0x18], byte 1     ; 0x3124
-    jne short use_or_cancel_item_dialog.forward14 ; 0x3128
+    jne short item_action_dialog.forward14 ; 0x3128
     mov ax, 1                        ; 0x312a
     push ax                          ; 0x312d
     mov ax, word [bp - 6]            ; 0x312e
@@ -515,11 +515,11 @@ jumptable_33a0_case_1:
     call flash_area                  ; 0x314a
     add sp, byte 0xa                 ; 0x314d
     cmp word [bp - 0x16], byte 0     ; 0x3150
-    jle short use_or_cancel_item_dialog.forward13 ; 0x3154
+    jle short item_action_dialog.forward13 ; 0x3154
     dec word [bp - 0x16]             ; 0x3156
-use_or_cancel_item_dialog.forward13:
-    jmp short use_or_cancel_item_dialog.forward15 ; 0x3159
-use_or_cancel_item_dialog.forward14:
+item_action_dialog.forward13:
+    jmp short item_action_dialog.forward15 ; 0x3159
+item_action_dialog.forward14:
     mov ax, 1                        ; 0x315b
     push ax                          ; 0x315e
     mov ax, word [bp - 6]            ; 0x315f
@@ -541,11 +541,11 @@ use_or_cancel_item_dialog.forward14:
     dec ax                           ; 0x3185
     dec ax                           ; 0x3186
     cmp ax, word [bp - 0x16]         ; 0x3187
-    jle short use_or_cancel_item_dialog.forward15 ; 0x318a
+    jle short item_action_dialog.forward15 ; 0x318a
     inc word [bp - 0x16]             ; 0x318c
-use_or_cancel_item_dialog.forward15:
+item_action_dialog.forward15:
     cmp word [bp + 0xc], byte 3      ; 0x318f
-    jle short use_or_cancel_item_dialog.forward16 ; 0x3193
+    jle short item_action_dialog.forward16 ; 0x3193
     push word [bp - 0x12]            ; 0x3195
     mov ax, 0                        ; 0x3198
     push ax                          ; 0x319b
@@ -566,7 +566,7 @@ use_or_cancel_item_dialog.forward15:
     call clamp_between               ; 0x31b8
     add sp, byte 6                   ; 0x31bb
     mov word [bp - 0x10], ax         ; 0x31be
-use_or_cancel_item_dialog.forward16:
+item_action_dialog.forward16:
     push word [bp - 0x22]            ; 0x31c1
     push word [bp - 0x20]            ; 0x31c4
     push word [bp - 0x16]            ; 0x31c7
@@ -630,10 +630,10 @@ use_or_cancel_item_dialog.forward16:
     push ax                          ; 0x3251
     call call_show_area              ; 0x3252
     add sp, byte 8                   ; 0x3255
-    jmp near use_or_cancel_item_dialog.forward22 ; 0x3258
+    jmp near item_action_dialog.forward22 ; 0x3258
 jumptable_33a0_case_3:
     cmp word [bp + 6], byte 0        ; 0x325b
-    je short use_or_cancel_item_dialog.forward17 ; 0x325f
+    je short item_action_dialog.forward17 ; 0x325f
     mov ax, 1                        ; 0x3261
     push ax                          ; 0x3264
     push ax                          ; 0x3265
@@ -661,13 +661,13 @@ jumptable_33a0_case_3:
     push ax                          ; 0x3297
     call flash_button                ; 0x3298
     add sp, byte 0xa                 ; 0x329b
-    mov word [spell_dialog_button], 0 ; 0x329e
+    mov word [dialog_button], 0      ; 0x329e
     mov word [bp - 0x1a], 0          ; 0x32a4
-use_or_cancel_item_dialog.forward17:
-    jmp near use_or_cancel_item_dialog.forward22 ; 0x32a9
+item_action_dialog.forward17:
+    jmp near item_action_dialog.forward22 ; 0x32a9
 jumptable_33a0_case_4:
     cmp word [bp + 8], byte 0        ; 0x32ac
-    je short use_or_cancel_item_dialog.forward18 ; 0x32b0
+    je short item_action_dialog.forward18 ; 0x32b0
     mov ax, 1                        ; 0x32b2
     push ax                          ; 0x32b5
     push ax                          ; 0x32b6
@@ -695,13 +695,13 @@ jumptable_33a0_case_4:
     push ax                          ; 0x32e8
     call flash_button                ; 0x32e9
     add sp, byte 0xa                 ; 0x32ec
-    mov word [spell_dialog_button], 1 ; 0x32ef
+    mov word [dialog_button], 1      ; 0x32ef
     mov word [bp - 0x1a], 0          ; 0x32f5
-use_or_cancel_item_dialog.forward18:
-    jmp near use_or_cancel_item_dialog.forward22 ; 0x32fa
+item_action_dialog.forward18:
+    jmp near item_action_dialog.forward22 ; 0x32fa
 jumptable_33a0_case_5:
     cmp word [bp + 0xa], byte 0      ; 0x32fd
-    je short use_or_cancel_item_dialog.forward19 ; 0x3301
+    je short item_action_dialog.forward19 ; 0x3301
     mov ax, 1                        ; 0x3303
     push ax                          ; 0x3306
     push ax                          ; 0x3307
@@ -729,11 +729,11 @@ jumptable_33a0_case_5:
     push ax                          ; 0x3339
     call flash_button                ; 0x333a
     add sp, byte 0xa                 ; 0x333d
-    mov word [spell_dialog_button], 2 ; 0x3340
+    mov word [dialog_button], 2      ; 0x3340
     mov word [bp - 0x1a], 0          ; 0x3346
-use_or_cancel_item_dialog.forward19:
-    jmp short use_or_cancel_item_dialog.forward22 ; 0x334b
-use_or_cancel_item_dialog.back4:
+item_action_dialog.forward19:
+    jmp short item_action_dialog.forward22 ; 0x334b
+item_action_dialog.back4:
     mov ax, word [bp - 0x16]         ; 0x334d
     add ax, word [bp - 0x18]         ; 0x3350
     add ax, strict word 0xfffa       ; 0x3353
@@ -767,7 +767,7 @@ use_or_cancel_item_dialog.back4:
     push ax                          ; 0x3397
     call call_show_area              ; 0x3398
     add sp, byte 8                   ; 0x339b
-    jmp short use_or_cancel_item_dialog.forward22 ; 0x339e
+    jmp short item_action_dialog.forward22 ; 0x339e
 jumptable_33a0:
     dw jumptable_33a0_case_0 - IMAGE_BASE + __zres_end ; 0x33a0
     dw jumptable_33a0_case_1 - IMAGE_BASE + __zres_end ; 0x33a2
@@ -775,25 +775,25 @@ jumptable_33a0:
     dw jumptable_33a0_case_3 - IMAGE_BASE + __zres_end ; 0x33a6
     dw jumptable_33a0_case_4 - IMAGE_BASE + __zres_end ; 0x33a8
     dw jumptable_33a0_case_5 - IMAGE_BASE + __zres_end ; 0x33aa
-use_or_cancel_item_dialog.forward20:
+item_action_dialog.forward20:
     cmp ax, strict word 6            ; 0x33ac
-    jae short use_or_cancel_item_dialog.forward21 ; 0x33af
+    jae short item_action_dialog.forward21 ; 0x33af
     xchg bx, ax                      ; 0x33b1
     shl bx, 1                        ; 0x33b2
     jmp [cs:bx + jumptable_33a0 - IMAGE_BASE + __zres_end] ; 0x33b4
-use_or_cancel_item_dialog.forward21:
-    jmp short use_or_cancel_item_dialog.back4 ; 0x33b9
-use_or_cancel_item_dialog.forward22:
+item_action_dialog.forward21:
+    jmp short item_action_dialog.back4 ; 0x33b9
+item_action_dialog.forward22:
     cmp word [bp - 0x1a], byte 0     ; 0x33bb
-    je short use_or_cancel_item_dialog.forward23 ; 0x33bf
-    jmp near use_or_cancel_item_dialog.back2 ; 0x33c1
-use_or_cancel_item_dialog.forward23:
+    je short item_action_dialog.forward23 ; 0x33bf
+    jmp near item_action_dialog.back2 ; 0x33c1
+item_action_dialog.forward23:
     mov ax, 1                        ; 0x33c4
     push ax                          ; 0x33c7
     push word [bp - 0x38]            ; 0x33c8
     call restore_saved_screen        ; 0x33cb
     add sp, byte 4                   ; 0x33ce
     mov ax, word [bp - 0x20]         ; 0x33d1
-    mov word [spell_dialog_result], ax ; 0x33d4
-    mov ax, word [spell_dialog_button] ; 0x33d7
+    mov word [dialog_selection], ax  ; 0x33d4
+    mov ax, word [dialog_button]     ; 0x33d7
     ret                              ; 0x33da

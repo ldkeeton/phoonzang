@@ -8,7 +8,7 @@ api_idx_0038_KUIN:
     push ax                          ; 0x47e6
     call load_message_string         ; 0x47e7
     add sp, byte 4                   ; 0x47ea
-    mov word [spell_dialog_result], 0xffff ; 0x47ed
+    mov word [dialog_selection], 0xffff ; 0x47ed
     mov word [npc_area_bottom], 0x8d ; 0x47f3
     mov word [bp - 4], 0x23          ; 0x47f9
     mov word [bp - 6], 0x8f          ; 0x47fe
@@ -771,7 +771,7 @@ jumptable_4fa9_case_4:
     push ax                          ; 0x4ee3
     call flash_button                ; 0x4ee4
     add sp, byte 0xa                 ; 0x4ee7
-    mov word [spell_dialog_button], 1 ; 0x4eea
+    mov word [dialog_button], 1      ; 0x4eea
     mov word [bp - 0x1a], 0          ; 0x4ef0
 api_idx_0038_KUIN.forward15:
     jmp near api_idx_0038_KUIN.forward19 ; 0x4ef5
@@ -805,7 +805,7 @@ jumptable_4fa9_case_5:
     push ax                          ; 0x4f34
     call flash_button                ; 0x4f35
     add sp, byte 0xa                 ; 0x4f38
-    mov word [spell_dialog_button], 2 ; 0x4f3b
+    mov word [dialog_button], 2      ; 0x4f3b
     mov word [bp - 0x1a], 0          ; 0x4f41
 api_idx_0038_KUIN.forward16:
     jmp short api_idx_0038_KUIN.forward19 ; 0x4f46
@@ -875,6 +875,6 @@ api_idx_0038_KUIN.forward20:
     add sp, byte 4                   ; 0x4fd7
     mov word [npc_area_bottom], 0x8f ; 0x4fda
     mov ax, word [bp - 0x20]         ; 0x4fe0
-    mov word [spell_dialog_result], ax ; 0x4fe3
-    mov ax, word [spell_dialog_button] ; 0x4fe6
+    mov word [dialog_selection], ax  ; 0x4fe3
+    mov ax, word [dialog_button]     ; 0x4fe6
     ret                              ; 0x4fe9

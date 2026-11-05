@@ -170,7 +170,7 @@ treasure_use_item_menu:
     call item_or_loot_dialog         ; 0x4d59
     add sp, byte 0xc                 ; 0x4d5c
     mov word [bp - 0x4c], ax         ; 0x4d5f
-    mov ax, word [spell_dialog_result] ; 0x4d62
+    mov ax, word [dialog_selection]  ; 0x4d62
     mov word [bp - 2], ax            ; 0x4d65
     cmp word [bp - 0x4c], byte 2     ; 0x4d68
     je short .forward10              ; 0x4d6c

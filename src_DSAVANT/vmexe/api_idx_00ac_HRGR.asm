@@ -1100,7 +1100,7 @@ api_idx_00ac_HRGR.forward48:
     shl ax, 1                        ; 0x8419
     mov bx, ax                       ; 0x841b
     mov bx, word [bx + battle_group_ext] ; 0x841d
-    cmp byte [bx + member_ext.f_00d6], 0x16 ; 0x8421
+    cmp byte [bx + member_ext.creature_class], 0x16 ; 0x8421
     jne short api_idx_00ac_HRGR.forward49 ; 0x8426
     mov word [bp - 0xa2], 1          ; 0x8428
     mov ax, 4                        ; 0x842e
@@ -1536,7 +1536,7 @@ api_idx_00ac_HRGR.forward80:
     shl ax, 1                        ; 0x8864
     mov bx, ax                       ; 0x8866
     mov bx, word [bx + battle_groups] ; 0x8868
-    cmp byte [bx + si + member_rec.f_001e], 6 ; 0x886c
+    cmp byte [bx + si + member_rec.unit_action_kind], 6 ; 0x886c
     jne short api_idx_00ac_HRGR.forward82 ; 0x8870
     mov ax, 0xa                      ; 0x8872
     cmp word [bp - 0x5a], byte 0xa   ; 0x8875
@@ -1627,7 +1627,7 @@ api_idx_00ac_HRGR.forward91:
     shl ax, 1                        ; 0x893f
     mov bx, ax                       ; 0x8941
     mov bx, word [bx + battle_groups] ; 0x8943
-    mov byte [bx + si + member_rec.f_001e], 0 ; 0x8947
+    mov byte [bx + si + member_rec.unit_action_kind], 0 ; 0x8947
     mov ax, 0x2c                     ; 0x894b
     imul word [bp - 0x50]            ; 0x894e
     mov si, ax                       ; 0x8951
@@ -1635,7 +1635,7 @@ api_idx_00ac_HRGR.forward91:
     shl ax, 1                        ; 0x8956
     mov bx, ax                       ; 0x8958
     mov bx, word [bx + battle_groups] ; 0x895a
-    mov byte [bx + si + member_rec.f_0021], 0 ; 0x895e
+    mov byte [bx + si + member_rec.unit_attack_cycle], 0 ; 0x895e
     mov ax, word [dest_alt_arg]      ; 0x8962
     dec ax                           ; 0x8965
     push ax                          ; 0x8966
@@ -1647,7 +1647,7 @@ api_idx_00ac_HRGR.forward91:
     mov bx, ax                       ; 0x8974
     mov bx, word [bx + battle_groups] ; 0x8976
     pop ax                           ; 0x897a
-    mov byte [bx + si + member_rec.f_0018], al ; 0x897b
+    mov byte [bx + si + member_rec.unit_action_speed], al ; 0x897b
     mov al, byte [bss_8464]          ; 0x897e
     push ax                          ; 0x8981
     mov ax, 0x2c                     ; 0x8982
@@ -1677,7 +1677,7 @@ api_idx_00ac_HRGR.forward91:
     shl ax, 1                        ; 0x89bf
     mov bx, ax                       ; 0x89c1
     mov bx, word [bx + battle_groups] ; 0x89c3
-    mov word [bx + si + member_rec.f_000c], 0xffff ; 0x89c7
+    mov word [bx + si + member_rec.unit_secondary_action], 0xffff ; 0x89c7
     mov ax, 0x2c                     ; 0x89cc
     imul word [bp - 0x50]            ; 0x89cf
     mov si, ax                       ; 0x89d2
@@ -1685,7 +1685,7 @@ api_idx_00ac_HRGR.forward91:
     shl ax, 1                        ; 0x89d7
     mov bx, ax                       ; 0x89d9
     mov bx, word [bx + battle_groups] ; 0x89db
-    mov word [bx + si + member_rec.f_000a], 0xff ; 0x89df
+    mov word [bx + si + member_rec.unit_primary_action], 0xff ; 0x89df
     cmp word [bp - 0x4e], byte 0     ; 0x89e4
     jne short api_idx_00ac_HRGR.forward93 ; 0x89e8
     mov word [bp - 2], 7             ; 0x89ea
@@ -1709,7 +1709,7 @@ api_idx_00ac_HRGR.back4:
     mov bx, ax                       ; 0x8a18
     mov bx, word [bx + battle_groups] ; 0x8a1a
     pop ax                           ; 0x8a1e
-    mov word [bx + si + member_rec.f_000a], ax ; 0x8a1f
+    mov word [bx + si + member_rec.unit_primary_action], ax ; 0x8a1f
 api_idx_00ac_HRGR.forward92:
     dec word [bp - 2]                ; 0x8a22
     jge short api_idx_00ac_HRGR.back4 ; 0x8a25
@@ -1738,7 +1738,7 @@ api_idx_00ac_HRGR.back5:
     mov bx, ax                       ; 0x8a5c
     mov bx, word [bx + battle_groups] ; 0x8a5e
     pop ax                           ; 0x8a62
-    mov word [bx + si + member_rec.f_000a], ax ; 0x8a63
+    mov word [bx + si + member_rec.unit_primary_action], ax ; 0x8a63
 api_idx_00ac_HRGR.forward94:
     dec word [bp - 2]                ; 0x8a66
     jge short api_idx_00ac_HRGR.back5 ; 0x8a69
@@ -1750,7 +1750,7 @@ api_idx_00ac_HRGR.forward95:
     shl ax, 1                        ; 0x8a76
     mov bx, ax                       ; 0x8a78
     mov bx, word [bx + battle_groups] ; 0x8a7a
-    cmp word [bx + si + member_rec.f_000a], strict word 0xff ; 0x8a7e
+    cmp word [bx + si + member_rec.unit_primary_action], strict word 0xff ; 0x8a7e
     jne short api_idx_00ac_HRGR.forward96 ; 0x8a83
     mov word [bx + si + 0xa], 8      ; 0x8a85
     cmp word [bp - 0x4e], byte 0     ; 0x8a8a
@@ -1762,7 +1762,7 @@ api_idx_00ac_HRGR.forward95:
     shl ax, 1                        ; 0x8a9b
     mov bx, ax                       ; 0x8a9d
     mov bx, word [bx + battle_groups] ; 0x8a9f
-    mov byte [bx + si + member_rec.f_001e], 1 ; 0x8aa3
+    mov byte [bx + si + member_rec.unit_action_kind], 1 ; 0x8aa3
     mov ax, 0x2c                     ; 0x8aa7
     imul word [bp - 0x50]            ; 0x8aaa
     mov si, ax                       ; 0x8aad
@@ -1770,7 +1770,7 @@ api_idx_00ac_HRGR.forward95:
     shl ax, 1                        ; 0x8ab2
     mov bx, ax                       ; 0x8ab4
     mov bx, word [bx + battle_groups] ; 0x8ab6
-    mov byte [bx + si + member_rec.f_0021], 0 ; 0x8aba
+    mov byte [bx + si + member_rec.unit_attack_cycle], 0 ; 0x8aba
     mov ax, 0x2c                     ; 0x8abe
     imul word [bp - 0x50]            ; 0x8ac1
     mov si, ax                       ; 0x8ac4
@@ -1778,7 +1778,7 @@ api_idx_00ac_HRGR.forward95:
     shl ax, 1                        ; 0x8ac9
     mov bx, ax                       ; 0x8acb
     mov bx, word [bx + battle_groups] ; 0x8acd
-    mov byte [bx + si + member_rec.f_0018], 0 ; 0x8ad1
+    mov byte [bx + si + member_rec.unit_action_speed], 0 ; 0x8ad1
     mov ax, 0x2c                     ; 0x8ad5
     imul word [bp - 0x50]            ; 0x8ad8
     mov si, ax                       ; 0x8adb
@@ -1786,7 +1786,7 @@ api_idx_00ac_HRGR.forward95:
     shl ax, 1                        ; 0x8ae0
     mov bx, ax                       ; 0x8ae2
     mov bx, word [bx + battle_groups] ; 0x8ae4
-    mov word [bx + si + member_rec.f_000a], 1 ; 0x8ae8
+    mov word [bx + si + member_rec.unit_primary_action], 1 ; 0x8ae8
 api_idx_00ac_HRGR.forward96:
     mov ax, 0x2c                     ; 0x8aed
     imul word [bp - 0x50]            ; 0x8af0
@@ -1795,7 +1795,7 @@ api_idx_00ac_HRGR.forward96:
     shl ax, 1                        ; 0x8af8
     mov bx, ax                       ; 0x8afa
     mov bx, word [bx + battle_groups] ; 0x8afc
-    mov byte [bx + si + member_rec.f_001c], 0 ; 0x8b00
+    mov byte [bx + si + member_rec.unit_primary_attack], 0 ; 0x8b00
 api_idx_00ac_HRGR.forward97:
     jmp short api_idx_00ac_HRGR.forward102 ; 0x8b04
 api_idx_00ac_HRGR.back6:
@@ -1872,7 +1872,7 @@ api_idx_00ac_HRGR.forward105:
     shl ax, 1                        ; 0x8baf
     mov bx, ax                       ; 0x8bb1
     mov bx, word [bx + battle_group_ext] ; 0x8bb3
-    mov cl, byte [bx + member_ext.f_00d6] ; 0x8bb7
+    mov cl, byte [bx + member_ext.creature_class] ; 0x8bb7
     mov bx, word [bp - 0x52]         ; 0x8bbb
     mov al, byte [bx + 0x11]         ; 0x8bbe
     cmp al, cl                       ; 0x8bc1
@@ -2058,7 +2058,7 @@ api_idx_00ac_HRGR.forward117:
     shl ax, 1                        ; 0x8d6d
     mov bx, ax                       ; 0x8d6f
     mov bx, word [bx + battle_group_ext] ; 0x8d71
-    cmp byte [bx + member_ext.f_00d6], 0x11 ; 0x8d75
+    cmp byte [bx + member_ext.creature_class], 0x11 ; 0x8d75
     je short api_idx_00ac_HRGR.forward118 ; 0x8d7a
     cmp byte [bx + 0xd6], 0x17       ; 0x8d7c
     jne short api_idx_00ac_HRGR.forward119 ; 0x8d81
@@ -2078,7 +2078,7 @@ api_idx_00ac_HRGR.forward119:
     shl ax, 1                        ; 0x8d9f
     mov bx, ax                       ; 0x8da1
     mov bx, word [bx + battle_group_ext] ; 0x8da3
-    cmp byte [bx + member_ext.f_00d6], 0x1a ; 0x8da7
+    cmp byte [bx + member_ext.creature_class], 0x1a ; 0x8da7
     jne short api_idx_00ac_HRGR.forward120 ; 0x8dac
     mov ax, bss_90e6                 ; 0x8dae
     push ax                          ; 0x8db1
