@@ -6,7 +6,7 @@ flush_glyph_buffer:
     jle short .forward1              ; 0x0a75
     mov ax, 0                        ; 0x0a77
     push ax                          ; 0x0a7a
-    call loc_NQGV                    ; 0x0a7b
+    call show_treasure_area          ; 0x0a7b
     pop cx                           ; 0x0a7e
 .forward1:
     mov bx, word [bp + 4]            ; 0x0a7f

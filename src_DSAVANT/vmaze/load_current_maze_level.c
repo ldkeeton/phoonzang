@@ -4,7 +4,7 @@
 #include "structs/mazecell.h"
 
 extern int data_record_io();
-extern long app_memmove();
+extern int app_memmove();
 extern int replay_maze_changes();
 extern int load_maze_resources();
 

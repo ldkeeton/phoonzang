@@ -1,7 +1,9 @@
 /* finds target in a character class's target table and picks a matching
    target slot from it */
 
-extern char *battle_group_ext[];
+#include "structs/member.h"
+
+extern struct member_ext *battle_group_ext[];
 extern int maze_variant;
 extern char faction_attitudes[];
 extern char *aztec_setmem();
@@ -16,9 +18,9 @@ int char_idx, target;
 	char picked[12];
 
 	/* class byte below 2 has no table */
-	if (battle_group_ext[char_idx][229] < 2)
+	if (battle_group_ext[char_idx]->class_id < 2)
 		return -1;
-	class_id = battle_group_ext[char_idx][229];
+	class_id = battle_group_ext[char_idx]->class_id;
 	for (slot = 0; slot < 12; slot++)
 		for (row = 0; row < 6; row++)
 			target_table[slot][row] = -1;

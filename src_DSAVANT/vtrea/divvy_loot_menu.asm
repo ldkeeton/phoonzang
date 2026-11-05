@@ -11,7 +11,7 @@ divvy_loot_menu:
 .back1:
     lea ax, word [bp - 0x34]         ; 0x535c
     push ax                          ; 0x535f
-    push word [bss_95e4]             ; 0x5360
+    push word [loot_row_total]       ; 0x5360
     mov ax, 1                        ; 0x5364
     push ax                          ; 0x5367
     push ax                          ; 0x5368
@@ -84,7 +84,7 @@ divvy_loot_menu:
     mov ax, word [bp - 2]            ; 0x5405
     shl ax, 1                        ; 0x5408
     mov bx, ax                       ; 0x540a
-    push word [bx + bss_95e6]        ; 0x540c
+    push word [bx + loot_row_identified] ; 0x540c
     push word [bx + list_row_count]  ; 0x5410
     mov ax, 0x248                    ; 0x5414
     imul word [bp - 8]               ; 0x5417
@@ -102,7 +102,7 @@ divvy_loot_menu:
     add ax, cx                       ; 0x5430
     add ax, 0x5c34                   ; 0x5432
     push ax                          ; 0x5435
-    push word [bx + bss_960e]        ; 0x5436
+    push word [bx + loot_row_value]  ; 0x5436
     push word [bp - 8]               ; 0x543a
     call init_item_slot              ; 0x543d
     add sp, byte 0xa                 ; 0x5440
@@ -118,11 +118,11 @@ divvy_loot_menu:
     mov ax, word [bp - 2]            ; 0x5452
     shl ax, 1                        ; 0x5455
     mov bx, ax                       ; 0x5457
-    push word [bx + bss_95e6]        ; 0x5459
+    push word [bx + loot_row_identified] ; 0x5459
     push word [bx + list_row_count]  ; 0x545d
     lea ax, word [bp - 0x40]         ; 0x5461
     push ax                          ; 0x5464
-    push word [bx + bss_960e]        ; 0x5465
+    push word [bx + loot_row_value]  ; 0x5465
     mov ax, 0                        ; 0x5469
     push ax                          ; 0x546c
     call init_item_slot              ; 0x546d
@@ -135,14 +135,14 @@ divvy_loot_menu:
 .forward8:
     cmp word [bp - 2], byte -1       ; 0x547e
     je short .forward10              ; 0x5482
-    dec word [bss_95e4]              ; 0x5484
+    dec word [loot_row_total]        ; 0x5484
     mov ax, word [bp - 2]            ; 0x5488
     mov word [bp - 4], ax            ; 0x548b
     jmp short .forward9              ; 0x548e
 .back2:
     mov ax, 0x16                     ; 0x5490
     imul word [bp - 4]               ; 0x5493
-    add ax, bss_9414                 ; 0x5496
+    add ax, list_row_name_next       ; 0x5496
     push ax                          ; 0x5499
     mov ax, 0x16                     ; 0x549a
     imul word [bp - 4]               ; 0x549d
@@ -153,25 +153,25 @@ divvy_loot_menu:
     mov ax, word [bp - 4]            ; 0x54aa
     shl ax, 1                        ; 0x54ad
     mov bx, ax                       ; 0x54af
-    mov ax, word [bx + bss_9610]     ; 0x54b1
-    mov word [bx + bss_960e], ax     ; 0x54b5
-    mov ax, word [bx + bss_95b8]     ; 0x54b9
+    mov ax, word [bx + loot_row_value_next] ; 0x54b1
+    mov word [bx + loot_row_value], ax ; 0x54b5
+    mov ax, word [bx + list_row_count_next] ; 0x54b9
     mov word [bx + list_row_count], ax ; 0x54bd
-    mov ax, word [bx + bss_93b0]     ; 0x54c1
+    mov ax, word [bx + list_row_marked_next] ; 0x54c1
     mov word [bx + list_row_marked], ax ; 0x54c5
-    mov ax, word [bx + bss_93d8]     ; 0x54c9
+    mov ax, word [bx + list_row_glyph_next] ; 0x54c9
     mov word [bx + list_row_glyph], ax ; 0x54cd
-    mov ax, word [bx + bss_9638]     ; 0x54d1
-    mov word [bx + bss_9636], ax     ; 0x54d5
-    mov ax, word [bx + bss_95e8]     ; 0x54d9
-    mov word [bx + bss_95e6], ax     ; 0x54dd
+    mov ax, word [bx + loot_row_flag2_next] ; 0x54d1
+    mov word [bx + loot_row_flag2], ax ; 0x54d5
+    mov ax, word [bx + loot_row_identified_next] ; 0x54d9
+    mov word [bx + loot_row_identified], ax ; 0x54dd
     inc word [bp - 4]                ; 0x54e1
 .forward9:
     mov ax, word [bp - 4]            ; 0x54e4
-    cmp ax, word [bss_95e4]          ; 0x54e7
+    cmp ax, word [loot_row_total]    ; 0x54e7
     jl short .back2                  ; 0x54eb
 .forward10:
-    cmp word [bss_95e4], byte 0      ; 0x54ed
+    cmp word [loot_row_total], byte 0 ; 0x54ed
     jle short .forward11             ; 0x54f2
     jmp near .back1                  ; 0x54f4
 .forward11:

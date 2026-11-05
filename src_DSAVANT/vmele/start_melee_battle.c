@@ -15,9 +15,10 @@ extern long screen_cache[];		/* cached full-screen far pointers */
 extern long saved_area_a, saved_area_b;
 extern long party_redraw_last_tick;
 extern long far *tick_counter_ptr;
-extern char *battle_groups[];			/* 0x1a4-byte member records */
-extern char *battle_group_ext[];		/* 0xe8-byte extended member records */
-extern unsigned char *battle_group_ext_1;
+extern struct member_rec *battle_groups[];	/* 0x1a4-byte member records */
+extern struct member_ext *battle_group_ext[];
+	/* 0xe8-byte extended member records */
+extern struct member_ext *battle_group_ext_1;
 extern unsigned char picture_slot_number[], picture_slot_used[];
 extern struct {
 	int count;

@@ -158,7 +158,7 @@ treasure_use_item_menu:
     jne short .forward9              ; 0x4d44
     ret                              ; 0x4d46
 .forward9:
-    mov ax, dseg_90e2                ; 0x4d47
+    mov ax, empty_dialog_message     ; 0x4d47
     push ax                          ; 0x4d4a
     push word [bp - 0x92]            ; 0x4d4b
     mov ax, 1                        ; 0x4d4f

@@ -4,7 +4,7 @@ show_treasure_message:
     call aztec_csav                  ; 0x0eb5
     push word [bp + 6]               ; 0x0eb8
     push word [bp + 6]               ; 0x0ebb
-    call api_idx_0004_VQUG           ; 0x0ebe
+    call refresh_treasure_panel_and_wait ; 0x0ebe
     add sp, byte 4                   ; 0x0ec1
     mov ax, 0                        ; 0x0ec4
     push ax                          ; 0x0ec7
@@ -57,13 +57,13 @@ show_treasure_message:
     pop cx                           ; 0x0f38
 .forward1:
     push word [message_delay]        ; 0x0f39
-    call api_idx_0004_UQUT           ; 0x0f3d
+    call wait_treasure_input_or_timeout ; 0x0f3d
     pop cx                           ; 0x0f40
     cmp word [bp + 8], byte -1       ; 0x0f41
     je short .return1                ; 0x0f45
     push word [bp + 6]               ; 0x0f47
     push word [bp + 6]               ; 0x0f4a
-    call api_idx_0004_VQUG           ; 0x0f4d
+    call refresh_treasure_panel_and_wait ; 0x0f4d
     add sp, byte 4                   ; 0x0f50
 .return1:
     ret                              ; 0x0f53

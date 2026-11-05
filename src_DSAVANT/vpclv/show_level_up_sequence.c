@@ -87,20 +87,13 @@ show_level_up_sequence()
 		free_loaded_score(0);
 	}
 	free_picture_slot(15);
-	call_restore_screen(((int *)&saved_screen)[0], ((int *)&saved_screen)[1], 1,
-		0);
-	call_restore_screen(((int *)&realm_panel_cache_high)[0],
-		((int *)&realm_panel_cache_high)[1], 1, 0);
-	call_restore_screen(((int *)&ac_screen_b_handle_low)[0],
-		((int *)&ac_screen_b_handle_low)[1], 1, 0);
-	call_restore_screen(((int *)&ac_screen_a_handle_low)[0],
-		((int *)&ac_screen_a_handle_low)[1], 1, 0);
-	call_restore_screen(((int *)&roster_screen_b)[0],
-		((int *)&roster_screen_b)[1], 1, 0);
-	call_restore_screen(((int *)&member_detail_cache_low)[0],
-		((int *)&member_detail_cache_low)[1], 1, 0);
-	call_restore_screen(((int *)&member_screen_cache_low)[0],
-		((int *)&member_screen_cache_low)[1], 1, 0);
+	call_restore_screen(saved_screen, 1, 0);
+	call_restore_screen(realm_panel_cache_high, 1, 0);
+	call_restore_screen(ac_screen_b_handle_low, 1, 0);
+	call_restore_screen(ac_screen_a_handle_low, 1, 0);
+	call_restore_screen(roster_screen_b, 1, 0);
+	call_restore_screen(member_detail_cache_low, 1, 0);
+	call_restore_screen(member_screen_cache_low, 1, 0);
 	call_restore_screen(transition_screen, 1, 0);
 	free_picture_slot(1);
 	free_picture_slot(2);

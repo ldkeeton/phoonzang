@@ -2,17 +2,14 @@
 #include "structs/pcrec.h"
 #include "structs/maze.h"
 #include "structs/rgnstate.h"
+#include "structs/randstep.h"
 #include "msg.h"
 
-struct fountain_steps {
-	int base;
-	unsigned char count, span;
-};
 extern struct pc_rec party_records[];
 extern struct maze_tables *maze_tables;
 extern struct saved_region_blocks party_region;
 extern int pick_party_member(), get_bits(), clamp_between(), random_below();
-extern int *store_word_and_pair();
+extern struct random_step_spec *store_word_and_pair();
 extern int add_random_steps();
 extern void draw_party_member_panel(), show_fountain_result(),
 	play_sound_effect();
@@ -30,7 +27,7 @@ drink_from_fountain()
 		benefit = 0;
 		harm = 0;
 		if (party_records[member].state < 3 || get_bits(flags, 7, 1)) {
-			amount = add_random_steps(*(struct fountain_steps *)store_word_and_pair(
+			amount = add_random_steps(*store_word_and_pair(
 				count, span, count));
 			for (effect = 0; effect < 16; effect++) {
 				if (get_bits(flags, effect, 1) == 1) {
@@ -46,8 +43,7 @@ drink_from_fountain()
 						for (i = 0; i < 6; i++)
 						party_records[member].realm_points[i][0] = clamp_between(
 							party_records[member].realm_points[i][0] +
-							add_random_steps(*(struct fountain_steps *)
-							store_word_and_pair(count, span, count)), 0,
+							add_random_steps(*store_word_and_pair(count, span, count)), 0,
 							party_records[member].realm_points[i][1]);
 						break;
 					/* 2: heal hp by amount, capped at max */
@@ -87,8 +83,7 @@ drink_from_fountain()
 						for (i = 0; i < 6; i++)
 						party_records[member].realm_points[i][0] = clamp_between(
 							party_records[member].realm_points[i][0] -
-							add_random_steps(*(struct fountain_steps *)
-							store_word_and_pair(count, span, count)), 0,
+							add_random_steps(*store_word_and_pair(count, span, count)), 0,
 							party_records[member].realm_points[i][1]);
 						break;
 					/* 10: damage hp by amount; at 0 the member dies (state 3, sound gender +

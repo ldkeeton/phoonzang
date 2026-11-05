@@ -29,7 +29,7 @@ process_scene_message_words:
     jmp short .back2                 ; 0x0d64
 .forward1:
     push word [bp + 4]               ; 0x0d66
-    call api_idx_0090_LKIM           ; 0x0d69
+    call process_treasure_text       ; 0x0d69
     pop cx                           ; 0x0d6c
     mov ax, word [bp - 2]            ; 0x0d6d
     add word [bp + 4], ax            ; 0x0d70
@@ -40,7 +40,7 @@ process_scene_message_words:
     cmp byte [bx], 0                 ; 0x0d7c
     je short .return1                ; 0x0d7f
     push bx                          ; 0x0d81
-    call api_idx_0090_LKIM           ; 0x0d82
+    call process_treasure_text       ; 0x0d82
     pop cx                           ; 0x0d85
 .return1:
     ret                              ; 0x0d86

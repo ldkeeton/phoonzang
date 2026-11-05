@@ -15,19 +15,19 @@ ovmain()
 	pending_panel_call = -1;	/* no pending panel call */
 	if (game_state == 15) {
 		game_state = 22;
-		run_state_0f_scene();
+		show_treasure_victory_scene();
 	} else if (game_state == 21) {
 		game_state = 22;
-		run_state_15_scene();
+		run_treasure_chest_scene();
 	} else if (game_state == 26) {
 		game_state = 5;
-		run_state_1a_scene();
+		run_locked_door_scene();
 	} else if (game_state == 28) {
 		game_state = 5;
-		run_state_1c_scene();
+		run_region_puzzle_scene();
 	} else if (game_state == 29) {
 		game_state = 5;
-		run_state_1d_scene();
+		run_region_event_scene();
 	} else
 		game_state = 22;	/* any other state continues in 0x16 */
 	return 0;

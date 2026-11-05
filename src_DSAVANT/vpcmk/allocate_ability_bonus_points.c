@@ -25,14 +25,14 @@ int member_index;
 	int i;
 	int selected_hotspot;
 	int selected_stat;
-	int reserved;
+	int unused_word_08;
 	int stat_bonus[8];
 	int frame_padding[40];
-	union { long value; int part[2]; } saved_area;
+	long saved_area;
 
 	aztec_setmem(stat_bonus, 16, 0);
 	selected_stat = 0;
-	saved_area.value = draw_dialog_button_prompt(MSG_ABILITY_BONUS_POINTS,
+	saved_area = draw_dialog_button_prompt(MSG_ABILITY_BONUS_POINTS,
 		88, 151, 24, 1, 8);
 	flush_keyboard();
 
@@ -87,6 +87,6 @@ int member_index;
 	remaining_stat_points = -1;
 	flash_button(88, 151, 24, 1, 1);
 	flash_button(88, 151, 24, 1, 0);
-	call_restore_area(saved_area.part[0], saved_area.part[1], 1);
+	call_restore_area(saved_area, 1);
 	call_show_area(0, 0, 319, 199);
 }

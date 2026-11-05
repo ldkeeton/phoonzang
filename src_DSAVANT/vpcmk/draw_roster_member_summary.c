@@ -16,7 +16,7 @@ extern int draw_member_realm_points();
 draw_roster_member_summary(member_index)
 int member_index;
 {
-	int reserved;
+	int unused_word_02;
 	int percent;
 	unsigned char text[80];
 

@@ -1,11 +1,13 @@
 /* sets up the party for a melee: clears the action slots, loads the NPC
    record into slot 1 and rolls each member's action count */
 
+#include "structs/member.h"
+
 extern int npc_id;
 	/* character record loaded into the party */
 extern int party_entry_flag;			/* party-screen entry flag */
 extern int party_entry_mode;			/* party-screen entry mode */
-extern unsigned char *battle_group_ext_1;	/* battle_group_ext[1] record */
+extern struct member_ext *battle_group_ext_1;	/* battle_group_ext[1] record */
 extern int selected_item_slot;			/* selected item slot, -1 for none */
 extern int selected_item_record;		/* selected item record */
 extern long battle_experience;			/* experience earned from kills this battle */
@@ -22,7 +24,7 @@ setup_melee_party()
 		party_entry_flag = 1;
 	reset_battle_groups();
 	add_monster_group(npc_id, 1);	/* the met creature is battle group 1 */
-	selected_item_record = battle_group_ext_1[party_entry_mode + 168];
+	selected_item_record = battle_group_ext_1->entry_item[party_entry_mode];
 	selected_item_slot = -1;			/* no item slot selected */
 	identify_monster_groups();
 	load_party_battle_group();

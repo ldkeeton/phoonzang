@@ -15,7 +15,7 @@ extern int archive_process_stream_handle;
 extern int aztec_strcpy();
 extern int aztec_strcat();
 extern int display_centered_command_line();
-extern int aztec_freopen();
+extern FILE *aztec_freopen();
 extern int aztec_fexecl();
 extern int aztec_wait();
 extern int show_message_wait_for_enter();

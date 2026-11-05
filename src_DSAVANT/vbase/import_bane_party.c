@@ -57,7 +57,7 @@ extern struct bane_item_flag bane_item_flags_a[];
 extern struct bane_item_entry bane_items_b[];
 extern struct bane_item_level bane_item_levels_b[];
 extern struct bane_item_flag bane_item_flags_b[];
-extern struct spell_info spell_table[];
+extern struct spell_table_view spell_table[];
 
 extern int call_wait_sound(), load_message_string(), choose_game_file();
 extern int copy_through_char(), aztec_strcpy(), aztec_strcat(), aztec_strlen();
@@ -273,8 +273,10 @@ import_bane_party()
 		for (record_index = 0; record_index < 79; record_index++) {
 			if (test_bit(bane_spell_bits, record_index)) {
 				selector_result = map_bane_party_selector(record_index);
-				if (selector_result >= 0 && spell_table[selector_result].level < 4) {
-					if (random_below(6) >= spell_table[selector_result].level)
+				if (selector_result >= 0
+					&& spell_table->spell[selector_result].realm_level.bytes.level < 4) {
+					if (random_below(6)
+						>= spell_table->spell[selector_result].realm_level.bytes.level)
 						set_bitmap_bit(record->spell_bitmap,
 							selector_result, 1);
 				}

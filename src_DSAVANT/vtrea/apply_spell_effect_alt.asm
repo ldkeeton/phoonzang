@@ -82,7 +82,7 @@ jumptable_4a7d_case_39:
 jumptable_4a7d_case_29:
     push word [bp + 8]               ; 0x442f
     push word [bp + 4]               ; 0x4432
-    call api_idx_0054_NJIS           ; 0x4435
+    call try_open_treasure_chest     ; 0x4435
     add sp, byte 4                   ; 0x4438
     jmp near jumptable_4a7d_case_44  ; 0x443b
 jumptable_4a7d_case_33:
@@ -98,7 +98,7 @@ apply_spell_effect_alt.back1:
     mov cx, ax                       ; 0x4452
     add ax, strict word 0x23         ; 0x4454
     mov cx, ax                       ; 0x4457
-    mov dx, word [bss_95de]          ; 0x4459
+    mov dx, word [chest_trap_power]  ; 0x4459
     shl dx, 1                        ; 0x445d
     sub ax, dx                       ; 0x445f
     mov cx, ax                       ; 0x4461
@@ -108,15 +108,15 @@ apply_spell_effect_alt.back1:
     mov word [bp - 2], 0             ; 0x4468
     jmp short apply_spell_effect_alt.forward5 ; 0x446d
 apply_spell_effect_alt.back2:
-    cmp word [bss_91fe], byte 0      ; 0x446f
+    cmp word [chest_trap_type], byte 0 ; 0x446f
     jle short apply_spell_effect_alt.forward3 ; 0x4474
-    cmp word [bss_9250], byte -1     ; 0x4476
+    cmp word [trap_row_index], byte -1 ; 0x4476
     je short apply_spell_effect_alt.forward3 ; 0x447b
     mov ax, 0xa                      ; 0x447d
-    imul word [bss_9250]             ; 0x4480
+    imul word [trap_row_index]       ; 0x4480
     add ax, word [bp - 6]            ; 0x4484
     mov bx, ax                       ; 0x4487
-    cmp byte [bx + bss_9252], 0x2d   ; 0x4489
+    cmp byte [bx + trap_row_codes], 0x2d ; 0x4489
     jne short apply_spell_effect_alt.forward1 ; 0x448e
     mov ax, 0x2d                     ; 0x4490
     jmp short apply_spell_effect_alt.forward2 ; 0x4493
@@ -130,14 +130,14 @@ apply_spell_effect_alt.forward2:
     add ax, word [bp - 6]            ; 0x44a1
     mov bx, ax                       ; 0x44a4
     pop ax                           ; 0x44a6
-    mov byte [bx + bss_9372], al     ; 0x44a7
+    mov byte [bx + member_trap_clues], al ; 0x44a7
     jmp short apply_spell_effect_alt.forward4 ; 0x44ab
 apply_spell_effect_alt.forward3:
     mov ax, 0xa                      ; 0x44ad
     imul word [bp - 2]               ; 0x44b0
     add ax, word [bp - 6]            ; 0x44b3
     mov bx, ax                       ; 0x44b6
-    mov byte [bx + bss_9372], 0x2d   ; 0x44b8
+    mov byte [bx + member_trap_clues], 0x2d ; 0x44b8
 apply_spell_effect_alt.forward4:
     inc word [bp - 2]                ; 0x44bd
 apply_spell_effect_alt.forward5:

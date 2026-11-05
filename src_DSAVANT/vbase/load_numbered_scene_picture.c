@@ -1,7 +1,7 @@
 /* Open and display a numbered VIDEOnn.PIC scene image. */
 extern int call_wait_sound();
 extern int aztec_strcpy();
-extern int data_file_path();
+extern char *data_file_path();
 extern int aztec_open();
 extern int release_and_exit();
 extern int call_load_picture();

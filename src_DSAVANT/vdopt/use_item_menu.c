@@ -7,7 +7,7 @@
 #include "msg.h"
 
 extern struct pc_rec party_records[];
-extern struct spell_info spell_table[];
+extern struct spell_table_view spell_table[];
 extern struct saved_region_blocks party_region;
 extern unsigned char scenario_header_data[][16];
 extern char item_type_counted[];
@@ -46,7 +46,7 @@ int pc;
 					party_records[pc].item_slots[page][slot].item_id, 0);
 				if (party_records[pc].item_slots[page][slot].flags & 128)
 					aztec_strcpy(list_row_name[row_count],
-						(char *)&item);
+						item.name);
 				else
 					load_message_string(MSG_DAGGER_6000 +
 						item.glyph, list_row_name[row_count]);
@@ -88,7 +88,7 @@ int pc;
 				/* The high byte is the power and the low byte the spell. */
 				spell_power = item.spell_code / 256;
 				spell = item.spell_code % 256;
-				if (spell_table[spell].targeted == 1) {
+				if (spell_table->spell[spell].targeted == 1) {
 					spell_target = pick_party_member();
 					if (spell_target == -1)
 						spell = -1;

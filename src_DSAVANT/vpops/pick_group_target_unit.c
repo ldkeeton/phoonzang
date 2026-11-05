@@ -3,8 +3,6 @@
 
 extern struct member_rec *battle_groups[];
 extern char unit_targeted[][9];
-/* unit_targeted covers monster groups 1..5; index it by the 1-based group. */
-#define group_unit_targeted ((char (*)[9])(unit_targeted[0] - 9))
 extern int column_orders[6][3];
 extern int cell_slot_ref[3][3];
 
@@ -26,9 +24,9 @@ int order_index, group;	/* order_index: the picking party member */
 		/* Repeat unit passes until the requested unmarked unit is found. */
 		for (;;) {
 			for (unit = 0; unit < battle_groups[group]->unit_count; unit++) {
-				if (group_unit_targeted[group][unit] == 0 ||
+				if (unit_targeted[group - 1][unit] == 0 ||
 				    skipped_count == order_index) {
-					group_unit_targeted[group][unit] = 1;
+					unit_targeted[group - 1][unit] = 1;
 					return unit;
 				}
 				skipped_count++;
@@ -47,9 +45,9 @@ int order_index, group;	/* order_index: the picking party member */
 				cell_group = cell_slot_ref[row][column_orders[order_index][column]] / 10;
 				unit = cell_slot_ref[row][column_orders[order_index][column]] % 10;
 				if (cell_group == group) {
-					if (group_unit_targeted[group][unit] == 0 ||
+					if (unit_targeted[group - 1][unit] == 0 ||
 					    skipped_count == order_index) {
-						group_unit_targeted[group][unit] = 1;
+						unit_targeted[group - 1][unit] = 1;
 						return unit;
 					}
 					skipped_count++;

@@ -7,7 +7,7 @@ extern struct saved_region_blocks party_region;
 extern int current_level;
 extern char far *runtime_buffer_4k_a, *runtime_buffer_4k_b;
 extern char current_map_block_a[], explored_cell_bitmap[];
-extern long app_memmove();
+extern int app_memmove();
 extern int aztec_movmem();
 
 save_level_state()

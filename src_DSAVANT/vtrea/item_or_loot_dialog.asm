@@ -15,7 +15,7 @@ item_or_loot_dialog:
     mov ax, word [bp + 0xc]          ; 0x3a8a
 .forward1:
     mov word [bp - 0x22], ax         ; 0x3a8d
-    mov ax, dseg_90dc                ; 0x3a90
+    mov ax, treasure_item_dialog_temp_file ; 0x3a90
     push ax                          ; 0x3a93
     mov ax, word [bp - 0xa]          ; 0x3a94
     inc ax                           ; 0x3a97

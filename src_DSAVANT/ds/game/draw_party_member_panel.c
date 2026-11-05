@@ -5,7 +5,8 @@
 #include "structs/spell.h"
 #include "msg.h"
 
-extern char spell_table[];		/* the spell entries and the tables after */
+extern struct spell_table_view spell_table[];
+	/* the entries and the tables after */
 extern struct pc_rec party_records[];
 extern long panel_area[];
 extern int member_icon[];
@@ -34,8 +35,7 @@ int pc, reveal;
 		name);
 	name[7] = 0;		/* keep seven characters */
 	draw_text_glyphs(name, 0);
-	icon = ((struct spell_table_view *)spell_table)
-		->state_icon[party_records[pc].state];
+	icon = spell_table->state_icon[party_records[pc].state];
 	/* -1 becomes 0 or 1 once the matching per-member counter is set */
 	icon = (icon == -1
 		&& party_records[pc].status[2] > 0) ? 0 : icon;
@@ -50,12 +50,9 @@ int pc, reveal;
 	best = -1;
 	for (i = 0; i < 10; i++) {
 		if (party_records[pc].status[i] > 0 &&
-		    ((struct spell_table_view *)spell_table)->status_weight[i]
-			> best) {
-			icon = ((struct spell_table_view *)spell_table)
-				->status_icon[i];
-			best = ((struct spell_table_view *)spell_table)
-				->status_weight[i];
+		    spell_table->status_weight[i] > best) {
+			icon = spell_table->status_icon[i];
+			best = spell_table->status_weight[i];
 		}
 	}
 	if (icon != -1) {
@@ -65,8 +62,7 @@ int pc, reveal;
 	/* kinds 0x13/0x19 use base 10, else the race picks */
 	glyph_base = (party_records[pc].kind == 19 ||
 		  party_records[pc].kind == 25)
-		? 10 : ((struct spell_table_view *)spell_table)
-		  ->glyph_base[party_records[pc].race];
+		? 10 : spell_table->glyph_base[party_records[pc].race];
 	for (i = 0; i < 2; i++) {	/* two cells, 14 px apart */
 		call_set_text_pos(i * 14 + x + 30, y + 7);
 		slot = party_records[pc].equipped[i];

@@ -7,7 +7,7 @@
 #include "msg.h"
 
 extern struct pc_rec party_records[];
-extern struct spell_info spell_table[];
+extern struct spell_table_view spell_table[];
 extern char item_type_counted[];
 extern char list_row_name[][22];
 extern int list_row_glyph[];
@@ -65,7 +65,7 @@ int pc;
 		return -1;
 	wait_for_party_screen_animation();
 	action_result = item_action_dialog(MSG_3030, 0, 1, 1,
-		row_count, (char *)&party_records[pc]);
+		row_count, party_records[pc].name);
 	selection = dialog_selection;
 	if (action_result != 1 || selection == -1) {
 		call_show_area(54, 142, 265, 198);
@@ -80,7 +80,7 @@ int pc;
 	if (item.spell_code != 0) {
 		spell_power = item.spell_code / 256;
 		spell = item.spell_code % 256;
-		if (spell_table[spell].targeted == 1) {
+		if (spell_table->spell[spell].targeted == 1) {
 			selected_target = pick_party_member();
 			if (selected_target == -1) {
 				call_show_area(54, 142, 265, 198);

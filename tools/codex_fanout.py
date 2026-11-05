@@ -2,13 +2,15 @@
 """Fan out C reversal of one binary's routines to parallel Codex agents (v4).
 
 Codex agents stop early whatever the prompt says, so the driver never trusts
-what they report.  It checks three gates itself, and until all three pass it
+what they report.  It checks four gates itself, and until all four pass it
 resumes the same session with one line: "Not done: <what>. Continue."
 
   1. the C exists:   src_DSAVANT/<bin>/<name>.c defines <name>(
   2. byte-exact:     make rebuild DSAVANT <bin> <name> passes
   3. no generated names: not in the routine's name, not in make refs, not in
      any identifier of the .c (loc_, api_idx_, dseg_, f_XXXX ...)
+  4. clean C:        make badc DSAVANT does not flag the .c (no gotos, frame
+     structs, volatile, unions, filler locals, pointer puns, raw offsets ...)
 
 A job ends when the gates pass, or after --max-resumes resumes or --job-minutes.
 
@@ -174,7 +176,7 @@ def current_name(binary, span, label, start_asms):
 
 def gates(binary, name, reserved=()):
     """``(gate number, one-line problem, make rebuild output)`` for the first
-    gate that fails, or ``(0, '', output)`` when all three pass."""
+    gate that fails, or ``(0, '', output)`` when all four pass."""
     c = os.path.join(SRC, binary, name + '.c')
     cr = rel(c)
     if os.path.exists(os.path.join(SRC, binary, name + '.s')):
@@ -196,7 +198,37 @@ def gates(binary, name, reserved=()):
              if x.get('symbol') not in reserved and x['symbol'] not in left]
     if left:
         return 3, 'generated names left: ' + ' '.join(left) + ' (give each a descriptive name with make name)', out
+    bad = badc(binary, name)
+    if bad:
+        return 4, (f'make badc {PROJECT} flags {binary}/{name}.c ({bad}); rewrite it as plain C '
+                   'with real types and structured control flow, still byte-exact'), out
     return 0, '', out
+
+
+#: make badc columns, in output order, with what each one counts.
+BADC_COLS = [('back', 'backward gotos'), ('fwd', 'forward gotos'), ('frm', 'frame structs'),
+             ('vol', 'volatile'), ('def', '#define aliases'), ('uni', 'unions'),
+             ('fill', 'reserved/filler locals'), ('gen', 'generated names'),
+             ('pun', 'pointer casts that reinterpret bytes'),
+             ('off', 'raw byte offsets into typed records'),
+             ('mac', 'macros hiding a cast or address alias'),
+             ('view', 'byte-pointer views of typed pointer arrays'),
+             ('ext', 'extern return types that disagree with the definition')]
+
+
+def badc(binary, name):
+    """What make badc flags in binary/name.c, or '' when it is clean."""
+    r = sh(['make', 'badc', PROJECT])
+    out = r.stdout + r.stderr
+    want = f'{binary}/{name}.c'
+    for line in out.splitlines():
+        f = line.split()
+        if len(f) == len(BADC_COLS) + 2 and f[-1] == want and f[0].isdigit():
+            hits = [f'{n} {desc}' for (_, desc), n in zip(BADC_COLS, f[1:-1]) if n != '0']
+            return f'score {f[0]}: ' + ', '.join(hits)
+    if r.returncode and 'file(s) flagged' not in out:
+        return f'make badc {PROJECT} itself fails: {first_error(out)}'
+    return ''
 
 
 def foreign_failure(binary, name, out):
@@ -217,6 +249,9 @@ Check it with: make probe {project} {binary} {label} FILE={draft} LINKED=1
 Repeat until the probe prints "link ... [OK]". Then copy the draft to {c} and run make rebuild {project} {binary} {label}.
 Give the routine and every symbol it uses a descriptive name: make name {project} {binary} OLD=new:'short note' ...
 No generated names may remain (loc_, api_idx_, dseg_, bss_, f_XXXX). make refs {project} {binary} <routine> lists them.
+make badc {project} must not list your .c: no goto, frame structs, volatile, unions, #define aliases, filler/reserved
+locals, pointer casts that reinterpret bytes, raw byte offsets into records, or mismatched extern return types.
+Use real types (the shared structs) and structured control flow instead.
 Examples of finished C: {examples}. Shared structs: src_{project}/include/structs/*.h.
 Do not rename these (other agents own them): {reserved}
 Never run git, make clean, make data, or make build/rebuild without a routine.
@@ -463,7 +498,7 @@ ORPHANS0 = set()
 # ------------------------------------------------------------------ main
 
 def check_gates(binary):
-    """--gates: the three gates for every C routine of *binary* (no agents)."""
+    """--gates: the four gates for every C routine of *binary* (no agents)."""
     bad = 0
     for c in sorted(glob.glob(os.path.join(SRC, binary, '*.c'))):
         name = os.path.basename(c)[:-2]

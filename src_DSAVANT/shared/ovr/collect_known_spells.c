@@ -4,7 +4,7 @@
 #include "structs/spell.h"
 #include "msg.h"
 
-extern struct spell_info spell_table[];
+extern struct spell_table_view spell_table[];
 extern char known_spell_names[][20];
 extern int known_spell_ids[];
 
@@ -15,7 +15,7 @@ int pc, realm;
 
 	n = 0;
 	for (spell = 0; spell < 102; spell++) {	/* 0x66 spells */
-		if (spell_table[spell].realm == realm
+		if (spell_table->spell[spell].realm_level.bytes.realm == realm
 			&& test_bit(pc * 584 + 24082, spell)) {	/* 0x248-byte pc records */
 			load_message_string(spell + MSG_SPELL_NAME_BASE,
 				known_spell_names[n]);	/* spell names are a message base */

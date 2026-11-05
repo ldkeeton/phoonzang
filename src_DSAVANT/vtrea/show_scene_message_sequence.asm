@@ -1,0 +1,52 @@
+; auto-generated
+show_scene_message_sequence:
+    mov ax, 0xfefa                   ; 0x0d87
+    call aztec_csav                  ; 0x0d8a
+    mov ax, 0                        ; 0x0d8d
+    push ax                          ; 0x0d90
+    call redraw_treasure_caption     ; 0x0d91
+    pop cx                           ; 0x0d94
+    mov word [maze_message_previous_x], 0x44 ; 0x0d95
+    mov word [maze_message_row], 0   ; 0x0d9b
+    mov byte [treasure_glyph_text_buffer], 0 ; 0x0da1
+.back1:
+    lea ax, word [bp - 0x105]        ; 0x0da6
+    push ax                          ; 0x0daa
+    push word [bp + 4]               ; 0x0dab
+    call load_message_string         ; 0x0dae
+    add sp, byte 4                   ; 0x0db1
+    cmp word [message_not_found], byte 0 ; 0x0db4
+    jne short .forward1              ; 0x0db9
+    lea ax, word [bp - 0x105]        ; 0x0dbb
+    push ax                          ; 0x0dbf
+    call process_scene_message_words ; 0x0dc0
+    pop cx                           ; 0x0dc3
+    inc word [bp + 4]                ; 0x0dc4
+.forward1:
+    cmp word [message_not_found], byte 0 ; 0x0dc7
+    je short .back1                  ; 0x0dcc
+    cmp byte [treasure_glyph_text_buffer], 0 ; 0x0dce
+    je short .forward2               ; 0x0dd3
+    mov ax, treasure_glyph_text_buffer ; 0x0dd5
+    push ax                          ; 0x0dd8
+    call flush_glyph_buffer          ; 0x0dd9
+    pop cx                           ; 0x0ddc
+.forward2:
+    push word [bp + 6]               ; 0x0ddd
+    call show_treasure_area          ; 0x0de0
+    pop cx                           ; 0x0de3
+    mov ax, 0                        ; 0x0de4
+    push ax                          ; 0x0de7
+    call redraw_treasure_caption     ; 0x0de8
+    pop cx                           ; 0x0deb
+    mov ax, 0xc6                     ; 0x0dec
+    push ax                          ; 0x0def
+    mov ax, 0x109                    ; 0x0df0
+    push ax                          ; 0x0df3
+    mov ax, 0x92                     ; 0x0df4
+    push ax                          ; 0x0df7
+    mov ax, 0x37                     ; 0x0df8
+    push ax                          ; 0x0dfb
+    call dissolve_or_show_area       ; 0x0dfc
+    add sp, byte 8                   ; 0x0dff
+    ret                              ; 0x0e02

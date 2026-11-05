@@ -1,6 +1,7 @@
 /* closes the party screen: restores the cached screens, frees the screen's
    pictures, sounds and party/overlay records, then reloads the monster
    pictures and the party members' own records */
+#include "structs/member.h"
 
 extern int party_return_state;		/* game state the party screen returns to */
 extern char far *screen_cache[];
@@ -10,8 +11,10 @@ extern int saved_screen_pending;
 	/* set while a saved area waits to be restored */
 extern char screen_temp_name[];
 	/* "VM1.$$$" spool name for save_screen_area */
-extern char *battle_groups[];				/* 0x2c-byte party member records */
-extern char *battle_group_ext[];			/* 0x2c-byte extended member records */
+extern struct member_rec *battle_groups[];
+	/* 0x1a4-byte party member records */
+extern struct member_ext *battle_group_ext[];
+	/* 0xe8-byte extended member records */
 extern unsigned char picture_slot_number[];		/* picture number in each slot */
 extern int loaded_sound_id;				/* sound currently loaded, -1 if none */
 extern long saved_area_a, saved_area_b;

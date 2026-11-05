@@ -34,7 +34,7 @@ int member_index, message_id;
 	display_centered_message(message, 1);
 
 	slot_index = 0;
-	for (;;) {
+	do {
 		spell_count = prepare_skill_list(member_index, slot_index, spell_ids);
 		draw_known_spell_values(member_index, slot_index, spell_count,
 			spell_ids);
@@ -52,9 +52,7 @@ int member_index, message_id;
 		}
 		slot_index = edit_spell_slot_values(member_index, slot_index,
 			spell_count, spell_ids, slot_flags);
-		if (*((volatile unsigned int *)&slot_index) == 4)
-			break;
-	}
+	} while (slot_index != 4);
 
 	call_show_area(1, 112, 316, 198);
 }

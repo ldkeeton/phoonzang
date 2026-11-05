@@ -4,7 +4,7 @@
 extern char no_dissolve;
 extern int mouse_active;
 extern char far *mouse_pointer_shape;
-extern long set_mouse_pointer_shape();
+extern int set_mouse_pointer_shape();
 
 dissolve_or_show_area(left, top, right, bottom)
 int left, top, right, bottom;

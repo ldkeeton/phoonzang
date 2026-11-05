@@ -73,25 +73,25 @@ int member_index, spell_type;
 		1, 0);
 	aztec_movmem(spell_bits,
 		party_records[member_index].spell_bitmap, 16);
-	if (learned_count != 0)
-		goto return_from_routine;
-
-	selection_realm = dialog_selection / 256;
-	selection_slot = dialog_selection % 256;
-	set_bitmap_bit(party_records[member_index].spell_bitmap,
-		selection_slot, 1);
-	spell_index = (unsigned char)spell_table[selection_slot * 6 + 1]
-		* ((unsigned char)party_records[member_index].stat[2] / 6) + 1;
-	learned_count = (unsigned char)spell_table[selection_slot * 6];
-	if (party_records[member_index].realm_points[learned_count][1] + spell_index
-		< (unsigned char)spell_table[selection_slot * 6 + 2])
-		spell_index = (unsigned char)spell_table[selection_slot * 6 + 2]
-			- party_records[member_index].realm_points[learned_count][1];
-	party_records[member_index].realm_points[learned_count][1] += spell_index;
-	party_records[member_index].realm_points[learned_count][0] += spell_index;
-	party_records[member_index].spells_to_learn[spell_type]--;
-	draw_member_realm_points(member_index);
-
-return_from_routine:
-	;
+	if (learned_count != 0) {
+		/* The player cancelled the selection; keep the old bitmap. */
+	} else {
+		selection_realm = dialog_selection / 256;
+		selection_slot = dialog_selection % 256;
+		set_bitmap_bit(party_records[member_index].spell_bitmap,
+			selection_slot, 1);
+		spell_index = (unsigned char)spell_table[selection_slot * 6 + 1]
+			* ((unsigned char)party_records[member_index].stat[2] / 6) + 1;
+		learned_count = (unsigned char)spell_table[selection_slot * 6];
+		if (party_records[member_index].realm_points[learned_count][1]
+			+ spell_index < (unsigned char)spell_table[selection_slot * 6 + 2])
+			spell_index = (unsigned char)spell_table[selection_slot * 6 + 2]
+				- party_records[member_index].realm_points[learned_count][1];
+		party_records[member_index].realm_points[learned_count][1] +=
+			spell_index;
+		party_records[member_index].realm_points[learned_count][0] +=
+			spell_index;
+		party_records[member_index].spells_to_learn[spell_type]--;
+		draw_member_realm_points(member_index);
+	}
 }

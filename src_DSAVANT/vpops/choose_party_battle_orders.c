@@ -17,7 +17,7 @@ extern int play_sound_effect(), pick_group_target_unit();
 extern int pick_random_set_bit(), show_area_set(), delay_ms();
 extern int wait_for_hotspot_timeout(), draw_party_member_panel();
 #define item_record(member, slot) \
-	(&party_records[member].item_slots[0][0])[slot]
+	party_records[member].item_slots[0][slot]
 
 choose_party_battle_orders()
 {

@@ -25,6 +25,25 @@ union item_effect {
 	struct pc_hand_base damage;
 };
 
+/* One 6-byte row of an opened chest: the value or count range it rolls and
+ * the item type it produces. */
+struct chest_treasure_row {
+	int base;			/* +0: minimum, or the item id base */
+	int span;			/* +2: random_below limit or multiplier */
+	unsigned char item_type;	/* +4: 0 none, 1 gold, 2 item, 4 experience */
+	unsigned char chance;		/* +5: percent chance the row appears */
+};
+
+/* The 0x38-byte chest record data_record_io reads for a treasure scene. */
+struct chest_record {
+	struct chest_treasure_row row[8]; /* +0x00 */
+	unsigned char trap_bits[4];	/* +0x30: trap types the chest may hold */
+	unsigned char trap_power;	/* +0x34: trap strength */
+	unsigned char trap_effect;	/* +0x35: 0 untrapped, 2 springs at once,
+					   otherwise the DISARM menu runs */
+	int message_length;		/* +0x36: scratch for the item message */
+};
+
 struct item_record {
 	char name[0x1a];			/* +0x00: own name, shown once identified */
 	struct item_dice level_spec;		/* +0x1a: rolled into the slot's level */

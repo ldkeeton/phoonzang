@@ -88,7 +88,9 @@ struct member_ext {			/* 0xe8 bytes: the group's monster */
 	char pad1[0x90 - 0x89];
 	unsigned char special_spell_ids[10]; /* +0x90: spell picked by a rising roll
 					   threshold (5, 10, 15, 25 .. 100) */
-	char pad1b[0xaa - 0x9a];
+	char pad1b[0xa8 - 0x9a];
+	unsigned char entry_item[2];	/* +0xa8: item record for the matching
+					   party_entry_mode */
 	unsigned char companion_id[2];	/* +0xaa: monster that may join */
 	unsigned char companion_chance[2]; /* +0xac: its join roll limit */
 	unsigned char special_spell_chance; /* +0xae: threshold for the special-spell roll */
@@ -120,7 +122,7 @@ struct member_ext {			/* 0xe8 bytes: the group's monster */
 	unsigned char flags;		/* +0xe2: bit 0 sets bitmap_bit */
 	char pad6;
 	unsigned char f_e4;		/* +0xe4 */
-	unsigned char class_id;	/* +0xe5 */
+	signed char class_id;		/* +0xe5 */
 	char pad7[2];
 };
 

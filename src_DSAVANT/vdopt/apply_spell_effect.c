@@ -1,11 +1,6 @@
 /* Apply one spell's effect to party records, counters, or target cells. */
 #include "structs/pcrec.h"
-
-struct apply_step_spec {
-	int base;
-	unsigned char count;
-	unsigned char span;
-};
+#include "structs/randstep.h"
 
 extern struct pc_rec party_records[];
 extern int party_char_count, party_status_timer, party_status_offset;
@@ -14,7 +9,7 @@ extern int detection_spell_bonus, detection_spell_threshold;
 extern int spell_49_turns, spell_49_strength;
 extern int levitation_turns, spell_46_turns;
 extern int random_below();
-extern int *store_word_and_pair();
+extern struct random_step_spec *store_word_and_pair();
 extern int add_random_steps();
 extern int clamp_between();
 
@@ -72,7 +67,7 @@ int target;
 		for (; i < n; ++i) {
 			party_records[i].stamina[0] = clamp_between(
 				party_records[i].stamina[0] +
-				add_random_steps(*(struct apply_step_spec *)store_word_and_pair(
+				add_random_steps(*store_word_and_pair(
 					field_index, 8, effect_value)),
 				0, party_records[i].stamina[1]);
 		}
@@ -163,7 +158,7 @@ int target;
 		for (; i < n; ++i) {
 			party_records[i].hp[0] = clamp_between(
 				party_records[i].hp[0] +
-				add_random_steps(*(struct apply_step_spec *)store_word_and_pair(
+				add_random_steps(*store_word_and_pair(
 					power, field_index, effect_value)),
 				0, party_records[i].hp[1]);
 			++party_records[i].age_days;
@@ -201,13 +196,11 @@ int target;
 		break;
 	case 97:
 		/* Replenish stamina and hp from power-scaled random steps. */
-		i = add_random_steps(*(struct apply_step_spec *)
-			store_word_and_pair(power, 8, power));
+		i = add_random_steps(*store_word_and_pair(power, 8, power));
 		party_records[pc].stamina[0] += i;
 		if (party_records[pc].stamina[0] > party_records[pc].stamina[1])
 			party_records[pc].stamina[0] = party_records[pc].stamina[1];
-		i = add_random_steps(*(struct apply_step_spec *)
-			store_word_and_pair(power, 2, 0));
+		i = add_random_steps(*store_word_and_pair(power, 2, 0));
 		party_records[pc].hp[0] += i;
 		if (party_records[pc].hp[0] > party_records[pc].hp[1])
 			party_records[pc].hp[0] = party_records[pc].hp[1];
@@ -215,8 +208,7 @@ int target;
 	case 98:
 		/* Add random steps to each of the six realm-point pairs, capped above. */
 		for (i = 0; i < 6; ++i) {
-			n = add_random_steps(*(struct apply_step_spec *)
-				store_word_and_pair(power, 10, 0));
+			n = add_random_steps(*store_word_and_pair(power, 10, 0));
 			party_records[pc].realm_points[i][0] += n;
 			if (party_records[pc].realm_points[i][0] >
 			    party_records[pc].realm_points[i][1])

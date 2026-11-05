@@ -29,7 +29,7 @@ extern int adjust_character_karma();
 extern int init_member_karma_affinities();
 extern int select_grid_text_option();
 extern int transfer_pc_file_record();
-extern int data_file_path();
+extern char *data_file_path();
 extern long call_save_area();
 extern int call_restore_area();
 extern int call_restore_screen();
@@ -45,6 +45,12 @@ extern int aztec_open();
 extern int aztec_write();
 extern int aztec_close();
 
+/* The save-area handle plus the frame space the original routine reserved. */
+struct saved_area_buffer {
+	long handle;
+	char unused_space[584];
+};
+
 create_new_party_member(character_name, file_record_index)
 char *character_name;
 int file_record_index;
@@ -53,9 +59,9 @@ int file_record_index;
 	int choice;
 	int member_index;
 	int file_handle;
-	char reserved[34];
+	char unused_bytes_2a[34];
 	int option_data[3];
-	union { long result; char bytes[588]; } saved_area;
+	struct saved_area_buffer saved_area;
 
 	member_index = 0;
 	aztec_setmem(&party_records[member_index], (unsigned int)584, 0);
@@ -84,12 +90,10 @@ int file_record_index;
 	draw_roster_member_summary(member_index);
 	display_character_statistics(member_index, 0);
 	call_show_area(0, 0, 319, 199);
-	saved_area.result = call_save_area(14, 18, 66, 74);
+	saved_area.handle = call_save_area(14, 18, 66, 74);
 	party_records[member_index].kind = 0;
-	select_character_portrait(member_index, ((int *)&saved_area.result)[0],
-		((int *)&saved_area.result)[1]);
-	call_restore_area(((int *)&saved_area.result)[0],
-		((int *)&saved_area.result)[1], 1);
+	select_character_portrait(member_index, saved_area.handle);
+	call_restore_area(saved_area.handle, 1);
 	load_member_icon(party_records[member_index].kind, 0);
 	draw_loaded_member_icon(member_index, 14, 18);
 	choice = 0;

@@ -51,8 +51,10 @@ Commands (space-separated):
   make run PROJECT          run game in dosbox-x
   make verify [PROJECT...]  verify one or all projects
   make badc [PROJECT...]    flag hand-written .c that matches only through
-                            workarounds (goto, frame structs, volatile, ...; see
-                            badc.md); exits 1 if any file is flagged
+                            workarounds (goto, frame structs, volatile, pointer
+                            punning, raw byte offsets, view macros, byte-pointer
+                            arrays, loose extern types, ...); exits 1 if any
+                            file is flagged
   make clean [PROJECT...]   clean one or all projects (no args: delete .cache,
                             except the build lock and pinned baselines)
   make purge [PROJECT...]   delete hand-owned .c/.s/.asm sources and build_out

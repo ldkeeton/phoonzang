@@ -85,20 +85,14 @@ manage_character_files()
 	do {
 		banner_offset = 20;
 		banner_plain_flag = 0;
-		call_restore_screen(((int *)&summary_panel_cache_low)[0],
-			((int *)&summary_panel_cache_low)[1], 0, 0);
-		call_restore_screen(((int *)&detail_panel_cache_low)[0],
-			((int *)&detail_panel_cache_low)[1], 0, 0);
-		call_restore_screen(((int *)&roster_screen_b)[0],
-			((int *)&roster_screen_b)[1], 0, 0);
-		call_restore_screen(((int *)&character_screen_cache_a_low)[0],
-			((int *)&character_screen_cache_a_low)[1], 0, 0);
-		call_restore_screen(((int *)&character_screen_cache_b_low)[0],
-			((int *)&character_screen_cache_b_low)[1], 0, 0);
-		call_restore_screen(((int *)&realm_panel_cache_high)[0],
-			((int *)&realm_panel_cache_high)[1], 0, 0);
+		call_restore_screen(summary_panel_cache_low, 0, 0);
+		call_restore_screen(detail_panel_cache_low, 0, 0);
+		call_restore_screen(roster_screen_b, 0, 0);
+		call_restore_screen(character_screen_cache_a_low, 0, 0);
+		call_restore_screen(character_screen_cache_b_low, 0, 0);
+		call_restore_screen(realm_panel_cache_high, 0, 0);
 		for (loop_index = 0; loop_index < 5; loop_index++)
-			((int *)options)[loop_index] = 0;
+			options[loop_index] = 0;
 		options[5] = 1;
 		options[6] = -1;
 		available_file_slot = find_unused_pc_file_record_slot();
@@ -150,23 +144,16 @@ manage_character_files()
 		free_loaded_score(0);
 	}
 	free_picture_slot(15);
-	call_restore_screen(((int *)&saved_screen)[0], ((int *)&saved_screen)[1], 1,
+	call_restore_screen(saved_screen, 1,
 		0);
-	call_restore_screen(((int *)&saved_screen_handle_low)[0],
-		((int *)&saved_screen_handle_low)[1], 1, 0);
-	call_restore_screen(((int *)&realm_panel_cache_high)[0],
-		((int *)&realm_panel_cache_high)[1], 1, 0);
-	call_restore_screen(((int *)&character_screen_cache_b_low)[0],
-		((int *)&character_screen_cache_b_low)[1], 1, 0);
-	call_restore_screen(((int *)&character_screen_cache_a_low)[0],
-		((int *)&character_screen_cache_a_low)[1], 1, 0);
-	call_restore_screen(((int *)&roster_screen_b)[0],
-		((int *)&roster_screen_b)[1], 1, 0);
-	call_restore_screen(((int *)&detail_panel_cache_low)[0],
-		((int *)&detail_panel_cache_low)[1], 1, 0);
-	call_restore_screen(((int *)&summary_panel_cache_low)[0],
-		((int *)&summary_panel_cache_low)[1], 1, 0);
-	call_restore_screen(((int *)&saved_area)[0], ((int *)&saved_area)[1], 1, 0);
+	call_restore_screen(saved_screen_handle_low, 1, 0);
+	call_restore_screen(realm_panel_cache_high, 1, 0);
+	call_restore_screen(character_screen_cache_b_low, 1, 0);
+	call_restore_screen(character_screen_cache_a_low, 1, 0);
+	call_restore_screen(roster_screen_b, 1, 0);
+	call_restore_screen(detail_panel_cache_low, 1, 0);
+	call_restore_screen(summary_panel_cache_low, 1, 0);
+	call_restore_screen(saved_area, 1, 0);
 	free_picture_slot(1);
 	free_picture_slot(2);
 	call_show_area(0, 0, 319, 199);

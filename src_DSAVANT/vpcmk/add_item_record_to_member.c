@@ -10,7 +10,7 @@ add_item_record_to_member(character, item_id)
 int character, item_id;
 {
 	int slot_index;
-	int reserved;
+	int unused_word_04;
 	struct item_record item;
 	struct pc_item_slot *slot;
 

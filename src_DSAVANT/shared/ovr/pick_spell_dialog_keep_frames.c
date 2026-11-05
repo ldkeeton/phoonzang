@@ -11,7 +11,7 @@ extern int dialog_selection, party_redraw_interval, dialog_button,
 	space_key_hit, hotspot_hit;
 extern long party_redraw_last_tick;
 extern long far *tick_counter_ptr;
-extern struct spell_info spell_table[];
+extern struct spell_table_view spell_table[];
 extern struct pc_rec party_records[];
 extern int known_spell_ids[];
 struct spell_cost_panel_data {
@@ -159,7 +159,7 @@ int pc, button_msg, ok_enabled, limit_by_points;
 			case 3:	/* first button: needs a spell and, when limiting, enough points */
 				if (ok_enabled) {
 					if (spell >= 0 && (!limit_by_points || power <= max_power
-					    && spell_table[spell].cost * (power + 1)
+					    && spell_table->spell[spell].cost_effect.bytes.cost * (power + 1)
 					    	<= party_records[pc].realm_points[realm][0])) {
 						flash_button(panel_x + 6, box_y0 + 6, 8, 1, 1);
 						flash_button(panel_x + 6, box_y0 + 6, 8, 1, 0);
@@ -183,10 +183,11 @@ int pc, button_msg, ok_enabled, limit_by_points;
 					draw_power_digit(panel_x + 12, box_y0 + 20, power, 1);
 					if (spell >= 0) {
 						max_power = clamp_between(
-							party_records[pc].level - spell_table[spell].level, 0, 6);
-						i = spell_table[spell].cost * (max_power + 1);
+							party_records[pc].level -
+							spell_table->spell[spell].realm_level.bytes.level, 0, 6);
+						i = spell_table->spell[spell].cost_effect.bytes.cost * (max_power + 1);
 						draw_spell_cost(panel_x + 94, box_y0 + 21, realm,
-							spell_table[spell].cost * (power + 1),
+							spell_table->spell[spell].cost_effect.bytes.cost * (power + 1),
 							!limit_by_points ? 999 : (party_records[pc].realm_points[realm][0] < i
 								? party_records[pc].realm_points[realm][0] : i));
 					} else
@@ -216,10 +217,11 @@ int pc, button_msg, ok_enabled, limit_by_points;
 					draw_text_list(panel_x + 6, box_y0 + 34, 15, 7, list_top, sel_row,
 						rows_drawn);
 					max_power = clamp_between(
-						party_records[pc].level - spell_table[spell].level, 0, 6);
-					i = spell_table[spell].cost * (max_power + 1);
+						party_records[pc].level -
+							spell_table->spell[spell].realm_level.bytes.level, 0, 6);
+					i = spell_table->spell[spell].cost_effect.bytes.cost * (max_power + 1);
 					draw_spell_cost(panel_x + 94, box_y0 + 21, realm,
-						spell_table[spell].cost * (power + 1),
+						spell_table->spell[spell].cost_effect.bytes.cost * (power + 1),
 						!limit_by_points ? 999 : (party_records[pc].realm_points[realm][0] < i
 							? party_records[pc].realm_points[realm][0] : i));
 					call_show_area(panel_x + 6, box_y0 + 34, panel_x + 114, box_y0 + 76);

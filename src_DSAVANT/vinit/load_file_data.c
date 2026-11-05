@@ -3,7 +3,7 @@
 extern long aztec_lseek();
 extern char far *app_malloc();
 extern char *aztec_malloc();
-extern long app_memmove();
+extern int app_memmove();
 
 char far *
 load_file_data(path)
