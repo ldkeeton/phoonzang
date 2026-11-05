@@ -12,8 +12,10 @@ resumes the same session with one line: "Not done: <what>. Continue."
 
 A job ends when the gates pass, or after --max-resumes resumes or --job-minutes.
 
-Agents share this working tree; every make waits on .cache/build.lock.  The
-driver never writes to git: review `git diff` and commit yourself.
+Routines are independent: every bare routine is eligible immediately, and -j
+only caps how many agents run at once.  Agents share this working tree; every
+make waits on .cache/build.lock.  The driver never writes to git: review
+`git diff` and commit yourself.
 
   python3 tools/codex_fanout.py --next -n        # dry run of the smallest binary left
   python3 tools/codex_fanout.py vmext -j 4
@@ -103,25 +105,6 @@ def next_binary():
     left = [(len(bare(b)[0]), b) for b in binaries()]
     left = [x for x in left if x[0]]
     return min(left)[1] if left else None
-
-
-def dependencies(binary, labels):
-    deps = {}
-    for l in labels:
-        text = read(os.path.join(SRC, binary, l + '.asm'))
-        deps[l] = {o for o in labels if o != l and re.search(rf'\b{re.escape(o)}\b', text)}
-    return deps
-
-
-def topo_order(labels, deps):
-    out, done = [], set()
-    while len(done) < len(labels):
-        ready = [l for l in labels if l not in done and deps[l] <= done]
-        if not ready:  # a cycle: take what is left
-            ready = [l for l in labels if l not in done]
-        out += ready
-        done |= set(ready)
-    return out
 
 
 def dirty():
@@ -496,7 +479,7 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument('binary', nargs='?')
     ap.add_argument('--next', action='store_true', help='the binary with the fewest bare routines left')
-    ap.add_argument('-j', type=int, default=8)
+    ap.add_argument('-j', type=int, default=12)
     ap.add_argument('-n', '--dry-run', action='store_true')
     ap.add_argument('--only', default='', help='comma list of label substrings to run')
     ap.add_argument('--skip', default='', help='comma list of label substrings to leave out')
@@ -520,9 +503,7 @@ def main():
     labels, skipped = bare(binary)
     labels = [l for l in labels if (not only or any(o in l for o in only))
               and not any(x in l for x in a.skip.split(',') if x)]
-    deps = dependencies(binary, labels)
-    order = topo_order(labels, deps)[:a.limit or None]
-    deps = {l: deps[l] & set(order) for l in order}
+    order = labels[:a.limit or None]
     run = time.strftime('%Y%m%d-%H%M%S')
     run_dir = os.path.join(FANOUT_DIR, run)
 
@@ -531,7 +512,7 @@ def main():
     log(f'run {run}: {binary}, {len(order)} job(s), -j {a.j}, '
         f'up to {a.max_resumes} resumes / {a.job_minutes} min per routine')
     for l in order:
-        log(f'  {l}' + (f'  after {" ".join(sorted(deps[l]))}' if deps[l] else ''))
+        log(f'  {l}')
     if a.dry_run:
         if order:
             print(make_prompt(binary, order[0], os.path.join(run_dir, order[0], 'draft.c'), set(order[1:])))
@@ -553,8 +534,9 @@ def main():
         while True:
             if batch.healthy.is_set():
                 for l in order:
-                    if batch.state[l] == 'pending' and len(running) < a.j and \
-                            all(batch.state[x] not in ('pending', 'running') for x in deps[l]):
+                    if len(running) >= a.j:
+                        break
+                    if batch.state[l] == 'pending':
                         batch.state[l] = 'running'
                         running[ex.submit(batch.run_job, l)] = l
             if not running:

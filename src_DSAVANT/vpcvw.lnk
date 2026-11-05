@@ -85,12 +85,12 @@ vpcvw/api_idx_0018_VTUP
 shared/ovr/aztec_ovbgn
 shared/ovr/aztec_cswt
 vpcvw/data/percent_suffix_text
-shared/data/title_panel_screen_file
-shared/data/choice_grid_screen_file
+vpcvw/data/title_panel_screen_file
+vpcvw/data/choice_grid_screen_file
 shared/data/spell_cost_panel_text
-vpcvw/data/pick_spell_dialog_keep_frames_dseg175
+vpcvw/data/spell_dialog_save_file
 shared/data/screen_save_temp_file
-shared/data/profession_stat_requirements
+vpcvw/data/profession_stat_requirements
 vpcvw/data/dseg_9366
-shared/data/portrait_data_filename
+vpcvw/data/portrait_data_filename
 shared/data/overlay_saved_registers

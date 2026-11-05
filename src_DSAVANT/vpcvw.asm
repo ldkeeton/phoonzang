@@ -29,7 +29,7 @@ percent_suffix_text equ __zdseg_end + (__zpercent_suffix_text - __zdata_start)
 title_panel_screen_file equ __zdseg_end + (__ztitle_panel_screen_file - __zdata_start)
 choice_grid_screen_file equ __zdseg_end + (__zchoice_grid_screen_file - __zdata_start)
 spell_cost_panel_text equ __zdseg_end + (__zspell_cost_panel_text - __zdata_start)
-pick_spell_dialog_keep_frames_dseg175 equ __zdseg_end + (__zdseg_90ab - __zdata_start)
+spell_dialog_save_file equ __zdseg_end + (__zdseg_90ab - __zdata_start)
 dseg_90b1 equ __zdseg_end + (__zdseg_90b1 - __zdata_start)
 dseg_90b3 equ __zdseg_end + (__zdseg_90b3 - __zdata_start)
 dseg_90c0 equ __zdseg_end + (__zdseg_90c0 - __zdata_start)
@@ -96,20 +96,20 @@ dseg_92c7 equ __zdseg_end + (__zdseg_92c7 - __zdata_start)
 dseg_92d0 equ __zdseg_end + (__zdseg_92d0 - __zdata_start)
 dseg_92d7 equ __zdseg_end + (__zdseg_92d7 - __zdata_start)
 screen_save_temp_file equ __zdseg_end + (__zscreen_save_temp_file - __zdata_start)
-profession_0_stat_requirements equ __zdseg_end + (__zprofession_0_stat_requirements - __zdata_start)
-profession_1_stat_requirements equ __zdseg_end + (__zprofession_1_stat_requirements - __zdata_start)
-profession_2_stat_requirements equ __zdseg_end + (__zprofession_2_stat_requirements - __zdata_start)
-profession_3_stat_requirements equ __zdseg_end + (__zprofession_3_stat_requirements - __zdata_start)
-profession_4_stat_requirements equ __zdseg_end + (__zprofession_4_stat_requirements - __zdata_start)
-profession_5_stat_requirements equ __zdseg_end + (__zprofession_5_stat_requirements - __zdata_start)
-profession_6_stat_requirements equ __zdseg_end + (__zprofession_6_stat_requirements - __zdata_start)
-profession_7_stat_requirements equ __zdseg_end + (__zprofession_7_stat_requirements - __zdata_start)
-profession_8_stat_requirements equ __zdseg_end + (__zprofession_8_stat_requirements - __zdata_start)
-profession_9_stat_requirements equ __zdseg_end + (__zprofession_9_stat_requirements - __zdata_start)
-profession_10_stat_requirements equ __zdseg_end + (__zprofession_10_stat_requirements - __zdata_start)
-profession_11_stat_requirements equ __zdseg_end + (__zprofession_11_stat_requirements - __zdata_start)
-profession_12_stat_requirements equ __zdseg_end + (__zprofession_12_stat_requirements - __zdata_start)
-profession_13_stat_requirements equ __zdseg_end + (__zprofession_13_stat_requirements - __zdata_start)
+fighter_stat_requirements equ __zdseg_end + (__zfighter_stat_requirements - __zdata_start)
+mage_stat_requirements equ __zdseg_end + (__zmage_stat_requirements - __zdata_start)
+priest_stat_requirements equ __zdseg_end + (__zpriest_stat_requirements - __zdata_start)
+thief_stat_requirements equ __zdseg_end + (__zthief_stat_requirements - __zdata_start)
+ranger_stat_requirements equ __zdseg_end + (__zranger_stat_requirements - __zdata_start)
+alchemist_stat_requirements equ __zdseg_end + (__zalchemist_stat_requirements - __zdata_start)
+bard_stat_requirements equ __zdseg_end + (__zbard_stat_requirements - __zdata_start)
+psionic_stat_requirements equ __zdseg_end + (__zpsionic_stat_requirements - __zdata_start)
+valkyrie_stat_requirements equ __zdseg_end + (__zvalkyrie_stat_requirements - __zdata_start)
+bishop_stat_requirements equ __zdseg_end + (__zbishop_stat_requirements - __zdata_start)
+lord_stat_requirements equ __zdseg_end + (__zlord_stat_requirements - __zdata_start)
+samurai_stat_requirements equ __zdseg_end + (__zsamurai_stat_requirements - __zdata_start)
+monk_stat_requirements equ __zdseg_end + (__zmonk_stat_requirements - __zdata_start)
+ninja_stat_requirements equ __zdseg_end + (__zninja_stat_requirements - __zdata_start)
 dseg_9366 equ __zdseg_end + (__zdseg_9366 - __zdata_start)
 dseg_936f equ __zdseg_end + (__zdseg_936f - __zdata_start)
 dseg_9378 equ __zdseg_end + (__zdseg_9378 - __zdata_start)
@@ -328,7 +328,7 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "vpcvw/api_idx_0030_TGOH.asm"     ; 0x92b3
 
-%include "shared/ovr/load_member_icon.asm"     ; 0x9434
+%include "shared/ovr/load_member_icon.asm"      ; 0x9434
 
 %include "vpcvw/api_idx_0022_PNPP.asm"     ; 0x9491
 
@@ -343,21 +343,21 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 __zdata_start:
 %include "vpcvw/data/percent_suffix_text.asm" ; 0x9844
 
-%include "shared/data/title_panel_screen_file.asm" ; 0x9847
+%include "vpcvw/data/title_panel_screen_file.asm" ; 0x9847
 
-%include "shared/data/choice_grid_screen_file.asm" ; 0x984d
+%include "vpcvw/data/choice_grid_screen_file.asm" ; 0x984d
 
 %include "shared/data/spell_cost_panel_text.asm" ; 0x9853
 
-%include "vpcvw/data/pick_spell_dialog_keep_frames_dseg175.asm"        ; 0x9857
+%include "vpcvw/data/spell_dialog_save_file.asm"        ; 0x9857
 
 %include "shared/data/screen_save_temp_file.asm" ; 0x9a8e
 
-%include "shared/data/profession_stat_requirements.asm" ; 0x9a94
+%include "vpcvw/data/profession_stat_requirements.asm" ; 0x9a94
 
 %include "vpcvw/data/dseg_9366.asm"        ; 0x9b12
 
-%include "shared/data/portrait_data_filename.asm" ; 0x9b75
+%include "vpcvw/data/portrait_data_filename.asm" ; 0x9b75
 
 %include "shared/data/overlay_saved_registers.asm" ; 0x9b82
 

@@ -9,182 +9,182 @@ prepare_skill_list:
     sub ah, ah
     jmp near .forward1
 jumptable_3797_case_0:
-    mov ax, profession_0_skill_group_3
+    mov ax, fighter_academia_skills
     push ax
-    mov ax, profession_0_skill_group_2
+    mov ax, fighter_personal_skills
     push ax
-    mov ax, profession_0_skill_group_1
+    mov ax, fighter_physical_skills
     push ax
-    mov ax, profession_0_skill_group_0
+    mov ax, fighter_weaponry_skills
     push ax
     push word [bp + 4]
     call set_party_skill_flags
     add sp, byte 0xa
     jmp near prepare_skill_list.forward2
 jumptable_3797_case_1:
-    mov ax, profession_1_skill_group_3
+    mov ax, mage_academia_skills
     push ax
-    mov ax, profession_1_skill_group_2
+    mov ax, mage_personal_skills
     push ax
-    mov ax, profession_1_skill_group_1
+    mov ax, mage_physical_skills
     push ax
-    mov ax, profession_1_skill_group_0
+    mov ax, mage_weaponry_skills
     push ax
     push word [bp + 4]
     call set_party_skill_flags
     add sp, byte 0xa
     jmp near prepare_skill_list.forward2
 jumptable_3797_case_2:
-    mov ax, profession_2_skill_group_3
+    mov ax, priest_academia_skills
     push ax
-    mov ax, profession_2_skill_group_2
+    mov ax, priest_personal_skills
     push ax
-    mov ax, profession_2_skill_group_1
+    mov ax, priest_physical_skills
     push ax
-    mov ax, profession_2_skill_group_0
+    mov ax, priest_weaponry_skills
     push ax
     push word [bp + 4]
     call set_party_skill_flags
     add sp, byte 0xa
     jmp near prepare_skill_list.forward2
 jumptable_3797_case_3:
-    mov ax, profession_3_skill_group_3
+    mov ax, thief_academia_skills
     push ax
-    mov ax, profession_3_skill_group_2
+    mov ax, thief_personal_skills
     push ax
-    mov ax, profession_3_skill_group_1
+    mov ax, thief_physical_skills
     push ax
-    mov ax, profession_3_skill_group_0
+    mov ax, thief_weaponry_skills
     push ax
     push word [bp + 4]
     call set_party_skill_flags
     add sp, byte 0xa
     jmp near prepare_skill_list.forward2
 jumptable_3797_case_4:
-    mov ax, profession_4_skill_group_3
+    mov ax, ranger_academia_skills
     push ax
-    mov ax, profession_4_skill_group_2
+    mov ax, ranger_personal_skills
     push ax
-    mov ax, profession_4_skill_group_1
+    mov ax, ranger_physical_skills
     push ax
-    mov ax, profession_4_skill_group_0
+    mov ax, ranger_weaponry_skills
     push ax
     push word [bp + 4]
     call set_party_skill_flags
     add sp, byte 0xa
     jmp near prepare_skill_list.forward2
 jumptable_3797_case_5:
-    mov ax, profession_5_skill_group_3
+    mov ax, alchemist_academia_skills
     push ax
-    mov ax, profession_5_skill_group_2
+    mov ax, alchemist_personal_skills
     push ax
-    mov ax, profession_5_skill_group_1
+    mov ax, alchemist_physical_skills
     push ax
-    mov ax, profession_5_skill_group_0
+    mov ax, alchemist_weaponry_skills
     push ax
     push word [bp + 4]
     call set_party_skill_flags
     add sp, byte 0xa
     jmp near prepare_skill_list.forward2
 jumptable_3797_case_6:
-    mov ax, profession_6_skill_group_3
+    mov ax, bard_academia_skills
     push ax
-    mov ax, profession_6_skill_group_2
+    mov ax, bard_personal_skills
     push ax
-    mov ax, profession_6_skill_group_1
+    mov ax, bard_physical_skills
     push ax
-    mov ax, profession_6_skill_group_0
+    mov ax, bard_weaponry_skills
     push ax
     push word [bp + 4]
     call set_party_skill_flags
     add sp, byte 0xa
     jmp near prepare_skill_list.forward2
 jumptable_3797_case_7:
-    mov ax, profession_7_skill_group_3
+    mov ax, psionic_academia_skills
     push ax
-    mov ax, profession_7_skill_group_2
+    mov ax, psionic_personal_skills
     push ax
-    mov ax, profession_7_skill_group_1
+    mov ax, psionic_physical_skills
     push ax
-    mov ax, profession_7_skill_group_0
+    mov ax, psionic_weaponry_skills
     push ax
     push word [bp + 4]
     call set_party_skill_flags
     add sp, byte 0xa
     jmp near prepare_skill_list.forward2
 jumptable_3797_case_8:
-    mov ax, profession_8_skill_group_3
+    mov ax, valkyrie_academia_skills
     push ax
-    mov ax, profession_8_skill_group_2
+    mov ax, valkyrie_personal_skills
     push ax
-    mov ax, profession_8_skill_group_1
+    mov ax, valkyrie_physical_skills
     push ax
-    mov ax, profession_8_skill_group_0
+    mov ax, valkyrie_weaponry_skills
     push ax
     push word [bp + 4]
     call set_party_skill_flags
     add sp, byte 0xa
     jmp near prepare_skill_list.forward2
 jumptable_3797_case_9:
-    mov ax, profession_9_skill_group_3
+    mov ax, bishop_academia_skills
     push ax
-    mov ax, profession_9_skill_group_2
+    mov ax, bishop_personal_skills
     push ax
-    mov ax, profession_9_skill_group_1
+    mov ax, bishop_physical_skills
     push ax
-    mov ax, profession_9_skill_group_0
+    mov ax, bishop_weaponry_skills
     push ax
     push word [bp + 4]
     call set_party_skill_flags
     add sp, byte 0xa
     jmp near prepare_skill_list.forward2
 jumptable_3797_case_10:
-    mov ax, profession_10_skill_group_3
+    mov ax, lord_academia_skills
     push ax
-    mov ax, profession_10_skill_group_2
+    mov ax, lord_personal_skills
     push ax
-    mov ax, profession_10_skill_group_1
+    mov ax, lord_physical_skills
     push ax
-    mov ax, profession_10_skill_group_0
+    mov ax, lord_weaponry_skills
     push ax
     push word [bp + 4]
     call set_party_skill_flags
     add sp, byte 0xa
     jmp short prepare_skill_list.forward2
 jumptable_3797_case_11:
-    mov ax, profession_11_skill_group_3
+    mov ax, samurai_academia_skills
     push ax
-    mov ax, profession_11_skill_group_2
+    mov ax, samurai_personal_skills
     push ax
-    mov ax, profession_11_skill_group_1
+    mov ax, samurai_physical_skills
     push ax
-    mov ax, profession_11_skill_group_0
+    mov ax, samurai_weaponry_skills
     push ax
     push word [bp + 4]
     call set_party_skill_flags
     add sp, byte 0xa
     jmp short prepare_skill_list.forward2
 jumptable_3797_case_12:
-    mov ax, profession_12_skill_group_3
+    mov ax, monk_academia_skills
     push ax
-    mov ax, profession_12_skill_group_2
+    mov ax, monk_personal_skills
     push ax
-    mov ax, profession_12_skill_group_1
+    mov ax, monk_physical_skills
     push ax
-    mov ax, profession_12_skill_group_0
+    mov ax, monk_weaponry_skills
     push ax
     push word [bp + 4]
     call set_party_skill_flags
     add sp, byte 0xa
     jmp short prepare_skill_list.forward2
 jumptable_3797_case_13:
-    mov ax, profession_13_skill_group_3
+    mov ax, ninja_academia_skills
     push ax
-    mov ax, profession_13_skill_group_2
+    mov ax, ninja_personal_skills
     push ax
-    mov ax, profession_13_skill_group_1
+    mov ax, ninja_physical_skills
     push ax
-    mov ax, profession_13_skill_group_0
+    mov ax, ninja_weaponry_skills
     push ax
     push word [bp + 4]
     call set_party_skill_flags

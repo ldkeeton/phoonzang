@@ -75,15 +75,17 @@ Expand
 <summary> 
 Expand
 </summary>
-`.vscode/asm-nav/` is a small local extension for the generated C and NASM
-(`src_<PROJECT>/`). Install once, then reload the window:
+`.vscode/asm-nav/` is a small local extension and language server for the
+generated C and NASM (`src_<PROJECT>/`). Install once, then reload the window:
 
 ```
-ln -s "$PWD/.vscode/asm-nav" ~/.vscode/extensions/local.phoonzang-asm-nav-0.0.1
+npm install --prefix .vscode/asm-nav
+ln -s "$PWD/.vscode/asm-nav" ~/.vscode/extensions/local.phoonzang-asm-nav-0.1.0
 ```
 
-- **F12 / Shift+F12** from C into the NASM labels (and `equ` constants), scoped
-  to the current binary; `name_` inside `#asm` blocks resolves to `name`
+- **F12 / Shift+F12** resolve across the whole project. A C or `.s` definition
+  wins over the generated `.asm`; otherwise `.asm` labels, `equ` constants,
+  local labels, `struc` fields and `.inc` macros all find each other
 - **Hover**: address, sidecar name/note, vendor source, size
 - **Ctrl+Alt+G** go to address (`4b46` or `vinstall:2d86`)
 - **Name this routine** (right-click): writes the sidecar `function_names` entry

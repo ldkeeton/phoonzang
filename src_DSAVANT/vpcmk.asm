@@ -30,139 +30,139 @@ title_panel_screen_file equ __zdseg_end + (__ztitle_panel_screen_file - __zdata_
 choice_grid_screen_file equ __zdseg_end + (__zchoice_grid_screen_file - __zdata_start)
 list_dialog_temp_file equ __zdseg_end + (__zlist_dialog_temp_file - __zdata_start)
 screen_save_temp_file equ __zdseg_end + (__zscreen_save_temp_file - __zdata_start)
-dseg_90bb equ __zdseg_end + (__zdseg_90bb - __zdata_start)
-profession_0_skill_group_0 equ __zdseg_end + (__zprofession_0_skill_group_0 - __zdata_start)
-profession_0_skill_group_1 equ __zdseg_end + (__zprofession_0_skill_group_1 - __zdata_start)
-profession_0_skill_group_2 equ __zdseg_end + (__zprofession_0_skill_group_2 - __zdata_start)
-profession_0_skill_group_3 equ __zdseg_end + (__zprofession_0_skill_group_3 - __zdata_start)
-profession_1_skill_group_0 equ __zdseg_end + (__zprofession_1_skill_group_0 - __zdata_start)
-profession_1_skill_group_1 equ __zdseg_end + (__zprofession_1_skill_group_1 - __zdata_start)
-profession_1_skill_group_2 equ __zdseg_end + (__zprofession_1_skill_group_2 - __zdata_start)
-profession_1_skill_group_3 equ __zdseg_end + (__zprofession_1_skill_group_3 - __zdata_start)
-profession_2_skill_group_0 equ __zdseg_end + (__zprofession_2_skill_group_0 - __zdata_start)
-profession_2_skill_group_1 equ __zdseg_end + (__zprofession_2_skill_group_1 - __zdata_start)
-profession_2_skill_group_2 equ __zdseg_end + (__zprofession_2_skill_group_2 - __zdata_start)
-profession_2_skill_group_3 equ __zdseg_end + (__zprofession_2_skill_group_3 - __zdata_start)
-profession_3_skill_group_0 equ __zdseg_end + (__zprofession_3_skill_group_0 - __zdata_start)
-profession_3_skill_group_1 equ __zdseg_end + (__zprofession_3_skill_group_1 - __zdata_start)
-profession_3_skill_group_2 equ __zdseg_end + (__zprofession_3_skill_group_2 - __zdata_start)
-profession_3_skill_group_3 equ __zdseg_end + (__zprofession_3_skill_group_3 - __zdata_start)
-profession_4_skill_group_0 equ __zdseg_end + (__zprofession_4_skill_group_0 - __zdata_start)
-profession_4_skill_group_1 equ __zdseg_end + (__zprofession_4_skill_group_1 - __zdata_start)
-profession_4_skill_group_2 equ __zdseg_end + (__zprofession_4_skill_group_2 - __zdata_start)
-profession_4_skill_group_3 equ __zdseg_end + (__zprofession_4_skill_group_3 - __zdata_start)
-profession_5_skill_group_0 equ __zdseg_end + (__zprofession_5_skill_group_0 - __zdata_start)
-profession_5_skill_group_1 equ __zdseg_end + (__zprofession_5_skill_group_1 - __zdata_start)
-profession_5_skill_group_2 equ __zdseg_end + (__zprofession_5_skill_group_2 - __zdata_start)
-profession_5_skill_group_3 equ __zdseg_end + (__zprofession_5_skill_group_3 - __zdata_start)
-profession_6_skill_group_0 equ __zdseg_end + (__zprofession_6_skill_group_0 - __zdata_start)
-profession_6_skill_group_1 equ __zdseg_end + (__zprofession_6_skill_group_1 - __zdata_start)
-profession_6_skill_group_2 equ __zdseg_end + (__zprofession_6_skill_group_2 - __zdata_start)
-profession_6_skill_group_3 equ __zdseg_end + (__zprofession_6_skill_group_3 - __zdata_start)
-profession_7_skill_group_0 equ __zdseg_end + (__zprofession_7_skill_group_0 - __zdata_start)
-profession_7_skill_group_1 equ __zdseg_end + (__zprofession_7_skill_group_1 - __zdata_start)
-profession_7_skill_group_2 equ __zdseg_end + (__zprofession_7_skill_group_2 - __zdata_start)
-profession_7_skill_group_3 equ __zdseg_end + (__zprofession_7_skill_group_3 - __zdata_start)
-profession_8_skill_group_0 equ __zdseg_end + (__zprofession_8_skill_group_0 - __zdata_start)
-profession_8_skill_group_1 equ __zdseg_end + (__zprofession_8_skill_group_1 - __zdata_start)
-profession_8_skill_group_2 equ __zdseg_end + (__zprofession_8_skill_group_2 - __zdata_start)
-profession_8_skill_group_3 equ __zdseg_end + (__zprofession_8_skill_group_3 - __zdata_start)
-profession_9_skill_group_0 equ __zdseg_end + (__zprofession_9_skill_group_0 - __zdata_start)
-profession_9_skill_group_1 equ __zdseg_end + (__zprofession_9_skill_group_1 - __zdata_start)
-profession_9_skill_group_2 equ __zdseg_end + (__zprofession_9_skill_group_2 - __zdata_start)
-profession_9_skill_group_3 equ __zdseg_end + (__zprofession_9_skill_group_3 - __zdata_start)
-profession_10_skill_group_0 equ __zdseg_end + (__zprofession_10_skill_group_0 - __zdata_start)
-profession_10_skill_group_1 equ __zdseg_end + (__zprofession_10_skill_group_1 - __zdata_start)
-profession_10_skill_group_2 equ __zdseg_end + (__zprofession_10_skill_group_2 - __zdata_start)
-profession_10_skill_group_3 equ __zdseg_end + (__zprofession_10_skill_group_3 - __zdata_start)
-profession_11_skill_group_0 equ __zdseg_end + (__zprofession_11_skill_group_0 - __zdata_start)
-profession_11_skill_group_1 equ __zdseg_end + (__zprofession_11_skill_group_1 - __zdata_start)
-profession_11_skill_group_2 equ __zdseg_end + (__zprofession_11_skill_group_2 - __zdata_start)
-profession_11_skill_group_3 equ __zdseg_end + (__zprofession_11_skill_group_3 - __zdata_start)
-profession_12_skill_group_0 equ __zdseg_end + (__zprofession_12_skill_group_0 - __zdata_start)
-profession_12_skill_group_1 equ __zdseg_end + (__zprofession_12_skill_group_1 - __zdata_start)
-profession_12_skill_group_2 equ __zdseg_end + (__zprofession_12_skill_group_2 - __zdata_start)
-profession_12_skill_group_3 equ __zdseg_end + (__zprofession_12_skill_group_3 - __zdata_start)
-profession_13_skill_group_0 equ __zdseg_end + (__zprofession_13_skill_group_0 - __zdata_start)
-profession_13_skill_group_1 equ __zdseg_end + (__zprofession_13_skill_group_1 - __zdata_start)
-profession_13_skill_group_2 equ __zdseg_end + (__zprofession_13_skill_group_2 - __zdata_start)
-profession_13_skill_group_3 equ __zdseg_end + (__zprofession_13_skill_group_3 - __zdata_start)
+stamina_percent_suffix equ __zdseg_end + (__zstamina_percent_suffix - __zdata_start)
+fighter_weaponry_skills equ __zdseg_end + (__zfighter_weaponry_skills - __zdata_start)
+fighter_physical_skills equ __zdseg_end + (__zfighter_physical_skills - __zdata_start)
+fighter_personal_skills equ __zdseg_end + (__zfighter_personal_skills - __zdata_start)
+fighter_academia_skills equ __zdseg_end + (__zfighter_academia_skills - __zdata_start)
+mage_weaponry_skills equ __zdseg_end + (__zmage_weaponry_skills - __zdata_start)
+mage_physical_skills equ __zdseg_end + (__zmage_physical_skills - __zdata_start)
+mage_personal_skills equ __zdseg_end + (__zmage_personal_skills - __zdata_start)
+mage_academia_skills equ __zdseg_end + (__zmage_academia_skills - __zdata_start)
+priest_weaponry_skills equ __zdseg_end + (__zpriest_weaponry_skills - __zdata_start)
+priest_physical_skills equ __zdseg_end + (__zpriest_physical_skills - __zdata_start)
+priest_personal_skills equ __zdseg_end + (__zpriest_personal_skills - __zdata_start)
+priest_academia_skills equ __zdseg_end + (__zpriest_academia_skills - __zdata_start)
+thief_weaponry_skills equ __zdseg_end + (__zthief_weaponry_skills - __zdata_start)
+thief_physical_skills equ __zdseg_end + (__zthief_physical_skills - __zdata_start)
+thief_personal_skills equ __zdseg_end + (__zthief_personal_skills - __zdata_start)
+thief_academia_skills equ __zdseg_end + (__zthief_academia_skills - __zdata_start)
+ranger_weaponry_skills equ __zdseg_end + (__zranger_weaponry_skills - __zdata_start)
+ranger_physical_skills equ __zdseg_end + (__zranger_physical_skills - __zdata_start)
+ranger_personal_skills equ __zdseg_end + (__zranger_personal_skills - __zdata_start)
+ranger_academia_skills equ __zdseg_end + (__zranger_academia_skills - __zdata_start)
+alchemist_weaponry_skills equ __zdseg_end + (__zalchemist_weaponry_skills - __zdata_start)
+alchemist_physical_skills equ __zdseg_end + (__zalchemist_physical_skills - __zdata_start)
+alchemist_personal_skills equ __zdseg_end + (__zalchemist_personal_skills - __zdata_start)
+alchemist_academia_skills equ __zdseg_end + (__zalchemist_academia_skills - __zdata_start)
+bard_weaponry_skills equ __zdseg_end + (__zbard_weaponry_skills - __zdata_start)
+bard_physical_skills equ __zdseg_end + (__zbard_physical_skills - __zdata_start)
+bard_personal_skills equ __zdseg_end + (__zbard_personal_skills - __zdata_start)
+bard_academia_skills equ __zdseg_end + (__zbard_academia_skills - __zdata_start)
+psionic_weaponry_skills equ __zdseg_end + (__zpsionic_weaponry_skills - __zdata_start)
+psionic_physical_skills equ __zdseg_end + (__zpsionic_physical_skills - __zdata_start)
+psionic_personal_skills equ __zdseg_end + (__zpsionic_personal_skills - __zdata_start)
+psionic_academia_skills equ __zdseg_end + (__zpsionic_academia_skills - __zdata_start)
+valkyrie_weaponry_skills equ __zdseg_end + (__zvalkyrie_weaponry_skills - __zdata_start)
+valkyrie_physical_skills equ __zdseg_end + (__zvalkyrie_physical_skills - __zdata_start)
+valkyrie_personal_skills equ __zdseg_end + (__zvalkyrie_personal_skills - __zdata_start)
+valkyrie_academia_skills equ __zdseg_end + (__zvalkyrie_academia_skills - __zdata_start)
+bishop_weaponry_skills equ __zdseg_end + (__zbishop_weaponry_skills - __zdata_start)
+bishop_physical_skills equ __zdseg_end + (__zbishop_physical_skills - __zdata_start)
+bishop_personal_skills equ __zdseg_end + (__zbishop_personal_skills - __zdata_start)
+bishop_academia_skills equ __zdseg_end + (__zbishop_academia_skills - __zdata_start)
+lord_weaponry_skills equ __zdseg_end + (__zlord_weaponry_skills - __zdata_start)
+lord_physical_skills equ __zdseg_end + (__zlord_physical_skills - __zdata_start)
+lord_personal_skills equ __zdseg_end + (__zlord_personal_skills - __zdata_start)
+lord_academia_skills equ __zdseg_end + (__zlord_academia_skills - __zdata_start)
+samurai_weaponry_skills equ __zdseg_end + (__zsamurai_weaponry_skills - __zdata_start)
+samurai_physical_skills equ __zdseg_end + (__zsamurai_physical_skills - __zdata_start)
+samurai_personal_skills equ __zdseg_end + (__zsamurai_personal_skills - __zdata_start)
+samurai_academia_skills equ __zdseg_end + (__zsamurai_academia_skills - __zdata_start)
+monk_weaponry_skills equ __zdseg_end + (__zmonk_weaponry_skills - __zdata_start)
+monk_physical_skills equ __zdseg_end + (__zmonk_physical_skills - __zdata_start)
+monk_personal_skills equ __zdseg_end + (__zmonk_personal_skills - __zdata_start)
+monk_academia_skills equ __zdseg_end + (__zmonk_academia_skills - __zdata_start)
+ninja_weaponry_skills equ __zdseg_end + (__zninja_weaponry_skills - __zdata_start)
+ninja_physical_skills equ __zdseg_end + (__zninja_physical_skills - __zdata_start)
+ninja_personal_skills equ __zdseg_end + (__zninja_personal_skills - __zdata_start)
+ninja_academia_skills equ __zdseg_end + (__zninja_academia_skills - __zdata_start)
 spell_cost_panel_text equ __zdseg_end + (__zspell_cost_panel_text - __zdata_start)
-pick_spell_dialog_keep_frames_dseg175 equ __zdseg_end + (__zdseg_92d6 - __zdata_start)
-profession_0_stat_requirements equ __zdseg_end + (__zprofession_0_stat_requirements - __zdata_start)
-profession_1_stat_requirements equ __zdseg_end + (__zprofession_1_stat_requirements - __zdata_start)
-profession_2_stat_requirements equ __zdseg_end + (__zprofession_2_stat_requirements - __zdata_start)
-profession_3_stat_requirements equ __zdseg_end + (__zprofession_3_stat_requirements - __zdata_start)
-profession_4_stat_requirements equ __zdseg_end + (__zprofession_4_stat_requirements - __zdata_start)
-profession_5_stat_requirements equ __zdseg_end + (__zprofession_5_stat_requirements - __zdata_start)
-profession_6_stat_requirements equ __zdseg_end + (__zprofession_6_stat_requirements - __zdata_start)
-profession_7_stat_requirements equ __zdseg_end + (__zprofession_7_stat_requirements - __zdata_start)
-profession_8_stat_requirements equ __zdseg_end + (__zprofession_8_stat_requirements - __zdata_start)
-profession_9_stat_requirements equ __zdseg_end + (__zprofession_9_stat_requirements - __zdata_start)
-profession_10_stat_requirements equ __zdseg_end + (__zprofession_10_stat_requirements - __zdata_start)
-profession_11_stat_requirements equ __zdseg_end + (__zprofession_11_stat_requirements - __zdata_start)
-profession_12_stat_requirements equ __zdseg_end + (__zprofession_12_stat_requirements - __zdata_start)
-profession_13_stat_requirements equ __zdseg_end + (__zprofession_13_stat_requirements - __zdata_start)
-dseg_935a equ __zdseg_end + (__zdseg_935a - __zdata_start)
-dseg_9363 equ __zdseg_end + (__zdseg_9363 - __zdata_start)
-dseg_936c equ __zdseg_end + (__zdseg_936c - __zdata_start)
-dseg_9375 equ __zdseg_end + (__zdseg_9375 - __zdata_start)
-dseg_937e equ __zdseg_end + (__zdseg_937e - __zdata_start)
-dseg_9387 equ __zdseg_end + (__zdseg_9387 - __zdata_start)
-dseg_9390 equ __zdseg_end + (__zdseg_9390 - __zdata_start)
-dseg_9399 equ __zdseg_end + (__zdseg_9399 - __zdata_start)
-dseg_93a2 equ __zdseg_end + (__zdseg_93a2 - __zdata_start)
-dseg_93ab equ __zdseg_end + (__zdseg_93ab - __zdata_start)
-dseg_93b4 equ __zdseg_end + (__zdseg_93b4 - __zdata_start)
-dseg_93bd equ __zdseg_end + (__zdseg_93bd - __zdata_start)
-dseg_93cc equ __zdseg_end + (__zdseg_93cc - __zdata_start)
-dseg_93db equ __zdseg_end + (__zdseg_93db - __zdata_start)
-dseg_93ea equ __zdseg_end + (__zdseg_93ea - __zdata_start)
-dseg_93f9 equ __zdseg_end + (__zdseg_93f9 - __zdata_start)
-dseg_9408 equ __zdseg_end + (__zdseg_9408 - __zdata_start)
-dseg_9417 equ __zdseg_end + (__zdseg_9417 - __zdata_start)
-dseg_9426 equ __zdseg_end + (__zdseg_9426 - __zdata_start)
-dseg_9435 equ __zdseg_end + (__zdseg_9435 - __zdata_start)
-dseg_9444 equ __zdseg_end + (__zdseg_9444 - __zdata_start)
-dseg_9453 equ __zdseg_end + (__zdseg_9453 - __zdata_start)
-dseg_9462 equ __zdseg_end + (__zdseg_9462 - __zdata_start)
-dseg_9471 equ __zdseg_end + (__zdseg_9471 - __zdata_start)
-dseg_9480 equ __zdseg_end + (__zdseg_9480 - __zdata_start)
-dseg_948f equ __zdseg_end + (__zdseg_948f - __zdata_start)
-dseg_949e equ __zdseg_end + (__zdseg_949e - __zdata_start)
-dseg_94ad equ __zdseg_end + (__zdseg_94ad - __zdata_start)
-dseg_94bc equ __zdseg_end + (__zdseg_94bc - __zdata_start)
-dseg_94cb equ __zdseg_end + (__zdseg_94cb - __zdata_start)
-dseg_94da equ __zdseg_end + (__zdseg_94da - __zdata_start)
+spell_dialog_save_file equ __zdseg_end + (__zspell_dialog_save_file - __zdata_start)
+fighter_stat_requirements equ __zdseg_end + (__zfighter_stat_requirements - __zdata_start)
+mage_stat_requirements equ __zdseg_end + (__zmage_stat_requirements - __zdata_start)
+priest_stat_requirements equ __zdseg_end + (__zpriest_stat_requirements - __zdata_start)
+thief_stat_requirements equ __zdseg_end + (__zthief_stat_requirements - __zdata_start)
+ranger_stat_requirements equ __zdseg_end + (__zranger_stat_requirements - __zdata_start)
+alchemist_stat_requirements equ __zdseg_end + (__zalchemist_stat_requirements - __zdata_start)
+bard_stat_requirements equ __zdseg_end + (__zbard_stat_requirements - __zdata_start)
+psionic_stat_requirements equ __zdseg_end + (__zpsionic_stat_requirements - __zdata_start)
+valkyrie_stat_requirements equ __zdseg_end + (__zvalkyrie_stat_requirements - __zdata_start)
+bishop_stat_requirements equ __zdseg_end + (__zbishop_stat_requirements - __zdata_start)
+lord_stat_requirements equ __zdseg_end + (__zlord_stat_requirements - __zdata_start)
+samurai_stat_requirements equ __zdseg_end + (__zsamurai_stat_requirements - __zdata_start)
+monk_stat_requirements equ __zdseg_end + (__zmonk_stat_requirements - __zdata_start)
+ninja_stat_requirements equ __zdseg_end + (__zninja_stat_requirements - __zdata_start)
+race_0_stat_minimums equ __zdseg_end + (__zrace_0_stat_minimums - __zdata_start)
+race_1_stat_minimums equ __zdseg_end + (__zrace_1_stat_minimums - __zdata_start)
+race_2_stat_minimums equ __zdseg_end + (__zrace_2_stat_minimums - __zdata_start)
+race_3_stat_minimums equ __zdseg_end + (__zrace_3_stat_minimums - __zdata_start)
+race_4_stat_minimums equ __zdseg_end + (__zrace_4_stat_minimums - __zdata_start)
+race_5_stat_minimums equ __zdseg_end + (__zrace_5_stat_minimums - __zdata_start)
+race_6_stat_minimums equ __zdseg_end + (__zrace_6_stat_minimums - __zdata_start)
+race_7_stat_minimums equ __zdseg_end + (__zrace_7_stat_minimums - __zdata_start)
+race_8_stat_minimums equ __zdseg_end + (__zrace_8_stat_minimums - __zdata_start)
+race_9_stat_minimums equ __zdseg_end + (__zrace_9_stat_minimums - __zdata_start)
+race_10_stat_minimums equ __zdseg_end + (__zrace_10_stat_minimums - __zdata_start)
+fighter_base_resist equ __zdseg_end + (__zfighter_base_resist - __zdata_start)
+fighter_resist_mod equ __zdseg_end + (__zfighter_resist_mod - __zdata_start)
+ranger_base_resist equ __zdseg_end + (__zranger_base_resist - __zdata_start)
+ranger_resist_mod equ __zdseg_end + (__zranger_resist_mod - __zdata_start)
+lord_base_resist equ __zdseg_end + (__zlord_base_resist - __zdata_start)
+lord_resist_mod equ __zdseg_end + (__zlord_resist_mod - __zdata_start)
+samurai_base_resist equ __zdseg_end + (__zsamurai_base_resist - __zdata_start)
+samurai_resist_mod equ __zdseg_end + (__zsamurai_resist_mod - __zdata_start)
+ninja_base_resist equ __zdseg_end + (__zninja_base_resist - __zdata_start)
+ninja_resist_mod equ __zdseg_end + (__zninja_resist_mod - __zdata_start)
+mage_base_resist equ __zdseg_end + (__zmage_base_resist - __zdata_start)
+mage_resist_mod equ __zdseg_end + (__zmage_resist_mod - __zdata_start)
+psionic_base_resist equ __zdseg_end + (__zpsionic_base_resist - __zdata_start)
+psionic_resist_mod equ __zdseg_end + (__zpsionic_resist_mod - __zdata_start)
+priest_base_resist equ __zdseg_end + (__zpriest_base_resist - __zdata_start)
+priest_resist_mod equ __zdseg_end + (__zpriest_resist_mod - __zdata_start)
+monk_base_resist equ __zdseg_end + (__zmonk_base_resist - __zdata_start)
+monk_resist_mod equ __zdseg_end + (__zmonk_resist_mod - __zdata_start)
+thief_base_resist equ __zdseg_end + (__zthief_base_resist - __zdata_start)
+thief_resist_mod equ __zdseg_end + (__zthief_resist_mod - __zdata_start)
 portrait_data_filename equ __zdseg_end + (__zportrait_data_filename - __zdata_start)
-dseg_94f6 equ __zdseg_end + (__zdseg_94f6 - __zdata_start)
-dseg_9501 equ __zdseg_end + (__zdseg_9501 - __zdata_start)
-dseg_950c equ __zdseg_end + (__zdseg_950c - __zdata_start)
+pc_file_database_filename equ __zdseg_end + (__zpc_file_database_filename - __zdata_start)
+saved_character_file_name equ __zdseg_end + (__zsaved_character_file_name - __zdata_start)
+pc_view_screen_file equ __zdseg_end + (__zpc_view_screen_file - __zdata_start)
 save_si equ __zdseg_end + (__zsave_si - __zdata_start)
 save_di equ __zdseg_end + (__zsave_di - __zdata_start)
 save_sp equ __zdseg_end + (__zsave_sp - __zdata_start)
 save_bp equ __zdseg_end + (__zsave_bp - __zdata_start)
 save_ret equ __zdseg_end + (__zsave_ret - __zdata_start)
 _Uorg equ __zdseg_end + (__zobss_9524 - __zdata_start)
-bss_9524 equ __zdseg_end + (__zobss_9524 - __zdata_start)
-bss_9526 equ __zdseg_end + (__zobss_9526 - __zdata_start)
-bss_9528 equ __zdseg_end + (__zobss_9528 - __zdata_start)
-bss_952a equ __zdseg_end + (__zobss_952a - __zdata_start)
+summary_panel_cache_low equ __zdseg_end + (__zobss_9524 - __zdata_start)
+summary_panel_cache_high equ __zdseg_end + (__zobss_9526 - __zdata_start)
+detail_panel_cache_low equ __zdseg_end + (__zobss_9528 - __zdata_start)
+detail_panel_cache_high equ __zdseg_end + (__zobss_952a - __zdata_start)
 roster_screen_b equ __zdseg_end + (__zobss_952c - __zdata_start)
 roster_screen_a equ __zdseg_end + (__zobss_952e - __zdata_start)
-bss_9530 equ __zdseg_end + (__zobss_9530 - __zdata_start)
-bss_9532 equ __zdseg_end + (__zobss_9532 - __zdata_start)
-bss_9534 equ __zdseg_end + (__zobss_9534 - __zdata_start)
-bss_9536 equ __zdseg_end + (__zobss_9536 - __zdata_start)
+character_screen_cache_a_low equ __zdseg_end + (__zobss_9530 - __zdata_start)
+character_screen_cache_a_high equ __zdseg_end + (__zobss_9532 - __zdata_start)
+character_screen_cache_b_low equ __zdseg_end + (__zobss_9534 - __zdata_start)
+character_screen_cache_b_high equ __zdseg_end + (__zobss_9536 - __zdata_start)
 realm_panel_cache_high equ __zdseg_end + (__zobss_9538 - __zdata_start)
 realm_panel_cache_low equ __zdseg_end + (__zobss_953a - __zdata_start)
-bss_953c equ __zdseg_end + (__zobss_953c - __zdata_start)
-bss_953e equ __zdseg_end + (__zobss_953e - __zdata_start)
+saved_screen_handle_low equ __zdseg_end + (__zobss_953c - __zdata_start)
+saved_screen_handle_high equ __zdseg_end + (__zobss_953e - __zdata_start)
 saved_screen equ __zdseg_end + (__zobss_9540 - __zdata_start)
 saved_screen_hi equ __zdseg_end + (__zobss_9542 - __zdata_start)
-bss_9544 equ __zdseg_end + (__zobss_9544 - __zdata_start)
-bss_9594 equ __zdseg_end + (__zobss_9594 - __zdata_start)
-bss_9596 equ __zdseg_end + (__zobss_9596 - __zdata_start)
+character_stat_labels equ __zdseg_end + (__zobss_9544 - __zdata_start)
+remaining_stat_points equ __zdseg_end + (__zobss_9594 - __zdata_start)
+remaining_points_label equ __zdseg_end + (__zobss_9596 - __zdata_start)
 banner_offset equ __zdseg_end + (__zobss_95aa - __zdata_start)
 banner_plain_flag equ __zdseg_end + (__zobss_95ac - __zdata_start)
 banner_animation_frame equ __zdseg_end + (__zobss_95ae - __zdata_start)
@@ -176,7 +176,7 @@ slot_limit equ __zdseg_end + (__zobss_96d8 - __zdata_start)
 known_spell_ids equ __zdseg_end + (__zobss_971c - __zdata_start)
 party_redraw_interval equ __zdseg_end + (__zobss_976c - __zdata_start)
 profession_eligible equ __zdseg_end + (__zobss_976e - __zdata_start)
-bss_978a equ __zdseg_end + (__zobss_978a - __zdata_start)
+character_creation_mode equ __zdseg_end + (__zobss_978a - __zdata_start)
 _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "vpcmk/ovmain.asm"                ; 0x000e
@@ -207,13 +207,13 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "shared/ovr/clamp_value_to_range.asm"  ; 0x1874
 
-%include "vpcmk/api_idx_0010_GGGV.asm"     ; 0x18b5
+%include "vpcmk/draw_loaded_member_icon.asm" ; 0x18b5
 
-%include "vpcmk/api_idx_0002_SSJN.asm"     ; 0x19ab
+%include "vpcmk/display_character_statistics.asm" ; 0x19ab
 
 %include "shared/ovr/draw_title_banner.asm"     ; 0x1a98
 
-%include "vpcmk/api_idx_0054_RLST.asm"     ; 0x1b40
+%include "vpcmk/draw_roster_member_summary.asm" ; 0x1b40
 
 %include "shared/ovr/display_centered_message.asm" ; 0x2090
 
@@ -225,9 +225,9 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "shared/ovr/draw_slot_value_row.asm"   ; 0x2582
 
-%include "vpcmk/api_idx_0032_HGIM.asm"     ; 0x26f1
+%include "vpcmk/edit_spell_slot_values.asm" ; 0x26f1
 
-%include "vpcmk/api_idx_0088_QLNT.asm"     ; 0x2c15
+%include "vpcmk/edit_character_skill_slots.asm" ; 0x2c15
 
 %include "shared/ovr/collect_known_spells.asm"  ; 0x2d63
 
@@ -243,11 +243,11 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "shared/ovr/pick_spell_dialog_keep_frames.asm" ; 0x3069
 
-%include "vpcmk/api_idx_006e_LMUM.asm"     ; 0x3d59
+%include "vpcmk/select_spell_to_learn.asm" ; 0x3d59
 
 %include "shared/ovr/refresh_title_and_member_panel.asm" ; 0x3f87
 
-%include "vpcmk/api_idx_0002_IRKS.asm"     ; 0x402d
+%include "vpcmk/apply_character_stat_minimums.asm" ; 0x402d
 
 %include "vpcmk/check_profession_stat_budget.asm" ; 0x4081
 
@@ -255,27 +255,29 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "shared/ovr/evaluate_character_professions.asm" ; 0x4291
 
-%include "vpcmk/loc_TRSS.asm"              ; 0x42b8
+%include "vpcmk/apply_race_stat_minimums.asm" ; 0x42b8
 
-%include "vpcmk/loc_HGUJ.asm"              ; 0x4392
+%include "vpcmk/adjust_female_character_stats.asm" ; 0x4392
 
-%include "vpcmk/api_idx_007a_GTOG.asm"     ; 0x43bb
+%include "vpcmk/choose_character_race.asm" ; 0x43bb
 
-%include "vpcmk/api_idx_007a_HMNU.asm"     ; 0x4498
+%include "vpcmk/choose_character_gender.asm" ; 0x4498
 
-%include "vpcmk/api_idx_007c_MIHQ.asm"     ; 0x4585
+%include "vpcmk/choose_character_profession.asm" ; 0x4585
 
-%include "vpcmk/api_idx_006c_JNMM.asm"     ; 0x4697
+%include "vpcmk/allocate_ability_bonus_points.asm" ; 0x4697
 
-%include "vpcmk/api_idx_0008_SNVI.asm"     ; 0x4934
+%include "vpcmk/adjust_character_karma.asm" ; 0x4934
 
-%include "vpcmk/loc_RPNT.asm"              ; 0x4aa1
+%include "vpcmk/set_karma_affinity.asm"    ; 0x4aa1
 
-%include "vpcmk/api_idx_0002_SLKJ.asm"     ; 0x4ade
+%include "vpcmk/init_member_karma_affinities.asm" ; 0x4ade
 
-%include "vpcmk/api_idx_004e_KMPP.asm"     ; 0x4b05
+%include "vpcmk/add_item_record_to_member.asm" ; 0x4b05
 
-%include "vpcmk/loc_JUPL.asm"              ; 0x4c82
+%include "vpcmk/add_starting_items.asm"    ; 0x4c21
+
+%include "vpcmk/give_profession_starting_items.asm" ; 0x4c82
 
 %include "shared/ovr/adjust_member_resistance.asm" ; 0x4ead
 
@@ -283,78 +285,54 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "shared/ovr/update_party_stat_adjustments.asm" ; 0x4f95
 
-%include "vpcmk/api_idx_0004_IMQR.asm"     ; 0x5087
+%include "vpcmk/initialize_member_profession.asm" ; 0x5087
 
 %include "shared/ovr/roll_slot_values.asm"      ; 0x5580
 
-%include "vpcmk/api_idx_0002_OKNL.asm"     ; 0x56b0
+%include "vpcmk/spend_level_scaled_slot_value.asm" ; 0x56b0
 
-%include "vpcmk/loc_QTTK.asm"              ; 0x5706
+%include "vpcmk/initialize_profession_skills.asm" ; 0x5706
 
-%include "vpcmk/api_idx_000a_TPJV.asm"     ; 0x5a8a
+%include "vpcmk/initialize_new_member_basics.asm" ; 0x5a8a
 
 %include "shared/ovr/draw_member_glyph_row.asm" ; 0x5d7e
 
 %include "shared/ovr/draw_member_panel_glyphs.asm" ; 0x5df5
 
-%include "shared/ovr/load_member_icon.asm"     ; 0x6083
+%include "shared/ovr/load_member_icon.asm"      ; 0x6083
 
-%include "vpcmk/api_idx_0006_HMNQ.asm"     ; 0x60e0
+%include "vpcmk/select_character_portrait.asm" ; 0x60e0
 
-%include "vpcmk/api_idx_0002_OKLI.asm"     ; 0x626e
+%include "vpcmk/initialize_new_member_record.asm" ; 0x626e
 
-%include "vpcmk/loc_MIPR.asm"              ; 0x62fb
+%include "vpcmk/create_new_party_member.asm" ; 0x62fb
 
-%include "vpcmk/api_idx_0002_USIT.asm"     ; 0x65fc
+%include "vpcmk/find_unused_pc_file_record_slot.asm" ; 0x65fc
 
-%include "vpcmk/loc_TLLM.asm"              ; 0x6626
+%include "vpcmk/pc_file_name_is_in_use.asm" ; 0x6626
 
-%include "vpcmk/api_idx_0014_PPUT.asm"     ; 0x6673
+%include "vpcmk/create_character_from_prompt.asm" ; 0x6673
 
-%include "vpcmk/loc_TUUJ.asm"              ; 0x66c3
+%include "vpcmk/display_pc_file_record_preview.asm" ; 0x66c3
 
-%include "vpcmk/api_idx_002c_RGGV.asm"     ; 0x6738
+%include "vpcmk/delete_saved_character_file.asm" ; 0x6738
 
-%include "vpcmk/loc_RNSM.asm"              ; 0x67e2
+%include "vpcmk/show_pc_file_record_preview.asm" ; 0x67e2
 
-%include "vpcmk/api_idx_0018_MVRH.asm"     ; 0x67ff
+%include "vpcmk/rename_saved_character.asm" ; 0x67ff
 
-%include "vpcmk/api_idx_0006_MQSI.asm"     ; 0x6887
+%include "vpcmk/preview_and_select_saved_member.asm" ; 0x6887
 
 %include "shared/ovr/choose_pc_file_character.asm" ; 0x68fa
 
-%include "vpcmk/api_idx_002c_VNHI.asm"     ; 0x6a3f
+%include "vpcmk/manage_character_files.asm" ; 0x6a3f
 
 %include "shared/ovr/aztec_ovbgn.asm"           ; 0x6f8c
 
 %include "shared/aztec/aztec_strcmp.asm"          ; 0x6fca
 
 __zdata_start:
-%include "vpcmk/data/pc_file_name.asm"     ; 0x7031
-
-%include "shared/data/title_panel_screen_file.asm" ; 0x703c
-
-%include "shared/data/choice_grid_screen_file.asm" ; 0x7042
-
-%include "vpcmk/data/list_dialog_temp_file.asm" ; 0x7048
-
-%include "shared/data/screen_save_temp_file.asm" ; 0x704e
-
-%include "vpcmk/data/dseg_90bb.asm"        ; 0x7054
-
-%include "vpcmk/data/profession_skill_groups.asm" ; 0x7057
-
-%include "shared/data/spell_cost_panel_text.asm" ; 0x726b
-
-%include "vpcmk/data/pick_spell_dialog_keep_frames_dseg175.asm"        ; 0x726f
-
-%include "shared/data/profession_stat_requirements.asm" ; 0x7275
-
-%include "vpcmk/data/dseg_935a.asm"        ; 0x72f3
-
-%include "shared/data/portrait_data_filename.asm" ; 0x7482
-
-%include "vpcmk/data/dseg_94f6.asm"        ; 0x748f
+%include "vpcmk/data/cmk_strings.asm"      ; 0x7031
 
 %include "shared/data/overlay_saved_registers.asm" ; 0x74b3
 

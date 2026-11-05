@@ -25,7 +25,7 @@ pick_spell_dialog_keep_frames:
     mov word [bp - 0xa], 0xc5
     mov word [bp - 0xc], 0x95
     mov word [bp - 0x14], 0x16
-    mov ax, pick_spell_dialog_keep_frames_dseg175
+    mov ax, spell_dialog_save_file
     push ax
     mov ax, word [bp - 0xa]
     inc ax

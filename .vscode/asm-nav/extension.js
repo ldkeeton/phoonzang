@@ -8,181 +8,19 @@ const fs = require('fs');
 const path = require('path');
 const { execFile } = require('child_process');
 const vscode = require('vscode');
-const { labels, occurrences, addresses, routineStart, locate, cCode, cSymbols, cSemanticTokens } = require('./scan');
+const { LanguageClient, TransportKind } = require('vscode-languageclient/node');
+const { addresses, routineStart, locate } = require('./scan');
 const sidecar = require('./sidecar');
 
 const SRC = 'src_*/**/*.{asm,c,h,s}';
+const NAV_SRC = '**/src_*/**/*.{c,h,s,asm,inc}';
 const SHARED_DIR = 'shared';   // src_<PROJECT>/shared/ holds routines shared between binaries
-const WORD = /[A-Za-z_$?][\w$?]*/;
-// A routine's source: C, or Manx assembly (``.s``, built by ``as``).
-const S_PATTERN = '**/src_*/**/*.s';
-const C_SELECTOR = [{ language: 'c' }, { language: 'cpp' }, { pattern: S_PATTERN }];
-// Where a name can be looked up from: a routine's source, or a NASM listing.
-const NAV_SELECTOR = [...C_SELECTOR, { pattern: '**/src_*/**/*.asm' }];
-const ANY_SELECTOR = [{ pattern: '**/src_*/**/*.{c,h,s,asm}' }, ...C_SELECTOR];
-
-const semanticChanges = new vscode.EventEmitter();
-let texts = new Map();   // uri string -> text (asm, c and s under src_*)
-let scans = new Map();   // uri string -> {uri, binary, labels, addrs}: one file's share of the index
-let defs = new Map();    // label -> [{uri, row}]
-let addrs = new Map();   // binary -> sorted [{addr, uri, row}]
-let stale = false;       // defs/addrs lag scans; merged on the next read or after REINDEX_DELAY
-let reindexTimer = null;
-const REINDEX_DELAY = 250;   // ms: a regeneration rewrites hundreds of files at once
 
 const root = () => vscode.workspace.workspaceFolders[0].uri.fsPath;
 const cfg = () => vscode.workspace.getConfiguration('PHOONZANGAsmNav');
 
-// ---------------------------------------------------------------- index
-
-// Scan a file once when it is read; merging the scans (:func:`reindex`) is then
-// cheap enough to redo for every change.
-async function load(uri) {
-    const key = uri.toString();
-    try {
-        const open = vscode.workspace.textDocuments.find(doc => doc.uri.toString() === key);
-        const text = open ? open.getText() : Buffer.from(await vscode.workspace.fs.readFile(uri)).toString('latin1');
-        texts.set(key, text);
-        const where = locate(uri.fsPath);
-        const asm = /\.asm$/i.test(uri.fsPath);
-        scans.set(key, { uri, project: /[/\\](src_[^/\\]+)[/\\]/.exec(uri.fsPath)?.[1], binary: where ? where.binary : null,
-                         labels: asm || /\.s$/i.test(uri.fsPath) ? labels(text).map(l => ({ ...l,
-                             name: /\.s$/i.test(uri.fsPath) ? l.name.replace(/_$/, '') : l.name,
-                             definition: true,
-                         })) : /\.[ch]$/i.test(uri.fsPath) ? cSymbols(text) : [],
-                         addrs: asm && where ? addresses(text) : [] });
-    } catch (e) {
-        texts.delete(key);
-        scans.delete(key);
-    }
-}
-
-function reindex() {
-    clearTimeout(reindexTimer);
-    reindexTimer = null;
-    stale = false;
-    defs = new Map();
-    addrs = new Map();
-    // Build source declarations using the project's typedefs, including headers.
-    for (const scan of scans.values()) {
-        if (!/\.[ch]$/i.test(scan.uri.fsPath)) continue;
-        const known = new Map();
-        for (const other of scans.values()) if (other.project === scan.project) {
-            for (const symbol of other.labels) if (['type', 'struct', 'union', 'enum', 'macro'].includes(symbol.kind)) known.set(symbol.name, symbol.kind);
-        }
-        const text = texts.get(scan.uri.toString());
-        // cSymbols reports header definitions such as struct tags, typedefs,
-        // and #defines. Keep them as navigable destinations alongside the
-        // function/global declarations emitted by the semantic scanner.
-        const base = cSymbols(text).map(symbol => ({ ...symbol, definition: true }));
-        const declarations = cSemanticTokens(text, known).filter(t =>
-            t.modifiers.includes('declaration') &&
-            (t.kind === 'global' || t.kind === 'function'));
-        scan.labels = base.concat(declarations.map(t => ({
-            name: text.slice(t.offset, t.offset + t.length), row: t.row, col: t.col,
-            kind: t.kind, definition: t.modifiers.includes('definition') || (t.kind === 'global' &&
-                !/\bextern\b/.test(text.split('\n')[t.row].slice(0, t.col))),
-            declaration: true,
-            static: t.modifiers.includes('static'),
-        })));
-    }
-    for (const scan of scans.values()) {
-        for (const l of scan.labels) {
-            if (!defs.has(l.name)) defs.set(l.name, []);
-            defs.get(l.name).push({ ...l, uri: scan.uri });
-        }
-        if (!scan.addrs.length) continue;
-        if (!addrs.has(scan.binary)) addrs.set(scan.binary, []);
-        const list = addrs.get(scan.binary);
-        for (const a of scan.addrs) list.push({ ...a, uri: scan.uri });
-    }
-    for (const list of addrs.values()) list.sort((a, b) => a.addr - b.addr);
-    semanticChanges.fire();
-}
-
-// A watcher event marks the index stale; a burst of them merges once.
-function scheduleReindex() {
-    stale = true;
-    if (!reindexTimer) reindexTimer = setTimeout(reindex, REINDEX_DELAY);
-}
-
-// Readers merge a pending change now rather than answer from the old index.
-function ensureIndex() {
-    if (stale) reindex();
-}
-
-async function rebuild() {
-    texts = new Map();
-    scans = new Map();
-    const files = await vscode.workspace.findFiles(SRC, '**/node_modules/**');
-    await Promise.all(files.map(load));
-    reindex();
-}
-
-function nameAt(doc, pos) {
-    const range = doc.getWordRangeAtPosition(pos, WORD);
-    return range ? doc.getText(range) : null;
-}
-
-// Aztec spells C ``name`` as ``name_`` in assembly (``#asm`` blocks, ``.s``).
-function resolve(name) {
-    if (!name) return null;
-    ensureIndex();
-    if (defs.has(name)) return name;
-    const bare = name.replace(/_$/, '');
-    return defs.has(bare) ? bare : null;
-}
-
-// Source and disassembly are independent navigation domains.
-const listing = file => /\.asm$/i.test(file);
-function visibleFrom(uri, doc) {
-    if (!doc) return true;
-    if (listing(uri.fsPath) !== listing(doc.fileName)) return false;
-    const project = /[/\\](src_[^/\\]+)[/\\]/.exec(doc.fileName)?.[1];
-    return !project || scans.get(uri.toString())?.project === project;
-}
-function hitsFor(name, doc) {
-    const fromC = doc && /\.c$/i.test(doc.fileName);
-    const project = doc && /[/\\](src_[^/\\]+)[/\\]/.exec(doc.fileName)?.[1];
-    const all = (defs.get(name) || []).filter(h =>
-        (visibleFrom(h.uri, doc) || (fromC && listing(h.uri.fsPath) &&
-            scans.get(h.uri.toString())?.project === project)) &&
-        (!h.static || h.uri.fsPath === doc?.fileName || (fromC && /\.h$/i.test(h.uri.fsPath))));
-    const here = doc && locate(doc.fileName);
-    const mine = here ? all.filter(h => {
-        const binary = scans.get(h.uri.toString())?.binary;
-        return binary === here.binary || binary === SHARED_DIR || binary === 'include';
-    }) : [];
-
-    // From C, prefer exact C definitions, then a header declaration. C externs
-    // are not useful destinations; assembly is the fallback.
-    if (fromC) {
-        const definitions = all.filter(h => h.definition);
-        const cDefinitions = definitions.filter(h => /\.[ch]$/i.test(h.uri.fsPath));
-        const headerDeclarations = all.filter(h => /\.h$/i.test(h.uri.fsPath) && h.declaration);
-        const asmDefinitions = definitions.filter(h => /\.s$/i.test(h.uri.fsPath));
-        const listingDefinitions = definitions.filter(h => /\.asm$/i.test(h.uri.fsPath));
-        const preferred = hits => {
-            const local = hits.filter(h => {
-                const binary = scans.get(h.uri.toString())?.binary;
-                return binary === here?.binary || binary === SHARED_DIR || binary === 'include';
-            });
-            return local.length ? local : hits;
-        };
-        return preferred(cDefinitions.length ? cDefinitions :
-            headerDeclarations.length ? headerDeclarations :
-            asmDefinitions.length ? asmDefinitions : listingDefinitions);
-    }
-
-    const hits = mine.length ? mine : all;
-    const definitions = hits.filter(h => h.definition);
-    return definitions.length ? definitions : hits;
-}
-
-const sameBinary = (key, here) => {
-    const there = scans.get(key);
-    return !here || (there && there.binary === here.binary);
-};
+let client = null;
+let addrIndex = null;           // lazily built; invalidated when a listing changes
 
 // ------------------------------------------------- sidecar data
 
@@ -209,39 +47,31 @@ function sidecarName(where, addr) {
         ? { key, entry: data.binaries[where.binary].function_names[key] } : { key };
 }
 
-// ---------------------------------------------------------------- hover
-
-function describe(name, doc) {
-    const hit = hitsFor(name, doc)[0];
-    if (!hit) return null;
-    const text = texts.get(hit.uri.toString());
-    const where = locate(hit.uri.fsPath);
-    const addr = routineStart(text, hit.row);
-    const md = new vscode.MarkdownString();
-    md.appendMarkdown(`**${name}**`);
-    if (where) md.appendMarkdown(` — \`${where.binary}\``);
-    if (addr !== null) md.appendMarkdown(` · \`0x${addr.toString(16)}\``);
-    if (addr === null) {
-        md.appendCodeblock(text.split('\n')[hit.row].trim(), /\.[ch]$/i.test(hit.uri.fsPath) ? 'c' : 'asm');
-    }
-    if (where && where.binary === SHARED_DIR) {
-        const { key, entry } = sharedEntry(where) || {};
-        if (entry) {
-            md.appendMarkdown(`\n\nsidecar routine \`${key}\`: **${entry.name}**`);
-            if (entry.note) md.appendMarkdown(`\n\n_${entry.note}_`);
-        }
-    } else if (where) {
-        const named = sidecarName(where, addr);
-        if (named.entry) {
-            md.appendMarkdown(`\n\nsidecar \`${named.key}\`: **${named.entry.name}**`);
-            if (named.entry.note) md.appendMarkdown(`\n\n_${named.entry.note}_`);
-        }
-
-    }
-    return md;
-}
-
 // ------------------------------------------------------- go to address
+
+// The symbol server owns navigation, but this command is a plain address
+// lookup.  Build the listing-address map lazily and drop it when any .asm
+// changes (a build rewrites many of them at once).
+async function addressMap() {
+    if (addrIndex) return addrIndex;
+    const map = new Map();
+    const files = await vscode.workspace.findFiles('src_*/**/*.asm', '**/node_modules/**');
+    await Promise.all(files.map(async (uri) => {
+        const where = locate(uri.fsPath);
+        if (!where) return;
+        let text;
+        try {
+            text = Buffer.from(await vscode.workspace.fs.readFile(uri)).toString('utf8');
+        } catch (e) { return; }
+        const binary = where.binary || where.project;
+        if (!map.has(binary)) map.set(binary, []);
+        const list = map.get(binary);
+        for (const item of addresses(text)) list.push({ addr: item.addr, row: item.row, uri });
+    }));
+    for (const list of map.values()) list.sort((a, b) => a.addr - b.addr);
+    addrIndex = map;
+    return map;
+}
 
 async function goToAddress() {
     const active = vscode.window.activeTextEditor;
@@ -255,8 +85,7 @@ async function goToAddress() {
     if (!m) return vscode.window.showErrorMessage(`not an address: ${input}`);
     const binary = m[1] || (here ? here.binary : 'ds');
     const target = parseInt(m[2], 16);
-    ensureIndex();
-    const list = addrs.get(binary);
+    const list = (await addressMap()).get(binary);
     if (!list) return vscode.window.showErrorMessage(`no listing for binary ${binary}`);
     let best = null;                       // greatest address <= target
     for (const a of list) if (a.addr <= target) best = a; else break;
@@ -320,23 +149,25 @@ async function nameSharedRoutine(where, suggestion) {
 }
 
 async function nameRoutine(uri, suggestion) {
-    let doc;
-    let name;
+    let file;
     if (uri) {
-        doc = { fileName: uri.fsPath };
-        name = resolve(locate(uri.fsPath).label);
+        file = uri.fsPath;
     } else {
         const editor = vscode.window.activeTextEditor;
         if (!editor) return;
-        doc = editor.document;
-        name = resolve(nameAt(doc, editor.selection.active));
+        file = editor.document.fileName;
     }
-    if (!name) return vscode.window.showErrorMessage('put the cursor on a routine label');
-    const hit = hitsFor(name, doc)[0];
-    const where = locate(hit.uri.fsPath);
-    if (where && where.binary === SHARED_DIR) return nameSharedRoutine(where, suggestion);
-    const addr = routineStart(texts.get(hit.uri.toString()), hit.row);
-    if (!where || addr === null) return vscode.window.showErrorMessage(`${name} has no listing address`);
+    const where = locate(file);
+    if (!where) return vscode.window.showErrorMessage('open a routine .c, .s or .asm under src_<PROJECT>/<binary>/');
+    if (where.binary === SHARED_DIR) return nameSharedRoutine(where, suggestion);
+    const asmFile = path.join(path.dirname(file), `${where.label}.asm`);
+    if (!fs.existsSync(asmFile)) {
+        return vscode.window.showErrorMessage(`no ${path.basename(asmFile)} beside ${path.basename(file)}`);
+    }
+    const asmText = fs.readFileSync(asmFile, 'utf8');
+    const row = asmText.split('\n').findIndex((line) => line.startsWith(`${where.label}:`));
+    const addr = row < 0 ? null : routineStart(asmText, row);
+    if (addr === null) return vscode.window.showErrorMessage(`${where.label} has no listing address`);
     const data = readJson(sidecarPath(where.project));
     if (!data) return vscode.window.showErrorMessage(`cannot read ${sidecarPath(where.project)}`);
     const { key, entry } = sidecarName(where, addr);
@@ -350,12 +181,12 @@ async function nameRoutine(uri, suggestion) {
     const note = await vscode.window.showInputBox({
         prompt: 'Note (optional)', value: entry && entry.note ? entry.note : '' });
     if (note === undefined) return;
-    const file = sidecarPath(where.project);
-    const next = sidecar.setFunctionName(fs.readFileSync(file, 'utf8'), where.binary, key,
+    const fileSidecar = sidecarPath(where.project);
+    const next = sidecar.setFunctionName(fs.readFileSync(fileSidecar, 'utf8'), where.binary, key,
         note ? { name: newName, note } : { name: newName });
-    fs.writeFileSync(file, next);
+    fs.writeFileSync(fileSidecar, next);
     vscode.window.showInformationMessage(
-        `${key} → ${newName} in ${path.basename(file)}. Rebuild (make build ${where.project} ${where.binary}) to apply.`);
+        `${key} → ${newName} in ${path.basename(fileSidecar)}. Rebuild (make build ${where.project} ${where.binary}) to apply.`);
 }
 
 // ------------------------------------------------------------ Manx cc / as
@@ -376,8 +207,6 @@ function forget(uri) {
     diagnostics.delete(uri);
     shown.delete(uri.toString());
     checked.delete(uri.fsPath);
-    texts.delete(uri.toString());
-    scans.delete(uri.toString());
 }
 
 function toDiagnostics(doc, stdout) {
@@ -717,9 +546,38 @@ async function makeCBatch(kind, uris) {
 
 // ------------------------------------------------------------- activate
 
+function startClient(context) {
+    const serverModule = context.asAbsolutePath('server.js');
+    const serverOptions = {
+        run: { module: serverModule, transport: TransportKind.ipc },
+        debug: {
+            module: serverModule,
+            transport: TransportKind.ipc,
+            options: { execArgv: ['--nolazy', '--inspect=6009'] },
+        },
+    };
+    const navWatcher = vscode.workspace.createFileSystemWatcher(NAV_SRC);
+    const topWatcher = vscode.workspace.createFileSystemWatcher('**/src_*/*.{c,h,s,asm,inc}');
+    const clientOptions = {
+        documentSelector: [
+            { scheme: 'file', pattern: '**/src_*/*.{c,h,s,asm,inc}' },
+            { scheme: 'file', pattern: '**/src_*/**/*.{c,h,s,asm,inc}' },
+        ],
+        synchronize: { fileEvents: [navWatcher, topWatcher] },
+        outputChannelName: 'PHOONZANG ASM Navigation',
+    };
+    client = new LanguageClient('phoonzang-asm-nav', 'PHOONZANG ASM Navigation',
+        serverOptions, clientOptions);
+    context.subscriptions.push(navWatcher, topWatcher);
+    client.start().catch((e) => {
+        vscode.window.showErrorMessage(`PHOONZANG language server failed: ${e.message || e}`);
+    });
+    context.subscriptions.push({ dispose: () => client && client.stop() });
+}
+
 function activate(context) {
     diagnostics = vscode.languages.createDiagnosticCollection('manx-cc');
-    const ready = rebuild();
+    startClient(context);
     const watcher = vscode.workspace.createFileSystemWatcher(SRC);
     // Files can change on disk without a save in this editor: `make rebuild`,
     // `make name` (which also renames them), or another editor.  Refresh an open
@@ -729,8 +587,7 @@ function activate(context) {
     const visible = (uri) => vscode.window.visibleTextEditors.find(
         (e) => e.document.uri.toString() === uri.toString());
     const touch = async (uri) => {
-        await load(uri);
-        scheduleReindex();
+        if (/\.asm$/i.test(uri.fsPath)) addrIndex = null;
         const editor = visible(uri);
         if (editor && isGeneratedC(editor.document) &&
                 (cfg().get('checkOnSave') || shown.has(uri.toString()))) {
@@ -739,7 +596,10 @@ function activate(context) {
     };
     watcher.onDidChange(touch);
     watcher.onDidCreate(touch);
-    watcher.onDidDelete((uri) => { forget(uri); scheduleReindex(); });
+    watcher.onDidDelete((uri) => {
+        forget(uri);
+        if (/\.asm$/i.test(uri.fsPath)) addrIndex = null;
+    });
 
     // Editors already open when the window loads never fire a visibility change.
     const checkVisible = (editors) => {
@@ -749,88 +609,7 @@ function activate(context) {
     checkVisible(vscode.window.visibleTextEditors);
 
     context.subscriptions.push(
-        watcher, diagnostics, semanticChanges,
-        vscode.workspace.onDidChangeTextDocument(async ({ document }) => {
-            if (!/[\\/]src_[^\\/]+[\\/].*\.(?:c|h|s|asm)$/.test(document.fileName)) return;
-            await load(document.uri);
-            scheduleReindex();
-        }),
-        vscode.languages.registerDocumentSemanticTokensProvider(
-            [{ pattern: '**/src_*/**/*.{c,h}' }], {
-                onDidChangeSemanticTokens: semanticChanges.event,
-                async provideDocumentSemanticTokens(doc) {
-                    await ready;
-                    ensureIndex();
-                    const builder = new vscode.SemanticTokensBuilder();
-                    const known = new Map();
-                    const project = /[/\\](src_[^/\\]+)[/\\]/.exec(doc.fileName)?.[1];
-                    for (const [name, hits] of defs) {
-                        const hit = hits.find(h => h.kind && (!project ||
-                            h.uri.fsPath.split(/[/\\]/).includes(project)));
-                        if (hit) known.set(name, hit.kind);
-                    }
-                    for (const hit of cSymbols(doc.getText())) known.set(hit.name, hit.kind);
-                    const tokenKinds = ['type', 'struct', 'enum', 'macro', 'variable', 'parameter', 'property', 'function', 'enumMember'];
-                    const modifierKinds = ['declaration', 'definition', 'readonly', 'static', 'local', 'globalScope'];
-                    for (const token of cSemanticTokens(doc.getText(), known)) {
-                        const kind = token.kind === 'union' ? 'struct' :
-                            ['local', 'global'].includes(token.kind) ? 'variable' : token.kind;
-                        const modifiers = (token.modifiers || []).reduce((bits, modifier) => {
-                            const index = modifierKinds.indexOf(modifier);
-                            return index < 0 ? bits : bits | (1 << index);
-                        }, 0);
-                        builder.push(token.row, token.col, token.length, tokenKinds.indexOf(kind), modifiers);
-                    }
-                    return builder.build();
-                },
-            }, new vscode.SemanticTokensLegend(
-                ['type', 'struct', 'enum', 'macro', 'variable', 'parameter', 'property', 'function', 'enumMember'],
-                ['declaration', 'definition', 'readonly', 'static', 'local', 'globalScope'])),
-        vscode.languages.registerDefinitionProvider(NAV_SELECTOR, {
-            async provideDefinition(doc, pos) {
-                await ready;
-                const name = resolve(nameAt(doc, pos));
-                return name && hitsFor(name, doc).map((h) =>
-                    new vscode.Location(h.uri, new vscode.Position(h.row, h.col || 0)));
-            },
-        }),
-        vscode.languages.registerReferenceProvider(NAV_SELECTOR, {
-            async provideReferences(doc, pos, ctx) {
-                await ready;
-                ensureIndex();
-                const typed = nameAt(doc, pos);
-                if (!typed) return [];
-                const name = defs.has(typed) ? typed : typed.replace(/_$/, '');
-                const here = locate(doc.fileName);
-                const global = (defs.get(name) || []).some(h => h.kind) || here?.binary === SHARED_DIR;
-                const out = [];
-                for (const [key, text] of texts) {
-                    // A substring test skips the line-by-line scan for most files.
-                    if (!text.includes(name) || (!global && !sameBinary(key, here) && scans.get(key).binary !== SHARED_DIR && scans.get(key).binary !== 'include')) continue;
-                    const uri = scans.get(key).uri;
-                    if (!visibleFrom(uri, doc)) continue;
-                    // ``name_`` is the same symbol in assembly: a C file's ``#asm`` block, a ``.s``.
-                    const spellings = /\.[cs]$/.test(key) ? [name, name + '_'] : [name];
-                    for (const spelling of spellings) {
-                        for (const o of occurrences(/\.[ch]$/.test(key) ? cCode(text) : text, spelling)) {
-                            o.def ||= scans.get(key).labels.some(l => l.name === spelling && l.row === o.row && l.col === o.col);
-                            if (o.def && !ctx.includeDeclaration) continue;
-                            out.push(new vscode.Location(uri,
-                                new vscode.Range(o.row, o.col, o.row, o.col + spelling.length)));
-                        }
-                    }
-                }
-                return out;
-            },
-        }),
-        vscode.languages.registerHoverProvider(ANY_SELECTOR, {
-            async provideHover(doc, pos) {
-                await ready;
-                const name = resolve(nameAt(doc, pos));
-                const description = name && describe(name, doc);
-                return description ? new vscode.Hover(description) : null;
-            },
-        }),
+        watcher, diagnostics,
         vscode.languages.registerCodeLensProvider(
             [{ pattern: '**/src_*/*/*.{c,s}' }, { pattern: '**/src_*/*/*/*.{c,s}' }], {
                 provideCodeLenses(doc) {
@@ -845,22 +624,27 @@ function activate(context) {
             if (cfg().get('checkOnSave') && isGeneratedC(doc)) checkFile(doc, true);
         }),
         // A rename inside VS Code need not surface as a watcher delete for the old
-        // path, so clear the old file's problems explicitly and index the new one.
+        // path, so clear the old file's problems explicitly and check the new one.
         vscode.workspace.onDidRenameFiles(async (e) => {
             for (const f of e.files) forget(f.oldUri);
             for (const f of e.files) await touch(f.newUri);
         }),
         vscode.workspace.onDidDeleteFiles((e) => {
             for (const uri of e.files) forget(uri);
-            scheduleReindex();
+            addrIndex = null;
         }),
         vscode.window.onDidChangeVisibleTextEditors(checkVisible),
         // The References panel opens and closes documents constantly, so don't clear
         // diagnostics here (that would churn views too); just forget the checked version.
         vscode.workspace.onDidCloseTextDocument((doc) => checked.delete(doc.fileName)),
-        vscode.commands.registerCommand('PHOONZANGAsmNav.reindex', rebuild),
-        vscode.commands.registerCommand('PHOONZANGAsmNav.goToAddress', async () => { await ready; return goToAddress(); }),
-        vscode.commands.registerCommand('PHOONZANGAsmNav.nameRoutine', async () => { await ready; return nameRoutine(); }),
+        // Restarting the server rebuilds its complete workspace index.
+        vscode.commands.registerCommand('PHOONZANGAsmNav.reindex', async () => {
+            if (!client) return;
+            await client.stop();
+            await client.start();
+        }),
+        vscode.commands.registerCommand('PHOONZANGAsmNav.goToAddress', () => goToAddress()),
+        vscode.commands.registerCommand('PHOONZANGAsmNav.nameRoutine', (uri) => nameRoutine(uri)),
         vscode.commands.registerCommand('PHOONZANGAsmNav.makeC', (uri, uris) => makeC('claude', uri, uris)),
         vscode.commands.registerCommand('PHOONZANGAsmNav.makeCOpenCode', (uri, uris) => makeC('opencode', uri, uris)),
         vscode.commands.registerCommand('PHOONZANGAsmNav.makeCCodex', (uri, uris) => makeC('codex', uri, uris)),

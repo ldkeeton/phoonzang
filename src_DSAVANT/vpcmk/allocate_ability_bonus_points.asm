@@ -1,0 +1,295 @@
+; auto-generated
+allocate_ability_bonus_points:
+    mov ax, 0xff94                   ; 0x4697
+    call aztec_csav                  ; 0x469a
+    mov ax, 0                        ; 0x469d
+    push ax                          ; 0x46a0
+    mov ax, 0x10                     ; 0x46a1
+    push ax                          ; 0x46a4
+    lea ax, word [bp - 0x18]         ; 0x46a5
+    push ax                          ; 0x46a8
+    call aztec_setmem                ; 0x46a9
+    add sp, byte 6                   ; 0x46ac
+    mov word [bp - 6], 0             ; 0x46af
+    mov ax, 8                        ; 0x46b4
+    push ax                          ; 0x46b7
+    mov ax, 1                        ; 0x46b8
+    push ax                          ; 0x46bb
+    mov ax, 0x18                     ; 0x46bc
+    push ax                          ; 0x46bf
+    mov ax, 0x97                     ; 0x46c0
+    push ax                          ; 0x46c3
+    mov ax, 0x58                     ; 0x46c4
+    push ax                          ; 0x46c7
+    mov ax, MSG_ABILITY_BONUS_POINTS ; 0x46c8
+    push ax                          ; 0x46cb
+    call draw_dialog_button_prompt   ; 0x46cc
+    add sp, byte 0xc                 ; 0x46cf
+    mov word [bp - 0x6a], dx         ; 0x46d2
+    mov word [bp - 0x6c], ax         ; 0x46d5
+    call flush_keyboard              ; 0x46d8
+.back1:
+    mov ax, 0                        ; 0x46db
+    push ax                          ; 0x46de
+    push word [bp + 4]               ; 0x46df
+    call display_character_statistics ; 0x46e2
+    add sp, byte 4                   ; 0x46e5
+    mov ax, 0                        ; 0x46e8
+    push ax                          ; 0x46eb
+    mov ax, 1                        ; 0x46ec
+    push ax                          ; 0x46ef
+    call call_set_text_color         ; 0x46f0
+    add sp, byte 4                   ; 0x46f3
+    mov ax, 6                        ; 0x46f6
+    imul word [bp - 6]               ; 0x46f9
+    add ax, strict word 0x23         ; 0x46fc
+    push ax                          ; 0x46ff
+    mov ax, 0x85                     ; 0x4700
+    push ax                          ; 0x4703
+    call call_set_text_pos           ; 0x4704
+    add sp, byte 4                   ; 0x4707
+    mov ax, 0                        ; 0x470a
+    push ax                          ; 0x470d
+    mov ax, 5                        ; 0x470e
+    push ax                          ; 0x4711
+    call draw_font_glyph             ; 0x4712
+    add sp, byte 4                   ; 0x4715
+    mov ax, 6                        ; 0x4718
+    imul word [bp - 6]               ; 0x471b
+    add ax, strict word 0x23         ; 0x471e
+    push ax                          ; 0x4721
+    mov ax, 0x97                     ; 0x4722
+    push ax                          ; 0x4725
+    call call_set_text_pos           ; 0x4726
+    add sp, byte 4                   ; 0x4729
+    mov ax, 0                        ; 0x472c
+    push ax                          ; 0x472f
+    mov ax, 6                        ; 0x4730
+    push ax                          ; 0x4733
+    call draw_font_glyph             ; 0x4734
+    add sp, byte 4                   ; 0x4737
+    mov word [bp - 2], 0             ; 0x473a
+.back2:
+    mov ax, word [bp - 2]            ; 0x473f
+    cmp ax, word [bp - 6]            ; 0x4742
+    jne short .forward1              ; 0x4745
+    mov ax, 0                        ; 0x4747
+    push ax                          ; 0x474a
+    mov ax, 0x2d                     ; 0x474b
+    push ax                          ; 0x474e
+    mov ax, 6                        ; 0x474f
+    imul word [bp - 6]               ; 0x4752
+    add ax, strict word 0x28         ; 0x4755
+    push ax                          ; 0x4758
+    mov ax, 0x8a                     ; 0x4759
+    push ax                          ; 0x475c
+    mov ax, 6                        ; 0x475d
+    imul word [bp - 6]               ; 0x4760
+    add ax, strict word 0x23         ; 0x4763
+    push ax                          ; 0x4766
+    mov ax, 0x85                     ; 0x4767
+    push ax                          ; 0x476a
+    push word [bp - 2]               ; 0x476b
+    call set_hotspot                 ; 0x476e
+    add sp, byte 0xe                 ; 0x4771
+    mov ax, 0x3d                     ; 0x4774
+    push ax                          ; 0x4777
+    mov ax, 0x2b                     ; 0x4778
+    push ax                          ; 0x477b
+    mov ax, 6                        ; 0x477c
+    imul word [bp - 6]               ; 0x477f
+    add ax, strict word 0x28         ; 0x4782
+    push ax                          ; 0x4785
+    mov ax, 0x9c                     ; 0x4786
+    push ax                          ; 0x4789
+    mov ax, 6                        ; 0x478a
+    imul word [bp - 6]               ; 0x478d
+    add ax, strict word 0x23         ; 0x4790
+    push ax                          ; 0x4793
+    mov ax, 0x97                     ; 0x4794
+    push ax                          ; 0x4797
+    mov ax, 7                        ; 0x4798
+    push ax                          ; 0x479b
+    call set_hotspot                 ; 0x479c
+    add sp, byte 0xe                 ; 0x479f
+    jmp short .forward4              ; 0x47a2
+.forward1:
+    mov ax, 0                        ; 0x47a4
+    push ax                          ; 0x47a7
+    mov ax, word [bp - 6]            ; 0x47a8
+    inc ax                           ; 0x47ab
+    mov cx, 7                        ; 0x47ac
+    cwd                              ; 0x47af
+    idiv cx                          ; 0x47b0
+    mov ax, dx                       ; 0x47b2
+    cmp ax, word [bp - 2]            ; 0x47b4
+    jne short .forward2              ; 0x47b7
+    mov al, 0x20                     ; 0x47b9
+    jmp short .forward3              ; 0x47bb
+.forward2:
+    mov al, 0                        ; 0x47bd
+.forward3:
+    cbw                              ; 0x47bf
+    push ax                          ; 0x47c0
+    mov ax, 6                        ; 0x47c1
+    imul word [bp - 2]               ; 0x47c4
+    add ax, strict word 0x28         ; 0x47c7
+    push ax                          ; 0x47ca
+    mov ax, 0x9c                     ; 0x47cb
+    push ax                          ; 0x47ce
+    mov ax, 6                        ; 0x47cf
+    imul word [bp - 2]               ; 0x47d2
+    add ax, strict word 0x23         ; 0x47d5
+    push ax                          ; 0x47d8
+    mov ax, 0x73                     ; 0x47d9
+    push ax                          ; 0x47dc
+    push word [bp - 2]               ; 0x47dd
+    call set_hotspot                 ; 0x47e0
+    add sp, byte 0xe                 ; 0x47e3
+.forward4:
+    inc word [bp - 2]                ; 0x47e6
+    mov ax, word [bp - 2]            ; 0x47e9
+    cmp ax, strict word 7            ; 0x47ec
+    jge short .forward5              ; 0x47ef
+    jmp near .back2                  ; 0x47f1
+.forward5:
+    mov ax, 0                        ; 0x47f4
+    push ax                          ; 0x47f7
+    push ax                          ; 0x47f8
+    push ax                          ; 0x47f9
+    push ax                          ; 0x47fa
+    push ax                          ; 0x47fb
+    mov ax, 0xffff                   ; 0x47fc
+    push ax                          ; 0x47ff
+    mov ax, 9                        ; 0x4800
+    push ax                          ; 0x4803
+    call set_hotspot                 ; 0x4804
+    add sp, byte 0xe                 ; 0x4807
+    mov ax, 0x60                     ; 0x480a
+    push ax                          ; 0x480d
+    mov ax, 0xa8                     ; 0x480e
+    push ax                          ; 0x4811
+    mov ax, 0x23                     ; 0x4812
+    push ax                          ; 0x4815
+    mov ax, 0x66                     ; 0x4816
+    push ax                          ; 0x4819
+    call call_show_area              ; 0x481a
+    add sp, byte 8                   ; 0x481d
+.back3:
+    mov ax, hotspot_rects            ; 0x4820
+    push ax                          ; 0x4823
+    call poll_hotspots               ; 0x4824
+    pop cx                           ; 0x4827
+    dec ax                           ; 0x4828
+    mov word [bp - 4], ax            ; 0x4829
+    cmp word [hotspot_hit], byte 0   ; 0x482c
+    je short .back3                  ; 0x4831
+    cmp word [bp - 4], byte 7        ; 0x4833
+    jge short .forward6              ; 0x4837
+    mov ax, word [bp - 4]            ; 0x4839
+    cmp ax, word [bp - 6]            ; 0x483c
+    je short .forward6               ; 0x483f
+    mov word [bp - 6], ax            ; 0x4841
+    jmp near .forward11              ; 0x4844
+.forward6:
+    mov ax, word [bp - 4]            ; 0x4847
+    cmp ax, word [bp - 6]            ; 0x484a
+    jne short .forward9              ; 0x484d
+    mov ax, word [bp - 6]            ; 0x484f
+    shl ax, 1                        ; 0x4852
+    mov bx, ax                       ; 0x4854
+    add bx, bp                       ; 0x4856
+    cmp word [bx - 0x18], byte 0     ; 0x4858
+    jle short .forward7              ; 0x485c
+    mov ax, 0x248                    ; 0x485e
+    imul word [bp + 4]               ; 0x4861
+    add ax, word [bp - 6]            ; 0x4864
+    mov bx, ax                       ; 0x4867
+    dec byte [bx + party_records + pc_rec.stat] ; 0x4869
+    mov ax, word [bp - 6]            ; 0x486d
+    shl ax, 1                        ; 0x4870
+    mov bx, ax                       ; 0x4872
+    add bx, bp                       ; 0x4874
+    dec word [bx - 0x18]             ; 0x4876
+    inc word [remaining_stat_points] ; 0x4879
+    jmp short .forward8              ; 0x487d
+.forward7:
+    mov ax, 0                        ; 0x487f
+    push ax                          ; 0x4882
+    call play_sound_effect           ; 0x4883
+    pop cx                           ; 0x4886
+.forward8:
+    jmp short .forward11             ; 0x4887
+.forward9:
+    cmp word [bp - 4], byte 7        ; 0x4889
+    jne short .forward11             ; 0x488d
+    mov ax, 0x248                    ; 0x488f
+    imul word [bp + 4]               ; 0x4892
+    add ax, word [bp - 6]            ; 0x4895
+    mov bx, ax                       ; 0x4898
+    cmp byte [bx + party_records + pc_rec.stat], 0x12 ; 0x489a
+    jae short .forward10             ; 0x489f
+    cmp word [remaining_stat_points], byte 0 ; 0x48a1
+    jle short .forward10             ; 0x48a6
+    inc byte [bx + party_records + pc_rec.stat] ; 0x48a8
+    mov ax, word [bp - 6]            ; 0x48ac
+    shl ax, 1                        ; 0x48af
+    mov bx, ax                       ; 0x48b1
+    add bx, bp                       ; 0x48b3
+    inc word [bx - 0x18]             ; 0x48b5
+    dec word [remaining_stat_points] ; 0x48b8
+    jmp short .forward11             ; 0x48bc
+.forward10:
+    mov ax, 0                        ; 0x48be
+    push ax                          ; 0x48c1
+    call play_sound_effect           ; 0x48c2
+    pop cx                           ; 0x48c5
+.forward11:
+    cmp word [bp - 4], byte 8        ; 0x48c6
+    je short .forward12              ; 0x48ca
+    jmp near .back1                  ; 0x48cc
+.forward12:
+    cmp word [remaining_stat_points], byte 0 ; 0x48cf
+    je short .forward13              ; 0x48d4
+    jmp near .back1                  ; 0x48d6
+.forward13:
+    mov word [remaining_stat_points], 0xffff ; 0x48d9
+    mov ax, 1                        ; 0x48df
+    push ax                          ; 0x48e2
+    push ax                          ; 0x48e3
+    mov ax, 0x18                     ; 0x48e4
+    push ax                          ; 0x48e7
+    mov ax, 0x97                     ; 0x48e8
+    push ax                          ; 0x48eb
+    mov ax, 0x58                     ; 0x48ec
+    push ax                          ; 0x48ef
+    call flash_button                ; 0x48f0
+    add sp, byte 0xa                 ; 0x48f3
+    mov ax, 0                        ; 0x48f6
+    push ax                          ; 0x48f9
+    mov ax, 1                        ; 0x48fa
+    push ax                          ; 0x48fd
+    mov ax, 0x18                     ; 0x48fe
+    push ax                          ; 0x4901
+    mov ax, 0x97                     ; 0x4902
+    push ax                          ; 0x4905
+    mov ax, 0x58                     ; 0x4906
+    push ax                          ; 0x4909
+    call flash_button                ; 0x490a
+    add sp, byte 0xa                 ; 0x490d
+    mov ax, 1                        ; 0x4910
+    push ax                          ; 0x4913
+    push word [bp - 0x6a]            ; 0x4914
+    push word [bp - 0x6c]            ; 0x4917
+    call call_restore_area           ; 0x491a
+    add sp, byte 6                   ; 0x491d
+    mov ax, 0xc7                     ; 0x4920
+    push ax                          ; 0x4923
+    mov ax, 0x13f                    ; 0x4924
+    push ax                          ; 0x4927
+    mov ax, 0                        ; 0x4928
+    push ax                          ; 0x492b
+    push ax                          ; 0x492c
+    call call_show_area              ; 0x492d
+    add sp, byte 8                   ; 0x4930
+    ret                              ; 0x4933

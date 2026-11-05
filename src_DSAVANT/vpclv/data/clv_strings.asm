@@ -45,117 +45,117 @@ __zthief_bard_resist_base:
     db 'ACHCHHGCCCECHA', 0
 __zthief_bard_resist_growth:
     db '02322322112230', 0
-__zprofession_0_skill_group_0:
+__zfighter_weaponry_skills:
     db '1111111110', 0
-__zprofession_0_skill_group_1:
+__zfighter_physical_skills:
     db '11100000', 0
-__zprofession_0_skill_group_2:
+__zfighter_personal_skills:
     db '000000', 0
-__zprofession_0_skill_group_3:
+__zfighter_academia_skills:
     db '1111000000', 0
-__zprofession_1_skill_group_0:
+__zmage_weaponry_skills:
     db '1000111100', 0
-__zprofession_1_skill_group_1:
+__zmage_physical_skills:
     db '11101000', 0
-__zprofession_1_skill_group_2:
+__zmage_personal_skills:
     db '000000', 0
-__zprofession_1_skill_group_3:
+__zmage_academia_skills:
     db '1111000010', 0
-__zprofession_2_skill_group_0:
+__zpriest_weaponry_skills:
     db '0001101010', 0
-__zprofession_2_skill_group_1:
+__zpriest_physical_skills:
     db '11101000', 0
-__zprofession_2_skill_group_2:
+__zpriest_personal_skills:
     db '000000', 0
-__zprofession_2_skill_group_3:
+__zpriest_academia_skills:
     db '1111101000', 0
-__zprofession_3_skill_group_0:
+__zthief_weaponry_skills:
     db '1111111110', 0
-__zprofession_3_skill_group_1:
+__zthief_physical_skills:
     db '11101111', 0
-__zprofession_3_skill_group_2:
+__zthief_personal_skills:
     db '000000', 0
-__zprofession_3_skill_group_3:
+__zthief_academia_skills:
     db '1111000000', 0
-__zprofession_4_skill_group_0:
+__zranger_weaponry_skills:
     db '1111111110', 0
-__zprofession_4_skill_group_1:
+__zranger_physical_skills:
     db '11100111', 0
-__zprofession_4_skill_group_2:
+__zranger_personal_skills:
     db '000000', 0
-__zprofession_4_skill_group_3:
+__zranger_academia_skills:
     db '1111010000', 0
-__zprofession_5_skill_group_0:
+__zalchemist_weaponry_skills:
     db '1001110000', 0
-__zprofession_5_skill_group_1:
+__zalchemist_physical_skills:
     db '11100000', 0
-__zprofession_5_skill_group_2:
+__zalchemist_personal_skills:
     db '000000', 0
-__zprofession_5_skill_group_3:
+__zalchemist_academia_skills:
     db '1111010000', 0
-__zprofession_6_skill_group_0:
+__zbard_weaponry_skills:
     db '1111111110', 0
-__zprofession_6_skill_group_1:
+__zbard_physical_skills:
     db '11111111', 0
-__zprofession_6_skill_group_2:
+__zbard_personal_skills:
     db '000000', 0
-__zprofession_6_skill_group_3:
+__zbard_academia_skills:
     db '1111000010', 0
-__zprofession_7_skill_group_0:
+__zpsionic_weaponry_skills:
     db '1001111000', 0
-__zprofession_7_skill_group_1:
+__zpsionic_physical_skills:
     db '11101000', 0
-__zprofession_7_skill_group_2:
+__zpsionic_personal_skills:
     db '000000', 0
-__zprofession_7_skill_group_3:
+__zpsionic_academia_skills:
     db '1111000100', 0
-__zprofession_8_skill_group_0:
+__zvalkyrie_weaponry_skills:
     db '1111111110', 0
-__zprofession_8_skill_group_1:
+__zvalkyrie_physical_skills:
     db '11101000', 0
-__zprofession_8_skill_group_2:
+__zvalkyrie_personal_skills:
     db '000000', 0
-__zprofession_8_skill_group_3:
+__zvalkyrie_academia_skills:
     db '1111001000', 0
-__zprofession_9_skill_group_0:
+__zbishop_weaponry_skills:
     db '0001101010', 0
-__zprofession_9_skill_group_1:
+__zbishop_physical_skills:
     db '11101000', 0
-__zprofession_9_skill_group_2:
+__zbishop_personal_skills:
     db '000000', 0
-__zprofession_9_skill_group_3:
+__zbishop_academia_skills:
     db '1111101010', 0
-__zprofession_10_skill_group_0:
+__zlord_weaponry_skills:
     db '1111111110', 0
-__zprofession_10_skill_group_1:
+__zlord_physical_skills:
     db '11101000', 0
-__zprofession_10_skill_group_2:
+__zlord_personal_skills:
     db '000000', 0
-__zprofession_10_skill_group_3:
+__zlord_academia_skills:
     db '1111101000', 0
-__zprofession_11_skill_group_0:
+__zsamurai_weaponry_skills:
     db '1111111110', 0
-__zprofession_11_skill_group_1:
+__zsamurai_physical_skills:
     db '11101000', 0
-__zprofession_11_skill_group_2:
+__zsamurai_personal_skills:
     db '000000', 0
-__zprofession_11_skill_group_3:
+__zsamurai_academia_skills:
     db '1111000011', 0
-__zprofession_12_skill_group_0:
+__zmonk_weaponry_skills:
     db '1001111101', 0
-__zprofession_12_skill_group_1:
+__zmonk_physical_skills:
     db '11101001', 0
-__zprofession_12_skill_group_2:
+__zmonk_personal_skills:
     db '000000', 0
-__zprofession_12_skill_group_3:
+__zmonk_academia_skills:
     db '1111000101', 0
-__zprofession_13_skill_group_0:
+__zninja_weaponry_skills:
     db '1111111111', 0
-__zprofession_13_skill_group_1:
+__zninja_physical_skills:
     db '11100111', 0
-__zprofession_13_skill_group_2:
+__zninja_personal_skills:
     db '000000', 0
-__zprofession_13_skill_group_3:
+__zninja_academia_skills:
     db '1111010001', 0
 __zstamina_percent_open_text:
     db 0x25, 0x20, 0x28, 0x00

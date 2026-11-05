@@ -6,7 +6,7 @@ evaluate_character_profession:
     jmp near .forward4               ; 0x4110
 jumptable_4267_case_0:
     push word [bp + 8]               ; 0x4113
-    mov ax, profession_0_stat_requirements ; 0x4116
+    mov ax, fighter_stat_requirements ; 0x4116
     push ax                          ; 0x4119
     push word [bp + 6]               ; 0x411a
     push word [bp + 4]               ; 0x411d
@@ -15,7 +15,7 @@ jumptable_4267_case_0:
     jmp near evaluate_character_profession.return1 ; 0x4126
 jumptable_4267_case_1:
     push word [bp + 8]               ; 0x4129
-    mov ax, profession_1_stat_requirements ; 0x412c
+    mov ax, mage_stat_requirements   ; 0x412c
     push ax                          ; 0x412f
     push word [bp + 6]               ; 0x4130
     push word [bp + 4]               ; 0x4133
@@ -24,7 +24,7 @@ jumptable_4267_case_1:
     jmp near evaluate_character_profession.return1 ; 0x413c
 jumptable_4267_case_2:
     push word [bp + 8]               ; 0x413f
-    mov ax, profession_2_stat_requirements ; 0x4142
+    mov ax, priest_stat_requirements ; 0x4142
     push ax                          ; 0x4145
     push word [bp + 6]               ; 0x4146
     push word [bp + 4]               ; 0x4149
@@ -33,7 +33,7 @@ jumptable_4267_case_2:
     jmp near evaluate_character_profession.return1 ; 0x4152
 jumptable_4267_case_3:
     push word [bp + 8]               ; 0x4155
-    mov ax, profession_3_stat_requirements ; 0x4158
+    mov ax, thief_stat_requirements  ; 0x4158
     push ax                          ; 0x415b
     push word [bp + 6]               ; 0x415c
     push word [bp + 4]               ; 0x415f
@@ -42,7 +42,7 @@ jumptable_4267_case_3:
     jmp near evaluate_character_profession.return1 ; 0x4168
 jumptable_4267_case_4:
     push word [bp + 8]               ; 0x416b
-    mov ax, profession_4_stat_requirements ; 0x416e
+    mov ax, ranger_stat_requirements ; 0x416e
     push ax                          ; 0x4171
     push word [bp + 6]               ; 0x4172
     push word [bp + 4]               ; 0x4175
@@ -51,7 +51,7 @@ jumptable_4267_case_4:
     jmp near evaluate_character_profession.return1 ; 0x417e
 jumptable_4267_case_5:
     push word [bp + 8]               ; 0x4181
-    mov ax, profession_5_stat_requirements ; 0x4184
+    mov ax, alchemist_stat_requirements ; 0x4184
     push ax                          ; 0x4187
     push word [bp + 6]               ; 0x4188
     push word [bp + 4]               ; 0x418b
@@ -60,7 +60,7 @@ jumptable_4267_case_5:
     jmp near evaluate_character_profession.return1 ; 0x4194
 jumptable_4267_case_6:
     push word [bp + 8]               ; 0x4197
-    mov ax, profession_6_stat_requirements ; 0x419a
+    mov ax, bard_stat_requirements   ; 0x419a
     push ax                          ; 0x419d
     push word [bp + 6]               ; 0x419e
     push word [bp + 4]               ; 0x41a1
@@ -69,7 +69,7 @@ jumptable_4267_case_6:
     jmp near evaluate_character_profession.return1 ; 0x41aa
 jumptable_4267_case_7:
     push word [bp + 8]               ; 0x41ad
-    mov ax, profession_7_stat_requirements ; 0x41b0
+    mov ax, psionic_stat_requirements ; 0x41b0
     push ax                          ; 0x41b3
     push word [bp + 6]               ; 0x41b4
     push word [bp + 4]               ; 0x41b7
@@ -86,7 +86,7 @@ jumptable_4267_case_8:
     jne short evaluate_character_profession.forward2 ; 0x41d6
 evaluate_character_profession.forward1:
     push word [bp + 8]               ; 0x41d8
-    mov ax, profession_8_stat_requirements ; 0x41db
+    mov ax, valkyrie_stat_requirements ; 0x41db
     push ax                          ; 0x41de
     push word [bp + 6]               ; 0x41df
     push word [bp + 4]               ; 0x41e2
@@ -102,7 +102,7 @@ evaluate_character_profession.forward3:
     jmp near evaluate_character_profession.return1 ; 0x41fa
 jumptable_4267_case_9:
     push word [bp + 8]               ; 0x41fd
-    mov ax, profession_9_stat_requirements ; 0x4200
+    mov ax, bishop_stat_requirements ; 0x4200
     push ax                          ; 0x4203
     push word [bp + 6]               ; 0x4204
     push word [bp + 4]               ; 0x4207
@@ -111,7 +111,7 @@ jumptable_4267_case_9:
     jmp near evaluate_character_profession.return1 ; 0x4210
 jumptable_4267_case_10:
     push word [bp + 8]               ; 0x4213
-    mov ax, profession_10_stat_requirements ; 0x4216
+    mov ax, lord_stat_requirements   ; 0x4216
     push ax                          ; 0x4219
     push word [bp + 6]               ; 0x421a
     push word [bp + 4]               ; 0x421d
@@ -120,7 +120,7 @@ jumptable_4267_case_10:
     jmp short evaluate_character_profession.return1 ; 0x4226
 jumptable_4267_case_11:
     push word [bp + 8]               ; 0x4228
-    mov ax, profession_11_stat_requirements ; 0x422b
+    mov ax, samurai_stat_requirements ; 0x422b
     push ax                          ; 0x422e
     push word [bp + 6]               ; 0x422f
     push word [bp + 4]               ; 0x4232
@@ -129,7 +129,7 @@ jumptable_4267_case_11:
     jmp short evaluate_character_profession.return1 ; 0x423b
 jumptable_4267_case_12:
     push word [bp + 8]               ; 0x423d
-    mov ax, profession_12_stat_requirements ; 0x4240
+    mov ax, monk_stat_requirements   ; 0x4240
     push ax                          ; 0x4243
     push word [bp + 6]               ; 0x4244
     push word [bp + 4]               ; 0x4247
@@ -138,7 +138,7 @@ jumptable_4267_case_12:
     jmp short evaluate_character_profession.return1 ; 0x4250
 jumptable_4267_case_13:
     push word [bp + 8]               ; 0x4252
-    mov ax, profession_13_stat_requirements ; 0x4255
+    mov ax, ninja_stat_requirements  ; 0x4255
     push ax                          ; 0x4258
     push word [bp + 6]               ; 0x4259
     push word [bp + 4]               ; 0x425c

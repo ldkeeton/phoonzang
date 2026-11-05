@@ -1,41 +1,41 @@
 ; auto-generated
-__zobss_9524:  ; bss_9524
+__zobss_9524:  ; summary_panel_cache_low
     resb 0x0002
-__zobss_9526:  ; bss_9526
+__zobss_9526:  ; summary_panel_cache_high
     resb 0x0002
-__zobss_9528:  ; bss_9528
+__zobss_9528:  ; detail_panel_cache_low
     resb 0x0002
-__zobss_952a:  ; bss_952a
+__zobss_952a:  ; detail_panel_cache_high
     resb 0x0002
 __zobss_952c:  ; roster_screen_b
     resb 0x0002
 __zobss_952e:  ; roster_screen_a
     resb 0x0002
-__zobss_9530:  ; bss_9530
+__zobss_9530:  ; character_screen_cache_a_low
     resb 0x0002
-__zobss_9532:  ; bss_9532
+__zobss_9532:  ; character_screen_cache_a_high
     resb 0x0002
-__zobss_9534:  ; bss_9534
+__zobss_9534:  ; character_screen_cache_b_low
     resb 0x0002
-__zobss_9536:  ; bss_9536
+__zobss_9536:  ; character_screen_cache_b_high
     resb 0x0002
 __zobss_9538:  ; realm_panel_cache_high
     resb 0x0002
 __zobss_953a:  ; realm_panel_cache_low
     resb 0x0002
-__zobss_953c:  ; bss_953c
+__zobss_953c:  ; saved_screen_handle_low
     resb 0x0002
-__zobss_953e:  ; bss_953e
+__zobss_953e:  ; saved_screen_handle_high
     resb 0x0002
 __zobss_9540:  ; saved_screen
     resb 0x0002
 __zobss_9542:  ; saved_screen_hi
     resb 0x0002
-__zobss_9544:  ; bss_9544
+__zobss_9544:  ; character_stat_labels
     resb 0x0050
-__zobss_9594:  ; bss_9594
+__zobss_9594:  ; remaining_stat_points
     resb 0x0002
-__zobss_9596:  ; bss_9596
+__zobss_9596:  ; remaining_points_label
     resb 0x0014
 __zobss_95aa:  ; banner_offset
     resb 0x0002
@@ -63,5 +63,5 @@ __zobss_976c:  ; party_redraw_interval
     resb 0x0002
 __zobss_976e:  ; profession_eligible
     resb 0x001c
-__zobss_978a:  ; bss_978a
+__zobss_978a:  ; character_creation_mode
     resb 0x0002

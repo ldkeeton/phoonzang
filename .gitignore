@@ -4,3 +4,4 @@ __pycache__
 .cache
 dos_compilers
 trash
+node_modules

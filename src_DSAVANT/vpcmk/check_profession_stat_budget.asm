@@ -2,7 +2,7 @@
 check_profession_stat_budget:
     mov ax, 0xfffa                   ; 0x4081
     call aztec_csav                  ; 0x4084
-    mov ax, word [bss_9594]          ; 0x4087
+    mov ax, word [remaining_stat_points] ; 0x4087
     mov word [bp - 6], ax            ; 0x408a
     mov word [bp - 2], 0             ; 0x408d
 .back1:
@@ -30,11 +30,11 @@ check_profession_stat_budget:
     add ax, si                       ; 0x40c9
     mov bx, ax                       ; 0x40cb
     inc byte [bx + party_records + pc_rec.stat] ; 0x40cd
-    dec word [bss_9594]              ; 0x40d1
+    dec word [remaining_stat_points] ; 0x40d1
     mov ax, 1                        ; 0x40d5
     push ax                          ; 0x40d8
     push word [bp + 4]               ; 0x40d9
-    call api_idx_0002_SSJN           ; 0x40dc
+    call display_character_statistics ; 0x40dc
     add sp, byte 4                   ; 0x40df
 .forward1:
     jmp short .back2                 ; 0x40e2

@@ -1,0 +1,60 @@
+/* Edit the skill and spell slot values for one character. */
+#include "structs/pcrec.h"
+#include "msg.h"
+
+extern struct pc_rec party_records[];
+extern int skill_group_ranges[];
+extern int slot_limit[], slot_label[];
+extern int skill_availability_flags[];
+extern int load_message_string();
+extern int display_centered_message();
+extern int prepare_skill_list();
+extern int draw_known_spell_values();
+extern int edit_spell_slot_values();
+extern int call_show_area();
+
+edit_character_skill_slots(member_index, message_id)
+int member_index, message_id;
+{
+	int current_skill, range_index;
+	unsigned int slot_index;
+	int spell_count;
+	int spell_ids[12];
+	int slot_flags[12];
+	char message[80];
+
+	for (current_skill = 0; current_skill < 34; current_skill++)
+		slot_limit[current_skill] =
+			(unsigned char)party_records[member_index].skills[current_skill];
+
+	for (current_skill = 0; current_skill <= 4; current_skill++)
+		load_message_string(MSG_WEAPONRY + current_skill,
+			(char *)slot_label + current_skill * 20);
+	load_message_string(message_id, message);
+	display_centered_message(message, 1);
+
+	slot_index = 0;
+	for (;;) {
+		spell_count = prepare_skill_list(member_index, slot_index, spell_ids);
+		draw_known_spell_values(member_index, slot_index, spell_count,
+			spell_ids);
+
+		for (range_index = 0; range_index < 4; range_index++) {
+			slot_flags[range_index] = 0;
+	load_range_start:
+			current_skill = skill_group_ranges[range_index * 2];
+			for (; current_skill <= skill_group_ranges[range_index * 2 + 1];
+				current_skill++) {
+				if (skill_availability_flags[current_skill] != 0 ||
+					party_records[member_index].skills[current_skill] > 0)
+					slot_flags[range_index] = 1;
+			}
+		}
+		slot_index = edit_spell_slot_values(member_index, slot_index,
+			spell_count, spell_ids, slot_flags);
+		if (*((volatile unsigned int *)&slot_index) == 4)
+			break;
+	}
+
+	call_show_area(1, 112, 316, 198);
+}
