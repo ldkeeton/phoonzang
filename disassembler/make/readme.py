@@ -5,6 +5,7 @@ import re
 
 from lib.cachedirs import src_dir
 from lib.routine_source import sources_in
+from lib.sidecar.bands import BAND_NAMES
 
 from .common import PROJECT
 
@@ -19,12 +20,40 @@ STYLE = (
 )
 
 
+def _routine_stem(filename):
+    """The routine fragment *filename* belongs to.
+
+    A module's own data and BSS are emitted beside its code as
+    ``<module>.data.asm`` and ``<module>.bss.asm``; both belong to the
+    ``<module>`` routine and take its source state.
+    """
+    name = filename[:-4]
+    for suffix in ('.data', '.bss'):
+        if name.endswith(suffix):
+            return name[:-len(suffix)]
+    return name
+
+
+def _folder_key(path):
+    """Order a binary's folders as the linker lays them out.
+
+    The band folders (``ds/game/``, ``ds/library/``, ``ds/aztec/``) come in
+    link order, so the heatmap shows the bands; any other folder follows
+    alphabetically.
+    """
+    name = os.path.basename(path)
+    return (BAND_NAMES.index(name) if name in BAND_NAMES else len(BAND_NAMES),
+            name)
+
+
 def _scan(src):
     """Return {binary: [(asm_stem, state)]} for a generated src_<PROJECT> tree.
 
     ``state`` is ``'c'`` (has a .c), ``'s'`` (has a Manx assembly .s) or
     ``'todo'``.  A binary's band folders (``ds/game/``) count as the binary;
     its ``data`` folder holds data objects, not routines, and is not counted.
+    ``<module>.data.asm`` and ``<module>.bss.asm`` count under ``<module>``,
+    so a source beside the module covers its data and BSS too.
     """
     groups = {}
     for name in sorted(os.listdir(src)):
@@ -32,14 +61,23 @@ def _scan(src):
         if not os.path.isdir(top):
             continue
         groups.setdefault(name, [])
-        for path in [top] + sorted(
-                os.path.join(top, d) for d in os.listdir(top)
-                if d != 'data' and os.path.isdir(os.path.join(top, d))):
+        folders = [os.path.join(top, d) for d in os.listdir(top)
+                   if d != 'data' and os.path.isdir(os.path.join(top, d))]
+        for path in [top] + sorted(folders, key=_folder_key):
             sources = sources_in(path)
-            groups[name] += [
-                (f[:-4], os.path.splitext(sources[f[:-4]])[1][1:]
-                 if f[:-4] in sources else 'todo')
-                for f in sorted(os.listdir(path)) if f.endswith('.asm')]
+            cells = []
+            for f in sorted(os.listdir(path)):
+                if not f.endswith('.asm'):
+                    continue
+                base = _routine_stem(f)
+                stem = f[:-4]
+                # A source may sit beside the fragment itself or, for a
+                # module's data/BSS, beside its code.
+                key = stem if stem in sources else base
+                state = (os.path.splitext(sources[key])[1][1:]
+                         if key in sources else 'todo')
+                cells.append((stem, state))
+            groups[name] += cells
     for name in sorted(os.listdir(src)):
         if name.endswith('.asm') and name[:-4] in groups:
             groups[name[:-4]].append((name[:-4], 'todo'))
@@ -59,6 +97,13 @@ def _svg(groups):
                        f'width="{CELL}" height="{CELL}"><title>{stem}'
                        f'{" (.s)" if state == "s" else ""}</title></rect>')
         y += ((len(cells) - 1) // COLS + 1) * step + ROW_H - step
+    # Key: the two source states the squares can show.
+    y += 8
+    for x, cls, label in ((0, 'c', 'C'), (48, 'a', 'asm')):
+        out.append(f'<rect class="{cls}" x="{x}" y="{y}" '
+                   f'width="{CELL}" height="{CELL}"/>')
+        out.append(f'<text x="{x + CELL + 3}" y="{y + CELL + 1}">{label}</text>')
+    y += CELL + 4
     w = LABEL_W + COLS * step
     return (f'<svg xmlns="http://www.w3.org/2000/svg" width="{w}" height="{y}" '
             f'viewBox="0 0 {w} {y}"><style>{STYLE}</style>' + ''.join(out) + '</svg>\n')

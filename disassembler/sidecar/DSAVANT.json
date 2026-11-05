@@ -3514,7 +3514,7 @@
         {"offset": "99de", "space": "ds", "name": "_Uend", "note": "$ovbgn's `mov cx,offset _Uend_`: the end of the overlay's BSS"}
       ],
       "data_names": {
-        "9098": {"name": "treasure_text_token_codes", "note": "codes embedded in treasure text"},
+        "9098": {"name": "treasure_text_token_codes", "length": 114, "file": "trea_strings", "note": "codes embedded in treasure text"},
         "90a0": {"name": "treasure_text_separator", "note": "separator between buffered and incoming treasure text"},
         "90a2": {"name": "treasure_panel_top_save_file", "note": "\"V1.$$$\": saves the panel rows above the refreshed line"},
         "90a9": {"name": "treasure_panel_bottom_save_file", "note": "\"V2.$$$\": saves the panel rows below the refreshed line"},
@@ -3707,7 +3707,7 @@
         "8c7f": {"name": "periodic_party_redraw", "note": "once party_redraw_interval ticks have passed, redraws the party panel and slot letters"},
         "8d10": {"name": "pick_spell_dialog", "note": "modal spell dialog for a character: realm hotspots F/W/A/E/M/D, scrolling known-spell list, power 1..7, two buttons; returns dialog_button and leaves (power<<8)+spell+0x100 in dialog_selection"},
         "0000": {"name": "ovmain"},
-        "99b7": {"name": "aztec_ovbgn"},
+        "99b7": {"name": "aztec_ovbgn", "emits": [{"start": "910a", "end": "9114"}], "note": "dos20/ovbgn.asm: its dataseg holds save_si/di/sp/bp/ret, after every C module's data"},
         "99f5": {"name": "aztec_cswt"}
       },
       "file": "VTREA.OVR",

@@ -1,3 +1,0 @@
-; auto-generated
-__zunknown_trap_clue_template:
-    db '????????', 0

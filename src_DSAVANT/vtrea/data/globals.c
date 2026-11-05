@@ -1,0 +1,40 @@
+/* The treasure overlay's uninitialized globals.  ln lays commons out in
+   the reverse of their order here, so the last is at the lowest address. */
+
+int known_spell_ids[40];
+int lock_tumbler_values[6];
+int loot_row_flag2[20];
+int loot_row_value[20];
+int loot_row_identified[20];
+int loot_row_total;
+int cast_spell_target;
+int chest_open_result;
+int chest_trap_power;
+int list_row_count[20];
+char list_row_name[20][22];
+int list_row_glyph[20];
+int list_row_marked[20];
+unsigned char member_trap_clues[60];
+int trap_row_types[24];
+unsigned char trap_row_codes[240];
+int trap_row_index;
+int trap_glyph_ids[8];
+int trap_glyph_pressed[8];
+int trap_row_listed[24];
+int chest_trap_type;
+char chest_trap_name[40];
+int treasure_message_row;
+char treasure_glyph_text_buffer[128];
+int maze_message_previous_x;
+int maze_message_row;
+char treasure_caption[40];
+int treasure_caption_on;
+int party_redraw_interval;
+int pending_panel_arg0;
+int pending_panel_arg1;
+int animation_frame;
+int show_area_bottom;
+int pending_panel_call;
+int sound_request;
+int animation_index;
+int glyph_painter;

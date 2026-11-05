@@ -288,69 +288,7 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 %include "shared/ovr/aztec_cswt.asm"            ; 0x9a03
 
 __zdata_start:
-%include "vtrea/data/treasure_text_token_codes.asm" ; 0x9a1b
-
-%include "vtrea/data/treasure_text_separator.asm" ; 0x9a23
-
-%include "vtrea/data/treasure_panel_top_save_file.asm" ; 0x9a25
-
-%include "vtrea/data/treasure_panel_bottom_save_file.asm" ; 0x9a2c
-
-%include "vtrea/data/empty_character_message_first.asm" ; 0x9a33
-
-%include "vtrea/data/empty_character_message_second.asm" ; 0x9a34
-
-%include "vtrea/data/empty_status_message_fragment.asm" ; 0x9a35
-
-%include "vtrea/data/empty_status_message_suffix.asm" ; 0x9a36
-
-%include "vtrea/data/empty_demonic_attack_fragment.asm" ; 0x9a37
-
-%include "vtrea/data/empty_demonic_attack_suffix.asm" ; 0x9a38
-
-%include "vtrea/data/empty_battering_fragment.asm" ; 0x9a39
-
-%include "vtrea/data/empty_battering_suffix.asm" ; 0x9a3a
-
-%include "vtrea/data/empty_magic_power_suffix.asm" ; 0x9a3b
-
-%include "vtrea/data/empty_hit_point_suffix.asm" ; 0x9a3c
-
-%include "vtrea/data/empty_vitality_suffix.asm" ; 0x9a3d
-
-%include "vtrea/data/trap_code_template.asm" ; 0x9a3e
-
-%include "vtrea/data/unknown_trap_clue_template.asm" ; 0x9a47
-
-%include "vtrea/data/trap_dialog_temp_file.asm" ; 0x9a50
-
-%include "vtrea/data/trap_skill_open_paren.asm" ; 0x9a56
-
-%include "vtrea/data/trap_skill_percent_close.asm" ; 0x9a58
-
-%include "vtrea/data/inspect_label_open_paren.asm" ; 0x9a5b
-
-%include "vtrea/data/inspect_label_close_paren.asm" ; 0x9a5d
-
-%include "vtrea/data/treasure_item_dialog_temp_file.asm" ; 0x9a5f
-
-%include "vtrea/data/empty_dialog_message.asm" ; 0x9a65
-
-%include "vtrea/data/pick_lock_temp_file.asm" ; 0x9a66
-
-%include "vtrea/data/pick_lock_skill_open_paren.asm" ; 0x9a6c
-
-%include "vtrea/data/pick_lock_skill_percent_close.asm" ; 0x9a6e
-
-%include "vtrea/data/force_door_temp_file.asm" ; 0x9a71
-
-%include "vtrea/data/grid_menu_dialog_temp_file.asm" ; 0x9a77
-
-%include "vtrea/data/grid_menu_temp_file.asm" ; 0x9a7d
-
-%include "shared/data/spell_cost_panel_text.asm" ; 0x9a83
-
-%include "shared/data/screen_save_temp_file.asm" ; 0x9a87
+%include "vtrea/data/trea_strings.asm"     ; 0x9a1b
 
 %include "shared/data/overlay_saved_registers.asm" ; 0x9a8d
 
