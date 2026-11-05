@@ -7,7 +7,6 @@
 extern int mouse_active;
 extern int equip_slot_colors[];
 extern int realm_text_colors[];
-extern int unidentified_item_color, identified_item_color;
 extern char open_parenthesis[], plus_sign[], close_parenthesis[];
 extern char positive_sign[], spell_separator[], space_separator[],
 	percent_sign[];
@@ -105,7 +104,7 @@ int spell_power;
 	show_special_attacks = 0;
 	show_regen = 0;
 	show_ps_subheader = 1;
-	description_color = identified_item_color;
+	description_color = equip_slot_colors[3];
 	switch (item.item_type) {
 	case 0:
 	case 1:
@@ -128,7 +127,7 @@ int spell_power;
 		break;
 	case 5:
 		show_ac = 1;
-		description_color = unidentified_item_color;
+		description_color = equip_slot_colors[2];
 		show_special_resistance = 1;
 		show_regen = 1;
 		text_color = description_color;
@@ -142,13 +141,13 @@ int spell_power;
 		show_item_type = 1;
 		show_special_resistance = 1;
 		show_regen = 1;
-		text_color = identified_item_color;
+		text_color = equip_slot_colors[3];
 		break;
 	case 11:
 		show_ac = 1;
 		show_special_resistance = 1;
 		show_regen = 1;
-		text_color = identified_item_color;
+		text_color = equip_slot_colors[3];
 		break;
 	case 12:
 	case 16:
@@ -156,13 +155,13 @@ int spell_power;
 		show_ps = 1;
 		show_spell = 1;
 		show_swing_list = 1;
-		text_color = unidentified_item_color;
+		text_color = equip_slot_colors[2];
 		break;
 	case 13:
 		show_ps_subheader = 0;
 		show_mf = 1;
 		show_spell = 1;
-		text_color = unidentified_item_color;
+		text_color = equip_slot_colors[2];
 		break;
 	case 14:
 		show_special_resistance = 1;

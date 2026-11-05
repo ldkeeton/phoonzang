@@ -179,7 +179,7 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 __zdata_start:
 %include "vdopt/data/report_placeholders.asm" ; 0x472f
 
-%include "shared/data/screen_save_temp_file.asm" ; 0x4735
+%include "vdopt/data/screen_save_temp_file.asm" ; 0x4735
 
 %include "vdopt/data/item_dialog_temp_file.asm" ; 0x473b
 

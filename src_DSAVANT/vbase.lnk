@@ -76,7 +76,7 @@ vbase/play_intro_scene_eight
 vbase/show_intro_screen
 vbase/data/vbase_file_names
 vbase/data/scene_message_control_codes
-shared/data/scene_message_separator
+vbase/data/scene_message_separator
 vbase/data/story_screen_filenames
 vbase/data/numbered_scene_picture_template
 vbase/data/scene_screen_files

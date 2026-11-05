@@ -47,7 +47,7 @@ vdopt/item_action_dialog
 vdopt/use_item_menu
 vdopt/cast_spell_from_menu
 vdopt/data/report_placeholders
-shared/data/screen_save_temp_file
+vdopt/data/screen_save_temp_file
 vdopt/data/item_dialog_temp_file
 vdopt/data/item_dialog_first_label
 shared/ovr/aztec_ovbgn

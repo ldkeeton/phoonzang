@@ -158,10 +158,8 @@ int member_index;
 			case 6: item_page = (item_page + 1) % 2; item_page_drawn = 0; break;
 			case 7: choose_member_skill_group(member_index); break;
 			case 8: case 9: case 10: case 11: case 12: case 13: case 14:
-			case 15: case 16: case 17: case 18: case 19:
-			case 20: case 21: case 22: case 23: case 24:
 				break;
-		case 25:
+			case 25:
 				if (member_is_active(member_index))
 					cast_spell_from_spell_picker(member_index, roster_mode);
 				break;
