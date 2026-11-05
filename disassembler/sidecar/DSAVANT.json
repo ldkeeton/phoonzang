@@ -3650,7 +3650,7 @@
         "3d1b": {"name": "draw_clock_marker_glyph", "note": "draws the active party slot marker glyph at its time-of-day position"},
         "3e7e": {"name": "draw_first_person_maze_view", "note": "Rebuilds the first-person maze view and draws queued wall layers"},
         "51ed": {"name": "redraw_maze_view", "note": "redraws the maze view and shows its screen area"},
-        "520d": {"name": "aztec_ovbgn"}
+        "520d": {"name": "aztec_ovbgn", "emits": [{"start": "9176", "end": "9180"}], "note": "dos20/ovbgn.asm: its dataseg holds save_si/di/sp/bp/ret, after every C module's data"}
       },
       "immediate_pointers": [
         {"offset": "5231", "space": "ds", "name": "_Uorg", "note": "$ovbgn's `mov di,offset _Uorg_`: the start of the BSS it clears"},

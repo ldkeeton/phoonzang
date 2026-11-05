@@ -49,6 +49,5 @@ shared/ovr/draw_moon_glyph
 shared/ovr/draw_clock_marker_glyph
 shared/ovr/draw_first_person_maze_view
 shared/ovr/redraw_maze_view
-shared/ovr/aztec_ovbgn
 shared/data/maze_variant_filenames
-shared/data/overlay_saved_registers
+shared/ovr/aztec_ovbgn

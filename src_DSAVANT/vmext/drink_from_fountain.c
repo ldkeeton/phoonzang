@@ -73,7 +73,8 @@ drink_from_fountain()
 					case 7: party_records[member].state = 0; party_records[member].hp[0] =
 						party_records[member].hp[1]; party_records[member].stamina[0] =
 						party_records[member].stamina[1]; break;
-					/* 8: drain stamina by amount; at 0 add 6..11 to status[2] (out of breath) */
+					/* 8: drain stamina by amount; at 0 add 6..11 to status[2] (out of
+					   breath) */
 					case 8:
 						party_records[member].stamina[0] = clamp_between(
 							party_records[member].stamina[0] - amount, 0,
@@ -90,7 +91,8 @@ drink_from_fountain()
 							store_word_and_pair(count, span, count)), 0,
 							party_records[member].realm_points[i][1]);
 						break;
-					/* 10: damage hp by amount; at 0 the member dies (state 3, sound gender + 8) */
+					/* 10: damage hp by amount; at 0 the member dies (state 3, sound gender +
+					   8) */
 					case 10:
 						party_records[member].hp[0] = clamp_between(
 							party_records[member].hp[0] - amount, 0, party_records[member].hp[1]);
@@ -101,7 +103,8 @@ drink_from_fountain()
 						play_sound_effect(party_records[member].gender + 8);
 					}
 						break;
-					/* 11: poison: raise strength to count and duration (status[5]) to amount */
+					/* 11: poison: raise strength to count and duration (status[5]) to
+					   amount */
 					case 11:
 						if (party_records[member].poison_strength < count)
 						party_records[member].poison_strength = count;
