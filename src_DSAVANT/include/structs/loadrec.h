@@ -6,10 +6,8 @@ struct status_pair {
 };
 struct load_header {
 	char region_state[45][16]; /* +0: sixteen bytes per region */
-	/* +0x2d0: game dir, layout 5 path, game dir, savegame name */
-	char paths[4][20];
-	/* +0x320, +0x321: EMS and RAM disk enabled */
-	unsigned char store_one, store_disk;
+	char paths[4][20]; /* +0x2d0: game dir, layout 5 path, game dir, savegame name */
+	unsigned char store_one, store_disk; /* +0x320, +0x321: EMS and RAM disk enabled */
 	char store_drive[20]; /* +0x322: RAM disk name */
 	/* +0x336, +0x337: brightness and contrast */
 	unsigned char palette_base, palette_scale;

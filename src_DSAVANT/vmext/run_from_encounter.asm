@@ -121,7 +121,7 @@ run_from_encounter:
     mov word [party_facing], dx      ; 0x0d33
     lea ax, word [bp - 0x8a]         ; 0x0d37
     push ax                          ; 0x0d3b
-    call api_idx_0002_JSVP           ; 0x0d3c
+    call move_party_if_passable      ; 0x0d3c
     pop cx                           ; 0x0d3f
     test ax, ax                      ; 0x0d40
     jne short .forward9              ; 0x0d42
@@ -130,7 +130,7 @@ run_from_encounter:
     call show_running_message        ; 0x0d4a
     mov word [bp - 6], ax            ; 0x0d4d
 .forward8:
-    call api_idx_000a_ISJL           ; 0x0d50
+    call show_previous_party_position ; 0x0d50
     mov word [bp - 0xa], 1           ; 0x0d53
     jmp short .forward12             ; 0x0d58
 .forward9:
@@ -143,7 +143,7 @@ run_from_encounter:
     mov word [party_facing], dx      ; 0x0d65
     lea ax, word [bp - 0x8a]         ; 0x0d69
     push ax                          ; 0x0d6d
-    call api_idx_0002_JSVP           ; 0x0d6e
+    call move_party_if_passable      ; 0x0d6e
     pop cx                           ; 0x0d71
     test ax, ax                      ; 0x0d72
     jne short .forward11             ; 0x0d74
@@ -152,7 +152,7 @@ run_from_encounter:
     call show_running_message        ; 0x0d7c
     mov word [bp - 6], ax            ; 0x0d7f
 .forward10:
-    call api_idx_000a_ISJL           ; 0x0d82
+    call show_previous_party_position ; 0x0d82
     mov word [bp - 0xa], 1           ; 0x0d85
     jmp short .forward12             ; 0x0d8a
 .forward11:
@@ -165,7 +165,7 @@ run_from_encounter:
 .forward13:
     lea ax, word [bp - 0x8a]         ; 0x0d9b
     push ax                          ; 0x0d9f
-    call api_idx_0002_JSVP           ; 0x0da0
+    call move_party_if_passable      ; 0x0da0
     pop cx                           ; 0x0da3
     cmp ax, strict word 1            ; 0x0da4
     je short .forward14              ; 0x0da7
@@ -189,11 +189,11 @@ run_from_encounter:
     mov word [party_facing], dx      ; 0x0dca
     lea ax, word [bp - 0x8a]         ; 0x0dce
     push ax                          ; 0x0dd2
-    call api_idx_0002_JSVP           ; 0x0dd3
+    call move_party_if_passable      ; 0x0dd3
     pop cx                           ; 0x0dd6
     test ax, ax                      ; 0x0dd7
     jne short .forward17             ; 0x0dd9
-    call api_idx_000a_ISJL           ; 0x0ddb
+    call show_previous_party_position ; 0x0ddb
     jmp short .forward19             ; 0x0dde
 .forward17:
     mov ax, word [party_facing]      ; 0x0de0
@@ -205,11 +205,11 @@ run_from_encounter:
     mov word [party_facing], dx      ; 0x0deb
     lea ax, word [bp - 0x8a]         ; 0x0def
     push ax                          ; 0x0df3
-    call api_idx_0002_JSVP           ; 0x0df4
+    call move_party_if_passable      ; 0x0df4
     pop cx                           ; 0x0df7
     test ax, ax                      ; 0x0df8
     jne short .forward18             ; 0x0dfa
-    call api_idx_000a_ISJL           ; 0x0dfc
+    call show_previous_party_position ; 0x0dfc
     jmp short .forward19             ; 0x0dff
 .forward18:
     mov ax, word [previous_party_facing] ; 0x0e01

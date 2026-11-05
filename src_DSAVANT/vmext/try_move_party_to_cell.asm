@@ -1,5 +1,5 @@
 ; auto-generated
-api_idx_000c_RMGQ:
+try_move_party_to_cell:
     mov ax, 0xfff4                   ; 0x09be
     call aztec_csav                  ; 0x09c1
     call check_at_saved_location     ; 0x09c4
@@ -47,7 +47,7 @@ api_idx_000c_RMGQ:
     mov ax, 1                        ; 0x0a2c
     push ax                          ; 0x0a2f
     push word [bp + 4]               ; 0x0a30
-    call loc_VJNU                    ; 0x0a33
+    call move_party_world_position   ; 0x0a33
     add sp, byte 4                   ; 0x0a36
     push word [party_world_y]        ; 0x0a39
     push word [party_world_x]        ; 0x0a3d
@@ -63,7 +63,7 @@ api_idx_000c_RMGQ:
     je short .forward3               ; 0x0a55
     push word [bp - 0xc]             ; 0x0a57
     push word [bp - 0xa]             ; 0x0a5a
-    call loc_NHMQ                    ; 0x0a5d
+    call set_party_world_position    ; 0x0a5d
     add sp, byte 4                   ; 0x0a60
     mov ax, 1                        ; 0x0a63
     ret                              ; 0x0a66
@@ -94,7 +94,7 @@ api_idx_000c_RMGQ:
 .forward4:
     push word [bp - 0xc]             ; 0x0aa3
     push word [bp - 0xa]             ; 0x0aa6
-    call loc_NHMQ                    ; 0x0aa9
+    call set_party_world_position    ; 0x0aa9
     add sp, byte 4                   ; 0x0aac
     mov ax, 1                        ; 0x0aaf
     ret                              ; 0x0ab2
@@ -125,7 +125,7 @@ api_idx_000c_RMGQ:
 .forward7:
     push word [bp - 0xc]             ; 0x0af1
     push word [bp - 0xa]             ; 0x0af4
-    call loc_NHMQ                    ; 0x0af7
+    call set_party_world_position    ; 0x0af7
     add sp, byte 4                   ; 0x0afa
     mov ax, 1                        ; 0x0afd
     ret                              ; 0x0b00
@@ -144,7 +144,7 @@ api_idx_000c_RMGQ:
     je short .forward9               ; 0x0b22
     push word [bp - 0xc]             ; 0x0b24
     push word [bp - 0xa]             ; 0x0b27
-    call loc_NHMQ                    ; 0x0b2a
+    call set_party_world_position    ; 0x0b2a
     add sp, byte 4                   ; 0x0b2d
     mov ax, 1                        ; 0x0b30
     ret                              ; 0x0b33

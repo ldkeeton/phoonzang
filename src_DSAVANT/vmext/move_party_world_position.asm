@@ -1,5 +1,5 @@
 ; auto-generated
-loc_VJNU:
+move_party_world_position:
     mov ax, 0                        ; 0x0636
     call aztec_csav                  ; 0x0639
     mov ax, 0                        ; 0x063c

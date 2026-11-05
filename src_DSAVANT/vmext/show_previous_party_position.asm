@@ -1,5 +1,5 @@
 ; auto-generated
-api_idx_000a_ISJL:
+show_previous_party_position:
     mov ax, 0xfff6                   ; 0x0b8c
     call aztec_csav                  ; 0x0b8f
     mov ax, word [party_world_x]     ; 0x0b92

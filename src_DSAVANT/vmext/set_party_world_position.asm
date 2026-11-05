@@ -1,5 +1,5 @@
 ; auto-generated
-loc_NHMQ:
+set_party_world_position:
     mov ax, 0                        ; 0x0836
     call aztec_csav                  ; 0x0839
     mov ax, word [bp + 4]            ; 0x083c

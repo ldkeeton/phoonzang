@@ -1,5 +1,5 @@
 ; auto-generated
-api_idx_0002_JSVP:
+move_party_if_passable:
     mov ax, 0xfffe                   ; 0x0b49
     call aztec_csav                  ; 0x0b4c
     push word [party_world_y]        ; 0x0b4f
@@ -18,7 +18,7 @@ api_idx_0002_JSVP:
 .forward1:
     push word [bp + 4]               ; 0x0b7a
     push word [party_facing]         ; 0x0b7d
-    call api_idx_000c_RMGQ           ; 0x0b81
+    call try_move_party_to_cell      ; 0x0b81
     add sp, byte 4                   ; 0x0b84
     ret                              ; 0x0b87
 .forward2:

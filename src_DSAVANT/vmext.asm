@@ -128,7 +128,7 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "vmext/wait_for_scene_input_or_timeout.asm" ; 0x05e6
 
-%include "vmext/loc_VJNU.asm"              ; 0x0636
+%include "vmext/move_party_world_position.asm" ; 0x0636
 
 %include "shared/ovr/save_previous_party_position.asm" ; 0x0692
 
@@ -136,19 +136,19 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "shared/ovr/show_centered_text_band.asm" ; 0x0764
 
-%include "shared/ovr/show_message.asm"     ; 0x081a
+%include "shared/ovr/show_message.asm"          ; 0x081a
 
-%include "vmext/loc_NHMQ.asm"              ; 0x0836
+%include "vmext/set_party_world_position.asm" ; 0x0836
 
 %include "shared/ovr/check_at_saved_location.asm" ; 0x0860
 
 %include "shared/ovr/get_cell_terrain.asm"      ; 0x0897
 
-%include "vmext/api_idx_000c_RMGQ.asm"     ; 0x09be
+%include "vmext/try_move_party_to_cell.asm" ; 0x09be
 
-%include "vmext/api_idx_0002_JSVP.asm"     ; 0x0b49
+%include "vmext/move_party_if_passable.asm" ; 0x0b49
 
-%include "vmext/api_idx_000a_ISJL.asm"     ; 0x0b8c
+%include "vmext/show_previous_party_position.asm" ; 0x0b8c
 
 %include "vmext/show_running_message.asm"  ; 0x0c0d
 
