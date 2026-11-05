@@ -134,6 +134,6 @@ vmnpc/data/area_set_1_right_save_file
 vmnpc/data/area_set_1_center_save_file
 vmnpc/data/area_set_2_save_file
 vmnpc/data/dseg_90bb
-shared/data/spell_cost_panel_text
+vmnpc/data/spell_cost_panel_text
 vmnpc/data/dseg_90e8
 shared/data/overlay_saved_registers

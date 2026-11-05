@@ -3,8 +3,7 @@
 #include "msg.h"
 
 extern struct pc_rec party_records[];
-extern int personal_skill_group_start;
-extern int personal_skill_group_end;
+extern int skill_group_ranges[4][2];
 extern int menu_selection_index;
 extern int prepare_profession_skill_list();
 extern int draw_skill_list_values();
@@ -28,8 +27,8 @@ int member_index;
 
 	selected_group = 0;
 	has_personal_skill = 0;
-	for (skill_index = personal_skill_group_start;
-	    skill_index <= personal_skill_group_end; ++skill_index) {
+	for (skill_index = skill_group_ranges[2][0];
+	    skill_index <= skill_group_ranges[2][1]; ++skill_index) {
 		if (party_records[member_index].skills[skill_index] > 0)
 			has_personal_skill = 1;
 	}

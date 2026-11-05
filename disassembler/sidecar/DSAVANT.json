@@ -2858,11 +2858,11 @@
         "9483": {"name": "choose_member_portrait", "note": "Cycle and accept a party member portrait"},
         "96c7": {"name": "rename_party_member", "note": "Prompt for and save a party member name change"},
         "9732": {"name": "handle_member_action_menu", "note": "Show the member action menu and dispatch its choice"},
-        "97e0": {"name": "aztec_ovbgn"},
+        "97e0": {"name": "aztec_ovbgn", "emits": [{"start": "93d6", "end": "93e0"}], "note": "dos20/ovbgn.asm: its dataseg holds save_si/di/sp/bp/ret, after every C module's data"},
         "981e": {"name": "aztec_cswt"}
       },
       "data_names": {
-        "9098": {"name": "percent_suffix_text", "note": "Percent sign and following space for the member status display"},
+        "9098": {"name": "percent_suffix_text", "length": 830, "file": "cvw_strings", "note": "Percent sign and following space for the member status display"},
         "909b": {"name": "title_panel_screen_file", "note": "V.$$$ save file for the screen area behind the titled choice grid"},
         "90a1": {"name": "choice_grid_screen_file", "note": "V.$$$ save file for the screen area occupied by the untitled choice grid"},
         "90a7": {"name": "spell_cost_panel_text", "note": "\"***\" empty spell cost text followed by the \"V.$$$\" screen-save filename"},
@@ -2985,7 +2985,7 @@
         "9600": {"name": "item_slot_attr", "note": "word per item slot: byte +0x3a of the item record"},
         "95ec": {"name": "item_slot_color", "note": "word per item slot: 0x69 by default, a colour per equip slot when equipped, 0x55 when flag bit 1 is set"},
         "93e0": {"name": "window_record", "note": "7-word window record api_idx_0012 fills from the box arguments and returns the address of"},
-        "92e8": {"name": "fighter_stat_requirements", "length": 126, "file": "profession_stat_requirements", "note": "Eight stat minima encoded as A plus the required value for the Fighter (profession 0)"},
+        "92e8": {"name": "fighter_stat_requirements", "note": "Eight stat minima encoded as A plus the required value for the Fighter (profession 0)"},
         "92f1": {"name": "mage_stat_requirements", "note": "Eight stat minima encoded as A plus the required value for the Mage (profession 1)"},
         "92fa": {"name": "priest_stat_requirements", "note": "Eight stat minima encoded as A plus the required value for the Priest (profession 2)"},
         "9303": {"name": "thief_stat_requirements", "note": "Eight stat minima encoded as A plus the required value for the Thief (profession 3)"},

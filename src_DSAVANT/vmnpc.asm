@@ -466,7 +466,7 @@ __zdata_start:
 
 %include "vmnpc/data/dseg_90bb.asm"        ; 0xaf00
 
-%include "shared/data/spell_cost_panel_text.asm" ; 0xaf29
+%include "vmnpc/data/spell_cost_panel_text.asm" ; 0xaf29
 
 %include "vmnpc/data/dseg_90e8.asm"        ; 0xaf2d
 

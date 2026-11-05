@@ -4,9 +4,6 @@
 
 extern struct pc_rec party_records[];
 extern int skill_group_ranges[4][2];
-extern int physical_skill_group_start;
-extern int personal_skill_group_start;
-extern int academic_skill_group_start;
 extern int skill_availability_flags[];
 extern int aztec_strlen();
 
@@ -29,7 +26,7 @@ char *academic_skills;
 			 party_records[member_index].skills[skill_index + skill_group_start] > 0)
 			? 1 : 0;
 
-	skill_group_start = physical_skill_group_start;
+	skill_group_start = skill_group_ranges[1][0];
 	for (skill_index = 0; aztec_strlen(physical_skills) > skill_index;
 		 skill_index++)
 		skill_availability_flags[skill_group_start + skill_index] =
@@ -37,7 +34,7 @@ char *academic_skills;
 			 party_records[member_index].skills[skill_index + skill_group_start] > 0)
 			? 1 : 0;
 
-	skill_group_start = personal_skill_group_start;
+	skill_group_start = skill_group_ranges[2][0];
 	for (skill_index = 0; aztec_strlen(personal_skills) > skill_index;
 		 skill_index++)
 		skill_availability_flags[skill_group_start + skill_index] =
@@ -45,7 +42,7 @@ char *academic_skills;
 			 party_records[member_index].skills[skill_index + skill_group_start] > 0)
 			? 1 : 0;
 
-	skill_group_start = academic_skill_group_start;
+	skill_group_start = skill_group_ranges[3][0];
 	for (skill_index = 0; aztec_strlen(academic_skills) > skill_index;
 		 skill_index++)
 		skill_availability_flags[skill_group_start + skill_index] =

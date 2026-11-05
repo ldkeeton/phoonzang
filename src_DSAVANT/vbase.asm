@@ -347,7 +347,7 @@ __zdata_start:
 
 %include "vbase/data/scene_message_control_codes.asm" ; 0x9469
 
-%include "shared/data/scene_message_separator.asm" ; 0x9471
+%include "vbase/data/scene_message_separator.asm" ; 0x9471
 
 %include "vbase/data/story_screen_filenames.asm" ; 0x9473
 
