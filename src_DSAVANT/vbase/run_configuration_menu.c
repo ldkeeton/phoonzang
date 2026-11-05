@@ -36,7 +36,7 @@ int initial_mode;
 {
 	int number_remainder, key_code, palette_fd;
 	int dialog_top, dialog_left, dialog_right, dialog_bottom;
-	int reserved_menu_word_a, reserved_menu_word_b;
+	int unused_a, unused_b;
 	int selected_hotspot, selected_control, menu_active;
 	char message_buffer[80];
 	int saved_screen;
@@ -427,7 +427,7 @@ int initial_mode;
 				flash_button(dialog_top + 178, dialog_left + 127, 6, 1, 0);
 				dialog_button =
 					sound_device_setting != original_header.sound_device ||
-					video_mode != original_header.video ? 1 : 0;
+					video_mode != original_header.music_device ? 1 : 0;
 				menu_active = 0;
 				write_header_and_apply_devices();
 				break;

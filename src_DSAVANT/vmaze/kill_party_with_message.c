@@ -11,14 +11,8 @@ int message_id;
 
 	redraw_maze_view();
 	show_message(message_id);
-	member_index = 0;
-	goto check_member;
-mark_member_dead:
-	mark_party_member_dead(member_index, 2);
-	member_index++;
-check_member:
-	if (member_index < party_char_count)
-		goto mark_member_dead;
+	for (member_index = 0; member_index < party_char_count; member_index++)
+		mark_party_member_dead(member_index, 2);
 	wait_ticks_or_key(message_delay * 2);
 	call_show_area(0, 146, 319, 152);
 	game_state = 8;

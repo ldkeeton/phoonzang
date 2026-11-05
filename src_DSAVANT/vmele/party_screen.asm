@@ -160,7 +160,7 @@ party_screen:
     shl ax, 1                        ; 0x1b93
     mov bx, ax                       ; 0x1b95
     mov bx, word [bx + battle_group_ext] ; 0x1b97
-    cmp byte [bx + member_ext.f_00b1], 0 ; 0x1b9b
+    cmp byte [bx + member_ext.advance_score_bonus], 0 ; 0x1b9b
     jbe short .forward9              ; 0x1ba0
     mov bx, ax                       ; 0x1ba2
     add bx, bp                       ; 0x1ba4
@@ -170,7 +170,7 @@ party_screen:
     shl ax, 1                        ; 0x1bad
     mov bx, ax                       ; 0x1baf
     mov bx, word [bx + battle_group_ext] ; 0x1bb1
-    mov al, byte [bx + member_ext.f_00b1] ; 0x1bb5
+    mov al, byte [bx + member_ext.advance_score_bonus] ; 0x1bb5
     sub ah, ah                       ; 0x1bb9
     mov cx, ax                       ; 0x1bbb
     pop ax                           ; 0x1bbd

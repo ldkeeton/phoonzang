@@ -26,13 +26,8 @@ prepare_combat_groups()
 	/* Select the special group target, skipping groups on zero rolls. */
 	if (ally_battle_group->unit_count > 0) {
 		group_index = 1;
-	pick_group_test:
-		if (group_index < monster_group_count) {
-			if (random_below(3) == 0) {
-				group_index++;
-				goto pick_group_test;
-			}
-		}
+		while (group_index < monster_group_count && random_below(3) == 0)
+			group_index++;
 		prepare_combatant_actions(6, group_index);
 	}
 }

@@ -43,20 +43,20 @@ apply_region_hour_window()
 			0 : outside_window;
 
 	/* Bit 12 clear: the region flag becomes "outside the window". */
-	if (clear_level_flag == 0) {
+	if (clear_level_flag == 0)
 		update_region_flags(outside_window, mark_bits);
-		goto done;
+	else {
+		/* Otherwise clear the level state bit key (inside) or party_mask
+		   (outside). */
+		flag_to_clear = outside_window == 0 ?
+			maze_tables->key[party_region.region] :
+			maze_tables->party_mask[party_region.region];
+		if (flag_to_clear > 0) {
+			set_bitmap_bit(party_region.state[current_level],
+				flag_to_clear, 0);
+			set_bitmap_bit(scenario_header_data[current_level],
+				flag_to_clear, 0);
+		}
+		mark_region_bits(mark_bits);
 	}
-
-	/* Otherwise clear the level state bit key (inside) or party_mask
-	   (outside). */
-	flag_to_clear = outside_window == 0 ? maze_tables->key[party_region.region] :
-		maze_tables->party_mask[party_region.region];
-	if (flag_to_clear > 0) {
-		set_bitmap_bit(party_region.state[current_level], flag_to_clear, 0);
-		set_bitmap_bit(scenario_header_data[current_level], flag_to_clear, 0);
-	}
-	mark_region_bits(mark_bits);
-done:
-	;
 }

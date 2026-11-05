@@ -4,15 +4,15 @@ api_idx_0006_MRPM:
     call aztec_csav                  ; 0x9090
     cmp word [bp + 0xc], byte 0      ; 0x9093
     je short .forward1               ; 0x9097
-    cmp word [bss_8464], byte 0      ; 0x9099
+    cmp word [acting_group], byte 0  ; 0x9099
     je short .forward1               ; 0x909e
-    mov ax, word [bss_8464]          ; 0x90a0
+    mov ax, word [acting_group]      ; 0x90a0
     cmp ax, strict word 6            ; 0x90a3
     je short .forward1               ; 0x90a6
     mov ax, 0x2c                     ; 0x90a8
-    imul word [bss_8462]             ; 0x90ab
+    imul word [acting_unit]          ; 0x90ab
     mov si, ax                       ; 0x90af
-    mov ax, word [bss_8464]          ; 0x90b1
+    mov ax, word [acting_group]      ; 0x90b1
     shl ax, 1                        ; 0x90b4
     mov bx, ax                       ; 0x90b6
     mov bx, word [bx + battle_groups] ; 0x90b8
@@ -33,7 +33,7 @@ api_idx_0006_MRPM:
     push ax                          ; 0x90dc
     push dx                          ; 0x90dd
     push word [bp - 4]               ; 0x90de
-    push word [bss_8464]             ; 0x90e1
+    push word [acting_group]         ; 0x90e1
     call fill_action_slot_table      ; 0x90e5
     add sp, byte 8                   ; 0x90e8
     mov ax, 5                        ; 0x90eb
@@ -41,8 +41,8 @@ api_idx_0006_MRPM:
     call api_idx_0004_QUPL           ; 0x90ef
     pop cx                           ; 0x90f2
 .forward1:
-    push word [bss_8462]             ; 0x90f3
-    push word [bss_8464]             ; 0x90f7
+    push word [acting_unit]          ; 0x90f3
+    push word [acting_group]         ; 0x90f7
     mov ax, bss_90e6                 ; 0x90fb
     push ax                          ; 0x90fe
     call loc_HJSG                    ; 0x90ff
@@ -64,7 +64,7 @@ api_idx_0006_MRPM:
     push word [bp + 8]               ; 0x912a
     push word [bp + 8]               ; 0x912d
     mov ax, 0x43                     ; 0x9130
-    cmp word [bss_8464], byte 0      ; 0x9133
+    cmp word [acting_group], byte 0  ; 0x9133
     jne short .forward3              ; 0x9138
     mov ax, 1                        ; 0x913a
 .forward3:
@@ -99,12 +99,12 @@ api_idx_0006_MRPM:
     mov ax, 1                        ; 0x917c
     ret                              ; 0x917f
 .forward4:
-    cmp word [bss_8464], byte 0      ; 0x9180
+    cmp word [acting_group], byte 0  ; 0x9180
     je short .forward5               ; 0x9185
     mov bx, word [battle_group_ext_1] ; 0x9187
     cmp byte [bx + battle_group_ext_1_rec.f_00d8], 0 ; 0x918b
     jbe short .forward5              ; 0x9190
-    mov ax, word [bss_8464]          ; 0x9192
+    mov ax, word [acting_group]      ; 0x9192
     shl ax, 1                        ; 0x9195
     mov bx, ax                       ; 0x9197
     mov bx, word [bx + battle_group_ext] ; 0x9199

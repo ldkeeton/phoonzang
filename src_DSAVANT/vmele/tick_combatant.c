@@ -38,28 +38,26 @@ int group, unit, regen, drain;
 	fighter->hp += hp_delta;
 	if (fighter->hp > fighter->hp_max)
 		fighter->hp = fighter->hp_max;
-	if (fighter->hp > 0)
-		goto scan;
-	/* dead */
-	fighter->hp = 0;
-	fighter->stamina = 0;
-	fighter->state = 3;
-	died = 1;
-	if (group == 0)
-		goto scan;
-	if (group >= 1 && group <= 5)	/* a monster: the party earns it */
-		battle_experience += battle_group_ext[group]->experience;
-	if (fighter->cell != -1) {	/* free the battle cell it stood in */
-		row = fighter->cell / 10;
-		col = fighter->cell % 10;
-		cell_slot_ref[row][col] = 0;
-		fighter->cell = -1;
+	if (fighter->hp <= 0) {	/* dead */
+		fighter->hp = 0;
+		fighter->stamina = 0;
+		fighter->state = 3;
+		died = 1;
+		if (group != 0) {
+			if (group >= 1 && group <= 5)	/* a monster: the party earns it */
+				battle_experience += battle_group_ext[group]->experience;
+			if (fighter->cell != -1) {	/* free the battle cell it stood in */
+				row = fighter->cell / 10;
+				col = fighter->cell % 10;
+				cell_slot_ref[row][col] = 0;
+				fighter->cell = -1;
+			}
+			if (battle_group_ext[group]->flags & 1)
+				/* ext flag bit 0: record the kill in the action bitmap */
+				set_bitmap_bit(action_bitmap,
+					battle_group_ext[group]->bitmap_bit, 1);
+		}
 	}
-	if (battle_group_ext[group]->flags & 1)
-		/* ext flag bit 0: record the kill in the action bitmap */
-		set_bitmap_bit(action_bitmap,
-			battle_group_ext[group]->bitmap_bit, 1);
-scan:
 	/* count the ten status effects down; 255 never expires */
 	for (i = 0; i < 10; i++)
 		if (fighter->status[i] > 0 && fighter->status[i] != 255)

@@ -6,21 +6,24 @@ struct status_pair {
 };
 struct load_header {
 	char region_state[45][16]; /* +0: sixteen bytes per region */
-	char paths[4][20]; /* +0x2d0 */
-	unsigned char store_one, store_disk; /* +0x320, +0x321 */
-	char store_drive[20]; /* +0x322 */
-	unsigned char palette_base, palette_scale; /* +0x336, +0x337 */
-	char pad2[2]; /* +0x338 */
-	unsigned char options[4]; /* +0x33a */
+	/* +0x2d0: game dir, layout 5 path, game dir, savegame name */
+	char paths[4][20];
+	/* +0x320, +0x321: EMS and RAM disk enabled */
+	unsigned char store_one, store_disk;
+	char store_drive[20]; /* +0x322: RAM disk name */
+	/* +0x336, +0x337: brightness and contrast */
+	unsigned char palette_base, palette_scale;
+	int install_version; /* +0x338 */
+	unsigned char options[4]; /* +0x33a: sound volumes */
 	int sound_port, sound_extra; /* +0x33e, +0x340 */
-	unsigned char sound_device; /* +0x342 */
-	unsigned char video; /* +0x343 */
+	unsigned char sound_device; /* +0x342: digital sound device */
+	unsigned char music_device; /* +0x343 */
 	unsigned char startup; /* +0x344 */
-	unsigned char install; /* +0x345 */
+	unsigned char install; /* +0x345: disk layout */
 	unsigned char option_a; /* +0x346 */
-	unsigned char option_b; /* +0x347 */
-	unsigned char hardware; /* +0x348 */
-	unsigned char option_c; /* +0x349 */
+	unsigned char option_b; /* +0x347: mouse enabled */
+	unsigned char hardware; /* +0x348: graphics mode */
+	unsigned char option_c; /* +0x349: disk layout 5 flag */
 	unsigned char dissolve; /* +0x34a */
 	char pad3; /* +0x34b */
 };

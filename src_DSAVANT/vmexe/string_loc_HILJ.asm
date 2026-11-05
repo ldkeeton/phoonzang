@@ -10,9 +10,9 @@ string_loc_HILJ:
     call api_idx_0004_QUPL           ; 0x3630
     pop cx                           ; 0x3633
     mov word [bss_90e4], 0           ; 0x3634
-    cmp word [bss_8464], byte 0      ; 0x363a
+    cmp word [acting_group], byte 0  ; 0x363a
     je short .forward1               ; 0x363f
-    mov ax, word [bss_8464]          ; 0x3641
+    mov ax, word [acting_group]      ; 0x3641
     cmp ax, strict word 6            ; 0x3644
     jne short .forward3              ; 0x3647
 .forward1:
@@ -141,9 +141,9 @@ string_loc_HILJ.forward9:
     push ax                          ; 0x3760
     call data_record_io              ; 0x3761
     add sp, byte 8                   ; 0x3764
-    cmp word [bss_8464], byte 0      ; 0x3767
+    cmp word [acting_group], byte 0  ; 0x3767
     je short string_loc_HILJ.forward10 ; 0x376c
-    mov ax, word [bss_8464]          ; 0x376e
+    mov ax, word [acting_group]      ; 0x376e
     cmp ax, strict word 6            ; 0x3771
     je short string_loc_HILJ.forward10 ; 0x3774
     mov ax, word [bp - 4]            ; 0x3776

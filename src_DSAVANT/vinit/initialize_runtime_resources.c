@@ -47,9 +47,9 @@ extern char startup_palette_definition_name[];
 /* Load startup resources and allocate the buffers required before play. */
 initialize_runtime_resources()
 {
-	int hardware_mode, palette_fd, index, reserved_word;
+	int hardware_mode, palette_fd, index, unused_count;
 	int sound_device, sound_port;
-	char reserved_space[14]; /* preserve the compiler frame before RGB data */
+	char unused_name[14];
 	char palette[768];
 
 	npc_id_decoy = 0;

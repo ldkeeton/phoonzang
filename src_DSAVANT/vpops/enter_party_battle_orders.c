@@ -22,12 +22,10 @@ enter_party_battle_orders()
 	order_result = choose_party_battle_orders();
 	redraw_area_set(3);
 	show_area_set(3);
-	if (order_result == 0)
-		goto prepare_combat;
-	game_state = 14;
-	goto routine_done;
-prepare_combat:
-	prepare_combat_groups();
-	game_state = 13;
-routine_done:;
+	if (order_result != 0)
+		game_state = 14;
+	else {
+		prepare_combat_groups();
+		game_state = 13;
+	}
 }

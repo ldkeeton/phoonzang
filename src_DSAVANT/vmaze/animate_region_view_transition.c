@@ -37,9 +37,7 @@ int sound_flag;
 		horizontal_offset = 0 - region_view_x_offsets.cell_x[1][depth];
 	}
 	side = (party_world_x + party_world_y + party_facing + depth) % 2;
-	animation_frame = 1;
-	frame_loop:
-	{
+	for (animation_frame = 1; animation_frame <= 10; animation_frame++) {
 		/* Flip the status portrait before redrawing the maze. */
 		party_status_frame = (party_status_frame + 1) % 2;
 		draw_first_person_maze_view();
@@ -59,11 +57,5 @@ int sound_flag;
 		call_show_area(72, 32, 247, 143);
 		if (sound_flag != 0)
 			play_sound_effect(16);
-		animation_frame++;
-		if (animation_frame > 10)
-			goto frame_done;
-		goto frame_loop;
 	}
-	frame_done:
-	return;
 }

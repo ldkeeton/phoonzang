@@ -51,7 +51,7 @@ plan_slot_path:
     add sp, byte 4                   ; 0x9289
     test ax, ax                      ; 0x928c
     je short .forward2               ; 0x928e
-    mov word [bss_9bdc], 1           ; 0x9290
+    mov word [open_gates_5], 1       ; 0x9290
 .forward2:
     mov byte [path_edges + path_edge_size*15 + path_edge.gate_key], 6 ; 0x9296
     mov ax, 0xd                      ; 0x929b
@@ -64,7 +64,7 @@ plan_slot_path:
     add sp, byte 4                   ; 0x92ac
     test ax, ax                      ; 0x92af
     je short .forward3               ; 0x92b1
-    mov word [bss_9bde], 1           ; 0x92b3
+    mov word [open_gates_6], 1       ; 0x92b3
 .forward3:
     mov word [bp - 6], 1             ; 0x92b9
     mov word [bp - 2], 0             ; 0x92be

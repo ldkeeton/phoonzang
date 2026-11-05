@@ -30,23 +30,11 @@ int group_index, target_group;
 	/* Compare the allies' total HP (party plus group 6) with the monsters'. */
 	ally_hp = 0;
 	monster_hp = 0;
-	scan_index = 0;
-	goto party_test;
-party_body:
-	if (member_is_active(scan_index) != 0)
-		ally_hp += battle_groups[0]->unit[scan_index].hp;
-	scan_index++;
-party_test:
-	if (battle_groups[0]->unit_count > scan_index)
-		goto party_body;
-	scan_index = 0;
-	goto special_group_test;
-special_group_body:
-	ally_hp += ally_battle_group->unit[scan_index].hp;
-	scan_index++;
-special_group_test:
-	if (ally_battle_group->unit_count > scan_index)
-		goto special_group_body;
+	for (scan_index = 0; scan_index < battle_groups[0]->unit_count; scan_index++)
+		if (member_is_active(scan_index) != 0)
+			ally_hp += battle_groups[0]->unit[scan_index].hp;
+	for (scan_index = 0; scan_index < ally_battle_group->unit_count; scan_index++)
+		ally_hp += ally_battle_group->unit[scan_index].hp;
 	for (scan_index = 1; scan_index <= monster_group_count; scan_index++) {
 		for (roll = 0; roll < battle_groups[scan_index]->unit_count; roll++)
 			monster_hp += battle_groups[scan_index]->unit[roll].hp;
@@ -64,9 +52,8 @@ special_group_test:
 	}
 
 	/* Process each combatant in the selected group. */
-	unit_index = 0;
-	goto action_test;
-action_body:
+	for (unit_index = 0; unit_index < battle_groups[group_index]->unit_count;
+	    unit_index++) {
 		unit = &battle_groups[group_index]->unit[unit_index];
 		attack_speed = random_below(10) +
 			battle_groups[group_index]->unit[unit_index].speed_mod +
@@ -89,26 +76,15 @@ action_body:
 			retry++;
 		} while (unit->secondary_attack == unit->primary_attack && retry < 3);
 		/* Give each attack this round a falling speed. */
-		action_index = 0;
-action_speed_body:
-		if (battle_group_ext[group_index]->attack_count <= action_index)
-			goto action_speed_clear;
-		if (unit->state >= 2)
-			goto action_speed_clear;
-		if (unit->status[3] > 0)
-			goto action_speed_clear;
-		if (unit->status[2] <= 0)
-			goto action_speed_assign;
-action_speed_clear:
-		unit->action_speed[action_index] = 0;
-		goto action_speed_next;
-action_speed_assign:
-		unit->action_speed[action_index] = attack_speed;
-		attack_speed -= speed_step;
-action_speed_next:
-		action_index++;
-		if (action_index < 4)
-			goto action_speed_body;
+		for (action_index = 0; action_index < 4; action_index++) {
+			if (action_index >= battle_group_ext[group_index]->attack_count ||
+			    unit->state >= 2 || unit->status[3] > 0 || unit->status[2] > 0)
+				unit->action_speed[action_index] = 0;
+			else {
+				unit->action_speed[action_index] = attack_speed;
+				attack_speed -= speed_step;
+			}
+		}
 		chosen_kind = -1;
 		unit->target_group = target_group;
 		/* Pick a living target in the requested group. */
@@ -127,19 +103,18 @@ action_speed_next:
 			valid_targets = 0;
 			spell_id = -1;
 			/* Increase the spell-list threshold until this roll selects an id. */
-special_spell_body:
-			if (target_limit < retry)
-				spell_id =
-					battle_group_ext[group_index]->special_spell_ids[valid_targets];
-			valid_targets++;
-			if (retry < 15)
-				retry += 5;
-			else if (retry < 55)
-				retry += 10;
-			else
-				retry += 15;
-			if (spell_id == -1)
-				goto special_spell_body;
+			do {
+				if (target_limit < retry)
+					spell_id =
+						battle_group_ext[group_index]->special_spell_ids[valid_targets];
+				valid_targets++;
+				if (retry < 15)
+					retry += 5;
+				else if (retry < 55)
+					retry += 10;
+				else
+					retry += 15;
+			} while (spell_id == -1);
 			if (spell_table[spell_id].targeted == 1 || spell_id == 88 ||
 			    spell_id == 19 || spell_id == 66) {
 				if (group_index == 6) {
@@ -167,45 +142,27 @@ special_spell_body:
 				battle_group_ext[group_index]->special_action_code;
 		}
 		if (chosen_kind == -1) {
+			/* Only a unit able to act gets a reach: 9 for allies, else 3 or 6. */
 			target_limit = 0;
-			if (unit->state < 2)
-				goto check_action_status_3;
-			goto action_target_limit;
-check_action_status_3:
-			if (unit->status[3] == 0)
-				goto check_action_status_2;
-			goto action_target_limit;
-check_action_status_2:
-			if (unit->status[2] != 0)
-				goto action_target_limit;
-			attack_slot = unit->primary_attack;
-			if (group_index == 6) {
-				target_limit = 9;
-				goto action_target_limit;
+			if (unit->state < 2 && unit->status[3] == 0 && unit->status[2] == 0) {
+				attack_slot = unit->primary_attack;
+				if (group_index == 6)
+					target_limit = 9;
+				else if (group_index < 3 ||
+				    battle_group_ext[group_index]->attack[attack_slot].target_count > 1) {
+					target_limit = 3;
+					if (battle_group_ext[group_index]->attack[attack_slot].target_count >
+					    (group_index < 3 ? 0 : 2))
+						target_limit = 6;
+				}
 			}
-			if (group_index < 3)
-				goto attack_target_base;
-			if (battle_group_ext[group_index]->attack[attack_slot].target_count <= 1)
-				goto action_target_limit;
-attack_target_base:
-			target_limit = 3;
-			if (battle_group_ext[group_index]->attack[attack_slot].target_count >
-			    (group_index < 3 ? 0 : 2))
-				target_limit = 6;
-action_target_limit:
 			if (target_limit > battle_groups[target_group]->unit_count)
 				target_limit = battle_groups[target_group]->unit_count;
 			/* Count living targets within the action's target limit. */
 			valid_targets = 0;
-			retry = 0;
-			goto target_scan_test;
-	target_scan_body:
-			if (battle_groups[target_group]->unit[retry].state < 3)
-				valid_targets++;
-			retry++;
-	target_scan_test:
-			if (retry < target_limit)
-				goto target_scan_body;
+			for (retry = 0; retry < target_limit; retry++)
+				if (battle_groups[target_group]->unit[retry].state < 3)
+					valid_targets++;
 			if (valid_targets > 0) {
 				unit->action_kind = 0;
 				unit->target_group = target_group;
@@ -232,36 +189,26 @@ action_target_limit:
 		}
 
 		unit->secondary_action = -1;
-		if (unit->action_kind == 0)
-			goto select_secondary_action;
-		goto clear_action_speeds;
-select_secondary_action:
-		attack_slot = unit->secondary_attack;
-		if (group_index < 3 ||
-		    battle_group_ext[group_index]->attack[attack_slot].target_count > 1) {
-			if (battle_group_ext[group_index]->attack_mode[attack_slot] == 2)
-				unit->secondary_action = 4;
-			else if (battle_group_ext[group_index]->attack_mode[attack_slot] == 3)
-				unit->secondary_action = 8;
-			else
-				unit->secondary_action = pick_random_set_bit(
-					&battle_group_ext[group_index]->attack[attack_slot].action_mask);
+		if (unit->action_kind == 0) {
+			/* A plain attack also gets a secondary attack. */
+			attack_slot = unit->secondary_attack;
+			if (group_index < 3 ||
+			    battle_group_ext[group_index]->attack[attack_slot].target_count > 1) {
+				if (battle_group_ext[group_index]->attack_mode[attack_slot] == 2)
+					unit->secondary_action = 4;
+				else if (battle_group_ext[group_index]->attack_mode[attack_slot] == 3)
+					unit->secondary_action = 8;
+				else
+					unit->secondary_action = pick_random_set_bit(
+						&battle_group_ext[group_index]->attack[attack_slot].action_mask);
+			} else {
+				unit->action_speed[1] = 0;
+				unit->action_speed[3] = 0;
+			}
 		} else {
-			unit->action_speed[1] = 0;
-			unit->action_speed[3] = 0;
+			/* Anything else is a single action this round. */
+			for (scan_index = 1; scan_index < 4; scan_index++)
+				unit->action_speed[scan_index] = 0;
 		}
-		goto action_speeds_done;
-clear_action_speeds:
-		scan_index = 1;
-clear_action_loop:
-		unit->action_speed[scan_index] = 0;
-		scan_index++;
-		if (scan_index < 4)
-			goto clear_action_loop;
-action_speeds_done:
-		unit_index++;
-action_test:
-	if (battle_groups[group_index]->unit_count > unit_index)
-		goto action_body;
-	return;
+	}
 }

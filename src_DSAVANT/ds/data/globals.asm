@@ -181,7 +181,7 @@ __zbss_5b46:  ; code_index_4
     resb 0x0002
 __zbss_5b48:  ; picture_slot_number
     resb 0x000d
-__zbss_5b55:  ; bss_5b55
+__zbss_5b55:  ; picture_slot_number_13
     resb 0x0005
 __zbss_5b5a:  ; picture_slot_used
     resb 0x0012
@@ -285,9 +285,9 @@ __zbss_845e:  ; party_screen_animation_state
     resb 0x0002
 __zbss_8460:  ; dest_alt_arg
     resb 0x0002
-__zbss_8462:  ; bss_8462
+__zbss_8462:  ; acting_unit
     resb 0x0002
-__zbss_8464:  ; bss_8464
+__zbss_8464:  ; acting_group
     resb 0x0002
 __zbss_8466:  ; monster_group_count
     resb 0x0002
@@ -363,7 +363,7 @@ __zbss_8a56:  ; intro_layout_copy_10
     resb 0x0018
 __zbss_8a6e:  ; path_edges
     resb 0x0080
-__zbss_8aee:  ; bss_8aee
+__zbss_8aee:  ; picked_item_slot
     resb 0x0002
 __zbss_8af0:  ; member_roster_index
     resb 0x000e

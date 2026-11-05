@@ -153,7 +153,7 @@ jumptable_5eb8_case_3:
 jumptable_5eb8_case_4:
     mov ax, 0                        ; 0x3c65
     push ax                          ; 0x3c68
-    mov ax, word [bss_8464]          ; 0x3c69
+    mov ax, word [acting_group]      ; 0x3c69
     shl ax, 1                        ; 0x3c6c
     mov bx, ax                       ; 0x3c6e
     mov bx, word [bx + battle_groups] ; 0x3c70
@@ -165,7 +165,7 @@ jumptable_5eb8_case_4:
     push ax                          ; 0x3c81
     call adjust_spell_value          ; 0x3c82
     add sp, byte 6                   ; 0x3c85
-    mov cx, word [bss_8464]          ; 0x3c88
+    mov cx, word [acting_group]      ; 0x3c88
     shl cx, 1                        ; 0x3c8c
     mov bx, cx                       ; 0x3c8e
     mov bx, word [bx + battle_groups] ; 0x3c90
@@ -335,7 +335,7 @@ jumptable_5eb8_case_10:
     push ax                          ; 0x3e0a
     mov ax, 0                        ; 0x3e0b
     push ax                          ; 0x3e0e
-    cmp word [bss_8464], byte 0      ; 0x3e0f
+    cmp word [acting_group], byte 0  ; 0x3e0f
     jne short api_idx_000e_KPGJ.forward2 ; 0x3e14
     mov ax, 1                        ; 0x3e16
 api_idx_000e_KPGJ.forward2:
@@ -350,9 +350,9 @@ api_idx_000e_KPGJ.forward2:
     push ax                          ; 0x3e2d
     mov ax, 5                        ; 0x3e2e
     push ax                          ; 0x3e31
-    cmp word [bss_8464], byte 0      ; 0x3e32
+    cmp word [acting_group], byte 0  ; 0x3e32
     je short api_idx_000e_KPGJ.forward3 ; 0x3e37
-    mov ax, word [bss_8464]          ; 0x3e39
+    mov ax, word [acting_group]      ; 0x3e39
     cmp ax, strict word 6            ; 0x3e3c
     jne short api_idx_000e_KPGJ.forward4 ; 0x3e3f
 api_idx_000e_KPGJ.forward3:
@@ -480,7 +480,7 @@ api_idx_000e_KPGJ.back1:
     mov ax, 0x2c                     ; 0x3f4c
     imul word [bp - 2]               ; 0x3f4f
     mov si, ax                       ; 0x3f52
-    mov ax, word [bss_8464]          ; 0x3f54
+    mov ax, word [acting_group]      ; 0x3f54
     shl ax, 1                        ; 0x3f57
     mov bx, ax                       ; 0x3f59
     mov bx, word [bx + battle_groups] ; 0x3f5b
@@ -500,7 +500,7 @@ api_idx_000e_KPGJ.back1:
     mov ax, 0x2c                     ; 0x3f7b
     imul word [bp - 2]               ; 0x3f7e
     mov si, ax                       ; 0x3f81
-    mov ax, word [bss_8464]          ; 0x3f83
+    mov ax, word [acting_group]      ; 0x3f83
     shl ax, 1                        ; 0x3f86
     mov bx, ax                       ; 0x3f88
     mov bx, word [bx + battle_groups] ; 0x3f8a
@@ -509,7 +509,7 @@ api_idx_000e_KPGJ.back1:
 api_idx_000e_KPGJ.forward6:
     inc word [bp - 2]                ; 0x3f92
 api_idx_000e_KPGJ.forward7:
-    mov ax, word [bss_8464]          ; 0x3f95
+    mov ax, word [acting_group]      ; 0x3f95
     shl ax, 1                        ; 0x3f98
     mov bx, ax                       ; 0x3f9a
     mov bx, word [bx + battle_groups] ; 0x3f9c
@@ -521,7 +521,7 @@ api_idx_000e_KPGJ.forward7:
 jumptable_5eb8_case_18:
     mov ax, 0                        ; 0x3fae
     push ax                          ; 0x3fb1
-    mov ax, word [bss_8464]          ; 0x3fb2
+    mov ax, word [acting_group]      ; 0x3fb2
     shl ax, 1                        ; 0x3fb5
     mov bx, ax                       ; 0x3fb7
     mov bx, word [bx + battle_groups] ; 0x3fb9
@@ -533,7 +533,7 @@ jumptable_5eb8_case_18:
     push ax                          ; 0x3fca
     call adjust_spell_value          ; 0x3fcb
     add sp, byte 6                   ; 0x3fce
-    mov cx, word [bss_8464]          ; 0x3fd1
+    mov cx, word [acting_group]      ; 0x3fd1
     shl cx, 1                        ; 0x3fd5
     mov bx, cx                       ; 0x3fd7
     mov bx, word [bx + battle_groups] ; 0x3fd9
@@ -612,7 +612,7 @@ jumptable_5eb8_case_22:
     mov ax, 0x2c                     ; 0x4080
     imul word [bp - 0xc]             ; 0x4083
     mov si, ax                       ; 0x4086
-    mov ax, word [bss_8464]          ; 0x4088
+    mov ax, word [acting_group]      ; 0x4088
     shl ax, 1                        ; 0x408b
     mov bx, ax                       ; 0x408d
     mov bx, word [bx + battle_groups] ; 0x408f
@@ -626,7 +626,7 @@ jumptable_5eb8_case_22:
     mov ax, 0x2c                     ; 0x40a2
     imul word [bp - 0xc]             ; 0x40a5
     mov si, ax                       ; 0x40a8
-    mov ax, word [bss_8464]          ; 0x40aa
+    mov ax, word [acting_group]      ; 0x40aa
     shl ax, 1                        ; 0x40ad
     mov bx, ax                       ; 0x40af
     mov bx, word [bx + battle_groups] ; 0x40b1
@@ -637,7 +637,7 @@ jumptable_5eb8_case_22:
     mov ax, 0x2c                     ; 0x40bd
     imul word [bp - 0xc]             ; 0x40c0
     mov si, ax                       ; 0x40c3
-    mov ax, word [bss_8464]          ; 0x40c5
+    mov ax, word [acting_group]      ; 0x40c5
     shl ax, 1                        ; 0x40c8
     mov bx, ax                       ; 0x40ca
     mov bx, word [bx + battle_groups] ; 0x40cc
@@ -651,7 +651,7 @@ jumptable_5eb8_case_22:
     mov ax, 0x2c                     ; 0x40df
     imul word [bp - 0xc]             ; 0x40e2
     mov si, ax                       ; 0x40e5
-    mov ax, word [bss_8464]          ; 0x40e7
+    mov ax, word [acting_group]      ; 0x40e7
     shl ax, 1                        ; 0x40ea
     mov bx, ax                       ; 0x40ec
     mov bx, word [bx + battle_groups] ; 0x40ee
@@ -662,7 +662,7 @@ jumptable_5eb8_case_22:
     mov ax, 0x2c                     ; 0x40fa
     imul word [bp - 0xc]             ; 0x40fd
     mov si, ax                       ; 0x4100
-    mov ax, word [bss_8464]          ; 0x4102
+    mov ax, word [acting_group]      ; 0x4102
     shl ax, 1                        ; 0x4105
     mov bx, ax                       ; 0x4107
     mov bx, word [bx + battle_groups] ; 0x4109
@@ -676,7 +676,7 @@ jumptable_5eb8_case_22:
     mov ax, 0x2c                     ; 0x411c
     imul word [bp - 0xc]             ; 0x411f
     mov si, ax                       ; 0x4122
-    mov ax, word [bss_8464]          ; 0x4124
+    mov ax, word [acting_group]      ; 0x4124
     shl ax, 1                        ; 0x4127
     mov bx, ax                       ; 0x4129
     mov bx, word [bx + battle_groups] ; 0x412b
@@ -687,7 +687,7 @@ jumptable_5eb8_case_22:
     mov ax, 0x2c                     ; 0x4137
     imul word [bp - 0xc]             ; 0x413a
     mov si, ax                       ; 0x413d
-    mov ax, word [bss_8464]          ; 0x413f
+    mov ax, word [acting_group]      ; 0x413f
     shl ax, 1                        ; 0x4142
     mov bx, ax                       ; 0x4144
     mov bx, word [bx + battle_groups] ; 0x4146
@@ -703,7 +703,7 @@ jumptable_5eb8_case_22:
     mov ax, 0x2c                     ; 0x415c
     imul word [bp - 0xc]             ; 0x415f
     mov si, ax                       ; 0x4162
-    mov ax, word [bss_8464]          ; 0x4164
+    mov ax, word [acting_group]      ; 0x4164
     shl ax, 1                        ; 0x4167
     mov bx, ax                       ; 0x4169
     mov bx, word [bx + battle_groups] ; 0x416b
@@ -820,7 +820,7 @@ jumptable_5eb8_case_26:
 jumptable_5eb8_case_27:
     mov ax, 0                        ; 0x4274
     push ax                          ; 0x4277
-    mov ax, word [bss_8464]          ; 0x4278
+    mov ax, word [acting_group]      ; 0x4278
     shl ax, 1                        ; 0x427b
     mov bx, ax                       ; 0x427d
     mov bx, word [bx + battle_groups] ; 0x427f
@@ -832,7 +832,7 @@ jumptable_5eb8_case_27:
     push ax                          ; 0x4290
     call adjust_spell_value          ; 0x4291
     add sp, byte 6                   ; 0x4294
-    mov cx, word [bss_8464]          ; 0x4297
+    mov cx, word [acting_group]      ; 0x4297
     shl cx, 1                        ; 0x429b
     mov bx, cx                       ; 0x429d
     mov bx, word [bx + battle_groups] ; 0x429f
@@ -902,7 +902,7 @@ jumptable_5eb8_case_29:
 jumptable_5eb8_case_30:
     mov ax, 0                        ; 0x4333
     push ax                          ; 0x4336
-    mov ax, word [bss_8464]          ; 0x4337
+    mov ax, word [acting_group]      ; 0x4337
     shl ax, 1                        ; 0x433a
     mov bx, ax                       ; 0x433c
     mov bx, word [bx + battle_groups] ; 0x433e
@@ -914,7 +914,7 @@ jumptable_5eb8_case_30:
     push ax                          ; 0x434f
     call adjust_spell_value          ; 0x4350
     add sp, byte 6                   ; 0x4353
-    mov cx, word [bss_8464]          ; 0x4356
+    mov cx, word [acting_group]      ; 0x4356
     shl cx, 1                        ; 0x435a
     mov bx, cx                       ; 0x435c
     mov bx, word [bx + battle_groups] ; 0x435e
@@ -1066,7 +1066,7 @@ jumptable_5eb8_case_35:
     pop cx                           ; 0x44ab
     mov word [bp - 2], 0             ; 0x44ac
 api_idx_000e_KPGJ.back2:
-    mov ax, word [bss_8464]          ; 0x44b1
+    mov ax, word [acting_group]      ; 0x44b1
     shl ax, 1                        ; 0x44b4
     mov bx, ax                       ; 0x44b6
     mov bx, word [bx + battle_groups] ; 0x44b8
@@ -1085,7 +1085,7 @@ api_idx_000e_KPGJ.forward10:
     mov ax, word [bp - 2]            ; 0x44df
     cmp ax, strict word 6            ; 0x44e2
     jl short api_idx_000e_KPGJ.back2 ; 0x44e5
-    mov ax, word [bss_8464]          ; 0x44e7
+    mov ax, word [acting_group]      ; 0x44e7
     shl ax, 1                        ; 0x44ea
     mov bx, ax                       ; 0x44ec
     mov bx, word [bx + battle_groups] ; 0x44ee
@@ -1314,9 +1314,9 @@ jumptable_5eb8_case_40:
     push ax                          ; 0x46eb
     mov ax, 0xda2                    ; 0x46ec
     push ax                          ; 0x46ef
-    cmp word [bss_8464], byte 0      ; 0x46f0
+    cmp word [acting_group], byte 0  ; 0x46f0
     je short api_idx_000e_KPGJ.forward17 ; 0x46f5
-    mov ax, word [bss_8464]          ; 0x46f7
+    mov ax, word [acting_group]      ; 0x46f7
     cmp ax, strict word 6            ; 0x46fa
     jne short api_idx_000e_KPGJ.forward18 ; 0x46fd
 api_idx_000e_KPGJ.forward17:
@@ -1338,7 +1338,7 @@ jumptable_5eb8_case_41:
     push ax                          ; 0x471c
     mov ax, 0                        ; 0x471d
     push ax                          ; 0x4720
-    cmp word [bss_8464], byte 0      ; 0x4721
+    cmp word [acting_group], byte 0  ; 0x4721
     jne short api_idx_000e_KPGJ.forward20 ; 0x4726
     mov ax, 1                        ; 0x4728
 api_idx_000e_KPGJ.forward20:
@@ -1352,9 +1352,9 @@ api_idx_000e_KPGJ.forward20:
     mov ax, 4                        ; 0x473c
     push ax                          ; 0x473f
     push ax                          ; 0x4740
-    cmp word [bss_8464], byte 0      ; 0x4741
+    cmp word [acting_group], byte 0  ; 0x4741
     je short api_idx_000e_KPGJ.forward21 ; 0x4746
-    mov ax, word [bss_8464]          ; 0x4748
+    mov ax, word [acting_group]      ; 0x4748
     cmp ax, strict word 6            ; 0x474b
     jne short api_idx_000e_KPGJ.forward22 ; 0x474e
 api_idx_000e_KPGJ.forward21:
@@ -1732,9 +1732,9 @@ jumptable_5eb8_case_54:
     add sp, byte 0xe                 ; 0x4ab7
     jmp near jumptable_5eb8_case_47  ; 0x4aba
 jumptable_5eb8_case_55:
-    cmp word [bss_8464], byte 0      ; 0x4abd
+    cmp word [acting_group], byte 0  ; 0x4abd
     je short api_idx_000e_KPGJ.forward28 ; 0x4ac2
-    mov ax, word [bss_8464]          ; 0x4ac4
+    mov ax, word [acting_group]      ; 0x4ac4
     cmp ax, strict word 6            ; 0x4ac7
     jne short api_idx_000e_KPGJ.forward29 ; 0x4aca
 api_idx_000e_KPGJ.forward28:
@@ -1858,7 +1858,7 @@ api_idx_000e_KPGJ.back4:
     mov ax, 0x2c                     ; 0x4bc7
     imul word [bp - 2]               ; 0x4bca
     mov si, ax                       ; 0x4bcd
-    mov ax, word [bss_8464]          ; 0x4bcf
+    mov ax, word [acting_group]      ; 0x4bcf
     shl ax, 1                        ; 0x4bd2
     mov bx, ax                       ; 0x4bd4
     mov bx, word [bx + battle_groups] ; 0x4bd6
@@ -1872,7 +1872,7 @@ api_idx_000e_KPGJ.back4:
     mov ax, 0x2c                     ; 0x4be9
     imul word [bp - 2]               ; 0x4bec
     mov si, ax                       ; 0x4bef
-    mov ax, word [bss_8464]          ; 0x4bf1
+    mov ax, word [acting_group]      ; 0x4bf1
     shl ax, 1                        ; 0x4bf4
     mov bx, ax                       ; 0x4bf6
     mov bx, word [bx + battle_groups] ; 0x4bf8
@@ -1883,7 +1883,7 @@ api_idx_000e_KPGJ.back4:
     mov ax, 0x2c                     ; 0x4c04
     imul word [bp - 2]               ; 0x4c07
     mov si, ax                       ; 0x4c0a
-    mov ax, word [bss_8464]          ; 0x4c0c
+    mov ax, word [acting_group]      ; 0x4c0c
     shl ax, 1                        ; 0x4c0f
     mov bx, ax                       ; 0x4c11
     mov bx, word [bx + battle_groups] ; 0x4c13
@@ -1897,7 +1897,7 @@ api_idx_000e_KPGJ.back4:
     mov ax, 0x2c                     ; 0x4c26
     imul word [bp - 2]               ; 0x4c29
     mov si, ax                       ; 0x4c2c
-    mov ax, word [bss_8464]          ; 0x4c2e
+    mov ax, word [acting_group]      ; 0x4c2e
     shl ax, 1                        ; 0x4c31
     mov bx, ax                       ; 0x4c33
     mov bx, word [bx + battle_groups] ; 0x4c35
@@ -1905,7 +1905,7 @@ api_idx_000e_KPGJ.back4:
     mov byte [bx + si + 0x27], al    ; 0x4c3a
     inc word [bp - 2]                ; 0x4c3d
 api_idx_000e_KPGJ.forward31:
-    mov ax, word [bss_8464]          ; 0x4c40
+    mov ax, word [acting_group]      ; 0x4c40
     shl ax, 1                        ; 0x4c43
     mov bx, ax                       ; 0x4c45
     mov bx, word [bx + battle_groups] ; 0x4c47
@@ -2094,9 +2094,9 @@ jumptable_5eb8_case_70:
     add sp, byte 0x1a                ; 0x4ddd
     jmp near jumptable_5eb8_case_47  ; 0x4de0
 jumptable_5eb8_case_71:
-    cmp word [bss_8464], byte 0      ; 0x4de3
+    cmp word [acting_group], byte 0  ; 0x4de3
     je short api_idx_000e_KPGJ.forward35 ; 0x4de8
-    mov ax, word [bss_8464]          ; 0x4dea
+    mov ax, word [acting_group]      ; 0x4dea
     cmp ax, strict word 6            ; 0x4ded
     jne short api_idx_000e_KPGJ.forward36 ; 0x4df0
 api_idx_000e_KPGJ.forward35:
@@ -2159,9 +2159,9 @@ jumptable_5eb8_case_73:
     push ax                          ; 0x4e6a
     mov ax, 0xd91                    ; 0x4e6b
     push ax                          ; 0x4e6e
-    cmp word [bss_8464], byte 0      ; 0x4e6f
+    cmp word [acting_group], byte 0  ; 0x4e6f
     je short api_idx_000e_KPGJ.forward38 ; 0x4e74
-    mov ax, word [bss_8464]          ; 0x4e76
+    mov ax, word [acting_group]      ; 0x4e76
     cmp ax, strict word 6            ; 0x4e79
     jne short api_idx_000e_KPGJ.forward39 ; 0x4e7c
 api_idx_000e_KPGJ.forward38:
@@ -2224,9 +2224,9 @@ jumptable_5eb8_case_76:
     mov ax, 4                        ; 0x4ef7
     push ax                          ; 0x4efa
     push ax                          ; 0x4efb
-    cmp word [bss_8464], byte 0      ; 0x4efc
+    cmp word [acting_group], byte 0  ; 0x4efc
     je short api_idx_000e_KPGJ.forward41 ; 0x4f01
-    mov ax, word [bss_8464]          ; 0x4f03
+    mov ax, word [acting_group]      ; 0x4f03
     cmp ax, strict word 6            ; 0x4f06
     jne short api_idx_000e_KPGJ.forward42 ; 0x4f09
 api_idx_000e_KPGJ.forward41:
@@ -2351,9 +2351,9 @@ api_idx_000e_KPGJ.forward45:
     jmp near jumptable_5eb8_case_47  ; 0x5017
 jumptable_5eb8_case_83:
     mov ax, 0x2c                     ; 0x501a
-    imul word [bss_8462]             ; 0x501d
+    imul word [acting_unit]          ; 0x501d
     mov si, ax                       ; 0x5021
-    mov ax, word [bss_8464]          ; 0x5023
+    mov ax, word [acting_group]      ; 0x5023
     shl ax, 1                        ; 0x5026
     mov bx, ax                       ; 0x5028
     mov bx, word [bx + battle_groups] ; 0x502a
@@ -2376,9 +2376,9 @@ jumptable_5eb8_case_83:
     add ax, cx                       ; 0x504f
     push ax                          ; 0x5051
     mov ax, 0x2c                     ; 0x5052
-    imul word [bss_8462]             ; 0x5055
+    imul word [acting_unit]          ; 0x5055
     mov si, ax                       ; 0x5059
-    mov ax, word [bss_8464]          ; 0x505b
+    mov ax, word [acting_group]      ; 0x505b
     shl ax, 1                        ; 0x505e
     mov bx, ax                       ; 0x5060
     mov bx, word [bx + battle_groups] ; 0x5062
@@ -2386,9 +2386,9 @@ jumptable_5eb8_case_83:
     mov byte [bx + si + 0x25], al    ; 0x5067
 api_idx_000e_KPGJ.forward46:
     mov ax, 0x2c                     ; 0x506a
-    imul word [bss_8462]             ; 0x506d
+    imul word [acting_unit]          ; 0x506d
     mov si, ax                       ; 0x5071
-    mov ax, word [bss_8464]          ; 0x5073
+    mov ax, word [acting_group]      ; 0x5073
     shl ax, 1                        ; 0x5076
     mov bx, ax                       ; 0x5078
     mov bx, word [bx + battle_groups] ; 0x507a
@@ -2403,9 +2403,9 @@ api_idx_000e_KPGJ.forward46:
     mov byte [bx + si + 0x24], al    ; 0x508f
     jmp near jumptable_5eb8_case_47  ; 0x5092
 jumptable_5eb8_case_85:
-    cmp word [bss_8464], byte 0      ; 0x5095
+    cmp word [acting_group], byte 0  ; 0x5095
     je short api_idx_000e_KPGJ.forward47 ; 0x509a
-    mov ax, word [bss_8464]          ; 0x509c
+    mov ax, word [acting_group]      ; 0x509c
     cmp ax, strict word 6            ; 0x509f
     jne short api_idx_000e_KPGJ.forward50 ; 0x50a2
 api_idx_000e_KPGJ.forward47:
@@ -2644,9 +2644,9 @@ jumptable_5eb8_case_93:
     mov ax, 4                        ; 0x52ae
     push ax                          ; 0x52b1
     push ax                          ; 0x52b2
-    cmp word [bss_8464], byte 0      ; 0x52b3
+    cmp word [acting_group], byte 0  ; 0x52b3
     je short api_idx_000e_KPGJ.forward57 ; 0x52b8
-    mov ax, word [bss_8464]          ; 0x52ba
+    mov ax, word [acting_group]      ; 0x52ba
     cmp ax, strict word 6            ; 0x52bd
     jne short api_idx_000e_KPGJ.forward58 ; 0x52c0
 api_idx_000e_KPGJ.forward57:
@@ -2683,9 +2683,9 @@ jumptable_5eb8_case_95:
     push ax                          ; 0x5304
     mov ax, 0xd9e                    ; 0x5305
     push ax                          ; 0x5308
-    cmp word [bss_8464], byte 0      ; 0x5309
+    cmp word [acting_group], byte 0  ; 0x5309
     je short api_idx_000e_KPGJ.forward60 ; 0x530e
-    mov ax, word [bss_8464]          ; 0x5310
+    mov ax, word [acting_group]      ; 0x5310
     cmp ax, strict word 6            ; 0x5313
     jne short api_idx_000e_KPGJ.forward61 ; 0x5316
 api_idx_000e_KPGJ.forward60:
@@ -3393,9 +3393,9 @@ jumptable_5eb8_case_89:
     call api_idx_0004_MLLS           ; 0x59a7
     add sp, byte 4                   ; 0x59aa
 api_idx_000e_KPGJ.forward98:
-    mov ax, word [bss_8464]          ; 0x59ad
+    mov ax, word [acting_group]      ; 0x59ad
     mov word [bp - 0xa], ax          ; 0x59b0
-    mov ax, word [bss_8462]          ; 0x59b3
+    mov ax, word [acting_unit]       ; 0x59b3
     mov word [bp - 0xc], ax          ; 0x59b6
     mov ax, word [bp - 2]            ; 0x59b9
     mov cx, 7                        ; 0x59bc
@@ -3530,9 +3530,9 @@ api_idx_000e_KPGJ.forward108:
     jmp near jumptable_5eb8_case_47  ; 0x5aef
 jumptable_5eb8_case_97:
     mov ax, 0x2c                     ; 0x5af2
-    imul word [bss_8462]             ; 0x5af5
+    imul word [acting_unit]          ; 0x5af5
     mov si, ax                       ; 0x5af9
-    mov ax, word [bss_8464]          ; 0x5afb
+    mov ax, word [acting_group]      ; 0x5afb
     shl ax, 1                        ; 0x5afe
     mov bx, ax                       ; 0x5b00
     mov bx, word [bx + battle_groups] ; 0x5b02
@@ -3558,9 +3558,9 @@ jumptable_5eb8_case_97:
     add sp, byte 4                   ; 0x5b31
     push ax                          ; 0x5b34
     mov ax, 0x2c                     ; 0x5b35
-    imul word [bss_8462]             ; 0x5b38
+    imul word [acting_unit]          ; 0x5b38
     mov si, ax                       ; 0x5b3c
-    mov ax, word [bss_8464]          ; 0x5b3e
+    mov ax, word [acting_group]      ; 0x5b3e
     shl ax, 1                        ; 0x5b41
     mov bx, ax                       ; 0x5b43
     mov bx, word [bx + battle_groups] ; 0x5b45
@@ -3571,18 +3571,18 @@ jumptable_5eb8_case_97:
     add sp, byte 6                   ; 0x5b51
     push ax                          ; 0x5b54
     mov ax, 0x2c                     ; 0x5b55
-    imul word [bss_8462]             ; 0x5b58
+    imul word [acting_unit]          ; 0x5b58
     mov si, ax                       ; 0x5b5c
-    mov ax, word [bss_8464]          ; 0x5b5e
+    mov ax, word [acting_group]      ; 0x5b5e
     shl ax, 1                        ; 0x5b61
     mov bx, ax                       ; 0x5b63
     mov bx, word [bx + battle_groups] ; 0x5b65
     pop ax                           ; 0x5b69
     mov word [bx + si + 6], ax       ; 0x5b6a
     mov ax, 0x2c                     ; 0x5b6d
-    imul word [bss_8462]             ; 0x5b70
+    imul word [acting_unit]          ; 0x5b70
     mov si, ax                       ; 0x5b74
-    mov ax, word [bss_8464]          ; 0x5b76
+    mov ax, word [acting_group]      ; 0x5b76
     shl ax, 1                        ; 0x5b79
     mov bx, ax                       ; 0x5b7b
     mov bx, word [bx + battle_groups] ; 0x5b7d
@@ -3608,9 +3608,9 @@ jumptable_5eb8_case_97:
     add sp, byte 4                   ; 0x5baa
     push ax                          ; 0x5bad
     mov ax, 0x2c                     ; 0x5bae
-    imul word [bss_8462]             ; 0x5bb1
+    imul word [acting_unit]          ; 0x5bb1
     mov si, ax                       ; 0x5bb5
-    mov ax, word [bss_8464]          ; 0x5bb7
+    mov ax, word [acting_group]      ; 0x5bb7
     shl ax, 1                        ; 0x5bba
     mov bx, ax                       ; 0x5bbc
     mov bx, word [bx + battle_groups] ; 0x5bbe
@@ -3621,25 +3621,25 @@ jumptable_5eb8_case_97:
     add sp, byte 6                   ; 0x5bca
     push ax                          ; 0x5bcd
     mov ax, 0x2c                     ; 0x5bce
-    imul word [bss_8462]             ; 0x5bd1
+    imul word [acting_unit]          ; 0x5bd1
     mov si, ax                       ; 0x5bd5
-    mov ax, word [bss_8464]          ; 0x5bd7
+    mov ax, word [acting_group]      ; 0x5bd7
     shl ax, 1                        ; 0x5bda
     mov bx, ax                       ; 0x5bdc
     mov bx, word [bx + battle_groups] ; 0x5bde
     pop ax                           ; 0x5be2
     mov word [bx + si + 2], ax       ; 0x5be3
-    cmp word [bss_8464], byte 0      ; 0x5be6
+    cmp word [acting_group], byte 0  ; 0x5be6
     jne short api_idx_000e_KPGJ.forward109 ; 0x5beb
     mov ax, 0                        ; 0x5bed
     push ax                          ; 0x5bf0
-    push word [bss_8462]             ; 0x5bf1
+    push word [acting_unit]          ; 0x5bf1
     call api_idx_0004_MLLS           ; 0x5bf5
     add sp, byte 4                   ; 0x5bf8
 api_idx_000e_KPGJ.forward109:
     jmp near jumptable_5eb8_case_47  ; 0x5bfb
 jumptable_5eb8_case_98:
-    cmp word [bss_8464], byte 0      ; 0x5bfe
+    cmp word [acting_group], byte 0  ; 0x5bfe
     jne short api_idx_000e_KPGJ.forward111 ; 0x5c03
     mov word [bp - 2], 0             ; 0x5c05
 api_idx_000e_KPGJ.back10:
@@ -3664,7 +3664,7 @@ api_idx_000e_KPGJ.back10:
     mov word [bp - 4], ax            ; 0x5c32
     push ax                          ; 0x5c35
     mov ax, 0x248                    ; 0x5c36
-    imul word [bss_8462]             ; 0x5c39
+    imul word [acting_unit]          ; 0x5c39
     mov cx, ax                       ; 0x5c3d
     mov dx, word [bp - 2]            ; 0x5c3f
     shl dx, 1                        ; 0x5c42
@@ -3692,7 +3692,7 @@ api_idx_000e_KPGJ.back11:
     mov ax, 0x2c                     ; 0x5c77
     imul word [bp - 6]               ; 0x5c7a
     mov si, ax                       ; 0x5c7d
-    mov ax, word [bss_8464]          ; 0x5c7f
+    mov ax, word [acting_group]      ; 0x5c7f
     shl ax, 1                        ; 0x5c82
     mov bx, ax                       ; 0x5c84
     mov bx, word [bx + battle_groups] ; 0x5c86
@@ -3700,7 +3700,7 @@ api_idx_000e_KPGJ.back11:
     mov ax, 0x2c                     ; 0x5c8e
     imul word [bp - 6]               ; 0x5c91
     mov si, ax                       ; 0x5c94
-    mov ax, word [bss_8464]          ; 0x5c96
+    mov ax, word [acting_group]      ; 0x5c96
     shl ax, 1                        ; 0x5c99
     mov bx, ax                       ; 0x5c9b
     mov bx, word [bx + battle_groups] ; 0x5c9d
@@ -3709,7 +3709,7 @@ api_idx_000e_KPGJ.back11:
     mov ax, 0x2c                     ; 0x5ca7
     imul word [bp - 6]               ; 0x5caa
     mov si, ax                       ; 0x5cad
-    mov ax, word [bss_8464]          ; 0x5caf
+    mov ax, word [acting_group]      ; 0x5caf
     shl ax, 1                        ; 0x5cb2
     mov bx, ax                       ; 0x5cb4
     mov bx, word [bx + battle_groups] ; 0x5cb6
@@ -3721,7 +3721,7 @@ api_idx_000e_KPGJ.back12:
     imul word [bp - 6]               ; 0x5cc8
     add ax, word [bp - 4]            ; 0x5ccb
     mov si, ax                       ; 0x5cce
-    mov ax, word [bss_8464]          ; 0x5cd0
+    mov ax, word [acting_group]      ; 0x5cd0
     shl ax, 1                        ; 0x5cd3
     mov bx, ax                       ; 0x5cd5
     mov bx, word [bx + battle_groups] ; 0x5cd7
@@ -3730,7 +3730,7 @@ api_idx_000e_KPGJ.back12:
     mov ax, word [bp - 4]            ; 0x5ce2
     cmp ax, strict word 0xa          ; 0x5ce5
     jl short api_idx_000e_KPGJ.back12 ; 0x5ce8
-    cmp word [bss_8464], byte 0      ; 0x5cea
+    cmp word [acting_group], byte 0  ; 0x5cea
     jne short api_idx_000e_KPGJ.forward113 ; 0x5cef
     mov word [bp - 2], 0             ; 0x5cf1
 api_idx_000e_KPGJ.back13:
@@ -3770,13 +3770,13 @@ api_idx_000e_KPGJ.forward112:
     mov ax, MSG_RECEIVES_THE_BLESSING ; 0x5d4d
     push ax                          ; 0x5d50
     push word [bp - 6]               ; 0x5d51
-    push word [bss_8464]             ; 0x5d54
+    push word [acting_group]         ; 0x5d54
     call loc_RKLS                    ; 0x5d58
     add sp, byte 8                   ; 0x5d5b
 api_idx_000e_KPGJ.forward113:
     inc word [bp - 6]                ; 0x5d5e
 api_idx_000e_KPGJ.forward114:
-    mov ax, word [bss_8464]          ; 0x5d61
+    mov ax, word [acting_group]      ; 0x5d61
     shl ax, 1                        ; 0x5d64
     mov bx, ax                       ; 0x5d66
     mov bx, word [bx + battle_groups] ; 0x5d68
@@ -3789,26 +3789,26 @@ api_idx_000e_KPGJ.forward115:
     jmp near jumptable_5eb8_case_47  ; 0x5d7a
 jumptable_5eb8_case_101:
     mov ax, 0x2c                     ; 0x5d7d
-    imul word [bss_8462]             ; 0x5d80
+    imul word [acting_unit]          ; 0x5d80
     mov si, ax                       ; 0x5d84
-    mov ax, word [bss_8464]          ; 0x5d86
+    mov ax, word [acting_group]      ; 0x5d86
     shl ax, 1                        ; 0x5d89
     mov bx, ax                       ; 0x5d8b
     mov bx, word [bx + battle_groups] ; 0x5d8d
     mov byte [bx + si + 0x2b], 1     ; 0x5d91
-    cmp word [bss_8464], byte 0      ; 0x5d95
+    cmp word [acting_group], byte 0  ; 0x5d95
     jne short api_idx_000e_KPGJ.forward116 ; 0x5d9a
     mov ax, 0                        ; 0x5d9c
     push ax                          ; 0x5d9f
-    push word [bss_8462]             ; 0x5da0
+    push word [acting_unit]          ; 0x5da0
     call api_idx_0004_MLLS           ; 0x5da4
     add sp, byte 4                   ; 0x5da7
     mov ax, 0x55                     ; 0x5daa
     push ax                          ; 0x5dad
     mov ax, MSG_TURNS_INVISIBLE      ; 0x5dae
     push ax                          ; 0x5db1
-    push word [bss_8462]             ; 0x5db2
-    push word [bss_8464]             ; 0x5db6
+    push word [acting_unit]          ; 0x5db2
+    push word [acting_group]         ; 0x5db6
     call loc_RKLS                    ; 0x5dba
     add sp, byte 8                   ; 0x5dbd
 api_idx_000e_KPGJ.forward116:
@@ -3877,7 +3877,7 @@ jumptable_5eb8_case_46:
 jumptable_5eb8_case_84:
     mov ax, 0                        ; 0x5e59
     push ax                          ; 0x5e5c
-    mov ax, word [bss_8464]          ; 0x5e5d
+    mov ax, word [acting_group]      ; 0x5e5d
     shl ax, 1                        ; 0x5e60
     mov bx, ax                       ; 0x5e62
     mov bx, word [bx + battle_groups] ; 0x5e64
@@ -3889,12 +3889,12 @@ jumptable_5eb8_case_84:
     push ax                          ; 0x5e75
     call adjust_spell_value          ; 0x5e76
     add sp, byte 6                   ; 0x5e79
-    mov cx, word [bss_8464]          ; 0x5e7c
+    mov cx, word [acting_group]      ; 0x5e7c
     shl cx, 1                        ; 0x5e80
     mov bx, cx                       ; 0x5e82
     mov bx, word [bx + battle_groups] ; 0x5e84
     mov byte [bx + 0x190], al        ; 0x5e88
-    cmp word [bss_8464], byte 0      ; 0x5e8c
+    cmp word [acting_group], byte 0  ; 0x5e8c
     jne short api_idx_000e_KPGJ.forward117 ; 0x5e91
     mov ax, 0x32                     ; 0x5e93
     imul word [bp + 8]               ; 0x5e96

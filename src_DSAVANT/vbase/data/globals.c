@@ -11,7 +11,7 @@ char scene_sprite_y[6];
 char trail_x[6];
 int actor_x;
 int scene_sprite_three_x;
-char bss_a5dc[4];
+int sprite_pos_1[2];
 int sprite_pos;
 int scroll_x_4;
 int scroll_x_3;

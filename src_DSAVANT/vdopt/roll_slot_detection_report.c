@@ -50,32 +50,28 @@ int level;
 	for (slot = 0; slot < 20; slot++) {
 		if (slot_records[slot].location >= 25)	/* unused slot */
 			continue;
-		if (random_below(100) < chance_any)
-			goto hit;
-		if (location_records[slot_records[slot].location].game_state
-			== current_level
-			&& random_below(100) < chance_state)
-			goto hit;
-		/* The closest check: the NPC is on the party's map piece number. */
-		if (slot_records[slot].map_piece != party_map_piece)
-			continue;
-		if (random_below(100) < chance_piece)
-			goto hit;
-		continue;
-hit:
-		found = 1;
-		load_message_string(slot + MSG_SLOT_NAME_BASE, title);	/* per-slot message */
-		line1[0] = 0;
-		line2[0] = 0;
-		if (slot_records[slot].health == 0
-			|| (slot == 4 && test_bit(flag_bitset, 64)))
-			load_message_string(MSG_IS_DEAD, line1);
-		else {
-			load_message_string(MSG_AT, line1);
-			load_message_string(slot_records[slot].location + MSG_LOCATION_NAME_BASE,
-				line2);	/* location name */
+		/* Any level, then the party's level, then (the closest check) the
+		   party's map piece. */
+		if (random_below(100) < chance_any ||
+		    (location_records[slot_records[slot].location].game_state
+			== current_level && random_below(100) < chance_state) ||
+		    (slot_records[slot].map_piece == party_map_piece &&
+			random_below(100) < chance_piece)) {
+			found = 1;
+			load_message_string(slot + MSG_SLOT_NAME_BASE,
+				title);	/* per-slot message */
+			line1[0] = 0;
+			line2[0] = 0;
+			if (slot_records[slot].health == 0
+				|| (slot == 4 && test_bit(flag_bitset, 64)))
+				load_message_string(MSG_IS_DEAD, line1);
+			else {
+				load_message_string(MSG_AT, line1);
+				load_message_string(slot_records[slot].location + MSG_LOCATION_NAME_BASE,
+					line2);	/* location name */
+			}
+			draw_centered_lines(title, line1, line2);
 		}
-		draw_centered_lines(title, line1, line2);
 	}
 	if (found == 0) {	/* nothing detected */
 		load_message_string(MSG_FAILURE_486, title);

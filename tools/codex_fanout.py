@@ -237,6 +237,23 @@ No generated names may remain (loc_, api_idx_, dseg_, bss_, f_XXXX). make refs {
 Examples of finished C: {examples}. Shared structs: src_{project}/include/structs/*.h.
 Do not rename these (other agents own them): {reserved}
 Never run git, make clean, make data, or make build/rebuild without a routine.
+
+Compiler notes (Aztec C 4.2b codegen):
+- **Locals:** placed downward from `bp-2` in declaration order; arrays occupy `[base, base+size)`. A fake frame struct can become plain locals declared in reverse field order. Filler/"reserved" words are usually the tail of a real array (`int opts[11]; int marker; int r1, r2, r3;` was really `int opts[15]`) or genuinely unused locals.
+- **`for`** compiles to `jmp test; body; step; test: if cond → body`. The pattern `goto test; body: ...; test: if (c) goto body;` is just a `for`. When the first test is known to be true (`for (i = 0; i < 3; ...)`), the initial jump is omitted.
+- **`while`** tests at the top and `jmp`s back from the bottom.
+- **`do/while`:** the condition is a label, and the compiler forgets cached register values at labels. If the original reloads a variable where the C reuses `ax`, it's a `do/while`, not `volatile`.
+- **`continue`** in `while` jumps straight to the top test; in `for (;;)` it jumps to the loop's bottom `jmp top`. A `for (;;) {{ if (!cond) break; ... }}` is the shape when `continue`s land on the bottom jump.
+- **Early `return` in a `csav` routine** is an inline `ret` (1 byte). A `jmp` to the shared exit means the rest of the body is wrapped in `if` blocks, not returned from early.
+- **`switch`** puts the dispatch (compare chain or table) after the case bodies (`mov ax, key; jmp dispatch`). A goto chain plus a trailing `case 8: goto move_left;` is one switch with inline case bodies.
+- **`if/else`** emits the then-branch first. `[test → jump to B] [A] [jmp end] [B]` is `if (c) A; else B;`.
+- **Comma in a `for` step** comes out in reverse order: `left++, right--` emits `dec right; inc left`.
+- **Arguments** are pushed right-to-left: the first push is the last argument.
+- **Register cache is type-keyed:** after `x = expr;` the compiler reuses `ax` for a later read of `x` only if the destination has the same type. A reload of an `int` into an `unsigned` field (e.g. `regs.dx = drive_index`) means the field is `unsigned`, not that the source is `volatile`.
+- **`jcc short; jmp near`** (inverted test over a near jump) is just a branch out of short range; read it as one conditional jump. Chains of these are ordinary `&&`/`||`.
+- **Empty then-branch is real:** `test; jne A; test; je B; A: jmp end; B: else-body` is `if (a || b) {{ }} else ...`; `if (!(a || b))` compiles 2 bytes shorter.
+- **Unused frame bytes** can match a struct the routine works on: `party_screen`'s 652 bytes are `sizeof(member_rec) + sizeof(member_ext)`, the swap temporaries.
+- **`(unsigned)65535`** in `==`/`!=` produces the same bytes as `-1`.
 """
 
 

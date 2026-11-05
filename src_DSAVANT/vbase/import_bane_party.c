@@ -111,22 +111,21 @@ import_bane_party()
 		}
 	}
 	aztec_strcat(game_load_path, source_path);
-	if (install_mode == 1) {
-		if (aztec_strcmp(game_data_drive, selected_game_drive) == 0)
-			goto skip_disk_prompt;
-	}
-	if (aztec_strlen(selected_game_drive) > 0) {
-		if (aztec_strcmp(game_data_drive, selected_game_drive) == 0
-			|| install_mode == 5)
+	/* A hard-disk install reading its own drive needs no disk prompt. */
+	if (install_mode != 1 ||
+	    aztec_strcmp(game_data_drive, selected_game_drive) != 0) {
+		if (aztec_strlen(selected_game_drive) > 0) {
+			if (aztec_strcmp(game_data_drive, selected_game_drive) == 0
+				|| install_mode == 5)
+				disk_swap = 1;
+			prompt_disk_swap(selected_game_drive, -1, disk_swap, 0);
+			prompt_result = disk_swap != 0 ? 0 : 1;
+		} else if (install_mode > 1) {
 			disk_swap = 1;
-		prompt_disk_swap(selected_game_drive, -1, disk_swap, 0);
-		prompt_result = disk_swap != 0 ? 0 : 1;
-	} else if (install_mode > 1) {
-		disk_swap = 1;
-		prompt_disk_swap(game_data_drive, -1, disk_swap, 0);
-		prompt_result = disk_swap != 0 ? 0 : 1;
+			prompt_disk_swap(game_data_drive, -1, disk_swap, 0);
+			prompt_result = disk_swap != 0 ? 0 : 1;
+		}
 	}
-	skip_disk_prompt:
 	call_show_area(0, 0, 319, 199);
 	draw_message_box(loading_message, 3, 97, 36, 18, 13, 1);
 	read_handle = aztec_open(game_load_path, 0);
@@ -147,9 +146,8 @@ import_bane_party()
 	}
 	bane_import_buffer = aztec_malloc(1750);
 	if (bane_import_buffer == 0) release_and_exit(29);
-	loop_index = 0;
-	read_bane_block:
-	{
+	/* Skip the sixteen fixed-size blocks before the party section. */
+	for (loop_index = 0; loop_index < 16; loop_index++) {
 		bytes_read = aztec_read(read_handle, bane_import_buffer, 1346);
 		if (bytes_read <= 0) {
 			aztec_free(bane_import_buffer); show_load_disk_error(disk_error_message);
@@ -166,11 +164,7 @@ import_bane_party()
 				prompt_result, 1);
 			return -1;
 		}
-		loop_index++;
-		if (loop_index >= 16) goto bane_blocks_read;
-		goto read_bane_block;
 	}
-	bane_blocks_read:
 	aztec_free(bane_import_buffer);
 	bytes_read = aztec_read(read_handle, bane_section_header, 66);
 	if (bytes_read <= 0) {
@@ -183,10 +177,7 @@ import_bane_party()
 	/* Read each imported character and translate its fields into a party
 	   record. */
 	party_char_count = 0;
-	path_index = 0;
-	goto check_next_member;
-read_next_member:
-	{
+	for (path_index = 0; path_index < bane_party_member_count; path_index++) {
 		bytes_read = aztec_read(read_handle, bane_character_record, 432);
 		if (bytes_read <= 0) {
 			show_load_disk_error(disk_error_message); aztec_close(read_handle);
@@ -443,13 +434,7 @@ read_next_member:
 		/* The imported traits determine the starting scene after all records
 		   load. */
 		party_char_count++;
-		path_index++;
 	}
-	check_next_member:
-	if (path_index >= bane_party_member_count)
-		goto members_read;
-	goto read_next_member;
-	members_read:
 	aztec_close(read_handle);
 	/* A set story bit chooses which starting scene and layout to initialize. */
 	stat_value = -1;

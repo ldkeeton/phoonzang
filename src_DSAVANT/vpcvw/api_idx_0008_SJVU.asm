@@ -651,7 +651,7 @@ api_idx_0008_SJVU.forward31:
     jmp near jumptable_291f_case_46  ; 0x2815
 jumptable_291f_case_34:
     call api_idx_0012_SHRT           ; 0x2818
-    mov word [bss_8aee], ax          ; 0x281b
+    mov word [picked_item_slot], ax  ; 0x281b
     cmp ax, strict word 0xffff       ; 0x281e
     je short api_idx_0008_SJVU.forward32 ; 0x2821
     mov ax, 0x248                    ; 0x2823
@@ -664,7 +664,7 @@ jumptable_291f_case_34:
     add ax, cx                       ; 0x2834
     push ax                          ; 0x2836
     mov ax, 0xc                      ; 0x2837
-    imul word [bss_8aee]             ; 0x283a
+    imul word [picked_item_slot]     ; 0x283a
     mov cx, ax                       ; 0x283e
     pop ax                           ; 0x2840
     add ax, cx                       ; 0x2841
@@ -673,7 +673,7 @@ jumptable_291f_case_34:
     jle short api_idx_0008_SJVU.forward32 ; 0x284a
     push word [bp + 8]               ; 0x284c
     mov ax, 0x16                     ; 0x284f
-    imul word [bss_8aee]             ; 0x2852
+    imul word [picked_item_slot]     ; 0x2852
     add ax, item_slot_names          ; 0x2856
     push ax                          ; 0x2859
     add bx, strict word 0x5c34       ; 0x285a
@@ -731,7 +731,7 @@ api_idx_0008_SJVU.forward33:
     jmp near jumptable_291f_case_46  ; 0x28d0
 jumptable_291f_case_42:
     call api_idx_0012_SHRT           ; 0x28d3
-    mov word [bss_8aee], ax          ; 0x28d6
+    mov word [picked_item_slot], ax  ; 0x28d6
     cmp ax, strict word 0xffff       ; 0x28d9
     je short api_idx_0008_SJVU.forward34 ; 0x28dc
     mov ax, 0x248                    ; 0x28de
@@ -744,7 +744,7 @@ jumptable_291f_case_42:
     add ax, cx                       ; 0x28ef
     push ax                          ; 0x28f1
     mov ax, 0xc                      ; 0x28f2
-    imul word [bss_8aee]             ; 0x28f5
+    imul word [picked_item_slot]     ; 0x28f5
     mov cx, ax                       ; 0x28f9
     pop ax                           ; 0x28fb
     add ax, cx                       ; 0x28fc

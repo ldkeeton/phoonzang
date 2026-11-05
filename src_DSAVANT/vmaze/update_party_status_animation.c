@@ -14,7 +14,7 @@ extern int display_member_message();
 update_party_status_animation()
 {
 	int member_index;
-	int reserved_stack_word;
+	int unused;
 
 	/* A positive spell bonus can trigger the party status animation. */
 	if (detection_spell_bonus > 0) {

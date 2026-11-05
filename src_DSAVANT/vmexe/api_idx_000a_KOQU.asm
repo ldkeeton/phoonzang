@@ -152,16 +152,16 @@ jumptable_78e5_case_4:
     add sp, byte 0x16                ; 0x7584
     jmp near api_idx_000a_KOQU.forward19 ; 0x7587
 jumptable_78e5_case_5:
-    cmp word [bss_8464], byte 0      ; 0x758a
+    cmp word [acting_group], byte 0  ; 0x758a
     jne short api_idx_000a_KOQU.forward2 ; 0x758f
-    mov ax, word [bss_8464]          ; 0x7591
+    mov ax, word [acting_group]      ; 0x7591
     shl ax, 1                        ; 0x7594
     mov bx, ax                       ; 0x7596
     mov bx, word [bx + battle_group_ext] ; 0x7598
     mov byte [bx + 0xdf], 3          ; 0x759c
 api_idx_000a_KOQU.forward2:
     mov word [bp - 8], 0             ; 0x75a1
-    mov ax, word [bss_8464]          ; 0x75a6
+    mov ax, word [acting_group]      ; 0x75a6
     shl ax, 1                        ; 0x75a9
     mov bx, ax                       ; 0x75ab
     mov bx, word [bx + battle_group_ext] ; 0x75ad

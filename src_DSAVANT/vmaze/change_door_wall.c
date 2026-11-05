@@ -12,7 +12,7 @@ extern int loaded_sound_id;
 
 change_door_wall()
 {
-	int reserved_stack_slot;
+	int unused;
 	int region_flags;
 	int map_piece;
 	int cell_x;

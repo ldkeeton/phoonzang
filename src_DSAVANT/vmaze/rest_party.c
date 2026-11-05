@@ -30,9 +30,9 @@ rest_party()
 {
 	int member_index;
 	int random_slot;
-	int reserved_frame_word_a;
+	int unused_a;
 	int tick_counter;
-	int reserved_frame_word_b;
+	int unused_b;
 	int remaining_game_quanta;
 	int elapsed_minutes;
 	int random_threshold;
@@ -70,15 +70,12 @@ rest_party()
 		cell_index = (party_map_piece << 6) + (party_cell_y << 3) + party_cell_x;
 		is_party_cell_flagged = test_bit(maze_data->cell_flags_third, cell_index);
 	}
-	for (;;) { /* Advance time until music ends or rest is interrupted. */
-		if (tick_counter < music_tick_limit || call_is_music_playing())
-			goto process_tick;
-		goto stop_rest;
-
-process_tick:
-		/* Leave rest when another state or input has taken control. */
-		if (rest_interrupt_flag != 0 || game_state != 5)
-			goto stop_rest;
+	/* Advance time until music ends, or until another state or input has
+	   taken control. */
+	for (;;) {
+		if ((tick_counter >= music_tick_limit && !call_is_music_playing()) ||
+		    rest_interrupt_flag != 0 || game_state != 5)
+			break;
 		while (!advance_party_redraw_frame()) ; /* Wait for a redraw frame. */
 		/* Mark each member tired while the party redraw is in progress. */
 		for (member_index = 0; member_index < party_char_count; member_index++) {
@@ -110,10 +107,8 @@ process_tick:
 			member_index = random_below(100);
 			code_characters[member_index] = random_below(100);
 		}
-		member_index = 0;
-		goto member_check;
-member_body:
-		/* Update one member, then occasionally reduce accumulated poison. */
+		/* Update each member, then occasionally reduce accumulated poison. */
+		for (member_index = 0; member_index < party_char_count; member_index++) {
 			update_party_member_tick(member_index,
 				(tick_counter % 6 == 0 && elapsed_minutes > 0) ?
 					party_records[member_index].imported_fields[0] + 1 : 0,
@@ -126,18 +121,13 @@ member_body:
 			if (tick_counter % 6 == 0 &&
 			    party_records[member_index].poison_strength > 0)
 				party_records[member_index].poison_strength--;
-			member_index++;
-member_check:
-		if (member_index >= party_char_count)
-			goto after_members;
-		goto member_body;
-after_members:
+		}
 		party_records[random_below(party_char_count)].status[2] = 0;
 		if (tick_counter % 6 == 0) { /* Run roaming turns every six ticks. */
 			run_roaming_npc_turns();
 			elapsed_minutes--;
 			/* Difficulty option 1 makes rest encounters rarer. */
-				random_threshold = difficulty_option == 1 ? 990 : 975;
+			random_threshold = difficulty_option == 1 ? 990 : 975;
 			/* A sufficiently high roll starts an encounter unless region data forbids
 			   it. */
 			if (party_region_level_saved == 0 && !is_party_cell_flagged &&
@@ -151,7 +141,6 @@ after_members:
 		}
 	}
 
-stop_rest:
 	call_show_area(0, 146, 319, 152); /* Clear the message strip. */
 	random_slot = random_below(2);	  /* One result controls age gain for all. */
 	/* Restore ages, tiredness markers, and panels for every member. */

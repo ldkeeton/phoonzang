@@ -13,16 +13,16 @@ api_idx_0004_PMSR:
     jne short .forward6              ; 0x33fc
 .forward2:
     mov ax, 0x2c                     ; 0x33fe
-    imul word [bss_8462]             ; 0x3401
+    imul word [acting_unit]          ; 0x3401
     mov si, ax                       ; 0x3405
-    mov ax, word [bss_8464]          ; 0x3407
+    mov ax, word [acting_group]      ; 0x3407
     shl ax, 1                        ; 0x340a
     mov bx, ax                       ; 0x340c
     mov bx, word [bx + battle_groups] ; 0x340e
     cmp byte [bx + si + 0x2a], 0xff  ; 0x3412
     jne short .forward4              ; 0x3416
     mov ax, 0                        ; 0x3418
-    mov cx, word [bss_8464]          ; 0x341b
+    mov cx, word [acting_group]      ; 0x341b
     cmp cx, byte 1                   ; 0x341f
     je short .forward3               ; 0x3422
     mov ax, 2                        ; 0x3424
@@ -84,8 +84,8 @@ api_idx_0004_PMSR:
     push word [bp + 4]               ; 0x34a4
     push word [bp - 4]               ; 0x34a7
     push word [bp + 8]               ; 0x34aa
-    push word [bss_8462]             ; 0x34ad
-    push word [bss_8464]             ; 0x34b1
+    push word [acting_unit]          ; 0x34ad
+    push word [acting_group]         ; 0x34b1
     call loc_OTGM                    ; 0x34b5
     add sp, byte 0xe                 ; 0x34b8
     ret                              ; 0x34bb

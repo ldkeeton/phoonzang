@@ -16,7 +16,7 @@ extern int load_screen_file(), load_numbered_scene_picture(), aztec_strcpy(),
 play_intro_scene_eight(first_message, cue_b, cue_c)
 int first_message, cue_b, cue_c;
 {
-	int reserved_scene_state;
+	int unused;
 
 	load_screen_file(scene_eight_screen_filename, 0);
 	/* Cache the 320 by 146 backdrop in picture mode 2. */

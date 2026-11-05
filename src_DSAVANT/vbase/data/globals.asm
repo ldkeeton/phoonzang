@@ -229,7 +229,7 @@ __zobss_a5d8:  ; scroll_x_4
     resb 0x0002
 __zobss_a5da:  ; sprite_pos
     resb 0x0002
-__zobss_a5dc:  ; bss_a5dc
+__zobss_a5dc:  ; sprite_pos_1
     resb 0x0004
 __zobss_a5e0:  ; scene_sprite_three_x
     resb 0x0002

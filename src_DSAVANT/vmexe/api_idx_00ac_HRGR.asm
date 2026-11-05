@@ -18,8 +18,8 @@ api_idx_00ac_HRGR:
     mov word [bp - 0x9e], 0          ; 0x799e
     mov word [bp - 0xa4], 0          ; 0x79a4
     mov word [bss_91d6], 4           ; 0x79aa
-    push word [bss_8462]             ; 0x79b0
-    push word [bss_8464]             ; 0x79b4
+    push word [acting_unit]          ; 0x79b0
+    push word [acting_group]         ; 0x79b4
     mov ax, bss_90e6                 ; 0x79b8
     push ax                          ; 0x79bb
     call loc_HJSG                    ; 0x79bc
@@ -27,7 +27,7 @@ api_idx_00ac_HRGR:
     mov byte [bss_9136], 0           ; 0x79c2
     mov byte [bss_9186], 0           ; 0x79c7
     mov word [bp - 0xa6], 1          ; 0x79cc
-    cmp word [bss_8464], byte 0      ; 0x79d2
+    cmp word [acting_group], byte 0  ; 0x79d2
     je short .forward1               ; 0x79d7
     jmp near .forward15              ; 0x79d9
 .forward1:
@@ -40,7 +40,7 @@ api_idx_00ac_HRGR:
     add sp, byte 4                   ; 0x79ea
     mov word [bp - 0xa6], 0          ; 0x79ed
     mov ax, 0x248                    ; 0x79f3
-    imul word [bss_8462]             ; 0x79f6
+    imul word [acting_unit]          ; 0x79f6
     add ax, word [bp + 6]            ; 0x79fa
     mov bx, ax                       ; 0x79fd
     mov al, byte [bx + party_records + pc_rec.equipped] ; 0x79ff
@@ -49,7 +49,7 @@ api_idx_00ac_HRGR:
     cmp word [bp + 8], byte 8        ; 0x7a08
     jne short .forward2              ; 0x7a0c
     mov ax, 0x248                    ; 0x7a0e
-    imul word [bss_8462]             ; 0x7a11
+    imul word [acting_unit]          ; 0x7a11
     push ax                          ; 0x7a15
     mov ax, 0xc                      ; 0x7a16
     imul word [bp - 0x4c]            ; 0x7a19
@@ -62,7 +62,7 @@ api_idx_00ac_HRGR:
     test ax, 0x20                    ; 0x7a29
     jne short .forward2              ; 0x7a2c
     mov ax, 0x248                    ; 0x7a2e
-    imul word [bss_8462]             ; 0x7a31
+    imul word [acting_unit]          ; 0x7a31
     mov bx, ax                       ; 0x7a35
     mov al, byte [bx + party_records + pc_rec.equipped + 0x1] ; 0x7a37
     sub ah, ah                       ; 0x7a3b
@@ -93,7 +93,7 @@ api_idx_00ac_HRGR:
     mov ax, 0                        ; 0x7a75
     push ax                          ; 0x7a78
     mov ax, 0x248                    ; 0x7a79
-    imul word [bss_8462]             ; 0x7a7c
+    imul word [acting_unit]          ; 0x7a7c
     push ax                          ; 0x7a80
     mov ax, 0xc                      ; 0x7a81
     imul word [bp - 0x4c]            ; 0x7a84
@@ -109,7 +109,7 @@ api_idx_00ac_HRGR:
     call data_record_io              ; 0x7a9a
     add sp, byte 8                   ; 0x7a9d
     mov ax, 0x248                    ; 0x7aa0
-    imul word [bss_8462]             ; 0x7aa3
+    imul word [acting_unit]          ; 0x7aa3
     push ax                          ; 0x7aa7
     mov ax, 0xc                      ; 0x7aa8
     imul word [bp - 0x4c]            ; 0x7aab
@@ -162,7 +162,7 @@ api_idx_00ac_HRGR:
     add sp, byte 4                   ; 0x7b18
 .forward8:
     mov ax, 0x248                    ; 0x7b1b
-    imul word [bss_8462]             ; 0x7b1e
+    imul word [acting_unit]          ; 0x7b1e
     push ax                          ; 0x7b22
     mov ax, 0xc                      ; 0x7b23
     imul word [bp - 0x4c]            ; 0x7b26
@@ -205,7 +205,7 @@ jumptable_7c0e_case_30:
     jmp near jumptable_7c0e_case_32  ; 0x7b86
 jumptable_7c0e_case_28:
     mov ax, 0x248                    ; 0x7b89
-    imul word [bss_8462]             ; 0x7b8c
+    imul word [acting_unit]          ; 0x7b8c
     push ax                          ; 0x7b90
     mov ax, 0xc                      ; 0x7b91
     imul word [bp - 0x4c]            ; 0x7b94
@@ -230,7 +230,7 @@ api_idx_00ac_HRGR.forward10:
     jmp near jumptable_7c0e_case_32  ; 0x7bc6
 jumptable_7c0e_case_31:
     mov ax, 0x248                    ; 0x7bc9
-    imul word [bss_8462]             ; 0x7bcc
+    imul word [acting_unit]          ; 0x7bcc
     push ax                          ; 0x7bd0
     mov ax, 0xc                      ; 0x7bd1
     imul word [bp - 0x4c]            ; 0x7bd4
@@ -293,7 +293,7 @@ jumptable_7c0e:
 jumptable_7c0e_case_32:
     jmp near api_idx_00ac_HRGR.forward24 ; 0x7c50
 api_idx_00ac_HRGR.forward15:
-    mov ax, word [bss_8464]          ; 0x7c53
+    mov ax, word [acting_group]      ; 0x7c53
     shl ax, 1                        ; 0x7c56
     mov bx, ax                       ; 0x7c58
     mov bx, word [bx + battle_group_ext] ; 0x7c5a
@@ -337,7 +337,7 @@ api_idx_00ac_HRGR.forward18:
     mov ax, 0x12                     ; 0x7cb7
     imul word [bp + 6]               ; 0x7cba
     mov si, ax                       ; 0x7cbd
-    mov ax, word [bss_8464]          ; 0x7cbf
+    mov ax, word [acting_group]      ; 0x7cbf
     shl ax, 1                        ; 0x7cc2
     mov bx, ax                       ; 0x7cc4
     mov bx, word [bx + battle_group_ext] ; 0x7cc6
@@ -538,7 +538,7 @@ api_idx_00ac_HRGR.forward20:
     shl bx, 1                        ; 0x7ee1
     jmp [cs:bx + jumptable_7e61 - IMAGE_BASE + __zres_end] ; 0x7ee3
 jumptable_7e61_case_0:
-    mov ax, word [bss_8464]          ; 0x7ee8
+    mov ax, word [acting_group]      ; 0x7ee8
     shl ax, 1                        ; 0x7eeb
     mov bx, ax                       ; 0x7eed
     mov bx, word [bx + battle_group_ext] ; 0x7eef
@@ -558,7 +558,7 @@ api_idx_00ac_HRGR.forward22:
 api_idx_00ac_HRGR.forward23:
     mov ax, bss_9136                 ; 0x7f13
     push ax                          ; 0x7f16
-    mov ax, word [bss_8464]          ; 0x7f17
+    mov ax, word [acting_group]      ; 0x7f17
     shl ax, 1                        ; 0x7f1a
     mov bx, ax                       ; 0x7f1c
     mov bx, word [bx + battle_group_ext] ; 0x7f1e
@@ -573,9 +573,9 @@ api_idx_00ac_HRGR.forward24:
     cmp word [bp - 0xa6], byte 0     ; 0x7f35
     jle short api_idx_00ac_HRGR.forward25 ; 0x7f3a
     mov ax, 0x2c                     ; 0x7f3c
-    imul word [bss_8462]             ; 0x7f3f
+    imul word [acting_unit]          ; 0x7f3f
     mov si, ax                       ; 0x7f43
-    mov ax, word [bss_8464]          ; 0x7f45
+    mov ax, word [acting_group]      ; 0x7f45
     shl ax, 1                        ; 0x7f48
     mov bx, ax                       ; 0x7f4a
     mov bx, word [bx + battle_groups] ; 0x7f4c
@@ -595,7 +595,7 @@ api_idx_00ac_HRGR.forward24:
     push word [bp - 0xa6]            ; 0x7f6d
     push dx                          ; 0x7f71
     push word [bp - 0x78]            ; 0x7f72
-    push word [bss_8464]             ; 0x7f75
+    push word [acting_group]         ; 0x7f75
     call fill_action_slot_table      ; 0x7f79
     add sp, byte 8                   ; 0x7f7c
     mov ax, 5                        ; 0x7f7f
@@ -606,7 +606,7 @@ api_idx_00ac_HRGR.forward25:
     push word [bp - 0xaa]            ; 0x7f87
     push word [bp - 0xaa]            ; 0x7f8b
     mov ax, 0x43                     ; 0x7f8f
-    cmp word [bss_8464], byte 0      ; 0x7f92
+    cmp word [acting_group], byte 0  ; 0x7f92
     jne short api_idx_00ac_HRGR.forward26 ; 0x7f97
     mov ax, 1                        ; 0x7f99
 api_idx_00ac_HRGR.forward26:
@@ -691,7 +691,7 @@ api_idx_00ac_HRGR.forward32:
     pop ax                           ; 0x805a
     add ax, cx                       ; 0x805b
     push ax                          ; 0x805d
-    mov ax, word [bss_8464]          ; 0x805e
+    mov ax, word [acting_group]      ; 0x805e
     shl ax, 1                        ; 0x8061
     mov bx, ax                       ; 0x8063
     mov bx, word [bx + battle_group_ext] ; 0x8065
@@ -716,7 +716,7 @@ api_idx_00ac_HRGR.forward32:
     mov al, byte [bx + 0x28]         ; 0x8094
     cbw                              ; 0x8097
     mov word [bp - 0x7e], ax         ; 0x8098
-    cmp word [bss_8464], byte 0      ; 0x809b
+    cmp word [acting_group], byte 0  ; 0x809b
     je short api_idx_00ac_HRGR.forward33 ; 0x80a0
     jmp near api_idx_00ac_HRGR.forward57 ; 0x80a2
 api_idx_00ac_HRGR.forward33:
@@ -726,7 +726,7 @@ api_idx_00ac_HRGR.forward33:
     jmp near api_idx_00ac_HRGR.forward39 ; 0x80b0
 api_idx_00ac_HRGR.forward34:
     mov ax, 0x248                    ; 0x80b3
-    imul word [bss_8462]             ; 0x80b6
+    imul word [acting_unit]          ; 0x80b6
     add ax, word [bp + 6]            ; 0x80ba
     mov bx, ax                       ; 0x80bd
     mov al, byte [bx + party_records + pc_rec.equipped] ; 0x80bf
@@ -736,7 +736,7 @@ api_idx_00ac_HRGR.forward34:
     jmp near api_idx_00ac_HRGR.forward38 ; 0x80ca
 api_idx_00ac_HRGR.forward35:
     mov ax, 0x248                    ; 0x80cd
-    imul word [bss_8462]             ; 0x80d0
+    imul word [acting_unit]          ; 0x80d0
     push ax                          ; 0x80d4
     mov al, byte [bx + party_records + pc_rec.equipped] ; 0x80d5
     sub ah, ah                       ; 0x80d9
@@ -874,7 +874,7 @@ api_idx_00ac_HRGR.forward39:
     cmp word [bp - 0x7c], byte 9     ; 0x81f2
     jne short api_idx_00ac_HRGR.forward40 ; 0x81f6
     mov ax, 0x248                    ; 0x81f8
-    imul word [bss_8462]             ; 0x81fb
+    imul word [acting_unit]          ; 0x81fb
     mov bx, ax                       ; 0x81ff
     cmp byte [bx + party_records + pc_rec.skills + 0x9], 0 ; 0x8201
     ja short api_idx_00ac_HRGR.forward40 ; 0x8206
@@ -886,7 +886,7 @@ api_idx_00ac_HRGR.forward40:
     cmp word [bp - 0x7c], byte 0x12  ; 0x8216
     jne short api_idx_00ac_HRGR.forward41 ; 0x821a
     mov ax, 0x248                    ; 0x821c
-    imul word [bss_8462]             ; 0x821f
+    imul word [acting_unit]          ; 0x821f
     mov bx, ax                       ; 0x8223
     cmp byte [bx + party_records + pc_rec.skills + 0x12], 0 ; 0x8225
     jbe short api_idx_00ac_HRGR.forward42 ; 0x822a
@@ -894,11 +894,11 @@ api_idx_00ac_HRGR.forward41:
     mov ax, 2                        ; 0x822c
     push ax                          ; 0x822f
     push word [bp - 0x7c]            ; 0x8230
-    push word [bss_8462]             ; 0x8233
+    push word [acting_unit]          ; 0x8233
     call try_raise_member_skill      ; 0x8237
     add sp, byte 6                   ; 0x823a
 api_idx_00ac_HRGR.forward42:
-    push word [bss_8462]             ; 0x823d
+    push word [acting_unit]          ; 0x823d
     call select_encumbrance_style    ; 0x8241
     pop cx                           ; 0x8244
     mov si, ax                       ; 0x8245
@@ -922,7 +922,7 @@ api_idx_00ac_HRGR.forward43:
     add sp, byte 6                   ; 0x8276
     push ax                          ; 0x8279
     mov ax, 0x248                    ; 0x827a
-    imul word [bss_8462]             ; 0x827d
+    imul word [acting_unit]          ; 0x827d
     push ax                          ; 0x8281
     mov ax, 0x12                     ; 0x8282
     imul word [bp + 6]               ; 0x8285
@@ -937,7 +937,7 @@ api_idx_00ac_HRGR.forward43:
     add ax, cx                       ; 0x8297
     push ax                          ; 0x8299
     mov ax, 0x248                    ; 0x829a
-    imul word [bss_8462]             ; 0x829d
+    imul word [acting_unit]          ; 0x829d
     mov bx, ax                       ; 0x82a1
     mov al, byte [bx + party_records + pc_rec.f_0246] ; 0x82a3
     cbw                              ; 0x82a7
@@ -960,7 +960,7 @@ api_idx_00ac_HRGR.forward43:
     mov ax, cx                       ; 0x82ca
     push ax                          ; 0x82cc
     mov ax, 0x248                    ; 0x82cd
-    imul word [bss_8462]             ; 0x82d0
+    imul word [acting_unit]          ; 0x82d0
     add ax, word [bp - 0x7c]         ; 0x82d4
     mov bx, ax                       ; 0x82d7
     mov al, byte [bx + party_records + pc_rec.skills] ; 0x82d9
@@ -975,7 +975,7 @@ api_idx_00ac_HRGR.forward43:
     cmp word [bp - 0x7c], byte 0x12  ; 0x82ed
     jne short api_idx_00ac_HRGR.forward44 ; 0x82f1
     mov ax, 0x248                    ; 0x82f3
-    imul word [bss_8462]             ; 0x82f6
+    imul word [acting_unit]          ; 0x82f6
     push ax                          ; 0x82fa
     mov ax, 0x12                     ; 0x82fb
     imul word [bp + 6]               ; 0x82fe
@@ -998,7 +998,7 @@ api_idx_00ac_HRGR.forward43:
     add ax, strict word 0x55         ; 0x8322
     push ax                          ; 0x8325
     mov ax, 0x248                    ; 0x8326
-    imul word [bss_8462]             ; 0x8329
+    imul word [acting_unit]          ; 0x8329
     mov bx, ax                       ; 0x832d
     mov al, byte [bx + party_records + pc_rec.skills + 0x12] ; 0x832f
     sub ah, ah                       ; 0x8333
@@ -1011,7 +1011,7 @@ api_idx_00ac_HRGR.forward43:
     mov word [bp - 0x56], ax         ; 0x8340
 api_idx_00ac_HRGR.forward44:
     mov ax, 0x248                    ; 0x8343
-    imul word [bss_8462]             ; 0x8346
+    imul word [acting_unit]          ; 0x8346
     push ax                          ; 0x834a
     mov ax, 0x12                     ; 0x834b
     imul word [bp + 6]               ; 0x834e
@@ -1026,7 +1026,7 @@ api_idx_00ac_HRGR.forward44:
     add bx, strict word 0x5d24       ; 0x8366
     mov word [bp - 0x52], bx         ; 0x836a
     mov ax, 0x248                    ; 0x836d
-    imul word [bss_8462]             ; 0x8370
+    imul word [acting_unit]          ; 0x8370
     add ax, word [bp + 6]            ; 0x8374
     mov bx, ax                       ; 0x8377
     mov al, byte [bx + party_records + pc_rec.equipped] ; 0x8379
@@ -1038,7 +1038,7 @@ api_idx_00ac_HRGR.forward44:
 api_idx_00ac_HRGR.forward45:
     mov word [bp - 0x7e], 0          ; 0x838b
     mov ax, 0x248                    ; 0x8390
-    imul word [bss_8462]             ; 0x8393
+    imul word [acting_unit]          ; 0x8393
     push ax                          ; 0x8397
     mov ax, 0xc                      ; 0x8398
     imul word [bp - 0x72]            ; 0x839b
@@ -1079,7 +1079,7 @@ api_idx_00ac_HRGR.forward46:
     ret                              ; 0x83e8
 api_idx_00ac_HRGR.forward47:
     mov ax, 0x248                    ; 0x83e9
-    imul word [bss_8462]             ; 0x83ec
+    imul word [acting_unit]          ; 0x83ec
     push ax                          ; 0x83f0
     mov ax, 0xc                      ; 0x83f1
     imul word [bp - 0x72]            ; 0x83f4
@@ -1118,7 +1118,7 @@ api_idx_00ac_HRGR.forward49:
     jmp short api_idx_00ac_HRGR.forward51 ; 0x8447
 api_idx_00ac_HRGR.forward50:
     mov ax, 0x248                    ; 0x8449
-    imul word [bss_8462]             ; 0x844c
+    imul word [acting_unit]          ; 0x844c
     mov bx, ax                       ; 0x8450
     mov al, byte [bx + party_records + pc_rec.equipped + 0x1] ; 0x8452
     sub ah, ah                       ; 0x8456
@@ -1131,7 +1131,7 @@ api_idx_00ac_HRGR.forward50:
     cmp byte [bx + party_records + pc_rec.item_slots + 0x4], 4 ; 0x8467
     jne short api_idx_00ac_HRGR.forward51 ; 0x846c
     mov ax, 0x248                    ; 0x846e
-    imul word [bss_8462]             ; 0x8471
+    imul word [acting_unit]          ; 0x8471
     mov bx, ax                       ; 0x8475
     mov ax, word [bx + party_records + pc_rec.hand_attack + 0x12] ; 0x8477
     mov word [bp - 0x70], ax         ; 0x847b
@@ -1140,7 +1140,7 @@ api_idx_00ac_HRGR.forward50:
     add bx, party_records + pc_rec.hand_attack + 0x12 ; 0x8485
     mov word [bp - 0x52], bx         ; 0x8489
     mov ax, 0x248                    ; 0x848c
-    imul word [bss_8462]             ; 0x848f
+    imul word [acting_unit]          ; 0x848f
     mov bx, ax                       ; 0x8493
     mov al, byte [bx + party_records + pc_rec.hand_attack + 0x20] ; 0x8495
     cbw                              ; 0x8499
@@ -1148,7 +1148,7 @@ api_idx_00ac_HRGR.forward50:
     push word [bp - 0x74]            ; 0x849d
     mov ax, 0                        ; 0x84a0
     push ax                          ; 0x84a3
-    push word [bss_8462]             ; 0x84a4
+    push word [acting_unit]          ; 0x84a4
     call api_idx_000e_PTNT           ; 0x84a8
     add sp, byte 6                   ; 0x84ab
 api_idx_00ac_HRGR.forward51:
@@ -1157,7 +1157,7 @@ api_idx_00ac_HRGR.forward52:
     cmp word [bp + 8], byte 4        ; 0x84b0
     jne short api_idx_00ac_HRGR.forward55 ; 0x84b4
     mov ax, 0x248                    ; 0x84b6
-    imul word [bss_8462]             ; 0x84b9
+    imul word [acting_unit]          ; 0x84b9
     push ax                          ; 0x84bd
     mov ax, 0xc                      ; 0x84be
     imul word [bp - 0x72]            ; 0x84c1
@@ -1179,7 +1179,7 @@ api_idx_00ac_HRGR.forward54:
     push word [bp - 0x72]            ; 0x84e5
     mov ax, 0                        ; 0x84e8
     push ax                          ; 0x84eb
-    push word [bss_8462]             ; 0x84ec
+    push word [acting_unit]          ; 0x84ec
     call api_idx_000e_PTNT           ; 0x84f0
     add sp, byte 6                   ; 0x84f3
 api_idx_00ac_HRGR.forward55:
@@ -1241,7 +1241,7 @@ api_idx_00ac_HRGR.forward57:
     mov ax, 0x12                     ; 0x8581
     imul word [bp + 6]               ; 0x8584
     mov si, ax                       ; 0x8587
-    mov ax, word [bss_8464]          ; 0x8589
+    mov ax, word [acting_group]      ; 0x8589
     shl ax, 1                        ; 0x858c
     mov bx, ax                       ; 0x858e
     mov bx, word [bx + battle_group_ext] ; 0x8590
@@ -1261,7 +1261,7 @@ api_idx_00ac_HRGR.forward57:
     add ax, cx                       ; 0x85ad
     add ax, word [bp - 0x54]         ; 0x85af
     mov word [bp - 0x56], ax         ; 0x85b2
-    mov ax, word [bss_8464]          ; 0x85b5
+    mov ax, word [acting_group]      ; 0x85b5
     shl ax, 1                        ; 0x85b8
     mov bx, ax                       ; 0x85ba
     mov bx, word [bx + battle_group_ext] ; 0x85bc
@@ -1415,7 +1415,7 @@ api_idx_00ac_HRGR.forward72:
 api_idx_00ac_HRGR.forward73:
     add word [bp - 0x5a], byte 4     ; 0x873e
 api_idx_00ac_HRGR.forward74:
-    mov ax, word [bss_8464]          ; 0x8742
+    mov ax, word [acting_group]      ; 0x8742
     shl ax, 1                        ; 0x8745
     mov bx, ax                       ; 0x8747
     mov bx, word [bx + battle_group_ext] ; 0x8749
@@ -1440,7 +1440,7 @@ api_idx_00ac_HRGR.forward76:
     cwd                              ; 0x877b
     idiv cx                          ; 0x877c
     mov cx, ax                       ; 0x877e
-    mov ax, word [bss_8464]          ; 0x8780
+    mov ax, word [acting_group]      ; 0x8780
     shl ax, 1                        ; 0x8783
     mov bx, ax                       ; 0x8785
     mov bx, word [bx + battle_group_ext] ; 0x8787
@@ -1648,7 +1648,7 @@ api_idx_00ac_HRGR.forward91:
     mov bx, word [bx + battle_groups] ; 0x8976
     pop ax                           ; 0x897a
     mov byte [bx + si + member_rec.unit_action_speed], al ; 0x897b
-    mov al, byte [bss_8464]          ; 0x897e
+    mov al, byte [acting_group]      ; 0x897e
     push ax                          ; 0x8981
     mov ax, 0x2c                     ; 0x8982
     imul word [bp - 0x50]            ; 0x8985
@@ -1659,7 +1659,7 @@ api_idx_00ac_HRGR.forward91:
     mov bx, word [bx + battle_groups] ; 0x8991
     pop ax                           ; 0x8995
     mov byte [bx + si + member_rec.unit_target_group], al ; 0x8996
-    mov al, byte [bss_8462]          ; 0x8999
+    mov al, byte [acting_unit]       ; 0x8999
     push ax                          ; 0x899c
     mov ax, 0x2c                     ; 0x899d
     imul word [bp - 0x50]            ; 0x89a0
@@ -1841,14 +1841,14 @@ api_idx_00ac_HRGR.forward103:
     call try_raise_member_skill      ; 0x8b5e
     add sp, byte 6                   ; 0x8b61
 api_idx_00ac_HRGR.forward104:
-    cmp word [bss_8464], byte 0      ; 0x8b64
+    cmp word [acting_group], byte 0  ; 0x8b64
     je short api_idx_00ac_HRGR.forward105 ; 0x8b69
     cmp word [bp - 0x9e], byte 0     ; 0x8b6b
     jne short api_idx_00ac_HRGR.forward105 ; 0x8b70
     mov bx, word [battle_group_ext_1] ; 0x8b72
     cmp byte [bx + battle_group_ext_1_rec.f_00d8], 0 ; 0x8b76
     jbe short api_idx_00ac_HRGR.forward105 ; 0x8b7b
-    mov ax, word [bss_8464]          ; 0x8b7d
+    mov ax, word [acting_group]      ; 0x8b7d
     shl ax, 1                        ; 0x8b80
     mov bx, ax                       ; 0x8b82
     mov bx, word [bx + battle_group_ext] ; 0x8b84
@@ -1893,7 +1893,7 @@ api_idx_00ac_HRGR.forward107:
     mov word [bp - 0x60], ax         ; 0x8be3
     cmp word [bp - 0x4e], byte 0     ; 0x8be6
     jne short api_idx_00ac_HRGR.forward108 ; 0x8bea
-    mov ax, word [bss_8464]          ; 0x8bec
+    mov ax, word [acting_group]      ; 0x8bec
     shl ax, 1                        ; 0x8bef
     mov bx, ax                       ; 0x8bf1
     mov ax, word [bx + battle_group_ext] ; 0x8bf3

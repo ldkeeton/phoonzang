@@ -1090,9 +1090,9 @@ draw_scene_frame.forward50:
     mov ax, dx                       ; 0x7e47
     shl ax, 1                        ; 0x7e49
     mov bx, ax                       ; 0x7e4b
-    cmp word [bx + bss_a5dc], strict word 0x140 ; 0x7e4d
+    cmp word [bx + sprite_pos_1], strict word 0x140 ; 0x7e4d
     je short draw_scene_frame.forward51 ; 0x7e53
-    cmp word [bx + bss_a5dc], strict word 0xf0 ; 0x7e55
+    cmp word [bx + sprite_pos_1], strict word 0xf0 ; 0x7e55
     jge short draw_scene_frame.forward52 ; 0x7e5b
 draw_scene_frame.forward51:
     mov ax, word [bp - 4]            ; 0x7e5d

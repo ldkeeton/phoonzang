@@ -248,7 +248,7 @@ code_index_2 equ __zbss_5b42 - __zdseg_start
 code_index_3 equ __zbss_5b44 - __zdseg_start
 code_index_4 equ __zbss_5b46 - __zdseg_start
 picture_slot_number equ __zbss_5b48 - __zdseg_start
-bss_5b55 equ __zbss_5b55 - __zdseg_start
+picture_slot_number_13 equ __zbss_5b55 - __zdseg_start
 picture_slot_used equ __zbss_5b5a - __zdseg_start
 current_maze equ __zbss_5b6c - __zdseg_start
 maze_variant equ __zbss_5b6e - __zdseg_start
@@ -300,8 +300,8 @@ party_entry_flag equ __zbss_845a - __zdseg_start
 party_screen_done equ __zbss_845c - __zdseg_start
 party_screen_animation_state equ __zbss_845e - __zdseg_start
 dest_alt_arg equ __zbss_8460 - __zdseg_start
-bss_8462 equ __zbss_8462 - __zdseg_start
-bss_8464 equ __zbss_8464 - __zdseg_start
+acting_unit equ __zbss_8462 - __zdseg_start
+acting_group equ __zbss_8464 - __zdseg_start
 monster_group_count equ __zbss_8466 - __zdseg_start
 overlay_list equ __zbss_8468 - __zdseg_start
 battle_groups equ __zbss_8482 - __zdseg_start
@@ -339,7 +339,7 @@ intro_layout_copy_8 equ __zbss_8a3e - __zdseg_start
 intro_layout_copy_9 equ __zbss_8a4a - __zdseg_start
 intro_layout_copy_10 equ __zbss_8a56 - __zdseg_start
 path_edges equ __zbss_8a6e - __zdseg_start
-bss_8aee equ __zbss_8aee - __zdseg_start
+picked_item_slot equ __zbss_8aee - __zdseg_start
 member_roster_index equ __zbss_8af0 - __zdseg_start
 explored_cell_bitmap equ __zbss_8afe - __zdseg_start
 current_map_block_a equ __zbss_8b7e - __zdseg_start

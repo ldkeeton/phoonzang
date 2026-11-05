@@ -22,19 +22,20 @@ struct pc_hand_base {
 };
 
 /* set_party_hand_attack copies the item's eight hand_values over +0x04
- * through +0x0b, so critical_chance starts as hand_values[6].  No routine
- * found reads +0x04..+0x09, +0x0b, +0x0c or +0x10. */
+ * through +0x0b (running past hand_values[5]), so critical_chance starts as
+ * the item's hand_values[6].  No routine found reads +0x04..+0x09, +0x0b,
+ * +0x0c or +0x10. */
 struct pc_hand_attack {
 	struct pc_hand_base base;	/* +0x00: four-byte base damage tuple */
-	char pad04[6];
+	unsigned char hand_values[6];	/* +0x04: item hand_values[0..5] */
 	unsigned char critical_chance; /* +0x0a: plus skills[33] / 5 */
-	char pad0b;
-	char pad0c;			/* +0x0c: from the item's +0x45 */
+	unsigned char hand_value7;	/* +0x0b: item hand_values[7] */
+	unsigned char hand_field0c;	/* +0x0c: from the item's +0x45 */
 	unsigned char range;		/* +0x0d: indexes the rank limits at
 					   range_max_target_group; ranks 3+ need non-zero */
 	char hit_penalty;             /* +0x0e: lowered by stat[4] */
 	unsigned char attack_flags;   /* +0x0f: attack mode bits 0..7 */
-	char pad10;			/* +0x10: from the item's +0x42 */
+	unsigned char hand_field10;	/* +0x10: from the item's +0x42 */
 	unsigned char slay_family;	/* +0x11: damage multiplier 2 when it
 					   matches the target's family */
 };

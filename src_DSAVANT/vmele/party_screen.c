@@ -21,7 +21,8 @@ party_screen()
 	int inner_index, target_total, party_index;
 	int group_score[7];
 	char message[80];
-	char unused_frame[652];
+	struct member_rec unused_group_swap;
+	struct member_ext unused_ext_swap;
 
 	/* Calculate each group's score from the living units' remaining HP. */
 	for (group_index = 1; group_index <= monster_group_count; group_index++) {
@@ -48,10 +49,10 @@ party_screen()
 			group_score[group_index] +=
 				(long)group_score[group_index] *
 				battle_group_ext[group_index]->special_action_chance / 100;
-		if (battle_group_ext[group_index]->f_00b1 > 0)
+		if (battle_group_ext[group_index]->advance_score_bonus > 0)
 			group_score[group_index] +=
 				(long)group_score[group_index] *
-				battle_group_ext[group_index]->f_00b1 / 100;
+				battle_group_ext[group_index]->advance_score_bonus / 100;
 		if (battle_groups[group_index]->slot != -1 &&
 		    slot_recs[battle_groups[group_index]->slot].forced != 0)
 			group_score[group_index] = 0;
@@ -99,10 +100,10 @@ party_screen()
 			group_score[group_index] = group_score[group_index - 1];
 			group_score[group_index - 1] = cell_row;
 			aztec_swapmem(battle_groups[group_index], battle_groups[group_index - 1],
-				420);
+				sizeof(struct member_rec));
 			aztec_swapmem(battle_group_ext[group_index],
 				battle_group_ext[group_index - 1],
-				232);
+				sizeof(struct member_ext));
 			/* Repair party members' references to the exchanged group numbers. */
 			for (party_index = 0; party_index < party_char_count; party_index++) {
 				if (battle_groups[0]->unit[party_index].target_group == group_index)

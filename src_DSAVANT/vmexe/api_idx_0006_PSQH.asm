@@ -2,10 +2,10 @@
 api_idx_0006_PSQH:
     mov ax, 0xfffa                   ; 0x989b
     call aztec_csav                  ; 0x989e
-    cmp word [bss_8464], byte 0      ; 0x98a1
+    cmp word [acting_group], byte 0  ; 0x98a1
     jne short .forward2              ; 0x98a6
     mov ax, 0x248                    ; 0x98a8
-    imul word [bss_8462]             ; 0x98ab
+    imul word [acting_unit]          ; 0x98ab
     mov bx, ax                       ; 0x98af
     mov ax, word [bx + party_records + pc_rec.level] ; 0x98b1
     push ax                          ; 0x98b5
@@ -85,8 +85,8 @@ api_idx_0006_PSQH:
     cmp ax, word [bp - 4]            ; 0x9961
     jl short .back2                  ; 0x9964
 .forward5:
-    push word [bss_8462]             ; 0x9966
-    push word [bss_8464]             ; 0x996a
+    push word [acting_unit]          ; 0x9966
+    push word [acting_group]         ; 0x996a
     mov ax, bss_90e6                 ; 0x996e
     push ax                          ; 0x9971
     call loc_HJSG                    ; 0x9972
@@ -101,7 +101,7 @@ api_idx_0006_PSQH:
     mov ax, 0x43                     ; 0x998b
     push ax                          ; 0x998e
     push ax                          ; 0x998f
-    cmp word [bss_8464], byte 0      ; 0x9990
+    cmp word [acting_group], byte 0  ; 0x9990
     jne short .forward6              ; 0x9995
     mov ax, 1                        ; 0x9997
 .forward6:
@@ -135,7 +135,7 @@ api_idx_0006_PSQH:
     push ax                          ; 0x99d6
     mov ax, 0x11                     ; 0x99d7
     push ax                          ; 0x99da
-    push word [bss_8462]             ; 0x99db
+    push word [acting_unit]          ; 0x99db
     call try_raise_member_skill      ; 0x99df
     add sp, byte 6                   ; 0x99e2
     mov ax, 2                        ; 0x99e5
@@ -146,11 +146,11 @@ api_idx_0006_PSQH:
     push ax                          ; 0x99f0
     call api_idx_0050_PLNP           ; 0x99f1
     add sp, byte 6                   ; 0x99f4
-    cmp word [bss_8464], byte 0      ; 0x99f7
+    cmp word [acting_group], byte 0  ; 0x99f7
     jne short .forward7              ; 0x99fc
     mov ax, 0                        ; 0x99fe
     push ax                          ; 0x9a01
-    push word [bss_8462]             ; 0x9a02
+    push word [acting_unit]          ; 0x9a02
     call api_idx_0004_MLLS           ; 0x9a06
     add sp, byte 4                   ; 0x9a09
 .forward7:

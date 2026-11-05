@@ -19,7 +19,7 @@ add_character_from_pc_file()
 		/* The dialog returns -1 when no PC-file entry was selected. */
 		selected_record_index = choose_pc_file_character(MSG_ADD_CHARACTER_1200);
 		if (selected_record_index == -1)
-			goto finish;
+			break;
 
 		transfer_pc_file_record(&selected_record, selected_record_index, 0);
 		pc_file_record_base_hi.availability[selected_record_index] = 2;
@@ -50,6 +50,5 @@ add_character_from_pc_file()
 		party_char_count++;
 	}
 
-finish:
 	call_show_area(54, 142, 265, 198);
 }

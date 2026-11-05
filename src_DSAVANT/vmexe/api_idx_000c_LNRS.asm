@@ -32,15 +32,15 @@ api_idx_000c_LNRS:
 .forward1:
     mov word [dest_alt_arg], 0x64    ; 0x6f87
 .back3:
-    mov word [bss_8464], 0           ; 0x6f8d
+    mov word [acting_group], 0       ; 0x6f8d
 .back4:
-    mov word [bss_8462], 0           ; 0x6f93
+    mov word [acting_unit], 0        ; 0x6f93
     jmp near .forward19              ; 0x6f99
 .back5:
     mov ax, 0x2c                     ; 0x6f9c
-    imul word [bss_8462]             ; 0x6f9f
+    imul word [acting_unit]          ; 0x6f9f
     mov cx, ax                       ; 0x6fa3
-    mov ax, word [bss_8464]          ; 0x6fa5
+    mov ax, word [acting_group]      ; 0x6fa5
     shl ax, 1                        ; 0x6fa8
     mov bx, ax                       ; 0x6faa
     mov ax, word [bx + battle_groups] ; 0x6fac
@@ -91,11 +91,11 @@ api_idx_000c_LNRS:
     push ax                          ; 0x7015
     call api_idx_0006_MRPM           ; 0x7016
     add sp, byte 8                   ; 0x7019
-    cmp word [bss_8464], byte 0      ; 0x701c
+    cmp word [acting_group], byte 0  ; 0x701c
     jne short .forward6              ; 0x7021
     mov ax, 0                        ; 0x7023
     push ax                          ; 0x7026
-    push word [bss_8462]             ; 0x7027
+    push word [acting_unit]          ; 0x7027
     call api_idx_0004_MLLS           ; 0x702b
     add sp, byte 4                   ; 0x702e
 .forward6:
@@ -143,11 +143,11 @@ api_idx_000c_LNRS:
     push ax                          ; 0x7092
     call api_idx_0006_MRPM           ; 0x7093
     add sp, byte 6                   ; 0x7096
-    cmp word [bss_8464], byte 0      ; 0x7099
+    cmp word [acting_group], byte 0  ; 0x7099
     jne short .forward10             ; 0x709e
     mov ax, 0                        ; 0x70a0
     push ax                          ; 0x70a3
-    push word [bss_8462]             ; 0x70a4
+    push word [acting_unit]          ; 0x70a4
     call api_idx_0004_MLLS           ; 0x70a8
     add sp, byte 4                   ; 0x70ab
 .forward10:
@@ -190,11 +190,11 @@ api_idx_000c_LNRS:
     push ax                          ; 0x7106
     call api_idx_0006_MRPM           ; 0x7107
     add sp, byte 6                   ; 0x710a
-    cmp word [bss_8464], byte 0      ; 0x710d
+    cmp word [acting_group], byte 0  ; 0x710d
     jne short .forward13             ; 0x7112
     mov ax, 0                        ; 0x7114
     push ax                          ; 0x7117
-    push word [bss_8462]             ; 0x7118
+    push word [acting_unit]          ; 0x7118
     call api_idx_0004_MLLS           ; 0x711c
     add sp, byte 4                   ; 0x711f
 .forward13:
@@ -224,19 +224,19 @@ api_idx_000c_LNRS:
     jbe short .forward18             ; 0x7157
     mov byte [bx + 0x21], 3          ; 0x7159
 .forward18:
-    inc word [bss_8462]              ; 0x715d
+    inc word [acting_unit]           ; 0x715d
 .forward19:
-    mov ax, word [bss_8464]          ; 0x7161
+    mov ax, word [acting_group]      ; 0x7161
     shl ax, 1                        ; 0x7164
     mov bx, ax                       ; 0x7166
     mov bx, word [bx + battle_groups] ; 0x7168
     mov al, byte [bx + 0x1a1]        ; 0x716c
     sub ah, ah                       ; 0x7170
-    cmp ax, word [bss_8462]          ; 0x7172
+    cmp ax, word [acting_unit]       ; 0x7172
     jle short .forward20             ; 0x7176
     jmp near .back5                  ; 0x7178
 .forward20:
-    mov ax, word [bss_8464]          ; 0x717b
+    mov ax, word [acting_group]      ; 0x717b
     shl ax, 1                        ; 0x717e
     mov bx, ax                       ; 0x7180
     mov bx, word [bx + battle_groups] ; 0x7182
@@ -246,7 +246,7 @@ api_idx_000c_LNRS:
 .forward21:
     mov word [bp - 8], 0             ; 0x7190
 .back6:
-    mov ax, word [bss_8464]          ; 0x7195
+    mov ax, word [acting_group]      ; 0x7195
     shl ax, 1                        ; 0x7198
     mov bx, ax                       ; 0x719a
     mov bx, word [bx + battle_groups] ; 0x719c
@@ -294,7 +294,7 @@ jumptable_735e_case_0:
     push ax                          ; 0x7200
     mov ax, 0xfff6                   ; 0x7201
     push ax                          ; 0x7204
-    push word [bss_8464]             ; 0x7205
+    push word [acting_group]         ; 0x7205
     call api_idx_000a_PJIK           ; 0x7209
     add sp, byte 0xe                 ; 0x720c
     jmp near api_idx_000c_LNRS.forward25 ; 0x720f
@@ -318,7 +318,7 @@ jumptable_735e_case_4:
     push ax                          ; 0x7238
     mov ax, 0xfff6                   ; 0x7239
     push ax                          ; 0x723c
-    push word [bss_8464]             ; 0x723d
+    push word [acting_group]         ; 0x723d
     call api_idx_0010_LPLH           ; 0x7241
     add sp, byte 0xe                 ; 0x7244
     jmp near api_idx_000c_LNRS.forward25 ; 0x7247
@@ -354,7 +354,7 @@ jumptable_735e_case_1:
     push ax                          ; 0x728a
     mov ax, 0xfff6                   ; 0x728b
     push ax                          ; 0x728e
-    push word [bss_8464]             ; 0x728f
+    push word [acting_group]         ; 0x728f
     call api_idx_000e_RMNP           ; 0x7293
     add sp, byte 0x1a                ; 0x7296
     jmp near api_idx_000c_LNRS.forward25 ; 0x7299
@@ -388,7 +388,7 @@ jumptable_735e_case_2:
     push ax                          ; 0x72d8
     mov ax, 0xfff6                   ; 0x72d9
     push ax                          ; 0x72dc
-    push word [bss_8464]             ; 0x72dd
+    push word [acting_group]         ; 0x72dd
     call api_idx_000e_RMNP           ; 0x72e1
     add sp, byte 0x1a                ; 0x72e4
     jmp near api_idx_000c_LNRS.forward25 ; 0x72e7
@@ -412,7 +412,7 @@ jumptable_735e_case_3:
     push ax                          ; 0x7310
     mov ax, 0xfff6                   ; 0x7311
     push ax                          ; 0x7314
-    push word [bss_8464]             ; 0x7315
+    push word [acting_group]         ; 0x7315
     call api_idx_000a_PJIK           ; 0x7319
     add sp, byte 0xe                 ; 0x731c
     jmp short api_idx_000c_LNRS.forward25 ; 0x731f
@@ -438,7 +438,7 @@ jumptable_735e_case_5:
     push ax                          ; 0x734d
     mov ax, MSG_VANISHES_3497        ; 0x734e
     push ax                          ; 0x7351
-    push word [bss_8464]             ; 0x7352
+    push word [acting_group]         ; 0x7352
     call api_idx_0006_LIRP           ; 0x7356
     add sp, byte 0x12                ; 0x7359
     jmp short api_idx_000c_LNRS.forward25 ; 0x735c
@@ -462,8 +462,8 @@ api_idx_000c_LNRS.forward25:
     jge short api_idx_000c_LNRS.forward26 ; 0x7380
     jmp near api_idx_000c_LNRS.back6 ; 0x7382
 api_idx_000c_LNRS.forward26:
-    inc word [bss_8464]              ; 0x7385
-    mov ax, word [bss_8464]          ; 0x7389
+    inc word [acting_group]          ; 0x7385
+    mov ax, word [acting_group]      ; 0x7389
     cmp ax, strict word 7            ; 0x738c
     jge short api_idx_000c_LNRS.forward27 ; 0x738f
     jmp near api_idx_000c_LNRS.back4 ; 0x7391

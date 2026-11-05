@@ -20,7 +20,7 @@ char *first_label;
 {
 	int i, box_x, box_y, box_right, box_bottom, mouse_x, mouse_y, thumb_y;
 	int thumb_travel, grab_offset, list_top, hit, running, mouse_button;
-	int rows_shown, selected_row, rows_drawn, spare_count;
+	int rows_shown, selected_row, rows_drawn, unused;
 	char label[18];
 	int saved_area;
 

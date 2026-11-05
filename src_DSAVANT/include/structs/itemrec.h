@@ -49,10 +49,10 @@ struct item_record {
 	unsigned char kind;			/* +0x3f */
 	char armor_class;			/* +0x40: copied to the slot's armor_class */
 	signed char hit_adjustment;		/* +0x41: times 5 into hit_penalty */
-	unsigned char hand_field10;		/* +0x42: copied to hand_attack pad10 */
+	unsigned char hand_field10;		/* +0x42: copied to hand_attack hand_field10 */
 	unsigned char slay_family;		/* +0x43: hand_attack slay_family */
 	unsigned char range;			/* +0x44: hand_attack range */
-	unsigned char hand_field0c;		/* +0x45: copied to hand_attack pad0c */
+	unsigned char hand_field0c;		/* +0x45: copied to hand_attack hand_field0c */
 	unsigned char attack_flags;		/* +0x46: hand_attack attack_flags */
 	char pad47;				/* +0x47 */
 };

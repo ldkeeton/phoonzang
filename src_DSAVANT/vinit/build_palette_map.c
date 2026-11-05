@@ -40,5 +40,5 @@ unsigned char *src;
 		color_map[(red << 6) + (green << 3) + blue] = color;
 	}
 	call_set_palette(palette, color_map);
-	call_reset_rgb((unsigned)65535, (unsigned)65535, (unsigned)65535);
+	call_reset_rgb(-1, -1, -1);
 }

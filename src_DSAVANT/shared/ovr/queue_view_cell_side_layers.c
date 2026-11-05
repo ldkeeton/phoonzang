@@ -188,58 +188,55 @@ int boundary_a, boundary_b, floor_a, floor_b, inset_a, inset_b;
 						72, 248, depth, 0, layer, 0, 0);
 		}
 	}
-	if (depth >= 4)
-		goto done;
-	/* Marker types 1 through 3 queue three distinct slot geometries. */
-	if (view_marker_kinds[depth][column] == 3) {
-		if (depth > 0 || column == 2) {
+	/* Only the four nearest rows carry markers. */
+	if (depth < 4) {
+		/* Marker types 1 through 3 queue three distinct slot geometries. */
+		if (view_marker_kinds[depth][column] == 3) {
+			if (depth > 0 || column == 2) {
+				if (depth == 0 && column == 2 && capture_center_marker_mode)
+					marker_mode = -1;
+				glyph = depth == 0 && column == 2 ? 2 : 1;
+				x = glyph == 2 ? depth : depth - 1;
+				queue_slot_glyph_render(12,
+					maze_cell_x_offset.marker_x[depth][column],
+					view_geometry[x], glyph, 0, 0, 0, 72, 248,
+					depth, view_depth_scale[x], 0, 1, 1);
+			}
+		}
+		if (view_marker_kinds[depth][column] == 1 ||
+		    view_marker_kinds[depth][column] == 2) {
+			if (depth > 0 || column == 2)
+				queue_slot_glyph_render(11,
+					maze_cell_x_offset.marker_x[depth][column],
+					view_geometry[depth],
+					view_marker_kinds[depth][column],
+					0, 0, 0, 72, 248, depth,
+					view_depth_scale[depth], 0, 1, 1);
+		}
+		if (view_marker_ids[depth][column] != 0) {
 			if (depth == 0 && column == 2 && capture_center_marker_mode)
-				marker_mode = -1;
-			glyph = depth == 0 && column == 2 ? 2 : 1;
-			x = glyph == 2 ? depth : depth - 1;
-			queue_slot_glyph_render(12,
-				maze_cell_x_offset.marker_x[depth][column],
-				view_geometry[x], glyph, 0, 0, 0, 72, 248,
-				depth, view_depth_scale[x], 0, 1, 1);
+				marker_mode = view_marker_ids[depth][column];
+			else if (depth > 0 || column == 2) {
+				facing = (party_facing - (view_marker_ids[depth][column] - 1) + 6) % 4;
+				/* Alternating facings choose the paired marker sprite. */
+				switch (facing) {
+				case 0:
+				case 2:
+					queue_slot_glyph_render(3,
+						maze_cell_x_offset.marker_x[depth][column],
+						view_geometry[depth], 1, 2,
+						facing == 0 ? 4 : 5, 0, 72, 248, depth,
+						view_depth_scale[depth], 0, 1, 1);
+					break;
+				case 1:
+				case 3:
+					queue_slot_glyph_render(3,
+						maze_cell_x_offset.marker_x[depth][column],
+						view_geometry[depth], 3, 0, 0, 0, 72, 248, depth,
+						view_depth_scale[depth], facing == 3 ? 1 : 0, 1, 1);
+					break;
+				}
+			}
 		}
 	}
-	if (view_marker_kinds[depth][column] == 1 ||
-	    view_marker_kinds[depth][column] == 2) {
-		if (depth > 0 || column == 2)
-			queue_slot_glyph_render(11,
-				maze_cell_x_offset.marker_x[depth][column],
-				view_geometry[depth],
-				view_marker_kinds[depth][column],
-				0, 0, 0, 72, 248, depth,
-				view_depth_scale[depth], 0, 1, 1);
-	}
-	if (view_marker_ids[depth][column] == 0)
-		goto done;
-	if (depth == 0 && column == 2 && capture_center_marker_mode) {
-		marker_mode = view_marker_ids[depth][column];
-		goto done;
-	}
-	if (depth <= 0 && column != 2)
-		goto done;
-	facing = (party_facing - (view_marker_ids[depth][column] - 1) + 6) % 4;
-	/* Alternating facings choose the paired marker sprite. */
-	switch (facing) {
-	case 0:
-	case 2:
-		queue_slot_glyph_render(3,
-			maze_cell_x_offset.marker_x[depth][column],
-			view_geometry[depth], 1, 2,
-			facing == 0 ? 4 : 5, 0, 72, 248, depth,
-			view_depth_scale[depth], 0, 1, 1);
-		break;
-	case 1:
-	case 3:
-		queue_slot_glyph_render(3,
-			maze_cell_x_offset.marker_x[depth][column],
-			view_geometry[depth], 3, 0, 0, 0, 72, 248, depth,
-			view_depth_scale[depth], facing == 3 ? 1 : 0, 1, 1);
-		break;
-	}
-done:
-	return;
 }

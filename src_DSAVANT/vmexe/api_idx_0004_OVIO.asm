@@ -6,11 +6,11 @@ api_idx_0004_OVIO:
     jne short .forward1              ; 0x1c68
     jmp near .forward5               ; 0x1c6a
 .forward1:
-    cmp word [bss_8464], byte 0      ; 0x1c6d
+    cmp word [acting_group], byte 0  ; 0x1c6d
     jne short .forward2              ; 0x1c72
-    cmp word [bss_8462], byte 0      ; 0x1c74
+    cmp word [acting_unit], byte 0   ; 0x1c74
     jl short .forward2               ; 0x1c79
-    mov ax, word [bss_8462]          ; 0x1c7b
+    mov ax, word [acting_unit]       ; 0x1c7b
     cmp ax, word [party_char_count]  ; 0x1c7e
     jge short .forward2              ; 0x1c82
     mov cx, 0x248                    ; 0x1c84

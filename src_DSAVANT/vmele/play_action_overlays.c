@@ -32,71 +32,48 @@ int wait_for_result;
 	}
 	redraw_result = 0;
 	party_redraw_last_tick = *tick_counter_ptr;
-	animation_round = 0;
-	/* Retry this animation round until the redraw interval elapses. */
-	for (;;) {
+	/* Four animation rounds form the complete overlay cycle. */
+	for (animation_round = 0; animation_round < 4; animation_round++) {
 		if (wait_for_result == 0 && animation_round == 1
 		    && battle_group_ext_1->sound_id > 0)
 			play_sound_effect(16);
-		for (;;) {
-			/* Queue each cell in the three-by-three action grid. */
-		party_screen_animation_state = -2;
-		step_party_screen_animation();
-		row = 0;
-		for (;;) {
-			column = 0;
-			for (;;) {
-				/* Negate the sort code for columns zero and one. */
-				overlay_code = (column % 2 == 1 || column == 0)
-					? 0 - action_overlay_steps[wait_for_result][animation_round]
-					: action_overlay_steps[wait_for_result][animation_round];
-				if (row == 0 && column == 0 && npc_melee == 1)
-					overlay_code = 0;
-				/* 72 and 248 bound the horizontal overlay area. */
-				queue_cell_action_overlay(row, column,
-					cell_action_marks[row][column] == 1 ? overlay_code : 0,
-					100 - cell_overlay_y_offset[row][column],
-					72, 248, redraw_result);
-				column++;
-				if (column >= 3)
-					break;
-			}
-			row++;
-			if (row >= 3)
-				break;
-		}
-		queue_marker_overlay();
-		draw_party_status_glyphs();
-		party_screen_animation_state = 0;
+		/* Retry this animation round until the redraw interval elapses. */
 		do {
+			party_screen_animation_state = -2;
 			step_party_screen_animation();
-		} while (party_screen_animation_state != -2);
-		redraw_result = check_party_redraw_interval();
-		if (redraw_result != 0) {
-			screen_cache_index = (screen_cache_index + 1) % 2;
-			party_status_frame = (party_status_frame + 1) % 2;
-		}
-		if (redraw_result != 0)
-			break;
-		}
-		animation_round++;
-		/* Four animation rounds form the complete overlay cycle. */
-		if (animation_round >= 4)
-			break;
+			/* Queue each cell in the three-by-three action grid. */
+			for (row = 0; row < 3; row++) {
+				for (column = 0; column < 3; column++) {
+					/* Negate the sort code for columns zero and one. */
+					overlay_code = (column % 2 == 1 || column == 0)
+						? 0 - action_overlay_steps[wait_for_result][animation_round]
+						: action_overlay_steps[wait_for_result][animation_round];
+					if (row == 0 && column == 0 && npc_melee == 1)
+						overlay_code = 0;
+					/* 72 and 248 bound the horizontal overlay area. */
+					queue_cell_action_overlay(row, column,
+						cell_action_marks[row][column] == 1 ? overlay_code : 0,
+						100 - cell_overlay_y_offset[row][column],
+						72, 248, redraw_result);
+				}
+			}
+			queue_marker_overlay();
+			draw_party_status_glyphs();
+			party_screen_animation_state = 0;
+			do {
+				step_party_screen_animation();
+			} while (party_screen_animation_state != -2);
+			redraw_result = check_party_redraw_interval();
+			if (redraw_result != 0) {
+				screen_cache_index = (screen_cache_index + 1) % 2;
+				party_status_frame = (party_status_frame + 1) % 2;
+			}
+		} while (redraw_result == 0);
 	}
 	/* Clear the marks once all four animation rounds have completed. */
-	row = 0;
-/* Clear the nine marks after the animation finishes. */
-clear_action_mark_row:
-	column = 0;
-clear_action_mark_column:
-	cell_action_marks[row][column] = 0;
-	column++;
-	if (column < 3)
-		goto clear_action_mark_column;
-	row++;
-	if (row < 3)
-		goto clear_action_mark_row;
+	for (row = 0; row < 3; row++)
+		for (column = 0; column < 3; column++)
+			cell_action_marks[row][column] = 0;
 	npc_melee = 0;
 	if (show_melee_result != 0) {
 		call_show_area(55, 146, 265, 198);

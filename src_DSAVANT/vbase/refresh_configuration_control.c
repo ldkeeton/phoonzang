@@ -11,7 +11,7 @@ extern char screen_store_drive[], palette_base_setting, palette_scale_setting;
 refresh_configuration_control(control_number, dialog_left, dialog_top)
 int control_number, dialog_left, dialog_top;
 {
-	char reserved_workspace[82]; /* Reserved stack space, unused in this code. */
+	char unused[82];
 
 	/* Coordinates and widths below are the configuration control layout. */
 	switch (control_number) {

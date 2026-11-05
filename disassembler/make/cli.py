@@ -4,6 +4,7 @@ import os
 import sys
 
 from lib import buildlock, childproc
+from lib.badc import cmd_badc
 
 from .build import _build_projects, cmd_rebuild
 from .charts import cmd_charts, cmd_set_baseline
@@ -372,6 +373,7 @@ def main():
             sys.exit(1)
         cmd_lint(all_projects, True)
         cmd_rebuild(project, binary, all_projects, only=routine)
+        cmd_badc([project] if project else all_projects)
         return
 
     if '--elf-rebuild' in flags:
@@ -393,6 +395,7 @@ def main():
             sys.exit(1)
         cmd_lint(all_projects, True)
         _build_projects(args or all_projects, all_projects)
+        cmd_badc(args or all_projects)
         return
 
     # No known flag — error

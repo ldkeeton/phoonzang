@@ -107,14 +107,8 @@ int chapter;
 		mouse_active = 1;
 	}
 	load_screen_file(main_screen_restore_filename, 0);
-	member_index = 0;
-	goto check_party_panels;
-draw_party_panel:
-	draw_party_member_panel(member_index, 0);
-	member_index++;
-check_party_panels:
-	if (member_index < party_char_count)
-		goto draw_party_panel;
+	for (member_index = 0; member_index < party_char_count; member_index++)
+		draw_party_member_panel(member_index, 0);
 	call_reset_rgb(0, 0, 0);
 	call_show_area(0, 0, 319, 199);
 	call_fade_in(0);

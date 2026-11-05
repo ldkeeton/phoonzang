@@ -153,9 +153,9 @@ __zobss_9bd0:  ; region_step_flag
     resb 0x0002
 __zobss_9bd2:  ; open_gates
     resb 0x000a
-__zobss_9bdc:  ; bss_9bdc
+__zobss_9bdc:  ; open_gates_5
     resb 0x0002
-__zobss_9bde:  ; bss_9bde
+__zobss_9bde:  ; open_gates_6
     resb 0x0008
 __zobss_9be6:  ; found_path_length
     resb 0x0002

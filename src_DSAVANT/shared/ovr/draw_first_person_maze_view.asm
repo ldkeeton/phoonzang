@@ -1891,7 +1891,7 @@ draw_first_person_maze_view.forward49:
     jl short draw_first_person_maze_view.forward50
     jmp near draw_first_person_maze_view.back3
 draw_first_person_maze_view.forward50:
-    mov al, byte [bss_5b55]
+    mov al, byte [picture_slot_number_13]
     sub ah, ah
     cmp ax, 0xff
     jne short draw_first_person_maze_view.forward51

@@ -238,7 +238,7 @@ struc member_ext
     .companion_chance: resb 2
     .special_spell_chance: resb 2
     .special_action_chance: resb 1
-    .f_00b1: resb 1
+    .advance_score_bonus: resb 1
     .flee_chance: resb 1
     .pad_00b3: resb 17
     .f_00c4: resb 1

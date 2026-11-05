@@ -29,7 +29,6 @@ play_startup_sequence()
 	int message_number, message_token, text_x;
 	int previous_line_count, text_mode;
 
-	/* Reserve the word between the loop locals and the saved area handle. */
 	/* Load the story score when music is enabled. */
 	if (story_music_enabled = score_music_enabled()) {
 		load_score_files(0, 0);
@@ -122,15 +121,12 @@ play_startup_sequence()
 	message_cursor = message_buffer;
 	message_line_count = 0;
 	/* Read each block's line count, then draw its encoded lines. */
-message_block:
-	{
+	do {
 		previous_line_count = message_line_count;
 		message_line_count = (unsigned char)*message_cursor;
 		message_cursor++;
-		message_line = 0;
-		goto check_message_line;
-message_line_body:
-		{
+		for (message_line = 0; message_line < message_line_count;
+		     message_line++) {
 			message_token = (unsigned char)*message_cursor;
 			message_cursor++;
 			if (message_token == 2) {
@@ -182,12 +178,7 @@ message_line_body:
 			message_number++;
 			load_message_string(message_number, message_buffer);
 			message_cursor = message_buffer;
-			message_line++;
 		}
-check_message_line:
-		if (message_line >= message_line_count) goto message_lines_done;
-		goto message_line_body;
-message_lines_done:
 		/* Dissolve only through the lines shared with the next block. */
 		call_dissolve_area(50, 102, 269,
 			102 + (message_line_count > previous_line_count ?
@@ -200,8 +191,7 @@ message_lines_done:
 			load_message_string(message_number, message_buffer);
 			message_cursor = message_buffer;
 		}
-		if (!message_not_found) goto message_block;
-	}
+	} while (!message_not_found);
 	if (poll_escape_key()) story_escape_state = -1;
 	wait_ticks_or_escape(50);
 	call_restore_screen(saved_area, 1, 0);

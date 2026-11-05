@@ -48,16 +48,8 @@ process_region_flag_actions()
 	update_region_flag_bitmaps(maze_tables->party_mask[party_region.region],
 		maze_tables->arg[party_region.region], all_cells_matched);
 
-	/* Keep existing mark bits when the matching condition and region bit are
-	   set. */
-	if (all_cells_matched != 0) {
-		if (get_bits(region_flags, 3, 1) == 0)
-			goto process_done;
-	}
-
-	/* Otherwise forward the two low marker bits. */
-	mark_region_bits(get_bits(region_flags, 0, 2));
-
-process_done:
-	return;
+	/* Forward the two low marker bits unless every cell matched and region
+	   flag bit 3 is clear. */
+	if (all_cells_matched == 0 || get_bits(region_flags, 3, 1) != 0)
+		mark_region_bits(get_bits(region_flags, 0, 2));
 }

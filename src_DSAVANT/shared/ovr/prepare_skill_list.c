@@ -136,20 +136,16 @@ int spell_ids[];
 		both_high_stats_flag = 1;
 
 	known_spell_count = 0;
-	spell_index = skill_group_ranges[realm_index][0];
-	/* Test the realm end before entering the range, then after each skill. */
-	goto spell_range_test;
-spell_range_body:
-	if (skill_availability_flags[spell_index] == 1) {
-		load_message_string(spell_index + MSG_WAND_DAGGER,
-			known_spell_names[known_spell_count]);
-		spell_ids[known_spell_count] = spell_index;
-		known_spell_count++;
+	/* List the available skills in the group's inclusive range. */
+	for (spell_index = skill_group_ranges[realm_index][0];
+	    skill_group_ranges[realm_index][1] >= spell_index; spell_index++) {
+		if (skill_availability_flags[spell_index] == 1) {
+			load_message_string(spell_index + MSG_WAND_DAGGER,
+				known_spell_names[known_spell_count]);
+			spell_ids[known_spell_count] = spell_index;
+			known_spell_count++;
+		}
 	}
-	spell_index++;
-spell_range_test:
-	if (skill_group_ranges[realm_index][1] >= spell_index)
-		goto spell_range_body;
 	load_message_string(MSG_SKILL_POINTS, slot_prompt_text);
 	return known_spell_count;
 }

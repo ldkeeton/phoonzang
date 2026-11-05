@@ -15,17 +15,14 @@ collect_region_flag_bits()
 	int region_argument;
 
 	update_status = 0;
-	object_index = 0;
 	/* Collect four object types and check their paired status bits. */
-object_loop:
+	for (object_index = 0; object_index < 4; object_index++) {
 		adjacent_object_type[object_index] = get_bits(
 			maze_tables->flags[party_region], object_index * 2, 2);
 		if (get_bits(maze_tables->flags[party_region],
 				object_index * 2 + 8, 2) == 2)
 			update_status = 1;
-		object_index++;
-	if (object_index < 4)
-		goto object_loop;
+	}
 	if (update_status != 0)
 		update_party_status_animation();
 

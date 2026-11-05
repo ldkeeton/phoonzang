@@ -7,20 +7,11 @@ extern struct maze_cells *maze_data;
 map_piece_index_for_position(piece_index, world_x, world_y)
 int piece_index, world_x, world_y;
 {
-	/* Reject points before or after the eight-cell horizontal span. */
-	if (maze_data[0].origin_x[piece_index] > world_x)
-		goto outside_piece;
-	if (maze_data[0].origin_x[piece_index] + 7 < world_x)
-		goto outside_piece;
-
-	/* Apply the same inclusive span check to the vertical origin. */
-	if (maze_data[0].origin_y[piece_index] > world_y)
-		goto outside_piece;
-	if (maze_data[0].origin_y[piece_index] + 7 < world_y)
-		goto outside_piece;
-
-	return piece_index;
-
-outside_piece:
+	/* Both spans are inclusive: origin through origin + 7. */
+	if (maze_data[0].origin_x[piece_index] <= world_x &&
+	    maze_data[0].origin_x[piece_index] + 7 >= world_x &&
+	    maze_data[0].origin_y[piece_index] <= world_y &&
+	    maze_data[0].origin_y[piece_index] + 7 >= world_y)
+		return piece_index;
 	return -1;
 }

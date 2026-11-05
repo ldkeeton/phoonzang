@@ -40,12 +40,9 @@ spin_and_push_party()
 	delay_ticks = maze_tables->party_mask[party_region];
 	region_flags = maze_tables->flags[party_region];
 	/* Flag bits 8-11: which of the four facings a spin may land on. */
-	region_index = 0;
-	cache_region_bit:
-		allowed_facings[region_index] = get_bits(region_flags, region_index + 8, 1);
-		region_index++;
-	if (region_index < 4)
-		goto cache_region_bit;
+	for (region_index = 0; region_index < 4; region_index++)
+		allowed_facings[region_index] =
+			get_bits(region_flags, region_index + 8, 1);
 	spin_count = get_bits(region_flags, 0, 8);
 	push_distance = maze_tables->arg[party_region];
 	/* Bit 12 animates the turn, bit 13 picks its direction, bit 14 randomizes the

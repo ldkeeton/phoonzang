@@ -23,14 +23,10 @@ int width;
 		width--;
 	}
 
-	index = aztec_strlen(number) - width;
 	/* Print the remaining characters one at a time. */
-	goto check_character;
-print_character:
-	output[0] = number[index];
-	bios_put_text(output);
-	index++;
-check_character:
-	if (aztec_strlen(number) > index)
-		goto print_character;
+	for (index = aztec_strlen(number) - width; aztec_strlen(number) > index;
+	    index++) {
+		output[0] = number[index];
+		bios_put_text(output);
+	}
 }

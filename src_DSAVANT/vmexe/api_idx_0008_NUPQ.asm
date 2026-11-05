@@ -9,7 +9,7 @@ api_idx_0008_NUPQ:
     mov ax, 6                        ; 0x63dd
     imul word [bp - 2]               ; 0x63e0
     push ax                          ; 0x63e3
-    mov ax, word [bss_8462]          ; 0x63e4
+    mov ax, word [acting_unit]       ; 0x63e4
     mov cx, 6                        ; 0x63e7
     cwd                              ; 0x63ea
     idiv cx                          ; 0x63eb

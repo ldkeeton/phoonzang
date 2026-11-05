@@ -35,14 +35,9 @@ change_cell_walls()
 	cell_index = map_piece * 64 + cell_y * 8 + cell_x;
 
 	event_bits = maze_tables->party_mask[party_region];
-	wall_index = 0;
 	/* Read the four 4-bit wall values packed in party_mask. */
-read_neighbor_values:
-		wall_values[wall_index] = get_bits(event_bits,
-			wall_index * 4, 4);
-		wall_index++;
-	if (wall_index < 4)
-		goto read_neighbor_values;
+	for (wall_index = 0; wall_index < 4; wall_index++)
+		wall_values[wall_index] = get_bits(event_bits, wall_index * 4, 4);
 
 	/* Log the change, then set the cell's own two walls. */
 	log_maze_change(current_level, 0, map_piece, cell_x, cell_y,

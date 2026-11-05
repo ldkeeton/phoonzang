@@ -13,7 +13,7 @@ struct view_panel_bounds {
 extern struct maze_cells *maze_data;
 extern struct view_panel_bounds boundary_box_bounds[][5];
 extern struct slot_rec slot_recs[];
-extern unsigned char bss_5b55;
+extern unsigned char picture_slot_number[];	/* 255 when the slot is free */
 extern int current_level, maze_variant, boundary_wall_open;
 extern int party_world_x, party_world_y, party_cell_x, party_cell_y;
 extern int party_map_piece, party_facing;
@@ -297,7 +297,7 @@ draw_first_person_maze_view()
 			133, 0, 0, 30, 30);
 		queue_view_cell_side_layers(view_scan_depth, 2, 0, 1, 2, 4, 2, 4,
 			5, 6, 0, 0, 37, 37, 4, 4, 0, 0, 16, 20,
-			8, 12, 0, 0, 0, 0, 0, 0, 174, 174, (unsigned)65535, (unsigned)65535);
+			8, 12, 0, 0, 0, 0, 0, 0, 174, 174, -1, -1);
 		queue_boundary_view_layers(view_scan_depth, center_left_wall,
 			1, 0, 1, 2, 4, 2, 4, 15, 19, 21, 25, 78,
 			82, 94, 98, 170, 23, 28, 85, 90,
@@ -306,17 +306,17 @@ draw_first_person_maze_view()
 		queue_boundary_view_layers(view_scan_depth, center_right_wall,
 			3, 0, 1, 2, 4, 2, 4, 19, 15, 25, 21, 82,
 			78, 98, 94, 175, 28, 23, 90, 85,
-			109, 105, (unsigned)65535, (unsigned)65535, 158, 153, 27, 22,
+			109, 105, -1, -1, 158, 153, 27, 22,
 			57, 52);
 		queue_boundary_view_layers(view_scan_depth, left_cell_side_wall,
 			0, 0, 1, 2, 4, 2, 4, 23, 27, 29, 33, 86,
-			90, 102, 106, (unsigned)65535, 33, 38, 95, 100,
-			113, 118, (unsigned)65535, (unsigned)65535, 163, 168, 32, 37,
+			90, 102, 106, -1, 33, 38, 95, 100,
+			113, 118, -1, -1, 163, 168, 32, 37,
 			62, 67);
 		queue_boundary_view_layers(view_scan_depth, right_cell_side_wall,
 			4, 0, 1, 2, 4, 2, 4, 27, 23, 33, 29, 90,
-			86, 106, 102, (unsigned)65535, 38, 33, 100, 95,
-			118, 113, (unsigned)65535, (unsigned)65535, 168, 163, 37, 32,
+			86, 106, 102, -1, 38, 33, 100, 95,
+			118, 113, -1, -1, 168, 163, 37, 32,
 			67, 62);
 
 		maze_gate_glyph_variant = (floor_checker_parity + 1) % 2;
@@ -403,8 +403,9 @@ draw_first_person_maze_view()
 			}
 		}
 
-		/* Only the party cell can add the three tracked marker strings. */
-		if (bss_5b55 != 255 && view_scan_depth == 0 &&
+		/* With picture slot 13 loaded, the party cell adds the three tracked
+		   marker strings. */
+		if (picture_slot_number[13] != 255 && view_scan_depth == 0 &&
 		    !(boundary_wall_variant == 0 && side_wall_layer_flags[2][2] == 3) &&
 		    ((boundary_wall_variant % 2) != 0 || requested_row_limit > 1)) {
 			marker_index = 0;

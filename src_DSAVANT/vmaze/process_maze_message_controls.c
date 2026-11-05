@@ -27,7 +27,7 @@ unsigned char *message_text;
 		control_code = strpos(maze_message_control_code_table, *message_text);
 		/* A missing control-code character marks the text tail. */
 		if (control_code < 0)
-			goto append_text;
+			break;
 		switch (control_code) {
 		case 0:
 			message_text++;
@@ -82,7 +82,6 @@ unsigned char *message_text;
 			break;
 		}
 	}
-append_text:
 	if (maze_message_glyph_buffer[0] != 0) {
 		aztec_strcpy(text_buffer, maze_message_glyph_buffer);
 		aztec_strcat(text_buffer, maze_message_word_separator);

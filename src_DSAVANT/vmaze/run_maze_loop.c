@@ -58,14 +58,14 @@ run_maze_loop()
 {
 	int hit;
 	int index;
-	int unused_frame_word_6;
+	int unused_a;
 	int time_remainder;
 	int cell_bit;
 	int screen_x;
 	int screen_y;
 	int terrain;
 	int stamina_due;
-	int unused_frame_word_14;
+	int unused_b;
 	int living_count;
 	int disabled_count;
 	int has_floor_icon;
@@ -130,23 +130,29 @@ run_maze_loop()
 				}
 			}
 		}
-		count_members:
-		living_count = 0;
-		disabled_count = 0;
-		for (index = 0; index < party_char_count; index++) {
-			if (party_records[index].state == 0) {
-				living_count++;
-				if (party_records[index].status[2] > 0 ||
-				    party_records[index].status[3] > 0)
-					disabled_count++;
+		/* With everyone disabled, keep resting until someone can act. */
+		do {
+			living_count = 0;
+			disabled_count = 0;
+			for (index = 0; index < party_char_count; index++) {
+				if (party_records[index].state == 0) {
+					living_count++;
+					if (party_records[index].status[2] > 0 ||
+					    party_records[index].status[3] > 0)
+						disabled_count++;
+				}
 			}
-		}
-		if (living_count == 0) { game_state = 8; return; }
-		if (disabled_count == living_count && rest_party() == 1) {
-			*npc_id_target = choose_region_npc(roll_region_outcome(party_map_piece));
-			configure_story_music(0, 0, 1); return;
-		}
-		if (disabled_count == living_count) goto count_members;
+			if (living_count == 0) {
+				game_state = 8;
+				return;
+			}
+			if (disabled_count == living_count && rest_party() == 1) {
+				*npc_id_target =
+					choose_region_npc(roll_region_outcome(party_map_piece));
+				configure_story_music(0, 0, 1);
+				return;
+			}
+		} while (disabled_count == living_count);
 		cell_bit = (party_map_piece << 6) + (party_cell_y << 3) + party_cell_x;
 		if (test_bit(current_map_block_a, cell_bit)) {
 			*npc_id_target = choose_region_npc(roll_region_outcome(party_map_piece));
@@ -217,41 +223,41 @@ run_maze_loop()
 				(char)(index + '1'), 0);
 		}
 		set_hotspot(24, 305, 185, 316, 196, 71, 0);
-		set_hotspot(25, (unsigned)65535, 0, 0, 0, 0, 0);
+		set_hotspot(25, -1, 0, 0, 0, 0, 0);
 		exit_object = 0;
 		read_cell_kind_direction(cell_bit, &cell_direction, &direction_output);
-		if (cell_direction <= 0) goto setup_exit_hotspot;
-		if (cell_direction == 14) {
-			set_hotspot(25, 138, 118, 182, 141, 67, 0);
-			exit_object = 3;
-			goto setup_exit_hotspot;
-		}
-		if ((cell_direction == 8 || cell_direction == 9) &&
-		    party_facing % 2 == direction_output % 2) {
-			if (cell_direction == 8) {
-				set_hotspot(25, 138, 107, 182, 141, 67, 0);
-				exit_object = 1;
-			} else {
-				set_hotspot(25, 138, 34, 182, 94, 67, 0);
-				exit_object = 2;
+		/* A hotspot on the cell's exit object or the feature ahead. */
+		if (cell_direction > 0) {
+			if (cell_direction == 14) {
+				set_hotspot(25, 138, 118, 182, 141, 67, 0);
+				exit_object = 3;
+			} else if ((cell_direction == 8 || cell_direction == 9) &&
+			    party_facing % 2 == direction_output % 2) {
+				if (cell_direction == 8) {
+					set_hotspot(25, 138, 107, 182, 141, 67, 0);
+					exit_object = 1;
+				} else {
+					set_hotspot(25, 138, 34, 182, 94, 67, 0);
+					exit_object = 2;
+				}
+			} else if (party_facing == direction_output) {
+				switch (cell_direction) {
+				case 4:
+					set_hotspot(25, 130, 54, 188, 95, 70, 0);
+					break;
+				case 5: case 6:
+					if (maze_variant == 1)
+						set_hotspot(25, 156, 65, 162, 71, 0, 0);
+					else
+						set_hotspot(25, 156, 59, 162, 65, 0, 0);
+					break;
+				case 10: case 11:
+					set_hotspot(25, 154, 59, 164, 77, 0, 0);
+					break;
+				}
 			}
-			goto setup_exit_hotspot;
 		}
-		if (party_facing != direction_output) goto setup_exit_hotspot;
-		switch (cell_direction) {
-		case 4:
-			set_hotspot(25, 130, 54, 188, 95, 70, 0);
-			goto setup_exit_hotspot;
-		case 5: case 6:
-			if (maze_variant == 1) set_hotspot(25, 156, 65, 162, 71, 0, 0);
-			else set_hotspot(25, 156, 59, 162, 65, 0, 0);
-			goto setup_exit_hotspot;
-		case 10: case 11:
-			set_hotspot(25, 154, 59, 164, 77, 0, 0);
-			goto setup_exit_hotspot;
-		}
-setup_exit_hotspot:
-		set_hotspot(26, (unsigned)65535, 0, 0, 0, 0, 0);
+		set_hotspot(26, -1, 0, 0, 0, 0, 0);
 		has_floor_icon = floor_item_icon_shown != 0;
 		maze_refresh_deadline = *tick_counter_ptr + 36L;
 		do {

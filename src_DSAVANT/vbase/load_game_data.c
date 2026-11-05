@@ -125,7 +125,7 @@ int load_mode;
 		/* preserve all four path/option entries */
 		volume_settings[index] = preserved_load_header.options[index];
 	sound_device_setting = preserved_load_header.sound_device;
-	video_mode = preserved_load_header.video;
+	video_mode = preserved_load_header.music_device;
 	sound_port_setting = preserved_load_header.sound_port;
 	sound_aux_setting = preserved_load_header.sound_extra;
 	startup_option_byte = preserved_load_header.startup;

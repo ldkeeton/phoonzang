@@ -9,17 +9,17 @@ int party_slot_y[12] = {
 	50, 4, 30, 51,
 };
 int party_slot_glyphs[60] = {
-	1, 2, 3, 4, 5, 6, (unsigned)65535, (unsigned)65535,
-	(unsigned)65535, (unsigned)65535, 7, 8, 9, 10, 11, (unsigned)65535,
-	(unsigned)65535, (unsigned)65535, (unsigned)65535, (unsigned)65535, 12, 13,
+	1, 2, 3, 4, 5, 6, -1, -1,
+	-1, -1, 7, 8, 9, 10, 11, -1,
+	-1, -1, -1, -1, 12, 13,
 		14, 15,
-	(unsigned)65535, (unsigned)65535, (unsigned)65535, (unsigned)65535,
-		(unsigned)65535, (unsigned)65535, 16, 17,
-	18, 19, 20, 21, 22, (unsigned)65535, (unsigned)65535, (unsigned)65535,
+	-1, -1, -1, -1,
+		-1, -1, 16, 17,
+	18, 19, 20, 21, 22, -1, -1, -1,
 	24, 24, 23, 24, 25, 24, 24, 26,
-	(unsigned)65535, (unsigned)65535, 27, 28, 29, (unsigned)65535,
-		(unsigned)65535, (unsigned)65535,
-	(unsigned)65535, (unsigned)65535, (unsigned)65535, (unsigned)65535,
+	-1, -1, 27, 28, 29, -1,
+		-1, -1,
+	-1, -1, -1, -1,
 };
 int region_view_x_offsets[10] = {
 	51, 42, 33, 60, 69, 64, 42, 27, 0, 0,

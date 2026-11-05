@@ -44,7 +44,7 @@ int load_mode;
 	}
 	maze_state = 0;
 	maze_variant = 0;
-	current_maze = (unsigned)65535;
+	current_maze = -1;
 	if (startup_check_stage != 2) {
 		verify_code_message();	/* check the entered code answer */
 		startup_check_stage = 2;

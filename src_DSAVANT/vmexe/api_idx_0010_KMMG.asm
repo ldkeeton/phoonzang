@@ -2,8 +2,8 @@
 api_idx_0010_KMMG:
     mov ax, 0xfff0                   ; 0x9a2f
     call aztec_csav                  ; 0x9a32
-    push word [bss_8462]             ; 0x9a35
-    push word [bss_8464]             ; 0x9a39
+    push word [acting_unit]          ; 0x9a35
+    push word [acting_group]         ; 0x9a39
     mov ax, bss_90e6                 ; 0x9a3d
     push ax                          ; 0x9a40
     call loc_HJSG                    ; 0x9a41
@@ -19,7 +19,7 @@ api_idx_0010_KMMG:
     mov ax, word [bx]                ; 0x9a5d
     add ax, strict word 0x5a         ; 0x9a5f
     mov word [bp - 0xe], ax          ; 0x9a62
-    cmp word [bss_8464], byte 0      ; 0x9a65
+    cmp word [acting_group], byte 0  ; 0x9a65
     jne short .forward2              ; 0x9a6a
     mov word [bp - 2], 1             ; 0x9a6c
     jmp short .forward1              ; 0x9a71
@@ -51,7 +51,7 @@ api_idx_0010_KMMG:
     mov al, byte [bx + member_ext.f_008f] ; 0x9aae
     sub ah, ah                       ; 0x9ab2
     mov cx, ax                       ; 0x9ab4
-    mov ax, word [bss_8464]          ; 0x9ab6
+    mov ax, word [acting_group]      ; 0x9ab6
     shl ax, 1                        ; 0x9ab9
     mov bx, ax                       ; 0x9abb
     mov bx, word [bx + battle_group_ext] ; 0x9abd
@@ -94,7 +94,7 @@ api_idx_0010_KMMG:
     mov al, byte [bx + member_ext.f_008f] ; 0x9b15
     sub ah, ah                       ; 0x9b19
     mov cx, ax                       ; 0x9b1b
-    mov ax, word [bss_8464]          ; 0x9b1d
+    mov ax, word [acting_group]      ; 0x9b1d
     shl ax, 1                        ; 0x9b20
     mov bx, ax                       ; 0x9b22
     mov bx, word [bx + battle_group_ext] ; 0x9b24
@@ -125,7 +125,7 @@ api_idx_0010_KMMG:
     push ax                          ; 0x9b62
     mov ax, 0x43                     ; 0x9b63
     push ax                          ; 0x9b66
-    cmp word [bss_8464], byte 0      ; 0x9b67
+    cmp word [acting_group], byte 0  ; 0x9b67
     jne short .forward5              ; 0x9b6c
     mov ax, 1                        ; 0x9b6e
 .forward5:
@@ -155,9 +155,9 @@ api_idx_0010_KMMG:
     jl short .forward6               ; 0x9ba1
     jmp near .forward21              ; 0x9ba3
 .forward6:
-    cmp word [bss_8464], byte 0      ; 0x9ba6
+    cmp word [acting_group], byte 0  ; 0x9ba6
     je short .forward7               ; 0x9bab
-    mov ax, word [bss_8464]          ; 0x9bad
+    mov ax, word [acting_group]      ; 0x9bad
     cmp ax, strict word 6            ; 0x9bb0
     je short .forward7               ; 0x9bb3
     shl ax, 1                        ; 0x9bb5

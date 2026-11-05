@@ -94,7 +94,7 @@ struct member_ext {			/* 0xe8 bytes: the group's monster */
 	unsigned char special_spell_chance; /* +0xae: threshold for the special-spell roll */
 	unsigned char f_00af;	/* +0xaf */
 	unsigned char special_action_chance; /* +0xb0: threshold for the special-action roll */
-	unsigned char f_00b1;	/* +0xb1 */
+	unsigned char advance_score_bonus; /* +0xb1: percent bonus to the group's advance roll (party_screen) */
 	unsigned char flee_chance;	/* +0xb2: roll limit for action_kind 6 (flee),
 					   also gated by the side-strength roll */
 	char pad2[0xd6 - 0xb3];

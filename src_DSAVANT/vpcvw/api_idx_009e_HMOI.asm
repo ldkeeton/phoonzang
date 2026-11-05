@@ -21,7 +21,7 @@ api_idx_009e_HMOI:
     jmp near .forward11              ; 0x3d29
 jumptable_3f96_case_1:
     call api_idx_0012_SHRT           ; 0x3d2c
-    mov word [bss_8aee], ax          ; 0x3d2f
+    mov word [picked_item_slot], ax  ; 0x3d2f
     cmp ax, strict word 0xffff       ; 0x3d32
     je short api_idx_009e_HMOI.forward2 ; 0x3d35
     mov ax, 0x248                    ; 0x3d37
@@ -34,7 +34,7 @@ jumptable_3f96_case_1:
     add ax, cx                       ; 0x3d48
     push ax                          ; 0x3d4a
     mov ax, 0xc                      ; 0x3d4b
-    imul word [bss_8aee]             ; 0x3d4e
+    imul word [picked_item_slot]     ; 0x3d4e
     mov cx, ax                       ; 0x3d52
     pop ax                           ; 0x3d54
     add ax, cx                       ; 0x3d55

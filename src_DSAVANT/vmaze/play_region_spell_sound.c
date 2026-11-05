@@ -30,16 +30,12 @@ play_region_spell_sound()
 	/* Bit 15 supplies the state compared against both saved map bits. */
 	required_state = get_bits(region_flags, 15, 1);
 	if (test_bit(party_region.state[current_level],
-			maze_tables->key[party_region.region]) != required_state)
-		goto trigger_mismatch;
-	if (test_bit(party_region.state[current_level],
+			maze_tables->key[party_region.region]) != required_state
+	    || test_bit(party_region.state[current_level],
 			maze_tables->party_mask[party_region.region])
-	    == required_state)
-		goto update_region_bitmap;
-	trigger_mismatch:
-	return;
+	    != required_state)
+		return;
 
-	update_region_bitmap:
 	/* Bits 0-7 select the bit; bits 8-12 select the saved map block. */
 	map_bit = get_bits(region_flags, 0, 8);
 	map_index = get_bits(region_flags, 8, 5);

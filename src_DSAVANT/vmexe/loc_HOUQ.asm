@@ -8,13 +8,13 @@ loc_HOUQ:
     push word [bp + 4]               ; 0x6ee9
     call api_idx_0050_PLNP           ; 0x6eec
     add sp, byte 6                   ; 0x6eef
-    cmp word [bss_8464], byte 0      ; 0x6ef2
+    cmp word [acting_group], byte 0  ; 0x6ef2
     je short .forward2               ; 0x6ef7
-    mov ax, word [bss_8464]          ; 0x6ef9
+    mov ax, word [acting_group]      ; 0x6ef9
     cmp ax, strict word 6            ; 0x6efc
     je short .forward2               ; 0x6eff
     mov ax, 1                        ; 0x6f01
-    cmp word [bss_8464], byte 3      ; 0x6f04
+    cmp word [acting_group], byte 3  ; 0x6f04
     jge short .forward1              ; 0x6f09
     mov ax, 0                        ; 0x6f0b
 .forward1:

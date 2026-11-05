@@ -25,10 +25,8 @@ replay_maze_changes()
 	int cell_index;
 
 	record = maze_change_log;
-	record_index = 0;
-	/* Check the count before the first record, then after each decoded record. */
-	goto record_check;
-	do {
+	for (record_index = 0; record_index < maze_change_count;
+	    record_index++, record++) {
 		/* Only records for the current level apply. */
 		if (record->level == current_level) {
 			/* Type 6 replaces a region's flags word. */
@@ -105,10 +103,5 @@ replay_maze_changes()
 				}
 			}
 		}
-		record += 1;
-		record_index++;
-record_check:
-		if (record_index >= maze_change_count)
-			break;
-	} while (1);
+	}
 }

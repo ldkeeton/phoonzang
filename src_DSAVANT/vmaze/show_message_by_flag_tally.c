@@ -25,17 +25,11 @@ show_message_by_flag_tally()
 	bit_count = get_bits(region_flags, 8, 4);
 	expected_bit = get_bits(region_flags, 15, 1);
 	differing_bits = 0;
-	bit_index = 0;
-	goto check_bit_range;
-count_bit:
 	/* Count bits that do not match the expected value. */
-	if (test_bit(party_region.state[current_level], first_bit + bit_index)
-		!= expected_bit)
-		differing_bits++;
-	bit_index++;
-check_bit_range:
-	if (bit_index < bit_count)
-		goto count_bit;
+	for (bit_index = 0; bit_index < bit_count; bit_index++)
+		if (test_bit(party_region.state[current_level],
+		    first_bit + bit_index) != expected_bit)
+			differing_bits++;
 	show_maze_message_sequence(
 		maze_tables->arg[party_region.region] * differing_bits +
 		maze_tables->key[party_region.region],

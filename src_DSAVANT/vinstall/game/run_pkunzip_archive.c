@@ -21,11 +21,6 @@ extern int aztec_wait();
 extern int show_message_wait_for_enter();
 extern int aztec_exit();
 
-struct unzip_messages {
-	char error_message[80];
-	char command_line[255];
-};
-
 /* Compose and launch PKUNZIP, then restore the console stream. */
 run_pkunzip_archive(source_dir, dest_dir, archive_name,
 		    file_list)
@@ -37,7 +32,8 @@ char *file_list;
 	char executable_path[40];
 	char executable_name[40];
 	char archive_path[40];
-	struct unzip_messages messages;
+	char command_line[255];
+	char error_message[80];
 	int execute_result;
 	int wait_result;
 
@@ -49,13 +45,13 @@ char *file_list;
 	aztec_strcat(archive_path, archive_name);
 
 	/* Keep the visible command text in the larger local buffer. */
-	aztec_strcpy(messages.command_line, source_dir);
-	aztec_strcat(messages.command_line, pkunzip_command_prefix);
-	aztec_strcat(messages.command_line, source_dir);
-	aztec_strcat(messages.command_line, archive_name);
-	aztec_strcat(messages.command_line, command_argument_separator);
-	aztec_strcat(messages.command_line, file_list);
-	display_centered_command_line(messages.command_line);
+	aztec_strcpy(command_line, source_dir);
+	aztec_strcat(command_line, pkunzip_command_prefix);
+	aztec_strcat(command_line, source_dir);
+	aztec_strcat(command_line, archive_name);
+	aztec_strcat(command_line, command_argument_separator);
+	aztec_strcat(command_line, file_list);
+	display_centered_command_line(command_line);
 
 	/* Send stdout to NUL while PKUNZIP runs. */
 	archive_process_stream_handle =
@@ -68,11 +64,11 @@ char *file_list;
 
 	/* Either a failed launch or a zero wait result enters the error path. */
 	if (execute_result == -1 || wait_result != 0) {
-		aztec_strcpy(messages.error_message, unzip_failure_prefix);
-		aztec_strcat(messages.error_message, source_dir);
-		aztec_strcat(messages.error_message, archive_name);
-		aztec_strcat(messages.error_message, unzip_failure_suffix);
-		show_message_wait_for_enter(messages.error_message);
+		aztec_strcpy(error_message, unzip_failure_prefix);
+		aztec_strcat(error_message, source_dir);
+		aztec_strcat(error_message, archive_name);
+		aztec_strcat(error_message, unzip_failure_suffix);
+		show_message_wait_for_enter(error_message);
 		/* Exit status three follows the displayed unzip failure. */
 		aztec_exit(3);
 	}

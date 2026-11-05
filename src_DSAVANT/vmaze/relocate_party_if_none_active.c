@@ -22,31 +22,23 @@ relocate_party_if_none_active()
 
 	/* Accumulate whether any party member is active. */
 	any_active = 0;
-	member_index = 0;
-	goto check_member;
-member_loop:
+	for (member_index = 0; member_index < party_char_count; member_index++)
 		any_active |= member_is_active(member_index);
-		member_index++;
-	check_member:
-	if (member_index < party_char_count)
-		goto member_loop;
 	if (any_active == 0) {
-
-	/* Use the fallback coordinates when the saved region bit is clear. */
-	if (test_bit(party_region.state[current_level], 3) == 0) {
-		party_map_piece = 10;
-		party_cell_x = 7;
-		party_cell_y = 2;
-	}
-
-	party_facing = random_below(4);
-	party_world_x = maze_data->origin_x[party_map_piece] + party_cell_x;
-	party_world_y = maze_data->origin_y[party_map_piece] + party_cell_y;
-	find_map_piece(&party_cell_x, &party_cell_y, &party_map_piece,
-		party_world_x, party_world_y);
-	maze_redraw_pending = 1;
-	location_changed = 1;
-	save_previous_party_position();
+		/* Use the fallback coordinates when the saved region bit is clear. */
+		if (test_bit(party_region.state[current_level], 3) == 0) {
+			party_map_piece = 10;
+			party_cell_x = 7;
+			party_cell_y = 2;
+		}
+		party_facing = random_below(4);
+		party_world_x = maze_data->origin_x[party_map_piece] + party_cell_x;
+		party_world_y = maze_data->origin_y[party_map_piece] + party_cell_y;
+		find_map_piece(&party_cell_x, &party_cell_y, &party_map_piece,
+			party_world_x, party_world_y);
+		maze_redraw_pending = 1;
+		location_changed = 1;
+		save_previous_party_position();
 		return 1;
 	}
 	return 0;

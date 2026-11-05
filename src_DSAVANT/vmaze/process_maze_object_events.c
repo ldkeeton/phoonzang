@@ -39,7 +39,7 @@ process_maze_object_events()
 		party_region = find_object_at(party_cell_x, party_cell_y,
 			party_map_piece, party_region);
 		if (party_region == -1)
-			goto done;
+			break;
 
 		region_step_flag = 1;
 		/* Event types select the action associated with this object. */
@@ -129,6 +129,4 @@ process_maze_object_events()
 		if (region_step_flag == 1)
 			party_region++;
 	}
-done:
-	return;
 }

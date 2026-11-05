@@ -27,7 +27,7 @@ _BLOCK = 'absolute __zimage_end'
 #: Names ``ln`` itself defines at the ends of the block.
 _LINKER_NAMES = frozenset({'_Uorg', '_Uend'})
 #: What a companion may call a stretch the listing has no label for.
-_FILLER = re.compile(r'^o?bss_([0-9a-f]{4})_$')
+_FILLER = re.compile(r'^(?:o?bss|unused)_([0-9a-f]{4})_$')
 
 
 def module(binary):
@@ -177,9 +177,10 @@ def check(commons, slots):
 
     Each slot must be a common of its name (``floor_items`` ->
     ``floor_items_``) at its place.  A companion may split a slot with a
-    filler named after its address (``bss_831c``), since nothing names
-    those bytes.  ``ln`` starts a common of even size on a word, so one
-    after an odd-sized common (``char x[25]``) may follow a pad byte.
+    filler named after its address (``unused_831c`` or ``bss_831c``), since
+    nothing names those bytes.  ``ln`` starts a common of even size on a
+    word, so one after an odd-sized common (``char x[25]``) may follow a pad
+    byte.
     """
     errors, at = [], 0
     starts, base = {}, int(slots[0][2], 16) if slots else 0
@@ -199,7 +200,7 @@ def check(commons, slots):
             filler = _FILLER.match(name)
             if not filler or int(filler.group(1), 16) != base + at:
                 errors.append(f'{name} at 0x{base + at:04x}: the listing has no '
-                              'object there; a filler is bss_XXXX at its address')
+                              'object there; a filler is unused_XXXX at its address')
         at += size
         if len(errors) >= 5:
             break

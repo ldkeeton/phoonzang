@@ -28,7 +28,7 @@ unsigned char *message;
 	for (;;) {
 		control_index = strpos(scene_message_control_codes, *message);
 		if (control_index < 0)
-			goto append_text;
+			break;
 		/* Each control token consumes itself before performing its action. */
 		switch (control_index) {
 		case 0:
@@ -69,7 +69,6 @@ unsigned char *message;
 		}
 	}
 
-append_text:
 	/* Measure buffered text with this run of characters and its separator. */
 	if (scene_message_line_buffer[0] != 0) {
 		aztec_strcpy(combined_text, scene_message_line_buffer);

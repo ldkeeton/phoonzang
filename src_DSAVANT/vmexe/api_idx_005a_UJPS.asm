@@ -9,8 +9,8 @@ api_idx_005a_UJPS:
     mov al, byte [bx + 0x20]         ; 0x9f60
     sub ah, ah                       ; 0x9f63
     mov word [bp - 0xe], ax          ; 0x9f65
-    push word [bss_8462]             ; 0x9f68
-    push word [bss_8464]             ; 0x9f6c
+    push word [acting_unit]          ; 0x9f68
+    push word [acting_group]         ; 0x9f6c
     mov ax, bss_90e6                 ; 0x9f70
     push ax                          ; 0x9f73
     call loc_HJSG                    ; 0x9f74
@@ -18,7 +18,7 @@ api_idx_005a_UJPS:
     mov word [bp - 4], 0             ; 0x9f7a
     mov word [bp - 6], 0             ; 0x9f7f
     mov word [bp - 0x12], 0xffff     ; 0x9f84
-    cmp word [bss_8464], byte 0      ; 0x9f89
+    cmp word [acting_group], byte 0  ; 0x9f89
     je short .forward1               ; 0x9f8e
     jmp near .forward28              ; 0x9f90
 .forward1:
@@ -35,7 +35,7 @@ api_idx_005a_UJPS:
     mov ax, 0                        ; 0x9fab
     push ax                          ; 0x9fae
     mov ax, 0x248                    ; 0x9faf
-    imul word [bss_8462]             ; 0x9fb2
+    imul word [acting_unit]          ; 0x9fb2
     push ax                          ; 0x9fb6
     mov ax, 0x78                     ; 0x9fb7
     imul word [bp - 8]               ; 0x9fba
@@ -57,7 +57,7 @@ api_idx_005a_UJPS:
     call data_record_io              ; 0x9fdc
     add sp, byte 8                   ; 0x9fdf
     mov ax, 0x248                    ; 0x9fe2
-    imul word [bss_8462]             ; 0x9fe5
+    imul word [acting_unit]          ; 0x9fe5
     push ax                          ; 0x9fe9
     mov ax, 0x78                     ; 0x9fea
     imul word [bp - 8]               ; 0x9fed
@@ -153,7 +153,7 @@ api_idx_005a_UJPS:
     jmp near .forward12              ; 0xa0b4
 .forward7:
     mov ax, 0x248                    ; 0xa0b7
-    imul word [bss_8462]             ; 0xa0ba
+    imul word [acting_unit]          ; 0xa0ba
     mov bx, ax                       ; 0xa0be
     cmp byte [bx + party_records + pc_rec.skills + 0xd], 0 ; 0xa0c0
     jbe short .forward9              ; 0xa0c5
@@ -178,7 +178,7 @@ api_idx_005a_UJPS:
     push ax                          ; 0xa0ef
     mov ax, 0xd                      ; 0xa0f0
     push ax                          ; 0xa0f3
-    push word [bss_8462]             ; 0xa0f4
+    push word [acting_unit]          ; 0xa0f4
     call try_raise_member_skill      ; 0xa0f8
     add sp, byte 6                   ; 0xa0fb
     cmp word [bp - 4], byte 0        ; 0xa0fe
@@ -234,7 +234,7 @@ api_idx_005a_UJPS:
     jmp short .forward14             ; 0xa16e
 .forward12:
     mov ax, 0x248                    ; 0xa170
-    imul word [bss_8462]             ; 0xa173
+    imul word [acting_unit]          ; 0xa173
     push ax                          ; 0xa177
     mov ax, 0x78                     ; 0xa178
     imul word [bp - 8]               ; 0xa17b
@@ -284,7 +284,7 @@ api_idx_005a_UJPS:
 .forward19:
     push word [bp - 0xa]             ; 0xa1d9
     push word [bp - 8]               ; 0xa1dc
-    push word [bss_8462]             ; 0xa1df
+    push word [acting_unit]          ; 0xa1df
     call api_idx_000e_PTNT           ; 0xa1e3
     add sp, byte 6                   ; 0xa1e6
     jmp short .forward23             ; 0xa1e9
@@ -323,7 +323,7 @@ api_idx_005a_UJPS:
     mov word [bp - 6], 0x64          ; 0xa237
     mov word [bp - 4], 6             ; 0xa23c
     mov ax, 0x248                    ; 0xa241
-    imul word [bss_8462]             ; 0xa244
+    imul word [acting_unit]          ; 0xa244
     push ax                          ; 0xa248
     mov ax, 0x78                     ; 0xa249
     imul word [bp - 8]               ; 0xa24c
@@ -340,12 +340,12 @@ api_idx_005a_UJPS:
     mov byte [bx + party_records + pc_rec.item_slots + 0x6], 1 ; 0xa262
     push word [bp - 0xa]             ; 0xa267
     push word [bp - 8]               ; 0xa26a
-    push word [bss_8462]             ; 0xa26d
+    push word [acting_unit]          ; 0xa26d
     call api_idx_000e_PTNT           ; 0xa271
     add sp, byte 6                   ; 0xa274
 .forward24:
     mov ax, 0x248                    ; 0xa277
-    imul word [bss_8462]             ; 0xa27a
+    imul word [acting_unit]          ; 0xa27a
     push ax                          ; 0xa27e
     mov ax, 0x78                     ; 0xa27f
     imul word [bp - 8]               ; 0xa282
@@ -433,18 +433,18 @@ api_idx_005a_UJPS:
     pop cx                           ; 0xa34a
     add ax, strict word 0xfff6       ; 0xa34b
     mov word [bp - 0x10], ax         ; 0xa34e
-    cmp word [bss_8464], byte 0      ; 0xa351
+    cmp word [acting_group], byte 0  ; 0xa351
     jne short .forward32             ; 0xa356
     cmp word [bp - 0x12], byte -1    ; 0xa358
     je short .forward31              ; 0xa35c
     mov ax, 3                        ; 0xa35e
     push ax                          ; 0xa361
     push word [bp - 0x12]            ; 0xa362
-    push word [bss_8462]             ; 0xa365
+    push word [acting_unit]          ; 0xa365
     call try_raise_member_skill      ; 0xa369
     add sp, byte 6                   ; 0xa36c
     mov ax, 0x248                    ; 0xa36f
-    imul word [bss_8462]             ; 0xa372
+    imul word [acting_unit]          ; 0xa372
     add ax, word [bp - 0x12]         ; 0xa376
     mov bx, ax                       ; 0xa379
     mov al, byte [bx + party_records + pc_rec.skills] ; 0xa37b
@@ -459,7 +459,7 @@ api_idx_005a_UJPS:
     pop cx                           ; 0xa394
     push ax                          ; 0xa395
     mov ax, 0x248                    ; 0xa396
-    imul word [bss_8462]             ; 0xa399
+    imul word [acting_unit]          ; 0xa399
     mov bx, ax                       ; 0xa39d
     mov al, byte [bx + party_records + pc_rec.stat + 0x7] ; 0xa39f
     sub ah, ah                       ; 0xa3a3
@@ -477,9 +477,9 @@ api_idx_005a_UJPS:
     jmp short .forward34             ; 0xa3bf
 .forward32:
     mov ax, 0x2c                     ; 0xa3c1
-    imul word [bss_8462]             ; 0xa3c4
+    imul word [acting_unit]          ; 0xa3c4
     mov si, ax                       ; 0xa3c8
-    mov ax, word [bss_8464]          ; 0xa3ca
+    mov ax, word [acting_group]      ; 0xa3ca
     shl ax, 1                        ; 0xa3cd
     mov bx, ax                       ; 0xa3cf
     mov bx, word [bx + battle_groups] ; 0xa3d1
@@ -562,10 +562,10 @@ api_idx_005a_UJPS:
     push word [startup_option]       ; 0xa496
     call api_idx_0004_QUPL           ; 0xa49a
     pop cx                           ; 0xa49d
-    mov al, byte [bss_8464]          ; 0xa49e
+    mov al, byte [acting_group]      ; 0xa49e
     mov bx, word [bp + 4]            ; 0xa4a1
     mov byte [bx + 0x1f], al         ; 0xa4a4
-    mov al, byte [bss_8462]          ; 0xa4a7
+    mov al, byte [acting_unit]       ; 0xa4a7
     mov bx, word [bp + 4]            ; 0xa4aa
     mov byte [bx + 0x20], al         ; 0xa4ad
 .forward38:

@@ -56,18 +56,13 @@ wait_then_handle_region_event()
 	/* Mode 0xff averages the party's Climbing (skills[11]), exercising it. */
 	else if (event_threshold == 255) {
 		event_threshold = 0;
-		member_index = 0;
-		/* Test at the loop tail after skipping the initial empty body. */
-		goto check_party_member;
-	party_member_loop:
+		for (member_index = 0; member_index < party_char_count;
+		    member_index++) {
 			if (member_is_active(member_index)) {
 				event_threshold += party_records[member_index].skills[11];
 				try_raise_member_skill(member_index, 11, 2);
 			}
-			member_index++;
-	check_party_member:
-		if (member_index < party_char_count)
-			goto party_member_loop;
+		}
 		event_threshold /= party_char_count;
 	}
 

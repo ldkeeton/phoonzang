@@ -1,6 +1,7 @@
 /* state 0x0a: tears down the map screen, loads the sound and monster picture
    slots, saves the two screen areas and sets up the melee party */
 
+#include "structs/member.h"
 #include "structs/ovlitem.h"
 #include "msg.h"
 
@@ -37,7 +38,10 @@ start_melee_battle()
 {
 	int i, len;
 	char buf[82];
-	char spare[676];		/* untouched; keeps the original 0x2fa frame */
+	/* Never touched; sized like one member, its extension and an overlay. */
+	struct member_rec unused_group;
+	struct member_ext unused_ext;
+	struct overlay_item unused_overlay;
 
 	battle_setup_done = 1;
 	row_limit = clamp_between(requested_row_limit, 0, 2);

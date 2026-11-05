@@ -101,31 +101,27 @@ int member_id, group_index;
 	random_limit = difficulty_option == 1 ? 150 :
 		difficulty_option == 2 ? 75 : 100;
 	group_to_add = 1;
-	if (group_index < party_level_sum)
-		goto try_add_group;
-	goto return1;
-try_add_group:
-	/* Rolls above 25 try the selected target group. */
-	if (random_below(100) > 25) {
-		member_id = pick_target_slot(group_to_add, member_id);
-		if (random_below(random_limit)
-			> battle_group_ext[group_index]->companion_chance[0])
+	if (group_index < party_level_sum) {
+		/* Rolls above 25 try the selected target group. */
+		if (random_below(100) > 25) {
+			member_id = pick_target_slot(group_to_add, member_id);
+			if (random_below(random_limit)
+				> battle_group_ext[group_index]->companion_chance[0])
+				member_id = -1;
+		} else
 			member_id = -1;
-	} else
-		member_id = -1;
-	unit = 0;
-	/* Check the two target entries before giving up on another group. */
-	do {
-		if (member_id == -1
-		    && battle_group_ext[group_to_add]->companion_chance[unit] > 0
-		    && battle_group_ext[group_index]->companion_chance[unit] > 0
-		    && random_below(random_limit)
-				< battle_group_ext[group_index]->companion_chance[unit])
-			member_id = battle_group_ext[group_to_add]->companion_id[unit];
-		unit++;
-	} while (unit < 2);
-	if (member_id != -1)
-		add_monster_group(member_id, group_index + 1);
-return1:
-	return;
+		unit = 0;
+		/* Check the two target entries before giving up on another group. */
+		do {
+			if (member_id == -1
+			    && battle_group_ext[group_to_add]->companion_chance[unit] > 0
+			    && battle_group_ext[group_index]->companion_chance[unit] > 0
+			    && random_below(random_limit)
+					< battle_group_ext[group_index]->companion_chance[unit])
+				member_id = battle_group_ext[group_to_add]->companion_id[unit];
+			unit++;
+		} while (unit < 2);
+		if (member_id != -1)
+			add_monster_group(member_id, group_index + 1);
+	}
 }

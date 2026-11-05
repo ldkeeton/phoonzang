@@ -17,8 +17,8 @@ struct item_record *weapon;
 	   critical chance. */
 	skill_work[0] = 0;
 	do {
-		party_records[member_index].hand_attack[hand_index].pad04[skill_work[0]] =
-			weapon->hand_values[skill_work[0]];
+		party_records[member_index].hand_attack[hand_index]
+			.hand_values[skill_work[0]] = weapon->hand_values[skill_work[0]];
 	} while (++skill_work[0] < 8);
 
 	/* Skills add a fifth of skill 33 to critical chance. */
@@ -33,7 +33,7 @@ struct item_record *weapon;
 			skill_work[0];
 	}
 
-	party_records[member_index].hand_attack[hand_index].pad0c =
+	party_records[member_index].hand_attack[hand_index].hand_field0c =
 		weapon->hand_field0c;
 	/* Item type 4 has its own hit penalty and class adjustment. */
 	if (weapon->item_type == 4) {
@@ -76,7 +76,7 @@ struct item_record *weapon;
 
 	party_records[member_index].hand_attack[hand_index].attack_flags =
 		weapon->attack_flags;
-	party_records[member_index].hand_attack[hand_index].pad10 =
+	party_records[member_index].hand_attack[hand_index].hand_field10 =
 		weapon->hand_field10;
 	party_records[member_index].hand_attack[hand_index].slay_family =
 		weapon->slay_family;

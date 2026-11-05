@@ -29,8 +29,8 @@ api_idx_0006_JJVQ:
 .forward3:
     mov word [bp - 4], 0xffff        ; 0x9e94
 .forward4:
-    push word [bss_8462]             ; 0x9e99
-    push word [bss_8464]             ; 0x9e9d
+    push word [acting_unit]          ; 0x9e99
+    push word [acting_group]         ; 0x9e9d
     mov ax, bss_90e6                 ; 0x9ea1
     push ax                          ; 0x9ea4
     call loc_HJSG                    ; 0x9ea5
