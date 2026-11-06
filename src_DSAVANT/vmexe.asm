@@ -207,9 +207,7 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 %include "shared/ovr/aztec_swapmem.asm"         ; 0xa520
 
 __zdata_start:
-%include "vmexe/data/combat_glyph_upper_save_file.asm" ; 0xa545
-
-%include "vmexe/data/combat_glyph_lower_save_file.asm" ; 0xa54c
+%include "vmexe/data/combat_glyph_save_files.asm" ; 0xa545
 
 %include "shared/data/monster_picture_template.asm" ; 0xa553
 

@@ -2388,12 +2388,12 @@
         "9d7f": {"name": "swap_party_member_slots", "note": "swaps two party members' records and combatants and redraws them"},
         "9e4f": {"name": "move_party_member_in_formation", "note": "moves a member to a new party formation position"},
         "9f41": {"name": "resolve_combat_item_action", "note": "Resolves combat item and spell actions"},
-        "a4bc": {"name": "aztec_ovbgn"},
+        "a4bc": {"name": "aztec_ovbgn", "emits": [{"start": "90b2", "end": "90bc"}], "note": "dos20/ovbgn.asm: its dataseg holds save_si/di/sp/bp/ret, after every C module's data"},
         "a4fa": {"name": "aztec_cswt"},
         "a512": {"name": "aztec_swapmem"}
       },
       "data_names": {
-        "9098": {"name": "combat_glyph_upper_save_file", "note": "temporary upper glyph strip screen file"},
+        "9098": {"name": "combat_glyph_upper_save_file", "length": 14, "file": "combat_glyph_save_files", "note": "temporary upper glyph strip screen file"},
         "909f": {"name": "combat_glyph_lower_save_file", "note": "temporary lower glyph strip screen file"},
         "90a6": {"name": "monster_picture_template", "note": "\"MON00.PIC\": check_monster_picture_space writes the picture number into its two digits"},
         "90b0": {"name": "empty_text_fragment", "note": "empty string used as an absent third text fragment"},

@@ -75,11 +75,9 @@ vmexe/attempt_combatant_flee
 vmexe/swap_party_member_slots
 vmexe/move_party_member_in_formation
 vmexe/resolve_combat_item_action
+vmexe/data/combat_glyph_save_files
+shared/data/monster_picture_template
+vmexe/data/empty_text_fragment
 shared/ovr/aztec_ovbgn
 shared/ovr/aztec_cswt
 shared/ovr/aztec_swapmem
-vmexe/data/combat_glyph_upper_save_file
-vmexe/data/combat_glyph_lower_save_file
-shared/data/monster_picture_template
-vmexe/data/empty_text_fragment
-shared/data/overlay_saved_registers
