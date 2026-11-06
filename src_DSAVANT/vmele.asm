@@ -136,7 +136,7 @@ __zdata_start:
 
 %include "vmele/data/screen_temp_name.asm" ; 0x377f
 
-%include "shared/data/overlay_saved_registers.asm" ; 0x3787
+%include "shared/ovr/aztec_ovbgn.data.asm"      ; 0x3787
 
 
 __zimage_end:

@@ -185,7 +185,7 @@ __zdata_start:
 
 %include "vdopt/data/item_dialog_first_label.asm" ; 0x4741
 
-%include "shared/data/overlay_saved_registers.asm" ; 0x4743
+%include "shared/ovr/aztec_ovbgn.data.asm"      ; 0x4743
 
 
 __zimage_end:

@@ -49,9 +49,9 @@ def _folder_key(path):
 def _scan(src):
     """Return {binary: [(asm_stem, state)]} for a generated src_<PROJECT> tree.
 
-    ``state`` is ``'c'`` (has a .c), ``'s'`` (has a Manx assembly .s) or
-    ``'todo'``.  A binary's band folders (``ds/game/``) count as the binary;
-    its ``data`` folder holds data objects, not routines, and is not counted.
+    ``state`` is ``'c'`` (has a .c), ``'s'`` (has a Manx assembly .s),
+    ``'lnk'`` (a binary's root .asm with its .lnk) or ``'todo'``.  A binary's
+    band and ``data`` folders (``ds/game/``, ``ds/data/``) count as the binary;
     ``<module>.data.asm`` and ``<module>.bss.asm`` count under ``<module>``,
     so a source beside the module covers its data and BSS too.
     """
@@ -62,7 +62,7 @@ def _scan(src):
             continue
         groups.setdefault(name, [])
         folders = [os.path.join(top, d) for d in os.listdir(top)
-                   if d != 'data' and os.path.isdir(os.path.join(top, d))]
+                   if os.path.isdir(os.path.join(top, d))]
         for path in [top] + sorted(folders, key=_folder_key):
             sources = sources_in(path)
             cells = []
@@ -78,9 +78,13 @@ def _scan(src):
                          if key in sources else 'todo')
                 cells.append((stem, state))
             groups[name] += cells
+    # A binary's root .asm (header, symbol placement, fragment includes) is
+    # what its .lnk and Aztec ln do, so the .lnk is its source.
     for name in sorted(os.listdir(src)):
         if name.endswith('.asm') and name[:-4] in groups:
-            groups[name[:-4]].append((name[:-4], 'todo'))
+            lnk = os.path.join(src, name[:-4] + '.lnk')
+            groups[name[:-4]].append(
+                (name[:-4], 'lnk' if os.path.isfile(lnk) else 'todo'))
     return {k: v for k, v in groups.items() if v}
 
 
@@ -92,10 +96,11 @@ def _svg(groups):
         for i, (stem, state) in enumerate(cells):
             x = LABEL_W + (i % COLS) * step
             cy = y + (i // COLS) * step
-            cls = {'c': 'c', 's': 'a'}.get(state, 'n')
+            cls = {'c': 'c', 's': 'a', 'lnk': 'a'}.get(state, 'n')
+            tag = {'s': ' (.s)', 'lnk': ' (.lnk)'}.get(state, '')
             out.append(f'<rect class="{cls}" x="{x}" y="{cy}" '
                        f'width="{CELL}" height="{CELL}"><title>{stem}'
-                       f'{" (.s)" if state == "s" else ""}</title></rect>')
+                       f'{tag}</title></rect>')
         y += ((len(cells) - 1) // COLS + 1) * step + ROW_H - step
     # Key: the two source states the squares can show.
     y += 8
@@ -126,9 +131,10 @@ def cmd_readme():
         return sum(s == state for v in ([cells] if cells is not None
                                         else groups.values()) for _, s in v)
 
-    c_total, s_total = count('c'), count('s')
-    # Progress counts every .asm with a source, C or Manx assembly.
-    src_total = c_total + s_total
+    c_total, s_total, lnk_total = count('c'), count('s'), count('lnk')
+    # Progress counts every .asm with a source: C, Manx assembly, or (for a
+    # binary's root .asm) its .lnk.
+    src_total = c_total + s_total + lnk_total
     table = ['| binary | ASM | C | S |', '|---|--:|--:|--:|']
     table += [f'| {k} | {len(v)} | {count("c", v)} | {count("s", v)} |'
               for k, v in groups.items()]
@@ -147,4 +153,4 @@ def cmd_readme():
     with open(os.path.join(PROJECT, 'README.md'), 'w') as f:
         f.write(text)
     print(f'README.md: {src_total}/{asm_total} asm files have a source '
-          f'({c_total} .c, {s_total} .s)')
+          f'({c_total} .c, {s_total} .s, {lnk_total} .lnk)')

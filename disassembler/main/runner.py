@@ -859,9 +859,15 @@ def _emitted_data(sidecar_entry, segments, image):
     from lib.sidecar.binary import emitted_ranges
     entry = sidecar_entry or {}
     owners = {}
+    # An overlay's model carries its host's BSS boundary, which every one of
+    # the overlay's own data offsets is past: its data ends at o_dorg + o_dsize.
+    overlay = getattr(segments, 'overlay', None)
+    if getattr(segments, 'kind', None) == 'overlay' and overlay:
+        boundary = overlay['o_dorg'] + overlay['o_dsize']
+    else:
+        boundary = getattr(segments, 'bss_boundary', None)
     for at, (start, end) in emitted_ranges(
-            entry, entry.get('start_offset') or 0,
-            getattr(segments, 'bss_boundary', None)).items():
+            entry, entry.get('start_offset') or 0, boundary).items():
         base = _initialized_data_at(segments, start, end)
         if base is None or base + end - start > len(image):
             raise ValueError(f'emits {start:04x}..{end:04x}: not initialized '

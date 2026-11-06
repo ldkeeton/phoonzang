@@ -334,7 +334,7 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 __zdata_start:
 %include "vpcmk/data/cmk_strings.asm"      ; 0x7031
 
-%include "shared/data/overlay_saved_registers.asm" ; 0x74b3
+%include "shared/ovr/aztec_ovbgn.data.asm"      ; 0x74b3
 
 
 __zimage_end:

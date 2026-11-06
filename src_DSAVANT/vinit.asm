@@ -95,7 +95,7 @@ _Uend    equ __zdseg_end + (__zobss_end - __zdata_start)
 __zdata_start:
 %include "vinit/data/startup_file_names.asm" ; 0x1617
 
-%include "shared/data/overlay_saved_registers.asm" ; 0x172d
+%include "shared/ovr/aztec_ovbgn.data.asm"      ; 0x172d
 
 
 __zimage_end:

@@ -213,7 +213,7 @@ __zdata_start:
 
 %include "vmexe/data/empty_text_fragment.asm" ; 0xa55d
 
-%include "shared/data/overlay_saved_registers.asm" ; 0xa55f
+%include "shared/ovr/aztec_ovbgn.data.asm"      ; 0xa55f
 
 
 __zimage_end:

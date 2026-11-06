@@ -211,7 +211,7 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 __zdata_start:
 %include "shared/data/maze_variant_filenames.asm" ; 0x5259
 
-%include "shared/data/overlay_saved_registers.asm" ; 0x5337
+%include "shared/ovr/aztec_ovbgn.data.asm"      ; 0x5337
 
 
 __zimage_end:

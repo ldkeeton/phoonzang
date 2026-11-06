@@ -357,7 +357,7 @@ __zdata_start:
 
 %include "vbase/data/main_screen_restore_filename.asm" ; 0x9503
 
-%include "shared/data/overlay_saved_registers.asm" ; 0x9511
+%include "shared/ovr/aztec_ovbgn.data.asm"      ; 0x9511
 
 
 __zimage_end:

@@ -463,7 +463,7 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 __zdata_start:
 %include "vmnpc/data/npc_strings.asm"      ; 0xaedd
 
-%include "shared/data/overlay_saved_registers.asm" ; 0xaf6f
+%include "shared/ovr/aztec_ovbgn.data.asm"      ; 0xaf6f
 
 
 __zimage_end:

@@ -290,7 +290,7 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 __zdata_start:
 %include "vtrea/data/trea_strings.asm"     ; 0x9a1b
 
-%include "shared/data/overlay_saved_registers.asm" ; 0x9a8d
+%include "shared/ovr/aztec_ovbgn.data.asm"      ; 0x9a8d
 
 
 __zimage_end:

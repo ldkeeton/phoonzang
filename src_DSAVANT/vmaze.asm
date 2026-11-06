@@ -422,7 +422,7 @@ __zdata_start:
 
 %include "vmaze/data/maze_message_word_separator.asm" ; 0xad5c
 
-%include "shared/data/overlay_saved_registers.asm" ; 0xad5e
+%include "shared/ovr/aztec_ovbgn.data.asm"      ; 0xad5e
 
 
 __zimage_end:
