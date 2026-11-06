@@ -28,6 +28,7 @@ from collections import defaultdict
 from functools import lru_cache
 
 from .autogen import hand_owned
+from .cachedirs import SRC_SKIP_DIRS
 
 _WORD = re.compile(r'\w+|\S')
 _DATA = re.compile(r'(bss|dseg|str|cp)_[0-9a-f]{4,5}$')
@@ -79,7 +80,7 @@ def _hand_names(out_dir):
     """Every word in a hand-owned source under *out_dir*."""
     words = set()
     for folder, dirs, names in os.walk(out_dir):
-        dirs[:] = [d for d in dirs if d != 'build_out']
+        dirs[:] = [d for d in dirs if d not in SRC_SKIP_DIRS]
         for name in names:
             path = os.path.join(folder, name)
             if name.endswith(_SOURCE) and hand_owned(path):

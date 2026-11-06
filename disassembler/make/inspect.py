@@ -28,7 +28,7 @@ import os
 import re
 
 from lib.autogen import hand_owned
-from lib.cachedirs import spans_dir, symbols_dir
+from lib.cachedirs import SRC_SKIP_DIRS, spans_dir, symbols_dir
 from lib.cross_ref import read_label_json
 from lib.link import LinkError
 from lib.sidecar.binary import per_binary
@@ -225,7 +225,7 @@ def _call_sites(project):
     root = src_dir(project, PROJECT)
     sites = {}
     for dirpath, dirs, files in os.walk(root):
-        dirs[:] = [d for d in dirs if d not in ('build_out', 'inc')]
+        dirs[:] = [d for d in dirs if d != 'inc' and d not in SRC_SKIP_DIRS]
         for filename in sorted(files):
             if not filename.endswith('.asm'):
                 continue

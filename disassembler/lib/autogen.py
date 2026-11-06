@@ -12,7 +12,7 @@ from lib.nasm_locals import output_text
 
 MARKER_ASM = '; auto-generated'
 MARKER_C = '/* auto-generated */'
-#: For the project file (:mod:`lib.aztec.project`), whose comments start with ``#``.
+#: For the project files (:mod:`lib.aztec.project`), whose comments start with ``#``.
 MARKER_MAKE = '# auto-generated'
 _MARKERS = (MARKER_ASM, MARKER_C, MARKER_MAKE)
 
@@ -22,7 +22,7 @@ HEADERS_ASM = '; auto headers'
 HEADERS_C = '/* auto headers */'
 
 _C_SUFFIXES = ('.c', '.h')
-_MAKE_SUFFIXES = ('makefile', '.lnk')
+_MAKE_SUFFIXES = ('makefile', '.lnk', '.sh')
 _MAX_LISTED = 10
 
 

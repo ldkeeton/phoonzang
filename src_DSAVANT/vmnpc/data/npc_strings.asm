@@ -34,7 +34,9 @@ __ztext_space:
 __znpc_text_separator:
     db 0x20, 0x00
 __znpc_message_line_separator:
+
     db 0x20
     times 45 db 0
+
 __znpc_dialog_phoonzang_prefix:
     db 'PHOONZANG', 0

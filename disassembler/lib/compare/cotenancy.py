@@ -29,7 +29,7 @@ import re
 from collections import defaultdict
 
 from lib.autogen import is_generated
-from lib.cachedirs import project_of_src_dir
+from lib.cachedirs import SRC_SKIP_DIRS, project_of_src_dir
 from lib.routine_source import beside
 from lib.shared import FOLDER, binary_local
 from lib.symtab import Kind, project_tables
@@ -39,7 +39,7 @@ _IDENT = re.compile(r'[A-Za-z_][A-Za-z0-9_.]*')
 #: Labels that are not objects of their own: a routine's local, or a
 #: renderer anchor on a byte inside a record.
 _NOT_OBJECTS = (Kind.LOCAL, Kind.ANCHOR)
-_SKIP_DIRS = {'inc', 'build_out'}
+_SKIP_DIRS = {'inc'} | SRC_SKIP_DIRS
 
 
 def symbol_tables(project):

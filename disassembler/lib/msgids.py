@@ -35,6 +35,8 @@ import os
 import re
 import struct
 
+from lib.cachedirs import SRC_SKIP_DIRS
+
 from lib.sidecar.messages import HUFFMAN_FILE_KEYS
 
 #: Longest identifier the emitted headers use (Aztec C's minimum significant
@@ -461,7 +463,7 @@ def c_message_ids(src_dir, names):
     found = set()
     for base, dirnames, filenames in os.walk(src_dir):
         dirnames[:] = sorted(name for name in dirnames
-                            if name not in ('include', 'build_out'))
+                            if name != 'include' and name not in SRC_SKIP_DIRS)
         for filename in sorted(filenames):
             path = os.path.join(base, filename)
             if not filename.endswith('.c') or not hand_owned(path):

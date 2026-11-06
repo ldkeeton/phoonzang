@@ -39,7 +39,7 @@ from lib import progress
 from lib import childproc
 from lib.autogen import hand_owned, sync, write_once
 from lib.aztec.project import project_files
-from lib.cachedirs import labels_dir, src_dir
+from lib.cachedirs import SRC_SKIP_DIRS, labels_dir, src_dir
 from lib.cross_ref import detect as detect_cross_refs, read_label_json
 from lib.link import (
     LinkError, begin_run, collect_ds_starts, collect_host_data,
@@ -257,6 +257,34 @@ def _write_record_layouts(project, host, family, starts_path, report):
     return len(layouts)
 
 
+def _project_compiler(project):
+    """The one Aztec ``dos_compilers`` folder the sidecar names, as ``build.sh``
+    downloads it the way ``make init`` does; ``None`` when there is none."""
+    from lib.aztec.build_sh import Compiler
+    from make.init import DOS_COMPILERS_REF, DOS_COMPILERS_REPO
+
+    folders = [f for f in (load_sidecar(project) or {}).get('dos_compilers', [])
+               if f.startswith('Manx Aztec C86 ')]
+    if len(folders) > 1:
+        raise ValueError(f'{project}: more than one Aztec folder in dos_compilers: '
+                         + ', '.join(folders))
+    return Compiler(DOS_COMPILERS_REPO, DOS_COMPILERS_REF, folders[0]) if folders else None
+
+
+def _project_flags(project):
+    """The sidecar's ``compiler_flags`` as ``project_files`` writes them into the
+    makefile, or ``None`` when the project has none."""
+    from lib.aztec.project import Flags
+    from lib.sidecar.compiler import asm_flags, binary_flags, compiler_flags
+
+    block = (load_sidecar(project) or {}).get('compiler_flags')
+    if not block:
+        return None
+    return Flags(c=list(block.get('default') or []), asm=list(asm_flags(project)),
+                 binary=lambda name: binary_flags(project, name),
+                 module=lambda stem, name: compiler_flags(project, stem, name) or [])
+
+
 def _link_order(project, files, report=print):
     """The ``project_files`` hook that arranges one binary's modules.
 
@@ -314,7 +342,7 @@ def _sync(out_dir, files, report, shared=None, source_moves=None):
              if not (rel.endswith(('.c', '.s'))
                      and hand_owned(os.path.join(out_dir, rel)))}
     check_companions(out_dir, files, moves=moves)
-    written, unchanged, removed = sync(out_dir, files, skip=('build_out',))
+    written, unchanged, removed = sync(out_dir, files, skip=tuple(SRC_SKIP_DIRS))
     if moves:
         source_moves(out_dir, moves)
     report(f'  {os.path.basename(out_dir)}: {written} written, '
@@ -519,7 +547,8 @@ def _build_project(project, run_batch, nasm_batch, *, report=print,
         files, shared = share_files(merge_files(emitted), out_dir)
         files.update(project_files(
             {name: load_sidecar(project)['binaries'].get(name, {}) for name in bins},
-            host, files, _link_order(project, files, report)))
+            host, files, _link_order(project, files, report),
+            _project_flags(project), _project_compiler(project)))
         if shared:
             report(f'  Shared: {sum(len(v) for v in shared.values())} '
                    f'fragments -> {len(shared)} files in shared/')

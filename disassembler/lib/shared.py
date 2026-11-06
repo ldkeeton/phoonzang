@@ -32,7 +32,7 @@ import re
 from collections import defaultdict
 
 from .autogen import hand_owned, is_generated, stamp
-from .cachedirs import project_of_src_dir
+from .cachedirs import SRC_SKIP_DIRS, project_of_src_dir
 from .common_names import unify_names
 from .routine_source import SUFFIXES, beside
 from .sidecar.bands import BAND_NAMES
@@ -369,7 +369,7 @@ def check_companions(out_dir, files, scopes=None, moves=()):
     # hand-owned files and files outside a partial build's scopes survive.
     final = set(files)
     for folder, dirs, names in os.walk(out_dir):
-        dirs[:] = [d for d in dirs if d != 'build_out' and not d.startswith('.')]
+        dirs[:] = [d for d in dirs if d not in SRC_SKIP_DIRS and not d.startswith('.')]
         for name in names:
             if not name.endswith(('.asm',) + SUFFIXES):
                 continue
@@ -527,7 +527,7 @@ def share_identical(out_dir):
     """
     before = {}
     for folder, dirs, names in os.walk(out_dir):
-        dirs[:] = [d for d in dirs if d != 'build_out']
+        dirs[:] = [d for d in dirs if d not in SRC_SKIP_DIRS]
         for filename in names:
             path = os.path.join(folder, filename)
             if filename.endswith(('.asm',) + SUFFIXES) \

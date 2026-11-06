@@ -26,6 +26,8 @@ past (``message_directory.record``), else gets the rest as ``pad_<offset>``
 import os
 import re
 
+from lib.cachedirs import SRC_SKIP_DIRS
+
 from .lang import CDataError, parse_text
 from .layout import Array, Pointer, Scalar, StructType, scalar_type
 
@@ -166,7 +168,8 @@ class Project:
     def _files(self):
         if self._sources is None:
             self._sources = []
-            for root, _dirs, files in os.walk(self.src_root):
+            for root, dirs, files in os.walk(self.src_root):
+                dirs[:] = [d for d in dirs if d not in SRC_SKIP_DIRS]
                 for f in sorted(files):
                     if f.endswith(('.c', '.h')):
                         path = os.path.join(root, f)

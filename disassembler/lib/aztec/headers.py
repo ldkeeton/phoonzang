@@ -17,7 +17,7 @@ and ``make clean`` leave them alone.
 import os
 
 from lib.autogen import HEADERS_ASM, HEADERS_C, is_auto_header, is_generated
-from lib.cachedirs import src_dir
+from lib.cachedirs import SRC_SKIP_DIRS, src_dir
 
 from . import sources
 from .compile import _C_INCLUDE_RE, _LMACROS_RE
@@ -25,7 +25,7 @@ from .compile import _C_INCLUDE_RE, _LMACROS_RE
 LMACROS = 'lmacros.h'
 
 #: Folders under ``src_<project>/`` whose files are not sources.
-_SKIP_DIRS = ('include', 'build_out')
+_SKIP_DIRS = {'include'} | SRC_SKIP_DIRS
 
 
 def _clean_text(text):

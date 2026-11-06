@@ -5,6 +5,7 @@ import subprocess
 from pathlib import Path
 
 from lib.autogen import MARKER_ASM, MARKER_C, is_generated
+from lib.cachedirs import SRC_SKIP_DIRS
 from .common import PROJECT
 from main.clean import clear_build_out
 
@@ -41,11 +42,13 @@ def _restore(project):
 
 def _hand_owned(project):
     root = Path(PROJECT) / f'src_{project}'
-    return [Path(base) / name
-            for base, _, files in os.walk(root)
-            for name in files
-            if Path(name).suffix.lower() in SUFFIXES
-            and not is_generated(os.path.join(base, name))]
+    found = []
+    for base, dirs, files in os.walk(root):
+        dirs[:] = [d for d in dirs if d not in SRC_SKIP_DIRS]
+        found += [Path(base) / name for name in files
+                  if Path(name).suffix.lower() in SUFFIXES
+                  and not is_generated(os.path.join(base, name))]
+    return found
 
 
 def cmd_purge(args, all_projects):

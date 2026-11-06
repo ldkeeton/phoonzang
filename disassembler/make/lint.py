@@ -39,7 +39,7 @@ def _files(project):
     files = []
     for directory, dirnames, filenames in os.walk(root):
         dirnames[:] = sorted(name for name in dirnames
-                             if name not in ('__pycache__', 'build_out'))
+                             if name != '__pycache__' and name not in cachedirs.SRC_SKIP_DIRS)
         for name in sorted(filenames):
             if os.path.splitext(name)[1].lower() not in _SOURCE_EXTENSIONS:
                 continue

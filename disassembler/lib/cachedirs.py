@@ -96,6 +96,12 @@ def spans_dir(project):
     return os.path.join(project_cache(project), 'spans')
 
 
+#: Folders in a ``src_<project>`` tree that hold no source: the game copy the
+#: build writes, and ``build.sh``'s scratch (``.cache``) and downloaded compiler
+#: (``dos_compilers``).  Every walk over a whole tree skips them.
+SRC_SKIP_DIRS = frozenset({'build_out', '.cache', 'dos_compilers'})
+
+
 def src_dir(project, root=None):
     """Return the generated ``src_<project>`` tree for *project*."""
     return os.path.join(root if root is not None else PROJECT_ROOT,

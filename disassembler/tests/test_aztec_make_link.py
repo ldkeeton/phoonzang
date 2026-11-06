@@ -6,7 +6,7 @@ import tempfile
 import unittest
 
 from lib.autogen import is_generated
-from lib.aztec import link, linkorder, project
+from lib.aztec import build_sh, link, linkorder, project
 from lib.compare import render
 from lib.sidecar.errors import SidecarError
 
@@ -73,6 +73,84 @@ class GenerateTest(unittest.TestCase):
         self.assertGreater(len(comments), 1)
         self.assertTrue(all(len(l) <= 80 for l in comments))
         self.assertEqual(' '.join(l[2:] for l in comments), desc)
+
+    FLAGS = project.Flags(
+        c=['-n', '+b'], asm=['-dMODEL=0'],
+        binary=lambda name: ['-n'] if name == 'd' else ['-n', '+b'],
+        module=lambda stem, name: (['-n', '-Z1'] if stem == 'x'
+                                   else ['-n'] if stem == 'a' or name == 'd'
+                                   else ['-n', '+b']))
+
+    def test_compile_rules_and_flags_in_the_makefile(self):
+        out = project.project_files(self.BINARIES, 'r', self.FILES,
+                                    flags=self.FLAGS)
+        make = out['makefile']
+        for line in ('CFLAGS = -n +b', 'AFLAGS = -dMODEL=0',
+                     'export INCLUDE = include', '.SUFFIXES: .o .s .c',
+                     '.s.o:\n\tas $(AFLAGS) -o $@ $<',
+                     '.c.o:\n\tcc -B $(CFLAGS) -o $@ $<', 'r.rsm: r.exe',
+                     'd.com: CFLAGS = -n', 'o/x.o: CFLAGS = -n -Z1',
+                     'shared/a.o: CFLAGS = -n'):
+            self.assertIn(line + '\n', make)
+        parsed = project.parse_project(make)
+        self.assertEqual([t.binary for t in parsed.targets], ['r', 'o', 'd'])
+        self.assertEqual(parsed.macros['CFLAGS'], '-n +b')
+        self.assertEqual(parsed.sources, project.SOURCE_EXTS)
+        self.assertEqual(parsed.recipes['.c'], 'cc -B $(CFLAGS) -o $@ $<')
+        self.assertEqual(parsed.scoped['o/x.o'], {'CFLAGS': '-n -Z1'})
+        self.assertNotIn('build.sh', out)
+
+    def test_build_sh_downloads_the_sidecars_one_compiler_folder(self):
+        compiler = build_sh.Compiler('me/compilers', 'main', 'Manx Aztec C86 v42b')
+        out = project.project_files(self.BINARIES, 'r', self.FILES,
+                                    flags=self.FLAGS, compiler=compiler)
+        script = out['build.sh']
+        self.assertTrue(script.startswith('# auto-generated\n'))
+        for line in ("REPO='me/compilers'", "REF='main'",
+                     "FOLDER='Manx Aztec C86 v42b'",
+                     'AZTEC=$here/dos_compilers/$FOLDER'):
+            self.assertIn(line + '\n', script)
+        for placeholder in ('@REPO@', '@REF@', '@FOLDER@'):
+            self.assertNotIn(placeholder, script)
+
+    def test_rules_make_the_sidecars_file_names(self):
+        binaries = {'o': {'type': 'aztec_overlay', 'file': 'O.OVR'},
+                    'r': {'type': 'mz', 'file': 'R.EXE'},
+                    'd': {'type': 'raw_drv', 'file': 'D.DRV'}}
+        make = project.project_files(binaries, 'r', self.FILES)['makefile']
+        for line in ('all: R.EXE O.OVR D.DRV', 'R.EXE: r.lnk\n\tln -R -o R.EXE -f r.lnk',
+                     'r.rsm: R.EXE', 'O.OVR: o.lnk r.rsm\n\tln -o O.OVR -f o.lnk r.rsm',
+                     # ln writes no header only for .com, so a driver is renamed.
+                     'D.DRV: d.lnk\n\tln -o D.COM -f d.lnk\n\tren D.COM D.DRV'):
+            self.assertIn(line + '\n', make)
+        self.assertEqual(project.parse_makefile(make), [
+            project.Target('r', 'R.EXE', ['-R'], 'r.lnk', None),
+            project.Target('o', 'O.OVR', [], 'o.lnk', 'r'),
+            project.Target('d', 'D.COM', [], 'd.lnk', None, 'D.DRV')])
+
+    def test_a_ren_must_rename_what_ln_wrote(self):
+        with self.assertRaisesRegex(ValueError, 'expected ren'):
+            project.parse_makefile('D.DRV: d.lnk\n\tln -o D.COM -f d.lnk\n'
+                                   '\tren X.COM D.DRV\n')
+
+    def test_without_flags_no_compile_rules(self):
+        out = project.project_files(self.BINARIES, 'r', self.FILES)
+        self.assertNotIn('CFLAGS', out['makefile'])
+        self.assertNotIn('build.sh', out)
+
+    def test_an_object_needing_two_flag_sets_is_an_error(self):
+        flags = self.FLAGS._replace(
+            module=lambda stem, name: ['-Z1'] if (stem, name) == ('a', 'r')
+            else ['-Z2'] if stem == 'a' else ['-n', '+b'],
+            binary=lambda name: ['-n', '+b'])
+        with self.assertRaisesRegex(ValueError, 'shared/a: compiled with'):
+            project.project_files(self.BINARIES, 'r', self.FILES, flags=flags)
+
+    def test_suffix_order_picks_the_source(self):
+        text = ('.SUFFIXES:\n.SUFFIXES: .o .c .s\n.c.o:\n\tcc $<\n.s.o:\n\tas $<\n'
+                'r.exe: r.lnk\n\tln -o r.exe -f r.lnk\n')
+        self.assertEqual(project.parse_project(text).sources,
+                         (('.c', 'c'), ('.s', 'asm')))
 
     def test_no_overlays_means_no_rsm(self):
         out = project.project_files({'r': {'type': 'mz'}}, None,

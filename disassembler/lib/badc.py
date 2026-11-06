@@ -242,7 +242,7 @@ def _project_externs(root):
         typed = set()
         for directory, dirnames, filenames in os.walk(root):
             dirnames[:] = sorted(name for name in dirnames
-                                 if name not in ('build_out', 'aztec'))
+                                 if name != 'aztec' and name not in cachedirs.SRC_SKIP_DIRS)
             for name in sorted(filenames):
                 if not name.endswith('.c'):
                     continue
@@ -310,7 +310,7 @@ def _project_definitions(root):
         found = {}
         for directory, dirnames, filenames in os.walk(root):
             dirnames[:] = sorted(name for name in dirnames
-                                 if name != 'build_out')
+                                 if name not in cachedirs.SRC_SKIP_DIRS)
             for name in sorted(filenames):
                 if not name.endswith('.c'):
                     continue
@@ -391,7 +391,7 @@ def scan(root):
     externs = _project_externs(root)
     for directory, dirnames, filenames in os.walk(root):
         dirnames[:] = sorted(name for name in dirnames
-                             if name not in ('build_out', 'aztec'))
+                             if name != 'aztec' and name not in cachedirs.SRC_SKIP_DIRS)
         for name in sorted(filenames):
             if not name.endswith('.c'):
                 continue

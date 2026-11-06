@@ -67,6 +67,13 @@ def compiler_flags(project, label, binary=None):
     return list(default) if default is not None else None
 
 
+def binary_flags(project, binary):
+    """The C flags of *binary* where no prefix applies: its own
+    ``compiler_flags.default``, else the project's (a list, maybe empty)."""
+    block, own = _blocks(project, binary)
+    return list(own.get('default', block.get('default')) or [])
+
+
 def asm_flags(project):
     """The ``as`` flags from the sidecar's ``compiler_flags.asm``.
 
