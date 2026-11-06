@@ -2866,7 +2866,7 @@
         "a829": {"name": "edit_npc_dialog_text_line", "note": "Edits an NPC dialog line and splits overflow text"},
         "aa85": {"name": "find_npc_message_match", "note": "Find the selected NPC message response code"},
         "ab7f": {"name": "run_npc_member_dialog", "note": "run the selected party member’s NPC conversation"},
-        "ae02": {"name": "aztec_ovbgn"},
+        "ae02": {"name": "aztec_ovbgn", "emits": [{"start": "912a", "end": "9134"}], "note": "dos20/ovbgn.asm: its dataseg holds save_si/di/sp/bp/ret, after every C module's data"},
         "ae40": {"name": "aztec_strncpy"},
         "ae68": {"name": "aztec_strcmp", "length": 103, "note": "Owns strcmp and the contiguous strncmp entry with their shared comparison/return tail."},
         "ae86": {"name": "aztec_strncmp", "note": "Compares at most the supplied number of unsigned string bytes."}
@@ -2925,7 +2925,7 @@
         "93ce": {"name": "text_line_color_row_1", "note": "second text row color"},
         "93d2": {"name": "text_line_color_row_3", "note": "fourth text row color"},
         "93d8": {"name": "npc_area_bottom", "note": "bottom y of the area step_npc_screen_animation shows: 0x8d or 0x8f"},
-        "9098": {"name": "area_set_0_save_file", "note": "save file for area set 0 (redraw_area_set); vpcvw/vpclv hold a '% ' suffix at this offset instead"},
+        "9098": {"name": "area_set_0_save_file", "length": 146, "file": "npc_strings", "note": "save file for area set 0 (redraw_area_set); vpcvw/vpclv hold a '% ' suffix at this offset instead"},
         "909f": {"name": "area_set_1_left_save_file", "note": "Filename used for the first rectangle in area set 1"},
         "90a6": {"name": "area_set_1_right_save_file", "note": "Filename used for the second rectangle in area set 1"},
         "90ad": {"name": "area_set_1_center_save_file", "note": "Save filename for the upper-middle rectangle in area set 1"},

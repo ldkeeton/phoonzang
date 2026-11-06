@@ -1,3 +1,0 @@
-; auto-generated
-__zspell_cost_panel_text:
-    db 0x2a, 0x2a, 0x2a, 0x00

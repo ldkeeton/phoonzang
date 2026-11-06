@@ -1,3 +1,0 @@
-; auto-generated
-__znpc_gold_offer_suffix_text:
-    db 0x28, 0x31, 0x29, 0x00

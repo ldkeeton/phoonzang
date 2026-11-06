@@ -461,43 +461,7 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 %include "shared/aztec/aztec_strcmp.asm"          ; 0xae76
 
 __zdata_start:
-%include "vmnpc/data/area_set_0_save_file.asm" ; 0xaedd
-
-%include "vmnpc/data/area_set_1_left_save_file.asm" ; 0xaee4
-
-%include "vmnpc/data/area_set_1_right_save_file.asm" ; 0xaeeb
-
-%include "vmnpc/data/area_set_1_center_save_file.asm" ; 0xaef2
-
-%include "vmnpc/data/area_set_2_save_file.asm" ; 0xaef9
-
-%include "vmnpc/data/npc_gold_offer_prefix_text.asm" ; 0xaf00
-
-%include "vmnpc/data/npc_gold_offer_suffix_text.asm" ; 0xaf03
-
-%include "vmnpc/data/spacebar_prompt_text.asm" ; 0xaf07
-
-%include "vmnpc/data/npc_offer_choice_box_save_file.asm" ; 0xaf09
-
-%include "vmnpc/data/npc_offer_choices_save_file.asm" ; 0xaf0f
-
-%include "vmnpc/data/npc_action_dialog_save_file.asm" ; 0xaf15
-
-%include "vmnpc/data/npc_item_dialog_screen_backup.asm" ; 0xaf1b
-
-%include "vmnpc/data/npc_screen_temp_file.asm" ; 0xaf21
-
-%include "vmnpc/data/spell_cost_panel_text.asm" ; 0xaf29
-
-%include "vmnpc/data/npc_spell_dialog_save_file.asm" ; 0xaf2d
-
-%include "vmnpc/data/text_space.asm"       ; 0xaf33
-
-%include "vmnpc/data/npc_text_separator.asm" ; 0xaf35
-
-%include "vmnpc/data/npc_message_line_separator.asm" ; 0xaf37
-
-%include "vmnpc/data/npc_dialog_phoonzang_prefix.asm" ; 0xaf65
+%include "vmnpc/data/npc_strings.asm" ; 0xaedd
 
 %include "shared/data/overlay_saved_registers.asm" ; 0xaf6f
 
