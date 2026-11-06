@@ -1,0 +1,90 @@
+; auto-generated
+announce_combatant_effect:
+    mov ax, 0                        ; 0x1e35
+    call aztec_csav                  ; 0x1e38
+    push word [bp + 6]               ; 0x1e3b
+    push word [bp + 4]               ; 0x1e3e
+    mov ax, combat_action_name_buffer ; 0x1e41
+    push ax                          ; 0x1e44
+    call copy_combatant_name         ; 0x1e45
+    add sp, byte 6                   ; 0x1e48
+    mov ax, combat_action_message_buffer ; 0x1e4b
+    push ax                          ; 0x1e4e
+    push word [bp + 8]               ; 0x1e4f
+    call load_message_string         ; 0x1e52
+    add sp, byte 4                   ; 0x1e55
+    mov byte [combat_action_suffix_buffer], 0 ; 0x1e58
+    cmp word [combat_message_layout], byte 2 ; 0x1e5d
+    jne short .forward2              ; 0x1e62
+    mov ax, 4                        ; 0x1e64
+    push ax                          ; 0x1e67
+    mov ax, 2                        ; 0x1e68
+    push ax                          ; 0x1e6b
+    call refresh_combat_glyph_strip  ; 0x1e6c
+    add sp, byte 4                   ; 0x1e6f
+    mov ax, 2                        ; 0x1e72
+    push ax                          ; 0x1e75
+    mov ax, 0x43                     ; 0x1e76
+    cmp word [bp + 4], byte 0        ; 0x1e79
+    jne short .forward1              ; 0x1e7d
+    mov ax, 1                        ; 0x1e7f
+.forward1:
+    push ax                          ; 0x1e82
+    mov ax, combat_action_name_buffer ; 0x1e83
+    push ax                          ; 0x1e86
+    call draw_centered_menu_text_row ; 0x1e87
+    add sp, byte 6                   ; 0x1e8a
+    mov ax, 3                        ; 0x1e8d
+    push ax                          ; 0x1e90
+    mov ax, 0x41                     ; 0x1e91
+    push ax                          ; 0x1e94
+    mov ax, combat_action_message_buffer ; 0x1e95
+    push ax                          ; 0x1e98
+    call draw_centered_menu_text_row ; 0x1e99
+    add sp, byte 6                   ; 0x1e9c
+    jmp short .forward4              ; 0x1e9f
+.forward2:
+    mov ax, 4                        ; 0x1ea1
+    push ax                          ; 0x1ea4
+    push ax                          ; 0x1ea5
+    call refresh_combat_glyph_strip  ; 0x1ea6
+    add sp, byte 4                   ; 0x1ea9
+    mov ax, 0x41                     ; 0x1eac
+    push ax                          ; 0x1eaf
+    push ax                          ; 0x1eb0
+    cmp word [bp + 4], byte 0        ; 0x1eb1
+    jne short .forward3              ; 0x1eb5
+    mov ax, 1                        ; 0x1eb7
+.forward3:
+    push ax                          ; 0x1eba
+    mov ax, combat_action_suffix_buffer ; 0x1ebb
+    push ax                          ; 0x1ebe
+    mov ax, combat_action_message_buffer ; 0x1ebf
+    push ax                          ; 0x1ec2
+    mov ax, combat_action_name_buffer ; 0x1ec3
+    push ax                          ; 0x1ec6
+    mov ax, 4                        ; 0x1ec7
+    push ax                          ; 0x1eca
+    call draw_centered_text_fragments ; 0x1ecb
+    add sp, byte 0xe                 ; 0x1ece
+.forward4:
+    cmp word [bp + 0xa], byte 1      ; 0x1ed1
+    jne short .forward6              ; 0x1ed5
+    cmp word [bp + 4], byte 0        ; 0x1ed7
+    jne short .forward6              ; 0x1edb
+    cmp word [bp + 0xc], byte 0      ; 0x1edd
+    jle short .forward5              ; 0x1ee1
+    push word [bp + 0xc]             ; 0x1ee3
+    call play_sound_effect           ; 0x1ee6
+    pop cx                           ; 0x1ee9
+.forward5:
+    mov ax, 1                        ; 0x1eea
+    push ax                          ; 0x1eed
+    push word [bp + 6]               ; 0x1eee
+    call sync_member_party_panel     ; 0x1ef1
+    add sp, byte 4                   ; 0x1ef4
+.forward6:
+    push word [startup_option]       ; 0x1ef7
+    call wait_for_combat_input       ; 0x1efb
+    pop cx                           ; 0x1efe
+    ret                              ; 0x1eff

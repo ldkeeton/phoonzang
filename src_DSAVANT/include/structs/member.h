@@ -40,14 +40,22 @@ struct combatant {			/* 0x2c bytes: one fighter's battle copy */
 	signed char speed_mod;		/* +0x29: Snake Speed/10 + 2; SLOWED lowers;
 					   adds to initiative and swings */
 	signed char cell;		/* +0x2a: battle cell held, -1 none */
-	unsigned char phase;		/* +0x2b */
+	signed char phase;		/* +0x2b: 0 visible, 1 hidden (backstabs; stays
+					   hidden 2 in 3, -1 while that strike lands),
+					   2 fled, 3 blinked out */
 };
 
 struct member_rec {
 	struct combatant unit[9];	/* +0x000 */
-	unsigned char charge[6];	/* +0x18c: per-action charge left */
-	unsigned char delay[6];		/* +0x192: per-action delay counter */
-	char pad0[6];
+	unsigned char ward[6];		/* +0x18c: per-realm ward points, decayed each
+					   round; lower incoming spell values, [3]/5
+					   deflects, [5] can fizzle the group's casts;
+					   [4] is the party-wide buff */
+	unsigned char cloud_power[6];	/* +0x192: power of each delayed cloud over the
+					   group (Firestorm, Poison Gas, Toxic Vapors,
+					   Acid, Draining, Death); falls 1 per round */
+	unsigned char cloud_tick[6];	/* +0x198: combat-round tick at which each
+					   cloud_power[] cloud strikes */
 	unsigned char kind;		/* +0x19e */
 	char slot;			/* +0x19f: slot_recs index, -1 none */
 	unsigned char unidentified;	/* +0x1a0: 1 until identified; selects
@@ -67,11 +75,14 @@ struct member_step_spec {
 
 /* One of a monster's three 18-byte attack descriptions. */
 struct member_attack {
-	unsigned char f_00[0x0d];
+	struct member_step_spec damage; /* +0x00: base and dice steps */
+	unsigned char effect_data[9];	/* +0x04 */
 	unsigned char target_count;	/* +0x0d: normal targets, or 3/6 */
-	unsigned char f_0e;
+	signed char accuracy_bonus;   /* +0x0e: added to the attack hit chance */
 	unsigned char action_mask;	/* +0x0f: bitset of possible actions */
-	unsigned char f_10[2];
+	unsigned char f_10;		/* +0x10 */
+	unsigned char slays_class;	/* +0x11: creature_class that takes an extra
+					   roll; 22 also paralyzes */
 };
 
 struct member_ext {			/* 0xe8 bytes: the group's monster */
@@ -85,10 +96,12 @@ struct member_ext {			/* 0xe8 bytes: the group's monster */
 					   records at +0x44); 0 unused, 2 and 3
 					   fixed effects, else a random bit of
 					   the slot's mask */
-	char pad1[0x90 - 0x89];
+	unsigned char attack_effect[3]; /* +0x89: attack effect text and special kind */
+	unsigned char combat_stats[4];	/* +0x8c: monster stats; for group 0 the
+					   active member's stat[0,1,4,5] */
 	unsigned char special_spell_ids[10]; /* +0x90: spell picked by a rising roll
 					   threshold (5, 10, 15, 25 .. 100) */
-	char pad1b[0xa8 - 0x9a];
+	unsigned char resistance[0xa8 - 0x9a];	/* +0x9a: per-type resistance percentages */
 	unsigned char entry_item[2];	/* +0xa8: item record for the matching
 					   party_entry_mode */
 	unsigned char companion_id[2];	/* +0xaa: monster that may join */
@@ -99,7 +112,15 @@ struct member_ext {			/* 0xe8 bytes: the group's monster */
 	unsigned char advance_score_bonus; /* +0xb1: percent bonus to the group's advance roll (party_screen) */
 	unsigned char flee_chance;	/* +0xb2: roll limit for action_kind 6 (flee),
 					   also gated by the side-strength roll */
-	char pad2[0xd6 - 0xb3];
+	char pad2;			/* +0xb3 */
+	unsigned char hit_location_weights[8];	/* +0xb4: choose_weighted_index
+					   weights of where this group is hit */
+	unsigned char party_hit_location_weights[8]; /* +0xbc: weights of
+					   where this group hits a party member */
+	char armor_class[8];		/* +0xc4: armor per hit location; for group 0
+					   copied from the active party member */
+	char attack_mode_defense[0xd6 - 0xcc]; /* +0xcc: defense added against each
+					   attack mode */
 	unsigned char creature_class;	/* +0xd6: pc_rec.profession for party members,
 					   else the monster's class: picks hit-location
 					   text (17/23 trunk, 26 rear), matched against
@@ -116,12 +137,12 @@ struct member_ext {			/* 0xe8 bytes: the group's monster */
 					   no monster-side reader found yet */
 	unsigned char hp_regen;		/* +0xdd: HP regained each turn */
 	unsigned char special_action_code;	/* +0xde: action value selected on a special roll */
-	char pad4;
+	unsigned char drain_effect_kind; /* +0xdf: 3 drains stamina, 11 drains HP */
 	unsigned char bitmap_bit;	/* +0xe0: bit set in action_bitmap */
 	char pad5;
 	unsigned char flags;		/* +0xe2: bit 0 sets bitmap_bit */
 	char pad6;
-	unsigned char f_e4;		/* +0xe4 */
+	signed char slot_index;	/* +0xe4: slot_records index, -1 none */
 	signed char class_id;		/* +0xe5 */
 	char pad7[2];
 };

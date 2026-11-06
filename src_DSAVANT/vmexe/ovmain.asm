@@ -2,7 +2,7 @@
 ovmain:
     mov ax, 0                        ; 0x17d1
     call aztec_csav                  ; 0x17d4
-    mov word [bss_90e0], 0           ; 0x17d7
+    mov word [combat_overlay_entry_flag], 0 ; 0x17d7
     cmp word [game_state], byte 0xd  ; 0x17dd
     jne short .forward1              ; 0x17e2
     push word [mouse_pointer_shape_seg] ; 0x17e4
@@ -17,7 +17,7 @@ ovmain:
     push ax                          ; 0x17fd
     call call_mouse_glide_to         ; 0x17fe
     add sp, byte 6                   ; 0x1801
-    call api_idx_000c_LNRS           ; 0x1804
+    call run_combat_round            ; 0x1804
     mov ax, 0                        ; 0x1807
     push ax                          ; 0x180a
     mov ax, 0xa4                     ; 0x180b

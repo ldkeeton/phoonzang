@@ -1,0 +1,62 @@
+; auto-generated
+select_battle_unit_range:
+    mov ax, 0xfffa                   ; 0x25d0
+    call aztec_csav                  ; 0x25d3
+    cmp word [bp + 6], byte 0        ; 0x25d6
+    jl short .forward1               ; 0x25da
+    mov ax, word [bp + 6]            ; 0x25dc
+    mov bx, word [bp + 8]            ; 0x25df
+    mov word [bx], ax                ; 0x25e2
+    mov bx, word [bp + 0xa]          ; 0x25e4
+    mov word [bx], 1                 ; 0x25e7
+    jmp near .return1                ; 0x25eb
+.forward1:
+    mov ax, word [bp + 4]            ; 0x25ee
+    shl ax, 1                        ; 0x25f1
+    mov bx, ax                       ; 0x25f3
+    mov bx, word [bx + battle_groups] ; 0x25f5
+    mov al, byte [bx + member_rec.unit_count] ; 0x25f9
+    sub ah, ah                       ; 0x25fd
+    mov word [bp - 2], ax            ; 0x25ff
+    mov ax, word [bp + 6]            ; 0x2602
+    push ax                          ; 0x2605
+    cmp ax, strict word 0            ; 0x2606
+    pop ax                           ; 0x2609
+    jge short .forward2              ; 0x260a
+    neg ax                           ; 0x260c
+.forward2:
+    mov word [bp - 4], ax            ; 0x260e
+    cmp ax, word [bp - 2]            ; 0x2611
+    jle short .forward3              ; 0x2614
+    mov ax, word [bp - 2]            ; 0x2616
+    mov word [bp - 4], ax            ; 0x2619
+.forward3:
+    mov ax, word [bp - 2]            ; 0x261c
+    sub ax, word [bp - 4]            ; 0x261f
+    push ax                          ; 0x2622
+    call random_below                ; 0x2623
+    pop cx                           ; 0x2626
+    mov word [bp - 6], ax            ; 0x2627
+.back1:
+    cmp word [bp - 6], byte 0        ; 0x262a
+    jle short .forward4              ; 0x262e
+    mov ax, 0x2c                     ; 0x2630
+    imul word [bp - 6]               ; 0x2633
+    mov si, ax                       ; 0x2636
+    mov ax, word [bp + 4]            ; 0x2638
+    shl ax, 1                        ; 0x263b
+    mov bx, ax                       ; 0x263d
+    mov bx, word [bx + battle_groups] ; 0x263f
+    cmp byte [bx + si + member_rec.unit_state], 3 ; 0x2643
+    jne short .forward4              ; 0x2647
+    dec word [bp - 6]                ; 0x2649
+    jmp short .back1                 ; 0x264c
+.forward4:
+    mov ax, word [bp - 6]            ; 0x264e
+    mov bx, word [bp + 8]            ; 0x2651
+    mov word [bx], ax                ; 0x2654
+    mov ax, word [bp - 4]            ; 0x2656
+    mov bx, word [bp + 0xa]          ; 0x2659
+    mov word [bx], ax                ; 0x265c
+.return1:
+    ret                              ; 0x265e

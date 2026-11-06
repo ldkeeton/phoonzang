@@ -38,9 +38,9 @@ int row, col, shift, nearx, left, right, consume;
 		code = clamp_between(code - (10 * row + (col == 0 ? 5 : 0)),
 			5, 100);
 	x = clamp_between(slot_recs[rec].glyph_x[glyph][variant % 2]
-		+ slot_recs[rec].cell_ofs[col][0], 0, right - 1);
+		+ slot_recs[rec].cell_ofs[0][col][0], 0, right - 1);
 	y = slot_recs[rec].glyph_y[glyph]
-		+ slot_recs[rec].cell_ofs[col][1];
+		+ slot_recs[rec].cell_ofs[0][col][1];
 	if (monster_group_count == 1 && battle_groups[1]->unit_count == 1 && row == 0)
 		nearx = 0;			/* one group of one monster */
 	x += (160 - x) * nearx / 100;	/* vanishing point (160,61) */

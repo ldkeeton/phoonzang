@@ -16,11 +16,11 @@ load_party_battle_group()
 	group_index = 0;
 	battle_groups[group_index]->unit_count = party_char_count;
 	for (member_index = 0; member_index < 6; member_index++)
-		battle_groups[group_index]->charge[member_index] = 0;
+		battle_groups[group_index]->ward[member_index] = 0;
 	if (party_buff_turns > 0)
-		battle_groups[group_index]->charge[4] = party_buff_charge;
+		battle_groups[group_index]->ward[4] = party_buff_charge;
 	for (member_index = 0; member_index < 6; member_index++)
-		battle_groups[group_index]->delay[member_index] = 0;
+		battle_groups[group_index]->cloud_power[member_index] = 0;
 
 	/* Copy each party member's current combat values into the battle record. */
 	for (member_index = 0; member_index < party_char_count; member_index++) {

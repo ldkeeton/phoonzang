@@ -36,7 +36,7 @@ shared/ovr/step_party_screen_animation
 shared/ovr/run_party_screen_animation
 vmele/play_action_overlays
 vmele/close_party_screen
-vmele/spend_action_slot_charge
+vmele/decay_wards_and_clouds
 vmele/advance_melee_turn
 vmele/reset_battle_groups
 vmele/setup_melee_party

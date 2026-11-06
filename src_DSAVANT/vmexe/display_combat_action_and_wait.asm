@@ -1,0 +1,35 @@
+; auto-generated
+display_combat_action_and_wait:
+    mov ax, 0                        ; 0x6edc
+    call aztec_csav                  ; 0x6edf
+    mov ax, 0                        ; 0x6ee2
+    push ax                          ; 0x6ee5
+    push word [bp + 6]               ; 0x6ee6
+    push word [bp + 4]               ; 0x6ee9
+    call display_combat_message      ; 0x6eec
+    add sp, byte 6                   ; 0x6eef
+    cmp word [acting_group], byte 0  ; 0x6ef2
+    je short .forward2               ; 0x6ef7
+    mov ax, word [acting_group]      ; 0x6ef9
+    cmp ax, strict word 6            ; 0x6efc
+    je short .forward2               ; 0x6eff
+    mov ax, 1                        ; 0x6f01
+    cmp word [acting_group], byte 3  ; 0x6f04
+    jge short .forward1              ; 0x6f09
+    mov ax, 0                        ; 0x6f0b
+.forward1:
+    mov cx, 6                        ; 0x6f0e
+    imul cx                          ; 0x6f11
+    mov bx, ax                       ; 0x6f13
+    mov word [bx + cell_effect_frame], 0 ; 0x6f15
+    mov word [effect_frame_phase], 0 ; 0x6f1b
+    call run_combat_screen_animation ; 0x6f21
+.forward2:
+    mov ax, word [startup_option]    ; 0x6f24
+    mov cx, 2                        ; 0x6f27
+    cwd                              ; 0x6f2a
+    idiv cx                          ; 0x6f2b
+    push ax                          ; 0x6f2d
+    call wait_for_combat_input       ; 0x6f2e
+    pop cx                           ; 0x6f31
+    ret                              ; 0x6f32

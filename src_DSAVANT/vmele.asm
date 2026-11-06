@@ -113,7 +113,7 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "vmele/close_party_screen.asm"    ; 0x2ec4
 
-%include "vmele/spend_action_slot_charge.asm" ; 0x306a
+%include "vmele/decay_wards_and_clouds.asm" ; 0x306a
 
 %include "vmele/advance_melee_turn.asm"    ; 0x31a1
 

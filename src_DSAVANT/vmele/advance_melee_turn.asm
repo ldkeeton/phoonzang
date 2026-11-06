@@ -8,7 +8,7 @@ advance_melee_turn:
     push ax                          ; 0x31b0
     call tick_monster_group          ; 0x31b1
     pop cx                           ; 0x31b4
-    call spend_action_slot_charge    ; 0x31b5
+    call decay_wards_and_clouds      ; 0x31b5
     mov word [bp - 2], 0             ; 0x31b8
     jmp short .forward3              ; 0x31bd
 .back1:

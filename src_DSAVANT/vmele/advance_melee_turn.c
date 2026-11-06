@@ -9,7 +9,7 @@ extern int party_char_count, monster_group_count;
 extern int party_screen_done, party_return_state, game_state, npc_id;
 extern int e1_event_flag, message_delay;
 extern int tick_party_combatants(), process_monster_groups();
-extern int tick_monster_group(), spend_action_slot_charge();
+extern int tick_monster_group(), decay_wards_and_clouds();
 extern int redraw_glyph_strip(), copy_member_party_record();
 extern int draw_party_member_panel(), close_party_screen();
 extern int titlecase_string(), load_message_string();
@@ -24,7 +24,7 @@ advance_melee_turn()
 	tick_party_combatants();
 	process_monster_groups();
 	tick_monster_group(6);
-	spend_action_slot_charge();
+	decay_wards_and_clouds();
 	for (member_index = 0; member_index < party_char_count; member_index++) {
 		/* Keep each party combat copy's group reference in range. */
 		if (battle_groups[0]->unit[member_index].target_group < 1

@@ -52,11 +52,11 @@ int member_id, group_index;
 	if (battle_groups[group_index]->unit_count > 9)
 		battle_groups[group_index]->unit_count = 9;
 	battle_groups[group_index]->unidentified = 1;
-	/* Clear the six action charges and six delay counters. */
+	/* Clear the six wards and six cloud powers. */
 	for (unit = 0; unit < 6; unit++)
-		battle_groups[group_index]->charge[unit] = 0;
+		battle_groups[group_index]->ward[unit] = 0;
 	for (unit = 0; unit < 6; unit++)
-		battle_groups[group_index]->delay[unit] = 0;
+		battle_groups[group_index]->cloud_power[unit] = 0;
 	if (difficulty_option == 2)
 		battle_group_ext[group_index]->hp_spec.count++;
 

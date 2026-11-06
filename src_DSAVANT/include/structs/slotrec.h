@@ -25,8 +25,8 @@ struct slot_rec {			/* 350 bytes */
 	unsigned char glyph_y[36];	/* +0x81: [glyph] y, less 1 */
 	struct range_ent range[40];	/* +0xa5 */
 	char pad2;
-	char cell_ofs[3][2];		/* +0x146: x, y per column */
-	char pad3[15];
+	char cell_ofs[3][3][2];	/* +0x146: x, y per row and column */
+	char pad3[3];
 	unsigned char forced;		/* +0x15b: forced action/target, 0 none */
 	unsigned char last_glyph;	/* +0x15c: the slot's last glyph */
 	char pad4;
