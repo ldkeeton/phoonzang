@@ -9,8 +9,8 @@ play_sound_cue:
     call ensure_sound_loaded         ; 0x743f
     pop cx                           ; 0x7442
 .forward1:
-    mov word [bss_93da], 0x10        ; 0x7443
-    push word [bss_93da]             ; 0x7449
+    mov word [npc_encounter_sound], 0x10 ; 0x7443
+    push word [npc_encounter_sound]  ; 0x7449
     call play_sound_effect           ; 0x744d
     pop cx                           ; 0x7450
     ret                              ; 0x7451

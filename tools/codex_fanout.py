@@ -514,7 +514,7 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument('binary', nargs='?')
     ap.add_argument('--next', action='store_true', help='the binary with the fewest bare routines left')
-    ap.add_argument('-j', type=int, default=12)
+    ap.add_argument('-j', type=int, default=16)
     ap.add_argument('-n', '--dry-run', action='store_true')
     ap.add_argument('--only', default='', help='comma list of label substrings to run')
     ap.add_argument('--skip', default='', help='comma list of label substrings to leave out')

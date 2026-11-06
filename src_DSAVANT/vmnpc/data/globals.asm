@@ -1,71 +1,71 @@
 ; auto-generated
-__zobss_9134:  ; bss_9134
+__zobss_9134:  ; npc_action_state
     resb 0x0002
-__zobss_9136:  ; bss_9136
+__zobss_9136:  ; npc_record_index
     resb 0x0002
-__zobss_9138:  ; bss_9138
+__zobss_9138:  ; npc_record_buffer
     resb 0x0010
-__zobss_9148:  ; bss_9148
+__zobss_9148:  ; npc_event_triggers
     resb 0x0002
-__zobss_914a:  ; bss_914a
+__zobss_914a:  ; npc_event_trigger_match_byte_1
     resb 0x0001
-__zobss_914b:  ; bss_914b
+__zobss_914b:  ; npc_event_trigger_match_byte_2
     resb 0x0001
-__zobss_914c:  ; bss_914c
+__zobss_914c:  ; npc_event_trigger_event
     resb 0x0001
-__zobss_914d:  ; bss_914d
+__zobss_914d:  ; npc_event_trigger_handler
     resb 0x002b
-__zobss_9178:  ; bss_9178
+__zobss_9178:  ; npc_action_record_lookup
     resb 0x0028
-__zobss_91a0:  ; bss_91a0
+__zobss_91a0:  ; npc_dialog_first_choice_msg_id
     resb 0x0002
-__zobss_91a2:  ; bss_91a2
+__zobss_91a2:  ; npc_greeting_msg_id
     resb 0x0002
-__zobss_91a4:  ; bss_91a4
+__zobss_91a4:  ; npc_dialog_response_name_msg_id
     resb 0x0002
-__zobss_91a6:  ; bss_91a6
+__zobss_91a6:  ; npc_dialog_response_wait_msg_id
     resb 0x0002
-__zobss_91a8:  ; bss_91a8
+__zobss_91a8:  ; npc_phrase_msg_id
     resb 0x0002
-__zobss_91aa:  ; bss_91aa
+__zobss_91aa:  ; npc_shop_price_markup
     resb 0x0002
-__zobss_91ac:  ; bss_91ac
+__zobss_91ac:  ; npc_sell_price_percent
     resb 0x0002
-__zobss_91ae:  ; bss_91ae
+__zobss_91ae:  ; npc_requested_item_id
     resb 0x0008
-__zobss_91b6:  ; bss_91b6
+__zobss_91b6:  ; npc_gold
     resb 0x0002
-__zobss_91b8:  ; bss_91b8
+__zobss_91b8:  ; npc_gold_high
     resb 0x0002
-__zobss_91ba:  ; bss_91ba
+__zobss_91ba:  ; npc_action_enabled
     resb 0x0008
-__zobss_91c2:  ; bss_91c2
+__zobss_91c2:  ; npc_attack_encounter_id
     resb 0x0001
-__zobss_91c3:  ; bss_91c3
+__zobss_91c3:  ; npc_monster_picture_id
     resb 0x0002
-__zobss_91c5:  ; bss_91c5
+__zobss_91c5:  ; npc_level
     resb 0x0001
-__zobss_91c6:  ; bss_91c6
+__zobss_91c6:  ; npc_slot_index
     resb 0x0001
-__zobss_91c7:  ; bss_91c7
+__zobss_91c7:  ; current_faction_index
     resb 0x0002
-__zobss_91c9:  ; bss_91c9
+__zobss_91c9:  ; npc_shop_stock_record_index
     resb 0x0001
-__zobss_91ca:  ; bss_91ca
+__zobss_91ca:  ; npc_encounter_intro_sound_id
     resb 0x0001
-__zobss_91cb:  ; bss_91cb
+__zobss_91cb:  ; npc_effect_flags
     resb 0x0001
 __zobss_91cc:  ; text_line_buffer
     resb 0x0080
-__zobss_924c:  ; bss_924c
+__zobss_924c:  ; text_line_buffer_row_1
     resb 0x0100
-__zobss_934c:  ; bss_934c
+__zobss_934c:  ; text_line_buffer_row_3
     resb 0x0080
 __zobss_93cc:  ; text_line_color
     resb 0x0002
-__zobss_93ce:  ; bss_93ce
+__zobss_93ce:  ; text_line_color_row_1
     resb 0x0004
-__zobss_93d2:  ; bss_93d2
+__zobss_93d2:  ; text_line_color_row_3
     resb 0x0002
 __zobss_93d4:  ; text_line_index
     resb 0x0002
@@ -73,219 +73,221 @@ __zobss_93d6:  ; party_redraw_interval
     resb 0x0002
 __zobss_93d8:  ; npc_area_bottom
     resb 0x0002
-__zobss_93da:  ; bss_93da
+__zobss_93da:  ; npc_encounter_sound
     resb 0x0002
-__zobss_93dc:  ; bss_93dc
+__zobss_93dc:  ; npc_cell_effect_frame
     resb 0x0012
-__zobss_93ee:  ; bss_93ee
+__zobss_93ee:  ; npc_message_ready
     resb 0x0002
-__zobss_93f0:  ; bss_93f0
+__zobss_93f0:  ; quest_map_message_buffer
     resb 0x0100
-__zobss_94f0:  ; bss_94f0
-    resb 0x0086
-__zobss_9576:  ; bss_9576
+__zobss_94f0:  ; npc_event_message_seen
+    resb 0x006e
+__zobss_955e:  ; npc_event_actor_buffer
     resb 0x0018
-__zobss_958e:  ; bss_958e
+__zobss_9576:  ; quest_map_name_buffer
     resb 0x0018
-__zobss_95a6:  ; bss_95a6
+__zobss_958e:  ; quest_map_subject_buffer
+    resb 0x0018
+__zobss_95a6:  ; npc_dialog_departure_flag
     resb 0x0002
-__zobss_95a8:  ; bss_95a8
+__zobss_95a8:  ; npc_choice_message_buffer
     resb 0x0001
-__zobss_95a9:  ; bss_95a9
+__zobss_95a9:  ; npc_choice_message_text
     resb 0x004f
-__zobss_95f8:  ; bss_95f8
+__zobss_95f8:  ; npc_action_bitmap_copy
     resb 0x0002
-__zobss_95fa:  ; bss_95fa
+__zobss_95fa:  ; npc_effect_message_buffer
     resb 0x0001
-__zobss_95fb:  ; bss_95fb
+__zobss_95fb:  ; npc_effect_message_value
     resb 0x004f
-__zobss_964a:  ; bss_964a
+__zobss_964a:  ; npc_gold_paid_total
     resb 0x0002
-__zobss_964c:  ; bss_964c
+__zobss_964c:  ; npc_gold_paid_total_high
     resb 0x0002
-__zobss_964e:  ; bss_964e
+__zobss_964e:  ; npc_charm_bonus
     resb 0x0002
-__zobss_9650:  ; bss_9650
+__zobss_9650:  ; npc_spell_target
     resb 0x0002
 __zobss_9652:  ; list_row_marked
     resb 0x0002
-__zobss_9654:  ; bss_9654
+__zobss_9654:  ; list_row_marked_next
     resb 0x0026
 __zobss_967a:  ; list_row_glyph
     resb 0x0002
-__zobss_967c:  ; bss_967c
+__zobss_967c:  ; list_row_glyph_next
     resb 0x0026
 __zobss_96a2:  ; list_row_name
     resb 0x0016
-__zobss_96b8:  ; bss_96b8
+__zobss_96b8:  ; list_row_name_next
     resb 0x01a2
 __zobss_985a:  ; list_row_count
     resb 0x0002
-__zobss_985c:  ; bss_985c
+__zobss_985c:  ; list_row_count_next
     resb 0x0026
-__zobss_9882:  ; bss_9882
+__zobss_9882:  ; npc_item_list_profession_mask
     resb 0x003c
-__zobss_98be:  ; bss_98be
+__zobss_98be:  ; npc_item_list_race_mask
     resb 0x003c
-__zobss_98fa:  ; bss_98fa
+__zobss_98fa:  ; npc_item_list_gender_mask
     resb 0x001e
-__zobss_9918:  ; bss_9918
+__zobss_9918:  ; npc_item_list_item_type
     resb 0x001e
-__zobss_9936:  ; bss_9936
+__zobss_9936:  ; npc_item_list_value
     resb 0x0002
-__zobss_9938:  ; bss_9938
+__zobss_9938:  ; npc_item_list_value_high_word
     resb 0x0076
-__zobss_99ae:  ; bss_99ae
+__zobss_99ae:  ; npc_item_value_unit_text
     resb 0x000a
-__zobss_99b8:  ; bss_99b8
+__zobss_99b8:  ; npc_item_list_glyph
     resb 0x001e
-__zobss_99d6:  ; bss_99d6
+__zobss_99d6:  ; npc_item_list_name
     resb 0x0294
-__zobss_9c6a:  ; bss_9c6a
+__zobss_9c6a:  ; npc_item_list_item_count
     resb 0x003c
-__zobss_9ca6:  ; bss_9ca6
+__zobss_9ca6:  ; npc_item_scroll_top
     resb 0x0002
-__zobss_9ca8:  ; bss_9ca8
+__zobss_9ca8:  ; member_item_count
     resb 0x0002
-__zobss_9caa:  ; bss_9caa
+__zobss_9caa:  ; member_item_slot_indices
     resb 0x0002
-__zobss_9cac:  ; bss_9cac
+__zobss_9cac:  ; member_item_slot_indices_next
     resb 0x0026
-__zobss_9cd2:  ; bss_9cd2
+__zobss_9cd2:  ; npc_item_list_count
     resb 0x0002
-__zobss_9cd4:  ; bss_9cd4
+__zobss_9cd4:  ; npc_item_list_item_id
     resb 0x003c
-__zobss_9d10:  ; bss_9d10
+__zobss_9d10:  ; npc_substitution_text
     resb 0x0050
-__zobss_9d60:  ; bss_9d60
+__zobss_9d60:  ; npc_pilfer_roll_bias
     resb 0x0002
-__zobss_9d62:  ; bss_9d62
+__zobss_9d62:  ; npc_negotiation_tactic
     resb 0x0002
-__zobss_9d64:  ; bss_9d64
+__zobss_9d64:  ; npc_dialog_initial_state
     resb 0x0002
-__zobss_9d66:  ; bss_9d66
+__zobss_9d66:  ; npc_selected_dialog_option
     resb 0x0002
-__zobss_9d68:  ; bss_9d68
+__zobss_9d68:  ; npc_dialog_option_state
     resb 0x0002
-__zobss_9d6a:  ; bss_9d6a
+__zobss_9d6a:  ; npc_dialog_secondary_state
     resb 0x0002
-__zobss_9d6c:  ; bss_9d6c
+__zobss_9d6c:  ; npc_dialog_shop_mode
     resb 0x0086
 __zobss_9df2:  ; known_spell_ids
     resb 0x0050
-__zobss_9e42:  ; bss_9e42
+__zobss_9e42:  ; npc_dialog_choice_index
     resb 0x0002
-__zobss_9e44:  ; bss_9e44
+__zobss_9e44:  ; npc_dialog_choice_auxiliary
     resb 0x0002
-__zobss_9e46:  ; bss_9e46
+__zobss_9e46:  ; npc_dialog_primary_choice
     resb 0x0002
-__zobss_9e48:  ; bss_9e48
+__zobss_9e48:  ; npc_dialog_choice_code
     resb 0x0002
-__zobss_9e4a:  ; bss_9e4a
+__zobss_9e4a:  ; npc_dialog_default_choice_index
     resb 0x0002
-__zobss_9e4c:  ; bss_9e4c
+__zobss_9e4c:  ; npc_dialog_default_choice_value
     resb 0x0002
-__zobss_9e4e:  ; bss_9e4e
+__zobss_9e4e:  ; npc_dialog_choice_backup
     resb 0x0002
-__zobss_9e50:  ; bss_9e50
+__zobss_9e50:  ; npc_dialog_response_value
     resb 0x0002
-__zobss_9e52:  ; bss_9e52
+__zobss_9e52:  ; npc_dialog_topic_0_enabled
     resb 0x0002
-__zobss_9e54:  ; bss_9e54
+__zobss_9e54:  ; npc_dialog_topic_1_enabled
     resb 0x0002
-__zobss_9e56:  ; bss_9e56
+__zobss_9e56:  ; npc_dialog_topic_2_enabled
     resb 0x0002
-__zobss_9e58:  ; bss_9e58
+__zobss_9e58:  ; npc_dialog_topic_3_enabled
     resb 0x0002
-__zobss_9e5a:  ; bss_9e5a
+__zobss_9e5a:  ; npc_dialog_topic_4_enabled
     resb 0x0002
-__zobss_9e5c:  ; bss_9e5c
+__zobss_9e5c:  ; npc_dialog_topic_5_enabled
     resb 0x0002
-__zobss_9e5e:  ; bss_9e5e
+__zobss_9e5e:  ; npc_dialog_topic_6_enabled
     resb 0x0002
-__zobss_9e60:  ; bss_9e60
+__zobss_9e60:  ; npc_dialog_empty_choice_seen
     resb 0x0002
-__zobss_9e62:  ; bss_9e62
+__zobss_9e62:  ; npc_dialog_response_active
     resb 0x0002
-__zobss_9e64:  ; bss_9e64
+__zobss_9e64:  ; npc_dialog_mode7_seen
     resb 0x0002
-__zobss_9e66:  ; bss_9e66
+__zobss_9e66:  ; npc_dialog_prefix_matched
     resb 0x0002
-__zobss_9e68:  ; bss_9e68
+__zobss_9e68:  ; npc_response_flag_2
     resb 0x0002
-__zobss_9e6a:  ; bss_9e6a
+__zobss_9e6a:  ; npc_response_flag_3
     resb 0x0002
-__zobss_9e6c:  ; bss_9e6c
+__zobss_9e6c:  ; npc_response_flag_4
     resb 0x0002
-__zobss_9e6e:  ; bss_9e6e
+__zobss_9e6e:  ; npc_response_flag_0
     resb 0x0002
-__zobss_9e70:  ; bss_9e70
+__zobss_9e70:  ; npc_response_flag_1
     resb 0x0002
-__zobss_9e72:  ; bss_9e72
+__zobss_9e72:  ; npc_dialog_response_state_extra
     resb 0x0002
-__zobss_9e74:  ; bss_9e74
+__zobss_9e74:  ; npc_response_flag_5
     resb 0x0002
-__zobss_9e76:  ; bss_9e76
+__zobss_9e76:  ; npc_response_flag_6
     resb 0x0002
-__zobss_9e78:  ; bss_9e78
+__zobss_9e78:  ; npc_dialog_choice_value_a
     resb 0x0002
-__zobss_9e7a:  ; bss_9e7a
+__zobss_9e7a:  ; npc_dialog_choice_value_b
     resb 0x0002
-__zobss_9e7c:  ; bss_9e7c
+__zobss_9e7c:  ; npc_dialog_latest_choice
     resb 0x0002
-__zobss_9e7e:  ; bss_9e7e
+__zobss_9e7e:  ; npc_alt_choice_index
     resb 0x0002
-__zobss_9e80:  ; bss_9e80
+__zobss_9e80:  ; npc_alt_choice_value
     resb 0x0002
-__zobss_9e82:  ; bss_9e82
+__zobss_9e82:  ; npc_dialog_secondary_choice
     resb 0x0002
-__zobss_9e84:  ; bss_9e84
+__zobss_9e84:  ; npc_dialog_text_has_question
     resb 0x0002
-__zobss_9e86:  ; bss_9e86
+__zobss_9e86:  ; npc_dialog_choice_entries
     resb 0x0002
-__zobss_9e88:  ; bss_9e88
+__zobss_9e88:  ; npc_dialog_choice_entry_text
     resb 0x0001
-__zobss_9e89:  ; bss_9e89
+__zobss_9e89:  ; npc_dialog_choice_entry_text_1
     resb 0x07cd
-__zobss_a656:  ; bss_a656
+__zobss_a656:  ; npc_total_choice_count
     resb 0x0002
-__zobss_a658:  ; bss_a658
+__zobss_a658:  ; npc_dialog_verb_words
     resb 0x0064
-__zobss_a6bc:  ; bss_a6bc
+__zobss_a6bc:  ; npc_dialog_filler_words
     resb 0x0046
-__zobss_a702:  ; bss_a702
+__zobss_a702:  ; npc_dialog_interjection_words
     resb 0x0064
-__zobss_a766:  ; bss_a766
+__zobss_a766:  ; npc_dialog_modal_words
     resb 0x0046
-__zobss_a7ac:  ; bss_a7ac
+__zobss_a7ac:  ; npc_pronoun_swaps
     resb 0x000a
-__zobss_a7b6:  ; bss_a7b6
+__zobss_a7b6:  ; npc_pronoun_swaps_replacement
     resb 0x005a
-__zobss_a810:  ; bss_a810
+__zobss_a810:  ; npc_dialog_question_words
     resb 0x0046
-__zobss_a856:  ; bss_a856
+__zobss_a856:  ; npc_dialog_pronoun_words
     resb 0x006e
-__zobss_a8c4:  ; bss_a8c4
+__zobss_a8c4:  ; npc_dialog_synonym_lists
     resb 0x076c
-__zobss_b030:  ; bss_b030
+__zobss_b030:  ; npc_dialog_mode
     resb 0x0002
-__zobss_b032:  ; bss_b032
+__zobss_b032:  ; npc_dialog_not_word
     resb 0x000a
-__zobss_b03c:  ; bss_b03c
+__zobss_b03c:  ; npc_dialog_to_word
     resb 0x000a
-__zobss_b046:  ; bss_b046
+__zobss_b046:  ; npc_first_choice_count
     resb 0x0002
-__zobss_b048:  ; bss_b048
+__zobss_b048:  ; npc_matched_choice_offset
     resb 0x0002
-__zobss_b04a:  ; bss_b04a
+__zobss_b04a:  ; npc_dialog_response_name
     resb 0x0002
-__zobss_b04c:  ; bss_b04c
+__zobss_b04c:  ; npc_dialog_response_wait
     resb 0x0002
-__zobss_b04e:  ; bss_b04e
+__zobss_b04e:  ; npc_member_index
     resb 0x0002
-__zobss_b050:  ; bss_b050
+__zobss_b050:  ; npc_first_choice_message_base
     resb 0x0002
-__zobss_b052:  ; bss_b052
+__zobss_b052:  ; npc_second_choice_message_base
     resb 0x0002
-__zobss_b054:  ; bss_b054
+__zobss_b054:  ; last_npc_text_entry_key
     resb 0x0002

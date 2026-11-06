@@ -171,6 +171,22 @@ class LinkOrderTest(unittest.TestCase):
                                    dseg, {'b/data/name': 0}),
             {'c/zeros': (8, 12)})
 
+    def test_zeros_after_a_zeroed_data_module_without_a_source(self):
+        # vmexe: empty_text_fragment is two zero bytes just before ovbgn's
+        # zeros; without its size ovbgn would be placed on top of it.
+        dseg = bytes(12)
+        sources = {'c/zeros': {'data': bytes(10).hex(), 'relocations': []}}
+        args = (['b/data/empty', 'c/zeros'], sources, dseg, {'b/data/empty': 0})
+        self.assertEqual(linkorder.source_spans(*args), {'c/zeros': (0, 10)})
+        self.assertEqual(linkorder.source_spans(*args, {'empty': 2}),
+                         {'c/zeros': (2, 12)})
+
+    def test_fragment_size(self):
+        text = ("; auto-generated\n__zname:\n    db 'a,b', 0\n"
+                "    dw 0x1234, label\n    times 3 db 0\n    resb 0x0004\n")
+        self.assertEqual(linkorder.fragment_size(text), 4 + 4 + 3 + 4)
+        self.assertIsNone(linkorder.fragment_size('    incbin "x"\n'))
+
     def test_flags_go_on_the_ln_line(self):
         binaries = {'r': {'type': 'mz', 'link': {'flags': ['+C', 'af00']}}}
         out = project.project_files(binaries, None,

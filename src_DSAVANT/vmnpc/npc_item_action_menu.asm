@@ -2,12 +2,12 @@
 npc_item_action_menu:
     mov ax, 0xfffa                   ; 0x5d0e
     call aztec_csav                  ; 0x5d11
-    call loc_UTQS                    ; 0x5d14
+    call wait_for_npc_screen_animation ; 0x5d14
     mov ax, 0x248                    ; 0x5d17
     imul word [bp + 4]               ; 0x5d1a
     add ax, party_records            ; 0x5d1d
     push ax                          ; 0x5d20
-    push word [bss_9ca8]             ; 0x5d21
+    push word [member_item_count]    ; 0x5d21
     mov ax, 1                        ; 0x5d25
     push ax                          ; 0x5d28
     push ax                          ; 0x5d29
@@ -29,14 +29,14 @@ npc_item_action_menu:
     jne short .forward1              ; 0x5d57
     push word [bp - 2]               ; 0x5d59
     push word [bp + 4]               ; 0x5d5c
-    call api_idx_005e_KVNO           ; 0x5d5f
+    call sell_item_to_npc            ; 0x5d5f
     add sp, byte 4                   ; 0x5d62
     mov word [bp - 4], ax            ; 0x5d65
     jmp short .forward2              ; 0x5d68
 .forward1:
     push word [bp - 2]               ; 0x5d6a
     push word [bp + 4]               ; 0x5d6d
-    call api_idx_004e_PHKR           ; 0x5d70
+    call give_item_to_npc            ; 0x5d70
     add sp, byte 4                   ; 0x5d73
     mov word [bp - 4], ax            ; 0x5d76
 .forward2:

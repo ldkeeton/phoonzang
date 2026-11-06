@@ -1,0 +1,28 @@
+; auto-generated
+reduce_party_status_timer:
+    mov ax, 0xfffe                   ; 0x38c1
+    call aztec_csav                  ; 0x38c4
+    mov ax, 0x248                    ; 0x38c7
+    imul word [bp + 4]               ; 0x38ca
+    add ax, word [bp + 6]            ; 0x38cd
+    mov bx, ax                       ; 0x38d0
+    mov al, byte [bx + party_records + pc_rec.status] ; 0x38d2
+    sub ah, ah                       ; 0x38d6
+    sub ax, word [bp + 8]            ; 0x38d8
+    mov word [bp - 2], ax            ; 0x38db
+    push ax                          ; 0x38de
+    cmp ax, strict word 0            ; 0x38df
+    pop ax                           ; 0x38e2
+    jge short .forward1              ; 0x38e3
+    mov ax, 0                        ; 0x38e5
+.forward1:
+    mov byte [bx + party_records + pc_rec.status], al ; 0x38e8
+    cmp word [bp + 0xa], byte 0      ; 0x38ec
+    je short .return1                ; 0x38f0
+    mov ax, 1                        ; 0x38f2
+    push ax                          ; 0x38f5
+    push word [bp + 4]               ; 0x38f6
+    call draw_party_member_panel     ; 0x38f9
+    add sp, byte 4                   ; 0x38fc
+.return1:
+    ret                              ; 0x38ff

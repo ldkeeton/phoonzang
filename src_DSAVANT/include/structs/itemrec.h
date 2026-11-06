@@ -45,7 +45,8 @@ struct chest_record {
 };
 
 struct item_record {
-	char name[0x1a];			/* +0x00: own name, shown once identified */
+	char name[0x16];			/* +0x00: own name, shown once identified */
+	long price;			/* +0x16: base price for buying and selling */
 	struct item_dice level_spec;		/* +0x1a: rolled into the slot's level */
 	union item_effect u;			/* +0x1e: key (kind 4) or damage */
 	int spell_code;			/* +0x22: power * 256 + spell */

@@ -4,7 +4,7 @@ next_text_line:
     call aztec_csav                  ; 0x0e18
     cmp word [text_line_index], byte 2 ; 0x0e1b
     jle short .forward1              ; 0x0e20
-    call api_idx_0002_IUMT           ; 0x0e22
+    call rotate_npc_text_lines       ; 0x0e22
     jmp short .forward2              ; 0x0e25
 .forward1:
     inc word [text_line_index]       ; 0x0e27

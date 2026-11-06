@@ -21,15 +21,15 @@ queue_npc_cell_overlay:
     push word [bp + 6]               ; 0x0755
     push word [bp + 4]               ; 0x0758
     push word [bp - 2]               ; 0x075b
-    call api_idx_000c_POTM           ; 0x075e
+    call build_npc_action_overlay    ; 0x075e
     add sp, byte 0xa                 ; 0x0761
     cmp byte [bp - 0x18], 0          ; 0x0764
     jne short .forward2              ; 0x0768
     ret                              ; 0x076a
 .forward2:
-    cmp word [bss_9136], byte 0x3e   ; 0x076b
+    cmp word [npc_record_index], byte 0x3e ; 0x076b
     jne short .forward3              ; 0x0770
-    cmp word [bss_9134], byte 0x12   ; 0x0772
+    cmp word [npc_action_state], byte 0x12 ; 0x0772
     jne short .forward3              ; 0x0777
     mov ax, 1                        ; 0x0779
     jmp short .forward4              ; 0x077c
@@ -150,7 +150,7 @@ queue_npc_cell_overlay:
     mov bx, word [bp - 2]            ; 0x0886
     cmp byte [bx + picture_slot_number], 0x18 ; 0x0889
     jne short .forward9              ; 0x088e
-    cmp word [bss_9134], byte 1      ; 0x0890
+    cmp word [npc_action_state], byte 1 ; 0x0890
     jne short .forward9              ; 0x0895
     cmp byte [bp - 0x18], 4          ; 0x0897
     jne short .forward9              ; 0x089b

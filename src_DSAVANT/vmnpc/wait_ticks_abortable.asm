@@ -33,7 +33,7 @@ wait_ticks_abortable:
     je short .forward4               ; 0x11e5
     cmp word [space_key_hit], byte 0 ; 0x11e7
     je short .forward4               ; 0x11ec
-    call api_idx_0004_RPUO           ; 0x11ee
+    call wait_for_spacebar_prompt    ; 0x11ee
     ret                              ; 0x11f1
 .forward4:
     call step_npc_screen_animation   ; 0x11f2

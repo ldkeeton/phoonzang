@@ -264,7 +264,8 @@ def _link_order(project, files, report=print):
     the recorded sources only feed :func:`lib.aztec.linkorder.check`, whose
     disagreements are warnings."""
     from lib.aztec import bss
-    from lib.aztec.linkorder import arrange, check, listed_starts, owners
+    from lib.aztec.linkorder import (arrange, check, fragment_size, is_data_module,
+                                     listed_starts, owners)
     from lib.link import read_export
     from lib.sidecar.binary import emitted_ranges
 
@@ -291,7 +292,10 @@ def _link_order(project, files, report=print):
         # its owner's object's.
         rest = [m for m in listed if m not in first
                 and not m.endswith(('.data', '.bss'))]
-        for line in check(rest, info, emitted):
+        sizes = {m.rsplit('/', 1)[-1]: fragment_size(files[f'{m}.asm'])
+                 for m in rest if is_data_module(m) and f'{m}.asm' in files}
+        for line in check(rest, info, emitted,
+                          {stem: n for stem, n in sizes.items() if n is not None}):
             report(f'{name}: warning: {line}')
         return [*first, *arrange(rest, info, emitted)]
     return order

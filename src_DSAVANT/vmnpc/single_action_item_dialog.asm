@@ -14,7 +14,7 @@ single_action_item_dialog:
     mov ax, word [bp + 0xc]          ; 0x3e68
 .forward1:
     mov word [bp - 0x22], ax         ; 0x3e6b
-    mov ax, dseg_90d0                ; 0x3e6e
+    mov ax, npc_action_dialog_save_file ; 0x3e6e
     push ax                          ; 0x3e71
     mov ax, word [bp - 0xa]          ; 0x3e72
     inc ax                           ; 0x3e75

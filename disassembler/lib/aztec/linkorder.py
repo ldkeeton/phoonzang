@@ -23,6 +23,9 @@ from .dataowners import _has_checked_bytes, _matches
 _DS_LABEL = re.compile(r'^__z(\w+):', re.M)
 _DSEG_NAME = re.compile(r'^dseg_([0-9a-f]+)$')
 _DATA_FRAGMENT = re.compile(r'(?:^|/)data/(\w+)\.asm$')
+#: A data fragment's lines: an optional ``times N`` before a ``db``/``dw``/``dd``, or ``resb N``.
+_DATA_LINE = re.compile(r'^\s*(?:times\s+(\w+)\s+)?(db|dw|dd|resb)\s+(.*?)\s*$')
+_ITEM = re.compile(r"'[^']*'|\"[^\"]*\"|[^,]+")
 
 
 def is_data_module(module):
@@ -89,16 +92,44 @@ def record(segments, image, sources, split_sources):
     }
 
 
-def source_spans(listed, sources, dseg, starts=None):
+def fragment_size(text):
+    """The bytes a data fragment's *text* lays down, or ``None`` for a line
+    this does not read.  Only the generated forms: labels, comments, ``db``,
+    ``dw``, ``dd``, ``resb`` and ``times N`` ahead of one of them."""
+    size = 0
+    for raw in text.splitlines():
+        line = raw.split(';', 1)[0].strip()
+        if not line or re.fullmatch(r'[\w.]+:', line):
+            continue
+        found = _DATA_LINE.match(line)
+        if not found:
+            return None
+        times, op, args = found.groups()
+        try:
+            count = int(times, 0) if times else 1
+            if op == 'resb':
+                size += count * int(args, 0)
+                continue
+        except ValueError:
+            return None
+        width = {'db': 1, 'dw': 2, 'dd': 4}[op]
+        items = [item.strip() for item in _ITEM.findall(args) if item.strip()]
+        size += count * sum(len(item) - 2 if op == 'db' and item[0] in '\'"'
+                            else width for item in items)
+    return size
+
+
+def source_spans(listed, sources, dseg, starts=None, sizes=None):
     """``{module: (start, end)}`` of the DS bytes each listed module emits.
 
     Modules emit in link order, so each is at the first word-aligned match
     after the one before it.  That also places data with nothing to compare, such as a table
     of relocations or all zeros, which could otherwise be anywhere.  A data
     source's place is known (*starts*), wherever it is listed, so no other
-    module can be there, and a module linked after it emits after it.
+    module can be there, and a module linked after it emits after it.  A data
+    fragment with no recorded source takes its size from *sizes*, by stem.
     """
-    starts = starts or {}
+    starts, sizes = starts or {}, sizes or {}
     taken = [(at, at + len(bytes.fromhex(sources[module]['data'])))
              for module, at in starts.items() if module in sources]
     spans, cursor = {}, None
@@ -108,7 +139,8 @@ def source_spans(listed, sources, dseg, starts=None):
             # Placed even without a recorded source: what links after it
             # emits after its start, at least.
             if module in starts:
-                size = len(bytes.fromhex(source['data'])) if source else 0
+                size = (len(bytes.fromhex(source['data'])) if source
+                        else sizes.get(_stem(module)) or 0)
                 cursor = max(cursor or 0, starts[module] + size)
             continue
         if source is None:
@@ -203,14 +235,15 @@ def arrange(listed, info, emitted=None):
     return out
 
 
-def check(listed, info, emitted):
+def check(listed, info, emitted, sizes=None):
     """The disagreements between the sidecar's ``emits`` (*emitted*) and what
     the compiled sources emit, one line each.  Verification only: the link
-    order never reads a source."""
+    order never reads a source.  *sizes* is each data fragment's size by stem
+    (:func:`fragment_size`), so a module is not placed inside one."""
     if not info or not info.get('sources'):
         return []
     spans = source_spans(arrange(listed, info, emitted), info['sources'],
-                         bytes.fromhex(info['dseg']), _starts(listed, info))
+                         bytes.fromhex(info['dseg']), _starts(listed, info), sizes)
     lines = []
     for module in sorted(set(spans) | {m for m in emitted if m in listed}):
         got, want = spans.get(module), emitted.get(module)

@@ -1,0 +1,459 @@
+; auto-generated
+build_npc_action_overlay:
+    mov ax, 0xfff4                   ; 0x01d2
+    call aztec_csav                  ; 0x01d5
+    mov word [bp - 0xc], 0           ; 0x01d8
+    mov ax, 0x15e                    ; 0x01dd
+    imul word [bp + 4]               ; 0x01e0
+    push ax                          ; 0x01e3
+    mov ax, 3                        ; 0x01e4
+    imul word [bp + 6]               ; 0x01e7
+    add ax, word [bp + 8]            ; 0x01ea
+    mov bx, ax                       ; 0x01ed
+    mov al, byte [bx + action_slot_mode] ; 0x01ef
+    sub ah, ah                       ; 0x01f3
+    mov cx, ax                       ; 0x01f5
+    pop ax                           ; 0x01f7
+    add ax, cx                       ; 0x01f8
+    mov bx, ax                       ; 0x01fa
+    mov al, byte [bx + slot_recs]    ; 0x01fc
+    sub ah, ah                       ; 0x0200
+    mov word [bp - 2], ax            ; 0x0202
+    jmp near .forward12              ; 0x0205
+.back1:
+    mov ax, 0x5a                     ; 0x0208
+    imul word [bp + 6]               ; 0x020b
+    push ax                          ; 0x020e
+    mov ax, 0x1e                     ; 0x020f
+    imul word [bp + 8]               ; 0x0212
+    mov cx, ax                       ; 0x0215
+    pop ax                           ; 0x0217
+    add ax, cx                       ; 0x0218
+    push ax                          ; 0x021a
+    mov ax, 3                        ; 0x021b
+    imul word [bp - 2]               ; 0x021e
+    mov cx, ax                       ; 0x0221
+    pop ax                           ; 0x0223
+    add ax, cx                       ; 0x0224
+    mov bx, ax                       ; 0x0226
+    mov al, byte [bx + action_slot_table + action_slot.target] ; 0x0228
+    sub ah, ah                       ; 0x022c
+    mov word [bp - 6], ax            ; 0x022e
+    mov bx, word [bp + 4]            ; 0x0231
+    cmp byte [bx + picture_slot_number], 0x18 ; 0x0234
+    jne short .forward1              ; 0x0239
+    cmp word [npc_action_state], byte 1 ; 0x023b
+    jne short .forward1              ; 0x0240
+    mov ax, 0x15e                    ; 0x0242
+    imul bx                          ; 0x0245
+    mov cx, word [bp - 6]            ; 0x0247
+    shl cx, 1                        ; 0x024a
+    shl cx, 1                        ; 0x024c
+    add ax, cx                       ; 0x024e
+    mov bx, ax                       ; 0x0250
+    cmp byte [bx + slot_recs + slot_rec.range + 0x1], 4 ; 0x0252
+    jne short .forward1              ; 0x0257
+    mov word [bp + 0xa], 0           ; 0x0259
+.forward1:
+    mov ax, 0x5a                     ; 0x025e
+    imul word [bp + 6]               ; 0x0261
+    push ax                          ; 0x0264
+    mov ax, 0x1e                     ; 0x0265
+    imul word [bp + 8]               ; 0x0268
+    mov cx, ax                       ; 0x026b
+    pop ax                           ; 0x026d
+    add ax, cx                       ; 0x026e
+    push ax                          ; 0x0270
+    mov ax, 3                        ; 0x0271
+    imul word [bp - 2]               ; 0x0274
+    mov cx, ax                       ; 0x0277
+    pop ax                           ; 0x0279
+    add ax, cx                       ; 0x027a
+    mov bx, ax                       ; 0x027c
+    mov al, byte [bx + action_slot_table + action_slot.roll] ; 0x027e
+    sub ah, ah                       ; 0x0282
+    mov word [bp - 8], ax            ; 0x0284
+    cmp word [bp + 0xa], byte 0      ; 0x0287
+    je short .forward2               ; 0x028b
+    dec word [bp - 8]                ; 0x028d
+.forward2:
+    cmp word [bp - 8], byte 0        ; 0x0290
+    jle short .forward3              ; 0x0294
+    jmp near .forward7               ; 0x0296
+.forward3:
+    mov al, byte [bx + action_slot_table] ; 0x0299
+    sub ah, ah                       ; 0x029d
+    mov word [bp - 4], ax            ; 0x029f
+    inc word [bp - 6]                ; 0x02a2
+    mov ax, 0x15e                    ; 0x02a5
+    imul word [bp + 4]               ; 0x02a8
+    mov cx, ax                       ; 0x02ab
+    mov ax, word [bp - 4]            ; 0x02ad
+    add cx, ax                       ; 0x02b0
+    mov bx, cx                       ; 0x02b2
+    mov al, byte [bx + slot_recs + slot_rec.target] ; 0x02b4
+    sub ah, ah                       ; 0x02b8
+    push ax                          ; 0x02ba
+    mov al, byte [bx + slot_recs + slot_rec.target_rand] ; 0x02bb
+    sub ah, ah                       ; 0x02bf
+    mov cx, ax                       ; 0x02c1
+    pop ax                           ; 0x02c3
+    add ax, cx                       ; 0x02c4
+    dec ax                           ; 0x02c6
+    cmp ax, word [bp - 6]            ; 0x02c7
+    jl short .forward4               ; 0x02ca
+    jmp near .forward6               ; 0x02cc
+.forward4:
+    mov ax, 3                        ; 0x02cf
+    imul word [bp + 6]               ; 0x02d2
+    add ax, word [bp + 8]            ; 0x02d5
+    mov bx, ax                       ; 0x02d8
+    cmp byte [bx + action_slot_mode], 0 ; 0x02da
+    je short .forward5               ; 0x02df
+    mov byte [bx + action_slot_mode], 0 ; 0x02e1
+    mov ax, 0                        ; 0x02e6
+    push ax                          ; 0x02e9
+    push word [bp + 8]               ; 0x02ea
+    push word [bp + 6]               ; 0x02ed
+    push word [bp + 4]               ; 0x02f0
+    call fill_npc_action_slots       ; 0x02f3
+    add sp, byte 8                   ; 0x02f6
+    push word [bp + 0xc]             ; 0x02f9
+    mov ax, 0                        ; 0x02fc
+    push ax                          ; 0x02ff
+    push word [bp + 8]               ; 0x0300
+    push word [bp + 6]               ; 0x0303
+    push word [bp + 4]               ; 0x0306
+    call build_npc_action_overlay    ; 0x0309
+    add sp, byte 0xa                 ; 0x030c
+    ret                              ; 0x030f
+.forward5:
+    mov ax, 0x15e                    ; 0x0310
+    imul word [bp + 4]               ; 0x0313
+    add ax, word [bp - 2]            ; 0x0316
+    mov bx, ax                       ; 0x0319
+    mov al, byte [bx + slot_recs + slot_rec.action_rand] ; 0x031b
+    sub ah, ah                       ; 0x031f
+    push ax                          ; 0x0321
+    call random_below                ; 0x0322
+    pop cx                           ; 0x0325
+    push ax                          ; 0x0326
+    mov ax, 0x15e                    ; 0x0327
+    imul word [bp + 4]               ; 0x032a
+    add ax, word [bp - 2]            ; 0x032d
+    mov bx, ax                       ; 0x0330
+    mov al, byte [bx + slot_recs + slot_rec.action] ; 0x0332
+    sub ah, ah                       ; 0x0336
+    mov cx, ax                       ; 0x0338
+    pop ax                           ; 0x033a
+    add ax, cx                       ; 0x033b
+    mov word [bp - 4], ax            ; 0x033d
+    mov al, byte [bp - 4]            ; 0x0340
+    push ax                          ; 0x0343
+    mov ax, 0x5a                     ; 0x0344
+    imul word [bp + 6]               ; 0x0347
+    mov cx, ax                       ; 0x034a
+    mov ax, 0x1e                     ; 0x034c
+    imul word [bp + 8]               ; 0x034f
+    mov dx, ax                       ; 0x0352
+    add cx, ax                       ; 0x0354
+    mov ax, 3                        ; 0x0356
+    imul word [bp - 2]               ; 0x0359
+    mov dx, ax                       ; 0x035c
+    add cx, ax                       ; 0x035e
+    mov bx, cx                       ; 0x0360
+    pop ax                           ; 0x0362
+    mov byte [bx + action_slot_table], al ; 0x0363
+    mov ax, 0x15e                    ; 0x0367
+    imul word [bp + 4]               ; 0x036a
+    add ax, word [bp - 4]            ; 0x036d
+    mov bx, ax                       ; 0x0370
+    mov al, byte [bx + slot_recs + slot_rec.target] ; 0x0372
+    sub ah, ah                       ; 0x0376
+    mov word [bp - 6], ax            ; 0x0378
+.forward6:
+    mov al, byte [bp - 6]            ; 0x037b
+    push ax                          ; 0x037e
+    mov ax, 0x5a                     ; 0x037f
+    imul word [bp + 6]               ; 0x0382
+    mov cx, ax                       ; 0x0385
+    mov ax, 0x1e                     ; 0x0387
+    imul word [bp + 8]               ; 0x038a
+    mov dx, ax                       ; 0x038d
+    add cx, ax                       ; 0x038f
+    mov ax, 3                        ; 0x0391
+    imul word [bp - 2]               ; 0x0394
+    mov dx, ax                       ; 0x0397
+    add cx, ax                       ; 0x0399
+    mov bx, cx                       ; 0x039b
+    pop ax                           ; 0x039d
+    mov byte [bx + action_slot_table + action_slot.target], al ; 0x039e
+    mov ax, 0x15e                    ; 0x03a2
+    imul word [bp + 4]               ; 0x03a5
+    mov cx, word [bp - 6]            ; 0x03a8
+    shl cx, 1                        ; 0x03ab
+    shl cx, 1                        ; 0x03ad
+    add ax, cx                       ; 0x03af
+    mov bx, ax                       ; 0x03b1
+    mov al, byte [bx + slot_recs + slot_rec.range + 0x3] ; 0x03b3
+    sub ah, ah                       ; 0x03b7
+    push ax                          ; 0x03b9
+    call random_below                ; 0x03ba
+    pop cx                           ; 0x03bd
+    push ax                          ; 0x03be
+    mov ax, 0x15e                    ; 0x03bf
+    imul word [bp + 4]               ; 0x03c2
+    mov cx, word [bp - 6]            ; 0x03c5
+    shl cx, 1                        ; 0x03c8
+    shl cx, 1                        ; 0x03ca
+    add ax, cx                       ; 0x03cc
+    mov bx, ax                       ; 0x03ce
+    mov al, byte [bx + slot_recs + slot_rec.range + 0x2] ; 0x03d0
+    sub ah, ah                       ; 0x03d4
+    mov cx, ax                       ; 0x03d6
+    pop ax                           ; 0x03d8
+    add ax, cx                       ; 0x03d9
+    mov word [bp - 8], ax            ; 0x03db
+.forward7:
+    mov al, byte [bp - 8]            ; 0x03de
+    push ax                          ; 0x03e1
+    mov ax, 0x5a                     ; 0x03e2
+    imul word [bp + 6]               ; 0x03e5
+    mov cx, ax                       ; 0x03e8
+    mov ax, 0x1e                     ; 0x03ea
+    imul word [bp + 8]               ; 0x03ed
+    mov dx, ax                       ; 0x03f0
+    add cx, ax                       ; 0x03f2
+    mov ax, 3                        ; 0x03f4
+    imul word [bp - 2]               ; 0x03f7
+    mov dx, ax                       ; 0x03fa
+    add cx, ax                       ; 0x03fc
+    mov bx, cx                       ; 0x03fe
+    pop ax                           ; 0x0400
+    mov byte [bx + action_slot_table + action_slot.roll], al ; 0x0401
+    mov ax, 0x15e                    ; 0x0405
+    imul word [bp + 4]               ; 0x0408
+    mov cx, word [bp - 6]            ; 0x040b
+    shl cx, 1                        ; 0x040e
+    shl cx, 1                        ; 0x0410
+    add ax, cx                       ; 0x0412
+    mov bx, ax                       ; 0x0414
+    mov al, byte [bx + slot_recs + slot_rec.range + 0x1] ; 0x0416
+    mov bx, word [bp + 0xc]          ; 0x041a
+    mov si, word [bp - 0xc]          ; 0x041d
+    mov byte [bx + si], al           ; 0x0420
+    mov bx, word [bp + 4]            ; 0x0422
+    cmp byte [bx + picture_slot_number], 0x47 ; 0x0425
+    jne short .forward8              ; 0x042a
+    mov ax, 0x5a                     ; 0x042c
+    imul word [bp + 6]               ; 0x042f
+    push ax                          ; 0x0432
+    mov ax, 0x1e                     ; 0x0433
+    imul word [bp + 8]               ; 0x0436
+    mov cx, ax                       ; 0x0439
+    pop ax                           ; 0x043b
+    add ax, cx                       ; 0x043c
+    push ax                          ; 0x043e
+    mov ax, 3                        ; 0x043f
+    imul word [bp - 2]               ; 0x0442
+    mov cx, ax                       ; 0x0445
+    pop ax                           ; 0x0447
+    add ax, cx                       ; 0x0448
+    mov bx, ax                       ; 0x044a
+    mov al, byte [bx + action_slot_table] ; 0x044c
+    sub ah, ah                       ; 0x0450
+    xchg ah, al                      ; 0x0452
+    sub al, al                       ; 0x0454
+    push ax                          ; 0x0456
+    mov al, byte [bx + action_slot_table + action_slot.target] ; 0x0457
+    sub ah, ah                       ; 0x045b
+    mov cx, ax                       ; 0x045d
+    pop ax                           ; 0x045f
+    add ax, cx                       ; 0x0460
+    mov word [dest_alt_arg], ax      ; 0x0462
+.forward8:
+    cmp word [npc_record_index], byte 0x23 ; 0x0465
+    je short .forward9               ; 0x046a
+    cmp word [npc_record_index], byte 0xb ; 0x046c
+    jne short .forward10             ; 0x0471
+.forward9:
+    inc word [bp - 0xc]              ; 0x0473
+    mov bx, word [bp + 0xc]          ; 0x0476
+    mov si, word [bp - 0xc]          ; 0x0479
+    mov al, byte [bx + si - 1]       ; 0x047c
+    mov byte [bx + si], al           ; 0x047f
+    mov ax, 0x15e                    ; 0x0481
+    imul word [bp + 4]               ; 0x0484
+    mov bx, ax                       ; 0x0487
+    mov al, byte [bx + slot_recs + slot_rec.last_glyph] ; 0x0489
+    mov bx, word [bp + 0xc]          ; 0x048d
+    mov si, word [bp - 0xc]          ; 0x0490
+    mov byte [bx + si - 1], al       ; 0x0493
+.forward10:
+    mov bx, word [bp + 0xc]          ; 0x0496
+    mov si, word [bp - 0xc]          ; 0x0499
+    cmp byte [bx + si], 0            ; 0x049c
+    je short .forward11              ; 0x049f
+    inc word [bp - 0xc]              ; 0x04a1
+.forward11:
+    inc word [bp - 2]                ; 0x04a4
+.forward12:
+    mov ax, 0x15e                    ; 0x04a7
+    imul word [bp + 4]               ; 0x04aa
+    push ax                          ; 0x04ad
+    mov ax, 3                        ; 0x04ae
+    imul word [bp + 6]               ; 0x04b1
+    add ax, word [bp + 8]            ; 0x04b4
+    mov bx, ax                       ; 0x04b7
+    mov al, byte [bx + action_slot_mode] ; 0x04b9
+    sub ah, ah                       ; 0x04bd
+    mov cx, ax                       ; 0x04bf
+    pop ax                           ; 0x04c1
+    add ax, cx                       ; 0x04c2
+    mov bx, ax                       ; 0x04c4
+    mov al, byte [bx + slot_recs]    ; 0x04c6
+    sub ah, ah                       ; 0x04ca
+    push ax                          ; 0x04cc
+    mov al, byte [bx + slot_recs + slot_rec.count] ; 0x04cd
+    sub ah, ah                       ; 0x04d1
+    mov cx, ax                       ; 0x04d3
+    pop ax                           ; 0x04d5
+    add ax, cx                       ; 0x04d6
+    cmp ax, word [bp - 2]            ; 0x04d8
+    jle short .forward13             ; 0x04db
+    jmp near .back1                  ; 0x04dd
+.forward13:
+    cmp word [npc_record_index], byte 0x3c ; 0x04e0
+    jge short .forward14             ; 0x04e5
+    jmp near .forward17              ; 0x04e7
+.forward14:
+    cmp word [npc_record_index], byte 0x3e ; 0x04ea
+    jle short .forward15             ; 0x04ef
+    jmp near .forward17              ; 0x04f1
+.forward15:
+    mov ax, 0x15e                    ; 0x04f4
+    imul word [bp + 4]               ; 0x04f7
+    mov cx, word [npc_action_state]  ; 0x04fa
+    shl cx, 1                        ; 0x04fe
+    shl cx, 1                        ; 0x0500
+    add ax, cx                       ; 0x0502
+    mov bx, ax                       ; 0x0504
+    mov al, byte [bx + slot_recs + slot_rec.range + 0x1] ; 0x0506
+    mov bx, word [bp + 0xc]          ; 0x050a
+    mov byte [bx], al                ; 0x050d
+    mov ax, 0x15e                    ; 0x050f
+    imul word [bp + 4]               ; 0x0512
+    mov cx, word [npc_action_state]  ; 0x0515
+    shl cx, 1                        ; 0x0519
+    shl cx, 1                        ; 0x051b
+    add ax, cx                       ; 0x051d
+    mov bx, ax                       ; 0x051f
+    mov al, byte [bx + slot_recs + slot_rec.range + 0x2] ; 0x0521
+    mov bx, word [bp + 0xc]          ; 0x0525
+    mov byte [bx + 1], al            ; 0x0528
+    mov ax, 0x15e                    ; 0x052b
+    imul word [bp + 4]               ; 0x052e
+    mov cx, word [npc_action_state]  ; 0x0531
+    shl cx, 1                        ; 0x0535
+    shl cx, 1                        ; 0x0537
+    add ax, cx                       ; 0x0539
+    mov bx, ax                       ; 0x053b
+    mov al, byte [bx + slot_recs + slot_rec.range + 0x3] ; 0x053d
+    mov bx, word [bp + 0xc]          ; 0x0541
+    mov byte [bx + 2], al            ; 0x0544
+    mov bx, word [bp + 0xc]          ; 0x0547
+    mov byte [bx + 3], 0             ; 0x054a
+    mov word [bp - 0xc], 3           ; 0x054e
+    mov ax, word [npc_action_state]  ; 0x0553
+    jmp short .forward16             ; 0x0556
+.back2:
+    mov bx, word [bp + 0xc]          ; 0x0558
+    mov al, byte [bx]                ; 0x055b
+    sub ah, ah                       ; 0x055d
+    add ax, word [party_status_frame] ; 0x055f
+    mov byte [bx], al                ; 0x0563
+    jmp short .forward17             ; 0x0565
+.back3:
+    mov bx, word [bp + 0xc]          ; 0x0567
+    mov al, byte [bx + 1]            ; 0x056a
+    sub ah, ah                       ; 0x056d
+    add ax, word [party_status_frame] ; 0x056f
+    mov byte [bx + 1], al            ; 0x0573
+    jmp short .forward17             ; 0x0576
+.forward16:
+    cmp ax, strict word 1            ; 0x0578
+    je short .back2                  ; 0x057b
+    cmp ax, strict word 2            ; 0x057d
+    je short .back2                  ; 0x0580
+    cmp ax, strict word 0x14         ; 0x0582
+    je short .back3                  ; 0x0585
+.forward17:
+    mov bx, word [bp + 4]            ; 0x0587
+    mov al, byte [bx + picture_slot_number] ; 0x058a
+    sub ah, ah                       ; 0x058e
+    jmp short .forward23             ; 0x0590
+.back4:
+    cmp word [npc_action_state], byte 1 ; 0x0592
+    jne short .forward18             ; 0x0597
+    mov word [bp - 0xc], 1           ; 0x0599
+.forward18:
+    jmp short .forward24             ; 0x059e
+.back5:
+    cmp word [npc_action_state], byte 1 ; 0x05a0
+    jne short .forward19             ; 0x05a5
+    mov word [bp - 0xc], 1           ; 0x05a7
+.forward19:
+    cmp word [npc_action_state], byte 2 ; 0x05ac
+    jne short .forward20             ; 0x05b1
+    mov ax, word [party_status_frame] ; 0x05b3
+    inc ax                           ; 0x05b6
+    inc ax                           ; 0x05b7
+    inc ax                           ; 0x05b8
+    mov bx, word [bp + 0xc]          ; 0x05b9
+    mov byte [bx + 1], al            ; 0x05bc
+.forward20:
+    jmp short .forward24             ; 0x05bf
+.back6:
+    cmp word [npc_action_state], byte 1 ; 0x05c1
+    jne short .forward21             ; 0x05c6
+    mov bx, word [bp + 0xc]          ; 0x05c8
+    mov byte [bx + 1], 2             ; 0x05cb
+.forward21:
+    mov word [bp - 0xc], 2           ; 0x05cf
+    jmp short .forward24             ; 0x05d4
+.back7:
+    cmp word [npc_action_state], byte 1 ; 0x05d6
+    jne short .forward22             ; 0x05db
+    mov ax, word [party_status_frame] ; 0x05dd
+    inc ax                           ; 0x05e0
+    mov bx, word [bp + 0xc]          ; 0x05e1
+    mov byte [bx], al                ; 0x05e4
+.forward22:
+    mov word [bp - 0xc], 1           ; 0x05e6
+    jmp short .forward24             ; 0x05eb
+.forward23:
+    cmp ax, strict word 0x34         ; 0x05ed
+    je short .back4                  ; 0x05f0
+    cmp ax, strict word 0x37         ; 0x05f2
+    je short .back5                  ; 0x05f5
+    cmp ax, strict word 0x46         ; 0x05f7
+    je short .back6                  ; 0x05fa
+    cmp ax, strict word 0x49         ; 0x05fc
+    je short .back7                  ; 0x05ff
+.forward24:
+    cmp word [npc_record_index], byte 0x2d ; 0x0601
+    je short .forward25              ; 0x0606
+    cmp word [npc_record_index], byte 0x32 ; 0x0608
+    jne short .forward26             ; 0x060d
+.forward25:
+    cmp word [npc_action_state], byte 0 ; 0x060f
+    jle short .forward26             ; 0x0614
+    mov al, byte [npc_action_state]  ; 0x0616
+    mov bx, word [bp + 0xc]          ; 0x0619
+    mov byte [bx], al                ; 0x061c
+    mov word [bp - 0xc], 1           ; 0x061e
+.forward26:
+    mov bx, word [bp + 0xc]          ; 0x0623
+    mov si, word [bp - 0xc]          ; 0x0626
+    mov byte [bx + si], 0            ; 0x0629
+    ret                              ; 0x062c

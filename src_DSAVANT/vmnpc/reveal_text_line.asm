@@ -131,7 +131,7 @@ reveal_text_line:
     mov word [bp - 8], ax            ; 0x93b9
     cmp ax, strict word 0x20         ; 0x93bc
     jne short .forward7              ; 0x93bf
-    call api_idx_0004_RPUO           ; 0x93c1
+    call wait_for_spacebar_prompt    ; 0x93c1
 .forward7:
     cmp word [bp - 0xe], byte 0      ; 0x93c4
     jle short .forward8              ; 0x93c8

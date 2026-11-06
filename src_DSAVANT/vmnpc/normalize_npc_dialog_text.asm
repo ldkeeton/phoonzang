@@ -1,0 +1,39 @@
+; auto-generated
+normalize_npc_dialog_text:
+    mov ax, 0xfffc                   ; 0x8738
+    call aztec_csav                  ; 0x873b
+    mov word [npc_dialog_text_has_question], 0 ; 0x873e
+    mov word [bp - 2], 0             ; 0x8744
+    jmp short .forward4              ; 0x8749
+.back1:
+    mov bx, word [bp + 4]            ; 0x874b
+    mov si, word [bp - 2]            ; 0x874e
+    mov al, byte [bx + si]           ; 0x8751
+    sub ah, ah                       ; 0x8753
+    mov word [bp - 4], ax            ; 0x8755
+    cmp ax, strict word 0x3f         ; 0x8758
+    jne short .forward1              ; 0x875b
+    mov word [npc_dialog_text_has_question], 1 ; 0x875d
+    mov byte [bx + si], 0x20         ; 0x8763
+    jmp short .forward3              ; 0x8766
+.forward1:
+    mov ax, word [bp - 4]            ; 0x8768
+    cmp ax, strict word 0x21         ; 0x876b
+    je short .forward2               ; 0x876e
+    cmp ax, strict word 0x2e         ; 0x8770
+    je short .forward2               ; 0x8773
+    cmp ax, strict word 0x2c         ; 0x8775
+    jne short .forward3              ; 0x8778
+.forward2:
+    mov bx, word [bp + 4]            ; 0x877a
+    mov si, word [bp - 2]            ; 0x877d
+    mov byte [bx + si], 0x20         ; 0x8780
+.forward3:
+    inc word [bp - 2]                ; 0x8783
+.forward4:
+    push word [bp + 4]               ; 0x8786
+    call aztec_strlen                ; 0x8789
+    pop cx                           ; 0x878c
+    cmp ax, word [bp - 2]            ; 0x878d
+    jg short .back1                  ; 0x8790
+    ret                              ; 0x8792
