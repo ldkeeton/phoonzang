@@ -191,6 +191,11 @@ SCRIPT = r'''#!/usr/bin/env bash
 #   - cc gets OBJ_CFLAGS[MODULE], else BIN_CFLAGS[NAME], else CFLAGS; as gets
 #     AFLAGS; both search INCLUDE.  A library is built per distinct binary
 #     default, so a shared module gets the flags it would in that binary.
+#     The first (the roots' flags) has every shared module; any other is
+#     walked: its binaries' own modules compile first, and cnm's symbols of
+#     them and of the first library's objects give the shared modules they
+#     reach, only those go in it, and of those only the ones its flags change
+#     compile again (the rest are the first library's objects).
 # DOS sees only 8.3 names, so each binary (and each library) is built in its
 # own work directory where every module gets a short name (upper-cased, cut
 # to 8 characters, a number on a clash) and ln reads a response file of them.
@@ -494,15 +499,20 @@ CONF
 # Copy modules into work directory $1 under their short names and write the
 # BUILD.BAT lines that compile them into BAT: the modules, their suffixes and
 # short names are the arrays named $2, $3 and $4, $5 the binary's C flags.
-# Each object that comes out is appended to response file $6.
+# Each object that comes out is appended to response file $6.  Phase $7:
+# compile (copy and compile only), link (only list the objects compiled
+# before), or both (the default).
 stage_modules() {
-    local work=$1 cflags=$5 rsp=$6 i src
+    local work=$1 cflags=$5 rsp=$6 phase=${7:-all} i src
     local -n _paths=$2 _exts=$3 _shorts=$4
     for i in "${!_paths[@]}"; do
-        src=${_shorts[i]}.$(dos_ext "${_exts[i]}")
-        cp "${_paths[i]}${_exts[i]}" "$work/$src"
-        bat+=("$(compile_line "${_paths[i]}" "${_exts[i]}" "${_shorts[i]}" "$cflags") > ${_shorts[i]}.CC")
-        bat+=("if exist ${_shorts[i]}.O echo ${_shorts[i]}.O>> $rsp")
+        if [[ $phase != link ]]; then
+            src=${_shorts[i]}.$(dos_ext "${_exts[i]}")
+            cp "${_paths[i]}${_exts[i]}" "$work/$src"
+            bat+=("$(compile_line "${_paths[i]}" "${_exts[i]}" "${_shorts[i]}" "$cflags") > ${_shorts[i]}.CC")
+        fi
+        [[ $phase == compile ]] ||
+            bat+=("if exist ${_shorts[i]}.O echo ${_shorts[i]}.O>> $rsp")
     done
 }
 
@@ -526,60 +536,206 @@ check_modules() {
 
 # ---- the shared library ------------------------------------------------------
 
-# Build SHARED.LIB of every LIBDIRS module into $WORK/$1, compiled with C flags
-# $2 (a binary's default): JOBS sessions compile, one more orders the objects
-# (ord, so that ln's one pass over the library finds every member) and
-# archives them.  Print its report; status 0 when every module compiled.
-build_library() {
-    local lib=$1 cflags=$2 dir=$WORK/$1 report=() failed=0
-    rm -rf "$dir"
-    mkdir -p "$dir/lib"
-    local paths=() exts=() stems=() module ext dirs=()
+# Every LIBDIRS module into SHARED_PATHS and SHARED_EXTS, with its short name
+# (the same in every library) in SHARED_SHORTS.
+shared_modules() {
+    SHARED_PATHS=() SHARED_EXTS=() SHARED_SHORTS=()
+    local dirs=() stems=() module ext
     for module in "${LIBDIRS[@]}"; do [[ -d $module ]] && dirs+=("$module"); done
-    (( ${#dirs[@]} )) || { echo "$lib: no ${LIBDIRS[*]}"; return 0; }
+    (( ${#dirs[@]} )) || return 0
     while IFS=$'\t' read -r module ext; do
-        paths+=("$module") exts+=("$ext") stems+=("${module##*/}")
+        SHARED_PATHS+=("$module") SHARED_EXTS+=("$ext") stems+=("${module##*/}")
     done < <(module_sources "${dirs[@]}")
     short_names "${stems[@]}"
-    local shorts=("${SHORT[@]}") n=${#paths[@]} parts=$JOBS
+    SHARED_SHORTS=("${SHORT[@]}")
+}
+
+# Compile the shared modules numbered "$3"... with C flags $2 in at most JOBS
+# parts of directory $1, each part's symbols (cnm -l) into its SYMS.TXT:
+# start a session per part and do not wait for them.  PART_OF[number] is the
+# part directory a module compiles in.
+declare -A PART_OF=()
+compile_parts() {
+    local dir=$1 cflags=$2; shift 2
+    local idx=("$@") n=$# parts=$JOBS p j i
+    (( n )) || return 0
     (( parts > n )) && parts=$n
-    (( parts < 1 )) && parts=1
-    local p i
     for (( p = 0; p < parts; p++ )); do
         local part=$dir/part$p bat=() ppaths=() pexts=() pshorts=()
+        rm -rf "$part"
         mkdir -p "$part"
-        for (( i = p; i < n; i += parts )); do
-            ppaths+=("${paths[i]}") pexts+=("${exts[i]}") pshorts+=("${shorts[i]}")
+        for (( j = p; j < n; j += parts )); do
+            i=${idx[j]}
+            ppaths+=("${SHARED_PATHS[i]}") pexts+=("${SHARED_EXTS[i]}")
+            pshorts+=("${SHARED_SHORTS[i]}")
+            PART_OF[$i]=$part
         done
-        stage_modules "$part" ppaths pexts pshorts "$cflags" OBJS.TXT
+        stage_modules "$part" ppaths pexts pshorts "$cflags" OBJS.TXT compile
+        bat+=('cnm -l *.O > SYMS.TXT')
         printf '%s\r\n' "${bat[@]}" > "$part/BUILD.BAT"
         while (( $(jobs -rp | wc -l) >= JOBS )); do wait -n; done
         run_dos "$part" &
     done
-    wait
-    for (( i = 0; i < n; i++ )); do
-        p=$dir/part$(( i % parts ))
-        [[ -f $p/${shorts[i]}.O ]] && cp "$p/${shorts[i]}.O" "$dir/lib/"
-        cp "$p/${shorts[i]}.CC" "$dir/lib/" 2>/dev/null
-    done
-    check_modules "$dir/lib" paths exts shorts || failed=1
-    ( cd "$dir/lib" && ls | grep '\.O$' | LC_ALL=C sort ) |
-        sed 's/$/\r/' > "$dir/lib/OBJS.TXT"
-    printf '%s\r\n' 'ord OBJS.TXT ORD.TXT > ORD.LOG' \
-        'lb SHARED.LIB -f ORD.TXT > LB.LOG' > "$dir/lib/BUILD.BAT"
-    run_dos "$dir/lib"
-    if [[ ! -s $dir/lib/SHARED.LIB ]]; then
-        failed=1
-        report+=("  lb wrote no SHARED.LIB")
-        while IFS= read -r line; do report+=("    $line"); done \
-            < <(cat "$dir/lib/ORD.LOG" "$dir/lib/LB.LOG" 2>/dev/null | tr -d '\r')
+}
+
+# Order the objects of directory $1 (ord, so that ln's one pass over the
+# library finds every member) and archive them into its SHARED.LIB; status 1,
+# with REPORT lines, when lb wrote none.  With $2, the ORD.TXT of a library
+# they are a subset of, they keep its order instead: ln lays the members out
+# in library order, so a walked library links a binary just as the full one
+# would (ord would sort a subset its own way).
+archive_library() {
+    local lib=$1 order=${2:-} line
+    if [[ -n $order ]]; then
+        tr -d '\r' < "$order" | while IFS= read -r line; do
+            [[ -f $lib/$line ]] && printf '%s\r\n' "$line"
+        done > "$lib/ORD.TXT"
+        printf '%s\r\n' 'lb SHARED.LIB -f ORD.TXT > LB.LOG' > "$lib/BUILD.BAT"
+    else
+        ( cd "$lib" && ls | grep '\.O$' | LC_ALL=C sort ) | sed 's/$/\r/' > "$lib/OBJS.TXT"
+        printf '%s\r\n' 'ord OBJS.TXT ORD.TXT > ORD.LOG' \
+            'lb SHARED.LIB -f ORD.TXT > LB.LOG' > "$lib/BUILD.BAT"
     fi
+    run_dos "$lib"
+    [[ -s $lib/SHARED.LIB ]] && return 0
+    report+=("  lb wrote no SHARED.LIB")
+    while IFS= read -r line; do report+=("    $line"); done \
+        < <(cat "$lib/ORD.LOG" "$lib/LB.LOG" 2>/dev/null | tr -d '\r')
+    return 1
+}
+
+# The full library: start compiling every shared module into $WORK/$1 with C
+# flags $2 ...
+start_full_library() {
+    local dir=$WORK/$1
+    rm -rf "$dir"
+    mkdir -p "$dir/lib"
+    PART_OF=()
+    compile_parts "$dir" "$2" "${!SHARED_PATHS[@]}"
+}
+
+# ... and, once those sessions are done, gather the objects and their symbols
+# (SYMS.TXT) into its lib/ and archive them.  Print its report; status 0 when
+# every module compiled.
+finish_full_library() {
+    local dir=$WORK/$1 cflags=$2 report=() failed=0 i part
+    local n=${#SHARED_PATHS[@]}
+    (( n )) || { echo "shared: no ${LIBDIRS[*]}"; return 0; }
+    for (( i = 0; i < n; i++ )); do
+        part=${PART_OF[$i]}
+        [[ -f $part/${SHARED_SHORTS[i]}.O ]] && cp "$part/${SHARED_SHORTS[i]}.O" "$dir/lib/"
+        cp "$part/${SHARED_SHORTS[i]}.CC" "$dir/lib/" 2>/dev/null
+    done
+    cat "$dir"/part*/SYMS.TXT > "$dir/lib/SYMS.TXT" 2>/dev/null
+    check_modules "$dir/lib" SHARED_PATHS SHARED_EXTS SHARED_SHORTS || failed=1
+    archive_library "$dir/lib" || failed=1
     if (( failed )); then
         echo "shared ($cflags): FAILED ($n sources)"
         printf '%s\n' "${report[@]}"
         return 1
     fi
     echo "shared ($cflags): $n sources"
+}
+
+# The library objects (lower-case, as cnm names them: AZTEC_B1.O is
+# aztec_b1.o) that the objects of the seed symbol files reach: the symbol
+# files ("cnm -l" output) of the library come first, then --, then the
+# seeds'.  A library file later in the list replaces an object an earlier one
+# described.  A symbol is reached when a seed object, or a library object
+# reached, uses it (Un, Ud) and no seed object defines it (a capital type:
+# Pg, Dt, Gl); every library object that defines it is reached.
+walk_symbols() {
+    local lib=()
+    while (( $# )) && [[ $1 != -- ]]; do lib+=("$1"); shift; done
+    (( $# )) && shift
+    awk '
+        { sub(/\r$/, "") }
+        /^[^ ]/ {
+            m = tolower($1); sub(/:$/, "", m)
+            if (side == "seed") { m = FILENAME "\t" m; S[m] = 1 } else L[m] = 1
+            D[m] = ""; R[m] = ""; next
+        }
+        NF == 3 && m != "" {
+            if ($2 == "Un" || $2 == "Ud") R[m] = R[m] " " $3
+            else if ($2 ~ /^[A-Z]/) D[m] = D[m] " " $3
+        }
+        END {
+            for (m in L) { k = split(D[m], s, " "); for (j = 1; j <= k; j++) def[s[j]] = def[s[j]] " " m }
+            for (m in S) { k = split(D[m], s, " "); for (j = 1; j <= k; j++) own[s[j]] = 1 }
+            q = 0
+            for (m in S) { k = split(R[m], s, " "); for (j = 1; j <= k; j++) Q[++q] = s[j] }
+            while (q > 0) {
+                sym = Q[q--]
+                if (sym in seen || sym in own) continue
+                seen[sym] = 1
+                c = split(def[sym], ms, " ")
+                for (a = 1; a <= c; a++) {
+                    m = ms[a]
+                    if (m in got) continue
+                    got[m] = 1; print m
+                    k = split(R[m], s, " ")
+                    for (j = 1; j <= k; j++) if (!(s[j] in seen)) Q[++q] = s[j]
+                }
+            }
+        }' side=lib "${lib[@]}" side=seed "$@"
+}
+
+# A walked library in $WORK/$1 for C flags $2: just the shared modules that
+# the binaries "$5"... reach (their own modules compiled already, with their
+# symbols in their SYMS.TXT), walked through the full library $WORK/$3 (C
+# flags $4).  A module these flags compile the same comes from the full
+# library; the others compile here, and their own symbols replace the full
+# library's in the walk, again until it reaches nothing new.  Print its
+# report; status 0 when every module compiled.
+build_walked_library() {
+    local name=$1 cflags=$2 full=$WORK/$3 full_cflags=$4; shift 4
+    local dir=$WORK/$name report=() failed=0 seeds=() b i m p round=0
+    local n=${#SHARED_PATHS[@]}
+    rm -rf "$dir"
+    mkdir -p "$dir/lib"
+    for b; do [[ -f $WORK/$b/SYMS.TXT ]] && seeds+=("$WORK/$b/SYMS.TXT"); done
+    local -A index=() reached=() fresh=()
+    for i in "${!SHARED_SHORTS[@]}"; do index[${SHARED_SHORTS[i],,}.o]=$i; done
+    PART_OF=()
+    local syms=("$full/lib/SYMS.TXT") again
+    while :; do
+        again=()
+        while IFS= read -r m; do
+            i=${index[$m]:-}
+            [[ -n $i && -z ${reached[$i]:-} ]] || continue
+            reached[$i]=1
+            [[ $(compile_line "${SHARED_PATHS[i]}" "${SHARED_EXTS[i]}" "${SHARED_SHORTS[i]}" "$cflags") == \
+               "$(compile_line "${SHARED_PATHS[i]}" "${SHARED_EXTS[i]}" "${SHARED_SHORTS[i]}" "$full_cflags")" ]] ||
+                again+=("$i")
+        done < <(walk_symbols "${syms[@]}" -- "${seeds[@]}")
+        (( ${#again[@]} )) || break
+        compile_parts "$dir/round$round" "$cflags" "${again[@]}"
+        wait
+        for p in "$dir/round$round"/part*; do syms+=("$p/SYMS.TXT"); done
+        for i in "${again[@]}"; do fresh[$i]=1; done
+        round=$(( round + 1 ))
+    done
+    local opaths=() oexts=() oshorts=() src
+    for i in "${!reached[@]}"; do
+        if [[ -n ${fresh[$i]:-} ]]; then
+            src=${PART_OF[$i]}
+            opaths+=("${SHARED_PATHS[i]}") oexts+=("${SHARED_EXTS[i]}")
+            oshorts+=("${SHARED_SHORTS[i]}")
+        else
+            src=$full/lib
+        fi
+        [[ -f $src/${SHARED_SHORTS[i]}.O ]] && cp "$src/${SHARED_SHORTS[i]}.O" "$dir/lib/"
+        cp "$src/${SHARED_SHORTS[i]}.CC" "$dir/lib/" 2>/dev/null
+    done
+    check_modules "$dir/lib" opaths oexts oshorts || failed=1
+    (( ${#reached[@]} )) && { archive_library "$dir/lib" "$full/lib/ORD.TXT" || failed=1; }
+    local what="${#reached[@]} of $n sources reached from $*, ${#fresh[@]} compiled for it"
+    if (( failed )); then
+        echo "shared ($cflags): FAILED ($what)"
+        printf '%s\n' "${report[@]}"
+        return 1
+    fi
+    echo "shared ($cflags): $what"
 }
 
 # The library work directory of binary $1 (by its default C flags).
@@ -589,17 +745,21 @@ library_of() { echo "${LIBRARY[$(binary_cflags "$1")]}"; }
 # ---- one binary --------------------------------------------------------------
 
 # Build binary $1 in its work directory; print its report; status 0 when its
-# output was written with no compile or link error.
+# output was written with no compile or link error.  Phase $2: compile (only
+# compile its modules, their symbols into SYMS.TXT, for a walked library),
+# link (link what compile made), or both (the default).
 build_one() {
-    local binary=$1
+    local binary=$1 phase=${2:-all}
     local rule=${LN_RULE[$binary]} output=${LN_OUTPUT[$binary]}
     local root=${LN_ROOT[$binary]} cflags
     cflags=$(binary_cflags "$binary")
     local work=$WORK/$binary report=() failed=0 lib
     lib=$WORK/$(library_of "$binary")/lib/SHARED.LIB
     local dest=build_out_new/$rule
-    rm -rf "$work"
-    mkdir -p "$work"
+    if [[ $phase != link ]]; then
+        rm -rf "$work"
+        mkdir -p "$work"
+    fi
     [[ -d $binary ]] || { echo "$binary: FAILED: no directory $binary/"; return 1; }
 
     # FIRST, then NAME/data/globals (before any module that names a common
@@ -628,7 +788,18 @@ build_one() {
 
     local rsp bat=() shorts=("${SHORT[@]}")
     rsp=${binary^^}; rsp=${rsp:0:8}.LNK
-    stage_modules "$work" paths exts shorts "$cflags" "$rsp"
+    stage_modules "$work" paths exts shorts "$cflags" "$rsp" "$phase"
+    if [[ $phase == compile ]]; then
+        bat+=('cnm -l *.O > SYMS.TXT')
+        printf '%s\r\n' "${bat[@]}" > "$work/BUILD.BAT"
+        run_dos "$work"
+        (( $? == 124 )) && report+=("  DOSBox timed out after ${TIMEOUT}s") && failed=1
+        check_modules "$work" paths exts shorts || failed=1
+        (( failed )) || return 0
+        echo "$binary: FAILED (${#paths[@]} sources)"
+        printf '%s\n' "${report[@]}"
+        return 1
+    fi
     local ln_line="ln $LN_EXTRA ${LN_FLAGS[$binary]} -o ${output^^} -f $rsp"
     if [[ -n $root ]]; then
         if [[ ! -f $WORK/$root.rsm ]]; then
@@ -686,25 +857,65 @@ for binary in "${wanted[@]}"; do
     root=${LN_ROOT[$binary]}
     [[ -n $root && " ${roots[*]} " != *" $root "* ]] && roots+=("$root")
 done
+order=("${roots[@]}")
+for binary in "${wanted[@]}"; do
+    [[ " ${order[*]} " == *" $binary "* ]] || order+=("$binary")
+done
 
 copy_game
 mkdir -p "$WORK"
 rm -f "$WORK"/*.status
 status=0
-# One library per default C flags among the binaries built.
-for binary in "${roots[@]}" "${wanted[@]}"; do
+# One library per default C flags among the binaries built: the first has
+# every shared module, the others are walked from their binaries, whose own
+# modules compile alongside the first library.
+LIBRARIES=()
+declare -A LIB_BINARIES=() PHASE=()
+for binary in "${order[@]}"; do
     cflags=$(binary_cflags "$binary")
-    [[ -n ${LIBRARY[$cflags]+x} ]] && continue
-    LIBRARY[$cflags]=shared${#LIBRARY[@]}
-    build_library "${LIBRARY[$cflags]}" "$cflags" || status=1
+    if [[ -z ${LIBRARY[$cflags]+x} ]]; then
+        LIBRARY[$cflags]=shared${#LIBRARY[@]}
+        LIBRARIES+=("$cflags")
+    fi
+    LIB_BINARIES[$cflags]+=" $binary"
+done
+shared_modules
+full=${LIBRARIES[0]}
+start_full_library "${LIBRARY[$full]}" "$full"
+rm -f "$WORK"/*.compiled
+for binary in "${order[@]}"; do
+    [[ $(binary_cflags "$binary") == "$full" ]] && continue
+    PHASE[$binary]=link
+    while (( $(jobs -rp | wc -l) >= JOBS )); do wait -n; done
+    ( build_one "$binary" compile > "$WORK/$binary.report" 2>&1
+      echo $? > "$WORK/$binary.compiled" ) &
+done
+wait
+finish_full_library "${LIBRARY[$full]}" "$full" || status=1
+declare -A SKIP=()
+for cflags in "${LIBRARIES[@]:1}"; do
+    walked=()
+    for binary in ${LIB_BINARIES[$cflags]}; do
+        if [[ $(cat "$WORK/$binary.compiled" 2>/dev/null) == 0 ]]; then
+            walked+=("$binary")
+        else
+            cat "$WORK/$binary.report"
+            SKIP[$binary]=1 status=1
+        fi
+        rm -f "$WORK/$binary.compiled" "$WORK/$binary.report"
+    done
+    (( ${#walked[@]} )) || continue
+    build_walked_library "${LIBRARY[$cflags]}" "$cflags" "${LIBRARY[$full]}" \
+        "$full" "${walked[@]}" || status=1
 done
 for binary in "${roots[@]}"; do
-    build_one "$binary" || status=1
+    [[ -n ${SKIP[$binary]:-} ]] && continue
+    build_one "$binary" "${PHASE[$binary]:-all}" || status=1
 done
 for binary in "${wanted[@]}"; do
-    [[ " ${roots[*]} " == *" $binary "* ]] && continue
+    [[ " ${roots[*]} " == *" $binary "* || -n ${SKIP[$binary]:-} ]] && continue
     while (( $(jobs -rp | wc -l) >= JOBS )); do wait -n; done
-    ( build_one "$binary" > "$WORK/$binary.report" 2>&1
+    ( build_one "$binary" "${PHASE[$binary]:-all}" > "$WORK/$binary.report" 2>&1
       echo $? > "$WORK/$binary.status" ) &
 done
 wait
