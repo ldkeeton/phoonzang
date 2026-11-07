@@ -13,6 +13,26 @@ class AutogenTest(unittest.TestCase):
         c = autogen.stamp('int x;\n', 'x.c')
         self.assertEqual(c.split('\n')[0], '/* auto-generated */')
 
+    def test_a_scripts_shebang_stays_first(self):
+        text = autogen.stamp('#!/usr/bin/env bash\necho hi\n', 'run.sh')
+        self.assertEqual(text, '#!/usr/bin/env bash\n# auto-generated\necho hi\n')
+        self.assertEqual(autogen.stamp(text, 'run.sh'), text)
+
+    def test_sync_makes_a_script_executable(self):
+        import stat
+        with tempfile.TemporaryDirectory() as root:
+            autogen.sync(root, {'run.sh': '#!/usr/bin/env bash\nexit 0\n',
+                                'makefile': 'all:\n'})
+            run = os.path.join(root, 'run.sh')
+            self.assertTrue(autogen.is_generated(run))
+            self.assertTrue(os.stat(run).st_mode & stat.S_IXUSR)
+            self.assertFalse(os.stat(os.path.join(root, 'makefile')).st_mode & stat.S_IXUSR)
+            # An unchanged script that lost +x gets it back.
+            os.chmod(run, 0o644)
+            autogen.sync(root, {'run.sh': '#!/usr/bin/env bash\nexit 0\n',
+                                'makefile': 'all:\n'})
+            self.assertTrue(os.stat(run).st_mode & stat.S_IXUSR)
+
     def test_stamp_keeps_other_marker(self):
         # lmacros.h is installed with the asm marker; a later sync of the .h
         # must not stack the C marker on top of it.

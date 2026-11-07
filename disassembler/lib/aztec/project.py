@@ -1,4 +1,4 @@
-"""A project's Manx-style build description: ``makefile``, ``BIN.lnk`` and ``build.sh``.
+"""A project's Manx-style build description: ``makefile``, ``BIN.lnk``, ``build.sh`` and ``run.sh``.
 
 The build generates them from the layout of its listings and the sidecar's
 ``compiler_flags`` (:func:`project_files`); ``make link`` and ``build.sh`` then
@@ -50,6 +50,7 @@ from lib.autogen import stamp
 
 MAKEFILE = 'makefile'
 BUILD_SH = 'build.sh'
+RUN_SH = 'run.sh'
 #: ``ln`` picks its output format from the extension: ``.com`` has no header and
 #: loads at 0x100, which is what the shipped drivers are.  A driver shipped
 #: under another name (``VGA.DRV``) links as ``VGA.COM`` and its rule renames it.
@@ -144,7 +145,8 @@ def _flag_lines(order, outputs, listed, flags):
             *binary_lines, *lines, '']
 
 
-def project_files(binaries, host, files, arrange=None, flags=None, compiler=None):
+def project_files(binaries, host, files, arrange=None, flags=None, compiler=None,
+                  game=''):
     """``{relative path: text}`` of the project file for this build's *files*.
 
     *binaries* is the sidecar's ``{name: entry}`` and *host* the binary overlays
@@ -156,6 +158,10 @@ def project_files(binaries, host, files, arrange=None, flags=None, compiler=None
     need its ``.rsm``.  *flags* (:data:`Flags`) adds the compile rules and
     ``build.sh``, which downloads and runs *compiler*
     (:data:`lib.aztec.build_sh.Compiler`); without it the makefile only links.
+    *game* is the app directory relative to the tree, which ``build.sh`` copies
+    the game's other files from into ``build_out/``.  ``run.sh`` comes with it
+    and launches the host's program (else the first ``.EXE``) from there, as
+    ``C:\\GAME`` (*game*'s own name, where the installer puts the game).
     """
     order = sorted(binaries, key=lambda name: name != host)
     has_overlays = any(binaries[name].get('type') == 'aztec_overlay'
@@ -200,10 +206,29 @@ def project_files(binaries, host, files, arrange=None, flags=None, compiler=None
     if flags is not None:
         make += _flag_lines(order, outputs, listed_by, flags)
         if compiler is not None:
-            from .build_sh import script
-            out[BUILD_SH] = script(compiler)
+            from .build_sh import run_script, script
+            out[BUILD_SH] = script(compiler, game)
+            exe = _main_output(order, outputs, host)
+            if exe:
+                out[RUN_SH] = run_script(exe, _install_folder(game))
     out[MAKEFILE] = '\n'.join(make).rstrip() + '\n'
     return {path: stamp(text, path) for path, text in out.items()}
+
+
+def _install_folder(game):
+    """The DOS folder the game is installed in: its app directory's name, as
+    8.3 sees it (``../apps/DSAVANT`` -> ``DSAVANT``)."""
+    return os.path.basename(game.rstrip('/\\')).upper()[:8] or 'GAME'
+
+
+def _main_output(order, outputs, host):
+    """The program ``run.sh`` starts: the host's file, else the first ``.EXE``
+    by binary name (as ``make run`` picks)."""
+    if host in outputs:
+        return outputs[host]
+    exes = [outputs[name] for name in sorted(order)
+            if outputs[name].upper().endswith('.EXE')]
+    return exes[0] if exes else None
 
 
 def _lines(text):

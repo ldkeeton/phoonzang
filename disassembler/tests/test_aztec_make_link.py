@@ -103,15 +103,34 @@ class GenerateTest(unittest.TestCase):
     def test_build_sh_downloads_the_sidecars_one_compiler_folder(self):
         compiler = build_sh.Compiler('me/compilers', 'main', 'Manx Aztec C86 v42b')
         out = project.project_files(self.BINARIES, 'r', self.FILES,
-                                    flags=self.FLAGS, compiler=compiler)
+                                    flags=self.FLAGS, compiler=compiler,
+                                    game='../apps/G')
         script = out['build.sh']
-        self.assertTrue(script.startswith('# auto-generated\n'))
+        self.assertTrue(script.startswith('#!/usr/bin/env bash\n# auto-generated\n'))
         for line in ("REPO='me/compilers'", "REF='main'",
                      "FOLDER='Manx Aztec C86 v42b'",
                      'AZTEC=$here/dos_compilers/$FOLDER'):
             self.assertIn(line + '\n', script)
-        for placeholder in ('@REPO@', '@REF@', '@FOLDER@'):
+        # The game's own files come from the app directory, as make build copies them.
+        self.assertIn('GAME=${GAME:-$here/../apps/G}\n', script)
+        self.assertIn('\ncopy_game\n', script)
+        for placeholder in ('@REPO@', '@REF@', '@FOLDER@', '@GAME@'):
             self.assertNotIn(placeholder, script)
+
+    def test_run_sh_launches_the_hosts_program_from_build_out(self):
+        compiler = build_sh.Compiler('me/compilers', 'main', 'Manx Aztec C86 v42b')
+        out = project.project_files(self.BINARIES, 'r', self.FILES,
+                                    flags=self.FLAGS, compiler=compiler,
+                                    game='../apps/Game')
+        run = out['run.sh']
+        self.assertTrue(run.startswith('#!/usr/bin/env bash\n# auto-generated\n'))
+        self.assertIn("EXE='r.exe'\n", run)
+        # Installed where the game's data says: C:\GAME is a link to build_out.
+        self.assertIn("FOLDER='GAME'\n", run)
+        self.assertIn('ln -sfn ../../../build_out "$drive/$FOLDER"', run)
+        self.assertIn('-c "cd \\\\$FOLDER"', run)
+        for placeholder in ('@EXE@', '@FOLDER@'):
+            self.assertNotIn(placeholder, run)
 
     def test_rules_make_the_sidecars_file_names(self):
         binaries = {'o': {'type': 'aztec_overlay', 'file': 'O.OVR'},
@@ -137,6 +156,7 @@ class GenerateTest(unittest.TestCase):
         out = project.project_files(self.BINARIES, 'r', self.FILES)
         self.assertNotIn('CFLAGS', out['makefile'])
         self.assertNotIn('build.sh', out)
+        self.assertNotIn('run.sh', out)
 
     def test_an_object_needing_two_flag_sets_is_an_error(self):
         flags = self.FLAGS._replace(

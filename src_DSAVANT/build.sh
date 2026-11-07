@@ -1,7 +1,8 @@
+#!/usr/bin/env bash
 # auto-generated
 # Build every binary of this tree with Manx Aztec C86 under DOSBox-X.
 #
-#   bash build.sh [binary ...]      e.g. bash build.sh vmnpc   (default: all)
+#   ./build.sh [binary ...]      e.g. ./build.sh vmnpc   (default: all)
 #
 # It reads only `makefile` and the `.lnk` files beside it:
 #   - the .SUFFIXES order picks each module's source (MODULE.s, else MODULE.c);
@@ -17,7 +18,7 @@
 # The compiler is `Manx Aztec C86 v42b` from github.com/ldkeeton/dos_compilers
 # (main).  The first run downloads just that folder into dos_compilers/ next
 # to this script, checking every file's size and git blob hash; later runs
-# reuse it.  `bash build.sh init` downloads (or re-checks) it and stops.
+# reuse it.  `./build.sh init` downloads (or re-checks) it and stops.
 #
 # Environment:
 #   GITHUB_TOKEN  optional, for the GitHub API rate limit
@@ -25,11 +26,16 @@
 #   JOBS     DOSBox sessions at once (default: the number of CPUs)
 #   TIMEOUT  seconds one session may take (default 600)
 #   SHOW=1   show the DOSBox window instead of running headless
+#   GAME     the original game's directory (default ../apps/DSAVANT, beside
+#            this tree), whose files build_out/ gets
 #
 # Writes each binary into build_out/ under its rule's name (the game's own:
 # DS.EXE, VBASE.OVR, VGA.DRV, ...), over the copy there.  A rule may rename
 # what ln wrote (`ren VGA.COM VGA.DRV`: ln takes the format from the extension).  Each binary's DOS work directory, with every log, and
-# the root's .rsm stay in .cache/build/<binary>.
+# the root's .rsm stay in .cache/build/<binary>.  Every other file of $GAME
+# (data, pictures, ...) is copied into build_out/ first, as `make build` does,
+# unless build_out/ already has it (so the game's saves there survive): delete
+# build_out/ and the next run makes it a runnable game again.
 
 set -u
 
@@ -43,6 +49,7 @@ DOSBOX=${DOSBOX:-dosbox-x}
 JOBS=${JOBS:-$(nproc 2>/dev/null || echo 4)}
 TIMEOUT=${TIMEOUT:-600}
 WORK=$here/.cache/build
+GAME=${GAME:-$here/../apps/DSAVANT}
 
 die() { echo "build.sh: $*" >&2; exit 1; }
 
@@ -263,6 +270,31 @@ expand() {
     echo "${words[*]}"
 }
 
+# ---- the game's other files ----------------------------------------------
+
+# Every entry of $GAME but the binaries the makefile builds, into build_out/,
+# unless it is there already.
+copy_game() {
+    if [[ ! -d $GAME ]]; then
+        echo "build.sh: no game directory $GAME (set GAME): build_out/ gets only the binaries" >&2
+        return 0
+    fi
+    local -A built=()
+    local rule src name copied=0
+    for rule in "${LN_RULE[@]}"; do built[${rule^^}]=1; done
+    mkdir -p "$here/build_out" || die "cannot make build_out/"
+    shopt -s dotglob nullglob
+    for src in "$GAME"/*; do
+        name=${src##*/}
+        [[ -n ${built[${name^^}]:-} || -e $here/build_out/$name ]] && continue
+        cp -pr "$src" "$here/build_out/$name" || die "cannot copy $src"
+        copied=$(( copied + 1 ))
+    done
+    shopt -u dotglob nullglob
+    (( copied )) && echo "copied $copied game file(s) from $GAME"
+    return 0
+}
+
 # ---- 8.3 names -------------------------------------------------------------
 
 declare -A RESERVED=([CON]=1 [PRN]=1 [AUX]=1 [NUL]=1 [CLOCK\$]=1 [BUILD]=1)
@@ -429,6 +461,7 @@ for binary in "${wanted[@]}"; do
     [[ -n $root && " ${roots[*]} " != *" $root "* ]] && roots+=("$root")
 done
 
+copy_game
 mkdir -p "$WORK"
 rm -f "$WORK"/*.status
 status=0

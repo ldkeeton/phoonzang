@@ -8,7 +8,13 @@ anywhere and run it; the first run downloads the one ``dos_compilers`` folder
 the sidecar names into the tree's own ``dos_compilers/`` the way ``make init``
 does (a GitHub tree listing, then each file over HTTPS, checked against its
 size and git blob hash).  Unlike ``make link`` it applies no byte patches; the
-binaries are exactly what the sources link to.
+binaries are exactly what the sources link to.  Like ``make build`` it fills
+``build_out/`` with the game's other files (data, pictures, drivers it does not
+build) from the app directory, so a deleted ``build_out`` comes back runnable.
+
+``run.sh`` (:func:`run_script`) beside it launches the game in ``build_out/``
+under DOSBox-X, as ``make run`` does.  Both start with a ``#!`` line, so the
+build makes them executable (:func:`lib.autogen.sync`).
 """
 
 from collections import namedtuple
@@ -16,15 +22,94 @@ from collections import namedtuple
 Compiler = namedtuple('Compiler', 'repo ref folder')
 
 
-def script(compiler):
-    """``build.sh`` for the :data:`Compiler` it downloads and runs."""
+def script(compiler, game=''):
+    """``build.sh`` for the :data:`Compiler` it downloads and runs.  *game* is
+    the app directory, relative to the tree, it copies the game's files from."""
     return (SCRIPT.replace('@REPO@', compiler.repo).replace('@REF@', compiler.ref)
-            .replace('@FOLDER@', compiler.folder))
+            .replace('@FOLDER@', compiler.folder).replace('@GAME@', game))
 
 
-SCRIPT = r'''# Build every binary of this tree with Manx Aztec C86 under DOSBox-X.
+def run_script(exe, folder):
+    """``run.sh``: launch *exe* (the game's main program, e.g. ``DS.EXE``) from
+    ``build_out/`` under DOSBox-X with the flags ``make run`` uses.  The game
+    sits at ``C:\\FOLDER``, where its installer put it: the game's data names
+    that path (``SCENARIO.HDR``, the saves), so it is a link to ``build_out``."""
+    return RUN_SCRIPT.replace('@EXE@', exe).replace('@FOLDER@', folder)
+
+
+RUN_SCRIPT = r'''#!/usr/bin/env bash
+# Play the game build.sh made: run build_out/@EXE@ under DOSBox-X.
 #
-#   bash build.sh [binary ...]      e.g. bash build.sh vmnpc   (default: all)
+#   ./run.sh [argument ...]       the arguments go to @EXE@
+#
+# The game expects to be installed in C:\@FOLDER@ (its data and saves name that
+# path), so C: is .cache/run/C, whose @FOLDER@ is a link to build_out/: what the
+# game writes there, saves included, lands in build_out/.  Run ./build.sh first
+# if build_out/@EXE@ is missing.
+#
+# Environment:
+#   DOSBOX   the DOSBox-X to run (default dosbox-x)
+
+set -u
+
+here=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
+DOSBOX=${DOSBOX:-dosbox-x}
+EXE='@EXE@'
+FOLDER='@FOLDER@'
+drive=$here/.cache/run/C
+
+die() { echo "run.sh: $*" >&2; exit 1; }
+
+[[ -f $here/build_out/$EXE ]] || die "no build_out/$EXE: run ./build.sh first"
+command -v "$DOSBOX" >/dev/null || die "no $DOSBOX on PATH (set DOSBOX)"
+
+mkdir -p "$drive" || die "cannot make $drive"
+[[ -e $drive/$FOLDER && ! -L $drive/$FOLDER ]] &&
+    die "$drive/$FOLDER is in the way (not a link to build_out/)"
+ln -sfn ../../../build_out "$drive/$FOLDER" || die "cannot link $drive/$FOLDER"
+
+exec "$DOSBOX" -fastlaunch -nomenu -nopromptfolder \
+    -set 'dosbox quit warning=false' \
+    -set 'cpu cycles=max' -set 'cpu turbo=false' \
+    -c '@echo off' -c "mount c \"$drive\"" -c 'c:' -c "cd \\$FOLDER" \
+    -c "$EXE${*:+ $*}" -c 'exit'
+'''
+
+
+SCRIPT = r'''#!/usr/bin/env bash
+# Play the game build.sh made: run build_out/@EXE@ under DOSBox-X.
+#
+#   ./run.sh [argument ...]       the arguments go to @EXE@
+#
+# build_out/ is mounted as C:, so saves land there.  Run ./build.sh first if
+# build_out/@EXE@ is missing.
+#
+# Environment:
+#   DOSBOX   the DOSBox-X to run (default dosbox-x)
+
+set -u
+
+here=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
+DOSBOX=${DOSBOX:-dosbox-x}
+EXE='@EXE@'
+game=$here/build_out
+
+die() { echo "run.sh: $*" >&2; exit 1; }
+
+[[ -f $game/$EXE ]] || die "no build_out/$EXE: run ./build.sh first"
+command -v "$DOSBOX" >/dev/null || die "no $DOSBOX on PATH (set DOSBOX)"
+
+exec "$DOSBOX" -fastlaunch -nomenu -nopromptfolder \
+    -set 'dosbox quit warning=false' \
+    -set 'cpu cycles=max' -set 'cpu turbo=false' \
+    -c '@echo off' -c "mount c \"$game\"" -c 'c:' -c "$EXE${*:+ $*}" -c 'exit'
+'''
+
+
+SCRIPT = r'''#!/usr/bin/env bash
+# Build every binary of this tree with Manx Aztec C86 under DOSBox-X.
+#
+#   ./build.sh [binary ...]      e.g. ./build.sh vmnpc   (default: all)
 #
 # It reads only `makefile` and the `.lnk` files beside it:
 #   - the .SUFFIXES order picks each module's source (MODULE.s, else MODULE.c);
@@ -40,7 +125,7 @@ SCRIPT = r'''# Build every binary of this tree with Manx Aztec C86 under DOSBox-
 # The compiler is `@FOLDER@` from github.com/@REPO@
 # (@REF@).  The first run downloads just that folder into dos_compilers/ next
 # to this script, checking every file's size and git blob hash; later runs
-# reuse it.  `bash build.sh init` downloads (or re-checks) it and stops.
+# reuse it.  `./build.sh init` downloads (or re-checks) it and stops.
 #
 # Environment:
 #   GITHUB_TOKEN  optional, for the GitHub API rate limit
@@ -48,11 +133,16 @@ SCRIPT = r'''# Build every binary of this tree with Manx Aztec C86 under DOSBox-
 #   JOBS     DOSBox sessions at once (default: the number of CPUs)
 #   TIMEOUT  seconds one session may take (default 600)
 #   SHOW=1   show the DOSBox window instead of running headless
+#   GAME     the original game's directory (default @GAME@, beside
+#            this tree), whose files build_out/ gets
 #
 # Writes each binary into build_out/ under its rule's name (the game's own:
 # DS.EXE, VBASE.OVR, VGA.DRV, ...), over the copy there.  A rule may rename
 # what ln wrote (`ren VGA.COM VGA.DRV`: ln takes the format from the extension).  Each binary's DOS work directory, with every log, and
-# the root's .rsm stay in .cache/build/<binary>.
+# the root's .rsm stay in .cache/build/<binary>.  Every other file of $GAME
+# (data, pictures, ...) is copied into build_out/ first, as `make build` does,
+# unless build_out/ already has it (so the game's saves there survive): delete
+# build_out/ and the next run makes it a runnable game again.
 
 set -u
 
@@ -66,6 +156,7 @@ DOSBOX=${DOSBOX:-dosbox-x}
 JOBS=${JOBS:-$(nproc 2>/dev/null || echo 4)}
 TIMEOUT=${TIMEOUT:-600}
 WORK=$here/.cache/build
+GAME=${GAME:-$here/@GAME@}
 
 die() { echo "build.sh: $*" >&2; exit 1; }
 
@@ -286,6 +377,31 @@ expand() {
     echo "${words[*]}"
 }
 
+# ---- the game's other files ----------------------------------------------
+
+# Every entry of $GAME but the binaries the makefile builds, into build_out/,
+# unless it is there already.
+copy_game() {
+    if [[ ! -d $GAME ]]; then
+        echo "build.sh: no game directory $GAME (set GAME): build_out/ gets only the binaries" >&2
+        return 0
+    fi
+    local -A built=()
+    local rule src name copied=0
+    for rule in "${LN_RULE[@]}"; do built[${rule^^}]=1; done
+    mkdir -p "$here/build_out" || die "cannot make build_out/"
+    shopt -s dotglob nullglob
+    for src in "$GAME"/*; do
+        name=${src##*/}
+        [[ -n ${built[${name^^}]:-} || -e $here/build_out/$name ]] && continue
+        cp -pr "$src" "$here/build_out/$name" || die "cannot copy $src"
+        copied=$(( copied + 1 ))
+    done
+    shopt -u dotglob nullglob
+    (( copied )) && echo "copied $copied game file(s) from $GAME"
+    return 0
+}
+
 # ---- 8.3 names -------------------------------------------------------------
 
 declare -A RESERVED=([CON]=1 [PRN]=1 [AUX]=1 [NUL]=1 [CLOCK\$]=1 [BUILD]=1)
@@ -452,6 +568,7 @@ for binary in "${wanted[@]}"; do
     [[ -n $root && " ${roots[*]} " != *" $root "* ]] && roots+=("$root")
 done
 
+copy_game
 mkdir -p "$WORK"
 rm -f "$WORK"/*.status
 status=0

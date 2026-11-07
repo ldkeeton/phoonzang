@@ -42,9 +42,19 @@ def stamp(text, path, marker=None):
     pass never stacks a second marker on the one chosen first.
     """
     marker = marker or marker_for(path)
-    if text.split('\n', 1)[0].rstrip() in _MARKERS:
+    shebang, body = _split_shebang(text)
+    if body.split('\n', 1)[0].rstrip() in _MARKERS:
         return text
-    return marker + '\n' + text
+    return shebang + marker + '\n' + body
+
+
+def _split_shebang(text):
+    """``(shebang line, rest)``: a script's ``#!`` line stays first, so its
+    marker is the second line."""
+    if text.startswith('#!'):
+        line, _, rest = text.partition('\n')
+        return line + '\n', rest
+    return '', text
 
 
 def is_generated(path):
@@ -54,6 +64,8 @@ def is_generated(path):
     try:
         with open(path, 'rb') as f:
             first = f.readline(256)
+            if first.startswith(b'#!'):
+                first = f.readline(256)
     except OSError:
         return False
     line = first.decode('utf-8', 'ignore').rstrip()
@@ -159,6 +171,15 @@ def _same(path, data):
         return False
 
 
+def _make_executable(path):
+    """Add execute permission wherever *path* has read permission (``chmod +x``
+    within the umask's reach): a generated script runs as ``./build.sh``."""
+    mode = os.stat(path).st_mode
+    want = mode | ((mode & 0o444) >> 2)
+    if want != mode:
+        os.chmod(path, want)
+
+
 def sync(root, files, scopes=None, skip=()):
     """Make the generated files under *root* exactly *files*.
 
@@ -188,11 +209,13 @@ def sync(root, files, scopes=None, skip=()):
         data = stamp(output_text(text, path), path).encode('utf-8', 'surrogateescape')
         if _same(path, data):
             unchanged += 1
-            continue
-        os.makedirs(os.path.dirname(path), exist_ok=True)
-        with open(path, 'wb') as f:
-            f.write(data)
-        written += 1
+        else:
+            os.makedirs(os.path.dirname(path), exist_ok=True)
+            with open(path, 'wb') as f:
+                f.write(data)
+            written += 1
+        if data.startswith(b'#!'):
+            _make_executable(path)
 
     wanted = {os.path.abspath(os.path.join(root, rel)) for rel in files}
 
