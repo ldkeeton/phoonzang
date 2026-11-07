@@ -85,7 +85,42 @@ every byte that differs or might matter.
 
 ## 3. make badc: removing its blind spots
 
-Rule out *every* constant, not just the large ones.
+### 3.0 Done: `adj`, code that reaches past an object's end
+
+C split into one function per file is fine: functions reach each other only by
+name. What breaks with link order is *data* that one name uses to reach its
+neighbour. Usually that is one real object the generator named in pieces.
+build.sh's globals-first rule exists for these. badc's new `adj` column finds
+them, generically:
+
+- **C:**
+  - a variable or non-zero index into an array defined with one element (`int
+    rows[1]`), or that array's address handed on (`strcpy(path, ...)`);
+  - a constant index at or past a declared dimension;
+  - a file whose own `extern` makes the name a scalar reads one element and
+    is fine.
+- **`.s`:** `name+N` that lands in another file's object, using the
+  generator's symbol table. Landing inside the same file is fine, because one
+  file keeps its own order. A name no table knows counts, unless the file
+  defines it.
+
+**DSAVANT:** 20 objects in 9 files, all in vmnpc and vbase:
+
+- vmnpc's list rows: `list_row_glyph[1]` + `list_row_glyph_next[19]` is one
+  `int list_row_glyph[20]`.
+- vbase: `game_load_path[1]`, a path buffer that strcpy fills;
+  `adjusted_palette_rgb[1]`, which the code uses as `[256][3]`; and the
+  `bane_item_levels_*` records.
+
+The `_next` names come from the sidecar's `data_names`.
+
+**Fix (next):**
+- In the sidecar, drop the piece names and give the base its real size, then
+  regenerate. The C becomes `list_row_glyph[i + 1]`, and the gate proves the
+  same bytes.
+- When `adj` is empty, try build.sh without the globals-first rule.
+
+### 3.1 Rule out every constant, not just the large ones
 
 1. **No numeric cutoff.** Drop `_ADDRESS_FLOOR` (and the round-decimal skip
    that was added to hide a false hit).

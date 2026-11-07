@@ -13,30 +13,6 @@ ln_com_jump                                ; 0x0000
 
 %include "shared/drv/driver_dispatch.asm"         ; 0x0003
 
-%include "shared/data/drv_buffer_segments.asm" ; 0x00df
-
-%include "shared/data/drv_ems_frame.asm"      ; 0x00ff
-
-%include "shared/data/mouse_init_enabled.asm" ; 0x0105
-
-%include "shared/data/drv_far_calls.asm"      ; 0x0106
-
-%include "shared/data/drv_mouse_flags.asm"    ; 0x0126
-
-%include "shared/data/drv_picture_maze_slots.asm" ; 0x0129
-
-%include "shared/data/secondary_text_color.asm" ; 0x0191
-
-%include "shared/data/primary_text_color.asm" ; 0x0193
-
-%include "shared/data/text_pos_x.asm"         ; 0x0195
-
-%include "shared/data/text_pos_y.asm"         ; 0x0197
-
-%include "shared/data/text_opaque.asm"        ; 0x0199
-
-%include "shared/data/drv_ems_tables.asm"     ; 0x019b
-
 %include "shared/drv/draw_glyph.asm"              ; 0x0293
 
 %include "shared/drv/set_text_opaque.asm"         ; 0x0439

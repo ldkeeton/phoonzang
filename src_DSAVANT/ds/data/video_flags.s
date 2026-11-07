@@ -13,6 +13,6 @@ video_is_vga_	db	00h
 	public	video_is_cga_
 video_is_cga_	db	00h
 	public	video_is_herc_
-video_is_herc_	db	5 dup (0)
+video_is_herc_	db	00h
 codeseg	ends
 	end

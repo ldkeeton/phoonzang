@@ -2,10 +2,13 @@
 ; everything load_video_driver copies into the video driver as one run: the
 ; far pointers to vga_palette and far_delay_ms (it supplies cs as their
 ; segment), the EMS state, the mouse button count and the PLAY.DRV slots.
-; Keep these in this order and in one module.
+; Keep these in this order and in one module. The zero entry before the
+; table is where free_driver_blocks stops walking it backwards.
 codeseg	segment	byte public 'code'
 	extrn	vga_palette_:byte
 	extrn	far_delay_ms_:far
+	public	driver_block_start
+driver_block_start	db	4 dup (0)
 	public	driver_block_table_
 driver_block_table_	db	80h,41h,00h,00h,00h,10h,00h,00h,40h,01h
 	public	font_header_seg_

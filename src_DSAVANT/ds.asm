@@ -550,7 +550,7 @@ __zdseg_end equ (__zimage_end - __zdseg_start) + __zbss_size
 
 %include "ds/data/video_flags.asm"         ; 0x2f35
 
-%include "ds/data/driver_tables.asm"       ; 0x2f40
+%include "ds/data/driver_tables.asm"       ; 0x2f3c
 
 %include "ds/data/drv_slots_video.asm"     ; 0x2f87
 

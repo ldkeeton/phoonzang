@@ -1,17 +1,5 @@
 # auto-generated
 shared/drv/driver_dispatch
-shared/data/drv_buffer_segments
-shared/data/drv_ems_frame
-shared/data/mouse_init_enabled
-shared/data/drv_far_calls
-shared/data/drv_mouse_flags
-shared/data/drv_picture_maze_slots
-shared/data/secondary_text_color
-shared/data/primary_text_color
-shared/data/text_pos_x
-shared/data/text_pos_y
-shared/data/text_opaque
-shared/data/drv_ems_tables
 shared/drv/draw_glyph
 shared/drv/set_text_opaque
 ega/set_text_color

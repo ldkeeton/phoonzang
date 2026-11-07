@@ -12,4 +12,4 @@ video_is_vga:
 video_is_cga:
     db 0x00
 video_is_herc:
-    times 5 db 0
+    db 0x00
