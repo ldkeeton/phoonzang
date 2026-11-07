@@ -792,7 +792,7 @@ ln_ds_zero                                 ; 0x10160
 
 %include "ds/aztec/aztec_impl_stkover.data.asm" ; 0x10e0e
 
-%include "shared/data/STKSIZ.asm"              ; 0x10e34
+%include "ds/data/STKSIZ.asm"              ; 0x10e34
 
 %include "shared/aztec/aztec_io.data.asm"      ; 0x10e3c
 

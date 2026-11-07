@@ -80,6 +80,17 @@ class ShareIdenticalTest(unittest.TestCase):
             self.assertIn('%include "shared/ovr/f.asm"', _read(root, 'b.asm'))
             self.assertNotIn('; 0x', _read(root, 'shared/ovr/f.asm'))
 
+    def test_binaries_that_compile_it_differently_keep_their_own_copies(self):
+        # shared/ compiles once into one library, so the copies must agree on flags.
+        flags = {'a': ['-n', '+b'], 'b': ['-n']}
+        with tempfile.TemporaryDirectory() as root, mock.patch.object(
+                shared, '_compile_flags',
+                return_value=lambda stem, binary: flags[binary]):
+            self._tree(root)
+            self.assertEqual(shared.share_identical(root), {})
+            self.assertTrue(os.path.exists(os.path.join(root, 'a/f.asm')))
+            self.assertTrue(os.path.exists(os.path.join(root, 'b/f.asm')))
+
     def test_different_code_or_hand_c_stays(self):
         with tempfile.TemporaryDirectory() as root:
             self._tree(root)

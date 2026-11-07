@@ -631,7 +631,7 @@ aztec_Uend equ __zbss_2afe - __zdseg_start
 
 %include "shared/aztec/aztec_Croot.data.asm" ; 0x5fe0
 
-%include "shared/data/STKSIZ.asm"        ; 0x5ff2
+%include "vinstall/data/STKSIZ.asm"        ; 0x5ff2
 
 %include "shared/aztec/aztec_io.data.asm" ; 0x5ffa
 

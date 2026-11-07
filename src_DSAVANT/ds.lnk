@@ -169,7 +169,7 @@ shared/aztec/aztec_begin
 shared/aztec/aztec_Croot
 shared/aztec/aztec_fltinit
 ds/aztec/aztec_impl_stkover
-shared/data/STKSIZ
+ds/data/STKSIZ
 shared/aztec/aztec_io
 shared/aztec/aztec_ttyio
 shared/aztec/aztec_movmem

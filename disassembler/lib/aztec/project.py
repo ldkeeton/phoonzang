@@ -252,6 +252,25 @@ def _build_sh_config(binaries, order, host, has_overlays, outputs, linked, liste
         entries.append(Binary(name, outputs[name], linked[name], root, link_flags,
                               info.get('desc'), first, entry))
     bin_cflags, obj_cflags = _flag_overrides(order, listed, flags)
+    # SHARED.LIB compiles a module once, with its own flags or else CFLAGS, so
+    # every binary linking it must want just those (lib.shared keeps a module
+    # that one binary compiles differently in that binary's directory).
+    wanted = {}
+    for name in order:
+        for module in listed[name]:
+            if module.split('/', 1)[0] in libdirs:
+                wanted.setdefault(module, {})[name] = list(
+                    flags.module(os.path.basename(module), name))
+    for module, by_binary in wanted.items():
+        kinds = {tuple(value) for value in by_binary.values()}
+        if len(kinds) > 1:
+            raise ValueError(f'{module}: compiled with different flags in '
+                             + ', '.join(f'{name} ({_join(value) or "no flags"})'
+                                         for name, value in by_binary.items())
+                             + '; SHARED.LIB can hold only one')
+        want = list(kinds.pop())
+        if want != obj_cflags.get(module, list(flags.c)):
+            obj_cflags[module] = want
     return config(entries, flags.c, flags.asm, INCLUDE_DIR, sorted(libdirs),
                   bin_cflags, obj_cflags)
 

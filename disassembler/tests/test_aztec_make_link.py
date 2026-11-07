@@ -136,6 +136,33 @@ class GenerateTest(unittest.TestCase):
         self.assertNotIn('< "$lnk"', script)
         self.assertNotIn('done < makefile', script)
 
+    def test_build_sh_refuses_a_shared_module_compiled_two_ways(self):
+        # SHARED.LIB holds one object per module: lib.shared keeps such a
+        # module in each binary's own directory instead.
+        compiler = build_sh.Compiler('me/compilers', 'main', 'Manx Aztec C86 v42b')
+        # Each binary compiles shared/a with its own default (STKSIZ in ds and
+        # vinstall): the makefile needs no line for it, but one library can't.
+        default = lambda name: ['-n'] if name in ('d', 'o') else ['-n', '+b']
+        flags = self.FLAGS._replace(binary=default, module=lambda stem, name: (
+            ['-n', '-Z1'] if stem == 'x' else default(name)))
+        with self.assertRaisesRegex(ValueError, 'shared/a: compiled with different'):
+            project.project_files(self.BINARIES, 'r', self.FILES, flags=flags,
+                                  compiler=compiler)
+
+    def test_build_sh_gives_a_shared_module_the_flags_all_its_binaries_use(self):
+        # d alone compiles with -n by default; a module only it and o share
+        # takes -n from no override of its own, and SHARED.LIB must too.
+        compiler = build_sh.Compiler('me/compilers', 'main', 'Manx Aztec C86 v42b')
+        files = dict(self.FILES, **{'d.asm': '%include "d/y.asm"\n%include "shared/z.asm"\n',
+                                    'o.asm': '%include "o/x.asm"\n%include "shared/z.asm"\n'})
+        binaries = dict(self.BINARIES, o={'type': 'aztec_overlay'})
+        flags = self.FLAGS._replace(
+            binary=lambda name: ['-n'] if name in ('d', 'o') else ['-n', '+b'],
+            module=lambda stem, name: ['-n'] if name in ('d', 'o') else ['-n', '+b'])
+        script = project.project_files(binaries, 'r', files, flags=flags,
+                                       compiler=compiler)['build.sh']
+        self.assertIn("    [shared/z]='-n'\n", script)
+
     def test_run_sh_launches_the_hosts_program_from_build_out_new(self):
         compiler = build_sh.Compiler('me/compilers', 'main', 'Manx Aztec C86 v42b')
         out = project.project_files(self.BINARIES, 'r', self.FILES,

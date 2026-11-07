@@ -237,6 +237,29 @@ def _drivers(out_dir):
                      if info.get('type') == 'raw_drv')
 
 
+def _compile_flags(out_dir):
+    """``flags(stem, binary)``: the C flags the sidecar compiles a module of
+    *binary* with (``[]`` when it names none)."""
+    from .sidecar.compiler import compiler_flags
+    project = project_of_src_dir(out_dir)
+    if not project:
+        return lambda stem, binary: []
+    return lambda stem, binary: compiler_flags(project, stem, binary) or []
+
+
+def _same_flags(members, flags_of):
+    """The largest group of *members* that compile with the same C flags.
+
+    A shared file compiles once, into the library every binary links from
+    (``build.sh``'s SHARED.LIB), so the binaries sharing it must agree on its
+    flags.  The rest keep their own copies (``vinstall`` compiles ``STKSIZ``
+    with ``-n``; ``ds`` with ``+b``, which makes it call ``$csav``)."""
+    groups = defaultdict(list)
+    for rel in members:
+        groups[tuple(flags_of(_stem(rel), _binary(rel)))].append(rel)
+    return max(groups.values(), key=lambda group: (len(group), group))
+
+
 def _band(rels, drivers=frozenset()):
     """The folder of a shared file: the band its banded binary's copy sits in
     (``ds/aztec/x.asm``), :data:`DRIVER` when only *drivers* share it, else
@@ -330,8 +353,10 @@ def share_files(files, out_dir):
     # Where a stem still has several, the largest group is shared and the rest
     # stay: each binary's own routine.
     best = {}
+    flags_of = _compile_flags(out_dir)
     for ctext, rels in _buckets(fragments):
         for base, members in _clusters(fragments, rels, uses):
+            members = _same_flags(members, flags_of)
             if len({p.split('/')[0] for p in members}) < 2:
                 continue
             if base not in best or len(members) > len(best[base][0]):

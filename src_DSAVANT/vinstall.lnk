@@ -106,7 +106,7 @@ vinstall/data/ctp_
 shared/aztec/aztec_begin
 shared/aztec/aztec_Croot
 shared/aztec/aztec_fltinit
-shared/data/STKSIZ
+vinstall/data/STKSIZ
 shared/aztec/aztec_io
 shared/aztec/aztec_ttyio
 shared/aztec/aztec_movmem
