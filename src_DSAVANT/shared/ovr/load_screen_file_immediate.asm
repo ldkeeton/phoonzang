@@ -1,7 +1,7 @@
 ; auto-generated
 load_screen_file_immediate:
     mov ax, 0xfffe
-    call aztec_csav
+    call $csav
     mov ax, 0
     push ax
     call call_wait_sound
@@ -14,7 +14,7 @@ load_screen_file_immediate:
     call data_file_path
     add sp, byte 4
     push ax
-    call aztec_open
+    call open
     add sp, byte 4
     mov word [bp - 2], ax
     cmp ax, strict word 0xffff
@@ -30,7 +30,7 @@ load_screen_file_immediate:
     call call_load_screen
     add sp, byte 4
     push word [bp - 2]
-    call aztec_close
+    call close
     pop cx
     cmp word [bp + 6], byte 0
     je short .return1

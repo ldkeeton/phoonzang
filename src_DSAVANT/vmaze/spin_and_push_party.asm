@@ -1,7 +1,7 @@
 ; auto-generated
 spin_and_push_party:
     mov ax, 0xffe2                   ; 0x7034
-    call aztec_csav                  ; 0x7037
+    call $csav                  ; 0x7037
     mov ax, word [party_region]      ; 0x703a
     shl ax, 1                        ; 0x703d
     mov si, ax                       ; 0x703f

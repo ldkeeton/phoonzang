@@ -1,7 +1,7 @@
 ; auto-generated
 play_score_at_volume:
     mov ax, 0xfffc                   ; 0x2bab
-    call aztec_csav                  ; 0x2bae
+    call $csav                  ; 0x2bae
     mov ax, 0xa                      ; 0x2bb1
     push ax                          ; 0x2bb4
     mov al, byte [music_volume]      ; 0x2bb5

@@ -1,15 +1,15 @@
 ; auto-generated
 set_maze_time_tint:
     mov ax, 0xfffe                   ; 0x0e5d
-    call aztec_csav                  ; 0x0e60
+    call $csav                  ; 0x0e60
     mov ax, word [game_time]         ; 0x0e63
     mov dx, word [game_time_hi]      ; 0x0e66
     mov cx, 0x5a0                    ; 0x0e6a
     mov bx, 0                        ; 0x0e6d
-    call aztec_lrm                   ; 0x0e70
+    call $lrm                   ; 0x0e70
     mov cx, 0x3c                     ; 0x0e73
     mov bx, 0                        ; 0x0e76
-    call aztec_ldv                   ; 0x0e79
+    call $ldv                   ; 0x0e79
     mov word [bp - 2], ax            ; 0x0e7c
     mov cx, 3                        ; 0x0e7f
     imul cx                          ; 0x0e82

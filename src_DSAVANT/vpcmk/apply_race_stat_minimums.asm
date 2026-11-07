@@ -1,7 +1,7 @@
 ; auto-generated
 apply_race_stat_minimums:
     mov ax, 0                        ; 0x42b8
-    call aztec_csav                  ; 0x42bb
+    call $csav                  ; 0x42bb
     mov ax, word [bp + 6]            ; 0x42be
     jmp near .forward1               ; 0x42c1
 jumptable_436e_case_0:

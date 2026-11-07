@@ -8,7 +8,7 @@ extern struct member_rec *battle_groups[];
 extern struct member_ext *battle_group_ext[];
 extern struct pc_rec party_records[];
 extern int random_below();
-extern int aztec_movmem();
+extern int movmem();
 extern int combatant_evades_targeting();
 extern int kill_combatant();
 extern announce_combatant_effect();
@@ -24,7 +24,7 @@ int new_state, resistance_floor, unused_value, show_message;
 	    combatant_evades_targeting(group, unit_index))
 		return;
 	if (group == 0)
-		aztec_movmem(party_records[unit_index].resistance_rows.named.resist,
+		movmem(party_records[unit_index].resistance_rows.named.resist,
 			battle_group_ext[0]->resistance, 14);
 	death_sound = 0;
 	if (resistance_index == 0 ||

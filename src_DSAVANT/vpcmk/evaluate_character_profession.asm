@@ -1,7 +1,7 @@
 ; auto-generated
 evaluate_character_profession:
     mov ax, 0                        ; 0x4107
-    call aztec_csav                  ; 0x410a
+    call $csav                  ; 0x410a
     mov ax, word [bp + 6]            ; 0x410d
     jmp near .forward4               ; 0x4110
 jumptable_4267_case_0:

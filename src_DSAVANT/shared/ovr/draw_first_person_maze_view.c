@@ -51,7 +51,7 @@ extern int resolve_cell_wall_effects(), get_relative_cell_wall();
 extern int queue_maze_cell_layers(), queue_view_cell_side_layers();
 extern int queue_boundary_view_layers(), draw_queued_glyph_shape();
 extern int draw_clock_marker_glyph(), draw_moon_glyph();
-extern int draw_party_status_glyphs(), random_below(), aztec_setmem();
+extern int draw_party_status_glyphs(), random_below(), setmem();
 
 draw_first_person_maze_view()
 {
@@ -125,17 +125,17 @@ draw_first_person_maze_view()
 	}
 
 	/* Clear per-view layer and marker grids before scanning the maze. */
-	aztec_setmem(boundary_box_faces, 25, 0);
-	aztec_setmem(near_wall_layer_flags, 25, 0);
-	aztec_setmem(side_wall_layer_flags, 25, 0);
-	aztec_setmem(view_layer_scratch, 25, 0);
-	aztec_setmem(view_marker_ids, 25, 0);
-	aztec_setmem(far_wall_overlay_ids, 50, 0);
-	aztec_setmem(view_marker_kinds, 25, 0);
-	aztec_setmem(far_wall_object_ids, 50, 0);
-	aztec_setmem(near_wall_overlay_ids, 50, 0);
-	aztec_setmem(near_wall_object_ids, 50, 0);
-	aztec_setmem(queued_slot_x, 2040, 0);
+	setmem(boundary_box_faces, 25, 0);
+	setmem(near_wall_layer_flags, 25, 0);
+	setmem(side_wall_layer_flags, 25, 0);
+	setmem(view_layer_scratch, 25, 0);
+	setmem(view_marker_ids, 25, 0);
+	setmem(far_wall_overlay_ids, 50, 0);
+	setmem(view_marker_kinds, 25, 0);
+	setmem(far_wall_object_ids, 50, 0);
+	setmem(near_wall_overlay_ids, 50, 0);
+	setmem(near_wall_object_ids, 50, 0);
+	setmem(queued_slot_x, 2040, 0);
 	render_queue_count = 0;
 	relative_piece = map_piece;
 	offset_relative_map_position(&world_x, &world_y, &cell_x, &cell_y,

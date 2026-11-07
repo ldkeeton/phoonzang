@@ -1,7 +1,7 @@
 ; auto-generated
 preview_and_select_saved_member:
     mov ax, 0xfffa                   ; 0x6887
-    call aztec_csav                  ; 0x688a
+    call $csav                  ; 0x688a
     mov ax, 0x4a                     ; 0x688d
     push ax                          ; 0x6890
     mov ax, 0x42                     ; 0x6891

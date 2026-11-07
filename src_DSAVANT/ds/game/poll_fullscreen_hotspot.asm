@@ -1,7 +1,7 @@
 ; auto-generated
 poll_fullscreen_hotspot:
     mov ax, 0                        ; 0x0d36
-    call aztec_csav                  ; 0x0d39
+    call $csav                  ; 0x0d39
     mov ax, 0x1b                     ; 0x0d3c
     push ax                          ; 0x0d3f
     mov ax, 0xd                      ; 0x0d40

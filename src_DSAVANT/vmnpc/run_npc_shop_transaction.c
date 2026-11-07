@@ -7,7 +7,7 @@ extern unsigned char npc_effect_flags;
 extern int npc_item_list_count;
 extern int member_item_count;
 extern int load_message_string();
-extern int aztec_strcpy();
+extern int strcpy();
 extern int build_member_item_list();
 extern int select_npc_gold_menu_action();
 extern int select_npc_item_to_buy();
@@ -32,7 +32,7 @@ int member_index;
 		action_enabled[1] = 0;
 	}
 	action_enabled[5] = -1;
-	aztec_strcpy(member_name, party_records[member_index].name);
+	strcpy(member_name, party_records[member_index].name);
 	load_message_string(MSG_GP_1512, gold_suffix);
 	build_member_item_list(member_index);
 	for (;;) {

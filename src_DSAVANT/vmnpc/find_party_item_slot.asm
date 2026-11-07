@@ -1,7 +1,7 @@
 ; auto-generated
 find_party_item_slot:
     mov ax, 0xfffc                   ; 0x2372
-    call aztec_csav                  ; 0x2375
+    call $csav                  ; 0x2375
     mov word [bp - 4], 0             ; 0x2378
 .back1:
     mov word [bp - 2], 0             ; 0x237d

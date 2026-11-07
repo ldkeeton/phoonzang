@@ -1,7 +1,7 @@
 ; auto-generated
 trigger_item_cell_object:
     mov ax, 0xfff4                   ; 0x238d
-    call aztec_csav                  ; 0x2390
+    call $csav                  ; 0x2390
     mov bx, word [maze_tables]       ; 0x2393
     mov si, word [party_map_piece]   ; 0x2397
     mov al, byte [bx + si + 0xb40]   ; 0x239b

@@ -1,7 +1,7 @@
 ; auto-generated
 begin_npc_message_display:
     mov ax, 0                        ; 0x23d0
-    call aztec_csav                  ; 0x23d3
+    call $csav                  ; 0x23d3
     mov word [text_line_index], 0    ; 0x23d6
 .back1:
     mov ax, word [text_line_index]   ; 0x23dc

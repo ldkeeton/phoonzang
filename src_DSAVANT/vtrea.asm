@@ -22,7 +22,7 @@ IMAGE_BASE equ 0x000e + VBASE
     dw __zdseg_end                           ; 0x9098 ; o_dorg: data load origin (memory offset)
     dw (__zimage_end - __zdata_start)        ; 0x007c ; o_dsize: initialized data size
     dw __zobss_end - __zimage_end            ; 0x05a6 ; o_bss: uninitialized data size
-    dw aztec_ovbgn - IMAGE_BASE + __zres_end ; 0xea0c ; o_entry: overlay entry offset (CS)
+    dw $ovbgn - IMAGE_BASE + __zres_end ; 0xea0c ; o_entry: overlay entry offset (CS)
 
 __zcode_start:
 treasure_text_token_codes equ __zdseg_end + (__ztreasure_text_token_codes - __zdata_start)
@@ -283,14 +283,14 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "shared/ovr/pick_spell_dialog.asm"     ; 0x8d1e
 
-%include "shared/ovr/aztec_ovbgn.asm"           ; 0x99c5
+%include ".cache/c.lib/shared/ovr/ovbgn.asm"           ; 0x99c5
 
-%include "shared/ovr/aztec_cswt.asm"            ; 0x9a03
+%include ".cache/c.lib/shared/ovr/cswt.asm"            ; 0x9a03
 
 __zdata_start:
 %include "vtrea/data/trea_strings.asm"     ; 0x9a1b
 
-%include "shared/ovr/aztec_ovbgn.data.asm"      ; 0x9a8d
+%include ".cache/c.lib/shared/ovr/ovbgn.data.asm"      ; 0x9a8d
 
 
 __zimage_end:

@@ -1,7 +1,7 @@
 ; auto-generated
 edit_skill_group_points:
     mov ax, 0xffce                   ; 0x3a7a
-    call aztec_csav                  ; 0x3a7d
+    call $csav                  ; 0x3a7d
     mov ax, word [bp + 6]            ; 0x3a80
     shl ax, 1                        ; 0x3a83
     mov bx, ax                       ; 0x3a85
@@ -224,7 +224,7 @@ edit_skill_group_points:
     imul word [bp - 2]               ; 0x3c8d
     add ax, slot_label               ; 0x3c90
     push ax                          ; 0x3c93
-    call aztec_strlen                ; 0x3c94
+    call strlen                ; 0x3c94
     pop cx                           ; 0x3c97
     mov cx, ax                       ; 0x3c98
     mov ax, 9                        ; 0x3c9a

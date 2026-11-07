@@ -1,7 +1,7 @@
 ; auto-generated
 attempt_combatant_hiding:
     mov ax, 0xfffa                   ; 0x989b
-    call aztec_csav                  ; 0x989e
+    call $csav                  ; 0x989e
     cmp word [acting_group], byte 0  ; 0x98a1
     jne short .forward2              ; 0x98a6
     mov ax, 0x248                    ; 0x98a8

@@ -10,7 +10,7 @@ extern char far *pointer_image_two;
 extern char far *mouse_pointer_shape;
 extern char far *pointer_image_zero;
 extern int mouse_active;
-extern aztec_free(), app_free(), aztec_close();
+extern free(), app_free(), close();
 extern call_wait_sound(), call_stop_sound(), call_mouse_off();
 extern restore_video_and_release_mem();
 
@@ -42,13 +42,13 @@ int exit_status;
 	case 29:
 	case 30:
 		if (floor_items)
-			aztec_free(floor_items);
+			free(floor_items);
 		if (maze_change_log)
-			aztec_free(maze_change_log);
+			free(maze_change_log);
 		if (maze_tables)
-			aztec_free(maze_tables);
+			free(maze_tables);
 		if (maze_data)
-			aztec_free(maze_data);
+			free(maze_data);
 		if (runtime_buffer_4k_b)
 			app_free(runtime_buffer_4k_b);
 		if (runtime_buffer_4k_a)
@@ -58,10 +58,10 @@ int exit_status;
 	/* Statuses 11 and 12 start by closing the data file. */
 	case 11:
 	case 12:
-		aztec_close(data_file_fd);
+		close(data_file_fd);
 	/* Status 10 starts by closing the message database. */
 	case 10:
-		aztec_close(msg_dbs_fd);
+		close(msg_dbs_fd);
 	/* Statuses 7 through 9 start by freeing the pointer images and shape. */
 	case 7:
 	case 8:

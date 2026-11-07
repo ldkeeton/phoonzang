@@ -1,7 +1,7 @@
 ; auto-generated
 kill_party_with_message:
     mov ax, 0xfffe                   ; 0x110e
-    call aztec_csav                  ; 0x1111
+    call $csav                  ; 0x1111
     call redraw_maze_view            ; 0x1114
     push word [bp + 4]               ; 0x1117
     call show_message                ; 0x111a

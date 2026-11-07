@@ -1,12 +1,12 @@
 ; auto-generated
 draw_moon_glyph:
     mov ax, 0xffdc
-    call aztec_csav
+    call $csav
     mov ax, word [game_time]
     mov dx, word [game_time_hi]
     mov cx, 0x5a0
     mov bx, 0
-    call aztec_ldv
+    call $ldv
     add ax, strict word 1
     adc dx, byte 0
     mov word [bp - 4], ax
@@ -19,10 +19,10 @@ draw_moon_glyph:
     mov dx, word [game_time_hi]
     mov cx, 0x5a0
     mov bx, 0
-    call aztec_lrm
+    call $lrm
     mov cx, 0x3c
     mov bx, 0
-    call aztec_ldv
+    call $ldv
     cmp dx, byte 0
     jg short .forward1
     jne short .forward2
@@ -52,7 +52,7 @@ draw_moon_glyph:
     sbb dx, bx
     mov cx, 0x5a0
     mov bx, 0
-    call aztec_lrm
+    call $lrm
     mov word [bp - 8], ax
     cmp ax, strict word 0
     jl short .return1

@@ -1,7 +1,7 @@
 ; auto-generated
 load_startup_misc:
     mov ax, 0xfffe                   ; 0x010c
-    call aztec_csav                  ; 0x010f
+    call $csav                  ; 0x010f
     mov ax, 0                        ; 0x0112
     push ax                          ; 0x0115
     push ax                          ; 0x0116
@@ -9,7 +9,7 @@ load_startup_misc:
     call data_file_path              ; 0x011a
     add sp, byte 4                   ; 0x011d
     push ax                          ; 0x0120
-    call aztec_open                  ; 0x0121
+    call open                  ; 0x0121
     add sp, byte 4                   ; 0x0124
     mov word [bp - 2], ax            ; 0x0127
     cmp ax, strict word 0xffff       ; 0x012a
@@ -23,6 +23,6 @@ load_startup_misc:
     call read_misc_table             ; 0x013a
     pop cx                           ; 0x013d
     push word [bp - 2]               ; 0x013e
-    call aztec_close                 ; 0x0141
+    call close                 ; 0x0141
     pop cx                           ; 0x0144
     ret                              ; 0x0145

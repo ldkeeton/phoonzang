@@ -1,7 +1,7 @@
 ; auto-generated
 run_region_event_scene:
     mov ax, 0                        ; 0x81db
-    call aztec_csav                  ; 0x81de
+    call $csav                  ; 0x81de
     mov ax, 0                        ; 0x81e1
     push ax                          ; 0x81e4
     call prepare_treasure_scene      ; 0x81e5

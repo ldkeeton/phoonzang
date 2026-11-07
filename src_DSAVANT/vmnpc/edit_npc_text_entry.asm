@@ -1,7 +1,7 @@
 ; auto-generated
 edit_npc_text_entry:
     mov ax, 0xffea                   ; 0xa546
-    call aztec_csav                  ; 0xa549
+    call $csav                  ; 0xa549
     mov ax, word [bp + 6]            ; 0xa54c
     mov word [bp - 4], ax            ; 0xa54f
     mov ax, word [bp + 8]            ; 0xa552
@@ -42,7 +42,7 @@ edit_npc_text_entry:
     call call_show_area              ; 0xa5b1
     add sp, byte 8                   ; 0xa5b4
     push word [bp + 4]               ; 0xa5b7
-    call aztec_strlen                ; 0xa5ba
+    call strlen                ; 0xa5ba
     pop cx                           ; 0xa5bd
     mov word [bp - 6], ax            ; 0xa5be
     mov cx, 6                        ; 0xa5c1

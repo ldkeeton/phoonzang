@@ -1,7 +1,7 @@
 ; auto-generated
 move_party_member_in_formation:
     mov ax, 0xfffa                   ; 0x9e5d
-    call aztec_csav                  ; 0x9e60
+    call $csav                  ; 0x9e60
     mov ax, word [bp + 4]            ; 0x9e63
     cmp ax, word [bp + 6]            ; 0x9e66
     jne short .forward1              ; 0x9e69

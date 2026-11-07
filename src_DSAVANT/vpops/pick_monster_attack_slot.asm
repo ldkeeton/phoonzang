@@ -1,7 +1,7 @@
 ; auto-generated
 pick_monster_attack_slot:
     mov ax, 0xfffe                   ; 0x45b3
-    call aztec_csav                  ; 0x45b6
+    call $csav                  ; 0x45b6
     mov word [bp - 2], 0             ; 0x45b9
 .back1:
     mov ax, word [bp + 4]            ; 0x45be

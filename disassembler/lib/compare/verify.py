@@ -305,7 +305,7 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
            foreign_pointer_params=None,
            message_directory=None, message_names=None, message_bases=None,
            foreign_message_params=None,
-           sidecar_use=None, bands=(), data_modules=(),
+           sidecar_use=None, bands=(), library=None, data_modules=(),
            driver_slot_words=None, drivers_inc=None, data_groups=(),
            data_owners=None, ln_com=False, ln_mz=False, exports_only=False):
     """Produce NASM source text from *binary_data* and *instructions*.
@@ -1239,6 +1239,7 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
                 getattr(segments, 'ds_size', None)),
             segments=segments,
             message_symbols=message_symbols, message_equ=message_equ,
+            library=library,
         )
 
     if asm_annotations:
@@ -1263,6 +1264,7 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
                 getattr(segments, 'ds_size', None)),
             segments=segments,
             message_symbols=message_symbols, message_equ=message_equ,
+            library=library,
         )
 
     _annotate_interrupts(records)

@@ -1,7 +1,7 @@
 ; auto-generated
 apply_item_device_effect:
     mov ax, 0xff62                   ; 0x3cfe
-    call aztec_csav                  ; 0x3d01
+    call $csav                  ; 0x3d01
     mov ax, 0                        ; 0x3d04
     push ax                          ; 0x3d07
     mov bx, word [bp + 6]            ; 0x3d08

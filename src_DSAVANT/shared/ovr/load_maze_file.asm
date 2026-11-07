@@ -1,7 +1,7 @@
 ; auto-generated
 load_maze_file:
     mov ax, 0xfffe
-    call aztec_csav
+    call $csav
     mov ax, 0
     push ax
     mov ax, 1
@@ -10,7 +10,7 @@ load_maze_file:
     call data_file_path
     add sp, byte 4
     push ax
-    call aztec_open
+    call open
     add sp, byte 4
     mov word [bp - 2], ax
     cmp ax, strict word 0xffff
@@ -27,6 +27,6 @@ load_maze_file:
     call call_load_maze
     add sp, byte 6
     push word [bp - 2]
-    call aztec_close
+    call close
     pop cx
     ret

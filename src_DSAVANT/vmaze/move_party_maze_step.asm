@@ -1,7 +1,7 @@
 ; auto-generated
 move_party_maze_step:
     mov ax, 0xfff2                   ; 0x162b
-    call aztec_csav                  ; 0x162e
+    call $csav                  ; 0x162e
     call check_at_saved_location     ; 0x1631
     call save_previous_party_position ; 0x1634
     mov ax, word [party_map_piece]   ; 0x1637

@@ -1,7 +1,7 @@
 ; auto-generated
 display_member_message:
     mov ax, 0xffb0                   ; 0x74e2
-    call aztec_csav                  ; 0x74e5
+    call $csav                  ; 0x74e5
     lea ax, word [bp - 0x50]         ; 0x74e8
     push ax                          ; 0x74eb
     push word [bp + 6]               ; 0x74ec

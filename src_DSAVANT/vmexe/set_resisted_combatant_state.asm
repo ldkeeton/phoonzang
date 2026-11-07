@@ -1,7 +1,7 @@
 ; auto-generated
 set_resisted_combatant_state:
     mov ax, 0xfffe                   ; 0x1f98
-    call aztec_csav                  ; 0x1f9b
+    call $csav                  ; 0x1f9b
     mov ax, 0x2c                     ; 0x1f9e
     imul word [bp + 6]               ; 0x1fa1
     mov si, ax                       ; 0x1fa4
@@ -33,7 +33,7 @@ set_resisted_combatant_state:
     imul word [bp + 6]               ; 0x1fe0
     add ax, party_records + pc_rec.resist ; 0x1fe3
     push ax                          ; 0x1fe6
-    call aztec_movmem                ; 0x1fe7
+    call movmem                ; 0x1fe7
     add sp, byte 6                   ; 0x1fea
 .forward2:
     mov word [bp - 2], 0             ; 0x1fed

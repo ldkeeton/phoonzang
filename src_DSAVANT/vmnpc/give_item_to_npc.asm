@@ -1,7 +1,7 @@
 ; auto-generated
 give_item_to_npc:
     mov ax, 0xffb2                   ; 0x5b74
-    call aztec_csav                  ; 0x5b77
+    call $csav                  ; 0x5b77
     mov ax, word [bp + 6]            ; 0x5b7a
     shl ax, 1                        ; 0x5b7d
     mov bx, ax                       ; 0x5b7f
@@ -109,7 +109,7 @@ give_item_to_npc:
     mov dx, word [bp - 0x36]         ; 0x5c63
     mov cx, 0xa                      ; 0x5c66
     mov bx, 0                        ; 0x5c69
-    call aztec_ldv                   ; 0x5c6c
+    call $ldv                   ; 0x5c6c
     push ax                          ; 0x5c6f
     push dx                          ; 0x5c70
     mov al, byte [npc_level]         ; 0x5c71
@@ -120,7 +120,7 @@ give_item_to_npc:
     mov bx, dx                       ; 0x5c7a
     pop dx                           ; 0x5c7c
     pop ax                           ; 0x5c7d
-    call aztec_ldv                   ; 0x5c7e
+    call $ldv                   ; 0x5c7e
     push dx                          ; 0x5c81
     push ax                          ; 0x5c82
     push word [bp + 4]               ; 0x5c83

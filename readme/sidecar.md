@@ -289,7 +289,8 @@ own list inherits the project-level list.
 "bands": [
   { "name": "game",    "start": "0200", "end": "2f34", "note": "..." },
   { "name": "library", "start": "2f36", "end": "4378" },
-  { "name": "aztec",   "start": "4379", "end": "..." }
+  { "name": "aztec",   "start": "4379", "end": "...", "lib": "c.lib",
+    "objects": { "ovloader": "ovld.o", "$ovbgn": "ovbgn.o" } }
 ]
 ```
 
@@ -298,6 +299,27 @@ The address ranges left by the link line, in link order. `name` is one of
 (`ds/game/x.asm`). `start`/`end` are inclusive file offsets. Bands must be in
 ascending order and must not overlap. Gaps (alignment padding, for example)
 are allowed.
+
+`lib` (on the `aztec` band only) names the compiler library the runtime comes
+from. With it, the runtime is not part of the tree. The `makefile` and
+`build.sh` link Manx's own `C.LIB` last, after any `.rsm`, the way the
+original did. Game code has to call the runtime by Manx's names (`strcpy`,
+not `aztec_strcpy`); the build rejects the `aztec_` spelling, because `C.LIB`
+doesn't define it. The NASM masters still assemble the band byte for byte,
+from fragments written to `.cache/c.lib/` in the tree instead of
+`ds/aztec/`, and every runtime name in the generated asm is spelled as Manx's
+sources spell it: `call strcpy`, `call $csav`, `call _read`. A `$` also
+escapes a name NASM reserves (`call $wait`). An overlay has no bands, so it
+links the library its host does. Without `lib`, the runtime stays in the
+tree as sources, with the generator's `aztec_` names, as before.
+
+`objects` (only with `lib`) names the runtime modules Manx ships as object
+files in its `LIB/` rather than as library members, by the routine each
+holds: here `OVLD.O` (the overlay loader) and `OVBGN.O` (an overlay's
+startup). Nothing can find these from symbols (nothing calls `$ovbgn`), so
+the sidecar says it. Each binary that has the routine links that object in
+its place in the `.lnk` and in `build.sh`'s `OBJECTS`. Overlays use their
+host's `objects`.
 
 ### byte_patches
 

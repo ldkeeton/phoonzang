@@ -1,7 +1,7 @@
 /* Finds a dialog choice whose plain or expanded text matches a prefix. */
 extern int npc_total_choice_count;
-extern int aztec_strlen();
-extern int aztec_strncmp();
+extern int strlen();
+extern int strncmp();
 extern int copy_npc_choice_text_prefix();
 extern int copy_npc_choice_text_expanded();
 extern int mask_string_prefix_with_x();
@@ -20,21 +20,21 @@ int *match_kind;
 		++choice_index) {
 		copy_npc_choice_text_prefix(choice_index, plain_text);
 		copy_npc_choice_text_expanded(choice_index, expanded_text);
-		text_length = aztec_strlen(plain_text);
+		text_length = strlen(plain_text);
 		plain_text[text_length] = ' ';
 		plain_text[text_length + 1] = 0;
-		text_length = aztec_strlen(expanded_text);
+		text_length = strlen(expanded_text);
 		expanded_text[text_length] = ' ';
 		expanded_text[text_length + 1] = 0;
-		if (aztec_strncmp(input, plain_text,
-			aztec_strlen(plain_text)) == 0) {
-			mask_string_prefix_with_x(input, aztec_strlen(plain_text) - 1);
+		if (strncmp(input, plain_text,
+			strlen(plain_text)) == 0) {
+			mask_string_prefix_with_x(input, strlen(plain_text) - 1);
 			*match_kind = 0;
 			return choice_index;
 		}
-		if (aztec_strncmp(input, expanded_text,
-			aztec_strlen(expanded_text)) == 0) {
-			mask_string_prefix_with_x(input, aztec_strlen(expanded_text) - 1);
+		if (strncmp(input, expanded_text,
+			strlen(expanded_text)) == 0) {
+			mask_string_prefix_with_x(input, strlen(expanded_text) - 1);
 			*match_kind = 1;
 			return choice_index;
 		}

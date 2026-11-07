@@ -14,7 +14,7 @@ extern int redraw_glyph_strip(), copy_member_party_record();
 extern int draw_party_member_panel(), close_party_screen();
 extern int titlecase_string(), load_message_string();
 extern int show_centered_message(), wait_ticks_with_events();
-extern int aztec_strcpy(), aztec_strlen();
+extern int strcpy(), strlen();
 
 advance_melee_turn()
 {
@@ -44,9 +44,9 @@ advance_melee_turn()
 					battle_groups[0]->unit[member_index].hp_max;
 				for (status_index = 0; status_index < 10; status_index++)
 					battle_groups[0]->unit[member_index].status[status_index] = 0;
-				aztec_strcpy(message, party_records[member_index].name);
+				strcpy(message, party_records[member_index].name);
 				titlecase_string(message);
-				name_length = aztec_strlen(message);
+				name_length = strlen(message);
 				message[name_length] = ' ';
 				load_message_string(MSG_BLESSED_AGAIN, message + name_length + 1);
 				copy_member_party_record(member_index);

@@ -1,7 +1,7 @@
 ; auto-generated
 titlecase_string:
     mov ax, 0xfffc
-    call aztec_csav
+    call $csav
     mov word [bp - 4], 0x20
     mov word [bp - 2], 0
     jmp short .forward2
@@ -24,7 +24,7 @@ titlecase_string:
     inc word [bp - 2]
 .forward2:
     push word [bp + 4]
-    call aztec_strlen
+    call strlen
     pop cx
     cmp ax, word [bp - 2]
     jg short .back1

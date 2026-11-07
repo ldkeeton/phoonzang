@@ -1,19 +1,19 @@
 ; auto-generated
 draw_split_two_line_text:
     mov ax, 0xffd6
-    call aztec_csav
+    call $csav
     mov ax, 0
     push ax
     mov ax, 0x28
     push ax
     lea ax, word [bp - 0x2a]
     push ax
-    call aztec_setmem
+    call setmem
     add sp, byte 6
     push word [bp + 4]
     lea ax, word [bp - 0x2a]
     push ax
-    call aztec_strcpy
+    call strcpy
     add sp, byte 4
     mov ax, 0x2f
     push ax
@@ -26,7 +26,7 @@ draw_split_two_line_text:
     jne short .forward1
     lea ax, word [bp - 0x2a]
     push ax
-    call aztec_strlen
+    call strlen
     pop cx
     mov word [bp - 2], ax
 .forward1:

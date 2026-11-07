@@ -1,7 +1,7 @@
 ; auto-generated
 draw_padded_number:
     mov ax, 0xff00                   ; 0x04da
-    call aztec_csav                  ; 0x04dd
+    call $csav                  ; 0x04dd
     lea ax, word [bp - 0xff]         ; 0x04e0
     push ax                          ; 0x04e4
     push word [bp + 6]               ; 0x04e5
@@ -11,7 +11,7 @@ draw_padded_number:
 .back1:
     lea ax, word [bp - 0xff]         ; 0x04f1
     push ax                          ; 0x04f5
-    call aztec_strlen                ; 0x04f6
+    call strlen                ; 0x04f6
     pop cx                           ; 0x04f9
     sub ax, word [bp + 8]            ; 0x04fa
     jge short .forward1              ; 0x04fd
@@ -26,7 +26,7 @@ draw_padded_number:
     push word [bp + 0xa]             ; 0x0511
     lea ax, word [bp - 0xff]         ; 0x0514
     push ax                          ; 0x0518
-    call aztec_strlen                ; 0x0519
+    call strlen                ; 0x0519
     pop cx                           ; 0x051c
     sub ax, word [bp + 8]            ; 0x051d
     lea cx, word [bp - 0xff]         ; 0x0520

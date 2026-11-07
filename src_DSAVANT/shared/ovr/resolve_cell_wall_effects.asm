@@ -1,7 +1,7 @@
 ; auto-generated
 resolve_cell_wall_effects:
     mov ax, 0xfff8
-    call aztec_csav
+    call $csav
     cmp word [bp + 0xe], byte 0
     jne short .forward1
     jmp near .forward4

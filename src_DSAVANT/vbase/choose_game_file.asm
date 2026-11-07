@@ -1,7 +1,7 @@
 ; auto-generated
 choose_game_file:
     mov ax, 0xffd8                   ; 0x0ef7
-    call aztec_csav                  ; 0x0efa
+    call $csav                  ; 0x0efa
     mov word [dialog_selection], 0xffff ; 0x0efd
     mov word [bp - 0x28], 0xffff     ; 0x0f03
     mov word [bp - 2], 0x37          ; 0x0f08
@@ -113,7 +113,7 @@ choose_game_file:
     push ax                          ; 0x1006
     lea ax, word [bp - 0x24]         ; 0x1007
     push ax                          ; 0x100a
-    call aztec_strlen                ; 0x100b
+    call strlen                ; 0x100b
     pop cx                           ; 0x100e
     mov cx, ax                       ; 0x100f
     mov ax, 0x11                     ; 0x1011
@@ -139,7 +139,7 @@ choose_game_file:
     push word [bp + 0xc]             ; 0x103e
     mov ax, list_entry_text          ; 0x1041
     push ax                          ; 0x1044
-    call aztec_strcpy                ; 0x1045
+    call strcpy                ; 0x1045
     add sp, byte 4                   ; 0x1048
     mov ax, 1                        ; 0x104b
     push ax                          ; 0x104e
@@ -196,7 +196,7 @@ choose_game_file:
     push ax                          ; 0x10c3
     lea ax, word [bp - 0x24]         ; 0x10c4
     push ax                          ; 0x10c7
-    call aztec_strlen                ; 0x10c8
+    call strlen                ; 0x10c8
     pop cx                           ; 0x10cb
     mov cx, ax                       ; 0x10cc
     mov ax, 0x11                     ; 0x10ce
@@ -222,7 +222,7 @@ choose_game_file:
     push word [bp + 0xe]             ; 0x10fb
     mov ax, filename_edit_buffer     ; 0x10fe
     push ax                          ; 0x1101
-    call aztec_strcpy                ; 0x1102
+    call strcpy                ; 0x1102
     add sp, byte 4                   ; 0x1105
     mov ax, 1                        ; 0x1108
     push ax                          ; 0x110b
@@ -426,7 +426,7 @@ jumptable_14d6_case_0:
     mov ax, list_entry_text          ; 0x12c8
     push ax                          ; 0x12cb
     push word [bp + 0xc]             ; 0x12cc
-    call aztec_strcpy                ; 0x12cf
+    call strcpy                ; 0x12cf
     add sp, byte 4                   ; 0x12d2
     mov ax, 1                        ; 0x12d5
     push ax                          ; 0x12d8
@@ -513,7 +513,7 @@ jumptable_14d6_case_1:
     mov ax, filename_edit_buffer     ; 0x138e
     push ax                          ; 0x1391
     push word [bp + 0xe]             ; 0x1392
-    call aztec_strcpy                ; 0x1395
+    call strcpy                ; 0x1395
     add sp, byte 4                   ; 0x1398
     mov ax, 1                        ; 0x139b
     push ax                          ; 0x139e

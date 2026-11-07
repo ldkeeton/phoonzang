@@ -1,7 +1,7 @@
 ; auto-generated
 build_member_item_list:
     mov ax, 0xffb4                   ; 0x4fea
-    call aztec_csav                  ; 0x4fed
+    call $csav                  ; 0x4fed
     mov word [member_item_count], 0  ; 0x4ff0
     mov word [bp - 2], 0             ; 0x4ff6
 .back1:
@@ -60,7 +60,7 @@ build_member_item_list:
     imul word [member_item_count]    ; 0x5072
     add ax, list_row_name            ; 0x5076
     push ax                          ; 0x5079
-    call aztec_strcpy                ; 0x507a
+    call strcpy                ; 0x507a
     add sp, byte 4                   ; 0x507d
     jmp short .forward3              ; 0x5080
 .forward2:

@@ -9,7 +9,7 @@ extern unsigned char npc_item_list_race_mask[];
 extern unsigned char npc_item_list_gender_mask[];
 extern unsigned char npc_item_list_item_type[];
 extern unsigned char npc_item_list_glyph[];
-extern int aztec_strcpy();
+extern int strcpy();
 
 /* Discard empty rows and clear the unused tail of the list. */
 compact_npc_item_rows()
@@ -21,7 +21,7 @@ compact_npc_item_rows()
 		if (npc_item_list_item_id[row] > 0) {
 			npc_item_list_item_id[npc_item_list_count] =
 				npc_item_list_item_id[row];
-			aztec_strcpy(npc_item_list_name[npc_item_list_count],
+			strcpy(npc_item_list_name[npc_item_list_count],
 				npc_item_list_name[row]);
 			npc_item_list_item_count[npc_item_list_count] =
 				npc_item_list_item_count[row];

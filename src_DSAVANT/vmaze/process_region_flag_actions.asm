@@ -1,7 +1,7 @@
 ; auto-generated
 process_region_flag_actions:
     mov ax, 0xfff2                   ; 0x8448
-    call aztec_csav                  ; 0x844b
+    call $csav                  ; 0x844b
     mov word [bp - 0xe], 1           ; 0x844e
     mov ax, word [party_region]      ; 0x8453
     shl ax, 1                        ; 0x8456

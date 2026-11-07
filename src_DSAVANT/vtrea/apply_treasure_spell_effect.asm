@@ -1,7 +1,7 @@
 ; auto-generated
 apply_treasure_spell_effect:
     mov ax, 0xfff8                   ; 0x4368
-    call aztec_csav                  ; 0x436b
+    call $csav                  ; 0x436b
     mov ax, word [bp + 6]            ; 0x436e
     jmp near .forward37              ; 0x4371
 jumptable_4a7d_case_34:
@@ -748,7 +748,7 @@ apply_treasure_spell_effect.forward36:
     jmp short jumptable_4a7d_case_44 ; 0x4a75
 apply_treasure_spell_effect.forward37:
     mov cx, 0x17                     ; 0x4a77
-    call aztec_cswt                  ; 0x4a7a
+    call $cswt                  ; 0x4a7a
 jumptable_4a7d:
     dw 0x000c                                  ; 0x4a7d ; literal
     dw 0x0011                                  ; 0x4a7f ; literal

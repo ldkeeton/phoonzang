@@ -1,7 +1,7 @@
 ; auto-generated
 kill_combatant:
     mov ax, 0xfffc                   ; 0x1c5e
-    call aztec_csav                  ; 0x1c61
+    call $csav                  ; 0x1c61
     cmp word [bp + 4], byte 0        ; 0x1c64
     jne short .forward1              ; 0x1c68
     jmp near .forward5               ; 0x1c6a

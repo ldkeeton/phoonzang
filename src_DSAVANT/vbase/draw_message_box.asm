@@ -1,7 +1,7 @@
 ; auto-generated
 draw_message_box:
     mov ax, 0xfffc                   ; 0x00b5
-    call aztec_csav                  ; 0x00b8
+    call $csav                  ; 0x00b8
     mov ax, word [bp + 6]            ; 0x00bb
     imul word [bp + 0xe]             ; 0x00be
     add ax, word [bp + 0xa]          ; 0x00c1
@@ -57,7 +57,7 @@ draw_message_box:
     add ax, strict word 9            ; 0x0143
     push ax                          ; 0x0146
     push word [bp + 4]               ; 0x0147
-    call aztec_strlen                ; 0x014a
+    call strlen                ; 0x014a
     pop cx                           ; 0x014d
     mov cx, ax                       ; 0x014e
     mov ax, word [bp + 0xc]          ; 0x0150

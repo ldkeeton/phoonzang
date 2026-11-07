@@ -1,7 +1,7 @@
 ; auto-generated
 compact_npc_item_rows:
     mov ax, 0xfffc                   ; 0x5371
-    call aztec_csav                  ; 0x5374
+    call $csav                  ; 0x5374
     mov word [npc_item_list_count], 0 ; 0x5377
     mov word [bp - 2], 0             ; 0x537d
 .back1:
@@ -25,7 +25,7 @@ compact_npc_item_rows:
     imul word [npc_item_list_count]  ; 0x53b0
     add ax, npc_item_list_name       ; 0x53b4
     push ax                          ; 0x53b7
-    call aztec_strcpy                ; 0x53b8
+    call strcpy                ; 0x53b8
     add sp, byte 4                   ; 0x53bb
     mov ax, word [bp - 2]            ; 0x53be
     shl ax, 1                        ; 0x53c1

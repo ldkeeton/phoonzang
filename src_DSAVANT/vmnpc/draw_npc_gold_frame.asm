@@ -1,7 +1,7 @@
 ; auto-generated
 draw_npc_gold_frame:
     mov ax, 0xffac                   ; 0x0d46
-    call aztec_csav                  ; 0x0d49
+    call $csav                  ; 0x0d49
     mov ax, 1                        ; 0x0d4c
     push ax                          ; 0x0d4f
     call redraw_area_set             ; 0x0d50

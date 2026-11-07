@@ -1,7 +1,7 @@
 ; auto-generated
 draw_saved_text_area:
     mov ax, 0xfffc                   ; 0x10c9
-    call aztec_csav                  ; 0x10cc
+    call $csav                  ; 0x10cc
     push word [bp + 0xa]             ; 0x10cf
     push word [bp + 8]               ; 0x10d2
     push word [bp + 6]               ; 0x10d5

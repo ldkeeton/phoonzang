@@ -1,7 +1,7 @@
 ; auto-generated
 load_message_string:
     mov ax, 0xfef6                   ; 0x0782
-    call aztec_csav                  ; 0x0785
+    call $csav                  ; 0x0785
     push word [bp + 4]               ; 0x0788
     call find_message_record         ; 0x078b
     pop cx                           ; 0x078e
@@ -57,7 +57,7 @@ load_message_string:
     mov ax, word [bp - 2]            ; 0x0807
     add ax, message_block_buffer     ; 0x080a
     push ax                          ; 0x080d
-    call aztec_movmem                ; 0x080e
+    call movmem                ; 0x080e
     add sp, byte 6                   ; 0x0811
     mov ax, 0x400                    ; 0x0814
     sub ax, word [bp - 2]            ; 0x0817
@@ -75,7 +75,7 @@ load_message_string:
     mov ax, word [bp - 2]            ; 0x0834
     add ax, message_block_buffer     ; 0x0837
     push ax                          ; 0x083a
-    call aztec_movmem                ; 0x083b
+    call movmem                ; 0x083b
     add sp, byte 6                   ; 0x083e
     mov bx, word [bp - 6]            ; 0x0841
     add bx, bp                       ; 0x0844

@@ -1,7 +1,7 @@
 ; auto-generated
 play_maze_sound_effect:
     mov ax, 0                        ; 0x6ac7
-    call aztec_csav                  ; 0x6aca
+    call $csav                  ; 0x6aca
     cmp word [bp + 4], byte 0        ; 0x6acd
     jle short .return1               ; 0x6ad1
     mov ax, word [bp + 4]            ; 0x6ad3

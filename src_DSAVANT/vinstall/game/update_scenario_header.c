@@ -1,14 +1,14 @@
 /* Write the setup choices into the game's SCENARIO.HDR. */
 #include "structs/loadrec.h"
 
-extern int aztec_strcpy();
-extern int aztec_strcat();
-extern int aztec_open();
-extern int aztec_lseek();
-extern int aztec_read();
-extern int aztec_write();
-extern int aztec_close();
-extern int aztec_strlen();
+extern int strcpy();
+extern int strcat();
+extern int open();
+extern int lseek();
+extern int read();
+extern int write();
+extern int close();
+extern int strlen();
 extern int show_message_wait_for_enter();
 
 extern char scenario_header_name[];
@@ -43,25 +43,25 @@ int version;
 	char error_message[80];
 
 	/* Open game_dir + SCENARIO.HDR for update. */
-	aztec_strcpy(header_path, game_dir);
-	aztec_strcat(header_path, scenario_header_name);
+	strcpy(header_path, game_dir);
+	strcat(header_path, scenario_header_name);
 	/* Open mode 2 is used here before reading and rewriting the record. */
-	scenario_header_handle = aztec_open(header_path, 2);
+	scenario_header_handle = open(header_path, 2);
 	if (scenario_header_handle == -1) {
-		aztec_strcpy(error_message, header_open_error_prefix);
-		aztec_strcat(error_message, header_path);
-		aztec_strcat(error_message, header_open_error_suffix);
+		strcpy(error_message, header_open_error_prefix);
+		strcat(error_message, header_path);
+		strcat(error_message, header_open_error_suffix);
 		show_message_wait_for_enter(error_message);
 		return 1;
 	}
 
 	/* Read the saved record, then reject a different install version. */
-	aztec_lseek(scenario_header_handle, 0L, 0);
+	lseek(scenario_header_handle, 0L, 0);
 	/* The SCENARIO.HDR record is 0x34c bytes long. */
-	aztec_read(scenario_header_handle, &scenario_header_record, 844);
+	read(scenario_header_handle, &scenario_header_record, 844);
 	if (version != scenario_header_record.install_version) {
 		show_message_wait_for_enter(install_version_mismatch_error);
-		aztec_close(scenario_header_handle);
+		close(scenario_header_handle);
 		return 1;
 	}
 
@@ -70,7 +70,7 @@ int version;
 	scenario_header_record.hardware = graphics_choice;
 	scenario_header_record.store_one = ems_choice;
 	scenario_header_record.store_disk = ramdisk_choice;
-	aztec_strcpy(scenario_header_record.store_drive,
+	strcpy(scenario_header_record.store_drive,
 		ram_name_text);
 	scenario_header_record.palette_base = brightness;
 	scenario_header_record.palette_scale = contrast;
@@ -96,22 +96,22 @@ int version;
 	}
 	scenario_header_record.option_b = mouse_choice == 0 ? 0 : 1;
 	scenario_header_record.install = layout_code;
-	aztec_strcpy(scenario_header_record.paths[0],
+	strcpy(scenario_header_record.paths[0],
 		game_dir);
-	aztec_strcpy(scenario_header_record.paths[2],
+	strcpy(scenario_header_record.paths[2],
 		game_dir);
 	/* Disk layout 5 (360k floppies) also records the destination path. */
 	if (layout_code == 5) {
-		aztec_strcpy(scenario_header_record.paths[1], dest_path);
-		aztec_strcat(scenario_header_record.paths[1],
+		strcpy(scenario_header_record.paths[1], dest_path);
+		strcat(scenario_header_record.paths[1],
 			disk_layout_5_path_separator);
 		scenario_header_record.option_c = 1;
 	}
-	aztec_strcpy(scenario_header_record.paths[3],
+	strcpy(scenario_header_record.paths[3],
 		savegame_filename);
 	/* Return to the beginning before replacing the complete record. */
-	aztec_lseek(scenario_header_handle, 0L, 0);
-	aztec_write(scenario_header_handle, &scenario_header_record, 844);
-	aztec_close(scenario_header_handle);
+	lseek(scenario_header_handle, 0L, 0);
+	write(scenario_header_handle, &scenario_header_record, 844);
+	close(scenario_header_handle);
 	return 0;
 }

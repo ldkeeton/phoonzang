@@ -25,7 +25,7 @@ copy_protection_prompt()
 	call_set_text_color(28, 0);
 	load_message_string(MSG_SECURITY_CLEARANCE, message);	/* heading */
 	/* 21 glyph cells 6 px wide; the +2 rounds to the nearer cell */
-	call_set_text_pos(((21 - aztec_strlen(message)) * 6 + 2) / 2 + box_x0 + 41,
+	call_set_text_pos(((21 - strlen(message)) * 6 + 2) / 2 + box_x0 + 41,
 		box_y0 + 5);
 	draw_text_glyphs(message, 0);
 	call_set_text_color(1, 194);
@@ -33,14 +33,14 @@ copy_protection_prompt()
 	format_int_decimal(code_characters[code_index_1],
 		clue);	/* first clue character */
 	str_subst_char(message, clue, '$');
-	call_set_text_pos(((21 - aztec_strlen(message)) * 6 + 2) / 2 + box_x0 + 41,
+	call_set_text_pos(((21 - strlen(message)) * 6 + 2) / 2 + box_x0 + 41,
 		box_y0 + 15);
 	draw_text_glyphs(message, 0);
 	load_message_string(MSG_MANUAL_AND_ENTER_THE_WORD, message);
 	load_message_string(MSG_ORDINAL_BASE + code_characters[code_index_4],
 		clue);	/* word chosen by the fourth clue character */
 	str_subst_char(message, clue, '$');
-	call_set_text_pos(((21 - aztec_strlen(message)) * 6 + 2) / 2 + box_x0 + 41,
+	call_set_text_pos(((21 - strlen(message)) * 6 + 2) / 2 + box_x0 + 41,
 		box_y0 + 21);
 	draw_text_glyphs(message, 0);
 	load_message_string(MSG_LOCATED_IN_PARAGRAPH_LINE, message);
@@ -50,7 +50,7 @@ copy_protection_prompt()
 	format_int_decimal(code_characters[code_index_3],
 		clue);	/* third clue character */
 	str_subst_char(message, clue, '%');
-	call_set_text_pos(((21 - aztec_strlen(message)) * 6 + 2) / 2 + box_x0 + 41,
+	call_set_text_pos(((21 - strlen(message)) * 6 + 2) / 2 + box_x0 + 41,
 		box_y0 + 27);
 	draw_text_glyphs(message, 0);
 	list_entry_text[0] = 0;	/* name buffer doubles as entry buffer */
@@ -69,6 +69,6 @@ copy_protection_prompt()
 	call_show_area(box_x0 + 41, box_y0 + 40, box_x0 + 169, box_y0 + 47);
 	restore_saved_screen(saved_area, 1);
 	call_show_area(box_x0 - 1, box_y0 - 1, box_x1 + 1, box_y1 + 1);
-	aztec_strcpy(answer_word,
+	strcpy(answer_word,
 		list_entry_text);	/* leave the answer where the caller checks it */
 }

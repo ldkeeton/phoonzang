@@ -7,7 +7,7 @@
 extern unsigned char message_block_buffer[];	/* 0x400-byte working block */
 extern int message_block_current;
 extern int message_not_found;				/* message-not-found word */
-extern find_message_record(), load_message_block(), aztec_movmem(),
+extern find_message_record(), load_message_block(), movmem(),
 	unpack_record();
 
 load_message_string(number, dest)
@@ -38,13 +38,13 @@ char *dest;
 	count = length;
 	out = text;
 	if (offset + count > 1024) {	/* text continues in the next block */
-		aztec_movmem(message_block_buffer + offset, out, 1024 - offset);
+		movmem(message_block_buffer + offset, out, 1024 - offset);
 		count -= 1024 - offset;
 		out += 1024 - offset;
 		load_message_block(message_block_current + 1);
 		offset = 0;
 	}
-	aztec_movmem(message_block_buffer + offset, out, count);
+	movmem(message_block_buffer + offset, out, count);
 	text[length] = 0;
 	unpack_record(text, dest);
 	message_not_found = 0;

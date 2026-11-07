@@ -1,7 +1,7 @@
 ; auto-generated
 allocate_member_skill_bonus:
     mov ax, 0xff78                   ; 0x3f9e
-    call aztec_csav                  ; 0x3fa1
+    call $csav                  ; 0x3fa1
     mov word [bp - 2], 0             ; 0x3fa4
 .back1:
     mov ax, 0x248                    ; 0x3fa9

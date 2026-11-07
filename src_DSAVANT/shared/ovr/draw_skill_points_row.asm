@@ -1,7 +1,7 @@
 ; auto-generated
 draw_skill_points_row:
     mov ax, 0xffd2
-    call aztec_csav
+    call $csav
     mov ax, 0
     push ax
     mov ax, 0x16
@@ -77,7 +77,7 @@ draw_skill_points_row:
     lea cx, word [bp - 0x2e]
     add ax, cx
     push ax
-    call aztec_strlen
+    call strlen
     pop cx
     add word [bp - 4], ax
     inc word [bp - 2]
@@ -104,7 +104,7 @@ draw_skill_points_row:
     lea cx, word [bp - 0x2e]
     add ax, cx
     push ax
-    call aztec_strlen
+    call strlen
     pop cx
     cmp ax, strict word 0
     jle short .forward8

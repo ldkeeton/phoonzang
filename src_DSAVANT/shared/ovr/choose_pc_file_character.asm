@@ -1,7 +1,7 @@
 ; auto-generated
 choose_pc_file_character:
     mov ax, 0xfd40
-    call aztec_csav
+    call $csav
     mov word [bp - 8], 0
     mov word [bp - 2], 0
     jmp near .forward4
@@ -24,13 +24,13 @@ choose_pc_file_character:
     imul word [bp - 8]
     add ax, list_entry_text
     push ax
-    call aztec_strcpy
+    call strcpy
     add sp, byte 4
     mov ax, 0x14
     imul word [bp - 8]
     add ax, list_entry_text
     push ax
-    call aztec_strlen
+    call strlen
     pop cx
     mov word [bp - 4], ax
 .back2:

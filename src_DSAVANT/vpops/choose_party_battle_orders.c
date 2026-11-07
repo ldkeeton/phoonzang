@@ -8,7 +8,7 @@ extern struct member_rec *battle_groups[];
 extern int party_char_count, monster_group_count;
 extern int range_max_target_group[4];
 extern char unit_targeted[][9];
-extern int load_message_string(), random_below(), aztec_setmem();
+extern int load_message_string(), random_below(), setmem();
 extern int member_is_active(), flush_keyboard(), redraw_area_set();
 extern int draw_monster_group_rows(), draw_centered_text_at_x();
 extern int select_party_menu_target(), test_bit(), pick_spell_action();
@@ -88,7 +88,7 @@ choose_party_battle_orders()
 	}
 
 	/* Clear per-member target marks and gather the active party order. */
-	aztec_setmem(unit_targeted, 45, 0);
+	setmem(unit_targeted, 45, 0);
 	active_party_count = 0;
 	flush_keyboard();
 	party_index = 0;
@@ -282,7 +282,7 @@ choose_party_battle_orders()
 				case 9:
 					/* Step back one member: re-mark the targets chosen before it
 					   (target_group doubles as the party index here). */
-					aztec_setmem(unit_targeted, 45, 0);
+					setmem(unit_targeted, 45, 0);
 					for (target_group = 0; target_group < party_index - 1;
 						target_group++) {
 						if (battle_groups[0]->unit[target_group].target_group > 0)
@@ -296,7 +296,7 @@ choose_party_battle_orders()
 					break;
 				case 10:
 					/* Start over from the first member. */
-					aztec_setmem(unit_targeted, 45, 0);
+					setmem(unit_targeted, 45, 0);
 					party_index = -1;
 					reset_orders = 1;
 					active_party_count = 0;
@@ -391,7 +391,7 @@ choose_party_battle_orders()
 			if (working_value == 1) {
 				/* Back: re-mark targets and reopen the last active member
 				   (target_group doubles as the party index here). */
-				aztec_setmem(unit_targeted, 45, 0);
+				setmem(unit_targeted, 45, 0);
 				for (target_group = 0;
 					target_group < party_char_count - 1; target_group++) {
 					if (battle_groups[0]->unit[target_group].target_group > 0)

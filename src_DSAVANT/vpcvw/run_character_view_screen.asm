@@ -1,7 +1,7 @@
 ; auto-generated
 run_character_view_screen:
     mov ax, 0xffec                   ; 0x616c
-    call aztec_csav                  ; 0x616f
+    call $csav                  ; 0x616f
     mov ax, word [party_return_state] ; 0x6172
     mov word [game_state], ax        ; 0x6175
     mov word [banner_offset], 0x14   ; 0x6178

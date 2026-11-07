@@ -1,7 +1,7 @@
 ; auto-generated
 split_counted_item_stack:
     mov ax, 0xfff2                   ; 0x4505
-    call aztec_csav                  ; 0x4508
+    call $csav                  ; 0x4508
     mov bx, word [bp + 4]            ; 0x450b
     mov al, byte [bx + 4]            ; 0x450e
     sub ah, ah                       ; 0x4511
@@ -15,11 +15,11 @@ split_counted_item_stack:
     push ax                          ; 0x4528
     push word [bp + 6]               ; 0x4529
     push bx                          ; 0x452c
-    call aztec_movmem                ; 0x452d
+    call movmem                ; 0x452d
     add sp, byte 6                   ; 0x4530
     push word [bp + 8]               ; 0x4533
     push word [bp + 0xa]             ; 0x4536
-    call aztec_strcpy                ; 0x4539
+    call strcpy                ; 0x4539
     add sp, byte 4                   ; 0x453c
     mov bx, word [bp + 4]            ; 0x453f
     mov al, byte [bx + 6]            ; 0x4542

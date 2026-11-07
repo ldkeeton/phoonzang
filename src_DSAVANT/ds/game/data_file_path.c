@@ -12,6 +12,6 @@ char *name;
 	alt = install_mode == 5 && alt == 1 ? 1 : 0;
 	/* keep the prefix only through its drive colon */
 	copy_through_char(data_path_buf, data_path_prefixes[alt], ':');
-	aztec_strcat(data_path_buf, name);
+	strcat(data_path_buf, name);
 	return data_path_buf;
 }

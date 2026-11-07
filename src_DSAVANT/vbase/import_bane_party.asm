@@ -1,7 +1,7 @@
 ; auto-generated
 import_bane_party:
     mov ax, 0xff8e                   ; 0x1faf
-    call aztec_csav                  ; 0x1fb2
+    call $csav                  ; 0x1fb2
     mov word [bp - 0xe], 0           ; 0x1fb5
     mov ax, word [disk_header]       ; 0x1fba
     mov word [bp - 0x10], ax         ; 0x1fbd
@@ -36,13 +36,13 @@ import_bane_party:
     push ax                          ; 0x1ffd
     lea ax, word [bp - 0x36]         ; 0x1ffe
     push ax                          ; 0x2001
-    call aztec_strcpy                ; 0x2002
+    call strcpy                ; 0x2002
     add sp, byte 4                   ; 0x2005
     mov ax, selected_game_directory  ; 0x2008
     push ax                          ; 0x200b
     lea ax, word [bp - 0x4a]         ; 0x200c
     push ax                          ; 0x200f
-    call aztec_strcpy                ; 0x2010
+    call strcpy                ; 0x2010
     add sp, byte 4                   ; 0x2013
     mov word [bp - 0x12], 1          ; 0x2016
     lea ax, word [bp - 0x36]         ; 0x201b
@@ -83,17 +83,17 @@ import_bane_party:
     push ax                          ; 0x2066
     mov ax, game_load_path           ; 0x2067
     push ax                          ; 0x206a
-    call aztec_strcpy                ; 0x206b
+    call strcpy                ; 0x206b
     add sp, byte 4                   ; 0x206e
     mov ax, game_load_path           ; 0x2071
     push ax                          ; 0x2074
-    call aztec_strlen                ; 0x2075
+    call strlen                ; 0x2075
     pop cx                           ; 0x2078
     cmp ax, strict word 0            ; 0x2079
     jle short .forward4              ; 0x207c
     mov ax, game_load_path           ; 0x207e
     push ax                          ; 0x2081
-    call aztec_strlen                ; 0x2082
+    call strlen                ; 0x2082
     pop cx                           ; 0x2085
     dec ax                           ; 0x2086
     mov word [bp - 2], ax            ; 0x2087
@@ -107,7 +107,7 @@ import_bane_party:
     push ax                          ; 0x20a0
     mov ax, game_load_path           ; 0x20a1
     push ax                          ; 0x20a4
-    call aztec_strcat                ; 0x20a5
+    call strcat                ; 0x20a5
     add sp, byte 4                   ; 0x20a8
     cmp byte [install_mode], 1       ; 0x20ab
     jne short .forward5              ; 0x20b0
@@ -115,7 +115,7 @@ import_bane_party:
     push ax                          ; 0x20b5
     mov ax, game_data_drive          ; 0x20b6
     push ax                          ; 0x20b9
-    call aztec_strcmp                ; 0x20ba
+    call strcmp                ; 0x20ba
     add sp, byte 4                   ; 0x20bd
     test ax, ax                      ; 0x20c0
     jne short .forward5              ; 0x20c2
@@ -123,7 +123,7 @@ import_bane_party:
 .forward5:
     mov ax, selected_game_drive      ; 0x20c7
     push ax                          ; 0x20ca
-    call aztec_strlen                ; 0x20cb
+    call strlen                ; 0x20cb
     pop cx                           ; 0x20ce
     cmp ax, strict word 0            ; 0x20cf
     jle short .forward9              ; 0x20d2
@@ -131,7 +131,7 @@ import_bane_party:
     push ax                          ; 0x20d7
     mov ax, game_data_drive          ; 0x20d8
     push ax                          ; 0x20db
-    call aztec_strcmp                ; 0x20dc
+    call strcmp                ; 0x20dc
     add sp, byte 4                   ; 0x20df
     test ax, ax                      ; 0x20e2
     je short .forward6               ; 0x20e4
@@ -205,7 +205,7 @@ import_bane_party:
     push ax                          ; 0x2180
     mov ax, game_load_path           ; 0x2181
     push ax                          ; 0x2184
-    call aztec_open                  ; 0x2185
+    call open                  ; 0x2185
     add sp, byte 4                   ; 0x2188
     mov word [bp - 0xa], ax          ; 0x218b
     cmp ax, strict word 0xffff       ; 0x218e
@@ -235,14 +235,14 @@ import_bane_party:
     push dx                          ; 0x21c3
     push ax                          ; 0x21c4
     push word [bp - 0xa]             ; 0x21c5
-    call aztec_lseek                 ; 0x21c8
+    call lseek                 ; 0x21c8
     add sp, byte 8                   ; 0x21cb
     mov ax, 0x19e                    ; 0x21ce
     push ax                          ; 0x21d1
     mov ax, bane_header_buffer       ; 0x21d2
     push ax                          ; 0x21d5
     push word [bp - 0xa]             ; 0x21d6
-    call aztec_read                  ; 0x21d9
+    call read                  ; 0x21d9
     add sp, byte 6                   ; 0x21dc
     mov word [bp - 0xc], ax          ; 0x21df
     cmp ax, strict word 0            ; 0x21e2
@@ -252,7 +252,7 @@ import_bane_party:
     call show_load_disk_error        ; 0x21eb
     pop cx                           ; 0x21ee
     push word [bp - 0xa]             ; 0x21ef
-    call aztec_close                 ; 0x21f2
+    call close                 ; 0x21f2
     pop cx                           ; 0x21f5
     cmp word [bp - 0xe], byte 0      ; 0x21f6
     je short .forward14              ; 0x21fa
@@ -270,7 +270,7 @@ import_bane_party:
 .forward15:
     mov ax, 0x6d6                    ; 0x2214
     push ax                          ; 0x2217
-    call aztec_malloc                ; 0x2218
+    call malloc                ; 0x2218
     pop cx                           ; 0x221b
     mov word [bane_import_buffer], ax ; 0x221c
     cmp word [bane_import_buffer], byte 0 ; 0x221f
@@ -286,20 +286,20 @@ import_bane_party:
     push ax                          ; 0x2236
     push word [bane_import_buffer]   ; 0x2237
     push word [bp - 0xa]             ; 0x223b
-    call aztec_read                  ; 0x223e
+    call read                  ; 0x223e
     add sp, byte 6                   ; 0x2241
     mov word [bp - 0xc], ax          ; 0x2244
     cmp ax, strict word 0            ; 0x2247
     jg short .forward18              ; 0x224a
     push word [bane_import_buffer]   ; 0x224c
-    call aztec_free                  ; 0x2250
+    call free                  ; 0x2250
     pop cx                           ; 0x2253
     lea ax, word [bp - 0x5e]         ; 0x2254
     push ax                          ; 0x2257
     call show_load_disk_error        ; 0x2258
     pop cx                           ; 0x225b
     push word [bp - 0xa]             ; 0x225c
-    call aztec_close                 ; 0x225f
+    call close                 ; 0x225f
     pop cx                           ; 0x2262
     cmp word [bp - 0xe], byte 0      ; 0x2263
     je short .forward17              ; 0x2267
@@ -319,20 +319,20 @@ import_bane_party:
     push ax                          ; 0x2284
     push word [bane_import_buffer]   ; 0x2285
     push word [bp - 0xa]             ; 0x2289
-    call aztec_read                  ; 0x228c
+    call read                  ; 0x228c
     add sp, byte 6                   ; 0x228f
     mov word [bp - 0xc], ax          ; 0x2292
     cmp ax, strict word 0            ; 0x2295
     jg short .forward20              ; 0x2298
     push word [bane_import_buffer]   ; 0x229a
-    call aztec_free                  ; 0x229e
+    call free                  ; 0x229e
     pop cx                           ; 0x22a1
     lea ax, word [bp - 0x5e]         ; 0x22a2
     push ax                          ; 0x22a5
     call show_load_disk_error        ; 0x22a6
     pop cx                           ; 0x22a9
     push word [bp - 0xa]             ; 0x22aa
-    call aztec_close                 ; 0x22ad
+    call close                 ; 0x22ad
     pop cx                           ; 0x22b0
     cmp word [bp - 0xe], byte 0      ; 0x22b1
     je short .forward19              ; 0x22b5
@@ -355,14 +355,14 @@ import_bane_party:
     jmp near .back1                  ; 0x22da
 .forward21:
     push word [bane_import_buffer]   ; 0x22dd
-    call aztec_free                  ; 0x22e1
+    call free                  ; 0x22e1
     pop cx                           ; 0x22e4
     mov ax, 0x42                     ; 0x22e5
     push ax                          ; 0x22e8
     mov ax, bane_section_header      ; 0x22e9
     push ax                          ; 0x22ec
     push word [bp - 0xa]             ; 0x22ed
-    call aztec_read                  ; 0x22f0
+    call read                  ; 0x22f0
     add sp, byte 6                   ; 0x22f3
     mov word [bp - 0xc], ax          ; 0x22f6
     cmp ax, strict word 0            ; 0x22f9
@@ -372,7 +372,7 @@ import_bane_party:
     call show_load_disk_error        ; 0x2302
     pop cx                           ; 0x2305
     push word [bp - 0xa]             ; 0x2306
-    call aztec_close                 ; 0x2309
+    call close                 ; 0x2309
     pop cx                           ; 0x230c
     cmp word [bp - 0xe], byte 0      ; 0x230d
     je short .forward22              ; 0x2311
@@ -397,7 +397,7 @@ import_bane_party:
     mov ax, bane_character_record    ; 0x233d
     push ax                          ; 0x2340
     push word [bp - 0xa]             ; 0x2341
-    call aztec_read                  ; 0x2344
+    call read                  ; 0x2344
     add sp, byte 6                   ; 0x2347
     mov word [bp - 0xc], ax          ; 0x234a
     cmp ax, strict word 0            ; 0x234d
@@ -407,7 +407,7 @@ import_bane_party:
     call show_load_disk_error        ; 0x2356
     pop cx                           ; 0x2359
     push word [bp - 0xa]             ; 0x235a
-    call aztec_close                 ; 0x235d
+    call close                 ; 0x235d
     pop cx                           ; 0x2360
     cmp word [bp - 0xe], byte 0      ; 0x2361
     je short .forward24              ; 0x2365
@@ -446,7 +446,7 @@ import_bane_party:
     mov ax, bane_character_record    ; 0x23b3
     push ax                          ; 0x23b6
     push word [bp - 0x14]            ; 0x23b7
-    call aztec_strcpy                ; 0x23ba
+    call strcpy                ; 0x23ba
     add sp, byte 4                   ; 0x23bd
     mov ax, word [bane_character_value_a] ; 0x23c0
     mov dx, word [bane_character_value_b] ; 0x23c3
@@ -1460,7 +1460,7 @@ import_bane_party.forward76:
     jmp near import_bane_party.back2 ; 0x2dbe
 import_bane_party.forward77:
     push word [bp - 0xa]             ; 0x2dc1
-    call aztec_close                 ; 0x2dc4
+    call close                 ; 0x2dc4
     pop cx                           ; 0x2dc7
     mov word [bp - 0x1a], 0xffff     ; 0x2dc8
     mov word [bp - 4], 0             ; 0x2dcd

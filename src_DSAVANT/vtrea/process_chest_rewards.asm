@@ -1,7 +1,7 @@
 ; auto-generated
 process_chest_rewards:
     mov ax, 0xfe5c                   ; 0x5789
-    call aztec_csav                  ; 0x578c
+    call $csav                  ; 0x578c
     mov ax, 0                        ; 0x578f
     push ax                          ; 0x5792
     push word [selected_item_record] ; 0x5793
@@ -269,7 +269,7 @@ process_chest_rewards:
     mov bx, dx                       ; 0x5a0b
     pop dx                           ; 0x5a0d
     pop ax                           ; 0x5a0e
-    call aztec_ldv                   ; 0x5a0f
+    call $ldv                   ; 0x5a0f
     mov word [bp - 0x86], dx         ; 0x5a12
     mov word [bp - 0x88], ax         ; 0x5a16
     push word [mouse_pointer_shape_seg] ; 0x5a1a
@@ -319,7 +319,7 @@ process_chest_rewards:
     imul word [bp - 2]               ; 0x5a8b
     add ax, list_row_name            ; 0x5a8e
     push ax                          ; 0x5a91
-    call aztec_strcpy                ; 0x5a92
+    call strcpy                ; 0x5a92
     add sp, byte 4                   ; 0x5a95
     jmp short .forward21             ; 0x5a98
 .forward20:
@@ -340,7 +340,7 @@ process_chest_rewards:
     push ax                          ; 0x5abc
     lea ax, word [bp - 0x1a4]        ; 0x5abd
     push ax                          ; 0x5ac1
-    call aztec_strcpy                ; 0x5ac2
+    call strcpy                ; 0x5ac2
     add sp, byte 4                   ; 0x5ac5
     lea ax, word [bp - 0x1a4]        ; 0x5ac8
     push ax                          ; 0x5acc
@@ -398,7 +398,7 @@ process_chest_rewards:
     push ax                          ; 0x5b4d
     lea ax, word [bp - 0x104]        ; 0x5b4e
     push ax                          ; 0x5b52
-    call aztec_strcpy                ; 0x5b53
+    call strcpy                ; 0x5b53
     add sp, byte 4                   ; 0x5b56
     lea ax, word [bp - 0x154]        ; 0x5b59
     push ax                          ; 0x5b5d
@@ -443,7 +443,7 @@ process_chest_rewards:
     je short .forward32              ; 0x5bbb
     lea ax, word [bp - 0x104]        ; 0x5bbd
     push ax                          ; 0x5bc1
-    call aztec_strlen                ; 0x5bc2
+    call strlen                ; 0x5bc2
     pop cx                           ; 0x5bc5
     mov word [bp - 4], ax            ; 0x5bc6
     mov al, byte [bp - 0x4a]         ; 0x5bc9

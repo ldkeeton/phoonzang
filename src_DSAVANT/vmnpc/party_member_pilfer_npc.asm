@@ -1,7 +1,7 @@
 ; auto-generated
 party_member_pilfer_npc:
     mov ax, 0xffa2                   ; 0x5fd0
-    call aztec_csav                  ; 0x5fd3
+    call $csav                  ; 0x5fd3
     mov ax, 0x248                    ; 0x5fd6
     imul word [bp + 4]               ; 0x5fd9
     mov bx, ax                       ; 0x5fdc

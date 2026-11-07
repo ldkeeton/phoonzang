@@ -1,7 +1,7 @@
 ; auto-generated
 apply_status_to_battle_side:
     mov ax, 0xfffe                   ; 0x2d6b
-    call aztec_csav                  ; 0x2d6e
+    call $csav                  ; 0x2d6e
     mov word [combat_message_layout], 2 ; 0x2d71
     cmp word [bp + 4], byte 0        ; 0x2d77
     jle short .forward2              ; 0x2d7b

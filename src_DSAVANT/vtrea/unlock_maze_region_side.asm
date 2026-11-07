@@ -1,7 +1,7 @@
 ; auto-generated
 unlock_maze_region_side:
     mov ax, 0                        ; 0x6f41
-    call aztec_csav                  ; 0x6f44
+    call $csav                  ; 0x6f44
     mov ax, word [party_facing]      ; 0x6f47
     shl ax, 1                        ; 0x6f4a
     mov bx, ax                       ; 0x6f4c

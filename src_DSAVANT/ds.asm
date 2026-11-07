@@ -30,13 +30,13 @@ IMAGE_BASE equ 0x0200 + VBASE
     dw __zdseg_para                               ; 0x0ff6 ; e_ss: initial stack segment, relative to load module
     dw __zstack_top - __zdseg_start               ; 0xf198 ; e_sp: initial stack pointer
     dw 0x0000                                     ; e_csum: file checksum (often unused)
-    dw aztec_begin - IMAGE_BASE                   ; 0x4b3a ; e_ip: initial instruction pointer
+    dw $begin - IMAGE_BASE                   ; 0x4b3a ; e_ip: initial instruction pointer
     dw 0x0000                                     ; e_cs: initial code segment, relative to load module
     dw 0x0020                                     ; e_lfarlc: file offset of relocation table
     dw 0x0000                                     ; e_ovno: overlay number (0 for main executable)
 
     times 4 db 0
-    dw __zinsn_aztec_begin + 0x1 - IMAGE_BASE, 0x0000 ; 0x4b3b ; relocation: segment word DOS patches
+    dw __zinsn_begin + 0x1 - IMAGE_BASE, 0x0000 ; 0x4b3b ; relocation: segment word DOS patches
     times 476 db 0
 %endif
 
@@ -119,7 +119,7 @@ dseg_0c42 equ __zdseg_0c42 - __zdseg_start
 dseg_0c48 equ __zdseg_0c48 - __zdseg_start
 dseg_0c4d equ __zdseg_0c4d - __zdseg_start
 endmarker equ __zendmarker - __zdseg_start
-aztec_MEMRY equ __zaztec_MEMRY - __zdseg_start
+$MEMRY equ __zMEMRY - __zdseg_start
 errno equ __zerrno - __zdseg_start
 _dsval equ __z_dsval - __zdseg_start
 _csval equ __z_csval - __zdseg_start
@@ -130,8 +130,8 @@ _lowwater equ __z_lowwater - __zdseg_start
 _PSP equ __z_PSP - __zdseg_start
 bad8087 equ __zbad8087 - __zdseg_start
 cls_ equ __zcls_ - __zdseg_start
-aztec_croot_empty_str equ __zaztec_croot_empty_str - __zdseg_start
-aztec_croot_too_many_args equ __zaztec_croot_too_many_args - __zdseg_start
+croot_empty_str equ __zcroot_empty_str - __zdseg_start
+croot_too_many_args equ __zcroot_too_many_args - __zdseg_start
 dseg_0cae equ __zdseg_0cae - __zdseg_start
 _STKSIZ equ __z_STKSIZ - __zdseg_start
 _STKRED equ __z_STKRED - __zdseg_start
@@ -143,7 +143,7 @@ ioflg_stderr equ __zioflg_stderr - __zdseg_start
 _ttrd equ __z_ttrd - __zdseg_start
 _ttwr equ __z_ttwr - __zdseg_start
 _Eol equ __z_Eol - __zdseg_start
-aztec_tty_wr_crbuf equ __zaztec_tty_wr_crbuf - __zdseg_start
+tty_wr_crbuf equ __ztty_wr_crbuf - __zdseg_start
 _Uorg equ __zsaved_word - __zdseg_start
 saved_word equ __zsaved_word - __zdseg_start
 saved_pair equ __zsaved_pair - __zdseg_start
@@ -154,8 +154,8 @@ current equ __zcurrent - __zdseg_start
 first equ __zfirst - __zdseg_start
 Argc equ __zArgc - __zdseg_start
 Argv equ __zArgv - __zdseg_start
-aztec_tty_rd_buffer equ __zaztec_tty_rd_buffer - __zdseg_start
-aztec_tty_rd_bp equ __zaztec_tty_rd_bp - __zdseg_start
+tty_rd_buffer equ __ztty_rd_buffer - __zdseg_start
+tty_rd_bp equ __ztty_rd_bp - __zdseg_start
 floor_items equ __zbss_0e0e - __zdseg_start
 maze_change_log equ __zbss_0e10 - __zdseg_start
 maze_tables equ __zbss_0e12 - __zdseg_start
@@ -408,7 +408,7 @@ party_redraw_current_tick_hi equ __zbss_9090 - __zdseg_start
 party_redraw_elapsed_ticks equ __zbss_9092 - __zdseg_start
 party_redraw_elapsed_ticks_hi equ __zbss_9094 - __zdseg_start
 _TTrem equ __zbss_9096 - __zdseg_start
-aztec_Uend equ __zbss_b198 - __zdseg_start
+Uend equ __zbss_b198 - __zdseg_start
 __zbss_size equ __zbss_end - __zimage_end
 __zdseg_end equ (__zimage_end - __zdseg_start) + __zbss_size
 
@@ -670,73 +670,73 @@ __zdseg_end equ (__zimage_end - __zdseg_start) + __zbss_size
 
 %include "ds/library/call_thunks_screen.asm" ; 0x42dd
 
-%include "ds/aztec/aztec_ovloader.asm"     ; 0x4379
+%include ".cache/c.lib/ds/ovloader.asm"     ; 0x4379
 
-%include "ds/aztec/aztec_bdos.asm"         ; 0x4497
+%include ".cache/c.lib/ds/bdos.asm"         ; 0x4497
 
-%include "ds/aztec/aztec_impl_csread.asm"  ; 0x44b4
+%include ".cache/c.lib/ds/_csread.asm"  ; 0x44b4
 
-%include "ds/aztec/aztec_sprintf.asm"      ; 0x44d4
+%include ".cache/c.lib/ds/sprintf.asm"      ; 0x44d4
 
-%include "ds/aztec/aztec_movblock.asm"     ; 0x4517
+%include ".cache/c.lib/ds/movblock.asm"     ; 0x4517
 
-%include "ds/aztec/aztec_setmem.asm"       ; 0x454d
+%include ".cache/c.lib/ds/setmem.asm"       ; 0x454d
 
-%include "shared/aztec/aztec_strcat.asm"       ; 0x4574
+%include ".cache/c.lib/shared/strcat.asm"       ; 0x4574
 
-%include "shared/aztec/aztec_strcpy.asm"       ; 0x45ab
+%include ".cache/c.lib/shared/strcpy.asm"       ; 0x45ab
 
-%include "ds/aztec/aztec_lmalloc.asm"      ; 0x45d7
+%include ".cache/c.lib/ds/lmalloc.asm"      ; 0x45d7
 
-%include "ds/aztec/aztec_lfree.asm"        ; 0x460d
+%include ".cache/c.lib/ds/lfree.asm"        ; 0x460d
 
-%include "ds/aztec/aztec_lrealloc.asm"     ; 0x4625
+%include ".cache/c.lib/ds/lrealloc.asm"     ; 0x4625
 
-%include "ds/data/aztec_csav_begin.asm"    ; 0x4650
+%include ".cache/c.lib/ds/data/csav_begin.asm"    ; 0x4650
 
-%include "ds/aztec/aztec_csav.asm"         ; 0x4652
+%include ".cache/c.lib/ds/csav.asm"         ; 0x4652
 
-%include "shared/aztec/aztec_malloc.asm"       ; 0x467b
+%include ".cache/c.lib/shared/malloc.asm"       ; 0x467b
 
-%include "shared/aztec/aztec_format.asm"       ; 0x480d
+%include ".cache/c.lib/shared/format.asm"       ; 0x480d
 
-%include "shared/aztec/aztec_format_get_pointer.asm" ; 0x4aed
+%include ".cache/c.lib/shared/format_get_pointer.asm" ; 0x4aed
 
-%include "shared/aztec/aztec_format_do_width.asm" ; 0x4b07
+%include ".cache/c.lib/shared/format_do_width.asm" ; 0x4b07
 
-%include "shared/aztec/aztec_open.asm"         ; 0x4b39
+%include ".cache/c.lib/shared/open.asm"         ; 0x4b39
 
-%include "shared/aztec/aztec_lsubs.asm"        ; 0x4be6
+%include ".cache/c.lib/shared/lsubs.asm"        ; 0x4be6
 
-%include "shared/aztec/aztec_strlen.asm"       ; 0x4cd7
+%include ".cache/c.lib/shared/strlen.asm"       ; 0x4cd7
 
-%include "shared/aztec/aztec_impl_sys.asm"     ; 0x4cf4
+%include ".cache/c.lib/shared/_sys.asm"     ; 0x4cf4
 
-%include "shared/data/aztec_begin_exitad.asm"  ; 0x4d36
+%include ".cache/c.lib/shared/data/begin_exitad.asm"  ; 0x4d36
 
-%include "shared/data/aztec_begin_exitcs.asm"  ; 0x4d38
+%include ".cache/c.lib/shared/data/begin_exitcs.asm"  ; 0x4d38
 
-%include "shared/aztec/aztec_begin.asm"        ; 0x4d3a
+%include ".cache/c.lib/shared/begin.asm"        ; 0x4d3a
 
-%include "shared/aztec/aztec_Croot.asm"        ; 0x4ea3
+%include ".cache/c.lib/shared/Croot.asm"        ; 0x4ea3
 
-%include "shared/aztec/aztec_fltinit.asm"      ; 0x4f85
+%include ".cache/c.lib/shared/fltinit.asm"      ; 0x4f85
 
-%include "ds/aztec/aztec_impl_stkover.asm" ; 0x4f87
+%include ".cache/c.lib/ds/_stkover.asm" ; 0x4f87
 
-%include "shared/aztec/aztec_io.asm"           ; 0x4fa2
+%include ".cache/c.lib/shared/io.asm"           ; 0x4fa2
 
-%include "shared/aztec/aztec_ttyio.asm"        ; 0x505c
+%include ".cache/c.lib/shared/ttyio.asm"        ; 0x505c
 
-%include "shared/aztec/aztec_movmem.asm"       ; 0x5123
+%include ".cache/c.lib/shared/movmem.asm"       ; 0x5123
 
-%include "shared/aztec/aztec_isatty.asm"       ; 0x5168
+%include ".cache/c.lib/shared/isatty.asm"       ; 0x5168
 
-%include "shared/aztec/aztec_sbrk.asm"         ; 0x5188
+%include ".cache/c.lib/shared/sbrk.asm"         ; 0x5188
 
-%include "shared/aztec/aztec_brk.asm"          ; 0x51bc
+%include ".cache/c.lib/shared/brk.asm"          ; 0x51bc
 
-%include "shared/aztec/aztec_rsvstk.asm"       ; 0x5248
+%include ".cache/c.lib/shared/rsvstk.asm"       ; 0x5248
 
 
 ; End of host resident code
@@ -782,31 +782,31 @@ ln_ds_zero                                 ; 0x10160
 
 %include "ds/game/main.data.asm"           ; 0x10d5a
 
-%include "ds/aztec/aztec_ovloader.data.asm" ; 0x10da8
+%include ".cache/c.lib/ds/ovloader.data.asm" ; 0x10da8
 
-%include "shared/aztec/aztec_malloc.data.asm"  ; 0x10dcc
+%include ".cache/c.lib/shared/malloc.data.asm"  ; 0x10dcc
 
-%include "shared/aztec/aztec_begin.data.asm"   ; 0x10dd0
+%include ".cache/c.lib/shared/begin.data.asm"   ; 0x10dd0
 
-%include "shared/aztec/aztec_Croot.data.asm"   ; 0x10dfc
+%include ".cache/c.lib/shared/Croot.data.asm"   ; 0x10dfc
 
-%include "ds/aztec/aztec_impl_stkover.data.asm" ; 0x10e0e
+%include ".cache/c.lib/ds/_stkover.data.asm" ; 0x10e0e
 
-%include "ds/data/STKSIZ.asm"              ; 0x10e34
+%include ".cache/c.lib/ds/data/STKSIZ.asm"              ; 0x10e34
 
-%include "shared/aztec/aztec_io.data.asm"      ; 0x10e3c
+%include ".cache/c.lib/shared/io.data.asm"      ; 0x10e3c
 
-%include "shared/aztec/aztec_ttyio.data.asm"   ; 0x10e54
+%include ".cache/c.lib/shared/ttyio.data.asm"   ; 0x10e54
 
 
 __zimage_end:
 absolute __zimage_end
 %include "ds/game/store_word_and_pair.bss.asm"
-%include "ds/aztec/aztec_ovloader.bss.asm"
-%include "ds/aztec/aztec_sprintf.bss.asm"
-%include "shared/aztec/aztec_malloc.bss.asm"
-%include "shared/aztec/aztec_Croot.bss.asm"
-%include "shared/aztec/aztec_ttyio.bss.asm"
+%include ".cache/c.lib/ds/ovloader.bss.asm"
+%include ".cache/c.lib/ds/sprintf.bss.asm"
+%include ".cache/c.lib/shared/malloc.bss.asm"
+%include ".cache/c.lib/shared/Croot.bss.asm"
+%include ".cache/c.lib/shared/ttyio.bss.asm"
 %include "ds/data/globals.asm"
 __zbss_9096:
     resb 0x0002

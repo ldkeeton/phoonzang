@@ -2,7 +2,7 @@
 
 extern long call_save_area();
 extern int load_message_string(), draw_bevel_frame();
-extern int aztec_strlen(), call_set_text_pos(), call_set_text_color();
+extern int strlen(), call_set_text_pos(), call_set_text_color();
 extern int draw_text_glyphs(), call_show_area(), call_restore_area();
 
 draw_selected_button_label(message_id, selected_index, left, top, width,
@@ -27,7 +27,7 @@ int row_height;
 	draw_bevel_frame(left, top + selected_index * row_height,
 		6 * width + left, top + selected_index * row_height + 8, 0);
 	/* Center the label using the six-pixel glyph width. */
-	call_set_text_pos(left + (width - aztec_strlen(label)) * 6 / 2 + 1,
+	call_set_text_pos(left + (width - strlen(label)) * 6 / 2 + 1,
 		top + selected_index * row_height + 2);
 	call_set_text_color(26, 192);
 	draw_text_glyphs(label, 0);

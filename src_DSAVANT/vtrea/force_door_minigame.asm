@@ -1,7 +1,7 @@
 ; auto-generated
 force_door_minigame:
     mov ax, 0xff8c                   ; 0x66eb
-    call aztec_csav                  ; 0x66ee
+    call $csav                  ; 0x66ee
     mov word [show_area_bottom], 0x8d ; 0x66f1
     mov word [dialog_selection], 0xffff ; 0x66f7
     mov word [bp - 6], 0x37          ; 0x66fd
@@ -47,7 +47,7 @@ force_door_minigame:
     push ax                          ; 0x6765
     lea ax, word [bp - 0x4c]         ; 0x6766
     push ax                          ; 0x6769
-    call aztec_strlen                ; 0x676a
+    call strlen                ; 0x676a
     pop cx                           ; 0x676d
     mov cx, ax                       ; 0x676e
     mov ax, 0xc                      ; 0x6770
@@ -133,7 +133,7 @@ force_door_minigame:
     push ax                          ; 0x6825
     lea ax, word [bp - 0x4c]         ; 0x6826
     push ax                          ; 0x6829
-    call aztec_strlen                ; 0x682a
+    call strlen                ; 0x682a
     pop cx                           ; 0x682d
     mov cx, 6                        ; 0x682e
     imul cx                          ; 0x6831
@@ -171,7 +171,7 @@ force_door_minigame:
     push ax                          ; 0x687d
     lea ax, word [bp - 0x4c]         ; 0x687e
     push ax                          ; 0x6881
-    call aztec_strlen                ; 0x6882
+    call strlen                ; 0x6882
     pop cx                           ; 0x6885
     mov cx, 6                        ; 0x6886
     imul cx                          ; 0x6889
@@ -403,7 +403,7 @@ force_door_minigame:
     mov bx, dx                       ; 0x6a90
     pop dx                           ; 0x6a92
     pop ax                           ; 0x6a93
-    call aztec_ldv                   ; 0x6a94
+    call $ldv                   ; 0x6a94
     push ax                          ; 0x6a97
     push dx                          ; 0x6a98
     mov ax, 0x248                    ; 0x6a99
@@ -428,7 +428,7 @@ force_door_minigame:
     add dx, bx                       ; 0x6abc
     mov cx, 0x64                     ; 0x6abe
     mov bx, 0                        ; 0x6ac1
-    call aztec_ldv                   ; 0x6ac4
+    call $ldv                   ; 0x6ac4
     mov word [bp - 0x20], ax         ; 0x6ac7
     mov ax, 0x248                    ; 0x6aca
     imul word [bp - 2]               ; 0x6acd
@@ -698,7 +698,7 @@ force_door_minigame:
     push ax                          ; 0x6d2f
     lea ax, word [bp - 0x74]         ; 0x6d30
     push ax                          ; 0x6d33
-    call aztec_strlen                ; 0x6d34
+    call strlen                ; 0x6d34
     pop cx                           ; 0x6d37
     mov cx, ax                       ; 0x6d38
     mov ax, 0xc                      ; 0x6d3a

@@ -1,7 +1,7 @@
 ; auto-generated
 relocate_party_if_none_active:
     mov ax, 0xfffc                   ; 0x1308
-    call aztec_csav                  ; 0x130b
+    call $csav                  ; 0x130b
     mov word [bp - 4], 0             ; 0x130e
     mov word [bp - 2], 0             ; 0x1313
     jmp short .forward1              ; 0x1318

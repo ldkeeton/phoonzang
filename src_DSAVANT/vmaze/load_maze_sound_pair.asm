@@ -1,7 +1,7 @@
 ; auto-generated
 load_maze_sound_pair:
     mov ax, 0                        ; 0x017f
-    call aztec_csav                  ; 0x0182
+    call $csav                  ; 0x0182
     call stop_and_clear_maze_sounds  ; 0x0185
     cmp word [bp + 4], byte 0        ; 0x0188
     je short .forward1               ; 0x018c

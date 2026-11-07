@@ -1,7 +1,7 @@
 ; auto-generated
 initialize_main_screen:
     mov ax, 0xfff8                   ; 0x1409
-    call aztec_csav                  ; 0x140c
+    call $csav                  ; 0x140c
     mov ax, 0                        ; 0x140f
     push ax                          ; 0x1412
     call call_set_text_opaque        ; 0x1413

@@ -14,8 +14,8 @@ run_roaming_npc_turns()
 {
 	int slot, location, count, done[22];
 
-	aztec_setmem(slot_pair_processed, 22 * 22, 0);
-	aztec_setmem(done, sizeof(done), 0);
+	setmem(slot_pair_processed, 22 * 22, 0);
+	setmem(done, sizeof(done), 0);
 	/* Slot 21 is the party: put it at the current map's location. */
 	for (location = 0; location < 26; location++) {
 		if (location_records[location].game_state == current_level)

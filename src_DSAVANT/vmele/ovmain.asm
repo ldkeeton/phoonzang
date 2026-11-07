@@ -1,7 +1,7 @@
 ; auto-generated
 ovmain:
     mov ax, 0                        ; 0x000e
-    call aztec_csav                  ; 0x0011
+    call $csav                  ; 0x0011
     mov word [party_redraw_interval], 5 ; 0x0014
     mov word [show_melee_result], 0  ; 0x001a
     mov word [npc_melee], 0          ; 0x0020

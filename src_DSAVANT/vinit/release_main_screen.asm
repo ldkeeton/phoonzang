@@ -1,7 +1,7 @@
 ; auto-generated
 release_main_screen:
     mov ax, 0xfffe                   ; 0x133d
-    call aztec_csav                  ; 0x1340
+    call $csav                  ; 0x1340
     cmp word [saved_screen_pending], byte 0 ; 0x1343
     je short .forward1               ; 0x1348
     mov ax, 1                        ; 0x134a

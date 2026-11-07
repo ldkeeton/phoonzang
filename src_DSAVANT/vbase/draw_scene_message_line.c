@@ -1,6 +1,6 @@
 /* Draw one buffered line of scene text and advance the message row. */
 extern int scene_message_previous_x, scene_message_row;
-extern int measure_text_width(), aztec_strlen();
+extern int measure_text_width(), strlen();
 extern int wait_and_clear_scene_messages();
 extern int call_set_text_pos(), call_set_text_color();
 extern int draw_text_glyphs();
@@ -23,7 +23,7 @@ char *line_text;
 
 	/* Center ordinary text within the 160-pixel message area. */
 	text_x = 160 - ((measure_text_width(line_text, 2) + 1) / 2);
-	last_character = aztec_strlen(line_text) - 1;
+	last_character = strlen(line_text) - 1;
 	switch ((unsigned char)line_text[last_character]) {
 	case 36:
 		/* '$' marks a line that starts at the left margin. */

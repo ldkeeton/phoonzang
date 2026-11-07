@@ -1,10 +1,10 @@
 ; auto-generated
 reverse_string:
     mov ax, 0xfffa                   ; 0x03da
-    call aztec_csav                  ; 0x03dd
+    call $csav                  ; 0x03dd
     mov word [bp - 4], 0             ; 0x03e0
     push word [bp + 4]               ; 0x03e5
-    call aztec_strlen                ; 0x03e8
+    call strlen                ; 0x03e8
     pop cx                           ; 0x03eb
     dec ax                           ; 0x03ec
     mov word [bp - 6], ax            ; 0x03ed

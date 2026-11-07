@@ -1,7 +1,7 @@
 ; auto-generated
 clamp_between:
     mov ax, 0                        ; 0x0a09
-    call aztec_csav                  ; 0x0a0c
+    call $csav                  ; 0x0a0c
     mov ax, word [bp + 6]            ; 0x0a0f
     push ax                          ; 0x0a12
     cmp ax, word [bp + 4]            ; 0x0a13

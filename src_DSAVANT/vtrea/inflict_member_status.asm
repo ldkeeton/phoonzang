@@ -1,7 +1,7 @@
 ; auto-generated
 inflict_member_status:
     mov ax, 0xffaa                   ; 0x12cc
-    call aztec_csav                  ; 0x12cf
+    call $csav                  ; 0x12cf
     mov ax, 0x248                    ; 0x12d2
     imul word [bp + 4]               ; 0x12d5
     mov bx, ax                       ; 0x12d8

@@ -8,7 +8,7 @@ extern struct pc_rec party_records[];
 extern int remaining_stat_points;
 extern int hotspot_hit;
 extern int hotspot_rects[];
-extern int aztec_setmem();
+extern int setmem();
 extern long draw_dialog_button_prompt();
 extern int flush_keyboard();
 extern int display_character_statistics();
@@ -30,7 +30,7 @@ int member_index;
 	int frame_padding[40];
 	long saved_area;
 
-	aztec_setmem(stat_bonus, 16, 0);
+	setmem(stat_bonus, 16, 0);
 	selected_stat = 0;
 	saved_area = draw_dialog_button_prompt(MSG_ABILITY_BONUS_POINTS,
 		88, 151, 24, 1, 8);

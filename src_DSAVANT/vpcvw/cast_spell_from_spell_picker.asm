@@ -1,7 +1,7 @@
 ; auto-generated
 cast_spell_from_spell_picker:
     mov ax, 0xfffc                   ; 0x3974
-    call aztec_csav                  ; 0x3977
+    call $csav                  ; 0x3977
     push word [bp + 6]               ; 0x397a
     push word [bp + 6]               ; 0x397d
     mov ax, MSG_SPELLS_2033          ; 0x3980

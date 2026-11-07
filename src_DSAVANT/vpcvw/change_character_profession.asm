@@ -1,7 +1,7 @@
 ; auto-generated
 change_character_profession:
     mov ax, 0xffd0                   ; 0x92b3
-    call aztec_csav                  ; 0x92b6
+    call $csav                  ; 0x92b6
     push word [bp + 4]               ; 0x92b9
     call evaluate_character_professions ; 0x92bc
     pop cx                           ; 0x92bf

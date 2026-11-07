@@ -28,7 +28,7 @@ extern int mark_connected_maze_cells(), draw_party_member_panel();
 extern int set_maze_time_tint(), redraw_maze_view();
 extern int test_bit(), refresh_floor_item_icon(), call_restore_area(),
 	call_show_area();
-extern int update_maze_sound_selection(), aztec_lrm(), run_roaming_npc_turns();
+extern int update_maze_sound_selection(), run_roaming_npc_turns();
 extern int random_below(), update_party_member_tick();
 extern int rest_party(), roll_region_outcome(), choose_region_npc();
 extern int configure_story_music(), process_maze_object_events();

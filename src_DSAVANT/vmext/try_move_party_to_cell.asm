@@ -1,7 +1,7 @@
 ; auto-generated
 try_move_party_to_cell:
     mov ax, 0xfff4                   ; 0x09be
-    call aztec_csav                  ; 0x09c1
+    call $csav                  ; 0x09c1
     call check_at_saved_location     ; 0x09c4
     mov ax, word [party_map_piece]   ; 0x09c7
     mov cx, 6                        ; 0x09ca

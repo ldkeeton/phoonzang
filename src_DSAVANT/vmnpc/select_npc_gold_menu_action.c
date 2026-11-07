@@ -7,7 +7,7 @@ extern int redraw_area_set();
 extern int draw_npc_gold_frame();
 extern int draw_centered_text_at_x();
 extern int format_long_decimal();
-extern char *aztec_strcat();
+extern char *strcat();
 extern int draw_npc_dialog_action_menu();
 
 select_npc_gold_menu_action(member_index, first_label_msg_id, title, suffix,
@@ -27,7 +27,7 @@ int *entry_values;
 	draw_npc_gold_frame();
 	draw_centered_text_at_x(title, 160, 147, 1);
 	format_long_decimal(party_records[member_index].gold, amount_text);
-	aztec_strcat(amount_text, suffix);
+	strcat(amount_text, suffix);
 	draw_centered_text_at_x(amount_text, 160, 154, 179);
 
 	nonzero_count = 0;

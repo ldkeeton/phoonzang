@@ -1,7 +1,7 @@
 ; auto-generated
 load_maze_resources:
     mov ax, 0xfffe                   ; 0x0262
-    call aztec_csav                  ; 0x0265
+    call $csav                  ; 0x0265
     mov word [boundary_wall_open], 0 ; 0x0268
     mov ax, word [current_level]     ; 0x026e
     jmp short .forward1              ; 0x0271

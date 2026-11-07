@@ -1,7 +1,7 @@
 ; auto-generated
 share_npc_quest_map_knowledge:
     mov ax, 0xfffc                   ; 0x28a1
-    call aztec_csav                  ; 0x28a4
+    call $csav                  ; 0x28a4
     mov word [bp - 4], 0             ; 0x28a7
     mov word [bp - 2], 0             ; 0x28ac
 .back1:

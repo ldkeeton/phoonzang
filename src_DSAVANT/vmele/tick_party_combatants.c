@@ -12,7 +12,7 @@ extern int member_roster_index[];		/* word 0 is scratch */
 extern int party_char_count, party_return_state, party_screen_done;
 extern tick_combatant(), copy_member_party_record(),
 	draw_party_member_panel(),
-	play_sound_effect(), aztec_swapmem();
+	play_sound_effect(), swapmem();
 
 tick_party_combatants()
 {
@@ -42,9 +42,9 @@ tick_party_combatants()
 		for (other = member + 1; other < party_char_count; other++) {
 						if (party_records[member].state >
 			    party_records[other].state) {
-				aztec_swapmem(&party_records[member],
+				swapmem(&party_records[member],
 					&party_records[other], sizeof(struct pc_rec));
-				aztec_swapmem(&battle_groups[0]->unit[member],
+				swapmem(&battle_groups[0]->unit[member],
 					&battle_groups[0]->unit[other],
 					sizeof(struct combatant));
 				swap = member_roster_index[member + 1];

@@ -1,7 +1,7 @@
 ; auto-generated
 assign_monster_group_cell:
     mov ax, 0xfffe                   ; 0x28fc
-    call aztec_csav                  ; 0x28ff
+    call $csav                  ; 0x28ff
     mov ax, word [bp + 4]            ; 0x2902
     cmp ax, word [monster_group_count] ; 0x2905
     jle short .forward1              ; 0x2909

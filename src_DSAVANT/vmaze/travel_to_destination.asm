@@ -1,7 +1,7 @@
 ; auto-generated
 travel_to_destination:
     mov ax, 0                        ; 0x946a
-    call aztec_csav                  ; 0x946d
+    call $csav                  ; 0x946d
     mov ax, 0x26                     ; 0x9470
     imul word [bp + 4]               ; 0x9473
     mov bx, ax                       ; 0x9476

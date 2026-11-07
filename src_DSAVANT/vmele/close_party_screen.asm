@@ -1,7 +1,7 @@
 ; auto-generated
 close_party_screen:
     mov ax, 0xfffc                   ; 0x2ec4
-    call aztec_csav                  ; 0x2ec7
+    call $csav                  ; 0x2ec7
     mov ax, 1                        ; 0x2eca
     push ax                          ; 0x2ecd
     call call_wait_sound             ; 0x2ece
@@ -119,13 +119,13 @@ close_party_screen:
     shl ax, 1                        ; 0x2fd7
     mov bx, ax                       ; 0x2fd9
     push word [bx + battle_group_ext] ; 0x2fdb
-    call aztec_free                  ; 0x2fdf
+    call free                  ; 0x2fdf
     pop cx                           ; 0x2fe2
     mov ax, word [bp - 2]            ; 0x2fe3
     shl ax, 1                        ; 0x2fe6
     mov bx, ax                       ; 0x2fe8
     push word [bx + battle_groups]   ; 0x2fea
-    call aztec_free                  ; 0x2fee
+    call free                  ; 0x2fee
     pop cx                           ; 0x2ff1
     inc word [bp - 2]                ; 0x2ff2
     mov ax, word [bp - 2]            ; 0x2ff5
@@ -137,7 +137,7 @@ close_party_screen:
     shl ax, 1                        ; 0x3005
     mov bx, ax                       ; 0x3007
     push word [bx + overlay_list + 0x2] ; 0x3009
-    call aztec_free                  ; 0x300d
+    call free                  ; 0x300d
     pop cx                           ; 0x3010
     inc word [bp - 2]                ; 0x3011
     mov ax, word [bp - 2]            ; 0x3014

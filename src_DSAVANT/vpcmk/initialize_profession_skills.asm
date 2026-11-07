@@ -1,7 +1,7 @@
 ; auto-generated
 initialize_profession_skills:
     mov ax, 0                        ; 0x5706
-    call aztec_csav                  ; 0x5709
+    call $csav                  ; 0x5709
     mov ax, 0x248                    ; 0x570c
     imul word [bp + 4]               ; 0x570f
     mov bx, ax                       ; 0x5712

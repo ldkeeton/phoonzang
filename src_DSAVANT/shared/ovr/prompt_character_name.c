@@ -7,7 +7,7 @@ extern char screen_save_temp_file[];
 
 extern int save_screen_area(), draw_dialog_box(), load_message_string();
 extern int draw_button(), call_set_text_color(), call_set_text_pos();
-extern int aztec_strlen(), draw_text_glyphs(), aztec_strcpy();
+extern int strlen(), draw_text_glyphs(), strcpy();
 extern int draw_text_list(), set_hotspot(), call_show_area();
 extern int flush_keyboard(), input_text_field(), poll_hotspots();
 extern int flash_button(), restore_saved_screen();
@@ -48,12 +48,12 @@ char *name_buffer;
 	load_message_string(message_id + 3, button_label);
 	call_set_text_color(155, 194);
 	call_set_text_pos(box_x + 93 +
-		((17 - aztec_strlen(button_label)) * 6 + 2) / 2,
+		((17 - strlen(button_label)) * 6 + 2) / 2,
 		box_y + 22);
 	draw_text_glyphs(button_label, 0);
 
 	/* Draw the caller's current name, then register the field and buttons. */
-	aztec_strcpy(list_entry_text, name_buffer);
+	strcpy(list_entry_text, name_buffer);
 	draw_text_list(box_x + 93, box_y + 31, 17, 1, 0, 0, 1);
 	set_hotspot(0, box_x + 93, box_y + 31,
 		box_x + 197, box_y + 37, 32, 0);
@@ -69,7 +69,7 @@ char *name_buffer;
 	flush_keyboard();
 	input_text_field(list_entry_text, box_x + 95, box_y + 32,
 		7, 0, 1, 0);
-	aztec_strcpy(name_buffer, list_entry_text);
+	strcpy(name_buffer, list_entry_text);
 	draw_text_list(box_x + 93, box_y + 31, 17, 1, 0, -1, 1);
 	call_show_area(box_x + 93, box_y + 31,
 		box_x + 197, box_y + 38);
@@ -88,7 +88,7 @@ char *name_buffer;
 					box_x + 197, box_y + 38);
 				input_text_field(list_entry_text, box_x + 95,
 					box_y + 32, 7, 0, 1, 0);
-				aztec_strcpy(name_buffer, list_entry_text);
+				strcpy(name_buffer, list_entry_text);
 				draw_text_list(box_x + 93, box_y + 31,
 					17, 1, 0, -1, 1);
 				call_show_area(box_x + 93, box_y + 31,

@@ -12,14 +12,14 @@ extern char console_stream_append_mode[];
 extern char unzip_failure_prefix[];
 extern char unzip_failure_suffix[];
 extern int archive_process_stream_handle;
-extern int aztec_strcpy();
-extern int aztec_strcat();
+extern int strcpy();
+extern int strcat();
 extern int display_centered_command_line();
-extern FILE *aztec_freopen();
-extern int aztec_fexecl();
-extern int aztec_wait();
+extern FILE *freopen();
+extern int fexecl();
+extern int wait();
 extern int show_message_wait_for_enter();
-extern int aztec_exit();
+extern int exit();
 
 /* Compose and launch PKUNZIP, then restore the console stream. */
 run_pkunzip_archive(source_dir, dest_dir, archive_name,
@@ -38,38 +38,38 @@ char *file_list;
 	int wait_result;
 
 	/* Build the executable path and the archive argument. */
-	aztec_strcpy(executable_path, source_dir);
-	aztec_strcat(executable_path, pkunzip_exe_suffix);
-	aztec_strcpy(executable_name, pkunzip_argv0);
-	aztec_strcpy(archive_path, source_dir);
-	aztec_strcat(archive_path, archive_name);
+	strcpy(executable_path, source_dir);
+	strcat(executable_path, pkunzip_exe_suffix);
+	strcpy(executable_name, pkunzip_argv0);
+	strcpy(archive_path, source_dir);
+	strcat(archive_path, archive_name);
 
 	/* Keep the visible command text in the larger local buffer. */
-	aztec_strcpy(command_line, source_dir);
-	aztec_strcat(command_line, pkunzip_command_prefix);
-	aztec_strcat(command_line, source_dir);
-	aztec_strcat(command_line, archive_name);
-	aztec_strcat(command_line, command_argument_separator);
-	aztec_strcat(command_line, file_list);
+	strcpy(command_line, source_dir);
+	strcat(command_line, pkunzip_command_prefix);
+	strcat(command_line, source_dir);
+	strcat(command_line, archive_name);
+	strcat(command_line, command_argument_separator);
+	strcat(command_line, file_list);
 	display_centered_command_line(command_line);
 
 	/* Send stdout to NUL while PKUNZIP runs. */
 	archive_process_stream_handle =
-		aztec_freopen(null_device_name, stream_append_mode, stdout);
-	execute_result = aztec_fexecl(executable_path, executable_name,
+		freopen(null_device_name, stream_append_mode, stdout);
+	execute_result = fexecl(executable_path, executable_name,
 				      archive_path, file_list, 0, 0);
-	wait_result = aztec_wait();
-	archive_process_stream_handle = aztec_freopen(console_device_name,
+	wait_result = wait();
+	archive_process_stream_handle = freopen(console_device_name,
 		console_stream_append_mode, archive_process_stream_handle);
 
 	/* Either a failed launch or a zero wait result enters the error path. */
 	if (execute_result == -1 || wait_result != 0) {
-		aztec_strcpy(error_message, unzip_failure_prefix);
-		aztec_strcat(error_message, source_dir);
-		aztec_strcat(error_message, archive_name);
-		aztec_strcat(error_message, unzip_failure_suffix);
+		strcpy(error_message, unzip_failure_prefix);
+		strcat(error_message, source_dir);
+		strcat(error_message, archive_name);
+		strcat(error_message, unzip_failure_suffix);
 		show_message_wait_for_enter(error_message);
 		/* Exit status three follows the displayed unzip failure. */
-		aztec_exit(3);
+		exit(3);
 	}
 }

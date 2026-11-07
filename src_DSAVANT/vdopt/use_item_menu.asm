@@ -1,7 +1,7 @@
 ; auto-generated
 use_item_menu:
     mov ax, 0xff6c                   ; 0x417c
-    call aztec_csav                  ; 0x417f
+    call $csav                  ; 0x417f
     mov word [party_redraw_interval], 5 ; 0x4182
     mov word [bp - 0x94], 0          ; 0x4188
     mov word [bp - 0x50], 0          ; 0x418e
@@ -61,7 +61,7 @@ use_item_menu:
     imul word [bp - 0x94]            ; 0x420a
     add ax, list_row_name            ; 0x420e
     push ax                          ; 0x4211
-    call aztec_strcpy                ; 0x4212
+    call strcpy                ; 0x4212
     add sp, byte 4                   ; 0x4215
     jmp short .forward3              ; 0x4218
 .forward2:

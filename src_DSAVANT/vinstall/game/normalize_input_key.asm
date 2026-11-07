@@ -35,7 +35,7 @@ normalize_input_key:
     jmp short .forward3              ; 0x06e4
 .forward2:
     push word [bp + 4]               ; 0x06e6
-    call aztec_toupper               ; 0x06e9
+    call toupper               ; 0x06e9
     pop cx                           ; 0x06ec
     jmp short .back2                 ; 0x06ed
 .forward3:

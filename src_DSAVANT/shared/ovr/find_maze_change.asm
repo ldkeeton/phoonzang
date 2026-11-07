@@ -1,7 +1,7 @@
 ; auto-generated
 find_maze_change:
     mov ax, 0xfffa
-    call aztec_csav
+    call $csav
     mov ax, word [bp + 8]
     xchg ah, al
     sub al, al

@@ -1,11 +1,11 @@
 ; auto-generated
 expand_npc_dialog_text:
     mov ax, 0xff58                   ; 0x8ead
-    call aztec_csav                  ; 0x8eb0
+    call $csav                  ; 0x8eb0
     push word [bp + 4]               ; 0x8eb3
     lea ax, word [bp - 0x52]         ; 0x8eb6
     push ax                          ; 0x8eb9
-    call aztec_strcpy                ; 0x8eba
+    call strcpy                ; 0x8eba
     add sp, byte 4                   ; 0x8ebd
     mov word [bp - 0xa8], 0          ; 0x8ec0
     mov word [bp - 0xa4], 0          ; 0x8ec6
@@ -33,7 +33,7 @@ expand_npc_dialog_text:
     push ax                          ; 0x8f03
     lea ax, word [bp - 0xa2]         ; 0x8f04
     push ax                          ; 0x8f08
-    call aztec_strncpy               ; 0x8f09
+    call strncpy               ; 0x8f09
     add sp, byte 6                   ; 0x8f0c
     mov ax, word [bp - 0xa6]         ; 0x8f0f
     sub ax, word [bp - 0xa4]         ; 0x8f13
@@ -60,13 +60,13 @@ expand_npc_dialog_text:
 .forward2:
     lea ax, word [bp - 0xa2]         ; 0x8f4f
     push ax                          ; 0x8f53
-    call aztec_strlen                ; 0x8f54
+    call strlen                ; 0x8f54
     pop cx                           ; 0x8f57
     cmp ax, word [bp - 2]            ; 0x8f58
     jg short .back2                  ; 0x8f5b
     lea ax, word [bp - 0xa2]         ; 0x8f5d
     push ax                          ; 0x8f61
-    call aztec_strlen                ; 0x8f62
+    call strlen                ; 0x8f62
     pop cx                           ; 0x8f65
     add word [bp - 0xa8], ax         ; 0x8f66
 .forward3:

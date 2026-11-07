@@ -1,7 +1,7 @@
 ; auto-generated
 copy_protection_prompt:
     mov ax, 0xff56                   ; 0x62e5
-    call aztec_csav                  ; 0x62e8
+    call $csav                  ; 0x62e8
     mov word [bp - 2], 0x37          ; 0x62eb
     mov word [bp - 4], 0x8f          ; 0x62f0
     mov word [bp - 6], 0x108         ; 0x62f5
@@ -46,7 +46,7 @@ copy_protection_prompt:
     push ax                          ; 0x6355
     lea ax, word [bp - 0x58]         ; 0x6356
     push ax                          ; 0x6359
-    call aztec_strlen                ; 0x635a
+    call strlen                ; 0x635a
     pop cx                           ; 0x635d
     mov cx, ax                       ; 0x635e
     mov ax, 0x15                     ; 0x6360
@@ -102,7 +102,7 @@ copy_protection_prompt:
     push ax                          ; 0x63d8
     lea ax, word [bp - 0x58]         ; 0x63d9
     push ax                          ; 0x63dc
-    call aztec_strlen                ; 0x63dd
+    call strlen                ; 0x63dd
     pop cx                           ; 0x63e0
     mov cx, ax                       ; 0x63e1
     mov ax, 0x15                     ; 0x63e3
@@ -153,7 +153,7 @@ copy_protection_prompt:
     push ax                          ; 0x6450
     lea ax, word [bp - 0x58]         ; 0x6451
     push ax                          ; 0x6454
-    call aztec_strlen                ; 0x6455
+    call strlen                ; 0x6455
     pop cx                           ; 0x6458
     mov cx, ax                       ; 0x6459
     mov ax, 0x15                     ; 0x645b
@@ -219,7 +219,7 @@ copy_protection_prompt:
     push ax                          ; 0x64ee
     lea ax, word [bp - 0x58]         ; 0x64ef
     push ax                          ; 0x64f2
-    call aztec_strlen                ; 0x64f3
+    call strlen                ; 0x64f3
     pop cx                           ; 0x64f6
     mov cx, ax                       ; 0x64f7
     mov ax, 0x15                     ; 0x64f9
@@ -383,6 +383,6 @@ copy_protection_prompt:
     push ax                          ; 0x6659
     mov ax, answer_word              ; 0x665a
     push ax                          ; 0x665d
-    call aztec_strcpy                ; 0x665e
+    call strcpy                ; 0x665e
     add sp, byte 4                   ; 0x6661
     ret                              ; 0x6664

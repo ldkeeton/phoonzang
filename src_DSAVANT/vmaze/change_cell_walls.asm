@@ -1,7 +1,7 @@
 ; auto-generated
 change_cell_walls:
     mov ax, 0xffe4                   ; 0x764d
-    call aztec_csav                  ; 0x7650
+    call $csav                  ; 0x7650
     mov ax, word [party_region]      ; 0x7653
     shl ax, 1                        ; 0x7656
     mov si, ax                       ; 0x7658

@@ -1,7 +1,7 @@
 ; auto-generated
 write_header_and_apply_devices:
     mov ax, 0xfffe                   ; 0x3fac
-    call aztec_csav                  ; 0x3faf
+    call $csav                  ; 0x3faf
     mov ax, 2                        ; 0x3fb2
     push ax                          ; 0x3fb5
     mov ax, 0                        ; 0x3fb6
@@ -11,7 +11,7 @@ write_header_and_apply_devices:
     call data_file_path              ; 0x3fbe
     add sp, byte 4                   ; 0x3fc1
     push ax                          ; 0x3fc4
-    call aztec_open                  ; 0x3fc5
+    call open                  ; 0x3fc5
     add sp, byte 4                   ; 0x3fc8
     mov word [scenario_header_fd], ax ; 0x3fcb
     cmp ax, strict word 0xffff       ; 0x3fce
@@ -28,14 +28,14 @@ write_header_and_apply_devices:
     push dx                          ; 0x3fe5
     push ax                          ; 0x3fe6
     push word [scenario_header_fd]   ; 0x3fe7
-    call aztec_lseek                 ; 0x3feb
+    call lseek                 ; 0x3feb
     add sp, byte 8                   ; 0x3fee
     mov ax, 0x34c                    ; 0x3ff1
     push ax                          ; 0x3ff4
     mov ax, scenario_header_data     ; 0x3ff5
     push ax                          ; 0x3ff8
     push word [scenario_header_fd]   ; 0x3ff9
-    call aztec_write                 ; 0x3ffd
+    call write                 ; 0x3ffd
     add sp, byte 6                   ; 0x4000
     mov word [bp - 2], ax            ; 0x4003
     cmp ax, strict word 0xffff       ; 0x4006
@@ -46,7 +46,7 @@ write_header_and_apply_devices:
     pop cx                           ; 0x4012
 .forward2:
     push word [scenario_header_fd]   ; 0x4013
-    call aztec_close                 ; 0x4017
+    call close                 ; 0x4017
     pop cx                           ; 0x401a
     mov al, byte [startup_option_byte] ; 0x401b
     sub ah, ah                       ; 0x401e

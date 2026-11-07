@@ -1,7 +1,7 @@
 ; auto-generated
 save_screen_area:
     mov ax, 0xfff4                   ; 0x14ca
-    call aztec_csav                  ; 0x14cd
+    call $csav                  ; 0x14cd
     mov word [bp - 4], 0xffff        ; 0x14d0
     mov word [bp - 2], 0             ; 0x14d5
 .back1:
@@ -134,7 +134,7 @@ save_screen_area:
     imul word [bp - 4]               ; 0x1610
     add ax, saved_screen_file        ; 0x1613
     push ax                          ; 0x1616
-    call aztec_strcat                ; 0x1617
+    call strcat                ; 0x1617
     add sp, byte 4                   ; 0x161a
     mov ax, word [bp - 4]            ; 0x161d
     shl ax, 1                        ; 0x1620
@@ -147,7 +147,7 @@ save_screen_area:
     imul word [bp - 4]               ; 0x1632
     add ax, saved_screen_file        ; 0x1635
     push ax                          ; 0x1638
-    call aztec_open                  ; 0x1639
+    call open                  ; 0x1639
     add sp, byte 4                   ; 0x163c
     mov word [bp - 0xc], ax          ; 0x163f
     cmp ax, strict word 0xffff       ; 0x1642
@@ -184,7 +184,7 @@ save_screen_area:
     cmp word [bx + saved_screen_kind], byte 3 ; 0x168e
     jne short .forward15             ; 0x1693
     push word [bp - 0xc]             ; 0x1695
-    call aztec_close                 ; 0x1698
+    call close                 ; 0x1698
     pop cx                           ; 0x169b
 .forward15:
     mov ax, word [bp - 4]            ; 0x169c

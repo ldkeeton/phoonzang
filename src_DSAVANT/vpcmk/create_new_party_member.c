@@ -38,12 +38,12 @@ extern int call_set_text_color();
 extern int call_set_text_pos();
 extern int call_wait_sound();
 extern int draw_text_glyphs();
-extern int aztec_setmem();
-extern int aztec_strcpy();
-extern int aztec_strlen();
-extern int aztec_open();
-extern int aztec_write();
-extern int aztec_close();
+extern int setmem();
+extern int strcpy();
+extern int strlen();
+extern int open();
+extern int write();
+extern int close();
 
 /* The save-area handle plus the frame space the original routine reserved. */
 struct saved_area_buffer {
@@ -64,10 +64,10 @@ int file_record_index;
 	struct saved_area_buffer saved_area;
 
 	member_index = 0;
-	aztec_setmem(&party_records[member_index], (unsigned int)584, 0);
-	aztec_strcpy(&party_records[member_index], character_name);
+	setmem(&party_records[member_index], (unsigned int)584, 0);
+	strcpy(&party_records[member_index], character_name);
 	call_set_text_color(0, 0);
-	call_set_text_pos(40 - aztec_strlen(&party_records[member_index]) * 6 / 2,
+	call_set_text_pos(40 - strlen(&party_records[member_index]) * 6 / 2,
 		76);
 	draw_text_glyphs(&party_records[member_index], 0);
 	remaining_stat_points = -1;
@@ -122,8 +122,8 @@ int file_record_index;
 	transfer_pc_file_record(&party_records[member_index], file_record_index, 1);
 	pc_file_record_base_hi[file_record_index + 2] = 1;
 	call_wait_sound(0);
-	file_handle = aztec_open(data_file_path(pc_file_database_filename, 0), 2);
-	aztec_write(file_handle, (int)&pc_file_record_size, 24);
-	aztec_close(file_handle);
+	file_handle = open(data_file_path(pc_file_database_filename, 0), 2);
+	write(file_handle, (int)&pc_file_record_size, 24);
+	close(file_handle);
 	}
 }

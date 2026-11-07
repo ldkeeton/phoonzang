@@ -1,7 +1,7 @@
 /* Display consecutive messages in a centered dialog, then restore its area. */
 extern int message_not_found, message_delay;
 extern char message_dialog_temp_file[];
-extern int load_message_string(), aztec_strlen(), save_screen_area();
+extern int load_message_string(), strlen(), save_screen_area();
 extern int draw_dialog_box(), call_set_text_pos(), call_set_text_color();
 extern int draw_text_glyphs(), call_show_area(), wait_for_hotspot_timeout();
 extern int restore_saved_screen();
@@ -19,8 +19,8 @@ int first_message;
 	do {
 		load_message_string(first_message + line_number, message_text);
 		if (message_not_found == 0) {
-			if (aztec_strlen(message_text) - 1 > longest_line)
-				longest_line = aztec_strlen(message_text) - 1;
+			if (strlen(message_text) - 1 > longest_line)
+				longest_line = strlen(message_text) - 1;
 			line_number++;
 		}
 	} while (message_not_found == 0);
@@ -39,7 +39,7 @@ int first_message;
 	do {
 		load_message_string(first_message + line_number, message_text);
 		if (message_not_found == 0) {
-			call_set_text_pos(160 - (aztec_strlen(message_text) * 6 - 6) / 2,
+			call_set_text_pos(160 - (strlen(message_text) * 6 - 6) / 2,
 				6 * line_number + top + 6);
 			call_set_text_color(message_text[0], 0);
 			draw_text_glyphs(&message_text[1], 0);

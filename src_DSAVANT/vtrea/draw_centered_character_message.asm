@@ -1,7 +1,7 @@
 ; auto-generated
 draw_centered_character_message:
     mov ax, 0xfffe                   ; 0x0f96
-    call aztec_csav                  ; 0x0f99
+    call $csav                  ; 0x0f99
     mov ax, 1                        ; 0x0f9c
     push ax                          ; 0x0f9f
     push ax                          ; 0x0fa0
@@ -40,25 +40,25 @@ draw_centered_character_message:
     imul word [bp + 4]               ; 0x0fe5
     add ax, party_records            ; 0x0fe8
     push ax                          ; 0x0feb
-    call aztec_strlen                ; 0x0fec
+    call strlen                ; 0x0fec
     pop cx                           ; 0x0fef
     push ax                          ; 0x0ff0
     push word [bp + 6]               ; 0x0ff1
-    call aztec_strlen                ; 0x0ff4
+    call strlen                ; 0x0ff4
     pop cx                           ; 0x0ff7
     mov cx, ax                       ; 0x0ff8
     pop ax                           ; 0x0ffa
     add ax, cx                       ; 0x0ffb
     push ax                          ; 0x0ffd
     push word [bp + 8]               ; 0x0ffe
-    call aztec_strlen                ; 0x1001
+    call strlen                ; 0x1001
     pop cx                           ; 0x1004
     mov cx, ax                       ; 0x1005
     pop ax                           ; 0x1007
     add ax, cx                       ; 0x1008
     push ax                          ; 0x100a
     push word [bp + 0xa]             ; 0x100b
-    call aztec_strlen                ; 0x100e
+    call strlen                ; 0x100e
     pop cx                           ; 0x1011
     mov cx, ax                       ; 0x1012
     pop ax                           ; 0x1014

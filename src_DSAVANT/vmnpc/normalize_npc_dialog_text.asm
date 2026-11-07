@@ -1,7 +1,7 @@
 ; auto-generated
 normalize_npc_dialog_text:
     mov ax, 0xfffc                   ; 0x8738
-    call aztec_csav                  ; 0x873b
+    call $csav                  ; 0x873b
     mov word [npc_dialog_text_has_question], 0 ; 0x873e
     mov word [bp - 2], 0             ; 0x8744
     jmp short .forward4              ; 0x8749
@@ -32,7 +32,7 @@ normalize_npc_dialog_text:
     inc word [bp - 2]                ; 0x8783
 .forward4:
     push word [bp + 4]               ; 0x8786
-    call aztec_strlen                ; 0x8789
+    call strlen                ; 0x8789
     pop cx                           ; 0x878c
     cmp ax, word [bp - 2]            ; 0x878d
     jg short .back1                  ; 0x8790

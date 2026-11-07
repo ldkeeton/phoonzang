@@ -6,7 +6,7 @@ extern struct pc_rec party_records[];
 extern int load_message_string(), str_subst_char();
 extern int display_npc_message_sequence(), edit_npc_dialog_text_line(),
 	expand_npc_dialog_text();
-extern int aztec_strlen(), strpos(), aztec_strncmp();
+extern int strlen(), strpos(), strncmp();
 
 /* Reads replies until one matches a message alternative. */
 find_npc_message_match(member_index, message_number, return_match)
@@ -27,7 +27,7 @@ int return_match;
 	for (;;) {
 		display_npc_message_sequence(message_number + 2, 0);
 		edit_npc_dialog_text_line(entry, prompt);
-		message_offset = aztec_strlen(entry);
+		message_offset = strlen(entry);
 		entry[message_offset] = ' ';
 		entry[message_offset + 1] = 0;
 		expand_npc_dialog_text(entry);
@@ -36,7 +36,7 @@ int return_match;
 			slash_offset = strpos(message + message_offset + 1, '/');
 			entry_cursor = entry;
 			while (*entry_cursor != 0) {
-				if (aztec_strncmp(entry_cursor, message + message_offset + 1,
+				if (strncmp(entry_cursor, message + message_offset + 1,
 					slash_offset) == 0)
 					return (unsigned char)message[message_offset];
 				entry_cursor++;

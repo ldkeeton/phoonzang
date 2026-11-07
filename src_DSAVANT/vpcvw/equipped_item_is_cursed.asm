@@ -1,7 +1,7 @@
 ; auto-generated
 equipped_item_is_cursed:
     mov ax, 0                        ; 0x474b
-    call aztec_csav                  ; 0x474e
+    call $csav                  ; 0x474e
     mov ax, 0x248                    ; 0x4751
     imul word [bp + 4]               ; 0x4754
     add ax, word [bp + 6]            ; 0x4757

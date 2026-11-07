@@ -1,7 +1,7 @@
 ; auto-generated
 mark_connected_maze_cells:
     mov ax, 0xfffe                   ; 0x0b66
-    call aztec_csav                  ; 0x0b69
+    call $csav                  ; 0x0b69
     mov ax, word [bp + 6]            ; 0x0b6c
     add ax, strict word 8            ; 0x0b6f
     mov cx, 8                        ; 0x0b72

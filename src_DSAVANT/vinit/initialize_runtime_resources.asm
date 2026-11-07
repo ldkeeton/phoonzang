@@ -1,7 +1,7 @@
 ; auto-generated
 initialize_runtime_resources:
     mov ax, 0xfce6                   ; 0x03a8
-    call aztec_csav                  ; 0x03ab
+    call $csav                  ; 0x03ab
     mov word [npc_id_decoy], 0       ; 0x03ae
     mov word [pointer_image_zero_seg], 0 ; 0x03b4
     mov word [pointer_image_zero], 0 ; 0x03ba
@@ -13,7 +13,7 @@ initialize_runtime_resources:
     push ax                          ; 0x03db
     mov ax, startup_scenario_header_name ; 0x03dc
     push ax                          ; 0x03df
-    call aztec_open                  ; 0x03e0
+    call open                  ; 0x03e0
     add sp, byte 4                   ; 0x03e3
     mov word [scenario_header_fd], ax ; 0x03e6
     cmp ax, strict word 0xffff       ; 0x03e9
@@ -28,10 +28,10 @@ initialize_runtime_resources:
     mov ax, scenario_header_data     ; 0x03fa
     push ax                          ; 0x03fd
     push word [scenario_header_fd]   ; 0x03fe
-    call aztec_read                  ; 0x0402
+    call read                  ; 0x0402
     add sp, byte 6                   ; 0x0405
     push word [scenario_header_fd]   ; 0x0408
-    call aztec_close                 ; 0x040c
+    call close                 ; 0x040c
     pop cx                           ; 0x040f
     mov word [message_delay], 0x36   ; 0x0410
     mov al, byte [startup_option_byte] ; 0x0416
@@ -253,7 +253,7 @@ initialize_runtime_resources:
     call data_file_path              ; 0x0609
     add sp, byte 4                   ; 0x060c
     push ax                          ; 0x060f
-    call aztec_open                  ; 0x0610
+    call open                  ; 0x0610
     add sp, byte 4                   ; 0x0613
     mov word [msg_dbs_fd], ax        ; 0x0616
     cmp ax, strict word 0xffff       ; 0x0619
@@ -303,7 +303,7 @@ initialize_runtime_resources:
     call data_file_path              ; 0x0699
     add sp, byte 4                   ; 0x069c
     push ax                          ; 0x069f
-    call aztec_open                  ; 0x06a0
+    call open                  ; 0x06a0
     add sp, byte 4                   ; 0x06a3
     mov word [data_file_fd], ax      ; 0x06a6
     cmp ax, strict word 0xffff       ; 0x06a9
@@ -430,7 +430,7 @@ initialize_runtime_resources:
     pop cx                           ; 0x07ed
 .forward19:
     push word [maze_data_size]       ; 0x07ee
-    call aztec_malloc                ; 0x07f2
+    call malloc                ; 0x07f2
     pop cx                           ; 0x07f5
     mov word [maze_data], ax         ; 0x07f6
     cmp word [maze_data], byte 0     ; 0x07f9
@@ -441,7 +441,7 @@ initialize_runtime_resources:
     pop cx                           ; 0x0807
 .forward20:
     push word [maze_tables_size]     ; 0x0808
-    call aztec_malloc                ; 0x080c
+    call malloc                ; 0x080c
     pop cx                           ; 0x080f
     mov word [maze_tables], ax       ; 0x0810
     cmp word [maze_tables], byte 0   ; 0x0813
@@ -453,7 +453,7 @@ initialize_runtime_resources:
 .forward21:
     mov ax, 0xc00                    ; 0x0822
     push ax                          ; 0x0825
-    call aztec_malloc                ; 0x0826
+    call malloc                ; 0x0826
     pop cx                           ; 0x0829
     mov word [maze_change_log], ax   ; 0x082a
     cmp word [maze_change_log], byte 0 ; 0x082d
@@ -465,7 +465,7 @@ initialize_runtime_resources:
 .forward22:
     mov ax, 0x400                    ; 0x083c
     push ax                          ; 0x083f
-    call aztec_malloc                ; 0x0840
+    call malloc                ; 0x0840
     pop cx                           ; 0x0843
     mov word [floor_items], ax       ; 0x0844
     cmp word [floor_items], byte 0   ; 0x0847
@@ -484,7 +484,7 @@ initialize_runtime_resources:
     call data_file_path              ; 0x0865
     add sp, byte 4                   ; 0x0868
     push ax                          ; 0x086b
-    call aztec_open                  ; 0x086c
+    call open                  ; 0x086c
     add sp, byte 4                   ; 0x086f
     mov word [bp - 4], ax            ; 0x0872
     cmp ax, strict word 0xffff       ; 0x0875
@@ -499,10 +499,10 @@ initialize_runtime_resources:
     lea ax, word [bp - 0x31a]        ; 0x0886
     push ax                          ; 0x088a
     push word [bp - 4]               ; 0x088b
-    call aztec_read                  ; 0x088e
+    call read                  ; 0x088e
     add sp, byte 6                   ; 0x0891
     push word [bp - 4]               ; 0x0894
-    call aztec_close                 ; 0x0897
+    call close                 ; 0x0897
     pop cx                           ; 0x089a
     lea ax, word [bp - 0x31a]        ; 0x089b
     push ax                          ; 0x089f

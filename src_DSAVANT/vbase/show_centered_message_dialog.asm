@@ -1,7 +1,7 @@
 ; auto-generated
 show_centered_message_dialog:
     mov ax, 0xff9e                   ; 0x4b95
-    call aztec_csav                  ; 0x4b98
+    call $csav                  ; 0x4b98
     mov word [bp - 2], 0             ; 0x4b9b
     mov word [bp - 0x62], 0          ; 0x4ba0
 .back1:
@@ -16,14 +16,14 @@ show_centered_message_dialog:
     jne short .forward2              ; 0x4bbb
     lea ax, word [bp - 0x5e]         ; 0x4bbd
     push ax                          ; 0x4bc0
-    call aztec_strlen                ; 0x4bc1
+    call strlen                ; 0x4bc1
     pop cx                           ; 0x4bc4
     dec ax                           ; 0x4bc5
     cmp ax, word [bp - 0x62]         ; 0x4bc6
     jle short .forward1              ; 0x4bc9
     lea ax, word [bp - 0x5e]         ; 0x4bcb
     push ax                          ; 0x4bce
-    call aztec_strlen                ; 0x4bcf
+    call strlen                ; 0x4bcf
     pop cx                           ; 0x4bd2
     dec ax                           ; 0x4bd3
     mov word [bp - 0x62], ax         ; 0x4bd4
@@ -105,7 +105,7 @@ show_centered_message_dialog:
     push ax                          ; 0x4c8f
     lea ax, word [bp - 0x5e]         ; 0x4c90
     push ax                          ; 0x4c93
-    call aztec_strlen                ; 0x4c94
+    call strlen                ; 0x4c94
     pop cx                           ; 0x4c97
     mov cx, 6                        ; 0x4c98
     imul cx                          ; 0x4c9b

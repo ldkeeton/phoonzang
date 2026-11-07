@@ -1,12 +1,12 @@
 ; auto-generated
 load_member_icon:
     mov ax, 0xffea
-    call aztec_csav
+    call $csav
     mov ax, portrait_data_filename
     push ax
     lea ax, word [bp - 0x16]
     push ax
-    call aztec_strcpy
+    call strcpy
     add sp, byte 4
     mov ax, 0
     push ax
@@ -20,7 +20,7 @@ load_member_icon:
     call data_file_path
     add sp, byte 4
     push ax
-    call aztec_open
+    call open
     add sp, byte 4
     mov word [bp - 2], ax
     cmp ax, strict word 0xffff
@@ -38,6 +38,6 @@ load_member_icon:
     call read_font_glyph
     add sp, byte 8
     push word [bp - 2]
-    call aztec_close
+    call close
     pop cx
     ret

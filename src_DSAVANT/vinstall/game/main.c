@@ -114,7 +114,7 @@ main()
 	put_int_at(3, 59, installer_version / 100);
 	bios_put_text(version_separator);
 	int_to_str(installer_version % 100, version_minor_text);
-	if (aztec_strlen(version_minor_text) == 1) {
+	if (strlen(version_minor_text) == 1) {
 		version_minor_text[1] = version_minor_text[0];
 		version_minor_text[0] = '0';
 		version_minor_text[2] = 0;
@@ -130,7 +130,7 @@ main()
 	put_text_at(16, 5, copyright_line_7);
 	put_text_at(17, 5, copyright_line_8);
 	put_text_at(18, 5, copyright_line_9);
-	aztec_strcpy(installer_message_buffer, empty_message_text);
+	strcpy(installer_message_buffer, empty_message_text);
 	show_message_wait_for_enter(press_return_to_begin);
 	clear_screen_home_cursor();
 	put_text_at(0, 14, setup_screen_border_top);
@@ -156,8 +156,8 @@ main()
 	if (startup_status & 4096)
 		mouse_detected = 1;
 	source_drive_type = 3;
-	aztec_strcpy(source_drive_name, default_source_drive);
-	aztec_strcpy(source_path, empty_drive_name);
+	strcpy(source_drive_name, default_source_drive);
+	strcpy(source_path, empty_drive_name);
 	dest_drive_type = 4;
 	set_install_drive_defaults(dest_drive_type, dest_drive_name,
 		dest_path);
@@ -208,14 +208,14 @@ main()
 		show_message_wait_for_enter(no_video_card_error);
 		show_message_wait_for_enter(unable_to_complete_error);
 		set_video_mode(3);
-		aztec_exit(0);
+		exit(0);
 	}
 	current_field = 0;
 	previous_field = -1;
 	setup_done = 0;
 	/* Keep the displayed fields in sync with the menu's current selections. */
 	do {
-		aztec_strcpy(installer_message_buffer, navigation_help_message);
+		strcpy(installer_message_buffer, navigation_help_message);
 		switch (previous_field) {
 		case 0:
 			put_text_at(8, 22, disk_drive_type_table[source_drive_type]);
@@ -400,7 +400,7 @@ main()
 						input_invalid =
 							(dest_path[0] < 'A' || dest_path[0] > 'Z' ||
 							 dest_path[1] != ':' ||
-							 aztec_strlen(dest_path) > 2) ? 1 : 0;
+							 strlen(dest_path) > 2) ? 1 : 0;
 						if (input_invalid == 1)
 							show_message_wait_for_enter(bad_destination_path_error);
 					} else
@@ -418,7 +418,7 @@ main()
 			case 8:
 				do {
 					read_text_at(11, 58, ram_name, 20);
-					text_length = aztec_strlen(ram_name);
+					text_length = strlen(ram_name);
 					input_invalid =
 						(text_length < 2 ||
 						 ram_name[text_length - 1] != ':') ? 1 : 0;
@@ -451,20 +451,20 @@ main()
 					show_message_wait_for_enter(specify_new_drive_prompt);
 				} else {
 					switch (dest_drive_type) {
-					case 0: aztec_strcpy(disk_count_text,
+					case 0: strcpy(disk_count_text,
 						disk_count_360k); break;
-					case 1: aztec_strcpy(disk_count_text,
+					case 1: strcpy(disk_count_text,
 						disk_count_1200k); break;
-					case 2: aztec_strcpy(disk_count_text,
+					case 2: strcpy(disk_count_text,
 						disk_count_720k); break;
-					case 3: aztec_strcpy(disk_count_text,
+					case 3: strcpy(disk_count_text,
 						disk_count_1440k); break;
 					}
-					aztec_strcpy(installer_message_buffer, empty_install_message_prefix);
+					strcpy(installer_message_buffer, empty_install_message_prefix);
 					if (dest_drive_type != 4) {
-						aztec_strcpy(message_text, install_requires_prefix);
-						aztec_strcat(message_text, disk_count_text);
-						aztec_strcat(message_text, install_requires_suffix);
+						strcpy(message_text, install_requires_prefix);
+						strcat(message_text, disk_count_text);
+						strcat(message_text, install_requires_suffix);
 						show_message_wait_for_enter(message_text);
 						show_message_wait_for_enter(formatted_disk_reminder);
 					}
@@ -489,22 +489,22 @@ main()
 	} while (setup_done == 0);
 	if (proceed_install) {
 		/* Assemble the selected destination and installation options. */
-		aztec_strcpy(pkunzip_filespec_list, filespec_list_init);
-		aztec_strcpy(installer_message_buffer, message_buffer_init);
-		aztec_strcpy(source_dir, source_drive_name);
-		aztec_strcat(source_dir, source_dir_separator);
-		aztec_strcpy(game_dir, dest_drive_name);
-		aztec_strcat(game_dir, dest_dir_separator);
+		strcpy(pkunzip_filespec_list, filespec_list_init);
+		strcpy(installer_message_buffer, message_buffer_init);
+		strcpy(source_dir, source_drive_name);
+		strcat(source_dir, source_dir_separator);
+		strcpy(game_dir, dest_drive_name);
+		strcat(game_dir, dest_dir_separator);
 		if (full_install == 0 && dest_drive_type == 4) {
-			aztec_strcat(game_dir, dest_path);
-			if (aztec_strlen(dest_path) > 0)
-				aztec_strcat(game_dir, dest_path_separator);
+			strcat(game_dir, dest_path);
+			if (strlen(dest_path) > 0)
+				strcat(game_dir, dest_path_separator);
 		}
 		if (full_install == 1 && dest_drive_type == 4) {
-			aztec_strcat(game_dir, dest_path);
+			strcat(game_dir, dest_path);
 			enter_destination_directory(dest_drive_name, game_dir, 1);
-			if (aztec_strlen(dest_path) > 0)
-				aztec_strcat(game_dir, full_install_path_separator);
+			if (strlen(dest_path) > 0)
+				strcat(game_dir, full_install_path_separator);
 			prompt_for_archive_disk(source_drive_name, source_dir, 1,
 				archive_crus01_211c);
 			run_pkunzip_archive(source_dir, game_dir,
@@ -592,5 +592,5 @@ main()
 		}
 	}
 	set_video_mode(3);
-	aztec_exit(0);
+	exit(0);
 }

@@ -1,7 +1,7 @@
 ; auto-generated
 display_message_with_sound:
     mov ax, 0                        ; 0x12d3
-    call aztec_csav                  ; 0x12d6
+    call $csav                  ; 0x12d6
     push word [bp + 4]               ; 0x12d9
     call show_message                ; 0x12dc
     pop cx                           ; 0x12df

@@ -4,18 +4,18 @@ queue_pkunzip_filespec:
     mov bp, sp                       ; 0x102e
     mov ax, pkunzip_filespec_list    ; 0x1030
     push ax                          ; 0x1033
-    call aztec_strlen                ; 0x1034
+    call strlen                ; 0x1034
     pop cx                           ; 0x1037
     cmp ax, strict word 0x50         ; 0x1038
     jg short .forward1               ; 0x103b
     mov ax, pkunzip_filespec_list    ; 0x103d
     push ax                          ; 0x1040
-    call aztec_strlen                ; 0x1041
+    call strlen                ; 0x1041
     pop cx                           ; 0x1044
     cmp ax, strict word 0            ; 0x1045
     jle short .forward2              ; 0x1048
     push word [bp + 0xa]             ; 0x104a
-    call aztec_strlen                ; 0x104d
+    call strlen                ; 0x104d
     pop cx                           ; 0x1050
     test ax, ax                      ; 0x1051
     jne short .forward2              ; 0x1053
@@ -31,13 +31,13 @@ queue_pkunzip_filespec:
     push ax                          ; 0x106b
     mov ax, pkunzip_filespec_list    ; 0x106c
     push ax                          ; 0x106f
-    call aztec_strcpy                ; 0x1070
+    call strcpy                ; 0x1070
     add sp, byte 4                   ; 0x1073
     jmp short .forward3              ; 0x1076
 .forward2:
     mov ax, pkunzip_filespec_list    ; 0x1078
     push ax                          ; 0x107b
-    call aztec_strlen                ; 0x107c
+    call strlen                ; 0x107c
     pop cx                           ; 0x107f
     cmp ax, strict word 0            ; 0x1080
     jle short .forward3              ; 0x1083
@@ -45,13 +45,13 @@ queue_pkunzip_filespec:
     push ax                          ; 0x1088
     mov ax, pkunzip_filespec_list    ; 0x1089
     push ax                          ; 0x108c
-    call aztec_strcat                ; 0x108d
+    call strcat                ; 0x108d
     add sp, byte 4                   ; 0x1090
 .forward3:
     push word [bp + 0xa]             ; 0x1093
     mov ax, pkunzip_filespec_list    ; 0x1096
     push ax                          ; 0x1099
-    call aztec_strcat                ; 0x109a
+    call strcat                ; 0x109a
     add sp, byte 4                   ; 0x109d
     mov sp, bp                       ; 0x10a0
     pop bp                           ; 0x10a2

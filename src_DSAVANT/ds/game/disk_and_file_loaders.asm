@@ -1,7 +1,7 @@
 ; auto-generated
 prompt_disk_swap:
     mov ax, 0xff46                   ; 0x23ef
-    call aztec_csav                  ; 0x23f2
+    call $csav                  ; 0x23f2
     mov word [bp - 0xb0], 0x37       ; 0x23f5
     mov word [bp - 0xb2], 0x8f       ; 0x23fb
     mov word [bp - 0xb4], 0x108      ; 0x2401
@@ -31,15 +31,15 @@ prompt_disk_swap:
     push word [bp + 4]               ; 0x2442
     lea ax, word [bp - 0x78]         ; 0x2445
     push ax                          ; 0x2448
-    call aztec_strcpy                ; 0x2449
+    call strcpy                ; 0x2449
     add sp, byte 4                   ; 0x244c
     cmp word [bp + 8], byte 0        ; 0x244f
     je short .forward1               ; 0x2453
     push word [msg_dbs_fd]           ; 0x2455
-    call aztec_close                 ; 0x2459
+    call close                 ; 0x2459
     pop cx                           ; 0x245c
     push word [data_file_fd]         ; 0x245d
-    call aztec_close                 ; 0x2461
+    call close                 ; 0x2461
     pop cx                           ; 0x2464
 .forward1:
     mov word [bp - 0xaa], 0xfffe     ; 0x2465
@@ -52,7 +52,7 @@ prompt_disk_swap:
     push ax                          ; 0x247a
     lea ax, word [bp - 0x50]         ; 0x247b
     push ax                          ; 0x247e
-    call aztec_strcpy                ; 0x247f
+    call strcpy                ; 0x247f
     add sp, byte 4                   ; 0x2482
     jmp short .forward3              ; 0x2485
 .forward2:
@@ -64,7 +64,7 @@ prompt_disk_swap:
     push ax                          ; 0x2499
     lea ax, word [bp - 0x50]         ; 0x249a
     push ax                          ; 0x249d
-    call aztec_strcpy                ; 0x249e
+    call strcpy                ; 0x249e
     add sp, byte 4                   ; 0x24a1
     mov ax, 0x5e                     ; 0x24a4
     push ax                          ; 0x24a7
@@ -92,7 +92,7 @@ prompt_disk_swap:
     push ax                          ; 0x24e2
     lea ax, word [bp - 0x50]         ; 0x24e3
     push ax                          ; 0x24e6
-    call aztec_strlen                ; 0x24e7
+    call strlen                ; 0x24e7
     pop cx                           ; 0x24ea
     mov cx, 6                        ; 0x24eb
     imul cx                          ; 0x24ee
@@ -118,7 +118,7 @@ prompt_disk_swap:
     push ax                          ; 0x251f
     lea ax, word [bp - 0x50]         ; 0x2520
     push ax                          ; 0x2523
-    call aztec_strcpy                ; 0x2524
+    call strcpy                ; 0x2524
     add sp, byte 4                   ; 0x2527
     mov ax, 0x5e                     ; 0x252a
     push ax                          ; 0x252d
@@ -133,7 +133,7 @@ prompt_disk_swap:
     push ax                          ; 0x2543
     lea ax, word [bp - 0x50]         ; 0x2544
     push ax                          ; 0x2547
-    call aztec_strlen                ; 0x2548
+    call strlen                ; 0x2548
     pop cx                           ; 0x254b
     mov cx, 6                        ; 0x254c
     imul cx                          ; 0x254f
@@ -280,19 +280,19 @@ prompt_disk_swap:
     push ax                          ; 0x269f
     lea ax, word [bp - 0xa0]         ; 0x26a0
     push ax                          ; 0x26a4
-    call aztec_strcpy                ; 0x26a5
+    call strcpy                ; 0x26a5
     add sp, byte 4                   ; 0x26a8
     mov ax, str_disk_hdr             ; 0x26ab
     push ax                          ; 0x26ae
     lea ax, word [bp - 0xa0]         ; 0x26af
     push ax                          ; 0x26b3
-    call aztec_strcat                ; 0x26b4
+    call strcat                ; 0x26b4
     add sp, byte 4                   ; 0x26b7
     mov ax, 0                        ; 0x26ba
     push ax                          ; 0x26bd
     lea ax, word [bp - 0xa0]         ; 0x26be
     push ax                          ; 0x26c2
-    call aztec_open                  ; 0x26c3
+    call open                  ; 0x26c3
     add sp, byte 4                   ; 0x26c6
     mov word [bp - 0xa2], ax         ; 0x26c9
     cmp word [bp + 6], byte 0        ; 0x26cd
@@ -303,7 +303,7 @@ prompt_disk_swap:
     jmp short .forward6              ; 0x26de
 .forward5:
     push ax                          ; 0x26e0
-    call aztec_close                 ; 0x26e1
+    call close                 ; 0x26e1
     pop cx                           ; 0x26e4
     cmp byte [install_mode], 1       ; 0x26e5
     jne short .forward6              ; 0x26ea
@@ -318,7 +318,7 @@ prompt_disk_swap:
     mov ax, disk_header              ; 0x26ff
     push ax                          ; 0x2702
     push word [bp - 0xa2]            ; 0x2703
-    call aztec_read                  ; 0x2707
+    call read                  ; 0x2707
     add sp, byte 6                   ; 0x270a
     mov word [bp - 0xa6], ax         ; 0x270d
     cmp byte [install_mode], 5       ; 0x2711
@@ -340,7 +340,7 @@ prompt_disk_swap:
     mov word [bp - 0xa8], 1          ; 0x2738
 .forward10:
     push word [bp - 0xa2]            ; 0x273e
-    call aztec_close                 ; 0x2742
+    call close                 ; 0x2742
     pop cx                           ; 0x2745
 .forward11:
     cmp word [bp - 0xa8], byte 0     ; 0x2746
@@ -354,7 +354,7 @@ prompt_disk_swap:
     push ax                          ; 0x2760
     lea ax, word [bp - 0x78]         ; 0x2761
     push ax                          ; 0x2764
-    call aztec_strcpy                ; 0x2765
+    call strcpy                ; 0x2765
     add sp, byte 4                   ; 0x2768
     cmp word [bp + 6], byte -2       ; 0x276b
     je short .forward13              ; 0x276f
@@ -377,7 +377,7 @@ prompt_disk_swap:
     call data_file_path              ; 0x2798
     add sp, byte 4                   ; 0x279b
     push ax                          ; 0x279e
-    call aztec_open                  ; 0x279f
+    call open                  ; 0x279f
     add sp, byte 4                   ; 0x27a2
     mov word [msg_dbs_fd], ax        ; 0x27a5
     cmp ax, strict word 0xffff       ; 0x27a8
@@ -400,7 +400,7 @@ prompt_disk_swap:
     call data_file_path              ; 0x27cb
     add sp, byte 4                   ; 0x27ce
     push ax                          ; 0x27d1
-    call aztec_open                  ; 0x27d2
+    call open                  ; 0x27d2
     add sp, byte 4                   ; 0x27d5
     mov word [data_file_fd], ax      ; 0x27d8
     cmp ax, strict word 0xffff       ; 0x27db
@@ -413,7 +413,7 @@ prompt_disk_swap:
     ret                              ; 0x27e8
 ensure_game_disk:
     mov ax, 0xffe8                   ; 0x27e9
-    call aztec_csav                  ; 0x27ec
+    call $csav                  ; 0x27ec
     mov word [bp - 0x16], 0          ; 0x27ef
     mov al, byte [install_mode]      ; 0x27f4
     sub ah, ah                       ; 0x27f7
@@ -470,7 +470,7 @@ ensure_game_disk:
     ret                              ; 0x2862
 load_monster_picture:
     mov ax, 0xffe8                   ; 0x2863
-    call aztec_csav                  ; 0x2866
+    call $csav                  ; 0x2866
     mov ax, 0                        ; 0x2869
     push ax                          ; 0x286c
     call call_wait_sound             ; 0x286d
@@ -497,7 +497,7 @@ load_monster_picture:
     push ax                          ; 0x289f
     lea ax, word [bp - 0x18]         ; 0x28a0
     push ax                          ; 0x28a3
-    call aztec_strcpy                ; 0x28a4
+    call strcpy                ; 0x28a4
     add sp, byte 4                   ; 0x28a7
     mov ax, word [bp + 4]            ; 0x28aa
     mov cx, 0xa                      ; 0x28ad
@@ -517,7 +517,7 @@ load_monster_picture:
     call data_file_path              ; 0x28cd
     add sp, byte 4                   ; 0x28d0
     push ax                          ; 0x28d3
-    call aztec_open                  ; 0x28d4
+    call open                  ; 0x28d4
     add sp, byte 4                   ; 0x28d7
     mov word [bp - 4], ax            ; 0x28da
     cmp ax, strict word 0xffff       ; 0x28dd
@@ -532,7 +532,7 @@ load_monster_picture:
     call call_load_picture           ; 0x28f0
     add sp, byte 4                   ; 0x28f3
     push word [bp - 4]               ; 0x28f6
-    call aztec_close                 ; 0x28f9
+    call close                 ; 0x28f9
     pop cx                           ; 0x28fc
     mov al, byte [bp + 4]            ; 0x28fd
     mov bx, word [bp + 6]            ; 0x2900
@@ -542,7 +542,7 @@ load_monster_picture:
     ret                              ; 0x290c
 wait_and_free_sound:
     mov ax, 0                        ; 0x290d
-    call aztec_csav                  ; 0x2910
+    call $csav                  ; 0x2910
     mov ax, 1                        ; 0x2913
     push ax                          ; 0x2916
     call call_wait_sound             ; 0x2917
@@ -553,7 +553,7 @@ wait_and_free_sound:
     ret                              ; 0x2922
 load_sound_file:
     mov ax, 0xffe8                   ; 0x2923
-    call aztec_csav                  ; 0x2926
+    call $csav                  ; 0x2926
     mov ax, 0                        ; 0x2929
     push ax                          ; 0x292c
     call call_wait_sound             ; 0x292d
@@ -593,7 +593,7 @@ load_sound_file:
     push ax                          ; 0x2986
     lea ax, word [bp - 0x18]         ; 0x2987
     push ax                          ; 0x298a
-    call aztec_strcpy                ; 0x298b
+    call strcpy                ; 0x298b
     add sp, byte 4                   ; 0x298e
     mov ax, word [bp + 4]            ; 0x2991
     mov cx, 0xa                      ; 0x2994
@@ -613,7 +613,7 @@ load_sound_file:
     call data_file_path              ; 0x29b4
     add sp, byte 4                   ; 0x29b7
     push ax                          ; 0x29ba
-    call aztec_open                  ; 0x29bb
+    call open                  ; 0x29bb
     add sp, byte 4                   ; 0x29be
     mov word [bp - 4], ax            ; 0x29c1
     cmp ax, strict word 0xffff       ; 0x29c4
@@ -635,13 +635,13 @@ load_sound_file:
     pop cx                           ; 0x29e8
 .forward5:
     push word [bp - 4]               ; 0x29e9
-    call aztec_close                 ; 0x29ec
+    call close                 ; 0x29ec
     pop cx                           ; 0x29ef
 .return1:
     ret                              ; 0x29f0
 ensure_sound_loaded:
     mov ax, 0                        ; 0x29f1
-    call aztec_csav                  ; 0x29f4
+    call $csav                  ; 0x29f4
     mov ax, word [loaded_sound_id]   ; 0x29f7
     cmp ax, word [bp + 4]            ; 0x29fa
     je short .return1                ; 0x29fd
@@ -669,7 +669,7 @@ ensure_sound_loaded:
     ret                              ; 0x2a2d
 load_score_files:
     mov ax, 0xff58                   ; 0x2a2e
-    call aztec_csav                  ; 0x2a31
+    call $csav                  ; 0x2a31
     mov al, byte [video_mode]        ; 0x2a34
     sub ah, ah                       ; 0x2a37
     mov word [bp - 0xa8], ax         ; 0x2a39
@@ -681,7 +681,7 @@ load_score_files:
     push ax                          ; 0x2a4b
     lea ax, word [bp - 0xa4]         ; 0x2a4c
     push ax                          ; 0x2a50
-    call aztec_strcpy                ; 0x2a51
+    call strcpy                ; 0x2a51
     add sp, byte 4                   ; 0x2a54
     mov ax, word [bp + 4]            ; 0x2a57
     mov cx, 0xa                      ; 0x2a5a
@@ -696,13 +696,13 @@ load_score_files:
     push ax                          ; 0x2a74
     lea ax, word [bp - 0x54]         ; 0x2a75
     push ax                          ; 0x2a78
-    call aztec_strcpy                ; 0x2a79
+    call strcpy                ; 0x2a79
     add sp, byte 4                   ; 0x2a7c
     mov ax, score_ext_csf            ; 0x2a7f
     push ax                          ; 0x2a82
     lea ax, word [bp - 0x54]         ; 0x2a83
     push ax                          ; 0x2a86
-    call aztec_strcat                ; 0x2a87
+    call strcat                ; 0x2a87
     add sp, byte 4                   ; 0x2a8a
     mov ax, 0                        ; 0x2a8d
     push ax                          ; 0x2a90
@@ -713,7 +713,7 @@ load_score_files:
     call data_file_path              ; 0x2a99
     add sp, byte 4                   ; 0x2a9c
     push ax                          ; 0x2a9f
-    call aztec_open                  ; 0x2aa0
+    call open                  ; 0x2aa0
     add sp, byte 4                   ; 0x2aa3
     mov word [bp - 2], ax            ; 0x2aa6
     cmp ax, strict word 0xffff       ; 0x2aa9
@@ -727,7 +727,7 @@ load_score_files:
     push ax                          ; 0x2aba
     lea ax, word [bp - 0x54]         ; 0x2abb
     push ax                          ; 0x2abe
-    call aztec_strcpy                ; 0x2abf
+    call strcpy                ; 0x2abf
     add sp, byte 4                   ; 0x2ac2
     cmp word [bp - 0xa8], byte 5     ; 0x2ac5
     jne short .forward3              ; 0x2aca
@@ -735,7 +735,7 @@ load_score_files:
     push ax                          ; 0x2acf
     lea ax, word [bp - 0x54]         ; 0x2ad0
     push ax                          ; 0x2ad3
-    call aztec_strcat                ; 0x2ad4
+    call strcat                ; 0x2ad4
     add sp, byte 4                   ; 0x2ad7
     jmp short .forward4              ; 0x2ada
 .forward3:
@@ -743,7 +743,7 @@ load_score_files:
     push ax                          ; 0x2adf
     lea ax, word [bp - 0x54]         ; 0x2ae0
     push ax                          ; 0x2ae3
-    call aztec_strcat                ; 0x2ae4
+    call strcat                ; 0x2ae4
     add sp, byte 4                   ; 0x2ae7
 .forward4:
     mov ax, 0                        ; 0x2aea
@@ -755,7 +755,7 @@ load_score_files:
     call data_file_path              ; 0x2af6
     add sp, byte 4                   ; 0x2af9
     push ax                          ; 0x2afc
-    call aztec_open                  ; 0x2afd
+    call open                  ; 0x2afd
     add sp, byte 4                   ; 0x2b00
     mov word [bp - 4], ax            ; 0x2b03
     cmp ax, strict word 0xffff       ; 0x2b06
@@ -780,10 +780,10 @@ load_score_files:
     pop cx                           ; 0x2b38
 .forward6:
     push word [bp - 2]               ; 0x2b39
-    call aztec_close                 ; 0x2b3c
+    call close                 ; 0x2b3c
     pop cx                           ; 0x2b3f
     push word [bp - 4]               ; 0x2b40
-    call aztec_close                 ; 0x2b43
+    call close                 ; 0x2b43
     pop cx                           ; 0x2b46
     mov ax, word [bp + 4]            ; 0x2b47
     mov word [loaded_score_num], ax  ; 0x2b4a

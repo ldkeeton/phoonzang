@@ -1,7 +1,7 @@
 ; auto-generated
 ovmain:
     mov ax, 0                        ; 0x17d1
-    call aztec_csav                  ; 0x17d4
+    call $csav                  ; 0x17d4
     mov word [combat_overlay_entry_flag], 0 ; 0x17d7
     cmp word [game_state], byte 0xd  ; 0x17dd
     jne short .forward1              ; 0x17e2

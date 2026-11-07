@@ -12,7 +12,7 @@ extern int mouse_active, hotspot_hit, hotspot_rects[];
 extern int selected_equipment_slot;
 extern int display_cursed_status_message();
 extern int read_item_special_power(), use_item_special_power();
-extern int aztec_strcpy(), aztec_strlen();
+extern int strcpy(), strlen();
 extern int clear_item_slot(), draw_member_item_page();
 extern int pick_up_inventory_entry();
 extern long call_save_area();
@@ -74,7 +74,7 @@ int member_index, slot_index;
 	/* Lift the item out of its slot. */
 	party_records[member_index].item_slots[item_page][slot_index].flags &= ~1;
 	held = party_records[member_index].item_slots[item_page][slot_index];
-	aztec_strcpy(held_name, item_slot_names[slot_index]);
+	strcpy(held_name, item_slot_names[slot_index]);
 	held_color = item_slot_color[slot_index];
 	held_label = item_slot_attr[slot_index];
 	clear_item_slot(member_index, item_page, slot_index);
@@ -128,7 +128,7 @@ int member_index, slot_index;
 					button_top + 8, 0);
 				call_set_text_color(1, 192);
 				call_set_text_pos((button_chars
-					- aztec_strlen(inventory_button_labels[label_index])) * 6 / 2
+					- strlen(inventory_button_labels[label_index])) * 6 / 2
 					+ button_step * shown + button_left + 1, button_top + 2);
 				draw_text_glyphs(inventory_button_labels[label_index], 0);
 				set_hotspot(shown + 14, button_step * shown + button_left,
@@ -224,7 +224,7 @@ int member_index, slot_index;
 					slot_index = choice;
 					party_records[member_index].item_slots[item_page][slot_index].flags &= ~1;
 					target = party_records[member_index].item_slots[item_page][slot_index];
-					aztec_strcpy(target_name, item_slot_names[slot_index]);
+					strcpy(target_name, item_slot_names[slot_index]);
 					target_color = item_slot_color[slot_index];
 					target_label = item_slot_attr[slot_index];
 					clear_item_slot(member_index, item_page, slot_index);
@@ -241,11 +241,11 @@ int member_index, slot_index;
 						merge_mode = 0;
 					}
 					party_records[member_index].item_slots[item_page][slot_index] = held;
-					aztec_strcpy(item_slot_names[slot_index], held_name);
+					strcpy(item_slot_names[slot_index], held_name);
 					item_slot_color[slot_index] = held_color;
 					item_slot_attr[slot_index] = held_label;
 					held = target;
-					aztec_strcpy(held_name, target_name);
+					strcpy(held_name, target_name);
 					held_color = target_color;
 					held_label = target_label;
 					if (target.item_id == 0) {

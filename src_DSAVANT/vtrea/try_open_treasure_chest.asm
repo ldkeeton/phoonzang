@@ -1,7 +1,7 @@
 ; auto-generated
 try_open_treasure_chest:
     mov ax, 0xffac                   ; 0x4254
-    call aztec_csav                  ; 0x4257
+    call $csav                  ; 0x4257
     mov ax, 0xa                      ; 0x425a
     imul word [bp + 6]               ; 0x425d
     add ax, strict word 0x32         ; 0x4260

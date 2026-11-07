@@ -3,7 +3,7 @@ extern int party_return_state, game_state;
 extern int party_map_piece, party_cell_x, party_cell_y, party_facing;
 extern int current_level, previous_level, previous_party_facing;
 extern int party_status_frame;
-extern void aztec_setmem(), call_show_area(), set_bitmap_bit();
+extern void setmem(), call_show_area(), set_bitmap_bit();
 extern int party_redraw_interval_elapsed(), show_running_message();
 extern void redraw_maze_view(), wait_for_hotspot_timeout();
 extern void save_previous_party_position(), show_previous_party_position();
@@ -15,7 +15,7 @@ int steps;
 	int target_facing, turn, message_shown, side_turn, moved;
 	char visited[128];
 
-	aztec_setmem(visited, 128, 0);
+	setmem(visited, 128, 0);
 	party_return_state = 23;
 	game_state = 5;
 	call_show_area(0, 146, 319, 152);

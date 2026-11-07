@@ -142,11 +142,18 @@ def _tool_flags(project, binary, module):
     return compiler_flags(project, module.stem, binary) or []
 
 
+#: Where the compiler's objects and libraries are, as DOS sees them: ``C:`` is
+#: the compiler's directory.
+VENDOR_LIB = 'C:\\LIB\\'
+
+
 def ln_line(target, output, root_rsm=None):
-    """The DOS ``ln`` command of *target*, its objects in ``LINK.RSP``."""
+    """The DOS ``ln`` command of *target*, its objects in ``LINK.RSP``, and
+    after any root's symbols, its vendor libraries."""
     words = ['ln', *target.flags, '-o', output, '-f', 'LINK.RSP']
     if root_rsm:
         words.append(root_rsm)
+    words += [VENDOR_LIB + lib.upper() for lib in target.libs]
     return ' '.join(words + ['> LINK.LOG'])
 
 
@@ -163,7 +170,8 @@ def run_link(project, target, chosen, include_dir, root_rsm=None,
     if symbols:
         target = target._replace(flags=['-t', *target.flags])
     tree = src_dir(project)
-    dos = _compile.dos_names([m.stem for m in chosen])
+    sourced = [m for m in chosen if m.kind != 'obj']
+    dos = dict(zip(sourced, _compile.dos_names([m.stem for m in sourced])))
     work = tempfile.mkdtemp(prefix='asmazb-')
     try:
         os.symlink(_compile._compiler_dir(VERSION), os.path.join(work, 'azbin'))
@@ -171,7 +179,8 @@ def run_link(project, target, chosen, include_dir, root_rsm=None,
         with open(os.path.join(work, 'dosbox.conf'), 'w') as f:
             f.write(_compile._CONF)
         lines = []
-        for module, name in zip(chosen, dos):
+        for module in sourced:
+            name = dos[module]
             ext = 'ASM' if module.kind == 'asm' else 'C'
             shutil.copyfile(os.path.join(tree, module.path),
                             os.path.join(work, f'{name}.{ext}'))
@@ -179,7 +188,13 @@ def run_link(project, target, chosen, include_dir, root_rsm=None,
                 module.kind, _tool_flags(project, target.binary, module), name,
                 f'{name}.CC'))
             lines.append(f'if exist {name}.O cnm -l {name}.O > {name}.NM')
-            lines.append(f'if exist {name}.O echo {name}.O>> LINK.RSP')
+        # The objects go in after every compile, in the .lnk's order.
+        for module in chosen:
+            if module.kind == 'obj':
+                lines.append(f'echo {VENDOR_LIB}{module.path.upper()}>> LINK.RSP')
+            else:
+                name = dos[module]
+                lines.append(f'if exist {name}.O echo {name}.O>> LINK.RSP')
         if root_rsm is not None:
             with open(os.path.join(work, 'ROOT.RSM'), 'wb') as f:
                 f.write(root_rsm)
@@ -200,7 +215,8 @@ def run_link(project, target, chosen, include_dir, root_rsm=None,
                    env=dosbox_env(work), timeout=limit,
                    what=f'aztec link | {target.binary}: {len(chosen)} sources')
         publics, users, failed = {}, {}, {}
-        for module, name in zip(chosen, dos):
+        for module in sourced:
+            name = dos[module]
             cc_log = _read(os.path.join(work, f'{name}.CC'))
             if (not os.path.exists(os.path.join(work, f'{name}.O'))
                     or _compile._ERROR_LINE.search(cc_log)):

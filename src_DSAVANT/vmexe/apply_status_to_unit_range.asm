@@ -1,7 +1,7 @@
 ; auto-generated
 apply_status_to_unit_range:
     mov ax, 0xfff6                   ; 0x2998
-    call aztec_csav                  ; 0x299b
+    call $csav                  ; 0x299b
     mov word [combat_message_layout], 2 ; 0x299e
     cmp word [bp + 0x12], byte 0     ; 0x29a4
     jle short .forward1              ; 0x29a8

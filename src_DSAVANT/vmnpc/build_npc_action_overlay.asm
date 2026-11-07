@@ -1,7 +1,7 @@
 ; auto-generated
 build_npc_action_overlay:
     mov ax, 0xfff4                   ; 0x01d2
-    call aztec_csav                  ; 0x01d5
+    call $csav                  ; 0x01d5
     mov word [bp - 0xc], 0           ; 0x01d8
     mov ax, 0x15e                    ; 0x01dd
     imul word [bp + 4]               ; 0x01e0

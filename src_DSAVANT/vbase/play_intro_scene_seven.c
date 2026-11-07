@@ -6,7 +6,7 @@ extern int scene_step_a, scene_step_b, scene_step_c, scene_step_d;
 extern int scene_frame, scene_index, scene_frame_delay_ticks;
 extern long party_redraw_last_tick;
 extern long far *tick_counter_ptr;
-extern int load_screen_file(), load_numbered_scene_picture(), aztec_strcpy(),
+extern int load_screen_file(), load_numbered_scene_picture(), strcpy(),
 	draw_scene_frame(), call_reset_rgb(), call_show_area(), call_fade_in(),
 	play_scene_message_sequence(), free_scene_picture(), call_restore_screen(),
 	blank_scene_screen();
@@ -20,7 +20,7 @@ int first_message;
 	/* Cache the 320 by 146 backdrop in picture mode 2. */
 	scene_backdrop_ref = call_cache_area(0, 0, 319, 145, 2, 0);
 	load_numbered_scene_picture(12, 15);
-	aztec_strcpy(scene_digit_cycle, scene_seven_digit_cycle);
+	strcpy(scene_digit_cycle, scene_seven_digit_cycle);
 	scene_step_c = 0;
 	scene_step_a = 0;
 	scene_step_b = 0;

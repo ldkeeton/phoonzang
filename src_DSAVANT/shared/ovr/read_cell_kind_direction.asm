@@ -1,7 +1,7 @@
 ; auto-generated
 read_cell_kind_direction:
     mov ax, 0
-    call aztec_csav
+    call $csav
     mov ax, 6
     push ax
     push word [bp + 4]

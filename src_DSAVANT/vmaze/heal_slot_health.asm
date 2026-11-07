@@ -1,7 +1,7 @@
 ; auto-generated
 heal_slot_health:
     mov ax, 0xfffe                   ; 0xa28c
-    call aztec_csav                  ; 0xa28f
+    call $csav                  ; 0xa28f
     mov ax, 0x18                     ; 0xa292
     push ax                          ; 0xa295
     call random_below                ; 0xa296

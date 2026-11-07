@@ -1,7 +1,7 @@
 ; auto-generated
 create_item_slot_from_record:
     mov ax, 0xffb8                   ; 0x4253
-    call aztec_csav                  ; 0x4256
+    call $csav                  ; 0x4256
     mov ax, 0                        ; 0x4259
     push ax                          ; 0x425c
     push word [bp + 4]               ; 0x425d
@@ -14,7 +14,7 @@ create_item_slot_from_record:
     lea ax, word [bp - 0x48]         ; 0x426e
     push ax                          ; 0x4271
     push word [bp + 0xa]             ; 0x4272
-    call aztec_strcpy                ; 0x4275
+    call strcpy                ; 0x4275
     add sp, byte 4                   ; 0x4278
     mov ax, word [bp + 4]            ; 0x427b
     mov bx, word [bp + 6]            ; 0x427e

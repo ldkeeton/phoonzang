@@ -1,7 +1,7 @@
 ; auto-generated
 get_west_cell_wall:
     mov ax, 0
-    call aztec_csav
+    call $csav
     push word [bp + 6]
     mov ax, word [bp + 4]
     dec ax

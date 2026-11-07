@@ -10,7 +10,7 @@ set_video_mode:
     push ax                          ; 0x0701
     mov ax, 0x10                     ; 0x0702
     push ax                          ; 0x0705
-    call aztec_sysint                ; 0x0706
+    call sysint                ; 0x0706
     add sp, byte 6                   ; 0x0709
     mov sp, bp                       ; 0x070c
     pop bp                           ; 0x070e

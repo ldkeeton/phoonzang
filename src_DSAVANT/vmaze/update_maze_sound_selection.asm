@@ -1,7 +1,7 @@
 ; auto-generated
 update_maze_sound_selection:
     mov ax, 0xfff8                   ; 0x01c9
-    call aztec_csav                  ; 0x01cc
+    call $csav                  ; 0x01cc
     mov word [bp - 8], 0             ; 0x01cf
     call check_at_saved_location     ; 0x01d4
     cmp word [save_location_flag], byte 0 ; 0x01d7
@@ -71,7 +71,7 @@ update_maze_sound_selection:
     sbb dx, bx                       ; 0x0268
     mov cx, 0x5a0                    ; 0x026a
     mov bx, 0                        ; 0x026d
-    call aztec_lrm                   ; 0x0270
+    call $lrm                   ; 0x0270
     mov word [bp - 6], ax            ; 0x0273
     cmp ax, strict word 0            ; 0x0276
     jl short .forward5               ; 0x0279

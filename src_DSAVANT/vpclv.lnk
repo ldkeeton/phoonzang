@@ -51,4 +51,4 @@ vpclv/check_or_apply_level_ups
 shared/ovr/draw_party_glyph_row
 vpclv/show_level_up_sequence
 vpclv/data/clv_strings
-shared/ovr/aztec_ovbgn
+ovbgn.o

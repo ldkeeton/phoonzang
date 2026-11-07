@@ -1,7 +1,7 @@
 ; auto-generated
 draw_member_armor_class:
     mov ax, 0xff80
-    call aztec_csav
+    call $csav
     mov ax, 0
     push ax
     push ax
@@ -50,7 +50,7 @@ draw_member_armor_class:
     add sp, byte 4
     lea ax, word [bp - 0x68]
     push ax
-    call aztec_strlen
+    call strlen
     pop cx
     mov word [bp - 4], ax
     mov bx, ax
@@ -73,7 +73,7 @@ draw_member_armor_class:
     add sp, byte 4
     lea ax, word [bp - 0x68]
     push ax
-    call aztec_strlen
+    call strlen
     pop cx
     mov word [bp - 4], ax
     mov bx, ax
@@ -100,7 +100,7 @@ draw_member_armor_class:
     add sp, byte 4
     lea ax, word [bp - 0x68]
     push ax
-    call aztec_strlen
+    call strlen
     pop cx
     mov word [bp - 4], ax
     mov bx, ax
@@ -120,7 +120,7 @@ draw_member_armor_class:
     push ax
     lea ax, word [bp - 0x68]
     push ax
-    call aztec_strlen
+    call strlen
     pop cx
     mov cx, 6
     imul cx

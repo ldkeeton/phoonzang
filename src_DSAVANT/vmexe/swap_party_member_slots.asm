@@ -1,7 +1,7 @@
 ; auto-generated
 swap_party_member_slots:
     mov ax, 0xfd8a                   ; 0x9d8d
-    call aztec_csav                  ; 0x9d90
+    call $csav                  ; 0x9d90
     mov ax, 0x248                    ; 0x9d93
     push ax                          ; 0x9d96
     mov ax, 0x248                    ; 0x9d97
@@ -12,7 +12,7 @@ swap_party_member_slots:
     imul word [bp + 6]               ; 0x9da4
     add ax, party_records            ; 0x9da7
     push ax                          ; 0x9daa
-    call aztec_swapmem               ; 0x9dab
+    call swapmem               ; 0x9dab
     add sp, byte 6                   ; 0x9dae
     mov ax, 0x2c                     ; 0x9db1
     push ax                          ; 0x9db4
@@ -28,7 +28,7 @@ swap_party_member_slots:
     mov ax, word [battle_groups]     ; 0x9dcb
     add ax, cx                       ; 0x9dce
     push ax                          ; 0x9dd0
-    call aztec_swapmem               ; 0x9dd1
+    call swapmem               ; 0x9dd1
     add sp, byte 6                   ; 0x9dd4
     mov ax, word [bp + 6]            ; 0x9dd7
     shl ax, 1                        ; 0x9dda

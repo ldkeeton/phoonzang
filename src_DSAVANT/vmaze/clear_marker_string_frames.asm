@@ -1,7 +1,7 @@
 ; auto-generated
 clear_marker_string_frames:
     mov ax, 0xfffe                   ; 0x02da
-    call aztec_csav                  ; 0x02dd
+    call $csav                  ; 0x02dd
     mov word [bp - 2], 0             ; 0x02e0
 .back1:
     mov ax, word [bp - 2]            ; 0x02e5

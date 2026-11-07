@@ -1,7 +1,7 @@
 ; auto-generated
 draw_party_status_glyphs:
     mov ax, 0xffec                   ; 0x2c69
-    call aztec_csav                  ; 0x2c6c
+    call $csav                  ; 0x2c6c
     mov word [bp - 2], 0             ; 0x2c6f
 .back1:
     mov ax, 0                        ; 0x2c74

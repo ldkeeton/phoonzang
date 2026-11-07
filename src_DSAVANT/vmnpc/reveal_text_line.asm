@@ -1,7 +1,7 @@
 ; auto-generated
 reveal_text_line:
     mov ax, 0xfff2                   ; 0x927d
-    call aztec_csav                  ; 0x9280
+    call $csav                  ; 0x9280
     mov word [bp - 0xc], 0           ; 0x9283
     mov word [bp - 4], 0             ; 0x9288
 .back1:

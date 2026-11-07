@@ -3,7 +3,7 @@
 #include "structs/pcrec.h"
 
 extern struct pc_rec party_records[];
-extern aztec_setmem();
+extern setmem();
 
 reset_hand_attack(pc, hand)
 int pc, hand;
@@ -11,7 +11,7 @@ int pc, hand;
 	int hands_tier, kirijutsu_tier, frame_pad[9];
 
 	/* Clear the 18-byte attack before putting in its defaults. */
-	aztec_setmem(23844 + pc * 584 + hand * 18, 18, 0);
+	setmem(23844 + pc * 584 + hand * 18, 18, 0);
 	party_records[pc].hand_attack[hand].base.damage_dice = 2;
 	party_records[pc].hand_attack[hand].base.damage_sides = 2;
 	party_records[pc].hand_attack[hand].attack_flags = 32;

@@ -1,7 +1,7 @@
 ; auto-generated
 show_centered_npc_message:
     mov ax, 0xfffc                   ; 0x11f8
-    call aztec_csav                  ; 0x11fb
+    call $csav                  ; 0x11fb
     mov ax, word [bp + 6]            ; 0x11fe
     add ax, 0x98                     ; 0x1201
     push ax                          ; 0x1204
@@ -15,7 +15,7 @@ show_centered_npc_message:
     call call_show_area              ; 0x1214
     add sp, byte 8                   ; 0x1217
     push word [bp + 4]               ; 0x121a
-    call aztec_strlen                ; 0x121d
+    call strlen                ; 0x121d
     pop cx                           ; 0x1220
     mov cx, 6                        ; 0x1221
     imul cx                          ; 0x1224
@@ -27,7 +27,7 @@ show_centered_npc_message:
     sub ax, cx                       ; 0x1231
     mov word [bp - 2], ax            ; 0x1233
     push word [bp + 4]               ; 0x1236
-    call aztec_strlen                ; 0x1239
+    call strlen                ; 0x1239
     pop cx                           ; 0x123c
     mov cx, 6                        ; 0x123d
     imul cx                          ; 0x1240

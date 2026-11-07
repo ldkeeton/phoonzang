@@ -1,7 +1,7 @@
 ; auto-generated
 floor_overlay_when_enabled:
     mov ax, 0
-    call aztec_csav
+    call $csav
     mov ax, 0xffff
     cmp word [floor_checker_parity], byte 0
     je short .return1

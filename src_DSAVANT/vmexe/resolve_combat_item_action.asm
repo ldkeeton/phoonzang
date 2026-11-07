@@ -1,7 +1,7 @@
 ; auto-generated
 resolve_combat_item_action:
     mov ax, 0xffa6                   ; 0x9f4f
-    call aztec_csav                  ; 0x9f52
+    call $csav                  ; 0x9f52
     mov bx, word [bp + 4]            ; 0x9f55
     mov al, byte [bx + 0x1f]         ; 0x9f58
     sub ah, ah                       ; 0x9f5b
@@ -79,7 +79,7 @@ resolve_combat_item_action:
     push ax                          ; 0xa011
     mov ax, combat_action_suffix_buffer ; 0xa012
     push ax                          ; 0xa015
-    call aztec_strcpy                ; 0xa016
+    call strcpy                ; 0xa016
     add sp, byte 4                   ; 0xa019
     jmp short .forward3              ; 0xa01c
 .forward2:

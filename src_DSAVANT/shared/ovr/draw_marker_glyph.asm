@@ -1,7 +1,7 @@
 ; auto-generated
 draw_marker_glyph:
     mov ax, 0xfff6
-    call aztec_csav
+    call $csav
     mov byte [bp - 0xa], 1
     mov byte [bp - 9], 0
     mov ax, 0

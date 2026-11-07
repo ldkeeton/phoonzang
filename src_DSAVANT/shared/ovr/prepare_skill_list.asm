@@ -1,7 +1,7 @@
 ; auto-generated
 prepare_skill_list:
     mov ax, 0xfffc
-    call aztec_csav
+    call $csav
     mov ax, 0x248
     imul word [bp + 4]
     mov bx, ax

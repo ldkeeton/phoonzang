@@ -1,7 +1,7 @@
 ; auto-generated
 draw_rect_bevel:
     mov ax, 0                        ; 0x0e82
-    call aztec_csav                  ; 0x0e85
+    call $csav                  ; 0x0e85
     push word [bp + 0xc]             ; 0x0e88
     push word [bp + 6]               ; 0x0e8b
     push word [bp + 8]               ; 0x0e8e

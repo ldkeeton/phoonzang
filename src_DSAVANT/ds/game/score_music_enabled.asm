@@ -1,7 +1,7 @@
 ; auto-generated
 score_music_enabled:
     mov ax, 0                        ; 0x2bed
-    call aztec_csav                  ; 0x2bf0
+    call $csav                  ; 0x2bf0
     cmp byte [video_mode], 1         ; 0x2bf3
     je short .forward1               ; 0x2bf8
     cmp byte [video_mode], 3         ; 0x2bfa

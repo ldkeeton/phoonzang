@@ -1,7 +1,7 @@
 ; auto-generated
 check_or_apply_level_ups:
     mov ax, 0xffba                   ; 0x4fca
-    call aztec_csav                  ; 0x4fcd
+    call $csav                  ; 0x4fcd
     mov ax, 0                        ; 0x4fd0
     push ax                          ; 0x4fd3
     mov ax, 0x248                    ; 0x4fd4

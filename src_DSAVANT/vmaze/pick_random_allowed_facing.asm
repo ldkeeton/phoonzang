@@ -1,7 +1,7 @@
 ; auto-generated
 pick_random_allowed_facing:
     mov ax, 0xfffe                   ; 0x7001
-    call aztec_csav                  ; 0x7004
+    call $csav                  ; 0x7004
     mov ax, 4                        ; 0x7007
     push ax                          ; 0x700a
     call random_below                ; 0x700b

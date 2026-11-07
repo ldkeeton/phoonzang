@@ -1,7 +1,7 @@
 ; auto-generated
 queue_cell_action_overlay:
     mov ax, 0xffe4
-    call aztec_csav
+    call $csav
     mov byte [bp - 0x1c], 0
     mov ax, 6
     imul word [bp + 4]

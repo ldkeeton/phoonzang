@@ -1,7 +1,7 @@
 ; auto-generated
 search_quest_map_site:
     mov ax, 0xfffe                   ; 0xa9a4
-    call aztec_csav                  ; 0xa9a7
+    call $csav                  ; 0xa9a7
     mov ax, 0x26                     ; 0xa9aa
     imul word [bp + 4]               ; 0xa9ad
     mov bx, ax                       ; 0xa9b0

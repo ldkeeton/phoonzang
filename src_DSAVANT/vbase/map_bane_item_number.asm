@@ -1,7 +1,7 @@
 ; auto-generated
 map_bane_item_number:
     mov ax, 0                        ; 0x1683
-    call aztec_csav                  ; 0x1686
+    call $csav                  ; 0x1686
     mov ax, word [bp + 4]            ; 0x1689
     jmp short .forward1              ; 0x168c
 jumptable_1698_case_37:
@@ -9,7 +9,7 @@ jumptable_1698_case_37:
     ret                              ; 0x1691
 map_bane_item_number.forward1:
     mov cx, 0x26                     ; 0x1692
-    call aztec_cswt                  ; 0x1695
+    call $cswt                  ; 0x1695
 jumptable_1698:
     dw 0x001c                                  ; 0x1698 ; literal
     dw 0x0026                                  ; 0x169a ; literal
@@ -155,7 +155,7 @@ map_bane_item_number.forward11:
     ret                              ; 0x17c7
 map_bane_item_number.forward12:
     mov cx, 0x14                     ; 0x17c8
-    call aztec_cswt                  ; 0x17cb
+    call $cswt                  ; 0x17cb
 jumptable_17ce:
     dw 0x00ea                                  ; 0x17ce ; literal
     dw 0x00ec                                  ; 0x17d0 ; literal

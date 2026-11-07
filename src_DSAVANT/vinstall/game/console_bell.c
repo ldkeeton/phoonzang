@@ -4,7 +4,7 @@ extern int bios_set_cursor_packed();
 extern int bios_set_cursor();
 extern int dos_con_in_noecho();
 extern int bios_put_text();
-extern int aztec_printf();
+extern int printf();
 extern char bell_character_format[];
 
 /* Emit the bell character without moving the text cursor. */
@@ -14,7 +14,7 @@ console_bell()
 
 	saved_cursor = bios_get_cursor_packed();
 	/* The format string consumes 7 as the bell character. */
-	aztec_printf(bell_character_format, 7);
+	printf(bell_character_format, 7);
 	bios_set_cursor_packed(saved_cursor);
 }
 

@@ -1,7 +1,7 @@
 ; auto-generated
 init_npc_dialog_text:
     mov ax, 0                        ; 0xa441
-    call aztec_csav                  ; 0xa444
+    call $csav                  ; 0xa444
     mov word [text_line_index], 0    ; 0xa447
 .back1:
     mov ax, word [text_line_index]   ; 0xa44d

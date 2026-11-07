@@ -1,7 +1,7 @@
 ; auto-generated
 queue_slot_glyph_render:
     mov ax, 0xfffc
-    call aztec_csav
+    call $csav
     mov al, byte [bp + 4]
     push ax
     mov ax, 0x11

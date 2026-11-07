@@ -1,7 +1,7 @@
 ; auto-generated
 run_npc_member_dialog:
     mov ax, 0xff96                   ; 0xab8d
-    call aztec_csav                  ; 0xab90
+    call $csav                  ; 0xab90
     mov ax, word [bp + 4]            ; 0xab93
     mov word [npc_member_index], ax  ; 0xab96
     mov word [npc_message_ready], 0  ; 0xab99
@@ -11,7 +11,7 @@ run_npc_member_dialog:
     push ax                          ; 0xaba6
     mov ax, npc_dialog_choice_index  ; 0xaba7
     push ax                          ; 0xabaa
-    call aztec_setmem                ; 0xabab
+    call setmem                ; 0xabab
     add sp, byte 6                   ; 0xabae
     mov word [npc_dialog_default_choice_index], 0xffff ; 0xabb1
     mov word [npc_dialog_default_choice_value], 0 ; 0xabb7
@@ -82,7 +82,7 @@ run_npc_member_dialog:
     pop cx                           ; 0xac68
     lea ax, word [bp - 0x56]         ; 0xac69
     push ax                          ; 0xac6c
-    call aztec_strlen                ; 0xac6d
+    call strlen                ; 0xac6d
     pop cx                           ; 0xac70
     mov word [bp - 2], ax            ; 0xac71
     mov bx, ax                       ; 0xac74
@@ -95,7 +95,7 @@ run_npc_member_dialog:
     push ax                          ; 0xac87
     lea ax, word [bp - 0x56]         ; 0xac88
     push ax                          ; 0xac8b
-    call aztec_strncmp               ; 0xac8c
+    call strncmp               ; 0xac8c
     add sp, byte 6                   ; 0xac8f
     test ax, ax                      ; 0xac92
     je short .forward1               ; 0xac94
@@ -180,7 +180,7 @@ run_npc_member_dialog:
 .forward5:
     lea ax, word [bp - 0x56]         ; 0xadb8
     push ax                          ; 0xadbb
-    call aztec_strlen                ; 0xadbc
+    call strlen                ; 0xadbc
     pop cx                           ; 0xadbf
     cmp ax, strict word 0            ; 0xadc0
     jle short .forward6              ; 0xadc3

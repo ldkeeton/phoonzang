@@ -1,7 +1,7 @@
 ; auto-generated
 advance_maze_region:
     mov ax, 0                        ; 0x7a34
-    call aztec_csav                  ; 0x7a37
+    call $csav                  ; 0x7a37
     mov ax, 1                        ; 0x7a3a
     push ax                          ; 0x7a3d
     mov ax, 0                        ; 0x7a3e

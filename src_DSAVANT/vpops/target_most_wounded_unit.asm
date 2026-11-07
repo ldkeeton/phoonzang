@@ -1,7 +1,7 @@
 ; auto-generated
 target_most_wounded_unit:
     mov ax, 0xfffc                   ; 0x4528
-    call aztec_csav                  ; 0x452b
+    call $csav                  ; 0x452b
     mov word [bp - 4], 0             ; 0x452e
     mov word [bp - 2], 0             ; 0x4533
     jmp short .forward2              ; 0x4538

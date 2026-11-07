@@ -1,7 +1,7 @@
 /* Read a key when asked to (key 0) and map the cursor scan codes to the
    input control codes 8-11; a supplied key is uppercased. */
 extern int dos_con_in_noecho();
-extern int aztec_toupper();
+extern int toupper();
 
 normalize_input_key(key)
 int key;
@@ -20,5 +20,5 @@ int key;
 			return 11;
 		}
 	} else
-		return aztec_toupper(key);
+		return toupper(key);
 }

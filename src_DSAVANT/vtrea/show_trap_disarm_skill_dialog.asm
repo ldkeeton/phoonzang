@@ -1,7 +1,7 @@
 ; auto-generated
 show_trap_disarm_skill_dialog:
     mov ax, 0xff7c                   ; 0x25ab
-    call aztec_csav                  ; 0x25ae
+    call $csav                  ; 0x25ae
     mov word [bp - 2], 0             ; 0x25b1
     jmp short .forward1              ; 0x25b6
 .back1:
@@ -84,7 +84,7 @@ show_trap_disarm_skill_dialog:
     imul word [bp + 4]               ; 0x2689
     add ax, party_records            ; 0x268c
     push ax                          ; 0x268f
-    call aztec_strlen                ; 0x2690
+    call strlen                ; 0x2690
     pop cx                           ; 0x2693
     mov cx, 6                        ; 0x2694
     imul cx                          ; 0x2697
@@ -110,7 +110,7 @@ show_trap_disarm_skill_dialog:
     push ax                          ; 0x26c7
     lea ax, word [bp - 0x74]         ; 0x26c8
     push ax                          ; 0x26cb
-    call aztec_strcpy                ; 0x26cc
+    call strcpy                ; 0x26cc
     add sp, byte 4                   ; 0x26cf
     lea ax, word [bp - 0x73]         ; 0x26d2
     push ax                          ; 0x26d5
@@ -126,14 +126,14 @@ show_trap_disarm_skill_dialog:
     push ax                          ; 0x26ee
     lea ax, word [bp - 0x74]         ; 0x26ef
     push ax                          ; 0x26f2
-    call aztec_strcat                ; 0x26f3
+    call strcat                ; 0x26f3
     add sp, byte 4                   ; 0x26f6
     mov ax, word [bp - 8]            ; 0x26f9
     add ax, strict word 0xc          ; 0x26fc
     push ax                          ; 0x26ff
     lea ax, word [bp - 0x74]         ; 0x2700
     push ax                          ; 0x2703
-    call aztec_strlen                ; 0x2704
+    call strlen                ; 0x2704
     pop cx                           ; 0x2707
     mov cx, 6                        ; 0x2708
     imul cx                          ; 0x270b
@@ -1063,26 +1063,26 @@ show_trap_disarm_skill_dialog.forward22:
     push ax                          ; 0x2f87
     lea ax, word [bp - 0x74]         ; 0x2f88
     push ax                          ; 0x2f8b
-    call aztec_strcpy                ; 0x2f8c
+    call strcpy                ; 0x2f8c
     add sp, byte 4                   ; 0x2f8f
     lea ax, word [bp - 0x4c]         ; 0x2f92
     push ax                          ; 0x2f95
     lea ax, word [bp - 0x74]         ; 0x2f96
     push ax                          ; 0x2f99
-    call aztec_strcat                ; 0x2f9a
+    call strcat                ; 0x2f9a
     add sp, byte 4                   ; 0x2f9d
     mov ax, inspect_label_close_paren ; 0x2fa0
     push ax                          ; 0x2fa3
     lea ax, word [bp - 0x74]         ; 0x2fa4
     push ax                          ; 0x2fa7
-    call aztec_strcat                ; 0x2fa8
+    call strcat                ; 0x2fa8
     add sp, byte 4                   ; 0x2fab
     mov ax, word [bp - 8]            ; 0x2fae
     add ax, strict word 0x1a         ; 0x2fb1
     push ax                          ; 0x2fb4
     lea ax, word [bp - 0x74]         ; 0x2fb5
     push ax                          ; 0x2fb8
-    call aztec_strlen                ; 0x2fb9
+    call strlen                ; 0x2fb9
     pop cx                           ; 0x2fbc
     mov cx, ax                       ; 0x2fbd
     mov ax, 0xc                      ; 0x2fbf
@@ -1242,7 +1242,7 @@ show_trap_disarm_skill_dialog.forward25:
     push ax                          ; 0x3129
     lea ax, word [bp - 0x4c]         ; 0x312a
     push ax                          ; 0x312d
-    call aztec_strlen                ; 0x312e
+    call strlen                ; 0x312e
     pop cx                           ; 0x3131
     mov cx, ax                       ; 0x3132
     mov ax, 0xc                      ; 0x3134

@@ -1,7 +1,7 @@
 ; auto-generated
 play_startup_sequence:
     mov ax, 0xff98                   ; 0x0ac7
-    call aztec_csav                  ; 0x0aca
+    call $csav                  ; 0x0aca
     call score_music_enabled         ; 0x0acd
     mov word [story_music_enabled], ax ; 0x0ad0
     test ax, ax                      ; 0x0ad3
@@ -663,7 +663,7 @@ play_startup_sequence:
     cmp word [bp - 0x62], byte 3     ; 0x107f
     jne short .forward34             ; 0x1083
     push word [bp - 0x5e]            ; 0x1085
-    call aztec_strlen                ; 0x1088
+    call strlen                ; 0x1088
     pop cx                           ; 0x108b
     mov cx, 6                        ; 0x108c
     imul cx                          ; 0x108f

@@ -1,7 +1,7 @@
 ; auto-generated
 draw_scrollbar:
     mov ax, 0                        ; 0x121f
-    call aztec_csav                  ; 0x1222
+    call $csav                  ; 0x1222
     mov ax, 6                        ; 0x1225
     imul word [bp + 0xa]             ; 0x1228
     add ax, word [bp + 6]            ; 0x122b

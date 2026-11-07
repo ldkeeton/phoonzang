@@ -9,7 +9,7 @@ extern char default_source_drive_mode_3[];
 extern char default_dest_path_mode_3[];
 extern char default_source_drive_mode_4[];
 extern char default_dest_path_mode_4[];
-extern char *aztec_strcpy();
+extern char *strcpy();
 
 /* Sets the default source drive and destination path for a setup mode. */
 set_install_drive_defaults(mode, source_drive, destination_path)
@@ -21,24 +21,24 @@ char *destination_path;
 	   alone. */
 	switch (mode) {
 	case 0:
-		aztec_strcpy(source_drive, default_source_drive_mode_0);
-		aztec_strcpy(destination_path, default_dest_drive_mode_0);
+		strcpy(source_drive, default_source_drive_mode_0);
+		strcpy(destination_path, default_dest_drive_mode_0);
 		break;
 	case 1:
-		aztec_strcpy(source_drive, default_source_drive_mode_1);
-		aztec_strcpy(destination_path, default_dest_path_mode_1);
+		strcpy(source_drive, default_source_drive_mode_1);
+		strcpy(destination_path, default_dest_path_mode_1);
 		break;
 	case 2:
-		aztec_strcpy(source_drive, default_source_drive_mode_2);
-		aztec_strcpy(destination_path, default_dest_path_mode_2);
+		strcpy(source_drive, default_source_drive_mode_2);
+		strcpy(destination_path, default_dest_path_mode_2);
 		break;
 	case 3:
-		aztec_strcpy(source_drive, default_source_drive_mode_3);
-		aztec_strcpy(destination_path, default_dest_path_mode_3);
+		strcpy(source_drive, default_source_drive_mode_3);
+		strcpy(destination_path, default_dest_path_mode_3);
 		break;
 	case 4:
-		aztec_strcpy(source_drive, default_source_drive_mode_4);
-		aztec_strcpy(destination_path, default_dest_path_mode_4);
+		strcpy(source_drive, default_source_drive_mode_4);
+		strcpy(destination_path, default_dest_path_mode_4);
 		break;
 	}
 }

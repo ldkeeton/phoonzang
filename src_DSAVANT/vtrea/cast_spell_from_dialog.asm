@@ -1,7 +1,7 @@
 ; auto-generated
 cast_spell_from_dialog:
     mov ax, 0xfffc                   ; 0x4ad8
-    call aztec_csav                  ; 0x4adb
+    call $csav                  ; 0x4adb
     mov ax, 1                        ; 0x4ade
     push ax                          ; 0x4ae1
     push ax                          ; 0x4ae2

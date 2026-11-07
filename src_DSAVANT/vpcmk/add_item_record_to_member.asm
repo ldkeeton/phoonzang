@@ -1,7 +1,7 @@
 ; auto-generated
 add_item_record_to_member:
     mov ax, 0xffb2                   ; 0x4b05
-    call aztec_csav                  ; 0x4b08
+    call $csav                  ; 0x4b08
     mov ax, 0                        ; 0x4b0b
     push ax                          ; 0x4b0e
     push word [bp + 6]               ; 0x4b0f

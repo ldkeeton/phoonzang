@@ -1,5 +1,5 @@
 /* Expands each NPC dialog word through its alias table. */
-extern int aztec_strcpy(), aztec_strncpy(), aztec_strlen();
+extern int strcpy(), strncpy(), strlen();
 extern int word_end_index();
 extern int replace_npc_dialog_alias();
 
@@ -14,7 +14,7 @@ char *output;
 	int word_end;
 	int output_length;
 
-	aztec_strcpy(source, output);
+	strcpy(source, output);
 	output_length = 0;
 	word_start = 0;
 	for (;;) {
@@ -22,15 +22,15 @@ char *output;
 			++word_start;
 		word_end = word_end_index(source, word_start);
 		if (word_end != -1) {
-			aztec_strncpy(word_buffer, source + word_start,
+			strncpy(word_buffer, source + word_start,
 				word_end - word_start);
 			word_buffer[word_end - word_start] = ' ';
 			word_buffer[word_end - word_start + 1] = 0;
 			replace_npc_dialog_alias(word_buffer);
-			for (char_index = 0; char_index < aztec_strlen(word_buffer);
+			for (char_index = 0; char_index < strlen(word_buffer);
 				++char_index)
 				output[output_length + char_index] = word_buffer[char_index];
-			output_length += aztec_strlen(word_buffer);
+			output_length += strlen(word_buffer);
 		}
 		word_start = word_end;
 		if (word_end == -1)

@@ -1,7 +1,7 @@
 ; auto-generated
 step_combat_screen_animation:
     mov ax, 0xfffa                   ; 0x18a8
-    call aztec_csav                  ; 0x18ab
+    call $csav                  ; 0x18ab
     mov ax, word [party_screen_animation_state] ; 0x18ae
     jmp near .forward6               ; 0x18b1
 .back1:

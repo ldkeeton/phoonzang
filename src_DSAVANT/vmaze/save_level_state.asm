@@ -1,7 +1,7 @@
 ; auto-generated
 save_level_state:
     mov ax, 0                        ; 0x68f2
-    call aztec_csav                  ; 0x68f5
+    call $csav                  ; 0x68f5
     mov ax, 0x10                     ; 0x68f8
     push ax                          ; 0x68fb
     mov ax, word [current_level]     ; 0x68fc
@@ -13,7 +13,7 @@ save_level_state:
     shl ax, cl                       ; 0x690b
     add ax, party_region + 0x2       ; 0x690d
     push ax                          ; 0x6910
-    call aztec_movmem                ; 0x6911
+    call movmem                ; 0x6911
     add sp, byte 6                   ; 0x6914
     mov ax, 0x80                     ; 0x6917
     push ax                          ; 0x691a

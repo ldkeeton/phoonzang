@@ -3,7 +3,7 @@ extern char list_screen_temp_file[];
 extern int menu_selection_index;
 extern int mouse_active, hotspot_hit, hotspot_rects[];
 extern int save_screen_area(), load_message_string(), draw_bevel_frame();
-extern int call_set_text_color(), aztec_strlen(), call_set_text_pos();
+extern int call_set_text_color(), strlen(), call_set_text_pos();
 extern int draw_text_glyphs(), set_hotspot(), call_show_area();
 extern int poll_hotspots(), fill_rectangle_border(), poll_filtered_key();
 extern unsigned char get_filtered_key();
@@ -38,7 +38,7 @@ int *item_flags;
 				top + item_count * row_height + 15, 0);
 			call_set_text_color(text_color, 192);
 			call_set_text_pos((columns -
-				aztec_strlen(&message_rows[item_count][0])) * 6 / 2 +
+				strlen(&message_rows[item_count][0])) * 6 / 2 +
 				left + 9, top + item_count * row_height + 9);
 			draw_text_glyphs(&message_rows[item_count][0], 0);
 			set_hotspot(item_count, left + 8,

@@ -1,7 +1,7 @@
 ; auto-generated
 wait_ticks_with_events:
     mov ax, 0xfffc                   ; 0x0102
-    call aztec_csav                  ; 0x0105
+    call $csav                  ; 0x0105
     call flush_keyboard              ; 0x0108
     mov ax, word [bp + 4]            ; 0x010b
     cwd                              ; 0x010e

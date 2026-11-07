@@ -1,7 +1,7 @@
 ; auto-generated
 pick_spell_dialog_keep_frames:
     mov ax, 0xffb0
-    call aztec_csav
+    call $csav
     mov word [bp - 2], 0
 .back1:
     mov ax, word [bp - 2]

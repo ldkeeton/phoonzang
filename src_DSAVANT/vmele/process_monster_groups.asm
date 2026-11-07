@@ -1,7 +1,7 @@
 ; auto-generated
 process_monster_groups:
     mov ax, 0xffec                   ; 0x1844
-    call aztec_csav                  ; 0x1847
+    call $csav                  ; 0x1847
     mov word [bp - 6], 0             ; 0x184a
     mov word [bp - 2], 1             ; 0x184f
     jmp near .forward10              ; 0x1854

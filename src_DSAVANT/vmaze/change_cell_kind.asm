@@ -1,7 +1,7 @@
 ; auto-generated
 change_cell_kind:
     mov ax, 0xfff0                   ; 0x820b
-    call aztec_csav                  ; 0x820e
+    call $csav                  ; 0x820e
     mov ax, word [party_region]      ; 0x8211
     shl ax, 1                        ; 0x8214
     mov si, ax                       ; 0x8216

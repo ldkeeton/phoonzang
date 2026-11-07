@@ -1,7 +1,7 @@
 ; auto-generated
 copy_npc_choice_text_expanded:
     mov ax, 0xfffa                   ; 0x8849
-    call aztec_csav                  ; 0x884c
+    call $csav                  ; 0x884c
     mov ax, 0x25                     ; 0x884f
     push ax                          ; 0x8852
     mov ax, 0x14                     ; 0x8853
@@ -20,7 +20,7 @@ copy_npc_choice_text_expanded:
     add ax, npc_dialog_choice_entry_text ; 0x8873
     push ax                          ; 0x8876
     push word [bp + 6]               ; 0x8877
-    call aztec_strncpy               ; 0x887a
+    call strncpy               ; 0x887a
     add sp, byte 6                   ; 0x887d
     mov bx, word [bp + 6]            ; 0x8880
     mov si, word [bp - 6]            ; 0x8883
@@ -47,7 +47,7 @@ copy_npc_choice_text_expanded:
     add ax, npc_dialog_choice_entry_text ; 0x88b9
     push ax                          ; 0x88bc
     push word [bp + 6]               ; 0x88bd
-    call aztec_strncpy               ; 0x88c0
+    call strncpy               ; 0x88c0
     add sp, byte 6                   ; 0x88c3
     mov bx, word [bp + 6]            ; 0x88c6
     mov si, word [bp - 6]            ; 0x88c9
@@ -86,7 +86,7 @@ copy_npc_choice_text_expanded:
     add ax, npc_dialog_choice_entry_text ; 0x891a
     push ax                          ; 0x891d
     push word [bp + 6]               ; 0x891e
-    call aztec_strncpy               ; 0x8921
+    call strncpy               ; 0x8921
     add sp, byte 6                   ; 0x8924
     mov ax, word [bp - 6]            ; 0x8927
     sub ax, word [bp - 4]            ; 0x892a
@@ -100,7 +100,7 @@ copy_npc_choice_text_expanded:
     jmp short .forward4              ; 0x893d
 .back1:
     push word [bp + 6]               ; 0x893f
-    call aztec_strlen                ; 0x8942
+    call strlen                ; 0x8942
     pop cx                           ; 0x8945
     mov word [bp - 4], ax            ; 0x8946
     mov ax, 0x14                     ; 0x8949
@@ -120,7 +120,7 @@ copy_npc_choice_text_expanded:
     imul word [bp + 4]               ; 0x8970
     add ax, npc_dialog_choice_entry_text ; 0x8973
     push ax                          ; 0x8976
-    call aztec_strlen                ; 0x8977
+    call strlen                ; 0x8977
     pop cx                           ; 0x897a
     cmp ax, word [bp - 2]            ; 0x897b
     jg short .back1                  ; 0x897e

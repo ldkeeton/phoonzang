@@ -1,7 +1,7 @@
 ; auto-generated
 draw_dialog_button_prompt:
     mov ax, 0xffa8
-    call aztec_csav
+    call $csav
     mov ax, 6
     imul word [bp + 0xa]
     add ax, word [bp + 6]
@@ -55,7 +55,7 @@ draw_dialog_button_prompt:
     push ax
     lea ax, word [bp - 0x54]
     push ax
-    call aztec_strlen
+    call strlen
     pop cx
     mov cx, 6
     imul cx
@@ -106,7 +106,7 @@ draw_dialog_button_prompt:
     push ax
     lea ax, word [bp - 0x54]
     push ax
-    call aztec_strlen
+    call strlen
     pop cx
     mov cx, ax
     mov ax, word [bp + 0xa]

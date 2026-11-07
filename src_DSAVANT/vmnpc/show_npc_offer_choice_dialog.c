@@ -5,7 +5,7 @@ extern char npc_offer_choices_save_file[];
 extern int menu_selection_index;
 extern int save_screen_area(), restore_saved_screen();
 extern int draw_dialog_box(), call_set_text_color(), call_set_text_pos();
-extern int draw_text_glyphs(), aztec_strlen(), load_message_string();
+extern int draw_text_glyphs(), strlen(), load_message_string();
 extern int draw_bevel_frame(), set_hotspot(), call_show_area();
 extern int poll_hotspots(), poll_filtered_key();
 extern unsigned char get_filtered_key();
@@ -45,10 +45,10 @@ int *choice_states;
 		draw_dialog_box(box_x - 5, box_y - 20,
 			box_right + 5, box_bottom + 5);
 		call_set_text_color(1, 194);
-		call_set_text_pos(160 - aztec_strlen(message) * 6 / 2,
+		call_set_text_pos(160 - strlen(message) * 6 / 2,
 			box_y - 16);
 		draw_text_glyphs(message, 0);
-		call_set_text_pos(160 - aztec_strlen(prompt) * 6 / 2,
+		call_set_text_pos(160 - strlen(prompt) * 6 / 2,
 			box_y - 10);
 		draw_text_glyphs(prompt, 0);
 	} else {
@@ -69,7 +69,7 @@ int *choice_states;
 			call_set_text_color(current_choice == selected_index ?
 				26 : normal_color, 192);
 			call_set_text_pos(box_x + choice_x +
-				(choice_width - aztec_strlen(
+				(choice_width - strlen(
 					choice_text + total_choices * 20)) * 6 / 2 + 1,
 				box_y + choice_y + 2);
 			draw_text_glyphs(choice_text + total_choices * 20, 0);

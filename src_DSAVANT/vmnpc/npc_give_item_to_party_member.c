@@ -14,7 +14,7 @@ extern int load_message_string(), str_subst_char();
 extern int display_npc_text_message();
 extern int text_line_index;
 extern char text_line_buffer[];
-extern int aztec_strlen(), aztec_strcat();
+extern int strlen(), strcat();
 extern int text_line_color[];
 extern int next_text_line(), play_sound_effect();
 
@@ -76,8 +76,8 @@ int message_mode;
 		load_message_string(MSG_1509,
 			text_line_buffer + (text_line_index << 7));
 		text_line_buffer[(text_line_index << 7) +
-			(30 - aztec_strlen(npc_choice_message_buffer)) / 2] = 0;
-		aztec_strcat(text_line_buffer + (text_line_index << 7),
+			(30 - strlen(npc_choice_message_buffer)) / 2] = 0;
+		strcat(text_line_buffer + (text_line_index << 7),
 			npc_choice_message_buffer);
 		text_line_color[text_line_index] = 0;
 		next_text_line();

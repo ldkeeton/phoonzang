@@ -1,7 +1,7 @@
 ; auto-generated
 display_combat_action_and_wait:
     mov ax, 0                        ; 0x6edc
-    call aztec_csav                  ; 0x6edf
+    call $csav                  ; 0x6edf
     mov ax, 0                        ; 0x6ee2
     push ax                          ; 0x6ee5
     push word [bp + 6]               ; 0x6ee6

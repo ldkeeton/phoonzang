@@ -1,7 +1,7 @@
 ; auto-generated
 adjust_faction_attitude:
     mov ax, 0                        ; 0x9658
-    call aztec_csav                  ; 0x965b
+    call $csav                  ; 0x965b
     mov ax, 0x64                     ; 0x965e
     push ax                          ; 0x9661
     mov ax, 0xff9c                   ; 0x9662

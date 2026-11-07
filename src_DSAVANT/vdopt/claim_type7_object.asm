@@ -1,7 +1,7 @@
 ; auto-generated
 claim_type7_object:
     mov ax, 0                        ; 0x04b7
-    call aztec_csav                  ; 0x04ba
+    call $csav                  ; 0x04ba
     mov ax, word [party_facing]      ; 0x04bd
     shl ax, 1                        ; 0x04c0
     mov bx, ax                       ; 0x04c2

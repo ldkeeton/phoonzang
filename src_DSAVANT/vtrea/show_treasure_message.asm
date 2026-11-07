@@ -1,7 +1,7 @@
 ; auto-generated
 show_treasure_message:
     mov ax, 0                        ; 0x0eb2
-    call aztec_csav                  ; 0x0eb5
+    call $csav                  ; 0x0eb5
     push word [bp + 6]               ; 0x0eb8
     push word [bp + 6]               ; 0x0ebb
     call refresh_treasure_panel_and_wait ; 0x0ebe
@@ -16,7 +16,7 @@ show_treasure_message:
     add ax, 0x9c                     ; 0x0ed7
     push ax                          ; 0x0eda
     push word [bp + 4]               ; 0x0edb
-    call aztec_strlen                ; 0x0ede
+    call strlen                ; 0x0ede
     pop cx                           ; 0x0ee1
     mov cx, 6                        ; 0x0ee2
     imul cx                          ; 0x0ee5

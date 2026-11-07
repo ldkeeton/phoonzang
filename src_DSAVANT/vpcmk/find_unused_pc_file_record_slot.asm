@@ -1,7 +1,7 @@
 ; auto-generated
 find_unused_pc_file_record_slot:
     mov ax, 0xfffe                   ; 0x65fc
-    call aztec_csav                  ; 0x65ff
+    call $csav                  ; 0x65ff
     mov word [bp - 2], 0             ; 0x6602
     jmp short .forward2              ; 0x6607
 .back1:

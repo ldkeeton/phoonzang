@@ -75,5 +75,4 @@ vpcmk/preview_and_select_saved_member
 shared/ovr/choose_pc_file_character
 vpcmk/manage_character_files
 vpcmk/data/cmk_strings
-shared/ovr/aztec_ovbgn
-shared/aztec/aztec_strcmp
+ovbgn.o

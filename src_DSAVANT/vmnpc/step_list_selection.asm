@@ -1,7 +1,7 @@
 ; auto-generated
 step_list_selection:
     mov ax, 0                        ; 0x7832
-    call aztec_csav                  ; 0x7835
+    call $csav                  ; 0x7835
     mov ax, word [bp + 4]            ; 0x7838
     cmp ax, word [bp + 6]            ; 0x783b
     jl short .forward1               ; 0x783e

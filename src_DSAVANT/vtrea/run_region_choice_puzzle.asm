@@ -1,7 +1,7 @@
 ; auto-generated
 run_region_choice_puzzle:
     mov ax, 0xff1a                   ; 0x73ae
-    call aztec_csav                  ; 0x73b1
+    call $csav                  ; 0x73b1
     mov bx, word [maze_tables]       ; 0x73b4
     mov si, word [party_region]      ; 0x73b8
     cmp byte [bx + si + 0xa50], 0    ; 0x73bc
@@ -145,7 +145,7 @@ run_region_choice_puzzle:
     add sp, byte 4                   ; 0x7519
     lea ax, word [bp - 0x72]         ; 0x751c
     push ax                          ; 0x751f
-    call aztec_strlen                ; 0x7520
+    call strlen                ; 0x7520
     pop cx                           ; 0x7523
     mov word [bp - 0xc], ax          ; 0x7524
     lea ax, word [bp - 0xe2]         ; 0x7527
@@ -273,7 +273,7 @@ run_region_choice_puzzle:
     add sp, byte 4                   ; 0x7646
     lea ax, word [bp - 0x72]         ; 0x7649
     push ax                          ; 0x764c
-    call aztec_strlen                ; 0x764d
+    call strlen                ; 0x764d
     pop cx                           ; 0x7650
     mov word [bp - 0xc], ax          ; 0x7651
     cmp word [bp - 0xe], byte 6      ; 0x7654

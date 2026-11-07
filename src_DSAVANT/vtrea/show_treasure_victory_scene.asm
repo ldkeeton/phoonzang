@@ -1,7 +1,7 @@
 ; auto-generated
 show_treasure_victory_scene:
     mov ax, 0xffb0                   ; 0x7f5a
-    call aztec_csav                  ; 0x7f5d
+    call $csav                  ; 0x7f5d
     mov ax, MSG_A_CHEST              ; 0x7f60
     push ax                          ; 0x7f63
     call prepare_treasure_scene      ; 0x7f64

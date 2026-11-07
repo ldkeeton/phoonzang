@@ -1,7 +1,7 @@
 ; auto-generated
 tick_treasure_animation:
     mov ax, 0                        ; 0x086b
-    call aztec_csav                  ; 0x086e
+    call $csav                  ; 0x086e
     les bx, word [tick_counter_ptr]  ; 0x0871
     mov ax, word [es:bx]             ; 0x0875
     mov dx, word [es:bx + 2]         ; 0x0878

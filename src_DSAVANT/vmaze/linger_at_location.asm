@@ -1,7 +1,7 @@
 ; auto-generated
 linger_at_location:
     mov ax, 0xfff0                   ; 0xa2df
-    call aztec_csav                  ; 0xa2e2
+    call $csav                  ; 0xa2e2
     mov ax, 0x26                     ; 0xa2e5
     imul word [bp + 4]               ; 0xa2e8
     mov bx, ax                       ; 0xa2eb

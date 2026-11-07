@@ -1,7 +1,7 @@
 ; auto-generated
 relay_npc_id_address:
     mov ax, 0                        ; 0x0ad7
-    call aztec_csav                  ; 0x0ada
+    call $csav                  ; 0x0ada
     mov al, byte [code_characters]   ; 0x0add
     sub ah, ah                       ; 0x0ae0
     cmp ax, word [code_char_index]   ; 0x0ae2

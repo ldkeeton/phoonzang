@@ -1,7 +1,7 @@
 ; auto-generated
 draw_centered_lines:
     mov ax, 0xfffe                   ; 0x195b
-    call aztec_csav                  ; 0x195e
+    call $csav                  ; 0x195e
     mov ax, 0                        ; 0x1961
     push ax                          ; 0x1964
     mov ax, 0x55                     ; 0x1965
@@ -32,7 +32,7 @@ draw_centered_lines:
     call draw_text_glyphs            ; 0x19a1
     add sp, byte 4                   ; 0x19a4
     push word [bp + 6]               ; 0x19a7
-    call aztec_strlen                ; 0x19aa
+    call strlen                ; 0x19aa
     pop cx                           ; 0x19ad
     cmp ax, strict word 0            ; 0x19ae
     jg short .forward1               ; 0x19b1
@@ -62,7 +62,7 @@ draw_centered_lines:
     call draw_text_glyphs            ; 0x19e8
     add sp, byte 4                   ; 0x19eb
     push word [bp + 8]               ; 0x19ee
-    call aztec_strlen                ; 0x19f1
+    call strlen                ; 0x19f1
     pop cx                           ; 0x19f4
     cmp ax, strict word 0            ; 0x19f5
     jle short .forward2              ; 0x19f8

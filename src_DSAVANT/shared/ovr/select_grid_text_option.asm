@@ -1,7 +1,7 @@
 ; auto-generated
 select_grid_text_option:
     mov ax, 0xfe56
-    call aztec_csav
+    call $csav
     mov ax, word [bp + 0x14]
     dec ax
     cwd
@@ -76,7 +76,7 @@ select_grid_text_option:
     push ax
     lea ax, word [bp - 0x1a6]
     push ax
-    call aztec_strlen
+    call strlen
     pop cx
     mov cx, 6
     imul cx
@@ -191,7 +191,7 @@ select_grid_text_option:
     lea cx, word [bp - 0x156]
     add ax, cx
     push ax
-    call aztec_strlen
+    call strlen
     pop cx
     mov cx, ax
     mov ax, word [bp + 0xc]

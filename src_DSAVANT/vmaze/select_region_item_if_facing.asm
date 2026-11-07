@@ -1,7 +1,7 @@
 ; auto-generated
 select_region_item_if_facing:
     mov ax, 0xfffe                   ; 0x8de9
-    call aztec_csav                  ; 0x8dec
+    call $csav                  ; 0x8dec
     mov ax, word [bp + 4]            ; 0x8def
     shl ax, 1                        ; 0x8df2
     mov si, ax                       ; 0x8df4

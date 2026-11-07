@@ -1,7 +1,7 @@
 ; auto-generated
 wait_for_scene_message_page:
     mov ax, 0                        ; 0x3a6a
-    call aztec_csav                  ; 0x3a6d
+    call $csav                  ; 0x3a6d
     mov ax, 0xbb                     ; 0x3a70
     push ax                          ; 0x3a73
     mov ax, 0xab                     ; 0x3a74

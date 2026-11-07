@@ -22,16 +22,19 @@ under DOSBox-X, as ``make run`` does.  Both start with a ``#!`` line, so the
 build makes them executable (:func:`lib.autogen.sync`).
 """
 
-import textwrap
 from collections import namedtuple
 
 Compiler = namedtuple('Compiler', 'repo ref folder')
 #: One binary of ``build.sh``: its name (its source directory), the file it
 #: makes, the name ``ln`` writes (renamed to *file* when they differ), the
 #: binary whose ``.rsm`` it links against (``None``), its ``ln`` flags, a
-#: description (``None``), the module that must open it (``None``), and the
-#: startup modules nothing calls, linked in by force.
-Binary = namedtuple('Binary', 'name file ln_output root ln_flags desc first entry')
+#: description (``None``), the module that must open it (``None``), the
+#: startup modules nothing calls, linked in by force, the compiler's objects
+#: it links (``ovld.o``, the sidecar band's ``objects``), and the vendor
+#: library it links its runtime from (``c.lib``, :mod:`lib.vendorlib`; an
+#: overlay's is its root's, so it names none).
+Binary = namedtuple('Binary', 'name file ln_output root ln_flags desc first entry '
+                    'objects libs', defaults=((), ()))
 #: The modules Aztec starts a program (``$begin``) and an overlay (``$ovbgn``)
 #: at: no symbol names them, so the library would never give them.
 ENTRY_STEMS = ('aztec_begin', 'aztec_ovbgn')
@@ -50,20 +53,14 @@ def config(binaries, cflags, aflags, include, libdirs, binary_cflags=None,
     C flags other than the default."""
     lines = [f'CFLAGS={_q(" ".join(cflags))}', f'AFLAGS={_q(" ".join(aflags))}',
              f'INCLUDE={_q(include)}',
-             '# Every source under these goes into SHARED.LIB.',
              'LIBDIRS=(' + ' '.join(_q(d) for d in libdirs) + ')',
-             '# NAME FILE LN_WRITES ROOT [LN_FLAGS ...], ROOT - for none.  NAME/ holds',
-             '# its sources.',
              'BINARIES=(']
     for b in binaries:
-        for line in textwrap.wrap(b.desc or '', 74):
-            lines.append(f'    # {line}')
         words = [b.name, b.file, b.ln_output, b.root or '-', *b.ln_flags]
         lines.append(f'    {_q(" ".join(words))}')
     lines.append(')')
 
-    def table(name, comment, items):
-        lines.extend(comment)
+    def table(name, items):
         if not items:
             lines.append(f'declare -A {name}=()')
             return
@@ -71,14 +68,17 @@ def config(binaries, cflags, aflags, include, libdirs, binary_cflags=None,
         lines.extend(f'    [{key}]={_q(value)}' for key, value in items)
         lines.append(')')
 
-    table('FIRST', ['# The module that must open a binary.'],
+    table('FIRST',
           [(b.name, b.first) for b in binaries if b.first])
-    table('ENTRY', ['# Startup modules nothing calls, linked into a binary by force.'],
+    table('ENTRY',
           [(b.name, ' '.join(b.entry)) for b in binaries if b.entry])
-    table('BIN_CFLAGS', ["# C flags other than CFLAGS: a binary's default, and one module's",
-                         '# (OBJ_CFLAGS beats BIN_CFLAGS).'],
+    table('OBJECTS',
+          [(b.name, ' '.join(b.objects)) for b in binaries if b.objects])
+    table('LIBS',
+          [(b.name, ' '.join(b.libs)) for b in binaries if b.libs])
+    table('BIN_CFLAGS',
           [(name, ' '.join(value)) for name, value in (binary_cflags or {}).items()])
-    table('OBJ_CFLAGS', [],
+    table('OBJ_CFLAGS',
           [(module, ' '.join(value)) for module, value in (object_cflags or {}).items()])
     return '\n'.join(lines)
 
@@ -140,74 +140,12 @@ exec "$DOSBOX" -fastlaunch -nomenu -nopromptfolder \
 
 
 SCRIPT = r'''#!/usr/bin/env bash
-# Build every binary of this tree with Manx Aztec C86, running the DOS tools
-# under DOSBox-X.
+# Build every binary of this tree with Manx Aztec C86 under DOSBox-X.
 #
-#   ./build.sh [binary ...]      e.g. ./build.sh vmnpc   (default: all)
+#   ./build.sh [binary ...]      (default: all)
 #   ./build.sh init              only download the compiler
 #
-# What goes into a binary
-#
-#   Binary NAME is every NAME/**/MODULE.s and NAME/**/MODULE.c (when both
-#   exist, the .s wins; .asm files are not sources).  There is no list of
-#   modules and no fixed order: add, delete or convert a file and the next
-#   build picks it up.  So the binaries are not laid out exactly like the
-#   originals, which is the point: code that only works in the original
-#   layout shows up as a bug.
-#
-#   Every source under LIBDIRS (shared/) is compiled once into SHARED.LIB,
-#   and ln takes from it just the modules a binary calls.  A shared module
-#   compiles with OBJ_CFLAGS[MODULE], else CFLAGS, the same for every binary
-#   (the generator keeps a module that one binary compiles differently in
-#   that binary's own directory).
-#
-#   A few modules have a fixed place:
-#     FIRST[NAME]        opens the binary: a driver's dispatch table, which
-#                        DS calls at fixed offsets.
-#     NAME/data/globals  comes right after FIRST.  It declares every
-#                        uninitialized C global, ln lays those out in the
-#                        order it first sees them, and the code relies on that
-#                        order (a loop runs from one array into the next).
-#     ENTRY[NAME]        startup modules nothing calls, so ln would never take
-#                        them from the library: they are linked in directly.
-#
-# Compile flags
-#
-#   cc gets OBJ_CFLAGS[MODULE], else BIN_CFLAGS[NAME], else CFLAGS; as gets
-#   AFLAGS.  Both search INCLUDE.
-#
-# DOS file names
-#
-#   DOS sees only 8.3 names, so each binary, and the library, is built in its
-#   own work directory under .cache/build/, with every module copied in under
-#   a short name (upper case, cut to 8 characters, a number added on a clash).
-#   ln reads the list of objects from a response file.
-#
-# The compiler
-#
-#   `@FOLDER@` from github.com/@REPO@ (@REF@).  The first
-#   run clones just that folder into dos_compilers/ beside this script; later
-#   runs reuse it.  `./build.sh init` downloads it afresh.
-#
-# Output
-#
-#   Each binary goes into build_out_new/ under the game's own file name
-#   (DS.EXE, VBASE.OVR, VGA.DRV, ...).  ln picks the format from the
-#   extension, so a driver links as VGA.COM and is renamed VGA.DRV.  Every
-#   other file of the original game (data, pictures, ...) is copied in first,
-#   unless build_out_new/ has it already, so saves there survive.  Delete
-#   build_out_new/ and the next run makes it a fresh, runnable game.  The work
-#   directories, with every log, stay in .cache/build/.
-#
-# Environment
-#
-#   DOSBOX    the DOSBox-X to run (default dosbox-x)
-#   JOBS      DOSBox sessions at once (default: the number of CPUs)
-#   TIMEOUT   seconds one session may take (default 600)
-#   SHOW=1    show the DOSBox window instead of running headless
-#   LN_EXTRA  more ln flags for every link (-t keeps ln's symbol table,
-#             BINARY.SYM, in the binary's work directory)
-#   GAME      the original game's directory (default @GAME@)
+# Environment: DOSBOX, JOBS, TIMEOUT, SHOW=1, LN_EXTRA, GAME.
 
 # ---- what this tree builds ---------------------------------------------------
 
@@ -550,9 +488,18 @@ build_one() {
     rsp=${binary^^}; rsp=${rsp:0:8}.LNK
     stage_modules "$work" paths exts shorts "$cflags" "$rsp"
 
+    # The compiler's objects follow the binary's own.
+    local obj clib=${LIBS[$binary]:-}
+    for obj in ${OBJECTS[$binary]:-}; do
+        bat+=("echo C:\\LIB\\${obj^^}>> $rsp")
+    done
+    [[ -z $clib && -n $root ]] && clib=${LIBS[$root]:-}
+
     # ln reads the objects, then the root's symbols (an overlay links against
     # DS.RSM), then the library, twice: ord sorted it for one pass, and the
-    # second catches a member that needs one listed before it.
+    # second catches a member that needs one listed before it.  The
+    # compiler's libraries come last, so an overlay takes from them only what
+    # DS does not define.
     local ln_line="ln $LN_EXTRA ${LN_FLAGS[$binary]} -o ${output^^} -f $rsp"
     if [[ -n $root ]]; then
         if [[ ! -f $WORK/$root.rsm ]]; then
@@ -566,6 +513,7 @@ build_one() {
         cp "$LIB" "$work/SHARED.LIB"
         ln_line+=" SHARED.LIB SHARED.LIB"
     fi
+    [[ -n $clib ]] && ln_line+=" C:\\LIB\\${clib^^}"
     bat+=("$ln_line > LINK.LOG")
     [[ $rule == "$output" ]] || bat+=("ren ${output^^} ${rule^^}")
     printf '%s\r\n' "${bat[@]}" > "$work/BUILD.BAT"

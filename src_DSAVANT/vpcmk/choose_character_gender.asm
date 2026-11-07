@@ -1,7 +1,7 @@
 ; auto-generated
 choose_character_gender:
     mov ax, 0xff86                   ; 0x4498
-    call aztec_csav                  ; 0x449b
+    call $csav                  ; 0x449b
     mov word [bp - 2], 0             ; 0x449e
 .back1:
     mov ax, word [bp - 2]            ; 0x44a3

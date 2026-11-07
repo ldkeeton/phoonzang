@@ -1,7 +1,7 @@
 ; auto-generated
 sum_member_item_weight:
     mov ax, 0xfffc                   ; 0x17d6
-    call aztec_csav                  ; 0x17d9
+    call $csav                  ; 0x17d9
     mov ax, 0x248                    ; 0x17dc
     imul word [bp + 4]               ; 0x17df
     mov bx, ax                       ; 0x17e2

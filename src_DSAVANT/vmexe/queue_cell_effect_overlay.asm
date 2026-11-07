@@ -1,7 +1,7 @@
 ; auto-generated
 queue_cell_effect_overlay:
     mov ax, 0xffea                   ; 0x0e1a
-    call aztec_csav                  ; 0x0e1d
+    call $csav                  ; 0x0e1d
     mov ax, 6                        ; 0x0e20
     imul word [bp + 4]               ; 0x0e23
     mov cx, word [bp + 6]            ; 0x0e26

@@ -1,7 +1,7 @@
 ; auto-generated
 draw_power_bar:
     mov ax, 0xfffe                   ; 0x1cf8
-    call aztec_csav                  ; 0x1cfb
+    call $csav                  ; 0x1cfb
     mov word [bp - 2], 0             ; 0x1cfe
     cmp word [bp + 0xe], byte 0      ; 0x1d03
     jle short .forward1              ; 0x1d07
@@ -21,12 +21,12 @@ draw_power_bar:
     mov bx, dx                       ; 0x1d23
     pop dx                           ; 0x1d25
     pop ax                           ; 0x1d26
-    call aztec_ldv                   ; 0x1d27
+    call $ldv                   ; 0x1d27
     mov cx, ax                       ; 0x1d2a
     mov bx, dx                       ; 0x1d2c
     pop ax                           ; 0x1d2e
     pop dx                           ; 0x1d2f
-    call aztec_ldv                   ; 0x1d30
+    call $ldv                   ; 0x1d30
     add ax, strict word 1            ; 0x1d33
     adc dx, byte 0                   ; 0x1d36
     mov word [bp - 2], ax            ; 0x1d39

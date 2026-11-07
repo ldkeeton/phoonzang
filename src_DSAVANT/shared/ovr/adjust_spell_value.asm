@@ -1,7 +1,7 @@
 ; auto-generated
 adjust_spell_value:
     mov ax, 0
-    call aztec_csav
+    call $csav
     cmp word [bp + 8], byte 1
     jne short .forward3
     cmp word [bp + 6], byte 0

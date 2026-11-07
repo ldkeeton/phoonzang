@@ -1,7 +1,7 @@
 ; auto-generated
 npc_give_item_to_party_member:
     mov ax, 0xfff8                   ; 0x29b1
-    call aztec_csav                  ; 0x29b4
+    call $csav                  ; 0x29b4
     mov ax, 0                        ; 0x29b7
     push ax                          ; 0x29ba
     push word [bp + 4]               ; 0x29bb
@@ -166,7 +166,7 @@ npc_give_item_to_party_member:
     add sp, byte 4                   ; 0x2b38
     mov ax, npc_choice_message_buffer ; 0x2b3b
     push ax                          ; 0x2b3e
-    call aztec_strlen                ; 0x2b3f
+    call strlen                ; 0x2b3f
     pop cx                           ; 0x2b42
     mov cx, ax                       ; 0x2b43
     mov ax, 0x1e                     ; 0x2b45
@@ -186,7 +186,7 @@ npc_give_item_to_party_member:
     add cx, text_line_buffer         ; 0x2b68
     mov ax, cx                       ; 0x2b6c
     push ax                          ; 0x2b6e
-    call aztec_strcat                ; 0x2b6f
+    call strcat                ; 0x2b6f
     add sp, byte 4                   ; 0x2b72
     mov ax, word [text_line_index]   ; 0x2b75
     shl ax, 1                        ; 0x2b78

@@ -1,14 +1,14 @@
 ; auto-generated
 choose_random_destination:
     mov ax, 0xffc6                   ; 0x94ef
-    call aztec_csav                  ; 0x94f2
+    call $csav                  ; 0x94f2
     mov ax, 0                        ; 0x94f5
     push ax                          ; 0x94f8
     mov ax, 0x34                     ; 0x94f9
     push ax                          ; 0x94fc
     lea ax, word [bp - 0x3a]         ; 0x94fd
     push ax                          ; 0x9500
-    call aztec_setmem                ; 0x9501
+    call setmem                ; 0x9501
     add sp, byte 6                   ; 0x9504
     mov word [bp - 0x3a], 1          ; 0x9507
     mov word [bp - 0x38], 1          ; 0x950c

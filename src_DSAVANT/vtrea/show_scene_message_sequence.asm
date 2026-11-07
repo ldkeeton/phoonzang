@@ -1,7 +1,7 @@
 ; auto-generated
 show_scene_message_sequence:
     mov ax, 0xfefa                   ; 0x0d87
-    call aztec_csav                  ; 0x0d8a
+    call $csav                  ; 0x0d8a
     mov ax, 0                        ; 0x0d8d
     push ax                          ; 0x0d90
     call redraw_treasure_caption     ; 0x0d91

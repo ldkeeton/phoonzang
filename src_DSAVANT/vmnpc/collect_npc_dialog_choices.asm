@@ -1,7 +1,7 @@
 ; auto-generated
 collect_npc_dialog_choices:
     mov ax, 0xfffe                   ; 0xa2e7
-    call aztec_csav                  ; 0xa2ea
+    call $csav                  ; 0xa2ea
     mov word [bp - 2], 0             ; 0xa2ed
 .back1:
     mov ax, npc_choice_message_buffer ; 0xa2f2
@@ -25,7 +25,7 @@ collect_npc_dialog_choices:
     add bx, npc_dialog_choice_entry_text ; 0xa320
     mov ax, bx                       ; 0xa324
     push ax                          ; 0xa326
-    call aztec_strcpy                ; 0xa327
+    call strcpy                ; 0xa327
     add sp, byte 4                   ; 0xa32a
     add word [bp + 4], byte 5        ; 0xa32d
     inc word [bp - 2]                ; 0xa331
@@ -56,7 +56,7 @@ collect_npc_dialog_choices:
     add bx, npc_dialog_choice_entry_text ; 0xa36f
     mov ax, bx                       ; 0xa373
     push ax                          ; 0xa375
-    call aztec_strcpy                ; 0xa376
+    call strcpy                ; 0xa376
     add sp, byte 4                   ; 0xa379
     add word [bp + 6], byte 5        ; 0xa37c
     inc word [bp - 2]                ; 0xa380

@@ -6,7 +6,7 @@ extern int call_set_text_color();
 extern int call_set_text_pos();
 extern int draw_text_glyphs();
 extern int call_show_area();
-extern int aztec_strlen();
+extern int strlen();
 
 draw_message_box(text, row, left, top, columns, row_height, text_color)
 char *text;
@@ -24,7 +24,7 @@ int row, left, top, columns, row_height, text_color;
 				 left + 6 * columns + 8, row * row_height + top + 15, 0);
 	call_set_text_color(text_color, 192);
 	/* Center the text using six pixels per glyph. */
-	call_set_text_pos((columns - aztec_strlen(text)) * 6 / 2 + left + 9,
+	call_set_text_pos((columns - strlen(text)) * 6 / 2 + left + 9,
 				  row * row_height + top + 9);
 	draw_text_glyphs(text, 0);
 	call_show_area(left + 7, row * row_height + top + 6,

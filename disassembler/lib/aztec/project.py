@@ -33,7 +33,15 @@ made, with which flags, from which source, and how each binary is linked::
 
 A ``.lnk`` holds one extensionless module per line, in link order; each is
 ``MODULE.o``, made from the first of ``.SUFFIXES`` that exists (``MODULE.s``,
-else ``MODULE.c``).  ``TARGET: NAME = value`` sets a macro for one target, as
+else ``MODULE.c``).  A line with an extension (``ovld.o``) is an object from
+the compiler's ``LIB`` directory, used as it is.  A binary that links its
+runtime from the vendor's library (:mod:`lib.vendorlib`) names it last on its
+``ln`` line, after any ``.rsm``, so an overlay takes from it only what its
+host does not define::
+
+    vbase.ovr: vbase.lnk ds.rsm
+    	ln -o vbase.ovr -f vbase.lnk ds.rsm c.lib
+  ``TARGET: NAME = value`` sets a macro for one target, as
 in GNU make: on a binary it covers every object linked into it, and an
 object's own line beats its binary's.  Each binary compiles its objects on its
 own, so a shared source may carry different flags in different binaries.
@@ -67,8 +75,14 @@ INCLUDE_DIR = 'include'
 #: One binary: its name (its ``.lnk``'s), what ``ln`` writes, the flags, its
 #: ``.lnk``, the binary whose ``.rsm`` it links against (``None`` for none), and
 #: the file a ``ren`` line then renames the output to (``None`` for none).
-Target = namedtuple('Target', 'binary output flags lnk root file', defaults=(None,))
+Target = namedtuple('Target', 'binary output flags lnk root file libs',
+                    defaults=(None, ()))
+#: A ``.lnk`` line: a source's *stem*, *path* and tool *kind*, or for a
+#: compiler object (``ovld.o``) its file name as both, and kind ``obj``.
 Module = namedtuple('Module', 'stem path kind')
+#: The suffix of a vendor library on an ``ln`` line.
+LIBRARY_SUFFIX = '.lib'
+
 #: A parsed makefile: its targets; ``{name: value}`` macros; the source
 #: suffixes in search order; ``{'.s': recipe}`` of each suffix rule; and
 #: ``{target: {name: value}}`` of the target-specific macros.
@@ -187,8 +201,11 @@ def project_files(binaries, host, files, arrange=None, flags=None, compiler=None
         linked[name] = stem + want if want and ext.upper() != want else outputs[name]
     make = _compile_section(flags) if flags is not None else []
     make += ['all: ' + ' '.join(outputs[name] for name in order), '']
+    from lib.sidecar.bands import runtime_library, runtime_objects
+    from lib.vendorlib import link_list
     out = {}
     listed_by = {}
+    objects_by, libs_by = {}, {}
     for name in order:
         output, lnk = outputs[name], f'{name}.lnk'
         ln_out = linked[name]
@@ -196,8 +213,16 @@ def project_files(binaries, host, files, arrange=None, flags=None, compiler=None
         listed = dict.fromkeys(_INCLUDE.findall(files[f'{name}.asm']))
         if arrange is not None:
             listed = arrange(name, list(listed))
-        listed_by[name] = list(listed)
-        out[lnk] = ''.join(f'{module}\n' for module in listed)
+        library = runtime_library({'binaries': binaries}, name)
+        lines = list(listed)
+        objects_by[name], libs_by[name] = [], []
+        if library:
+            lines, objects_by[name] = link_list(
+                lines, runtime_objects({'binaries': binaries}, name))
+            libs_by[name] = [library]
+        listed_by[name] = [m for m in lines if m not in objects_by[name]]
+        out[lnk] = ''.join(f'{module}\n' for module in lines)
+        libs = ''.join(f' {lib}' for lib in libs_by[name])
         flags_ = ''.join(f'{flag} ' for flag in
                          (binaries[name].get('link') or {}).get('flags', ()))
         desc = binaries[name].get('desc')
@@ -205,20 +230,22 @@ def project_files(binaries, host, files, arrange=None, flags=None, compiler=None
             make += ['# ' + line for line in textwrap.wrap(desc, 78)]
         if binaries[name].get('type') == 'aztec_overlay' and host:
             make += [f'{output}: {lnk} {host}.rsm',
-                     f'\tln {flags_}-o {ln_out} -f {lnk} {host}.rsm', *ren, '']
+                     f'\tln {flags_}-o {ln_out} -f {lnk} {host}.rsm{libs}', *ren, '']
         elif name == host and has_overlays:
-            make += [f'{output}: {lnk}', f'\tln -R {flags_}-o {ln_out} -f {lnk}', *ren,
+            make += [f'{output}: {lnk}',
+                     f'\tln -R {flags_}-o {ln_out} -f {lnk}{libs}', *ren,
                      '', '# ln -R also writes the symbols the overlays link against.',
                      f'{name}.rsm: {output}', '']
         else:
-            make += [f'{output}: {lnk}', f'\tln {flags_}-o {ln_out} -f {lnk}', *ren, '']
+            make += [f'{output}: {lnk}', f'\tln {flags_}-o {ln_out} -f {lnk}{libs}',
+                     *ren, '']
     if flags is not None:
         make += _flag_lines(order, outputs, listed_by, flags)
         if compiler is not None:
             from .build_sh import run_script, script
             out[BUILD_SH] = script(compiler, game, _build_sh_config(
                 binaries, order, host, has_overlays, outputs, linked, listed_by,
-                flags))
+                flags, objects_by, libs_by))
             exe = _main_output(order, outputs, host)
             if exe:
                 out[RUN_SH] = run_script(exe, _install_folder(game))
@@ -227,7 +254,7 @@ def project_files(binaries, host, files, arrange=None, flags=None, compiler=None
 
 
 def _build_sh_config(binaries, order, host, has_overlays, outputs, linked, listed,
-                     flags):
+                     flags, objects=None, libs=None):
     """``build.sh``'s block of what it builds (:func:`lib.aztec.build_sh.config`)
     from what the makefile is written from.  A binary is its own directory's
     sources; every other directory its listing names is a library directory.
@@ -249,8 +276,12 @@ def _build_sh_config(binaries, order, host, has_overlays, outputs, linked, liste
         first = modules[0] if info.get('type') == 'raw_drv' and modules else None
         entry = [m for m in modules if not m.startswith(name + '/')
                  and os.path.basename(m) in ENTRY_STEMS]
+        own_libs = list((libs or {}).get(name, ()))
+        if root and own_libs == list((libs or {}).get(root, ())):
+            own_libs = []
         entries.append(Binary(name, outputs[name], linked[name], root, link_flags,
-                              info.get('desc'), first, entry))
+                              info.get('desc'), first, entry,
+                              list((objects or {}).get(name, ())), own_libs))
     bin_cflags, obj_cflags = _flag_overrides(order, listed, flags)
     # SHARED.LIB compiles a module once, with its own flags or else CFLAGS, so
     # every binary linking it must want just those (lib.shared keeps a module
@@ -314,7 +345,7 @@ def _parse_ln(output, recipe):
     words = recipe.split()
     if words[:1] != ['ln']:
         raise ValueError(f'{output}: expected an ln line, got: {recipe}')
-    flags, lnk, root, written = [], None, None, None
+    flags, libs, lnk, root, written = [], [], None, None, None
     rest = iter(words[1:])
     for word in rest:
         if word == '-o':
@@ -323,11 +354,14 @@ def _parse_ln(output, recipe):
             lnk = next(rest, None)
         elif word.endswith('.rsm'):
             root = word[:-len('.rsm')]
+        elif word.lower().endswith(LIBRARY_SUFFIX):
+            libs.append(word)
         else:
             flags.append(word)
     if written != output or lnk is None:
         raise ValueError(f'{output}: ln needs -o {output} and -f FILE: {recipe}')
-    return Target(os.path.splitext(os.path.basename(lnk))[0], output, flags, lnk, root)
+    return Target(os.path.splitext(os.path.basename(lnk))[0], output, flags, lnk,
+                  root, None, tuple(libs))
 
 
 def parse_project(text):
@@ -412,6 +446,9 @@ def modules(tree, target, sources=SOURCE_EXTS):
         listed = parse_lnk(f.read())
     found, missing = [], []
     for name in listed:
+        if os.path.splitext(name)[1]:
+            found.append(Module(name, name, 'obj'))
+            continue
         for ext, kind in sources:
             if os.path.exists(os.path.join(tree, name + ext)):
                 found.append(Module(os.path.basename(name), name + ext, kind))

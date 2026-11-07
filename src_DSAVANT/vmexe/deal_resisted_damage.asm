@@ -1,7 +1,7 @@
 ; auto-generated
 deal_resisted_damage:
     mov ax, 0xffde                   ; 0x2242
-    call aztec_csav                  ; 0x2245
+    call $csav                  ; 0x2245
     mov word [combat_message_layout], 4 ; 0x2248
     mov ax, 0x2c                     ; 0x224e
     imul word [bp + 6]               ; 0x2251
@@ -56,7 +56,7 @@ deal_resisted_damage:
     imul word [bp + 6]               ; 0x22c4
     add ax, party_records + pc_rec.resist ; 0x22c7
     push ax                          ; 0x22ca
-    call aztec_movmem                ; 0x22cb
+    call movmem                ; 0x22cb
     add sp, byte 6                   ; 0x22ce
 .forward5:
     mov ax, 0x64                     ; 0x22d1

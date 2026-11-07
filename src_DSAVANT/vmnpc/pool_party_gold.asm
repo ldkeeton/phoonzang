@@ -1,7 +1,7 @@
 ; auto-generated
 pool_party_gold:
     mov ax, 0xfffa                   ; 0x84f0
-    call aztec_csav                  ; 0x84f3
+    call $csav                  ; 0x84f3
     mov word [bp - 2], 0             ; 0x84f6
     mov word [bp - 4], 0             ; 0x84fb
     mov word [bp - 6], 0             ; 0x8500

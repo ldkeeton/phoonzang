@@ -1,7 +1,7 @@
 ; auto-generated
 check_profession_stat_budget:
     mov ax, 0xfffa                   ; 0x4081
-    call aztec_csav                  ; 0x4084
+    call $csav                  ; 0x4084
     mov ax, word [remaining_stat_points] ; 0x4087
     mov word [bp - 6], ax            ; 0x408a
     mov word [bp - 2], 0             ; 0x408d

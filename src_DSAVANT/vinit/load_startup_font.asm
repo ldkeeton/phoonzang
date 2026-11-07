@@ -1,7 +1,7 @@
 ; auto-generated
 load_startup_font:
     mov ax, 0xfffe                   ; 0x0045
-    call aztec_csav                  ; 0x0048
+    call $csav                  ; 0x0048
     mov ax, 0                        ; 0x004b
     push ax                          ; 0x004e
     push ax                          ; 0x004f
@@ -9,7 +9,7 @@ load_startup_font:
     call data_file_path              ; 0x0053
     add sp, byte 4                   ; 0x0056
     push ax                          ; 0x0059
-    call aztec_open                  ; 0x005a
+    call open                  ; 0x005a
     add sp, byte 4                   ; 0x005d
     mov word [bp - 2], ax            ; 0x0060
     cmp ax, strict word 0xffff       ; 0x0063
@@ -24,6 +24,6 @@ load_startup_font:
     call load_font_file              ; 0x0076
     add sp, byte 4                   ; 0x0079
     push word [bp - 2]               ; 0x007c
-    call aztec_close                 ; 0x007f
+    call close                 ; 0x007f
     pop cx                           ; 0x0082
     ret                              ; 0x0083

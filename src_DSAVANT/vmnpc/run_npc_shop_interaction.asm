@@ -1,7 +1,7 @@
 ; auto-generated
 run_npc_shop_interaction:
     mov ax, 0                        ; 0x7400
-    call aztec_csav                  ; 0x7403
+    call $csav                  ; 0x7403
     mov word [npc_dialog_shop_mode], 3 ; 0x7406
     mov word [npc_area_bottom], 0x8f ; 0x740c
     mov word [npc_negotiation_tactic], 3 ; 0x7412

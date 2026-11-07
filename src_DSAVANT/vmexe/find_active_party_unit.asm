@@ -1,7 +1,7 @@
 ; auto-generated
 find_active_party_unit:
     mov ax, 0xfffc                   ; 0x6374
-    call aztec_csav                  ; 0x6377
+    call $csav                  ; 0x6377
     mov ax, word [bp + 4]            ; 0x637a
     push ax                          ; 0x637d
     cmp ax, strict word 0            ; 0x637e

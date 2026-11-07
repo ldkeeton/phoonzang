@@ -1,7 +1,7 @@
 ; auto-generated
 restore_treasure_scene:
     mov ax, 0                        ; 0x7eba
-    call aztec_csav                  ; 0x7ebd
+    call $csav                  ; 0x7ebd
     mov ax, 0                        ; 0x7ec0
     push ax                          ; 0x7ec3
     mov ax, 1                        ; 0x7ec4

@@ -1,7 +1,7 @@
 ; auto-generated
 queue_view_cell_side_layers:
     mov ax, 0xffee
-    call aztec_csav
+    call $csav
     cmp word [bp + 4], byte 4
     jge short .forward1
     cmp word [bp + 6], byte 0

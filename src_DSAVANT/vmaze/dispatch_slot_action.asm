@@ -1,7 +1,7 @@
 ; auto-generated
 dispatch_slot_action:
     mov ax, 0                        ; 0xaad3
-    call aztec_csav                  ; 0xaad6
+    call $csav                  ; 0xaad6
     mov ax, 0x26                     ; 0xaad9
     imul word [bp + 4]               ; 0xaadc
     mov bx, ax                       ; 0xaadf

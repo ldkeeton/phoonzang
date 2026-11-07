@@ -36,31 +36,31 @@ char *fname;
 	saved = call_save_area(x0 - 1, y0 - 1, x1 + 1, y1 + 1);
 	call_wait_sound(0);
 	orig_drive = drive;
-	aztec_strcpy(name, fname);
+	strcpy(name, fname);
 	if (close_first) {
-		aztec_close(msg_dbs_fd);
-		aztec_close(data_file_fd);
+		close(msg_dbs_fd);
+		close(data_file_fd);
 	}
 	next = -2;
 	do {
 		found = 0;
 		do {
 			if (drive < 0)	/* negative drive: savegame disk */
-				aztec_strcpy(msg, "INSERT SAVEGAME DISK");
+				strcpy(msg, "INSERT SAVEGAME DISK");
 			else {
 				path[0] = drive + 'A';
 				path[1] = 0;
-				aztec_strcpy(msg, "INSERT DISK (^)");
+				strcpy(msg, "INSERT DISK (^)");
 				str_subst_char(msg, path, '^');	/* '^' -> drive letter */
 			}
 			draw_dialog_box(x0, y0, x1, y1);
 			call_set_text_color(1, 194);
 			/* centre the line; glyphs are 6 pixels wide */
-			call_set_text_pos((x1 - x0 + 1 - aztec_strlen(msg) * 6) / 2 + x0, y0 + 12);
+			call_set_text_pos((x1 - x0 + 1 - strlen(msg) * 6) / 2 + x0, y0 + 12);
 			draw_text_glyphs(msg, 0);
-			aztec_strcpy(msg, "INTO DRIVE ^");
+			strcpy(msg, "INTO DRIVE ^");
 			str_subst_char(msg, name, '^');
-			call_set_text_pos((x1 - x0 + 1 - aztec_strlen(msg) * 6) / 2 + x0, y0 + 18);
+			call_set_text_pos((x1 - x0 + 1 - strlen(msg) * 6) / 2 + x0, y0 + 18);
 			draw_text_glyphs(msg, 0);
 			draw_button(x0 + 68, y0 + 39, 12, 1, 1, "CONTINUE");
 			set_hotspot(0, x0 + 68, y0 + 39, x0 + 140, y0 + 47, 13, 0);
@@ -78,36 +78,36 @@ char *fname;
 			flush_keyboard();
 			call_restore_area(saved, 0);
 			call_show_area(x0 - 1, y0 - 1, x1 + 1, y1 + 1);
-			aztec_strcpy(path, name);
-			aztec_strcat(path, "DISK.HDR");
-			fd = aztec_open(path, 0);
+			strcpy(path, name);
+			strcat(path, "DISK.HDR");
+			fd = open(path, 0);
 			if (drive < 0) {
 				if (fd == -1)	/* no header file counts as the savegame disk */
 					found = 1;
 				else {
-					aztec_close(fd);
+					close(fd);
 					if (install_mode == 1)
 						found = 1;
 				}
 			} else if (fd != -1) {
-				nread = aztec_read(fd, disk_header, 780);	/* whole disk header */
+				nread = read(fd, disk_header, 780);	/* whole disk header */
 				/* install mode 5 numbers disks two lower */
 				want = install_mode == 5 && 0 < drive ? drive - 2 : drive;
 				if (nread > 0 && want == disk_header[0])
 					found = 1;
-				aztec_close(fd);
+				close(fd);
 			}
 		} while (!found);	/* re-prompt until the right disk is in */
 		drive = next;
 		next = -2;
-		aztec_strcpy(name, disk_drive_name);
+		strcpy(name, disk_drive_name);
 	} while (drive != -2);	/* -2: no further disk */
 	call_restore_area(saved, 1);
 	flush_keyboard();
 	if (reopen) {
-		if ((msg_dbs_fd = aztec_open(data_file_path("MSG.DBS", 0), 0)) == -1)
+		if ((msg_dbs_fd = open(data_file_path("MSG.DBS", 0), 0)) == -1)
 			release_and_exit(25);	/* exit status: MSG.DBS missing */
-		if ((data_file_fd = aztec_open(data_file_path("SCENARIO.DBS", orig_drive == 0
+		if ((data_file_fd = open(data_file_path("SCENARIO.DBS", orig_drive == 0
 			? 0 : 1), 0)) == -1)
 			release_and_exit(26);	/* exit status: SCENARIO.DBS missing */
 	}
@@ -160,13 +160,13 @@ load_monster_picture(num, n)
 	call_wait_sound(0);
 	if (picture_slot_number[n] != num) {
 		data_record_io(8, slot_recs[n], num, 0);	/* type 8: monsters */
-		aztec_strcpy(name, monster_pic_name);		/* "MON00.PIC" */
+		strcpy(name, monster_pic_name);			/* "MON00.PIC" */
 		name[3] = num / 10 + '0';			/* patch the two digits */
 		name[4] = num % 10 + '0';
-		if ((fd = aztec_open(data_file_path(name, 1), 0)) == -1)
+		if ((fd = open(data_file_path(name, 1), 0)) == -1)
 			release_and_exit(18);
 		call_load_picture(fd, n);
-		aztec_close(fd);
+		close(fd);
 		picture_slot_number[n] = num;	/* slot's record number */
 		picture_slot_used[n] = 1;	/* in use */
 	}
@@ -203,15 +203,15 @@ load_sound_file(num, n, flag)
 		load = flag ? 0 : 1;
 	}
 	if (load) {
-		aztec_strcpy(name, "SOUND00.SND");
+		strcpy(name, "SOUND00.SND");
 		/* patch the two "00" digits with num */
 		name[5] = num / 10 + '0';
 		name[6] = num % 10 + '0';
-		if ((fd = aztec_open(data_file_path(name, 1), 0)) == -1)
+		if ((fd = open(data_file_path(name, 1), 0)) == -1)
 			release_and_exit(11);
 		if (call_load_sound(fd, n))
 			release_and_exit(12);
-		aztec_close(fd);
+		close(fd);
 	}
 }
 
@@ -248,26 +248,26 @@ load_score_files(num, arg)
 	mode = video_mode;
 	if (mode == 6)	/* mode 6 shares mode 4's score data */
 		mode = 4;
-	aztec_strcpy(base, "SCORE00");
+	strcpy(base, "SCORE00");
 	/* patch the two "00" digits with num */
 	base[5] = num / 10 + '0';
 	base[6] = num % 10 + '0';
-	aztec_strcpy(path, base);
-	aztec_strcat(path, score_ext_csf);
-	if ((fd_csf = aztec_open(data_file_path(path, 1), 0)) == -1)
+	strcpy(path, base);
+	strcat(path, score_ext_csf);
+	if ((fd_csf = open(data_file_path(path, 1), 0)) == -1)
 		release_and_exit(15);
-	aztec_strcpy(path, base);
+	strcpy(path, base);
 	if (mode == 5)
-		aztec_strcat(path, score_ext_pbl);
+		strcat(path, score_ext_pbl);
 	else
-		aztec_strcat(path, score_ext_pba);
-	if ((fd_pic = aztec_open(data_file_path(path, 1), 0)) == -1)
+		strcat(path, score_ext_pba);
+	if ((fd_pic = open(data_file_path(path, 1), 0)) == -1)
 		release_and_exit(16);
 	err = call_load_score(fd_csf, fd_pic, mode, arg);
 	if (err)
 		release_and_exit(17);
-	aztec_close(fd_csf);
-	aztec_close(fd_pic);
+	close(fd_csf);
+	close(fd_pic);
 	loaded_score_num = num;
 }
 

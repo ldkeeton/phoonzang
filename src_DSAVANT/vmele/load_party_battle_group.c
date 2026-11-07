@@ -7,7 +7,7 @@ extern struct member_rec *battle_groups[];
 extern struct pc_rec party_records[];
 extern int party_char_count;
 extern int party_buff_turns, party_buff_charge;
-extern aztec_movmem();
+extern movmem();
 
 load_party_battle_group()
 {
@@ -36,7 +36,7 @@ load_party_battle_group()
 			party_records[member_index].stamina[0];
 		battle_groups[group_index]->unit[member_index].state =
 			party_records[member_index].state;
-		aztec_movmem(party_records[member_index].status,
+		movmem(party_records[member_index].status,
 			battle_groups[group_index]->unit[member_index].status, 10);
 		battle_groups[group_index]->unit[member_index].poison_strength =
 			party_records[member_index].poison_strength;

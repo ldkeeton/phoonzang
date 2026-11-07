@@ -1,7 +1,7 @@
 ; auto-generated
 show_spell_effect_message:
     mov ax, 0                        ; 0x3aa3
-    call aztec_csav                  ; 0x3aa6
+    call $csav                  ; 0x3aa6
     mov ax, word [startup_option]    ; 0x3aa9
     mov cx, 4                        ; 0x3aac
     cwd                              ; 0x3aaf

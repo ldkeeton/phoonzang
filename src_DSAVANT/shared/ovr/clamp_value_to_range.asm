@@ -1,7 +1,7 @@
 ; auto-generated
 clamp_value_to_range:
     mov ax, 0xfffe
-    call aztec_csav
+    call $csav
     mov word [bp - 2], 0
 .back1:
     mov ax, word [bp - 2]

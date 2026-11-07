@@ -1,7 +1,7 @@
 ; auto-generated
 save_npc_dialog_default_choice:
     mov ax, 0                        ; 0xa29f
-    call aztec_csav                  ; 0xa2a2
+    call $csav                  ; 0xa2a2
     cmp word [npc_dialog_choice_code], byte -1 ; 0xa2a5
     je short .forward2               ; 0xa2aa
     cmp word [npc_dialog_primary_choice], byte -1 ; 0xa2ac

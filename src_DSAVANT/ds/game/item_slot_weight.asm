@@ -1,7 +1,7 @@
 ; auto-generated
 item_slot_weight:
     mov ax, 0xfffe                   ; 0x1741
-    call aztec_csav                  ; 0x1744
+    call $csav                  ; 0x1744
     mov ax, 0x248                    ; 0x1747
     imul word [bp + 4]               ; 0x174a
     push ax                          ; 0x174d

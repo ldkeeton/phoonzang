@@ -8,6 +8,6 @@ char *label;
 		1);	/* 1: add the outer bevel */
 	call_set_text_color(85, 192);
 	/* centre in w cells; glyphs are 6 pixels wide */
-	call_set_text_pos((w - aztec_strlen(label)) * 6 / 2 + x + 1, y + 2);
+	call_set_text_pos((w - strlen(label)) * 6 / 2 + x + 1, y + 2);
 	draw_text_glyphs(label, 0);
 }

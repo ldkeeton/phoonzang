@@ -1,7 +1,7 @@
 ; auto-generated
 animate_target_spell_effect:
     mov ax, 0xfee2                   ; 0x0f67
-    call aztec_csav                  ; 0x0f6a
+    call $csav                  ; 0x0f6a
     cmp word [bp + 4], byte 0        ; 0x0f6d
     jne short .forward1              ; 0x0f71
     mov ax, 0x2c                     ; 0x0f73

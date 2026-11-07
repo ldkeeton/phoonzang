@@ -28,10 +28,10 @@ extern int npc_dialog_topic_3_enabled, npc_dialog_topic_4_enabled,
 	npc_dialog_topic_5_enabled, npc_dialog_topic_6_enabled,
 	npc_dialog_response_state_extra;
 extern int load_message_string(), str_subst_char(), set_mouse_pointer_shape();
-extern int aztec_setmem();
+extern int setmem();
 extern int call_mouse_glide_to(), call_mouse_glide_back();
 extern int redraw_area_set(), show_area_set(), edit_npc_dialog_text_line();
-extern int normalize_npc_dialog_text(), aztec_strlen(), aztec_strncmp();
+extern int normalize_npc_dialog_text(), strlen(), strncmp();
 extern int expand_npc_dialog_text(), process_npc_dialog_response();
 extern int word_end_index(), build_npc_dialog_choice_reply(),
 	save_npc_dialog_default_choice();
@@ -48,7 +48,7 @@ int member_index;
 
 	npc_member_index = member_index;
 	npc_message_ready = 0;
-	aztec_setmem(&npc_dialog_choice_index, 66, 0);
+	setmem(&npc_dialog_choice_index, 66, 0);
 	npc_dialog_default_choice_index = -1;
 	npc_dialog_default_choice_value = 0;
 	npc_dialog_choice_backup = -1;
@@ -68,10 +68,10 @@ int member_index;
 	do {
 		edit_npc_dialog_text_line(text, member_name);
 		normalize_npc_dialog_text(text);
-		text_length = aztec_strlen(text);
+		text_length = strlen(text);
 		text[text_length] = ' ';
 		text[text_length + 1] = 0;
-		special_prefix = aztec_strncmp(text, npc_dialog_phoonzang_prefix, 9) == 0;
+		special_prefix = strncmp(text, npc_dialog_phoonzang_prefix, 9) == 0;
 		expand_npc_dialog_text(text);
 		text_length = 0;
 		npc_dialog_choice_index = -1;
@@ -114,7 +114,7 @@ int member_index;
 			npc_record_index == 83 ||
 			(npc_record_index == 77 && special_prefix == 0))
 			text[0] = 0;
-		if (aztec_strlen(text) > 0 && build_npc_dialog_choice_reply() == 0)
+		if (strlen(text) > 0 && build_npc_dialog_choice_reply() == 0)
 			save_npc_dialog_default_choice();
 	} while (npc_response_flag_1 != 1);
 	redraw_area_set(3);

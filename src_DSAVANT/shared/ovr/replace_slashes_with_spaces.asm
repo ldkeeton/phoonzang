@@ -1,7 +1,7 @@
 ; auto-generated
 replace_slashes_with_spaces:
     mov ax, 0xfffe
-    call aztec_csav
+    call $csav
 .back1:
     mov ax, 0x2f
     push ax

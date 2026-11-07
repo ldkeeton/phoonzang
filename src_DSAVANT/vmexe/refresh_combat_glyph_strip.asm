@@ -1,7 +1,7 @@
 ; auto-generated
 refresh_combat_glyph_strip:
     mov ax, 0xfffc                   ; 0x1b45
-    call aztec_csav                  ; 0x1b48
+    call $csav                  ; 0x1b48
     mov word [bp - 2], 0             ; 0x1b4b
     mov word [bp - 4], 0             ; 0x1b50
     cmp word [bp + 4], byte 0        ; 0x1b55

@@ -5,7 +5,7 @@ extern char item_dialog_temp_file[];
 
 extern int save_screen_area(), restore_saved_screen();
 extern int draw_dialog_box(), draw_button(), draw_inset_list_rows();
-extern int load_message_string(), aztec_strcpy(), set_hotspot();
+extern int load_message_string(), strcpy(), set_hotspot();
 extern int call_show_area(), draw_scrollbar(), poll_hotspots();
 extern int call_get_mouse(), clamp_between(), flash_area(), flash_button();
 
@@ -38,7 +38,7 @@ char *first_label;
 	if (first_enabled)
 		load_message_string(message_id, label);
 	else
-		aztec_strcpy(label, first_label);
+		strcpy(label, first_label);
 	draw_button(box_x + 8, box_y + 7, 12, 1, first_enabled, label);
 	load_message_string(message_id + 1, label);
 	draw_button(box_x + 8, box_y + 23, 12, 1, second_enabled, label);

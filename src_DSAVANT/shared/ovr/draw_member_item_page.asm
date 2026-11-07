@@ -1,7 +1,7 @@
 ; auto-generated
 draw_member_item_page:
     mov ax, 0xffb4
-    call aztec_csav
+    call $csav
     mov ax, 0
     push ax
     push ax
@@ -133,7 +133,7 @@ draw_member_item_page:
     imul word [bp - 2]
     add ax, item_slot_names
     push ax
-    call aztec_strcpy
+    call strcpy
     add sp, byte 4
     jmp short .forward7
 .forward6:

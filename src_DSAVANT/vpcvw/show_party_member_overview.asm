@@ -1,7 +1,7 @@
 ; auto-generated
 show_party_member_overview:
     mov ax, 0                        ; 0x2190
-    call aztec_csav                  ; 0x2193
+    call $csav                  ; 0x2193
     mov ax, 1                        ; 0x2196
     push ax                          ; 0x2199
     push ax                          ; 0x219a

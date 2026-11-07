@@ -1,7 +1,7 @@
 ; auto-generated
 apply_char_view_spell_effect:
     mov ax, 0xfff8                   ; 0x21fd
-    call aztec_csav                  ; 0x2200
+    call $csav                  ; 0x2200
     mov ax, word [bp + 6]            ; 0x2203
     jmp near .forward35              ; 0x2206
 jumptable_291f_case_33:
@@ -761,7 +761,7 @@ apply_char_view_spell_effect.forward34:
     jmp short jumptable_291f_case_46 ; 0x2917
 apply_char_view_spell_effect.forward35:
     mov cx, 0x18                     ; 0x2919
-    call aztec_cswt                  ; 0x291c
+    call $cswt                  ; 0x291c
 jumptable_291f:
     dw 0x000c                                  ; 0x291f ; literal
     dw 0x0011                                  ; 0x2921 ; literal

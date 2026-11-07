@@ -18,7 +18,7 @@ extern int call_get_mouse(), clamp_between(), tick_treasure_animation();
 extern int delay_ms(), poll_hotspots(), flash_area(), flash_button();
 extern int random_below(), play_sound_effect(), try_raise_member_skill();
 extern int call_show_area(), draw_font_glyph(), get_filtered_key();
-extern int aztec_strlen(), aztec_strcpy(), aztec_strcat(),
+extern int strlen(), strcpy(), strcat(),
 	format_int_decimal();
 extern int highlight_button_outline();
 extern char trap_dialog_temp_file[], trap_skill_open_paren[],
@@ -61,13 +61,13 @@ int pc, button_message, show_inspect, show_cancel, trap_row_count,
 		box_width + 1, box_height + 1, trap_dialog_temp_file);
 	draw_dialog_box(box_x, box_y, box_width, box_height);
 	call_set_text_color(1, 194);
-	call_set_text_pos(box_x + 27 - aztec_strlen(party_records[pc].name) * 6 / 2,
+	call_set_text_pos(box_x + 27 - strlen(party_records[pc].name) * 6 / 2,
 		box_y + 6);
 	draw_text_glyphs(party_records[pc].name, 0);
-	aztec_strcpy(label, trap_skill_open_paren);
+	strcpy(label, trap_skill_open_paren);
 	format_int_decimal(party_records[pc].skills[16], label + 1);
-	aztec_strcat(label, trap_skill_percent_close);
-	call_set_text_pos(box_x + 27 - aztec_strlen(label) * 6 / 2,
+	strcat(label, trap_skill_percent_close);
+	call_set_text_pos(box_x + 27 - strlen(label) * 6 / 2,
 		box_y + 12);
 	draw_text_glyphs(label, 0);
 	draw_inset_panel(box_x + 54, box_y + 5, box_x + 80, box_y + 17);
@@ -207,11 +207,11 @@ int pc, button_message, show_inspect, show_cancel, trap_row_count,
 					highlight_button_outline(box_x + 8, box_y + 24,
 						box_x + 80, box_y + 32, 1);
 					call_set_text_color(26, 192);
-					aztec_strcpy(label, inspect_label_open_paren);
-					aztec_strcat(label, inspect_label);
-					aztec_strcat(label, inspect_label_close_paren);
+					strcpy(label, inspect_label_open_paren);
+					strcat(label, inspect_label);
+					strcat(label, inspect_label_close_paren);
 					call_set_text_pos(box_x + 9 +
-						(12 - aztec_strlen(label)) * 6 / 2,
+						(12 - strlen(label)) * 6 / 2,
 						box_y + 26);
 					draw_text_glyphs(label, 0);
 					call_show_area(box_x + 8, box_y + 24,
@@ -237,7 +237,7 @@ int pc, button_message, show_inspect, show_cancel, trap_row_count,
 						box_x + 80, box_y + 32, 0);
 					call_set_text_color(85, 192);
 					call_set_text_pos(box_x + 9 +
-						(12 - aztec_strlen(inspect_label)) * 6 / 2,
+						(12 - strlen(inspect_label)) * 6 / 2,
 						box_y + 26);
 					draw_text_glyphs(inspect_label, 0);
 					call_show_area(box_x + 8, box_y + 24,

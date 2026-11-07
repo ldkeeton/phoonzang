@@ -1,7 +1,7 @@
 ; auto-generated
 apply_combat_attack_effects:
     mov ax, 0xfff6                   ; 0x7434
-    call aztec_csav                  ; 0x7437
+    call $csav                  ; 0x7437
     mov word [combat_message_layout], 4 ; 0x743a
     mov ax, 0x2c                     ; 0x7440
     imul word [bp + 0xa]             ; 0x7443

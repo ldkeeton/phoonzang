@@ -10,8 +10,8 @@ char *word;
 	int i;
 
 	for (i = 0; i < 5; ++i) {
-		if (aztec_strcmp(word, npc_pronoun_swaps[i].from) == 0) {
-			aztec_strcpy(word, npc_pronoun_swaps[i].to);
+		if (strcmp(word, npc_pronoun_swaps[i].from) == 0) {
+			strcpy(word, npc_pronoun_swaps[i].to);
 			return;
 		}
 	}

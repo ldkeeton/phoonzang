@@ -1,7 +1,7 @@
 ; auto-generated
 encode_special_power_glyphs:
     mov ax, 0xffe6                   ; 0x706c
-    call aztec_csav                  ; 0x706f
+    call $csav                  ; 0x706f
     lea ax, word [bp - 0x1a]         ; 0x7072
     push ax                          ; 0x7075
     mov ax, MSG_471                  ; 0x7076

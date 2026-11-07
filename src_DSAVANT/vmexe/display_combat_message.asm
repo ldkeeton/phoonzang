@@ -1,7 +1,7 @@
 ; auto-generated
 display_combat_message:
     mov ax, 0xffb0                   ; 0x169d
-    call aztec_csav                  ; 0x16a0
+    call $csav                  ; 0x16a0
     lea ax, word [bp - 0x50]         ; 0x16a3
     push ax                          ; 0x16a6
     push word [bp + 4]               ; 0x16a7

@@ -26,7 +26,7 @@ extern int match_npc_event_trigger();
 extern int load_message_string();
 extern int format_long_decimal();
 extern int str_subst_char();
-extern int aztec_strcpy();
+extern int strcpy();
 extern int replace_slashes_with_spaces();
 
 sell_item_to_npc(member_index, row)
@@ -86,7 +86,7 @@ int row;
 	format_long_decimal(item_data.price, npc_effect_message_buffer);
 	str_subst_char(npc_choice_message_buffer, npc_effect_message_buffer, '$');
 	load_message_string(MSG_YOUR, npc_effect_message_buffer);
-	aztec_strcpy(npc_substitution_text, list_row_name + row * 22);
+	strcpy(npc_substitution_text, list_row_name + row * 22);
 	replace_slashes_with_spaces(npc_substitution_text);
 	str_subst_char(npc_effect_message_buffer, npc_substitution_text, '$');
 

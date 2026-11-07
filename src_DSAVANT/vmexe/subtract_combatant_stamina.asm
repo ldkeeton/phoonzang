@@ -1,7 +1,7 @@
 ; auto-generated
 subtract_combatant_stamina:
     mov ax, 0                        ; 0x182b
-    call aztec_csav                  ; 0x182e
+    call $csav                  ; 0x182e
     mov ax, word [bp + 6]            ; 0x1831
     mov bx, word [bp + 4]            ; 0x1834
     sub word [bx + 6], ax            ; 0x1837

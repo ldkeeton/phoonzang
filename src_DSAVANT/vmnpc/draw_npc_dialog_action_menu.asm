@@ -1,7 +1,7 @@
 ; auto-generated
 draw_npc_dialog_action_menu:
     mov ax, 0xfe30                   ; 0x1821
-    call aztec_csav                  ; 0x1824
+    call $csav                  ; 0x1824
     mov word [menu_selection_index], 0xffff ; 0x1827
     mov ax, word [bp + 0x14]         ; 0x182d
     shl ax, 1                        ; 0x1830
@@ -94,7 +94,7 @@ draw_npc_dialog_action_menu:
     lea cx, word [bp - 0x15a]        ; 0x1905
     add ax, cx                       ; 0x1909
     push ax                          ; 0x190b
-    call aztec_strlen                ; 0x190c
+    call strlen                ; 0x190c
     pop cx                           ; 0x190f
     mov cx, ax                       ; 0x1910
     mov ax, word [bp + 0xe]          ; 0x1912

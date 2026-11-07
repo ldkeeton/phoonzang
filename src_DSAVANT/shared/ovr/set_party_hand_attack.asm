@@ -1,7 +1,7 @@
 ; auto-generated
 set_party_hand_attack:
     mov ax, 0xfffc
-    call aztec_csav
+    call $csav
     mov bx, word [bp + 8]
     mov al, byte [bx + 0x44]
     push ax

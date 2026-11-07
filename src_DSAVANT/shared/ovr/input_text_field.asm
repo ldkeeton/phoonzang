@@ -1,13 +1,13 @@
 ; auto-generated
 input_text_field:
     mov ax, 0xfff8
-    call aztec_csav
+    call $csav
     push word [bp + 0xe]
     push word [bp + 0xc]
     call call_set_text_color
     add sp, byte 4
     push word [bp + 4]
-    call aztec_strlen
+    call strlen
     pop cx
     mov word [bp - 4], ax
     mov cx, 6

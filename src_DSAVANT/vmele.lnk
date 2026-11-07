@@ -45,5 +45,4 @@ vmele/redraw_party_before_battle
 shared/data/monster_picture_template
 vmele/data/space_text
 vmele/data/screen_temp_name
-shared/ovr/aztec_ovbgn
-shared/ovr/aztec_swapmem
+ovbgn.o

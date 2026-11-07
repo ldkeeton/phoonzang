@@ -1,7 +1,7 @@
 ; auto-generated
 queue_npc_cell_overlay:
     mov ax, 0xffe8                   ; 0x0727
-    call aztec_csav                  ; 0x072a
+    call $csav                  ; 0x072a
     mov byte [bp - 0x18], 0          ; 0x072d
     mov ax, 6                        ; 0x0731
     imul word [bp + 4]               ; 0x0734

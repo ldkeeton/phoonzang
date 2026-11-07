@@ -10,9 +10,9 @@ extern int combat_wait_occurred, loaded_sound_id;
 extern char combat_action_name_buffer[], combat_action_message_buffer[];
 extern char combat_action_suffix_buffer[];
 extern int wait_for_combat_input(), random_below(), display_combat_message();
-extern int aztec_setmem(), data_record_io(), check_monster_picture_space();
+extern int setmem(), data_record_io(), check_monster_picture_space();
 extern int add_random_steps(), ensure_sound_loaded(), format_int_decimal();
-extern int aztec_strcpy(), load_message_string(),
+extern int strcpy(), load_message_string(),
 	draw_centered_text_fragments();
 extern int play_sound_effect(), wait_and_free_sound();
 
@@ -36,7 +36,7 @@ int kind0, kind1, kind2, kind3, kind4, kind5, count;
 		display_combat_message(MSG_NOTHING_APPEARS, 65, 2);
 		return;
 	}
-	aztec_setmem(battle_groups[group], 420, 0);
+	setmem(battle_groups[group], 420, 0);
 	attempts = 0;
 	do {
 		attempts++;
@@ -93,7 +93,7 @@ int kind0, kind1, kind2, kind3, kind4, kind5, count;
 	ensure_sound_loaded(17);
 	format_int_decimal(battle_groups[group]->unit_count,
 		combat_action_name_buffer);
-	aztec_strcpy(combat_action_message_buffer,
+	strcpy(combat_action_message_buffer,
 		*((battle_groups[group]->unit_count == 1 ? 0 : 1) +
 		  battle_group_ext[group]->name[0]));
 	load_message_string(battle_groups[group]->unit_count == 1 ?

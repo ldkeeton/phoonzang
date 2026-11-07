@@ -4,7 +4,7 @@ display_centered_command_line:
     mov bp, sp                       ; 0x0d6b
     add sp, byte -82                 ; 0x0d6d
     push word [bp + 4]               ; 0x0d70
-    call aztec_strlen                ; 0x0d73
+    call strlen                ; 0x0d73
     pop cx                           ; 0x0d76
     cmp ax, strict word 0x4c         ; 0x0d77
     jle short .forward1              ; 0x0d7a
@@ -12,7 +12,7 @@ display_centered_command_line:
     jmp short .forward2              ; 0x0d7f
 .forward1:
     push word [bp + 4]               ; 0x0d81
-    call aztec_strlen                ; 0x0d84
+    call strlen                ; 0x0d84
     pop cx                           ; 0x0d87
 .forward2:
     mov word [bp - 2], ax            ; 0x0d88
@@ -20,7 +20,7 @@ display_centered_command_line:
     push word [bp + 4]               ; 0x0d8c
     lea ax, word [bp - 0x52]         ; 0x0d8f
     push ax                          ; 0x0d92
-    call aztec_strncpy               ; 0x0d93
+    call strncpy               ; 0x0d93
     add sp, byte 6                   ; 0x0d96
     mov bx, word [bp - 2]            ; 0x0d99
     add bx, bp                       ; 0x0d9c
@@ -36,7 +36,7 @@ display_centered_command_line:
     lea ax, word [bp - 0x52]         ; 0x0db4
     push ax                          ; 0x0db7
     push ax                          ; 0x0db8
-    call aztec_strlen                ; 0x0db9
+    call strlen                ; 0x0db9
     pop cx                           ; 0x0dbc
     inc ax                           ; 0x0dbd
     mov cx, 2                        ; 0x0dbe

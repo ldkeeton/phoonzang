@@ -1,7 +1,7 @@
 ; auto-generated
 spring_chest_trap:
     mov ax, 0xff48                   ; 0x14e7
-    call aztec_csav                  ; 0x14ea
+    call $csav                  ; 0x14ea
     mov ax, 1                        ; 0x14ed
     push ax                          ; 0x14f0
     call redraw_treasure_caption     ; 0x14f1
@@ -31,7 +31,7 @@ spring_chest_trap:
     push ax                          ; 0x1527
     lea ax, word [bp - 0x18]         ; 0x1528
     push ax                          ; 0x152b
-    call aztec_setmem                ; 0x152c
+    call setmem                ; 0x152c
     add sp, byte 6                   ; 0x152f
     mov word [bp - 2], 0             ; 0x1532
     jmp short .forward3              ; 0x1537

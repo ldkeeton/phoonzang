@@ -1,7 +1,7 @@
 ; auto-generated
 draw_inset_panel:
     mov ax, 0                        ; 0x0fdf
-    call aztec_csav                  ; 0x0fe2
+    call $csav                  ; 0x0fe2
     mov ax, 0xc3                     ; 0x0fe5
     push ax                          ; 0x0fe8
     push word [bp + 0xa]             ; 0x0fe9

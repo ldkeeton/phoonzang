@@ -1,7 +1,7 @@
 ; auto-generated
 adjust_female_character_stats:
     mov ax, 0                        ; 0x4392
-    call aztec_csav                  ; 0x4395
+    call $csav                  ; 0x4395
     cmp word [bp + 6], byte 1        ; 0x4398
     jne short .return1               ; 0x439c
     mov ax, 0x248                    ; 0x439e

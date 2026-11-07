@@ -1,7 +1,7 @@
 ; auto-generated
 enter_party_battle_orders:
     mov ax, 0xfffc                   ; 0x4e3b
-    call aztec_csav                  ; 0x4e3e
+    call $csav                  ; 0x4e3e
     mov word [party_redraw_interval], 5 ; 0x4e41
     mov word [range_max_target_group], 2 ; 0x4e47
     mov word [bss_9388], 2           ; 0x4e4d

@@ -1,7 +1,7 @@
 ; auto-generated
 wait_and_clear_scene_messages:
     mov ax, 0xfffc                   ; 0x6cd0
-    call aztec_csav                  ; 0x6cd3
+    call $csav                  ; 0x6cd3
     call dissolve_scene_message_area ; 0x6cd6
     les bx, word [tick_counter_ptr]  ; 0x6cd9
     mov ax, word [es:bx]             ; 0x6cdd

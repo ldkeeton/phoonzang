@@ -1,7 +1,7 @@
 ; auto-generated
 animate_npc_encounter_cells:
     mov ax, 0xffa2                   ; 0x13ed
-    call aztec_csav                  ; 0x13f0
+    call $csav                  ; 0x13f0
     mov word [bp - 0xe], 0           ; 0x13f3
     mov word [bp - 4], 0             ; 0x13f8
 .back1:

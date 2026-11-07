@@ -1,7 +1,7 @@
 ; auto-generated
 draw_spell_cost:
     mov ax, 0
-    call aztec_csav
+    call $csav
     mov ax, word [bp + 6]
     add ax, strict word 6
     push ax

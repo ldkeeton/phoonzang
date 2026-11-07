@@ -1,7 +1,7 @@
 ; auto-generated
 draw_realm_spell_points:
     mov ax, 0xfff4
-    call aztec_csav
+    call $csav
     mov word [bp - 2], 0
 .back1:
     lea ax, word [bp - 0xc]
@@ -32,7 +32,7 @@ draw_realm_spell_points:
     push word [bx + 0x18e]
     lea ax, word [bp - 0xc]
     push ax
-    call aztec_strlen
+    call strlen
     pop cx
     mov cx, 6
     imul cx

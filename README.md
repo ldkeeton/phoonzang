@@ -56,7 +56,7 @@ From `.asm` we create `.s` and `.c` files which are original DOS sources. These 
 
 ## Wizardry VII coverage
 
-Progress: **1259 / 1259** (100.0%).
+Progress: **1160 / 1160** (100.0%).
 
 ![C coverage heatmap](readme/heatmap.svg)
 
@@ -76,6 +76,7 @@ Expand
 | `make prebuild [PROJECT...]` | clean .cache, rebuild aztec libs + signature DB, run the Aztec C mux |
 | `make run PROJECT` | run game in dosbox-x |
 | `make verify [PROJECT...]` | verify one or all projects |
+| `make layout PROJECT [BIN...]` | link each binary the make link way and the |
 | `make badc [PROJECT...]` | flag hand-written .c that matches only through |
 | `make clean [PROJECT...]` | clean one or all projects (no args: delete .cache, |
 | `make purge [PROJECT...]` | delete hand-owned .c/.s/.asm sources and build_out |

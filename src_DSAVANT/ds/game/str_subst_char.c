@@ -1,7 +1,7 @@
 /* replace the first occurrence of a marker character in a string, in place,
    with the whole of a substitute string */
 
-extern aztec_strcpy();
+extern strcpy();
 
 str_subst_char(text, subst, marker)
 unsigned char *text;
@@ -36,5 +36,5 @@ char marker;
 
 	/* Terminate the result and write it back over the original text. */
 	result[out_index] = 0;
-	aztec_strcpy(text, result);
+	strcpy(text, result);
 }

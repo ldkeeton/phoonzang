@@ -15,8 +15,8 @@ extern struct pc_rec party_records[];
 extern int call_get_mouse(), data_record_io(), load_message_string();
 extern int display_centered_message();
 extern int call_restore_screen(), call_set_text_pos(), call_set_text_color();
-extern int draw_font_glyph(), draw_text_glyphs(), aztec_setmem();
-extern int aztec_strcpy(), aztec_strcat(), aztec_strlen(), strpos();
+extern int draw_font_glyph(), draw_text_glyphs(), setmem();
+extern int strcpy(), strcat(), strlen(), strpos();
 extern int test_bit(), format_int_decimal(), encode_special_power_glyphs();
 extern int draw_number_field(), call_show_area(), flush_keyboard();
 extern int poll_fullscreen_hotspot();
@@ -62,7 +62,7 @@ int spell_power;
 	}
 	if ((selected_item->flags & 128) == 0)
 		return -1;
-	aztec_strcpy(slot_name, item.name);
+	strcpy(slot_name, item.name);
 	call_restore_screen(roster_screen_b, roster_screen_a, 0, 0);
 	y = 114;
 	x = 26;
@@ -73,12 +73,12 @@ int spell_power;
 	draw_font_glyph(item.glyph, 4);
 	x = 80;
 	call_set_text_color(1, 0);
-	aztec_setmem(display_name, 40, 0);
-	aztec_strcpy(display_name, item.name);
-	string_length = aztec_strlen(display_name) - 1;
+	setmem(display_name, 40, 0);
+	strcpy(display_name, item.name);
+	string_length = strlen(display_name) - 1;
 	name_split = strpos(display_name, 47);
 	if (name_split == -1)
-		name_split = aztec_strlen(display_name);
+		name_split = strlen(display_name);
 	if (name_split > 10)
 		name_split = 10;
 	display_name[name_split] = 0;
@@ -176,7 +176,7 @@ int spell_power;
 	if (spell_power == 0) {
 		load_message_string(MSG_WEAPON_S + item.item_type, message);
 		call_set_text_color(text_color, 0);
-		call_set_text_pos(80 - 6 * aztec_strlen(message) / 2, y);
+		call_set_text_pos(80 - 6 * strlen(message) / 2, y);
 		draw_text_glyphs(message, 0);
 		y += 6;
 		if (show_ps_subheader) {
@@ -206,7 +206,7 @@ int spell_power;
 		else if (show_spell && item.spell_code != 0) {
 			spell_number = item.spell_code % 256;
 			load_message_string(MSG_SPELL_NAME_BASE + spell_number, message);
-			call_set_text_pos(80 - 6 * aztec_strlen(message) / 2, y);
+			call_set_text_pos(80 - 6 * strlen(message) / 2, y);
 			call_set_text_color(22, 0);
 			draw_text_glyphs(message, 0);
 			y += 6;
@@ -239,10 +239,10 @@ int spell_power;
 			} else {
 				load_message_string(MSG_SKILL_450, display_name);
 				load_message_string(MSG_WAND_DAGGER + weapon_category, message);
-				aztec_strcat(message, display_name);
+				strcat(message, display_name);
 				call_set_text_color(realm_text_colors[0], 0);
 			}
-			call_set_text_pos(80 - 6 * aztec_strlen(message) / 2, y);
+			call_set_text_pos(80 - 6 * strlen(message) / 2, y);
 			draw_text_glyphs(message, 0);
 			y += 6;
 		}
@@ -287,12 +287,12 @@ int spell_power;
 		if (show_hand) {
 			load_message_string((item.slot_flags & 4) ? MSG_2HAND : MSG_1HAND,
 				message);
-			call_set_text_pos(80 - 6 * aztec_strlen(message) / 2, y);
+			call_set_text_pos(80 - 6 * strlen(message) / 2, y);
 			call_set_text_color(22, 0);
 			draw_text_glyphs(message, 0);
 		} else if (show_item_type) {
 			load_message_string(MSG_HEDGHFLDFRM + item.item_type, message);
-			call_set_text_pos(80 - 6 * aztec_strlen(message) / 2, y);
+			call_set_text_pos(80 - 6 * strlen(message) / 2, y);
 			call_set_text_color(22, 0);
 			draw_text_glyphs(message, 0);
 		}
@@ -311,20 +311,20 @@ int spell_power;
 			number_text);
 		format_int_decimal(item.u.damage.damage_bonus +
 			item.u.damage.damage_dice * item.u.damage.damage_sides, damage_text);
-		aztec_strcat(message, number_text);
+		strcat(message, number_text);
 		load_message_string(MSG_TO_467, number_text);
-		aztec_strcat(message, number_text);
-		aztec_strcat(message, damage_text);
+		strcat(message, number_text);
+		strcat(message, damage_text);
 		call_set_text_pos(14, y);
 		draw_text_glyphs(message, 0);
 		if (item.hit_adjustment != 0) {
-			aztec_strcpy(message, open_parenthesis);
+			strcpy(message, open_parenthesis);
 			if (item.hit_adjustment >= 0)
-				aztec_strcat(message, plus_sign);
+				strcat(message, plus_sign);
 			format_int_decimal(item.hit_adjustment, number_text);
-			aztec_strcat(message, number_text);
-			aztec_strcat(message, close_parenthesis);
-			call_set_text_pos(14 + (22 - aztec_strlen(message)) * 6, y);
+			strcat(message, number_text);
+			strcat(message, close_parenthesis);
+			call_set_text_pos(14 + (22 - strlen(message)) * 6, y);
 			draw_text_glyphs(message, 0);
 		}
 		y += 6;
@@ -335,9 +335,9 @@ int spell_power;
 		call_set_text_color(94, 0);
 		load_message_string(MSG_REGEN, message);
 		if (value - string_length > 0)
-			aztec_strcat(message, positive_sign);
+			strcat(message, positive_sign);
 		format_int_decimal(value - string_length, number_text);
-		aztec_strcat(message, number_text);
+		strcat(message, number_text);
 		call_set_text_pos(14, y);
 		draw_text_glyphs(message, 0);
 	}
@@ -352,7 +352,7 @@ int spell_power;
 		call_set_text_color(164, 0);
 		load_message_string(MSG_SPECIAL_POWER, message);
 		encode_special_power_glyphs(number_text, item.special_power_code);
-		aztec_strcat(message, number_text);
+		strcat(message, number_text);
 		call_set_text_pos(14, y);
 		draw_text_glyphs(message, 0);
 		y += 6;
@@ -366,13 +366,13 @@ int spell_power;
 		draw_text_glyphs(message, 0);
 		call_set_text_color(1, 0);
 		format_int_decimal(spell_level, message);
-		aztec_strcat(message, spell_separator);
+		strcat(message, spell_separator);
 		if (selected_item->level == 0)
 			load_message_string(MSG_MAX, number_text);
 		else
 			format_int_decimal(selected_item->level, number_text);
-		aztec_strcat(message, number_text);
-		call_set_text_pos(14 + (22 - aztec_strlen(message)) * 6, y);
+		strcat(message, number_text);
+		call_set_text_pos(14 + (22 - strlen(message)) * 6, y);
 		draw_text_glyphs(message, 0);
 		y += 6;
 	}
@@ -380,7 +380,7 @@ int spell_power;
 	if (show_special_attacks) {
 		call_set_text_color(1, 0);
 		load_message_string(MSG_SPECIAL_ATTACKS, message);
-		call_set_text_pos(80 - 6 * aztec_strlen(message) / 2, y);
+		call_set_text_pos(80 - 6 * strlen(message) / 2, y);
 		draw_text_glyphs(message, 0);
 		y += 6;
 		call_set_text_color(46, 0);
@@ -391,33 +391,33 @@ int spell_power;
 			if (item.hand_values[line_index] > 0) {
 				name_split = 1;
 				load_message_string(MSG_SLEEP_475 + line_index, number_text);
-				if (aztec_strlen(message) + aztec_strlen(number_text) > 22) {
-					message[aztec_strlen(message) - 1] = 0;
-					call_set_text_pos(80 - 6 * aztec_strlen(message) / 2, y);
+				if (strlen(message) + strlen(number_text) > 22) {
+					message[strlen(message) - 1] = 0;
+					call_set_text_pos(80 - 6 * strlen(message) / 2, y);
 					draw_text_glyphs(message, 0);
 					message[0] = 0;
 					y += 6;
 				}
-				aztec_strcat(message, number_text);
-				aztec_strcat(message, space_separator);
+				strcat(message, number_text);
+				strcat(message, space_separator);
 			}
 		}
-		if (aztec_strlen(message) > 0) {
-			message[aztec_strlen(message) - 1] = 0;
-			call_set_text_pos(80 - 6 * aztec_strlen(message) / 2, y);
+		if (strlen(message) > 0) {
+			message[strlen(message) - 1] = 0;
+			call_set_text_pos(80 - 6 * strlen(message) / 2, y);
 			draw_text_glyphs(message, 0);
 		}
 		if (name_split == 0) {
 			load_message_string(selected_item->item_id == 469 ?
 				MSG_UNKNOWN_484 : MSG_NONE_483, message);
-			call_set_text_pos(80 - 6 * aztec_strlen(message) / 2, y);
+			call_set_text_pos(80 - 6 * strlen(message) / 2, y);
 			draw_text_glyphs(message, 0);
 		}
 	}
 	else if (show_special_resistance) {
 		call_set_text_color(1, 0);
 		load_message_string(MSG_SPECIAL_RESISTANCES, message);
-		call_set_text_pos(80 - 6 * aztec_strlen(message) / 2, y);
+		call_set_text_pos(80 - 6 * strlen(message) / 2, y);
 		draw_text_glyphs(message, 0);
 		y += 6;
 		call_set_text_color(169, 0);
@@ -431,15 +431,15 @@ int spell_power;
 				call_set_text_pos(38, y);
 				draw_text_glyphs(message, 0);
 				format_int_decimal(value, message);
-				aztec_strcat(message, percent_sign);
-				call_set_text_pos(38 + (14 - aztec_strlen(message)) * 6, y);
+				strcat(message, percent_sign);
+				call_set_text_pos(38 + (14 - strlen(message)) * 6, y);
 				draw_text_glyphs(message, 0);
 				y += 6;
 			}
 		}
 		if (name_split == 0) {
 			load_message_string(MSG_NONE_483, message);
-			call_set_text_pos(80 - 6 * aztec_strlen(message) / 2, y);
+			call_set_text_pos(80 - 6 * strlen(message) / 2, y);
 			draw_text_glyphs(message, 0);
 		}
 	}

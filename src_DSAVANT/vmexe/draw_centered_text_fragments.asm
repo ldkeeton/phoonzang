@@ -1,7 +1,7 @@
 ; auto-generated
 draw_centered_text_fragments:
     mov ax, 0xfffc                   ; 0x16c1
-    call aztec_csav                  ; 0x16c4
+    call $csav                  ; 0x16c4
     mov bx, word [bp + 8]            ; 0x16c7
     cmp byte [bx], 0                 ; 0x16ca
     je short .forward1               ; 0x16cd
@@ -21,18 +21,18 @@ draw_centered_text_fragments:
     add ax, cx                       ; 0x16e7
     mov word [bp - 4], ax            ; 0x16e9
     push word [bp + 6]               ; 0x16ec
-    call aztec_strlen                ; 0x16ef
+    call strlen                ; 0x16ef
     pop cx                           ; 0x16f2
     push ax                          ; 0x16f3
     push word [bp + 8]               ; 0x16f4
-    call aztec_strlen                ; 0x16f7
+    call strlen                ; 0x16f7
     pop cx                           ; 0x16fa
     mov cx, ax                       ; 0x16fb
     pop ax                           ; 0x16fd
     add ax, cx                       ; 0x16fe
     push ax                          ; 0x1700
     push word [bp + 0xa]             ; 0x1701
-    call aztec_strlen                ; 0x1704
+    call strlen                ; 0x1704
     pop cx                           ; 0x1707
     mov cx, ax                       ; 0x1708
     pop ax                           ; 0x170a

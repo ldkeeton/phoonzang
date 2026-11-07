@@ -1,7 +1,7 @@
 ; auto-generated
 choose_weighted_index:
     mov ax, 0xfffc                   ; 0x73f6
-    call aztec_csav                  ; 0x73f9
+    call $csav                  ; 0x73f9
     mov ax, 0x64                     ; 0x73fc
     push ax                          ; 0x73ff
     call random_below                ; 0x7400

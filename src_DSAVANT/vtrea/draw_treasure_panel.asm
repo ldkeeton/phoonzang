@@ -1,7 +1,7 @@
 ; auto-generated
 draw_treasure_panel:
     mov ax, 0xfee8                   ; 0x0111
-    call aztec_csav                  ; 0x0114
+    call $csav                  ; 0x0114
     mov word [bp - 0xf6], 7          ; 0x0117
     mov ax, 6                        ; 0x011d
     imul word [bp + 6]               ; 0x0120

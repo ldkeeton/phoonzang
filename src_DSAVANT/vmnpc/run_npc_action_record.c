@@ -42,7 +42,7 @@ extern int show_npc_message(), call_wait_sound(), free_picture_slot();
 extern int load_monster_picture(), fill_npc_action_slots();
 extern int animate_npc_encounter_cells(), run_npc_screen_animation();
 extern int wait_ticks_abortable(), find_npc_message_match();
-extern int load_message_string(), aztec_strlen(), display_npc_message();
+extern int load_message_string(), strlen(), display_npc_message();
 extern int poll_fullscreen_hotspot(), step_npc_screen_animation();
 extern int npc_give_item_to_party_member(), find_party_item_slot();
 extern int is_quest_map_item(), give_quest_map(), clear_item_slot();
@@ -136,7 +136,7 @@ int action_index;
 					return 1;
 			} else {
 				load_message_string(value + 1, npc_choice_message_buffer);
-				if (aztec_strlen(npc_choice_message_buffer) > 0)
+				if (strlen(npc_choice_message_buffer) > 0)
 					display_npc_message(npc_choice_message_buffer, 1);
 			}
 			break;

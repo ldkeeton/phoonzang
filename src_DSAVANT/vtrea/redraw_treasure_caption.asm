@@ -1,7 +1,7 @@
 ; auto-generated
 redraw_treasure_caption:
     mov ax, 0xfff6                   ; 0x0954
-    call aztec_csav                  ; 0x0957
+    call $csav                  ; 0x0957
     mov ax, 0                        ; 0x095a
     push ax                          ; 0x095d
     push word [saved_area_a_hi]      ; 0x095e
@@ -45,7 +45,7 @@ redraw_treasure_caption:
     push ax                          ; 0x09bf
     mov ax, treasure_caption         ; 0x09c0
     push ax                          ; 0x09c3
-    call aztec_strlen                ; 0x09c4
+    call strlen                ; 0x09c4
     pop cx                           ; 0x09c7
     mov cx, 6                        ; 0x09c8
     imul cx                          ; 0x09cb

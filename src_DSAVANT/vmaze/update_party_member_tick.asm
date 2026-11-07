@@ -1,7 +1,7 @@
 ; auto-generated
 update_party_member_tick:
     mov ax, 0xfff6                   ; 0x195c
-    call aztec_csav                  ; 0x195f
+    call $csav                  ; 0x195f
     mov ax, 0x248                    ; 0x1962
     imul word [bp + 4]               ; 0x1965
     mov bx, ax                       ; 0x1968
@@ -231,7 +231,7 @@ update_party_member_tick.forward14:
     imul bx                          ; 0x1b79
     mov cx, 0x64                     ; 0x1b7b
     mov bx, 0                        ; 0x1b7e
-    call aztec_ldv                   ; 0x1b81
+    call $ldv                   ; 0x1b81
     mov word [bp - 6], ax            ; 0x1b84
     mov cx, 2                        ; 0x1b87
     cwd                              ; 0x1b8a

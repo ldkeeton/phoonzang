@@ -1,7 +1,7 @@
 ; auto-generated
 run_character_menu:
     mov ax, 0xffb6                   ; 0x6a0f
-    call aztec_csav                  ; 0x6a12
+    call $csav                  ; 0x6a12
     mov word [party_status_frame], 0 ; 0x6a15
     mov word [member_roster_index], 0 ; 0x6a1b
     jmp short .forward1              ; 0x6a21

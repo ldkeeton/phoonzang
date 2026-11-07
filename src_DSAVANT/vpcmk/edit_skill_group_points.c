@@ -9,7 +9,7 @@ extern int call_restore_area(), call_show_area();
 extern int draw_skill_list_values(), draw_skill_points_row();
 extern int call_set_text_color(), call_set_text_pos(), draw_font_glyph();
 extern int set_hotspot(), draw_bevel_frame(), draw_text_glyphs();
-extern int draw_frame_outline(), aztec_strlen(), poll_hotspots();
+extern int draw_frame_outline(), strlen(), poll_hotspots();
 extern int poll_filtered_key(), play_sound_effect(), flash_button();
 extern unsigned char get_filtered_key();
 
@@ -63,7 +63,7 @@ int character, selected_group, skill_count, skill_ids[], group_enabled[];
 				draw_bevel_frame(frame_y, 188, frame_y + 54, 196, 0);
 				call_set_text_color(index == selected_group ? 26 : 1,
 					192);
-				call_set_text_pos((9 - aztec_strlen((char *)slot_label +
+				call_set_text_pos((9 - strlen((char *)slot_label +
 					20 * index)) * 6 / 2 + frame_y + 1, 190);
 				draw_text_glyphs((char *)slot_label + 20 * index, 0);
 				set_hotspot(skill_count + row_count + 1, frame_y, 188,

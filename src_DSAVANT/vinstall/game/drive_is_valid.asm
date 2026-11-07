@@ -7,7 +7,7 @@ drive_is_valid:
     mov al, byte [bx]                ; 0x0209
     cbw                              ; 0x020b
     push ax                          ; 0x020c
-    call aztec_toupper               ; 0x020d
+    call toupper               ; 0x020d
     pop cx                           ; 0x0210
     add ax, strict word 0xffbf       ; 0x0211
     mov word [bp - 0x12], ax         ; 0x0214
@@ -23,7 +23,7 @@ drive_is_valid:
     push ax                          ; 0x0230
     mov ax, 0x21                     ; 0x0231
     push ax                          ; 0x0234
-    call aztec_sysint                ; 0x0235
+    call sysint                ; 0x0235
     add sp, byte 6                   ; 0x0238
     mov word [bp - 0x10], 0x1900     ; 0x023b
     lea ax, word [bp - 0x10]         ; 0x0240
@@ -31,7 +31,7 @@ drive_is_valid:
     push ax                          ; 0x0244
     mov ax, 0x21                     ; 0x0245
     push ax                          ; 0x0248
-    call aztec_sysint                ; 0x0249
+    call sysint                ; 0x0249
     add sp, byte 6                   ; 0x024c
     mov ax, word [bp - 0x10]         ; 0x024f
     and ax, 0xff                     ; 0x0252

@@ -29,7 +29,6 @@ extern void delay_ms();
 extern void build_map_view_cell();
 extern void apply_enclosed_cell_glyph();
 extern void draw_map_object_marker();
-extern void aztec_csav();
 
 show_map_view(view_width, centered_view, mode_flag)
 int view_width;

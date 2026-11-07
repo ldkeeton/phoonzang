@@ -1,7 +1,7 @@
 ; auto-generated
 draw_first_person_maze_view:
     mov ax, 0xffd0
-    call aztec_csav
+    call $csav
     mov word [bp - 0x24], 0
     mov word [bp - 0x22], 4
     mov word [bp - 0x20], 1
@@ -158,7 +158,7 @@ draw_first_person_maze_view:
     push ax
     mov ax, boundary_box_faces
     push ax
-    call aztec_setmem
+    call setmem
     add sp, byte 6
     mov ax, 0
     push ax
@@ -166,7 +166,7 @@ draw_first_person_maze_view:
     push ax
     mov ax, near_wall_layer_flags
     push ax
-    call aztec_setmem
+    call setmem
     add sp, byte 6
     mov ax, 0
     push ax
@@ -174,7 +174,7 @@ draw_first_person_maze_view:
     push ax
     mov ax, side_wall_layer_flags
     push ax
-    call aztec_setmem
+    call setmem
     add sp, byte 6
     mov ax, 0
     push ax
@@ -182,7 +182,7 @@ draw_first_person_maze_view:
     push ax
     mov ax, view_layer_scratch
     push ax
-    call aztec_setmem
+    call setmem
     add sp, byte 6
     mov ax, 0
     push ax
@@ -190,7 +190,7 @@ draw_first_person_maze_view:
     push ax
     mov ax, view_marker_ids
     push ax
-    call aztec_setmem
+    call setmem
     add sp, byte 6
     mov ax, 0
     push ax
@@ -198,7 +198,7 @@ draw_first_person_maze_view:
     push ax
     mov ax, far_wall_overlay_ids
     push ax
-    call aztec_setmem
+    call setmem
     add sp, byte 6
     mov ax, 0
     push ax
@@ -206,7 +206,7 @@ draw_first_person_maze_view:
     push ax
     mov ax, view_marker_kinds
     push ax
-    call aztec_setmem
+    call setmem
     add sp, byte 6
     mov ax, 0
     push ax
@@ -214,7 +214,7 @@ draw_first_person_maze_view:
     push ax
     mov ax, far_wall_object_ids
     push ax
-    call aztec_setmem
+    call setmem
     add sp, byte 6
     mov ax, 0
     push ax
@@ -222,7 +222,7 @@ draw_first_person_maze_view:
     push ax
     mov ax, near_wall_overlay_ids
     push ax
-    call aztec_setmem
+    call setmem
     add sp, byte 6
     mov ax, 0
     push ax
@@ -230,7 +230,7 @@ draw_first_person_maze_view:
     push ax
     mov ax, near_wall_object_ids
     push ax
-    call aztec_setmem
+    call setmem
     add sp, byte 6
     mov ax, 0
     push ax
@@ -238,7 +238,7 @@ draw_first_person_maze_view:
     push ax
     mov ax, queued_slot_x
     push ax
-    call aztec_setmem
+    call setmem
     add sp, byte 6
     mov word [render_queue_count], 0
     mov ax, word [bp - 0x12]

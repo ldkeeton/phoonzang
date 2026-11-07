@@ -5,7 +5,7 @@ extern struct npc_message_option npc_dialog_choice_entries[];
 extern char npc_choice_message_buffer[80];
 extern int message_not_found;
 extern int npc_first_choice_count, npc_total_choice_count;
-extern int load_message_string(), aztec_strcpy();
+extern int load_message_string(), strcpy();
 
 collect_npc_dialog_choices(first_message, second_message)
 int first_message, second_message;
@@ -18,7 +18,7 @@ int first_message, second_message;
 		if (message_not_found == 0) {
 			npc_dialog_choice_entries[option_count].message_code =
 				(unsigned char)npc_choice_message_buffer[0] - 32;
-			aztec_strcpy(npc_dialog_choice_entries[option_count].text,
+			strcpy(npc_dialog_choice_entries[option_count].text,
 				npc_choice_message_buffer + 1);
 			first_message += 5;
 			++option_count;
@@ -30,7 +30,7 @@ int first_message, second_message;
 		if (message_not_found == 0) {
 			npc_dialog_choice_entries[option_count].message_code =
 				(unsigned char)npc_choice_message_buffer[0] - 32;
-			aztec_strcpy(npc_dialog_choice_entries[option_count].text,
+			strcpy(npc_dialog_choice_entries[option_count].text,
 				npc_choice_message_buffer + 1);
 			second_message += 5;
 			++option_count;

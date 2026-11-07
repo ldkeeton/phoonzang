@@ -2,13 +2,13 @@
 extern int adjacent_object_type[4];
 extern int party_status_frame_step;
 extern int party_world_x, party_world_y;
-extern int aztec_setmem();
+extern int setmem();
 
 /* Move by distance in the specified cardinal direction. */
 move_party_world_position(direction, distance)
 int direction, distance;
 {
-	aztec_setmem(adjacent_object_type, 8, 0);
+	setmem(adjacent_object_type, 8, 0);
 	party_status_frame_step = 0;
 	switch (direction) {
 	case 0: party_world_y += distance; break;

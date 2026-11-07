@@ -1,7 +1,7 @@
 ; auto-generated
 identify_and_show_item_details:
     mov ax, 0xfe6c                   ; 0x70ca
-    call aztec_csav                  ; 0x70cd
+    call $csav                  ; 0x70cd
     mov word [bp - 0x194], 0         ; 0x70d0
     cmp word [mouse_active], byte 0  ; 0x70d6
     je short .forward1               ; 0x70db
@@ -90,7 +90,7 @@ identify_and_show_item_details:
     lea ax, word [bp - 0x7a]         ; 0x7193
     push ax                          ; 0x7196
     push word [bp + 8]               ; 0x7197
-    call aztec_strcpy                ; 0x719a
+    call strcpy                ; 0x719a
     add sp, byte 4                   ; 0x719d
     mov ax, 0                        ; 0x71a0
     push ax                          ; 0x71a3
@@ -137,17 +137,17 @@ identify_and_show_item_details:
     push ax                          ; 0x7213
     lea ax, word [bp - 0xa2]         ; 0x7214
     push ax                          ; 0x7218
-    call aztec_setmem                ; 0x7219
+    call setmem                ; 0x7219
     add sp, byte 6                   ; 0x721c
     lea ax, word [bp - 0x7a]         ; 0x721f
     push ax                          ; 0x7222
     lea ax, word [bp - 0xa2]         ; 0x7223
     push ax                          ; 0x7227
-    call aztec_strcpy                ; 0x7228
+    call strcpy                ; 0x7228
     add sp, byte 4                   ; 0x722b
     lea ax, word [bp - 0xa2]         ; 0x722e
     push ax                          ; 0x7232
-    call aztec_strlen                ; 0x7233
+    call strlen                ; 0x7233
     pop cx                           ; 0x7236
     dec ax                           ; 0x7237
     mov word [bp - 4], ax            ; 0x7238
@@ -162,7 +162,7 @@ identify_and_show_item_details:
     jne short .forward7              ; 0x7250
     lea ax, word [bp - 0xa2]         ; 0x7252
     push ax                          ; 0x7256
-    call aztec_strlen                ; 0x7257
+    call strlen                ; 0x7257
     pop cx                           ; 0x725a
     mov word [bp - 6], ax            ; 0x725b
 .forward7:
@@ -355,7 +355,7 @@ identify_and_show_item_details.forward12:
     push word [bp - 0xc]             ; 0x7484
     lea ax, word [bp - 0xf2]         ; 0x7487
     push ax                          ; 0x748b
-    call aztec_strlen                ; 0x748c
+    call strlen                ; 0x748c
     pop cx                           ; 0x748f
     mov cx, 6                        ; 0x7490
     imul cx                          ; 0x7493
@@ -532,7 +532,7 @@ identify_and_show_item_details.forward20:
     push word [bp - 0xc]             ; 0x762e
     lea ax, word [bp - 0xf2]         ; 0x7631
     push ax                          ; 0x7635
-    call aztec_strlen                ; 0x7636
+    call strlen                ; 0x7636
     pop cx                           ; 0x7639
     mov cx, 6                        ; 0x763a
     imul cx                          ; 0x763d
@@ -601,7 +601,7 @@ jumptable_76e2_case_86:
     jmp near identify_and_show_item_details.forward24 ; 0x76d9
 identify_and_show_item_details.forward23:
     mov cx, 0x2c                     ; 0x76dc
-    call aztec_cswt                  ; 0x76df
+    call $cswt                  ; 0x76df
 jumptable_76e2:
     dw 0                                       ; 0x76e2
     dw 0x0001                                  ; 0x76e4 ; literal
@@ -759,7 +759,7 @@ identify_and_show_item_details.forward26:
     push ax                          ; 0x782e
     lea ax, word [bp - 0xf2]         ; 0x782f
     push ax                          ; 0x7833
-    call aztec_strcat                ; 0x7834
+    call strcat                ; 0x7834
     add sp, byte 4                   ; 0x7837
     mov ax, 0                        ; 0x783a
     push ax                          ; 0x783d
@@ -770,7 +770,7 @@ identify_and_show_item_details.forward27:
     push word [bp - 0xc]             ; 0x7848
     lea ax, word [bp - 0xf2]         ; 0x784b
     push ax                          ; 0x784f
-    call aztec_strlen                ; 0x7850
+    call strlen                ; 0x7850
     pop cx                           ; 0x7853
     mov cx, 6                        ; 0x7854
     imul cx                          ; 0x7857
@@ -1005,7 +1005,7 @@ identify_and_show_item_details.forward40:
     push word [bp - 0xc]             ; 0x7a75
     lea ax, word [bp - 0xf2]         ; 0x7a78
     push ax                          ; 0x7a7c
-    call aztec_strlen                ; 0x7a7d
+    call strlen                ; 0x7a7d
     pop cx                           ; 0x7a80
     mov cx, 6                        ; 0x7a81
     imul cx                          ; 0x7a84
@@ -1045,7 +1045,7 @@ identify_and_show_item_details.forward41:
     push word [bp - 0xc]             ; 0x7ad3
     lea ax, word [bp - 0xf2]         ; 0x7ad6
     push ax                          ; 0x7ada
-    call aztec_strlen                ; 0x7adb
+    call strlen                ; 0x7adb
     pop cx                           ; 0x7ade
     mov cx, 6                        ; 0x7adf
     imul cx                          ; 0x7ae2
@@ -1167,7 +1167,7 @@ identify_and_show_item_details.forward44:
     push ax                          ; 0x7bee
     lea ax, word [bp - 0xf2]         ; 0x7bef
     push ax                          ; 0x7bf3
-    call aztec_strcat                ; 0x7bf4
+    call strcat                ; 0x7bf4
     add sp, byte 4                   ; 0x7bf7
     lea ax, word [bp - 0x142]        ; 0x7bfa
     push ax                          ; 0x7bfe
@@ -1179,13 +1179,13 @@ identify_and_show_item_details.forward44:
     push ax                          ; 0x7c0d
     lea ax, word [bp - 0xf2]         ; 0x7c0e
     push ax                          ; 0x7c12
-    call aztec_strcat                ; 0x7c13
+    call strcat                ; 0x7c13
     add sp, byte 4                   ; 0x7c16
     lea ax, word [bp - 0x192]        ; 0x7c19
     push ax                          ; 0x7c1d
     lea ax, word [bp - 0xf2]         ; 0x7c1e
     push ax                          ; 0x7c22
-    call aztec_strcat                ; 0x7c23
+    call strcat                ; 0x7c23
     add sp, byte 4                   ; 0x7c26
     push word [bp - 0xc]             ; 0x7c29
     mov ax, 0xe                      ; 0x7c2c
@@ -1206,7 +1206,7 @@ identify_and_show_item_details.forward45:
     push ax                          ; 0x7c51
     lea ax, word [bp - 0xf2]         ; 0x7c52
     push ax                          ; 0x7c56
-    call aztec_strcpy                ; 0x7c57
+    call strcpy                ; 0x7c57
     add sp, byte 4                   ; 0x7c5a
     cmp byte [bp - 0x39], 0          ; 0x7c5d
     jl short identify_and_show_item_details.forward46 ; 0x7c61
@@ -1214,7 +1214,7 @@ identify_and_show_item_details.forward45:
     push ax                          ; 0x7c66
     lea ax, word [bp - 0xf2]         ; 0x7c67
     push ax                          ; 0x7c6b
-    call aztec_strcat                ; 0x7c6c
+    call strcat                ; 0x7c6c
     add sp, byte 4                   ; 0x7c6f
 identify_and_show_item_details.forward46:
     lea ax, word [bp - 0x142]        ; 0x7c72
@@ -1228,18 +1228,18 @@ identify_and_show_item_details.forward46:
     push ax                          ; 0x7c86
     lea ax, word [bp - 0xf2]         ; 0x7c87
     push ax                          ; 0x7c8b
-    call aztec_strcat                ; 0x7c8c
+    call strcat                ; 0x7c8c
     add sp, byte 4                   ; 0x7c8f
     mov ax, close_parenthesis        ; 0x7c92
     push ax                          ; 0x7c95
     lea ax, word [bp - 0xf2]         ; 0x7c96
     push ax                          ; 0x7c9a
-    call aztec_strcat                ; 0x7c9b
+    call strcat                ; 0x7c9b
     add sp, byte 4                   ; 0x7c9e
     push word [bp - 0xc]             ; 0x7ca1
     lea ax, word [bp - 0xf2]         ; 0x7ca4
     push ax                          ; 0x7ca8
-    call aztec_strlen                ; 0x7ca9
+    call strlen                ; 0x7ca9
     pop cx                           ; 0x7cac
     mov cx, ax                       ; 0x7cad
     mov ax, 0x16                     ; 0x7caf
@@ -1292,7 +1292,7 @@ identify_and_show_item_details.forward49:
     push ax                          ; 0x7d1e
     lea ax, word [bp - 0xf2]         ; 0x7d1f
     push ax                          ; 0x7d23
-    call aztec_strcat                ; 0x7d24
+    call strcat                ; 0x7d24
     add sp, byte 4                   ; 0x7d27
 identify_and_show_item_details.forward50:
     lea ax, word [bp - 0x142]        ; 0x7d2a
@@ -1306,7 +1306,7 @@ identify_and_show_item_details.forward50:
     push ax                          ; 0x7d40
     lea ax, word [bp - 0xf2]         ; 0x7d41
     push ax                          ; 0x7d45
-    call aztec_strcat                ; 0x7d46
+    call strcat                ; 0x7d46
     add sp, byte 4                   ; 0x7d49
     push word [bp - 0xc]             ; 0x7d4c
     mov ax, 0xe                      ; 0x7d4f
@@ -1372,7 +1372,7 @@ identify_and_show_item_details.forward52:
     push ax                          ; 0x7de3
     lea ax, word [bp - 0xf2]         ; 0x7de4
     push ax                          ; 0x7de8
-    call aztec_strcat                ; 0x7de9
+    call strcat                ; 0x7de9
     add sp, byte 4                   ; 0x7dec
     push word [bp - 0xc]             ; 0x7def
     mov ax, 0xe                      ; 0x7df2
@@ -1436,7 +1436,7 @@ identify_and_show_item_details.forward54:
     push ax                          ; 0x7e82
     lea ax, word [bp - 0xf2]         ; 0x7e83
     push ax                          ; 0x7e87
-    call aztec_strcat                ; 0x7e88
+    call strcat                ; 0x7e88
     add sp, byte 4                   ; 0x7e8b
     mov bx, word [bp + 6]            ; 0x7e8e
     cmp byte [bx + 6], 0             ; 0x7e91
@@ -1462,12 +1462,12 @@ identify_and_show_item_details.forward56:
     push ax                          ; 0x7ec0
     lea ax, word [bp - 0xf2]         ; 0x7ec1
     push ax                          ; 0x7ec5
-    call aztec_strcat                ; 0x7ec6
+    call strcat                ; 0x7ec6
     add sp, byte 4                   ; 0x7ec9
     push word [bp - 0xc]             ; 0x7ecc
     lea ax, word [bp - 0xf2]         ; 0x7ecf
     push ax                          ; 0x7ed3
-    call aztec_strlen                ; 0x7ed4
+    call strlen                ; 0x7ed4
     pop cx                           ; 0x7ed7
     mov cx, ax                       ; 0x7ed8
     mov ax, 0x16                     ; 0x7eda
@@ -1506,7 +1506,7 @@ identify_and_show_item_details.forward58:
     push word [bp - 0xc]             ; 0x7f2b
     lea ax, word [bp - 0xf2]         ; 0x7f2e
     push ax                          ; 0x7f32
-    call aztec_strlen                ; 0x7f33
+    call strlen                ; 0x7f33
     pop cx                           ; 0x7f36
     mov cx, 6                        ; 0x7f37
     imul cx                          ; 0x7f3a
@@ -1557,12 +1557,12 @@ identify_and_show_item_details.forward59:
     add sp, byte 4                   ; 0x7faf
     lea ax, word [bp - 0xf2]         ; 0x7fb2
     push ax                          ; 0x7fb6
-    call aztec_strlen                ; 0x7fb7
+    call strlen                ; 0x7fb7
     pop cx                           ; 0x7fba
     push ax                          ; 0x7fbb
     lea ax, word [bp - 0x142]        ; 0x7fbc
     push ax                          ; 0x7fc0
-    call aztec_strlen                ; 0x7fc1
+    call strlen                ; 0x7fc1
     pop cx                           ; 0x7fc4
     mov cx, ax                       ; 0x7fc5
     pop ax                           ; 0x7fc7
@@ -1571,7 +1571,7 @@ identify_and_show_item_details.forward59:
     jle short identify_and_show_item_details.forward60 ; 0x7fcd
     lea ax, word [bp - 0xf2]         ; 0x7fcf
     push ax                          ; 0x7fd3
-    call aztec_strlen                ; 0x7fd4
+    call strlen                ; 0x7fd4
     pop cx                           ; 0x7fd7
     mov bx, ax                       ; 0x7fd8
     add bx, bp                       ; 0x7fda
@@ -1579,7 +1579,7 @@ identify_and_show_item_details.forward59:
     push word [bp - 0xc]             ; 0x7fe1
     lea ax, word [bp - 0xf2]         ; 0x7fe4
     push ax                          ; 0x7fe8
-    call aztec_strlen                ; 0x7fe9
+    call strlen                ; 0x7fe9
     pop cx                           ; 0x7fec
     mov cx, 6                        ; 0x7fed
     imul cx                          ; 0x7ff0
@@ -1605,13 +1605,13 @@ identify_and_show_item_details.forward60:
     push ax                          ; 0x8022
     lea ax, word [bp - 0xf2]         ; 0x8023
     push ax                          ; 0x8027
-    call aztec_strcat                ; 0x8028
+    call strcat                ; 0x8028
     add sp, byte 4                   ; 0x802b
     mov ax, space_separator          ; 0x802e
     push ax                          ; 0x8031
     lea ax, word [bp - 0xf2]         ; 0x8032
     push ax                          ; 0x8036
-    call aztec_strcat                ; 0x8037
+    call strcat                ; 0x8037
     add sp, byte 4                   ; 0x803a
 identify_and_show_item_details.forward61:
     inc word [bp - 2]                ; 0x803d
@@ -1622,13 +1622,13 @@ identify_and_show_item_details.forward61:
 identify_and_show_item_details.forward62:
     lea ax, word [bp - 0xf2]         ; 0x804b
     push ax                          ; 0x804f
-    call aztec_strlen                ; 0x8050
+    call strlen                ; 0x8050
     pop cx                           ; 0x8053
     cmp ax, strict word 0            ; 0x8054
     jle short identify_and_show_item_details.forward63 ; 0x8057
     lea ax, word [bp - 0xf2]         ; 0x8059
     push ax                          ; 0x805d
-    call aztec_strlen                ; 0x805e
+    call strlen                ; 0x805e
     pop cx                           ; 0x8061
     mov bx, ax                       ; 0x8062
     add bx, bp                       ; 0x8064
@@ -1636,7 +1636,7 @@ identify_and_show_item_details.forward62:
     push word [bp - 0xc]             ; 0x806b
     lea ax, word [bp - 0xf2]         ; 0x806e
     push ax                          ; 0x8072
-    call aztec_strlen                ; 0x8073
+    call strlen                ; 0x8073
     pop cx                           ; 0x8076
     mov cx, 6                        ; 0x8077
     imul cx                          ; 0x807a
@@ -1674,7 +1674,7 @@ identify_and_show_item_details.forward65:
     push word [bp - 0xc]             ; 0x80c2
     lea ax, word [bp - 0xf2]         ; 0x80c5
     push ax                          ; 0x80c9
-    call aztec_strlen                ; 0x80ca
+    call strlen                ; 0x80ca
     pop cx                           ; 0x80cd
     mov cx, 6                        ; 0x80ce
     imul cx                          ; 0x80d1
@@ -1715,7 +1715,7 @@ identify_and_show_item_details.forward68:
     push word [bp - 0xc]             ; 0x811f
     lea ax, word [bp - 0xf2]         ; 0x8122
     push ax                          ; 0x8126
-    call aztec_strlen                ; 0x8127
+    call strlen                ; 0x8127
     pop cx                           ; 0x812a
     mov cx, 6                        ; 0x812b
     imul cx                          ; 0x812e
@@ -1787,12 +1787,12 @@ identify_and_show_item_details.forward69:
     push ax                          ; 0x81d7
     lea ax, word [bp - 0xf2]         ; 0x81d8
     push ax                          ; 0x81dc
-    call aztec_strcat                ; 0x81dd
+    call strcat                ; 0x81dd
     add sp, byte 4                   ; 0x81e0
     push word [bp - 0xc]             ; 0x81e3
     lea ax, word [bp - 0xf2]         ; 0x81e6
     push ax                          ; 0x81ea
-    call aztec_strlen                ; 0x81eb
+    call strlen                ; 0x81eb
     pop cx                           ; 0x81ee
     mov cx, ax                       ; 0x81ef
     mov ax, 0xe                      ; 0x81f1
@@ -1828,7 +1828,7 @@ identify_and_show_item_details.forward71:
     push word [bp - 0xc]             ; 0x823b
     lea ax, word [bp - 0xf2]         ; 0x823e
     push ax                          ; 0x8242
-    call aztec_strlen                ; 0x8243
+    call strlen                ; 0x8243
     pop cx                           ; 0x8246
     mov cx, 6                        ; 0x8247
     imul cx                          ; 0x824a

@@ -2,7 +2,7 @@
 
 extern long call_save_area();
 extern int draw_bevel_frame(), call_set_text_color(), call_set_text_pos();
-extern int aztec_strlen(), draw_text_glyphs(), call_show_area();
+extern int strlen(), draw_text_glyphs(), call_show_area();
 extern int call_restore_area();
 
 show_indexed_beveled_label(text, index, x, y, width, column_step, row_step,
@@ -26,7 +26,7 @@ int index, x, y, width, column_step, row_step, rows, color;
 		y + row_offset + 8, 0);
 	call_set_text_color(color, 192);
 	/* Six pixels per glyph; center the text inside the frame. */
-	call_set_text_pos(x + column_offset + (width - aztec_strlen(
+	call_set_text_pos(x + column_offset + (width - strlen(
 		text)) * 6 / 2 + 1,
 		y + row_offset + 2);
 	draw_text_glyphs(text, 0);

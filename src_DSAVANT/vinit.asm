@@ -21,7 +21,7 @@ IMAGE_BASE equ 0x000e + VBASE
     dw __zdseg_end                           ; 0x9098 ; o_dorg: data load origin (memory offset)
     dw (__zimage_end - __zdata_start)        ; 0x0120 ; o_dsize: initialized data size
     dw __zobss_end - __zimage_end            ; 0x0002 ; o_bss: uninitialized data size
-    dw aztec_ovbgn - IMAGE_BASE + __zres_end ; 0x6620 ; o_entry: overlay entry offset (CS)
+    dw $ovbgn - IMAGE_BASE + __zres_end ; 0x6620 ; o_entry: overlay entry offset (CS)
 
 __zcode_start:
 
@@ -90,12 +90,12 @@ save_bp  equ __zdseg_end + (__zsave_bp - __zdata_start)
 save_ret equ __zdseg_end + (__zsave_ret - __zdata_start)
 _Uorg    equ __zdseg_end + (__zobss_91b8 - __zdata_start)
 _Uend    equ __zdseg_end + (__zobss_end - __zdata_start)
-%include "shared/ovr/aztec_ovbgn.asm"           ; 0x15d9
+%include ".cache/c.lib/shared/ovr/ovbgn.asm"           ; 0x15d9
 
 __zdata_start:
 %include "vinit/data/startup_file_names.asm" ; 0x1617
 
-%include "shared/ovr/aztec_ovbgn.data.asm"      ; 0x172d
+%include ".cache/c.lib/shared/ovr/ovbgn.data.asm"      ; 0x172d
 
 
 __zimage_end:

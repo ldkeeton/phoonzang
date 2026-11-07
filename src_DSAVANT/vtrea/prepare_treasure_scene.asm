@@ -1,7 +1,7 @@
 ; auto-generated
 prepare_treasure_scene:
     mov ax, 0                        ; 0x7d99
-    call aztec_csav                  ; 0x7d9c
+    call $csav                  ; 0x7d9c
     call free_current_maze           ; 0x7d9f
     mov ax, 1                        ; 0x7da2
     push ax                          ; 0x7da5

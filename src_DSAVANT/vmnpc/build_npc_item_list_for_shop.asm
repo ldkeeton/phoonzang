@@ -1,7 +1,7 @@
 ; auto-generated
 build_npc_item_list_for_shop:
     mov ax, 0xff7a                   ; 0x6e0f
-    call aztec_csav                  ; 0x6e12
+    call $csav                  ; 0x6e12
     mov word [npc_item_list_count], 0 ; 0x6e15
     mov ax, 0                        ; 0x6e1b
     push ax                          ; 0x6e1e
@@ -9,7 +9,7 @@ build_npc_item_list_for_shop:
     push ax                          ; 0x6e22
     mov ax, npc_item_list_item_id    ; 0x6e23
     push ax                          ; 0x6e26
-    call aztec_setmem                ; 0x6e27
+    call setmem                ; 0x6e27
     add sp, byte 6                   ; 0x6e2a
     cmp byte [npc_slot_index], 0xff  ; 0x6e2d
     je short .forward2               ; 0x6e32
@@ -76,7 +76,7 @@ build_npc_item_list_for_shop:
     mov dx, word [game_time_hi]      ; 0x6ec6
     mov cx, 0x5a0                    ; 0x6eca
     mov bx, 0                        ; 0x6ecd
-    call aztec_ldv                   ; 0x6ed0
+    call $ldv                   ; 0x6ed0
     push ax                          ; 0x6ed3
     mov ax, 6                        ; 0x6ed4
     imul word [bp - 2]               ; 0x6ed7
@@ -170,7 +170,7 @@ build_npc_item_list_for_shop:
     imul word [bp - 2]               ; 0x6fb0
     add ax, npc_item_list_name       ; 0x6fb3
     push ax                          ; 0x6fb6
-    call aztec_strcpy                ; 0x6fb7
+    call strcpy                ; 0x6fb7
     add sp, byte 4                   ; 0x6fba
     mov al, byte [bp - 0x4e]         ; 0x6fbd
     mov bx, word [bp - 2]            ; 0x6fc0
@@ -235,7 +235,7 @@ build_npc_item_list_for_shop:
     add dx, cx                       ; 0x7043
     mov cx, 0x64                     ; 0x7045
     mov bx, 0                        ; 0x7048
-    call aztec_ldv                   ; 0x704b
+    call $ldv                   ; 0x704b
 .forward13:
     mov cx, word [bp - 2]            ; 0x704e
     shl cx, 1                        ; 0x7051

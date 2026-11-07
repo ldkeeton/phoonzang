@@ -1,7 +1,7 @@
 ; auto-generated
 data_file_path:
     mov ax, 0                        ; 0x23a8
-    call aztec_csav                  ; 0x23ab
+    call $csav                  ; 0x23ab
     cmp byte [install_mode], 5       ; 0x23ae
     jne short .forward1              ; 0x23b3
     cmp word [bp + 6], byte 1        ; 0x23b5
@@ -25,7 +25,7 @@ data_file_path:
     push word [bp + 4]               ; 0x23de
     mov ax, data_path_buf            ; 0x23e1
     push ax                          ; 0x23e4
-    call aztec_strcat                ; 0x23e5
+    call strcat                ; 0x23e5
     add sp, byte 4                   ; 0x23e8
     mov ax, data_path_buf            ; 0x23eb
     ret                              ; 0x23ee

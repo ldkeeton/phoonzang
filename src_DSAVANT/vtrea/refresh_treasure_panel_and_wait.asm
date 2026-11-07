@@ -1,7 +1,7 @@
 ; auto-generated
 refresh_treasure_panel_and_wait:
     mov ax, 0xfffc                   ; 0x0e03
-    call aztec_csav                  ; 0x0e06
+    call $csav                  ; 0x0e06
     mov word [bp - 2], 0             ; 0x0e09
     mov word [bp - 4], 0             ; 0x0e0e
     cmp word [bp + 4], byte 0        ; 0x0e13

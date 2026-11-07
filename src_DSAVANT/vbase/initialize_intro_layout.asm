@@ -1,7 +1,7 @@
 ; auto-generated
 initialize_intro_layout:
     mov ax, 0                        ; 0x1f0e
-    call aztec_csav                  ; 0x1f11
+    call $csav                  ; 0x1f11
     mov al, byte [bp + 4]            ; 0x1f14
     mov byte [intro_layout_value_1], al ; 0x1f17
     mov byte [intro_layout_copy_1], al ; 0x1f1a

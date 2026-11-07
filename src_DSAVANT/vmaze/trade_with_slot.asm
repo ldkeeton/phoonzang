@@ -1,7 +1,7 @@
 ; auto-generated
 trade_with_slot:
     mov ax, 0xfff0                   ; 0x9a80
-    call aztec_csav                  ; 0x9a83
+    call $csav                  ; 0x9a83
     mov word [bp - 0xa], 0xffff      ; 0x9a86
     mov word [bp - 0xc], 0xffff      ; 0x9a8b
     mov word [bp - 2], 0xa           ; 0x9a90

@@ -1,7 +1,7 @@
 ; auto-generated
 verify_answer_word:
     mov ax, 0xfffe                   ; 0x2c11
-    call aztec_csav                  ; 0x2c14
+    call $csav                  ; 0x2c14
     mov word [bp - 2], 0             ; 0x2c17
     jmp short .forward3              ; 0x2c1c
 .back1:

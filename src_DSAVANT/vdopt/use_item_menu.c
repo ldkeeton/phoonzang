@@ -19,7 +19,7 @@ extern char item_dialog_first_label[];
 extern int item_kind5_used_flag;
 
 extern int data_record_io(), item_action_dialog();
-extern int aztec_strcpy(), load_message_string(), set_bitmap_bit();
+extern int strcpy(), load_message_string(), set_bitmap_bit();
 extern int consume_item_charge(), trigger_item_cell_object();
 extern int get_cell_wall(), apply_spell_effect();
 extern int pick_party_member(), play_sound_effect(), clear_item_slot();
@@ -45,7 +45,7 @@ int pc;
 				data_record_io(1, &item,
 					party_records[pc].item_slots[page][slot].item_id, 0);
 				if (party_records[pc].item_slots[page][slot].flags & 128)
-					aztec_strcpy(list_row_name[row_count],
+					strcpy(list_row_name[row_count],
 						item.name);
 				else
 					load_message_string(MSG_DAGGER_6000 +

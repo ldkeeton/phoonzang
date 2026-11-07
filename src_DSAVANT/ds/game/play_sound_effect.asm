@@ -1,7 +1,7 @@
 ; auto-generated
 play_sound_effect:
     mov ax, 0xfffa                   ; 0x0a27
-    call aztec_csav                  ; 0x0a2a
+    call $csav                  ; 0x0a2a
     mov ax, 0xc                      ; 0x0a2d
     imul word [bp + 4]               ; 0x0a30
     mov bx, ax                       ; 0x0a33

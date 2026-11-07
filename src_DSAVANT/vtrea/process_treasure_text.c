@@ -18,8 +18,8 @@ extern int free_picture_slot();
 extern int play_sound_effect();
 extern int ensure_sound_loaded();
 extern int wait_and_free_sound();
-extern char *aztec_strcpy();
-extern char *aztec_strcat();
+extern char *strcpy();
+extern char *strcat();
 extern int measure_text_width();
 
 /* process tokenized text and display its expanded message */
@@ -93,16 +93,16 @@ char *text;
 	}
 
 	if (treasure_glyph_text_buffer[0] != 0) {
-		aztec_strcpy(prompt, treasure_glyph_text_buffer);
-		aztec_strcat(prompt, treasure_text_separator);
-		aztec_strcat(prompt, text);
+		strcpy(prompt, treasure_glyph_text_buffer);
+		strcat(prompt, treasure_text_separator);
+		strcat(prompt, text);
 	} else
-		aztec_strcpy(prompt, text);
+		strcpy(prompt, text);
 
 	text_width = measure_text_width(prompt, 2);
 	if (text_width > 184) {
 		flush_glyph_buffer(treasure_glyph_text_buffer);
-		aztec_strcpy(treasure_glyph_text_buffer, text);
+		strcpy(treasure_glyph_text_buffer, text);
 	} else
-		aztec_strcpy(treasure_glyph_text_buffer, prompt);
+		strcpy(treasure_glyph_text_buffer, prompt);
 }

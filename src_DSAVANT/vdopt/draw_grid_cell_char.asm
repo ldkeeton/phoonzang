@@ -1,7 +1,7 @@
 ; auto-generated
 draw_grid_cell_char:
     mov ax, 0xfff6                   ; 0x0f7f
-    call aztec_csav                  ; 0x0f82
+    call $csav                  ; 0x0f82
     mov al, byte [bp + 8]            ; 0x0f85
     mov byte [bp - 0xa], al          ; 0x0f88
     mov byte [bp - 9], 0             ; 0x0f8b

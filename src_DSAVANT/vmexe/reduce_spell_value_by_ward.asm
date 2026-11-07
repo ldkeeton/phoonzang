@@ -1,7 +1,7 @@
 ; auto-generated
 reduce_spell_value_by_ward:
     mov ax, 0xfffc                   ; 0x24f0
-    call aztec_csav                  ; 0x24f3
+    call $csav                  ; 0x24f3
     mov ax, word [bp + 4]            ; 0x24f6
     shl ax, 1                        ; 0x24f9
     mov bx, ax                       ; 0x24fb
@@ -21,7 +21,7 @@ reduce_spell_value_by_ward:
     imul bx                          ; 0x2520
     mov cx, 0x64                     ; 0x2522
     mov bx, 0                        ; 0x2525
-    call aztec_ldv                   ; 0x2528
+    call $ldv                   ; 0x2528
     mov word [bp - 4], ax            ; 0x252b
 .back1:
     cmp word [bp - 4], byte 0        ; 0x252e

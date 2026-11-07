@@ -1,7 +1,7 @@
 ; auto-generated
 get_cell_wall:
     mov ax, 0
-    call aztec_csav
+    call $csav
     mov ax, word [bp + 4]
     jmp short .forward1
 .back1:

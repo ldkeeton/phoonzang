@@ -1,7 +1,7 @@
 ; auto-generated
 format_int_decimal:
     mov ax, 0                        ; 0x04c4
-    call aztec_csav                  ; 0x04c7
+    call $csav                  ; 0x04c7
     push word [bp + 6]               ; 0x04ca
     mov ax, word [bp + 4]            ; 0x04cd
     cwd                              ; 0x04d0

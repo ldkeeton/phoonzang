@@ -1,7 +1,7 @@
 ; auto-generated
 find_picture_slot:
     mov ax, 0xfffc                   ; 0x03b9
-    call aztec_csav                  ; 0x03bc
+    call $csav                  ; 0x03bc
     mov word [bp - 4], 0xffff        ; 0x03bf
     mov word [bp - 2], 0xf           ; 0x03c4
 .back1:

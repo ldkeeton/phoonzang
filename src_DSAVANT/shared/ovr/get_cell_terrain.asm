@@ -1,7 +1,7 @@
 ; auto-generated
 get_cell_terrain:
     mov ax, 0xfffc
-    call aztec_csav
+    call $csav
     mov ax, word [party_map_piece]
     mov cx, 6
     shl ax, cl

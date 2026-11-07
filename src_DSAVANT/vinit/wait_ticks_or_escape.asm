@@ -1,7 +1,7 @@
 ; auto-generated
 wait_ticks_or_escape:
     mov ax, 0xfffc                   ; 0x0988
-    call aztec_csav                  ; 0x098b
+    call $csav                  ; 0x098b
     mov ax, word [bp + 4]            ; 0x098e
     cwd                              ; 0x0991
     les bx, word [tick_counter_ptr]  ; 0x0992

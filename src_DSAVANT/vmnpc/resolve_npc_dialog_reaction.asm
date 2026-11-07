@@ -1,7 +1,7 @@
 ; auto-generated
 resolve_npc_dialog_reaction:
     mov ax, 0                        ; 0x9a04
-    call aztec_csav                  ; 0x9a07
+    call $csav                  ; 0x9a07
     mov word [npc_dialog_primary_choice], 0xffff ; 0x9a0a
     mov word [npc_dialog_choice_index], 0xffff ; 0x9a10
     mov word [npc_dialog_choice_auxiliary], 0 ; 0x9a16

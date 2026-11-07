@@ -9,7 +9,7 @@ console_bell:
     push ax                          ; 0x0461
     mov ax, bell_character_format    ; 0x0462
     push ax                          ; 0x0465
-    call aztec_printf                ; 0x0466
+    call printf                ; 0x0466
     add sp, byte 4                   ; 0x0469
     push word [bp - 2]               ; 0x046c
     call bios_set_cursor_packed      ; 0x046f

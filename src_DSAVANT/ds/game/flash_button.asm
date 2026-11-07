@@ -1,7 +1,7 @@
 ; auto-generated
 flash_button:
     mov ax, 0                        ; 0x10a6
-    call aztec_csav                  ; 0x10a9
+    call $csav                  ; 0x10a9
     mov ax, 6                        ; 0x10ac
     imul word [bp + 0xa]             ; 0x10af
     add ax, word [bp + 6]            ; 0x10b2

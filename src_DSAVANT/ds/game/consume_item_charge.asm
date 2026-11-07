@@ -1,7 +1,7 @@
 ; auto-generated
 consume_item_charge:
     mov ax, 0                        ; 0x1c6e
-    call aztec_csav                  ; 0x1c71
+    call $csav                  ; 0x1c71
     mov ax, 0x248                    ; 0x1c74
     imul word [bp + 4]               ; 0x1c77
     push ax                          ; 0x1c7a

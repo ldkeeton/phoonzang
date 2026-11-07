@@ -1,6 +1,6 @@
 /* Check whether an install filename matches a letter or the wildcard. */
-extern int aztec_strcpy();
-extern int aztec_strlen();
+extern int strcpy();
+extern int strlen();
 
 #include "structs/instfile.h"
 
@@ -17,10 +17,10 @@ int letter_index;
 	char unused_path_buffer[80];
 
 	/* Select this file's name for the requested disk format. */
-	aztec_strcpy(file_name, install_files[file_number].letters[disk_format]);
+	strcpy(file_name, install_files[file_number].letters[disk_format]);
 	/* A wildcard or the letter (as a zero-based index from 'A') makes this
 	   filename eligible. */
-	for (character_index = 0; aztec_strlen(file_name) > character_index;
+	for (character_index = 0; strlen(file_name) > character_index;
 	    ++character_index)
 		if (file_name[character_index] == '*' ||
 		    file_name[character_index] - 'A' == letter_index)

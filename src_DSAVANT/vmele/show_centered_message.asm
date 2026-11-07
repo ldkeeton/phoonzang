@@ -1,7 +1,7 @@
 ; auto-generated
 show_centered_message:
     mov ax, 0xfff4                   ; 0x030a
-    call aztec_csav                  ; 0x030d
+    call $csav                  ; 0x030d
     mov ax, 1                        ; 0x0310
     push ax                          ; 0x0313
     call redraw_glyph_strip          ; 0x0314

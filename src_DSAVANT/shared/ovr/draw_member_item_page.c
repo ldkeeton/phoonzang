@@ -11,7 +11,7 @@ extern char item_slot_names[10][22];
 extern int equip_slot_colors[];
 extern int call_restore_screen(), call_set_text_pos();
 extern int draw_font_glyph(), call_fill_area(), data_record_io();
-extern int aztec_strcpy(), load_message_string();
+extern int strcpy(), load_message_string();
 extern int draw_item_slot_label();
 
 draw_member_item_page(member_index)
@@ -51,7 +51,7 @@ int member_index;
 				 * otherwise its glyph picks the generic name. */
 				if (party_records[member_index]
 					.item_slots[item_page][row_index].flags & 128)
-					aztec_strcpy(item_slot_names[row_index], item.name);
+					strcpy(item_slot_names[row_index], item.name);
 				else
 					load_message_string(MSG_DAGGER_6000 + item.glyph,
 						item_slot_names[row_index]);

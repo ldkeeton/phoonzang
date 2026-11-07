@@ -1,7 +1,7 @@
 ; auto-generated
 find_floor_item_slot:
     mov ax, 0xfff8
-    call aztec_csav
+    call $csav
     mov word [bp - 6], 0xffff
     mov word [bp - 8], 0xffff
     mov ax, word [floor_items]

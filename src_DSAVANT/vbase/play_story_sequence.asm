@@ -1,7 +1,7 @@
 ; auto-generated
 play_story_sequence:
     mov ax, 0xfffe                   ; 0x706d
-    call aztec_csav                  ; 0x7070
+    call $csav                  ; 0x7070
     mov ax, 0                        ; 0x7073
     push ax                          ; 0x7076
     push ax                          ; 0x7077

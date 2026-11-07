@@ -6,19 +6,19 @@ update_scenario_header:
     push word [bp + 6]               ; 0x0a16
     lea ax, word [bp - 0x50]         ; 0x0a19
     push ax                          ; 0x0a1c
-    call aztec_strcpy                ; 0x0a1d
+    call strcpy                ; 0x0a1d
     add sp, byte 4                   ; 0x0a20
     mov ax, scenario_header_name     ; 0x0a23
     push ax                          ; 0x0a26
     lea ax, word [bp - 0x50]         ; 0x0a27
     push ax                          ; 0x0a2a
-    call aztec_strcat                ; 0x0a2b
+    call strcat                ; 0x0a2b
     add sp, byte 4                   ; 0x0a2e
     mov ax, 2                        ; 0x0a31
     push ax                          ; 0x0a34
     lea ax, word [bp - 0x50]         ; 0x0a35
     push ax                          ; 0x0a38
-    call aztec_open                  ; 0x0a39
+    call open                  ; 0x0a39
     add sp, byte 4                   ; 0x0a3c
     mov word [scenario_header_handle], ax ; 0x0a3f
     cmp ax, strict word 0xffff       ; 0x0a42
@@ -27,19 +27,19 @@ update_scenario_header:
     push ax                          ; 0x0a4a
     lea ax, word [bp - 0xa0]         ; 0x0a4b
     push ax                          ; 0x0a4f
-    call aztec_strcpy                ; 0x0a50
+    call strcpy                ; 0x0a50
     add sp, byte 4                   ; 0x0a53
     lea ax, word [bp - 0x50]         ; 0x0a56
     push ax                          ; 0x0a59
     lea ax, word [bp - 0xa0]         ; 0x0a5a
     push ax                          ; 0x0a5e
-    call aztec_strcat                ; 0x0a5f
+    call strcat                ; 0x0a5f
     add sp, byte 4                   ; 0x0a62
     mov ax, header_open_error_suffix ; 0x0a65
     push ax                          ; 0x0a68
     lea ax, word [bp - 0xa0]         ; 0x0a69
     push ax                          ; 0x0a6d
-    call aztec_strcat                ; 0x0a6e
+    call strcat                ; 0x0a6e
     add sp, byte 4                   ; 0x0a71
     lea ax, word [bp - 0xa0]         ; 0x0a74
     push ax                          ; 0x0a78
@@ -58,14 +58,14 @@ update_scenario_header:
     push dx                          ; 0x0a8e
     push ax                          ; 0x0a8f
     push word [scenario_header_handle] ; 0x0a90
-    call aztec_lseek                 ; 0x0a94
+    call lseek                 ; 0x0a94
     add sp, byte 8                   ; 0x0a97
     mov ax, 0x34c                    ; 0x0a9a
     push ax                          ; 0x0a9d
     mov ax, scenario_header_record   ; 0x0a9e
     push ax                          ; 0x0aa1
     push word [scenario_header_handle] ; 0x0aa2
-    call aztec_read                  ; 0x0aa6
+    call read                  ; 0x0aa6
     add sp, byte 6                   ; 0x0aa9
     mov ax, word [bp + 0x1c]         ; 0x0aac
     cmp ax, word [install_version]   ; 0x0aaf
@@ -75,7 +75,7 @@ update_scenario_header:
     call show_message_wait_for_enter ; 0x0ab9
     pop cx                           ; 0x0abc
     push word [scenario_header_handle] ; 0x0abd
-    call aztec_close                 ; 0x0ac1
+    call close                 ; 0x0ac1
     pop cx                           ; 0x0ac4
     mov ax, 1                        ; 0x0ac5
     jmp short .back1                 ; 0x0ac8
@@ -91,7 +91,7 @@ update_scenario_header:
     push word [bp + 0x16]            ; 0x0ae2
     mov ax, ramdisk_name             ; 0x0ae5
     push ax                          ; 0x0ae8
-    call aztec_strcpy                ; 0x0ae9
+    call strcpy                ; 0x0ae9
     add sp, byte 4                   ; 0x0aec
     mov al, byte [bp + 0x18]         ; 0x0aef
     mov byte [screen_brightness_level], al ; 0x0af2
@@ -159,25 +159,25 @@ update_scenario_header:
     push word [bp + 6]               ; 0x0b9d
     mov ax, game_directory_0         ; 0x0ba0
     push ax                          ; 0x0ba3
-    call aztec_strcpy                ; 0x0ba4
+    call strcpy                ; 0x0ba4
     add sp, byte 4                   ; 0x0ba7
     push word [bp + 6]               ; 0x0baa
     mov ax, game_directory_1         ; 0x0bad
     push ax                          ; 0x0bb0
-    call aztec_strcpy                ; 0x0bb1
+    call strcpy                ; 0x0bb1
     add sp, byte 4                   ; 0x0bb4
     cmp word [bp + 0xa], byte 5      ; 0x0bb7
     jne short .forward12             ; 0x0bbb
     push word [bp + 8]               ; 0x0bbd
     mov ax, disk_layout_5_path       ; 0x0bc0
     push ax                          ; 0x0bc3
-    call aztec_strcpy                ; 0x0bc4
+    call strcpy                ; 0x0bc4
     add sp, byte 4                   ; 0x0bc7
     mov ax, disk_layout_5_path_separator ; 0x0bca
     push ax                          ; 0x0bcd
     mov ax, disk_layout_5_path       ; 0x0bce
     push ax                          ; 0x0bd1
-    call aztec_strcat                ; 0x0bd2
+    call strcat                ; 0x0bd2
     add sp, byte 4                   ; 0x0bd5
     mov byte [disk_layout_5_flag], 1 ; 0x0bd8
 .forward12:
@@ -185,7 +185,7 @@ update_scenario_header:
     push ax                          ; 0x0be0
     mov ax, savegame_filename_field  ; 0x0be1
     push ax                          ; 0x0be4
-    call aztec_strcpy                ; 0x0be5
+    call strcpy                ; 0x0be5
     add sp, byte 4                   ; 0x0be8
     mov ax, 0                        ; 0x0beb
     push ax                          ; 0x0bee
@@ -194,17 +194,17 @@ update_scenario_header:
     push dx                          ; 0x0bf5
     push ax                          ; 0x0bf6
     push word [scenario_header_handle] ; 0x0bf7
-    call aztec_lseek                 ; 0x0bfb
+    call lseek                 ; 0x0bfb
     add sp, byte 8                   ; 0x0bfe
     mov ax, 0x34c                    ; 0x0c01
     push ax                          ; 0x0c04
     mov ax, scenario_header_record   ; 0x0c05
     push ax                          ; 0x0c08
     push word [scenario_header_handle] ; 0x0c09
-    call aztec_write                 ; 0x0c0d
+    call write                 ; 0x0c0d
     add sp, byte 6                   ; 0x0c10
     push word [scenario_header_handle] ; 0x0c13
-    call aztec_close                 ; 0x0c17
+    call close                 ; 0x0c17
     pop cx                           ; 0x0c1a
     mov ax, 0                        ; 0x0c1b
     jmp near .back1                  ; 0x0c1e

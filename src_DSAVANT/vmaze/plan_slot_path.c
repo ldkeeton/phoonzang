@@ -18,7 +18,7 @@ int slot_index, from, to;
 	int i, unused, blocked;
 
 	/* Gates open for each quest map whose site this NPC has searched. */
-	aztec_setmem(open_gates, 20, 0);
+	setmem(open_gates, 20, 0);
 	for (i = 0; i < 11; i++) {
 		if (quest_maps[i].gate_key != -1
 		    && test_bit(slot_records[slot_index].map_history, i + 12))
@@ -43,7 +43,7 @@ int slot_index, from, to;
 	path_search_depth = 0;
 	do {
 		found_path_length = 0;
-		aztec_setmem(edges_in_use, 64, 0);
+		setmem(edges_in_use, 64, 0);
 		path_search_depth++;
 	} while (!search_path_from(from, to, 1, 0) && path_search_depth < 20);
 	if (path_search_depth >= 20)

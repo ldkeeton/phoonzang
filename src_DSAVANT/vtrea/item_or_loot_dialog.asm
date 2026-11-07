@@ -1,7 +1,7 @@
 ; auto-generated
 item_or_loot_dialog:
     mov ax, 0xffc8                   ; 0x3a56
-    call aztec_csav                  ; 0x3a59
+    call $csav                  ; 0x3a59
     mov word [dialog_selection], 0xffff ; 0x3a5c
     mov word [bp - 4], 0x37          ; 0x3a62
     mov word [bp - 6], 0x8f          ; 0x3a67
@@ -50,7 +50,7 @@ item_or_loot_dialog:
     push word [bp + 0xe]             ; 0x3ad8
     lea ax, word [bp - 0x36]         ; 0x3adb
     push ax                          ; 0x3ade
-    call aztec_strcpy                ; 0x3adf
+    call strcpy                ; 0x3adf
     add sp, byte 4                   ; 0x3ae2
 .forward3:
     lea ax, word [bp - 0x36]         ; 0x3ae5

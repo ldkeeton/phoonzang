@@ -1,7 +1,7 @@
 ; auto-generated
 read_class_experience_threshold:
     mov ax, 0xffc0                   ; 0x1f6f
-    call aztec_csav                  ; 0x1f72
+    call $csav                  ; 0x1f72
     mov ax, 0                        ; 0x1f75
     push ax                          ; 0x1f78
     push word [bp + 4]               ; 0x1f79

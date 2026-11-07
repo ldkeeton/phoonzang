@@ -1,7 +1,7 @@
 ; auto-generated
 data_record_io:
     mov ax, 0xff00                   ; 0x0883
-    call aztec_csav                  ; 0x0886
+    call $csav                  ; 0x0886
     mov ax, word [bp + 4]            ; 0x0889
     jmp short .forward1              ; 0x088c
 jumptable_08d4_case_0:
@@ -74,7 +74,7 @@ jumptable_08d4_case_4:
     push dx                          ; 0x0925
     push ax                          ; 0x0926
     push word [data_file_fd]         ; 0x0927
-    call aztec_lseek                 ; 0x092b
+    call lseek                 ; 0x092b
     add sp, byte 8                   ; 0x092e
     mov bx, word [bp + 4]            ; 0x0931
     cmp byte [bx + record_packed], 0 ; 0x0934
@@ -85,7 +85,7 @@ jumptable_08d4_case_4:
     push word [bx + record_size]     ; 0x0943
     push word [bp + 6]               ; 0x0947
     push word [data_file_fd]         ; 0x094a
-    call aztec_read                  ; 0x094e
+    call read                  ; 0x094e
     add sp, byte 6                   ; 0x0951
     jmp short data_record_io.forward4 ; 0x0954
 data_record_io.forward3:
@@ -97,7 +97,7 @@ data_record_io.forward3:
     push word [bx + record_size]     ; 0x0963
     push word [bp + 6]               ; 0x0967
     push word [data_file_fd]         ; 0x096a
-    call aztec_write                 ; 0x096e
+    call write                 ; 0x096e
     add sp, byte 6                   ; 0x0971
 data_record_io.forward4:
     jmp short data_record_io.return1 ; 0x0974
@@ -111,7 +111,7 @@ data_record_io.forward5:
     lea ax, word [bp - 0xff]         ; 0x0987
     push ax                          ; 0x098b
     push word [data_file_fd]         ; 0x098c
-    call aztec_read                  ; 0x0990
+    call read                  ; 0x0990
     add sp, byte 6                   ; 0x0993
     push word [bp + 6]               ; 0x0996
     lea ax, word [bp - 0xff]         ; 0x0999

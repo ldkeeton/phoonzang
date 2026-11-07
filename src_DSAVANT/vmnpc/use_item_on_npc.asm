@@ -1,7 +1,7 @@
 ; auto-generated
 use_item_on_npc:
     mov ax, 0xff98                   ; 0x51bb
-    call aztec_csav                  ; 0x51be
+    call $csav                  ; 0x51be
     push word [bp + 4]               ; 0x51c1
     call build_member_item_list      ; 0x51c4
     pop cx                           ; 0x51c7

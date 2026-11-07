@@ -1,7 +1,7 @@
 ; auto-generated
 select_inventory_slot:
     mov ax, 0xffee                   ; 0x0781
-    call aztec_csav                  ; 0x0784
+    call $csav                  ; 0x0784
     cmp word [mouse_active], byte 0  ; 0x0787
     je short .forward1               ; 0x078c
     jmp near .forward5               ; 0x078e

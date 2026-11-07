@@ -1,7 +1,7 @@
 ; auto-generated
 remove_member_item_row:
     mov ax, 0xfffe                   ; 0x515b
-    call aztec_csav                  ; 0x515e
+    call $csav                  ; 0x515e
     dec word [member_item_count]     ; 0x5161
     mov ax, word [bp + 4]            ; 0x5165
     mov word [bp - 2], ax            ; 0x5168
@@ -15,7 +15,7 @@ remove_member_item_row:
     imul word [bp - 2]               ; 0x517a
     add ax, list_row_name            ; 0x517d
     push ax                          ; 0x5180
-    call aztec_strcpy                ; 0x5181
+    call strcpy                ; 0x5181
     add sp, byte 4                   ; 0x5184
     mov ax, word [bp - 2]            ; 0x5187
     shl ax, 1                        ; 0x518a

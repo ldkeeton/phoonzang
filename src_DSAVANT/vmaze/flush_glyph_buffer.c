@@ -2,7 +2,7 @@
 extern int maze_message_row, maze_message_previous_x;
 extern int wait_for_maze_input_or_refresh();
 extern int measure_text_width();
-extern int aztec_strlen();
+extern int strlen();
 extern int call_set_text_pos(), call_set_text_color(), draw_text_glyphs();
 
 flush_glyph_buffer(glyph_buffer)
@@ -20,7 +20,7 @@ unsigned char *glyph_buffer;
 	}
 
 	text_x = 160 - (measure_text_width(glyph_buffer, 2) + 1) / 2;
-	last_glyph_index = aztec_strlen(glyph_buffer) - 1;
+	last_glyph_index = strlen(glyph_buffer) - 1;
 	switch (glyph_buffer[last_glyph_index]) {
 	case '$':
 		/* Trailing '$': strip it and left-align the line at x 68. */

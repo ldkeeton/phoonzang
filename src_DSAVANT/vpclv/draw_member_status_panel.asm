@@ -1,7 +1,7 @@
 ; auto-generated
 draw_member_status_panel:
     mov ax, 0                        ; 0x2189
-    call aztec_csav                  ; 0x218c
+    call $csav                  ; 0x218c
     push word [bp + 4]               ; 0x218f
     call draw_member_summary_panel   ; 0x2192
     pop cx                           ; 0x2195

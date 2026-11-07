@@ -1,7 +1,7 @@
 ; auto-generated
 raise_random_member_stats:
     mov ax, 0xff4c                   ; 0x4cc5
-    call aztec_csav                  ; 0x4cc8
+    call $csav                  ; 0x4cc8
     mov word [bp - 2], 0             ; 0x4ccb
 .back1:
     mov ax, word [bp - 2]            ; 0x4cd0

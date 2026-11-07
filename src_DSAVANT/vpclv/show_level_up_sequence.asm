@@ -1,7 +1,7 @@
 ; auto-generated
 show_level_up_sequence:
     mov ax, 0xfff4                   ; 0x5161
-    call aztec_csav                  ; 0x5164
+    call $csav                  ; 0x5164
     mov word [party_return_state], 5 ; 0x5167
     mov word [game_state], 5         ; 0x516d
     mov word [banner_offset], 0x14   ; 0x5173

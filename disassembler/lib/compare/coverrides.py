@@ -504,7 +504,7 @@ def _data_bytes(segments, binary_data, offset, n):
 
 
 def symbol_index(label_map, foreign_label_map, data_labels, sym_equ,
-                 binary_data, segments, image_base):
+                 binary_data, segments, image_base, library=None):
     """The :class:`lib.aztec.relink.SymbolIndex` a C routine links against.
 
     *segments* gives the data segment its canonical names and bytes; an
@@ -527,7 +527,8 @@ def symbol_index(label_map, foreign_label_map, data_labels, sym_equ,
         code_origin=code_origin,
         data_names=getattr(segments, 'data_names', None),
         places=(relink.OVERLAY_PLACE_SYMBOLS if overlay
-                else relink.PLACE_SYMBOLS))
+                else relink.PLACE_SYMBOLS),
+        library=library)
 
 
 _NAME = re.compile(r'[A-Za-z_.@$][\w.@$]*')
@@ -565,7 +566,7 @@ def _apply_c_overrides(records, c_overrides, binary_data, label_map,
                        exact_bytes=False, data_labels=None,
                        mem_symbols=None, mem_equ=None, image_base=None,
                        allow_diff=False, geometry=None, segments=None,
-                       message_symbols=None, message_equ=None):
+                       message_symbols=None, message_equ=None, library=None):
     """Replace disassembled records with code compiled from C.
 
     ``c_overrides`` maps a function label to ``{'code': bytes,
@@ -594,7 +595,7 @@ def _apply_c_overrides(records, c_overrides, binary_data, label_map,
                     sym_equ.setdefault(r['label'], r['start'])
             sym_index = symbol_index(
                 label_map, foreign_label_map, data_labels, sym_equ,
-                binary_data, segments, image_base)
+                binary_data, segments, image_base, library)
             names_at = relabel.data_names(
                 {**getattr(segments, 'data_names', {}),
                  **(data_labels or {})}, sym_equ)

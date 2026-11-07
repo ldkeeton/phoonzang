@@ -1,7 +1,7 @@
 ; auto-generated
 draw_roster_member_summary:
     mov ax, 0xffac                   ; 0x1b40
-    call aztec_csav                  ; 0x1b43
+    call $csav                  ; 0x1b43
     mov ax, 0                        ; 0x1b46
     push ax                          ; 0x1b49
     push ax                          ; 0x1b4a
@@ -27,7 +27,7 @@ draw_roster_member_summary:
     imul word [bp + 4]               ; 0x1b7e
     add ax, party_records            ; 0x1b81
     push ax                          ; 0x1b84
-    call aztec_strlen                ; 0x1b85
+    call strlen                ; 0x1b85
     pop cx                           ; 0x1b88
     mov cx, 6                        ; 0x1b89
     imul cx                          ; 0x1b8c
@@ -171,12 +171,12 @@ draw_roster_member_summary:
     mov dx, word [bx + party_records + pc_rec.age_days + 0x2] ; 0x1cda
     mov cx, 0x16d                    ; 0x1cde
     mov bx, 0                        ; 0x1ce1
-    call aztec_ldv                   ; 0x1ce4
+    call $ldv                   ; 0x1ce4
     add ax, strict word 0xffee       ; 0x1ce7
     adc dx, byte -1                  ; 0x1cea
     mov cx, 4                        ; 0x1ced
     mov bx, 0                        ; 0x1cf0
-    call aztec_ldv                   ; 0x1cf3
+    call $ldv                   ; 0x1cf3
     push ax                          ; 0x1cf6
     push dx                          ; 0x1cf7
     mov ax, 0x248                    ; 0x1cf8
@@ -224,7 +224,7 @@ draw_roster_member_summary:
     add dx, bx                       ; 0x1d4c
     mov cx, 0x12                     ; 0x1d4e
     mov bx, 0                        ; 0x1d51
-    call aztec_ldv                   ; 0x1d54
+    call $ldv                   ; 0x1d54
     mov word [banner_offset], ax     ; 0x1d57
     mov ax, 0x14                     ; 0x1d5a
     push ax                          ; 0x1d5d
@@ -296,7 +296,7 @@ draw_roster_member_summary:
     push ax                          ; 0x1dff
     lea ax, word [bp - 0x54]         ; 0x1e00
     push ax                          ; 0x1e03
-    call aztec_strlen                ; 0x1e04
+    call strlen                ; 0x1e04
     pop cx                           ; 0x1e07
     mov cx, 0x34                     ; 0x1e08
     sub cx, ax                       ; 0x1e0b

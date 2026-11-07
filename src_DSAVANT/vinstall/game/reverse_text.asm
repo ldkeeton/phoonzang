@@ -7,7 +7,7 @@ reverse_text:
     push si                          ; 0x0274
     mov di, 0                        ; 0x0275
     push word [bp + 4]               ; 0x0278
-    call aztec_strlen                ; 0x027b
+    call strlen                ; 0x027b
     pop cx                           ; 0x027e
     dec ax                           ; 0x027f
     mov word [bp - 2], ax            ; 0x0280

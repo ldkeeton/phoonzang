@@ -1,7 +1,7 @@
 ; auto-generated
 dissolve_or_show_area:
     mov ax, 0                        ; 0x0d7a
-    call aztec_csav                  ; 0x0d7d
+    call $csav                  ; 0x0d7d
     cmp byte [no_dissolve], 0        ; 0x0d80
     jne short .forward3              ; 0x0d85
     cmp word [mouse_active], byte 0  ; 0x0d87

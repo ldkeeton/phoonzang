@@ -3,7 +3,7 @@
 extern int message_delay;
 extern int refresh_treasure_panel_and_wait();
 extern int call_set_text_color();
-extern int aztec_strlen();
+extern int strlen();
 extern int call_set_text_pos();
 extern int draw_text_glyphs();
 extern int call_show_area();
@@ -18,7 +18,7 @@ int row, sound, text_color;
 {
 	refresh_treasure_panel_and_wait(row, row);
 	call_set_text_color(text_color, 0);
-	call_set_text_pos(160 - (aztec_strlen(message) * 6) / 2,
+	call_set_text_pos(160 - (strlen(message) * 6) / 2,
 		156 + 7 * row);
 	draw_text_glyphs(message, 0);
 	call_show_area(25, 156 + 7 * row, 295, 162 + 7 * row);

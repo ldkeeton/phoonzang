@@ -1,7 +1,7 @@
 ; auto-generated
 play_sound_cue:
     mov ax, 0                        ; 0x742e
-    call aztec_csav                  ; 0x7431
+    call $csav                  ; 0x7431
     mov ax, word [loaded_sound_id]   ; 0x7434
     cmp ax, word [bp + 4]            ; 0x7437
     je short .forward1               ; 0x743a

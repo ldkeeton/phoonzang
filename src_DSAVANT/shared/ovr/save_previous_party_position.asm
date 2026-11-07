@@ -1,7 +1,7 @@
 ; auto-generated
 save_previous_party_position:
     mov ax, 0
-    call aztec_csav
+    call $csav
     mov ax, word [party_world_x]
     mov word [previous_party_world_x], ax
     mov ax, word [party_world_y]

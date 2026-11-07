@@ -1,5 +1,5 @@
 /* Edit a bounded text buffer at the current screen position. */
-extern int aztec_strlen();
+extern int strlen();
 extern int bios_set_cursor();
 extern int bios_put_text();
 extern int draw_input_cursor_marker();
@@ -21,7 +21,7 @@ int max_length;
 	/* Keep the temporary text buffer terminated for each one-character write. */
 	echo_buffer[0] = 0;
 	echo_buffer[1] = 0;
-	text_length = aztec_strlen(text);
+	text_length = strlen(text);
 	column += text_length;
 	bios_set_cursor(row, column);
 	draw_input_cursor_marker(1);

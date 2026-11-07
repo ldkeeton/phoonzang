@@ -1,7 +1,7 @@
 ; auto-generated
 display_cursed_status_message:
     mov ax, 0xffaa                   ; 0x468b
-    call aztec_csav                  ; 0x468e
+    call $csav                  ; 0x468e
     lea ax, word [bp - 0x56]         ; 0x4691
     push ax                          ; 0x4694
     mov ax, MSG_CURSED_356           ; 0x4695
@@ -10,7 +10,7 @@ display_cursed_status_message:
     add sp, byte 4                   ; 0x469c
     lea ax, word [bp - 0x56]         ; 0x469f
     push ax                          ; 0x46a2
-    call aztec_strlen                ; 0x46a3
+    call strlen                ; 0x46a3
     pop cx                           ; 0x46a6
     mov cx, 6                        ; 0x46a7
     imul cx                          ; 0x46aa

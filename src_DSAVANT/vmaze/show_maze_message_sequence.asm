@@ -1,7 +1,7 @@
 ; auto-generated
 show_maze_message_sequence:
     mov ax, 0xfefa                   ; 0x6f14
-    call aztec_csav                  ; 0x6f17
+    call $csav                  ; 0x6f17
     mov word [maze_message_state], 0 ; 0x6f1a
     mov ax, 0xc6                     ; 0x6f20
     push ax                          ; 0x6f23

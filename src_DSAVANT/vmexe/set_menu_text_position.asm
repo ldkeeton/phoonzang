@@ -1,7 +1,7 @@
 ; auto-generated
 set_menu_text_position:
     mov ax, 0                        ; 0x15f9
-    call aztec_csav                  ; 0x15fc
+    call $csav                  ; 0x15fc
     mov ax, 7                        ; 0x15ff
     imul word [bp + 6]               ; 0x1602
     add ax, 0x9c                     ; 0x1605

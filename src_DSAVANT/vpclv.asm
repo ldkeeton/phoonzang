@@ -22,7 +22,7 @@ IMAGE_BASE equ 0x000e + VBASE
     dw __zdseg_end                           ; 0x9098 ; o_dorg: data load origin (memory offset)
     dw (__zimage_end - __zdata_start)        ; 0x0370 ; o_dsize: initialized data size
     dw __zobss_end - __zimage_end            ; 0x03a4 ; o_bss: uninitialized data size
-    dw aztec_ovbgn - IMAGE_BASE + __zres_end ; 0xa4b9 ; o_entry: overlay entry offset (CS)
+    dw $ovbgn - IMAGE_BASE + __zres_end ; 0xa4b9 ; o_entry: overlay entry offset (CS)
 
 __zcode_start:
 percent_suffix_text equ __zdseg_end + (__zpercent_suffix_text - __zdata_start)
@@ -253,12 +253,12 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "vpclv/show_level_up_sequence.asm" ; 0x5161
 
-%include "shared/ovr/aztec_ovbgn.asm"           ; 0x5472
+%include ".cache/c.lib/shared/ovr/ovbgn.asm"           ; 0x5472
 
 __zdata_start:
 %include "vpclv/data/clv_strings.asm"      ; 0x54b0
 
-%include "shared/ovr/aztec_ovbgn.data.asm"      ; 0x5816
+%include ".cache/c.lib/shared/ovr/ovbgn.data.asm"      ; 0x5816
 
 
 __zimage_end:

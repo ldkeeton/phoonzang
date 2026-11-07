@@ -1,7 +1,7 @@
 ; auto-generated
 recharge_inventory_item:
     mov ax, 0xff66                   ; 0x6f62
-    call aztec_csav                  ; 0x6f65
+    call $csav                  ; 0x6f65
     mov ax, 0                        ; 0x6f68
     push ax                          ; 0x6f6b
     mov bx, word [bp + 6]            ; 0x6f6c

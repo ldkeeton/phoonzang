@@ -1,7 +1,7 @@
 ; auto-generated
 evaluate_profession_stat_mins:
     mov ax, 0xfffe                   ; 0x8fb8
-    call aztec_csav                  ; 0x8fbb
+    call $csav                  ; 0x8fbb
     mov ax, word [bp + 6]            ; 0x8fbe
     shl ax, 1                        ; 0x8fc1
     mov bx, ax                       ; 0x8fc3

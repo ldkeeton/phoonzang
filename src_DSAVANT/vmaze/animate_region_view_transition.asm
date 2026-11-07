@@ -1,7 +1,7 @@
 ; auto-generated
 animate_region_view_transition:
     mov ax, 0xffe8                   ; 0x7b53
-    call aztec_csav                  ; 0x7b56
+    call $csav                  ; 0x7b56
     mov ax, word [bp + 6]            ; 0x7b59
     inc ax                           ; 0x7b5c
     mov word [bp - 0xc], ax          ; 0x7b5d

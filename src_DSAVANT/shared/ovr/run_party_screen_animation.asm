@@ -1,7 +1,7 @@
 ; auto-generated
 run_party_screen_animation:
     mov ax, 0
-    call aztec_csav
+    call $csav
     mov word [party_screen_animation_state], 0xfffe
 .back1:
     call step_party_screen_animation

@@ -1,7 +1,7 @@
 ; auto-generated
 advance_melee_turn:
     mov ax, 0xffaa                   ; 0x31a1
-    call aztec_csav                  ; 0x31a4
+    call $csav                  ; 0x31a4
     call tick_party_combatants       ; 0x31a7
     call process_monster_groups      ; 0x31aa
     mov ax, 6                        ; 0x31ad
@@ -88,7 +88,7 @@ advance_melee_turn:
     push ax                          ; 0x3285
     lea ax, word [bp - 0x56]         ; 0x3286
     push ax                          ; 0x3289
-    call aztec_strcpy                ; 0x328a
+    call strcpy                ; 0x328a
     add sp, byte 4                   ; 0x328d
     lea ax, word [bp - 0x56]         ; 0x3290
     push ax                          ; 0x3293
@@ -96,7 +96,7 @@ advance_melee_turn:
     pop cx                           ; 0x3297
     lea ax, word [bp - 0x56]         ; 0x3298
     push ax                          ; 0x329b
-    call aztec_strlen                ; 0x329c
+    call strlen                ; 0x329c
     pop cx                           ; 0x329f
     mov word [bp - 6], ax            ; 0x32a0
     mov bx, ax                       ; 0x32a3

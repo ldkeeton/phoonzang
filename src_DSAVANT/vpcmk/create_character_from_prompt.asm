@@ -1,7 +1,7 @@
 ; auto-generated
 create_character_from_prompt:
     mov ax, 0xffec                   ; 0x6673
-    call aztec_csav                  ; 0x6676
+    call $csav                  ; 0x6676
     mov byte [bp - 0x14], 0          ; 0x6679
     lea ax, word [bp - 0x14]         ; 0x667d
     push ax                          ; 0x6680

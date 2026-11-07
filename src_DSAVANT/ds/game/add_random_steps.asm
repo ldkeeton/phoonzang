@@ -1,7 +1,7 @@
 ; auto-generated
 add_random_steps:
     mov ax, 0xfffe                   ; 0x2305
-    call aztec_csav                  ; 0x2308
+    call $csav                  ; 0x2308
     mov ax, word [bp + 4]            ; 0x230b
     mov word [bp - 2], ax            ; 0x230e
 .back1:

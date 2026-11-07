@@ -1,7 +1,7 @@
 ; auto-generated
 show_member_age_and_next_level:
     mov ax, 0xff62                   ; 0x1894
-    call aztec_csav                  ; 0x1897
+    call $csav                  ; 0x1897
     mov word [bp - 4], 0             ; 0x189a
     cmp word [mouse_active], byte 0  ; 0x189f
     je short .forward1               ; 0x18a4
@@ -73,7 +73,7 @@ show_member_age_and_next_level:
     mov dx, word [bx + party_records + pc_rec.age_days + 0x2] ; 0x1944
     mov cx, 0x16d                    ; 0x1948
     mov bx, 0                        ; 0x194b
-    call aztec_ldv                   ; 0x194e
+    call $ldv                   ; 0x194e
     push ax                          ; 0x1951
     call format_int_decimal          ; 0x1952
     add sp, byte 4                   ; 0x1955

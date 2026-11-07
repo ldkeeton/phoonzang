@@ -8,7 +8,7 @@
 extern struct member_rec *battle_groups[];
 extern struct member_ext *battle_group_ext[];
 extern struct pc_rec party_records[];
-extern int aztec_movmem();
+extern int movmem();
 extern int combatant_evades_targeting();
 extern struct random_step_spec *store_word_and_pair();
 extern int add_random_steps();
@@ -31,7 +31,7 @@ int show_message;
 		return;
 
 	if (group == 0) {
-		aztec_movmem(party_records[unit_index].resistance_rows.named.resist,
+		movmem(party_records[unit_index].resistance_rows.named.resist,
 			battle_group_ext[0]->resistance, 14);
 		if (resistance_index == 1 || resistance_index == 7)
 			resistance_floor -=

@@ -1,7 +1,7 @@
 ; auto-generated
 apply_enclosed_cell_glyph:
     mov ax, 0                        ; 0x0ede
-    call aztec_csav                  ; 0x0ee1
+    call $csav                  ; 0x0ee1
     mov ax, 0x24                     ; 0x0ee4
     imul word [bp + 4]               ; 0x0ee7
     mov cx, word [bp + 6]            ; 0x0eea

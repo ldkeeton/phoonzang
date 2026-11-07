@@ -1,7 +1,7 @@
 ; auto-generated
 clear_bit_pair:
     mov ax, 0xfffe
-    call aztec_csav
+    call $csav
     mov ax, word [bp + 6]
     mov word [bp - 2], ax
     jmp short .forward1

@@ -1,7 +1,7 @@
 ; auto-generated
 set_party_skill_flags:
     mov ax, 0xfffc
-    call aztec_csav
+    call $csav
     mov ax, word [skill_group_ranges]
     mov word [bp - 4], ax
     mov word [bp - 2], 0

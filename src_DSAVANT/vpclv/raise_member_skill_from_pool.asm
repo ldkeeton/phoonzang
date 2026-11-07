@@ -1,7 +1,7 @@
 ; auto-generated
 raise_member_skill_from_pool:
     mov ax, 0xfffe                   ; 0x4270
-    call aztec_csav                  ; 0x4273
+    call $csav                  ; 0x4273
     mov ax, word [bp + 6]            ; 0x4276
     shl ax, 1                        ; 0x4279
     mov bx, ax                       ; 0x427b

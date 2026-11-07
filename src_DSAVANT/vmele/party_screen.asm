@@ -1,7 +1,7 @@
 ; auto-generated
 party_screen:
     mov ax, 0xfd08                   ; 0x1a16
-    call aztec_csav                  ; 0x1a19
+    call $csav                  ; 0x1a19
     mov word [bp - 2], 1             ; 0x1a1c
     jmp near .forward11              ; 0x1a21
 .back1:
@@ -135,7 +135,7 @@ party_screen:
     imul bx                          ; 0x1b60
     mov cx, 0x64                     ; 0x1b62
     mov bx, 0                        ; 0x1b65
-    call aztec_ldv                   ; 0x1b68
+    call $ldv                   ; 0x1b68
     push ax                          ; 0x1b6b
     push dx                          ; 0x1b6c
     mov ax, word [bp - 2]            ; 0x1b6d
@@ -178,7 +178,7 @@ party_screen:
     imul bx                          ; 0x1bc0
     mov cx, 0x64                     ; 0x1bc2
     mov bx, 0                        ; 0x1bc5
-    call aztec_ldv                   ; 0x1bc8
+    call $ldv                   ; 0x1bc8
     push ax                          ; 0x1bcb
     push dx                          ; 0x1bcc
     mov ax, word [bp - 2]            ; 0x1bcd
@@ -287,7 +287,7 @@ party_screen:
     push ax                          ; 0x1cb3
     lea ax, word [bp - 0x6c]         ; 0x1cb4
     push ax                          ; 0x1cb7
-    call aztec_strcpy                ; 0x1cb8
+    call strcpy                ; 0x1cb8
     add sp, byte 4                   ; 0x1cbb
     lea ax, word [bp - 0x6c]         ; 0x1cbe
     push ax                          ; 0x1cc1
@@ -295,7 +295,7 @@ party_screen:
     pop cx                           ; 0x1cc5
     lea ax, word [bp - 0x6c]         ; 0x1cc6
     push ax                          ; 0x1cc9
-    call aztec_strlen                ; 0x1cca
+    call strlen                ; 0x1cca
     pop cx                           ; 0x1ccd
     mov word [bp - 0xa], ax          ; 0x1cce
     mov bx, ax                       ; 0x1cd1
@@ -433,7 +433,7 @@ party_screen:
     mov bx, ax                       ; 0x1e16
     push word [bx + overlay_list + 0x18] ; 0x1e18
     push word [bx + battle_groups]   ; 0x1e1c
-    call aztec_swapmem               ; 0x1e20
+    call swapmem               ; 0x1e20
     add sp, byte 6                   ; 0x1e23
     mov ax, 0xe8                     ; 0x1e26
     push ax                          ; 0x1e29
@@ -442,7 +442,7 @@ party_screen:
     mov bx, ax                       ; 0x1e2f
     push word [bx + ally_battle_group] ; 0x1e31
     push word [bx + battle_group_ext] ; 0x1e35
-    call aztec_swapmem               ; 0x1e39
+    call swapmem               ; 0x1e39
     add sp, byte 6                   ; 0x1e3c
     mov word [bp - 0xe], 0           ; 0x1e3f
     jmp short .forward24             ; 0x1e44

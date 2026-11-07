@@ -1,7 +1,7 @@
 ; auto-generated
 refresh_npc_screen:
     mov ax, 0                        ; 0x47b9
-    call aztec_csav                  ; 0x47bc
+    call $csav                  ; 0x47bc
     call run_npc_screen_animation    ; 0x47bf
     mov ax, 0xc6                     ; 0x47c2
     push ax                          ; 0x47c5

@@ -1,7 +1,7 @@
 ; auto-generated
 draw_frame_outline:
     mov ax, 0
-    call aztec_csav
+    call $csav
     push word [bp + 0xc]
     mov ax, word [bp + 6]
     dec ax

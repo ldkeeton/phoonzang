@@ -1,7 +1,7 @@
 ; auto-generated
 draw_bevel_frame:
     mov ax, 0                        ; 0x0f2a
-    call aztec_csav                  ; 0x0f2d
+    call $csav                  ; 0x0f2d
     mov ax, 0xc0                     ; 0x0f30
     push ax                          ; 0x0f33
     push word [bp + 0xa]             ; 0x0f34

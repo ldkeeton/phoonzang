@@ -1,7 +1,7 @@
 ; auto-generated
 draw_scene_message_line:
     mov ax, 0xfffc                   ; 0x3aac
-    call aztec_csav                  ; 0x3aaf
+    call $csav                  ; 0x3aaf
     cmp word [scene_message_line_index], byte 5 ; 0x3ab2
     jle short .forward1              ; 0x3ab7
     call wait_for_scene_message_page ; 0x3ab9
@@ -26,7 +26,7 @@ draw_scene_message_line:
     sub ax, cx                       ; 0x3ae0
     mov word [bp - 2], ax            ; 0x3ae2
     push word [bp + 4]               ; 0x3ae5
-    call aztec_strlen                ; 0x3ae8
+    call strlen                ; 0x3ae8
     pop cx                           ; 0x3aeb
     dec ax                           ; 0x3aec
     mov word [bp - 4], ax            ; 0x3aed

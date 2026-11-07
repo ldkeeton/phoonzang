@@ -1,7 +1,7 @@
 ; auto-generated
 show_equipment_change_message:
     mov ax, 0                        ; 0x9842
-    call aztec_csav                  ; 0x9845
+    call $csav                  ; 0x9845
     push word [acting_unit]          ; 0x9848
     push word [acting_group]         ; 0x984c
     mov ax, combat_action_name_buffer ; 0x9850

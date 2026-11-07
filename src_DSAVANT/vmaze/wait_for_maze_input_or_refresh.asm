@@ -1,7 +1,7 @@
 ; auto-generated
 wait_for_maze_input_or_refresh:
     mov ax, 0                        ; 0x6b5a
-    call aztec_csav                  ; 0x6b5d
+    call $csav                  ; 0x6b5d
     cmp word [maze_message_state], byte 0 ; 0x6b60
     je short .forward1               ; 0x6b65
     ret                              ; 0x6b67

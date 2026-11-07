@@ -3,7 +3,7 @@
 
 extern int message_delay;
 extern int load_message_string();
-extern int aztec_strlen();
+extern int strlen();
 extern long call_save_area();
 extern int call_set_text_pos();
 extern int call_set_text_color();
@@ -20,7 +20,7 @@ display_cursed_status_message()
 	char message[80];
 
 	load_message_string(MSG_CURSED_356, message);
-	message_column = 271 - aztec_strlen(message) * 6 / 2;
+	message_column = 271 - strlen(message) * 6 / 2;
 	saved_area = call_save_area(message_column, 57, 319, 62);
 	call_set_text_pos(message_column, 57);
 	call_set_text_color(85, 0);

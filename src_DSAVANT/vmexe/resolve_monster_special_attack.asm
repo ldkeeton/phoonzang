@@ -1,7 +1,7 @@
 ; auto-generated
 resolve_monster_special_attack:
     mov ax, 0xfff2                   ; 0x91b5
-    call aztec_csav                  ; 0x91b8
+    call $csav                  ; 0x91b8
     mov word [combat_wait_occurred], 0 ; 0x91bb
     mov bx, word [bp + 4]            ; 0x91c1
     mov al, byte [bx + 0x1f]         ; 0x91c4
@@ -40,7 +40,7 @@ resolve_monster_special_attack:
     mov bx, dx                       ; 0x9217
     pop dx                           ; 0x9219
     pop ax                           ; 0x921a
-    call aztec_ldv                   ; 0x921b
+    call $ldv                   ; 0x921b
     inc ax                           ; 0x921e
     mov word [bp - 6], ax            ; 0x921f
     cmp ax, strict word 1            ; 0x9222

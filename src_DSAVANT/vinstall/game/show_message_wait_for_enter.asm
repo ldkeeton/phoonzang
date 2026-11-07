@@ -12,7 +12,7 @@ show_message_wait_for_enter:
     add sp, byte 6                   ; 0x09a4
     push word [bp + 4]               ; 0x09a7
     push word [bp + 4]               ; 0x09aa
-    call aztec_strlen                ; 0x09ad
+    call strlen                ; 0x09ad
     pop cx                           ; 0x09b0
     inc ax                           ; 0x09b1
     mov cx, 2                        ; 0x09b2
@@ -44,7 +44,7 @@ show_message_wait_for_enter:
     mov ax, installer_message_buffer ; 0x09e9
     push ax                          ; 0x09ec
     push ax                          ; 0x09ed
-    call aztec_strlen                ; 0x09ee
+    call strlen                ; 0x09ee
     pop cx                           ; 0x09f1
     inc ax                           ; 0x09f2
     mov cx, 2                        ; 0x09f3

@@ -1,7 +1,7 @@
 ; auto-generated
 prepare_combat_groups:
     mov ax, 0xfffe                   ; 0x4d91
-    call aztec_csav                  ; 0x4d94
+    call $csav                  ; 0x4d94
     mov al, byte [party_char_count]  ; 0x4d97
     mov bx, word [battle_groups]     ; 0x4d9a
     mov byte [bx + member_rec.unit_count], al ; 0x4d9e

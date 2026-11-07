@@ -1,7 +1,7 @@
 ; auto-generated
 wall_overlay_when_enabled:
     mov ax, 0
-    call aztec_csav
+    call $csav
     mov ax, 0xffff
     cmp word [side_wall_animation_phase], byte 0
     je short .return1

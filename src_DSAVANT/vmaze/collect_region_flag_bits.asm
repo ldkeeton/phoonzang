@@ -1,7 +1,7 @@
 ; auto-generated
 collect_region_flag_bits:
     mov ax, 0xfffa                   ; 0x75ae
-    call aztec_csav                  ; 0x75b1
+    call $csav                  ; 0x75b1
     mov word [bp - 4], 0             ; 0x75b4
     mov word [bp - 2], 0             ; 0x75b9
 .back1:

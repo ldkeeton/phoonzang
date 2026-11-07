@@ -1,7 +1,7 @@
 ; auto-generated
 process_maze_message_controls:
     mov ax, 0xff70                   ; 0x6cc9
-    call aztec_csav                  ; 0x6ccc
+    call $csav                  ; 0x6ccc
 .back1:
     mov bx, word [bp + 4]            ; 0x6ccf
     mov al, byte [bx]                ; 0x6cd2
@@ -166,25 +166,25 @@ process_maze_message_controls.forward7:
     push ax                          ; 0x6e3a
     lea ax, word [bp - 0x86]         ; 0x6e3b
     push ax                          ; 0x6e3f
-    call aztec_strcpy                ; 0x6e40
+    call strcpy                ; 0x6e40
     add sp, byte 4                   ; 0x6e43
     mov ax, maze_message_word_separator ; 0x6e46
     push ax                          ; 0x6e49
     lea ax, word [bp - 0x86]         ; 0x6e4a
     push ax                          ; 0x6e4e
-    call aztec_strcat                ; 0x6e4f
+    call strcat                ; 0x6e4f
     add sp, byte 4                   ; 0x6e52
     push word [bp + 4]               ; 0x6e55
     lea ax, word [bp - 0x86]         ; 0x6e58
     push ax                          ; 0x6e5c
-    call aztec_strcat                ; 0x6e5d
+    call strcat                ; 0x6e5d
     add sp, byte 4                   ; 0x6e60
     jmp short process_maze_message_controls.forward9 ; 0x6e63
 process_maze_message_controls.forward8:
     push word [bp + 4]               ; 0x6e65
     lea ax, word [bp - 0x86]         ; 0x6e68
     push ax                          ; 0x6e6c
-    call aztec_strcpy                ; 0x6e6d
+    call strcpy                ; 0x6e6d
     add sp, byte 4                   ; 0x6e70
 process_maze_message_controls.forward9:
     mov ax, 2                        ; 0x6e73
@@ -203,7 +203,7 @@ process_maze_message_controls.forward9:
     push word [bp + 4]               ; 0x6e92
     mov ax, maze_message_glyph_buffer ; 0x6e95
     push ax                          ; 0x6e98
-    call aztec_strcpy                ; 0x6e99
+    call strcpy                ; 0x6e99
     add sp, byte 4                   ; 0x6e9c
     jmp short process_maze_message_controls.return1 ; 0x6e9f
 process_maze_message_controls.forward10:
@@ -211,7 +211,7 @@ process_maze_message_controls.forward10:
     push ax                          ; 0x6ea5
     mov ax, maze_message_glyph_buffer ; 0x6ea6
     push ax                          ; 0x6ea9
-    call aztec_strcpy                ; 0x6eaa
+    call strcpy                ; 0x6eaa
     add sp, byte 4                   ; 0x6ead
 process_maze_message_controls.return1:
     ret                              ; 0x6eb0

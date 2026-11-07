@@ -1,7 +1,7 @@
 ; auto-generated
 cast_combat_spell:
     mov ax, 0xfff2                   ; 0x5fa1
-    call aztec_csav                  ; 0x5fa4
+    call $csav                  ; 0x5fa4
     mov al, byte [party_char_count]  ; 0x5fa7
     mov bx, word [battle_groups]     ; 0x5faa
     mov byte [bx + member_rec.unit_count], al ; 0x5fae

@@ -16,7 +16,7 @@ install_file_matches_letter:
     push word [bx + 0x2ad]           ; 0x1172
     lea ax, word [bp - 0x52]         ; 0x1176
     push ax                          ; 0x1179
-    call aztec_strcpy                ; 0x117a
+    call strcpy                ; 0x117a
     add sp, byte 4                   ; 0x117d
     mov word [bp - 2], 0             ; 0x1180
     jmp short .forward3              ; 0x1185
@@ -41,7 +41,7 @@ install_file_matches_letter:
 .forward3:
     lea ax, word [bp - 0x52]         ; 0x11a8
     push ax                          ; 0x11ab
-    call aztec_strlen                ; 0x11ac
+    call strlen                ; 0x11ac
     pop cx                           ; 0x11af
     cmp ax, word [bp - 2]            ; 0x11b0
     jg short .back1                  ; 0x11b3

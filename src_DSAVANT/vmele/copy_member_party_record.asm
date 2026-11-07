@@ -1,7 +1,7 @@
 ; auto-generated
 copy_member_party_record:
     mov ax, 0                        ; 0x1eb4
-    call aztec_csav                  ; 0x1eb7
+    call $csav                  ; 0x1eb7
     mov ax, 0x2c                     ; 0x1eba
     imul word [bp + 4]               ; 0x1ebd
     mov si, ax                       ; 0x1ec0
@@ -38,7 +38,7 @@ copy_member_party_record:
     add ax, si                       ; 0x1f0f
     add ax, strict word 0xe          ; 0x1f11
     push ax                          ; 0x1f14
-    call aztec_movmem                ; 0x1f15
+    call movmem                ; 0x1f15
     add sp, byte 6                   ; 0x1f18
     mov ax, 0x2c                     ; 0x1f1b
     imul word [bp + 4]               ; 0x1f1e

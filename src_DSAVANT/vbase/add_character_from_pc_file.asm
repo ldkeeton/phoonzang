@@ -1,7 +1,7 @@
 ; auto-generated
 add_character_from_pc_file:
     mov ax, 0xfdb2                   ; 0x606d
-    call aztec_csav                  ; 0x6070
+    call $csav                  ; 0x6070
 .back1:
     cmp word [party_char_count], byte 6 ; 0x6073
     jl short .forward1               ; 0x6078

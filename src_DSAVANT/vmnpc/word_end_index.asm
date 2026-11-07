@@ -1,7 +1,7 @@
 ; auto-generated
 word_end_index:
     mov ax, 0xfffe                   ; 0x8d86
-    call aztec_csav                  ; 0x8d89
+    call $csav                  ; 0x8d89
     mov word [bp - 2], 0             ; 0x8d8c
 .back1:
     mov ax, word [bp - 2]            ; 0x8d91

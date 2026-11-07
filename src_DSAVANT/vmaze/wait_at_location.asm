@@ -1,7 +1,7 @@
 ; auto-generated
 wait_at_location:
     mov ax, 0                        ; 0xaa3f
-    call aztec_csav                  ; 0xaa42
+    call $csav                  ; 0xaa42
     mov ax, 0x10                     ; 0xaa45
     push ax                          ; 0xaa48
     call random_below                ; 0xaa49

@@ -1,6 +1,6 @@
 /* Single-line text entry with a blinking cursor. */
 extern unsigned char get_filtered_key();
-extern int call_set_text_color(), aztec_strlen(), poll_filtered_key();
+extern int call_set_text_color(), strlen(), poll_filtered_key();
 extern int call_fill_area(), call_set_text_pos(), draw_font_glyph();
 extern int call_show_area(), delay_ms(), flush_keyboard();
 extern int play_sound_effect();
@@ -17,7 +17,7 @@ int x, y, max_len, color, background, mode;
 	int wait;
 
 	call_set_text_color(color, background);
-	x += (len = aztec_strlen(buf)) * 6;	/* Six pixels per character. */
+	x += (len = strlen(buf)) * 6;	/* Six pixels per character. */
 	for (;;) {
 		cursor_on = 0;
 		wait = 0;

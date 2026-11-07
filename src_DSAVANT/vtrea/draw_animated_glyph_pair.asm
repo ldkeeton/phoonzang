@@ -1,7 +1,7 @@
 ; auto-generated
 draw_animated_glyph_pair:
     mov ax, 0xfff6                   ; 0x073b
-    call aztec_csav                  ; 0x073e
+    call $csav                  ; 0x073e
     mov byte [bp - 0xa], 1           ; 0x0741
     mov byte [bp - 9], 4             ; 0x0745
     mov byte [bp - 8], 0             ; 0x0749

@@ -1,7 +1,7 @@
 ; auto-generated
 attempt_combatant_flee:
     mov ax, 0xfff0                   ; 0x9a2f
-    call aztec_csav                  ; 0x9a32
+    call $csav                  ; 0x9a32
     push word [acting_unit]          ; 0x9a35
     push word [acting_group]         ; 0x9a39
     mov ax, combat_action_name_buffer ; 0x9a3d

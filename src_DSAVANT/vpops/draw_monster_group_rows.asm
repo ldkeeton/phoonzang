@@ -1,7 +1,7 @@
 ; auto-generated
 draw_monster_group_rows:
     mov ax, 0xffac                   ; 0x035f
-    call aztec_csav                  ; 0x0362
+    call $csav                  ; 0x0362
     mov ax, 1                        ; 0x0365
     push ax                          ; 0x0368
     call redraw_area_set             ; 0x0369

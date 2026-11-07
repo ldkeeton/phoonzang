@@ -1,7 +1,7 @@
 ; auto-generated
 setup_monster_pictures:
     mov ax, 0xfffc                   ; 0x17ad
-    call aztec_csav                  ; 0x17b0
+    call $csav                  ; 0x17b0
     mov word [bp - 4], 0xf           ; 0x17b3
 .back1:
     mov bx, word [bp - 4]            ; 0x17b8

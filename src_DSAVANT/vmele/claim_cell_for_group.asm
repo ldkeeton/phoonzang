@@ -1,7 +1,7 @@
 ; auto-generated
 claim_cell_for_group:
     mov ax, 0                        ; 0x299f
-    call aztec_csav                  ; 0x29a2
+    call $csav                  ; 0x29a2
     jmp short .forward2              ; 0x29a5
 .back1:
     push word [bp + 8]               ; 0x29a7

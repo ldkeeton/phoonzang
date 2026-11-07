@@ -1,7 +1,7 @@
 ; auto-generated
 prepare_profession_skill_list:
     mov ax, 0xfffc                   ; 0x8421
-    call aztec_csav                  ; 0x8424
+    call $csav                  ; 0x8424
     mov ax, 0x248                    ; 0x8427
     imul word [bp + 4]               ; 0x842a
     mov bx, ax                       ; 0x842d

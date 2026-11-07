@@ -1,7 +1,7 @@
 ; auto-generated
 prepare_npc_encounter_scene:
     mov ax, 0                        ; 0x6d9d
-    call aztec_csav                  ; 0x6da0
+    call $csav                  ; 0x6da0
     mov word [npc_encounter_sound], 0 ; 0x6da3
     cmp byte [npc_encounter_intro_sound_id], 0 ; 0x6da9
     jle short .forward1              ; 0x6dae

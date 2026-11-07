@@ -1,7 +1,7 @@
 ; auto-generated
 wait_for_scene_input_or_timeout:
     mov ax, 0xfffc                   ; 0x6c87
-    call aztec_csav                  ; 0x6c8a
+    call $csav                  ; 0x6c8a
     call flush_keyboard              ; 0x6c8d
     mov ax, word [bp + 4]            ; 0x6c90
     cwd                              ; 0x6c93

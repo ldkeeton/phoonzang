@@ -1,7 +1,7 @@
 ; auto-generated
 end_npc_message_display:
     mov ax, 0                        ; 0x243b
-    call aztec_csav                  ; 0x243e
+    call $csav                  ; 0x243e
     mov ax, 3                        ; 0x2441
     push ax                          ; 0x2444
     call redraw_area_set             ; 0x2445

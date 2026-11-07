@@ -1,7 +1,7 @@
 ; auto-generated
 release_resources:
     mov ax, 0xfffe                   ; 0x0242
-    call aztec_csav                  ; 0x0245
+    call $csav                  ; 0x0245
     mov word [bp - 2], 0             ; 0x0248
     mov ax, word [bp + 4]            ; 0x024d
     jmp near .forward18              ; 0x0250
@@ -9,25 +9,25 @@ jumptable_0363_case_0:
     cmp word [floor_items], byte 0   ; 0x0253
     je short release_resources.forward1 ; 0x0258
     push word [floor_items]          ; 0x025a
-    call aztec_free                  ; 0x025e
+    call free                  ; 0x025e
     pop cx                           ; 0x0261
 release_resources.forward1:
     cmp word [maze_change_log], byte 0 ; 0x0262
     je short release_resources.forward2 ; 0x0267
     push word [maze_change_log]      ; 0x0269
-    call aztec_free                  ; 0x026d
+    call free                  ; 0x026d
     pop cx                           ; 0x0270
 release_resources.forward2:
     cmp word [maze_tables], byte 0   ; 0x0271
     je short release_resources.forward3 ; 0x0276
     push word [maze_tables]          ; 0x0278
-    call aztec_free                  ; 0x027c
+    call free                  ; 0x027c
     pop cx                           ; 0x027f
 release_resources.forward3:
     cmp word [maze_data], byte 0     ; 0x0280
     je short release_resources.forward4 ; 0x0285
     push word [maze_data]            ; 0x0287
-    call aztec_free                  ; 0x028b
+    call free                  ; 0x028b
     pop cx                           ; 0x028e
 release_resources.forward4:
     cmp word [runtime_buffer_4k_b_seg], byte 0 ; 0x028f
@@ -61,11 +61,11 @@ release_resources.forward9:
     add sp, byte 4                   ; 0x02e0
 jumptable_0363_case_11:
     push word [data_file_fd]         ; 0x02e3
-    call aztec_close                 ; 0x02e7
+    call close                 ; 0x02e7
     pop cx                           ; 0x02ea
 jumptable_0363_case_10:
     push word [msg_dbs_fd]           ; 0x02eb
-    call aztec_close                 ; 0x02ef
+    call close                 ; 0x02ef
     pop cx                           ; 0x02f2
 jumptable_0363_case_7:
     cmp word [pointer_image_two_seg], byte 0 ; 0x02f3

@@ -1,7 +1,7 @@
 ; auto-generated
 show_intro_screen:
     mov ax, 0xfffe                   ; 0x8f74
-    call aztec_csav                  ; 0x8f77
+    call $csav                  ; 0x8f77
     call blank_scene_screen          ; 0x8f7a
     cmp word [mouse_active], byte 1  ; 0x8f7d
     jne short .forward1              ; 0x8f82

@@ -17,7 +17,7 @@ extern char palette_base_setting, palette_scale_setting;
 extern int sound_port_setting, sound_aux_setting, mouse_active;
 extern int hotspot_hit, dialog_button, configuration_display_value;
 extern int hotspot_rects[];
-extern int aztec_open(), aztec_read(), aztec_close(), release_and_exit();
+extern int open(), read(), close(), release_and_exit();
 extern int save_screen_area(), draw_dialog_box(), draw_message_at_position();
 extern int draw_font_glyph(), draw_number_field(), draw_button();
 extern int draw_setting_slider_markers(), draw_inset_panel();
@@ -27,7 +27,7 @@ extern int poll_hotspots(), flush_keyboard();
 extern unsigned char get_filtered_key();
 extern int draw_configuration_text(), input_text_field();
 extern int step_volume_setting(), adjust_palette_base_setting();
-extern int adjust_palette_and_rgb_lookup(), aztec_strlen();
+extern int adjust_palette_and_rgb_lookup(), strlen();
 extern int flash_button(), write_header_and_apply_devices();
 extern int restore_saved_screen();
 
@@ -44,11 +44,11 @@ int initial_mode;
 
 	/* Keep a copy for the cancel path and load the 256-entry palette. */
 	original_header = scenario_header_data;
-	if ((palette_fd = aztec_open(data_file_path(palette_definition_filename, 0),
+	if ((palette_fd = open(data_file_path(palette_definition_filename, 0),
 		0)) == -1)
 		release_and_exit(26);
-	aztec_read(palette_fd, base_palette_rgb, 768);
-	aztec_close(palette_fd);
+	read(palette_fd, base_palette_rgb, 768);
+	close(palette_fd);
 
 	/* These fixed margins size the configuration box and its working area. */
 	dialog_top = 18;
@@ -388,7 +388,7 @@ int initial_mode;
 				/* Switching to an unnamed disk store prompts for its drive. */
 			case 18:
 				if (selected_hotspot == 18 || (screen_store_disk_enabled == 1 &&
-					aztec_strlen(screen_store_drive) == 0)) {
+					strlen(screen_store_drive) == 0)) {
 					flush_keyboard();
 					draw_configuration_text(screen_store_drive,
 						dialog_top + 213, dialog_left + 68, 10);

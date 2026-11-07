@@ -1,7 +1,7 @@
 ; auto-generated
 set_mouse_pointer_shape:
     mov ax, 0xfffc                   ; 0x0af6
-    call aztec_csav                  ; 0x0af9
+    call $csav                  ; 0x0af9
     cmp word [bp + 6], byte 0        ; 0x0afc
     jne short .forward1              ; 0x0b00
     cmp word [bp + 4], byte 0        ; 0x0b02

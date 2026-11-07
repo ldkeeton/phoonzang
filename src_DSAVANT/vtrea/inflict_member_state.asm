@@ -1,7 +1,7 @@
 ; auto-generated
 inflict_member_state:
     mov ax, 0xffa6                   ; 0x10fb
-    call aztec_csav                  ; 0x10fe
+    call $csav                  ; 0x10fe
     cmp word [bp + 8], byte 0        ; 0x1101
     je short .forward1               ; 0x1105
     mov ax, 0x64                     ; 0x1107

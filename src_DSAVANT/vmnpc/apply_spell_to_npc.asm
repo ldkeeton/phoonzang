@@ -1,7 +1,7 @@
 ; auto-generated
 apply_spell_to_npc:
     mov ax, 0xfff8                   ; 0x3900
-    call aztec_csav                  ; 0x3903
+    call $csav                  ; 0x3903
     mov ax, word [bp + 6]            ; 0x3906
     jmp near .forward7               ; 0x3909
 .back1:

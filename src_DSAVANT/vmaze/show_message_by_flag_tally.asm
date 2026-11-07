@@ -1,7 +1,7 @@
 ; auto-generated
 show_message_by_flag_tally:
     mov ax, 0xfff4                   ; 0x8794
-    call aztec_csav                  ; 0x8797
+    call $csav                  ; 0x8797
     mov ax, word [party_region]      ; 0x879a
     shl ax, 1                        ; 0x879d
     mov si, ax                       ; 0x879f

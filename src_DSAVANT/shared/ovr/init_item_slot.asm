@@ -1,7 +1,7 @@
 ; auto-generated
 init_item_slot:
     mov ax, 0xffb4
-    call aztec_csav
+    call $csav
     mov ax, 0
     push ax
     push word [bp + 6]

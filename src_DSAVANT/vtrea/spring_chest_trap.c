@@ -10,7 +10,7 @@ extern int load_message_string(), show_treasure_message();
 extern int announce_trap_sprung();
 extern int choose_random_party_segment();
 extern int random_below(), random_unexcluded_member();
-extern int aztec_setmem();
+extern int setmem();
 extern int damage_party_member(), inflict_member_status();
 extern int inflict_member_state();
 extern int draw_centered_character_message(), draw_party_member_panel();
@@ -37,7 +37,7 @@ int trap_type, trigger_member, trap_power;
 		show_treasure_message(message, treasure_message_row, 0, 1);
 		return;
 	}
-	aztec_setmem(excluded, 12, 0);
+	setmem(excluded, 12, 0);
 	for (member = 0; member < party_char_count; member++)
 		if (party_records[member].state >= 3)
 			excluded[member] = 1;

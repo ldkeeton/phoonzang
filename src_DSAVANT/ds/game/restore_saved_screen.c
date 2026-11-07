@@ -12,16 +12,16 @@ restore_saved_screen(n, flag)
 	int fd;
 
 	if (saved_screen_kind[n] == 3) {
-		if ((fd = aztec_open(saved_screen_file[n].name, 0)) == -1)
+		if ((fd = open(saved_screen_file[n].name, 0)) == -1)
 			release_and_exit(24);
 	} else
 		fd = 0;	/* in-memory save: driver ignores fd */
 	call_restore_screen(saved_screen_ref[n], flag, fd);
 	if (saved_screen_kind[n] == 3)
-		aztec_close(fd);
+		close(fd);
 	if (flag) {
 		if (saved_screen_kind[n] == 3)
-			aztec_unlink(saved_screen_file[n].name);
+			unlink(saved_screen_file[n].name);
 		saved_screen_kind[n] = -1;	/* slot free */
 	}
 }

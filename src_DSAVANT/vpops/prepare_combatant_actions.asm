@@ -1,7 +1,7 @@
 ; auto-generated
 prepare_combatant_actions:
     mov ax, 0xffdc                   ; 0x45f3
-    call aztec_csav                  ; 0x45f6
+    call $csav                  ; 0x45f6
     mov word [bp - 0x1e], 0          ; 0x45f9
     mov word [bp - 0x20], 0          ; 0x45fe
     mov word [bp - 0x22], 0          ; 0x4603
@@ -94,10 +94,10 @@ prepare_combatant_actions:
     add dx, cx                       ; 0x46de
     mov cx, word [bp - 0x20]         ; 0x46e0
     mov bx, word [bp - 0x1e]         ; 0x46e3
-    call aztec_ldv                   ; 0x46e6
+    call $ldv                   ; 0x46e6
     mov cx, 0x19                     ; 0x46e9
     mov bx, 0                        ; 0x46ec
-    call aztec_ldv                   ; 0x46ef
+    call $ldv                   ; 0x46ef
     push ax                          ; 0x46f2
     xchg dx, ax                      ; 0x46f3
     mov bx, 5                        ; 0x46f4
@@ -123,10 +123,10 @@ prepare_combatant_actions:
     add dx, cx                       ; 0x471d
     mov cx, word [bp - 0x24]         ; 0x471f
     mov bx, word [bp - 0x22]         ; 0x4722
-    call aztec_ldv                   ; 0x4725
+    call $ldv                   ; 0x4725
     mov cx, 0x19                     ; 0x4728
     mov bx, 0                        ; 0x472b
-    call aztec_ldv                   ; 0x472e
+    call $ldv                   ; 0x472e
     push ax                          ; 0x4731
     xchg dx, ax                      ; 0x4732
     mov bx, 5                        ; 0x4733

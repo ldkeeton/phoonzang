@@ -1,7 +1,7 @@
 ; auto-generated
 save_game_data:
     mov ax, 0xffb2                   ; 0x388c
-    call aztec_csav                  ; 0x388f
+    call $csav                  ; 0x388f
     mov word [bp - 0xe], 0           ; 0x3892
     mov ax, word [disk_header]       ; 0x3897
     mov word [bp - 0x10], ax         ; 0x389a
@@ -39,7 +39,7 @@ save_game_data:
     push ax                          ; 0x38e5
     lea ax, word [bp - 0x26]         ; 0x38e6
     push ax                          ; 0x38e9
-    call aztec_strcpy                ; 0x38ea
+    call strcpy                ; 0x38ea
     add sp, byte 4                   ; 0x38ed
     mov word [bp - 0xc], 0x591       ; 0x38f0
     jmp short .forward4              ; 0x38f5
@@ -48,7 +48,7 @@ save_game_data:
     push ax                          ; 0x38fa
     lea ax, word [bp - 0x26]         ; 0x38fb
     push ax                          ; 0x38fe
-    call aztec_strcpy                ; 0x38ff
+    call strcpy                ; 0x38ff
     add sp, byte 4                   ; 0x3902
     mov word [bp - 0xc], 0x582       ; 0x3905
 .forward4:
@@ -75,7 +75,7 @@ save_game_data:
     push ax                          ; 0x3936
     mov ax, selected_game_filename   ; 0x3937
     push ax                          ; 0x393a
-    call aztec_strcpy                ; 0x393b
+    call strcpy                ; 0x393b
     add sp, byte 4                   ; 0x393e
 .forward6:
     mov ax, 0x3a                     ; 0x3941
@@ -98,17 +98,17 @@ save_game_data:
     push ax                          ; 0x3968
     mov ax, game_load_path           ; 0x3969
     push ax                          ; 0x396c
-    call aztec_strcpy                ; 0x396d
+    call strcpy                ; 0x396d
     add sp, byte 4                   ; 0x3970
     mov ax, game_load_path           ; 0x3973
     push ax                          ; 0x3976
-    call aztec_strlen                ; 0x3977
+    call strlen                ; 0x3977
     pop cx                           ; 0x397a
     cmp ax, strict word 0            ; 0x397b
     jle short .forward7              ; 0x397e
     mov ax, game_load_path           ; 0x3980
     push ax                          ; 0x3983
-    call aztec_strlen                ; 0x3984
+    call strlen                ; 0x3984
     pop cx                           ; 0x3987
     dec ax                           ; 0x3988
     mov word [bp - 2], ax            ; 0x3989
@@ -122,7 +122,7 @@ save_game_data:
     push ax                          ; 0x39a2
     mov ax, game_load_path           ; 0x39a3
     push ax                          ; 0x39a6
-    call aztec_strcat                ; 0x39a7
+    call strcat                ; 0x39a7
     add sp, byte 4                   ; 0x39aa
     cmp byte [install_mode], 1       ; 0x39ad
     jne short .forward8              ; 0x39b2
@@ -130,7 +130,7 @@ save_game_data:
     push ax                          ; 0x39b7
     mov ax, game_data_drive          ; 0x39b8
     push ax                          ; 0x39bb
-    call aztec_strcmp                ; 0x39bc
+    call strcmp                ; 0x39bc
     add sp, byte 4                   ; 0x39bf
     test ax, ax                      ; 0x39c2
     jne short .forward8              ; 0x39c4
@@ -138,7 +138,7 @@ save_game_data:
 .forward8:
     mov ax, selected_game_drive      ; 0x39c9
     push ax                          ; 0x39cc
-    call aztec_strlen                ; 0x39cd
+    call strlen                ; 0x39cd
     pop cx                           ; 0x39d0
     cmp ax, strict word 0            ; 0x39d1
     jle short .forward12             ; 0x39d4
@@ -146,7 +146,7 @@ save_game_data:
     push ax                          ; 0x39d9
     mov ax, game_data_drive          ; 0x39da
     push ax                          ; 0x39dd
-    call aztec_strcmp                ; 0x39de
+    call strcmp                ; 0x39de
     add sp, byte 4                   ; 0x39e1
     test ax, ax                      ; 0x39e4
     je short .forward9               ; 0x39e6
@@ -204,7 +204,7 @@ save_game_data:
     push ax                          ; 0x3a60
     mov ax, game_load_path           ; 0x3a61
     push ax                          ; 0x3a64
-    call aztec_open                  ; 0x3a65
+    call open                  ; 0x3a65
     add sp, byte 4                   ; 0x3a68
     mov word [bp - 0xa], ax          ; 0x3a6b
     cmp ax, strict word 0xffff       ; 0x3a6e
@@ -290,7 +290,7 @@ save_game_data:
     shl ax, cl                       ; 0x3b20
     add ax, party_region + 0x2       ; 0x3b22
     push ax                          ; 0x3b25
-    call aztec_movmem                ; 0x3b26
+    call movmem                ; 0x3b26
     add sp, byte 6                   ; 0x3b29
 .forward18:
     mov ax, 0                        ; 0x3b2c
@@ -300,14 +300,14 @@ save_game_data:
     push dx                          ; 0x3b36
     push ax                          ; 0x3b37
     push word [bp - 0xa]             ; 0x3b38
-    call aztec_lseek                 ; 0x3b3b
+    call lseek                 ; 0x3b3b
     add sp, byte 8                   ; 0x3b3e
     mov ax, 0x34c                    ; 0x3b41
     push ax                          ; 0x3b44
     mov ax, scenario_header_data     ; 0x3b45
     push ax                          ; 0x3b48
     push word [bp - 0xa]             ; 0x3b49
-    call aztec_write                 ; 0x3b4c
+    call write                 ; 0x3b4c
     add sp, byte 6                   ; 0x3b4f
     mov word [bp - 8], ax            ; 0x3b52
     cmp ax, strict word 0            ; 0x3b55
@@ -317,7 +317,7 @@ save_game_data:
     call show_load_disk_error        ; 0x3b5e
     pop cx                           ; 0x3b61
     push word [bp - 0xa]             ; 0x3b62
-    call aztec_close                 ; 0x3b65
+    call close                 ; 0x3b65
     pop cx                           ; 0x3b68
     cmp word [bp - 0xe], byte 0      ; 0x3b69
     je short .forward19              ; 0x3b6d
@@ -341,7 +341,7 @@ save_game_data:
     push ax                          ; 0x3b96
     push word [maze_change_log]      ; 0x3b97
     push word [bp - 0xa]             ; 0x3b9b
-    call aztec_write                 ; 0x3b9e
+    call write                 ; 0x3b9e
     add sp, byte 6                   ; 0x3ba1
     mov word [bp - 8], ax            ; 0x3ba4
     cmp ax, strict word 0            ; 0x3ba7
@@ -351,7 +351,7 @@ save_game_data:
     call show_load_disk_error        ; 0x3bb0
     pop cx                           ; 0x3bb3
     push word [bp - 0xa]             ; 0x3bb4
-    call aztec_close                 ; 0x3bb7
+    call close                 ; 0x3bb7
     pop cx                           ; 0x3bba
     cmp word [bp - 0xe], byte 0      ; 0x3bbb
     je short .forward21              ; 0x3bbf
@@ -377,7 +377,7 @@ save_game_data:
     push ax                          ; 0x3bea
     push word [floor_items]          ; 0x3beb
     push word [bp - 0xa]             ; 0x3bef
-    call aztec_write                 ; 0x3bf2
+    call write                 ; 0x3bf2
     add sp, byte 6                   ; 0x3bf5
     mov word [bp - 8], ax            ; 0x3bf8
     cmp ax, strict word 0            ; 0x3bfb
@@ -387,7 +387,7 @@ save_game_data:
     call show_load_disk_error        ; 0x3c04
     pop cx                           ; 0x3c07
     push word [bp - 0xa]             ; 0x3c08
-    call aztec_close                 ; 0x3c0b
+    call close                 ; 0x3c0b
     pop cx                           ; 0x3c0e
     cmp word [bp - 0xe], byte 0      ; 0x3c0f
     je short .forward23              ; 0x3c13
@@ -442,7 +442,7 @@ save_game_data:
     mov ax, game_block_a             ; 0x3c7e
     push ax                          ; 0x3c81
     push word [bp - 0xa]             ; 0x3c82
-    call aztec_write                 ; 0x3c85
+    call write                 ; 0x3c85
     add sp, byte 6                   ; 0x3c88
     mov word [bp - 8], ax            ; 0x3c8b
     cmp ax, strict word 0            ; 0x3c8e
@@ -452,7 +452,7 @@ save_game_data:
     call show_load_disk_error        ; 0x3c97
     pop cx                           ; 0x3c9a
     push word [bp - 0xa]             ; 0x3c9b
-    call aztec_close                 ; 0x3c9e
+    call close                 ; 0x3c9e
     pop cx                           ; 0x3ca1
     cmp word [bp - 0xe], byte 0      ; 0x3ca2
     je short .forward25              ; 0x3ca6
@@ -473,7 +473,7 @@ save_game_data:
     mov ax, game_block_b             ; 0x3cc4
     push ax                          ; 0x3cc7
     push word [bp - 0xa]             ; 0x3cc8
-    call aztec_write                 ; 0x3ccb
+    call write                 ; 0x3ccb
     add sp, byte 6                   ; 0x3cce
     mov word [bp - 8], ax            ; 0x3cd1
     cmp ax, strict word 0            ; 0x3cd4
@@ -483,7 +483,7 @@ save_game_data:
     call show_load_disk_error        ; 0x3cdd
     pop cx                           ; 0x3ce0
     push word [bp - 0xa]             ; 0x3ce1
-    call aztec_close                 ; 0x3ce4
+    call close                 ; 0x3ce4
     pop cx                           ; 0x3ce7
     cmp word [bp - 0xe], byte 0      ; 0x3ce8
     je short .forward27              ; 0x3cec
@@ -576,7 +576,7 @@ save_game_data:
     mov ax, loaded_game_state        ; 0x3de3
     push ax                          ; 0x3de6
     push word [bp - 0xa]             ; 0x3de7
-    call aztec_write                 ; 0x3dea
+    call write                 ; 0x3dea
     add sp, byte 6                   ; 0x3ded
     mov word [bp - 8], ax            ; 0x3df0
     cmp ax, strict word 0            ; 0x3df3
@@ -586,7 +586,7 @@ save_game_data:
     call show_load_disk_error        ; 0x3dfc
     pop cx                           ; 0x3dff
     push word [bp - 0xa]             ; 0x3e00
-    call aztec_close                 ; 0x3e03
+    call close                 ; 0x3e03
     pop cx                           ; 0x3e06
     cmp word [bp - 0xe], byte 0      ; 0x3e07
     je short .forward30              ; 0x3e0b
@@ -607,7 +607,7 @@ save_game_data:
     mov ax, path_edges               ; 0x3e29
     push ax                          ; 0x3e2c
     push word [bp - 0xa]             ; 0x3e2d
-    call aztec_write                 ; 0x3e30
+    call write                 ; 0x3e30
     add sp, byte 6                   ; 0x3e33
     mov word [bp - 8], ax            ; 0x3e36
     mov ax, 0x90                     ; 0x3e39
@@ -615,7 +615,7 @@ save_game_data:
     mov ax, faction_attitudes        ; 0x3e3d
     push ax                          ; 0x3e40
     push word [bp - 0xa]             ; 0x3e41
-    call aztec_write                 ; 0x3e44
+    call write                 ; 0x3e44
     add sp, byte 6                   ; 0x3e47
     mov word [bp - 8], ax            ; 0x3e4a
     mov ax, 0x68                     ; 0x3e4d
@@ -623,7 +623,7 @@ save_game_data:
     mov ax, location_records         ; 0x3e51
     push ax                          ; 0x3e54
     push word [bp - 0xa]             ; 0x3e55
-    call aztec_write                 ; 0x3e58
+    call write                 ; 0x3e58
     add sp, byte 6                   ; 0x3e5b
     mov word [bp - 8], ax            ; 0x3e5e
     mov ax, 0x14a                    ; 0x3e61
@@ -631,7 +631,7 @@ save_game_data:
     mov ax, slot_event_logs          ; 0x3e65
     push ax                          ; 0x3e68
     push word [bp - 0xa]             ; 0x3e69
-    call aztec_write                 ; 0x3e6c
+    call write                 ; 0x3e6c
     add sp, byte 6                   ; 0x3e6f
     mov word [bp - 8], ax            ; 0x3e72
     mov ax, 0x344                    ; 0x3e75
@@ -639,7 +639,7 @@ save_game_data:
     mov ax, slot_records             ; 0x3e79
     push ax                          ; 0x3e7c
     push word [bp - 0xa]             ; 0x3e7d
-    call aztec_write                 ; 0x3e80
+    call write                 ; 0x3e80
     add sp, byte 6                   ; 0x3e83
     mov word [bp - 8], ax            ; 0x3e86
     mov ax, 0x42                     ; 0x3e89
@@ -647,7 +647,7 @@ save_game_data:
     mov ax, quest_maps               ; 0x3e8d
     push ax                          ; 0x3e90
     push word [bp - 0xa]             ; 0x3e91
-    call aztec_write                 ; 0x3e94
+    call write                 ; 0x3e94
     add sp, byte 6                   ; 0x3e97
     mov word [bp - 8], ax            ; 0x3e9a
     cmp ax, strict word 0            ; 0x3e9d
@@ -657,7 +657,7 @@ save_game_data:
     call show_load_disk_error        ; 0x3ea6
     pop cx                           ; 0x3ea9
     push word [bp - 0xa]             ; 0x3eaa
-    call aztec_close                 ; 0x3ead
+    call close                 ; 0x3ead
     pop cx                           ; 0x3eb0
     cmp word [bp - 0xe], byte 0      ; 0x3eb1
     je short .forward32              ; 0x3eb5
@@ -678,7 +678,7 @@ save_game_data:
     mov ax, code_characters          ; 0x3ed3
     push ax                          ; 0x3ed6
     push word [bp - 0xa]             ; 0x3ed7
-    call aztec_write                 ; 0x3eda
+    call write                 ; 0x3eda
     add sp, byte 6                   ; 0x3edd
     mov word [bp - 8], ax            ; 0x3ee0
     cmp ax, strict word 0            ; 0x3ee3
@@ -688,7 +688,7 @@ save_game_data:
     call show_load_disk_error        ; 0x3eec
     pop cx                           ; 0x3eef
     push word [bp - 0xa]             ; 0x3ef0
-    call aztec_close                 ; 0x3ef3
+    call close                 ; 0x3ef3
     pop cx                           ; 0x3ef6
     cmp word [bp - 0xe], byte 0      ; 0x3ef7
     je short .forward34              ; 0x3efb
@@ -722,7 +722,7 @@ save_game_data:
     mov ax, loaded_party_member      ; 0x3f39
     push ax                          ; 0x3f3c
     push word [bp - 0xa]             ; 0x3f3d
-    call aztec_write                 ; 0x3f40
+    call write                 ; 0x3f40
     add sp, byte 6                   ; 0x3f43
     mov word [bp - 8], ax            ; 0x3f46
     cmp ax, strict word 0            ; 0x3f49
@@ -732,7 +732,7 @@ save_game_data:
     call show_load_disk_error        ; 0x3f52
     pop cx                           ; 0x3f55
     push word [bp - 0xa]             ; 0x3f56
-    call aztec_close                 ; 0x3f59
+    call close                 ; 0x3f59
     pop cx                           ; 0x3f5c
     cmp word [bp - 0xe], byte 0      ; 0x3f5d
     je short .forward36              ; 0x3f61
@@ -754,7 +754,7 @@ save_game_data:
     cmp ax, word [party_char_count]  ; 0x3f81
     jl short .back3                  ; 0x3f85
     push word [bp - 0xa]             ; 0x3f87
-    call aztec_close                 ; 0x3f8a
+    call close                 ; 0x3f8a
     pop cx                           ; 0x3f8d
     cmp word [bp - 0xe], byte 0      ; 0x3f8e
     je short .forward39              ; 0x3f92

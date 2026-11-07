@@ -1,7 +1,7 @@
 ; auto-generated
 draw_party_slot_letters:
     mov ax, 0xfff4
-    call aztec_csav
+    call $csav
     mov word [bp - 2], 0
 .back1:
     mov ax, 0x14

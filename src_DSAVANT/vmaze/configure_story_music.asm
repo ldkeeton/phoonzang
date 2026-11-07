@@ -1,7 +1,7 @@
 ; auto-generated
 configure_story_music:
     mov ax, 0                        ; 0x0b14
-    call aztec_csav                  ; 0x0b17
+    call $csav                  ; 0x0b17
     call stop_and_clear_maze_sounds  ; 0x0b1a
     cmp word [bp + 8], byte 0        ; 0x0b1d
     je short .forward1               ; 0x0b21

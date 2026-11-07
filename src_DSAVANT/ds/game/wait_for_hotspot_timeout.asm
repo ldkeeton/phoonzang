@@ -1,7 +1,7 @@
 ; auto-generated
 wait_for_hotspot_timeout:
     mov ax, 0xfffc                   ; 0x09a5
-    call aztec_csav                  ; 0x09a8
+    call $csav                  ; 0x09a8
     mov ax, word [bp + 4]            ; 0x09ab
     cwd                              ; 0x09ae
     les bx, word [tick_counter_ptr]  ; 0x09af

@@ -1,7 +1,7 @@
 ; auto-generated
 find_object_at:
     mov ax, 0xfffe
-    call aztec_csav
+    call $csav
     mov ax, word [bp + 0xa]
     mov word [bp - 2], ax
     jmp short .forward3

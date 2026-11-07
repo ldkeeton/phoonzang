@@ -1,7 +1,7 @@
 ; auto-generated
 draw_char_clipped_top:
     mov ax, 0xfff6                   ; 0x737d
-    call aztec_csav                  ; 0x7380
+    call $csav                  ; 0x7380
     mov al, byte [bp + 6]            ; 0x7383
     mov byte [bp - 0xa], al          ; 0x7386
     mov byte [bp - 9], 0             ; 0x7389

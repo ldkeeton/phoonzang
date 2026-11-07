@@ -1,7 +1,7 @@
 ; auto-generated
 update_maze_refresh_timer:
     mov ax, 0                        ; 0x0ea6
-    call aztec_csav                  ; 0x0ea9
+    call $csav                  ; 0x0ea9
     les bx, word [tick_counter_ptr]  ; 0x0eac
     mov ax, word [es:bx]             ; 0x0eb0
     mov dx, word [es:bx + 2]         ; 0x0eb3

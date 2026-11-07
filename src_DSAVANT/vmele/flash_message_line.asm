@@ -1,7 +1,7 @@
 ; auto-generated
 flash_message_line:
     mov ax, 0xfff8                   ; 0x0164
-    call aztec_csav                  ; 0x0167
+    call $csav                  ; 0x0167
     mov ax, 6                        ; 0x016a
     imul word [bp + 6]               ; 0x016d
     add ax, 0x98                     ; 0x0170
@@ -17,7 +17,7 @@ flash_message_line:
     call call_show_area              ; 0x0186
     add sp, byte 8                   ; 0x0189
     push word [bp + 4]               ; 0x018c
-    call aztec_strlen                ; 0x018f
+    call strlen                ; 0x018f
     pop cx                           ; 0x0192
     mov cx, 6                        ; 0x0193
     imul cx                          ; 0x0196
@@ -29,7 +29,7 @@ flash_message_line:
     sub ax, cx                       ; 0x01a3
     mov word [bp - 2], ax            ; 0x01a5
     push word [bp + 4]               ; 0x01a8
-    call aztec_strlen                ; 0x01ab
+    call strlen                ; 0x01ab
     pop cx                           ; 0x01ae
     mov cx, 6                        ; 0x01af
     imul cx                          ; 0x01b2

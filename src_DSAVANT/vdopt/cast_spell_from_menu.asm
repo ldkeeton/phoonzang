@@ -1,7 +1,7 @@
 ; auto-generated
 cast_spell_from_menu:
     mov ax, 0xfffc                   ; 0x45dd
-    call aztec_csav                  ; 0x45e0
+    call $csav                  ; 0x45e0
     mov word [party_redraw_interval], 5 ; 0x45e3
     mov ax, 1                        ; 0x45e9
     push ax                          ; 0x45ec

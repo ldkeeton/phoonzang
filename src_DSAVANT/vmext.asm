@@ -22,7 +22,7 @@ IMAGE_BASE equ 0x000e + VBASE
     dw __zdseg_end                           ; 0x9098 ; o_dorg: data load origin (memory offset)
     dw (__zimage_end - __zdata_start)        ; 0x00e8 ; o_dsize: initialized data size
     dw __zobss_end - __zimage_end            ; 0x099c ; o_bss: uninitialized data size
-    dw aztec_ovbgn - IMAGE_BASE + __zres_end ; 0xa262 ; o_entry: overlay entry offset (CS)
+    dw $ovbgn - IMAGE_BASE + __zres_end ; 0xa262 ; o_entry: overlay entry offset (CS)
 
 __zcode_start:
 variant_1_maze_filename equ __zdseg_end + (__zvariant_1_maze_filename - __zdata_start)
@@ -206,12 +206,12 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "shared/ovr/redraw_maze_view.asm"      ; 0x51fb
 
-%include "shared/ovr/aztec_ovbgn.asm"           ; 0x521b
+%include ".cache/c.lib/shared/ovr/ovbgn.asm"           ; 0x521b
 
 __zdata_start:
 %include "shared/data/maze_variant_filenames.asm" ; 0x5259
 
-%include "shared/ovr/aztec_ovbgn.data.asm"      ; 0x5337
+%include ".cache/c.lib/shared/ovr/ovbgn.data.asm"      ; 0x5337
 
 
 __zimage_end:

@@ -1,14 +1,14 @@
 ; auto-generated
 negotiate_with_npc:
     mov ax, 0xff2e                   ; 0x631e
-    call aztec_csav                  ; 0x6321
+    call $csav                  ; 0x6321
     mov ax, 0x248                    ; 0x6324
     imul word [bp + 4]               ; 0x6327
     add ax, party_records            ; 0x632a
     push ax                          ; 0x632d
     lea ax, word [bp - 0xc4]         ; 0x632e
     push ax                          ; 0x6332
-    call aztec_strcpy                ; 0x6333
+    call strcpy                ; 0x6333
     add sp, byte 4                   ; 0x6336
     lea ax, word [bp - 0xce]         ; 0x6339
     push ax                          ; 0x633d
@@ -197,7 +197,7 @@ negotiate_with_npc.forward12:
     sbb word [bx + party_records + pc_rec.gold + 0x2], dx ; 0x6503
     mov cx, 0xa                      ; 0x6507
     mov bx, 0                        ; 0x650a
-    call aztec_ldv                   ; 0x650d
+    call $ldv                   ; 0x650d
     push ax                          ; 0x6510
     push dx                          ; 0x6511
     mov al, byte [npc_level]         ; 0x6512
@@ -207,7 +207,7 @@ negotiate_with_npc.forward12:
     mov bx, dx                       ; 0x651a
     pop dx                           ; 0x651c
     pop ax                           ; 0x651d
-    call aztec_ldv                   ; 0x651e
+    call $ldv                   ; 0x651e
     add word [bp - 2], ax            ; 0x6521
     mov ax, 0                        ; 0x6524
     push ax                          ; 0x6527
@@ -215,14 +215,14 @@ negotiate_with_npc.forward12:
     mov dx, word [bp - 0xd0]         ; 0x652c
     mov cx, 0x100                    ; 0x6530
     mov bx, 0                        ; 0x6533
-    call aztec_lrm                   ; 0x6536
+    call $lrm                   ; 0x6536
     sub ah, ah                       ; 0x6539
     push ax                          ; 0x653b
     mov ax, word [bp - 0xd2]         ; 0x653c
     mov dx, word [bp - 0xd0]         ; 0x6540
     mov cx, 0x100                    ; 0x6544
     mov bx, 0                        ; 0x6547
-    call aztec_ldv                   ; 0x654a
+    call $ldv                   ; 0x654a
     push ax                          ; 0x654d
     mov ax, 2                        ; 0x654e
     push ax                          ; 0x6551

@@ -14,7 +14,7 @@ extern long call_save_area();
 extern int call_fill_area(), call_restore_area(), call_show_area();
 extern int draw_item_slot_label(), draw_font_glyph();
 extern int call_set_text_color(), call_set_text_pos();
-extern int flush_keyboard(), clamp_between(), aztec_strcpy(), app_memmove();
+extern int flush_keyboard(), clamp_between(), strcpy(), app_memmove();
 extern int draw_selected_item_list_entry();
 
 pick_up_inventory_entry(member_index, entry_index, slot, label, color,
@@ -71,7 +71,7 @@ char *label;
 			selected_item_list_index = -1;
 		else {
 			selected_item_list_index = cell_index;
-			aztec_strcpy(selected_item_list_text, label);
+			strcpy(selected_item_list_text, label);
 			selected_item_list_glyph = slot->glyph;
 			selected_item_type = slot->item_type;
 			selected_item_count = slot->level;

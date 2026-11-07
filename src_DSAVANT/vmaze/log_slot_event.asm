@@ -1,7 +1,7 @@
 ; auto-generated
 log_slot_event:
     mov ax, 0xfffe                   ; 0x93ab
-    call aztec_csav                  ; 0x93ae
+    call $csav                  ; 0x93ae
     mov word [bp - 2], 0             ; 0x93b1
 .back1:
     mov ax, 0xf                      ; 0x93b6

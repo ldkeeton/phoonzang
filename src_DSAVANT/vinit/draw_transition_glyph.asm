@@ -1,7 +1,7 @@
 ; auto-generated
 draw_transition_glyph:
     mov ax, 0xfff2                   ; 0x09d3
-    call aztec_csav                  ; 0x09d6
+    call $csav                  ; 0x09d6
     mov al, byte [bp + 4]            ; 0x09d9
     mov byte [bp - 0xe], al          ; 0x09dc
     mov byte [bp - 0xd], 0           ; 0x09df

@@ -28,6 +28,6 @@ char *text;
 	overlay_list.items[pos]->clip_right = clip_right;
 	overlay_list.items[pos]->variant = variant;
 	overlay_list.items[pos]->flag = flag;
-	aztec_strcpy(overlay_list.items[pos]->text, text);
+	strcpy(overlay_list.items[pos]->text, text);
 	++overlay_list.count;
 }

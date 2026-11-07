@@ -1,7 +1,7 @@
 ; auto-generated
 apply_text_control_codes:
     mov ax, 0xfff6                   ; 0x93e7
-    call aztec_csav                  ; 0x93ea
+    call $csav                  ; 0x93ea
     mov ax, word [bp + 4]            ; 0x93ed
     mov word [bp - 0xa], ax          ; 0x93f0
     mov word [bp - 6], 0             ; 0x93f3
@@ -79,7 +79,7 @@ apply_text_control_codes:
     shl ax, cl                       ; 0x94a0
     add ax, text_line_buffer         ; 0x94a2
     push ax                          ; 0x94a5
-    call aztec_strcpy                ; 0x94a6
+    call strcpy                ; 0x94a6
     add sp, byte 4                   ; 0x94a9
     mov ax, word [text_line_index]   ; 0x94ac
     shl ax, 1                        ; 0x94af
@@ -170,6 +170,6 @@ apply_text_control_codes:
 .forward13:
     push word [bp - 0xa]             ; 0x957a
     push word [bp + 4]               ; 0x957d
-    call aztec_strcpy                ; 0x9580
+    call strcpy                ; 0x9580
     add sp, byte 4                   ; 0x9583
     ret                              ; 0x9586

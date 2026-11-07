@@ -1,7 +1,7 @@
 ; auto-generated
 pick_group_target_unit:
     mov ax, 0xfff4                   ; 0x178a
-    call aztec_csav                  ; 0x178d
+    call $csav                  ; 0x178d
     mov word [bp - 0xc], 1           ; 0x1790
     mov word [bp - 6], 0             ; 0x1795
     jmp short .forward2              ; 0x179a

@@ -1,7 +1,7 @@
 ; auto-generated
 pick_spell_dialog:
     mov ax, 0xffbc
-    call aztec_csav
+    call $csav
     mov word [bp - 2], 0
 .back1:
     mov ax, word [bp - 2]

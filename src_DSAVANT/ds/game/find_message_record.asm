@@ -1,7 +1,7 @@
 ; auto-generated
 find_message_record:
     mov ax, 0xfff8                   ; 0x065d
-    call aztec_csav                  ; 0x0660
+    call $csav                  ; 0x0660
     mov ax, word [message_directory] ; 0x0663
     dec ax                           ; 0x0666
     mov word [bp - 4], ax            ; 0x0667

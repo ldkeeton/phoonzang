@@ -10,8 +10,8 @@ extern int cell_slot_ref[][3];				/* cells: group*10 + unit, 0 free */
 extern int message_delay;
 extern char space_text[];		/* single space between count and name */
 extern tick_combatant(), redraw_glyph_strip(),
-	wait_ticks_with_events(), format_int_decimal(), aztec_strcat(),
-	aztec_strlen(), load_message_string(), show_centered_message(),
+	wait_ticks_with_events(), format_int_decimal(), strcat(),
+	strlen(), load_message_string(), show_centered_message(),
 	titlecase_string();
 
 tick_monster_group(group)
@@ -49,13 +49,13 @@ int group;
 			buf[0] = 0;		/* lone monster: leave out the count */
 		else {
 			format_int_decimal(fired, buf);
-			aztec_strcat(buf, space_text);
+			strcat(buf, space_text);
 		}
 		/* 32-byte name row: +0 singular, +16 plural */
-		aztec_strcat(buf, battle_group_ext[group]->name
+		strcat(buf, battle_group_ext[group]->name
 			[battle_groups[group]->unidentified][fired == 1 ? 0 : 1]);
 		titlecase_string(buf);
-		len = aztec_strlen(buf);
+		len = strlen(buf);
 		buf[len] = ' ';
 		load_message_string(MSG_DIED, buf + len + 1);
 		show_centered_message(buf, 17);			/* 17: its message sound */

@@ -1,7 +1,7 @@
 ; auto-generated
 show_message:
     mov ax, 0xffb0
-    call aztec_csav
+    call $csav
     lea ax, word [bp - 0x50]
     push ax
     push word [bp + 4]

@@ -1,7 +1,7 @@
 ; auto-generated
 rotate_npc_text_lines:
     mov ax, 0xfffe                   ; 0x0dc3
-    call aztec_csav                  ; 0x0dc6
+    call $csav                  ; 0x0dc6
     mov word [bp - 2], 0             ; 0x0dc9
 .back1:
     mov ax, word [bp - 2]            ; 0x0dce
@@ -13,7 +13,7 @@ rotate_npc_text_lines:
     shl ax, cl                       ; 0x0ddd
     add ax, text_line_buffer         ; 0x0ddf
     push ax                          ; 0x0de2
-    call aztec_strcpy                ; 0x0de3
+    call strcpy                ; 0x0de3
     add sp, byte 4                   ; 0x0de6
     mov ax, word [bp - 2]            ; 0x0de9
     shl ax, 1                        ; 0x0dec

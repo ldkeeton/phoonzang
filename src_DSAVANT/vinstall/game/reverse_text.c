@@ -1,5 +1,5 @@
 /* Reverse a null-terminated string in place. */
-extern int aztec_strlen();
+extern int strlen();
 
 reverse_text(text)
 char *text;
@@ -9,7 +9,7 @@ char *text;
 	register int first;
 
 	/* Move inward from both ends, swapping each pair of characters. */
-	for (first = 0, last = aztec_strlen(text) - 1; first < last;
+	for (first = 0, last = strlen(text) - 1; first < last;
 	    first++, last--) {
 		current = text[first];
 		text[first] = text[last];

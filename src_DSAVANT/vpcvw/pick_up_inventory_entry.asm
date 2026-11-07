@@ -1,7 +1,7 @@
 ; auto-generated
 pick_up_inventory_entry:
     mov ax, 0xffee                   ; 0x0a96
-    call aztec_csav                  ; 0x0a99
+    call $csav                  ; 0x0a99
     mov word [selected_item_list_index], 0xffff ; 0x0a9c
     mov ax, word [bp + 6]            ; 0x0aa2
     push ax                          ; 0x0aa5
@@ -213,7 +213,7 @@ pick_up_inventory_entry:
     push word [bp + 0xa]             ; 0x0c8e
     mov ax, selected_item_list_text  ; 0x0c91
     push ax                          ; 0x0c94
-    call aztec_strcpy                ; 0x0c95
+    call strcpy                ; 0x0c95
     add sp, byte 4                   ; 0x0c98
     mov bx, word [bp + 8]            ; 0x0c9b
     mov al, byte [bx + 5]            ; 0x0c9e

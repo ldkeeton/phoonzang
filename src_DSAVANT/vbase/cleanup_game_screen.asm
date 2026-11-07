@@ -1,7 +1,7 @@
 ; auto-generated
 cleanup_game_screen:
     mov ax, 0xfffe                   ; 0x6800
-    call aztec_csav                  ; 0x6803
+    call $csav                  ; 0x6803
     cmp word [saved_screen_pending], byte 0 ; 0x6806
     je short .forward1               ; 0x680b
     mov ax, 1                        ; 0x680d

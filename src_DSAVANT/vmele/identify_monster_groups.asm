@@ -1,7 +1,7 @@
 ; auto-generated
 identify_monster_groups:
     mov ax, 0xfffa                   ; 0x1713
-    call aztec_csav                  ; 0x1716
+    call $csav                  ; 0x1716
     mov word [bp - 2], 1             ; 0x1719
     jmp near .forward4               ; 0x171e
 .back1:

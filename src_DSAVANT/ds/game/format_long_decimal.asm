@@ -1,7 +1,7 @@
 ; auto-generated
 format_long_decimal:
     mov ax, 0xfffa                   ; 0x0422
-    call aztec_csav                  ; 0x0425
+    call $csav                  ; 0x0425
     mov ax, word [bp + 4]            ; 0x0428
     mov dx, word [bp + 6]            ; 0x042b
     mov word [bp - 4], dx            ; 0x042e
@@ -26,7 +26,7 @@ format_long_decimal:
     mov dx, word [bp + 6]            ; 0x0457
     mov cx, 0xa                      ; 0x045a
     mov bx, 0                        ; 0x045d
-    call aztec_lrm                   ; 0x0460
+    call $lrm                   ; 0x0460
     add ax, strict word 0x30         ; 0x0463
     adc dx, byte 0                   ; 0x0466
     mov si, word [bp - 2]            ; 0x0469
@@ -37,7 +37,7 @@ format_long_decimal:
     mov dx, word [bp + 6]            ; 0x0477
     mov cx, 0xa                      ; 0x047a
     mov bx, 0                        ; 0x047d
-    call aztec_ldv                   ; 0x0480
+    call $ldv                   ; 0x0480
     mov word [bp + 6], dx            ; 0x0483
     mov word [bp + 4], ax            ; 0x0486
     cmp dx, byte 0                   ; 0x0489

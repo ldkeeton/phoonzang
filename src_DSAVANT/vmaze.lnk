@@ -141,4 +141,4 @@ vmaze/data/maze_temp_filename
 shared/data/maze_variant_filenames
 vmaze/data/maze_message_control_code_table
 vmaze/data/maze_message_word_separator
-shared/ovr/aztec_ovbgn
+ovbgn.o

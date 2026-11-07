@@ -1,7 +1,7 @@
 ; auto-generated
 show_previous_party_position:
     mov ax, 0xfff6                   ; 0x0b8c
-    call aztec_csav                  ; 0x0b8f
+    call $csav                  ; 0x0b8f
     mov ax, word [party_world_x]     ; 0x0b92
     mov word [bp - 2], ax            ; 0x0b95
     mov ax, word [party_world_y]     ; 0x0b98

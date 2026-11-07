@@ -1,7 +1,7 @@
 ; auto-generated
 advance_action_slots:
     mov ax, 0xfff2
-    call aztec_csav
+    call $csav
     mov bx, word [bp + 0xe]
     mov byte [bx], 0
     mov ax, word [bp + 4]

@@ -32,7 +32,7 @@ unsigned char *src;
 			}
 		}
 	}
-	aztec_setmem(color_map, 512, 255);
+	setmem(color_map, 512, 255);
 	for (color = 0; color < 256; color++) {
 		red = palette[color][0] / 8;	/* top 3 bits of each component */
 		green = palette[color][1] / 8;

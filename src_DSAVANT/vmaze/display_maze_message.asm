@@ -1,7 +1,7 @@
 ; auto-generated
 display_maze_message:
     mov ax, 0                        ; 0x21e3
-    call aztec_csav                  ; 0x21e6
+    call $csav                  ; 0x21e6
     mov ax, 0x98                     ; 0x21e9
     push ax                          ; 0x21ec
     mov ax, 0x13f                    ; 0x21ed

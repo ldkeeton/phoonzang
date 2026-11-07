@@ -1,7 +1,7 @@
 ; auto-generated
 damage_range_with_status:
     mov ax, 0xfff2                   ; 0x2a8b
-    call aztec_csav                  ; 0x2a8e
+    call $csav                  ; 0x2a8e
     mov word [combat_message_layout], 4 ; 0x2a91
     cmp word [bp + 0x10], byte 0     ; 0x2a97
     jle short .forward1              ; 0x2a9b

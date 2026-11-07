@@ -1,7 +1,7 @@
 ; auto-generated
 apply_region_event_to_party:
     mov ax, 0xff8c                   ; 0x78ed
-    call aztec_csav                  ; 0x78f0
+    call $csav                  ; 0x78f0
     mov ax, word [party_region]      ; 0x78f3
     shl ax, 1                        ; 0x78f6
     mov si, ax                       ; 0x78f8
@@ -104,7 +104,7 @@ apply_region_event_to_party:
     add sp, byte 4                   ; 0x79e9
     lea ax, word [bp - 0x74]         ; 0x79ec
     push ax                          ; 0x79ef
-    call aztec_strlen                ; 0x79f0
+    call strlen                ; 0x79f0
     pop cx                           ; 0x79f3
     mov cx, 6                        ; 0x79f4
     imul cx                          ; 0x79f7
@@ -136,7 +136,7 @@ apply_region_event_to_party:
     push ax                          ; 0x7a35
     lea ax, word [bp - 0x74]         ; 0x7a36
     push ax                          ; 0x7a39
-    call aztec_strlen                ; 0x7a3a
+    call strlen                ; 0x7a3a
     pop cx                           ; 0x7a3d
     mov cx, 6                        ; 0x7a3e
     imul cx                          ; 0x7a41

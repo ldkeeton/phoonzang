@@ -1,7 +1,7 @@
 ; auto-generated
 refresh_configuration_button:
     mov ax, 0                        ; 0x47bb
-    call aztec_csav                  ; 0x47be
+    call $csav                  ; 0x47be
     mov ax, 0x16                     ; 0x47c1
     push ax                          ; 0x47c4
     mov ax, word [bp + 6]            ; 0x47c5

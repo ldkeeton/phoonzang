@@ -1,7 +1,7 @@
 ; auto-generated
 summon_monster_group:
     mov ax, 0xfe52                   ; 0x3620
-    call aztec_csav                  ; 0x3623
+    call $csav                  ; 0x3623
     mov ax, word [startup_option]    ; 0x3626
     mov cx, 2                        ; 0x3629
     cwd                              ; 0x362c
@@ -62,7 +62,7 @@ summon_monster_group:
     shl ax, 1                        ; 0x36ac
     mov bx, ax                       ; 0x36ae
     push word [bx + battle_groups]   ; 0x36b0
-    call aztec_setmem                ; 0x36b4
+    call setmem                ; 0x36b4
     add sp, byte 6                   ; 0x36b7
     mov word [bp - 0x1ac], 0         ; 0x36ba
 .back1:
@@ -416,7 +416,7 @@ summon_monster_group.forward16:
     push ax                          ; 0x3a2c
     mov ax, combat_action_message_buffer ; 0x3a2d
     push ax                          ; 0x3a30
-    call aztec_strcpy                ; 0x3a31
+    call strcpy                ; 0x3a31
     add sp, byte 4                   ; 0x3a34
     mov ax, combat_action_suffix_buffer ; 0x3a37
     push ax                          ; 0x3a3a

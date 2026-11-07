@@ -15,8 +15,8 @@ int background, foreground;
 		load_message_string(label_msg, label_text);
 		format_int_decimal(first, first_text);
 		format_int_decimal(second, second_text);
-		width = aztec_strlen(label_text) + aztec_strlen(first_text)
-			+ aztec_strlen(middle) + aztec_strlen(second_text) + aztec_strlen(ending)
+		width = strlen(label_text) + strlen(first_text)
+			+ strlen(middle) + strlen(second_text) + strlen(ending)
 			+ 1;
 		call_fill_area(x, y, x + 6 * width - 2, y + 4, background);
 		call_set_text_pos(x, y);

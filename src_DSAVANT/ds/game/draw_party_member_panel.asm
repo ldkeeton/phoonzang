@@ -1,7 +1,7 @@
 ; auto-generated
 draw_party_member_panel:
     mov ax, 0xffc6                   ; 0x1d81
-    call aztec_csav                  ; 0x1d84
+    call $csav                  ; 0x1d84
     mov ax, 0                        ; 0x1d87
     push ax                          ; 0x1d8a
     mov ax, word [bp + 4]            ; 0x1d8b

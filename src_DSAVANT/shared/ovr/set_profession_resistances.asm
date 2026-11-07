@@ -1,7 +1,7 @@
 ; auto-generated
 set_profession_resistances:
     mov ax, 0xfffa
-    call aztec_csav
+    call $csav
     mov word [bp - 2], 0
 .back1:
     mov ax, 0x248

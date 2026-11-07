@@ -1,7 +1,7 @@
 ; auto-generated
 set_cell_wall:
     mov ax, 0xfff6                   ; 0x7ce5
-    call aztec_csav                  ; 0x7ce8
+    call $csav                  ; 0x7ce8
     mov bx, word [maze_data]         ; 0x7ceb
     mov si, word [bp + 8]            ; 0x7cef
     mov al, byte [bx + si + 0x490]   ; 0x7cf2

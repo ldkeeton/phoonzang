@@ -1,7 +1,7 @@
 ; auto-generated
 redraw_maze_view:
     mov ax, 0
-    call aztec_csav
+    call $csav
     call draw_first_person_maze_view
     mov ax, 0x8f
     push ax

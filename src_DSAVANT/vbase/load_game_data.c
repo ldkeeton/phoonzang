@@ -38,7 +38,7 @@ extern char path_edges[], faction_attitudes[],
 extern char slot_records[], quest_maps[], code_characters[];
 extern int party_char_count, member_icon[];
 extern char *data_file_path();
-extern long aztec_lseek();
+extern long lseek();
 
 load_game_data(load_mode)
 int load_mode;
@@ -58,7 +58,7 @@ int load_mode;
 	keep_disk = 1;
 	if (load_mode == 0 || load_mode == 2) { /* default data, including import */
 		intro_screen_number = 4;
-		aztec_strcpy(game_load_path, data_file_path(default_game_data_name, 1));
+		strcpy(game_load_path, data_file_path(default_game_data_name, 1));
 	} else {
 		intro_screen_number = 0;
 		if (choose_game_file(MSG_LOAD_SAVEGAME_1400, 0, 1, 1,
@@ -67,19 +67,19 @@ int load_mode;
 		copy_through_char(game_data_drive, data_path_prefixes,
 			':');	/* drive delimiter */
 		copy_through_char(selected_game_drive, selected_game_directory, ':');
-		aztec_strcpy(game_load_path, selected_game_directory);
-		if (aztec_strlen(game_load_path) > 0) {
-			index = aztec_strlen(game_load_path) - 1;
+		strcpy(game_load_path, selected_game_directory);
+		if (strlen(game_load_path) > 0) {
+			index = strlen(game_load_path) - 1;
 			if (game_load_path[index] != '\\') {
 				game_load_path[index + 1] = '\\';
 				game_load_path[index + 2] = 0;
 			}
 		}
-		aztec_strcat(game_load_path, selected_game_filename);
+		strcat(game_load_path, selected_game_filename);
 		if (install_mode == 1
-			&& !aztec_strcmp(game_data_drive, selected_game_drive)) {
-		} else if (aztec_strlen(selected_game_drive) > 0) {
-			if (!aztec_strcmp(game_data_drive, selected_game_drive)
+			&& !strcmp(game_data_drive, selected_game_drive)) {
+		} else if (strlen(selected_game_drive) > 0) {
+			if (!strcmp(game_data_drive, selected_game_drive)
 				|| install_mode == 5)
 				swap_needed = 1;
 			prompt_disk_swap(selected_game_drive, -1, swap_needed, 0);
@@ -92,7 +92,7 @@ int load_mode;
 	}
 	if (load_mode != 2)
 		call_show_area(0, 0, 319, 199);
-	if ((fd = aztec_open(game_load_path, 0)) == -1) {
+	if ((fd = open(game_load_path, 0)) == -1) {
 		show_load_disk_error(error_text);
 		if (swap_needed)
 			prompt_disk_swap(game_data_drive, disk_number, keep_disk, 1);
@@ -104,21 +104,21 @@ int load_mode;
 		draw_message_box(loading_text, 3, 97, 36, 18, 13, 1);
 	}
 	preserved_load_header = scenario_header_data;
-	aztec_lseek(fd, 0L, 0);
-	read_count = aztec_read(fd, &scenario_header_data, 844);
+	lseek(fd, 0L, 0);
+	read_count = read(fd, &scenario_header_data, 844);
 	if (read_count <= 0) { /* reject failed or empty reads */
 		show_load_disk_error(error_text);
-		aztec_close(fd);
+		close(fd);
 		if (swap_needed)
 			prompt_disk_swap(game_data_drive, disk_number, keep_disk, 1);
 		return -1;
 	}
 	for (index = 0; index < 4; index++)
 		/* preserve all four path/option entries */
-		aztec_strcpy(data_path_prefixes[index], preserved_load_header.paths[index]);
+		strcpy(data_path_prefixes[index], preserved_load_header.paths[index]);
 	screen_store_1_enabled = preserved_load_header.store_one;
 	screen_store_disk_enabled = preserved_load_header.store_disk;
-	aztec_strcpy(screen_store_drive, preserved_load_header.store_drive);
+	strcpy(screen_store_drive, preserved_load_header.store_drive);
 	palette_base_setting = preserved_load_header.palette_base;
 	palette_scale_setting = preserved_load_header.palette_scale;
 	for (index = 0; index < 4; index++)
@@ -138,9 +138,9 @@ int load_mode;
 	startup_option = startup_option_byte;
 	if ((byte_count = 6 * maze_change_count) > 0) {
 		/* six bytes per record */
-		if ((read_count = aztec_read(fd, maze_change_log, byte_count)) <= 0) {
+		if ((read_count = read(fd, maze_change_log, byte_count)) <= 0) {
 			show_load_disk_error(error_text);
-			aztec_close(fd);
+			close(fd);
 			if (swap_needed)
 				prompt_disk_swap(game_data_drive, disk_number, keep_disk, 1);
 			return -1;
@@ -148,25 +148,25 @@ int load_mode;
 	}
 	if ((byte_count = floor_item_count << 3) > 0) {
 		/* eight bytes per record */
-		if ((read_count = aztec_read(fd, floor_items, byte_count)) <= 0) {
+		if ((read_count = read(fd, floor_items, byte_count)) <= 0) {
 			show_load_disk_error(error_text);
-			aztec_close(fd);
+			close(fd);
 			if (swap_needed)
 				prompt_disk_swap(game_data_drive, disk_number, keep_disk, 1);
 			return -1;
 		}
 	}
 	for (block = 0; block < 32; block++) { /* paired 128-byte blocks */
-		if ((read_count = aztec_read(fd, game_block_a, 128)) <= 0) {
+		if ((read_count = read(fd, game_block_a, 128)) <= 0) {
 			show_load_disk_error(error_text);
-			aztec_close(fd);
+			close(fd);
 			if (swap_needed)
 				prompt_disk_swap(game_data_drive, disk_number, keep_disk, 1);
 			return -1;
 		}
-		if ((read_count = aztec_read(fd, game_block_b, 128)) <= 0) {
+		if ((read_count = read(fd, game_block_b, 128)) <= 0) {
 			show_load_disk_error(error_text);
-			aztec_close(fd);
+			close(fd);
 			if (swap_needed)
 				prompt_disk_swap(game_data_drive, disk_number, keep_disk, 1);
 			return -1;
@@ -176,16 +176,16 @@ int load_mode;
 		app_memmove((char far *)game_block_b, runtime_buffer_4k_b + (block << 7),
 			128);
 	}
-	if ((read_count = aztec_read(fd, &loaded_game_state, 76)) <= 0) {
+	if ((read_count = read(fd, &loaded_game_state, 76)) <= 0) {
 		show_load_disk_error(error_text);
-		aztec_close(fd);
+		close(fd);
 		if (swap_needed)
 			prompt_disk_swap(game_data_drive, disk_number, keep_disk, 1);
 		return -1;
 	}
 	if (loaded_game_state.level == -1) {
 		show_load_disk_error(error_text);
-		aztec_close(fd);
+		close(fd);
 		if (swap_needed)
 			prompt_disk_swap(game_data_drive, disk_number, keep_disk, 1);
 		return -1;
@@ -216,15 +216,15 @@ int load_mode;
 	game_time = loaded_game_state.time;
 	game_time_aux_a = loaded_game_state.time_a;
 	game_time_aux_b = loaded_game_state.time_b;
-	read_count = aztec_read(fd, path_edges, 128);
-	read_count = aztec_read(fd, faction_attitudes, 144);
-	read_count = aztec_read(fd, location_records, 104);
-	read_count = aztec_read(fd, slot_event_logs, 330);
-	read_count = aztec_read(fd, slot_records, 836);
-	read_count = aztec_read(fd, quest_maps, 66);
+	read_count = read(fd, path_edges, 128);
+	read_count = read(fd, faction_attitudes, 144);
+	read_count = read(fd, location_records, 104);
+	read_count = read(fd, slot_event_logs, 330);
+	read_count = read(fd, slot_records, 836);
+	read_count = read(fd, quest_maps, 66);
 	if (read_count <= 0) { /* reject failed or empty reads */
 		show_load_disk_error(error_text);
-		aztec_close(fd);
+		close(fd);
 		if (swap_needed)
 			prompt_disk_swap(game_data_drive, disk_number, keep_disk, 1);
 		return -1;
@@ -232,18 +232,18 @@ int load_mode;
 	for (index = 0; index < 100; index++) /* initialize the clue character pool */
 		code_characters[index] = random_below(100);
 	if (load_mode == 1) { /* saved games include member records */
-		if ((read_count = aztec_read(fd, code_characters, 100)) <= 0) {
+		if ((read_count = read(fd, code_characters, 100)) <= 0) {
 			show_load_disk_error(error_text);
-			aztec_close(fd);
+			close(fd);
 			if (swap_needed)
 				prompt_disk_swap(game_data_drive, disk_number, keep_disk, 1);
 			return -1;
 		}
 		party_char_count = 0;
 		for (index = 0; index < loaded_game_state.member_count; index++) {
-			if ((read_count = aztec_read(fd, &loaded_party_member, 584)) <= 0) {
+			if ((read_count = read(fd, &loaded_party_member, 584)) <= 0) {
 				show_load_disk_error(error_text);
-				aztec_close(fd);
+				close(fd);
 				if (swap_needed)
 					prompt_disk_swap(game_data_drive, disk_number, keep_disk, 1);
 				return -1;
@@ -253,12 +253,12 @@ int load_mode;
 			party_char_count++;
 		}
 	}
-	aztec_close(fd);
+	close(fd);
 	if (swap_needed)
 		prompt_disk_swap(game_data_drive, disk_number, keep_disk, 1);
 	if (load_mode == 2) { /* replace the cleared party with the imported party */
 		for (index = 0; index < 6; index++)
-			aztec_setmem(&party_records[index], sizeof(struct pc_rec), 0);
+			setmem(&party_records[index], sizeof(struct pc_rec), 0);
 		if (import_bane_party() == -1)
 			return -1;
 	}

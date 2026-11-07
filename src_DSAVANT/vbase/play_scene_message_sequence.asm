@@ -1,7 +1,7 @@
 ; auto-generated
 play_scene_message_sequence:
     mov ax, 0xfefa                   ; 0x6f79
-    call aztec_csav                  ; 0x6f7c
+    call $csav                  ; 0x6f7c
     call clear_scene_message_area    ; 0x6f7f
     mov word [scene_running], 0      ; 0x6f82
     mov word [scene_message_previous_x], 0xc ; 0x6f88

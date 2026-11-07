@@ -1,7 +1,7 @@
 ; auto-generated
 choose_region_npc:
     mov ax, 0xfffa                   ; 0x0a6e
-    call aztec_csav                  ; 0x0a71
+    call $csav                  ; 0x0a71
     mov ax, 0x64                     ; 0x0a74
     push ax                          ; 0x0a77
     call random_below                ; 0x0a78

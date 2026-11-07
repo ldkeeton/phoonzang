@@ -50,7 +50,7 @@ int *skills, *enabled;
 	y = 58 * count + 4;
 	draw_bevel_frame(y, 188, y + 54, 196, 0);
 	call_set_text_color(i == slot ? 26 : 1, 192);
-	call_set_text_pos(y + (9 - aztec_strlen(slot_label[i])) * 6 / 2 + 1, 190);
+	call_set_text_pos(y + (9 - strlen(slot_label[i])) * 6 / 2 + 1, 190);
 	draw_text_glyphs(slot_label[i], 0);
 	set_hotspot(slots + count + 1, y, 188, y + 54, 196, 0, 0);
 	visible[count] = i;

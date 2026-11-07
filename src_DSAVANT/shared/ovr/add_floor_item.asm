@@ -1,7 +1,7 @@
 ; auto-generated
 add_floor_item:
     mov ax, 0xfffc
-    call aztec_csav
+    call $csav
     mov ax, 0
     push ax
     call find_floor_item_slot

@@ -1,7 +1,7 @@
 ; auto-generated
 store_word_and_pair:
     mov ax, 0xfffc                   ; 0x2331
-    call aztec_csav                  ; 0x2334
+    call $csav                  ; 0x2334
     mov al, byte [bp + 4]            ; 0x2337
     mov byte [bp - 2], al            ; 0x233a
     mov al, byte [bp + 6]            ; 0x233d

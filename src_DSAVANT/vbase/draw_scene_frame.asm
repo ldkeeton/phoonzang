@@ -1,7 +1,7 @@
 ; auto-generated
 draw_scene_frame:
     mov ax, 0xfff6                   ; 0x7415
-    call aztec_csav                  ; 0x7418
+    call $csav                  ; 0x7418
     mov ax, word [scene_index]       ; 0x741b
     jmp near .forward102             ; 0x741e
 jumptable_85d0_case_1:

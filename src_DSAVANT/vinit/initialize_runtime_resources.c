@@ -1,6 +1,6 @@
 /* Load startup resources and prepare runtime buffers. */
 extern long load_file_data(), app_malloc(), call_get_free_space();
-extern char *aztec_malloc(), *data_file_path();
+extern char *malloc(), *data_file_path();
 extern int npc_id_decoy, scenario_header_fd, message_delay,
 	startup_option, startup_hardware_flags;
 extern int npc_id_address, npc_id_clue_relay, mouse_active, hotspot_hit;
@@ -56,10 +56,10 @@ initialize_runtime_resources()
 	pointer_image_zero = 0L;
 	mouse_pointer_shape = 0L;
 	pointer_image_two = 0L;
-	if ((scenario_header_fd = aztec_open(startup_scenario_header_name, 0)) == -1)
+	if ((scenario_header_fd = open(startup_scenario_header_name, 0)) == -1)
 		release_and_exit(1);
-	aztec_read(scenario_header_fd, scenario_header_data, 844);
-	aztec_close(scenario_header_fd);
+	read(scenario_header_fd, scenario_header_data, 844);
+	close(scenario_header_fd);
 	message_delay = 54; /* initial message timing */
 	startup_option = startup_option_byte;
 	switch (hardware_mode_setting) {
@@ -109,7 +109,7 @@ initialize_runtime_resources()
 	read_startup_file(startup_message_header_name, message_directory, 11774);
 	read_startup_file(startup_pcfile_name, pc_file_record_size, 24);
 	load_startup_misc(startup_misc_header_name);
-	if ((msg_dbs_fd = aztec_open(data_file_path(startup_message_database_name, 0),
+	if ((msg_dbs_fd = open(data_file_path(startup_message_database_name, 0),
 		0)) == -1)
 		release_and_exit(9);
 	message_block_current = -1;
@@ -122,7 +122,7 @@ initialize_runtime_resources()
 		saved_screen_file[index][0] = 0;
 		saved_screen_ref[index] = 0L;
 	}
-	if ((data_file_fd = aztec_open(data_file_path(
+	if ((data_file_fd = open(data_file_path(
 		startup_scenario_database_name, 0), 0)) == -1)
 		release_and_exit(10);
 	prepare_code_answer();
@@ -153,24 +153,24 @@ initialize_runtime_resources()
 	runtime_buffer_4k_b = app_malloc(4096L);
 	if (runtime_buffer_4k_b == 0L)
 		release_and_exit(13);
-	maze_data = aztec_malloc(maze_data_size);
+	maze_data = malloc(maze_data_size);
 	if (maze_data == 0)
 		release_and_exit(13);
-	maze_tables = aztec_malloc(maze_tables_size);
+	maze_tables = malloc(maze_tables_size);
 	if (maze_tables == 0)
 		release_and_exit(13);
-	maze_change_log = aztec_malloc(3072);
+	maze_change_log = malloc(3072);
 	if (maze_change_log == 0)
 		release_and_exit(13);
-	floor_items = aztec_malloc(1024);
+	floor_items = malloc(1024);
 	if (floor_items == 0)
 		release_and_exit(13);
 	startup_check_stage = 0;
-	if ((palette_fd = aztec_open(data_file_path(
+	if ((palette_fd = open(data_file_path(
 		startup_palette_definition_name, 0), 0)) == -1)
 		release_and_exit(14);
-	aztec_read(palette_fd, palette, 768);
-	aztec_close(palette_fd);
+	read(palette_fd, palette, 768);
+	close(palette_fd);
 	build_palette_map(palette_base_setting, palette_scale_setting, palette);
 	game_state = 1;
 }

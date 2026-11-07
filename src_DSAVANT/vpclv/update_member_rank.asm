@@ -1,7 +1,7 @@
 ; auto-generated
 update_member_rank:
     mov ax, 0xfffa                   ; 0x4e03
-    call aztec_csav                  ; 0x4e06
+    call $csav                  ; 0x4e06
     mov word [bp - 4], 0             ; 0x4e09
     mov word [bp - 2], 0             ; 0x4e0e
 .back1:

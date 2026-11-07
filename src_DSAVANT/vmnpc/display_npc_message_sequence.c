@@ -4,7 +4,7 @@ extern int text_line_index;
 extern int message_not_found;
 extern char far *mouse_pointer_shape;
 extern char npc_message_line_separator[];
-extern int load_message_string(), aztec_strcat(), aztec_strcpy();
+extern int load_message_string(), strcat(), strcpy();
 extern int wrap_npc_message(), reveal_text_line(), next_text_line();
 extern int call_mouse_glide_back(), call_mouse_glide_to();
 extern int set_mouse_pointer_shape(), poll_fullscreen_hotspot();
@@ -21,10 +21,10 @@ int display_mode;
 		load_message_string(message_number, message);
 		if (message_not_found == 0) {
 			if (text_line_buffer[text_line_index << 7] != 0)
-				aztec_strcat(text_line_buffer + (text_line_index << 7),
+				strcat(text_line_buffer + (text_line_index << 7),
 					npc_message_line_separator);
-			aztec_strcat(text_line_buffer + (text_line_index << 7), message);
-			aztec_strcpy(message,
+			strcat(text_line_buffer + (text_line_index << 7), message);
+			strcpy(message,
 				text_line_buffer + (text_line_index << 7));
 			wrap_npc_message(message);
 			++message_number;

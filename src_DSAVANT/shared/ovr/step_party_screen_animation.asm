@@ -1,7 +1,7 @@
 ; auto-generated
 step_party_screen_animation:
     mov ax, 0xfffa
-    call aztec_csav
+    call $csav
     mov ax, word [party_screen_animation_state]
     jmp near .forward5
 .back1:

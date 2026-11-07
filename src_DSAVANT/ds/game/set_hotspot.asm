@@ -1,7 +1,7 @@
 ; auto-generated
 set_hotspot:
     mov ax, 0                        ; 0x0ced
-    call aztec_csav                  ; 0x0cf0
+    call $csav                  ; 0x0cf0
     mov al, byte [bp + 0xe]          ; 0x0cf3
     mov cx, word [bp + 4]            ; 0x0cf6
     shl cx, 1                        ; 0x0cf9

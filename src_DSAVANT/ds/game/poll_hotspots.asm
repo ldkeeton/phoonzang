@@ -1,7 +1,7 @@
 ; auto-generated
 poll_hotspots:
     mov ax, 0xfffc                   ; 0x0b54
-    call aztec_csav                  ; 0x0b57
+    call $csav                  ; 0x0b57
     mov word [escape_key_hit], 0     ; 0x0b5a
     mov word [space_key_hit], 0      ; 0x0b60
     mov ax, 1                        ; 0x0b66

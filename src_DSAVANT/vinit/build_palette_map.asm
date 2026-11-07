@@ -1,7 +1,7 @@
 ; auto-generated
 build_palette_map:
     mov ax, 0xfaf4                   ; 0x0211
-    call aztec_csav                  ; 0x0214
+    call $csav                  ; 0x0214
     mov word [bp - 2], 0             ; 0x0217
 .back1:
     mov word [bp - 4], 0             ; 0x021c
@@ -115,7 +115,7 @@ build_palette_map:
     push ax                          ; 0x031b
     lea ax, word [bp - 0x50c]        ; 0x031c
     push ax                          ; 0x0320
-    call aztec_setmem                ; 0x0321
+    call setmem                ; 0x0321
     add sp, byte 6                   ; 0x0324
     mov word [bp - 2], 0             ; 0x0327
 .back3:

@@ -1,7 +1,7 @@
 ; auto-generated
 tick_monster_group:
     mov ax, 0xffa4                   ; 0x14e6
-    call aztec_csav                  ; 0x14e9
+    call $csav                  ; 0x14e9
     mov word [bp - 2], 0             ; 0x14ec
     mov word [bp - 0xa], 0           ; 0x14f1
     mov word [bp - 4], 0             ; 0x14f6
@@ -135,7 +135,7 @@ tick_monster_group:
     push ax                          ; 0x162d
     lea ax, word [bp - 0x5c]         ; 0x162e
     push ax                          ; 0x1631
-    call aztec_strcat                ; 0x1632
+    call strcat                ; 0x1632
     add sp, byte 4                   ; 0x1635
 .forward8:
     mov ax, 1                        ; 0x1638
@@ -165,7 +165,7 @@ tick_monster_group:
     push ax                          ; 0x1672
     lea ax, word [bp - 0x5c]         ; 0x1673
     push ax                          ; 0x1676
-    call aztec_strcat                ; 0x1677
+    call strcat                ; 0x1677
     add sp, byte 4                   ; 0x167a
     lea ax, word [bp - 0x5c]         ; 0x167d
     push ax                          ; 0x1680
@@ -173,7 +173,7 @@ tick_monster_group:
     pop cx                           ; 0x1684
     lea ax, word [bp - 0x5c]         ; 0x1685
     push ax                          ; 0x1688
-    call aztec_strlen                ; 0x1689
+    call strlen                ; 0x1689
     pop cx                           ; 0x168c
     mov word [bp - 0xc], ax          ; 0x168d
     mov bx, ax                       ; 0x1690

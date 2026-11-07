@@ -4,7 +4,7 @@ extern int menu_selection_index;
 extern int mouse_active, hotspot_hit, hotspot_rects[];
 extern char title_panel_screen_file[], choice_grid_screen_file[];
 extern int save_screen_area(), draw_dialog_box(), load_message_string();
-extern int call_set_text_color(), aztec_strlen(), call_set_text_pos();
+extern int call_set_text_color(), strlen(), call_set_text_pos();
 extern int draw_text_glyphs(), draw_bevel_frame(), set_hotspot();
 extern int call_show_area(), poll_hotspots(), fill_rectangle_border();
 extern int poll_filtered_key();
@@ -39,7 +39,7 @@ int *option_flags;
 			box_bottom + 5);
 		load_message_string(title_message, title_text);
 		call_set_text_color(1, 194);
-		call_set_text_pos(160 - (aztec_strlen(title_text) * 6) / 2,
+		call_set_text_pos(160 - (strlen(title_text) * 6) / 2,
 			top - 13);
 		draw_text_glyphs(title_text, 0);
 	} else {
@@ -64,7 +64,7 @@ int *option_flags;
 			call_set_text_color(item_index == initial_index ? 26 :
 				text_color, 192);
 			call_set_text_pos(left + column_offset +
-				(text_width - aztec_strlen(choice_text[display_count])) * 6 / 2 + 1,
+				(text_width - strlen(choice_text[display_count])) * 6 / 2 + 1,
 				top + row_offset + 2);
 			draw_text_glyphs(choice_text[display_count], 0);
 			set_hotspot(display_count, left + column_offset,

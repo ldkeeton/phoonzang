@@ -6,7 +6,7 @@ extern struct pc_rec party_records[];
 extern struct member_rec *battle_groups[];
 extern int member_roster_index[];
 extern int member_icon[];
-extern int aztec_swapmem();
+extern int swapmem();
 extern int sync_member_party_panel();
 extern int wait_for_combat_input();
 
@@ -18,9 +18,9 @@ int second_member;
 	struct pc_rec saved_party_space;
 	int saved_value;
 
-	aztec_swapmem(&party_records[second_member],
+	swapmem(&party_records[second_member],
 		&party_records[first_member], sizeof(struct pc_rec));
-	aztec_swapmem(&battle_groups[0]->unit[second_member],
+	swapmem(&battle_groups[0]->unit[second_member],
 		&battle_groups[0]->unit[first_member], sizeof(struct combatant));
 
 	saved_value = member_roster_index[second_member + 1];

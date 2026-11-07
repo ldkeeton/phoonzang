@@ -1,7 +1,7 @@
 ; auto-generated
 append_npc_message_text:
     mov ax, 0xff80                   ; 0x96c7
-    call aztec_csav                  ; 0x96ca
+    call $csav                  ; 0x96ca
     lea ax, word [bp - 0x80]         ; 0x96cd
     push ax                          ; 0x96d0
     push word [bp + 4]               ; 0x96d1
@@ -25,7 +25,7 @@ append_npc_message_text:
     add bx, text_line_buffer         ; 0x9700
     mov ax, bx                       ; 0x9704
     push ax                          ; 0x9706
-    call aztec_strcat                ; 0x9707
+    call strcat                ; 0x9707
     add sp, byte 4                   ; 0x970a
 .forward1:
     lea ax, word [bp - 0x80]         ; 0x970d
@@ -35,7 +35,7 @@ append_npc_message_text:
     shl ax, cl                       ; 0x9717
     add ax, text_line_buffer         ; 0x9719
     push ax                          ; 0x971c
-    call aztec_strcat                ; 0x971d
+    call strcat                ; 0x971d
     add sp, byte 4                   ; 0x9720
     mov ax, word [text_line_index]   ; 0x9723
     mov cx, 7                        ; 0x9726
@@ -44,7 +44,7 @@ append_npc_message_text:
     push ax                          ; 0x972e
     lea ax, word [bp - 0x80]         ; 0x972f
     push ax                          ; 0x9732
-    call aztec_strcpy                ; 0x9733
+    call strcpy                ; 0x9733
     add sp, byte 4                   ; 0x9736
     lea ax, word [bp - 0x80]         ; 0x9739
     push ax                          ; 0x973c

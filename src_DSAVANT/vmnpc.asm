@@ -22,7 +22,7 @@ IMAGE_BASE equ 0x000e + VBASE
     dw __zdseg_end                           ; 0x9098 ; o_dorg: data load origin (memory offset)
     dw (__zimage_end - __zdata_start)        ; 0x009c ; o_dsize: initialized data size
     dw __zobss_end - __zimage_end            ; 0x1f22 ; o_bss: uninitialized data size
-    dw aztec_ovbgn - IMAGE_BASE + __zres_end ; 0xfe57 ; o_entry: overlay entry offset (CS)
+    dw $ovbgn - IMAGE_BASE + __zres_end ; 0xfe57 ; o_entry: overlay entry offset (CS)
 
 __zcode_start:
 area_set_0_save_file equ __zdseg_end + (__zarea_set_0_save_file - __zdata_start)
@@ -454,16 +454,16 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "vmnpc/run_npc_member_dialog.asm" ; 0xab8d
 
-%include "shared/ovr/aztec_ovbgn.asm"           ; 0xae10
+%include ".cache/c.lib/shared/ovr/ovbgn.asm"           ; 0xae10
 
-%include "shared/aztec/aztec_strncpy.asm"         ; 0xae4e
+%include ".cache/c.lib/shared/strncpy.asm"         ; 0xae4e
 
-%include "shared/aztec/aztec_strcmp.asm"          ; 0xae76
+%include ".cache/c.lib/shared/strcmp.asm"          ; 0xae76
 
 __zdata_start:
 %include "vmnpc/data/npc_strings.asm"      ; 0xaedd
 
-%include "shared/ovr/aztec_ovbgn.data.asm"      ; 0xaf6f
+%include ".cache/c.lib/shared/ovr/ovbgn.data.asm"      ; 0xaf6f
 
 
 __zimage_end:

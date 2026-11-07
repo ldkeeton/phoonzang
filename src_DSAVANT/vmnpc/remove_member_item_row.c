@@ -14,7 +14,7 @@ int row;
 
 	--member_item_count;
 	for (i = row; i < member_item_count; ++i) {
-		aztec_strcpy(list_row_name + i * 22, list_row_name_next + i * 22);
+		strcpy(list_row_name + i * 22, list_row_name_next + i * 22);
 		list_row_glyph[i] = list_row_glyph_next[i];
 		list_row_marked[i] = list_row_marked_next[i];
 		list_row_count[i] = list_row_count_next[i];

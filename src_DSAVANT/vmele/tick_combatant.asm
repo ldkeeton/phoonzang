@@ -1,7 +1,7 @@
 ; auto-generated
 tick_combatant:
     mov ax, 0xfff2                   ; 0x12ac
-    call aztec_csav                  ; 0x12af
+    call $csav                  ; 0x12af
     mov ax, 0x2c                     ; 0x12b2
     imul word [bp + 6]               ; 0x12b5
     mov cx, ax                       ; 0x12b8
@@ -20,7 +20,7 @@ tick_combatant:
     imul bx                          ; 0x12dd
     mov cx, 0x64                     ; 0x12df
     mov bx, 0                        ; 0x12e2
-    call aztec_ldv                   ; 0x12e5
+    call $ldv                   ; 0x12e5
     mov word [bp - 2], ax            ; 0x12e8
     push ax                          ; 0x12eb
     call random_below                ; 0x12ec

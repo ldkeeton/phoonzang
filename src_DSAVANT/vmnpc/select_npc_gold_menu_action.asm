@@ -1,7 +1,7 @@
 ; auto-generated
 select_npc_gold_menu_action:
     mov ax, 0xffac                   ; 0x5d93
-    call aztec_csav                  ; 0x5d96
+    call $csav                  ; 0x5d96
     mov ax, 3                        ; 0x5d99
     push ax                          ; 0x5d9c
     call redraw_area_set             ; 0x5d9d
@@ -28,7 +28,7 @@ select_npc_gold_menu_action:
     push word [bp + 0xa]             ; 0x5dd3
     lea ax, word [bp - 0x54]         ; 0x5dd6
     push ax                          ; 0x5dd9
-    call aztec_strcat                ; 0x5dda
+    call strcat                ; 0x5dda
     add sp, byte 4                   ; 0x5ddd
     mov ax, 0xb3                     ; 0x5de0
     push ax                          ; 0x5de3

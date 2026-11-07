@@ -1,7 +1,7 @@
 ; auto-generated
 run_region_puzzle_scene:
     mov ax, 0                        ; 0x81b6
-    call aztec_csav                  ; 0x81b9
+    call $csav                  ; 0x81b9
     mov ax, MSG_PARTY_OPTIONS_2038   ; 0x81bc
     push ax                          ; 0x81bf
     call prepare_treasure_scene      ; 0x81c0

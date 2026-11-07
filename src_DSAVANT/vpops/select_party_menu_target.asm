@@ -1,7 +1,7 @@
 ; auto-generated
 select_party_menu_target:
     mov ax, 0xfe32                   ; 0x111b
-    call aztec_csav                  ; 0x111e
+    call $csav                  ; 0x111e
     mov word [menu_selection_index], 0xffff ; 0x1121
     mov ax, word [bp + 0x14]         ; 0x1127
     shl ax, 1                        ; 0x112a
@@ -94,7 +94,7 @@ select_party_menu_target:
     lea cx, word [bp - 0x15a]        ; 0x11ff
     add ax, cx                       ; 0x1203
     push ax                          ; 0x1205
-    call aztec_strlen                ; 0x1206
+    call strlen                ; 0x1206
     pop cx                           ; 0x1209
     mov cx, ax                       ; 0x120a
     mov ax, word [bp + 0xe]          ; 0x120c

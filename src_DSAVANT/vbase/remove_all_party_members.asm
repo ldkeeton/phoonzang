@@ -1,7 +1,7 @@
 ; auto-generated
 remove_all_party_members:
     mov ax, 0                        ; 0x62c6
-    call aztec_csav                  ; 0x62c9
+    call $csav                  ; 0x62c9
 .back1:
     cmp word [party_char_count], byte 0 ; 0x62cc
     jle short .return1               ; 0x62d1

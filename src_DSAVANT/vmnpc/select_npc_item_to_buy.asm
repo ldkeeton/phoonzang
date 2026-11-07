@@ -1,7 +1,7 @@
 ; auto-generated
 select_npc_item_to_buy:
     mov ax, 0xfffa                   ; 0x573e
-    call aztec_csav                  ; 0x5741
+    call $csav                  ; 0x5741
     call wait_for_npc_screen_animation ; 0x5744
     mov word [bp - 6], 0             ; 0x5747
 .back1:

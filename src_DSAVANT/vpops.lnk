@@ -43,4 +43,4 @@ vpops/prepare_combatant_actions
 vpops/prepare_combat_groups
 vpops/enter_party_battle_orders
 vpops/data/pops_strings
-shared/ovr/aztec_ovbgn
+ovbgn.o

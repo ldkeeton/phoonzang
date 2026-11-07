@@ -27,7 +27,7 @@ int from, to, deeper, depth;
 					if (pass)
 						edges_in_use[edge] = 1;
 					saved_length = found_path_length;
-					aztec_movmem(edges_in_use, saved_in_use, 64);
+					movmem(edges_in_use, saved_in_use, 64);
 					if (search_path_from(path_edges[edge].end_b, to, pass,
 					    depth + 1)) {
 						append_edge_between(from,
@@ -35,7 +35,7 @@ int from, to, deeper, depth;
 						return 1;
 					}
 					found_path_length = saved_length;
-					aztec_movmem(saved_in_use, edges_in_use, 64);
+					movmem(saved_in_use, edges_in_use, 64);
 				}
 			} else if (path_edges[edge].end_b == from
 			    && (path_edges[edge].gate_key == -1
@@ -44,7 +44,7 @@ int from, to, deeper, depth;
 					if (pass)
 						edges_in_use[edge] = 1;
 					saved_length = found_path_length;
-					aztec_movmem(edges_in_use, saved_in_use, 64);
+					movmem(edges_in_use, saved_in_use, 64);
 					if (search_path_from(path_edges[edge].end_a, to, pass,
 					    depth + 1)) {
 						append_edge_between(from,
@@ -52,7 +52,7 @@ int from, to, deeper, depth;
 						return 1;
 					}
 					found_path_length = saved_length;
-					aztec_movmem(saved_in_use, edges_in_use, 64);
+					movmem(saved_in_use, edges_in_use, 64);
 				}
 			}
 		}

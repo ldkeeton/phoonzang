@@ -1,7 +1,7 @@
 ; auto-generated
 choose_character_race:
     mov ax, 0xff86                   ; 0x43bb
-    call aztec_csav                  ; 0x43be
+    call $csav                  ; 0x43be
     mov word [bp - 2], 0             ; 0x43c1
 .back1:
     mov ax, word [bp - 2]            ; 0x43c6

@@ -1,6 +1,6 @@
 /* Prints an integer with leading spaces up to the requested width. */
 extern char single_space_text[];
-extern int aztec_strlen();
+extern int strlen();
 extern int bios_put_text();
 extern int int_to_str();
 
@@ -18,13 +18,13 @@ int width;
 	output[1] = 0;
 
 	/* Emit spaces until the number fits the requested width. */
-	while (aztec_strlen(number) - width < 0) {
+	while (strlen(number) - width < 0) {
 		bios_put_text(single_space_text);
 		width--;
 	}
 
 	/* Print the remaining characters one at a time. */
-	for (index = aztec_strlen(number) - width; aztec_strlen(number) > index;
+	for (index = strlen(number) - width; strlen(number) > index;
 	    index++) {
 		output[0] = number[index];
 		bios_put_text(output);

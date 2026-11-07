@@ -1,7 +1,7 @@
 ; auto-generated
 set_party_world_position:
     mov ax, 0                        ; 0x0836
-    call aztec_csav                  ; 0x0839
+    call $csav                  ; 0x0839
     mov ax, word [bp + 4]            ; 0x083c
     mov word [party_world_x], ax     ; 0x083f
     mov ax, word [bp + 6]            ; 0x0842

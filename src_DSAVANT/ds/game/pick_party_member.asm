@@ -1,7 +1,7 @@
 ; auto-generated
 pick_party_member:
     mov ax, 0xffee                   ; 0x20f8
-    call aztec_csav                  ; 0x20fb
+    call $csav                  ; 0x20fb
     cmp word [mouse_active], byte 0  ; 0x20fe
     je short .forward1               ; 0x2103
     jmp near .forward5               ; 0x2105

@@ -12,7 +12,7 @@ extern int list_row_count[];
 extern char list_row_name[][22];
 extern char item_type_counted[];
 extern int data_record_io();
-extern int aztec_strcpy();
+extern int strcpy();
 extern int load_message_string();
 
 /* Adds owned and identified inventory items to the NPC selection rows. */
@@ -30,7 +30,7 @@ int member_index;
 				data_record_io(1, &item,
 					party_records[member_index].item_slots[page][slot].item_id, 0);
 				if ((party_records[member_index].item_slots[page][slot].flags & 128) != 0)
-					aztec_strcpy(list_row_name[member_item_count], item.name);
+					strcpy(list_row_name[member_item_count], item.name);
 				else
 					load_message_string(MSG_DAGGER_6000 +
 						item.glyph,

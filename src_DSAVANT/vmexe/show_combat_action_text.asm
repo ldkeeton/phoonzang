@@ -1,7 +1,7 @@
 ; auto-generated
 show_combat_action_text:
     mov ax, 0xfffa                   ; 0x908d
-    call aztec_csav                  ; 0x9090
+    call $csav                  ; 0x9090
     cmp word [bp + 0xc], byte 0      ; 0x9093
     je short .forward1               ; 0x9097
     cmp word [acting_group], byte 0  ; 0x9099

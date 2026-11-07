@@ -17,7 +17,7 @@ extern int play_sound_effect();
 extern int init_item_slot();
 extern int add_floor_item();
 extern int refresh_floor_item_icon();
-extern int aztec_strcpy();
+extern int strcpy();
 
 /* Transfer selected loot to a party member or drop it on the floor. */
 divvy_loot_menu()
@@ -63,7 +63,7 @@ divvy_loot_menu()
 		if (selected_row != -1) {
 			--loot_row_total;
 			for (item_slot = selected_row; item_slot < loot_row_total; item_slot++) {
-				aztec_strcpy(list_row_name + item_slot * 22,
+				strcpy(list_row_name + item_slot * 22,
 					list_row_name + (item_slot + 1) * 22);
 				loot_row_value[item_slot] = loot_row_value[item_slot + 1];
 				list_row_count[item_slot] = list_row_count[item_slot + 1];

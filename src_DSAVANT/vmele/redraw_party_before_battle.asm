@@ -1,7 +1,7 @@
 ; auto-generated
 redraw_party_before_battle:
     mov ax, 0xfffe                   ; 0x36b8
-    call aztec_csav                  ; 0x36bb
+    call $csav                  ; 0x36bb
     mov word [party_redraw_interval], 5 ; 0x36be
     mov word [bp - 2], 0             ; 0x36c4
     jmp short .forward1              ; 0x36c9

@@ -29,7 +29,7 @@ long_to_str:
     mov dx, word [bp + 6]            ; 0x034a
     mov cx, 0xa                      ; 0x034d
     mov bx, 0                        ; 0x0350
-    call aztec_lrm                   ; 0x0353
+    call $lrm                   ; 0x0353
     add ax, strict word 0x30         ; 0x0356
     adc dx, byte 0                   ; 0x0359
     mov di, si                       ; 0x035c
@@ -40,7 +40,7 @@ long_to_str:
     mov dx, word [bp + 6]            ; 0x0367
     mov cx, 0xa                      ; 0x036a
     mov bx, 0                        ; 0x036d
-    call aztec_ldv                   ; 0x0370
+    call $ldv                   ; 0x0370
     mov word [bp + 6], dx            ; 0x0373
     mov word [bp + 4], ax            ; 0x0376
     cmp dx, byte 0                   ; 0x0379

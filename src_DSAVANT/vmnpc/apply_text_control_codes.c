@@ -42,7 +42,7 @@ char *token, *pending_line;
 			++cursor;
 			break;
 		case '&':		/* store the pending line in the next slot */
-			aztec_strcpy(text_line_buffer + text_line_index * 128,
+			strcpy(text_line_buffer + text_line_index * 128,
 				pending_line);
 			text_line_color[text_line_index] = 2;
 			reveal_text_line();
@@ -73,5 +73,5 @@ char *token, *pending_line;
 	}
 	if (redraw)
 		next_text_line();
-	aztec_strcpy(token, cursor);
+	strcpy(token, cursor);
 }

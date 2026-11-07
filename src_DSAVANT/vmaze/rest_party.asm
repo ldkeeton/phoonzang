@@ -1,7 +1,7 @@
 ; auto-generated
 rest_party:
     mov ax, 0xffe8                   ; 0x1c94
-    call aztec_csav                  ; 0x1c97
+    call $csav                  ; 0x1c97
     call stop_and_clear_maze_sounds  ; 0x1c9a
     call score_music_enabled         ; 0x1c9d
     mov word [story_music_enabled], ax ; 0x1ca0
@@ -38,7 +38,7 @@ rest_party:
     mov dx, word [game_time_aux_b_hi] ; 0x1cf5
     mov cx, 0x3c                     ; 0x1cf9
     mov bx, 0                        ; 0x1cfc
-    call aztec_ldv                   ; 0x1cff
+    call $ldv                   ; 0x1cff
     mov word [bp - 0xc], ax          ; 0x1d02
     mov word [bp - 0xe], 0           ; 0x1d05
 .back1:

@@ -1,7 +1,7 @@
 ; auto-generated
 learn_member_spell:
     mov ax, 0xff36                   ; 0x1e31
-    call aztec_csav                  ; 0x1e34
+    call $csav                  ; 0x1e34
     mov ax, word [bp + 6]            ; 0x1e37
     jmp short .forward1              ; 0x1e3a
 .back1:
@@ -38,7 +38,7 @@ learn_member_spell:
     imul word [bp + 4]               ; 0x1e8b
     add ax, party_records + pc_rec.pad_01be + 0x60 ; 0x1e8e
     push ax                          ; 0x1e91
-    call aztec_movmem                ; 0x1e92
+    call movmem                ; 0x1e92
     add sp, byte 6                   ; 0x1e95
     mov ax, 0                        ; 0x1e98
     push ax                          ; 0x1e9b
@@ -48,7 +48,7 @@ learn_member_spell:
     imul word [bp + 4]               ; 0x1ea3
     add ax, party_records + pc_rec.pad_01be + 0x60 ; 0x1ea6
     push ax                          ; 0x1ea9
-    call aztec_setmem                ; 0x1eaa
+    call setmem                ; 0x1eaa
     add sp, byte 6                   ; 0x1ead
     mov ax, 0x248                    ; 0x1eb0
     imul word [bp + 4]               ; 0x1eb3
@@ -116,7 +116,7 @@ learn_member_spell:
     push ax                          ; 0x1f58
     lea ax, word [bp - 0x1e]         ; 0x1f59
     push ax                          ; 0x1f5c
-    call aztec_movmem                ; 0x1f5d
+    call movmem                ; 0x1f5d
     add sp, byte 6                   ; 0x1f60
     ret                              ; 0x1f63
 .forward5:
@@ -169,7 +169,7 @@ learn_member_spell:
     push ax                          ; 0x1fd5
     lea ax, word [bp - 0x1e]         ; 0x1fd6
     push ax                          ; 0x1fd9
-    call aztec_movmem                ; 0x1fda
+    call movmem                ; 0x1fda
     add sp, byte 6                   ; 0x1fdd
     cmp word [bp - 4], byte 0        ; 0x1fe0
     je short .forward6               ; 0x1fe4

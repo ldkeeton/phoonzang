@@ -1,7 +1,7 @@
 ; auto-generated
 draw_npc_item_list_rows:
     mov ax, 0xffac                   ; 0x4514
-    call aztec_csav                  ; 0x4517
+    call $csav                  ; 0x4517
     mov word [bp - 2], 0             ; 0x451a
     jmp near .forward9               ; 0x451f
 .back1:

@@ -1,7 +1,7 @@
 ; auto-generated
 select_treasure_grid_option:
     mov ax, 0xfe56                   ; 0x8441
-    call aztec_csav                  ; 0x8444
+    call $csav                  ; 0x8444
     mov ax, word [bp + 0x14]         ; 0x8447
     dec ax                           ; 0x844a
     cwd                              ; 0x844b
@@ -76,7 +76,7 @@ select_treasure_grid_option:
     push ax                          ; 0x84f5
     lea ax, word [bp - 0x1a6]        ; 0x84f6
     push ax                          ; 0x84fa
-    call aztec_strlen                ; 0x84fb
+    call strlen                ; 0x84fb
     pop cx                           ; 0x84fe
     mov cx, 6                        ; 0x84ff
     imul cx                          ; 0x8502
@@ -191,7 +191,7 @@ select_treasure_grid_option:
     lea cx, word [bp - 0x156]        ; 0x85fc
     add ax, cx                       ; 0x8600
     push ax                          ; 0x8602
-    call aztec_strlen                ; 0x8603
+    call strlen                ; 0x8603
     pop cx                           ; 0x8606
     mov cx, ax                       ; 0x8607
     mov ax, word [bp + 0xc]          ; 0x8609

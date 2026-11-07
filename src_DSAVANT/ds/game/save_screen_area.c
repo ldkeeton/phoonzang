@@ -42,16 +42,16 @@ char *name;
 			saved_screen_file[slot].name[3] = 0;
 		}
 	}
-	aztec_strcat(saved_screen_file[slot].name, name);
+	strcat(saved_screen_file[slot].name, name);
 	if (saved_screen_kind[slot] == 3) {
 		/* 0x301: O_WRONLY|O_CREAT|O_TRUNC */
-		if ((fd = aztec_open(saved_screen_file[slot].name, 769)) == -1)
+		if ((fd = open(saved_screen_file[slot].name, 769)) == -1)
 			release_and_exit(23);
 	} else
 		fd = 0;	/* in-memory save: driver ignores fd */
 	saved_screen_ref[slot] = call_cache_area(x1, y1, x2, y2,
 	    saved_screen_kind[slot], fd);
 	if (saved_screen_kind[slot] == 3)
-		aztec_close(fd);
+		close(fd);
 	return slot;
 }

@@ -13,7 +13,7 @@ extern int member_item_count;
 extern int npc_negotiation_tactic;
 extern int npc_dialog_initial_state;
 extern int load_message_string();
-extern int aztec_strcpy();
+extern int strcpy();
 extern int build_member_item_list();
 extern int select_npc_gold_menu_action();
 extern int member_is_active();
@@ -50,7 +50,7 @@ int member_index;
 	char gold_suffix[10];
 	long bribe_amount;
 
-	aztec_strcpy(member_name, party_records[member_index].name);
+	strcpy(member_name, party_records[member_index].name);
 	load_message_string(MSG_GP_1512, gold_suffix);
 	build_member_item_list(member_index);
 

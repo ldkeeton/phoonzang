@@ -1,7 +1,7 @@
 ; auto-generated
 play_intro_scene_seven:
     mov ax, 0xfffe                   ; 0x8d84
-    call aztec_csav                  ; 0x8d87
+    call $csav                  ; 0x8d87
     mov ax, 0                        ; 0x8d8a
     push ax                          ; 0x8d8d
     mov ax, scene_seven_screen_filename ; 0x8d8e
@@ -33,7 +33,7 @@ play_intro_scene_seven:
     push ax                          ; 0x8dcb
     mov ax, scene_digit_cycle        ; 0x8dcc
     push ax                          ; 0x8dcf
-    call aztec_strcpy                ; 0x8dd0
+    call strcpy                ; 0x8dd0
     add sp, byte 4                   ; 0x8dd3
     mov word [scene_step_c], 0       ; 0x8dd6
     mov word [scene_step_a], 0       ; 0x8ddc

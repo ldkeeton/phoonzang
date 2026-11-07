@@ -1,7 +1,7 @@
 ; auto-generated
 refresh_configuration_control:
     mov ax, 0xffae                   ; 0x4826
-    call aztec_csav                  ; 0x4829
+    call $csav                  ; 0x4829
     mov ax, word [bp + 4]            ; 0x482c
     jmp near .forward1               ; 0x482f
 jumptable_4af5_case_0:

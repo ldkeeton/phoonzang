@@ -1,7 +1,7 @@
 ; auto-generated
 handle_member_action_menu:
     mov ax, 0xffe8                   ; 0x9740
-    call aztec_csav                  ; 0x9743
+    call $csav                  ; 0x9743
 .back1:
     mov word [bp - 2], 0             ; 0x9746
 .back2:

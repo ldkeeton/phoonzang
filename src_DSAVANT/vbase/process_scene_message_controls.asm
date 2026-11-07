@@ -1,7 +1,7 @@
 ; auto-generated
 process_scene_message_controls:
     mov ax, 0xfefa                   ; 0x6dd9
-    call aztec_csav                  ; 0x6ddc
+    call $csav                  ; 0x6ddc
 .back1:
     mov bx, word [bp + 4]            ; 0x6ddf
     mov al, byte [bx]                ; 0x6de2
@@ -95,25 +95,25 @@ process_scene_message_controls.forward5:
     push ax                          ; 0x6e9f
     lea ax, word [bp - 0x105]        ; 0x6ea0
     push ax                          ; 0x6ea4
-    call aztec_strcpy                ; 0x6ea5
+    call strcpy                ; 0x6ea5
     add sp, byte 4                   ; 0x6ea8
     mov ax, scene_message_separator  ; 0x6eab
     push ax                          ; 0x6eae
     lea ax, word [bp - 0x105]        ; 0x6eaf
     push ax                          ; 0x6eb3
-    call aztec_strcat                ; 0x6eb4
+    call strcat                ; 0x6eb4
     add sp, byte 4                   ; 0x6eb7
     push word [bp + 4]               ; 0x6eba
     lea ax, word [bp - 0x105]        ; 0x6ebd
     push ax                          ; 0x6ec1
-    call aztec_strcat                ; 0x6ec2
+    call strcat                ; 0x6ec2
     add sp, byte 4                   ; 0x6ec5
     jmp short process_scene_message_controls.forward7 ; 0x6ec8
 process_scene_message_controls.forward6:
     push word [bp + 4]               ; 0x6eca
     lea ax, word [bp - 0x105]        ; 0x6ecd
     push ax                          ; 0x6ed1
-    call aztec_strcpy                ; 0x6ed2
+    call strcpy                ; 0x6ed2
     add sp, byte 4                   ; 0x6ed5
 process_scene_message_controls.forward7:
     mov ax, 2                        ; 0x6ed8
@@ -132,7 +132,7 @@ process_scene_message_controls.forward7:
     push word [bp + 4]               ; 0x6ef7
     mov ax, scene_message_line_buffer ; 0x6efa
     push ax                          ; 0x6efd
-    call aztec_strcpy                ; 0x6efe
+    call strcpy                ; 0x6efe
     add sp, byte 4                   ; 0x6f01
     jmp short process_scene_message_controls.return1 ; 0x6f04
 process_scene_message_controls.forward8:
@@ -140,7 +140,7 @@ process_scene_message_controls.forward8:
     push ax                          ; 0x6f0a
     mov ax, scene_message_line_buffer ; 0x6f0b
     push ax                          ; 0x6f0e
-    call aztec_strcpy                ; 0x6f0f
+    call strcpy                ; 0x6f0f
     add sp, byte 4                   ; 0x6f12
 process_scene_message_controls.return1:
     ret                              ; 0x6f15

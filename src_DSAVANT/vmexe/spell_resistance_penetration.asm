@@ -1,7 +1,7 @@
 ; auto-generated
 spell_resistance_penetration:
     mov ax, 0                        ; 0x1c36
-    call aztec_csav                  ; 0x1c39
+    call $csav                  ; 0x1c39
     mov ax, 6                        ; 0x1c3c
     imul word [bp + 4]               ; 0x1c3f
     mov bx, ax                       ; 0x1c42

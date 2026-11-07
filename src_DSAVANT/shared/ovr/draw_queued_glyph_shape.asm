@@ -1,7 +1,7 @@
 ; auto-generated
 draw_queued_glyph_shape:
     mov ax, 0xffea
-    call aztec_csav
+    call $csav
     mov bx, word [bp + 4]
     mov al, byte [bx + 0xb]
     sub ah, ah

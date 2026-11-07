@@ -1,7 +1,7 @@
 ; auto-generated
 apply_resisted_status_timer:
     mov ax, 0xfffa                   ; 0x209c
-    call aztec_csav                  ; 0x209f
+    call $csav                  ; 0x209f
     mov ax, 0x2c                     ; 0x20a2
     imul word [bp + 6]               ; 0x20a5
     mov si, ax                       ; 0x20a8
@@ -31,7 +31,7 @@ apply_resisted_status_timer:
     imul word [bp + 6]               ; 0x20e0
     add ax, party_records + pc_rec.resist ; 0x20e3
     push ax                          ; 0x20e6
-    call aztec_movmem                ; 0x20e7
+    call movmem                ; 0x20e7
     add sp, byte 6                   ; 0x20ea
     cmp word [bp + 0xa], byte 1      ; 0x20ed
     je short .forward2               ; 0x20f1

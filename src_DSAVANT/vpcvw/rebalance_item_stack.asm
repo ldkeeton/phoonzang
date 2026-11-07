@@ -1,7 +1,7 @@
 ; auto-generated
 rebalance_item_stack:
     mov ax, 0xffb2                   ; 0x42e3
-    call aztec_csav                  ; 0x42e6
+    call $csav                  ; 0x42e6
     mov ax, 0                        ; 0x42e9
     push ax                          ; 0x42ec
     mov bx, word [bp + 4]            ; 0x42ed

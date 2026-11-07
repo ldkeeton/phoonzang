@@ -6,7 +6,7 @@ extern unsigned char code_table[];
 extern unsigned short code_index_1, code_index_2;
 extern unsigned short code_index_3, code_index_4;
 extern unsigned short answer_length;
-extern random_below(), load_message_string(), aztec_strlen();
+extern random_below(), load_message_string(), strlen();
 
 prepare_code_answer()
 {
@@ -26,7 +26,7 @@ prepare_code_answer()
 	code_characters[code_index_4] = message[3];
 
 	checksum = 0;
-	answer_length = index = aztec_strlen(message) - 4;
+	answer_length = index = strlen(message) - 4;
 	/* Walk backward over the message body, excluding its four-byte prefix. */
 	while (index > 0) {
 		index--;

@@ -1,7 +1,7 @@
 ; auto-generated
 select_encumbrance_style:
     mov ax, 0xffee
-    call aztec_csav
+    call $csav
     mov word [bp - 0xe], 0
     mov word [bp - 0xc], 0
     mov word [bp - 0xa], 0
@@ -30,7 +30,7 @@ select_encumbrance_style:
     mov bx, dx
     pop dx
     pop ax
-    call aztec_ldv
+    call $ldv
     mov word [bp - 0x10], dx
     mov word [bp - 0x12], ax
     cmp dx, byte 0

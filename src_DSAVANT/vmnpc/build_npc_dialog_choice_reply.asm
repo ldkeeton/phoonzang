@@ -1,7 +1,7 @@
 ; auto-generated
 build_npc_dialog_choice_reply:
     mov ax, 0xff5e                   ; 0x9844
-    call aztec_csav                  ; 0x9847
+    call $csav                  ; 0x9847
     cmp word [npc_dialog_primary_choice], byte -1 ; 0x984a
     jne short .forward1              ; 0x984f
     cmp word [npc_dialog_empty_choice_seen], byte 1 ; 0x9851
@@ -79,7 +79,7 @@ build_npc_dialog_choice_reply:
     push ax                          ; 0x9908
     lea ax, word [bp - 0x52]         ; 0x9909
     push ax                          ; 0x990c
-    call aztec_strcpy                ; 0x990d
+    call strcpy                ; 0x990d
     add sp, byte 4                   ; 0x9910
     lea ax, word [bp - 0x52]         ; 0x9913
     push ax                          ; 0x9916

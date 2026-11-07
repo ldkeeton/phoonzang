@@ -1,7 +1,7 @@
 ; auto-generated
 give_profession_starting_items:
     mov ax, 0                        ; 0x4c82
-    call aztec_csav                  ; 0x4c85
+    call $csav                  ; 0x4c85
     mov ax, 0x248                    ; 0x4c88
     imul word [bp + 4]               ; 0x4c8b
     mov bx, ax                       ; 0x4c8e

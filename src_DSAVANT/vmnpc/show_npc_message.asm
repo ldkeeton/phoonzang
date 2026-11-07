@@ -1,7 +1,7 @@
 ; auto-generated
 show_npc_message:
     mov ax, 0xffb0                   ; 0x13b4
-    call aztec_csav                  ; 0x13b7
+    call $csav                  ; 0x13b7
     lea ax, word [bp - 0x50]         ; 0x13ba
     push ax                          ; 0x13bd
     push word [bp + 4]               ; 0x13be

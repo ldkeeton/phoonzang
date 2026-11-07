@@ -1,7 +1,7 @@
 ; auto-generated
 adjust_npc_attitudes:
     mov ax, 0                        ; 0x85f9
-    call aztec_csav                  ; 0x85fc
+    call $csav                  ; 0x85fc
     mov ax, 0x64                     ; 0x85ff
     push ax                          ; 0x8602
     mov ax, 0xff9c                   ; 0x8603

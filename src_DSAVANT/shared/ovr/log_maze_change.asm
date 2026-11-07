@@ -1,7 +1,7 @@
 ; auto-generated
 log_maze_change:
     mov ax, 0xfffc
-    call aztec_csav
+    call $csav
     push word [bp + 0xc]
     push word [bp + 0xa]
     push word [bp + 8]

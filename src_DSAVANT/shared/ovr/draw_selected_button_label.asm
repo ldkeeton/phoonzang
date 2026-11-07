@@ -1,7 +1,7 @@
 ; auto-generated
 draw_selected_button_label:
     mov ax, 0xffe8
-    call aztec_csav
+    call $csav
     mov ax, word [bp + 6]
     imul word [bp + 0xe]
     add ax, word [bp + 0xa]
@@ -55,7 +55,7 @@ draw_selected_button_label:
     push ax
     lea ax, word [bp - 0x14]
     push ax
-    call aztec_strlen
+    call strlen
     pop cx
     mov cx, ax
     mov ax, word [bp + 0xc]

@@ -1,7 +1,7 @@
 ; auto-generated
 draw_title_banner:
     mov ax, 0xfff6
-    call aztec_csav
+    call $csav
     mov ax, 0
     push ax
     push ax

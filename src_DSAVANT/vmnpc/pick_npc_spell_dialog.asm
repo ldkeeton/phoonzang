@@ -1,7 +1,7 @@
 ; auto-generated
 pick_npc_spell_dialog:
     mov ax, 0xffbc                   ; 0x786c
-    call aztec_csav                  ; 0x786f
+    call $csav                  ; 0x786f
     mov word [bp - 2], 0             ; 0x7872
 .back1:
     mov ax, word [bp - 2]            ; 0x7877

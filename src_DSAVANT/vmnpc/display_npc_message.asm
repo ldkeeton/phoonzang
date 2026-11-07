@@ -1,7 +1,7 @@
 ; auto-generated
 display_npc_message:
     mov ax, 0                        ; 0x2472
-    call aztec_csav                  ; 0x2475
+    call $csav                  ; 0x2475
     cmp word [npc_message_ready], byte 0 ; 0x2478
     je short .forward1               ; 0x247d
     call begin_npc_message_display   ; 0x247f

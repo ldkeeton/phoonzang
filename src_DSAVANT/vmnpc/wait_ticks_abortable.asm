@@ -1,7 +1,7 @@
 ; auto-generated
 wait_ticks_abortable:
     mov ax, 0xfffc                   ; 0x119e
-    call aztec_csav                  ; 0x11a1
+    call $csav                  ; 0x11a1
     call flush_keyboard              ; 0x11a4
     mov ax, word [bp + 4]            ; 0x11a7
     cwd                              ; 0x11aa

@@ -1,7 +1,7 @@
 ; auto-generated
 blank_scene_screen:
     mov ax, 0                        ; 0x85f0
-    call aztec_csav                  ; 0x85f3
+    call $csav                  ; 0x85f3
     mov word [scene_tick], 1         ; 0x85f6
     mov ax, 0                        ; 0x85fc
     push ax                          ; 0x85ff

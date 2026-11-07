@@ -20,8 +20,8 @@ extern unsigned char code_characters[];
 extern char npc_slot_index;
 extern unsigned char npc_shop_stock_record_index;
 extern int npc_shop_price_markup;
-extern int aztec_setmem(), test_bit(), data_record_io();
-extern int aztec_strcpy(), is_quest_map_item();
+extern int setmem(), test_bit(), data_record_io();
+extern int strcpy(), is_quest_map_item();
 
 build_npc_item_list_for_shop()
 {
@@ -33,7 +33,7 @@ build_npc_item_list_for_shop()
 	struct item_record item;
 
 	npc_item_list_count = 0;
-	aztec_setmem(npc_item_list_item_id, 60, 0);
+	setmem(npc_item_list_item_id, 60, 0);
 	if (npc_slot_index != -1) {
 		for (row = 0; row < 11; ++row) {
 		if (test_bit(slot_records[npc_slot_index].held_maps,
@@ -70,7 +70,7 @@ build_npc_item_list_for_shop()
 	}
 	for (row = 0; row < npc_item_list_count; ++row) {
 		data_record_io(1, &item, npc_item_list_item_id[row], 0);
-		aztec_strcpy(npc_item_list_name[row], item.name);
+		strcpy(npc_item_list_name[row], item.name);
 		npc_item_list_item_type[row] = item.item_type;
 		npc_item_list_item_count[row] = item.level_spec.base +
 			item.level_spec.count * item.level_spec.span;

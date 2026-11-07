@@ -1,7 +1,7 @@
 ; auto-generated
 select_cell_region_object:
     mov ax, 0xfffe                   ; 0x8e6a
-    call aztec_csav                  ; 0x8e6d
+    call $csav                  ; 0x8e6d
     mov bx, word [maze_tables]       ; 0x8e70
     mov si, word [party_map_piece]   ; 0x8e74
     mov al, byte [bx + si + 0xb40]   ; 0x8e78

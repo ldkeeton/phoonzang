@@ -1,7 +1,7 @@
 ; auto-generated
 show_combat_message_and_wait:
     mov ax, 0                        ; 0x24c2
-    call aztec_csav                  ; 0x24c5
+    call $csav                  ; 0x24c5
     mov ax, 4                        ; 0x24c8
     push ax                          ; 0x24cb
     mov ax, 2                        ; 0x24cc

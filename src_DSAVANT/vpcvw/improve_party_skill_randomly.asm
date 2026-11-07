@@ -1,7 +1,7 @@
 ; auto-generated
 improve_party_skill_randomly:
     mov ax, 0xfffe                   ; 0x5006
-    call aztec_csav                  ; 0x5009
+    call $csav                  ; 0x5009
     push word [bp + 0xa]             ; 0x500c
     call random_below                ; 0x500f
     pop cx                           ; 0x5012

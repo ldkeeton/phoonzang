@@ -1,7 +1,7 @@
 ; auto-generated
 wait_for_npc_screen_animation:
     mov ax, 0                        ; 0x10b6
-    call aztec_csav                  ; 0x10b9
+    call $csav                  ; 0x10b9
 .back1:
     cmp word [party_screen_animation_state], byte -2 ; 0x10bc
     je short .return1                ; 0x10c1

@@ -1,7 +1,7 @@
 ; auto-generated
 choose_slot_goal:
     mov ax, 0xfffc                   ; 0x96ce
-    call aztec_csav                  ; 0x96d1
+    call $csav                  ; 0x96d1
     mov ax, 0x26                     ; 0x96d4
     imul word [bp + 4]               ; 0x96d7
     mov bx, ax                       ; 0x96da

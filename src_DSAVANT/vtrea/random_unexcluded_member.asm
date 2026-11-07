@@ -1,7 +1,7 @@
 ; auto-generated
 random_unexcluded_member:
     mov ax, 0xfffc                   ; 0x1447
-    call aztec_csav                  ; 0x144a
+    call $csav                  ; 0x144a
     mov word [bp - 4], 0             ; 0x144d
 .back1:
     push word [party_char_count]     ; 0x1452

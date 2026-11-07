@@ -52,6 +52,9 @@ from lib.sidecar.binary import per_binary as sidecar_per_binary
 from lib.sidecar.loader import load as load_sidecar
 from lib.sidecar.errors import SidecarError
 from lib.sidecar.patches import PatchError, finalize as finalize_patches
+from lib import vendorlib
+from lib.aztec.compile import VERSION as AZTEC_VERSION
+from lib.sidecar.bands import runtime_library
 from lib.shared import check_companions, companion_moves, reshare_partial, share_files
 
 from .options import APPS_DIR, PROJECT_ROOT
@@ -329,6 +332,14 @@ def _link_order(project, files, report=print):
     return order
 
 
+def _libraries(project, bins):
+    """``{binary: library}`` of each binary that links its runtime from a
+    vendor library (:func:`lib.sidecar.bands.runtime_library`)."""
+    sidecar = load_sidecar(project) or {}
+    found = {name: runtime_library(sidecar, name) for name in bins}
+    return {name: lib for name, lib in found.items() if lib}
+
+
 def _sync(out_dir, files, report, shared=None, source_moves=None):
     """Bring *out_dir* to this build's *files*: the tree is left alone until
     the layout is final, then only what changed is written or removed."""
@@ -545,6 +556,8 @@ def _build_project(project, run_batch, nasm_batch, *, report=print,
         # 5. one copy of every routine binaries share, in shared/
         progress.log(f'{project} | sharing identical routines')
         files, shared = share_files(merge_files(emitted), out_dir)
+        libraries = _libraries(project, bins)
+        vendorlib.relocate(files, libraries, AZTEC_VERSION)
         files.update(project_files(
             {name: load_sidecar(project)['binaries'].get(name, {}) for name in bins},
             host, files, _link_order(project, files, report),
@@ -569,6 +582,7 @@ def _build_project(project, run_batch, nasm_batch, *, report=print,
 
         progress.log(f'{project} | syncing {len(files)} generated file(s)')
         _sync(out_dir, files, report, shared=shared, source_moves=source_moves)
+        vendorlib.prune(out_dir, files, libraries)
         completed = True
         progress.log(f'{project} | copying assets')
         copy_assets(app_dir, os.path.join(out_dir, 'build_out'),
@@ -593,6 +607,7 @@ def _build_project(project, run_batch, nasm_batch, *, report=print,
                 files, _ = share_files(merge_files(emitted), out_dir)
             else:
                 files, _, _ = reshare_partial(merge_files(emitted), out_dir)
+            vendorlib.relocate(files, _libraries(project, bins), AZTEC_VERSION)
             files = {rel: text for rel, text in files.items()
                      if not hand_owned(os.path.join(out_dir, rel))}
             written, unchanged, _ = sync(out_dir, files, scopes=[])

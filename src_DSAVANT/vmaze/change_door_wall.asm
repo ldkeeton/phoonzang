@@ -1,7 +1,7 @@
 ; auto-generated
 change_door_wall:
     mov ax, 0xffe2                   ; 0x7e46
-    call aztec_csav                  ; 0x7e49
+    call $csav                  ; 0x7e49
     mov ax, word [party_region]      ; 0x7e4c
     shl ax, 1                        ; 0x7e4f
     mov si, ax                       ; 0x7e51

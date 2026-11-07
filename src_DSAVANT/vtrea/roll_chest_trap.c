@@ -16,7 +16,7 @@ extern int trap_glyph_ids[], trap_row_index;
 extern int trap_row_types[];
 extern char trap_code_template[], unknown_trap_clue_template[];
 extern int random_below(), test_bit(), load_message_string();
-extern int aztec_setmem(), aztec_strcpy(), clamp_between();
+extern int setmem(), strcpy(), clamp_between();
 
 roll_chest_trap(chest)
 struct chest_record *chest;
@@ -42,11 +42,11 @@ struct chest_record *chest;
 
 	load_message_string(MSG_NO_TRAP + chest_trap_type,
 		chest_trap_name);
-	aztec_setmem(trap_row_listed, 48, 0);
+	setmem(trap_row_listed, 48, 0);
 	trap_row_listed[chest_trap_type] = 1;
-	aztec_setmem(trap_glyph_pressed, 16, 0);
+	setmem(trap_glyph_pressed, 16, 0);
 	glyph_count = 0;
-	aztec_setmem(glyph_used, 32, 0);
+	setmem(glyph_used, 32, 0);
 	for (i = 0; i < 8; i++) {
 		if (spell_table->trap_glyphs[chest_trap_type][i]
 			!= 255) {
@@ -109,7 +109,7 @@ struct chest_record *chest;
 	trap_row_index = -1;
 	for (i = 1; i < 18; i++) {
 		if (trap_row_listed[i]) {
-			aztec_strcpy(trap_row_codes + row_count * 10, trap_code_template);
+			strcpy(trap_row_codes + row_count * 10, trap_code_template);
 			for (j = 0; j < 8; j++) {
 				if (spell_table->trap_glyphs[i][j] != 255) {
 					for (k = 0; k < 8; k++) {
@@ -127,7 +127,7 @@ struct chest_record *chest;
 	}
 
 	for (i = 0; i < party_char_count; i++) {
-		aztec_strcpy(member_trap_clues + i * 10,
+		strcpy(member_trap_clues + i * 10,
 			unknown_trap_clue_template);
 		k = -5;
 		switch (party_records[i].profession) {

@@ -4,7 +4,7 @@
 extern struct pc_rec party_records[];
 extern unsigned char member_icon[];
 extern int call_set_text_pos(), draw_font_glyph(), call_fill_area();
-extern int aztec_strlen(), call_set_text_color(), draw_text_glyphs();
+extern int strlen(), call_set_text_color(), draw_text_glyphs();
 extern int draw_power_bar(), call_show_area();
 
 /* Render the overview for one party member. */
@@ -26,7 +26,7 @@ int clear_name;
 	draw_font_glyph(member_icon[member_index * 2], 5);
 	if (clear_name) {
 		call_fill_area(column + 4, row + 32,
-			column + 6 * aztec_strlen(party_records[member_index].name) + 2,
+			column + 6 * strlen(party_records[member_index].name) + 2,
 			row + 36, 24);
 	}
 	call_set_text_color(1, 0);

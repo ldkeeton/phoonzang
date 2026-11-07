@@ -34,15 +34,15 @@ char *buf;
 	}
 	call_wait_sound(0);
 	/* each type is a fixed-size array starting at record_base[type] */
-	aztec_lseek(data_file_fd, (long)index * record_size[type] + record_base[type],
+	lseek(data_file_fd, (long)index * record_size[type] + record_base[type],
 		0);
 	if (record_packed[type] == 0) {
 		if (dir == 0)
-			aztec_read(data_file_fd, buf, record_size[type]);
+			read(data_file_fd, buf, record_size[type]);
 		else if (dir == 1)
-			aztec_write(data_file_fd, buf, record_size[type]);
+			write(data_file_fd, buf, record_size[type]);
 	} else if (dir == 0) {
-		aztec_read(data_file_fd, packed, record_size[type]);
+		read(data_file_fd, packed, record_size[type]);
 		unpack_record(packed, buf);
 	}
 }

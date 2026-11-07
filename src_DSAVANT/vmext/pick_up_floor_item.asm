@@ -1,7 +1,7 @@
 ; auto-generated
 pick_up_floor_item:
     mov ax, 0xfff8                   ; 0x151e
-    call aztec_csav                  ; 0x1521
+    call $csav                  ; 0x1521
     push word [bp + 4]               ; 0x1524
     call find_empty_party_item_slot  ; 0x1527
     pop cx                           ; 0x152a

@@ -1,7 +1,7 @@
 ; auto-generated
 get_north_cell_wall:
     mov ax, 0                        ; 0x07d9
-    call aztec_csav                  ; 0x07dc
+    call $csav                  ; 0x07dc
     mov ax, word [bp + 6]            ; 0x07df
     dec ax                           ; 0x07e2
     push ax                          ; 0x07e3

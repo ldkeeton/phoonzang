@@ -1,7 +1,7 @@
 ; auto-generated
 show_load_disk_error:
     mov ax, 0                        ; 0x150d
-    call aztec_csav                  ; 0x1510
+    call $csav                  ; 0x1510
     mov ax, 0xc7                     ; 0x1513
     push ax                          ; 0x1516
     mov ax, 0x13f                    ; 0x1517

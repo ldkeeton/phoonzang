@@ -1,7 +1,7 @@
 ; auto-generated
 wait_for_spacebar_prompt:
     mov ax, 0xfffc                   ; 0x114d
-    call aztec_csav                  ; 0x1150
+    call $csav                  ; 0x1150
     mov ax, spacebar_prompt_text     ; 0x1153
     push ax                          ; 0x1156
     mov ax, 1                        ; 0x1157

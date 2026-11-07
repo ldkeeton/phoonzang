@@ -1,7 +1,7 @@
 ; auto-generated
 action_spell_dialog:
     mov ax, 0xffbc                   ; 0x1ca2
-    call aztec_csav                  ; 0x1ca5
+    call $csav                  ; 0x1ca5
     mov word [bp - 2], 0             ; 0x1ca8
 .back1:
     mov ax, word [bp - 2]            ; 0x1cad

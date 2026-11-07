@@ -1,7 +1,7 @@
 ; auto-generated
 display_centered_message:
     mov ax, 0xfffc
-    call aztec_csav
+    call $csav
     mov ax, 0xc2
     push ax
     mov ax, 0x13f
@@ -17,7 +17,7 @@ display_centered_message:
     mov ax, 0xbc
     push ax
     push word [bp + 4]
-    call aztec_strlen
+    call strlen
     pop cx
     mov cx, 6
     imul cx

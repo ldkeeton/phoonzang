@@ -1,7 +1,7 @@
 ; auto-generated
 update_region_quest_map_flags:
     mov ax, 0                        ; 0x86a9
-    call aztec_csav                  ; 0x86ac
+    call $csav                  ; 0x86ac
     mov ax, 2                        ; 0x86af
     push ax                          ; 0x86b2
     mov ax, 0                        ; 0x86b3

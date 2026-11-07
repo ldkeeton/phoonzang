@@ -1,7 +1,7 @@
 ; auto-generated
 adjust_palette_and_rgb_lookup:
     mov ax, 0xfff4                   ; 0x4060
-    call aztec_csav                  ; 0x4063
+    call $csav                  ; 0x4063
     mov word [bp - 2], 0             ; 0x4066
 .back1:
     mov word [bp - 4], 0             ; 0x406b
@@ -110,7 +110,7 @@ adjust_palette_and_rgb_lookup:
     push ax                          ; 0x4161
     mov ax, quantized_rgb_lookup     ; 0x4162
     push ax                          ; 0x4165
-    call aztec_setmem                ; 0x4166
+    call setmem                ; 0x4166
     add sp, byte 6                   ; 0x4169
     mov word [bp - 2], 0             ; 0x416c
 .back3:

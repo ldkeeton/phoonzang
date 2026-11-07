@@ -1,7 +1,7 @@
 ; auto-generated
 show_vpcvw_scene_messages:
     mov ax, 0xffaa                   ; 0x3c7b
-    call aztec_csav                  ; 0x3c7e
+    call $csav                  ; 0x3c7e
     mov ax, 0                        ; 0x3c81
     push ax                          ; 0x3c84
     push ax                          ; 0x3c85

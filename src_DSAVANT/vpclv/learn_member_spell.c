@@ -6,7 +6,7 @@
 extern struct pc_rec party_records[];
 extern struct spell_table_view spell_table[];
 extern int dialog_selection;
-extern int aztec_movmem(), aztec_setmem(), test_bit(), set_bitmap_bit();
+extern int movmem(), setmem(), test_bit(), set_bitmap_bit();
 extern int load_message_string(), str_subst_char(), display_centered_message();
 extern int pick_spell_dialog_keep_frames(), random_below(),
 	draw_member_realm_points();
@@ -26,8 +26,8 @@ int member, school;
 	case 3: mask = 2; skill = 31; break;
 	case 2: mask = 1; skill = 29; break;
 	}
-	aztec_movmem(party_records[member].spell_bitmap, known_spells, 16);
-	aztec_setmem(party_records[member].spell_bitmap, 16, 0);
+	movmem(party_records[member].spell_bitmap, known_spells, 16);
+	setmem(party_records[member].spell_bitmap, 16, 0);
 	max_level = party_records[member].skills[skill] / 18 + 1;
 	if (party_records[member].skills[skill] >= 98) max_level = 7;
 	count = 0;
@@ -42,7 +42,7 @@ int member, school;
 	} while (++spell < 102);
 	if (count == 0) {
 	party_records[member].spells_to_learn[school] = 0;
-	aztec_movmem(known_spells, party_records[member].spell_bitmap, 16);
+	movmem(known_spells, party_records[member].spell_bitmap, 16);
 	return;
 	}
 	load_message_string(MSG_YOU_LEARNED_A_NEW_SPELL, message);
@@ -50,7 +50,7 @@ int member, school;
 	str_subst_char(message, class_name, 36);
 	display_centered_message(message, 1);
 	count = pick_spell_dialog_keep_frames(member, MSG_LEARN, 1, 0);
-	aztec_movmem(known_spells, party_records[member].spell_bitmap, 16);
+	movmem(known_spells, party_records[member].spell_bitmap, 16);
 	if (count == 0) {
 	quotient = dialog_selection / 256;
 	selected = dialog_selection % 256;

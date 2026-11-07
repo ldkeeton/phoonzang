@@ -1,7 +1,7 @@
 ; auto-generated
 update_treasure_frame:
     mov ax, 0                        ; 0x07de
-    call aztec_csav                  ; 0x07e1
+    call $csav                  ; 0x07e1
     mov ax, 0                        ; 0x07e4
     push ax                          ; 0x07e7
     push ax                          ; 0x07e8

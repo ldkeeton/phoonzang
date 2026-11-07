@@ -1,7 +1,7 @@
 ; auto-generated
 combatant_evades_targeting:
     mov ax, 0                        ; 0x1f5d
-    call aztec_csav                  ; 0x1f60
+    call $csav                  ; 0x1f60
     mov ax, 0x2c                     ; 0x1f63
     imul word [bp + 6]               ; 0x1f66
     mov si, ax                       ; 0x1f69

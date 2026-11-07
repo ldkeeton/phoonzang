@@ -1,7 +1,7 @@
 ; auto-generated
 play_action_overlays:
     mov ax, 0xffa6                   ; 0x2cde
-    call aztec_csav                  ; 0x2ce1
+    call $csav                  ; 0x2ce1
     cmp word [show_melee_result], byte 0 ; 0x2ce4
     je short .forward1               ; 0x2ce9
     lea ax, word [bp - 0x5a]         ; 0x2ceb

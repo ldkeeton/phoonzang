@@ -1,7 +1,7 @@
 ; auto-generated
 apply_status_to_group_units:
     mov ax, 0xfffa                   ; 0x2c7b
-    call aztec_csav                  ; 0x2c7e
+    call $csav                  ; 0x2c7e
     mov word [combat_message_layout], 2 ; 0x2c81
     mov word [bp - 4], 0             ; 0x2c87
     cmp word [bp + 0xa], byte 3      ; 0x2c8c

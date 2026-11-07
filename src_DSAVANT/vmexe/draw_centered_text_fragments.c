@@ -1,6 +1,6 @@
 /* Draw up to three colored text fragments centered on a menu row. */
 
-extern int aztec_strlen();
+extern int strlen();
 extern int set_menu_text_position();
 extern int draw_colored_text_with_space();
 extern int call_show_area();
@@ -16,8 +16,8 @@ int first_color, second_color, third_color;
 
 	present_count = (second_text[0] ? 1 : 0) +
 		(third_text[0] ? 1 : 0);
-	text_x = 160 - ((aztec_strlen(first_text) +
-		aztec_strlen(second_text) + aztec_strlen(third_text) +
+	text_x = 160 - ((strlen(first_text) +
+		strlen(second_text) + strlen(third_text) +
 		present_count) * 6 / 2);
 	set_menu_text_position(text_x, row);
 	if (first_text[0] != 0)

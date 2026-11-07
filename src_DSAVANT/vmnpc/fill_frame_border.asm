@@ -1,7 +1,7 @@
 ; auto-generated
 fill_frame_border:
     mov ax, 0                        ; 0x17a6
-    call aztec_csav                  ; 0x17a9
+    call $csav                  ; 0x17a9
     push word [bp + 0xc]             ; 0x17ac
     mov ax, word [bp + 6]            ; 0x17af
     dec ax                           ; 0x17b2

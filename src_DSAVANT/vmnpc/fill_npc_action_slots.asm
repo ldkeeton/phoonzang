@@ -1,7 +1,7 @@
 ; auto-generated
 fill_npc_action_slots:
     mov ax, 0xfff8                   ; 0x000e
-    call aztec_csav                  ; 0x0011
+    call $csav                  ; 0x0011
     mov word [bp - 8], 0             ; 0x0014
     cmp word [bp + 0xa], byte -1     ; 0x0019
     jne short .forward1              ; 0x001d

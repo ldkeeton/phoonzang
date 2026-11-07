@@ -1,7 +1,7 @@
 ; auto-generated
 run_combat_screen_animation:
     mov ax, 0                        ; 0x1a35
-    call aztec_csav                  ; 0x1a38
+    call $csav                  ; 0x1a38
     mov word [party_screen_animation_state], 0xfffe ; 0x1a3b
 .back1:
     call step_combat_screen_animation ; 0x1a41

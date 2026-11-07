@@ -3,7 +3,7 @@
 #include "structs/pcrec.h"
 #include "structs/itemrec.h"
 
-extern int data_record_io(), aztec_strcpy(), add_random_steps();
+extern int data_record_io(), strcpy(), add_random_steps();
 
 create_item_slot_from_record(item_id, slot, consumed, name)
 int item_id;
@@ -13,7 +13,7 @@ char *name;
 	struct item_record item;
 
 	data_record_io(1, &item, item_id, 0);
-	aztec_strcpy(name, item.name);
+	strcpy(name, item.name);
 	slot->item_id = item_id;
 	slot->glyph = item.glyph;
 	slot->item_type = item.item_type;

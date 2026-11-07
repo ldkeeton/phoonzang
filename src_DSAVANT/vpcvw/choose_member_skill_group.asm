@@ -1,7 +1,7 @@
 ; auto-generated
 choose_member_skill_group:
     mov ax, 0xff7c                   ; 0x40ef
-    call aztec_csav                  ; 0x40f2
+    call $csav                  ; 0x40f2
     mov word [bp - 4], 0             ; 0x40f5
     mov word [bp - 8], 0             ; 0x40fa
     mov ax, word [personal_skill_group_start] ; 0x40ff

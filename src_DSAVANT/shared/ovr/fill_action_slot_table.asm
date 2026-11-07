@@ -1,7 +1,7 @@
 ; auto-generated
 fill_action_slot_table:
     mov ax, 0xfff6
-    call aztec_csav
+    call $csav
     mov ax, word [bp + 4]
     shl ax, 1
     mov bx, ax

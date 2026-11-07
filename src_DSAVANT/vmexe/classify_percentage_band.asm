@@ -1,7 +1,7 @@
 ; auto-generated
 classify_percentage_band:
     mov ax, 0xfffc                   ; 0x0034
-    call aztec_csav                  ; 0x0037
+    call $csav                  ; 0x0037
     mov ax, word [bp + 6]            ; 0x003a
     mov bx, 0x64                     ; 0x003d
     imul bx                          ; 0x0040
@@ -13,7 +13,7 @@ classify_percentage_band:
     mov bx, dx                       ; 0x004a
     pop dx                           ; 0x004c
     pop ax                           ; 0x004d
-    call aztec_ldv                   ; 0x004e
+    call $ldv                   ; 0x004e
     mov cx, ax                       ; 0x0051
     mov bx, dx                       ; 0x0053
     mov ax, 0x64                     ; 0x0055

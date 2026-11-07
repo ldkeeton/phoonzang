@@ -1,7 +1,7 @@
 ; auto-generated
 read_item_special_power:
     mov ax, 0xffb8                   ; 0x4a1c
-    call aztec_csav                  ; 0x4a1f
+    call $csav                  ; 0x4a1f
     mov ax, 0                        ; 0x4a22
     push ax                          ; 0x4a25
     mov bx, word [bp + 6]            ; 0x4a26

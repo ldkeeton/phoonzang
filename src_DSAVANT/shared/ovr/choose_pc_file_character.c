@@ -16,7 +16,7 @@ struct pc_file_list_row {
 extern struct roster_state_view pc_file_record_base_hi;
 extern int pc_file_record_count, dialog_selection;
 extern struct pc_file_list_row list_entry_text[];
-extern int transfer_pc_file_record(), aztec_strcpy(), aztec_strlen();
+extern int transfer_pc_file_record(), strcpy(), strlen();
 extern int load_message_string(), pick_list_entry_dialog();
 
 choose_pc_file_character(prompt_message)
@@ -36,9 +36,9 @@ int prompt_message;
 		/* Only roster entries marked available are included. */
 		if (pc_file_record_base_hi.availability[record_index] == 1) {
 			transfer_pc_file_record(&pc_file_record, record_index, 0);
-			aztec_strcpy(list_entry_text[option_count].name,
+			strcpy(list_entry_text[option_count].name,
 				pc_file_record.name);
-			name_length = aztec_strlen(
+			name_length = strlen(
 				list_entry_text[option_count].name);
 			/* Pad the ten-character display name before the metadata fields. */
 			while (name_length < 10) {

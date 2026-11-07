@@ -1,7 +1,7 @@
 ; auto-generated
 draw_configuration_number:
     mov ax, 0                        ; 0x46b8
-    call aztec_csav                  ; 0x46bb
+    call $csav                  ; 0x46bb
     mov ax, 1                        ; 0x46be
     push ax                          ; 0x46c1
     mov ax, word [bp + 8]            ; 0x46c2

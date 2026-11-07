@@ -1,19 +1,19 @@
 ; auto-generated
 mask_matching_prefix_with_x:
     mov ax, 0xfffe                   ; 0x8bb0
-    call aztec_csav                  ; 0x8bb3
+    call $csav                  ; 0x8bb3
     push word [bp + 6]               ; 0x8bb6
-    call aztec_strlen                ; 0x8bb9
+    call strlen                ; 0x8bb9
     pop cx                           ; 0x8bbc
     push ax                          ; 0x8bbd
     push word [bp + 6]               ; 0x8bbe
     push word [bp + 4]               ; 0x8bc1
-    call aztec_strncmp               ; 0x8bc4
+    call strncmp               ; 0x8bc4
     add sp, byte 6                   ; 0x8bc7
     test ax, ax                      ; 0x8bca
     jne short .forward1              ; 0x8bcc
     push word [bp + 6]               ; 0x8bce
-    call aztec_strlen                ; 0x8bd1
+    call strlen                ; 0x8bd1
     pop cx                           ; 0x8bd4
     dec ax                           ; 0x8bd5
     push ax                          ; 0x8bd6

@@ -3,7 +3,7 @@ extern int menu_selection_index;
 extern int mouse_active, hotspot_hit, hotspot_rects[];
 extern int monster_group_count;
 extern int load_message_string(), draw_bevel_frame();
-extern int call_set_text_color(), aztec_strlen(), call_set_text_pos();
+extern int call_set_text_color(), strlen(), call_set_text_pos();
 extern int draw_text_glyphs(), set_hotspot(), call_show_area();
 extern int show_area_set(), poll_hotspots(), step_party_screen_animation();
 extern int poll_filtered_key(), call_invert_area(), delay_ms();
@@ -45,7 +45,7 @@ int *option_flags;
 				top + cell_y + 6, 0);
 			call_set_text_color(text_color, 0);
 			call_set_text_pos(column_x + cell_x +
-				(text_width - aztec_strlen(option_text[display_count])) * 6 / 2 + 1,
+				(text_width - strlen(option_text[display_count])) * 6 / 2 + 1,
 				top + cell_y + 1);
 			draw_text_glyphs(option_text[display_count], 0);
 			set_hotspot(display_count, column_x + cell_x, top + cell_y,

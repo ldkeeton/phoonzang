@@ -1,7 +1,7 @@
 ; auto-generated
 flash_area:
     mov ax, 0                        ; 0x10ff
-    call aztec_csav                  ; 0x1102
+    call $csav                  ; 0x1102
     push word [bp + 0xa]             ; 0x1105
     push word [bp + 8]               ; 0x1108
     push word [bp + 6]               ; 0x110b

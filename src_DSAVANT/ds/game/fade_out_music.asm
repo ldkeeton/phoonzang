@@ -1,7 +1,7 @@
 ; auto-generated
 fade_out_music:
     mov ax, 0                        ; 0x2b62
-    call aztec_csav                  ; 0x2b65
+    call $csav                  ; 0x2b65
     call call_is_music_playing       ; 0x2b68
     test ax, ax                      ; 0x2b6b
     je short .return1                ; 0x2b6d

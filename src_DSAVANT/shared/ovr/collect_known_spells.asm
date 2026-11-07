@@ -1,7 +1,7 @@
 ; auto-generated
 collect_known_spells:
     mov ax, 0xfffc
-    call aztec_csav
+    call $csav
     mov word [bp - 4], 0
     mov word [bp - 2], 0
 .back1:

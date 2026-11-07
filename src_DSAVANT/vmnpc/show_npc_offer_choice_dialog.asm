@@ -1,7 +1,7 @@
 ; auto-generated
 show_npc_offer_choice_dialog:
     mov ax, 0xfea6                   ; 0x1d39
-    call aztec_csav                  ; 0x1d3c
+    call $csav                  ; 0x1d3c
     mov ax, word [bp + 0x16]         ; 0x1d3f
     dec ax                           ; 0x1d42
     cwd                              ; 0x1d43
@@ -71,7 +71,7 @@ show_npc_offer_choice_dialog:
     add ax, strict word 0xfff0       ; 0x1dde
     push ax                          ; 0x1de1
     push word [bp + 4]               ; 0x1de2
-    call aztec_strlen                ; 0x1de5
+    call strlen                ; 0x1de5
     pop cx                           ; 0x1de8
     mov cx, 6                        ; 0x1de9
     imul cx                          ; 0x1dec
@@ -93,7 +93,7 @@ show_npc_offer_choice_dialog:
     add ax, strict word 0xfff6       ; 0x1e12
     push ax                          ; 0x1e15
     push word [bp + 6]               ; 0x1e16
-    call aztec_strlen                ; 0x1e19
+    call strlen                ; 0x1e19
     pop cx                           ; 0x1e1c
     mov cx, 6                        ; 0x1e1d
     imul cx                          ; 0x1e20
@@ -207,7 +207,7 @@ show_npc_offer_choice_dialog:
     lea cx, word [bp - 0x156]        ; 0x1f18
     add ax, cx                       ; 0x1f1c
     push ax                          ; 0x1f1e
-    call aztec_strlen                ; 0x1f1f
+    call strlen                ; 0x1f1f
     pop cx                           ; 0x1f22
     mov cx, ax                       ; 0x1f23
     mov ax, word [bp + 0xe]          ; 0x1f25

@@ -1,9 +1,9 @@
 ; auto-generated
 draw_centered_menu_text_row:
     mov ax, 0xfffe                   ; 0x1642
-    call aztec_csav                  ; 0x1645
+    call $csav                  ; 0x1645
     push word [bp + 4]               ; 0x1648
-    call aztec_strlen                ; 0x164b
+    call strlen                ; 0x164b
     pop cx                           ; 0x164e
     mov cx, 6                        ; 0x164f
     imul cx                          ; 0x1652

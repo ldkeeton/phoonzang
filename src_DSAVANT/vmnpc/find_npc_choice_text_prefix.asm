@@ -1,7 +1,7 @@
 ; auto-generated
 find_npc_choice_text_prefix:
     mov ax, 0xffa8                   ; 0x89a8
-    call aztec_csav                  ; 0x89ab
+    call $csav                  ; 0x89ab
     mov word [bp - 2], 0             ; 0x89ae
     jmp near .forward3               ; 0x89b3
 .back1:
@@ -17,7 +17,7 @@ find_npc_choice_text_prefix:
     add sp, byte 4                   ; 0x89cd
     lea ax, word [bp - 0x2c]         ; 0x89d0
     push ax                          ; 0x89d3
-    call aztec_strlen                ; 0x89d4
+    call strlen                ; 0x89d4
     pop cx                           ; 0x89d7
     mov word [bp - 0x58], ax         ; 0x89d8
     mov bx, ax                       ; 0x89db
@@ -26,7 +26,7 @@ find_npc_choice_text_prefix:
     mov byte [bx - 0x2b], 0          ; 0x89e3
     lea ax, word [bp - 0x54]         ; 0x89e7
     push ax                          ; 0x89ea
-    call aztec_strlen                ; 0x89eb
+    call strlen                ; 0x89eb
     pop cx                           ; 0x89ee
     mov word [bp - 0x58], ax         ; 0x89ef
     mov bx, ax                       ; 0x89f2
@@ -35,19 +35,19 @@ find_npc_choice_text_prefix:
     mov byte [bx - 0x53], 0          ; 0x89fa
     lea ax, word [bp - 0x2c]         ; 0x89fe
     push ax                          ; 0x8a01
-    call aztec_strlen                ; 0x8a02
+    call strlen                ; 0x8a02
     pop cx                           ; 0x8a05
     push ax                          ; 0x8a06
     lea ax, word [bp - 0x2c]         ; 0x8a07
     push ax                          ; 0x8a0a
     push word [bp + 4]               ; 0x8a0b
-    call aztec_strncmp               ; 0x8a0e
+    call strncmp               ; 0x8a0e
     add sp, byte 6                   ; 0x8a11
     test ax, ax                      ; 0x8a14
     jne short .forward1              ; 0x8a16
     lea ax, word [bp - 0x2c]         ; 0x8a18
     push ax                          ; 0x8a1b
-    call aztec_strlen                ; 0x8a1c
+    call strlen                ; 0x8a1c
     pop cx                           ; 0x8a1f
     dec ax                           ; 0x8a20
     push ax                          ; 0x8a21
@@ -61,19 +61,19 @@ find_npc_choice_text_prefix:
 .forward1:
     lea ax, word [bp - 0x54]         ; 0x8a36
     push ax                          ; 0x8a39
-    call aztec_strlen                ; 0x8a3a
+    call strlen                ; 0x8a3a
     pop cx                           ; 0x8a3d
     push ax                          ; 0x8a3e
     lea ax, word [bp - 0x54]         ; 0x8a3f
     push ax                          ; 0x8a42
     push word [bp + 4]               ; 0x8a43
-    call aztec_strncmp               ; 0x8a46
+    call strncmp               ; 0x8a46
     add sp, byte 6                   ; 0x8a49
     test ax, ax                      ; 0x8a4c
     jne short .forward2              ; 0x8a4e
     lea ax, word [bp - 0x54]         ; 0x8a50
     push ax                          ; 0x8a53
-    call aztec_strlen                ; 0x8a54
+    call strlen                ; 0x8a54
     pop cx                           ; 0x8a57
     dec ax                           ; 0x8a58
     push ax                          ; 0x8a59

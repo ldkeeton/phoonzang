@@ -1,7 +1,7 @@
 ; auto-generated
 add_monster_group:
     mov ax, 0xfff8                   ; 0x07ad
-    call aztec_csav                  ; 0x07b0
+    call $csav                  ; 0x07b0
     mov ax, 0                        ; 0x07b3
     push ax                          ; 0x07b6
     push word [bp + 4]               ; 0x07b7

@@ -1,7 +1,7 @@
 ; auto-generated
 init_member_karma_affinities:
     mov ax, 0xfffe                   ; 0x4ade
-    call aztec_csav                  ; 0x4ae1
+    call $csav                  ; 0x4ae1
     mov word [bp - 2], 0             ; 0x4ae4
 .back1:
     mov ax, 9                        ; 0x4ae9

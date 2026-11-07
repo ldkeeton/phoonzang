@@ -1,14 +1,14 @@
 ; auto-generated
 run_roaming_npc_turns:
     mov ax, 0xffce                   ; 0xab9b
-    call aztec_csav                  ; 0xab9e
+    call $csav                  ; 0xab9e
     mov ax, 0                        ; 0xaba1
     push ax                          ; 0xaba4
     mov ax, 0x1e4                    ; 0xaba5
     push ax                          ; 0xaba8
     mov ax, slot_pair_processed      ; 0xaba9
     push ax                          ; 0xabac
-    call aztec_setmem                ; 0xabad
+    call setmem                ; 0xabad
     add sp, byte 6                   ; 0xabb0
     mov ax, 0                        ; 0xabb3
     push ax                          ; 0xabb6
@@ -16,7 +16,7 @@ run_roaming_npc_turns:
     push ax                          ; 0xabba
     lea ax, word [bp - 0x32]         ; 0xabbb
     push ax                          ; 0xabbe
-    call aztec_setmem                ; 0xabbf
+    call setmem                ; 0xabbf
     add sp, byte 6                   ; 0xabc2
     mov word [bp - 4], 0             ; 0xabc5
 .back1:

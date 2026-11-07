@@ -7,7 +7,7 @@ unsigned char *text;
 
 	previous_char = 32;
 	/* Inspect each non-terminator byte and retain the previous byte. */
-	for (index = 0; aztec_strlen(text) > index; index++) {
+	for (index = 0; strlen(text) > index; index++) {
 		/* A preceding space preserves the first letter of each word. */
 		if (previous_char != 32) {
 			/* ASCII uppercase letters differ from lowercase by 0x20. */

@@ -5,7 +5,7 @@ extern unsigned char code_char_message_index;
 extern unsigned char code_table[];
 extern unsigned short npc_id_answer_relay;
 extern unsigned short npc_id_target;
-extern load_message_string(), aztec_strlen();
+extern load_message_string(), strlen();
 
 verify_code_message()
 {
@@ -15,7 +15,7 @@ verify_code_message()
 	load_message_string(MSG_CODE_CHAR_BASE + code_char_message_index,
 		message);
 	checksum = 0;
-	index = aztec_strlen(message) - 4;
+	index = strlen(message) - 4;
 	/* Check message characters from the end back to the four-byte prefix. */
 	while (index > 0) {
 		index--;

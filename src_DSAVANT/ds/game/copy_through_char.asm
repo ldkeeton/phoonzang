@@ -1,7 +1,7 @@
 ; auto-generated
 copy_through_char:
     mov ax, 0xfffc                   ; 0x2359
-    call aztec_csav                  ; 0x235c
+    call $csav                  ; 0x235c
     mov word [bp - 2], 0             ; 0x235f
     mov word [bp - 4], 0             ; 0x2364
 .back1:

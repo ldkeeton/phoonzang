@@ -1,7 +1,7 @@
 ; auto-generated
 play_region_spell_sound:
     mov ax, 0xfff6                   ; 0x784f
-    call aztec_csav                  ; 0x7852
+    call $csav                  ; 0x7852
     mov bx, word [maze_tables]       ; 0x7855
     mov si, word [party_region]      ; 0x7859
     mov al, byte [bx + si + 0xa50]   ; 0x785d

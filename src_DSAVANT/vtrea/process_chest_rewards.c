@@ -18,11 +18,11 @@ extern unsigned char item_type_counted[];
 extern int data_record_io(), call_show_area(), handle_treasure_trap();
 extern int redraw_treasure_caption(), apply_region_nausea_and_flags();
 extern int test_bit(), give_quest_map(), set_bitmap_bit(), random_below();
-extern int is_quest_map_item(), aztec_ldv(), set_mouse_pointer_shape();
-extern int call_mouse_glide_to(), load_message_string(), aztec_strcpy();
+extern int is_quest_map_item(), set_mouse_pointer_shape();
+extern int call_mouse_glide_to(), load_message_string(), strcpy();
 extern int replace_slashes_with_spaces(), format_int_decimal();
 extern int add_random_steps();
-extern int str_subst_char(), aztec_strlen(), show_treasure_message();
+extern int str_subst_char(), strlen(), show_treasure_message();
 extern int format_long_decimal(), call_mouse_glide_back(), divvy_loot_menu();
 extern int update_treasure_frame(), wait_treasure_input_or_timeout();
 
@@ -105,11 +105,11 @@ process_chest_rewards()
 		if (loot_row_value[row] <= 0) continue;
 		data_record_io(1, &item_data, loot_row_value[row], 0);
 		if (item_data.slot_flags & 1)
-			aztec_strcpy(list_row_name + row * 22, item_data.name);
+			strcpy(list_row_name + row * 22, item_data.name);
 		else
 			load_message_string(MSG_DAGGER_6000 + item_data.glyph,
 				list_row_name + row * 22);
-		aztec_strcpy(item_name, list_row_name + row * 22);
+		strcpy(item_name, list_row_name + row * 22);
 		replace_slashes_with_spaces(item_name);
 		if (item_type_counted[item_data.item_type] == 1)
 			list_row_count[row] =
@@ -120,13 +120,13 @@ process_chest_rewards()
 		list_row_marked[row] = 0;
 		loot_row_flag2[row] = (item_data.slot_flags & 2) ? 1 : 0;
 		loot_row_identified[row] = (item_data.slot_flags & 1) ? 1 : 0;
-		aztec_strcpy(message, short_message);
+		strcpy(message, short_message);
 		format_int_decimal(list_row_count[row] > 0 ? list_row_count[row]
 			: 1, number);
 		str_subst_char(message, number, 37);
 		str_subst_char(message, item_name + (item_name[0] == '?'), 36);
 		if (item_data.slot_flags & 1) {
-			chest.message_length = aztec_strlen(message);
+			chest.message_length = strlen(message);
 			switch (item_data.item_type) {
 			case 12: load_message_string(MSG_POTION_5016,
 				message + chest.message_length); break;

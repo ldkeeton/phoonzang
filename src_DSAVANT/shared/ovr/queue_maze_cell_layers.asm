@@ -1,7 +1,7 @@
 ; auto-generated
 queue_maze_cell_layers:
     mov ax, 0xfff0
-    call aztec_csav
+    call $csav
     mov ax, 4
     cmp word [boundary_wall_variant], byte 0
     jne short .forward1

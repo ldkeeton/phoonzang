@@ -1,7 +1,7 @@
 ; auto-generated
 append_scene_message_fragment:
     mov ax, 0xff7c                   ; 0x3b66
-    call aztec_csav                  ; 0x3b69
+    call $csav                  ; 0x3b69
     mov bx, word [bp + 4]            ; 0x3b6c
     cmp byte [bx], 0x21              ; 0x3b6f
     jne short .forward1              ; 0x3b72
@@ -28,25 +28,25 @@ append_scene_message_fragment:
     push ax                          ; 0x3ba1
     lea ax, word [bp - 0x84]         ; 0x3ba2
     push ax                          ; 0x3ba6
-    call aztec_strcpy                ; 0x3ba7
+    call strcpy                ; 0x3ba7
     add sp, byte 4                   ; 0x3baa
     mov ax, scene_message_separator  ; 0x3bad
     push ax                          ; 0x3bb0
     lea ax, word [bp - 0x84]         ; 0x3bb1
     push ax                          ; 0x3bb5
-    call aztec_strcat                ; 0x3bb6
+    call strcat                ; 0x3bb6
     add sp, byte 4                   ; 0x3bb9
     push word [bp + 4]               ; 0x3bbc
     lea ax, word [bp - 0x84]         ; 0x3bbf
     push ax                          ; 0x3bc3
-    call aztec_strcat                ; 0x3bc4
+    call strcat                ; 0x3bc4
     add sp, byte 4                   ; 0x3bc7
     jmp short .forward4              ; 0x3bca
 .forward3:
     push word [bp + 4]               ; 0x3bcc
     lea ax, word [bp - 0x84]         ; 0x3bcf
     push ax                          ; 0x3bd3
-    call aztec_strcpy                ; 0x3bd4
+    call strcpy                ; 0x3bd4
     add sp, byte 4                   ; 0x3bd7
 .forward4:
     mov ax, 2                        ; 0x3bda
@@ -65,7 +65,7 @@ append_scene_message_fragment:
     push word [bp + 4]               ; 0x3bf9
     mov ax, scene_message_text_buffer ; 0x3bfc
     push ax                          ; 0x3bff
-    call aztec_strcpy                ; 0x3c00
+    call strcpy                ; 0x3c00
     add sp, byte 4                   ; 0x3c03
     jmp short .return1               ; 0x3c06
 .forward5:
@@ -73,7 +73,7 @@ append_scene_message_fragment:
     push ax                          ; 0x3c0c
     mov ax, scene_message_text_buffer ; 0x3c0d
     push ax                          ; 0x3c10
-    call aztec_strcpy                ; 0x3c11
+    call strcpy                ; 0x3c11
     add sp, byte 4                   ; 0x3c14
 .return1:
     ret                              ; 0x3c17

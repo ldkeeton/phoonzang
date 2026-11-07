@@ -1,7 +1,7 @@
 ; auto-generated
 load_party_battle_group:
     mov ax, 0xfffc                   ; 0x0c67
-    call aztec_csav                  ; 0x0c6a
+    call $csav                  ; 0x0c6a
     mov word [bp - 4], 0             ; 0x0c6d
     mov al, byte [party_char_count]  ; 0x0c72
     mov cx, word [bp - 4]            ; 0x0c75
@@ -145,7 +145,7 @@ load_party_battle_group:
     imul word [bp - 2]               ; 0x0de2
     add ax, party_records + pc_rec.status ; 0x0de5
     push ax                          ; 0x0de8
-    call aztec_movmem                ; 0x0de9
+    call movmem                ; 0x0de9
     add sp, byte 6                   ; 0x0dec
     mov ax, 0x248                    ; 0x0def
     imul word [bp - 2]               ; 0x0df2

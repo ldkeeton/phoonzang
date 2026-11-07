@@ -1,7 +1,7 @@
 ; auto-generated
 ovmain:
     mov ax, 0                        ; 0x000e
-    call aztec_csav                  ; 0x0011
+    call $csav                  ; 0x0011
     cmp word [game_state], byte 7    ; 0x0014
     jne short .forward1              ; 0x0019
     call restore_base_screen         ; 0x001b

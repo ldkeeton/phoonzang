@@ -1,7 +1,7 @@
 ; auto-generated
 draw_member_glyph_row:
     mov ax, 0
-    call aztec_csav
+    call $csav
     mov ax, word [bp + 6]
     push ax
     cmp ax, strict word 1

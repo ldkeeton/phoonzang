@@ -1,7 +1,7 @@
 ; auto-generated
 queue_marker_overlay:
     mov ax, 0xfff2
-    call aztec_csav
+    call $csav
     cmp word [marker_mode], byte 0
     jg short .forward1
     jmp near .forward6

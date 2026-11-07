@@ -1,7 +1,7 @@
 ; auto-generated
 free_loaded_score:
     mov ax, 0                        ; 0x2b4e
-    call aztec_csav                  ; 0x2b51
+    call $csav                  ; 0x2b51
     push word [bp + 4]               ; 0x2b54
     call call_free_score             ; 0x2b57
     pop cx                           ; 0x2b5a

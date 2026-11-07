@@ -83,5 +83,4 @@ vpcvw/choose_member_portrait
 vpcvw/rename_party_member
 vpcvw/handle_member_action_menu
 vpcvw/data/cvw_strings
-shared/ovr/aztec_ovbgn
-shared/ovr/aztec_cswt
+ovbgn.o

@@ -1,7 +1,7 @@
 ; auto-generated
 show_area_set:
     mov ax, 0
-    call aztec_csav
+    call $csav
     mov ax, word [bp + 4]
     jmp near .forward1
 .back1:

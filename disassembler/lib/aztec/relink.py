@@ -87,7 +87,7 @@ class SymbolIndex:
     def __init__(self, label_map=None, foreign_label_map=None,
                  data_labels=None, mem_equ=None, data_symbol=None,
                  data_bytes=None, image_base=None, data_names=None,
-                 places=PLACE_SYMBOLS, code_origin=None):
+                 places=PLACE_SYMBOLS, code_origin=None, library=None):
         self.data_symbol = data_symbol
         # The linker symbols that mark a place in this image (PLACE_SYMBOLS,
         # or OVERLAY_PLACE_SYMBOLS for an overlay).
@@ -110,12 +110,54 @@ class SymbolIndex:
             for addr, name in (maps or {}).items():
                 if isinstance(name, str):
                     self.code.setdefault(name, addr)
+        # The runtime's labels (``aztec_strcpy``) under the vendor's C names
+        # (``strcpy``).  Where the build links the vendor *library*
+        # (``c.lib``), C code calls the runtime by those names, as the
+        # original's did; the ``aztec_`` spelling is the generator's, which
+        # the library does not define.
+        from .compile import vendor_names
+        self.library = library
+        self.runtime = {}
+        self.vendor = {}
+        # A runtime routine is a ``role='aztec'`` label, or with a library
+        # linked any ``aztec_`` one: an overlay has no bands, so its own copy
+        # of a library routine (``aztec_strcmp``) carries no role.
+        for maps in (label_map, foreign_label_map):
+            for addr, name in (maps or {}).items():
+                if not (isinstance(name, str)
+                        and (library
+                             or getattr(name, 'role', None) == 'aztec')):
+                    continue
+                spelled = vendor_names(name)
+                if spelled:
+                    self.runtime.setdefault(str(name), spelled[0])
+                for c_name in spelled:
+                    if c_name not in self.code:
+                        self.vendor.setdefault(c_name, str(name))
         self.data = {}
         for addr, name in (data_labels or {}).items():
             if isinstance(name, str):
                 self._add_data(name, addr)
         for name, value in (mem_equ or {}).items():
             self._add_data(name, value)
+
+    def code_name(self, name, symbol, where):
+        """The build's label for code name *name*, from C external *symbol*.
+
+        A vendor name (``strcpy``) is the runtime label it spells.  With a
+        vendor library linked, a runtime label spelled out (``aztec_strcpy``)
+        is an error: the library does not define it.  A runtime helper
+        (``$csav``) is the compiler's, never the C's, and always passes.
+        """
+        if name in self.code:
+            if (self.library and name in self.runtime
+                    and not (symbol or '').startswith('$')):
+                raise RelinkError(
+                    f'{where}: {name!r} is the generator\'s name; '
+                    f'{self.library} defines it as '
+                    f'{self.runtime[name]!r}, so call it that')
+            return name
+        return self.vendor.get(name, name)
 
     def _add_data(self, name, value):
         # Data the code reaches through CS (``drv_file_handle``) is a file
@@ -290,6 +332,7 @@ def link(label, start, func, index, original, labels_in=(), labels_at=None,
     def code_target(fx, name):
         """``(target, name)`` for a code label, or ``(None, name)``: a name
         this image defines is taken as it is."""
+        name = index.code_name(name, fx.symbol, label)
         target = index.code.get(name)
         if target is not None:
             return target, name
@@ -429,7 +472,9 @@ def link(label, start, func, index, original, labels_in=(), labels_at=None,
                 out.minted[sym] = value
             elif name in index.data:
                 put_data(fx, name, index.data[name])
-            elif name in index.code or name in printed:
+            elif (index.code_name(name, fx.symbol, label) in index.code
+                  or name in printed):
+                name = index.code_name(name, fx.symbol, label)
                 # A code address as a value (a function pointer): the label
                 # is a file offset, the value its CS offset.
                 if index.image_base is None:

@@ -1,7 +1,7 @@
 ; auto-generated
 offset_relative_map_position:
     mov ax, 0
-    call aztec_csav
+    call $csav
     mov ax, word [party_facing]
     jmp short .forward1
 .back1:

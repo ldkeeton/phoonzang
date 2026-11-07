@@ -1,7 +1,7 @@
 ; auto-generated
 take_maps_from_slot:
     mov ax, 0xfffc                   ; 0x9e79
-    call aztec_csav                  ; 0x9e7c
+    call $csav                  ; 0x9e7c
     mov word [bp - 2], 0             ; 0x9e7f
 .back1:
     push word [bp - 2]               ; 0x9e84

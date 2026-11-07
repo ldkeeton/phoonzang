@@ -1,7 +1,7 @@
 ; auto-generated
 apply_group_spell_wards:
     mov ax, 0                        ; 0x2553
-    call aztec_csav                  ; 0x2556
+    call $csav                  ; 0x2556
     mov ax, word [bp + 6]            ; 0x2559
     jmp short .forward1              ; 0x255c
 .back1:

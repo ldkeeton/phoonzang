@@ -1,7 +1,7 @@
 ; auto-generated
 roll_chest_trap:
     mov ax, 0xffa0                   ; 0x1fd5
-    call aztec_csav                  ; 0x1fd8
+    call $csav                  ; 0x1fd8
     mov word [chest_trap_type], 0    ; 0x1fdb
     mov ax, 0x64                     ; 0x1fe1
     push ax                          ; 0x1fe4
@@ -47,7 +47,7 @@ roll_chest_trap:
     push ax                          ; 0x2045
     mov ax, trap_row_listed          ; 0x2046
     push ax                          ; 0x2049
-    call aztec_setmem                ; 0x204a
+    call setmem                ; 0x204a
     add sp, byte 6                   ; 0x204d
     mov ax, word [chest_trap_type]   ; 0x2050
     shl ax, 1                        ; 0x2053
@@ -59,7 +59,7 @@ roll_chest_trap:
     push ax                          ; 0x2064
     mov ax, trap_glyph_pressed       ; 0x2065
     push ax                          ; 0x2068
-    call aztec_setmem                ; 0x2069
+    call setmem                ; 0x2069
     add sp, byte 6                   ; 0x206c
     mov word [bp - 0x2e], 0          ; 0x206f
     mov ax, 0                        ; 0x2074
@@ -68,7 +68,7 @@ roll_chest_trap:
     push ax                          ; 0x207b
     lea ax, word [bp - 0x2c]         ; 0x207c
     push ax                          ; 0x207f
-    call aztec_setmem                ; 0x2080
+    call setmem                ; 0x2080
     add sp, byte 6                   ; 0x2083
     mov word [bp - 2], 0             ; 0x2086
 .back2:
@@ -262,7 +262,7 @@ roll_chest_trap:
     imul word [bp - 8]               ; 0x2270
     add ax, trap_row_codes           ; 0x2273
     push ax                          ; 0x2276
-    call aztec_strcpy                ; 0x2277
+    call strcpy                ; 0x2277
     add sp, byte 4                   ; 0x227a
     mov word [bp - 4], 0             ; 0x227d
 .back10:
@@ -338,7 +338,7 @@ roll_chest_trap:
     imul word [bp - 2]               ; 0x232d
     add ax, member_trap_clues        ; 0x2330
     push ax                          ; 0x2333
-    call aztec_strcpy                ; 0x2334
+    call strcpy                ; 0x2334
     add sp, byte 4                   ; 0x2337
     mov word [bp - 6], 0xfffb        ; 0x233a
     mov ax, 0x248                    ; 0x233f

@@ -1,7 +1,7 @@
 ; auto-generated
 announce_trap_sprung:
     mov ax, 0xffb0                   ; 0x13e0
-    call aztec_csav                  ; 0x13e3
+    call $csav                  ; 0x13e3
     cmp word [bp + 6], byte 0        ; 0x13e6
     jl short .forward1               ; 0x13ea
     mov word [pending_panel_call], 1 ; 0x13ec

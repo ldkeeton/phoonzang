@@ -1,7 +1,7 @@
 ; auto-generated
 pick_list_entry_dialog:
     mov ax, 0xffc8
-    call aztec_csav
+    call $csav
     mov word [dialog_selection], 0xffff
     mov word [bp - 4], 0x37
     mov word [bp - 6], 0x8f

@@ -1,7 +1,7 @@
 ; auto-generated
 draw_party_member_overview:
     mov ax, 0xfff4                   ; 0x037b
-    call aztec_csav                  ; 0x037e
+    call $csav                  ; 0x037e
     mov ax, word [bp + 4]            ; 0x0381
     mov cx, 3                        ; 0x0384
     cwd                              ; 0x0387
@@ -44,7 +44,7 @@ draw_party_member_overview:
     imul word [bp + 4]               ; 0x03e1
     add ax, party_records            ; 0x03e4
     push ax                          ; 0x03e7
-    call aztec_strlen                ; 0x03e8
+    call strlen                ; 0x03e8
     pop cx                           ; 0x03eb
     mov cx, 6                        ; 0x03ec
     imul cx                          ; 0x03ef

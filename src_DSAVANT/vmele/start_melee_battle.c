@@ -29,10 +29,10 @@ extern clamp_between(), call_is_music_playing(), free_loaded_score(),
 	free_current_maze(), free_picture_slot(), load_sound_file(),
 	load_monster_picture(), restore_saved_screen(),
 	release_and_exit(), redraw_glyph_strip(), setup_melee_party(),
-	wait_for_hotspot_timeout(), aztec_strcpy(), titlecase_string(),
-	aztec_strlen(), load_message_string(), show_centered_message(),
+	wait_for_hotspot_timeout(), strcpy(), titlecase_string(),
+	strlen(), load_message_string(), show_centered_message(),
 	tick_party_combatants();
-extern char *aztec_malloc();
+extern char *malloc();
 extern long call_cache_area(), call_save_area();
 
 start_melee_battle()
@@ -73,13 +73,13 @@ start_melee_battle()
 	}
 	screen_cache[1] = call_cache_area(72, 33, 247, 143, 2, 0);
 	for (i = 0; i < 7; i++) {	/* 7 party slots */
-		battle_group_ext[i] = aztec_malloc(232);		/* extended record */
-		battle_groups[i] = aztec_malloc(420);			/* member record */
+		battle_group_ext[i] = malloc(232);		/* extended record */
+		battle_groups[i] = malloc(420);			/* member record */
 		if (battle_group_ext[i] == 0 || battle_groups[i] == 0)
 			release_and_exit(29);
 	}
 	for (i = 0; i < 12; i++) {	/* 12 overlay slots, skip the count */
-		overlay_list.items[i] = aztec_malloc(24);
+		overlay_list.items[i] = malloc(24);
 		if (overlay_list.items[i] == 0)
 			release_and_exit(29);
 		overlay_list.items[i]->code = 255;	/* 0xff: slot free */
@@ -100,9 +100,9 @@ start_melee_battle()
 	    && monster_group_count > 1) {
 		redraw_glyph_strip(1);
 		wait_for_hotspot_timeout(1);
-		aztec_strcpy(buf, battle_group_ext_1);
+		strcpy(buf, battle_group_ext_1);
 		titlecase_string(buf);
-		len = aztec_strlen(buf);
+		len = strlen(buf);
 		/* 0xdb8: message id appended to the member's name */
 		load_message_string(MSG_CALLS_FOR_HELP, buf + len);
 		show_centered_message(buf, 17);	/* 17: message sound */

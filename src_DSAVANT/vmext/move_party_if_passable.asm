@@ -1,7 +1,7 @@
 ; auto-generated
 move_party_if_passable:
     mov ax, 0xfffe                   ; 0x0b49
-    call aztec_csav                  ; 0x0b4c
+    call $csav                  ; 0x0b4c
     push word [party_world_y]        ; 0x0b4f
     push word [party_world_x]        ; 0x0b53
     push word [party_cell_y]         ; 0x0b57

@@ -1,7 +1,7 @@
 ; auto-generated
 draw_member_summary_panel:
     mov ax, 0xff84
-    call aztec_csav
+    call $csav
     mov ax, 0
     push ax
     push ax
@@ -34,7 +34,7 @@ draw_member_summary_panel:
     imul word [bp + 4]
     add ax, party_records
     push ax
-    call aztec_strlen
+    call strlen
     pop cx
     mov cx, 6
     imul cx
@@ -172,12 +172,12 @@ draw_member_summary_panel:
     mov dx, word [bx + party_records + pc_rec.age_days + 0x2]
     mov cx, 0x16d
     mov bx, 0
-    call aztec_ldv
+    call $ldv
     add ax, strict word 0xffee
     adc dx, byte -1
     mov cx, 4
     mov bx, 0
-    call aztec_ldv
+    call $ldv
     push ax
     push dx
     mov ax, 0x248
@@ -225,7 +225,7 @@ draw_member_summary_panel:
     add dx, bx
     mov cx, 0x12
     mov bx, 0
-    call aztec_ldv
+    call $ldv
     mov word [banner_offset], ax
     mov ax, 0x14
     push ax
@@ -343,7 +343,7 @@ draw_member_summary_panel:
     push ax
     lea ax, word [bp - 0x58]
     push ax
-    call aztec_strlen
+    call strlen
     pop cx
     mov cx, 0x34
     sub cx, ax

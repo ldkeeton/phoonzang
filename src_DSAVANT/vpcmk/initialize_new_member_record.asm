@@ -1,7 +1,7 @@
 ; auto-generated
 initialize_new_member_record:
     mov ax, 0xfffe                   ; 0x626e
-    call aztec_csav                  ; 0x6271
+    call $csav                  ; 0x6271
     mov ax, 0x248                    ; 0x6274
     imul word [bp + 4]               ; 0x6277
     mov bx, ax                       ; 0x627a

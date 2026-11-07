@@ -1,7 +1,7 @@
 ; auto-generated
 run_member_inventory_menu:
     mov ax, 0xff3e                   ; 0x54fb
-    call aztec_csav                  ; 0x54fe
+    call $csav                  ; 0x54fe
     mov ax, 0x248                    ; 0x5501
     imul word [bp + 4]               ; 0x5504
     push ax                          ; 0x5507
@@ -85,7 +85,7 @@ run_member_inventory_menu:
     push ax                          ; 0x55c0
     lea ax, word [bp - 0x4e]         ; 0x55c1
     push ax                          ; 0x55c4
-    call aztec_strcpy                ; 0x55c5
+    call strcpy                ; 0x55c5
     add sp, byte 4                   ; 0x55c8
     mov ax, word [bp + 6]            ; 0x55cb
     shl ax, 1                        ; 0x55ce
@@ -356,7 +356,7 @@ run_member_inventory_menu:
     imul word [bp - 0x18]            ; 0x5859
     add ax, inventory_button_labels  ; 0x585c
     push ax                          ; 0x585f
-    call aztec_strlen                ; 0x5860
+    call strlen                ; 0x5860
     pop cx                           ; 0x5863
     mov cx, ax                       ; 0x5864
     mov ax, word [bp - 0xe]          ; 0x5866
@@ -740,7 +740,7 @@ run_member_inventory_menu:
     push ax                          ; 0x5bc6
     lea ax, word [bp - 0x64]         ; 0x5bc7
     push ax                          ; 0x5bca
-    call aztec_strcpy                ; 0x5bcb
+    call strcpy                ; 0x5bcb
     add sp, byte 4                   ; 0x5bce
     mov ax, word [bp + 6]            ; 0x5bd1
     shl ax, 1                        ; 0x5bd4
@@ -815,7 +815,7 @@ run_member_inventory_menu:
     imul word [bp + 6]               ; 0x5c7a
     add ax, item_slot_names          ; 0x5c7d
     push ax                          ; 0x5c80
-    call aztec_strcpy                ; 0x5c81
+    call strcpy                ; 0x5c81
     add sp, byte 4                   ; 0x5c84
     mov ax, word [bp - 0x66]         ; 0x5c87
     mov cx, word [bp + 6]            ; 0x5c8a
@@ -834,7 +834,7 @@ run_member_inventory_menu:
     push ax                          ; 0x5cae
     lea ax, word [bp - 0x4e]         ; 0x5caf
     push ax                          ; 0x5cb2
-    call aztec_strcpy                ; 0x5cb3
+    call strcpy                ; 0x5cb3
     add sp, byte 4                   ; 0x5cb6
     mov ax, word [bp - 0x68]         ; 0x5cb9
     mov word [bp - 0x66], ax         ; 0x5cbc

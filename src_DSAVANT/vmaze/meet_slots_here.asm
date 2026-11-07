@@ -1,7 +1,7 @@
 ; auto-generated
 meet_slots_here:
     mov ax, 0xfff8                   ; 0xa5ba
-    call aztec_csav                  ; 0xa5bd
+    call $csav                  ; 0xa5bd
     mov word [bp - 6], 0             ; 0xa5c0
 .back1:
     mov ax, word [bp - 6]            ; 0xa5c5

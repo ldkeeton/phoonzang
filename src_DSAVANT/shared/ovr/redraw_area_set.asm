@@ -1,7 +1,7 @@
 ; auto-generated
 redraw_area_set:
     mov ax, 0xfffa
-    call aztec_csav
+    call $csav
     mov ax, word [bp + 4]
     jmp near .forward1
 .back1:

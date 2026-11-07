@@ -1,7 +1,7 @@
 ; auto-generated
 cast_spell_from_npc_dialog:
     mov ax, 0xfffc                   ; 0x3a96
-    call aztec_csav                  ; 0x3a99
+    call $csav                  ; 0x3a99
     mov ax, 0                        ; 0x3a9c
     push ax                          ; 0x3a9f
     call redraw_area_set             ; 0x3aa0

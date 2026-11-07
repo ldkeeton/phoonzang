@@ -1,7 +1,7 @@
 ; auto-generated
 cap_member_stats:
     mov ax, 0xfffe                   ; 0x8f64
-    call aztec_csav                  ; 0x8f67
+    call $csav                  ; 0x8f67
     mov word [bp - 2], 0             ; 0x8f6a
 .back1:
     mov ax, 0x248                    ; 0x8f6f

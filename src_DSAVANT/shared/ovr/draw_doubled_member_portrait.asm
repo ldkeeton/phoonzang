@@ -1,7 +1,7 @@
 ; auto-generated
 draw_doubled_member_portrait:
     mov ax, 0xfff0
-    call aztec_csav
+    call $csav
     lea ax, word [bp - 0xc]
     push ax
     lea ax, word [bp - 0xa]

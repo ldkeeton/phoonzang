@@ -1,7 +1,7 @@
 ; auto-generated
 play_sound_with_rate_adjustment:
     mov ax, 0xfff4                   ; 0x7911
-    call aztec_csav                  ; 0x7914
+    call $csav                  ; 0x7914
     mov ax, 0xc                      ; 0x7917
     imul word [bp + 4]               ; 0x791a
     mov si, ax                       ; 0x791d

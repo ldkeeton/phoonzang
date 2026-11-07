@@ -1,7 +1,7 @@
 ; auto-generated
 find_unused_member_icon:
     mov ax, 0xfffa                   ; 0x05b6
-    call aztec_csav                  ; 0x05b9
+    call $csav                  ; 0x05b9
     mov word [bp - 2], 0             ; 0x05bc
 .back1:
     mov word [bp - 6], 0             ; 0x05c1

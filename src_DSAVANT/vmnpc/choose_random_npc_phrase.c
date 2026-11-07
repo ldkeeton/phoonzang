@@ -5,8 +5,8 @@ extern int npc_dialog_choice_index;
 extern int load_message_string();
 extern int strpos();
 extern int random_below();
-extern int aztec_strncpy();
-extern int aztec_strcpy();
+extern int strncpy();
+extern int strcpy();
 extern int find_npc_choice_text_prefix();
 extern int titlecase_string();
 
@@ -48,10 +48,10 @@ int randomize;
 	}
 	found =
 		segment_offsets[selected_segment + 1] - segment_offsets[selected_segment];
-	aztec_strncpy(destination, message + segment_offsets[selected_segment],
+	strncpy(destination, message + segment_offsets[selected_segment],
 		found);
 	destination[found - 1] = 0;
-	aztec_strcpy(message, destination);
+	strcpy(message, destination);
 	message[found - 1] = ' ';
 	message[found] = 0;
 	npc_dialog_choice_index = find_npc_choice_text_prefix(message,

@@ -7,7 +7,7 @@ read_text_at:
     mov byte [bp - 2], 0             ; 0x05bd
     mov byte [bp - 1], 0             ; 0x05c1
     push word [bp + 8]               ; 0x05c5
-    call aztec_strlen                ; 0x05c8
+    call strlen                ; 0x05c8
     pop cx                           ; 0x05cb
     mov word [bp - 6], ax            ; 0x05cc
     add word [bp + 6], ax            ; 0x05cf

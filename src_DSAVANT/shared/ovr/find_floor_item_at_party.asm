@@ -1,7 +1,7 @@
 ; auto-generated
 find_floor_item_at_party:
     mov ax, 0xfffa
-    call aztec_csav
+    call $csav
     mov ax, word [floor_items]
     mov word [bp - 6], ax
     mov word [bp - 2], 0

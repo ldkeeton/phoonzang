@@ -1,14 +1,14 @@
 ; auto-generated
 reset_battle_groups:
     mov ax, 0xfe5a                   ; 0x331c
-    call aztec_csav                  ; 0x331f
+    call $csav                  ; 0x331f
     mov ax, 0                        ; 0x3322
     push ax                          ; 0x3325
     mov ax, 0x12                     ; 0x3326
     push ax                          ; 0x3329
     mov ax, cell_slot_ref            ; 0x332a
     push ax                          ; 0x332d
-    call aztec_setmem                ; 0x332e
+    call setmem                ; 0x332e
     add sp, byte 6                   ; 0x3331
     mov word [bp - 2], 0             ; 0x3334
 .back1:
@@ -20,7 +20,7 @@ reset_battle_groups:
     shl ax, 1                        ; 0x3344
     mov bx, ax                       ; 0x3346
     push word [bx + battle_groups]   ; 0x3348
-    call aztec_setmem                ; 0x334c
+    call setmem                ; 0x334c
     add sp, byte 6                   ; 0x334f
     inc word [bp - 2]                ; 0x3352
     mov ax, word [bp - 2]            ; 0x3355

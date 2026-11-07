@@ -1,7 +1,7 @@
 ; auto-generated
 pick_lock_minigame:
     mov ax, 0xff96                   ; 0x5fef
-    call aztec_csav                  ; 0x5ff2
+    call $csav                  ; 0x5ff2
     mov word [show_area_bottom], 0x8d ; 0x5ff5
     mov word [dialog_selection], 0xffff ; 0x5ffb
     mov word [bp - 6], 0x37          ; 0x6001
@@ -47,7 +47,7 @@ pick_lock_minigame:
     push ax                          ; 0x6069
     lea ax, word [bp - 0x6a]         ; 0x606a
     push ax                          ; 0x606d
-    call aztec_strlen                ; 0x606e
+    call strlen                ; 0x606e
     pop cx                           ; 0x6071
     mov cx, ax                       ; 0x6072
     mov ax, 0xc                      ; 0x6074
@@ -81,7 +81,7 @@ pick_lock_minigame:
     imul word [bp + 4]               ; 0x60b7
     add ax, party_records            ; 0x60ba
     push ax                          ; 0x60bd
-    call aztec_strlen                ; 0x60be
+    call strlen                ; 0x60be
     pop cx                           ; 0x60c1
     mov cx, 6                        ; 0x60c2
     imul cx                          ; 0x60c5
@@ -107,7 +107,7 @@ pick_lock_minigame:
     push ax                          ; 0x60f5
     lea ax, word [bp - 0x6a]         ; 0x60f6
     push ax                          ; 0x60f9
-    call aztec_strcpy                ; 0x60fa
+    call strcpy                ; 0x60fa
     add sp, byte 4                   ; 0x60fd
     lea ax, word [bp - 0x69]         ; 0x6100
     push ax                          ; 0x6103
@@ -123,14 +123,14 @@ pick_lock_minigame:
     push ax                          ; 0x611c
     lea ax, word [bp - 0x6a]         ; 0x611d
     push ax                          ; 0x6120
-    call aztec_strcat                ; 0x6121
+    call strcat                ; 0x6121
     add sp, byte 4                   ; 0x6124
     mov ax, word [bp - 8]            ; 0x6127
     add ax, strict word 0x1b         ; 0x612a
     push ax                          ; 0x612d
     lea ax, word [bp - 0x6a]         ; 0x612e
     push ax                          ; 0x6131
-    call aztec_strlen                ; 0x6132
+    call strlen                ; 0x6132
     pop cx                           ; 0x6135
     mov cx, 6                        ; 0x6136
     imul cx                          ; 0x6139
@@ -374,7 +374,7 @@ pick_lock_minigame:
     push ax                          ; 0x636c
     lea ax, word [bp - 0x2a]         ; 0x636d
     push ax                          ; 0x6370
-    call aztec_setmem                ; 0x6371
+    call setmem                ; 0x6371
     add sp, byte 6                   ; 0x6374
 .back3:
     mov word [bp - 2], 0             ; 0x6377

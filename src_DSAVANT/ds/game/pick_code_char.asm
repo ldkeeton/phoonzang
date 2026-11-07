@@ -1,7 +1,7 @@
 ; auto-generated
 pick_code_char:
     mov ax, 0                        ; 0x1cb1
-    call aztec_csav                  ; 0x1cb4
+    call $csav                  ; 0x1cb4
     mov ax, 0x4b                     ; 0x1cb7
     push ax                          ; 0x1cba
     call random_below                ; 0x1cbb

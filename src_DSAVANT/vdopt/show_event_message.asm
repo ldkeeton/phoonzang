@@ -1,7 +1,7 @@
 ; auto-generated
 show_event_message:
     mov ax, 0xffa8                   ; 0x0565
-    call aztec_csav                  ; 0x0568
+    call $csav                  ; 0x0568
     lea ax, word [bp - 0x58]         ; 0x056b
     push ax                          ; 0x056e
     push word [bp + 4]               ; 0x056f
@@ -19,7 +19,7 @@ show_event_message:
     add sp, byte 8                   ; 0x058b
     lea ax, word [bp - 0x58]         ; 0x058e
     push ax                          ; 0x0591
-    call aztec_strlen                ; 0x0592
+    call strlen                ; 0x0592
     pop cx                           ; 0x0595
     mov cx, 6                        ; 0x0596
     imul cx                          ; 0x0599
@@ -32,7 +32,7 @@ show_event_message:
     mov word [bp - 2], ax            ; 0x05a8
     lea ax, word [bp - 0x58]         ; 0x05ab
     push ax                          ; 0x05ae
-    call aztec_strlen                ; 0x05af
+    call strlen                ; 0x05af
     pop cx                           ; 0x05b2
     mov cx, 6                        ; 0x05b3
     imul cx                          ; 0x05b6

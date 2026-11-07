@@ -1,7 +1,7 @@
 ; auto-generated
 divvy_loot_menu:
     mov ax, 0xffc0                   ; 0x5348
-    call aztec_csav                  ; 0x534b
+    call $csav                  ; 0x534b
     lea ax, word [bp - 0x34]         ; 0x534e
     push ax                          ; 0x5351
     mov ax, MSG_DIVVY_LOOT           ; 0x5352
@@ -148,7 +148,7 @@ divvy_loot_menu:
     imul word [bp - 4]               ; 0x549d
     add ax, list_row_name            ; 0x54a0
     push ax                          ; 0x54a3
-    call aztec_strcpy                ; 0x54a4
+    call strcpy                ; 0x54a4
     add sp, byte 4                   ; 0x54a7
     mov ax, word [bp - 4]            ; 0x54aa
     shl ax, 1                        ; 0x54ad

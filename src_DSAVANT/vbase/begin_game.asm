@@ -1,7 +1,7 @@
 ; auto-generated
 begin_game:
     mov ax, 0xfffc                   ; 0x6665
-    call aztec_csav                  ; 0x6668
+    call $csav                  ; 0x6668
     mov word [intro_screen_number], 0 ; 0x666b
     cmp word [startup_check_stage], byte 0 ; 0x6671
     jne short .forward3              ; 0x6676
@@ -55,7 +55,7 @@ begin_game:
     push ax                          ; 0x66e2
     mov ax, adjacent_object_type     ; 0x66e3
     push ax                          ; 0x66e6
-    call aztec_setmem                ; 0x66e7
+    call setmem                ; 0x66e7
     add sp, byte 6                   ; 0x66ea
     mov word [party_status_frame_step], 0 ; 0x66ed
     mov ax, word [party_facing]      ; 0x66f3

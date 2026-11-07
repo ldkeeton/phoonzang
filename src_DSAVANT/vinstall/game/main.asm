@@ -73,7 +73,7 @@ main:
     add sp, byte 4                   ; 0x1358
     lea ax, word [bp - 0x2d6]        ; 0x135b
     push ax                          ; 0x135f
-    call aztec_strlen                ; 0x1360
+    call strlen                ; 0x1360
     pop cx                           ; 0x1363
     cmp ax, strict word 1            ; 0x1364
     jne short .forward1              ; 0x1367
@@ -170,7 +170,7 @@ main:
     push ax                          ; 0x143b
     mov ax, installer_message_buffer ; 0x143c
     push ax                          ; 0x143f
-    call aztec_strcpy                ; 0x1440
+    call strcpy                ; 0x1440
     add sp, byte 4                   ; 0x1443
     mov ax, press_return_to_begin    ; 0x1446
     push ax                          ; 0x1449
@@ -246,13 +246,13 @@ main:
     push ax                          ; 0x1516
     lea ax, word [bp - 0x1c]         ; 0x1517
     push ax                          ; 0x151a
-    call aztec_strcpy                ; 0x151b
+    call strcpy                ; 0x151b
     add sp, byte 4                   ; 0x151e
     mov ax, empty_drive_name         ; 0x1521
     push ax                          ; 0x1524
     lea ax, word [bp - 0x32]         ; 0x1525
     push ax                          ; 0x1528
-    call aztec_strcpy                ; 0x1529
+    call strcpy                ; 0x1529
     add sp, byte 4                   ; 0x152c
     mov word [bp - 0x10], 4          ; 0x152f
     lea ax, word [bp - 0x54]         ; 0x1534
@@ -499,7 +499,7 @@ main:
     pop cx                           ; 0x179f
     mov ax, 0                        ; 0x17a0
     push ax                          ; 0x17a3
-    call aztec_exit                  ; 0x17a4
+    call exit                  ; 0x17a4
     pop cx                           ; 0x17a7
 .forward8:
     mov word [bp - 0x19c], 0         ; 0x17a8
@@ -510,7 +510,7 @@ main:
     push ax                          ; 0x17bd
     mov ax, installer_message_buffer ; 0x17be
     push ax                          ; 0x17c1
-    call aztec_strcpy                ; 0x17c2
+    call strcpy                ; 0x17c2
     add sp, byte 4                   ; 0x17c5
     mov ax, word [bp - 0x19e]        ; 0x17c8
     jmp near .forward9               ; 0x17cc
@@ -1131,7 +1131,7 @@ jumptable_1f81_case_5:
     jne short main.forward22         ; 0x1d36
     lea ax, word [bp - 0x54]         ; 0x1d38
     push ax                          ; 0x1d3b
-    call aztec_strlen                ; 0x1d3c
+    call strlen                ; 0x1d3c
     pop cx                           ; 0x1d3f
     cmp ax, strict word 2            ; 0x1d40
     jle short main.forward23         ; 0x1d43
@@ -1189,7 +1189,7 @@ jumptable_1f81_case_8:
     add sp, byte 8                   ; 0x1db6
     lea ax, word [bp - 0x1b8]        ; 0x1db9
     push ax                          ; 0x1dbd
-    call aztec_strlen                ; 0x1dbe
+    call strlen                ; 0x1dbe
     pop cx                           ; 0x1dc1
     mov word [bp - 0x2d8], ax        ; 0x1dc2
     cmp ax, strict word 2            ; 0x1dc6
@@ -1290,7 +1290,7 @@ main.back6:
     push ax                          ; 0x1e9d
     lea ax, word [bp - 0x194]        ; 0x1e9e
     push ax                          ; 0x1ea2
-    call aztec_strcpy                ; 0x1ea3
+    call strcpy                ; 0x1ea3
     add sp, byte 4                   ; 0x1ea6
     jmp short main.forward34         ; 0x1ea9
 main.back7:
@@ -1298,7 +1298,7 @@ main.back7:
     push ax                          ; 0x1eae
     lea ax, word [bp - 0x194]        ; 0x1eaf
     push ax                          ; 0x1eb3
-    call aztec_strcpy                ; 0x1eb4
+    call strcpy                ; 0x1eb4
     add sp, byte 4                   ; 0x1eb7
     jmp short main.forward34         ; 0x1eba
 main.back8:
@@ -1306,7 +1306,7 @@ main.back8:
     push ax                          ; 0x1ebf
     lea ax, word [bp - 0x194]        ; 0x1ec0
     push ax                          ; 0x1ec4
-    call aztec_strcpy                ; 0x1ec5
+    call strcpy                ; 0x1ec5
     add sp, byte 4                   ; 0x1ec8
     jmp short main.forward34         ; 0x1ecb
 main.back9:
@@ -1314,7 +1314,7 @@ main.back9:
     push ax                          ; 0x1ed0
     lea ax, word [bp - 0x194]        ; 0x1ed1
     push ax                          ; 0x1ed5
-    call aztec_strcpy                ; 0x1ed6
+    call strcpy                ; 0x1ed6
     add sp, byte 4                   ; 0x1ed9
     jmp short main.forward34         ; 0x1edc
 main.forward33:
@@ -1331,7 +1331,7 @@ main.forward34:
     push ax                          ; 0x1ef5
     mov ax, installer_message_buffer ; 0x1ef6
     push ax                          ; 0x1ef9
-    call aztec_strcpy                ; 0x1efa
+    call strcpy                ; 0x1efa
     add sp, byte 4                   ; 0x1efd
     cmp word [bp - 0x10], byte 4     ; 0x1f00
     je short main.forward35          ; 0x1f04
@@ -1339,19 +1339,19 @@ main.forward34:
     push ax                          ; 0x1f09
     lea ax, word [bp - 0x144]        ; 0x1f0a
     push ax                          ; 0x1f0e
-    call aztec_strcpy                ; 0x1f0f
+    call strcpy                ; 0x1f0f
     add sp, byte 4                   ; 0x1f12
     lea ax, word [bp - 0x194]        ; 0x1f15
     push ax                          ; 0x1f19
     lea ax, word [bp - 0x144]        ; 0x1f1a
     push ax                          ; 0x1f1e
-    call aztec_strcat                ; 0x1f1f
+    call strcat                ; 0x1f1f
     add sp, byte 4                   ; 0x1f22
     mov ax, install_requires_suffix  ; 0x1f25
     push ax                          ; 0x1f28
     lea ax, word [bp - 0x144]        ; 0x1f29
     push ax                          ; 0x1f2d
-    call aztec_strcat                ; 0x1f2e
+    call strcat                ; 0x1f2e
     add sp, byte 4                   ; 0x1f31
     lea ax, word [bp - 0x144]        ; 0x1f34
     push ax                          ; 0x1f38
@@ -1430,37 +1430,37 @@ main.forward42:
     push ax                          ; 0x1fe5
     mov ax, pkunzip_filespec_list    ; 0x1fe6
     push ax                          ; 0x1fe9
-    call aztec_strcpy                ; 0x1fea
+    call strcpy                ; 0x1fea
     add sp, byte 4                   ; 0x1fed
     mov ax, message_buffer_init      ; 0x1ff0
     push ax                          ; 0x1ff3
     mov ax, installer_message_buffer ; 0x1ff4
     push ax                          ; 0x1ff7
-    call aztec_strcpy                ; 0x1ff8
+    call strcpy                ; 0x1ff8
     add sp, byte 4                   ; 0x1ffb
     lea ax, word [bp - 0x1c]         ; 0x1ffe
     push ax                          ; 0x2001
     lea ax, word [bp - 0xa4]         ; 0x2002
     push ax                          ; 0x2006
-    call aztec_strcpy                ; 0x2007
+    call strcpy                ; 0x2007
     add sp, byte 4                   ; 0x200a
     mov ax, source_dir_separator     ; 0x200d
     push ax                          ; 0x2010
     lea ax, word [bp - 0xa4]         ; 0x2011
     push ax                          ; 0x2015
-    call aztec_strcat                ; 0x2016
+    call strcat                ; 0x2016
     add sp, byte 4                   ; 0x2019
     lea ax, word [bp - 0x3e]         ; 0x201c
     push ax                          ; 0x201f
     lea ax, word [bp - 0xf4]         ; 0x2020
     push ax                          ; 0x2024
-    call aztec_strcpy                ; 0x2025
+    call strcpy                ; 0x2025
     add sp, byte 4                   ; 0x2028
     mov ax, dest_dir_separator       ; 0x202b
     push ax                          ; 0x202e
     lea ax, word [bp - 0xf4]         ; 0x202f
     push ax                          ; 0x2033
-    call aztec_strcat                ; 0x2034
+    call strcat                ; 0x2034
     add sp, byte 4                   ; 0x2037
     cmp word [bp - 0x1ca], byte 0    ; 0x203a
     jne short main.forward43         ; 0x203f
@@ -1470,11 +1470,11 @@ main.forward42:
     push ax                          ; 0x204a
     lea ax, word [bp - 0xf4]         ; 0x204b
     push ax                          ; 0x204f
-    call aztec_strcat                ; 0x2050
+    call strcat                ; 0x2050
     add sp, byte 4                   ; 0x2053
     lea ax, word [bp - 0x54]         ; 0x2056
     push ax                          ; 0x2059
-    call aztec_strlen                ; 0x205a
+    call strlen                ; 0x205a
     pop cx                           ; 0x205d
     cmp ax, strict word 0            ; 0x205e
     jle short main.forward43         ; 0x2061
@@ -1482,7 +1482,7 @@ main.forward42:
     push ax                          ; 0x2066
     lea ax, word [bp - 0xf4]         ; 0x2067
     push ax                          ; 0x206b
-    call aztec_strcat                ; 0x206c
+    call strcat                ; 0x206c
     add sp, byte 4                   ; 0x206f
 main.forward43:
     cmp word [bp - 0x1ca], byte 1    ; 0x2072
@@ -1497,7 +1497,7 @@ main.forward45:
     push ax                          ; 0x2088
     lea ax, word [bp - 0xf4]         ; 0x2089
     push ax                          ; 0x208d
-    call aztec_strcat                ; 0x208e
+    call strcat                ; 0x208e
     add sp, byte 4                   ; 0x2091
     mov ax, 1                        ; 0x2094
     push ax                          ; 0x2097
@@ -1509,7 +1509,7 @@ main.forward45:
     add sp, byte 6                   ; 0x20a4
     lea ax, word [bp - 0x54]         ; 0x20a7
     push ax                          ; 0x20aa
-    call aztec_strlen                ; 0x20ab
+    call strlen                ; 0x20ab
     pop cx                           ; 0x20ae
     cmp ax, strict word 0            ; 0x20af
     jle short main.forward46         ; 0x20b2
@@ -1517,7 +1517,7 @@ main.forward45:
     push ax                          ; 0x20b7
     lea ax, word [bp - 0xf4]         ; 0x20b8
     push ax                          ; 0x20bc
-    call aztec_strcat                ; 0x20bd
+    call strcat                ; 0x20bd
     add sp, byte 4                   ; 0x20c0
 main.forward46:
     mov ax, archive_crus01_211c      ; 0x20c3
@@ -1910,7 +1910,7 @@ main.forward57:
     pop cx                           ; 0x2451
     mov ax, 0                        ; 0x2452
     push ax                          ; 0x2455
-    call aztec_exit                  ; 0x2456
+    call exit                  ; 0x2456
     pop cx                           ; 0x2459
     mov sp, bp                       ; 0x245a
     pop bp                           ; 0x245c

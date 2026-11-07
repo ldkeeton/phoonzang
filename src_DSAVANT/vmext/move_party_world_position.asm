@@ -1,14 +1,14 @@
 ; auto-generated
 move_party_world_position:
     mov ax, 0                        ; 0x0636
-    call aztec_csav                  ; 0x0639
+    call $csav                  ; 0x0639
     mov ax, 0                        ; 0x063c
     push ax                          ; 0x063f
     mov ax, 8                        ; 0x0640
     push ax                          ; 0x0643
     mov ax, adjacent_object_type     ; 0x0644
     push ax                          ; 0x0647
-    call aztec_setmem                ; 0x0648
+    call setmem                ; 0x0648
     add sp, byte 6                   ; 0x064b
     mov word [party_status_frame_step], 0 ; 0x064e
     mov ax, word [bp + 4]            ; 0x0654

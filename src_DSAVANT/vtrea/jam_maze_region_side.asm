@@ -1,7 +1,7 @@
 ; auto-generated
 jam_maze_region_side:
     mov ax, 0xfffc                   ; 0x6ead
-    call aztec_csav                  ; 0x6eb0
+    call $csav                  ; 0x6eb0
     mov cx, word [bp + 4]            ; 0x6eb3
     shl cx, 1                        ; 0x6eb6
     mov ax, word [maze_tables]       ; 0x6eb8

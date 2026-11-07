@@ -1,7 +1,7 @@
 ; auto-generated
 map_bane_party_selector:
     mov ax, 0                        ; 0x1a12
-    call aztec_csav                  ; 0x1a15
+    call $csav                  ; 0x1a15
     mov ax, word [bp + 4]            ; 0x1a18
     jmp near .forward1               ; 0x1a1b
 jumptable_1b5a_case_0:

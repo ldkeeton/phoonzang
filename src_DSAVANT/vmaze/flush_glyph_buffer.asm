@@ -1,7 +1,7 @@
 ; auto-generated
 flush_glyph_buffer:
     mov ax, 0xfffc                   ; 0x6c0a
-    call aztec_csav                  ; 0x6c0d
+    call $csav                  ; 0x6c0d
     cmp word [maze_message_row], byte 3 ; 0x6c10
     jle short .forward1              ; 0x6c15
     mov ax, 0                        ; 0x6c17
@@ -29,7 +29,7 @@ flush_glyph_buffer:
     sub ax, cx                       ; 0x6c43
     mov word [bp - 2], ax            ; 0x6c45
     push word [bp + 4]               ; 0x6c48
-    call aztec_strlen                ; 0x6c4b
+    call strlen                ; 0x6c4b
     pop cx                           ; 0x6c4e
     dec ax                           ; 0x6c4f
     mov word [bp - 4], ax            ; 0x6c50

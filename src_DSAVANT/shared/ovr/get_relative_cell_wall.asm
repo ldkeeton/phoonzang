@@ -1,7 +1,7 @@
 ; auto-generated
 get_relative_cell_wall:
     mov ax, 0xfff8
-    call aztec_csav
+    call $csav
     cmp word [bp + 0x10], byte 0
     je short .forward3
     mov ax, 0

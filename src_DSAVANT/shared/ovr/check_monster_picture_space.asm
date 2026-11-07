@@ -1,7 +1,7 @@
 ; auto-generated
 check_monster_picture_space:
     mov ax, 0xffa2
-    call aztec_csav
+    call $csav
     mov word [bp - 2], 0xf
 .back1:
     mov bx, word [bp - 2]
@@ -20,7 +20,7 @@ check_monster_picture_space:
     push ax
     lea ax, word [bp - 0x5e]
     push ax
-    call aztec_strcpy
+    call strcpy
     add sp, byte 4
     mov ax, word [bp + 4]
     mov cx, 0xa
@@ -40,7 +40,7 @@ check_monster_picture_space:
     call data_file_path
     add sp, byte 4
     push ax
-    call aztec_open
+    call open
     add sp, byte 4
     mov word [bp - 4], ax
     cmp ax, strict word 0xffff
@@ -55,12 +55,12 @@ check_monster_picture_space:
     push dx
     push ax
     push word [bp - 4]
-    call aztec_lseek
+    call lseek
     add sp, byte 8
     mov word [bp - 6], dx
     mov word [bp - 8], ax
     push word [bp - 4]
-    call aztec_close
+    call close
     pop cx
     mov word [bp - 0xa], 0
     mov word [bp - 0xc], 0x2800

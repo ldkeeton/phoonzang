@@ -2,7 +2,7 @@
 extern int redraw_area_set();
 extern int show_area_set();
 extern int call_set_text_color();
-extern int aztec_strlen();
+extern int strlen();
 extern int call_set_text_pos();
 extern int draw_text_glyphs();
 extern int call_show_area();
@@ -19,7 +19,7 @@ int text_color;
 	redraw_area_set(3);
 	show_area_set(3);
 	call_set_text_color(text_color, 0);
-	call_set_text_pos(160 - (aztec_strlen(text) * 6) / 2,
+	call_set_text_pos(160 - (strlen(text) * 6) / 2,
 		7 * line_index + 156);
 	draw_text_glyphs(text, 0);
 	call_show_area(25, 7 * line_index + 156, 295,

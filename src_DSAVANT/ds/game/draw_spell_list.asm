@@ -1,7 +1,7 @@
 ; auto-generated
 draw_spell_list:
     mov ax, 0xfffe                   ; 0x1138
-    call aztec_csav                  ; 0x113b
+    call $csav                  ; 0x113b
     mov word [bp - 2], 0             ; 0x113e
     jmp near .forward3               ; 0x1143
 .back1:

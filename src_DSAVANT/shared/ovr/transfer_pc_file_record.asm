@@ -1,7 +1,7 @@
 ; auto-generated
 transfer_pc_file_record:
     mov ax, 0xfffe
-    call aztec_csav
+    call $csav
     mov ax, 0
     push ax
     call call_wait_sound
@@ -15,7 +15,7 @@ transfer_pc_file_record:
     call data_file_path
     add sp, byte 4
     push ax
-    call aztec_open
+    call open
     add sp, byte 4
     mov word [bp - 2], ax
     mov ax, 0
@@ -28,14 +28,14 @@ transfer_pc_file_record:
     push dx
     push ax
     push word [bp - 2]
-    call aztec_lseek
+    call lseek
     add sp, byte 8
     cmp word [bp + 8], byte 0
     jne short .forward1
     push word [pc_file_record_size]
     push word [bp + 4]
     push word [bp - 2]
-    call aztec_read
+    call read
     add sp, byte 6
     jmp short .forward2
 .forward1:
@@ -44,10 +44,10 @@ transfer_pc_file_record:
     push word [pc_file_record_size]
     push word [bp + 4]
     push word [bp - 2]
-    call aztec_write
+    call write
     add sp, byte 6
 .forward2:
     push word [bp - 2]
-    call aztec_close
+    call close
     pop cx
     ret

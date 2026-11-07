@@ -3,7 +3,7 @@ extern int call_set_text_color();
 extern int call_set_text_pos();
 extern int draw_text_glyphs();
 extern int format_int_decimal();
-extern int aztec_strlen();
+extern int strlen();
 extern int draw_font_glyph();
 extern int skill_group_points[];
 extern char skill_points_label[];
@@ -41,7 +41,7 @@ int selected_value;
 			format_int_decimal(selected_value, value_text[slot_index]);
 			has_previous_value = 1;
 		}
-		total_text_length += aztec_strlen(value_text[slot_index]);
+		total_text_length += strlen(value_text[slot_index]);
 		if (++slot_index >= 4)
 			break;
 	}
@@ -53,7 +53,7 @@ int selected_value;
 
 	/* Draw separators between nonempty values and use each slot's color. */
 	do {
-		if (aztec_strlen(value_text[slot_index]) > 0) {
+		if (strlen(value_text[slot_index]) > 0) {
 			if (has_previous_value) {
 				call_set_text_color(1, 0);
 				draw_font_glyph(47, 0);

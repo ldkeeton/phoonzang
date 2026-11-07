@@ -1,7 +1,7 @@
 ; auto-generated
 adjust_member_resistance:
     mov ax, 0
-    call aztec_csav
+    call $csav
     mov ax, 0x7d
     push ax
     mov ax, 0

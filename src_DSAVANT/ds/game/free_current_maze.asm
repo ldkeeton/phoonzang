@@ -1,7 +1,7 @@
 ; auto-generated
 free_current_maze:
     mov ax, 0                        ; 0x138c
-    call aztec_csav                  ; 0x138f
+    call $csav                  ; 0x138f
     cmp word [current_maze], byte 0  ; 0x1392
     jge short .forward1              ; 0x1397
     jmp near jumptable_14a2_case_0   ; 0x1399

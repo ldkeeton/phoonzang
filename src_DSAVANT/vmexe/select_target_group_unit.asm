@@ -1,7 +1,7 @@
 ; auto-generated
 select_target_group_unit:
     mov ax, 0xfff8                   ; 0x63cd
-    call aztec_csav                  ; 0x63d0
+    call $csav                  ; 0x63d0
     mov word [bp - 2], 0             ; 0x63d3
 .back1:
     mov word [bp - 4], 0             ; 0x63d8

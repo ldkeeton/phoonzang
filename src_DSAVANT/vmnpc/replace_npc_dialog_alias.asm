@@ -1,7 +1,7 @@
 ; auto-generated
 replace_npc_dialog_alias:
     mov ax, 0xff5a                   ; 0x8dbd
-    call aztec_csav                  ; 0x8dc0
+    call $csav                  ; 0x8dc0
     mov word [bp - 2], 0             ; 0x8dc3
 .back1:
     mov word [bp - 4], 0             ; 0x8dc8
@@ -23,7 +23,7 @@ replace_npc_dialog_alias:
     push ax                          ; 0x8df4
     lea ax, word [bp - 0x56]         ; 0x8df5
     push ax                          ; 0x8df8
-    call aztec_strncpy               ; 0x8df9
+    call strncpy               ; 0x8df9
     add sp, byte 6                   ; 0x8dfc
     mov bx, word [bp - 6]            ; 0x8dff
     add bx, bp                       ; 0x8e02
@@ -51,7 +51,7 @@ replace_npc_dialog_alias:
     push ax                          ; 0x8e3a
     lea ax, word [bp - 0xa6]         ; 0x8e3b
     push ax                          ; 0x8e3f
-    call aztec_strncpy               ; 0x8e40
+    call strncpy               ; 0x8e40
     add sp, byte 6                   ; 0x8e43
     mov bx, word [bp - 6]            ; 0x8e46
     add bx, bp                       ; 0x8e49
@@ -63,20 +63,20 @@ replace_npc_dialog_alias:
     mov word [bp - 4], ax            ; 0x8e5c
     lea ax, word [bp - 0xa6]         ; 0x8e5f
     push ax                          ; 0x8e63
-    call aztec_strlen                ; 0x8e64
+    call strlen                ; 0x8e64
     pop cx                           ; 0x8e67
     push ax                          ; 0x8e68
     lea ax, word [bp - 0xa6]         ; 0x8e69
     push ax                          ; 0x8e6d
     push word [bp + 4]               ; 0x8e6e
-    call aztec_strncmp               ; 0x8e71
+    call strncmp               ; 0x8e71
     add sp, byte 6                   ; 0x8e74
     test ax, ax                      ; 0x8e77
     jne short .forward1              ; 0x8e79
     lea ax, word [bp - 0x56]         ; 0x8e7b
     push ax                          ; 0x8e7e
     push word [bp + 4]               ; 0x8e7f
-    call aztec_strcpy                ; 0x8e82
+    call strcpy                ; 0x8e82
     add sp, byte 4                   ; 0x8e85
     ret                              ; 0x8e88
 .forward1:

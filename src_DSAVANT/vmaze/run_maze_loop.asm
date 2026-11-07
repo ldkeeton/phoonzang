@@ -1,7 +1,7 @@
 ; auto-generated
 run_maze_loop:
     mov ax, 0xffde                   ; 0x2215
-    call aztec_csav                  ; 0x2218
+    call $csav                  ; 0x2218
     cmp word [party_region], byte 0  ; 0x221b
     jl short .forward1               ; 0x2220
     mov bx, word [maze_tables]       ; 0x2222
@@ -156,7 +156,7 @@ run_maze_loop:
     mov dx, word [game_time_hi]      ; 0x23a7
     mov cx, 0x3c                     ; 0x23ab
     mov bx, 0                        ; 0x23ae
-    call aztec_lrm                   ; 0x23b1
+    call $lrm                   ; 0x23b1
     or dx, ax                        ; 0x23b4
     jne short .forward9              ; 0x23b6
     call run_roaming_npc_turns       ; 0x23b8
@@ -165,7 +165,7 @@ run_maze_loop:
     mov dx, word [game_time_hi]      ; 0x23be
     mov cx, 0xf0                     ; 0x23c2
     mov bx, 0                        ; 0x23c5
-    call aztec_lrm                   ; 0x23c8
+    call $lrm                   ; 0x23c8
     or dx, ax                        ; 0x23cb
     jne short .forward10             ; 0x23cd
     mov ax, 0x64                     ; 0x23cf
@@ -184,7 +184,7 @@ run_maze_loop:
     mov dx, word [game_time_hi]      ; 0x23ec
     mov cx, 0xa                      ; 0x23f0
     mov bx, 0                        ; 0x23f3
-    call aztec_lrm                   ; 0x23f6
+    call $lrm                   ; 0x23f6
     cmp dx, byte 0                   ; 0x23f9
     jne short .forward11             ; 0x23fc
     cmp ax, strict word 5            ; 0x23fe
@@ -206,10 +206,10 @@ run_maze_loop:
     mov dx, word [game_time_hi]      ; 0x2423
     mov cx, 0x3c                     ; 0x2427
     mov bx, 0                        ; 0x242a
-    call aztec_lrm                   ; 0x242d
+    call $lrm                   ; 0x242d
     mov cx, 0xa                      ; 0x2430
     mov bx, 0                        ; 0x2433
-    call aztec_ldv                   ; 0x2436
+    call $ldv                   ; 0x2436
     push ax                          ; 0x2439
     push dx                          ; 0x243a
     mov ax, word [bp - 4]            ; 0x243b
@@ -368,7 +368,7 @@ run_maze_loop:
     mov dx, word [game_time_hi]      ; 0x25a3
     mov cx, 0x1e                     ; 0x25a7
     mov bx, 0                        ; 0x25aa
-    call aztec_lrm                   ; 0x25ad
+    call $lrm                   ; 0x25ad
     mov word [bp - 8], ax            ; 0x25b0
     cmp ax, strict word 0x16         ; 0x25b3
     jge short .forward29             ; 0x25b6

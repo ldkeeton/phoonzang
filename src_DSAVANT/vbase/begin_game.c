@@ -33,7 +33,7 @@ int load_mode;
 		return;
 	}
 	ensure_game_disk(0, current_level);
-	aztec_setmem(adjacent_object_type, 8,
+	setmem(adjacent_object_type, 8,
 		0);	/* four per-direction object codes */
 	party_status_frame_step = 0;
 	party_status_heading = party_facing << 1;	/* two glyphs per heading */

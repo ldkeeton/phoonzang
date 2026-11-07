@@ -1,7 +1,7 @@
 ; auto-generated
 start_melee_battle:
     mov ax, 0xfd06                   ; 0x33df
-    call aztec_csav                  ; 0x33e2
+    call $csav                  ; 0x33e2
     mov word [battle_setup_done], 1  ; 0x33e5
     mov ax, 2                        ; 0x33eb
     push ax                          ; 0x33ee
@@ -137,7 +137,7 @@ start_melee_battle:
 .back2:
     mov ax, 0xe8                     ; 0x3519
     push ax                          ; 0x351c
-    call aztec_malloc                ; 0x351d
+    call malloc                ; 0x351d
     pop cx                           ; 0x3520
     mov cx, word [bp - 2]            ; 0x3521
     shl cx, 1                        ; 0x3524
@@ -145,7 +145,7 @@ start_melee_battle:
     mov word [bx + battle_group_ext], ax ; 0x3528
     mov ax, 0x1a4                    ; 0x352c
     push ax                          ; 0x352f
-    call aztec_malloc                ; 0x3530
+    call malloc                ; 0x3530
     pop cx                           ; 0x3533
     mov cx, word [bp - 2]            ; 0x3534
     shl cx, 1                        ; 0x3537
@@ -169,7 +169,7 @@ start_melee_battle:
 .back3:
     mov ax, 0x18                     ; 0x3565
     push ax                          ; 0x3568
-    call aztec_malloc                ; 0x3569
+    call malloc                ; 0x3569
     pop cx                           ; 0x356c
     mov cx, word [bp - 2]            ; 0x356d
     shl cx, 1                        ; 0x3570
@@ -268,7 +268,7 @@ start_melee_battle:
     push word [battle_group_ext_1]   ; 0x365d
     lea ax, word [bp - 0x56]         ; 0x3661
     push ax                          ; 0x3664
-    call aztec_strcpy                ; 0x3665
+    call strcpy                ; 0x3665
     add sp, byte 4                   ; 0x3668
     lea ax, word [bp - 0x56]         ; 0x366b
     push ax                          ; 0x366e
@@ -276,7 +276,7 @@ start_melee_battle:
     pop cx                           ; 0x3672
     lea ax, word [bp - 0x56]         ; 0x3673
     push ax                          ; 0x3676
-    call aztec_strlen                ; 0x3677
+    call strlen                ; 0x3677
     pop cx                           ; 0x367a
     mov word [bp - 4], ax            ; 0x367b
     lea cx, word [bp - 0x56]         ; 0x367e

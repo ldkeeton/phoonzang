@@ -1,7 +1,7 @@
 ; auto-generated
 combine_item_recipe:
     mov ax, 0xfffe                   ; 0x435b
-    call aztec_csav                  ; 0x435e
+    call $csav                  ; 0x435e
     mov word [bp - 2], 0             ; 0x4361
 .back1:
     mov ax, 6                        ; 0x4366

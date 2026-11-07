@@ -1,7 +1,7 @@
 ; auto-generated
 stop_and_clear_maze_sounds:
     mov ax, 0                        ; 0x0140
-    call aztec_csav                  ; 0x0143
+    call $csav                  ; 0x0143
     mov ax, 1                        ; 0x0146
     push ax                          ; 0x0149
     call call_wait_sound             ; 0x014a

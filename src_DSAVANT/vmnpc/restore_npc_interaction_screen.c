@@ -19,7 +19,7 @@ extern char npc_screen_temp_file[];
 
 extern int redraw_area_set(), show_area_set(), free_picture_slot();
 extern int call_restore_area(), dissolve_or_show_area();
-extern int aztec_free(), aztec_setmem(), wait_and_free_sound();
+extern int free(), setmem(), wait_and_free_sound();
 extern int call_restore_screen(), save_screen_area();
 
 restore_npc_interaction_screen()
@@ -39,13 +39,13 @@ restore_npc_interaction_screen()
 	if (game_state != 10)
 		dissolve_or_show_area(55, 146, 265, 198);
 	for (i = 0; i < 12; ++i)
-		aztec_free(overlay_list.items[i]);
+		free(overlay_list.items[i]);
 	for (i = 15; i < 18; ++i) {
 		if (picture_slot_number[i] != 255)
 			free_picture_slot(i);
 	}
-	aztec_setmem(cell_slot_ref, 18, 0);
-	aztec_setmem(npc_cell_effect_frame, 18, 0);
+	setmem(cell_slot_ref, 18, 0);
+	setmem(npc_cell_effect_frame, 18, 0);
 	if (loaded_sound_id != -1) {
 		wait_and_free_sound(16);
 		loaded_sound_id = -1;

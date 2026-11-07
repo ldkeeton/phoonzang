@@ -1,7 +1,7 @@
 ; auto-generated
 rename_saved_character:
     mov ax, 0xffe8                   ; 0x67ff
-    call aztec_csav                  ; 0x6802
+    call $csav                  ; 0x6802
     push word [bp + 4]               ; 0x6805
     mov ax, 0                        ; 0x6808
     push ax                          ; 0x680b
@@ -15,7 +15,7 @@ rename_saved_character:
     push ax                          ; 0x681d
     lea ax, word [bp - 0x14]         ; 0x681e
     push ax                          ; 0x6821
-    call aztec_strcpy                ; 0x6822
+    call strcpy                ; 0x6822
     add sp, byte 4                   ; 0x6825
     lea ax, word [bp - 0x14]         ; 0x6828
     push ax                          ; 0x682b
@@ -34,7 +34,7 @@ rename_saved_character:
 .forward1:
     lea ax, word [bp - 0x14]         ; 0x6845
     push ax                          ; 0x6848
-    call aztec_strlen                ; 0x6849
+    call strlen                ; 0x6849
     pop cx                           ; 0x684c
     test ax, ax                      ; 0x684d
     je short .return1                ; 0x684f
@@ -50,7 +50,7 @@ rename_saved_character:
     push ax                          ; 0x6863
     mov ax, party_records            ; 0x6864
     push ax                          ; 0x6867
-    call aztec_strcpy                ; 0x6868
+    call strcpy                ; 0x6868
     add sp, byte 4                   ; 0x686b
     mov ax, 1                        ; 0x686e
     push ax                          ; 0x6871

@@ -1,7 +1,7 @@
 ; auto-generated
 swap_npc_pronoun:
     mov ax, 0xfffe                   ; 0x8be8
-    call aztec_csav                  ; 0x8beb
+    call $csav                  ; 0x8beb
     mov word [bp - 2], 0             ; 0x8bee
 .back1:
     mov ax, 0x14                     ; 0x8bf3
@@ -9,7 +9,7 @@ swap_npc_pronoun:
     add ax, npc_pronoun_swaps        ; 0x8bf9
     push ax                          ; 0x8bfc
     push word [bp + 4]               ; 0x8bfd
-    call aztec_strcmp                ; 0x8c00
+    call strcmp                ; 0x8c00
     add sp, byte 4                   ; 0x8c03
     test ax, ax                      ; 0x8c06
     jne short .forward1              ; 0x8c08
@@ -18,7 +18,7 @@ swap_npc_pronoun:
     add ax, npc_pronoun_swaps_replacement ; 0x8c10
     push ax                          ; 0x8c13
     push word [bp + 4]               ; 0x8c14
-    call aztec_strcpy                ; 0x8c17
+    call strcpy                ; 0x8c17
     add sp, byte 4                   ; 0x8c1a
     ret                              ; 0x8c1d
 .forward1:

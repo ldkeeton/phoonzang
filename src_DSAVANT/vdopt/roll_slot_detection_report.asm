@@ -1,7 +1,7 @@
 ; auto-generated
 roll_slot_detection_report:
     mov ax, 0xff06                   ; 0x1a5d
-    call aztec_csav                  ; 0x1a60
+    call $csav                  ; 0x1a60
     mov word [bp - 4], 0             ; 0x1a63
     mov word [bp - 6], 0             ; 0x1a68
     mov word [bp - 8], 0             ; 0x1a6d

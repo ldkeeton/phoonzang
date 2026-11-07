@@ -1,7 +1,7 @@
 ; auto-generated
 check_cell_objects:
     mov ax, 0xfff6                   ; 0x8c47
-    call aztec_csav                  ; 0x8c4a
+    call $csav                  ; 0x8c4a
     mov ax, word [party_map_piece]   ; 0x8c4d
     mov cx, 6                        ; 0x8c50
     shl ax, cl                       ; 0x8c53

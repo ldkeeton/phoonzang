@@ -1,7 +1,7 @@
 ; auto-generated
 rename_party_member:
     mov ax, 0xfff2                   ; 0x96d5
-    call aztec_csav                  ; 0x96d8
+    call $csav                  ; 0x96d8
     mov ax, 0xc7                     ; 0x96db
     push ax                          ; 0x96de
     mov ax, 0x13f                    ; 0x96df
@@ -17,7 +17,7 @@ rename_party_member:
     push ax                          ; 0x96f7
     lea ax, word [bp - 0xa]          ; 0x96f8
     push ax                          ; 0x96fb
-    call aztec_strcpy                ; 0x96fc
+    call strcpy                ; 0x96fc
     add sp, byte 4                   ; 0x96ff
     lea ax, word [bp - 0xa]          ; 0x9702
     push ax                          ; 0x9705
@@ -36,7 +36,7 @@ rename_party_member:
 .forward1:
     lea ax, word [bp - 0xa]          ; 0x971f
     push ax                          ; 0x9722
-    call aztec_strlen                ; 0x9723
+    call strlen                ; 0x9723
     pop cx                           ; 0x9726
     test ax, ax                      ; 0x9727
     je short .return1                ; 0x9729
@@ -46,7 +46,7 @@ rename_party_member:
     imul word [bp + 4]               ; 0x9732
     add ax, party_records            ; 0x9735
     push ax                          ; 0x9738
-    call aztec_strcpy                ; 0x9739
+    call strcpy                ; 0x9739
     add sp, byte 4                   ; 0x973c
 .return1:
     ret                              ; 0x973f

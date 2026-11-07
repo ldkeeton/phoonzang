@@ -1,7 +1,7 @@
 ; auto-generated
 take_quest_map_here:
     mov ax, 0xfffa                   ; 0x99dd
-    call aztec_csav                  ; 0x99e0
+    call $csav                  ; 0x99e0
     mov ax, 0x26                     ; 0x99e3
     imul word [bp + 4]               ; 0x99e6
     mov bx, ax                       ; 0x99e9

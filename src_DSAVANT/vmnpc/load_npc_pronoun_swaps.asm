@@ -1,7 +1,7 @@
 ; auto-generated
 load_npc_pronoun_swaps:
     mov ax, 0xfffe                   ; 0xa391
-    call aztec_csav                  ; 0xa394
+    call $csav                  ; 0xa394
     mov word [bp - 2], 0             ; 0xa397
     jmp short .forward1              ; 0xa39c
 .back1:

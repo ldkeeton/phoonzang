@@ -1,7 +1,7 @@
 ; auto-generated
 mark_slot_pair_processed:
     mov ax, 0                        ; 0xa215
-    call aztec_csav                  ; 0xa218
+    call $csav                  ; 0xa218
     mov ax, 3                        ; 0xa21b
     push ax                          ; 0xa21e
     call random_below                ; 0xa21f

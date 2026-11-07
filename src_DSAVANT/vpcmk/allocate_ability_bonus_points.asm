@@ -1,14 +1,14 @@
 ; auto-generated
 allocate_ability_bonus_points:
     mov ax, 0xff94                   ; 0x4697
-    call aztec_csav                  ; 0x469a
+    call $csav                  ; 0x469a
     mov ax, 0                        ; 0x469d
     push ax                          ; 0x46a0
     mov ax, 0x10                     ; 0x46a1
     push ax                          ; 0x46a4
     lea ax, word [bp - 0x18]         ; 0x46a5
     push ax                          ; 0x46a8
-    call aztec_setmem                ; 0x46a9
+    call setmem                ; 0x46a9
     add sp, byte 6                   ; 0x46ac
     mov word [bp - 6], 0             ; 0x46af
     mov ax, 8                        ; 0x46b4

@@ -1,7 +1,7 @@
 ; auto-generated
 enter_level:
     mov ax, 0xfff4                   ; 0x0cb5
-    call aztec_csav                  ; 0x0cb8
+    call $csav                  ; 0x0cb8
     call stop_and_clear_maze_sounds  ; 0x0cbb
     les bx, word [tick_counter_ptr]  ; 0x0cbe
     mov ax, word [es:bx]             ; 0x0cc2
@@ -35,7 +35,7 @@ enter_level:
     shl ax, cl                       ; 0x0d0e
     add ax, scenario_header_data     ; 0x0d10
     push ax                          ; 0x0d13
-    call aztec_movmem                ; 0x0d14
+    call movmem                ; 0x0d14
     add sp, byte 6                   ; 0x0d17
     mov word [party_return_state], 5 ; 0x0d1a
     mov word [trigger_facing], 0xffff ; 0x0d20
@@ -45,7 +45,7 @@ enter_level:
     push ax                          ; 0x0d2d
     mov ax, maze_object_cell_bitmap  ; 0x0d2e
     push ax                          ; 0x0d31
-    call aztec_setmem                ; 0x0d32
+    call setmem                ; 0x0d32
     add sp, byte 6                   ; 0x0d35
     mov bx, word [maze_tables]       ; 0x0d38
     mov si, word [party_map_piece]   ; 0x0d3c
@@ -110,7 +110,7 @@ enter_level:
     push ax                          ; 0x0dcc
     mov ax, floor_item_cell_bits     ; 0x0dcd
     push ax                          ; 0x0dd0
-    call aztec_setmem                ; 0x0dd1
+    call setmem                ; 0x0dd1
     add sp, byte 6                   ; 0x0dd4
     mov ax, word [floor_items]       ; 0x0dd7
     mov word [bp - 0xc], ax          ; 0x0dda

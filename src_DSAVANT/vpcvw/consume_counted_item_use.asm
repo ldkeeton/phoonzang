@@ -1,7 +1,7 @@
 ; auto-generated
 consume_counted_item_use:
     mov ax, 0                        ; 0x3cde
-    call aztec_csav                  ; 0x3ce1
+    call $csav                  ; 0x3ce1
     mov bx, word [bp + 4]            ; 0x3ce4
     cmp byte [bx + 6], 0             ; 0x3ce7
     jbe short .return1               ; 0x3ceb

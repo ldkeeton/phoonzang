@@ -1,7 +1,7 @@
 ; auto-generated
 mask_string_prefix_with_x:
     mov ax, 0xfffe                   ; 0x86a4
-    call aztec_csav                  ; 0x86a7
+    call $csav                  ; 0x86a7
     mov word [bp - 2], 0             ; 0x86aa
     jmp short .forward1              ; 0x86af
 .back1:

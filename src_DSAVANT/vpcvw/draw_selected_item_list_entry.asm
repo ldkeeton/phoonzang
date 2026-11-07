@@ -1,7 +1,7 @@
 ; auto-generated
 draw_selected_item_list_entry:
     mov ax, 0xfffc                   ; 0x09a1
-    call aztec_csav                  ; 0x09a4
+    call $csav                  ; 0x09a4
     cmp word [selected_item_list_index], byte -1 ; 0x09a7
     jne short .forward1              ; 0x09ac
     ret                              ; 0x09ae

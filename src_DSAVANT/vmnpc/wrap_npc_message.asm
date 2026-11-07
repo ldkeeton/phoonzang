@@ -1,11 +1,11 @@
 ; auto-generated
 wrap_npc_message:
     mov ax, 0xfea8                   ; 0x9587
-    call aztec_csav                  ; 0x958a
+    call $csav                  ; 0x958a
     mov ax, word [bp + 4]            ; 0x958d
     mov word [bp - 8], ax            ; 0x9590
     push ax                          ; 0x9593
-    call aztec_strlen                ; 0x9594
+    call strlen                ; 0x9594
     pop cx                           ; 0x9597
     mov word [bp - 4], ax            ; 0x9598
     mov bx, word [bp + 4]            ; 0x959b
@@ -29,7 +29,7 @@ wrap_npc_message:
     pop ax                           ; 0x95c6
     jge short .forward2              ; 0x95c7
     push word [bp - 8]               ; 0x95c9
-    call aztec_strlen                ; 0x95cc
+    call strlen                ; 0x95cc
     pop cx                           ; 0x95cf
 .forward2:
     mov word [bp - 6], ax            ; 0x95d0
@@ -37,7 +37,7 @@ wrap_npc_message:
     push word [bp - 8]               ; 0x95d4
     lea ax, word [bp - 0x158]        ; 0x95d7
     push ax                          ; 0x95db
-    call aztec_strncpy               ; 0x95dc
+    call strncpy               ; 0x95dc
     add sp, byte 6                   ; 0x95df
     mov bx, word [bp - 6]            ; 0x95e2
     add bx, bp                       ; 0x95e5
@@ -52,7 +52,7 @@ wrap_npc_message:
     push ax                          ; 0x9600
     lea ax, word [bp - 0x108]        ; 0x9601
     push ax                          ; 0x9605
-    call aztec_strcpy                ; 0x9606
+    call strcpy                ; 0x9606
     add sp, byte 4                   ; 0x9609
     cmp byte [bp - 0x88], 0          ; 0x960c
     je short .forward3               ; 0x9611
@@ -60,14 +60,14 @@ wrap_npc_message:
     push ax                          ; 0x9616
     lea ax, word [bp - 0x108]        ; 0x9617
     push ax                          ; 0x961b
-    call aztec_strcat                ; 0x961c
+    call strcat                ; 0x961c
     add sp, byte 4                   ; 0x961f
 .forward3:
     lea ax, word [bp - 0x158]        ; 0x9622
     push ax                          ; 0x9626
     lea ax, word [bp - 0x108]        ; 0x9627
     push ax                          ; 0x962b
-    call aztec_strcat                ; 0x962c
+    call strcat                ; 0x962c
     add sp, byte 4                   ; 0x962f
     mov ax, 2                        ; 0x9632
     push ax                          ; 0x9635
@@ -85,7 +85,7 @@ wrap_npc_message:
     shl ax, cl                       ; 0x9654
     add ax, text_line_buffer         ; 0x9656
     push ax                          ; 0x9659
-    call aztec_strcpy                ; 0x965a
+    call strcpy                ; 0x965a
     add sp, byte 4                   ; 0x965d
     mov ax, word [text_line_index]   ; 0x9660
     shl ax, 1                        ; 0x9663
@@ -97,7 +97,7 @@ wrap_npc_message:
     push ax                          ; 0x9677
     lea ax, word [bp - 0x88]         ; 0x9678
     push ax                          ; 0x967c
-    call aztec_strcpy                ; 0x967d
+    call strcpy                ; 0x967d
     add sp, byte 4                   ; 0x9680
     jmp short .forward5              ; 0x9683
 .forward4:
@@ -105,7 +105,7 @@ wrap_npc_message:
     push ax                          ; 0x9689
     lea ax, word [bp - 0x88]         ; 0x968a
     push ax                          ; 0x968e
-    call aztec_strcpy                ; 0x968f
+    call strcpy                ; 0x968f
     add sp, byte 4                   ; 0x9692
 .forward5:
     mov ax, word [bp - 6]            ; 0x9695
@@ -120,7 +120,7 @@ wrap_npc_message:
     shl ax, cl                       ; 0x96ad
     add ax, text_line_buffer         ; 0x96af
     push ax                          ; 0x96b2
-    call aztec_strcpy                ; 0x96b3
+    call strcpy                ; 0x96b3
     add sp, byte 4                   ; 0x96b6
     mov ax, word [text_line_index]   ; 0x96b9
     shl ax, 1                        ; 0x96bc

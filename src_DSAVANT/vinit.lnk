@@ -17,4 +17,4 @@ vinit/play_startup_sequence
 vinit/release_main_screen
 vinit/initialize_main_screen
 vinit/data/startup_file_names
-shared/ovr/aztec_ovbgn
+ovbgn.o

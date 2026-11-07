@@ -1,7 +1,7 @@
 ; auto-generated
 show_running_message:
     mov ax, 0                        ; 0x0c0d
-    call aztec_csav                  ; 0x0c10
+    call $csav                  ; 0x0c10
     mov ax, MSG_RUNNING              ; 0x0c13
     push ax                          ; 0x0c16
     call show_message                ; 0x0c17

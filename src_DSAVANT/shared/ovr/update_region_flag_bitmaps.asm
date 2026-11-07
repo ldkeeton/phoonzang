@@ -1,7 +1,7 @@
 ; auto-generated
 update_region_flag_bitmaps:
     mov ax, 0xfffc
-    call aztec_csav
+    call $csav
     mov ax, word [bp + 6]
     cmp word [bp + 8], byte 0
     jne short .forward1

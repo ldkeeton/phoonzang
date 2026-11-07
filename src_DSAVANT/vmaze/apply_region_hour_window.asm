@@ -1,7 +1,7 @@
 ; auto-generated
 apply_region_hour_window:
     mov ax, 0xffee                   ; 0x8568
-    call aztec_csav                  ; 0x856b
+    call $csav                  ; 0x856b
     mov ax, word [party_region]      ; 0x856e
     shl ax, 1                        ; 0x8571
     mov si, ax                       ; 0x8573
@@ -43,10 +43,10 @@ apply_region_hour_window:
     mov dx, word [game_time_hi]      ; 0x85d0
     mov cx, 0x5a0                    ; 0x85d4
     mov bx, 0                        ; 0x85d7
-    call aztec_lrm                   ; 0x85da
+    call $lrm                   ; 0x85da
     mov cx, 0x3c                     ; 0x85dd
     mov bx, 0                        ; 0x85e0
-    call aztec_ldv                   ; 0x85e3
+    call $ldv                   ; 0x85e3
     mov word [bp - 0xa], ax          ; 0x85e6
     mov ax, word [bp - 6]            ; 0x85e9
     push ax                          ; 0x85ec

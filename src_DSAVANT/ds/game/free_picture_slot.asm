@@ -1,7 +1,7 @@
 ; auto-generated
 free_picture_slot:
     mov ax, 0                        ; 0x1371
-    call aztec_csav                  ; 0x1374
+    call $csav                  ; 0x1374
     push word [bp + 4]               ; 0x1377
     call call_free_picture           ; 0x137a
     pop cx                           ; 0x137d

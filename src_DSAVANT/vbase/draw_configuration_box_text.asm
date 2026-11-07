@@ -1,7 +1,7 @@
 ; auto-generated
 draw_configuration_box_text:
     mov ax, 0                        ; 0x42e3
-    call aztec_csav                  ; 0x42e6
+    call $csav                  ; 0x42e6
     mov ax, word [bp + 8]            ; 0x42e9
     add ax, strict word 6            ; 0x42ec
     push ax                          ; 0x42ef

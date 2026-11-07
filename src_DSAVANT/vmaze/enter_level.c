@@ -15,7 +15,7 @@ extern int current_level, party_map_piece, game_state, party_return_state;
 extern int trigger_facing, floor_item_count;
 extern int stop_and_clear_maze_sounds(), clear_marker_string_frames();
 extern int ensure_game_disk(), load_current_maze_level();
-extern int aztec_movmem(), aztec_setmem(), set_bitmap_bit();
+extern int movmem(), setmem(), set_bitmap_bit();
 
 enter_level(level)
 int level;
@@ -39,12 +39,12 @@ int level;
 	}
 	load_current_maze_level();
 	/* Each saved region state block and scenario header entry is 16 bytes. */
-	aztec_movmem(scenario_header_data[current_level],
+	movmem(scenario_header_data[current_level],
 		party_region.state[current_level], 16);
 	party_return_state = 5;
 	trigger_facing = -1;
 	/* Clear the 128-byte cell bitmap before marking object cells. */
-	aztec_setmem(maze_object_cell_bitmap, 128, 0);
+	setmem(maze_object_cell_bitmap, 128, 0);
 	party_region.region = maze_tables->map_first[party_map_piece];
 	/* Scan each piece's contiguous object range and mark nonempty cells. */
 	for (piece_index = 0; piece_index < 16; piece_index++) {
@@ -61,7 +61,7 @@ int level;
 		}
 	}
 	/* Reset and rebuild the floor item cell bitmap for this level. */
-	aztec_setmem(floor_item_cell_bits, 128, 0);
+	setmem(floor_item_cell_bits, 128, 0);
 	item = floor_items;
 	/* position: piece in the high byte, x and y in the low byte's nibbles. */
 	for (piece_index = 0; piece_index < floor_item_count; piece_index++) {

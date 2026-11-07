@@ -1,7 +1,7 @@
 ; auto-generated
 update_party_status_animation:
     mov ax, 0xfffc                   ; 0x7542
-    call aztec_csav                  ; 0x7545
+    call $csav                  ; 0x7545
     cmp word [detection_spell_bonus], byte 0 ; 0x7548
     jle short .forward1              ; 0x754d
     mov ax, 0x64                     ; 0x754f

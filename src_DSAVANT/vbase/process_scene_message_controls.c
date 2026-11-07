@@ -11,8 +11,8 @@ extern int dissolve_scene_message_area();
 extern int clear_scene_message_area();
 extern int wait_and_clear_scene_messages();
 extern int refresh_scene_frame_if_active();
-extern int aztec_strcpy();
-extern int aztec_strcat();
+extern int strcpy();
+extern int strcat();
 extern int measure_text_width();
 
 process_scene_message_controls(message)
@@ -71,19 +71,19 @@ unsigned char *message;
 
 	/* Measure buffered text with this run of characters and its separator. */
 	if (scene_message_line_buffer[0] != 0) {
-		aztec_strcpy(combined_text, scene_message_line_buffer);
-		aztec_strcat(combined_text, scene_message_separator);
-		aztec_strcat(combined_text, message);
+		strcpy(combined_text, scene_message_line_buffer);
+		strcat(combined_text, scene_message_separator);
+		strcat(combined_text, message);
 	} else {
-		aztec_strcpy(combined_text, message);
+		strcpy(combined_text, message);
 	}
 	text_width = measure_text_width(combined_text, 2);
 	/* 0x127 is the maximum width accepted in the current message line. */
 	if (text_width > 295) {
 		draw_scene_message_line(scene_message_line_buffer);
-		aztec_strcpy(scene_message_line_buffer, message);
+		strcpy(scene_message_line_buffer, message);
 	} else {
-		aztec_strcpy(scene_message_line_buffer, combined_text);
+		strcpy(scene_message_line_buffer, combined_text);
 	}
 	return;
 }

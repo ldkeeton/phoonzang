@@ -1,7 +1,7 @@
 ; auto-generated
 run_configuration_menu:
     mov ax, 0xfc4a                   ; 0x4d0e
-    call aztec_csav                  ; 0x4d11
+    call $csav                  ; 0x4d11
     mov si, scenario_header_data     ; 0x4d14
     lea di, word [bp - 0x3b6]        ; 0x4d17
     mov cx, ds                       ; 0x4d1b
@@ -16,7 +16,7 @@ run_configuration_menu:
     call data_file_path              ; 0x4d2d
     add sp, byte 4                   ; 0x4d30
     push ax                          ; 0x4d33
-    call aztec_open                  ; 0x4d34
+    call open                  ; 0x4d34
     add sp, byte 4                   ; 0x4d37
     mov word [bp - 6], ax            ; 0x4d3a
     cmp ax, strict word 0xffff       ; 0x4d3d
@@ -31,10 +31,10 @@ run_configuration_menu:
     mov ax, base_palette_rgb         ; 0x4d4e
     push ax                          ; 0x4d51
     push word [bp - 6]               ; 0x4d52
-    call aztec_read                  ; 0x4d55
+    call read                  ; 0x4d55
     add sp, byte 6                   ; 0x4d58
     push word [bp - 6]               ; 0x4d5b
-    call aztec_close                 ; 0x4d5e
+    call close                 ; 0x4d5e
     pop cx                           ; 0x4d61
     mov word [bp - 8], 0x12          ; 0x4d62
     mov word [bp - 0xa], 0x2b        ; 0x4d67
@@ -1726,7 +1726,7 @@ jumptable_5e7f_case_18:
     jne short run_configuration_menu.forward38 ; 0x5c79
     mov ax, screen_store_drive       ; 0x5c7b
     push ax                          ; 0x5c7e
-    call aztec_strlen                ; 0x5c7f
+    call strlen                ; 0x5c7f
     pop cx                           ; 0x5c82
     test ax, ax                      ; 0x5c83
     jne short run_configuration_menu.forward38 ; 0x5c85

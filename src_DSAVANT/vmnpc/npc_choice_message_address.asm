@@ -1,7 +1,7 @@
 ; auto-generated
 npc_choice_message_address:
     mov ax, 0                        ; 0x9d06
-    call aztec_csav                  ; 0x9d09
+    call $csav                  ; 0x9d09
     mov ax, word [bp + 4]            ; 0x9d0c
     cmp ax, word [npc_first_choice_count] ; 0x9d0f
     jge short .forward1              ; 0x9d13

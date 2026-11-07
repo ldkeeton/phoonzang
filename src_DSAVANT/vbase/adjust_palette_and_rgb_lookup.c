@@ -1,7 +1,7 @@
 /* Adjust palette components and rebuild the quantized RGB lookup. */
 extern unsigned char base_palette_rgb[256][3], adjusted_palette_rgb[256][3];
 extern unsigned char quantized_rgb_lookup[8][8][8];
-extern int clamp_between(), aztec_setmem(), call_set_palette(),
+extern int clamp_between(), setmem(), call_set_palette(),
 	call_reset_rgb();
 
 adjust_palette_and_rgb_lookup(brightness, contrast)
@@ -24,7 +24,7 @@ int brightness, contrast;
 			}
 		}
 	}
-	aztec_setmem(quantized_rgb_lookup, 512, 255); /* mark unfilled RGB cells */
+	setmem(quantized_rgb_lookup, 512, 255); /* mark unfilled RGB cells */
 	for (color = 0; color < 256; color++) {
 		red = adjusted_palette_rgb[color][0] / 8;
 		green = adjusted_palette_rgb[color][1] / 8;

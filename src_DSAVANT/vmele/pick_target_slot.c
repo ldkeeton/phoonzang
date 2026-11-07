@@ -6,7 +6,7 @@
 extern struct member_ext *battle_group_ext[];
 extern int maze_variant;
 extern char faction_attitudes[];
-extern char *aztec_setmem();
+extern char *setmem();
 extern int clamp_between();
 extern int random_below();
 
@@ -78,7 +78,7 @@ int char_idx, target;
 	}
 	for (slot = 0; slot < 6; slot++) {
 		if (target_table[class_id][slot] == target) {
-			aztec_setmem(picked, 12, 0);
+			setmem(picked, 12, 0);
 			picked[class_id] = 1;
 			prev = clamp_between(slot - 1, 0, 5);
 			tries = 0;

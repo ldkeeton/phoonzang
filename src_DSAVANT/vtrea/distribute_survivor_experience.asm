@@ -1,7 +1,7 @@
 ; auto-generated
 distribute_survivor_experience:
     mov ax, 0xff58                   ; 0x5d80
-    call aztec_csav                  ; 0x5d83
+    call $csav                  ; 0x5d83
     mov word [bp - 4], 0             ; 0x5d86
     mov word [bp - 2], 0             ; 0x5d8b
     jmp short .forward2              ; 0x5d90
@@ -22,7 +22,7 @@ distribute_survivor_experience:
     mov dx, word [battle_experience_hi] ; 0x5db3
     mov cx, 0x14                     ; 0x5db7
     mov bx, 0                        ; 0x5dba
-    call aztec_ldv                   ; 0x5dbd
+    call $ldv                   ; 0x5dbd
     push ax                          ; 0x5dc0
     push dx                          ; 0x5dc1
     mov ax, word [party_char_count]  ; 0x5dc2
@@ -58,7 +58,7 @@ distribute_survivor_experience:
     mov bx, dx                       ; 0x5e02
     pop dx                           ; 0x5e04
     pop ax                           ; 0x5e05
-    call aztec_ldv                   ; 0x5e06
+    call $ldv                   ; 0x5e06
     mov word [bp - 6], dx            ; 0x5e09
     mov word [bp - 8], ax            ; 0x5e0c
     lea ax, word [bp - 0x58]         ; 0x5e0f

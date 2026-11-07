@@ -1,7 +1,7 @@
 ; auto-generated
 copy_npc_choice_text_prefix:
     mov ax, 0xfffe                   ; 0x8793
-    call aztec_csav                  ; 0x8796
+    call $csav                  ; 0x8796
     mov ax, 0x25                     ; 0x8799
     push ax                          ; 0x879c
     mov ax, 0x14                     ; 0x879d
@@ -19,7 +19,7 @@ copy_npc_choice_text_prefix:
     add ax, npc_dialog_choice_entry_text ; 0x87bc
     push ax                          ; 0x87bf
     push word [bp + 6]               ; 0x87c0
-    call aztec_strncpy               ; 0x87c3
+    call strncpy               ; 0x87c3
     add sp, byte 6                   ; 0x87c6
     mov bx, word [bp + 6]            ; 0x87c9
     mov si, word [bp - 2]            ; 0x87cc
@@ -43,7 +43,7 @@ copy_npc_choice_text_prefix:
     add ax, npc_dialog_choice_entry_text ; 0x87f7
     push ax                          ; 0x87fa
     push word [bp + 6]               ; 0x87fb
-    call aztec_strncpy               ; 0x87fe
+    call strncpy               ; 0x87fe
     add sp, byte 6                   ; 0x8801
     mov bx, word [bp + 6]            ; 0x8804
     mov si, word [bp - 2]            ; 0x8807
@@ -67,7 +67,7 @@ copy_npc_choice_text_prefix:
     add ax, npc_dialog_choice_entry_text ; 0x8832
     push ax                          ; 0x8835
     push word [bp + 6]               ; 0x8836
-    call aztec_strncpy               ; 0x8839
+    call strncpy               ; 0x8839
     add sp, byte 6                   ; 0x883c
     mov bx, word [bp + 6]            ; 0x883f
     mov si, word [bp - 2]            ; 0x8842

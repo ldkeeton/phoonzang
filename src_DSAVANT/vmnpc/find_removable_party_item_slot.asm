@@ -1,7 +1,7 @@
 ; auto-generated
 find_removable_party_item_slot:
     mov ax, 0xfffc                   ; 0x22e7
-    call aztec_csav                  ; 0x22ea
+    call $csav                  ; 0x22ea
     mov word [bp - 2], 0             ; 0x22ed
 .back1:
     mov word [bp - 4], 0             ; 0x22f2

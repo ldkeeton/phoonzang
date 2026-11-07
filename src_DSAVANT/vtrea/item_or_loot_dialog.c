@@ -4,7 +4,7 @@ extern int dialog_selection, dialog_button, show_area_bottom;
 extern int party_redraw_interval, space_key_hit, hotspot_hit;
 extern char treasure_item_dialog_temp_file[];
 extern int save_screen_area(), draw_dialog_box(), load_message_string();
-extern int aztec_strcpy(), draw_button(), draw_inset_list_rows(),
+extern int strcpy(), draw_button(), draw_inset_list_rows(),
 	draw_scrollbar();
 extern int set_hotspot(), call_show_area(), tick_treasure_animation();
 extern int poll_hotspots(), call_get_mouse(), clamp_between(), flash_area();
@@ -29,7 +29,7 @@ char *msg;
 	save_id =
 	save_screen_area(x-1, y-1, right+1, bottom+1, treasure_item_dialog_temp_file);
 	draw_dialog_box(x, y, right, bottom);
-	if (msg1) load_message_string(title, text); else aztec_strcpy(text, msg);
+	if (msg1) load_message_string(title, text); else strcpy(text, msg);
 	draw_button(x+8, y+7, 12, 1, msg1, text);
 	load_message_string(title+1, text);
 	draw_button(x+8, y+23, 12, 1, msg2, text);

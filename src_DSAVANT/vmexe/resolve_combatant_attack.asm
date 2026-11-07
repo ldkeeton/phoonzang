@@ -1,7 +1,7 @@
 ; auto-generated
 resolve_combatant_attack:
     mov ax, 0xff54                   ; 0x7962
-    call aztec_csav                  ; 0x7965
+    call $csav                  ; 0x7965
     mov word [bp - 0xaa], 0x43       ; 0x7968
     mov word [bp - 0xac], 0          ; 0x796e
     mov word [bp - 0xa8], 0          ; 0x7974
@@ -125,7 +125,7 @@ resolve_combatant_attack:
     push ax                          ; 0x7ac3
     mov ax, combat_action_suffix_buffer ; 0x7ac4
     push ax                          ; 0x7ac7
-    call aztec_strcpy                ; 0x7ac8
+    call strcpy                ; 0x7ac8
     add sp, byte 4                   ; 0x7acb
     jmp short .forward6              ; 0x7ace
 .forward5:
@@ -255,7 +255,7 @@ resolve_combatant_attack.forward12:
     jmp short jumptable_7c0e_case_32 ; 0x7c06
 resolve_combatant_attack.forward13:
     mov cx, 0x11                     ; 0x7c08
-    call aztec_cswt                  ; 0x7c0b
+    call $cswt                  ; 0x7c0b
 jumptable_7c0e:
     dw 0                                       ; 0x7c0e
     dw 0x0012                                  ; 0x7c10 ; literal
@@ -781,7 +781,7 @@ jumptable_8145_case_82:
     jmp near resolve_combatant_attack.forward37 ; 0x813c
 resolve_combatant_attack.forward36:
     mov cx, 0x2a                     ; 0x813f
-    call aztec_cswt                  ; 0x8142
+    call $cswt                  ; 0x8142
 jumptable_8145:
     dw 0                                       ; 0x8145
     dw 0x0001                                  ; 0x8147 ; literal

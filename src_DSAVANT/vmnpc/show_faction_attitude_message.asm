@@ -1,7 +1,7 @@
 ; auto-generated
 show_faction_attitude_message:
     mov ax, 0xfffe                   ; 0x9bcc
-    call aztec_csav                  ; 0x9bcf
+    call $csav                  ; 0x9bcf
     mov al, byte [current_faction_index] ; 0x9bd2
     sub ah, ah                       ; 0x9bd5
     cmp ax, word [bp + 4]            ; 0x9bd7

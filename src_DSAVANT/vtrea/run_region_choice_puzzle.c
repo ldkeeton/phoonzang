@@ -19,7 +19,7 @@ extern int set_bitmap_bit();
 extern int update_region_flag_bitmaps();
 extern int show_scene_message_sequence();
 extern int select_treasure_grid_option();
-extern unsigned int aztec_strlen();
+extern unsigned int strlen();
 extern char treasure_caption[];
 
 /* (0, w) * n keeps Aztec from folding w = len * 6 times n into one constant */
@@ -61,7 +61,7 @@ run_region_choice_puzzle()
 
 	if (bit_13 == 1) {
 		load_message_string(message_index, message);
-		text_length = aztec_strlen(message);
+		text_length = strlen(message);
 		selected_index = select_treasure_grid_option(message_index, 0,
 			161 - (6 * text_length) / 2, 156, text_length,
 			6 * text_length + 4, 12, 3, option_count, 1,
@@ -81,7 +81,7 @@ run_region_choice_puzzle()
 		finished = 0;
 		for (index = 0; index < option_start; index++) {
 			load_message_string(message_index, message);
-			text_length = aztec_strlen(message);
+			text_length = strlen(message);
 			if (option_count > 6) {
 				menu_left = 161 - ((0, text_length * 6) * 3 + 62) / 2;
 				menu_rows = (option_count - 1) / 3 + 1;

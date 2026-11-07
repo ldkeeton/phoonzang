@@ -15,7 +15,7 @@ extern int spell_backfired, spell_cast_failed, startup_option;
 extern unsigned char difficulty_option;
 extern char combat_action_suffix_buffer[];
 extern char combat_action_name_buffer[], combat_action_message_buffer[];
-extern int data_record_io(), aztec_strcpy(), copy_combatant_name();
+extern int data_record_io(), strcpy(), copy_combatant_name();
 extern int load_message_string(), replace_slashes_with_spaces();
 extern int use_item_refresh_stamina_drain(), try_raise_member_skill();
 extern int random_below(), subtract_combatant_stamina();
@@ -48,7 +48,7 @@ struct combatant *actor;
 		data_record_io(1, &item,
 			party_records[acting_unit].item_slots[item_page][item_slot].item_id, 0);
 		if (party_records[acting_unit].item_slots[item_page][item_slot].flags & 128)
-			aztec_strcpy(combat_action_suffix_buffer, item.name);
+			strcpy(combat_action_suffix_buffer, item.name);
 		else
 			load_message_string(MSG_DAGGER_6000 + item.glyph,
 				combat_action_suffix_buffer);

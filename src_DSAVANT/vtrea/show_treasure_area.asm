@@ -1,7 +1,7 @@
 ; auto-generated
 show_treasure_area:
     mov ax, 0                        ; 0x0a1a
-    call aztec_csav                  ; 0x0a1d
+    call $csav                  ; 0x0a1d
     mov ax, 0xc6                     ; 0x0a20
     push ax                          ; 0x0a23
     mov ax, 0x109                    ; 0x0a24

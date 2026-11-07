@@ -1,7 +1,7 @@
 ; auto-generated
 edit_character_skill_slots:
     mov ax, 0xff78                   ; 0x2c15
-    call aztec_csav                  ; 0x2c18
+    call $csav                  ; 0x2c18
     mov word [bp - 2], 0             ; 0x2c1b
 .back1:
     mov ax, 0x248                    ; 0x2c20

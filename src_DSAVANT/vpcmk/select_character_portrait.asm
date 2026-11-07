@@ -1,7 +1,7 @@
 ; auto-generated
 select_character_portrait:
     mov ax, 0xfffa                   ; 0x60e0
-    call aztec_csav                  ; 0x60e3
+    call $csav                  ; 0x60e3
     mov ax, 8                        ; 0x60e6
     push ax                          ; 0x60e9
     mov ax, 0xb                      ; 0x60ea

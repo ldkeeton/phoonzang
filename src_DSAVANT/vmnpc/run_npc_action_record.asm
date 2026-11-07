@@ -1,7 +1,7 @@
 ; auto-generated
 run_npc_action_record:
     mov ax, 0xffc0                   ; 0x2b8e
-    call aztec_csav                  ; 0x2b91
+    call $csav                  ; 0x2b91
     mov ax, word [bp + 6]            ; 0x2b94
     shl ax, 1                        ; 0x2b97
     mov bx, ax                       ; 0x2b99
@@ -227,7 +227,7 @@ run_npc_action_record.forward15:
     add sp, byte 4                   ; 0x2dae
     mov ax, npc_choice_message_buffer ; 0x2db1
     push ax                          ; 0x2db4
-    call aztec_strlen                ; 0x2db5
+    call strlen                ; 0x2db5
     pop cx                           ; 0x2db8
     cmp ax, strict word 0            ; 0x2db9
     jle short run_npc_action_record.forward16 ; 0x2dbc
@@ -396,7 +396,7 @@ run_npc_action_record.back4:
     mov bx, dx                       ; 0x2f56
     pop dx                           ; 0x2f58
     pop ax                           ; 0x2f59
-    call aztec_ldv                   ; 0x2f5a
+    call $ldv                   ; 0x2f5a
     mov word [bp - 0x34], dx         ; 0x2f5d
     mov word [bp - 0x36], ax         ; 0x2f60
     mov ax, word [bp - 0x36]         ; 0x2f63

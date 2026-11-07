@@ -1,7 +1,7 @@
 ; auto-generated
 set_karma_affinity:
     mov ax, 0                        ; 0x4aa1
-    call aztec_csav                  ; 0x4aa4
+    call $csav                  ; 0x4aa4
     mov ax, 0x248                    ; 0x4aa7
     imul word [bp + 4]               ; 0x4aaa
     mov bx, ax                       ; 0x4aad

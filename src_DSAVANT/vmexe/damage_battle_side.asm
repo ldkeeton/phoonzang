@@ -1,7 +1,7 @@
 ; auto-generated
 damage_battle_side:
     mov ax, 0xfffe                   ; 0x2bf2
-    call aztec_csav                  ; 0x2bf5
+    call $csav                  ; 0x2bf5
     cmp word [bp + 4], byte 0        ; 0x2bf8
     jle short .forward2              ; 0x2bfc
     cmp word [bp + 4], byte 6        ; 0x2bfe

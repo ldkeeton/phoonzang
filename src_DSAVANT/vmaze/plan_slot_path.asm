@@ -1,14 +1,14 @@
 ; auto-generated
 plan_slot_path:
     mov ax, 0xfffa                   ; 0x920f
-    call aztec_csav                  ; 0x9212
+    call $csav                  ; 0x9212
     mov ax, 0                        ; 0x9215
     push ax                          ; 0x9218
     mov ax, 0x14                     ; 0x9219
     push ax                          ; 0x921c
     mov ax, open_gates               ; 0x921d
     push ax                          ; 0x9220
-    call aztec_setmem                ; 0x9221
+    call setmem                ; 0x9221
     add sp, byte 6                   ; 0x9224
     mov word [bp - 2], 0             ; 0x9227
 .back1:
@@ -111,7 +111,7 @@ plan_slot_path:
     push ax                          ; 0x9326
     mov ax, edges_in_use             ; 0x9327
     push ax                          ; 0x932a
-    call aztec_setmem                ; 0x932b
+    call setmem                ; 0x932b
     add sp, byte 6                   ; 0x932e
     inc word [path_search_depth]     ; 0x9331
     mov ax, 0                        ; 0x9335

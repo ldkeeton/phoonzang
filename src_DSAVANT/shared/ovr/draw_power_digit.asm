@@ -1,7 +1,7 @@
 ; auto-generated
 draw_power_digit:
     mov ax, 0
-    call aztec_csav
+    call $csav
     push word [bp + 6]
     mov ax, 0xa
     imul word [bp + 8]

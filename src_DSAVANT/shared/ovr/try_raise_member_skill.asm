@@ -1,7 +1,7 @@
 ; auto-generated
 try_raise_member_skill:
     mov ax, 0
-    call aztec_csav
+    call $csav
     mov ax, 0x248
     imul word [bp + 4]
     add ax, word [bp + 6]

@@ -1,7 +1,7 @@
 ; auto-generated
 show_glyph_frame:
     mov ax, 0                        ; 0x0a56
-    call aztec_csav                  ; 0x0a59
+    call $csav                  ; 0x0a59
     mov ax, 0                        ; 0x0a5c
     push ax                          ; 0x0a5f
     mov ax, 0xc7                     ; 0x0a60

@@ -1,7 +1,7 @@
 ; auto-generated
 buy_npc_item:
     mov ax, 0xfff8                   ; 0x5571
-    call aztec_csav                  ; 0x5574
+    call $csav                  ; 0x5574
     mov ax, word [bp + 6]            ; 0x5577
     shl ax, 1                        ; 0x557a
     mov bx, ax                       ; 0x557c

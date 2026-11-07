@@ -1,7 +1,7 @@
 ; auto-generated
 append_edge_between:
     mov ax, 0xfffe                   ; 0x8f94
-    call aztec_csav                  ; 0x8f97
+    call $csav                  ; 0x8f97
     mov word [bp - 2], 0             ; 0x8f9a
 .back1:
     mov ax, word [bp - 2]            ; 0x8f9f

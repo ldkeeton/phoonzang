@@ -50,4 +50,4 @@ shared/ovr/draw_clock_marker_glyph
 shared/ovr/draw_first_person_maze_view
 shared/ovr/redraw_maze_view
 shared/data/maze_variant_filenames
-shared/ovr/aztec_ovbgn
+ovbgn.o

@@ -1,7 +1,7 @@
 ; auto-generated
 draw_glyph_string_grid:
     mov ax, 0xfffe                   ; 0x251a
-    call aztec_csav                  ; 0x251d
+    call $csav                  ; 0x251d
     mov ax, 0xc3                     ; 0x2520
     push ax                          ; 0x2523
     mov ax, 0xb4                     ; 0x2524

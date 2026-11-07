@@ -1,7 +1,7 @@
 ; auto-generated
 draw_active_member_panel:
     mov ax, 0xfff8
-    call aztec_csav
+    call $csav
     push word [bp + 4]
     call member_is_active
     pop cx

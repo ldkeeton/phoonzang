@@ -15,7 +15,7 @@ extern int list_row_marked[], list_row_count[];
 extern int dialog_selection;
 extern struct member_rec *battle_groups[];
 
-extern int data_record_io(), aztec_strcpy(), load_message_string();
+extern int data_record_io(), strcpy(), load_message_string();
 extern int wait_for_party_screen_animation(), item_action_dialog();
 extern int call_show_area(), draw_selected_button_label();
 extern int pick_party_member();
@@ -42,7 +42,7 @@ int pc;
 				data_record_io(1, &item,
 					party_records[pc].item_slots[page][slot].item_id, 0);
 				if (party_records[pc].item_slots[page][slot].flags & 128)
-					aztec_strcpy(list_row_name[row_count], item.name);
+					strcpy(list_row_name[row_count], item.name);
 				else
 					load_message_string(MSG_DAGGER_6000 +
 						party_records[pc].item_slots[page][slot].glyph,

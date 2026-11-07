@@ -1,7 +1,7 @@
 ; auto-generated
 slot_is_at_location:
     mov ax, 0                        ; 0x9448
-    call aztec_csav                  ; 0x944b
+    call $csav                  ; 0x944b
     mov ax, 0x26                     ; 0x944e
     imul word [bp + 4]               ; 0x9451
     mov bx, ax                       ; 0x9454

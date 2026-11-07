@@ -1,7 +1,7 @@
 ; auto-generated
 advance_group_toward_party:
     mov ax, 0xfff4                   ; 0x11b0
-    call aztec_csav                  ; 0x11b3
+    call $csav                  ; 0x11b3
     mov word [bp - 2], 0             ; 0x11b6
     jmp near .forward3               ; 0x11bb
 .back1:

@@ -1,7 +1,7 @@
 ; auto-generated
 advance_party_slot_frames:
     mov ax, 0xfffe
-    call aztec_csav
+    call $csav
     mov word [bp - 2], 0
 .back1:
     cmp word [bp + 4], byte 0

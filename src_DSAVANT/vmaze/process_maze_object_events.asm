@@ -1,7 +1,7 @@
 ; auto-generated
 process_maze_object_events:
     mov ax, 0                        ; 0x8867
-    call aztec_csav                  ; 0x886a
+    call $csav                  ; 0x886a
     mov word [object_search_active], 1 ; 0x886d
     mov word [trigger_facing], 0xffff ; 0x8873
 .back1:

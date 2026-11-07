@@ -1,7 +1,7 @@
 ; auto-generated
 ovmain:
     mov ax, 0                        ; 0x000e
-    call aztec_csav                  ; 0x0011
+    call $csav                  ; 0x0011
     mov word [glyph_painter], 0      ; 0x0014
     mov word [animation_index], 0xffff ; 0x001a
     mov word [sound_request], 0      ; 0x0020

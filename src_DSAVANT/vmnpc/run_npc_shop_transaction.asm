@@ -1,7 +1,7 @@
 ; auto-generated
 run_npc_shop_transaction:
     mov ax, 0xff8e                   ; 0x5e96
-    call aztec_csav                  ; 0x5e99
+    call $csav                  ; 0x5e99
     mov word [bp - 4], 0             ; 0x5e9c
 .back1:
     mov ax, word [bp - 4]            ; 0x5ea1
@@ -27,7 +27,7 @@ run_npc_shop_transaction:
     push ax                          ; 0x5edc
     lea ax, word [bp - 0x68]         ; 0x5edd
     push ax                          ; 0x5ee0
-    call aztec_strcpy                ; 0x5ee1
+    call strcpy                ; 0x5ee1
     add sp, byte 4                   ; 0x5ee4
     lea ax, word [bp - 0x72]         ; 0x5ee7
     push ax                          ; 0x5eea

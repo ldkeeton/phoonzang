@@ -1,7 +1,7 @@
 ; auto-generated
 choose_random_party_segment:
     mov ax, 0xfffa                   ; 0x148d
-    call aztec_csav                  ; 0x1490
+    call $csav                  ; 0x1490
     mov ax, word [bp + 0xc]          ; 0x1493
     inc ax                           ; 0x1496
     push ax                          ; 0x1497

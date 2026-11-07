@@ -1,7 +1,7 @@
 ; auto-generated
 wait_treasure_input_or_timeout:
     mov ax, 0xfffc                   ; 0x08eb
-    call aztec_csav                  ; 0x08ee
+    call $csav                  ; 0x08ee
     call flush_keyboard              ; 0x08f1
     mov ax, word [bp + 4]            ; 0x08f4
     cwd                              ; 0x08f7

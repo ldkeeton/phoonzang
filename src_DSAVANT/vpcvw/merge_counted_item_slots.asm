@@ -1,7 +1,7 @@
 ; auto-generated
 merge_counted_item_slots:
     mov ax, 0xfffe                   ; 0x4421
-    call aztec_csav                  ; 0x4424
+    call $csav                  ; 0x4424
     mov bx, word [bp + 4]            ; 0x4427
     mov ax, word [bx]                ; 0x442a
     mov bx, word [bp + 6]            ; 0x442c
@@ -41,7 +41,7 @@ merge_counted_item_slots:
     mov byte [bx + 7], al            ; 0x447d
     push word [bp + 8]               ; 0x4480
     push word [bp + 0xa]             ; 0x4483
-    call aztec_strcpy                ; 0x4486
+    call strcpy                ; 0x4486
     add sp, byte 4                   ; 0x4489
 .forward3:
     mov bx, word [bp + 6]            ; 0x448c
@@ -56,7 +56,7 @@ merge_counted_item_slots:
     mov byte [bx + 7], al            ; 0x44a4
     push word [bp + 0xa]             ; 0x44a7
     push word [bp + 8]               ; 0x44aa
-    call aztec_strcpy                ; 0x44ad
+    call strcpy                ; 0x44ad
     add sp, byte 4                   ; 0x44b0
 .forward4:
     cmp word [bp - 2], strict word 0xfa ; 0x44b3

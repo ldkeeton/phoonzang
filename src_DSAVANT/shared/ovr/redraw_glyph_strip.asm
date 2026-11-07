@@ -1,7 +1,7 @@
 ; auto-generated
 redraw_glyph_strip:
     mov ax, 0xfff6
-    call aztec_csav
+    call $csav
     mov ax, 0
     push ax
     push word [saved_area_a_hi]

@@ -1,7 +1,7 @@
 ; auto-generated
 search_path_from:
     mov ax, 0xffb8                   ; 0x9029
-    call aztec_csav                  ; 0x902c
+    call $csav                  ; 0x902c
     push word [bp + 6]               ; 0x902f
     push word [bp + 4]               ; 0x9032
     call append_edge_between         ; 0x9035
@@ -67,7 +67,7 @@ search_path_from:
     push ax                          ; 0x90c7
     mov ax, edges_in_use             ; 0x90c8
     push ax                          ; 0x90cb
-    call aztec_movmem                ; 0x90cc
+    call movmem                ; 0x90cc
     add sp, byte 6                   ; 0x90cf
     mov ax, word [bp + 0xa]          ; 0x90d2
     inc ax                           ; 0x90d5
@@ -106,7 +106,7 @@ search_path_from:
     push ax                          ; 0x9121
     lea ax, word [bp - 0x48]         ; 0x9122
     push ax                          ; 0x9125
-    call aztec_movmem                ; 0x9126
+    call movmem                ; 0x9126
     add sp, byte 6                   ; 0x9129
 .forward9:
     jmp near .forward16              ; 0x912c
@@ -150,7 +150,7 @@ search_path_from:
     push ax                          ; 0x918a
     mov ax, edges_in_use             ; 0x918b
     push ax                          ; 0x918e
-    call aztec_movmem                ; 0x918f
+    call movmem                ; 0x918f
     add sp, byte 6                   ; 0x9192
     mov ax, word [bp + 0xa]          ; 0x9195
     inc ax                           ; 0x9198
@@ -189,7 +189,7 @@ search_path_from:
     push ax                          ; 0x91e4
     lea ax, word [bp - 0x48]         ; 0x91e5
     push ax                          ; 0x91e8
-    call aztec_movmem                ; 0x91e9
+    call movmem                ; 0x91e9
     add sp, byte 6                   ; 0x91ec
 .forward16:
     inc word [bp - 2]                ; 0x91ef

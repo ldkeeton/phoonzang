@@ -1,7 +1,7 @@
 ; auto-generated
 spend_level_scaled_skill_points:
     mov ax, 0xfffe                   ; 0x56b0
-    call aztec_csav                  ; 0x56b3
+    call $csav                  ; 0x56b3
     mov ax, word [bp + 6]            ; 0x56b6
     shl ax, 1                        ; 0x56b9
     mov bx, ax                       ; 0x56bb

@@ -1,7 +1,7 @@
 ; auto-generated
 dispatch_npc_effect_message:
     mov ax, 0                        ; 0x9c7a
-    call aztec_csav                  ; 0x9c7d
+    call $csav                  ; 0x9c7d
     mov ax, npc_effect_message_buffer ; 0x9c80
     push ax                          ; 0x9c83
     push word [bp + 4]               ; 0x9c84

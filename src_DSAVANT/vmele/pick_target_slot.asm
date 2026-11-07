@@ -1,7 +1,7 @@
 ; auto-generated
 pick_target_slot:
     mov ax, 0xff58                   ; 0x041d
-    call aztec_csav                  ; 0x0420
+    call $csav                  ; 0x0420
     mov ax, word [bp + 4]            ; 0x0423
     shl ax, 1                        ; 0x0426
     mov bx, ax                       ; 0x0428
@@ -110,7 +110,7 @@ pick_target_slot:
     push ax                          ; 0x05a8
     lea ax, word [bp - 0xa8]         ; 0x05a9
     push ax                          ; 0x05ad
-    call aztec_setmem                ; 0x05ae
+    call setmem                ; 0x05ae
     add sp, byte 6                   ; 0x05b1
     mov bx, word [bp - 0xa]          ; 0x05b4
     add bx, bp                       ; 0x05b7

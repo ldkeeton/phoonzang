@@ -1,7 +1,7 @@
 ; auto-generated
 choose_party_battle_orders:
     mov ax, 0xff2c                   ; 0x3710
-    call aztec_csav                  ; 0x3713
+    call $csav                  ; 0x3713
     lea ax, word [bp - 0xd4]         ; 0x3716
     push ax                          ; 0x371a
     mov ax, MSG_VS_3503              ; 0x371b
@@ -165,7 +165,7 @@ choose_party_battle_orders:
     push ax                          ; 0x38b8
     mov ax, unit_targeted            ; 0x38b9
     push ax                          ; 0x38bc
-    call aztec_setmem                ; 0x38bd
+    call setmem                ; 0x38bd
     add sp, byte 6                   ; 0x38c0
     mov word [bp - 0xb4], 0          ; 0x38c3
     call flush_keyboard              ; 0x38c9
@@ -886,7 +886,7 @@ jumptable_4058_case_9:
     push ax                          ; 0x3fc1
     mov ax, unit_targeted            ; 0x3fc2
     push ax                          ; 0x3fc5
-    call aztec_setmem                ; 0x3fc6
+    call setmem                ; 0x3fc6
     add sp, byte 6                   ; 0x3fc9
     mov word [bp - 0x9a], 0          ; 0x3fcc
     jmp short choose_party_battle_orders.forward55 ; 0x3fd2
@@ -934,7 +934,7 @@ jumptable_4058_case_10:
     push ax                          ; 0x403a
     mov ax, unit_targeted            ; 0x403b
     push ax                          ; 0x403e
-    call aztec_setmem                ; 0x403f
+    call setmem                ; 0x403f
     add sp, byte 6                   ; 0x4042
     mov word [bp - 6], 0xffff        ; 0x4045
     mov word [bp - 0xa0], 1          ; 0x404a
@@ -1316,7 +1316,7 @@ choose_party_battle_orders.forward78:
     push ax                          ; 0x43f3
     mov ax, unit_targeted            ; 0x43f4
     push ax                          ; 0x43f7
-    call aztec_setmem                ; 0x43f8
+    call setmem                ; 0x43f8
     add sp, byte 6                   ; 0x43fb
     mov word [bp - 0x9a], 0          ; 0x43fe
     jmp short choose_party_battle_orders.forward80 ; 0x4404

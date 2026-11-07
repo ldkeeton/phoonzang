@@ -1,7 +1,7 @@
 ; auto-generated
 map_bane_character_portrait:
     mov ax, 0                        ; 0x1820
-    call aztec_csav                  ; 0x1823
+    call $csav                  ; 0x1823
     mov ax, word [bp + 4]            ; 0x1826
     jmp short .forward1              ; 0x1829
 jumptable_185e_case_0:

@@ -7,11 +7,11 @@ int x, y, color;
 	int split;
 	char buf[40];
 
-	aztec_setmem(buf, 40, 0);
-	aztec_strcpy(buf, text);
+	setmem(buf, 40, 0);
+	strcpy(buf, text);
 	split = strpos(buf, '/');
 	if (split == -1)	/* no '/': whole text is the first line */
-		split = aztec_strlen(buf);
+		split = strlen(buf);
 	if (split > 10)		/* 10-char line limit */
 		split = 10;
 	buf[split] = 0;

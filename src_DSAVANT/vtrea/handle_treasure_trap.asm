@@ -1,7 +1,7 @@
 ; auto-generated
 handle_treasure_trap:
     mov ax, 0xff86                   ; 0x4f0c
-    call aztec_csav                  ; 0x4f0f
+    call $csav                  ; 0x4f0f
     mov word [animation_frame], 0    ; 0x4f12
     push word [bp + 4]               ; 0x4f18
     call roll_chest_trap             ; 0x4f1b

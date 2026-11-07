@@ -1,7 +1,7 @@
 ; auto-generated
 show_npc_message_with_delay:
     mov ax, 0xffac                   ; 0x128c
-    call aztec_csav                  ; 0x128f
+    call $csav                  ; 0x128f
     lea ax, word [bp - 0x54]         ; 0x1292
     push ax                          ; 0x1295
     push word [bp + 4]               ; 0x1296
@@ -9,7 +9,7 @@ show_npc_message_with_delay:
     add sp, byte 4                   ; 0x129c
     lea ax, word [bp - 0x54]         ; 0x129f
     push ax                          ; 0x12a2
-    call aztec_strlen                ; 0x12a3
+    call strlen                ; 0x12a3
     pop cx                           ; 0x12a6
     mov cx, 6                        ; 0x12a7
     imul cx                          ; 0x12aa
@@ -22,7 +22,7 @@ show_npc_message_with_delay:
     mov word [bp - 2], ax            ; 0x12b9
     lea ax, word [bp - 0x54]         ; 0x12bc
     push ax                          ; 0x12bf
-    call aztec_strlen                ; 0x12c0
+    call strlen                ; 0x12c0
     pop cx                           ; 0x12c3
     mov cx, 6                        ; 0x12c4
     imul cx                          ; 0x12c7

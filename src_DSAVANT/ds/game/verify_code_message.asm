@@ -1,7 +1,7 @@
 ; auto-generated
 verify_code_message:
     mov ax, 0xffac                   ; 0x05d0
-    call aztec_csav                  ; 0x05d3
+    call $csav                  ; 0x05d3
     lea ax, word [bp - 0x54]         ; 0x05d6
     push ax                          ; 0x05d9
     mov al, byte [code_char_message_index] ; 0x05da
@@ -13,7 +13,7 @@ verify_code_message:
     mov word [bp - 2], 0             ; 0x05e9
     lea ax, word [bp - 0x54]         ; 0x05ee
     push ax                          ; 0x05f1
-    call aztec_strlen                ; 0x05f2
+    call strlen                ; 0x05f2
     pop cx                           ; 0x05f5
     add ax, strict word 0xfffc       ; 0x05f6
     mov word [bp - 4], ax            ; 0x05f9

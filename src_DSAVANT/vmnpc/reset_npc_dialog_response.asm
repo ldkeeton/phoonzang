@@ -1,7 +1,7 @@
 ; auto-generated
 reset_npc_dialog_response:
     mov ax, 0                        ; 0x86c6
-    call aztec_csav                  ; 0x86c9
+    call $csav                  ; 0x86c9
     mov word [npc_dialog_response_active], 1 ; 0x86cc
     mov ax, word [bp + 4]            ; 0x86d2
     jmp short .forward1              ; 0x86d5

@@ -50,5 +50,4 @@ vdopt/data/report_placeholders
 vdopt/data/screen_save_temp_file
 vdopt/data/item_dialog_temp_file
 vdopt/data/item_dialog_first_label
-shared/ovr/aztec_ovbgn
-shared/ovr/aztec_cswt
+ovbgn.o

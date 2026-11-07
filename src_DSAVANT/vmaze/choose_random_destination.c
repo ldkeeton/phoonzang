@@ -16,7 +16,7 @@ int slot_index;
 {
 	int location, owner, attitude, reachable[26];
 
-	aztec_setmem(reachable, sizeof(reachable), 0);
+	setmem(reachable, sizeof(reachable), 0);
 	/* Every NPC can reach these from the start. */
 	reachable[0] = 1;
 	reachable[1] = 1;

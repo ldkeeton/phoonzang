@@ -129,6 +129,4 @@ vmnpc/edit_npc_dialog_text_line
 vmnpc/find_npc_message_match
 vmnpc/run_npc_member_dialog
 vmnpc/data/npc_strings
-shared/ovr/aztec_ovbgn
-shared/aztec/aztec_strncpy
-shared/aztec/aztec_strcmp
+ovbgn.o

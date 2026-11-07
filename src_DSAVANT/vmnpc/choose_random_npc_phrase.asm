@@ -1,7 +1,7 @@
 ; auto-generated
 choose_random_npc_phrase:
     mov ax, 0xff7c                   ; 0x8c72
-    call aztec_csav                  ; 0x8c75
+    call $csav                  ; 0x8c75
     lea ax, word [bp - 0x50]         ; 0x8c78
     push ax                          ; 0x8c7b
     push word [npc_phrase_msg_id]    ; 0x8c7c
@@ -84,7 +84,7 @@ choose_random_npc_phrase:
     add ax, cx                       ; 0x8d3d
     push ax                          ; 0x8d3f
     push word [bp + 4]               ; 0x8d40
-    call aztec_strncpy               ; 0x8d43
+    call strncpy               ; 0x8d43
     add sp, byte 6                   ; 0x8d46
     mov bx, word [bp + 4]            ; 0x8d49
     mov si, word [bp - 0x52]         ; 0x8d4c
@@ -92,7 +92,7 @@ choose_random_npc_phrase:
     push word [bp + 4]               ; 0x8d53
     lea ax, word [bp - 0x50]         ; 0x8d56
     push ax                          ; 0x8d59
-    call aztec_strcpy                ; 0x8d5a
+    call strcpy                ; 0x8d5a
     add sp, byte 4                   ; 0x8d5d
     mov bx, word [bp - 0x52]         ; 0x8d60
     add bx, bp                       ; 0x8d63

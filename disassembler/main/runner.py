@@ -62,7 +62,7 @@ from lib.names import (
 )
 from lib import symtab
 from lib.symtab import GENERIC, Kind, Source, Space, Symbol
-from lib.sidecar.bands import band_for
+from lib.sidecar.bands import band_for, runtime_library
 from lib.sidecar.binary import fragment_lengths, function_key_base
 from lib.sidecar.usage import SidecarUse
 from lib.aztec.libnames import library_public
@@ -1055,6 +1055,8 @@ def _render(a, exact_bytes, show_offsets, host_data_offsets,
         message_bases=message_bases,
         sidecar_use=(ctx.sidecar_entry or {}).get('use'),
         bands=(ctx.sidecar_entry or {}).get('bands') or (),
+        library=(runtime_library(load_sidecar(a.project), a.name)
+                 if a.project else None),
         data_modules=(*(vendor_data_modules(project) if project else ()),
                       *declared_data_modules(ctx.sidecar_entry, ctx.segments, data)),
         **_driver_slot_render(ctx.sidecar_entry, data),

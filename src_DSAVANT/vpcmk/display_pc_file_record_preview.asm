@@ -1,7 +1,7 @@
 ; auto-generated
 display_pc_file_record_preview:
     mov ax, 0                        ; 0x66c3
-    call aztec_csav                  ; 0x66c6
+    call $csav                  ; 0x66c6
     mov ax, 0                        ; 0x66c9
     push ax                          ; 0x66cc
     push word [bp + 6]               ; 0x66cd

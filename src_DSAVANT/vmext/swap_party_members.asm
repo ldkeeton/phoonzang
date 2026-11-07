@@ -1,7 +1,7 @@
 ; auto-generated
 swap_party_members:
     mov ax, 0xfdae                   ; 0x15af
-    call aztec_csav                  ; 0x15b2
+    call $csav                  ; 0x15b2
     mov ax, word [bp + 4]            ; 0x15b5
     mov cx, 2                        ; 0x15b8
     cwd                              ; 0x15bb
@@ -28,7 +28,7 @@ swap_party_members:
     imul word [bp + 4]               ; 0x15f0
     add ax, party_records            ; 0x15f3
     push ax                          ; 0x15f6
-    call aztec_strlen                ; 0x15f7
+    call strlen                ; 0x15f7
     pop cx                           ; 0x15fa
     mov cx, 6                        ; 0x15fb
     imul cx                          ; 0x15fe

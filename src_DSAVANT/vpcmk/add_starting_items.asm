@@ -1,7 +1,7 @@
 ; auto-generated
 add_starting_items:
     mov ax, 0                        ; 0x4c21
-    call aztec_csav                  ; 0x4c24
+    call $csav                  ; 0x4c24
     cmp word [bp + 6], byte 0        ; 0x4c27
     je short .forward1               ; 0x4c2b
     push word [bp + 6]               ; 0x4c2d

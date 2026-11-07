@@ -1,7 +1,7 @@
 ; auto-generated
 load_file_data:
     mov ax, 0xfff4                   ; 0x0146
-    call aztec_csav                  ; 0x0149
+    call $csav                  ; 0x0149
     mov ax, 0                        ; 0x014c
     push ax                          ; 0x014f
     push ax                          ; 0x0150
@@ -9,7 +9,7 @@ load_file_data:
     call data_file_path              ; 0x0154
     add sp, byte 4                   ; 0x0157
     push ax                          ; 0x015a
-    call aztec_open                  ; 0x015b
+    call open                  ; 0x015b
     add sp, byte 4                   ; 0x015e
     mov word [bp - 2], ax            ; 0x0161
     cmp ax, strict word 0xffff       ; 0x0164
@@ -26,7 +26,7 @@ load_file_data:
     push dx                          ; 0x017b
     push ax                          ; 0x017c
     push word [bp - 2]               ; 0x017d
-    call aztec_lseek                 ; 0x0180
+    call lseek                 ; 0x0180
     add sp, byte 8                   ; 0x0183
     mov word [bp - 4], dx            ; 0x0186
     mov word [bp - 6], ax            ; 0x0189
@@ -37,7 +37,7 @@ load_file_data:
     mov word [bp - 8], dx            ; 0x0198
     mov word [bp - 0xa], ax          ; 0x019b
     push word [bp - 6]               ; 0x019e
-    call aztec_malloc                ; 0x01a1
+    call malloc                ; 0x01a1
     pop cx                           ; 0x01a4
     mov word [bp - 0xc], ax          ; 0x01a5
     cmp word [bp - 8], byte 0        ; 0x01a8
@@ -60,15 +60,15 @@ load_file_data:
     push dx                          ; 0x01cc
     push ax                          ; 0x01cd
     push word [bp - 2]               ; 0x01ce
-    call aztec_lseek                 ; 0x01d1
+    call lseek                 ; 0x01d1
     add sp, byte 8                   ; 0x01d4
     push word [bp - 6]               ; 0x01d7
     push word [bp - 0xc]             ; 0x01da
     push word [bp - 2]               ; 0x01dd
-    call aztec_read                  ; 0x01e0
+    call read                  ; 0x01e0
     add sp, byte 6                   ; 0x01e3
     push word [bp - 2]               ; 0x01e6
-    call aztec_close                 ; 0x01e9
+    call close                 ; 0x01e9
     pop cx                           ; 0x01ec
     push word [bp - 6]               ; 0x01ed
     push word [bp - 8]               ; 0x01f0
@@ -80,7 +80,7 @@ load_file_data:
     call app_memmove                 ; 0x01fd
     add sp, byte 0xa                 ; 0x0200
     push word [bp - 0xc]             ; 0x0203
-    call aztec_free                  ; 0x0206
+    call free                  ; 0x0206
     pop cx                           ; 0x0209
     mov ax, word [bp - 0xa]          ; 0x020a
     mov dx, word [bp - 8]            ; 0x020d

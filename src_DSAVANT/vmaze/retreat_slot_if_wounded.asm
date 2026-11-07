@@ -1,7 +1,7 @@
 ; auto-generated
 retreat_slot_if_wounded:
     mov ax, 0                        ; 0x94a6
-    call aztec_csav                  ; 0x94a9
+    call $csav                  ; 0x94a9
     mov ax, 3                        ; 0x94ac
     push ax                          ; 0x94af
     call random_below                ; 0x94b0

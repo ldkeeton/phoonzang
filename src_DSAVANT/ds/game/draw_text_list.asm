@@ -1,7 +1,7 @@
 ; auto-generated
 draw_text_list:
     mov ax, 0                        ; 0x11de
-    call aztec_csav                  ; 0x11e1
+    call $csav                  ; 0x11e1
     mov ax, 6                        ; 0x11e4
     imul word [bp + 0xa]             ; 0x11e7
     add ax, word [bp + 6]            ; 0x11ea

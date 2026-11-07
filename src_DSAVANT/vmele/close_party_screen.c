@@ -26,7 +26,7 @@ extern struct {
 extern call_wait_sound(), call_restore_screen(), save_screen_area(),
 	free_picture_slot(), wait_and_free_sound(), redraw_glyph_strip(),
 	call_restore_area(), dissolve_or_show_area(), load_monster_picture(),
-	aztec_free();
+	free();
 
 close_party_screen()
 {
@@ -58,11 +58,11 @@ close_party_screen()
 	if (party_return_state == 23)		/* back to the combat screen */
 		dissolve_or_show_area(55, 146, 265, 198);
 	for (i = 0; i < 7; i++) {		/* 7 party slots */
-		aztec_free(battle_group_ext[i]);
-		aztec_free(battle_groups[i]);
+		free(battle_group_ext[i]);
+		free(battle_groups[i]);
 	}
 	for (i = 0; i < 12; i++)		/* 12 overlay slots, skip the count */
-		aztec_free(overlay_list.items[i]);
+		free(overlay_list.items[i]);
 	for (slot = 15; slot < 18; slot++)
 		if (picture_slot_number[slot] != 255)	/* 0xff: slot free */
 			free_picture_slot(slot);

@@ -1,7 +1,7 @@
 ; auto-generated
 sync_member_party_panel:
     mov ax, 0xfffc                   ; 0x030b
-    call aztec_csav                  ; 0x030e
+    call $csav                  ; 0x030e
     mov ax, 0x2c                     ; 0x0311
     imul word [bp + 4]               ; 0x0314
     mov si, ax                       ; 0x0317
@@ -38,7 +38,7 @@ sync_member_party_panel:
     add ax, si                       ; 0x0366
     add ax, strict word 0xe          ; 0x0368
     push ax                          ; 0x036b
-    call aztec_movmem                ; 0x036c
+    call movmem                ; 0x036c
     add sp, byte 6                   ; 0x036f
     mov ax, 0x2c                     ; 0x0372
     imul word [bp + 4]               ; 0x0375
@@ -84,7 +84,7 @@ sync_member_party_panel:
     imul word [bp + 4]               ; 0x03da
     add ax, party_records            ; 0x03dd
     push ax                          ; 0x03e0
-    call aztec_strlen                ; 0x03e1
+    call strlen                ; 0x03e1
     pop cx                           ; 0x03e4
     mov cx, 6                        ; 0x03e5
     imul cx                          ; 0x03e8

@@ -1,7 +1,7 @@
 ; auto-generated
 remove_party_member:
     mov ax, 0xfffa                   ; 0x61db
-    call aztec_csav                  ; 0x61de
+    call $csav                  ; 0x61de
     mov ax, word [bp + 4]            ; 0x61e1
     shl ax, 1                        ; 0x61e4
     mov bx, ax                       ; 0x61e6

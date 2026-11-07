@@ -8,12 +8,12 @@ extern int current_level;
 extern char far *runtime_buffer_4k_a, *runtime_buffer_4k_b;
 extern char current_map_block_a[], explored_cell_bitmap[];
 extern int app_memmove();
-extern int aztec_movmem();
+extern int movmem();
 
 save_level_state()
 {
 	/* Copy this level's sixteen-byte state into the scenario header. */
-	aztec_movmem(party_region.state[current_level],
+	movmem(party_region.state[current_level],
 		scenario_header_data.region_state[current_level], 16);
 
 	/* Store both 128-byte map blocks in this level's buffer slots. */

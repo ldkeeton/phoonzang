@@ -1,7 +1,7 @@
 ; auto-generated
 handle_region_object_search:
     mov ax, 0xfffc                   ; 0x799e
-    call aztec_csav                  ; 0x79a1
+    call $csav                  ; 0x79a1
     mov ax, word [party_region]      ; 0x79a4
     shl ax, 1                        ; 0x79a7
     mov si, ax                       ; 0x79a9

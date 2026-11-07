@@ -22,7 +22,7 @@ IMAGE_BASE equ 0x000e + VBASE
     dw __zdseg_end                           ; 0x9098 ; o_dorg: data load origin (memory offset)
     dw (__zimage_end - __zdata_start)        ; 0x001e ; o_dsize: initialized data size
     dw __zobss_end - __zimage_end            ; 0x0cde ; o_bss: uninitialized data size
-    dw aztec_ovbgn - IMAGE_BASE + __zres_end ; 0x9720 ; o_entry: overlay entry offset (CS)
+    dw $ovbgn - IMAGE_BASE + __zres_end ; 0x9720 ; o_entry: overlay entry offset (CS)
 
 __zcode_start:
 report_line1_none equ __zdseg_end + (__zreport_line1_none - __zdata_start)
@@ -172,9 +172,9 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "vdopt/cast_spell_from_menu.asm"  ; 0x45dd
 
-%include "shared/ovr/aztec_ovbgn.asm"           ; 0x46d9
+%include ".cache/c.lib/shared/ovr/ovbgn.asm"           ; 0x46d9
 
-%include "shared/ovr/aztec_cswt.asm"            ; 0x4717
+%include ".cache/c.lib/shared/ovr/cswt.asm"            ; 0x4717
 
 __zdata_start:
 %include "vdopt/data/report_placeholders.asm" ; 0x472f
@@ -185,7 +185,7 @@ __zdata_start:
 
 %include "vdopt/data/item_dialog_first_label.asm" ; 0x4741
 
-%include "shared/ovr/aztec_ovbgn.data.asm"      ; 0x4743
+%include ".cache/c.lib/shared/ovr/ovbgn.data.asm"      ; 0x4743
 
 
 __zimage_end:

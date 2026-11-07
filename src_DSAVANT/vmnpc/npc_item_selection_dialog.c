@@ -9,7 +9,7 @@ extern char hotspot_rects[];
 extern int hotspot_hit, space_key_hit;
 extern struct pc_rec party_records[];
 
-extern int load_message_string(), aztec_strlen(), draw_dialog_box();
+extern int load_message_string(), strlen(), draw_dialog_box();
 extern int save_screen_area(), restore_saved_screen();
 extern int call_set_text_color(), call_set_text_pos(), draw_text_glyphs();
 extern int format_long_decimal(), draw_button(), draw_scrollbar();
@@ -47,12 +47,12 @@ int scroll_offset;
 	draw_dialog_box(left, top, right, bottom);
 	call_set_text_color(1, 194);
 	call_set_text_pos(left + 38 -
-		(aztec_strlen(party_records[member_index].name) * 6) / 2,
+		(strlen(party_records[member_index].name) * 6) / 2,
 		top + 6);
 	draw_text_glyphs(party_records[member_index].name, 0);
 	call_set_text_color(179, 194);
 	format_long_decimal(party_records[member_index].gold, text);
-	call_set_text_pos(left + 38 - (aztec_strlen(text) * 6 + 18) / 2,
+	call_set_text_pos(left + 38 - (strlen(text) * 6 + 18) / 2,
 		top + 12);
 	draw_text_glyphs(text, 0);
 	load_message_string(title_message, text);

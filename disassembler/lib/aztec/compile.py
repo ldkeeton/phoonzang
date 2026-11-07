@@ -214,6 +214,19 @@ def routine_label(cname):
     return LIBRARY_PREFIX + cname
 
 
+def vendor_names(label):
+    """The C names a runtime *label* is the vendor's routine under, inverting
+    :func:`routine_label` (``aztec_strcpy`` -> ``strcpy``; ``aztec_impl_ovld``
+    -> ``_ovld`` or ``__ovld``), or ``()`` for any other label."""
+    label = str(label)
+    if not label.startswith(LIBRARY_PREFIX):
+        return ()
+    name = label[len(LIBRARY_PREFIX):]
+    if name.startswith('impl_'):
+        return ('_' + name[5:], '__' + name[5:])
+    return (name,)
+
+
 #: OMF converters that prefix ``_`` to every public (``_putc``, ``___read``
 #: for ``__read``, ``_$csav`` for ``$csav``).
 _PREFIXING_CONVERTERS = {VERSION}

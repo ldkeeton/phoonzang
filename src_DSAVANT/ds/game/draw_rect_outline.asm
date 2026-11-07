@@ -1,7 +1,7 @@
 ; auto-generated
 draw_rect_outline:
     mov ax, 0                        ; 0x0e03
-    call aztec_csav                  ; 0x0e06
+    call $csav                  ; 0x0e06
     mov ax, 0                        ; 0x0e09
     push ax                          ; 0x0e0c
     mov ax, word [bp + 6]            ; 0x0e0d

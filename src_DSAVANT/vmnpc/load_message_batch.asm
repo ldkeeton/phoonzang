@@ -1,7 +1,7 @@
 ; auto-generated
 load_message_batch:
     mov ax, 0xfffe                   ; 0xa3dd
-    call aztec_csav                  ; 0xa3e0
+    call $csav                  ; 0xa3e0
     mov word [bp - 2], 0             ; 0xa3e3
     jmp short .forward1              ; 0xa3e8
 .back1:

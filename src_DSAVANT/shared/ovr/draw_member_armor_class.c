@@ -11,7 +11,7 @@ extern struct pc_rec party_records[];
 extern int call_restore_screen();
 extern struct encumbrance_style *select_encumbrance_style();
 extern int load_message_string();
-extern int aztec_strlen();
+extern int strlen();
 extern int format_int_decimal();
 extern int call_set_text_color();
 extern int call_set_text_pos();
@@ -50,25 +50,25 @@ int member_index;
 
 	/* Format the overall AC followed by its parenthesized partial value. */
 	load_message_string(MSG_AC_216, text);
-	text_length = aztec_strlen(text);
+	text_length = strlen(text);
 	text[text_length++] = ' ';
 	if (displayed_armor_class > 0)
 		text[text_length++] = '+';
 	format_int_decimal(displayed_armor_class, text + text_length);
 
-	text_length = aztec_strlen(text);
+	text_length = strlen(text);
 	text[text_length++] = ' ';
 	text[text_length++] = '(';
 	if (partial_armor_class >= 0)
 		text[text_length++] = '+';
 	format_int_decimal(partial_armor_class, text + text_length);
-	text_length = aztec_strlen(text);
+	text_length = strlen(text);
 	text[text_length++] = ')';
 	text[text_length] = 0;
 
 	call_set_text_color(235, 0);
 	/* Six-pixel glyphs center the string at x=0x10e, y=0x1e. */
-	call_set_text_pos(270 - (aztec_strlen(text) * 6) / 2, 30);
+	call_set_text_pos(270 - (strlen(text) * 6) / 2, 30);
 	draw_text_glyphs(text, 0);
 
 	/* These five x/y pairs place the armor-class values by equipment slot. */

@@ -9,7 +9,7 @@ extern int restore_area_a_draw_glyph(), wait_for_maze_input_or_refresh();
 extern int stop_and_clear_maze_sounds(), load_monster_picture();
 extern int call_draw_text(), free_picture_slot(),
 	load_maze_variant_resources();
-extern int play_maze_sound_effect(), aztec_strcpy(), aztec_strcat();
+extern int play_maze_sound_effect(), strcpy(), strcat();
 extern int measure_text_width();
 extern char maze_message_control_code_table[], maze_message_word_separator[];
 
@@ -83,16 +83,16 @@ unsigned char *message_text;
 		}
 	}
 	if (maze_message_glyph_buffer[0] != 0) {
-		aztec_strcpy(text_buffer, maze_message_glyph_buffer);
-		aztec_strcat(text_buffer, maze_message_word_separator);
-		aztec_strcat(text_buffer, message_text);
+		strcpy(text_buffer, maze_message_glyph_buffer);
+		strcat(text_buffer, maze_message_word_separator);
+		strcat(text_buffer, message_text);
 	} else
-		aztec_strcpy(text_buffer, message_text);
+		strcpy(text_buffer, message_text);
 	text_width = measure_text_width(text_buffer, 2);
 	/* Past 184 px, flush the line and start the next one with this word. */
 	if (text_width > 184) {
 		flush_glyph_buffer(maze_message_glyph_buffer);
-		aztec_strcpy(maze_message_glyph_buffer, message_text);
+		strcpy(maze_message_glyph_buffer, message_text);
 	} else
-		aztec_strcpy(maze_message_glyph_buffer, text_buffer);
+		strcpy(maze_message_glyph_buffer, text_buffer);
 }

@@ -1,7 +1,7 @@
 ; auto-generated
 draw_animation_frame:
     mov ax, 0xfff0                   ; 0x0090
-    call aztec_csav                  ; 0x0093
+    call $csav                  ; 0x0093
     cmp word [bp + 4], byte 0        ; 0x0096
     jl short .forward1               ; 0x009a
     cmp word [bp + 4], byte 6        ; 0x009c

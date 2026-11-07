@@ -1,210 +1,69 @@
 #!/usr/bin/env bash
 # auto-generated
-# Build every binary of this tree with Manx Aztec C86, running the DOS tools
-# under DOSBox-X.
+# Build every binary of this tree with Manx Aztec C86 under DOSBox-X.
 #
-#   ./build.sh [binary ...]      e.g. ./build.sh vmnpc   (default: all)
+#   ./build.sh [binary ...]      (default: all)
 #   ./build.sh init              only download the compiler
 #
-# What goes into a binary
-#
-#   Binary NAME is every NAME/**/MODULE.s and NAME/**/MODULE.c (when both
-#   exist, the .s wins; .asm files are not sources).  There is no list of
-#   modules and no fixed order: add, delete or convert a file and the next
-#   build picks it up.  So the binaries are not laid out exactly like the
-#   originals, which is the point: code that only works in the original
-#   layout shows up as a bug.
-#
-#   Every source under LIBDIRS (shared/) is compiled once into SHARED.LIB,
-#   and ln takes from it just the modules a binary calls.  A shared module
-#   compiles with OBJ_CFLAGS[MODULE], else CFLAGS, the same for every binary
-#   (the generator keeps a module that one binary compiles differently in
-#   that binary's own directory).
-#
-#   A few modules have a fixed place:
-#     FIRST[NAME]        opens the binary: a driver's dispatch table, which
-#                        DS calls at fixed offsets.
-#     NAME/data/globals  comes right after FIRST.  It declares every
-#                        uninitialized C global, ln lays those out in the
-#                        order it first sees them, and the code relies on that
-#                        order (a loop runs from one array into the next).
-#     ENTRY[NAME]        startup modules nothing calls, so ln would never take
-#                        them from the library: they are linked in directly.
-#
-# Compile flags
-#
-#   cc gets OBJ_CFLAGS[MODULE], else BIN_CFLAGS[NAME], else CFLAGS; as gets
-#   AFLAGS.  Both search INCLUDE.
-#
-# DOS file names
-#
-#   DOS sees only 8.3 names, so each binary, and the library, is built in its
-#   own work directory under .cache/build/, with every module copied in under
-#   a short name (upper case, cut to 8 characters, a number added on a clash).
-#   ln reads the list of objects from a response file.
-#
-# The compiler
-#
-#   `Manx Aztec C86 v42b` from github.com/ldkeeton/dos_compilers (main).  The first
-#   run clones just that folder into dos_compilers/ beside this script; later
-#   runs reuse it.  `./build.sh init` downloads it afresh.
-#
-# Output
-#
-#   Each binary goes into build_out_new/ under the game's own file name
-#   (DS.EXE, VBASE.OVR, VGA.DRV, ...).  ln picks the format from the
-#   extension, so a driver links as VGA.COM and is renamed VGA.DRV.  Every
-#   other file of the original game (data, pictures, ...) is copied in first,
-#   unless build_out_new/ has it already, so saves there survive.  Delete
-#   build_out_new/ and the next run makes it a fresh, runnable game.  The work
-#   directories, with every log, stay in .cache/build/.
-#
-# Environment
-#
-#   DOSBOX    the DOSBox-X to run (default dosbox-x)
-#   JOBS      DOSBox sessions at once (default: the number of CPUs)
-#   TIMEOUT   seconds one session may take (default 600)
-#   SHOW=1    show the DOSBox window instead of running headless
-#   LN_EXTRA  more ln flags for every link (-t keeps ln's symbol table,
-#             BINARY.SYM, in the binary's work directory)
-#   GAME      the original game's directory (default ../apps/DSAVANT)
+# Environment: DOSBOX, JOBS, TIMEOUT, SHOW=1, LN_EXTRA, GAME.
 
 # ---- what this tree builds ---------------------------------------------------
 
 CFLAGS='-n +b +m +c'
 AFLAGS='-dMODEL=0 -l'
 INCLUDE='include'
-# Every source under these goes into SHARED.LIB.
 LIBDIRS=('shared')
-# NAME FILE LN_WRITES ROOT [LN_FLAGS ...], ROOT - for none.  NAME/ holds
-# its sources.
 BINARIES=(
-    # Main program: Aztec C runtime, game loop, overlay manager, and driver
-    # thunks shared by all overlays
     'ds DS.EXE DS.EXE - -R +C af00 +D 2100'
-    # EGA video driver: planar graphics primitives, text, palette, mouse
-    # pointer, EMS/memory caching, and music slots
     'ega EGA.DRV EGA.COM -'
-    # Sound driver: OPL (AdLib) and MPU-401 music player, digitized sample
-    # playback on the timer interrupt
     'play PLAY.DRV PLAY.COM -'
-    # Base menus overlay: party roster, character import (PC files, Bane party),
-    # load/save game, configuration menu, copy protection
     'vbase VBASE.OVR VBASE.OVR ds'
-    # Do-options overlay: automap view, item use, spellcasting from menu, and
-    # floor items
     'vdopt VDOPT.OVR VDOPT.OVR ds'
-    # VGA video driver: graphics primitives, text, palette, mouse pointer,
-    # EMS/memory caching, and music slots
     'vga VGA.DRV VGA.COM -'
-    # Startup overlay: loads fonts, palette, startup maze/misc files and
-    # initializes runtime resources
     'vinit VINIT.OVR VINIT.OVR ds'
-    # Installer and setup utility: configures hardware drivers and copies game
-    # files
     'vinstall VINSTALL.EXE VINSTALL.EXE -'
-    # Maze overlay: level loading, 3D view rendering, movement, region events,
-    # maze sounds, and roaming NPC turns
     'vmaze VMAZE.OVR VMAZE.OVR ds'
-    # Melee overlay: combat setup, monster pictures, action slots, and
-    # combatant/monster group turns
     'vmele VMELE.OVR VMELE.OVR ds'
-    # Melee execution overlay: carries out queued combat actions and their
-    # overlay animations
     'vmexe VMEXE.OVR VMEXE.OVR ds'
-    # Maze side actions, entered from VMAZE and always returning to it: running
-    # from an NPC encounter (random stumble), drinking from a fountain, picking
-    # up a floor item, and swapping two party members' order. Carries its own
-    # copy of the 3D view code to redraw the maze while VMAZE is swapped out.
     'vmext VMEXT.OVR VMEXT.OVR ds'
-    # NPC encounter overlay: talking, trading items, giving quest maps, and NPC
-    # item/spell menus
     'vmnpc VMNPC.OVR VMNPC.OVR ds'
-    # Level-up overlay: stat and skill point allocation, resistances, and
-    # profession skill lists
     'vpclv VPCLV.OVR VPCLV.OVR ds'
-    # Character creation overlay: rolling stats, choosing profession and skills,
-    # and naming new characters
     'vpcmk VPCMK.OVR VPCMK.OVR ds'
-    # Character view overlay: member summary, item pages, spell lists, and
-    # profession evaluation
     'vpcvw VPCVW.OVR VPCVW.OVR ds'
-    # Party options overlay: spell and item action dialogs outside combat
     'vpops VPOPS.OVR VPOPS.OVR ds'
-    # Treasure overlay: chests and loot division, experience distribution, and
-    # scripted scene states
     'vtrea VTREA.OVR VTREA.OVR ds'
 )
-# The module that must open a binary.
 declare -A FIRST=(
     [ega]='shared/drv/driver_dispatch'
     [play]='play/driver_dispatch'
     [vga]='shared/drv/driver_dispatch'
 )
-# Startup modules nothing calls, linked into a binary by force.
-declare -A ENTRY=(
-    [ds]='shared/aztec/aztec_begin'
-    [vbase]='shared/ovr/aztec_ovbgn'
-    [vdopt]='shared/ovr/aztec_ovbgn'
-    [vinit]='shared/ovr/aztec_ovbgn'
-    [vinstall]='shared/aztec/aztec_begin'
-    [vmaze]='shared/ovr/aztec_ovbgn'
-    [vmele]='shared/ovr/aztec_ovbgn'
-    [vmexe]='shared/ovr/aztec_ovbgn'
-    [vmext]='shared/ovr/aztec_ovbgn'
-    [vmnpc]='shared/ovr/aztec_ovbgn'
-    [vpclv]='shared/ovr/aztec_ovbgn'
-    [vpcmk]='shared/ovr/aztec_ovbgn'
-    [vpcvw]='shared/ovr/aztec_ovbgn'
-    [vpops]='shared/ovr/aztec_ovbgn'
-    [vtrea]='shared/ovr/aztec_ovbgn'
+declare -A ENTRY=()
+declare -A OBJECTS=(
+    [ds]='ovld.o'
+    [vbase]='ovbgn.o'
+    [vdopt]='ovbgn.o'
+    [vinit]='ovbgn.o'
+    [vmaze]='ovbgn.o'
+    [vmele]='ovbgn.o'
+    [vmexe]='ovbgn.o'
+    [vmext]='ovbgn.o'
+    [vmnpc]='ovbgn.o'
+    [vpclv]='ovbgn.o'
+    [vpcmk]='ovbgn.o'
+    [vpcvw]='ovbgn.o'
+    [vpops]='ovbgn.o'
+    [vtrea]='ovbgn.o'
 )
-# C flags other than CFLAGS: a binary's default, and one module's
-# (OBJ_CFLAGS beats BIN_CFLAGS).
+declare -A LIBS=(
+    [ds]='c.lib'
+    [vinstall]='c.lib'
+)
 declare -A BIN_CFLAGS=(
     [vinstall]='-n'
 )
 declare -A OBJ_CFLAGS=(
-    [ds/aztec/aztec_ovloader]='-n'
-    [ds/aztec/aztec_bdos]='-n'
-    [ds/aztec/aztec_impl_csread]='-n'
-    [ds/aztec/aztec_sprintf]='-n'
-    [ds/aztec/aztec_movblock]='-n'
-    [ds/aztec/aztec_setmem]='-n'
-    [shared/aztec/aztec_strcat]='-n'
-    [shared/aztec/aztec_strcpy]='-n'
-    [ds/aztec/aztec_lmalloc]='-n'
-    [ds/aztec/aztec_lfree]='-n'
-    [ds/aztec/aztec_lrealloc]='-n'
-    [ds/data/aztec_csav_begin]='-n'
-    [ds/aztec/aztec_csav]='-n'
-    [shared/aztec/aztec_malloc]='-n'
-    [shared/aztec/aztec_format]='-n'
-    [shared/aztec/aztec_format_get_pointer]='-n'
-    [shared/aztec/aztec_format_do_width]='-n'
-    [shared/aztec/aztec_open]='-n'
-    [shared/aztec/aztec_lsubs]='-n'
-    [shared/aztec/aztec_strlen]='-n'
-    [shared/aztec/aztec_impl_sys]='-n'
-    [shared/data/aztec_begin_exitad]='-n'
-    [shared/data/aztec_begin_exitcs]='-n'
-    [shared/aztec/aztec_begin]='-n'
-    [shared/aztec/aztec_Croot]='-n'
-    [shared/aztec/aztec_fltinit]='-n'
-    [ds/aztec/aztec_impl_stkover]='-n'
-    [shared/aztec/aztec_io]='-n'
-    [shared/aztec/aztec_ttyio]='-n'
-    [shared/aztec/aztec_movmem]='-n'
-    [shared/aztec/aztec_isatty]='-n'
-    [shared/aztec/aztec_sbrk]='-n'
-    [shared/aztec/aztec_brk]='-n'
-    [shared/aztec/aztec_rsvstk]='-n'
-    [shared/ovr/aztec_ovbgn]='-n'
-    [shared/ovr/aztec_cswt]='-n'
-    [shared/aztec/aztec_strcmp]='-n'
     [vinstall/data/install_tables]='-n -Z4000'
-    [shared/ovr/aztec_swapmem]='-n'
-    [shared/aztec/aztec_strncpy]='-n'
 )
 
 set -u
@@ -544,9 +403,18 @@ build_one() {
     rsp=${binary^^}; rsp=${rsp:0:8}.LNK
     stage_modules "$work" paths exts shorts "$cflags" "$rsp"
 
+    # The compiler's objects follow the binary's own.
+    local obj clib=${LIBS[$binary]:-}
+    for obj in ${OBJECTS[$binary]:-}; do
+        bat+=("echo C:\\LIB\\${obj^^}>> $rsp")
+    done
+    [[ -z $clib && -n $root ]] && clib=${LIBS[$root]:-}
+
     # ln reads the objects, then the root's symbols (an overlay links against
     # DS.RSM), then the library, twice: ord sorted it for one pass, and the
-    # second catches a member that needs one listed before it.
+    # second catches a member that needs one listed before it.  The
+    # compiler's libraries come last, so an overlay takes from them only what
+    # DS does not define.
     local ln_line="ln $LN_EXTRA ${LN_FLAGS[$binary]} -o ${output^^} -f $rsp"
     if [[ -n $root ]]; then
         if [[ ! -f $WORK/$root.rsm ]]; then
@@ -560,6 +428,7 @@ build_one() {
         cp "$LIB" "$work/SHARED.LIB"
         ln_line+=" SHARED.LIB SHARED.LIB"
     fi
+    [[ -n $clib ]] && ln_line+=" C:\\LIB\\${clib^^}"
     bat+=("$ln_line > LINK.LOG")
     [[ $rule == "$output" ]] || bat+=("ren ${output^^} ${rule^^}")
     printf '%s\r\n' "${bat[@]}" > "$work/BUILD.BAT"

@@ -22,7 +22,7 @@ IMAGE_BASE equ 0x000e + VBASE
     dw __zdseg_end                           ; 0x9098 ; o_dorg: data load origin (memory offset)
     dw (__zimage_end - __zdata_start)        ; 0x001e ; o_dsize: initialized data size
     dw __zobss_end - __zimage_end            ; 0x001a ; o_bss: uninitialized data size
-    dw aztec_ovbgn - IMAGE_BASE + __zres_end ; 0x8757 ; o_entry: overlay entry offset (CS)
+    dw $ovbgn - IMAGE_BASE + __zres_end ; 0x8757 ; o_entry: overlay entry offset (CS)
 
 __zcode_start:
 monster_picture_template equ __zdseg_end + (__zmonster_picture_template - __zdata_start)
@@ -125,9 +125,9 @@ _Uend equ __zdseg_end + (__zobss_end - __zdata_start)
 
 %include "vmele/redraw_party_before_battle.asm" ; 0x36b8
 
-%include "shared/ovr/aztec_ovbgn.asm"           ; 0x3710
+%include ".cache/c.lib/shared/ovr/ovbgn.asm"           ; 0x3710
 
-%include "shared/ovr/aztec_swapmem.asm"         ; 0x374e
+%include ".cache/c.lib/shared/ovr/swapmem.asm"         ; 0x374e
 
 __zdata_start:
 %include "shared/data/monster_picture_template.asm" ; 0x3773
@@ -136,7 +136,7 @@ __zdata_start:
 
 %include "vmele/data/screen_temp_name.asm" ; 0x377f
 
-%include "shared/ovr/aztec_ovbgn.data.asm"      ; 0x3787
+%include ".cache/c.lib/shared/ovr/ovbgn.data.asm"      ; 0x3787
 
 
 __zimage_end:

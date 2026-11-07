@@ -1,7 +1,7 @@
 ; auto-generated
 show_quest_map_information:
     mov ax, 0xfffe                   ; 0x2768
-    call aztec_csav                  ; 0x276b
+    call $csav                  ; 0x276b
     mov ax, quest_map_name_buffer    ; 0x276e
     push ax                          ; 0x2771
     mov ax, word [bp + 4]            ; 0x2772

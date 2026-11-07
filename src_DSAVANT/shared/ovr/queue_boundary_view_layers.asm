@@ -1,7 +1,7 @@
 ; auto-generated
 queue_boundary_view_layers:
     mov ax, 0xffee
-    call aztec_csav
+    call $csav
     mov word [bp - 4], 0xffff
     mov word [bp - 6], 0xffff
     mov ax, word [bp + 6]

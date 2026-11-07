@@ -1,7 +1,7 @@
 ; auto-generated
 map_piece_index_for_position:
     mov ax, 0
-    call aztec_csav
+    call $csav
     mov bx, word [maze_data]
     mov si, word [bp + 4]
     mov al, byte [bx + si + 0x490]

@@ -1,7 +1,7 @@
 ; auto-generated
 display_character_statistics:
     mov ax, 0xfffe                   ; 0x19ab
-    call aztec_csav                  ; 0x19ae
+    call $csav                  ; 0x19ae
     mov ax, 0                        ; 0x19b1
     push ax                          ; 0x19b4
     push ax                          ; 0x19b5

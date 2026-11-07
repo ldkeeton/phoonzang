@@ -1,7 +1,7 @@
 ; auto-generated
 copy_npc_choice_text:
     mov ax, 0                        ; 0x8981
-    call aztec_csav                  ; 0x8984
+    call $csav                  ; 0x8984
     cmp word [bp + 6], byte 0        ; 0x8987
     jne short .forward1              ; 0x898b
     push word [bp + 8]               ; 0x898d

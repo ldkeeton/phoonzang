@@ -1,7 +1,7 @@
 ; auto-generated
 press_wall_button:
     mov ax, 0xfffe                   ; 0x8a14
-    call aztec_csav                  ; 0x8a17
+    call $csav                  ; 0x8a17
     mov ax, word [party_map_piece]   ; 0x8a1a
     mov cx, 6                        ; 0x8a1d
     shl ax, cl                       ; 0x8a20

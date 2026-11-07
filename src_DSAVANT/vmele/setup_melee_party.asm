@@ -1,7 +1,7 @@
 ; auto-generated
 setup_melee_party:
     mov ax, 0xfffc                   ; 0x3390
-    call aztec_csav                  ; 0x3393
+    call $csav                  ; 0x3393
     mov word [battle_experience_hi], 0 ; 0x3396
     mov word [battle_experience], 0  ; 0x339c
     cmp word [npc_id], strict word 0xe1 ; 0x33a2

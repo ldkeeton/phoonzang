@@ -1,7 +1,7 @@
 ; auto-generated
 unequip_item_slot:
     mov ax, 0xfff8                   ; 0x1a23
-    call aztec_csav                  ; 0x1a26
+    call $csav                  ; 0x1a26
     mov ax, 0x248                    ; 0x1a29
     imul word [bp + 4]               ; 0x1a2c
     push ax                          ; 0x1a2f

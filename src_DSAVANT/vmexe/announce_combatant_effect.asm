@@ -1,7 +1,7 @@
 ; auto-generated
 announce_combatant_effect:
     mov ax, 0                        ; 0x1e35
-    call aztec_csav                  ; 0x1e38
+    call $csav                  ; 0x1e38
     push word [bp + 6]               ; 0x1e3b
     push word [bp + 4]               ; 0x1e3e
     mov ax, combat_action_name_buffer ; 0x1e41

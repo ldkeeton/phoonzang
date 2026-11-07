@@ -7,8 +7,8 @@ extern char spell_table[];
 extern int dialog_selection;
 extern int test_bit();
 extern int set_bitmap_bit();
-extern int aztec_movmem();
-extern int aztec_setmem();
+extern int movmem();
+extern int setmem();
 extern int load_message_string();
 extern int display_centered_message();
 extern int pick_spell_dialog_keep_frames();
@@ -46,9 +46,9 @@ int member_index, spell_type;
 		break;
 	}
 
-	aztec_movmem(party_records[member_index].spell_bitmap,
+	movmem(party_records[member_index].spell_bitmap,
 		spell_bits, 16);
-	aztec_setmem(party_records[member_index].spell_bitmap, 16, 0);
+	setmem(party_records[member_index].spell_bitmap, 16, 0);
 	required_level = 1;
 	learned_count = 0;
 	for (spell_index = 0; spell_index < 102; spell_index++) {
@@ -62,7 +62,7 @@ int member_index, spell_type;
 	}
 
 	if (learned_count == 0) {
-		aztec_movmem(spell_bits,
+		movmem(spell_bits,
 			party_records[member_index].spell_bitmap, 16);
 		return;
 	}
@@ -71,7 +71,7 @@ int member_index, spell_type;
 	display_centered_message(message, 1);
 	learned_count = pick_spell_dialog_keep_frames(member_index, MSG_LEARN,
 		1, 0);
-	aztec_movmem(spell_bits,
+	movmem(spell_bits,
 		party_records[member_index].spell_bitmap, 16);
 	if (learned_count != 0) {
 		/* The player cancelled the selection; keep the old bitmap. */

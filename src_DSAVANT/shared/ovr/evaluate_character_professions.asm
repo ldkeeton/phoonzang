@@ -1,7 +1,7 @@
 ; auto-generated
 evaluate_character_professions:
     mov ax, 0xfffe
-    call aztec_csav
+    call $csav
     mov word [bp - 2], 0
 .back1:
     mov ax, 0

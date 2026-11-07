@@ -1,7 +1,7 @@
 ; auto-generated
 damage_party_member:
     mov ax, 0xffc2                   ; 0x11bc
-    call aztec_csav                  ; 0x11bf
+    call $csav                  ; 0x11bf
     mov ax, 0                        ; 0x11c2
     push ax                          ; 0x11c5
     push word [bp + 8]               ; 0x11c6

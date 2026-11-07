@@ -1,7 +1,7 @@
 ; auto-generated
 find_npc_message_match:
     mov ax, 0xff46                   ; 0xaa93
-    call aztec_csav                  ; 0xaa96
+    call $csav                  ; 0xaa96
     lea ax, word [bp - 0xb6]         ; 0xaa99
     push ax                          ; 0xaa9d
     push word [bp + 6]               ; 0xaa9e
@@ -40,7 +40,7 @@ find_npc_message_match:
     add sp, byte 4                   ; 0xaae8
     lea ax, word [bp - 0x52]         ; 0xaaeb
     push ax                          ; 0xaaee
-    call aztec_strlen                ; 0xaaef
+    call strlen                ; 0xaaef
     pop cx                           ; 0xaaf2
     mov word [bp - 0xb8], ax         ; 0xaaf3
     mov bx, ax                       ; 0xaaf7
@@ -74,7 +74,7 @@ find_npc_message_match:
     add ax, cx                       ; 0xab44
     push ax                          ; 0xab46
     push bx                          ; 0xab47
-    call aztec_strncmp               ; 0xab48
+    call strncmp               ; 0xab48
     add sp, byte 6                   ; 0xab4b
     test ax, ax                      ; 0xab4e
     jne short .forward1              ; 0xab50

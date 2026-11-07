@@ -1,7 +1,7 @@
 ; auto-generated
 npc_item_selection_dialog:
     mov ax, 0xffc8                   ; 0x47d9
-    call aztec_csav                  ; 0x47dc
+    call $csav                  ; 0x47dc
     mov ax, npc_item_value_unit_text ; 0x47df
     push ax                          ; 0x47e2
     mov ax, MSG_GP_1508              ; 0x47e3
@@ -57,7 +57,7 @@ npc_item_selection_dialog:
     imul word [bp + 4]               ; 0x486c
     add ax, party_records            ; 0x486f
     push ax                          ; 0x4872
-    call aztec_strlen                ; 0x4873
+    call strlen                ; 0x4873
     pop cx                           ; 0x4876
     mov cx, 6                        ; 0x4877
     imul cx                          ; 0x487a
@@ -99,7 +99,7 @@ npc_item_selection_dialog:
     push ax                          ; 0x48d5
     lea ax, word [bp - 0x36]         ; 0x48d6
     push ax                          ; 0x48d9
-    call aztec_strlen                ; 0x48da
+    call strlen                ; 0x48da
     pop cx                           ; 0x48dd
     mov cx, 6                        ; 0x48de
     imul cx                          ; 0x48e1

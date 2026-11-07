@@ -1,7 +1,7 @@
 ; auto-generated
 draw_number_field:
     mov ax, 0                        ; 0x052e
-    call aztec_csav                  ; 0x0531
+    call $csav                  ; 0x0531
     push word [bp + 8]               ; 0x0534
     push word [bp + 6]               ; 0x0537
     mov ax, word [bp + 4]            ; 0x053a

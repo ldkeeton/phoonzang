@@ -1,7 +1,7 @@
 ; auto-generated
 play_intro_scene_five:
     mov ax, 0xfffe                   ; 0x8b69
-    call aztec_csav                  ; 0x8b6c
+    call $csav                  ; 0x8b6c
     mov ax, 0                        ; 0x8b6f
     push ax                          ; 0x8b72
     mov ax, scene_five_screen_filename ; 0x8b73

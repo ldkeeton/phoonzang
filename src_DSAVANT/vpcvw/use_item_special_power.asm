@@ -1,7 +1,7 @@
 ; auto-generated
 use_item_special_power:
     mov ax, 0xfff0                   ; 0x5050
-    call aztec_csav                  ; 0x5053
+    call $csav                  ; 0x5053
     mov word [bp - 0x10], 1          ; 0x5056
     mov word [bp - 0xe], 1           ; 0x505b
     mov word [bp - 0xc], 0xffff      ; 0x5060
@@ -108,7 +108,7 @@ jumptable_532e_case_3:
     mov dx, word [bx + party_records + pc_rec.age_days + 0x2] ; 0x5160
     mov cx, 0x16d                    ; 0x5164
     mov bx, 0                        ; 0x5167
-    call aztec_ldv                   ; 0x516a
+    call $ldv                   ; 0x516a
     cmp dx, byte 0                   ; 0x516d
     jl short use_item_special_power.forward6 ; 0x5170
     jne short use_item_special_power.forward7 ; 0x5172

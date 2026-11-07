@@ -1,7 +1,7 @@
 ; auto-generated
 pick_lock_menu:
     mov ax, 0xff8e                   ; 0x7151
-    call aztec_csav                  ; 0x7154
+    call $csav                  ; 0x7154
     mov ax, word [bp + 4]            ; 0x7157
     shl ax, 1                        ; 0x715a
     mov si, ax                       ; 0x715c

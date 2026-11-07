@@ -1,7 +1,7 @@
 ; auto-generated
 process_treasure_text:
     mov ax, 0xff70                   ; 0x0b29
-    call aztec_csav                  ; 0x0b2c
+    call $csav                  ; 0x0b2c
 .back1:
     mov bx, word [bp + 4]            ; 0x0b2f
     mov al, byte [bx]                ; 0x0b32
@@ -181,25 +181,25 @@ process_treasure_text.forward8:
     push ax                          ; 0x0cad
     lea ax, word [bp - 0x86]         ; 0x0cae
     push ax                          ; 0x0cb2
-    call aztec_strcpy                ; 0x0cb3
+    call strcpy                ; 0x0cb3
     add sp, byte 4                   ; 0x0cb6
     mov ax, treasure_text_separator  ; 0x0cb9
     push ax                          ; 0x0cbc
     lea ax, word [bp - 0x86]         ; 0x0cbd
     push ax                          ; 0x0cc1
-    call aztec_strcat                ; 0x0cc2
+    call strcat                ; 0x0cc2
     add sp, byte 4                   ; 0x0cc5
     push word [bp + 4]               ; 0x0cc8
     lea ax, word [bp - 0x86]         ; 0x0ccb
     push ax                          ; 0x0ccf
-    call aztec_strcat                ; 0x0cd0
+    call strcat                ; 0x0cd0
     add sp, byte 4                   ; 0x0cd3
     jmp short process_treasure_text.forward10 ; 0x0cd6
 process_treasure_text.forward9:
     push word [bp + 4]               ; 0x0cd8
     lea ax, word [bp - 0x86]         ; 0x0cdb
     push ax                          ; 0x0cdf
-    call aztec_strcpy                ; 0x0ce0
+    call strcpy                ; 0x0ce0
     add sp, byte 4                   ; 0x0ce3
 process_treasure_text.forward10:
     mov ax, 2                        ; 0x0ce6
@@ -218,7 +218,7 @@ process_treasure_text.forward10:
     push word [bp + 4]               ; 0x0d05
     mov ax, treasure_glyph_text_buffer ; 0x0d08
     push ax                          ; 0x0d0b
-    call aztec_strcpy                ; 0x0d0c
+    call strcpy                ; 0x0d0c
     add sp, byte 4                   ; 0x0d0f
     jmp short process_treasure_text.return1 ; 0x0d12
 process_treasure_text.forward11:
@@ -226,7 +226,7 @@ process_treasure_text.forward11:
     push ax                          ; 0x0d18
     mov ax, treasure_glyph_text_buffer ; 0x0d19
     push ax                          ; 0x0d1c
-    call aztec_strcpy                ; 0x0d1d
+    call strcpy                ; 0x0d1d
     add sp, byte 4                   ; 0x0d20
 process_treasure_text.return1:
     ret                              ; 0x0d23

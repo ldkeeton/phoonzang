@@ -1,7 +1,7 @@
 ; auto-generated
 pc_file_name_is_in_use:
     mov ax, 0xfdb6                   ; 0x6626
-    call aztec_csav                  ; 0x6629
+    call $csav                  ; 0x6629
     mov word [bp - 2], 0             ; 0x662c
     jmp short .forward2              ; 0x6631
 .back1:
@@ -18,7 +18,7 @@ pc_file_name_is_in_use:
     lea ax, word [bp - 0x24a]        ; 0x664d
     push ax                          ; 0x6651
     push word [bp + 4]               ; 0x6652
-    call aztec_strcmp                ; 0x6655
+    call strcmp                ; 0x6655
     add sp, byte 4                   ; 0x6658
     test ax, ax                      ; 0x665b
     jne short .forward1              ; 0x665d

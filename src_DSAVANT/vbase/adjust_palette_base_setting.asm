@@ -1,7 +1,7 @@
 ; auto-generated
 adjust_palette_base_setting:
     mov ax, 0                        ; 0x4b5e
-    call aztec_csav                  ; 0x4b61
+    call $csav                  ; 0x4b61
     cmp word [bp + 6], byte 0        ; 0x4b64
     jge short .forward2              ; 0x4b68
     mov bx, word [bp + 4]            ; 0x4b6a

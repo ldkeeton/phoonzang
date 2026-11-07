@@ -1,7 +1,7 @@
 ; auto-generated
 decay_wards_and_clouds:
     mov ax, 0xfff8                   ; 0x306a
-    call aztec_csav                  ; 0x306d
+    call $csav                  ; 0x306d
     mov word [bp - 2], 0             ; 0x3070
 .back1:
     mov word [bp - 4], 0             ; 0x3075

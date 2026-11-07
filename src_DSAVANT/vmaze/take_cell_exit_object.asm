@@ -1,7 +1,7 @@
 ; auto-generated
 take_cell_exit_object:
     mov ax, 0xfffe                   ; 0x8f1a
-    call aztec_csav                  ; 0x8f1d
+    call $csav                  ; 0x8f1d
     mov bx, word [maze_tables]       ; 0x8f20
     mov si, word [party_map_piece]   ; 0x8f24
     mov al, byte [bx + si + 0xb40]   ; 0x8f28

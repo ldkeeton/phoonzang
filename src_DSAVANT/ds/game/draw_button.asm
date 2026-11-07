@@ -1,7 +1,7 @@
 ; auto-generated
 draw_button:
     mov ax, 0                        ; 0x1308
-    call aztec_csav                  ; 0x130b
+    call $csav                  ; 0x130b
     cmp word [bp + 0xc], byte 0      ; 0x130e
     je short .forward1               ; 0x1312
     push word [bp + 0xe]             ; 0x1314
@@ -24,7 +24,7 @@ draw_button:
     inc ax                           ; 0x133d
     push ax                          ; 0x133e
     push word [bp + 0xe]             ; 0x133f
-    call aztec_strlen                ; 0x1342
+    call strlen                ; 0x1342
     pop cx                           ; 0x1345
     mov cx, ax                       ; 0x1346
     mov ax, word [bp + 8]            ; 0x1348

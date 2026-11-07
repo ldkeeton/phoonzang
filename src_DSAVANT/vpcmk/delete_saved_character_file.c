@@ -8,7 +8,7 @@ extern int display_pc_file_record_preview();
 extern int select_grid_text_option();
 extern int call_wait_sound();
 extern char *data_file_path();
-extern int aztec_open(), aztec_write(), aztec_close();
+extern int open(), write(), close();
 
 delete_saved_character_file(file_record_index)
 int file_record_index;
@@ -27,8 +27,8 @@ int file_record_index;
 	if (selection == 0) {
 		pc_file_record_base_hi[file_record_index + 2] = 0;
 		call_wait_sound(0);
-		file_handle = aztec_open(data_file_path(saved_character_file_name, 0), 2);
-		aztec_write(file_handle, (int)&pc_file_record_size, 24);
-		aztec_close(file_handle);
+		file_handle = open(data_file_path(saved_character_file_name, 0), 2);
+		write(file_handle, (int)&pc_file_record_size, 24);
+		close(file_handle);
 	}
 }

@@ -1,7 +1,7 @@
 ; auto-generated
 adjust_character_karma:
     mov ax, 0xfff8                   ; 0x4934
-    call aztec_csav                  ; 0x4937
+    call $csav                  ; 0x4937
     mov ax, 0                        ; 0x493a
     push ax                          ; 0x493d
     push ax                          ; 0x493e

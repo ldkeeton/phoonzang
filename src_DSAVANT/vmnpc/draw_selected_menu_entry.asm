@@ -1,7 +1,7 @@
 ; auto-generated
 draw_selected_menu_entry:
     mov ax, 0xfff4                   ; 0x1676
-    call aztec_csav                  ; 0x1679
+    call $csav                  ; 0x1679
     mov ax, word [bp + 0x14]         ; 0x167c
     shl ax, 1                        ; 0x167f
     mov word [bp - 8], ax            ; 0x1681
@@ -80,7 +80,7 @@ draw_selected_menu_entry:
     inc ax                           ; 0x1731
     push ax                          ; 0x1732
     push word [bp + 4]               ; 0x1733
-    call aztec_strlen                ; 0x1736
+    call strlen                ; 0x1736
     pop cx                           ; 0x1739
     mov cx, ax                       ; 0x173a
     mov ax, word [bp + 0xe]          ; 0x173c

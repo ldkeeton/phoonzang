@@ -1,7 +1,7 @@
 ; auto-generated
 run_combat_round:
     mov ax, 0xfff4                   ; 0x6f33
-    call aztec_csav                  ; 0x6f36
+    call $csav                  ; 0x6f36
     mov word [party_redraw_interval], 5 ; 0x6f39
     mov word [bp - 2], 0             ; 0x6f3f
 .back1:

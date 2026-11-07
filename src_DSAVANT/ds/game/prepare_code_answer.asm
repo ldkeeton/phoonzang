@@ -1,7 +1,7 @@
 ; auto-generated
 prepare_code_answer:
     mov ax, 0xffac                   ; 0x0c0b
-    call aztec_csav                  ; 0x0c0e
+    call $csav                  ; 0x0c0e
     mov ax, 0x18                     ; 0x0c11
     push ax                          ; 0x0c14
     call random_below                ; 0x0c15
@@ -49,7 +49,7 @@ prepare_code_answer:
     mov word [bp - 2], 0             ; 0x0c86
     lea ax, word [bp - 0x54]         ; 0x0c8b
     push ax                          ; 0x0c8e
-    call aztec_strlen                ; 0x0c8f
+    call strlen                ; 0x0c8f
     pop cx                           ; 0x0c92
     add ax, strict word 0xfffc       ; 0x0c93
     mov word [bp - 4], ax            ; 0x0c96

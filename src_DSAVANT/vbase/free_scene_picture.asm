@@ -1,7 +1,7 @@
 ; auto-generated
 free_scene_picture:
     mov ax, 0                        ; 0x72c2
-    call aztec_csav                  ; 0x72c5
+    call $csav                  ; 0x72c5
     push word [bp + 4]               ; 0x72c8
     call call_free_picture           ; 0x72cb
     pop cx                           ; 0x72ce

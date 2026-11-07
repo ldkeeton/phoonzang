@@ -1,7 +1,7 @@
 ; auto-generated
 random_below:
     mov ax, 0                        ; 0x09f0
-    call aztec_csav                  ; 0x09f3
+    call $csav                  ; 0x09f3
     mov ax, 0                        ; 0x09f6
     cmp word [bp + 4], byte 0        ; 0x09f9
     jle short .return1               ; 0x09fd

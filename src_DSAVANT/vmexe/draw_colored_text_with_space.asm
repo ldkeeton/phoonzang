@@ -1,7 +1,7 @@
 ; auto-generated
 draw_colored_text_with_space:
     mov ax, 0                        ; 0x1613
-    call aztec_csav                  ; 0x1616
+    call $csav                  ; 0x1616
     mov ax, 0                        ; 0x1619
     push ax                          ; 0x161c
     push word [bp + 6]               ; 0x161d

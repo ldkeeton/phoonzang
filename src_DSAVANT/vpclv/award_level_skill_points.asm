@@ -1,7 +1,7 @@
 ; auto-generated
 award_level_skill_points:
     mov ax, 0                        ; 0x4310
-    call aztec_csav                  ; 0x4313
+    call $csav                  ; 0x4313
     mov ax, 0x248                    ; 0x4316
     imul word [bp + 4]               ; 0x4319
     mov bx, ax                       ; 0x431c

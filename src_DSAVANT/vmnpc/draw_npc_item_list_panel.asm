@@ -1,7 +1,7 @@
 ; auto-generated
 draw_npc_item_list_panel:
     mov ax, 0                        ; 0x4775
-    call aztec_csav                  ; 0x4778
+    call $csav                  ; 0x4778
     mov ax, 6                        ; 0x477b
     imul word [bp + 0xc]             ; 0x477e
     add ax, word [bp + 8]            ; 0x4781

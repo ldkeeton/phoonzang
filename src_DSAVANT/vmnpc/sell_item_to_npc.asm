@@ -1,7 +1,7 @@
 ; auto-generated
 sell_item_to_npc:
     mov ax, 0xffa2                   ; 0x57e1
-    call aztec_csav                  ; 0x57e4
+    call $csav                  ; 0x57e4
     mov ax, word [bp + 6]            ; 0x57e7
     shl ax, 1                        ; 0x57ea
     mov bx, ax                       ; 0x57ec
@@ -112,7 +112,7 @@ sell_item_to_npc:
     mov bx, dx                       ; 0x58d6
     pop dx                           ; 0x58d8
     pop ax                           ; 0x58d9
-    call aztec_ldv                   ; 0x58da
+    call $ldv                   ; 0x58da
     push ax                          ; 0x58dd
     push dx                          ; 0x58de
     mov ax, word [bp - 6]            ; 0x58df
@@ -133,7 +133,7 @@ sell_item_to_npc:
     add dx, bx                       ; 0x58f7
     mov cx, 0x64                     ; 0x58f9
     mov bx, 0                        ; 0x58fc
-    call aztec_ldv                   ; 0x58ff
+    call $ldv                   ; 0x58ff
     mov word [bp - 0x3c], dx         ; 0x5902
     mov word [bp - 0x3e], ax         ; 0x5905
 .forward4:
@@ -160,7 +160,7 @@ sell_item_to_npc:
     add dx, cx                       ; 0x5930
     mov cx, 0x64                     ; 0x5932
     mov bx, 0                        ; 0x5935
-    call aztec_ldv                   ; 0x5938
+    call $ldv                   ; 0x5938
 .forward6:
     mov word [bp - 0x3c], dx         ; 0x593b
     mov word [bp - 0x3e], ax         ; 0x593e
@@ -284,7 +284,7 @@ sell_item_to_npc:
     push ax                          ; 0x5a45
     mov ax, npc_substitution_text    ; 0x5a46
     push ax                          ; 0x5a49
-    call aztec_strcpy                ; 0x5a4a
+    call strcpy                ; 0x5a4a
     add sp, byte 4                   ; 0x5a4d
     mov ax, npc_substitution_text    ; 0x5a50
     push ax                          ; 0x5a53

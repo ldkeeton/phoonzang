@@ -1,7 +1,7 @@
 ; auto-generated
 draw_skill_list_values:
     mov ax, 0xfffe
-    call aztec_csav
+    call $csav
     mov ax, 0
     push ax
     push ax

@@ -1,7 +1,7 @@
 ; auto-generated
 item_action_dialog:
     mov ax, 0xffc8                   ; 0x2c92
-    call aztec_csav                  ; 0x2c95
+    call $csav                  ; 0x2c95
     mov word [dialog_selection], 0xffff ; 0x2c98
     mov word [bp - 4], 0x37          ; 0x2c9e
     mov word [bp - 6], 0x8f          ; 0x2ca3
@@ -49,7 +49,7 @@ item_action_dialog:
     push word [bp + 0xe]             ; 0x2d0e
     lea ax, word [bp - 0x36]         ; 0x2d11
     push ax                          ; 0x2d14
-    call aztec_strcpy                ; 0x2d15
+    call strcpy                ; 0x2d15
     add sp, byte 4                   ; 0x2d18
 .forward3:
     lea ax, word [bp - 0x36]         ; 0x2d1b

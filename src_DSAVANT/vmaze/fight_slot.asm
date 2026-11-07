@@ -1,7 +1,7 @@
 ; auto-generated
 fight_slot:
     mov ax, 0xffee                   ; 0x9ef7
-    call aztec_csav                  ; 0x9efa
+    call $csav                  ; 0x9efa
     mov ax, 0xf                      ; 0x9efd
     push ax                          ; 0x9f00
     call random_below                ; 0x9f01

@@ -1,7 +1,7 @@
 ; auto-generated
 draw_configuration_control:
     mov ax, 0xffae                   ; 0x4335
-    call aztec_csav                  ; 0x4338
+    call $csav                  ; 0x4338
     mov ax, word [bp + 4]            ; 0x433b
     jmp near .forward2               ; 0x433e
 jumptable_4688_case_0:

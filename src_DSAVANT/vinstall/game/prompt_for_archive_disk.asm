@@ -7,7 +7,7 @@ prompt_for_archive_disk:
     push ax                          ; 0x0de4
     lea ax, word [bp - 0xa2]         ; 0x0de5
     push ax                          ; 0x0de9
-    call aztec_strcpy                ; 0x0dea
+    call strcpy                ; 0x0dea
     add sp, byte 4                   ; 0x0ded
     cmp word [bp + 8], byte 0        ; 0x0df0
     jge short .forward1              ; 0x0df4
@@ -15,7 +15,7 @@ prompt_for_archive_disk:
     push ax                          ; 0x0df9
     lea ax, word [bp - 0xa2]         ; 0x0dfa
     push ax                          ; 0x0dfe
-    call aztec_strcat                ; 0x0dff
+    call strcat                ; 0x0dff
     add sp, byte 4                   ; 0x0e02
     mov ax, 0                        ; 0x0e05
     sub ax, word [bp + 8]            ; 0x0e08
@@ -26,7 +26,7 @@ prompt_for_archive_disk:
     push ax                          ; 0x0e13
     lea ax, word [bp - 0xa2]         ; 0x0e14
     push ax                          ; 0x0e18
-    call aztec_strcat                ; 0x0e19
+    call strcat                ; 0x0e19
     add sp, byte 4                   ; 0x0e1c
     call console_bell                ; 0x0e1f
 .forward2:
@@ -34,7 +34,7 @@ prompt_for_archive_disk:
     push ax                          ; 0x0e25
     lea ax, word [bp - 0xa2]         ; 0x0e26
     push ax                          ; 0x0e2a
-    call aztec_strcat                ; 0x0e2b
+    call strcat                ; 0x0e2b
     add sp, byte 4                   ; 0x0e2e
     mov ax, word [bp + 8]            ; 0x0e31
     add ax, strict word 0x40         ; 0x0e34
@@ -44,39 +44,39 @@ prompt_for_archive_disk:
     push ax                          ; 0x0e41
     lea ax, word [bp - 0xa2]         ; 0x0e42
     push ax                          ; 0x0e46
-    call aztec_strcat                ; 0x0e47
+    call strcat                ; 0x0e47
     add sp, byte 4                   ; 0x0e4a
     mov ax, disk_drive_label_prefix  ; 0x0e4d
     push ax                          ; 0x0e50
     lea ax, word [bp - 0xa2]         ; 0x0e51
     push ax                          ; 0x0e55
-    call aztec_strcat                ; 0x0e56
+    call strcat                ; 0x0e56
     add sp, byte 4                   ; 0x0e59
     push word [bp + 4]               ; 0x0e5c
     lea ax, word [bp - 0xa2]         ; 0x0e5f
     push ax                          ; 0x0e63
-    call aztec_strcat                ; 0x0e64
+    call strcat                ; 0x0e64
     add sp, byte 4                   ; 0x0e67
     mov ax, press_return_prompt_suffix ; 0x0e6a
     push ax                          ; 0x0e6d
     lea ax, word [bp - 0xa2]         ; 0x0e6e
     push ax                          ; 0x0e72
-    call aztec_strcat                ; 0x0e73
+    call strcat                ; 0x0e73
     add sp, byte 4                   ; 0x0e76
     push word [bp + 0xa]             ; 0x0e79
-    call aztec_strlen                ; 0x0e7c
+    call strlen                ; 0x0e7c
     pop cx                           ; 0x0e7f
     cmp ax, strict word 0            ; 0x0e80
     jle short .forward3              ; 0x0e83
     push word [bp + 6]               ; 0x0e85
     lea ax, word [bp - 0x52]         ; 0x0e88
     push ax                          ; 0x0e8b
-    call aztec_strcpy                ; 0x0e8c
+    call strcpy                ; 0x0e8c
     add sp, byte 4                   ; 0x0e8f
     push word [bp + 0xa]             ; 0x0e92
     lea ax, word [bp - 0x52]         ; 0x0e95
     push ax                          ; 0x0e98
-    call aztec_strcat                ; 0x0e99
+    call strcat                ; 0x0e99
     add sp, byte 4                   ; 0x0e9c
 .back1:
     lea ax, word [bp - 0xa2]         ; 0x0e9f
@@ -87,13 +87,13 @@ prompt_for_archive_disk:
     push ax                          ; 0x0eab
     lea ax, word [bp - 0x52]         ; 0x0eac
     push ax                          ; 0x0eaf
-    call aztec_open                  ; 0x0eb0
+    call open                  ; 0x0eb0
     add sp, byte 4                   ; 0x0eb3
     mov word [bp - 0xa4], ax         ; 0x0eb6
     cmp word [bp - 0xa4], byte -1    ; 0x0eba
     je short .back1                  ; 0x0ebf
     push word [bp - 0xa4]            ; 0x0ec1
-    call aztec_close                 ; 0x0ec5
+    call close                 ; 0x0ec5
     pop cx                           ; 0x0ec8
     jmp short .forward4              ; 0x0ec9
 .forward3:

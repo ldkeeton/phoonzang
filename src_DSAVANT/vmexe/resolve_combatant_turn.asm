@@ -1,7 +1,7 @@
 ; auto-generated
 resolve_combatant_turn:
     mov ax, 0xffec                   ; 0x6476
-    call aztec_csav                  ; 0x6479
+    call $csav                  ; 0x6479
     mov bx, word [battle_group_ext]  ; 0x647c
     mov byte [bx + member_ext.flags], 0 ; 0x6480
     mov word [combat_effect_sound], 6 ; 0x6485
@@ -552,7 +552,7 @@ resolve_combatant_turn:
     imul word [acting_unit]          ; 0x6a37
     add ax, party_records + pc_rec.resist ; 0x6a3b
     push ax                          ; 0x6a3e
-    call aztec_movmem                ; 0x6a3f
+    call movmem                ; 0x6a3f
     add sp, byte 6                   ; 0x6a42
     mov ax, 8                        ; 0x6a45
     push ax                          ; 0x6a48
@@ -563,7 +563,7 @@ resolve_combatant_turn:
     imul word [acting_unit]          ; 0x6a53
     add ax, party_records + pc_rec.armor_class ; 0x6a57
     push ax                          ; 0x6a5a
-    call aztec_movmem                ; 0x6a5b
+    call movmem                ; 0x6a5b
     add sp, byte 6                   ; 0x6a5e
     mov bx, word [battle_group_ext]  ; 0x6a61
     mov al, byte [bx + member_ext.f_00c4] ; 0x6a65
@@ -661,7 +661,7 @@ resolve_combatant_turn:
     imul cx                          ; 0x6b6f
     add ax, party_records + pc_rec.resist ; 0x6b71
     push ax                          ; 0x6b74
-    call aztec_movmem                ; 0x6b75
+    call movmem                ; 0x6b75
     add sp, byte 6                   ; 0x6b78
     mov ax, 8                        ; 0x6b7b
     push ax                          ; 0x6b7e
@@ -675,7 +675,7 @@ resolve_combatant_turn:
     imul cx                          ; 0x6b91
     add ax, party_records + pc_rec.armor_class ; 0x6b93
     push ax                          ; 0x6b96
-    call aztec_movmem                ; 0x6b97
+    call movmem                ; 0x6b97
     add sp, byte 6                   ; 0x6b9a
     mov word [bp - 4], 0             ; 0x6b9d
 .back5:
@@ -890,7 +890,7 @@ jumptable_6ea7_case_1:
     imul bx                          ; 0x6d9b
     mov cx, 0x64                     ; 0x6d9d
     mov bx, 0                        ; 0x6da0
-    call aztec_ldv                   ; 0x6da3
+    call $ldv                   ; 0x6da3
     mov word [bp - 4], ax            ; 0x6da6
     push ax                          ; 0x6da9
     call random_below                ; 0x6daa

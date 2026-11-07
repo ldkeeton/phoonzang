@@ -1,7 +1,7 @@
 ; auto-generated
 process_scene_message_words:
     mov ax, 0xfffc                   ; 0x3c18
-    call aztec_csav                  ; 0x3c1b
+    call $csav                  ; 0x3c1b
 .back1:
     mov ax, 0x20                     ; 0x3c1e
     push ax                          ; 0x3c21

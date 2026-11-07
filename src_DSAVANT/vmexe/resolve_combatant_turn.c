@@ -24,7 +24,7 @@ extern int run_combat_screen_animation();
 extern int find_active_party_unit();
 extern int select_target_group_unit();
 extern int test_bit();
-extern int aztec_movmem();
+extern int movmem();
 extern int resolve_combatant_attack();
 extern void subtract_combatant_stamina();
 extern int show_equipment_change_message();
@@ -200,9 +200,9 @@ resolve_combatant_turn()
 			party_records[acting_unit].stat[4];
 		battle_group_ext[0]->combat_stats[3] =
 			party_records[acting_unit].stat[5];
-		aztec_movmem(party_records[acting_unit].resistance_rows.named.resist,
+		movmem(party_records[acting_unit].resistance_rows.named.resist,
 			battle_group_ext[0]->resistance, 14);
-		aztec_movmem(party_records[acting_unit].armor_class,
+		movmem(party_records[acting_unit].armor_class,
 			battle_group_ext[0]->armor_class, 8);
 		battle_group_ext[0]->armor_class[0] = battle_group_ext[0]->armor_class[0]
 			+ battle_group_ext[0]->armor_class[1] + battle_group_ext[0]->armor_class[2];
@@ -222,9 +222,9 @@ resolve_combatant_turn()
 			party_records[actor->target_unit].stat[4];
 		battle_group_ext[0]->combat_stats[3] =
 			party_records[actor->target_unit].stat[5];
-		aztec_movmem(party_records[actor->target_unit].resistance_rows.named.resist,
+		movmem(party_records[actor->target_unit].resistance_rows.named.resist,
 			battle_group_ext[0]->resistance, 14);
-		aztec_movmem(party_records[actor->target_unit].armor_class,
+		movmem(party_records[actor->target_unit].armor_class,
 			battle_group_ext[0]->armor_class, 8);
 		for (action_message = 0; action_message < 8; action_message++)
 			if (action_message != 1 && action_message != 2)

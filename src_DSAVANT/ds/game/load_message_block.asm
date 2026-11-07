@@ -1,7 +1,7 @@
 ; auto-generated
 load_message_block:
     mov ax, 0xfffe                   ; 0x06c6
-    call aztec_csav                  ; 0x06c9
+    call $csav                  ; 0x06c9
     mov word [bp - 2], 0             ; 0x06cc
 .back1:
     mov ax, word [bp - 2]            ; 0x06d1
@@ -19,7 +19,7 @@ load_message_block:
     shl ax, cl                       ; 0x06ef
     add ax, message_block_buffer + 0x400 ; 0x06f1
     push ax                          ; 0x06f4
-    call aztec_movmem                ; 0x06f5
+    call movmem                ; 0x06f5
     add sp, byte 6                   ; 0x06f8
     mov ax, word [bp + 4]            ; 0x06fb
     mov word [message_block_current], ax ; 0x06fe
@@ -45,14 +45,14 @@ load_message_block:
     push dx                          ; 0x0726
     push ax                          ; 0x0727
     push word [msg_dbs_fd]           ; 0x0728
-    call aztec_lseek                 ; 0x072c
+    call lseek                 ; 0x072c
     add sp, byte 8                   ; 0x072f
     mov ax, 0x400                    ; 0x0732
     push ax                          ; 0x0735
     mov ax, message_block_buffer     ; 0x0736
     push ax                          ; 0x0739
     push word [msg_dbs_fd]           ; 0x073a
-    call aztec_read                  ; 0x073e
+    call read                  ; 0x073e
     add sp, byte 6                   ; 0x0741
     mov ax, word [bp + 4]            ; 0x0744
     mov word [message_block_current], ax ; 0x0747
@@ -65,7 +65,7 @@ load_message_block:
     push ax                          ; 0x0759
     mov ax, message_block_buffer     ; 0x075a
     push ax                          ; 0x075d
-    call aztec_movmem                ; 0x075e
+    call movmem                ; 0x075e
     add sp, byte 6                   ; 0x0761
     mov ax, word [bp + 4]            ; 0x0764
     mov cx, word [message_cache_next] ; 0x0767

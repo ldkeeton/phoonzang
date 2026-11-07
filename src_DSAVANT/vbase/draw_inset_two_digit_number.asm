@@ -1,7 +1,7 @@
 ; auto-generated
 draw_inset_two_digit_number:
     mov ax, 0                        ; 0x4292
-    call aztec_csav                  ; 0x4295
+    call $csav                  ; 0x4295
     mov ax, word [bp + 8]            ; 0x4298
     add ax, strict word 6            ; 0x429b
     push ax                          ; 0x429e

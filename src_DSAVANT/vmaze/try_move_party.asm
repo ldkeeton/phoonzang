@@ -1,7 +1,7 @@
 ; auto-generated
 try_move_party:
     mov ax, 0xfffc                   ; 0x17ee
-    call aztec_csav                  ; 0x17f1
+    call $csav                  ; 0x17f1
     mov word [blocked_move_message], 0x7e4 ; 0x17f4
     mov ax, word [party_facing]      ; 0x17fa
     add ax, word [bp + 4]            ; 0x17fd

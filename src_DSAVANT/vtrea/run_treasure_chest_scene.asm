@@ -1,7 +1,7 @@
 ; auto-generated
 run_treasure_chest_scene:
     mov ax, 0                        ; 0x809e
-    call aztec_csav                  ; 0x80a1
+    call $csav                  ; 0x80a1
     mov word [selected_item_slot], 0xffff ; 0x80a4
     mov ax, MSG_A_CHEST              ; 0x80aa
     push ax                          ; 0x80ad

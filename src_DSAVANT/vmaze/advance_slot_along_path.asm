@@ -1,7 +1,7 @@
 ; auto-generated
 advance_slot_along_path:
     mov ax, 0xfffe                   ; 0xa7b2
-    call aztec_csav                  ; 0xa7b5
+    call $csav                  ; 0xa7b5
     mov ax, 0x26                     ; 0xa7b8
     imul word [bp + 4]               ; 0xa7bb
     mov bx, ax                       ; 0xa7be

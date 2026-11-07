@@ -1,7 +1,7 @@
 ; auto-generated
 mark_party_member_dead:
     mov ax, 0
-    call aztec_csav
+    call $csav
     mov ax, 0x248
     imul word [bp + 4]
     mov bx, ax

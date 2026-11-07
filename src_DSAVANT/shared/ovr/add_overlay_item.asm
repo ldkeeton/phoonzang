@@ -1,7 +1,7 @@
 ; auto-generated
 add_overlay_item:
     mov ax, 0xfffc
-    call aztec_csav
+    call $csav
     mov word [bp - 2], 0
 .back1:
     mov ax, word [bp - 2]
@@ -99,7 +99,7 @@ add_overlay_item:
     mov ax, word [bx + overlay_list + 0x2]
     add ax, strict word 8
     push ax
-    call aztec_strcpy
+    call strcpy
     add sp, byte 4
     inc word [overlay_list]
     ret

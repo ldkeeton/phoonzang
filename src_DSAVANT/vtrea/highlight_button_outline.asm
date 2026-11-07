@@ -1,7 +1,7 @@
 ; auto-generated
 highlight_button_outline:
     mov ax, 0                        ; 0x242c
-    call aztec_csav                  ; 0x242f
+    call $csav                  ; 0x242f
     mov ax, 0xc0                     ; 0x2432
     cmp word [bp + 0xc], byte 0      ; 0x2435
     je short .forward1               ; 0x2439

@@ -1,7 +1,7 @@
 ; auto-generated
 str_subst_char:
     mov ax, 0xfefa                   ; 0x0547
-    call aztec_csav                  ; 0x054a
+    call $csav                  ; 0x054a
     mov word [bp - 2], 0             ; 0x054d
     mov word [bp - 6], 0             ; 0x0552
 .back1:
@@ -53,6 +53,6 @@ str_subst_char:
     lea ax, word [bp - 0x105]        ; 0x05c1
     push ax                          ; 0x05c5
     push word [bp + 4]               ; 0x05c6
-    call aztec_strcpy                ; 0x05c9
+    call strcpy                ; 0x05c9
     add sp, byte 4                   ; 0x05cc
     ret                              ; 0x05cf

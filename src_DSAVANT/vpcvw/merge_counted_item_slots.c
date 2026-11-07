@@ -4,7 +4,7 @@
 extern char item_type_counted[];
 extern int combine_item_recipe();
 extern int play_sound_effect();
-extern int aztec_strcpy();
+extern int strcpy();
 
 merge_counted_item_slots(source, destination, source_name, destination_name)
 struct pc_item_slot *source, *destination;
@@ -17,11 +17,11 @@ char *source_name, *destination_name;
 		combined_count = source->level + destination->level;
 		if (source->flags & 128) {
 			destination->flags |= 128;
-			aztec_strcpy(destination_name, source_name);
+			strcpy(destination_name, source_name);
 		}
 		if (destination->flags & 128) {
 			source->flags |= 128;
-			aztec_strcpy(source_name, destination_name);
+			strcpy(source_name, destination_name);
 		}
 		if (combined_count <= 250) {
 			source->level = combined_count;

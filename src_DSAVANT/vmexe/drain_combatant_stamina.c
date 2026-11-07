@@ -25,7 +25,7 @@ extern int format_int_decimal();
 extern int load_message_string();
 extern int str_subst_char();
 extern int draw_centered_text_fragments();
-extern int aztec_movmem();
+extern int movmem();
 extern void subtract_combatant_stamina();
 extern int play_sound_effect();
 extern int sync_member_party_panel();
@@ -63,7 +63,7 @@ int resistance_index, resistance_floor;
 	unit_index = selected_unit;
 	for (; unit_index < selected_unit + selected_count; unit_index++) {
 		if (group == 0)
-			aztec_movmem(party_records[unit_index].resistance_rows.named.resist,
+			movmem(party_records[unit_index].resistance_rows.named.resist,
 				battle_group_ext[0]->resistance, 14);
 		if (battle_groups[group]->unit[unit_index].state >= 3)
 			continue;

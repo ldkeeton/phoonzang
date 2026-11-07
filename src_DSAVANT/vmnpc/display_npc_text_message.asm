@@ -1,7 +1,7 @@
 ; auto-generated
 display_npc_text_message:
     mov ax, 0                        ; 0x130b
-    call aztec_csav                  ; 0x130e
+    call $csav                  ; 0x130e
     mov ax, 3                        ; 0x1311
     push ax                          ; 0x1314
     call redraw_area_set             ; 0x1315
@@ -20,7 +20,7 @@ display_npc_text_message:
     add ax, 0x9c                     ; 0x1334
     push ax                          ; 0x1337
     push word [bp + 4]               ; 0x1338
-    call aztec_strlen                ; 0x133b
+    call strlen                ; 0x133b
     pop cx                           ; 0x133e
     mov cx, 6                        ; 0x133f
     imul cx                          ; 0x1342

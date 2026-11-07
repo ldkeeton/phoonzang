@@ -1,6 +1,6 @@
 /* Normalize punctuation in text used by an NPC dialog. */
 extern int npc_dialog_text_has_question;
-extern int aztec_strlen();
+extern int strlen();
 
 /* Replace punctuation with spaces and record whether a question marker
    occurred. */
@@ -10,7 +10,7 @@ char *text;
 	int index, character;
 
 	npc_dialog_text_has_question = 0;
-	for (index = 0; index < aztec_strlen(text); ++index) {
+	for (index = 0; index < strlen(text); ++index) {
 		character = (unsigned char)text[index];
 		if (character == 63) {
 			npc_dialog_text_has_question = 1;

@@ -11,7 +11,7 @@ extern int list_row_count[], list_row_glyph[], list_row_marked[];
 extern char list_row_name[];
 extern int dialog_selection, cast_spell_target;
 extern char empty_dialog_message[];
-extern int data_record_io(), aztec_strcpy(), load_message_string();
+extern int data_record_io(), strcpy(), load_message_string();
 extern int item_or_loot_dialog(), call_show_area(),
 	draw_selected_button_label();
 extern int pick_party_member(), consume_item_charge(),
@@ -36,7 +36,7 @@ int member;
 	data_record_io(1, &item_data,
 		party_records[member].item_slots[group][slot].item_id, 0);
 	if (party_records[member].item_slots[group][slot].flags & 128)
-		aztec_strcpy(list_row_name + row_count * 22, item_data.name);
+		strcpy(list_row_name + row_count * 22, item_data.name);
 	else
 		load_message_string(MSG_DAGGER_6000 + item_data.glyph,
 		list_row_name + row_count * 22);

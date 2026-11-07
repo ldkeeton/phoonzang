@@ -1,7 +1,7 @@
 ; auto-generated
 meet_region_npc:
     mov ax, 0xfffe                   ; 0x7abe
-    call aztec_csav                  ; 0x7ac1
+    call $csav                  ; 0x7ac1
     mov ax, word [party_region]      ; 0x7ac4
     shl ax, 1                        ; 0x7ac7
     mov si, ax                       ; 0x7ac9

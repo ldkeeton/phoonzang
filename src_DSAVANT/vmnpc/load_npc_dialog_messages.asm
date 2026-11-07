@@ -1,7 +1,7 @@
 ; auto-generated
 load_npc_dialog_messages:
     mov ax, 0xfffe                   ; 0xa411
-    call aztec_csav                  ; 0xa414
+    call $csav                  ; 0xa414
     mov word [bp - 2], 0             ; 0xa417
     jmp short .forward1              ; 0xa41c
 .back1:

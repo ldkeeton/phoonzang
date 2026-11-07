@@ -1,7 +1,7 @@
 ; auto-generated
 clear_item_slot:
     mov ax, 0                        ; 0x1c2f
-    call aztec_csav                  ; 0x1c32
+    call $csav                  ; 0x1c32
     cmp word [bp + 6], byte 0        ; 0x1c35
     jne short .forward1              ; 0x1c39
     push word [bp + 8]               ; 0x1c3b

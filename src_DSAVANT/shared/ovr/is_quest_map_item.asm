@@ -1,7 +1,7 @@
 ; auto-generated
 is_quest_map_item:
     mov ax, 0
-    call aztec_csav
+    call $csav
     cmp word [bp + 4], strict word 0x190
     jl short .forward1
     cmp word [bp + 4], strict word 0x19b

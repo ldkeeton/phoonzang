@@ -1,7 +1,7 @@
 ; auto-generated
 animate_spell_at_target:
     mov ax, 0xfffc                   ; 0x33e2
-    call aztec_csav                  ; 0x33e5
+    call $csav                  ; 0x33e5
     cmp word [spell_backfired], byte 1 ; 0x33e8
     jne short .forward1              ; 0x33ed
     ret                              ; 0x33ef

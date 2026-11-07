@@ -1,7 +1,7 @@
 ; auto-generated
 step_npc_screen_animation:
     mov ax, 0xfffa                   ; 0x0f50
-    call aztec_csav                  ; 0x0f53
+    call $csav                  ; 0x0f53
     mov ax, word [party_screen_animation_state] ; 0x0f56
     jmp near .forward5               ; 0x0f59
 .back1:

@@ -1,7 +1,7 @@
 ; auto-generated
 draw_clock_marker_glyph:
     mov ax, 0xffe2
-    call aztec_csav
+    call $csav
     mov word [bp - 4], 0x14a
     mov ax, word [game_time]
     mov dx, word [game_time_hi]
@@ -17,7 +17,7 @@ draw_clock_marker_glyph:
     sbb dx, bx
     mov cx, 0x5a0
     mov bx, 0
-    call aztec_lrm
+    call $lrm
     mov word [bp - 6], ax
     cmp ax, strict word 0
     jl short .return1

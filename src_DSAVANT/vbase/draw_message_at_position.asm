@@ -1,7 +1,7 @@
 ; auto-generated
 draw_message_at_position:
     mov ax, 0xffb0                   ; 0x41e7
-    call aztec_csav                  ; 0x41ea
+    call $csav                  ; 0x41ea
     lea ax, word [bp - 0x50]         ; 0x41ed
     push ax                          ; 0x41f0
     push word [bp + 4]               ; 0x41f1
@@ -16,7 +16,7 @@ draw_message_at_position:
     jge short .forward1              ; 0x420b
     lea ax, word [bp - 0x50]         ; 0x420d
     push ax                          ; 0x4210
-    call aztec_strlen                ; 0x4211
+    call strlen                ; 0x4211
     pop cx                           ; 0x4214
     mov cx, 6                        ; 0x4215
     imul cx                          ; 0x4218

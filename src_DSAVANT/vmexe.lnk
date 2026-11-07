@@ -78,6 +78,4 @@ vmexe/resolve_combat_item_action
 vmexe/data/combat_glyph_save_files
 shared/data/monster_picture_template
 vmexe/data/empty_text_fragment
-shared/ovr/aztec_ovbgn
-shared/ovr/aztec_cswt
-shared/ovr/aztec_swapmem
+ovbgn.o

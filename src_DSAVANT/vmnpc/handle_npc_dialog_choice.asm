@@ -1,7 +1,7 @@
 ; auto-generated
 handle_npc_dialog_choice:
     mov ax, 0xffac                   ; 0x9d30
-    call aztec_csav                  ; 0x9d33
+    call $csav                  ; 0x9d33
     mov ax, word [npc_dialog_choice_index] ; 0x9d36
     mov word [bp - 2], ax            ; 0x9d39
     mov cx, 0x14                     ; 0x9d3c

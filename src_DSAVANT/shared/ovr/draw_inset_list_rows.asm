@@ -1,7 +1,7 @@
 ; auto-generated
 draw_inset_list_rows:
     mov ax, 0
-    call aztec_csav
+    call $csav
     mov ax, 6
     imul word [bp + 0xa]
     add ax, word [bp + 6]

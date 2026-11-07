@@ -1,7 +1,7 @@
 ; auto-generated
 choose_member_portrait:
     mov ax, 0xffde                   ; 0x9491
-    call aztec_csav                  ; 0x9494
+    call $csav                  ; 0x9494
     mov word [bp - 0xc], 0           ; 0x9497
     mov ax, word [disk_header]       ; 0x949c
     mov word [bp - 0xe], ax          ; 0x949f

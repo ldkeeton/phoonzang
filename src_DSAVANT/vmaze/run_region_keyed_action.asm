@@ -1,7 +1,7 @@
 ; auto-generated
 run_region_keyed_action:
     mov ax, 0xfffe                   ; 0x73b6
-    call aztec_csav                  ; 0x73b9
+    call $csav                  ; 0x73b9
     mov ax, word [party_region]      ; 0x73bc
     shl ax, 1                        ; 0x73bf
     mov si, ax                       ; 0x73c1

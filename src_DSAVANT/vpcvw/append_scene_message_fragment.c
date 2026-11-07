@@ -4,8 +4,8 @@ extern unsigned char scene_message_separator[];
 extern int draw_scene_message_line();
 extern int wait_for_scene_message_page();
 extern int measure_text_width();
-extern unsigned char *aztec_strcpy();
-extern unsigned char *aztec_strcat();
+extern unsigned char *strcpy();
+extern unsigned char *strcat();
 
 append_scene_message_fragment(text)
 unsigned char *text;
@@ -23,16 +23,16 @@ unsigned char *text;
 	}
 
 	if (scene_message_text_buffer[0] != 0) {
-		aztec_strcpy(composed_text, scene_message_text_buffer);
-		aztec_strcat(composed_text, scene_message_separator);
-		aztec_strcat(composed_text, text);
+		strcpy(composed_text, scene_message_text_buffer);
+		strcat(composed_text, scene_message_separator);
+		strcat(composed_text, text);
 	} else
-		aztec_strcpy(composed_text, text);
+		strcpy(composed_text, text);
 
 	text_width = measure_text_width(composed_text, 2);
 	if (text_width > 168) {
 		draw_scene_message_line(scene_message_text_buffer);
-		aztec_strcpy(scene_message_text_buffer, text);
+		strcpy(scene_message_text_buffer, text);
 	} else
-		aztec_strcpy(scene_message_text_buffer, composed_text);
+		strcpy(scene_message_text_buffer, composed_text);
 }

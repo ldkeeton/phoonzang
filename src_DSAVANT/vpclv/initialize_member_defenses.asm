@@ -1,7 +1,7 @@
 ; auto-generated
 initialize_member_defenses:
     mov ax, 0xffae                   ; 0x2c0c
-    call aztec_csav                  ; 0x2c0f
+    call $csav                  ; 0x2c0f
     mov ax, 0x248                    ; 0x2c12
     imul word [bp + 4]               ; 0x2c15
     mov bx, ax                       ; 0x2c18

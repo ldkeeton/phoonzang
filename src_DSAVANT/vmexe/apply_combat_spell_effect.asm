@@ -1,7 +1,7 @@
 ; auto-generated
 apply_combat_spell_effect:
     mov ax, 0xfff2                   ; 0x3b07
-    call aztec_csav                  ; 0x3b0a
+    call $csav                  ; 0x3b0a
     mov bx, word [bp + 4]            ; 0x3b0d
     mov al, byte [bx + 0x1f]         ; 0x3b10
     sub ah, ah                       ; 0x3b13
@@ -2742,7 +2742,7 @@ apply_combat_spell_effect.forward63:
     mov bx, dx                       ; 0x538b
     pop dx                           ; 0x538d
     pop ax                           ; 0x538e
-    call aztec_ldv                   ; 0x538f
+    call $ldv                   ; 0x538f
     mov word [bp - 4], ax            ; 0x5392
     cmp ax, strict word 2            ; 0x5395
     jge short apply_combat_spell_effect.forward64 ; 0x5398

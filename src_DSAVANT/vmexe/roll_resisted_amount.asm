@@ -1,7 +1,7 @@
 ; auto-generated
 roll_resisted_amount:
     mov ax, 0xfffe                   ; 0x1f00
-    call aztec_csav                  ; 0x1f03
+    call $csav                  ; 0x1f03
     mov ax, word [bp + 4]            ; 0x1f06
     shl ax, 1                        ; 0x1f09
     mov bx, ax                       ; 0x1f0b
@@ -17,7 +17,7 @@ roll_resisted_amount:
     imul bx                          ; 0x1f26
     mov cx, 0x64                     ; 0x1f28
     mov bx, 0                        ; 0x1f2b
-    call aztec_ldv                   ; 0x1f2e
+    call $ldv                   ; 0x1f2e
     mov word [bp - 2], ax            ; 0x1f31
     cmp ax, strict word 0            ; 0x1f34
     jge short .forward1              ; 0x1f37

@@ -1,7 +1,7 @@
 ; auto-generated
 create_new_party_member:
     mov ax, 0xfd84                   ; 0x62fb
-    call aztec_csav                  ; 0x62fe
+    call $csav                  ; 0x62fe
     mov word [bp - 6], 0             ; 0x6301
     mov ax, 0                        ; 0x6306
     push ax                          ; 0x6309
@@ -11,14 +11,14 @@ create_new_party_member:
     imul word [bp - 6]               ; 0x6311
     add ax, party_records            ; 0x6314
     push ax                          ; 0x6317
-    call aztec_setmem                ; 0x6318
+    call setmem                ; 0x6318
     add sp, byte 6                   ; 0x631b
     push word [bp + 4]               ; 0x631e
     mov ax, 0x248                    ; 0x6321
     imul word [bp - 6]               ; 0x6324
     add ax, party_records            ; 0x6327
     push ax                          ; 0x632a
-    call aztec_strcpy                ; 0x632b
+    call strcpy                ; 0x632b
     add sp, byte 4                   ; 0x632e
     mov ax, 0                        ; 0x6331
     push ax                          ; 0x6334
@@ -31,7 +31,7 @@ create_new_party_member:
     imul word [bp - 6]               ; 0x6343
     add ax, party_records            ; 0x6346
     push ax                          ; 0x6349
-    call aztec_strlen                ; 0x634a
+    call strlen                ; 0x634a
     pop cx                           ; 0x634d
     mov cx, 6                        ; 0x634e
     imul cx                          ; 0x6351
@@ -296,7 +296,7 @@ create_new_party_member:
     call data_file_path              ; 0x65d3
     add sp, byte 4                   ; 0x65d6
     push ax                          ; 0x65d9
-    call aztec_open                  ; 0x65da
+    call open                  ; 0x65da
     add sp, byte 4                   ; 0x65dd
     mov word [bp - 8], ax            ; 0x65e0
     mov ax, 0x18                     ; 0x65e3
@@ -304,10 +304,10 @@ create_new_party_member:
     mov ax, pc_file_record_size      ; 0x65e7
     push ax                          ; 0x65ea
     push word [bp - 8]               ; 0x65eb
-    call aztec_write                 ; 0x65ee
+    call write                 ; 0x65ee
     add sp, byte 6                   ; 0x65f1
     push word [bp - 8]               ; 0x65f4
-    call aztec_close                 ; 0x65f7
+    call close                 ; 0x65f7
     pop cx                           ; 0x65fa
 .return1:
     ret                              ; 0x65fb

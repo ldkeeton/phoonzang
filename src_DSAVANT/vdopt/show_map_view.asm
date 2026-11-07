@@ -1,7 +1,7 @@
 ; auto-generated
 show_map_view:
     mov ax, 0xffee                   ; 0x0fd3
-    call aztec_csav                  ; 0x0fd6
+    call $csav                  ; 0x0fd6
     mov ax, word [bp + 8]            ; 0x0fd9
     mov word [map_show_objects], ax  ; 0x0fdc
     mov ax, 0xf                      ; 0x0fdf

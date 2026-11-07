@@ -1,7 +1,7 @@
 ; auto-generated
 roll_claim_type7_object:
     mov ax, 0xfff2                   ; 0x06e8
-    call aztec_csav                  ; 0x06eb
+    call $csav                  ; 0x06eb
     call find_party_type7_object     ; 0x06ee
     mov word [bp - 0xe], ax          ; 0x06f1
     cmp ax, strict word 0xffff       ; 0x06f4

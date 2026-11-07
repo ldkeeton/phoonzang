@@ -1,7 +1,7 @@
 /* Draw up to three centered lines, then wait and restore the report area. */
 extern int message_delay;
 extern char no_dissolve;
-extern int aztec_strlen();
+extern int strlen();
 extern int measure_text_width();
 extern void call_set_text_color();
 extern void call_set_text_pos();
@@ -24,11 +24,11 @@ char *line2;
 	draw_text_glyphs(title, 2);
 
 	/* Empty optional lines are skipped. */
-	if (aztec_strlen(line1) > 0) {
+	if (strlen(line1) > 0) {
 		text_x = 160 - (measure_text_width(line1, 2) + 1) / 2;
 		call_set_text_pos(text_x, 170);
 		draw_text_glyphs(line1, 2);
-		if (aztec_strlen(line2) > 0) {
+		if (strlen(line2) > 0) {
 			text_x = 160 - (measure_text_width(line2, 2) + 1) / 2;
 			call_set_text_pos(text_x, 182);
 			draw_text_glyphs(line2, 2);

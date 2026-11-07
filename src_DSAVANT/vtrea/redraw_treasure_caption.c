@@ -18,7 +18,7 @@ redraw_treasure_caption(show)
 		0);	/* clipped to full 320x200 */
 	if (treasure_caption_on) {
 		/* centre on x=161; glyphs are 6 pixels wide */
-		call_set_text_pos(161 - aztec_strlen(treasure_caption) * 6 / 2, 146);
+		call_set_text_pos(161 - strlen(treasure_caption) * 6 / 2, 146);
 		call_set_text_color(23, 0);
 		draw_text_glyphs(treasure_caption, 0);
 	}

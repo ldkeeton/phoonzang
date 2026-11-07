@@ -1,7 +1,7 @@
 ; auto-generated
 use_item_refresh_stamina_drain:
     mov ax, 0xfff2                   ; 0x178e
-    call aztec_csav                  ; 0x1791
+    call $csav                  ; 0x1791
     push word [bp + 8]               ; 0x1794
     push word [bp + 6]               ; 0x1797
     push word [bp + 4]               ; 0x179a

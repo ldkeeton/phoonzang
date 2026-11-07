@@ -1,7 +1,7 @@
 ; auto-generated
 process_party_swimming:
     mov ax, 0xfffc                   ; 0x13f7
-    call aztec_csav                  ; 0x13fa
+    call $csav                  ; 0x13fa
     cmp word [save_location_flag], byte 0 ; 0x13fd
     je short .forward1               ; 0x1402
     mov ax, word [party_map_piece]   ; 0x1404

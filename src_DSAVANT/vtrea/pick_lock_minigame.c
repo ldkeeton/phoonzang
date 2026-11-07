@@ -7,7 +7,7 @@ extern int show_area_bottom, dialog_selection, dialog_button;
 extern int message_delay, hotspot_hit, lock_tumbler_values[], hotspot_rects[];
 extern int save_screen_area(), draw_dialog_box(), load_message_string();
 extern int call_set_text_color(), call_set_text_pos(), draw_text_glyphs();
-extern int aztec_strlen(), aztec_strcpy(), aztec_strcat(),
+extern int strlen(), strcpy(), strcat(),
 	format_int_decimal();
 extern int draw_button(), draw_inset_panel(), set_hotspot(), call_show_area();
 extern int random_below(), call_set_text_opaque(), draw_number_field();
@@ -45,18 +45,18 @@ int jammed, lock_strength;
 	draw_dialog_box(left, top, right, bottom);
 	load_message_string(title_message, text);
 	call_set_text_color(28, 194);
-	call_set_text_pos(left + 9 + (12 - aztec_strlen(text)) * 6 / 2,
+	call_set_text_pos(left + 9 + (12 - strlen(text)) * 6 / 2,
 		top + 9);
 	draw_text_glyphs(text, 0);
 	call_set_text_color(1, 194);
 	call_set_text_pos(left + 45 -
-		aztec_strlen(party_records[member].name) * 6 / 2,
+		strlen(party_records[member].name) * 6 / 2,
 		top + 21);
 	draw_text_glyphs(party_records[member].name, 0);
-	aztec_strcpy(text, pick_lock_skill_open_paren);
+	strcpy(text, pick_lock_skill_open_paren);
 	format_int_decimal(party_records[member].skills[16], text + 1);
-	aztec_strcat(text, pick_lock_skill_percent_close);
-	call_set_text_pos(left + 45 - aztec_strlen(text) * 6 / 2,
+	strcat(text, pick_lock_skill_percent_close);
+	call_set_text_pos(left + 45 - strlen(text) * 6 / 2,
 		top + 27);
 	draw_text_glyphs(text, 0);
 	load_message_string(title_message + 1, text);
@@ -93,7 +93,7 @@ int jammed, lock_strength;
 	}
 	skill = clamp_between(skill, 2, 95);
 	tumblers_left = tumbler_count;
-	aztec_setmem(tumbler_stopped, 12, 0);
+	setmem(tumbler_stopped, 12, 0);
 	for (;;) {
 		for (row = 0; row < tumbler_count; row++) {
 			if (tumbler_stopped[row] == 0) {

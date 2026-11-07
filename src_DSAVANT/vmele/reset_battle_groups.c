@@ -6,17 +6,17 @@ extern struct member_rec *battle_groups[];
 extern int cell_slot_ref[][3];
 extern int monster_group_count;
 extern int party_screen_done, party_screen_animation_state;
-extern int aztec_setmem();
+extern int setmem();
 
 reset_battle_groups()
 {
 	int group;
 	struct member_rec unused_record; /* reserves the original frame space */
 
-	aztec_setmem(cell_slot_ref, 18, 0); /* clear nine two-byte cells */
+	setmem(cell_slot_ref, 18, 0); /* clear nine two-byte cells */
 	/* Clear all seven battle group records. */
 	for (group = 0; group < 7; group++)
-		aztec_setmem(battle_groups[group], sizeof(struct member_rec), 0);
+		setmem(battle_groups[group], sizeof(struct member_rec), 0);
 	/* Reset the unit count in each of the seven groups. */
 	for (group = 0; group < 7; group++)
 		battle_groups[group]->unit_count = 0;

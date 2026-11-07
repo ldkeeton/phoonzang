@@ -1,7 +1,7 @@
 ; auto-generated
 show_indexed_beveled_label:
     mov ax, 0xfff8
-    call aztec_csav
+    call $csav
     mov ax, word [bp + 6]
     cwd
     idiv word [bp + 0x12]
@@ -65,7 +65,7 @@ show_indexed_beveled_label:
     inc ax
     push ax
     push word [bp + 4]
-    call aztec_strlen
+    call strlen
     pop cx
     mov cx, ax
     mov ax, word [bp + 0xc]

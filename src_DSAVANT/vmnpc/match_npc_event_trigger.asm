@@ -1,7 +1,7 @@
 ; auto-generated
 match_npc_event_trigger:
     mov ax, 0xfffa                   ; 0x3773
-    call aztec_csav                  ; 0x3776
+    call $csav                  ; 0x3776
     cmp byte [bp + 6], 2             ; 0x3779
     jne short .forward1              ; 0x377d
     mov ax, word [bp + 8]            ; 0x377f

@@ -1,7 +1,7 @@
 ; auto-generated
 run_npc_dialog_turn:
     mov ax, 0xff64                   ; 0x677a
-    call aztec_csav                  ; 0x677d
+    call $csav                  ; 0x677d
     mov word [npc_dialog_departure_flag], 0 ; 0x6780
     mov word [npc_pilfer_roll_bias], 0 ; 0x6786
     mov word [npc_dialog_initial_state], 0 ; 0x678c

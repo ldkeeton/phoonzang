@@ -1,7 +1,7 @@
 ; auto-generated
 start_npc_attack:
     mov ax, 0                        ; 0x2963
-    call aztec_csav                  ; 0x2966
+    call $csav                  ; 0x2966
     mov ax, 1                        ; 0x2969
     push ax                          ; 0x296c
     call call_wait_sound             ; 0x296d

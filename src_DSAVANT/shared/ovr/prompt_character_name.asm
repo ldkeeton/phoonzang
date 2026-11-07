@@ -1,7 +1,7 @@
 ; auto-generated
 prompt_character_name:
     mov ax, 0xffda
-    call aztec_csav
+    call $csav
     mov word [dialog_selection], 0xffff
     mov word [bp - 2], 0x37
     mov word [bp - 4], 0x8f
@@ -115,7 +115,7 @@ prompt_character_name:
     push ax
     lea ax, word [bp - 0x24]
     push ax
-    call aztec_strlen
+    call strlen
     pop cx
     mov cx, ax
     mov ax, 0x11
@@ -141,7 +141,7 @@ prompt_character_name:
     push word [bp + 0xc]
     mov ax, list_entry_text
     push ax
-    call aztec_strcpy
+    call strcpy
     add sp, byte 4
     mov ax, 1
     push ax
@@ -287,7 +287,7 @@ prompt_character_name:
     mov ax, list_entry_text
     push ax
     push word [bp + 0xc]
-    call aztec_strcpy
+    call strcpy
     add sp, byte 4
     mov ax, 1
     push ax
@@ -388,7 +388,7 @@ prompt_character_name:
     mov ax, list_entry_text
     push ax
     push word [bp + 0xc]
-    call aztec_strcpy
+    call strcpy
     add sp, byte 4
     mov ax, 1
     push ax

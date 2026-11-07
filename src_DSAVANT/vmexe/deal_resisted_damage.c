@@ -13,7 +13,7 @@ extern struct pc_rec party_records[];
 extern int combat_message_layout;
 extern int combatant_evades_targeting();
 extern int random_below();
-extern int aztec_movmem();
+extern int movmem();
 extern int roll_resisted_amount();
 extern int refresh_combat_glyph_strip();
 extern int copy_combatant_name();
@@ -69,7 +69,7 @@ int repeat_count, resistance_index, resistance_floor;
 		repeats_remaining--;
 	}
 	if (group == 0)
-		aztec_movmem(party_records[unit_index].resistance_rows.named.resist,
+		movmem(party_records[unit_index].resistance_rows.named.resist,
 			battle_group_ext[0]->resistance, 14);
 	if (random_below(100) >
 	    battle_group_ext[group]->resistance[resistance_index] - resistance_floor)

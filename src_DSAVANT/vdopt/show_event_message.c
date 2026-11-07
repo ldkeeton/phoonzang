@@ -10,7 +10,7 @@ extern void draw_text_glyphs();
 extern void play_sound_effect();
 extern void wait_for_scene_input_or_timeout();
 extern void call_restore_area();
-extern int aztec_strlen();
+extern int strlen();
 
 show_event_message(message_id)
 int message_id;
@@ -23,8 +23,8 @@ int message_id;
 	/* Clear the full message strip before drawing its text. */
 	call_show_area(0, 146, 319, 152);
 	/* Six-pixel glyphs determine the centered text position and width. */
-	text_left = 161 - (aztec_strlen(message) * 6) / 2;
-	text_right = text_left + aztec_strlen(message) * 6;
+	text_left = 161 - (strlen(message) * 6) / 2;
+	text_right = text_left + strlen(message) * 6;
 	saved_area = call_save_area(text_left, 146, text_right, 152);
 	call_set_text_color(22, 0);
 	call_set_text_pos(text_left, 146);

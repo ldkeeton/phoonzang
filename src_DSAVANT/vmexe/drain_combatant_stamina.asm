@@ -1,7 +1,7 @@
 ; auto-generated
 drain_combatant_stamina:
     mov ax, 0xfff0                   ; 0x265f
-    call aztec_csav                  ; 0x2662
+    call $csav                  ; 0x2662
     cmp word [bp + 8], byte 0        ; 0x2665
     jle short .forward1              ; 0x2669
     push word [bp + 8]               ; 0x266b
@@ -64,7 +64,7 @@ drain_combatant_stamina:
     imul word [bp - 2]               ; 0x26f4
     add ax, party_records + pc_rec.resist ; 0x26f7
     push ax                          ; 0x26fa
-    call aztec_movmem                ; 0x26fb
+    call movmem                ; 0x26fb
     add sp, byte 6                   ; 0x26fe
 .forward7:
     mov ax, 0x2c                     ; 0x2701

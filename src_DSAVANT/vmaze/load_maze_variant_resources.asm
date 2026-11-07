@@ -1,7 +1,7 @@
 ; auto-generated
 load_maze_variant_resources:
     mov ax, 0                        ; 0x0344
-    call aztec_csav                  ; 0x0347
+    call $csav                  ; 0x0347
     mov ax, word [maze_variant]      ; 0x034a
     jmp near .forward1               ; 0x034d
 jumptable_03ce_case_1:

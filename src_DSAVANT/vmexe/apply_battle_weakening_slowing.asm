@@ -1,7 +1,7 @@
 ; auto-generated
 apply_battle_weakening_slowing:
     mov ax, 0xfff0                   ; 0x2e59
-    call aztec_csav                  ; 0x2e5c
+    call $csav                  ; 0x2e5c
     lea ax, word [bp - 0xc]          ; 0x2e5f
     push ax                          ; 0x2e62
     lea ax, word [bp - 0xa]          ; 0x2e63

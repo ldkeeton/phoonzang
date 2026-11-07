@@ -1,7 +1,7 @@
 ; auto-generated
 mark_region_bits:
     mov ax, 0
-    call aztec_csav
+    call $csav
     cmp word [bp + 4], byte 0
     jle short .return1
     mov bx, word [maze_tables]

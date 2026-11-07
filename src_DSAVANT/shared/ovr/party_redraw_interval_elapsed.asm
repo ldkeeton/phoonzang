@@ -1,7 +1,7 @@
 ; auto-generated
 party_redraw_interval_elapsed:
     mov ax, 0
-    call aztec_csav
+    call $csav
     les bx, word [tick_counter_ptr]
     mov ax, word [es:bx]
     mov dx, word [es:bx + 2]

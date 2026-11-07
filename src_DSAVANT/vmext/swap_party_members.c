@@ -18,7 +18,7 @@ int member;
 	left = member % 2 * 252 + 5;
 	top = member / 2 * 45 + 18;
 	call_fill_area(left + 3, top + 32,
-	left + 3 + 6 * aztec_strlen(party_records[member].name), top + 36, 23);
+	left + 3 + 6 * strlen(party_records[member].name), top + 36, 23);
 	call_set_text_color(1, 23);
 	call_set_text_pos(left + 4, top + 32);
 	draw_text_glyphs(party_records[member].name, 0);

@@ -1,7 +1,7 @@
 ; auto-generated
 dissolve_scene_message_area:
     mov ax, 0                        ; 0x6c3f
-    call aztec_csav                  ; 0x6c42
+    call $csav                  ; 0x6c42
     mov ax, 0xc6                     ; 0x6c45
     push ax                          ; 0x6c48
     mov ax, 0x13e                    ; 0x6c49

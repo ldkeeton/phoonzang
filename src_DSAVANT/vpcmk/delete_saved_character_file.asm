@@ -1,7 +1,7 @@
 ; auto-generated
 delete_saved_character_file:
     mov ax, 0xffd4                   ; 0x6738
-    call aztec_csav                  ; 0x673b
+    call $csav                  ; 0x673b
     push word [bp + 4]               ; 0x673e
     mov ax, 0                        ; 0x6741
     push ax                          ; 0x6744
@@ -56,7 +56,7 @@ delete_saved_character_file:
     call data_file_path              ; 0x67b9
     add sp, byte 4                   ; 0x67bc
     push ax                          ; 0x67bf
-    call aztec_open                  ; 0x67c0
+    call open                  ; 0x67c0
     add sp, byte 4                   ; 0x67c3
     mov word [bp - 4], ax            ; 0x67c6
     mov ax, 0x18                     ; 0x67c9
@@ -64,10 +64,10 @@ delete_saved_character_file:
     mov ax, pc_file_record_size      ; 0x67cd
     push ax                          ; 0x67d0
     push word [bp - 4]               ; 0x67d1
-    call aztec_write                 ; 0x67d4
+    call write                 ; 0x67d4
     add sp, byte 6                   ; 0x67d7
     push word [bp - 4]               ; 0x67da
-    call aztec_close                 ; 0x67dd
+    call close                 ; 0x67dd
     pop cx                           ; 0x67e0
 .return1:
     ret                              ; 0x67e1

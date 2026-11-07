@@ -1,7 +1,7 @@
 ; auto-generated
 damage_unit_range:
     mov ax, 0xfff6                   ; 0x28e1
-    call aztec_csav                  ; 0x28e4
+    call $csav                  ; 0x28e4
     cmp word [bp + 8], byte 0        ; 0x28e7
     jle short .forward1              ; 0x28eb
     push word [bp + 8]               ; 0x28ed

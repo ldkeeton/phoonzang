@@ -1,7 +1,7 @@
 ; auto-generated
 fill_row_action_slots:
     mov ax, 0xfff4                   ; 0x29c5
-    call aztec_csav                  ; 0x29c8
+    call $csav                  ; 0x29c8
     mov word [bp - 2], 0             ; 0x29cb
     jmp near .forward13              ; 0x29d0
 .back1:

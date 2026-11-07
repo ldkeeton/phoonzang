@@ -1,7 +1,7 @@
 ; auto-generated
 draw_message_string:
     mov ax, 0xff00                   ; 0x0860
-    call aztec_csav                  ; 0x0863
+    call $csav                  ; 0x0863
     lea ax, word [bp - 0xff]         ; 0x0866
     push ax                          ; 0x086a
     push word [bp + 4]               ; 0x086b

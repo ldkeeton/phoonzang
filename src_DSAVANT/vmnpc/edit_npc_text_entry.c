@@ -6,7 +6,7 @@ extern int call_show_area(), call_restore_area();
 extern int poll_filtered_key(), get_filtered_key();
 extern int run_npc_screen_animation(), delay_ms();
 extern int play_sound_effect(), flush_keyboard();
-extern int aztec_strlen();
+extern int strlen();
 extern int last_npc_text_entry_key;
 
 edit_npc_text_entry(text, left, top, width, foreground, background,
@@ -32,7 +32,7 @@ int input_mode, accept_when_full;
 	call_set_text_pos(left, top);
 	draw_text_glyphs(text, 0);
 	call_show_area(left, top, left + 6 * width, top + 5);
-	text_length = aztec_strlen(text);
+	text_length = strlen(text);
 	left += 6 * text_length;
 
 	for (;;) {

@@ -1,7 +1,7 @@
 ; auto-generated
 wait_for_combat_input:
     mov ax, 0xfffc                   ; 0x1a5f
-    call aztec_csav                  ; 0x1a62
+    call $csav                  ; 0x1a62
     mov word [combat_wait_occurred], 1 ; 0x1a65
     call flush_keyboard              ; 0x1a6b
     mov ax, word [bp + 4]            ; 0x1a6e

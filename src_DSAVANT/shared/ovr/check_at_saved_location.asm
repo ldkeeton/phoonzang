@@ -1,7 +1,7 @@
 ; auto-generated
 check_at_saved_location:
     mov ax, 0
-    call aztec_csav
+    call $csav
     mov word [save_location_flag], 0
     mov ax, word [current_level]
     cmp ax, word [saved_level]

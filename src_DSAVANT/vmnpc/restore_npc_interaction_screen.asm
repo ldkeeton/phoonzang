@@ -1,7 +1,7 @@
 ; auto-generated
 restore_npc_interaction_screen:
     mov ax, 0xfffa                   ; 0x72bf
-    call aztec_csav                  ; 0x72c2
+    call $csav                  ; 0x72c2
     mov ax, 3                        ; 0x72c5
     push ax                          ; 0x72c8
     call redraw_area_set             ; 0x72c9
@@ -56,7 +56,7 @@ restore_npc_interaction_screen:
     shl ax, 1                        ; 0x733d
     mov bx, ax                       ; 0x733f
     push word [bx + overlay_list + 0x2] ; 0x7341
-    call aztec_free                  ; 0x7345
+    call free                  ; 0x7345
     pop cx                           ; 0x7348
     inc word [bp - 2]                ; 0x7349
     mov ax, word [bp - 2]            ; 0x734c
@@ -83,7 +83,7 @@ restore_npc_interaction_screen:
     push ax                          ; 0x737e
     mov ax, cell_slot_ref            ; 0x737f
     push ax                          ; 0x7382
-    call aztec_setmem                ; 0x7383
+    call setmem                ; 0x7383
     add sp, byte 6                   ; 0x7386
     mov ax, 0                        ; 0x7389
     push ax                          ; 0x738c
@@ -91,7 +91,7 @@ restore_npc_interaction_screen:
     push ax                          ; 0x7390
     mov ax, npc_cell_effect_frame    ; 0x7391
     push ax                          ; 0x7394
-    call aztec_setmem                ; 0x7395
+    call setmem                ; 0x7395
     add sp, byte 6                   ; 0x7398
     cmp word [loaded_sound_id], byte -1 ; 0x739b
     je short .forward4               ; 0x73a0

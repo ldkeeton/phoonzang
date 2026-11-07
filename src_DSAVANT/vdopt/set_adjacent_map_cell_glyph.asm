@@ -1,7 +1,7 @@
 ; auto-generated
 set_adjacent_map_cell_glyph:
     mov ax, 0                        ; 0x095a
-    call aztec_csav                  ; 0x095d
+    call $csav                  ; 0x095d
     mov ax, word [bp + 4]            ; 0x0960
     jmp short .forward1              ; 0x0963
 .back1:

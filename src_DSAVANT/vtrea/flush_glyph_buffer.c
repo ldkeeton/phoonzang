@@ -1,7 +1,7 @@
 /* Draw the buffered treasure message and advance its display row. */
 extern int maze_message_row, maze_message_previous_x;
 extern int show_treasure_area();
-extern int measure_text_width(), aztec_strlen();
+extern int measure_text_width(), strlen();
 extern int call_set_text_pos(), call_set_text_color(), draw_text_glyphs();
 
 /* Center and draw one buffered glyph string, honoring its positioning
@@ -19,7 +19,7 @@ char *text;
 		return;
 	}
 	text_x = 160 - (measure_text_width(text, 2) + 1) / 2;
-	last_character = aztec_strlen(text) - 1;
+	last_character = strlen(text) - 1;
 	switch ((unsigned char)text[last_character]) {
 	case '$':
 		text[last_character] = 0;

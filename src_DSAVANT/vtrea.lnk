@@ -88,5 +88,4 @@ shared/ovr/draw_realm_spell_points
 shared/ovr/periodic_party_redraw
 shared/ovr/pick_spell_dialog
 vtrea/data/trea_strings
-shared/ovr/aztec_ovbgn
-shared/ovr/aztec_cswt
+ovbgn.o

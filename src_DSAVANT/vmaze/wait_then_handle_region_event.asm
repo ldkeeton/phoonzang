@@ -1,7 +1,7 @@
 ; auto-generated
 wait_then_handle_region_event:
     mov ax, 0xfff2                   ; 0x804e
-    call aztec_csav                  ; 0x8051
+    call $csav                  ; 0x8051
     mov ax, 5                        ; 0x8054
     push ax                          ; 0x8057
     call wait_ticks_or_key           ; 0x8058

@@ -1,7 +1,7 @@
 ; auto-generated
 load_startup_maze:
     mov ax, 0xfffe                   ; 0x0084
-    call aztec_csav                  ; 0x0087
+    call $csav                  ; 0x0087
     mov ax, 0                        ; 0x008a
     push ax                          ; 0x008d
     mov ax, 1                        ; 0x008e
@@ -10,7 +10,7 @@ load_startup_maze:
     call data_file_path              ; 0x0095
     add sp, byte 4                   ; 0x0098
     push ax                          ; 0x009b
-    call aztec_open                  ; 0x009c
+    call open                  ; 0x009c
     add sp, byte 4                   ; 0x009f
     mov word [bp - 2], ax            ; 0x00a2
     cmp ax, strict word 0xffff       ; 0x00a5
@@ -27,6 +27,6 @@ load_startup_maze:
     call call_load_maze              ; 0x00bc
     add sp, byte 6                   ; 0x00bf
     push word [bp - 2]               ; 0x00c2
-    call aztec_close                 ; 0x00c5
+    call close                 ; 0x00c5
     pop cx                           ; 0x00c8
     ret                              ; 0x00c9

@@ -6,14 +6,13 @@ extern int show_area_bottom, dialog_selection, dialog_button;
 extern int party_char_count, message_delay, hotspot_hit, hotspot_rects[];
 extern struct pc_rec party_records[];
 extern int save_screen_area(), draw_dialog_box(), load_message_string();
-extern int call_set_text_color(), aztec_strlen(), call_set_text_pos();
+extern int call_set_text_color(), strlen(), call_set_text_pos();
 extern int draw_text_glyphs(), draw_button(), draw_inset_panel();
 extern int call_fill_area(), set_hotspot(), call_show_area();
 extern int member_is_active(), random_below(), draw_party_member_panel();
 extern int tick_treasure_animation(), delay_ms(), poll_hotspots();
 extern int highlight_button_outline(), play_sound_effect(), flash_button();
 extern int wait_treasure_input_or_timeout(), restore_saved_screen();
-extern int aztec_ldv();
 extern char force_door_temp_file[];
 
 /* returns 0 success, 1 failure, 2 jammed, -1 cancel */
@@ -39,7 +38,7 @@ int unused_member, message_id, show_heave, show_cancel, jammed, door_strength;
 	draw_dialog_box(left, top, width, height);
 	load_message_string(message_id, message);
 	call_set_text_color(28, 194);
-	call_set_text_pos(left + 9 + ((12 - aztec_strlen(message)) * 6) / 2, top + 9);
+	call_set_text_pos(left + 9 + ((12 - strlen(message)) * 6) / 2, top + 9);
 	draw_text_glyphs(message, 0);
 	load_message_string(message_id + 1, heave_label);
 	draw_button(left + 8, top + 22, 12, 1, show_heave, heave_label);
@@ -47,11 +46,11 @@ int unused_member, message_id, show_heave, show_cancel, jammed, door_strength;
 	draw_button(left + 8, top + 38, 12, 1, show_cancel, message);
 	load_message_string(message_id + 3, message);
 	call_set_text_color(1, 194);
-	call_set_text_pos(left + 147 - (aztec_strlen(message) * 6) / 2, top + 6);
+	call_set_text_pos(left + 147 - (strlen(message) * 6) / 2, top + 6);
 	draw_text_glyphs(message, 0);
 	load_message_string(message_id + 4, message);
 	call_set_text_color(155, 194);
-	call_set_text_pos(left + 147 - (aztec_strlen(message) * 6) / 2, top + 30);
+	call_set_text_pos(left + 147 - (strlen(message) * 6) / 2, top + 30);
 	draw_text_glyphs(message, 0);
 	for (row = 0; row < 14; row++) {
 		draw_inset_panel(left + 92 + row * 8, top + 15,
@@ -124,7 +123,7 @@ int unused_member, message_id, show_heave, show_cancel, jammed, door_strength;
 				if (show_heave) {
 					highlight_button_outline(left + 8, top + 22, left + 80, top + 30, 1);
 					call_set_text_color(26, 0);
-					call_set_text_pos(left + 9 + ((12 - aztec_strlen(
+					call_set_text_pos(left + 9 + ((12 - strlen(
 						heave_label)) * 6) / 2, top + 24);
 					draw_text_glyphs(heave_label, 0);
 					call_show_area(left + 8, top + 22, left + 80, top + 30);

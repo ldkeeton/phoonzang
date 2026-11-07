@@ -1,6 +1,6 @@
 /* Displays a centered message, waits for Enter, then shows the installer
    message. */
-extern int aztec_strlen();
+extern int strlen();
 extern int put_text_at();
 extern int console_bell();
 extern int dos_con_in_noecho();
@@ -13,7 +13,7 @@ char *message;
 {
 	/* Clear row 22 before drawing the supplied message. */
 	put_text_at(22, 0, message_line_blank_before);
-	put_text_at(22, 40 - (aztec_strlen(message) + 1) / 2, message);
+	put_text_at(22, 40 - (strlen(message) + 1) / 2, message);
 
 	console_bell();
 
@@ -23,6 +23,6 @@ char *message;
 
 	/* Clear the row and display the installer message, centered the same way. */
 	put_text_at(22, 0, message_line_blank_after);
-	put_text_at(22, 40 - (aztec_strlen(installer_message_buffer) + 1) / 2,
+	put_text_at(22, 40 - (strlen(installer_message_buffer) + 1) / 2,
 		installer_message_buffer);
 }

@@ -109,7 +109,7 @@ int attack_index, attack_mode;
 				party_records[acting_unit].item_slots[0][eq_slot].item_id, 0);
 			if (party_records[acting_unit].item_slots[0][eq_slot].flags &
 			    SLOT_IDENTIFIED)
-				aztec_strcpy(combat_action_suffix_buffer, item.name);
+				strcpy(combat_action_suffix_buffer, item.name);
 			else
 				load_message_string(MSG_DAGGER_6000 + item.glyph,
 					combat_action_suffix_buffer);

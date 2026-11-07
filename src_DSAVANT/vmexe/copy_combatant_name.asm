@@ -1,7 +1,7 @@
 ; auto-generated
 copy_combatant_name:
     mov ax, 0                        ; 0x15ab
-    call aztec_csav                  ; 0x15ae
+    call $csav                  ; 0x15ae
     cmp word [bp + 6], byte 0        ; 0x15b1
     jne short .forward1              ; 0x15b5
     mov ax, 0x248                    ; 0x15b7
@@ -9,7 +9,7 @@ copy_combatant_name:
     add ax, party_records            ; 0x15bd
     push ax                          ; 0x15c0
     push word [bp + 4]               ; 0x15c1
-    call aztec_strcpy                ; 0x15c4
+    call strcpy                ; 0x15c4
     add sp, byte 4                   ; 0x15c7
     jmp short .return1               ; 0x15ca
 .forward1:
@@ -29,7 +29,7 @@ copy_combatant_name:
     add ax, cx                       ; 0x15ec
     push ax                          ; 0x15ee
     push word [bp + 4]               ; 0x15ef
-    call aztec_strcpy                ; 0x15f2
+    call strcpy                ; 0x15f2
     add sp, byte 4                   ; 0x15f5
 .return1:
     ret                              ; 0x15f8

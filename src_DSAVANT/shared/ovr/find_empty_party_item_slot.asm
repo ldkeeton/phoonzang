@@ -1,7 +1,7 @@
 ; auto-generated
 find_empty_party_item_slot:
     mov ax, 0xfffc
-    call aztec_csav
+    call $csav
     mov word [bp - 2], 0
 .back1:
     mov word [bp - 4], 0

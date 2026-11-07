@@ -1,7 +1,7 @@
 ; auto-generated
 build_map_view_cell:
     mov ax, 0xffec                   ; 0x09c0
-    call aztec_csav                  ; 0x09c3
+    call $csav                  ; 0x09c3
     mov word [bp - 0xe], 0xffff      ; 0x09c6
     mov ax, word [party_cell_x]      ; 0x09cb
     mov word [bp - 8], ax            ; 0x09ce

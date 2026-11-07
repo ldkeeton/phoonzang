@@ -1,7 +1,7 @@
 ; auto-generated
 refresh_member_inventory_panel:
     mov ax, 0                        ; 0x40b7
-    call aztec_csav                  ; 0x40ba
+    call $csav                  ; 0x40ba
     push word [bp + 4]               ; 0x40bd
     call draw_member_summary_panel   ; 0x40c0
     pop cx                           ; 0x40c3

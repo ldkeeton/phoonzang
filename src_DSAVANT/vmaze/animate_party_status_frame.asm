@@ -1,7 +1,7 @@
 ; auto-generated
 animate_party_status_frame:
     mov ax, 0                        ; 0x7cb4
-    call aztec_csav                  ; 0x7cb7
+    call $csav                  ; 0x7cb7
 .back1:
     cmp word [bp + 4], byte 0        ; 0x7cba
     jle short .return1               ; 0x7cbe

@@ -1,7 +1,7 @@
 ; auto-generated
 update_region_flags:
     mov ax, 0                        ; 0x8540
-    call aztec_csav                  ; 0x8543
+    call $csav                  ; 0x8543
     push word [bp + 4]               ; 0x8546
     mov ax, word [party_region]      ; 0x8549
     shl ax, 1                        ; 0x854c

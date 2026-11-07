@@ -1,7 +1,7 @@
 ; auto-generated
 play_intro_scene_one:
     mov ax, 0                        ; 0x8634
-    call aztec_csav                  ; 0x8637
+    call $csav                  ; 0x8637
     mov ax, 0                        ; 0x863a
     push ax                          ; 0x863d
     mov ax, scene_one_screen_filename ; 0x863e
@@ -61,7 +61,7 @@ play_intro_scene_one:
     push ax                          ; 0x86ca
     mov ax, scene_digit_cycle        ; 0x86cb
     push ax                          ; 0x86ce
-    call aztec_strcpy                ; 0x86cf
+    call strcpy                ; 0x86cf
     add sp, byte 4                   ; 0x86d2
     mov word [scene_frame_delay_ticks], 5 ; 0x86d5
     les bx, word [tick_counter_ptr]  ; 0x86db

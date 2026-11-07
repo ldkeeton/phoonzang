@@ -1,7 +1,7 @@
 ; auto-generated
 lower_level_scaled_percent:
     mov ax, 0xfffc                   ; 0x4884
-    call aztec_csav                  ; 0x4887
+    call $csav                  ; 0x4887
     mov ax, 0x248                    ; 0x488a
     imul word [bp + 4]               ; 0x488d
     mov bx, ax                       ; 0x4890

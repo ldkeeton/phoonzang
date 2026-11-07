@@ -1,7 +1,7 @@
 ; auto-generated
 find_map_piece:
     mov ax, 0xfffc
-    call aztec_csav
+    call $csav
     push word [bp + 0xc]
     push word [bp + 0xa]
     mov bx, word [bp + 8]

@@ -1,7 +1,7 @@
 ; auto-generated
 refresh_scene_frame_if_active:
     mov ax, 0                        ; 0x6c5c
-    call aztec_csav                  ; 0x6c5f
+    call $csav                  ; 0x6c5f
     cmp word [scene_index], byte 0   ; 0x6c62
     jle short .return1               ; 0x6c67
     call advance_scene_frame         ; 0x6c69

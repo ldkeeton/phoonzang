@@ -1,7 +1,7 @@
 ; auto-generated
 treasure_use_item_menu:
     mov ax, 0xff6e                   ; 0x4bcc
-    call aztec_csav                  ; 0x4bcf
+    call $csav                  ; 0x4bcf
     mov word [bp - 0x92], 0          ; 0x4bd2
     mov word [bp - 0x4e], 0          ; 0x4bd8
 .back1:
@@ -60,7 +60,7 @@ treasure_use_item_menu:
     imul word [bp - 0x92]            ; 0x4c54
     add ax, list_row_name            ; 0x4c58
     push ax                          ; 0x4c5b
-    call aztec_strcpy                ; 0x4c5c
+    call strcpy                ; 0x4c5c
     add sp, byte 4                   ; 0x4c5f
     jmp short .forward3              ; 0x4c62
 .forward2:

@@ -1,7 +1,7 @@
 ; auto-generated
 set_region_flag_from_condition:
     mov ax, 0xfffe                   ; 0x86f9
-    call aztec_csav                  ; 0x86fc
+    call $csav                  ; 0x86fc
     mov ax, 2                        ; 0x86ff
     push ax                          ; 0x8702
     mov ax, 0                        ; 0x8703

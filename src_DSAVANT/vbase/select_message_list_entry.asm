@@ -1,7 +1,7 @@
 ; auto-generated
 select_message_list_entry:
     mov ax, 0xfeaa                   ; 0x023a
-    call aztec_csav                  ; 0x023d
+    call $csav                  ; 0x023d
     mov ax, 6                        ; 0x0240
     imul word [bp + 0xa]             ; 0x0243
     add ax, word [bp + 6]            ; 0x0246
@@ -91,7 +91,7 @@ select_message_list_entry:
     lea cx, word [bp - 0x152]        ; 0x0316
     add ax, cx                       ; 0x031a
     push ax                          ; 0x031c
-    call aztec_strlen                ; 0x031d
+    call strlen                ; 0x031d
     pop cx                           ; 0x0320
     mov cx, ax                       ; 0x0321
     mov ax, word [bp + 0xa]          ; 0x0323

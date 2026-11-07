@@ -1,7 +1,7 @@
 ; auto-generated
 apply_random_condition:
     mov ax, 0xfffa                   ; 0x312e
-    call aztec_csav                  ; 0x3131
+    call $csav                  ; 0x3131
     lea ax, word [bp - 6]            ; 0x3134
     push ax                          ; 0x3137
     lea ax, word [bp - 4]            ; 0x3138

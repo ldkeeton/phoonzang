@@ -1,7 +1,7 @@
 ; auto-generated
 move_party_to_dest:
     mov ax, 0xfffc                   ; 0x72a6
-    call aztec_csav                  ; 0x72a9
+    call $csav                  ; 0x72a9
     call check_at_saved_location     ; 0x72ac
     mov ax, word [bp + 4]            ; 0x72af
     shl ax, 1                        ; 0x72b2

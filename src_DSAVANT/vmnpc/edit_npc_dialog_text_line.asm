@@ -1,9 +1,9 @@
 ; auto-generated
 edit_npc_dialog_text_line:
     mov ax, 0xff50                   ; 0xa837
-    call aztec_csav                  ; 0xa83a
+    call $csav                  ; 0xa83a
     push word [bp + 6]               ; 0xa83d
-    call aztec_strlen                ; 0xa840
+    call strlen                ; 0xa840
     pop cx                           ; 0xa843
     mov cx, 6                        ; 0xa844
     imul cx                          ; 0xa847
@@ -16,7 +16,7 @@ edit_npc_dialog_text_line:
     mov word [bp - 0x10], ax         ; 0xa856
     mov word [bp - 0xe], 0x1e        ; 0xa859
     push word [bp + 6]               ; 0xa85e
-    call aztec_strlen                ; 0xa861
+    call strlen                ; 0xa861
     pop cx                           ; 0xa864
     mov cx, 6                        ; 0xa865
     imul cx                          ; 0xa868
@@ -89,7 +89,7 @@ edit_npc_dialog_text_line:
     cmp ax, strict word 0xffff       ; 0xa912
     je short .forward3               ; 0xa915
     push word [bp + 4]               ; 0xa917
-    call aztec_strlen                ; 0xa91a
+    call strlen                ; 0xa91a
     pop cx                           ; 0xa91d
     mov word [bp - 4], ax            ; 0xa91e
     mov word [bp - 6], ax            ; 0xa921
@@ -109,7 +109,7 @@ edit_npc_dialog_text_line:
     push ax                          ; 0xa941
     lea ax, word [bp - 0xb0]         ; 0xa942
     push ax                          ; 0xa946
-    call aztec_strncpy               ; 0xa947
+    call strncpy               ; 0xa947
     add sp, byte 6                   ; 0xa94a
     mov ax, word [bp - 4]            ; 0xa94d
     sub ax, word [bp - 6]            ; 0xa950
@@ -125,7 +125,7 @@ edit_npc_dialog_text_line:
 .forward4:
     lea ax, word [bp - 0xb0]         ; 0xa96c
     push ax                          ; 0xa970
-    call aztec_strlen                ; 0xa971
+    call strlen                ; 0xa971
     pop cx                           ; 0xa974
     mov word [bp - 4], ax            ; 0xa975
     mov al, byte [last_npc_text_entry_key] ; 0xa978
@@ -139,7 +139,7 @@ edit_npc_dialog_text_line:
     shl ax, cl                       ; 0xa992
     add ax, text_line_buffer         ; 0xa994
     push ax                          ; 0xa997
-    call aztec_strcpy                ; 0xa998
+    call strcpy                ; 0xa998
     add sp, byte 4                   ; 0xa99b
     push word [bp + 4]               ; 0xa99e
     mov ax, word [text_line_index]   ; 0xa9a1
@@ -147,7 +147,7 @@ edit_npc_dialog_text_line:
     shl ax, cl                       ; 0xa9a7
     add ax, text_line_buffer         ; 0xa9a9
     push ax                          ; 0xa9ac
-    call aztec_strcat                ; 0xa9ad
+    call strcat                ; 0xa9ad
     add sp, byte 4                   ; 0xa9b0
     mov ax, word [text_line_index]   ; 0xa9b3
     shl ax, 1                        ; 0xa9b6
@@ -157,12 +157,12 @@ edit_npc_dialog_text_line:
     push word [bp + 4]               ; 0xa9c3
     lea ax, word [bp - 0x60]         ; 0xa9c6
     push ax                          ; 0xa9c9
-    call aztec_strcpy                ; 0xa9ca
+    call strcpy                ; 0xa9ca
     add sp, byte 4                   ; 0xa9cd
     lea ax, word [bp - 0xb0]         ; 0xa9d0
     push ax                          ; 0xa9d4
     push word [bp + 4]               ; 0xa9d5
-    call aztec_strcpy                ; 0xa9d8
+    call strcpy                ; 0xa9d8
     add sp, byte 4                   ; 0xa9db
     mov word [bp - 8], 1             ; 0xa9de
     jmp short .forward6              ; 0xa9e3
@@ -177,7 +177,7 @@ edit_npc_dialog_text_line:
     lea ax, word [bp - 0x60]         ; 0xa9f7
     push ax                          ; 0xa9fa
     push word [bp + 4]               ; 0xa9fb
-    call aztec_strcpy                ; 0xa9fe
+    call strcpy                ; 0xa9fe
     add sp, byte 4                   ; 0xaa01
     mov word [bp - 8], 0             ; 0xaa04
 .forward6:
@@ -193,7 +193,7 @@ edit_npc_dialog_text_line:
     shl ax, cl                       ; 0xaa21
     add ax, text_line_buffer         ; 0xaa23
     push ax                          ; 0xaa26
-    call aztec_strcpy                ; 0xaa27
+    call strcpy                ; 0xaa27
     add sp, byte 4                   ; 0xaa2a
     jmp short .forward9              ; 0xaa2d
 .forward8:
@@ -209,7 +209,7 @@ edit_npc_dialog_text_line:
     shl ax, cl                       ; 0xaa47
     add ax, text_line_buffer         ; 0xaa49
     push ax                          ; 0xaa4c
-    call aztec_strcat                ; 0xaa4d
+    call strcat                ; 0xaa4d
     add sp, byte 4                   ; 0xaa50
     mov ax, word [text_line_index]   ; 0xaa53
     shl ax, 1                        ; 0xaa56
@@ -221,17 +221,17 @@ edit_npc_dialog_text_line:
     push word [bp + 4]               ; 0xaa69
     lea ax, word [bp - 0xb0]         ; 0xaa6c
     push ax                          ; 0xaa70
-    call aztec_strcpy                ; 0xaa71
+    call strcpy                ; 0xaa71
     add sp, byte 4                   ; 0xaa74
     lea ax, word [bp - 0x60]         ; 0xaa77
     push ax                          ; 0xaa7a
     push word [bp + 4]               ; 0xaa7b
-    call aztec_strcpy                ; 0xaa7e
+    call strcpy                ; 0xaa7e
     add sp, byte 4                   ; 0xaa81
     lea ax, word [bp - 0xb0]         ; 0xaa84
     push ax                          ; 0xaa88
     push word [bp + 4]               ; 0xaa89
-    call aztec_strcat                ; 0xaa8c
+    call strcat                ; 0xaa8c
     add sp, byte 4                   ; 0xaa8f
 .return1:
     ret                              ; 0xaa92

@@ -1,7 +1,7 @@
 ; auto-generated
 prepare_npc_interaction_screen:
     mov ax, 0xffe2                   ; 0x70b7
-    call aztec_csav                  ; 0x70ba
+    call $csav                  ; 0x70ba
     mov word [game_state], 5         ; 0x70bd
     cmp word [loaded_score_num], byte -1 ; 0x70c3
     je short .forward2               ; 0x70c8
@@ -62,7 +62,7 @@ prepare_npc_interaction_screen:
 .back2:
     mov ax, 0x18                     ; 0x7148
     push ax                          ; 0x714b
-    call aztec_malloc                ; 0x714c
+    call malloc                ; 0x714c
     pop cx                           ; 0x714f
     mov cx, word [bp - 2]            ; 0x7150
     shl cx, 1                        ; 0x7153
@@ -92,7 +92,7 @@ prepare_npc_interaction_screen:
     push ax                          ; 0x7197
     mov ax, cell_slot_ref            ; 0x7198
     push ax                          ; 0x719b
-    call aztec_setmem                ; 0x719c
+    call setmem                ; 0x719c
     add sp, byte 6                   ; 0x719f
     mov ax, 0                        ; 0x71a2
     push ax                          ; 0x71a5
@@ -100,7 +100,7 @@ prepare_npc_interaction_screen:
     push ax                          ; 0x71a9
     mov ax, npc_cell_effect_frame    ; 0x71aa
     push ax                          ; 0x71ad
-    call aztec_setmem                ; 0x71ae
+    call setmem                ; 0x71ae
     add sp, byte 6                   ; 0x71b1
     mov word [bp - 2], 0xf           ; 0x71b4
 .back3:
@@ -185,7 +185,7 @@ prepare_npc_interaction_screen:
     shl ax, 1                        ; 0x7294
     add ax, action_bitmap + 0xc      ; 0x7296
     push ax                          ; 0x7299
-    call aztec_movmem                ; 0x729a
+    call movmem                ; 0x729a
     add sp, byte 6                   ; 0x729d
     mov word [npc_gold_paid_total_high], 0 ; 0x72a0
     mov word [npc_gold_paid_total], 0 ; 0x72a6
@@ -195,6 +195,6 @@ prepare_npc_interaction_screen:
     push ax                          ; 0x72b3
     mov ax, npc_event_message_seen   ; 0x72b4
     push ax                          ; 0x72b7
-    call aztec_setmem                ; 0x72b8
+    call setmem                ; 0x72b8
     add sp, byte 6                   ; 0x72bb
     ret                              ; 0x72be

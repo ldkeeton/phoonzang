@@ -1,7 +1,7 @@
 ; auto-generated
 process_npc_dialog_response:
     mov ax, 0xfffc                   ; 0x8f85
-    call aztec_csav                  ; 0x8f88
+    call $csav                  ; 0x8f88
     mov ax, 7                        ; 0x8f8b
     push ax                          ; 0x8f8e
     mov ax, 2                        ; 0x8f8f

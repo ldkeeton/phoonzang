@@ -1,7 +1,7 @@
 ; auto-generated
 ovmain:
     mov ax, 0                        ; 0x000e
-    call aztec_csav                  ; 0x0011
+    call $csav                  ; 0x0011
     mov ax, word [game_state]        ; 0x0014
     jmp short .forward1              ; 0x0017
 .back1:

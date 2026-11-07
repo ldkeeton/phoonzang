@@ -1,7 +1,7 @@
 ; auto-generated
 draw_map_object_marker:
     mov ax, 0                        ; 0x0f52
-    call aztec_csav                  ; 0x0f55
+    call $csav                  ; 0x0f55
     mov ax, 0x55                     ; 0x0f58
     push ax                          ; 0x0f5b
     mov ax, 7                        ; 0x0f5c

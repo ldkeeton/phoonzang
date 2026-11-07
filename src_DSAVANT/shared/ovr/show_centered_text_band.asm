@@ -1,7 +1,7 @@
 ; auto-generated
 show_centered_text_band:
     mov ax, 0xfff8
-    call aztec_csav
+    call $csav
     mov ax, 0x98
     push ax
     mov ax, 0x13f
@@ -13,7 +13,7 @@ show_centered_text_band:
     call call_show_area
     add sp, byte 8
     push word [bp + 4]
-    call aztec_strlen
+    call strlen
     pop cx
     mov cx, 6
     imul cx
@@ -25,7 +25,7 @@ show_centered_text_band:
     sub ax, cx
     mov word [bp - 2], ax
     push word [bp + 4]
-    call aztec_strlen
+    call strlen
     pop cx
     mov cx, 6
     imul cx

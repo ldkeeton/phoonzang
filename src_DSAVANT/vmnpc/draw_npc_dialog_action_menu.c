@@ -4,7 +4,7 @@
 extern int menu_selection_index, mouse_active, hotspot_hit;
 extern int hotspot_rects[];
 extern int load_message_string(), draw_bevel_frame(), fill_frame_border();
-extern int call_set_text_color(), call_set_text_pos(), aztec_strlen();
+extern int call_set_text_color(), call_set_text_pos(), strlen();
 extern int draw_text_glyphs(), set_hotspot(), show_area_set();
 extern int poll_hotspots(), step_npc_screen_animation();
 extern int poll_filtered_key();
@@ -42,7 +42,7 @@ int *enabled;
 			draw_bevel_frame(top + x_offset, left + y_offset,
 				6 * text_width + top + x_offset, left + y_offset + 6, 0);
 			call_set_text_color(text_color, 0);
-			call_set_text_pos((text_width - aztec_strlen(option_text[shown])) * 6 / 2
+			call_set_text_pos((text_width - strlen(option_text[shown])) * 6 / 2
 				+ top + x_offset + 1, left + y_offset + 1);
 			draw_text_glyphs(option_text[shown], 0);
 			set_hotspot(shown, top + x_offset, left + y_offset,

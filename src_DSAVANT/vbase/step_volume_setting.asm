@@ -1,7 +1,7 @@
 ; auto-generated
 step_volume_setting:
     mov ax, 0                        ; 0x4b29
-    call aztec_csav                  ; 0x4b2c
+    call $csav                  ; 0x4b2c
     cmp word [bp + 6], byte 0        ; 0x4b2f
     jge short .forward2              ; 0x4b33
     mov bx, word [bp + 4]            ; 0x4b35

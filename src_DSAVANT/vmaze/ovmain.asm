@@ -1,7 +1,7 @@
 ; auto-generated
 ovmain:
     mov ax, 0xfffe                   ; 0x000e
-    call aztec_csav                  ; 0x0011
+    call $csav                  ; 0x0011
     mov word [capture_center_marker_mode], 0 ; 0x0014
     mov word [party_redraw_interval], 5 ; 0x001a
     les bx, word [tick_counter_ptr]  ; 0x0020

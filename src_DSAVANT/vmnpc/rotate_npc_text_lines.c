@@ -9,7 +9,7 @@ rotate_npc_text_lines()
 	int slot;
 
 	for (slot = 0; slot < 3; ++slot) {
-		aztec_strcpy(text_line_buffer + slot * 128,
+		strcpy(text_line_buffer + slot * 128,
 			text_line_buffer + (slot + 1) * 128);
 		text_line_color[slot] = text_line_color[slot + 1];
 	}

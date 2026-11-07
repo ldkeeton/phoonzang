@@ -1,7 +1,7 @@
 ; auto-generated
 draw_member_realm_points:
     mov ax, 0xfffc
-    call aztec_csav
+    call $csav
     mov ax, 0
     push ax
     push ax

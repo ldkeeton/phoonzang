@@ -1,7 +1,7 @@
 ; auto-generated
 tick_party_combatants:
     mov ax, 0xfd84                   ; 0x1f39
-    call aztec_csav                  ; 0x1f3c
+    call $csav                  ; 0x1f3c
     mov word [bp - 2], 0             ; 0x1f3f
     jmp short .forward2              ; 0x1f44
 .back1:
@@ -92,7 +92,7 @@ tick_party_combatants:
     imul word [bp - 2]               ; 0x2011
     add ax, party_records            ; 0x2014
     push ax                          ; 0x2017
-    call aztec_swapmem               ; 0x2018
+    call swapmem               ; 0x2018
     add sp, byte 6                   ; 0x201b
     mov ax, 0x2c                     ; 0x201e
     push ax                          ; 0x2021
@@ -108,7 +108,7 @@ tick_party_combatants:
     mov ax, word [battle_groups]     ; 0x2038
     add ax, cx                       ; 0x203b
     push ax                          ; 0x203d
-    call aztec_swapmem               ; 0x203e
+    call swapmem               ; 0x203e
     add sp, byte 6                   ; 0x2041
     mov ax, word [bp - 2]            ; 0x2044
     shl ax, 1                        ; 0x2047

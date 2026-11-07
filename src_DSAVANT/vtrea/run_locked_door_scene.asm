@@ -1,7 +1,7 @@
 ; auto-generated
 run_locked_door_scene:
     mov ax, 0                        ; 0x811f
-    call aztec_csav                  ; 0x8122
+    call $csav                  ; 0x8122
     mov ax, MSG_LOCKED_DOOR          ; 0x8125
     cmp word [maze_variant], byte 1  ; 0x8128
     jne short .forward1              ; 0x812d

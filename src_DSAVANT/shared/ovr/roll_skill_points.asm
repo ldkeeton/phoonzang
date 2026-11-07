@@ -1,7 +1,7 @@
 ; auto-generated
 roll_skill_points:
     mov ax, 0xffe4
-    call aztec_csav
+    call $csav
     mov ax, word [bp + 6]
     mov word [bp - 0xc], ax
     mov ax, word [bp + 8]

@@ -1,7 +1,7 @@
 ; auto-generated
 roll_random_then_wait_10_ms:
     mov ax, 0                        ; 0x05c0
-    call aztec_csav                  ; 0x05c3
+    call $csav                  ; 0x05c3
     mov ax, 0x50                     ; 0x05c6
     push ax                          ; 0x05c9
     call random_below                ; 0x05ca

@@ -16,7 +16,7 @@ extern unsigned char current_faction_index;
 extern char npc_slot_index;
 extern char quest_map_name_buffer[24];
 extern char quest_map_subject_buffer[24];
-extern int aztec_setmem();
+extern int setmem();
 extern int random_below();
 extern int load_message_string();
 extern int str_subst_char();
@@ -37,7 +37,7 @@ int suppress_empty;
 	int detail_message;
 	int slot_has_message[22];
 
-	aztec_setmem(slot_has_message, 44, 0);
+	setmem(slot_has_message, 44, 0);
 	matching_slots = 0;
 	for (slot_index = 0; slot_index < 21; ++slot_index) {
 		if (slot_records[slot_index].health > 0 &&

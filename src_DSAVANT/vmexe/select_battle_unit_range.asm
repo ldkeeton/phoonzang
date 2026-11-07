@@ -1,7 +1,7 @@
 ; auto-generated
 select_battle_unit_range:
     mov ax, 0xfffa                   ; 0x25d0
-    call aztec_csav                  ; 0x25d3
+    call $csav                  ; 0x25d3
     cmp word [bp + 6], byte 0        ; 0x25d6
     jl short .forward1               ; 0x25da
     mov ax, word [bp + 6]            ; 0x25dc

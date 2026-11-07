@@ -1,7 +1,7 @@
 ; auto-generated
 set_character_skill_flags:
     mov ax, 0xfffc                   ; 0x82da
-    call aztec_csav                  ; 0x82dd
+    call $csav                  ; 0x82dd
     mov ax, word [skill_group_ranges] ; 0x82e0
     mov word [bp - 4], ax            ; 0x82e3
     mov word [bp - 2], 0             ; 0x82e6
@@ -32,7 +32,7 @@ set_character_skill_flags:
     inc word [bp - 2]                ; 0x8321
 .forward4:
     push word [bp + 6]               ; 0x8324
-    call aztec_strlen                ; 0x8327
+    call strlen                ; 0x8327
     pop cx                           ; 0x832a
     cmp ax, word [bp - 2]            ; 0x832b
     jg short .back1                  ; 0x832e
@@ -66,7 +66,7 @@ set_character_skill_flags:
     inc word [bp - 2]                ; 0x8371
 .forward8:
     push word [bp + 8]               ; 0x8374
-    call aztec_strlen                ; 0x8377
+    call strlen                ; 0x8377
     pop cx                           ; 0x837a
     cmp ax, word [bp - 2]            ; 0x837b
     jg short .back2                  ; 0x837e
@@ -100,7 +100,7 @@ set_character_skill_flags:
     inc word [bp - 2]                ; 0x83c1
 .forward12:
     push word [bp + 0xa]             ; 0x83c4
-    call aztec_strlen                ; 0x83c7
+    call strlen                ; 0x83c7
     pop cx                           ; 0x83ca
     cmp ax, word [bp - 2]            ; 0x83cb
     jg short .back3                  ; 0x83ce
@@ -134,7 +134,7 @@ set_character_skill_flags:
     inc word [bp - 2]                ; 0x8411
 .forward16:
     push word [bp + 0xc]             ; 0x8414
-    call aztec_strlen                ; 0x8417
+    call strlen                ; 0x8417
     pop cx                           ; 0x841a
     cmp ax, word [bp - 2]            ; 0x841b
     jg short .back4                  ; 0x841e

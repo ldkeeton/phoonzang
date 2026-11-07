@@ -1,7 +1,7 @@
 ; auto-generated
 select_party_member_from_roster:
     mov ax, 0xffee                   ; 0x0521
-    call aztec_csav                  ; 0x0524
+    call $csav                  ; 0x0524
     mov ax, 0                        ; 0x0527
     push ax                          ; 0x052a
     push ax                          ; 0x052b

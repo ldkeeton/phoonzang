@@ -1,7 +1,7 @@
 ; auto-generated
 load_current_maze_level:
     mov ax, 0                        ; 0x09cb
-    call aztec_csav                  ; 0x09ce
+    call $csav                  ; 0x09ce
     mov ax, 0                        ; 0x09d1
     push ax                          ; 0x09d4
     push word [current_level]        ; 0x09d5

@@ -23,19 +23,18 @@ extern int npc_action_bitmap_copy;
 extern int npc_message_ready, npc_action_state;
 extern int npc_dialog_option_state, npc_dialog_secondary_state;
 extern int npc_selected_dialog_option;
-extern int aztec_csav();
 extern int call_is_music_playing(), free_loaded_score();
 extern int free_current_maze();
 extern long call_cache_area();
 extern int restore_saved_screen();
-extern char *aztec_malloc();
+extern char *malloc();
 extern int release_and_exit();
-extern int aztec_setmem();
+extern int setmem();
 extern long call_save_area();
 extern int load_monster_picture();
 extern int redraw_glyph_strip();
 extern int data_record_io();
-extern int aztec_movmem();
+extern int movmem();
 
 prepare_npc_interaction_screen()
 {
@@ -69,15 +68,15 @@ prepare_npc_interaction_screen()
 	}
 	screen_cache_1_off = call_cache_area(72, 33, 247, 143, 2, 0);
 	for (i = 0; i < 12; ++i) {
-		overlay_list[i + 1] = (struct overlay_item *)aztec_malloc(24);
+		overlay_list[i + 1] = (struct overlay_item *)malloc(24);
 		if (overlay_list[i + 1] == 0)
 			release_and_exit(29);
 		overlay_list[i + 1]->code = 255;
 	}
 	overlay_list[0] = 0;
 	party_screen_animation_state = -2;
-	aztec_setmem(cell_slot_ref, 18, 0);
-	aztec_setmem(npc_cell_effect_frame, 18, 0);
+	setmem(cell_slot_ref, 18, 0);
+	setmem(npc_cell_effect_frame, 18, 0);
 	for (i = 15; i < 18; ++i) {
 		picture_slot_number[i] = 255;
 		picture_slot_used[i] = 0;
@@ -97,9 +96,9 @@ prepare_npc_interaction_screen()
 	npc_selected_dialog_option = -1;
 	/* The record loader uses these fields as its index and scratch record. */
 	data_record_io(5, npc_record_buffer, npc_record_index, 0);
-	aztec_movmem(action_bitmap + 6 + npc_record_index,
+	movmem(action_bitmap + 6 + npc_record_index,
 		&npc_action_bitmap_copy, 2);
 	npc_gold_paid_total_high = 0;
 	npc_gold_paid_total = 0;
-	aztec_setmem(npc_event_message_seen, 110, 0);
+	setmem(npc_event_message_seen, 110, 0);
 }

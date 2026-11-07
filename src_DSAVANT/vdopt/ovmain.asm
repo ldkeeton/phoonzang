@@ -1,7 +1,7 @@
 ; auto-generated
 ovmain:
     mov ax, 0                        ; 0x000e
-    call aztec_csav                  ; 0x0011
+    call $csav                  ; 0x0011
     cmp word [saved_screen_pending], byte 0 ; 0x0014
     je short .forward1               ; 0x0019
     mov ax, 1                        ; 0x001b

@@ -18,7 +18,7 @@ extern int redraw_treasure_caption();
 extern int mark_party_member_dead();
 extern int wait_treasure_input_or_timeout();
 extern int load_message_string();
-extern int aztec_strlen();
+extern int strlen();
 extern int call_set_text_pos();
 extern int call_set_text_color();
 extern int draw_text_glyphs();
@@ -65,12 +65,12 @@ apply_region_event_to_party()
 		if (levitation_turns > 0) {
 			damage_blocked = 1;
 		load_message_string(MSG_PROTECTED_BY_LEVITATION, message);
-		message_x = 160 - aztec_strlen(message) * 6 / 2;
+		message_x = 160 - strlen(message) * 6 / 2;
 		call_set_text_pos(message_x, 163);
 		call_set_text_color(184, 0);
 		draw_text_glyphs(message, 0);
 		call_show_area(message_x, 163,
-			message_x + aztec_strlen(message) * 6, 169);
+			message_x + strlen(message) * 6, 169);
 		ensure_sound_loaded(17);
 		play_sound_effect(16);
 		wait_and_free_sound(16);

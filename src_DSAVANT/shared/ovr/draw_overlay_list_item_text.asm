@@ -1,7 +1,7 @@
 ; auto-generated
 draw_overlay_list_item_text:
     mov ax, 0
-    call aztec_csav
+    call $csav
     mov ax, word [bp + 4]
     shl ax, 1
     mov bx, ax

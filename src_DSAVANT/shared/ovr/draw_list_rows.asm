@@ -1,7 +1,7 @@
 ; auto-generated
 draw_list_rows:
     mov ax, 0xfffc
-    call aztec_csav
+    call $csav
     mov word [bp - 2], 0
     jmp near .forward7
 .back1:

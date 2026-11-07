@@ -1,7 +1,7 @@
 ; auto-generated
 refresh_floor_item_icon:
     mov ax, 0xfffa
-    call aztec_csav
+    call $csav
     call find_floor_item_at_party
     mov word [bp - 2], ax
     test ax, ax

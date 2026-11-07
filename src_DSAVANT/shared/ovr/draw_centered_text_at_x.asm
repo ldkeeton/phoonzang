@@ -1,7 +1,7 @@
 ; auto-generated
 draw_centered_text_at_x:
     mov ax, 0
-    call aztec_csav
+    call $csav
     mov ax, 0
     push ax
     push word [bp + 0xa]
@@ -9,7 +9,7 @@ draw_centered_text_at_x:
     add sp, byte 4
     push word [bp + 8]
     push word [bp + 4]
-    call aztec_strlen
+    call strlen
     pop cx
     mov cx, 6
     imul cx

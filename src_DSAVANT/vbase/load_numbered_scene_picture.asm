@@ -1,7 +1,7 @@
 ; auto-generated
 load_numbered_scene_picture:
     mov ax, 0xffea                   ; 0x72d0
-    call aztec_csav                  ; 0x72d3
+    call $csav                  ; 0x72d3
     mov ax, 0                        ; 0x72d6
     push ax                          ; 0x72d9
     call call_wait_sound             ; 0x72da
@@ -10,7 +10,7 @@ load_numbered_scene_picture:
     push ax                          ; 0x72e1
     lea ax, word [bp - 0x16]         ; 0x72e2
     push ax                          ; 0x72e5
-    call aztec_strcpy                ; 0x72e6
+    call strcpy                ; 0x72e6
     add sp, byte 4                   ; 0x72e9
     mov ax, word [bp + 4]            ; 0x72ec
     mov cx, 0xa                      ; 0x72ef
@@ -30,7 +30,7 @@ load_numbered_scene_picture:
     call data_file_path              ; 0x730f
     add sp, byte 4                   ; 0x7312
     push ax                          ; 0x7315
-    call aztec_open                  ; 0x7316
+    call open                  ; 0x7316
     add sp, byte 4                   ; 0x7319
     mov word [bp - 2], ax            ; 0x731c
     cmp ax, strict word 0xffff       ; 0x731f
@@ -45,6 +45,6 @@ load_numbered_scene_picture:
     call call_load_picture           ; 0x7332
     add sp, byte 4                   ; 0x7335
     push word [bp - 2]               ; 0x7338
-    call aztec_close                 ; 0x733b
+    call close                 ; 0x733b
     pop cx                           ; 0x733e
     ret                              ; 0x733f

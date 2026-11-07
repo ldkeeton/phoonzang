@@ -1,7 +1,7 @@
 ; auto-generated
 give_quest_map:
     mov ax, 0xfffe
-    call aztec_csav
+    call $csav
     mov al, byte [bp + 4]
     push ax
     mov ax, 6

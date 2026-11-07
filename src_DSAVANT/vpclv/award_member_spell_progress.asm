@@ -1,7 +1,7 @@
 ; auto-generated
 award_member_spell_progress:
     mov ax, 0xffe8                   ; 0x4955
-    call aztec_csav                  ; 0x4958
+    call $csav                  ; 0x4958
     mov ax, 0x248                    ; 0x495b
     imul word [bp + 4]               ; 0x495e
     mov bx, ax                       ; 0x4961

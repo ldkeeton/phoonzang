@@ -12,7 +12,7 @@ extern int banner_offset, banner_plain_flag, banner_animation_frame;
 extern char percent_suffix_text[];
 extern int call_restore_screen(), draw_doubled_member_portrait();
 extern int call_set_text_color(), call_set_text_pos();
-extern int aztec_strlen(), draw_text_glyphs(), draw_font_glyph();
+extern int strlen(), draw_text_glyphs(), draw_font_glyph();
 extern int load_message_string(), draw_number_field(), draw_padded_number();
 extern int clamp_between(), draw_title_banner(), format_int_decimal();
 extern int format_long_decimal(), sum_member_item_weight();
@@ -36,7 +36,7 @@ int member_index;
 		member_detail_cache_high, 0, 0);
 	draw_doubled_member_portrait(member_index, 14, 18);
 	call_set_text_color(0, 0);
-	call_set_text_pos(40 - aztec_strlen(party_records[member_index].name) * 6 / 2,
+	call_set_text_pos(40 - strlen(party_records[member_index].name) * 6 / 2,
 		76);
 	draw_text_glyphs(party_records[member_index].name, 0);
 	call_set_text_color(1, 0);
@@ -81,7 +81,7 @@ int member_index;
 	load_message_string(MSG_RANK_BASE +
 		party_records[member_index].profession * 10 +
 		party_records[member_index].rank, text);
-	call_set_text_pos((52 - aztec_strlen(text)) * 6, 6);
+	call_set_text_pos((52 - strlen(text)) * 6, 6);
 	draw_text_glyphs(text, 0);
 	call_set_text_color(71, 0);
 	load_message_string(MSG_EXP, text);

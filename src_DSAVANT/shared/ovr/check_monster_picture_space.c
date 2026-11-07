@@ -2,8 +2,8 @@
 extern char monster_picture_template[];	/* "MON00.PIC" */
 extern char *data_file_path();
 extern long call_get_free_space();
-extern int aztec_strcpy(), aztec_open(), aztec_close();
-extern long aztec_lseek();
+extern int strcpy(), open(), close();
+extern long lseek();
 extern unsigned char picture_slot_number[];
 extern unsigned char screen_store_1_enabled, screen_store_disk_enabled;
 extern unsigned char screen_store_drive;
@@ -26,14 +26,14 @@ int picture_number;
 	}
 
 	/* Add two decimal digits to the file name template. */
-	aztec_strcpy(file_path, monster_picture_template);
+	strcpy(file_path, monster_picture_template);
 	file_path[3] = (char)('0' + picture_number / 10);
 	file_path[4] = (char)('0' + picture_number % 10);
-	file_handle = aztec_open(data_file_path(file_path, 1), 0);
+	file_handle = open(data_file_path(file_path, 1), 0);
 	if (file_handle == -1)
 		return -1;
-	file_size = aztec_lseek(file_handle, 0L, 2);
-	aztec_close(file_handle);
+	file_size = lseek(file_handle, 0L, 2);
+	close(file_handle);
 
 	/* Initially reserve 0x2800 bytes in addition to the existing file. */
 	extra_space = 10240L;

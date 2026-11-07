@@ -1,7 +1,7 @@
 ; auto-generated
 apply_character_stat_minimums:
     mov ax, 0xfffe                   ; 0x402d
-    call aztec_csav                  ; 0x4030
+    call $csav                  ; 0x4030
     mov word [bp - 2], 0             ; 0x4033
 .back1:
     mov ax, 0x248                    ; 0x4038

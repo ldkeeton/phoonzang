@@ -1,7 +1,7 @@
 ; auto-generated
 draw_item_slot_label:
     mov ax, 0xfffc
-    call aztec_csav
+    call $csav
     mov ax, word [bp + 6]
     mov cx, 5
     cwd

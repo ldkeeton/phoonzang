@@ -13,7 +13,7 @@ put_int_right_aligned:
 .back1:
     lea ax, word [bp - 0xff]         ; 0x072f
     push ax                          ; 0x0733
-    call aztec_strlen                ; 0x0734
+    call strlen                ; 0x0734
     pop cx                           ; 0x0737
     sub ax, word [bp + 6]            ; 0x0738
     jge short .forward1              ; 0x073b
@@ -26,7 +26,7 @@ put_int_right_aligned:
 .forward1:
     lea ax, word [bp - 0xff]         ; 0x074a
     push ax                          ; 0x074e
-    call aztec_strlen                ; 0x074f
+    call strlen                ; 0x074f
     pop cx                           ; 0x0752
     sub ax, word [bp + 6]            ; 0x0753
     mov word [bp - 0x103], ax        ; 0x0756
@@ -44,7 +44,7 @@ put_int_right_aligned:
 .forward2:
     lea ax, word [bp - 0xff]         ; 0x0777
     push ax                          ; 0x077b
-    call aztec_strlen                ; 0x077c
+    call strlen                ; 0x077c
     pop cx                           ; 0x077f
     cmp ax, word [bp - 0x103]        ; 0x0780
     jg short .back2                  ; 0x0784

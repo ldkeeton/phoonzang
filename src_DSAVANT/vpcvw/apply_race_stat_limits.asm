@@ -1,7 +1,7 @@
 ; auto-generated
 apply_race_stat_limits:
     mov ax, 0                        ; 0x91d9
-    call aztec_csav                  ; 0x91dc
+    call $csav                  ; 0x91dc
     mov ax, word [bp + 6]            ; 0x91df
     jmp near .forward1               ; 0x91e2
 jumptable_928f_case_0:

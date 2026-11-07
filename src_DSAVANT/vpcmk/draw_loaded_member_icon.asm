@@ -1,7 +1,7 @@
 ; auto-generated
 draw_loaded_member_icon:
     mov ax, 0xfff0                   ; 0x18b5
-    call aztec_csav                  ; 0x18b8
+    call $csav                  ; 0x18b8
     lea ax, word [bp - 0xc]          ; 0x18bb
     push ax                          ; 0x18be
     lea ax, word [bp - 0xa]          ; 0x18bf

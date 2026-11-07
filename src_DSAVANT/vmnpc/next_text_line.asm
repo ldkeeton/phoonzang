@@ -1,7 +1,7 @@
 ; auto-generated
 next_text_line:
     mov ax, 0xfffc                   ; 0x0e15
-    call aztec_csav                  ; 0x0e18
+    call $csav                  ; 0x0e18
     cmp word [text_line_index], byte 2 ; 0x0e1b
     jle short .forward1              ; 0x0e20
     call rotate_npc_text_lines       ; 0x0e22

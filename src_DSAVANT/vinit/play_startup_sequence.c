@@ -13,7 +13,7 @@ extern unsigned char startup_aux_option_b;
 extern int mouse_active, hotspot_hit, game_state;
 extern unsigned char picture_slot_number[], picture_slot_used[];
 extern int call_set_text_pos(), call_set_text_color(), draw_text_glyphs();
-extern int measure_text_width(), aztec_strlen(), call_dissolve_area();
+extern int measure_text_width(), strlen(), call_dissolve_area();
 extern int call_is_music_playing(), fade_out_music(), free_loaded_score();
 extern int poll_fullscreen_hotspot(), flush_keyboard(), call_fade_out();
 extern int call_wait_sound(), call_mouse_init();
@@ -152,7 +152,7 @@ play_startup_sequence()
 				/* Token 3 uses six-pixel character spacing; other tokens use measured
 				   width. */
 				if (message_token == 3) {
-					text_x = 160 - (aztec_strlen(message_cursor) * 6) / 2;
+					text_x = 160 - (strlen(message_cursor) * 6) / 2;
 					text_mode = 0;
 				}
 				else {

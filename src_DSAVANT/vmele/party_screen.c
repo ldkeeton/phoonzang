@@ -9,11 +9,11 @@ extern struct slot_rec slot_recs[];
 extern int monster_group_count, party_char_count;
 extern int cell_action_marks[3][3], cell_slot_ref[3][3];
 extern int random_below(), redraw_glyph_strip(), wait_ticks_with_events();
-extern int titlecase_string(), aztec_strlen(), load_message_string();
+extern int titlecase_string(), strlen(), load_message_string();
 extern int show_centered_message(), play_action_overlays();
 extern int run_party_screen_animation(), setup_monster_pictures();
 extern int advance_group_toward_party(), fill_row_action_slots();
-extern int aztec_strcpy(), aztec_swapmem();
+extern int strcpy(), swapmem();
 
 party_screen()
 {
@@ -64,12 +64,12 @@ party_screen()
 		    random_below(group_score[group_index - 1])) {
 			redraw_glyph_strip(1);
 			wait_ticks_with_events(1);
-			aztec_strcpy(message,
+			strcpy(message,
 				battle_group_ext[group_index]->name[
 					battle_groups[group_index]->unidentified]
 					[battle_groups[group_index]->unit_count == 1 ? 0 : 1]);
 			titlecase_string(message);
-			inner_index = aztec_strlen(message);
+			inner_index = strlen(message);
 			message[inner_index] = ' ';
 			load_message_string(
 				battle_groups[group_index]->unit_count == 1
@@ -99,9 +99,9 @@ party_screen()
 			cell_row = group_score[group_index];
 			group_score[group_index] = group_score[group_index - 1];
 			group_score[group_index - 1] = cell_row;
-			aztec_swapmem(battle_groups[group_index], battle_groups[group_index - 1],
+			swapmem(battle_groups[group_index], battle_groups[group_index - 1],
 				sizeof(struct member_rec));
-			aztec_swapmem(battle_group_ext[group_index],
+			swapmem(battle_group_ext[group_index],
 				battle_group_ext[group_index - 1],
 				sizeof(struct member_ext));
 			/* Repair party members' references to the exchanged group numbers. */

@@ -1,7 +1,7 @@
 ; auto-generated
 poll_escape_key:
     mov ax, 0xfffe                   ; 0x094a
-    call aztec_csav                  ; 0x094d
+    call $csav                  ; 0x094d
     cmp word [story_escape_state], byte -1 ; 0x0950
     jne short .forward1              ; 0x0955
     mov ax, 0                        ; 0x0957

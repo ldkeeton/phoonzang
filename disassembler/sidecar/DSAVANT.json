@@ -407,7 +407,7 @@
       "bands": [
         {"name": "game", "start": "0200", "end": "2f34", "note": "cc-compiled game objects (all csav), ending with main; 0x2f35 is the linker's word-alignment pad (0x00) before the library object, outside every band"},
         {"name": "library", "start": "2f36", "end": "4378", "note": "in-house assembly library: CS-resident data block (video flags, gfx driver slots) and frameless routines: video detect, driver load, call_* driver thunks, keyboard, font"},
-        {"name": "aztec", "start": "4379", "end": "5254", "note": "Aztec C.LIB modules, linked last"}
+        {"name": "aztec", "start": "4379", "end": "5254", "lib": "c.lib", "objects": {"ovloader": "ovld.o", "$ovbgn": "ovbgn.o"}, "note": "Aztec C.LIB modules, linked last"}
       ],
       "fingerprint-start": "9e68e13368a5e977af6f4921d01938b5d8932faa7c4a526c5a2dc1c7082dd9fa",
       "fingerprint-end": "b94811b8e00674347f4917bc5eda18025b74473bed7ed5aadc3638184285f0de",
@@ -1170,7 +1170,7 @@
       "bands": [
         {"name": "game", "start": "0200", "end": "245d", "note": "cc-compiled game objects (all csav), ending with main"},
         {"name": "library", "start": "245e", "end": "2805", "note": "in-house assembly library: detect_video_and_mouse, the CS-resident video-mode byte (cseg_2479), then frameless BIOS/DOS text-mode routines"},
-        {"name": "aztec", "start": "2806", "end": "3ad1", "note": "Aztec C.LIB modules, linked last; 0x3ad2-0x3adf is the zero pad before DS, outside every band"}
+        {"name": "aztec", "start": "2806", "end": "3ad1", "lib": "c.lib", "note": "Aztec C.LIB modules, linked last; 0x3ad2-0x3adf is the zero pad before DS, outside every band"}
       ],
       "compiler_flags": {
         "default": ["-n"],

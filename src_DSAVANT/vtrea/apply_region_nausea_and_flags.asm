@@ -1,7 +1,7 @@
 ; auto-generated
 apply_region_nausea_and_flags:
     mov ax, 0xfffa                   ; 0x550e
-    call aztec_csav                  ; 0x5511
+    call $csav                  ; 0x5511
     mov ax, word [party_region]      ; 0x5514
     shl ax, 1                        ; 0x5517
     mov si, ax                       ; 0x5519

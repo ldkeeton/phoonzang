@@ -1,7 +1,7 @@
 ; auto-generated
 choose_member_item_to_use:
     mov ax, 0xff6c                   ; 0x33db
-    call aztec_csav                  ; 0x33de
+    call $csav                  ; 0x33de
     mov word [bp - 0x6a], 0          ; 0x33e1
     mov word [bp - 0x4e], 0          ; 0x33e6
 .back1:
@@ -60,7 +60,7 @@ choose_member_item_to_use:
     imul word [bp - 0x6a]            ; 0x3462
     add ax, list_row_name            ; 0x3465
     push ax                          ; 0x3468
-    call aztec_strcpy                ; 0x3469
+    call strcpy                ; 0x3469
     add sp, byte 4                   ; 0x346c
     jmp short .forward3              ; 0x346f
 .forward2:

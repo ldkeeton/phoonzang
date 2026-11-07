@@ -12,7 +12,7 @@ extern int npc_dialog_choice_backup, npc_dialog_topic_1_enabled;
 extern int copy_npc_choice_text(), wrap_npc_message(), swap_npc_pronoun();
 extern int titlecase_string(), load_message_string();
 extern int str_subst_char(), append_npc_message_text(), random_below();
-extern int aztec_strcpy();
+extern int strcpy();
 
 build_npc_dialog_choice_reply()
 {
@@ -39,7 +39,7 @@ build_npc_dialog_choice_reply()
 	}
 	if (npc_dialog_choice_code == -1 && npc_dialog_choice_index == -1) {
 		if (npc_dialog_primary_choice != -1) {
-			aztec_strcpy(choice_name,
+			strcpy(choice_name,
 				npc_dialog_verb_words[npc_dialog_primary_choice]);
 			titlecase_string(choice_name);
 			append_npc_message_text(MSG_WHAT_1602, choice_name);
