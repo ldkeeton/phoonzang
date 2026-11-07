@@ -45,6 +45,15 @@ class ParsePatchesTest(unittest.TestCase):
                             'apply': 'eb04', 'allow': ['7404'],
                             'note': 'x'}])
 
+    def test_disabled_entry_is_checked_then_left_out(self):
+        self.assertEqual(parse_patches([{**RAW[0], 'disabled': True}]), [])
+        self.assertEqual(len(parse_patches([{**RAW[0], 'disabled': False}])),
+                         1)
+        with self.assertRaises(SidecarError):
+            parse_patches([{**RAW[0], 'disabled': 'yes'}])
+        with self.assertRaises(SidecarError):
+            parse_patches([{**RAW[0], 'disabled': True, 'note': ''}])
+
     def test_overlap_is_rejected(self):
         with self.assertRaises(SidecarError):
             parse_patches([

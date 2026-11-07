@@ -1,51 +1,113 @@
 """``build.sh``: the project's own build, which needs nothing but its tree.
 
-:func:`lib.aztec.project.project_files` writes it next to the ``makefile``.  It
-reads that makefile and the ``.lnk`` files at run time, so it builds whatever
-they say today: edited flags, a ``.c`` that replaced a ``.s``, a reordered
-``.lnk``.  It knows nothing of the disassembler or the sidecar: copy the tree
-anywhere and run it; the first run downloads the one ``dos_compilers`` folder
+:func:`lib.aztec.project.project_files` writes it next to the ``makefile``, but
+it reads neither that nor the ``.lnk`` files: what it builds is a block of
+plain bash at its top (:func:`config`: the binaries, their ``ln`` flags and
+roots, the C flags), and each binary is every ``.s``/``.c`` in its own
+directory plus what it calls from a library of the shared ones, in no
+particular order.  So a new ``.c``, a ``.c`` that replaced a ``.s``, or a
+deleted ``.asm`` needs no other edit; it gives up the byte-exact layout ``make
+link`` keeps.  It knows nothing of the disassembler or the sidecar: copy the
+tree anywhere and run it; the first run downloads the one ``dos_compilers`` folder
 the sidecar names into the tree's own ``dos_compilers/`` the way ``make init``
 does (a GitHub tree listing, then each file over HTTPS, checked against its
 size and git blob hash).  Unlike ``make link`` it applies no byte patches; the
 binaries are exactly what the sources link to.  Like ``make build`` it fills
-``build_out/`` with the game's other files (data, pictures, drivers it does not
-build) from the app directory, so a deleted ``build_out`` comes back runnable.
+``build_out_new/`` with the game's other files (data, pictures, drivers it does not
+build) from the app directory, so a deleted ``build_out_new`` comes back runnable.
 
-``run.sh`` (:func:`run_script`) beside it launches the game in ``build_out/``
+``run.sh`` (:func:`run_script`) beside it launches the game in ``build_out_new/``
 under DOSBox-X, as ``make run`` does.  Both start with a ``#!`` line, so the
 build makes them executable (:func:`lib.autogen.sync`).
 """
 
+import textwrap
 from collections import namedtuple
 
 Compiler = namedtuple('Compiler', 'repo ref folder')
+#: One binary of ``build.sh``: its name (its source directory), the file it
+#: makes, the name ``ln`` writes (renamed to *file* when they differ), the
+#: binary whose ``.rsm`` it links against (``None``), its ``ln`` flags, a
+#: description (``None``), the module that must open it (``None``), and the
+#: startup modules nothing calls, linked in by force.
+Binary = namedtuple('Binary', 'name file ln_output root ln_flags desc first entry')
+#: The modules Aztec starts a program (``$begin``) and an overlay (``$ovbgn``)
+#: at: no symbol names them, so the library would never give them.
+ENTRY_STEMS = ('aztec_begin', 'aztec_ovbgn')
 
 
-def script(compiler, game=''):
+def _q(text):
+    """*text* as one bash word."""
+    return "'" + text.replace("'", "'\\''") + "'"
+
+
+def config(binaries, cflags, aflags, include, libdirs, binary_cflags=None,
+           object_cflags=None):
+    """The bash block at the top of ``build.sh``: *binaries* (:data:`Binary`,
+    roots first), the default C and assembler flags (lists), the include and
+    library directories, and ``{binary: flags}`` / ``{module: flags}`` of the
+    C flags other than the default."""
+    lines = [f'CFLAGS={_q(" ".join(cflags))}', f'AFLAGS={_q(" ".join(aflags))}',
+             f'INCLUDE={_q(include)}',
+             '# Every source under these goes into SHARED.LIB.',
+             'LIBDIRS=(' + ' '.join(_q(d) for d in libdirs) + ')',
+             '# NAME FILE LN_WRITES ROOT [LN_FLAGS ...], ROOT - for none.  NAME/ holds',
+             '# its sources.',
+             'BINARIES=(']
+    for b in binaries:
+        for line in textwrap.wrap(b.desc or '', 74):
+            lines.append(f'    # {line}')
+        words = [b.name, b.file, b.ln_output, b.root or '-', *b.ln_flags]
+        lines.append(f'    {_q(" ".join(words))}')
+    lines.append(')')
+
+    def table(name, comment, items):
+        lines.extend(comment)
+        if not items:
+            lines.append(f'declare -A {name}=()')
+            return
+        lines.append(f'declare -A {name}=(')
+        lines.extend(f'    [{key}]={_q(value)}' for key, value in items)
+        lines.append(')')
+
+    table('FIRST', ['# The module that must open a binary.'],
+          [(b.name, b.first) for b in binaries if b.first])
+    table('ENTRY', ['# Startup modules nothing calls, linked into a binary by force.'],
+          [(b.name, ' '.join(b.entry)) for b in binaries if b.entry])
+    table('BIN_CFLAGS', ["# C flags other than CFLAGS: a binary's default, and one module's",
+                         '# (OBJ_CFLAGS beats BIN_CFLAGS).'],
+          [(name, ' '.join(value)) for name, value in (binary_cflags or {}).items()])
+    table('OBJ_CFLAGS', [],
+          [(module, ' '.join(value)) for module, value in (object_cflags or {}).items()])
+    return '\n'.join(lines)
+
+
+def script(compiler, game='', config_text=''):
     """``build.sh`` for the :data:`Compiler` it downloads and runs.  *game* is
-    the app directory, relative to the tree, it copies the game's files from."""
+    the app directory, relative to the tree, it copies the game's files from;
+    *config_text* (:func:`config`) what it builds."""
     return (SCRIPT.replace('@REPO@', compiler.repo).replace('@REF@', compiler.ref)
-            .replace('@FOLDER@', compiler.folder).replace('@GAME@', game))
+            .replace('@FOLDER@', compiler.folder).replace('@GAME@', game)
+            .replace('@CONFIG@', config_text))
 
 
 def run_script(exe, folder):
     """``run.sh``: launch *exe* (the game's main program, e.g. ``DS.EXE``) from
-    ``build_out/`` under DOSBox-X with the flags ``make run`` uses.  The game
+    ``build_out_new/`` under DOSBox-X with the flags ``make run`` uses.  The game
     sits at ``C:\\FOLDER``, where its installer put it: the game's data names
-    that path (``SCENARIO.HDR``, the saves), so it is a link to ``build_out``."""
+    that path (``SCENARIO.HDR``, the saves), so it is a link to ``build_out_new``."""
     return RUN_SCRIPT.replace('@EXE@', exe).replace('@FOLDER@', folder)
 
 
 RUN_SCRIPT = r'''#!/usr/bin/env bash
-# Play the game build.sh made: run build_out/@EXE@ under DOSBox-X.
+# Play the game build.sh made: run build_out_new/@EXE@ under DOSBox-X.
 #
 #   ./run.sh [argument ...]       the arguments go to @EXE@
 #
 # The game expects to be installed in C:\@FOLDER@ (its data and saves name that
-# path), so C: is .cache/run/C, whose @FOLDER@ is a link to build_out/: what the
-# game writes there, saves included, lands in build_out/.  Run ./build.sh first
-# if build_out/@EXE@ is missing.
+# path), so C: is .cache/run/C, whose @FOLDER@ is a link to build_out_new/: what the
+# game writes there, saves included, lands in build_out_new/.  Run ./build.sh first
+# if build_out_new/@EXE@ is missing.
 #
 # Environment:
 #   DOSBOX   the DOSBox-X to run (default dosbox-x)
@@ -60,13 +122,13 @@ drive=$here/.cache/run/C
 
 die() { echo "run.sh: $*" >&2; exit 1; }
 
-[[ -f $here/build_out/$EXE ]] || die "no build_out/$EXE: run ./build.sh first"
+[[ -f $here/build_out_new/$EXE ]] || die "no build_out_new/$EXE: run ./build.sh first"
 command -v "$DOSBOX" >/dev/null || die "no $DOSBOX on PATH (set DOSBOX)"
 
 mkdir -p "$drive" || die "cannot make $drive"
 [[ -e $drive/$FOLDER && ! -L $drive/$FOLDER ]] &&
-    die "$drive/$FOLDER is in the way (not a link to build_out/)"
-ln -sfn ../../../build_out "$drive/$FOLDER" || die "cannot link $drive/$FOLDER"
+    die "$drive/$FOLDER is in the way (not a link to build_out_new/)"
+ln -sfn ../../../build_out_new "$drive/$FOLDER" || die "cannot link $drive/$FOLDER"
 
 exec "$DOSBOX" -fastlaunch -nomenu -nopromptfolder \
     -set 'dosbox quit warning=false' \
@@ -77,12 +139,12 @@ exec "$DOSBOX" -fastlaunch -nomenu -nopromptfolder \
 
 
 SCRIPT = r'''#!/usr/bin/env bash
-# Play the game build.sh made: run build_out/@EXE@ under DOSBox-X.
+# Play the game build.sh made: run build_out_new/@EXE@ under DOSBox-X.
 #
 #   ./run.sh [argument ...]       the arguments go to @EXE@
 #
-# build_out/ is mounted as C:, so saves land there.  Run ./build.sh first if
-# build_out/@EXE@ is missing.
+# build_out_new/ is mounted as C:, so saves land there.  Run ./build.sh first if
+# build_out_new/@EXE@ is missing.
 #
 # Environment:
 #   DOSBOX   the DOSBox-X to run (default dosbox-x)
@@ -92,11 +154,11 @@ set -u
 here=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
 DOSBOX=${DOSBOX:-dosbox-x}
 EXE='@EXE@'
-game=$here/build_out
+game=$here/build_out_new
 
 die() { echo "run.sh: $*" >&2; exit 1; }
 
-[[ -f $game/$EXE ]] || die "no build_out/$EXE: run ./build.sh first"
+[[ -f $game/$EXE ]] || die "no build_out_new/$EXE: run ./build.sh first"
 command -v "$DOSBOX" >/dev/null || die "no $DOSBOX on PATH (set DOSBOX)"
 
 exec "$DOSBOX" -fastlaunch -nomenu -nopromptfolder \
@@ -111,16 +173,27 @@ SCRIPT = r'''#!/usr/bin/env bash
 #
 #   ./build.sh [binary ...]      e.g. ./build.sh vmnpc   (default: all)
 #
-# It reads only `makefile` and the `.lnk` files beside it:
-#   - the .SUFFIXES order picks each module's source (MODULE.s, else MODULE.c);
-#   - the .s.o / .c.o rules are the commands, with $(CFLAGS)/$(AFLAGS) taken
-#     from the object's own `X.o: CFLAGS = ...` line, else its binary's
-#     `X.exe: CFLAGS = ...`, else the makefile's;
-#   - INCLUDE is the header directory cc and as search;
-#   - each binary's `ln` line links it, an overlay against its root's .rsm.
-# DOS sees only 8.3 names, so each binary is built in its own work directory
-# where every module gets a short name (upper-cased, cut to 8 characters, a
-# number on a clash) and the .lnk becomes a response file of those objects.
+# It needs nothing but this script and the sources beside it (no makefile, no
+# .lnk files), and links in no particular order:
+#   - binary NAME (a line of BINARIES below) is every NAME/**/MODULE.s and
+#     NAME/**/MODULE.c, a .s beating a .c of the same name (.asm and other
+#     files are not sources);
+#   - every source under LIBDIRS goes into one library, SHARED.LIB, which ln
+#     searches after the binary's objects and its root's .rsm, so a binary
+#     gets just the shared modules it calls and an overlay none its root has;
+#   - ENTRY[NAME] is a startup module nothing calls (it would never come out
+#     of the library), linked in by force; FIRST[NAME] a module that must open
+#     the binary (a driver's dispatch table, which DS calls at fixed offsets);
+#   - NAME/data/globals, which declares all of the binary's uninitialized C
+#     globals, comes right after FIRST: ln lays commons out in the order it
+#     first meets their names, and the code relies on that layout (a list
+#     shifts rows from one array into the next);
+#   - cc gets OBJ_CFLAGS[MODULE], else BIN_CFLAGS[NAME], else CFLAGS; as gets
+#     AFLAGS; both search INCLUDE.  A library is built per distinct binary
+#     default, so a shared module gets the flags it would in that binary.
+# DOS sees only 8.3 names, so each binary (and each library) is built in its
+# own work directory where every module gets a short name (upper-cased, cut
+# to 8 characters, a number on a clash) and ln reads a response file of them.
 #
 # The compiler is `@FOLDER@` from github.com/@REPO@
 # (@REF@).  The first run downloads just that folder into dos_compilers/ next
@@ -133,16 +206,23 @@ SCRIPT = r'''#!/usr/bin/env bash
 #   JOBS     DOSBox sessions at once (default: the number of CPUs)
 #   TIMEOUT  seconds one session may take (default 600)
 #   SHOW=1   show the DOSBox window instead of running headless
+#   LN_EXTRA more ln flags for every link (make layout passes -t, so each
+#            work directory keeps ln's symbol table, BINARY.SYM)
 #   GAME     the original game's directory (default @GAME@, beside
-#            this tree), whose files build_out/ gets
+#            this tree), whose files build_out_new/ gets
 #
-# Writes each binary into build_out/ under its rule's name (the game's own:
-# DS.EXE, VBASE.OVR, VGA.DRV, ...), over the copy there.  A rule may rename
-# what ln wrote (`ren VGA.COM VGA.DRV`: ln takes the format from the extension).  Each binary's DOS work directory, with every log, and
-# the root's .rsm stay in .cache/build/<binary>.  Every other file of $GAME
-# (data, pictures, ...) is copied into build_out/ first, as `make build` does,
-# unless build_out/ already has it (so the game's saves there survive): delete
-# build_out/ and the next run makes it a runnable game again.
+# Writes each binary into build_out_new/ under its own file name (the game's:
+# DS.EXE, VBASE.OVR, VGA.DRV, ...), over the copy there.  ln takes the format
+# from the extension, so a binary may be linked under another name and renamed
+# (VGA.COM -> VGA.DRV).  Each work directory, with every log, and the root's
+# .rsm stay in .cache/build/.  Every other file of $GAME (data, pictures, ...)
+# is copied into build_out_new/ first, unless build_out_new/ already has it (so the
+# game's saves there survive): delete build_out_new/ and the next run makes it a
+# runnable game again.
+
+# ---- what this tree builds --------------------------------------------------
+
+@CONFIG@
 
 set -u
 
@@ -155,6 +235,7 @@ AZTEC=$here/dos_compilers/$FOLDER
 DOSBOX=${DOSBOX:-dosbox-x}
 JOBS=${JOBS:-$(nproc 2>/dev/null || echo 4)}
 TIMEOUT=${TIMEOUT:-600}
+LN_EXTRA=${LN_EXTRA:-}
 WORK=$here/.cache/build
 GAME=${GAME:-$here/@GAME@}
 
@@ -263,138 +344,25 @@ if [[ ${1:-} == init ]]; then
 fi
 [[ -f $here/dos_compilers/$FOLDER.files && -f $AZTEC/BIN/CC.EXE ]] || download_compiler
 
-[[ -f makefile ]] || die "no makefile in $here"
-command -v "$DOSBOX" >/dev/null || die "no $DOSBOX on PATH (set DOSBOX)"
-
-# ---- the makefile ----------------------------------------------------------
-
-declare -A MACRO=() SCOPED=() RECIPE=() RULE_RECIPE=()
-declare -A LN_RULE=() LN_OUTPUT=() LN_FLAGS=() LN_LNK=() LN_ROOT=()
-SUFFIXES=(.o .s .c)
-RULES=()
-TARGETS=()
-
-re_scoped='^([^[:space:]:=]+)[[:space:]]*:[[:space:]]*([A-Za-z_][A-Za-z0-9_]*)[[:space:]]*=[[:space:]]*(.*)$'
-re_macro='^(export[[:space:]]+)?([A-Za-z_][A-Za-z0-9_]*)[[:space:]]*=[[:space:]]*(.*)$'
-re_rule='^([^[:space:]:]+)[[:space:]]*:[[:space:]]*(.*)$'
-current=
-while IFS= read -r raw || [[ -n $raw ]]; do
-    line=${raw%%#*}
-    line=${line%"${line##*[![:space:]]}"}
-    [[ -z $line ]] && continue
-    if [[ $line == [[:space:]]* ]]; then
-        [[ -n $current ]] || die "makefile: recipe without a target: $line"
-        line=${line#"${line%%[![:space:]]*}"}
-        RULE_RECIPE[$current]+=${RULE_RECIPE[$current]:+$'\n'}$line
-    elif [[ $line =~ $re_scoped ]]; then
-        SCOPED["${BASH_REMATCH[1]}|${BASH_REMATCH[2]}"]=${BASH_REMATCH[3]}
-        current=
-    elif [[ $line =~ $re_macro ]]; then
-        MACRO[${BASH_REMATCH[2]}]=${BASH_REMATCH[3]}
-        current=
-    elif [[ $line =~ $re_rule ]]; then
-        current=${BASH_REMATCH[1]}
-        if [[ $current == .SUFFIXES ]]; then
-            read -ra words <<< "${BASH_REMATCH[2]}"
-            if (( ${#words[@]} )); then SUFFIXES+=("${words[@]}"); else SUFFIXES=(); fi
-            current=
-        else
-            RULES+=("$current")
-        fi
-    else
-        die "makefile: cannot read: $line"
-    fi
-done < makefile
-
-for rule in "${RULES[@]}"; do
-    recipe=${RULE_RECIPE[$rule]:-}
-    [[ -z $recipe ]] && continue
-    if [[ $rule =~ ^(\.[A-Za-z0-9_]+)\.o$ ]]; then
-        RECIPE[${BASH_REMATCH[1]}]=$recipe
-        continue
-    fi
-    # An ln line, and a `ren LN_OUTPUT RULE` line when ln writes another name.
-    ln_line=${recipe%%$'\n'*} ren=
-    [[ $recipe == *$'\n'* ]] && ren=${recipe#*$'\n'}
-    read -ra words <<< "$ln_line"
-    [[ ${words[0]} == ln ]] || die "makefile: $rule: expected an ln line: $ln_line"
-    flags=() lnk= root= output=
-    for (( i = 1; i < ${#words[@]}; i++ )); do
-        case ${words[i]} in
-            -o) output=${words[++i]} ;;
-            -f) lnk=${words[++i]} ;;
-            *.rsm) root=${words[i]%.rsm} ;;
-            *) flags+=("${words[i]}") ;;
-        esac
-    done
-    [[ -n $output && -n $lnk ]] || die "makefile: $rule: ln needs -o FILE and -f FILE: $ln_line"
-    if [[ -n $ren ]]; then
-        read -ra words <<< "$ren"
-        [[ ${#words[@]} == 3 && ${words[0]} == ren && ${words[1]} == "$output" &&
-           ${words[2]} == "$rule" ]] ||
-            die "makefile: $rule: expected ren $output $rule, got: $ren"
-    elif [[ $output != "$rule" ]]; then
-        die "makefile: $rule: ln writes $output (rename it with ren $output $rule)"
-    fi
-    binary=$(basename "${lnk%.*}")
-    LN_RULE[$binary]=$rule LN_OUTPUT[$binary]=$output LN_LNK[$binary]=$lnk
-    LN_ROOT[$binary]=$root LN_FLAGS[$binary]="${flags[*]}"
-    TARGETS+=("$binary")
-done
-(( ${#TARGETS[@]} )) || die "makefile: no ln rule"
-
-SOURCES=()
-for ext in "${SUFFIXES[@]}"; do
-    [[ $ext != .o && -n ${RECIPE[$ext]:-} ]] && SOURCES+=("$ext")
-done
-INCLUDE_DIR=$here/${MACRO[INCLUDE]:-include}
-[[ -d $INCLUDE_DIR ]] || die "no include directory $INCLUDE_DIR"
-
-# The value of macro $1 for object $2 of the binary that writes $3.
-macro() {
-    local name=$1 obj=$2 output=$3
-    if [[ -n ${SCOPED["$obj|$name"]+x} ]]; then echo "${SCOPED["$obj|$name"]}"
-    elif [[ -n ${SCOPED["$output|$name"]+x} ]]; then echo "${SCOPED["$output|$name"]}"
-    else echo "${MACRO[$name]:-}"
-    fi
-}
-
-# Recipe $1 with its macros expanded: object $2 of output $3, $@ = $4, $< = $5.
-expand() {
-    local text=$1 obj=$2 output=$3 at=$4 lt=$5 done= ref
-    local re='^([^$]*)\$(\(([A-Za-z_][A-Za-z0-9_]*)\)|([@<*]))(.*)$'
-    while [[ $text =~ $re ]]; do
-        done+=${BASH_REMATCH[1]}
-        ref=${BASH_REMATCH[2]} text=${BASH_REMATCH[5]}
-        case $ref in
-            '@') done+=$at ;;
-            '<') done+=$lt ;;
-            '*') done+=${lt%.*} ;;
-            *) done+=$(macro "${BASH_REMATCH[3]}" "$obj" "$output") ;;
-        esac
-    done
-    read -ra words <<< "$done$text"
-    echo "${words[*]}"
-}
 
 # ---- the game's other files ----------------------------------------------
 
-# Every entry of $GAME but the binaries the makefile builds, into build_out/,
+# Every entry of $GAME but the binaries this script builds, into build_out_new/,
 # unless it is there already.
 copy_game() {
     if [[ ! -d $GAME ]]; then
-        echo "build.sh: no game directory $GAME (set GAME): build_out/ gets only the binaries" >&2
+        echo "build.sh: no game directory $GAME (set GAME): build_out_new/ gets only the binaries" >&2
         return 0
     fi
     local -A built=()
     local rule src name copied=0
     for rule in "${LN_RULE[@]}"; do built[${rule^^}]=1; done
-    mkdir -p "$here/build_out" || die "cannot make build_out/"
+    mkdir -p "$here/build_out_new" || die "cannot make build_out_new/"
     shopt -s dotglob nullglob
     for src in "$GAME"/*; do
         name=${src##*/}
-        [[ -n ${built[${name^^}]:-} || -e $here/build_out/$name ]] && continue
-        cp -pr "$src" "$here/build_out/$name" || die "cannot copy $src"
+        [[ -n ${built[${name^^}]:-} || -e $here/build_out_new/$name ]] && continue
+        cp -pr "$src" "$here/build_out_new/$name" || die "cannot copy $src"
         copied=$(( copied + 1 ))
     done
     shopt -u dotglob nullglob
@@ -430,61 +398,66 @@ short_names() {
 # The DOS extension for a source suffix: as reads .ASM, cc .C.
 dos_ext() { [[ $1 == .s ]] && echo ASM || { local e=${1#.}; echo "${e^^}"; }; }
 
-# ---- one binary ------------------------------------------------------------
 
-# Build binary $1 in its work directory; print its report; status 0 when its
-# output was written with no compile or link error.
-build_one() {
-    local binary=$1
-    local rule=${LN_RULE[$binary]} output=${LN_OUTPUT[$binary]}
-    local lnk=${LN_LNK[$binary]} root=${LN_ROOT[$binary]}
-    local work=$WORK/$binary report=() failed=0
-    local dest=build_out/$rule
-    rm -rf "$work"
-    mkdir -p "$work"
+command -v "$DOSBOX" >/dev/null || die "no $DOSBOX on PATH (set DOSBOX)"
 
-    local listed=() paths=() exts=() stems=() missing=() name ext
-    while IFS= read -r name || [[ -n $name ]]; do
-        name=${name%%#*}
-        name=${name//[[:space:]]/}
-        [[ -z $name ]] && continue
-        listed+=("$name")
-    done < "$lnk"
-    for name in "${listed[@]}"; do
-        for ext in "${SOURCES[@]}" ''; do
-            [[ -z $ext ]] && { missing+=("$name"); break; }
-            if [[ -f $name$ext ]]; then
-                paths+=("$name") exts+=("$ext") stems+=("${name##*/}")
-                break
-            fi
-        done
-    done
-    short_names "${stems[@]}"
+# ---- the binaries ------------------------------------------------------------
 
-    local lnk_dos bat=() i short src
-    local shorts=("${SHORT[@]}")
-    lnk_dos=$(basename "${lnk%.*}"); lnk_dos=${lnk_dos^^}; lnk_dos=${lnk_dos:0:8}.LNK
-    for i in "${!paths[@]}"; do
-        short=${shorts[i]}
-        src=$short.$(dos_ext "${exts[i]}")
-        cp "${paths[i]}${exts[i]}" "$work/$src"
-        bat+=("$(expand "${RECIPE[${exts[i]}]}" "${paths[i]}.o" "$rule" \
-                 "$short.O" "$src") > $short.CC")
-        bat+=("if exist $short.O echo $short.O>> $lnk_dos")
-    done
-    local ln_line="ln ${LN_FLAGS[$binary]} -o ${output^^} -f $lnk_dos"
-    if [[ -n $root ]]; then
-        if [[ ! -f $WORK/$root.rsm ]]; then
-            echo "$binary: FAILED: $root.rsm was not built"
-            return 1
-        fi
-        cp "$WORK/$root.rsm" "$work/${root^^}.RSM"
-        ln_line+=" ${root^^}.RSM"
+declare -A LN_RULE=() LN_OUTPUT=() LN_FLAGS=() LN_ROOT=()
+TARGETS=()
+for line in "${BINARIES[@]}"; do
+    read -ra words <<< "$line"
+    (( ${#words[@]} >= 4 )) || die "BINARIES: need NAME FILE LN_WRITES ROOT [LN_FLAGS]: $line"
+    binary=${words[0]}
+    LN_RULE[$binary]=${words[1]} LN_OUTPUT[$binary]=${words[2]}
+    LN_ROOT[$binary]=${words[3]#-} LN_FLAGS[$binary]="${words[*]:4}"
+    TARGETS+=("$binary")
+done
+(( ${#TARGETS[@]} )) || die "BINARIES is empty"
+for binary in "${TARGETS[@]}"; do
+    root=${LN_ROOT[$binary]}
+    [[ -z $root || -n ${LN_RULE[$root]:-} ]] || die "BINARIES: $binary: no root $root"
+done
+INCLUDE_DIR=$here/$INCLUDE
+[[ -d $INCLUDE_DIR ]] || die "no include directory $INCLUDE_DIR"
+
+# MODULE<TAB>.s or .c for every source under the directories "$@", sorted: a
+# MODULE.s beats a MODULE.c.
+module_sources() {
+    local -A seen=()
+    local f m
+    while IFS= read -r f; do
+        m=${f%.*}
+        [[ -n ${seen[$m]:-} ]] && continue
+        seen[$m]=1
+        if [[ -f $m.s ]]; then printf '%s\t.s\n' "$m"; else printf '%s\t.c\n' "$m"; fi
+    done < <(find "$@" -type f \( -name '*.s' -o -name '*.c' \) | LC_ALL=C sort)
+}
+
+# The source suffix of MODULE, or nothing when it has none.
+module_ext() {
+    if [[ -f $1.s ]]; then echo .s; elif [[ -f $1.c ]]; then echo .c; fi
+}
+
+# The C flags a binary gives the modules with no flags of their own.
+binary_cflags() { printf '%s\n' "${BIN_CFLAGS[$1]-$CFLAGS}"; }
+
+# The command line that compiles module $1 (suffix $2) as SHORT $3, with $4 the
+# C flags of its binary.
+compile_line() {
+    local module=$1 ext=$2 short=$3
+    if [[ $ext == .s ]]; then
+        echo "as $AFLAGS -o $short.O $short.ASM"
+    else
+        echo "cc -B ${OBJ_CFLAGS[$module]-$4} -o $short.O $short.C"
     fi
-    bat+=("$ln_line > LINK.LOG")
-    [[ $rule == "$output" ]] || bat+=("ren ${output^^} ${rule^^}")
-    printf '%s\r\n' "${bat[@]}" > "$work/BUILD.BAT"
+}
 
+# ---- DOSBox ------------------------------------------------------------------
+
+# Run BUILD.BAT in work directory $1 under DOSBox; status 124 on a timeout.
+run_dos() {
+    local work=$1
     cat > "$work/dosbox.conf" <<'CONF'
 [dosbox]
 machine=svga_s3
@@ -516,23 +489,169 @@ CONF
         HOME=$work SDL_AUDIODRIVER=dummy SDL_VIDEODRIVER=dummy \
             timeout "$TIMEOUT" "${argv[@]}" > "$work/dosbox.out" 2>&1
     fi
-    (( $? == 124 )) && report+=("  DOSBox timed out after ${TIMEOUT}s")
+}
 
+# Copy modules into work directory $1 under their short names and write the
+# BUILD.BAT lines that compile them into BAT: the modules, their suffixes and
+# short names are the arrays named $2, $3 and $4, $5 the binary's C flags.
+# Each object that comes out is appended to response file $6.
+stage_modules() {
+    local work=$1 cflags=$5 rsp=$6 i src
+    local -n _paths=$2 _exts=$3 _shorts=$4
+    for i in "${!_paths[@]}"; do
+        src=${_shorts[i]}.$(dos_ext "${_exts[i]}")
+        cp "${_paths[i]}${_exts[i]}" "$work/$src"
+        bat+=("$(compile_line "${_paths[i]}" "${_exts[i]}" "${_shorts[i]}" "$cflags") > ${_shorts[i]}.CC")
+        bat+=("if exist ${_shorts[i]}.O echo ${_shorts[i]}.O>> $rsp")
+    done
+}
+
+# Append to REPORT a line per module (arrays named $2, $3, $4) of work
+# directory $1 that did not compile, with its errors; status 1 if any.
+check_modules() {
+    local work=$1 i short line failed=0
+    local -n _paths=$2 _exts=$3 _shorts=$4
     local err='^([^ ]+\.C:[0-9]+: ERROR [0-9]+:|ERROR:[^ ]+\.ASM:[0-9]+:)'
-    for i in "${!paths[@]}"; do
-        short=${shorts[i]}
+    for i in "${!_paths[@]}"; do
+        short=${_shorts[i]}
         if [[ ! -f $work/$short.O ]] || grep -Eqi "$err" "$work/$short.CC" 2>/dev/null; then
             failed=1
-            report+=("  ${paths[i]}${exts[i]} ($short): did not build")
+            report+=("  ${_paths[i]}${_exts[i]} ($short): did not build")
             while IFS= read -r line; do report+=("    $line"); done \
-                < <(grep -Ei "$err|error" "$work/$short.CC" 2>/dev/null | head -20)
+                < <(grep -Ei "$err|error" "$work/$short.CC" 2>/dev/null | tr -d '\r' | head -20)
         fi
     done
-    for name in "${missing[@]}"; do
-        failed=1
-        report+=("  $name: no ${SOURCES[*]} source")
+    return $failed
+}
+
+# ---- the shared library ------------------------------------------------------
+
+# Build SHARED.LIB of every LIBDIRS module into $WORK/$1, compiled with C flags
+# $2 (a binary's default): JOBS sessions compile, one more orders the objects
+# (ord, so that ln's one pass over the library finds every member) and
+# archives them.  Print its report; status 0 when every module compiled.
+build_library() {
+    local lib=$1 cflags=$2 dir=$WORK/$1 report=() failed=0
+    rm -rf "$dir"
+    mkdir -p "$dir/lib"
+    local paths=() exts=() stems=() module ext dirs=()
+    for module in "${LIBDIRS[@]}"; do [[ -d $module ]] && dirs+=("$module"); done
+    (( ${#dirs[@]} )) || { echo "$lib: no ${LIBDIRS[*]}"; return 0; }
+    while IFS=$'\t' read -r module ext; do
+        paths+=("$module") exts+=("$ext") stems+=("${module##*/}")
+    done < <(module_sources "${dirs[@]}")
+    short_names "${stems[@]}"
+    local shorts=("${SHORT[@]}") n=${#paths[@]} parts=$JOBS
+    (( parts > n )) && parts=$n
+    (( parts < 1 )) && parts=1
+    local p i
+    for (( p = 0; p < parts; p++ )); do
+        local part=$dir/part$p bat=() ppaths=() pexts=() pshorts=()
+        mkdir -p "$part"
+        for (( i = p; i < n; i += parts )); do
+            ppaths+=("${paths[i]}") pexts+=("${exts[i]}") pshorts+=("${shorts[i]}")
+        done
+        stage_modules "$part" ppaths pexts pshorts "$cflags" OBJS.TXT
+        printf '%s\r\n' "${bat[@]}" > "$part/BUILD.BAT"
+        while (( $(jobs -rp | wc -l) >= JOBS )); do wait -n; done
+        run_dos "$part" &
     done
-    local image=$work/${rule^^}
+    wait
+    for (( i = 0; i < n; i++ )); do
+        p=$dir/part$(( i % parts ))
+        [[ -f $p/${shorts[i]}.O ]] && cp "$p/${shorts[i]}.O" "$dir/lib/"
+        cp "$p/${shorts[i]}.CC" "$dir/lib/" 2>/dev/null
+    done
+    check_modules "$dir/lib" paths exts shorts || failed=1
+    ( cd "$dir/lib" && ls | grep '\.O$' | LC_ALL=C sort ) |
+        sed 's/$/\r/' > "$dir/lib/OBJS.TXT"
+    printf '%s\r\n' 'ord OBJS.TXT ORD.TXT > ORD.LOG' \
+        'lb SHARED.LIB -f ORD.TXT > LB.LOG' > "$dir/lib/BUILD.BAT"
+    run_dos "$dir/lib"
+    if [[ ! -s $dir/lib/SHARED.LIB ]]; then
+        failed=1
+        report+=("  lb wrote no SHARED.LIB")
+        while IFS= read -r line; do report+=("    $line"); done \
+            < <(cat "$dir/lib/ORD.LOG" "$dir/lib/LB.LOG" 2>/dev/null | tr -d '\r')
+    fi
+    if (( failed )); then
+        echo "shared ($cflags): FAILED ($n sources)"
+        printf '%s\n' "${report[@]}"
+        return 1
+    fi
+    echo "shared ($cflags): $n sources"
+}
+
+# The library work directory of binary $1 (by its default C flags).
+declare -A LIBRARY=()
+library_of() { echo "${LIBRARY[$(binary_cflags "$1")]}"; }
+
+# ---- one binary --------------------------------------------------------------
+
+# Build binary $1 in its work directory; print its report; status 0 when its
+# output was written with no compile or link error.
+build_one() {
+    local binary=$1
+    local rule=${LN_RULE[$binary]} output=${LN_OUTPUT[$binary]}
+    local root=${LN_ROOT[$binary]} cflags
+    cflags=$(binary_cflags "$binary")
+    local work=$WORK/$binary report=() failed=0 lib
+    lib=$WORK/$(library_of "$binary")/lib/SHARED.LIB
+    local dest=build_out_new/$rule
+    rm -rf "$work"
+    mkdir -p "$work"
+    [[ -d $binary ]] || { echo "$binary: FAILED: no directory $binary/"; return 1; }
+
+    # FIRST, then NAME/data/globals (before any module that names a common
+    # it declares), then the binary's other modules, then ENTRY.
+    local paths=() exts=() stems=() module ext first=${FIRST[$binary]:-} entry
+    local globals=$binary/data/globals
+    if [[ -n $first ]]; then
+        ext=$(module_ext "$first")
+        [[ -n $ext ]] || { echo "$binary: FAILED: FIRST $first has no .s or .c"; return 1; }
+        paths+=("$first") exts+=("$ext")
+    fi
+    ext=$(module_ext "$globals")
+    [[ -n $ext && $globals != "$first" ]] && paths+=("$globals") exts+=("$ext")
+    while IFS=$'\t' read -r module ext; do
+        [[ $module == "$first" || $module == "$globals" ]] && continue
+        paths+=("$module") exts+=("$ext")
+    done < <(module_sources "$binary")
+    for entry in ${ENTRY[$binary]:-}; do
+        [[ $entry == "$first" || " ${paths[*]} " == *" $entry "* ]] && continue
+        ext=$(module_ext "$entry")
+        [[ -n $ext ]] || { echo "$binary: FAILED: ENTRY $entry has no .s or .c"; return 1; }
+        paths+=("$entry") exts+=("$ext")
+    done
+    for module in "${paths[@]}"; do stems+=("${module##*/}"); done
+    short_names "${stems[@]}"
+
+    local rsp bat=() shorts=("${SHORT[@]}")
+    rsp=${binary^^}; rsp=${rsp:0:8}.LNK
+    stage_modules "$work" paths exts shorts "$cflags" "$rsp"
+    local ln_line="ln $LN_EXTRA ${LN_FLAGS[$binary]} -o ${output^^} -f $rsp"
+    if [[ -n $root ]]; then
+        if [[ ! -f $WORK/$root.rsm ]]; then
+            echo "$binary: FAILED: $root.rsm was not built"
+            return 1
+        fi
+        cp "$WORK/$root.rsm" "$work/${root^^}.RSM"
+        ln_line+=" ${root^^}.RSM"
+    fi
+    # Twice: ord sorts the library for one pass, the second catches a cycle.
+    if [[ -f $lib ]]; then
+        cp "$lib" "$work/SHARED.LIB"
+        ln_line+=" SHARED.LIB SHARED.LIB"
+    fi
+    bat+=("$ln_line > LINK.LOG")
+    [[ $rule == "$output" ]] || bat+=("ren ${output^^} ${rule^^}")
+    printf '%s\r\n' "${bat[@]}" > "$work/BUILD.BAT"
+
+    run_dos "$work"
+    (( $? == 124 )) && report+=("  DOSBox timed out after ${TIMEOUT}s")
+
+    check_modules "$work" paths exts shorts || failed=1
+    local image=$work/${rule^^} line
     if grep -Eqi 'Undefined symbol|multiply defined|error' "$work/LINK.LOG" 2>/dev/null; then
         failed=1
         while IFS= read -r line; do report+=("  ln: $line"); done \
@@ -553,13 +672,13 @@ CONF
     echo "$binary: $dest, $(wc -c < "$here/$dest") bytes, ${#paths[@]} sources"
 }
 
-# ---- all of them -----------------------------------------------------------
+# ---- all of them -------------------------------------------------------------
 
 wanted=("$@")
 (( ${#wanted[@]} )) || wanted=("${TARGETS[@]}")
 for binary in "${wanted[@]}"; do
-    [[ -n ${LN_OUTPUT[$binary]:-} ]] ||
-        die "makefile has no binary $binary (has: ${TARGETS[*]})"
+    [[ -n ${LN_RULE[$binary]:-} ]] ||
+        die "no binary $binary (has: ${TARGETS[*]})"
 done
 # Roots link first: the overlays need their .rsm.
 roots=()
@@ -572,6 +691,13 @@ copy_game
 mkdir -p "$WORK"
 rm -f "$WORK"/*.status
 status=0
+# One library per default C flags among the binaries built.
+for binary in "${roots[@]}" "${wanted[@]}"; do
+    cflags=$(binary_cflags "$binary")
+    [[ -n ${LIBRARY[$cflags]+x} ]] && continue
+    LIBRARY[$cflags]=shared${#LIBRARY[@]}
+    build_library "${LIBRARY[$cflags]}" "$cflags" || status=1
+done
 for binary in "${roots[@]}"; do
     build_one "$binary" || status=1
 done

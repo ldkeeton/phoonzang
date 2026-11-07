@@ -49,7 +49,6 @@ screen_width	equ	140h		;bytes per row, 320
 	map_shift_red	equ	6		;red bits in the RGB->index key
 	map_shift_green	equ	3		;green bits in the RGB->index key
 	no_entry	equ	0ffh		;empty slot in the RGB->index map
-	map_offset	equ	2427h		;image offset of the RGB->index map
 
 	procdef	dissolve_area
 	push	bp
@@ -294,7 +293,7 @@ map_lookup:				;nearest palette colour for the stepped RGB
 	shl	ax,cl			;green bits 5..3
 	add	bx,ax
 	add	bx,word ptr vb[bp]	;blue bits 2..0
-	add	bx,map_offset
+	add	bx,offset rgb_to_palette
 	mov	al,byte ptr cs:[bx]
 	cmp	al,no_entry
 	je	short retry_nearer	;no match: step again on the next pass

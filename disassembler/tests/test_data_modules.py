@@ -157,8 +157,15 @@ class CheckDataAsmTest(unittest.TestCase):
         self.assertRegex(self.check(members={'t': 0, 'other': 1})[0], 'public other')
         self.assertRegex(self.check(members={'u': 0})[0], 'public u')
 
-    def test_relocations_fail_rather_than_pass_unchecked(self):
-        self.assertRegex(self.check(fixups=[object()])[0], 'relocations')
+    def test_a_relocated_word_is_left_to_the_linker(self):
+        # A pointer's bytes are the linker's; make rebuild checks them.
+        pointer = mock.Mock(offset=0, kind='WOFF')
+        self.assertEqual(self.check(b'\x00\x00', fixups=[pointer]), [])
+
+    def test_bytes_outside_a_relocation_are_still_checked(self):
+        pointer = mock.Mock(offset=0, kind='WOFF')
+        self.assertRegex(self.check(b'\x00\x00\x09', fixups=[pointer])[0],
+                         '3 bytes, the image holds 2')
 
     def test_a_source_with_no_fragment_fails(self):
         self.assertRegex(self.check(extra=['gone.s'])[0], 'gone.s: no data fragment')

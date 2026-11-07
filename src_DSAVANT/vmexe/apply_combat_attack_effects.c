@@ -114,7 +114,8 @@ int group, unit_index;
 					if (amount > 0) {
 						format_int_decimal(amount,
 							combat_action_message_buffer);
-						str_subst_char(combat_action_suffix_buffer, (unsigned)37174, 36);
+						str_subst_char(combat_action_suffix_buffer, combat_action_message_buffer,
+							36);
 					}
 					load_message_string(MSG_DRAINED,
 						combat_action_message_buffer);

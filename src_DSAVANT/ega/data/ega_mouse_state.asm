@@ -17,11 +17,11 @@ cursor_x_shift:
     db 0x00, 0x00
 cursor_clipped_right:
     db 0x00, 0x00
-__zcp_1afd:
+cursor_save_area:
 
     times 1152 db 0
 
-__zcp_1f7d:
+cursor_background_area:
 
     times 1152 db 0
 

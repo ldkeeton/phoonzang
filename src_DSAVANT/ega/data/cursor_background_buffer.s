@@ -1,7 +1,7 @@
-; Offset of the buffer holding the background under the cursor (cp_1f7d in ega_mouse_state).
-; A literal: make rebuild cannot check a data source with relocations yet.
+; Offset of the buffer holding the background under the cursor.
 codeseg	segment	byte public 'code'
+	extrn	cursor_background_area:byte
 	public	cursor_background_buffer
-cursor_background_buffer	dw	207dh
+cursor_background_buffer	dw	offset cursor_background_area
 codeseg	ends
 	end

@@ -83,7 +83,7 @@ initialize_runtime_resources:
     call release_and_exit            ; 0x0472
     pop cx                           ; 0x0475
 .forward6:
-    mov word [npc_id_address], 0x905c ; 0x0476
+    mov word [npc_id_address], npc_id_decoy ; 0x0476
     mov al, byte [sound_device_setting] ; 0x047c
     sub ah, ah                       ; 0x047f
     mov word [bp - 0xa], ax          ; 0x0481
@@ -101,7 +101,7 @@ initialize_runtime_resources:
     push ax                          ; 0x04a0
     call call_play_select_device     ; 0x04a1
     add sp, byte 4                   ; 0x04a4
-    mov word [npc_id_clue_relay], 0x905c ; 0x04a7
+    mov word [npc_id_clue_relay], npc_id_decoy ; 0x04a7
     mov word [mouse_active], 0       ; 0x04ad
     mov word [hotspot_hit], 0        ; 0x04b3
     mov word [bp - 6], 0             ; 0x04b9
@@ -208,7 +208,7 @@ initialize_runtime_resources:
     push ax                          ; 0x05a3
     call load_startup_maze           ; 0x05a4
     add sp, byte 4                   ; 0x05a7
-    mov word [npc_id_answer_relay], 0x905c ; 0x05aa
+    mov word [npc_id_answer_relay], npc_id_decoy ; 0x05aa
     mov ax, 0x52                     ; 0x05b0
     push ax                          ; 0x05b3
     mov ax, record_size              ; 0x05b4
@@ -364,7 +364,7 @@ initialize_runtime_resources:
     add sp, byte 6                   ; 0x071c
     mov word [loaded_sound_id], 0xffff ; 0x071f
     mov word [loaded_score_num], 0xffff ; 0x0725
-    mov word [npc_id_target], 0x905c ; 0x072b
+    mov word [npc_id_target], npc_id_decoy ; 0x072b
     mov word [runtime_buffer_1k_seg], 0 ; 0x0731
     mov word [runtime_buffer_1k], 0  ; 0x0737
     mov word [runtime_buffer_4k_a_seg], 0 ; 0x073d

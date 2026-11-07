@@ -3,6 +3,7 @@
 codeseg	segment	byte public 'code'
 	assume	cs:codeseg
 	extrn	stop_music_playback_:near
+	extrn	music_timer_interrupt_:far
 	extrn	build_sample_output_table_:near
 	extrn	pit_sample_interrupt_:near
 	extrn	io_loc_sample_device_tick_:near
@@ -104,7 +105,7 @@ clamp_device_done:
 	mov	di,20h
 	mov	ax,word ptr es:[di]
 	mov	word ptr cs:saved_int08_offset,ax
-	mov	ax,0BB4h
+	mov	ax,offset music_timer_interrupt_
 	stosw
 	mov	ax,word ptr es:[di]
 	mov	word ptr cs:saved_int08_segment,ax

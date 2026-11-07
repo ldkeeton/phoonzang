@@ -182,6 +182,19 @@ def _array_word_expression(records, binary_data, data_origin, value,
     return expr + f' + 0x{delta:04x}' if delta else expr
 
 
+def _named_label_at(records, target):
+    """The first global label record at *target* (a ``code_data_names``
+    datum, ``vga_palette``), so a CS pointer to it names it, not an anchor."""
+    from lib.symtab import Kind
+    for rec in records:
+        if rec['type'] != 'label' or rec['offset'] != target:
+            continue
+        name = rec['name']
+        if getattr(name, 'kind', None) not in (Kind.LOCAL, Kind.ANCHOR):
+            return name
+    return None
+
+
 def promote_data_pointers(records, binary_data, start_offset, segments,
                           promoted, mem_equ, label_map=None):
     """Splice a symbolic ``dw`` for every promoted word.
@@ -238,7 +251,8 @@ def promote_data_pointers(records, binary_data, start_offset, segments,
                                   segments.data_names)
         elif space == 'cs':
             target = segments.cs_origin + value - load_offset
-            name = (label_map or {}).get(target)
+            name = (label_map or {}).get(target) or _named_label_at(records,
+                                                                    target)
             if name is None:
                 name = Symbol.anchor(f'__zcp_{target:04x}', target)
                 if not _ensure_global_label(records, binary_data, target, name):

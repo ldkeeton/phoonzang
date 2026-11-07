@@ -101,3 +101,12 @@ It skips only the mismatch return. The loop still reaches the last character, so
 | `begin_game`, `copy_protection_prompt` | routines | vbase |
 | `meet_region_npc`, `advance_maze_region`, `choose_region_npc` | write through `npc_id_target` | vmaze |
 | `api_idx_00ac_HRGR` | the hit roll gated on `npc_id_decoy` | vmexe |
+
+## Apply crack to unpatched EXE with 
+```
+# original md5 54bb93320cdc16c56f9a54433d369cbf
+
+printf '\xeb' | dd of=apps/DSAVANT/DS.EXE bs=1 seek=$((0x2c45)) conv=notrunc
+
+# cracked md5 b458dc3212c7823a651a323325738090 
+```

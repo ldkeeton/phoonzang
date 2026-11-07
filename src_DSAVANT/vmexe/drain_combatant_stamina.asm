@@ -191,7 +191,7 @@ drain_combatant_stamina:
     add sp, byte 4                   ; 0x281c
     mov ax, 0x24                     ; 0x281f
     push ax                          ; 0x2822
-    mov ax, 0x9136                   ; 0x2823
+    mov ax, combat_action_message_buffer ; 0x2823
     push ax                          ; 0x2826
     mov ax, combat_action_name_buffer ; 0x2827
     push ax                          ; 0x282a

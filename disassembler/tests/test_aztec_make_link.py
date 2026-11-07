@@ -117,7 +117,26 @@ class GenerateTest(unittest.TestCase):
         for placeholder in ('@REPO@', '@REF@', '@FOLDER@', '@GAME@'):
             self.assertNotIn(placeholder, script)
 
-    def test_run_sh_launches_the_hosts_program_from_build_out(self):
+    def test_build_sh_says_what_it_builds_without_makefile_or_lnk(self):
+        compiler = build_sh.Compiler('me/compilers', 'main', 'Manx Aztec C86 v42b')
+        out = project.project_files(self.BINARIES, 'r', self.FILES,
+                                    flags=self.FLAGS, compiler=compiler)
+        script = out['build.sh']
+        for line in ("CFLAGS='-n +b'", "AFLAGS='-dMODEL=0'", "LIBDIRS=('shared')",
+                     "    'r r.exe r.exe - -R'", "    'o o.ovr o.ovr r'",
+                     # ln writes no header only for .com, so a driver is renamed.
+                     "    'd d.com d.com -'",
+                     "    [d]='d/y'",          # a driver's first module stays first
+                     "    [d]='-n'",           # its binary's own default
+                     "    [o/x]='-n -Z1'",     # a module's own flags
+                     "    [shared/a]='-n'"):
+            self.assertIn(line + '\n', script)
+        self.assertNotIn('@CONFIG@', script)
+        # It never reads the makefile or a .lnk.
+        self.assertNotIn('< "$lnk"', script)
+        self.assertNotIn('done < makefile', script)
+
+    def test_run_sh_launches_the_hosts_program_from_build_out_new(self):
         compiler = build_sh.Compiler('me/compilers', 'main', 'Manx Aztec C86 v42b')
         out = project.project_files(self.BINARIES, 'r', self.FILES,
                                     flags=self.FLAGS, compiler=compiler,
@@ -127,7 +146,7 @@ class GenerateTest(unittest.TestCase):
         self.assertIn("EXE='r.exe'\n", run)
         # Installed where the game's data says: C:\GAME is a link to build_out.
         self.assertIn("FOLDER='GAME'\n", run)
-        self.assertIn('ln -sfn ../../../build_out "$drive/$FOLDER"', run)
+        self.assertIn('ln -sfn ../../../build_out_new "$drive/$FOLDER"', run)
         self.assertIn('-c "cd \\\\$FOLDER"', run)
         for placeholder in ('@EXE@', '@FOLDER@'):
             self.assertNotIn(placeholder, run)

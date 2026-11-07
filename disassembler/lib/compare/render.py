@@ -578,7 +578,9 @@ def _place_label(records, binary_data, addr, name, gap=None):
       name is stale there, and a label would put code back into bytes the
       arbiter decided are data (``verify.code_loss`` counts exactly those).  A
       data name (``data_``/``dseg_``/``bss_``/...) may anchor data -- that is the
-      D1 path, which binds its own labels.
+      D1 path, which binds its own labels.  So may the ``code_data_names`` name
+      that leads a ``length`` fragment (``role='lead'``): it is data that roots
+      a routine's file, as ``.s`` source lays its tables out ahead of the code.
     """
     if gap is not None and gap[0] <= addr < gap[1]:
         return False
@@ -586,7 +588,7 @@ def _place_label(records, binary_data, addr, name, gap=None):
     if covering is None:
         return False
     if (covering['type'] in _DATA_RECORD_TYPES
-            and not _raw_value(name)):
+            and not _raw_value(name) and getattr(name, 'role', None) != 'lead'):
         return False
     # Local import: ``jumptables`` pulls in the assembler, so the dependency
     # stays inside the function like the other callers in this module.

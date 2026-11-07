@@ -7,6 +7,8 @@ screen_maze_slots	dw	5 dup (0)
 	public	maze_slots
 maze_slots	dw	16 dup (0)
 	public	maze_piece_table
-maze_piece_table	dw	0004h,10 dup (0)
+maze_piece_table	dw	0004h
+	public	maze_piece_descriptors
+maze_piece_descriptors	dw	10 dup (0)
 codeseg	ends
 	end

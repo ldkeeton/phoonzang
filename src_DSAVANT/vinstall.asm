@@ -468,8 +468,7 @@ current   equ __zcurrent - __zdseg_start
 first     equ __zfirst - __zdseg_start
 %include "shared/aztec/aztec_malloc.asm" ; 0x2eac
 
-aztec_format_conversions equ 0x303e + VBASE
-; first                    equ __zfirst - __zdseg_start
+; first equ __zfirst - __zdseg_start
 %include "shared/aztec/aztec_format.asm" ; 0x303e
 
 %include "shared/aztec/aztec_format_get_pointer.asm" ; 0x331e

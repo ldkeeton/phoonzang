@@ -9,8 +9,10 @@ casts that reinterpret an object's bytes (``(int *)&x``, ``*(long *)p``,
 byte-pointer view of a typed record (``groups[i][415]``, ``recs[i][n * 44 + 3]``),
 ``mac`` macros that hide a pointer cast or an address alias, ``view``
 arrays of byte pointers that another file declares as an array of typed
-pointers, and ``ext`` ``extern`` declarations whose return type disagrees
-with the definition.
+pointers, ``ext`` ``extern`` declarations whose return type disagrees
+with the definition, and ``addr`` integer literals that are a named DS datum's
+address (``npc_id_address = 3638`` for ``&npc_id``): they match only while
+the link keeps the original layout.
 """
 
 import os
@@ -52,10 +54,15 @@ _RETURN_TYPE = re.compile(
     r'(?:(?:unsigned|signed)\s+)?'
     r'(?:struct\s+|union\s+|enum\s+)?[A-Za-z_]\w*\b[ \t*]*$')
 _OFFSET_NUMBER = re.compile(r'\b(?:0[xX][0-9a-fA-F]+|\d+)\b')
+_LITERAL = re.compile(r'(?<![\w.])(0[xX][0-9a-fA-F]+|\d+)[uUlL]*(?![\w.])')
+_STRING = re.compile(r'"(?:\\.|[^"\\\n])*"|\'(?:\\.|[^\'\\\n])*\'')
+#: Below this a literal is far likelier a count or a flag than an address: the
+#: low DS bytes hold the runtime's own data, which C never names by number.
+_ADDRESS_FLOOR = 0x400
 
 _HEADER = (f"{'score':>5} {'back':>4} {'fwd':>4} {'frm':>3} {'vol':>3} "
            f"{'def':>3} {'uni':>3} {'fill':>4} {'gen':>3} {'pun':>3} "
-           f"{'off':>3} {'mac':>3} {'view':>4} {'ext':>3}  file")
+           f"{'off':>3} {'mac':>3} {'view':>4} {'ext':>3} {'addr':>4}  file")
 
 # Definitions do not change between projects that share a source tree.
 _DEFINITION_CACHE = {}
@@ -345,7 +352,74 @@ def _count_externs(code, definitions):
     return count
 
 
-def _score_file(text, definitions=None, externs=None):
+def _literal_value(token):
+    """The value of a C integer literal (``0x1f``, ``017``, ``42``)."""
+    if token[:2] in ('0x', '0X'):
+        return int(token, 16)
+    try:
+        return int(token, 8 if len(token) > 1 and token[0] == '0' else 10)
+    except ValueError:
+        return None
+
+
+def _count_addresses(code, addresses):
+    """Count integer literals that equal a named DS datum's offset.
+
+    *addresses* maps an offset to its name; offsets below
+    :data:`_ADDRESS_FLOOR` and round decimals are not considered.  Strings
+    and preprocessor lines are skipped.
+    """
+    if not addresses:
+        return 0
+    count = 0
+    for line in _STRING.sub('""', code).split('\n'):
+        if line.lstrip().startswith('#'):
+            continue
+        for match in _LITERAL.finditer(line):
+            token = match.group(1)
+            value = _literal_value(token)
+            # A round decimal (``3000``) is a count or an id someone chose; an
+            # address copied from a listing is not round.
+            if token.isdigit() and value is not None and value % 100 == 0:
+                continue
+            if (value is not None and value >= _ADDRESS_FLOOR
+                    and value in addresses):
+                count += 1
+    return count
+
+
+def data_addresses(project):
+    """``{binary: {offset: name}}`` of each binary's named DS data.
+
+    From the sidecar's ``data_names``: their keys are DS offsets, the value
+    a C literal would spell.  Empty without a sidecar.
+    """
+    from lib.sidecar import loader
+    sidecar = loader.load_readonly(project) or {}
+    out = {}
+    for binary, section in (sidecar.get('binaries') or {}).items():
+        names = {}
+        for key, entry in (section.get('data_names') or {}).items():
+            name = entry.get('name') if isinstance(entry, dict) else entry
+            if name:
+                names[int(key, 16)] = name
+        out[binary] = names
+    return out
+
+
+def _file_addresses(relpath, addresses, root_binary='ds'):
+    """The address map a file under *relpath* can reach: the root's data
+    plus that of the binary whose directory holds it."""
+    if not addresses:
+        return {}
+    top = relpath.split(os.sep, 1)[0]
+    merged = dict(addresses.get(root_binary) or {})
+    if top != root_binary:
+        merged.update(addresses.get(top) or {})
+    return merged
+
+
+def _score_file(text, definitions=None, externs=None, addresses=None):
     """Return the per-file counts, in header order, plus the score."""
     # Blank out comments but keep line numbers.
     code = _COMMENT.sub(lambda m: '\n' * m.group().count('\n'), text)
@@ -373,18 +447,20 @@ def _score_file(text, definitions=None, externs=None):
     mac = _count_macros(code)
     view = _count_views(code, externs or set())
     ext = _count_externs(code, definitions or {})
+    addr = _count_addresses(code, addresses)
     score = (3 * back + fwd + 10 * frame + 10 * vol + 3 * alias + 5 * union
              + 3 * filler + 2 * gen + 5 * pun + 5 * off + 5 * mac + 5 * view
-             + 3 * ext)
+             + 3 * ext + 10 * addr)
     return (score, back, fwd, frame, vol, alias, union, filler, gen, pun,
-            off, mac, view, ext)
+            off, mac, view, ext, addr)
 
 
-def scan(root):
+def scan(root, addresses=None):
     """Flagged ``.c`` files under *root*, worst first.
 
     Each row is ``(score, relpath, back, fwd, frame, vol, alias, union,
-    filler, gen, pun, off, mac, view, ext)``.
+    filler, gen, pun, off, mac, view, ext, addr)``.  *addresses* is
+    :func:`data_addresses`; without it ``addr`` stays 0.
     """
     rows = []
     definitions = _project_definitions(root)
@@ -396,11 +472,12 @@ def scan(root):
             if not name.endswith('.c'):
                 continue
             path = os.path.join(directory, name)
+            relpath = os.path.relpath(path, root)
             with open(path, errors='replace') as source:
-                counts = _score_file(source.read(), definitions, externs)
+                counts = _score_file(source.read(), definitions, externs,
+                                     _file_addresses(relpath, addresses))
             if counts[0]:
-                rows.append((counts[0], os.path.relpath(path, root))
-                            + counts[1:])
+                rows.append((counts[0], relpath) + counts[1:])
     rows.sort(key=lambda r: (-r[0], r[1]))
     return rows
 
@@ -412,14 +489,15 @@ def cmd_badc(projects):
         root = cachedirs.src_dir(project)
         if not os.path.isdir(root):
             continue
-        rows = scan(root)
+        rows = scan(root, data_addresses(project))
         if rows:
             print(f'badc {project}:', file=sys.stderr)
             print(_HEADER, file=sys.stderr)
             for r in rows:
                 print(f'{r[0]:5} {r[2]:4} {r[3]:4} {r[4]:3} {r[5]:3} '
                       f'{r[6]:3} {r[7]:3} {r[8]:4} {r[9]:3} {r[10]:3} '
-                      f'{r[11]:3} {r[12]:3} {r[13]:4} {r[14]:3}  {r[1]}',
+                      f'{r[11]:3} {r[12]:3} {r[13]:4} {r[14]:3} '
+                      f'{r[15]:4}  {r[1]}',
                       file=sys.stderr)
         print(f'badc {project}: {len(rows)} file(s) flagged')
         flagged += len(rows)

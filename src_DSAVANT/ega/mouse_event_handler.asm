@@ -1,4 +1,42 @@
 ; auto-generated
+cursor_draw_busy:
+    db 0x00
+mouse_event_handler:
+    cld                              ; 0x2a09
+    and ax, strict word 0xa          ; 0x2a0a
+    je short .forward2               ; 0x2a0d
+    cmp byte [cs:cursor_draw_busy - IMAGE_BASE], 0 ; 0x2a0f
+    jne short .return1               ; 0x2a15
+    mov byte [cs:cursor_draw_busy - IMAGE_BASE], al ; 0x2a17
+    mov word [cs:mouse_click_pending - IMAGE_BASE], bx ; 0x2a1b
+    shr cx, 1                        ; 0x2a20
+    mov word [cs:mouse_click_x - IMAGE_BASE], cx ; 0x2a22
+    mov word [cs:mouse_click_y - IMAGE_BASE], dx ; 0x2a27
+    xor al, al                       ; 0x2a2c
+    mov byte [cs:cursor_draw_busy - IMAGE_BASE], al ; 0x2a2e
+    cmp cx, word [cs:mouse_drawn_x - IMAGE_BASE] ; 0x2a32
+    jne short .forward1              ; 0x2a37
+    cmp dx, word [cs:mouse_drawn_y - IMAGE_BASE] ; 0x2a39
+    jne short .forward1              ; 0x2a3e
+.return1:
+    retf                             ; 0x2a40
+.forward1:
+    shl cx, 1                        ; 0x2a41
+.forward2:
+    mov al, byte [cs:mouse_redraw_pending - IMAGE_BASE] ; 0x2a43
+    or al, byte [cs:mouse_glide_active - IMAGE_BASE] ; 0x2a47
+    je short draw_mouse_pointer_at   ; 0x2a4c
+    retf                             ; 0x2a4e
+draw_mouse_pointer_at:
+    cmp byte [cs:cursor_draw_busy - IMAGE_BASE], 0 ; 0x2a4f
+    je short .forward1               ; 0x2a55
+    retf                             ; 0x2a57
+.forward1:
+    mov al, 0xff                     ; 0x2a58
+    mov byte [cs:cursor_draw_busy - IMAGE_BASE], al ; 0x2a5a
+    shr cx, 1                        ; 0x2a5e
+    mov word [cs:mouse_read_x - IMAGE_BASE], cx ; 0x2a60
+    mov word [cs:mouse_read_y - IMAGE_BASE], dx ; 0x2a65
 update_mouse_cursor:
     push bp                          ; 0x2a6a
     mov bp, sp                       ; 0x2a6b

@@ -400,6 +400,7 @@
           "natural": "7404",
           "apply": "eb04",
           "allow": ["7404", "eb04"],
+          "disabled": true,
           "note": "copy protection crack: verify_answer_word skips only the per-character mismatch return, so the npc_id address chain still completes"
         }
       ],
@@ -411,6 +412,7 @@
       "fingerprint-start": "9e68e13368a5e977af6f4921d01938b5d8932faa7c4a526c5a2dc1c7082dd9fa",
       "fingerprint-end": "b94811b8e00674347f4917bc5eda18025b74473bed7ed5aadc3638184285f0de",
       "immediate_pointers": [
+        {"offset": "03d3", "space": "ds", "note": "set_npc_id_address's `npc_id_address = &npc_id`: starts the copy-protection chain with npc_id's address"},
         {"offset": "288e", "space": "ds", "note": "`mov ax, 0x15e; imul bx; add ax, 0x6a1a; push ax`: row bx of the 350-byte-row array bss_6a1a (the overlays' C declares it `unsigned char [][350]`), passed to ds_app_file_MPPM as the buffer"},
         {"offset": "4a52", "space": "cs", "note": "format.asm's `mov di,offset nofltmsg` (' -lm first', printed for %e/%f/%g without the float library): a CS string after the conversion table (file 0x485c)"},
         {"offset": "3477", "space": "cs", "note": "select_vga_driver's `mov dx, vga_palette` (es = cs): the 256-colour table for INT 10h AX=1012h"},
@@ -432,7 +434,9 @@
         {"offset": "10dd0", "space": "ds", "note": "Aztec heap-base pointer (dseg_0c70): read as `mov di, word es:[dseg_0c70]` then `stosb es:[di]` (0x4e24) and advanced by the malloc/brk routines (0x4daf, 0x51dc). Target 0xb198 lies past bss_boundary (0xcf6) but is a real DS offset at the end of the image; the CRT recomputes it at startup from psp_top_of_memory, so it must track the data end"},
         {"offset": "10dfc", "space": "cs", "note": "Aztec exit hook (dseg_0c9c): called as `call [dseg_0c9c]` by aztec_exit, so the CPU loads IP from the word; its default target CS 0x4ca3 (file 0x4ea3) is a `mov ax, 0; ret` stub"},
         {"offset": "10e50", "space": "cs", "note": "Aztec console read vector (dseg_0cf0): aztec_write dispatches a tty handle with `cmp ah, 0x3f; je; ...; jmp [dseg_0cf0]` (0x4fd6), so the word is the read routine's CS offset (file 0x505c)"},
-        {"offset": "10e52", "space": "cs", "note": "Aztec console write vector (dseg_0cf2): the other arm of the same dispatch, `jmp [dseg_0cf2]` (0x4fd2); target file 0x50c1"}
+        {"offset": "10e52", "space": "cs", "note": "Aztec console write vector (dseg_0cf2): the other arm of the same dispatch, `jmp [dseg_0cf2]` (0x4fd2); target file 0x50c1"},
+        {"offset": "2f5c", "space": "cs", "note": "driver_tables: offset half of a far pointer to vga_palette; load_video_driver stores it with cs as the segment in the copy it hands the video driver"},
+        {"offset": "2f5e", "space": "cs", "note": "driver_tables: offset half of a far pointer to far_delay_ms; load_video_driver stores it with cs as the segment in the copy it hands the video driver"}
       ],
       "not_pointers": [
         {"offset": "10162", "note": "far-pointer offset half; ds/app_09a5.asm does `les bx, word [dseg_0002]` -> ES:BX = 0000:046c, the BIOS timer tick. The target is an absolute external, so this offset must not move"},
@@ -1125,10 +1129,10 @@
         "2f39": {"name": "video_is_vga", "note": "1 when select_vga_driver picked VGA"},
         "2f3a": {"name": "video_is_cga", "note": "only cleared here, never set in DS; by the driver order (vga, ega, cga, herc, tandy) presumably CGA: unconfirmed"},
         "2f3b": {"name": "video_is_herc", "note": "only cleared here, never set in DS; by the driver order presumably Hercules: unconfirmed"},
-        "2f40": {"name": "driver_block_table", "length": 32, "file": "driver_tables", "note": "paragraph count and allocated segment per driver block; a zero count ends the table"},
+        "2f40": {"name": "driver_block_table", "length": 71, "file": "driver_tables", "note": "paragraph count and allocated segment per driver block; a zero count ends the table. The 71 bytes up to drv_slots_video are one module: load_video_driver copies them into the video driver as one run (this table, the two far pointers after it, ems_state, mouse_button_count and the PLAY.DRV slots), so their order is fixed"},
         "2f4a": {"name": "font_header_seg", "note": "segment load_font_file reads the 16-byte font header into (0 until set at run time)"},
         "2f4e": {"name": "misc_table_seg", "note": "segment read_misc_table reads the 0x400-byte misc table into and unpack_record reads from (0 until set at run time)"},
-        "2f60": {"name": "ems_allocated_paragraphs", "length": 6, "file": "ems_state", "note": "size of the EMS allocation in paragraphs"},
+        "2f60": {"name": "ems_allocated_paragraphs", "note": "size of the EMS allocation in paragraphs"},
         "2f62": {"name": "ems_handle", "note": "EMS handle returned by int 67h AH=43h"},
         "2f64": {"name": "ems_page_frame_segment", "note": "EMS page frame segment returned by int 67h AH=41h"},
         "2f66": {"name": "mouse_button_count", "note": "INT 33h reset result: button count, 0 = no mouse driver"},
@@ -1786,6 +1790,10 @@
         "15cb": {"name": "aztec_ovbgn", "emits": [{"start": "91ae", "end": "91b8"}], "note": "dos20/ovbgn.asm: its dataseg holds save_si/di/sp/bp/ret, after every C module's data"}
       },
       "immediate_pointers": [
+        {"offset": "0476", "space": "ds", "note": "initialize_runtime_resources stores &npc_id_decoy in the copy-protection chain (npc_id_address, npc_id_clue_relay, npc_id_answer_relay, npc_id_target)"},
+        {"offset": "04a7", "space": "ds", "note": "initialize_runtime_resources stores &npc_id_decoy in the copy-protection chain (npc_id_address, npc_id_clue_relay, npc_id_answer_relay, npc_id_target)"},
+        {"offset": "05aa", "space": "ds", "note": "initialize_runtime_resources stores &npc_id_decoy in the copy-protection chain (npc_id_address, npc_id_clue_relay, npc_id_answer_relay, npc_id_target)"},
+        {"offset": "072b", "space": "ds", "note": "initialize_runtime_resources stores &npc_id_decoy in the copy-protection chain (npc_id_address, npc_id_clue_relay, npc_id_answer_relay, npc_id_target)"},
         {"offset": "15ef", "space": "ds", "name": "_Uorg", "note": "$ovbgn's `mov di,offset _Uorg_`: the start of the BSS it clears"},
         {"offset": "15f2", "space": "ds", "name": "_Uend", "note": "$ovbgn's `mov cx,offset _Uend_`: the end of the overlay's BSS"}
       ],
@@ -2441,6 +2449,9 @@
         "91da": {"name": "spell_cast_failed", "note": "Flag indicating the combat spell failed to cast"}
       },
       "immediate_pointers": [
+        {"offset": "2823", "space": "ds", "note": "drain_combatant_stamina's `str_subst_char(combat_action_name_buffer, combat_action_message_buffer, '$')`"},
+        {"offset": "776f", "space": "ds", "note": "apply_combat_attack_effects' `str_subst_char(combat_action_suffix_buffer, combat_action_message_buffer, '$')`"},
+        {"offset": "3a37", "space": "ds", "note": "summon_monster_group passes combat_action_suffix_buffer to the message display"},
         {"offset": "0253", "space": "ds", "note": "`mov ax, window_record`: the address api_idx_0012 returns"},
         {"offset": "a4e0", "space": "ds", "name": "_Uorg", "note": "$ovbgn's `mov di,offset _Uorg_`: the start of the BSS it clears"},
         {"offset": "a4e3", "space": "ds", "name": "_Uend", "note": "$ovbgn's `mov cx,offset _Uend_`: the end of the overlay's BSS"}
@@ -4340,6 +4351,8 @@
         "29bf": {"name": "fade_out_no_memory_exit", "note": "prints the FADE_OUT allocation failure and exits to DOS with status 1; public tail in fade_out.s"},
         "29f6": {"length": 217, "note": "Load the VGA DAC from palette_ptr, or fill all 256 entries with one RGB colour"},
         "12c9": {"name": "update_mouse_pointer", "note": "polls INT 33h/3 and redraws the pointer if it moved since last drawn, unless mouse_glide_active or no mouse; clears mouse_redraw_pending"},
+        "1dd3": {"length": 938, "file": "mouse_event_handler", "note": "one module from cursor_draw_busy through draw_mouse_cursor_image: the INT 33h handler after the flag jumps (jz) into draw_mouse_pointer_at, which has no return and runs into draw_mouse_cursor_image"},
+        "1dd4": {"name": "mouse_event_handler", "note": "INT 33h user routine mouse_init installs (INT 33h AX=0014h, mask 0x0b): on a left or right press stores bx and (cx/2, dx) in mouse_click_pending/x/y; then, if the position moved and no glide or redraw is pending, redraws the pointer by jumping into draw_mouse_pointer_at"},
         "1e1a": {"name": "draw_mouse_pointer_at", "note": "far-returning entry: unless already busy, sets its busy flag, stores the pointer position (cx/2, dx) and falls into the adapter pointer drawer"},
         "2a97": {"name": "reset_rgb_no_memory", "note": "Print the RESET_RGB allocation failure and exit with status 1"},
         "2cbe": {"note": "Clears an occupied screen-maze slot and decrements the allocated block count"},
@@ -4387,6 +4400,7 @@
         "44a3": {"name": "release_maze_block", "note": "Removes a MAZE block and compacts following blocks"}
       },
       "force_code": [
+        {"start": "1dd4", "end": "1e19", "note": "mouse_event_handler, the INT 33h routine after cursor_draw_busy; reached only through the far pointer mouse_init passes to INT 33h"},
         {"start": "3ae2", "end": "3ae5", "note": "xor dx,dx / mov ax,dx tail that falls into the cache_area epilogue; no caller"},
         {"start": "3b56", "end": "3b5b", "note": "unreferenced return-0 stub (xor dx,dx / mov ax,dx / jmp short epilogue) after cache_area_maze_mem_full"},
         {"start": "40c5", "end": "40ca", "note": "unreferenced return-0 stub (xor dx,dx / mov ax,dx / jmp short epilogue) after the CACHESCREEN slot-in-use message"},
@@ -4424,6 +4438,7 @@
         "0151": {"name": "screen_maze_slots", "note": "5 words indexed by screen number: MAZE block id, 0 when free"},
         "015b": {"name": "maze_slots", "note": "16 MAZE slot words, each a block id or 0 when free"},
         "017b": {"name": "maze_piece_table", "note": "word holding the base of the 6-byte maze piece descriptors, indexed by piece id"},
+        "017d": {"name": "maze_piece_descriptors", "note": "the 6-byte maze piece descriptors after maze_piece_table, indexed by piece id * 6 (`add bx, maze_piece_descriptors` in load_maze and draw_maze_piece)"},
         "019b": {"name": "ems_slots", "length": 248, "file": "drv_ems_tables", "note": "20 EMS slot words, each a block id or 0 when free"},
         "01d7": {"name": "screen_ems_slots", "note": "20 words indexed by screen number: EMS block id of the cached screen, 0 when not cached"},
         "01eb": {"name": "ems_blocks", "note": "EMS block table, 4 bytes per id: start paragraph, paragraph count"},
@@ -4451,6 +4466,8 @@
         "14be": {"name": "mouse_cursor_width", "note": "Clipped width of the cursor drawing area"},
         "14c0": {"name": "mouse_cursor_height", "note": "Clipped height of the cursor drawing area"},
         "14c2": {"name": "mouse_cursor_screen_offset", "note": "Video memory offset of the cursor drawing area"},
+        "14c4": {"name": "mouse_saved_background", "note": "1024-byte buffer mouse_saved_background_offset points at: the background saved under the drawn pointer"},
+        "18c4": {"name": "mouse_redraw_background", "note": "1024-byte buffer mouse_redraw_background_offset points at: the background saved before compositing"},
         "1cc4": {"name": "mouse_restore_mask", "note": "136-byte, 1-bit-per-pixel mask of the drawn pointer; a set bit restores the saved background pixel, the overlap with the new cursor is cleared"},
         "1d4c": {"name": "mouse_mask_row", "note": "16 bytes; one row of the mask, copied into each overlapping row of mouse_restore_mask"},
         "1d5c": {"name": "mouse_image_stride", "note": "Bytes per row in the pointer image"},
@@ -4498,9 +4515,16 @@
       "fingerprint-end": "02918342cdb921ea77d85460636c572f2183005b8ef9312909494f20f5036a09",
       "api": "video_drv",
       "force_data": [
+        {"start": "1dd3", "end": "1dd3", "note": "cursor_draw_busy, the flag byte that leads the mouse_event_handler module"},
         {"start": "00df", "end": "0292", "note": "(value,size) pairs + the 8-entry host callback ladder up to the first routine at 0x0293 -- not code"}
       ],
       "immediate_pointers": [
+        {"offset": "0c44", "space": "cs", "note": "`add bx, maze_piece_table + 2` (load_maze, draw_maze_piece): bx is the piece id times 6, so this is the piece's descriptor, past the word at maze_piece_table"},
+        {"offset": "0e2a", "space": "cs", "note": "`add bx, maze_piece_table + 2` (load_maze, draw_maze_piece): bx is the piece id times 6, so this is the piece's descriptor, past the word at maze_piece_table"},
+        {"offset": "1024", "space": "cs", "note": "`add bx, maze_piece_table + 2` (load_maze, draw_maze_piece): bx is the piece id times 6, so this is the piece's descriptor, past the word at maze_piece_table"},
+        {"offset": "10fc", "space": "cs", "note": "`add bx, maze_piece_table + 2` (load_maze, draw_maze_piece): bx is the piece id times 6, so this is the piece's descriptor, past the word at maze_piece_table"},
+        {"offset": "112d", "space": "cs", "note": "`add bx, maze_piece_table + 2` (load_maze, draw_maze_piece): bx is the piece id times 6, so this is the piece's descriptor, past the word at maze_piece_table"},
+        {"offset": "1261", "space": "cs", "note": "mouse_init's `mov dx, mouse_event_handler` (es = cs): the INT 33h AX=000Ch user routine"},
         {"offset": "0fce", "space": "cs", "note": "`mov bx, 0xbc6`: maze_map_slots, indexed by map number (draw_maze_piece)"},
         {"offset": "2e45", "space": "cs", "note": "`mov di, 0x2e2b`: text_state_words, cleared with rep stosw (draw_text)"},
         {"offset": "2e84", "space": "cs", "note": "`mov di, 0x2e53`: text_state_bytes, cleared with rep stosb (draw_text)"},
@@ -4558,6 +4582,7 @@
         "0151": {"name": "screen_maze_slots", "note": "5 words indexed by screen number: MAZE block id, 0 when free"},
         "015b": {"name": "maze_slots", "note": "16 MAZE slot words, each a block id or 0 when free"},
         "017b": {"name": "maze_piece_table", "note": "word holding the base of the 6-byte maze piece descriptors, indexed by piece id"},
+        "017d": {"name": "maze_piece_descriptors", "note": "the 6-byte maze piece descriptors after maze_piece_table, indexed by piece id * 6 (`add bx, maze_piece_descriptors` in load_maze and draw_maze_piece)"},
         "019b": {"name": "ems_slots", "length": 248, "file": "drv_ems_tables", "note": "20 EMS slot words, each a block id or 0 when free"},
         "01d7": {"name": "screen_ems_slots", "note": "20 words indexed by screen number: EMS block id of the cached screen, 0 when not cached"},
         "01eb": {"name": "ems_blocks", "note": "EMS block table, 4 bytes per id: start paragraph, paragraph count"},
@@ -4591,6 +4616,8 @@
         "1af7": {"name": "cursor_video_offset", "note": "video memory offset of the cursor, y*80 + x/4"},
         "1af9": {"name": "cursor_x_shift", "note": "horizontal bit shift for cursor masks"},
         "1afb": {"name": "cursor_clipped_right", "note": "0xff when the cursor is clipped at the right screen edge, otherwise 0"},
+        "1afd": {"name": "cursor_save_area", "note": "0x480-byte buffer cursor_save_buffer points at: the background saved under the drawn cursor"},
+        "1f7d": {"name": "cursor_background_area", "note": "0x480-byte buffer cursor_background_buffer points at: the second cursor background buffer"},
         "23fd": {"name": "old_cursor_restore_mask", "note": "one bit per video byte of the old cursor rectangle; clear where the new cursor overlaps, so those bytes are not restored"},
         "247d": {"name": "cursor_mask_scratch", "note": "Scratch bytes used while constructing the cursor mask"},
         "248d": {"name": "mouse_pointer_width", "note": "pointer image width in pixels, also its source row stride"},
@@ -4660,6 +4687,8 @@
         "1355": {"name": "decrement_cached_slot_ids", "note": "decrements larger slot indices in the EMS, maze and screen tables"},
         "1392": {"name": "release_and_compact_ems_blocks", "note": "releases one EMS block entry and compacts the remaining blocks"},
         "18c1": {"name": "update_mouse_pointer", "note": "polls INT 33h/3 and redraws the pointer if it moved since last drawn, unless mouse_glide_active or no mouse; clears mouse_redraw_pending"},
+        "2a08": {"length": 1069, "file": "mouse_event_handler", "note": "one module from cursor_draw_busy through update_mouse_cursor: the INT 33h handler after the flag jumps (jz) into draw_mouse_pointer_at, which has no return and runs into update_mouse_cursor"},
+        "2a09": {"name": "mouse_event_handler", "note": "INT 33h user routine mouse_init installs (INT 33h AX=0014h, mask 0x0b): on a left or right press stores bx and (cx/2, dx) in mouse_click_pending/x/y; then, if the position moved and no glide or redraw is pending, redraws the pointer by jumping into draw_mouse_pointer_at"},
         "2a4f": {"name": "draw_mouse_pointer_at", "note": "far-returning entry: unless already busy, sets its busy flag, stores the pointer position (cx/2, dx) and falls into the adapter pointer drawer"},
         "39e3": {"name": "check_frame_index", "length": 110, "note": "checks frame index and reports overflow"},
         "3a3a": {"name": "table_entry_ptr", "note": "internal entry in check_frame_index: resolves an entry in the 4-byte offset/paragraph table at ds:2 and returns ds:bx"},
@@ -4702,6 +4731,7 @@
         "4d55": {"name": "release_maze_block", "note": "Removes a MAZE block and compacts following blocks"}
       },
       "force_code": [
+        {"start": "2a09", "end": "2a4e", "note": "mouse_event_handler, the INT 33h routine after cursor_draw_busy; reached only through the far pointer mouse_init passes to INT 33h"},
         {"start": "4394", "end": "4397", "note": "xor dx,dx / mov ax,dx tail that falls into the cache_area epilogue; no caller"},
         {"start": "4408", "end": "440d", "note": "unreferenced return-0 stub (xor dx,dx / mov ax,dx / jmp short epilogue) after cache_area_maze_mem_full"},
         {"start": "4977", "end": "497c", "note": "unreferenced return-0 stub (xor dx,dx / mov ax,dx / jmp short epilogue) after the CACHESCREEN slot-in-use message"},
@@ -4716,12 +4746,19 @@
       "fingerprint-end": "b52f3769ec25f3ff6d83cf3d5fd7af6f233f8b4f40a3778fbc870eb318491da9",
       "api": "video_drv",
       "force_data": [
+        {"start": "2a08", "end": "2a08", "note": "cursor_draw_busy, the flag byte that leads the mouse_event_handler module"},
         {"start": "00df", "end": "0292", "note": "(value,size) pairs + the 8-entry host callback ladder up to the first routine at 0x0293 -- not code"}
       ],
       "data_pointers": [
         {"offset": "1ad5", "space": "cs", "note": "cursor save-buffer pointer (CS 0x1bfd -> file 0x1afd, a 0x480-byte buffer): loaded as `mov si, word [cs:cursor_save_buffer]` (0x1838, 0x184a, 0x1860, 0x1876) and handed to restore_cursor_background_plane, which copies from it with `rep movsb` (0x18b1) under DS = CS; it is also added to a row offset (`add ax, word [cs:cursor_save_buffer]`, 0x0a33, 0x2c37). Its partner cursor_background_buffer (CS 0x207d, the second buffer) is proven by the scorer's own consumer scan (restore_mouse_background 0x0bb3). The scan stops at a call, so this one is stated here"}
       ],
       "immediate_pointers": [
+        {"offset": "1165", "space": "cs", "note": "`add bx, maze_piece_table + 2` (load_maze, draw_maze_piece): bx is the piece id times 6, so this is the piece's descriptor, past the word at maze_piece_table"},
+        {"offset": "134b", "space": "cs", "note": "`add bx, maze_piece_table + 2` (load_maze, draw_maze_piece): bx is the piece id times 6, so this is the piece's descriptor, past the word at maze_piece_table"},
+        {"offset": "1545", "space": "cs", "note": "`add bx, maze_piece_table + 2` (load_maze, draw_maze_piece): bx is the piece id times 6, so this is the piece's descriptor, past the word at maze_piece_table"},
+        {"offset": "161d", "space": "cs", "note": "`add bx, maze_piece_table + 2` (load_maze, draw_maze_piece): bx is the piece id times 6, so this is the piece's descriptor, past the word at maze_piece_table"},
+        {"offset": "164e", "space": "cs", "note": "`add bx, maze_piece_table + 2` (load_maze, draw_maze_piece): bx is the piece id times 6, so this is the piece's descriptor, past the word at maze_piece_table"},
+        {"offset": "1796", "space": "cs", "note": "mouse_init's `mov dx, mouse_event_handler` (es = cs): the INT 33h AX=000Ch user routine"},
         {"offset": "17bd", "space": "cs", "note": "`mov bx, 0x33b3`: the nibble table expand_pixel_to_planes translates through with `cs xlatb` (0x3254). Handed in bx to expand_transparent_px_to_planes, which reaches that `cs xlatb` only past a conditional jump, so the automatic scan stops short"},
         {"offset": "3202", "space": "cs", "note": "`mov bx, 0x33b3; add bx, word [bp + 0xc]; mov word [cs:bx], 0xff` (0x3210): an entry of the same 0x32b3 table, indexed by an argument the scan cannot prove is an index"},
         {"offset": "2cab", "space": "cs", "note": "`mov si, 0x2602`: the four 0x100-byte plane buffers at 0x2502 that draw_cursor_from_planes adds to si (0x2f7a). si is overwritten by `xor si, si` (0x2cb2) before any read"},
@@ -4767,6 +4804,7 @@
         {"start": "0e21", "end": "0e23", "note": "Three zero bytes between the skip-byte event handler's jmp at 0x0e20 and the note handler at 0x0e24; naming that handler makes the force-code sweep decode them across 0x0e24"}
       ],
       "force_code": [
+        {"start": "0ab4", "end": "0ad6", "note": "music_timer_interrupt and music_timer_interrupt_divided, the INT 08h handlers between music_patch_offset and event_class_flag; reached only through the INT 08h vector"},
         {"start": "0e51", "end": "0f27", "note": "Unreachable code after `jmp near loc_LPMH` at 0x0e4e: a switch on cs:[0x0e46] (6-10) that sets OPL rhythm bits through register 0xBD, plus its helper at 0x0f12 (`cs xlatb` through 0x1529) ending in the ret at 0x0f27."},
         {"start": "0870", "end": "0874", "note": "Unreachable INT 08h handler entry: `cli` and the push ax/ds/dx/bx of io_loc_TGPU's prologue (0x08af), falling into the body at 0x0875 that io_loc_TGPU's `js` shares. Not in the 0495 handler table and never loaded as an immediate; the bytes before it (0x086e/0x086f) are the counter and limit that body compares."},
         {"start": "12b0", "end": "12de", "note": "opl_load_operator_muted: no caller; follows the previous routine's ret and was left as db bytes"}
@@ -4789,6 +4827,8 @@
         {"table": "11b3", "jmp": "11ac", "entry_size": 2, "count": 6, "note": "Mode dispatch through `call [cs:bx+0x12b3]`; six entries, as 115b. The bytes after it (03 03 03 03 02 02 03 ff ...) are a byte table, not code pointers"}
       ],
       "immediate_pointers": [
+        {"offset": "02da", "space": "cs", "note": "play_select_device's `mov ax, music_timer_interrupt; stosw`: the INT 08h vector offset it installs (es:di = 0000:0020, the segment is cs)"},
+        {"offset": "09ef", "space": "cs", "note": "sound_stop_and_restore_timer's `mov dx, music_timer_interrupt` (ds = cs) for INT 21h AH=25h: reinstalls the music timer handler"},
         {"offset": "05b6", "space": "cs", "note": "`mov bx, 0x1a3a`: the CS address of the 0x193a byte table the timer handlers read with `mov bx, 0x1a3a; cs xlatb`. bl is overwritten by `mov bl, 0x48` before any read, so no use proves it"},
         {"offset": "065c", "space": "cs", "note": "`mov di, 0x1a3a`: the table this routine fills as `[cs:bx + 0x1a3a]`; di is saved/restored around it and never read"},
         {"offset": "065f", "space": "cs", "note": "`mov si, 0x1b3a`: the table this routine reads as `[cs:si + 0x1b3a]`; si is overwritten by `mov si, ax` before any read"},
@@ -4831,6 +4871,8 @@
         "0a41": {"name": "speaker_sample_interrupt", "note": "INT 08h tick: reads the index byte at di, looks it up in the cs table at bx and writes the result to PIT channel 2, advances the di:ax accumulator by 8000h, and on di wrap stops playback through sound_stop_and_restore_timer"},
         "0a6d": {"name": "mark_sample_idle", "note": "clears speaker bit 0 and sets sample_idle"},
         "0ad9": {"name": "music_tick_exit", "length": 1678, "file": "music_player_tick", "note": "music_player_tick's shared exit, stored before its entry: clears the running flag, leaves OPL index 40h selected on device 1, and pops the registers the tick pushed; spans the player and its event handlers through 0x1166 (no outside callers; music_player_tick and restore_timer_handler are the external entries)"},
+        "0ab4": {"name": "music_timer_interrupt", "length": 35, "file": "music_timer_interrupts", "note": "INT 08h handler play_select_device installs while music plays (`mov ax, music_timer_interrupt; stosw` into 0000:0020): one music_player_tick per timer tick, then EOI; sound_stop_and_restore_timer reinstalls it when a sample ends"},
+        "0ac2": {"name": "music_timer_interrupt_divided", "note": "unreferenced INT 08h handler: as music_timer_interrupt, but calls music_player_tick only when tick_divider counts down to zero"},
         "0af6": {"name": "music_player_tick", "note": "one music step and its dispatched event handlers through note_event_high/note_event_low; entered here within the encompassing player fragment that begins at its shared exit music_tick_exit (0x0ad9)"},
         "0c97": {"name": "restore_timer_handler", "note": "restores the saved INT 08h vector and PIC mask, stops PIT channel 0, and clears the installed flag"},
         "0cca": {"name": "music_loop_event", "note": "0feh command: reads a word into the restart delay, saves si as the restart offset, and stops the step"},
@@ -4886,7 +4928,7 @@
         "09bb": {"name": "sample_step_imm_c", "note": "patched immediate of the fractional step add: ffh minus the caller's byte"},
         "0a52": {"name": "add_sample_step_d", "note": "add ah,80h whose operand the installer patches through sample_step_imm_d"},
         "0a54": {"name": "sample_step_imm_d", "note": "patched immediate of the fractional step add: ffh minus the caller's byte"},
-        "0a7c": {"name": "music_device", "length": 93, "file": "play_state", "note": "byte: music device 0-5; 5 selects the MPU-401 event path, other values the OPL opcode dispatch"},
+        "0a7c": {"name": "music_device", "length": 56, "file": "play_state", "note": "byte: music device 0-5; 5 selects the MPU-401 event path, other values the OPL opcode dispatch"},
         "0a7d": {"name": "play_device", "note": "byte: output device 0-5; indexes the INT 08h handler sub-tables at 0495, set by play_set_device"},
         "0a7e": {"name": "stream_running", "note": "byte: set when event processing starts; a restart-delay expiry returns without restarting while it is set"},
         "0a7f": {"name": "restart_delay", "note": "word: countdown to the next block; set to 1 at init and loaded from a 0feh command, cleared on restart"},
@@ -4912,7 +4954,7 @@
         "0aa9": {"name": "last_playback_volume", "note": "byte: last volume sent to the MPU, so controller 7 is only re-sent when it changes"},
         "0aac": {"name": "music_patch_segment", "note": "word: segment of the instrument/patch table, set with the offset by the driver setup call (music_set_data)"},
         "0aae": {"name": "music_patch_offset", "note": "word: offset of the instrument/patch table, set with the segment by the driver setup call (music_set_data); 40h-byte header, then 11-byte patch records"},
-        "0ad7": {"name": "event_class_flag", "note": "byte: cleared before each OPL event and set to 1 for the 10h-1fh range"},
+        "0ad7": {"name": "event_class_flag", "length": 2, "file": "opl_event_flags", "note": "byte: cleared before each OPL event and set to 1 for the 10h-1fh range"},
         "0ad8": {"name": "note_started", "note": "byte: cleared before each OPL event and set to 1 by the OPL note-start path"},
         "0b0f": {"name": "chain_saved_int08", "note": "call far of the saved INT 08h vector; other routines patch its operand"},
         "0b10": {"name": "saved_int08_offset", "note": "word: offset of the INT 08h vector saved at install; operand of music_player_tick's chaining call far at 0x0b0f, written back on uninstall"},
@@ -4966,7 +5008,7 @@
         "1904": {"name": "sample_step_imm_a", "note": "patched immediate of the fractional step add: ffh minus the caller's byte"},
         "19ba": {"name": "sample_output_table_upper", "note": "upper 128 bytes of sample_output_table, written separately by build_opl_sample_curve"},
         "1a3a": {"name": "opl_velocity_scale_table", "note": "256-byte velocity curve used to scale OPL operator levels by playback volume"},
-        "193a": {"name": "sample_output_table", "note": "256-byte table: sample byte to device output value (PIT count on device 0, level on others), read with cs xlatb by the INT 08h handlers"}
+        "193a": {"name": "sample_output_table", "length": 256, "file": "sample_output_table", "note": "256-byte table: sample byte to device output value (PIT count on device 0, level on others), read with cs xlatb by the INT 08h handlers"}
       }
     }
   } 

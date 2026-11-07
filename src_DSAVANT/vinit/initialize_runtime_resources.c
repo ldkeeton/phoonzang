@@ -73,14 +73,14 @@ initialize_runtime_resources()
 		/* either flag suffices */
 	} else
 		release_and_exit(3);
-	npc_id_address = (unsigned)36956;
+	npc_id_address = (unsigned)&npc_id_decoy;
 		/* npc_id_decoy until the protection chain passes */
 	if ((sound_device = sound_device_setting) == 6)
 		/* normalize device selector */
 		sound_device = 4;
 	sound_port = sound_device == 0 ? 0 : sound_port_setting;
 	call_play_select_device(sound_port, sound_device);
-	npc_id_clue_relay = (unsigned)36956;
+	npc_id_clue_relay = (unsigned)&npc_id_decoy;
 		/* npc_id_decoy until the protection chain passes */
 	mouse_active = 0;
 	hotspot_hit = 0;
@@ -102,7 +102,7 @@ initialize_runtime_resources()
 	mouse_pointer_shape = load_file_data(startup_vmpntr1_name);
 	pointer_image_two = load_file_data(startup_vmpntr2_name);
 	load_startup_maze(startup_base_data_name, 3);
-	npc_id_answer_relay = (unsigned)36956;
+	npc_id_answer_relay = (unsigned)&npc_id_decoy;
 		/* npc_id_decoy until the protection chain passes */
 	read_startup_file(startup_master_header_name, record_size, 82);
 	read_startup_file(startup_disk_header_name, disk_header, 780);
@@ -135,7 +135,7 @@ initialize_runtime_resources()
 	load_sound_file(9, 9, 1);
 	loaded_sound_id = -1;
 	loaded_score_num = -1;
-	npc_id_target = (unsigned)36956;
+	npc_id_target = (unsigned)&npc_id_decoy;
 		/* npc_id_decoy until the protection chain passes */
 	runtime_buffer_1k = 0L;
 	runtime_buffer_4k_a = 0L;

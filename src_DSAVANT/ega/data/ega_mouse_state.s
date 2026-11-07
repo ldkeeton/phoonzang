@@ -18,10 +18,10 @@ cursor_video_offset	dw	0000h
 cursor_x_shift	dw	0000h
 	public	cursor_clipped_right
 cursor_clipped_right	dw	0000h
-	public	cp_1afd
-cp_1afd	db	1152 dup (0)
-	public	cp_1f7d
-cp_1f7d	db	1152 dup (0)
+	public	cursor_save_area
+cursor_save_area	db	1152 dup (0)
+	public	cursor_background_area
+cursor_background_area	db	1152 dup (0)
 	public	old_cursor_restore_mask
 old_cursor_restore_mask	db	128 dup (0)
 	public	cursor_mask_scratch

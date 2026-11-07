@@ -2,6 +2,7 @@
 codeseg	segment	byte public 'code'
 	assume	cs:codeseg
 	extrn	sample_idle:byte
+	extrn	music_timer_interrupt_:far
 	extrn	music_tempo:word
 	extrn	music_enabled:byte
 	extrn	saved_pic_mask:byte
@@ -25,7 +26,7 @@ saved_int08_segment	equ	chain_saved_int08+3
 	mul	bl
 	mov	bx,ax		; Keep the active timer divisor for PIT programming.
 	movseg	ds,cs
-	mov	dx,0bb4h		; Active timer handler offset in the code segment.
+	mov	dx,offset music_timer_interrupt_	; the music timer handler, in the code segment
 	cmp	byte ptr cs:music_enabled,0
 	jne	short active_handler
 

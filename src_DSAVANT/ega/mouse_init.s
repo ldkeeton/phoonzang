@@ -10,6 +10,7 @@ extrn	mouse_drawn_y:word
 extrn	mouse_present:byte
 extrn	expand_cursor_bitmap_planes_:near
 extrn	update_mouse_cursor_:near
+extrn	mouse_event_handler_:far
 	public	mouse_init_
 
 mouse_init_ proc near
@@ -63,7 +64,7 @@ forward1:
 	mov	bx,cs
 	mov	es,bx
 	mov	cx,0bh
-	mov	dx,2b09h
+	mov	dx,offset mouse_event_handler_
 	int	33h
 	pops	es
 forward2:

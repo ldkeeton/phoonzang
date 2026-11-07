@@ -157,11 +157,7 @@ ln_com_jump                                ; 0x0000
 
 %include "shared/data/mouse_click_y.asm"      ; 0x2a06
 
-%include "ega/data/cursor_draw_busy.asm"   ; 0x2a08
-
-%include "shared/drv/draw_mouse_pointer_at.asm"   ; 0x2a4f
-
-%include "ega/update_mouse_cursor.asm"     ; 0x2a6a
+%include "ega/mouse_event_handler.asm"     ; 0x2a08
 
 %include "ega/restore_old_background_plane.asm" ; 0x2e35
 

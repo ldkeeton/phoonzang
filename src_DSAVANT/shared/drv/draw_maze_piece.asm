@@ -48,7 +48,7 @@ draw_maze_piece.forward2:
     mov ax, 5
     mul bx
     mov bx, word [bp - 4]
-    add bx, strict word 0x27d
+    add bx, maze_piece_descriptors - IMAGE_BASE
     add ax, word [cs:bx]
     mov si, ax
     mov ax, word [cs:screen_buf_seg - IMAGE_BASE]
@@ -154,7 +154,7 @@ draw_maze_piece.forward8:
     mov ax, 5
     mul bx
     mov bx, word [bp - 4]
-    add bx, strict word 0x27d
+    add bx, maze_piece_descriptors - IMAGE_BASE
     add ax, word [cs:bx]
     mov si, ax
     mov ax, word [cs:screen_buf_seg - IMAGE_BASE]
@@ -171,7 +171,7 @@ draw_maze_piece.forward8:
     mov bx, 5
     mul bx
     mov bx, word [bp - 4]
-    add bx, strict word 0x27d
+    add bx, maze_piece_descriptors - IMAGE_BASE
     add ax, word [cs:bx]
     mov si, ax
     xor ah, ah

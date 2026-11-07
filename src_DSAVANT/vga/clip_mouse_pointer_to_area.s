@@ -15,6 +15,7 @@ codeseg segment byte public 'code'
 	extrn mouse_image_segment:word
 	extrn mouse_image_offset:word
 	extrn mouse_image_stride:word
+	extrn mouse_default_cursor_image:byte
 ; Borrow the caller frame; no separate prologue or local allocation.
 area_left equ 0ch
 area_top equ 0eh
@@ -27,7 +28,6 @@ pointer_y_skip equ -0ch
 clip_width equ -0eh
 clip_height equ -10h
 screen_stride equ 140h	;320 pixels per screen row
-default_pointer_offset equ 1e69h	;built-in image when the far pointer is null
 transparent_pixel equ 0ffh	;background passes through
 	public	clip_mouse_pointer_to_area_
 clip_mouse_pointer_to_area_	proc	near
@@ -136,7 +136,7 @@ reject_area:
 		mov	ax, ds
 		or	ax, si
 		.if	zero?	;use the built-in image for a null far pointer
-			mov	si, default_pointer_offset
+			mov	si, offset mouse_default_cursor_image	;built-in image when the far pointer is null
 			movseg	ds,cs
 		.endif
 		.repeat	;composite the pointer back into the screen buffer

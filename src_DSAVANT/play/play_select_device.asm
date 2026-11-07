@@ -36,7 +36,7 @@ hook_int08_and_configure_pit:
     mov di, 0x20                     ; 0x02d0
     mov ax, word [es:di]             ; 0x02d3
     mov word [cs:saved_int08_offset - IMAGE_BASE], ax ; 0x02d6
-    mov ax, 0xbb4                    ; 0x02da
+    mov ax, music_timer_interrupt - IMAGE_BASE ; 0x02da
     stosw                            ; 0x02dd
     mov ax, word [es:di]             ; 0x02de
     mov word [cs:saved_int08_segment - IMAGE_BASE], ax ; 0x02e1

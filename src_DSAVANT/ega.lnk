@@ -72,9 +72,7 @@ ega/data/cursor_bitmap_base
 shared/data/mouse_click_pending
 shared/data/mouse_click_x
 shared/data/mouse_click_y
-ega/data/cursor_draw_busy
-shared/drv/draw_mouse_pointer_at
-ega/update_mouse_cursor
+ega/mouse_event_handler
 ega/restore_old_background_plane
 ega/restore_cursor_surround_plane
 ega/save_cursor_background_plane

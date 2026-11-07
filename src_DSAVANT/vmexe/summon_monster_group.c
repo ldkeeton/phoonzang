@@ -97,7 +97,7 @@ int kind0, kind1, kind2, kind3, kind4, kind5, count;
 		*((battle_groups[group]->unit_count == 1 ? 0 : 1) +
 		  battle_group_ext[group]->name[0]));
 	load_message_string(battle_groups[group]->unit_count == 1 ?
-		MSG_APPEARS : MSG_APPEAR, (unsigned)37254);
+		MSG_APPEARS : MSG_APPEAR, combat_action_suffix_buffer);
 	draw_centered_text_fragments(2, combat_action_name_buffer,
 		combat_action_message_buffer, combat_action_suffix_buffer, 1, 65, 65);
 	play_sound_effect(16);

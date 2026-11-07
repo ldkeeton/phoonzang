@@ -10,7 +10,8 @@ maze_slots:
     times 32 db 0
 
 maze_piece_table:
+    db 0x04, 0x00
+maze_piece_descriptors:
 
-    db 0x04
-    times 21 db 0
+    times 20 db 0
 

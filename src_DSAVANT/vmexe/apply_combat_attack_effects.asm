@@ -356,7 +356,7 @@ apply_combat_attack_effects.forward11:
     add sp, byte 4                   ; 0x7768
     mov ax, 0x24                     ; 0x776b
     push ax                          ; 0x776e
-    mov ax, 0x9136                   ; 0x776f
+    mov ax, combat_action_message_buffer ; 0x776f
     push ax                          ; 0x7772
     mov ax, combat_action_suffix_buffer ; 0x7773
     push ax                          ; 0x7776

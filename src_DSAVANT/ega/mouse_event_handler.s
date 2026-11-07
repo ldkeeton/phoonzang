@@ -1,3 +1,6 @@
+; The INT 33h handler, draw_mouse_pointer_at and update_mouse_cursor: one
+; module, as the handler jumps (jz) into draw_mouse_pointer_at, which has no
+; return and runs into update_mouse_cursor.
 	; :ts=8
 	include	lmacros.h
 codeseg	segment	byte public 'code'
@@ -27,7 +30,69 @@ codeseg	segment	byte public 'code'
 	extrn	cursor_clipped_width:word
 	extrn	cursor_overlaps_previous:byte
 	extrn	cursor_mask_scratch:byte
-	extrn	cursor_draw_busy:byte
+	extrn	mouse_click_pending:word
+	extrn	mouse_click_x:word
+	extrn	mouse_click_y:word
+	extrn	mouse_redraw_pending:byte
+	extrn	mouse_glide_active:byte
+
+; Re-entrancy guard: set while the pointer is drawn.
+	public	cursor_draw_busy
+cursor_draw_busy	db	0
+
+mouse_x_column	equ	cx	; INT 33h input: pointer X in columns
+mouse_y_row	equ	dx	; INT 33h input: pointer Y
+
+	public	mouse_event_handler_
+; INT 33h user routine, installed by mouse_init (AX=0014h, mask 0bh).  On a
+; left or right press it stores the buttons and position for clear_mouse_click;
+; on a move it redraws the pointer unless a glide or a redraw is pending.
+mouse_event_handler_ proc far
+	cld
+	and	ax,0ah	; left or right button pressed
+	jz	short check_redraw
+	cmp	byte ptr cs:cursor_draw_busy,0
+	jnz	short handler_done
+	mov	byte ptr cs:cursor_draw_busy,al
+	mov	word ptr cs:mouse_click_pending,bx
+	shr	mouse_x_column,1
+	mov	word ptr cs:mouse_click_x,mouse_x_column
+	mov	word ptr cs:mouse_click_y,mouse_y_row
+	xor	al,al
+	mov	byte ptr cs:cursor_draw_busy,al
+	cmp	mouse_x_column,word ptr cs:mouse_drawn_x
+	jne	short pointer_moved
+	cmp	mouse_y_row,word ptr cs:mouse_drawn_y
+	jne	short pointer_moved
+handler_done:
+	ret
+pointer_moved:
+	shl	mouse_x_column,1	; back to INT 33h columns for draw_mouse_pointer_at
+check_redraw:
+	mov	al,byte ptr cs:mouse_redraw_pending
+	or	al,byte ptr cs:mouse_glide_active
+	jz	short draw_pointer	; draw_mouse_pointer_at, the routine below
+	ret
+mouse_event_handler_ endp
+
+pointer_x_pixels	equ	cx	; register input: mouse X coordinate
+pointer_y		equ	dx	; register input: mouse Y coordinate
+
+	public	draw_mouse_pointer_at_
+; Store the pointer coordinates unless a draw is already in progress.
+draw_mouse_pointer_at_ proc far
+draw_pointer:
+	cmp	byte ptr cs:cursor_draw_busy,0
+	je	short pointer_draw_allowed
+	db	0cbh	; retf: an existing draw owns the pointer
+pointer_draw_allowed:
+	mov	al,0ffh	; 0xff marks the drawing state as active
+	mov	byte ptr cs:cursor_draw_busy,al
+	shr	pointer_x_pixels,1	; save X in the driver's half-column units
+	mov	word ptr cs:mouse_read_x,pointer_x_pixels
+	mov	word ptr cs:mouse_read_y,pointer_y
+draw_mouse_pointer_at_ endp
+
 	public	update_mouse_cursor_
 bottom_row_or_mask_width	equ	-2	; clipped bottom row, then mask row width
 right_column_or_mask_bytes	equ	-4	; clipped right column, then mask byte count

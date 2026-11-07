@@ -418,7 +418,7 @@ summon_monster_group.forward16:
     push ax                          ; 0x3a30
     call aztec_strcpy                ; 0x3a31
     add sp, byte 4                   ; 0x3a34
-    mov ax, 0x9186                   ; 0x3a37
+    mov ax, combat_action_suffix_buffer ; 0x3a37
     push ax                          ; 0x3a3a
     mov ax, word [bp - 4]            ; 0x3a3b
     shl ax, 1                        ; 0x3a3e

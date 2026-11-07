@@ -15,6 +15,7 @@ from .elf import cmd_elf_rebuild
 from .init import cmd_init
 from .data_files import cmd_data_files
 from .inspect import cmd_data, cmd_info, cmd_probe
+from .layout import cmd_layout
 from .link import cmd_link, projects_with_binary
 from .lint import cmd_lint
 from .naming import cmd_name, cmd_refs, specs_from_makeflags
@@ -50,6 +51,13 @@ Commands (space-separated):
   make check PROJECT [SECONDS] smoke-test game (default 5s, requires build first)
   make run PROJECT          run game in dosbox-x
   make verify [PROJECT...]  verify one or all projects
+  make layout PROJECT [BIN...]  link each binary the make link way and the
+                            build.sh way (ln -t) and list what depends on the
+                            original addresses: A code that differs, B
+                            addresses written as numbers, C sym+N reaching
+                            into a neighbouring module; exits 1 if any.
+                            VERBOSE=1 lists every finding; REUSE=1 analyses
+                            the last run's links again without linking
   make badc [PROJECT...]    flag hand-written .c that matches only through
                             workarounds (goto, frame structs, volatile, pointer
                             punning, raw byte offsets, view macros, byte-pointer
@@ -300,6 +308,13 @@ def main():
     json_out = ('--json' in flags
                 or os.environ.get('JSON', '').lower() in ('1', 'true', 'yes')
                 or make_vars.get('JSON', '').lower() in ('1', 'true', 'yes'))
+
+    if '--layout' in flags:
+        if not args or args[0] not in all_projects:
+            print('Usage: make layout PROJECT [BIN...]')
+            sys.exit(1)
+        cmd_layout(args[0], [a.lower() for a in args[1:]])
+        return
 
     if '--link' in flags:
         if len(args) == 1 and args[0] not in all_projects:

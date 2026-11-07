@@ -1,3 +1,6 @@
+; The INT 33h handler, draw_mouse_pointer_at and draw_mouse_cursor_image: one
+; module, as the handler jumps (jz) into draw_mouse_pointer_at, which has no
+; return and runs into draw_mouse_cursor_image.
 	include	lmacros.h
 codeseg	segment	byte public 'code'
 	assume	cs:codeseg
@@ -16,11 +19,73 @@ codeseg	segment	byte public 'code'
 	extrn	mouse_image_segment:word
 	extrn	mouse_image_offset:word
 	extrn	mouse_screen_offset:word
-	extrn	cursor_draw_busy:byte
-data_1dc4	equ	1dc4h	; image buffer used to construct the cursor mask
-data_1e4c	equ	1e4ch	; 16-byte cursor mask buffer
 	extrn	mouse_cursor_screen_offset:word
 	extrn	mouse_cursor_overlaps:byte
+	extrn	mouse_restore_mask:byte
+	extrn	mouse_mask_row:byte
+	extrn	mouse_default_cursor_image:byte
+	extrn	mouse_click_pending:word
+	extrn	mouse_click_x:word
+	extrn	mouse_click_y:word
+	extrn	mouse_redraw_pending:byte
+	extrn	mouse_glide_active:byte
+
+; Re-entrancy guard: set while the pointer is drawn.
+	public	cursor_draw_busy
+cursor_draw_busy	db	0
+
+mouse_x_column	equ	cx	; INT 33h input: pointer X in columns
+mouse_y_row	equ	dx	; INT 33h input: pointer Y
+
+	public	mouse_event_handler_
+; INT 33h user routine, installed by mouse_init (AX=0014h, mask 0bh).  On a
+; left or right press it stores the buttons and position for clear_mouse_click;
+; on a move it redraws the pointer unless a glide or a redraw is pending.
+mouse_event_handler_ proc far
+	cld
+	and	ax,0ah	; left or right button pressed
+	jz	short check_redraw
+	cmp	byte ptr cs:cursor_draw_busy,0
+	jnz	short handler_done
+	mov	byte ptr cs:cursor_draw_busy,al
+	mov	word ptr cs:mouse_click_pending,bx
+	shr	mouse_x_column,1
+	mov	word ptr cs:mouse_click_x,mouse_x_column
+	mov	word ptr cs:mouse_click_y,mouse_y_row
+	xor	al,al
+	mov	byte ptr cs:cursor_draw_busy,al
+	cmp	mouse_x_column,word ptr cs:mouse_drawn_x
+	jne	short pointer_moved
+	cmp	mouse_y_row,word ptr cs:mouse_drawn_y
+	jne	short pointer_moved
+handler_done:
+	ret
+pointer_moved:
+	shl	mouse_x_column,1	; back to INT 33h columns for draw_mouse_pointer_at
+check_redraw:
+	mov	al,byte ptr cs:mouse_redraw_pending
+	or	al,byte ptr cs:mouse_glide_active
+	jz	short draw_pointer	; draw_mouse_pointer_at, the routine below
+	ret
+mouse_event_handler_ endp
+
+pointer_x_pixels	equ	cx	; register input: mouse X coordinate
+pointer_y		equ	dx	; register input: mouse Y coordinate
+
+	public	draw_mouse_pointer_at_
+; Store the pointer coordinates unless a draw is already in progress.
+draw_mouse_pointer_at_ proc far
+draw_pointer:
+	cmp	byte ptr cs:cursor_draw_busy,0
+	je	short pointer_draw_allowed
+	db	0cbh	; retf: an existing draw owns the pointer
+pointer_draw_allowed:
+	mov	al,0ffh	; 0xff marks the drawing state as active
+	mov	byte ptr cs:cursor_draw_busy,al
+	shr	pointer_x_pixels,1	; save X in the driver's half-column units
+	mov	word ptr cs:mouse_read_x,pointer_x_pixels
+	mov	word ptr cs:mouse_read_y,pointer_y
+draw_mouse_pointer_at_ endp
 
 ; Locals in the 16-byte compiler frame.
 lower_y	equ	-2	; clipped bottom row
@@ -35,7 +100,6 @@ copy_height	equ	-10h	; overlap height in rows
 vga_segment	equ	0a000h	; VGA graphics memory segment
 screen_height	equ	0c8h	; 200 scan lines
 screen_width	equ	140h	; 320 pixels per VGA row
-cursor_image_fallback	equ	1e69h	; built-in image offset for a null image pointer
 transparent_pixel	equ	0ffh	; transparent cursor pixel and empty mask bit
 
 	public	draw_mouse_cursor_image_
@@ -190,7 +254,7 @@ forward_10:
 	mov ax, ds
 	or ax, si
 	jne short forward_11
-	mov si, cursor_image_fallback
+	mov si, offset mouse_default_cursor_image	; built-in image for a null image pointer
 	movseg	ds,cs
 forward_11:
 	pushs	di,si
@@ -247,7 +311,7 @@ forward_14:
 	loop back_5
 	movseg	es,cs
 	mov ds, ax
-	mov di, offset data_1dc4
+	mov di, offset mouse_restore_mask
 	mov cx, 88h
 	mov al, transparent_pixel
 	rep stosb
@@ -263,10 +327,10 @@ forward_14:
 	mov bx, word ptr lower_y[bp]
 	mul bx
 	mov di, ax
-	add di, offset data_1dc4
+	add di, offset mouse_restore_mask
 	mov ax, word ptr copy_left_x[bp]
 	sub ax, word ptr cs:mouse_drawn_x
-	mov bx, offset data_1e4c
+	mov bx, offset mouse_mask_row
 back_7:
 	cmp ax, 8	; skip complete mask bytes before the first set bit
 	jb short forward_15
@@ -299,12 +363,12 @@ forward_16:
 	mov byte ptr [bx], ah
 	inc bx
 forward_17:
-	sub bx, offset data_1e4c
+	sub bx, offset mouse_mask_row
 	mov word ptr lower_x[bp], bx
 	mov cx, word ptr copy_height[bp]
 back_9:
 	pushs	cx,di
-	mov si, offset data_1e4c
+	mov si, offset mouse_mask_row
 	mov cx, word ptr lower_x[bp]
 	rep movsb
 	pop di
@@ -313,7 +377,7 @@ back_9:
 	loop back_9
 ; Build the one-bit mask and restore saved screen pixels.
 forward_18:
-	mov bx, offset data_1dc4
+	mov bx, offset mouse_restore_mask
 	mov si, word ptr cs:mouse_saved_background_offset
 	mov di, word ptr cs:mouse_screen_offset
 	movseg	es,vga_segment

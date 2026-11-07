@@ -11,6 +11,7 @@ codeseg	segment	byte public 'code'
 	extrn	ems_frame_seg:word
 	extrn	ems_cur_page:word
 	extrn	ems_map_pages_:near
+	extrn	maze_piece_descriptors:word
 
 ; Arguments supplied by the maze loader dispatcher.
 maze_file_handle	equ	0Ch	; open maze file handle
@@ -88,7 +89,7 @@ load_maze_conventional:
 	add	ax,4
 	mov	bx,word ptr maze_block_size[bp]
 	; 0x27d is the fixed base offset for the maze's indexed size words.
-	add	bx,27Dh
+	add	bx,offset maze_piece_descriptors	; piece id * 6 -> its descriptor
 	mov	word ptr cs:[bx],ax
 	mov	bx,ax
 	; Read the record dimensions and row count from the final six-byte header.
@@ -237,7 +238,7 @@ load_maze_copy_page:
 	add	ax,4
 	mov	bx,word ptr maze_block_size[bp]
 	; Use the same indexed-size table base after copying from EMS.
-	add	bx,27Dh
+	add	bx,offset maze_piece_descriptors	; piece id * 6 -> its descriptor
 	mov	word ptr cs:[bx],ax
 	jmp near ptr load_maze_return
 load_maze_ endp

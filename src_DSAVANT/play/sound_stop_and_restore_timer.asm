@@ -11,7 +11,7 @@ sound_stop_and_restore_timer:
     mov bx, ax                       ; 0x09e9
     mov ax, cs                       ; 0x09eb
     mov ds, ax                       ; 0x09ed
-    mov dx, 0xbb4                    ; 0x09ef
+    mov dx, music_timer_interrupt - IMAGE_BASE ; 0x09ef
     cmp byte [cs:music_enabled - IMAGE_BASE], 0 ; 0x09f2
     jne short .forward1              ; 0x09f8
     mov al, byte [cs:saved_pic_mask - IMAGE_BASE] ; 0x09fa

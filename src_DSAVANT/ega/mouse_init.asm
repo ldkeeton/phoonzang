@@ -56,7 +56,7 @@ mouse_init:
     mov bx, cs                       ; 0x178f
     mov es, bx                       ; 0x1791
     mov cx, 0xb                      ; 0x1793
-    mov dx, 0x2b09                   ; 0x1796
+    mov dx, mouse_event_handler - IMAGE_BASE ; 0x1796
     int 0x33 ; BIOS mouse
     pop es                           ; 0x179b
 .forward2:

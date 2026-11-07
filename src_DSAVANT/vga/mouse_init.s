@@ -7,6 +7,7 @@ codeseg	segment	byte public 'code'
 	extrn	mouse_drawn_y:word
 	extrn	mouse_present:byte
 	extrn	draw_mouse_cursor_image_:near
+	extrn	mouse_event_handler_:far
 	public	mouse_init_
 
 ; Reset the BIOS mouse, initialize its bounds, and draw the first pointer.
@@ -48,7 +49,7 @@ mouse_init_	proc	near
 		mov	bx,cs
 		mov	es,bx
 		mov	cx,0bh
-		mov	dx,1ed4h
+		mov	dx,offset mouse_event_handler_
 		int	33h
 		pop	es
 initialization_done:

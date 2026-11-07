@@ -44,7 +44,8 @@ ABSENT = ('no_source',)
 #: ``ln``'s log, ``{name: path}`` it exports, ``{key: path}`` of its ``.s``
 #: labels, and the bytes of the ``.rsm`` and the binary it wrote (``None`` for
 #: none).
-Linked = namedtuple('Linked', 'result count log publics labels rsm image')
+Linked = namedtuple('Linked', 'result count log publics labels rsm image symbols',
+                    defaults=(None,))
 
 
 def parse_log(text):
@@ -149,14 +150,18 @@ def ln_line(target, output, root_rsm=None):
     return ' '.join(words + ['> LINK.LOG'])
 
 
-def run_link(project, target, chosen, include_dir, root_rsm=None):
+def run_link(project, target, chosen, include_dir, root_rsm=None,
+             symbols=False):
     """Build *chosen* and link it in one DOSBox session.
 
     A source without an object stays out of ``LINK.RSP``: ``ln`` gives up at the
     first file it cannot open.  Returns ``(log, {path: publics}, {name: paths
     that reference it}, {path that failed: its error lines}, the .rsm's bytes
-    or None, the binary's bytes or None)``.
+    or None, the binary's bytes or None, ln's symbol table or None)``; the
+    table is only asked for (``ln -t``) when *symbols* is set.
     """
+    if symbols:
+        target = target._replace(flags=['-t', *target.flags])
     tree = src_dir(project)
     dos = _compile.dos_names([m.stem for m in chosen])
     work = tempfile.mkdtemp(prefix='asmazb-')
@@ -206,7 +211,8 @@ def run_link(project, target, chosen, include_dir, root_rsm=None):
                 users.setdefault(symbol, []).append(module.path)
         return (_read(os.path.join(work, 'LINK.LOG')), publics, users, failed,
                 _read_bytes(os.path.join(work, 'LINK.RSM')),
-                _read_bytes(os.path.join(work, output)))
+                _read_bytes(os.path.join(work, output)),
+                _read(os.path.join(work, 'LINK.SYM')) if symbols else None)
     finally:
         shutil.rmtree(work, ignore_errors=True)
 
@@ -225,16 +231,17 @@ def _read_bytes(path):
         return f.read()
 
 
-def link_target(project, target, root=None):
-    """The :class:`Linked` of *target*; *root* is the ``Linked`` of its root."""
+def link_target(project, target, root=None, symbols=False):
+    """The :class:`Linked` of *target*; *root* is the ``Linked`` of its root.
+    *symbols* keeps ln's symbol table in ``Linked.symbols``."""
     tree = src_dir(project)
     chosen, missing = _project.modules(tree, target)
     if not chosen:
         return Linked(classify([], [], {}, {}, no_source=missing), 0, '', {}, {},
                       None, None)
-    log, by_path, users, failed, rsm, image = run_link(
+    log, by_path, users, failed, rsm, image, table = run_link(
         project, target, chosen, sources.project_include_dir(project),
-        root.rsm if root else None)
+        root.rsm if root else None, symbols)
     own = {name: path for path, names in by_path.items() for name in names}
     labels = {key: module.path for module in chosen if module.kind == 'asm'
               for key in asm_labels(_read(os.path.join(tree, module.path)))}
@@ -246,21 +253,24 @@ def link_target(project, target, root=None):
                       {**(root.publics if root else {}), **own},
                       {**(root.labels if root else {}), **labels},
                       failed, other, missing, users)
-    return Linked(result, len(chosen), log, own, labels, rsm, image)
+    return Linked(result, len(chosen), log, own, labels, rsm, image, table)
 
 
-def link_targets(project, targets, chosen=None):
+def link_targets(project, targets, chosen=None, symbols=False):
     """``{binary: Linked}`` of each target named in *chosen* (default: all).
-    Roots link first, also when only a binary built on them was asked for."""
+    Roots link first, also when only a binary built on them was asked for.
+    *symbols* keeps each ln symbol table (:func:`link_target`)."""
     by_name = {t.binary: t for t in targets}
     wanted = list(chosen) if chosen is not None else list(by_name)
     roots = list(dict.fromkeys(by_name[name].root for name in wanted
                                if by_name[name].root))
-    done = {name: link_target(project, by_name[name]) for name in roots}
+    done = {name: link_target(project, by_name[name], symbols=symbols)
+            for name in roots}
     rest = [name for name in wanted if name not in done]
     with concurrent.futures.ThreadPoolExecutor(
             max_workers=max(1, min(len(rest), os.cpu_count() or 4))) as pool:
         linked = pool.map(lambda name: link_target(
-            project, by_name[name], done.get(by_name[name].root)), rest)
+            project, by_name[name], done.get(by_name[name].root), symbols),
+            rest)
         done.update(zip(rest, linked))
     return {name: done[name] for name in wanted}

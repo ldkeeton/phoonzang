@@ -95,7 +95,7 @@ int resistance_index, resistance_floor;
 			wait_for_combat_input(4);
 			format_int_decimal(drained_amount, combat_action_message_buffer);
 			load_message_string(MSG_STAMINA_3751, combat_action_name_buffer);
-			str_subst_char(combat_action_name_buffer, (unsigned)37174, 36);
+			str_subst_char(combat_action_name_buffer, combat_action_message_buffer, 36);
 			combat_action_message_buffer[0] = 0;
 			combat_action_suffix_buffer[0] = 0;
 			draw_centered_text_fragments(4, combat_action_name_buffer,

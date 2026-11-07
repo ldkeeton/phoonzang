@@ -29,6 +29,8 @@ play/set_int08_vector
 play/speaker_sample_interrupt
 play/mark_sample_idle
 play/data/play_state
+play/music_timer_interrupts
+play/data/opl_event_flags
 play/music_player_tick
 play/device_load_patch
 play/device_nop
@@ -52,5 +54,4 @@ play/opl_note_off
 play/pit_sample_interrupt
 play/data/cseg_1939
 play/data/sample_output_table
-play/data/sample_output_table_upper
 play/data/opl_velocity_scale_table

@@ -114,17 +114,5 @@ music_patch_segment	dw	0000h
 ; word: offset of the instrument/patch table, set with the segment by the driver setup call (music_set_data); 40h-byte header, then 11-byte patch records
 	public	music_patch_offset
 music_patch_offset	db	6 dup (0)
-	db	50h,53h,1eh,0e8h,3ch,00h,0b0h,20h,0e6h,20h,1fh,5bh,58h,0cfh,50h,53h
-	db	1eh,2eh,0ffh,0eh,81h,0bh,7fh,03h,0e8h,27h,00h,0b0h,20h,0e6h,20h,1fh
-	db	5bh,58h,0cfh
-
-; byte: cleared before each OPL event and set to 1 for the 10h-1fh range
-	public	event_class_flag
-event_class_flag	db	00h
-
-; byte: cleared before each OPL event and set to 1 by the OPL note-start path
-	public	note_started
-note_started	db	00h
-
 codeseg	ends
 	end

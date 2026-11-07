@@ -1,7 +1,7 @@
-; Offset of the buffer holding the saved cursor area (cp_1afd in ega_mouse_state).
-; A literal: make rebuild cannot check a data source with relocations yet.
+; Offset of the buffer holding the saved cursor area.
 codeseg	segment	byte public 'code'
+	extrn	cursor_save_area:byte
 	public	cursor_save_buffer
-cursor_save_buffer	dw	1bfdh
+cursor_save_buffer	dw	offset cursor_save_area
 codeseg	ends
 	end

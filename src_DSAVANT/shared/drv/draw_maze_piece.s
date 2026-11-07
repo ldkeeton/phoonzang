@@ -6,6 +6,7 @@ codeseg	segment	byte public 'code'
 	extrn	screen_buf_seg:word
 	extrn	maze_mem_seg:word
 	extrn	maze_piece_table:word
+	extrn	maze_piece_descriptors:word
 
 ; Stack arguments and scratch slots used while selecting and drawing a maze piece.
 map_slot_id	equ	0ch	; selected MAZE map slot
@@ -61,7 +62,7 @@ draw_maze_piece_forward2:
 	mul bx
 	mov bx, word ptr map_slot_offset[bp]
 	; 0x27d is the fixed base offset used for indexed maze data.
-	add bx, 27Dh
+	add bx, offset maze_piece_descriptors	; piece id * 6 -> its descriptor
 	add ax, word ptr cs:[bx]
 	mov si, ax
 	movseg	es,<word ptr cs:screen_buf_seg>
@@ -174,7 +175,7 @@ draw_maze_piece_forward8:
 	mul bx
 	mov bx, word ptr map_slot_offset[bp]
 	; Use the same fixed base offset for the indexed maze data.
-	add bx, 27Dh
+	add bx, offset maze_piece_descriptors	; piece id * 6 -> its descriptor
 	add ax, word ptr cs:[bx]
 	mov si, ax
 	movseg	es,<word ptr cs:screen_buf_seg>
@@ -191,7 +192,7 @@ draw_maze_piece_forward8:
 	mov bx, 5
 	mul bx
 	mov bx, word ptr map_slot_offset[bp]
-	add bx, 27Dh
+	add bx, offset maze_piece_descriptors	; piece id * 6 -> its descriptor
 	add ax, word ptr cs:[bx]
 	mov si, ax
 	xor ah, ah

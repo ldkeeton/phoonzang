@@ -12,6 +12,10 @@ declares both views at one offset:
 * ``allow``: every value a pre-patch build may have.  ``natural`` and
   ``apply`` are always members; defaults to exactly those two.
 * ``note``: why the file differs (required).
+* ``disabled``: ``true`` keeps the entry (validated) but turns it off: the
+  analysis and the build both use the bytes as they are.  For a shipped file
+  that was put back to its ``natural`` bytes; set it back to ``false`` (and
+  restore the ``apply`` bytes in the shipped file) to re-enable the patch.
 
 Offsets are file offsets, the same coordinate system as ``function_names``,
 ``bands``, the spans sidecar, and the ``; 0x...`` comments in generated
@@ -59,6 +63,9 @@ def _parse_patch(entry, where):
     note = entry.get('note')
     if not isinstance(note, str) or not note.strip():
         raise SidecarError(f'{where}.note: a non-empty note is required')
+    disabled = entry.get('disabled', False)
+    if not isinstance(disabled, bool):
+        raise SidecarError(f'{where}.disabled: expected true or false')
 
     raw_allow = entry.get('allow')
     if raw_allow is None:
@@ -87,18 +94,22 @@ def _parse_patch(entry, where):
         'apply': apply,
         'allow': tuple(ordered),
         'note': note.strip(),
+        'disabled': disabled,
     }
 
 
 def parse_patches(raw, where='byte_patches'):
-    """Validate *raw* and return the patch entries in address order."""
+    """Validate *raw* and return the enabled patch entries in address
+    order (a ``disabled`` entry is checked, then left out)."""
     if raw is None:
         return []
     if not isinstance(raw, list):
         raise SidecarError(f'{where}: must be a list')
     patches = []
     for index, entry in enumerate(raw):
-        patches.append(_parse_patch(entry, f'{where}[{index}]'))
+        patch = _parse_patch(entry, f'{where}[{index}]')
+        if not patch['disabled']:
+            patches.append(patch)
     patches.sort(key=lambda patch: patch['offset'])
     for previous, patch in zip(patches, patches[1:]):
         if patch['offset'] < previous['offset'] + previous['length']:

@@ -52,9 +52,7 @@ vga/data/mouse_default_cursor_image
 shared/data/mouse_click_pending
 shared/data/mouse_click_x
 shared/data/mouse_click_y
-vga/data/cursor_draw_busy
-shared/drv/draw_mouse_pointer_at
-vga/draw_mouse_cursor_image
+vga/mouse_event_handler
 shared/drv/clear_mouse_click
 shared/drv/free_picture
 shared/drv/load_picture

@@ -41,7 +41,6 @@ IMAGE_BASE equ 0x0200 + VBASE
 %endif
 
 bios_data_0410 equ 0x0410
-aztec_format_conversions equ 0x480d + VBASE
 psp_top_of_memory equ 0x0002
 tick_counter_ptr equ __ztick_counter_ptr - __zdseg_start
 realm_point_text_colors equ __zrealm_point_text_colors - __zdseg_start
@@ -552,12 +551,6 @@ __zdseg_end equ (__zimage_end - __zdseg_start) + __zbss_size
 %include "ds/data/video_flags.asm"         ; 0x2f35
 
 %include "ds/data/driver_tables.asm"       ; 0x2f40
-
-%include "ds/data/ems_state.asm"           ; 0x2f60
-
-%include "ds/data/mouse_button_count.asm"  ; 0x2f66
-
-%include "ds/data/drv_slots_play.asm"      ; 0x2f67
 
 %include "ds/data/drv_slots_video.asm"     ; 0x2f87
 

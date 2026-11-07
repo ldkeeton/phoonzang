@@ -87,6 +87,10 @@ sample_step_imm_a        equ add_sample_step_a + 0x5
 
 %include "play/data/play_state.asm"        ; 0x0a7c
 
+%include "play/music_timer_interrupts.asm" ; 0x0ab4
+
+%include "play/data/opl_event_flags.asm"   ; 0x0ad7
+
 ; saved_int08_offset  equ chain_saved_int08 + 0x1
 ; saved_int08_segment equ chain_saved_int08 + 0x3
 %include "play/music_player_tick.asm"      ; 0x0ad9
@@ -136,8 +140,6 @@ mpu401_read_ready_flag equ mpu401_write_ready_flag + 0x1
 %include "play/data/cseg_1939.asm"         ; 0x1939
 
 %include "play/data/sample_output_table.asm" ; 0x193a
-
-%include "play/data/sample_output_table_upper.asm" ; 0x19ba
 
 %include "play/data/opl_velocity_scale_table.asm" ; 0x1a3a
 

@@ -65,7 +65,7 @@ load_maze:
     mul cx
     add ax, strict word 4
     mov bx, word [bp - 8]
-    add bx, strict word 0x27d
+    add bx, maze_piece_descriptors - IMAGE_BASE
     mov word [cs:bx], ax
     mov bx, ax
     sub bx, byte 6
@@ -229,6 +229,6 @@ load_maze.forward9:
     mul cx
     add ax, strict word 4
     mov bx, word [bp - 8]
-    add bx, strict word 0x27d
+    add bx, maze_piece_descriptors - IMAGE_BASE
     mov word [cs:bx], ax
     jmp near load_maze.back2

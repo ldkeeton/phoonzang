@@ -1,4 +1,5 @@
 ; auto-generated
+aztec_format_conversions:
     db 0x4c
 aztec_format_conv_index:
 

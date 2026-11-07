@@ -115,11 +115,7 @@ ln_com_jump                                ; 0x0000
 
 %include "shared/data/mouse_click_y.asm"      ; 0x1dd1
 
-%include "vga/data/cursor_draw_busy.asm"   ; 0x1dd3
-
-%include "shared/drv/draw_mouse_pointer_at.asm"   ; 0x1e1a
-
-%include "vga/draw_mouse_cursor_image.asm" ; 0x1e35
+%include "vga/mouse_event_handler.asm"     ; 0x1dd3
 
 %include "shared/drv/clear_mouse_click.asm"       ; 0x217d
 

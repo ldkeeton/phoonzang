@@ -12,7 +12,6 @@ codeseg	segment	byte public 'code'
 	extrn	mouse_image_segment:word
 	extrn	mouse_image_stride:word
 	extrn	mouse_image_height:word
-	data_1e5c	equ	1e5ch
 	extrn	mouse_default_cursor_dimensions:byte
 	public	set_mouse_pointer_
 
@@ -58,7 +57,7 @@ _mouse_pointer_dimensions_valid:
 	movseg	ds,cs
 	mov	es,ax
 	mov	si,offset mouse_default_cursor_dimensions
-	mov	di,offset data_1e5c
+	mov	di,offset mouse_image_stride
 	mov	cx,4
 	rep	movsb
 _mouse_pointer_have_image:

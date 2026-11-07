@@ -111,33 +111,42 @@ def _compile_section(flags):
     ]
 
 
-def _flag_lines(order, outputs, listed, flags):
-    """``TARGET: CFLAGS = ...`` lines that give every module of every binary
-    the flags *flags* says: a binary's line where its default is not
-    ``CFLAGS``, an object's line where the module differs from its binary.
-    An object linked into two binaries gets one line, so its flags must agree
-    wherever its binary's default does not already give them."""
-    binary_lines, objects = [], {}
-    defaults = {}
+def _flag_overrides(order, listed, flags):
+    """``({binary: flags}, {module: flags})``: the C flags *flags* gives every
+    module of every binary, as a binary's default where it is not ``CFLAGS``
+    and a module's own where it differs from its binary's.  A module linked
+    into two binaries gets one entry, so its flags must agree wherever its
+    binary's default does not already give them."""
+    binaries, objects, defaults = {}, {}, {}
     for name in order:
         defaults[name] = list(flags.binary(name))
         if defaults[name] != list(flags.c):
-            binary_lines.append(f'{outputs[name]}: CFLAGS = {_join(defaults[name])}')
+            binaries[name] = defaults[name]
     for name in order:
         for module in listed[name]:
             own = list(flags.module(os.path.basename(module), name))
             if own != defaults[name]:
-                objects.setdefault(f'{module}.o', own)
+                objects.setdefault(module, own)
     for name in order:
         for module in listed[name]:
             own = list(flags.module(os.path.basename(module), name))
-            got = objects.get(f'{module}.o', defaults[name])
+            got = objects.get(module, defaults[name])
             if got != own:
                 raise ValueError(
                     f'{module}: compiled with {_join(own) or "no flags"} in '
                     f'{name} but {_join(got) or "no flags"} elsewhere; one '
                     'makefile line cannot give it both')
-    lines = [f'{obj}: CFLAGS = {_join(value)}' for obj, value in objects.items()]
+    return binaries, objects
+
+
+def _flag_lines(order, outputs, listed, flags):
+    """``TARGET: CFLAGS = ...`` lines of :func:`_flag_overrides`: a binary's
+    line where its default is not ``CFLAGS``, an object's line where the
+    module differs from its binary."""
+    binaries, objects = _flag_overrides(order, listed, flags)
+    binary_lines = [f'{outputs[name]}: CFLAGS = {_join(value)}'
+                    for name, value in binaries.items()]
+    lines = [f'{obj}.o: CFLAGS = {_join(value)}' for obj, value in objects.items()]
     if not (binary_lines or lines):
         return []
     return ['# Compiled with other flags than CFLAGS: a binary\'s line covers each',
@@ -207,12 +216,44 @@ def project_files(binaries, host, files, arrange=None, flags=None, compiler=None
         make += _flag_lines(order, outputs, listed_by, flags)
         if compiler is not None:
             from .build_sh import run_script, script
-            out[BUILD_SH] = script(compiler, game)
+            out[BUILD_SH] = script(compiler, game, _build_sh_config(
+                binaries, order, host, has_overlays, outputs, linked, listed_by,
+                flags))
             exe = _main_output(order, outputs, host)
             if exe:
                 out[RUN_SH] = run_script(exe, _install_folder(game))
     out[MAKEFILE] = '\n'.join(make).rstrip() + '\n'
     return {path: stamp(text, path) for path, text in out.items()}
+
+
+def _build_sh_config(binaries, order, host, has_overlays, outputs, linked, listed,
+                     flags):
+    """``build.sh``'s block of what it builds (:func:`lib.aztec.build_sh.config`)
+    from what the makefile is written from.  A binary is its own directory's
+    sources; every other directory its listing names is a library directory.
+    A driver's first module stays first, and the startup modules it lists
+    are linked by force."""
+    from .build_sh import ENTRY_STEMS, Binary, config
+    entries, libdirs = [], []
+    for name in order:
+        info = binaries[name]
+        link_flags = list((info.get('link') or {}).get('flags', ()))
+        if name == host and has_overlays:
+            link_flags.insert(0, '-R')
+        root = host if info.get('type') == 'aztec_overlay' and host else None
+        modules = listed[name]
+        for module in modules:
+            top = module.split('/', 1)[0]
+            if '/' in module and top not in binaries and top not in libdirs:
+                libdirs.append(top)
+        first = modules[0] if info.get('type') == 'raw_drv' and modules else None
+        entry = [m for m in modules if not m.startswith(name + '/')
+                 and os.path.basename(m) in ENTRY_STEMS]
+        entries.append(Binary(name, outputs[name], linked[name], root, link_flags,
+                              info.get('desc'), first, entry))
+    bin_cflags, obj_cflags = _flag_overrides(order, listed, flags)
+    return config(entries, flags.c, flags.asm, INCLUDE_DIR, sorted(libdirs),
+                  bin_cflags, obj_cflags)
 
 
 def _install_folder(game):

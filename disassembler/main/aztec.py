@@ -771,10 +771,9 @@ def _check_data_asm(project, binary, out_dir, data_files, image):
     :func:`lib.compare.render._data_file_spans`).  The source must build to
     exactly those bytes -- not fewer, and not on into the next fragment, which
     would define its bytes twice -- and every public must be the build's label
-    at its address.  In a ``.s`` a relocation is an error: its bytes would need
-    the linker's value, which this check does not resolve.  A ``.c``'s
-    relocated bytes (a string's address) are skipped instead, and a ``.c``
-    with no initialized data (``globals.c``) is checked as BSS elsewhere.
+    at its address.  Relocated bytes (a pointer's) are skipped: they hold the
+    linker's value, which ``make rebuild`` checks by linking.  A ``.c`` with no
+    initialized data (``globals.c``) is checked as BSS elsewhere.
     """
     from lib.aztec import cache
     from lib.aztec.compile import aztec_name, symbol_key
@@ -830,16 +829,18 @@ def _check_data_asm(project, binary, out_dir, data_files, image):
         if len(got) % 2 and len(want) == len(got) + 1 and not want[-1]:
             want = want[:-1]  # ln pads a module's odd-length data with a zero.
         is_c = path.endswith('.c')
-        skip = set()
-        if is_c:
-            for offset, width in module.data_relocations or ():
-                skip.update(range(offset, offset + width))
+        # A relocated word (a pointer) holds the linker's value, so it is
+        # skipped, as a routine's are (lib.aztec.mux.compare); make rebuild
+        # links it and compares the whole image.
+        from lib.aztec.objread import fixup_width
+        relocations = ([(fx.offset, fixup_width(fx.kind))
+                        for fx in whole.fixups] if code
+                       else list(module.data_relocations or ()))
+        skip = {i for offset, width in relocations
+                for i in range(offset, offset + width)}
         if is_c and not got:
             continue
-        if (whole and whole.fixups) or (module.data_relocations and not is_c):
-            errors.append(f'error: {shown}: has relocations, which a data '
-                          'source cannot be checked with yet')
-        elif code and dseg:
+        if code and dseg:
             errors.append(f'error: {shown}: defines both code and data bytes')
         elif len(got) != len(want) or any(
                 a != b for i, (a, b) in enumerate(zip(got, want)) if i not in skip):

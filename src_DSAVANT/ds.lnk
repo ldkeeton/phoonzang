@@ -83,9 +83,6 @@ ds/game/draw_party_status_glyphs
 ds/game/main
 ds/data/video_flags
 ds/data/driver_tables
-ds/data/ems_state
-ds/data/mouse_button_count
-ds/data/drv_slots_play
 ds/data/drv_slots_video
 ds/data/drv_block_table_dest
 ds/library/init_system_hardware

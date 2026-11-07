@@ -1,6 +1,6 @@
 PY := python3
 ASM := disassembler
-CMD := link name refs info data probe init libcheck check clean purge run verify badc rebuild elf-rebuild set-baseline charts help all build headers prebuild test readme
+CMD := layout link name refs info data probe init libcheck check clean purge run verify badc rebuild elf-rebuild set-baseline charts help all build headers prebuild test readme
 
 # The Python programs refuse to run unless make started them (lib/entry.py).
 export ASM_VIA_MAKE := 1
@@ -28,7 +28,7 @@ flow:
 	@cd $(ASM) && $(PY) -m flow.generate $(ARGS)
 
 ifneq ($(filter $(CMD),$(MAKECMDGOALS)),)
-link name refs info data probe init libcheck check clean purge run verify badc rebuild elf-rebuild all build headers prebuild test readme:
+layout link name refs info data probe init libcheck check clean purge run verify badc rebuild elf-rebuild all build headers prebuild test readme:
 	@cd $(ASM) && $(PY) -m make --$@ $(filter-out $(CMD),$(MAKECMDGOALS))
 $(filter-out $(CMD),$(MAKECMDGOALS)):
 	@true

@@ -528,7 +528,11 @@ def _analyze(name, orig_dir, rel_path, start_offset, output_dir=None,
     tables = (sidecar_entry or {}).get('code_data_names', {})
     for off in fragment_lengths(sidecar_entry or {}, start_offset):
         if off in tables and off not in label_map:
-            label_map[off] = _sidecar_routine(tables[off]['name'], off)
+            # ``lead``: the label is data, so it may sit on the table's byte
+            # (lib.compare.render._place_label) instead of becoming an equ.
+            label_map[off] = Symbol(tables[off]['name'], kind=Kind.ROUTINE,
+                                    source=Source.SIDECAR, offset=off,
+                                    role='lead')
     ctx.label_map = label_map
 
     if _ITERATIVE:

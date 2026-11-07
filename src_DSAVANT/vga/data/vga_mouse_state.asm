@@ -4,9 +4,9 @@ mouse_read_x:
 mouse_read_y:
     db 0x00, 0x00
 mouse_saved_background_offset:
-    dw __zcp_14c4 - IMAGE_BASE                 ; 0x14b4
+    dw mouse_saved_background - IMAGE_BASE     ; 0x14b4
 mouse_redraw_background_offset:
-    dw __zcp_18c4 - IMAGE_BASE                 ; 0x14b6
+    dw mouse_redraw_background - IMAGE_BASE    ; 0x14b6
 mouse_drawn_width:
     db 0x00, 0x00
 mouse_drawn_height:
@@ -19,11 +19,11 @@ mouse_cursor_height:
     db 0x00, 0x00
 mouse_cursor_screen_offset:
     db 0x00, 0x00
-__zcp_14c4:
+mouse_saved_background:
 
     times 1024 db 0
 
-__zcp_18c4:
+mouse_redraw_background:
 
     times 1024 db 0
 
