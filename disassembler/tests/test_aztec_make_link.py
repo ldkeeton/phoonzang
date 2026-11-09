@@ -44,7 +44,7 @@ class GenerateTest(unittest.TestCase):
         out = project.project_files(self.BINARIES, 'r', self.FILES)
         self.assertEqual(out['r.lnk'], '# auto-generated\nr/b\nshared/a\n')
         self.assertEqual(out['d.lnk'], '# auto-generated\nd/y\n')
-        self.assertEqual(project.parse_makefile(out['makefile']), [
+        self.assertEqual(project.parse_makefile(out[project.MAKEFILE]), [
             project.Target('r', 'r.exe', ['-R'], 'r.lnk', None),
             project.Target('o', 'o.ovr', [], 'o.lnk', 'r'),
             project.Target('d', 'd.com', [], 'd.lnk', None)])
@@ -60,15 +60,15 @@ class GenerateTest(unittest.TestCase):
     def test_desc_is_a_comment_above_the_rule(self):
         out = project.project_files({'r': {'type': 'mz', 'desc': 'the root'}},
                                     None, {'r.asm': '%include "r/b.asm"\n'})
-        self.assertIn('# the root\nr.exe: r.lnk\n', out['makefile'])
-        self.assertEqual(project.parse_makefile(out['makefile']),
+        self.assertIn('# the root\nr.exe: r.lnk\n', out[project.MAKEFILE])
+        self.assertEqual(project.parse_makefile(out[project.MAKEFILE]),
                          [project.Target('r', 'r.exe', [], 'r.lnk', None)])
 
     def test_long_desc_wraps_at_80(self):
         desc = ' '.join(['word'] * 40)
         out = project.project_files({'r': {'type': 'mz', 'desc': desc}},
                                     None, {'r.asm': '%include "r/b.asm"\n'})
-        comments = [l for l in out['makefile'].splitlines()
+        comments = [l for l in out[project.MAKEFILE].splitlines()
                     if l.startswith('# ') and 'word' in l]
         self.assertGreater(len(comments), 1)
         self.assertTrue(all(len(l) <= 80 for l in comments))
@@ -84,7 +84,7 @@ class GenerateTest(unittest.TestCase):
     def test_compile_rules_and_flags_in_the_makefile(self):
         out = project.project_files(self.BINARIES, 'r', self.FILES,
                                     flags=self.FLAGS)
-        make = out['makefile']
+        make = out[project.MAKEFILE]
         for line in ('CFLAGS = -n +b', 'AFLAGS = -dMODEL=0',
                      'export INCLUDE = include', '.SUFFIXES: .o .s .c',
                      '.s.o:\n\tas $(AFLAGS) -o $@ $<',
@@ -181,7 +181,7 @@ class GenerateTest(unittest.TestCase):
         binaries = {'o': {'type': 'aztec_overlay', 'file': 'O.OVR'},
                     'r': {'type': 'mz', 'file': 'R.EXE'},
                     'd': {'type': 'raw_drv', 'file': 'D.DRV'}}
-        make = project.project_files(binaries, 'r', self.FILES)['makefile']
+        make = project.project_files(binaries, 'r', self.FILES)[project.MAKEFILE]
         for line in ('all: R.EXE O.OVR D.DRV', 'R.EXE: r.lnk\n\tln -R -o R.EXE -f r.lnk',
                      'r.rsm: R.EXE', 'O.OVR: o.lnk r.rsm\n\tln -o O.OVR -f o.lnk r.rsm',
                      # ln writes no header only for .com, so a driver is renamed.
@@ -199,7 +199,7 @@ class GenerateTest(unittest.TestCase):
 
     def test_without_flags_no_compile_rules(self):
         out = project.project_files(self.BINARIES, 'r', self.FILES)
-        self.assertNotIn('CFLAGS', out['makefile'])
+        self.assertNotIn('CFLAGS', out[project.MAKEFILE])
         self.assertNotIn('build.sh', out)
         self.assertNotIn('run.sh', out)
 
@@ -220,7 +220,7 @@ class GenerateTest(unittest.TestCase):
     def test_no_overlays_means_no_rsm(self):
         out = project.project_files({'r': {'type': 'mz'}}, None,
                                     {'r.asm': '%include "r/b.asm"\n'})
-        self.assertEqual(project.parse_makefile(out['makefile']),
+        self.assertEqual(project.parse_makefile(out[project.MAKEFILE]),
                          [project.Target('r', 'r.exe', [], 'r.lnk', None)])
 
 
@@ -334,7 +334,7 @@ class LinkOrderTest(unittest.TestCase):
         binaries = {'r': {'type': 'mz', 'link': {'flags': ['+C', 'af00']}}}
         out = project.project_files(binaries, None,
                                     {'r.asm': '%include "r/b.asm"\n'})
-        self.assertEqual(project.parse_makefile(out['makefile']),
+        self.assertEqual(project.parse_makefile(out[project.MAKEFILE]),
                          [project.Target('r', 'r.exe', ['+C', 'af00'], 'r.lnk', None)])
 
 
@@ -369,7 +369,7 @@ class ModulesTest(unittest.TestCase):
         tmp = tempfile.TemporaryDirectory()
         self.addCleanup(tmp.cleanup)
         self.tree = tmp.name
-        _write(self.tree, 'makefile', MAKEFILE)
+        _write(self.tree, project.MAKEFILE, MAKEFILE)
         _write(self.tree, 'r.lnk', '# order matters\nr/two\nshared/one\nr/gen\n')
         _write(self.tree, 'o.lnk', 'shared/one\n')
         _write(self.tree, 'd.lnk', '')
@@ -392,7 +392,7 @@ class ModulesTest(unittest.TestCase):
         self.assertEqual(project.unlisted(self.tree, self.targets), ['r/stray.c'])
 
     def test_no_makefile(self):
-        os.remove(os.path.join(self.tree, 'makefile'))
+        os.remove(os.path.join(self.tree, project.MAKEFILE))
         with self.assertRaises(ValueError):
             project.load_targets(self.tree)
 

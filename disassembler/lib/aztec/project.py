@@ -1,4 +1,4 @@
-"""A project's Manx-style build description: ``makefile``, ``BIN.lnk``, ``build.sh`` and ``run.sh``.
+"""A project's Manx-style build description: ``project.mk`` (a makefile), ``BIN.lnk``, ``build.sh`` and ``run.sh``.
 
 The build generates the makefile and ``.lnk`` files from the layout of its
 listings and the sidecar's ``compiler_flags`` (:func:`project_files`); ``make
@@ -49,7 +49,7 @@ from collections import namedtuple
 
 from lib.autogen import stamp
 
-MAKEFILE = 'makefile'
+MAKEFILE = 'project.mk'
 BUILD_SH = 'build.sh'
 RUN_SH = 'run.sh'
 #: ``ln`` picks its output format from the extension: ``.com`` has no header and

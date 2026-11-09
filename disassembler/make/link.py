@@ -89,7 +89,7 @@ def cmd_link(projects, binary=None):
         try:
             targets = _project.load_targets(tree)
             if binary and binary not in {t.binary for t in targets}:
-                raise ValueError(f'{project} makefile has no target {binary}')
+                raise ValueError(f'{project} project.mk has no target {binary}')
             linked = link_targets(project, targets, [binary] if binary else None)
             orphans = _project.unlisted(tree, targets)
         except ValueError as e:

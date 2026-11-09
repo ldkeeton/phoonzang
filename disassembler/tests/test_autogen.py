@@ -22,15 +22,15 @@ class AutogenTest(unittest.TestCase):
         import stat
         with tempfile.TemporaryDirectory() as root:
             autogen.sync(root, {'run.sh': '#!/usr/bin/env bash\nexit 0\n',
-                                'makefile': 'all:\n'})
+                                'project.mk': 'all:\n'})
             run = os.path.join(root, 'run.sh')
             self.assertTrue(autogen.is_generated(run))
             self.assertTrue(os.stat(run).st_mode & stat.S_IXUSR)
-            self.assertFalse(os.stat(os.path.join(root, 'makefile')).st_mode & stat.S_IXUSR)
+            self.assertFalse(os.stat(os.path.join(root, 'project.mk')).st_mode & stat.S_IXUSR)
             # An unchanged script that lost +x gets it back.
             os.chmod(run, 0o644)
             autogen.sync(root, {'run.sh': '#!/usr/bin/env bash\nexit 0\n',
-                                'makefile': 'all:\n'})
+                                'project.mk': 'all:\n'})
             self.assertTrue(os.stat(run).st_mode & stat.S_IXUSR)
 
     def test_stamp_keeps_other_marker(self):

@@ -6,3 +6,7 @@ __pycache__
 dos_compilers
 trash
 node_modules
+*.asm
+*.lnk
+*.mk
+*.inc

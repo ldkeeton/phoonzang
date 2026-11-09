@@ -109,7 +109,7 @@ Commands (space-separated):
   make elf-rebuild [PROJECT [BIN]]  full rebuild from current sources (C resplice +
                             link + all binaries); ELF/DWARF for BIN (default host)
   make link [PROJECT [BIN] | BIN]  assemble and compile the .s and .c that src_PROJECT's
-                            makefile and BIN.lnk files list, link them with Aztec
+                            project.mk and BIN.lnk files list, link them with Aztec
                             ln and list every error, with counts of what is missing;
                             naming BIN lists what it is missing (BIN alone finds
                             its project);

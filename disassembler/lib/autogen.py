@@ -22,7 +22,7 @@ HEADERS_ASM = '; auto headers'
 HEADERS_C = '/* auto headers */'
 
 _C_SUFFIXES = ('.c', '.h')
-_MAKE_SUFFIXES = ('makefile', '.lnk', '.sh')
+_MAKE_SUFFIXES = ('.mk', '.lnk', '.sh')
 _MAX_LISTED = 10
 
 
