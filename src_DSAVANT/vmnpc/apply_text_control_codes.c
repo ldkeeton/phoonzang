@@ -12,7 +12,7 @@ char *token, *pending_line;
 	int slot, scanning, redraw, cue;
 	unsigned char *cursor;
 
-	cursor = token;
+	cursor = (unsigned char *)token;
 	redraw = 0;
 	scanning = 1;
 	while (scanning) {

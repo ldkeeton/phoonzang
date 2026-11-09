@@ -7,8 +7,8 @@
 extern unsigned char message_block_buffer[];	/* 0x400-byte working block */
 extern int message_block_current;
 extern int message_not_found;				/* message-not-found word */
-extern find_message_record(), load_message_block(), aztec_movmem(),
-	unpack_record();
+extern struct message_record *find_message_record();
+extern load_message_block(), aztec_movmem(), unpack_record();
 
 load_message_string(number, dest)
 int number;

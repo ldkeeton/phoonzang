@@ -4,7 +4,7 @@
 #include "msg.h"
 
 extern struct pc_rec party_records[6];
-extern int roster_screen_a, roster_screen;
+extern long roster_screen;
 extern int item_page, item_page_alt_mode, item_page_drawn;
 extern int item_slot_attr[10], item_slot_color[10];
 extern char item_slot_names[10][22];
@@ -22,7 +22,7 @@ int member_index;
 	struct item_record item;
 
 	/* Restore the screen before drawing the item page. */
-	call_restore_screen(roster_screen, roster_screen_a, 0, 0);
+	call_restore_screen(roster_screen, 0, 0);
 	if (item_page != 0) {
 		call_set_text_pos(160, 172);
 		draw_font_glyph(99, 4);

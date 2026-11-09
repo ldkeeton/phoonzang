@@ -69,13 +69,15 @@ start_melee_battle()
 	}
 	screen_cache[1] = call_cache_area(72, 33, 247, 143, 2, 0);
 	for (i = 0; i < 7; i++) {	/* 7 party slots */
-		battle_group_ext[i] = aztec_malloc(232);		/* extended record */
-		battle_groups[i] = aztec_malloc(420);			/* member record */
+		battle_group_ext[i] = (struct member_ext *)aztec_malloc(232);
+			/* extended record */
+		battle_groups[i] = (struct member_rec *)aztec_malloc(420);
+			/* member record */
 		if (battle_group_ext[i] == 0 || battle_groups[i] == 0)
 			release_and_exit(29);
 	}
 	for (i = 0; i < 12; i++) {	/* 12 overlay slots, skip the count */
-		overlay_list.items[i] = aztec_malloc(24);
+		overlay_list.items[i] = (struct overlay_item *)aztec_malloc(24);
 		if (overlay_list.items[i] == 0)
 			release_and_exit(29);
 		overlay_list.items[i]->code = 255;	/* 0xff: slot free */

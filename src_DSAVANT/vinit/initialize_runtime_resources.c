@@ -16,8 +16,8 @@ extern long call_get_free_space();
 extern char *aztec_malloc(), *data_file_path();
 extern int npc_id_decoy, scenario_header_fd, message_delay,
 	startup_option, startup_hardware_flags;
-extern int npc_id_address, npc_id_clue_relay, mouse_active, hotspot_hit;
-extern int npc_id_answer_relay, msg_dbs_fd, message_block_current;
+extern int *npc_id_address, *npc_id_clue_relay, mouse_active, hotspot_hit;
+extern int *npc_id_answer_relay, msg_dbs_fd, message_block_current;
 extern int message_cache_next, message_cache_ids[], saved_screen_kind[];
 extern char saved_screen_file[][20];
 extern long saved_screen_ref[];
@@ -87,14 +87,14 @@ initialize_runtime_resources()
 		/* either flag suffices */
 	} else
 		release_and_exit(3);
-	npc_id_address = (unsigned)&npc_id_decoy;
+	npc_id_address = &npc_id_decoy;
 		/* npc_id_decoy until the protection chain passes */
 	if ((sound_device = scenario_header.sound_device) == 6)
 		/* normalize device selector */
 		sound_device = 4;
 	sound_port = sound_device == 0 ? 0 : scenario_header.sound_port;
 	call_play_select_device(sound_port, sound_device);
-	npc_id_clue_relay = (unsigned)&npc_id_decoy;
+	npc_id_clue_relay = &npc_id_decoy;
 		/* npc_id_decoy until the protection chain passes */
 	mouse_active = 0;
 	hotspot_hit = 0;
@@ -116,7 +116,7 @@ initialize_runtime_resources()
 	mouse_pointer_shape = load_file_data(startup_vmpntr1_name);
 	pointer_image_two = load_file_data(startup_vmpntr2_name);
 	load_startup_maze(startup_base_data_name, 3);
-	npc_id_answer_relay = (unsigned)&npc_id_decoy;
+	npc_id_answer_relay = &npc_id_decoy;
 		/* npc_id_decoy until the protection chain passes */
 	read_startup_file(startup_master_header_name, &master_header,
 		sizeof(master_header));
@@ -153,7 +153,7 @@ initialize_runtime_resources()
 	load_sound_file(9, 9, 1);
 	loaded_sound_id = -1;
 	loaded_score_num = -1;
-	npc_id_target = (unsigned)&npc_id_decoy;
+	npc_id_target = &npc_id_decoy;
 		/* npc_id_decoy until the protection chain passes */
 	runtime_buffer_1k = 0L;
 	runtime_buffer_4k_a = 0L;
@@ -171,16 +171,16 @@ initialize_runtime_resources()
 	runtime_buffer_4k_b = app_malloc(4096L);
 	if (runtime_buffer_4k_b == 0L)
 		release_and_exit(13);
-	maze_data = aztec_malloc(master_header.sizes[2]);
+	maze_data = (struct maze_cells *)aztec_malloc(master_header.sizes[2]);
 	if (maze_data == 0)
 		release_and_exit(13);
-	maze_tables = aztec_malloc(master_header.sizes[3]);
+	maze_tables = (struct maze_tables *)aztec_malloc(master_header.sizes[3]);
 	if (maze_tables == 0)
 		release_and_exit(13);
-	maze_change_log = aztec_malloc(3072);
+	maze_change_log = (struct maze_change *)aztec_malloc(3072);
 	if (maze_change_log == 0)
 		release_and_exit(13);
-	floor_items = aztec_malloc(1024);
+	floor_items = (struct floor_item *)aztec_malloc(1024);
 	if (floor_items == 0)
 		release_and_exit(13);
 	startup_check_stage = 0;

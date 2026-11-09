@@ -92,7 +92,12 @@ def asm_app(app, *, source_moves=None):
         print(f'{app}: {len(set(failed))} binary(ies) failed to build')
         workers.print_errors()
         sys.exit(1)
-    print(f'{app}: build OK')
+    warnings = workers.warnings
+    if warnings:
+        print(f'{app}: build OK, {len(warnings)} warning(s):')
+        workers.print_warnings()
+    else:
+        print(f'{app}: build OK')
 
 
 def _prepare(app):

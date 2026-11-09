@@ -98,6 +98,15 @@ def _report(binary, returncode, stdout, stderr, sink=None, errors=None,
             print(f'  {line}', file=sys.stderr)
 
 
+def _top_warnings(binary, stdout):
+    """``(binary, text)`` of each ``BINARY: warning: TEXT`` line of *stdout*
+    whose text is not an indented detail line."""
+    prefix = f'{binary}: warning: '
+    return [(binary, line[len(prefix):].rstrip())
+            for line in stdout.splitlines()
+            if line.startswith(prefix) and line[len(prefix):][:1].strip()]
+
+
 _echo_lock = threading.Lock()
 
 
@@ -214,6 +223,9 @@ class Workers:
         #: ``(binary, stderr)`` of each failed step, printed by
         #: :meth:`print_errors` after the build's own summary.
         self.errors = []
+        #: ``(binary, warning)`` of each step's top-level warnings (not their
+        #: indented detail lines), recapped by :meth:`print_warnings`.
+        self.warnings = []
 
     def run(self, binary, flags=None, sink=None):
         """One build step of *binary*, its output reported by :func:`_report`.
@@ -233,7 +245,15 @@ class Workers:
         live = _verbose()
         _report(binary, status, out, err, sink,
                 None if live else self.errors, streamed=live)
+        found = _top_warnings(binary, out)
+        with self._lock:
+            self.warnings.extend(w for w in found if w not in self.warnings)
         return status, files
+
+    def print_warnings(self):
+        """Recap every step's warnings, so none is lost in the scroll."""
+        for binary, warning in self.warnings:
+            print(f'  {binary}: {warning}')
 
     def print_errors(self):
         """Print the failed steps' errors, so they are the last thing shown."""

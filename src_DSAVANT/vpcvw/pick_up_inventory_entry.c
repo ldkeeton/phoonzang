@@ -10,7 +10,7 @@ extern int selected_item_type, selected_item_count;
 extern int mouse_active;
 extern char far *runtime_buffer_1k;
 extern int call_get_mouse(), call_set_mouse_pointer();
-extern long call_save_area();
+extern char far *call_save_area();
 extern int call_fill_area(), call_restore_area(), call_show_area();
 extern int draw_item_slot_label(), draw_font_glyph();
 extern int call_set_text_color(), call_set_text_pos();
@@ -27,7 +27,7 @@ char *label;
 	int cell_index;
 	int mouse_x, mouse_y;
 	int text_x, text_y;
-	long saved_area;
+	char far *saved_area;
 	char far *saved_overlay;
 
 	selected_item_list_index = -1;

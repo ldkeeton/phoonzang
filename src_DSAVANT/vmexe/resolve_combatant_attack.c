@@ -346,7 +346,8 @@ int attack_index, attack_mode;
 					attacker->aim_mod * 5 + stat_gap + 85 -
 					party_records[acting_unit].skills[SKILL_FIREARMS] / 2;
 			dice = party_records[acting_unit].hand_attack[attack_index].base;
-			atk = &party_records[acting_unit].hand_attack[attack_index];
+			atk = (struct member_attack *)
+				&party_records[acting_unit].hand_attack[attack_index];
 			weapon = party_records[acting_unit].equipped[attack_index];
 			if (attack_mode == ATTACK_SHOOT) {
 				dmg_bonus = 0;
@@ -372,7 +373,8 @@ int attack_index, attack_mode;
 						party_records[acting_unit].item_slots[0][offhand].item_type
 							== ITEM_MISSILE) {
 						dice = party_records[acting_unit].hand_attack[SECONDARY_HAND].base;
-						atk = &party_records[acting_unit].hand_attack[SECONDARY_HAND];
+						atk = (struct member_attack *)
+							&party_records[acting_unit].hand_attack[SECONDARY_HAND];
 						miss_chance +=
 							party_records[acting_unit].hand_attack[SECONDARY_HAND].hit_penalty;
 						use_item_refresh_stamina_drain(acting_unit, 0, offhand);

@@ -69,9 +69,11 @@ int pc, button_msg, ok_enabled, limit_by_points;
 	set_hotspot(2, panel_x + 106, box_y0 + 70, panel_x + 114, box_y0 + 76, 11, 0);
 	set_hotspot(3, panel_x + 6, box_y0 + 6, panel_x + 54, box_y0 + 14, 13, 0);
 	set_hotspot(4, panel_x + 66, box_y0 + 6, panel_x + 114, box_y0 + 14, 27, 0);
-	for (i = 0; i < 7; i++)	/* hotspots 5..11: power digits, keys 1..7 */
+	i = 0;
+	do	/* hotspots 5..11: power digits, keys 1..7 */
 		set_hotspot(i + 5, 10 * i + panel_x + 12, box_y0 + 20, 10 * i + panel_x + 19,
 			box_y0 + 27, (char)(i + '1'), 0);
+	while (++i < 7);
 	/* realm hotspots 12..17, keyed F W A E M D */
 	set_hotspot(12, 70, 116, 82, 135, 'F', 0);
 	set_hotspot(13, 50, 144, 75, 157, 'W', 0);

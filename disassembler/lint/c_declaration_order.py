@@ -100,7 +100,7 @@ def _check(text, path):
             if declaration(code):
                 if stack[-1]['seen'] and not stack[-1]['members']:
                     findings.append((number, line, code))
-            else:
+            elif len(stack) > 1:
                 stack[-1]['seen'] = True
             continue
 
@@ -138,7 +138,9 @@ def _check(text, path):
                 findings.append((number, line, code))
             if code.endswith(','):
                 continuing = True
-        else:
+        elif len(stack) > 1:
+            # File scope holds no statements: an unknown word there starts a
+            # declaration whose type comes from a header (``FILE *f;``).
             stack[-1]['seen'] = True
 
     return [Finding(path, number, line.index(code.split(None, 1)[0]) + 1,

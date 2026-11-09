@@ -3,8 +3,8 @@
 extern unsigned char code_characters[];
 extern unsigned code_char_index;
 extern int answer_length;
-extern int npc_id_address;
-extern int npc_id_clue_relay;
+extern int *npc_id_address;
+extern int *npc_id_clue_relay;
 
 relay_npc_id_address()
 {

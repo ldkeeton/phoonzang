@@ -11,7 +11,7 @@ extern char console_device_name[];
 extern char console_stream_append_mode[];
 extern char unzip_failure_prefix[];
 extern char unzip_failure_suffix[];
-extern int archive_process_stream_handle;
+extern FILE *archive_process_stream_handle;
 extern int aztec_strcpy();
 extern int aztec_strcat();
 extern int display_centered_command_line();

@@ -212,6 +212,11 @@ class DeclarationOrderTest(unittest.TestCase):
         text = ('foo(a,\n\tb)\nint a,\n\tb;\n{\n\ta = b;\n}\n')
         self.assertEqual(list(self.rule.check(text, 'x.c')), [])
 
+    def test_file_scope_declaration_of_a_header_typedef_is_accepted(self):
+        text = ('#include <stdio.h>\nFILE *stream;\nint after;\n'
+                'foo()\n{\n\tint a;\n\ta = 1;\n}\n')
+        self.assertEqual(list(self.rule.check(text, 'x.c')), [])
+
     def test_declaration_after_a_label_is_found(self):
         text = 'foo()\n{\n\tint a;\n\ta = 1;\nlabel:\n\tint b;\n}\n'
         found = list(self.rule.check(text, 'x.c'))

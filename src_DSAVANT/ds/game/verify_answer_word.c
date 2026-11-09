@@ -2,7 +2,7 @@
    slot passes the npc_id address on to npc_id_answer_relay */
 
 extern unsigned char answer_word[];
-extern int answer_length, npc_id_clue_relay, npc_id_answer_relay;
+extern int answer_length, *npc_id_clue_relay, *npc_id_answer_relay;
 extern char code_table[];
 
 verify_answer_word()
