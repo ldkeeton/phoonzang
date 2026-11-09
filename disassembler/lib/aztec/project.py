@@ -1,8 +1,9 @@
 """A project's Manx-style build description: ``makefile``, ``BIN.lnk``, ``build.sh`` and ``run.sh``.
 
-The build generates them from the layout of its listings and the sidecar's
-``compiler_flags`` (:func:`project_files`); ``make link`` and ``build.sh`` then
-read only them.  The makefile says everything a build needs: how each object is
+The build generates the makefile and ``.lnk`` files from the layout of its
+listings and the sidecar's ``compiler_flags`` (:func:`project_files`); ``make
+link`` then reads only them.  ``make buildsh`` writes ``build.sh`` and
+``run.sh`` (:func:`project_scripts`), which read neither.  The makefile says everything a build needs: how each object is
 made, with which flags, from which source, and how each binary is linked::
 
     CFLAGS = -n +b +m +c
@@ -154,8 +155,7 @@ def _flag_lines(order, outputs, listed, flags):
             *binary_lines, *lines, '']
 
 
-def project_files(binaries, host, files, arrange=None, flags=None, compiler=None,
-                  game=''):
+def project_files(binaries, host, files, arrange=None, flags=None):
     """``{relative path: text}`` of the project file for this build's *files*.
 
     *binaries* is the sidecar's ``{name: entry}`` and *host* the binary overlays
@@ -164,40 +164,20 @@ def project_files(binaries, host, files, arrange=None, flags=None, compiler=None
     a listing has no module for what a C source emits itself.  A binary's
     ``link.flags`` go on its ``ln`` line, and its ``desc`` in a ``#`` comment
     above its rule.  The host links first, since overlays
-    need its ``.rsm``.  *flags* (:data:`Flags`) adds the compile rules and
-    ``build.sh``, which downloads and runs *compiler*
-    (:data:`lib.aztec.build_sh.Compiler`); without it the makefile only links.
-    *game* is the app directory relative to the tree, which ``build.sh`` copies
-    the game's other files from into ``build_out/``.  ``run.sh`` comes with it
-    and launches the host's program (else the first ``.EXE``) from there, as
-    ``C:\\GAME`` (*game*'s own name, where the installer puts the game).
+    need its ``.rsm``.  *flags* (:data:`Flags`) adds the compile rules; without
+    it the makefile only links.  ``build.sh`` and ``run.sh`` are
+    :func:`project_scripts`'.
     """
-    order = sorted(binaries, key=lambda name: name != host)
-    has_overlays = any(binaries[name].get('type') == 'aztec_overlay'
-                       for name in binaries)
-    # Each rule makes the game's own file (the sidecar's ``file``, case and all);
-    # ``ln`` writes it directly unless the extension would pick the wrong format.
-    outputs = {name: binaries[name].get('file') or
-               f'{name}.{_OUTPUT_EXT.get(binaries[name].get("type"), "exe")}'
-               for name in order}
-    linked = {}
-    for name in order:
-        stem, ext = os.path.splitext(outputs[name])
-        want = _LN_EXT.get(binaries[name].get('type'))
-        linked[name] = stem + want if want and ext.upper() != want else outputs[name]
+    order, has_overlays, outputs, linked, listed_by = _plan(
+        binaries, host, files, arrange)
     make = _compile_section(flags) if flags is not None else []
     make += ['all: ' + ' '.join(outputs[name] for name in order), '']
     out = {}
-    listed_by = {}
     for name in order:
         output, lnk = outputs[name], f'{name}.lnk'
         ln_out = linked[name]
         ren = [f'\tren {ln_out} {output}'] if ln_out != output else []
-        listed = dict.fromkeys(_INCLUDE.findall(files[f'{name}.asm']))
-        if arrange is not None:
-            listed = arrange(name, list(listed))
-        listed_by[name] = list(listed)
-        out[lnk] = ''.join(f'{module}\n' for module in listed)
+        out[lnk] = ''.join(f'{module}\n' for module in listed_by[name])
         flags_ = ''.join(f'{flag} ' for flag in
                          (binaries[name].get('link') or {}).get('flags', ()))
         desc = binaries[name].get('desc')
@@ -214,16 +194,57 @@ def project_files(binaries, host, files, arrange=None, flags=None, compiler=None
             make += [f'{output}: {lnk}', f'\tln {flags_}-o {ln_out} -f {lnk}', *ren, '']
     if flags is not None:
         make += _flag_lines(order, outputs, listed_by, flags)
-        if compiler is not None:
-            from .build_sh import run_script, script
-            out[BUILD_SH] = script(compiler, game, _build_sh_config(
-                binaries, order, host, has_overlays, outputs, linked, listed_by,
-                flags))
-            exe = _main_output(order, outputs, host)
-            if exe:
-                out[RUN_SH] = run_script(exe, _install_folder(game))
     out[MAKEFILE] = '\n'.join(make).rstrip() + '\n'
     return {path: stamp(text, path) for path, text in out.items()}
+
+
+def project_scripts(binaries, host, files, compiler, flags, arrange=None,
+                    game=''):
+    """``{BUILD_SH: text, RUN_SH: text}``: the scripts ``make buildsh`` writes,
+    with no generated marker (the build neither writes nor removes them).
+
+    The arguments are :func:`project_files`'; ``build.sh`` downloads and runs
+    *compiler* (:data:`lib.aztec.build_sh.Compiler`).  *game* is the app
+    directory relative to the tree, which ``build.sh`` copies the game's other
+    files from into ``build_out_new/``.  ``run.sh`` launches the host's program
+    (else the first ``.EXE``) from there, as ``C:\\GAME`` (*game*'s own name,
+    where the installer puts the game); it is left out when there is none.
+    """
+    from .build_sh import run_script, script
+    order, has_overlays, outputs, linked, listed_by = _plan(
+        binaries, host, files, arrange)
+    out = {BUILD_SH: script(compiler, game, _build_sh_config(
+        binaries, order, host, has_overlays, outputs, linked, listed_by, flags))}
+    exe = _main_output(order, outputs, host)
+    if exe:
+        out[RUN_SH] = run_script(exe, _install_folder(game))
+    return out
+
+
+def _plan(binaries, host, files, arrange):
+    """``(order, has_overlays, outputs, linked, listed_by)``: the binaries, host
+    first; whether any is an overlay; ``{name: the game's file}``; ``{name:
+    the file ln writes}``; ``{name: its modules in link order}``."""
+    order = sorted(binaries, key=lambda name: name != host)
+    has_overlays = any(binaries[name].get('type') == 'aztec_overlay'
+                       for name in binaries)
+    # Each rule makes the game's own file (the sidecar's ``file``, case and all);
+    # ``ln`` writes it directly unless the extension would pick the wrong format.
+    outputs = {name: binaries[name].get('file') or
+               f'{name}.{_OUTPUT_EXT.get(binaries[name].get("type"), "exe")}'
+               for name in order}
+    linked = {}
+    for name in order:
+        stem, ext = os.path.splitext(outputs[name])
+        want = _LN_EXT.get(binaries[name].get('type'))
+        linked[name] = stem + want if want and ext.upper() != want else outputs[name]
+    listed_by = {}
+    for name in order:
+        listed = dict.fromkeys(_INCLUDE.findall(files[f'{name}.asm']))
+        if arrange is not None:
+            listed = arrange(name, list(listed))
+        listed_by[name] = list(listed)
+    return order, has_overlays, outputs, linked, listed_by
 
 
 def _build_sh_config(binaries, order, host, has_overlays, outputs, linked, listed,

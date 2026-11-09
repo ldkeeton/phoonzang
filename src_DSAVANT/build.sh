@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-# auto-generated
 # Build every binary of this tree with Manx Aztec C86, running the DOS tools
 # under DOSBox-X.
 #

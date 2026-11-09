@@ -102,11 +102,11 @@ class GenerateTest(unittest.TestCase):
 
     def test_build_sh_downloads_the_sidecars_one_compiler_folder(self):
         compiler = build_sh.Compiler('me/compilers', 'main', 'Manx Aztec C86 v42b')
-        out = project.project_files(self.BINARIES, 'r', self.FILES,
-                                    flags=self.FLAGS, compiler=compiler,
-                                    game='../apps/G')
+        out = project.project_scripts(self.BINARIES, 'r', self.FILES, compiler,
+                                      self.FLAGS, game='../apps/G')
         script = out['build.sh']
-        self.assertTrue(script.startswith('#!/usr/bin/env bash\n# auto-generated\n'))
+        # make buildsh owns it: no generated marker for make build to prune.
+        self.assertTrue(script.startswith('#!/usr/bin/env bash\n# Build '))
         for line in ("REPO='me/compilers'", "REF='main'",
                      "FOLDER='Manx Aztec C86 v42b'",
                      'AZTEC=$here/dos_compilers/$FOLDER'):
@@ -119,8 +119,8 @@ class GenerateTest(unittest.TestCase):
 
     def test_build_sh_says_what_it_builds_without_makefile_or_lnk(self):
         compiler = build_sh.Compiler('me/compilers', 'main', 'Manx Aztec C86 v42b')
-        out = project.project_files(self.BINARIES, 'r', self.FILES,
-                                    flags=self.FLAGS, compiler=compiler)
+        out = project.project_scripts(self.BINARIES, 'r', self.FILES, compiler,
+                                      self.FLAGS)
         script = out['build.sh']
         for line in ("CFLAGS='-n +b'", "AFLAGS='-dMODEL=0'", "LIBDIRS=('shared')",
                      "    'r r.exe r.exe - -R'", "    'o o.ovr o.ovr r'",
@@ -146,8 +146,8 @@ class GenerateTest(unittest.TestCase):
         flags = self.FLAGS._replace(binary=default, module=lambda stem, name: (
             ['-n', '-Z1'] if stem == 'x' else default(name)))
         with self.assertRaisesRegex(ValueError, 'shared/a: compiled with different'):
-            project.project_files(self.BINARIES, 'r', self.FILES, flags=flags,
-                                  compiler=compiler)
+            project.project_scripts(self.BINARIES, 'r', self.FILES, compiler,
+                                    flags)
 
     def test_build_sh_gives_a_shared_module_the_flags_all_its_binaries_use(self):
         # d alone compiles with -n by default; a module only it and o share
@@ -159,17 +159,16 @@ class GenerateTest(unittest.TestCase):
         flags = self.FLAGS._replace(
             binary=lambda name: ['-n'] if name in ('d', 'o') else ['-n', '+b'],
             module=lambda stem, name: ['-n'] if name in ('d', 'o') else ['-n', '+b'])
-        script = project.project_files(binaries, 'r', files, flags=flags,
-                                       compiler=compiler)['build.sh']
+        script = project.project_scripts(binaries, 'r', files, compiler,
+                                         flags)['build.sh']
         self.assertIn("    [shared/z]='-n'\n", script)
 
     def test_run_sh_launches_the_hosts_program_from_build_out_new(self):
         compiler = build_sh.Compiler('me/compilers', 'main', 'Manx Aztec C86 v42b')
-        out = project.project_files(self.BINARIES, 'r', self.FILES,
-                                    flags=self.FLAGS, compiler=compiler,
-                                    game='../apps/Game')
+        out = project.project_scripts(self.BINARIES, 'r', self.FILES, compiler,
+                                      self.FLAGS, game='../apps/Game')
         run = out['run.sh']
-        self.assertTrue(run.startswith('#!/usr/bin/env bash\n# auto-generated\n'))
+        self.assertTrue(run.startswith('#!/usr/bin/env bash\n# Play '))
         self.assertIn("EXE='r.exe'\n", run)
         # Installed where the game's data says: C:\GAME is a link to build_out.
         self.assertIn("FOLDER='GAME'\n", run)

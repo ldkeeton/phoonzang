@@ -29,6 +29,9 @@ def _build_sh(tree, binaries):
     """Run the tree's ``build.sh`` with ``ln -t``: it writes the binaries to
     ``build_out_new/`` (a second playable copy of the game, beside ``make``'s
     ``build_out/``) and each symbol table to ``.cache/build/BIN/``."""
+    script = os.path.join(tree, 'build.sh')
+    if not os.path.isfile(script):
+        sys.exit(f'layout: {script} missing; run "make buildsh"')
     print(f'layout: build.sh {" ".join(binaries)}', flush=True)
     subprocess.run(['bash', os.path.join(tree, 'build.sh'), *binaries],
                    cwd=tree, env=dict(os.environ, LN_EXTRA='-t'), check=False)

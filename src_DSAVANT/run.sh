@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-# auto-generated
 # Play the game build.sh made: run build_out_new/DS.EXE under DOSBox-X.
 #
 #   ./run.sh [argument ...]       the arguments go to DS.EXE

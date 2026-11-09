@@ -548,8 +548,7 @@ def _build_project(project, run_batch, nasm_batch, *, report=print,
         files.update(project_files(
             {name: load_sidecar(project)['binaries'].get(name, {}) for name in bins},
             host, files, _link_order(project, files, report),
-            _project_flags(project), _project_compiler(project),
-            os.path.relpath(app_dir, out_dir)))
+            _project_flags(project)))
         if shared:
             report(f'  Shared: {sum(len(v) for v in shared.values())} '
                    f'fragments -> {len(shared)} files in shared/')

@@ -7,6 +7,7 @@ from lib import buildlock, childproc
 from lib.badc import cmd_badc
 
 from .build import _build_projects, cmd_rebuild
+from .buildsh import cmd_buildsh
 from .charts import cmd_charts, cmd_set_baseline
 from .clean import cmd_clean
 from .purge import cmd_purge
@@ -45,6 +46,10 @@ Commands (space-separated):
                             projects); reads include/ headers from make headers.
                             A .c/.s that does not match is a warning here and an
                             error in make rebuild
+  make buildsh [PROJECT...] write build.sh and run.sh into src_PROJECT/ from the
+                            tree make build left; make build and make clean
+                            leave them alone, so a hand-edited copy survives
+                            until this overwrites it
   make headers [PROJECT...] write include/ msg.h, msg.inc, lmacros.h and the
                             vendor C headers the sources include
   make prebuild [PROJECT...]  clean .cache, rebuild aztec libs + signature DB, run the Aztec C mux
@@ -212,6 +217,16 @@ def main():
 
     if '--clean' in flags:
         cmd_clean(args)
+        return
+
+    if '--buildsh' in flags:
+        for project in args:
+            if project not in all_projects:
+                print(f'Unknown project: {project}')
+                print(f'Known: {", ".join(all_projects)}')
+                sys.exit(1)
+        for project in (args or all_projects):
+            cmd_buildsh(project)
         return
 
     if '--headers' in flags:

@@ -1,7 +1,7 @@
 """``build.sh``: the project's own build, which needs nothing but its tree.
 
-:func:`lib.aztec.project.project_files` writes it next to the ``makefile``, but
-it reads neither that nor the ``.lnk`` files: what it builds is a block of
+``make buildsh`` writes it (:func:`lib.aztec.project.project_scripts`) next
+to the ``makefile``, but it reads neither that nor the ``.lnk`` files: what it builds is a block of
 plain bash at its top (:func:`config`: the binaries, their ``ln`` flags and
 roots, the C flags), and each binary is every ``.s``/``.c`` in its own
 directory plus what it calls from a library of the shared ones, in no
@@ -18,8 +18,9 @@ binaries are exactly what the sources link to.  Like ``make build`` it fills
 build) from the app directory, so a deleted ``build_out_new`` comes back runnable.
 
 ``run.sh`` (:func:`run_script`) beside it launches the game in ``build_out_new/``
-under DOSBox-X, as ``make run`` does.  Both start with a ``#!`` line, so the
-build makes them executable (:func:`lib.autogen.sync`).
+under DOSBox-X, as ``make run`` does.  Neither carries the generated marker:
+``make build`` and ``make clean`` leave them alone, so a hand-edited copy
+lasts until the next ``make buildsh``.
 """
 
 import textwrap
