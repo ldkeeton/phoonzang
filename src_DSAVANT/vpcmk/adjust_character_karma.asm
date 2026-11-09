@@ -6,7 +6,7 @@ adjust_character_karma:
     push ax                          ; 0x493d
     push ax                          ; 0x493e
     push word [saved_screen_handle_high] ; 0x493f
-    push word [saved_screen_handle_low] ; 0x4943
+    push word [saved_screen_handle]  ; 0x4943
     call call_restore_screen         ; 0x4947
     add sp, byte 8                   ; 0x494a
     mov ax, 0x53                     ; 0x494d

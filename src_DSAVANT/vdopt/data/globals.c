@@ -1,7 +1,8 @@
 /* The do-options overlay's uninitialized globals; ln lays the commons out
    last declared first. */
 
-char spell_target[4];
+char unused_9d92[2];
+int spell_target;
 int list_row_count[20];
 char list_row_name[440];
 int list_row_glyph[20];

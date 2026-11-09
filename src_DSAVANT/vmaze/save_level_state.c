@@ -5,7 +5,8 @@ extern struct load_header scenario_header;
 
 extern struct saved_region_blocks party_region;
 extern int current_level;
-extern char far *runtime_buffer_4k_a, *runtime_buffer_4k_b;
+extern char far *runtime_buffer_4k_a;
+extern char far *runtime_buffer_4k_b;
 extern int explored_cell_bitmap[];
 extern int current_map_block_a[];
 extern int app_memmove();

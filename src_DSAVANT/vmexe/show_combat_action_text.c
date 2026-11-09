@@ -4,7 +4,6 @@
 
 extern struct member_rec *battle_groups[];
 extern struct member_ext *battle_group_ext[];
-extern struct member_ext *battle_group_ext_1;
 extern int acting_group, acting_unit, combat_effect_sound, startup_option;
 extern char combat_action_name_buffer[], combat_action_message_buffer[];
 extern char combat_action_suffix_buffer[];
@@ -46,9 +45,9 @@ int highlight_actor;
 		wait_for_combat_input(startup_option);
 		return 1;
 	}
-	if (acting_group != 0 && battle_group_ext_1->sound_id > 0 &&
+	if (acting_group != 0 && battle_group_ext[1]->sound_id > 0 &&
 		battle_group_ext[acting_group]->sound_id ==
-			battle_group_ext_1->sound_id)
+			battle_group_ext[1]->sound_id)
 		combat_effect_sound = 16;
 	return 0;
 }

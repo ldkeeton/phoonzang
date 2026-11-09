@@ -6,7 +6,7 @@ display_character_statistics:
     push ax                          ; 0x19b4
     push ax                          ; 0x19b5
     push word [saved_screen_handle_high] ; 0x19b6
-    push word [saved_screen_handle_low] ; 0x19ba
+    push word [saved_screen_handle]  ; 0x19ba
     call call_restore_screen         ; 0x19be
     add sp, byte 8                   ; 0x19c1
     mov ax, 0                        ; 0x19c4

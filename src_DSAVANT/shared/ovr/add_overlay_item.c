@@ -3,10 +3,7 @@
 
 #include "structs/ovlitem.h"
 
-extern struct {
-	int count;
-	struct overlay_item *items[12];
-} overlay_list;
+extern struct overlay_list overlay_list;
 
 add_overlay_item(code, color, x, y, clip_left, clip_right, variant, flag, text)
 int code, color, x, y, clip_left, clip_right, variant, flag;

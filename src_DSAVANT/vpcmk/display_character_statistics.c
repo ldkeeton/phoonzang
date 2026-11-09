@@ -1,8 +1,7 @@
 /* Draw the eight statistics and remaining points for one party member. */
 #include "structs/pcrec.h"
 
-extern int saved_screen_handle_low;
-extern int saved_screen_handle_high;
+extern long saved_screen_handle;
 extern char character_stat_labels[];
 extern int remaining_stat_points;
 extern char remaining_points_label[];
@@ -20,7 +19,7 @@ int member_index, show_remaining_points;
 {
 	int stat_index;
 
-	call_restore_screen(saved_screen_handle_low, saved_screen_handle_high,
+	call_restore_screen(saved_screen_handle,
 		0, 0);
 	call_set_text_color(85, 0);
 

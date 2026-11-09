@@ -1,5 +1,5 @@
-/* One of the six movement area rectangles in screen_area_rectangles,
-   eight bytes each. */
+/* A screen rectangle, eight bytes: a movement area in
+   screen_area_rectangles or a view box in boundary_box_bounds. */
 #ifndef AREARECT_H
 #define AREARECT_H
 

@@ -2,7 +2,8 @@
 #include "structs/pcrec.h"
 
 extern struct pc_rec party_records[];
-extern int skill_group_points[], slot_limit[], slot_label[];
+extern int skill_group_points[], slot_limit[];
+extern char slot_label[][20];
 extern int hotspot_rects[], hotspot_hit, mouse_active;
 extern long call_save_area();
 extern int call_restore_area(), call_show_area();
@@ -63,9 +64,9 @@ int character, selected_group, skill_count, skill_ids[], group_enabled[];
 				draw_bevel_frame(frame_y, 188, frame_y + 54, 196, 0);
 				call_set_text_color(index == selected_group ? 26 : 1,
 					192);
-				call_set_text_pos((9 - aztec_strlen((char *)slot_label +
-					20 * index)) * 6 / 2 + frame_y + 1, 190);
-				draw_text_glyphs((char *)slot_label + 20 * index, 0);
+				call_set_text_pos((9 - aztec_strlen(slot_label[index]))
+					* 6 / 2 + frame_y + 1, 190);
+				draw_text_glyphs(slot_label[index], 0);
 				set_hotspot(skill_count + row_count + 1, frame_y, 188,
 					frame_y + 54, 196, 0, 0);
 				row_skill[row_count] = index;

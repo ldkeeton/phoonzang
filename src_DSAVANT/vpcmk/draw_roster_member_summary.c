@@ -3,8 +3,8 @@
 #include "structs/pcrec.h"
 
 extern struct pc_rec party_records[];
-extern int summary_panel_cache_low, summary_panel_cache_high;
-extern int detail_panel_cache_low, detail_panel_cache_high;
+extern long summary_panel_cache;
+extern long detail_panel_cache;
 extern int banner_offset, banner_plain_flag, banner_animation_frame;
 extern char stamina_percent_suffix[];
 extern int call_restore_screen(), call_set_text_color(), call_set_text_pos();
@@ -20,10 +20,8 @@ int member_index;
 	int percent;
 	unsigned char text[80];
 
-	call_restore_screen(summary_panel_cache_low,
-		summary_panel_cache_high, 0, 0);
-	call_restore_screen(detail_panel_cache_low,
-		detail_panel_cache_high, 0, 0);
+	call_restore_screen(summary_panel_cache, 0, 0);
+	call_restore_screen(detail_panel_cache, 0, 0);
 	call_set_text_color(0, 0);
 	call_set_text_pos(40 - aztec_strlen(party_records[member_index].name) * 6 / 2,
 		76);

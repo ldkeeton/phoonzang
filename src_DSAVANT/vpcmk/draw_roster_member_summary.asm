@@ -6,14 +6,14 @@ draw_roster_member_summary:
     push ax                          ; 0x1b49
     push ax                          ; 0x1b4a
     push word [summary_panel_cache_high] ; 0x1b4b
-    push word [summary_panel_cache_low] ; 0x1b4f
+    push word [summary_panel_cache]  ; 0x1b4f
     call call_restore_screen         ; 0x1b53
     add sp, byte 8                   ; 0x1b56
     mov ax, 0                        ; 0x1b59
     push ax                          ; 0x1b5c
     push ax                          ; 0x1b5d
     push word [detail_panel_cache_high] ; 0x1b5e
-    push word [detail_panel_cache_low] ; 0x1b62
+    push word [detail_panel_cache]   ; 0x1b62
     call call_restore_screen         ; 0x1b66
     add sp, byte 8                   ; 0x1b69
     mov ax, 0                        ; 0x1b6c

@@ -1,12 +1,7 @@
 /* Set the maze tint from the current time-of-day palette entry. */
+#include "structs/mazetint.h"
 extern long game_time;
 extern int call_set_rgb();
-
-struct maze_rgb_entry {
-	unsigned char red;
-	unsigned char green;
-	unsigned char blue;
-};
 
 extern struct maze_rgb_entry hourly_maze_tints[];
 

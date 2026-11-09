@@ -17,7 +17,7 @@ show_member_age_and_next_level:
     push ax                          ; 0x18ba
     push ax                          ; 0x18bb
     push word [member_screen_cache_high] ; 0x18bc
-    push word [member_screen_cache_low] ; 0x18c0
+    push word [member_screen_cache]  ; 0x18c0
     call call_restore_screen         ; 0x18c4
     add sp, byte 8                   ; 0x18c7
     mov ax, 0                        ; 0x18ca

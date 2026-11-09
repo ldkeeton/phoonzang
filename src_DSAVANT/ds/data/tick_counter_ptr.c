@@ -1,5 +1,3 @@
 /* Far pointer to the BIOS tick counter, 0000:046c. */
 
-int tick_counter_ptr[2] = {
-	1132, 0,
-};
+long far *tick_counter_ptr = (long far *)1132L;

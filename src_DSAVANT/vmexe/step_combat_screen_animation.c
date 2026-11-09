@@ -10,13 +10,10 @@ extern long far *tick_counter_ptr;
 extern long party_redraw_last_tick;
 extern int party_redraw_interval;
 extern int screen_cache_index;
-extern int screen_cache[2][2];
+extern long screen_cache[];
 extern int party_status_frame;
 extern int cell_overlay_y_offset[][3];
-extern struct {
-	int count;
-	struct overlay_item *items[12];
-} overlay_list;
+extern struct overlay_list overlay_list;
 
 extern int call_show_area();
 extern int call_restore_screen();
@@ -50,8 +47,7 @@ step_combat_screen_animation()
 		if (*tick_counter_ptr - party_redraw_last_tick >=
 			party_redraw_interval)
 			screen_cache_index = (screen_cache_index + 1) % 2;
-		call_restore_screen(screen_cache[screen_cache_index][0],
-			screen_cache[screen_cache_index][1], 0, 0);
+		call_restore_screen(screen_cache[screen_cache_index], 0, 0);
 		for (row = 0; row < 12; row++)
 			overlay_list.items[row]->code = 255;
 		overlay_list.count = 0;

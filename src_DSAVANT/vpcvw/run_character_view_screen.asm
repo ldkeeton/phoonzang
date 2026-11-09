@@ -95,7 +95,7 @@ run_character_view_screen:
     call call_cache_area             ; 0x6246
     add sp, byte 0xc                 ; 0x6249
     mov word [member_screen_cache_high], dx ; 0x624c
-    mov word [member_screen_cache_low], ax ; 0x6250
+    mov word [member_screen_cache], ax ; 0x6250
     mov ax, 0                        ; 0x6253
     push ax                          ; 0x6256
     mov ax, 2                        ; 0x6257
@@ -111,7 +111,7 @@ run_character_view_screen:
     call call_cache_area             ; 0x626b
     add sp, byte 0xc                 ; 0x626e
     mov word [member_detail_cache_high], dx ; 0x6271
-    mov word [member_detail_cache_low], ax ; 0x6275
+    mov word [member_detail_cache], ax ; 0x6275
     mov ax, 0                        ; 0x6278
     push ax                          ; 0x627b
     mov ax, 2                        ; 0x627c
@@ -127,7 +127,7 @@ run_character_view_screen:
     call call_cache_area             ; 0x6290
     add sp, byte 0xc                 ; 0x6293
     mov word [roster_screen_a], dx   ; 0x6296
-    mov word [roster_screen_b], ax   ; 0x629a
+    mov word [roster_screen], ax     ; 0x629a
     mov ax, 0                        ; 0x629d
     push ax                          ; 0x62a0
     mov ax, 2                        ; 0x62a1
@@ -143,7 +143,7 @@ run_character_view_screen:
     call call_cache_area             ; 0x62b5
     add sp, byte 0xc                 ; 0x62b8
     mov word [ac_screen_a_handle_high], dx ; 0x62bb
-    mov word [ac_screen_a_handle_low], ax ; 0x62bf
+    mov word [ac_screen_a_handle], ax ; 0x62bf
     mov ax, 0                        ; 0x62c2
     push ax                          ; 0x62c5
     mov ax, 2                        ; 0x62c6
@@ -159,7 +159,7 @@ run_character_view_screen:
     call call_cache_area             ; 0x62da
     add sp, byte 0xc                 ; 0x62dd
     mov word [ac_screen_b_handle_high], dx ; 0x62e0
-    mov word [ac_screen_b_handle_low], ax ; 0x62e4
+    mov word [ac_screen_b_handle], ax ; 0x62e4
     mov ax, 0                        ; 0x62e7
     push ax                          ; 0x62ea
     mov ax, 2                        ; 0x62eb
@@ -175,7 +175,7 @@ run_character_view_screen:
     call call_cache_area             ; 0x62ff
     add sp, byte 0xc                 ; 0x6302
     mov word [realm_panel_cache_low], dx ; 0x6305
-    mov word [realm_panel_cache_high], ax ; 0x6309
+    mov word [realm_panel_cache], ax ; 0x6309
     mov ax, 0                        ; 0x630c
     push ax                          ; 0x630f
     mov ax, 2                        ; 0x6310
@@ -781,7 +781,7 @@ run_character_view_screen.forward16:
     mov ax, 1                        ; 0x684c
     push ax                          ; 0x684f
     push word [realm_panel_cache_low] ; 0x6850
-    push word [realm_panel_cache_high] ; 0x6854
+    push word [realm_panel_cache]    ; 0x6854
     call call_restore_screen         ; 0x6858
     add sp, byte 8                   ; 0x685b
     mov ax, 0                        ; 0x685e
@@ -789,7 +789,7 @@ run_character_view_screen.forward16:
     mov ax, 1                        ; 0x6862
     push ax                          ; 0x6865
     push word [ac_screen_b_handle_high] ; 0x6866
-    push word [ac_screen_b_handle_low] ; 0x686a
+    push word [ac_screen_b_handle]   ; 0x686a
     call call_restore_screen         ; 0x686e
     add sp, byte 8                   ; 0x6871
     mov ax, 0                        ; 0x6874
@@ -797,7 +797,7 @@ run_character_view_screen.forward16:
     mov ax, 1                        ; 0x6878
     push ax                          ; 0x687b
     push word [ac_screen_a_handle_high] ; 0x687c
-    push word [ac_screen_a_handle_low] ; 0x6880
+    push word [ac_screen_a_handle]   ; 0x6880
     call call_restore_screen         ; 0x6884
     add sp, byte 8                   ; 0x6887
     mov ax, 0                        ; 0x688a
@@ -805,7 +805,7 @@ run_character_view_screen.forward16:
     mov ax, 1                        ; 0x688e
     push ax                          ; 0x6891
     push word [roster_screen_a]      ; 0x6892
-    push word [roster_screen_b]      ; 0x6896
+    push word [roster_screen]        ; 0x6896
     call call_restore_screen         ; 0x689a
     add sp, byte 8                   ; 0x689d
     mov ax, 0                        ; 0x68a0
@@ -813,7 +813,7 @@ run_character_view_screen.forward16:
     mov ax, 1                        ; 0x68a4
     push ax                          ; 0x68a7
     push word [member_detail_cache_high] ; 0x68a8
-    push word [member_detail_cache_low] ; 0x68ac
+    push word [member_detail_cache]  ; 0x68ac
     call call_restore_screen         ; 0x68b0
     add sp, byte 8                   ; 0x68b3
     mov ax, 0                        ; 0x68b6
@@ -821,7 +821,7 @@ run_character_view_screen.forward16:
     mov ax, 1                        ; 0x68ba
     push ax                          ; 0x68bd
     push word [member_screen_cache_high] ; 0x68be
-    push word [member_screen_cache_low] ; 0x68c2
+    push word [member_screen_cache]  ; 0x68c2
     call call_restore_screen         ; 0x68c6
     add sp, byte 8                   ; 0x68c9
     mov ax, 0                        ; 0x68cc

@@ -6,7 +6,7 @@ select_party_member_from_roster:
     push ax                          ; 0x052a
     push ax                          ; 0x052b
     push word [roster_screen_a]      ; 0x052c
-    push word [roster_screen_b]      ; 0x0530
+    push word [roster_screen]        ; 0x0530
     call call_restore_screen         ; 0x0534
     add sp, byte 8                   ; 0x0537
     mov word [bp - 2], 0             ; 0x053a

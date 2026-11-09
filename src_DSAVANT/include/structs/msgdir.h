@@ -13,7 +13,7 @@ struct message_record {		/* 6 bytes */
 
 struct message_directory {
 	int count;
-	struct message_record record[1];	/* entries follow the count word */
+	struct message_record record[1962];	/* 11774 bytes in all */
 };
 
 #endif

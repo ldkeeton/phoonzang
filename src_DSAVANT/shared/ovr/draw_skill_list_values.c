@@ -1,7 +1,7 @@
 /* Skill list display. */
 #include "structs/pcrec.h"
 
-extern int roster_screen_a, roster_screen_b;
+extern int roster_screen_a, roster_screen;
 extern char list_entry_text[][20];
 extern struct pc_rec party_records[];
 extern int call_restore_screen(), call_set_text_color(), call_set_text_pos();
@@ -16,7 +16,7 @@ int skill_ids[];
 {
 	int row;
 
-	call_restore_screen(roster_screen_b, roster_screen_a, 0, 0);
+	call_restore_screen(roster_screen, roster_screen_a, 0, 0);
 	for (row = 0; row < count; row++) { /* Six pixels per text row. */
 		call_set_text_color(realm_text_colors[group], 0);
 		call_set_text_pos(6, 6 * row + 114);

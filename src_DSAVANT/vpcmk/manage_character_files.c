@@ -3,16 +3,16 @@
 #include "structs/filehdr.h"
 extern struct pc_file_header pc_file_header;
 
-extern int pc_view_screen_file[];
+extern char pc_view_screen_file[];
 extern char character_stat_labels[];
-extern int remaining_points_label[];
-extern long summary_panel_cache_low;
-extern long detail_panel_cache_low;
-extern long roster_screen_b;
-extern long character_screen_cache_a_low;
-extern long character_screen_cache_b_low;
-extern long realm_panel_cache_high;
-extern long saved_screen_handle_low;
+extern char remaining_points_label[];
+extern long summary_panel_cache;
+extern long detail_panel_cache;
+extern long roster_screen;
+extern long character_screen_cache_a;
+extern long character_screen_cache_b;
+extern long realm_panel_cache;
+extern long saved_screen_handle;
 extern long saved_screen;
 extern int story_music_enabled, story_score_number, story_score_volume;
 extern int camp_score_number;
@@ -60,13 +60,13 @@ manage_character_files()
 	banner_offset = 20;
 	banner_plain_flag = 0;
 	banner_animation_frame = 0;
-	summary_panel_cache_low = call_cache_area(6, 6, 162, 103, 2, 0);
-	detail_panel_cache_low = call_cache_area(228, 6, 310, 22, 2, 0);
-	roster_screen_b = call_cache_area(1, 112, 159, 182, 2, 0);
-	character_screen_cache_a_low = call_cache_area(220, 30, 319, 35, 2, 0);
-	character_screen_cache_b_low = call_cache_area(276, 46, 310, 116, 2, 0);
-	realm_panel_cache_high = call_cache_area(184, 126, 319, 191, 2, 0);
-	saved_screen_handle_low = call_cache_area(102, 35, 168, 96, 2, 0);
+	summary_panel_cache = call_cache_area(6, 6, 162, 103, 2, 0);
+	detail_panel_cache = call_cache_area(228, 6, 310, 22, 2, 0);
+	roster_screen = call_cache_area(1, 112, 159, 182, 2, 0);
+	character_screen_cache_a = call_cache_area(220, 30, 319, 35, 2, 0);
+	character_screen_cache_b = call_cache_area(276, 46, 310, 116, 2, 0);
+	realm_panel_cache = call_cache_area(184, 126, 319, 191, 2, 0);
+	saved_screen_handle = call_cache_area(102, 35, 168, 96, 2, 0);
 	saved_screen = call_cache_area(90, 25, 101, 65, 2, 0);
 	load_monster_picture(11, 15);
 	if (story_music_enabled = score_music_enabled()) {
@@ -85,12 +85,12 @@ manage_character_files()
 	do {
 		banner_offset = 20;
 		banner_plain_flag = 0;
-		call_restore_screen(summary_panel_cache_low, 0, 0);
-		call_restore_screen(detail_panel_cache_low, 0, 0);
-		call_restore_screen(roster_screen_b, 0, 0);
-		call_restore_screen(character_screen_cache_a_low, 0, 0);
-		call_restore_screen(character_screen_cache_b_low, 0, 0);
-		call_restore_screen(realm_panel_cache_high, 0, 0);
+		call_restore_screen(summary_panel_cache, 0, 0);
+		call_restore_screen(detail_panel_cache, 0, 0);
+		call_restore_screen(roster_screen, 0, 0);
+		call_restore_screen(character_screen_cache_a, 0, 0);
+		call_restore_screen(character_screen_cache_b, 0, 0);
+		call_restore_screen(realm_panel_cache, 0, 0);
 		for (loop_index = 0; loop_index < 5; loop_index++)
 			options[loop_index] = 0;
 		options[5] = 1;
@@ -147,13 +147,13 @@ manage_character_files()
 	free_picture_slot(15);
 	call_restore_screen(saved_screen, 1,
 		0);
-	call_restore_screen(saved_screen_handle_low, 1, 0);
-	call_restore_screen(realm_panel_cache_high, 1, 0);
-	call_restore_screen(character_screen_cache_b_low, 1, 0);
-	call_restore_screen(character_screen_cache_a_low, 1, 0);
-	call_restore_screen(roster_screen_b, 1, 0);
-	call_restore_screen(detail_panel_cache_low, 1, 0);
-	call_restore_screen(summary_panel_cache_low, 1, 0);
+	call_restore_screen(saved_screen_handle, 1, 0);
+	call_restore_screen(realm_panel_cache, 1, 0);
+	call_restore_screen(character_screen_cache_b, 1, 0);
+	call_restore_screen(character_screen_cache_a, 1, 0);
+	call_restore_screen(roster_screen, 1, 0);
+	call_restore_screen(detail_panel_cache, 1, 0);
+	call_restore_screen(summary_panel_cache, 1, 0);
 	call_restore_screen(saved_area, 1, 0);
 	free_picture_slot(1);
 	free_picture_slot(2);

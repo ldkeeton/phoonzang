@@ -32,6 +32,11 @@ class LayoutTest(unittest.TestCase):
         self.assertEqual(s.size, 16)
         self.assertEqual(p.structs['union u'].size, 4)
 
+    def test_a_far_specifier_reaches_every_declarator(self):
+        """Aztec reads ``char far *a, *b`` as two far pointers."""
+        objs = parse_text('char far *a, *b;\nchar *c;\n').objects
+        self.assertEqual([o.type.size for o in objs], [4, 4, 2])
+
     def test_header_offsets_match_their_comments(self):
         """Every ``/* +0x.. */`` field comment is the field's real offset."""
         # One declarator per line (``a, b; /* +0x0, +0x1 */`` is skipped).

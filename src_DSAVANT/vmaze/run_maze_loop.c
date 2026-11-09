@@ -15,7 +15,7 @@ extern struct pc_rec party_records[];
 extern struct slot_record slot_records[];
 extern struct location_record location_records[];
 extern int party_map_piece, party_cell_x, party_cell_y;
-extern int base_screen_area, base_screen_area_segment;
+extern long base_screen_area;
 extern int party_char_count, party_return_state, party_facing, trigger_facing;
 extern int game_state, maze_redraw_pending, location_changed;
 extern int party_status_frame, party_status_frame_seen, maze_gate_frame;
@@ -104,7 +104,7 @@ run_maze_loop()
 			floor_item_icon_shown = refresh_floor_item_icon();
 		else if (floor_item_icon_shown != 0) {
 			floor_item_icon_shown = 0;
-			call_restore_area(base_screen_area, base_screen_area_segment, 0);
+			call_restore_area(base_screen_area, 0);
 			call_show_area(305, 185, 316, 196);
 		}
 		game_time++;

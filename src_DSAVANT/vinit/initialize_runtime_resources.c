@@ -5,11 +5,14 @@
 #include "structs/mazechng.h"
 #include "structs/filehdr.h"
 #include "structs/loadrec.h"
+#include "structs/msgdir.h"
 extern struct load_header scenario_header;
 extern struct disk_header disk_header;
 extern struct pc_file_header pc_file_header;
 extern struct master_header master_header;
-extern long load_file_data(), app_malloc(), call_get_free_space();
+extern char far *load_file_data();
+extern char far *app_malloc();
+extern long call_get_free_space();
 extern char *aztec_malloc(), *data_file_path();
 extern int npc_id_decoy, scenario_header_fd, message_delay,
 	startup_option, startup_hardware_flags;
@@ -20,15 +23,19 @@ extern char saved_screen_file[][20];
 extern long saved_screen_ref[];
 extern int data_file_fd, loaded_sound_id, loaded_score_num;
 extern int *npc_id_target;
-extern long pointer_image_zero, mouse_pointer_shape, pointer_image_two;
-extern long runtime_buffer_1k, runtime_buffer_4k_a, runtime_buffer_4k_b;
+extern char far *pointer_image_zero;
+extern char far *mouse_pointer_shape;
+extern char far *pointer_image_two;
+extern char far *runtime_buffer_1k;
+extern char far *runtime_buffer_4k_a;
+extern char far *runtime_buffer_4k_b;
 extern struct maze_tables *maze_tables;
 extern struct maze_cells *maze_data;
 extern struct maze_change *maze_change_log;
 extern struct floor_item *floor_items;
 extern int startup_check_stage, game_state;
 extern char code_characters[];
-extern char message_directory[];
+extern struct message_directory message_directory;
 extern char startup_scenario_header_name[];
 extern char startup_vbfont0_name[];
 extern char startup_vbfont1_name[];
@@ -115,7 +122,8 @@ initialize_runtime_resources()
 		sizeof(master_header));
 	read_startup_file(startup_disk_header_name, &disk_header,
 		sizeof(disk_header));
-	read_startup_file(startup_message_header_name, message_directory, 11774);
+	read_startup_file(startup_message_header_name, &message_directory,
+		11774);
 	read_startup_file(startup_pcfile_name, &pc_file_header,
 		sizeof(pc_file_header));
 	load_startup_misc(startup_misc_header_name);

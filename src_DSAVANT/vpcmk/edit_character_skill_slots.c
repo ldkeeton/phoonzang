@@ -4,7 +4,8 @@
 
 extern struct pc_rec party_records[];
 extern int skill_group_ranges[];
-extern int slot_limit[], slot_label[];
+extern int slot_limit[];
+extern char slot_label[][20];
 extern int skill_availability_flags[];
 extern int load_message_string();
 extern int display_centered_message();
@@ -29,7 +30,7 @@ int member_index, message_id;
 
 	for (current_skill = 0; current_skill <= 4; current_skill++)
 		load_message_string(MSG_WEAPONRY + current_skill,
-			(char *)slot_label + current_skill * 20);
+			slot_label[current_skill]);
 	load_message_string(message_id, message);
 	display_centered_message(message, 1);
 

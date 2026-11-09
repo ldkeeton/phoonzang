@@ -7,7 +7,6 @@ extern unsigned char picture_slot_number[], picture_slot_used[];
 extern struct member_rec *battle_groups[];
 extern struct member_ext *battle_group_ext[];
 extern int monster_group_count;
-extern struct member_ext *battle_group_ext_1;
 extern find_picture_slot(), free_picture_slot(), ensure_sound_loaded();
 
 setup_monster_pictures()
@@ -24,6 +23,6 @@ setup_monster_pictures()
 		if (picture_slot_number[slot] != 255		/* 0xff: slot empty */
 		    && picture_slot_used[slot] == 0)
 			free_picture_slot(slot);
-	if (battle_group_ext_1->sound_id > 0)		/* +0xd8: encounter sound */
-		ensure_sound_loaded(battle_group_ext_1->sound_id);
+	if (battle_group_ext[1]->sound_id > 0)		/* +0xd8: encounter sound */
+		ensure_sound_loaded(battle_group_ext[1]->sound_id);
 }

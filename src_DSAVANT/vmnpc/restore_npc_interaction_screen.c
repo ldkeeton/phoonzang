@@ -4,16 +4,12 @@
 
 extern int game_state;
 extern unsigned char picture_slot_number[];
-extern struct {
-	int count;
-	struct overlay_item *items[12];
-} overlay_list;
+extern struct overlay_list overlay_list;
 extern int cell_slot_ref[3][3];
 extern int npc_cell_effect_frame[3][3];
 extern int loaded_sound_id;
 extern int saved_screen_pending, saved_screen_slot;
-extern int screen_cache_0_seg, screen_cache_1_seg;
-extern int screen_cache_1_off, screen_cache;
+extern long screen_cache[];
 extern long saved_area_a, saved_area_b;
 extern char npc_screen_temp_file[];
 
@@ -50,9 +46,9 @@ restore_npc_interaction_screen()
 		wait_and_free_sound(16);
 		loaded_sound_id = -1;
 	}
-	call_restore_screen(screen_cache_1_off, screen_cache_1_seg, 1, 0);
+	call_restore_screen(screen_cache[1], 1, 0);
 	saved_screen_slot = save_screen_area(72, 33, 247, 143,
 		npc_screen_temp_file);
 	saved_screen_pending = 1;
-	call_restore_screen(screen_cache, screen_cache_0_seg, 1, 0);
+	call_restore_screen(screen_cache[0], 1, 0);
 }

@@ -1,14 +1,10 @@
 /* Draw the current spell point total for each realm, centered in its row. */
+#include "structs/realmpos.h"
 #include "structs/pcrec.h"
-
-struct realm_spell_point_position {
-	int x;
-	int y;
-};
 
 extern struct pc_rec party_records[];
 extern int realm_point_text_colors[6][2];
-extern struct realm_spell_point_position realm_spell_point_positions[];
+extern struct screen_point realm_spell_point_positions[];
 extern int format_int_decimal(), call_set_text_color(), call_set_text_pos();
 extern int draw_text_glyphs(), aztec_strlen();
 

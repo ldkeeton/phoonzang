@@ -6,7 +6,7 @@
 extern struct load_header scenario_header;
 extern struct disk_header disk_header;
 
-extern int member_screen_cache_low, member_screen_cache_high;
+extern long member_screen_cache;
 extern int member_icon[];
 extern struct pc_rec party_records[];
 extern int hotspot_rects[], hotspot_hit;
@@ -47,8 +47,7 @@ int member_index;
 		prompt_disk_swap(path, 0, 1, 1);
 	}
 
-	call_restore_screen(member_screen_cache_low,
-		member_screen_cache_high, 0, 0);
+	call_restore_screen(member_screen_cache, 0, 0);
 	member_area = call_save_area(14, 18, 66, 74);
 	draw_member_summary_panel(member_index);
 	set_hotspot(0, 12, 17, 38, 74, 11, 8);

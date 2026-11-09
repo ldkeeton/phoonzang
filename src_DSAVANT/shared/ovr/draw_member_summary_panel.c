@@ -6,8 +6,8 @@
 
 extern struct pc_rec party_records[];
 extern struct spell_table_view spell_table[];
-extern int member_screen_cache_high, member_screen_cache_low;
-extern int member_detail_cache_high, member_detail_cache_low;
+extern int member_screen_cache_high, member_screen_cache;
+extern long member_detail_cache;
 extern int banner_offset, banner_plain_flag, banner_animation_frame;
 extern char percent_suffix_text[];
 extern int call_restore_screen(), draw_doubled_member_portrait();
@@ -30,10 +30,9 @@ int member_index;
 	int status_order[11];	/* Seven used; the frame reserves eleven words. */
 	struct encumbrance_style encumbrance;
 
-	call_restore_screen(member_screen_cache_low,
+	call_restore_screen(member_screen_cache,
 		member_screen_cache_high, 0, 0);
-	call_restore_screen(member_detail_cache_low,
-		member_detail_cache_high, 0, 0);
+	call_restore_screen(member_detail_cache, 0, 0);
 	draw_doubled_member_portrait(member_index, 14, 18);
 	call_set_text_color(0, 0);
 	call_set_text_pos(40 - aztec_strlen(party_records[member_index].name) * 6 / 2,

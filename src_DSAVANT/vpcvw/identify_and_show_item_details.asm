@@ -96,7 +96,7 @@ identify_and_show_item_details:
     push ax                          ; 0x71a3
     push ax                          ; 0x71a4
     push word [roster_screen_a]      ; 0x71a5
-    push word [roster_screen_b]      ; 0x71a9
+    push word [roster_screen]        ; 0x71a9
     call call_restore_screen         ; 0x71ad
     add sp, byte 8                   ; 0x71b0
     mov word [bp - 0xc], 0x72        ; 0x71b3

@@ -6,7 +6,7 @@ draw_member_realm_points:
     push ax
     push ax
     push word [realm_panel_cache_low]
-    push word [realm_panel_cache_high]
+    push word [realm_panel_cache]
     call call_restore_screen
     add sp, byte 8
     mov word [bp - 2], 0

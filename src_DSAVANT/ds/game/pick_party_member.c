@@ -5,7 +5,7 @@ extern int party_char_count;
 extern int hotspot_rects[];
 extern int escape_key_hit;
 extern int hotspot_hit;
-extern int pointer_image_zero, pointer_image_zero_seg;
+extern char far *pointer_image_zero;
 extern long call_save_area();
 extern call_restore_area(), call_set_text_pos(), draw_font_glyph();
 extern call_show_area(), set_mouse_pointer_shape();
@@ -48,7 +48,7 @@ pick_party_member()
 	}
 
 	/* Use numbered hotspots when the mouse is active. */
-	set_mouse_pointer_shape(pointer_image_zero, pointer_image_zero_seg);
+	set_mouse_pointer_shape(pointer_image_zero);
 	for (index = 0; index < party_char_count; index++) {
 		/* Alternating entries add 0xfc; rows are spaced 45 pixels apart. */
 		mouse_x = (index % 2) * 252 + 5;

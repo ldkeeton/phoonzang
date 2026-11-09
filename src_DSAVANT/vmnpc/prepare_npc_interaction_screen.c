@@ -8,8 +8,8 @@ extern struct npc_record npc_record;
 
 extern int game_state, loaded_score_num;
 extern int saved_screen_pending, saved_screen_slot;
-extern long screen_cache, screen_cache_1_off;
-extern struct overlay_item *overlay_list[13];
+extern long screen_cache[];
+extern struct overlay_list overlay_list;
 extern int party_screen_animation_state;
 extern int cell_slot_ref[3][3];
 extern int npc_cell_effect_frame[3][3];
@@ -64,19 +64,19 @@ prepare_npc_interaction_screen()
 		free_loaded_score(0);
 	}
 	free_current_maze();
-	screen_cache = call_cache_area(72, 33, 247, 143, 2, 0);
+	screen_cache[0] = call_cache_area(72, 33, 247, 143, 2, 0);
 	if (saved_screen_pending) {
 		restore_saved_screen(saved_screen_slot, 1);
 		saved_screen_pending = 0;
 	}
-	screen_cache_1_off = call_cache_area(72, 33, 247, 143, 2, 0);
+	screen_cache[1] = call_cache_area(72, 33, 247, 143, 2, 0);
 	for (i = 0; i < 12; ++i) {
-		overlay_list[i + 1] = (struct overlay_item *)aztec_malloc(24);
-		if (overlay_list[i + 1] == 0)
+		overlay_list.items[i] = (struct overlay_item *)aztec_malloc(24);
+		if (overlay_list.items[i] == 0)
 			release_and_exit(29);
-		overlay_list[i + 1]->code = 255;
+		overlay_list.items[i]->code = 255;
 	}
-	overlay_list[0] = 0;
+	overlay_list.count = 0;
 	party_screen_animation_state = -2;
 	aztec_setmem(cell_slot_ref, 18, 0);
 	aztec_setmem(npc_cell_effect_frame, 18, 0);

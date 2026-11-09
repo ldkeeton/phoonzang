@@ -3,10 +3,8 @@
 #include "structs/encstyle.h"
 #include "structs/pcrec.h"
 
-extern int ac_screen_a_handle_high;
-extern int ac_screen_a_handle_low;
-extern int ac_screen_b_handle_high;
-extern int ac_screen_b_handle_low;
+extern long ac_screen_a_handle;
+extern long ac_screen_b_handle;
 extern struct pc_rec party_records[];
 extern int call_restore_screen();
 extern struct encumbrance_style *select_encumbrance_style();
@@ -34,8 +32,8 @@ int member_index;
 	int y_positions[5];
 
 	/* Restore the two cached screen regions before drawing the values. */
-	call_restore_screen(ac_screen_a_handle_low, ac_screen_a_handle_high, 0, 0);
-	call_restore_screen(ac_screen_b_handle_low, ac_screen_b_handle_high, 0, 0);
+	call_restore_screen(ac_screen_a_handle, 0, 0);
+	call_restore_screen(ac_screen_b_handle, 0, 0);
 
 	/* The style's first word offsets the member's armor class. */
 	encumbrance = *select_encumbrance_style(member_index);

@@ -6,7 +6,7 @@ show_vpcvw_scene_messages:
     push ax                          ; 0x3c84
     push ax                          ; 0x3c85
     push word [roster_screen_a]      ; 0x3c86
-    push word [roster_screen_b]      ; 0x3c8a
+    push word [roster_screen]        ; 0x3c8a
     call call_restore_screen         ; 0x3c8e
     add sp, byte 8                   ; 0x3c91
     mov word [scene_message_last_x], 4 ; 0x3c94

@@ -4,7 +4,7 @@
 #include "msg.h"
 
 extern struct member_rec *battle_groups[];
-extern struct member_ext *battle_group_ext_1;
+extern struct member_ext *battle_group_ext[];
 extern int acting_group, acting_unit, dest_alt_arg, game_state;
 extern int party_redraw_interval;
 extern int cell_effect_frame[3][3];
@@ -38,7 +38,7 @@ run_combat_round()
 		for (column = 0; column < 3; column++)
 			cell_effect_frame[row][column] = -1;
 
-	if (battle_group_ext_1->sound_id > 0)
+	if (battle_group_ext[1]->sound_id > 0)
 		play_sound_effect(16);
 
 	dest_alt_arg = 100;

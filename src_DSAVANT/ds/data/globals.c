@@ -3,6 +3,9 @@
 #include "structs/filehdr.h"
 #include "structs/loadrec.h"
 #include "structs/location.h"
+#include "structs/member.h"
+#include "structs/msgdir.h"
+#include "structs/ovlitem.h"
 #include "structs/pathedge.h"
 #include "structs/pcrec.h"
 #include "structs/questmap.h"
@@ -11,9 +14,9 @@
 #include "structs/slotrec.h"
 #include "structs/slotstat.h"
 #include "structs/sndslot.h"
+#include "structs/actslot.h"
 
-int party_redraw_elapsed_ticks_hi;
-int party_redraw_elapsed_ticks;
+long party_redraw_elapsed_ticks;
 long party_redraw_current_tick;
 long party_redraw_last_tick;
 int scenario_header_fd;
@@ -22,16 +25,14 @@ struct pc_file_header pc_file_header;
 int screen_cache_index;
 int saved_screen_pending;
 int saved_screen_slot;
-int screen_cache_1_seg;
-int screen_cache_1_off;
-int screen_cache_0_seg;
-int screen_cache;
+long screen_cache[2];
 int party_return_state;
 int npc_id_decoy;
 int message_delay;
 int startup_option;
 int startup_hardware_flags;
-char menu_selection_index[4];
+char unused_9054[2];
+int menu_selection_index;
 int dialog_button;
 int dialog_selection;
 int startup_check_stage;
@@ -64,9 +65,8 @@ char flag_bitset[176];
 struct saved_region_blocks party_region;
 long saved_area_a;
 long saved_area_b;
-int base_screen_area_segment;
-int base_screen_area;
-char adjacent_object_type[8];
+long base_screen_area;
+int adjacent_object_type[4];
 int maze_object_cell_bitmap[64];
 int floor_item_cell_bits[64];
 int current_map_block_a[64];
@@ -79,16 +79,13 @@ struct location_record location_records[26];
 struct slot_event slot_event_logs[22][5];
 struct slot_record slot_records[22];
 struct quest_map quest_maps[11];
-int battle_experience_hi;
-int battle_experience;
+long battle_experience;
 int selected_item_record;
 int selected_item_slot;
-char battle_group_ext_1[12];
-int battle_group_ext;
-int ally_battle_group;
-char battle_groups_1[10];
-int battle_groups;
-char overlay_list[26];
+struct member_ext *battle_group_ext[7];
+struct member_rec *ally_battle_group;
+struct member_rec *battle_groups[6];
+struct overlay_list overlay_list;
 int monster_group_count;
 int acting_group;
 int acting_unit;
@@ -103,9 +100,9 @@ int party_entry_mode;
 int story_music_enabled;
 int story_score_number;
 int story_score_volume;
-char cell_slot_ref[18];
+int cell_slot_ref[3][3];
 char action_slot_mode[10];
-char action_slot_table[270];
+struct action_slot action_slot_table[3][3][10];
 int effect_frame_phase;
 char unused_831c[4];
 int maze_gate_frame;
@@ -128,7 +125,7 @@ int member_icon[6];
 long panel_area[6];
 struct pc_rec party_records[6];
 long saved_screen_ref[5];
-char saved_screen_file[100];
+char saved_screen_file[5][20];
 int saved_screen_kind[5];
 int maze_state;
 int maze_variant;
@@ -158,7 +155,7 @@ int message_cache_next;
 int message_block_current;
 char message_block_buffer[5120];
 int message_cache_ids[4];
-char message_directory[11774];
+struct message_directory message_directory;
 int *npc_id_target;
 int npc_id_answer_relay;
 char code_table[50];
@@ -168,18 +165,14 @@ char list_entry_text[20];
 int npc_id;
 int npc_id_address;
 int mouse_active;
-int pointer_image_zero_seg;
-int pointer_image_zero;
-int mouse_pointer_shape_seg;
-int mouse_pointer_shape;
-int pointer_image_two_seg;
-int pointer_image_two;
+char far *pointer_image_zero;
+char far *mouse_pointer_shape;
+char far *pointer_image_two;
 int msg_dbs_fd;
 int data_file_fd;
 char far *runtime_buffer_1k;
 char far *runtime_buffer_4k_a;
-int runtime_buffer_4k_b_seg;
-int runtime_buffer_4k_b;
+char far *runtime_buffer_4k_b;
 struct maze_cells *maze_data;
 struct maze_tables *maze_tables;
 struct maze_change *maze_change_log;

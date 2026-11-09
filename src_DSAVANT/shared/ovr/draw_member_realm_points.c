@@ -1,16 +1,8 @@
 /* Draw a member's current and maximum points for each of the six realms. */
+#include "structs/realmpos.h"
 #include "structs/pcrec.h"
 
-struct realm_point_text_pos {
-	int x;
-	int y;
-};
-
-struct realm_point_text_row {		/* one realm: current, then maximum */
-	struct realm_point_text_pos column[2];
-};
-
-extern int realm_panel_cache_high, realm_panel_cache_low;
+extern long realm_panel_cache;
 extern int realm_point_text_colors[6][2];
 extern struct realm_point_text_row realm_point_text_positions[6];
 extern struct pc_rec party_records[];
@@ -24,8 +16,7 @@ int member_index;
 	int realm_row;
 	int point_column;
 
-	call_restore_screen(realm_panel_cache_high,
-		realm_panel_cache_low, 0, 0);
+	call_restore_screen(realm_panel_cache, 0, 0);
 	for (realm_row = 0; realm_row < 6; realm_row++) {
 		/* Each realm row displays its current and maximum point values. */
 		for (point_column = 0; point_column < 2; point_column++) {

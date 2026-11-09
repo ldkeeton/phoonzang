@@ -22,7 +22,6 @@ extern int use_item_refresh_stamina_drain(), test_bit(),
 extern int acting_group, acting_unit, combat_message_layout;
 extern int combat_effect_sound, spell_backfired, startup_option;
 extern int npc_id_decoy, dest_alt_arg;
-extern struct member_ext *battle_group_ext_1;
 extern char combat_action_name_buffer[], combat_action_message_buffer[];
 extern char combat_action_suffix_buffer[];
 

@@ -2,10 +2,7 @@
 
 #include "structs/ovlitem.h"
 
-extern struct {
-	int count;
-	struct overlay_item *items[12];
-} overlay_list;
+extern struct overlay_list overlay_list;
 
 extern int call_draw_text();
 

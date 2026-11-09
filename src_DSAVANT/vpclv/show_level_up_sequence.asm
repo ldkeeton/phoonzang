@@ -75,7 +75,7 @@ show_level_up_sequence:
     call call_cache_area             ; 0x521d
     add sp, byte 0xc                 ; 0x5220
     mov word [member_screen_cache_high], dx ; 0x5223
-    mov word [member_screen_cache_low], ax ; 0x5227
+    mov word [member_screen_cache], ax ; 0x5227
     mov ax, 0                        ; 0x522a
     push ax                          ; 0x522d
     mov ax, 2                        ; 0x522e
@@ -91,7 +91,7 @@ show_level_up_sequence:
     call call_cache_area             ; 0x5242
     add sp, byte 0xc                 ; 0x5245
     mov word [member_detail_cache_high], dx ; 0x5248
-    mov word [member_detail_cache_low], ax ; 0x524c
+    mov word [member_detail_cache], ax ; 0x524c
     mov ax, 0                        ; 0x524f
     push ax                          ; 0x5252
     mov ax, 2                        ; 0x5253
@@ -107,7 +107,7 @@ show_level_up_sequence:
     call call_cache_area             ; 0x5267
     add sp, byte 0xc                 ; 0x526a
     mov word [roster_screen_a], dx   ; 0x526d
-    mov word [roster_screen_b], ax   ; 0x5271
+    mov word [roster_screen], ax     ; 0x5271
     mov ax, 0                        ; 0x5274
     push ax                          ; 0x5277
     mov ax, 2                        ; 0x5278
@@ -123,7 +123,7 @@ show_level_up_sequence:
     call call_cache_area             ; 0x528c
     add sp, byte 0xc                 ; 0x528f
     mov word [ac_screen_a_handle_high], dx ; 0x5292
-    mov word [ac_screen_a_handle_low], ax ; 0x5296
+    mov word [ac_screen_a_handle], ax ; 0x5296
     mov ax, 0                        ; 0x5299
     push ax                          ; 0x529c
     mov ax, 2                        ; 0x529d
@@ -139,7 +139,7 @@ show_level_up_sequence:
     call call_cache_area             ; 0x52b1
     add sp, byte 0xc                 ; 0x52b4
     mov word [ac_screen_b_handle_high], dx ; 0x52b7
-    mov word [ac_screen_b_handle_low], ax ; 0x52bb
+    mov word [ac_screen_b_handle], ax ; 0x52bb
     mov ax, 0                        ; 0x52be
     push ax                          ; 0x52c1
     mov ax, 2                        ; 0x52c2
@@ -155,7 +155,7 @@ show_level_up_sequence:
     call call_cache_area             ; 0x52d6
     add sp, byte 0xc                 ; 0x52d9
     mov word [realm_panel_cache_low], dx ; 0x52dc
-    mov word [realm_panel_cache_high], ax ; 0x52e0
+    mov word [realm_panel_cache], ax ; 0x52e0
     mov ax, 0                        ; 0x52e3
     push ax                          ; 0x52e6
     mov ax, 2                        ; 0x52e7
@@ -242,7 +242,7 @@ show_level_up_sequence:
     mov ax, 1                        ; 0x53b7
     push ax                          ; 0x53ba
     push word [realm_panel_cache_low] ; 0x53bb
-    push word [realm_panel_cache_high] ; 0x53bf
+    push word [realm_panel_cache]    ; 0x53bf
     call call_restore_screen         ; 0x53c3
     add sp, byte 8                   ; 0x53c6
     mov ax, 0                        ; 0x53c9
@@ -250,7 +250,7 @@ show_level_up_sequence:
     mov ax, 1                        ; 0x53cd
     push ax                          ; 0x53d0
     push word [ac_screen_b_handle_high] ; 0x53d1
-    push word [ac_screen_b_handle_low] ; 0x53d5
+    push word [ac_screen_b_handle]   ; 0x53d5
     call call_restore_screen         ; 0x53d9
     add sp, byte 8                   ; 0x53dc
     mov ax, 0                        ; 0x53df
@@ -258,7 +258,7 @@ show_level_up_sequence:
     mov ax, 1                        ; 0x53e3
     push ax                          ; 0x53e6
     push word [ac_screen_a_handle_high] ; 0x53e7
-    push word [ac_screen_a_handle_low] ; 0x53eb
+    push word [ac_screen_a_handle]   ; 0x53eb
     call call_restore_screen         ; 0x53ef
     add sp, byte 8                   ; 0x53f2
     mov ax, 0                        ; 0x53f5
@@ -266,7 +266,7 @@ show_level_up_sequence:
     mov ax, 1                        ; 0x53f9
     push ax                          ; 0x53fc
     push word [roster_screen_a]      ; 0x53fd
-    push word [roster_screen_b]      ; 0x5401
+    push word [roster_screen]        ; 0x5401
     call call_restore_screen         ; 0x5405
     add sp, byte 8                   ; 0x5408
     mov ax, 0                        ; 0x540b
@@ -274,7 +274,7 @@ show_level_up_sequence:
     mov ax, 1                        ; 0x540f
     push ax                          ; 0x5412
     push word [member_detail_cache_high] ; 0x5413
-    push word [member_detail_cache_low] ; 0x5417
+    push word [member_detail_cache]  ; 0x5417
     call call_restore_screen         ; 0x541b
     add sp, byte 8                   ; 0x541e
     mov ax, 0                        ; 0x5421
@@ -282,7 +282,7 @@ show_level_up_sequence:
     mov ax, 1                        ; 0x5425
     push ax                          ; 0x5428
     push word [member_screen_cache_high] ; 0x5429
-    push word [member_screen_cache_low] ; 0x542d
+    push word [member_screen_cache]  ; 0x542d
     call call_restore_screen         ; 0x5431
     add sp, byte 8                   ; 0x5434
     mov ax, 0                        ; 0x5437

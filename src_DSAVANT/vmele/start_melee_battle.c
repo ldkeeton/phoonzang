@@ -18,12 +18,8 @@ extern long far *tick_counter_ptr;
 extern struct member_rec *battle_groups[];	/* 0x1a4-byte member records */
 extern struct member_ext *battle_group_ext[];
 	/* 0xe8-byte extended member records */
-extern struct member_ext *battle_group_ext_1;
 extern unsigned char picture_slot_number[], picture_slot_used[];
-extern struct {
-	int count;
-	struct overlay_item *items[12];
-} overlay_list;
+extern struct overlay_list overlay_list;
 
 extern clamp_between(), call_is_music_playing(), free_loaded_score(),
 	free_current_maze(), free_picture_slot(), load_sound_file(),
@@ -100,7 +96,7 @@ start_melee_battle()
 	    && monster_group_count > 1) {
 		redraw_glyph_strip(1);
 		wait_for_hotspot_timeout(1);
-		aztec_strcpy(buf, battle_group_ext_1);
+		aztec_strcpy(buf, battle_group_ext[1]);
 		titlecase_string(buf);
 		len = aztec_strlen(buf);
 		/* 0xdb8: message id appended to the member's name */

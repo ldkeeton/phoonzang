@@ -10,7 +10,7 @@ extern int realm_text_colors[];
 extern char open_parenthesis[], plus_sign[], close_parenthesis[];
 extern char positive_sign[], spell_separator[], space_separator[],
 	percent_sign[];
-extern int roster_screen_a, roster_screen_b;
+extern long roster_screen;
 extern struct pc_rec party_records[];
 extern int call_get_mouse(), data_record_io(), load_message_string();
 extern int display_centered_message();
@@ -63,7 +63,7 @@ int spell_power;
 	if ((selected_item->flags & 128) == 0)
 		return -1;
 	aztec_strcpy(slot_name, item.name);
-	call_restore_screen(roster_screen_b, roster_screen_a, 0, 0);
+	call_restore_screen(roster_screen, 0, 0);
 	y = 114;
 	x = 26;
 	call_set_text_pos(x, y);

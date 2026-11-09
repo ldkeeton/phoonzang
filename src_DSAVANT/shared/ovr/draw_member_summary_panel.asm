@@ -6,14 +6,14 @@ draw_member_summary_panel:
     push ax
     push ax
     push word [member_screen_cache_high]
-    push word [member_screen_cache_low]
+    push word [member_screen_cache]
     call call_restore_screen
     add sp, byte 8
     mov ax, 0
     push ax
     push ax
     push word [member_detail_cache_high]
-    push word [member_detail_cache_low]
+    push word [member_detail_cache]
     call call_restore_screen
     add sp, byte 8
     mov ax, 0x12

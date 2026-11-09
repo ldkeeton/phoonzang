@@ -3,8 +3,8 @@
  * at odd offsets. */
 
 char percent_suffix_text[] = "% ";
-char spell_cost_panel_text[] = "***";	/* draw_spell_cost, for no cost */
-char screen_save_temp_file[] = "V.$$$";	/* pick_spell_dialog_keep_frames */
+char spell_cost_panel_text[] = "***";		/* draw_spell_cost, for no cost */
+char spell_dialog_save_file[] = "V.$$$";	/* pick_spell_dialog_keep_frames */
 
 /* set_profession_resistances: per profession, base resistance codes and
    their growth digits. */

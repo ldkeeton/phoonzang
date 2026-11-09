@@ -1,12 +1,6 @@
 /* Queue depth-dependent wall layers and special view glyphs. */
-struct view_point {
-	int x, y;
-};
-struct view_geometry {
-	int depth_y[5];			     /* 0x00: depth positions. */
-	struct view_point walls[5][5][2][2]; /* 0x0a: kind, depth, side, mirror. */
-};
-extern struct view_geometry view_geometry;	/* int[205] in view_tables.c */
+#include "structs/viewgeom.h"
+extern struct view_geometry view_geometry;
 extern int view_depth_scale[], boundary_wall_variant, party_status_frame;
 extern int wall_overlay_when_enabled(), select_wall_face_index();
 extern int floor_overlay_when_enabled(), select_floor_face_index();

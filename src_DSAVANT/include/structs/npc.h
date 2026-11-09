@@ -11,7 +11,7 @@ struct npc_pronoun_swap {
 /* A message code and its 18-character text used by NPC dialog choices. */
 struct npc_message_option {
 	int message_code;
-	char text[18];
+	unsigned char text[18];
 };
 
 /* One six-byte NPC event trigger: when an event (give, gold paid, sell,

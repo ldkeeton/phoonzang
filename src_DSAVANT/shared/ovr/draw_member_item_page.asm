@@ -6,7 +6,7 @@ draw_member_item_page:
     push ax
     push ax
     push word [roster_screen_a]
-    push word [roster_screen_b]
+    push word [roster_screen]
     call call_restore_screen
     add sp, byte 8
     cmp word [item_page], byte 0

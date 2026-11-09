@@ -14,11 +14,7 @@ extern long far *tick_counter_ptr;
 extern struct spell_table_view spell_table[];
 extern struct pc_rec party_records[];
 extern int known_spell_ids[];
-struct spell_cost_panel_data {
-	char empty_cost_marker[4];	/* +0: "***" and NUL */
-	char save_filename[6];		/* +4: "V.$$$" and NUL */
-};
-extern struct spell_cost_panel_data spell_cost_panel_text;
+extern char spell_dialog_save_file[];
 extern int save_screen_area(), draw_dialog_box(), draw_realm_spell_points();
 extern int draw_party_slot_letters(), load_message_string(), draw_button();
 extern int call_set_text_pos(), call_set_text_color(), draw_font_glyph();
@@ -49,7 +45,7 @@ int pc, button_msg, ok_enabled, limit_by_points;
 	panel_x = 149;
 	thumb_travel = 22;
 	saved_area = save_screen_area(box_x0 - 1, box_y0 - 1, box_x1 + 1, box_y1 + 1,
-		&spell_cost_panel_text.save_filename[0]);
+		spell_dialog_save_file);
 	draw_dialog_box(box_x0, box_y0, box_x1, box_y1);
 	draw_dialog_box(149, box_y0, box_x1, box_y1);
 	draw_marker_glyph();

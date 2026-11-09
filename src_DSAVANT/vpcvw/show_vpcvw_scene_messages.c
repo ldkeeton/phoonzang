@@ -1,5 +1,5 @@
 /* Load and display consecutive scene message strings. */
-extern int roster_screen_a, roster_screen_b;
+extern long roster_screen;
 extern int scene_message_last_x, scene_message_line_index;
 extern unsigned char scene_message_text_buffer[];
 extern int message_not_found;
@@ -15,7 +15,7 @@ int message_id;
 {
 	char message[86];
 
-	call_restore_screen(roster_screen_b, roster_screen_a, 0, 0);
+	call_restore_screen(roster_screen, 0, 0);
 	scene_message_last_x = 4;
 	scene_message_line_index = 0;
 	scene_message_text_buffer[0] = 0;

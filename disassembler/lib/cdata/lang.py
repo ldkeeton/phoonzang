@@ -396,7 +396,9 @@ class Parser:
         return st
 
     def declarator(self, base):
-        far, self.far = self.far, False
+        # Aztec takes ``far`` in the specifier as part of the type, so
+        # ``char far *a, *b`` makes both pointers far.
+        far = self.far
         pointers = 0
         while True:
             if self.accept('*'):

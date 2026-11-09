@@ -6,7 +6,8 @@
 
 extern int selected_item_record, selected_item_slot;
 extern int party_return_state, loot_row_total, party_char_count;
-extern int treasure_message_row, mouse_pointer_shape, mouse_pointer_shape_seg;
+extern int treasure_message_row;
+extern char far *mouse_pointer_shape;
 extern int game_state, glyph_painter;
 extern struct slot_record slot_records[];
 extern struct pc_rec party_records[];
@@ -98,7 +99,7 @@ process_chest_rewards()
 		return;
 	}
 	gold_total = (long)gold_total / living_count;
-	set_mouse_pointer_shape(mouse_pointer_shape, mouse_pointer_shape_seg);
+	set_mouse_pointer_shape(mouse_pointer_shape);
 	call_mouse_glide_to(302, 164, 0);
 	load_message_string(MSG_YOU_FOUND, short_message);
 	for (row = 0; row < loot_row_total; row++) {

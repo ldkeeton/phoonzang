@@ -6,7 +6,7 @@ draw_skill_list_values:
     push ax
     push ax
     push word [roster_screen_a]
-    push word [roster_screen_b]
+    push word [roster_screen]
     call call_restore_screen
     add sp, byte 8
     mov word [bp - 2], 0

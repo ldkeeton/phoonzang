@@ -1,7 +1,6 @@
 /* Select an inventory slot with the keyboard or mouse. */
 extern int mouse_active;
-extern int pointer_image_two_seg;
-extern int pointer_image_two;
+extern char far *pointer_image_two;
 extern int escape_key_hit;
 extern int hotspot_hit;
 extern int hotspot_rects[];
@@ -51,7 +50,7 @@ select_inventory_slot()
 		call_show_area(154, 144, 177, 163);
 		return result;
 	} else {
-		set_mouse_pointer_shape(pointer_image_two, pointer_image_two_seg);
+		set_mouse_pointer_shape(pointer_image_two);
 		for (key = 0; key < 10; ++key) {
 			set_hotspot(key, key / 5 * 79 + 1 + 1,
 				key % 5 * 14 + 113,

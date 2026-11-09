@@ -7,7 +7,7 @@ __zchoice_grid_screen_file:
     db 'V.$$$', 0
 __zspell_cost_panel_text:
     db 0x2a, 0x2a, 0x2a, 0x00
-__zdseg_90ab:
+__zspell_dialog_save_file:
     db 'V.$$$', 0
 __zscene_message_separator:
     db 0x20, 0x00

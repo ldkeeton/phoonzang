@@ -5,7 +5,7 @@
 
 extern struct pc_rec party_records[];
 extern int mouse_active;
-extern int member_screen_cache_low, member_screen_cache_high;
+extern long member_screen_cache;
 extern int call_get_mouse(), call_restore_screen();
 extern int data_record_io(), load_message_string();
 extern int call_set_text_pos(), call_set_text_color();
@@ -28,7 +28,7 @@ int member_index;
 	mouse_result = 0;
 	if (mouse_active)
 		mouse_result = call_get_mouse(&mouse_x, &mouse_y);
-	call_restore_screen(member_screen_cache_low, member_screen_cache_high, 0, 0);
+	call_restore_screen(member_screen_cache, 0, 0);
 	data_record_io(0, experience_thresholds,
 		party_records[member_index].profession, 0);
 	load_message_string(MSG_AGE_217, text);

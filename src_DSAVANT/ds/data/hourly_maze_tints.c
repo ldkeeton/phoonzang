@@ -1,6 +1,7 @@
 /* Maze view tint for each game hour: red, green, blue. */
+#include "structs/mazetint.h"
 
-unsigned char hourly_maze_tints[24][3] = {
+struct maze_rgb_entry hourly_maze_tints[24] = {
 	{5, 6, 8},
 	{5, 6, 8},
 	{5, 6, 8},

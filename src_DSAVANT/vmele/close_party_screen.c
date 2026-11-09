@@ -2,9 +2,10 @@
    pictures, sounds and party/overlay records, then reloads the monster
    pictures and the party members' own records */
 #include "structs/member.h"
+#include "structs/ovlitem.h"
 
 extern int party_return_state;		/* game state the party screen returns to */
-extern char far *screen_cache[];
+extern long screen_cache[];
 	/* cached full-screen images, swapped per frame */
 extern int saved_screen_slot;		/* slot holding the screen area saved here */
 extern int saved_screen_pending;
@@ -18,10 +19,7 @@ extern struct member_ext *battle_group_ext[];
 extern unsigned char picture_slot_number[];		/* picture number in each slot */
 extern int loaded_sound_id;				/* sound currently loaded, -1 if none */
 extern long saved_area_a, saved_area_b;
-extern struct {
-	int count;
-	char *items[12];
-} overlay_list;
+extern struct overlay_list overlay_list;
 
 extern call_wait_sound(), call_restore_screen(), save_screen_area(),
 	free_picture_slot(), wait_and_free_sound(), redraw_glyph_strip(),

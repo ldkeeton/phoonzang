@@ -1,27 +1,27 @@
 ; auto-generated
 __zobss_9408:  ; window_record
     resb 0x000e
-__zobss_9416:  ; member_screen_cache_low
+__zobss_9416:  ; member_screen_cache
     resb 0x0002
 __zobss_9418:  ; member_screen_cache_high
     resb 0x0002
-__zobss_941a:  ; member_detail_cache_low
+__zobss_941a:  ; member_detail_cache
     resb 0x0002
 __zobss_941c:  ; member_detail_cache_high
     resb 0x0002
-__zobss_941e:  ; roster_screen_b
+__zobss_941e:  ; roster_screen
     resb 0x0002
 __zobss_9420:  ; roster_screen_a
     resb 0x0002
-__zobss_9422:  ; ac_screen_a_handle_low
+__zobss_9422:  ; ac_screen_a_handle
     resb 0x0002
 __zobss_9424:  ; ac_screen_a_handle_high
     resb 0x0002
-__zobss_9426:  ; ac_screen_b_handle_low
+__zobss_9426:  ; ac_screen_b_handle
     resb 0x0002
 __zobss_9428:  ; ac_screen_b_handle_high
     resb 0x0002
-__zobss_942a:  ; realm_panel_cache_high
+__zobss_942a:  ; realm_panel_cache
     resb 0x0002
 __zobss_942c:  ; realm_panel_cache_low
     resb 0x0006

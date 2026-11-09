@@ -15,4 +15,10 @@ struct overlay_item {			/* 24 bytes */
 	unsigned char flag;		/* +0x17 */
 };
 
+/* overlay_list: the number of items in use, then the 12 slots. */
+struct overlay_list {
+	int count;
+	struct overlay_item *items[12];
+};
+
 #endif

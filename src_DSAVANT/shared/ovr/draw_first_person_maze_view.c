@@ -1,17 +1,11 @@
 /* Rebuild the first-person maze view and draw its queued wall layers. */
+#include "structs/arearect.h"
 #include "structs/mazecell.h"
 #include "structs/qshape.h"
 #include "structs/slotrec.h"
 
-struct view_panel_bounds {
-	int left;			/* +0x00 */
-	int top;			/* +0x02 */
-	int right;			/* +0x04 */
-	int bottom;			/* +0x06 */
-};
-
 extern struct maze_cells *maze_data;
-extern struct view_panel_bounds boundary_box_bounds[][5];
+extern struct area_rectangle boundary_box_bounds[][5];
 extern struct slot_rec slot_recs[];
 extern unsigned char picture_slot_number[];	/* 255 when the slot is free */
 extern int current_level, maze_variant, boundary_wall_open;

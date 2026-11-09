@@ -1,9 +1,11 @@
 /* Queue the layered wall and cell glyphs for one depth and column. */
+#include "structs/viewgeom.h"
 #include "structs/viewx.h"
 
 extern int party_facing, party_status_frame, floor_checker_parity;
 extern int boundary_wall_variant, marker_mode, capture_center_marker_mode;
-extern int shape_column_x[][5], view_depth_scale[], view_geometry[];
+extern int shape_column_x[][5], view_depth_scale[];
+extern struct view_geometry view_geometry;
 extern struct view_x_grid maze_cell_x_offset;
 extern int near_wall_object_ids[][5];
 extern int near_wall_overlay_ids[][5];
@@ -199,7 +201,7 @@ int boundary_a, boundary_b, floor_a, floor_b, inset_a, inset_b;
 				x = glyph == 2 ? depth : depth - 1;
 				queue_slot_glyph_render(12,
 					maze_cell_x_offset.marker_x[depth][column],
-					view_geometry[x], glyph, 0, 0, 0, 72, 248,
+					view_geometry.depth_y[x], glyph, 0, 0, 0, 72, 248,
 					depth, view_depth_scale[x], 0, 1, 1);
 			}
 		}
@@ -208,7 +210,7 @@ int boundary_a, boundary_b, floor_a, floor_b, inset_a, inset_b;
 			if (depth > 0 || column == 2)
 				queue_slot_glyph_render(11,
 					maze_cell_x_offset.marker_x[depth][column],
-					view_geometry[depth],
+					view_geometry.depth_y[depth],
 					view_marker_kinds[depth][column],
 					0, 0, 0, 72, 248, depth,
 					view_depth_scale[depth], 0, 1, 1);
@@ -224,7 +226,7 @@ int boundary_a, boundary_b, floor_a, floor_b, inset_a, inset_b;
 				case 2:
 					queue_slot_glyph_render(3,
 						maze_cell_x_offset.marker_x[depth][column],
-						view_geometry[depth], 1, 2,
+						view_geometry.depth_y[depth], 1, 2,
 						facing == 0 ? 4 : 5, 0, 72, 248, depth,
 						view_depth_scale[depth], 0, 1, 1);
 					break;
@@ -232,7 +234,7 @@ int boundary_a, boundary_b, floor_a, floor_b, inset_a, inset_b;
 				case 3:
 					queue_slot_glyph_render(3,
 						maze_cell_x_offset.marker_x[depth][column],
-						view_geometry[depth], 3, 0, 0, 0, 72, 248, depth,
+						view_geometry.depth_y[depth], 3, 0, 0, 0, 72, 248, depth,
 						view_depth_scale[depth], facing == 3 ? 1 : 0, 1, 1);
 					break;
 				}

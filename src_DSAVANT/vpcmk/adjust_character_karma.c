@@ -2,8 +2,7 @@
 #include "msg.h"
 #include "structs/pcrec.h"
 
-extern int saved_screen_handle_low;
-extern int saved_screen_handle_high;
+extern long saved_screen_handle;
 extern struct pc_rec party_records[];
 extern int hotspot_rects[];
 extern int hotspot_hit;
@@ -27,7 +26,7 @@ int member_index;
 	long saved_stat_area;
 	long saved_button_area;
 
-	call_restore_screen(saved_screen_handle_low, saved_screen_handle_high,
+	call_restore_screen(saved_screen_handle,
 		0, 0);
 	saved_stat_area = call_save_area(139, 77, 151, 83);
 	display_character_statistics(member_index, 0);

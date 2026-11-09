@@ -7,10 +7,10 @@ extern struct pc_file_header pc_file_header;
 extern struct pc_rec party_records[];
 extern int skill_group_points[];
 extern int remaining_stat_points;
-extern int roster_screen_a, roster_screen_b;
-extern int saved_character_file_name[];
+extern long roster_screen;
+extern char saved_character_file_name[];
 extern int character_creation_mode;
-extern int pc_file_database_filename[];
+extern char pc_file_database_filename[];
 extern int choose_character_race();
 extern int choose_character_gender();
 extern int random_below();
@@ -103,7 +103,7 @@ int file_record_index;
 	} while (++loop_index < 4);
 	if (choice > 0) {
 		edit_character_skill_slots(member_index, MSG_YOU_GET_A_SKILL_BONUS);
-		call_restore_screen(roster_screen_b, roster_screen_a, 0, 0);
+		call_restore_screen(roster_screen, 0, 0);
 		call_show_area(1, 112, 316, 198);
 	}
 	for (loop_index = 0; loop_index < 4; loop_index++) {

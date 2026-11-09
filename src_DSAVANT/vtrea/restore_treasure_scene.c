@@ -1,6 +1,6 @@
 /* Restore the cached treasure-screen state and dissolve back to the scene. */
 
-extern char far *screen_cache[];
+extern long screen_cache[];
 extern long saved_area_a, saved_area_b;
 
 extern int call_restore_screen(), call_restore_area();

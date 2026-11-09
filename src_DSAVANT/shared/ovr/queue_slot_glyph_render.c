@@ -1,4 +1,5 @@
 /* Queue one picture slot's glyph position and rendering parameters. */
+#include "structs/viewgeom.h"
 #include "structs/slotrec.h"
 #include "structs/qshape.h"
 
@@ -28,7 +29,7 @@ extern struct byte_slot_value queued_slot_depth[];
 extern struct byte_slot_value queued_slot_glyph_column[];
 extern struct byte_slot_value queued_slot_render_pass[];
 extern int view_column_x[][5];
-extern int view_geometry[];
+extern struct view_geometry view_geometry;
 extern void play_sound_effect();
 
 /* The slot number selects a 17-byte render row; coordinates may be scaled. */
@@ -66,7 +67,7 @@ int render_pass, position_mode;
 						/ 100;
 				}
 				queued_slot_y[render_queue_count].value =
-					y - ((view_geometry[0] - glyph_y) * scale - 50) / 100;
+					y - ((view_geometry.depth_y[0] - glyph_y) * scale - 50) / 100;
 			} else if (position_mode == 2) {
 				queued_slot_x[render_queue_count].x =
 					queued_slot_scale[render_queue_count].value

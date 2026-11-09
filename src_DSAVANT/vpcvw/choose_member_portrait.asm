@@ -41,7 +41,7 @@ choose_member_portrait:
     push ax                          ; 0x94eb
     push ax                          ; 0x94ec
     push word [member_screen_cache_high] ; 0x94ed
-    push word [member_screen_cache_low] ; 0x94f1
+    push word [member_screen_cache]  ; 0x94f1
     call call_restore_screen         ; 0x94f5
     add sp, byte 8                   ; 0x94f8
     mov ax, 0x4a                     ; 0x94fb

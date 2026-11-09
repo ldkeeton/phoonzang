@@ -23,7 +23,7 @@ wait_for_scene_message_page:
     push ax                          ; 0x3a95
     push ax                          ; 0x3a96
     push word [roster_screen_a]      ; 0x3a97
-    push word [roster_screen_b]      ; 0x3a9b
+    push word [roster_screen]        ; 0x3a9b
     call call_restore_screen         ; 0x3a9f
     add sp, byte 8                   ; 0x3aa2
     mov word [scene_message_line_index], 0 ; 0x3aa5

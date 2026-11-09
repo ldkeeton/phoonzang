@@ -1,9 +1,6 @@
 /* Select the first bound pair meeting the requested value, then clamp its
    sum. */
-struct bound_pair {
-	int lower; /* +0x00: lower clamp bound */
-	int upper; /* +0x02: upper clamp bound */
-};
+#include "structs/bounds.h"
 extern struct bound_pair value_clamp_ranges[];
 extern int clamp_between();
 

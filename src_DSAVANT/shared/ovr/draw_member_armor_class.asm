@@ -6,14 +6,14 @@ draw_member_armor_class:
     push ax
     push ax
     push word [ac_screen_a_handle_high]
-    push word [ac_screen_a_handle_low]
+    push word [ac_screen_a_handle]
     call call_restore_screen
     add sp, byte 8
     mov ax, 0
     push ax
     push ax
     push word [ac_screen_b_handle_high]
-    push word [ac_screen_b_handle_low]
+    push word [ac_screen_b_handle]
     call call_restore_screen
     add sp, byte 8
     push word [bp + 4]

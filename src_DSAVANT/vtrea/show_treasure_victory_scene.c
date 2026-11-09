@@ -1,7 +1,7 @@
 /* Show the victory message and distribute the treasure chest rewards. */
 #include "msg.h"
 
-extern int mouse_pointer_shape, mouse_pointer_shape_seg;
+extern char far *mouse_pointer_shape;
 extern int story_music_enabled, story_score_file_number, story_score_number;
 extern int story_score_volume, file_param_word;
 extern int treasure_message_row;
@@ -25,7 +25,7 @@ show_treasure_victory_scene()
 
 	prepare_treasure_scene(MSG_A_CHEST);
 	redraw_treasure_caption(1);
-	set_mouse_pointer_shape(mouse_pointer_shape, mouse_pointer_shape_seg);
+	set_mouse_pointer_shape(mouse_pointer_shape);
 	call_mouse_glide_to(302, 164, 0);
 	if (story_music_enabled = score_music_enabled()) {
 		load_score_files(3, 0);

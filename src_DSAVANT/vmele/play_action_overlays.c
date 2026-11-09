@@ -17,7 +17,7 @@ extern long far *tick_counter_ptr;
 extern int cell_overlay_y_offset[][3];
 extern int cell_action_marks[][3];
 extern int action_overlay_steps[2][4];
-extern struct member_ext *battle_group_ext_1;
+extern struct member_ext *battle_group_ext[];
 play_action_overlays(wait_for_result)
 int wait_for_result;
 {
@@ -35,7 +35,7 @@ int wait_for_result;
 	/* Four animation rounds form the complete overlay cycle. */
 	for (animation_round = 0; animation_round < 4; animation_round++) {
 		if (wait_for_result == 0 && animation_round == 1
-		    && battle_group_ext_1->sound_id > 0)
+		    && battle_group_ext[1]->sound_id > 0)
 			play_sound_effect(16);
 		/* Retry this animation round until the redraw interval elapses. */
 		do {

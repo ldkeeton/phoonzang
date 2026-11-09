@@ -3,7 +3,7 @@ __zpercent_suffix_text:
     db 0x25, 0x20, 0x00
 __zspell_cost_panel_text:
     db 0x2a, 0x2a, 0x2a, 0x00
-__zdseg_909f:
+__zspell_dialog_save_file:
     db 'V.$$$', 0
 __zfighter_resist_base:
     db 'ACBCBCCCCHCHBA', 0

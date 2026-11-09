@@ -1,11 +1,11 @@
 /* Let the player inspect a party member from the roster screen. */
-extern int roster_screen_a, roster_screen_b;
+extern long roster_screen;
 extern int party_char_count;
 extern int mouse_active;
 extern int hotspot_rects[];
 extern int escape_key_hit;
 extern int hotspot_hit;
-extern int pointer_image_zero, pointer_image_zero_seg;
+extern char far *pointer_image_zero;
 extern long call_save_area();
 extern int call_restore_screen(), call_restore_area();
 extern int call_set_text_pos(), draw_font_glyph(), call_show_area();
@@ -26,7 +26,7 @@ select_party_member_from_roster()
 	int saved_area_stack_pad;
 	long saved_area;
 
-	call_restore_screen(roster_screen_b, roster_screen_a, 0, 0);
+	call_restore_screen(roster_screen, 0, 0);
 	member_index = 0;
 	for (; member_index < party_char_count; ++member_index) {
 		draw_party_member_overview(member_index, 0, 0);
@@ -64,7 +64,7 @@ select_party_member_from_roster()
 		return selected_member;
 	}
 
-	set_mouse_pointer_shape(pointer_image_zero, pointer_image_zero_seg);
+	set_mouse_pointer_shape(pointer_image_zero);
 	button_released = 0;
 	do {
 		mouse_buttons = call_get_mouse(&column, &row);
