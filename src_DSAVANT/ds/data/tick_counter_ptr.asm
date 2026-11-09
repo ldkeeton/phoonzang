@@ -1,3 +1,0 @@
-; auto-generated
-__ztick_counter_ptr:
-    db 0x6c, 0x04, 0x00, 0x00

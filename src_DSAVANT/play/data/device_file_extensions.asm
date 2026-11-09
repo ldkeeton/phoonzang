@@ -1,7 +1,0 @@
-; auto-generated
-device_file_extensions:
-
-    db 0x00, 0x00, 0x00, 0x50, 0x42, 0x41
-    times 6 db 0
-    db 'PBAPBL'
-

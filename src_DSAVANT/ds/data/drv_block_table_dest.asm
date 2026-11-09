@@ -1,3 +1,0 @@
-; auto-generated
-drv_block_table_dest:
-    db 0xdf, 0x01, 0x00, 0x00
