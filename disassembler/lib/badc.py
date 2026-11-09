@@ -10,7 +10,10 @@ byte-pointer view of a typed record (``groups[i][415]``, ``recs[i][n * 44 + 3]``
 ``mac`` macros that hide a pointer cast or an address alias, ``view``
 arrays of byte pointers that another file declares as an array of typed
 pointers, ``ext`` ``extern`` declarations whose return type disagrees
-with the definition, ``adj`` code that reaches past the end of an object
+with the definition, ``span`` transfers that move more bytes than their
+object holds and ``shp`` globals declared with different element types in
+different files (records with no struct: see :mod:`lib.badc_shapes`),
+``adj`` code that reaches past the end of an object
 into its neighbour (see :func:`_count_adjacency`), and ``addr`` integer literals that are a named DS datum's
 address (``npc_id_address = 3638`` for ``&npc_id``): they match only while
 the link keeps the original layout.
@@ -63,7 +66,8 @@ _ADDRESS_FLOOR = 0x400
 
 _HEADER = (f"{'score':>5} {'back':>4} {'fwd':>4} {'frm':>3} {'vol':>3} "
            f"{'def':>3} {'uni':>3} {'fill':>4} {'gen':>3} {'pun':>3} "
-           f"{'off':>3} {'mac':>3} {'view':>4} {'ext':>3} {'adj':>3} {'addr':>4}  "
+           f"{'off':>3} {'mac':>3} {'view':>4} {'ext':>3} {'span':>4} {'shp':>3} "
+           f"{'adj':>3} {'addr':>4}  "
            "file")
 
 # Definitions do not change between projects that share a source tree.
@@ -659,12 +663,14 @@ def _score_asm(text, ends=None):
     """The counts of one ``.s`` file, as :func:`_score_file`'s: only
     ``adj`` applies to assembly."""
     adj = _count_asm_reach(text, ends or [])
-    return (10 * adj,) + (0,) * 13 + (adj, 0)
+    return (10 * adj,) + (0,) * 15 + (adj, 0)
 
 
 def _score_file(text, definitions=None, externs=None, addresses=None,
-                arrays=None):
-    """Return the per-file counts, in header order, plus the score."""
+                arrays=None, shapes=None):
+    """Return the per-file counts, in header order, plus the score.
+    *shapes* is this file's ``(line, kind, detail)`` list from
+    :func:`lib.badc_shapes.analyse`."""
     # Blank out comments but keep line numbers.
     code = _COMMENT.sub(lambda m: '\n' * m.group().count('\n'), text)
     lines = code.split('\n')
@@ -693,18 +699,22 @@ def _score_file(text, definitions=None, externs=None, addresses=None,
     ext = _count_externs(code, definitions or {})
     adj = _count_adjacency(code, arrays or {})
     addr = _count_addresses(code, addresses)
+    span = sum(1 for _l, kind, _d in shapes or () if kind == 'span')
+    shp = sum(1 for _l, kind, _d in shapes or () if kind == 'shape')
     score = (3 * back + fwd + 10 * frame + 10 * vol + 3 * alias + 5 * union
              + 3 * filler + 2 * gen + 5 * pun + 5 * off + 5 * mac + 5 * view
-             + 3 * ext + 10 * adj + 10 * addr)
+             + 3 * ext + 10 * span + 3 * shp + 10 * adj + 10 * addr)
     return (score, back, fwd, frame, vol, alias, union, filler, gen, pun,
-            off, mac, view, ext, adj, addr)
+            off, mac, view, ext, span, shp, adj, addr)
 
 
-def scan(root, addresses=None, ends=None):
+def scan(root, addresses=None, ends=None, shapes=None):
     """Flagged ``.c`` and ``.s`` files under *root*, worst first.
 
     Each row is ``(score, relpath, back, fwd, frame, vol, alias, union,
-    filler, gen, pun, off, mac, view, ext, adj, addr)``.  *addresses* is
+    filler, gen, pun, off, mac, view, ext, span, shp, adj, addr)``.
+    *shapes* is :func:`lib.badc_shapes.analyse`; without it ``span`` and
+    ``shp`` stay 0.  *addresses* is
     :func:`data_addresses`; without it ``addr`` stays 0.  *ends* is
     :func:`object_ends`; without it a ``.s`` file's ``adj`` stays 0.
     """
@@ -727,11 +737,23 @@ def scan(root, addresses=None, ends=None):
             else:
                 counts = _score_file(text, definitions, externs,
                                      _file_addresses(relpath, addresses),
-                                     _file_arrays(relpath, arrays))
+                                     _file_arrays(relpath, arrays),
+                                     (shapes or {}).get(relpath))
             if counts[0]:
                 rows.append((counts[0], relpath) + counts[1:])
     rows.sort(key=lambda r: (-r[0], r[1]))
     return rows
+
+
+def record_shapes(project, root):
+    """``{relpath: [(line, kind, detail)]}``: :mod:`lib.badc_shapes` over
+    *root*, sizing table-driven transfers from the project's original data
+    files."""
+    from lib import badc_shapes
+    from lib.sidecar import loader
+    from main.options import APPS_DIR
+    sidecar = loader.load_readonly(project) or {}
+    return badc_shapes.analyse(root, sidecar, os.path.join(APPS_DIR, project))
 
 
 def cmd_badc(projects):
@@ -741,7 +763,9 @@ def cmd_badc(projects):
         root = cachedirs.src_dir(project)
         if not os.path.isdir(root):
             continue
-        rows = scan(root, data_addresses(project), object_ends(project))
+        shapes = record_shapes(project, root)
+        rows = scan(root, data_addresses(project), object_ends(project),
+                    shapes)
         if rows:
             print(f'badc {project}:', file=sys.stderr)
             print(_HEADER, file=sys.stderr)
@@ -749,8 +773,10 @@ def cmd_badc(projects):
                 print(f'{r[0]:5} {r[2]:4} {r[3]:4} {r[4]:3} {r[5]:3} '
                       f'{r[6]:3} {r[7]:3} {r[8]:4} {r[9]:3} {r[10]:3} '
                       f'{r[11]:3} {r[12]:3} {r[13]:4} {r[14]:3} '
-                      f'{r[15]:3} {r[16]:4}  {r[1]}',
+                      f'{r[15]:4} {r[16]:3} {r[17]:3} {r[18]:4}  {r[1]}',
                       file=sys.stderr)
+                for line, _kind, detail in shapes.get(r[1], ()):
+                    print(f'{"":6}{r[1]}:{line}: {detail}', file=sys.stderr)
         print(f'badc {project}: {len(rows)} file(s) flagged')
         flagged += len(rows)
     if flagged:
