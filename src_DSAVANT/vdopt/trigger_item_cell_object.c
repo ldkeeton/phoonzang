@@ -30,9 +30,9 @@ int pc, page, slot;
 		     maze_tables->party_mask[obj] & (1 << party_facing))) {
 			/* flags bits 0-7 clear, bits 8-15 set a bit in the level's 16-byte map */
 			bit = get_bits(maze_tables->flags[obj], 0, 8);
-			set_bitmap_bit((current_level << 4) + (unsigned)36116, bit, 0);
+			set_bitmap_bit(party_region.state[current_level], bit, 0);
 			if (bit = get_bits(maze_tables->flags[obj], 8, 8))
-				set_bitmap_bit((current_level << 4) + (unsigned)36116, bit, 1);
+				set_bitmap_bit(party_region.state[current_level], bit, 1);
 			if (maze_tables->arg[obj] > 0) {
 				call_show_area(54, 142, 265, 198);
 				/* sounds below 5 and 8, 9 play directly; others load first */

@@ -88,7 +88,7 @@ int member;
 	if (party_records[member].item_slots[group][slot].flags & 2)
 	play_sound_effect(0);
 	else {
-	add_floor_item(member * 584 + group * 120 + slot * 12 + 23604);
+	add_floor_item(&party_records[member].item_slots[group][slot]);
 	clear_item_slot(member, group, slot);
 	}
 	}

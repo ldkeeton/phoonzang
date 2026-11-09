@@ -2,6 +2,35 @@
 #include "structs/npc.h"
 #include "structs/pcrec.h"
 #include "msg.h"
+extern char npc_empty_text_15[];
+extern char npc_empty_text_16[];
+extern char npc_empty_text_17[];
+extern char npc_empty_text_18[];
+extern char npc_empty_text_19[];
+extern char npc_empty_text_20[];
+extern char npc_empty_text_21[];
+extern char npc_empty_text_22[];
+extern char npc_empty_text_23[];
+extern char npc_empty_text_24[];
+extern char npc_empty_text_25[];
+extern char npc_empty_text_26[];
+extern char npc_empty_text_27[];
+extern char npc_empty_text_28[];
+extern char npc_empty_text_29[];
+extern char npc_empty_text_30[];
+extern char npc_empty_text_31[];
+extern char npc_empty_text_32[];
+extern char npc_empty_text_33[];
+extern char npc_empty_text_34[];
+extern char npc_empty_text_35[];
+extern char npc_empty_text_36[];
+extern char npc_empty_text_37[];
+extern char npc_empty_text_38[];
+extern char npc_empty_text_39[];
+extern char npc_empty_text_40[];
+extern char npc_empty_text_41[];
+extern char npc_empty_text_42[];
+extern char npc_empty_text_43[];
 extern struct npc_dialog_state npc_dialog;
 extern struct npc_record npc_record;
 
@@ -44,7 +73,8 @@ handle_npc_dialog_choice()
 				if (party_records[npc_member_index].gold < 50L) {
 					pool_party_gold(npc_member_index);
 					if (party_records[npc_member_index].gold < 50L) {
-						append_npc_message_text(MSG_YOU_DON_T_HAVE_ENOUGH_GOLD, (unsigned)37123);
+						append_npc_message_text(MSG_YOU_DON_T_HAVE_ENOUGH_GOLD,
+							npc_empty_text_15);
 						return;
 					}
 				}
@@ -57,7 +87,7 @@ handle_npc_dialog_choice()
 				} else
 					select_npc_event_message(-1, 0, 0);
 			} else
-				append_npc_message_text(MSG_SO_BE_IT_1609, (unsigned)37124);
+				append_npc_message_text(MSG_SO_BE_IT_1609, npc_empty_text_16);
 			return;
 		}
 		if (npc_dialog.response_active == 0
@@ -103,7 +133,7 @@ handle_npc_dialog_choice()
 				return;
 			}
 			if (npc_dialog.topic_2_enabled == 1) {
-				append_npc_message_text(MSG_I_DON_T_KNOW_WHEN, (unsigned)37125);
+				append_npc_message_text(MSG_I_DON_T_KNOW_WHEN, npc_empty_text_17);
 				return;
 			}
 			if (npc_dialog.topic_3_enabled == 1) {
@@ -111,7 +141,7 @@ handle_npc_dialog_choice()
 				return;
 			}
 			if (npc_dialog.topic_4_enabled == 1) {
-				append_npc_message_text(MSG_I_DON_T_KNOW_WHICH, (unsigned)37126);
+				append_npc_message_text(MSG_I_DON_T_KNOW_WHICH, npc_empty_text_18);
 				return;
 			}
 			if (npc_dialog.topic_5_enabled == 1) {
@@ -120,17 +150,17 @@ handle_npc_dialog_choice()
 			}
 			if (npc_dialog.topic_6_enabled == 1) {
 				if (selected_choice_index == 0) {
-					append_npc_message_text(MSG_I_AM_ALIVE, (unsigned)37127);
+					append_npc_message_text(MSG_I_AM_ALIVE, npc_empty_text_19);
 					return;
 				}
-				append_npc_message_text(MSG_I_WOULDN_T_KNOW, (unsigned)37128);
+				append_npc_message_text(MSG_I_WOULDN_T_KNOW, npc_empty_text_20);
 				return;
 			}
 		} else if (selected_choice_index == 0) {
-			append_npc_message_text(MSG_THAT_S_YOUR_OPINION, (unsigned)37129);
+			append_npc_message_text(MSG_THAT_S_YOUR_OPINION, npc_empty_text_21);
 			return;
 		} else {
-			append_npc_message_text(MSG_THAT_S_VERY_INTERESTING, (unsigned)37130);
+			append_npc_message_text(MSG_THAT_S_VERY_INTERESTING, npc_empty_text_22);
 			return;
 		}
 		break;
@@ -138,57 +168,57 @@ handle_npc_dialog_choice()
 		if (npc_dialog.response_active == 1) {
 			if (npc_dialog.choice_value_a == 0) {
 				if (npc_dialog.topic_1_enabled == 1)
-					append_npc_message_text(MSG_WHAT_ARE_YOU_LOOKING_FOR, (unsigned)37131);
+					append_npc_message_text(MSG_WHAT_ARE_YOU_LOOKING_FOR, npc_empty_text_23);
 				else if (npc_dialog.topic_3_enabled == 1 ||
 					npc_dialog.topic_5_enabled == 1 ||
 					npc_dialog.topic_6_enabled == 1)
-					append_npc_message_text(MSG_I_CAN_T_SAY, (unsigned)37132);
+					append_npc_message_text(MSG_I_CAN_T_SAY, npc_empty_text_24);
 				else
-					append_npc_message_text(MSG_POSSIBLY, (unsigned)37133);
+					append_npc_message_text(MSG_POSSIBLY, npc_empty_text_25);
 				return;
 			}
-			append_npc_message_text(MSG_I_WOULDN_T_KNOW, (unsigned)37134);
+			append_npc_message_text(MSG_I_WOULDN_T_KNOW, npc_empty_text_26);
 			return;
 		}
 		if (selected_choice_index == 0) {
-			append_npc_message_text(MSG_THAT_S_WHAT_YOU_THINK, (unsigned)37135);
+			append_npc_message_text(MSG_THAT_S_WHAT_YOU_THINK, npc_empty_text_27);
 			return;
 		}
-		append_npc_message_text(MSG_I_WOULDN_T_KNOW, (unsigned)37136);
+		append_npc_message_text(MSG_I_WOULDN_T_KNOW, npc_empty_text_28);
 		return;
 	case 5:
 		if (npc_dialog.response_active == 1) {
 			if (npc_dialog.choice_value_a == 0) {
 				if (npc_dialog.topic_1_enabled == 1)
-					append_npc_message_text(MSG_WHAT_DO_YOU_HAVE_TO_OFFER, (unsigned)37137);
+					append_npc_message_text(MSG_WHAT_DO_YOU_HAVE_TO_OFFER, npc_empty_text_29);
 				else
-					append_npc_message_text(MSG_POSSIBLY, (unsigned)37138);
+					append_npc_message_text(MSG_POSSIBLY, npc_empty_text_30);
 				return;
 			}
-			append_npc_message_text(MSG_I_WOULDN_T_KNOW, (unsigned)37139);
+			append_npc_message_text(MSG_I_WOULDN_T_KNOW, npc_empty_text_31);
 			return;
 		}
 		if (npc_dialog.choice_value_a > 0) {
 			dispatch_npc_effect_message(response_text_index + 3, MSG_HOW_1625);
 			return;
 		}
-		append_npc_message_text(MSG_THAT_S_GOOD_TO_KNOW, (unsigned)37140);
+		append_npc_message_text(MSG_THAT_S_GOOD_TO_KNOW, npc_empty_text_32);
 		return;
 	case 6:
 	case 7:
 		if (npc_dialog.response_active == 1) {
 			if (npc_dialog.topic_1_enabled == 1)
-				append_npc_message_text(MSG_WHAT_ARE_YOU_LOOKING_FOR, (unsigned)37141);
+				append_npc_message_text(MSG_WHAT_ARE_YOU_LOOKING_FOR, npc_empty_text_33);
 			else
-				append_npc_message_text(MSG_POSSIBLY, (unsigned)37142);
+				append_npc_message_text(MSG_POSSIBLY, npc_empty_text_34);
 			return;
 		}
-		append_npc_message_text(MSG_I_WILL_CONSIDER_IT, (unsigned)37143);
+		append_npc_message_text(MSG_I_WILL_CONSIDER_IT, npc_empty_text_35);
 		return;
 	case 8:
 		if (npc_dialog.response_active == 1) {
 			if (npc_dialog.topic_0_enabled == 1) {
-				append_npc_message_text(MSG_I_DON_T_KNOW_1630, (unsigned)37144);
+				append_npc_message_text(MSG_I_DON_T_KNOW_1630, npc_empty_text_36);
 				return;
 			}
 			if (npc_dialog.topic_1_enabled == 1) {
@@ -200,27 +230,27 @@ handle_npc_dialog_choice()
 				return;
 			}
 			if (npc_dialog.topic_4_enabled == 1) {
-				append_npc_message_text(MSG_I_DON_T_KNOW_WHICH, (unsigned)37145);
+				append_npc_message_text(MSG_I_DON_T_KNOW_WHICH, npc_empty_text_37);
 				return;
 			}
 			if (npc_dialog.topic_2_enabled == 1) {
-				append_npc_message_text(MSG_I_DON_T_KNOW_WHEN, (unsigned)37146);
+				append_npc_message_text(MSG_I_DON_T_KNOW_WHEN, npc_empty_text_38);
 				return;
 			}
 			dispatch_npc_effect_message(response_text_index + 3, MSG_HOW_1625);
 			return;
 		}
-		append_npc_message_text(MSG_PLEASE_CONTINUE, (unsigned)37147);
+		append_npc_message_text(MSG_PLEASE_CONTINUE, npc_empty_text_39);
 		return;
 	case 9:
 		if (npc_dialog.response_active == 1) {
 			if (npc_dialog.topic_0_enabled == 1
 				|| npc_dialog.topic_4_enabled == 1) {
-				append_npc_message_text(MSG_I_DON_T_KNOW_1630, (unsigned)37148);
+				append_npc_message_text(MSG_I_DON_T_KNOW_1630, npc_empty_text_40);
 				return;
 			}
 			if (npc_dialog.topic_1_enabled == 1) {
-				append_npc_message_text(MSG_TRY_AND_SEE, (unsigned)37149);
+				append_npc_message_text(MSG_TRY_AND_SEE, npc_empty_text_41);
 				return;
 			}
 			if (npc_dialog.topic_3_enabled == 1) {
@@ -228,13 +258,13 @@ handle_npc_dialog_choice()
 				return;
 			}
 			if (npc_dialog.topic_2_enabled == 1) {
-				append_npc_message_text(MSG_I_DON_T_KNOW_WHEN, (unsigned)37150);
+				append_npc_message_text(MSG_I_DON_T_KNOW_WHEN, npc_empty_text_42);
 				return;
 			}
 			dispatch_npc_effect_message(response_text_index + 3, MSG_HOW_1625);
 			return;
 		}
-		append_npc_message_text(MSG_THAT_S_VERY_INTERESTING, (unsigned)37151);
+		append_npc_message_text(MSG_THAT_S_VERY_INTERESTING, npc_empty_text_43);
 		return;
 	}
 	return;

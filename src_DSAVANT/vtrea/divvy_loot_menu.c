@@ -1,6 +1,8 @@
 /* Let the party choose loot items to take or leave behind. */
+#include "structs/pcrec.h"
 #include "msg.h"
 
+extern struct pc_rec party_records[];
 extern int loot_row_total, loot_row_identified[];
 extern int loot_row_value[], loot_row_flag2[];
 extern int list_row_count[], list_row_marked[], list_row_glyph[];
@@ -48,8 +50,8 @@ divvy_loot_menu()
 					quotient = item_slot / 256;
 					remainder = item_slot % 256;
 					init_item_slot(member, loot_row_value[selected_row],
-						23604 + 584 * member + 120 * quotient +
-						12 * remainder, list_row_count[selected_row],
+						&party_records[member].item_slots[quotient][remainder],
+							list_row_count[selected_row],
 						loot_row_identified[selected_row]);
 				}
 			} else

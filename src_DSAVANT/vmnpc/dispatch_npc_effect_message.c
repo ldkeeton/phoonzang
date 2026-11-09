@@ -1,6 +1,7 @@
 /* Dispatches special markers in NPC response text. */
 #include "msg.h"
 #include "structs/npc.h"
+extern char npc_empty_text_14[];
 extern struct npc_dialog_state npc_dialog;
 
 extern char npc_effect_message_buffer[80];
@@ -29,6 +30,6 @@ int response_text_index;
 	} else {
 		if (npc_effect_message_buffer[0] == '-')
 			message_index -= (unsigned char)npc_effect_message_buffer[1];
-		append_npc_message_text(message_index, (unsigned)37122);
+		append_npc_message_text(message_index, npc_empty_text_14);
 	}
 }

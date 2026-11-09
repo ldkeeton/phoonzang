@@ -34,7 +34,7 @@ int attack_index, attack_mode;
 	int eq_slot;
 	int d_grp;
 	int d_unit;
-	struct member_attack *atk;
+	struct pc_hand_attack *atk;
 	int stat_gap;
 	int miss_chance;	/* percent; a swing hits when it is under the
 				   d100 roll after 5 * defense comes off it.
@@ -346,8 +346,7 @@ int attack_index, attack_mode;
 					attacker->aim_mod * 5 + stat_gap + 85 -
 					party_records[acting_unit].skills[SKILL_FIREARMS] / 2;
 			dice = party_records[acting_unit].hand_attack[attack_index].base;
-			atk = (struct member_attack *)
-				&party_records[acting_unit].hand_attack[attack_index];
+			atk = &party_records[acting_unit].hand_attack[attack_index];
 			weapon = party_records[acting_unit].equipped[attack_index];
 			if (attack_mode == ATTACK_SHOOT) {
 				dmg_bonus = 0;
@@ -362,7 +361,7 @@ int attack_index, attack_mode;
 					if (party_records[acting_unit].item_slots[0][weapon].level
 						!= UNLIMITED_SHOTS)
 						party_records[acting_unit].item_slots[0][weapon].level--;
-					if (atk->slays_class == CLASS_STUN_SLAIN &&
+					if (atk->slay_family == CLASS_STUN_SLAIN &&
 						battle_group_ext[d_grp]->creature_class == CLASS_STUN_SLAIN) {
 						paralyze = 1;
 						dice = *store_word_and_pair(4, 4, 4);
@@ -373,8 +372,7 @@ int attack_index, attack_mode;
 						party_records[acting_unit].item_slots[0][offhand].item_type
 							== ITEM_MISSILE) {
 						dice = party_records[acting_unit].hand_attack[SECONDARY_HAND].base;
-						atk = (struct member_attack *)
-							&party_records[acting_unit].hand_attack[SECONDARY_HAND];
+						atk = &party_records[acting_unit].hand_attack[SECONDARY_HAND];
 						miss_chance +=
 							party_records[acting_unit].hand_attack[SECONDARY_HAND].hit_penalty;
 						use_item_refresh_stamina_drain(acting_unit, 0, offhand);
@@ -568,7 +566,7 @@ int attack_index, attack_mode;
 	    battle_group_ext[acting_group]->sound_id == battle_group_ext[1]->sound_id)
 		play_sound_effect(SOUND_REPLACEABLE);
 	wait_for_combat_input(startup_option / 2);
-	if (atk->slays_class == battle_group_ext[d_grp]->creature_class)
+	if (atk->slay_family == battle_group_ext[d_grp]->creature_class)
 		rolls++;
 	for (swing = 0; swing < swings &&
 	     battle_groups[d_grp]->unit[d_unit].state < STATE_DEAD; swing++) {

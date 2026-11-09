@@ -63,6 +63,14 @@ _STRING = re.compile(r'"(?:\\.|[^"\\\n])*"|\'(?:\\.|[^\'\\\n])*\'')
 #: Below this a literal is far likelier a count or a flag than an address: the
 #: low DS bytes hold the runtime's own data, which C never names by number.
 _ADDRESS_FLOOR = 0x400
+#: Interior addresses (inside a named datum, not at its start) are only
+#: counted from here up: below it, DS is dense with named data that ordinary
+#: constants (message ids, counts) fall into by chance.
+_INTERIOR_FLOOR = 0x8000
+#: Below that floor an interior literal still counts when it is an addend of
+#: an indexed sum (``23844 + pc * 584``, ``16914 + (slot << 10)``): a base
+#: address with a scaled index added to it.
+_SCALED_SUM = re.compile(r'[*]|<<')
 
 _HEADER = (f"{'score':>5} {'back':>4} {'fwd':>4} {'frm':>3} {'vol':>3} "
            f"{'def':>3} {'uni':>3} {'fill':>4} {'gen':>3} {'pun':>3} "
@@ -369,15 +377,33 @@ def _literal_value(token):
         return None
 
 
-def _count_addresses(code, addresses):
-    """Count integer literals that equal a named DS datum's offset.
+def _is_scaled_addend(line, match):
+    """Whether the literal *match* is an addend (``+`` beside it) in a line
+    that also scales an index (``*`` or ``<<``)."""
+    before = line[:match.start()].rstrip()
+    after = line[match.end():].lstrip()
+    named = re.search(r'([A-Za-z_]\w*)\s*\+$', before)
+    if named and not re.search(r'(?:[*]|<<)\s*$', before[:named.start()]):
+        # ``name + 1024``: an offset from a named object, the right form.
+        return False
+    return ((before.endswith('+') or after.startswith('+'))
+            and _SCALED_SUM.search(line) is not None)
 
-    *addresses* maps an offset to its name; offsets below
-    :data:`_ADDRESS_FLOOR` and round decimals are not considered.  Strings
-    and preprocessor lines are skipped.
+
+def _count_addresses(code, addresses):
+    """Count integer literals that are a DS address.
+
+    *addresses* maps an offset to its name.  A literal counts when it equals
+    a named datum's offset, or (from :data:`_INTERIOR_FLOOR`) lies inside one:
+    after a name and before the next.  The latter is a pointer into the
+    middle of an object, such as one of a run of empty strings the generator
+    left as integers; it only holds while the link keeps the original layout.
+    Offsets below :data:`_ADDRESS_FLOOR` and round decimals are not
+    considered.  Strings and preprocessor lines are skipped.
     """
     if not addresses:
         return 0
+    starts = sorted(addresses)
     count = 0
     for line in _STRING.sub('""', code).split('\n'):
         if line.lstrip().startswith('#'):
@@ -389,8 +415,13 @@ def _count_addresses(code, addresses):
             # address copied from a listing is not round.
             if token.isdigit() and value is not None and value % 100 == 0:
                 continue
-            if (value is not None and value >= _ADDRESS_FLOOR
-                    and value in addresses):
+            if value is None or value < _ADDRESS_FLOOR:
+                continue
+            if value in addresses:
+                count += 1
+            elif starts[0] < value < starts[-1] and (
+                    value >= _INTERIOR_FLOOR
+                    or _is_scaled_addend(line, match)):
                 count += 1
     return count
 
