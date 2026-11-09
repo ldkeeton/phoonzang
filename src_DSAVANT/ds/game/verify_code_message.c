@@ -4,7 +4,7 @@
 extern unsigned char code_char_message_index;
 extern unsigned char code_table[];
 extern unsigned short npc_id_answer_relay;
-extern unsigned short npc_id_target;
+extern int *npc_id_target;
 extern load_message_string(), aztec_strlen();
 
 verify_code_message()

@@ -5,18 +5,19 @@
 #include "structs/rgnstate.h"
 #include "structs/itemrec.h"
 #include "msg.h"
+#include "structs/loadrec.h"
+extern struct status_pair party_effects[];
+extern struct load_header scenario_header;
 
 extern struct pc_rec party_records[];
 extern struct spell_table_view spell_table[];
 extern struct saved_region_blocks party_region;
-extern unsigned char scenario_header_data[][16];
 extern char item_type_counted[];
 extern int party_redraw_interval, spell_target, dialog_selection;
 extern int pending_event, pending_event_hi, current_level;
 extern int list_row_marked[], list_row_glyph[], list_row_count[];
 extern char list_row_name[][22];
 extern char item_dialog_first_label[];
-extern int item_kind5_used_flag;
 
 extern int data_record_io(), item_action_dialog();
 extern int aztec_strcpy(), load_message_string(), set_bitmap_bit();
@@ -105,16 +106,16 @@ int pc;
 				/* Clear one flag bit and set the other in both region bitmaps. */
 				set_bitmap_bit(party_region.state[item.u.key.map],
 					item.u.key.clear_bit, 0);
-				set_bitmap_bit(scenario_header_data[item.u.key.map],
+				set_bitmap_bit(scenario_header.level_flags[item.u.key.map],
 					item.u.key.clear_bit, 0);
 				set_bitmap_bit(party_region.state[item.u.key.map],
 					item.u.key.set_bit, 1);
-				set_bitmap_bit(scenario_header_data[item.u.key.map],
+				set_bitmap_bit(scenario_header.level_flags[item.u.key.map],
 					item.u.key.set_bit, 1);
 				consume_item_charge(pc, page, slot);
 			} else if (item.kind == 5) {
 				if (current_level == 8)
-					item_kind5_used_flag = 1;
+					party_effects[PARTY_EFFECT_COMPASS].strength = 1;
 				else {
 					pending_event = 2055;
 					pending_event_hi = 1;

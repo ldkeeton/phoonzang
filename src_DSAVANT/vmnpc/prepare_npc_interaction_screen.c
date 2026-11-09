@@ -2,6 +2,8 @@
 
 #include "structs/ovlitem.h"
 #include "structs/npc.h"
+#include "structs/loadrec.h"
+extern struct load_header scenario_header;
 extern struct npc_record npc_record;
 
 extern int game_state, loaded_score_num;
@@ -17,7 +19,6 @@ extern long party_redraw_last_tick;
 extern int party_redraw_interval;
 extern long saved_area_a, saved_area_b;
 extern long npc_gold_paid_total;
-extern int action_bitmap[];
 extern int npc_record_index;
 extern unsigned char npc_event_message_seen[];
 extern char npc_action_bitmap_copy[];
@@ -98,7 +99,7 @@ prepare_npc_interaction_screen()
 	npc_selected_dialog_option = -1;
 	/* The record loader uses these fields as its index and scratch record. */
 	data_record_io(5, &npc_record, npc_record_index, 0);
-	aztec_movmem(action_bitmap + 6 + npc_record_index,
+	aztec_movmem(&scenario_header.npc_action_bits[npc_record_index],
 		npc_action_bitmap_copy, 2);
 	npc_gold_paid_total = 0;
 	aztec_setmem(npc_event_message_seen, 110, 0);

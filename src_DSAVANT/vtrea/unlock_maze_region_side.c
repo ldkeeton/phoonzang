@@ -2,11 +2,12 @@
    force. */
 #include "structs/maze.h"
 #include "structs/rgnstate.h"
+#include "structs/loadrec.h"
+extern struct load_header scenario_header;
 
 extern struct maze_tables *maze_tables;
 extern struct saved_region_blocks party_region;
 extern int party_facing, current_level;
-extern unsigned char scenario_header_data[][16];
 extern int clear_bit_pair();
 extern int log_maze_change();
 extern int set_bitmap_bit();
@@ -26,7 +27,7 @@ int play_sound;
 	if (maze_tables->key[region] > 0) {
 		set_bitmap_bit(party_region.state[current_level],
 			maze_tables->key[region], 0);
-		set_bitmap_bit(scenario_header_data[current_level],
+		set_bitmap_bit(scenario_header.level_flags[current_level],
 			maze_tables->key[region], 0);
 		party_region.region = region + 1;
 	}

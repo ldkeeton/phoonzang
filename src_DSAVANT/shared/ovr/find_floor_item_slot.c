@@ -1,8 +1,10 @@
 /* Find a free floor item slot or, when requested, a slot to recycle. */
 #include "structs/flooritm.h"
+#include "structs/loadrec.h"
+extern struct load_header scenario_header;
 
 extern struct floor_item *floor_items;
-extern int floor_item_count, current_level, random_below();
+extern int current_level, random_below();
 
 find_floor_item_slot(recycle)
 int recycle;
@@ -16,7 +18,7 @@ int recycle;
 	other_level_slot = -1;
 	current_level_slot = -1;
 	item = floor_items;
-	for (index = 0; index < floor_item_count; index++, item++) {
+	for (index = 0; index < scenario_header.floor_item_count; index++, item++) {
 		/* An unused record takes priority over any recycled slot. */
 		if (item->map == 255)
 			return index;

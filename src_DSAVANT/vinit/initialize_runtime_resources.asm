@@ -25,7 +25,7 @@ initialize_runtime_resources:
 .forward1:
     mov ax, 0x34c                    ; 0x03f6
     push ax                          ; 0x03f9
-    mov ax, scenario_header_data     ; 0x03fa
+    mov ax, scenario_header          ; 0x03fa
     push ax                          ; 0x03fd
     push word [scenario_header_fd]   ; 0x03fe
     call aztec_read                  ; 0x0402

@@ -3,11 +3,13 @@
 
 #include "structs/maze.h"
 #include "msg.h"
+#include "structs/rgnstate.h"
+extern struct saved_region_blocks party_region;
 
 extern struct maze_tables *maze_tables;
 extern int party_map_piece, party_cell_y, party_cell_x, party_facing,
 	message_delay;
-extern int trigger_facing, party_region, game_state;
+extern int trigger_facing, game_state;
 
 check_cell_objects(announce)
 int announce;
@@ -44,7 +46,7 @@ int announce;
 		if (maze_tables->type[obj] == 25 &&
 		    (trigger_facing = maze_tables->arg[obj]) == party_facing) {
 			game_state = 27;
-			party_region = obj;
+			party_region.region = obj;
 			return;
 		}
 		obj++;

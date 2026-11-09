@@ -171,7 +171,7 @@ wait_then_handle_region_event:
     mov ax, word [current_level]     ; 0x81e2
     mov cx, 4                        ; 0x81e5
     shl ax, cl                       ; 0x81e8
-    add ax, scenario_header_data     ; 0x81ea
+    add ax, scenario_header          ; 0x81ea
     push ax                          ; 0x81ed
     call set_bitmap_bit              ; 0x81ee
     add sp, byte 6                   ; 0x81f1

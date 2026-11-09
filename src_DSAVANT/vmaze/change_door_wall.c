@@ -1,8 +1,10 @@
 /* Door event: set one wall of a target cell to open (kind 1) or locked (kind
    6), animating it if seen. */
 #include "structs/maze.h"
+#include "structs/rgnstate.h"
+extern struct saved_region_blocks party_region;
 extern struct maze_tables *maze_tables;
-extern int party_region, party_facing;
+extern int party_facing;
 extern int get_bits();
 extern int play_maze_sound_effect(), ensure_sound_loaded();
 extern int animate_region_view_transition(), animate_party_status_frame();
@@ -29,21 +31,21 @@ change_door_wall()
 	int region_key;
 
 	/* Each packed direction and key value uses a high byte and a low byte. */
-	wall_direction = maze_tables->party_mask[party_region] / 256;
-	facing_remainder = maze_tables->party_mask[party_region] % 256;
-	region_key = maze_tables->key[party_region] / 256;
-	region_key_remainder = maze_tables->key[party_region] % 256;
+	wall_direction = maze_tables->party_mask[party_region.region] / 256;
+	facing_remainder = maze_tables->party_mask[party_region.region] % 256;
+	region_key = maze_tables->key[party_region.region] / 256;
+	region_key_remainder = maze_tables->key[party_region.region] % 256;
 	/* How far the party is turned from the wall's direction. */
 	map_turn = (party_facing - wall_direction + 4) % 4;
 
 	/* A nonzero region argument enables cue 18 and loaded sound 16. */
-	has_sound = maze_tables->arg[party_region];
+	has_sound = maze_tables->arg[party_region.region];
 	if (has_sound != 0) {
 		play_maze_sound_effect(18);
 		ensure_sound_loaded(16);
 	}
 
-	region_flags = maze_tables->flags[party_region];
+	region_flags = maze_tables->flags[party_region.region];
 	cell_x = get_bits(region_flags, 0, 3);
 	cell_y = get_bits(region_flags, 3, 3);
 	map_piece = get_bits(region_flags, 6, 4);
@@ -92,6 +94,6 @@ change_door_wall()
 		loaded_sound_id = -1;
 	}
 	/* Mark group 2 when the region table byte is nonzero. */
-	if (maze_tables->f960[party_region] > 0)
+	if (maze_tables->f960[party_region.region] > 0)
 		mark_region_bits(2);
 }

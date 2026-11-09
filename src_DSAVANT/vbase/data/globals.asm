@@ -13,11 +13,11 @@ __zobss_9220:  ; bane_header_buffer
     resb 0x019e
 __zobss_93be:  ; bane_import_buffer
     resb 0x0002
-__zobss_93c0:  ; bane_section_header
+__zobss_93c0:  ; bane_party_header
     resb 0x0040
 __zobss_9400:  ; bane_party_member_count
     resb 0x0002
-__zobss_9402:  ; bane_character_record
+__zobss_9402:  ; bane_character
     resb 0x0008
 __zobss_940a:  ; bane_character_value_a
     resb 0x0002

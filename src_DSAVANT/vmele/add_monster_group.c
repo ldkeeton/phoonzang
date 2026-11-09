@@ -3,12 +3,13 @@
 
 #include "structs/member.h"
 #include "structs/pcrec.h"
+#include "structs/loadrec.h"
+extern struct load_header scenario_header;
 
 extern struct member_rec *battle_groups[];
 extern struct member_ext *battle_group_ext[];
 extern struct pc_rec party_records[];
 extern int monster_group_count, party_char_count, party_entry_mode;
-extern unsigned char difficulty_option;
 extern int data_record_io(), check_monster_picture_space();
 extern int find_picture_slot(), ensure_sound_loaded(), add_random_steps();
 extern int clamp_between(), random_below(), pick_target_slot();
@@ -37,7 +38,7 @@ int member_id, group_index;
 	/* Unless flag bit 0 is set, the difficulty option adjusts the unit count. */
 	if ((battle_group_ext[group_index]->flags & 1) == 0)
 		/* Option 1 reduces the base; option 2 raises it. */
-		switch (difficulty_option) {
+		switch (scenario_header.difficulty) {
 		case 1:
 			if (battle_group_ext[group_index]->member_count_spec.base > 0)
 				battle_group_ext[group_index]->member_count_spec.base--;
@@ -57,7 +58,7 @@ int member_id, group_index;
 		battle_groups[group_index]->ward[unit] = 0;
 	for (unit = 0; unit < 6; unit++)
 		battle_groups[group_index]->cloud_power[unit] = 0;
-	if (difficulty_option == 2)
+	if (scenario_header.difficulty == 2)
 		battle_group_ext[group_index]->hp_spec.count++;
 
 	/* Build each monster's battle copy from its random-stat specifications. */
@@ -74,7 +75,7 @@ int member_id, group_index;
 			battle_groups[group_index]->unit[unit].stamina_max;
 		battle_groups[group_index]->unit[unit].cell = -1;
 		/* The difficulty option sets three battle modifiers. */
-		switch (difficulty_option) {
+		switch (scenario_header.difficulty) {
 		case 1:
 			battle_groups[group_index]->unit[unit].reflex_mod = 2;
 			battle_groups[group_index]->unit[unit].aim_mod = 2;
@@ -98,8 +99,8 @@ int member_id, group_index;
 	party_level_sum = clamp_between(party_level_sum, 1, 5);
 	/* The difficulty option sets the companion-group roll range to 150, 100 or
 	   75. */
-	random_limit = difficulty_option == 1 ? 150 :
-		difficulty_option == 2 ? 75 : 100;
+	random_limit = scenario_header.difficulty == 1 ? 150 :
+		scenario_header.difficulty == 2 ? 75 : 100;
 	group_to_add = 1;
 	if (group_index < party_level_sum) {
 		/* Rolls above 25 try the selected target group. */

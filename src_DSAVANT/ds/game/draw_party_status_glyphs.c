@@ -1,9 +1,10 @@
 /* puts back each slot's saved screen area, then draws its one-glyph icon */
+#include "structs/loadrec.h"
 
 extern long party_status_areas[];		/* one saved area per slot */
 extern int party_status_frame, party_status_frame_step,
 	party_status_frame_seen, party_status_heading;
-extern int party_status_timer[];			/* six 4-byte records, +0 word first */
+extern struct status_pair party_effects[];
 extern int party_facing;
 extern call_restore_area();
 extern call_draw_text();
@@ -50,7 +51,7 @@ draw_party_status_glyphs()
 			glyph = party_status_heading + 11;	/* heading glyphs 0xb..0x12 */
 			break;
 		}
-		if (party_status_timer[2 * slot] > 0) {	/* positive timer: slot shows */
+		if (party_effects[slot].timer > 0) {	/* positive timer: slot shows */
 			buf[0] = glyph;
 			buf[1] = 0;		/* NUL-terminate */
 			/* clip to the full 320x200 screen (0..0x13f, 0..0xc7) */

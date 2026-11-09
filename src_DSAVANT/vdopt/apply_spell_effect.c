@@ -1,13 +1,11 @@
 /* Apply one spell's effect to party records, counters, or target cells. */
 #include "structs/pcrec.h"
 #include "structs/randstep.h"
+#include "structs/loadrec.h"
+extern struct status_pair party_effects[];
 
 extern struct pc_rec party_records[];
-extern int party_char_count, party_status_timer, party_status_offset;
-extern int party_buff_turns, party_buff_charge;
-extern int detection_spell_bonus, detection_spell_threshold;
-extern int spell_49_turns, spell_49_strength;
-extern int levitation_turns, spell_46_turns;
+extern int party_char_count;
 extern int random_below();
 extern struct random_step_spec *store_word_and_pair();
 extern int add_random_steps();
@@ -27,35 +25,50 @@ int target;
 	case 63:
 		/* Increase the detection bonus and raise its threshold to at least the new
 		   floor. */
-		detection_spell_bonus += 50 * power;
-		detection_spell_threshold = adjust_spell_value(
-			5 * power + 70, detection_spell_threshold, 0);
+		party_effects[PARTY_EFFECT_DETECTION].timer +=
+			50 * power;
+		party_effects[PARTY_EFFECT_DETECTION].strength =
+			adjust_spell_value(
+			5 * power + 70,
+				party_effects[PARTY_EFFECT_DETECTION].strength,
+				0);
 		break;
 	case 82:
 		/* Extend the party status duration and its power-based offset. */
-		party_status_timer += 35 * power;
-		party_status_offset = adjust_spell_value(
-			(power - 1) / 2 + 1, party_status_offset, 0);
+		party_effects[PARTY_EFFECT_EVADE].timer += 35 * power;
+		party_effects[PARTY_EFFECT_EVADE].strength =
+			adjust_spell_value(
+			(power - 1) / 2 + 1,
+				party_effects[PARTY_EFFECT_EVADE].strength, 0);
 		break;
 	case 49:
 		/* Extend the spell 49 timer and raise its strength. */
-		spell_49_turns += 50 * power;
-		spell_49_strength = adjust_spell_value(
-			(power - 1) / 2 + 1, spell_49_strength, 0);
+		party_effects[PARTY_EFFECT_SPELL_49].timer +=
+			50 * power;
+		party_effects[PARTY_EFFECT_SPELL_49].strength =
+			adjust_spell_value(
+			(power - 1) / 2 + 1,
+				party_effects[PARTY_EFFECT_SPELL_49].strength,
+				0);
 		break;
 	case 37:
 		/* Each power point adds five levitation turns. */
-		levitation_turns += 5 * power;
+		party_effects[PARTY_EFFECT_LEVITATION].timer +=
+			5 * power;
 		break;
 	case 46:
 		/* Each power point adds one hundred turns to the spell 46 timer. */
-		spell_46_turns += 100 * power;
+		party_effects[PARTY_EFFECT_COMPASS].timer +=
+			100 * power;
 		break;
 	case 84:
 		/* Extend buff turns and raise its charge to at least the new floor. */
-		party_buff_turns += 50 * power;
-		party_buff_charge = adjust_spell_value(
-			5 * power, party_buff_charge, 0);
+		party_effects[PARTY_EFFECT_WARD].timer +=
+			50 * power;
+		party_effects[PARTY_EFFECT_WARD].strength =
+			adjust_spell_value(
+			5 * power,
+				party_effects[PARTY_EFFECT_WARD].strength, 0);
 		break;
 	case 12:
 	case 19:

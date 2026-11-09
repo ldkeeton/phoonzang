@@ -3,9 +3,11 @@
 
 #include "structs/maze.h"
 #include "msg.h"
+#include "structs/rgnstate.h"
+extern struct saved_region_blocks party_region;
 
 extern struct maze_tables *maze_tables;
-extern int party_region, party_facing, party_map_piece;
+extern int party_facing, party_map_piece;
 extern int party_cell_x, party_cell_y, party_world_x, party_world_y;
 extern int region_step_flag, message_delay;
 extern int show_message(), wait_ticks_or_key(), call_show_area();
@@ -30,21 +32,21 @@ spin_and_push_party()
 	int delay_ticks;
 
 	/* Show the region message first, if it has one. */
-	if (maze_tables->key[party_region] > 0) {
-		show_message(maze_tables->key[party_region]);
+	if (maze_tables->key[party_region.region] > 0) {
+		show_message(maze_tables->key[party_region.region]);
 		wait_ticks_or_key(message_delay);
 		/* Restore the default maze view after the message delay. */
 		call_show_area(0, 146, 319, 152);
 	}
 
-	delay_ticks = maze_tables->party_mask[party_region];
-	region_flags = maze_tables->flags[party_region];
+	delay_ticks = maze_tables->party_mask[party_region.region];
+	region_flags = maze_tables->flags[party_region.region];
 	/* Flag bits 8-11: which of the four facings a spin may land on. */
 	for (region_index = 0; region_index < 4; region_index++)
 		allowed_facings[region_index] =
 			get_bits(region_flags, region_index + 8, 1);
 	spin_count = get_bits(region_flags, 0, 8);
-	push_distance = maze_tables->arg[party_region];
+	push_distance = maze_tables->arg[party_region.region];
 	/* Bit 12 animates the turn, bit 13 picks its direction, bit 14 randomizes the
 	   push distance. */
 	animate_turn = get_bits(region_flags, 12, 1);
@@ -86,7 +88,7 @@ spin_and_push_party()
 				kill_party_with_message(MSG_YOU_ARE_IN_ROCK, 4);
 				return;
 			}
-			party_region = maze_tables->map_first[party_map_piece];
+			party_region.region = maze_tables->map_first[party_map_piece];
 			region_step_flag = 0;
 		}
 		redraw_maze_view();

@@ -2,10 +2,10 @@
    last declared first. */
 
 char spell_target[4];
-char list_row_count[40];
+int list_row_count[20];
 char list_row_name[440];
-char list_row_glyph[40];
-char list_row_marked[40];
+int list_row_glyph[20];
+int list_row_marked[20];
 int party_redraw_interval;
 char known_spell_ids[80];
 int grid_origin_x;

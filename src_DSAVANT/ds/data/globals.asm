@@ -93,7 +93,7 @@ __zbss_556c:  ; record_packed
     resb 0x000a
 __zbss_5576:  ; sound_slot_info
     resb 0x00cc
-__zbss_5642:  ; scenario_header_data
+__zbss_5642:  ; scenario_header
     resb 0x0200
 __zbss_5842:  ; action_bitmap
     resb 0x00cc
@@ -225,7 +225,7 @@ __zbss_82ee:  ; party_facing
     resb 0x0002
 __zbss_82f0:  ; party_status_heading
     resb 0x0002
-__zbss_82f2:  ; party_status_timer
+__zbss_82f2:  ; party_effects
     resb 0x0002
 __zbss_82f4:  ; party_status_offset
     resb 0x0002

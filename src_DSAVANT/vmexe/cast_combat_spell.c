@@ -3,6 +3,8 @@
 #include "structs/pcrec.h"
 #include "structs/spell.h"
 #include "msg.h"
+#include "structs/loadrec.h"
+extern struct load_header scenario_header;
 
 extern struct member_rec *battle_groups[];
 extern struct member_ext *battle_group_ext[];
@@ -11,7 +13,6 @@ extern struct spell_table_view spell_table[];
 extern int realm_point_text_colors[6][2];
 extern int acting_group, acting_unit, party_char_count;
 extern int spell_backfired, startup_option;
-extern char difficulty_option;
 extern int spell_cast_failed;
 extern char combat_action_suffix_buffer[];
 extern char combat_action_name_buffer[], combat_action_message_buffer[];
@@ -69,7 +70,7 @@ struct combatant *caster;
 			try_raise_member_skill(acting_unit, 14, 2);
 		}
 		if (random_below(100) > success_chance) {
-			if (difficulty_option != 1 &&
+			if (scenario_header.difficulty != 1 &&
 				random_below(36) >
 					party_records[acting_unit].stat[7] + 18) {
 				spell_cast_failed = 0;
@@ -82,7 +83,7 @@ struct combatant *caster;
 			battle_groups[acting_group]->unit[acting_unit].level * 3 -
 			spell_table->spell[spell_id].realm_level.bytes.level * spell_power;
 		if (random_below(100) > success_chance) {
-			if (difficulty_option != 2 && random_below(7) == 0) {
+			if (scenario_header.difficulty != 2 && random_below(7) == 0) {
 				spell_cast_failed = 0;
 				spell_backfired = 1;
 			} else

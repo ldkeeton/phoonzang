@@ -2,10 +2,10 @@
 #include "structs/pcrec.h"
 #include "msg.h"
 #include "structs/filehdr.h"
+#include "structs/loadrec.h"
+extern struct load_header scenario_header;
 extern struct disk_header disk_header;
 
-extern unsigned char install_mode;
-extern char data_path_prefixes[][20];
 extern int member_screen_cache_low, member_screen_cache_high;
 extern int member_icon[];
 extern struct pc_rec party_records[];
@@ -39,8 +39,9 @@ int member_index;
 
 	prompted = 0;
 	header = disk_header.number;
-	header = install_mode == 5 && header > 0 ? header + 2 : header;
-	copy_through_char(path, data_path_prefixes[0], ':');
+	header =
+		scenario_header.install_mode == 5 && header > 0 ? header + 2 : header;
+	copy_through_char(path, scenario_header.paths[0], ':');
 	if (header != 0) {
 		prompted = 1;
 		prompt_disk_swap(path, 0, 1, 1);

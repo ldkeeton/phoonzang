@@ -123,7 +123,7 @@ apply_region_hour_window:
     mov ax, word [current_level]     ; 0x868f
     mov cx, 4                        ; 0x8692
     shl ax, cl                       ; 0x8695
-    add ax, scenario_header_data     ; 0x8697
+    add ax, scenario_header          ; 0x8697
     push ax                          ; 0x869a
     call set_bitmap_bit              ; 0x869b
     add sp, byte 6                   ; 0x869e

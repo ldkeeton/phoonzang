@@ -3,11 +3,12 @@
 
 #include "structs/maze.h"
 #include "structs/rgnstate.h"
+#include "structs/loadrec.h"
+extern struct load_header scenario_header;
 
 extern struct maze_tables *maze_tables;
 extern struct saved_region_blocks party_region;
 extern int current_level;
-extern unsigned char scenario_header_data[][16];
 
 extern int get_bits();
 extern int test_bit();
@@ -51,6 +52,6 @@ play_region_spell_sound()
 
 	/* Bit 14 requests copying the resulting map bit into scenario state. */
 	if (get_bits(region_flags, 14, 1) == 1)
-		set_bitmap_bit(scenario_header_data[map_index], map_bit,
+		set_bitmap_bit(scenario_header.level_flags[map_index], map_bit,
 			test_bit(party_region.state[map_index], map_bit));
 }

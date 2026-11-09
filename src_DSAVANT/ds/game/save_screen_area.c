@@ -1,14 +1,13 @@
 /* saves the screen rectangle into the last free slot, picking store 1, 2 or a
    disk file (kind 3) by free space; returns the slot */
+#include "structs/loadrec.h"
+extern struct load_header scenario_header;
 
 extern int saved_screen_kind[];
 extern struct {
 	char name[20];
 } saved_screen_file[];
 extern long saved_screen_ref[];
-extern char screen_store_1_enabled;
-extern char screen_store_disk_enabled;
-extern unsigned char screen_store_drive;
 long call_get_free_space();
 long call_cache_area();
 
@@ -28,12 +27,12 @@ char *name;
 	saved_screen_kind[slot] = 3;	/* default: file in the current dir */
 	saved_screen_file[slot].name[0] = 0;
 	need = (x2 - x1 + 1) * (long)(y2 - y1 + 1) + 128;	/* pixels + 128 */
-	if (screen_store_1_enabled == 1 && need < call_get_free_space(1, 0))
+	if (scenario_header.store_ems == 1 && need < call_get_free_space(1, 0))
 		saved_screen_kind[slot] = 1;
 	else if (call_get_free_space(2, 0) > need)
 		saved_screen_kind[slot] = 2;
-	else if (screen_store_disk_enabled == 1) {
-		drive = screen_store_drive - 64;	/* 'A' -> 1 */
+	else if (scenario_header.store_ramdisk == 1) {
+		drive = scenario_header.store_drive[0] - 64;	/* 'A' -> 1 */
 		if (drive >= 1 && drive <= 26 && call_get_free_space(3, drive) > need) {
 			saved_screen_kind[slot] = 3;
 			saved_screen_file[slot].name[0] = drive + 64;

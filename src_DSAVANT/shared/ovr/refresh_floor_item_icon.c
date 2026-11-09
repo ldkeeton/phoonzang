@@ -3,7 +3,7 @@
 
 extern int base_screen_area, base_screen_area_segment;
 extern int party_map_piece, party_cell_x, party_cell_y;
-extern char floor_item_cell_bits[];
+extern int floor_item_cell_bits[];
 extern struct floor_item *find_floor_item_at_party();
 extern int call_restore_area(), call_set_text_pos(), draw_font_glyph();
 extern int call_show_area(), set_bitmap_bit();

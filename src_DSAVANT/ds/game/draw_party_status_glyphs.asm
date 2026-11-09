@@ -114,7 +114,7 @@ draw_party_status_glyphs.forward5:
     shl ax, 1                        ; 0x2d6c
     shl ax, 1                        ; 0x2d6e
     mov bx, ax                       ; 0x2d70
-    cmp word [bx + party_status_timer], byte 0 ; 0x2d72
+    cmp word [bx + party_effects], byte 0 ; 0x2d72
     jle short draw_party_status_glyphs.forward6 ; 0x2d77
     mov al, byte [bp - 4]            ; 0x2d79
     mov byte [bp - 0x14], al         ; 0x2d7c

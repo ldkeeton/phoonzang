@@ -4,13 +4,14 @@
 
 #include "structs/member.h"
 #include "structs/pcrec.h"
+#include "structs/loadrec.h"
+extern struct load_header scenario_header;
 
 extern struct member_rec *battle_groups[];
 extern struct member_ext *battle_group_ext[];
 extern struct pc_rec party_records[];
-extern int cell_slot_ref[][3];		/* cells: group*10 + unit, 0 free */
-extern unsigned char action_bitmap[];	/* 0xcc-byte bitmap */
-extern long battle_experience;		/* earned from kills this battle */
+extern int cell_slot_ref[][3];				/* cells: group*10 + unit, 0 free */
+extern long battle_experience;				/* earned from kills this battle */
 extern int random_below();
 extern set_bitmap_bit();
 
@@ -54,7 +55,7 @@ int group, unit, regen, drain;
 			}
 			if (battle_group_ext[group]->flags & 1)
 				/* ext flag bit 0: record the kill in the action bitmap */
-				set_bitmap_bit(action_bitmap,
+				set_bitmap_bit(scenario_header.action_bitmap,
 					battle_group_ext[group]->bitmap_bit, 1);
 		}
 	}

@@ -5,7 +5,7 @@
 extern int npc_item_scroll_top, npc_area_bottom;
 extern int dialog_selection, dialog_button;
 extern char npc_item_value_unit_text, npc_item_dialog_screen_backup;
-extern char hotspot_rects[];
+extern int hotspot_rects[];
 extern int hotspot_hit, space_key_hit;
 extern struct pc_rec party_records[];
 

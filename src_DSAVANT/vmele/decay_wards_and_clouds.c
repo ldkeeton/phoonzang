@@ -1,10 +1,10 @@
 /* decays every group's wards and weakens each delayed cloud by one */
 
 #include "structs/member.h"
+#include "structs/loadrec.h"
+extern struct status_pair party_effects[];
 
 extern struct member_rec *battle_groups[];
-extern int party_buff_turns;		/* passes left for the party buff */
-extern int party_buff_charge;		/* the party group's ward[4] */
 
 decay_wards_and_clouds()
 {
@@ -48,10 +48,10 @@ decay_wards_and_clouds()
 				battle_groups[group]->cloud_power[realm]--;
 	}
 	/* 0x190 is the party's ward[4]: it carries the party buff */
-	if (party_buff_turns > 0)
-		party_buff_charge = battle_groups[0]->ward[4];
-	if (party_buff_charge <= 0) {
-		party_buff_turns = 0;
-		party_buff_charge = 0;
+	if (party_effects[PARTY_EFFECT_WARD].timer > 0)
+		party_effects[PARTY_EFFECT_WARD].strength = battle_groups[0]->ward[4];
+	if (party_effects[PARTY_EFFECT_WARD].strength <= 0) {
+		party_effects[PARTY_EFFECT_WARD].timer = 0;
+		party_effects[PARTY_EFFECT_WARD].strength = 0;
 	}
 }

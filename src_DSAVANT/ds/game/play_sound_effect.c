@@ -1,9 +1,9 @@
 /* Play a sound using its slot data and the configured device volume. */
 #include "structs/sndslot.h"
+#include "structs/loadrec.h"
+extern struct load_header scenario_header;
 
 extern struct sound_slot_info_rec sound_slot_info[];
-extern unsigned char sound_device_setting;
-extern unsigned char volume_settings[];
 extern int loaded_sound_id;
 extern int call_play_sound();
 
@@ -20,7 +20,7 @@ int sound_id;
 	if (sound_slot_info[sound_id].size.full_size == 0)
 		sound_number = sound_slot_info[sound_id].alias_num;
 	/* Double volume for a configured device, capped at 255. */
-	if (sound_device_setting > 0) {
+	if (scenario_header.sound_device > 0) {
 		volume *= 2;
 		if (volume > 255)
 			volume = 255;
@@ -31,7 +31,7 @@ int sound_id;
 		volume_index = 1;
 	else if (sound_id == 14 || sound_id == 15)
 		volume_index = 2;
-	volume = volume_settings[volume_index] * volume / 10;
+	volume = scenario_header.volumes[volume_index] * volume / 10;
 	if (volume > 0)
 		call_play_sound(sound_number,
 			sound_slot_info[sound_id].rate, volume,

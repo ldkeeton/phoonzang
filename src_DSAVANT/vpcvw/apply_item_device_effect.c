@@ -3,11 +3,12 @@
 #include "structs/rgnstate.h"
 #include "structs/spell.h"
 #include "msg.h"
+#include "structs/loadrec.h"
+extern struct load_header scenario_header;
 
 extern struct pc_rec party_records[];
 extern struct spell_table_view spell_table[];
 extern struct saved_region_blocks party_region;
-extern unsigned char scenario_header_data[][16];
 extern unsigned current_level;
 extern int item_page;
 extern int picked_item_slot;
@@ -76,11 +77,11 @@ struct pc_item_slot *slot;
 					set_bitmap_bit(party_region.state[item.u.key.map],
 					item.u.key.clear_bit,
 					0);
-					set_bitmap_bit(scenario_header_data[item.u.key.map],
+					set_bitmap_bit(scenario_header.level_flags[item.u.key.map],
 					item.u.key.clear_bit, 0);
 					set_bitmap_bit(party_region.state[item.u.key.map],
 					item.u.key.set_bit, 1);
-					set_bitmap_bit(scenario_header_data[item.u.key.map],
+					set_bitmap_bit(scenario_header.level_flags[item.u.key.map],
 					item.u.key.set_bit, 1);
 				consume_counted_item_use(slot);
 			}

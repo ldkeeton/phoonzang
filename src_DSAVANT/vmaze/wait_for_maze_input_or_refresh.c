@@ -1,11 +1,12 @@
 /* Show the maze message strip, wait for input or refresh, then restore it. */
+#include "structs/loadrec.h"
+extern struct load_header scenario_header;
 extern int maze_message_state, escape_key_hit, object_search_active;
 extern int dissolve_or_show_area();
 extern int random_below();
 extern long far *tick_counter_ptr;
 extern long maze_refresh_deadline;
 extern int message_delay;
-extern char no_dissolve;
 extern int wait_ticks_or_key();
 extern int poll_fullscreen_hotspot();
 extern int party_redraw_interval_elapsed();
@@ -28,7 +29,8 @@ int wait_for_message;
 
 	if (wait_for_message != 0) {
 		/* Skip the dissolve animation when the option is enabled. */
-		wait_ticks_or_key(no_dissolve != 0 ? message_delay << 1 : message_delay);
+		wait_ticks_or_key(scenario_header.no_dissolve != 0 ? message_delay << 1
+			: message_delay);
 	} else {
 		/* Poll until input arrives, advancing the status frame on refreshes. */
 		while (poll_fullscreen_hotspot() == 0) {

@@ -258,7 +258,7 @@ load_game_data:
     call draw_message_box            ; 0x3236
     add sp, byte 0xe                 ; 0x3239
 .forward19:
-    mov si, scenario_header_data     ; 0x323c
+    mov si, scenario_header          ; 0x323c
     mov di, preserved_load_header    ; 0x323f
     mov cx, ds                       ; 0x3242
     mov es, cx                       ; 0x3244
@@ -275,7 +275,7 @@ load_game_data:
     add sp, byte 8                   ; 0x325d
     mov ax, 0x34c                    ; 0x3260
     push ax                          ; 0x3263
-    mov ax, scenario_header_data     ; 0x3264
+    mov ax, scenario_header          ; 0x3264
     push ax                          ; 0x3267
     push word [bp - 0xa]             ; 0x3268
     call aztec_read                  ; 0x326b
@@ -639,7 +639,7 @@ load_game_data:
     shl ax, 1                        ; 0x35de
     mov bx, ax                       ; 0x35e0
     mov ax, word [bx + loaded_state_status] ; 0x35e2
-    mov word [bx + party_status_timer], ax ; 0x35e6
+    mov word [bx + party_effects], ax ; 0x35e6
     mov ax, word [bx + loaded_state_status_offset] ; 0x35ea
     mov word [bx + party_status_offset], ax ; 0x35ee
     inc word [bp - 2]                ; 0x35f2

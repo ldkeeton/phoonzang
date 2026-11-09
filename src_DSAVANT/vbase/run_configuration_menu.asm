@@ -2,7 +2,7 @@
 run_configuration_menu:
     mov ax, 0xfc4a                   ; 0x4d0e
     call aztec_csav                  ; 0x4d11
-    mov si, scenario_header_data     ; 0x4d14
+    mov si, scenario_header          ; 0x4d14
     lea di, word [bp - 0x3b6]        ; 0x4d17
     mov cx, ds                       ; 0x4d1b
     mov es, cx                       ; 0x4d1d
@@ -1940,7 +1940,7 @@ jumptable_5e7f_case_24:
     mov word [dialog_button], 0      ; 0x5e52
     mov word [bp - 0x18], 0          ; 0x5e58
     lea si, word [bp - 0x3b6]        ; 0x5e5d
-    mov di, scenario_header_data     ; 0x5e61
+    mov di, scenario_header          ; 0x5e61
     mov cx, ds                       ; 0x5e64
     mov es, cx                       ; 0x5e66
     mov cx, 0x1a6                    ; 0x5e68

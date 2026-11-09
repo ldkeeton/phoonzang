@@ -284,7 +284,7 @@ save_game_data:
     mov ax, word [current_level]     ; 0x3b11
     mov cx, 4                        ; 0x3b14
     shl ax, cl                       ; 0x3b17
-    add ax, scenario_header_data     ; 0x3b19
+    add ax, scenario_header          ; 0x3b19
     push ax                          ; 0x3b1c
     mov ax, word [current_level]     ; 0x3b1d
     shl ax, cl                       ; 0x3b20
@@ -304,7 +304,7 @@ save_game_data:
     add sp, byte 8                   ; 0x3b3e
     mov ax, 0x34c                    ; 0x3b41
     push ax                          ; 0x3b44
-    mov ax, scenario_header_data     ; 0x3b45
+    mov ax, scenario_header          ; 0x3b45
     push ax                          ; 0x3b48
     push word [bp - 0xa]             ; 0x3b49
     call aztec_write                 ; 0x3b4c
@@ -549,7 +549,7 @@ save_game_data:
     shl ax, 1                        ; 0x3d8e
     shl ax, 1                        ; 0x3d90
     mov bx, ax                       ; 0x3d92
-    mov ax, word [bx + party_status_timer] ; 0x3d94
+    mov ax, word [bx + party_effects] ; 0x3d94
     mov word [bx + loaded_state_status], ax ; 0x3d98
     mov ax, word [bx + party_status_offset] ; 0x3d9c
     mov word [bx + loaded_state_status_offset], ax ; 0x3da0

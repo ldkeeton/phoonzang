@@ -4,6 +4,8 @@
 #include "structs/member.h"
 #include "structs/pcrec.h"
 #include "structs/slotstat.h"
+#include "structs/loadrec.h"
+extern struct load_header scenario_header;
 
 extern struct pc_rec party_records[];
 extern struct member_rec *battle_groups[];
@@ -12,7 +14,6 @@ extern struct slot_record slot_records[];
 extern int party_char_count, acting_group, acting_unit;
 extern int selected_item_slot, effect_frame_phase;
 extern int cell_effect_frame[3][3], cell_slot_ref[3][3];
-extern unsigned char action_bitmap[];
 extern long battle_experience;
 extern int set_bitmap_bit();
 extern void run_combat_screen_animation();
@@ -27,7 +28,7 @@ int group, unit;
 		    acting_unit < party_char_count)
 			party_records[acting_unit].marks++;
 		if ((battle_group_ext[group]->flags & 1) != 0)
-			set_bitmap_bit(action_bitmap,
+			set_bitmap_bit(scenario_header.action_bitmap,
 				battle_group_ext[group]->bitmap_bit, 1);
 		if (battle_group_ext[group]->slot_index != -1) {
 			slot_records[battle_group_ext[group]->slot_index].health = 0;

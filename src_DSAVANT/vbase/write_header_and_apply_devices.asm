@@ -32,7 +32,7 @@ write_header_and_apply_devices:
     add sp, byte 8                   ; 0x3fee
     mov ax, 0x34c                    ; 0x3ff1
     push ax                          ; 0x3ff4
-    mov ax, scenario_header_data     ; 0x3ff5
+    mov ax, scenario_header          ; 0x3ff5
     push ax                          ; 0x3ff8
     push word [scenario_header_fd]   ; 0x3ff9
     call aztec_write                 ; 0x3ffd

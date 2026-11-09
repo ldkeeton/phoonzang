@@ -1,5 +1,6 @@
 /* The installer's uninitialized globals; ln lays the commons out last
    declared first. */
+#include "structs/loadrec.h"
 
 int mouse_detected;
 int unused_flag_2af8;
@@ -13,7 +14,7 @@ int hercules_available;
 int cga_available;
 int ega_available;
 int vga_available;
-char scenario_header_record[844];
+struct load_header scenario_header_record;
 int scenario_header_handle;
 char installer_message_buffer[80];
 char clear_attribute;

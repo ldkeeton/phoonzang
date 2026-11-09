@@ -1,6 +1,7 @@
 /* Draw up to three centered lines, then wait and restore the report area. */
+#include "structs/loadrec.h"
+extern struct load_header scenario_header;
 extern int message_delay;
-extern char no_dissolve;
 extern int aztec_strlen();
 extern int measure_text_width();
 extern void call_set_text_color();
@@ -37,7 +38,7 @@ char *line2;
 
 	dissolve_or_show_area(55, 146, 265, 198);
 	/* Keep the display interval twice as long when the effect is disabled. */
-	wait_for_scene_input_or_timeout(no_dissolve != 0 ?
+	wait_for_scene_input_or_timeout(scenario_header.no_dissolve != 0 ?
 		message_delay * 2 : message_delay);
 	restore_area_a_draw_glyph();
 }

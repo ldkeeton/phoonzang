@@ -9,7 +9,7 @@ extern int party_map_piece, party_cell_x, party_cell_y;
 extern int party_world_x, party_world_y;
 extern struct saved_region_blocks party_region;
 extern int save_location_flag;
-extern char current_map_block_a[];
+extern int current_map_block_a[];
 extern int check_at_saved_location(), read_packed_field();
 extern int move_party_world_position(), find_map_piece(), test_bit();
 extern int set_party_world_position(), get_cell_terrain(), find_object_at();

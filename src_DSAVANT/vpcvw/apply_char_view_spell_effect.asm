@@ -22,7 +22,7 @@ jumptable_291f_case_33:
 jumptable_291f_case_38:
     mov ax, 0x23                     ; 0x2231
     imul word [bp + 8]               ; 0x2234
-    add word [party_status_timer], ax ; 0x2237
+    add word [party_effects], ax     ; 0x2237
     mov ax, 0                        ; 0x223b
     push ax                          ; 0x223e
     push word [party_status_offset]  ; 0x223f

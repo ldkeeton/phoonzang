@@ -1,4 +1,6 @@
 /* Run the startup story, draw its message blocks, and restore the screen. */
+#include "structs/loadrec.h"
+extern struct load_header scenario_header;
 extern int score_music_enabled(), load_score_files(), play_score_at_volume();
 extern int call_fill_area(), call_show_area(), draw_transition_glyph();
 extern int call_reset_rgb(), call_fade_in(), poll_escape_key();
@@ -9,7 +11,6 @@ extern int call_restore_screen(), load_message_string();
 extern int message_not_found, story_escape_state;
 extern int story_music_enabled, story_score_number, story_score_volume;
 extern int level_up_score_number, startup_hardware_flags;
-extern unsigned char startup_aux_option_b;
 extern int mouse_active, hotspot_hit, game_state;
 extern unsigned char picture_slot_number[], picture_slot_used[];
 extern int call_set_text_pos(), call_set_text_color(), draw_text_glyphs();
@@ -211,7 +212,7 @@ play_startup_sequence()
 	call_show_area(0, 0, 319, 199);
 	call_wait_sound(1);
 	/* Initialize the mouse when the hardware flag and option are both set. */
-	if ((startup_hardware_flags & 4096) && startup_aux_option_b == 1) {
+	if ((startup_hardware_flags & 4096) && scenario_header.use_mouse == 1) {
 		call_mouse_init();
 		mouse_active = 1;
 	}

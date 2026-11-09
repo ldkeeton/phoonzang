@@ -2,14 +2,15 @@
    their string literals run together in the data segment with no alignment
    gap */
 
+#include "structs/slotrec.h"
 #include "structs/filehdr.h"
+#include "structs/loadrec.h"
 extern struct disk_header disk_header;
-extern unsigned char install_mode;
+extern struct load_header scenario_header;
 extern int msg_dbs_fd;
 extern int data_file_fd;
 extern int hotspot_hit;
 extern int hotspot_rects[];
-extern char disk_drive_name[];
 long call_save_area();
 
 /* boxed prompt to insert a disk until DISK.HDR on it checks out; optionally
@@ -87,14 +88,14 @@ char *fname;
 					found = 1;
 				else {
 					aztec_close(fd);
-					if (install_mode == 1)
+					if (scenario_header.install_mode == 1)
 						found = 1;
 				}
 			} else if (fd != -1) {
 				nread =
 					aztec_read(fd, &disk_header, sizeof(disk_header));	/* whole disk header */
 				/* install mode 5 numbers disks two lower */
-				want = install_mode == 5 && 0 < drive ? drive - 2 : drive;
+				want = scenario_header.install_mode == 5 && 0 < drive ? drive - 2 : drive;
 				if (nread > 0 && want == disk_header.number)
 					found = 1;
 				aztec_close(fd);
@@ -102,7 +103,7 @@ char *fname;
 		} while (!found);	/* re-prompt until the right disk is in */
 		drive = next;
 		next = -2;
-		aztec_strcpy(name, disk_drive_name);
+		aztec_strcpy(name, scenario_header.paths[PATH_SECOND]);
 	} while (drive != -2);	/* -2: no further disk */
 	call_restore_area(saved, 1);
 	flush_keyboard();
@@ -115,7 +116,6 @@ char *fname;
 	}
 }
 
-extern char data_path_prefixes[][20];
 extern copy_through_char(), call_show_area();
 
 /* Select the disk number and prompt for the matching data disk when needed. */
@@ -127,19 +127,19 @@ ensure_game_disk()
 
 	/* The initial disk number is zero; modes 0 and 1 also select disk zero. */
 	disk_number = 0;
-	switch (install_mode) {
+	switch (scenario_header.install_mode) {
 	case 0:
 	case 1:
 		disk_number = 0;
 	}
 
 	/* Mode 5 stores numbered disks two lower when the number is positive. */
-	header_number = install_mode == 5 && disk_number > 0
+	header_number = scenario_header.install_mode == 5 && disk_number > 0
 		? disk_number - 2 : disk_number;
 
 	if (header_number != disk_header.number) {
 		/* Keep the selected drive prefix through its colon. */
-		copy_through_char(disk_path, data_path_prefixes, ':');
+		copy_through_char(disk_path, scenario_header.paths[PATH_DATA], ':');
 		/* Drive 0; close the data files first and reopen them after the swap. */
 		prompt_disk_swap(disk_path, disk_number, 1, 1);
 		/* Redraw the full 320-by-200 screen after the disk prompt. */
@@ -148,7 +148,7 @@ ensure_game_disk()
 }
 
 extern unsigned char picture_slot_number[], picture_slot_used[];
-extern unsigned char slot_recs[][350];	/* 350-byte monster records */
+extern struct slot_rec slot_recs[];
 extern char monster_pic_name[];
 
 /* loads monster picture record num into picture slot n unless that slot
@@ -161,7 +161,7 @@ load_monster_picture(num, n)
 
 	call_wait_sound(0);
 	if (picture_slot_number[n] != num) {
-		data_record_io(8, slot_recs[n], num, 0);	/* type 8: monsters */
+		data_record_io(8, &slot_recs[n], num, 0);	/* type 8: monsters */
 		aztec_strcpy(name, monster_pic_name);		/* "MON00.PIC" */
 		name[3] = num / 10 + '0';			/* patch the two digits */
 		name[4] = num % 10 + '0';
@@ -232,7 +232,6 @@ int sound_id;
 	}
 }
 
-extern unsigned char video_mode;
 extern int loaded_score_num;
 extern char score_ext_csf[], score_ext_pbl[], score_ext_pba[];
 
@@ -247,7 +246,7 @@ load_score_files(num, arg)
 	int err;
 	int mode;
 
-	mode = video_mode;
+	mode = scenario_header.music_device;
 	if (mode == 6)	/* mode 6 shares mode 4's score data */
 		mode = 4;
 	aztec_strcpy(base, "SCORE00");

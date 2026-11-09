@@ -203,7 +203,7 @@ maze_data_size equ __zbss_5528 - __zdseg_start
 maze_tables_size equ __zbss_552a - __zdseg_start
 record_packed equ __zbss_556c - __zdseg_start
 sound_slot_info equ __zbss_5576 - __zdseg_start
-scenario_header_data equ __zbss_5642 - __zdseg_start
+scenario_header equ __zbss_5642 - __zdseg_start
 action_bitmap equ __zbss_5842 - __zdseg_start
 maze_change_count equ __zbss_590e - __zdseg_start
 floor_item_count equ __zbss_5910 - __zdseg_start
@@ -269,7 +269,7 @@ party_status_frame_step equ __zbss_82ea - __zdseg_start
 party_status_frame_seen equ __zbss_82ec - __zdseg_start
 party_facing equ __zbss_82ee - __zdseg_start
 party_status_heading equ __zbss_82f0 - __zdseg_start
-party_status_timer equ __zbss_82f2 - __zdseg_start
+party_effects equ __zbss_82f2 - __zdseg_start
 party_status_offset equ __zbss_82f4 - __zdseg_start
 spell_49_turns equ __zbss_82f6 - __zdseg_start
 spell_49_strength equ __zbss_82f8 - __zdseg_start

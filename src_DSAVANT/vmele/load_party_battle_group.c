@@ -2,11 +2,12 @@
 
 #include "structs/member.h"
 #include "structs/pcrec.h"
+#include "structs/loadrec.h"
+extern struct status_pair party_effects[];
 
 extern struct member_rec *battle_groups[];
 extern struct pc_rec party_records[];
 extern int party_char_count;
-extern int party_buff_turns, party_buff_charge;
 extern aztec_movmem();
 
 load_party_battle_group()
@@ -17,8 +18,9 @@ load_party_battle_group()
 	battle_groups[group_index]->unit_count = party_char_count;
 	for (member_index = 0; member_index < 6; member_index++)
 		battle_groups[group_index]->ward[member_index] = 0;
-	if (party_buff_turns > 0)
-		battle_groups[group_index]->ward[4] = party_buff_charge;
+	if (party_effects[PARTY_EFFECT_WARD].timer > 0)
+		battle_groups[group_index]->ward[4] =
+			party_effects[PARTY_EFFECT_WARD].strength;
 	for (member_index = 0; member_index < 6; member_index++)
 		battle_groups[group_index]->cloud_power[member_index] = 0;
 

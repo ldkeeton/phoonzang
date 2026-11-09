@@ -5,14 +5,15 @@
 
 extern struct maze_tables *maze_tables;
 #include "structs/mazecell.h"
+#include "structs/rgnstate.h"
+extern struct saved_region_blocks party_region;
 
 extern struct maze_cells *maze_data;
 extern int current_level;
 extern int party_cell_x, party_cell_y, party_map_piece, dest_alt_arg,
 	save_location_flag;
 extern int saved_level, saved_map_piece, saved_cell_x, saved_cell_y;
-extern int party_world_x, party_world_y, party_region, region_step_flag,
-	location_changed;
+extern int party_world_x, party_world_y, region_step_flag, location_changed;
 
 move_party_to_dest(dest)
 int dest;
@@ -40,7 +41,7 @@ int dest;
 	/* piece origin tables at +0x490 (x) and +0x4a0 (y) give world coords */
 	party_world_x = maze_data->origin_x[party_map_piece] + party_cell_x;
 	party_world_y = maze_data->origin_y[party_map_piece] + party_cell_y;
-	party_region = maze_tables->map_first[party_map_piece];
+	party_region.region = maze_tables->map_first[party_map_piece];
 	region_step_flag = 0;
 	if (level == current_level)
 		redraw_maze_view();

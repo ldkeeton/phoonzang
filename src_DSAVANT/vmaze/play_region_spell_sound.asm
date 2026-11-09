@@ -134,7 +134,7 @@ play_region_spell_sound:
     mov ax, word [bp - 8]            ; 0x798b
     mov cx, 4                        ; 0x798e
     shl ax, cl                       ; 0x7991
-    add ax, scenario_header_data     ; 0x7993
+    add ax, scenario_header          ; 0x7993
     push ax                          ; 0x7996
     call set_bitmap_bit              ; 0x7997
     add sp, byte 6                   ; 0x799a

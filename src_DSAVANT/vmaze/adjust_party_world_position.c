@@ -1,7 +1,7 @@
 /* Update world coordinates for one directional maze movement. */
 
 extern int location_changed, party_status_frame_step;
-extern char adjacent_object_type[];
+extern int adjacent_object_type[];
 extern int party_world_x, party_world_y;
 extern int aztec_setmem();
 

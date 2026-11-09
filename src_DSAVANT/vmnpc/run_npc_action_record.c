@@ -7,6 +7,8 @@
 #include "structs/rgnstate.h"
 #include "structs/maze.h"
 #include "msg.h"
+#include "structs/loadrec.h"
+extern struct load_header scenario_header;
 extern struct npc_record npc_record;
 
 extern struct pc_rec party_records[];
@@ -22,14 +24,12 @@ extern int previous_party_world_y, previous_party_facing;
 extern int party_cell_x, party_cell_y, party_map_piece;
 extern int party_world_x, party_world_y, party_facing;
 extern struct saved_region_blocks party_region;
-extern char scenario_header_data[];
 extern struct maze_tables *maze_tables;
 extern unsigned char picture_slot_number[];
 extern int cell_slot_ref[3][3];
 extern int npc_cell_effect_frame[3][3];
 extern char npc_choice_message_buffer[], npc_effect_message_buffer[];
 extern char npc_action_bitmap_copy[];
-extern int action_bitmap[];
 extern char faction_attitudes[];
 extern int data_record_io();
 extern int start_npc_attack(), begin_npc_message_display();
@@ -222,7 +222,7 @@ int action_index;
 		case 15:
 			if (value > 0 && value < 127) {
 				set_bitmap_bit(party_region.state[current_level], value, parameter);
-				set_bitmap_bit(scenario_header_data + current_level * 16,
+				set_bitmap_bit(scenario_header.level_flags[current_level],
 					value, parameter);
 			}
 			break;
@@ -234,7 +234,7 @@ int action_index;
 		case 17:
 			if (value > 0 && value < 15) {
 				set_bitmap_bit(npc_action_bitmap_copy, value, parameter);
-				set_bitmap_bit(action_bitmap + 6 + npc_record_index,
+				set_bitmap_bit(&scenario_header.npc_action_bits[npc_record_index],
 					value, parameter);
 			}
 			break;
@@ -409,10 +409,10 @@ int action_index;
 			i = value - 1;
 			break;
 		case 48:
-			set_bitmap_bit(action_bitmap + 6 + value, parameter, 1);
+			set_bitmap_bit(&scenario_header.npc_action_bits[value], parameter, 1);
 			break;
 		case 49:
-			if (test_bit(action_bitmap, value) == parameter)
+			if (test_bit(scenario_header.action_bitmap, value) == parameter)
 				return 0;
 			if (value == 12 && slot_records[12].health == 0)
 				return 0;

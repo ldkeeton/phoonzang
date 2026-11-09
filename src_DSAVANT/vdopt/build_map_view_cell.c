@@ -18,7 +18,7 @@ extern int map_floor_glyphs[][18], map_ns_wall_glyphs[][18];
 extern int map_ew_wall_glyphs[][18], map_object_marks[][18];
 extern struct maze_tables *maze_tables;
 extern struct maze_cells *maze_data;
-extern char explored_cell_bitmap[];
+extern int explored_cell_bitmap[];
 extern int current_level, maze_variant;
 
 build_map_view_cell(world_x, world_y, grid_x, grid_y, spell_mode)

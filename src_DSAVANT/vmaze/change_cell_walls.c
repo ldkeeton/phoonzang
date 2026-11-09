@@ -2,10 +2,12 @@
    ones. */
 #include "structs/maze.h"
 #include "structs/mazecell.h"
+#include "structs/rgnstate.h"
+extern struct saved_region_blocks party_region;
 
 extern struct maze_tables *maze_tables;
 extern struct maze_cells *maze_data;
-extern int party_region, current_level;
+extern int current_level;
 extern int get_bits(), log_maze_change(), set_bitfield();
 extern int find_map_piece(), play_maze_sound_effect();
 extern int mark_region_bits(), redraw_maze_view();
@@ -24,7 +26,7 @@ change_cell_walls()
 	int mark_bits;
 	int wall_values[4];
 
-	event_bits = maze_tables->flags[party_region];
+	event_bits = maze_tables->flags[party_region.region];
 	cell_x = get_bits(event_bits, 0, 3);
 	cell_y = get_bits(event_bits, 3, 3);
 	map_piece = get_bits(event_bits, 6, 4);
@@ -34,7 +36,7 @@ change_cell_walls()
 	world_y = maze_data->origin_y[map_piece] + cell_y;
 	cell_index = map_piece * 64 + cell_y * 8 + cell_x;
 
-	event_bits = maze_tables->party_mask[party_region];
+	event_bits = maze_tables->party_mask[party_region.region];
 	/* Read the four 4-bit wall values packed in party_mask. */
 	for (wall_index = 0; wall_index < 4; wall_index++)
 		wall_values[wall_index] = get_bits(event_bits, wall_index * 4, 4);
@@ -58,7 +60,7 @@ change_cell_walls()
 		set_bitfield(maze_data->wall_b, cell_index, 4, wall_values[3]);
 	}
 
-	play_maze_sound_effect(maze_tables->key[party_region]);
+	play_maze_sound_effect(maze_tables->key[party_region.region]);
 	if (redraw_flag == 1)
 		redraw_maze_view();
 	mark_region_bits(mark_bits);

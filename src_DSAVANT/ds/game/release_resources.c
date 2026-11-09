@@ -1,7 +1,14 @@
 /* Release the resources held when exiting with the given status: each case
    falls through to the cleanup of the cases below it. */
+#include "structs/flooritm.h"
+#include "structs/maze.h"
+#include "structs/mazecell.h"
+#include "structs/mazechng.h"
 
-extern int floor_items, maze_change_log, maze_tables, maze_data;
+extern struct maze_tables *maze_tables;
+extern struct maze_cells *maze_data;
+extern struct maze_change *maze_change_log;
+extern struct floor_item *floor_items;
 extern char far *runtime_buffer_4k_b;
 extern char far *runtime_buffer_4k_a;
 extern char far *runtime_buffer_1k;

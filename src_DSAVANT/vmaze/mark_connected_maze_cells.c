@@ -3,7 +3,7 @@
 #include "structs/mazecell.h"
 
 extern struct maze_cells *maze_data;
-extern char current_map_block_a[];
+extern int current_map_block_a[];
 extern int test_bit();
 extern int set_bitmap_bit();
 extern int read_packed_field();

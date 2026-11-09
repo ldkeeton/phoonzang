@@ -1,11 +1,12 @@
 /* Play the selected intro narration, then restore the main screen. */
 #include "msg.h"
+#include "structs/loadrec.h"
+extern struct load_header scenario_header;
 
 extern int mouse_active, story_music_enabled;
 extern int story_score_number, story_score_volume;
 extern int party_char_count;
 extern unsigned startup_hardware_flags;
-extern unsigned char startup_aux_option_b;
 extern int intro_score_number_source[];
 extern char main_screen_restore_filename[];
 extern int blank_scene_screen(), call_mouse_off(), score_music_enabled();
@@ -101,7 +102,7 @@ int chapter;
 		free_loaded_score(0);
 	}
 	/* Restore mouse support when the startup option enabled it. */
-	if ((startup_hardware_flags & 4096) && startup_aux_option_b == 1) {
+	if ((startup_hardware_flags & 4096) && scenario_header.use_mouse == 1) {
 		if (mouse_active == 0)
 			call_mouse_init();
 		mouse_active = 1;

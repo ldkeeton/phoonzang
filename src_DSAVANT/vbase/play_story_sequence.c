@@ -2,12 +2,13 @@
    and save the resulting game state. */
 #include "structs/pcrec.h"
 #include "msg.h"
+#include "structs/loadrec.h"
+extern struct load_header scenario_header;
 extern struct pc_rec party_records[];
 extern int mouse_active, story_music_enabled, loaded_score_number,
 	story_score_number, story_score_volume;
 extern int scene_index, party_char_count;
 extern unsigned startup_hardware_flags;
-extern unsigned char startup_aux_option_b;
 extern char star_screen_filename[], main_screen_filename[];
 extern int call_fade_out(), call_fill_area(), call_show_area(),
 	call_mouse_off(),
@@ -68,7 +69,7 @@ int story_number;
 		free_loaded_score(0);
 	}
 	/* Restore mouse support when the startup options enabled it. */
-	if ((startup_hardware_flags & 4096) && startup_aux_option_b == 1) {
+	if ((startup_hardware_flags & 4096) && scenario_header.use_mouse == 1) {
 		if (mouse_active == 0)
 			call_mouse_init();
 		mouse_active = 1;

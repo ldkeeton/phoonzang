@@ -59,7 +59,7 @@ unlock_maze_region_side:
     mov ax, word [current_level]     ; 0x6fcd
     mov cx, 4                        ; 0x6fd0
     shl ax, cl                       ; 0x6fd3
-    add ax, scenario_header_data     ; 0x6fd5
+    add ax, scenario_header          ; 0x6fd5
     push ax                          ; 0x6fd8
     call set_bitmap_bit              ; 0x6fd9
     add sp, byte 6                   ; 0x6fdc

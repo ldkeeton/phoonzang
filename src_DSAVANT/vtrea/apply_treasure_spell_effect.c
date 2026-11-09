@@ -2,14 +2,12 @@
 #include "structs/pcrec.h"
 #include "structs/member.h"
 #include "structs/randstep.h"
+#include "structs/loadrec.h"
+extern struct status_pair party_effects[];
 
 extern struct pc_rec party_records[];
 extern int party_char_count;
 extern int chest_trap_type, trap_row_index, chest_trap_power;
-extern int detection_spell_bonus, detection_spell_threshold;
-extern int party_status_timer, party_status_offset;
-extern int spell_49_turns, spell_49_strength, levitation_turns, spell_46_turns;
-extern int party_buff_turns, party_buff_charge;
 extern char trap_row_codes[], member_trap_clues[];
 extern int adjust_spell_value();
 extern int try_open_treasure_chest();
@@ -27,30 +25,41 @@ int member, spell, power, target;
 
 	switch (spell) {
 	case 63:
-		detection_spell_bonus += 50 * power;
-		detection_spell_threshold = adjust_spell_value(5 * power + 70,
-			detection_spell_threshold, 0);
+		party_effects[PARTY_EFFECT_DETECTION].timer +=
+			50 * power;
+		party_effects[PARTY_EFFECT_DETECTION].strength =
+			adjust_spell_value(5 * power + 70,
+			party_effects[PARTY_EFFECT_DETECTION].strength,
+				0);
 		break;
 	case 82:
-		party_status_timer += 35 * power;
-		party_status_offset = adjust_spell_value((power - 1) / 2 + 1,
-			party_status_offset, 0);
+		party_effects[PARTY_EFFECT_EVADE].timer += 35 * power;
+		party_effects[PARTY_EFFECT_EVADE].strength =
+			adjust_spell_value((power - 1) / 2 + 1,
+			party_effects[PARTY_EFFECT_EVADE].strength, 0);
 		break;
 	case 49:
-		spell_49_turns += 50 * power;
-		spell_49_strength = adjust_spell_value((power - 1) / 2 + 1,
-			spell_49_strength, 0);
+		party_effects[PARTY_EFFECT_SPELL_49].timer +=
+			50 * power;
+		party_effects[PARTY_EFFECT_SPELL_49].strength =
+			adjust_spell_value((power - 1) / 2 + 1,
+			party_effects[PARTY_EFFECT_SPELL_49].strength,
+				0);
 		break;
 	case 37:
-		levitation_turns += 5 * power;
+		party_effects[PARTY_EFFECT_LEVITATION].timer +=
+			5 * power;
 		break;
 	case 46:
-		spell_46_turns += 100 * power;
+		party_effects[PARTY_EFFECT_COMPASS].timer +=
+			100 * power;
 		break;
 	case 84:
-		party_buff_turns += 50 * power;
-		party_buff_charge = adjust_spell_value(5 * power,
-			party_buff_charge, 0);
+		party_effects[PARTY_EFFECT_WARD].timer +=
+			50 * power;
+		party_effects[PARTY_EFFECT_WARD].strength =
+			adjust_spell_value(5 * power,
+			party_effects[PARTY_EFFECT_WARD].strength, 0);
 		break;
 	case 47:
 		try_open_treasure_chest(member, power);

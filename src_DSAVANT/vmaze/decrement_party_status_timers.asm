@@ -9,10 +9,10 @@ decrement_party_status_timers:
     shl cx, 1                        ; 0x1217
     shl cx, 1                        ; 0x1219
     mov bx, cx                       ; 0x121b
-    sub word [bx + party_status_timer], ax ; 0x121d
-    cmp word [bx + party_status_timer], byte 0 ; 0x1221
+    sub word [bx + party_effects], ax ; 0x121d
+    cmp word [bx + party_effects], byte 0 ; 0x1221
     jg short .forward1               ; 0x1226
-    mov word [bx + party_status_timer], 0 ; 0x1228
+    mov word [bx + party_effects], 0 ; 0x1228
     mov word [bx + party_status_offset], 0 ; 0x122e
 .forward1:
     inc word [bp - 2]                ; 0x1234

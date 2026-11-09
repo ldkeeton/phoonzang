@@ -32,7 +32,7 @@ update_region_flag_bitmaps:
     mov ax, word [current_level]
     mov cx, 4
     shl ax, cl
-    add ax, scenario_header_data
+    add ax, scenario_header
     push ax
     call set_bitmap_bit
     add sp, byte 6
@@ -55,7 +55,7 @@ update_region_flag_bitmaps:
     mov ax, word [current_level]
     mov cx, 4
     shl ax, cl
-    add ax, scenario_header_data
+    add ax, scenario_header
     push ax
     call set_bitmap_bit
     add sp, byte 6

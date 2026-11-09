@@ -3,12 +3,14 @@
 #include "structs/pcrec.h"
 #include "structs/maze.h"
 #include "msg.h"
+#include "structs/rgnstate.h"
+extern struct saved_region_blocks party_region;
 
 extern int party_map_piece, party_cell_x, party_cell_y;
 extern int party_world_x, party_world_y, party_char_count;
 extern struct maze_tables *maze_tables;
 extern int save_location_flag, explored_cell_bitmap[];
-extern int maze_redraw_pending, party_region;
+extern int maze_redraw_pending;
 extern int check_at_saved_location(), save_previous_party_position();
 extern int read_cell_kind_direction(), adjust_party_world_position();
 extern int find_map_piece(), kill_party_with_message(), get_cell_terrain();
@@ -73,6 +75,6 @@ int direction;
 	}
 	cell_index = (party_map_piece << 6) + (party_cell_y << 3) + party_cell_x;
 	set_bitmap_bit(explored_cell_bitmap, cell_index, 1);
-	party_region = maze_tables->map_first[party_map_piece];
+	party_region.region = maze_tables->map_first[party_map_piece];
 	return 0;
 }

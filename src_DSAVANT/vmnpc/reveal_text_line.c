@@ -1,9 +1,10 @@
 /* Reveal the current NPC dialog line across the text panel. */
+#include "structs/loadrec.h"
+extern struct load_header scenario_header;
 extern int cell_slot_ref[3][3];
 extern int text_line_index;
 extern int text_line_color[];
 extern char text_line_buffer[];
-extern unsigned char hardware_mode_setting;
 extern int measure_text_width();
 extern int call_set_text_pos(), call_set_text_color();
 extern int draw_text_glyphs(), call_show_area();
@@ -37,7 +38,7 @@ reveal_text_line()
 	call_set_text_color(text_line_color[text_line_index] != 0 ? 85 : 1, 0);
 	draw_text_glyphs(text_line_buffer + (text_line_index << 7),
 		text_line_color[text_line_index]);
-	reveal_step = hardware_mode_setting == 2 ? 1 : 0;
+	reveal_step = scenario_header.graphics_mode == 2 ? 1 : 0;
 	for (reveal_x = horizontal_position;
 		reveal_x < horizontal_position + line_extent;
 		reveal_x += reveal_step + 1) {

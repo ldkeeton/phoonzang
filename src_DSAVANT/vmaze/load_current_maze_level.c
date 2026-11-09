@@ -12,7 +12,8 @@ extern struct maze_cells *maze_data;
 extern struct maze_tables *maze_tables;
 extern int current_level;
 extern char far *runtime_buffer_4k_a, *runtime_buffer_4k_b;
-extern char current_map_block_a[], explored_cell_bitmap[];
+extern int explored_cell_bitmap[];
+extern int current_map_block_a[];
 extern int party_map_piece, party_cell_x, party_cell_y;
 extern int party_world_x, party_world_y;
 

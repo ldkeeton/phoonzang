@@ -1,9 +1,10 @@
 /* Find the maze_change_log entry for a level, kind and location; -1 when
    there is none. */
 #include "structs/mazechng.h"
+#include "structs/loadrec.h"
+extern struct load_header scenario_header;
 
 extern struct maze_change *maze_change_log;
-extern int maze_change_count;
 
 find_maze_change(level, kind, map_piece, cell_x, cell_y)
 int level, kind, map_piece, cell_x, cell_y;
@@ -14,7 +15,7 @@ int level, kind, map_piece, cell_x, cell_y;
 
 	location = (map_piece << 8) + (cell_x << 4) + cell_y;
 	record = maze_change_log;
-	for (record_index = 0; record_index < maze_change_count;
+	for (record_index = 0; record_index < scenario_header.maze_change_count;
 		record_index++, record++) {
 		if (record->level != level || record->kind != kind)
 			continue;

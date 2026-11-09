@@ -6,12 +6,14 @@
 #include "structs/pcrec.h"
 #include "structs/rgnstate.h"
 #include "msg.h"
+#include "structs/loadrec.h"
+extern struct status_pair party_effects[];
 
 extern struct maze_tables *maze_tables;
 extern struct saved_region_blocks party_region;
 extern struct pc_rec party_records[];
 extern int party_char_count, party_world_x, party_world_y;
-extern int message_delay, game_state, levitation_turns, loaded_sound_id;
+extern int message_delay, game_state, loaded_sound_id;
 extern int get_bits();
 extern int show_scene_message_sequence();
 extern int redraw_treasure_caption();
@@ -62,7 +64,7 @@ apply_region_event_to_party()
 		return;
 	}
 	if (levitation_blocks != 0) {
-		if (levitation_turns > 0) {
+		if (party_effects[PARTY_EFFECT_LEVITATION].timer > 0) {
 			damage_blocked = 1;
 		load_message_string(MSG_PROTECTED_BY_LEVITATION, message);
 		message_x = 160 - aztec_strlen(message) * 6 / 2;

@@ -4,6 +4,8 @@
 #include "structs/mazecell.h"
 #include "structs/rgnstate.h"
 #include "msg.h"
+#include "structs/loadrec.h"
+extern struct load_header scenario_header;
 
 extern struct pc_rec party_records[];
 extern struct maze_tables *maze_tables;
@@ -14,7 +16,6 @@ extern int party_char_count, party_map_piece, party_cell_y, party_cell_x;
 extern int current_level, game_state, party_region_level_saved;
 extern struct saved_region_blocks party_region;
 extern int camp_score_number, rest_interrupt_flag;
-extern unsigned char difficulty_option;
 extern unsigned char code_characters[];
 extern int score_music_enabled(), stop_and_clear_maze_sounds();
 extern int load_score_files(), play_score_at_volume(), show_message();
@@ -127,7 +128,7 @@ rest_party()
 			run_roaming_npc_turns();
 			elapsed_minutes--;
 			/* Difficulty option 1 makes rest encounters rarer. */
-			random_threshold = difficulty_option == 1 ? 990 : 975;
+			random_threshold = scenario_header.difficulty == 1 ? 990 : 975;
 			/* A sufficiently high roll starts an encounter unless region data forbids
 			   it. */
 			if (party_region_level_saved == 0 && !is_party_cell_flagged &&

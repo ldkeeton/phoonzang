@@ -1,12 +1,12 @@
 /* Check whether the screen file can be held in the configured storage. */
+#include "structs/loadrec.h"
+extern struct load_header scenario_header;
 extern char monster_picture_template[];	/* "MON00.PIC" */
 extern char *data_file_path();
 extern long call_get_free_space();
 extern int aztec_strcpy(), aztec_open(), aztec_close();
 extern long aztec_lseek();
 extern unsigned char picture_slot_number[];
-extern unsigned char screen_store_1_enabled, screen_store_disk_enabled;
-extern unsigned char screen_store_drive;
 
 /* Return zero when the picture is already slotted or storage has room. */
 check_monster_picture_space(picture_number)
@@ -41,12 +41,12 @@ int picture_number;
 		return 0;
 
 	/* A large first screen store removes the extra reserve requirement. */
-	if (screen_store_1_enabled == 1
+	if (scenario_header.store_ems == 1
 		&& call_get_free_space(1, 0) > extra_space) {
 		extra_space = 0L;
-	} else if (screen_store_disk_enabled == 1) {
+	} else if (scenario_header.store_ramdisk == 1) {
 		/* Check the configured disk only for a valid drive letter. */
-		drive_index = screen_store_drive - 64;
+		drive_index = scenario_header.store_drive[0] - 64;
 		if (drive_index >= 1 && drive_index <= 26 &&
 		    call_get_free_space(3, drive_index) > extra_space)
 			extra_space = 0L;

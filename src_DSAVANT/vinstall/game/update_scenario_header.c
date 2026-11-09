@@ -67,18 +67,19 @@ int version;
 
 	/* Copy the current installer choices into the saved record fields. */
 	scenario_header_record.install_version = version;
-	scenario_header_record.hardware = graphics_choice;
-	scenario_header_record.store_one = ems_choice;
-	scenario_header_record.store_disk = ramdisk_choice;
+	scenario_header_record.graphics_mode = graphics_choice;
+	scenario_header_record.store_ems = ems_choice;
+	scenario_header_record.store_ramdisk = ramdisk_choice;
 	aztec_strcpy(scenario_header_record.store_drive,
 		ram_name_text);
-	scenario_header_record.palette_base = brightness;
-	scenario_header_record.palette_scale = contrast;
+	scenario_header_record.palette[PALETTE_BASE] = brightness;
+	scenario_header_record.palette[PALETTE_SCALE] = contrast;
 	/* Volumes are 0 for NONE (7) and 10 for any other device. */
-	scenario_header_record.options[0] = sound_choice == 7 ? 0 : 10;
-	scenario_header_record.options[1] = sound_choice == 7 ? 0 : 10;
-	scenario_header_record.options[2] = sound_choice == 7 ? 0 : 10;
-	scenario_header_record.options[3] = sound_choice == 7 ? 0 : 10;
+	scenario_header_record.volumes[VOLUME_EFFECTS] = sound_choice == 7 ? 0 : 10;
+	scenario_header_record.volumes[VOLUME_MONSTER] = sound_choice == 7 ? 0 : 10;
+	scenario_header_record.volumes[VOLUME_BACKGROUND] =
+		sound_choice == 7 ? 0 : 10;
+	scenario_header_record.volumes[VOLUME_MUSIC] = sound_choice == 7 ? 0 : 10;
 	/* NONE (7) wraps to 0; Roland has no digital sound, Covox 2/3 no music. */
 	sound_choice = sound_choice % 7;
 	scenario_header_record.sound_device = sound_choice;
@@ -89,25 +90,25 @@ int version;
 		scenario_header_record.music_device = 0;
 	/* Base port 0x220 for any device other than the PC speaker. */
 	scenario_header_record.sound_port = 0;
-	scenario_header_record.sound_extra = 0;
+	scenario_header_record.sound_aux = 0;
 	if (sound_choice > 0) {
 		scenario_header_record.sound_port = 544;
-		scenario_header_record.sound_extra = 544;
+		scenario_header_record.sound_aux = 544;
 	}
-	scenario_header_record.option_b = mouse_choice == 0 ? 0 : 1;
-	scenario_header_record.install = layout_code;
-	aztec_strcpy(scenario_header_record.paths[0],
+	scenario_header_record.use_mouse = mouse_choice == 0 ? 0 : 1;
+	scenario_header_record.install_mode = layout_code;
+	aztec_strcpy(scenario_header_record.paths[PATH_DATA],
 		game_dir);
-	aztec_strcpy(scenario_header_record.paths[2],
+	aztec_strcpy(scenario_header_record.paths[PATH_SAVE_DIR],
 		game_dir);
 	/* Disk layout 5 (360k floppies) also records the destination path. */
 	if (layout_code == 5) {
-		aztec_strcpy(scenario_header_record.paths[1], dest_path);
-		aztec_strcat(scenario_header_record.paths[1],
+		aztec_strcpy(scenario_header_record.paths[PATH_SECOND], dest_path);
+		aztec_strcat(scenario_header_record.paths[PATH_SECOND],
 			disk_layout_5_path_separator);
-		scenario_header_record.option_c = 1;
+		scenario_header_record.has_second_path = 1;
 	}
-	aztec_strcpy(scenario_header_record.paths[3],
+	aztec_strcpy(scenario_header_record.paths[PATH_SAVE_FILE],
 		savegame_filename);
 	/* Return to the beginning before replacing the complete record. */
 	aztec_lseek(scenario_header_handle, 0L, 0);

@@ -1,9 +1,9 @@
 /* Update the party animation and check active members for detection. */
 #include "structs/pcrec.h"
 #include "msg.h"
+#include "structs/loadrec.h"
+extern struct status_pair party_effects[];
 
-extern int detection_spell_bonus;
-extern int detection_spell_threshold;
 extern int party_status_frame_step;
 extern int party_char_count;
 extern struct pc_rec party_records[];
@@ -17,9 +17,9 @@ update_party_status_animation()
 	int unused;
 
 	/* A positive spell bonus can trigger the party status animation. */
-	if (detection_spell_bonus > 0) {
+	if (party_effects[PARTY_EFFECT_DETECTION].timer > 0) {
 		/* Compare a 0..99 roll with the stored threshold. */
-		if (random_below(100) < detection_spell_threshold)
+		if (random_below(100) < party_effects[PARTY_EFFECT_DETECTION].strength)
 			party_status_frame_step = 1;
 	}
 

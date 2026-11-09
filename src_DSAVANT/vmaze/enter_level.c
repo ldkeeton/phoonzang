@@ -2,17 +2,18 @@
 #include "structs/maze.h"
 #include "structs/flooritm.h"
 #include "structs/rgnstate.h"
+#include "structs/loadrec.h"
+extern struct load_header scenario_header;
 
 extern long far *tick_counter_ptr;
 extern struct maze_tables *maze_tables;
 extern struct saved_region_blocks party_region;
 extern struct floor_item *floor_items;
-extern unsigned char scenario_header_data[][16];
-extern unsigned char floor_item_cell_bits[];
-extern unsigned char maze_object_cell_bitmap[];
+extern int floor_item_cell_bits[];
+extern int maze_object_cell_bitmap[];
 extern long maze_refresh_deadline;
 extern int current_level, party_map_piece, game_state, party_return_state;
-extern int trigger_facing, floor_item_count;
+extern int trigger_facing;
 extern int stop_and_clear_maze_sounds(), clear_marker_string_frames();
 extern int ensure_game_disk(), load_current_maze_level();
 extern int aztec_movmem(), aztec_setmem(), set_bitmap_bit();
@@ -39,7 +40,7 @@ int level;
 	}
 	load_current_maze_level();
 	/* Each saved region state block and scenario header entry is 16 bytes. */
-	aztec_movmem(scenario_header_data[current_level],
+	aztec_movmem(scenario_header.level_flags[current_level],
 		party_region.state[current_level], 16);
 	party_return_state = 5;
 	trigger_facing = -1;
@@ -64,7 +65,8 @@ int level;
 	aztec_setmem(floor_item_cell_bits, 128, 0);
 	item = floor_items;
 	/* position: piece in the high byte, x and y in the low byte's nibbles. */
-	for (piece_index = 0; piece_index < floor_item_count; piece_index++) {
+	for (piece_index = 0; piece_index < scenario_header.floor_item_count;
+		piece_index++) {
 		if (item->map == current_level) {
 			item_piece = item->position / 256;
 			item_x = (item->position % 256) / 16;

@@ -1,5 +1,6 @@
 /* Scale the current music setting before playing a score. */
-extern unsigned char music_volume;
+#include "structs/loadrec.h"
+extern struct load_header scenario_header;
 extern int call_play_score();
 
 /* Play a score using a level scaled from the current music volume. */
@@ -12,7 +13,7 @@ int option;
 	int playback_volume;
 
 	/* The ten-step setting is converted to the remaining distance from full. */
-	volume_delta = 10 - music_volume;
+	volume_delta = 10 - scenario_header.volumes[VOLUME_MUSIC];
 
 	/* Scale the squared distance to a 0..255 playback level. */
 	playback_volume = (25500 - volume_delta * volume_delta * 255) / 100;

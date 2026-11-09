@@ -7,7 +7,7 @@ save_level_state:
     mov ax, word [current_level]     ; 0x68fc
     mov cx, 4                        ; 0x68ff
     shl ax, cl                       ; 0x6902
-    add ax, scenario_header_data     ; 0x6904
+    add ax, scenario_header          ; 0x6904
     push ax                          ; 0x6907
     mov ax, word [current_level]     ; 0x6908
     shl ax, cl                       ; 0x690b

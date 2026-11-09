@@ -1,16 +1,17 @@
 /* Move one volume setting by one without crossing its bounds. */
-extern unsigned char volume_settings[];
+#include "structs/loadrec.h"
+extern struct load_header scenario_header;
 
 step_volume_setting(volume_index, direction, upper_limit)
 int volume_index, direction, upper_limit;
 {
 	if (direction < 0) {
 		/* Decrement only when the setting is nonzero. */
-		if (volume_settings[volume_index] > 0)
-			volume_settings[volume_index]--;
+		if (scenario_header.volumes[volume_index] > 0)
+			scenario_header.volumes[volume_index]--;
 	} else if (direction > 0) {
 		/* Increment only while the setting remains below its limit. */
-		if (volume_settings[volume_index] < upper_limit)
-			volume_settings[volume_index]++;
+		if (scenario_header.volumes[volume_index] < upper_limit)
+			scenario_header.volumes[volume_index]++;
 	}
 }

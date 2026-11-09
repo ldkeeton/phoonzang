@@ -1,5 +1,11 @@
 /* Load startup resources and prepare runtime buffers. */
+#include "structs/flooritm.h"
+#include "structs/maze.h"
+#include "structs/mazecell.h"
+#include "structs/mazechng.h"
 #include "structs/filehdr.h"
+#include "structs/loadrec.h"
+extern struct load_header scenario_header;
 extern struct disk_header disk_header;
 extern struct pc_file_header pc_file_header;
 extern struct master_header master_header;
@@ -12,18 +18,17 @@ extern int npc_id_answer_relay, msg_dbs_fd, message_block_current;
 extern int message_cache_next, message_cache_ids[], saved_screen_kind[];
 extern char saved_screen_file[][20];
 extern long saved_screen_ref[];
-extern int data_file_fd, loaded_sound_id, loaded_score_num,
-	npc_id_target;
+extern int data_file_fd, loaded_sound_id, loaded_score_num;
+extern int *npc_id_target;
 extern long pointer_image_zero, mouse_pointer_shape, pointer_image_two;
 extern long runtime_buffer_1k, runtime_buffer_4k_a, runtime_buffer_4k_b;
-extern char *maze_data, *maze_tables, *maze_change_log,
-	*floor_items;
+extern struct maze_tables *maze_tables;
+extern struct maze_cells *maze_data;
+extern struct maze_change *maze_change_log;
+extern struct floor_item *floor_items;
 extern int startup_check_stage, game_state;
-extern unsigned char startup_option_byte, hardware_mode_setting,
-	sound_device_setting;
-extern int sound_port_setting;
-extern char palette_scale_setting, palette_base_setting, code_characters[];
-extern char scenario_header_data[], message_directory[];
+extern char code_characters[];
+extern char message_directory[];
 extern char startup_scenario_header_name[];
 extern char startup_vbfont0_name[];
 extern char startup_vbfont1_name[];
@@ -60,11 +65,11 @@ initialize_runtime_resources()
 	pointer_image_two = 0L;
 	if ((scenario_header_fd = aztec_open(startup_scenario_header_name, 0)) == -1)
 		release_and_exit(1);
-	aztec_read(scenario_header_fd, scenario_header_data, 844);
+	aztec_read(scenario_header_fd, &scenario_header, sizeof(scenario_header));
 	aztec_close(scenario_header_fd);
 	message_delay = 54; /* initial message timing */
-	startup_option = startup_option_byte;
-	switch (hardware_mode_setting) {
+	startup_option = scenario_header.combat_delay;
+	switch (scenario_header.graphics_mode) {
 	case 255: /* rejected hardware setting */ release_and_exit(2); break;
 	case 1: hardware_mode = 1; break;
 	case 2: hardware_mode = 2; break;
@@ -77,10 +82,10 @@ initialize_runtime_resources()
 		release_and_exit(3);
 	npc_id_address = (unsigned)&npc_id_decoy;
 		/* npc_id_decoy until the protection chain passes */
-	if ((sound_device = sound_device_setting) == 6)
+	if ((sound_device = scenario_header.sound_device) == 6)
 		/* normalize device selector */
 		sound_device = 4;
-	sound_port = sound_device == 0 ? 0 : sound_port_setting;
+	sound_port = sound_device == 0 ? 0 : scenario_header.sound_port;
 	call_play_select_device(sound_port, sound_device);
 	npc_id_clue_relay = (unsigned)&npc_id_decoy;
 		/* npc_id_decoy until the protection chain passes */
@@ -176,6 +181,7 @@ initialize_runtime_resources()
 		release_and_exit(14);
 	aztec_read(palette_fd, palette, 768);
 	aztec_close(palette_fd);
-	build_palette_map(palette_base_setting, palette_scale_setting, palette);
+	build_palette_map(scenario_header.palette[PALETTE_BASE],
+		scenario_header.palette[PALETTE_SCALE], palette);
 	game_state = 1;
 }

@@ -1,21 +1,13 @@
 /* Draw and run the configuration dialog, then keep or restore its settings. */
 #include "msg.h"
 #include "structs/loadrec.h"
+extern struct load_header scenario_header;
 
-extern struct load_header scenario_header_data;
 extern char *data_file_path();
 extern char palette_definition_filename[], screen_temporary_filename[];
-extern char selected_game_directory[], selected_game_filename[];
-extern char screen_store_drive[];
 extern unsigned char base_palette_rgb[256][3];
-extern unsigned char startup_option_byte, difficulty_option;
-extern unsigned char startup_aux_option_b, sound_device_setting, video_mode;
-extern unsigned char volume_settings[], monster_volume, background_volume;
-extern unsigned char music_volume, no_dissolve;
-extern unsigned char screen_store_1_enabled, screen_store_disk_enabled;
-extern char palette_base_setting, palette_scale_setting;
-extern int sound_port_setting, sound_aux_setting, mouse_active;
-extern int hotspot_hit, dialog_button, configuration_display_value;
+extern int mouse_active;
+extern int hotspot_hit, dialog_button;
 extern int hotspot_rects[];
 extern int aztec_open(), aztec_read(), aztec_close(), release_and_exit();
 extern int save_screen_area(), draw_dialog_box(), draw_message_at_position();
@@ -43,7 +35,7 @@ int initial_mode;
 	struct load_header original_header;
 
 	/* Keep a copy for the cancel path and load the 256-entry palette. */
-	original_header = scenario_header_data;
+	original_header = scenario_header;
 	if ((palette_fd = aztec_open(data_file_path(palette_definition_filename, 0),
 		0)) == -1)
 		release_and_exit(26);
@@ -62,9 +54,9 @@ int initial_mode;
 	draw_message_at_position(MSG_CRUSADERS_OF_THE_DARK_2300, -1,
 		dialog_left + 5, 28);
 	draw_message_at_position(MSG_V, dialog_top + 245, dialog_left + 5, 1);
-	draw_number_field(configuration_display_value / 100, 1, 0);
+	draw_number_field(scenario_header.install_version / 100, 1, 0);
 	draw_font_glyph(46, 0);
-	number_remainder = configuration_display_value % 100;
+	number_remainder = scenario_header.install_version % 100;
 	if (number_remainder < 10) {
 		draw_font_glyph(48, 0);
 		draw_number_field(number_remainder, 1, 0);
@@ -270,35 +262,35 @@ int initial_mode;
 		if (hotspot_hit == 1) {
 			switch (selected_hotspot) {
 			case 0:
-				startup_aux_option_b = (startup_aux_option_b + 1) % 2;
+				scenario_header.use_mouse = (scenario_header.use_mouse + 1) % 2;
 				draw_configuration_control(0, dialog_top, dialog_left);
 				break;
 			case 1:
-				if (startup_option_byte > 0) {
-					--startup_option_byte;
+				if (scenario_header.combat_delay > 0) {
+					--scenario_header.combat_delay;
 					draw_configuration_control(1, dialog_top, dialog_left);
 				}
 				break;
 			case 2:
-				if (startup_option_byte < 99) {
-					++startup_option_byte;
+				if (scenario_header.combat_delay < 99) {
+					++scenario_header.combat_delay;
 					draw_configuration_control(1, dialog_top, dialog_left);
 				}
 				break;
 			case 3:
 				flush_keyboard();
-				draw_configuration_text(selected_game_directory,
+				draw_configuration_text(scenario_header.paths[PATH_SAVE_DIR],
 					dialog_top + 39, dialog_left + 56, 18);
-				input_text_field(selected_game_directory,
+				input_text_field(scenario_header.paths[PATH_SAVE_DIR],
 					dialog_top + 41, dialog_left + 57,
 					16, 0, 1, 0);
 				draw_configuration_control(2, dialog_top, dialog_left);
 				break;
 			case 4:
 				flush_keyboard();
-				draw_configuration_text(selected_game_filename,
+				draw_configuration_text(scenario_header.paths[PATH_SAVE_FILE],
 					dialog_top + 39, dialog_left + 68, 18);
-				input_text_field(selected_game_filename,
+				input_text_field(scenario_header.paths[PATH_SAVE_FILE],
 					dialog_top + 41, dialog_left + 69,
 					16, 0, 1, 0);
 				draw_configuration_control(3, dialog_top, dialog_left);
@@ -306,14 +298,14 @@ int initial_mode;
 			case 5:
 				if (initial_mode == 0) {
 					do {
-						sound_device_setting = (sound_device_setting + 1) % 7;
-					} while (sound_device_setting == 5);
+						scenario_header.sound_device = (scenario_header.sound_device + 1) % 7;
+					} while (scenario_header.sound_device == 5);
 					draw_configuration_control(4, dialog_top, dialog_left);
 				}
-				if (sound_device_setting > 0)
-					sound_port_setting = 544;
+				if (scenario_header.sound_device > 0)
+					scenario_header.sound_port = 544;
 				else
-					sound_port_setting = 0;
+					scenario_header.sound_port = 0;
 				break;
 			case 6:
 				step_volume_setting(0, -1, 10);
@@ -342,14 +334,15 @@ int initial_mode;
 			case 12:
 				if (initial_mode == 0) {
 					do {
-						video_mode = (video_mode + 1) % 7;
-					} while (video_mode == 2 || video_mode == 3);
+						scenario_header.music_device = (scenario_header.music_device + 1) % 7;
+					} while (scenario_header.music_device == 2
+						|| scenario_header.music_device == 3);
 					draw_configuration_control(8, dialog_top, dialog_left);
 				}
-				if (video_mode > 0)
-					sound_aux_setting = 544;
+				if (scenario_header.music_device > 0)
+					scenario_header.sound_aux = 544;
 				else
-					sound_aux_setting = 0;
+					scenario_header.sound_aux = 0;
 				break;
 			case 13:
 				step_volume_setting(3, -1, 10);
@@ -360,26 +353,26 @@ int initial_mode;
 				draw_configuration_control(9, dialog_top, dialog_left);
 				break;
 			case 15:
-				difficulty_option = (difficulty_option + 1) % 3;
+				scenario_header.difficulty = (scenario_header.difficulty + 1) % 3;
 				draw_configuration_control(10, dialog_top, dialog_left);
 				break;
 			case 16:
-				no_dissolve = (no_dissolve + 1) % 2;
+				scenario_header.no_dissolve = (scenario_header.no_dissolve + 1) % 2;
 				draw_configuration_control(11, dialog_top, dialog_left);
 				break;
 			case 17:
 				/* Cycle among disabled, disk-backed, and memory storage. */
-				key_code = screen_store_1_enabled == 1 ? 1 :
-					screen_store_disk_enabled == 1 ? 2 : 0;
+				key_code = scenario_header.store_ems == 1 ? 1 :
+					scenario_header.store_ramdisk == 1 ? 2 : 0;
 				key_code = (key_code + 1) % 3;
-				screen_store_1_enabled = 0;
-				screen_store_disk_enabled = 0;
+				scenario_header.store_ems = 0;
+				scenario_header.store_ramdisk = 0;
 				switch (key_code) {
 				case 1:
-					screen_store_1_enabled = 1;
+					scenario_header.store_ems = 1;
 					break;
 				case 2:
-					screen_store_disk_enabled = 1;
+					scenario_header.store_ramdisk = 1;
 					break;
 				}
 				draw_configuration_control(12, dialog_top, dialog_left);
@@ -387,12 +380,12 @@ int initial_mode;
 					dialog_right + 1, dialog_bottom + 1);
 				/* Switching to an unnamed disk store prompts for its drive. */
 			case 18:
-				if (selected_hotspot == 18 || (screen_store_disk_enabled == 1 &&
-					aztec_strlen(screen_store_drive) == 0)) {
+				if (selected_hotspot == 18 || (scenario_header.store_ramdisk == 1 &&
+					aztec_strlen(scenario_header.store_drive) == 0)) {
 					flush_keyboard();
-					draw_configuration_text(screen_store_drive,
+					draw_configuration_text(scenario_header.store_drive,
 						dialog_top + 213, dialog_left + 68, 10);
-					input_text_field(screen_store_drive,
+					input_text_field(scenario_header.store_drive,
 						dialog_top + 215, dialog_left + 69,
 						10, 0, 1, 0);
 					draw_configuration_control(13, dialog_top, dialog_left);
@@ -401,33 +394,33 @@ int initial_mode;
 			case 19:
 				adjust_palette_base_setting(0, -1, -99);
 				draw_configuration_control(15, dialog_top, dialog_left);
-				adjust_palette_and_rgb_lookup(palette_base_setting,
-					palette_scale_setting);
+				adjust_palette_and_rgb_lookup(scenario_header.palette[PALETTE_BASE],
+					scenario_header.palette[PALETTE_SCALE]);
 				break;
 			case 20:
 				adjust_palette_base_setting(0, 1, 99);
 				draw_configuration_control(15, dialog_top, dialog_left);
-				adjust_palette_and_rgb_lookup(palette_base_setting,
-					palette_scale_setting);
+				adjust_palette_and_rgb_lookup(scenario_header.palette[PALETTE_BASE],
+					scenario_header.palette[PALETTE_SCALE]);
 				break;
 			case 21:
 				adjust_palette_base_setting(1, -1, -99);
 				draw_configuration_control(16, dialog_top, dialog_left);
-				adjust_palette_and_rgb_lookup(palette_base_setting,
-					palette_scale_setting);
+				adjust_palette_and_rgb_lookup(scenario_header.palette[PALETTE_BASE],
+					scenario_header.palette[PALETTE_SCALE]);
 				break;
 			case 22:
 				adjust_palette_base_setting(1, 1, 99);
 				draw_configuration_control(16, dialog_top, dialog_left);
-				adjust_palette_and_rgb_lookup(palette_base_setting,
-					palette_scale_setting);
+				adjust_palette_and_rgb_lookup(scenario_header.palette[PALETTE_BASE],
+					scenario_header.palette[PALETTE_SCALE]);
 				break;
 			case 23:
 				flash_button(dialog_top + 178, dialog_left + 127, 6, 1, 1);
 				flash_button(dialog_top + 178, dialog_left + 127, 6, 1, 0);
 				dialog_button =
-					sound_device_setting != original_header.sound_device ||
-					video_mode != original_header.music_device ? 1 : 0;
+					scenario_header.sound_device != original_header.sound_device ||
+					scenario_header.music_device != original_header.music_device ? 1 : 0;
 				menu_active = 0;
 				write_header_and_apply_devices();
 				break;
@@ -436,9 +429,9 @@ int initial_mode;
 				flash_button(dialog_top + 230, dialog_left + 127, 6, 1, 0);
 				dialog_button = 0;
 				menu_active = 0;
-				scenario_header_data = original_header;
-				adjust_palette_and_rgb_lookup(palette_base_setting,
-					palette_scale_setting);
+				scenario_header = original_header;
+				adjust_palette_and_rgb_lookup(scenario_header.palette[PALETTE_BASE],
+					scenario_header.palette[PALETTE_SCALE]);
 				break;
 			}
 			if (menu_active != 0 && mouse_active == 0)

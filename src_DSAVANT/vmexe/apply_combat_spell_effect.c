@@ -3,6 +3,8 @@
 #include "structs/pcrec.h"
 #include "structs/randstep.h"
 #include "msg.h"
+#include "structs/loadrec.h"
+extern struct status_pair party_effects[];
 
 extern struct member_rec *battle_groups[];
 extern struct member_ext *battle_group_ext[];
@@ -12,11 +14,6 @@ extern int dest_alt_arg;
 extern int combat_wait_occurred;
 extern int startup_option;
 extern int monster_group_count, current_level;
-extern int detection_spell_bonus, detection_spell_threshold;
-extern int party_status_timer, party_status_offset;
-extern int spell_49_turns, spell_49_strength;
-extern int levitation_turns, spell_46_turns;
-extern int party_buff_turns, party_buff_charge;
 extern int spell_resistance_penetration();
 extern void wait_for_combat_input();
 extern int adjust_spell_value();
@@ -788,34 +785,49 @@ int spell_id, spell_power;
 		}
 		break;
 	case 63:
-		detection_spell_bonus += 50 * spell_power;
-		detection_spell_threshold = adjust_spell_value(
-			5 * spell_power + 70, detection_spell_threshold, 0);
+		party_effects[PARTY_EFFECT_DETECTION].timer +=
+			50 * spell_power;
+		party_effects[PARTY_EFFECT_DETECTION].strength =
+			adjust_spell_value(
+			5 * spell_power + 70,
+				party_effects[PARTY_EFFECT_DETECTION].strength,
+				0);
 		break;
 	case 82:
-		party_status_timer += 35 * spell_power;
-		party_status_offset = adjust_spell_value(
-			(spell_power - 1) / 2 + 1, party_status_offset, 0);
+		party_effects[PARTY_EFFECT_EVADE].timer += 35 * spell_power;
+		party_effects[PARTY_EFFECT_EVADE].strength =
+			adjust_spell_value(
+			(spell_power - 1) / 2 + 1,
+				party_effects[PARTY_EFFECT_EVADE].strength, 0);
 		break;
 	case 49:
-		spell_49_turns += 50 * spell_power;
-		spell_49_strength = adjust_spell_value(
-			(spell_power - 1) / 2 + 1, spell_49_strength, 0);
+		party_effects[PARTY_EFFECT_SPELL_49].timer +=
+			50 * spell_power;
+		party_effects[PARTY_EFFECT_SPELL_49].strength =
+			adjust_spell_value(
+			(spell_power - 1) / 2 + 1,
+				party_effects[PARTY_EFFECT_SPELL_49].strength,
+				0);
 		break;
 	case 37:
-		levitation_turns += 5 * spell_power;
+		party_effects[PARTY_EFFECT_LEVITATION].timer +=
+			5 * spell_power;
 		break;
 	case 46:
-		spell_46_turns += 100 * spell_power;
+		party_effects[PARTY_EFFECT_COMPASS].timer +=
+			100 * spell_power;
 		break;
 	case 84:
 		battle_groups[acting_group]->ward[4] = adjust_spell_value(
 			10 * spell_power,
 			battle_groups[acting_group]->ward[4], 0);
 		if (acting_group == 0) {
-			party_buff_turns += 50 * spell_power;
-			party_buff_charge = adjust_spell_value(
-				10 * spell_power, party_buff_charge, 0);
+			party_effects[PARTY_EFFECT_WARD].timer +=
+				50 * spell_power;
+			party_effects[PARTY_EFFECT_WARD].strength =
+				adjust_spell_value(
+				10 * spell_power,
+					party_effects[PARTY_EFFECT_WARD].strength, 0);
 		}
 		break;
 	}

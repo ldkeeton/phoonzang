@@ -1,10 +1,12 @@
 /* Dispatch the object event attached to each region the party enters. */
 
 #include "structs/maze.h"
+#include "structs/rgnstate.h"
+extern struct saved_region_blocks party_region;
 
 extern struct maze_tables *maze_tables;
 extern int object_search_active, trigger_facing;
-extern int party_region, party_map_piece, party_cell_y, party_cell_x;
+extern int party_map_piece, party_cell_y, party_cell_x;
 extern int region_step_flag, location_changed, game_state;
 
 extern int find_object_at();
@@ -36,14 +38,14 @@ process_maze_object_events()
 	trigger_facing = -1;
 	for (;;) {
 		/* Search from the current region and stop when no object is found. */
-		party_region = find_object_at(party_cell_x, party_cell_y,
-			party_map_piece, party_region);
-		if (party_region == -1)
+		party_region.region = find_object_at(party_cell_x, party_cell_y,
+			party_map_piece, party_region.region);
+		if (party_region.region == -1)
 			break;
 
 		region_step_flag = 1;
 		/* Event types select the action associated with this object. */
-		switch (maze_tables->type[party_region]) {
+		switch (maze_tables->type[party_region.region]) {
 		case 1:
 			run_region_keyed_action();
 			break;
@@ -67,10 +69,10 @@ process_maze_object_events()
 			collect_region_flag_bits();
 			break;
 		case 8:
-			if (maze_tables->key[party_region] > 0) {
+			if (maze_tables->key[party_region.region] > 0) {
 				show_maze_message_sequence(
-					maze_tables->key[party_region], 0);
-			} else if (get_bits(maze_tables->flags[party_region], 11, 1)) {
+					maze_tables->key[party_region.region], 0);
+			} else if (get_bits(maze_tables->flags[party_region.region], 11, 1)) {
 				update_party_status_animation();
 			}
 			break;
@@ -127,6 +129,6 @@ process_maze_object_events()
 		if (game_state != 5)
 			return;
 		if (region_step_flag == 1)
-			party_region++;
+			party_region.region++;
 	}
 }

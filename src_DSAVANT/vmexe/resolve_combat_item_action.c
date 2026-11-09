@@ -5,6 +5,8 @@
 #include "structs/itemrec.h"
 #include "structs/spell.h"
 #include "msg.h"
+#include "structs/loadrec.h"
+extern struct load_header scenario_header;
 
 extern struct member_rec *battle_groups[];
 extern struct member_ext *battle_group_ext[];
@@ -12,7 +14,6 @@ extern struct pc_rec party_records[];
 extern struct spell_table_view spell_table[];
 extern int acting_group, acting_unit, npc_id, e1_event_flag;
 extern int spell_backfired, spell_cast_failed, startup_option;
-extern unsigned char difficulty_option;
 extern char combat_action_suffix_buffer[];
 extern char combat_action_name_buffer[], combat_action_message_buffer[];
 extern int data_record_io(), aztec_strcpy(), copy_combatant_name();
@@ -140,7 +141,7 @@ struct combatant *actor;
 			if (skill_index != -1) {
 				try_raise_member_skill(acting_unit, skill_index, 3);
 				if (party_records[acting_unit].skills[skill_index] < chance_value) {
-					if (difficulty_option != 1 && random_below(36) >
+					if (scenario_header.difficulty != 1 && random_below(36) >
 						party_records[acting_unit].stat[7] + 18)
 						spell_backfired = 1;
 					else
@@ -149,7 +150,7 @@ struct combatant *actor;
 			}
 		} else if (battle_groups[acting_group]->unit[acting_unit].level * 5 - 2 <
 			chance_value) {
-			if (difficulty_option != 2 && random_below(7) == 0)
+			if (scenario_header.difficulty != 2 && random_below(7) == 0)
 				spell_backfired = 1;
 			else
 				spell_cast_failed = 1;

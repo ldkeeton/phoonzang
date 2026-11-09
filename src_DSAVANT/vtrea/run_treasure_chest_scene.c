@@ -1,9 +1,11 @@
 /* Run the treasure chest scene and restore the previous screen. */
 #include "msg.h"
+#include "structs/rgnstate.h"
+extern struct saved_region_blocks party_region;
 
 extern int selected_item_slot, selected_item_record;
 extern int story_music_enabled, story_score_number, story_score_volume;
-extern int party_return_state, party_region, file_param_word;
+extern int party_return_state, file_param_word;
 
 extern int prepare_treasure_scene(), redraw_treasure_caption();
 extern int score_music_enabled(), load_score_files();
@@ -31,6 +33,6 @@ run_treasure_chest_scene()
 			free_loaded_score(1);
 		}
 	}
-	party_region++;
+	party_region.region++;
 	restore_treasure_scene();
 }

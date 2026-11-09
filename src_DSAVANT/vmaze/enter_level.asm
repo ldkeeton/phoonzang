@@ -33,7 +33,7 @@ enter_level:
     push ax                          ; 0x0d0a
     mov ax, word [current_level]     ; 0x0d0b
     shl ax, cl                       ; 0x0d0e
-    add ax, scenario_header_data     ; 0x0d10
+    add ax, scenario_header          ; 0x0d10
     push ax                          ; 0x0d13
     call aztec_movmem                ; 0x0d14
     add sp, byte 6                   ; 0x0d17

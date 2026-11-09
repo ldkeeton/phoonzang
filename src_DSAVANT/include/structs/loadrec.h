@@ -1,29 +1,61 @@
+/* Saved game records: the scenario header and the party position. */
 #ifndef LOADREC_H
 #define LOADREC_H
+/* Slots of party_effects, the spell effects on the whole party; each is
+ * drawn in the status bar while its timer is positive. */
+#define PARTY_EFFECT_EVADE 0       /* strength: bonus to the party's evasion */
+#define PARTY_EFFECT_SPELL_49 1
+#define PARTY_EFFECT_WARD 2        /* strength: the party's ward[4] charge */
+#define PARTY_EFFECT_DETECTION 3
+#define PARTY_EFFECT_COMPASS 4     /* drawn as the party's heading */
+#define PARTY_EFFECT_LEVITATION 5
+
 struct status_pair {
 	int timer; /* +0: positive while drawn */
-	int offset; /* +2 */
+	int strength; /* +2 */
 };
+/* Slots of load_header.paths. */
+#define PATH_DATA 0       /* game data directory */
+#define PATH_SECOND 1     /* second data path, disk layout 5 only */
+#define PATH_SAVE_DIR 2   /* savegame directory */
+#define PATH_SAVE_FILE 3  /* savegame name */
+
+/* Slots of load_header.volumes. */
+#define VOLUME_EFFECTS 0
+#define VOLUME_MONSTER 1
+#define VOLUME_BACKGROUND 2
+#define VOLUME_MUSIC 3
+
+/* Slots of load_header.palette. */
+#define PALETTE_BASE 0    /* brightness */
+#define PALETTE_SCALE 1   /* contrast */
+
+/* SCENARIO.HDR, which is also the first 844 bytes of a saved game: the
+ * persistent region and action flags, then the player's configuration. */
 struct load_header {
-	char region_state[45][16]; /* +0: sixteen bytes per region */
-	char paths[4][20]; /* +0x2d0: game dir, layout 5 path, game dir, savegame name */
-	unsigned char store_one, store_disk; /* +0x320, +0x321: EMS and RAM disk enabled */
-	char store_drive[20]; /* +0x322: RAM disk name */
-	/* +0x336, +0x337: brightness and contrast */
-	unsigned char palette_base, palette_scale;
-	int install_version; /* +0x338 */
-	unsigned char options[4]; /* +0x33a: sound volumes */
-	int sound_port, sound_extra; /* +0x33e, +0x340 */
-	unsigned char sound_device; /* +0x342: digital sound device */
-	unsigned char music_device; /* +0x343 */
-	unsigned char startup; /* +0x344 */
-	unsigned char install; /* +0x345: disk layout */
-	unsigned char option_a; /* +0x346 */
-	unsigned char option_b; /* +0x347: mouse enabled */
-	unsigned char hardware; /* +0x348: graphics mode */
-	unsigned char option_c; /* +0x349: disk layout 5 flag */
-	unsigned char dissolve; /* +0x34a */
-	char pad3; /* +0x34b */
+	char level_flags[32][16];         /* +0x000: sixteen bytes per level */
+	unsigned char action_bitmap[12];  /* +0x200: scenario action bits */
+	unsigned npc_action_bits[96];     /* +0x20c: one word per NPC */
+	int maze_change_count;            /* +0x2cc: six-byte records saved */
+	int floor_item_count;             /* +0x2ce: eight-byte records saved */
+	char paths[4][20];                /* +0x2d0: PATH_* */
+	unsigned char store_ems;          /* +0x320: keep screens in EMS */
+	unsigned char store_ramdisk;      /* +0x321: keep screens on a RAM disk */
+	unsigned char store_drive[20];    /* +0x322: RAM disk name */
+	char palette[2];                  /* +0x336: PALETTE_* */
+	int install_version;              /* +0x338 */
+	unsigned char volumes[4];         /* +0x33a: VOLUME_*, 0-10 */
+	int sound_port, sound_aux;        /* +0x33e, +0x340 */
+	unsigned char sound_device;       /* +0x342: digital sound device */
+	unsigned char music_device;       /* +0x343 */
+	unsigned char combat_delay;       /* +0x344: combat message delay */
+	unsigned char install_mode;       /* +0x345: disk layout */
+	unsigned char difficulty;         /* +0x346 */
+	unsigned char use_mouse;          /* +0x347 */
+	unsigned char graphics_mode;      /* +0x348 */
+	unsigned char has_second_path;    /* +0x349: PATH_SECOND is set */
+	unsigned char no_dissolve;        /* +0x34a */
+	char unused_34b;
 };
 struct load_state {
 	int level; /* +0x00 */

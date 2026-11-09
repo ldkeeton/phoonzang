@@ -2,7 +2,7 @@
    resets the party/maze state and shows the new-game intro screen */
 
 extern int intro_screen_number, copy_protection_result;
-extern char adjacent_object_type[];
+extern int adjacent_object_type[];
 extern int startup_check_stage;
 extern int current_level, party_facing;
 extern int party_status_frame_step, party_status_heading,

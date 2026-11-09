@@ -359,7 +359,7 @@ import_bane_party:
     pop cx                           ; 0x22e4
     mov ax, 0x42                     ; 0x22e5
     push ax                          ; 0x22e8
-    mov ax, bane_section_header      ; 0x22e9
+    mov ax, bane_party_header        ; 0x22e9
     push ax                          ; 0x22ec
     push word [bp - 0xa]             ; 0x22ed
     call aztec_read                  ; 0x22f0
@@ -394,7 +394,7 @@ import_bane_party:
 .back2:
     mov ax, 0x1b0                    ; 0x2339
     push ax                          ; 0x233c
-    mov ax, bane_character_record    ; 0x233d
+    mov ax, bane_character           ; 0x233d
     push ax                          ; 0x2340
     push word [bp - 0xa]             ; 0x2341
     call aztec_read                  ; 0x2344
@@ -443,7 +443,7 @@ import_bane_party:
 .forward26:
     mov bx, word [bp - 0x14]         ; 0x23ad
     mov word [bx + 0x24], ax         ; 0x23b0
-    mov ax, bane_character_record    ; 0x23b3
+    mov ax, bane_character           ; 0x23b3
     push ax                          ; 0x23b6
     push word [bp - 0x14]            ; 0x23b7
     call aztec_strcpy                ; 0x23ba
@@ -1611,7 +1611,7 @@ import_bane_party.forward84:
     mov ax, 1                        ; 0x2f6c
     push ax                          ; 0x2f6f
     push ax                          ; 0x2f70
-    mov ax, scenario_header_data     ; 0x2f71
+    mov ax, scenario_header          ; 0x2f71
     push ax                          ; 0x2f74
     call set_bitmap_bit              ; 0x2f75
     add sp, byte 6                   ; 0x2f78
@@ -1619,7 +1619,7 @@ import_bane_party.forward84:
     push ax                          ; 0x2f7e
     mov ax, 2                        ; 0x2f7f
     push ax                          ; 0x2f82
-    mov ax, scenario_header_data     ; 0x2f83
+    mov ax, scenario_header          ; 0x2f83
     push ax                          ; 0x2f86
     call set_bitmap_bit              ; 0x2f87
     add sp, byte 6                   ; 0x2f8a
@@ -1630,7 +1630,7 @@ import_bane_party.forward84:
     mov ax, word [current_level]     ; 0x2f95
     mov cx, 4                        ; 0x2f98
     shl ax, cl                       ; 0x2f9b
-    add ax, scenario_header_data     ; 0x2f9d
+    add ax, scenario_header          ; 0x2f9d
     push ax                          ; 0x2fa0
     call set_bitmap_bit              ; 0x2fa1
     add sp, byte 6                   ; 0x2fa4
@@ -1641,7 +1641,7 @@ import_bane_party.forward84:
     mov ax, word [current_level]     ; 0x2faf
     mov cx, 4                        ; 0x2fb2
     shl ax, cl                       ; 0x2fb5
-    add ax, scenario_header_data     ; 0x2fb7
+    add ax, scenario_header          ; 0x2fb7
     push ax                          ; 0x2fba
     call set_bitmap_bit              ; 0x2fbb
     add sp, byte 6                   ; 0x2fbe

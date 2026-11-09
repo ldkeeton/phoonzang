@@ -3,10 +3,12 @@
 #include "structs/maze.h"
 #include "structs/mazecell.h"
 #include "msg.h"
+#include "structs/rgnstate.h"
+extern struct saved_region_blocks party_region;
 
 extern struct maze_tables *maze_tables;
 extern struct maze_cells *maze_data;
-extern int party_region, current_level, loaded_sound_id;
+extern int current_level, loaded_sound_id;
 extern int get_bits(), log_maze_change(), set_bitfield();
 extern int ensure_sound_loaded(), redraw_maze_view(), show_message();
 extern int play_sound_effect(), wait_ticks_or_key(), call_show_area();
@@ -23,15 +25,15 @@ change_cell_kind()
 	int new_direction;
 	int sound_id;
 
-	region_flags = maze_tables->flags[party_region];
+	region_flags = maze_tables->flags[party_region.region];
 	cell_x = get_bits(region_flags, 0, 3);
 	cell_y = get_bits(region_flags, 3, 3);
 	map_piece = get_bits(region_flags, 6, 4);
-	sound_id = maze_tables->party_mask[party_region];
+	sound_id = maze_tables->party_mask[party_region.region];
 	/* Target cell index: 64 cells per map piece, 8 per row. */
 	cell_index = (map_piece << 6) + (cell_y << 3) + cell_x;
-	new_kind = maze_tables->key[party_region];
-	new_direction = maze_tables->arg[party_region];
+	new_kind = maze_tables->key[party_region.region];
+	new_direction = maze_tables->arg[party_region.region];
 
 	log_maze_change(current_level, 5, map_piece, cell_x, cell_y,
 		new_kind, new_direction, 0, 0);

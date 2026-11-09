@@ -7,12 +7,14 @@
 #include "structs/slotstat.h"
 #include "structs/location.h"
 #include "structs/arearect.h"
+#include "structs/rgnstate.h"
+extern struct saved_region_blocks party_region;
 
 extern struct maze_tables *maze_tables;
 extern struct pc_rec party_records[];
 extern struct slot_record slot_records[];
 extern struct location_record location_records[];
-extern int party_region, party_map_piece, party_cell_x, party_cell_y;
+extern int party_map_piece, party_cell_x, party_cell_y;
 extern int base_screen_area, base_screen_area_segment;
 extern int party_char_count, party_return_state, party_facing, trigger_facing;
 extern int game_state, maze_redraw_pending, location_changed;
@@ -74,9 +76,10 @@ run_maze_loop()
 	int direction_output;
 	int swimming;
 
-	if (party_region >= 0 &&
-	    (unsigned char)maze_tables->map_first[party_map_piece] > party_region)
-		party_region = maze_tables->map_first[party_map_piece];
+	if (party_region.region >= 0 &&
+	    (unsigned char)maze_tables->map_first[party_map_piece]
+	    	> party_region.region)
+		party_region.region = maze_tables->map_first[party_map_piece];
 	if (party_return_state != 23)
 		mark_connected_maze_cells(party_map_piece, party_cell_x,
 			party_cell_y, 0);
@@ -297,7 +300,7 @@ run_maze_loop()
 			maze_redraw_pending = 1;
 			if (party_facing == trigger_facing) {
 				location_changed = 1;
-				party_region = maze_tables->map_first[party_map_piece];
+				party_region.region = maze_tables->map_first[party_map_piece];
 			}
 			decrement_party_status_timers(1); break;
 		case 3: case 4: case 5:

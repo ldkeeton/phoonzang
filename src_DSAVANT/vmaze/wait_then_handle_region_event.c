@@ -3,13 +3,14 @@
 #include "structs/maze.h"
 #include "structs/pcrec.h"
 #include "structs/rgnstate.h"
+#include "structs/loadrec.h"
+extern struct load_header scenario_header;
 
 extern struct maze_tables *maze_tables;
 extern struct pc_rec party_records[];
 extern struct saved_region_blocks party_region;
 extern int member_roster_index, party_char_count;
 extern int current_level;
-extern unsigned char scenario_header_data[][16];
 
 extern int wait_ticks_or_key();
 extern int get_bits();
@@ -75,7 +76,7 @@ wait_then_handle_region_event()
 	/* Clear the matching party bitmap bit; optionally clear the scenario bit. */
 	set_bitmap_bit(party_region.state[current_level], selected_map, 0);
 	if (get_bits(region_flags, 8, 1) == 1)
-		set_bitmap_bit(scenario_header_data[current_level], selected_map, 0);
+		set_bitmap_bit(scenario_header.level_flags[current_level], selected_map, 0);
 
 	/* Forward the two-bit region marker stored with this event. */
 	mark_region_bits(get_bits(region_flags, 9, 2));

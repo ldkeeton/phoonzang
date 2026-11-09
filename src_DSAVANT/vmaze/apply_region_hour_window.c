@@ -2,12 +2,13 @@
    is in the window. */
 #include "structs/maze.h"
 #include "structs/rgnstate.h"
+#include "structs/loadrec.h"
+extern struct load_header scenario_header;
 
 extern struct maze_tables *maze_tables;
 extern struct saved_region_blocks party_region;
 extern long game_time;
 extern int current_level;
-extern unsigned char scenario_header_data[][16];
 
 extern int get_bits();
 extern int update_region_flags();
@@ -54,7 +55,7 @@ apply_region_hour_window()
 		if (flag_to_clear > 0) {
 			set_bitmap_bit(party_region.state[current_level],
 				flag_to_clear, 0);
-			set_bitmap_bit(scenario_header_data[current_level],
+			set_bitmap_bit(scenario_header.level_flags[current_level],
 				flag_to_clear, 0);
 		}
 		mark_region_bits(mark_bits);

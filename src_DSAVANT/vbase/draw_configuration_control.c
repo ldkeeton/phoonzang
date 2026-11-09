@@ -1,5 +1,7 @@
 /* Draw one configuration-screen control at the supplied origin. */
 #include "msg.h"
+#include "structs/loadrec.h"
+extern struct load_header scenario_header;
 
 #define MSG_SCREEN_STORAGE 2365
 
@@ -8,15 +10,6 @@ extern int draw_inset_two_digit_number(), draw_inset_panel();
 extern int draw_configuration_box_text(), call_set_text_color(),
 	call_set_text_pos();
 extern int draw_number_field();
-extern unsigned char startup_aux_option_b, startup_option_byte;
-extern unsigned char sound_device_setting, volume_settings[];
-extern unsigned char monster_volume, background_volume, video_mode;
-extern unsigned char music_volume, difficulty_option, no_dissolve;
-extern unsigned char screen_store_1_enabled, screen_store_disk_enabled;
-extern unsigned char hardware_mode_setting;
-extern char palette_base_setting, palette_scale_setting;
-extern char selected_game_directory[], selected_game_filename[];
-extern char screen_store_drive[];
 
 draw_configuration_control(control_number, dialog_left, dialog_top)
 int control_number, dialog_left, dialog_top;
@@ -26,25 +19,27 @@ int control_number, dialog_left, dialog_top;
 
 	switch (control_number) {
 	case 0:
-		load_message_string(MSG_KEYBOARD + startup_aux_option_b,
+		load_message_string(MSG_KEYBOARD + scenario_header.use_mouse,
 			message_buffer);
 		draw_button(dialog_left + 92, dialog_top + 25, 8, 1, 1,
 			message_buffer);
 		break;
 	case 1:
-		draw_inset_two_digit_number(startup_option_byte,
+		draw_inset_two_digit_number(scenario_header.combat_delay,
 			dialog_left + 57, dialog_top + 38);
 		break;
 	case 2:
-		draw_configuration_box_text(selected_game_directory, dialog_left + 39,
+		draw_configuration_box_text(scenario_header.paths[PATH_SAVE_DIR],
+			dialog_left + 39,
 			dialog_top + 56, 18);
 		break;
 	case 3:
-		draw_configuration_box_text(selected_game_filename, dialog_left + 39,
+		draw_configuration_box_text(scenario_header.paths[PATH_SAVE_FILE],
+			dialog_left + 39,
 			dialog_top + 68, 18);
 		break;
 	case 4:
-		load_message_string(MSG_PC_SPEAKER + sound_device_setting,
+		load_message_string(MSG_PC_SPEAKER + scenario_header.sound_device,
 			message_buffer);
 		draw_configuration_box_text(message_buffer, dialog_left + 63,
 			dialog_top + 86, 14);
@@ -56,46 +51,48 @@ int control_number, dialog_left, dialog_top;
 			dialog_left + 119, dialog_top + 116);
 		call_set_text_color(180, 195);
 		call_set_text_pos(dialog_left + 107, dialog_top + 99);
-		draw_number_field(volume_settings[0], 2, 0);
+		draw_number_field(scenario_header.volumes[0], 2, 0);
 		call_set_text_pos(dialog_left + 107, dialog_top + 105);
-		draw_number_field(monster_volume, 2, 0);
+		draw_number_field(scenario_header.volumes[VOLUME_MONSTER], 2, 0);
 		call_set_text_pos(dialog_left + 107, dialog_top + 111);
-		draw_number_field(background_volume, 2, 0);
+		draw_number_field(scenario_header.volumes[VOLUME_BACKGROUND], 2, 0);
 		break;
 	case 8:
-		load_message_string(MSG_NONE_2374 + video_mode, message_buffer);
+		load_message_string(MSG_NONE_2374 + scenario_header.music_device,
+			message_buffer);
 		draw_configuration_box_text(message_buffer, dialog_left + 63,
 			dialog_top + 122, 14);
 		break;
 	case 9:
-		draw_inset_two_digit_number(music_volume,
+		draw_inset_two_digit_number(scenario_header.volumes[VOLUME_MUSIC],
 			dialog_left + 105, dialog_top + 134);
 		break;
 	case 10:
-		load_message_string(MSG_NORMAL + difficulty_option,
+		load_message_string(MSG_NORMAL + scenario_header.difficulty,
 			message_buffer);
 		draw_button(dialog_left + 230, dialog_top + 25, 6, 1, 1,
 			message_buffer);
 		break;
 	case 11:
-		load_message_string(MSG_ON_2363 + no_dissolve, message_buffer);
+		load_message_string(MSG_ON_2363 + scenario_header.no_dissolve,
+			message_buffer);
 		draw_button(dialog_left + 194, dialog_top + 37, 3, 1, 1,
 			message_buffer);
 		break;
 	case 12:
 		/* Choose the first available screen storage destination. */
-		storage_mode = screen_store_1_enabled == 1 ? 1 :
-			screen_store_disk_enabled == 1 ? 2 : 0;
+		storage_mode = scenario_header.store_ems == 1 ? 1 :
+			scenario_header.store_ramdisk == 1 ? 2 : 0;
 		load_message_string(MSG_SCREEN_STORAGE + storage_mode, message_buffer);
 		draw_configuration_box_text(message_buffer, dialog_left + 213,
 			dialog_top + 56, 10);
 		break;
 	case 13:
-		draw_configuration_box_text(screen_store_drive, dialog_left + 213,
+		draw_configuration_box_text(scenario_header.store_drive, dialog_left + 213,
 			dialog_top + 68, 10);
 		break;
 	case 14:
-		load_message_string(MSG_RAMDISK + hardware_mode_setting,
+		load_message_string(MSG_RAMDISK + scenario_header.graphics_mode,
 			message_buffer);
 		draw_configuration_box_text(message_buffer, dialog_left + 213,
 			dialog_top + 86, 10);
@@ -106,9 +103,9 @@ int control_number, dialog_left, dialog_top;
 			dialog_left + 251, dialog_top + 110);
 		call_set_text_color(180, 195);
 		call_set_text_pos(dialog_left + 233, dialog_top + 99);
-		draw_number_field(palette_base_setting, 3, 0);
+		draw_number_field(scenario_header.palette[PALETTE_BASE], 3, 0);
 		call_set_text_pos(dialog_left + 233, dialog_top + 105);
-		draw_number_field(palette_scale_setting, 3, 0);
+		draw_number_field(scenario_header.palette[PALETTE_SCALE], 3, 0);
 		break;
 	}
 }

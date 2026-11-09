@@ -3,9 +3,11 @@
 #include "structs/maze.h"
 #include "structs/mazecell.h"
 #include "structs/mazechng.h"
+#include "structs/loadrec.h"
+extern struct load_header scenario_header;
 
 extern struct maze_change *maze_change_log;
-extern int maze_change_count, current_level;
+extern int current_level;
 extern struct maze_tables *maze_tables;
 extern struct maze_cells *maze_data;
 extern int find_map_piece();
@@ -25,7 +27,7 @@ replay_maze_changes()
 	int cell_index;
 
 	record = maze_change_log;
-	for (record_index = 0; record_index < maze_change_count;
+	for (record_index = 0; record_index < scenario_header.maze_change_count;
 	    record_index++, record++) {
 		/* Only records for the current level apply. */
 		if (record->level == current_level) {

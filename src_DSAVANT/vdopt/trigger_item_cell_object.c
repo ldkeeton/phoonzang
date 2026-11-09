@@ -2,12 +2,13 @@
 
 #include "structs/maze.h"
 #include "structs/pcrec.h"
+#include "structs/rgnstate.h"
+extern struct saved_region_blocks party_region;
 
 extern struct maze_tables *maze_tables;
 extern struct pc_rec party_records[];
 extern int party_map_piece, party_cell_y, party_cell_x, party_facing;
-extern int party_region, current_level, loaded_sound_id, pending_event,
-	pending_event_hi;
+extern int current_level, loaded_sound_id, pending_event, pending_event_hi;
 
 /* scan the objects in the party's cell for one keyed to the item in
    party_records[pc].item_slots[page][slot]; returns 1 if a type 0x13 or type 7
@@ -44,7 +45,7 @@ int pc, page, slot;
 					loaded_sound_id = -1;
 				}
 			}
-			party_region = obj + 1;
+			party_region.region = obj + 1;
 			return 1;
 		}
 		/* type 7: 2-bit field at bit 2 * party_facing is 1 or 2 */

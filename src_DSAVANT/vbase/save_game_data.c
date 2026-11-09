@@ -1,21 +1,25 @@
 /* Choose a save file and write the current game state and party. */
+#include "structs/flooritm.h"
+#include "structs/location.h"
+#include "structs/mazechng.h"
+#include "structs/pathedge.h"
+#include "structs/questmap.h"
+#include "structs/slotevt.h"
+#include "structs/slotstat.h"
 #include "msg.h"
 #include "structs/loadrec.h"
 #include "structs/pcrec.h"
 #include "structs/rgnstate.h"
 #include "structs/filehdr.h"
+extern struct load_header scenario_header;
 extern struct disk_header disk_header;
-extern struct load_header scenario_header_data;
 extern struct load_state loaded_game_state;
-extern struct status_pair party_status_timer[];
+extern struct status_pair party_effects[];
 extern struct pc_rec party_records[], loaded_party_member;
-extern unsigned char install_mode;
-extern char game_load_path[], selected_game_filename[],
-	selected_game_directory[];
-extern char game_data_drive[], selected_game_drive[],
-	data_path_prefixes[4][20];
-extern int maze_change_count, floor_item_count;
-extern char *maze_change_log, *floor_items;
+extern char game_load_path[];
+extern char game_data_drive[], selected_game_drive[];
+extern struct maze_change *maze_change_log;
+extern struct floor_item *floor_items;
 extern char far (*runtime_buffer_4k_a)[128], (*runtime_buffer_4k_b)[128];
 extern char game_block_a[], game_block_b[];
 extern int party_world_x, party_world_y, party_cell_x, party_cell_y;
@@ -26,15 +30,19 @@ extern int previous_party_world_x, previous_party_world_y,
 extern int saved_cell_x, saved_cell_y, saved_map_piece, saved_level,
 	saved_position_extra;
 extern long game_time, game_time_aux_a, game_time_aux_b;
-extern char path_edges[], faction_attitudes[],
-	location_records[],
-	slot_event_logs[];
-extern char slot_records[], quest_maps[], code_characters[];
+extern char faction_attitudes[];
+extern struct slot_event slot_event_logs[][5];
+extern struct path_edge path_edges[];
+extern struct location_record location_records[];
+extern char code_characters[];
+extern struct slot_record slot_records[];
+extern struct quest_map quest_maps[];
 extern int party_char_count;
 extern long aztec_lseek();
 
-extern char ending_save_filename[], current_map_block_a[],
-	explored_cell_bitmap[];
+extern char ending_save_filename[];
+extern int explored_cell_bitmap[];
+extern int current_map_block_a[];
 extern struct saved_region_blocks party_region;
 
 save_game_data(save_mode)
@@ -48,7 +56,8 @@ int save_mode;
 	disk_number = disk_header.number;
 	/* Installation mode five uses disk numbers two higher. */
 	disk_number =
-		install_mode == 5 && disk_number > 0 ? disk_number + 2 : disk_number;
+		scenario_header.install_mode == 5
+			&& disk_number > 0 ? disk_number + 2 : disk_number;
 	call_wait_sound(0);
 	load_message_string(MSG_DISK_ERROR, error_text);
 	load_message_string(MSG_SAVING, saving_text);
@@ -57,17 +66,19 @@ int save_mode;
 		aztec_strcpy(filename, ending_save_filename);
 		dialog_message = 1425; /* ending-save dialog */
 	} else {
-		aztec_strcpy(filename, selected_game_filename);
+		aztec_strcpy(filename, scenario_header.paths[PATH_SAVE_FILE]);
 		dialog_message = 1410; /* ordinary-save dialog */
 	}
-	if (choose_game_file(dialog_message, 0, 1, 1, selected_game_directory,
+	if (choose_game_file(dialog_message, 0, 1, 1,
+		scenario_header.paths[PATH_SAVE_DIR],
 						 filename) == 2)
 		return -1;
 	if (save_mode == 0)
-		aztec_strcpy(selected_game_filename, filename);
-	copy_through_char(game_data_drive, data_path_prefixes, ':');
-	copy_through_char(selected_game_drive, selected_game_directory, ':');
-	aztec_strcpy(game_load_path, selected_game_directory);
+		aztec_strcpy(scenario_header.paths[PATH_SAVE_FILE], filename);
+	copy_through_char(game_data_drive, scenario_header.paths[PATH_DATA], ':');
+	copy_through_char(selected_game_drive, scenario_header.paths[PATH_SAVE_DIR],
+		':');
+	aztec_strcpy(game_load_path, scenario_header.paths[PATH_SAVE_DIR]);
 	/* Add a directory separator only when a nonempty path needs it. */
 	if (aztec_strlen(game_load_path) > 0) {
 		index = aztec_strlen(game_load_path) - 1;
@@ -77,15 +88,15 @@ int save_mode;
 		}
 	}
 	aztec_strcat(game_load_path, filename);
-	if (install_mode == 1 &&
+	if (scenario_header.install_mode == 1 &&
 		!aztec_strcmp(game_data_drive, selected_game_drive)) {
 	} else if (aztec_strlen(selected_game_drive) > 0) {
 		if (!aztec_strcmp(game_data_drive, selected_game_drive) ||
-			install_mode == 5)
+			scenario_header.install_mode == 5)
 			swap_needed = 1;
 		prompt_disk_swap(selected_game_drive, -1, swap_needed, 0);
 		keep_disk = swap_needed ? 0 : 1;
-	} else if (install_mode > 1) {
+	} else if (scenario_header.install_mode > 1) {
 		swap_needed = 1;
 		prompt_disk_swap(game_data_drive, -1, swap_needed, 0);
 		keep_disk = swap_needed ? 0 : 1;
@@ -106,17 +117,17 @@ int save_mode;
 		app_memmove((char far *)explored_cell_bitmap,
 					runtime_buffer_4k_b[current_level], 128);
 		aztec_movmem(party_region.state[current_level],
-					 scenario_header_data.region_state[current_level], 16);
+					 scenario_header.level_flags[current_level], 16);
 	}
 	aztec_lseek(fd, 0L, 0);
-	if ((write_count = aztec_write(fd, &scenario_header_data, 844)) <= 0) {
+	if ((write_count = aztec_write(fd, &scenario_header, 844)) <= 0) {
 		show_load_disk_error(error_text);
 		aztec_close(fd);
 		if (swap_needed)
 			prompt_disk_swap(game_data_drive, disk_number, keep_disk, 1);
 		return -1;
 	}
-	if ((byte_count = 6 * maze_change_count) > 0) {
+	if ((byte_count = 6 * scenario_header.maze_change_count) > 0) {
 		/* variable record block */
 		if ((write_count = aztec_write(fd, maze_change_log, byte_count)) <=
 			0) {
@@ -127,7 +138,7 @@ int save_mode;
 			return -1;
 		}
 	}
-	if ((byte_count = floor_item_count << 3) > 0) {
+	if ((byte_count = scenario_header.floor_item_count << 3) > 0) {
 		/* variable record block */
 		if ((write_count =
 				 aztec_write(fd, floor_items, byte_count)) <= 0) {
@@ -178,9 +189,9 @@ int save_mode;
 	loaded_game_state.saved_extra = saved_position_extra;
 	/* Save all six timer/offset pairs. */
 	for (index = 0; index < 6; index++) {
-		loaded_game_state.status[index].timer = party_status_timer[index].timer;
-		loaded_game_state.status[index].offset =
-			party_status_timer[index].offset;
+		loaded_game_state.status[index].timer = party_effects[index].timer;
+		loaded_game_state.status[index].strength =
+			party_effects[index].strength;
 	}
 	loaded_game_state.time = game_time;
 	loaded_game_state.time_a = game_time_aux_a;

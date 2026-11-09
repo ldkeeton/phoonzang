@@ -1,6 +1,7 @@
 /* Rename a saved character record after checking that its name is
    available. */
-extern char party_records[];
+extern struct pc_rec party_records[];
+#include "structs/pcrec.h"
 #include "msg.h"
 extern int display_pc_file_record_preview();
 extern int wait_for_hotspot_timeout();
