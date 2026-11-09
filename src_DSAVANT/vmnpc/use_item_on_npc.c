@@ -9,7 +9,7 @@ extern int member_item_slot_indices[];
 extern int dialog_selection;
 extern int npc_spell_target;
 extern struct pc_rec party_records[];
-extern struct spell_table_view spell_table[];
+extern struct spell_table_view spell_table;
 extern int build_member_item_list();
 extern int redraw_area_set();
 extern int wait_for_npc_screen_animation();
@@ -58,7 +58,7 @@ int member_index;
 		if (item_data.spell_code != 0) {
 			spell_power = item_data.spell_code / 256;
 			spell_index = item_data.spell_code % 256;
-			if (spell_table[0].spell[spell_index].targeting.bytes.targeted == 1) {
+			if (spell_table.spell[spell_index].targeted == 1) {
 				npc_spell_target = pick_party_member();
 				if (npc_spell_target == -1)
 					spell_index = -1;

@@ -2,7 +2,7 @@
 #include "structs/pcrec.h"
 #include "structs/spell.h"
 
-extern struct spell_table_view spell_table[];
+extern struct spell_table_view spell_table;
 extern int rebalance_item_stack();
 extern int create_item_slot_from_record();
 
@@ -12,10 +12,10 @@ struct pc_item_slot *left, *right, *result;
 	int recipe;
 
 	for (recipe = 0; recipe < 15; recipe++) {
-		if ((spell_table->spell[212 + recipe].cost_effect.word == left->item_id
-			&& spell_table->spell[212 + recipe].targeting.word == right->item_id)
-			|| (spell_table->spell[212 + recipe].targeting.word == left->item_id
-			&& spell_table->spell[212 + recipe].cost_effect.word == right->item_id)) {
+		if ((spell_table.recipe[recipe].left == left->item_id
+			&& spell_table.recipe[recipe].right == right->item_id)
+			|| (spell_table.recipe[recipe].right == left->item_id
+			&& spell_table.recipe[recipe].left == right->item_id)) {
 			if (left->flags & 32) {
 				rebalance_item_stack(left, right);
 				return 1;
@@ -25,7 +25,7 @@ struct pc_item_slot *left, *right, *result;
 				return 1;
 			}
 			create_item_slot_from_record(
-				spell_table->spell[213 + recipe].realm_level.word,
+				spell_table.recipe[recipe].result,
 				left, right, result);
 			return 1;
 		}

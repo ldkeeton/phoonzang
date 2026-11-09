@@ -6,9 +6,10 @@ extern struct pc_rec party_records[];
 extern int dialog_selection, dialog_button, show_area_bottom;
 extern int mouse_active, hotspot_rects[], hotspot_hit;
 extern int trap_glyph_pressed[], trap_row_index;
-extern unsigned char trap_glyph_ids[], trap_row_codes[];
+extern int trap_glyph_ids[];
+extern unsigned char trap_row_codes[];
 extern int trap_row_types[];
-extern char list_entry_text[];
+extern char list_entry_text[][20];
 extern int save_screen_area(), restore_saved_screen(), draw_dialog_box();
 extern int load_message_string(), call_set_text_color(), call_set_text_pos();
 extern int draw_text_glyphs(), draw_button(), draw_inset_panel();
@@ -42,7 +43,7 @@ int pc, button_message, show_inspect, show_cancel, trap_row_count,
 
 	for (i = 0; i < trap_row_count; i++)
 		load_message_string(MSG_NO_TRAP + trap_row_types[i],
-			list_entry_text + i * 20);
+			list_entry_text[i]);
 	show_area_bottom = 141;
 	code_length = 0;
 	if (trap_row_index != -1) {
@@ -85,7 +86,7 @@ int pc, button_message, show_inspect, show_cancel, trap_row_count,
 			box_y + 17 + (i / 4) * 32, trap_glyph_pressed[i]);
 		call_set_text_pos(box_x + 95 + (i % 4) * 26,
 			box_y + 7 + (i / 4) * 32);
-		draw_font_glyph(trap_glyph_ids[i * 2], 1);
+		draw_font_glyph((unsigned char)trap_glyph_ids[i], 1);
 	}
 	draw_inset_panel(box_x + 93, box_y + 24, box_x + 97, box_y + 30);
 	selected_row = 0;
@@ -278,7 +279,7 @@ int pc, button_message, show_inspect, show_cancel, trap_row_count,
 				call_set_text_color(1, 194);
 				call_set_text_pos(box_x + 95 + (i % 4) * 26,
 					box_y + 7 + (i / 4) * 32);
-				draw_font_glyph(trap_glyph_ids[i * 2], 1);
+				draw_font_glyph((unsigned char)trap_glyph_ids[i], 1);
 				call_show_area(box_x + 93 + (i % 4) * 26,
 					box_y + 5 + (i / 4) * 32,
 					box_x + 107 + (i % 4) * 26,
@@ -303,7 +304,7 @@ int pc, button_message, show_inspect, show_cancel, trap_row_count,
 					call_set_text_color(26, 194);
 					call_set_text_pos(box_x + 95 + (i % 4) * 26,
 						box_y + 7 + (i / 4) * 32);
-					draw_font_glyph(trap_glyph_ids[i * 2], 1);
+					draw_font_glyph((unsigned char)trap_glyph_ids[i], 1);
 					call_show_area(box_x + 93 + (i % 4) * 26,
 						box_y + 5 + (i / 4) * 32,
 						box_x + 107 + (i % 4) * 26,

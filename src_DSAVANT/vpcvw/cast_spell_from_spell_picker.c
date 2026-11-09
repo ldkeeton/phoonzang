@@ -4,7 +4,7 @@
 #include "structs/spell.h"
 #include "msg.h"
 
-extern struct spell_table_view spell_table[];
+extern struct spell_table_view spell_table;
 extern struct pc_rec party_records[];
 extern int dialog_selection;
 extern int selected_spell_target_member;
@@ -19,17 +19,17 @@ int pc, mode;
 		mode ? MSG_CAST : MSG_SPELLS_2033, mode, mode) == 0) {
 		power = dialog_selection / 256;
 		spell = dialog_selection % 256;
-		if (spell_table->spell[spell].targeting.bytes.targeted == 1) {
+		if (spell_table.spell[spell].targeted == 1) {
 			selected_spell_target_member = select_party_member_from_roster();
 			if (selected_spell_target_member == -1)
 				spell = -1;
 		}
 		if (spell >= 0) {
 			party_records[pc].realm_points[
-				spell_table->spell[spell].realm_level.bytes.realm][0] -=
-				spell_table->spell[spell].cost_effect.bytes.cost * power;
+				spell_table.spell[spell].realm][0] -=
+				spell_table.spell[spell].cost * power;
 			party_records[pc].stamina[0] -= random_below(power) +
-				spell_table->spell[spell].realm_level.bytes.level + power;
+				spell_table.spell[spell].level + power;
 			if (party_records[pc].stamina[0] < 0) {
 				party_records[pc].stamina[0] = 0;
 				party_records[pc].status[2] = random_below(6) + 6;

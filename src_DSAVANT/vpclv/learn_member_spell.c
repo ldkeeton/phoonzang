@@ -4,7 +4,7 @@
 #include "structs/spell.h"
 #include "msg.h"
 extern struct pc_rec party_records[];
-extern struct spell_table_view spell_table[];
+extern struct spell_table_view spell_table;
 extern int dialog_selection;
 extern int aztec_movmem(), aztec_setmem(), test_bit(), set_bitmap_bit();
 extern int load_message_string(), str_subst_char(), display_centered_message();
@@ -33,8 +33,8 @@ int member, school;
 	count = 0;
 	spell = 0;
 	do {
-	if (spell_table->spell[spell].targeting.bytes.aux & mask &&
-		spell_table->spell[spell].realm_level.bytes.level <= max_level
+	if (spell_table.spell[spell].aux & mask &&
+		spell_table.spell[spell].level <= max_level
 		&& !test_bit(known_spells, spell)) {
 	set_bitmap_bit(party_records[member].spell_bitmap, spell, 1);
 	++count;
@@ -56,14 +56,14 @@ int member, school;
 	selected = dialog_selection % 256;
 	set_bitmap_bit(party_records[member].spell_bitmap, selected, 1);
 	spell = random_below(party_records[member].skills[skill] / 20)
-	+ spell_table->spell[selected].realm_level.bytes.level *
+	+ spell_table.spell[selected].level *
 		(party_records[member].stat[2] / 6)
 		+ 1;
-	count = spell_table->spell[selected].realm_level.bytes.realm;
+	count = spell_table.spell[selected].realm;
 	if (party_records[member].realm_points[count][1] + spell
-	< spell_table->spell[selected].cost_effect.bytes.cost)
+	< spell_table.spell[selected].cost)
 	spell =
-	spell_table->spell[selected].cost_effect.bytes.cost
+	spell_table.spell[selected].cost
 		- party_records[member].realm_points[count][1];
 	party_records[member].realm_points[count][1] += spell;
 	party_records[member].realm_points[count][0] += spell;

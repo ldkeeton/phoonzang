@@ -5,17 +5,10 @@
 #include "structs/filehdr.h"
 extern struct pc_file_header pc_file_header;
 
-/* One pick-list row ("NAME      M-FIG"); the rows reuse list_entry_text. */
-struct pc_file_list_row {
-	char name[10];
-	char gender_letter;
-	char separator;
-	char profession[3];
-	char terminator[5];
-};
-
 extern int dialog_selection;
-extern struct pc_file_list_row list_entry_text[];
+/* Each 20-byte row reads "NAME      M-FIG": the name padded to ten,
+   gender letter, '-', three profession letters. */
+extern char list_entry_text[][20];
 extern int transfer_pc_file_record(), aztec_strcpy(), aztec_strlen();
 extern int load_message_string(), pick_list_entry_dialog();
 
@@ -36,26 +29,26 @@ int prompt_message;
 		/* Only roster entries marked available are included. */
 		if (pc_file_header.availability[record_index] == 1) {
 			transfer_pc_file_record(&pc_file_record, record_index, 0);
-			aztec_strcpy(list_entry_text[option_count].name,
+			aztec_strcpy(list_entry_text[option_count],
 				pc_file_record.name);
 			name_length = aztec_strlen(
-				list_entry_text[option_count].name);
+				list_entry_text[option_count]);
 			/* Pad the ten-character display name before the metadata fields. */
 			while (name_length < 10) {
-				list_entry_text[option_count].name[name_length] = ' ';
+				list_entry_text[option_count][name_length] = ' ';
 				name_length++;
 			}
 			load_message_string(MSG_MALE + pc_file_record.gender,
 				message_text);
-			list_entry_text[option_count].gender_letter = message_text[0];
-			list_entry_text[option_count].separator = '-';
+			list_entry_text[option_count][10] = message_text[0];
+			list_entry_text[option_count][11] = '-';
 			load_message_string(MSG_CLASS_BASE + pc_file_record.profession,
 				message_text);
 			/* The list row displays the first three profession-name characters. */
 			for (name_length = 0; name_length < 3; name_length++)
-				list_entry_text[option_count].profession[name_length] =
+				list_entry_text[option_count][12 + name_length] =
 					message_text[name_length];
-			list_entry_text[option_count].terminator[0] = 0;
+			list_entry_text[option_count][15] = 0;
 			selected_record_indices[option_count] = record_index;
 			option_count++;
 		}

@@ -11,7 +11,7 @@ extern struct load_header scenario_header;
 extern struct member_rec *battle_groups[];
 extern struct member_ext *battle_group_ext[];
 extern struct pc_rec party_records[];
-extern struct spell_table_view spell_table[];
+extern struct spell_table_view spell_table;
 extern int acting_group, acting_unit, npc_id, e1_event_flag;
 extern int spell_backfired, spell_cast_failed, startup_option;
 extern char combat_action_suffix_buffer[];
@@ -74,7 +74,7 @@ struct combatant *actor;
 				else if (spell_power == 0) {
 					if (party_records[acting_unit].skills[13] > 0) {
 						spell_power = party_records[acting_unit].skills[13] / 15 + 2 -
-							spell_table->spell[spell_id].realm_level.bytes.level;
+							spell_table.spell[spell_id].level;
 						try_raise_member_skill(acting_unit, 13, 1);
 						if (spell_power < 0)
 							spell_power = 0;
@@ -135,7 +135,7 @@ struct combatant *actor;
 		spell_backfired = 0;
 		spell_cast_failed = 0;
 		chance_value = random_below(
-			spell_table->spell[spell_id].realm_level.bytes.level * 10 +
+			spell_table.spell[spell_id].level * 10 +
 				spell_power * 5) - 10;
 		if (acting_group == 0) {
 			if (skill_index != -1) {
@@ -156,12 +156,12 @@ struct combatant *actor;
 				spell_cast_failed = 1;
 		}
 		if (spell_backfired == 1 &&
-			!(spell_table->spell[spell_id].cost_effect.bytes.f3 & 2)) {
+			!(spell_table.spell[spell_id].fail_flags & 2)) {
 			spell_backfired = 0;
 			spell_cast_failed = 1;
 		}
 		if (spell_cast_failed == 1 &&
-			!(spell_table->spell[spell_id].cost_effect.bytes.f3 & 1))
+			!(spell_table.spell[spell_id].fail_flags & 1))
 			spell_cast_failed = 0;
 		if (spell_cast_failed == 1) {
 			wait_for_combat_input(4);

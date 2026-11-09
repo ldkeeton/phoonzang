@@ -7,7 +7,7 @@
 extern struct load_header scenario_header;
 
 extern struct pc_rec party_records[];
-extern struct spell_table_view spell_table[];
+extern struct spell_table_view spell_table;
 extern struct saved_region_blocks party_region;
 extern unsigned current_level;
 extern int item_page;
@@ -56,7 +56,7 @@ struct pc_item_slot *slot;
 			if (test_bit(item.profession_mask,
 				party_records[pc].profession)) {
 				spell_number = item.spell_code % 256;
-				if (2 * spell_table->spell[spell_number].realm_level.bytes.level >
+				if (2 * spell_table.spell[spell_number].level >
 					party_records[pc].level) {
 					load_message_string(MSG_YOU_ARE_NOT_ADVANCED_EN_721, message);
 					display_centered_message(message, 1);
@@ -112,7 +112,7 @@ struct pc_item_slot *slot;
 	} else if (item.spell_code != 0) {
 		spell_power = item.spell_code / 256;
 		spell_number = item.spell_code % 256;
-		if (spell_table->spell[spell_number].targeting.bytes.targeted == 1) {
+		if (spell_table.spell[spell_number].targeted == 1) {
 			selected_spell_target_member = select_party_member_from_roster();
 			if (selected_spell_target_member == -1)
 				return;

@@ -1,7 +1,7 @@
 /* Draw and animate a spell panel in the treasure scene. */
 #include "structs/spell.h"
 
-extern struct spell_table_view spell_table[];
+extern struct spell_table_view spell_table;
 extern long far *tick_counter_ptr;
 extern int animation_index, show_area_bottom;
 extern long call_cache_area();
@@ -20,7 +20,7 @@ int panel_mode, spell_index;
 	int x_percent[12];
 	int glyph_step[53];
 	int clear_words[7];
-	int spell_word0, spell_word2;
+	int start_x, start_y;
 	int x_offset, y_offset, panel_gap, panel_gap2;
 	int glyph_slot, spell_glyph;
 	int progress_divisor, frame_total, cycle_length, progress_percent;
@@ -32,8 +32,7 @@ int panel_mode, spell_index;
 	long cache_pointer;
 
 	glyph_slot = 7;
-	switch ((unsigned char)spell_table->spell[102
-		+ spell_index].targeting.bytes.aux) {
+	switch (spell_table.animation[spell_index].motion) {
 	case 0:
 		reverse_motion = 1;
 		progress_divisor = 1;
@@ -49,13 +48,12 @@ int panel_mode, spell_index;
 	}
 	frame_total = 6;
 	cycle_length = 12 / progress_divisor;
-	spell_glyph = spell_table->spell[102 + spell_index].targeting.bytes.targeted;
+	spell_glyph = spell_table.animation[spell_index].glyph;
 	animate = 1;
 	last_position = frame_total - 1;
 	cache_offset = 0;
 	progress_step = -1;
-	switch ((unsigned char)spell_table->spell[102
-		+ spell_index].targeting.bytes.aux) {
+	switch (spell_table.animation[spell_index].motion) {
 	case 1:
 		spell_index++;
 		spell_glyph++;
@@ -71,8 +69,8 @@ int panel_mode, spell_index;
 		panel_row = 1;
 		reverse_flag = reverse_motion ? 0 : 1;
 	}
-	spell_word0 = spell_table->spell[102 + spell_index].realm_level.word;
-	spell_word2 = spell_table->spell[102 + spell_index].cost_effect.word;
+	start_x = spell_table.animation[spell_index].x;
+	start_y = spell_table.animation[spell_index].y;
 	clear_words[0] = 0;
 	clear_words[1] = 0;
 	clear_words[2] = 0;
@@ -112,7 +110,7 @@ int panel_mode, spell_index;
 	x_percent[4]=76; x_percent[5]=70; x_percent[6]=64; x_percent[7]=58;
 	x_percent[8]=52; x_percent[9]=46; x_percent[10]=40; x_percent[11]=34;
 	progress_start = animate ?
-		(spell_table->spell[102 + spell_index].targeting.bytes.aux == 2 ? 3 : 5)
+		(spell_table.animation[spell_index].motion == 2 ? 3 : 5)
 			: 0;
 	progress_percent = progress_start;
 	cache_pointer = call_cache_area(72, 33, 247, 143, 2, 0);
@@ -123,10 +121,10 @@ int panel_mode, spell_index;
 	frame_position = last_position;
 	for (; frame_number < frame_total; frame_number++) {
 		saved_ticks = *tick_counter_ptr;
-		x_offset = x_percent[frame_position] * spell_word0 / 100;
+		x_offset = x_percent[frame_position] * start_x / 100;
 		if (reverse_flag)
 			x_offset = 0 - x_offset - (glyph_step[spell_glyph - 8] << 3);
-		y_offset = spell_word2 * x_percent[6] / 100;
+		y_offset = start_y * x_percent[6] / 100;
 		glyph[0] = spell_glyph;
 		glyph[1] = 0;
 		call_restore_screen(cache_pointer, 0, 0);

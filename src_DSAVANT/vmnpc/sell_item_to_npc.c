@@ -10,7 +10,7 @@ extern struct pc_rec party_records[];
 extern char npc_choice_message_buffer[80];
 extern char npc_effect_message_buffer[80];
 extern char npc_substitution_text[80];
-extern char list_row_name[];
+extern char list_row_name[][22];
 extern unsigned char item_type_counted[];
 extern int data_record_io();
 extern int is_quest_map_item();
@@ -86,7 +86,7 @@ int row;
 	format_long_decimal(item_data.price, npc_effect_message_buffer);
 	str_subst_char(npc_choice_message_buffer, npc_effect_message_buffer, '$');
 	load_message_string(MSG_YOUR, npc_effect_message_buffer);
-	aztec_strcpy(npc_substitution_text, list_row_name + row * 22);
+	aztec_strcpy(npc_substitution_text, list_row_name[row]);
 	replace_slashes_with_spaces(npc_substitution_text);
 	str_subst_char(npc_effect_message_buffer, npc_substitution_text, '$');
 

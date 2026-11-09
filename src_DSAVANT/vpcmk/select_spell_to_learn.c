@@ -1,9 +1,10 @@
 /* Prepare and select one new spell for a party member. */
 #include "structs/pcrec.h"
+#include "structs/spell.h"
 #include "msg.h"
 
 extern struct pc_rec party_records[];
-extern char spell_table[];
+extern struct spell_table_view spell_table;
 extern int dialog_selection;
 extern int test_bit();
 extern int set_bitmap_bit();
@@ -52,8 +53,8 @@ int member_index, spell_type;
 	required_level = 1;
 	learned_count = 0;
 	for (spell_index = 0; spell_index < 102; spell_index++) {
-		if ((realm_mask & (unsigned char)spell_table[spell_index * 6 + 5]) != 0
-			&& (unsigned char)spell_table[spell_index * 6 + 1] <= required_level
+		if ((realm_mask & spell_table.spell[spell_index].aux) != 0
+			&& spell_table.spell[spell_index].level <= required_level
 			&& !test_bit(spell_bits, spell_index)) {
 			set_bitmap_bit(party_records[member_index].spell_bitmap,
 				spell_index, 1);
@@ -80,12 +81,12 @@ int member_index, spell_type;
 		selection_slot = dialog_selection % 256;
 		set_bitmap_bit(party_records[member_index].spell_bitmap,
 			selection_slot, 1);
-		spell_index = (unsigned char)spell_table[selection_slot * 6 + 1]
+		spell_index = spell_table.spell[selection_slot].level
 			* ((unsigned char)party_records[member_index].stat[2] / 6) + 1;
-		learned_count = (unsigned char)spell_table[selection_slot * 6];
+		learned_count = spell_table.spell[selection_slot].realm;
 		if (party_records[member_index].realm_points[learned_count][1]
-			+ spell_index < (unsigned char)spell_table[selection_slot * 6 + 2])
-			spell_index = (unsigned char)spell_table[selection_slot * 6 + 2]
+			+ spell_index < spell_table.spell[selection_slot].cost)
+			spell_index = spell_table.spell[selection_slot].cost
 				- party_records[member_index].realm_points[learned_count][1];
 		party_records[member_index].realm_points[learned_count][1] +=
 			spell_index;

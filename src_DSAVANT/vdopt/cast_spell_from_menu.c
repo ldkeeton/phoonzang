@@ -6,7 +6,7 @@
 #include "structs/spell.h"
 #include "msg.h"
 
-extern struct spell_table_view spell_table[];
+extern struct spell_table_view spell_table;
 extern struct pc_rec party_records[];
 extern int party_redraw_interval, spell_target, dialog_selection,
 	pending_event;
@@ -21,17 +21,17 @@ int pc;
 	if (pick_spell_dialog(pc, MSG_CAST, 1, 1) == 0) {
 		power = dialog_selection / 256;	/* (power << 8) + spell + 0x100 */
 		spell = dialog_selection % 256;
-		if (spell_table->spell[spell].targeting.bytes.targeted == 1) {
+		if (spell_table.spell[spell].targeted == 1) {
 			if ((spell_target = pick_party_member()) == -1)	/* -1: Esc */
 				;
 		}
 		if (spell >= 0) {
 			party_records[pc].realm_points[
-				spell_table->spell[spell].realm_level.bytes.realm][0] -=
-				spell_table->spell[spell].cost_effect.bytes.cost * power;
+				spell_table.spell[spell].realm][0] -=
+				spell_table.spell[spell].cost * power;
 			apply_spell_effect(pc, spell, power, spell_target);
 			party_records[pc].stamina[0] -=
-				random_below(power) + spell_table->spell[spell].realm_level.bytes.level
+				random_below(power) + spell_table.spell[spell].level
 					+ power;
 			if (party_records[pc].stamina[0] < 0) {
 				party_records[pc].stamina[0] = 0;

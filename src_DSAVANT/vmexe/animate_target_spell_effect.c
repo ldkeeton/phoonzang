@@ -4,7 +4,7 @@
 #include "structs/member.h"
 #include "structs/spell.h"
 extern struct member_rec *battle_groups[];
-extern struct spell_table_view spell_table[];
+extern struct spell_table_view spell_table;
 extern long far *tick_counter_ptr;
 extern int combat_effect_sound, pending_effect_sound;
 extern int cell_effect_frame[3][3], effect_frame_phase;
@@ -30,7 +30,7 @@ int target_unit, show_impact;
 		return;
 	run_combat_screen_animation();
 	render_state[13] = 7;
-	switch (spell_table->spell[102 + animation_id].targeting.bytes.aux) {
+	switch (spell_table.animation[animation_id].motion) {
 	case 0:
 		spell_type = 1;
 		render_state[11] = 1;
@@ -47,7 +47,7 @@ int target_unit, show_impact;
 	render_state[10] = target_lane > 0 ? 12 : 6;
 	render_state[9] = 12 / render_state[11];
 	render_state[12] =
-		spell_table->spell[102 + animation_id].targeting.bytes.targeted;
+		spell_table.animation[animation_id].glyph;
 	if (caster_group == 0 || caster_group == 6) {
 		side = 0; frame_offset = 0; frame_limit = render_state[10];
 		step = 1; animation_state = 0;
@@ -57,7 +57,7 @@ int target_unit, show_impact;
 		side = 1; frame_offset = render_state[10] - 1;
 		frame_limit = 0; step = -1;
 		animation_state = -1;
-		switch (spell_table->spell[102 + animation_id].targeting.bytes.aux) {
+		switch (spell_table.animation[animation_id].motion) {
 		case 1:
 			animation_id++;
 			render_state[12]++;
@@ -75,8 +75,8 @@ int target_unit, show_impact;
 		}
 	}
 	play_sound_effect(combat_effect_sound);
-	effect_data[1] = spell_table->spell[102 + animation_id].realm_level.word;
-	effect_data[0] = spell_table->spell[102 + animation_id].cost_effect.word;
+	effect_data[1] = spell_table.animation[animation_id].x;
+	effect_data[0] = spell_table.animation[animation_id].y;
 	effect_data[2] = 0; effect_data[3] = 0; effect_data[4] = 0;
 	effect_data[5] =
 		0; effect_data[6] = 0; effect_data[7] = 0; effect_data[8] = 0;
@@ -181,7 +181,7 @@ int target_unit, show_impact;
 	effect_data[72] = 40;
 	effect_data[73] = 34;
 	render_state[8] = render_state[7] = side == 0 ? 0 :
-		(spell_table->spell[102 + animation_id].targeting.bytes.aux == 2 ? 3 :
+		(spell_table.animation[animation_id].motion == 2 ? 3 :
 		(target_lane > 0 ? 11 : 5));
 	if (call_get_free_space(2, 0) > 20000L) {
 		screen_cache = call_cache_area(72, 33, 247, 143, 2, 0);

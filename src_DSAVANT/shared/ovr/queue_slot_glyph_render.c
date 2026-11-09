@@ -1,5 +1,6 @@
 /* Queue one picture slot's glyph position and rendering parameters. */
 #include "structs/viewgeom.h"
+#include "structs/viewx.h"
 #include "structs/slotrec.h"
 #include "structs/qshape.h"
 
@@ -28,7 +29,7 @@ extern struct word_slot_value queued_slot_parameter_5[];
 extern struct byte_slot_value queued_slot_depth[];
 extern struct byte_slot_value queued_slot_glyph_column[];
 extern struct byte_slot_value queued_slot_render_pass[];
-extern int view_column_x[][5];
+extern struct view_x_grid maze_cell_x_offset;
 extern struct view_geometry view_geometry;
 extern void play_sound_effect();
 
@@ -59,7 +60,7 @@ int render_pass, position_mode;
 				(100 - scale) % 100;
 			if (position_mode == 1) {
 				queued_slot_x[render_queue_count].x =
-					x - ((view_column_x[0][0] - glyph_x) * scale - 50) / 100;
+					x - ((maze_cell_x_offset.marker_x[0][2] - glyph_x) * scale - 50) / 100;
 				if (glyph_column != 0) {
 					queued_slot_x[render_queue_count].x -=
 						(160 - slot_recs[slot_index].glyph_x[glyph_entry][glyph_column]) * 2

@@ -2,7 +2,7 @@
 #include "structs/pcrec.h"
 #include "structs/spell.h"
 extern struct pc_rec party_records[];
-extern struct spell_table_view spell_table[];
+extern struct spell_table_view spell_table;
 extern int test_bit(), random_below();
 
 /* Increase the qualifying spell school and each known realm's point
@@ -42,7 +42,7 @@ int member;
 	known=0;
 	if (party_records[member].realm_points[realm][1] > 0) {
 	for (stat1=0; stat1<102; stat1++) {
-		if (spell_table->spell[stat1].realm_level.bytes.realm == realm &&
+		if (spell_table.spell[stat1].realm == realm &&
 			test_bit(party_records[member].spell_bitmap, stat1) == 1)
 		known++;
 	}

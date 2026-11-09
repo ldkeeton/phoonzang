@@ -8,7 +8,7 @@
 
 extern int chest_trap_type, party_char_count;
 extern char chest_trap_name[];
-extern struct spell_table_view spell_table[];
+extern struct spell_table_view spell_table;
 extern struct pc_rec party_records[];
 extern unsigned char trap_row_codes[], member_trap_clues[];
 extern int trap_row_listed[], trap_glyph_pressed[];
@@ -48,9 +48,9 @@ struct chest_record *chest;
 	glyph_count = 0;
 	aztec_setmem(glyph_used, 32, 0);
 	for (i = 0; i < 8; i++) {
-		if (spell_table->trap_glyphs[chest_trap_type][i]
+		if (spell_table.trap_glyphs[chest_trap_type][i]
 			!= 255) {
-			glyph_used[spell_table->trap_glyphs[chest_trap_type]
+			glyph_used[spell_table.trap_glyphs[chest_trap_type]
 				[i]] = 1;
 			glyph_count++;
 		}
@@ -58,24 +58,24 @@ struct chest_record *chest;
 
 	for (pass = 0; pass < 3; pass++) {
 		first_trap = pass == 0 ?
-			spell_table->trap_first_candidate[chest_trap_type] : 1;
+			spell_table.trap_first_candidate[chest_trap_type] : 1;
 		for (i = first_trap; i < 18; i++) {
 			if (!trap_row_listed[i]) {
 				if (pass == 2 || test_bit(chest->trap_bits, i)) {
 					new_glyphs[i] = 0;
 					for (k = 0; k < 8; k++) {
-						if (spell_table->trap_glyphs[i][k] != 255 &&
-							!glyph_used[spell_table->trap_glyphs[i]
+						if (spell_table.trap_glyphs[i][k] != 255 &&
+							!glyph_used[spell_table.trap_glyphs[i]
 								[k]])
 							new_glyphs[i]++;
 					}
 					if (new_glyphs[i] + glyph_count <= 8) {
 						trap_row_listed[i] = 1;
 						for (k = 0; k < 8; k++) {
-							if (spell_table->trap_glyphs[i][k] != 255 &&
-								!glyph_used[spell_table->trap_glyphs[i]
+							if (spell_table.trap_glyphs[i][k] != 255 &&
+								!glyph_used[spell_table.trap_glyphs[i]
 									[k]]) {
-								glyph_used[spell_table->trap_glyphs[i]
+								glyph_used[spell_table.trap_glyphs[i]
 									[k]] = 1;
 								glyph_count++;
 							}
@@ -111,9 +111,9 @@ struct chest_record *chest;
 		if (trap_row_listed[i]) {
 			aztec_strcpy(trap_row_codes + row_count * 10, trap_code_template);
 			for (j = 0; j < 8; j++) {
-				if (spell_table->trap_glyphs[i][j] != 255) {
+				if (spell_table.trap_glyphs[i][j] != 255) {
 					for (k = 0; k < 8; k++) {
-						if (spell_table->trap_glyphs[i][j]
+						if (spell_table.trap_glyphs[i][j]
 							== trap_glyph_ids[k])
 							trap_row_codes[row_count * 10 + k] = j + 49;
 					}

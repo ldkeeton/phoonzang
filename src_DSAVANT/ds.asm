@@ -772,7 +772,7 @@ ln_ds_zero                                 ; 0x10160
 
 %include "ds/data/party_slot_layout.asm"   ; 0x10304
 
-%include "ds/data/view_tables.asm"         ; 0x1050e
+%include "ds/data/view_tables.asm"         ; 0x1053c
 
 %include "ds/data/cell_overlay_code.asm"   ; 0x10716
 

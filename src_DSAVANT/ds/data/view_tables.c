@@ -1,13 +1,7 @@
-/* Maze view tables: column x and depth y positions (then the wall
-   rectangle rows), the per-depth picture scale, and the per-cell overlay
-   y offsets. */
+/* Maze view tables: depth y positions and the wall rectangle rows, the
+   per-depth picture scale, and the per-cell overlay y offsets. */
 #include "structs/viewgeom.h"
 
-int view_column_x[23] = {
-	160, 294, 0, 0, 74, 160, 246, 0,
-	0, 104, 160, 216, 0, 0, 124, 160,
-	196, 0, 0, 132, 160, 188, 0,
-};
 struct view_geometry view_geometry = {
 	{129, 105, 90, 81, 86},
 	{

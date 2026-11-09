@@ -5,7 +5,7 @@
 #include "structs/spell.h"
 
 extern struct pc_rec party_records[];
-extern struct spell_table_view spell_table[];
+extern struct spell_table_view spell_table;
 extern int member_screen_cache_high, member_screen_cache;
 extern long member_detail_cache;
 extern int banner_offset, banner_plain_flag, banner_animation_frame;
@@ -147,7 +147,7 @@ int member_index;
 
 	/* Select at most six distinct status icons, in display priority order. */
 	icon_count = 0;
-	icon = spell_table->state_icon[party_records[member_index].state];
+	icon = spell_table.state_icon[party_records[member_index].state];
 	icon = icon == -1 && party_records[member_index].status[2] > 0
 		? 0 : icon;
 	icon = icon <= 0 && party_records[member_index].status[3] > 0
@@ -167,12 +167,12 @@ int member_index;
 	icon = -1;
 	for (stat_index = 0; stat_index < 7; stat_index++) {
 		percent = status_order[stat_index];	/* reused as the status index */
-		if (icon_count < 6 && spell_table->status_icon[percent] != icon
+		if (icon_count < 6 && spell_table.status_icon[percent] != icon
 		    && party_records[member_index].status[percent] > 0) {
 			call_set_text_pos(81 + icon_count / 3 * 23,
 				45 + icon_count % 3 * 11);
-			draw_font_glyph((unsigned char)spell_table->status_icon[percent], 6);
-			icon = spell_table->status_icon[percent];
+			draw_font_glyph((unsigned char)spell_table.status_icon[percent], 6);
+			icon = spell_table.status_icon[percent];
 			icon_count++;
 		}
 	}

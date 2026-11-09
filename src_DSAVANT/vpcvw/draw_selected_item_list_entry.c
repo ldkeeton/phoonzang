@@ -1,6 +1,6 @@
 /* Draw a selected item entry, its quantity when counted, and its marker. */
 extern int selected_item_list_index;
-extern unsigned char selected_item_list_glyph;
+extern int selected_item_list_glyph;
 extern int selected_item_list_color;
 extern char selected_item_list_text[];
 extern int selected_item_type;
@@ -24,7 +24,7 @@ draw_selected_item_list_entry()
 	text_y = selected_item_list_index % 5 * 2 * 6 +
 		selected_item_list_index % 5 * 2 + 116;
 	call_set_text_pos(text_x, text_y);
-	draw_font_glyph(selected_item_list_glyph, 4);
+	draw_font_glyph((unsigned char)selected_item_list_glyph, 4);
 	draw_split_two_line_text(selected_item_list_text, text_x + 14,
 		text_y, selected_item_list_color);
 	if (item_type_counted[selected_item_type] == 1) {

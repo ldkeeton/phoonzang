@@ -4,9 +4,8 @@
 
 extern int dialog_selection, dialog_button;
 extern int space_key_hit, hotspot_hit, hotspot_rects[];
-extern char list_entry_text[];
+extern char list_entry_text[][20];
 extern char dialog_screen_temp_file[];
-extern char filename_edit_buffer[];
 
 choose_game_file(dialog_message, first_action_enabled, second_action_enabled,
 		cancel_enabled, directory_buffer, filename_buffer)
@@ -42,7 +41,7 @@ char *directory_buffer, *filename_buffer;
 	call_set_text_pos(((17 - aztec_strlen(message)) * 6 + 2) / 2 +
 		box_x0 + 93, box_y0 + 6);
 	draw_text_glyphs(message, 0);
-	aztec_strcpy(list_entry_text, directory_buffer);
+	aztec_strcpy(list_entry_text[0], directory_buffer);
 	/* Show the two 17-column text rows, separated by 24 pixels. */
 	draw_text_list(box_x0 + 93, box_y0 + 15, 17, 1, 0, -1, 1);
 	/* D/F select the text rows; Enter and Escape map to lower buttons. */
@@ -54,7 +53,7 @@ char *directory_buffer, *filename_buffer;
 	call_set_text_pos(((17 - aztec_strlen(message)) * 6 + 2) / 2 +
 		box_x0 + 93, box_y0 + 30);
 	draw_text_glyphs(message, 0);
-	aztec_strcpy(filename_edit_buffer, filename_buffer);
+	aztec_strcpy(list_entry_text[1], filename_buffer);
 	draw_text_list(box_x0 + 93, box_y0 + 39, 17, 1, 1, -1, 1);
 	set_hotspot(1, box_x0 + 93, box_y0 + 39, box_x0 + 197,
 		box_y0 + 45, 'F', 0);
@@ -87,9 +86,9 @@ char *directory_buffer, *filename_buffer;
 					17, 1, 0, 0, 1);
 				call_show_area(box_x0 + 93, box_y0 + 15,
 					box_x0 + 197, box_y0 + 22);
-				input_text_field(list_entry_text,
+				input_text_field(list_entry_text[0],
 					box_x0 + 95, box_y0 + 16, 16, 0, 1, 0);
-				aztec_strcpy(directory_buffer, list_entry_text);
+				aztec_strcpy(directory_buffer, list_entry_text[0]);
 				draw_text_list(box_x0 + 93, box_y0 + 15,
 					17, 1, 0, -1, 1);
 				call_show_area(box_x0 + 93, box_y0 + 15,
@@ -102,9 +101,9 @@ char *directory_buffer, *filename_buffer;
 					17, 1, 1, 1, 1);
 				call_show_area(box_x0 + 93, box_y0 + 39,
 					box_x0 + 197, box_y0 + 46);
-				input_text_field(filename_edit_buffer,
+				input_text_field(list_entry_text[1],
 					box_x0 + 95, box_y0 + 40, 16, 0, 1, 0);
-				aztec_strcpy(filename_buffer, filename_edit_buffer);
+				aztec_strcpy(filename_buffer, list_entry_text[1]);
 				draw_text_list(box_x0 + 93, box_y0 + 39,
 					17, 1, 1, -1, 1);
 				call_show_area(box_x0 + 93, box_y0 + 39,

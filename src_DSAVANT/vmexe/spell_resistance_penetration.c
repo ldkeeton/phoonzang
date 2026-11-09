@@ -3,11 +3,11 @@
    resistance_floor. */
 #include "structs/spell.h"
 
-extern struct spell_table_view spell_table[];
+extern struct spell_table_view spell_table;
 
 spell_resistance_penetration(spell_id, spell_power)
 int spell_id, spell_power;
 {
-	return 3 * spell_table->spell[spell_id].realm_level.bytes.level
+	return 3 * spell_table.spell[spell_id].level
 		+ 3 * spell_power - 6;
 }

@@ -25,7 +25,7 @@ extern unsigned char bane_header_buffer[];
 extern int bane_import_buffer;
 extern struct bane_party_header bane_party_header;
 extern struct bane_character bane_character;
-extern struct spell_table_view spell_table[];
+extern struct spell_table_view spell_table;
 
 extern int call_wait_sound(), load_message_string(), choose_game_file();
 extern int copy_through_char(), aztec_strcpy(), aztec_strcat(), aztec_strlen();
@@ -252,9 +252,9 @@ import_bane_party()
 			if (test_bit(bane_character.spell_bits, record_index)) {
 				selector_result = map_bane_party_selector(record_index);
 				if (selector_result >= 0
-					&& spell_table->spell[selector_result].realm_level.bytes.level < 4) {
+					&& spell_table.spell[selector_result].level < 4) {
 					if (random_below(6)
-						>= spell_table->spell[selector_result].realm_level.bytes.level)
+						>= spell_table.spell[selector_result].level)
 						set_bitmap_bit(record->spell_bitmap,
 							selector_result, 1);
 				}

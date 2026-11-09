@@ -1,5 +1,6 @@
 /* Screen layout of the party slots. */
 #include "structs/arearect.h"
+#include "structs/viewx.h"
 
 int party_slot_x[12] = {
 	201, 184, 215, 256, 296, 291, 20, 0,
@@ -22,8 +23,8 @@ int party_slot_glyphs[60] = {
 		-1, -1,
 	-1, -1, -1, -1,
 };
-int region_view_x_offsets[10] = {
-	51, 42, 33, 60, 69, 64, 42, 27, 0, 0,
+int region_view_x_offsets[2][5] = {
+	{51, 42, 33, 60, 69}, {64, 42, 27, 0, 0},
 };
 /* [5][5]: x origin of a glyph shape per depth and column. */
 int shape_column_x[25] = {
@@ -52,7 +53,22 @@ struct area_rectangle boundary_box_bounds[5][5] = {
 	{{72, 56, 111, 77}, {112, 56, 143, 77}, {144, 56, 175, 77},
 		{176, 56, 207, 77}, {208, 56, 247, 77}},
 };
-int maze_cell_x_offset[32] = {
-	0, -112, 0, 112, 0, 0, -72, 0, 72, 0, -96, -48, 0, 48, 96, -64,
-	-32, 0, 32, 64, -48, -24, 0, 24, 48, 0, -20, -35, -45, -50, 0, 26,
+/* x offsets per maze view depth and column: cell_x for the cell
+   pictures, marker_x for the markers (centre 160 at column 2). */
+struct view_x_grid maze_cell_x_offset = {
+	{
+		{0, -112, 0, 112, 0},
+		{0, -72, 0, 72, 0},
+		{-96, -48, 0, 48, 96},
+		{-64, -32, 0, 32, 64},
+		{-48, -24, 0, 24, 48},
+		{0, -20, -35, -45, -50},
+	},
+	{
+		{0, 26, 160, 294, 0},
+		{0, 74, 160, 246, 0},
+		{0, 104, 160, 216, 0},
+		{0, 124, 160, 196, 0},
+		{0, 132, 160, 188, 0},
+	},
 };

@@ -5,7 +5,7 @@
 extern struct member_rec *battle_groups[];
 extern struct member_ext *battle_group_ext[];
 extern struct member_rec *ally_battle_group;
-extern struct spell_table_view spell_table[];
+extern struct spell_table_view spell_table;
 extern int monster_group_count;
 extern int member_is_active();
 extern int random_below();
@@ -115,7 +115,7 @@ int group_index, target_group;
 				else
 					retry += 15;
 			} while (spell_id == -1);
-			if (spell_table->spell[spell_id].targeting.bytes.targeted == 1
+			if (spell_table.spell[spell_id].targeted == 1
 				|| spell_id == 88 ||
 			    spell_id == 19 || spell_id == 66) {
 				if (group_index == 6) {
@@ -129,7 +129,7 @@ int group_index, target_group;
 				}
 			}
 			target_limit =
-				unit->level - spell_table->spell[spell_id].realm_level.bytes.level + 1;
+				unit->level - spell_table.spell[spell_id].level + 1;
 			target_limit = target_limit < 1 ? 1 : (target_limit > 6 ? 6 : target_limit);
 			while (random_below(unit->level) + 1 < target_limit)
 				target_limit--;

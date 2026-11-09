@@ -9,7 +9,7 @@ extern struct load_header scenario_header;
 extern struct member_rec *battle_groups[];
 extern struct member_ext *battle_group_ext[];
 extern struct pc_rec party_records[];
-extern struct spell_table_view spell_table[];
+extern struct spell_table_view spell_table;
 extern int realm_point_text_colors[6][2];
 extern int acting_group, acting_unit, party_char_count;
 extern int spell_backfired, startup_option;
@@ -49,7 +49,7 @@ struct combatant *caster;
 		combat_action_message_buffer, combat_action_suffix_buffer,
 		acting_group == 0 ? 1 : 67, 67,
 		realm_point_text_colors[
-			spell_table->spell[spell_id].realm_level.bytes.realm][0]);
+			spell_table.spell[spell_id].realm][0]);
 	spell_backfired = 0;
 	spell_cast_failed = 0;
 	if (random_below(battle_groups[acting_group]->ward[5] + caster->level + 1) <
@@ -62,11 +62,11 @@ struct combatant *caster;
 			party_records[acting_unit].profession == 13) {
 		success_chance = 90 +
 				party_records[acting_unit].skills[29] / 3 -
-				spell_table->spell[spell_id].realm_level.bytes.level * spell_power;
+				spell_table.spell[spell_id].level * spell_power;
 		} else {
 			success_chance = 90 +
 				party_records[acting_unit].skills[14] / 3 -
-				spell_table->spell[spell_id].realm_level.bytes.level * spell_power;
+				spell_table.spell[spell_id].level * spell_power;
 			try_raise_member_skill(acting_unit, 14, 2);
 		}
 		if (random_below(100) > success_chance) {
@@ -81,7 +81,7 @@ struct combatant *caster;
 	} else {
 		success_chance = 88 +
 			battle_groups[acting_group]->unit[acting_unit].level * 3 -
-			spell_table->spell[spell_id].realm_level.bytes.level * spell_power;
+			spell_table.spell[spell_id].level * spell_power;
 		if (random_below(100) > success_chance) {
 			if (scenario_header.difficulty != 2 && random_below(7) == 0) {
 				spell_cast_failed = 0;
@@ -103,12 +103,12 @@ struct combatant *caster;
 		can_be_silenced = 0;
 
 	if (spell_backfired == 1 &&
-		!(spell_table->spell[spell_id].cost_effect.bytes.f3 & 2)) {
+		!(spell_table.spell[spell_id].fail_flags & 2)) {
 		spell_backfired = 0;
 		spell_cast_failed = 1;
 	}
 	if (spell_cast_failed == 1 &&
-		!(spell_table->spell[spell_id].cost_effect.bytes.f3 & 1))
+		!(spell_table.spell[spell_id].fail_flags & 1))
 		spell_cast_failed = 0;
 
 	if (can_be_silenced == 1 && caster->status[0] > 0) {
@@ -132,8 +132,8 @@ struct combatant *caster;
 
 	if (acting_group == 0)
 	party_records[acting_unit].realm_points[
-		spell_table->spell[spell_id].realm_level.bytes.realm][0] -=
-			spell_table->spell[spell_id].cost_effect.bytes.cost * spell_power;
+		spell_table.spell[spell_id].realm][0] -=
+			spell_table.spell[spell_id].cost * spell_power;
 	return random_below(spell_power) +
-		spell_table->spell[spell_id].realm_level.bytes.level + spell_power;
+		spell_table.spell[spell_id].level + spell_power;
 }

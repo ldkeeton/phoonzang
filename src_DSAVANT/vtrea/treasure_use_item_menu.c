@@ -5,7 +5,7 @@
 #include "msg.h"
 
 extern struct pc_rec party_records[];
-extern struct spell_table_view spell_table[];
+extern struct spell_table_view spell_table;
 extern unsigned char item_type_counted[];
 extern int list_row_count[], list_row_glyph[], list_row_marked[];
 extern char list_row_name[];
@@ -72,7 +72,7 @@ int member;
 	if (item_data.spell_code != 0) {
 	encoded_position[30] = item_data.spell_code / 256;
 	encoded_position[31] = item_data.spell_code % 256;
-	if (spell_table->spell[encoded_position[31]].targeting.bytes.targeted == 1) {
+	if (spell_table.spell[encoded_position[31]].targeted == 1) {
 	cast_spell_target = pick_party_member();
 	if (cast_spell_target == -1) encoded_position[31] = -1;
 	}

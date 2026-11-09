@@ -2,7 +2,7 @@
 #include "structs/pcrec.h"
 
 extern struct pc_rec party_records[];
-extern unsigned char member_icon[];
+extern int member_icon[];
 extern int call_set_text_pos(), draw_font_glyph(), call_fill_area();
 extern int aztec_strlen(), call_set_text_color(), draw_text_glyphs();
 extern int draw_power_bar(), call_show_area();
@@ -23,7 +23,7 @@ int clear_name;
 	column = 4 + 50 * (member_index % 3);
 	row = 112 + 39 * (member_index / 3);
 	call_set_text_pos(column, row);
-	draw_font_glyph(member_icon[member_index * 2], 5);
+	draw_font_glyph((unsigned char)member_icon[member_index], 5);
 	if (clear_name) {
 		call_fill_area(column + 4, row + 32,
 			column + 6 * aztec_strlen(party_records[member_index].name) + 2,
