@@ -2,7 +2,7 @@
 handle_npc_dialog_choice:
     mov ax, 0xffac                   ; 0x9d30
     call aztec_csav                  ; 0x9d33
-    mov ax, word [npc_dialog_choice_index] ; 0x9d36
+    mov ax, word [npc_dialog]        ; 0x9d36
     mov word [bp - 2], ax            ; 0x9d39
     mov cx, 0x14                     ; 0x9d3c
     imul cx                          ; 0x9d3f
@@ -202,7 +202,7 @@ handle_npc_dialog_choice.forward20:
     lea ax, word [bp - 0x54]         ; 0x9f25
     push ax                          ; 0x9f28
     push word [npc_dialog_choice_auxiliary] ; 0x9f29
-    push word [npc_dialog_choice_index] ; 0x9f2d
+    push word [npc_dialog]           ; 0x9f2d
     call copy_npc_choice_text        ; 0x9f31
     add sp, byte 6                   ; 0x9f34
     lea ax, word [bp - 0x54]         ; 0x9f37

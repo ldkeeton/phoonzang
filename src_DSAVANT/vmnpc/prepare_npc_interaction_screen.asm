@@ -171,7 +171,7 @@ prepare_npc_interaction_screen:
     mov ax, 0                        ; 0x7273
     push ax                          ; 0x7276
     push word [npc_record_index]     ; 0x7277
-    mov ax, npc_record_buffer        ; 0x727b
+    mov ax, npc_record               ; 0x727b
     push ax                          ; 0x727e
     mov ax, 5                        ; 0x727f
     push ax                          ; 0x7282

@@ -7,15 +7,14 @@
 #include "structs/rgnstate.h"
 #include "structs/maze.h"
 #include "msg.h"
+extern struct npc_record npc_record;
 
 extern struct pc_rec party_records[];
 extern struct slot_record slot_records[];
-extern int npc_action_record_lookup[];
 extern int npc_record_index, npc_action_state;
 extern int npc_message_ready, npc_dialog_departure_flag;
 extern int game_state, party_return_state;
 extern int party_char_count;
-extern char npc_slot_index;
 extern int current_level, previous_level;
 extern int previous_party_cell_x, previous_party_cell_y;
 extern int previous_party_map_piece, previous_party_world_x;
@@ -29,12 +28,9 @@ extern unsigned char picture_slot_number[];
 extern int cell_slot_ref[3][3];
 extern int npc_cell_effect_frame[3][3];
 extern char npc_choice_message_buffer[], npc_effect_message_buffer[];
-extern long npc_gold;
 extern char npc_action_bitmap_copy[];
 extern int action_bitmap[];
 extern char faction_attitudes[];
-extern unsigned char current_faction_index;
-extern char npc_attack_encounter_id;
 extern int data_record_io();
 extern int start_npc_attack(), begin_npc_message_display();
 extern int display_npc_message_sequence(), end_npc_message_display();
@@ -64,7 +60,7 @@ int action_index;
 	int unused_word, result, src_col, src_row;
 	int special_scene;
 
-	data_record_index = npc_action_record_lookup[action_index];
+	data_record_index = npc_record.action_record_lookup[action_index];
 	data_record_io(6, entries, data_record_index, 0);
 	i = 0;
 	while (i < 8) {
@@ -83,7 +79,7 @@ int action_index;
 			break;
 		case 2:
 			if (value > 0)
-				npc_attack_encounter_id = value;
+				npc_record.attack_encounter_id = value;
 			start_npc_attack(1);
 			return 1;
 		case 3:
@@ -172,7 +168,7 @@ int action_index;
 					page = result / 256;
 					slot = result % 256;
 					if (is_quest_map_item(value))
-						give_quest_map(npc_slot_index, 21, value - 400);
+						give_quest_map(npc_record.slot_index, 21, value - 400);
 					clear_item_slot(member_index, page, slot);
 				}
 			}
@@ -181,9 +177,9 @@ int action_index;
 		case 11:
 			amount = (long)value * (long)parameter;
 			party_records[member_index].gold += amount;
-			npc_gold -= amount;
-			if (npc_gold < 0)
-				npc_gold = 0;
+			npc_record.gold -= amount;
+			if (npc_record.gold < 0)
+				npc_record.gold = 0;
 			break;
 		case 12:
 			amount = (long)value * 10L;
@@ -204,7 +200,7 @@ int action_index;
 				}
 			}
 			party_records[member_index].gold -= amount;
-			npc_gold += amount;
+			npc_record.gold += amount;
 			break;
 		case 13:
 			for (slot = 0; slot < 10; slot++) {
@@ -313,8 +309,8 @@ int action_index;
 			else
 				result = random_below(result);
 			slot = parameter - 100;
-			faction_attitudes[current_faction_index] =
-				clamp_between(faction_attitudes[current_faction_index] + result,
+			faction_attitudes[npc_record.faction_index] =
+				clamp_between(faction_attitudes[npc_record.faction_index] + result,
 					slot, 100);
 			break;
 		case 32:
@@ -352,9 +348,10 @@ int action_index;
 			play_sound_cue(value);
 			break;
 		case 37:
-			if (npc_slot_index != -1)
+			if (npc_record.slot_index != -1)
 				for (result = 0; result < 11; result++)
-					if (test_bit(slot_records[npc_slot_index].held_maps, result))
+					if (test_bit(slot_records[npc_record.slot_index].held_maps,
+						result))
 						npc_give_item_to_party_member(member_index, result + 400, parameter);
 			break;
 		case 38:
@@ -372,7 +369,7 @@ int action_index;
 			party_return_state = 18;
 			return 1;
 		case 41:
-			if (faction_attitudes[current_faction_index] < value &&
+			if (faction_attitudes[npc_record.faction_index] < value &&
 				run_npc_action_record(member_index, parameter) == 1)
 				return 1;
 			break;
@@ -388,7 +385,7 @@ int action_index;
 					init_item_slot(cell_col, value,
 						&party_records[cell_col].item_slots[page][slot], -1, 1);
 					if (is_quest_map_item(value))
-						give_quest_map(21, npc_slot_index, value - 400);
+						give_quest_map(21, npc_record.slot_index, value - 400);
 				}
 			}
 			break;
@@ -406,7 +403,7 @@ int action_index;
 			select_npc_event_message(value, parameter, 0);
 			break;
 		case 46:
-			npc_action_record_lookup[parameter] = value;
+			npc_record.action_record_lookup[parameter] = value;
 			break;
 		case 47:
 			i = value - 1;

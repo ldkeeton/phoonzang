@@ -1,7 +1,7 @@
 /* Picks a random phrase from a slash-separated NPC phrase message. */
-extern int npc_phrase_msg_id;
-extern int npc_dialog_choice_auxiliary;
-extern int npc_dialog_choice_index;
+#include "structs/npc.h"
+extern struct npc_dialog_state npc_dialog;
+extern struct npc_record npc_record;
 extern int load_message_string();
 extern int strpos();
 extern int random_below();
@@ -24,7 +24,7 @@ int randomize;
 	int first_segment_length;
 	int maximum_segment;
 
-	load_message_string(npc_phrase_msg_id, message);
+	load_message_string(npc_record.phrase_msg_id, message);
 	first_segment_length = (unsigned char)message[0];
 	maximum_segment = (unsigned char)message[1] - 1;
 	segment_count = 0;
@@ -54,7 +54,7 @@ int randomize;
 	aztec_strcpy(message, destination);
 	message[found - 1] = ' ';
 	message[found] = 0;
-	npc_dialog_choice_index = find_npc_choice_text_prefix(message,
-		&npc_dialog_choice_auxiliary);
+	npc_dialog.choice_index = find_npc_choice_text_prefix(message,
+		&npc_dialog.choice_auxiliary);
 	titlecase_string(destination);
 }

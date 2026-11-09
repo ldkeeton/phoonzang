@@ -1,11 +1,12 @@
 /* Animate the party cells during an NPC encounter. */
 extern int cell_slot_ref[3][3];
 #include "msg.h"
+#include "structs/npc.h"
+extern struct npc_record npc_record;
 extern int npc_cell_effect_frame[3][3];
 extern int npc_cell_overlay_y_offset[3][3];
 extern int action_overlay_steps[2][4];
 extern int npc_record_index;
-extern unsigned char npc_monster_picture_id;
 extern int npc_encounter_sound;
 extern int screen_cache_index, party_status_frame;
 extern int party_screen_animation_state;
@@ -51,7 +52,7 @@ int wait_for_response;
 		show_centered_npc_message(encounter_message, 0);
 	}
 	animation_phase = npc_record_index == 0 ? 1 :
-		(npc_monster_picture_id == 24 ? 0 : random_below(2));
+		(npc_record.monster_picture_id == 24 ? 0 : random_below(2));
 	party_redraw_last_tick = *tick_counter_ptr;
 	redraw_due = 0;
 	animation_counter = 0;

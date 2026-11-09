@@ -1,8 +1,9 @@
 /* Shares quest-map knowledge between the active slot and the party. */
 #include "structs/slotstat.h"
+#include "structs/npc.h"
+extern struct npc_record npc_record;
 
 extern struct slot_record slot_records[];
-extern char npc_slot_index;
 extern int test_bit(), set_bitmap_bit(), random_below();
 extern int show_quest_map_information(), select_npc_event_message();
 
@@ -14,15 +15,15 @@ share_npc_quest_map_knowledge()
 	showed_map = 0;
 	for (map_index = 0; map_index < 11; ++map_index) {
 		if (test_bit(slot_records[21].known_maps, map_index))
-			set_bitmap_bit(slot_records[npc_slot_index].known_maps,
+			set_bitmap_bit(slot_records[npc_record.slot_index].known_maps,
 				map_index, 1);
 
-		if (test_bit(slot_records[npc_slot_index].known_maps,
+		if (test_bit(slot_records[npc_record.slot_index].known_maps,
 		    map_index)) {
 			set_bitmap_bit(slot_records[21].known_maps, map_index, 1);
 		}
 
-		if (test_bit(slot_records[npc_slot_index].known_maps,
+		if (test_bit(slot_records[npc_record.slot_index].known_maps,
 		    map_index)) {
 			show_quest_map_information(map_index);
 			showed_map = 1;

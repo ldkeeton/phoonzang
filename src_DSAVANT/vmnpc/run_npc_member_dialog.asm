@@ -9,7 +9,7 @@ run_npc_member_dialog:
     push ax                          ; 0xaba2
     mov ax, 0x42                     ; 0xaba3
     push ax                          ; 0xaba6
-    mov ax, npc_dialog_choice_index  ; 0xaba7
+    mov ax, npc_dialog               ; 0xaba7
     push ax                          ; 0xabaa
     call aztec_setmem                ; 0xabab
     add sp, byte 6                   ; 0xabae
@@ -110,7 +110,7 @@ run_npc_member_dialog:
     call expand_npc_dialog_text      ; 0xaca5
     pop cx                           ; 0xaca8
     mov word [bp - 2], 0             ; 0xaca9
-    mov word [npc_dialog_choice_index], 0xffff ; 0xacae
+    mov word [npc_dialog], 0xffff    ; 0xacae
     mov word [npc_dialog_choice_auxiliary], 0 ; 0xacb4
     mov word [npc_dialog_primary_choice], 0xffff ; 0xacba
     mov word [npc_dialog_choice_code], 0xffff ; 0xacc0

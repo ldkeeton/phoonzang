@@ -844,6 +844,47 @@ class _Journal:
                 f.write(text)
 
 
+_C_SUFFIXES = ('.c', '.h')
+_MEMBER_ACCESS = re.compile(r'(?:\.|->)\s*$')
+_AGGREGATE_OPEN = re.compile(r'\b(?:struct|union)\s*\w*\s*\{')
+
+
+def _aggregate_bodies(text):
+    """``(start, end)`` of each struct/union body in C *text*: the names
+    declared there are members, not the globals of the same name."""
+    spans = []
+    for m in _AGGREGATE_OPEN.finditer(text):
+        if spans and m.start() < spans[-1][1]:
+            continue
+        depth, i = 0, m.end() - 1
+        while i < len(text):
+            depth += {'{': 1, '}': -1}.get(text[i], 0)
+            if depth == 0:
+                break
+            i += 1
+        spans.append((m.end(), i))
+    return spans
+
+
+def _rename_text(text, pattern, renames, c_source):
+    """*text* with each *pattern* match renamed, and ``{(old, new): count}``.
+    In C a name after ``.``/``->`` or inside a struct/union body is a member,
+    which a global of the same name does not rename."""
+    bodies = _aggregate_bodies(text) if c_source else []
+    counts = {}
+
+    def sub(m):
+        before = text[max(0, m.start() - 16):m.start()]
+        if c_source and (_MEMBER_ACCESS.search(before)
+                         or any(a <= m.start() < b for a, b in bodies)):
+            return m.group(0)
+        pair = (m.group(1), renames[m.group(1)])
+        counts[pair] = counts.get(pair, 0) + 1
+        return renames[m.group(1)] + m.group(2)
+
+    return pattern.sub(sub, text), counts
+
+
 def rename_sources(project, renames, journal=None, dry_run=False):
     """Rewrite ``old``/``old_`` to ``new``/``new_`` in every hand-owned source
     and rename a source named after a renamed routine.  Returns one record per
@@ -856,12 +897,9 @@ def rename_sources(project, renames, journal=None, dry_run=False):
     for p in list(_hand_files(project)):
         with open(p) as f:
             text = f.read()
-        counts = {}
-        for match in pattern.finditer(text):
-            pair = (match.group(1), renames[match.group(1)])
-            counts[pair] = counts.get(pair, 0) + 1
-        new = pattern.sub(lambda m: renames[m.group(1)] + m.group(2), text)
         stem, ext = os.path.splitext(os.path.basename(p))
+        new, counts = _rename_text(text, pattern, renames,
+                                   ext in _C_SUFFIXES)
         dest = None
         if stem in renames and ext in ('.c', '.s'):
             dest = os.path.join(os.path.dirname(p), renames[stem] + ext)

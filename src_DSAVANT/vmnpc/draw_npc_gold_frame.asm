@@ -38,7 +38,7 @@ draw_npc_gold_frame:
     add sp, byte 4                   ; 0x0d95
     mov ax, 0                        ; 0x0d98
     push ax                          ; 0x0d9b
-    mov ax, npc_record_buffer        ; 0x0d9c
+    mov ax, npc_record               ; 0x0d9c
     push ax                          ; 0x0d9f
     call draw_text_glyphs            ; 0x0da0
     add sp, byte 4                   ; 0x0da3

@@ -21,7 +21,7 @@ transfer_pc_file_record:
     mov ax, 0
     push ax
     mov ax, word [bp + 6]
-    imul word [pc_file_record_size]
+    imul word [pc_file_header]
     cwd
     add ax, word [pc_file_record_base]
     adc dx, word [pc_file_record_base_hi]
@@ -32,7 +32,7 @@ transfer_pc_file_record:
     add sp, byte 8
     cmp word [bp + 8], byte 0
     jne short .forward1
-    push word [pc_file_record_size]
+    push word [pc_file_header]
     push word [bp + 4]
     push word [bp - 2]
     call aztec_read
@@ -41,7 +41,7 @@ transfer_pc_file_record:
 .forward1:
     cmp word [bp + 8], byte 1
     jne short .forward2
-    push word [pc_file_record_size]
+    push word [pc_file_header]
     push word [bp + 4]
     push word [bp - 2]
     call aztec_write

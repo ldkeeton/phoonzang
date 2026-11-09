@@ -2,6 +2,8 @@
 #include "msg.h"
 #include "structs/pcrec.h"
 #include "structs/spell.h"
+#include "structs/filehdr.h"
+extern struct disk_header disk_header;
 
 struct bane_realm_entry {
 	int value;
@@ -22,7 +24,7 @@ struct bane_item_flag {
 	char pad[7];
 };
 
-extern int disk_header, party_char_count;
+extern int party_char_count;
 extern unsigned char install_mode;
 extern char selected_game_directory[], selected_game_drive[];
 extern char data_path_prefixes[], game_data_drive[], game_load_path[];
@@ -86,9 +88,9 @@ import_bane_party()
 
 	/* Show the disk messages and let the file chooser pick the source. */
 	disk_swap = 0;
-	file_disk_number = disk_header;
+	file_disk_number = disk_header.number;
 	file_disk_number = (install_mode == 5 && file_disk_number > 0)
-		? disk_header + 1 + 1 : file_disk_number;
+		? disk_header.number + 1 + 1 : file_disk_number;
 	call_wait_sound(0);
 	load_message_string(MSG_DISK_ERROR, disk_error_message);
 	load_message_string(MSG_LOADING, loading_message);

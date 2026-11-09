@@ -2,16 +2,14 @@
 #include "structs/pcrec.h"
 #include "structs/slotstat.h"
 #include "msg.h"
+#include "structs/npc.h"
+extern struct npc_record npc_record;
 
 extern int npc_dialog_departure_flag, npc_pilfer_roll_bias;
-extern int npc_dialog_initial_state, npc_greeting_msg_id;
+extern int npc_dialog_initial_state;
 extern int npc_encounter_sound;
-extern unsigned char npc_monster_picture_id;
-extern unsigned char npc_action_enabled[];
 extern int npc_cell_effect_frame, cell_slot_ref;
-extern unsigned char current_faction_index;
 extern char faction_attitudes[];
-extern char npc_slot_index;
 extern int npc_record_index;
 extern int npc_charm_bonus, npc_selected_dialog_option;
 extern int party_char_count, game_state, npc_negotiation_tactic;
@@ -54,20 +52,20 @@ void run_npc_dialog_turn()
 	npc_dialog_initial_state = 0;
 	load_message_string(MSG_THE_PARTY, party_text);
 	load_message_string(MSG_VS_1511, versus_text);
-	if (npc_greeting_msg_id > 0) {
+	if (npc_record.greeting_msg_id > 0) {
 		begin_npc_message_display();
-		display_npc_message_sequence(npc_greeting_msg_id, 1);
+		display_npc_message_sequence(npc_record.greeting_msg_id, 1);
 		end_npc_message_display();
 	}
 	member_index = 0;
 	do {
-		if (npc_encounter_sound > 0 && npc_monster_picture_id > 0 &&
+		if (npc_encounter_sound > 0 && npc_record.monster_picture_id > 0 &&
 			random_below(3) == 0)
 			play_sound_effect(npc_encounter_sound);
 		for (action_index = 0; action_index < 8; action_index++) {
-			if (npc_action_enabled[action_index] > 0 &&
+			if (npc_record.action_enabled[action_index] > 0 &&
 				run_npc_action_record(member_index,
-					npc_action_enabled[action_index]) == 1) {
+					npc_record.action_enabled[action_index]) == 1) {
 				if (npc_dialog_departure_flag == 1) {
 					npc_cell_effect_frame = 1;
 					animate_npc_encounter_cells(1, 0);
@@ -80,8 +78,8 @@ void run_npc_dialog_turn()
 		for (selected_action = 0; selected_action <= 9; selected_action++)
 			menu_flags[selected_action] = 0;
 		menu_flags[7] = 1;
-		attitude = faction_attitudes[current_faction_index];
-		if (npc_slot_index == -1)
+		attitude = faction_attitudes[npc_record.faction_index];
+		if (npc_record.slot_index == -1)
 			attitude += 35;
 		if (attitude < -25) {
 			menu_flags[3] = 1;
@@ -174,7 +172,7 @@ void run_npc_dialog_turn()
 		case 1:
 			action_index = npc_selected_dialog_option == 1 ? -1 : 0;
 			if (npc_selected_dialog_option == -1) {
-				if (npc_slot_index != -1) {
+				if (npc_record.slot_index != -1) {
 					action_index = share_npc_quest_map_knowledge();
 				} else {
 					for (loop_index = 0; loop_index < 11; loop_index++) {
@@ -202,8 +200,8 @@ void run_npc_dialog_turn()
 				adjust_npc_attitudes(action_index,
 					0 - (random_below(15) + 15), 0);
 			}
-			if (faction_attitudes[current_faction_index] > 0)
-				faction_attitudes[current_faction_index] /= 5;
+			if (faction_attitudes[npc_record.faction_index] > 0)
+				faction_attitudes[npc_record.faction_index] /= 5;
 			adjust_npc_attitudes(0, 0,
 				0 - (random_below(15) + 15));
 			start_npc_attack(0);
@@ -222,7 +220,7 @@ void run_npc_dialog_turn()
 			member_index = random_below(party_char_count);
 		attitude = party_records[member_index].pad1[npc_record_index] +
 			party_records[member_index].stat[6] + npc_charm_bonus;
-		action_index = faction_attitudes[current_faction_index] +
+		action_index = faction_attitudes[npc_record.faction_index] +
 			npc_charm_bonus;
 		if (game_state != 10 && (action_index < -10 || attitude < -10)) {
 			loop_index = random_below(100) - 100;

@@ -3,7 +3,7 @@ resolve_npc_dialog_reaction:
     mov ax, 0                        ; 0x9a04
     call aztec_csav                  ; 0x9a07
     mov word [npc_dialog_primary_choice], 0xffff ; 0x9a0a
-    mov word [npc_dialog_choice_index], 0xffff ; 0x9a10
+    mov word [npc_dialog], 0xffff    ; 0x9a10
     mov word [npc_dialog_choice_auxiliary], 0 ; 0x9a16
     mov ax, word [npc_dialog_choice_code] ; 0x9a1c
     jmp near .forward4               ; 0x9a1f
@@ -39,7 +39,7 @@ jumptable_9baa_case_2:
     mov ax, word [npc_dialog_choice_backup] ; 0x9a67
     mov word [npc_dialog_primary_choice], ax ; 0x9a6a
     mov ax, word [npc_dialog_default_choice_index] ; 0x9a6d
-    mov word [npc_dialog_choice_index], ax ; 0x9a70
+    mov word [npc_dialog], ax        ; 0x9a70
     mov ax, word [npc_dialog_default_choice_value] ; 0x9a73
     mov word [npc_dialog_choice_auxiliary], ax ; 0x9a76
     mov word [npc_dialog_response_active], 1 ; 0x9a79
@@ -110,7 +110,7 @@ jumptable_9baa_case_7:
     push ax                          ; 0x9b0f
     call append_npc_message_text     ; 0x9b10
     add sp, byte 4                   ; 0x9b13
-    mov word [npc_dialog_choice_index], 0xffff ; 0x9b16
+    mov word [npc_dialog], 0xffff    ; 0x9b16
     mov word [npc_dialog_choice_auxiliary], 0 ; 0x9b1c
     mov word [npc_dialog_primary_choice], 0xffff ; 0x9b22
     mov word [npc_dialog_default_choice_index], 0xffff ; 0x9b28

@@ -3,7 +3,7 @@ __zobss_9134:  ; npc_action_state
     resb 0x0002
 __zobss_9136:  ; npc_record_index
     resb 0x0002
-__zobss_9138:  ; npc_record_buffer
+__zobss_9138:  ; npc_record
     resb 0x0010
 __zobss_9148:  ; npc_event_triggers
     resb 0x0002
@@ -175,7 +175,7 @@ __zobss_9d6c:  ; npc_dialog_shop_mode
     resb 0x0086
 __zobss_9df2:  ; known_spell_ids
     resb 0x0050
-__zobss_9e42:  ; npc_dialog_choice_index
+__zobss_9e42:  ; npc_dialog
     resb 0x0002
 __zobss_9e44:  ; npc_dialog_choice_auxiliary
     resb 0x0002

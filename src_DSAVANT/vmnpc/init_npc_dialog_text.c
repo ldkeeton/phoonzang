@@ -1,11 +1,10 @@
 /* Clears the NPC dialog text lines and loads the dialog word tables. */
 #include "msg.h"
+#include "structs/npc.h"
+extern struct npc_record npc_record;
 
 extern int text_line_index, text_line_color[];
 extern char text_line_buffer[];
-extern int npc_dialog_first_choice_msg_id;
-extern int npc_dialog_response_name_msg_id;
-extern int npc_dialog_response_wait_msg_id;
 extern int npc_first_choice_message_base, npc_second_choice_message_base;
 extern int npc_dialog_response_name, npc_dialog_response_wait;
 extern char npc_dialog_verb_words[], npc_dialog_filler_words[];
@@ -26,9 +25,9 @@ init_npc_dialog_text()
 	}
 	text_line_index = 0;
 	npc_second_choice_message_base = 8000;
-	npc_first_choice_message_base = npc_dialog_first_choice_msg_id;
-	npc_dialog_response_name = npc_dialog_response_name_msg_id;
-	npc_dialog_response_wait = npc_dialog_response_wait_msg_id;
+	npc_first_choice_message_base = npc_record.dialog_first_choice_msg_id;
+	npc_dialog_response_name = npc_record.dialog_response_name_msg_id;
+	npc_dialog_response_wait = npc_record.dialog_response_wait_msg_id;
 	collect_npc_dialog_choices(npc_first_choice_message_base,
 		npc_second_choice_message_base);
 	load_message_batch(7000, 10, npc_dialog_verb_words);

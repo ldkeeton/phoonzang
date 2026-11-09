@@ -83,7 +83,7 @@ __zbss_53c4:  ; record_map_4
     resb 0x0100
 __zbss_54c4:  ; record_map_8
     resb 0x0060
-__zbss_5524:  ; record_size
+__zbss_5524:  ; master_header
     resb 0x0004
 __zbss_5528:  ; maze_data_size
     resb 0x0002
@@ -479,7 +479,7 @@ __zbss_906a:  ; saved_screen_pending
     resb 0x0002
 __zbss_906c:  ; screen_cache_index
     resb 0x0002
-__zbss_906e:  ; pc_file_record_size
+__zbss_906e:  ; pc_file_header
     resb 0x0002
 __zbss_9070:  ; pc_file_record_count
     resb 0x0002

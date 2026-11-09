@@ -2,8 +2,9 @@
    their string literals run together in the data segment with no alignment
    gap */
 
+#include "structs/filehdr.h"
+extern struct disk_header disk_header;
 extern unsigned char install_mode;
-extern int disk_header[];
 extern int msg_dbs_fd;
 extern int data_file_fd;
 extern int hotspot_hit;
@@ -90,10 +91,11 @@ char *fname;
 						found = 1;
 				}
 			} else if (fd != -1) {
-				nread = aztec_read(fd, disk_header, 780);	/* whole disk header */
+				nread =
+					aztec_read(fd, &disk_header, sizeof(disk_header));	/* whole disk header */
 				/* install mode 5 numbers disks two lower */
 				want = install_mode == 5 && 0 < drive ? drive - 2 : drive;
-				if (nread > 0 && want == disk_header[0])
+				if (nread > 0 && want == disk_header.number)
 					found = 1;
 				aztec_close(fd);
 			}
@@ -135,7 +137,7 @@ ensure_game_disk()
 	header_number = install_mode == 5 && disk_number > 0
 		? disk_number - 2 : disk_number;
 
-	if (header_number != disk_header[0]) {
+	if (header_number != disk_header.number) {
 		/* Keep the selected drive prefix through its colon. */
 		copy_through_char(disk_path, data_path_prefixes, ':');
 		/* Drive 0; close the data files first and reopen them after the swap. */

@@ -2,11 +2,13 @@
 #include "msg.h"
 #include "structs/pcrec.h"
 #include "structs/loadrec.h"
+#include "structs/filehdr.h"
+extern struct disk_header disk_header;
 extern struct load_header scenario_header_data, preserved_load_header;
 extern struct load_state loaded_game_state;
 extern struct status_pair party_status_timer[];
 extern struct pc_rec party_records[], loaded_party_member;
-extern int disk_header, intro_screen_number, startup_option;
+extern int intro_screen_number, startup_option;
 extern unsigned char install_mode;
 extern char default_game_data_name[], game_load_path[],
 	selected_game_filename[], selected_game_directory[];
@@ -48,7 +50,7 @@ int load_mode;
 	char error_text[20], loading_text[20];
 
 	swap_needed = 0;
-	disk_number = disk_header;
+	disk_number = disk_header.number;
 	disk_number =
 		install_mode == 5 && disk_number > 0 ? disk_number + 2 : disk_number;
 			/* mode 5 disk numbering */

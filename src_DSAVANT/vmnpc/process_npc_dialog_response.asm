@@ -182,22 +182,22 @@ process_npc_dialog_response.forward16:
     mov word [bp - 2], ax            ; 0x913e
     cmp ax, strict word 0xffff       ; 0x9141
     je short process_npc_dialog_response.forward20 ; 0x9144
-    mov ax, word [npc_dialog_choice_index] ; 0x9146
+    mov ax, word [npc_dialog]        ; 0x9146
     cmp ax, strict word 0xffff       ; 0x9149
     je short process_npc_dialog_response.forward17 ; 0x914c
-    cmp word [npc_dialog_choice_index], byte 0 ; 0x914e
+    cmp word [npc_dialog], byte 0    ; 0x914e
     je short process_npc_dialog_response.forward17 ; 0x9153
     cmp ax, word [npc_first_choice_count] ; 0x9155
     jne short process_npc_dialog_response.forward18 ; 0x9159
 process_npc_dialog_response.forward17:
     mov ax, word [npc_dialog_default_choice_index] ; 0x915b
-    mov word [npc_dialog_choice_index], ax ; 0x915e
+    mov word [npc_dialog], ax        ; 0x915e
     mov ax, word [npc_dialog_default_choice_value] ; 0x9161
     mov word [npc_dialog_choice_auxiliary], ax ; 0x9164
     jmp short process_npc_dialog_response.forward19 ; 0x9167
 process_npc_dialog_response.forward18:
     mov ax, word [npc_dialog_default_choice_index] ; 0x9169
-    cmp ax, word [npc_dialog_choice_index] ; 0x916c
+    cmp ax, word [npc_dialog]        ; 0x916c
     je short process_npc_dialog_response.forward19 ; 0x9170
     cmp word [npc_dialog_default_choice_index], byte 0 ; 0x9172
     je short process_npc_dialog_response.forward19 ; 0x9177
@@ -248,16 +248,16 @@ process_npc_dialog_response.forward26:
     jne short process_npc_dialog_response.forward27 ; 0x91f1
     mov word [npc_dialog_latest_choice], ax ; 0x91f3
 process_npc_dialog_response.forward27:
-    mov ax, word [npc_dialog_choice_index] ; 0x91f6
+    mov ax, word [npc_dialog]        ; 0x91f6
     cmp ax, strict word 0xffff       ; 0x91f9
     je short process_npc_dialog_response.forward28 ; 0x91fc
-    cmp word [npc_dialog_choice_index], byte 0 ; 0x91fe
+    cmp word [npc_dialog], byte 0    ; 0x91fe
     je short process_npc_dialog_response.forward28 ; 0x9203
     cmp ax, word [npc_first_choice_count] ; 0x9205
     jne short process_npc_dialog_response.forward29 ; 0x9209
 process_npc_dialog_response.forward28:
     mov ax, word [bp - 2]            ; 0x920b
-    mov word [npc_dialog_choice_index], ax ; 0x920e
+    mov word [npc_dialog], ax        ; 0x920e
     mov ax, word [npc_matched_choice_offset] ; 0x9211
     mov word [npc_dialog_choice_auxiliary], ax ; 0x9214
 process_npc_dialog_response.forward29:

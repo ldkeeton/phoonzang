@@ -1,13 +1,14 @@
 /* grant an NPC item to a suitable party inventory slot */
 #include "structs/pcrec.h"
 #include "msg.h"
+#include "structs/npc.h"
+extern struct npc_record npc_record;
 
 extern int find_removable_party_item_slot();
 extern int party_char_count;
 extern struct pc_rec party_records[];
 extern int is_quest_map_item();
 extern int init_item_slot();
-extern char npc_slot_index;
 extern int give_quest_map();
 extern char npc_choice_message_buffer[];
 extern int load_message_string(), str_subst_char();
@@ -66,7 +67,7 @@ int message_mode;
 		&party_records[recipient_index].item_slots[item_page][search_index],
 		-2, 1);
 	if (is_quest_map_item(item_id))
-		give_quest_map(21, npc_slot_index, item_id - 400);
+		give_quest_map(21, npc_record.slot_index, item_id - 400);
 	load_message_string(MSG_GOT_AN_ITEM, npc_choice_message_buffer);
 	str_subst_char(npc_choice_message_buffer, &party_records[recipient_index],
 		94);

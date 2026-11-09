@@ -104,7 +104,7 @@ choose_random_npc_phrase:
     push ax                          ; 0x8d74
     call find_npc_choice_text_prefix ; 0x8d75
     add sp, byte 4                   ; 0x8d78
-    mov word [npc_dialog_choice_index], ax ; 0x8d7b
+    mov word [npc_dialog], ax        ; 0x8d7b
     push word [bp + 4]               ; 0x8d7e
     call titlecase_string            ; 0x8d81
     pop cx                           ; 0x8d84

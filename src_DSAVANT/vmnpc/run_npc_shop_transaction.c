@@ -1,9 +1,10 @@
 /* Runs a party member through the NPC shop's purchase and gold menus. */
 #include "structs/pcrec.h"
 #include "msg.h"
+#include "structs/npc.h"
+extern struct npc_record npc_record;
 
 extern struct pc_rec party_records[];
-extern unsigned char npc_effect_flags;
 extern int npc_item_list_count;
 extern int member_item_count;
 extern int load_message_string();
@@ -27,7 +28,7 @@ int member_index;
 
 	for (action_enabled[10] = 0; action_enabled[10] <= 4; ++action_enabled[10])
 		action_enabled[action_enabled[10]] = 1;
-	if (npc_effect_flags & 2) {
+	if (npc_record.effect_flags & 2) {
 		action_enabled[0] = 0;
 		action_enabled[1] = 0;
 	}

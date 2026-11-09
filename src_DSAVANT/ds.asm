@@ -198,7 +198,7 @@ record_map_5 equ __zbss_5264 - __zdseg_start
 record_map_7 equ __zbss_52c4 - __zdseg_start
 record_map_4 equ __zbss_53c4 - __zdseg_start
 record_map_8 equ __zbss_54c4 - __zdseg_start
-record_size equ __zbss_5524 - __zdseg_start
+master_header equ __zbss_5524 - __zdseg_start
 maze_data_size equ __zbss_5528 - __zdseg_start
 maze_tables_size equ __zbss_552a - __zdseg_start
 record_packed equ __zbss_556c - __zdseg_start
@@ -396,7 +396,7 @@ screen_cache_1_seg equ __zbss_9066 - __zdseg_start
 saved_screen_slot equ __zbss_9068 - __zdseg_start
 saved_screen_pending equ __zbss_906a - __zdseg_start
 screen_cache_index equ __zbss_906c - __zdseg_start
-pc_file_record_size equ __zbss_906e - __zdseg_start
+pc_file_header equ __zbss_906e - __zdseg_start
 pc_file_record_count equ __zbss_9070 - __zdseg_start
 pc_file_record_base equ __zbss_9072 - __zdseg_start
 pc_file_record_base_hi equ __zbss_9074 - __zdseg_start

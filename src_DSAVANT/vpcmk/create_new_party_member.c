@@ -1,16 +1,16 @@
 /* Create a new party member and optionally save it as a character file. */
 #include "structs/pcrec.h"
 #include "msg.h"
+#include "structs/filehdr.h"
+extern struct pc_file_header pc_file_header;
 
 extern struct pc_rec party_records[];
 extern int skill_group_points[];
 extern int remaining_stat_points;
 extern int roster_screen_a, roster_screen_b;
 extern int saved_character_file_name[];
-extern char pc_file_record_base_hi[];
 extern int character_creation_mode;
 extern int pc_file_database_filename[];
-extern int pc_file_record_size;
 extern int choose_character_race();
 extern int choose_character_gender();
 extern int random_below();
@@ -120,10 +120,10 @@ int file_record_index;
 		option_data);
 	if (choice == 0) {
 	transfer_pc_file_record(&party_records[member_index], file_record_index, 1);
-	pc_file_record_base_hi[file_record_index + 2] = 1;
+	pc_file_header.availability[file_record_index] = 1;
 	call_wait_sound(0);
 	file_handle = aztec_open(data_file_path(pc_file_database_filename, 0), 2);
-	aztec_write(file_handle, (int)&pc_file_record_size, 24);
+	aztec_write(file_handle, &pc_file_header, sizeof(pc_file_header));
 	aztec_close(file_handle);
 	}
 }

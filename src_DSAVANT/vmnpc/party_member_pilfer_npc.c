@@ -1,16 +1,16 @@
 /* A party member attempts to pilfer from the NPC. */
 #include "structs/pcrec.h"
 #include "msg.h"
+#include "structs/npc.h"
+extern struct npc_record npc_record;
 
 extern struct pc_rec party_records[];
-extern unsigned char npc_level;
 extern int npc_record_index;
 extern int npc_charm_bonus;
 extern int npc_item_list_count;
 extern int npc_item_list_item_id[];
 extern unsigned int npc_item_list_item_count[];
 extern int npc_pilfer_roll_bias;
-extern long npc_gold;
 extern int random_below();
 extern int find_removable_party_item_slot();
 extern int compact_npc_item_rows();
@@ -37,7 +37,7 @@ int member_index;
 	char message[80];
 
 	pilfer_chance = (party_records[member_index].level -
-		npc_level) * 5 +
+		npc_record.level) * 5 +
 		party_records[member_index].skills[15] / 2;
 	if (party_records[member_index].profession == 3)
 		pilfer_chance += party_records[member_index].stat[4] * 2;
@@ -64,9 +64,9 @@ int member_index;
 	while (random_below(npc_item_list_count) > selected_row)
 		selected_row++;
 
-	maximum_gold = random_below(100) * (npc_level + 1) / 2;
-	if (maximum_gold > npc_gold)
-		maximum_gold = npc_gold;
+	maximum_gold = random_below(100) * (npc_record.level + 1) / 2;
+	if (maximum_gold > npc_record.gold)
+		maximum_gold = npc_record.gold;
 
 	if (detection_roll < pilfer_chance) {
 		removable_slot = find_removable_party_item_slot(member_index, 0);
@@ -78,7 +78,7 @@ int member_index;
 			if (maximum_gold <= 0) {
 				load_message_string(MSG_PILFER_FAILED_1572, message);
 			} else {
-				npc_gold -= maximum_gold;
+				npc_record.gold -= maximum_gold;
 				party_records[member_index].gold += maximum_gold;
 				load_message_string(MSG_STOLE_SOME_GOLD, message);
 			}

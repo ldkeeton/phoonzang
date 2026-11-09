@@ -15,7 +15,7 @@ build_npc_dialog_choice_reply:
     lea ax, word [bp - 0x52]         ; 0x9868
     push ax                          ; 0x986b
     push word [npc_dialog_choice_auxiliary] ; 0x986c
-    push word [npc_dialog_choice_index] ; 0x9870
+    push word [npc_dialog]           ; 0x9870
     call copy_npc_choice_text        ; 0x9874
     add sp, byte 6                   ; 0x9877
     lea ax, word [bp - 0x52]         ; 0x987a
@@ -69,7 +69,7 @@ build_npc_dialog_choice_reply:
 .forward3:
     cmp word [npc_dialog_choice_code], byte -1 ; 0x98e9
     jne short .forward7              ; 0x98ee
-    cmp word [npc_dialog_choice_index], byte -1 ; 0x98f0
+    cmp word [npc_dialog], byte -1   ; 0x98f0
     jne short .forward7              ; 0x98f5
     cmp word [npc_dialog_primary_choice], byte -1 ; 0x98f7
     je short .forward4               ; 0x98fc
@@ -119,13 +119,13 @@ build_npc_dialog_choice_reply:
 .forward7:
     cmp word [npc_dialog_secondary_choice], byte -1 ; 0x9959
     je short .forward10              ; 0x995e
-    cmp word [npc_dialog_choice_index], byte -1 ; 0x9960
+    cmp word [npc_dialog], byte -1   ; 0x9960
     je short .forward8               ; 0x9965
     lea ax, word [bp - 0x52]         ; 0x9967
     push ax                          ; 0x996a
     mov ax, 1                        ; 0x996b
     push ax                          ; 0x996e
-    push word [npc_dialog_choice_index] ; 0x996f
+    push word [npc_dialog]           ; 0x996f
     call copy_npc_choice_text        ; 0x9973
     add sp, byte 6                   ; 0x9976
     lea ax, word [bp - 0x52]         ; 0x9979
@@ -143,7 +143,7 @@ build_npc_dialog_choice_reply:
     call append_npc_message_text     ; 0x9991
     add sp, byte 4                   ; 0x9994
     mov word [npc_dialog_choice_backup], 1 ; 0x9997
-    mov ax, word [npc_dialog_choice_index] ; 0x999d
+    mov ax, word [npc_dialog]        ; 0x999d
     mov word [npc_dialog_default_choice_index], ax ; 0x99a0
     mov ax, word [npc_dialog_choice_auxiliary] ; 0x99a3
     mov word [npc_dialog_default_choice_value], ax ; 0x99a6
@@ -164,7 +164,7 @@ build_npc_dialog_choice_reply:
     jne short .forward12             ; 0x99c8
     cmp word [npc_dialog_primary_choice], byte -1 ; 0x99ca
     jne short .forward12             ; 0x99cf
-    cmp word [npc_dialog_choice_index], byte -1 ; 0x99d1
+    cmp word [npc_dialog], byte -1   ; 0x99d1
     je short .forward11              ; 0x99d6
     mov word [npc_dialog_response_active], 1 ; 0x99d8
     mov word [npc_dialog_topic_1_enabled], 1 ; 0x99de

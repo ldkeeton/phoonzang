@@ -4,6 +4,8 @@
 #include "structs/location.h"
 #include "structs/slotevt.h"
 #include "msg.h"
+#include "structs/npc.h"
+extern struct npc_record npc_record;
 
 extern struct slot_record slot_records[];
 extern struct location_record location_records[];
@@ -12,8 +14,6 @@ extern unsigned char quest_map_message_buffer[];
 extern unsigned char npc_event_message_seen[];
 extern char npc_event_actor_buffer[];
 extern int current_level;
-extern unsigned char current_faction_index;
-extern char npc_slot_index;
 extern char quest_map_name_buffer[24];
 extern char quest_map_subject_buffer[24];
 extern int aztec_setmem();
@@ -45,7 +45,7 @@ int suppress_empty;
 			(faction_filter == -1 &&
 			 (location_records[slot_records[slot_index].location].game_state ==
 			 current_level ||
-			  slot_records[slot_index].faction == current_faction_index)))) {
+			  slot_records[slot_index].faction == npc_record.faction_index)))) {
 			slot_has_message[slot_index] = 1;
 			++matching_slots;
 		}
@@ -76,7 +76,8 @@ int suppress_empty;
 		load_message_string(
 			MSG_HAS_BEEN_FIGHTING_AT + slot_event_logs[slot_index][event_index].kind,
 			quest_map_message_buffer);
-		load_message_string(slot_index == npc_slot_index ? MSG_OUR_PARTY :
+		load_message_string(slot_index == npc_record.slot_index
+			? MSG_OUR_PARTY :
 			MSG_SLOT_NAME_BASE + slot_index, npc_event_actor_buffer);
 		switch (slot_event_logs[slot_index][event_index].kind) {
 		case 0:

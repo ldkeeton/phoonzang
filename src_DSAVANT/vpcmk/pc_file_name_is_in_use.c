@@ -1,9 +1,8 @@
 /* Check whether a PC file already contains a character with this name. */
 #include "structs/pcrec.h"
-#include "structs/roster.h"
+#include "structs/filehdr.h"
+extern struct pc_file_header pc_file_header;
 
-extern int pc_file_record_count;
-extern struct roster_state_view pc_file_record_base_hi;
 extern int transfer_pc_file_record();
 extern int aztec_strcmp();
 
@@ -14,9 +13,9 @@ char *character_name;
 	int record_index;
 	struct pc_rec record;
 
-	for (record_index = 0; record_index < pc_file_record_count;
+	for (record_index = 0; record_index < pc_file_header.record_count;
 	     record_index++) {
-		if (pc_file_record_base_hi.availability[record_index] > 0) {
+		if (pc_file_header.availability[record_index] > 0) {
 			transfer_pc_file_record(&record, record_index, 0);
 			if (aztec_strcmp(character_name, record.name) == 0)
 				return -1;

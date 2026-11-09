@@ -1,12 +1,10 @@
 /* reads (dir 0) or writes (dir 1) record index of the given type in the data
    file; packed types are only ever read, then unpacked into buf */
+#include "structs/filehdr.h"
+extern struct disk_header disk_header;
+extern struct master_header master_header;
 
 extern int data_file_fd;
-extern long record_base[];
-extern unsigned char record_map_2[], record_map_5[], record_map_7[];
-extern unsigned char record_map_4[], record_map_8[];
-extern int record_size[];
-extern char record_packed[];
 
 data_record_io(type, buf, index, dir)
 char *buf;
@@ -17,32 +15,34 @@ char *buf;
 	switch (type) {
 	case 2:
 	case 3:
-		index = record_map_2[index];
+		index = disk_header.record_map_2[index];
 		break;
 	case 5:
-		index = record_map_5[index];
+		index = disk_header.record_map_5[index];
 		break;
 	case 7:
-		index = record_map_7[index];
+		index = disk_header.record_map_7[index];
 		break;
 	case 4:
-		index = record_map_4[index];
+		index = disk_header.record_map_4[index];
 		break;
 	case 8:
-		index = record_map_8[index];
+		index = disk_header.record_map_8[index];
 		break;
 	}
 	call_wait_sound(0);
-	/* each type is a fixed-size array starting at record_base[type] */
-	aztec_lseek(data_file_fd, (long)index * record_size[type] + record_base[type],
+	/* each type is a fixed-size array starting at
+	   disk_header.record_base[type] */
+	aztec_lseek(data_file_fd,
+		(long)index * master_header.sizes[type] + disk_header.record_base[type],
 		0);
-	if (record_packed[type] == 0) {
+	if (master_header.packed[type] == 0) {
 		if (dir == 0)
-			aztec_read(data_file_fd, buf, record_size[type]);
+			aztec_read(data_file_fd, buf, master_header.sizes[type]);
 		else if (dir == 1)
-			aztec_write(data_file_fd, buf, record_size[type]);
+			aztec_write(data_file_fd, buf, master_header.sizes[type]);
 	} else if (dir == 0) {
-		aztec_read(data_file_fd, packed, record_size[type]);
+		aztec_read(data_file_fd, packed, master_header.sizes[type]);
 		unpack_record(packed, buf);
 	}
 }

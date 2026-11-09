@@ -1,8 +1,9 @@
 /* Let the player choose a portrait for a party member. */
 #include "structs/pcrec.h"
 #include "msg.h"
+#include "structs/filehdr.h"
+extern struct disk_header disk_header;
 
-extern int disk_header[];
 extern unsigned char install_mode;
 extern char data_path_prefixes[][20];
 extern int member_screen_cache_low, member_screen_cache_high;
@@ -37,7 +38,7 @@ int member_index;
 	char path[20];
 
 	prompted = 0;
-	header = disk_header[0];
+	header = disk_header.number;
 	header = install_mode == 5 && header > 0 ? header + 2 : header;
 	copy_through_char(path, data_path_prefixes[0], ':');
 	if (header != 0) {

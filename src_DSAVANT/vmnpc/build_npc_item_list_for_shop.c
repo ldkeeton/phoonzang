@@ -2,6 +2,7 @@
 #include "structs/slotstat.h"
 #include "structs/itemrec.h"
 #include "structs/npc.h"
+extern struct npc_record npc_record;
 
 extern struct slot_record slot_records[];
 extern long game_time;
@@ -17,9 +18,6 @@ extern int npc_item_list_item_count[];
 extern char npc_item_list_name[][22];
 extern unsigned char item_type_counted[];
 extern unsigned char code_characters[];
-extern char npc_slot_index;
-extern unsigned char npc_shop_stock_record_index;
-extern int npc_shop_price_markup;
 extern int aztec_setmem(), test_bit(), data_record_io();
 extern int aztec_strcpy(), is_quest_map_item();
 
@@ -34,17 +32,17 @@ build_npc_item_list_for_shop()
 
 	npc_item_list_count = 0;
 	aztec_setmem(npc_item_list_item_id, 60, 0);
-	if (npc_slot_index != -1) {
+	if (npc_record.slot_index != -1) {
 		for (row = 0; row < 11; ++row) {
-		if (test_bit(slot_records[npc_slot_index].held_maps,
+		if (test_bit(slot_records[npc_record.slot_index].held_maps,
 				row)) {
 				npc_item_list_item_id[npc_item_list_count] = row + 400;
 				++npc_item_list_count;
 			}
 		}
 	}
-	if (npc_shop_stock_record_index > 0) {
-		data_record_io(7, stock, npc_shop_stock_record_index, 0);
+	if (npc_record.shop_stock_record_index > 0) {
+		data_record_io(7, stock, npc_record.shop_stock_record_index, 0);
 		random_index = 0;
 		for (row = 0; row < 8; ++row) {
 			stock_chance = stock[row].state == 2 ? stock[row].time_code : 0;
@@ -78,7 +76,7 @@ build_npc_item_list_for_shop()
 			item.price *= npc_item_list_item_count[row];
 		npc_item_list_value[row] = is_quest_map_item(
 			npc_item_list_item_id[row]) ? item.price :
-			item.price * npc_shop_price_markup / 100;
+			item.price * npc_record.shop_price_markup / 100;
 		npc_item_list_glyph[row] = item.glyph;
 		for (field = 0; field < 2; ++field) {
 			npc_item_list_profession_mask[row * 2 + field] =

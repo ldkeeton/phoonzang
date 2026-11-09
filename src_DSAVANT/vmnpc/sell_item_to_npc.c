@@ -2,18 +2,16 @@
 #include "structs/itemrec.h"
 #include "structs/pcrec.h"
 #include "msg.h"
+#include "structs/npc.h"
+extern struct npc_record npc_record;
 
 extern int member_item_slot_indices[];
 extern struct pc_rec party_records[];
-extern unsigned char npc_level;
-extern char npc_slot_index;
-extern int npc_requested_item_id;
 extern char npc_choice_message_buffer[80];
 extern char npc_effect_message_buffer[80];
 extern char npc_substitution_text[80];
 extern char list_row_name[];
 extern unsigned char item_type_counted[];
-extern int npc_sell_price_percent;
 extern int data_record_io();
 extern int is_quest_map_item();
 extern int show_npc_message_with_delay();
@@ -64,15 +62,17 @@ int row;
 
 	item_data.price = is_quest_map_item(item_id)
 		? item_data.price
-		: item_data.price * npc_sell_price_percent / 100;
+		: item_data.price * npc_record.sell_price_percent / 100;
 
-	if ((is_quest_map_item(item_id) && npc_slot_index == -1) ||
+	if ((is_quest_map_item(item_id) && npc_record.slot_index == -1) ||
 	    (!is_quest_map_item(item_id) &&
-	     ((item_data.slot_flags & 2) != 0 && item_id != npc_requested_item_id))) {
+	     ((item_data.slot_flags & 2) != 0
+	     	&& item_id != npc_record.requested_item_id))) {
 		show_npc_message_with_delay(MSG_YOU_NEED_IT, 101, 152);
 		return 0;
 	}
-	if ((item_data.price <= 0 && item_id != npc_requested_item_id) ||
+	if ((item_data.price <= 0 && item_id != npc_record.requested_item_id)
+		||
 	    item_id == 410) {
 		show_npc_message_with_delay(MSG_NO_THANKS, 101, 152);
 		return 0;
@@ -100,7 +100,7 @@ int row;
 		item_id =
 			party_records[member_index].item_slots[item_page][item_slot].item_id;
 		if (is_quest_map_item(item_id))
-			give_quest_map(npc_slot_index, 21, item_id - 400);
+			give_quest_map(npc_record.slot_index, 21, item_id - 400);
 		clear_item_slot(member_index, item_page, item_slot);
 		remove_member_item_row(row);
 		party_records[member_index].gold += item_data.price;

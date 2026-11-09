@@ -301,7 +301,7 @@ create_new_party_member:
     mov word [bp - 8], ax            ; 0x65e0
     mov ax, 0x18                     ; 0x65e3
     push ax                          ; 0x65e6
-    mov ax, pc_file_record_size      ; 0x65e7
+    mov ax, pc_file_header           ; 0x65e7
     push ax                          ; 0x65ea
     push word [bp - 8]               ; 0x65eb
     call aztec_write                 ; 0x65ee

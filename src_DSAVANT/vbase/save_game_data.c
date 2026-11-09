@@ -3,11 +3,12 @@
 #include "structs/loadrec.h"
 #include "structs/pcrec.h"
 #include "structs/rgnstate.h"
+#include "structs/filehdr.h"
+extern struct disk_header disk_header;
 extern struct load_header scenario_header_data;
 extern struct load_state loaded_game_state;
 extern struct status_pair party_status_timer[];
 extern struct pc_rec party_records[], loaded_party_member;
-extern int disk_header;
 extern unsigned char install_mode;
 extern char game_load_path[], selected_game_filename[],
 	selected_game_directory[];
@@ -44,7 +45,7 @@ int save_mode;
 	char filename[20], error_text[20], saving_text[20];
 
 	swap_needed = 0;
-	disk_number = disk_header;
+	disk_number = disk_header.number;
 	/* Installation mode five uses disk numbers two higher. */
 	disk_number =
 		install_mode == 5 && disk_number > 0 ? disk_number + 2 : disk_number;

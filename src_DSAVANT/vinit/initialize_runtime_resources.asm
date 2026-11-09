@@ -211,7 +211,7 @@ initialize_runtime_resources:
     mov word [npc_id_answer_relay], npc_id_decoy ; 0x05aa
     mov ax, 0x52                     ; 0x05b0
     push ax                          ; 0x05b3
-    mov ax, record_size              ; 0x05b4
+    mov ax, master_header            ; 0x05b4
     push ax                          ; 0x05b7
     mov ax, startup_master_header_name ; 0x05b8
     push ax                          ; 0x05bb
@@ -235,7 +235,7 @@ initialize_runtime_resources:
     add sp, byte 6                   ; 0x05e3
     mov ax, 0x18                     ; 0x05e6
     push ax                          ; 0x05e9
-    mov ax, pc_file_record_size      ; 0x05ea
+    mov ax, pc_file_header           ; 0x05ea
     push ax                          ; 0x05ed
     mov ax, startup_pcfile_name      ; 0x05ee
     push ax                          ; 0x05f1

@@ -40,4 +40,71 @@ struct npc_shop_stock_entry {
 	unsigned char time_code;
 };
 
+/* The 148-byte NPC record (SCENARIO.DBS type 5) that data_record_io reads
+ * in one call when an encounter starts. */
+struct npc_record {
+	char name[16];
+	struct npc_event_trigger event_triggers[8];
+	int action_record_lookup[20];
+	int dialog_first_choice_msg_id;
+	int greeting_msg_id;
+	int dialog_response_name_msg_id;
+	int dialog_response_wait_msg_id;
+	int phrase_msg_id;
+	int shop_price_markup;
+	int sell_price_percent;
+	int requested_item_id;
+	char unused_78[6];
+	long gold;
+	unsigned char action_enabled[8];
+	unsigned char attack_encounter_id;
+	unsigned char monster_picture_id;
+	char unused_8c;
+	unsigned char level;
+	char slot_index;
+	unsigned char faction_index;
+	char unused_90;
+	unsigned char shop_stock_record_index;
+	char encounter_intro_sound_id;
+	unsigned char effect_flags;
+};
+
+/* The dialog state that run_npc_member_dialog clears in one call when a
+ * conversation starts. */
+struct npc_dialog_state {
+	int choice_index;
+	int choice_auxiliary;
+	int primary_choice;
+	int choice_code;
+	int default_choice_index;
+	int default_choice_value;
+	int choice_backup;
+	int response_value;
+	int topic_0_enabled;
+	int topic_1_enabled;
+	int topic_2_enabled;
+	int topic_3_enabled;
+	int topic_4_enabled;
+	int topic_5_enabled;
+	int topic_6_enabled;
+	int empty_choice_seen;
+	int response_active;
+	int mode7_seen;
+	int prefix_matched;
+	int response_flag_2;
+	int response_flag_3;
+	int response_flag_4;
+	int response_flag_0;
+	int response_flag_1;
+	int response_state_extra;
+	int response_flag_5;
+	int response_flag_6;
+	int choice_value_a;
+	int choice_value_b;
+	int latest_choice;
+	int alt_choice_index;
+	int alt_choice_value;
+	int secondary_choice;
+};
+
 #endif

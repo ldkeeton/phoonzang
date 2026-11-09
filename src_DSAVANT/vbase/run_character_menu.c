@@ -1,11 +1,11 @@
 /* Run the character menu until it selects a new game state. */
 #include "msg.h"
-#include "structs/roster.h"
+#include "structs/filehdr.h"
+extern struct pc_file_header pc_file_header;
 
 extern int party_status_frame, member_roster_index[], party_char_count;
 extern int copy_protection_result, game_state, party_return_state;
-extern int menu_selection_index, pc_file_record_count;
-extern struct roster_state_view pc_file_record_base_hi;
+extern int menu_selection_index;
 extern int draw_party_member_panel(), select_message_list_entry();
 extern int load_message_string(), draw_message_box(), release_and_exit();
 extern int add_character_from_pc_file(), pick_party_member();
@@ -40,8 +40,9 @@ run_character_menu()
 			menu_options[4] = 0;
 		}
 		menu_options[1] = 0;
-		for (member_index = 0; member_index < pc_file_record_count; member_index++) {
-			if (pc_file_record_base_hi.availability[member_index] == 1)
+		for (member_index = 0; member_index < pc_file_header.record_count;
+			member_index++) {
+			if (pc_file_header.availability[member_index] == 1)
 				menu_options[1] = 1;
 		}
 		if (party_char_count > 5)
@@ -81,7 +82,7 @@ run_character_menu()
 			break;
 		case 4:
 			for (member_index = 0; member_index < party_char_count; member_index++)
-				pc_file_record_base_hi.availability[
+				pc_file_header.availability[
 					member_roster_index[member_index + 1]] = 1;
 			begin_game(0);
 			break;

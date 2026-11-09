@@ -59,7 +59,7 @@ jumptable_08d4_case_4:
     mov ax, word [bp + 4]            ; 0x08fe
     shl ax, 1                        ; 0x0901
     mov bx, ax                       ; 0x0903
-    mov cx, word [bx + record_size]  ; 0x0905
+    mov cx, word [bx + master_header] ; 0x0905
     mov ax, word [bp + 8]            ; 0x0909
     mov bx, cx                       ; 0x090c
     imul bx                          ; 0x090e
@@ -82,7 +82,7 @@ jumptable_08d4_case_4:
     cmp word [bp + 0xa], byte 0      ; 0x093b
     jne short data_record_io.forward3 ; 0x093f
     shl bx, 1                        ; 0x0941
-    push word [bx + record_size]     ; 0x0943
+    push word [bx + master_header]   ; 0x0943
     push word [bp + 6]               ; 0x0947
     push word [data_file_fd]         ; 0x094a
     call aztec_read                  ; 0x094e
@@ -94,7 +94,7 @@ data_record_io.forward3:
     mov ax, word [bp + 4]            ; 0x095c
     shl ax, 1                        ; 0x095f
     mov bx, ax                       ; 0x0961
-    push word [bx + record_size]     ; 0x0963
+    push word [bx + master_header]   ; 0x0963
     push word [bp + 6]               ; 0x0967
     push word [data_file_fd]         ; 0x096a
     call aztec_write                 ; 0x096e
@@ -107,7 +107,7 @@ data_record_io.forward5:
     mov ax, word [bp + 4]            ; 0x097c
     shl ax, 1                        ; 0x097f
     mov bx, ax                       ; 0x0981
-    push word [bx + record_size]     ; 0x0983
+    push word [bx + master_header]   ; 0x0983
     lea ax, word [bp - 0xff]         ; 0x0987
     push ax                          ; 0x098b
     push word [data_file_fd]         ; 0x098c

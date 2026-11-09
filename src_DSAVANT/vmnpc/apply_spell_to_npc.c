@@ -2,11 +2,10 @@
 #include "structs/pcrec.h"
 #include "structs/randstep.h"
 #include "msg.h"
+#include "structs/npc.h"
+extern struct npc_record npc_record;
 
 extern struct pc_rec party_records[];
-extern unsigned char npc_level;
-extern unsigned char npc_effect_flags;
-extern int npc_phrase_msg_id;
 extern int npc_charm_bonus;
 extern char npc_effect_message_buffer[80];
 extern char npc_choice_message_buffer[80];
@@ -29,9 +28,10 @@ int spell_power;
 	switch (spell_index) {
 	case 60:
 		spell_power = clamp_between(spell_power +
-			(party_records[member_index].level - npc_level) / 2,
+			(party_records[member_index].level - npc_record.level) / 2,
 			1, spell_power);
-		if ((npc_effect_flags & 4) != 0 || random_below(spell_power + 1) == 0)
+		if ((npc_record.effect_flags & 4) != 0
+			|| random_below(spell_power + 1) == 0)
 			show_npc_message(MSG_IS_UNAFFECTED, 1, 0, 65);
 		else {
 			show_npc_message(MSG_IS_CHARMED, 1, 0, 65);
@@ -40,10 +40,11 @@ int spell_power;
 		}
 		break;
 	case 68:
-		if ((npc_effect_flags & 8) != 0 || npc_phrase_msg_id == 0 ||
+		if ((npc_record.effect_flags & 8) != 0
+			|| npc_record.phrase_msg_id == 0 ||
 			random_below(party_records[member_index].level + 3 * spell_power)
 				+ spell_power
-				< npc_level) {
+				< npc_record.level) {
 			load_message_string(MSG_NOTHING_1545, npc_effect_message_buffer);
 			display_npc_text_message(npc_effect_message_buffer, 1, 0, 65);
 			wait_ticks_abortable(72, 0);

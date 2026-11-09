@@ -1,5 +1,7 @@
 /* Manage the saved character files screen and restore its saved areas. */
 #include "msg.h"
+#include "structs/filehdr.h"
+extern struct pc_file_header pc_file_header;
 
 extern int pc_view_screen_file[];
 extern char character_stat_labels[];
@@ -19,8 +21,6 @@ extern int party_slot_frame[];
 extern int party_redraw_interval;
 extern long far *tick_counter_ptr;
 extern long party_redraw_last_tick;
-extern char pc_file_record_base_hi[];
-extern int pc_file_record_count;
 extern int load_monster_picture();
 extern long call_cache_area();
 extern int load_screen_file_immediate();
@@ -98,8 +98,9 @@ manage_character_files()
 		available_file_slot = find_unused_pc_file_record_slot();
 		if (available_file_slot != -1)
 			options[0] = 1;
-		for (loop_index = 0; loop_index < pc_file_record_count; loop_index++) {
-			if (pc_file_record_base_hi[loop_index + 2] == 1) {
+		for (loop_index = 0; loop_index < pc_file_header.record_count;
+			loop_index++) {
+			if (pc_file_header.availability[loop_index] == 1) {
 				options[1] = 1;
 				options[2] = 1;
 				options[3] = 1;

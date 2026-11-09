@@ -1,6 +1,8 @@
 /* A party member buys an NPC shop item. */
 #include "structs/pcrec.h"
 #include "msg.h"
+#include "structs/npc.h"
+extern struct npc_record npc_record;
 
 extern struct pc_rec party_records[];
 extern int npc_item_list_item_id[];
@@ -9,7 +11,6 @@ extern unsigned char npc_item_list_race_mask[];
 extern unsigned char npc_item_list_gender_mask[];
 extern unsigned int npc_item_list_item_count[];
 extern long npc_item_list_value[];
-extern char npc_slot_index;
 extern int test_bit();
 extern int show_npc_message_with_delay();
 extern int find_removable_party_item_slot();
@@ -51,7 +52,7 @@ int row;
 	}
 	show_npc_message_with_delay(1507, 73, 155);
 	if (is_quest_map_item(item_id))
-		give_quest_map(21, npc_slot_index, item_id - 400);
+		give_quest_map(21, npc_record.slot_index, item_id - 400);
 
 	item_row = removable_slot / 256;
 	item_slot = removable_slot % 256;

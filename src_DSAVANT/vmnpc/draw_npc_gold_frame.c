@@ -1,5 +1,6 @@
 /* Draws the gold offer frame and its three labels. */
-extern char npc_record_buffer[];
+#include "structs/npc.h"
+extern struct npc_record npc_record;
 extern char npc_gold_offer_prefix_text[];
 extern char npc_gold_offer_suffix_text[];
 extern int redraw_area_set();
@@ -16,7 +17,7 @@ draw_npc_gold_frame()
 	call_set_text_color(1, 95);
 	call_set_text_pos(99, 164);
 	draw_text_glyphs(npc_gold_offer_prefix_text, 0);
-	draw_text_glyphs(npc_record_buffer, 0);
+	draw_text_glyphs(npc_record.name, 0);
 	call_set_text_pos(206, 164);
 	draw_text_glyphs(npc_gold_offer_suffix_text, 0);
 }

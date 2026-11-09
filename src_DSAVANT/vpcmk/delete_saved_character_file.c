@@ -1,9 +1,9 @@
 /* Delete a saved character file after confirming the choice. */
 #include "msg.h"
+#include "structs/filehdr.h"
+extern struct pc_file_header pc_file_header;
 
 extern char saved_character_file_name[];
-extern char pc_file_record_base_hi[];
-extern int pc_file_record_size;
 extern int display_pc_file_record_preview();
 extern int select_grid_text_option();
 extern int call_wait_sound();
@@ -25,10 +25,10 @@ int file_record_index;
 		MSG_DELETE_THIS_CHARACTER, 74, 180, 11, 106,
 		12, 1, 2, 1, -1, 0, selection_options);
 	if (selection == 0) {
-		pc_file_record_base_hi[file_record_index + 2] = 0;
+		pc_file_header.availability[file_record_index] = 0;
 		call_wait_sound(0);
 		file_handle = aztec_open(data_file_path(saved_character_file_name, 0), 2);
-		aztec_write(file_handle, (int)&pc_file_record_size, 24);
+		aztec_write(file_handle, &pc_file_header, sizeof(pc_file_header));
 		aztec_close(file_handle);
 	}
 }

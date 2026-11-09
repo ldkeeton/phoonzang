@@ -1,4 +1,8 @@
 /* Load startup resources and prepare runtime buffers. */
+#include "structs/filehdr.h"
+extern struct disk_header disk_header;
+extern struct pc_file_header pc_file_header;
+extern struct master_header master_header;
 extern long load_file_data(), app_malloc(), call_get_free_space();
 extern char *aztec_malloc(), *data_file_path();
 extern int npc_id_decoy, scenario_header_fd, message_delay,
@@ -14,14 +18,12 @@ extern long pointer_image_zero, mouse_pointer_shape, pointer_image_two;
 extern long runtime_buffer_1k, runtime_buffer_4k_a, runtime_buffer_4k_b;
 extern char *maze_data, *maze_tables, *maze_change_log,
 	*floor_items;
-extern int maze_data_size, maze_tables_size, startup_check_stage, game_state;
+extern int startup_check_stage, game_state;
 extern unsigned char startup_option_byte, hardware_mode_setting,
 	sound_device_setting;
 extern int sound_port_setting;
 extern char palette_scale_setting, palette_base_setting, code_characters[];
-extern char scenario_header_data[], record_size[], disk_header[],
-	message_directory[];
-extern char pc_file_record_size[];
+extern char scenario_header_data[], message_directory[];
 extern char startup_scenario_header_name[];
 extern char startup_vbfont0_name[];
 extern char startup_vbfont1_name[];
@@ -104,10 +106,13 @@ initialize_runtime_resources()
 	load_startup_maze(startup_base_data_name, 3);
 	npc_id_answer_relay = (unsigned)&npc_id_decoy;
 		/* npc_id_decoy until the protection chain passes */
-	read_startup_file(startup_master_header_name, record_size, 82);
-	read_startup_file(startup_disk_header_name, disk_header, 780);
+	read_startup_file(startup_master_header_name, &master_header,
+		sizeof(master_header));
+	read_startup_file(startup_disk_header_name, &disk_header,
+		sizeof(disk_header));
 	read_startup_file(startup_message_header_name, message_directory, 11774);
-	read_startup_file(startup_pcfile_name, pc_file_record_size, 24);
+	read_startup_file(startup_pcfile_name, &pc_file_header,
+		sizeof(pc_file_header));
 	load_startup_misc(startup_misc_header_name);
 	if ((msg_dbs_fd = aztec_open(data_file_path(startup_message_database_name, 0),
 		0)) == -1)
@@ -153,10 +158,10 @@ initialize_runtime_resources()
 	runtime_buffer_4k_b = app_malloc(4096L);
 	if (runtime_buffer_4k_b == 0L)
 		release_and_exit(13);
-	maze_data = aztec_malloc(maze_data_size);
+	maze_data = aztec_malloc(master_header.sizes[2]);
 	if (maze_data == 0)
 		release_and_exit(13);
-	maze_tables = aztec_malloc(maze_tables_size);
+	maze_tables = aztec_malloc(master_header.sizes[3]);
 	if (maze_tables == 0)
 		release_and_exit(13);
 	maze_change_log = aztec_malloc(3072);

@@ -1,6 +1,8 @@
 /* Prepare the resources and initial state for the NPC interaction screen. */
 
 #include "structs/ovlitem.h"
+#include "structs/npc.h"
+extern struct npc_record npc_record;
 
 extern int game_state, loaded_score_num;
 extern int saved_screen_pending, saved_screen_slot;
@@ -14,12 +16,11 @@ extern long far *tick_counter_ptr;
 extern long party_redraw_last_tick;
 extern int party_redraw_interval;
 extern long saved_area_a, saved_area_b;
-extern int npc_gold_paid_total, npc_gold_paid_total_high;
+extern long npc_gold_paid_total;
 extern int action_bitmap[];
 extern int npc_record_index;
-extern int npc_record_buffer[];
-extern int npc_event_message_seen[];
-extern int npc_action_bitmap_copy;
+extern unsigned char npc_event_message_seen[];
+extern char npc_action_bitmap_copy[];
 extern int npc_message_ready, npc_action_state;
 extern int npc_dialog_option_state, npc_dialog_secondary_state;
 extern int npc_selected_dialog_option;
@@ -96,10 +97,9 @@ prepare_npc_interaction_screen()
 	npc_dialog_secondary_state = 0;
 	npc_selected_dialog_option = -1;
 	/* The record loader uses these fields as its index and scratch record. */
-	data_record_io(5, npc_record_buffer, npc_record_index, 0);
+	data_record_io(5, &npc_record, npc_record_index, 0);
 	aztec_movmem(action_bitmap + 6 + npc_record_index,
-		&npc_action_bitmap_copy, 2);
-	npc_gold_paid_total_high = 0;
+		npc_action_bitmap_copy, 2);
 	npc_gold_paid_total = 0;
 	aztec_setmem(npc_event_message_seen, 110, 0);
 }

@@ -2,7 +2,8 @@
    record. */
 #include "msg.h"
 #include "structs/pcrec.h"
-#include "structs/roster.h"
+#include "structs/filehdr.h"
+extern struct pc_file_header pc_file_header;
 
 /* One pick-list row ("NAME      M-FIG"); the rows reuse list_entry_text. */
 struct pc_file_list_row {
@@ -13,8 +14,7 @@ struct pc_file_list_row {
 	char terminator[5];
 };
 
-extern struct roster_state_view pc_file_record_base_hi;
-extern int pc_file_record_count, dialog_selection;
+extern int dialog_selection;
 extern struct pc_file_list_row list_entry_text[];
 extern int transfer_pc_file_record(), aztec_strcpy(), aztec_strlen();
 extern int load_message_string(), pick_list_entry_dialog();
@@ -31,10 +31,10 @@ int prompt_message;
 	int selected_record_indices[16];
 
 	option_count = 0;
-	for (record_index = 0; record_index < pc_file_record_count;
+	for (record_index = 0; record_index < pc_file_header.record_count;
 		record_index++) {
 		/* Only roster entries marked available are included. */
-		if (pc_file_record_base_hi.availability[record_index] == 1) {
+		if (pc_file_header.availability[record_index] == 1) {
 			transfer_pc_file_record(&pc_file_record, record_index, 0);
 			aztec_strcpy(list_entry_text[option_count].name,
 				pc_file_record.name);

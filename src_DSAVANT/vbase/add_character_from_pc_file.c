@@ -1,11 +1,11 @@
 /* Add selected PC-file records to the party and reveal their panels. */
 #include "structs/pcrec.h"
-#include "structs/roster.h"
 #include "msg.h"
+#include "structs/filehdr.h"
+extern struct pc_file_header pc_file_header;
 
 extern int party_char_count, member_roster_index[], member_icon[];
 extern struct pc_rec party_records[];
-extern struct roster_state_view pc_file_record_base_hi;
 extern int choose_pc_file_character(), transfer_pc_file_record();
 extern int find_unused_member_icon(), load_member_icon();
 extern int draw_party_member_panel(), call_show_area();
@@ -22,7 +22,7 @@ add_character_from_pc_file()
 			break;
 
 		transfer_pc_file_record(&selected_record, selected_record_index, 0);
-		pc_file_record_base_hi.availability[selected_record_index] = 2;
+		pc_file_header.availability[selected_record_index] = 2;
 		member_roster_index[party_char_count + 1] = selected_record_index;
 		member_icon[party_char_count] =
 			find_unused_member_icon(party_char_count);

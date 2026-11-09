@@ -61,7 +61,7 @@ delete_saved_character_file:
     mov word [bp - 4], ax            ; 0x67c6
     mov ax, 0x18                     ; 0x67c9
     push ax                          ; 0x67cc
-    mov ax, pc_file_record_size      ; 0x67cd
+    mov ax, pc_file_header           ; 0x67cd
     push ax                          ; 0x67d0
     push word [bp - 4]               ; 0x67d1
     call aztec_write                 ; 0x67d4

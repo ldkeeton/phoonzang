@@ -1,8 +1,8 @@
 /* Remove a member, compact the party, and restore the vacated panel. */
 #include "structs/pcrec.h"
-#include "structs/roster.h"
+#include "structs/filehdr.h"
+extern struct pc_file_header pc_file_header;
 
-extern struct roster_state_view pc_file_record_base_hi;
 extern int member_roster_index[], member_icon[], party_char_count;
 extern struct pc_rec party_records[];
 extern long panel_area[];
@@ -13,7 +13,7 @@ int member, reveal;
 {
 	int slot, panel_x, panel_y;
 
-	pc_file_record_base_hi.availability[member_roster_index[member + 1]] = 1;
+	pc_file_header.availability[member_roster_index[member + 1]] = 1;
 	party_char_count--;
 	/* Shift later records, roster indices, and icons over the removed slot. */
 	for (slot = member; slot < party_char_count; slot++) {

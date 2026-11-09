@@ -1,12 +1,12 @@
 /* Negotiates with the NPC and adjusts its attitudes toward the party. */
 #include "structs/pcrec.h"
 #include "msg.h"
+#include "structs/npc.h"
+extern struct npc_record npc_record;
 
 extern struct pc_rec party_records[];
 extern int party_char_count;
 extern int npc_record_index;
-extern unsigned char npc_level;
-extern unsigned char current_faction_index;
 extern char faction_attitudes[];
 extern int npc_charm_bonus;
 extern int member_item_count;
@@ -83,7 +83,7 @@ int member_index;
 				if (member_is_active(member_cursor))
 					negotiation_score += party_records[member_cursor].level;
 			}
-			negotiation_score -= npc_level * 5;
+			negotiation_score -= npc_record.level * 5;
 			repeat_menu = 0;
 			break;
 		case 3:
@@ -99,12 +99,12 @@ int member_index;
 			} else {
 				npc_negotiation_tactic = 2;
 				bribe_amount = (random_below(4) * 10 + 20) *
-				npc_level;
+				npc_record.level;
 				if (bribe_amount > party_records[member_index].gold)
 					bribe_amount = party_records[member_index].gold;
 				party_records[member_index].gold -= bribe_amount;
 				negotiation_score += (int)(bribe_amount / 10L /
-					npc_level);
+					npc_record.level);
 				if (match_npc_event_trigger(member_index, 2,
 					(int)(bribe_amount / 256L),
 					(unsigned char)(bribe_amount % 256L), 0)) {
@@ -129,7 +129,7 @@ int member_index;
 			+ npc_charm_bonus) / 3
 		+ negotiation_score - 10;
 	negotiation_score = clamp_between(negotiation_score
-		+ (faction_attitudes[current_faction_index]
+		+ (faction_attitudes[npc_record.faction_index]
 			+ npc_charm_bonus) / 3, 0, 95);
 	reaction_roll = random_below(100) + npc_dialog_initial_state;
 	npc_dialog_initial_state = random_below(5) +
